@@ -1945,7 +1945,38 @@ void Mpalette::NewW()
 				doc->ActPage->SizeItem(w, CurItem->Height, CurItem->ItemNr, true);
 			}
 			else
-				doc->ActPage->SizeItem(w, CurItem->Height, CurItem->ItemNr, true);
+			{
+				if (CurItem->isTableItem)
+				{
+					double dist = w - CurItem->Width;
+					PageItem* bb2;
+					PageItem* bb = CurItem;
+					while (bb->TopLink != 0)
+					{
+						bb = bb->TopLink;
+					}
+					while (bb->BottomLink != 0)
+					{
+						bb2 = bb;
+						while (bb2->RightLink != 0)
+						{
+							doc->ActPage->MoveItem(dist, 0, bb2->RightLink, true);
+							bb2 = bb2->RightLink;
+						}
+						doc->ActPage->SizeItem(w, bb->Height, bb->ItemNr, true);
+						bb = bb->BottomLink;
+					}
+					bb2 = bb;
+					while (bb2->RightLink != 0)
+					{
+						doc->ActPage->MoveItem(dist, 0, bb2->RightLink, true);
+						bb2 = bb2->RightLink;
+					}
+					doc->ActPage->SizeItem(w, bb->Height, bb->ItemNr, true);
+				}
+				else
+					doc->ActPage->SizeItem(w, CurItem->Height, CurItem->ItemNr, true);
+			}
 			emit DocChanged();
 		}
 	}
@@ -1984,7 +2015,38 @@ void Mpalette::NewH()
 				doc->ActPage->SizeItem(w, CurItem->Height, CurItem->ItemNr, true);
 			}
 			else
-				doc->ActPage->SizeItem(CurItem->Width, h, CurItem->ItemNr, true);
+			{
+				if (CurItem->isTableItem)
+				{
+					double dist = h - CurItem->Height;
+					PageItem* bb2;
+					PageItem* bb = CurItem;
+					while (bb->LeftLink != 0)
+					{
+						bb = bb->LeftLink;
+					}
+					while (bb->RightLink != 0)
+					{
+						bb2 = bb;
+						while (bb2->BottomLink != 0)
+						{
+							doc->ActPage->MoveItem(0, dist, bb2->BottomLink, true);
+							bb2 = bb2->BottomLink;
+						}
+						doc->ActPage->SizeItem(bb->Width, h, bb->ItemNr, true);
+						bb = bb->RightLink;
+					}
+					bb2 = bb;
+					while (bb2->BottomLink != 0)
+					{
+						doc->ActPage->MoveItem(0, dist, bb2->BottomLink, true);
+						bb2 = bb2->BottomLink;
+					}
+					doc->ActPage->SizeItem(bb->Width, h, bb->ItemNr, true);
+				}
+				else
+					doc->ActPage->SizeItem(CurItem->Width, h, CurItem->ItemNr, true);
+			}
 		}
 		emit DocChanged();
 	}
@@ -2548,15 +2610,46 @@ void Mpalette::SetLineFormats(ScribusDoc *dd)
 	if (dd != 0)
 	{
 		QMap<QString,multiLine>::Iterator it;
-		for (it = doc->MLineStyles.begin(); it != doc->MLineStyles.end(); ++it)
-			StyledLine->insertItem(it.key());
+		for (it = dd->MLineStyles.begin(); it != dd->MLineStyles.end(); ++it)
+		{
+			QPixmap pm = QPixmap(37, 37);
+			pm.fill(white);
+			QPainter p;
+			p.begin(&pm);
+			QColor tmpf;
+			int h, s, v, sneu;
+			multiLine ml = it.data();
+			for (int its = ml.size()-1; its > -1; its--)
+			{
+				dd->PageColors[ml[its].Color].getRGBColor().rgb(&h, &s, &v);
+				if ((h == s) && (s == v))
+				{
+					dd->PageColors[ml[its].Color].getRGBColor().hsv(&h, &s, &v);
+					sneu = 255 - ((255 - v) * ml[its].Shade / 100);
+					tmpf.setHsv(h, s, sneu);
+				}
+				else
+				{
+					dd->PageColors[ml[its].Color].getRGBColor().hsv(&h, &s, &v);
+					sneu = s * ml[its].Shade / 100;
+					tmpf.setHsv(h, sneu, v);
+				}
+				p.setPen(QPen(tmpf,
+								QMAX(static_cast<int>(ml[its].Width), 1),
+								 static_cast<PenStyle>(ml[its].Dash),
+								 static_cast<PenCapStyle>(ml[its].LineEnd),
+								 static_cast<PenJoinStyle>(ml[its].LineJoin)));
+				p.drawLine(0, 18, 37, 18);
+				}
+			p.end();
+			StyledLine->insertItem(pm, it.key());
+		}
 		/* PFJ - 29.02.04 - Changed from TRUE to true */
 		StyledLine->sort( true );
 		StyledLine->insertItem( tr("No Style"), 0);
 		StyledLine->setSelected(StyledLine->currentItem(), false);
 	}
-	connect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this,
-	        SLOT(SetSTline(QListBoxItem*)));
+	connect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
 }
 
 void Mpalette::SetSTline(QListBoxItem *c)

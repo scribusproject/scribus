@@ -75,7 +75,10 @@ LineFormate::LineFormate( QWidget* parent, ScribusDoc *doc)
 	connect(DublicateB, SIGNAL(clicked()), this, SLOT(dupFormat()));
 	connect(DeleteB, SIGNAL(clicked()), this, SLOT(deleteFormat()));
 	connect(ListBox1, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selFormat(QListBoxItem*)));
-	sFnumber = ListBox1->count() > 0 ? TempStyles.begin().key() : QString("");
+	if (ListBox1->count() > 0)
+    	sFnumber = TempStyles.begin().key();
+	else
+		sFnumber = "";
 	UpdateFList();
 }
 

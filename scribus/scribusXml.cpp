@@ -368,6 +368,8 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 	QFont fo;
 	QMap<QString,QString> DoFonts;
 	QMap<uint,QString> DoVorl;
+	QMap<int,int> TableID;
+	QPtrList<PageItem> TableItems;
 	uint VorlC;
 	int x, y, a, counter, baseobj;
 	double xf, yf;
@@ -613,6 +615,8 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 					view->Pages.at(a)->LeftPg=QStoInt(pg.attribute("LEFT","0"));
 					view->Pages.at(a)->PageNam = pg.attribute("NAM","");
 				}
+				TableItems.clear();
+				TableID.clear();
 			/*
 			* Attribute von PAGE auslesen
 			*/
@@ -796,6 +800,10 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 					OB.LeftLine = static_cast<bool>(QStoInt(obj.attribute("LeftLine","0")));
 					OB.RightLine = static_cast<bool>(QStoInt(obj.attribute("RightLine","0")));
 					OB.BottomLine = static_cast<bool>(QStoInt(obj.attribute("BottomLine","0")));
+					OB.TopLinkID =  QStoInt(obj.attribute("TopLINK","-1"));
+					OB.LeftLinkID =  QStoInt(obj.attribute("LeftLINK","-1"));
+					OB.RightLinkID =  QStoInt(obj.attribute("RightLINK","-1"));
+					OB.BottomLinkID =  QStoInt(obj.attribute("BottomLINK","-1"));
 					OB.LayerNr = QStoInt(obj.attribute("LAYER","0"));
 					OB.Language = obj.attribute("LANGUAGE", doc->Language);
 					OB.Transparency = QStodouble(obj.attribute("TransValue","0.0"));
@@ -927,8 +935,36 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 						Neu->NextIt = baseobj + QStoInt(obj.attribute("NEXTITEM"));
 						Neu->NextPg = a; // QStoInt(obj.attribute("NEXTPAGE"));
 					}
+					if (Neu->isTableItem)
+					{
+						TableItems.append(Neu);
+						TableID.insert(QStoInt(obj.attribute("OwnLINK","0")), Neu->ItemNr);
+					}
 					counter++;
 					OBJ=OBJ.nextSibling();
+				}
+				if (TableItems.count() != 0)
+				{
+					for (uint ttc = 0; ttc < TableItems.count(); ++ttc)
+					{
+						PageItem* ta = TableItems.at(ttc);
+						if (ta->TopLinkID != -1)
+							ta->TopLink = view->Pages.at(a)->Items.at(TableID[ta->TopLinkID]);
+						else
+							ta->TopLink = 0;
+						if (ta->LeftLinkID != -1)
+							ta->LeftLink = view->Pages.at(a)->Items.at(TableID[ta->LeftLinkID]);
+						else
+							ta->LeftLink = 0;
+						if (ta->RightLinkID != -1)
+							ta->RightLink = view->Pages.at(a)->Items.at(TableID[ta->RightLinkID]);
+						else
+							ta->RightLink = 0;
+						if (ta->BottomLinkID != -1)
+							ta->BottomLink = view->Pages.at(a)->Items.at(TableID[ta->BottomLinkID]);
+						else
+							ta->BottomLink = 0;
+					}
 				}
 				if (LFrames.count() != 0)
 				{
@@ -982,6 +1018,8 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 	QString tmp, tmpf, tmp2, tmp3, tmp4, PgNam, Defont, tmf;
 	QFont fo;
 	QMap<QString,QString> DoFonts;
+	QMap<int,int> TableID;
+	QPtrList<PageItem> TableItems;
 	int x, y, a;
 	double xf, yf;
 	PageItem *Neu;
@@ -1246,6 +1284,8 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 			}
 			if(pg.tagName()=="PAGE")
 			{
+				TableItems.clear();
+				TableID.clear();
 			/*
 			* Attribute von PAGE auslesen
 			*/
@@ -1453,6 +1493,10 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					OB.LeftLine = static_cast<bool>(QStoInt(obj.attribute("LeftLine","0")));
 					OB.RightLine = static_cast<bool>(QStoInt(obj.attribute("RightLine","0")));
 					OB.BottomLine = static_cast<bool>(QStoInt(obj.attribute("BottomLine","0")));
+					OB.TopLinkID =  QStoInt(obj.attribute("TopLINK","-1"));
+					OB.LeftLinkID =  QStoInt(obj.attribute("LeftLINK","-1"));
+					OB.RightLinkID =  QStoInt(obj.attribute("RightLINK","-1"));
+					OB.BottomLinkID =  QStoInt(obj.attribute("BottomLINK","-1"));
 					OB.LayerNr = QStoInt(obj.attribute("LAYER","0"));
 					OB.Language = obj.attribute("LANGUAGE", doc->Language);
 					OB.Transparency = QStodouble(obj.attribute("TransValue","0.0"));
@@ -1579,8 +1623,36 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 						doc->LastAuto = Neu;
 					Neu->NextIt = QStoInt(obj.attribute("NEXTITEM"));
 					Neu->NextPg = QStoInt(obj.attribute("NEXTPAGE"));
+					if (Neu->isTableItem)
+					{
+						TableItems.append(Neu);
+						TableID.insert(QStoInt(obj.attribute("OwnLINK","0")), Neu->ItemNr);
+					}
 					counter++;
 					OBJ=OBJ.nextSibling();
+				}
+				if (TableItems.count() != 0)
+				{
+					for (uint ttc = 0; ttc < TableItems.count(); ++ttc)
+					{
+						PageItem* ta = TableItems.at(ttc);
+						if (ta->TopLinkID != -1)
+							ta->TopLink = view->Pages.at(a)->Items.at(TableID[ta->TopLinkID]);
+						else
+							ta->TopLink = 0;
+						if (ta->LeftLinkID != -1)
+							ta->LeftLink = view->Pages.at(a)->Items.at(TableID[ta->LeftLinkID]);
+						else
+							ta->LeftLink = 0;
+						if (ta->RightLinkID != -1)
+							ta->RightLink = view->Pages.at(a)->Items.at(TableID[ta->RightLinkID]);
+						else
+							ta->RightLink = 0;
+						if (ta->BottomLinkID != -1)
+							ta->BottomLink = view->Pages.at(a)->Items.at(TableID[ta->BottomLinkID]);
+						else
+							ta->BottomLink = 0;
+					}
 				}
 				if (PgNam == "")
 					view->DocPages = view->Pages;
@@ -1687,6 +1759,8 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 	QMap<QString,QString> DoFonts;
 	QMap<uint,QString> DoVorl;
 	QMap<QString,QString> DoMul;
+	QMap<int,int> TableID;
+	QPtrList<PageItem> TableItems;
 	uint VorlC;
 	bool fou;
 	bool VorLFound = false;
@@ -1743,6 +1817,8 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 	DoVorl[3] = "3";
 	DoVorl[4] = "4";
 	VorlC = 5;
+	TableItems.clear();
+	TableID.clear();
 	QString CurDirP = QDir::currentDirPath();
 	QDir::setCurrent(QString(getenv("HOME")));
 	while(!DOC.isNull())
@@ -2013,6 +2089,10 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			OB.LeftLine = static_cast<bool>(QStoInt(pg.attribute("LeftLine","0")));
 			OB.RightLine = static_cast<bool>(QStoInt(pg.attribute("RightLine","0")));
 			OB.BottomLine = static_cast<bool>(QStoInt(pg.attribute("BottomLine","0")));
+			OB.TopLinkID =  QStoInt(pg.attribute("TopLINK","-1"));
+			OB.LeftLinkID =  QStoInt(pg.attribute("LeftLINK","-1"));
+			OB.RightLinkID =  QStoInt(pg.attribute("RightLINK","-1"));
+			OB.BottomLinkID =  QStoInt(pg.attribute("BottomLINK","-1"));
 			OB.Language = pg.attribute("LANGUAGE", doc->Language);
 			OB.Transparency = QStodouble(pg.attribute("TransValue","0.0"));
 			if (pg.hasAttribute("TransValueS"))
@@ -2140,8 +2220,37 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			}
 			OB.LayerNr = -1;
 			doc->ActPage->PasteItem(&OB, true, true);
+			PageItem* Neu = doc->ActPage->Items.at(doc->ActPage->Items.count()-1);
+			if (Neu->isTableItem)
+			{
+				TableItems.append(Neu);
+				TableID.insert(QStoInt(pg.attribute("OwnLINK","0")), Neu->ItemNr);
+			}
 		}
 		DOC=DOC.nextSibling();
+	}
+	if (TableItems.count() != 0)
+	{
+		for (uint ttc = 0; ttc < TableItems.count(); ++ttc)
+		{
+			PageItem* ta = TableItems.at(ttc);
+			if (ta->TopLinkID != -1)
+				ta->TopLink = doc->ActPage->Items.at(TableID[ta->TopLinkID]);
+			else
+				ta->TopLink = 0;
+			if (ta->LeftLinkID != -1)
+				ta->LeftLink = doc->ActPage->Items.at(TableID[ta->LeftLinkID]);
+			else
+				ta->LeftLink = 0;
+			if (ta->RightLinkID != -1)
+				ta->RightLink = doc->ActPage->Items.at(TableID[ta->RightLinkID]);
+			else
+				ta->RightLink = 0;
+			if (ta->BottomLinkID != -1)
+				ta->BottomLink = doc->ActPage->Items.at(TableID[ta->BottomLinkID]);
+			else
+				ta->BottomLink = 0;
+		}
 	}
 	doc->GroupCounter = GrMax + 1;
 	QDir::setCurrent(CurDirP);
@@ -2330,6 +2439,26 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 		ob.setAttribute("LeftLine", static_cast<int>(item->LeftLine));
 		ob.setAttribute("RightLine", static_cast<int>(item->RightLine));
 		ob.setAttribute("BottomLine", static_cast<int>(item->BottomLine));
+		if (item->isTableItem)
+		{
+			if (item->TopLink != 0)
+				ob.setAttribute("TopLINK", item->TopLink->ItemNr);
+			else
+				ob.setAttribute("TopLINK", -1);
+			if (item->LeftLink != 0)
+				ob.setAttribute("LeftLINK", item->LeftLink->ItemNr);
+			else
+				ob.setAttribute("LeftLINK", -1);
+			if (item->RightLink != 0)
+				ob.setAttribute("RightLINK", item->RightLink->ItemNr);
+			else
+				ob.setAttribute("RightLINK", -1);
+			if (item->BottomLink != 0)
+				ob.setAttribute("BottomLINK", item->BottomLink->ItemNr);
+			else
+				ob.setAttribute("BottomLINK", -1);
+			ob.setAttribute("OwnLINK", item->ItemNr);
+		}
 		for(uint k=0;k<item->Ptext.count();++k)
 		{
 			QDomElement it=docu.createElement("ITEXT");
@@ -2691,6 +2820,26 @@ void ScriXmlDoc::WritePages(ScribusView *view, QDomDocument docu, QDomElement dc
 			ob.setAttribute("LeftLine", static_cast<int>(item->LeftLine));
 			ob.setAttribute("RightLine", static_cast<int>(item->RightLine));
 			ob.setAttribute("BottomLine", static_cast<int>(item->BottomLine));
+			if (item->isTableItem)
+			{
+				if (item->TopLink != 0)
+					ob.setAttribute("TopLINK", item->TopLink->ItemNr);
+				else
+					ob.setAttribute("TopLINK", -1);
+				if (item->LeftLink != 0)
+					ob.setAttribute("LeftLINK", item->LeftLink->ItemNr);
+				else
+					ob.setAttribute("LeftLINK", -1);
+				if (item->RightLink != 0)
+					ob.setAttribute("RightLINK", item->RightLink->ItemNr);
+				else
+					ob.setAttribute("RightLINK", -1);
+				if (item->BottomLink != 0)
+					ob.setAttribute("BottomLINK", item->BottomLink->ItemNr);
+				else
+					ob.setAttribute("BottomLINK", -1);
+				ob.setAttribute("OwnLINK", item->ItemNr);
+			}
 			for(uint k=0;k<item->Ptext.count();++k)
 			{
 				QDomElement it=docu.createElement("ITEXT");

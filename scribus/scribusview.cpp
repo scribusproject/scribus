@@ -1017,10 +1017,10 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 								if ((ite->PicAvail) && (ite->Pfile != ""))
 									{
 									p->PS_translate(0, -ite->BBoxH*ite->LocalScY);
-									p->PS_image(ite->InvPict, -ite->BBoxX+ite->LocalX, -ite->LocalY, ite->Pfile, ite->LocalScX, ite->LocalScY, ite->IProfile, ite->UseEmbedded, Ic);
+									p->PS_image(ite->InvPict, -ite->BBoxX+ite->LocalX, -ite->LocalY, ite->Pfile, ite->LocalScX, ite->LocalScY, ite->IProfile, ite->UseEmbedded, Ic, ite->AnName);
 									}
 								p->PS_restore();
-								if ((ite->Pcolor2 != "None") || (ite->NamedLStyle != ""))
+								if (((ite->Pcolor2 != "None") || (ite->NamedLStyle != "")) && (!ite->isTableItem))
 									{
 									if (ite->NamedLStyle == "")
 										{
@@ -1321,7 +1321,7 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 											}
 										}
 									}
-								if ((ite->Pcolor2 != "None") || (ite->NamedLStyle != ""))
+								if (((ite->Pcolor2 != "None") || (ite->NamedLStyle != "")) && (!ite->isTableItem))
 									{
 									SetFarbe(ite->Pcolor2, ite->Shade2, &h, &s, &v, &k);
 									p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
@@ -1350,6 +1350,54 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 									}
 								p->PS_restore();
 								}
+							}
+						}
+						for (uint am = 0; am < mPage->Items.count(); ++am)
+							{
+							PageItem *ite = mPage->Items.at(am);
+							if ((ite->PType == 2) && ((sep) || (!farb)))
+								continue;
+							if (ite->isPrintable)
+								{
+								p->PS_save();
+								if (ite->Pcolor2 != "None")
+									{
+									SetFarbe(ite->Pcolor2, ite->Shade2, &h, &s, &v, &k);
+									p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+									}
+								p->PS_setlinewidth(ite->Pwidth);
+								p->PS_setdash(ite->PLineArt, Qt::SquareCap, ite->PLineJoin);
+								p->PS_translate(ite->Xpos, Doc->PageH - ite->Ypos);
+								if (ite->Rot != 0)
+									p->PS_rotate(-ite->Rot);
+								if (ite->isTableItem)
+								{
+									if ((ite->TopLine) || (ite->RightLine) || (ite->BottomLine) || (ite->LeftLine))
+									{
+										if (ite->TopLine)
+										{
+											p->PS_moveto(0, 0);
+											p->PS_lineto(ite->Width, 0);
+										}
+										if (ite->RightLine)
+										{
+											p->PS_moveto(ite->Width, 0);
+											p->PS_lineto(ite->Width, -ite->Height);
+										}
+										if (ite->BottomLine)
+										{
+											p->PS_moveto(0, -ite->Height);
+											p->PS_lineto(ite->Width, -ite->Height);
+										}
+										if (ite->LeftLine)
+										{
+											p->PS_moveto(0, 0);
+											p->PS_lineto(0, -ite->Height);
+										}
+										p->PS_stroke();
+									}
+								}
+								p->PS_restore();
 							}
 						}
 					Lnr++;
@@ -1483,7 +1531,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 									p->PS_image(c->InvPict, -c->BBoxX+c->LocalX, -c->LocalY, c->Pfile, c->LocalScX, c->LocalScY, c->IProfile, c->UseEmbedded, ic);
 								}
 							p->PS_restore();
-							if ((c->Pcolor2 != "None") || (c->NamedLStyle != ""))
+							if (((c->Pcolor2 != "None") || (c->NamedLStyle != "")) && (!c->isTableItem))
 								{
 								if (c->NamedLStyle == "")
 									{
@@ -1818,7 +1866,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 										}
 									}
 								}
-							if ((c->Pcolor2 != "None") || (c->NamedLStyle != ""))
+							if (((c->Pcolor2 != "None") || (c->NamedLStyle != "")) && (!c->isTableItem))
 								{
 								SetFarbe(c->Pcolor2, c->Shade2, &h, &s, &v, &k);
 								p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
@@ -2049,6 +2097,58 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 						}
 					p->PS_restore();
 					}
+				}
+			}
+			for (b = 0; b < a->Items.count(); ++b)
+				{
+				c = a->Items.at(b);
+				if (c->LayerNr != ll.LNr)
+					continue;
+				if ((a->PageNam != "") && (c->PType == 4))
+					continue;
+				if ((a->PageNam != "") && (c->PType == 2) && ((sep) || (!farb)))
+					continue;
+				if (c->isPrintable)
+					{
+					p->PS_save();
+					if (c->Pcolor2 != "None")
+						{
+						SetFarbe(c->Pcolor2, c->Shade2, &h, &s, &v, &k);
+						p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+						}
+					p->PS_setlinewidth(c->Pwidth);
+					p->PS_setdash(c->PLineArt, Qt::SquareCap, c->PLineJoin);
+					p->PS_translate(c->Xpos, Doc->PageH - c->Ypos);
+					if (c->Rot != 0)
+						p->PS_rotate(-c->Rot);
+					if (c->isTableItem)
+					{
+						if ((c->TopLine) || (c->RightLine) || (c->BottomLine) || (c->LeftLine))
+						{
+							if (c->TopLine)
+							{
+								p->PS_moveto(0, 0);
+								p->PS_lineto(c->Width, 0);
+							}
+							if (c->RightLine)
+							{
+								p->PS_moveto(c->Width, 0);
+								p->PS_lineto(c->Width, -c->Height);
+							}
+							if (c->BottomLine)
+							{
+								p->PS_moveto(0, -c->Height);
+								p->PS_lineto(c->Width, -c->Height);
+							}
+							if (c->LeftLine)
+							{
+								p->PS_moveto(0, 0);
+								p->PS_lineto(0, -c->Height);
+							}
+							p->PS_stroke();
+						}
+					}
+					p->PS_restore();
 				}
 			}
 		Lnr++;

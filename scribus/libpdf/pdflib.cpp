@@ -1140,11 +1140,134 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 							if ((ite->flippedH % 2) != 0)
 								PutPage("-1 0 0 1 "+FToStr(ite->Width)+" 0 cm\n");
 							if ((ite->flippedV % 2) != 0)
-								PutPage("1 0 0 -1 0 "+FToStr(-ite->Height)+
-										" cm\n");
+								PutPage("1 0 0 -1 0 "+FToStr(-ite->Height)+" cm\n");
 							PutPage(setTextSt(ite, PNr));
 							PutPage("Q\n");
 						}
+					}
+					for (uint am = 0; am < mPage->Items.count(); ++am)
+					{
+						ite = mPage->Items.at(am);
+						if ((ite->LayerNr != ll.LNr) || (!ite->isPrintable) || (ite->PType != 4))
+							continue;
+						PutPage("q\n");
+						if (((ite->Transparency != 0) || (ite->TranspStroke != 0)) && 
+							(Options->Version == 14))
+							PDF_Transparenz(ite);
+						if (Options->UseRGB)
+						{
+							if (ite->Pcolor != "None")
+								PutPage(SetFarbe(ite->Pcolor, ite->Shade)+" rg\n");
+							if (ite->Pcolor2 != "None")
+								PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" RG\n");
+						}
+						else
+						{
+#ifdef HAVE_CMS
+					if ((CMSuse) && (Options->UseProfiles))
+					{
+						char *tmp[] = {"/Perceptual", "/RelativeColorimetric",
+								 "/Saturation", "/AbsoluteColorimetric"};
+						PutPage(tmp[Options->Intent]);
+						PutPage(" ri\n");
+						PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" cs\n");
+						PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" CS\n");
+						if (ite->Pcolor != "None")
+							PutPage(SetFarbe(ite->Pcolor, ite->Shade)+" scn\n");
+						if (ite->Pcolor2 != "None")
+							PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" SCN\n");
+					}
+					else
+					{
+#endif
+						if (ite->Pcolor != "None")
+							PutPage(SetFarbe(ite->Pcolor, ite->Shade)+" k\n");
+						if (ite->Pcolor2 != "None")
+							PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" K\n");
+					}
+#ifdef HAVE_CMS
+				}
+#endif
+						Inhalt += FToStr(ite->Pwidth)+" w\n";
+						QString Dt = FToStr(QMAX(ite->Pwidth, 1));
+						QString Da = FToStr(QMAX(3*ite->Pwidth, 1));
+						switch (ite->PLineArt)
+						{
+							case Qt::SolidLine:
+								PutPage("[] 0 d\n");
+								break;
+							case Qt::DashLine:
+								PutPage("["+Da+" "+Dt+"] 0 d\n");
+								break;
+							case Qt::DotLine:
+								PutPage("["+Dt+"] 0 d\n");
+								break;
+							case Qt::DashDotLine:
+								PutPage("["+Da+" "+Dt+" "+Dt+" "+Dt+"] 0 d\n");
+								break;
+							case Qt::DashDotDotLine:
+								PutPage("["+Da+" "+Dt+" "+Dt+" "+Dt+" "+Dt+" "+Dt+"] 0 d\n");
+								break;
+							default:
+								PutPage("[] 0 d\n");
+								break;
+						}
+						PutPage("2 J\n");
+						switch (ite->PLineJoin)
+						{
+							case Qt::MiterJoin:
+								PutPage("0 j\n");
+								break;
+							case Qt::BevelJoin:
+								PutPage("2 j\n");
+								break;
+							case Qt::RoundJoin:
+								PutPage("1 j\n");
+								break;
+							default:
+								PutPage("0 j\n");
+								break;
+						}
+						PutPage("1 0 0 1 "+FToStr(ite->Xpos)+" "+FToStr(doc->PageH - ite->Ypos)+" cm\n");
+						if (ite->Rot != 0)
+						{
+							double sr = sin(-ite->Rot* 3.1415927 / 180.0);
+							double cr = cos(-ite->Rot* 3.1415927 / 180.0);
+							if ((cr * cr) < 0.001)
+								cr = 0;
+							if ((sr * sr) < 0.001)
+								sr = 0;
+							PutPage(FToStr(cr)+" "+FToStr(sr)+" "+FToStr(-sr)+" "+FToStr(cr)+ " 0 0 cm\n");
+						}
+						if (ite->isTableItem)
+						{
+							if ((ite->TopLine) || (ite->RightLine) || (ite->BottomLine) || (ite->LeftLine))
+							{
+								PutPage("h\n");
+								if (ite->TopLine)
+								{
+									PutPage("0 0 m\n");
+									PutPage(FToStr(ite->Width)+" 0 l\n");
+								}
+								if (ite->RightLine)
+								{
+									PutPage(FToStr(ite->Width)+" 0 m\n");
+									PutPage(FToStr(ite->Width)+" "+FToStr(-ite->Height)+" l\n");
+								}
+								if (ite->BottomLine)
+								{
+									PutPage("0 "+FToStr(-ite->Height)+" m\n");
+									PutPage(FToStr(ite->Width)+" "+FToStr(-ite->Height)+" l\n");
+								}
+								if (ite->LeftLine)
+								{
+									PutPage("0 0 m\n");
+									PutPage("0 "+FToStr(-ite->Height)+" l\n");
+								}
+								PutPage("S\n");
+							}
+						}
+						PutPage("Q\n");
 					}
 				}
 			}
@@ -1299,7 +1422,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 									 false, ite->IProfile, ite->UseEmbedded,
 									  ite->IRender);
 						PutPage("Q\n");
-						if ((ite->Pcolor2 != "None") || (ite->NamedLStyle != ""))
+						if (((ite->Pcolor2 != "None") || (ite->NamedLStyle != "")) && (!ite->isTableItem))
 						{
 							if (ite->NamedLStyle == "")
 							{
@@ -1340,7 +1463,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 							PutPage("1 0 0 -1 0 "+FToStr(-ite->Height)+" cm\n");
 						PutPage(setTextSt(ite, PNr));
 						PutPage("Q\n");
-						if ((ite->Pcolor2 != "None") || (ite->NamedLStyle != ""))
+						if (((ite->Pcolor2 != "None") || (ite->NamedLStyle != "")) && (!ite->isTableItem))
 						{
 							if (ite->NamedLStyle == "")
 							{
@@ -1466,6 +1589,135 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 						break;
 					}
 				PutPage("Q\n");
+				}
+				for (uint a = 0; a < ActPageP->Items.count(); ++a)
+				{
+					ite = ActPageP->Items.at(a);
+					if (ite->LayerNr != ll.LNr)
+						continue;
+					PutPage("q\n");
+					if (((ite->Transparency != 0) || (ite->TranspStroke != 0)) && 
+						(Options->Version == 14))
+						PDF_Transparenz(ite);
+					if (!ite->isPrintable)
+					{
+						PutPage("Q\n");
+						continue;
+					}
+					if (Options->UseRGB)
+					{
+						if (ite->Pcolor != "None")
+							PutPage(SetFarbe(ite->Pcolor, ite->Shade)+" rg\n");
+						if (ite->Pcolor2 != "None")
+							PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" RG\n");
+					}
+					else
+					{
+#ifdef HAVE_CMS
+					if ((CMSuse) && (Options->UseProfiles))
+					{
+						char *tmp[] = {"/Perceptual", "/RelativeColorimetric",
+								 "/Saturation", "/AbsoluteColorimetric"};
+						PutPage(tmp[Options->Intent]);
+						PutPage(" ri\n");
+						PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" cs\n");
+						PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" CS\n");
+						if (ite->Pcolor != "None")
+							PutPage(SetFarbe(ite->Pcolor, ite->Shade)+" scn\n");
+						if (ite->Pcolor2 != "None")
+							PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" SCN\n");
+					}
+					else
+					{
+#endif
+						if (ite->Pcolor != "None")
+							PutPage(SetFarbe(ite->Pcolor, ite->Shade)+" k\n");
+						if (ite->Pcolor2 != "None")
+							PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" K\n");
+					}
+#ifdef HAVE_CMS
+				}
+#endif
+					Inhalt += FToStr(ite->Pwidth)+" w\n";
+					QString Dt = FToStr(QMAX(ite->Pwidth, 1));
+					QString Da = FToStr(QMAX(3*ite->Pwidth, 1));
+					switch (ite->PLineArt)
+					{
+						case Qt::SolidLine:
+							PutPage("[] 0 d\n");
+							break;
+						case Qt::DashLine:
+							PutPage("["+Da+" "+Dt+"] 0 d\n");
+							break;
+						case Qt::DotLine:
+							PutPage("["+Dt+"] 0 d\n");
+							break;
+						case Qt::DashDotLine:
+							PutPage("["+Da+" "+Dt+" "+Dt+" "+Dt+"] 0 d\n");
+							break;
+						case Qt::DashDotDotLine:
+							PutPage("["+Da+" "+Dt+" "+Dt+" "+Dt+" "+Dt+" "+Dt+"] 0 d\n");
+							break;
+						default:
+							PutPage("[] 0 d\n");
+							break;
+					}
+					PutPage("2 J\n");
+					switch (ite->PLineJoin)
+					{
+						case Qt::MiterJoin:
+							PutPage("0 j\n");
+							break;
+						case Qt::BevelJoin:
+							PutPage("2 j\n");
+							break;
+						case Qt::RoundJoin:
+							PutPage("1 j\n");
+							break;
+						default:
+							PutPage("0 j\n");
+							break;
+					}
+					PutPage("1 0 0 1 "+FToStr(ite->Xpos)+" "+FToStr(doc->PageH - ite->Ypos)+" cm\n");
+					if (ite->Rot != 0)
+					{
+						double sr = sin(-ite->Rot* 3.1415927 / 180.0);
+						double cr = cos(-ite->Rot* 3.1415927 / 180.0);
+						if ((cr * cr) < 0.001)
+							cr = 0;
+						if ((sr * sr) < 0.001)
+							sr = 0;
+						PutPage(FToStr(cr)+" "+FToStr(sr)+" "+FToStr(-sr)+" "+FToStr(cr)+ " 0 0 cm\n");
+					}
+					if (ite->isTableItem)
+					{
+						if ((ite->TopLine) || (ite->RightLine) || (ite->BottomLine) || (ite->LeftLine))
+						{
+							PutPage("h\n");
+							if (ite->TopLine)
+							{
+								PutPage("0 0 m\n");
+								PutPage(FToStr(ite->Width)+" 0 l\n");
+							}
+							if (ite->RightLine)
+							{
+								PutPage(FToStr(ite->Width)+" 0 m\n");
+								PutPage(FToStr(ite->Width)+" "+FToStr(-ite->Height)+" l\n");
+							}
+							if (ite->BottomLine)
+							{
+								PutPage("0 "+FToStr(-ite->Height)+" m\n");
+								PutPage(FToStr(ite->Width)+" "+FToStr(-ite->Height)+" l\n");
+							}
+							if (ite->LeftLine)
+							{
+								PutPage("0 0 m\n");
+								PutPage("0 "+FToStr(-ite->Height)+" l\n");
+							}
+							PutPage("S\n");
+						}
+					}
+					PutPage("Q\n");
 				}
 			}
 		Lnr++;

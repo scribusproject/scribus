@@ -213,6 +213,10 @@ PageItem::PageItem(Page *pa, int art, double x, double y, double w, double h, do
 	RightLink = 0;
 	TopLink = 0;
 	BottomLink = 0;
+	LeftLinkID = 0;
+	RightLinkID = 0;
+	TopLinkID = 0;
+	BottomLinkID = 0;
 	LeftLine = 0;
 	RightLine = false;
 	TopLine = false;

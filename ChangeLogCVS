@@ -1,4 +1,10 @@
 Changes since Version 1.1.5
+17.03.2004	Printing and Exporting to PDF for Tables is now working too.
+
+16.03.2004	Loading and Saving of Tables is working, including Drag&Drop.
+
+15.03.2004	Resizing of TableItems works now properly.
+
 14.03.2004	Added first basic Support for Tables.
 		Jean-Jacques Sarton completed the Textselection with the Cursor Keys:
 			Shift+Cursor Key selects Chararcters.

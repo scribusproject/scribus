@@ -1736,6 +1736,25 @@ void CopyPageItem(struct CLBuf *Buffer, PageItem *b)
 	Buffer->LeftLine = b->LeftLine;
 	Buffer->RightLine = b->RightLine;
 	Buffer->BottomLine = b->BottomLine;
+	if (b->isTableItem)
+	{
+		if (b->TopLink != 0)
+			Buffer->TopLinkID = b->TopLink->ItemNr;
+		else
+			Buffer->TopLinkID = -1;
+		if (b->LeftLink != 0)
+			Buffer->LeftLinkID = b->LeftLink->ItemNr;
+		else
+			Buffer->LeftLinkID = -1;
+		if (b->RightLink != 0)
+			Buffer->RightLinkID = b->RightLink->ItemNr;
+		else
+			Buffer->RightLinkID = -1;
+		if (b->BottomLink != 0)
+			Buffer->BottomLinkID = b->BottomLink->ItemNr;
+		else
+			Buffer->BottomLinkID = -1;
+	}
 }
 
 void WordAndPara(PageItem* b, int *w, int *p, int *c, int *wN, int *pN, int *cN)

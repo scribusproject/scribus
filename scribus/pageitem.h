@@ -268,6 +268,10 @@ public:
 	PageItem* RightLink;
 	PageItem* TopLink;
 	PageItem* BottomLink;
+	int LeftLinkID;
+	int RightLinkID;
+	int TopLinkID;
+	int BottomLinkID;
 	bool LeftLine;
 	bool RightLine;
 	bool TopLine;

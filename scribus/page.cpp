@@ -1550,6 +1550,8 @@ void Page::MoveRotated(PageItem *b, FPoint npv)
 
 void Page::AdjustItemSize(PageItem *b)
 {
+	bool siz = b->Sizing;
+	b->Sizing = false;
 	FPointArray Clip;
 	Clip = b->PoLine;
 	FPoint tp2 = GetMinClipF(Clip);
@@ -1578,6 +1580,7 @@ void Page::AdjustItemSize(PageItem *b)
 		SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)), qRound(QMAX(b->Pwidth / 2, 1)));
 	else
 		b->Clip = FlattenPath(b->PoLine, b->Segments);
+	b->Sizing = siz;
 }
 
 void Page::MirrorPolyH()
@@ -1960,11 +1963,13 @@ void Page::scaleGroup(double scx, double scy)
 		bb->OldH2 = bb->Height;
 		bb->Sizing = false;
 		FPoint b, b1, t, t1, h, h1, g, tes, tes2;
-		double oldRot;
+		double oldRot, oldLocalX, oldLocalY;
 		switch (HowTo)
 		{
 		case 1:
 			oldRot = bb->Rot;
+			oldLocalX = bb->LocalX;
+			oldLocalY = bb->LocalY;
 			g = FPoint(gx, gy);
 			b = transformPoint(FPoint(0, 0), bb->Xpos, bb->Ypos, bb->Rot, 1, 1);
 			b -= g;
@@ -2013,15 +2018,18 @@ void Page::scaleGroup(double scx, double scy)
 				}
 			}
 			bb->ISize = QMAX(qRound(bb->ISize*((scx+scy)/2)), 1);
-			if (bb->Ptext.count() != 0)
+			if ((bb->Ptext.count() != 0) && (!bb->isTableItem))
 			{
-				bb->LineSp = ((bb->ISize / 10.0) * static_cast<double>(doku->AutoLine) / 100) +
-				             (bb->ISize / 10.0);
+				bb->LineSp = ((bb->ISize / 10.0) * static_cast<double>(doku->AutoLine) / 100) + (bb->ISize / 10.0);
 				for (aa = 0; aa < bb->Ptext.count(); ++aa)
 					bb->Ptext.at(aa)->csize = QMAX(qRound(bb->Ptext.at(aa)->csize*((scx+scy)/2)), 1);
 				if (bb->PType == 8)
 					UpdatePolyClip(bb);
 			}
+			bb->LocalX = oldLocalX;
+			bb->LocalY = oldLocalY;
+			bb->OldB2 = bb->Width;
+			bb->OldH2 = bb->Height;
 			break;
 		}
 	}
@@ -2162,16 +2170,39 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 					z = PaintText(Tx + offX, Ty + offY, deltaX, deltaY, doku->Dwidth, doku->DpenText);
 					b = Items.at(z);
 					b->isTableItem = true;
-					b->LineSp = static_cast<int>(deltaY - 3);
-					b->ISize = static_cast<int>((b->LineSp - (b->LineSp  * static_cast<double>(doku->AutoLine) / 100.0))) * 10;
+//					b->LineSp = static_cast<int>(deltaY - 3);
+//					b->ISize = static_cast<int>((b->LineSp - (b->LineSp  * static_cast<double>(doku->AutoLine) / 100.0))) * 10;
 					SelItem.append(b);
 					offX += deltaX;
 				}
 				offY += deltaY;
 				offX = 0.0;
 			}
+			for (int rc = 0; rc < Rows; ++rc)
+			{
+				for (int cc = 0; cc < Cols; ++cc)
+				{
+					b = SelItem.at((rc * Cols) + cc);
+					if (rc == 0)
+						b->TopLink = 0;
+					else
+						b->TopLink = SelItem.at(((rc-1)*Cols)+cc);
+					if (rc == Rows-1)
+						b->BottomLink = 0;
+					else
+						b->BottomLink = SelItem.at(((rc+1)*Cols)+cc);
+					if (cc == 0)
+						b->LeftLink = 0;
+					else
+						b->LeftLink = SelItem.at((rc*Cols)+cc-1);
+					if (cc == Cols-1)
+						b->RightLink = 0;
+					else
+						b->RightLink = SelItem.at((rc*Cols)+cc+1);
+				}
+			}
+			emit DoGroup();
 		}
-		emit DoGroup();
 		doku->AppMode = 1;
 		emit PaintingDone();
 		emit DocChanged();
@@ -2625,6 +2656,69 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 					case 1:
 						if (b->PType != 5)
 						{
+							if (b->isTableItem)
+							{
+								double dist;
+								if (b->LeftLink != 0)
+									dist = npx.y() - b->LeftLink->Height;
+								else if (b->RightLink != 0)
+									dist = npx.y() - b->RightLink->Height;
+								else
+									dist = npx.y() - b->Height;
+								PageItem* bb2;
+								PageItem* bb = b;
+								while (bb->LeftLink != 0)
+								{
+									bb = bb->LeftLink;
+								}
+								while (bb->RightLink != 0)
+								{
+									bb2 = bb;
+									while (bb2->BottomLink != 0)
+									{
+										MoveItem(0, dist, bb2->BottomLink, false);
+										bb2 = bb2->BottomLink;
+									}
+									SizeItem(bb->Width, npx.y(), bb->ItemNr);
+									bb = bb->RightLink;
+								}
+								bb2 = bb;
+								while (bb2->BottomLink != 0)
+								{
+									MoveItem(0, dist, bb2->BottomLink, false);
+									bb2 = bb2->BottomLink;
+								}
+								SizeItem(bb->Width, npx.y(), bb->ItemNr);
+								bb = b;
+								if (b->TopLink != 0)
+									dist = npx.x() - b->TopLink->Width;
+								else if (b->BottomLink != 0)
+									dist = npx.x() - b->BottomLink->Width;
+								else
+									dist = npx.x() - b->Width;
+								while (bb->TopLink != 0)
+								{
+									bb = bb->TopLink;
+								}
+								while (bb->BottomLink != 0)
+								{
+									bb2 = bb;
+									while (bb2->RightLink != 0)
+									{
+										MoveItem(dist, 0, bb2->RightLink, false);
+										bb2 = bb2->RightLink;
+									}
+									SizeItem(npx.x(), bb->Height, bb->ItemNr);
+									bb = bb->BottomLink;
+								}
+								bb2 = bb;
+								while (bb2->RightLink != 0)
+								{
+									MoveItem(dist, 0, bb2->RightLink, false);
+									bb2 = bb2->RightLink;
+								}
+								SizeItem(npx.x(), bb->Height, bb->ItemNr);
+							}
 							if (b->flippedH % 2 != 0)
 								MoveItemI(-(b->Width - b->OldB2)/b->LocalScX, 0, b->ItemNr);
 							if (b->flippedV % 2 != 0)
@@ -2656,7 +2750,58 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 					case 2:
 						if (b->PType != 5)
 						{
-							MoveSizeItem(npx, npx, b->ItemNr);
+							if (b->isTableItem)
+							{
+								PageItem* bb2;
+								PageItem* bb = b;
+								while (bb->TopLink != 0)
+								{
+									bb = bb->TopLink;
+								}
+								while (bb->BottomLink != 0)
+								{
+									bb2 = bb;
+									while (bb2->LeftLink != 0)
+									{
+										MoveItem(npx.x(), 0, bb2->LeftLink, false);
+										bb2 = bb2->LeftLink;
+									}
+									MoveSizeItem(FPoint(npx.x(), 0), FPoint(npx.x(), 0), bb->ItemNr);
+									bb = bb->BottomLink;
+								}
+								bb2 = bb;
+								while (bb2->LeftLink != 0)
+								{
+									MoveItem(npx.x(), 0, bb2->LeftLink, false);
+									bb2 = bb2->LeftLink;
+								}
+								MoveSizeItem(FPoint(npx.x(), 0), FPoint(npx.x(), 0), bb->ItemNr);
+								bb = b;
+								while (bb->LeftLink != 0)
+								{
+									bb = bb->LeftLink;
+								}
+								while (bb->RightLink != 0)
+								{
+									bb2 = bb;
+									while (bb2->TopLink != 0)
+									{
+										MoveItem(0, npx.y(), bb2->TopLink, false);
+										bb2 = bb2->TopLink;
+									}
+									MoveSizeItem(FPoint(0, npx.y()), FPoint(0, npx.y()), bb->ItemNr);
+									bb = bb->RightLink;
+								}
+								bb2 = bb;
+								while (bb2->TopLink != 0)
+								{
+									MoveItem(0, npx.y(), bb2->TopLink, false);
+									bb2 = bb2->TopLink;
+								}
+								MoveSizeItem(FPoint(0, npx.y()), FPoint(0, npx.y()), bb->ItemNr);
+							}
+							else
+								MoveSizeItem(npx, npx, b->ItemNr);
 							b->Sizing = false;
 							if (b->flippedH % 2 == 0)
 								MoveItemI((b->Width - b->OldB2)/b->LocalScX, 0, b->ItemNr);
@@ -2693,7 +2838,59 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 						}
 						break;
 					case 3:
-						MoveSizeItem(FPoint(0, npx.y()), FPoint(b->Width - npx.x(), npx.y()), b->ItemNr);
+						if (b->isTableItem)
+						{
+							double dist = npx.x() - b->Width;
+							PageItem* bb2;
+							PageItem* bb = b;
+							while (bb->TopLink != 0)
+							{
+								bb = bb->TopLink;
+							}
+							while (bb->BottomLink != 0)
+							{
+								bb2 = bb;
+								while (bb2->RightLink != 0)
+								{
+									MoveItem(dist, 0, bb2->RightLink, false);
+									bb2 = bb2->RightLink;
+								}
+								SizeItem(npx.x(), bb->Height, bb->ItemNr);
+								bb = bb->BottomLink;
+							}
+							bb2 = bb;
+							while (bb2->RightLink != 0)
+							{
+								MoveItem(dist, 0, bb2->RightLink, false);
+								bb2 = bb2->RightLink;
+							}
+							SizeItem(npx.x(), bb->Height, bb->ItemNr);
+							bb = b;
+							while (bb->LeftLink != 0)
+							{
+								bb = bb->LeftLink;
+							}
+							while (bb->RightLink != 0)
+							{
+								bb2 = bb;
+								while (bb2->TopLink != 0)
+								{
+									MoveItem(0, npx.y(), bb2->TopLink, false);
+									bb2 = bb2->TopLink;
+								}
+								MoveSizeItem(FPoint(0, npx.y()), FPoint(0, npx.y()), bb->ItemNr);
+								bb = bb->RightLink;
+							}
+							bb2 = bb;
+							while (bb2->TopLink != 0)
+							{
+								MoveItem(0, npx.y(), bb2->TopLink, false);
+								bb2 = bb2->TopLink;
+							}
+							MoveSizeItem(FPoint(0, npx.y()), FPoint(0, npx.y()), bb->ItemNr);
+						}
+						else
+							MoveSizeItem(FPoint(0, npx.y()), FPoint(b->Width - npx.x(), npx.y()), b->ItemNr);
 						b->Sizing = false;
 						if (b->flippedH % 2 != 0)
 							MoveItemI(-(b->Width - b->OldB2)/b->LocalScX, 0, b->ItemNr);
@@ -2701,7 +2898,59 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 							MoveItemI(0, (b->Height - b->OldH2)/b->LocalScY, b->ItemNr);
 						break;
 					case 4:
-						MoveSizeItem(FPoint(npx.x(), 0), FPoint(npx.x(), b->Height - npx.y()), b->ItemNr);
+						if (b->isTableItem)
+						{
+							double dist = npx.y() - b->Height;
+							PageItem* bb2;
+							PageItem* bb = b;
+							while (bb->LeftLink != 0)
+							{
+								bb = bb->LeftLink;
+							}
+							while (bb->RightLink != 0)
+							{
+								bb2 = bb;
+								while (bb2->BottomLink != 0)
+								{
+									MoveItem(0, dist, bb2->BottomLink, false);
+									bb2 = bb2->BottomLink;
+								}
+								SizeItem(bb->Width, npx.y(), bb->ItemNr);
+								bb = bb->RightLink;
+							}
+							bb2 = bb;
+							while (bb2->BottomLink != 0)
+							{
+								MoveItem(0, dist, bb2->BottomLink, false);
+								bb2 = bb2->BottomLink;
+							}
+							SizeItem(bb->Width, npx.y(), bb->ItemNr);
+							bb = b;
+							while (bb->TopLink != 0)
+							{
+								bb = bb->TopLink;
+							}
+							while (bb->BottomLink != 0)
+							{
+								bb2 = bb;
+								while (bb2->LeftLink != 0)
+								{
+									MoveItem(npx.x(), 0, bb2->LeftLink, false);
+									bb2 = bb2->LeftLink;
+								}
+								MoveSizeItem(FPoint(npx.x(), 0), FPoint(npx.x(), 0), bb->ItemNr);
+								bb = bb->BottomLink;
+							}
+							bb2 = bb;
+							while (bb2->LeftLink != 0)
+							{
+								MoveItem(npx.x(), 0, bb2->LeftLink, false);
+								bb2 = bb2->LeftLink;
+							}
+							MoveSizeItem(FPoint(npx.x(), 0), FPoint(npx.x(), 0), bb->ItemNr);
+						}
+						else
+							MoveSizeItem(FPoint(npx.x(), 0), FPoint(npx.x(), b->Height - npx.y()), b->ItemNr);
 						b->Sizing = false;
 						if (b->flippedH % 2 == 0)
 							MoveItemI((b->Width - b->OldB2)/b->LocalScX, 0, b->ItemNr);
@@ -2709,19 +2958,105 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 							MoveItemI(0, -(b->Height - b->OldH2)/b->LocalScY, b->ItemNr);
 						break;
 					case 5:
-						MoveSizeItem(FPoint(0, 0), FPoint(0, b->Height - npx.y()), b->ItemNr);
+						if (b->isTableItem)
+						{
+							double dist = npx.y() - b->Height;
+							PageItem* bb2;
+							PageItem* bb = b;
+							while (bb->LeftLink != 0)
+							{
+								bb = bb->LeftLink;
+							}
+							while (bb->RightLink != 0)
+							{
+								bb2 = bb;
+								while (bb2->BottomLink != 0)
+								{
+									MoveItem(0, dist, bb2->BottomLink, false);
+									bb2 = bb2->BottomLink;
+								}
+								SizeItem(bb->Width, npx.y(), bb->ItemNr);
+								bb = bb->RightLink;
+							}
+							bb2 = bb;
+							while (bb2->BottomLink != 0)
+							{
+								MoveItem(0, dist, bb2->BottomLink, false);
+								bb2 = bb2->BottomLink;
+							}
+							SizeItem(bb->Width, npx.y(), bb->ItemNr);
+						}
+						else
+							MoveSizeItem(FPoint(0, 0), FPoint(0, b->Height - npx.y()), b->ItemNr);
 						b->Sizing = false;
 						if (b->flippedV % 2 != 0)
 							MoveItemI(0, -(b->Height - b->OldH2)/b->LocalScY, b->ItemNr);
 						break;
 					case 6:
-						MoveSizeItem(FPoint(0, 0), FPoint(b->Width - npx.x(), 0), b->ItemNr);
 						b->Sizing = false;
+						if (b->isTableItem)
+						{
+							double dist = npx.x() - b->Width;
+							PageItem* bb2;
+							PageItem* bb = b;
+							while (bb->TopLink != 0)
+							{
+								bb = bb->TopLink;
+							}
+							while (bb->BottomLink != 0)
+							{
+								bb2 = bb;
+								while (bb2->RightLink != 0)
+								{
+									MoveItem(dist, 0, bb2->RightLink, false);
+									bb2 = bb2->RightLink;
+								}
+								SizeItem(npx.x(), bb->Height, bb->ItemNr);
+								bb = bb->BottomLink;
+							}
+							bb2 = bb;
+							while (bb2->RightLink != 0)
+							{
+								MoveItem(dist, 0, bb2->RightLink, false);
+								bb2 = bb2->RightLink;
+							}
+							SizeItem(npx.x(), bb->Height, bb->ItemNr);
+						}
+						else
+							MoveSizeItem(FPoint(0, 0), FPoint(b->Width - npx.x(), 0), b->ItemNr);
 						if (b->flippedH % 2 != 0)
 							MoveItemI(-(b->Width - b->OldB2)/b->LocalScX, 0, b->ItemNr);
 						break;
 					case 7:
-						MoveSizeItem(FPoint(npx.x(), 0), FPoint(npx.x(), 0), b->ItemNr);
+						if (b->isTableItem)
+						{
+							PageItem* bb2;
+							PageItem* bb = b;
+							while (bb->TopLink != 0)
+							{
+								bb = bb->TopLink;
+							}
+							while (bb->BottomLink != 0)
+							{
+								bb2 = bb;
+								while (bb2->LeftLink != 0)
+								{
+									MoveItem(npx.x(), 0, bb2->LeftLink, false);
+									bb2 = bb2->LeftLink;
+								}
+								MoveSizeItem(FPoint(npx.x(), 0), FPoint(npx.x(), 0), bb->ItemNr);
+								bb = bb->BottomLink;
+							}
+							bb2 = bb;
+							while (bb2->LeftLink != 0)
+							{
+								MoveItem(npx.x(), 0, bb2->LeftLink, false);
+								bb2 = bb2->LeftLink;
+							}
+							MoveSizeItem(FPoint(npx.x(), 0), FPoint(npx.x(), 0), bb->ItemNr);
+						}
+						else
+							MoveSizeItem(FPoint(npx.x(), 0), FPoint(npx.x(), 0), b->ItemNr);
 						b->Sizing = false;
 						if (b->flippedH % 2 == 0)
 							MoveItemI((b->Width - b->OldB2)/b->LocalScX, 0, b->ItemNr);
@@ -2729,7 +3064,35 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 							MoveItemI(0, -(b->Height - b->OldH2)/b->LocalScY, b->ItemNr);
 						break;
 					case 8:
-						MoveSizeItem(FPoint(0, npx.y()), FPoint(0, npx.y()), b->ItemNr);
+						if (b->isTableItem)
+						{
+							PageItem* bb2;
+							PageItem* bb = b;
+							while (bb->LeftLink != 0)
+							{
+								bb = bb->LeftLink;
+							}
+							while (bb->RightLink != 0)
+							{
+								bb2 = bb;
+								while (bb2->TopLink != 0)
+								{
+									MoveItem(0, npx.y(), bb2->TopLink, false);
+									bb2 = bb2->TopLink;
+								}
+								MoveSizeItem(FPoint(0, npx.y()), FPoint(0, npx.y()), bb->ItemNr);
+								bb = bb->RightLink;
+							}
+							bb2 = bb;
+							while (bb2->TopLink != 0)
+							{
+								MoveItem(0, npx.y(), bb2->TopLink, false);
+								bb2 = bb2->TopLink;
+							}
+							MoveSizeItem(FPoint(0, npx.y()), FPoint(0, npx.y()), bb->ItemNr);
+						}
+						else
+							MoveSizeItem(FPoint(0, npx.y()), FPoint(0, npx.y()), b->ItemNr);
 						b->Sizing = false;
 						if (b->flippedH % 2 != 0)
 							MoveItemI(-(b->Width - b->OldB2)/b->LocalScX, 0, b->ItemNr);
@@ -7246,6 +7609,7 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 		Items.at(z)->BBoxH = Buffer->BBoxH;
 		Items.at(z)->ScaleType = Buffer->ScaleType;
 		Items.at(z)->AspectRatio = Buffer->AspectRatio;
+		Items.at(z)->Pwidth = Buffer->Pwidth;
 		break;
 	case 3:
 		z = PaintRect(x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2);
@@ -7381,6 +7745,10 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 	b->LeftLine = Buffer->LeftLine;
 	b->BottomLine = Buffer->BottomLine;
 	b->isTableItem = Buffer->isTableItem;
+	b->TopLinkID = Buffer->TopLinkID;
+	b->LeftLinkID = Buffer->LeftLinkID;
+	b->RightLinkID = Buffer->RightLinkID;
+	b->BottomLinkID = Buffer->BottomLinkID;
 	if (Buffer->AnName != "")
 	{
 		if (!drag)

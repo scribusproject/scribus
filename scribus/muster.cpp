@@ -145,10 +145,43 @@ void MusterSeiten::DuplTemp()
 		if (Doc->PageFP)
 			View->Pages.at(nr)->LeftPg = dia->Links->currentItem() == 0 ? true : false;
 		int inde = View->MasterNames[sMuster];
+		QMap<int,int> TableID;
+		QPtrList<PageItem> TableItems;
+		TableID.clear();
+		TableItems.clear();
 		for (uint a=0; a<View->Pages.at(inde)->Items.count(); ++a)
 		{
 			CopyPageItem(&Buffer, View->Pages.at(inde)->Items.at(a));
 			Doc->ActPage->PasteItem(&Buffer, true, true);
+			PageItem* Neu = Doc->ActPage->Items.at(Doc->ActPage->Items.count()-1);
+			if (Neu->isTableItem)
+			{
+				TableItems.append(Neu);
+				TableID.insert(a, Neu->ItemNr);
+			}
+		}
+		if (TableItems.count() != 0)
+		{
+			for (uint ttc = 0; ttc < TableItems.count(); ++ttc)
+			{
+				PageItem* ta = TableItems.at(ttc);
+				if (ta->TopLinkID != -1)
+					ta->TopLink = Doc->ActPage->Items.at(TableID[ta->TopLinkID]);
+				else
+					ta->TopLink = 0;
+				if (ta->LeftLinkID != -1)
+					ta->LeftLink = Doc->ActPage->Items.at(TableID[ta->LeftLinkID]);
+				else
+					ta->LeftLink = 0;
+				if (ta->RightLinkID != -1)
+					ta->RightLink = Doc->ActPage->Items.at(TableID[ta->RightLinkID]);
+				else
+					ta->RightLink = 0;
+				if (ta->BottomLinkID != -1)
+					ta->BottomLink = Doc->ActPage->Items.at(TableID[ta->BottomLinkID]);
+				else
+					ta->BottomLink = 0;
+			}
 		}
 		Doc->ActPage->Deselect(true);
 		View->DrawNew();

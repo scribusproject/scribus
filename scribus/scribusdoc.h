@@ -188,6 +188,10 @@ struct CLBuf {
 				bool LeftLine;
 				bool RightLine;
 				bool BottomLine;
+				int LeftLinkID;
+				int RightLinkID;
+				int TopLinkID;
+				int BottomLinkID;
 			};
 
   /** Seitenraender */

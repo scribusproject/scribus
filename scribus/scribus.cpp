@@ -4623,13 +4623,46 @@ void ScribusApp::CopyPage()
 				break;
 			}
 		Page* Ziel = doc->ActPage;
+		QMap<int,int> TableID;
+		QPtrList<PageItem> TableItems;
+		TableID.clear();
+		TableItems.clear();
 		for (uint ite = 0; ite < from->Items.count(); ++ite)
-			{
+		{
 			CopyPageItem(&Buffer, from->Items.at(ite));
 			Ziel->PasteItem(&Buffer, true, true);
 			if (from->Items.at(ite)->isBookmark)
 				AddBookMark(Ziel->Items.at(Ziel->Items.count()-1));
+			PageItem* Neu = Ziel->Items.at(Ziel->Items.count()-1);
+			if (Neu->isTableItem)
+			{
+				TableItems.append(Neu);
+				TableID.insert(ite, Neu->ItemNr);
 			}
+		}
+		if (TableItems.count() != 0)
+		{
+			for (uint ttc = 0; ttc < TableItems.count(); ++ttc)
+			{
+				PageItem* ta = TableItems.at(ttc);
+				if (ta->TopLinkID != -1)
+					ta->TopLink = Ziel->Items.at(TableID[ta->TopLinkID]);
+				else
+					ta->TopLink = 0;
+				if (ta->LeftLinkID != -1)
+					ta->LeftLink = Ziel->Items.at(TableID[ta->LeftLinkID]);
+				else
+					ta->LeftLink = 0;
+				if (ta->RightLinkID != -1)
+					ta->RightLink = Ziel->Items.at(TableID[ta->RightLinkID]);
+				else
+					ta->RightLink = 0;
+				if (ta->BottomLinkID != -1)
+					ta->BottomLink = Ziel->Items.at(TableID[ta->BottomLinkID]);
+				else
+					ta->BottomLink = 0;
+			}
+		}
 		Ziel->MPageNam = from->MPageNam;
 		Ziel->Deselect(true);
 		doc->loading = false;

@@ -880,8 +880,7 @@ void PSLib::PS_image(bool inver, double x, double y, QString fn, double scalex, 
 			PutSeite("   /Height " + IToStr(h) + "\n");
 			PutSeite("   /BitsPerComponent 1\n");
 			PutSeite("   /Decode [1 0]\n");
-			PutSeite("   /ImageMatrix [" + IToStr(w) + " 0 0 " + IToStr(-h) + " 0 " + IToStr(h) + 
-					"]\n");
+			PutSeite("   /ImageMatrix [" + IToStr(w) + " 0 0 " + IToStr(-h) + " 0 " + IToStr(h) + "]\n");
 			PutSeite("   /DataSource "+PSEncode(Name)+"Mask\n");
 			PutSeite(">>\n");
 			PutSeite("imagemask\n");
@@ -910,6 +909,7 @@ void PSLib::PS_image(bool inver, double x, double y, QString fn, double scalex, 
 				PutSeite(PSEncode(Name)+"Bild resetfile\n");
 			}
 			else
+			{
 				PutSeite ( CompAvail ? "   /DataSource currentfile /ASCIIHexDecode filter /FlateDecode filter >>\n" :
 							"   /DataSource currentfile /ASCIIHexDecode filter >>\n");
 				PutSeite("image\n");
@@ -944,6 +944,7 @@ void PSLib::PS_image(bool inver, double x, double y, QString fn, double scalex, 
 				PutSeite("\n>\n");
 			}
 		}
+	}
 }
 
 
