@@ -342,7 +342,7 @@ void UndoManager::doUndo(int steps)
 			UndoObject* tmpUndoObject = aPair.first;
 			tmpUndoState = aPair.second;
 			TransactionState *ts = dynamic_cast<TransactionState*>(tmpUndoState);
-			if (tmpUndoState && !ts)
+			if (tmpUndoObject && tmpUndoState && !ts)
 				tmpUndoObject->restore(tmpUndoState, true);
 			else if (tmpUndoState && ts)
 				doTransactionUndo(ts);
@@ -428,7 +428,6 @@ void UndoManager::showObject(int uid)
 
 void UndoManager::replace(ulong uid, UndoObject *newUndoObject)
 {
-	disconnectGuis();
 	for (uint i = 0; i < stacks[currentDoc].second.size(); ++i)
 	{
 		ActionPair &apair = stacks[currentDoc].second[i];
@@ -438,7 +437,6 @@ void UndoManager::replace(ulong uid, UndoObject *newUndoObject)
 		else if (apair.first->getUId() == uid)
 			apair.first = newUndoObject;
 	}
-	switchStack(currentDoc);
 }
 
 void UndoManager::setHistoryLength(int steps)

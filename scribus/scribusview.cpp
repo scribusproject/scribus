@@ -7886,6 +7886,8 @@ void ScribusView::DeleteItem()
 		for (uint de = 0; de < anz; ++de)
 		{
 			b = delItems.at(0);
+			// tmp solution to prevent crashing when undoactions are done with a deleted object
+			undoManager->replace(b->getUId(), NULL);
 			if ((b->PType == 2) && ((ScApp->fileWatcher->files().contains(b->Pfile) != 0) && (b->PicAvail)))
 				ScApp->fileWatcher->removeFile(b->Pfile);
 			if (b->PType == 4)
