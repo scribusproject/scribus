@@ -746,7 +746,7 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, struct StVorL *vg, QValueList<StVorL>
 			VorlC++;
 		}
 	}
-	
+
 }
 
 bool ScriXmlDoc::ReadStyles(QString fileName, ScribusDoc* doc, preV *Prefs)
@@ -803,7 +803,8 @@ bool ScriXmlDoc::ReadColors(QString fileName)
 		while(!PAGE.isNull())
 		{
 			QDomElement pg=PAGE.toElement();
-			if(pg.tagName()=="COLOR")
+			// 10/25/2004 pv - None is "reserved" color. cannot be defined in any file...
+			if(pg.tagName()=="COLOR" && pg.attribute("NAME")!="None")
 			{
 				if (pg.hasAttribute("CMYK"))
 					lf.setNamedColor(pg.attribute("CMYK"));
@@ -911,7 +912,8 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 		while(!PAGE.isNull())
 		{
 			QDomElement pg=PAGE.toElement();
-			if(pg.tagName()=="COLOR")
+			// 10/25/2004 pv - None is "reserved" color. cannot be defined in any file...
+			if(pg.tagName()=="COLOR" && pg.attribute("NAME")!="None")
 			{
 				if (pg.hasAttribute("CMYK"))
 					lf.setNamedColor(pg.attribute("CMYK"));
@@ -1041,7 +1043,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 				/*
 				* Attribute von OBJECT auslesen
 				*/
-					if ((QStoInt(obj.attribute("NEXTITEM")) != -1) && 
+					if ((QStoInt(obj.attribute("NEXTITEM")) != -1) &&
 							(QStoInt(obj.attribute("NEXTPAGE")) == PageToLoad))
 					{
 						if (QStoInt(obj.attribute("BACKITEM")) == -1)
@@ -1182,7 +1184,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 				return true;
 			}
 		PAGE=PAGE.nextSibling();
-		}	
+		}
 	DOC=DOC.nextSibling();
 	}
 	return false;
@@ -1194,7 +1196,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 	struct StVorL vg;
 	struct Layer la;
 	struct ScribusDoc::BookMa bok;
-	int counter, Pgc;	
+	int counter, Pgc;
 	bool AtFl;
 	bool newVersion = false;
 	struct Linked Link;
@@ -1213,7 +1215,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 	FIXME: I've add test on containig tag PAGE but returning FALSE freezes S. in scribus.cpp need some hack too...  */
 	if (!docu.setContent(f))
 		return false;
-	doc->PageColors.clear();	
+	doc->PageColors.clear();
 	doc->Layers.clear();
 	CMYKColor lf = CMYKColor();
 	QDomElement elem=docu.documentElement();
@@ -1315,7 +1317,8 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 			ObCount++;
 			dia2->setProgress(ObCount);
 			QDomElement pg=PAGE.toElement();
-			if(pg.tagName()=="COLOR")
+			// 10/25/2004 pv - None is "reserved" color. cannot be defined in any file...
+			if(pg.tagName()=="COLOR" && pg.attribute("NAME")!="None")
 			{
 				if (pg.hasAttribute("CMYK"))
 					lf.setNamedColor(pg.attribute("CMYK"));
@@ -1700,7 +1703,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 	for (uint ap=0; ap<view->MasterPages.count(); ++ap)
 		view->MasterPages.at(ap)->parentWidget()->hide();
 	view->Pages = view->DocPages;
-	doc->PageC = view->Pages.count();	
+	doc->PageC = view->Pages.count();
 	view->reformPages();
 	if (doc->Layers.count() == 0)
 	{
@@ -1867,7 +1870,8 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 				doc->AddFont(tmpf, fo);
 			DoFonts[pg.attribute("NAME")] = tmpf;
 		}
-		if(pg.tagName()=="COLOR")
+		// 10/25/2004 pv - None is "reserved" color. cannot be defined in any file...
+		if(pg.tagName()=="COLOR" && pg.attribute("Name")!="None")
 		{
 			if (pg.hasAttribute("CMYK"))
 				lf.setNamedColor(pg.attribute("CMYK"));
@@ -2597,7 +2601,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, ScribusView *view, 
 			MuL.appendChild(SuL);
 		}
 		dc.appendChild(MuL);
-	}	
+	}
 	QMap<QString,QString>::Iterator itja;
 	for (itja = doc->JavaScripts.begin(); itja != doc->JavaScripts.end(); ++itja)
 	{
@@ -3321,7 +3325,7 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 												 static_cast<bool>(QStoInt(dc.attribute("EMBED")));
 				Vorein->AvailFonts[dc.attribute("NAME")]->UseFont &=
 												 static_cast<bool>(QStoInt(dc.attribute("USE","1")));
-				Vorein->AvailFonts[dc.attribute("NAME")]->Subset = 
+				Vorein->AvailFonts[dc.attribute("NAME")]->Subset =
 												 static_cast<bool>(QStoInt(dc.attribute("SUBSET","0")));
 			}
 		}
