@@ -16,6 +16,7 @@
 			<submenuitem text="Compiling &amp; Installing" file="install3.html"/>
 			<submenuitem text="Platforms" file="install4.html"/>
 			<submenuitem text="Parallel Install" file="parallel-install.html"/>
+			<submenuitem text="Debian dpkg Information" file="install-dpkg.html"/>
 		</submenuitem>
 		<submenuitem text="Cross Platform" file="cross-platform.html">
 			<submenuitem text="Mac OSX/Fink" file="machints1.html"/>
