@@ -980,6 +980,8 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 					{
 						QString tmps;
 						PageItem *it = Doc->MasterItems.at(api);
+						if ((it->LayerNr != ll.LNr) || (!it->isPrintable))
+							continue;
 						int x = static_cast<int>(Doc->MasterPages.at(ap)->Xoffset);
 						int y = static_cast<int>(Doc->MasterPages.at(ap)->Yoffset);
 						int w = static_cast<int>(Doc->MasterPages.at(ap)->Width);
@@ -999,6 +1001,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 						PS_TemplateEnd();
 					}
 				}
+				Lnr++;
 			}
 		}
 	}

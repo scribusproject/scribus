@@ -5891,9 +5891,9 @@ void ScribusApp::slotNewPageT(int w)
 
 void ScribusApp::slotNewPage(int w)
 {
-//	if ((!doc->loading) && (!doc->TemplateMode))
-//		Tpal->slotAddPage(w);
 	view->addPage(w);
+	if ((!doc->loading) && (!doc->TemplateMode))
+		Tpal->BuildTree(doc);
 	bool setter = doc->Pages.count() > 1 ? true : false;
 	scrActions["pageDelete"]->setEnabled(setter);
 	scrActions["pageMove"]->setEnabled(setter);
@@ -8837,6 +8837,7 @@ void ScribusApp::ManageTemp(QString temp)
 			connect(dia, SIGNAL(createNew(int)), this, SLOT(slotNewPageT(int)));
 			connect(dia, SIGNAL(loadPage(QString, int, bool)), this, SLOT(LadeSeite(QString, int, bool)));
 			connect(dia, SIGNAL(finished()), this, SLOT(ManTempEnd()));
+			connect(dia, SIGNAL(updateTree(ScribusDoc* )), Tpal, SLOT(BuildTree(ScribusDoc* )));
 			scrActions["pageInsert"]->setEnabled(false);
 			scrActions["pageDelete"]->setEnabled(false);
 			scrActions["pageCopy"]->setEnabled(false);

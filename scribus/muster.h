@@ -50,6 +50,7 @@ signals:
 	void createNew(int);
 	void loadPage(QString, int, bool);
 	void finished();
+	void updateTree(ScribusDoc *);
 
 };
 
