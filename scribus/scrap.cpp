@@ -290,6 +290,8 @@ void Biblio::DeleteObj(QString name, QIconViewItem *ite)
 	delete ite;
 	BibWin->arrangeItemsInGrid(true);
 	Changed = true;
+	if (Prefs->SaveAtQ)
+		Save();
 }
 
 void Biblio::DropOn(QDropEvent *e)

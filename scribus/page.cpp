@@ -491,7 +491,7 @@ void Page::DrawPageMarks(ScPainter *p, QRect rd)
 	ma.translate(-rd.x(), -rd.y());
 	p->setWorldMatrix(ma);
 	p->setLineWidth(lw);
-	if (doku->Marks)
+	if (ScApp->Prefs.MarginsShown)
 	{
 		p->setPen(doku->margColor);
 		if (doku->RandFarbig)
@@ -511,13 +511,13 @@ void Page::DrawPageMarks(ScPainter *p, QRect rd)
 		p->drawLine(FPoint(width()/doku->Scale-Margins.Right, 0), FPoint(width()/doku->Scale-Margins.Right,
 		            height()/doku->Scale));
 	}
-	if (doku->Base)
+	if (ScApp->Prefs.BaseShown)
 	{
 		p->setPen(doku->guideColor, lw, SolidLine, FlatCap, MiterJoin);
 		for (double yg = doku->BaseOffs; yg < doku->PageH; yg += doku->BaseGrid)
 			p->drawLine(FPoint(0, yg), FPoint(doku->PageB, yg));
 	}
-	if (doku->Raster)
+	if (ScApp->Prefs.GridShown)
 	{
 		double stx = rd.x()/doku->Scale;
 		double endx = rd.x()/doku->Scale+rd.width()/doku->Scale;
@@ -548,7 +548,7 @@ void Page::DrawPageMarks(ScPainter *p, QRect rd)
 				p->drawLine(FPoint(b, 0), FPoint(b, height()/doku->Scale));
 		}
 	}
-	if (doku->Guides)
+	if (ScApp->Prefs.GuidesShown)
 	{
 		if (XGuides.count() != 0)
 		{
@@ -2196,7 +2196,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 {
 	PageItem *b;
 	Mpressed = false;
-	if (doku->Guides)
+	if (ScApp->Prefs.GuidesShown)
 	{
 		bool fg = false;
 		double nx = m->x()/doku->Scale;
@@ -2472,11 +2472,12 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			pmen->insertItem( tr("Paste") , this, SLOT(PasteToPage()));
 			pmen->insertSeparator();
 		}
-		pmen->insertItem((doku->Marks ? tr("Hide Margins") : tr("Show Margins")), ScApp, SLOT(ToggleMarks()));
-		pmen->insertItem((doku->ShFrames ? tr("Hide Frames") : tr("Show Frames")), ScApp, SLOT(ToggleFrames()));
+		pmen->insertItem((ScApp->Prefs.MarginsShown ? tr("Hide Margins") : tr("Show Margins")), ScApp, SLOT(ToggleMarks()));
+		pmen->insertItem((ScApp->Prefs.FramesShown ? tr("Hide Frames") : tr("Show Frames")), ScApp, SLOT(ToggleFrames()));
 		pmen->insertItem((doku->ShowPic ? tr("Hide Images") : tr("Show Images")), ScApp, SLOT(TogglePics()));
-		pmen->insertItem((doku->Raster ? tr("Hide Grid") : tr("Show Grid")), ScApp, SLOT(ToggleRaster()));
-		pmen->insertItem((doku->Guides ? tr("Hide Guides") : tr("Show Guides")), ScApp, SLOT(ToggleGuides()));
+		pmen->insertItem((ScApp->Prefs.GridShown ? tr("Hide Grid") : tr("Show Grid")), ScApp, SLOT(ToggleRaster()));
+		pmen->insertItem((ScApp->Prefs.GuidesShown ? tr("Hide Guides") : tr("Show Guides")), ScApp, SLOT(ToggleGuides()));
+		pmen->insertItem((ScApp->Prefs.BaseShown ? tr("Hide Baseline Grid") : tr("Show Baseline Grid")), ScApp, SLOT(ToggleBase()));
 		int uRas = pmen->insertItem( tr("Snap to Grid"), ScApp, SLOT(ToggleURaster()));
 		pmen->setItemChecked(uRas, doku->useRaster);
 		int uGuide = pmen->insertItem( tr("Snap to Guides"), ScApp, SLOT(ToggleUGuides()));
@@ -2485,7 +2486,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 		delete pmen;
 		return;
 	}
-	if ((doku->AppMode != 6) /* && (doku->AppMode != 7) */ && (!doku->EditClip) && (doku->AppMode != 13))
+	if ((doku->AppMode != 6) && (!doku->EditClip) && (doku->AppMode != 13))
 	{
 		if ((GetItem(&b)) && (m->button() == RightButton) && (!doku->DragP))
 		{
@@ -3514,7 +3515,7 @@ void Page::SetYGuide(QMouseEvent *m)
 {
 	QPoint py = mapFromGlobal(m->globalPos());
 	double newY = py.y() / doku->Scale;
-	if ((newY > 0) && (newY < doku->PageH) && (doku->Guides))
+	if ((newY > 0) && (newY < doku->PageH) && (ScApp->Prefs.GuidesShown))
 	{
 		YGuides.append(newY);
 		qHeapSort(YGuides);
@@ -3527,7 +3528,7 @@ void Page::SetXGuide(QMouseEvent *m)
 {
 	QPoint py = mapFromGlobal(m->globalPos());
 	double newY = py.x() / doku->Scale;
-	if ((newY > 0) && (newY < doku->PageB) && (doku->Guides))
+	if ((newY > 0) && (newY < doku->PageB) && (ScApp->Prefs.GuidesShown))
 	{
 		XGuides.append(newY);
 		qHeapSort(XGuides);
@@ -3540,7 +3541,7 @@ void Page::FromHRuler(QMouseEvent *m)
 {
 	double sc = doku->Scale;
 	int newY;
-	if (doku->Guides)
+	if (ScApp->Prefs.GuidesShown)
 	{
 		QPoint py = mapFromGlobal(m->globalPos());
 		newY = py.y();
@@ -3562,7 +3563,7 @@ void Page::FromVRuler(QMouseEvent *m)
 {
 	double sc = doku->Scale;
 	int newY;
-	if (doku->Guides)
+	if (ScApp->Prefs.GuidesShown)
 	{
 		QPoint py = mapFromGlobal(m->globalPos());
 		newY = py.x();
@@ -3596,7 +3597,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 	emit MousePos(m->x()/sc, m->y()/sc);
 	emit Hrule(m->x()+Anz->childX(parentWidget()));
 	emit Vrule(m->y()+Anz->childY(parentWidget()));
-	if (doku->Guides)
+	if (ScApp->Prefs.GuidesShown)
 	{
 		if (MoveGY)
 		{
@@ -4329,7 +4330,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 		}
 		else
 		{
-			if ((doku->Guides) && (doku->AppMode == 1))
+			if ((ScApp->Prefs.GuidesShown) && (doku->AppMode == 1))
 			{
 				if (YGuides.count() != 0)
 				{
@@ -5530,7 +5531,7 @@ bool Page::SeleItem(QMouseEvent *m)
 		}
 		b = Items.prev();
 	}
-	if ((doku->Guides) && (doku->AppMode == 1) && (!doku->GuideLock))
+	if ((ScApp->Prefs.GuidesShown) && (doku->AppMode == 1) && (!doku->GuideLock))
 	{
 		if (YGuides.count() != 0)
 		{

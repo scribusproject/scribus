@@ -1528,7 +1528,7 @@
     </message>
     <message>
         <source>March</source>
-        <translation>Березня</translation>
+        <translation type="obsolete">Березня</translation>
     </message>
     <message>
         <source>Homepage and online reference</source>
@@ -2545,7 +2545,7 @@
     </message>
     <message>
         <source>Rendering Intents</source>
-        <translation>Призначення вихідного зображення</translation>
+        <translation>Схеми перерахунку кольорів</translation>
     </message>
     <message>
         <source>Simulate Printer on the Screen</source>
@@ -2582,6 +2582,58 @@
     <message>
         <source>Absolute Colorimetric</source>
         <translation>Абсолютна кольорометрія</translation>
+    </message>
+    <message>
+        <source>Default color profile for imported images</source>
+        <translation>Стандартний кольоровий профіль для імпортованих зображень</translation>
+    </message>
+    <message>
+        <source>Default color profile for solid colors on the page</source>
+        <translation>Стандартний кольоровий профіль для однотонних кольорів на сторінці</translation>
+    </message>
+    <message>
+        <source>Color profile that you have generated or received from the manufacturer.
+This profile should be specific to your monitor and not a generic profile (i.e. sRGB).</source>
+        <translation>Кольоровий профіль побудований Вами або отриманий від виробника обладнання.
+Цей профіль має точно відповідати Вашому монітору, а не бути загальним профілем (типу sRGB).</translation>
+    </message>
+    <message>
+        <source>Color profile for your printer model from the manufacturer.
+This profile should be specific to your printer and not a generic profile (i.e. sRGB).</source>
+        <translation>Кольоровий профіль для Вашої моделі прінтера отриманий від виробника обладнання.
+Цей профіль має точно відповідати Вашому монітору, а не бути загальним профілем (типу sRGB).</translation>
+    </message>
+    <message>
+        <source>Default rendering intent for your monitor. Unless you know why to change it,
+Relative Colorimetric or Perceptual should be chosen.</source>
+        <translation>Стандартна схема перерахунку кольорів для Вашого монітора. Не змінюйте
+її без необхідності. У більшості випадків краще вибрати відносну колориметричну
+або перцептивну схему.</translation>
+    </message>
+    <message>
+        <source>Default rendering intent for your printer. Unless you know why to change it,
+Relative Colorimetric or Perceptual should be chosen.</source>
+        <translation>Стандартна схема перерахунку кольорів для Вашого прінтера. Не змінюйте
+її без необхідності. У більшості випадків краще вибрати відносну колориметричну
+або перцептивну схему.</translation>
+    </message>
+    <message>
+        <source>Enable &apos;soft proofing&apos; of how your document colors will print,
+based on the chosen printer profile.</source>
+        <translation>Ввімкнути імітацію друкованих кольорів на моніторі (м&apos;яка перевірка),
+в залежності від вибраного профілю прінтера.</translation>
+    </message>
+    <message>
+        <source>Method of showing colors on the screen which may not print properly.
+This requires very accurate profiles and serves only as a warning.</source>
+        <translation>Метод відображення на екрані тих кольорів, які не будуть правильно надруковані.
+Вимагає наявності дуже точних кольорових профілів і служить лише як застереження.</translation>
+    </message>
+    <message>
+        <source>Black Point Compensation is a method of improving contrast in photos.
+It is recommended that you enable this if you have photos in your document.</source>
+        <translation>Компенсація точки чорного - це метод покращення контрастності фотографічних зображень.
+Її використаннярекомендується при наявності фотографічних зображень в документі.</translation>
     </message>
 </context>
 <context>
@@ -3187,6 +3239,22 @@ This can be set in the Preferences.</source>
         <source>Stroke Color:</source>
         <translation>Колір мазка:</translation>
     </message>
+    <message>
+        <source>Adjust to Baseline Grid</source>
+        <translation>Прив&apos;язатися до базової сітки</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>мм</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>дюйм</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>пік</translation>
+    </message>
 </context>
 <context>
     <name>Editor</name>
@@ -3612,7 +3680,7 @@ everytime a possible Hyphenation is found.</source>
     </message>
     <message>
         <source>This is the length of the smallest word to be hyphenated.</source>
-        <translation>Це довжина найкоротшого слова, яке буде переноситися.</translation>
+        <translation type="obsolete">Це довжина найкоротшого слова, яке буде переноситися.</translation>
     </message>
     <message>
         <source>OK</source>
@@ -3621,6 +3689,10 @@ everytime a possible Hyphenation is found.</source>
     <message>
         <source>Cancel</source>
         <translation>Вихід</translation>
+    </message>
+    <message>
+        <source>Length of the smallest word to be hyphenated.</source>
+        <translation>Довжина найкоротшого слова, яке буде розділене для переносу.</translation>
     </message>
 </context>
 <context>
@@ -3664,6 +3736,29 @@ everytime a possible Hyphenation is found.</source>
     <message>
         <source>Template (Right Page):</source>
         <translation>Шаблон (Права сторінка):</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>Гаразд</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Вихід</translation>
+    </message>
+</context>
+<context>
+    <name>InsertTable</name>
+    <message>
+        <source>Insert Table</source>
+        <translation>Вставити таблицю</translation>
+    </message>
+    <message>
+        <source>Number of Rows:</source>
+        <translation>Число рядків:</translation>
+    </message>
+    <message>
+        <source>Number of Columns:</source>
+        <translation>Число стовпців:</translation>
     </message>
     <message>
         <source>OK</source>
@@ -3895,7 +3990,11 @@ everytime a possible Hyphenation is found.</source>
     </message>
     <message>
         <source>Exit</source>
-        <translation>Вийти</translation>
+        <translation type="obsolete">Вийти</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Зачинити</translation>
     </message>
 </context>
 <context>
@@ -4259,7 +4358,7 @@ Corners:</source>
     </message>
     <message>
         <source>Rendering Intent:</source>
-        <translation>Призначення вихідного зображення:</translation>
+        <translation>Схема перерахунку кольорів:</translation>
     </message>
     <message>
         <source>Perceptual</source>
@@ -4517,7 +4616,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Enable this to use the imaginary square border around your object, rather than its actual shape</source>
-        <translation>Ввімкніть цю опцію, щоб використовувати уявну прямокутну обмежуючу рамку навколо вашого об&apos;єкта замість його справжньої форми</translation>
+        <translation type="obsolete">Ввімкніть цю опцію, щоб використовувати уявну прямокутну обмежуючу рамку навколо вашого об&apos;єкта замість його справжньої форми</translation>
     </message>
     <message>
         <source>Font of selected text or object</source>
@@ -4649,15 +4748,67 @@ Please choose another.</source>
     </message>
     <message>
         <source>Select the source profile of the image</source>
-        <translation>Вибрати вихідний профіль зображення</translation>
+        <translation type="obsolete">Вибрати вихідний профіль зображення</translation>
     </message>
     <message>
         <source>Select the rendering intent for the image</source>
-        <translation>Вибрати призначення вихідного зображення</translation>
+        <translation type="obsolete">Вибрати призначення вихідного зображення</translation>
     </message>
     <message>
         <source>Enable this to make text in lower objects flow around this frame</source>
-        <translation>Ввімкніть опцію для того, щоб змусити текст в об&apos;єктах на задніх планах огинати цю рамку</translation>
+        <translation type="obsolete">Ввімкніть опцію для того, щоб змусити текст в об&apos;єктах на задніх планах огинати цю рамку</translation>
+    </message>
+    <message>
+        <source>Cell Lines</source>
+        <translation>Лінії обрамлення клітин таблиці</translation>
+    </message>
+    <message>
+        <source>Line at Top</source>
+        <translation>Лінія верхньої сторони</translation>
+    </message>
+    <message>
+        <source>Line at the Left</source>
+        <translation>Лінія лівої сторони</translation>
+    </message>
+    <message>
+        <source>Line at the Right </source>
+        <translation>Лінія правої сторони</translation>
+    </message>
+    <message>
+        <source>Line at Bottom</source>
+        <translation>Лінія нижньої сторони</translation>
+    </message>
+    <message>
+        <source>Make text in lower objects flow around this frame</source>
+        <translation>Змусити текст об&apos;єктів на нижніх планах огинати цю рамку</translation>
+    </message>
+    <message>
+        <source>Use the imaginary square border around your object, rather than its actual shape</source>
+        <translation>Використовувати уявну квадратну рамку навколо об&apos;єкту замість його справжньої форми</translation>
+    </message>
+    <message>
+        <source>Keep the aspect ratio</source>
+        <translation>Зберігати відношення сторін</translation>
+    </message>
+    <message>
+        <source>Source profile of the image</source>
+        <translation>Стартовий профіль зображення</translation>
+    </message>
+    <message>
+        <source>Rendering intent for the image</source>
+        <translation>Схема перерахунку кольорів зображення</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>мм</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>дюйм</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>пік</translation>
     </message>
 </context>
 <context>
@@ -4769,7 +4920,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Exit</source>
-        <translation>Вийти</translation>
+        <translation type="obsolete">Вийти</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -4806,6 +4957,10 @@ Please choose another.</source>
     <message>
         <source>Name:</source>
         <translation>Ім&apos;я:</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Зачинити</translation>
     </message>
 </context>
 <context>
@@ -4937,6 +5092,22 @@ Please choose another.</source>
     <message>
         <source>Millimetres (mm)</source>
         <translation>Мілліметри (мм)</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation>тчк</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>мм</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>дюйм</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>пік</translation>
     </message>
 </context>
 <context>
@@ -5226,7 +5397,7 @@ otherwise Coordinates are relative to the Object.</source>
     </message>
     <message>
         <source>from the:</source>
-        <translation>Звідки:</translation>
+        <translation type="obsolete">Звідки:</translation>
     </message>
     <message>
         <source>Direction:</source>
@@ -5487,6 +5658,244 @@ otherwise Coordinates are relative to the Object.</source>
     <message>
         <source>Minimum</source>
         <translation>Мінімальна</translation>
+    </message>
+    <message>
+        <source>From the:</source>
+        <translation>Від:</translation>
+    </message>
+    <message>
+        <source>Export all pages to PDF</source>
+        <translation>Експортувати всі сторінки в PDF</translation>
+    </message>
+    <message>
+        <source>Export a range of pages to PDF</source>
+        <translation>Експортувати діапазон сторінок в PDF</translation>
+    </message>
+    <message>
+        <source>First page to export when exporting a range</source>
+        <translation>Номер першої сторінки при експорті діапазону сторінок</translation>
+    </message>
+    <message>
+        <source>Last page to export when exporting a range</source>
+        <translation>Номер останньої сторінки при експорті діапазону сторінок</translation>
+    </message>
+    <message>
+        <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
+Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
+PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management.</source>
+        <translation>Визначає сумісність PDF. Стандартом є Acrobat 4.0, який дає найвищу сумісність.
+Виберіть Acrobat 5.0, якщо в документі є риси PDF 1.4, такі як прозорість або 128-бітне шифрування.
+PDF/X-3 використовується для експорту PDF для комерційного друку. Він доступний лише при наявності
+активованої систему управління кольором.</translation>
+    </message>
+    <message>
+        <source>Determines the binding of pages in the PDF. Unless you know
+you need to change it leave the default choice - Left.</source>
+        <translation>Визначає тип переплітання сторінок в PDF. Стандартний варіант - 
+переплітання з лівої сторони.</translation>
+    </message>
+    <message>
+        <source>Generates thumbnails of each page in the PDF.
+Some viewers can use the thumbnails for navigation.</source>
+        <translation>Вкладає зменшені зображення кожної сторінки в PDF.
+Деякі програми для перегляду PDF можуть використовувати
+ці зображення для навігації.</translation>
+    </message>
+    <message>
+        <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
+        <translation>Генерувати PDF Статті. Корисні для навігації ссилок на статті в PDF.</translation>
+    </message>
+    <message>
+        <source>Embed the bookmarks you created in your document.
+These are useful for navigating long PDF documents.</source>
+        <translation>Вбудувати закладки. які Ви зробили в документі, в PDF.
+Корисно для навігації довгих PDF документів.</translation>
+    </message>
+    <message>
+        <source>Export resolution of text and vector graphics.
+This does not affect the resolution of bitmap images like photos.</source>
+        <translation>Розрішення експортованого тексту та зображень.
+Не має ніякого ефекту на розрішення растрових зображень,
+таких як фотографії.</translation>
+    </message>
+    <message>
+        <source>Compression of text and graphics.
+Unless you have a reason, leave this checked. This reduces PDF size.</source>
+        <translation>Компресія тексту та зображень.
+Зменшує розмір PDF. Не змінюйте без явної причини.</translation>
+    </message>
+    <message>
+        <source>Version of compression for images.
+Automatic allows Scribus to choose the best method.
+ZIP is good for images with solid colors.
+JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
+Leave it set to automatic, unless you have a need for special compression options.</source>
+        <translation>Версія компресії для зображень.
+Автоматична - дозволяє Scribus вибрати найкращий метод.
+ZIP - добре використовувати для зображень з однотонними кольорами.
+JPEG - добре використовувати при створенні невеликих PDF файлів в які
+вставлено багато фотографічних зображень. Можлива невелика втрата
+якості зображення.
+Залиште установку на автоматичну компресію при відсутності явної причини для
+використання більш специфічних схем компресії.</translation>
+    </message>
+    <message>
+        <source>Compression level: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
+        <translation>Рівень компресії: Мінімальна (25%), Низькм (50%), Середня (75%), Висока (85%), Максимальна (95%)</translation>
+    </message>
+    <message>
+        <source>Downsample your bitmap images to the selected DPI.
+Leaving this unchecked will render them at their native resolution.</source>
+        <translation>Перерахувати розрішення растрових зображень до вибраних тчк/кв. дюйм (DPI).
+Якщо ця опція не установлена то буде використане вихідне розрішення зображень.</translation>
+    </message>
+    <message>
+        <source>DPI (Dots Per Inch) for image export.</source>
+        <translation>DPI (Точок на квадратний дюйм) для експорту зображень.</translation>
+    </message>
+    <message>
+        <source>Embed fonts into the PDF. Embedding the fonts
+will preserve the layout and appearance of your document.</source>
+        <translation>Вбудувати шрифти в PDF. Вбудовування шрифтів.
+збереже формат і вигляд документу.</translation>
+    </message>
+    <message>
+        <source>Enables presentation effects when using Acrobat Reader in full screen mode.</source>
+        <translation>Дозволяє використовувати презентаційні ефекти при використанні Acrobat
+Reader в повноекранному режимі.</translation>
+    </message>
+    <message>
+        <source>Show page previews of each page listed above.</source>
+        <translation>Показувати попередній перегляд кожної сторінки вказаної вверху.</translation>
+    </message>
+    <message>
+        <source>Length of time the page is shown before the presentation starts on the selected page.</source>
+        <translation>Тривалість показу сторінки перед початком прозентації на вибраній сторінці.</translation>
+    </message>
+    <message>
+        <source>Length of time the effect runs.
+A shorter time will speed up the effect, a longer one will slow it down.</source>
+        <translation>Тривалість ефекту. Менша тривалість пришвидшуе ефект і навпаки.</translation>
+    </message>
+    <message>
+        <source>Type of the display effect.</source>
+        <translation>Тип ефекту.</translation>
+    </message>
+    <message>
+        <source>Direction of the effect of moving lines for the split and blind effects.</source>
+        <translation>Напрямок руху ліній для &quot;розділений&quot; і &quot;венеціанська штора&quot; ефектів.</translation>
+    </message>
+    <message>
+        <source>Starting position for the box and split effects.</source>
+        <translation>Початкова позиція для ефектів &quot;коробка&quot; і &quot;розділений&quot;.</translation>
+    </message>
+    <message>
+        <source>Direction of the glitter or wipe effects.</source>
+        <translation>Напрямок руху ефектів &quot;блиск&quot; і &quot;витирання&quot;.</translation>
+    </message>
+    <message>
+        <source>Apply the selected effect to all pages.</source>
+        <translation>Застосувати вибраний ефект на всіх сторінках.</translation>
+    </message>
+    <message>
+        <source>Enable the security features in your exported PDF.
+If you selected Acrobat 4.0, the PDF will be protected by 40 bit encryption.
+If you selected Acrobat 5.0, the PDF will be protected by 128 bit encryption.
+Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
+        <translation>Ввімкнути засоби захисту в експортованому PDF.
+Якщо Ви вибрали Acrobat 4.0, то PDF буде захищено 40-бітним шифруванням.
+Якщо Ви вибрали Acrobat 5.0, то PDF буде захищено 128-бітним шифруванням.
+Застереження: Шифрування PDF не має такої надійності, як GPG або PGP шифрування і вносить додаткові обмеження.</translation>
+    </message>
+    <message>
+        <source>Choose a master password which enables or disables all the
+security features in your exported PDF</source>
+        <translation>Виберіть головний пароль для ввімкнення та вимкнення всіх
+засобів захисту в експортованому PDF</translation>
+    </message>
+    <message>
+        <source>Choose a password for users to be able to read your PDF</source>
+        <translation>Виберіть пароль для доступу користувачів до читання PDF</translation>
+    </message>
+    <message>
+        <source>Allow printing of the PDF</source>
+        <translation>Дозволити друк PDF</translation>
+    </message>
+    <message>
+        <source>Allow modifying of the PDF</source>
+        <translation>Дозволити внесення змін в PDF</translation>
+    </message>
+    <message>
+        <source>Allow copying of text or graphics from the PDF</source>
+        <translation>Дозволити копіювати текст та зображення з PDF</translation>
+    </message>
+    <message>
+        <source>Allow adding annotations and fields to the PDF</source>
+        <translation>Дозволити внесення аннотацій та полів в PDF</translation>
+    </message>
+    <message>
+        <source>Color model for the output of your PDF.
+Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.
+Choose Printer when printing to a true 4 color CMYK printer.</source>
+        <translation>Кольорова модель для створення PDF.
+Виберіть Екран/Веб для PDF документів, призначених для показу на екрані або для друку на типових
+струменевих прінтерах.
+Виберіть Прінтер для друку на справжніх 4-х кольорових CMYK прінтерах.</translation>
+    </message>
+    <message>
+        <source>Embed a color profile for solid colors</source>
+        <translation>Вбудувати кольоровий профіль для однотонних кольорів</translation>
+    </message>
+    <message>
+        <source>Color profile for solid colors</source>
+        <translation>Кольоровий профіль для однотонних кольорів</translation>
+    </message>
+    <message>
+        <source>Rendering intent for solid colors</source>
+        <translation>Схема перерахунку кольорів для однотонних кольорів</translation>
+    </message>
+    <message>
+        <source>Embed a color profile for images</source>
+        <translation>Вбудований кольоровий профіль для зображень</translation>
+    </message>
+    <message>
+        <source>Do not use color profiles that are embedded in source images</source>
+        <translation>Не використовувати кольорові профілі вбудовані в оригінальні зображення</translation>
+    </message>
+    <message>
+        <source>Color profile for images</source>
+        <translation>Кольоровий профіль для зображень</translation>
+    </message>
+    <message>
+        <source>Rendering intent for images</source>
+        <translation>Схема перерахунку кольорів для зображень</translation>
+    </message>
+    <message>
+        <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
+        <translation>Профіль для друку. При можливості скористайтеся порадами 
+технолога типографії для правильного вибору цього профіля.</translation>
+    </message>
+    <message>
+        <source>Mandatory string for PDF/X-3 or the PDF will fail
+PDF/X-3 conformance. We recommend you use the title of the document.</source>
+        <translation>Цей запис вимагається форматом PDF/X-3. Без нього PDF не пройде перевірку
+на відповідність формату PDF/X-3. Ми рекомендуємо використання заголовку документу.</translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the top of the physical page</source>
+        <translation>Розмір поля для перекриття з верхньої сторони фізичної сторінки</translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the bottom of the physical page</source>
+        <translation>Розмір поля для перекриття з нижньої сторони фізичної сторінки</translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the left of the physical page</source>
+        <translation>Розмір поля для перекриття з лівої сторони фізичної сторінки</translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the right of the physical page</source>
+        <translation>Розмір поля для перекриття з правої сторони фізичної сторінки</translation>
     </message>
 </context>
 <context>
@@ -5802,6 +6211,10 @@ C</translation>
     <message>
         <source>Warning</source>
         <translation>Попередження</translation>
+    </message>
+    <message>
+        <source>Copy of</source>
+        <translation>Копія</translation>
     </message>
 </context>
 <context>
@@ -6168,7 +6581,7 @@ C</translation>
     </message>
     <message>
         <source>Disp.:</source>
-        <translation>Зміщення:</translation>
+        <translation type="obsolete">Зміщення:</translation>
     </message>
     <message>
         <source> %</source>
@@ -6232,7 +6645,7 @@ C</translation>
     </message>
     <message>
         <source>Linestyle:</source>
-        <translation>Стиль лінії:</translation>
+        <translation type="obsolete">Стиль лінії:</translation>
     </message>
     <message>
         <source>Line Width:</source>
@@ -6396,7 +6809,7 @@ C</translation>
     </message>
     <message>
         <source>Name of executeable:</source>
-        <translation>Ім&apos;я програми:</translation>
+        <translation type="obsolete">Ім&apos;я програми:</translation>
     </message>
     <message>
         <source>Antialias Text</source>
@@ -6421,6 +6834,376 @@ C</translation>
     <message>
         <source>Clip to Page Margins</source>
         <translation>Обрізати по полях сторінки</translation>
+    </message>
+    <message>
+        <source>Displacement:</source>
+        <translation>Зміщення:</translation>
+    </message>
+    <message>
+        <source>Name of executable:</source>
+        <translation>Назва програми:</translation>
+    </message>
+    <message>
+        <source>Choose the default window decoration and looks.
+Scribus inherits any available KDE or Qt themes</source>
+        <translation>Виберіть стандартне оздоблення вікна та вигляд.
+Scribus успадкує любі доступні теми KDE або Qt</translation>
+    </message>
+    <message>
+        <source>Default font size for the menus and windows</source>
+        <translation>Стандартний розмір шрифта для меню та вікон</translation>
+    </message>
+    <message>
+        <source>Default unit of measurement for document editing</source>
+        <translation>Стандартна одиниця вимірювання для редагування документу</translation>
+    </message>
+    <message>
+        <source>Number of lines Scribus will scroll for each move of the mouse wheel</source>
+        <translation>Число рядків для прокручування на кожний рух колеса мишки</translation>
+    </message>
+    <message>
+        <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
+        <translation>Радіус площі захвату вузлів об&apos;єктів</translation>
+    </message>
+    <message>
+        <source>Number of recently edited documents to show in the File menu</source>
+        <translation>Скільки недавно редагованих документів показувати в меню Файл</translation>
+    </message>
+    <message>
+        <source>Change the keyboard shortcuts to your preference</source>
+        <translation>Змінити гарячі клавіші по Вашому вподобанню</translation>
+    </message>
+    <message>
+        <source>Default documents directory</source>
+        <translation>Стандартна директорія для документів</translation>
+    </message>
+    <message>
+        <source>Default ICC profiles directory</source>
+        <translation>Стандартна директорія для ICC профілів</translation>
+    </message>
+    <message>
+        <source>Default Scripter scripts directory</source>
+        <translation>Стандартна директорія для сценаріїв Сценариста</translation>
+    </message>
+    <message>
+        <source>Default page size, either a standard size or a custom size</source>
+        <translation>Стандартний розмір сторінки</translation>
+    </message>
+    <message>
+        <source>Default orientation of document pages</source>
+        <translation>Стандартна орієнтація сторінок документа</translation>
+    </message>
+    <message>
+        <source>Width of document pages, editable if you have chosen a custom page size</source>
+        <translation>Ширина сторінок документа. Її можна змінити, якщо Ви вибрали нестандартний розмір сторінки</translation>
+    </message>
+    <message>
+        <source>Height of document pages, editable if you have chosen a custom page size</source>
+        <translation>Висота сторінок документа. Її можна змінити, якщо Ви вибрали нестандартний розмір сторінки</translation>
+    </message>
+    <message>
+        <source>Enable single or spread based layout</source>
+        <translation>Вибрати одиничний чи книжковий перепліт</translation>
+    </message>
+    <message>
+        <source>Make the first page the left page of a document</source>
+        <translation>Зробити першу сторінку лівою сторінкою</translation>
+    </message>
+    <message>
+        <source>Distance between the top margin guide and the edge of the page</source>
+        <translation>Відстань від границі верхнього поля сторінки до її краю</translation>
+    </message>
+    <message>
+        <source>Distance between the bottom margin guide and the edge of the page</source>
+        <translation>Відстань від границі нижнього поля сторінки до її краю</translation>
+    </message>
+    <message>
+        <source>Distance between the left margin guide and the edge of the page.
+If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation>Відстань від границі лівого поля сторінки до її краю.
+Якщо вибраний книжковий перепліт, то цей проміжок може використовуватися
+для установки правильних полів для переплітання</translation>
+    </message>
+    <message>
+        <source>Distance between the right margin guide and the edge of the page.
+If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation>Відстань від границі правого поля сторінки до її краю.
+Якщо вибраний книжковий перепліт, то цей проміжок може використовуватися
+для установки правильних полів для переплітання</translation>
+    </message>
+    <message>
+        <source>When enabled, Scribus saves a backup copy of your file with the .bak extension
+each time the time period elapses</source>
+        <translation>Якщо ввімкнути цю опцію, то Scribus буде записувати резервну копію файла з розширенням .bak
+по закінченню кожного визначеного періода часу</translation>
+    </message>
+    <message>
+        <source>Time period between saving automatically</source>
+        <translation>Період часу між автоматичним записом файла</translation>
+    </message>
+    <message>
+        <source>Distance between the minor grid lines</source>
+        <translation>Відстань між лініями допоміжної сітки</translation>
+    </message>
+    <message>
+        <source>Distance between the major grid lines</source>
+        <translation>Відстань між лініями головної сітки</translation>
+    </message>
+    <message>
+        <source>Distance within which an object will snap to your placed guides</source>
+        <translation>Зона притягування об&apos;єкта до розмітки</translation>
+    </message>
+    <message>
+        <source>Color of the minor grid lines</source>
+        <translation>Колір ліній допоміжної сітки</translation>
+    </message>
+    <message>
+        <source>Color of the major grid lines</source>
+        <translation>Колір ліній головної сітки</translation>
+    </message>
+    <message>
+        <source>Color of the guide lines you insert</source>
+        <translation>Колір ліній розмітки</translation>
+    </message>
+    <message>
+        <source>Place the grid behind your page objects</source>
+        <translation>Розмістити сітку під об&apos;єктами на сторінці</translation>
+    </message>
+    <message>
+        <source>Place the grid in front of your page objects</source>
+        <translation>Розмістити сітку над об&apos;єктами на сторінці</translation>
+    </message>
+    <message>
+        <source>Displacement above the baseline of the font on a line</source>
+        <translation>Зміщення над основою шрифта на лінії</translation>
+    </message>
+    <message>
+        <source>Relative size of the superscript compared to the normal font</source>
+        <translation>Відносний розмір верхнього індексу у порівнянні з звичайним шрифтом</translation>
+    </message>
+    <message>
+        <source>Displacement below the baseline of the normal font on a line</source>
+        <translation>Зміщення під основою шрифта на лінії</translation>
+    </message>
+    <message>
+        <source>Relative size of the subscript compared to the normal font</source>
+        <translation>Відносний розмір нижнього індексу у порівнянні з звичайним шрифтом</translation>
+    </message>
+    <message>
+        <source>Relative size of the small caps font compared to the normal font</source>
+        <translation>Відносний розмір капітелі у порівнянні з звичайним шрифтом</translation>
+    </message>
+    <message>
+        <source>Percentage increase over the font size for the line spacing</source>
+        <translation>Збільшення проміжку між рядками у відсотках понад розмір шрифта</translation>
+    </message>
+    <message>
+        <source>Text Frame Properties</source>
+        <translation>Властивості текстової рамки</translation>
+    </message>
+    <message>
+        <source>Picture Frame Properties</source>
+        <translation>Властивості рамки зображення</translation>
+    </message>
+    <message>
+        <source>Shape Drawing Properties</source>
+        <translation>Властивості рисування геометричних фігур</translation>
+    </message>
+    <message>
+        <source>Magnification Level Defaults</source>
+        <translation>Стандартні установки масштабу зображення</translation>
+    </message>
+    <message>
+        <source>Line Drawing Properties</source>
+        <translation>Властивості рисування лінії</translation>
+    </message>
+    <message>
+        <source>Polygon Drawing Properties</source>
+        <translation>Властивості рисування полігонів</translation>
+    </message>
+    <message>
+        <source>Font for new text frames</source>
+        <translation>Шрифт для нових текстових рамок</translation>
+    </message>
+    <message>
+        <source>Size of font for new text frames</source>
+        <translation>Розмір шрифта для нових текстових рамок</translation>
+    </message>
+    <message>
+        <source>Color of font</source>
+        <translation>Колір шрифта</translation>
+    </message>
+    <message>
+        <source>Number of columns in a text frame</source>
+        <translation>Число стовпців в текстовій рамці</translation>
+    </message>
+    <message>
+        <source>Gap between text frame columns</source>
+        <translation>Проміжок між стовпцями текстової рамки</translation>
+    </message>
+    <message>
+        <source>Sample of your font</source>
+        <translation>Зразок Вашого шрифта</translation>
+    </message>
+    <message>
+        <source>Picture frames allow pictures to scale to any size</source>
+        <translation>Рамки для зображень дозволяють масштабування зображень до любого розміру</translation>
+    </message>
+    <message>
+        <source>Horizontal scaling of images</source>
+        <translation>Горизонтальне масштабування зображень</translation>
+    </message>
+    <message>
+        <source>Vertical scaling of images</source>
+        <translation>Вертикальне масштабування зображень</translation>
+    </message>
+    <message>
+        <source>Keep horizontal and vertical scaling the same</source>
+        <translation>Утримувати горизонтальне масштабування рівним вертикальному</translation>
+    </message>
+    <message>
+        <source>Pictures in picture frames are scaled to the size of the frame</source>
+        <translation>Зображення у рамках для зображень масштабовані до розміру рамки</translation>
+    </message>
+    <message>
+        <source>Automatically scaled pictures keep their original proportions</source>
+        <translation>Автоматично масштабовані зображення зберігають відношення сторін</translation>
+    </message>
+    <message>
+        <source>Fill color of picture frames</source>
+        <translation>Колір заповнення рамок зображень</translation>
+    </message>
+    <message>
+        <source>Saturation of color of fill</source>
+        <translation>Насичення кольору заповнення</translation>
+    </message>
+    <message>
+        <source>Line color of shapes</source>
+        <translation>Колір ліній геометричних фігур</translation>
+    </message>
+    <message>
+        <source>Saturation of color of lines</source>
+        <translation>Насичення кольору ліній геометричних фігур</translation>
+    </message>
+    <message>
+        <source>Fill color of shapes</source>
+        <translation>Колір заповнення геометричних фігур</translation>
+    </message>
+    <message>
+        <source>Line style of shapes</source>
+        <translation>Стиль ліній геометричних фігур</translation>
+    </message>
+    <message>
+        <source>Line width of shapes</source>
+        <translation>Ширина ліній геометричних фігур</translation>
+    </message>
+    <message>
+        <source>Minimum magnification allowed</source>
+        <translation>Мінімально дозволений масштаб зображення</translation>
+    </message>
+    <message>
+        <source>Maximum magnification allowed</source>
+        <translation>Максимально дозволений масштаб зображення</translation>
+    </message>
+    <message>
+        <source>Change in magnification for each zoom operation</source>
+        <translation>Зміна масштабу зображення при кожному кроці масштабування</translation>
+    </message>
+    <message>
+        <source>Color of lines</source>
+        <translation>Колір ліній</translation>
+    </message>
+    <message>
+        <source>Saturation of color</source>
+        <translation>Насичення кольору</translation>
+    </message>
+    <message>
+        <source>Style of lines</source>
+        <translation>Стиль ліній</translation>
+    </message>
+    <message>
+        <source>Width of lines</source>
+        <translation>Товщина ліній</translation>
+    </message>
+    <message>
+        <source>Number of corners for polygons</source>
+        <translation>Число кутів полігонів</translation>
+    </message>
+    <message>
+        <source>Degrees of rotation for polygons</source>
+        <translation>Кут повороту полігонів</translation>
+    </message>
+    <message>
+        <source>Polygons will be convex rather than concave</source>
+        <translation>Полігони будуть вигнутими, а не вгнутими</translation>
+    </message>
+    <message>
+        <source>Sample Polygon</source>
+        <translation>Зразок полігону</translation>
+    </message>
+    <message>
+        <source>Change the angles at which lines of the polygon join</source>
+        <translation>Змінити кути з&apos;єднання сторін полігону</translation>
+    </message>
+    <message>
+        <source>Choose the size of the preview in the scrapbook palette</source>
+        <translation>Змінити розмір попереднього перегляду в палітрі чорновика</translation>
+    </message>
+    <message>
+        <source>Keep the scrapbook contents after closing Scribus</source>
+        <translation>Зберегти вміст чорновика після виходу з Scribus</translation>
+    </message>
+    <message>
+        <source>When using facing pages, show the two pages side by side</source>
+        <translation>При використанні книжкового перепліту показувати обидві сторінки поруч</translation>
+    </message>
+    <message>
+        <source>Color for paper</source>
+        <translation>Колір паперу</translation>
+    </message>
+    <message>
+        <source>Color for the margin lines</source>
+        <translation>Колір границь полів сторінки</translation>
+    </message>
+    <message>
+        <source>Mask the area outside the margins in the margin color</source>
+        <translation>Замаскувати область за полями кольором полів</translation>
+    </message>
+    <message>
+        <source>Enable transparency features within PDF 1.4 export</source>
+        <translation>Ввімкнути риси прозорісті при експорті PDF 1.4</translation>
+    </message>
+    <message>
+        <source>Set the default zoom level</source>
+        <translation>Установити стандартний масштаб зображення</translation>
+    </message>
+    <message>
+        <source>Filesystem location for the Ghostscript interpreter</source>
+        <translation>Розміщення інтерпретатора Ghostscript на жорсткому диску</translation>
+    </message>
+    <message>
+        <source>Antialias text for EPS and PDF onscreen rendering</source>
+        <translation>Антиаліасинг тексту для рендерингу EPS та PDF на екрані</translation>
+    </message>
+    <message>
+        <source>Antialias graphics for EPS and PDF onscreen rendering</source>
+        <translation>Антиаліасинг графіки для рендерингу EPS та PDF на екрані</translation>
+    </message>
+    <message>
+        <source>Filesystem location for editing graphics</source>
+        <translation>Розміщення програми для редагування графіки на жорсткому диску</translation>
+    </message>
+    <message>
+        <source>Do not show objects outside the margins on the printed page or exported file</source>
+        <translation>Не показувати об&apos;єкти за полями на друкованій сторінці чи в експортованому файлі</translation>
+    </message>
+    <message>
+        <source>Baseline Grid:</source>
+        <translation>Базова сітка:</translation>
+    </message>
+    <message>
+        <source>Baseline Offset:</source>
+        <translation>Зміщення базової сітки:</translation>
     </message>
 </context>
 <context>
@@ -6828,7 +7611,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Script</source>
-        <translation>Сценарій</translation>
+        <translation type="obsolete">Сценарій</translation>
     </message>
     <message>
         <source>Online Reference</source>
@@ -6949,6 +7732,10 @@ Check path and filename.</source>
     <message>
         <source>Scribus Scripts</source>
         <translation>Сценарії Scribus</translation>
+    </message>
+    <message>
+        <source>S&amp;cript</source>
+        <translation>С&amp;ценарії</translation>
     </message>
 </context>
 <context>
@@ -7609,7 +8396,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Edit</source>
-        <translation>Редагування</translation>
+        <translation type="obsolete">Редагування</translation>
     </message>
     <message>
         <source>Style</source>
@@ -7617,27 +8404,27 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Item</source>
-        <translation>Об&apos;єкт</translation>
+        <translation type="obsolete">Об&apos;єкт</translation>
     </message>
     <message>
         <source>Page</source>
-        <translation>Сторінка</translation>
+        <translation type="obsolete">Сторінка</translation>
     </message>
     <message>
         <source>View</source>
-        <translation>Вигляд</translation>
+        <translation type="obsolete">Вигляд</translation>
     </message>
     <message>
         <source>Extras</source>
-        <translation>Додаткове</translation>
+        <translation type="obsolete">Додаткове</translation>
     </message>
     <message>
         <source>Windows</source>
-        <translation>Вікна</translation>
+        <translation type="obsolete">Вікна</translation>
     </message>
     <message>
         <source>Help</source>
-        <translation>Допомога</translation>
+        <translation type="obsolete">Допомога</translation>
     </message>
     <message>
         <source>Left</source>
@@ -8011,6 +8798,70 @@ Check path and filename.</source>
         <source>Append Text...</source>
         <translation>Добавити текст...</translation>
     </message>
+    <message>
+        <source>&amp;File</source>
+        <translation>&amp;Файл</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation>&amp;Редагування</translation>
+    </message>
+    <message>
+        <source>&amp;Style</source>
+        <translation>&amp;Стиль</translation>
+    </message>
+    <message>
+        <source>&amp;Item</source>
+        <translation>&amp;Об&apos;єкт</translation>
+    </message>
+    <message>
+        <source>&amp;Page</source>
+        <translation>С&amp;торінка</translation>
+    </message>
+    <message>
+        <source>&amp;View</source>
+        <translation>&amp;Вид</translation>
+    </message>
+    <message>
+        <source>&amp;Tools</source>
+        <translation>&amp;Інструменти</translation>
+    </message>
+    <message>
+        <source>E&amp;xtras</source>
+        <translation>&amp;Додаткове</translation>
+    </message>
+    <message>
+        <source>&amp;Windows</source>
+        <translation>Ві&amp;кна</translation>
+    </message>
+    <message>
+        <source>&amp;Help</source>
+        <translation>До&amp;помога</translation>
+    </message>
+    <message>
+        <source>Some Objects are locked.</source>
+        <translation>Деякі об&apos;єкти замкнені.</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Вихід</translation>
+    </message>
+    <message>
+        <source>Lock all</source>
+        <translation>Замкнути все</translation>
+    </message>
+    <message>
+        <source>Unlock all</source>
+        <translation>Розімкнути все</translation>
+    </message>
+    <message>
+        <source>Show Baseline Grid</source>
+        <translation>Показати базову сітку</translation>
+    </message>
+    <message>
+        <source>Hide Baseline Grid</source>
+        <translation>Сховати базову сітку</translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -8219,7 +9070,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>This previews all the pages of your Document.</source>
-        <translation>Попереднє зображення всіх сторінок Вашого документу.</translation>
+        <translation type="obsolete">Попереднє зображення всіх сторінок Вашого документу.</translation>
     </message>
     <message>
         <source>Here are all your Templates, to create a new Page
@@ -8230,6 +9081,10 @@ drag a Template to the Pageview below.</source>
     <message>
         <source>Normal</source>
         <translation>Звичайний</translation>
+    </message>
+    <message>
+        <source>Previews all the pages of your document.</source>
+        <translation>Перегляд всіх сторінок документа.</translation>
     </message>
 </context>
 <context>
@@ -8357,7 +9212,11 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Exit</source>
-        <translation>Вийти</translation>
+        <translation type="obsolete">Вийти</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Зачинити</translation>
     </message>
 </context>
 <context>
@@ -8733,6 +9592,10 @@ drag a Template to the Pageview below.</source>
     <message>
         <source>Draw various Shapes</source>
         <translation>Рисувати різні геометричні форми</translation>
+    </message>
+    <message>
+        <source>Insert Table</source>
+        <translation>Вставити таблицю</translation>
     </message>
 </context>
 <context>

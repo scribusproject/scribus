@@ -2321,11 +2321,6 @@ void ScribusApp::HaveNewDoc()
 	doc->PDF_Optionen.BleedTop = doc->PageM.Top;
 	doc->PDF_Optionen.BleedLeft = doc->PageM.Left;
 	doc->PDF_Optionen.BleedRight = doc->PageM.Right;
-	doc->ShFrames = Prefs.FramesShown;
-	doc->Guides = Prefs.GuidesShown;
-	doc->Raster = Prefs.GridShown;
-	doc->Marks = Prefs.MarginsShown;
-	doc->Base = Prefs.BaseShown;
 }
 
 void ScribusApp::HaveNewSel(int Nr)
@@ -4295,56 +4290,51 @@ void ScribusApp::TogglePics()
 
 void ScribusApp::ToggleMarks()
 {
-	if (doc->Marks)
+	if (Prefs.MarginsShown)
 		viewMenu->changeItem(Markers, tr("Show Margins"));
 	else
 		viewMenu->changeItem(Markers, tr("Hide Margins"));
-	doc->Marks = !doc->Marks;
-	Prefs.MarginsShown = doc->Marks;
+	Prefs.MarginsShown = !Prefs.MarginsShown;
 	view->DrawNew();
 }
 
 void ScribusApp::ToggleFrames()
 {
-	if (doc->ShFrames)
+	if (Prefs.FramesShown)
 		viewMenu->changeItem(FrameDr, tr("Show Frames"));
 	else
 		viewMenu->changeItem(FrameDr, tr("Hide Frames"));
-	doc->ShFrames = !doc->ShFrames;
-	Prefs.FramesShown = doc->ShFrames;
+	Prefs.FramesShown = !Prefs.FramesShown;
 	view->DrawNew();
 }
 
 void ScribusApp::ToggleRaster()
 {
-	if (doc->Raster)
+	if (Prefs.GridShown)
 		viewMenu->changeItem(Ras, tr("Show Grid"));
 	else
 		viewMenu->changeItem(Ras, tr("Hide Grid"));
-	doc->Raster = !doc->Raster;
-	Prefs.GridShown = doc->Raster;
+	Prefs.GridShown = !Prefs.GridShown;
 	view->DrawNew();
 }
 
 void ScribusApp::ToggleGuides()
 {
-	if (doc->Guides)
+	if (Prefs.GuidesShown)
 		viewMenu->changeItem(Guide, tr("Show Guides"));
 	else
 		viewMenu->changeItem(Guide, tr("Hide Guides"));
-	doc->Guides = !doc->Guides;
-	Prefs.GuidesShown = doc->Guides;
+	Prefs.GuidesShown = !Prefs.GuidesShown;
 	view->DrawNew();
 }
 
 void ScribusApp::ToggleBase()
 {
-	if (doc->Base)
+	if (Prefs.BaseShown)
 		viewMenu->changeItem(Base, tr("Show Baseline Grid"));
 	else
 		viewMenu->changeItem(Base, tr("Hide Baseline Grid"));
-	doc->Base = !doc->Base;
-	Prefs.BaseShown = doc->Base;
+	Prefs.BaseShown = !Prefs.BaseShown;
 	view->DrawNew();
 }
 

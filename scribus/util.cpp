@@ -768,7 +768,7 @@ double QStodouble(QString in)
 QPixmap loadIcon(QString nam)
 {
 	QString pfad = PREL;
-	pfad += "/lib/scribus/icons/"+nam;
+	pfad += "/share/scribus/icons/"+nam;
 	QPixmap pm;
 	pm.load(pfad);
 	return pm;

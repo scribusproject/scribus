@@ -1497,7 +1497,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 						{
 							if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
 							{
-								PutPage(SetClipPath(ite));
+								PutPage(SetClipPath(ite, false));
 								PutPage("S\n");
 							}
 							else
@@ -1506,7 +1506,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 								for (int it = ml.size()-1; it > -1; it--)
 								{
 									PutPage(setStrokeMulti(&ml[it]));
-									PutPage(SetClipPath(ite));
+									PutPage(SetClipPath(ite, false));
 									PutPage("S\n");
 								}
 							}
@@ -1522,7 +1522,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 								{
 									if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
 									{
-										PutPage(SetClipPath(ite));
+										PutPage(SetClipPath(ite, false));
 										PutPage("S\n");
 									}
 									else
@@ -1532,7 +1532,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 											it > -1; it--)
 											{
 											PutPage(setStrokeMulti(&ml[it]));
-											PutPage(SetClipPath(ite));
+											PutPage(SetClipPath(ite, false));
 											PutPage("S\n");
 											}
 									}
@@ -2208,7 +2208,7 @@ QString PDFlib::SetFarbe(QString farbe, int Shade)
 	return tmp;
 }
 
-QString PDFlib::SetClipPath(PageItem *ite)
+QString PDFlib::SetClipPath(PageItem *ite, bool poly)
 {
 	bool nPath = true;
 	QString tmp = "";
@@ -2219,7 +2219,8 @@ QString PDFlib::SetClipPath(PageItem *ite)
 		{
 			if (ite->PoLine.point(poi).x() > 900000)
 			{
-				tmp += "h\n";
+				if (poly)
+					tmp += "h\n";
 				nPath = true;
 				continue;
 			}

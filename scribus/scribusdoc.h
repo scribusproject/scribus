@@ -492,8 +492,6 @@ protected:
 public: // Public attributes
   /** Vergroesserungsfaktor fuer das Dokument */
 	double Scale;
-	bool Marks;
-	bool Guides;
 	bool SnapGuides;
 	double GuideRad;
 	bool GuideLock;
@@ -518,8 +516,6 @@ public: // Public attributes
 	int PageOri;
 	/** Erste Seitennummer im Dokument */
 	int FirstPnum;
-  /** Flag fuer Raster */
-	bool Raster;
   /** Flag fuer Rasterbenutzung */
 	bool useRaster;
   /** Flag fuer Bilder */
@@ -609,7 +605,6 @@ public: // Public attributes
 	bool MasterP;
 	bool FirstPageLeft;
 	bool PagesSbS;
-	bool ShFrames;
 	bool RandFarbig;
 	int GroupCounter;
 	int AutoLine;
@@ -661,7 +656,6 @@ public: // Public attributes
 	QTimer *CurTimer;
 	double BaseGrid;
 	double BaseOffs;
-	bool Base;
 };
 
 #endif

@@ -800,12 +800,12 @@ QPixmap ScribusView::MPageToPixmap(QString name, int maxGr)
 	QPixmap pm = QPixmap(static_cast<int>(Doc->PageB), static_cast<int>(Doc->PageH));
 	ScPainter *painter = new ScPainter(&pm, pm.width(), pm.height());
 	double sca = Doc->Scale;
-	bool frs = Doc->ShFrames;
+	bool frs = Prefs->FramesShown;
 	int Lnr;
 	struct Layer ll;
 	ll.Drucken = false;
 	ll.LNr = 0;
-	Doc->ShFrames = false;
+	Prefs->FramesShown = false;
 	Doc->Scale = 1;
 	PageItem *b;
 	PageItem *bb;
@@ -846,7 +846,7 @@ QPixmap ScribusView::MPageToPixmap(QString name, int maxGr)
 			}
 		}
 	painter->end();
-	Doc->ShFrames = frs;
+	Prefs->FramesShown = frs;
 	Doc->Scale = sca;
 	QImage im2;
 	QImage im = pm.convertToImage();
@@ -873,12 +873,12 @@ QPixmap ScribusView::PageToPixmap(int Nr, int maxGr)
 	QPixmap pm = QPixmap(static_cast<int>(Doc->PageB), static_cast<int>(Doc->PageH));
 	ScPainter *painter = new ScPainter(&pm, pm.width(), pm.height());
 	double sca = Doc->Scale;
-	bool frs = Doc->ShFrames;
+	bool frs = Prefs->FramesShown;
 	int Lnr;
 	struct Layer ll;
 	ll.Drucken = false;
 	ll.LNr = 0;
-	Doc->ShFrames = false;
+	Prefs->FramesShown = false;
 	Doc->Scale = 1;
 	PageItem *b;
 	PageItem *bb;
@@ -951,7 +951,7 @@ QPixmap ScribusView::PageToPixmap(int Nr, int maxGr)
 		Lnr++;
 		}
 	painter->end();
-	Doc->ShFrames = frs;
+	Prefs->FramesShown = frs;
 	Doc->Scale = sca;
 	QImage im2;
 	QImage im = pm.convertToImage();
@@ -2049,7 +2049,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 						case 7:
 							if ((c->NamedLStyle == "") && (c->Pwidth != 0.0))
 								{						
-								SetClipPath(p, &c->PoLine);
+								SetClipPath(p, &c->PoLine, false);
 								p->PS_stroke();
 								}
 							else
@@ -2061,7 +2061,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 									p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 									p->PS_setlinewidth(ml[it].Width);
 									p->PS_setdash(static_cast<PenStyle>(ml[it].Dash), static_cast<PenCapStyle>(ml[it].LineEnd), static_cast<PenJoinStyle>(ml[it].LineJoin));
-									SetClipPath(p, &c->PoLine);
+									SetClipPath(p, &c->PoLine, false);
 									p->PS_stroke();
 									}
 								}
@@ -2074,7 +2074,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 									p->PS_save();
 									if ((c->NamedLStyle == "") && (c->Pwidth != 0.0))
 										{
-										SetClipPath(p, &c->PoLine);
+										SetClipPath(p, &c->PoLine, false);
 										p->PS_stroke();
 										}
 									else
@@ -2086,7 +2086,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 											p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 											p->PS_setlinewidth(ml[it].Width);
 											p->PS_setdash(static_cast<PenStyle>(ml[it].Dash), static_cast<PenCapStyle>(ml[it].LineEnd), static_cast<PenJoinStyle>(ml[it].LineJoin));
-											SetClipPath(p, &c->PoLine);
+											SetClipPath(p, &c->PoLine, false);
 											p->PS_stroke();
 											}
 										}
@@ -2246,7 +2246,7 @@ void ScribusView::SetFarbe(QString farb, int shade, int *h, int *s, int *v, int 
 	*k = k1 * shade / 100;
 }
 
-void ScribusView::SetClipPath(PSLib *p, FPointArray *c)
+void ScribusView::SetClipPath(PSLib *p, FPointArray *c, bool poly)
 {
 	FPoint np, np1, np2;
 	bool nPath = true;
@@ -2256,7 +2256,8 @@ void ScribusView::SetClipPath(PSLib *p, FPointArray *c)
 			{
 			if (c->point(poi).x() > 900000)
 				{
-				p->PS_closepath();
+				if (poly)
+					p->PS_closepath();
 				nPath = true;
 				continue;
 				}

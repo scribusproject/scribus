@@ -100,12 +100,12 @@ PyObject *scribus_pagecount(PyObject *self, PyObject* args)
 
 PyObject *scribus_pagedimension(PyObject *self, PyObject *args)
 {
-/* #include "cmdutil.h" needed for PointToValue function */
 	if (!PyArg_ParseTuple(args, "")) {
 		return NULL;
 	}
 	if (!Carrier->HaveDoc) {
-		return PyInt_FromLong(0L);
+    Py_INCREF(Py_None);
+		return Py_None;
 	}
 	
 	PyObject *t;

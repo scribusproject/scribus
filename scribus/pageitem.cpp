@@ -26,6 +26,7 @@
 #include <qbitmap.h>
 #include <cmath>
 #include "page.h"
+#include "scribus.h"
 
 #if (_MSC_VER >= 1200)
  #include "win-config.h"
@@ -40,6 +41,7 @@ extern double RealCWidth(ScribusDoc *doc, QString name, QString ch, int Siz);
 extern QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
 extern double xy2Deg(double x, double y);
 extern void BezierPoints(QPointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4);
+extern ScribusApp* ScApp;
 
 PageItem::PageItem(Page *pa, int art, double x, double y, double w, double h, double w2, QString fill, QString outline, ScribusDoc *doc) : QObject(pa)
 {
@@ -1622,7 +1624,7 @@ NoRoom: pf2.end();
 	}
 	if ((!Tinput) && (!Doc->RePos))
 	{
-		if ((Frame) && (Doc->ShFrames) && ((PType == 2) || (PType == 4)))
+		if ((Frame) && (ScApp->Prefs.FramesShown) && ((PType == 2) || (PType == 4)))
 		{
 			double scp = QMAX(Doc->Scale, 1);
 			p->setPen(black, 1 / scp, DotLine, FlatCap, MiterJoin);
@@ -1681,7 +1683,7 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 	}
 	if ((!Tinput) && (!Doc->RePos))
 	{
-		if ((Frame) && (Doc->ShFrames))
+		if ((Frame) && (ScApp->Prefs.FramesShown))
 		{
 			p.setPen(QPen(black, 1, DotLine, FlatCap, MiterJoin));
 			if ((isBookmark) || (isAnnotation))

@@ -1308,7 +1308,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	SavingLayout->setMargin( 25 );
 
 	SaveAtQuit = new QCheckBox( Saving, "SaveAtQuit" );
-	SaveAtQuit->setText( tr( "Save Contents on Exit" ) );
+	SaveAtQuit->setText( tr( "Save Contents on Changes" ) );
 	SaveAtQuit->setChecked(Vor->SaveAtQ);
 	SavingLayout->addWidget( SaveAtQuit );
 
@@ -1630,7 +1630,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	QToolTip::add( T6_Slider1, tr( "Change the angles at which lines of the polygon join" ) );
 
 	QToolTip::add( PreviewSize, tr( "Choose the size of the preview in the scrapbook palette" ) );
-	QToolTip::add( SaveAtQuit, tr( "Keep the scrapbook contents after closing Scribus" ) );
+	QToolTip::add( SaveAtQuit, tr( "Save the scrapbook contents everytime after a change" ) );
 
 	QToolTip::add( SidebySide, tr( "When using facing pages, show the two pages side by side" ) );
 	QToolTip::add( PapColor, tr( "Color for paper" ) );

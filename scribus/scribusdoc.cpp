@@ -22,13 +22,9 @@ ScribusDoc::ScribusDoc()
 {
 	modified = false;
 	MasterP = false;
-	Marks = true;
-	Guides = true;
 	GuideLock = false;
 	SnapGuides = false;
 	ShowPic = true;
-	Raster = false;
-	Base = false;
 	useRaster = false;
 	EditClip = false;
 	EditClipMode = 0;

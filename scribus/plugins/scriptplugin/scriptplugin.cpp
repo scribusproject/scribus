@@ -385,6 +385,7 @@ static PyObject *scribus_getval(PyObject *self, PyObject* args)
 
 static PyMethodDef scribus_methods[] = {
      // petr's stuff
+  {"ObjectExists", scribus_getpageitems, METH_VARARGS},
 	{"GetPageItems", scribus_getpageitems, METH_VARARGS},
 	{"TextFlowsAroundFrame", scribus_textflow, METH_VARARGS},
     {"GetXFontNames",    scribus_xfontnames,    METH_VARARGS},

@@ -83,3 +83,4 @@ PyObject *scribus_docchanged(PyObject *self, PyObject* args)
 		Carrier->slotDocCh(false);
 	return Py_None;
 }
+

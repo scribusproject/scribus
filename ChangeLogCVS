@@ -1,4 +1,8 @@
 Changes since Version 1.1.6
+05.04.2004	Updated the Ukraininan Translation.
+		Fixed Issues with Polylines on Export to PDF and Postscript.
+		Moved the Icons to $prefix/share/scribus/icons to be FHS compliant.
+
 04.04.2004	Fixed rounding problems with the Baseline Grid.
 
 03.04.2004	Added a frame independent baseline setting for Textframes.

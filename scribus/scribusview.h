@@ -82,7 +82,7 @@ public:
 	void CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QString SepNam, bool farb, 
 					bool Hm, bool Vm, bool Ic);
 	void ProcessPage(PSLib *p, Page* a, uint PNr, bool sep = false, bool farb = true, bool ic = false);
-	void SetClipPath(PSLib *p, FPointArray *c);
+	void SetClipPath(PSLib *p, FPointArray *c, bool poly = true);
 	void SetFarbe(QString farb, int shade, int *h, int *s, int *v, int *k);
 	void rememberPreviousSettings(int mx=0, int my=0);
   /** Dokument zu dem die Seite geh�t */
