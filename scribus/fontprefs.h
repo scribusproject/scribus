@@ -52,6 +52,7 @@ public:
 		bool DocAvail;
 
 public slots:
+		void LeaveDia();
 		void ReplaceSel(int r, int c);
 		void UpdateFliste();
 		void DelEntry();

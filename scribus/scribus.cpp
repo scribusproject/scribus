@@ -3838,7 +3838,7 @@ void ScribusApp::ToggleFrameEdit()
 		WerkTools->Rechteck->setEnabled(false);
 		WerkTools->Linien->setEnabled(false);
 		WerkTools->Polygon->setEnabled(false);
-		WerkTools->PolyLin->setEnabled(false);
+//		WerkTools->PolyLin->setEnabled(false);
 		WerkTools->KetteEin->setEnabled(false);
 		WerkTools->KetteAus->setEnabled(false);
 		WerkToolsP->PDFTool->setEnabled(false);
@@ -3866,7 +3866,7 @@ void ScribusApp::NoFrameEdit()
 	WerkTools->Rechteck->setEnabled(true);
 	WerkTools->Linien->setEnabled(true);
 	WerkTools->Polygon->setEnabled(true);
-	WerkTools->PolyLin->setEnabled(true);
+//	WerkTools->PolyLin->setEnabled(true);
 	WerkToolsP->PDFTool->setEnabled(true);
 	WerkToolsP->PDFaTool->setEnabled(true);
 	WerkTools->Textedit->setOn(false);
@@ -3898,7 +3898,7 @@ void ScribusApp::slotSelect()
 	WerkTools->Rechteck->setOn(false);
 	WerkTools->Linien->setOn(false);
 	WerkTools->Polygon->setOn(false);
-	WerkTools->PolyLin->setOn(false);
+//	WerkTools->PolyLin->setOn(false);
 	WerkTools->KetteEin->setOn(false);
 	WerkTools->KetteAus->setOn(false);
 	WerkToolsP->PDFTool->setOn(false);
@@ -4032,7 +4032,7 @@ void ScribusApp::setAppMode(int mode)
 			WerkTools->Rechteck->setOn(false);
 			WerkTools->Linien->setOn(false);
 			WerkTools->Polygon->setOn(false);
-			WerkTools->PolyLin->setOn(false);
+//			WerkTools->PolyLin->setOn(false);
 			WerkTools->KetteEin->setOn(false);
 			WerkTools->KetteAus->setOn(false);
 			WerkToolsP->PDFTool->setOn(false);

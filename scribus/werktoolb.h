@@ -48,11 +48,13 @@ public:
 	QToolButton* Polygon;
 	QToolButton* PolyLin;
 	QPopupMenu* PolyM;
+	QPopupMenu* LinM;
   QToolButton* KetteEin;
   QToolButton* KetteAus;
 	bool Sichtbar;
 	int SubMode;
 	int ValCount;
+	int LMode;
 	double *ShapeVals;
 
 public slots:
@@ -62,6 +64,7 @@ public slots:
 	void SelShape(int s, int c, double *vals);
 	void SelShape2();
 	void ModeFromTB();
+	void setLinMode(int id);
 		
 signals:
 	void Schliessen();

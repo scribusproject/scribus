@@ -196,7 +196,7 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, preV *prefs, 
     setMinimumSize( sizeHint() );
 
     // signals and slots connections
-    connect( PushButton1_2, SIGNAL( clicked() ), this, SLOT( reject() ) );
+    connect( PushButton1_2, SIGNAL( clicked() ), this, SLOT( LeaveDia() ) );
     connect( PushButton1, SIGNAL( clicked() ), this, SLOT( accept() ) );
     connect(Table3, SIGNAL(currentChanged(int, int)), this, SLOT(ReplaceSel(int, int)));
     connect(DelB, SIGNAL(clicked()), this, SLOT(DelEntry()));
@@ -204,6 +204,12 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, preV *prefs, 
     connect(AddB, SIGNAL(clicked()), this, SLOT(AddPath()));
     connect(ChangeB, SIGNAL(clicked()), this, SLOT(ChangePath()));
     connect(RemoveB, SIGNAL(clicked()), this, SLOT(DelPath()));
+}
+
+void FontPrefs::LeaveDia()
+{
+	UpdateFliste();
+	reject();
 }
 
 void FontPrefs::ReplaceSel(int, int)

@@ -1961,6 +1961,41 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			return;
 			}
 		}
+	if (doku->AppMode == 21)
+		{
+		doku->AppMode = 1;
+		if (RecordP.size() > 1)
+			{
+			uint z = PaintPolyLine(0, 0, 1, 1, doku->Dwidth, "None", doku->Dpen);
+			b = Items.at(z);
+			b->PoLine.resize(0);
+			b->PoLine.addPoint(RecordP.point(0));
+			b->PoLine.addPoint(RecordP.point(0));
+			for (uint px = 1; px < RecordP.size()-1; px++)
+				{
+				b->PoLine.addPoint(RecordP.point(px));
+				b->PoLine.addPoint(RecordP.point(px));
+				b->PoLine.addPoint(RecordP.point(px));
+				b->PoLine.addPoint(RecordP.point(px));
+				}
+			b->PoLine.addPoint(RecordP.point(RecordP.size()-1));
+			b->PoLine.addPoint(RecordP.point(RecordP.size()-1));
+			AdjustItemSize(b);
+			SelItem.clear();
+			SelItem.append(b);
+			b->Select = true;
+			emit ItemPos(b->Xpos, b->Ypos);
+			emit SetSizeValue(b->Pwidth);
+			emit SetLineArt(b->PLineArt, b->PLineEnd, b->PLineJoin);
+			emit ItemFarben(b->Pcolor2, b->Pcolor, b->Shade2, b->Shade);
+			emit ItemGradient(b->GrColor2, b->GrColor, b->GrShade2, b->GrShade, b->GrType);
+			emit ItemTrans(b->Transparency, b->TranspStroke);
+			emit HaveSel(7);
+			}
+		update();
+		emit PaintingDone();
+		return;
+		}
 	if ((doku->EditClip) && (ClRe == -1) && (HaveSelRect))
 		{
 		double sc = doku->Scale;
@@ -2795,6 +2830,30 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 		if ((cw - (m->x() - cx)) < 0)
 			Anz->scrollBy(m->x() - cx - cw, 0);
 		}
+	if (Mpressed && (doku->AppMode == 21))
+		{
+		newX = m->x();
+		newY = m->y();
+		double newXF = m->x()/sc;
+		double newYF = m->y()/sc;
+		if (RecordP.size() > 0)
+			{
+			if (FPoint(newXF, newYF) != RecordP.point(RecordP.size()-1))
+				RecordP.addPoint(FPoint(newXF, newYF));
+			}
+		else
+			RecordP.addPoint(FPoint(newXF, newYF));
+		p.begin(this);
+		if (RecordP.size() > 1)
+			{
+			FPoint xp = RecordP.point(RecordP.size()-2);
+			p.drawLine(qRound(xp.x()*sc), qRound(xp.y()*sc), newX, newY);
+			}
+		else
+			p.drawPoint(m->x(), m->y());
+		p.end();
+		return;
+		}
 	if (GetItem(&b))
 		{
 		newX = static_cast<int>(m->x()/sc);
@@ -2826,10 +2885,13 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 			return;
 		if (Mpressed && (doku->AppMode == 9))
 			{
-			double newW = xy2Deg(newX - qRound(RCenter.x()), newY - qRound(RCenter.y()));
-			RotateItem(b->Rot - (oldW - newW), b->ItemNr);
+			double newW = xy2Deg(m->x()/sc - RCenter.x(), m->y()/sc - RCenter.y());
+			if (GroupSel)
+				RotateGroup(newW - oldW);
+			else
+				RotateItem(b->Rot - (oldW - newW), b->ItemNr);
 			oldW = newW;
-//			emit DocChanged();
+			emit DocChanged();
 			}
 		if (doku->AppMode == 13)
 			{
@@ -3257,9 +3319,17 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 				getGroupRectScreen(&gx, &gy, &gw, &gh);
 				if (QRect(static_cast<int>(gx), static_cast<int>(gy), static_cast<int>(gw), static_cast<int>(gh)).intersects(mpo))
 					{
-  				qApp->setOverrideCursor(QCursor(SizeAllCursor), true);
+  				if (doku->AppMode == 9)
+  					qApp->setOverrideCursor(QCursor(loadIcon("Rotieren2.xpm")), true);
+					else
+  					qApp->setOverrideCursor(QCursor(SizeAllCursor), true);
 					if (QRect(static_cast<int>(gx+gw)-6, static_cast<int>(gy+gh)-6, 6, 6).intersects(mpo))
-						qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
+						{
+  					if (doku->AppMode == 9)
+  						qApp->setOverrideCursor(QCursor(loadIcon("Rotieren2.xpm")), true);
+						else
+							qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
+						}
 					}
 				else
   				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
@@ -3867,38 +3937,61 @@ void Page::mousePressEvent(QMouseEvent *m)
 			if (GetItem(&b))
 				{
 				RotMode = doku->RotMode;
-				p.begin(this);
-				Transform(b, &p);
-				doku->RotMode = 2;
-				RCenter = transformPointI(FPoint(b->Xpos+b->Width/2, b->Ypos+b->Height/2), 0, 0, b->Rot, 1, 1);
-				if (QRegion(p.xForm(QPointArray(QRect(0, 0, static_cast<int>(b->Width), static_cast<int>(b->Height))))).contains(mpo))
+				if (GroupSel)
 					{
-					if (p.xForm(QRect(static_cast<int>(b->Width)-6, static_cast<int>(b->Height)-6, 6, 6)).intersects(mpo))
+					double gx, gy, gh, gw;
+					double gxR, gyR, ghR, gwR;
+					getGroupRectScreen(&gx, &gy, &gw, &gh);
+					getGroupRect(&gxR, &gyR, &gwR, &ghR);
+					if (QRect(static_cast<int>(gx), static_cast<int>(gy), static_cast<int>(gw), static_cast<int>(gh)).intersects(mpo))
 						{
-						RCenter = FPoint(b->Xpos, b->Ypos);
-						doku->RotMode = 0;
+						doku->RotMode = 2;
+						RCenter = FPoint(gxR+gwR/2.0, gyR+ghR/2.0);
+						if (QRect(static_cast<int>(gx+gw)-6, static_cast<int>(gy+gh)-6, 6, 6).intersects(mpo))
+							{
+							RCenter = FPoint(gxR, gyR);
+							doku->RotMode = 0;
+							}
 						}
-					if (p.xForm(QRect(0, 0, 6, 6)).intersects(mpo))
-						{
-						RCenter = transformPointI(FPoint(b->Xpos+b->Width, b->Ypos+b->Height), 0, 0, b->Rot, 1, 1);
-						doku->RotMode = 4;
-						}
-					if (p.xForm(QRect(0, static_cast<int>(b->Height)-6, 6, 6)).intersects(mpo))
-						{
-						RCenter = transformPointI(FPoint(b->Xpos+b->Width, b->Ypos), 0, 0, b->Rot, 1, 1);
-						doku->RotMode = 1;
-						}
-					if (p.xForm(QRect(static_cast<int>(b->Width)-6, 0, 6, 6)).intersects(mpo))
-						{
-						RCenter = transformPointI(FPoint(b->Xpos, b->Ypos+b->Height), 0, 0, b->Rot, 1, 1);
-						doku->RotMode = 3;
-						}
-					oldW = xy2Deg(Mxp - qRound(RCenter.x()), Myp - qRound(RCenter.y()));
-					doku->UnData.UnCode = 3;
-					storeUndoInf(b);
-					doku->UnDoValid = true;
+					oldW = xy2Deg(m->x()/sc - RCenter.x(), m->y()/sc - RCenter.y());
+					doku->UnDoValid = false;
 					emit UndoAvail();
-					p.end();
+					}
+				else
+					{
+					p.begin(this);
+					Transform(b, &p);
+					doku->RotMode = 2;
+					RCenter = transformPointI(FPoint(b->Xpos+b->Width/2, b->Ypos+b->Height/2), 0, 0, b->Rot, 1, 1);
+					if (QRegion(p.xForm(QPointArray(QRect(0, 0, static_cast<int>(b->Width), static_cast<int>(b->Height))))).contains(mpo))
+						{
+						if (p.xForm(QRect(static_cast<int>(b->Width)-6, static_cast<int>(b->Height)-6, 6, 6)).intersects(mpo))
+							{
+							RCenter = FPoint(b->Xpos, b->Ypos);
+							doku->RotMode = 0;
+							}
+						if (p.xForm(QRect(0, 0, 6, 6)).intersects(mpo))
+							{
+							RCenter = transformPointI(FPoint(b->Xpos+b->Width, b->Ypos+b->Height), 0, 0, b->Rot, 1, 1);
+							doku->RotMode = 4;
+							}
+						if (p.xForm(QRect(0, static_cast<int>(b->Height)-6, 6, 6)).intersects(mpo))
+							{
+							RCenter = transformPointI(FPoint(b->Xpos+b->Width, b->Ypos), 0, 0, b->Rot, 1, 1);
+							doku->RotMode = 1;
+							}
+						if (p.xForm(QRect(static_cast<int>(b->Width)-6, 0, 6, 6)).intersects(mpo))
+							{
+							RCenter = transformPointI(FPoint(b->Xpos, b->Ypos+b->Height), 0, 0, b->Rot, 1, 1);
+							doku->RotMode = 3;
+							}
+						oldW = xy2Deg(m->x()/sc - RCenter.x(), m->y()/sc - RCenter.y());
+						doku->UnData.UnCode = 3;
+						storeUndoInf(b);
+						doku->UnDoValid = true;
+						emit UndoAvail();
+						p.end();
+						}
 					}
 				}
 			break;
@@ -4090,6 +4183,10 @@ void Page::mousePressEvent(QMouseEvent *m)
 				}
 			SetupDraw(z);
 			emit HaveSel(4);
+			break;
+		case 21:
+			RecordP.resize(0);
+			Deselect(false);
 			break;
 		}
 }

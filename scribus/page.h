@@ -188,6 +188,7 @@ public:
 	FPoint RCenter;
 	bool MidButt;
 	int RotMode;
+	FPointArray RecordP;
 
 public slots:
 	void PasteToPage();

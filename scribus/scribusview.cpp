@@ -58,7 +58,7 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc, preV *prefs)
 	LE->setMaxValue( 320000 );
 	LE->setMinValue( 1000 );
 	LE->setValue( 10000 );
-	LE->setDecimals( 1000 );
+	LE->setDecimals( 100 );
 	LE->setFocusPolicy(QWidget::ClickFocus);
 	SB1 = new QPushButton(this);
 	SB1->setPixmap(loadIcon("Klein.xpm"));

@@ -51,10 +51,19 @@ WerkToolB::WerkToolB(QMainWindow* parent) : QToolBar( tr("Tools"), parent)
 	Polygon->setToggleButton( true );
 	Polygon->setPopup(PolyM);
 	Polygon->setPopupDelay(0);
+	LinM = new QPopupMenu();
+	int id;
+	id = LinM->insertItem(loadIcon("Stift.xpm"));
+	LinM->setWhatsThis(id, tr("Insert Lines"));
+	id = LinM->insertItem(loadIcon("beziertool.png"));
+	LinM->setWhatsThis(id, tr("Insert Bezier Curves"));
+	id = LinM->insertItem(loadIcon("Stiftalt.xpm"));
+	LinM->setWhatsThis(id, tr("Insert Freehand Line"));
 	Linien = new QToolButton(loadIcon("Stift.xpm"), tr("Insert Lines"), QString::null, this, SLOT(ModeFromTB()), this);
 	Linien->setToggleButton( true );
-	PolyLin = new QToolButton(loadIcon("beziertool.png"), tr("Insert Bezier Curves"), QString::null, this, SLOT(ModeFromTB()), this);
-	PolyLin->setToggleButton( true );
+	Linien->setPopup(LinM);
+	Linien->setPopupDelay(0);
+	LMode = 8;
 	Rotiere = new QToolButton(loadIcon("Rotieren.xpm"), tr("Rotate Item"), QString::null, this, SLOT(ModeFromTB()), this);
 	Rotiere->setToggleButton( true );
 	Rotiere->setEnabled(false);
@@ -77,6 +86,7 @@ WerkToolB::WerkToolB(QMainWindow* parent) : QToolBar( tr("Tools"), parent)
   connect(this, SIGNAL(visibilityChanged(bool)), this, SLOT(Verbergen(bool)));
   connect(Rechteck, SIGNAL(FormSel(int, int, double *)), this, SLOT(SelShape(int, int, double *)));
 	connect(Rechteck, SIGNAL(clicked()), this, SLOT(SelShape2()));
+	connect(LinM, SIGNAL(activated(int)), this, SLOT(setLinMode(int)));
 	QToolTip::add( Rechteck, tr( "Draws various Shapes" ) );
 }
 
@@ -121,7 +131,6 @@ void WerkToolB::SelShape(int s, int c, double *vals)
 	KetteEin->setOn(false);
 	KetteAus->setOn(false);
 	Polygon->setOn(false);
-	PolyLin->setOn(false);
 	Rechteck->setOn(true);
 	SubMode = s;
 	ValCount = c;
@@ -142,7 +151,6 @@ void WerkToolB::SelShape2()
 	KetteEin->setOn(false);
 	KetteAus->setOn(false);
 	Polygon->setOn(false);
-	PolyLin->setOn(false);
 	Rechteck->setOn(true);
 	emit NewMode(2);
 }
@@ -161,7 +169,6 @@ void WerkToolB::ModeFromTB()
 	KetteEin->setOn(false);
 	KetteAus->setOn(false);
 	Polygon->setOn(false);
-	PolyLin->setOn(false);
 	if (Select == sender())
 		{
 		Select->setOn(true);
@@ -200,7 +207,7 @@ void WerkToolB::ModeFromTB()
 	if (Linien == sender())
 		{
 		Linien->setOn(true);
-		emit NewMode(8);
+		emit NewMode(LMode);
 		}
 	if (KetteEin == sender())
 		{
@@ -217,11 +224,42 @@ void WerkToolB::ModeFromTB()
 		Polygon->setOn(true);
 		emit NewMode(12);
 		}
-	if (PolyLin == sender())
+}
+
+void WerkToolB::setLinMode(int id)
+{
+	Select->setOn(false);
+	Rotiere->setOn(false);
+	Textedit->setOn(false);
+	Textedit2->setOn(false);
+	Zoom->setOn(false);
+	Texte->setOn(false);
+	BildB->setOn(false);
+	Rechteck->setOn(false);
+	Linien->setOn(false);
+	KetteEin->setOn(false);
+	KetteAus->setOn(false);
+	Polygon->setOn(false);
+	int c = LinM->indexOf(id);
+	switch (c)
 		{
-		PolyLin->setOn(true);
-		emit NewMode(13);
+		case 0:
+			Linien->setPixmap(loadIcon("Stift.xpm"));
+			LMode = 8;
+			emit NewMode(8);
+			break;
+		case 1:
+			Linien->setPixmap(loadIcon("beziertool.png"));
+			LMode = 13;
+			emit NewMode(13);
+			break;
+		case 2:
+			Linien->setPixmap(loadIcon("Stiftalt.xpm"));
+			LMode = 21;
+			emit NewMode(21);
+			break;
 		}
+	Linien->setOn(true);
 }
 
 WerkToolBP::WerkToolBP(QMainWindow* parent) : QToolBar( tr("PDF-Tools"), parent)

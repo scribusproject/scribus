@@ -1,4 +1,7 @@
 Changes since Version 1.1.4
+04.01.2004	Added a Freehand Drawing Tool.
+		Enabled Rotation of Groups with the Mouse.
+
 03.01.2004	Fixed Cursor placement Issues with Tabulators.
 		Fixed Text editing Issues with linked Textframes.
 
