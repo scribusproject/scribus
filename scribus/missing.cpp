@@ -80,7 +80,7 @@ DmF::DmF( QWidget* parent, QString fon, preV *Prefs, bool miss )
 		if (miss)
     	TextLabel1->setText(tr("The Font %1 is not installed.").arg(fon));
 		else
-    	TextLabel1->setText(tr("Select new Font:"));
+    	TextLabel1->setText(tr("Select New Font:"));
     Layout1->addMultiCellWidget( TextLabel1, 0, 0, 1, 2 );
 		if (miss)
 			{

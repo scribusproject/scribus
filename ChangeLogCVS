@@ -1,4 +1,7 @@
 Changes since Version 1.1.0
+03.10.2003	Improved rendering of linked Textframes.
+		Added a new .pot file for Scribus-1.1.1
+
 02.10.2003	Removed some small Bugs reported after reopening the CVS 
 		to the public.
 

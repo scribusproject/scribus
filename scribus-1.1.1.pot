@@ -1,0 +1,4789 @@
+# This is a Qt message file in .po format.  Each msgid starts with
+# a scope.  This scope should *NOT* be translated - eg. translating
+# from French to English, "Foo::Bar" would be translated to "Pub",
+# not "Foo::Pub".
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2003-10-03 10:04:12 AM EDT\n"
+"PO-Revision-Date: YYYY-MM-DD\n"
+"Last-Translator: FULLNAME <EMAIL@ADDRESS>\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+
+#: druck.cpp:24
+msgid "AdvOptions::Advanced Options"
+msgstr ""
+
+#: druck.cpp:41
+msgid "AdvOptions::Apply ICC-Profiles"
+msgstr ""
+
+#: druck.cpp:58
+msgid "AdvOptions::Cancel"
+msgstr ""
+
+#: druck.cpp:30
+msgid "AdvOptions::Mirror Page(s) horizontal"
+msgstr ""
+
+#: druck.cpp:34
+msgid "AdvOptions::Mirror Page(s) vertical"
+msgstr ""
+
+#: druck.cpp:53
+msgid "AdvOptions::OK"
+msgstr ""
+
+#: align.cpp:113
+msgid "Align:: in"
+msgstr ""
+
+#: align.cpp:109
+msgid "Align:: mm"
+msgstr ""
+
+#: align.cpp:117
+msgid "Align:: p"
+msgstr ""
+
+#: align.cpp:105
+msgid "Align:: pts"
+msgstr ""
+
+#: align.cpp:92
+msgid "Align::Align"
+msgstr ""
+
+#: align.cpp:147
+msgid "Align::Apply"
+msgstr ""
+
+#: align.cpp:84
+msgid "Align::Bottom Sides"
+msgstr ""
+
+#: align.cpp:152
+msgid "Align::Cancel"
+msgstr ""
+
+#: align.cpp:95
+msgid "Align::Displacement"
+msgstr ""
+
+#: align.cpp:128
+msgid "Align::Distribute evenly"
+msgstr ""
+
+#: align.cpp:10
+msgid "Align::Distribute/Align"
+msgstr ""
+
+#: align.cpp:88
+msgid "Align::Don't change"
+msgstr ""
+
+#: align.cpp:19
+msgid "Align::Horizontal"
+msgstr ""
+
+#: align.cpp:34
+msgid "Align::Left Sides"
+msgstr ""
+
+#: align.cpp:83
+msgid "Align::Middles"
+msgstr ""
+
+#: align.cpp:141
+msgid "Align::OK"
+msgstr ""
+
+#: align.cpp:36
+msgid "Align::Right Sides"
+msgstr ""
+
+#: align.cpp:82
+msgid "Align::Top Sides"
+msgstr ""
+
+#: align.cpp:67
+msgid "Align::Vertical"
+msgstr ""
+
+#: align.cpp:77
+msgid "Align::between:"
+msgstr ""
+
+#: annot.cpp:637
+msgid "Annot:: pt"
+msgstr ""
+
+#: annot.cpp:958
+msgid "Annot::"
+msgstr ""
+
+#: annot.cpp:641
+msgid "Annot::Action"
+msgstr ""
+
+#: annot.cpp:220
+msgid "Annot::Appearance"
+msgstr ""
+
+#: annot.cpp:175
+msgid "Annot::Beveled"
+msgstr ""
+
+#: annot.cpp:130
+msgid "Annot::Border"
+msgstr ""
+
+#: annot.cpp:53
+msgid "Annot::Button"
+msgstr ""
+
+#: annot.cpp:1015
+msgid "Annot::Calculate"
+msgstr ""
+
+#: annot.cpp:1038
+msgid "Annot::Cancel"
+msgstr ""
+
+#: annot.cpp:605
+msgid "Annot::Change..."
+msgstr ""
+
+#: annot.cpp:417
+msgid "Annot::Characters"
+msgstr ""
+
+#: annot.cpp:55
+msgid "Annot::Check Box"
+msgstr ""
+
+#: annot.cpp:441
+msgid "Annot::Check Style:"
+msgstr ""
+
+#: annot.cpp:444
+msgid "Annot::Check"
+msgstr ""
+
+#: annot.cpp:447
+msgid "Annot::Circle"
+msgstr ""
+
+#: annot.cpp:137
+msgid "Annot::Color:"
+msgstr ""
+
+#: annot.cpp:56
+msgid "Annot::Combo Box"
+msgstr ""
+
+#: annot.cpp:112
+msgid "Annot::Courier Bold Italic"
+msgstr ""
+
+#: annot.cpp:110
+msgid "Annot::Courier Bold"
+msgstr ""
+
+#: annot.cpp:111
+msgid "Annot::Courier Italic"
+msgstr ""
+
+#: annot.cpp:109
+msgid "Annot::Courier"
+msgstr ""
+
+#: annot.cpp:445
+msgid "Annot::Cross"
+msgstr ""
+
+#: annot.cpp:841
+msgid "Annot::Custom Scripts"
+msgstr ""
+
+#: annot.cpp:998
+msgid "Annot::Custom calculation script:"
+msgstr ""
+
+#: annot.cpp:933
+msgid "Annot::Custom validate script:"
+msgstr ""
+
+#: annot.cpp:670
+msgid "Annot::Custom"
+msgstr ""
+
+#: annot.cpp:173
+msgid "Annot::Dashed"
+msgstr ""
+
+#: annot.cpp:785
+msgid "Annot::Date Format"
+msgstr ""
+
+#: annot.cpp:668
+msgid "Annot::Date"
+msgstr ""
+
+#: annot.cpp:750
+msgid "Annot::Decimals:"
+msgstr ""
+
+#: annot.cpp:458
+msgid "Annot::Default is Checked"
+msgstr ""
+
+#: annot.cpp:589
+msgid "Annot::Destination"
+msgstr ""
+
+#: annot.cpp:446
+msgid "Annot::Diamond"
+msgstr ""
+
+#: annot.cpp:423
+msgid "Annot::Do Not Scroll"
+msgstr ""
+
+#: annot.cpp:427
+msgid "Annot::Do Not Spell Check"
+msgstr ""
+
+#: annot.cpp:202
+msgid "Annot::Don't Export Value"
+msgstr ""
+
+#: annot.cpp:1011
+msgid "Annot::Edit..."
+msgstr ""
+
+#: annot.cpp:471
+msgid "Annot::Editable"
+msgstr ""
+
+#: annot.cpp:1092
+msgid "Annot::Enter a comma separated list of Fields here"
+msgstr ""
+
+#: annot.cpp:521
+msgid "Annot::Event:"
+msgstr ""
+
+#: annot.cpp:1349
+msgid "Annot::Example:"
+msgstr ""
+
+#: annot.cpp:19
+msgid "Annot::Field Properties"
+msgstr ""
+
+#: annot.cpp:662
+msgid "Annot::Field is formatted as:"
+msgstr ""
+
+#: annot.cpp:1091
+msgid "Annot::Flag is ignored for PDF-1.3"
+msgstr ""
+
+#: annot.cpp:106
+msgid "Annot::Font for use with PDF-1.3:"
+msgstr ""
+
+#: annot.cpp:894
+msgid "Annot::Format"
+msgstr ""
+
+#: annot.cpp:850
+msgid "Annot::Format:"
+msgstr ""
+
+#: annot.cpp:761
+msgid "Annot::Formatting"
+msgstr ""
+
+#: annot.cpp:1972
+msgid "Annot::Go To"
+msgstr ""
+
+#: annot.cpp:116
+msgid "Annot::Helvetica Bold Italic"
+msgstr ""
+
+#: annot.cpp:114
+msgid "Annot::Helvetica Bold"
+msgstr ""
+
+#: annot.cpp:115
+msgid "Annot::Helvetica Italic"
+msgstr ""
+
+#: annot.cpp:113
+msgid "Annot::Helvetica"
+msgstr ""
+
+#: annot.cpp:212
+msgid "Annot::Hidden"
+msgstr ""
+
+#: annot.cpp:364
+msgid "Annot::Highlight"
+msgstr ""
+
+#: annot.cpp:317
+msgid "Annot::Icon Placement..."
+msgstr ""
+
+#: annot.cpp:254
+msgid "Annot::Icons"
+msgstr ""
+
+#: annot.cpp:1241
+msgid "Annot::Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)"
+msgstr ""
+
+#: annot.cpp:578
+msgid "Annot::Import Data from:"
+msgstr ""
+
+#: annot.cpp:1975
+msgid "Annot::Import Data"
+msgstr ""
+
+#: annot.cpp:176
+msgid "Annot::Inset"
+msgstr ""
+
+#: annot.cpp:372
+msgid "Annot::Invert"
+msgstr ""
+
+#: annot.cpp:2014
+msgid "Annot::Java Script"
+msgstr ""
+
+#: annot.cpp:871
+msgid "Annot::Keystroke:"
+msgstr ""
+
+#: annot.cpp:398
+msgid "Annot::Limit of"
+msgstr ""
+
+#: annot.cpp:57
+msgid "Annot::List Box"
+msgstr ""
+
+#: annot.cpp:1953
+msgid "Annot::Mouse Down"
+msgstr ""
+
+#: annot.cpp:1954
+msgid "Annot::Mouse Enter"
+msgstr ""
+
+#: annot.cpp:1955
+msgid "Annot::Mouse Exit"
+msgstr ""
+
+#: annot.cpp:1952
+msgid "Annot::Mouse Up"
+msgstr ""
+
+#: annot.cpp:389
+msgid "Annot::Multi-Line"
+msgstr ""
+
+#: annot.cpp:77
+msgid "Annot::Name:"
+msgstr ""
+
+#: annot.cpp:213
+msgid "Annot::No Print"
+msgstr ""
+
+#: annot.cpp:214
+msgid "Annot::No View"
+msgstr ""
+
+#: annot.cpp:2013
+msgid "Annot::None"
+msgstr ""
+
+#: annot.cpp:268
+msgid "Annot::Normal"
+msgstr ""
+
+#: annot.cpp:685
+msgid "Annot::Number Format"
+msgstr ""
+
+#: annot.cpp:666
+msgid "Annot::Number"
+msgstr ""
+
+#: annot.cpp:1034
+msgid "Annot::OK"
+msgstr ""
+
+#: annot.cpp:1957
+msgid "Annot::On Blur"
+msgstr ""
+
+#: annot.cpp:1956
+msgid "Annot::On Focus"
+msgstr ""
+
+#: annot.cpp:2172
+msgid "Annot::Open"
+msgstr ""
+
+#: annot.cpp:478
+msgid "Annot::Options"
+msgstr ""
+
+#: annot.cpp:183
+msgid "Annot::Other"
+msgstr ""
+
+#: annot.cpp:373
+msgid "Annot::Outlined"
+msgstr ""
+
+#: annot.cpp:2172
+msgid "Annot::PDF-Documents (*.pdf);;All Files (*)"
+msgstr ""
+
+#: annot.cpp:608
+msgid "Annot::Page:"
+msgstr ""
+
+#: annot.cpp:393
+msgid "Annot::Password"
+msgstr ""
+
+#: annot.cpp:742
+msgid "Annot::Percent Format"
+msgstr ""
+
+#: annot.cpp:667
+msgid "Annot::Percentage"
+msgstr ""
+
+#: annot.cpp:993
+msgid "Annot::Pick..."
+msgstr ""
+
+#: annot.cpp:665
+msgid "Annot::Plain"
+msgstr ""
+
+#: annot.cpp:714
+msgid "Annot::Prepend Currency Symbol"
+msgstr ""
+
+#: annot.cpp:284
+msgid "Annot::Pressed"
+msgstr ""
+
+#: annot.cpp:68
+msgid "Annot::Properties"
+msgstr ""
+
+#: annot.cpp:374
+msgid "Annot::Push"
+msgstr ""
+
+#: annot.cpp:190
+msgid "Annot::Read Only"
+msgstr ""
+
+#: annot.cpp:310
+msgid "Annot::Remove"
+msgstr ""
+
+#: annot.cpp:196
+msgid "Annot::Required"
+msgstr ""
+
+#: annot.cpp:1974
+msgid "Annot::Reset Form"
+msgstr ""
+
+#: annot.cpp:300
+msgid "Annot::Roll Over"
+msgstr ""
+
+#: annot.cpp:536
+msgid "Annot::Script:"
+msgstr ""
+
+#: annot.cpp:2005
+msgid "Annot::Selection Change"
+msgstr ""
+
+#: annot.cpp:172
+msgid "Annot::Solid"
+msgstr ""
+
+#: annot.cpp:449
+msgid "Annot::Square"
+msgstr ""
+
+#: annot.cpp:448
+msgid "Annot::Star"
+msgstr ""
+
+#: annot.cpp:169
+msgid "Annot::Style:"
+msgstr ""
+
+#: annot.cpp:567
+msgid "Annot::Submit Data as HTML"
+msgstr ""
+
+#: annot.cpp:1973
+msgid "Annot::Submit Form"
+msgstr ""
+
+#: annot.cpp:559
+msgid "Annot::Submit to URL:"
+msgstr ""
+
+#: annot.cpp:122
+msgid "Annot::Symbol"
+msgstr ""
+
+#: annot.cpp:54
+msgid "Annot::Text Field"
+msgstr ""
+
+#: annot.cpp:240
+msgid "Annot::Text for Button Down"
+msgstr ""
+
+#: annot.cpp:243
+msgid "Annot::Text for Roll Over"
+msgstr ""
+
+#: annot.cpp:233
+msgid "Annot::Text"
+msgstr ""
+
+#: annot.cpp:162
+msgid "Annot::Thin"
+msgstr ""
+
+#: annot.cpp:818
+msgid "Annot::Time Format"
+msgstr ""
+
+#: annot.cpp:669
+msgid "Annot::Time"
+msgstr ""
+
+#: annot.cpp:120
+msgid "Annot::Times Bold Italic"
+msgstr ""
+
+#: annot.cpp:118
+msgid "Annot::Times Bold"
+msgstr ""
+
+#: annot.cpp:119
+msgid "Annot::Times Italic"
+msgstr ""
+
+#: annot.cpp:117
+msgid "Annot::Times"
+msgstr ""
+
+#: annot.cpp:598
+msgid "Annot::To File:"
+msgstr ""
+
+#: annot.cpp:89
+msgid "Annot::Tool-Tip:"
+msgstr ""
+
+#: annot.cpp:486
+msgid "Annot::Type:"
+msgstr ""
+
+#: annot.cpp:174
+msgid "Annot::Underline"
+msgstr ""
+
+#: annot.cpp:705
+msgid "Annot::Use Currency Symbol"
+msgstr ""
+
+#: annot.cpp:261
+msgid "Annot::Use Icons"
+msgstr ""
+
+#: annot.cpp:951
+msgid "Annot::Validate"
+msgstr ""
+
+#: annot.cpp:966
+msgid "Annot::Value is not calculated"
+msgstr ""
+
+#: annot.cpp:909
+msgid "Annot::Value is not validated"
+msgstr ""
+
+#: annot.cpp:973
+msgid "Annot::Value is the"
+msgstr ""
+
+#: annot.cpp:916
+msgid "Annot::Value must be greater than or equal to:"
+msgstr ""
+
+#: annot.cpp:208
+msgid "Annot::Visibility:"
+msgstr ""
+
+#: annot.cpp:211
+msgid "Annot::Visible"
+msgstr ""
+
+#: annot.cpp:164
+msgid "Annot::Wide"
+msgstr ""
+
+#: annot.cpp:158
+msgid "Annot::Width:"
+msgstr ""
+
+#: annot.cpp:625
+msgid "Annot::X-Pos:"
+msgstr ""
+
+#: annot.cpp:633
+msgid "Annot::Y-Pos:"
+msgstr ""
+
+#: annot.cpp:1093
+msgid "Annot::You need at least the Icon for Normal to use Icons for Buttons"
+msgstr ""
+
+#: annot.cpp:121
+msgid "Annot::Zapf Dingbats"
+msgstr ""
+
+#: annot.cpp:920
+msgid "Annot::and less or equal to:"
+msgstr ""
+
+#: annot.cpp:979
+msgid "Annot::average"
+msgstr ""
+
+#: annot.cpp:981
+msgid "Annot::maximum"
+msgstr ""
+
+#: annot.cpp:980
+msgid "Annot::minimum"
+msgstr ""
+
+#: annot.cpp:985
+msgid "Annot::of the following fields:"
+msgstr ""
+
+#: annot.cpp:978
+msgid "Annot::product"
+msgstr ""
+
+#: annot.cpp:977
+msgid "Annot::sum"
+msgstr ""
+
+#: annota.cpp:113
+msgid "Annota:: pt"
+msgstr ""
+
+#: annota.cpp:12
+msgid "Annota::Annotation Properties"
+msgstr ""
+
+#: annota.cpp:134
+msgid "Annota::Cancel"
+msgstr ""
+
+#: annota.cpp:73
+msgid "Annota::Change..."
+msgstr ""
+
+#: annota.cpp:59
+msgid "Annota::Destination"
+msgstr ""
+
+#: annota.cpp:48
+msgid "Annota::External Link"
+msgstr ""
+
+#: annota.cpp:47
+msgid "Annota::Link"
+msgstr ""
+
+#: annota.cpp:130
+msgid "Annota::OK"
+msgstr ""
+
+#: annota.cpp:269
+msgid "Annota::Open"
+msgstr ""
+
+#: annota.cpp:269
+msgid "Annota::PDF-Documents (*.pdf);;All Files (*)"
+msgstr ""
+
+#: annota.cpp:82
+msgid "Annota::Page:"
+msgstr ""
+
+#: annota.cpp:46
+msgid "Annota::Text"
+msgstr ""
+
+#: annota.cpp:42
+msgid "Annota::Type:"
+msgstr ""
+
+#: annota.cpp:101
+msgid "Annota::X-Pos:"
+msgstr ""
+
+#: annota.cpp:109
+msgid "Annota::Y-Pos:"
+msgstr ""
+
+#: applytemplate.cpp:8
+msgid "ApplyT::Apply Template"
+msgstr ""
+
+#: applytemplate.cpp:40
+msgid "ApplyT::Apply from Page:"
+msgstr ""
+
+#: applytemplate.cpp:35
+msgid "ApplyT::Apply to Actual Page"
+msgstr ""
+
+#: applytemplate.cpp:72
+msgid "ApplyT::Cancel"
+msgstr ""
+
+#: applytemplate.cpp:21
+msgid "ApplyT::Normal"
+msgstr ""
+
+#: applytemplate.cpp:66
+msgid "ApplyT::OK"
+msgstr ""
+
+#: applytemplate.cpp:13
+msgid "ApplyT::Template:"
+msgstr ""
+
+#: applytemplate.cpp:48
+msgid "ApplyT::to:"
+msgstr ""
+
+#: scrap.cpp:134
+msgid "Biblio::Big"
+msgstr ""
+
+#: scrap.cpp:130
+msgid "Biblio::Close"
+msgstr ""
+
+#: scrap.cpp:263
+msgid "Biblio::Delete"
+msgstr ""
+
+#: scrap.cpp:148
+msgid "Biblio::File"
+msgstr ""
+
+#: scrap.cpp:129
+msgid "Biblio::Load..."
+msgstr ""
+
+#: scrap.cpp:133
+msgid "Biblio::Medium"
+msgstr ""
+
+#: scrap.cpp:126
+msgid "Biblio::New"
+msgstr ""
+
+#: scrap.cpp:326
+msgid "Biblio::Object"
+msgstr ""
+
+#: scrap.cpp:149
+msgid "Biblio::Preview"
+msgstr ""
+
+#: scrap.cpp:128
+msgid "Biblio::Save as..."
+msgstr ""
+
+#: scrap.cpp:127
+msgid "Biblio::Save"
+msgstr ""
+
+#: scrap.cpp:277
+msgid "Biblio::Scrapbook"
+msgstr ""
+
+#: scrap.cpp:208
+msgid "Biblio::Scrapbooks (*.scs);; All Files (*)"
+msgstr ""
+
+#: scrap.cpp:132
+msgid "Biblio::Small"
+msgstr ""
+
+#: bookmwin.cpp:95
+msgid "BookMView::Bookmarks"
+msgstr ""
+
+#: bookmwin.cpp:184
+msgid "BookMView::Cancel"
+msgstr ""
+
+#: bookmwin.cpp:183
+msgid "BookMView::Insert Bookmark"
+msgstr ""
+
+#: bookmwin.cpp:182
+msgid "BookMView::Move Bookmark"
+msgstr ""
+
+#: bookpalette.cpp:14
+msgid "BookPalette::Bookmarks"
+msgstr ""
+
+#: buttonicon.cpp:54
+msgid "ButtonIcon::"
+msgstr ""
+
+#: buttonicon.cpp:30
+msgid "ButtonIcon::Always"
+msgstr ""
+
+#: buttonicon.cpp:88
+msgid "ButtonIcon::Cancel"
+msgstr ""
+
+#: buttonicon.cpp:20
+msgid "ButtonIcon::Caption above Icon"
+msgstr ""
+
+#: buttonicon.cpp:19
+msgid "ButtonIcon::Caption below Icon"
+msgstr ""
+
+#: buttonicon.cpp:22
+msgid "ButtonIcon::Caption left to Icon"
+msgstr ""
+
+#: buttonicon.cpp:17
+msgid "ButtonIcon::Caption only"
+msgstr ""
+
+#: buttonicon.cpp:23
+msgid "ButtonIcon::Caption overlays Icon"
+msgstr ""
+
+#: buttonicon.cpp:21
+msgid "ButtonIcon::Caption right to Icon"
+msgstr ""
+
+#: buttonicon.cpp:9
+msgid "ButtonIcon::Icon Placement"
+msgstr ""
+
+#: buttonicon.cpp:18
+msgid "ButtonIcon::Icon only"
+msgstr ""
+
+#: buttonicon.cpp:60
+msgid "ButtonIcon::Icon"
+msgstr ""
+
+#: buttonicon.cpp:14
+msgid "ButtonIcon::Layout:"
+msgstr ""
+
+#: buttonicon.cpp:33
+msgid "ButtonIcon::Never"
+msgstr ""
+
+#: buttonicon.cpp:41
+msgid "ButtonIcon::Non Proportional"
+msgstr ""
+
+#: buttonicon.cpp:84
+msgid "ButtonIcon::OK"
+msgstr ""
+
+#: buttonicon.cpp:40
+msgid "ButtonIcon::Proportional"
+msgstr ""
+
+#: buttonicon.cpp:91
+msgid "ButtonIcon::Reset"
+msgstr ""
+
+#: buttonicon.cpp:37
+msgid "ButtonIcon::Scale How:"
+msgstr ""
+
+#: buttonicon.cpp:27
+msgid "ButtonIcon::Scale:"
+msgstr ""
+
+#: buttonicon.cpp:32
+msgid "ButtonIcon::When Icon is too big"
+msgstr ""
+
+#: buttonicon.cpp:31
+msgid "ButtonIcon::When Icon is too small"
+msgstr ""
+
+#: cmsprefs.cpp:142
+msgid "CMSPrefs::Absolute Colorimetric"
+msgstr ""
+
+#: cmsprefs.cpp:19
+msgid "CMSPrefs::Activate Color Management"
+msgstr ""
+
+#: cmsprefs.cpp:179
+msgid "CMSPrefs::Cancel"
+msgstr ""
+
+#: cmsprefs.cpp:10
+msgid "CMSPrefs::Color Management Settings"
+msgstr ""
+
+#: cmsprefs.cpp:157
+msgid "CMSPrefs::Mark Colors out of Gamut"
+msgstr ""
+
+#: cmsprefs.cpp:120
+msgid "CMSPrefs::Monitor:"
+msgstr ""
+
+#: cmsprefs.cpp:172
+msgid "CMSPrefs::OK"
+msgstr ""
+
+#: cmsprefs.cpp:139
+msgid "CMSPrefs::Perceptual"
+msgstr ""
+
+#: cmsprefs.cpp:36
+msgid "CMSPrefs::Pictures:"
+msgstr ""
+
+#: cmsprefs.cpp:124
+msgid "CMSPrefs::Printer:"
+msgstr ""
+
+#: cmsprefs.cpp:140
+msgid "CMSPrefs::Relative Colorimetric"
+msgstr ""
+
+#: cmsprefs.cpp:110
+msgid "CMSPrefs::Rendering Intents"
+msgstr ""
+
+#: cmsprefs.cpp:141
+msgid "CMSPrefs::Saturation"
+msgstr ""
+
+#: cmsprefs.cpp:152
+msgid "CMSPrefs::Simulate Printer on the Screen"
+msgstr ""
+
+#: cmsprefs.cpp:40
+msgid "CMSPrefs::Solid Colors:"
+msgstr ""
+
+#: cmsprefs.cpp:26
+msgid "CMSPrefs::System Profiles"
+msgstr ""
+
+#: cmykfw.cpp:104
+msgid "CMYKChoose::"
+msgstr ""
+
+#: cmykfw.cpp:469
+msgid "CMYKChoose::B:"
+msgstr ""
+
+#: cmykfw.cpp:449
+msgid "CMYKChoose::C:"
+msgstr ""
+
+#: cmykfw.cpp:445
+msgid "CMYKChoose::CMYK"
+msgstr ""
+
+#: cmykfw.cpp:121
+msgid "CMYKChoose::Cancel"
+msgstr ""
+
+#: cmykfw.cpp:54
+msgid "CMYKChoose::Color Model"
+msgstr ""
+
+#: cmykfw.cpp:313
+msgid "CMYKChoose::Dynamic Color Bars"
+msgstr ""
+
+#: cmykfw.cpp:31
+msgid "CMYKChoose::Edit Color"
+msgstr ""
+
+#: cmykfw.cpp:468
+msgid "CMYKChoose::G:"
+msgstr ""
+
+#: cmykfw.cpp:253
+msgid "CMYKChoose::K:"
+msgstr ""
+
+#: cmykfw.cpp:450
+msgid "CMYKChoose::M:"
+msgstr ""
+
+#: cmykfw.cpp:42
+msgid "CMYKChoose::Name:"
+msgstr ""
+
+#: cmykfw.cpp:76
+msgid "CMYKChoose::New"
+msgstr ""
+
+#: cmykfw.cpp:117
+msgid "CMYKChoose::OK"
+msgstr ""
+
+#: cmykfw.cpp:95
+msgid "CMYKChoose::Old"
+msgstr ""
+
+#: cmykfw.cpp:467
+msgid "CMYKChoose::R:"
+msgstr ""
+
+#: cmykfw.cpp:60
+msgid "CMYKChoose::RGB"
+msgstr ""
+
+#: cmykfw.cpp:314
+msgid "CMYKChoose::Static Color Bars"
+msgstr ""
+
+#: cmykfw.cpp:477
+msgid "CMYKChoose::Websave RGB"
+msgstr ""
+
+#: cmykfw.cpp:451
+msgid "CMYKChoose::Y:"
+msgstr ""
+
+#: cpalette.cpp:109
+msgid "Cpalette:: %"
+msgstr ""
+
+#: cpalette.cpp:96
+msgid "Cpalette::"
+msgstr ""
+
+#: cpalette.cpp:71
+msgid "Cpalette::Cross Diagonal Gradient"
+msgstr ""
+
+#: cpalette.cpp:70
+msgid "Cpalette::Diagonal Gradient"
+msgstr ""
+
+#: cpalette.cpp:68
+msgid "Cpalette::Horizontal Gradient"
+msgstr ""
+
+#: cpalette.cpp:183
+msgid "Cpalette::None"
+msgstr ""
+
+#: cpalette.cpp:67
+msgid "Cpalette::Normal"
+msgstr ""
+
+#: cpalette.cpp:103
+msgid "Cpalette::Opacity:"
+msgstr ""
+
+#: cpalette.cpp:40
+msgid "Cpalette::Other..."
+msgstr ""
+
+#: cpalette.cpp:72
+msgid "Cpalette::Radial Gradient"
+msgstr ""
+
+#: cpalette.cpp:69
+msgid "Cpalette::Vertical Gradient"
+msgstr ""
+
+#: cupsoptions.cpp:105
+msgid "CupsOptions::All Pages"
+msgstr ""
+
+#: cupsoptions.cpp:168
+msgid "CupsOptions::Cancel"
+msgstr ""
+
+#: cupsoptions.cpp:102
+msgid "CupsOptions::Even Pages only"
+msgstr ""
+
+#: cupsoptions.cpp:129
+msgid "CupsOptions::Landscape"
+msgstr ""
+
+#: cupsoptions.cpp:108
+msgid "CupsOptions::Mirror"
+msgstr ""
+
+#: cupsoptions.cpp:134
+msgid "CupsOptions::N-Up Printing"
+msgstr ""
+
+#: cupsoptions.cpp:118
+msgid "CupsOptions::No"
+msgstr ""
+
+#: cupsoptions.cpp:163
+msgid "CupsOptions::OK"
+msgstr ""
+
+#: cupsoptions.cpp:103
+msgid "CupsOptions::Odd Pages only"
+msgstr ""
+
+#: cupsoptions.cpp:31
+msgid "CupsOptions::Option"
+msgstr ""
+
+#: cupsoptions.cpp:121
+msgid "CupsOptions::Orientation"
+msgstr ""
+
+#: cupsoptions.cpp:94
+msgid "CupsOptions::Page Set"
+msgstr ""
+
+#: cupsoptions.cpp:148
+msgid "CupsOptions::Page per Sheet"
+msgstr ""
+
+#: cupsoptions.cpp:146
+msgid "CupsOptions::Pages per Sheet"
+msgstr ""
+
+#: cupsoptions.cpp:131
+msgid "CupsOptions::Portrait"
+msgstr ""
+
+#: cupsoptions.cpp:17
+msgid "CupsOptions::Printer Options"
+msgstr ""
+
+#: cupsoptions.cpp:32
+msgid "CupsOptions::Value"
+msgstr ""
+
+#: cupsoptions.cpp:116
+msgid "CupsOptions::Yes"
+msgstr ""
+
+#: customfdialog.cpp:171
+msgid "CustomFDialog::Compress File"
+msgstr ""
+
+#: customfdialog.cpp:191
+msgid "CustomFDialog::Encoding:"
+msgstr ""
+
+#: customfdialog.cpp:249
+msgid "CustomFDialog::Moves to your Document Directory.\nThis can be set in the Preferences."
+msgstr ""
+
+#: dcolor.cpp:28
+msgid "DelColor::?"
+msgstr ""
+
+#: dcolor.cpp:58
+msgid "DelColor::Cancel"
+msgstr ""
+
+#: dcolor.cpp:13
+msgid "DelColor::Delete Color"
+msgstr ""
+
+#: dcolor.cpp:22
+msgid "DelColor::OK to delete Color:"
+msgstr ""
+
+#: dcolor.cpp:53
+msgid "DelColor::OK"
+msgstr ""
+
+#: dcolor.cpp:31
+msgid "DelColor::Replace it with:"
+msgstr ""
+
+#: delpages.cpp:45
+msgid "DelPages::Cancel"
+msgstr ""
+
+#: delpages.cpp:10
+msgid "DelPages::Delete Pages"
+msgstr ""
+
+#: delpages.cpp:19
+msgid "DelPages::Delete from:"
+msgstr ""
+
+#: delpages.cpp:39
+msgid "DelPages::OK"
+msgstr ""
+
+#: delpages.cpp:27
+msgid "DelPages::to:"
+msgstr ""
+
+#: missing.cpp:111
+msgid "DmF::Cancel"
+msgstr ""
+
+#: missing.cpp:69
+msgid "DmF::Missing Font"
+msgstr ""
+
+#: missing.cpp:115
+msgid "DmF::OK"
+msgstr ""
+
+#: missing.cpp:71
+msgid "DmF::Select Font"
+msgstr ""
+
+#: missing.cpp:83
+msgid "DmF::Select New Font:"
+msgstr ""
+
+#: missing.cpp:81
+msgid "DmF::The Font %1 is not installed."
+msgstr ""
+
+#: missing.cpp:94
+msgid "DmF::Use"
+msgstr ""
+
+#: missing.cpp:103
+msgid "DmF::instead"
+msgstr ""
+
+#: docinfo.cpp:22
+msgid "DocInfos::Author:"
+msgstr ""
+
+#: docinfo.cpp:65
+msgid "DocInfos::Cancel"
+msgstr ""
+
+#: docinfo.cpp:38
+msgid "DocInfos::Description:"
+msgstr ""
+
+#: docinfo.cpp:12
+msgid "DocInfos::Document Info"
+msgstr ""
+
+#: docinfo.cpp:47
+msgid "DocInfos::Keywords:"
+msgstr ""
+
+#: docinfo.cpp:59
+msgid "DocInfos::OK"
+msgstr ""
+
+#: docinfo.cpp:30
+msgid "DocInfos::Title:"
+msgstr ""
+
+#: druck.cpp:344
+msgid "Druck::"
+msgstr ""
+
+#: druck.cpp:365
+msgid "Druck::Advanced Options..."
+msgstr ""
+
+#: druck.cpp:332
+msgid "Druck::All"
+msgstr ""
+
+#: druck.cpp:181
+msgid "Druck::Alternative Printer Command"
+msgstr ""
+
+#: druck.cpp:382
+msgid "Druck::Cancel"
+msgstr ""
+
+#: druck.cpp:174
+msgid "Druck::Change..."
+msgstr ""
+
+#: druck.cpp:188
+msgid "Druck::Command:"
+msgstr ""
+
+#: druck.cpp:519
+msgid "Druck::File"
+msgstr ""
+
+#: druck.cpp:165
+msgid "Druck::File:"
+msgstr ""
+
+#: druck.cpp:245
+msgid "Druck::From page:"
+msgstr ""
+
+#: druck.cpp:284
+msgid "Druck::Number of copies:"
+msgstr ""
+
+#: druck.cpp:378
+msgid "Druck::OK"
+msgstr ""
+
+#: druck.cpp:300
+msgid "Druck::Options"
+msgstr ""
+
+#: druck.cpp:154
+msgid "Druck::Options..."
+msgstr ""
+
+#: druck.cpp:576
+msgid "Druck::Postscript-Files (*.ps);; All Files (*)"
+msgstr ""
+
+#: druck.cpp:322
+msgid "Druck::Print Normal"
+msgstr ""
+
+#: druck.cpp:327
+msgid "Druck::Print Separations"
+msgstr ""
+
+#: druck.cpp:255
+msgid "Druck::Print all"
+msgstr ""
+
+#: druck.cpp:81
+msgid "Druck::Print destination"
+msgstr ""
+
+#: druck.cpp:278
+msgid "Druck::Print first page first"
+msgstr ""
+
+#: druck.cpp:354
+msgid "Druck::Print in color if available"
+msgstr ""
+
+#: druck.cpp:359
+msgid "Druck::Print in grayscale"
+msgstr ""
+
+#: druck.cpp:273
+msgid "Druck::Print last page first"
+msgstr ""
+
+#: druck.cpp:250
+msgid "Druck::Print range"
+msgstr ""
+
+#: druck.cpp:200
+msgid "Druck::Range:"
+msgstr ""
+
+#: druck.cpp:576
+msgid "Druck::Save as"
+msgstr ""
+
+#: druck.cpp:74
+msgid "Druck::Setup Printer"
+msgstr ""
+
+#: druck.cpp:222
+msgid "Druck::To page:"
+msgstr ""
+
+#: edit1format.cpp:180
+msgid "EditStyle:: pt"
+msgstr ""
+
+#: edit1format.cpp:195
+msgid "EditStyle::Above:"
+msgstr ""
+
+#: edit1format.cpp:101
+msgid "EditStyle::Alignment"
+msgstr ""
+
+#: edit1format.cpp:200
+msgid "EditStyle::Below:"
+msgstr ""
+
+#: edit1format.cpp:124
+msgid "EditStyle::Block"
+msgstr ""
+
+#: edit1format.cpp:216
+msgid "EditStyle::Cancel"
+msgstr ""
+
+#: edit1format.cpp:120
+msgid "EditStyle::Center"
+msgstr ""
+
+#: edit1format.cpp:28
+msgid "EditStyle::Character"
+msgstr ""
+
+#: edit1format.cpp:9
+msgid "EditStyle::Edit Style"
+msgstr ""
+
+#: edit1format.cpp:36
+msgid "EditStyle::Face:"
+msgstr ""
+
+#: edit1format.cpp:80
+msgid "EditStyle::First Line:"
+msgstr ""
+
+#: edit1format.cpp:128
+msgid "EditStyle::Forced"
+msgstr ""
+
+#: edit1format.cpp:64
+msgid "EditStyle::Indentation"
+msgstr ""
+
+#: edit1format.cpp:75
+msgid "EditStyle::Left Indent:"
+msgstr ""
+
+#: edit1format.cpp:111
+msgid "EditStyle::Left"
+msgstr ""
+
+#: edit1format.cpp:190
+msgid "EditStyle::Line Spacing"
+msgstr ""
+
+#: edit1format.cpp:257
+msgid "EditStyle::Name of the Style is not unique"
+msgstr ""
+
+#: edit1format.cpp:17
+msgid "EditStyle::Name:"
+msgstr ""
+
+#: edit1format.cpp:257
+msgid "EditStyle::OK"
+msgstr ""
+
+#: edit1format.cpp:116
+msgid "EditStyle::Right"
+msgstr ""
+
+#: edit1format.cpp:59
+msgid "EditStyle::Size:"
+msgstr ""
+
+#: edit1format.cpp:151
+msgid "EditStyle::Vertical Spaces"
+msgstr ""
+
+#: edit1format.cpp:257
+msgid "EditStyle::Warning"
+msgstr ""
+
+#: editor.cpp:33
+msgid "Editor::Clear"
+msgstr ""
+
+#: editor.cpp:31
+msgid "Editor::Copy"
+msgstr ""
+
+#: editor.cpp:30
+msgid "Editor::Cut"
+msgstr ""
+
+#: editor.cpp:38
+msgid "Editor::Edit"
+msgstr ""
+
+#: editor.cpp:13
+msgid "Editor::Editor"
+msgstr ""
+
+#: editor.cpp:25
+msgid "Editor::Exit without Saving"
+msgstr ""
+
+#: editor.cpp:37
+msgid "Editor::File"
+msgstr ""
+
+#: editor.cpp:35
+msgid "Editor::Get Field Names"
+msgstr ""
+
+#: editor.cpp:59
+msgid "Editor::"
+"Javascripts (*.js);; All Files (*)"
+msgstr ""
+
+#: editor.cpp:74
+msgid "Editor::"
+"Javascripts (*.js);; All Files (*)"
+msgstr ""
+
+#: editor.cpp:22
+msgid "Editor::Load..."
+msgstr ""
+
+#: editor.cpp:20
+msgid "Editor::New"
+msgstr ""
+
+#: editor.cpp:32
+msgid "Editor::Paste"
+msgstr ""
+
+#: editor.cpp:28
+msgid "Editor::Redo"
+msgstr ""
+
+#: editor.cpp:24
+msgid "Editor::Save and Exit"
+msgstr ""
+
+#: editor.cpp:21
+msgid "Editor::Save as..."
+msgstr ""
+
+#: editor.cpp:27
+msgid "Editor::Undo"
+msgstr ""
+
+#: customfdialog.cpp:134
+msgid "FDialogPreview::Author:"
+msgstr ""
+
+#: customfdialog.cpp:132
+msgid "FDialogPreview::No Title"
+msgstr ""
+
+#: customfdialog.cpp:139
+msgid "FDialogPreview::Scribus-Document"
+msgstr ""
+
+#: customfdialog.cpp:110
+msgid "FDialogPreview::Size:"
+msgstr ""
+
+#: customfdialog.cpp:129
+msgid "FDialogPreview::Title:"
+msgstr ""
+
+#: customfdialog.cpp:137
+msgid "FDialogPreview::Unknown"
+msgstr ""
+
+#: colorm.cpp:41
+msgid "Farbmanager::Append"
+msgstr ""
+
+#: colorm.cpp:63
+msgid "Farbmanager::Cancel"
+msgstr ""
+
+#: colorm.cpp:27
+msgid "Farbmanager::Colors"
+msgstr ""
+
+#: colorm.cpp:133
+msgid "Farbmanager::Copy of "
+msgstr ""
+
+#: colorm.cpp:57
+msgid "Farbmanager::Delete"
+msgstr ""
+
+#: colorm.cpp:89
+msgid "Farbmanager::Documents (*.sla *.scd);; All Files (*)"
+msgstr ""
+
+#: colorm.cpp:87
+msgid "Farbmanager::Documents (*.sla *.sla.gz *.scd *.scd.gz);; All Files (*)"
+msgstr ""
+
+#: colorm.cpp:53
+msgid "Farbmanager::Duplicate"
+msgstr ""
+
+#: colorm.cpp:48
+msgid "Farbmanager::Edit"
+msgstr ""
+
+#: colorm.cpp:44
+msgid "Farbmanager::New"
+msgstr ""
+
+#: colorm.cpp:89
+msgid "Farbmanager::Open"
+msgstr ""
+
+#: colorm.cpp:60
+msgid "Farbmanager::Save"
+msgstr ""
+
+#: fontprefs.cpp:386
+msgid "FontPrefs:: "
+msgstr ""
+
+#: fontprefs.cpp:160
+msgid "FontPrefs::Add..."
+msgstr ""
+
+#: fontprefs.cpp:168
+msgid "FontPrefs::Additional Paths"
+msgstr ""
+
+#: fontprefs.cpp:107
+msgid "FontPrefs::Available Fonts"
+msgstr ""
+
+#: fontprefs.cpp:185
+msgid "FontPrefs::Cancel"
+msgstr ""
+
+#: fontprefs.cpp:157
+msgid "FontPrefs::Change..."
+msgstr ""
+
+#: fontprefs.cpp:304
+msgid "FontPrefs::Choose a Directory"
+msgstr ""
+
+#: fontprefs.cpp:142
+msgid "FontPrefs::Delete"
+msgstr ""
+
+#: fontprefs.cpp:89
+msgid "FontPrefs::Embed in:"
+msgstr ""
+
+#: fontprefs.cpp:120
+msgid "FontPrefs::Font Name"
+msgstr ""
+
+#: fontprefs.cpp:148
+msgid "FontPrefs::Font Substitutions"
+msgstr ""
+
+#: fontprefs.cpp:14
+msgid "FontPrefs::Global Font Settings"
+msgstr ""
+
+#: fontprefs.cpp:182
+msgid "FontPrefs::OK"
+msgstr ""
+
+#: fontprefs.cpp:92
+msgid "FontPrefs::Path to Fontfile"
+msgstr ""
+
+#: fontprefs.cpp:397
+msgid "FontPrefs::Postscript"
+msgstr ""
+
+#: fontprefs.cpp:163
+msgid "FontPrefs::Remove"
+msgstr ""
+
+#: fontprefs.cpp:121
+msgid "FontPrefs::Replacement"
+msgstr ""
+
+#: fontprefs.cpp:90
+msgid "FontPrefs::Subset"
+msgstr ""
+
+#: fontprefs.cpp:91
+msgid "FontPrefs::Type"
+msgstr ""
+
+#: fontprefs.cpp:88
+msgid "FontPrefs::Use Font"
+msgstr ""
+
+#: fontprefs.cpp:405
+msgid "FontPrefs::Yes"
+msgstr ""
+
+#: guidemanager.cpp:157
+msgid "GuideManager:: in"
+msgstr ""
+
+#: guidemanager.cpp:154
+msgid "GuideManager:: mm"
+msgstr ""
+
+#: guidemanager.cpp:160
+msgid "GuideManager:: p"
+msgstr ""
+
+#: guidemanager.cpp:151
+msgid "GuideManager:: pt"
+msgstr ""
+
+#: guidemanager.cpp:75
+msgid "GuideManager::Add"
+msgstr ""
+
+#: guidemanager.cpp:99
+msgid "GuideManager::Cancel"
+msgstr ""
+
+#: guidemanager.cpp:79
+msgid "GuideManager::Delete"
+msgstr ""
+
+#: guidemanager.cpp:22
+msgid "GuideManager::Horizontal Guides"
+msgstr ""
+
+#: guidemanager.cpp:86
+msgid "GuideManager::Lock Guides"
+msgstr ""
+
+#: guidemanager.cpp:10
+msgid "GuideManager::Manage Guides"
+msgstr ""
+
+#: guidemanager.cpp:93
+msgid "GuideManager::OK"
+msgstr ""
+
+#: guidemanager.cpp:54
+msgid "GuideManager::Vertical Guides"
+msgstr ""
+
+#: guidemanager.cpp:65
+msgid "GuideManager::X-Pos:"
+msgstr ""
+
+#: guidemanager.cpp:33
+msgid "GuideManager::Y-Pos:"
+msgstr ""
+
+#: helpbrowser.cpp:33
+msgid "HelpBrowser::"
+msgstr ""
+
+#: helpbrowser.cpp:74
+msgid "HelpBrowser::Sorry, no manual available!"
+msgstr ""
+
+#: hyask.cpp:53
+msgid "HyAsk::Accept"
+msgstr ""
+
+#: hyask.cpp:64
+msgid "HyAsk::Cancel"
+msgstr ""
+
+#: hyask.cpp:38
+msgid "HyAsk::Possible Hyphenation"
+msgstr ""
+
+#: hyask.cpp:59
+msgid "HyAsk::Skip"
+msgstr ""
+
+#: hysettings.cpp:64
+msgid "HySettings::Cancel"
+msgstr ""
+
+#: hysettings.cpp:21
+msgid "HySettings::Check during Typing"
+msgstr ""
+
+#: hysettings.cpp:23
+msgid "HySettings::Enables automatic checking of your Text during Typing."
+msgstr ""
+
+#: hysettings.cpp:17
+msgid "HySettings::Fully Automatic"
+msgstr ""
+
+#: hysettings.cpp:11
+msgid "HySettings::Hyphenator Settings"
+msgstr ""
+
+#: hysettings.cpp:19
+msgid "HySettings::If you uncheck this you will get an Dialog \n everytime a possible Hyphenation is found."
+msgstr ""
+
+#: hysettings.cpp:36
+msgid "HySettings::Language:"
+msgstr ""
+
+#: hysettings.cpp:57
+msgid "HySettings::OK"
+msgstr ""
+
+#: hysettings.cpp:41
+msgid "HySettings::Smallest Word:"
+msgstr ""
+
+#: hysettings.cpp:47
+msgid "HySettings::This is the length of the smallest word to be hyphenated."
+msgstr ""
+
+#: inspage.cpp:97
+msgid "InsPage::Cancel"
+msgstr ""
+
+#: inspage.cpp:9
+msgid "InsPage::Insert Page"
+msgstr ""
+
+#: inspage.cpp:39
+msgid "InsPage::Inserting"
+msgstr ""
+
+#: inspage.cpp:80
+msgid "InsPage::Normal"
+msgstr ""
+
+#: inspage.cpp:91
+msgid "InsPage::OK"
+msgstr ""
+
+#: inspage.cpp:46
+msgid "InsPage::Template (Left Page):"
+msgstr ""
+
+#: inspage.cpp:70
+msgid "InsPage::Template (Right Page):"
+msgstr ""
+
+#: inspage.cpp:48
+msgid "InsPage::Template:"
+msgstr ""
+
+#: inspage.cpp:29
+msgid "InsPage::after Page"
+msgstr ""
+
+#: inspage.cpp:30
+msgid "InsPage::at End"
+msgstr ""
+
+#: inspage.cpp:28
+msgid "InsPage::before Page"
+msgstr ""
+
+#: inspage.cpp:25
+msgid "InsPage::page(s)"
+msgstr ""
+
+#: javadocs.cpp:32
+msgid "JavaDocs::Add..."
+msgstr ""
+
+#: javadocs.cpp:42
+msgid "JavaDocs::Close"
+msgstr ""
+
+#: javadocs.cpp:36
+msgid "JavaDocs::Delete"
+msgstr ""
+
+#: javadocs.cpp:28
+msgid "JavaDocs::Edit..."
+msgstr ""
+
+#: javadocs.cpp:10
+msgid "JavaDocs::Global JavaScripts"
+msgstr ""
+
+#: javadocs.cpp:63
+msgid "JavaDocs::New Script"
+msgstr ""
+
+#: keymanager.cpp:72
+msgid "KeyManager::ALT+SHIFT+T"
+msgstr ""
+
+#: keymanager.cpp:39
+msgid "KeyManager::Action"
+msgstr ""
+
+#: keymanager.cpp:191
+msgid "KeyManager::Alt"
+msgstr ""
+
+#: keymanager.cpp:147
+msgid "KeyManager::Alt+"
+msgstr ""
+
+#: keymanager.cpp:97
+msgid "KeyManager::Cancel"
+msgstr ""
+
+#: keymanager.cpp:191
+msgid "KeyManager::Ctrl"
+msgstr ""
+
+#: keymanager.cpp:151
+msgid "KeyManager::Ctrl+"
+msgstr ""
+
+#: keymanager.cpp:40
+msgid "KeyManager::Current Key"
+msgstr ""
+
+#: keymanager.cpp:12
+msgid "KeyManager::Manage Keyboard Shortcuts"
+msgstr ""
+
+#: keymanager.cpp:60
+msgid "KeyManager::No Key"
+msgstr ""
+
+#: keymanager.cpp:162
+msgid "KeyManager::OK"
+msgstr ""
+
+#: keymanager.cpp:50
+msgid "KeyManager::Select a Key for this Action"
+msgstr ""
+
+#: keymanager.cpp:79
+msgid "KeyManager::Set Key"
+msgstr ""
+
+#: keymanager.cpp:191
+msgid "KeyManager::Shift"
+msgstr ""
+
+#: keymanager.cpp:143
+msgid "KeyManager::Shift+"
+msgstr ""
+
+#: keymanager.cpp:161
+msgid "KeyManager::This Key-Sequence is already in use"
+msgstr ""
+
+#: keymanager.cpp:65
+msgid "KeyManager::User Defined Key"
+msgstr ""
+
+#: keymanager.cpp:160
+msgid "KeyManager::Warning"
+msgstr ""
+
+#: layers.cpp:69
+msgid "LayerPalette::"
+msgstr ""
+
+#: layers.cpp:39
+msgid "LayerPalette::Add a new Layer"
+msgstr ""
+
+#: layers.cpp:71
+msgid "LayerPalette::Closes this Dialog"
+msgstr ""
+
+#: layers.cpp:47
+msgid "LayerPalette::Delete Layer"
+msgstr ""
+
+#: layers.cpp:11
+msgid "LayerPalette::Layers"
+msgstr ""
+
+#: layers.cpp:63
+msgid "LayerPalette::Lower Layer"
+msgstr ""
+
+#: layers.cpp:168
+msgid "LayerPalette::New Layer"
+msgstr ""
+
+#: layers.cpp:55
+msgid "LayerPalette::Raise Layer"
+msgstr ""
+
+#: lineformats.cpp:52
+msgid "LineFormate::Cancel"
+msgstr ""
+
+#: lineformats.cpp:85
+msgid "LineFormate::Copy of "
+msgstr ""
+
+#: lineformats.cpp:43
+msgid "LineFormate::Delete"
+msgstr ""
+
+#: lineformats.cpp:127
+msgid "LineFormate::Do you really want do delete this Style?"
+msgstr ""
+
+#: lineformats.cpp:38
+msgid "LineFormate::Duplicate"
+msgstr ""
+
+#: lineformats.cpp:11
+msgid "LineFormate::Edit Line Styles"
+msgstr ""
+
+#: lineformats.cpp:32
+msgid "LineFormate::Edit"
+msgstr ""
+
+#: lineformats.cpp:105
+msgid "LineFormate::New Style"
+msgstr ""
+
+#: lineformats.cpp:28
+msgid "LineFormate::New"
+msgstr ""
+
+#: lineformats.cpp:128
+msgid "LineFormate::No"
+msgstr ""
+
+#: lineformats.cpp:48
+msgid "LineFormate::Save"
+msgstr ""
+
+#: lineformats.cpp:126
+msgid "LineFormate::Warning"
+msgstr ""
+
+#: lineformats.cpp:129
+msgid "LineFormate::Yes"
+msgstr ""
+
+#: mdup.cpp:53
+msgid "Mdup:: in"
+msgstr ""
+
+#: mdup.cpp:49
+msgid "Mdup:: mm"
+msgstr ""
+
+#: mdup.cpp:57
+msgid "Mdup:: p"
+msgstr ""
+
+#: mdup.cpp:45
+msgid "Mdup:: pt"
+msgstr ""
+
+#: mdup.cpp:80
+msgid "Mdup::Cancel"
+msgstr ""
+
+#: mdup.cpp:64
+msgid "Mdup::Horizontal Shift:"
+msgstr ""
+
+#: mdup.cpp:16
+msgid "Mdup::Multiple Duplicate"
+msgstr ""
+
+#: mdup.cpp:61
+msgid "Mdup::Number of Copies:"
+msgstr ""
+
+#: mdup.cpp:74
+msgid "Mdup::OK"
+msgstr ""
+
+#: mdup.cpp:67
+msgid "Mdup::Vertical Shift:"
+msgstr ""
+
+#: mergedoc.cpp:58
+msgid "MergeDoc::Cancel"
+msgstr ""
+
+#: mergedoc.cpp:28
+msgid "MergeDoc::Change..."
+msgstr ""
+
+#: mergedoc.cpp:115
+msgid "MergeDoc::Document contains: %1 Page(s)"
+msgstr ""
+
+#: mergedoc.cpp:33
+msgid "MergeDoc::Document contains: 0 Page(s)"
+msgstr ""
+
+#: mergedoc.cpp:20
+msgid "MergeDoc::Document to load:"
+msgstr ""
+
+#: mergedoc.cpp:82
+msgid "MergeDoc::Documents (*.sla *.scd);; All Files (*)"
+msgstr ""
+
+#: mergedoc.cpp:80
+msgid "MergeDoc::Documents (*.sla *.sla.gz *.scd *.scd.gz);; All Files (*)"
+msgstr ""
+
+#: mergedoc.cpp:38
+msgid "MergeDoc::Import Page Nr:"
+msgstr ""
+
+#: mergedoc.cpp:14
+msgid "MergeDoc::Import a Page"
+msgstr ""
+
+#: mergedoc.cpp:51
+msgid "MergeDoc::Import"
+msgstr ""
+
+#: mergedoc.cpp:82
+msgid "MergeDoc::Open"
+msgstr ""
+
+#: movepage.cpp:68
+msgid "MovePages::Cancel"
+msgstr ""
+
+#: movepage.cpp:26
+msgid "MovePages::Copy Page"
+msgstr ""
+
+#: movepage.cpp:56
+msgid "MovePages::Move Page(s):"
+msgstr ""
+
+#: movepage.cpp:12
+msgid "MovePages::Move Pages"
+msgstr ""
+
+#: movepage.cpp:62
+msgid "MovePages::OK"
+msgstr ""
+
+#: movepage.cpp:46
+msgid "MovePages::after Page"
+msgstr ""
+
+#: movepage.cpp:47
+msgid "MovePages::at End"
+msgstr ""
+
+#: movepage.cpp:45
+msgid "MovePages::before Page"
+msgstr ""
+
+#: movepage.cpp:36
+msgid "MovePages::to:"
+msgstr ""
+
+#: mpalette.cpp:707
+msgid "Mpalette:: %"
+msgstr ""
+
+#: mpalette.cpp:790
+msgid "Mpalette:: pt"
+msgstr ""
+
+#: mpalette.cpp:360
+msgid "Mpalette:: pts"
+msgstr ""
+
+#: mpalette.cpp:587
+msgid "Mpalette::"
+msgstr ""
+
+#: mpalette.cpp:757
+msgid "Mpalette::Absolute Colorimetric"
+msgstr ""
+
+#: mpalette.cpp:834
+msgid "Mpalette::Align Text Block"
+msgstr ""
+
+#: mpalette.cpp:835
+msgid "Mpalette::Align Text Center"
+msgstr ""
+
+#: mpalette.cpp:832
+msgid "Mpalette::Align Text Left"
+msgstr ""
+
+#: mpalette.cpp:833
+msgid "Mpalette::Align Text Right"
+msgstr ""
+
+#: mpalette.cpp:799
+msgid "Mpalette::BevelJoin"
+msgstr ""
+
+#: mpalette.cpp:381
+msgid "Mpalette::Bottom:"
+msgstr ""
+
+#: mpalette.cpp:77
+msgid "Mpalette::Colors"
+msgstr ""
+
+#: mpalette.cpp:628
+msgid "Mpalette::Custom Spacing"
+msgstr ""
+
+#: mpalette.cpp:357
+msgid "Mpalette::Distance from Curve:"
+msgstr ""
+
+#: mpalette.cpp:371
+msgid "Mpalette::Distance of Text"
+msgstr ""
+
+#: mpalette.cpp:794
+msgid "Mpalette::Edges:"
+msgstr ""
+
+#: mpalette.cpp:309
+msgid "Mpalette::Edit Shape..."
+msgstr ""
+
+#: mpalette.cpp:803
+msgid "Mpalette::Endings:"
+msgstr ""
+
+#: mpalette.cpp:773
+msgid "Mpalette::Endpoints"
+msgstr ""
+
+#: mpalette.cpp:807
+msgid "Mpalette::FlatCap"
+msgstr ""
+
+#: mpalette.cpp:836
+msgid "Mpalette::Flip horizontal"
+msgstr ""
+
+#: mpalette.cpp:837
+msgid "Mpalette::Flip vertical"
+msgstr ""
+
+#: mpalette.cpp:823
+msgid "Mpalette::Font Size"
+msgstr ""
+
+#: mpalette.cpp:683
+msgid "Mpalette::Free Scaling"
+msgstr ""
+
+#: mpalette.cpp:98
+msgid "Mpalette::Geometry"
+msgstr ""
+
+#: mpalette.cpp:1903
+msgid "Mpalette::Height:"
+msgstr ""
+
+#: mpalette.cpp:698
+msgid "Mpalette::Horiz. Scale:"
+msgstr ""
+
+#: mpalette.cpp:67
+msgid "Mpalette::Image"
+msgstr ""
+
+#: mpalette.cpp:745
+msgid "Mpalette::Input Profile:"
+msgstr ""
+
+#: mpalette.cpp:734
+msgid "Mpalette::Keep Aspect Ratio"
+msgstr ""
+
+#: mpalette.cpp:644
+msgid "Mpalette::Kerning:"
+msgstr ""
+
+#: mpalette.cpp:772
+msgid "Mpalette::Left Point"
+msgstr ""
+
+#: mpalette.cpp:384
+msgid "Mpalette::Left:"
+msgstr ""
+
+#: mpalette.cpp:139
+msgid "Mpalette::Level"
+msgstr ""
+
+#: mpalette.cpp:72
+msgid "Mpalette::Line"
+msgstr ""
+
+#: mpalette.cpp:824
+msgid "Mpalette::Linespacing"
+msgstr ""
+
+#: mpalette.cpp:648
+msgid "Mpalette::Linespacing:"
+msgstr ""
+
+#: mpalette.cpp:782
+msgid "Mpalette::Linestyle:"
+msgstr ""
+
+#: mpalette.cpp:787
+msgid "Mpalette::Linewidth:"
+msgstr ""
+
+#: mpalette.cpp:825
+msgid "Mpalette::Manual Kerning"
+msgstr ""
+
+#: mpalette.cpp:798
+msgid "Mpalette::MiterJoin"
+msgstr ""
+
+#: mpalette.cpp:839
+msgid "Mpalette::Move one Level down"
+msgstr ""
+
+#: mpalette.cpp:838
+msgid "Mpalette::Move one Level up"
+msgstr ""
+
+#: mpalette.cpp:841
+msgid "Mpalette::Move to Back"
+msgstr ""
+
+#: mpalette.cpp:840
+msgid "Mpalette::Move to Front"
+msgstr ""
+
+#: mpalette.cpp:2594
+msgid "Mpalette::Name \"%1\" isn't unique.\nPlease choose another."
+msgstr ""
+
+#: mpalette.cpp:87
+msgid "Mpalette::Name"
+msgstr ""
+
+#: mpalette.cpp:2239
+msgid "Mpalette::No Style"
+msgstr ""
+
+#: mpalette.cpp:2283
+msgid "Mpalette::None"
+msgstr ""
+
+#: mpalette.cpp:2594
+msgid "Mpalette::OK"
+msgstr ""
+
+#: mpalette.cpp:494
+msgid "Mpalette::Other..."
+msgstr ""
+
+#: mpalette.cpp:338
+msgid "Mpalette::Pathtext Properites"
+msgstr ""
+
+#: mpalette.cpp:754
+msgid "Mpalette::Perceptual"
+msgstr ""
+
+#: mpalette.cpp:689
+msgid "Mpalette::Position:"
+msgstr ""
+
+#: mpalette.cpp:26
+msgid "Mpalette::Properties"
+msgstr ""
+
+#: mpalette.cpp:738
+msgid "Mpalette::Proportional"
+msgstr ""
+
+#: mpalette.cpp:755
+msgid "Mpalette::Relative Colorimetric"
+msgstr ""
+
+#: mpalette.cpp:751
+msgid "Mpalette::Rendering Intent:"
+msgstr ""
+
+#: mpalette.cpp:826
+msgid "Mpalette::Reverse Writing"
+msgstr ""
+
+#: mpalette.cpp:387
+msgid "Mpalette::Right:"
+msgstr ""
+
+#: mpalette.cpp:209
+msgid "Mpalette::Rotation"
+msgstr ""
+
+#: mpalette.cpp:809
+msgid "Mpalette::RoundCap"
+msgstr ""
+
+#: mpalette.cpp:800
+msgid "Mpalette::RoundJoin"
+msgstr ""
+
+#: mpalette.cpp:315
+msgid "Mpalette::Round\nCorners:"
+msgstr ""
+
+#: mpalette.cpp:756
+msgid "Mpalette::Saturation"
+msgstr ""
+
+#: mpalette.cpp:719
+msgid "Mpalette::Scale to Frame Size"
+msgstr ""
+
+#: mpalette.cpp:57
+msgid "Mpalette::Shape"
+msgstr ""
+
+#: mpalette.cpp:345
+msgid "Mpalette::Show Curve"
+msgstr ""
+
+#: mpalette.cpp:430
+msgid "Mpalette::Size:"
+msgstr ""
+
+#: mpalette.cpp:828
+msgid "Mpalette::Small Caps"
+msgstr ""
+
+#: mpalette.cpp:666
+msgid "Mpalette::Sprache:"
+msgstr ""
+
+#: mpalette.cpp:808
+msgid "Mpalette::SquareCap"
+msgstr ""
+
+#: mpalette.cpp:348
+msgid "Mpalette::Startoffset:"
+msgstr ""
+
+#: mpalette.cpp:831
+msgid "Mpalette::Strikeout"
+msgstr ""
+
+#: mpalette.cpp:654
+msgid "Mpalette::Styles"
+msgstr ""
+
+#: mpalette.cpp:829
+msgid "Mpalette::Subscript"
+msgstr ""
+
+#: mpalette.cpp:830
+msgid "Mpalette::Superscript"
+msgstr ""
+
+#: mpalette.cpp:324
+msgid "Mpalette::Text flows around Box"
+msgstr ""
+
+#: mpalette.cpp:62
+msgid "Mpalette::Text"
+msgstr ""
+
+#: mpalette.cpp:378
+msgid "Mpalette::Top:"
+msgstr ""
+
+#: mpalette.cpp:827
+msgid "Mpalette::Underline"
+msgstr ""
+
+#: mpalette.cpp:328
+msgid "Mpalette::Use Bounding Box"
+msgstr ""
+
+#: mpalette.cpp:704
+msgid "Mpalette::Vert. Scale:"
+msgstr ""
+
+#: mpalette.cpp:2594
+msgid "Mpalette::Warning"
+msgstr ""
+
+#: mpalette.cpp:1901
+msgid "Mpalette::Width:"
+msgstr ""
+
+#: mpalette.cpp:52
+msgid "Mpalette::X, Y, Z"
+msgstr ""
+
+#: mpalette.cpp:1900
+msgid "Mpalette::X-Pos:"
+msgstr ""
+
+#: mpalette.cpp:1910
+msgid "Mpalette::X1:"
+msgstr ""
+
+#: mpalette.cpp:1911
+msgid "Mpalette::X2:"
+msgstr ""
+
+#: mpalette.cpp:1902
+msgid "Mpalette::Y-Pos:"
+msgstr ""
+
+#: mpalette.cpp:1912
+msgid "Mpalette::Y1:"
+msgstr ""
+
+#: mpalette.cpp:1913
+msgid "Mpalette::Y2:"
+msgstr ""
+
+#: mpalette.cpp:267
+msgid "Mpalette::by:"
+msgstr ""
+
+#: multiline.cpp:108
+msgid "MultiLine:: %"
+msgstr ""
+
+#: multiline.cpp:279
+msgid "MultiLine:: pt "
+msgstr ""
+
+#: multiline.cpp:89
+msgid "MultiLine:: pt"
+msgstr ""
+
+#: multiline.cpp:77
+msgid "MultiLine::Bevel Join"
+msgstr ""
+
+#: multiline.cpp:124
+msgid "MultiLine::Cancel"
+msgstr ""
+
+#: multiline.cpp:295
+msgid "MultiLine::Dash Dot Dot Line"
+msgstr ""
+
+#: multiline.cpp:292
+msgid "MultiLine::Dash Dot Line"
+msgstr ""
+
+#: multiline.cpp:286
+msgid "MultiLine::Dashed Line"
+msgstr ""
+
+#: multiline.cpp:289
+msgid "MultiLine::Dotted Line"
+msgstr ""
+
+#: multiline.cpp:13
+msgid "MultiLine::Edit Style"
+msgstr ""
+
+#: multiline.cpp:69
+msgid "MultiLine::Flat Cap"
+msgstr ""
+
+#: multiline.cpp:84
+msgid "MultiLine::Line Width:"
+msgstr ""
+
+#: multiline.cpp:76
+msgid "MultiLine::Miter Join"
+msgstr ""
+
+#: multiline.cpp:311
+msgid "MultiLine::Name \"%1\" isn't unique.\nPlease choose another."
+msgstr ""
+
+#: multiline.cpp:311
+msgid "MultiLine::OK"
+msgstr ""
+
+#: multiline.cpp:71
+msgid "MultiLine::Round Cap"
+msgstr ""
+
+#: multiline.cpp:78
+msgid "MultiLine::Round Join"
+msgstr ""
+
+#: multiline.cpp:298
+msgid "MultiLine::Solid Line"
+msgstr ""
+
+#: multiline.cpp:70
+msgid "MultiLine::Square Cap"
+msgstr ""
+
+#: multiline.cpp:311
+msgid "MultiLine::Warning"
+msgstr ""
+
+#: muster.cpp:121
+msgid "MusterSeiten::Copy of "
+msgstr ""
+
+#: muster.cpp:36
+msgid "MusterSeiten::Delete"
+msgstr ""
+
+#: muster.cpp:89
+msgid "MusterSeiten::Do you really want do delete this Template?"
+msgstr ""
+
+#: muster.cpp:32
+msgid "MusterSeiten::Duplicate"
+msgstr ""
+
+#: muster.cpp:11
+msgid "MusterSeiten::Edit Templates"
+msgstr ""
+
+#: muster.cpp:43
+msgid "MusterSeiten::Exit"
+msgstr ""
+
+#: muster.cpp:171
+msgid "MusterSeiten::New Template"
+msgstr ""
+
+#: muster.cpp:28
+msgid "MusterSeiten::New"
+msgstr ""
+
+#: muster.cpp:90
+msgid "MusterSeiten::No"
+msgstr ""
+
+#: muster.cpp:241
+msgid "MusterSeiten::Normal"
+msgstr ""
+
+#: muster.cpp:88
+msgid "MusterSeiten::Warning"
+msgstr ""
+
+#: muster.cpp:91
+msgid "MusterSeiten::Yes"
+msgstr ""
+
+#: newfile.cpp:226
+msgid "NewDoc::Autom. Textframes"
+msgstr ""
+
+#: newfile.cpp:151
+msgid "NewDoc::Bottom:"
+msgstr ""
+
+#: newfile.cpp:272
+msgid "NewDoc::Cancel"
+msgstr ""
+
+#: newfile.cpp:230
+msgid "NewDoc::Column Guides"
+msgstr ""
+
+#: newfile.cpp:245
+msgid "NewDoc::Columns:"
+msgstr ""
+
+#: newfile.cpp:76
+msgid "NewDoc::Custom"
+msgstr ""
+
+#: newfile.cpp:213
+msgid "NewDoc::Default Unit:"
+msgstr ""
+
+#: newfile.cpp:114
+msgid "NewDoc::Facing Pages"
+msgstr ""
+
+#: newfile.cpp:206
+msgid "NewDoc::First Pagenumber:"
+msgstr ""
+
+#: newfile.cpp:242
+msgid "NewDoc::Gutter Width:"
+msgstr ""
+
+#: newfile.cpp:102
+msgid "NewDoc::Height:"
+msgstr ""
+
+#: newfile.cpp:218
+msgid "NewDoc::Inches (in)"
+msgstr ""
+
+#: newfile.cpp:609
+msgid "NewDoc::Inside:"
+msgstr ""
+
+#: newfile.cpp:84
+msgid "NewDoc::Landscape"
+msgstr ""
+
+#: newfile.cpp:118
+msgid "NewDoc::Left Page first"
+msgstr ""
+
+#: newfile.cpp:615
+msgid "NewDoc::Left:"
+msgstr ""
+
+#: newfile.cpp:130
+msgid "NewDoc::Margin Guides"
+msgstr ""
+
+#: newfile.cpp:217
+msgid "NewDoc::Millimeters (mm)"
+msgstr ""
+
+#: newfile.cpp:29
+msgid "NewDoc::New Document"
+msgstr ""
+
+#: newfile.cpp:266
+msgid "NewDoc::OK"
+msgstr ""
+
+#: newfile.cpp:199
+msgid "NewDoc::Options"
+msgstr ""
+
+#: newfile.cpp:80
+msgid "NewDoc::Orientation:"
+msgstr ""
+
+#: newfile.cpp:610
+msgid "NewDoc::Outside:"
+msgstr ""
+
+#: newfile.cpp:35
+msgid "NewDoc::Page Size"
+msgstr ""
+
+#: newfile.cpp:219
+msgid "NewDoc::Picas (p)"
+msgstr ""
+
+#: newfile.cpp:216
+msgid "NewDoc::Points (pts)"
+msgstr ""
+
+#: newfile.cpp:83
+msgid "NewDoc::Portrait"
+msgstr ""
+
+#: newfile.cpp:616
+msgid "NewDoc::Right:"
+msgstr ""
+
+#: newfile.cpp:43
+msgid "NewDoc::Size:"
+msgstr ""
+
+#: newfile.cpp:148
+msgid "NewDoc::Top:"
+msgstr ""
+
+#: newfile.cpp:92
+msgid "NewDoc::Width:"
+msgstr ""
+
+#: newtemp.cpp:49
+msgid "NewTm::Cancel"
+msgstr ""
+
+#: newtemp.cpp:33
+msgid "NewTm::Left Page"
+msgstr ""
+
+#: newtemp.cpp:43
+msgid "NewTm::OK"
+msgstr ""
+
+#: newtemp.cpp:34
+msgid "NewTm::Right Page"
+msgstr ""
+
+#: frameedit.cpp:233
+msgid "NodePalette:: in"
+msgstr ""
+
+#: frameedit.cpp:229
+msgid "NodePalette:: mm"
+msgstr ""
+
+#: frameedit.cpp:237
+msgid "NodePalette:: p"
+msgstr ""
+
+#: frameedit.cpp:225
+msgid "NodePalette:: pt"
+msgstr ""
+
+#: frameedit.cpp:150
+msgid "NodePalette::"
+msgstr ""
+
+#: frameedit.cpp:181
+msgid "NodePalette::Add Nodes"
+msgstr ""
+
+#: frameedit.cpp:188
+msgid "NodePalette::Closes this Bezier Curve"
+msgstr ""
+
+#: frameedit.cpp:182
+msgid "NodePalette::Delete Nodes"
+msgstr ""
+
+#: frameedit.cpp:177
+msgid "NodePalette::End Editing"
+msgstr ""
+
+#: frameedit.cpp:189
+msgid "NodePalette::Mirrors the Path Horizontally"
+msgstr ""
+
+#: frameedit.cpp:190
+msgid "NodePalette::Mirrors the Path Vertically"
+msgstr ""
+
+#: frameedit.cpp:183
+msgid "NodePalette::Move Control Points independently"
+msgstr ""
+
+#: frameedit.cpp:184
+msgid "NodePalette::Move Control Points symmetrical"
+msgstr ""
+
+#: frameedit.cpp:180
+msgid "NodePalette::Move Control Points"
+msgstr ""
+
+#: frameedit.cpp:179
+msgid "NodePalette::Move Nodes"
+msgstr ""
+
+#: frameedit.cpp:12
+msgid "NodePalette::Nodes"
+msgstr ""
+
+#: frameedit.cpp:187
+msgid "NodePalette::Opens a Polygon or cuts a Bezier Curve"
+msgstr ""
+
+#: frameedit.cpp:185
+msgid "NodePalette::Reset Control Points"
+msgstr ""
+
+#: frameedit.cpp:186
+msgid "NodePalette::Reset this Control Point"
+msgstr ""
+
+#: frameedit.cpp:192
+msgid "NodePalette::Shears the Path horizontal to the left"
+msgstr ""
+
+#: frameedit.cpp:191
+msgid "NodePalette::Shears the Path horizontal to the right"
+msgstr ""
+
+#: frameedit.cpp:194
+msgid "NodePalette::Shears the Path vertical down"
+msgstr ""
+
+#: frameedit.cpp:193
+msgid "NodePalette::Shears the Path vertical up"
+msgstr ""
+
+#: frameedit.cpp:159
+msgid "NodePalette::X-Pos:"
+msgstr ""
+
+#: frameedit.cpp:167
+msgid "NodePalette::Y-Pos:"
+msgstr ""
+
+#: pdfopts.cpp:172
+msgid "PDF_Opts:: dpi"
+msgstr ""
+
+#: pdfopts.cpp:653
+msgid "PDF_Opts:: in"
+msgstr ""
+
+#: pdfopts.cpp:650
+msgid "PDF_Opts:: mm"
+msgstr ""
+
+#: pdfopts.cpp:656
+msgid "PDF_Opts:: p"
+msgstr ""
+
+#: pdfopts.cpp:647
+msgid "PDF_Opts:: pt"
+msgstr ""
+
+#: pdfopts.cpp:343
+msgid "PDF_Opts:: sec"
+msgstr ""
+
+#: pdfopts.cpp:233
+msgid "PDF_Opts::<<"
+msgstr ""
+
+#: pdfopts.cpp:229
+msgid "PDF_Opts::>>"
+msgstr ""
+
+#: pdfopts.cpp:523
+msgid "PDF_Opts::Absolute Colorimetric"
+msgstr ""
+
+#: pdfopts.cpp:433
+msgid "PDF_Opts::Adding Annotations and Fields is allowed"
+msgstr ""
+
+#: pdfopts.cpp:63
+msgid "PDF_Opts::All Pages"
+msgstr ""
+
+#: pdfopts.cpp:425
+msgid "PDF_Opts::Allow Changing the Document"
+msgstr ""
+
+#: pdfopts.cpp:421
+msgid "PDF_Opts::Allow Printing the Document"
+msgstr ""
+
+#: pdfopts.cpp:377
+msgid "PDF_Opts::Apply Effect on all Pages"
+msgstr ""
+
+#: pdfopts.cpp:207
+msgid "PDF_Opts::Available Fonts:"
+msgstr ""
+
+#: pdfopts.cpp:125
+msgid "PDF_Opts::Binding:"
+msgstr ""
+
+#: pdfopts.cpp:350
+msgid "PDF_Opts::Blinds"
+msgstr ""
+
+#: pdfopts.cpp:371
+msgid "PDF_Opts::Bottom to Top"
+msgstr ""
+
+#: pdfopts.cpp:351
+msgid "PDF_Opts::Box"
+msgstr ""
+
+#: pdfopts.cpp:721
+msgid "PDF_Opts::Cancel"
+msgstr ""
+
+#: pdfopts.cpp:44
+msgid "PDF_Opts::Change..."
+msgstr ""
+
+#: pdfopts.cpp:576
+msgid "PDF_Opts::Color"
+msgstr ""
+
+#: pdfopts.cpp:99
+msgid "PDF_Opts::Compatibility:"
+msgstr ""
+
+#: pdfopts.cpp:182
+msgid "PDF_Opts::Compress Text and Vector Graphics"
+msgstr ""
+
+#: pdfopts.cpp:159
+msgid "PDF_Opts::Compression"
+msgstr ""
+
+#: pdfopts.cpp:429
+msgid "PDF_Opts::Copying Text and Graphics is allowed"
+msgstr ""
+
+#: pdfopts.cpp:16
+msgid "PDF_Opts::Create PDF-File"
+msgstr ""
+
+#: pdfopts.cpp:334
+msgid "PDF_Opts::Direction:"
+msgstr ""
+
+#: pdfopts.cpp:319
+msgid "PDF_Opts::Display Duration:"
+msgstr ""
+
+#: pdfopts.cpp:352
+msgid "PDF_Opts::Dissolve"
+msgstr ""
+
+#: pdfopts.cpp:507
+msgid "PDF_Opts::Don't use embedded Profiles"
+msgstr ""
+
+#: pdfopts.cpp:168
+msgid "PDF_Opts::Downsample Images to:"
+msgstr ""
+
+#: pdfopts.cpp:322
+msgid "PDF_Opts::Effect Duration:"
+msgstr ""
+
+#: pdfopts.cpp:325
+msgid "PDF_Opts::Effect Type:"
+msgstr ""
+
+#: pdfopts.cpp:310
+msgid "PDF_Opts::Effects"
+msgstr ""
+
+#: pdfopts.cpp:192
+msgid "PDF_Opts::Embed all Fonts"
+msgstr ""
+
+#: pdfopts.cpp:195
+msgid "PDF_Opts::Embedding"
+msgstr ""
+
+#: pdfopts.cpp:264
+msgid "PDF_Opts::Enable Presentation Effects"
+msgstr ""
+
+#: pdfopts.cpp:56
+msgid "PDF_Opts::Export Range"
+msgstr ""
+
+#: pdfopts.cpp:380
+msgid "PDF_Opts::Extras"
+msgstr ""
+
+#: pdfopts.cpp:90
+msgid "PDF_Opts::File Options"
+msgstr ""
+
+#: pdfopts.cpp:241
+msgid "PDF_Opts::Fonts to embed:"
+msgstr ""
+
+#: pdfopts.cpp:257
+msgid "PDF_Opts::Fonts"
+msgstr ""
+
+#: pdfopts.cpp:68
+msgid "PDF_Opts::From:"
+msgstr ""
+
+#: pdfopts.cpp:447
+msgid "PDF_Opts::General"
+msgstr ""
+
+#: pdfopts.cpp:135
+msgid "PDF_Opts::Generate Thumbnails"
+msgstr ""
+
+#: pdfopts.cpp:353
+msgid "PDF_Opts::Glitter"
+msgstr ""
+
+#: pdfopts.cpp:359
+msgid "PDF_Opts::Horizontal"
+msgstr ""
+
+#: pdfopts.cpp:496
+msgid "PDF_Opts::Images:"
+msgstr ""
+
+#: pdfopts.cpp:143
+msgid "PDF_Opts::Include Bookmarks"
+msgstr ""
+
+#: pdfopts.cpp:608
+msgid "PDF_Opts::Info String:"
+msgstr ""
+
+#: pdfopts.cpp:364
+msgid "PDF_Opts::Inside"
+msgstr ""
+
+#: pdfopts.cpp:129
+msgid "PDF_Opts::Left Margin"
+msgstr ""
+
+#: pdfopts.cpp:369
+msgid "PDF_Opts::Left to Right"
+msgstr ""
+
+#: pdfopts.cpp:328
+msgid "PDF_Opts::Moving Lines:"
+msgstr ""
+
+#: pdfopts.cpp:349
+msgid "PDF_Opts::No Effect"
+msgstr ""
+
+#: pdfopts.cpp:714
+msgid "PDF_Opts::OK"
+msgstr ""
+
+#: pdfopts.cpp:611
+msgid "PDF_Opts::Output Profile:"
+msgstr ""
+
+#: pdfopts.cpp:454
+msgid "PDF_Opts::Output intended for:"
+msgstr ""
+
+#: pdfopts.cpp:27
+msgid "PDF_Opts::Output to File:"
+msgstr ""
+
+#: pdfopts.cpp:365
+msgid "PDF_Opts::Outside"
+msgstr ""
+
+#: pdfopts.cpp:400
+msgid "PDF_Opts::Owner:"
+msgstr ""
+
+#: pdfopts.cpp:1158
+msgid "PDF_Opts::PDF-Files (*.pdf);; All Files (*)"
+msgstr ""
+
+#: pdfopts.cpp:581
+msgid "PDF_Opts::PDF/X-3 Output Intent"
+msgstr ""
+
+#: pdfopts.cpp:642
+msgid "PDF_Opts::PDF/X-3"
+msgstr ""
+
+#: pdfopts.cpp:1057
+msgid "PDF_Opts::Page"
+msgstr ""
+
+#: pdfopts.cpp:390
+msgid "PDF_Opts::Passwords"
+msgstr ""
+
+#: pdfopts.cpp:520
+msgid "PDF_Opts::Perceptual"
+msgstr ""
+
+#: pdfopts.cpp:458
+msgid "PDF_Opts::Printer"
+msgstr ""
+
+#: pdfopts.cpp:511
+msgid "PDF_Opts::Profile:"
+msgstr ""
+
+#: pdfopts.cpp:521
+msgid "PDF_Opts::Relative Colorimetric"
+msgstr ""
+
+#: pdfopts.cpp:514
+msgid "PDF_Opts::Rendering-Intent:"
+msgstr ""
+
+#: pdfopts.cpp:147
+msgid "PDF_Opts::Resolution:"
+msgstr ""
+
+#: pdfopts.cpp:130
+msgid "PDF_Opts::Right Margin"
+msgstr ""
+
+#: pdfopts.cpp:372
+msgid "PDF_Opts::Right to Left"
+msgstr ""
+
+#: pdfopts.cpp:522
+msgid "PDF_Opts::Saturation"
+msgstr ""
+
+#: pdfopts.cpp:1158
+msgid "PDF_Opts::Save as"
+msgstr ""
+
+#: pdfopts.cpp:139
+msgid "PDF_Opts::Save linked Text Frames as PDF-Articles"
+msgstr ""
+
+#: pdfopts.cpp:457
+msgid "PDF_Opts::Screen"
+msgstr ""
+
+#: pdfopts.cpp:442
+msgid "PDF_Opts::Security"
+msgstr ""
+
+#: pdfopts.cpp:414
+msgid "PDF_Opts::Settings"
+msgstr ""
+
+#: pdfopts.cpp:305
+msgid "PDF_Opts::Show Page Previews"
+msgstr ""
+
+#: pdfopts.cpp:468
+msgid "PDF_Opts::Solid Colors:"
+msgstr ""
+
+#: pdfopts.cpp:354
+msgid "PDF_Opts::Split"
+msgstr ""
+
+#: pdfopts.cpp:370
+msgid "PDF_Opts::Top to Bottom"
+msgstr ""
+
+#: pdfopts.cpp:373
+msgid "PDF_Opts::Top-Left to Bottom-Right"
+msgstr ""
+
+#: pdfopts.cpp:615
+msgid "PDF_Opts::Trim Box"
+msgstr ""
+
+#: pdfopts.cpp:385
+msgid "PDF_Opts::Use Encryption"
+msgstr ""
+
+#: pdfopts.cpp:503
+msgid "PDF_Opts::Use ICC-Profile"
+msgstr ""
+
+#: pdfopts.cpp:397
+msgid "PDF_Opts::User:"
+msgstr ""
+
+#: pdfopts.cpp:360
+msgid "PDF_Opts::Vertical"
+msgstr ""
+
+#: pdfopts.cpp:355
+msgid "PDF_Opts::Wipe"
+msgstr ""
+
+#: pdfopts.cpp:331
+msgid "PDF_Opts::from the:"
+msgstr ""
+
+#: pdfopts.cpp:75
+msgid "PDF_Opts::to:"
+msgstr ""
+
+#: page.cpp:1877
+msgid "Page::Annotation Properties"
+msgstr ""
+
+#: page.cpp:1921
+msgid "Page::Bezier Curve"
+msgstr ""
+
+#: page.cpp:1887
+msgid "Page::Bring to Front"
+msgstr ""
+
+#: page.cpp:289
+msgid "Page::Cancel"
+msgstr ""
+
+#: page.cpp:1923
+msgid "Page::Convert to"
+msgstr ""
+
+#: page.cpp:287
+msgid "Page::Copy Here"
+msgstr ""
+
+#: page.cpp:1928
+msgid "Page::Copy"
+msgstr ""
+
+#: page.cpp:1927
+msgid "Page::Cut"
+msgstr ""
+
+#: page.cpp:1930
+msgid "Page::Delete"
+msgstr ""
+
+#: page.cpp:1879
+msgid "Page::Field Properties"
+msgstr ""
+
+#: page.cpp:1861
+msgid "Page::Get Picture..."
+msgstr ""
+
+#: page.cpp:1867
+msgid "Page::Get Text..."
+msgstr ""
+
+#: page.cpp:1862
+msgid "Page::Image Visible"
+msgstr ""
+
+#: page.cpp:1872
+msgid "Page::Is PDF-Annotation"
+msgstr ""
+
+#: page.cpp:1870
+msgid "Page::Is PDF-Bookmark"
+msgstr ""
+
+#: page.cpp:1885
+msgid "Page::Lock"
+msgstr ""
+
+#: page.cpp:1888
+msgid "Page::Lower"
+msgstr ""
+
+#: page.cpp:288
+msgid "Page::Move Here"
+msgstr ""
+
+#: page.cpp:5221
+msgid "Page::None"
+msgstr ""
+
+#: page.cpp:1920
+msgid "Page::Picture Frame"
+msgstr ""
+
+#: page.cpp:1915
+msgid "Page::Polygon"
+msgstr ""
+
+#: page.cpp:1889
+msgid "Page::Raise"
+msgstr ""
+
+#: page.cpp:1886
+msgid "Page::Send to Back"
+msgstr ""
+
+#: page.cpp:1902
+msgid "Page::Send to Layer"
+msgstr ""
+
+#: page.cpp:1893
+msgid "Page::Send to Scrapbook"
+msgstr ""
+
+#: page.cpp:1919
+msgid "Page::Text Frame"
+msgstr ""
+
+#: page.cpp:1892
+msgid "Page::Unlock"
+msgstr ""
+
+#: picsearch.cpp:64
+msgid "PicSearch::Cancel"
+msgstr ""
+
+#: picsearch.cpp:49
+msgid "PicSearch::Preview"
+msgstr ""
+
+#: picsearch.cpp:11
+msgid "PicSearch::Result"
+msgstr ""
+
+#: picsearch.cpp:24
+msgid "PicSearch::Search Results for: "
+msgstr ""
+
+#: picsearch.cpp:57
+msgid "PicSearch::Select"
+msgstr ""
+
+#: picstatus.cpp:119
+msgid "PicStatus::Goto"
+msgstr ""
+
+#: picstatus.cpp:254
+msgid "PicStatus::Missing"
+msgstr ""
+
+#: picstatus.cpp:36
+msgid "PicStatus::Name"
+msgstr ""
+
+#: picstatus.cpp:252
+msgid "PicStatus::OK"
+msgstr ""
+
+#: picstatus.cpp:38
+msgid "PicStatus::Page"
+msgstr ""
+
+#: picstatus.cpp:37
+msgid "PicStatus::Path"
+msgstr ""
+
+#: picstatus.cpp:21
+msgid "PicStatus::Pictures"
+msgstr ""
+
+#: picstatus.cpp:40
+msgid "PicStatus::Print"
+msgstr ""
+
+#: picstatus.cpp:135
+msgid "PicStatus::Search"
+msgstr ""
+
+#: picstatus.cpp:41
+msgid "PicStatus::Status"
+msgstr ""
+
+#: picstatus.cpp:123
+msgid "PicStatus::Yes"
+msgstr ""
+
+#: polyprops.cpp:75
+msgid "PolygonProps:: %"
+msgstr ""
+
+#: polyprops.cpp:111
+msgid "PolygonProps::Cancel"
+msgstr ""
+
+#: polyprops.cpp:63
+msgid "PolygonProps::Convex Polygon"
+msgstr ""
+
+#: polyprops.cpp:29
+msgid "PolygonProps::Corners:"
+msgstr ""
+
+#: polyprops.cpp:72
+msgid "PolygonProps::Factor:"
+msgstr ""
+
+#: polyprops.cpp:105
+msgid "PolygonProps::OK"
+msgstr ""
+
+#: polyprops.cpp:20
+msgid "PolygonProps::Polygon Properties"
+msgstr ""
+
+#: polyprops.cpp:43
+msgid "PolygonProps::Rotation:"
+msgstr ""
+
+#: query.cpp:39
+msgid "Query::Cancel"
+msgstr ""
+
+#: query.cpp:33
+msgid "Query::OK"
+msgstr ""
+
+#: reformdoc.cpp:62
+msgid "ReformDoc::Bottom:"
+msgstr ""
+
+#: reformdoc.cpp:100
+msgid "ReformDoc::Cancel"
+msgstr ""
+
+#: reformdoc.cpp:28
+msgid "ReformDoc::Document Setup"
+msgstr ""
+
+#: reformdoc.cpp:78
+msgid "ReformDoc::Facing Pages"
+msgstr ""
+
+#: reformdoc.cpp:147
+msgid "ReformDoc::Inside:"
+msgstr ""
+
+#: reformdoc.cpp:82
+msgid "ReformDoc::Left Page first"
+msgstr ""
+
+#: reformdoc.cpp:153
+msgid "ReformDoc::Left:"
+msgstr ""
+
+#: reformdoc.cpp:34
+msgid "ReformDoc::Margin Guides"
+msgstr ""
+
+#: reformdoc.cpp:94
+msgid "ReformDoc::OK"
+msgstr ""
+
+#: reformdoc.cpp:148
+msgid "ReformDoc::Outside:"
+msgstr ""
+
+#: reformdoc.cpp:154
+msgid "ReformDoc::Right:"
+msgstr ""
+
+#: reformdoc.cpp:46
+msgid "ReformDoc::Top:"
+msgstr ""
+
+#: scribusXml.cpp:1162
+msgid "ScriXmlDoc::Background"
+msgstr ""
+
+#: scribus.cpp:299
+msgid "ScribusApp::"
+msgstr ""
+
+#: scribus.cpp:2458
+msgid "ScribusApp::);;Vector Files (*.eps *.pdf);;All Files (*)"
+msgstr ""
+
+#: scribus.cpp:568
+msgid "ScribusApp::200%"
+msgstr ""
+
+#: scribus.cpp:562
+msgid "ScribusApp::50%"
+msgstr ""
+
+#: scribus.cpp:564
+msgid "ScribusApp::75%"
+msgstr ""
+
+#: scribus.cpp:3087
+msgid "ScribusApp::About Qt"
+msgstr ""
+
+#: scribus.cpp:619
+msgid "ScribusApp::About Scribus"
+msgstr ""
+
+#: scribus.cpp:566
+msgid "ScribusApp::Actual Size"
+msgstr ""
+
+#: scribus.cpp:6010
+msgid "ScribusApp::Adjusting Colors"
+msgstr ""
+
+#: scribus.cpp:280
+msgid "ScribusApp::Align Center"
+msgstr ""
+
+#: scribus.cpp:278
+msgid "ScribusApp::Align Left"
+msgstr ""
+
+#: scribus.cpp:279
+msgid "ScribusApp::Align Right"
+msgstr ""
+
+#: scribus.cpp:1886
+msgid "ScribusApp::Alignment"
+msgstr ""
+
+#: scribus.cpp:5263
+msgid "ScribusApp::All"
+msgstr ""
+
+#: scribus.cpp:553
+msgid "ScribusApp::Apply Template..."
+msgstr ""
+
+#: scribus.cpp:530
+msgid "ScribusApp::Attach Text to Path"
+msgstr ""
+
+#: scribus.cpp:649
+msgid "ScribusApp::Block"
+msgstr ""
+
+#: scribus.cpp:516
+msgid "ScribusApp::Bring to Front"
+msgstr ""
+
+#: scribus.cpp:6617
+msgid "ScribusApp::Can't write the File: \n%1"
+msgstr ""
+
+#: scribus.cpp:1529
+msgid "ScribusApp::Cascade"
+msgstr ""
+
+#: scribus.cpp:6362
+msgid "ScribusApp::Catalan"
+msgstr ""
+
+#: scribus.cpp:647
+msgid "ScribusApp::Center"
+msgstr ""
+
+#: scribus.cpp:6488
+msgid "ScribusApp::Choose a Directory"
+msgstr ""
+
+#: scribus.cpp:469
+msgid "ScribusApp::Clear"
+msgstr ""
+
+#: scribus.cpp:419
+msgid "ScribusApp::Close"
+msgstr ""
+
+#: scribus.cpp:98
+msgid "ScribusApp::Closes the Current Document"
+msgstr ""
+
+#: scribus.cpp:427
+msgid "ScribusApp::Collect for Output..."
+msgstr ""
+
+#: scribus.cpp:304
+msgid "ScribusApp::Color Management..."
+msgstr ""
+
+#: scribus.cpp:6699
+msgid "ScribusApp::Color"
+msgstr ""
+
+#: scribus.cpp:473
+msgid "ScribusApp::Colors..."
+msgstr ""
+
+#: scribus.cpp:531
+msgid "ScribusApp::Combine Polygons"
+msgstr ""
+
+#: scribus.cpp:533
+msgid "ScribusApp::Convert to Outlines"
+msgstr ""
+
+#: scribus.cpp:549
+msgid "ScribusApp::Copy"
+msgstr ""
+
+#: scribus.cpp:92
+msgid "ScribusApp::"
+"Creates a new Document"
+msgstr ""
+
+#: scribus.cpp:466
+msgid "ScribusApp::Cut"
+msgstr ""
+
+#: scribus.cpp:6350
+msgid "ScribusApp::Czech"
+msgstr ""
+
+#: scribus.cpp:6344
+msgid "ScribusApp::Danish"
+msgstr ""
+
+#: scribus.cpp:505
+msgid "ScribusApp::Delete"
+msgstr ""
+
+#: scribus.cpp:547
+msgid "ScribusApp::Delete..."
+msgstr ""
+
+#: scribus.cpp:522
+msgid "ScribusApp::Distribute/Align..."
+msgstr ""
+
+#: scribus.cpp:2535
+msgid "ScribusApp::Do you really want to overwrite the File:\n%1 ?"
+msgstr ""
+
+#: scribus.cpp:448
+msgid "ScribusApp::Document Info..."
+msgstr ""
+
+#: scribus.cpp:451
+msgid "ScribusApp::Document Setup..."
+msgstr ""
+
+#: scribus.cpp:5283
+msgid "ScribusApp::Document"
+msgstr ""
+
+#: scribus.cpp:2526
+msgid "ScribusApp::Documents (*.sla *.scd);; All Files (*)"
+msgstr ""
+
+#: scribus.cpp:2120
+msgid "ScribusApp::Documents (*.sla *.sla.gz *.scd *.scd.gz);; All Files (*)"
+msgstr ""
+
+#: scribus.cpp:2524
+msgid "ScribusApp::Documents (*.sla *.sla.gz *.scd *scd.gz);; All Files (*)"
+msgstr ""
+
+#: scribus.cpp:501
+msgid "ScribusApp::Duplicate"
+msgstr ""
+
+#: scribus.cpp:6352
+msgid "ScribusApp::Dutch"
+msgstr ""
+
+#: scribus.cpp:5293
+msgid "ScribusApp::EPS-Files (*.eps);; All Files (*)"
+msgstr ""
+
+#: scribus.cpp:528
+msgid "ScribusApp::Edit Frame"
+msgstr ""
+
+#: scribus.cpp:632
+msgid "ScribusApp::Edit"
+msgstr ""
+
+#: scribus.cpp:6368
+msgid "ScribusApp::English"
+msgstr ""
+
+#: scribus.cpp:139
+msgid "ScribusApp::Exiting now"
+msgstr ""
+
+#: scribus.cpp:443
+msgid "ScribusApp::Export..."
+msgstr ""
+
+#: scribus.cpp:640
+msgid "ScribusApp::Extras"
+msgstr ""
+
+#: scribus.cpp:140
+msgid "ScribusApp::Fatal Error"
+msgstr ""
+
+#: scribus.cpp:631
+msgid "ScribusApp::File"
+msgstr ""
+
+#: scribus.cpp:560
+msgid "ScribusApp::Fit in Window"
+msgstr ""
+
+#: scribus.cpp:1936
+msgid "ScribusApp::Font"
+msgstr ""
+
+#: scribus.cpp:484
+msgid "ScribusApp::Fonts..."
+msgstr ""
+
+#: scribus.cpp:650
+msgid "ScribusApp::Forced"
+msgstr ""
+
+#: scribus.cpp:6340
+msgid "ScribusApp::French"
+msgstr ""
+
+#: scribus.cpp:481
+msgid "ScribusApp::General..."
+msgstr ""
+
+#: scribus.cpp:6334
+msgid "ScribusApp::German"
+msgstr ""
+
+#: scribus.cpp:1851
+msgid "ScribusApp::Get Picture..."
+msgstr ""
+
+#: scribus.cpp:1924
+msgid "ScribusApp::Get Text..."
+msgstr ""
+
+#: scribus.cpp:1963
+msgid "ScribusApp::Get Text/Picture..."
+msgstr ""
+
+#: scribus.cpp:291
+msgid "ScribusApp::Getting ICC-Profiles"
+msgstr ""
+
+#: scribus.cpp:5159
+msgid "ScribusApp::Ghostscript : You cannot use EPS-Images"
+msgstr ""
+
+#: scribus.cpp:6360
+msgid "ScribusApp::Greek"
+msgstr ""
+
+#: scribus.cpp:508
+msgid "ScribusApp::Group"
+msgstr ""
+
+#: scribus.cpp:644
+msgid "ScribusApp::Help"
+msgstr ""
+
+#: scribus.cpp:5139
+msgid "ScribusApp::Hide Bookmarks"
+msgstr ""
+
+#: scribus.cpp:3355
+msgid "ScribusApp::Hide Frames"
+msgstr ""
+
+#: scribus.cpp:3533
+msgid "ScribusApp::Hide Grid"
+msgstr ""
+
+#: scribus.cpp:3558
+msgid "ScribusApp::Hide Guides"
+msgstr ""
+
+#: scribus.cpp:3507
+msgid "ScribusApp::Hide Images"
+msgstr ""
+
+#: scribus.cpp:5135
+msgid "ScribusApp::Hide Layers"
+msgstr ""
+
+#: scribus.cpp:3340
+msgid "ScribusApp::Hide Margins"
+msgstr ""
+
+#: scribus.cpp:5131
+msgid "ScribusApp::Hide Outline"
+msgstr ""
+
+#: scribus.cpp:3493
+msgid "ScribusApp::Hide PDF-Tools"
+msgstr ""
+
+#: scribus.cpp:5137
+msgid "ScribusApp::Hide Page Palette"
+msgstr ""
+
+#: scribus.cpp:5129
+msgid "ScribusApp::Hide Properties"
+msgstr ""
+
+#: scribus.cpp:5133
+msgid "ScribusApp::Hide Scrapbook"
+msgstr ""
+
+#: scribus.cpp:3477
+msgid "ScribusApp::Hide Tools"
+msgstr ""
+
+#: scribus.cpp:6348
+msgid "ScribusApp::Hungarian"
+msgstr ""
+
+#: scribus.cpp:613
+msgid "ScribusApp::Hyphenate Text"
+msgstr ""
+
+#: scribus.cpp:485
+msgid "ScribusApp::Hyphenator..."
+msgstr ""
+
+#: scribus.cpp:2457
+msgid "ScribusApp::Images"
+msgstr ""
+
+#: scribus.cpp:435
+msgid "ScribusApp::Import..."
+msgstr ""
+
+#: scribus.cpp:293
+msgid "ScribusApp::Init Hyphenator"
+msgstr ""
+
+#: scribus.cpp:343
+msgid "ScribusApp::Initializing Plugins"
+msgstr ""
+
+#: scribus.cpp:281
+msgid "ScribusApp::Insert Page Number"
+msgstr ""
+
+#: scribus.cpp:433
+msgid "ScribusApp::Insert Page..."
+msgstr ""
+
+#: scribus.cpp:545
+msgid "ScribusApp::Insert..."
+msgstr ""
+
+#: scribus.cpp:6700
+msgid "ScribusApp::Invert"
+msgstr ""
+
+#: scribus.cpp:6338
+msgid "ScribusApp::Italian"
+msgstr ""
+
+#: scribus.cpp:634
+msgid "ScribusApp::Item"
+msgstr ""
+
+#: scribus.cpp:479
+msgid "ScribusApp::Javascripts..."
+msgstr ""
+
+#: scribus.cpp:646
+msgid "ScribusApp::Left"
+msgstr ""
+
+#: scribus.cpp:475
+msgid "ScribusApp::Line Styles..."
+msgstr ""
+
+#: scribus.cpp:2238
+msgid "ScribusApp::Loading..."
+msgstr ""
+
+#: scribus.cpp:5842
+msgid "ScribusApp::Loading:"
+msgstr ""
+
+#: scribus.cpp:2046
+msgid "ScribusApp::Lock"
+msgstr ""
+
+#: scribus.cpp:287
+msgid "ScribusApp::Lock/Unlock"
+msgstr ""
+
+#: scribus.cpp:518
+msgid "ScribusApp::Lower"
+msgstr ""
+
+#: scribus.cpp:555
+msgid "ScribusApp::Manage Guides..."
+msgstr ""
+
+#: scribus.cpp:610
+msgid "ScribusApp::Manage Pictures"
+msgstr ""
+
+#: scribus.cpp:551
+msgid "ScribusApp::Move..."
+msgstr ""
+
+#: scribus.cpp:503
+msgid "ScribusApp::Multiple Duplicate"
+msgstr ""
+
+#: scribus.cpp:415
+msgid "ScribusApp::New"
+msgstr ""
+
+#: scribus.cpp:2536
+msgid "ScribusApp::No"
+msgstr ""
+
+#: scribus.cpp:288
+msgid "ScribusApp::Non Breaking Space"
+msgstr ""
+
+#: scribus.cpp:6080
+msgid "ScribusApp::None"
+msgstr ""
+
+#: scribus.cpp:5663
+msgid "ScribusApp::Normal"
+msgstr ""
+
+#: scribus.cpp:6617
+msgid "ScribusApp::OK"
+msgstr ""
+
+#: scribus.cpp:624
+msgid "ScribusApp::Online-Help..."
+msgstr ""
+
+#: scribus.cpp:2474
+msgid "ScribusApp::Open"
+msgstr ""
+
+#: scribus.cpp:416
+msgid "ScribusApp::Open..."
+msgstr ""
+
+#: scribus.cpp:94
+msgid "ScribusApp::Opens a Document"
+msgstr ""
+
+#: scribus.cpp:4662
+msgid "ScribusApp::Other..."
+msgstr ""
+
+#: scribus.cpp:691
+msgid "ScribusApp::Outlined"
+msgstr ""
+
+#: scribus.cpp:527
+msgid "ScribusApp::Oval"
+msgstr ""
+
+#: scribus.cpp:635
+msgid "ScribusApp::Page"
+msgstr ""
+
+#: scribus.cpp:468
+msgid "ScribusApp::Paste"
+msgstr ""
+
+#: scribus.cpp:6358
+msgid "ScribusApp::Polish"
+msgstr ""
+
+#: scribus.cpp:6354
+msgid "ScribusApp::Portuguese"
+msgstr ""
+
+#: scribus.cpp:486
+msgid "ScribusApp::Preferences"
+msgstr ""
+
+#: scribus.cpp:482
+msgid "ScribusApp::Preferences..."
+msgstr ""
+
+#: scribus.cpp:454
+msgid "ScribusApp::Print..."
+msgstr ""
+
+#: scribus.cpp:2772
+msgid "ScribusApp::Printing failed!"
+msgstr ""
+
+#: scribus.cpp:2690
+msgid "ScribusApp::Printing..."
+msgstr ""
+
+#: scribus.cpp:100
+msgid "ScribusApp::Prints the Current Document"
+msgstr ""
+
+#: scribus.cpp:457
+msgid "ScribusApp::Quit"
+msgstr ""
+
+#: scribus.cpp:520
+msgid "ScribusApp::Raise"
+msgstr ""
+
+#: scribus.cpp:289
+msgid "ScribusApp::Reading Preferences"
+msgstr ""
+
+#: scribus.cpp:333
+msgid "ScribusApp::Reading Scrapbook"
+msgstr ""
+
+#: scribus.cpp:2779
+msgid "ScribusApp::Ready"
+msgstr ""
+
+#: scribus.cpp:414
+msgid "ScribusApp::Recent Documents"
+msgstr ""
+
+#: scribus.cpp:525
+msgid "ScribusApp::Rectangle"
+msgstr ""
+
+#: scribus.cpp:648
+msgid "ScribusApp::Right"
+msgstr ""
+
+#: scribus.cpp:526
+msgid "ScribusApp::Rounded Rectangle"
+msgstr ""
+
+#: scribus.cpp:6342
+msgid "ScribusApp::Russian"
+msgstr ""
+
+#: scribus.cpp:439
+msgid "ScribusApp::Save Page as EPS..."
+msgstr ""
+
+#: scribus.cpp:437
+msgid "ScribusApp::Save Text..."
+msgstr ""
+
+#: scribus.cpp:441
+msgid "ScribusApp::Save as PDF..."
+msgstr ""
+
+#: scribus.cpp:5293
+msgid "ScribusApp::Save as"
+msgstr ""
+
+#: scribus.cpp:425
+msgid "ScribusApp::Save as..."
+msgstr ""
+
+#: scribus.cpp:422
+msgid "ScribusApp::Save"
+msgstr ""
+
+#: scribus.cpp:102
+msgid "ScribusApp::Saves the Current Document as PDF"
+msgstr ""
+
+#: scribus.cpp:96
+msgid "ScribusApp::Saves the Current Document"
+msgstr ""
+
+#: scribus.cpp:2551
+msgid "ScribusApp::Saving..."
+msgstr ""
+
+#: scribus.cpp:3092
+msgid "ScribusApp::Scribus Manual"
+msgstr ""
+
+#: scribus.cpp:134
+msgid "ScribusApp::Searching for Fonts"
+msgstr ""
+
+#: scribus.cpp:499
+msgid "ScribusApp::Select New Font"
+msgstr ""
+
+#: scribus.cpp:470
+msgid "ScribusApp::Select all"
+msgstr ""
+
+#: scribus.cpp:514
+msgid "ScribusApp::Send to Back"
+msgstr ""
+
+#: scribus.cpp:300
+msgid "ScribusApp::Setting up Shortcuts"
+msgstr ""
+
+#: scribus.cpp:1974
+msgid "ScribusApp::Shade"
+msgstr ""
+
+#: scribus.cpp:529
+msgid "ScribusApp::Shape"
+msgstr ""
+
+#: scribus.cpp:3456
+msgid "ScribusApp::Show Bookmarks"
+msgstr ""
+
+#: scribus.cpp:3350
+msgid "ScribusApp::Show Frames"
+msgstr ""
+
+#: scribus.cpp:3528
+msgid "ScribusApp::Show Grid"
+msgstr ""
+
+#: scribus.cpp:3553
+msgid "ScribusApp::Show Guides"
+msgstr ""
+
+#: scribus.cpp:3502
+msgid "ScribusApp::Show Images"
+msgstr ""
+
+#: scribus.cpp:3420
+msgid "ScribusApp::Show Layers"
+msgstr ""
+
+#: scribus.cpp:3335
+msgid "ScribusApp::Show Margins"
+msgstr ""
+
+#: scribus.cpp:3384
+msgid "ScribusApp::Show Outline"
+msgstr ""
+
+#: scribus.cpp:5127
+msgid "ScribusApp::Show PDF-Tools"
+msgstr ""
+
+#: scribus.cpp:3440
+msgid "ScribusApp::Show Page Palette"
+msgstr ""
+
+#: scribus.cpp:3367
+msgid "ScribusApp::Show Properties"
+msgstr ""
+
+#: scribus.cpp:3404
+msgid "ScribusApp::Show Scrapbook"
+msgstr ""
+
+#: scribus.cpp:5125
+msgid "ScribusApp::Show Tools"
+msgstr ""
+
+#: scribus.cpp:1937
+msgid "ScribusApp::Size"
+msgstr ""
+
+#: scribus.cpp:6346
+msgid "ScribusApp::Slovak"
+msgstr ""
+
+#: scribus.cpp:688
+msgid "ScribusApp::Small Caps"
+msgstr ""
+
+#: scribus.cpp:277
+msgid "ScribusApp::Smart Hyphen"
+msgstr ""
+
+#: scribus.cpp:581
+msgid "ScribusApp::Snap to Grid"
+msgstr ""
+
+#: scribus.cpp:583
+msgid "ScribusApp::Snap to Guides"
+msgstr ""
+
+#: scribus.cpp:6336
+msgid "ScribusApp::Spanish"
+msgstr ""
+
+#: scribus.cpp:532
+msgid "ScribusApp::Split Polygons"
+msgstr ""
+
+#: scribus.cpp:687
+msgid "ScribusApp::Strikethru"
+msgstr ""
+
+#: scribus.cpp:1938
+msgid "ScribusApp::Style"
+msgstr ""
+
+#: scribus.cpp:476
+msgid "ScribusApp::Styles..."
+msgstr ""
+
+#: scribus.cpp:690
+msgid "ScribusApp::Subscript"
+msgstr ""
+
+#: scribus.cpp:689
+msgid "ScribusApp::Superscript"
+msgstr ""
+
+#: scribus.cpp:478
+msgid "ScribusApp::Templates..."
+msgstr ""
+
+#: scribus.cpp:3106
+msgid "ScribusApp::"
+"Text Files (*.txt);;All Files (*)"
+msgstr ""
+
+#: scribus.cpp:5157
+msgid "ScribusApp::The following Programs are missing:"
+msgstr ""
+
+#: scribus.cpp:138
+msgid "ScribusApp::There are no Postscript-Fonts on your System"
+msgstr ""
+
+#: scribus.cpp:570
+msgid "ScribusApp::Thumbnails"
+msgstr ""
+
+#: scribus.cpp:1530
+msgid "ScribusApp::Tile"
+msgstr ""
+
+#: scribus.cpp:626
+msgid "ScribusApp::Tool-Tips"
+msgstr ""
+
+#: scribus.cpp:639
+msgid "ScribusApp::Tools"
+msgstr ""
+
+#: scribus.cpp:6356
+msgid "ScribusApp::Ukrainian"
+msgstr ""
+
+#: scribus.cpp:510
+msgid "ScribusApp::Un-group"
+msgstr ""
+
+#: scribus.cpp:684
+msgid "ScribusApp::Underline"
+msgstr ""
+
+#: scribus.cpp:6303
+msgid "ScribusApp::Undo Delete Object"
+msgstr ""
+
+#: scribus.cpp:6311
+msgid "ScribusApp::Undo Object Change"
+msgstr ""
+
+#: scribus.cpp:6307
+msgid "ScribusApp::Undo Object Move"
+msgstr ""
+
+#: scribus.cpp:459
+msgid "ScribusApp::Undo"
+msgstr ""
+
+#: scribus.cpp:2042
+msgid "ScribusApp::Unlock"
+msgstr ""
+
+#: scribus.cpp:638
+msgid "ScribusApp::View"
+msgstr ""
+
+#: scribus.cpp:6617
+msgid "ScribusApp::Warning"
+msgstr ""
+
+#: scribus.cpp:642
+msgid "ScribusApp::Windows"
+msgstr ""
+
+#: scribus.cpp:705
+msgid "ScribusApp::X-Pos:"
+msgstr ""
+
+#: scribus.cpp:711
+msgid "ScribusApp::Y-Pos:"
+msgstr ""
+
+#: scribus.cpp:2537
+msgid "ScribusApp::Yes"
+msgstr ""
+
+#: scribusdoc.cpp:77
+msgid "ScribusDoc::Background"
+msgstr ""
+
+#: scribusdoc.cpp:35
+msgid "ScribusDoc::Document"
+msgstr ""
+
+#: scribusview.cpp:38
+msgid "ScribusView:: %"
+msgstr ""
+
+#: scribusview.cpp:1294
+msgid "ScribusView::All"
+msgstr ""
+
+#: scribusview.cpp:61
+msgid "ScribusView::Layer"
+msgstr ""
+
+#: scribusview.cpp:530
+msgid "ScribusView::Page"
+msgstr ""
+
+#: scribuswin.cpp:33
+msgid "ScribusWin::Cancel"
+msgstr ""
+
+#: scribuswin.cpp:31
+msgid "ScribusWin::Document:"
+msgstr ""
+
+#: scribuswin.cpp:34
+msgid "ScribusWin::Leave Anyway"
+msgstr ""
+
+#: scribuswin.cpp:32
+msgid "ScribusWin::Save Now"
+msgstr ""
+
+#: scribuswin.cpp:30
+msgid "ScribusWin::Warning"
+msgstr ""
+
+#: scribuswin.cpp:31
+msgid "ScribusWin::has been changed since the last save."
+msgstr ""
+
+#: seiten.cpp:81
+msgid "SeList::Show Page Previews"
+msgstr ""
+
+#: seiten.cpp:154
+msgid "SeView::Show Template Names"
+msgstr ""
+
+#: seiten.cpp:509
+msgid "SeitenPal::Arrange Pages"
+msgstr ""
+
+#: seiten.cpp:519
+msgid "SeitenPal::Available Templates:"
+msgstr ""
+
+#: seiten.cpp:528
+msgid "SeitenPal::Document Pages:"
+msgstr ""
+
+#: seiten.cpp:577
+msgid "SeitenPal::Drag Pages or Template Pages onto the Trashbin to delete them."
+msgstr ""
+
+#: seiten.cpp:553
+msgid "SeitenPal::Facing Pages"
+msgstr ""
+
+#: seiten.cpp:579
+msgid "SeitenPal::"
+"Here are all your Templates, to create a new Page \n drag a Template to the Pageview below."
+msgstr ""
+
+#: seiten.cpp:556
+msgid "SeitenPal::Left Page first"
+msgstr ""
+
+#: seiten.cpp:730
+msgid "SeitenPal::Normal"
+msgstr ""
+
+#: seiten.cpp:578
+msgid "SeitenPal::This previews all the pages of your Document."
+msgstr ""
+
+#: selfield.cpp:51
+msgid "SelectFields::<<"
+msgstr ""
+
+#: selfield.cpp:48
+msgid "SelectFields::>>"
+msgstr ""
+
+#: selfield.cpp:18
+msgid "SelectFields::Available Fields"
+msgstr ""
+
+#: selfield.cpp:89
+msgid "SelectFields::Cancel"
+msgstr ""
+
+#: selfield.cpp:85
+msgid "SelectFields::OK"
+msgstr ""
+
+#: selfield.cpp:10
+msgid "SelectFields::Select Fields"
+msgstr ""
+
+#: selfield.cpp:58
+msgid "SelectFields::Selected Fields"
+msgstr ""
+
+#: spalette.cpp:29
+msgid "Spalette::No Style"
+msgstr ""
+
+#: editformats.cpp:52
+msgid "StilFormate::Cancel"
+msgstr ""
+
+#: editformats.cpp:81
+msgid "StilFormate::Copy of "
+msgstr ""
+
+#: editformats.cpp:43
+msgid "StilFormate::Delete"
+msgstr ""
+
+#: editformats.cpp:132
+msgid "StilFormate::Do you really want do delete this Style?"
+msgstr ""
+
+#: editformats.cpp:38
+msgid "StilFormate::Duplicate"
+msgstr ""
+
+#: editformats.cpp:11
+msgid "StilFormate::Edit Styles"
+msgstr ""
+
+#: editformats.cpp:32
+msgid "StilFormate::Edit"
+msgstr ""
+
+#: editformats.cpp:102
+msgid "StilFormate::New Style"
+msgstr ""
+
+#: editformats.cpp:28
+msgid "StilFormate::New"
+msgstr ""
+
+#: editformats.cpp:133
+msgid "StilFormate::No"
+msgstr ""
+
+#: editformats.cpp:48
+msgid "StilFormate::Save"
+msgstr ""
+
+#: editformats.cpp:131
+msgid "StilFormate::Warning"
+msgstr ""
+
+#: editformats.cpp:134
+msgid "StilFormate::Yes"
+msgstr ""
+
+#: tree.cpp:28
+msgid "Tree::Element"
+msgstr ""
+
+#: tree.cpp:91
+msgid "Tree::Ellipse"
+msgstr ""
+
+#: tree.cpp:87
+msgid "Tree::Font:"
+msgstr ""
+
+#: tree.cpp:95
+msgid "Tree::Image"
+msgstr ""
+
+#: tree.cpp:30
+msgid "Tree::Information"
+msgstr ""
+
+#: tree.cpp:84
+msgid "Tree::Item"
+msgstr ""
+
+#: tree.cpp:107
+msgid "Tree::Line"
+msgstr ""
+
+#: tree.cpp:20
+msgid "Tree::Outline"
+msgstr ""
+
+#: tree.cpp:77
+msgid "Tree::Page"
+msgstr ""
+
+#: tree.cpp:99
+msgid "Tree::Rectangle"
+msgstr ""
+
+#: tree.cpp:103
+msgid "Tree::Text"
+msgstr ""
+
+#: tree.cpp:29
+msgid "Tree::Type"
+msgstr ""
+
+#: tree.cpp:85
+msgid "Tree::X:"
+msgstr ""
+
+#: tree.cpp:86
+msgid "Tree::Y:"
+msgstr ""
+
+#: werktoolb.cpp:50
+msgid "WerkToolB::Break Textchains"
+msgstr ""
+
+#: werktoolb.cpp:47
+msgid "WerkToolB::Create Textchains"
+msgstr ""
+
+#: werktoolb.cpp:24
+msgid "WerkToolB::Edit Contents of Frame"
+msgstr ""
+
+#: werktoolb.cpp:45
+msgid "WerkToolB::Insert Bezier Curves"
+msgstr ""
+
+#: werktoolb.cpp:43
+msgid "WerkToolB::Insert Lines"
+msgstr ""
+
+#: werktoolb.cpp:35
+msgid "WerkToolB::Insert Ovals"
+msgstr ""
+
+#: werktoolb.cpp:31
+msgid "WerkToolB::Insert Picture"
+msgstr ""
+
+#: werktoolb.cpp:39
+msgid "WerkToolB::Insert Polygons"
+msgstr ""
+
+#: werktoolb.cpp:33
+msgid "WerkToolB::Insert Rectangles"
+msgstr ""
+
+#: werktoolb.cpp:29
+msgid "WerkToolB::Insert Textbox"
+msgstr ""
+
+#: werktoolb.cpp:38
+msgid "WerkToolB::Properties..."
+msgstr ""
+
+#: werktoolb.cpp:21
+msgid "WerkToolB::Rotate Item"
+msgstr ""
+
+#: werktoolb.cpp:18
+msgid "WerkToolB::Select Items"
+msgstr ""
+
+#: werktoolb.cpp:16
+msgid "WerkToolB::Tools"
+msgstr ""
+
+#: werktoolb.cpp:27
+msgid "WerkToolB::Zooms in or out"
+msgstr ""
+
+#: werktoolb.cpp:171
+msgid "WerkToolBP::Button"
+msgstr ""
+
+#: werktoolb.cpp:173
+msgid "WerkToolBP::Check Box"
+msgstr ""
+
+#: werktoolb.cpp:174
+msgid "WerkToolBP::Combo Box"
+msgstr ""
+
+#: werktoolb.cpp:184
+msgid "WerkToolBP::Insert PDF-Annotations"
+msgstr ""
+
+#: werktoolb.cpp:176
+msgid "WerkToolBP::Insert PDF-Fields"
+msgstr ""
+
+#: werktoolb.cpp:183
+msgid "WerkToolBP::Link"
+msgstr ""
+
+#: werktoolb.cpp:175
+msgid "WerkToolBP::List Box"
+msgstr ""
+
+#: werktoolb.cpp:168
+msgid "WerkToolBP::PDF-Tools"
+msgstr ""
+
+#: werktoolb.cpp:172
+msgid "WerkToolBP::Text Field"
+msgstr ""
+
+#: werktoolb.cpp:182
+msgid "WerkToolBP::Text"
+msgstr ""
+

@@ -81,7 +81,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cfloat")
 	GradCombo->insertItem(tr("Horizontal Gradient"));
 	GradCombo->insertItem(tr("Vertical Gradient"));
 	GradCombo->insertItem(tr("Diagonal Gradient"));
-	GradCombo->insertItem(tr("CrossDiagonal Gradient"));
+	GradCombo->insertItem(tr("Cross Diagonal Gradient"));
 	GradCombo->insertItem(tr("Radial Gradient"));
 	GradCombo->setCurrentItem(0);
 	GradLayout->addWidget( GradCombo );
@@ -123,8 +123,6 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cfloat")
 	TransSpin->setValue(100);
 	TransGroupLayout->addWidget( TransSpin );
 	GradLayout->addWidget( TransGroup );
-//	if (!UseTransFeature)
-//		TransGroup->hide();
 	Form1Layout->addLayout(GradLayout);
 
 	ListBox1 = new QListBox(this, "ListBox1");
@@ -154,7 +152,6 @@ void Cpalette::InhaltButton()
 		h += TransGroup->height();
 		GradCombo->hide();
 		GradGroup->hide();
-//		TransGroup->hide();
 		GradientMode = false;
 		ListBox1->resize(ListBox1->width(), ListBox1->height()+h);
 		updateCList();
@@ -176,8 +173,6 @@ void Cpalette::InnenButton()
 			GradientMode = true;
 		else
 			GradientMode = false;
-//		if (UseTransFeature)
-//			TransGroup->show();
 		updateCList();
 		updateGeometry();
 		repaint();
@@ -197,7 +192,7 @@ void Cpalette::updateCList()
 	ListBox1->clear();
 	CListe::Iterator it;
 	QPixmap pm = QPixmap(30, 15);
-	if (!GradientMode)
+	if ((!GradientMode) || (Mode == 1))
 		ListBox1->insertItem(tr("None"));
 	for (it = Farbliste.begin(); it != Farbliste.end(); ++it)
 		{

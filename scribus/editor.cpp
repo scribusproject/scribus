@@ -56,8 +56,8 @@ void Editor::GetFieldN()
 
 void Editor::LoadScript()
 {
-	QString fileName = QFileDialog::getOpenFileName(0,tr("JavaScripts (*.js);;All Files (*)"),this);
-	if (!fileName.isEmpty())
+	QString fileName = QFileDialog::getOpenFileName(0,tr("Javascripts (*.js);; All Files (*)"),this);
+if (!fileName.isEmpty())
 		{
 		QFile file( fileName );
 		if ( file.open( IO_ReadOnly ) )
@@ -71,8 +71,8 @@ void Editor::LoadScript()
 
 void Editor::SaveAs()
 {
-  QString fn = QFileDialog::getSaveFileName(0, tr("JavaScripts (*.js);;All Files (*)"), this);
-  if (!fn.isEmpty())
+  QString fn = QFileDialog::getSaveFileName(0, tr("Javascripts (*.js);; All Files (*)"), this);
+if (!fn.isEmpty())
   	{
 		QFile file( fn );
 		if ( file.open( IO_WriteOnly ) )

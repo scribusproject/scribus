@@ -11,7 +11,7 @@ extern QPixmap loadIcon(QString nam);
 FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, preV *prefs, QString PPath )
     : QDialog( parent, "fpre", true, 0 )
 {
-    setCaption( tr( "Global Fontsettings" ) );
+    setCaption( tr( "Global Font Settings" ) );
   	setIcon(loadIcon("AppIcon.xpm"));
   	Prefs = prefs;
 		RList = Prefs->GFontSub;

@@ -48,7 +48,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     TabListe->insertItem( tr( "General" ) );
     TabListe->insertItem( tr( "Document" ) );
     TabListe->insertItem( tr( "Guides" ) );
-    TabListe->insertItem( tr( "Typographics" ) );
+    TabListe->insertItem( tr( "Typography" ) );
     TabListe->insertItem( tr( "Tools" ) );
     TabListe->insertItem( tr( "Scrapbook" ) );
     TabListe->insertItem( tr( "Display" ) );
@@ -85,7 +85,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     GUICombo->setCurrentText(Vor->GUI);
     ButtonGroup1Layout->addWidget( GUICombo, 0, 1, Qt::AlignRight );
     TextGstil2 = new QLabel(ButtonGroup1, "dd");
-    TextGstil2->setText(tr("Fontsize:"));
+    TextGstil2->setText(tr("Font Size:"));
     ButtonGroup1Layout->addWidget( TextGstil2, 1, 0 );
     GFsize = new QSpinBox(ButtonGroup1, "gfs" );
     GFsize->setSuffix( tr( " pts" ) );
@@ -154,7 +154,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     tabLayout->addWidget( Mouse, 0, 1 );
 
     GroupBox20b = new QGroupBox( tab, "GroupBox20b" );
-    GroupBox20b->setTitle( tr( "Menues" ) );
+    GroupBox20b->setTitle( tr( "Menus" ) );
     GroupBox20b->setColumnLayout(0, Qt::Vertical );
     GroupBox20b->layout()->setSpacing( 0 );
     GroupBox20b->layout()->setMargin( 0 );
@@ -312,7 +312,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     Layout8->addWidget( Doppelseiten );
 
     Linkszuerst = new QCheckBox( GroupSize, "Linkszuerst" );
-    Linkszuerst->setText( tr( "Left Page first" ) );
+    Linkszuerst->setText( tr( "Left Page First" ) );
 		Linkszuerst->setChecked(Vor->ErsteLinks);
 		if (!Doppelseiten->isChecked())
 			Linkszuerst->setEnabled(false);
@@ -395,7 +395,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 			ASon->setChecked(Vor->AutoSave);
     GroupASLayout->addMultiCellWidget( ASon, 0, 0, 0, 1 );
     ASText = new QLabel( GroupAS, "ASText" );
-    ASText->setText( tr( "Intervall:" ) );
+    ASText->setText( tr( "Interval:" ) );
     GroupASLayout->addWidget( ASText, 1, 0 );
     ASTime = new QSpinBox( GroupAS, "Time" );
     ASTime->setMaxValue( 60 );
@@ -698,7 +698,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     Layout14a->setMargin( 0 );
     TextLabel2_3_3a = new QLabel( GroupBox4_3a, "TextLabel2_3_3" );
     TextLabel2_3_3a->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1, TextLabel2_3_3a->sizePolicy().hasHeightForWidth() ) );
-    TextLabel2_3_3a->setText( tr( "Automatic Linespaceing:" ) );
+    TextLabel2_3_3a->setText( tr( "Automatic Line Spacing:" ) );
     Layout14a->addWidget( TextLabel2_3_3a );
     AutoLineV = new QSpinBox( GroupBox4_3a, "LineS" );
     AutoLineV->setSuffix( tr( " %" ) );
@@ -915,7 +915,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     Layout15b->addWidget(TextLabelT25, 4, 0);
     TextLabelT26 = new QLabel( ToolFrame2, "TextLabel2_3_4" );
     TextLabelT26->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1, TextLabelT26->sizePolicy().hasHeightForWidth() ) );
-    TextLabelT26->setText( tr( "Linewidth:" ) );
+    TextLabelT26->setText( tr( "Line Width:" ) );
     Layout15b->addWidget(TextLabelT26, 5, 0);
     Foreground = new QComboBox( true, ToolFrame2, "Foreground" );
     Foreground->setEditable(false);
@@ -1031,11 +1031,11 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     Layout15c->addWidget(TextLabelT32, 1, 0);
     TextLabelT35 = new QLabel( ToolFrame3, "TextLabel1_3_3" );
     TextLabelT35->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1, TextLabelT35->sizePolicy().hasHeightForWidth() ) );
-    TextLabelT35->setText( tr( "Linestyle:" ) );
+    TextLabelT35->setText( tr( "Line Style:" ) );
     Layout15c->addWidget(TextLabelT35, 2, 0);
     TextLabelT36 = new QLabel( ToolFrame3, "TextLabel2_3_4" );
     TextLabelT36->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1, TextLabelT36->sizePolicy().hasHeightForWidth() ) );
-    TextLabelT36->setText( tr( "Linewidth:" ) );
+    TextLabelT36->setText( tr( "Line Width:" ) );
     Layout15c->addWidget(TextLabelT36, 3, 0);
     Foreground2 = new QComboBox( true, ToolFrame3, "Foreground" );
     Foreground2->setEditable(false);
@@ -1510,7 +1510,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     Layout_6b->addItem( spacer2 );
     GroupBox10Layout->addLayout(Layout_6b);
     RandFarb = new QCheckBox( GroupBox10, "Ran" );
-    RandFarb->setText( tr( "Display unprintable Area in Margin Color" ) );
+    RandFarb->setText( tr( "Display Unprintable Area in Margin Color" ) );
 		if (ap->HaveDoc)
     	RandFarb->setChecked(ap->doc->RandFarbig);
 		else
@@ -1529,7 +1529,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     CaliGroupLayout = new QVBoxLayout( CaliGroup->layout() );
     CaliGroupLayout->setAlignment( Qt::AlignTop );
     CaliText = new QLabel( CaliGroup, "CaliText" );
-    CaliText->setText( tr( "To adjust the Display drag the Ruler below with the Slider." ) );
+    CaliText->setText( tr( "To adjust the display drag the ruler below with the Slider." ) );
     CaliGroupLayout->addWidget( CaliText );
     CaliRuler = new QLabel( CaliGroup, "CaliRuler" );
     CaliRuler->setMinimumSize( QSize( 20, 20 ) );

@@ -73,22 +73,22 @@ MultiLine::MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString na
 
 	LineEnds = new QComboBox( true, Properties, "LineEnds" );
 	LineEnds->setEditable(false);
-	LineEnds->insertItem(loadIcon("ButtCap.png"), tr( "FlatCap" ) );
-	LineEnds->insertItem(loadIcon("SquareCap.png"), tr( "SquareCap" ) );
-	LineEnds->insertItem(loadIcon("RoundCap.png"), tr( "RoundCap" ) );
+	LineEnds->insertItem(loadIcon("ButtCap.png"), tr( "Flat Cap" ) );
+	LineEnds->insertItem(loadIcon("SquareCap.png"), tr( "Square Cap" ) );
+	LineEnds->insertItem(loadIcon("RoundCap.png"), tr( "Round Cap" ) );
 	PropertiesLayout->addWidget( LineEnds );
 
 	LineJoin = new QComboBox( true, Properties, "LineJoin" );
 	LineJoin->setEditable(false);
-	LineJoin->insertItem(loadIcon("MiterJoin.png"), tr( "MiterJoin" ) );
-	LineJoin->insertItem(loadIcon("BevelJoin.png"), tr( "BevelJoin" ) );
-	LineJoin->insertItem(loadIcon("RoundJoin.png"), tr( "RoundJoin" ) );
+	LineJoin->insertItem(loadIcon("MiterJoin.png"), tr( "Miter Join" ) );
+	LineJoin->insertItem(loadIcon("BevelJoin.png"), tr( "Bevel Join" ) );
+	LineJoin->insertItem(loadIcon("RoundJoin.png"), tr( "Round Join" ) );
 	PropertiesLayout->addWidget( LineJoin );
 
 	layout1 = new QHBoxLayout( 0, 0, 6, "layout1"); 
 
 	WidthText = new QLabel( Properties, "WidthText" );
-	WidthText->setText( tr( "Linewidth:" ) );
+	WidthText->setText( tr( "Line Width:" ) );
 	WidthText->setAlignment( int( QLabel::AlignVCenter | QLabel::AlignLeft ) );
 	layout1->addWidget( WidthText );
 

@@ -103,46 +103,51 @@ ScribusApp::ScribusApp(SplashScreen *splash)
   initStatusBar();
   WerkTools2 = new QToolBar(tr("File"), this);
   DatNeu = new QToolButton(loadIcon("DateiNeu.xpm"), tr("Creates a new Document"), QString::null, this, SLOT(slotFileNew()), WerkTools2);
-  DatOpe = new QToolButton(loadIcon("DateiOpen.xpm"), tr("Opens a Document"), QString::null, this, SLOT(slotDocOpen()), WerkTools2);
-  DatSav = new QToolButton(loadIcon("DateiSave.xpm"), tr("Saves the current Document"), QString::null, this, SLOT(slotFileSave()), WerkTools2);
-  DatClo = new QToolButton(loadIcon("DateiClos.xpm"), tr("Closes the current Document"), QString::null, this, SLOT(slotFileClose()), WerkTools2);
-  DatPri = new QToolButton(loadIcon("DateiPrint.xpm"), tr("Prints the current Document"), QString::null, this, SLOT(slotFilePrint()), WerkTools2);
-  DatPDF = new QToolButton(loadIcon("acrobat.png"), tr("Saves the current Document as PDF"), QString::null, this, SLOT(SaveAsPDF()), WerkTools2);
-	DatSav->setEnabled(false);
-	DatClo->setEnabled(false);
-	DatPri->setEnabled(false);
-	DatPDF->setEnabled(false);
-	DatOpe->setPopup(recentMenu);
-	WerkTools = new WerkToolB(this);
-	setDockEnabled(WerkTools, DockLeft, false);
-	setDockEnabled(WerkTools, DockRight, false);
-	WerkTools->Sichtbar = true;
-	WerkTools->setEnabled(false);
-	WerkToolsP = new WerkToolBP(this);
-	setDockEnabled(WerkToolsP, DockLeft, false);
-	setDockEnabled(WerkToolsP, DockRight, false);
-	WerkToolsP->setEnabled(false);
-	WerkToolsP->Sichtbar = true;
-	QString Pff = QString(getenv("HOME"))+"/.scribus";
-	QFileInfo Pffi = QFileInfo(Pff);
-	if (Pffi.exists())
-		{
-		if (Pffi.isDir())
-			PrefsPfad = Pff;
-		else
-			PrefsPfad = QString(getenv("HOME"));
-		}
-	else
-		{
+  DatOpe = new QToolButton(loadIcon("DateiOpen.xpm"), tr("Opens a Document"), QString::null, 
+this, SLOT(slotDocOpen()), WerkTools2);
+  DatSav = new QToolButton(loadIcon("DateiSave.xpm"), tr("Saves the Current Document"),
+QString::null, this, SLOT(slotFileSave()), WerkTools2);
+  DatClo = new QToolButton(loadIcon("DateiClos.xpm"), tr("Closes the Current Document"),
+QString::null, this, SLOT(slotFileClose()), WerkTools2);
+  DatPri = new QToolButton(loadIcon("DateiPrint.xpm"), tr("Prints the Current Document"),
+QString::null, this, SLOT(slotFilePrint()), WerkTools2);
+  DatPDF = new QToolButton(loadIcon("acrobat.png"), tr("Saves the Current Document as PDF"),
+QString::null, this, SLOT(SaveAsPDF()), WerkTools2);
+  DatSav->setEnabled(false);	
+  DatClo->setEnabled(false);
+  	DatPri->setEnabled(false);
+   	DatPDF->setEnabled(false);	
+  DatOpe->setPopup(recentMenu);
+  	WerkTools = new WerkToolB(this);	
+  setDockEnabled(WerkTools, DockLeft, false);
+  	setDockEnabled(WerkTools, DockRight, false);
+   	WerkTools->Sichtbar = true;
+    	WerkTools->setEnabled(false);
+     	WerkToolsP = new WerkToolBP(this);
+  setDockEnabled(WerkToolsP, DockLeft, false);	
+  setDockEnabled(WerkToolsP, DockRight, false);
+  WerkToolsP->setEnabled(false);	
+  WerkToolsP->Sichtbar = true;
+  QString Pff = QString(getenv("HOME"))+"/.scribus";	
+  QFileInfo Pffi = QFileInfo(Pff);
+  if (Pffi.exists())
+  {
+    if (Pffi.isDir())			
+      PrefsPfad = Pff;
+        else
+      PrefsPfad = QString(getenv("HOME"));
+  }
+  else
+  {
   	QDir di = QDir();
-		di.mkdir(Pff);
-		PrefsPfad = Pff;
-		QString OldPR = QString(getenv("HOME"))+"/.scribus.rc";
-		QFileInfo OldPi = QFileInfo(OldPR);
-		if (OldPi.exists())
-			{
+    di.mkdir(Pff);
+    PrefsPfad = Pff;
+    QString OldPR = QString(getenv("HOME"))+"/.scribus.rc";
+    QFileInfo OldPi = QFileInfo(OldPR);
+    if (OldPi.exists())
+    {
 			system("mv " + OldPR + " " + Pff+"/scribus.rc");
-			}
+		}
 		QString OldPR2 = QString(getenv("HOME"))+"/.scribusfont.rc";
 		QFileInfo OldPi2 = QFileInfo(OldPR2);
 		if (OldPi2.exists())
@@ -306,14 +311,14 @@ ScribusApp::ScribusApp(SplashScreen *splash)
 		SetKeyEntry(57, tr("Align Left"), 0, CTRL+Key_L);
 		SetKeyEntry(58, tr("Align Right"), 0, CTRL+Key_R);
 		SetKeyEntry(59, tr("Align Center"), 0, CTRL+Key_E);
-		SetKeyEntry(60, tr("Insert Pagenumber"), 0, ALT+Key_NumberSign);
+		SetKeyEntry(60, tr("Insert Page Number"), 0, ALT+Key_NumberSign);
 		SetKeyEntry(61, tr("Attach Text to Path"), PfadT, 0);
 		SetKeyEntry(62, tr("Show Layers"), viewLpal, 0);
-		SetKeyEntry(63, tr("JavaScripts..."), jman, 0);
+		SetKeyEntry(63, tr("Javascripts..."), jman, 0);
 		SetKeyEntry(64, tr("Undo"), edUndo, CTRL+Key_Z);
 		SetKeyEntry(65, tr("Show Page Palette"), viewSepal, 0);
 		SetKeyEntry(66, tr("Lock/Unlock"), LockOb, CTRL+Key_H);
-		SetKeyEntry(67, tr("Nonbreaking Space"), 0, CTRL+Key_Space);
+		SetKeyEntry(67, tr("Non Breaking Space"), 0, CTRL+Key_Space);
 		splash->setStatus(tr("Reading Preferences"));
 		ReadPrefs();
 		splash->setStatus(tr("Getting ICC-Profiles"));
@@ -504,7 +509,7 @@ void ScribusApp::initMenuBar()
 	SetKeyEntry(15, tr("Styles..."), edid6, 0);
 	tman = editMenu->insertItem(tr("Templates..."), this, SLOT(ManageTemp()));
 	SetKeyEntry(16, tr("Templates..."), tman, 0);
-	jman = editMenu->insertItem(tr("JavaScripts..."), this, SLOT(ManageJava()));
+	jman = editMenu->insertItem(tr("Javascripts..."), this, SLOT(ManageJava()));
 	hymen = new QPopupMenu();
 	MenID = hymen->insertItem(tr("General..."), this , SLOT(slotPrefsOrg()));
 	SetKeyEntry(18, tr("Preferences..."), MenID, 0);
@@ -534,8 +539,8 @@ void ScribusApp::initMenuBar()
 	ObjMenu->insertSeparator();
 	Gr = ObjMenu->insertItem(tr("Group"), this, SLOT(GroupObj()), CTRL+Key_G);
 	SetKeyEntry(23, tr("Group"), Gr, CTRL+Key_G);
-	UnGr = ObjMenu->insertItem(tr("Ungroup"), this, SLOT(UnGroupObj()), CTRL+Key_U);
-	SetKeyEntry(24, tr("Ungroup"), UnGr, CTRL+Key_U);
+	UnGr = ObjMenu->insertItem(tr("Un-group"), this, SLOT(UnGroupObj()),
+CTRL+Key_U);	SetKeyEntry(24, tr("Un-group"), UnGr, CTRL+Key_U);
 	LockOb = ObjMenu->insertItem(tr("Lock"), this, SLOT(ToggleObjLock()), CTRL+Key_H);
 	ObjMenu->insertSeparator();
 	OBack = ObjMenu->insertItem(tr("Send to Back"), this, SLOT(Objekt2Back()));
@@ -2367,7 +2372,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 				RecalcColors();
 				view->RecalcPictures(&InputProfiles);
 				}
-			}   
+			}
 		Mpal->Cpal->SetColors(doc->PageColors);
 		Mpal->Cpal->ChooseGrad(0);
 		doc->DocName = fileName;
@@ -2482,11 +2487,12 @@ void ScribusApp::slotFileOpen()
         formats += "*."+form+" ";
 				}
 			formats += "*.tif";
-  		QString fileName = CFileDialog(tr("Open"),tr("Images")+" ("+formats+tr(");;Vectorimages (*.eps *.pdf);;All Files (*)"), "", true);
-  		if (!fileName.isEmpty())
-  			{
-  			b->EmProfile = "";
-  			b->UseEmbedded = true;
+  		QString fileName = CFileDialog(tr("Open"),tr("Images")+
+    " ("+formats+tr(");;Vector Files (*.eps *.pdf);;All Files (*)"), "", true);
+    if (!fileName.isEmpty())
+    {
+      b->EmProfile = "";
+      b->UseEmbedded = true;
   			b->IProfile = doc->CMSSettings.DefaultInputProfile;
 				b->IRender = doc->CMSSettings.DefaultIntentMonitor2;
     		doc->ActPage->LoadPict(fileName, b->ItemNr);
@@ -2501,8 +2507,8 @@ void ScribusApp::slotFileOpen()
   	if (b->PType == 4)
   		{
 			LoadEnc = "";
-  		QString fileName = CFileDialog(tr("Open"),tr("Textfiles (*.txt);;All Files (*)"), "", false, true, false, true);
-  		if (!fileName.isEmpty())
+  		QString fileName = CFileDialog(tr("Open"),tr("Text Files (*.txt);;All Files(*)"), "", false, true, false, true);
+    if (!fileName.isEmpty())
   			{
   			Serializer *ss = new Serializer(fileName);
   			if (ss->Read(LoadEnc))
@@ -3100,7 +3106,7 @@ void ScribusApp::slotHelpAbout()
 	mo = dlopen(pfad, RTLD_LAZY);
 	if (!mo)
 		{
-		std::cout << "Can't find Plugin" << endl;
+		std::cout << "Can't find Plug-in" << endl;
 		return;
 		}
 	dlerror();
@@ -3138,8 +3144,8 @@ void ScribusApp::ToggleTips()
 void ScribusApp::SaveText()
 {
 	LoadEnc = "";
-  QString fn = CFileDialog(tr("Save as"), tr("Textfiles (*.txt);;All Files (*)"), "", false, false, false, true);
-  if (!fn.isEmpty())
+  QString fn = CFileDialog(tr("Save as"), tr("Text Files (*.txt);;All Files(*)"), "", false, false, false, true);
+if (!fn.isEmpty())
   	{
     Serializer *se = new Serializer(fn);
     se->PutText(doc->ActPage->SelItem.at(0));
@@ -4770,7 +4776,7 @@ void ScribusApp::slotPrefsOrg()
 	mo = dlopen(pfad, RTLD_LAZY);
 	if (!mo)
 		{
-		std::cout << "Can't find Plugin" << endl;
+		std::cout << "Can't find Plug-in" << endl;
 		return;
 		}
 	dlerror();
@@ -5899,7 +5905,7 @@ void ScribusApp::CallDLL(QString name)
 		mo = dlopen(pfad, RTLD_LAZY | RTLD_GLOBAL);
 		if (!mo)
 			{
-			std::cout << "Can't find Plugin" << endl;
+			std::cout << "Can't find Plug-in" << endl;
 			return;
 			}
 		}

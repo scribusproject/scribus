@@ -89,11 +89,11 @@ PPreview::PPreview( QWidget* parent, ScribusApp *pl) : QDialog( parent, "Preview
 	Layout2->setSpacing(1);
 	Layout2->setMargin(0);
 	AliasText = new QCheckBox(this, "TextAntiAlias");
-	AliasText->setText(tr("Antialias Text"));
+	AliasText->setText(tr("Anti-alias Text"));
 	AliasText->setChecked(true);
 	Layout2->addWidget(AliasText);
 	AliasGr = new QCheckBox(this, "GraphicsAntiAlias");
-	AliasGr->setText(tr("Antialias Graphics"));
+	AliasGr->setText(tr("Anti-alias Graphics"));
 	AliasGr->setChecked(true);
 	Layout2->addWidget(AliasGr);
 	Layout1->addLayout(Layout2);

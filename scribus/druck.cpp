@@ -185,7 +185,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
 
     OtherCom = new QCheckBox(Drucker, "Dc");
     OtherCom->setChecked(false);
-    OtherCom->setText(tr("Print via other Command"));
+    OtherCom->setText(tr("Alternative Printer Command"));
     DruckerLayout->addWidget( OtherCom, 2, 0, Qt::AlignLeft);
     LayoutCC = new QHBoxLayout;
     LayoutCC->setSpacing( 6 );
@@ -580,7 +580,7 @@ void Druck::SelMode(bool e)
 
 void Druck::SelFile()
 {
-	CustomFDialog dia(this, tr("Save as"), tr("Postscript-Files (*.ps);;All Files (*)"), false, false);
+	CustomFDialog dia(this, tr("Save as"), tr("Postscript-Files (*.ps);; All Files (*)"), false, false);
 	if (LineEdit1->text() != "")
 		dia.setSelection(LineEdit1->text());
 	if (dia.exec() == QDialog::Accepted)

@@ -184,11 +184,11 @@ NodePalette::NodePalette( QWidget* parent)
     QToolTip::add(  AsymMove, tr( "Move Control Points independently" ) );
     QToolTip::add(  SymMove, tr( "Move Control Points symmetrical" ) );
     QToolTip::add(  ResNode, tr( "Reset Control Points" ) );
-    QToolTip::add(  Res1Node, tr( "Reset this Control Points" ) );
+    QToolTip::add(  Res1Node, tr( "Reset this Control Point" ) );
     QToolTip::add(  PolySplit, tr( "Opens a Polygon or cuts a Bezier Curve" ) );
     QToolTip::add(  BezierClose, tr( "Closes this Bezier Curve" ) );
-    QToolTip::add(  PolyMirrorH, tr( "Mirrors the Path horizontal" ) );
-    QToolTip::add(  PolyMirrorV, tr( "Mirrors the Path vertical" ) );
+    QToolTip::add(  PolyMirrorH, tr( "Mirrors the Path Horizontally" ) );
+    QToolTip::add(  PolyMirrorV, tr( "Mirrors the Path Vertically" ) );
     QToolTip::add(  PolyShearR, tr( "Shears the Path horizontal to the right" ) );
     QToolTip::add(  PolyShearL, tr( "Shears the Path horizontal to the left" ) );
     QToolTip::add(  PolyShearU, tr( "Shears the Path vertical up" ) );

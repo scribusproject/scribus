@@ -998,7 +998,8 @@ NoRoom: if (NextBox != 0)
 							break;
 							}
 						}
-					NextBox->OwnPage->RefreshItem(NextBox);
+					if (NextBox->OwnPage != OwnPage)
+						NextBox->OwnPage->RefreshItem(NextBox, true);
 					}
 				else
 					{

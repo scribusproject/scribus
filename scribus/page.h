@@ -115,7 +115,7 @@ public:
 	void PaintSizeRect(QPainter *p, QRect alt, QRect neu);
 	QPoint ApplyGrid(QPoint in);
 	FPoint ApplyGridF(FPoint in);
-	void RefreshItem(PageItem *b);
+	void RefreshItem(PageItem *b, bool single = false);
 	void RepaintTextRegion(PageItem *b, QRegion alt);
 	void EmitValues(PageItem *b);
 	void AdjustPreview(PageItem *b);
