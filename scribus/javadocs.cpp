@@ -77,6 +77,7 @@ void JavaDocs::slotAdd()
 			DeleteScript->setEnabled(true);
 			Doc->JavaScripts[nam] = dia2->EditTex->text();
 			Scripts->insertItem(nam);
+			emit docChanged(false);
 		}
 		delete dia2;
 		delete dia;
@@ -88,7 +89,10 @@ void JavaDocs::slotEdit()
 	QString nam = Scripts->currentText();
 	Editor* dia2 = new Editor(this, Doc->JavaScripts[nam], View);
 	if (dia2->exec())
+	{
 		Doc->JavaScripts[nam] = dia2->EditTex->text();
+		emit docChanged(false);
+	}
 	delete dia2;
 }
 
@@ -115,5 +119,6 @@ void JavaDocs::slotDelete()
 		}
 		else
 			Scripts->setCurrentItem(0);
+		emit docChanged(false);
 	}
 }

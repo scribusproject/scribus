@@ -112,6 +112,7 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
 		TxStroke->insertItem(pm, it.key());
 	}
 	StrokeIcon->setEnabled(false);
+	PM1->setEnabled(false);
 	TxStroke->setEnabled(false);
 	TxFill->setCurrentText(vor->FColor);
 	TxStroke->setCurrentText(vor->SColor);
@@ -234,6 +235,7 @@ void EditStyle::ColorChange()
 	int s = EffeS->getStyle();
 	bool enabled = (s & 4) ? true : false;
 	StrokeIcon->setEnabled(enabled);
+	PM1->setEnabled(enabled);
 	TxStroke->setEnabled(enabled);
 }
 

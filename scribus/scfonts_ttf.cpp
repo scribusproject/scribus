@@ -1,6 +1,7 @@
 
 #include <qfile.h>
 #include <qstring.h>
+#include <qobject.h>
 
 #include <sys/types.h>
 
@@ -50,12 +51,14 @@ bool Foi_ttf::ReadMetrics()
 	if (error)
 	{
 		UseFont = false;
+		qDebug(QObject::tr("Font %1 is broken, discarding it").arg(Datei));
 		return false;
 	}
 	error = FT_New_Face( library, Datei, 0, &face );
 	if (error)
 	{
 		UseFont = false;
+		qDebug(QObject::tr("Font %1 is broken, discarding it").arg(Datei));
 		return false;
 	}
 	uniEM = static_cast<double>(face->units_per_EM);
@@ -91,6 +94,7 @@ bool Foi_ttf::ReadMetrics()
 		if (error)
 		{
 			UseFont = false;
+			qDebug(QObject::tr("Font %1 is broken, discarding it").arg(Datei));
 			break;
 		}
 		double ww = face->glyph->metrics.horiAdvance / uniEM;

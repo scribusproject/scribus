@@ -8619,14 +8619,14 @@ void Page::DeleteItem()
 						c = b->Ptext.count();
 						for (a = 0; a < c; ++a)
 							b->NextBox->Ptext.prepend(b->Ptext.take(b->Ptext.count()-1));
+						if ((b->isAutoText) && (b->NextBox == 0))
+							doku->LastAuto = 0;
 					}
 					else
 					{
 						b->BackBox->NextBox = b->NextBox;
 						if (b->NextBox != 0)
-						{
 							b->NextBox->BackBox = b->BackBox;
-						}
 						else
 						{
 							if (b->isAutoText)

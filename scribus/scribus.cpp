@@ -7416,7 +7416,9 @@ void ScribusApp::slotChangeUnit(int art, bool draw)
 void ScribusApp::ManageJava()
 {
 	JavaDocs *dia = new JavaDocs(this, doc, view);
+	connect(dia, SIGNAL(docChanged(bool)), this, SLOT(slotDocCh(bool )));
 	dia->exec();
+	disconnect(dia, SIGNAL(docChanged(bool)), this, SLOT(slotDocCh(bool )));
 	delete dia;
 }
 

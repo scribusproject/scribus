@@ -573,7 +573,6 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					chx = hl->ch;
 					if (hl->ch == QChar(30))
 						chx = ExpandToken(a);
-					Zli3.Zeich = chx;
 					if (hl->ccolor != "None")
 					{
 						SetFarbe(&tmp, hl->ccolor, hl->cshade);
@@ -584,6 +583,9 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						SetFarbe(&tmp, hl->cstroke, hl->cshade2);
 						p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
 					}
+					chs = hl->csize;
+					oldCurY = SetZeichAttr(hl, &chs, &chx);
+					Zli3.Zeich = chx;
 					Zli3.Farb = hl->ccolor;
 					Zli3.Farb2 = hl->cstroke;
 					Zli3.shade = hl->cshade;
@@ -591,7 +593,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					Zli3.xco = hl->xp;
 					Zli3.yco = hl->yp;
 					Zli3.Sele = hl->cselect;
-					Zli3.Siz = hl->csize;
+					Zli3.Siz = chs;
 					Zli3.Style = hl->cstyle;
 					Zli3.ZFo = hl->cfont;
 					Zli3.wide = Cwidth(Doc, hl->cfont, chx, hl->csize);

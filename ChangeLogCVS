@@ -1,6 +1,19 @@
 Changes since 1.2 
 
+22.09.2004
+	* bug     #1019: When fonts are auto removed because of errors, they should be reported in the console
+	* bug     #1103: Scribus exits with a Signal 11 when adding a new page to a document
+	* bug     #1110: Stroke color greyed by default lets user access the value nonetheless in Paragraph style edit dialog
+	* bug     #1128: Small Caps are not correctly displayed
+	* bug     #1129: Polish hyphenation is not satisfactory
+	* feature #1070: Can't save after just javascript editing
+
 21.09.2004
+	* bug     #1014: Bad pangram display in Font Preview
+	* bug     #1081: Insert Special... crash scribus
+	* bug     #1122: Icon change in main toolbar + story editor
+	* bug     #1131: *Blank page* icon has two different meanings wether in Main Tools bar or in Story Editor
+	* feature # 113: OOo importer
 	* feature #1121: Danish Translation
 
 20.09.2004

@@ -169,12 +169,14 @@ class Foi_postscript : public Foi
 			if (error)
 			{
 				UseFont = false;
+				qDebug(QObject::tr("Font %1 is broken, discarding it").arg(Datei));
 				return false;
 			}
 			error = FT_New_Face( library, Datei, 0, &face );
 			if (error)
 			{
 				UseFont = false;
+				qDebug(QObject::tr("Font %1 is broken, discarding it").arg(Datei));
 				return false;
 			}
 			uniEM = static_cast<double>(face->units_per_EM);
@@ -220,6 +222,7 @@ class Foi_postscript : public Foi
 				if (error)
 				{
 					UseFont = false;
+					qDebug(QObject::tr("Font %1 is broken, discarding it").arg(Datei));
 					break;
 				}
 				double ww = face->glyph->metrics.horiAdvance / uniEM;
@@ -399,11 +402,14 @@ void SCFonts::AddScalableFonts(const QString &path)
 			QFileInfo fi2(pathfile);
 			QString ext = fi2.extension(false).lower();
 			if ((ext == "pfa") || (ext == "pfb") || (ext == "ttf") || (ext == "otf"))
-				{
+			{
 				error = FT_New_Face( library, pathfile, 0, &face );
 				if (error)
+				{
+					qDebug(QObject::tr("Font %1 is broken, discarding it").arg(path+d[dc]));
 					continue;
 				}
+			}
 			else
 				continue;
 			ts = QString(face->family_name) + " " + QString(face->style_name);
