@@ -861,6 +861,7 @@ void ScribusApp::initMenuBar()
 	helpMenu->insertSeparator();
 	MenID = helpMenu->insertItem( tr("Scribus &Manual..."), this, SLOT(slotOnlineHelp()));
 	SetKeyEntry(54, tr("Online-Help..."), MenID, 0);
+
 	//	editMenu->insertItem( tr("Test"), this, SLOT(slotTest()));
 	//	helpMenu->insertItem( tr("Test2"), this, SLOT(slotTest2()));
 	menuBar()->insertItem( tr("&File"), fileMenu);
@@ -4387,7 +4388,7 @@ void ScribusApp::slotHelpAboutQt()
 
 void ScribusApp::slotOnlineHelp()
 {
-	HelpBrowser *dia = new HelpBrowser(this, tr("Scribus Manual"));
+	HelpBrowser *dia = new HelpBrowser(this, tr("Scribus Manual"), ScApp->GuiLanguage);
 	dia->show();
 }
 
