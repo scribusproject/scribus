@@ -1,6 +1,6 @@
 Changes since Version 1.1.5
-25.02.2004	Included 2 Patches from Allessandro Rimoldini for the
-		Story Editor and the main.cpp file.
+25.02.2004	Included a Patch from Allessandro Rimoldini for the main.cpp file.
+		Included a Patch from Mathy Vanvoorden for the Story Editor.
 		Fixed bugs with Textframes.
 		Display of Textframes should look now the same in all Magnifications.
 		Updated scribus.desktop file.
