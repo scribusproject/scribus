@@ -719,7 +719,7 @@ PyMethodDef scribus_methods[] = {
 	// end of aliases
 	{const_cast<char*>("retval"), scribus_retval, METH_VARARGS, const_cast<char*>("Scribus internal.")},
 	{const_cast<char*>("getval"), (PyCFunction)scribus_getval, METH_NOARGS, const_cast<char*>("Scribus internal.")},
-	{const_cast<char*>(""), (PyCFunction)(0), METH_NOARGS, const_cast<char*>("")} /* sentinel */
+	{NULL, NULL, NULL, NULL} /* sentinel */
 };
 
 void initscribus(ScribusApp *pl)
