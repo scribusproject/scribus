@@ -1,4 +1,5 @@
 #include "tfdia.h"
+#include "tfdia.moc"
 #include <prefsfile.h>
 #include <qpixmap.h>
 #include <qtooltip.h>
@@ -6,7 +7,6 @@
 #include <qframe.h>
 #include <qrect.h>
 #include <prefstable.h>
-#include <iostream> // @todo remove this line
 
 extern QPixmap loadIcon(QString nam);
 extern PrefsFile* prefsFile;
@@ -119,7 +119,6 @@ void tfDia::createFilterRow(tfFilter* after)
 		{
 			if (filters[i] == after)
 			{
-				std::cout << "found...\n";
 				++it;
 				++i;
 				break;

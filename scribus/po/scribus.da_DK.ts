@@ -3,7 +3,7 @@
     <name>@@translation</name>
     <message>
         <source>Project-Id-Version: Scribus 1.2.1</source>
-        <translation type="obsolete">Revision-Date: 2004-09-19 16:00:00 CET
+        <translation type="obsolete">Revision-Date: 2004-10-01 16:30:00 CET
 Last-Translator: Morten Langlo &lt;mlanglo@mail.dk&gt;</translation>
     </message>
 </context>
@@ -22,16 +22,8 @@ Last-Translator: Morten Langlo &lt;mlanglo@mail.dk&gt;</translation>
         <translation>Galicisk:</translation>
     </message>
     <message>
-        <source>Programming:</source>
-        <translation type="obsolete">Programmering:</translation>
-    </message>
-    <message>
         <source>Czech:</source>
         <translation>Tjekkisk:</translation>
-    </message>
-    <message>
-        <source>English:</source>
-        <translation type="obsolete">Engelsk:</translation>
     </message>
     <message>
         <source>Welsh:</source>
@@ -102,10 +94,6 @@ Last-Translator: Morten Langlo &lt;mlanglo@mail.dk&gt;</translation>
         <translation>Tysk:</translation>
     </message>
     <message>
-        <source>Documentation:</source>
-        <translation type="obsolete">Dokumentation:</translation>
-    </message>
-    <message>
         <source>About Scribus%1%2</source>
         <translation>Om Scribus%1%2</translation>
     </message>
@@ -122,18 +110,6 @@ Last-Translator: Morten Langlo &lt;mlanglo@mail.dk&gt;</translation>
     <message>
         <source>Build-ID:</source>
         <translation>Build-ID:</translation>
-    </message>
-    <message>
-        <source>Homepage and online reference</source>
-        <translation type="obsolete">Hjemmeside og &quot;online&quot; reference</translation>
-    </message>
-    <message>
-        <source>Mailing list</source>
-        <translation type="obsolete">Postliste</translation>
-    </message>
-    <message>
-        <source>Bugs and feature requests</source>
-        <translation type="obsolete">Fejlreportering og anmodning om nye funktioner</translation>
     </message>
     <message>
         <source>Slovenian:</source>
@@ -179,35 +155,35 @@ Manglende biblioteksunderstøttelse er vist ved en *</translation>
     </message>
     <message>
         <source>Development Team:</source>
-        <translation type="unfinished"></translation>
+        <translation>Udviklings-holdet:</translation>
     </message>
     <message>
         <source>Official Documentation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Officiel dokumentation:</translation>
     </message>
     <message>
         <source>Other Documentation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Anden dokumentation:</translation>
     </message>
     <message>
         <source>English (British):</source>
-        <translation type="unfinished"></translation>
+        <translation>Engelsk (Britisk):</translation>
     </message>
     <message>
         <source>Homepage</source>
-        <translation type="unfinished"></translation>
+        <translation>Hjemmeside</translation>
     </message>
     <message>
         <source>Online Reference</source>
-        <translation type="unfinished">Scripter manual</translation>
+        <translation>Dokumentation på nettet</translation>
     </message>
     <message>
         <source>Bugs and Feature Requests</source>
-        <translation type="unfinished"></translation>
+        <translation>Fejlreportering og anmodning om nye funktioner</translation>
     </message>
     <message>
         <source>Mailing List</source>
-        <translation type="unfinished"></translation>
+        <translation>Postliste</translation>
     </message>
 </context>
 <context>
@@ -2812,13 +2788,10 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
         <translation></translation>
     </message>
     <message>
-        <source>Sorry, no manual available! Please see: http://scribus.net for updated docs and downloads.</source>
-        <translation type="obsolete">Desværre er der ingen manual tilgængelig! Se venligst http://scribus.net for den nyeste dokumentation.</translation>
-    </message>
-    <message>
         <source>Sorry, no manual available! Please see: http://docs.scribus.net for updated docs
 and www.scribus.net for downloads.</source>
-        <translation type="unfinished"></translation>
+        <translation>Desværre er der ingen manual tilgængelig! Se venligst http://docs.scribus.net for nyeste dokumentation
+og www.scribus.net for at hente scribus ect.</translation>
     </message>
 </context>
 <context>
@@ -2847,16 +2820,6 @@ and www.scribus.net for downloads.</source>
         <translation>Orddelings instillinger</translation>
     </message>
     <message>
-        <source>Enables automatic checking of your text while typing.</source>
-        <translation type="obsolete">Automatisk kontrol af din tekst under indtastning.</translation>
-    </message>
-    <message>
-        <source>If you uncheck this you will get a dialog
-everytime a possible Hyphenation is found.</source>
-        <translation type="obsolete">Hvis du fjerner krydset her, vil der komme en
-dialogboks, hver gang en mulig orddeling er fundet.</translation>
-    </message>
-    <message>
         <source>Length of the smallest word to be hyphenated.</source>
         <translation>Længden af det mindste ord der deles.</translation>
     </message>
@@ -2867,24 +2830,12 @@ A value of 0 means unlimited hyphenations.</source>
 Værdien 0 betyder ubegrænset antal.</translation>
     </message>
     <message>
-        <source>&amp;Fully Automatic</source>
-        <translation type="obsolete">&amp;Helt automatisk</translation>
-    </message>
-    <message>
-        <source>Check &amp;During Typing</source>
-        <translation type="obsolete">&amp;Kontrollér under indtastning</translation>
-    </message>
-    <message>
         <source>&amp;Language:</source>
         <translation>&amp;Sprog:</translation>
     </message>
     <message>
         <source>&amp;Smallest Word:</source>
         <translation>&amp;Mindste ord:</translation>
-    </message>
-    <message>
-        <source>&amp;Number of Hypenations allowed:</source>
-        <translation type="obsolete">Antal tilladte &amp;orddelinger:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -2895,24 +2846,24 @@ Værdien 0 betyder ubegrænset antal.</translation>
         <translation>&amp;Annullér</translation>
     </message>
     <message>
-        <source>&amp;Hyphenation Suggestions</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Hyphenate Text Automatically &amp;During Typing</source>
-        <translation type="unfinished"></translation>
+        <translation>Orddel tekst &amp;automatisk under indtastning</translation>
     </message>
     <message>
         <source>Consecutive Hypenations &amp;Allowed:</source>
-        <translation type="unfinished"></translation>
+        <translation>Antal &amp;tilladte orddelinger i træk:</translation>
     </message>
     <message>
         <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
-        <translation type="unfinished"></translation>
+        <translation>Et dialogvindue, der viser de mulige orddelinger for hvert ord, kommer frem når du bruger de ekstra orddelings tekst tilvalg.</translation>
     </message>
     <message>
         <source>Enables automatic hyphenation of your text while typing.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiverer automatisk orddeling af din tekst under indtastningen.</translation>
+    </message>
+    <message>
+        <source>&amp;Hyphenation Suggestions</source>
+        <translation>Orddelings &amp;forslag</translation>
     </message>
 </context>
 <context>
@@ -3008,10 +2959,6 @@ Værdien 0 betyder ubegrænset antal.</translation>
         <translation>Advarsel</translation>
     </message>
     <message>
-        <source>Do you really want do delete this Script?</source>
-        <translation type="obsolete">Ønsker du virkelig at slette denne script?</translation>
-    </message>
-    <message>
         <source>&amp;Edit...</source>
         <translation>&amp;Redigér...</translation>
     </message>
@@ -3041,7 +2988,7 @@ Værdien 0 betyder ubegrænset antal.</translation>
     </message>
     <message>
         <source>Do you really want to delete this Script?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ønsker du virkelig at slette denne script?</translation>
     </message>
 </context>
 <context>
@@ -3169,10 +3116,6 @@ Værdien 0 betyder ubegrænset antal.</translation>
         <translation>Redigér liniestile</translation>
     </message>
     <message>
-        <source>Do you really want do delete this Style?</source>
-        <translation type="obsolete">Ønsker du virkelig at slette denne stil?</translation>
-    </message>
-    <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
         <translation>Dokumenter (*.sla *.scd);; Alle filer (*)</translation>
     </message>
@@ -3230,7 +3173,7 @@ Værdien 0 betyder ubegrænset antal.</translation>
     </message>
     <message>
         <source>Do you really want to delete this Style?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ønsker du virkelig at slette denne typografi?</translation>
     </message>
 </context>
 <context>
@@ -4214,10 +4157,6 @@ Vælg venligst et andet.</translation>
         <translation>Kopi #%1 af </translation>
     </message>
     <message>
-        <source>Do you really want do delete this Template?</source>
-        <translation type="obsolete">Ønsker du virkelig at slette denne skabelon?</translation>
-    </message>
-    <message>
         <source>Copy of %1</source>
         <translation>Kopi af %1</translation>
     </message>
@@ -4271,7 +4210,7 @@ Vælg venligst et andet.</translation>
     </message>
     <message>
         <source>Do you really want to delete this Template?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ønsker du virkelig at slette denne skabelon?</translation>
     </message>
 </context>
 <context>
@@ -5877,10 +5816,6 @@ UCR formindsker muligheden for overmætning med CMY farverne.</translation>
         <translation>&amp;Rotation:</translation>
     </message>
     <message>
-        <source>Conve&amp;x Polygon</source>
-        <translation type="obsolete">Conve&amp;x Polygon</translation>
-    </message>
-    <message>
         <source>&amp;Factor:</source>
         <translation>&amp;Faktor:</translation>
     </message>
@@ -5901,29 +5836,22 @@ UCR formindsker muligheden for overmætning med CMY farverne.</translation>
         <translation>Rotation i grader for polygoner</translation>
     </message>
     <message>
-        <source>Polygons will be convex rather than concave</source>
-        <translation type="obsolete">Polygoner vil være convex snarere end concav</translation>
-    </message>
-    <message>
         <source>Sample Polygon</source>
         <translation>Prøve polygon</translation>
     </message>
     <message>
-        <source>Change the angles at which lines of the polygon join</source>
-        <translation type="obsolete">Vælg de vinkler, som polygonens linier forbindes med</translation>
-    </message>
-    <message>
         <source>Apply &amp;Factor</source>
-        <translation type="unfinished"></translation>
+        <translation>Anvend &amp;faktor</translation>
     </message>
     <message>
         <source>Apply Convex/Concave Factor to change shape of Polygons</source>
-        <translation type="unfinished"></translation>
+        <translation>Anvens convex/concav faktor for at ændre polygonens form</translation>
     </message>
     <message>
         <source>A negative value will make the polygon concave (or star shaped),
  a positive value will make it convex</source>
-        <translation type="unfinished"></translation>
+        <translation>En negativ værdi vil lave polygonen concav (eller stjerneformet),
+en positiv værdi vil lave den convex</translation>
     </message>
 </context>
 <context>
@@ -6403,16 +6331,8 @@ hver gang det valgte tids-interval udløber</translation>
         <translation>Rotation i grader for polygoner</translation>
     </message>
     <message>
-        <source>Polygons will be convex rather than concave</source>
-        <translation type="obsolete">Polygoner vil være convex snarere end concav</translation>
-    </message>
-    <message>
         <source>Sample Polygon</source>
         <translation>Prøve polygon</translation>
-    </message>
-    <message>
-        <source>Change the angles at which lines of the polygon join</source>
-        <translation type="obsolete">Vælg de vinkler, som polygonens linier forbindes med</translation>
     </message>
     <message>
         <source>Choose the size of the preview in the scrapbook palette</source>
@@ -6749,10 +6669,6 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
         <translation>&amp;Rotation:</translation>
     </message>
     <message>
-        <source>Conve&amp;x Polygon</source>
-        <translation type="obsolete">Conve&amp;x Polygon</translation>
-    </message>
-    <message>
         <source>&amp;Factor:</source>
         <translation>&amp;Faktor:</translation>
     </message>
@@ -6846,16 +6762,17 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
     </message>
     <message>
         <source>Apply &amp;Factor</source>
-        <translation type="unfinished"></translation>
+        <translation>Anvend &amp;faktor</translation>
     </message>
     <message>
         <source>Apply Convex/Concave Factor to change shape of Polygons</source>
-        <translation type="unfinished"></translation>
+        <translation>Anvend convex/concav faktor for at ændre polygonens form</translation>
     </message>
     <message>
         <source>A negative value will make the polygon concave (or star shaped),
  a positive value will make it convex</source>
-        <translation type="unfinished"></translation>
+        <translation>En negativ værdi vil lave polygonen concav (eller stjerneformet),
+en positiv værdi vil lave den convex</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed
@@ -6864,12 +6781,12 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished">En måde at fjerne nogle af gråtonerne, som er sammensat
+        <translation>En måde at fjerne nogle af gråtonerne, som er sammensat
 af cyan, gul og magenta, så der i stedet for disse farver bruges sort.
 UCR påvirker mest de dele af billedet, som er neutrale og/eller mørke i farven, det, 
-som er tættets på grå. Brug af denne metode kan forbedre udskrivningen af nogle 
-billeder og nogen eksperimenteren og testning er nødvendigt fra billede til billede.
-UCR formindsker muligheden for overmætning med CMY farverne.</translation>
+som er tættets på gråt. Brug af denne metode kan forbedre udskrivningen af nogle 
+billeder og nogen eksperimenteren og testning er nødvendigt fra tilfælde til tilfælde.
+UCR formindsker muligheden for overmætning af CMY farverne.</translation>
     </message>
 </context>
 <context>
@@ -7579,14 +7496,6 @@ Kontrollér sti og filnavn.</translation>
         <translation>Importerer tekst</translation>
     </message>
     <message>
-        <source>Importer</source>
-        <translation type="obsolete">Importfilter</translation>
-    </message>
-    <message>
-        <source>Choose the importer to use</source>
-        <translation type="obsolete">Vælg importfilter</translation>
-    </message>
-    <message>
         <source>All Supported Formats</source>
         <translation>Alle understøttede formater</translation>
     </message>
@@ -7631,15 +7540,15 @@ Ekstern Lænker</translation>
     </message>
     <message>
         <source>Font %1 is broken, discarding it</source>
-        <translation type="unfinished"></translation>
+        <translation>Font %1 indeholder fejl, kan ikke bruges</translation>
     </message>
     <message>
         <source>OO.o Writer Documents</source>
-        <translation type="unfinished"></translation>
+        <translation>OO.o Tekst dokumenter</translation>
     </message>
     <message>
         <source>Text Filters</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekst filtre</translation>
     </message>
 </context>
 <context>
@@ -9448,7 +9357,7 @@ til vinduet nedenunder, for at lave en ny side.</translation>
     <name>StilFormate</name>
     <message>
         <source>No</source>
-        <translation>Ingen</translation>
+        <translation>Nej</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -9461,10 +9370,6 @@ til vinduet nedenunder, for at lave en ny side.</translation>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
         <translation>Dokumenter (*.sla *.sla.gz *.scd *scd.gz);; Alle filer (*)</translation>
-    </message>
-    <message>
-        <source>Do you really want do delete this Style?</source>
-        <translation type="obsolete">Ønsker du virkelig at slette denne stil?</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
@@ -9520,7 +9425,7 @@ til vinduet nedenunder, for at lave en ny side.</translation>
     </message>
     <message>
         <source>Do you really want to delete this Style?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ønsker du virkelig at slette denne typografi?</translation>
     </message>
 </context>
 <context>
@@ -9741,41 +9646,47 @@ til vinduet nedenunder, for at lave en ny side.</translation>
     <name>SxwDialog</name>
     <message>
         <source>OO.o Writer Importer Options</source>
-        <translation type="unfinished"></translation>
+        <translation>OO.o Tekst import indstillinger</translation>
     </message>
     <message>
         <source>Update paragraph styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Opdatër afsnits typografier</translation>
     </message>
     <message>
         <source>If there already exists a paragraph style with the same
 name than current OO.o document&apos;s paragraph should the style
 in Scribus be edited to match the one being imported
 or left untouched</source>
-        <translation type="unfinished"></translation>
+        <translation>Hvis der allerede findes et afsnits typografi med det samme
+navn som i det aktive OO.o dokuments afsnit, skal typografien
+i Scribus da ændres, så det er i overensstemmelse med det, der 
+importeres eller skal det forblive som det er</translation>
     </message>
     <message>
         <source>Use document name as a prefix for paragraph styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Brug dokumentnavn som en forstavelse til afsnits typografier</translation>
     </message>
     <message>
         <source>Should importer add the name of the document
 on front of the paragraph style name in Scirubs</source>
-        <translation type="unfinished"></translation>
+        <translation>Skal importfiltret bruge dokumentets navn 
+som forstavelse til afsnits typografiens navn i Scribus</translation>
     </message>
     <message>
         <source>Do not ask again</source>
-        <translation type="unfinished"></translation>
+        <translation>Spørg ikke igen</translation>
     </message>
     <message>
         <source>Should the importer always use currently
 set value when importing OO.o document and
 never ask your confirmation again</source>
-        <translation type="unfinished"></translation>
+        <translation>Skal importfiltret altid bruge det nuværende
+sæt værdier, når der importeres OO.o dokumenter
+og aldrig spørge dig om, at bekræfte det igen</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -9941,27 +9852,27 @@ Vælg venligst et andet.</translation>
     <name>ValueDialog</name>
     <message>
         <source>Insert value</source>
-        <translation type="unfinished"></translation>
+        <translation>Indsæt værdi</translation>
     </message>
     <message>
         <source>Enter a value then press OK.</source>
-        <translation type="unfinished"></translation>
+        <translation>Indtast en værdi og tryk OK.</translation>
     </message>
     <message>
         <source>Enter a value then press OK</source>
-        <translation type="unfinished"></translation>
+        <translation>Indtast en værdi og tryk OK</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+O</translation>
     </message>
     <message>
         <source>Send your value to the script</source>
-        <translation type="unfinished"></translation>
+        <translation>Send din værdi til scripten</translation>
     </message>
 </context>
 <context>
@@ -10144,25 +10055,27 @@ Vælg venligst et andet.</translation>
     <name>gtImporterDialog</name>
     <message>
         <source>Choose the importer to use</source>
-        <translation type="unfinished">Vælg importfilter</translation>
+        <translation>Vælg importfilter</translation>
     </message>
     <message>
         <source></source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Remember association</source>
-        <translation type="unfinished"></translation>
+        <translation>Husk tilknytning</translation>
     </message>
     <message>
         <source>Remember the file extension - importer association
 and do not ask again to select an importer for
 files of this type.</source>
-        <translation type="unfinished"></translation>
+        <translation>Husker fil-endelsen - importfilter-tilknytning
+og spørger ikke igen om at vælge et importfilter
+for denne filtype.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -10347,114 +10260,114 @@ files of this type.</source>
     <name>tfDia</name>
     <message>
         <source>Create filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Lav filter</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation type="unfinished">S&amp;let</translation>
+        <translation>S&amp;let</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Slet</translation>
+        <translation>&amp;Slet</translation>
     </message>
     <message>
         <source>Choose a previously saved filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Vælg et tidligere gemt filter</translation>
     </message>
     <message>
         <source>Give a name to this filter for saving</source>
-        <translation type="unfinished"></translation>
+        <translation>Giv dette filter et navn, så det kan gemmes</translation>
     </message>
     <message>
         <source>Give a name for saving</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtrets navn</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Annullér</translation>
+        <translation>&amp;Annullér</translation>
     </message>
 </context>
 <context>
     <name>tfFilter</name>
     <message>
         <source>Disable or enable this filter row</source>
-        <translation type="unfinished"></translation>
+        <translation>Deaktivér eller aktivér denne filter række</translation>
     </message>
     <message>
         <source>Remove this filter row</source>
-        <translation type="unfinished"></translation>
+        <translation>Fjern denne filter række</translation>
     </message>
     <message>
         <source>Add a new filter row</source>
-        <translation type="unfinished"></translation>
+        <translation>Tilføj en ny filter række</translation>
     </message>
     <message>
         <source>to</source>
-        <translation type="unfinished"></translation>
+        <translation>til</translation>
     </message>
     <message>
         <source>and</source>
-        <translation type="unfinished"></translation>
+        <translation>og</translation>
     </message>
     <message>
         <source>remove match</source>
-        <translation type="unfinished"></translation>
+        <translation>fjern søgeord</translation>
     </message>
     <message>
         <source>do not remove match</source>
-        <translation type="unfinished"></translation>
+        <translation>fjern ikke søgeord</translation>
     </message>
     <message>
         <source>words</source>
-        <translation type="unfinished"></translation>
+        <translation>ord</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished">Fjern</translation>
+        <translation>Fjern</translation>
     </message>
     <message>
         <source>Replace</source>
-        <translation type="unfinished"></translation>
+        <translation>Erstat</translation>
     </message>
     <message>
         <source>Apply</source>
-        <translation type="unfinished">Anvend</translation>
+        <translation>Anvend</translation>
     </message>
     <message>
         <source>Value at the left is a regular expression</source>
-        <translation type="unfinished"></translation>
+        <translation>Værdien til venstre er et regulært udtryk</translation>
     </message>
     <message>
         <source>with</source>
-        <translation type="unfinished"></translation>
+        <translation>med</translation>
     </message>
     <message>
         <source>paragraph style</source>
-        <translation type="unfinished"></translation>
+        <translation>afsnits typografi</translation>
     </message>
     <message>
         <source>all instances of</source>
-        <translation type="unfinished"></translation>
+        <translation>alle tilfælde af</translation>
     </message>
     <message>
         <source>all paragraphs</source>
-        <translation type="unfinished"></translation>
+        <translation>alle afsnit</translation>
     </message>
     <message>
         <source>paragraphs starting with</source>
-        <translation type="unfinished"></translation>
+        <translation>afsnit der starter med</translation>
     </message>
     <message>
         <source>paragraphs with less than</source>
-        <translation type="unfinished"></translation>
+        <translation>afsnit med mindre end</translation>
     </message>
     <message>
         <source>paragraphs with more than</source>
-        <translation type="unfinished"></translation>
+        <translation>afsnit med mere end</translation>
     </message>
 </context>
 </TS>

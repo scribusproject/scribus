@@ -57,6 +57,7 @@ private:
 	gtStyle* parentStyle;
 	bool inList;
 	QString currentList;
+	bool defaultStyleCreated;
 	double getSize(QString s, double parentSize = -1);
 	void styleProperties(const QXmlAttributes& attrs);
 	void defaultStyle(const QXmlAttributes& attrs);

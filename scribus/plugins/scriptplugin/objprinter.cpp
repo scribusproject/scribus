@@ -1,5 +1,6 @@
 #include <Python.h>
 #include <structmember.h>
+#include <qfileinfo.h>
 
 #include "cmdvar.h"
 #include "cmdutil.h"
@@ -127,8 +128,10 @@ static int Printer_init(Printer *self, PyObject *args, PyObject *kwds)
         for (int i = 0; i < num_dests; ++i) {
                 if (dests[i].name != NULL) {
                         PyObject *tmp = PyString_FromString(dests[i].name);
-                        if (tmp)
+                        if (tmp) {
                                 PyList_Append(self->allPrinters, tmp);
+                                Py_DECREF(tmp);
+                        }
                 }
         }
         cupsFreeDests(num_dests, dests);
@@ -152,12 +155,15 @@ static int Printer_init(Printer *self, PyObject *args, PyObject *kwds)
                                 PyObject *tmppr = PyString_FromString(wt[0]);
                                 if (tmppr){
                                         PyList_Append(self->allPrinters, tmppr);
+                                        Py_DECREF(tmppr);
                                 }
                         }
                 }
         }
 #endif
-        PyList_Append(self->allPrinters, PyString_FromString("File"));
+        PyObject *tmp2 = PyString_FromString("File");
+        PyList_Append(self->allPrinters, tmp2);
+        Py_DECREF(tmp2);
 // as defaut set to print into file
         PyObject *printer = NULL;
         printer = PyString_FromString("File");
@@ -166,11 +172,19 @@ static int Printer_init(Printer *self, PyObject *args, PyObject *kwds)
                 self->printer = printer;
         }
 // set defaul name of file to print into
+        QString tf = Carrier->doc->PDF_Optionen.Datei;
+        if (tf == "") {
+                QFileInfo fi = QFileInfo(Carrier->doc->DocName);
+                tf = fi.dirPath()+"/"+fi.baseName()+".pdf";
+        }
         PyObject *file = NULL;
-        file = PyString_FromString("output.ps");
+        file = PyString_FromString(tf.ascii());
         if (file){
                 Py_DECREF(self->file);
                 self->file = file;
+        } else {
+                PyErr_SetString(PyExc_SystemError, "Can not initialize 'file' attribute");
+                return -1;
         }
 // alternative printer commands default to ""
         PyObject *cmd = NULL;
@@ -345,6 +359,10 @@ static int Printer_setpages(Printer *self, PyObject *value, void *closure)
                         PyErr_SetString(PyExc_TypeError, "'pages' attribute must be list containing only integers.");
                         return -1;
                 }
+                if (PyInt_AsLong(tmp) > Carrier->doc->PageC || PyInt_AsLong(tmp) < 1) {
+                        PyErr_SetString(PyExc_ValueError, "'pages' value out of range.");
+                        return -1;
+                }       
         }
         Py_DECREF(self->pages);
         Py_INCREF(value);
@@ -410,13 +428,13 @@ static PyObject *Printer_print(Printer *self)
         Nr = (self->copies < 1) ? 1 : self->copies;
         SepName = QString(PyString_AsString(self->separation));
         sep =(SepName == QString("No")) ?  false : true;
-//     if (SepName == QString("All"))
-//         SepName = tr(SepName);
-        color = (bool)self->color;
-        mirrorH = (bool)self->mph;
-        mirrorV = (bool)self->mpv;
-        useICC = (bool)self->useICC;
-        DoGCR = (bool)self->ucr;
+//         if (SepName == QString("All"))
+//                 SepName = tr(SepName);
+        color = self->color;
+        mirrorH = self->mph;
+        mirrorV = self->mpv;
+        useICC = self->useICC;
+        DoGCR = self->ucr;
         int psl = self->pslevel;
         if (psl < 1)
                 psl = 1;

@@ -1,17 +1,30 @@
 Changes since 1.2 
 
+02.10.2004
+	* bug     #1164: Korean Translation
+	* bug     #1165: Catalan Translation Update
+	* bug     #1174: Enable Scribus to show installed GUI translations with cmd line option
+	* feature #1167: patch to add new translators
+	* feature #1169: [PATCH] Horizontal mirroring for PDF export
+	* feature #1170: Danish Translation
+
+01.10.2004
+	* feature #  59: Add in table support
+	* feature # 189: ASCII import options to strip Carriage Returns
+
 29.09.2004
 	* bug     #1014: Bad pangram display in Font Preview
 	* bug     #1133: Error in script htmlimport.py
 	* bug     #1136: Hyphenation marks not visible on linked frames
 	* bug     #1159: fix for revised help browser
 	* bug     #1160: cs_CZ translation for 1.2.1cvs
+	* feature #1078: Custom import filter for text files
 
 25.09.2004
 	* bug     # 971: Improvement in the Hyphenation Settings menus
+	* bug     # 971: Improvement in the Hyphenation Settings menus
 	* feature #1045: are stars convex?
 	* feature #1145: Polish Translation Update
-	* bug     # 971: Improvement in the Hyphenation Settings menus 
 
 24.09.2004
 	* bug     #1002: Many dialog boxes don't remember last settings

@@ -128,8 +128,7 @@ gtImporterDialog::gtImporterDialog(const QStringList& importers, int currentSele
 	QBoxLayout* layout = new QVBoxLayout(this);
 
 	QBoxLayout* llayout = new QHBoxLayout(0, 5, 5, "llayout");
-	QLabel* label = new QLabel(tr(""), this, "label");
-	label->setText(tr("Choose the importer to use"));
+	QLabel* label = new QLabel( tr("Choose the importer to use"), this, "label");
 	llayout->addWidget(label);
 	layout->addLayout(llayout);
 

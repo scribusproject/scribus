@@ -7203,6 +7203,7 @@ void ScribusApp::SaveAsPDF()
 		doc->PDF_Optionen.PicRes = dia->ValC->value();
 		doc->PDF_Optionen.Bookmarks = dia->CheckBM->isChecked();
 		doc->PDF_Optionen.Binding = dia->ComboBind->currentItem();
+		doc->PDF_Optionen.MirrorH = dia->MirrorH->isChecked();
 		doc->PDF_Optionen.PresentMode = dia->CheckBox10->isChecked();
 		doc->PDF_Optionen.PresentVals = dia->EffVal;
 		doc->PDF_Optionen.Articles = dia->Article->isChecked();
@@ -7271,6 +7272,7 @@ void ScribusApp::SaveAsPDF()
 					doc->PDF_Optionen.BleedRight = dia->BleedRight->value()/UmReFaktor;
 					doc->PDF_Optionen.BleedBottom = dia->BleedBottom->value()/UmReFaktor;
 					doc->PDF_Optionen.Encrypt = false;
+					doc->PDF_Optionen.MirrorH = false;
 					doc->PDF_Optionen.PresentMode = false;
 					doc->PDF_Optionen.Encrypt = false;
 				}

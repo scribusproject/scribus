@@ -14,4 +14,4 @@ libtextfilterplugin_la_SOURCES = textfilter.cpp tfdia.cpp tffilter.cpp
 EXTRA_DIST = textfilter.cpp textfilter.h tfdia.cpp tfdia.h tffilter.cpp tffilter.h
 
 KDE_OPTIONS = qtonly
-AM_LDFLAGS =	-s $(LIBFREETYPE_LIBS)
+AM_LDFLAGS = -s $(LIBFREETYPE_LIBS)

@@ -1,6 +1,6 @@
 
 #include "valuedialog.h"
-
+#include "valuedialog.moc"
 #include <qvariant.h>
 #include <qpushbutton.h>
 #include <qlabel.h>

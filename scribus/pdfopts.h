@@ -64,6 +64,7 @@ public:
 	QLabel* TextLabel1x;
 	QComboBox* ComboBind;
 	QCheckBox* CheckBox1;
+	QCheckBox* MirrorH;
 	QCheckBox* CheckBox10;
 	QPushButton* EonAllPg;
 	QWidget* tab_3;
@@ -171,6 +172,7 @@ public slots:
 	void SetPgEff(int nr);
 	void SetEffOpts(int nr);
 	void ValidDI(int nr);
+	void PDFMirrorH();
 	void DoEffects();
 	void EffectOnAll();
 	void SelRange(bool e);

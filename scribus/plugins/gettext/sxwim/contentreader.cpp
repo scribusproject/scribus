@@ -147,6 +147,22 @@ bool ContentReader::startElement(const QString&, const QString&, const QString &
 		}
 		tmap[tName] = p;
 	}
+	else if (name == "text:s")
+	{
+		int count = 1;
+		for (int i = 0; i < attrs.count(); ++i)
+		{
+			if (attrs.localName(i) == "text:c")
+			{
+				bool ok = false;
+				int tmpcount = (attrs.value(i)).toInt(&ok);
+				if (ok)
+					count = tmpcount;
+			}
+		}
+		for (int i = 0; i < count; ++i)
+			write(" ");
+	}
 	return true;
 }
 

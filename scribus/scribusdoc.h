@@ -314,6 +314,7 @@ struct PDFOpt {
 				int Resolution;
 				int Binding;
 				QValueList<QString> EmbedList;
+				bool MirrorH;
 				bool PresentMode;
 				QValueList<PreSet> PresentVals;
 				QString Datei;

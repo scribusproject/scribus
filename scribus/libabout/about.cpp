@@ -56,7 +56,7 @@ About::About( QWidget* parent )
 	tabLayout1->addWidget( PixmapLabel1 );
 	BuildID = new QLabel( tab, "BB" );
 	BuildID->setAlignment(Qt::AlignCenter);
-	QString bu = tr("%1. %2 %3 ").arg("28").arg("September").arg("2004");
+	QString bu = tr("%1. %2 %3 ").arg("01").arg("October").arg("2004");
 #ifdef HAVE_CMS
 	bu += "C";
 #else
@@ -139,6 +139,9 @@ About::About( QWidget* parent )
 	                                      "<tr><td><b>" + tr("Bulgarian:").utf8()  + "</b></td><td> </td></tr>" +
 	                                      "<tr><td>Vasko Tomanov</td><td>vasko@web.bg</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +
+					      "<tr><td><b>" + tr("Catalan:").utf8()  + "</b></td><td> </td></tr>" +
+					      "<tr><td>Xavier Sala Pujolar</td><td>utrescu@xaviersala.net</td></tr>" +
+	                                      "<tr><td> </td><td> </td></tr>" +
 	                                      "<tr><td><b>" + tr("Czech:").utf8()  + "</b></td><td></td></tr>" +
 	                                      "<tr><td>Petr Vaněk</td><td>petr@yarpen.cz</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +
@@ -174,7 +177,10 @@ About::About( QWidget* parent )
 	                                      "<tr><td><b>" + tr("Italian:").utf8()  + "</b></td><td> </td></tr>" +
 	                                      "<tr><td>Pier Luigi Cinquantini</td><td>plcinquantini@katamail.com</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +
-	                                      "<tr><td><b>" + tr("Lithuanian:").utf8()  + "</b></td><td> </td></tr>" +
+	                                      "<tr><td><b>" + tr("Korean:").utf8()  + "</b></td><td> </td></tr>" +
+	                                      "<tr><td>Kitae Kim</td><td>neeum@yahoo.com</td></tr>" +
+	                                      "<tr><td> </td><td> </td></tr>" +               
+					      "<tr><td><b>" + tr("Lithuanian:").utf8()  + "</b></td><td> </td></tr>" +
 	                                      "<tr><td>Aivaras Kirejevas</td><td>kiras@mail.lt</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +                                      
 	                                      "<tr><td><b>" + tr("Norwegian:").utf8()  + "</b></td><td></td></tr>" +
@@ -194,7 +200,7 @@ About::About( QWidget* parent )
 	                                      "<tr><td><b>" + tr("Slovenian:").utf8()  + "</b></td><td></td></tr>" +
 	                                      "<tr><td>Boštjan Špetič</td><td>igzebedze@kiberpipa.org</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +  
-	                                      "<tr><td><b>" + tr("Spanish and Catalan:").utf8()  + "</b></td><td> </td></tr>" +
+	                                      "<tr><td><b>" + tr("Spanish:").utf8()  + "</b></td><td> </td></tr>" +
 	                                      "<tr><td>Josep Febrer</td><td>josep@linuxmail.org</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +  
 	                                      "<tr><td><b>" + tr("Swedish:").utf8()  + "</b></td><td></td></tr>" +

@@ -1073,12 +1073,15 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 	if (Options->UseLPI)
 		PutPage("/"+HTName+" gs\n");
 	QString name = "/"+pag->MPageNam.simplifyWhiteSpace().replace( QRegExp("\\s"), "" );
+	if ( (Options->MirrorH) && (pag->MPageNam != "") )
+		PutPage("-1 0 0 1 "+FToStr(doc->PageB)+" 0 cm\n");
 	if (pag->MPageNam != "")
 	{
 		Page* mPage = view->MasterPages.at(view->MasterNames[view->Pages.at(PNr)->MPageNam]);
 		if (mPage->Items.count() != 0)
 		{
-			PutPage("1 0 0 1 0 0 cm\n");
+			if (!Options->MirrorH)
+				PutPage("1 0 0 1 0 0 cm\n");
 			PutPage(name+" Do\n");
 			for (uint lam = 0; lam < doc->Layers.count(); ++lam)
 			{

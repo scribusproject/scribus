@@ -34,6 +34,7 @@
 #define BASE_QM "scribus"
 
 #include "scribus.h"
+#include "langlist.h"
 
 #if (_MSC_VER >= 1200)
  #include "win-config.h"
@@ -44,6 +45,7 @@
 #define ARG_VERSION "--version"
 #define ARG_HELP "--help"
 #define ARG_LANG "--lang"
+#define ARG_AVAILLANG "--langs-available"
 #define ARG_NOSPLASH "--no-splash"
 #define ARG_NOGUI "--no-gui"
 #define ARG_DISPLAY "--display"
@@ -51,6 +53,7 @@
 #define ARG_VERSION_SHORT "-v"
 #define ARG_HELP_SHORT "-h"
 #define ARG_LANG_SHORT "-l"
+#define ARG_AVAILLANG_SHORT "-la"
 #define ARG_NOSPLASH_SHORT "-s"
 #define ARG_NOGUI_SHORT "-g"
 #define ARG_DISPLAY_SHORT "-d"
@@ -62,6 +65,7 @@ bool useGui = true;
 QString file;
 
 void showUsage();
+void showAvailLangs();
 int mainGui(int argc, char **argv);
 QStringList getLang(QString lang);
 void installTranslators(QApplication *app, QStringList langs);
@@ -84,6 +88,9 @@ int main(int argc, char *argv[])
         std::cout << "Issues:         http://bugs.scribus.net" << std::endl;
         showUsage();
         return 0;
+    } else if (arg == ARG_AVAILLANG || arg == ARG_AVAILLANG_SHORT) {
+		showAvailLangs();
+		return 0;
     }
 
     for(int i = 1; i < argc; i++) {
@@ -131,15 +138,46 @@ void showUsage()
     std::cout << std::endl;
     std::cout << "Usage: scribus [option ... ] [file]" << std::endl;
     std::cout << "Options:" << std::endl;
-    std::cout << "-l, --lang xx      Uses xx as shortcut for a language" << std::endl;
-    std::cout << "-h, --help         Print help (this message) and exit" << std::endl;
-    std::cout << "-v, --version      Output version information and exit" << std::endl;
+    std::cout << "-l,  --lang xx          Uses xx as shortcut for a language" << std::endl;
+    std::cout << "-la, --langs-available  Lists the currently installed interface languages" << std::endl;
+    std::cout << "-h,  --help             Print help (this message) and exit" << std::endl;
+    std::cout << "-v,  --version          Output version information and exit" << std::endl;
 /*
     std::cout << "-file|-- name Open file 'name'" << std::endl;
     std::cout << "name          Open file 'name', the file name must not begin with '-'" << std::endl;
     std::cout << "QT specific options as -display ..." << std::endl;
 */
     std::cout << std::endl;
+}
+
+void showAvailLangs()
+{
+	std::cout << "Installed Interface Languages for Scribus are as follows:" << std::endl;
+	std::cout << std::endl;
+
+    QString path = SCRIBUS_LIB;
+	QString langAbbrev;
+	LangList langlist;
+	LangList::Iterator it;
+
+    QDir dir(path , "*.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
+    if (dir.exists() && (dir.count() != 0))
+        for (uint i = 0; i < dir.count(); ++i) {
+            QFileInfo file(path + dir[i]);
+            if (file.extension(false).lower() == "qm") {
+				langAbbrev = file.extension().remove(".qm");
+				std::cout << langAbbrev.leftJustify(6) << ": ";
+				if ((it=langlist.find(langAbbrev))!=langlist.end())
+					std::cout << it.data();
+				else
+					std::cout << "Unknown";
+				std::cout << std::endl;
+            }
+		}
+
+	std::cout << std::endl;
+	std::cout << "To override the default language choice:" << std::endl;
+	std::cout << "scribus -l xx or scribus --lang xx, where xx is the language of choice." << std::endl;
 }
 
 /*!

@@ -1664,6 +1664,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				doc->PDF_Optionen.Quality = QStoInt(pg.attribute("Quality","0"));
 				doc->PDF_Optionen.RecalcPic = static_cast<bool>(QStoInt(pg.attribute("RecalcPic")));
 				doc->PDF_Optionen.Bookmarks = static_cast<bool>(QStoInt(pg.attribute("Bookmarks")));
+				doc->PDF_Optionen.MirrorH = static_cast<bool>(QStoInt(pg.attribute("MirrorH")));
 				doc->PDF_Optionen.PresentMode = static_cast<bool>(QStoInt(pg.attribute("PresentMode")));
 				doc->PDF_Optionen.PicRes = QStoInt(pg.attribute("PicRes"));
 				doc->PDF_Optionen.Version = QStoInt(pg.attribute("Version"));
@@ -2708,6 +2709,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, ScribusView *view, 
 	pdf.setAttribute("Compress", static_cast<int>(doc->PDF_Optionen.Compress));
 	pdf.setAttribute("CMethod", doc->PDF_Optionen.CompressMethod);
 	pdf.setAttribute("Quality", doc->PDF_Optionen.Quality);
+	pdf.setAttribute("MirrorH", static_cast<int>(doc->PDF_Optionen.MirrorH));
 	pdf.setAttribute("PresentMode", static_cast<int>(doc->PDF_Optionen.PresentMode));
 	pdf.setAttribute("RecalcPic", static_cast<int>(doc->PDF_Optionen.RecalcPic));
 	pdf.setAttribute("RGBMode", static_cast<int>(doc->PDF_Optionen.UseRGB));

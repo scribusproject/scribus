@@ -259,9 +259,12 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	tabLayout_5 = new QGridLayout( tab_5 );
 	tabLayout_5->setSpacing( 5 );
 	tabLayout_5->setMargin( 11 );
+	MirrorH = new QCheckBox( tr( "Mirror Page(s) &Horizontal" ), tab_5, "MirrorH" );
+	MirrorH->setChecked(Optionen->MirrorH);
+	tabLayout_5->addMultiCellWidget( MirrorH, 0, 0, 0, 1 );
 	CheckBox10 = new QCheckBox( tr( "Enable &Presentation Effects" ), tab_5, "CheckBox10" );
 	CheckBox10->setChecked(Optionen->PresentMode);
-	tabLayout_5->addMultiCellWidget( CheckBox10, 0, 0, 0, 1 );
+	tabLayout_5->addMultiCellWidget( CheckBox10, 1, 1, 0, 1 );
 	Pages = new QListBox( tab_5, "Pages" );
 	Pages->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1,
 	                                   Pages->sizePolicy().hasHeightForWidth() ) );
@@ -298,10 +301,10 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 			EffVal.append(ef);
 		}
 	}
-	tabLayout_5->addWidget( Pages, 1, 0 );
+	tabLayout_5->addWidget( Pages, 2, 0 );
 	PagePrev = new QCheckBox( tr( "Show Page Pre&views" ), tab_5, "CheckBox10" );
 	PagePrev->setChecked(false);
-	tabLayout_5->addWidget( PagePrev, 2, 0 );
+	tabLayout_5->addWidget( PagePrev, 3, 0 );
 	Effects = new QGroupBox( tr( "Effects" ), tab_5, "Effects" );
 	Effects->setColumnLayout(0, Qt::Vertical );
 	Effects->layout()->setSpacing( 0 );
@@ -367,7 +370,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	EffectsLayout->addWidget( EDirection_2_2, 5, 1 );
 	EonAllPg = new QPushButton( tr( "&Apply Effect on all Pages" ), Effects, "Eon" );
 	EffectsLayout->addMultiCellWidget( EonAllPg, 6, 6, 0, 1 );
-	tabLayout_5->addMultiCellWidget( Effects, 1, 2, 1, 1 );
+	tabLayout_5->addMultiCellWidget( Effects, 2, 3, 1, 1 );
 	Options->insertTab( tab_5, tr( "E&xtras" ) );
 
 	tabsec = new QWidget( Options, "tabsec" );
@@ -818,6 +821,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	connect(EffectType, SIGNAL(activated(int)), this, SLOT(SetEffOpts(int)));
 	connect(EDirection_2_2, SIGNAL(activated(int)), this, SLOT(ValidDI(int)));
 	connect(CheckBox10, SIGNAL(clicked()), this, SLOT(DoEffects()));
+	connect(MirrorH, SIGNAL(clicked()), this, SLOT(PDFMirrorH()));
 	connect(EonAllPg, SIGNAL(clicked()), this, SLOT(EffectOnAll()));
 	connect(AllPages, SIGNAL(toggled(bool)), this, SLOT(SelRange(bool)));
 	connect(OutCombo, SIGNAL(activated(int)), this, SLOT(EnablePr(int)));
@@ -1031,6 +1035,11 @@ void PDF_Opts::EffectOnAll()
 		EffVal[pg].M = EDirection_2->currentItem();
 		EffVal[pg].Di = EDirection_2_2->currentItem();
 	}
+}
+
+void PDF_Opts::PDFMirrorH()
+{
+	Opts->MirrorH = MirrorH->isChecked() ? true : false;
 }
 
 void PDF_Opts::DoEffects()

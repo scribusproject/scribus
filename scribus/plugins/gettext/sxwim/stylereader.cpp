@@ -43,6 +43,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w, bool textOnly, bool 
  	parentStyle  = NULL;
  	inList       = false;
  	currentList  = "";
+	defaultStyleCreated = false;
 }
  
  bool StyleReader::startElement(const QString&, const QString&, const QString &name, const QXmlAttributes &attrs) 
@@ -53,6 +54,12 @@ StyleReader::StyleReader(QString documentName, gtWriter *w, bool textOnly, bool 
  		styleProperties(attrs);
  	else if (name == "style:style")
  	{
+		if (!defaultStyleCreated)
+		{
+			currentStyle = new gtParagraphStyle(*(writer->getDefaultStyle()));
+			currentStyle->setName("default-style");
+			defaultStyleCreated = true;
+		}
  		styleStyle(attrs);
  	}
  	else if (name == "style:tab-stop")
@@ -155,8 +162,10 @@ StyleReader::StyleReader(QString documentName, gtWriter *w, bool textOnly, bool 
  		if (attrs.localName(i) == "style:family")
  			if (attrs.value(i) == "paragraph")
  			{
- 				currentStyle = new gtStyle("default-style");
+ 				currentStyle = new gtParagraphStyle(*(writer->getDefaultStyle()));
+				currentStyle->setName("default-style");
  				readProperties = true;
+				defaultStyleCreated = true;
  			}
  }
  
