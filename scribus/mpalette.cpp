@@ -769,7 +769,8 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	QToolTip::add( NoResize, tr( "Lock or unlock the size of the object" ) );
 	QToolTip::add( NoPrint, tr( "Enable or disable printing of the object" ) );
 	QToolTip::add( Textflow, tr( "Make text in lower frames flow around the object shape" ) );
-	QToolTip::add( Textflow2, tr( "Use the frame shape instead of the object one" ) );
+	QToolTip::add( Textflow2, tr( "Use a surrounding box instead of the frame's shape for text flow" ) );
+	QToolTip::add( Textflow3, tr( "Use a second line originally based on the frame's shape for text flow" ) );
 
 	QToolTip::add( Fonts, tr( "Font of selected text or object" ) );
 	QToolTip::add( Size, tr( "Font Size" ) );

@@ -980,7 +980,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	Mcopy = emenu->insertItem(loadIcon("editcut.png"), tr("Cu&t"), this, SLOT(Do_cut()), CTRL+Key_X);
 	Mcut = emenu->insertItem(loadIcon("editcopy.png"), tr("&Copy"), this, SLOT(Do_copy()), CTRL+Key_C);
 	Mpaste = emenu->insertItem(loadIcon("editpaste.png"), tr("&Paste"), this, SLOT(Do_paste()), CTRL+Key_V);
-	Mdel = emenu->insertItem(loadIcon("editdelete.png"), tr("C&lear"), this, SLOT(Do_del()), CTRL+Key_V);
+	Mdel = emenu->insertItem(loadIcon("editdelete.png"), tr("C&lear"), this, SLOT(Do_del()), Key_Delete);
 	emenu->insertSeparator();
 	emenu->insertItem(loadIcon("find16.png"),  tr("&Search/Replace..."), this, SLOT(SearchText()));
 	emenu->insertItem( tr("&Insert Special..."), this , SLOT(Do_insSp()));
@@ -1120,6 +1120,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	connect(Editor, SIGNAL(clicked(int, int)), this, SLOT(updateStatus()));
 	connect(Editor, SIGNAL(setProps(int, int)), this, SLOT(updateProps(int, int)));
 	connect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
+	connect(Editor, SIGNAL(copyAvailable(bool)), this, SLOT(CopyAvail(bool )));
 	connect(AlignTools, SIGNAL(NewStyle(int)), this, SLOT(newAlign(int)));
 	connect(AlignTools, SIGNAL(NewAlign(int)), this, SLOT(newAlign(int)));
 	connect(FillTools, SIGNAL(NewColor(int, int)), this, SLOT(newTxFill(int, int)));
@@ -1517,11 +1518,14 @@ void StoryEditor::Do_saveDocument()
 
 bool StoryEditor::Do_new()
 {
-	int t = QMessageBox::warning(this, tr("Warning"),
+	if (Editor->length() != 0)
+	{
+		int t = QMessageBox::warning(this, tr("Warning"),
 	                             tr("Do you really want to clear all your Text?"),
 	                             QMessageBox::No, QMessageBox::Yes, QMessageBox::NoButton);
-	if (t == QMessageBox::No)
-		return false;
+		if (t == QMessageBox::No)
+			return false;
+	}
 	Editor->StyledText.clear();
 	Editor->clear();
 	Editor->setUndoRedoEnabled(false);
@@ -1579,15 +1583,19 @@ void StoryEditor::Do_cut()
 
 void StoryEditor::Do_del()
 {
-/*	SEditor *cp = dynamic_cast<SEditor*>(table1->cellWidget(table1->currentRow(), 1));
-	cp->del();
-	table1->adjHeight(table1->currentRow()); */
+	if (Editor->StyledText.count() == 0)
+		return;
+	if (Editor->hasSelectedText())
+	{
+		Editor->deleteSel();
+		Editor->removeSelectedText();
+	}
 }
 
 void StoryEditor::CopyAvail(bool u)
 {
-	emenu->setItemEnabled(Mcopy, u);
-	emenu->setItemEnabled(Mcut, u);
+//	emenu->setItemEnabled(Mcopy, u);
+//	emenu->setItemEnabled(Mcut, u);
 	emenu->setItemEnabled(Mdel, u);
 }
 

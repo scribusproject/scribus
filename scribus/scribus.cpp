@@ -1111,7 +1111,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 	ButtonState buttonState = k->state();
 	if ((HaveDoc) && (!view->LE->hasFocus()) && (!view->PGS->PageCombo->hasFocus()))
 	{
-		if (doc->AppMode != 7)
+		if ((doc->AppMode != 7) && (doc->ActPage->SelItem.count() == 0))
 		{
 			switch (kk)
 			{
@@ -1178,12 +1178,21 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 			case 1:
 				switch (kk)
 				{
+				case Key_Backspace:
 				case Key_Delete:
 					if (!doc->EditClip)
 					{
 						if ((!b->Locked) && (!((b->isTableItem) && (b->isSingleSel))))
 							doc->ActPage->DeleteItem();
 					}
+					break;
+				case Key_Prior:
+					if (!b->Locked)
+						doc->ActPage->RaiseItem();
+					break;
+				case Key_Next:
+					if (!b->Locked)
+						doc->ActPage->LowerItem();
 					break;
 				case Key_Left:
 					if (!k->isAutoRepeat())
@@ -8225,15 +8234,15 @@ void ScribusApp::CanUndo()
 	switch (doc->UnData.UnCode)
 	{
 	case 0:
-		editMenu->changeItem(edUndo, tr("Undo Delete Object"));
+		editMenu->changeItem(edUndo, tr("&Undo Delete Object"));
 		break;
 	case 1:
 	case 4:
-		editMenu->changeItem(edUndo, tr("Undo Object Move"));
+		editMenu->changeItem(edUndo, tr("&Undo Object Move"));
 		break;
 	case 2:
 	case 3:
-		editMenu->changeItem(edUndo, tr("Undo Object Change"));
+		editMenu->changeItem(edUndo, tr("&Undo Object Change"));
 		break;
 	}
 	editMenu->setItemEnabled(edUndo, doc->UnDoValid ? 1 : 0);

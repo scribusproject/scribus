@@ -9690,7 +9690,7 @@ void Page::LoadPict(QString fn, int ItNr)
 			inI2 = ProofPict(&inI, Items.at(ItNr)->IProfile, Items.at(ItNr)->IRender);
 			Items.at(ItNr)->pixm = inI2.copy();
 			Items.at(ItNr)->pixmOrg = QImage();
-			if (Items.at(ItNr)->Pfile != fn)
+			if ((Items.at(ItNr)->Pfile != fn) || (Items.at(ItNr)->dpiX != dpiX))
 			{
 				Items.at(ItNr)->LocalScX = 72.0 / dpiX;
 				Items.at(ItNr)->LocalScY = 72.0 / dpiY;

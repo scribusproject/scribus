@@ -172,11 +172,12 @@ GuideManager::GuideManager(
 	Layout5->addItem(spacer);
 	
 	OK = new QPushButton( tr( "&OK" ), this, "OK");
-	OK->setDefault(true);
+	OK->setAutoDefault(false);
 	Layout5->addWidget(OK );
 	Cancel = new QPushButton( tr( "&Cancel" ), this, "Cancel");
 	Cancel->setAccel(QKeySequence("Esc"));
 	Layout5->addWidget(Cancel);
+	Cancel->setAutoDefault(false);
 	
 	GuideManagerLayout->addLayout(Layout5);
 	

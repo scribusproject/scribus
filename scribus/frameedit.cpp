@@ -157,12 +157,12 @@ NodePalette::NodePalette( QWidget* parent) : QDialog( parent, "Npal", false, 0)
 	NodePaletteLayout->addWidget( AbsMode );
 
 	Layout2 = new QGridLayout( 0, 1, 1, 0, 5, "Layout2");
-	YSpin = new MSpinBox( this, 2 );
-	YSpin->setMaxValue(3000);
-	YSpin->setEnabled(false);
 	XSpin = new MSpinBox( this, 2 );
 	XSpin->setMaxValue(3000);
 	XSpin->setEnabled(false);
+	YSpin = new MSpinBox( this, 2 );
+	YSpin->setMaxValue(3000);
+	YSpin->setEnabled(false);
 	TextLabel1 = new QLabel( XSpin, tr( "&X-Pos:" ), this, "TextLabel1" );
 	TextLabel2 = new QLabel( YSpin, tr( "&Y-Pos:"), this, "TextLabel2" );
 	Layout2->addWidget( TextLabel1, 0, 0 );
