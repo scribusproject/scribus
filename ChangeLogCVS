@@ -6,6 +6,9 @@ Scribus - 1.2.1
 
 Scribus - 1.2.2cvs
 ==================
+- 0001782: [Import / Export] *.jpeg and *.JPEG missing in get image dialog (ringerc)
+- 0001787: [Translation] Polish translation update for 1.2.2cvs (cbradney)
+- 0001775: [Import / Export] Html Gettext plugin doesn't respect (underline) tag (Tsoots)
 - 0001760: [Translation] Update for sq translation (cbradney)
 - 0001735: [Translation] Galician Translation Update (cbradney)
 - 0001737: [Translation] Catalan Translation Update (cbradney)
