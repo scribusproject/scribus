@@ -30,6 +30,7 @@
 #include <cstdlib>
 #include <dlfcn.h>
 #include <iostream>
+#include <signal.h>
 #include <string>
 #include "scribus.h"
 #include "scribus.moc"
@@ -97,6 +98,7 @@ bool PolyS;
 double PolyR;
 double UmReFaktor;
 QString DocDir;
+ScribusApp* ScApp;
 
 ScribusApp::ScribusApp(SplashScreen *splash)
 {
@@ -449,6 +451,31 @@ ScribusApp::ScribusApp(SplashScreen *splash)
 		connect(this, SIGNAL(TextScale(int)), Mpal, SLOT(setTScale(int)));
 		connect(this, SIGNAL(TextFarben(QString, QString, int, int)), Mpal, SLOT(setActFarben(QString, QString, int, int)));
 		connect(ClipB, SIGNAL(dataChanged()), this, SLOT(ClipChange()));
+	  typedef void (*HandlerType)(int);
+		HandlerType handler	= 0;
+		handler = ScribusApp::defaultCrashHandler;
+		ScApp = this;
+	  if (!handler)
+	    handler = SIG_DFL;
+	  sigset_t mask;
+	  sigemptyset(&mask);
+#ifdef SIGSEGV
+	  signal (SIGSEGV, handler);
+	  sigaddset(&mask, SIGSEGV);
+#endif
+#ifdef SIGFPE
+	  signal (SIGFPE, handler);
+	  sigaddset(&mask, SIGFPE);
+#endif
+#ifdef SIGILL
+	  signal (SIGILL, handler);
+	  sigaddset(&mask, SIGILL);
+#endif
+#ifdef SIGABRT
+	  signal (SIGABRT, handler);
+	  sigaddset(&mask, SIGABRT);
+#endif
+	  sigprocmask(SIG_UNBLOCK, &mask, 0);
 	}
 }
 
@@ -646,18 +673,18 @@ void ScribusApp::initMenuBar()
 	viewMenu->setItemEnabled(Guide, 0);
 	viewMenu->setItemEnabled(uGuide, 0);
 	toolMenu=new QPopupMenu();
-	viewTools = toolMenu->insertItem( tr("Hide Tools"), this, SLOT(ToggleTools()));
-	SetKeyEntry(45, tr("Hide Tools"), viewTools, 0);
-	viewToolsP = toolMenu->insertItem( tr("Hide PDF-Tools"), this, SLOT(TogglePDFTools()));
-	viewMpal = toolMenu->insertItem( tr("Show Properties"), this, SLOT(ToggleMpal()));
-	SetKeyEntry(46, tr("Show Properties"), viewMpal, 0);
-	viewTpal = toolMenu->insertItem( tr("Show Outline"), this, SLOT(ToggleTpal()));
-	SetKeyEntry(47, tr("Show Outline"), viewTpal, 0);
-	viewBpal = toolMenu->insertItem( tr("Show Scrapbook"), this, SLOT(ToggleBpal()));
-	SetKeyEntry(48, tr("Show Scrapbook"), viewBpal, 0);
-	viewLpal = toolMenu->insertItem( tr("Show Layers"), this, SLOT(ToggleLpal()));
-	viewSepal = toolMenu->insertItem( tr("Show Page Palette"), this, SLOT(ToggleSepal()));
-	viewBopal = toolMenu->insertItem( tr("Show Bookmarks"), this, SLOT(ToggleBookpal()));
+	viewTools = toolMenu->insertItem( tr("Tools"), this, SLOT(ToggleTools()));
+	SetKeyEntry(45, tr("Tools"), viewTools, 0);
+	viewToolsP = toolMenu->insertItem( tr("PDF-Tools"), this, SLOT(TogglePDFTools()));
+	viewMpal = toolMenu->insertItem( tr("Properties"), this, SLOT(ToggleMpal()));
+	SetKeyEntry(46, tr("Properties"), viewMpal, 0);
+	viewTpal = toolMenu->insertItem( tr("Outline"), this, SLOT(ToggleTpal()));
+	SetKeyEntry(47, tr("Outline"), viewTpal, 0);
+	viewBpal = toolMenu->insertItem( tr("Scrapbook"), this, SLOT(ToggleBpal()));
+	SetKeyEntry(48, tr("Scrapbook"), viewBpal, 0);
+	viewLpal = toolMenu->insertItem( tr("Layers"), this, SLOT(ToggleLpal()));
+	viewSepal = toolMenu->insertItem( tr("Page Palette"), this, SLOT(ToggleSepal()));
+	viewBopal = toolMenu->insertItem( tr("Bookmarks"), this, SLOT(ToggleBookpal()));
 	extraMenu=new QPopupMenu();
 	MenID = extraMenu->insertItem( tr("Manage Pictures"), this, SLOT(StatusPic()));
 	SetKeyEntry(51, tr("Manage Pictures"), MenID, 0);
@@ -679,7 +706,7 @@ void ScribusApp::initMenuBar()
 	SetKeyEntry(55, tr("Tool-Tips"), tip, 0);
   tipsOn = true;
   helpMenu->setItemChecked(tip, tipsOn);
-//	ObjMenu->insertItem( tr("Test"), this, SLOT(slotTest()));
+//	editMenu->insertItem( tr("Test"), this, SLOT(slotTest()));
 //	helpMenu->insertItem( tr("Test2"), this, SLOT(slotTest2()));
 	menuBar()->insertItem( tr("File"), fileMenu);
 	menuBar()->insertItem( tr("Edit"), editMenu);
@@ -3495,141 +3522,163 @@ void ScribusApp::ToggleFrames()
 	view->DrawNew();
 }
 
+void ScribusApp::setMpal(bool visible)
+{
+	if (visible)
+		{
+ 		Mpal->show();
+ 		Mpal->TabStack->raiseWidget(0);
+		}
+	else
+		{
+		Prefs.Mpalx = Mpal->pos().x();
+		Prefs.Mpaly = Mpal->pos().y();
+ 		Mpal->hide();
+  	}
+ 	toolMenu->setItemChecked(viewMpal, visible);
+}
+
 void ScribusApp::ToggleMpal()
 {
-	if (Mpal->isVisible())
-	{
-  	Prefs.Mpalx = Mpal->pos().x();
-  	Prefs.Mpaly = Mpal->pos().y();
-		Mpal->hide();
-		toolMenu->changeItem(viewMpal, tr("Show Properties"));
-	}
-	else
-	{
-		Mpal->show();
-		Mpal->TabStack->raiseWidget(0);
-		toolMenu->changeItem(viewMpal, tr("Hide Properties"));
-	}
+	setMpal(!Mpal->isVisible());
 }
+
+void ScribusApp::setTpal(bool visible)
+{
+	if (visible)
+ 		Tpal->show();
+	else
+		{
+ 		Prefs.Tpalx = Tpal->pos().x();
+ 		Prefs.Tpaly = Tpal->pos().y();
+ 		Tpal->close();
+  	}
+ 	toolMenu->setItemChecked(viewTpal, visible);
+  }
 
 void ScribusApp::ToggleTpal()
 {
-	if (Tpal->isVisible())
-		{
-  	Prefs.Tpalx = Tpal->pos().x();
-  	Prefs.Tpaly = Tpal->pos().y();
-		Tpal->close();
-		toolMenu->changeItem(viewTpal, tr("Show Outline"));
-		}
+ 	setTpal(!Tpal->isVisible());
+}
+
+void ScribusApp::setBpal(bool visible)
+{
+	if (visible)
+		ScBook->show();
 	else
 		{
-//		if (HaveDoc)
-//			Tpal->BuildTree(view);
-		Tpal->show();
-		toolMenu->changeItem(viewTpal, tr("Hide Outline"));
-		}
+ 		Prefs.SCpalx = ScBook->pos().x();
+ 		Prefs.SCpaly = ScBook->pos().y();
+ 		Prefs.SCpalw = ScBook->size().width();
+ 		Prefs.SCpalh = ScBook->size().height();
+ 		ScBook->close();
+	 	}
+ 	toolMenu->setItemChecked(viewBpal, visible);
 }
 
 void ScribusApp::ToggleBpal()
 {
-	if (ScBook->isVisible())
+	setBpal(!ScBook->isVisible());
+}
+
+void ScribusApp::setLpal(bool visible)
+{
+	if (visible)
 		{
-  	Prefs.SCpalx = ScBook->pos().x();
-  	Prefs.SCpaly = ScBook->pos().y();
-  	Prefs.SCpalw = ScBook->size().width();
-  	Prefs.SCpalh = ScBook->size().height();
-		ScBook->close();
-		toolMenu->changeItem(viewBpal, tr("Show Scrapbook"));
-		}
+ 		if (HaveDoc)
+ 			Lpal->setLayers(&doc->Layers, &doc->ActiveLayer);
+ 		Lpal->show();
+	 	}
 	else
 		{
-		ScBook->show();
-		toolMenu->changeItem(viewBpal, tr("Hide Scrapbook"));
-		}
+ 		Prefs.Lpalx = Lpal->pos().x();
+ 		Prefs.Lpaly = Lpal->pos().y();
+ 		Lpal->close();
+	 	}
+ 	toolMenu->setItemChecked(viewLpal, visible);
 }
 
 void ScribusApp::ToggleLpal()
 {
-	if (Lpal->isVisible())
-		{
-  	Prefs.Lpalx = Lpal->pos().x();
-  	Prefs.Lpaly = Lpal->pos().y();
-		Lpal->close();
-		toolMenu->changeItem(viewLpal, tr("Show Layers"));
-		}
+	setLpal(!Lpal->isVisible());
+}
+
+void ScribusApp::setSepal(bool visible)
+{
+	if (visible)
+		Sepal->show();
 	else
 		{
-		if (HaveDoc)
-			Lpal->setLayers(&doc->Layers, &doc->ActiveLayer);
-		Lpal->show();
-		toolMenu->changeItem(viewLpal, tr("Hide Layers"));
-		}
+ 		Prefs.Sepalx = Sepal->pos().x();
+ 		Prefs.Sepaly = Sepal->pos().y();
+ 		Prefs.SepalT = Sepal->TemplList->Thumb;
+ 		Prefs.SepalN = Sepal->PageView->Namen;
+ 		Sepal->close();
+	 	}
+	toolMenu->setItemChecked(viewSepal, visible);
 }
 
 void ScribusApp::ToggleSepal()
 {
-	if (Sepal->isVisible())
-		{
-  	Prefs.Sepalx = Sepal->pos().x();
-  	Prefs.Sepaly = Sepal->pos().y();
-		Prefs.SepalT = Sepal->TemplList->Thumb;
-		Prefs.SepalN = Sepal->PageView->Namen;
-		Sepal->close();
-		toolMenu->changeItem(viewSepal, tr("Show Page Palette"));
-		}
+	setSepal(!Sepal->isVisible());
+}
+
+void ScribusApp::setBookpal(bool visible)
+{
+	if (visible)
+		BookPal->show();
 	else
 		{
-		Sepal->show();
-		toolMenu->changeItem(viewSepal, tr("Hide Page Palette"));
+ 		Prefs.Bopalx = BookPal->pos().x();
+ 		Prefs.Bopaly = BookPal->pos().y();
+ 		BookPal->hide();
 		}
+	toolMenu->setItemChecked(viewBopal, visible);
 }
 
 void ScribusApp::ToggleBookpal()
 {
-	if (BookPal->isVisible())
-	{
-  	Prefs.Bopalx = BookPal->pos().x();
-  	Prefs.Bopaly = BookPal->pos().y();
-		BookPal->hide();
-		toolMenu->changeItem(viewBopal, tr("Show Bookmarks"));
-	}
+	setBookpal(!BookPal->isVisible());
+}
+
+void ScribusApp::setTools(bool visible)
+{
+	if (visible)
+		{
+ 		WerkTools->show();
+ 		WerkTools->Sichtbar = true;
+		}
 	else
-	{
-		BookPal->show();
-		toolMenu->changeItem(viewBopal, tr("Hide Bookmarks"));
-	}
+		{
+ 		WerkTools->hide();
+ 		WerkTools->Sichtbar = false;
+		}
+	toolMenu->setItemChecked(viewTools, visible);
 }
 
 void ScribusApp::ToggleTools()
 {
-	if (WerkTools->Sichtbar)
-	{
-		WerkTools->hide();
-		WerkTools->Sichtbar = false;
-		toolMenu->changeItem(viewTools, tr("Show Tools"));
-	}
+	setTools(!WerkTools->Sichtbar);
+}
+
+void ScribusApp::setPDFTools(bool visible)
+{
+	if (visible)
+		{
+ 		WerkToolsP->show();
+ 		WerkToolsP->Sichtbar = true;
+		}
 	else
-	{
-		WerkTools->show();
-		WerkTools->Sichtbar = true;
-		toolMenu->changeItem(viewTools, tr("Hide Tools"));
-	}
+		{
+ 		WerkToolsP->hide();
+ 		WerkToolsP->Sichtbar = false;
+		}
+	toolMenu->setItemChecked(viewToolsP, visible);
 }
 
 void ScribusApp::TogglePDFTools()
 {
-	if (WerkToolsP->Sichtbar)
-	{
-		WerkToolsP->hide();
-		WerkToolsP->Sichtbar = false;
-		toolMenu->changeItem(viewToolsP, tr("Show PDF-Tools"));
-	}
-	else
-	{
-		WerkToolsP->show();
-		WerkToolsP->Sichtbar = true;
-		toolMenu->changeItem(viewToolsP, tr("Hide PDF-Tools"));
-	}
+	setPDFTools(!WerkToolsP->Sichtbar);
 }
 
 void ScribusApp::TogglePics()
@@ -5306,22 +5355,6 @@ void ScribusApp::ReadPrefs()
 			recentMenu->insertItem(Prefs.RecentDocs[m]);
 			}
 		}
-  if (!Prefs.Werkv)
-		toolMenu->changeItem(viewTools, tr("Show Tools"));
-  if (!Prefs.WerkvP)
-		toolMenu->changeItem(viewToolsP, tr("Show PDF-Tools"));
-	if (Prefs.Mpalv)
-		toolMenu->changeItem(viewMpal, tr("Hide Properties"));
-	if (Prefs.Tpalv)
-		toolMenu->changeItem(viewTpal, tr("Hide Outline"));
-	if (Prefs.SCpalv)
-		toolMenu->changeItem(viewBpal, tr("Hide Scrapbook"));
-	if (Prefs.Lpalv)
-		toolMenu->changeItem(viewLpal, tr("Hide Layers"));
-	if (Prefs.Sepalv)
-		toolMenu->changeItem(viewSepal, tr("Hide Page Palette"));
-	if (Prefs.Bopalv)
-		toolMenu->changeItem(viewBopal, tr("Hide Bookmarks"));
 	Mpal->move(Prefs.Mpalx, Prefs.Mpaly);
 	Tpal->move(Prefs.Tpalx, Prefs.Tpaly);
 	Lpal->move(Prefs.Lpalx, Prefs.Lpaly);
@@ -5344,27 +5377,14 @@ void ScribusApp::ShowSubs()
 			mess += tr("Ghostscript : You cannot use EPS-Images")+"\n\n";
     QMessageBox::warning(this, tr("Warning"), mess, 1, 0, 0);
     }
-	if (!Prefs.Werkv)
-		WerkTools->hide();
-	if (!Prefs.WerkvP)
-		WerkToolsP->hide();
-	if (Prefs.Mpalv)
-		{
-		Mpal->show();
-		Mpal->TabStack->raiseWidget(2);
-		qApp->processEvents();
-		Mpal->TabStack->raiseWidget(0);
-		}
-	if (Prefs.Tpalv)
-		Tpal->show();
-	if (Prefs.SCpalv)
-		ScBook->show();
-	if (Prefs.Lpalv)
-		Lpal->show();
-	if (Prefs.Sepalv)
-		Sepal->show();
-	if (Prefs.Bopalv)
-		BookPal->show();
+	setTools(Prefs.Werkv);
+ 	setPDFTools(Prefs.WerkvP);
+	setMpal(Prefs.Mpalv);
+	setTpal(Prefs.Tpalv);
+	setBpal(Prefs.SCpalv);
+	setLpal(Prefs.Lpalv);
+	setSepal(Prefs.Sepalv);
+	setBookpal(Prefs.Bopalv);
 	setActiveWindow();
 	raise();
 }
@@ -6922,6 +6942,54 @@ void ScribusApp::slotStoryEditor()
 				dia->updateTextFrame();
 			}
 		delete dia;
+		}
+}
+
+void ScribusApp::defaultCrashHandler (int sig)
+{
+  static int crashRecursionCounter = 0;
+  crashRecursionCounter++;
+  signal(SIGALRM, SIG_DFL);
+  if (crashRecursionCounter < 2)
+		{
+  	crashRecursionCounter++;
+		QMessageBox::critical(ScApp, tr("Scribus Crash"), tr("Scribus crashes due to Signal #%1").arg(sig), tr("OK"));
+  	alarm(300);
+		ScApp->emergencySave();
+		}
+  exit(255);
+}
+
+void ScribusApp::emergencySave()
+{
+	std::cout << "Calling Emergency Save" << std::endl;
+	QWidgetList windows = ScApp->wsp->windowList();
+	if (!windows.isEmpty())
+		{
+		for ( int i = 0; i < static_cast<int>(windows.count()); ++i )
+			{
+			ActWin = (ScribusWin*)windows.at(i);
+			doc = ActWin->doc;
+			view = ActWin->view;
+			doc->setUnModified();
+			if (doc->hasName)
+				{
+				std::cout << "Saving: " << doc->DocName+".emergency" << std::endl;
+  			doc->ASaveTimer->stop();
+				disconnect(ActWin, SIGNAL(Schliessen()), ScApp, SLOT(DoFileClose()));
+				disconnect(ActWin, SIGNAL(SaveAndClose()), ScApp, SLOT(DoSaveClose()));
+ 				ScriXmlDoc *ss = new ScriXmlDoc();
+ 				ss->WriteDoc(doc->DocName+".emergency", doc, view, 0);
+ 				delete ss;
+				}
+  		view->close();
+  		for (uint a = 0; a<view->Pages.count(); ++a)
+  			{
+  			delete view->Pages.at(a);
+  			}
+			delete doc;
+			ActWin->close();
+			}
 		}
 }
 

@@ -110,6 +110,8 @@ class ScribusApp : public QMainWindow
 		void RestoreBookMarks();
 		void AdjustBM();
 		void GetUsedFonts(QMap<QString,QFont> *Really);
+		static void defaultCrashHandler (int sig);
+		void emergencySave();
     struct CLBuf Buffer;
     QString Buffer2;
     QString Buffer3;
@@ -263,16 +265,24 @@ class ScribusApp : public QMainWindow
 	void ToggleMarks();
 	void ToggleFrames();
 	/** Schaltet Werkzeuge ein/aus */
+ 	void setTools(bool visible);
 	void ToggleTools();
+ 	void setPDFTools(bool visible);
 	void TogglePDFTools();
 	/** Schaltet Masspalette ein/aus */
+ 	void setMpal(bool visible);
 	void ToggleMpal();
 	/** Schaltet Uebersichtspalette ein/aus*/
 	void ToggleTpal();
+ 	void setTpal(bool visible);
 	void ToggleBpal();
+ 	void setBpal(bool visible);
 	void ToggleLpal();
+ 	void setLpal(bool visible);
 	void ToggleSepal();
+ 	void setSepal(bool visible);
 	void ToggleBookpal();
+ 	void setBookpal(bool visible);
 	/** Schaltet Bilder ein/aus */
 	void TogglePics();
 	/** Schaltet Raster ein/aus */

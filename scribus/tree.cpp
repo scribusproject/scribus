@@ -57,6 +57,8 @@ void Tree::slotShowSelect(uint SNr, int Nr)
 
 void Tree::slotRemoveElement(uint SNr, uint Nr)
 {
+	if ((vie->Doc->TemplateMode) || (vie->Doc->loading))
+		return;
 	if (PageObj.count() != 0)
 		{
 		if (PageObj.at(SNr)->Elemente.count() != 0)

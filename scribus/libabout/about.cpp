@@ -29,10 +29,11 @@ About::About( QWidget* parent )
     tabLayout1->setMargin( 15 );
     PixmapLabel1 = new QLabel( tab, "PixmapLabel1" );
     PixmapLabel1->setPixmap(loadIcon("scribus_logo.jpg"));
+    PixmapLabel1->setAlignment(Qt::AlignCenter);
     tabLayout1->addWidget( PixmapLabel1 );
     BuildID = new QLabel( tab, "BB" );
     BuildID->setAlignment(Qt::AlignCenter);
-    QString bu = tr("%1. %2 %3 ").arg(1).arg("December").arg(2003);
+    QString bu = tr("%1. %2 %3 ").arg(5).arg("December").arg(2003);
 #ifdef HAVE_CMS
 		bu += "C";
 #else
@@ -63,10 +64,10 @@ About::About( QWidget* parent )
                         "<tr><td>Franz Schmid</td><td>Franz.Schmid@altmuehlnet.de</td></tr>" +
                         "<tr><td> </td><td> </td></tr>" +
                         "<tr><td><b>" + tr("Contributions from:") + "</b></td><td></td></tr>" +
-                        "<tr><td>Christian Töpp</td><td>mr-ct@gmx.de</td></tr>" +
-                        "<tr><td>Alastair Robinson</td><td>blackfive@fakenhamweb.co.uk</td></tr>" +
                         "<tr><td>Paul Johnson</td><td>paul@all-the-johnsons.co.uk</td></tr>" +
                         "<tr><td>Craig Bradney</td><td>cbradney@zip.com.au</td></tr>" +
+                        "<tr><td>Christian Töpp</td><td>mr-ct@gmx.de</td></tr>" +
+                        "<tr><td>Alastair Robinson</td><td>blackfive@fakenhamweb.co.uk</td></tr>" +
                         "<tr><td></td><td> </td></tr>" +
                         "<tr><td><b>" + tr("Documentation:") + "</b></td><td></td></tr>" +
                         "<tr><td>Peter Linnell</td><td>scribusdocs@atlantictechsolutions.com</td></tr>" +
@@ -132,8 +133,12 @@ About::About( QWidget* parent )
                         "<tr><td> </td><td> </td></tr>" +
                         "<tr><td><b>" + tr("English:") + "</b></td><td></td></tr>" +
                         "<tr><td>Paul F. Johnson</td><td>paul@all-the-johnsons.co.uk</td></tr>" +
+                        "<tr><td> </td><td> </td></tr>" +
                         "<tr><td><b>" + tr("Welsh:") + "</b></td><td></td></tr>" +
                         "<tr><td>Kevin Donnelly</td><td>kevin@dotmon.com</td></tr>" +
+                        "<tr><td> </td><td> </td></tr>" +
+								 				"<tr><td><b>" + tr("Russian:") + "</b></td><td></td></tr>" +
+                        "<tr><td>Alexandre Prokoudine</td><td>avp@cad.ru</td></tr>" +
                         "<tr><td> </td><td> </td></tr>" +
                         "</table>");
     TextView2->setTextFormat( QTextView::RichText );

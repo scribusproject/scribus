@@ -1816,6 +1816,8 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 				idx = 0;
 				if (GlyphsIdxOfFont[hl->cfont].contains(cc))
 					idx = GlyphsIdxOfFont[hl->cfont][cc].Code;
+				idx1 = (idx >> 8) & 0xFF;
+				tmp += UsedFontsP[hl->cfont]+"S"+IToStr(idx1)+" "+FToStr(tsz / 10.0)+" Tf\n";
 				idx2 = idx & 0xFF;
 				tmp += "<"+QString(toHex(idx2))+"> Tj\n";
 				}

@@ -110,7 +110,7 @@ void SVGPlug::convert()
 			}
 		Doku->GroupCounter++;
 		}
-	Doku->loading = false;
+//	Doku->loading = false;
 	Doku->DoDrawing = true;
 	Doku->ActPage->setUpdatesEnabled(true);
 	if ((Elements.count() > 0) && (!ret))
@@ -135,6 +135,7 @@ void SVGPlug::convert()
     }
 	else
 		Doku->setUnModified();
+	Doku->loading = false;
 }
 
 void SVGPlug::addGraphicContext()
