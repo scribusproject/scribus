@@ -9296,7 +9296,7 @@ void ScribusApp::DefKB()
 	KeyManager *dia = new KeyManager(this, Prefs.KeyActions);
 	if (dia->exec())
 	{
-		Prefs.KeyActions = dia->KK;
+		Prefs.KeyActions = dia->getNewKeyMap();
 		SetShortCut();
 		SavePrefs();
 	}

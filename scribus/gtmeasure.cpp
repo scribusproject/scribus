@@ -140,3 +140,10 @@ int gtMeasure::getDecimalsFromIndex(int index)
 	int decimalPoints[] = {100, 1000, 10000, 100};
 	return decimalPoints[index];
 }
+
+int gtMeasure::getPrecisionFromIndex(int index)
+{
+	int precision[] = {2, 3, 4, 2};
+	return precision[index];
+}
+

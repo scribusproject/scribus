@@ -6,97 +6,91 @@
 #include <qkeysequence.h>
 extern QPixmap loadIcon(QString nam);
 
-KeyManager::KeyManager(QWidget* parent, QMap<int,Keys> Ke)
+KeyManager::KeyManager(QWidget* parent, QMap<int,Keys> oldKeyMap)
 	: QDialog( parent, "key", true, 0 )
 {
 	setCaption( tr( "Manage Keyboard Shortcuts" ) );
 	setIcon(loadIcon("AppIcon.png"));
-	KK = Ke;
+	keyMap = oldKeyMap;
 	Part1 = "";
 	Part2 = "";
 	Part3 = "";
-	Kcode = 0;
-	KeyManagerLayout = new QVBoxLayout( this ); 
-	KeyManagerLayout->setSpacing( 6 );
-	KeyManagerLayout->setMargin( 11 );
+	keyCode = 0;
+	keyManagerLayout = new QVBoxLayout( this, 11, 6); 
 
-	TastenT = new QTable( this, "TastenT" );
-	TastenT->setMaximumSize(QSize(500,200));
-	TastenT->setNumCols( 2 );
-	TastenT->setNumRows( Ke.count() );
-	for (uint a = 0; a < Ke.count(); ++a)
+	keyTable = new QTable( oldKeyMap.count(), 2, this, "keyTable" );
+	keyTable->setMaximumSize(QSize(500,200));
+	for (uint a = 0; a < oldKeyMap.count(); ++a)
 	{
-		QTableItem *it = new QTableItem(TastenT, QTableItem::Never, Ke[a].Name);
-		TastenT->setItem(a, 0, it);
-		QTableItem *it2 = new QTableItem(TastenT, QTableItem::Never, GetKeyText(Ke[a].KeyID));
-		TastenT->setItem(a, 1, it2);
+		QTableItem *it = new QTableItem(keyTable, QTableItem::Never, oldKeyMap[a].Name);
+		keyTable->setItem(a, 0, it);
+		QTableItem *it2 = new QTableItem(keyTable, QTableItem::Never, getKeyText(oldKeyMap[a].KeyID));
+		keyTable->setItem(a, 1, it2);
 	}
-	TastenT->setSorting(false);
-	TastenT->setSelectionMode(QTable::NoSelection);
-	TastenT->setLeftMargin(0);
-	TastenT->verticalHeader()->hide();
-	Header = TastenT->horizontalHeader();
-	Header->setLabel(0, tr("Action"));
-	Header->setLabel(1, tr("Current Key"));
-	TastenT->adjustColumn(0);
-	TastenT->adjustColumn(1);
-	TastenT->setColumnMovingEnabled(false);
-	TastenT->setRowMovingEnabled(false);
-	Header->setMovingEnabled(false);
-	TastenT->setShowGrid( false );
-	KeyManagerLayout->addWidget( TastenT );
+	keyTable->setSorting(false);
+	keyTable->setSelectionMode(QTable::NoSelection);
+	keyTable->setLeftMargin(0);
+	keyTable->verticalHeader()->hide();
+	header = keyTable->horizontalHeader();
+	header->setLabel(0, tr("Action"));
+	header->setLabel(1, tr("Current Key"));
+	keyTable->adjustColumn(0);
+	keyTable->adjustColumn(1);
+	keyTable->setColumnMovingEnabled(false);
+	keyTable->setRowMovingEnabled(false);
+	header->setMovingEnabled(false);
+	keyTable->setShowGrid( false );
+	keyManagerLayout->addWidget( keyTable );
 
-	KeyGroup = new QButtonGroup( this, "KeyGroup" );
-	KeyGroup->setTitle( tr( "Select a Key for this Action" ) );
-	KeyGroup->setColumnLayout(0, Qt::Vertical );
-	KeyGroup->layout()->setSpacing( 0 );
-	KeyGroup->layout()->setMargin( 0 );
-	KeyGroupLayout = new QGridLayout( KeyGroup->layout() );
-	KeyGroupLayout->setAlignment( Qt::AlignTop );
-	KeyGroupLayout->setSpacing( 6 );
-	KeyGroupLayout->setMargin( 11 );
+	keyGroup = new QButtonGroup( this, "keyGroup" );
+	keyGroup->setTitle( tr( "Select a Key for this Action" ) );
+	keyGroup->setColumnLayout(0, Qt::Vertical );
+	keyGroup->layout()->setSpacing( 0 );
+	keyGroup->layout()->setMargin( 0 );
+	keyGroupLayout = new QGridLayout( keyGroup->layout() );
+	keyGroupLayout->setAlignment( Qt::AlignTop );
+	keyGroupLayout->setSpacing( 6 );
+	keyGroupLayout->setMargin( 11 );
 
-	NoKey = new QRadioButton( tr( "&No Key" ), KeyGroup, "NoKey" );
+	noKey = new QRadioButton( tr( "&No Key" ), keyGroup, "noKey" );
+	keyGroupLayout->addMultiCellWidget( noKey, 0, 1, 0, 1 );
+	userDef = new QRadioButton( tr( "&User Defined Key" ), keyGroup, "userDef" );
+	keyGroupLayout->addWidget( userDef, 2, 0 );
 
-	KeyGroupLayout->addMultiCellWidget( NoKey, 0, 1, 0, 1 );
+	keyDisplay = new QLabel( tr( "ALT+SHIFT+T" ), keyGroup, "keyDisplay" );
+	keyDisplay->setFrameShape( QLabel::Panel );
+	keyDisplay->setFrameShadow( QLabel::Sunken );
+	keyDisplay->setAlignment( static_cast<int>( QLabel::AlignCenter ) );
 
-	UserDef = new QRadioButton( tr( "&User Defined Key" ), KeyGroup, "UserDef" );
-	KeyGroupLayout->addWidget( UserDef, 2, 0 );
+	keyGroupLayout->addMultiCellWidget( keyDisplay, 0, 2, 2, 2 );
 
-	Tdisplay = new QLabel( KeyGroup, "Tdisplay" );
-	Tdisplay->setFrameShape( QLabel::Panel );
-	Tdisplay->setFrameShadow( QLabel::Sunken );
-	Tdisplay->setText( tr( "ALT+SHIFT+T" ) );
-	Tdisplay->setAlignment( static_cast<int>( QLabel::AlignCenter ) );
+	setKeyButton = new QPushButton( tr( "Set &Key" ), keyGroup, "setKeyButton" );
+	setKeyButton->setToggleButton(true);
 
-	KeyGroupLayout->addMultiCellWidget( Tdisplay, 0, 2, 2, 2 );
+	keyGroupLayout->addMultiCellWidget( setKeyButton, 0, 2, 1, 1, Qt::AlignCenter );
+	keyManagerLayout->addWidget( keyGroup );
 
-	SetKey = new QPushButton( tr( "Set &Key" ), KeyGroup, "SetKey" );
-	SetKey->setToggleButton(true);
-
-	KeyGroupLayout->addMultiCellWidget( SetKey, 0, 2, 1, 1, Qt::AlignCenter );
-	KeyManagerLayout->addWidget( KeyGroup );
-
-	Layout4 = new QHBoxLayout; 
-	Layout4->setSpacing( 6 );
-	Layout4->setMargin( 0 );
+	okCancelLayout = new QHBoxLayout; 
+	okCancelLayout->setSpacing( 6 );
+	okCancelLayout->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout4->addItem( spacer );
+	okCancelLayout->addItem( spacer );
 
-	OKButton = new QPushButton( tr( "&OK" ), this, "OKButton" );
-	OKButton->setDefault( true );
-	Layout4->addWidget( OKButton );
-	CancelB = new QPushButton( tr( "&Cancel" ), this, "CancelB" );
-	Layout4->addWidget( CancelB );
+	okButton = new QPushButton( tr( "&OK" ), this, "okButton" );
+	okButton->setDefault( true );
+	okCancelLayout->addWidget( okButton );
+	cancelButton = new QPushButton( tr( "&Cancel" ), this, "cancelButton" );
+	okCancelLayout->addWidget( cancelButton );
+	keyManagerLayout->addLayout( okCancelLayout );
 
-	KeyManagerLayout->addLayout( Layout4 );
-	DispKey(0);
+	dispKey(0);
+
 	// signals and slots connections
-	connect( CancelB, SIGNAL( clicked() ), this, SLOT( reject() ) );
-	connect( OKButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
-	connect(TastenT, SIGNAL(pressed(int, int, int, const QPoint&)), this, SLOT(DispKey(int)));
-	connect(NoKey, SIGNAL(clicked()), this, SLOT(SetNoKey()));
-	connect(SetKey, SIGNAL(clicked()), this, SLOT(SetKeyText()));
+	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
+	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
+	connect( keyTable, SIGNAL(pressed(int, int, int, const QPoint&)), this, SLOT(dispKey(int)));
+	connect( noKey, SIGNAL(clicked()), this, SLOT(setNoKey()));
+	connect( setKeyButton, SIGNAL(clicked()), this, SLOT(setKeyText()));
 }
 
 bool KeyManager::event( QEvent* ev )
@@ -111,12 +105,12 @@ bool KeyManager::event( QEvent* ev )
 
 void KeyManager::keyPressEvent(QKeyEvent *k)
 {
-	if (SetKey->isOn())
+	if (setKeyButton->isOn())
 	{
 		QStringList tl;
-		if (Tdisplay->text() != "")
+		if (keyDisplay->text() != "")
 		{
-			tl = tl.split("+", Tdisplay->text());
+			tl = tl.split("+", keyDisplay->text());
 			Part4 = tl[tl.count()-1];
 			if (Part4 == tr("Alt") || Part4 == tr("Ctrl") || Part4 == tr("Shift"))
 				Part4 = "";
@@ -127,52 +121,52 @@ void KeyManager::keyPressEvent(QKeyEvent *k)
 		{
 			case Key_Shift:
 				Part3 = tr("Shift+");
-				Kcode |= 0x00200000;
+				keyCode |= 0x00200000;
 				break;
 			case Key_Alt:
 				Part2 = tr("Alt+");
-				Kcode |= 0x00800000;
+				keyCode |= 0x00800000;
 				break;
 			case Key_Control:
 				Part1 = tr("Ctrl+");
-				Kcode |= 0x00400000;
+				keyCode |= 0x00400000;
 				break;
 			default:
-				Kcode |= k->key();
-				Tdisplay->setText(GetKeyText(Kcode));
-				if (CheckKey(Kcode))
+				keyCode |= k->key();
+				keyDisplay->setText(getKeyText(keyCode));
+				if (checkKey(keyCode))
 				{
 					QMessageBox::information(this,
 											tr("Warning"),
 											tr("This Key Sequence is already in use"),
 											tr("&OK"), 0, 0, 0, QMessageBox::Ok);
-					TastenT->setText(ActRow, 1, "");
-					Tdisplay->setText("");
-					KK[ActRow].KeyID = 0;
-					NoKey->setChecked(true);
+					keyTable->setText(actRow, 1, "");
+					keyDisplay->setText("");
+					keyMap[actRow].KeyID = 0;
+					noKey->setChecked(true);
 				}
 				else
 				{
-					TastenT->setText(ActRow, 1, GetKeyText(Kcode));
-					KK[ActRow].KeyID = Kcode;
-					UserDef->setChecked(true);
+					keyTable->setText(actRow, 1, getKeyText(keyCode));
+					keyMap[actRow].KeyID = keyCode;
+					userDef->setChecked(true);
 				}
-				SetKey->setOn(false);
+				setKeyButton->setOn(false);
 				releaseKeyboard();
 		}
 	}
-	if (SetKey->isOn())
-		Tdisplay->setText(Part1+Part2+Part3+Part4);
+	if (setKeyButton->isOn())
+		keyDisplay->setText(Part1+Part2+Part3+Part4);
 }
 
 void KeyManager::keyReleaseEvent(QKeyEvent *k)
 {
-	if (SetKey->isOn())
+	if (setKeyButton->isOn())
 	{
-		if (Tdisplay->text() != "")
+		if (keyDisplay->text() != "")
 		{
 			QStringList tl;
-			tl = tl.split("+", Tdisplay->text());
+			tl = tl.split("+", keyDisplay->text());
 			Part4 = tl[tl.count()-1];
 			if (Part4 == tr("Alt") || Part4 == tr("Ctrl") || Part4 == tr("Shift"))
 				Part4 = "";
@@ -182,27 +176,27 @@ void KeyManager::keyReleaseEvent(QKeyEvent *k)
 		if (k->key() == Key_Shift)
 		{
 			Part3 = "";
-			Kcode &= ~0x00200000;
+			keyCode &= ~0x00200000;
 		}
 		if (k->key() == Key_Alt)
 		{
 			Part2 = "";
-			Kcode &= ~0x00800000;
+			keyCode &= ~0x00800000;
 		}
 		if (k->key() == Key_Control)
 		{
 			Part1 = "";
-			Kcode &= ~0x00400000;
+			keyCode &= ~0x00400000;
 		}
-		Tdisplay->setText(Part1+Part2+Part3+Part4);
+		keyDisplay->setText(Part1+Part2+Part3+Part4);
 	}
 }
 
-void KeyManager::SetKeyText()
+void KeyManager::setKeyText()
 {
-	if (SetKey->isOn())
+	if (setKeyButton->isOn())
 	{
-		Kcode = 0;
+		keyCode = 0;
 		Part1 = "";
 		Part2 = "";
 		Part3 = "";
@@ -213,40 +207,37 @@ void KeyManager::SetKeyText()
 		releaseKeyboard();
 }
 
-void KeyManager::DispKey(int r)
+void KeyManager::dispKey(int row)
 {
-	Tdisplay->setText(TastenT->text(r, 1));
-	if (KK[r].KeyID == 0)
-		NoKey->setChecked(true);
+	keyDisplay->setText(keyTable->text(row, 1));
+	if (keyMap[row].KeyID == 0)
+		noKey->setChecked(true);
 	else
-		UserDef->setChecked(true);
-	ActRow = r;
+		userDef->setChecked(true);
+	actRow = row;
 }
 
-void KeyManager::SetNoKey()
+void KeyManager::setNoKey()
 {
-	if (NoKey->isChecked())
+	if (noKey->isChecked())
 	{
-		TastenT->setText(ActRow, 1, "");
-		Tdisplay->setText("");
-		KK[ActRow].KeyID = 0;
+		keyTable->setText(actRow, 1, "");
+		keyDisplay->setText("");
+		keyMap[actRow].KeyID = 0;
 	}
 }
 
-QString KeyManager::GetKeyText(int KeyC)
+QString KeyManager::getKeyText(int KeyC)
 {
-	if (KeyC == 0)
-		return "";
-	else
-		return QString(QKeySequence(KeyC));
+	return ((KeyC == 0) ? "" : QString(QKeySequence(KeyC)));
 }
 
-bool KeyManager::CheckKey(int Code)
+bool KeyManager::checkKey(int code)
 {
 	bool ret = false;
-	for (uint a = 0; a < KK.count(); ++a)
+	for (uint a = 0; a < keyMap.count(); ++a)
 	{
-		if (KK[a].KeyID == Code)
+		if (keyMap[a].KeyID == code)
 		{
 			ret = true;
 			break;
@@ -255,3 +246,7 @@ bool KeyManager::CheckKey(int Code)
 	return ret;
 }
 
+const QMap<int, Keys> KeyManager::getNewKeyMap()
+{
+	return keyMap;
+}
