@@ -1,5 +1,14 @@
 Changes since Version 1.1.7
 
+29.07.2004
+	* bug     #135: Text properties disappears when using story editor and not set by styles
+	* bug     #899: ctrl+a doesnt select the whole text
+	* bug     #900: selecting text alignment without any text in the editor crashes scribus
+	* bug     #905: first line typed in the story editor is invisible
+	* bug     #908: toolbar for stroke color not movable if stroke is disabled
+	* feature #901: Polish Translation Update
+	* feature #903: British English Translation Update
+
 28.07.2004
 	* bug     #135: Text properties disappears when using story editor and not set by styles
 	* feature #746: Story Editor rewrite

@@ -31,10 +31,10 @@ nftdialog::nftdialog(QWidget* parent, QString lang) : QDialog(parent, "nftdialog
 // 	bottomlo->insertSpacing(0,5);
 // 	bottomlo->addWidget(settingsButton);
 	bottomlo->addStretch(10);
-	okButton = new QPushButton( tr("OK"),bottom,"okButton");
+	okButton = new QPushButton( tr("&OK"),bottom,"okButton");
 	okButton->setEnabled(false);
 	bottomlo->addWidget(okButton);
-	cancelButton = new QPushButton( tr("Cancel"),bottom,"cancelButton");
+	cancelButton = new QPushButton( tr("&Cancel"),bottom,"cancelButton");
 	bottomlo->addWidget(cancelButton);
 	bottomlo->insertSpacing(-1,5);
 	cancelButton->setDefault(true);
@@ -315,40 +315,35 @@ void nftdialog::exitOK()
 void nftdialog::setupAbout() 
 {
 	QString text = "New From Template - 0.0.7<br><br>";
-	text += "<b>Downloading Templates</b><br>";
-	text += "Document templates can be found at<br>";
-	text += "<i>http://insert/url/here</i><br><br>";
-	text += "<b>Installing Templates</b><br>";
-	text += "Extract the package to the template directory<br>";
-	text += "<i>~/.scribus/templates</i><br>for the current user or<br>";
-	text += "<i>PREFIX/share/scribus/templates</i><br>for all users ";
-	text += "in the system.<br><br>";
-	text += "<b>Preparing a template</b><br>";
-	text += "Make sure images you use can be used anywhere. ";
-	text += "Fonts must be checked for this as well. ";
-	text += "If fonts cannot be shared remove them from the template directory ";
-	text += "before packaging and distributing the template.<br><br>";
-	text += "<b>Removing a template</b><br>";
-	text += "Removing a template from the NFT dialog will only remove the entry ";
-	text += "from the template.xml. It will not delete the document files. ";
-	text += "Popup menu with remove is only shown if you have write access to the template.xml file.<br><br>";
-	text += "<b>Translating template.xml</b><br>";
-	text += "Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code ";
-	text += "that's present in the qm file for your language), for example template.fi.xml ";
-	text += "for Finnish language template.xml. Copy must locate in the same directory than the original ";
-	text += "template.xml for NFT being able to load it.<br><br>";
-	text += "It would be nice if the largest language group from one language could name their translation ";
-	text += "as template.lang.xml without the country code. This way all the smaller language groups ";
-	text += "under the same language would get at least this correct language even there does not exist ";
-	text += "a template.xml for their lang_COUNTRY. This because NFT will search for a translation with logic going ";
-	text += "from template.lang_COUNTRY.xml to template.lang.xml and last to template.xml which always should be ";
-	text += "English.<br><br>Here is an example. Swedesish speaking ";
-	text += "Finns has lang_COUNTRY code se_FI but they are such a small ";
-	text += "group and not that keen on dtp that there won't probably be a translation for them for a while. ";
-	text += "I know they would still appreciate swedish translation even it was done by Swedish speaking folks in Sweden ";
-	text += "i.e. se_SE. Because Swedish speaking swedes are the largest Swedish speaking group it would be nice if ";
-	text += "they could name their Swedish template.xml translation to template.se.xml. This way all those minor Finns ";
-	text += "could also enjoy Swedish language in the application. (Still missing Swedish translator though.)<br><br>";
+	text += "<b>";
+	text += tr("Downloading Templates");
+	text += "</b><br>";
+	text += tr("Document templates can be found in "
+	           "http://www.scribus.net/ Downloads section.");
+	text += "<br><br>";
+	text += "<b>";
+	text +=  tr("Installing Templates");
+	text +=  "</b><br>";
+	text += tr("Extract the package to the template directory " 
+	           "~/.scribus/templates "
+	           "for the current user or "
+	           "PREFIX/share/scribus/templates "
+	           "for all users in the system.");
+	text +=  "<br><br>";
+	text += "<b>";
+	text +=  tr("Preparing a template");
+	text +=  "</b><br>";
+	text +=  tr("Make sure images you use can be used anywhere. Fonts must be checked for this as well. If fonts cannot be shared do not collect them when saving as a template.");
+	text += tr("Template creator should also make sure that the Installing Templates applies to her/his templates as well. Which means a user should download a template package and be able to extract them to the template directory and start using them.");
+	text +=  "<br><br><b>";
+	text +=  tr("Removing a template");
+	text +=  "</b><br>";
+	text += tr("Removing a template from the NFT dialog will only remove the entry from the template.xml. It will not delete the document files. Popup menu with remove is only shown if you have write access to the template.xml file.");
+	text +=  "<br><br>";
+	text += "<b>";
+	text +=  tr("Translating template.xml");
+	text +=  "</b><br>";
+	text += tr("Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that's present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. Copy must locate in the same directory than the original template.xml for NFT being able to load it.");
 	aboutLabel->setText(text);
 }
 

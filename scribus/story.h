@@ -264,6 +264,7 @@ public slots:
 	bool Do_new();
 	void slotFileRevert();
 
+	void Do_selectAll();
 	void Do_copy();
 	void Do_paste();
 	void Do_cut();

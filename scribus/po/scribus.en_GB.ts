@@ -1,10479 +1,9685 @@
-<!DOCTYPE TS><TS>
-<context>
+<!DOCTYPE TS>
+<TS>
+  <context>
     <name>About</name>
     <message>
-        <source>About Scribus%1%2</source>
-        <translation>About Scribus%1%2</translation>
+      <source>About Scribus%1%2</source>
+      <translation>About Scribus%1%2</translation>
     </message>
     <message>
-        <source>%1. %2 %3 </source>
-        <translation>%1. %2 %3 </translation>
+      <source>%1. %2 %3 </source>
+      <translation>%1. %2 %3 </translation>
     </message>
     <message>
-        <source>Scribus Version %1
+      <source>Scribus Version %1
 %2 %3</source>
-        <translation>Scribus Version %1
+      <translation>Scribus Version %1
 %2 %3</translation>
     </message>
     <message>
-        <source>Build-ID:</source>
-        <translation>Build-ID:</translation>
+      <source>Build-ID:</source>
+      <translation>Build-ID:</translation>
     </message>
     <message>
-        <source>Programming:</source>
-        <translation>Programming:</translation>
+      <source>Programming:</source>
+      <translation>Programming:</translation>
     </message>
     <message>
-        <source>Contributions from:</source>
-        <translation>Contributions from:</translation>
+      <source>Contributions from:</source>
+      <translation>Contributions from:</translation>
     </message>
     <message>
-        <source>Windows port:</source>
-        <translation>Windows port:</translation>
+      <source>Windows port:</source>
+      <translation>Windows port:</translation>
     </message>
     <message>
-        <source>Documentation:</source>
-        <translation>Documentation:</translation>
+      <source>Documentation:</source>
+      <translation>Documentation:</translation>
     </message>
     <message>
-        <source>German:</source>
-        <translation>German:</translation>
+      <source>German:</source>
+      <translation>German:</translation>
     </message>
     <message>
-        <source>French:</source>
-        <translation>French:</translation>
+      <source>French:</source>
+      <translation>French:</translation>
     </message>
     <message>
-        <source>Spanish and Catalan:</source>
-        <translation>Spanish and Catalan:</translation>
+      <source>Spanish and Catalan:</source>
+      <translation>Spanish and Catalan:</translation>
     </message>
     <message>
-        <source>Italian:</source>
-        <translation>Italian:</translation>
+      <source>Italian:</source>
+      <translation>Italian:</translation>
     </message>
     <message>
-        <source>Hungarian:</source>
-        <translation>Hungarian:</translation>
+      <source>Hungarian:</source>
+      <translation>Hungarian:</translation>
     </message>
     <message>
-        <source>Ukrainian:</source>
-        <translation>Ukrainian:</translation>
+      <source>Ukrainian:</source>
+      <translation>Ukrainian:</translation>
     </message>
     <message>
-        <source>Bulgarian:</source>
-        <translation>Bulgarian:</translation>
+      <source>Bulgarian:</source>
+      <translation>Bulgarian:</translation>
     </message>
     <message>
-        <source>Galician:</source>
-        <translation>Galician:</translation>
+      <source>Galician:</source>
+      <translation>Galician:</translation>
     </message>
     <message>
-        <source>Turkish:</source>
-        <translation>Turkish:</translation>
+      <source>Turkish:</source>
+      <translation>Turkish:</translation>
     </message>
     <message>
-        <source>Lithuanian:</source>
-        <translation>Lithuanian:</translation>
+      <source>Lithuanian:</source>
+      <translation>Lithuanian:</translation>
     </message>
     <message>
-        <source>Polish:</source>
-        <translation>Polish:</translation>
+      <source>Polish:</source>
+      <translation>Polish:</translation>
     </message>
     <message>
-        <source>Czech:</source>
-        <translation>Czech:</translation>
+      <source>Czech:</source>
+      <translation>Czech:</translation>
     </message>
     <message>
-        <source>Slovak:</source>
-        <translation>Slovak:</translation>
+      <source>Slovak:</source>
+      <translation>Slovak:</translation>
     </message>
     <message>
-        <source>Danish:</source>
-        <translation>Danish:</translation>
+      <source>Danish:</source>
+      <translation>Danish:</translation>
     </message>
     <message>
-        <source>Norwegian:</source>
-        <translation>Norwegian:</translation>
+      <source>Norwegian:</source>
+      <translation>Norwegian:</translation>
     </message>
     <message>
-        <source>English:</source>
-        <translation>English:</translation>
+      <source>English:</source>
+      <translation>English:</translation>
     </message>
     <message>
-        <source>Welsh:</source>
-        <translation>Welsh:</translation>
+      <source>Welsh:</source>
+      <translation>Welsh:</translation>
     </message>
     <message>
-        <source>Russian:</source>
-        <translation>Russian:</translation>
+      <source>Russian:</source>
+      <translation>Russian:</translation>
     </message>
     <message>
-        <source>Brazilian:</source>
-        <translation>Brazilian:</translation>
+      <source>Brazilian:</source>
+      <translation>Brazilian:</translation>
     </message>
     <message>
-        <source>Finnish:</source>
-        <translation>Finnish:</translation>
+      <source>Finnish:</source>
+      <translation>Finnish:</translation>
     </message>
     <message>
-        <source>Homepage and online reference</source>
-        <translation>Homepage and online reference</translation>
+      <source>Homepage and online reference</source>
+      <translation>Homepage and online reference</translation>
     </message>
     <message>
-        <source>Mailing list</source>
-        <translation>Mailing list</translation>
+      <source>Mailing list</source>
+      <translation>Mailing list</translation>
     </message>
     <message>
-        <source>Bugs and feature requests</source>
-        <translation>Bugs and feature requests</translation>
+      <source>Bugs and feature requests</source>
+      <translation>Bugs and feature requests</translation>
     </message>
     <message>
-        <source>Basque:</source>
-        <translation>Basque:</translation>
+      <source>Basque:</source>
+      <translation>Basque:</translation>
     </message>
     <message>
-        <source>Slovenian:</source>
-        <translation>Slovenian:</translation>
+      <source>Slovenian:</source>
+      <translation>Slovenian:</translation>
     </message>
     <message>
-        <source>This panel shows the version, build date and
+      <source>This panel shows the version, build date and
  compiled in library support in Scribus
 The C-C-T equates to C=CUPS C=littlecms T=TIFF support.
 Missing library support is indicated by a *</source>
-        <translation>This panel shows the version, build date and
+      <translation>This panel shows the version, build date and
  compiled in library support in Scribus
 The C-C-T equates to C=CUPS C=littlecms T=TIFF support.
 Missing library support is indicated by a *</translation>
     </message>
     <message>
-        <source>&amp;About</source>
-        <translation>&amp;About</translation>
+      <source>&amp;About</source>
+      <translation>&amp;About</translation>
     </message>
     <message>
-        <source>A&amp;uthors</source>
-        <translation>A&amp;uthors</translation>
+      <source>A&amp;uthors</source>
+      <translation>A&amp;uthors</translation>
     </message>
     <message>
-        <source>&amp;Translations</source>
-        <translation>&amp;Translations</translation>
+      <source>&amp;Translations</source>
+      <translation>&amp;Translations</translation>
     </message>
     <message>
-        <source>&amp;Online</source>
-        <translation>&amp;Online</translation>
+      <source>&amp;Online</source>
+      <translation>&amp;Online</translation>
     </message>
     <message>
-        <source>&amp;Close</source>
-        <translation>&amp;Close</translation>
+      <source>&amp;Close</source>
+      <translation>&amp;Close</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>AdvOptions</name>
     <message>
-        <source>Advanced Options</source>
-        <translation>Advanced Options</translation>
+      <source>Advanced Options</source>
+      <translation>Advanced Options</translation>
     </message>
     <message>
-        <source>Mirror Page(s) horizontal</source>
-        <translation type="obsolete">Mirror Page(s) horizontal</translation>
+      <source>Creates PostScript Level 3</source>
+      <translation>Creates PostScript Level 3</translation>
     </message>
     <message>
-        <source>Mirror Page(s) vertical</source>
-        <translation type="obsolete">Mirror Page(s) vertical</translation>
-    </message>
-    <message>
-        <source>Apply ICC-Profiles</source>
-        <translation type="obsolete">Apply ICC-Profiles</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">OK</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Cancel</translation>
-    </message>
-    <message>
-        <source>PostScript Level 3</source>
-        <translation type="obsolete">PostScript Level 3</translation>
-    </message>
-    <message>
-        <source>PostScript Level 2</source>
-        <translation type="obsolete">PostScript Level 2</translation>
-    </message>
-    <message>
-        <source>PostScript Level 1</source>
-        <translation type="obsolete">PostScript Level 1</translation>
-    </message>
-    <message>
-        <source>Creates PostScript Level 3</source>
-        <translation>Creates PostScript Level 3</translation>
-    </message>
-    <message>
-        <source>Creates PostScript Level 2 only, beware,
+      <source>Creates PostScript Level 2 only, beware,
 this can create huge files</source>
-        <translation>Creates PostScript Level 2 only, beware,
+      <translation>Creates PostScript Level 2 only, beware,
 this can create huge files</translation>
     </message>
     <message>
-        <source>Creates PostScript Level 1 only, beware,
+      <source>Creates PostScript Level 1 only, beware,
 this can create huge files</source>
-        <translation>Creates PostScript Level 1 only, beware,
+      <translation>Creates PostScript Level 1 only, beware,
 this can create huge files</translation>
     </message>
     <message>
-        <source>Mirror Page(s) &amp;Horizontal</source>
-        <translation type="unfinished"></translation>
+      <source>Mirror Page(s) &amp;Horizontal</source>
+      <translation>Mirror Page(s) &amp;Horizontal</translation>
     </message>
     <message>
-        <source>Mirror Page(s) &amp;Vertical</source>
-        <translation type="unfinished"></translation>
+      <source>Mirror Page(s) &amp;Vertical</source>
+      <translation>Mirror Page(s) &amp;Vertical</translation>
     </message>
     <message>
-        <source>Appy Under Color &amp;Removal</source>
-        <translation type="unfinished"></translation>
+      <source>Appy Under Color &amp;Removal</source>
+      <translation>Appy Under Colour &amp;Removal</translation>
     </message>
     <message>
-        <source>Apply &amp;ICC Profiles</source>
-        <translation type="unfinished"></translation>
+      <source>Apply &amp;ICC Profiles</source>
+      <translation>Apply &amp;ICC Profiles</translation>
     </message>
     <message>
-        <source>PostScript Level &amp;1</source>
-        <translation type="unfinished"></translation>
+      <source>PostScript Level &amp;1</source>
+      <translation>PostScript Level &amp;1</translation>
     </message>
     <message>
-        <source>PostScript Level &amp;2</source>
-        <translation type="unfinished"></translation>
+      <source>PostScript Level &amp;2</source>
+      <translation>PostScript Level &amp;2</translation>
     </message>
     <message>
-        <source>PostScript Level &amp;3</source>
-        <translation type="unfinished"></translation>
+      <source>PostScript Level &amp;3</source>
+      <translation>PostScript Level &amp;3</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
     </message>
     <message>
-        <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancel</translation>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>Align</name>
     <message>
-        <source>Distribute/Align</source>
-        <translation>Distribute/Align</translation>
+      <source>Distribute/Align</source>
+      <translation>Distribute/Align</translation>
     </message>
     <message>
-        <source>Align</source>
-        <translation>Align</translation>
+      <source>Align</source>
+      <translation>Align</translation>
     </message>
     <message>
-        <source>Horizontal</source>
-        <translation>Horizontal</translation>
+      <source>Horizontal</source>
+      <translation>Horizontal</translation>
     </message>
     <message>
-        <source>between:</source>
-        <translation type="obsolete">between:</translation>
+      <source>Left Sides</source>
+      <translation>Left Sides</translation>
     </message>
     <message>
-        <source>Left Sides</source>
-        <translation>Left Sides</translation>
+      <source>Middles</source>
+      <translation>Middles</translation>
     </message>
     <message>
-        <source>Middles</source>
-        <translation>Middles</translation>
+      <source>Right Sides</source>
+      <translation>Right Sides</translation>
     </message>
     <message>
-        <source>Right Sides</source>
-        <translation>Right Sides</translation>
+      <source>Vertical</source>
+      <translation>Vertical</translation>
     </message>
     <message>
-        <source>Don&apos;t change</source>
-        <translation type="obsolete">Don&apos;t change</translation>
+      <source>Top Sides</source>
+      <translation>Top Sides</translation>
     </message>
     <message>
-        <source>Displacement</source>
-        <translation type="obsolete">Displacement</translation>
+      <source>Bottom Sides</source>
+      <translation>Bottom Sides</translation>
     </message>
     <message>
-        <source>Distribute evenly</source>
-        <translation type="obsolete">Distribute evenly</translation>
+      <source> mm</source>
+      <translation>mm</translation>
     </message>
     <message>
-        <source>Vertical</source>
-        <translation>Vertical</translation>
+      <source> in</source>
+      <translation>in</translation>
     </message>
     <message>
-        <source>Top Sides</source>
-        <translation>Top Sides</translation>
+      <source> p</source>
+      <translation>p</translation>
     </message>
     <message>
-        <source>Bottom Sides</source>
-        <translation>Bottom Sides</translation>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
     </message>
     <message>
-        <source> pts</source>
-        <translation type="obsolete">pts</translation>
+      <source>&amp;Apply</source>
+      <translation>&amp;Apply</translation>
     </message>
     <message>
-        <source> mm</source>
-        <translation>mm</translation>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
     </message>
     <message>
-        <source> in</source>
-        <translation>in</translation>
+      <source>&amp;Between:</source>
+      <translation>&amp;Between:</translation>
     </message>
     <message>
-        <source> p</source>
-        <translation>p</translation>
+      <source>A&amp;lign</source>
+      <translation>A&amp;lign</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+      <source>Di&amp;splacement</source>
+      <translation>Di&amp;splacement</translation>
     </message>
     <message>
-        <source>&amp;Apply</source>
-        <translation>&amp;Apply</translation>
+      <source>Distribute &amp;Evenly</source>
+      <translation>Distribute &amp;Evenly</translation>
     </message>
     <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Cancel</translation>
+      <source>Bet&amp;ween:</source>
+      <translation>Bet&amp;ween:</translation>
     </message>
     <message>
-        <source>&amp;Between:</source>
-        <translation type="unfinished"></translation>
+      <source>Do &amp;Not Change</source>
+      <translation>Do &amp;Not Change</translation>
     </message>
     <message>
-        <source>A&amp;lign</source>
-        <translation type="unfinished"></translation>
+      <source>Al&amp;ign</source>
+      <translation>Al&amp;ign</translation>
     </message>
     <message>
-        <source>Di&amp;splacement</source>
-        <translation type="unfinished"></translation>
+      <source>Dis&amp;placement</source>
+      <translation>Dis&amp;placement</translation>
     </message>
     <message>
-        <source>Distribute &amp;Evenly</source>
-        <translation type="unfinished"></translation>
+      <source> pt</source>
+      <translation> pt</translation>
     </message>
     <message>
-        <source>Bet&amp;ween:</source>
-        <translation type="unfinished"></translation>
+      <source>Distribute E&amp;venly</source>
+      <translation>Distribute E&amp;venly</translation>
     </message>
-    <message>
-        <source>Do &amp;Not Change</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Al&amp;ign</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Dis&amp;placement</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> pt</source>
-        <translation type="unfinished"> pt</translation>
-    </message>
-    <message>
-        <source>Distribute E&amp;venly</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>AlignSelect</name>
     <message>
-        <source>Align Text Left</source>
-        <translation>Align Text Left</translation>
+      <source>Align Text Left</source>
+      <translation>Align Text Left</translation>
     </message>
     <message>
-        <source>Align Text Right</source>
-        <translation>Align Text Right</translation>
+      <source>Align Text Right</source>
+      <translation>Align Text Right</translation>
     </message>
     <message>
-        <source>Align Text Center</source>
-        <translation>Align Text Centre</translation>
+      <source>Align Text Center</source>
+      <translation>Align Text Centre</translation>
     </message>
     <message>
-        <source>Align Text Justified</source>
-        <translation>Align Text Justified</translation>
+      <source>Align Text Justified</source>
+      <translation>Align Text Justified</translation>
     </message>
     <message>
-        <source>Align Text Forced Justified</source>
-        <translation>Align Text Forced Justified</translation>
+      <source>Align Text Forced Justified</source>
+      <translation>Align Text Forced Justified</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>Annot</name>
     <message>
-        <source>Field Properties</source>
-        <translation>Field Properties</translation>
+      <source>Field Properties</source>
+      <translation>Field Properties</translation>
     </message>
     <message>
-        <source>Type:</source>
-        <translation>Type:</translation>
+      <source>Type:</source>
+      <translation>Type:</translation>
     </message>
     <message>
-        <source>Button</source>
-        <translation>Button</translation>
+      <source>Button</source>
+      <translation>Button</translation>
     </message>
     <message>
-        <source>Text Field</source>
-        <translation>Text Field</translation>
+      <source>Text Field</source>
+      <translation>Text Field</translation>
     </message>
     <message>
-        <source>Check Box</source>
-        <translation>Check Box</translation>
+      <source>Check Box</source>
+      <translation>Check Box</translation>
     </message>
     <message>
-        <source>Combo Box</source>
-        <translation>Combo Box</translation>
+      <source>Combo Box</source>
+      <translation>Combo Box</translation>
     </message>
     <message>
-        <source>List Box</source>
-        <translation>List Box</translation>
+      <source>List Box</source>
+      <translation>List Box</translation>
     </message>
     <message>
-        <source>Properties</source>
-        <translation>Properties</translation>
+      <source>Properties</source>
+      <translation>Properties</translation>
     </message>
     <message>
-        <source>Name:</source>
-        <translation>Name:</translation>
+      <source>Name:</source>
+      <translation>Name:</translation>
     </message>
     <message>
-        <source>Tool-Tip:</source>
-        <translation>Tool-Tip:</translation>
+      <source>Tool-Tip:</source>
+      <translation>Tool-Tip:</translation>
     </message>
     <message>
-        <source>Text</source>
-        <translation>Text</translation>
+      <source>Text</source>
+      <translation>Text</translation>
     </message>
     <message>
-        <source>Font for use with PDF-1.3:</source>
-        <translation type="obsolete">Font for use with PDF-1.3:</translation>
+      <source>Border</source>
+      <translation>Border</translation>
     </message>
     <message>
-        <source>Border</source>
-        <translation>Border</translation>
+      <source>Color:</source>
+      <translation>Colour:</translation>
     </message>
     <message>
-        <source>Color:</source>
-        <translation>Colour:</translation>
+      <source>None</source>
+      <translation>None</translation>
     </message>
     <message>
-        <source>None</source>
-        <translation>None</translation>
+      <source>Width:</source>
+      <translation>Width:</translation>
     </message>
     <message>
-        <source>Width:</source>
-        <translation>Width:</translation>
+      <source>Thin</source>
+      <translation>Thin</translation>
     </message>
     <message>
-        <source>Thin</source>
-        <translation>Thin</translation>
+      <source>Normal</source>
+      <translation>Normal</translation>
     </message>
     <message>
-        <source>Normal</source>
-        <translation>Normal</translation>
+      <source>Wide</source>
+      <translation>Wide</translation>
     </message>
     <message>
-        <source>Wide</source>
-        <translation>Wide</translation>
+      <source>Style:</source>
+      <translation>Style:</translation>
     </message>
     <message>
-        <source>Style:</source>
-        <translation>Style:</translation>
+      <source>Solid</source>
+      <translation>Solid</translation>
     </message>
     <message>
-        <source>Solid</source>
-        <translation>Solid</translation>
+      <source>Dashed</source>
+      <translation>Dashed</translation>
     </message>
     <message>
-        <source>Dashed</source>
-        <translation>Dashed</translation>
+      <source>Underline</source>
+      <translation>Underline</translation>
     </message>
     <message>
-        <source>Underline</source>
-        <translation>Underline</translation>
+      <source>Beveled</source>
+      <translation>Beveled</translation>
     </message>
     <message>
-        <source>Beveled</source>
-        <translation>Beveled</translation>
+      <source>Inset</source>
+      <translation>Inset</translation>
     </message>
     <message>
-        <source>Inset</source>
-        <translation>Inset</translation>
+      <source>Other</source>
+      <translation>Other</translation>
     </message>
     <message>
-        <source>Other</source>
-        <translation>Other</translation>
+      <source>Read Only</source>
+      <translation>Read Only</translation>
     </message>
     <message>
-        <source>Read Only</source>
-        <translation>Read Only</translation>
+      <source>Required</source>
+      <translation>Required</translation>
     </message>
     <message>
-        <source>Required</source>
-        <translation>Required</translation>
+      <source>Don't Export Value</source>
+      <translation>Don't Export Value</translation>
     </message>
     <message>
-        <source>Don&apos;t Export Value</source>
-        <translation>Don&apos;t Export Value</translation>
+      <source>Visibility:</source>
+      <translation>Visibility:</translation>
     </message>
     <message>
-        <source>Visibility:</source>
-        <translation>Visibility:</translation>
+      <source>Visible</source>
+      <translation>Visible</translation>
     </message>
     <message>
-        <source>Visible</source>
-        <translation>Visible</translation>
+      <source>Hidden</source>
+      <translation>Hidden</translation>
     </message>
     <message>
-        <source>Hidden</source>
-        <translation>Hidden</translation>
+      <source>No Print</source>
+      <translation>No Print</translation>
     </message>
     <message>
-        <source>No Print</source>
-        <translation>No Print</translation>
+      <source>No View</source>
+      <translation>No View</translation>
     </message>
     <message>
-        <source>No View</source>
-        <translation>No View</translation>
+      <source>Appearance</source>
+      <translation>Appearance</translation>
     </message>
     <message>
-        <source>Appearance</source>
-        <translation>Appearance</translation>
+      <source>Text for Button Down</source>
+      <translation>Text for Button Down</translation>
     </message>
     <message>
-        <source>Text for Button Down</source>
-        <translation>Text for Button Down</translation>
+      <source>Text for Roll Over</source>
+      <translation>Text for Roll Over</translation>
     </message>
     <message>
-        <source>Text for Roll Over</source>
-        <translation>Text for Roll Over</translation>
+      <source>Icons</source>
+      <translation>Icons</translation>
     </message>
     <message>
-        <source>Icons</source>
-        <translation>Icons</translation>
+      <source>Use Icons</source>
+      <translation>Use Icons</translation>
     </message>
     <message>
-        <source>Use Icons</source>
-        <translation>Use Icons</translation>
+      <source>Remove</source>
+      <translation>Remove</translation>
     </message>
     <message>
-        <source>Remove</source>
-        <translation>Remove</translation>
+      <source>Pressed</source>
+      <translation>Pressed</translation>
     </message>
     <message>
-        <source>Pressed</source>
-        <translation>Pressed</translation>
+      <source>Roll Over</source>
+      <translation>Roll Over</translation>
     </message>
     <message>
-        <source>Roll Over</source>
-        <translation>Roll Over</translation>
+      <source>Icon Placement...</source>
+      <translation>Icon Placement...</translation>
     </message>
     <message>
-        <source>Icon Placement...</source>
-        <translation>Icon Placement...</translation>
+      <source>Highlight</source>
+      <translation>Highlight</translation>
     </message>
     <message>
-        <source>Highlight</source>
-        <translation>Highlight</translation>
+      <source>Invert</source>
+      <translation>Invert</translation>
     </message>
     <message>
-        <source>Invert</source>
-        <translation>Invert</translation>
+      <source>Outlined</source>
+      <translation>Outlined</translation>
     </message>
     <message>
-        <source>Outlined</source>
-        <translation>Outlined</translation>
+      <source>Push</source>
+      <translation>Push</translation>
     </message>
     <message>
-        <source>Push</source>
-        <translation>Push</translation>
+      <source>Multi-Line</source>
+      <translation>Multi-Line</translation>
     </message>
     <message>
-        <source>Multi-Line</source>
-        <translation>Multi-Line</translation>
+      <source>Password</source>
+      <translation>Password</translation>
     </message>
     <message>
-        <source>Password</source>
-        <translation>Password</translation>
+      <source>Limit of</source>
+      <translation>Limit of</translation>
     </message>
     <message>
-        <source>Limit of</source>
-        <translation>Limit of</translation>
+      <source>Characters</source>
+      <translation>Characters</translation>
     </message>
     <message>
-        <source>Characters</source>
-        <translation>Characters</translation>
+      <source>Do Not Scroll</source>
+      <translation>Do Not Scroll</translation>
     </message>
     <message>
-        <source>Do Not Scroll</source>
-        <translation>Do Not Scroll</translation>
+      <source>Do Not Spell Check</source>
+      <translation>Do Not Spell Check</translation>
     </message>
     <message>
-        <source>Do Not Spell Check</source>
-        <translation>Do Not Spell Check</translation>
+      <source>Check Style:</source>
+      <translation>Check Style:</translation>
     </message>
     <message>
-        <source>Check Style:</source>
-        <translation>Check Style:</translation>
+      <source>Check</source>
+      <translation>Check</translation>
     </message>
     <message>
-        <source>Check</source>
-        <translation>Check</translation>
+      <source>Cross</source>
+      <translation>Cross</translation>
     </message>
     <message>
-        <source>Cross</source>
-        <translation>Cross</translation>
+      <source>Diamond</source>
+      <translation>Diamond</translation>
     </message>
     <message>
-        <source>Diamond</source>
-        <translation>Diamond</translation>
+      <source>Circle</source>
+      <translation>Circle</translation>
     </message>
     <message>
-        <source>Circle</source>
-        <translation>Circle</translation>
+      <source>Star</source>
+      <translation>Star</translation>
     </message>
     <message>
-        <source>Star</source>
-        <translation>Star</translation>
+      <source>Square</source>
+      <translation>Square</translation>
     </message>
     <message>
-        <source>Square</source>
-        <translation>Square</translation>
+      <source>Default is Checked</source>
+      <translation>Default is Checked</translation>
     </message>
     <message>
-        <source>Default is Checked</source>
-        <translation>Default is Checked</translation>
+      <source>Editable</source>
+      <translation>Editable</translation>
     </message>
     <message>
-        <source>Editable</source>
-        <translation>Editable</translation>
+      <source>Options</source>
+      <translation>Options</translation>
     </message>
     <message>
-        <source>Options</source>
-        <translation>Options</translation>
+      <source>Java Script</source>
+      <translation>Java Script</translation>
     </message>
     <message>
-        <source>Java Script</source>
-        <translation>Java Script</translation>
+      <source>Go To</source>
+      <translation>Go To</translation>
     </message>
     <message>
-        <source>Go To</source>
-        <translation>Go To</translation>
+      <source>Submit Form</source>
+      <translation>Submit Form</translation>
     </message>
     <message>
-        <source>Submit Form</source>
-        <translation>Submit Form</translation>
+      <source>Reset Form</source>
+      <translation>Reset Form</translation>
     </message>
     <message>
-        <source>Reset Form</source>
-        <translation>Reset Form</translation>
+      <source>Import Data</source>
+      <translation>Import Data</translation>
     </message>
     <message>
-        <source>Import Data</source>
-        <translation>Import Data</translation>
+      <source>Event:</source>
+      <translation>Event:</translation>
     </message>
     <message>
-        <source>Event:</source>
-        <translation>Event:</translation>
+      <source>Mouse Up</source>
+      <translation>Mouse Up</translation>
     </message>
     <message>
-        <source>Mouse Up</source>
-        <translation>Mouse Up</translation>
+      <source>Mouse Down</source>
+      <translation>Mouse Down</translation>
     </message>
     <message>
-        <source>Mouse Down</source>
-        <translation>Mouse Down</translation>
+      <source>Mouse Enter</source>
+      <translation>Mouse Enter</translation>
     </message>
     <message>
-        <source>Mouse Enter</source>
-        <translation>Mouse Enter</translation>
+      <source>Mouse Exit</source>
+      <translation>Mouse Exit</translation>
     </message>
     <message>
-        <source>Mouse Exit</source>
-        <translation>Mouse Exit</translation>
+      <source>On Focus</source>
+      <translation>On Focus</translation>
     </message>
     <message>
-        <source>On Focus</source>
-        <translation>On Focus</translation>
+      <source>On Blur</source>
+      <translation>On Blur</translation>
     </message>
     <message>
-        <source>On Blur</source>
-        <translation>On Blur</translation>
+      <source>Script:</source>
+      <translation>Script:</translation>
     </message>
     <message>
-        <source>Script:</source>
-        <translation>Script:</translation>
+      <source>Edit...</source>
+      <translation>Edit...</translation>
     </message>
     <message>
-        <source>Edit...</source>
-        <translation>Edit...</translation>
+      <source>Submit to URL:</source>
+      <translation>Submit to URL:</translation>
     </message>
     <message>
-        <source>Submit to URL:</source>
-        <translation>Submit to URL:</translation>
+      <source>Submit Data as HTML</source>
+      <translation>Submit Data as HTML</translation>
     </message>
     <message>
-        <source>Submit Data as HTML</source>
-        <translation>Submit Data as HTML</translation>
+      <source>Import Data from:</source>
+      <translation>Import Data from:</translation>
     </message>
     <message>
-        <source>Import Data from:</source>
-        <translation>Import Data from:</translation>
+      <source>Destination</source>
+      <translation>Destination</translation>
     </message>
     <message>
-        <source>Destination</source>
-        <translation>Destination</translation>
+      <source>To File:</source>
+      <translation>To File:</translation>
     </message>
     <message>
-        <source>To File:</source>
-        <translation>To File:</translation>
+      <source>Change...</source>
+      <translation>Change...</translation>
     </message>
     <message>
-        <source>Change...</source>
-        <translation>Change...</translation>
+      <source>Page:</source>
+      <translation>Page:</translation>
     </message>
     <message>
-        <source>Page:</source>
-        <translation>Page:</translation>
+      <source>X-Pos:</source>
+      <translation>X-Pos:</translation>
     </message>
     <message>
-        <source>X-Pos:</source>
-        <translation>X-Pos:</translation>
+      <source> pt</source>
+      <translation> pt</translation>
     </message>
     <message>
-        <source> pt</source>
-        <translation> pt</translation>
+      <source>Y-Pos:</source>
+      <translation>Y-Pos:</translation>
     </message>
     <message>
-        <source>Y-Pos:</source>
-        <translation>Y-Pos:</translation>
+      <source>Action</source>
+      <translation>Action</translation>
     </message>
     <message>
-        <source>Action</source>
-        <translation>Action</translation>
+      <source>Field is formatted as:</source>
+      <translation>Field is formatted as:</translation>
     </message>
     <message>
-        <source>Field is formatted as:</source>
-        <translation>Field is formatted as:</translation>
+      <source>Plain</source>
+      <translation>Plain</translation>
     </message>
     <message>
-        <source>Plain</source>
-        <translation>Plain</translation>
+      <source>Number</source>
+      <translation>Number</translation>
     </message>
     <message>
-        <source>Number</source>
-        <translation>Number</translation>
+      <source>Percentage</source>
+      <translation>Percentage</translation>
     </message>
     <message>
-        <source>Percentage</source>
-        <translation>Percentage</translation>
+      <source>Date</source>
+      <translation>Date</translation>
     </message>
     <message>
-        <source>Date</source>
-        <translation>Date</translation>
+      <source>Time</source>
+      <translation>Time</translation>
     </message>
     <message>
-        <source>Time</source>
-        <translation>Time</translation>
+      <source>Custom</source>
+      <translation>Custom</translation>
     </message>
     <message>
-        <source>Custom</source>
-        <translation>Custom</translation>
+      <source>Number Format</source>
+      <translation>Number Format</translation>
     </message>
     <message>
-        <source>Number Format</source>
-        <translation>Number Format</translation>
+      <source>Decimals:</source>
+      <translation>Decimals:</translation>
     </message>
     <message>
-        <source>Decimals:</source>
-        <translation>Decimals:</translation>
+      <source>Use Currency Symbol</source>
+      <translation>Use Currency Symbol</translation>
     </message>
     <message>
-        <source>Use Currency Symbol</source>
-        <translation>Use Currency Symbol</translation>
+      <source>Prepend Currency Symbol</source>
+      <translation>Prepend Currency Symbol</translation>
     </message>
     <message>
-        <source>Prepend Currency Symbol</source>
-        <translation>Prepend Currency Symbol</translation>
+      <source>Formatting</source>
+      <translation>Formatting</translation>
     </message>
     <message>
-        <source>Formatting</source>
-        <translation>Formatting</translation>
+      <source>Percent Format</source>
+      <translation>Percent Format</translation>
     </message>
     <message>
-        <source>Percent Format</source>
-        <translation>Percent Format</translation>
+      <source>Date Format</source>
+      <translation>Date Format</translation>
     </message>
     <message>
-        <source>Date Format</source>
-        <translation>Date Format</translation>
+      <source>Time Format</source>
+      <translation>Time Format</translation>
     </message>
     <message>
-        <source>Time Format</source>
-        <translation>Time Format</translation>
+      <source>Custom Scripts</source>
+      <translation>Custom Scripts</translation>
     </message>
     <message>
-        <source>Custom Scripts</source>
-        <translation>Custom Scripts</translation>
+      <source>Format:</source>
+      <translation>Format:</translation>
     </message>
     <message>
-        <source>Format:</source>
-        <translation>Format:</translation>
+      <source>Keystroke:</source>
+      <translation>Keystroke:</translation>
     </message>
     <message>
-        <source>Keystroke:</source>
-        <translation>Keystroke:</translation>
+      <source>Format</source>
+      <translation>Format</translation>
     </message>
     <message>
-        <source>Format</source>
-        <translation>Format</translation>
+      <source>Value is not validated</source>
+      <translation>Value is not validated</translation>
     </message>
     <message>
-        <source>Value is not validated</source>
-        <translation>Value is not validated</translation>
+      <source>Value must be greater than or equal to:</source>
+      <translation>Value must be greater than or equal to:</translation>
     </message>
     <message>
-        <source>Value must be greater than or equal to:</source>
-        <translation>Value must be greater than or equal to:</translation>
+      <source>and less or equal to:</source>
+      <translation>and less or equal to:</translation>
     </message>
     <message>
-        <source>and less or equal to:</source>
-        <translation>and less or equal to:</translation>
+      <source>Custom validate script:</source>
+      <translation>Custom validate script:</translation>
     </message>
     <message>
-        <source>Custom validate script:</source>
-        <translation>Custom validate script:</translation>
+      <source>Validate</source>
+      <translation>Validate</translation>
     </message>
     <message>
-        <source>Validate</source>
-        <translation>Validate</translation>
+      <source>Value is not calculated</source>
+      <translation>Value is not calculated</translation>
     </message>
     <message>
-        <source>Value is not calculated</source>
-        <translation>Value is not calculated</translation>
+      <source>Value is the</source>
+      <translation>Value is the</translation>
     </message>
     <message>
-        <source>Value is the</source>
-        <translation>Value is the</translation>
+      <source>sum</source>
+      <translation>sum</translation>
     </message>
     <message>
-        <source>sum</source>
-        <translation>sum</translation>
+      <source>product</source>
+      <translation>product</translation>
     </message>
     <message>
-        <source>product</source>
-        <translation>product</translation>
+      <source>average</source>
+      <translation>average</translation>
     </message>
     <message>
-        <source>average</source>
-        <translation>average</translation>
+      <source>minimum</source>
+      <translation>minimum</translation>
     </message>
     <message>
-        <source>minimum</source>
-        <translation>minimum</translation>
+      <source>maximum</source>
+      <translation>maximum</translation>
     </message>
     <message>
-        <source>maximum</source>
-        <translation>maximum</translation>
+      <source>of the following fields:</source>
+      <translation>of the following fields:</translation>
     </message>
     <message>
-        <source>of the following fields:</source>
-        <translation>of the following fields:</translation>
+      <source>Pick...</source>
+      <translation>Pick...</translation>
     </message>
     <message>
-        <source>Pick...</source>
-        <translation>Pick...</translation>
+      <source>Custom calculation script:</source>
+      <translation>Custom calculation script:</translation>
     </message>
     <message>
-        <source>Custom calculation script:</source>
-        <translation>Custom calculation script:</translation>
+      <source>Calculate</source>
+      <translation>Calculate</translation>
     </message>
     <message>
-        <source>Calculate</source>
-        <translation>Calculate</translation>
+      <source>OK</source>
+      <translation>OK</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation>OK</translation>
+      <source>Cancel</source>
+      <translation>Cancel</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation>Cancel</translation>
+      <source>Enter a comma separated list of fields here</source>
+      <translation>Enter a comma separated list of fields here</translation>
     </message>
     <message>
-        <source>Flag is ignored for PDF-1.3</source>
-        <translation type="obsolete">Flag is ignored for PDF-1.3</translation>
+      <source>You need at least the Icon for Normal to use Icons for Buttons</source>
+      <translation>You need at least the Icon for Normal to use Icons for Buttons</translation>
     </message>
     <message>
-        <source>Enter a comma separated list of fields here</source>
-        <translation>Enter a comma separated list of fields here</translation>
+      <source>Open</source>
+      <translation>Open</translation>
     </message>
     <message>
-        <source>You need at least the Icon for Normal to use Icons for Buttons</source>
-        <translation>You need at least the Icon for Normal to use Icons for Buttons</translation>
+      <source>Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)</source>
+      <translation>Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)</translation>
     </message>
     <message>
-        <source>Open</source>
-        <translation>Open</translation>
+      <source>Example:</source>
+      <translation>Example:</translation>
     </message>
     <message>
-        <source>Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)</source>
-        <translation>Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)</translation>
+      <source>Selection Change</source>
+      <translation>Selection Change</translation>
     </message>
     <message>
-        <source>Example:</source>
-        <translation>Example:</translation>
+      <source>Font for use with PDF 1.3:</source>
+      <translation>Font for use with PDF 1.3:</translation>
     </message>
     <message>
-        <source>Selection Change</source>
-        <translation>Selection Change</translation>
+      <source>Flag is ignored for PDF 1.3</source>
+      <translation>Flag is ignored for PDF 1.3</translation>
     </message>
     <message>
-        <source>PDF-Documents (*.pdf);;All Files (*)</source>
-        <translation type="obsolete">PDF-Documents (*.pdf);;All Files (*)</translation>
+      <source>PDF Documents (*.pdf);;All Files (*)</source>
+      <translation>PDF Documents (*.pdf);;All Files (*)</translation>
     </message>
-    <message>
-        <source>Font for use with PDF 1.3:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Flag is ignored for PDF 1.3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>PDF Documents (*.pdf);;All Files (*)</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>Annota</name>
     <message>
-        <source>Annotation Properties</source>
-        <translation>Annotation Properties</translation>
+      <source>Annotation Properties</source>
+      <translation>Annotation Properties</translation>
     </message>
     <message>
-        <source>Type:</source>
-        <translation>Type:</translation>
+      <source>Type:</source>
+      <translation>Type:</translation>
     </message>
     <message>
-        <source>Text</source>
-        <translation>Text</translation>
+      <source>Text</source>
+      <translation>Text</translation>
     </message>
     <message>
-        <source>Link</source>
-        <translation>Link</translation>
+      <source>Link</source>
+      <translation>Link</translation>
     </message>
     <message>
-        <source>External Link</source>
-        <translation>External Link</translation>
+      <source>External Link</source>
+      <translation>External Link</translation>
     </message>
     <message>
-        <source>External Web-Link</source>
-        <translation>External Web-Link</translation>
+      <source>External Web-Link</source>
+      <translation>External Web-Link</translation>
     </message>
     <message>
-        <source>Destination</source>
-        <translation>Destination</translation>
+      <source>Destination</source>
+      <translation>Destination</translation>
     </message>
     <message>
-        <source>Change...</source>
-        <translation>Change...</translation>
+      <source>Change...</source>
+      <translation>Change...</translation>
     </message>
     <message>
-        <source>Page:</source>
-        <translation>Page:</translation>
+      <source>Page:</source>
+      <translation>Page:</translation>
     </message>
     <message>
-        <source>X-Pos:</source>
-        <translation>X-Pos:</translation>
+      <source>X-Pos:</source>
+      <translation>X-Pos:</translation>
     </message>
     <message>
-        <source> pt</source>
-        <translation> pt</translation>
+      <source> pt</source>
+      <translation> pt</translation>
     </message>
     <message>
-        <source>Y-Pos:</source>
-        <translation>Y-Pos:</translation>
+      <source>Y-Pos:</source>
+      <translation>Y-Pos:</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation>OK</translation>
+      <source>OK</source>
+      <translation>OK</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation>Cancel</translation>
+      <source>Cancel</source>
+      <translation>Cancel</translation>
     </message>
     <message>
-        <source>Open</source>
-        <translation>Open</translation>
+      <source>Open</source>
+      <translation>Open</translation>
     </message>
     <message>
-        <source>PDF-Documents (*.pdf);;All Files (*)</source>
-        <translation>PDF-Documents (*.pdf);;All Files (*)</translation>
+      <source>PDF-Documents (*.pdf);;All Files (*)</source>
+      <translation>PDF-Documents (*.pdf);;All Files (*)</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>ApplyT</name>
     <message>
-        <source>Apply Template</source>
-        <translation>Apply Template</translation>
+      <source>Apply Template</source>
+      <translation>Apply Template</translation>
     </message>
     <message>
-        <source>Normal</source>
-        <translation>Normal</translation>
+      <source>Normal</source>
+      <translation>Normal</translation>
     </message>
     <message>
-        <source>&amp;Template:</source>
-        <translation>&amp;Template:</translation>
+      <source>&amp;Template:</source>
+      <translation>&amp;Template:</translation>
     </message>
     <message>
-        <source>Apply to &amp;Current Page</source>
-        <translation>Apply to &amp;Current Page</translation>
+      <source>Apply to &amp;Current Page</source>
+      <translation>Apply to &amp;Current Page</translation>
     </message>
     <message>
-        <source>Apply from &amp;Page:</source>
-        <translation>Apply from &amp;Page:</translation>
+      <source>Apply from &amp;Page:</source>
+      <translation>Apply from &amp;Page:</translation>
     </message>
     <message>
-        <source>To:</source>
-        <translation>To:</translation>
+      <source>To:</source>
+      <translation>To:</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
     </message>
     <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Cancel</translation>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>Biblio</name>
     <message>
-        <source>Scrapbook</source>
-        <translation>Scrapbook</translation>
+      <source>Scrapbook</source>
+      <translation>Scrapbook</translation>
     </message>
     <message>
-        <source>Scrapbooks (*.scs);;All Files (*)</source>
-        <translation>Scrapbooks (*.scs);;All Files (*)</translation>
+      <source>Scrapbooks (*.scs);;All Files (*)</source>
+      <translation>Scrapbooks (*.scs);;All Files (*)</translation>
     </message>
     <message>
-        <source>Delete</source>
-        <translation>Delete</translation>
+      <source>Delete</source>
+      <translation>Delete</translation>
     </message>
     <message>
-        <source>Object</source>
-        <translation>Object</translation>
+      <source>Object</source>
+      <translation>Object</translation>
     </message>
     <message>
-        <source>Name:</source>
-        <translation type="obsolete">Name:</translation>
+      <source>New Entry</source>
+      <translation>New Entry</translation>
     </message>
     <message>
-        <source>New Entry</source>
-        <translation>New Entry</translation>
+      <source>Rename</source>
+      <translation>Rename</translation>
     </message>
     <message>
-        <source>Rename</source>
-        <translation>Rename</translation>
+      <source>Warning</source>
+      <translation>Warning</translation>
     </message>
     <message>
-        <source>Warning</source>
-        <translation>Warning</translation>
-    </message>
-    <message>
-        <source>Name &quot;%1&quot; isn&apos;t unique.
+      <source>Name &quot;%1&quot; isn't unique.
 Please choose another.</source>
-        <translation>Name &quot;%1&quot; isn&apos;t unique.
+      <translation>Name &quot;%1&quot; isn't unique.
 Please choose another.</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation>OK</translation>
+      <source>OK</source>
+      <translation>OK</translation>
     </message>
     <message>
-        <source>&amp;New</source>
-        <translation>&amp;New</translation>
+      <source>&amp;New</source>
+      <translation>&amp;New</translation>
     </message>
     <message>
-        <source>&amp;Load...</source>
-        <translation>&amp;Load...</translation>
+      <source>&amp;Load...</source>
+      <translation>&amp;Load...</translation>
     </message>
     <message>
-        <source>&amp;Save</source>
-        <translation>&amp;Save</translation>
+      <source>&amp;Save</source>
+      <translation>&amp;Save</translation>
     </message>
     <message>
-        <source>Save &amp;As...</source>
-        <translation>Save &amp;As...</translation>
+      <source>Save &amp;As...</source>
+      <translation>Save &amp;As...</translation>
     </message>
     <message>
-        <source>&amp;Close</source>
-        <translation>&amp;Close</translation>
+      <source>&amp;Close</source>
+      <translation>&amp;Close</translation>
     </message>
     <message>
-        <source>&amp;Small</source>
-        <translation>&amp;Small</translation>
+      <source>&amp;Small</source>
+      <translation>&amp;Small</translation>
     </message>
     <message>
-        <source>&amp;Medium</source>
-        <translation>&amp;Medium</translation>
+      <source>&amp;Medium</source>
+      <translation>&amp;Medium</translation>
     </message>
     <message>
-        <source>&amp;Large</source>
-        <translation>&amp;Large</translation>
+      <source>&amp;Large</source>
+      <translation>&amp;Large</translation>
     </message>
     <message>
-        <source>&amp;File</source>
-        <translation>&amp;File</translation>
+      <source>&amp;File</source>
+      <translation>&amp;File</translation>
     </message>
     <message>
-        <source>&amp;Preview</source>
-        <translation>&amp;Preview</translation>
+      <source>&amp;Preview</source>
+      <translation>&amp;Preview</translation>
     </message>
     <message>
-        <source>&amp;Name:</source>
-        <translation type="unfinished"></translation>
+      <source>&amp;Name:</source>
+      <translation>&amp;Name:</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>BookMView</name>
     <message>
-        <source>Bookmarks</source>
-        <translation>Bookmarks</translation>
+      <source>Bookmarks</source>
+      <translation>Bookmarks</translation>
     </message>
     <message>
-        <source>Move Bookmark</source>
-        <translation>Move Bookmark</translation>
+      <source>Move Bookmark</source>
+      <translation>Move Bookmark</translation>
     </message>
     <message>
-        <source>Insert Bookmark</source>
-        <translation>Insert Bookmark</translation>
+      <source>Insert Bookmark</source>
+      <translation>Insert Bookmark</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation>Cancel</translation>
+      <source>Cancel</source>
+      <translation>Cancel</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>BookPalette</name>
     <message>
-        <source>Bookmarks</source>
-        <translation>Bookmarks</translation>
+      <source>Bookmarks</source>
+      <translation>Bookmarks</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>ButtonIcon</name>
     <message>
-        <source>Icon Placement</source>
-        <translation>Icon Placement</translation>
+      <source>Icon Placement</source>
+      <translation>Icon Placement</translation>
     </message>
     <message>
-        <source>Layout:</source>
-        <translation>Layout:</translation>
+      <source>Layout:</source>
+      <translation>Layout:</translation>
     </message>
     <message>
-        <source>Caption only</source>
-        <translation>Caption only</translation>
+      <source>Caption only</source>
+      <translation>Caption only</translation>
     </message>
     <message>
-        <source>Icon only</source>
-        <translation>Icon only</translation>
+      <source>Icon only</source>
+      <translation>Icon only</translation>
     </message>
     <message>
-        <source>Caption below Icon</source>
-        <translation>Caption below Icon</translation>
+      <source>Caption below Icon</source>
+      <translation>Caption below Icon</translation>
     </message>
     <message>
-        <source>Caption above Icon</source>
-        <translation>Caption above Icon</translation>
+      <source>Caption above Icon</source>
+      <translation>Caption above Icon</translation>
     </message>
     <message>
-        <source>Caption right to Icon</source>
-        <translation>Caption right to Icon</translation>
+      <source>Caption right to Icon</source>
+      <translation>Caption right to Icon</translation>
     </message>
     <message>
-        <source>Caption left to Icon</source>
-        <translation>Caption left to Icon</translation>
+      <source>Caption left to Icon</source>
+      <translation>Caption left to Icon</translation>
     </message>
     <message>
-        <source>Caption overlays Icon</source>
-        <translation>Caption overlays Icon</translation>
+      <source>Caption overlays Icon</source>
+      <translation>Caption overlays Icon</translation>
     </message>
     <message>
-        <source>Scale:</source>
-        <translation>Scale:</translation>
+      <source>Scale:</source>
+      <translation>Scale:</translation>
     </message>
     <message>
-        <source>Always</source>
-        <translation>Always</translation>
+      <source>Always</source>
+      <translation>Always</translation>
     </message>
     <message>
-        <source>When Icon is too big</source>
-        <translation>When Icon is too big</translation>
+      <source>When Icon is too big</source>
+      <translation>When Icon is too big</translation>
     </message>
     <message>
-        <source>Never</source>
-        <translation>Never</translation>
+      <source>Never</source>
+      <translation>Never</translation>
     </message>
     <message>
-        <source>Scale How:</source>
-        <translation>Scale How:</translation>
+      <source>Scale How:</source>
+      <translation>Scale How:</translation>
     </message>
     <message>
-        <source>Proportional</source>
-        <translation>Proportional</translation>
+      <source>Proportional</source>
+      <translation>Proportional</translation>
     </message>
     <message>
-        <source>Non Proportional</source>
-        <translation>Non Proportional</translation>
+      <source>Non Proportional</source>
+      <translation>Non Proportional</translation>
     </message>
     <message>
-        <source>Icon</source>
-        <translation>Icon</translation>
+      <source>Icon</source>
+      <translation>Icon</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation>OK</translation>
+      <source>OK</source>
+      <translation>OK</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation>Cancel</translation>
+      <source>Cancel</source>
+      <translation>Cancel</translation>
     </message>
     <message>
-        <source>Reset</source>
-        <translation>Reset</translation>
+      <source>Reset</source>
+      <translation>Reset</translation>
     </message>
     <message>
-        <source>When Icon is too small</source>
-        <translation>When Icon is too small</translation>
+      <source>When Icon is too small</source>
+      <translation>When Icon is too small</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>CMSPrefs</name>
     <message>
-        <source>Color Management Settings</source>
-        <translation>Colour Management Settings</translation>
+      <source>Color Management Settings</source>
+      <translation>Colour Management Settings</translation>
     </message>
     <message>
-        <source>System Profiles</source>
-        <translation>System Profiles</translation>
+      <source>System Profiles</source>
+      <translation>System Profiles</translation>
     </message>
     <message>
-        <source>Rendering Intents</source>
-        <translation>Rendering Intents</translation>
+      <source>Rendering Intents</source>
+      <translation>Rendering Intents</translation>
     </message>
     <message>
-        <source>Perceptual</source>
-        <translation>Perceptual</translation>
+      <source>Perceptual</source>
+      <translation>Perceptual</translation>
     </message>
     <message>
-        <source>Relative Colorimetric</source>
-        <translation>Relative Colourimetric</translation>
+      <source>Relative Colorimetric</source>
+      <translation>Relative Colourimetric</translation>
     </message>
     <message>
-        <source>Saturation</source>
-        <translation>Saturation</translation>
+      <source>Saturation</source>
+      <translation>Saturation</translation>
     </message>
     <message>
-        <source>Absolute Colorimetric</source>
-        <translation>Absolute Colourimetric</translation>
+      <source>Absolute Colorimetric</source>
+      <translation>Absolute Colourimetric</translation>
     </message>
     <message>
-        <source>Default color profile for imported images</source>
-        <translation>Default colour profile for imported images</translation>
+      <source>Default color profile for imported images</source>
+      <translation>Default colour profile for imported images</translation>
     </message>
     <message>
-        <source>Default color profile for solid colors on the page</source>
-        <translation>Default colour profile for solid colours on the page</translation>
+      <source>Default color profile for solid colors on the page</source>
+      <translation>Default colour profile for solid colours on the page</translation>
     </message>
     <message>
-        <source>Color profile that you have generated or received from the manufacturer.
+      <source>Color profile that you have generated or received from the manufacturer.
 This profile should be specific to your monitor and not a generic profile (i.e. sRGB).</source>
-        <translation>Colour profile that you have generated or received from the manufacturer.
+      <translation>Colour profile that you have generated or received from the manufacturer.
 This profile should be specific to your monitor and not a generic profile (i.e. sRGB).</translation>
     </message>
     <message>
-        <source>Color profile for your printer model from the manufacturer.
+      <source>Color profile for your printer model from the manufacturer.
 This profile should be specific to your printer and not a generic profile (i.e. sRGB).</source>
-        <translation>Colour profile for your printer model from the manufacturer.
+      <translation>Colour profile for your printer model from the manufacturer.
 This profile should be specific to your printer and not a generic profile (i.e. sRGB).</translation>
     </message>
     <message>
-        <source>Black Point Compensation is a method of improving contrast in photos.
+      <source>Black Point Compensation is a method of improving contrast in photos.
 It is recommended that you enable this if you have photos in your document.</source>
-        <translation>Black Point Compensation is a method of improving contrast in photos.
+      <translation>Black Point Compensation is a method of improving contrast in photos.
 It is recommended that you enable this if you have photos in your document.</translation>
     </message>
     <message>
-        <source>Default rendering intent for your monitor. Unless you know why to change it,
+      <source>Default rendering intent for your monitor. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation>Default rendering intent for your monitor. Unless you know why to change it,
+      <translation>Default rendering intent for your monitor. Unless you know why to change it,
 Relative Colourimetric or Perceptual should be chosen.</translation>
     </message>
     <message>
-        <source>Default rendering intent for your printer. Unless you know why to change it,
+      <source>Default rendering intent for your printer. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation>Default rendering intent for your printer. Unless you know why to change it,
+      <translation>Default rendering intent for your printer. Unless you know why to change it,
 Relative Colourimetric or Perceptual should be chosen.</translation>
     </message>
     <message>
-        <source>Enable &apos;soft proofing&apos; of how your document colors will print,
+      <source>Enable 'soft proofing' of how your document colors will print,
 based on the chosen printer profile.</source>
-        <translation>Enable &apos;soft proofing&apos; of how your document colours will print,
+      <translation>Enable 'soft proofing' of how your document colours will print,
 based on the chosen printer profile.</translation>
     </message>
     <message>
-        <source>Method of showing colors on the screen which may not print properly.
+      <source>Method of showing colors on the screen which may not print properly.
 This requires very accurate profiles and serves only as a warning.</source>
-        <translation>Method of showing colours on the screen which may not print properly.
+      <translation>Method of showing colours on the screen which may not print properly.
 This requires very accurate profiles and serves only as a warning.</translation>
     </message>
     <message>
-        <source>&amp;Activate Color Management</source>
-        <translation>&amp;Activate Colour Management</translation>
+      <source>&amp;Activate Color Management</source>
+      <translation>&amp;Activate Colour Management</translation>
     </message>
     <message>
-        <source>&amp;Pictures:</source>
-        <translation>&amp;Pictures:</translation>
+      <source>&amp;Pictures:</source>
+      <translation>&amp;Pictures:</translation>
     </message>
     <message>
-        <source>&amp;Solid Colors:</source>
-        <translation>&amp;Solid Colours:</translation>
+      <source>&amp;Solid Colors:</source>
+      <translation>&amp;Solid Colours:</translation>
     </message>
     <message>
-        <source>&amp;Monitor:</source>
-        <translation>&amp;Monitor:</translation>
+      <source>&amp;Monitor:</source>
+      <translation>&amp;Monitor:</translation>
     </message>
     <message>
-        <source>P&amp;rinter:</source>
-        <translation>P&amp;rinter:</translation>
+      <source>P&amp;rinter:</source>
+      <translation>P&amp;rinter:</translation>
     </message>
     <message>
-        <source>M&amp;onitor:</source>
-        <translation>M&amp;onitor:</translation>
+      <source>M&amp;onitor:</source>
+      <translation>M&amp;onitor:</translation>
     </message>
     <message>
-        <source>Pr&amp;inter:</source>
-        <translation>Pr&amp;inter:</translation>
+      <source>Pr&amp;inter:</source>
+      <translation>Pr&amp;inter:</translation>
     </message>
     <message>
-        <source>Sim&amp;ulate Printer on the Screen</source>
-        <translation>Sim&amp;ulate Printer on the Screen</translation>
+      <source>Sim&amp;ulate Printer on the Screen</source>
+      <translation>Sim&amp;ulate Printer on the Screen</translation>
     </message>
     <message>
-        <source>Mark Colors out of &amp;Gamut</source>
-        <translation>Mark Colours out of &amp;Gamut</translation>
+      <source>Mark Colors out of &amp;Gamut</source>
+      <translation>Mark Colours out of &amp;Gamut</translation>
     </message>
     <message>
-        <source>Use &amp;Blackpoint Compensation</source>
-        <translation>Use &amp;Blackpoint Compensation</translation>
+      <source>Use &amp;Blackpoint Compensation</source>
+      <translation>Use &amp;Blackpoint Compensation</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
     </message>
     <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Cancel</translation>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>CMYKChoose</name>
     <message>
-        <source>Edit Color</source>
-        <translation>Edit Colour</translation>
+      <source>Edit Color</source>
+      <translation>Edit Colour</translation>
     </message>
     <message>
-        <source>Name:</source>
-        <translation type="obsolete">Name:</translation>
+      <source>CMYK</source>
+      <translation>CMYK</translation>
     </message>
     <message>
-        <source>Color Model</source>
-        <translation type="obsolete">Colour Model</translation>
+      <source>RGB</source>
+      <translation>RGB</translation>
     </message>
     <message>
-        <source>CMYK</source>
-        <translation>CMYK</translation>
+      <source>Web Safe RGB</source>
+      <translation>Web Safe RGB</translation>
     </message>
     <message>
-        <source>RGB</source>
-        <translation>RGB</translation>
+      <source>New</source>
+      <translation>New</translation>
     </message>
     <message>
-        <source>Web Safe RGB</source>
-        <translation>Web Safe RGB</translation>
+      <source>Old</source>
+      <translation>Old</translation>
     </message>
     <message>
-        <source>New</source>
-        <translation>New</translation>
+      <source>OK</source>
+      <translation>OK</translation>
     </message>
     <message>
-        <source>Old</source>
-        <translation>Old</translation>
+      <source>C:</source>
+      <translation>C:</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation>OK</translation>
+      <source>M:</source>
+      <translation>M:</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Cancel</translation>
+      <source>Y:</source>
+      <translation>Y:</translation>
     </message>
     <message>
-        <source>C:</source>
-        <translation>C:</translation>
+      <source>K:</source>
+      <translation>K:</translation>
     </message>
     <message>
-        <source>M:</source>
-        <translation>M:</translation>
+      <source>Dynamic Color Bars</source>
+      <translation>Dynamic Colour Bars</translation>
     </message>
     <message>
-        <source>Y:</source>
-        <translation>Y:</translation>
+      <source>Static Color Bars</source>
+      <translation>Static Colour Bars</translation>
     </message>
     <message>
-        <source>K:</source>
-        <translation>K:</translation>
+      <source>R:</source>
+      <translation>R:</translation>
     </message>
     <message>
-        <source>Dynamic Color Bars</source>
-        <translation>Dynamic Colour Bars</translation>
+      <source>G:</source>
+      <translation>G:</translation>
     </message>
     <message>
-        <source>Static Color Bars</source>
-        <translation>Static Colour Bars</translation>
+      <source>B:</source>
+      <translation>B:</translation>
     </message>
     <message>
-        <source>R:</source>
-        <translation>R:</translation>
+      <source> %</source>
+      <translation> %</translation>
     </message>
     <message>
-        <source>G:</source>
-        <translation>G:</translation>
+      <source>Warning</source>
+      <translation>Warning</translation>
     </message>
     <message>
-        <source>B:</source>
-        <translation>B:</translation>
+      <source>Name of the Color is not unique</source>
+      <translation>Name of the colour is not unique</translation>
     </message>
     <message>
-        <source> %</source>
-        <translation> %</translation>
+      <source>HSV-Colormap</source>
+      <translation>HSV-Colourmap</translation>
     </message>
     <message>
-        <source>Warning</source>
-        <translation>Warning</translation>
+      <source>&amp;Name:</source>
+      <translation>&amp;Name:</translation>
     </message>
     <message>
-        <source>Name of the Color is not unique</source>
-        <translation>Name of the colour is not unique</translation>
+      <source>Color &amp;Model</source>
+      <translation>Colour &amp;Model</translation>
     </message>
     <message>
-        <source>HSV-Colormap</source>
-        <translation>HSV-Colourmap</translation>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
     </message>
     <message>
-        <source>&amp;Name:</source>
-        <translation type="unfinished"></translation>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
     </message>
-    <message>
-        <source>Color &amp;Model</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancel</translation>
-    </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>Cpalette</name>
     <message>
-        <source>Normal</source>
-        <translation>Normal</translation>
+      <source>Normal</source>
+      <translation>Normal</translation>
     </message>
     <message>
-        <source>Horizontal Gradient</source>
-        <translation>Horizontal Gradient</translation>
+      <source>Horizontal Gradient</source>
+      <translation>Horizontal Gradient</translation>
     </message>
     <message>
-        <source>Vertical Gradient</source>
-        <translation>Vertical Gradient</translation>
+      <source>Vertical Gradient</source>
+      <translation>Vertical Gradient</translation>
     </message>
     <message>
-        <source>Diagonal Gradient</source>
-        <translation>Diagonal Gradient</translation>
+      <source>Diagonal Gradient</source>
+      <translation>Diagonal Gradient</translation>
     </message>
     <message>
-        <source>Cross Diagonal Gradient</source>
-        <translation>Cross Diagonal Gradient</translation>
+      <source>Cross Diagonal Gradient</source>
+      <translation>Cross Diagonal Gradient</translation>
     </message>
     <message>
-        <source>Radial Gradient</source>
-        <translation>Radial Gradient</translation>
+      <source>Radial Gradient</source>
+      <translation>Radial Gradient</translation>
     </message>
     <message>
-        <source>Opacity:</source>
-        <translation>Opacity:</translation>
+      <source>Opacity:</source>
+      <translation>Opacity:</translation>
     </message>
     <message>
-        <source> %</source>
-        <translation> %</translation>
+      <source> %</source>
+      <translation> %</translation>
     </message>
     <message>
-        <source>None</source>
-        <translation>None</translation>
+      <source>None</source>
+      <translation>None</translation>
     </message>
     <message>
-        <source>Shade:</source>
-        <translation>Shade:</translation>
+      <source>Shade:</source>
+      <translation>Shade:</translation>
     </message>
     <message>
-        <source>Edit Line Color Properties</source>
-        <translation>Edit Line Colour Properties</translation>
+      <source>Edit Line Color Properties</source>
+      <translation>Edit Line Colour Properties</translation>
     </message>
     <message>
-        <source>Edit Fill Color Properties</source>
-        <translation>Edit Fill Colour Properties</translation>
+      <source>Edit Fill Color Properties</source>
+      <translation>Edit Fill Colour Properties</translation>
     </message>
     <message>
-        <source>Saturation of color</source>
-        <translation>Saturation of colour</translation>
+      <source>Saturation of color</source>
+      <translation>Saturation of colour</translation>
     </message>
     <message>
-        <source>Normal or gradient fill method</source>
-        <translation>Normal or gradient fill method</translation>
+      <source>Normal or gradient fill method</source>
+      <translation>Normal or gradient fill method</translation>
     </message>
     <message>
-        <source>Set the transparency for the color selected</source>
-        <translation>Set the transparency for the colour selected</translation>
+      <source>Set the transparency for the color selected</source>
+      <translation>Set the transparency for the colour selected</translation>
     </message>
     <message>
-        <source>Color of selected object</source>
-        <translation>Colour of selected object</translation>
+      <source>Color of selected object</source>
+      <translation>Colour of selected object</translation>
     </message>
     <message>
-        <source>Free linear Gradient</source>
-        <translation>Free linear Gradient</translation>
+      <source>Free linear Gradient</source>
+      <translation>Free linear Gradient</translation>
     </message>
     <message>
-        <source>Free radial Gradient</source>
-        <translation>Free radial Gradient</translation>
+      <source>Free radial Gradient</source>
+      <translation>Free radial Gradient</translation>
     </message>
     <message>
-        <source>X1:</source>
-        <translation>X1:</translation>
+      <source>X1:</source>
+      <translation>X1:</translation>
     </message>
     <message>
-        <source>Y1:</source>
-        <translation>Y1:</translation>
+      <source>Y1:</source>
+      <translation>Y1:</translation>
     </message>
     <message>
-        <source> pt</source>
-        <translation> pt</translation>
+      <source> pt</source>
+      <translation> pt</translation>
     </message>
     <message>
-        <source>X2:</source>
-        <translation>X2:</translation>
+      <source>X2:</source>
+      <translation>X2:</translation>
     </message>
     <message>
-        <source>Y2:</source>
-        <translation>Y2:</translation>
+      <source>Y2:</source>
+      <translation>Y2:</translation>
     </message>
     <message>
-        <source> mm</source>
-        <translation> mm</translation>
+      <source> mm</source>
+      <translation> mm</translation>
     </message>
     <message>
-        <source> in</source>
-        <translation> in</translation>
+      <source> in</source>
+      <translation> in</translation>
     </message>
     <message>
-        <source> p</source>
-        <translation> p</translation>
+      <source> p</source>
+      <translation> p</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>CupsOptions</name>
     <message>
-        <source>Printer Options</source>
-        <translation>Printer Options</translation>
+      <source>Printer Options</source>
+      <translation>Printer Options</translation>
     </message>
     <message>
-        <source>Option</source>
-        <translation>Option</translation>
+      <source>Option</source>
+      <translation>Option</translation>
     </message>
     <message>
-        <source>Value</source>
-        <translation>Value</translation>
+      <source>Value</source>
+      <translation>Value</translation>
     </message>
     <message>
-        <source>Page Set</source>
-        <translation>Page Set</translation>
+      <source>Page Set</source>
+      <translation>Page Set</translation>
     </message>
     <message>
-        <source>All Pages</source>
-        <translation>All Pages</translation>
+      <source>All Pages</source>
+      <translation>All Pages</translation>
     </message>
     <message>
-        <source>Even Pages only</source>
-        <translation>Even Pages only</translation>
+      <source>Even Pages only</source>
+      <translation>Even Pages only</translation>
     </message>
     <message>
-        <source>Odd Pages only</source>
-        <translation>Odd Pages only</translation>
+      <source>Odd Pages only</source>
+      <translation>Odd Pages only</translation>
     </message>
     <message>
-        <source>Mirror</source>
-        <translation>Mirror</translation>
+      <source>Mirror</source>
+      <translation>Mirror</translation>
     </message>
     <message>
-        <source>No</source>
-        <translation>No</translation>
+      <source>No</source>
+      <translation>No</translation>
     </message>
     <message>
-        <source>Yes</source>
-        <translation>Yes</translation>
+      <source>Yes</source>
+      <translation>Yes</translation>
     </message>
     <message>
-        <source>Orientation</source>
-        <translation>Orientation</translation>
+      <source>Orientation</source>
+      <translation>Orientation</translation>
     </message>
     <message>
-        <source>Portrait</source>
-        <translation>Portrait</translation>
+      <source>Portrait</source>
+      <translation>Portrait</translation>
     </message>
     <message>
-        <source>Landscape</source>
-        <translation>Landscape</translation>
+      <source>Landscape</source>
+      <translation>Landscape</translation>
     </message>
     <message>
-        <source>N-Up Printing</source>
-        <translation>N-Up Printing</translation>
+      <source>N-Up Printing</source>
+      <translation>N-Up Printing</translation>
     </message>
     <message>
-        <source>Page per Sheet</source>
-        <translation>Page per Sheet</translation>
+      <source>Page per Sheet</source>
+      <translation>Page per Sheet</translation>
     </message>
     <message>
-        <source>Pages per Sheet</source>
-        <translation>Pages per Sheet</translation>
+      <source>Pages per Sheet</source>
+      <translation>Pages per Sheet</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation type="obsolete">OK</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Cancel</translation>
-    </message>
-    <message>
-        <source>This panel displays various CUPS options when printing. 
+      <source>This panel displays various CUPS options when printing. 
 The exact parameters available will depend on your printer driver.
-You can confirm CUPS support by selecting Help &gt; About.
+You can confirm CUPS support by selecting Help > About.
 Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support.
 Missing library support is indicated by a *</source>
-        <translation>This panel displays various CUPS options when printing. 
+      <translation>This panel displays various CUPS options when printing. 
 The exact parameters available will depend on your printer driver.
-You can confirm CUPS support by selecting Help &gt; About.
+You can confirm CUPS support by selecting Help > About.
 Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support.
 Missing library support is indicated by a *</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
     </message>
     <message>
-        <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancel</translation>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>CustomFDialog</name>
     <message>
-        <source>Encoding:</source>
-        <translation>Encoding:</translation>
+      <source>Encoding:</source>
+      <translation>Encoding:</translation>
     </message>
     <message>
-        <source>Moves to your Document Directory.
+      <source>Moves to your Document Directory.
 This can be set in the Preferences.</source>
-        <translation>Moves to your Document Directory.
+      <translation>Moves to your Document Directory.
 This can be set in the Preferences.</translation>
     </message>
     <message>
-        <source>&amp;Compress File</source>
-        <translation>&amp;Compress File</translation>
+      <source>&amp;Compress File</source>
+      <translation>&amp;Compress File</translation>
     </message>
     <message>
-        <source>&amp;Include Fonts</source>
-        <translation>&amp;Include Fonts</translation>
+      <source>&amp;Include Fonts</source>
+      <translation>&amp;Include Fonts</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>DelColor</name>
     <message>
-        <source>Delete Color</source>
-        <translation>Delete Colour</translation>
+      <source>Delete Color</source>
+      <translation>Delete Colour</translation>
     </message>
     <message>
-        <source>?</source>
-        <translation>?</translation>
+      <source>?</source>
+      <translation>?</translation>
     </message>
     <message>
-        <source>Replace it with:</source>
-        <translation>Replace it with:</translation>
+      <source>Replace it with:</source>
+      <translation>Replace it with:</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation>OK</translation>
+      <source>OK</source>
+      <translation>OK</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation>Cancel</translation>
+      <source>Cancel</source>
+      <translation>Cancel</translation>
     </message>
     <message>
-        <source>Delete color:</source>
-        <translation>Delete colour:</translation>
+      <source>Delete color:</source>
+      <translation>Delete colour:</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>DelPages</name>
     <message>
-        <source>Delete Pages</source>
-        <translation>Delete Pages</translation>
+      <source>Delete Pages</source>
+      <translation>Delete Pages</translation>
     </message>
     <message>
-        <source>Delete from:</source>
-        <translation>Delete from:</translation>
+      <source>Delete from:</source>
+      <translation>Delete from:</translation>
     </message>
     <message>
-        <source>to:</source>
-        <translation>to:</translation>
+      <source>to:</source>
+      <translation>to:</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation type="obsolete">OK</translation>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Cancel</translation>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
     </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancel</translation>
-    </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>DmF</name>
     <message>
-        <source>Missing Font</source>
-        <translation>Missing Font</translation>
+      <source>Missing Font</source>
+      <translation>Missing Font</translation>
     </message>
     <message>
-        <source>The Font %1 is not installed.</source>
-        <translation>The Font %1 is not installed.</translation>
+      <source>The Font %1 is not installed.</source>
+      <translation>The Font %1 is not installed.</translation>
     </message>
     <message>
-        <source>Use</source>
-        <translation>Use</translation>
+      <source>Use</source>
+      <translation>Use</translation>
     </message>
     <message>
-        <source>instead</source>
-        <translation>instead</translation>
+      <source>instead</source>
+      <translation>instead</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation>OK</translation>
+      <source>OK</source>
+      <translation>OK</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>DocInfos</name>
     <message>
-        <source>Document Information</source>
-        <translation>Document Information</translation>
+      <source>Document Information</source>
+      <translation>Document Information</translation>
     </message>
     <message>
-        <source>&amp;Title:</source>
-        <translation>&amp;Title:</translation>
+      <source>&amp;Title:</source>
+      <translation>&amp;Title:</translation>
     </message>
     <message>
-        <source>&amp;Author:</source>
-        <translation>&amp;Author:</translation>
+      <source>&amp;Author:</source>
+      <translation>&amp;Author:</translation>
     </message>
     <message>
-        <source>&amp;Keywords:</source>
-        <translation>&amp;Keywords:</translation>
+      <source>&amp;Keywords:</source>
+      <translation>&amp;Keywords:</translation>
     </message>
     <message>
-        <source>Descri&amp;ption:</source>
-        <translation>Descri&amp;ption:</translation>
+      <source>Descri&amp;ption:</source>
+      <translation>Descri&amp;ption:</translation>
     </message>
     <message>
-        <source>P&amp;ublisher:</source>
-        <translation>P&amp;ublisher:</translation>
+      <source>P&amp;ublisher:</source>
+      <translation>P&amp;ublisher:</translation>
     </message>
     <message>
-        <source>&amp;Contributors:</source>
-        <translation>&amp;Contributors:</translation>
+      <source>&amp;Contributors:</source>
+      <translation>&amp;Contributors:</translation>
     </message>
     <message>
-        <source>Dat&amp;e:</source>
-        <translation>Dat&amp;e:</translation>
+      <source>Dat&amp;e:</source>
+      <translation>Dat&amp;e:</translation>
     </message>
     <message>
-        <source>T&amp;ype:</source>
-        <translation>T&amp;ype:</translation>
+      <source>T&amp;ype:</source>
+      <translation>T&amp;ype:</translation>
     </message>
     <message>
-        <source>F&amp;ormat:</source>
-        <translation>F&amp;ormat:</translation>
+      <source>F&amp;ormat:</source>
+      <translation>F&amp;ormat:</translation>
     </message>
     <message>
-        <source>Identi&amp;fier:</source>
-        <translation>Identi&amp;fier:</translation>
+      <source>Identi&amp;fier:</source>
+      <translation>Identi&amp;fier:</translation>
     </message>
     <message>
-        <source>&amp;Source:</source>
-        <translation>&amp;Source:</translation>
+      <source>&amp;Source:</source>
+      <translation>&amp;Source:</translation>
     </message>
     <message>
-        <source>&amp;Language:</source>
-        <translation>&amp;Language:</translation>
+      <source>&amp;Language:</source>
+      <translation>&amp;Language:</translation>
     </message>
     <message>
-        <source>&amp;Relation:</source>
-        <translation>&amp;Relation:</translation>
+      <source>&amp;Relation:</source>
+      <translation>&amp;Relation:</translation>
     </message>
     <message>
-        <source>Co&amp;verage:</source>
-        <translation>Co&amp;verage:</translation>
+      <source>Co&amp;verage:</source>
+      <translation>Co&amp;verage:</translation>
     </message>
     <message>
-        <source>Ri&amp;ghts:</source>
-        <translation>Ri&amp;ghts:</translation>
+      <source>Ri&amp;ghts:</source>
+      <translation>Ri&amp;ghts:</translation>
     </message>
     <message>
-        <source>&amp;Document</source>
-        <translation>&amp;Document</translation>
+      <source>&amp;Document</source>
+      <translation>&amp;Document</translation>
     </message>
     <message>
-        <source>Further &amp;Information</source>
-        <translation>Further &amp;Information</translation>
+      <source>Further &amp;Information</source>
+      <translation>Further &amp;Information</translation>
     </message>
     <message>
-        <source>The person or organisation primarily responsible for making the content of the document.
+      <source>The person or organisation primarily responsible for making the content of the document.
 This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation>The person or organisation primarily responsible for making the content of the document.
+      <translation>The person or organisation primarily responsible for making the content of the document.
 This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</translation>
     </message>
     <message>
-        <source>A name given to the document.
+      <source>A name given to the document.
 This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation>A name given to the document.
+      <translation>A name given to the document.
 This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</translation>
     </message>
     <message>
-        <source>An account of the content of the document.
+      <source>An account of the content of the document.
 This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
-        <translation>An account of the content of the document.
+      <translation>An account of the content of the document.
 This field is for a brief description or abstract of the document. It is embedded in the PDF on export</translation>
     </message>
     <message>
-        <source>The topic of the content of the document.
+      <source>The topic of the content of the document.
 This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
-        <translation>The topic of the content of the document.
+      <translation>The topic of the content of the document.
 This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</translation>
     </message>
     <message>
-        <source>A person or organisation responsible for making the document available</source>
-        <translation>A person or organisation responsible for making the document available</translation>
+      <source>A person or organisation responsible for making the document available</source>
+      <translation>A person or organisation responsible for making the document available</translation>
     </message>
     <message>
-        <source>A person or organisation responsible for making contributions to the content of the document</source>
-        <translation>A person or organisation responsible for making contributions to the content of the document</translation>
+      <source>A person or organisation responsible for making contributions to the content of the document</source>
+      <translation>A person or organisation responsible for making contributions to the content of the document</translation>
     </message>
     <message>
-        <source>A date associated with an event in the life cycle of the document, in YYYY-MM-DD format, as per ISO 8601</source>
-        <translation>A date associated with an event in the life cycle of the document, in YYYY-MM-DD format, as per ISO 8601</translation>
+      <source>A date associated with an event in the life cycle of the document, in YYYY-MM-DD format, as per ISO 8601</source>
+      <translation>A date associated with an event in the life cycle of the document, in YYYY-MM-DD format, as per ISO 8601</translation>
     </message>
     <message>
-        <source>The nature or genre of the content of the document, eg. categories, functions, genres, etc</source>
-        <translation>The nature or genre of the content of the document, eg. categories, functions, genres, etc</translation>
+      <source>The nature or genre of the content of the document, eg. categories, functions, genres, etc</source>
+      <translation>The nature or genre of the content of the document, eg. categories, functions, genres, etc</translation>
     </message>
     <message>
-        <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting.
+      <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting.
 RFC2045,RFC2046 for MIME types are also useful here</source>
-        <translation>The physical or digital manifestation of the document. Media type and dimensions would be worth noting.
+      <translation>The physical or digital manifestation of the document. Media type and dimensions would be worth noting.
 RFC2045,RFC2046 for MIME types are also useful here</translation>
     </message>
     <message>
-        <source>An unambiguous reference to the document within a given context such as ISBN or URI</source>
-        <translation>An unambiguous reference to the document within a given context such as ISBN or URI</translation>
+      <source>An unambiguous reference to the document within a given context such as ISBN or URI</source>
+      <translation>An unambiguous reference to the document within a given context such as ISBN or URI</translation>
     </message>
     <message>
-        <source>A reference to a document from which the present document is derived, eg. ISBN or URI</source>
-        <translation>A reference to a document from which the present document is derived, eg. ISBN or URI</translation>
+      <source>A reference to a document from which the present document is derived, eg. ISBN or URI</source>
+      <translation>A reference to a document from which the present document is derived, eg. ISBN or URI</translation>
     </message>
     <message>
-        <source>The language in which the content of the document is written, usually a ISO-639 language code
+      <source>The language in which the content of the document is written, usually a ISO-639 language code
 optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</source>
-        <translation>The language in which the content of the document is written, usually a ISO-639 language code
+      <translation>The language in which the content of the document is written, usually a ISO-639 language code
 optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</translation>
     </message>
     <message>
-        <source>A reference to a related document, possibly using a formal identifier such as a ISBN or URI</source>
-        <translation>A reference to a related document, possibly using a formal identifier such as a ISBN or URI</translation>
+      <source>A reference to a related document, possibly using a formal identifier such as a ISBN or URI</source>
+      <translation>A reference to a related document, possibly using a formal identifier such as a ISBN or URI</translation>
     </message>
     <message>
-        <source>The extent or scope of the content of the document, possibly including location, time and jurisdiction ranges</source>
-        <translation>The extent or scope of the content of the document, possibly including location, time and jurisdiction ranges</translation>
+      <source>The extent or scope of the content of the document, possibly including location, time and jurisdiction ranges</source>
+      <translation>The extent or scope of the content of the document, possibly including location, time and jurisdiction ranges</translation>
     </message>
     <message>
-        <source>Information about rights held in and over the document, eg. copyright, patent or trademark</source>
-        <translation>Information about rights held in and over the document, eg. copyright, patent or trademark</translation>
+      <source>Information about rights held in and over the document, eg. copyright, patent or trademark</source>
+      <translation>Information about rights held in and over the document, eg. copyright, patent or trademark</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
     </message>
     <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Cancel</translation>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>Druck</name>
     <message>
-        <source>Setup Printer</source>
-        <translation>Setup Printer</translation>
+      <source>Setup Printer</source>
+      <translation>Setup Printer</translation>
     </message>
     <message>
-        <source>Print destination</source>
-        <translation type="obsolete">Print destination</translation>
+      <source>File</source>
+      <translation>File</translation>
     </message>
     <message>
-        <source>File</source>
-        <translation>File</translation>
+      <source>Options</source>
+      <translation>Options</translation>
     </message>
     <message>
-        <source>Options...</source>
-        <translation type="obsolete">Options...</translation>
+      <source>All</source>
+      <translation>All</translation>
     </message>
     <message>
-        <source>File:</source>
-        <translation type="obsolete">File:</translation>
+      <source>Save as</source>
+      <translation>Save as</translation>
     </message>
     <message>
-        <source>Change...</source>
-        <translation type="obsolete">Change...</translation>
+      <source>Postscript-Files (*.ps);;All Files (*)</source>
+      <translation>Postscript-Files (*.ps);;All Files (*)</translation>
     </message>
     <message>
-        <source>Alternative Printer Command</source>
-        <translation type="obsolete">Alternative Printer Command</translation>
+      <source>Cyan</source>
+      <translation>Cyan</translation>
     </message>
     <message>
-        <source>Command:</source>
-        <translation type="obsolete">Command:</translation>
+      <source>Magenta</source>
+      <translation>Magenta</translation>
     </message>
     <message>
-        <source>Range:</source>
-        <translation type="obsolete">Range:</translation>
+      <source>Yellow</source>
+      <translation>Yellow</translation>
     </message>
     <message>
-        <source>Print range</source>
-        <translation type="obsolete">Print range</translation>
+      <source>Black</source>
+      <translation>Black</translation>
     </message>
     <message>
-        <source>Print all</source>
-        <translation type="obsolete">Print all</translation>
-    </message>
-    <message>
-        <source>Number of copies:</source>
-        <translation type="obsolete">Number of copies:</translation>
-    </message>
-    <message>
-        <source>Options</source>
-        <translation>Options</translation>
-    </message>
-    <message>
-        <source>Print Normal</source>
-        <translation type="obsolete">Print Normal</translation>
-    </message>
-    <message>
-        <source>Print Separations</source>
-        <translation type="obsolete">Print Separations</translation>
-    </message>
-    <message>
-        <source>All</source>
-        <translation>All</translation>
-    </message>
-    <message>
-        <source>Print in color if available</source>
-        <translation type="obsolete">Print in colour if available</translation>
-    </message>
-    <message>
-        <source>Print in grayscale</source>
-        <translation type="obsolete">Print in grayscale</translation>
-    </message>
-    <message>
-        <source>Advanced Options...</source>
-        <translation type="obsolete">Advanced Options...</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Cancel</translation>
-    </message>
-    <message>
-        <source>Save as</source>
-        <translation>Save as</translation>
-    </message>
-    <message>
-        <source>Postscript-Files (*.ps);;All Files (*)</source>
-        <translation>Postscript-Files (*.ps);;All Files (*)</translation>
-    </message>
-    <message>
-        <source>Cyan</source>
-        <translation>Cyan</translation>
-    </message>
-    <message>
-        <source>Magenta</source>
-        <translation>Magenta</translation>
-    </message>
-    <message>
-        <source>Yellow</source>
-        <translation>Yellow</translation>
-    </message>
-    <message>
-        <source>Black</source>
-        <translation>Black</translation>
-    </message>
-    <message>
-        <source>Print</source>
-        <translation type="obsolete">Print</translation>
-    </message>
-    <message>
-        <source>Print current page</source>
-        <translation type="obsolete">Print current page</translation>
-    </message>
-    <message>
-        <source>Insert a comma separated list of tokens where
+      <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
-        <translation>Insert a comma separated list of tokens where
+      <translation>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</translation>
     </message>
     <message>
-        <source>Print Destination</source>
-        <translation type="unfinished"></translation>
+      <source>Print Destination</source>
+      <translation>Print Destination</translation>
     </message>
     <message>
-        <source>&amp;Options...</source>
-        <translation type="unfinished"></translation>
+      <source>&amp;Options...</source>
+      <translation>&amp;Options...</translation>
     </message>
     <message>
-        <source>&amp;File:</source>
-        <translation type="unfinished"></translation>
+      <source>&amp;File:</source>
+      <translation>&amp;File:</translation>
     </message>
     <message>
-        <source>C&amp;hange...</source>
-        <translation type="unfinished">C&amp;hange...</translation>
+      <source>C&amp;hange...</source>
+      <translation>C&amp;hange...</translation>
     </message>
     <message>
-        <source>A&amp;lternative Printer Command</source>
-        <translation type="unfinished"></translation>
+      <source>A&amp;lternative Printer Command</source>
+      <translation>A&amp;lternative Printer Command</translation>
     </message>
     <message>
-        <source>Co&amp;mmand:</source>
-        <translation type="unfinished"></translation>
+      <source>Co&amp;mmand:</source>
+      <translation>Co&amp;mmand:</translation>
     </message>
     <message>
-        <source>Range</source>
-        <translation type="unfinished"></translation>
+      <source>Range</source>
+      <translation>Range</translation>
     </message>
     <message>
-        <source>Print &amp;All</source>
-        <translation type="unfinished"></translation>
+      <source>Print &amp;All</source>
+      <translation>Print &amp;All</translation>
     </message>
     <message>
-        <source>Print Current Pa&amp;ge</source>
-        <translation type="unfinished"></translation>
+      <source>Print Current Pa&amp;ge</source>
+      <translation>Print Current Pa&amp;ge</translation>
     </message>
     <message>
-        <source>Print &amp;Range</source>
-        <translation type="unfinished"></translation>
+      <source>Print &amp;Range</source>
+      <translation>Print &amp;Range</translation>
     </message>
     <message>
-        <source>N&amp;umber of Copies:</source>
-        <translation type="unfinished"></translation>
+      <source>N&amp;umber of Copies:</source>
+      <translation>N&amp;umber of Copies:</translation>
     </message>
     <message>
-        <source>Print &amp;Normal</source>
-        <translation type="unfinished"></translation>
+      <source>Print &amp;Normal</source>
+      <translation>Print &amp;Normal</translation>
     </message>
     <message>
-        <source>Print &amp;Separations</source>
-        <translation type="unfinished"></translation>
+      <source>Print &amp;Separations</source>
+      <translation>Print &amp;Separations</translation>
     </message>
     <message>
-        <source>Pr&amp;int In Color If Available</source>
-        <translation type="unfinished"></translation>
+      <source>Pr&amp;int In Color If Available</source>
+      <translation>Pr&amp;int In Colour If Available</translation>
     </message>
     <message>
-        <source>Print In Gra&amp;yscale</source>
-        <translation type="unfinished"></translation>
+      <source>Print In Gra&amp;yscale</source>
+      <translation>Print In Gre&amp;yscale</translation>
     </message>
     <message>
-        <source>Ad&amp;vanced Options...</source>
-        <translation type="unfinished"></translation>
+      <source>Ad&amp;vanced Options...</source>
+      <translation>Ad&amp;vanced Options...</translation>
     </message>
     <message>
-        <source>&amp;Print</source>
-        <translation type="unfinished"></translation>
+      <source>&amp;Print</source>
+      <translation>&amp;Print</translation>
     </message>
     <message>
-        <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancel</translation>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>EPSPlug</name>
     <message>
-        <source>Importing File:
+      <source>Importing File:
 %1
 failed!</source>
-        <translation>Importing File:
+      <translation>Importing File:
 %1
 failed!</translation>
     </message>
     <message>
-        <source>Fatal Error</source>
-        <translation>Fatal Error</translation>
+      <source>Fatal Error</source>
+      <translation>Fatal Error</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>EditStyle</name>
     <message>
-        <source>Edit Style</source>
-        <translation>Edit Style</translation>
+      <source>Edit Style</source>
+      <translation>Edit Style</translation>
     </message>
     <message>
-        <source>Name:</source>
-        <translation type="obsolete">Name:</translation>
+      <source>Character</source>
+      <translation>Character</translation>
     </message>
     <message>
-        <source>Character</source>
-        <translation>Character</translation>
+      <source> pt</source>
+      <translation> pt</translation>
     </message>
     <message>
-        <source>Face:</source>
-        <translation type="obsolete">Face:</translation>
+      <source>Effect:</source>
+      <translation>Effect:</translation>
     </message>
     <message>
-        <source>Size:</source>
-        <translation type="obsolete">Size:</translation>
+      <source>None</source>
+      <translation>None</translation>
     </message>
     <message>
-        <source> pt</source>
-        <translation> pt</translation>
+      <source>Vertical Spaces</source>
+      <translation>Vertical Spaces</translation>
     </message>
     <message>
-        <source>Effect:</source>
-        <translation>Effect:</translation>
+      <source>Line Spacing</source>
+      <translation>Line Spacing</translation>
     </message>
     <message>
-        <source>Alignment:</source>
-        <translation type="obsolete">Alignment:</translation>
+      <source>OK</source>
+      <translation>OK</translation>
     </message>
     <message>
-        <source>Fill Color:</source>
-        <translation type="obsolete">Fill Colour:</translation>
+      <source>Warning</source>
+      <translation>Warning</translation>
     </message>
     <message>
-        <source>None</source>
-        <translation>None</translation>
+      <source>Name of the Style is not unique</source>
+      <translation>Name of the Style is not unique</translation>
     </message>
     <message>
-        <source>Drop Caps</source>
-        <translation type="obsolete">Drop Caps</translation>
+      <source>Name of your paragraph style</source>
+      <translation>Name of your paragraph style</translation>
     </message>
     <message>
-        <source>Lines:</source>
-        <translation type="obsolete">Lines:</translation>
+      <source>Font of selected text or object</source>
+      <translation>Font of selected text or object</translation>
     </message>
     <message>
-        <source>Vertical Spaces</source>
-        <translation>Vertical Spaces</translation>
+      <source>Font Size</source>
+      <translation>Font Size</translation>
     </message>
     <message>
-        <source>Line Spacing</source>
-        <translation>Line Spacing</translation>
+      <source>Color of text fill</source>
+      <translation>Colour of text fill</translation>
     </message>
     <message>
-        <source>Above:</source>
-        <translation type="obsolete">Above:</translation>
+      <source>Color of text stroke</source>
+      <translation>Colour of text stroke</translation>
     </message>
     <message>
-        <source>Below:</source>
-        <translation type="obsolete">Below:</translation>
+      <source>Provides an oversized first letter for a paragraph. Used for stylistic effect</source>
+      <translation>Provides an oversized first letter for a paragraph. Used for stylistic effect</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation>OK</translation>
+      <source>Determines the overall height, in line numbers, of the Drop Caps</source>
+      <translation>Determines the overall height, in line numbers, of the Drop Caps</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Cancel</translation>
+      <source>Align text to baseline grid</source>
+      <translation>Align text to baseline grid</translation>
     </message>
     <message>
-        <source>Warning</source>
-        <translation>Warning</translation>
+      <source>Spacing above the paragraph</source>
+      <translation>Spacing above the paragraph</translation>
     </message>
     <message>
-        <source>Name of the Style is not unique</source>
-        <translation>Name of the Style is not unique</translation>
+      <source>Spacing below the paragraph</source>
+      <translation>Spacing below the paragraph</translation>
     </message>
     <message>
-        <source>Stroke Color:</source>
-        <translation type="obsolete">Stroke Colour:</translation>
+      <source> mm</source>
+      <translation> mm</translation>
     </message>
     <message>
-        <source>Adjust to Baseline Grid</source>
-        <translation type="obsolete">Adjust to Baseline Grid</translation>
+      <source> in</source>
+      <translation> in</translation>
     </message>
     <message>
-        <source>Name of your paragraph style</source>
-        <translation>Name of your paragraph style</translation>
+      <source> p</source>
+      <translation> p</translation>
     </message>
     <message>
-        <source>Font of selected text or object</source>
-        <translation>Font of selected text or object</translation>
+      <source>Tabulators and Indentation</source>
+      <translation>Tabulators and Indentation</translation>
     </message>
     <message>
-        <source>Font Size</source>
-        <translation>Font Size</translation>
+      <source>&amp;Name:</source>
+      <translation>&amp;Name:</translation>
     </message>
     <message>
-        <source>Color of text fill</source>
-        <translation>Colour of text fill</translation>
+      <source>&amp;Font:</source>
+      <translation>&amp;Font:</translation>
     </message>
     <message>
-        <source>Color of text stroke</source>
-        <translation>Colour of text stroke</translation>
+      <source>Si&amp;ze:</source>
+      <translation>Si&amp;ze:</translation>
     </message>
     <message>
-        <source>Provides an oversized first letter for a paragraph. Used for stylistic effect</source>
-        <translation>Provides an oversized first letter for a paragraph. Used for stylistic effect</translation>
+      <source>&amp;Alignment:</source>
+      <translation>&amp;Alignment:</translation>
     </message>
     <message>
-        <source>Determines the overall height, in line numbers, of the Drop Caps</source>
-        <translation>Determines the overall height, in line numbers, of the Drop Caps</translation>
+      <source>&amp;Drop Caps</source>
+      <translation>&amp;Drop Caps</translation>
     </message>
     <message>
-        <source>Align text to baseline grid</source>
-        <translation>Align text to baseline grid</translation>
+      <source>&amp;Lines:</source>
+      <translation>&amp;Lines:</translation>
     </message>
     <message>
-        <source>Spacing above the paragraph</source>
-        <translation>Spacing above the paragraph</translation>
+      <source>F&amp;ill Color:</source>
+      <translation>F&amp;ill Colour:</translation>
     </message>
     <message>
-        <source>Spacing below the paragraph</source>
-        <translation>Spacing below the paragraph</translation>
+      <source>St&amp;roke Color:</source>
+      <translation>St&amp;roke Colour:</translation>
     </message>
     <message>
-        <source> mm</source>
-        <translation> mm</translation>
+      <source>Adjust to Baseline &amp;Grid</source>
+      <translation>Adjust to Baseline &amp;Grid</translation>
     </message>
     <message>
-        <source> in</source>
-        <translation> in</translation>
+      <source>Line &amp;Spacing:</source>
+      <translation>Line &amp;Spacing:</translation>
     </message>
     <message>
-        <source> p</source>
-        <translation> p</translation>
+      <source>Abo&amp;ve:</source>
+      <translation>Abo&amp;ve:</translation>
     </message>
     <message>
-        <source>Line Spacing:</source>
-        <translation type="obsolete">Line Spacing:</translation>
+      <source>&amp;Below:</source>
+      <translation>&amp;Below:</translation>
     </message>
     <message>
-        <source>Tabulators and Indentation</source>
-        <translation>Tabulators and Indentation</translation>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
     </message>
     <message>
-        <source>&amp;Name:</source>
-        <translation type="unfinished"></translation>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
     </message>
-    <message>
-        <source>&amp;Font:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Si&amp;ze:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Alignment:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Drop Caps</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Lines:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>F&amp;ill Color:</source>
-        <translation type="unfinished">F&amp;ill Colour:</translation>
-    </message>
-    <message>
-        <source>St&amp;roke Color:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Adjust to Baseline &amp;Grid</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Line &amp;Spacing:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Abo&amp;ve:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Below:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancel</translation>
-    </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>Editor</name>
     <message>
-        <source>Editor</source>
-        <translation>Editor</translation>
+      <source>Editor</source>
+      <translation>Editor</translation>
     </message>
     <message>
-        <source>New</source>
-        <translation type="obsolete">New</translation>
+      <source>Javascripts (*.js);;All Files (*)</source>
+      <translation>Javascripts (*.js);;All Files (*)</translation>
     </message>
     <message>
-        <source>Save as...</source>
-        <translation type="obsolete">Save as...</translation>
+      <source>&amp;New</source>
+      <translation>&amp;New</translation>
     </message>
     <message>
-        <source>Load...</source>
-        <translation type="obsolete">Load...</translation>
+      <source>&amp;Open...</source>
+      <translation>&amp;Open...</translation>
     </message>
     <message>
-        <source>Save and Exit</source>
-        <translation type="obsolete">Save and Exit</translation>
+      <source>Save &amp;As...</source>
+      <translation>Save &amp;As...</translation>
     </message>
     <message>
-        <source>Exit without Saving</source>
-        <translation type="obsolete">Exit without Saving</translation>
+      <source>&amp;Save and Exit</source>
+      <translation>&amp;Save and Exit</translation>
     </message>
     <message>
-        <source>Undo</source>
-        <translation type="obsolete">Undo</translation>
+      <source>&amp;Exit without Saving</source>
+      <translation>&amp;Exit without Saving</translation>
     </message>
     <message>
-        <source>Redo</source>
-        <translation type="obsolete">Redo</translation>
+      <source>&amp;Undo</source>
+      <translation>&amp;Undo</translation>
     </message>
     <message>
-        <source>Cut</source>
-        <translation type="obsolete">Cut</translation>
+      <source>&amp;Redo</source>
+      <translation>&amp;Redo</translation>
     </message>
     <message>
-        <source>Copy</source>
-        <translation type="obsolete">Copy</translation>
+      <source>Cu&amp;t</source>
+      <translation>Cu&amp;t</translation>
     </message>
     <message>
-        <source>Paste</source>
-        <translation type="obsolete">Paste</translation>
+      <source>&amp;Copy</source>
+      <translation>&amp;Copy</translation>
     </message>
     <message>
-        <source>Clear</source>
-        <translation type="obsolete">Clear</translation>
+      <source>&amp;Paste</source>
+      <translation>&amp;Paste</translation>
     </message>
     <message>
-        <source>Get Field Names</source>
-        <translation type="obsolete">Get Field Names</translation>
+      <source>C&amp;lear</source>
+      <translation>C&amp;lear</translation>
     </message>
     <message>
-        <source>File</source>
-        <translation type="obsolete">File</translation>
+      <source>&amp;Get Field Names</source>
+      <translation>&amp;Get Field Names</translation>
     </message>
     <message>
-        <source>Edit</source>
-        <translation type="obsolete">Edit</translation>
+      <source>&amp;File</source>
+      <translation>&amp;File</translation>
     </message>
     <message>
-        <source>Javascripts (*.js);;All Files (*)</source>
-        <translation>Javascripts (*.js);;All Files (*)</translation>
+      <source>&amp;Edit</source>
+      <translation>&amp;Edit</translation>
     </message>
-    <message>
-        <source>&amp;New</source>
-        <translation type="unfinished">&amp;New</translation>
-    </message>
-    <message>
-        <source>&amp;Open...</source>
-        <translation type="unfinished">&amp;Open...</translation>
-    </message>
-    <message>
-        <source>Save &amp;As...</source>
-        <translation type="unfinished">Save &amp;As...</translation>
-    </message>
-    <message>
-        <source>&amp;Save and Exit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Exit without Saving</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Undo</source>
-        <translation type="unfinished">&amp;Undo</translation>
-    </message>
-    <message>
-        <source>&amp;Redo</source>
-        <translation type="unfinished">&amp;Redo</translation>
-    </message>
-    <message>
-        <source>Cu&amp;t</source>
-        <translation type="unfinished">Cu&amp;t</translation>
-    </message>
-    <message>
-        <source>&amp;Copy</source>
-        <translation type="unfinished">&amp;Copy</translation>
-    </message>
-    <message>
-        <source>&amp;Paste</source>
-        <translation type="unfinished">&amp;Paste</translation>
-    </message>
-    <message>
-        <source>C&amp;lear</source>
-        <translation type="unfinished">C&amp;lear</translation>
-    </message>
-    <message>
-        <source>&amp;Get Field Names</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;File</source>
-        <translation type="unfinished">&amp;File</translation>
-    </message>
-    <message>
-        <source>&amp;Edit</source>
-        <translation type="unfinished">&amp;Edit</translation>
-    </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>ExportForm</name>
     <message>
-        <source>Export as Image</source>
-        <translation>Export as Image</translation>
+      <source>Export as Image</source>
+      <translation>Export as Image</translation>
     </message>
     <message>
-        <source>Export to directory:</source>
-        <translation type="obsolete">Export to directory:</translation>
+      <source>Alt+C</source>
+      <translation>Alt+C</translation>
     </message>
     <message>
-        <source>&amp;Change...</source>
-        <translation type="obsolete">&amp;Change...</translation>
+      <source>%</source>
+      <translation>%</translation>
     </message>
     <message>
-        <source>Alt+C</source>
-        <translation>Alt+C</translation>
+      <source>Export </source>
+      <translation>Export </translation>
     </message>
     <message>
-        <source>Image type:</source>
-        <translation type="obsolete">Image type:</translation>
+      <source>&amp;One page</source>
+      <translation>&amp;One page</translation>
     </message>
     <message>
-        <source>Quality :</source>
-        <translation type="obsolete">Quality :</translation>
+      <source>Alt+O</source>
+      <translation>Alt+O</translation>
     </message>
     <message>
-        <source>%</source>
-        <translation>%</translation>
+      <source>&amp;All pages</source>
+      <translation>&amp;All pages</translation>
     </message>
     <message>
-        <source>Size:</source>
-        <translation type="obsolete">Size:</translation>
+      <source>Alt+A</source>
+      <translation>Alt+A</translation>
     </message>
     <message>
-        <source>Export </source>
-        <translation>Export </translation>
+      <source>&amp;Interval from:</source>
+      <translation>&amp;Interval from:</translation>
     </message>
     <message>
-        <source>&amp;One page</source>
-        <translation>&amp;One page</translation>
+      <source>Alt+I</source>
+      <translation>Alt+I</translation>
     </message>
     <message>
-        <source>Alt+O</source>
-        <translation>Alt+O</translation>
+      <source>to:</source>
+      <translation>to:</translation>
     </message>
     <message>
-        <source>&amp;All pages</source>
-        <translation>&amp;All pages</translation>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
     </message>
     <message>
-        <source>Alt+A</source>
-        <translation>Alt+A</translation>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
     </message>
     <message>
-        <source>&amp;Interval from:</source>
-        <translation>&amp;Interval from:</translation>
+      <source>Change the output directory</source>
+      <translation>Change the output directory</translation>
     </message>
     <message>
-        <source>Alt+I</source>
-        <translation>Alt+I</translation>
+      <source>The output directory - the place to store your images.
+Name of the export file will be 'documentname-pagenumber.filetype'</source>
+      <translation>The output directory - the place to store your images.
+Name of the export file will be 'documentname-pagenumber.filetype'</translation>
     </message>
     <message>
-        <source>to:</source>
-        <translation>to:</translation>
+      <source>Export only the current page</source>
+      <translation>Export only the current page</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+      <source>Export all pages to images</source>
+      <translation>Export all pages to images</translation>
     </message>
     <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Cancel</translation>
+      <source>Export a range of pages to images</source>
+      <translation>Export a range of pages to images</translation>
     </message>
     <message>
-        <source>Change the output directory</source>
-        <translation>Change the output directory</translation>
+      <source>First page to export when exporting a range</source>
+      <translation>First page to export when exporting a range</translation>
     </message>
     <message>
-        <source>The output directory - the place to store your images.
-Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</source>
-        <translation>The output directory - the place to store your images.
-Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</translation>
+      <source>Last page to export when exporting a range</source>
+      <translation>Last page to export when exporting a range</translation>
     </message>
     <message>
-        <source>Export only the current page</source>
-        <translation>Export only the current page</translation>
+      <source>The height of the output images in pixels</source>
+      <translation>The height of the output images in pixels</translation>
     </message>
     <message>
-        <source>Export all pages to images</source>
-        <translation>Export all pages to images</translation>
+      <source>The quality of your images - 100% is the best, 1% the highest compression</source>
+      <translation>The quality of your images - 100% is the best, 1% the highest compression</translation>
     </message>
     <message>
-        <source>Export a range of pages to images</source>
-        <translation>Export a range of pages to images</translation>
+      <source>Available export formats</source>
+      <translation>Available export formats</translation>
     </message>
     <message>
-        <source>First page to export when exporting a range</source>
-        <translation>First page to export when exporting a range</translation>
+      <source>Choose a Export Directory</source>
+      <translation>Choose a Export Directory</translation>
     </message>
     <message>
-        <source>Last page to export when exporting a range</source>
-        <translation>Last page to export when exporting a range</translation>
+      <source>C&amp;hange...</source>
+      <translation>C&amp;hange...</translation>
     </message>
     <message>
-        <source>The height of the output images in pixels</source>
-        <translation>The height of the output images in pixels</translation>
+      <source>&amp;Export to Directory:</source>
+      <translation>&amp;Export to Directory:</translation>
     </message>
     <message>
-        <source>The quality of your images - 100% is the best, 1% the highest compression</source>
-        <translation>The quality of your images - 100% is the best, 1% the highest compression</translation>
+      <source>Image &amp;Type:</source>
+      <translation>Image &amp;Type:</translation>
     </message>
     <message>
-        <source>Available export formats</source>
-        <translation>Available export formats</translation>
+      <source>&amp;Quality:</source>
+      <translation>&amp;Quality:</translation>
     </message>
     <message>
-        <source>Choose a Export Directory</source>
-        <translation>Choose a Export Directory</translation>
+      <source>&amp;Size:</source>
+      <translation>&amp;Size:</translation>
     </message>
-    <message>
-        <source>C&amp;hange...</source>
-        <translation type="unfinished">C&amp;hange...</translation>
-    </message>
-    <message>
-        <source>&amp;Export to Directory:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Image &amp;Type:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Quality:</source>
-        <translation type="unfinished">&amp;Quality:</translation>
-    </message>
-    <message>
-        <source>&amp;Size:</source>
-        <translation type="unfinished">&amp;Size:</translation>
-    </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>FDialogPreview</name>
     <message>
-        <source>Size:</source>
-        <translation>Size:</translation>
+      <source>Size:</source>
+      <translation>Size:</translation>
     </message>
     <message>
-        <source>Title:</source>
-        <translation>Title:</translation>
+      <source>Title:</source>
+      <translation>Title:</translation>
     </message>
     <message>
-        <source>No Title</source>
-        <translation>No Title</translation>
+      <source>No Title</source>
+      <translation>No Title</translation>
     </message>
     <message>
-        <source>Author:</source>
-        <translation>Author:</translation>
+      <source>Author:</source>
+      <translation>Author:</translation>
     </message>
     <message>
-        <source>Unknown</source>
-        <translation>Unknown</translation>
+      <source>Unknown</source>
+      <translation>Unknown</translation>
     </message>
     <message>
-        <source>Scribus Document</source>
-        <translation>Scribus Document</translation>
+      <source>Scribus Document</source>
+      <translation>Scribus Document</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>Farbmanager</name>
     <message>
-        <source>Colors</source>
-        <translation>Colours</translation>
+      <source>Colors</source>
+      <translation>Colours</translation>
     </message>
     <message>
-        <source>Color Sets</source>
-        <translation>Colour Sets</translation>
+      <source>Color Sets</source>
+      <translation>Colour Sets</translation>
     </message>
     <message>
-        <source>Current Color Set:</source>
-        <translation>Current Colour Set:</translation>
+      <source>Current Color Set:</source>
+      <translation>Current Colour Set:</translation>
     </message>
     <message>
-        <source>Name:</source>
-        <translation type="obsolete">Name:</translation>
+      <source>Choose a Name</source>
+      <translation>Choose a Name</translation>
     </message>
     <message>
-        <source>Choose a Name</source>
-        <translation>Choose a Name</translation>
+      <source>Open</source>
+      <translation>Open</translation>
     </message>
     <message>
-        <source>Open</source>
-        <translation>Open</translation>
+      <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
+      <translation>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</translation>
     </message>
     <message>
-        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-        <translation>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</translation>
+      <source>Documents (*.sla *.scd);;All Files (*)</source>
+      <translation>Documents (*.sla *.scd);;All Files (*)</translation>
     </message>
     <message>
-        <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Documents (*.sla *.scd);;All Files (*)</translation>
+      <source>New Color</source>
+      <translation>New Colour</translation>
     </message>
     <message>
-        <source>New Color</source>
-        <translation>New Colour</translation>
+      <source>Copy of %1</source>
+      <translation>Copy of %1</translation>
     </message>
     <message>
-        <source>Copy of %1</source>
-        <translation>Copy of %1</translation>
+      <source>Choose a color set to load</source>
+      <translation>Choose a colour set to load</translation>
     </message>
     <message>
-        <source>Choose a color set to load</source>
-        <translation>Choose a colour set to load</translation>
+      <source>Save the current color set</source>
+      <translation>Save the current colour set</translation>
     </message>
     <message>
-        <source>Save the current color set</source>
-        <translation>Save the current colour set</translation>
+      <source>Remove unused colors from current document's color set</source>
+      <translation>Remove unused colours from current document's colour set</translation>
     </message>
     <message>
-        <source>Remove unused colors from current document&apos;s color set</source>
-        <translation>Remove unused colours from current document&apos;s colour set</translation>
+      <source>Append colors to the current set from an existing document</source>
+      <translation>Append colours to the current set from an existing document</translation>
     </message>
     <message>
-        <source>Append colors to the current set from an existing document</source>
-        <translation>Append colours to the current set from an existing document</translation>
+      <source>Create a new color within the current set</source>
+      <translation>Create a new colour within the current set</translation>
     </message>
     <message>
-        <source>Create a new color within the current set</source>
-        <translation>Create a new colour within the current set</translation>
+      <source>Edit the currently selected color</source>
+      <translation>Edit the currently selected colour</translation>
     </message>
     <message>
-        <source>Edit the currently selected color</source>
-        <translation>Edit the currently selected colour</translation>
+      <source>Make a copy of the currently selected color</source>
+      <translation>Make a copy of the currently selected colour</translation>
     </message>
     <message>
-        <source>Make a copy of the currently selected color</source>
-        <translation>Make a copy of the currently selected colour</translation>
+      <source>Delete the currently selected color</source>
+      <translation>Delete the currently selected colour</translation>
     </message>
     <message>
-        <source>Delete the currently selected color</source>
-        <translation>Delete the currently selected colour</translation>
+      <source>Make the current colorset the default color set</source>
+      <translation>Make the current colourset the default colour set</translation>
     </message>
     <message>
-        <source>Make the current colorset the default color set</source>
-        <translation>Make the current colourset the default colour set</translation>
+      <source>&amp;Append</source>
+      <translation>&amp;Append</translation>
     </message>
     <message>
-        <source>&amp;Append</source>
-        <translation>&amp;Append</translation>
+      <source>&amp;New</source>
+      <translation>&amp;New</translation>
     </message>
     <message>
-        <source>&amp;New</source>
-        <translation>&amp;New</translation>
+      <source>&amp;Edit</source>
+      <translation>&amp;Edit</translation>
     </message>
     <message>
-        <source>&amp;Edit</source>
-        <translation>&amp;Edit</translation>
+      <source>D&amp;uplicate</source>
+      <translation>D&amp;uplicate</translation>
     </message>
     <message>
-        <source>D&amp;uplicate</source>
-        <translation>D&amp;uplicate</translation>
+      <source>&amp;Delete</source>
+      <translation>&amp;Delete</translation>
     </message>
     <message>
-        <source>&amp;Delete</source>
-        <translation>&amp;Delete</translation>
+      <source>&amp;Remove Unused</source>
+      <translation>&amp;Remove Unused</translation>
     </message>
     <message>
-        <source>&amp;Remove Unused</source>
-        <translation>&amp;Remove Unused</translation>
+      <source>&amp;Save Color Set</source>
+      <translation>&amp;Save Colour Set</translation>
     </message>
     <message>
-        <source>&amp;Save Color Set</source>
-        <translation>&amp;Save Colour Set</translation>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
     </message>
     <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Cancel</translation>
+      <source>&amp;Name:</source>
+      <translation>&amp;Name:</translation>
     </message>
-    <message>
-        <source>&amp;Name:</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>FontPrefs</name>
     <message>
-        <source>Global Font Settings</source>
-        <translation>Global Font Settings</translation>
+      <source>Global Font Settings</source>
+      <translation>Global Font Settings</translation>
     </message>
     <message>
-        <source>Available Fonts</source>
-        <translation>Available Fonts</translation>
+      <source>Available Fonts</source>
+      <translation>Available Fonts</translation>
     </message>
     <message>
-        <source>Font Substitutions</source>
-        <translation>Font Substitutions</translation>
+      <source>Font Substitutions</source>
+      <translation>Font Substitutions</translation>
     </message>
     <message>
-        <source>Additional Paths</source>
-        <translation>Additional Paths</translation>
+      <source>Additional Paths</source>
+      <translation>Additional Paths</translation>
     </message>
     <message>
-        <source>Postscript</source>
-        <translation>Postscript</translation>
+      <source>Postscript</source>
+      <translation>Postscript</translation>
     </message>
     <message>
-        <source>Yes</source>
-        <translation>Yes</translation>
+      <source>Yes</source>
+      <translation>Yes</translation>
     </message>
     <message>
-        <source>Font Name</source>
-        <translation>Font Name</translation>
+      <source>Font Name</source>
+      <translation>Font Name</translation>
     </message>
     <message>
-        <source>Use Font</source>
-        <translation>Use Font</translation>
+      <source>Use Font</source>
+      <translation>Use Font</translation>
     </message>
     <message>
-        <source>Embed in:</source>
-        <translation>Embed in:</translation>
+      <source>Embed in:</source>
+      <translation>Embed in:</translation>
     </message>
     <message>
-        <source>Subset</source>
-        <translation>Subset</translation>
+      <source>Subset</source>
+      <translation>Subset</translation>
     </message>
     <message>
-        <source>Type</source>
-        <translation>Type</translation>
+      <source>Type</source>
+      <translation>Type</translation>
     </message>
     <message>
-        <source>Path to Font File</source>
-        <translation>Path to Font File</translation>
+      <source>Path to Font File</source>
+      <translation>Path to Font File</translation>
     </message>
     <message>
-        <source>Replacement</source>
-        <translation>Replacement</translation>
+      <source>Replacement</source>
+      <translation>Replacement</translation>
     </message>
     <message>
-        <source>Choose a Directory</source>
-        <translation>Choose a Directory</translation>
+      <source>Choose a Directory</source>
+      <translation>Choose a Directory</translation>
     </message>
     <message>
-        <source>&amp;Available Fonts</source>
-        <translation>&amp;Available Fonts</translation>
+      <source>&amp;Available Fonts</source>
+      <translation>&amp;Available Fonts</translation>
     </message>
     <message>
-        <source>Font &amp;Substitutions</source>
-        <translation>Font &amp;Substitutions</translation>
+      <source>Font &amp;Substitutions</source>
+      <translation>Font &amp;Substitutions</translation>
     </message>
     <message>
-        <source>Additional &amp;Paths</source>
-        <translation>Additional &amp;Paths</translation>
+      <source>Additional &amp;Paths</source>
+      <translation>Additional &amp;Paths</translation>
     </message>
     <message>
-        <source>&amp;Delete</source>
-        <translation>&amp;Delete</translation>
+      <source>&amp;Delete</source>
+      <translation>&amp;Delete</translation>
     </message>
     <message>
-        <source>C&amp;hange...</source>
-        <translation>C&amp;hange...</translation>
+      <source>C&amp;hange...</source>
+      <translation>C&amp;hange...</translation>
     </message>
     <message>
-        <source>A&amp;dd...</source>
-        <translation>A&amp;dd...</translation>
+      <source>A&amp;dd...</source>
+      <translation>A&amp;dd...</translation>
     </message>
     <message>
-        <source>&amp;Remove</source>
-        <translation>&amp;Remove</translation>
+      <source>&amp;Remove</source>
+      <translation>&amp;Remove</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
     </message>
     <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Cancel</translation>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>FontPreview</name>
     <message>
-        <source>Font Preview</source>
-        <translation>Font Preview</translation>
+      <source>Font Preview</source>
+      <translation>Font Preview</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
     </message>
     <message>
-        <source>Alt+O</source>
-        <translation>Alt+O</translation>
+      <source>Alt+O</source>
+      <translation>Alt+O</translation>
     </message>
     <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Cancel</translation>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
     </message>
     <message>
-        <source>Alt+C</source>
-        <translation>Alt+C</translation>
+      <source>Alt+C</source>
+      <translation>Alt+C</translation>
     </message>
     <message>
-        <source>Woven silk pyjamas exchanged for blue quartz</source>
-        <translation>Woven silk pyjamas exchanged for blue quartz</translation>
+      <source>Woven silk pyjamas exchanged for blue quartz</source>
+      <translation>Woven silk pyjamas exchanged for blue quartz</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>GradientEditor</name>
     <message>
-        <source>Position:</source>
-        <translation>Position:</translation>
+      <source>Position:</source>
+      <translation>Position:</translation>
     </message>
     <message>
-        <source> %</source>
-        <translation> %</translation>
+      <source> %</source>
+      <translation> %</translation>
     </message>
     <message>
-        <source>Here you can add, change or remove Color-Stops.</source>
-        <translation>Here you can add, change or remove Colour-Stops.</translation>
+      <source>Here you can add, change or remove Color-Stops.</source>
+      <translation>Here you can add, change or remove Colour-Stops.</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>GuideManager</name>
     <message>
-        <source>Manage Guides</source>
-        <translation>Manage Guides</translation>
+      <source>Manage Guides</source>
+      <translation>Manage Guides</translation>
     </message>
     <message>
-        <source>Horizontal Guides</source>
-        <translation>Horizontal Guides</translation>
+      <source>Horizontal Guides</source>
+      <translation>Horizontal Guides</translation>
     </message>
     <message>
-        <source>Vertical Guides</source>
-        <translation>Vertical Guides</translation>
+      <source>Vertical Guides</source>
+      <translation>Vertical Guides</translation>
     </message>
     <message>
-        <source> pt</source>
-        <translation> pt</translation>
+      <source> pt</source>
+      <translation> pt</translation>
     </message>
     <message>
-        <source> mm</source>
-        <translation> mm</translation>
+      <source> mm</source>
+      <translation> mm</translation>
     </message>
     <message>
-        <source> in</source>
-        <translation> in</translation>
+      <source> in</source>
+      <translation> in</translation>
     </message>
     <message>
-        <source> p</source>
-        <translation> p</translation>
+      <source> p</source>
+      <translation> p</translation>
     </message>
     <message>
-        <source>&amp;Y-Pos:</source>
-        <translation>&amp;Y-Pos:</translation>
+      <source>&amp;Y-Pos:</source>
+      <translation>&amp;Y-Pos:</translation>
     </message>
     <message>
-        <source>&amp;Add</source>
-        <translation>&amp;Add</translation>
+      <source>&amp;Add</source>
+      <translation>&amp;Add</translation>
     </message>
     <message>
-        <source>D&amp;elete</source>
-        <translation>D&amp;elete</translation>
+      <source>D&amp;elete</source>
+      <translation>D&amp;elete</translation>
     </message>
     <message>
-        <source>&amp;X-Pos:</source>
-        <translation>&amp;X-Pos:</translation>
+      <source>&amp;X-Pos:</source>
+      <translation>&amp;X-Pos:</translation>
     </message>
     <message>
-        <source>A&amp;dd</source>
-        <translation>A&amp;dd</translation>
+      <source>A&amp;dd</source>
+      <translation>A&amp;dd</translation>
     </message>
     <message>
-        <source>De&amp;lete</source>
-        <translation>De&amp;lete</translation>
+      <source>De&amp;lete</source>
+      <translation>De&amp;lete</translation>
     </message>
     <message>
-        <source>&amp;Lock Guides</source>
-        <translation>&amp;Lock Guides</translation>
+      <source>&amp;Lock Guides</source>
+      <translation>&amp;Lock Guides</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
     </message>
     <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Cancel</translation>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>HelpBrowser</name>
     <message>
-        <source>Sorry, no manual available! Please see: http://scribus.net for updated docs and downloads.</source>
-        <translation>Sorry, no manual available! Please see: http://www.scribus.net for updated documents and downloads.</translation>
+      <source>Sorry, no manual available! Please see: http://scribus.net for updated docs and downloads.</source>
+      <translation>Sorry, no manual available! Please see: http://www.scribus.net for updated documents and downloads.</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>HyAsk</name>
     <message>
-        <source>Possible Hyphenation</source>
-        <translation>Possible Hyphenation</translation>
+      <source>Possible Hyphenation</source>
+      <translation>Possible Hyphenation</translation>
     </message>
     <message>
-        <source>Accept</source>
-        <translation>Accept</translation>
+      <source>Accept</source>
+      <translation>Accept</translation>
     </message>
     <message>
-        <source>Skip</source>
-        <translation>Skip</translation>
+      <source>Skip</source>
+      <translation>Skip</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation>Cancel</translation>
+      <source>Cancel</source>
+      <translation>Cancel</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>HySettings</name>
     <message>
-        <source>Hyphenator Settings</source>
-        <translation>Hyphenator Settings</translation>
+      <source>Hyphenator Settings</source>
+      <translation>Hyphenator Settings</translation>
     </message>
     <message>
-        <source>If you uncheck this you will get a dialog
+      <source>If you uncheck this you will get a dialog
 everytime a possible Hyphenation is found.</source>
-        <translation>If you uncheck this you will get a dialog
+      <translation>If you uncheck this you will get a dialog
 everytime a possible Hyphenation is found.</translation>
     </message>
     <message>
-        <source>Enables automatic checking of your text while typing.</source>
-        <translation>Enables automatic checking of your text while typing.</translation>
+      <source>Enables automatic checking of your text while typing.</source>
+      <translation>Enables automatic checking of your text while typing.</translation>
     </message>
     <message>
-        <source>Length of the smallest word to be hyphenated.</source>
-        <translation>Length of the smallest word to be hyphenated.</translation>
+      <source>Length of the smallest word to be hyphenated.</source>
+      <translation>Length of the smallest word to be hyphenated.</translation>
     </message>
     <message>
-        <source>Maximum number of Hyphenations following each other.
+      <source>Maximum number of Hyphenations following each other.
 A value of 0 means unlimited hyphenations.</source>
-        <translation>Maximum number of Hyphenations following each other.
+      <translation>Maximum number of Hyphenations following each other.
 A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
-        <source>&amp;Fully Automatic</source>
-        <translation>&amp;Fully Automatic</translation>
+      <source>&amp;Fully Automatic</source>
+      <translation>&amp;Fully Automatic</translation>
     </message>
     <message>
-        <source>Check &amp;During Typing</source>
-        <translation>Check &amp;During Typing</translation>
+      <source>Check &amp;During Typing</source>
+      <translation>Check &amp;During Typing</translation>
     </message>
     <message>
-        <source>&amp;Language:</source>
-        <translation>&amp;Language:</translation>
+      <source>&amp;Language:</source>
+      <translation>&amp;Language:</translation>
     </message>
     <message>
-        <source>&amp;Smallest Word:</source>
-        <translation>&amp;Smallest Word:</translation>
+      <source>&amp;Smallest Word:</source>
+      <translation>&amp;Smallest Word:</translation>
     </message>
     <message>
-        <source>&amp;Number of Hypenations allowed:</source>
-        <translation>&amp;Number of Hypenations allowed:</translation>
+      <source>&amp;Number of Hypenations allowed:</source>
+      <translation>&amp;Number of Hypenations allowed:</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
     </message>
     <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Cancel</translation>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>InsPage</name>
     <message>
-        <source>Insert Page</source>
-        <translation>Insert Page</translation>
+      <source>Insert Page</source>
+      <translation>Insert Page</translation>
     </message>
     <message>
-        <source>Inserting</source>
-        <translation>Inserting</translation>
+      <source>Inserting</source>
+      <translation>Inserting</translation>
     </message>
     <message>
-        <source>page(s)</source>
-        <translation type="obsolete">page(s)</translation>
+      <source>before Page</source>
+      <translation>before Page</translation>
     </message>
     <message>
-        <source>before Page</source>
-        <translation>before Page</translation>
+      <source>after Page</source>
+      <translation>after Page</translation>
     </message>
     <message>
-        <source>after Page</source>
-        <translation>after Page</translation>
+      <source>at End</source>
+      <translation>at End</translation>
     </message>
     <message>
-        <source>at End</source>
-        <translation>at End</translation>
+      <source>Normal</source>
+      <translation>Normal</translation>
     </message>
     <message>
-        <source>Template (Left Page):</source>
-        <translation type="obsolete">Template (Left Page):</translation>
+      <source>Template (Right Page):</source>
+      <translation>Template (Right Page):</translation>
     </message>
     <message>
-        <source>Template:</source>
-        <translation type="obsolete">Template:</translation>
+      <source>&amp;Inserting</source>
+      <translation>&amp;Inserting</translation>
     </message>
     <message>
-        <source>Normal</source>
-        <translation>Normal</translation>
+      <source>Page(s)</source>
+      <translation>Page(s)</translation>
     </message>
     <message>
-        <source>Template (Right Page):</source>
-        <translation>Template (Right Page):</translation>
+      <source>&amp;Template (Left Page):</source>
+      <translation>&amp;Template (Left Page):</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation type="obsolete">OK</translation>
+      <source>&amp;Template:</source>
+      <translation>&amp;Template:</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Cancel</translation>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
     </message>
     <message>
-        <source>&amp;Inserting</source>
-        <translation type="unfinished"></translation>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
     </message>
-    <message>
-        <source>Page(s)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Template (Left Page):</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Template:</source>
-        <translation type="unfinished">&amp;Template:</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancel</translation>
-    </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>InsertTable</name>
     <message>
-        <source>Insert Table</source>
-        <translation>Insert Table</translation>
+      <source>Insert Table</source>
+      <translation>Insert Table</translation>
     </message>
     <message>
-        <source>Number of Rows:</source>
-        <translation>Number of Rows:</translation>
+      <source>Number of Rows:</source>
+      <translation>Number of Rows:</translation>
     </message>
     <message>
-        <source>Number of Columns:</source>
-        <translation>Number of Columns:</translation>
+      <source>Number of Columns:</source>
+      <translation>Number of Columns:</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation>OK</translation>
+      <source>OK</source>
+      <translation>OK</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation>Cancel</translation>
+      <source>Cancel</source>
+      <translation>Cancel</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>JavaDocs</name>
     <message>
-        <source>New Script:</source>
-        <translation type="obsolete">New Script:</translation>
+      <source>New Script</source>
+      <translation>New Script</translation>
     </message>
     <message>
-        <source>New Script</source>
-        <translation>New Script</translation>
+      <source>Edit JavaScripts</source>
+      <translation>Edit JavaScripts</translation>
     </message>
     <message>
-        <source>Edit JavaScripts</source>
-        <translation>Edit JavaScripts</translation>
+      <source>Warning</source>
+      <translation>Warning</translation>
     </message>
     <message>
-        <source>Warning</source>
-        <translation>Warning</translation>
+      <source>Do you really want do delete this Script?</source>
+      <translation>Do you really want do delete this Script?</translation>
     </message>
     <message>
-        <source>Do you really want do delete this Script?</source>
-        <translation>Do you really want do delete this Script?</translation>
+      <source>&amp;Edit...</source>
+      <translation>&amp;Edit...</translation>
     </message>
     <message>
-        <source>No</source>
-        <translation type="obsolete">No</translation>
+      <source>&amp;Add...</source>
+      <translation>&amp;Add...</translation>
     </message>
     <message>
-        <source>Yes</source>
-        <translation type="obsolete">Yes</translation>
+      <source>&amp;Delete</source>
+      <translation>&amp;Delete</translation>
     </message>
     <message>
-        <source>&amp;Edit...</source>
-        <translation>&amp;Edit...</translation>
+      <source>&amp;Close</source>
+      <translation>&amp;Close</translation>
     </message>
     <message>
-        <source>&amp;Add...</source>
-        <translation>&amp;Add...</translation>
+      <source>&amp;New Script:</source>
+      <translation>&amp;New Script:</translation>
     </message>
     <message>
-        <source>&amp;Delete</source>
-        <translation>&amp;Delete</translation>
+      <source>&amp;No</source>
+      <translation>&amp;No</translation>
     </message>
     <message>
-        <source>&amp;Close</source>
-        <translation>&amp;Close</translation>
+      <source>&amp;Yes</source>
+      <translation>&amp;Yes</translation>
     </message>
-    <message>
-        <source>&amp;New Script:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;No</source>
-        <translation type="unfinished">&amp;No</translation>
-    </message>
-    <message>
-        <source>&amp;Yes</source>
-        <translation type="unfinished">&amp;Yes</translation>
-    </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>KeyManager</name>
     <message>
-        <source>Manage Keyboard Shortcuts</source>
-        <translation>Manage Keyboard Shortcuts</translation>
+      <source>Manage Keyboard Shortcuts</source>
+      <translation>Manage Keyboard Shortcuts</translation>
     </message>
     <message>
-        <source>Action</source>
-        <translation>Action</translation>
+      <source>Action</source>
+      <translation>Action</translation>
     </message>
     <message>
-        <source>Current Key</source>
-        <translation>Current Key</translation>
+      <source>Current Key</source>
+      <translation>Current Key</translation>
     </message>
     <message>
-        <source>Select a Key for this Action</source>
-        <translation>Select a Key for this Action</translation>
+      <source>Select a Key for this Action</source>
+      <translation>Select a Key for this Action</translation>
     </message>
     <message>
-        <source>ALT+SHIFT+T</source>
-        <translation>ALT+SHIFT+T</translation>
+      <source>ALT+SHIFT+T</source>
+      <translation>ALT+SHIFT+T</translation>
     </message>
     <message>
-        <source>Alt</source>
-        <translation>Alt</translation>
+      <source>Alt</source>
+      <translation>Alt</translation>
     </message>
     <message>
-        <source>Ctrl</source>
-        <translation>Ctrl</translation>
+      <source>Ctrl</source>
+      <translation>Ctrl</translation>
     </message>
     <message>
-        <source>Shift</source>
-        <translation>Shift</translation>
+      <source>Shift</source>
+      <translation>Shift</translation>
     </message>
     <message>
-        <source>Shift+</source>
-        <translation>Shift+</translation>
+      <source>Shift+</source>
+      <translation>Shift+</translation>
     </message>
     <message>
-        <source>Alt+</source>
-        <translation>Alt+</translation>
+      <source>Alt+</source>
+      <translation>Alt+</translation>
     </message>
     <message>
-        <source>Ctrl+</source>
-        <translation>Ctrl+</translation>
+      <source>Ctrl+</source>
+      <translation>Ctrl+</translation>
     </message>
     <message>
-        <source>Warning</source>
-        <translation>Warning</translation>
+      <source>Warning</source>
+      <translation>Warning</translation>
     </message>
     <message>
-        <source>&amp;No Key</source>
-        <translation>&amp;No Key</translation>
+      <source>&amp;No Key</source>
+      <translation>&amp;No Key</translation>
     </message>
     <message>
-        <source>&amp;User Defined Key</source>
-        <translation>&amp;User Defined Key</translation>
+      <source>&amp;User Defined Key</source>
+      <translation>&amp;User Defined Key</translation>
     </message>
     <message>
-        <source>Set &amp;Key</source>
-        <translation>Set &amp;Key</translation>
+      <source>Set &amp;Key</source>
+      <translation>Set &amp;Key</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
     </message>
     <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Cancel</translation>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
     </message>
     <message>
-        <source>This Key Sequence is already in use</source>
-        <translation>This Key Sequence is already in use</translation>
+      <source>This Key Sequence is already in use</source>
+      <translation>This Key Sequence is already in use</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>LayerPalette</name>
     <message>
-        <source>Layers</source>
-        <translation>Layers</translation>
+      <source>Layers</source>
+      <translation>Layers</translation>
     </message>
     <message>
-        <source>Add a new Layer</source>
-        <translation>Add a new Layer</translation>
+      <source>Add a new Layer</source>
+      <translation>Add a new Layer</translation>
     </message>
     <message>
-        <source>Delete Layer</source>
-        <translation>Delete Layer</translation>
+      <source>Delete Layer</source>
+      <translation>Delete Layer</translation>
     </message>
     <message>
-        <source>Raise Layer</source>
-        <translation>Raise Layer</translation>
+      <source>Raise Layer</source>
+      <translation>Raise Layer</translation>
     </message>
     <message>
-        <source>Lower Layer</source>
-        <translation>Lower Layer</translation>
+      <source>Lower Layer</source>
+      <translation>Lower Layer</translation>
     </message>
     <message>
-        <source>New Layer</source>
-        <translation>New Layer</translation>
+      <source>New Layer</source>
+      <translation>New Layer</translation>
     </message>
     <message>
-        <source>Do you want to delete all Objects on this Layer too?</source>
-        <translation>Do you want to delete all Objects on this Layer too?</translation>
+      <source>Do you want to delete all Objects on this Layer too?</source>
+      <translation>Do you want to delete all Objects on this Layer too?</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>LineFormate</name>
     <message>
-        <source>Edit Line Styles</source>
-        <translation>Edit Line Styles</translation>
+      <source>Edit Line Styles</source>
+      <translation>Edit Line Styles</translation>
     </message>
     <message>
-        <source>Copy of %1</source>
-        <translation>Copy of %1</translation>
+      <source>Copy of %1</source>
+      <translation>Copy of %1</translation>
     </message>
     <message>
-        <source>New Style</source>
-        <translation>New Style</translation>
+      <source>New Style</source>
+      <translation>New Style</translation>
     </message>
     <message>
-        <source>Warning</source>
-        <translation>Warning</translation>
+      <source>Warning</source>
+      <translation>Warning</translation>
     </message>
     <message>
-        <source>Do you really want do delete this Style?</source>
-        <translation>Do you really want do delete this Style?</translation>
+      <source>Do you really want do delete this Style?</source>
+      <translation>Do you really want do delete this Style?</translation>
     </message>
     <message>
-        <source>No</source>
-        <translation type="obsolete">No</translation>
+      <source>Open</source>
+      <translation>Open</translation>
     </message>
     <message>
-        <source>Yes</source>
-        <translation type="obsolete">Yes</translation>
+      <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
+      <translation>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</translation>
     </message>
     <message>
-        <source>Open</source>
-        <translation>Open</translation>
+      <source>Documents (*.sla *.scd);;All Files (*)</source>
+      <translation>Documents (*.sla *.scd);;All Files (*)</translation>
     </message>
     <message>
-        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-        <translation>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</translation>
+      <source>&amp;Append</source>
+      <translation>&amp;Append</translation>
     </message>
     <message>
-        <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Documents (*.sla *.scd);;All Files (*)</translation>
+      <source>&amp;New</source>
+      <translation>&amp;New</translation>
     </message>
     <message>
-        <source>&amp;Append</source>
-        <translation>&amp;Append</translation>
+      <source>&amp;Edit</source>
+      <translation>&amp;Edit</translation>
     </message>
     <message>
-        <source>&amp;New</source>
-        <translation>&amp;New</translation>
+      <source>D&amp;uplicate</source>
+      <translation>D&amp;uplicate</translation>
     </message>
     <message>
-        <source>&amp;Edit</source>
-        <translation>&amp;Edit</translation>
+      <source>&amp;Delete</source>
+      <translation>&amp;Delete</translation>
     </message>
     <message>
-        <source>D&amp;uplicate</source>
-        <translation>D&amp;uplicate</translation>
+      <source>&amp;Save</source>
+      <translation>&amp;Save</translation>
     </message>
     <message>
-        <source>&amp;Delete</source>
-        <translation>&amp;Delete</translation>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
     </message>
     <message>
-        <source>&amp;Save</source>
-        <translation>&amp;Save</translation>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+      <source>&amp;No</source>
+      <translation>&amp;No</translation>
     </message>
     <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Cancel</translation>
+      <source>&amp;Yes</source>
+      <translation>&amp;Yes</translation>
     </message>
-    <message>
-        <source>&amp;No</source>
-        <translation type="unfinished">&amp;No</translation>
-    </message>
-    <message>
-        <source>&amp;Yes</source>
-        <translation type="unfinished">&amp;Yes</translation>
-    </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>MSpinBox</name>
     <message>
-        <source> pt</source>
-        <translation> pt</translation>
+      <source> pt</source>
+      <translation> pt</translation>
     </message>
     <message>
-        <source>pt</source>
-        <translation>pt</translation>
+      <source>pt</source>
+      <translation>pt</translation>
     </message>
     <message>
-        <source>mm</source>
-        <translation>mm</translation>
+      <source>mm</source>
+      <translation>mm</translation>
     </message>
     <message>
-        <source>in</source>
-        <translation>in</translation>
+      <source>in</source>
+      <translation>in</translation>
     </message>
     <message>
-        <source>p</source>
-        <translation>p</translation>
+      <source>p</source>
+      <translation>p</translation>
     </message>
     <message>
-        <source> mm</source>
-        <translation> mm</translation>
+      <source> mm</source>
+      <translation> mm</translation>
     </message>
     <message>
-        <source> in</source>
-        <translation> in</translation>
+      <source> in</source>
+      <translation> in</translation>
     </message>
     <message>
-        <source> p</source>
-        <translation> p</translation>
+      <source> p</source>
+      <translation> p</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>Mdup</name>
     <message>
-        <source>Multiple Duplicate</source>
-        <translation>Multiple Duplicate</translation>
+      <source>Multiple Duplicate</source>
+      <translation>Multiple Duplicate</translation>
     </message>
     <message>
-        <source> pt</source>
-        <translation> pt</translation>
+      <source> pt</source>
+      <translation> pt</translation>
     </message>
     <message>
-        <source> mm</source>
-        <translation> mm</translation>
+      <source> mm</source>
+      <translation> mm</translation>
     </message>
     <message>
-        <source> in</source>
-        <translation> in</translation>
+      <source> in</source>
+      <translation> in</translation>
     </message>
     <message>
-        <source> p</source>
-        <translation> p</translation>
+      <source> p</source>
+      <translation> p</translation>
     </message>
     <message>
-        <source>&amp;Number of Copies:</source>
-        <translation>&amp;Number of Copies:</translation>
+      <source>&amp;Number of Copies:</source>
+      <translation>&amp;Number of Copies:</translation>
     </message>
     <message>
-        <source>&amp;Horizontal Shift:</source>
-        <translation>&amp;Horizontal Shift:</translation>
+      <source>&amp;Horizontal Shift:</source>
+      <translation>&amp;Horizontal Shift:</translation>
     </message>
     <message>
-        <source>&amp;Vertical Shift:</source>
-        <translation>&amp;Vertical Shift:</translation>
+      <source>&amp;Vertical Shift:</source>
+      <translation>&amp;Vertical Shift:</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
     </message>
     <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Cancel</translation>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>Measurements</name>
     <message>
-        <source>Distances</source>
-        <translation>Distances</translation>
+      <source>Distances</source>
+      <translation>Distances</translation>
     </message>
     <message>
-        <source>X1:</source>
-        <translation>X1:</translation>
+      <source>X1:</source>
+      <translation>X1:</translation>
     </message>
     <message>
-        <source>Y1:</source>
-        <translation>Y1:</translation>
+      <source>Y1:</source>
+      <translation>Y1:</translation>
     </message>
     <message>
-        <source>X2:</source>
-        <translation>X2:</translation>
+      <source>X2:</source>
+      <translation>X2:</translation>
     </message>
     <message>
-        <source>Y2:</source>
-        <translation>Y2:</translation>
+      <source>Y2:</source>
+      <translation>Y2:</translation>
     </message>
     <message>
-        <source>DX:</source>
-        <translation>DX:</translation>
+      <source>DX:</source>
+      <translation>DX:</translation>
     </message>
     <message>
-        <source>DY:</source>
-        <translation>DY:</translation>
+      <source>DY:</source>
+      <translation>DY:</translation>
     </message>
     <message>
-        <source>Angle:</source>
-        <translation>Angle:</translation>
+      <source>Angle:</source>
+      <translation>Angle:</translation>
     </message>
     <message>
-        <source>Length:</source>
-        <translation>Length:</translation>
+      <source>Length:</source>
+      <translation>Length:</translation>
     </message>
     <message>
-        <source> pt</source>
-        <translation> pt</translation>
+      <source> pt</source>
+      <translation> pt</translation>
     </message>
     <message>
-        <source> mm</source>
-        <translation> mm</translation>
+      <source> mm</source>
+      <translation> mm</translation>
     </message>
     <message>
-        <source> in</source>
-        <translation> in</translation>
+      <source> in</source>
+      <translation> in</translation>
     </message>
     <message>
-        <source> p</source>
-        <translation> p</translation>
+      <source> p</source>
+      <translation> p</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>MenuTest</name>
     <message>
-        <source>Script error</source>
-        <translation>Script error</translation>
+      <source>Script error</source>
+      <translation>Script error</translation>
     </message>
     <message>
-        <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
-        <translation>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</translation>
+      <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;>bugs.scribus.net&lt;/a> please.</source>
+      <translation>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;>bugs.scribus.net&lt;/a> please.</translation>
     </message>
     <message>
-        <source>Show &amp;Console</source>
-        <translation>Show &amp;Console</translation>
+      <source>Show &amp;Console</source>
+      <translation>Show &amp;Console</translation>
     </message>
     <message>
-        <source>Hide &amp;Console</source>
-        <translation>Hide &amp;Console</translation>
+      <source>Hide &amp;Console</source>
+      <translation>Hide &amp;Console</translation>
     </message>
     <message>
-        <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
-        <translation>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</translation>
+      <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
+      <translation>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>MergeDoc</name>
     <message>
-        <source>Change...</source>
-        <translation>Change...</translation>
+      <source>Change...</source>
+      <translation>Change...</translation>
     </message>
     <message>
-        <source>Import</source>
-        <translation>Import</translation>
+      <source>Import</source>
+      <translation>Import</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation>Cancel</translation>
+      <source>Cancel</source>
+      <translation>Cancel</translation>
     </message>
     <message>
-        <source>Open</source>
-        <translation>Open</translation>
+      <source>Open</source>
+      <translation>Open</translation>
     </message>
     <message>
-        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-        <translation>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</translation>
+      <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
+      <translation>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</translation>
     </message>
     <message>
-        <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Documents (*.sla *.scd);;All Files (*)</translation>
+      <source>Documents (*.sla *.scd);;All Files (*)</source>
+      <translation>Documents (*.sla *.scd);;All Files (*)</translation>
     </message>
     <message>
-        <source>Import Template</source>
-        <translation>Import Template</translation>
+      <source>Import Template</source>
+      <translation>Import Template</translation>
     </message>
     <message>
-        <source>Import Page(s)</source>
-        <translation>Import Page(s)</translation>
+      <source>Import Page(s)</source>
+      <translation>Import Page(s)</translation>
     </message>
     <message>
-        <source>From Document:</source>
-        <translation>From Document:</translation>
+      <source>From Document:</source>
+      <translation>From Document:</translation>
     </message>
     <message>
-        <source>Import Page(s):</source>
-        <translation>Import Page(s):</translation>
+      <source>Import Page(s):</source>
+      <translation>Import Page(s):</translation>
     </message>
     <message>
-        <source>Insert a comma separated list of tokens where
+      <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
-        <translation>Insert a comma separated list of tokens where
+      <translation>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</translation>
     </message>
     <message>
-        <source> from 0</source>
-        <translation> from 0</translation>
+      <source> from 0</source>
+      <translation> from 0</translation>
     </message>
     <message>
-        <source>Create Page(s)</source>
-        <translation>Create Page(s)</translation>
+      <source>Create Page(s)</source>
+      <translation>Create Page(s)</translation>
     </message>
     <message>
-        <source>before Page</source>
-        <translation>before Page</translation>
+      <source>before Page</source>
+      <translation>before Page</translation>
     </message>
     <message>
-        <source>after Page</source>
-        <translation>after Page</translation>
+      <source>after Page</source>
+      <translation>after Page</translation>
     </message>
     <message>
-        <source>at End</source>
-        <translation>at End</translation>
+      <source>at End</source>
+      <translation>at End</translation>
     </message>
     <message>
-        <source> from %1</source>
-        <translation> from %1</translation>
+      <source> from %1</source>
+      <translation> from %1</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>MovePages</name>
     <message>
-        <source>Move Pages</source>
-        <translation>Move Pages</translation>
+      <source>Move Pages</source>
+      <translation>Move Pages</translation>
     </message>
     <message>
-        <source>Copy Page</source>
-        <translation>Copy Page</translation>
+      <source>Copy Page</source>
+      <translation>Copy Page</translation>
     </message>
     <message>
-        <source>Move Page(s):</source>
-        <translation>Move Page(s):</translation>
+      <source>Move Page(s):</source>
+      <translation>Move Page(s):</translation>
     </message>
     <message>
-        <source>to:</source>
-        <translation>to:</translation>
+      <source>to:</source>
+      <translation>to:</translation>
     </message>
     <message>
-        <source>before Page</source>
-        <translation>before Page</translation>
+      <source>before Page</source>
+      <translation>before Page</translation>
     </message>
     <message>
-        <source>after Page</source>
-        <translation>after Page</translation>
+      <source>after Page</source>
+      <translation>after Page</translation>
     </message>
     <message>
-        <source>at End</source>
-        <translation>at End</translation>
+      <source>at End</source>
+      <translation>at End</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation type="obsolete">OK</translation>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Cancel</translation>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
     </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancel</translation>
-    </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>Mpalette</name>
     <message>
-        <source>Properties</source>
-        <translation>Properties</translation>
+      <source>Properties</source>
+      <translation>Properties</translation>
     </message>
     <message>
-        <source>X, Y, Z</source>
-        <translation type="obsolete">X, Y, Z</translation>
+      <source>Name</source>
+      <translation>Name</translation>
     </message>
     <message>
-        <source>Shape</source>
-        <translation type="obsolete">Shape</translation>
+      <source>Geometry</source>
+      <translation>Geometry</translation>
     </message>
     <message>
-        <source>Text</source>
-        <translation type="obsolete">Text</translation>
+      <source> pt</source>
+      <translation> pt</translation>
     </message>
     <message>
-        <source>Image</source>
-        <translation type="obsolete">Image</translation>
+      <source>Basepoint:</source>
+      <translation>Basepoint:</translation>
     </message>
     <message>
-        <source>Line</source>
-        <translation type="obsolete">Line</translation>
+      <source>Level</source>
+      <translation>Level</translation>
     </message>
     <message>
-        <source>Colors</source>
-        <translation type="obsolete">Colours</translation>
+      <source>Shape:</source>
+      <translation>Shape:</translation>
     </message>
     <message>
-        <source>Name</source>
-        <translation>Name</translation>
+      <source>Distance of Text</source>
+      <translation>Distance of Text</translation>
     </message>
     <message>
-        <source>Geometry</source>
-        <translation>Geometry</translation>
+      <source>Show Curve</source>
+      <translation>Show Curve</translation>
     </message>
     <message>
-        <source>X-Pos:</source>
-        <translation type="obsolete">X-Pos:</translation>
+      <source>Start Offset:</source>
+      <translation>Start Offset:</translation>
     </message>
     <message>
-        <source>Y-Pos:</source>
-        <translation type="obsolete">Y-Pos:</translation>
+      <source>Distance from Curve:</source>
+      <translation>Distance from Curve:</translation>
     </message>
     <message>
-        <source>Width:</source>
-        <translation type="obsolete">Width:</translation>
+      <source> %</source>
+      <translation> %</translation>
     </message>
     <message>
-        <source>Height:</source>
-        <translation type="obsolete">Height:</translation>
+      <source>Custom Spacing</source>
+      <translation>Custom Spacing</translation>
     </message>
     <message>
-        <source> pt</source>
-        <translation> pt</translation>
+      <source>Input Profile:</source>
+      <translation>Input Profile:</translation>
     </message>
     <message>
-        <source>Rotation:</source>
-        <translation type="obsolete">Rotation:</translation>
+      <source>Rendering Intent:</source>
+      <translation>Rendering Intent:</translation>
     </message>
     <message>
-        <source>Basepoint:</source>
-        <translation>Basepoint:</translation>
+      <source>Perceptual</source>
+      <translation>Perceptual</translation>
     </message>
     <message>
-        <source>Level</source>
-        <translation>Level</translation>
+      <source>Relative Colorimetric</source>
+      <translation>Relative Colourimetric</translation>
     </message>
     <message>
-        <source>Use Bounding Box</source>
-        <translation type="obsolete">Use Bounding Box</translation>
+      <source>Saturation</source>
+      <translation>Saturation</translation>
     </message>
     <message>
-        <source>Shape:</source>
-        <translation>Shape:</translation>
+      <source>Absolute Colorimetric</source>
+      <translation>Absolute Colourimetric</translation>
     </message>
     <message>
-        <source>Edit Shape...</source>
-        <translation type="obsolete">Edit Shape...</translation>
+      <source>Left Point</source>
+      <translation>Left Point</translation>
     </message>
     <message>
-        <source>Round
+      <source>End Points</source>
+      <translation>End Points</translation>
+    </message>
+    <message>
+      <source>Miter Join</source>
+      <translation>Mitre Join</translation>
+    </message>
+    <message>
+      <source>Bevel Join</source>
+      <translation>Bevel Join</translation>
+    </message>
+    <message>
+      <source>Round Join</source>
+      <translation>Round Join</translation>
+    </message>
+    <message>
+      <source>Flat Cap</source>
+      <translation>Flat Cap</translation>
+    </message>
+    <message>
+      <source>Square Cap</source>
+      <translation>Square Cap</translation>
+    </message>
+    <message>
+      <source>Round Cap</source>
+      <translation>Round Cap</translation>
+    </message>
+    <message>
+      <source>No Style</source>
+      <translation>No Style</translation>
+    </message>
+    <message>
+      <source>Font Size</source>
+      <translation>Font Size</translation>
+    </message>
+    <message>
+      <source>Line Spacing</source>
+      <translation>Line Spacing</translation>
+    </message>
+    <message>
+      <source>Manual Kerning</source>
+      <translation>Manual Kerning</translation>
+    </message>
+    <message>
+      <source>Reverse Writing</source>
+      <translation>Reverse Writing</translation>
+    </message>
+    <message>
+      <source>None</source>
+      <translation>None</translation>
+    </message>
+    <message>
+      <source>Warning</source>
+      <translation>Warning</translation>
+    </message>
+    <message>
+      <source>Name &quot;%1&quot; isn't unique.
+Please choose another.</source>
+      <translation>Name &quot;%1&quot; isn't unique.
+Please choose another.</translation>
+    </message>
+    <message>
+      <source>OK</source>
+      <translation>OK</translation>
+    </message>
+    <message>
+      <source>Shade:</source>
+      <translation>Shade:</translation>
+    </message>
+    <message>
+      <source>Name of selected object</source>
+      <translation>Name of selected object</translation>
+    </message>
+    <message>
+      <source>Horizontal position of current basepoint</source>
+      <translation>Horizontal position of current basepoint</translation>
+    </message>
+    <message>
+      <source>Vertical position of current basepoint</source>
+      <translation>Vertical position of current basepoint</translation>
+    </message>
+    <message>
+      <source>Width</source>
+      <translation>Width</translation>
+    </message>
+    <message>
+      <source>Height</source>
+      <translation>Height</translation>
+    </message>
+    <message>
+      <source>Rotation of object at current basepoint</source>
+      <translation>Rotation of object at current basepoint</translation>
+    </message>
+    <message>
+      <source>Point from which measurements or rotation angles are referenced</source>
+      <translation>Point from which measurements or rotation angles are referenced</translation>
+    </message>
+    <message>
+      <source>Select top left for basepoint</source>
+      <translation>Select top left for basepoint</translation>
+    </message>
+    <message>
+      <source>Select top right for basepoint</source>
+      <translation>Select top right for basepoint</translation>
+    </message>
+    <message>
+      <source>Select bottom left for basepoint</source>
+      <translation>Select bottom left for basepoint</translation>
+    </message>
+    <message>
+      <source>Select bottom right for basepoint</source>
+      <translation>Select bottom right for basepoint</translation>
+    </message>
+    <message>
+      <source>Select center for basepoint</source>
+      <translation>Select centre for basepoint</translation>
+    </message>
+    <message>
+      <source>Flip Horizontal</source>
+      <translation>Flip Horizontal</translation>
+    </message>
+    <message>
+      <source>Flip Vertical</source>
+      <translation>Flip Vertical</translation>
+    </message>
+    <message>
+      <source>Move one level up</source>
+      <translation>Move one level up</translation>
+    </message>
+    <message>
+      <source>Move one level down</source>
+      <translation>Move one level down</translation>
+    </message>
+    <message>
+      <source>Move to front</source>
+      <translation>Move to front</translation>
+    </message>
+    <message>
+      <source>Move to back</source>
+      <translation>Move to back</translation>
+    </message>
+    <message>
+      <source>Lock or unlock the object</source>
+      <translation>Lock or unlock the object</translation>
+    </message>
+    <message>
+      <source>Lock or unlock the size of the object</source>
+      <translation>Lock or unlock the size of the object</translation>
+    </message>
+    <message>
+      <source>Enable or disable printing of the object</source>
+      <translation>Enable or disable printing of the object</translation>
+    </message>
+    <message>
+      <source>Font of selected text or object</source>
+      <translation>Font of selected text or object</translation>
+    </message>
+    <message>
+      <source>Scaling width of characters</source>
+      <translation>Scaling width of characters</translation>
+    </message>
+    <message>
+      <source>Color of text stroke</source>
+      <translation>Colour of text stroke</translation>
+    </message>
+    <message>
+      <source>Color of text fill</source>
+      <translation>Colour of text fill</translation>
+    </message>
+    <message>
+      <source>Saturation of color of text stroke</source>
+      <translation>Saturation of colour of text stroke</translation>
+    </message>
+    <message>
+      <source>Saturation of color of text fill</source>
+      <translation>Saturation of colour of text fill</translation>
+    </message>
+    <message>
+      <source>Style of current paragraph</source>
+      <translation>Style of current paragraph</translation>
+    </message>
+    <message>
+      <source>Language of object</source>
+      <translation>Language of object</translation>
+    </message>
+    <message>
+      <source>Change settings for left or end points</source>
+      <translation>Change settings for left or end points</translation>
+    </message>
+    <message>
+      <source>Pattern of line</source>
+      <translation>Pattern of line</translation>
+    </message>
+    <message>
+      <source>Thickness of line</source>
+      <translation>Thickness of line</translation>
+    </message>
+    <message>
+      <source>Type of line joins</source>
+      <translation>Type of line joins</translation>
+    </message>
+    <message>
+      <source>Type of line end</source>
+      <translation>Type of line end</translation>
+    </message>
+    <message>
+      <source>Line style of current object</source>
+      <translation>Line style of current object</translation>
+    </message>
+    <message>
+      <source>Choose the shape of frame...</source>
+      <translation>Choose the shape of frame...</translation>
+    </message>
+    <message>
+      <source>Edit shape of the frame...</source>
+      <translation>Edit shape of the frame...</translation>
+    </message>
+    <message>
+      <source>Set radius of corner rounding</source>
+      <translation>Set radius of corner rounding</translation>
+    </message>
+    <message>
+      <source>Number of columns in text frame</source>
+      <translation>Number of columns in text frame</translation>
+    </message>
+    <message>
+      <source>Distance between columns</source>
+      <translation>Distance between columns</translation>
+    </message>
+    <message>
+      <source>Distance of text from top of frame</source>
+      <translation>Distance of text from top of frame</translation>
+    </message>
+    <message>
+      <source>Distance of text from bottom of frame</source>
+      <translation>Distance of text from bottom of frame</translation>
+    </message>
+    <message>
+      <source>Distance of text from left of frame</source>
+      <translation>Distance of text from left of frame</translation>
+    </message>
+    <message>
+      <source>Distance of text from right of frame</source>
+      <translation>Distance of text from right of frame</translation>
+    </message>
+    <message>
+      <source>Edit tab settings of text frame...</source>
+      <translation>Edit tab settings of text frame...</translation>
+    </message>
+    <message>
+      <source>Allow the image to be a different size to the frame</source>
+      <translation>Allow the image to be a different size to the frame</translation>
+    </message>
+    <message>
+      <source>Horizontal offset of image within frame</source>
+      <translation>Horizontal offset of image within frame</translation>
+    </message>
+    <message>
+      <source>Vertical offset of image within frame</source>
+      <translation>Vertical offset of image within frame</translation>
+    </message>
+    <message>
+      <source>Resize the image horizontally</source>
+      <translation>Resize the image horizontally</translation>
+    </message>
+    <message>
+      <source>Resize the image vertically</source>
+      <translation>Resize the image vertically</translation>
+    </message>
+    <message>
+      <source>Keep the X and Y scaling the same</source>
+      <translation>Keep the X and Y scaling the same</translation>
+    </message>
+    <message>
+      <source>Make the image fit within the size of the frame</source>
+      <translation>Make the image fit within the size of the frame</translation>
+    </message>
+    <message>
+      <source>Use image proportions rather than those of the frame</source>
+      <translation>Use image proportions rather than those of the frame</translation>
+    </message>
+    <message>
+      <source>Cell Lines</source>
+      <translation>Cell Lines</translation>
+    </message>
+    <message>
+      <source>Line at Top</source>
+      <translation>Line at Top</translation>
+    </message>
+    <message>
+      <source>Line at the Left</source>
+      <translation>Line at the Left</translation>
+    </message>
+    <message>
+      <source>Line at the Right </source>
+      <translation>Line at the Right </translation>
+    </message>
+    <message>
+      <source>Line at Bottom</source>
+      <translation>Line at Bottom</translation>
+    </message>
+    <message>
+      <source> mm</source>
+      <translation> mm</translation>
+    </message>
+    <message>
+      <source> in</source>
+      <translation> in</translation>
+    </message>
+    <message>
+      <source> p</source>
+      <translation> p</translation>
+    </message>
+    <message>
+      <source>Keep the aspect ratio</source>
+      <translation>Keep the aspect ratio</translation>
+    </message>
+    <message>
+      <source>Source profile of the image</source>
+      <translation>Source profile of the image</translation>
+    </message>
+    <message>
+      <source>Rendering intent for the image</source>
+      <translation>Rendering intent for the image</translation>
+    </message>
+    <message>
+      <source>Path Text Properties</source>
+      <translation>Path Text Properties</translation>
+    </message>
+    <message>
+      <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
+      <translation>Indicates the level the object is on, 0 means the object is at the bottom</translation>
+    </message>
+    <message>
+      <source>Make text in lower frames flow around the object shape</source>
+      <translation>Make text in lower frames flow around the object shape</translation>
+    </message>
+    <message>
+      <source>Use the frame shape instead of the object one</source>
+      <translation>Use the frame shape instead of the object one</translation>
+    </message>
+    <message>
+      <source>Switches between Gap or Column width</source>
+      <translation>Switches between Gap or Column width</translation>
+    </message>
+    <message>
+      <source>Column width</source>
+      <translation>Column width</translation>
+    </message>
+    <message>
+      <source>X, Y, &amp;Z</source>
+      <translation>X, Y, &amp;Z</translation>
+    </message>
+    <message>
+      <source>&amp;Shape</source>
+      <translation>&amp;Shape</translation>
+    </message>
+    <message>
+      <source>&amp;Text</source>
+      <translation>&amp;Text</translation>
+    </message>
+    <message>
+      <source>&amp;Image</source>
+      <translation>&amp;Image</translation>
+    </message>
+    <message>
+      <source>&amp;Line</source>
+      <translation>&amp;Line</translation>
+    </message>
+    <message>
+      <source>&amp;Colors</source>
+      <translation>&amp;Colours</translation>
+    </message>
+    <message>
+      <source>&amp;X-Pos:</source>
+      <translation>&amp;X-Pos:</translation>
+    </message>
+    <message>
+      <source>&amp;Y-Pos:</source>
+      <translation>&amp;Y-Pos:</translation>
+    </message>
+    <message>
+      <source>&amp;Width:</source>
+      <translation>&amp;Width:</translation>
+    </message>
+    <message>
+      <source>&amp;Height:</source>
+      <translation>&amp;Height:</translation>
+    </message>
+    <message>
+      <source>&amp;Rotation:</source>
+      <translation>&amp;Rotation:</translation>
+    </message>
+    <message>
+      <source>&amp;Edit Shape...</source>
+      <translation>&amp;Edit Shape...</translation>
+    </message>
+    <message>
+      <source>R&amp;ound
 Corners:</source>
-        <translation type="obsolete">Round
+      <translation>R&amp;ound
 Corners:</translation>
     </message>
     <message>
-        <source>Distance of Text</source>
-        <translation>Distance of Text</translation>
+      <source>Colu&amp;mns:</source>
+      <translation>Colu&amp;mns:</translation>
     </message>
     <message>
-        <source>Columns:</source>
-        <translation type="obsolete">Columns:</translation>
+      <source>&amp;Gap:</source>
+      <translation>&amp;Gap:</translation>
     </message>
     <message>
-        <source>Gap:</source>
-        <translation type="obsolete">Gap:</translation>
+      <source>To&amp;p:</source>
+      <translation>To&amp;p:</translation>
     </message>
     <message>
-        <source>Top:</source>
-        <translation type="obsolete">Top:</translation>
+      <source>&amp;Bottom:</source>
+      <translation>&amp;Bottom:</translation>
     </message>
     <message>
-        <source>Bottom:</source>
-        <translation type="obsolete">Bottom:</translation>
+      <source>&amp;Left:</source>
+      <translation>&amp;Left:</translation>
     </message>
     <message>
-        <source>Left:</source>
-        <translation type="obsolete">Left:</translation>
+      <source>&amp;Right:</source>
+      <translation>&amp;Right:</translation>
     </message>
     <message>
-        <source>Right:</source>
-        <translation type="obsolete">Right:</translation>
+      <source>T&amp;abulators...</source>
+      <translation>T&amp;abulators...</translation>
     </message>
     <message>
-        <source>Tabulators...</source>
-        <translation type="obsolete">Tabulators...</translation>
+      <source>Text &amp;Flows Around Frame</source>
+      <translation>Text &amp;Flows Around Frame</translation>
     </message>
     <message>
-        <source>Show Curve</source>
-        <translation>Show Curve</translation>
+      <source>Use &amp;Bounding Box</source>
+      <translation>Use &amp;Bounding Box</translation>
     </message>
     <message>
-        <source>Start Offset:</source>
-        <translation>Start Offset:</translation>
+      <source>&amp;Use Contour Line</source>
+      <translation>&amp;Use Contour Line</translation>
     </message>
     <message>
-        <source>Distance from Curve:</source>
-        <translation>Distance from Curve:</translation>
+      <source>&amp;Font Size:</source>
+      <translation>&amp;Font Size:</translation>
     </message>
     <message>
-        <source> %</source>
-        <translation> %</translation>
+      <source>&amp;Kerning:</source>
+      <translation>&amp;Kerning:</translation>
     </message>
     <message>
-        <source>Custom Spacing</source>
-        <translation>Custom Spacing</translation>
+      <source>L&amp;ine Spacing:</source>
+      <translation>L&amp;ine Spacing:</translation>
     </message>
     <message>
-        <source>Kerning:</source>
-        <translation type="obsolete">Kerning:</translation>
+      <source>St&amp;yle:</source>
+      <translation>St&amp;yle:</translation>
     </message>
     <message>
-        <source>Line Spacing:</source>
-        <translation type="obsolete">Line Spacing:</translation>
+      <source>Lan&amp;guage:</source>
+      <translation>Lan&amp;guage:</translation>
     </message>
     <message>
-        <source>Free Scaling</source>
-        <translation type="obsolete">Free Scaling</translation>
+      <source>&amp;Free Scaling</source>
+      <translation>&amp;Free Scaling</translation>
     </message>
     <message>
-        <source>X-Pos.:</source>
-        <translation type="obsolete">X-Pos.:</translation>
+      <source>X-Sc&amp;ale:</source>
+      <translation>X-Sc&amp;ale:</translation>
     </message>
     <message>
-        <source>Y-Pos.:</source>
-        <translation type="obsolete">Y-Pos.:</translation>
+      <source>Y-Scal&amp;e:</source>
+      <translation>Y-Scal&amp;e:</translation>
     </message>
     <message>
-        <source>X-Scale:</source>
-        <translation type="obsolete">X-Scale:</translation>
+      <source>Scale &amp;To Frame Size</source>
+      <translation>Scale &amp;To Frame Size</translation>
     </message>
     <message>
-        <source>Y-Scale:</source>
-        <translation type="obsolete">Y-Scale:</translation>
+      <source>P&amp;roportional</source>
+      <translation>P&amp;roportional</translation>
     </message>
     <message>
-        <source>Scale to Frame Size</source>
-        <translation type="obsolete">Scale to Frame Size</translation>
+      <source>&amp;Basepoint:</source>
+      <translation>&amp;Basepoint:</translation>
     </message>
     <message>
-        <source>Proportional</source>
-        <translation type="obsolete">Proportional</translation>
+      <source>T&amp;ype of Line:</source>
+      <translation>T&amp;ype of Line:</translation>
     </message>
     <message>
-        <source>Input Profile:</source>
-        <translation>Input Profile:</translation>
+      <source>Line &amp;Width:</source>
+      <translation>Line &amp;Width:</translation>
     </message>
     <message>
-        <source>Rendering Intent:</source>
-        <translation>Rendering Intent:</translation>
+      <source>Ed&amp;ges:</source>
+      <translation>Ed&amp;ges:</translation>
     </message>
     <message>
-        <source>Perceptual</source>
-        <translation>Perceptual</translation>
+      <source>&amp;Endings:</source>
+      <translation>&amp;Endings:</translation>
     </message>
     <message>
-        <source>Relative Colorimetric</source>
-        <translation>Relative Colourimetric</translation>
+      <source>&amp;X1:</source>
+      <translation>&amp;X1:</translation>
     </message>
     <message>
-        <source>Saturation</source>
-        <translation>Saturation</translation>
+      <source>X&amp;2:</source>
+      <translation>X&amp;2:</translation>
     </message>
     <message>
-        <source>Absolute Colorimetric</source>
-        <translation>Absolute Colourimetric</translation>
+      <source>Y&amp;1:</source>
+      <translation>Y&amp;1:</translation>
     </message>
     <message>
-        <source>Left Point</source>
-        <translation>Left Point</translation>
+      <source>&amp;Y2:</source>
+      <translation>&amp;Y2:</translation>
     </message>
-    <message>
-        <source>End Points</source>
-        <translation>End Points</translation>
-    </message>
-    <message>
-        <source>Line Width:</source>
-        <translation type="obsolete">Line Width:</translation>
-    </message>
-    <message>
-        <source>Edges:</source>
-        <translation type="obsolete">Edges:</translation>
-    </message>
-    <message>
-        <source>Miter Join</source>
-        <translation>Mitre Join</translation>
-    </message>
-    <message>
-        <source>Bevel Join</source>
-        <translation>Bevel Join</translation>
-    </message>
-    <message>
-        <source>Round Join</source>
-        <translation>Round Join</translation>
-    </message>
-    <message>
-        <source>Endings:</source>
-        <translation type="obsolete">Endings:</translation>
-    </message>
-    <message>
-        <source>Flat Cap</source>
-        <translation>Flat Cap</translation>
-    </message>
-    <message>
-        <source>Square Cap</source>
-        <translation>Square Cap</translation>
-    </message>
-    <message>
-        <source>Round Cap</source>
-        <translation>Round Cap</translation>
-    </message>
-    <message>
-        <source>No Style</source>
-        <translation>No Style</translation>
-    </message>
-    <message>
-        <source>Font Size</source>
-        <translation>Font Size</translation>
-    </message>
-    <message>
-        <source>Line Spacing</source>
-        <translation>Line Spacing</translation>
-    </message>
-    <message>
-        <source>Manual Kerning</source>
-        <translation>Manual Kerning</translation>
-    </message>
-    <message>
-        <source>Reverse Writing</source>
-        <translation>Reverse Writing</translation>
-    </message>
-    <message>
-        <source>X1:</source>
-        <translation type="obsolete">X1:</translation>
-    </message>
-    <message>
-        <source>X2:</source>
-        <translation type="obsolete">X2:</translation>
-    </message>
-    <message>
-        <source>Y1:</source>
-        <translation type="obsolete">Y1:</translation>
-    </message>
-    <message>
-        <source>Y2:</source>
-        <translation type="obsolete">Y2:</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation>None</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation>Warning</translation>
-    </message>
-    <message>
-        <source>Name &quot;%1&quot; isn&apos;t unique.
-Please choose another.</source>
-        <translation>Name &quot;%1&quot; isn&apos;t unique.
-Please choose another.</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation>OK</translation>
-    </message>
-    <message>
-        <source>Text flows around frame</source>
-        <translation type="obsolete">Text flows around frame</translation>
-    </message>
-    <message>
-        <source>Shade:</source>
-        <translation>Shade:</translation>
-    </message>
-    <message>
-        <source>Language:</source>
-        <translation type="obsolete">Language:</translation>
-    </message>
-    <message>
-        <source>Name of selected object</source>
-        <translation>Name of selected object</translation>
-    </message>
-    <message>
-        <source>Horizontal position of current basepoint</source>
-        <translation>Horizontal position of current basepoint</translation>
-    </message>
-    <message>
-        <source>Vertical position of current basepoint</source>
-        <translation>Vertical position of current basepoint</translation>
-    </message>
-    <message>
-        <source>Width</source>
-        <translation>Width</translation>
-    </message>
-    <message>
-        <source>Height</source>
-        <translation>Height</translation>
-    </message>
-    <message>
-        <source>Rotation of object at current basepoint</source>
-        <translation>Rotation of object at current basepoint</translation>
-    </message>
-    <message>
-        <source>Point from which measurements or rotation angles are referenced</source>
-        <translation>Point from which measurements or rotation angles are referenced</translation>
-    </message>
-    <message>
-        <source>Select top left for basepoint</source>
-        <translation>Select top left for basepoint</translation>
-    </message>
-    <message>
-        <source>Select top right for basepoint</source>
-        <translation>Select top right for basepoint</translation>
-    </message>
-    <message>
-        <source>Select bottom left for basepoint</source>
-        <translation>Select bottom left for basepoint</translation>
-    </message>
-    <message>
-        <source>Select bottom right for basepoint</source>
-        <translation>Select bottom right for basepoint</translation>
-    </message>
-    <message>
-        <source>Select center for basepoint</source>
-        <translation>Select centre for basepoint</translation>
-    </message>
-    <message>
-        <source>Flip Horizontal</source>
-        <translation>Flip Horizontal</translation>
-    </message>
-    <message>
-        <source>Flip Vertical</source>
-        <translation>Flip Vertical</translation>
-    </message>
-    <message>
-        <source>Move one level up</source>
-        <translation>Move one level up</translation>
-    </message>
-    <message>
-        <source>Move one level down</source>
-        <translation>Move one level down</translation>
-    </message>
-    <message>
-        <source>Move to front</source>
-        <translation>Move to front</translation>
-    </message>
-    <message>
-        <source>Move to back</source>
-        <translation>Move to back</translation>
-    </message>
-    <message>
-        <source>Lock or unlock the object</source>
-        <translation>Lock or unlock the object</translation>
-    </message>
-    <message>
-        <source>Lock or unlock the size of the object</source>
-        <translation>Lock or unlock the size of the object</translation>
-    </message>
-    <message>
-        <source>Enable or disable printing of the object</source>
-        <translation>Enable or disable printing of the object</translation>
-    </message>
-    <message>
-        <source>Font of selected text or object</source>
-        <translation>Font of selected text or object</translation>
-    </message>
-    <message>
-        <source>Scaling width of characters</source>
-        <translation>Scaling width of characters</translation>
-    </message>
-    <message>
-        <source>Color of text stroke</source>
-        <translation>Colour of text stroke</translation>
-    </message>
-    <message>
-        <source>Color of text fill</source>
-        <translation>Colour of text fill</translation>
-    </message>
-    <message>
-        <source>Saturation of color of text stroke</source>
-        <translation>Saturation of colour of text stroke</translation>
-    </message>
-    <message>
-        <source>Saturation of color of text fill</source>
-        <translation>Saturation of colour of text fill</translation>
-    </message>
-    <message>
-        <source>Style of current paragraph</source>
-        <translation>Style of current paragraph</translation>
-    </message>
-    <message>
-        <source>Language of object</source>
-        <translation>Language of object</translation>
-    </message>
-    <message>
-        <source>Change settings for left or end points</source>
-        <translation>Change settings for left or end points</translation>
-    </message>
-    <message>
-        <source>Pattern of line</source>
-        <translation>Pattern of line</translation>
-    </message>
-    <message>
-        <source>Thickness of line</source>
-        <translation>Thickness of line</translation>
-    </message>
-    <message>
-        <source>Type of line joins</source>
-        <translation>Type of line joins</translation>
-    </message>
-    <message>
-        <source>Type of line end</source>
-        <translation>Type of line end</translation>
-    </message>
-    <message>
-        <source>Line style of current object</source>
-        <translation>Line style of current object</translation>
-    </message>
-    <message>
-        <source>Choose the shape of frame...</source>
-        <translation>Choose the shape of frame...</translation>
-    </message>
-    <message>
-        <source>Edit shape of the frame...</source>
-        <translation>Edit shape of the frame...</translation>
-    </message>
-    <message>
-        <source>Set radius of corner rounding</source>
-        <translation>Set radius of corner rounding</translation>
-    </message>
-    <message>
-        <source>Number of columns in text frame</source>
-        <translation>Number of columns in text frame</translation>
-    </message>
-    <message>
-        <source>Distance between columns</source>
-        <translation>Distance between columns</translation>
-    </message>
-    <message>
-        <source>Distance of text from top of frame</source>
-        <translation>Distance of text from top of frame</translation>
-    </message>
-    <message>
-        <source>Distance of text from bottom of frame</source>
-        <translation>Distance of text from bottom of frame</translation>
-    </message>
-    <message>
-        <source>Distance of text from left of frame</source>
-        <translation>Distance of text from left of frame</translation>
-    </message>
-    <message>
-        <source>Distance of text from right of frame</source>
-        <translation>Distance of text from right of frame</translation>
-    </message>
-    <message>
-        <source>Edit tab settings of text frame...</source>
-        <translation>Edit tab settings of text frame...</translation>
-    </message>
-    <message>
-        <source>Allow the image to be a different size to the frame</source>
-        <translation>Allow the image to be a different size to the frame</translation>
-    </message>
-    <message>
-        <source>Horizontal offset of image within frame</source>
-        <translation>Horizontal offset of image within frame</translation>
-    </message>
-    <message>
-        <source>Vertical offset of image within frame</source>
-        <translation>Vertical offset of image within frame</translation>
-    </message>
-    <message>
-        <source>Resize the image horizontally</source>
-        <translation>Resize the image horizontally</translation>
-    </message>
-    <message>
-        <source>Resize the image vertically</source>
-        <translation>Resize the image vertically</translation>
-    </message>
-    <message>
-        <source>Keep the X and Y scaling the same</source>
-        <translation>Keep the X and Y scaling the same</translation>
-    </message>
-    <message>
-        <source>Make the image fit within the size of the frame</source>
-        <translation>Make the image fit within the size of the frame</translation>
-    </message>
-    <message>
-        <source>Use image proportions rather than those of the frame</source>
-        <translation>Use image proportions rather than those of the frame</translation>
-    </message>
-    <message>
-        <source>Cell Lines</source>
-        <translation>Cell Lines</translation>
-    </message>
-    <message>
-        <source>Line at Top</source>
-        <translation>Line at Top</translation>
-    </message>
-    <message>
-        <source>Line at the Left</source>
-        <translation>Line at the Left</translation>
-    </message>
-    <message>
-        <source>Line at the Right </source>
-        <translation>Line at the Right </translation>
-    </message>
-    <message>
-        <source>Line at Bottom</source>
-        <translation>Line at Bottom</translation>
-    </message>
-    <message>
-        <source> mm</source>
-        <translation> mm</translation>
-    </message>
-    <message>
-        <source> in</source>
-        <translation> in</translation>
-    </message>
-    <message>
-        <source> p</source>
-        <translation> p</translation>
-    </message>
-    <message>
-        <source>Style:</source>
-        <translation type="obsolete">Style:</translation>
-    </message>
-    <message>
-        <source>Keep the aspect ratio</source>
-        <translation>Keep the aspect ratio</translation>
-    </message>
-    <message>
-        <source>Source profile of the image</source>
-        <translation>Source profile of the image</translation>
-    </message>
-    <message>
-        <source>Rendering intent for the image</source>
-        <translation>Rendering intent for the image</translation>
-    </message>
-    <message>
-        <source>Path Text Properties</source>
-        <translation>Path Text Properties</translation>
-    </message>
-    <message>
-        <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
-        <translation>Indicates the level the object is on, 0 means the object is at the bottom</translation>
-    </message>
-    <message>
-        <source>Make text in lower frames flow around the object shape</source>
-        <translation>Make text in lower frames flow around the object shape</translation>
-    </message>
-    <message>
-        <source>Use the frame shape instead of the object one</source>
-        <translation>Use the frame shape instead of the object one</translation>
-    </message>
-    <message>
-        <source>Switches between Gap or Column width</source>
-        <translation>Switches between Gap or Column width</translation>
-    </message>
-    <message>
-        <source>Column width</source>
-        <translation>Column width</translation>
-    </message>
-    <message>
-        <source>Font Size:</source>
-        <translation type="obsolete">Font Size:</translation>
-    </message>
-    <message>
-        <source>Type of Line:</source>
-        <translation type="obsolete">Type of Line:</translation>
-    </message>
-    <message>
-        <source>Use Contour Line</source>
-        <translation type="obsolete">Use Contour Line</translation>
-    </message>
-    <message>
-        <source>X, Y, &amp;Z</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Shape</source>
-        <translation type="unfinished">&amp;Shape</translation>
-    </message>
-    <message>
-        <source>&amp;Text</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Image</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Line</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Colors</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;X-Pos:</source>
-        <translation type="unfinished">&amp;X-Pos:</translation>
-    </message>
-    <message>
-        <source>&amp;Y-Pos:</source>
-        <translation type="unfinished">&amp;Y-Pos:</translation>
-    </message>
-    <message>
-        <source>&amp;Width:</source>
-        <translation type="unfinished">&amp;Width:</translation>
-    </message>
-    <message>
-        <source>&amp;Height:</source>
-        <translation type="unfinished">&amp;Height:</translation>
-    </message>
-    <message>
-        <source>&amp;Rotation:</source>
-        <translation type="unfinished">&amp;Rotation:</translation>
-    </message>
-    <message>
-        <source>&amp;Edit Shape...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>R&amp;ound
-Corners:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Colu&amp;mns:</source>
-        <translation type="unfinished">Colu&amp;mns:</translation>
-    </message>
-    <message>
-        <source>&amp;Gap:</source>
-        <translation type="unfinished">&amp;Gap:</translation>
-    </message>
-    <message>
-        <source>To&amp;p:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Bottom:</source>
-        <translation type="unfinished">&amp;Bottom:</translation>
-    </message>
-    <message>
-        <source>&amp;Left:</source>
-        <translation type="unfinished">&amp;Left:</translation>
-    </message>
-    <message>
-        <source>&amp;Right:</source>
-        <translation type="unfinished">&amp;Right:</translation>
-    </message>
-    <message>
-        <source>T&amp;abulators...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Text &amp;Flows Around Frame</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Use &amp;Bounding Box</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Use Contour Line</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Font Size:</source>
-        <translation type="unfinished">&amp;Font Size:</translation>
-    </message>
-    <message>
-        <source>&amp;Kerning:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>L&amp;ine Spacing:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>St&amp;yle:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Lan&amp;guage:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Free Scaling</source>
-        <translation type="unfinished">&amp;Free Scaling</translation>
-    </message>
-    <message>
-        <source>X-Sc&amp;ale:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Y-Scal&amp;e:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Scale &amp;To Frame Size</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>P&amp;roportional</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Basepoint:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>T&amp;ype of Line:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Line &amp;Width:</source>
-        <translation type="unfinished">Line &amp;Width:</translation>
-    </message>
-    <message>
-        <source>Ed&amp;ges:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Endings:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;X1:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>X&amp;2:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Y&amp;1:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Y2:</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>MultiLine</name>
     <message>
-        <source>Edit Style</source>
-        <translation>Edit Style</translation>
+      <source>Edit Style</source>
+      <translation>Edit Style</translation>
     </message>
     <message>
-        <source>Flat Cap</source>
-        <translation>Flat Cap</translation>
+      <source>Flat Cap</source>
+      <translation>Flat Cap</translation>
     </message>
     <message>
-        <source>Square Cap</source>
-        <translation>Square Cap</translation>
+      <source>Square Cap</source>
+      <translation>Square Cap</translation>
     </message>
     <message>
-        <source>Round Cap</source>
-        <translation>Round Cap</translation>
+      <source>Round Cap</source>
+      <translation>Round Cap</translation>
     </message>
     <message>
-        <source>Miter Join</source>
-        <translation>Mitre Join</translation>
+      <source>Miter Join</source>
+      <translation>Mitre Join</translation>
     </message>
     <message>
-        <source>Bevel Join</source>
-        <translation>Bevel Join</translation>
+      <source>Bevel Join</source>
+      <translation>Bevel Join</translation>
     </message>
     <message>
-        <source>Round Join</source>
-        <translation>Round Join</translation>
+      <source>Round Join</source>
+      <translation>Round Join</translation>
     </message>
     <message>
-        <source>Line Width:</source>
-        <translation>Line Width:</translation>
+      <source>Line Width:</source>
+      <translation>Line Width:</translation>
     </message>
     <message>
-        <source> pt</source>
-        <translation> pt</translation>
+      <source> pt</source>
+      <translation> pt</translation>
     </message>
     <message>
-        <source> %</source>
-        <translation> %</translation>
+      <source> %</source>
+      <translation> %</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation>OK</translation>
+      <source>OK</source>
+      <translation>OK</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Cancel</translation>
+      <source> pt </source>
+      <translation> pt </translation>
     </message>
     <message>
-        <source> pt </source>
-        <translation> pt </translation>
+      <source>Solid Line</source>
+      <translation>Solid Line</translation>
     </message>
     <message>
-        <source>Solid Line</source>
-        <translation>Solid Line</translation>
+      <source>Dashed Line</source>
+      <translation>Dashed Line</translation>
     </message>
     <message>
-        <source>Dashed Line</source>
-        <translation>Dashed Line</translation>
+      <source>Dotted Line</source>
+      <translation>Dotted Line</translation>
     </message>
     <message>
-        <source>Dotted Line</source>
-        <translation>Dotted Line</translation>
+      <source>Dash Dot Line</source>
+      <translation>Dash Dot Line</translation>
     </message>
     <message>
-        <source>Dash Dot Line</source>
-        <translation>Dash Dot Line</translation>
+      <source>Dash Dot Dot Line</source>
+      <translation>Dash Dot Dot Line</translation>
     </message>
     <message>
-        <source>Dash Dot Dot Line</source>
-        <translation>Dash Dot Dot Line</translation>
+      <source>Warning</source>
+      <translation>Warning</translation>
     </message>
     <message>
-        <source>Warning</source>
-        <translation>Warning</translation>
-    </message>
-    <message>
-        <source>Name &quot;%1&quot; isn&apos;t unique.
+      <source>Name &quot;%1&quot; isn't unique.
 Please choose another.</source>
-        <translation>Name &quot;%1&quot; isn&apos;t unique.
+      <translation>Name &quot;%1&quot; isn't unique.
 Please choose another.</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
     </message>
     <message>
-        <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancel</translation>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>MusterSeiten</name>
     <message>
-        <source>Edit Templates</source>
-        <translation>Edit Templates</translation>
+      <source>Edit Templates</source>
+      <translation>Edit Templates</translation>
     </message>
     <message>
-        <source>Warning</source>
-        <translation>Warning</translation>
+      <source>Warning</source>
+      <translation>Warning</translation>
     </message>
     <message>
-        <source>Do you really want do delete this Template?</source>
-        <translation>Do you really want do delete this Template?</translation>
+      <source>Do you really want do delete this Template?</source>
+      <translation>Do you really want do delete this Template?</translation>
     </message>
     <message>
-        <source>No</source>
-        <translation type="obsolete">No</translation>
+      <source>Name:</source>
+      <translation>Name:</translation>
     </message>
     <message>
-        <source>Yes</source>
-        <translation type="obsolete">Yes</translation>
+      <source>New Template</source>
+      <translation>New Template</translation>
     </message>
     <message>
-        <source>Name:</source>
-        <translation>Name:</translation>
+      <source>Copy of %1</source>
+      <translation>Copy of %1</translation>
     </message>
     <message>
-        <source>New Template</source>
-        <translation>New Template</translation>
+      <source>Copy #%1 of </source>
+      <translation>Copy #%1 of </translation>
     </message>
     <message>
-        <source>Copy of %1</source>
-        <translation>Copy of %1</translation>
+      <source>Normal</source>
+      <translation>Normal</translation>
     </message>
     <message>
-        <source>Copy #%1 of </source>
-        <translation>Copy #%1 of </translation>
+      <source>&amp;Append</source>
+      <translation>&amp;Append</translation>
     </message>
     <message>
-        <source>Normal</source>
-        <translation>Normal</translation>
+      <source>&amp;New</source>
+      <translation>&amp;New</translation>
     </message>
     <message>
-        <source>&amp;Append</source>
-        <translation>&amp;Append</translation>
+      <source>D&amp;uplicate</source>
+      <translation>D&amp;uplicate</translation>
     </message>
     <message>
-        <source>&amp;New</source>
-        <translation>&amp;New</translation>
+      <source>&amp;Delete</source>
+      <translation>&amp;Delete</translation>
     </message>
     <message>
-        <source>D&amp;uplicate</source>
-        <translation>D&amp;uplicate</translation>
+      <source>&amp;Close</source>
+      <translation>&amp;Close</translation>
     </message>
     <message>
-        <source>&amp;Delete</source>
-        <translation>&amp;Delete</translation>
+      <source>&amp;No</source>
+      <translation>&amp;No</translation>
     </message>
     <message>
-        <source>&amp;Close</source>
-        <translation>&amp;Close</translation>
+      <source>&amp;Yes</source>
+      <translation>&amp;Yes</translation>
     </message>
     <message>
-        <source>&amp;No</source>
-        <translation type="unfinished">&amp;No</translation>
+      <source>&amp;Name:</source>
+      <translation>&amp;Name:</translation>
     </message>
-    <message>
-        <source>&amp;Yes</source>
-        <translation type="unfinished">&amp;Yes</translation>
-    </message>
-    <message>
-        <source>&amp;Name:</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>NewDoc</name>
     <message>
-        <source>New Document</source>
-        <translation>New Document</translation>
+      <source>New Document</source>
+      <translation>New Document</translation>
     </message>
     <message>
-        <source>Page Size</source>
-        <translation>Page Size</translation>
+      <source>Page Size</source>
+      <translation>Page Size</translation>
     </message>
     <message>
-        <source>Custom</source>
-        <translation>Custom</translation>
+      <source>Custom</source>
+      <translation>Custom</translation>
     </message>
     <message>
-        <source>Portrait</source>
-        <translation>Portrait</translation>
+      <source>Portrait</source>
+      <translation>Portrait</translation>
     </message>
     <message>
-        <source>Landscape</source>
-        <translation>Landscape</translation>
+      <source>Landscape</source>
+      <translation>Landscape</translation>
     </message>
     <message>
-        <source>Margin Guides</source>
-        <translation>Margin Guides</translation>
+      <source>Margin Guides</source>
+      <translation>Margin Guides</translation>
     </message>
     <message>
-        <source>Options</source>
-        <translation>Options</translation>
+      <source>Options</source>
+      <translation>Options</translation>
     </message>
     <message>
-        <source>Points (pts)</source>
-        <translation>Points (pts)</translation>
+      <source>Points (pts)</source>
+      <translation>Points (pts)</translation>
     </message>
     <message>
-        <source>Millimetres (mm)</source>
-        <translation>Millimetres (mm)</translation>
+      <source>Millimetres (mm)</source>
+      <translation>Millimetres (mm)</translation>
     </message>
     <message>
-        <source>Inches (in)</source>
-        <translation>Inches (in)</translation>
+      <source>Inches (in)</source>
+      <translation>Inches (in)</translation>
     </message>
     <message>
-        <source>Picas (p)</source>
-        <translation>Picas (p)</translation>
+      <source>Picas (p)</source>
+      <translation>Picas (p)</translation>
     </message>
     <message>
-        <source>Column Guides</source>
-        <translation>Column Guides</translation>
+      <source>Column Guides</source>
+      <translation>Column Guides</translation>
     </message>
     <message>
-        <source> pt</source>
-        <translation> pt</translation>
+      <source> pt</source>
+      <translation> pt</translation>
     </message>
     <message>
-        <source> mm</source>
-        <translation> mm</translation>
+      <source> mm</source>
+      <translation> mm</translation>
     </message>
     <message>
-        <source> in</source>
-        <translation> in</translation>
+      <source> in</source>
+      <translation> in</translation>
     </message>
     <message>
-        <source> p</source>
-        <translation> p</translation>
+      <source> p</source>
+      <translation> p</translation>
     </message>
     <message>
-        <source>Document page size, either a standard size or a custom size</source>
-        <translation>Document page size, either a standard size or a custom size</translation>
+      <source>Document page size, either a standard size or a custom size</source>
+      <translation>Document page size, either a standard size or a custom size</translation>
     </message>
     <message>
-        <source>Orientation of the document&apos;s pages</source>
-        <translation>Orientation of the document&apos;s pages</translation>
+      <source>Orientation of the document's pages</source>
+      <translation>Orientation of the document's pages</translation>
     </message>
     <message>
-        <source>Width of the document&apos;s pages, editable if you have chosen a custom page size</source>
-        <translation>Width of the document&apos;s pages, editable if you have chosen a custom page size</translation>
+      <source>Width of the document's pages, editable if you have chosen a custom page size</source>
+      <translation>Width of the document's pages, editable if you have chosen a custom page size</translation>
     </message>
     <message>
-        <source>Height of the document&apos;s pages, editable if you have chosen a custom page size</source>
-        <translation>Height of the document&apos;s pages, editable if you have chosen a custom page size</translation>
+      <source>Height of the document's pages, editable if you have chosen a custom page size</source>
+      <translation>Height of the document's pages, editable if you have chosen a custom page size</translation>
     </message>
     <message>
-        <source>Enable single or spread based layout</source>
-        <translation>Enable single or spread based layout</translation>
+      <source>Enable single or spread based layout</source>
+      <translation>Enable single or spread based layout</translation>
     </message>
     <message>
-        <source>Make the first page the left page of the document</source>
-        <translation>Make the first page the left page of the document</translation>
+      <source>Make the first page the left page of the document</source>
+      <translation>Make the first page the left page of the document</translation>
     </message>
     <message>
-        <source>Distance between the top margin guide and the edge of the page</source>
-        <translation>Distance between the top margin guide and the edge of the page</translation>
+      <source>Distance between the top margin guide and the edge of the page</source>
+      <translation>Distance between the top margin guide and the edge of the page</translation>
     </message>
     <message>
-        <source>Distance between the bottom margin guide and the edge of the page</source>
-        <translation>Distance between the bottom margin guide and the edge of the page</translation>
+      <source>Distance between the bottom margin guide and the edge of the page</source>
+      <translation>Distance between the bottom margin guide and the edge of the page</translation>
     </message>
     <message>
-        <source>Distance between the left margin guide and the edge of the page.
+      <source>Distance between the left margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Distance between the left margin guide and the edge of the page.
+      <translation>Distance between the left margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</translation>
     </message>
     <message>
-        <source>Distance between the right margin guide and the edge of the page.
+      <source>Distance between the right margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Distance between the right margin guide and the edge of the page.
+      <translation>Distance between the right margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</translation>
     </message>
     <message>
-        <source>First page number of the document</source>
-        <translation>First page number of the document</translation>
+      <source>First page number of the document</source>
+      <translation>First page number of the document</translation>
     </message>
     <message>
-        <source>Default unit of measurement for document editing</source>
-        <translation>Default unit of measurement for document editing</translation>
+      <source>Default unit of measurement for document editing</source>
+      <translation>Default unit of measurement for document editing</translation>
     </message>
     <message>
-        <source>Create text frames automatically when new pages are added</source>
-        <translation>Create text frames automatically when new pages are added</translation>
+      <source>Create text frames automatically when new pages are added</source>
+      <translation>Create text frames automatically when new pages are added</translation>
     </message>
     <message>
-        <source>Distance between automatically created columns</source>
-        <translation>Distance between automatically created columns</translation>
+      <source>Distance between automatically created columns</source>
+      <translation>Distance between automatically created columns</translation>
     </message>
     <message>
-        <source>Number of columns to create in automatically created text frames</source>
-        <translation>Number of columns to create in automatically created text frames</translation>
+      <source>Number of columns to create in automatically created text frames</source>
+      <translation>Number of columns to create in automatically created text frames</translation>
     </message>
     <message>
-        <source>Legal</source>
-        <translation>Legal</translation>
+      <source>Legal</source>
+      <translation>Legal</translation>
     </message>
     <message>
-        <source>Letter</source>
-        <translation>Letter</translation>
+      <source>Letter</source>
+      <translation>Letter</translation>
     </message>
     <message>
-        <source>Tabloid</source>
-        <translation>Tabloid</translation>
+      <source>Tabloid</source>
+      <translation>Tabloid</translation>
     </message>
     <message>
-        <source>&amp;Size:</source>
-        <translation>&amp;Size:</translation>
+      <source>&amp;Size:</source>
+      <translation>&amp;Size:</translation>
     </message>
     <message>
-        <source>Orie&amp;ntation:</source>
-        <translation>Orie&amp;ntation:</translation>
+      <source>Orie&amp;ntation:</source>
+      <translation>Orie&amp;ntation:</translation>
     </message>
     <message>
-        <source>&amp;Width:</source>
-        <translation>&amp;Width:</translation>
+      <source>&amp;Width:</source>
+      <translation>&amp;Width:</translation>
     </message>
     <message>
-        <source>&amp;Height:</source>
-        <translation>&amp;Height:</translation>
+      <source>&amp;Height:</source>
+      <translation>&amp;Height:</translation>
     </message>
     <message>
-        <source>&amp;Facing Pages</source>
-        <translation>&amp;Facing Pages</translation>
+      <source>&amp;Facing Pages</source>
+      <translation>&amp;Facing Pages</translation>
     </message>
     <message>
-        <source>Left &amp;Page First</source>
-        <translation>Left &amp;Page First</translation>
+      <source>Left &amp;Page First</source>
+      <translation>Left &amp;Page First</translation>
     </message>
     <message>
-        <source>&amp;Left:</source>
-        <translation>&amp;Left:</translation>
+      <source>&amp;Left:</source>
+      <translation>&amp;Left:</translation>
     </message>
     <message>
-        <source>&amp;Right:</source>
-        <translation>&amp;Right:</translation>
+      <source>&amp;Right:</source>
+      <translation>&amp;Right:</translation>
     </message>
     <message>
-        <source>&amp;Top:</source>
-        <translation>&amp;Top:</translation>
+      <source>&amp;Top:</source>
+      <translation>&amp;Top:</translation>
     </message>
     <message>
-        <source>&amp;Bottom:</source>
-        <translation>&amp;Bottom:</translation>
+      <source>&amp;Bottom:</source>
+      <translation>&amp;Bottom:</translation>
     </message>
     <message>
-        <source>F&amp;irst Page Number:</source>
-        <translation>F&amp;irst Page Number:</translation>
+      <source>F&amp;irst Page Number:</source>
+      <translation>F&amp;irst Page Number:</translation>
     </message>
     <message>
-        <source>&amp;Default Unit:</source>
-        <translation>&amp;Default Unit:</translation>
+      <source>&amp;Default Unit:</source>
+      <translation>&amp;Default Unit:</translation>
     </message>
     <message>
-        <source>&amp;Automatic Text Frames</source>
-        <translation>&amp;Automatic Text Frames</translation>
+      <source>&amp;Automatic Text Frames</source>
+      <translation>&amp;Automatic Text Frames</translation>
     </message>
     <message>
-        <source>&amp;Gap:</source>
-        <translation>&amp;Gap:</translation>
+      <source>&amp;Gap:</source>
+      <translation>&amp;Gap:</translation>
     </message>
     <message>
-        <source>Colu&amp;mns:</source>
-        <translation>Colu&amp;mns:</translation>
+      <source>Colu&amp;mns:</source>
+      <translation>Colu&amp;mns:</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
     </message>
     <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Cancel</translation>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
     </message>
     <message>
-        <source>&amp;Inside:</source>
-        <translation>&amp;Inside:</translation>
+      <source>&amp;Inside:</source>
+      <translation>&amp;Inside:</translation>
     </message>
     <message>
-        <source>O&amp;utside:</source>
-        <translation>O&amp;utside:</translation>
+      <source>O&amp;utside:</source>
+      <translation>O&amp;utside:</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>NewTm</name>
     <message>
-        <source>Left Page</source>
-        <translation>Left Page</translation>
+      <source>Left Page</source>
+      <translation>Left Page</translation>
     </message>
     <message>
-        <source>Right Page</source>
-        <translation>Right Page</translation>
+      <source>Right Page</source>
+      <translation>Right Page</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation type="obsolete">OK</translation>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Cancel</translation>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
     </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancel</translation>
-    </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>NodePalette</name>
     <message>
-        <source>Nodes</source>
-        <translation>Nodes</translation>
+      <source>Nodes</source>
+      <translation>Nodes</translation>
     </message>
     <message>
-        <source>Absolute Coordinates</source>
-        <translation type="obsolete">Absolute Coordinates</translation>
+      <source>Move Nodes</source>
+      <translation>Move Nodes</translation>
     </message>
     <message>
-        <source>X-Pos:</source>
-        <translation type="obsolete">X-Pos:</translation>
+      <source>Move Control Points</source>
+      <translation>Move Control Points</translation>
     </message>
     <message>
-        <source>Y-Pos:</source>
-        <translation type="obsolete">Y-Pos:</translation>
+      <source>Add Nodes</source>
+      <translation>Add Nodes</translation>
     </message>
     <message>
-        <source>End Editing</source>
-        <translation type="obsolete">End Editing</translation>
+      <source>Delete Nodes</source>
+      <translation>Delete Nodes</translation>
     </message>
     <message>
-        <source>Move Nodes</source>
-        <translation>Move Nodes</translation>
+      <source>Reset Control Points</source>
+      <translation>Reset Control Points</translation>
     </message>
     <message>
-        <source>Move Control Points</source>
-        <translation>Move Control Points</translation>
+      <source>Reset this Control Point</source>
+      <translation>Reset this Control Point</translation>
     </message>
     <message>
-        <source>Add Nodes</source>
-        <translation>Add Nodes</translation>
-    </message>
-    <message>
-        <source>Delete Nodes</source>
-        <translation>Delete Nodes</translation>
-    </message>
-    <message>
-        <source>Move Control Points independently</source>
-        <translation type="obsolete">Move Control Points independently</translation>
-    </message>
-    <message>
-        <source>Move Control Points symmetrical</source>
-        <translation type="obsolete">Move Control Points symmetrical</translation>
-    </message>
-    <message>
-        <source>Reset Control Points</source>
-        <translation>Reset Control Points</translation>
-    </message>
-    <message>
-        <source>Reset this Control Point</source>
-        <translation>Reset this Control Point</translation>
-    </message>
-    <message>
-        <source>Opens a Polygon or cuts a Bezier Curve</source>
-        <translation type="obsolete">Opens a Polygon or cuts a Bezier Curve</translation>
-    </message>
-    <message>
-        <source>Closes this Bezier Curve</source>
-        <translation type="obsolete">Closes this Bezier Curve</translation>
-    </message>
-    <message>
-        <source>Mirrors the Path Horizontally</source>
-        <translation type="obsolete">Mirrors the Path Horizontally</translation>
-    </message>
-    <message>
-        <source>Mirrors the Path Vertically</source>
-        <translation type="obsolete">Mirrors the Path Vertically</translation>
-    </message>
-    <message>
-        <source>Shears the Path horizontal to the right</source>
-        <translation type="obsolete">Shears the Path horizontal to the right</translation>
-    </message>
-    <message>
-        <source>Shears the Path horizontal to the left</source>
-        <translation type="obsolete">Shears the Path horizontal to the left</translation>
-    </message>
-    <message>
-        <source>Shears the Path vertical up</source>
-        <translation type="obsolete">Shears the Path vertical up</translation>
-    </message>
-    <message>
-        <source>Shears the Path vertical down</source>
-        <translation type="obsolete">Shears the Path vertical down</translation>
-    </message>
-    <message>
-        <source>Rotates the Path counter-clockwise</source>
-        <translation type="obsolete">Rotates the Path counter-clockwise</translation>
-    </message>
-    <message>
-        <source>Rotates the Path clockwise</source>
-        <translation type="obsolete">Rotates the Path clockwise</translation>
-    </message>
-    <message>
-        <source>Reduce the Size of the Path by 10%</source>
-        <translation type="obsolete">Reduce the Size of the Path by 10%</translation>
-    </message>
-    <message>
-        <source>Enlarges the Size of the Path by 10%</source>
-        <translation type="obsolete">Enlarges the Size of the Path by 10%</translation>
-    </message>
-    <message>
-        <source>When checked use Coordinates relative to the Page,
+      <source>When checked use Coordinates relative to the Page,
 otherwise Coordinates are relative to the Object.</source>
-        <translation>When checked use Coordinates relative to the Page,
+      <translation>When checked use Coordinates relative to the Page,
 otherwise Coordinates are relative to the Object.</translation>
     </message>
     <message>
-        <source>Edit Contour Line</source>
-        <translation type="obsolete">Edit Contour Line</translation>
+      <source>&amp;Absolute Coordinates</source>
+      <translation>&amp;Absolute Coordinates</translation>
     </message>
     <message>
-        <source>&amp;Absolute Coordinates</source>
-        <translation type="unfinished"></translation>
+      <source>&amp;X-Pos:</source>
+      <translation>&amp;X-Pos:</translation>
     </message>
     <message>
-        <source>&amp;X-Pos:</source>
-        <translation type="unfinished">&amp;X-Pos:</translation>
+      <source>&amp;Y-Pos:</source>
+      <translation>&amp;Y-Pos:</translation>
     </message>
     <message>
-        <source>&amp;Y-Pos:</source>
-        <translation type="unfinished">&amp;Y-Pos:</translation>
+      <source>Edit &amp;Contour Line</source>
+      <translation>Edit &amp;Contour Line</translation>
     </message>
     <message>
-        <source>Edit &amp;Contour Line</source>
-        <translation type="unfinished"></translation>
+      <source>&amp;Reset Contour Line</source>
+      <translation>&amp;Reset Contour Line</translation>
     </message>
     <message>
-        <source>&amp;Reset Contour Line</source>
-        <translation type="unfinished"></translation>
+      <source>&amp;End Editing</source>
+      <translation>&amp;End Editing</translation>
     </message>
     <message>
-        <source>&amp;End Editing</source>
-        <translation type="unfinished"></translation>
+      <source>Move Control Points Independently</source>
+      <translation>Move Control Points Independently</translation>
     </message>
     <message>
-        <source>Move Control Points Independently</source>
-        <translation type="unfinished"></translation>
+      <source>Move Control Points Symmetrical</source>
+      <translation>Move Control Points Symmetrical</translation>
     </message>
     <message>
-        <source>Move Control Points Symmetrical</source>
-        <translation type="unfinished"></translation>
+      <source>Open a Polygon or Cuts a Bezier Curve</source>
+      <translation>Open a Polygon or Cuts a Bezier Curve</translation>
     </message>
     <message>
-        <source>Open a Polygon or Cuts a Bezier Curve</source>
-        <translation type="unfinished"></translation>
+      <source>Close this Bezier Curve</source>
+      <translation>Close this Bezier Curve</translation>
     </message>
     <message>
-        <source>Close this Bezier Curve</source>
-        <translation type="unfinished"></translation>
+      <source>Mirror the Path Horizontally</source>
+      <translation>Mirror the Path Horizontally</translation>
     </message>
     <message>
-        <source>Mirror the Path Horizontally</source>
-        <translation type="unfinished"></translation>
+      <source>Mirror the Path Vertically</source>
+      <translation>Mirror the Path Vertically</translation>
     </message>
     <message>
-        <source>Mirror the Path Vertically</source>
-        <translation type="unfinished"></translation>
+      <source>Shear the Path Horizontally to the Rright</source>
+      <translation>Shear the Path Horizontally to the Rright</translation>
     </message>
     <message>
-        <source>Shear the Path Horizontally to the Rright</source>
-        <translation type="unfinished"></translation>
+      <source>Shear the Path Horizontally to the Left</source>
+      <translation>Shear the Path Horizontally to the Left</translation>
     </message>
     <message>
-        <source>Shear the Path Horizontally to the Left</source>
-        <translation type="unfinished"></translation>
+      <source>Shear the Path Vertically Up</source>
+      <translation>Shear the Path Vertically Up</translation>
     </message>
     <message>
-        <source>Shear the Path Vertically Up</source>
-        <translation type="unfinished"></translation>
+      <source>Shear the Path Vertically Down</source>
+      <translation>Shear the Path Vertically Down</translation>
     </message>
     <message>
-        <source>Shear the Path Vertically Down</source>
-        <translation type="unfinished"></translation>
+      <source>Rotate the Path Counter-Clockwise</source>
+      <translation>Rotate the Path Counter-Clockwise</translation>
     </message>
     <message>
-        <source>Rotate the Path Counter-Clockwise</source>
-        <translation type="unfinished"></translation>
+      <source>Rotate the Path Clockwise</source>
+      <translation>Rotate the Path Clockwise</translation>
     </message>
     <message>
-        <source>Rotate the Path Clockwise</source>
-        <translation type="unfinished"></translation>
+      <source>Reduce the Size of the Path by shown %</source>
+      <translation>Reduce the Size of the Path by shown %</translation>
     </message>
     <message>
-        <source>Reduce the Size of the Path by shown %</source>
-        <translation type="unfinished"></translation>
+      <source>Enlarge the Size of the Path by shown %</source>
+      <translation>Enlarge the Size of the Path by shown %</translation>
     </message>
     <message>
-        <source>Enlarge the Size of the Path by shown %</source>
-        <translation type="unfinished"></translation>
+      <source>Angle of Rotation</source>
+      <translation>Angle of Rotation</translation>
     </message>
     <message>
-        <source>Angle of Rotation</source>
-        <translation type="unfinished"></translation>
+      <source>% to Enlarge or Reduce By</source>
+      <translation>% to Enlarge or Reduce By</translation>
     </message>
     <message>
-        <source>% to Enlarge or Reduce By</source>
-        <translation type="unfinished"></translation>
+      <source>Activate Contour Line Editing Mode</source>
+      <translation>Activate Contour Line Editing Mode</translation>
     </message>
     <message>
-        <source>Activate Contour Line Editing Mode</source>
-        <translation type="unfinished"></translation>
+      <source>Reset the Contour Line to the Original Shape of the Frame</source>
+      <translation>Reset the Contour Line to the Original Shape of the Frame</translation>
     </message>
-    <message>
-        <source>Reset the Contour Line to the Original Shape of the Frame</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>PConsole</name>
     <message>
-        <source>Script Console</source>
-        <translation>Script Console</translation>
+      <source>Script Console</source>
+      <translation>Script Console</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>PDF_Opts</name>
     <message>
-        <source>Export Range</source>
-        <translation>Export Range</translation>
+      <source>Export Range</source>
+      <translation>Export Range</translation>
     </message>
     <message>
-        <source>File Options</source>
-        <translation>File Options</translation>
+      <source>File Options</source>
+      <translation>File Options</translation>
     </message>
     <message>
-        <source>Left Margin</source>
-        <translation>Left Margin</translation>
+      <source>Left Margin</source>
+      <translation>Left Margin</translation>
     </message>
     <message>
-        <source>Right Margin</source>
-        <translation>Right Margin</translation>
+      <source>Right Margin</source>
+      <translation>Right Margin</translation>
     </message>
     <message>
-        <source> dpi</source>
-        <translation> dpi</translation>
+      <source> dpi</source>
+      <translation> dpi</translation>
     </message>
     <message>
-        <source>General</source>
-        <translation>General</translation>
+      <source>General</source>
+      <translation>General</translation>
     </message>
     <message>
-        <source>Embedding</source>
-        <translation>Embedding</translation>
+      <source>Embedding</source>
+      <translation>Embedding</translation>
     </message>
     <message>
-        <source>Available Fonts:</source>
-        <translation>Available Fonts:</translation>
+      <source>Available Fonts:</source>
+      <translation>Available Fonts:</translation>
     </message>
     <message>
-        <source>Fonts to embed:</source>
-        <translation>Fonts to embed:</translation>
+      <source>Fonts to embed:</source>
+      <translation>Fonts to embed:</translation>
     </message>
     <message>
-        <source>Page</source>
-        <translation>Page</translation>
+      <source>Page</source>
+      <translation>Page</translation>
     </message>
     <message>
-        <source>Effects</source>
-        <translation>Effects</translation>
+      <source>Effects</source>
+      <translation>Effects</translation>
     </message>
     <message>
-        <source> sec</source>
-        <translation> sec</translation>
+      <source> sec</source>
+      <translation> sec</translation>
     </message>
     <message>
-        <source>No Effect</source>
-        <translation>No Effect</translation>
+      <source>No Effect</source>
+      <translation>No Effect</translation>
     </message>
     <message>
-        <source>Blinds</source>
-        <translation>Blinds</translation>
+      <source>Blinds</source>
+      <translation>Blinds</translation>
     </message>
     <message>
-        <source>Box</source>
-        <translation>Box</translation>
+      <source>Box</source>
+      <translation>Box</translation>
     </message>
     <message>
-        <source>Dissolve</source>
-        <translation>Dissolve</translation>
+      <source>Dissolve</source>
+      <translation>Dissolve</translation>
     </message>
     <message>
-        <source>Glitter</source>
-        <translation>Glitter</translation>
+      <source>Glitter</source>
+      <translation>Glitter</translation>
     </message>
     <message>
-        <source>Split</source>
-        <translation>Split</translation>
+      <source>Split</source>
+      <translation>Split</translation>
     </message>
     <message>
-        <source>Wipe</source>
-        <translation>Wipe</translation>
+      <source>Wipe</source>
+      <translation>Wipe</translation>
     </message>
     <message>
-        <source>Horizontal</source>
-        <translation>Horizontal</translation>
+      <source>Horizontal</source>
+      <translation>Horizontal</translation>
     </message>
     <message>
-        <source>Vertical</source>
-        <translation>Vertical</translation>
+      <source>Vertical</source>
+      <translation>Vertical</translation>
     </message>
     <message>
-        <source>Inside</source>
-        <translation>Inside</translation>
+      <source>Inside</source>
+      <translation>Inside</translation>
     </message>
     <message>
-        <source>Outside</source>
-        <translation>Outside</translation>
+      <source>Outside</source>
+      <translation>Outside</translation>
     </message>
     <message>
-        <source>Left to Right</source>
-        <translation>Left to Right</translation>
+      <source>Left to Right</source>
+      <translation>Left to Right</translation>
     </message>
     <message>
-        <source>Top to Bottom</source>
-        <translation>Top to Bottom</translation>
+      <source>Top to Bottom</source>
+      <translation>Top to Bottom</translation>
     </message>
     <message>
-        <source>Bottom to Top</source>
-        <translation>Bottom to Top</translation>
+      <source>Bottom to Top</source>
+      <translation>Bottom to Top</translation>
     </message>
     <message>
-        <source>Right to Left</source>
-        <translation>Right to Left</translation>
+      <source>Right to Left</source>
+      <translation>Right to Left</translation>
     </message>
     <message>
-        <source>Top-left to Bottom-Right</source>
-        <translation>Top-left to Bottom-Right</translation>
+      <source>Top-left to Bottom-Right</source>
+      <translation>Top-left to Bottom-Right</translation>
     </message>
     <message>
-        <source>Passwords</source>
-        <translation>Passwords</translation>
+      <source>Passwords</source>
+      <translation>Passwords</translation>
     </message>
     <message>
-        <source>Settings</source>
-        <translation>Settings</translation>
+      <source>Settings</source>
+      <translation>Settings</translation>
     </message>
     <message>
-        <source>Screen / Web</source>
-        <translation>Screen / Web</translation>
+      <source>Screen / Web</source>
+      <translation>Screen / Web</translation>
     </message>
     <message>
-        <source>Printer</source>
-        <translation>Printer</translation>
+      <source>Printer</source>
+      <translation>Printer</translation>
     </message>
     <message>
-        <source>Solid Colors:</source>
-        <translation>Solid Colours:</translation>
+      <source>Solid Colors:</source>
+      <translation>Solid Colours:</translation>
     </message>
     <message>
-        <source>Use ICC-Profile</source>
-        <translation type="obsolete">Use ICC-Profile</translation>
+      <source>Profile:</source>
+      <translation>Profile:</translation>
     </message>
     <message>
-        <source>Profile:</source>
-        <translation>Profile:</translation>
+      <source>Rendering-Intent:</source>
+      <translation>Rendering-Intent:</translation>
     </message>
     <message>
-        <source>Rendering-Intent:</source>
-        <translation>Rendering-Intent:</translation>
+      <source>Perceptual</source>
+      <translation>Perceptual</translation>
     </message>
     <message>
-        <source>Perceptual</source>
-        <translation>Perceptual</translation>
+      <source>Relative Colorimetric</source>
+      <translation>Relative Colourimetric</translation>
     </message>
     <message>
-        <source>Relative Colorimetric</source>
-        <translation>Relative Colourimetric</translation>
+      <source>Saturation</source>
+      <translation>Saturation</translation>
     </message>
     <message>
-        <source>Saturation</source>
-        <translation>Saturation</translation>
+      <source>Absolute Colorimetric</source>
+      <translation>Absolute Colourimetric</translation>
     </message>
     <message>
-        <source>Absolute Colorimetric</source>
-        <translation>Absolute Colourimetric</translation>
+      <source>Images:</source>
+      <translation>Images:</translation>
     </message>
     <message>
-        <source>Images:</source>
-        <translation>Images:</translation>
+      <source>Don't use embedded ICC profiles</source>
+      <translation>Don't use embedded ICC profiles</translation>
     </message>
     <message>
-        <source>Don&apos;t use embedded ICC profiles</source>
-        <translation>Don&apos;t use embedded ICC profiles</translation>
+      <source>PDF/X-3 Output Intent</source>
+      <translation>PDF/X-3 Output Intent</translation>
     </message>
     <message>
-        <source>PDF/X-3 Output Intent</source>
-        <translation>PDF/X-3 Output Intent</translation>
+      <source>Trim Box</source>
+      <translation>Trim Box</translation>
     </message>
     <message>
-        <source>Trim Box</source>
-        <translation>Trim Box</translation>
+      <source>Save as</source>
+      <translation>Save as</translation>
     </message>
     <message>
-        <source>Save as</source>
-        <translation>Save as</translation>
+      <source>Image Settings</source>
+      <translation>Image Settings</translation>
     </message>
     <message>
-        <source>Image Settings</source>
-        <translation>Image Settings</translation>
+      <source>Automatic</source>
+      <translation>Automatic</translation>
     </message>
     <message>
-        <source>Automatic</source>
-        <translation>Automatic</translation>
+      <source>JPEG</source>
+      <translation>JPEG</translation>
     </message>
     <message>
-        <source>JPEG</source>
-        <translation>JPEG</translation>
+      <source>Zip</source>
+      <translation>Zip</translation>
     </message>
     <message>
-        <source>Zip</source>
-        <translation>Zip</translation>
+      <source>None</source>
+      <translation>None</translation>
     </message>
     <message>
-        <source>None</source>
-        <translation>None</translation>
+      <source>Maximum</source>
+      <translation>Maximum</translation>
     </message>
     <message>
-        <source>Maximum</source>
-        <translation>Maximum</translation>
+      <source>High</source>
+      <translation>High</translation>
     </message>
     <message>
-        <source>High</source>
-        <translation>High</translation>
+      <source>Medium</source>
+      <translation>Medium</translation>
     </message>
     <message>
-        <source>Medium</source>
-        <translation>Medium</translation>
+      <source>Low</source>
+      <translation>Low</translation>
     </message>
     <message>
-        <source>Low</source>
-        <translation>Low</translation>
+      <source>Minimum</source>
+      <translation>Minimum</translation>
     </message>
     <message>
-        <source>Minimum</source>
-        <translation>Minimum</translation>
+      <source>Export all pages to PDF</source>
+      <translation>Export all pages to PDF</translation>
     </message>
     <message>
-        <source>Export all pages to PDF</source>
-        <translation>Export all pages to PDF</translation>
+      <source>Export a range of pages to PDF</source>
+      <translation>Export a range of pages to PDF</translation>
     </message>
     <message>
-        <source>Export a range of pages to PDF</source>
-        <translation>Export a range of pages to PDF</translation>
+      <source>Length of time the page is shown before the presentation starts on the selected page.</source>
+      <translation>Length of time the page is shown before the presentation starts on the selected page.</translation>
     </message>
     <message>
-        <source>Length of time the page is shown before the presentation starts on the selected page.</source>
-        <translation>Length of time the page is shown before the presentation starts on the selected page.</translation>
-    </message>
-    <message>
-        <source>Length of time the effect runs.
+      <source>Length of time the effect runs.
 A shorter time will speed up the effect, a longer one will slow it down.</source>
-        <translation>Length of time the effect runs.
+      <translation>Length of time the effect runs.
 A shorter time will speed up the effect, a longer one will slow it down.</translation>
     </message>
     <message>
-        <source>Apply the selected effect to all pages.</source>
-        <translation>Apply the selected effect to all pages.</translation>
+      <source>Apply the selected effect to all pages.</source>
+      <translation>Apply the selected effect to all pages.</translation>
     </message>
     <message>
-        <source>Choose a master password which enables or disables all the
+      <source>Choose a master password which enables or disables all the
 security features in your exported PDF</source>
-        <translation>Choose a master password which enables or disables all the
+      <translation>Choose a master password which enables or disables all the
 security features in your exported PDF</translation>
     </message>
     <message>
-        <source>Embed a color profile for solid colors</source>
-        <translation>Embed a colour profile for solid colours</translation>
+      <source>Embed a color profile for solid colors</source>
+      <translation>Embed a colour profile for solid colours</translation>
     </message>
     <message>
-        <source>Embed a color profile for images</source>
-        <translation>Embed a colour profile for images</translation>
+      <source>Embed a color profile for images</source>
+      <translation>Embed a colour profile for images</translation>
     </message>
     <message>
-        <source>Do not use color profiles that are embedded in source images</source>
-        <translation>Do not use colour profiles that are embedded in source images</translation>
+      <source>Do not use color profiles that are embedded in source images</source>
+      <translation>Do not use colour profiles that are embedded in source images</translation>
     </message>
     <message>
-        <source>Distance for bleed from the top of the physical page</source>
-        <translation>Distance for bleed from the top of the physical page</translation>
+      <source>Distance for bleed from the top of the physical page</source>
+      <translation>Distance for bleed from the top of the physical page</translation>
     </message>
     <message>
-        <source>Distance for bleed from the bottom of the physical page</source>
-        <translation>Distance for bleed from the bottom of the physical page</translation>
+      <source>Distance for bleed from the bottom of the physical page</source>
+      <translation>Distance for bleed from the bottom of the physical page</translation>
     </message>
     <message>
-        <source>Distance for bleed from the left of the physical page</source>
-        <translation>Distance for bleed from the left of the physical page</translation>
+      <source>Distance for bleed from the left of the physical page</source>
+      <translation>Distance for bleed from the left of the physical page</translation>
     </message>
     <message>
-        <source>Distance for bleed from the right of the physical page</source>
-        <translation>Distance for bleed from the right of the physical page</translation>
+      <source>Distance for bleed from the right of the physical page</source>
+      <translation>Distance for bleed from the right of the physical page</translation>
     </message>
     <message>
-        <source>&amp;General</source>
-        <translation>&amp;General</translation>
+      <source>&amp;General</source>
+      <translation>&amp;General</translation>
     </message>
     <message>
-        <source>&amp;Fonts</source>
-        <translation>&amp;Fonts</translation>
+      <source>&amp;Fonts</source>
+      <translation>&amp;Fonts</translation>
     </message>
     <message>
-        <source>E&amp;xtras</source>
-        <translation>E&amp;xtras</translation>
+      <source>E&amp;xtras</source>
+      <translation>E&amp;xtras</translation>
     </message>
     <message>
-        <source> pt</source>
-        <translation> pt</translation>
+      <source> pt</source>
+      <translation> pt</translation>
     </message>
     <message>
-        <source> mm</source>
-        <translation> mm</translation>
+      <source> mm</source>
+      <translation> mm</translation>
     </message>
     <message>
-        <source> in</source>
-        <translation> in</translation>
+      <source> in</source>
+      <translation> in</translation>
     </message>
     <message>
-        <source> p</source>
-        <translation> p</translation>
+      <source> p</source>
+      <translation> p</translation>
     </message>
     <message>
-        <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
+      <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
 Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
 PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management.</source>
-        <translation>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
+      <translation>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
 Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
 PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated colour management.</translation>
     </message>
     <message>
-        <source>Determines the binding of pages in the PDF. Unless you know
+      <source>Determines the binding of pages in the PDF. Unless you know
 you need to change it leave the default choice - Left.</source>
-        <translation>Determines the binding of pages in the PDF. Unless you know
+      <translation>Determines the binding of pages in the PDF. Unless you know
 you need to change it leave the default choice - Left.</translation>
     </message>
     <message>
-        <source>Generates thumbnails of each page in the PDF.
+      <source>Generates thumbnails of each page in the PDF.
 Some viewers can use the thumbnails for navigation.</source>
-        <translation>Generates thumbnails of each page in the PDF.
+      <translation>Generates thumbnails of each page in the PDF.
 Some viewers can use the thumbnails for navigation.</translation>
     </message>
     <message>
-        <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
-        <translation>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</translation>
+      <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
+      <translation>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</translation>
     </message>
     <message>
-        <source>Embed the bookmarks you created in your document.
+      <source>Embed the bookmarks you created in your document.
 These are useful for navigating long PDF documents.</source>
-        <translation>Embed the bookmarks you created in your document.
+      <translation>Embed the bookmarks you created in your document.
 These are useful for navigating long PDF documents.</translation>
     </message>
     <message>
-        <source>Export resolution of text and vector graphics.
+      <source>Export resolution of text and vector graphics.
 This does not affect the resolution of bitmap images like photos.</source>
-        <translation>Export resolution of text and vector graphics.
+      <translation>Export resolution of text and vector graphics.
 This does not affect the resolution of bitmap images like photos.</translation>
     </message>
     <message>
-        <source>Compression of text and graphics.
+      <source>Compression of text and graphics.
 Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation>Compression of text and graphics.
+      <translation>Compression of text and graphics.
 Unless you have a reason, leave this checked. This reduces PDF size.</translation>
     </message>
     <message>
-        <source>Version of compression for images.
+      <source>Version of compression for images.
 Automatic allows Scribus to choose the best method.
 ZIP is good for images with solid colors.
 JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
 Leave it set to automatic, unless you have a need for special compression options.</source>
-        <translation>Version of compression for images.
+      <translation>Version of compression for images.
 Automatic allows Scribus to choose the best method.
 ZIP is good for images with solid colours.
 JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
 Leave it set to automatic, unless you have a need for special compression options.</translation>
     </message>
     <message>
-        <source>Downsample your bitmap images to the selected DPI.
+      <source>Downsample your bitmap images to the selected DPI.
 Leaving this unchecked will render them at their native resolution.</source>
-        <translation>Downsample your bitmap images to the selected DPI.
+      <translation>Downsample your bitmap images to the selected DPI.
 Leaving this unchecked will render them at their native resolution.</translation>
     </message>
     <message>
-        <source>DPI (Dots Per Inch) for image export.</source>
-        <translation>DPI (Dots Per Inch) for image export.</translation>
+      <source>DPI (Dots Per Inch) for image export.</source>
+      <translation>DPI (Dots Per Inch) for image export.</translation>
     </message>
     <message>
-        <source>Embed fonts into the PDF. Embedding the fonts
+      <source>Embed fonts into the PDF. Embedding the fonts
 will preserve the layout and appearance of your document.</source>
-        <translation>Embed fonts into the PDF. Embedding the fonts
+      <translation>Embed fonts into the PDF. Embedding the fonts
 will preserve the layout and appearance of your document.</translation>
     </message>
     <message>
-        <source>Enables presentation effects when using Acrobat Reader in full screen mode.</source>
-        <translation>Enables presentation effects when using Acrobat Reader in full screen mode.</translation>
+      <source>Enables presentation effects when using Acrobat Reader in full screen mode.</source>
+      <translation>Enables presentation effects when using Acrobat Reader in full screen mode.</translation>
     </message>
     <message>
-        <source>Show page previews of each page listed above.</source>
-        <translation>Show page previews of each page listed above.</translation>
+      <source>Show page previews of each page listed above.</source>
+      <translation>Show page previews of each page listed above.</translation>
     </message>
     <message>
-        <source>Type of the display effect.</source>
-        <translation>Type of the display effect.</translation>
+      <source>Type of the display effect.</source>
+      <translation>Type of the display effect.</translation>
     </message>
     <message>
-        <source>Direction of the effect of moving lines for the split and blind effects.</source>
-        <translation>Direction of the effect of moving lines for the split and blind effects.</translation>
+      <source>Direction of the effect of moving lines for the split and blind effects.</source>
+      <translation>Direction of the effect of moving lines for the split and blind effects.</translation>
     </message>
     <message>
-        <source>Starting position for the box and split effects.</source>
-        <translation>Starting position for the box and split effects.</translation>
+      <source>Starting position for the box and split effects.</source>
+      <translation>Starting position for the box and split effects.</translation>
     </message>
     <message>
-        <source>Direction of the glitter or wipe effects.</source>
-        <translation>Direction of the glitter or wipe effects.</translation>
+      <source>Direction of the glitter or wipe effects.</source>
+      <translation>Direction of the glitter or wipe effects.</translation>
     </message>
     <message>
-        <source>Enable the security features in your exported PDF.
+      <source>Enable the security features in your exported PDF.
 If you selected Acrobat 4.0, the PDF will be protected by 40 bit encryption.
 If you selected Acrobat 5.0, the PDF will be protected by 128 bit encryption.
 Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
-        <translation>Enable the security features in your exported PDF.
+      <translation>Enable the security features in your exported PDF.
 If you selected Acrobat 4.0, the PDF will be protected by 40 bit encryption.
 If you selected Acrobat 5.0, the PDF will be protected by 128 bit encryption.
 Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</translation>
     </message>
     <message>
-        <source>Color model for the output of your PDF.
+      <source>Color model for the output of your PDF.
 Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.
 Choose Printer when printing to a true 4 color CMYK printer.</source>
-        <translation>Colour model for the output of your PDF.
+      <translation>Colour model for the output of your PDF.
 Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.
 Choose Printer when printing to a true 4 colour CMYK printer.</translation>
     </message>
     <message>
-        <source>Color profile for solid colors</source>
-        <translation>Colour profile for solid colours</translation>
+      <source>Color profile for solid colors</source>
+      <translation>Colour profile for solid colours</translation>
     </message>
     <message>
-        <source>Rendering intent for solid colors</source>
-        <translation>Rendering intent for solid colours</translation>
+      <source>Rendering intent for solid colors</source>
+      <translation>Rendering intent for solid colours</translation>
     </message>
     <message>
-        <source>Color profile for images</source>
-        <translation>Colour profile for images</translation>
+      <source>Color profile for images</source>
+      <translation>Colour profile for images</translation>
     </message>
     <message>
-        <source>Rendering intent for images</source>
-        <translation>Rendering intent for images</translation>
+      <source>Rendering intent for images</source>
+      <translation>Rendering intent for images</translation>
     </message>
     <message>
-        <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
-        <translation>Output profile for printing. If possible, get some guidance from your printer on profile selection.</translation>
+      <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
+      <translation>Output profile for printing. If possible, get some guidance from your printer on profile selection.</translation>
     </message>
     <message>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail
+      <source>Mandatory string for PDF/X-3 or the PDF will fail
 PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation>Mandatory string for PDF/X-3 or the PDF will fail
+      <translation>Mandatory string for PDF/X-3 or the PDF will fail
 PDF/X-3 conformance. We recommend you use the title of the document.</translation>
     </message>
     <message>
-        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
-        <translation>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</translation>
+      <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
+      <translation>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</translation>
     </message>
     <message>
-        <source>Choose a password for users to be able to read your PDF.</source>
-        <translation>Choose a password for users to be able to read your PDF.</translation>
+      <source>Choose a password for users to be able to read your PDF.</source>
+      <translation>Choose a password for users to be able to read your PDF.</translation>
     </message>
     <message>
-        <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
-        <translation>Allow printing of the PDF. If un-checked, printing is prevented. </translation>
+      <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
+      <translation>Allow printing of the PDF. If un-checked, printing is prevented. </translation>
     </message>
     <message>
-        <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
-        <translation>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</translation>
+      <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
+      <translation>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</translation>
     </message>
     <message>
-        <source>Allow copying of text or graphics from the PDF. 
+      <source>Allow copying of text or graphics from the PDF. 
 If un-checked, text and graphics cannot be copied.</source>
-        <translation>Allow copying of text or graphics from the PDF. 
+      <translation>Allow copying of text or graphics from the PDF. 
 If un-checked, text and graphics cannot be copied.</translation>
     </message>
     <message>
-        <source>Allow adding annotations and fields to the PDF. 
+      <source>Allow adding annotations and fields to the PDF. 
 If un-checked, editing annotations and fileds is prevented.</source>
-        <translation>Allow adding annotations and fields to the PDF. 
+      <translation>Allow adding annotations and fields to the PDF. 
 If un-checked, editing annotations and fileds is prevented.</translation>
     </message>
     <message>
-        <source>Create PDF File</source>
-        <translation>Create PDF File</translation>
+      <source>Create PDF File</source>
+      <translation>Create PDF File</translation>
     </message>
     <message>
-        <source>O&amp;utput to File:</source>
-        <translation>O&amp;utput to File:</translation>
+      <source>O&amp;utput to File:</source>
+      <translation>O&amp;utput to File:</translation>
     </message>
     <message>
-        <source>Cha&amp;nge...</source>
-        <translation>Cha&amp;nge...</translation>
+      <source>Cha&amp;nge...</source>
+      <translation>Cha&amp;nge...</translation>
     </message>
     <message>
-        <source>&amp;All Pages</source>
-        <translation>&amp;All Pages</translation>
+      <source>&amp;All Pages</source>
+      <translation>&amp;All Pages</translation>
     </message>
     <message>
-        <source>C&amp;hoose Pages</source>
-        <translation>C&amp;hoose Pages</translation>
+      <source>C&amp;hoose Pages</source>
+      <translation>C&amp;hoose Pages</translation>
     </message>
     <message>
-        <source>Compatibilit&amp;y:</source>
-        <translation>Compatibilit&amp;y:</translation>
+      <source>Compatibilit&amp;y:</source>
+      <translation>Compatibilit&amp;y:</translation>
     </message>
     <message>
-        <source>&amp;Binding:</source>
-        <translation>&amp;Binding:</translation>
+      <source>&amp;Binding:</source>
+      <translation>&amp;Binding:</translation>
     </message>
     <message>
-        <source>Generate &amp;Thumbnails</source>
-        <translation>Generate &amp;Thumbnails</translation>
+      <source>Generate &amp;Thumbnails</source>
+      <translation>Generate &amp;Thumbnails</translation>
     </message>
     <message>
-        <source>Save &amp;Linked Text Frames as PDF Articles</source>
-        <translation>Save &amp;Linked Text Frames as PDF Articles</translation>
+      <source>Save &amp;Linked Text Frames as PDF Articles</source>
+      <translation>Save &amp;Linked Text Frames as PDF Articles</translation>
     </message>
     <message>
-        <source>&amp;Include Bookmarks</source>
-        <translation>&amp;Include Bookmarks</translation>
+      <source>&amp;Include Bookmarks</source>
+      <translation>&amp;Include Bookmarks</translation>
     </message>
     <message>
-        <source>&amp;Resolution:</source>
-        <translation>&amp;Resolution:</translation>
+      <source>&amp;Resolution:</source>
+      <translation>&amp;Resolution:</translation>
     </message>
     <message>
-        <source>Com&amp;press Text and Vector Graphics</source>
-        <translation>Com&amp;press Text and Vector Graphics</translation>
+      <source>Com&amp;press Text and Vector Graphics</source>
+      <translation>Com&amp;press Text and Vector Graphics</translation>
     </message>
     <message>
-        <source>&amp;Method:</source>
-        <translation>&amp;Method:</translation>
+      <source>&amp;Method:</source>
+      <translation>&amp;Method:</translation>
     </message>
     <message>
-        <source>&amp;Quality:</source>
-        <translation>&amp;Quality:</translation>
+      <source>&amp;Quality:</source>
+      <translation>&amp;Quality:</translation>
     </message>
     <message>
-        <source>&amp;Downsample Images to:</source>
-        <translation>&amp;Downsample Images to:</translation>
+      <source>&amp;Downsample Images to:</source>
+      <translation>&amp;Downsample Images to:</translation>
     </message>
     <message>
-        <source>&amp;Embed all Fonts</source>
-        <translation>&amp;Embed all Fonts</translation>
+      <source>&amp;Embed all Fonts</source>
+      <translation>&amp;Embed all Fonts</translation>
     </message>
     <message>
-        <source>&amp;&gt;&gt;</source>
-        <translation>&amp;&gt;&gt;</translation>
+      <source>&amp;>></source>
+      <translation>&amp;>></translation>
     </message>
     <message>
-        <source>&amp;&lt;&lt;</source>
-        <translation>&amp;&lt;&lt;</translation>
+      <source>&amp;&lt;&lt;</source>
+      <translation>&amp;&lt;&lt;</translation>
     </message>
     <message>
-        <source>Enable &amp;Presentation Effects</source>
-        <translation>Enable &amp;Presentation Effects</translation>
+      <source>Enable &amp;Presentation Effects</source>
+      <translation>Enable &amp;Presentation Effects</translation>
     </message>
     <message>
-        <source>Show Page Pre&amp;views</source>
-        <translation>Show Page Pre&amp;views</translation>
+      <source>Show Page Pre&amp;views</source>
+      <translation>Show Page Pre&amp;views</translation>
     </message>
     <message>
-        <source>&amp;Display Duration:</source>
-        <translation>&amp;Display Duration:</translation>
+      <source>&amp;Display Duration:</source>
+      <translation>&amp;Display Duration:</translation>
     </message>
     <message>
-        <source>Effec&amp;t Duration:</source>
-        <translation>Effec&amp;t Duration:</translation>
+      <source>Effec&amp;t Duration:</source>
+      <translation>Effec&amp;t Duration:</translation>
     </message>
     <message>
-        <source>Effect T&amp;ype:</source>
-        <translation>Effect T&amp;ype:</translation>
+      <source>Effect T&amp;ype:</source>
+      <translation>Effect T&amp;ype:</translation>
     </message>
     <message>
-        <source>&amp;Moving Lines:</source>
-        <translation>&amp;Moving Lines:</translation>
+      <source>&amp;Moving Lines:</source>
+      <translation>&amp;Moving Lines:</translation>
     </message>
     <message>
-        <source>F&amp;rom the:</source>
-        <translation>F&amp;rom the:</translation>
+      <source>F&amp;rom the:</source>
+      <translation>F&amp;rom the:</translation>
     </message>
     <message>
-        <source>D&amp;irection:</source>
-        <translation>D&amp;irection:</translation>
+      <source>D&amp;irection:</source>
+      <translation>D&amp;irection:</translation>
     </message>
     <message>
-        <source>&amp;Apply Effect on all Pages</source>
-        <translation>&amp;Apply Effect on all Pages</translation>
+      <source>&amp;Apply Effect on all Pages</source>
+      <translation>&amp;Apply Effect on all Pages</translation>
     </message>
     <message>
-        <source>&amp;Use Encryption</source>
-        <translation>&amp;Use Encryption</translation>
+      <source>&amp;Use Encryption</source>
+      <translation>&amp;Use Encryption</translation>
     </message>
     <message>
-        <source>&amp;User:</source>
-        <translation>&amp;User:</translation>
+      <source>&amp;User:</source>
+      <translation>&amp;User:</translation>
     </message>
     <message>
-        <source>&amp;Owner:</source>
-        <translation>&amp;Owner:</translation>
+      <source>&amp;Owner:</source>
+      <translation>&amp;Owner:</translation>
     </message>
     <message>
-        <source>Allow &amp;Printing the Document</source>
-        <translation>Allow &amp;Printing the Document</translation>
+      <source>Allow &amp;Printing the Document</source>
+      <translation>Allow &amp;Printing the Document</translation>
     </message>
     <message>
-        <source>Allow &amp;Changing the Document</source>
-        <translation>Allow &amp;Changing the Document</translation>
+      <source>Allow &amp;Changing the Document</source>
+      <translation>Allow &amp;Changing the Document</translation>
     </message>
     <message>
-        <source>Allow Cop&amp;ying Text and Graphics</source>
-        <translation>Allow Cop&amp;ying Text and Graphics</translation>
+      <source>Allow Cop&amp;ying Text and Graphics</source>
+      <translation>Allow Cop&amp;ying Text and Graphics</translation>
     </message>
     <message>
-        <source>Allow Adding &amp;Annotations and Fields</source>
-        <translation>Allow Adding &amp;Annotations and Fields</translation>
+      <source>Allow Adding &amp;Annotations and Fields</source>
+      <translation>Allow Adding &amp;Annotations and Fields</translation>
     </message>
     <message>
-        <source>S&amp;ecurity</source>
-        <translation>S&amp;ecurity</translation>
+      <source>S&amp;ecurity</source>
+      <translation>S&amp;ecurity</translation>
     </message>
     <message>
-        <source>Output &amp;Intended For:</source>
-        <translation>Output &amp;Intended For:</translation>
+      <source>Output &amp;Intended For:</source>
+      <translation>Output &amp;Intended For:</translation>
     </message>
     <message>
-        <source>&amp;Use Custom Rendering Settings</source>
-        <translation>&amp;Use Custom Rendering Settings</translation>
+      <source>&amp;Use Custom Rendering Settings</source>
+      <translation>&amp;Use Custom Rendering Settings</translation>
     </message>
     <message>
-        <source>Rendering Settings</source>
-        <translation>Rendering Settings</translation>
+      <source>Rendering Settings</source>
+      <translation>Rendering Settings</translation>
     </message>
     <message>
-        <source>Fre&amp;quency:</source>
-        <translation>Fre&amp;quency:</translation>
+      <source>Fre&amp;quency:</source>
+      <translation>Fre&amp;quency:</translation>
     </message>
     <message>
-        <source>&amp;Angle:</source>
-        <translation>&amp;Angle:</translation>
+      <source>&amp;Angle:</source>
+      <translation>&amp;Angle:</translation>
     </message>
     <message>
-        <source>S&amp;pot Function:</source>
-        <translation>S&amp;pot Function:</translation>
+      <source>S&amp;pot Function:</source>
+      <translation>S&amp;pot Function:</translation>
     </message>
     <message>
-        <source>Simple Dot</source>
-        <translation>Simple Dot</translation>
+      <source>Simple Dot</source>
+      <translation>Simple Dot</translation>
     </message>
     <message>
-        <source>Line</source>
-        <translation>Line</translation>
+      <source>Line</source>
+      <translation>Line</translation>
     </message>
     <message>
-        <source>Round</source>
-        <translation>Round</translation>
+      <source>Round</source>
+      <translation>Round</translation>
     </message>
     <message>
-        <source>Ellipse</source>
-        <translation>Ellipse</translation>
+      <source>Ellipse</source>
+      <translation>Ellipse</translation>
     </message>
     <message>
-        <source>Use ICC Profile</source>
-        <translation>Use ICC Profile</translation>
+      <source>Use ICC Profile</source>
+      <translation>Use ICC Profile</translation>
     </message>
     <message>
-        <source>C&amp;olor</source>
-        <translation>C&amp;olour</translation>
+      <source>C&amp;olor</source>
+      <translation>C&amp;olour</translation>
     </message>
     <message>
-        <source>&amp;Info String:</source>
-        <translation>&amp;Info String:</translation>
+      <source>&amp;Info String:</source>
+      <translation>&amp;Info String:</translation>
     </message>
     <message>
-        <source>Output &amp;Profile:</source>
-        <translation>Output &amp;Profile:</translation>
+      <source>Output &amp;Profile:</source>
+      <translation>Output &amp;Profile:</translation>
     </message>
     <message>
-        <source>PDF/X-&amp;3</source>
-        <translation>PDF/X-&amp;3</translation>
+      <source>PDF/X-&amp;3</source>
+      <translation>PDF/X-&amp;3</translation>
     </message>
     <message>
-        <source>&amp;Save</source>
-        <translation>&amp;Save</translation>
+      <source>&amp;Save</source>
+      <translation>&amp;Save</translation>
     </message>
     <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Cancel</translation>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
     </message>
     <message>
-        <source>Insert a comma separated list of tokens where
+      <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
-        <translation>Insert a comma separated list of tokens where
+      <translation>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</translation>
     </message>
     <message>
-        <source>PDF Files (*.pdf);;All Files (*)</source>
-        <translation>PDF Files (*.pdf);;All Files (*)</translation>
+      <source>PDF Files (*.pdf);;All Files (*)</source>
+      <translation>PDF Files (*.pdf);;All Files (*)</translation>
     </message>
     <message>
-        <source>This is an advanced setting which is not enabled by default. This should only be enabled
+      <source>This is an advanced setting which is not enabled by default. This should only be enabled
 when specifically requested by your printer and they have given you the exact details needed.
 Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
-        <translation type="unfinished"></translation>
+      <translation>This is an advanced setting which is not enabled by default. This should only be enabled
+when specifically requested by your printer and they have given you the exact details needed.
+Otherwise, your exported PDF may not print properly and is truly not portable across systems.</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>PPreview</name>
     <message>
-        <source>Print Preview</source>
-        <translation>Print Preview</translation>
+      <source>Print Preview</source>
+      <translation>Print Preview</translation>
     </message>
     <message>
-        <source>All</source>
-        <translation>All</translation>
+      <source>All</source>
+      <translation>All</translation>
     </message>
     <message>
-        <source>Provides a more pleasant view of text items in the viewer, at the expense
+      <source>Provides a more pleasant view of text items in the viewer, at the expense
 of a slight slowdown in previewing. This only affects Type 1 fonts</source>
-        <translation>Provides a more pleasant view of text items in the viewer, at the expense
+      <translation>Provides a more pleasant view of text items in the viewer, at the expense
 of a slight slowdown in previewing. This only affects Type 1 fonts</translation>
     </message>
     <message>
-        <source>Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF and
+      <source>Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF and
 vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation>Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF and
+      <translation>Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF and
 vector graphics in the preview, at the expense of a slight slowdown in previewing</translation>
     </message>
     <message>
-        <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</source>
-        <translation>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</translation>
+      <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</source>
+      <translation>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</translation>
     </message>
     <message>
-        <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
-        <translation>Gives a print preview using simulations of generic CMYK inks, instead of RGB colours</translation>
+      <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
+      <translation>Gives a print preview using simulations of generic CMYK inks, instead of RGB colours</translation>
     </message>
     <message>
-        <source>Enable/disable the C (Cyan) ink plate</source>
-        <translation>Enable/disable the C (Cyan) ink plate</translation>
+      <source>Enable/disable the C (Cyan) ink plate</source>
+      <translation>Enable/disable the C (Cyan) ink plate</translation>
     </message>
     <message>
-        <source>Enable/disable the M (Magenta) ink plate</source>
-        <translation>Enable/disable the M (Magenta) ink plate</translation>
+      <source>Enable/disable the M (Magenta) ink plate</source>
+      <translation>Enable/disable the M (Magenta) ink plate</translation>
     </message>
     <message>
-        <source>Enable/disable the Y (Yellow) ink plate</source>
-        <translation>Enable/disable the Y (Yellow) ink plate</translation>
+      <source>Enable/disable the Y (Yellow) ink plate</source>
+      <translation>Enable/disable the Y (Yellow) ink plate</translation>
     </message>
     <message>
-        <source>Enable/disable the K (Black) ink plate</source>
-        <translation>Enable/disable the K (Black) ink plate</translation>
+      <source>Enable/disable the K (Black) ink plate</source>
+      <translation>Enable/disable the K (Black) ink plate</translation>
     </message>
     <message>
-        <source>Anti-alias &amp;Text</source>
-        <translation>Anti-alias &amp;Text</translation>
+      <source>Anti-alias &amp;Text</source>
+      <translation>Anti-alias &amp;Text</translation>
     </message>
     <message>
-        <source>Anti-alias &amp;Graphics</source>
-        <translation>Anti-alias &amp;Graphics</translation>
+      <source>Anti-alias &amp;Graphics</source>
+      <translation>Anti-alias &amp;Graphics</translation>
     </message>
     <message>
-        <source>Display Trans&amp;parency</source>
-        <translation>Display Trans&amp;parency</translation>
+      <source>Display Trans&amp;parency</source>
+      <translation>Display Trans&amp;parency</translation>
     </message>
     <message>
-        <source>&amp;Display CMYK</source>
-        <translation>&amp;Display CMYK</translation>
+      <source>&amp;Display CMYK</source>
+      <translation>&amp;Display CMYK</translation>
     </message>
     <message>
-        <source>&amp;C</source>
-        <translation>&amp;C</translation>
+      <source>&amp;C</source>
+      <translation>&amp;C</translation>
     </message>
     <message>
-        <source>&amp;M</source>
-        <translation>&amp;M</translation>
+      <source>&amp;M</source>
+      <translation>&amp;M</translation>
     </message>
     <message>
-        <source>&amp;Y</source>
-        <translation>&amp;Y</translation>
+      <source>&amp;Y</source>
+      <translation>&amp;Y</translation>
     </message>
     <message>
-        <source>&amp;K</source>
-        <translation>&amp;K</translation>
+      <source>&amp;K</source>
+      <translation>&amp;K</translation>
     </message>
     <message>
-        <source>&amp;Under Color Removal</source>
-        <translation type="unfinished"></translation>
+      <source>&amp;Under Color Removal</source>
+      <translation>&amp;Under Colour Removal</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>Page</name>
     <message>
-        <source>Copy Here</source>
-        <translation>Copy Here</translation>
+      <source>Copy Here</source>
+      <translation>Copy Here</translation>
     </message>
     <message>
-        <source>Move Here</source>
-        <translation>Move Here</translation>
+      <source>Move Here</source>
+      <translation>Move Here</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation>Cancel</translation>
+      <source>Cancel</source>
+      <translation>Cancel</translation>
     </message>
     <message>
-        <source>Picture</source>
-        <translation>Picture</translation>
+      <source>Picture</source>
+      <translation>Picture</translation>
     </message>
     <message>
-        <source>File: </source>
-        <translation>File </translation>
+      <source>File: </source>
+      <translation>File </translation>
     </message>
     <message>
-        <source>Linked Text</source>
-        <translation>Linked Text</translation>
+      <source>Linked Text</source>
+      <translation>Linked Text</translation>
     </message>
     <message>
-        <source>Text Frame</source>
-        <translation>Text Frame</translation>
+      <source>Text Frame</source>
+      <translation>Text Frame</translation>
     </message>
     <message>
-        <source>Text on a Path</source>
-        <translation>Text on a Path</translation>
+      <source>Text on a Path</source>
+      <translation>Text on a Path</translation>
     </message>
     <message>
-        <source>Paragraphs: </source>
-        <translation>Paragraphs: </translation>
+      <source>Paragraphs: </source>
+      <translation>Paragraphs: </translation>
     </message>
     <message>
-        <source>Words: </source>
-        <translation>Words: </translation>
+      <source>Words: </source>
+      <translation>Words: </translation>
     </message>
     <message>
-        <source>Chars: </source>
-        <translation>Chars: </translation>
+      <source>Chars: </source>
+      <translation>Chars: </translation>
     </message>
     <message>
-        <source>Print: </source>
-        <translation>Print: </translation>
+      <source>Print: </source>
+      <translation>Print: </translation>
     </message>
     <message>
-        <source>Enabled</source>
-        <translation>Enabled</translation>
+      <source>Enabled</source>
+      <translation>Enabled</translation>
     </message>
     <message>
-        <source>Disabled</source>
-        <translation>Disabled</translation>
+      <source>Disabled</source>
+      <translation>Disabled</translation>
     </message>
     <message>
-        <source>Edit Text...</source>
-        <translation>Edit Text...</translation>
+      <source>Edit Text...</source>
+      <translation>Edit Text...</translation>
     </message>
     <message>
-        <source>None</source>
-        <translation>None</translation>
+      <source>None</source>
+      <translation>None</translation>
     </message>
     <message>
-        <source>The Program</source>
-        <translation>The Program</translation>
+      <source>The Program</source>
+      <translation>The Program</translation>
     </message>
     <message>
-        <source>is missing!</source>
-        <translation>is missing!</translation>
+      <source>is missing!</source>
+      <translation>is missing!</translation>
     </message>
     <message>
-        <source>Warning</source>
-        <translation>Warning</translation>
+      <source>Warning</source>
+      <translation>Warning</translation>
     </message>
     <message>
-        <source>Copy of</source>
-        <translation>Copy of</translation>
+      <source>Copy of</source>
+      <translation>Copy of</translation>
     </message>
     <message>
-        <source>&amp;Paste</source>
-        <translation>&amp;Paste</translation>
+      <source>&amp;Paste</source>
+      <translation>&amp;Paste</translation>
     </message>
     <message>
-        <source>Show &amp;Margins</source>
-        <translation>Show &amp;Margins</translation>
+      <source>Show &amp;Margins</source>
+      <translation>Show &amp;Margins</translation>
     </message>
     <message>
-        <source>Show &amp;Frames</source>
-        <translation>Show &amp;Frames</translation>
+      <source>Show &amp;Frames</source>
+      <translation>Show &amp;Frames</translation>
     </message>
     <message>
-        <source>Show &amp;Images</source>
-        <translation>Show &amp;Images</translation>
+      <source>Show &amp;Images</source>
+      <translation>Show &amp;Images</translation>
     </message>
     <message>
-        <source>Show &amp;Grid</source>
-        <translation>Show &amp;Grid</translation>
+      <source>Show &amp;Grid</source>
+      <translation>Show &amp;Grid</translation>
     </message>
     <message>
-        <source>Show G&amp;uides</source>
-        <translation>Show G&amp;uides</translation>
+      <source>Show G&amp;uides</source>
+      <translation>Show G&amp;uides</translation>
     </message>
     <message>
-        <source>Show &amp;Baseline Grid</source>
-        <translation>Show &amp;Baseline Grid</translation>
+      <source>Show &amp;Baseline Grid</source>
+      <translation>Show &amp;Baseline Grid</translation>
     </message>
     <message>
-        <source>Sn&amp;ap to Grid</source>
-        <translation>Sn&amp;ap to Grid</translation>
+      <source>Sn&amp;ap to Grid</source>
+      <translation>Sn&amp;ap to Grid</translation>
     </message>
     <message>
-        <source>Sna&amp;p to Guides</source>
-        <translation>Sna&amp;p to Guides</translation>
+      <source>Sna&amp;p to Guides</source>
+      <translation>Sna&amp;p to Guides</translation>
     </message>
     <message>
-        <source>Original PPI: </source>
-        <translation>Original PPI: </translation>
+      <source>Original PPI: </source>
+      <translation>Original PPI: </translation>
     </message>
     <message>
-        <source>Actual PPI: </source>
-        <translation>Actual PPI: </translation>
+      <source>Actual PPI: </source>
+      <translation>Actual PPI: </translation>
     </message>
     <message>
-        <source>In&amp;fo</source>
-        <translation>In&amp;fo</translation>
+      <source>In&amp;fo</source>
+      <translation>In&amp;fo</translation>
     </message>
     <message>
-        <source>&amp;Get Picture...</source>
-        <translation>&amp;Get Picture...</translation>
+      <source>&amp;Get Picture...</source>
+      <translation>&amp;Get Picture...</translation>
     </message>
     <message>
-        <source>I&amp;mage Visible</source>
-        <translation>I&amp;mage Visible</translation>
+      <source>I&amp;mage Visible</source>
+      <translation>I&amp;mage Visible</translation>
     </message>
     <message>
-        <source>&amp;Update Picture</source>
-        <translation>&amp;Update Picture</translation>
+      <source>&amp;Update Picture</source>
+      <translation>&amp;Update Picture</translation>
     </message>
     <message>
-        <source>&amp;Edit Picture</source>
-        <translation>&amp;Edit Picture</translation>
+      <source>&amp;Edit Picture</source>
+      <translation>&amp;Edit Picture</translation>
     </message>
     <message>
-        <source>&amp;Adjust Frame to Picture</source>
-        <translation>&amp;Adjust Frame to Picture</translation>
+      <source>&amp;Adjust Frame to Picture</source>
+      <translation>&amp;Adjust Frame to Picture</translation>
     </message>
     <message>
-        <source>&amp;Get Text...</source>
-        <translation>&amp;Get Text...</translation>
+      <source>&amp;Get Text...</source>
+      <translation>&amp;Get Text...</translation>
     </message>
     <message>
-        <source>&amp;Append Text...</source>
-        <translation>&amp;Append Text...</translation>
+      <source>&amp;Append Text...</source>
+      <translation>&amp;Append Text...</translation>
     </message>
     <message>
-        <source>&amp;Edit Text...</source>
-        <translation>&amp;Edit Text...</translation>
+      <source>&amp;Edit Text...</source>
+      <translation>&amp;Edit Text...</translation>
     </message>
     <message>
-        <source>&amp;Insert Sample Text</source>
-        <translation>&amp;Insert Sample Text</translation>
+      <source>&amp;Insert Sample Text</source>
+      <translation>&amp;Insert Sample Text</translation>
     </message>
     <message>
-        <source>Is PDF &amp;Bookmark</source>
-        <translation>Is PDF &amp;Bookmark</translation>
+      <source>Is PDF &amp;Bookmark</source>
+      <translation>Is PDF &amp;Bookmark</translation>
     </message>
     <message>
-        <source>Is PDF A&amp;nnotation</source>
-        <translation>Is PDF A&amp;nnotation</translation>
+      <source>Is PDF A&amp;nnotation</source>
+      <translation>Is PDF A&amp;nnotation</translation>
     </message>
     <message>
-        <source>Annotation P&amp;roperties</source>
-        <translation>Annotation P&amp;roperties</translation>
+      <source>Annotation P&amp;roperties</source>
+      <translation>Annotation P&amp;roperties</translation>
     </message>
     <message>
-        <source>Field P&amp;roperties</source>
-        <translation>Field P&amp;roperties</translation>
+      <source>Field P&amp;roperties</source>
+      <translation>Field P&amp;roperties</translation>
     </message>
     <message>
-        <source>&amp;PDF Options</source>
-        <translation>&amp;PDF Options</translation>
+      <source>&amp;PDF Options</source>
+      <translation>&amp;PDF Options</translation>
     </message>
     <message>
-        <source>&amp;Lock</source>
-        <translation>&amp;Lock</translation>
+      <source>&amp;Lock</source>
+      <translation>&amp;Lock</translation>
     </message>
     <message>
-        <source>Un&amp;lock</source>
-        <translation>Un&amp;lock</translation>
+      <source>Un&amp;lock</source>
+      <translation>Un&amp;lock</translation>
     </message>
     <message>
-        <source>Lock Object &amp;Size</source>
-        <translation>Lock Object &amp;Size</translation>
+      <source>Lock Object &amp;Size</source>
+      <translation>Lock Object &amp;Size</translation>
     </message>
     <message>
-        <source>Unlock Object &amp;Size</source>
-        <translation>Unlock Object &amp;Size</translation>
+      <source>Unlock Object &amp;Size</source>
+      <translation>Unlock Object &amp;Size</translation>
     </message>
     <message>
-        <source>Send to S&amp;crapbook</source>
-        <translation>Send to S&amp;crapbook</translation>
+      <source>Send to S&amp;crapbook</source>
+      <translation>Send to S&amp;crapbook</translation>
     </message>
     <message>
-        <source>Send to La&amp;yer</source>
-        <translation>Send to La&amp;yer</translation>
+      <source>Send to La&amp;yer</source>
+      <translation>Send to La&amp;yer</translation>
     </message>
     <message>
-        <source>&amp;Group</source>
-        <translation>&amp;Group</translation>
+      <source>&amp;Group</source>
+      <translation>&amp;Group</translation>
     </message>
     <message>
-        <source>Un&amp;group</source>
-        <translation>Un&amp;group</translation>
+      <source>Un&amp;group</source>
+      <translation>Un&amp;group</translation>
     </message>
     <message>
-        <source>Le&amp;vel</source>
-        <translation>Le&amp;vel</translation>
+      <source>Le&amp;vel</source>
+      <translation>Le&amp;vel</translation>
     </message>
     <message>
-        <source>Send to &amp;Back</source>
-        <translation>Send to &amp;Back</translation>
+      <source>Send to &amp;Back</source>
+      <translation>Send to &amp;Back</translation>
     </message>
     <message>
-        <source>Bring to &amp;Front</source>
-        <translation>Bring to &amp;Front</translation>
+      <source>Bring to &amp;Front</source>
+      <translation>Bring to &amp;Front</translation>
     </message>
     <message>
-        <source>&amp;Lower</source>
-        <translation>&amp;Lower</translation>
+      <source>&amp;Lower</source>
+      <translation>&amp;Lower</translation>
     </message>
     <message>
-        <source>&amp;Raise</source>
-        <translation>&amp;Raise</translation>
+      <source>&amp;Raise</source>
+      <translation>&amp;Raise</translation>
     </message>
     <message>
-        <source>&amp;Picture Frame</source>
-        <translation>&amp;Picture Frame</translation>
+      <source>&amp;Picture Frame</source>
+      <translation>&amp;Picture Frame</translation>
     </message>
     <message>
-        <source>Pol&amp;ygon</source>
-        <translation>Pol&amp;ygon</translation>
+      <source>Pol&amp;ygon</source>
+      <translation>Pol&amp;ygon</translation>
     </message>
     <message>
-        <source>&amp;Outlines</source>
-        <translation>&amp;Outlines</translation>
+      <source>&amp;Outlines</source>
+      <translation>&amp;Outlines</translation>
     </message>
     <message>
-        <source>&amp;Text Frame</source>
-        <translation>&amp;Text Frame</translation>
+      <source>&amp;Text Frame</source>
+      <translation>&amp;Text Frame</translation>
     </message>
     <message>
-        <source>&amp;Bezier Curve</source>
-        <translation>&amp;Bezier Curve</translation>
+      <source>&amp;Bezier Curve</source>
+      <translation>&amp;Bezier Curve</translation>
     </message>
     <message>
-        <source>Conve&amp;rt to</source>
-        <translation>Conve&amp;rt to</translation>
+      <source>Conve&amp;rt to</source>
+      <translation>Conve&amp;rt to</translation>
     </message>
     <message>
-        <source>Cu&amp;t</source>
-        <translation>Cu&amp;t</translation>
+      <source>Cu&amp;t</source>
+      <translation>Cu&amp;t</translation>
     </message>
     <message>
-        <source>&amp;Copy</source>
-        <translation>&amp;Copy</translation>
+      <source>&amp;Copy</source>
+      <translation>&amp;Copy</translation>
     </message>
     <message>
-        <source>&amp;Delete</source>
-        <translation>&amp;Delete</translation>
+      <source>&amp;Delete</source>
+      <translation>&amp;Delete</translation>
     </message>
     <message>
-        <source>C&amp;lear Contents</source>
-        <translation>C&amp;lear Contents</translation>
+      <source>C&amp;lear Contents</source>
+      <translation>C&amp;lear Contents</translation>
     </message>
     <message>
-        <source>Show P&amp;roperties...</source>
-        <translation>Show P&amp;roperties...</translation>
+      <source>Show P&amp;roperties...</source>
+      <translation>Show P&amp;roperties...</translation>
     </message>
     <message>
-        <source>Hide P&amp;roperties...</source>
-        <translation>Hide P&amp;roperties...</translation>
+      <source>Hide P&amp;roperties...</source>
+      <translation>Hide P&amp;roperties...</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>PageItem</name>
     <message>
-        <source>Image</source>
-        <translation>Image</translation>
+      <source>Image</source>
+      <translation>Image</translation>
     </message>
     <message>
-        <source>Text</source>
-        <translation>Text</translation>
+      <source>Text</source>
+      <translation>Text</translation>
     </message>
     <message>
-        <source>Line</source>
-        <translation>Line</translation>
+      <source>Line</source>
+      <translation>Line</translation>
     </message>
     <message>
-        <source>Polygon</source>
-        <translation>Polygon</translation>
+      <source>Polygon</source>
+      <translation>Polygon</translation>
     </message>
     <message>
-        <source>Polyline</source>
-        <translation>Polyline</translation>
+      <source>Polyline</source>
+      <translation>Polyline</translation>
     </message>
     <message>
-        <source>PathText</source>
-        <translation>PathText</translation>
+      <source>PathText</source>
+      <translation>PathText</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>PageSelector</name>
     <message>
-        <source>Page </source>
-        <translation>Page </translation>
+      <source>Page </source>
+      <translation>Page </translation>
     </message>
     <message>
-        <source> of %1</source>
-        <translation> of %1</translation>
+      <source> of %1</source>
+      <translation> of %1</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>PicSearch</name>
     <message>
-        <source>Result</source>
-        <translation>Result</translation>
+      <source>Result</source>
+      <translation>Result</translation>
     </message>
     <message>
-        <source>Search Results for: </source>
-        <translation>Search Results for: </translation>
+      <source>Search Results for: </source>
+      <translation>Search Results for: </translation>
     </message>
     <message>
-        <source>Preview</source>
-        <translation>Preview</translation>
+      <source>Preview</source>
+      <translation>Preview</translation>
     </message>
     <message>
-        <source>Select</source>
-        <translation>Select</translation>
+      <source>Select</source>
+      <translation>Select</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation>Cancel</translation>
+      <source>Cancel</source>
+      <translation>Cancel</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>PicStatus</name>
     <message>
-        <source>Pictures</source>
-        <translation>Pictures</translation>
+      <source>Pictures</source>
+      <translation>Pictures</translation>
     </message>
     <message>
-        <source>Goto</source>
-        <translation>Goto</translation>
+      <source>Goto</source>
+      <translation>Goto</translation>
     </message>
     <message>
-        <source>Yes</source>
-        <translation>Yes</translation>
+      <source>Yes</source>
+      <translation>Yes</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation>OK</translation>
+      <source>OK</source>
+      <translation>OK</translation>
     </message>
     <message>
-        <source>Missing</source>
-        <translation>Missing</translation>
+      <source>Missing</source>
+      <translation>Missing</translation>
     </message>
     <message>
-        <source>Search</source>
-        <translation>Search</translation>
+      <source>Search</source>
+      <translation>Search</translation>
     </message>
     <message>
-        <source>Name</source>
-        <translation>Name</translation>
+      <source>Name</source>
+      <translation>Name</translation>
     </message>
     <message>
-        <source>Path</source>
-        <translation>Path</translation>
+      <source>Path</source>
+      <translation>Path</translation>
     </message>
     <message>
-        <source>Page</source>
-        <translation>Page</translation>
+      <source>Page</source>
+      <translation>Page</translation>
     </message>
     <message>
-        <source>Print</source>
-        <translation>Print</translation>
+      <source>Print</source>
+      <translation>Print</translation>
     </message>
     <message>
-        <source>Status</source>
-        <translation>Status</translation>
+      <source>Status</source>
+      <translation>Status</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>PolygonProps</name>
     <message>
-        <source>Polygon Properties</source>
-        <translation>Polygon Properties</translation>
+      <source>Polygon Properties</source>
+      <translation>Polygon Properties</translation>
     </message>
     <message>
-        <source>Corners:</source>
-        <translation>Corners:</translation>
+      <source>Corners:</source>
+      <translation>Corners:</translation>
     </message>
     <message>
-        <source>Rotation:</source>
-        <translation>Rotation:</translation>
+      <source>Rotation:</source>
+      <translation>Rotation:</translation>
     </message>
     <message>
-        <source>Convex Polygon</source>
-        <translation>Convex Polygon</translation>
+      <source>Convex Polygon</source>
+      <translation>Convex Polygon</translation>
     </message>
     <message>
-        <source>Factor:</source>
-        <translation>Factor:</translation>
+      <source>Factor:</source>
+      <translation>Factor:</translation>
     </message>
     <message>
-        <source> %</source>
-        <translation> %</translation>
+      <source> %</source>
+      <translation> %</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation>OK</translation>
+      <source>OK</source>
+      <translation>OK</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation>Cancel</translation>
+      <source>Cancel</source>
+      <translation>Cancel</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>Preferences</name>
     <message>
-        <source>Preferences</source>
-        <translation>Preferences</translation>
+      <source>Preferences</source>
+      <translation>Preferences</translation>
     </message>
     <message>
-        <source>General</source>
-        <translation>General</translation>
+      <source>General</source>
+      <translation>General</translation>
     </message>
     <message>
-        <source>Document</source>
-        <translation>Document</translation>
+      <source>Document</source>
+      <translation>Document</translation>
     </message>
     <message>
-        <source>Guides</source>
-        <translation>Guides</translation>
+      <source>Guides</source>
+      <translation>Guides</translation>
     </message>
     <message>
-        <source>Typography</source>
-        <translation>Typography</translation>
+      <source>Typography</source>
+      <translation>Typography</translation>
     </message>
     <message>
-        <source>Tools</source>
-        <translation>Tools</translation>
+      <source>Tools</source>
+      <translation>Tools</translation>
     </message>
     <message>
-        <source>Scrapbook</source>
-        <translation>Scrapbook</translation>
+      <source>Scrapbook</source>
+      <translation>Scrapbook</translation>
     </message>
     <message>
-        <source>Display</source>
-        <translation>Display</translation>
+      <source>Display</source>
+      <translation>Display</translation>
     </message>
     <message>
-        <source>GUI</source>
-        <translation>GUI</translation>
+      <source>GUI</source>
+      <translation>GUI</translation>
     </message>
     <message>
-        <source> pts</source>
-        <translation type="obsolete"> pts</translation>
+      <source>Units</source>
+      <translation>Units</translation>
     </message>
     <message>
-        <source>Units</source>
-        <translation>Units</translation>
+      <source>Points (pt)</source>
+      <translation>Points (pt)</translation>
     </message>
     <message>
-        <source>Points (pt)</source>
-        <translation>Points (pt)</translation>
+      <source>Millimetres (mm)</source>
+      <translation>Millimetres (mm)</translation>
     </message>
     <message>
-        <source>Millimetres (mm)</source>
-        <translation>Millimetres (mm)</translation>
+      <source>Inches (in)</source>
+      <translation>Inches (in)</translation>
     </message>
     <message>
-        <source>Inches (in)</source>
-        <translation>Inches (in)</translation>
+      <source>Picas (p)</source>
+      <translation>Picas (p)</translation>
     </message>
     <message>
-        <source>Picas (p)</source>
-        <translation>Picas (p)</translation>
+      <source>Menus</source>
+      <translation>Menus</translation>
     </message>
     <message>
-        <source>Menus</source>
-        <translation>Menus</translation>
+      <source>Paths</source>
+      <translation>Paths</translation>
     </message>
     <message>
-        <source>Paths</source>
-        <translation>Paths</translation>
+      <source>Page Size</source>
+      <translation>Page Size</translation>
     </message>
     <message>
-        <source>Page Size</source>
-        <translation>Page Size</translation>
+      <source>Custom</source>
+      <translation>Custom</translation>
     </message>
     <message>
-        <source>Custom</source>
-        <translation>Custom</translation>
+      <source>Portrait</source>
+      <translation>Portrait</translation>
     </message>
     <message>
-        <source>Portrait</source>
-        <translation>Portrait</translation>
+      <source>Landscape</source>
+      <translation>Landscape</translation>
     </message>
     <message>
-        <source>Landscape</source>
-        <translation>Landscape</translation>
+      <source>Margin Guides</source>
+      <translation>Margin Guides</translation>
     </message>
     <message>
-        <source>Margin Guides</source>
-        <translation>Margin Guides</translation>
+      <source>Autosave</source>
+      <translation>Autosave</translation>
     </message>
     <message>
-        <source>Autosave</source>
-        <translation>Autosave</translation>
+      <source>min</source>
+      <translation>min</translation>
     </message>
     <message>
-        <source>min</source>
-        <translation>min</translation>
+      <source>Grid Layout</source>
+      <translation>Grid Layout</translation>
     </message>
     <message>
-        <source>Grid Layout</source>
-        <translation>Grid Layout</translation>
+      <source>Grid Colors</source>
+      <translation>Grid Colours</translation>
     </message>
     <message>
-        <source>Grid Colors</source>
-        <translation>Grid Colours</translation>
+      <source>Placing</source>
+      <translation>Placing</translation>
     </message>
     <message>
-        <source>Placing</source>
-        <translation>Placing</translation>
+      <source>Subscript</source>
+      <translation>Subscript</translation>
     </message>
     <message>
-        <source>Subscript</source>
-        <translation>Subscript</translation>
+      <source> %</source>
+      <translation> %</translation>
     </message>
     <message>
-        <source> %</source>
-        <translation> %</translation>
+      <source>Superscript</source>
+      <translation>Superscript</translation>
     </message>
     <message>
-        <source>Superscript</source>
-        <translation>Superscript</translation>
+      <source>Small Caps</source>
+      <translation>Small Caps</translation>
     </message>
     <message>
-        <source>Small Caps</source>
-        <translation>Small Caps</translation>
+      <source>Other</source>
+      <translation>Other</translation>
     </message>
     <message>
-        <source>Other</source>
-        <translation>Other</translation>
+      <source> pt</source>
+      <translation> pt</translation>
     </message>
     <message>
-        <source> pt</source>
-        <translation> pt</translation>
+      <source>Woven silk pyjamas exchanged for blue quartz</source>
+      <translation>Woven silk pyjamas exchanged for blue quartz</translation>
     </message>
     <message>
-        <source>Woven silk pyjamas exchanged for blue quartz</source>
-        <translation>Woven silk pyjamas exchanged for blue quartz</translation>
+      <source>None</source>
+      <translation>None</translation>
     </message>
     <message>
-        <source>None</source>
-        <translation>None</translation>
+      <source>Other Options</source>
+      <translation>Other Options</translation>
     </message>
     <message>
-        <source>Other Options</source>
-        <translation>Other Options</translation>
+      <source>Preview</source>
+      <translation>Preview</translation>
     </message>
     <message>
-        <source>Preview</source>
-        <translation>Preview</translation>
+      <source>Small</source>
+      <translation>Small</translation>
     </message>
     <message>
-        <source>Small</source>
-        <translation>Small</translation>
+      <source>Medium</source>
+      <translation>Medium</translation>
     </message>
     <message>
-        <source>Medium</source>
-        <translation>Medium</translation>
+      <source>To adjust the display drag the ruler below with the Slider.</source>
+      <translation>To adjust the display drag the ruler below with the Slider.</translation>
     </message>
     <message>
-        <source>To adjust the display drag the ruler below with the Slider.</source>
-        <translation>To adjust the display drag the ruler below with the Slider.</translation>
+      <source>Choose a Directory</source>
+      <translation>Choose a Directory</translation>
     </message>
     <message>
-        <source>Choose a Directory</source>
-        <translation>Choose a Directory</translation>
+      <source> mm</source>
+      <translation> mm</translation>
     </message>
     <message>
-        <source> mm</source>
-        <translation> mm</translation>
+      <source> in</source>
+      <translation> in</translation>
     </message>
     <message>
-        <source> in</source>
-        <translation> in</translation>
+      <source> p</source>
+      <translation> p</translation>
     </message>
     <message>
-        <source> p</source>
-        <translation> p</translation>
+      <source>External Tools</source>
+      <translation>External Tools</translation>
     </message>
     <message>
-        <source>External Tools</source>
-        <translation>External Tools</translation>
+      <source>Misc.</source>
+      <translation>Misc.</translation>
     </message>
     <message>
-        <source>Misc.</source>
-        <translation>Misc.</translation>
+      <source>Postscript Interpreter</source>
+      <translation>Postscript Interpreter</translation>
     </message>
     <message>
-        <source>Postscript Interpreter</source>
-        <translation>Postscript Interpreter</translation>
+      <source>Image Processing Tool</source>
+      <translation>Image Processing Tool</translation>
     </message>
     <message>
-        <source>Image Processing Tool</source>
-        <translation>Image Processing Tool</translation>
+      <source>Printing</source>
+      <translation>Printing</translation>
     </message>
     <message>
-        <source>Printing</source>
-        <translation>Printing</translation>
-    </message>
-    <message>
-        <source>Choose the default window decoration and looks.
+      <source>Choose the default window decoration and looks.
 Scribus inherits any available KDE or Qt themes</source>
-        <translation>Choose the default window decoration and looks.
+      <translation>Choose the default window decoration and looks.
 Scribus inherits any available KDE or Qt themes</translation>
     </message>
     <message>
-        <source>Default font size for the menus and windows</source>
-        <translation>Default font size for the menus and windows</translation>
+      <source>Default font size for the menus and windows</source>
+      <translation>Default font size for the menus and windows</translation>
     </message>
     <message>
-        <source>Default unit of measurement for document editing</source>
-        <translation>Default unit of measurement for document editing</translation>
+      <source>Default unit of measurement for document editing</source>
+      <translation>Default unit of measurement for document editing</translation>
     </message>
     <message>
-        <source>Number of lines Scribus will scroll for each move of the mouse wheel</source>
-        <translation>Number of lines Scribus will scroll for each move of the mouse wheel</translation>
+      <source>Number of lines Scribus will scroll for each move of the mouse wheel</source>
+      <translation>Number of lines Scribus will scroll for each move of the mouse wheel</translation>
     </message>
     <message>
-        <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
-        <translation>Radius of the area where Scribus will allow you to grab an objects handles</translation>
+      <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
+      <translation>Radius of the area where Scribus will allow you to grab an objects handles</translation>
     </message>
     <message>
-        <source>Number of recently edited documents to show in the File menu</source>
-        <translation>Number of recently edited documents to show in the File menu</translation>
+      <source>Number of recently edited documents to show in the File menu</source>
+      <translation>Number of recently edited documents to show in the File menu</translation>
     </message>
     <message>
-        <source>Default documents directory</source>
-        <translation>Default documents directory</translation>
+      <source>Default documents directory</source>
+      <translation>Default documents directory</translation>
     </message>
     <message>
-        <source>Default ICC profiles directory</source>
-        <translation>Default ICC profiles directory</translation>
+      <source>Default ICC profiles directory</source>
+      <translation>Default ICC profiles directory</translation>
     </message>
     <message>
-        <source>Default Scripter scripts directory</source>
-        <translation>Default Scripter scripts directory</translation>
+      <source>Default Scripter scripts directory</source>
+      <translation>Default Scripter scripts directory</translation>
     </message>
     <message>
-        <source>Default page size, either a standard size or a custom size</source>
-        <translation>Default page size, either a standard size or a custom size</translation>
+      <source>Default page size, either a standard size or a custom size</source>
+      <translation>Default page size, either a standard size or a custom size</translation>
     </message>
     <message>
-        <source>Default orientation of document pages</source>
-        <translation>Default orientation of document pages</translation>
+      <source>Default orientation of document pages</source>
+      <translation>Default orientation of document pages</translation>
     </message>
     <message>
-        <source>Width of document pages, editable if you have chosen a custom page size</source>
-        <translation>Width of document pages, editable if you have chosen a custom page size</translation>
+      <source>Width of document pages, editable if you have chosen a custom page size</source>
+      <translation>Width of document pages, editable if you have chosen a custom page size</translation>
     </message>
     <message>
-        <source>Height of document pages, editable if you have chosen a custom page size</source>
-        <translation>Height of document pages, editable if you have chosen a custom page size</translation>
+      <source>Height of document pages, editable if you have chosen a custom page size</source>
+      <translation>Height of document pages, editable if you have chosen a custom page size</translation>
     </message>
     <message>
-        <source>Enable single or spread based layout</source>
-        <translation>Enable single or spread based layout</translation>
+      <source>Enable single or spread based layout</source>
+      <translation>Enable single or spread based layout</translation>
     </message>
     <message>
-        <source>Make the first page the left page of a document</source>
-        <translation>Make the first page the left page of a document</translation>
+      <source>Make the first page the left page of a document</source>
+      <translation>Make the first page the left page of a document</translation>
     </message>
     <message>
-        <source>Distance between the top margin guide and the edge of the page</source>
-        <translation>Distance between the top margin guide and the edge of the page</translation>
+      <source>Distance between the top margin guide and the edge of the page</source>
+      <translation>Distance between the top margin guide and the edge of the page</translation>
     </message>
     <message>
-        <source>Distance between the bottom margin guide and the edge of the page</source>
-        <translation>Distance between the bottom margin guide and the edge of the page</translation>
+      <source>Distance between the bottom margin guide and the edge of the page</source>
+      <translation>Distance between the bottom margin guide and the edge of the page</translation>
     </message>
     <message>
-        <source>Distance between the left margin guide and the edge of the page.
+      <source>Distance between the left margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Distance between the left margin guide and the edge of the page.
+      <translation>Distance between the left margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</translation>
     </message>
     <message>
-        <source>Distance between the right margin guide and the edge of the page.
+      <source>Distance between the right margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Distance between the right margin guide and the edge of the page.
+      <translation>Distance between the right margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</translation>
     </message>
     <message>
-        <source>When enabled, Scribus saves a backup copy of your file with the .bak extension
+      <source>When enabled, Scribus saves a backup copy of your file with the .bak extension
 each time the time period elapses</source>
-        <translation>When enabled, Scribus saves a backup copy of your file with the .bak extension
+      <translation>When enabled, Scribus saves a backup copy of your file with the .bak extension
 each time the time period elapses</translation>
     </message>
     <message>
-        <source>Time period between saving automatically</source>
-        <translation>Time period between saving automatically</translation>
+      <source>Time period between saving automatically</source>
+      <translation>Time period between saving automatically</translation>
     </message>
     <message>
-        <source>Distance between the minor grid lines</source>
-        <translation>Distance between the minor grid lines</translation>
+      <source>Distance between the minor grid lines</source>
+      <translation>Distance between the minor grid lines</translation>
     </message>
     <message>
-        <source>Distance between the major grid lines</source>
-        <translation>Distance between the major grid lines</translation>
+      <source>Distance between the major grid lines</source>
+      <translation>Distance between the major grid lines</translation>
     </message>
     <message>
-        <source>Distance within which an object will snap to your placed guides</source>
-        <translation>Distance within which an object will snap to your placed guides</translation>
+      <source>Distance within which an object will snap to your placed guides</source>
+      <translation>Distance within which an object will snap to your placed guides</translation>
     </message>
     <message>
-        <source>Color of the minor grid lines</source>
-        <translation>Colour of the minor grid lines</translation>
+      <source>Color of the minor grid lines</source>
+      <translation>Colour of the minor grid lines</translation>
     </message>
     <message>
-        <source>Color of the major grid lines</source>
-        <translation>Colour of the major grid lines</translation>
+      <source>Color of the major grid lines</source>
+      <translation>Colour of the major grid lines</translation>
     </message>
     <message>
-        <source>Color of the guide lines you insert</source>
-        <translation>Colour of the guide lines you insert</translation>
+      <source>Color of the guide lines you insert</source>
+      <translation>Colour of the guide lines you insert</translation>
     </message>
     <message>
-        <source>Place the grid behind your page objects</source>
-        <translation>Place the grid behind your page objects</translation>
+      <source>Place the grid behind your page objects</source>
+      <translation>Place the grid behind your page objects</translation>
     </message>
     <message>
-        <source>Place the grid in front of your page objects</source>
-        <translation>Place the grid in front of your page objects</translation>
+      <source>Place the grid in front of your page objects</source>
+      <translation>Place the grid in front of your page objects</translation>
     </message>
     <message>
-        <source>Displacement above the baseline of the font on a line</source>
-        <translation>Displacement above the baseline of the font on a line</translation>
+      <source>Displacement above the baseline of the font on a line</source>
+      <translation>Displacement above the baseline of the font on a line</translation>
     </message>
     <message>
-        <source>Relative size of the superscript compared to the normal font</source>
-        <translation>Relative size of the superscript compared to the normal font</translation>
+      <source>Relative size of the superscript compared to the normal font</source>
+      <translation>Relative size of the superscript compared to the normal font</translation>
     </message>
     <message>
-        <source>Displacement below the baseline of the normal font on a line</source>
-        <translation>Displacement below the baseline of the normal font on a line</translation>
+      <source>Displacement below the baseline of the normal font on a line</source>
+      <translation>Displacement below the baseline of the normal font on a line</translation>
     </message>
     <message>
-        <source>Relative size of the subscript compared to the normal font</source>
-        <translation>Relative size of the subscript compared to the normal font</translation>
+      <source>Relative size of the subscript compared to the normal font</source>
+      <translation>Relative size of the subscript compared to the normal font</translation>
     </message>
     <message>
-        <source>Relative size of the small caps font compared to the normal font</source>
-        <translation>Relative size of the small caps font compared to the normal font</translation>
+      <source>Relative size of the small caps font compared to the normal font</source>
+      <translation>Relative size of the small caps font compared to the normal font</translation>
     </message>
     <message>
-        <source>Percentage increase over the font size for the line spacing</source>
-        <translation>Percentage increase over the font size for the line spacing</translation>
+      <source>Percentage increase over the font size for the line spacing</source>
+      <translation>Percentage increase over the font size for the line spacing</translation>
     </message>
     <message>
-        <source>Text Frame Properties</source>
-        <translation>Text Frame Properties</translation>
+      <source>Text Frame Properties</source>
+      <translation>Text Frame Properties</translation>
     </message>
     <message>
-        <source>Picture Frame Properties</source>
-        <translation>Picture Frame Properties</translation>
+      <source>Picture Frame Properties</source>
+      <translation>Picture Frame Properties</translation>
     </message>
     <message>
-        <source>Shape Drawing Properties</source>
-        <translation>Shape Drawing Properties</translation>
+      <source>Shape Drawing Properties</source>
+      <translation>Shape Drawing Properties</translation>
     </message>
     <message>
-        <source>Magnification Level Defaults</source>
-        <translation>Magnification Level Defaults</translation>
+      <source>Magnification Level Defaults</source>
+      <translation>Magnification Level Defaults</translation>
     </message>
     <message>
-        <source>Line Drawing Properties</source>
-        <translation>Line Drawing Properties</translation>
+      <source>Line Drawing Properties</source>
+      <translation>Line Drawing Properties</translation>
     </message>
     <message>
-        <source>Polygon Drawing Properties</source>
-        <translation>Polygon Drawing Properties</translation>
+      <source>Polygon Drawing Properties</source>
+      <translation>Polygon Drawing Properties</translation>
     </message>
     <message>
-        <source>Font for new text frames</source>
-        <translation>Font for new text frames</translation>
+      <source>Font for new text frames</source>
+      <translation>Font for new text frames</translation>
     </message>
     <message>
-        <source>Size of font for new text frames</source>
-        <translation>Size of font for new text frames</translation>
+      <source>Size of font for new text frames</source>
+      <translation>Size of font for new text frames</translation>
     </message>
     <message>
-        <source>Color of font</source>
-        <translation>Colour of font</translation>
+      <source>Color of font</source>
+      <translation>Colour of font</translation>
     </message>
     <message>
-        <source>Number of columns in a text frame</source>
-        <translation>Number of columns in a text frame</translation>
+      <source>Number of columns in a text frame</source>
+      <translation>Number of columns in a text frame</translation>
     </message>
     <message>
-        <source>Gap between text frame columns</source>
-        <translation>Gap between text frame columns</translation>
+      <source>Gap between text frame columns</source>
+      <translation>Gap between text frame columns</translation>
     </message>
     <message>
-        <source>Sample of your font</source>
-        <translation>Sample of your font</translation>
+      <source>Sample of your font</source>
+      <translation>Sample of your font</translation>
     </message>
     <message>
-        <source>Picture frames allow pictures to scale to any size</source>
-        <translation>Picture frames allow pictures to scale to any size</translation>
+      <source>Picture frames allow pictures to scale to any size</source>
+      <translation>Picture frames allow pictures to scale to any size</translation>
     </message>
     <message>
-        <source>Horizontal scaling of images</source>
-        <translation>Horizontal scaling of images</translation>
+      <source>Horizontal scaling of images</source>
+      <translation>Horizontal scaling of images</translation>
     </message>
     <message>
-        <source>Vertical scaling of images</source>
-        <translation>Vertical scaling of images</translation>
+      <source>Vertical scaling of images</source>
+      <translation>Vertical scaling of images</translation>
     </message>
     <message>
-        <source>Keep horizontal and vertical scaling the same</source>
-        <translation>Keep horizontal and vertical scaling the same</translation>
+      <source>Keep horizontal and vertical scaling the same</source>
+      <translation>Keep horizontal and vertical scaling the same</translation>
     </message>
     <message>
-        <source>Pictures in picture frames are scaled to the size of the frame</source>
-        <translation>Pictures in picture frames are scaled to the size of the frame</translation>
+      <source>Pictures in picture frames are scaled to the size of the frame</source>
+      <translation>Pictures in picture frames are scaled to the size of the frame</translation>
     </message>
     <message>
-        <source>Automatically scaled pictures keep their original proportions</source>
-        <translation>Automatically scaled pictures keep their original proportions</translation>
+      <source>Automatically scaled pictures keep their original proportions</source>
+      <translation>Automatically scaled pictures keep their original proportions</translation>
     </message>
     <message>
-        <source>Fill color of picture frames</source>
-        <translation>Fill colour of picture frames</translation>
+      <source>Fill color of picture frames</source>
+      <translation>Fill colour of picture frames</translation>
     </message>
     <message>
-        <source>Saturation of color of fill</source>
-        <translation>Saturation of colour of fill</translation>
+      <source>Saturation of color of fill</source>
+      <translation>Saturation of colour of fill</translation>
     </message>
     <message>
-        <source>Line color of shapes</source>
-        <translation>Line colour of shapes</translation>
+      <source>Line color of shapes</source>
+      <translation>Line colour of shapes</translation>
     </message>
     <message>
-        <source>Saturation of color of lines</source>
-        <translation>Saturation of colour of lines</translation>
+      <source>Saturation of color of lines</source>
+      <translation>Saturation of colour of lines</translation>
     </message>
     <message>
-        <source>Fill color of shapes</source>
-        <translation>Fill colour of shapes</translation>
+      <source>Fill color of shapes</source>
+      <translation>Fill colour of shapes</translation>
     </message>
     <message>
-        <source>Line style of shapes</source>
-        <translation>Line style of shapes</translation>
+      <source>Line style of shapes</source>
+      <translation>Line style of shapes</translation>
     </message>
     <message>
-        <source>Line width of shapes</source>
-        <translation>Line width of shapes</translation>
+      <source>Line width of shapes</source>
+      <translation>Line width of shapes</translation>
     </message>
     <message>
-        <source>Minimum magnification allowed</source>
-        <translation>Minimum magnification allowed</translation>
+      <source>Minimum magnification allowed</source>
+      <translation>Minimum magnification allowed</translation>
     </message>
     <message>
-        <source>Maximum magnification allowed</source>
-        <translation>Maximum magnification allowed</translation>
+      <source>Maximum magnification allowed</source>
+      <translation>Maximum magnification allowed</translation>
     </message>
     <message>
-        <source>Change in magnification for each zoom operation</source>
-        <translation>Change in magnification for each zoom operation</translation>
+      <source>Change in magnification for each zoom operation</source>
+      <translation>Change in magnification for each zoom operation</translation>
     </message>
     <message>
-        <source>Color of lines</source>
-        <translation>Colour of lines</translation>
+      <source>Color of lines</source>
+      <translation>Colour of lines</translation>
     </message>
     <message>
-        <source>Saturation of color</source>
-        <translation>Saturation of colour</translation>
+      <source>Saturation of color</source>
+      <translation>Saturation of colour</translation>
     </message>
     <message>
-        <source>Style of lines</source>
-        <translation>Style of lines</translation>
+      <source>Style of lines</source>
+      <translation>Style of lines</translation>
     </message>
     <message>
-        <source>Width of lines</source>
-        <translation>Width of lines</translation>
+      <source>Width of lines</source>
+      <translation>Width of lines</translation>
     </message>
     <message>
-        <source>Number of corners for polygons</source>
-        <translation>Number of corners for polygons</translation>
+      <source>Number of corners for polygons</source>
+      <translation>Number of corners for polygons</translation>
     </message>
     <message>
-        <source>Degrees of rotation for polygons</source>
-        <translation>Degrees of rotation for polygons</translation>
+      <source>Degrees of rotation for polygons</source>
+      <translation>Degrees of rotation for polygons</translation>
     </message>
     <message>
-        <source>Polygons will be convex rather than concave</source>
-        <translation>Polygons will be convex rather than concave</translation>
+      <source>Polygons will be convex rather than concave</source>
+      <translation>Polygons will be convex rather than concave</translation>
     </message>
     <message>
-        <source>Sample Polygon</source>
-        <translation>Sample Polygon</translation>
+      <source>Sample Polygon</source>
+      <translation>Sample Polygon</translation>
     </message>
     <message>
-        <source>Change the angles at which lines of the polygon join</source>
-        <translation>Change the angles at which lines of the polygon join</translation>
+      <source>Change the angles at which lines of the polygon join</source>
+      <translation>Change the angles at which lines of the polygon join</translation>
     </message>
     <message>
-        <source>Choose the size of the preview in the scrapbook palette</source>
-        <translation>Choose the size of the preview in the scrapbook palette</translation>
+      <source>Choose the size of the preview in the scrapbook palette</source>
+      <translation>Choose the size of the preview in the scrapbook palette</translation>
     </message>
     <message>
-        <source>When using facing pages, show the two pages side by side</source>
-        <translation>When using facing pages, show the two pages side by side</translation>
+      <source>When using facing pages, show the two pages side by side</source>
+      <translation>When using facing pages, show the two pages side by side</translation>
     </message>
     <message>
-        <source>Color for paper</source>
-        <translation>Colour for paper</translation>
+      <source>Color for paper</source>
+      <translation>Colour for paper</translation>
     </message>
     <message>
-        <source>Color for the margin lines</source>
-        <translation>Colour for the margin lines</translation>
+      <source>Color for the margin lines</source>
+      <translation>Colour for the margin lines</translation>
     </message>
     <message>
-        <source>Mask the area outside the margins in the margin color</source>
-        <translation>Mask the area outside the margins in the margin colour</translation>
+      <source>Mask the area outside the margins in the margin color</source>
+      <translation>Mask the area outside the margins in the margin colour</translation>
     </message>
     <message>
-        <source>Enable transparency features within PDF 1.4 export</source>
-        <translation>Enable transparency features within PDF 1.4 export</translation>
+      <source>Enable transparency features within PDF 1.4 export</source>
+      <translation>Enable transparency features within PDF 1.4 export</translation>
     </message>
     <message>
-        <source>Set the default zoom level</source>
-        <translation>Set the default zoom level</translation>
+      <source>Set the default zoom level</source>
+      <translation>Set the default zoom level</translation>
     </message>
     <message>
-        <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation>Filesystem location for the Ghostscript interpreter</translation>
+      <source>Filesystem location for the Ghostscript interpreter</source>
+      <translation>Filesystem location for the Ghostscript interpreter</translation>
     </message>
     <message>
-        <source>Antialias text for EPS and PDF onscreen rendering</source>
-        <translation>Antialias text for EPS and PDF onscreen rendering</translation>
+      <source>Antialias text for EPS and PDF onscreen rendering</source>
+      <translation>Antialias text for EPS and PDF onscreen rendering</translation>
     </message>
     <message>
-        <source>Antialias graphics for EPS and PDF onscreen rendering</source>
-        <translation>Antialias graphics for EPS and PDF onscreen rendering</translation>
+      <source>Antialias graphics for EPS and PDF onscreen rendering</source>
+      <translation>Antialias graphics for EPS and PDF onscreen rendering</translation>
     </message>
     <message>
-        <source>Do not show objects outside the margins on the printed page or exported file</source>
-        <translation>Do not show objects outside the margins on the printed page or exported file</translation>
+      <source>Do not show objects outside the margins on the printed page or exported file</source>
+      <translation>Do not show objects outside the margins on the printed page or exported file</translation>
     </message>
     <message>
-        <source>Save the scrapbook contents everytime after a change</source>
-        <translation>Save the scrapbook contents everytime after a change</translation>
+      <source>Save the scrapbook contents everytime after a change</source>
+      <translation>Save the scrapbook contents everytime after a change</translation>
     </message>
     <message>
-        <source>Filesystem location for graphics editor</source>
-        <translation>Filesystem location for graphics editor</translation>
+      <source>Filesystem location for graphics editor</source>
+      <translation>Filesystem location for graphics editor</translation>
     </message>
     <message>
-        <source> px</source>
-        <translation> px</translation>
+      <source> px</source>
+      <translation> px</translation>
     </message>
     <message>
-        <source>Baseline Grid</source>
-        <translation>Baseline Grid</translation>
+      <source>Baseline Grid</source>
+      <translation>Baseline Grid</translation>
     </message>
     <message>
-        <source>Turns on the basegrid</source>
-        <translation>Turns on the basegrid</translation>
+      <source>Turns on the basegrid</source>
+      <translation>Turns on the basegrid</translation>
     </message>
     <message>
-        <source>Turns off the basegrid</source>
-        <translation>Turns off the basegrid</translation>
+      <source>Turns off the basegrid</source>
+      <translation>Turns off the basegrid</translation>
     </message>
     <message>
-        <source>&amp;Theme:</source>
-        <translation>&amp;Theme:</translation>
+      <source>&amp;Theme:</source>
+      <translation>&amp;Theme:</translation>
     </message>
     <message>
-        <source>&amp;Font Size:</source>
-        <translation>&amp;Font Size:</translation>
+      <source>&amp;Font Size:</source>
+      <translation>&amp;Font Size:</translation>
     </message>
     <message>
-        <source>Mouse Settings</source>
-        <translation>Mouse Settings</translation>
+      <source>Mouse Settings</source>
+      <translation>Mouse Settings</translation>
     </message>
     <message>
-        <source>&amp;Wheel Jump:</source>
-        <translation>&amp;Wheel Jump:</translation>
+      <source>&amp;Wheel Jump:</source>
+      <translation>&amp;Wheel Jump:</translation>
     </message>
     <message>
-        <source>&amp;Grab Radius:</source>
-        <translation>&amp;Grab Radius:</translation>
+      <source>&amp;Grab Radius:</source>
+      <translation>&amp;Grab Radius:</translation>
     </message>
     <message>
-        <source>&amp;Recent Documents:</source>
-        <translation>&amp;Recent Documents:</translation>
+      <source>&amp;Recent Documents:</source>
+      <translation>&amp;Recent Documents:</translation>
     </message>
     <message>
-        <source>&amp;Documents:</source>
-        <translation>&amp;Documents:</translation>
+      <source>&amp;Documents:</source>
+      <translation>&amp;Documents:</translation>
     </message>
     <message>
-        <source>&amp;Change...</source>
-        <translation>&amp;Change...</translation>
+      <source>&amp;Change...</source>
+      <translation>&amp;Change...</translation>
     </message>
     <message>
-        <source>&amp;ICC Profiles:</source>
-        <translation>&amp;ICC Profiles:</translation>
+      <source>&amp;ICC Profiles:</source>
+      <translation>&amp;ICC Profiles:</translation>
     </message>
     <message>
-        <source>C&amp;hange...</source>
-        <translation>C&amp;hange...</translation>
+      <source>C&amp;hange...</source>
+      <translation>C&amp;hange...</translation>
     </message>
     <message>
-        <source>&amp;Scripts:</source>
-        <translation>&amp;Scripts:</translation>
+      <source>&amp;Scripts:</source>
+      <translation>&amp;Scripts:</translation>
     </message>
     <message>
-        <source>Ch&amp;ange...</source>
-        <translation>Ch&amp;ange...</translation>
+      <source>Ch&amp;ange...</source>
+      <translation>Ch&amp;ange...</translation>
     </message>
     <message>
-        <source>&amp;Size:</source>
-        <translation>&amp;Size:</translation>
+      <source>&amp;Size:</source>
+      <translation>&amp;Size:</translation>
     </message>
     <message>
-        <source>Orie&amp;ntation:</source>
-        <translation>Orie&amp;ntation:</translation>
+      <source>Orie&amp;ntation:</source>
+      <translation>Orie&amp;ntation:</translation>
     </message>
     <message>
-        <source>&amp;Width:</source>
-        <translation>&amp;Width:</translation>
+      <source>&amp;Width:</source>
+      <translation>&amp;Width:</translation>
     </message>
     <message>
-        <source>&amp;Height:</source>
-        <translation>&amp;Height:</translation>
+      <source>&amp;Height:</source>
+      <translation>&amp;Height:</translation>
     </message>
     <message>
-        <source>&amp;Facing Pages</source>
-        <translation>&amp;Facing Pages</translation>
+      <source>&amp;Facing Pages</source>
+      <translation>&amp;Facing Pages</translation>
     </message>
     <message>
-        <source>Left &amp;Page First</source>
-        <translation>Left &amp;Page First</translation>
+      <source>Left &amp;Page First</source>
+      <translation>Left &amp;Page First</translation>
     </message>
     <message>
-        <source>&amp;Bottom:</source>
-        <translation>&amp;Bottom:</translation>
+      <source>&amp;Bottom:</source>
+      <translation>&amp;Bottom:</translation>
     </message>
     <message>
-        <source>&amp;Top:</source>
-        <translation>&amp;Top:</translation>
+      <source>&amp;Top:</source>
+      <translation>&amp;Top:</translation>
     </message>
     <message>
-        <source>&amp;Right:</source>
-        <translation>&amp;Right:</translation>
+      <source>&amp;Right:</source>
+      <translation>&amp;Right:</translation>
     </message>
     <message>
-        <source>&amp;Left:</source>
-        <translation>&amp;Left:</translation>
+      <source>&amp;Left:</source>
+      <translation>&amp;Left:</translation>
     </message>
     <message>
-        <source>&amp;Enabled</source>
-        <translation>&amp;Enabled</translation>
+      <source>&amp;Enabled</source>
+      <translation>&amp;Enabled</translation>
     </message>
     <message>
-        <source>&amp;Interval:</source>
-        <translation>&amp;Interval:</translation>
+      <source>&amp;Interval:</source>
+      <translation>&amp;Interval:</translation>
     </message>
     <message>
-        <source>M&amp;inor Grid Spacing:</source>
-        <translation>M&amp;inor Grid Spacing:</translation>
+      <source>M&amp;inor Grid Spacing:</source>
+      <translation>M&amp;inor Grid Spacing:</translation>
     </message>
     <message>
-        <source>Ma&amp;jor Grid Spacing:</source>
-        <translation>Ma&amp;jor Grid Spacing:</translation>
+      <source>Ma&amp;jor Grid Spacing:</source>
+      <translation>Ma&amp;jor Grid Spacing:</translation>
     </message>
     <message>
-        <source>Guide &amp;Snap Distance:</source>
-        <translation>Guide &amp;Snap Distance:</translation>
+      <source>Guide &amp;Snap Distance:</source>
+      <translation>Guide &amp;Snap Distance:</translation>
     </message>
     <message>
-        <source>Min&amp;or Grid Color:</source>
-        <translation>Min&amp;or Grid Colour:</translation>
+      <source>Min&amp;or Grid Color:</source>
+      <translation>Min&amp;or Grid Colour:</translation>
     </message>
     <message>
-        <source>Majo&amp;r Grid Color:</source>
-        <translation>Majo&amp;r Grid Colour:</translation>
+      <source>Majo&amp;r Grid Color:</source>
+      <translation>Majo&amp;r Grid Colour:</translation>
     </message>
     <message>
-        <source>&amp;User Guides Color:</source>
-        <translation>&amp;User Guides Colour:</translation>
+      <source>&amp;User Guides Color:</source>
+      <translation>&amp;User Guides Colour:</translation>
     </message>
     <message>
-        <source>Base&amp;line Grid Color:</source>
-        <translation>Base&amp;line Grid Colour:</translation>
+      <source>Base&amp;line Grid Color:</source>
+      <translation>Base&amp;line Grid Colour:</translation>
     </message>
     <message>
-        <source>In the &amp;Background</source>
-        <translation>In the &amp;Background</translation>
+      <source>In the &amp;Background</source>
+      <translation>In the &amp;Background</translation>
     </message>
     <message>
-        <source>In the Fore&amp;ground</source>
-        <translation>In the Fore&amp;ground</translation>
+      <source>In the Fore&amp;ground</source>
+      <translation>In the Fore&amp;ground</translation>
     </message>
     <message>
-        <source>O&amp;n</source>
-        <translation>O&amp;n</translation>
+      <source>O&amp;n</source>
+      <translation>O&amp;n</translation>
     </message>
     <message>
-        <source>O&amp;ff</source>
-        <translation>O&amp;ff</translation>
+      <source>O&amp;ff</source>
+      <translation>O&amp;ff</translation>
     </message>
     <message>
-        <source>&amp;Displacement:</source>
-        <translation>&amp;Displacement:</translation>
+      <source>&amp;Displacement:</source>
+      <translation>&amp;Displacement:</translation>
     </message>
     <message>
-        <source>&amp;Scaling:</source>
-        <translation>&amp;Scaling:</translation>
+      <source>&amp;Scaling:</source>
+      <translation>&amp;Scaling:</translation>
     </message>
     <message>
-        <source>D&amp;isplacement:</source>
-        <translation>D&amp;isplacement:</translation>
+      <source>D&amp;isplacement:</source>
+      <translation>D&amp;isplacement:</translation>
     </message>
     <message>
-        <source>S&amp;caling:</source>
-        <translation>S&amp;caling:</translation>
+      <source>S&amp;caling:</source>
+      <translation>S&amp;caling:</translation>
     </message>
     <message>
-        <source>Sc&amp;aling:</source>
-        <translation>Sc&amp;aling:</translation>
+      <source>Sc&amp;aling:</source>
+      <translation>Sc&amp;aling:</translation>
     </message>
     <message>
-        <source>Baseline &amp;Grid:</source>
-        <translation>Baseline &amp;Grid:</translation>
+      <source>Baseline &amp;Grid:</source>
+      <translation>Baseline &amp;Grid:</translation>
     </message>
     <message>
-        <source>Baseline &amp;Offset:</source>
-        <translation>Baseline &amp;Offset:</translation>
+      <source>Baseline &amp;Offset:</source>
+      <translation>Baseline &amp;Offset:</translation>
     </message>
     <message>
-        <source>Automatic &amp;Line Spacing:</source>
-        <translation>Automatic &amp;Line Spacing:</translation>
+      <source>Automatic &amp;Line Spacing:</source>
+      <translation>Automatic &amp;Line Spacing:</translation>
     </message>
     <message>
-        <source>Default &amp;Font:</source>
-        <translation>Default &amp;Font:</translation>
+      <source>Default &amp;Font:</source>
+      <translation>Default &amp;Font:</translation>
     </message>
     <message>
-        <source>Default &amp;Size:</source>
-        <translation>Default &amp;Size:</translation>
+      <source>Default &amp;Size:</source>
+      <translation>Default &amp;Size:</translation>
     </message>
     <message>
-        <source>&amp;Text Color:</source>
-        <translation>&amp;Text Colour:</translation>
+      <source>&amp;Text Color:</source>
+      <translation>&amp;Text Colour:</translation>
     </message>
     <message>
-        <source>Colu&amp;mns:</source>
-        <translation>Colu&amp;mns:</translation>
+      <source>Colu&amp;mns:</source>
+      <translation>Colu&amp;mns:</translation>
     </message>
     <message>
-        <source>&amp;Gap:</source>
-        <translation>&amp;Gap:</translation>
+      <source>&amp;Gap:</source>
+      <translation>&amp;Gap:</translation>
     </message>
     <message>
-        <source>&amp;Line Color:</source>
-        <translation>&amp;Line Colour:</translation>
+      <source>&amp;Line Color:</source>
+      <translation>&amp;Line Colour:</translation>
     </message>
     <message>
-        <source>&amp;Shading:</source>
-        <translation>&amp;Shading:</translation>
+      <source>&amp;Shading:</source>
+      <translation>&amp;Shading:</translation>
     </message>
     <message>
-        <source>&amp;Fill Color:</source>
-        <translation>&amp;Fill Colour:</translation>
+      <source>&amp;Fill Color:</source>
+      <translation>&amp;Fill Colour:</translation>
     </message>
     <message>
-        <source>S&amp;hading:</source>
-        <translation>S&amp;hading:</translation>
+      <source>S&amp;hading:</source>
+      <translation>S&amp;hading:</translation>
     </message>
     <message>
-        <source>&amp;Type of Line:</source>
-        <translation>&amp;Type of Line:</translation>
+      <source>&amp;Type of Line:</source>
+      <translation>&amp;Type of Line:</translation>
     </message>
     <message>
-        <source>Line &amp;Width:</source>
-        <translation>Line &amp;Width:</translation>
+      <source>Line &amp;Width:</source>
+      <translation>Line &amp;Width:</translation>
     </message>
     <message>
-        <source>Mi&amp;nimum:</source>
-        <translation>Mi&amp;nimum:</translation>
+      <source>Mi&amp;nimum:</source>
+      <translation>Mi&amp;nimum:</translation>
     </message>
     <message>
-        <source>Ma&amp;ximum:</source>
-        <translation>Ma&amp;ximum:</translation>
+      <source>Ma&amp;ximum:</source>
+      <translation>Ma&amp;ximum:</translation>
     </message>
     <message>
-        <source>&amp;Stepping:</source>
-        <translation>&amp;Stepping:</translation>
+      <source>&amp;Stepping:</source>
+      <translation>&amp;Stepping:</translation>
     </message>
     <message>
-        <source>&amp;Free Scaling</source>
-        <translation>&amp;Free Scaling</translation>
+      <source>&amp;Free Scaling</source>
+      <translation>&amp;Free Scaling</translation>
     </message>
     <message>
-        <source>&amp;Horizontal Scaling:</source>
-        <translation>&amp;Horizontal Scaling:</translation>
+      <source>&amp;Horizontal Scaling:</source>
+      <translation>&amp;Horizontal Scaling:</translation>
     </message>
     <message>
-        <source>&amp;Vertical Scaling:</source>
-        <translation>&amp;Vertical Scaling:</translation>
+      <source>&amp;Vertical Scaling:</source>
+      <translation>&amp;Vertical Scaling:</translation>
     </message>
     <message>
-        <source>&amp;Scale Picture to Frame Size</source>
-        <translation>&amp;Scale Picture to Frame Size</translation>
+      <source>&amp;Scale Picture to Frame Size</source>
+      <translation>&amp;Scale Picture to Frame Size</translation>
     </message>
     <message>
-        <source>Keep Aspect &amp;Ratio</source>
-        <translation>Keep Aspect &amp;Ratio</translation>
+      <source>Keep Aspect &amp;Ratio</source>
+      <translation>Keep Aspect &amp;Ratio</translation>
     </message>
     <message>
-        <source>F&amp;ill Color:</source>
-        <translation>F&amp;ill Colour:</translation>
+      <source>F&amp;ill Color:</source>
+      <translation>F&amp;ill Colour:</translation>
     </message>
     <message>
-        <source>Corn&amp;ers:</source>
-        <translation>Corn&amp;ers:</translation>
+      <source>Corn&amp;ers:</source>
+      <translation>Corn&amp;ers:</translation>
     </message>
     <message>
-        <source>&amp;Rotation:</source>
-        <translation>&amp;Rotation:</translation>
+      <source>&amp;Rotation:</source>
+      <translation>&amp;Rotation:</translation>
     </message>
     <message>
-        <source>Conve&amp;x Polygon</source>
-        <translation>Conve&amp;x Polygon</translation>
+      <source>Conve&amp;x Polygon</source>
+      <translation>Conve&amp;x Polygon</translation>
     </message>
     <message>
-        <source>&amp;Factor:</source>
-        <translation>&amp;Factor:</translation>
+      <source>&amp;Factor:</source>
+      <translation>&amp;Factor:</translation>
     </message>
     <message>
-        <source>Sa&amp;ve Contents on Changes</source>
-        <translation>Sa&amp;ve Contents on Changes</translation>
+      <source>Sa&amp;ve Contents on Changes</source>
+      <translation>Sa&amp;ve Contents on Changes</translation>
     </message>
     <message>
-        <source>Large</source>
-        <translation>Large</translation>
+      <source>Large</source>
+      <translation>Large</translation>
     </message>
     <message>
-        <source>Display Pages &amp;Side by Side</source>
-        <translation>Display Pages &amp;Side by Side</translation>
+      <source>Display Pages &amp;Side by Side</source>
+      <translation>Display Pages &amp;Side by Side</translation>
     </message>
     <message>
-        <source>Page Colors</source>
-        <translation>Page Colours</translation>
+      <source>Page Colors</source>
+      <translation>Page Colours</translation>
     </message>
     <message>
-        <source>&amp;Background:</source>
-        <translation>&amp;Background:</translation>
+      <source>&amp;Background:</source>
+      <translation>&amp;Background:</translation>
     </message>
     <message>
-        <source>&amp;Margins:</source>
-        <translation>&amp;Margins:</translation>
+      <source>&amp;Margins:</source>
+      <translation>&amp;Margins:</translation>
     </message>
     <message>
-        <source>Display &amp;Unprintable Area in Margin Color</source>
-        <translation>Display &amp;Unprintable Area in Margin Colour</translation>
+      <source>Display &amp;Unprintable Area in Margin Color</source>
+      <translation>Display &amp;Unprintable Area in Margin Colour</translation>
     </message>
     <message>
-        <source>Use PDF 1.4 &amp;Transparency Features</source>
-        <translation>Use PDF 1.4 &amp;Transparency Features</translation>
+      <source>Use PDF 1.4 &amp;Transparency Features</source>
+      <translation>Use PDF 1.4 &amp;Transparency Features</translation>
     </message>
     <message>
-        <source>&amp;Adjust Display Size</source>
-        <translation>&amp;Adjust Display Size</translation>
+      <source>&amp;Adjust Display Size</source>
+      <translation>&amp;Adjust Display Size</translation>
     </message>
     <message>
-        <source>&amp;Name of Executable:</source>
-        <translation>&amp;Name of Executable:</translation>
+      <source>&amp;Name of Executable:</source>
+      <translation>&amp;Name of Executable:</translation>
     </message>
     <message>
-        <source>Antialias &amp;Text</source>
-        <translation>Antialias &amp;Text</translation>
+      <source>Antialias &amp;Text</source>
+      <translation>Antialias &amp;Text</translation>
     </message>
     <message>
-        <source>Antialias &amp;Graphics</source>
-        <translation>Antialias &amp;Graphics</translation>
+      <source>Antialias &amp;Graphics</source>
+      <translation>Antialias &amp;Graphics</translation>
     </message>
     <message>
-        <source>Name of &amp;Executable:</source>
-        <translation>Name of &amp;Executable:</translation>
+      <source>Name of &amp;Executable:</source>
+      <translation>Name of &amp;Executable:</translation>
     </message>
     <message>
-        <source>Clip to Page &amp;Margins</source>
-        <translation>Clip to Page &amp;Margins</translation>
+      <source>Clip to Page &amp;Margins</source>
+      <translation>Clip to Page &amp;Margins</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
     </message>
     <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Cancel</translation>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
     </message>
     <message>
-        <source>&amp;Inside:</source>
-        <translation>&amp;Inside:</translation>
+      <source>&amp;Inside:</source>
+      <translation>&amp;Inside:</translation>
     </message>
     <message>
-        <source>O&amp;utside:</source>
-        <translation>O&amp;utside:</translation>
+      <source>O&amp;utside:</source>
+      <translation>O&amp;utside:</translation>
     </message>
     <message>
-        <source>Apply &amp;Under Color Removal</source>
-        <translation type="unfinished"></translation>
+      <source>Apply &amp;Under Color Removal</source>
+      <translation>Apply &amp;Under Colour Removal</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>QColorDialog</name>
     <message>
-        <source>Hu&amp;e:</source>
-        <translation>Hu&amp;e:</translation>
+      <source>Hu&amp;e:</source>
+      <translation>Hu&amp;e:</translation>
     </message>
     <message>
-        <source>&amp;Sat:</source>
-        <translation>&amp;Sat:</translation>
+      <source>&amp;Sat:</source>
+      <translation>&amp;Sat:</translation>
     </message>
     <message>
-        <source>&amp;Val:</source>
-        <translation>&amp;Val:</translation>
+      <source>&amp;Val:</source>
+      <translation>&amp;Val:</translation>
     </message>
     <message>
-        <source>&amp;Red:</source>
-        <translation>&amp;Red:</translation>
+      <source>&amp;Red:</source>
+      <translation>&amp;Red:</translation>
     </message>
     <message>
-        <source>&amp;Green:</source>
-        <translation>&amp;Green:</translation>
+      <source>&amp;Green:</source>
+      <translation>&amp;Green:</translation>
     </message>
     <message>
-        <source>Bl&amp;ue:</source>
-        <translation>Bl&amp;ue:</translation>
+      <source>Bl&amp;ue:</source>
+      <translation>Bl&amp;ue:</translation>
     </message>
     <message>
-        <source>A&amp;lpha channel:</source>
-        <translation>A&amp;lpha channel:</translation>
+      <source>A&amp;lpha channel:</source>
+      <translation>A&amp;lpha channel:</translation>
     </message>
     <message>
-        <source>&amp;Basic colors</source>
-        <translation>&amp;Basic colours</translation>
+      <source>&amp;Basic colors</source>
+      <translation>&amp;Basic colours</translation>
     </message>
     <message>
-        <source>&amp;Custom colors</source>
-        <translation>&amp;Custom colours</translation>
+      <source>&amp;Custom colors</source>
+      <translation>&amp;Custom colours</translation>
     </message>
     <message>
-        <source>&amp;Define Custom Colors &gt;&gt;</source>
-        <translation>&amp;Define Custom Colours &gt;&gt;</translation>
+      <source>&amp;Define Custom Colors >></source>
+      <translation>&amp;Define Custom Colours >></translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation>OK</translation>
+      <source>OK</source>
+      <translation>OK</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation>Cancel</translation>
+      <source>Cancel</source>
+      <translation>Cancel</translation>
     </message>
     <message>
-        <source>&amp;Add to Custom Colors</source>
-        <translation>&amp;Add to Custom Colours</translation>
+      <source>&amp;Add to Custom Colors</source>
+      <translation>&amp;Add to Custom Colours</translation>
     </message>
     <message>
-        <source>Select color</source>
-        <translation>Select colour</translation>
+      <source>Select color</source>
+      <translation>Select colour</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>QFileDialog</name>
     <message>
-        <source>Copy or Move a File</source>
-        <translation>Copy or Move a File</translation>
+      <source>Copy or Move a File</source>
+      <translation>Copy or Move a File</translation>
     </message>
     <message>
-        <source>Read: %1</source>
-        <translation>Read: %1</translation>
+      <source>Read: %1</source>
+      <translation>Read: %1</translation>
     </message>
     <message>
-        <source>Write: %1</source>
-        <translation>Write: %1</translation>
+      <source>Write: %1</source>
+      <translation>Write: %1</translation>
     </message>
     <message>
-        <source>File &amp;name:</source>
-        <translation>File &amp;name:</translation>
+      <source>File &amp;name:</source>
+      <translation>File &amp;name:</translation>
     </message>
     <message>
-        <source>File &amp;type:</source>
-        <translation>File &amp;type:</translation>
+      <source>File &amp;type:</source>
+      <translation>File &amp;type:</translation>
     </message>
     <message>
-        <source>One directory up</source>
-        <translation>One directory up</translation>
+      <source>One directory up</source>
+      <translation>One directory up</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation>Cancel</translation>
+      <source>Cancel</source>
+      <translation>Cancel</translation>
     </message>
     <message>
-        <source>All Files (*)</source>
-        <translation>All Files (*)</translation>
+      <source>All Files (*)</source>
+      <translation>All Files (*)</translation>
     </message>
     <message>
-        <source>Name</source>
-        <translation>Name</translation>
+      <source>Name</source>
+      <translation>Name</translation>
     </message>
     <message>
-        <source>Size</source>
-        <translation>Size</translation>
+      <source>Size</source>
+      <translation>Size</translation>
     </message>
     <message>
-        <source>Type</source>
-        <translation>Type</translation>
+      <source>Type</source>
+      <translation>Type</translation>
     </message>
     <message>
-        <source>Date</source>
-        <translation>Date</translation>
+      <source>Date</source>
+      <translation>Date</translation>
     </message>
     <message>
-        <source>Attributes</source>
-        <translation>Attributes</translation>
+      <source>Attributes</source>
+      <translation>Attributes</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation>OK</translation>
+      <source>OK</source>
+      <translation>OK</translation>
     </message>
     <message>
-        <source>Look &amp;in:</source>
-        <translation>Look &amp;in:</translation>
+      <source>Look &amp;in:</source>
+      <translation>Look &amp;in:</translation>
     </message>
     <message>
-        <source>Back</source>
-        <translation>Back</translation>
+      <source>Back</source>
+      <translation>Back</translation>
     </message>
     <message>
-        <source>Create New Folder</source>
-        <translation>Create New Folder</translation>
+      <source>Create New Folder</source>
+      <translation>Create New Folder</translation>
     </message>
     <message>
-        <source>List View</source>
-        <translation>List View</translation>
+      <source>List View</source>
+      <translation>List View</translation>
     </message>
     <message>
-        <source>Detail View</source>
-        <translation>Detail View</translation>
+      <source>Detail View</source>
+      <translation>Detail View</translation>
     </message>
     <message>
-        <source>Preview File Info</source>
-        <translation>Preview File Info</translation>
+      <source>Preview File Info</source>
+      <translation>Preview File Info</translation>
     </message>
     <message>
-        <source>Preview File Contents</source>
-        <translation>Preview File Contents</translation>
+      <source>Preview File Contents</source>
+      <translation>Preview File Contents</translation>
     </message>
     <message>
-        <source>Read-write</source>
-        <translation>Read-write</translation>
+      <source>Read-write</source>
+      <translation>Read-write</translation>
     </message>
     <message>
-        <source>Read-only</source>
-        <translation>Read-only</translation>
+      <source>Read-only</source>
+      <translation>Read-only</translation>
     </message>
     <message>
-        <source>Write-only</source>
-        <translation>Write-only</translation>
+      <source>Write-only</source>
+      <translation>Write-only</translation>
     </message>
     <message>
-        <source>Inaccessible</source>
-        <translation>Inaccessible</translation>
+      <source>Inaccessible</source>
+      <translation>Inaccessible</translation>
     </message>
     <message>
-        <source>Symlink to File</source>
-        <translation>Symlink to File</translation>
+      <source>Symlink to File</source>
+      <translation>Symlink to File</translation>
     </message>
     <message>
-        <source>Symlink to Directory</source>
-        <translation>Symlink to Directory</translation>
+      <source>Symlink to Directory</source>
+      <translation>Symlink to Directory</translation>
     </message>
     <message>
-        <source>Symlink to Special</source>
-        <translation>Symlink to Special</translation>
+      <source>Symlink to Special</source>
+      <translation>Symlink to Special</translation>
     </message>
     <message>
-        <source>File</source>
-        <translation>File</translation>
+      <source>File</source>
+      <translation>File</translation>
     </message>
     <message>
-        <source>Dir</source>
-        <translation>Dir</translation>
+      <source>Dir</source>
+      <translation>Dir</translation>
     </message>
     <message>
-        <source>Special</source>
-        <translation>Special</translation>
+      <source>Special</source>
+      <translation>Special</translation>
     </message>
     <message>
-        <source>Open</source>
-        <translation>Open</translation>
+      <source>Open</source>
+      <translation>Open</translation>
     </message>
     <message>
-        <source>Save As</source>
-        <translation>Save As</translation>
+      <source>Save As</source>
+      <translation>Save As</translation>
     </message>
     <message>
-        <source>&amp;Open</source>
-        <translation>&amp;Open</translation>
+      <source>&amp;Open</source>
+      <translation>&amp;Open</translation>
     </message>
     <message>
-        <source>&amp;Save</source>
-        <translation>&amp;Save</translation>
+      <source>&amp;Save</source>
+      <translation>&amp;Save</translation>
     </message>
     <message>
-        <source>&amp;Rename</source>
-        <translation>&amp;Rename</translation>
+      <source>&amp;Rename</source>
+      <translation>&amp;Rename</translation>
     </message>
     <message>
-        <source>&amp;Delete</source>
-        <translation>&amp;Delete</translation>
+      <source>&amp;Delete</source>
+      <translation>&amp;Delete</translation>
     </message>
     <message>
-        <source>R&amp;eload</source>
-        <translation>R&amp;eload</translation>
+      <source>R&amp;eload</source>
+      <translation>R&amp;eload</translation>
     </message>
     <message>
-        <source>Sort by &amp;Name</source>
-        <translation>Sort by &amp;Name</translation>
+      <source>Sort by &amp;Name</source>
+      <translation>Sort by &amp;Name</translation>
     </message>
     <message>
-        <source>Sort by &amp;Size</source>
-        <translation>Sort by &amp;Size</translation>
+      <source>Sort by &amp;Size</source>
+      <translation>Sort by &amp;Size</translation>
     </message>
     <message>
-        <source>Sort by &amp;Date</source>
-        <translation>Sort by &amp;Date</translation>
+      <source>Sort by &amp;Date</source>
+      <translation>Sort by &amp;Date</translation>
     </message>
     <message>
-        <source>&amp;Unsorted</source>
-        <translation>&amp;Unsorted</translation>
+      <source>&amp;Unsorted</source>
+      <translation>&amp;Unsorted</translation>
     </message>
     <message>
-        <source>Sort</source>
-        <translation>Sort</translation>
+      <source>Sort</source>
+      <translation>Sort</translation>
     </message>
     <message>
-        <source>Show &amp;hidden files</source>
-        <translation>Show &amp;hidden files</translation>
+      <source>Show &amp;hidden files</source>
+      <translation>Show &amp;hidden files</translation>
     </message>
     <message>
-        <source>the file</source>
-        <translation>the file</translation>
+      <source>the file</source>
+      <translation>the file</translation>
     </message>
     <message>
-        <source>the directory</source>
-        <translation>the directory</translation>
+      <source>the directory</source>
+      <translation>the directory</translation>
     </message>
     <message>
-        <source>the symlink</source>
-        <translation>the symlink</translation>
+      <source>the symlink</source>
+      <translation>the symlink</translation>
     </message>
     <message>
-        <source>Delete %1</source>
-        <translation>Delete %1</translation>
+      <source>Delete %1</source>
+      <translation>Delete %1</translation>
     </message>
     <message>
-        <source>&lt;qt&gt;Are you sure you wish to delete %1 &quot;%2&quot;?&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Are you sure you wish to delete %1 &quot;%2&quot;?&lt;/qt&gt;</translation>
+      <source>&lt;qt>Are you sure you wish to delete %1 &quot;%2&quot;?&lt;/qt></source>
+      <translation>&lt;qt>Are you sure you wish to delete %1 &quot;%2&quot;?&lt;/qt></translation>
     </message>
     <message>
-        <source>&amp;Yes</source>
-        <translation>&amp;Yes</translation>
+      <source>&amp;Yes</source>
+      <translation>&amp;Yes</translation>
     </message>
     <message>
-        <source>&amp;No</source>
-        <translation>&amp;No</translation>
+      <source>&amp;No</source>
+      <translation>&amp;No</translation>
     </message>
     <message>
-        <source>New Folder 1</source>
-        <translation>New Folder 1</translation>
+      <source>New Folder 1</source>
+      <translation>New Folder 1</translation>
     </message>
     <message>
-        <source>New Folder</source>
-        <translation>New Folder</translation>
+      <source>New Folder</source>
+      <translation>New Folder</translation>
     </message>
     <message>
-        <source>New Folder %1</source>
-        <translation>New Folder %1</translation>
+      <source>New Folder %1</source>
+      <translation>New Folder %1</translation>
     </message>
     <message>
-        <source>Find Directory</source>
-        <translation>Find Directory</translation>
+      <source>Find Directory</source>
+      <translation>Find Directory</translation>
     </message>
     <message>
-        <source>Directories</source>
-        <translation>Directories</translation>
+      <source>Directories</source>
+      <translation>Directories</translation>
     </message>
     <message>
-        <source>Save</source>
-        <translation>Save</translation>
+      <source>Save</source>
+      <translation>Save</translation>
     </message>
     <message>
-        <source>Error</source>
-        <translation>Error</translation>
+      <source>Error</source>
+      <translation>Error</translation>
     </message>
     <message>
-        <source>%1
+      <source>%1
 File not found.
 Check path and filename.</source>
-        <translation>%1
+      <translation>%1
 File not found.
 Check path and filename.</translation>
     </message>
     <message>
-        <source>All Files (*.*)</source>
-        <translation>All Files (*.*)</translation>
+      <source>All Files (*.*)</source>
+      <translation>All Files (*.*)</translation>
     </message>
     <message>
-        <source>Select a Directory</source>
-        <translation>Select a Directory</translation>
+      <source>Select a Directory</source>
+      <translation>Select a Directory</translation>
     </message>
     <message>
-        <source>Directory:</source>
-        <translation>Directory:</translation>
+      <source>Directory:</source>
+      <translation>Directory:</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>QLineEdit</name>
     <message>
-        <source>Clear</source>
-        <translation>Clear</translation>
+      <source>Clear</source>
+      <translation>Clear</translation>
     </message>
     <message>
-        <source>Select All</source>
-        <translation>Select All</translation>
+      <source>Select All</source>
+      <translation>Select All</translation>
     </message>
     <message>
-        <source>&amp;Undo</source>
-        <translation>&amp;Undo</translation>
+      <source>&amp;Undo</source>
+      <translation>&amp;Undo</translation>
     </message>
     <message>
-        <source>&amp;Redo</source>
-        <translation>&amp;Redo</translation>
+      <source>&amp;Redo</source>
+      <translation>&amp;Redo</translation>
     </message>
     <message>
-        <source>Cu&amp;t</source>
-        <translation>Cu&amp;t</translation>
+      <source>Cu&amp;t</source>
+      <translation>Cu&amp;t</translation>
     </message>
     <message>
-        <source>&amp;Copy</source>
-        <translation>&amp;Copy</translation>
+      <source>&amp;Copy</source>
+      <translation>&amp;Copy</translation>
     </message>
     <message>
-        <source>&amp;Paste</source>
-        <translation>&amp;Paste</translation>
+      <source>&amp;Paste</source>
+      <translation>&amp;Paste</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>QMainWindow</name>
     <message>
-        <source>Line up</source>
-        <translation>Line up</translation>
+      <source>Line up</source>
+      <translation>Line up</translation>
     </message>
     <message>
-        <source>Customize...</source>
-        <translation>Customise...</translation>
+      <source>Customize...</source>
+      <translation>Customise...</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>QMessageBox</name>
     <message>
-        <source>&lt;h3&gt;About Qt&lt;/h3&gt;&lt;p&gt;This program uses Qt version %1.&lt;/p&gt;&lt;p&gt;Qt is a C++ toolkit for multiplatform GUI &amp;amp; application development.&lt;/p&gt;&lt;p&gt;Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants.&lt;br&gt;Qt is also available for embedded devices.&lt;/p&gt;&lt;p&gt;Qt is a Trolltech product. See &lt;tt&gt;http://www.trolltech.com/qt/&lt;/tt&gt; for more information.&lt;/p&gt;</source>
-        <translation>&lt;h3&gt;About Qt&lt;/h3&gt;&lt;p&gt;This program uses Qt version %1.&lt;/p&gt;&lt;p&gt;Qt is a C++ toolkit for multiplatform GUI &amp;amp; application development.&lt;/p&gt;&lt;p&gt;Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants.&lt;br&gt;Qt is also available for embedded devices.&lt;/p&gt;&lt;p&gt;Qt is a Trolltech product. See &lt;tt&gt;http://www.trolltech.com/qt/&lt;/tt&gt; for more information.&lt;/p&gt;</translation>
+      <source>&lt;h3>About Qt&lt;/h3>&lt;p>This program uses Qt version %1.&lt;/p>&lt;p>Qt is a C++ toolkit for multiplatform GUI &amp;amp; application development.&lt;/p>&lt;p>Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants.&lt;br>Qt is also available for embedded devices.&lt;/p>&lt;p>Qt is a Trolltech product. See &lt;tt>http://www.trolltech.com/qt/&lt;/tt> for more information.&lt;/p></source>
+      <translation>&lt;h3>About Qt&lt;/h3>&lt;p>This program uses Qt version %1.&lt;/p>&lt;p>Qt is a C++ toolkit for multiplatform GUI &amp;amp; application development.&lt;/p>&lt;p>Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants.&lt;br>Qt is also available for embedded devices.&lt;/p>&lt;p>Qt is a Trolltech product. See &lt;tt>http://www.trolltech.com/qt/&lt;/tt> for more information.&lt;/p></translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>QObject</name>
     <message>
-        <source>Initializing...</source>
-        <translation>Initialising...</translation>
+      <source>Initializing...</source>
+      <translation>Initialising...</translation>
     </message>
     <message>
-        <source>Document</source>
-        <translation>Document</translation>
+      <source>Document</source>
+      <translation>Document</translation>
     </message>
     <message>
-        <source>Background</source>
-        <translation>Background</translation>
+      <source>Background</source>
+      <translation>Background</translation>
     </message>
     <message>
-        <source>Warning</source>
-        <translation>Warning</translation>
+      <source>Warning</source>
+      <translation>Warning</translation>
     </message>
     <message>
-        <source>Do you really want to overwrite the File:
+      <source>Do you really want to overwrite the File:
 %1 ?</source>
-        <translation>Do you really want to overwrite the File:
+      <translation>Do you really want to overwrite the File:
 %1 ?</translation>
     </message>
     <message>
-        <source>Online Reference</source>
-        <translation>Online Reference</translation>
+      <source>Online Reference</source>
+      <translation>Online Reference</translation>
     </message>
     <message>
-        <source>Open</source>
-        <translation>Open</translation>
+      <source>Open</source>
+      <translation>Open</translation>
     </message>
     <message>
-        <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation>Python Scripts (*.py);; All Files (*)</translation>
+      <source>Python Scripts (*.py);; All Files (*)</source>
+      <translation>Python Scripts (*.py);; All Files (*)</translation>
     </message>
     <message>
-        <source>Save as</source>
-        <translation>Save as</translation>
+      <source>Save as</source>
+      <translation>Save as</translation>
     </message>
     <message>
-        <source>SVG-Images (*.svg *.svgz);;All Files (*)</source>
-        <translation>SVG-Images (*.svg *.svgz);;All Files (*)</translation>
+      <source>SVG-Images (*.svg *.svgz);;All Files (*)</source>
+      <translation>SVG-Images (*.svg *.svgz);;All Files (*)</translation>
     </message>
     <message>
-        <source>SVG-Images (*.svg);;All Files (*)</source>
-        <translation>SVG-Images (*.svg);;All Files (*)</translation>
+      <source>SVG-Images (*.svg);;All Files (*)</source>
+      <translation>SVG-Images (*.svg);;All Files (*)</translation>
     </message>
     <message>
-        <source>Yes</source>
-        <translation>Yes</translation>
+      <source>Yes</source>
+      <translation>Yes</translation>
     </message>
     <message>
-        <source>No</source>
-        <translation>No</translation>
+      <source>No</source>
+      <translation>No</translation>
     </message>
     <message>
-        <source>S&amp;cript</source>
-        <translation>S&amp;cript</translation>
+      <source>S&amp;cript</source>
+      <translation>S&amp;cript</translation>
     </message>
     <message>
-        <source>Oook! You&apos;re calling an object doesn&apos;t exist!</source>
-        <translation>Oook! You&apos;re calling an object doesn&apos;t exist!</translation>
+      <source>Oook! You're calling an object doesn't exist!</source>
+      <translation>Oook! You're calling an object doesn't exist!</translation>
     </message>
     <message>
-        <source>Oook! You&apos;re trying to erase an object doesn&apos;t exist!</source>
-        <translation>Oook! You&apos;re trying to erase an object doesn&apos;t exist!</translation>
+      <source>Oook! You're trying to erase an object doesn't exist!</source>
+      <translation>Oook! You're trying to erase an object doesn't exist!</translation>
     </message>
     <message>
-        <source>Oook! An object you&apos;re trying to textflow doesn&apos;t exist!</source>
-        <translation>Oook! An object you&apos;re trying to textflow doesn&apos;t exist!</translation>
+      <source>Oook! An object you're trying to textflow doesn't exist!</source>
+      <translation>Oook! An object you're trying to textflow doesn't exist!</translation>
     </message>
     <message>
-        <source>Save as Image</source>
-        <translation>Save as Image</translation>
+      <source>Save as Image</source>
+      <translation>Save as Image</translation>
     </message>
     <message>
-        <source>Error writting the output file(s).</source>
-        <translation>Error writting the output file(s).</translation>
+      <source>Error writting the output file(s).</source>
+      <translation>Error writting the output file(s).</translation>
     </message>
     <message>
-        <source>Error writing the output file(s).</source>
-        <translation>Error writing the output file(s).</translation>
+      <source>Error writing the output file(s).</source>
+      <translation>Error writing the output file(s).</translation>
     </message>
     <message>
-        <source>Export successful.</source>
-        <translation>Export successful.</translation>
+      <source>Export successful.</source>
+      <translation>Export successful.</translation>
     </message>
     <message>
-        <source>File exists. Overwrite?</source>
-        <translation>File exists. Overwrite?</translation>
+      <source>File exists. Overwrite?</source>
+      <translation>File exists. Overwrite?</translation>
     </message>
     <message>
-        <source>exists already. Overwrite?</source>
-        <translation>exists already. Overwrite?</translation>
+      <source>exists already. Overwrite?</source>
+      <translation>exists already. Overwrite?</translation>
     </message>
     <message>
-        <source>Yes all</source>
-        <translation>Yes all</translation>
+      <source>Yes all</source>
+      <translation>Yes all</translation>
     </message>
     <message>
-        <source>All Supported Formats (*.eps *.EPS *.ps *.PS);;</source>
-        <translation>All Supported Formats (*.eps *.EPS *.ps *.PS);;</translation>
+      <source>All Supported Formats (*.eps *.EPS *.ps *.PS);;</source>
+      <translation>All Supported Formats (*.eps *.EPS *.ps *.PS);;</translation>
     </message>
     <message>
-        <source>All Files (*)</source>
-        <translation>All Files (*)</translation>
+      <source>All Files (*)</source>
+      <translation>All Files (*)</translation>
     </message>
     <message>
-        <source>&amp;Fonts Preview</source>
-        <translation>&amp;Fonts Preview</translation>
+      <source>&amp;Fonts Preview</source>
+      <translation>&amp;Fonts Preview</translation>
     </message>
     <message>
-        <source>&amp;Insert Special</source>
-        <translation>&amp;Insert Special</translation>
+      <source>&amp;Insert Special</source>
+      <translation>&amp;Insert Special</translation>
     </message>
     <message>
-        <source>New &amp;from Template...</source>
-        <translation>New &amp;from Template...</translation>
+      <source>New &amp;from Template...</source>
+      <translation>New &amp;from Template...</translation>
     </message>
     <message>
-        <source>&amp;New</source>
-        <translation>&amp;New</translation>
+      <source>&amp;New</source>
+      <translation>&amp;New</translation>
     </message>
     <message>
-        <source>Newsletters</source>
-        <translation>Newsletters</translation>
+      <source>Newsletters</source>
+      <translation>Newsletters</translation>
     </message>
     <message>
-        <source>Brochures</source>
-        <translation>Brochures</translation>
+      <source>Brochures</source>
+      <translation>Brochures</translation>
     </message>
     <message>
-        <source>Catalogs</source>
-        <translation>Catalogues</translation>
+      <source>Catalogs</source>
+      <translation>Catalogues</translation>
     </message>
     <message>
-        <source>Flyers</source>
-        <translation>Flyers</translation>
+      <source>Flyers</source>
+      <translation>Flyers</translation>
     </message>
     <message>
-        <source>Signs</source>
-        <translation>Signs</translation>
+      <source>Signs</source>
+      <translation>Signs</translation>
     </message>
     <message>
-        <source>Cards</source>
-        <translation>Cards</translation>
+      <source>Cards</source>
+      <translation>Cards</translation>
     </message>
     <message>
-        <source>Letterheads</source>
-        <translation>Letterheads</translation>
+      <source>Letterheads</source>
+      <translation>Letterheads</translation>
     </message>
     <message>
-        <source>Envelopes</source>
-        <translation>Envelopes</translation>
+      <source>Envelopes</source>
+      <translation>Envelopes</translation>
     </message>
     <message>
-        <source>Business Cards</source>
-        <translation>Business Cards</translation>
+      <source>Business Cards</source>
+      <translation>Business Cards</translation>
     </message>
     <message>
-        <source>Calendars</source>
-        <translation>Calendars</translation>
+      <source>Calendars</source>
+      <translation>Calendars</translation>
     </message>
     <message>
-        <source>Advertisements</source>
-        <translation>Advertisements</translation>
+      <source>Advertisements</source>
+      <translation>Advertisements</translation>
     </message>
     <message>
-        <source>Labels</source>
-        <translation>Labels</translation>
+      <source>Labels</source>
+      <translation>Labels</translation>
     </message>
     <message>
-        <source>Menus</source>
-        <translation>Menus</translation>
+      <source>Menus</source>
+      <translation>Menus</translation>
     </message>
     <message>
-        <source>Programs</source>
-        <translation>Programs</translation>
+      <source>Programs</source>
+      <translation>Programs</translation>
     </message>
     <message>
-        <source>PDF Forms</source>
-        <translation>PDF Forms</translation>
+      <source>PDF Forms</source>
+      <translation>PDF Forms</translation>
     </message>
     <message>
-        <source>PDF Presentations</source>
-        <translation>PDF Presentations</translation>
+      <source>PDF Presentations</source>
+      <translation>PDF Presentations</translation>
     </message>
     <message>
-        <source>Magazines</source>
-        <translation>Magazines</translation>
+      <source>Magazines</source>
+      <translation>Magazines</translation>
     </message>
     <message>
-        <source>Posters</source>
-        <translation>Posters</translation>
+      <source>Posters</source>
+      <translation>Posters</translation>
     </message>
     <message>
-        <source>Announcements</source>
-        <translation>Announcements</translation>
+      <source>Announcements</source>
+      <translation>Announcements</translation>
     </message>
     <message>
-        <source>Text Documents</source>
-        <translation>Text Documents</translation>
+      <source>Text Documents</source>
+      <translation>Text Documents</translation>
     </message>
     <message>
-        <source>Folds</source>
-        <translation>Folds</translation>
+      <source>Folds</source>
+      <translation>Folds</translation>
     </message>
     <message>
-        <source>Own Templates</source>
-        <translation>Own Templates</translation>
+      <source>Own Templates</source>
+      <translation>Own Templates</translation>
     </message>
     <message>
-        <source>Save as &amp;Image...</source>
-        <translation>Save as &amp;Image...</translation>
+      <source>Save as &amp;Image...</source>
+      <translation>Save as &amp;Image...</translation>
     </message>
     <message>
-        <source>Print Previe&amp;w</source>
-        <translation>Print Previe&amp;w</translation>
+      <source>Print Previe&amp;w</source>
+      <translation>Print Previe&amp;w</translation>
     </message>
     <message>
-        <source>&amp;Print...</source>
-        <translation>&amp;Print...</translation>
+      <source>&amp;Print...</source>
+      <translation>&amp;Print...</translation>
     </message>
     <message>
-        <source>Import &amp;EPS/PS...</source>
-        <translation>Import &amp;EPS/PS...</translation>
+      <source>Import &amp;EPS/PS...</source>
+      <translation>Import &amp;EPS/PS...</translation>
     </message>
     <message>
-        <source>Save as &amp;Template...</source>
-        <translation>Save as &amp;Template...</translation>
+      <source>Save as &amp;Template...</source>
+      <translation>Save as &amp;Template...</translation>
     </message>
     <message>
-        <source>Save &amp;As...</source>
-        <translation>Save &amp;As...</translation>
+      <source>Save &amp;As...</source>
+      <translation>Save &amp;As...</translation>
     </message>
     <message>
-        <source>S&amp;cripter Manual...</source>
-        <translation>S&amp;cripter Manual...</translation>
+      <source>S&amp;cripter Manual...</source>
+      <translation>S&amp;cripter Manual...</translation>
     </message>
     <message>
-        <source>&amp;Scribus Scripts</source>
-        <translation>&amp;Scribus Scripts</translation>
+      <source>&amp;Scribus Scripts</source>
+      <translation>&amp;Scribus Scripts</translation>
     </message>
     <message>
-        <source>&amp;Execute Script...</source>
-        <translation>&amp;Execute Script...</translation>
+      <source>&amp;Execute Script...</source>
+      <translation>&amp;Execute Script...</translation>
     </message>
     <message>
-        <source>&amp;Recent Scripts</source>
-        <translation>&amp;Recent Scripts</translation>
+      <source>&amp;Recent Scripts</source>
+      <translation>&amp;Recent Scripts</translation>
     </message>
     <message>
-        <source>Show &amp;Console</source>
-        <translation>Show &amp;Console</translation>
+      <source>Show &amp;Console</source>
+      <translation>Show &amp;Console</translation>
     </message>
     <message>
-        <source>Save Page as &amp;SVG...</source>
-        <translation>Save Page as &amp;SVG...</translation>
+      <source>Save Page as &amp;SVG...</source>
+      <translation>Save Page as &amp;SVG...</translation>
     </message>
     <message>
-        <source>Import &amp;SVG...</source>
-        <translation>Import &amp;SVG...</translation>
+      <source>Import &amp;SVG...</source>
+      <translation>Import &amp;SVG...</translation>
     </message>
     <message>
-        <source>Oook! Wrong arguments! Call: </source>
-        <translation>Oook! Wrong arguments! Call: </translation>
+      <source>Oook! Wrong arguments! Call: </source>
+      <translation>Oook! Wrong arguments! Call: </translation>
     </message>
     <message>
-        <source>Oook! You&apos;re trying to load image into an object doesn&apos;t exist or isn&apos;t selected!</source>
-        <translation>Oook! You&apos;re trying to load image into an object doesn&apos;t exist or isn&apos;t selected!</translation>
+      <source>Oook! You're trying to load image into an object doesn't exist or isn't selected!</source>
+      <translation>Oook! You're trying to load image into an object doesn't exist or isn't selected!</translation>
     </message>
     <message>
-        <source>Oook! You&apos;re trying to (un)lock an object doesn&apos;t exist! None selected too.</source>
-        <translation>Oook! You&apos;re trying to (un)lock an object doesn&apos;t exist! None selected too.</translation>
+      <source>Oook! You're trying to (un)lock an object doesn't exist! None selected too.</source>
+      <translation>Oook! You're trying to (un)lock an object doesn't exist! None selected too.</translation>
     </message>
     <message>
-        <source>Oook! You&apos;re trying to query an object doesn&apos;t exist! None selected too.</source>
-        <translation>Oook! You&apos;re trying to query an object doesn&apos;t exist! None selected too.</translation>
+      <source>Oook! You're trying to query an object doesn't exist! None selected too.</source>
+      <translation>Oook! You're trying to query an object doesn't exist! None selected too.</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>QTextEdit</name>
     <message>
-        <source>Clear</source>
-        <translation>Clear</translation>
+      <source>Clear</source>
+      <translation>Clear</translation>
     </message>
     <message>
-        <source>Select All</source>
-        <translation>Select All</translation>
+      <source>Select All</source>
+      <translation>Select All</translation>
     </message>
     <message>
-        <source>&amp;Undo</source>
-        <translation>&amp;Undo</translation>
+      <source>&amp;Undo</source>
+      <translation>&amp;Undo</translation>
     </message>
     <message>
-        <source>&amp;Redo</source>
-        <translation>&amp;Redo</translation>
+      <source>&amp;Redo</source>
+      <translation>&amp;Redo</translation>
     </message>
     <message>
-        <source>Cu&amp;t</source>
-        <translation>Cu&amp;t</translation>
+      <source>Cu&amp;t</source>
+      <translation>Cu&amp;t</translation>
     </message>
     <message>
-        <source>&amp;Copy</source>
-        <translation>&amp;Copy</translation>
+      <source>&amp;Copy</source>
+      <translation>&amp;Copy</translation>
     </message>
     <message>
-        <source>&amp;Paste</source>
-        <translation>&amp;Paste</translation>
+      <source>&amp;Paste</source>
+      <translation>&amp;Paste</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>QTitleBar</name>
     <message>
-        <source>System Menu</source>
-        <translation>System Menu</translation>
+      <source>System Menu</source>
+      <translation>System Menu</translation>
     </message>
     <message>
-        <source>Shade</source>
-        <translation>Shade</translation>
+      <source>Shade</source>
+      <translation>Shade</translation>
     </message>
     <message>
-        <source>Unshade</source>
-        <translation>Unshade</translation>
+      <source>Unshade</source>
+      <translation>Unshade</translation>
     </message>
     <message>
-        <source>Normalize</source>
-        <translation>Normalise</translation>
+      <source>Normalize</source>
+      <translation>Normalise</translation>
     </message>
     <message>
-        <source>Minimize</source>
-        <translation>Minimise</translation>
+      <source>Minimize</source>
+      <translation>Minimise</translation>
     </message>
     <message>
-        <source>Maximize</source>
-        <translation>Maximise</translation>
+      <source>Maximize</source>
+      <translation>Maximise</translation>
     </message>
     <message>
-        <source>Close</source>
-        <translation>Close</translation>
+      <source>Close</source>
+      <translation>Close</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>QWorkspace</name>
     <message>
-        <source>&amp;Restore</source>
-        <translation>&amp;Restore</translation>
+      <source>&amp;Restore</source>
+      <translation>&amp;Restore</translation>
     </message>
     <message>
-        <source>&amp;Move</source>
-        <translation>&amp;Move</translation>
+      <source>&amp;Move</source>
+      <translation>&amp;Move</translation>
     </message>
     <message>
-        <source>&amp;Size</source>
-        <translation>&amp;Size</translation>
+      <source>&amp;Size</source>
+      <translation>&amp;Size</translation>
     </message>
     <message>
-        <source>Mi&amp;nimize</source>
-        <translation>Mi&amp;nimise</translation>
+      <source>Mi&amp;nimize</source>
+      <translation>Mi&amp;nimise</translation>
     </message>
     <message>
-        <source>Ma&amp;ximize</source>
-        <translation>Ma&amp;ximise</translation>
+      <source>Ma&amp;ximize</source>
+      <translation>Ma&amp;ximise</translation>
     </message>
     <message>
-        <source>&amp;Close</source>
-        <translation>&amp;Close</translation>
+      <source>&amp;Close</source>
+      <translation>&amp;Close</translation>
     </message>
     <message>
-        <source>Stay on &amp;Top</source>
-        <translation>Stay on &amp;Top</translation>
+      <source>Stay on &amp;Top</source>
+      <translation>Stay on &amp;Top</translation>
     </message>
     <message>
-        <source>Minimize</source>
-        <translation>Minimise</translation>
+      <source>Minimize</source>
+      <translation>Minimise</translation>
     </message>
     <message>
-        <source>Restore Down</source>
-        <translation>Restore Down</translation>
+      <source>Restore Down</source>
+      <translation>Restore Down</translation>
     </message>
     <message>
-        <source>Close</source>
-        <translation>Close</translation>
+      <source>Close</source>
+      <translation>Close</translation>
     </message>
     <message>
-        <source>Sh&amp;ade</source>
-        <translation>Sh&amp;ade</translation>
+      <source>Sh&amp;ade</source>
+      <translation>Sh&amp;ade</translation>
     </message>
     <message>
-        <source>%1 - [%2]</source>
-        <translation>%1 - [%2]</translation>
+      <source>%1 - [%2]</source>
+      <translation>%1 - [%2]</translation>
     </message>
     <message>
-        <source>&amp;Unshade</source>
-        <translation>&amp;Unshade</translation>
+      <source>&amp;Unshade</source>
+      <translation>&amp;Unshade</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>Query</name>
     <message>
-        <source>OK</source>
-        <translation type="obsolete">OK</translation>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Cancel</translation>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
     </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancel</translation>
-    </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>ReformDoc</name>
     <message>
-        <source>Document Setup</source>
-        <translation>Document Setup</translation>
+      <source>Document Setup</source>
+      <translation>Document Setup</translation>
     </message>
     <message>
-        <source>Margin Guides</source>
-        <translation>Margin Guides</translation>
+      <source>Margin Guides</source>
+      <translation>Margin Guides</translation>
     </message>
     <message>
-        <source>Enable single or spread based layout</source>
-        <translation>Enable single or spread based layout</translation>
+      <source>Enable single or spread based layout</source>
+      <translation>Enable single or spread based layout</translation>
     </message>
     <message>
-        <source>Make the first page the left page of the document</source>
-        <translation>Make the first page the left page of the document</translation>
+      <source>Make the first page the left page of the document</source>
+      <translation>Make the first page the left page of the document</translation>
     </message>
     <message>
-        <source>Distance between the top margin guide and the edge of the page</source>
-        <translation>Distance between the top margin guide and the edge of the page</translation>
+      <source>Distance between the top margin guide and the edge of the page</source>
+      <translation>Distance between the top margin guide and the edge of the page</translation>
     </message>
     <message>
-        <source>Distance between the bottom margin guide and the edge of the page</source>
-        <translation>Distance between the bottom margin guide and the edge of the page</translation>
+      <source>Distance between the bottom margin guide and the edge of the page</source>
+      <translation>Distance between the bottom margin guide and the edge of the page</translation>
     </message>
     <message>
-        <source>Distance between the left margin guide and the edge of the page.
+      <source>Distance between the left margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Distance between the left margin guide and the edge of the page.
+      <translation>Distance between the left margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</translation>
     </message>
     <message>
-        <source>Distance between the right margin guide and the edge of the page.
+      <source>Distance between the right margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Distance between the right margin guide and the edge of the page.
+      <translation>Distance between the right margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</translation>
     </message>
     <message>
-        <source> pt</source>
-        <translation> pt</translation>
+      <source> pt</source>
+      <translation> pt</translation>
     </message>
     <message>
-        <source> mm</source>
-        <translation> mm</translation>
+      <source> mm</source>
+      <translation> mm</translation>
     </message>
     <message>
-        <source> in</source>
-        <translation> in</translation>
+      <source> in</source>
+      <translation> in</translation>
     </message>
     <message>
-        <source> p</source>
-        <translation> p</translation>
+      <source> p</source>
+      <translation> p</translation>
     </message>
     <message>
-        <source>&amp;Top:</source>
-        <translation>&amp;Top:</translation>
+      <source>&amp;Top:</source>
+      <translation>&amp;Top:</translation>
     </message>
     <message>
-        <source>&amp;Left:</source>
-        <translation>&amp;Left:</translation>
+      <source>&amp;Left:</source>
+      <translation>&amp;Left:</translation>
     </message>
     <message>
-        <source>&amp;Bottom:</source>
-        <translation>&amp;Bottom:</translation>
+      <source>&amp;Bottom:</source>
+      <translation>&amp;Bottom:</translation>
     </message>
     <message>
-        <source>&amp;Right:</source>
-        <translation>&amp;Right:</translation>
+      <source>&amp;Right:</source>
+      <translation>&amp;Right:</translation>
     </message>
     <message>
-        <source>&amp;Facing Pages</source>
-        <translation>&amp;Facing Pages</translation>
+      <source>&amp;Facing Pages</source>
+      <translation>&amp;Facing Pages</translation>
     </message>
     <message>
-        <source>Left &amp;Page First</source>
-        <translation>Left &amp;Page First</translation>
+      <source>Left &amp;Page First</source>
+      <translation>Left &amp;Page First</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
     </message>
     <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Cancel</translation>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
     </message>
     <message>
-        <source>&amp;Inside:</source>
-        <translation>&amp;Inside:</translation>
+      <source>&amp;Inside:</source>
+      <translation>&amp;Inside:</translation>
     </message>
     <message>
-        <source>&amp;Outside:</source>
-        <translation>&amp;Outside:</translation>
+      <source>&amp;Outside:</source>
+      <translation>&amp;Outside:</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>SToolBAlign</name>
     <message>
-        <source>St&amp;yle Settings</source>
-        <translation type="unfinished"></translation>
+      <source>St&amp;yle Settings</source>
+      <translation>St&amp;yle Settings</translation>
     </message>
     <message>
-        <source>Style of current paragraph</source>
-        <translation type="unfinished">Style of current paragraph</translation>
+      <source>Style of current paragraph</source>
+      <translation>Style of current paragraph</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>SToolBColorF</name>
     <message>
-        <source>F&amp;ill Color Settings</source>
-        <translation type="unfinished"></translation>
+      <source>F&amp;ill Color Settings</source>
+      <translation>F&amp;ill Colour Settings</translation>
     </message>
     <message>
-        <source>None</source>
-        <translation type="unfinished">None</translation>
+      <source>None</source>
+      <translation>None</translation>
     </message>
     <message>
-        <source>Color of text fill</source>
-        <translation type="unfinished">Colour of text fill</translation>
+      <source>Color of text fill</source>
+      <translation>Colour of text fill</translation>
     </message>
     <message>
-        <source>Saturation of color of text fill</source>
-        <translation type="unfinished">Saturation of colour of text fill</translation>
+      <source>Saturation of color of text fill</source>
+      <translation>Saturation of colour of text fill</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>SToolBColorS</name>
     <message>
-        <source>&amp;Stroke Color Settings</source>
-        <translation type="unfinished"></translation>
+      <source>&amp;Stroke Color Settings</source>
+      <translation>&amp;Stroke Colour Settings</translation>
     </message>
     <message>
-        <source>None</source>
-        <translation type="unfinished">None</translation>
+      <source>None</source>
+      <translation>None</translation>
     </message>
     <message>
-        <source>Color of text stroke</source>
-        <translation type="unfinished">Colour of text stroke</translation>
+      <source>Color of text stroke</source>
+      <translation>Colour of text stroke</translation>
     </message>
     <message>
-        <source>Saturation of color of text stroke</source>
-        <translation type="unfinished">Saturation of colour of text stroke</translation>
+      <source>Saturation of color of text stroke</source>
+      <translation>Saturation of colour of text stroke</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>SToolBFont</name>
     <message>
-        <source>&amp;Font Settings</source>
-        <translation type="unfinished"></translation>
+      <source>&amp;Font Settings</source>
+      <translation>&amp;Font Settings</translation>
     </message>
     <message>
-        <source> pt</source>
-        <translation type="unfinished"> pt</translation>
+      <source> pt</source>
+      <translation> pt</translation>
     </message>
     <message>
-        <source> %</source>
-        <translation type="unfinished"> %</translation>
+      <source> %</source>
+      <translation> %</translation>
     </message>
     <message>
-        <source>Font of selected text</source>
-        <translation type="unfinished"></translation>
+      <source>Font of selected text</source>
+      <translation>Font of selected text</translation>
     </message>
     <message>
-        <source>Font Size</source>
-        <translation type="unfinished">Font Size</translation>
+      <source>Font Size</source>
+      <translation>Font Size</translation>
     </message>
     <message>
-        <source>Scaling width of characters</source>
-        <translation type="unfinished">Scaling width of characters</translation>
+      <source>Scaling width of characters</source>
+      <translation>Scaling width of characters</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>SToolBStyle</name>
     <message>
-        <source>&amp;Character Settings</source>
-        <translation type="unfinished"></translation>
+      <source>&amp;Character Settings</source>
+      <translation>&amp;Character Settings</translation>
     </message>
     <message>
-        <source>Kerning:</source>
-        <translation type="unfinished">Kerning:</translation>
+      <source>Kerning:</source>
+      <translation>Kerning:</translation>
     </message>
     <message>
-        <source> pt</source>
-        <translation type="unfinished"> pt</translation>
+      <source> pt</source>
+      <translation> pt</translation>
     </message>
     <message>
-        <source>Manual Kerning</source>
-        <translation type="unfinished">Manual Kerning</translation>
+      <source>Manual Kerning</source>
+      <translation>Manual Kerning</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>ScriXmlDoc</name>
     <message>
-        <source>Copy #%1 of </source>
-        <translation>Copy #%1 of </translation>
+      <source>Copy #%1 of </source>
+      <translation>Copy #%1 of </translation>
     </message>
     <message>
-        <source>Background</source>
-        <translation>Background</translation>
+      <source>Background</source>
+      <translation>Background</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>ScribusApp</name>
     <message>
-        <source>File</source>
-        <translation>File</translation>
+      <source>File</source>
+      <translation>File</translation>
     </message>
     <message>
-        <source>Searching for Fonts</source>
-        <translation>Searching for Fonts</translation>
+      <source>Searching for Fonts</source>
+      <translation>Searching for Fonts</translation>
     </message>
     <message>
-        <source>There are no Postscript-Fonts on your System</source>
-        <translation>There are no Postscript-Fonts on your System</translation>
+      <source>There are no Postscript-Fonts on your System</source>
+      <translation>There are no Postscript-Fonts on your System</translation>
     </message>
     <message>
-        <source>Exiting now</source>
-        <translation>Exiting now</translation>
+      <source>Exiting now</source>
+      <translation>Exiting now</translation>
     </message>
     <message>
-        <source>Fatal Error</source>
-        <translation>Fatal Error</translation>
+      <source>Fatal Error</source>
+      <translation>Fatal Error</translation>
     </message>
     <message>
-        <source>Smart Hyphen</source>
-        <translation>Smart Hyphen</translation>
+      <source>Smart Hyphen</source>
+      <translation>Smart Hyphen</translation>
     </message>
     <message>
-        <source>Align Left</source>
-        <translation>Align Left</translation>
+      <source>Align Left</source>
+      <translation>Align Left</translation>
     </message>
     <message>
-        <source>Align Right</source>
-        <translation>Align Right</translation>
+      <source>Align Right</source>
+      <translation>Align Right</translation>
     </message>
     <message>
-        <source>Align Center</source>
-        <translation>Align Centre</translation>
+      <source>Align Center</source>
+      <translation>Align Centre</translation>
     </message>
     <message>
-        <source>Insert Page Number</source>
-        <translation>Insert Page Number</translation>
+      <source>Insert Page Number</source>
+      <translation>Insert Page Number</translation>
     </message>
     <message>
-        <source>Attach Text to Path</source>
-        <translation>Attach Text to Path</translation>
+      <source>Attach Text to Path</source>
+      <translation>Attach Text to Path</translation>
     </message>
     <message>
-        <source>Show Layers</source>
-        <translation>Show Layers</translation>
+      <source>Show Layers</source>
+      <translation>Show Layers</translation>
     </message>
     <message>
-        <source>Javascripts...</source>
-        <translation>Javascripts...</translation>
+      <source>Javascripts...</source>
+      <translation>Javascripts...</translation>
     </message>
     <message>
-        <source>Undo</source>
-        <translation>Undo</translation>
+      <source>Undo</source>
+      <translation>Undo</translation>
     </message>
     <message>
-        <source>Show Page Palette</source>
-        <translation>Show Page Palette</translation>
+      <source>Show Page Palette</source>
+      <translation>Show Page Palette</translation>
     </message>
     <message>
-        <source>Lock/Unlock</source>
-        <translation>Lock/Unlock</translation>
+      <source>Lock/Unlock</source>
+      <translation>Lock/Unlock</translation>
     </message>
     <message>
-        <source>Non Breaking Space</source>
-        <translation>Non Breaking Space</translation>
+      <source>Non Breaking Space</source>
+      <translation>Non Breaking Space</translation>
     </message>
     <message>
-        <source>Reading Preferences</source>
-        <translation>Reading Preferences</translation>
+      <source>Reading Preferences</source>
+      <translation>Reading Preferences</translation>
     </message>
     <message>
-        <source>Getting ICC-Profiles</source>
-        <translation type="obsolete">Getting ICC-Profiles</translation>
+      <source>Init Hyphenator</source>
+      <translation>Init Hyphenator</translation>
     </message>
     <message>
-        <source>Init Hyphenator</source>
-        <translation>Init Hyphenator</translation>
+      <source>Setting up Shortcuts</source>
+      <translation>Setting up Shortcuts</translation>
     </message>
     <message>
-        <source>Setting up Shortcuts</source>
-        <translation>Setting up Shortcuts</translation>
+      <source>Reading Scrapbook</source>
+      <translation>Reading Scrapbook</translation>
     </message>
     <message>
-        <source>Reading Scrapbook</source>
-        <translation>Reading Scrapbook</translation>
+      <source>Initializing Plugins</source>
+      <translation>Initialising Plugins</translation>
     </message>
     <message>
-        <source>Initializing Plugins</source>
-        <translation>Initialising Plugins</translation>
+      <source>New</source>
+      <translation>New</translation>
     </message>
     <message>
-        <source>New</source>
-        <translation>New</translation>
+      <source>Open...</source>
+      <translation>Open...</translation>
     </message>
     <message>
-        <source>Open...</source>
-        <translation>Open...</translation>
+      <source>Close</source>
+      <translation>Close</translation>
     </message>
     <message>
-        <source>Close</source>
-        <translation>Close</translation>
+      <source>Save</source>
+      <translation>Save</translation>
     </message>
     <message>
-        <source>Save</source>
-        <translation>Save</translation>
+      <source>Save as...</source>
+      <translation>Save as...</translation>
     </message>
     <message>
-        <source>Save as...</source>
-        <translation>Save as...</translation>
+      <source>Get Text/Picture...</source>
+      <translation>Get Text/Picture...</translation>
     </message>
     <message>
-        <source>Get Text/Picture...</source>
-        <translation>Get Text/Picture...</translation>
+      <source>Document Info...</source>
+      <translation>Document Info...</translation>
     </message>
     <message>
-        <source>Document Info...</source>
-        <translation>Document Info...</translation>
+      <source>Document Setup...</source>
+      <translation>Document Setup...</translation>
     </message>
     <message>
-        <source>Document Setup...</source>
-        <translation>Document Setup...</translation>
+      <source>Print...</source>
+      <translation>Print...</translation>
     </message>
     <message>
-        <source>Print...</source>
-        <translation>Print...</translation>
+      <source>Quit</source>
+      <translation>Quit</translation>
     </message>
     <message>
-        <source>Quit</source>
-        <translation>Quit</translation>
+      <source>Cut</source>
+      <translation>Cut</translation>
     </message>
     <message>
-        <source>Cut</source>
-        <translation>Cut</translation>
+      <source>Copy</source>
+      <translation>Copy</translation>
     </message>
     <message>
-        <source>Copy</source>
-        <translation>Copy</translation>
+      <source>Paste</source>
+      <translation>Paste</translation>
     </message>
     <message>
-        <source>Paste</source>
-        <translation>Paste</translation>
+      <source>Clear</source>
+      <translation>Clear</translation>
     </message>
     <message>
-        <source>Clear</source>
-        <translation>Clear</translation>
+      <source>Select all</source>
+      <translation>Select all</translation>
     </message>
     <message>
-        <source>Select all</source>
-        <translation>Select all</translation>
+      <source>Colors...</source>
+      <translation>Colours...</translation>
     </message>
     <message>
-        <source>Colors...</source>
-        <translation>Colours...</translation>
+      <source>Styles...</source>
+      <translation>Styles...</translation>
     </message>
     <message>
-        <source>Styles...</source>
-        <translation>Styles...</translation>
+      <source>Templates...</source>
+      <translation>Templates...</translation>
     </message>
     <message>
-        <source>Templates...</source>
-        <translation>Templates...</translation>
+      <source>Fonts...</source>
+      <translation>Fonts...</translation>
     </message>
     <message>
-        <source>Fonts...</source>
-        <translation>Fonts...</translation>
+      <source>Select New Font</source>
+      <translation>Select New Font</translation>
     </message>
     <message>
-        <source>Select New Font</source>
-        <translation>Select New Font</translation>
+      <source>Duplicate</source>
+      <translation>Duplicate</translation>
     </message>
     <message>
-        <source>Duplicate</source>
-        <translation>Duplicate</translation>
+      <source>Multiple Duplicate</source>
+      <translation>Multiple Duplicate</translation>
     </message>
     <message>
-        <source>Multiple Duplicate</source>
-        <translation>Multiple Duplicate</translation>
+      <source>Delete</source>
+      <translation>Delete</translation>
     </message>
     <message>
-        <source>Delete</source>
-        <translation>Delete</translation>
+      <source>Group</source>
+      <translation>Group</translation>
     </message>
     <message>
-        <source>Group</source>
-        <translation>Group</translation>
+      <source>Un-group</source>
+      <translation>Un-group</translation>
     </message>
     <message>
-        <source>Un-group</source>
-        <translation>Un-group</translation>
+      <source>Lock</source>
+      <translation>Lock</translation>
     </message>
     <message>
-        <source>Lock</source>
-        <translation>Lock</translation>
+      <source>Send to Back</source>
+      <translation>Send to Back</translation>
     </message>
     <message>
-        <source>Send to Back</source>
-        <translation>Send to Back</translation>
+      <source>Bring to Front</source>
+      <translation>Bring to Front</translation>
     </message>
     <message>
-        <source>Bring to Front</source>
-        <translation>Bring to Front</translation>
+      <source>Lower</source>
+      <translation>Lower</translation>
     </message>
     <message>
-        <source>Lower</source>
-        <translation>Lower</translation>
+      <source>Raise</source>
+      <translation>Raise</translation>
     </message>
     <message>
-        <source>Raise</source>
-        <translation>Raise</translation>
+      <source>Distribute/Align...</source>
+      <translation>Distribute/Align...</translation>
     </message>
     <message>
-        <source>Distribute/Align...</source>
-        <translation>Distribute/Align...</translation>
+      <source>Insert...</source>
+      <translation>Insert...</translation>
     </message>
     <message>
-        <source>Insert...</source>
-        <translation>Insert...</translation>
+      <source>Delete...</source>
+      <translation>Delete...</translation>
     </message>
     <message>
-        <source>Delete...</source>
-        <translation>Delete...</translation>
+      <source>Move...</source>
+      <translation>Move...</translation>
     </message>
     <message>
-        <source>Move...</source>
-        <translation>Move...</translation>
+      <source>Apply Template...</source>
+      <translation>Apply Template...</translation>
     </message>
     <message>
-        <source>Apply Template...</source>
-        <translation>Apply Template...</translation>
+      <source>Manage Guides...</source>
+      <translation>Manage Guides...</translation>
     </message>
     <message>
-        <source>Manage Guides...</source>
-        <translation>Manage Guides...</translation>
+      <source>Fit in Window</source>
+      <translation>Fit in Window</translation>
     </message>
     <message>
-        <source>Fit in Window</source>
-        <translation>Fit in Window</translation>
+      <source>50%</source>
+      <translation>50%</translation>
     </message>
     <message>
-        <source>50%</source>
-        <translation>50%</translation>
+      <source>75%</source>
+      <translation>75%</translation>
     </message>
     <message>
-        <source>75%</source>
-        <translation>75%</translation>
+      <source>200%</source>
+      <translation>200%</translation>
     </message>
     <message>
-        <source>200%</source>
-        <translation>200%</translation>
+      <source>Thumbnails</source>
+      <translation>Thumbnails</translation>
     </message>
     <message>
-        <source>Thumbnails</source>
-        <translation>Thumbnails</translation>
+      <source>Hide Margins</source>
+      <translation>Hide Margins</translation>
     </message>
     <message>
-        <source>Hide Margins</source>
-        <translation>Hide Margins</translation>
+      <source>Hide Frames</source>
+      <translation>Hide Frames</translation>
     </message>
     <message>
-        <source>Hide Frames</source>
-        <translation>Hide Frames</translation>
+      <source>Hide Images</source>
+      <translation>Hide Images</translation>
     </message>
     <message>
-        <source>Hide Images</source>
-        <translation>Hide Images</translation>
+      <source>Show Grid</source>
+      <translation>Show Grid</translation>
     </message>
     <message>
-        <source>Show Grid</source>
-        <translation>Show Grid</translation>
+      <source>Snap to Grid</source>
+      <translation>Snap to Grid</translation>
     </message>
     <message>
-        <source>Snap to Grid</source>
-        <translation>Snap to Grid</translation>
+      <source>Tools</source>
+      <translation>Tools</translation>
     </message>
     <message>
-        <source>Tools</source>
-        <translation>Tools</translation>
+      <source>Properties</source>
+      <translation>Properties</translation>
     </message>
     <message>
-        <source>Properties</source>
-        <translation>Properties</translation>
+      <source>Outline</source>
+      <translation>Outline</translation>
     </message>
     <message>
-        <source>Outline</source>
-        <translation>Outline</translation>
+      <source>Scrapbook</source>
+      <translation>Scrapbook</translation>
     </message>
     <message>
-        <source>Scrapbook</source>
-        <translation>Scrapbook</translation>
+      <source>Manage Pictures</source>
+      <translation>Manage Pictures</translation>
     </message>
     <message>
-        <source>Manage Pictures</source>
-        <translation>Manage Pictures</translation>
+      <source>Hyphenate Text</source>
+      <translation>Hyphenate Text</translation>
     </message>
     <message>
-        <source>Hyphenate Text</source>
-        <translation>Hyphenate Text</translation>
+      <source>About Scribus</source>
+      <translation>About Scribus</translation>
     </message>
     <message>
-        <source>About Scribus</source>
-        <translation>About Scribus</translation>
+      <source>About Qt</source>
+      <translation>About Qt</translation>
     </message>
     <message>
-        <source>About Qt</source>
-        <translation>About Qt</translation>
+      <source>Online-Help...</source>
+      <translation>Online-Help...</translation>
     </message>
     <message>
-        <source>Online-Help...</source>
-        <translation>Online-Help...</translation>
+      <source>Style</source>
+      <translation>Style</translation>
     </message>
     <message>
-        <source>Style</source>
-        <translation>Style</translation>
+      <source>Normal</source>
+      <translation>Normal</translation>
     </message>
     <message>
-        <source>Normal</source>
-        <translation>Normal</translation>
+      <source>Underline</source>
+      <translation>Underline</translation>
     </message>
     <message>
-        <source>Underline</source>
-        <translation>Underline</translation>
+      <source>Strikethru</source>
+      <translation>Strikeout</translation>
     </message>
     <message>
-        <source>Strikethru</source>
-        <translation>Strikeout</translation>
+      <source>Small Caps</source>
+      <translation>Small Caps</translation>
     </message>
     <message>
-        <source>Small Caps</source>
-        <translation>Small Caps</translation>
+      <source>Superscript</source>
+      <translation>Superscript</translation>
     </message>
     <message>
-        <source>Superscript</source>
-        <translation>Superscript</translation>
+      <source>Subscript</source>
+      <translation>Subscript</translation>
     </message>
     <message>
-        <source>Subscript</source>
-        <translation>Subscript</translation>
+      <source>Outlined</source>
+      <translation>Outlined</translation>
     </message>
     <message>
-        <source>Outlined</source>
-        <translation>Outlined</translation>
+      <source>X-Pos:</source>
+      <translation>X-Pos:</translation>
     </message>
     <message>
-        <source>X-Pos:</source>
-        <translation>X-Pos:</translation>
+      <source>Y-Pos:</source>
+      <translation>Y-Pos:</translation>
     </message>
     <message>
-        <source>Y-Pos:</source>
-        <translation>Y-Pos:</translation>
+      <source>Ready</source>
+      <translation>Ready</translation>
     </message>
     <message>
-        <source>Ready</source>
-        <translation>Ready</translation>
+      <source>None</source>
+      <translation>None</translation>
     </message>
     <message>
-        <source>None</source>
-        <translation>None</translation>
+      <source>Get Picture...</source>
+      <translation>Get Picture...</translation>
     </message>
     <message>
-        <source>Get Picture...</source>
-        <translation>Get Picture...</translation>
+      <source>Color</source>
+      <translation>Colour</translation>
     </message>
     <message>
-        <source>Color</source>
-        <translation>Colour</translation>
+      <source>Invert</source>
+      <translation>Invert</translation>
     </message>
     <message>
-        <source>Invert</source>
-        <translation>Invert</translation>
+      <source>Get Text...</source>
+      <translation>Get Text...</translation>
     </message>
     <message>
-        <source>Get Text...</source>
-        <translation>Get Text...</translation>
+      <source>Font</source>
+      <translation>Font</translation>
     </message>
     <message>
-        <source>Font</source>
-        <translation>Font</translation>
+      <source>Size</source>
+      <translation>Size</translation>
     </message>
     <message>
-        <source>Size</source>
-        <translation>Size</translation>
+      <source>Shade</source>
+      <translation>Shade</translation>
     </message>
     <message>
-        <source>Shade</source>
-        <translation>Shade</translation>
+      <source>Unlock</source>
+      <translation>Unlock</translation>
     </message>
     <message>
-        <source>Unlock</source>
-        <translation>Unlock</translation>
+      <source>Open</source>
+      <translation>Open</translation>
     </message>
     <message>
-        <source>Open</source>
-        <translation>Open</translation>
+      <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
+      <translation>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</translation>
     </message>
     <message>
-        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-        <translation>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</translation>
+      <source>Documents (*.sla *.scd);;All Files (*)</source>
+      <translation>Documents (*.sla *.scd);;All Files (*)</translation>
     </message>
     <message>
-        <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Documents (*.sla *.scd);;All Files (*)</translation>
+      <source>Loading...</source>
+      <translation>Loading...</translation>
     </message>
     <message>
-        <source>Loading...</source>
-        <translation>Loading...</translation>
+      <source>All Supported Formats</source>
+      <translation>All Supported Formats</translation>
     </message>
     <message>
-        <source>All Supported Formats</source>
-        <translation>All Supported Formats</translation>
+      <source>All Files (*)</source>
+      <translation>All Files (*)</translation>
     </message>
     <message>
-        <source>All Files (*)</source>
-        <translation>All Files (*)</translation>
+      <source>Text Files (*.txt);;All Files(*)</source>
+      <translation>Text Files (*.txt);;All Files(*)</translation>
     </message>
     <message>
-        <source>Text Files (*.txt);;All Files(*)</source>
-        <translation>Text Files (*.txt);;All Files(*)</translation>
+      <source>Warning</source>
+      <translation>Warning</translation>
     </message>
     <message>
-        <source>Warning</source>
-        <translation>Warning</translation>
-    </message>
-    <message>
-        <source>Can&apos;t write the File: 
+      <source>Can't write the File: 
 %1</source>
-        <translation>Can&apos;t write the File: 
+      <translation>Can't write the File: 
 %1</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation>OK</translation>
+      <source>OK</source>
+      <translation>OK</translation>
     </message>
     <message>
-        <source>Save as</source>
-        <translation>Save as</translation>
+      <source>Save as</source>
+      <translation>Save as</translation>
     </message>
     <message>
-        <source>Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)</source>
-        <translation>Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)</translation>
+      <source>Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)</source>
+      <translation>Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)</translation>
     </message>
     <message>
-        <source>Saving...</source>
-        <translation>Saving...</translation>
+      <source>Saving...</source>
+      <translation>Saving...</translation>
     </message>
     <message>
-        <source>Printing...</source>
-        <translation>Printing...</translation>
+      <source>Printing...</source>
+      <translation>Printing...</translation>
     </message>
     <message>
-        <source>Document</source>
-        <translation>Document</translation>
+      <source>Document</source>
+      <translation>Document</translation>
     </message>
     <message>
-        <source>Printing failed!</source>
-        <translation>Printing failed!</translation>
+      <source>Printing failed!</source>
+      <translation>Printing failed!</translation>
     </message>
     <message>
-        <source>Scribus Manual</source>
-        <translation>Scribus Manual</translation>
+      <source>Scribus Manual</source>
+      <translation>Scribus Manual</translation>
     </message>
     <message>
-        <source>Size:</source>
-        <translation type="obsolete">Size:</translation>
+      <source>The following Programs are missing:</source>
+      <translation>The following Programs are missing:</translation>
     </message>
     <message>
-        <source>Shade:</source>
-        <translation type="obsolete">Shade:</translation>
+      <source>All</source>
+      <translation>All</translation>
     </message>
     <message>
-        <source>The following Programs are missing:</source>
-        <translation>The following Programs are missing:</translation>
+      <source>EPS-Files (*.eps);;All Files (*)</source>
+      <translation>EPS-Files (*.eps);;All Files (*)</translation>
     </message>
     <message>
-        <source>All</source>
-        <translation>All</translation>
+      <source>Loading:</source>
+      <translation>Loading:</translation>
     </message>
     <message>
-        <source>EPS-Files (*.eps);;All Files (*)</source>
-        <translation>EPS-Files (*.eps);;All Files (*)</translation>
+      <source>Adjusting Colors</source>
+      <translation>Adjusting Colours</translation>
     </message>
     <message>
-        <source>Loading:</source>
-        <translation>Loading:</translation>
+      <source>Undo Delete Object</source>
+      <translation>Undo Delete Object</translation>
     </message>
     <message>
-        <source>Adjusting Colors</source>
-        <translation>Adjusting Colours</translation>
+      <source>Undo Object Move</source>
+      <translation>Undo Object Move</translation>
     </message>
     <message>
-        <source>Undo Delete Object</source>
-        <translation>Undo Delete Object</translation>
+      <source>Undo Object Change</source>
+      <translation>Undo Object Change</translation>
     </message>
     <message>
-        <source>Undo Object Move</source>
-        <translation>Undo Object Move</translation>
+      <source>English</source>
+      <translation>English</translation>
     </message>
     <message>
-        <source>Undo Object Change</source>
-        <translation>Undo Object Change</translation>
+      <source>German</source>
+      <translation>German</translation>
     </message>
     <message>
-        <source>English</source>
-        <translation>English</translation>
+      <source>Spanish</source>
+      <translation>Spanish</translation>
     </message>
     <message>
-        <source>German</source>
-        <translation>German</translation>
+      <source>Italian</source>
+      <translation>Italian</translation>
     </message>
     <message>
-        <source>Spanish</source>
-        <translation>Spanish</translation>
+      <source>French</source>
+      <translation>French</translation>
     </message>
     <message>
-        <source>Italian</source>
-        <translation>Italian</translation>
+      <source>Russian</source>
+      <translation>Russian</translation>
     </message>
     <message>
-        <source>French</source>
-        <translation>French</translation>
+      <source>Danish</source>
+      <translation>Danish</translation>
     </message>
     <message>
-        <source>Russian</source>
-        <translation>Russian</translation>
+      <source>Slovak</source>
+      <translation>Slovak</translation>
     </message>
     <message>
-        <source>Danish</source>
-        <translation>Danish</translation>
+      <source>Hungarian</source>
+      <translation>Hungarian</translation>
     </message>
     <message>
-        <source>Slovak</source>
-        <translation>Slovak</translation>
+      <source>Czech</source>
+      <translation>Czech</translation>
     </message>
     <message>
-        <source>Hungarian</source>
-        <translation>Hungarian</translation>
+      <source>Dutch</source>
+      <translation>Dutch</translation>
     </message>
     <message>
-        <source>Czech</source>
-        <translation>Czech</translation>
+      <source>Portuguese</source>
+      <translation>Portuguese</translation>
     </message>
     <message>
-        <source>Dutch</source>
-        <translation>Dutch</translation>
+      <source>Ukrainian</source>
+      <translation>Ukrainian</translation>
     </message>
     <message>
-        <source>Portuguese</source>
-        <translation>Portuguese</translation>
+      <source>Polish</source>
+      <translation>Polish</translation>
     </message>
     <message>
-        <source>Ukrainian</source>
-        <translation>Ukrainian</translation>
+      <source>Greek</source>
+      <translation>Greek</translation>
     </message>
     <message>
-        <source>Polish</source>
-        <translation>Polish</translation>
+      <source>Catalan</source>
+      <translation>Catalan</translation>
     </message>
     <message>
-        <source>Greek</source>
-        <translation>Greek</translation>
+      <source>Finnish</source>
+      <translation>Finnish</translation>
     </message>
     <message>
-        <source>Catalan</source>
-        <translation>Catalan</translation>
+      <source>Irish</source>
+      <translation>Irish</translation>
     </message>
     <message>
-        <source>Finnish</source>
-        <translation>Finnish</translation>
+      <source>Choose a Directory</source>
+      <translation>Choose a Directory</translation>
     </message>
     <message>
-        <source>Irish</source>
-        <translation>Irish</translation>
+      <source>Scribus Crash</source>
+      <translation>Scribus Crash</translation>
     </message>
     <message>
-        <source>Choose a Directory</source>
-        <translation>Choose a Directory</translation>
+      <source>Scribus crashes due to Signal #%1</source>
+      <translation>Scribus crashes due to Signal #%1</translation>
     </message>
     <message>
-        <source>Scribus Crash</source>
-        <translation>Scribus Crash</translation>
+      <source>Create a new Document</source>
+      <translation>Create a new Document</translation>
     </message>
     <message>
-        <source>Scribus crashes due to Signal #%1</source>
-        <translation>Scribus crashes due to Signal #%1</translation>
+      <source>Open a Document</source>
+      <translation>Open a Document</translation>
     </message>
     <message>
-        <source>Create a new Document</source>
-        <translation>Create a new Document</translation>
+      <source>Save the current Document</source>
+      <translation>Save the current Document</translation>
     </message>
     <message>
-        <source>Open a Document</source>
-        <translation>Open a Document</translation>
+      <source>Close the current Document</source>
+      <translation>Close the current Document</translation>
     </message>
     <message>
-        <source>Save the current Document</source>
-        <translation>Save the current Document</translation>
+      <source>Print the current Document</source>
+      <translation>Print the current Document</translation>
     </message>
     <message>
-        <source>Close the current Document</source>
-        <translation>Close the current Document</translation>
+      <source>Save the current Document as PDF</source>
+      <translation>Save the current Document as PDF</translation>
     </message>
     <message>
-        <source>Print the current Document</source>
-        <translation>Print the current Document</translation>
+      <source>&amp;File</source>
+      <translation>&amp;File</translation>
     </message>
     <message>
-        <source>Save the current Document as PDF</source>
-        <translation>Save the current Document as PDF</translation>
+      <source>&amp;Edit</source>
+      <translation>&amp;Edit</translation>
     </message>
     <message>
-        <source>&amp;File</source>
-        <translation>&amp;File</translation>
+      <source>&amp;Item</source>
+      <translation>&amp;Item</translation>
     </message>
     <message>
-        <source>&amp;Edit</source>
-        <translation>&amp;Edit</translation>
+      <source>&amp;Page</source>
+      <translation>&amp;Page</translation>
     </message>
     <message>
-        <source>&amp;Item</source>
-        <translation>&amp;Item</translation>
+      <source>&amp;View</source>
+      <translation>&amp;View</translation>
     </message>
     <message>
-        <source>&amp;Page</source>
-        <translation>&amp;Page</translation>
+      <source>&amp;Tools</source>
+      <translation>&amp;Tools</translation>
     </message>
     <message>
-        <source>&amp;View</source>
-        <translation>&amp;View</translation>
+      <source>E&amp;xtras</source>
+      <translation>E&amp;xtras</translation>
     </message>
     <message>
-        <source>&amp;Tools</source>
-        <translation>&amp;Tools</translation>
+      <source>&amp;Windows</source>
+      <translation>&amp;Windows</translation>
     </message>
     <message>
-        <source>E&amp;xtras</source>
-        <translation>E&amp;xtras</translation>
+      <source>&amp;Help</source>
+      <translation>&amp;Help</translation>
     </message>
     <message>
-        <source>&amp;Windows</source>
-        <translation>&amp;Windows</translation>
+      <source>Show Baseline Grid</source>
+      <translation>Show Baseline Grid</translation>
     </message>
     <message>
-        <source>&amp;Help</source>
-        <translation>&amp;Help</translation>
+      <source>Hide Baseline Grid</source>
+      <translation>Hide Baseline Grid</translation>
     </message>
     <message>
-        <source>Show Baseline Grid</source>
-        <translation>Show Baseline Grid</translation>
+      <source>Some Objects are locked.</source>
+      <translation>Some Objects are locked.</translation>
     </message>
     <message>
-        <source>Hide Baseline Grid</source>
-        <translation>Hide Baseline Grid</translation>
+      <source>Cancel</source>
+      <translation>Cancel</translation>
     </message>
     <message>
-        <source>Some Objects are locked.</source>
-        <translation>Some Objects are locked.</translation>
+      <source>Lock all</source>
+      <translation>Lock all</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation>Cancel</translation>
+      <source>Unlock all</source>
+      <translation>Unlock all</translation>
     </message>
     <message>
-        <source>Lock all</source>
-        <translation>Lock all</translation>
+      <source> pt</source>
+      <translation> pt</translation>
     </message>
     <message>
-        <source>Unlock all</source>
-        <translation>Unlock all</translation>
+      <source> mm</source>
+      <translation> mm</translation>
     </message>
     <message>
-        <source> pt</source>
-        <translation> pt</translation>
+      <source> in</source>
+      <translation> in</translation>
     </message>
     <message>
-        <source> mm</source>
-        <translation> mm</translation>
+      <source> p</source>
+      <translation> p</translation>
     </message>
     <message>
-        <source> in</source>
-        <translation> in</translation>
+      <source>pt</source>
+      <translation>pt</translation>
     </message>
     <message>
-        <source> p</source>
-        <translation> p</translation>
+      <source>mm</source>
+      <translation>mm</translation>
     </message>
     <message>
-        <source>pt</source>
-        <translation>pt</translation>
+      <source>in</source>
+      <translation>in</translation>
     </message>
     <message>
-        <source>mm</source>
-        <translation>mm</translation>
+      <source>p</source>
+      <translation>p</translation>
     </message>
     <message>
-        <source>in</source>
-        <translation>in</translation>
+      <source>&amp;Settings</source>
+      <translation>&amp;Settings</translation>
     </message>
     <message>
-        <source>p</source>
-        <translation>p</translation>
+      <source>Lithuanian</source>
+      <translation>Lithuanian</translation>
     </message>
     <message>
-        <source>&amp;Settings</source>
-        <translation>&amp;Settings</translation>
+      <source>Swedish</source>
+      <translation>Swedish</translation>
     </message>
     <message>
-        <source>Lithuanian</source>
-        <translation>Lithuanian</translation>
+      <source>Slovenian</source>
+      <translation>Slovenian</translation>
     </message>
     <message>
-        <source>Swedish</source>
-        <translation>Swedish</translation>
+      <source>&amp;Color Management...</source>
+      <translation>&amp;Colour Management...</translation>
     </message>
     <message>
-        <source>Slovenian</source>
-        <translation>Slovenian</translation>
+      <source>&amp;New</source>
+      <translation>&amp;New</translation>
     </message>
     <message>
-        <source>&amp;Color Management...</source>
-        <translation>&amp;Colour Management...</translation>
+      <source>&amp;Open...</source>
+      <translation>&amp;Open...</translation>
     </message>
     <message>
-        <source>&amp;New</source>
-        <translation>&amp;New</translation>
+      <source>Open &amp;Recent</source>
+      <translation>Open &amp;Recent</translation>
     </message>
     <message>
-        <source>&amp;Open...</source>
-        <translation>&amp;Open...</translation>
+      <source>&amp;Close</source>
+      <translation>&amp;Close</translation>
     </message>
     <message>
-        <source>Open &amp;Recent</source>
-        <translation>Open &amp;Recent</translation>
+      <source>&amp;Save</source>
+      <translation>&amp;Save</translation>
     </message>
     <message>
-        <source>&amp;Close</source>
-        <translation>&amp;Close</translation>
+      <source>Save &amp;As...</source>
+      <translation>Save &amp;As...</translation>
     </message>
     <message>
-        <source>&amp;Save</source>
-        <translation>&amp;Save</translation>
+      <source>Re&amp;vert to Saved</source>
+      <translation>Re&amp;vert to Saved</translation>
     </message>
     <message>
-        <source>Save &amp;As...</source>
-        <translation>Save &amp;As...</translation>
+      <source>Collect for O&amp;utput...</source>
+      <translation>Collect for O&amp;utput...</translation>
     </message>
     <message>
-        <source>Re&amp;vert to Saved</source>
-        <translation>Re&amp;vert to Saved</translation>
+      <source>&amp;Get Text/Picture...</source>
+      <translation>&amp;Get Text/Picture...</translation>
     </message>
     <message>
-        <source>Collect for O&amp;utput...</source>
-        <translation>Collect for O&amp;utput...</translation>
+      <source>Append &amp;Text...</source>
+      <translation>Append &amp;Text...</translation>
     </message>
     <message>
-        <source>&amp;Get Text/Picture...</source>
-        <translation>&amp;Get Text/Picture...</translation>
+      <source>&amp;Import</source>
+      <translation>&amp;Import</translation>
     </message>
     <message>
-        <source>Append &amp;Text...</source>
-        <translation>Append &amp;Text...</translation>
+      <source>Save &amp;Text...</source>
+      <translation>Save &amp;Text...</translation>
     </message>
     <message>
-        <source>&amp;Import</source>
-        <translation>&amp;Import</translation>
+      <source>Save Page as &amp;EPS...</source>
+      <translation>Save Page as &amp;EPS...</translation>
     </message>
     <message>
-        <source>Save &amp;Text...</source>
-        <translation>Save &amp;Text...</translation>
+      <source>Save as P&amp;DF...</source>
+      <translation>Save as P&amp;DF...</translation>
     </message>
     <message>
-        <source>Save Page as &amp;EPS...</source>
-        <translation>Save Page as &amp;EPS...</translation>
+      <source>&amp;Export</source>
+      <translation>&amp;Export</translation>
     </message>
     <message>
-        <source>Save as P&amp;DF...</source>
-        <translation>Save as P&amp;DF...</translation>
+      <source>Document &amp;Info...</source>
+      <translation>Document &amp;Info...</translation>
     </message>
     <message>
-        <source>&amp;Export</source>
-        <translation>&amp;Export</translation>
+      <source>Document &amp;Setup...</source>
+      <translation>Document &amp;Setup...</translation>
     </message>
     <message>
-        <source>Document &amp;Info...</source>
-        <translation>Document &amp;Info...</translation>
+      <source>&amp;Print...</source>
+      <translation>&amp;Print...</translation>
     </message>
     <message>
-        <source>Document &amp;Setup...</source>
-        <translation>Document &amp;Setup...</translation>
+      <source>&amp;Quit</source>
+      <translation>&amp;Quit</translation>
     </message>
     <message>
-        <source>&amp;Print...</source>
-        <translation>&amp;Print...</translation>
+      <source>&amp;Undo</source>
+      <translation>&amp;Undo</translation>
     </message>
     <message>
-        <source>&amp;Quit</source>
-        <translation>&amp;Quit</translation>
+      <source>Cu&amp;t</source>
+      <translation>Cu&amp;t</translation>
     </message>
     <message>
-        <source>&amp;Undo</source>
-        <translation>&amp;Undo</translation>
+      <source>&amp;Copy</source>
+      <translation>&amp;Copy</translation>
     </message>
     <message>
-        <source>Cu&amp;t</source>
-        <translation>Cu&amp;t</translation>
+      <source>&amp;Paste</source>
+      <translation>&amp;Paste</translation>
     </message>
     <message>
-        <source>&amp;Copy</source>
-        <translation>&amp;Copy</translation>
+      <source>C&amp;lear</source>
+      <translation>C&amp;lear</translation>
     </message>
     <message>
-        <source>&amp;Paste</source>
-        <translation>&amp;Paste</translation>
+      <source>Select &amp;All</source>
+      <translation>Select &amp;All</translation>
     </message>
     <message>
-        <source>C&amp;lear</source>
-        <translation>C&amp;lear</translation>
+      <source>&amp;Search/Replace...</source>
+      <translation>&amp;Search/Replace...</translation>
     </message>
     <message>
-        <source>Select &amp;All</source>
-        <translation>Select &amp;All</translation>
+      <source>C&amp;olors...</source>
+      <translation>C&amp;olours...</translation>
     </message>
     <message>
-        <source>&amp;Search/Replace...</source>
-        <translation>&amp;Search/Replace...</translation>
+      <source>&amp;Paragraph Styles...</source>
+      <translation>&amp;Paragraph Styles...</translation>
     </message>
     <message>
-        <source>C&amp;olors...</source>
-        <translation>C&amp;olours...</translation>
+      <source>&amp;Line Styles...</source>
+      <translation>&amp;Line Styles...</translation>
     </message>
     <message>
-        <source>&amp;Paragraph Styles...</source>
-        <translation>&amp;Paragraph Styles...</translation>
+      <source>&amp;Templates...</source>
+      <translation>&amp;Templates...</translation>
     </message>
     <message>
-        <source>&amp;Line Styles...</source>
-        <translation>&amp;Line Styles...</translation>
+      <source>&amp;Javascripts...</source>
+      <translation>&amp;Javascripts...</translation>
     </message>
     <message>
-        <source>&amp;Templates...</source>
-        <translation>&amp;Templates...</translation>
+      <source>D&amp;uplicate</source>
+      <translation>D&amp;uplicate</translation>
     </message>
     <message>
-        <source>&amp;Javascripts...</source>
-        <translation>&amp;Javascripts...</translation>
+      <source>&amp;Multiple Duplicate</source>
+      <translation>&amp;Multiple Duplicate</translation>
     </message>
     <message>
-        <source>D&amp;uplicate</source>
-        <translation>D&amp;uplicate</translation>
+      <source>&amp;Delete</source>
+      <translation>&amp;Delete</translation>
     </message>
     <message>
-        <source>&amp;Multiple Duplicate</source>
-        <translation>&amp;Multiple Duplicate</translation>
+      <source>&amp;Group</source>
+      <translation>&amp;Group</translation>
     </message>
     <message>
-        <source>&amp;Delete</source>
-        <translation>&amp;Delete</translation>
+      <source>&amp;Ungroup</source>
+      <translation>&amp;Ungroup</translation>
     </message>
     <message>
-        <source>&amp;Group</source>
-        <translation>&amp;Group</translation>
+      <source>&amp;Lock</source>
+      <translation>&amp;Lock</translation>
     </message>
     <message>
-        <source>&amp;Ungroup</source>
-        <translation>&amp;Ungroup</translation>
+      <source>Send to &amp;Back</source>
+      <translation>Send to &amp;Back</translation>
     </message>
     <message>
-        <source>&amp;Lock</source>
-        <translation>&amp;Lock</translation>
+      <source>Bring to &amp;Front</source>
+      <translation>Bring to &amp;Front</translation>
     </message>
     <message>
-        <source>Send to &amp;Back</source>
-        <translation>Send to &amp;Back</translation>
+      <source>&amp;Lower</source>
+      <translation>&amp;Lower</translation>
     </message>
     <message>
-        <source>Bring to &amp;Front</source>
-        <translation>Bring to &amp;Front</translation>
+      <source>&amp;Raise</source>
+      <translation>&amp;Raise</translation>
     </message>
     <message>
-        <source>&amp;Lower</source>
-        <translation>&amp;Lower</translation>
+      <source>Distribute/&amp;Align...</source>
+      <translation>Distribute/&amp;Align...</translation>
     </message>
     <message>
-        <source>&amp;Raise</source>
-        <translation>&amp;Raise</translation>
+      <source>&amp;Edit Frame</source>
+      <translation>&amp;Edit Frame</translation>
     </message>
     <message>
-        <source>Distribute/&amp;Align...</source>
-        <translation>Distribute/&amp;Align...</translation>
+      <source>&amp;Shape</source>
+      <translation>&amp;Shape</translation>
     </message>
     <message>
-        <source>&amp;Edit Frame</source>
-        <translation>&amp;Edit Frame</translation>
+      <source>&amp;Attach Text to Path</source>
+      <translation>&amp;Attach Text to Path</translation>
     </message>
     <message>
-        <source>&amp;Shape</source>
-        <translation>&amp;Shape</translation>
+      <source>&amp;Detach Text from Path</source>
+      <translation>&amp;Detach Text from Path</translation>
     </message>
     <message>
-        <source>&amp;Attach Text to Path</source>
-        <translation>&amp;Attach Text to Path</translation>
+      <source>&amp;Combine Polygons</source>
+      <translation>&amp;Combine Polygons</translation>
     </message>
     <message>
-        <source>&amp;Detach Text from Path</source>
-        <translation>&amp;Detach Text from Path</translation>
+      <source>Split &amp;Polygons</source>
+      <translation>Split &amp;Polygons</translation>
     </message>
     <message>
-        <source>&amp;Combine Polygons</source>
-        <translation>&amp;Combine Polygons</translation>
+      <source>C&amp;onvert to Outlines</source>
+      <translation>C&amp;onvert to Outlines</translation>
     </message>
     <message>
-        <source>Split &amp;Polygons</source>
-        <translation>Split &amp;Polygons</translation>
+      <source>&amp;Insert...</source>
+      <translation>&amp;Insert...</translation>
     </message>
     <message>
-        <source>C&amp;onvert to Outlines</source>
-        <translation>C&amp;onvert to Outlines</translation>
+      <source>&amp;Delete...</source>
+      <translation>&amp;Delete...</translation>
     </message>
     <message>
-        <source>&amp;Insert...</source>
-        <translation>&amp;Insert...</translation>
+      <source>&amp;Move...</source>
+      <translation>&amp;Move...</translation>
     </message>
     <message>
-        <source>&amp;Delete...</source>
-        <translation>&amp;Delete...</translation>
+      <source>&amp;Apply Template...</source>
+      <translation>&amp;Apply Template...</translation>
     </message>
     <message>
-        <source>&amp;Move...</source>
-        <translation>&amp;Move...</translation>
+      <source>&amp;Fit in Window</source>
+      <translation>&amp;Fit in Window</translation>
     </message>
     <message>
-        <source>&amp;Apply Template...</source>
-        <translation>&amp;Apply Template...</translation>
+      <source>&amp;100%</source>
+      <translation>&amp;100%</translation>
     </message>
     <message>
-        <source>&amp;Manage Guides...</source>
-        <translation type="obsolete">&amp;Manage Guides...</translation>
+      <source>&amp;Thumbnails</source>
+      <translation>&amp;Thumbnails</translation>
     </message>
     <message>
-        <source>&amp;Fit in Window</source>
-        <translation>&amp;Fit in Window</translation>
+      <source>Show &amp;Grid</source>
+      <translation>Show &amp;Grid</translation>
     </message>
     <message>
-        <source>&amp;100%</source>
-        <translation>&amp;100%</translation>
+      <source>Sna&amp;p to Guides</source>
+      <translation>Sna&amp;p to Guides</translation>
     </message>
     <message>
-        <source>&amp;Thumbnails</source>
-        <translation>&amp;Thumbnails</translation>
+      <source>Show &amp;Baseline Grid</source>
+      <translation>Show &amp;Baseline Grid</translation>
     </message>
     <message>
-        <source>Show &amp;Grid</source>
-        <translation>Show &amp;Grid</translation>
+      <source>&amp;Properties</source>
+      <translation>&amp;Properties</translation>
     </message>
     <message>
-        <source>Sna&amp;p to Guides</source>
-        <translation>Sna&amp;p to Guides</translation>
+      <source>&amp;Outline</source>
+      <translation>&amp;Outline</translation>
     </message>
     <message>
-        <source>Show &amp;Baseline Grid</source>
-        <translation>Show &amp;Baseline Grid</translation>
+      <source>&amp;Scrapbook</source>
+      <translation>&amp;Scrapbook</translation>
     </message>
     <message>
-        <source>&amp;Properties</source>
-        <translation>&amp;Properties</translation>
+      <source>&amp;Layers</source>
+      <translation>&amp;Layers</translation>
     </message>
     <message>
-        <source>&amp;Outline</source>
-        <translation>&amp;Outline</translation>
+      <source>P&amp;age Palette</source>
+      <translation>P&amp;age Palette</translation>
     </message>
     <message>
-        <source>&amp;Scrapbook</source>
-        <translation>&amp;Scrapbook</translation>
+      <source>&amp;Bookmarks</source>
+      <translation>&amp;Bookmarks</translation>
     </message>
     <message>
-        <source>&amp;Layers</source>
-        <translation>&amp;Layers</translation>
+      <source>&amp;Manage Pictures</source>
+      <translation>&amp;Manage Pictures</translation>
     </message>
     <message>
-        <source>P&amp;age Palette</source>
-        <translation>P&amp;age Palette</translation>
+      <source>&amp;Hyphenate Text</source>
+      <translation>&amp;Hyphenate Text</translation>
     </message>
     <message>
-        <source>&amp;Bookmarks</source>
-        <translation>&amp;Bookmarks</translation>
+      <source>Toolti&amp;ps</source>
+      <translation>Toolti&amp;ps</translation>
     </message>
     <message>
-        <source>&amp;Manage Pictures</source>
-        <translation>&amp;Manage Pictures</translation>
+      <source>P&amp;DF Tools</source>
+      <translation>P&amp;DF Tools</translation>
     </message>
     <message>
-        <source>&amp;Hyphenate Text</source>
-        <translation>&amp;Hyphenate Text</translation>
+      <source>Tooltips</source>
+      <translation>Tooltips</translation>
     </message>
     <message>
-        <source>Toolti&amp;ps</source>
-        <translation>Toolti&amp;ps</translation>
+      <source>&amp;Fonts...</source>
+      <translation>&amp;Fonts...</translation>
     </message>
     <message>
-        <source>P&amp;DF Tools</source>
-        <translation>P&amp;DF Tools</translation>
+      <source>&amp;Hyphenator...</source>
+      <translation>&amp;Hyphenator...</translation>
     </message>
     <message>
-        <source>Tooltips</source>
-        <translation>Tooltips</translation>
+      <source>&amp;Keyboard Shortcuts...</source>
+      <translation>&amp;Keyboard Shortcuts...</translation>
     </message>
     <message>
-        <source>&amp;Fonts...</source>
-        <translation>&amp;Fonts...</translation>
+      <source>&amp;About Scribus</source>
+      <translation>&amp;About Scribus</translation>
     </message>
     <message>
-        <source>&amp;Hyphenator...</source>
-        <translation>&amp;Hyphenator...</translation>
+      <source>About &amp;Qt</source>
+      <translation>About &amp;Qt</translation>
     </message>
     <message>
-        <source>&amp;Keyboard Shortcuts...</source>
-        <translation>&amp;Keyboard Shortcuts...</translation>
+      <source>Scribus &amp;Manual...</source>
+      <translation>Scribus &amp;Manual...</translation>
     </message>
     <message>
-        <source>&amp;About Scribus</source>
-        <translation>&amp;About Scribus</translation>
+      <source>St&amp;yle</source>
+      <translation>St&amp;yle</translation>
     </message>
     <message>
-        <source>About &amp;Qt</source>
-        <translation>About &amp;Qt</translation>
+      <source>&amp;Left</source>
+      <translation>&amp;Left</translation>
     </message>
     <message>
-        <source>Scribus &amp;Manual...</source>
-        <translation>Scribus &amp;Manual...</translation>
+      <source>&amp;Center</source>
+      <translation>&amp;Centre</translation>
     </message>
     <message>
-        <source>St&amp;yle</source>
-        <translation>St&amp;yle</translation>
+      <source>&amp;Right</source>
+      <translation>&amp;Right</translation>
     </message>
     <message>
-        <source>&amp;Left</source>
-        <translation>&amp;Left</translation>
+      <source>&amp;Block</source>
+      <translation>&amp;Block</translation>
     </message>
     <message>
-        <source>&amp;Center</source>
-        <translation>&amp;Centre</translation>
+      <source>&amp;Forced</source>
+      <translation>&amp;Forced</translation>
     </message>
     <message>
-        <source>&amp;Right</source>
-        <translation>&amp;Right</translation>
+      <source>&amp;Other...</source>
+      <translation>&amp;Other...</translation>
     </message>
     <message>
-        <source>&amp;Block</source>
-        <translation>&amp;Block</translation>
+      <source>&amp;Cascade</source>
+      <translation>&amp;Cascade</translation>
     </message>
     <message>
-        <source>&amp;Forced</source>
-        <translation>&amp;Forced</translation>
+      <source>&amp;Tile</source>
+      <translation>&amp;Tile</translation>
     </message>
     <message>
-        <source>&amp;Other...</source>
-        <translation>&amp;Other...</translation>
+      <source>&amp;Color</source>
+      <translation>&amp;Colour</translation>
     </message>
     <message>
-        <source>&amp;Cascade</source>
-        <translation>&amp;Cascade</translation>
+      <source>&amp;Invert</source>
+      <translation>&amp;Invert</translation>
     </message>
     <message>
-        <source>&amp;Tile</source>
-        <translation>&amp;Tile</translation>
+      <source>&amp;Get Text...</source>
+      <translation>&amp;Get Text...</translation>
     </message>
     <message>
-        <source>&amp;Color</source>
-        <translation>&amp;Colour</translation>
+      <source>&amp;Font</source>
+      <translation>&amp;Font</translation>
     </message>
     <message>
-        <source>&amp;Invert</source>
-        <translation>&amp;Invert</translation>
+      <source>&amp;Size</source>
+      <translation>&amp;Size</translation>
     </message>
     <message>
-        <source>&amp;Get Text...</source>
-        <translation>&amp;Get Text...</translation>
+      <source>&amp;Effects</source>
+      <translation>&amp;Effects</translation>
     </message>
     <message>
-        <source>&amp;Font</source>
-        <translation>&amp;Font</translation>
+      <source>&amp;Alignment</source>
+      <translation>&amp;Alignment</translation>
     </message>
     <message>
-        <source>&amp;Size</source>
-        <translation>&amp;Size</translation>
+      <source>&amp;Shade</source>
+      <translation>&amp;Shade</translation>
     </message>
     <message>
-        <source>&amp;Effects</source>
-        <translation>&amp;Effects</translation>
+      <source>&amp;Tabulators...</source>
+      <translation>&amp;Tabulators...</translation>
     </message>
     <message>
-        <source>&amp;Alignment</source>
-        <translation>&amp;Alignment</translation>
+      <source>Un&amp;lock</source>
+      <translation>Un&amp;lock</translation>
     </message>
     <message>
-        <source>&amp;Shade</source>
-        <translation>&amp;Shade</translation>
+      <source>Show &amp;Images</source>
+      <translation>Show &amp;Images</translation>
     </message>
     <message>
-        <source>&amp;Tabulators...</source>
-        <translation>&amp;Tabulators...</translation>
+      <source>Show &amp;Margins</source>
+      <translation>Show &amp;Margins</translation>
     </message>
     <message>
-        <source>Un&amp;lock</source>
-        <translation>Un&amp;lock</translation>
+      <source>Show &amp;Frames</source>
+      <translation>Show &amp;Frames</translation>
     </message>
     <message>
-        <source>Show &amp;Images</source>
-        <translation>Show &amp;Images</translation>
+      <source>Show G&amp;uides</source>
+      <translation>Show G&amp;uides</translation>
     </message>
     <message>
-        <source>Show &amp;Margins</source>
-        <translation>Show &amp;Margins</translation>
+      <source>Ghostscript : You cannot use EPS Images</source>
+      <translation>Ghostscript : You cannot use EPS Images</translation>
     </message>
     <message>
-        <source>Show &amp;Frames</source>
-        <translation>Show &amp;Frames</translation>
+      <source>Import &amp;Page(s)...</source>
+      <translation>Import &amp;Page(s)...</translation>
     </message>
     <message>
-        <source>Show G&amp;uides</source>
-        <translation>Show G&amp;uides</translation>
+      <source>100%</source>
+      <translation>100%</translation>
     </message>
     <message>
-        <source>Ghostscript : You cannot use EPS Images</source>
-        <translation>Ghostscript : You cannot use EPS Images</translation>
+      <source>Sn&amp;ap to Grid</source>
+      <translation>Sn&amp;ap to Grid</translation>
     </message>
     <message>
-        <source>Import &amp;Page(s)...</source>
-        <translation>Import &amp;Page(s)...</translation>
+      <source>P&amp;references...</source>
+      <translation>P&amp;references...</translation>
     </message>
     <message>
-        <source>100%</source>
-        <translation>100%</translation>
+      <source>Importing Pages...</source>
+      <translation>Importing Pages...</translation>
     </message>
     <message>
-        <source>Sn&amp;ap to Grid</source>
-        <translation>Sn&amp;ap to Grid</translation>
+      <source>Import Page(s)</source>
+      <translation>Import Page(s)</translation>
     </message>
     <message>
-        <source>P&amp;references...</source>
-        <translation>P&amp;references...</translation>
+      <source>&lt;p>You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p>Choose one of the following:&lt;br>&lt;ul>&lt;li>&lt;b>Create&lt;/b> missing pages&lt;/li>&lt;li>&lt;b>Import&lt;/b> pages until the last page&lt;/li>&lt;li>&lt;b>Cancel&lt;/b>&lt;/li>&lt;/ul>&lt;br></source>
+      <translation>&lt;p>You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p>Choose one of the following:&lt;br>&lt;ul>&lt;li>&lt;b>Create&lt;/b> missing pages&lt;/li>&lt;li>&lt;b>Import&lt;/b> pages until the last page&lt;/li>&lt;li>&lt;b>Cancel&lt;/b>&lt;/li>&lt;/ul>&lt;br></translation>
     </message>
     <message>
-        <source>Importing Pages...</source>
-        <translation>Importing Pages...</translation>
+      <source>Create</source>
+      <translation>Create</translation>
     </message>
     <message>
-        <source>Import Page(s)</source>
-        <translation>Import Page(s)</translation>
+      <source>Import</source>
+      <translation>Import</translation>
     </message>
     <message>
-        <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;</source>
-        <translation>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;</translation>
+      <source>Import done</source>
+      <translation>Import done</translation>
     </message>
     <message>
-        <source>Create</source>
-        <translation>Create</translation>
+      <source>Found nothing to import</source>
+      <translation>Found nothing to import</translation>
     </message>
     <message>
-        <source>Import</source>
-        <translation>Import</translation>
+      <source>Getting ICC Profiles</source>
+      <translation>Getting ICC Profiles</translation>
     </message>
     <message>
-        <source>Import done</source>
-        <translation>Import done</translation>
+      <source>Manage &amp;Guides...</source>
+      <translation>Manage &amp;Guides...</translation>
     </message>
     <message>
-        <source>Found nothing to import</source>
-        <translation>Found nothing to import</translation>
+      <source>&amp;Size:</source>
+      <translation>&amp;Size:</translation>
     </message>
     <message>
-        <source>Getting ICC Profiles</source>
-        <translation type="unfinished"></translation>
+      <source>&amp;Shade:</source>
+      <translation>&amp;Shade:</translation>
     </message>
-    <message>
-        <source>Manage &amp;Guides...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Size:</source>
-        <translation type="unfinished">&amp;Size:</translation>
-    </message>
-    <message>
-        <source>&amp;Shade:</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>ScribusView</name>
     <message>
-        <source> %</source>
-        <translation> %</translation>
+      <source> %</source>
+      <translation> %</translation>
     </message>
     <message>
-        <source>Layer</source>
-        <translation>Layer</translation>
+      <source>Layer</source>
+      <translation>Layer</translation>
     </message>
     <message>
-        <source>All</source>
-        <translation>All</translation>
+      <source>All</source>
+      <translation>All</translation>
     </message>
     <message>
-        <source>pt</source>
-        <translation>pt</translation>
+      <source>pt</source>
+      <translation>pt</translation>
     </message>
     <message>
-        <source>mm</source>
-        <translation>mm</translation>
+      <source>mm</source>
+      <translation>mm</translation>
     </message>
     <message>
-        <source>in</source>
-        <translation>in</translation>
+      <source>in</source>
+      <translation>in</translation>
     </message>
     <message>
-        <source>p</source>
-        <translation>p</translation>
+      <source>p</source>
+      <translation>p</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>ScribusWin</name>
     <message>
-        <source>Warning</source>
-        <translation>Warning</translation>
+      <source>Warning</source>
+      <translation>Warning</translation>
     </message>
     <message>
-        <source>Document:</source>
-        <translation>Document:</translation>
+      <source>Document:</source>
+      <translation>Document:</translation>
     </message>
     <message>
-        <source>has been changed since the last save.</source>
-        <translation>has been changed since the last save.</translation>
+      <source>has been changed since the last save.</source>
+      <translation>has been changed since the last save.</translation>
     </message>
     <message>
-        <source>&amp;Leave Anyway</source>
-        <translation>&amp;Leave Anyway</translation>
+      <source>&amp;Leave Anyway</source>
+      <translation>&amp;Leave Anyway</translation>
     </message>
     <message>
-        <source>C&amp;lose Anyway</source>
-        <translation>C&amp;lose Anyway</translation>
+      <source>C&amp;lose Anyway</source>
+      <translation>C&amp;lose Anyway</translation>
     </message>
     <message>
-        <source>&amp;Save Now</source>
-        <translation>&amp;Save Now</translation>
+      <source>&amp;Save Now</source>
+      <translation>&amp;Save Now</translation>
     </message>
     <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Cancel</translation>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>SeList</name>
     <message>
-        <source>Show Page Previews</source>
-        <translation>Show Page Previews</translation>
+      <source>Show Page Previews</source>
+      <translation>Show Page Previews</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>SeView</name>
     <message>
-        <source>Show Template Names</source>
-        <translation>Show Template Names</translation>
+      <source>Show Template Names</source>
+      <translation>Show Template Names</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>SearchReplace</name>
     <message>
-        <source>Search/Replace</source>
-        <translation>Search/Replace</translation>
+      <source>Search/Replace</source>
+      <translation>Search/Replace</translation>
     </message>
     <message>
-        <source>Search for:</source>
-        <translation>Search for:</translation>
+      <source>Search for:</source>
+      <translation>Search for:</translation>
     </message>
     <message>
-        <source>Text</source>
-        <translation>Text</translation>
+      <source>Text</source>
+      <translation>Text</translation>
     </message>
     <message>
-        <source>Paragraph Style</source>
-        <translation>Paragraph Style</translation>
+      <source>Paragraph Style</source>
+      <translation>Paragraph Style</translation>
     </message>
     <message>
-        <source>Font</source>
-        <translation>Font</translation>
+      <source>Font</source>
+      <translation>Font</translation>
     </message>
     <message>
-        <source>Font Size</source>
-        <translation>Font Size</translation>
+      <source>Font Size</source>
+      <translation>Font Size</translation>
     </message>
     <message>
-        <source>Font Effects</source>
-        <translation>Font Effects</translation>
+      <source>Font Effects</source>
+      <translation>Font Effects</translation>
     </message>
     <message>
-        <source>Fill Color</source>
-        <translation>Fill Colour</translation>
+      <source>Fill Color</source>
+      <translation>Fill Colour</translation>
     </message>
     <message>
-        <source>Fill Shade</source>
-        <translation>Fill Shade</translation>
+      <source>Fill Shade</source>
+      <translation>Fill Shade</translation>
     </message>
     <message>
-        <source>Stroke Color</source>
-        <translation>Stroke Colour</translation>
+      <source>Stroke Color</source>
+      <translation>Stroke Colour</translation>
     </message>
     <message>
-        <source>Stroke Shade</source>
-        <translation>Stroke Shade</translation>
+      <source>Stroke Shade</source>
+      <translation>Stroke Shade</translation>
     </message>
     <message>
-        <source>Left</source>
-        <translation>Left</translation>
+      <source>Left</source>
+      <translation>Left</translation>
     </message>
     <message>
-        <source>Center</source>
-        <translation>Centre</translation>
+      <source>Center</source>
+      <translation>Centre</translation>
     </message>
     <message>
-        <source>Right</source>
-        <translation>Right</translation>
+      <source>Right</source>
+      <translation>Right</translation>
     </message>
     <message>
-        <source>Block</source>
-        <translation>Block</translation>
+      <source>Block</source>
+      <translation>Block</translation>
     </message>
     <message>
-        <source>Forced</source>
-        <translation>Forced</translation>
+      <source>Forced</source>
+      <translation>Forced</translation>
     </message>
     <message>
-        <source> pt</source>
-        <translation> pt</translation>
+      <source> pt</source>
+      <translation> pt</translation>
     </message>
     <message>
-        <source>None</source>
-        <translation>None</translation>
+      <source>None</source>
+      <translation>None</translation>
     </message>
     <message>
-        <source>Replace with:</source>
-        <translation>Replace with:</translation>
+      <source>Replace with:</source>
+      <translation>Replace with:</translation>
     </message>
     <message>
-        <source>Whole Word</source>
-        <translation type="obsolete">Whole Word</translation>
+      <source>Search finished</source>
+      <translation>Search finished</translation>
     </message>
     <message>
-        <source>Ignore Case</source>
-        <translation type="obsolete">Ignore Case</translation>
+      <source>OK</source>
+      <translation>OK</translation>
     </message>
     <message>
-        <source>Search</source>
-        <translation type="obsolete">Search</translation>
+      <source>&amp;Whole Word</source>
+      <translation>&amp;Whole Word</translation>
     </message>
     <message>
-        <source>Replace</source>
-        <translation type="obsolete">Replace</translation>
+      <source>&amp;Ignore Case</source>
+      <translation>&amp;Ignore Case</translation>
     </message>
     <message>
-        <source>Replace All</source>
-        <translation type="obsolete">Replace All</translation>
+      <source>&amp;Search</source>
+      <translation>&amp;Search</translation>
     </message>
     <message>
-        <source>Leave</source>
-        <translation type="obsolete">Leave</translation>
+      <source>&amp;Replace</source>
+      <translation>&amp;Replace</translation>
     </message>
     <message>
-        <source>Search finished</source>
-        <translation>Search finished</translation>
+      <source>Replace &amp;All</source>
+      <translation>Replace &amp;All</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation>OK</translation>
+      <source>&amp;Close</source>
+      <translation>&amp;Close</translation>
     </message>
-    <message>
-        <source>&amp;Whole Word</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Ignore Case</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Search</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Replace</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Replace &amp;All</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Close</source>
-        <translation type="unfinished">&amp;Close</translation>
-    </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>SeitenPal</name>
     <message>
-        <source>Arrange Pages</source>
-        <translation>Arrange Pages</translation>
+      <source>Arrange Pages</source>
+      <translation>Arrange Pages</translation>
     </message>
     <message>
-        <source>Available Templates:</source>
-        <translation>Available Templates:</translation>
+      <source>Available Templates:</source>
+      <translation>Available Templates:</translation>
     </message>
     <message>
-        <source>Document Pages:</source>
-        <translation>Document Pages:</translation>
+      <source>Document Pages:</source>
+      <translation>Document Pages:</translation>
     </message>
     <message>
-        <source>Facing Pages</source>
-        <translation>Facing Pages</translation>
+      <source>Facing Pages</source>
+      <translation>Facing Pages</translation>
     </message>
     <message>
-        <source>Left Page first</source>
-        <translation>Left Page first</translation>
+      <source>Left Page first</source>
+      <translation>Left Page first</translation>
     </message>
     <message>
-        <source>Drag Pages or Template Pages onto the Trashbin to delete them.</source>
-        <translation>Drag Pages or Template Pages onto the Trashbin to delete them.</translation>
+      <source>Drag Pages or Template Pages onto the Trashbin to delete them.</source>
+      <translation>Drag Pages or Template Pages onto the Trashbin to delete them.</translation>
     </message>
     <message>
-        <source>Here are all your Templates, to create a new Page
+      <source>Here are all your Templates, to create a new Page
 drag a Template to the Pageview below.</source>
-        <translation>Here are all your Templates, to create a new Page
+      <translation>Here are all your Templates, to create a new Page
 drag a Template to the Pageview below.</translation>
     </message>
     <message>
-        <source>Normal</source>
-        <translation>Normal</translation>
+      <source>Normal</source>
+      <translation>Normal</translation>
     </message>
     <message>
-        <source>Previews all the pages of your document.</source>
-        <translation>Previews all the pages of your document.</translation>
+      <source>Previews all the pages of your document.</source>
+      <translation>Previews all the pages of your document.</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>SelectFields</name>
     <message>
-        <source>Select Fields</source>
-        <translation>Select Fields</translation>
+      <source>Select Fields</source>
+      <translation>Select Fields</translation>
     </message>
     <message>
-        <source>Available Fields</source>
-        <translation>Available Fields</translation>
+      <source>Available Fields</source>
+      <translation>Available Fields</translation>
     </message>
     <message>
-        <source>Selected Fields</source>
-        <translation>Selected Fields</translation>
+      <source>Selected Fields</source>
+      <translation>Selected Fields</translation>
     </message>
     <message>
-        <source>&amp;&gt;&gt;</source>
-        <translation>&amp;&gt;&gt;</translation>
+      <source>&amp;>></source>
+      <translation>&amp;>></translation>
     </message>
     <message>
-        <source>&amp;&lt;&lt;</source>
-        <translation>&amp;&lt;&lt;</translation>
+      <source>&amp;&lt;&lt;</source>
+      <translation>&amp;&lt;&lt;</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
     </message>
     <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Cancel</translation>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>ShadeButton</name>
     <message>
-        <source>Other...</source>
-        <translation>Other...</translation>
+      <source>Other...</source>
+      <translation>Other...</translation>
     </message>
     <message>
-        <source>Shade:</source>
-        <translation type="obsolete">Shade:</translation>
+      <source>Shade</source>
+      <translation>Shade</translation>
     </message>
     <message>
-        <source>Shade</source>
-        <translation>Shade</translation>
+      <source>&amp;Shade:</source>
+      <translation>&amp;Shade:</translation>
     </message>
-    <message>
-        <source>&amp;Shade:</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>Spalette</name>
     <message>
-        <source>No Style</source>
-        <translation>No Style</translation>
+      <source>No Style</source>
+      <translation>No Style</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>StilFormate</name>
     <message>
-        <source>Edit Styles</source>
-        <translation>Edit Styles</translation>
+      <source>Edit Styles</source>
+      <translation>Edit Styles</translation>
     </message>
     <message>
-        <source>Copy of %1</source>
-        <translation>Copy of %1</translation>
+      <source>Copy of %1</source>
+      <translation>Copy of %1</translation>
     </message>
     <message>
-        <source>New Style</source>
-        <translation>New Style</translation>
+      <source>New Style</source>
+      <translation>New Style</translation>
     </message>
     <message>
-        <source>Warning</source>
-        <translation>Warning</translation>
+      <source>Warning</source>
+      <translation>Warning</translation>
     </message>
     <message>
-        <source>Do you really want do delete this Style?</source>
-        <translation>Do you really want do delete this Style?</translation>
+      <source>Do you really want do delete this Style?</source>
+      <translation>Do you really want do delete this Style?</translation>
     </message>
     <message>
-        <source>No</source>
-        <translation>No</translation>
+      <source>No</source>
+      <translation>No</translation>
     </message>
     <message>
-        <source>Yes</source>
-        <translation>Yes</translation>
+      <source>Yes</source>
+      <translation>Yes</translation>
     </message>
     <message>
-        <source>Open</source>
-        <translation>Open</translation>
+      <source>Open</source>
+      <translation>Open</translation>
     </message>
     <message>
-        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-        <translation>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</translation>
+      <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
+      <translation>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</translation>
     </message>
     <message>
-        <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Documents (*.sla *.scd);;All Files (*)</translation>
+      <source>Documents (*.sla *.scd);;All Files (*)</source>
+      <translation>Documents (*.sla *.scd);;All Files (*)</translation>
     </message>
     <message>
-        <source>&amp;Append</source>
-        <translation>&amp;Append</translation>
+      <source>&amp;Append</source>
+      <translation>&amp;Append</translation>
     </message>
     <message>
-        <source>&amp;New</source>
-        <translation>&amp;New</translation>
+      <source>&amp;New</source>
+      <translation>&amp;New</translation>
     </message>
     <message>
-        <source>&amp;Edit</source>
-        <translation>&amp;Edit</translation>
+      <source>&amp;Edit</source>
+      <translation>&amp;Edit</translation>
     </message>
     <message>
-        <source>D&amp;uplicate</source>
-        <translation>D&amp;uplicate</translation>
+      <source>D&amp;uplicate</source>
+      <translation>D&amp;uplicate</translation>
     </message>
     <message>
-        <source>&amp;Delete</source>
-        <translation>&amp;Delete</translation>
+      <source>&amp;Delete</source>
+      <translation>&amp;Delete</translation>
     </message>
     <message>
-        <source>&amp;Save</source>
-        <translation>&amp;Save</translation>
+      <source>&amp;Save</source>
+      <translation>&amp;Save</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
     </message>
     <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Cancel</translation>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>StoryEditor</name>
     <message>
-        <source>Story Editor</source>
-        <translation>Story Editor</translation>
+      <source>Story Editor</source>
+      <translation>Story Editor</translation>
     </message>
     <message>
-        <source>Forced</source>
-        <translation type="obsolete">Forced</translation>
+      <source>Current Paragraph:</source>
+      <translation>Current Paragraph:</translation>
     </message>
     <message>
-        <source>Block</source>
-        <translation type="obsolete">Block</translation>
+      <source>Words: </source>
+      <translation>Words: </translation>
     </message>
     <message>
-        <source>Right</source>
-        <translation type="obsolete">Right</translation>
+      <source>Chars: </source>
+      <translation>Chars: </translation>
     </message>
     <message>
-        <source>Center</source>
-        <translation type="obsolete">Centre</translation>
+      <source>Totals:</source>
+      <translation>Totals:</translation>
     </message>
     <message>
-        <source>Left</source>
-        <translation type="obsolete">Left</translation>
+      <source>Paragraphs: </source>
+      <translation>Paragraphs: </translation>
     </message>
     <message>
-        <source>New</source>
-        <translation type="obsolete">New</translation>
+      <source>Warning</source>
+      <translation>Warning</translation>
     </message>
     <message>
-        <source>Save to File...</source>
-        <translation type="obsolete">Save to File...</translation>
+      <source>Do you really want to lose all your Changes?</source>
+      <translation>Do you really want to lose all your Changes?</translation>
     </message>
     <message>
-        <source>Load from File...</source>
-        <translation type="obsolete">Load from File...</translation>
+      <source>Do you really want to clear all your Text?</source>
+      <translation>Do you really want to clear all your Text?</translation>
     </message>
     <message>
-        <source>Undo</source>
-        <translation type="obsolete">Undo</translation>
+      <source>Open</source>
+      <translation>Open</translation>
     </message>
     <message>
-        <source>Redo</source>
-        <translation type="obsolete">Redo</translation>
+      <source>Text Files (*.txt);;All Files(*)</source>
+      <translation>Text Files (*.txt);;All Files(*)</translation>
     </message>
     <message>
-        <source>Cut</source>
-        <translation type="obsolete">Cut</translation>
+      <source>Save as</source>
+      <translation>Save as</translation>
     </message>
     <message>
-        <source>Copy</source>
-        <translation type="obsolete">Copy</translation>
+      <source>Do you want to save your changes?</source>
+      <translation>Do you want to save your changes?</translation>
     </message>
     <message>
-        <source>Paste</source>
-        <translation type="obsolete">Paste</translation>
+      <source>&amp;Insert Special</source>
+      <translation>&amp;Insert Special</translation>
     </message>
     <message>
-        <source>Clear</source>
-        <translation type="obsolete">Clear</translation>
+      <source>&amp;New</source>
+      <translation>&amp;New</translation>
     </message>
     <message>
-        <source>Edit Styles...</source>
-        <translation type="obsolete">Edit Styles...</translation>
+      <source>&amp;Reload Text from Frame</source>
+      <translation>&amp;Reload Text from Frame</translation>
     </message>
     <message>
-        <source>Update Text Frame</source>
-        <translation type="obsolete">Update Text Frame</translation>
+      <source>&amp;Save to File...</source>
+      <translation>&amp;Save to File...</translation>
     </message>
     <message>
-        <source>File</source>
-        <translation type="obsolete">File</translation>
+      <source>&amp;Load from File...</source>
+      <translation>&amp;Load from File...</translation>
     </message>
     <message>
-        <source>Edit</source>
-        <translation type="obsolete">Edit</translation>
+      <source>Save &amp;Document</source>
+      <translation>Save &amp;Document</translation>
     </message>
     <message>
-        <source>Style</source>
-        <translation type="obsolete">Style</translation>
+      <source>&amp;Update Text Frame and Exit</source>
+      <translation>&amp;Update Text Frame and Exit</translation>
     </message>
     <message>
-        <source>Text</source>
-        <translation type="obsolete">Text</translation>
+      <source>&amp;Exit Without Updating Text Frame</source>
+      <translation>&amp;Exit Without Updating Text Frame</translation>
     </message>
     <message>
-        <source>Current Paragraph:</source>
-        <translation>Current Paragraph:</translation>
+      <source>Cu&amp;t</source>
+      <translation>Cu&amp;t</translation>
     </message>
     <message>
-        <source>Words: </source>
-        <translation>Words: </translation>
+      <source>&amp;Copy</source>
+      <translation>&amp;Copy</translation>
     </message>
     <message>
-        <source>Chars: </source>
-        <translation>Chars: </translation>
+      <source>&amp;Paste</source>
+      <translation>&amp;Paste</translation>
     </message>
     <message>
-        <source>Totals:</source>
-        <translation>Totals:</translation>
+      <source>C&amp;lear</source>
+      <translation>C&amp;lear</translation>
     </message>
     <message>
-        <source>Paragraphs: </source>
-        <translation>Paragraphs: </translation>
+      <source>&amp;Insert Special...</source>
+      <translation>&amp;Insert Special...</translation>
     </message>
     <message>
-        <source>Warning</source>
-        <translation>Warning</translation>
+      <source>&amp;Update Text Frame</source>
+      <translation>&amp;Update Text Frame</translation>
     </message>
     <message>
-        <source>Do you really want to lose all your Changes?</source>
-        <translation>Do you really want to lose all your Changes?</translation>
+      <source>&amp;File</source>
+      <translation>&amp;File</translation>
     </message>
     <message>
-        <source>Do you really want to clear all your Text?</source>
-        <translation>Do you really want to clear all your Text?</translation>
+      <source>&amp;Edit</source>
+      <translation>&amp;Edit</translation>
     </message>
-    <message>
-        <source>Open</source>
-        <translation>Open</translation>
-    </message>
-    <message>
-        <source>Text Files (*.txt);;All Files(*)</source>
-        <translation>Text Files (*.txt);;All Files(*)</translation>
-    </message>
-    <message>
-        <source>Save as</source>
-        <translation>Save as</translation>
-    </message>
-    <message>
-        <source>Insert Special...</source>
-        <translation type="obsolete">Insert Special...</translation>
-    </message>
-    <message>
-        <source>Do you want to save your changes?</source>
-        <translation>Do you want to save your changes?</translation>
-    </message>
-    <message>
-        <source>Save Document</source>
-        <translation type="obsolete">Save Document</translation>
-    </message>
-    <message>
-        <source>Update Text Frame and Exit</source>
-        <translation type="obsolete">Update Text Frame and Exit</translation>
-    </message>
-    <message>
-        <source>Exit Without Updating Text Frame</source>
-        <translation type="obsolete">Exit Without Updating Text Frame</translation>
-    </message>
-    <message>
-        <source>&amp;Insert Special</source>
-        <translation>&amp;Insert Special</translation>
-    </message>
-    <message>
-        <source>&amp;New</source>
-        <translation type="unfinished">&amp;New</translation>
-    </message>
-    <message>
-        <source>&amp;Reload Text from Frame</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Save to File...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Load from File...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Save &amp;Document</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Update Text Frame and Exit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Exit Without Updating Text Frame</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cu&amp;t</source>
-        <translation type="unfinished">Cu&amp;t</translation>
-    </message>
-    <message>
-        <source>&amp;Copy</source>
-        <translation type="unfinished">&amp;Copy</translation>
-    </message>
-    <message>
-        <source>&amp;Paste</source>
-        <translation type="unfinished">&amp;Paste</translation>
-    </message>
-    <message>
-        <source>C&amp;lear</source>
-        <translation type="unfinished">C&amp;lear</translation>
-    </message>
-    <message>
-        <source>&amp;Insert Special...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Update Text Frame</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;File</source>
-        <translation type="unfinished">&amp;File</translation>
-    </message>
-    <message>
-        <source>&amp;Edit</source>
-        <translation type="unfinished">&amp;Edit</translation>
-    </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>StyleSelect</name>
     <message>
-        <source>Underline</source>
-        <translation>Underline</translation>
+      <source>Underline</source>
+      <translation>Underline</translation>
     </message>
     <message>
-        <source>Small Caps</source>
-        <translation>Small Caps</translation>
+      <source>Small Caps</source>
+      <translation>Small Caps</translation>
     </message>
     <message>
-        <source>Subscript</source>
-        <translation>Subscript</translation>
+      <source>Subscript</source>
+      <translation>Subscript</translation>
     </message>
     <message>
-        <source>Superscript</source>
-        <translation>Superscript</translation>
+      <source>Superscript</source>
+      <translation>Superscript</translation>
     </message>
     <message>
-        <source>Outline Text</source>
-        <translation>Outline Text</translation>
+      <source>Outline Text</source>
+      <translation>Outline Text</translation>
     </message>
     <message>
-        <source>Strike Out</source>
-        <translation>Strike Out</translation>
+      <source>Strike Out</source>
+      <translation>Strike Out</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>TabManager</name>
     <message>
-        <source>Manage Tabulators</source>
-        <translation>Manage Tabulators</translation>
+      <source>Manage Tabulators</source>
+      <translation>Manage Tabulators</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
     </message>
     <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Cancel</translation>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>Tabruler</name>
     <message>
-        <source>Left</source>
-        <translation>Left</translation>
+      <source>Left</source>
+      <translation>Left</translation>
     </message>
     <message>
-        <source>Right</source>
-        <translation>Right</translation>
+      <source>Right</source>
+      <translation>Right</translation>
     </message>
     <message>
-        <source>Full Stop</source>
-        <translation>Full Stop</translation>
+      <source>Full Stop</source>
+      <translation>Full Stop</translation>
     </message>
     <message>
-        <source>Comma</source>
-        <translation>Comma</translation>
+      <source>Comma</source>
+      <translation>Comma</translation>
     </message>
     <message>
-        <source>Center</source>
-        <translation>Centre</translation>
+      <source>Center</source>
+      <translation>Centre</translation>
     </message>
     <message>
-        <source>Position:</source>
-        <translation type="obsolete">Position:</translation>
+      <source>Delete All</source>
+      <translation>Delete All</translation>
     </message>
     <message>
-        <source>First Line:</source>
-        <translation type="obsolete">First Line:</translation>
+      <source>Indentation for first line of the paragraph</source>
+      <translation>Indentation for first line of the paragraph</translation>
     </message>
     <message>
-        <source>Indent:</source>
-        <translation type="obsolete">Indent:</translation>
+      <source>Indentation from the left for the whole paragraph</source>
+      <translation>Indentation from the left for the whole paragraph</translation>
     </message>
     <message>
-        <source>Delete All</source>
-        <translation>Delete All</translation>
+      <source>Delete all Tabulators</source>
+      <translation>Delete all Tabulators</translation>
     </message>
     <message>
-        <source>Indentation for first line of the paragraph</source>
-        <translation>Indentation for first line of the paragraph</translation>
+      <source> pt</source>
+      <translation> pt</translation>
     </message>
     <message>
-        <source>Indentation from the left for the whole paragraph</source>
-        <translation>Indentation from the left for the whole paragraph</translation>
+      <source> mm</source>
+      <translation> mm</translation>
     </message>
     <message>
-        <source>Delete all Tabulators</source>
-        <translation>Delete all Tabulators</translation>
+      <source> in</source>
+      <translation> in</translation>
     </message>
     <message>
-        <source> pt</source>
-        <translation> pt</translation>
+      <source> p</source>
+      <translation> p</translation>
     </message>
     <message>
-        <source> mm</source>
-        <translation> mm</translation>
+      <source>&amp;Position:</source>
+      <translation>&amp;Position:</translation>
     </message>
     <message>
-        <source> in</source>
-        <translation> in</translation>
+      <source>First &amp;Line:</source>
+      <translation>First &amp;Line:</translation>
     </message>
     <message>
-        <source> p</source>
-        <translation> p</translation>
+      <source>Ind&amp;ent:</source>
+      <translation>Ind&amp;ent:</translation>
     </message>
-    <message>
-        <source>&amp;Position:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>First &amp;Line:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ind&amp;ent:</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>Tree</name>
     <message>
-        <source>Outline</source>
-        <translation>Outline</translation>
+      <source>Outline</source>
+      <translation>Outline</translation>
     </message>
     <message>
-        <source>Element</source>
-        <translation>Element</translation>
+      <source>Element</source>
+      <translation>Element</translation>
     </message>
     <message>
-        <source>Type</source>
-        <translation>Type</translation>
+      <source>Type</source>
+      <translation>Type</translation>
     </message>
     <message>
-        <source>Information</source>
-        <translation>Information</translation>
+      <source>Information</source>
+      <translation>Information</translation>
     </message>
     <message>
-        <source>X:</source>
-        <translation>X:</translation>
+      <source>X:</source>
+      <translation>X:</translation>
     </message>
     <message>
-        <source>Y:</source>
-        <translation>Y:</translation>
+      <source>Y:</source>
+      <translation>Y:</translation>
     </message>
     <message>
-        <source>Font:</source>
-        <translation>Font:</translation>
+      <source>Font:</source>
+      <translation>Font:</translation>
     </message>
     <message>
-        <source>Image</source>
-        <translation>Image</translation>
+      <source>Image</source>
+      <translation>Image</translation>
     </message>
     <message>
-        <source>Text</source>
-        <translation>Text</translation>
+      <source>Text</source>
+      <translation>Text</translation>
     </message>
     <message>
-        <source>Line</source>
-        <translation>Line</translation>
+      <source>Line</source>
+      <translation>Line</translation>
     </message>
     <message>
-        <source>Polygon</source>
-        <translation>Polygon</translation>
+      <source>Polygon</source>
+      <translation>Polygon</translation>
     </message>
     <message>
-        <source>Polyline</source>
-        <translation>Polyline</translation>
+      <source>Polyline</source>
+      <translation>Polyline</translation>
     </message>
     <message>
-        <source>PathText</source>
-        <translation>PathText</translation>
+      <source>PathText</source>
+      <translation>PathText</translation>
     </message>
     <message>
-        <source>Page</source>
-        <translation>Page</translation>
+      <source>Page</source>
+      <translation>Page</translation>
     </message>
     <message>
-        <source>Warning</source>
-        <translation>Warning</translation>
+      <source>Warning</source>
+      <translation>Warning</translation>
     </message>
     <message>
-        <source>Name &quot;%1&quot; isn&apos;t unique.
+      <source>Name &quot;%1&quot; isn't unique.
 Please choose another.</source>
-        <translation>Name &quot;%1&quot; isn&apos;t unique.
+      <translation>Name &quot;%1&quot; isn't unique.
 Please choose another.</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation>OK</translation>
+      <source>OK</source>
+      <translation>OK</translation>
     </message>
     <message>
-        <source>Group </source>
-        <translation>Group </translation>
+      <source>Group </source>
+      <translation>Group </translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>WerkToolB</name>
     <message>
-        <source>Tools</source>
-        <translation>Tools</translation>
+      <source>Tools</source>
+      <translation>Tools</translation>
     </message>
     <message>
-        <source>Select Items</source>
-        <translation>Select Items</translation>
+      <source>Select Items</source>
+      <translation>Select Items</translation>
     </message>
     <message>
-        <source>Insert Text Frame</source>
-        <translation>Insert Text Frame</translation>
+      <source>Insert Text Frame</source>
+      <translation>Insert Text Frame</translation>
     </message>
     <message>
-        <source>Insert Picture</source>
-        <translation>Insert Picture</translation>
+      <source>Insert Picture</source>
+      <translation>Insert Picture</translation>
     </message>
     <message>
-        <source>Properties...</source>
-        <translation>Properties...</translation>
+      <source>Properties...</source>
+      <translation>Properties...</translation>
     </message>
     <message>
-        <source>Insert Polygons</source>
-        <translation>Insert Polygons</translation>
+      <source>Insert Polygons</source>
+      <translation>Insert Polygons</translation>
     </message>
     <message>
-        <source>Insert Lines</source>
-        <translation>Insert Lines</translation>
+      <source>Insert Lines</source>
+      <translation>Insert Lines</translation>
     </message>
     <message>
-        <source>Insert Bezier Curves</source>
-        <translation>Insert Bezier Curves</translation>
+      <source>Insert Bezier Curves</source>
+      <translation>Insert Bezier Curves</translation>
     </message>
     <message>
-        <source>Insert Freehand Line</source>
-        <translation>Insert Freehand Line</translation>
+      <source>Insert Freehand Line</source>
+      <translation>Insert Freehand Line</translation>
     </message>
     <message>
-        <source>Rotate Item</source>
-        <translation>Rotate Item</translation>
+      <source>Rotate Item</source>
+      <translation>Rotate Item</translation>
     </message>
     <message>
-        <source>Edit Contents of Frame</source>
-        <translation>Edit Contents of Frame</translation>
+      <source>Edit Contents of Frame</source>
+      <translation>Edit Contents of Frame</translation>
     </message>
     <message>
-        <source>Link Text Frames</source>
-        <translation>Link Text Frames</translation>
+      <source>Link Text Frames</source>
+      <translation>Link Text Frames</translation>
     </message>
     <message>
-        <source>Unlink Text Frames</source>
-        <translation>Unlink Text Frames</translation>
+      <source>Unlink Text Frames</source>
+      <translation>Unlink Text Frames</translation>
     </message>
     <message>
-        <source>Zoom in or out</source>
-        <translation>Zoom in or out</translation>
+      <source>Zoom in or out</source>
+      <translation>Zoom in or out</translation>
     </message>
     <message>
-        <source>Edit the text with the Story Editor</source>
-        <translation>Edit the text with the Story Editor</translation>
+      <source>Edit the text with the Story Editor</source>
+      <translation>Edit the text with the Story Editor</translation>
     </message>
     <message>
-        <source>Draw various Shapes</source>
-        <translation>Draw various Shapes</translation>
+      <source>Draw various Shapes</source>
+      <translation>Draw various Shapes</translation>
     </message>
     <message>
-        <source>Insert Table</source>
-        <translation>Insert Table</translation>
+      <source>Insert Table</source>
+      <translation>Insert Table</translation>
     </message>
     <message>
-        <source>Do measurements</source>
-        <translation>Do measurements</translation>
+      <source>Do measurements</source>
+      <translation>Do measurements</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>WerkToolBP</name>
     <message>
-        <source>PDF-Tools</source>
-        <translation type="obsolete">PDF-Tools</translation>
+      <source>Button</source>
+      <translation>Button</translation>
     </message>
     <message>
-        <source>Button</source>
-        <translation>Button</translation>
+      <source>Text Field</source>
+      <translation>Text Field</translation>
     </message>
     <message>
-        <source>Text Field</source>
-        <translation>Text Field</translation>
+      <source>Check Box</source>
+      <translation>Check Box</translation>
     </message>
     <message>
-        <source>Check Box</source>
-        <translation>Check Box</translation>
+      <source>Combo Box</source>
+      <translation>Combo Box</translation>
     </message>
     <message>
-        <source>Combo Box</source>
-        <translation>Combo Box</translation>
+      <source>List Box</source>
+      <translation>List Box</translation>
     </message>
     <message>
-        <source>List Box</source>
-        <translation>List Box</translation>
+      <source>Text</source>
+      <translation>Text</translation>
     </message>
     <message>
-        <source>Insert PDF-Fields</source>
-        <translation type="obsolete">Insert PDF-Fields</translation>
+      <source>Link</source>
+      <translation>Link</translation>
     </message>
     <message>
-        <source>Text</source>
-        <translation>Text</translation>
+      <source>PDF Tools</source>
+      <translation>PDF Tools</translation>
     </message>
     <message>
-        <source>Link</source>
-        <translation>Link</translation>
+      <source>Insert PDF Fields</source>
+      <translation>Insert PDF Fields</translation>
     </message>
     <message>
-        <source>Insert PDF-Annotations</source>
-        <translation type="obsolete">Insert PDF-Annotations</translation>
+      <source>Insert PDF Annotations</source>
+      <translation>Insert PDF Annotations</translation>
     </message>
-    <message>
-        <source>PDF Tools</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Insert PDF Fields</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Insert PDF Annotations</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>ZAuswahl</name>
     <message>
-        <source>Select Character:</source>
-        <translation>Select Character:</translation>
+      <source>Select Character:</source>
+      <translation>Select Character:</translation>
     </message>
     <message>
-        <source>Insert the characters at the cursor in the text</source>
-        <translation>Insert the characters at the cursor in the text</translation>
+      <source>Insert the characters at the cursor in the text</source>
+      <translation>Insert the characters at the cursor in the text</translation>
     </message>
     <message>
-        <source>Delete the current selection(s).</source>
-        <translation>Delete the current selection(s).</translation>
+      <source>Delete the current selection(s).</source>
+      <translation>Delete the current selection(s).</translation>
     </message>
     <message>
-        <source>Close this dialog and return to text editing.</source>
-        <translation>Close this dialog and return to text editing.</translation>
+      <source>Close this dialog and return to text editing.</source>
+      <translation>Close this dialog and return to text editing.</translation>
     </message>
     <message>
-        <source>&amp;Insert</source>
-        <translation>&amp;Insert</translation>
+      <source>&amp;Insert</source>
+      <translation>&amp;Insert</translation>
     </message>
     <message>
-        <source>C&amp;lear</source>
-        <translation>C&amp;lear</translation>
+      <source>C&amp;lear</source>
+      <translation>C&amp;lear</translation>
     </message>
     <message>
-        <source>&amp;Close</source>
-        <translation>&amp;Close</translation>
+      <source>&amp;Close</source>
+      <translation>&amp;Close</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>nftdialog</name>
     <message>
-        <source>New From Template</source>
-        <translation>New From Template</translation>
+      <source>New From Template</source>
+      <translation>New From Template</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation>OK</translation>
+      <source>OK</source>
+      <translation>OK</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation>Cancel</translation>
+      <source>Cancel</source>
+      <translation>Cancel</translation>
     </message>
     <message>
-        <source>All</source>
-        <translation>All</translation>
+      <source>All</source>
+      <translation>All</translation>
     </message>
     <message>
-        <source>Name</source>
-        <translation>Name</translation>
+      <source>Name</source>
+      <translation>Name</translation>
     </message>
     <message>
-        <source>Page Size</source>
-        <translation>Page Size</translation>
+      <source>Page Size</source>
+      <translation>Page Size</translation>
     </message>
     <message>
-        <source>Colors</source>
-        <translation>Colours</translation>
+      <source>Colors</source>
+      <translation>Colours</translation>
     </message>
     <message>
-        <source>Description</source>
-        <translation>Description</translation>
+      <source>Description</source>
+      <translation>Description</translation>
     </message>
     <message>
-        <source>Usage</source>
-        <translation>Usage</translation>
+      <source>Usage</source>
+      <translation>Usage</translation>
     </message>
     <message>
-        <source>Created with</source>
-        <translation>Created with</translation>
+      <source>Created with</source>
+      <translation>Created with</translation>
     </message>
     <message>
-        <source>Author</source>
-        <translation>Author</translation>
+      <source>Author</source>
+      <translation>Author</translation>
     </message>
     <message>
-        <source>&amp;Remove</source>
-        <translation>&amp;Remove</translation>
+      <source>&amp;Remove</source>
+      <translation>&amp;Remove</translation>
     </message>
     <message>
-        <source>&amp;Open</source>
-        <translation>&amp;Open</translation>
+      <source>&amp;Open</source>
+      <translation>&amp;Open</translation>
     </message>
-</context>
-<context>
+  </context>
+  <context>
     <name>satdialog</name>
     <message>
-        <source>Save as Template</source>
-        <translation>Save as Template</translation>
+      <source>Save as Template</source>
+      <translation>Save as Template</translation>
     </message>
     <message>
-        <source>Name</source>
-        <translation>Name</translation>
+      <source>Name</source>
+      <translation>Name</translation>
     </message>
     <message>
-        <source>Category</source>
-        <translation>Category</translation>
+      <source>Category</source>
+      <translation>Category</translation>
     </message>
     <message>
-        <source>Page Size</source>
-        <translation>Page Size</translation>
+      <source>Page Size</source>
+      <translation>Page Size</translation>
     </message>
     <message>
-        <source>Colors</source>
-        <translation>Colours</translation>
+      <source>Colors</source>
+      <translation>Colours</translation>
     </message>
     <message>
-        <source>Description</source>
-        <translation>Description</translation>
+      <source>Description</source>
+      <translation>Description</translation>
     </message>
     <message>
-        <source>Usage</source>
-        <translation>Usage</translation>
+      <source>Usage</source>
+      <translation>Usage</translation>
     </message>
     <message>
-        <source>Author</source>
-        <translation>Author</translation>
+      <source>Author</source>
+      <translation>Author</translation>
     </message>
     <message>
-        <source>Email</source>
-        <translation>Email</translation>
+      <source>Email</source>
+      <translation>Email</translation>
     </message>
     <message>
-        <source>More Details</source>
-        <translation>More Details</translation>
+      <source>More Details</source>
+      <translation>More Details</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation>OK</translation>
+      <source>OK</source>
+      <translation>OK</translation>
     </message>
     <message>
-        <source>Less Details</source>
-        <translation>Less Details</translation>
+      <source>Less Details</source>
+      <translation>Less Details</translation>
     </message>
     <message>
-        <source>Legal</source>
-        <translation>Legal</translation>
+      <source>Legal</source>
+      <translation>Legal</translation>
     </message>
     <message>
-        <source>Letter</source>
-        <translation>Letter</translation>
+      <source>Letter</source>
+      <translation>Letter</translation>
     </message>
     <message>
-        <source>Tabloid</source>
-        <translation>Tabloid</translation>
+      <source>Tabloid</source>
+      <translation>Tabloid</translation>
     </message>
     <message>
-        <source>landscape</source>
-        <translation>landscape</translation>
+      <source>landscape</source>
+      <translation>landscape</translation>
     </message>
     <message>
-        <source>portrait</source>
-        <translation>portrait</translation>
+      <source>portrait</source>
+      <translation>portrait</translation>
     </message>
     <message>
-        <source>custom</source>
-        <translation>custom</translation>
+      <source>custom</source>
+      <translation>custom</translation>
     </message>
-</context>
+  </context>
 </TS>

@@ -731,7 +731,7 @@ void SEditor::paste()
 }
 
 /* Toolbar for Fill Colour */
-SToolBColorF::SToolBColorF(QMainWindow* parent, ScribusDoc *doc) : QToolBar( tr("F&ill Color Settings"), parent)
+SToolBColorF::SToolBColorF(QMainWindow* parent, ScribusDoc *doc) : QToolBar( tr("Fill Color Settings"), parent)
 {
 	FillIcon = new QLabel( "", this, "FillIcon" );
 	FillIcon->setPixmap(loadIcon("fill.png"));
@@ -775,7 +775,7 @@ void SToolBColorF::newShadeHandler()
 }
 
 /* Toolbar for Stroke Colour */
-SToolBColorS::SToolBColorS(QMainWindow* parent, ScribusDoc *doc) : QToolBar( tr("&Stroke Color Settings"), parent)
+SToolBColorS::SToolBColorS(QMainWindow* parent, ScribusDoc *doc) : QToolBar( tr("Stroke Color Settings"), parent)
 {
 	StrokeIcon = new QLabel( "", this, "StrokeIcon" );
 	StrokeIcon->setPixmap(loadIcon("Stiftalt.xpm"));
@@ -819,7 +819,7 @@ void SToolBColorS::newShadeHandler()
 }
 
 /* Toolbar for Character Style Settings */
-SToolBStyle::SToolBStyle(QMainWindow* parent) : QToolBar( tr("&Character Settings"), parent)
+SToolBStyle::SToolBStyle(QMainWindow* parent) : QToolBar( tr("Character Settings"), parent)
 {
 	SeStyle = new StyleSelect(this);
 	kerningLabel = new QLabel( tr( "Kerning:" ), this, "kerningLabel" );
@@ -851,7 +851,7 @@ void SToolBStyle::SetKern(double k)
 }
 
 /* Toolbar for alignment of Paragraphs */
-SToolBAlign::SToolBAlign(QMainWindow* parent) : QToolBar( tr("St&yle Settings"), parent)
+SToolBAlign::SToolBAlign(QMainWindow* parent) : QToolBar( tr("Style Settings"), parent)
 {
 	GroupAlign = new AlignSelect(this);
 	Spal = new Spalette(this);
@@ -886,7 +886,7 @@ void SToolBAlign::SetAlign(int s)
 }
 
 /* Toolbar for Font related Settings */
-SToolBFont::SToolBFont(QMainWindow* parent) : QToolBar( tr("&Font Settings"), parent)
+SToolBFont::SToolBFont(QMainWindow* parent) : QToolBar( tr("Font Settings"), parent)
 {
 	Fonts = new FontCombo(this, &ScApp->Prefs);
 	Fonts->setMaximumSize(190, 30);
@@ -955,6 +955,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	fmenu->insertItem( tr("&Exit Without Updating Text Frame"), this, SLOT(Do_leave()));
 	/* end of changes */
 	emenu = new QPopupMenu();
+	emenu->insertItem( tr("Select &All"), this, SLOT(Do_selectAll()), CTRL+Key_A);
 	Mcopy = emenu->insertItem(loadIcon("editcut.png"), tr("Cu&t"), this, SLOT(Do_cut()), CTRL+Key_X);
 	Mcut = emenu->insertItem(loadIcon("editcopy.png"), tr("&Copy"), this, SLOT(Do_copy()), CTRL+Key_C);
 	Mpaste = emenu->insertItem(loadIcon("editpaste.png"), tr("&Paste"), this, SLOT(Do_paste()), CTRL+Key_V);
@@ -988,7 +989,8 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	setDockEnabled(StrokeTools, DockLeft, false);
 	setDockEnabled(StrokeTools, DockRight, false);
 	setDockEnabled(StrokeTools, DockBottom, false);
-	StrokeTools->setEnabled(false);
+	StrokeTools->TxStroke->setEnabled(false);
+	StrokeTools->PM1->setEnabled(false);
 	FillTools = new SToolBColorF(this, doc);
 	setDockEnabled(FillTools, DockLeft, false);
 	setDockEnabled(FillTools, DockRight, false);
@@ -1172,9 +1174,15 @@ void StoryEditor::newTxStyle(int s)
 	Editor->updateSel(4, &hg);
 	Editor->setStyle(s);
 	if (s & 4)
-		StrokeTools->setEnabled(true);
+	{
+		StrokeTools->TxStroke->setEnabled(true);
+		StrokeTools->PM1->setEnabled(true);
+	}
 	else
-		StrokeTools->setEnabled(false);
+	{
+		StrokeTools->TxStroke->setEnabled(false);
+		StrokeTools->PM1->setEnabled(false);
+	}
 	modifiedText();
 	Editor->setFocus();
 }
@@ -1245,15 +1253,33 @@ void StoryEditor::updateProps(int p, int ch)
 		}
 		StrokeTools->SetColor(c);
 		if (CurrItem->TxTStyle & 4)
-			StrokeTools->setEnabled(true);
+		{
+			StrokeTools->TxStroke->setEnabled(true);
+			StrokeTools->PM1->setEnabled(true);
+		}
 		else
-			StrokeTools->setEnabled(false);
+		{
+			StrokeTools->TxStroke->setEnabled(false);
+			StrokeTools->PM1->setEnabled(false);
+		}
 		AlignTools->SetAlign(CurrItem->Ausrich);
 		StyleTools->SetKern(CurrItem->ExtraV);
 		StyleTools->SetStyle(CurrItem->TxTStyle);
 		FontTools->SetSize(CurrItem->ISize / 10.0);
 		FontTools->SetFont(CurrItem->IFont);
 		FontTools->SetScale(CurrItem->TxtScale);
+		Editor->setStyle(Editor->CurrentStyle);
+		if (Editor->CurrentStyle & 4)
+		{
+			StrokeTools->TxStroke->setEnabled(true);
+			StrokeTools->PM1->setEnabled(true);
+		}
+		else
+		{
+			StrokeTools->TxStroke->setEnabled(false);
+			StrokeTools->PM1->setEnabled(false);
+		}
+		Editor->setFarbe(Editor->CurrTextFill, Editor->CurrTextFillSh);
 		return;
 	}
 	chars = Editor->StyledText.at(p);
@@ -1271,13 +1297,13 @@ void StoryEditor::updateProps(int p, int ch)
 	{
 		int PStart, PEnd, SelStart, SelEnd;
 		Editor->getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
-		if ((SelStart != -1) && (SelStart < static_cast<int>(chars->count())))
+		if ((SelStart > -1) && (SelStart < static_cast<int>(chars->count())))
 			hg = chars->at(SelStart);
 		else
-			hg = chars->at(QMIN(QMAX(ch-1, 0), chars->count()-1));
+			hg = chars->at(QMIN(QMAX(ch-1, 0), static_cast<int>(chars->count())-1));
 	}
 	else
-		hg = chars->at(QMIN(QMAX(ch-1, 0), chars->count()-1));
+		hg = chars->at(QMIN(QMAX(ch-1, 0), static_cast<int>(chars->count())-1));
 	Editor->CurrTextFill = hg->ccolor;
 	Editor->CurrTextFillSh = hg->cshade;
 	Editor->CurrTextStroke = hg->cstroke;
@@ -1316,9 +1342,15 @@ void StoryEditor::updateProps(int p, int ch)
 	}
 	StrokeTools->SetColor(c);
 	if (hg->cstyle & 4)
-		StrokeTools->setEnabled(true);
+	{
+		StrokeTools->TxStroke->setEnabled(true);
+		StrokeTools->PM1->setEnabled(true);
+	}
 	else
-		StrokeTools->setEnabled(false);
+	{
+		StrokeTools->TxStroke->setEnabled(false);
+		StrokeTools->PM1->setEnabled(false);
+	}
 	AlignTools->SetAlign(hg->cab);
 	StyleTools->SetKern(hg->cextra);
 	StyleTools->SetStyle(hg->cstyle & 127);
@@ -1439,6 +1471,16 @@ void StoryEditor::slotFileRevert()
 		Editor->loadItemText(CurrItem);
 		updateStatus();
 	}
+}
+
+void StoryEditor::Do_selectAll()
+{
+	if (Editor->StyledText.count() == 0)
+		return;
+	if (Editor->StyledText.count() > 1)
+		Editor->setSelection(0, 0, Editor->StyledText.count()-1, Editor->StyledText.at(Editor->StyledText.count()-1)->count());
+	else
+		Editor->setSelection(0, 0, 0, Editor->StyledText.at(0)->count());
 }
 
 void StoryEditor::Do_copy()
@@ -1596,61 +1638,101 @@ void StoryEditor::newAlign(int st)
 
 void StoryEditor::changeAlign(int align)
 {
-	switch (align)
-	{
-	case 0:
-		Editor->setAlignment(Qt::AlignLeft);
-		break;
-	case 1:
-		Editor->setAlignment(Qt::AlignCenter);
-		break;
-	case 2:
-		Editor->setAlignment(Qt::AlignRight);
-		break;
-	case 3:
-	case 4:
-		Editor->setAlignment(Qt::AlignJustify);
-		break;
-	default:
-		break;
-	}
+	Editor->setAlign(align);
 	int p, i;
 	Editor->getCursorPosition(&p, &i);
-	if (Editor->StyledText.at(p)->count() > 0)
+	if (Editor->StyledText.count() != 0)
 	{
-		for (uint s = 0; s < Editor->StyledText.at(p)->count(); ++s)
-		{
-			if (Editor->CurrentABStil > 4)
-			{
-				if (doc->Vorlagen[Editor->CurrentABStil].Font != "")
-				{
-					Editor->StyledText.at(p)->at(s)->cfont = doc->Vorlagen[Editor->CurrentABStil].Font;
-					Editor->StyledText.at(p)->at(s)->csize = doc->Vorlagen[Editor->CurrentABStil].FontSize;
-					Editor->StyledText.at(p)->at(s)->cstyle &= ~127;
-					Editor->StyledText.at(p)->at(s)->cstyle |= doc->Vorlagen[Editor->CurrentABStil].FontEffect;
-					Editor->StyledText.at(p)->at(s)->ccolor = doc->Vorlagen[Editor->CurrentABStil].FColor;
-					Editor->StyledText.at(p)->at(s)->cshade = doc->Vorlagen[Editor->CurrentABStil].FShade;
-					Editor->StyledText.at(p)->at(s)->cstroke = doc->Vorlagen[Editor->CurrentABStil].SColor;
-					Editor->StyledText.at(p)->at(s)->cshade2 = doc->Vorlagen[Editor->CurrentABStil].SShade;
-				}
-			}
-			if ((Editor->CurrentABStil < 5) && (Editor->StyledText.at(p)->at(s)->cab > 4))
-			{
-				Editor->StyledText.at(p)->at(s)->ccolor = CurrItem->TxtFill;
-				Editor->StyledText.at(p)->at(s)->cshade = CurrItem->ShTxtFill;
-				Editor->StyledText.at(p)->at(s)->cstroke = CurrItem->TxtStroke;
-				Editor->StyledText.at(p)->at(s)->cshade2 = CurrItem->ShTxtStroke;
-				Editor->StyledText.at(p)->at(s)->cfont = CurrItem->IFont;
-				Editor->StyledText.at(p)->at(s)->csize = CurrItem->ISize;
-				Editor->StyledText.at(p)->at(s)->cstyle &= ~127;
-				Editor->StyledText.at(p)->at(s)->cstyle |= CurrItem->TxTStyle;
-			}
-			Editor->StyledText.at(p)->at(s)->cab = Editor->CurrentABStil;
-		}
 		disconnect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
-		Editor->updateFromChars(p);
-		connect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
+		int PStart, PEnd, SelStart, SelEnd;
+		SEditor::ChList *chars;
+		if (Editor->hasSelectedText())
+			Editor->getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
+		else
+		{
+			PStart = p;
+			PEnd = p;
+		}
+		for (int pa = PStart; pa < QMIN(PEnd+1, static_cast<int>(Editor->StyledText.count())); ++pa)
+		{
+			if (Editor->StyledText.at(pa)->count() > 0)
+			{
+				chars = Editor->StyledText.at(pa);
+				for (uint s = 0; s < chars->count(); ++s)
+				{
+					if (Editor->CurrentABStil > 4)
+					{
+						if (doc->Vorlagen[Editor->CurrentABStil].Font != "")
+						{
+							chars->at(s)->cfont = doc->Vorlagen[Editor->CurrentABStil].Font;
+							chars->at(s)->csize = doc->Vorlagen[Editor->CurrentABStil].FontSize;
+							chars->at(s)->cstyle &= ~127;
+							chars->at(s)->cstyle |= doc->Vorlagen[Editor->CurrentABStil].FontEffect;
+							chars->at(s)->ccolor = doc->Vorlagen[Editor->CurrentABStil].FColor;
+							chars->at(s)->cshade = doc->Vorlagen[Editor->CurrentABStil].FShade;
+							chars->at(s)->cstroke = doc->Vorlagen[Editor->CurrentABStil].SColor;
+							chars->at(s)->cshade2 = doc->Vorlagen[Editor->CurrentABStil].SShade;
+						}
+					}
+					if ((Editor->CurrentABStil < 5) && (chars->at(s)->cab > 4))
+					{
+						chars->at(s)->ccolor = CurrItem->TxtFill;
+						chars->at(s)->cshade = CurrItem->ShTxtFill;
+						chars->at(s)->cstroke = CurrItem->TxtStroke;
+						chars->at(s)->cshade2 = CurrItem->ShTxtStroke;
+						chars->at(s)->cfont = CurrItem->IFont;
+						chars->at(s)->csize = CurrItem->ISize;
+						chars->at(s)->cstyle &= ~127;
+						chars->at(s)->cstyle |= CurrItem->TxTStyle;
+					}
+					chars->at(s)->cab = Editor->CurrentABStil;
+				}
+			Editor->updateFromChars(pa);
+			}
+		}
+		Editor->setCursorPosition(p, i);
 		updateProps(p, i);
+		connect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
+	}
+	else
+	{
+		if (Editor->CurrentABStil > 4)
+		{
+			if (doc->Vorlagen[Editor->CurrentABStil].Font != "")
+			{
+				Editor->CurrFont = doc->Vorlagen[Editor->CurrentABStil].Font;
+				Editor->CurrFontSize = doc->Vorlagen[Editor->CurrentABStil].FontSize;
+				Editor->CurrentStyle = doc->Vorlagen[Editor->CurrentABStil].FontEffect;
+				Editor->CurrTextFill = doc->Vorlagen[Editor->CurrentABStil].FColor;
+				Editor->CurrTextFillSh = doc->Vorlagen[Editor->CurrentABStil].FShade;
+				Editor->CurrTextStroke = doc->Vorlagen[Editor->CurrentABStil].SColor;
+				Editor->CurrTextStrokeSh = doc->Vorlagen[Editor->CurrentABStil].SShade;
+			}
+		}
+		else
+		{
+			Editor->CurrTextFill = CurrItem->TxtFill;
+			Editor->CurrTextFillSh = CurrItem->ShTxtFill;
+			Editor->CurrTextStroke = CurrItem->TxtStroke;
+			Editor->CurrTextStrokeSh = CurrItem->ShTxtStroke;
+			Editor->CurrFont = CurrItem->IFont;
+			Editor->CurrFontSize = CurrItem->ISize;
+			Editor->CurrentStyle = CurrItem->TxTStyle;
+			Editor->CurrTextKern = CurrItem->ExtraV;
+			Editor->CurrTextScale = CurrItem->TxtScale;
+		}
+		Editor->setStyle(Editor->CurrentStyle);
+		if (Editor->CurrentStyle & 4)
+		{
+			StrokeTools->TxStroke->setEnabled(true);
+			StrokeTools->PM1->setEnabled(true);
+		}
+		else
+		{
+			StrokeTools->TxStroke->setEnabled(false);
+			StrokeTools->PM1->setEnabled(false);
+		}
+		Editor->setFarbe(Editor->CurrTextFill, Editor->CurrTextFillSh);
 	}
 	modifiedText();
 	Editor->setFocus();

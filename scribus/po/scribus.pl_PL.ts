@@ -250,39 +250,39 @@ Uwaga: pliki mogą być bardzo duże</translation>
     </message>
     <message>
         <source>Mirror Page(s) &amp;Horizontal</source>
-        <translation type="unfinished"></translation>
+        <translation>O&amp;dwróć strony w poziomie</translation>
     </message>
     <message>
         <source>Mirror Page(s) &amp;Vertical</source>
-        <translation type="unfinished"></translation>
+        <translation>Odwróć strony w &amp;pionie</translation>
     </message>
     <message>
         <source>Appy Under Color &amp;Removal</source>
-        <translation type="unfinished"></translation>
+        <translation>Zastosuj &amp;UCR (usuwanie koloru neutralnego)</translation>
     </message>
     <message>
         <source>Apply &amp;ICC Profiles</source>
-        <translation type="unfinished"></translation>
+        <translation>Zastosuj profile &amp;ICC</translation>
     </message>
     <message>
         <source>PostScript Level &amp;1</source>
-        <translation type="unfinished"></translation>
+        <translation>PostScript Level &amp;1</translation>
     </message>
     <message>
         <source>PostScript Level &amp;2</source>
-        <translation type="unfinished"></translation>
+        <translation>PostScript Level &amp;2</translation>
     </message>
     <message>
         <source>PostScript Level &amp;3</source>
-        <translation type="unfinished"></translation>
+        <translation>PostScript Level &amp;3</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Anuluj</translation>
+        <translation>&amp;Anuluj</translation>
     </message>
 </context>
 <context>
@@ -417,7 +417,7 @@ Uwaga: pliki mogą być bardzo duże</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation type="unfinished">pt</translation>
+        <translation>pt</translation>
     </message>
 </context>
 <context>
@@ -983,15 +983,15 @@ Uwaga: pliki mogą być bardzo duże</translation>
     </message>
     <message>
         <source>Font for use with PDF 1.3:</source>
-        <translation type="unfinished"></translation>
+        <translation>Czcionka dla PDF 1.3:</translation>
     </message>
     <message>
         <source>Flag is ignored for PDF 1.3</source>
-        <translation type="unfinished"></translation>
+        <translation>W PDF-1.3 ignorowane</translation>
     </message>
     <message>
         <source>PDF Documents (*.pdf);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumenty PDF (*.pdf);;Wszystkie pliki (*)</translation>
     </message>
 </context>
 <context>
@@ -1246,7 +1246,7 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>&amp;Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nazwa:</translation>
     </message>
 </context>
 <context>
@@ -1659,19 +1659,19 @@ Wymaga ona bardzo dokładnie dopasowanych profili i służy jedynie jako ostrze�
     </message>
     <message>
         <source>&amp;Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nazwa:</translation>
     </message>
     <message>
         <source>Color &amp;Model</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Model kolorów</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Anuluj</translation>
+        <translation>&amp;Anuluj</translation>
     </message>
 </context>
 <context>
@@ -1881,11 +1881,11 @@ Brak wparcia dla danej biblioteki symbolizuje znak *</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Anuluj</translation>
+        <translation>&amp;Anuluj</translation>
     </message>
 </context>
 <context>
@@ -1972,11 +1972,11 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Anuluj</translation>
+        <translation>&amp;Anuluj</translation>
     </message>
 </context>
 <context>
@@ -2357,75 +2357,75 @@ a pojedynczy numer oznacza numer strony.</translation>
     </message>
     <message>
         <source>Print Destination</source>
-        <translation type="unfinished"></translation>
+        <translation>Drukarka</translation>
     </message>
     <message>
         <source>&amp;Options...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Opcje...</translation>
     </message>
     <message>
         <source>&amp;File:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Plik:</translation>
     </message>
     <message>
         <source>C&amp;hange...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Zmień...</translation>
     </message>
     <message>
         <source>A&amp;lternative Printer Command</source>
-        <translation type="unfinished"></translation>
+        <translation>A&amp;lternatywne polecenie drukarki</translation>
     </message>
     <message>
         <source>Co&amp;mmand:</source>
-        <translation type="unfinished"></translation>
+        <translation>Pol&amp;ecenie:</translation>
     </message>
     <message>
         <source>Range</source>
-        <translation type="unfinished"></translation>
+        <translation>Zakres</translation>
     </message>
     <message>
         <source>Print &amp;All</source>
-        <translation type="unfinished"></translation>
+        <translation>Drukuj &amp;wszystko</translation>
     </message>
     <message>
         <source>Print Current Pa&amp;ge</source>
-        <translation type="unfinished"></translation>
+        <translation>Drukuj a&amp;ktualną stronę</translation>
     </message>
     <message>
         <source>Print &amp;Range</source>
-        <translation type="unfinished"></translation>
+        <translation>Dr&amp;ukuj zakres</translation>
     </message>
     <message>
         <source>N&amp;umber of Copies:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ilość kopii:</translation>
     </message>
     <message>
         <source>Print &amp;Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Drukuj &amp;normalnie</translation>
     </message>
     <message>
         <source>Print &amp;Separations</source>
-        <translation type="unfinished"></translation>
+        <translation>Drukuj &amp;barwne wyciągi</translation>
     </message>
     <message>
         <source>Pr&amp;int In Color If Available</source>
-        <translation type="unfinished"></translation>
+        <translation>Drukuj w kolorze, &amp;jeśli to możliwe</translation>
     </message>
     <message>
         <source>Print In Gra&amp;yscale</source>
-        <translation type="unfinished"></translation>
+        <translation>Drukuj w od&amp;cieniach szarości</translation>
     </message>
     <message>
         <source>Ad&amp;vanced Options...</source>
-        <translation type="unfinished"></translation>
+        <translation>Zaawan&amp;sowane opcje...</translation>
     </message>
     <message>
         <source>&amp;Print</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Drukuj</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Anuluj</translation>
+        <translation>&amp;Anuluj</translation>
     </message>
 </context>
 <context>
@@ -2646,59 +2646,59 @@ failed!</source>
     </message>
     <message>
         <source>&amp;Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nazwa:</translation>
     </message>
     <message>
         <source>&amp;Font:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Czcionka:</translation>
     </message>
     <message>
         <source>Si&amp;ze:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Rozmiar:</translation>
     </message>
     <message>
         <source>&amp;Alignment:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Wyrównanie:</translation>
     </message>
     <message>
         <source>&amp;Drop Caps</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Inicjały opuszczone</translation>
     </message>
     <message>
         <source>&amp;Lines:</source>
-        <translation type="unfinished"></translation>
+        <translation>Wi&amp;erszy:</translation>
     </message>
     <message>
         <source>F&amp;ill Color:</source>
-        <translation type="unfinished">&amp;Kolor wypełnienia:</translation>
+        <translation>&amp;Kolor wypełnienia:</translation>
     </message>
     <message>
         <source>St&amp;roke Color:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ko&amp;lor obrysu:</translation>
     </message>
     <message>
         <source>Adjust to Baseline &amp;Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyrówna&amp;j do linii pisma</translation>
     </message>
     <message>
         <source>Line &amp;Spacing:</source>
-        <translation type="unfinished"></translation>
+        <translation>In&amp;terlinia:</translation>
     </message>
     <message>
         <source>Abo&amp;ve:</source>
-        <translation type="unfinished"></translation>
+        <translation>Na&amp;d:</translation>
     </message>
     <message>
         <source>&amp;Below:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Pod:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Anuluj</translation>
+        <translation>&amp;Anuluj</translation>
     </message>
 </context>
 <context>
@@ -2769,59 +2769,59 @@ failed!</source>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation type="unfinished">&amp;Nowy</translation>
+        <translation>&amp;Nowy</translation>
     </message>
     <message>
         <source>&amp;Open...</source>
-        <translation type="unfinished">&amp;Otwórz...</translation>
+        <translation>&amp;Otwórz...</translation>
     </message>
     <message>
         <source>Save &amp;As...</source>
-        <translation type="unfinished">Zapisz &amp;jako...</translation>
+        <translation>Zapisz &amp;jako...</translation>
     </message>
     <message>
         <source>&amp;Save and Exit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Zapisz i zakończ</translation>
     </message>
     <message>
         <source>&amp;Exit without Saving</source>
-        <translation type="unfinished"></translation>
+        <translation>Zakończ &amp;bez zapisywania</translation>
     </message>
     <message>
         <source>&amp;Undo</source>
-        <translation type="unfinished">&amp;Cofnij</translation>
+        <translation>&amp;Cofnij</translation>
     </message>
     <message>
         <source>&amp;Redo</source>
-        <translation type="unfinished">&amp;Przywróć</translation>
+        <translation>&amp;Przywróć</translation>
     </message>
     <message>
         <source>Cu&amp;t</source>
-        <translation type="unfinished"></translation>
+        <translation>Wy&amp;tnij</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation type="unfinished">&amp;Kopiuj</translation>
+        <translation>&amp;Kopiuj</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
-        <translation type="unfinished">&amp;Wklej</translation>
+        <translation>&amp;Wklej</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation type="unfinished">&amp;Usuń</translation>
+        <translation>&amp;Usuń</translation>
     </message>
     <message>
         <source>&amp;Get Field Names</source>
-        <translation type="unfinished"></translation>
+        <translation>Wybierz &amp;nazwy pól</translation>
     </message>
     <message>
         <source>&amp;File</source>
-        <translation type="unfinished">&amp;Plik</translation>
+        <translation>&amp;Plik</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation type="unfinished">&amp;Edycja</translation>
+        <translation>&amp;Edycja</translation>
     </message>
 </context>
 <context>
@@ -2868,7 +2868,7 @@ failed!</source>
     </message>
     <message>
         <source>&amp;One page</source>
-        <translation>&amp;Jedną stronę</translation>
+        <translation>Jedną &amp;stronę</translation>
     </message>
     <message>
         <source>Alt+O</source>
@@ -2946,23 +2946,23 @@ Nazwa wyeksportowanego pliku będzie następująca: &quot;nazwa_dokumentu-numer_
     </message>
     <message>
         <source>C&amp;hange...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Zmień...</translation>
     </message>
     <message>
         <source>&amp;Export to Directory:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Eksportuj do katalogu:</translation>
     </message>
     <message>
         <source>Image &amp;Type:</source>
-        <translation type="unfinished"></translation>
+        <translation>Typ o&amp;brazka:</translation>
     </message>
     <message>
         <source>&amp;Quality:</source>
-        <translation type="unfinished">&amp;Jakość:</translation>
+        <translation>&amp;Jakość:</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
-        <translation type="unfinished">&amp;Rozmiar:</translation>
+        <translation>&amp;Rozmiar:</translation>
     </message>
 </context>
 <context>
@@ -3156,7 +3156,7 @@ Nazwa wyeksportowanego pliku będzie następująca: &quot;nazwa_dokumentu-numer_
     </message>
     <message>
         <source>&amp;Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nazwa:</translation>
     </message>
 </context>
 <context>
@@ -3583,27 +3583,27 @@ Wartość 0 oznacza brak ograniczeń.</translation>
     </message>
     <message>
         <source>&amp;Inserting</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Wklej</translation>
     </message>
     <message>
         <source>Page(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>stron</translation>
     </message>
     <message>
         <source>&amp;Template (Left Page):</source>
-        <translation type="unfinished"></translation>
+        <translation>Szab&amp;lon (lewa strona):</translation>
     </message>
     <message>
         <source>&amp;Template:</source>
-        <translation type="unfinished">&amp;Szablon:</translation>
+        <translation>&amp;Szablon:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Anuluj</translation>
+        <translation>&amp;Anuluj</translation>
     </message>
 </context>
 <context>
@@ -3697,15 +3697,15 @@ Wartość 0 oznacza brak ograniczeń.</translation>
     </message>
     <message>
         <source>&amp;New Script:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nowy skrypt:</translation>
     </message>
     <message>
         <source>&amp;No</source>
-        <translation type="unfinished">&amp;Nie</translation>
+        <translation>&amp;Nie</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
-        <translation type="unfinished">&amp;Tak</translation>
+        <translation>&amp;Tak</translation>
     </message>
 </context>
 <context>
@@ -3954,11 +3954,11 @@ Wartość 0 oznacza brak ograniczeń.</translation>
     </message>
     <message>
         <source>&amp;No</source>
-        <translation type="unfinished">&amp;Nie</translation>
+        <translation>&amp;Nie</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
-        <translation type="unfinished">&amp;Tak</translation>
+        <translation>&amp;Tak</translation>
     </message>
 </context>
 <context>
@@ -4280,11 +4280,11 @@ a pojedynczy numer oznacza numer strony.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Anuluj</translation>
+        <translation>&amp;Anuluj</translation>
     </message>
 </context>
 <context>
@@ -5035,172 +5035,173 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>X, Y, &amp;Z</source>
-        <translation type="unfinished"></translation>
+        <translation>X, Y, &amp;Z</translation>
     </message>
     <message>
         <source>&amp;Shape</source>
-        <translation type="unfinished">Ksz&amp;tałt ramki</translation>
+        <translation>Ksz&amp;tałt ramki</translation>
     </message>
     <message>
         <source>&amp;Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Tek&amp;st</translation>
     </message>
     <message>
         <source>&amp;Image</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Obrazek</translation>
     </message>
     <message>
         <source>&amp;Line</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Linia</translation>
     </message>
     <message>
         <source>&amp;Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kolory</translation>
     </message>
     <message>
         <source>&amp;X-Pos:</source>
-        <translation type="unfinished">Wsp. &amp;X:</translation>
+        <translation>Wsp. &amp;X:</translation>
     </message>
     <message>
         <source>&amp;Y-Pos:</source>
-        <translation type="unfinished">Wsp. &amp;Y:</translation>
+        <translation>Wsp. &amp;Y:</translation>
     </message>
     <message>
         <source>&amp;Width:</source>
-        <translation type="unfinished">&amp;Szerokość:</translation>
+        <translation>Sz&amp;erokość:</translation>
     </message>
     <message>
         <source>&amp;Height:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Wysokość:</translation>
     </message>
     <message>
         <source>&amp;Rotation:</source>
-        <translation type="unfinished">&amp;Obrót:</translation>
+        <translation>O&amp;brót:</translation>
+    </message>
+    <message>
+        <source>Text &amp;Flows Around Frame</source>
+        <translation>Tekst opływa &amp;ramkę</translation>
+    </message>
+    <message>
+        <source>Use &amp;Bounding Box</source>
+        <translation>Zastosuj ramkę o&amp;graniczającą</translation>
+    </message>
+    <message>
+        <source>&amp;Use Contour Line</source>
+        <translation>Z&amp;astosuj kontur obiektu</translation>
     </message>
     <message>
         <source>&amp;Edit Shape...</source>
-        <translation type="unfinished"></translation>
+        <translation>Ed&amp;ycja ramki...</translation>
     </message>
     <message>
         <source>R&amp;ound
 Corners:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zaokrąglone
+&amp;rogi:</translation>
     </message>
     <message>
         <source>Colu&amp;mns:</source>
-        <translation type="unfinished">Szpa&amp;lty:</translation>
+        <translation>Szp&amp;alty:</translation>
     </message>
     <message>
         <source>&amp;Gap:</source>
-        <translation type="unfinished">Odstęp &amp;między szpaltami:</translation>
+        <translation>Odstęp &amp;między szpaltami:</translation>
     </message>
     <message>
         <source>To&amp;p:</source>
-        <translation type="unfinished"></translation>
+        <translation>Na &amp;górze:</translation>
     </message>
     <message>
         <source>&amp;Bottom:</source>
-        <translation type="unfinished">Na &amp;dole:</translation>
+        <translation>Na &amp;dole:</translation>
     </message>
     <message>
         <source>&amp;Left:</source>
-        <translation type="unfinished">Po &amp;lewej:</translation>
+        <translation>Po l&amp;ewej:</translation>
     </message>
     <message>
         <source>&amp;Right:</source>
-        <translation type="unfinished">Po &amp;prawej:</translation>
+        <translation>Po &amp;prawej:</translation>
     </message>
     <message>
         <source>T&amp;abulators...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Text &amp;Flows Around Frame</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Use &amp;Bounding Box</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Use Contour Line</source>
-        <translation type="unfinished"></translation>
+        <translation>Ta&amp;bulatory...</translation>
     </message>
     <message>
         <source>&amp;Font Size:</source>
-        <translation type="unfinished">&amp;Rozmiar czcionki:</translation>
+        <translation>&amp;Rozmiar czcionki:</translation>
     </message>
     <message>
         <source>&amp;Kerning:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Podcięcie:</translation>
     </message>
     <message>
         <source>L&amp;ine Spacing:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Interlinia:</translation>
     </message>
     <message>
         <source>St&amp;yle:</source>
-        <translation type="unfinished"></translation>
+        <translation>St&amp;yl:</translation>
     </message>
     <message>
         <source>Lan&amp;guage:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Język:</translation>
     </message>
     <message>
         <source>&amp;Free Scaling</source>
-        <translation type="unfinished">&amp;Skalowanie ręczne</translation>
+        <translation>Sk&amp;alowanie ręczne</translation>
     </message>
     <message>
         <source>X-Sc&amp;ale:</source>
-        <translation type="unfinished"></translation>
+        <translation>Skalo&amp;wanie X:</translation>
     </message>
     <message>
         <source>Y-Scal&amp;e:</source>
-        <translation type="unfinished"></translation>
+        <translation>Skalowa&amp;nie Y:</translation>
     </message>
     <message>
         <source>Scale &amp;To Frame Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Skalu&amp;j do rozmiaru ramki</translation>
     </message>
     <message>
         <source>P&amp;roportional</source>
-        <translation type="unfinished"></translation>
+        <translation>p&amp;roporcjonalnie</translation>
     </message>
     <message>
         <source>&amp;Basepoint:</source>
-        <translation type="unfinished"></translation>
+        <translation>P&amp;unkt odniesienia:</translation>
     </message>
     <message>
         <source>T&amp;ype of Line:</source>
-        <translation type="unfinished"></translation>
+        <translation>T&amp;yp linii:</translation>
     </message>
     <message>
         <source>Line &amp;Width:</source>
-        <translation type="unfinished">&amp;Grubość linii:</translation>
+        <translation>&amp;Grubość linii:</translation>
     </message>
     <message>
         <source>Ed&amp;ges:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Rogi:</translation>
     </message>
     <message>
         <source>&amp;Endings:</source>
-        <translation type="unfinished"></translation>
+        <translation>Z&amp;akończenia:</translation>
     </message>
     <message>
         <source>&amp;X1:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;X1:</translation>
     </message>
     <message>
         <source>X&amp;2:</source>
-        <translation type="unfinished"></translation>
+        <translation>X&amp;2:</translation>
     </message>
     <message>
         <source>Y&amp;1:</source>
-        <translation type="unfinished"></translation>
+        <translation>Y&amp;1:</translation>
     </message>
     <message>
         <source>&amp;Y2:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Y2:</translation>
     </message>
 </context>
 <context>
@@ -5289,11 +5290,11 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Anuluj</translation>
+        <translation>&amp;Anuluj</translation>
     </message>
 </context>
 <context>
@@ -5384,15 +5385,15 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>&amp;No</source>
-        <translation type="unfinished">&amp;Nie</translation>
+        <translation>&amp;Nie</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
-        <translation type="unfinished">&amp;Tak</translation>
+        <translation>&amp;Tak</translation>
     </message>
     <message>
         <source>&amp;Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nazwa:</translation>
     </message>
 </context>
 <context>
@@ -5743,11 +5744,11 @@ on automatically created pages</source>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Anuluj</translation>
+        <translation>&amp;Anuluj</translation>
     </message>
 </context>
 <context>
@@ -5876,99 +5877,99 @@ w innym przypadku do obiektu.</translation>
     </message>
     <message>
         <source>&amp;Absolute Coordinates</source>
-        <translation type="unfinished"></translation>
+        <translation>Współrzędne &amp;bezwzględne</translation>
     </message>
     <message>
         <source>&amp;X-Pos:</source>
-        <translation type="unfinished">Wsp. &amp;X:</translation>
+        <translation>Wsp. &amp;X:</translation>
     </message>
     <message>
         <source>&amp;Y-Pos:</source>
-        <translation type="unfinished">Wsp. &amp;Y:</translation>
+        <translation>Wsp. &amp;Y:</translation>
     </message>
     <message>
         <source>Edit &amp;Contour Line</source>
-        <translation type="unfinished"></translation>
+        <translation>Edytuj linię &amp;konturu</translation>
     </message>
     <message>
         <source>&amp;Reset Contour Line</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Wyzeruj kontur obiektu</translation>
     </message>
     <message>
         <source>&amp;End Editing</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Zakończ edycję</translation>
     </message>
     <message>
         <source>Move Control Points Independently</source>
-        <translation type="unfinished"></translation>
+        <translation>Przesuń punkty kontrolne niezależnie od siebie</translation>
     </message>
     <message>
         <source>Move Control Points Symmetrical</source>
-        <translation type="unfinished"></translation>
+        <translation>Przesuń punkty kontrolne symetrycznie</translation>
     </message>
     <message>
         <source>Open a Polygon or Cuts a Bezier Curve</source>
-        <translation type="unfinished"></translation>
+        <translation>Otwiera wielokąt lub przecina krzywą Beziera</translation>
     </message>
     <message>
         <source>Close this Bezier Curve</source>
-        <translation type="unfinished"></translation>
+        <translation>Zamknij tę krzywą Beziera</translation>
     </message>
     <message>
         <source>Mirror the Path Horizontally</source>
-        <translation type="unfinished"></translation>
+        <translation>Odwróć ścieżkę w poziomie</translation>
     </message>
     <message>
         <source>Mirror the Path Vertically</source>
-        <translation type="unfinished"></translation>
+        <translation>Odwróć ścieżkę w pionie</translation>
     </message>
     <message>
         <source>Shear the Path Horizontally to the Rright</source>
-        <translation type="unfinished"></translation>
+        <translation>Przemieszczenie w poziomie w prawo</translation>
     </message>
     <message>
         <source>Shear the Path Horizontally to the Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Przemieszczenie w poziomie w lewo</translation>
     </message>
     <message>
         <source>Shear the Path Vertically Up</source>
-        <translation type="unfinished"></translation>
+        <translation>Przemieszczenie w pionie do góry</translation>
     </message>
     <message>
         <source>Shear the Path Vertically Down</source>
-        <translation type="unfinished"></translation>
+        <translation>Przemieszczenie w pionie na dół</translation>
     </message>
     <message>
         <source>Rotate the Path Counter-Clockwise</source>
-        <translation type="unfinished"></translation>
+        <translation>Obraca ścieżkę odwrotnie do ruchu wskazówek zegara</translation>
     </message>
     <message>
         <source>Rotate the Path Clockwise</source>
-        <translation type="unfinished"></translation>
+        <translation>Obraca ścieżkę zgodnie z ruchem wskazówek zegara</translation>
     </message>
     <message>
         <source>Reduce the Size of the Path by shown %</source>
-        <translation type="unfinished"></translation>
+        <translation>Zmniejsz rozmiar ścieżki o 10%</translation>
     </message>
     <message>
         <source>Enlarge the Size of the Path by shown %</source>
-        <translation type="unfinished"></translation>
+        <translation>Zwiększ rozmiar ścieżki o 10%</translation>
     </message>
     <message>
         <source>Angle of Rotation</source>
-        <translation type="unfinished"></translation>
+        <translation>Kąt obrotu</translation>
     </message>
     <message>
         <source>% to Enlarge or Reduce By</source>
-        <translation type="unfinished"></translation>
+        <translation>% powiększenia lub pomniejszenia</translation>
     </message>
     <message>
         <source>Activate Contour Line Editing Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Włącz tryb edycji linii konturu</translation>
     </message>
     <message>
         <source>Reset the Contour Line to the Original Shape of the Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyzeruj linię konturu do oryginalnego kształtu ramki</translation>
     </message>
 </context>
 <context>
@@ -7091,6 +7092,10 @@ a pojedynczy numer oznacza numer strony.</translation>
         <translation>&amp;Anuluj</translation>
     </message>
     <message>
+        <source></source>
+        <translation></translation>
+    </message>
+    <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>Pliki PDF (*.pdf);;Wszystkie pliki (*)</translation>
     </message>
@@ -7098,7 +7103,9 @@ a pojedynczy numer oznacza numer strony.</translation>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled
 when specifically requested by your printer and they have given you the exact details needed.
 Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
-        <translation type="unfinished"></translation>
+        <translation>Jest to zaawansowana opcja, która domyślnie jest wyłączona. Włącz ją tylko wtedy, 
+kiedy zostaniesz o to poproszony przez twoją drukarnię i dostaniesz od nich szczegółowe instrukcje.
+W innym przypadku twój wyeksportowany plik PDF może sprawiać problemy przy druku i przy otwieraniu w innym systemach.</translation>
     </message>
 </context>
 <context>
@@ -10014,11 +10021,11 @@ Sprawdź katalog i nazwę pliku.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Anuluj</translation>
+        <translation>&amp;Anuluj</translation>
     </message>
 </context>
 <context>
@@ -10160,95 +10167,95 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <name>SToolBAlign</name>
     <message>
         <source>St&amp;yle Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Ustawienia st&amp;yli</translation>
     </message>
     <message>
         <source>Style of current paragraph</source>
-        <translation type="unfinished">Styl aktualnego akapitu</translation>
+        <translation>Styl aktualnego akapitu</translation>
     </message>
 </context>
 <context>
     <name>SToolBColorF</name>
     <message>
         <source>F&amp;ill Color Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Usta&amp;wienia koloru wypełnienia</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished">Brak</translation>
+        <translation>Brak</translation>
     </message>
     <message>
         <source>Color of text fill</source>
-        <translation type="unfinished">Kolor wypełnienia tekstu</translation>
+        <translation>Kolor wypełnienia tekstu</translation>
     </message>
     <message>
         <source>Saturation of color of text fill</source>
-        <translation type="unfinished">Nasycenie koloru wypełnienia tekstu</translation>
+        <translation>Nasycenie koloru wypełnienia tekstu</translation>
     </message>
 </context>
 <context>
     <name>SToolBColorS</name>
     <message>
         <source>&amp;Stroke Color Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ustawienia koloru obrysu</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished">Brak</translation>
+        <translation>Brak</translation>
     </message>
     <message>
         <source>Color of text stroke</source>
-        <translation type="unfinished">Kolor obrysu tekstu</translation>
+        <translation>Kolor obrysu tekstu</translation>
     </message>
     <message>
         <source>Saturation of color of text stroke</source>
-        <translation type="unfinished">Nasycenie koloru obrysu tekstu</translation>
+        <translation>Nasycenie koloru obrysu tekstu</translation>
     </message>
 </context>
 <context>
     <name>SToolBFont</name>
     <message>
         <source>&amp;Font Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ustawienia czcionki</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation type="unfinished">pt</translation>
+        <translation>pt</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"></translation>
+        <translation>%</translation>
     </message>
     <message>
         <source>Font of selected text</source>
-        <translation type="unfinished"></translation>
+        <translation>Czcionka zaznaczonego tekstu</translation>
     </message>
     <message>
         <source>Font Size</source>
-        <translation type="unfinished">Rozmiar czcionki</translation>
+        <translation>Rozmiar czcionki</translation>
     </message>
     <message>
         <source>Scaling width of characters</source>
-        <translation type="unfinished">Skalowanie szerokości znaków</translation>
+        <translation>Skalowanie szerokości znaków</translation>
     </message>
 </context>
 <context>
     <name>SToolBStyle</name>
     <message>
         <source>&amp;Character Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Ustaw&amp;ienia znaków</translation>
     </message>
     <message>
         <source>Kerning:</source>
-        <translation type="unfinished">Podcięcie:</translation>
+        <translation>Podcięcie:</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation type="unfinished">pt</translation>
+        <translation>pt</translation>
     </message>
     <message>
         <source>Manual Kerning</source>
-        <translation type="unfinished">Manualne podcinanie</translation>
+        <translation>Manualne podcinanie</translation>
     </message>
 </context>
 <context>
@@ -11748,19 +11755,19 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Getting ICC Profiles</source>
-        <translation type="unfinished"></translation>
+        <translation>Wczytywanie profili ICC</translation>
     </message>
     <message>
         <source>Manage &amp;Guides...</source>
-        <translation type="unfinished"></translation>
+        <translation>Zarządzaj &amp;liniami pomocniczymi...</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
-        <translation type="unfinished">&amp;Rozmiar:</translation>
+        <translation>&amp;Rozmiar:</translation>
     </message>
     <message>
         <source>&amp;Shade:</source>
-        <translation type="unfinished"></translation>
+        <translation>C&amp;ieniowanie:</translation>
     </message>
 </context>
 <context>
@@ -11986,27 +11993,27 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>&amp;Whole Word</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Całe słowo</translation>
     </message>
     <message>
         <source>&amp;Ignore Case</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ignoruj wielkość liter</translation>
     </message>
     <message>
         <source>&amp;Search</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Szukaj</translation>
     </message>
     <message>
         <source>&amp;Replace</source>
-        <translation type="unfinished"></translation>
+        <translation>Zas&amp;tąp</translation>
     </message>
     <message>
         <source>Replace &amp;All</source>
-        <translation type="unfinished"></translation>
+        <translation>Zastąp &amp;wszystko</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished">&amp;Zamknij</translation>
+        <translation>&amp;Zamknij</translation>
     </message>
 </context>
 <context>
@@ -12117,7 +12124,7 @@ przeciągnij szablon na widok strony na dole.</translation>
     </message>
     <message>
         <source>&amp;Shade:</source>
-        <translation type="unfinished"></translation>
+        <translation>C&amp;ieniowanie:</translation>
     </message>
 </context>
 <context>
@@ -12418,63 +12425,63 @@ przeciągnij szablon na widok strony na dole.</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation type="unfinished">&amp;Nowy</translation>
+        <translation>&amp;Nowy</translation>
     </message>
     <message>
         <source>&amp;Reload Text from Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Pobierz tekst z ramki</translation>
     </message>
     <message>
         <source>&amp;Save to File...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Zapisz do pliku...</translation>
     </message>
     <message>
         <source>&amp;Load from File...</source>
-        <translation type="unfinished"></translation>
+        <translation>P&amp;obierz z pliku...</translation>
     </message>
     <message>
         <source>Save &amp;Document</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz &amp;dokument</translation>
     </message>
     <message>
         <source>&amp;Update Text Frame and Exit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Aktualizuj ramkę tekstową i zakończ</translation>
     </message>
     <message>
         <source>&amp;Exit Without Updating Text Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Zakończ &amp;bez aktualizowania ramki tekstowej</translation>
     </message>
     <message>
         <source>Cu&amp;t</source>
-        <translation type="unfinished"></translation>
+        <translation>Wy&amp;tnij</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation type="unfinished">&amp;Kopiuj</translation>
+        <translation>&amp;Kopiuj</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
-        <translation type="unfinished">&amp;Wklej</translation>
+        <translation>&amp;Wklej</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation type="unfinished">&amp;Usuń</translation>
+        <translation>&amp;Usuń</translation>
     </message>
     <message>
         <source>&amp;Insert Special...</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodaj znak  &amp;specjalny...</translation>
     </message>
     <message>
         <source>&amp;Update Text Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Aktualizuj ramkę tekstową</translation>
     </message>
     <message>
         <source>&amp;File</source>
-        <translation type="unfinished">&amp;Plik</translation>
+        <translation>&amp;Plik</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation type="unfinished">&amp;Edycja</translation>
+        <translation>&amp;Edycja</translation>
     </message>
 </context>
 <context>
@@ -12639,15 +12646,15 @@ przeciągnij szablon na widok strony na dole.</translation>
     </message>
     <message>
         <source>&amp;Position:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Pozycja:</translation>
     </message>
     <message>
         <source>First &amp;Line:</source>
-        <translation type="unfinished"></translation>
+        <translation>Pierwsza &amp;linia:</translation>
     </message>
     <message>
         <source>Ind&amp;ent:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Wcięcie:</translation>
     </message>
 </context>
 <context>
@@ -12858,15 +12865,15 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>PDF Tools</source>
-        <translation type="unfinished"></translation>
+        <translation>Narzędzia PDF</translation>
     </message>
     <message>
         <source>Insert PDF Fields</source>
-        <translation type="unfinished"></translation>
+        <translation>Wstaw pola PDF</translation>
     </message>
     <message>
         <source>Insert PDF Annotations</source>
-        <translation type="unfinished"></translation>
+        <translation>Wstaw adnotacje PDF</translation>
     </message>
 </context>
 <context>
