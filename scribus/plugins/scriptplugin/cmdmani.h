@@ -182,4 +182,15 @@ currently selected item is used.\n\
 /*! Status of locking 2004/7/10 pv.*/
 PyObject *scribus_islocked(PyObject */*self*/, PyObject* args);
 
+PyDoc_STRVAR(scribus_setscaleimagetoframe__doc__,
+QT_TR_NOOP("setScaleImageToFrame(scaletoframe, proportional=None, name=<selection>)\n\
+\n\
+Sets the scale to frame on the selected or specified image frame to `scaletoframe'.\n\
+If `proportional' is specified, set fixed aspect ratio scaling to `proportional'.\n\
+Both `scaletoframe' and `proportional' are boolean.\n\
+\n\
+May raise WrongFrameTypeError.\n\
+"));
+PyObject *scribus_setscaleimagetoframe(PyObject */*self*/, PyObject* args, PyObject* kwargs);
+
 #endif

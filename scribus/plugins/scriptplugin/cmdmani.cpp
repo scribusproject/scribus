@@ -301,3 +301,36 @@ PyObject *scribus_islocked(PyObject */*self*/, PyObject* args)
 		return PyBool_FromLong(1);
 	return PyBool_FromLong(0);
 }
+
+PyObject *scribus_setscaleimagetoframe(PyObject */*self*/, PyObject* args, PyObject* kw)
+{
+	char *name = const_cast<char*>("");
+	long int scaleToFrame = 0;
+	long int proportional = 1;
+	char* kwargs[] = {"scaletoframe", "proportional", "name", NULL};
+	if (!PyArg_ParseTupleAndKeywords(args, kw, "i|ies", kwargs, &scaleToFrame, &proportional, "utf-8", &name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
+	if (item == NULL)
+		return NULL;
+	if (item->PType != FRAME_IMAGE)
+	{
+		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame","python error"));
+		return NULL;
+	}
+	// Set the item to scale if appropriate. ScaleType 1 is free
+	// scale, 0 is scale to frame.
+	item->ScaleType = scaleToFrame == 0;
+	// Now, if the user has chosen to set the proportional mode,
+	// set it. 1 is proportional, 0 is free aspect.
+	if (proportional != -1)
+		item->AspectRatio = proportional > 0;
+	// Force the braindead app to notice the changes
+	item->OwnPage->AdjustPictScale(item);
+	item->OwnPage->AdjustPreview(item, false);
+	item->OwnPage->RefreshItem(item);
+	Py_INCREF(Py_None);
+	return Py_None;
+}
