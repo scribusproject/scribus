@@ -218,7 +218,7 @@ Page* ScribusView::addPage(int nr)
 		Doc->FirstAuto->Dirty = true;
 		}
 	PGS->setMaxValue(Doc->PageC);
-	if ((!ScApp->ScriptRunning) && (!Doc->loading))
+	if ((!ScApp->ScriptRunning) && (!Doc->loading) && (!Doc->MasterP))
 		PGS->GotoPg(nr);
 	fe->setMouseTracking(true);
 	connect(fe, SIGNAL(Hrule(int)), HR, SLOT(Draw(int)));
@@ -409,7 +409,7 @@ void ScribusView::setMenTxt(int Seite)
 		return;
 	disconnect(PGS, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
 	PGS->setMaxValue(Doc->PageC);
-	if (!Doc->loading)
+	if ((!Doc->loading) && (!Doc->MasterP))
 		PGS->GotoPg(Seite);
 	connect(PGS, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
 }
@@ -554,7 +554,7 @@ void ScribusView::GotoPage(int Seite)
 		return;
 	setContentsPos(static_cast<int>(childX(Doc->ActPage->parentWidget())-10*Doc->Scale), static_cast<int>(childY(Doc->ActPage->parentWidget())-10*Doc->Scale));
 	PGS->setMaxValue(Doc->PageC);
-	if (!Doc->loading)
+	if ((!Doc->loading) && (!Doc->MasterP))
 		PGS->GotoPg(Seite);
 }
 

@@ -1819,7 +1819,8 @@ void ScribusApp::newActWin(QWidget *w)
 		wsp->setScrollBarsEnabled(false);
 	else
 		wsp->setScrollBarsEnabled(true);
-	Sepal->Rebuild();
+	if (!doc->TemplateMode)
+		Sepal->Rebuild();
 	Tpal->BuildTree(view);
 	Tpal->reopenTree(doc->OpenNodes);
 	BookPal->BView->NrItems = ActWin->NrItems;
@@ -2925,6 +2926,12 @@ bool ScribusApp::slotFileClose()
 
 bool ScribusApp::DoFileClose()
 {
+	if(doc->TemplateMode)
+	{
+//		disconnect(ActWin->muster, SIGNAL(Fertig()), this, SLOT(ManTempEnd()));
+//		ManTempEnd();
+		ActWin->muster->close();
+	}
 	setAppMode(1);
   doc->ASaveTimer->stop();
 	disconnect(doc->ASaveTimer, SIGNAL(timeout()), doc->WinHan, SLOT(slotAutoSave()));
@@ -6191,6 +6198,7 @@ void ScribusApp::ManageTemp(QString temp)
 	CanUndo();
 	dia->show();
 	ActWin->muster = dia;
+	doc->OpenNodes = Tpal->buildReopenVals();
 }
 
 void ScribusApp::ManTempEnd()
@@ -6223,6 +6231,8 @@ void ScribusApp::ManTempEnd()
 	doc->UnDoValid = false;
 	CanUndo();
 	Sepal->Rebuild();
+	Tpal->BuildTree(view);
+	Tpal->reopenTree(doc->OpenNodes);
 }
 
 void ScribusApp::ApplyTemp()
