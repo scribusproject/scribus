@@ -1,1 +1,3 @@
 Changes since Version 1.1.2
+02.10.2003	Reenabled the Fontpreview in the Preferences.
+		Fixed Bug in the "SetText" Command of the Scripter.

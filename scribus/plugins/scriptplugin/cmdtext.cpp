@@ -137,6 +137,7 @@ PyObject *scribus_setboxtext(PyObject *self, PyObject* args)
 				}
 			}
 		it->Ptext.clear();
+		it->CPos = 0;
 		for (uint a = 0; a < Daten.length(); ++a)
 			{
 			struct Pti *hg = new Pti;

@@ -12,6 +12,7 @@
 #include <qwmatrix.h>
 #include <cmath>
 
+extern QPixmap FontSample(QString da, int s, QString ts, QColor back);
 extern QPixmap loadIcon(QString nam);
 extern QPointArray RegularPolygon(double w, double h, uint c, bool star, double factor, double rota);
 
@@ -850,6 +851,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     Layout15a->addWidget( ForegroundT, 2, 1 );
     TextLabel1_4 = new QLabel( ToolFrame, "TextLabel1_4" );
     TextLabel1_4->setMinimumSize(QSize(260, 70));
+    TextLabel1_4->setMaximumSize(QSize(260, 70));
     TextLabel1_4->setText( tr( "Woven silk pyjamas exchanged for blue quartz" ) );
     TextLabel1_4->setAlignment( static_cast<int>( QLabel::AlignVCenter | QLabel::AlignLeft ) );
     SetSample();
@@ -1835,10 +1837,11 @@ void Preferences::DefKB()
 
 void Preferences::SetSample()
 {
-	QFont fo;
-	fo = (*fon)[FontComb->currentText()]->Font;
-	fo.setPointSize(SizeCombo->currentText().left(2).toInt());
-	TextLabel1_4->setFont(fo);
+	QString ts = tr( "Woven silk pyjamas exchanged for blue quartz" );
+	QString da = (*fon)[FontComb->currentText()]->Datei;
+	int s = SizeCombo->currentText().left(2).toInt();
+	QPixmap pm = FontSample(da, s, ts, paletteBackgroundColor());
+	TextLabel1_4->setPixmap(pm);
 }
 
 void Preferences::changeMaColor()

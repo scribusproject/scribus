@@ -63,6 +63,7 @@ extern ProfilesL InputProfiles;
 
 bool overwrite(QWidget *parent, QString filename);
 FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y);
+QPixmap FontSample(QString da, int s, QString ts, QColor back);
 QString Path2Relative(QString Path);
 QPixmap LoadPDF(QString fn, int Seite, int Size, int *w, int *h);
 bool GlyNames(QMap<uint, QString> *GList, QString Dat);
@@ -1233,6 +1234,49 @@ FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y)
 	return pts2;
 }
 
+QPixmap FontSample(QString da, int s, QString ts, QColor back)
+{
+	FT_Face face;
+	FT_Library library;
+	double x, y, wid;
+	bool error;
+	int  pen_x;
+	error = FT_Init_FreeType( &library );
+	error = FT_New_Face( library, da, 0, &face );
+	double uniEM = static_cast<double>(face->units_per_EM);
+	int h = qRound(face->height / uniEM) * s;
+	double a = static_cast<double>(face->descender) / uniEM * s;
+	int w = qRound((face->bbox.xMax - face->bbox.xMin) / uniEM) * s * (ts.length()+1);
+	QPixmap pm(w, h);
+	pm.fill();
+	pen_x = 0;
+	wid = 0.0;
+	ScPainter *p = new ScPainter(&pm, pm.width(), pm.height());
+	p->setFillMode(1);
+	p->setLineWidth(0.0);
+	p->setBrush(back);
+	p->drawRect(0.0, 0.0, static_cast<double>(w), static_cast<double>(h));
+	p->setBrush(Qt::black);
+	for (uint n = 0; n < ts.length(); n++)
+		{
+		uint dv = ts[n].unicode();
+		FPointArray gly = traceChar(face, dv, s, &x, &y);
+		if (gly.size() > 3)
+			{
+			gly.translate(static_cast<double>(pen_x) / 64.0, a);
+			p->setupPolygon(&gly);
+			p->fillPath();
+			}
+		pen_x += face->glyph->advance.x;
+		wid += face->glyph->metrics.horiAdvance / uniEM * s;
+		}
+	p->end();
+	pm.resize(QMIN(QMAX(qRound(wid), qRound(static_cast<double>(pen_x) / 64.0)), w), h);
+	delete p;
+	FT_Done_FreeType( library );
+	return pm;
+}
+
 /***************************************************************************
     begin                : Wed Oct 29 2003
     copyright            : (C) 2003 The Scribus Team
@@ -1249,11 +1293,8 @@ bool overwrite(QWidget *parent, QString filename)
   	{
     int t = QMessageBox::warning(parent,	QObject::tr("Warning"),
   																QObject::tr("Do you really want to overwrite the File:\n%1 ?").arg(filename),
-                         					QObject::tr("No"), QObject::tr("Yes"),
-                                	0, 0, 1);
-    if (t == 1)
-      retval = true;
-		else
+                         					QMessageBox::No, QMessageBox::Yes, QMessageBox::NoButton);
+    if (t == QMessageBox::No)
 			retval = false;
   	}
   return retval;

@@ -308,6 +308,7 @@ ScribusApp::ScribusApp(SplashScreen *splash)
 		Sepal = new SeitenPal(this);
 		BookPal = new BookPalette(this);
 		CMSavail = false;
+		keyrep = false;
 		Prefs.DCMSset.DefaultMonitorProfile = "";
 		Prefs.DCMSset.DefaultPrinterProfile = "";
 		Prefs.DCMSset.DefaultInputProfile = "";
@@ -867,6 +868,9 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 	QString uc = k->text();
 	QString cr, Tcha, Twort;
 	uint Tcoun;
+	if (keyrep)
+		return;
+	keyrep = true;
 	switch (k->state())
 		{
 		case ShiftButton:
@@ -887,10 +891,12 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
  			{
  			case Key_Prior:
  				view->scrollBy(0, -Prefs.Wheelval);
+				keyrep = false;
  				return;
  				break;
  			case Key_Next:
  				view->scrollBy(0, Prefs.Wheelval);
+				keyrep = false;
  				return;
  				break;
  			}
@@ -1288,7 +1294,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
  									if ((b->CPos < static_cast<int>(b->Ptext.count())) || (as == 30))
  										b->Dirty = true;
  									b->Tinput = true;
-									doc->ActPage->RefreshItem(b);
+									doc->ActPage->RefreshItem(b, true);
  									}
  								break;
  							}
@@ -1296,13 +1302,17 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
  							if (b->Ptext.at(QMAX(b->CPos-1, 0))->yp != 0)
  								doc->ActPage->slotDoCurs(true);
  						if ((kk == Key_Left) || (kk == Key_Right) || (kk == Key_Up) || (kk == Key_Down))
+							{
+							keyrep = false;
  							return;
+							}
  						}
  					slotDocCh(false);
  					break;
  				}
  			}
  		}
+	keyrep = false;
 }
 
 void ScribusApp::closeEvent(QCloseEvent *ce)
@@ -4706,6 +4716,11 @@ void ScribusApp::SelectFromOutl(int Page, int Item)
 	doc->ActPage->Deselect(true);
 	view->GotoPage(Page);
 	doc->ActPage->SelectItemNr(Item);
+	if (doc->ActPage->SelItem.count() != 0)
+		{
+		PageItem *b = doc->ActPage->SelItem.at(0);
+		view->SetCCPo(static_cast<int>(b->Xpos + b->Width/2), static_cast<int>(b->Ypos + b->Height/2));
+		}
 }
 
 void ScribusApp::SelectFromOutlS(int Page)

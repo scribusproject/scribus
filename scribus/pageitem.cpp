@@ -1428,7 +1428,7 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 			QString dummy;
 			p->setPen(p->brush());
 			p->setLineWidth(QMAX((*Doc->AllFonts)[hl->ZFo]->strokeWidth * hl->Siz, 1));
-			if (gly.size() > 4)
+			if ((gly.size() > 4) && (ccx != QChar(32)))
 				p->drawUnderline(FPoint(hl->xco-hl->kern, hl->yco-st), FPoint(hl->xco+hl->wide, hl->yco-st), false, &dummy);
 			else
 				p->drawLine(FPoint(hl->xco-hl->kern, hl->yco-st), FPoint(hl->xco+hl->wide, hl->yco-st));

@@ -4693,7 +4693,7 @@ void Page::TextToPath()
 		if (b->Ptext.count() == 0)
 			return;
 		doku->loading = true;
-		for (uint a = 0; a < b->Ptext.count(); ++a)
+		for (uint a = 0; a < b->MaxChars; ++a)
 			{
 			pts.resize(0);
 			x = 0.0;
@@ -4725,7 +4725,7 @@ void Page::TextToPath()
 			QWMatrix chma;
 			chma.scale(csi, csi);
 			pts = (*doku->AllFonts)[b->Ptext.at(a)->cfont]->GlyphArray[chr].Outlines.copy();
-			if (pts.size() == 0)
+			if (pts.size() < 4)
 				continue;
 			x = (*doku->AllFonts)[b->Ptext.at(a)->cfont]->GlyphArray[chr].x * csi;
 			y = (*doku->AllFonts)[b->Ptext.at(a)->cfont]->GlyphArray[chr].y * csi;

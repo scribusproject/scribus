@@ -487,6 +487,7 @@ private:
 		int OBack;
 		int OFront;
     bool tipsOn;
+		bool keyrep;
     QPopupMenu *helpMenu;
     QPopupMenu *toolMenu;
     QPopupMenu *extraMenu;
