@@ -2620,6 +2620,20 @@ void PageItem::setSizeLocked(bool isLocked)
 		toggleSizeLock();
 }
 
+void PageItem::setFont(const QString& newFont)
+{
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::SetFont,
+                        QString(Um::FromTo).arg(IFont).arg(newFont), Um::IFont);
+		ss->set("SET_FONT", "setfont");
+		ss->set("OLD_FONT", IFont);
+		ss->set("NEW_FONT", newFont);
+		undoManager->action(this, ss);
+	}
+	IFont = newFont;
+}
+
 void PageItem::checkChanges(bool force)
 {
 	// has the item been resized
@@ -2705,7 +2719,7 @@ void PageItem::rotateUndoAction()
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::Rotate,
-                                          QString(Um::RotateFromTo).arg(oldRot).arg(Rot),
+                                          QString(Um::FromTo).arg(oldRot).arg(Rot),
                                           Um::IRotate);
 		ss->set("OLD_ROT", oldRot);
 		ss->set("NEW_ROT", Rot);
@@ -2786,6 +2800,8 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreArrow(ss, isUndo, true);
 		else if (ss->contains("END_ARROW"))
 			restoreArrow(ss, isUndo, false);
+		else if (ss->contains("SET_FONT"))
+			restoreFont(ss, isUndo);
 		
 	}
 }
@@ -2999,6 +3015,15 @@ void PageItem::restoreArrow(SimpleState *state, bool isUndo, bool isStart)
 		setStartArrowIndex(i);
 	else
 		setEndArrowIndex(i);
+}
+
+void PageItem::restoreFont(SimpleState *state, bool isUndo)
+{
+	QString font = state->get("OLD_FONT");
+	if (!isUndo)
+		font = state->get("NEW_FONT");
+	select();
+	ScApp->view->ItemFont(font);
 }
 
 void PageItem::select()

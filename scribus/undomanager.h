@@ -404,7 +404,6 @@ public:
 	static const QString Rotate;
 	static const QString MoveFromTo;
 	static const QString ResizeFromTo;
-	static const QString RotateFromTo;
 	static const QString Selection;
 	static const QString Group;
 	static const QString SelectionGroup;
@@ -445,6 +444,7 @@ public:
 	static const QString EndArrow;
 	static const QString CreateTable;
 	static const QString RowsCols;
+	static const QString SetFont;
 	/*@}*/
 
 	/**
@@ -481,6 +481,7 @@ public:
 	static QPixmap *ILineStyle;
 	static QPixmap *IArrow;
 	static QPixmap *ITable;
+	static QPixmap *IFont;
 	/*@}*/
 
 protected:

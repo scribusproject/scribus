@@ -468,6 +468,12 @@ public:
 	/** @brief set lock for resizing */
 	void setSizeLocked(bool isLocked);
 
+	/**
+	 * @brief Set font for the PageItem.
+	 * @param newFont name of the font
+	 */
+	void setFont(const QString& newFont);
+
 	/** 
 	 * @brief Check the changes to the item and add undo actions for them.
 	 * @param force Force the check. Do not care if mouse button or arrow key is down
@@ -511,6 +517,7 @@ protected:
 	void restoreLineWidth(SimpleState *state, bool isUndo);
 	void restoreCustomLineStyle(SimpleState *state, bool isUndo);
 	void restoreArrow(SimpleState *state, bool isUndo, bool isStart);
+	void restoreFont(SimpleState *state, bool isUndo);
 	/*@}*/
 
 	/**

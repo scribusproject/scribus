@@ -617,6 +617,7 @@ void UndoManager::initIcons()
 	UndoManager::ILineStyle       = new QPixmap(iconDir + "u_line.png");
 	UndoManager::IArrow           = new QPixmap(iconDir + "u_arrow.png");
 	UndoManager::ITable           = new QPixmap(iconDir + "frame_table.png");
+	UndoManager::IFont            = new QPixmap(iconDir + "u_font.png");
 }
 
 const QString UndoManager::AddVGuide         = tr("Add vertical guide");
@@ -632,7 +633,6 @@ const QString UndoManager::Resize            = tr("Resize");
 const QString UndoManager::Rotate            = tr("Rotate");
 const QString UndoManager::MoveFromTo        = tr("X1: %1, Y1: %2, Page %3\nX2: %4, Y2: %5, Page %6");
 const QString UndoManager::ResizeFromTo      = tr("W1: %1, H1: %2\nW2: %3, H2: %4");
-const QString UndoManager::RotateFromTo      = tr("From %1 to %2");
 const QString UndoManager::Selection         = tr("Selection");
 const QString UndoManager::Group             = tr("Group");
 const QString UndoManager::SelectionGroup    = tr("Selection/Group");
@@ -656,7 +656,7 @@ const QString UndoManager::SizeUnLock        = tr("Unlock size");
 const QString UndoManager::Ungroup           = tr("Ungroup");
 const QString UndoManager::Delete            = tr("Delete");
 const QString UndoManager::Rename            = tr("Rename");
-const QString UndoManager::FromTo            = tr("From %1 to %2");
+const QString UndoManager::FromTo            = tr("From %1\nto %2");
 const QString UndoManager::ApplyTemplate     = tr("Apply template");
 const QString UndoManager::Paste             = tr("Paste");
 const QString UndoManager::Cut               = tr("Cut");
@@ -673,6 +673,7 @@ const QString UndoManager::StartArrow        = tr("Set start arrow");
 const QString UndoManager::EndArrow          = tr("Set end arrow");
 const QString UndoManager::CreateTable       = tr("Create table");
 const QString UndoManager::RowsCols          = tr("Rows: %1, Cols: %2");
+const QString UndoManager::SetFont           = tr("Set font");
 
 /*** Icons for UndoObjects *******************************************/
 QPixmap *UndoManager::IImageFrame      = NULL;
@@ -703,3 +704,4 @@ QPixmap *UndoManager::ICut             = NULL;
 QPixmap *UndoManager::ITransparency    = NULL;
 QPixmap *UndoManager::ILineStyle       = NULL;
 QPixmap *UndoManager::IArrow           = NULL;
+QPixmap *UndoManager::IFont            = NULL;

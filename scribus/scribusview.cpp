@@ -9476,12 +9476,15 @@ void ScribusView::ItemFont(QString fon)
 {
 	if (SelItem.count() != 0)
 	{
+		if (SelItem.count() > 1)
+			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SetFont,
+										 fon, Um::IFont);
 		for (uint aa = 0; aa < SelItem.count(); ++aa)
 		{
 			PageItem *b = SelItem.at(aa);
 			if (Doc->appMode == NormalMode)
 			{
-				b->IFont = fon;
+				b->setFont(fon);
 				if (b->itemText.count() != 0)
 				{
 					for (uint a = 0; a < b->itemText.count(); ++a)
@@ -9509,6 +9512,8 @@ void ScribusView::ItemFont(QString fon)
 				}
 			}
 		}
+		if (SelItem.count() > 1)
+			undoManager->commit();
 	}
 }
 
