@@ -1,5 +1,19 @@
 Changes since 1.2 
 
+19.10.2004
+	* bug     #1221: Partly outside the page images not cropped on PDF export
+	* bug     #1226: Update of russian translation
+	* feature #1157: scribus man page
+	* feature #1217: Help>About>Translations: please mark active translators
+
+18.10.2004
+	* bug     #1203: wrong selection on double click
+	* bug     #1220: cddb_cover.py failed
+
+15.10.2004
+	* bug     #1216: Scribus crashes after a double click and right click on a text frame
+	* feature # 803: Feature request: rotation of pdf output
+
 14.10.2004
 	* bug     #1208: grey out the factor field in polygon setting when not activated
 	* bug     #1211: wrong PDF export of imported EPS image
