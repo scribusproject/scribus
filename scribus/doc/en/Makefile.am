@@ -116,33 +116,33 @@ install-data-local:
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/
 	$(INSTALL_DATA) $(srcdir)/scripter1.html $(prefix)/share/scribus/doc/en/scripter1.html
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/
-	$(INSTALL_DATA) $(srcdir)/scripterapi-color.html $(prefix)/share/scribus/doc/en/scriperapi-color.html
+	$(INSTALL_DATA) $(srcdir)/scripterapi-color.html $(prefix)/share/scribus/doc/en/scripterapi-color.html
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/
-	$(INSTALL_DATA) $(srcdir)/scripterapi-constants.html $(prefix)/share/scribus/doc/en/scriperapi-constants.html
+	$(INSTALL_DATA) $(srcdir)/scripterapi-constants.html $(prefix)/share/scribus/doc/en/scripterapi-constants.html
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/
-	$(INSTALL_DATA) $(srcdir)/scripterapi-dialogs.html $(prefix)/share/scribus/doc/en/scriperapi-dialogs.html
+	$(INSTALL_DATA) $(srcdir)/scripterapi-dialogs.html $(prefix)/share/scribus/doc/en/scripterapi-dialogs.html
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/
-	$(INSTALL_DATA) $(srcdir)/scripterapi-doc.html $(prefix)/share/scribus/doc/en/scriperapi-doc.html
+	$(INSTALL_DATA) $(srcdir)/scripterapi-doc.html $(prefix)/share/scribus/doc/en/scripterapi-doc.html
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/
-	$(INSTALL_DATA) $(srcdir)/scripterapi-font.html $(prefix)/share/scribus/doc/en/scriperapi-font.html
+	$(INSTALL_DATA) $(srcdir)/scripterapi-font.html $(prefix)/share/scribus/doc/en/scripterapi-font.html
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/
-	$(INSTALL_DATA) $(srcdir)/scripterapi-getobjprop.html $(prefix)/share/scribus/doc/en/scriperapi-getobjprop.html
+	$(INSTALL_DATA) $(srcdir)/scripterapi-getobjprop.html $(prefix)/share/scribus/doc/en/scripterapi-getobjprop.html
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/
-	$(INSTALL_DATA) $(srcdir)/scripterapi.html $(prefix)/share/scribus/doc/en/scriperapi.html
+	$(INSTALL_DATA) $(srcdir)/scripterapi.html $(prefix)/share/scribus/doc/en/scripterapi.html
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/
-	$(INSTALL_DATA) $(srcdir)/scripterapi-layer.html $(prefix)/share/scribus/doc/en/scriperapi-layer.html
+	$(INSTALL_DATA) $(srcdir)/scripterapi-layer.html $(prefix)/share/scribus/doc/en/scripterapi-layer.html
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/
-	$(INSTALL_DATA) $(srcdir)/scripterapi-manobj.html $(prefix)/share/scribus/doc/en/scriperapi-manobj.html
+	$(INSTALL_DATA) $(srcdir)/scripterapi-manobj.html $(prefix)/share/scribus/doc/en/scripterapi-manobj.html
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/
-	$(INSTALL_DATA) $(srcdir)/scripterapi-object.html $(prefix)/share/scribus/doc/en/scriperapi-object.html
+	$(INSTALL_DATA) $(srcdir)/scripterapi-object.html $(prefix)/share/scribus/doc/en/scripterapi-object.html
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/
-	$(INSTALL_DATA) $(srcdir)/scripterapi-page.html $(prefix)/share/scribus/doc/en/scriperapi-page.html
+	$(INSTALL_DATA) $(srcdir)/scripterapi-page.html $(prefix)/share/scribus/doc/en/scripterapi-page.html
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/
-	$(INSTALL_DATA) $(srcdir)/scripterapi-select.html $(prefix)/share/scribus/doc/en/scriperapi-select.html
+	$(INSTALL_DATA) $(srcdir)/scripterapi-select.html $(prefix)/share/scribus/doc/en/scripterapi-select.html
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/
-	$(INSTALL_DATA) $(srcdir)/scripterapi-setobjprop.html $(prefix)/share/scribus/doc/en/scriperapi-setobjprop.html
+	$(INSTALL_DATA) $(srcdir)/scripterapi-setobjprop.html $(prefix)/share/scribus/doc/en/scripterapi-setobjprop.html
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/
-	$(INSTALL_DATA) $(srcdir)/scripterapi-textframes.html $(prefix)/share/scribus/doc/en/scriperapi-textframes.html
+	$(INSTALL_DATA) $(srcdir)/scripterapi-textframes.html $(prefix)/share/scribus/doc/en/scripterapi-textframes.html
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/
 	$(INSTALL_DATA) $(srcdir)/settings1.html $(prefix)/share/scribus/doc/en/settings1.html
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/
