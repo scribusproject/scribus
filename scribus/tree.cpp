@@ -252,6 +252,11 @@ void Tree::slotUpdateElement(uint SNr, uint Nr)
 	if (ScApp->ScriptRunning)
 		return;
 	QListViewItem *item = getListItem(SNr, Nr);
+	if (!item)
+	{
+		qDebug("Tree::slotUpdateElement(%i,%i): NULL item from getListItem(...)",SNr,Nr);
+		return;
+	}
 	PageItem* pgItem;
 	int itemType;
 	if (document->TemplateMode)
