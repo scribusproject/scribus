@@ -31,6 +31,7 @@ extern "C" QString Name();
   * 2 = the Plugins is a import Plugin, which appears in the Import Menue
   * 3 = the Plugins is a export Plugin, which appears in the Export Menue */
 extern "C" int Type();
+extern "C" int ID();
 
 class Zoom : public QDialog
 {

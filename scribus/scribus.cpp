@@ -2636,6 +2636,8 @@ void ScribusApp::HaveNewSel(int Nr)
 	if (Nr != -1)
 		b = view->SelItem.at(0);
 	ObjMenu->setItemEnabled(PfadDT, 0);
+	if (PluginMap.contains(1))
+		extraMenu->setItemEnabled(PluginMap[1].MenuID, 0);
 	view->HR->ItemPosValid = false;
 	view->HR->repX = false;
 	view->HR->repaint();
@@ -2739,6 +2741,8 @@ void ScribusApp::HaveNewSel(int Nr)
 		{
 			setTBvals(b);
 			editMenu->setItemEnabled(edid5, 1);
+			if (PluginMap.contains(1))
+				extraMenu->setItemEnabled(PluginMap[1].MenuID, 1);
 			view->HR->ItemPos = b->Xpos;
 			view->HR->ItemEndPos = b->Xpos+b->Width;
 			if (b->Pcolor2 != "None")
@@ -5158,6 +5162,8 @@ void ScribusApp::setAppMode(int mode)
 				setTBvals(b);
 			}
 			editMenu->setItemEnabled(edid3, 0);
+			if (PluginMap.contains(1))
+				extraMenu->setItemEnabled(PluginMap[1].MenuID, 0);
 			if (!Buffer2.isNull())
 			{
 				if (!Buffer2.startsWith("<SCRIBUSELEM"))
@@ -7739,7 +7745,7 @@ void ScribusApp::RunPlug(int id)
 {
 	int a = extraMenu->indexOf(id);
 	if (a > 2)
-		CallDLL(extraMenu->text(id));
+		CallDLLbyMenu(id);
 }
 
 void ScribusApp::RunImportPlug(int id)
@@ -7749,7 +7755,7 @@ void ScribusApp::RunImportPlug(int id)
 	{
 		if (HaveDoc)
 			doc->OpenNodes = Tpal->buildReopenVals();
-		CallDLL(importMenu->text(id));
+		CallDLLbyMenu(id);
 		if (HaveDoc)
 		{
 			Tpal->BuildTree(view);
@@ -7763,20 +7769,20 @@ void ScribusApp::RunExportPlug(int id)
 {
 	int a = exportMenu->indexOf(id);
 	if (a > 2)
-		CallDLL(exportMenu->text(id));
+		CallDLLbyMenu(id);
 }
 
 void ScribusApp::RunHelpPlug(int id)
 {
 	int a = helpMenu->indexOf(id);
 	if (a > 3)
-		CallDLL(helpMenu->text(id));
+		CallDLLbyMenu(id);
 }
 
 void ScribusApp::FinalizePlugs()
 {
 	const char *error;
-	QMap<QString, PlugData>::Iterator it;
+	QMap<int, PlugData>::Iterator it;
 	struct PlugData pda;
 	typedef void (*sdem2)();
 	sdem2 demo2;
@@ -7803,7 +7809,9 @@ void ScribusApp::InitPlugs(SplashScreen *spl)
 {
 	QString pfad = PREL;
 	QString nam = "";
+	int id = 0;
 	int ty = 0;
+	int menid;
 	struct PlugData pda;
 	pfad += "/lib/scribus/plugins/";
 #if defined(__hpux)
@@ -7818,20 +7826,25 @@ void ScribusApp::InitPlugs(SplashScreen *spl)
 		{
 			pda.Zeiger = 0;
 			pda.Datei = "";
+			pda.Name = "";
 			pda.Typ = 0;
-			if (DLLName(d[dc], &nam, &ty, &pda.Zeiger))
+			pda.MenuID = 0;
+			if (DLLName(d[dc], &nam, &ty, &pda.Zeiger, &id))
 			{
 				if (ty == 1)
-					extraMenu->insertItem(nam);
+					menid = extraMenu->insertItem(nam);
 				if (ty == 2)
-					importMenu->insertItem(nam);
+					menid = importMenu->insertItem(nam);
 				if (ty == 3)
-					exportMenu->insertItem(nam);
+					menid = exportMenu->insertItem(nam);
 				if (ty == 4)
-					helpMenu->insertItem(nam);
+					menid = helpMenu->insertItem(nam);
+				pda.Name = nam;
 				pda.Datei = d[dc];
 				pda.Typ = ty;
-				PluginMap.insert(nam, pda);
+				if (ty < 5)
+					pda.MenuID = menid;
+				PluginMap.insert(id, pda);
 				spl->setStatus( tr("Loading:")+" "+nam);
 			}
 		}
@@ -7842,12 +7855,26 @@ void ScribusApp::InitPlugs(SplashScreen *spl)
 	}
 }
 
-void ScribusApp::CallDLL(QString name)
+void ScribusApp::CallDLLbyMenu(int id)
+{
+	QMap<int, PlugData>::Iterator it;
+	struct PlugData pda;
+	for (it = PluginMap.begin(); it != PluginMap.end(); ++it)
+	{
+		if (it.data().MenuID == id)
+		{
+			CallDLL(it.key());
+			break;
+		}
+	}
+}
+
+void ScribusApp::CallDLL(int ident)
 {
 	void *mo;
 	const char *error;
 	struct PlugData pda;
-	pda = PluginMap[name];
+	pda = PluginMap[ident];
 	typedef void (*sdem)(QWidget *d, ScribusApp *plug);
 	sdem demo;
 	QString pfad = PREL;
@@ -7878,7 +7905,7 @@ void ScribusApp::CallDLL(QString name)
 		view->DrawNew();
 }
 
-bool ScribusApp::DLLName(QString name, QString *PName, int *typ, void **Zeig)
+bool ScribusApp::DLLName(QString name, QString *PName, int *typ, void **Zeig, int *idNr)
 {
 	void *mo;
 	const char *error;
@@ -7913,6 +7940,13 @@ bool ScribusApp::DLLName(QString name, QString *PName, int *typ, void **Zeig)
 	}
 	*typ = (*demo1)();
 	*Zeig = mo;
+	demo1 = (sdem1)dlsym(mo, "ID");
+	if ((error = dlerror()) != NULL)
+	{
+		dlclose(mo);
+		return false;
+	}
+	*idNr = (*demo1)();
 	if (*typ < 4)
 		dlclose(mo);
 	else

@@ -145,12 +145,12 @@ bool FileLoader::LoadFile(ScribusApp* app)
 			break;
 		case 2:
 			app->DLLinput = FileName;
-			app->CallDLL( QObject::tr("Import &EPS/PS...") );
+			app->CallDLL( 6 );
 			ret = true;
 			break;
 		case 3:
 			app->DLLinput = FileName;
-			app->CallDLL( QObject::tr("Import &SVG...") );
+			app->CallDLL( 10 );
 			ret = true;
 			break;
 		default:

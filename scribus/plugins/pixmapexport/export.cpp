@@ -18,6 +18,11 @@ int Type()
 	return 3;
 }
 
+int ID()
+{
+	return 4;
+}
+
 
 void Run(QWidget *d, ScribusApp *plug)
 {

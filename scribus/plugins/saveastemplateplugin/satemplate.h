@@ -24,6 +24,7 @@ extern "C" void InitPlug(QWidget *d, ScribusApp *plug);
 
 /** Possible CleanUpOperations when closing the Plugin */
 extern "C" void CleanUpPlug();
+extern "C" int ID();
 
 class MenuSAT : public QObject
 {

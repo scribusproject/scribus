@@ -1201,9 +1201,9 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 							{
 								double sr = sin(-ite->Rot* 3.1415927 / 180.0);
 								double cr = cos(-ite->Rot* 3.1415927 / 180.0);
-								if ((cr * cr) < 0.001)
+								if ((cr * cr) < 0.000001)
 									cr = 0;
-								if ((sr * sr) < 0.001)
+								if ((sr * sr) < 0.000001)
 									sr = 0;
 								PutPage(FToStr(cr)+" "+FToStr(sr)+" "+FToStr(-sr)+" "+FToStr(cr)+" 0 0 cm\n");
 							}
@@ -1340,9 +1340,9 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 						{
 							double sr = sin(-ite->Rot* 3.1415927 / 180.0);
 							double cr = cos(-ite->Rot* 3.1415927 / 180.0);
-							if ((cr * cr) < 0.001)
+							if ((cr * cr) < 0.000001)
 								cr = 0;
-							if ((sr * sr) < 0.001)
+							if ((sr * sr) < 0.000001)
 								sr = 0;
 							PutPage(FToStr(cr)+" "+FToStr(sr)+" "+FToStr(-sr)+" "+FToStr(cr)+ " 0 0 cm\n");
 						}
@@ -1528,9 +1528,9 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 				{
 					double sr = sin(-ite->Rot* 3.1415927 / 180.0);
 					double cr = cos(-ite->Rot* 3.1415927 / 180.0);
-					if ((cr * cr) < 0.001)
+					if ((cr * cr) < 0.000001)
 						cr = 0;
-					if ((sr * sr) < 0.001)
+					if ((sr * sr) < 0.000001)
 						sr = 0;
 					PutPage(FToStr(cr)+" "+FToStr(sr)+" "+FToStr(-sr)+" "+FToStr(cr)+" 0 0 cm\n");
 				}
@@ -1860,9 +1860,9 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 					{
 						double sr = sin(-ite->Rot* 3.1415927 / 180.0);
 						double cr = cos(-ite->Rot* 3.1415927 / 180.0);
-						if ((cr * cr) < 0.001)
+						if ((cr * cr) < 0.000001)
 							cr = 0;
-						if ((sr * sr) < 0.001)
+						if ((sr * sr) < 0.000001)
 							sr = 0;
 						PutPage(FToStr(cr)+" "+FToStr(sr)+" "+FToStr(-sr)+" "+FToStr(cr)+ " 0 0 cm\n");
 					}
@@ -2004,9 +2004,9 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 			tmp += "1 0 0 1 "+FToStr(hl->PtransX)+" "+FToStr(-hl->PtransY)+" cm\n";
 			double sr = sin(-hl->PRot* 3.1415927 / 180.0);
 			double cr = cos(-hl->PRot* 3.1415927 / 180.0);
-			if ((cr * cr) < 0.001)
+			if ((cr * cr) < 0.000001)
 				cr = 0;
-			if ((sr * sr) < 0.001)
+			if ((sr * sr) < 0.000001)
 				sr = 0;
 			tmp += FToStr(cr)+" "+FToStr(sr)+" "+FToStr(-sr)+" "+FToStr(cr)+" 0 0 cm\n";
 			tmp += "BT\n";
@@ -2114,9 +2114,9 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 					tmp2 += "1 0 0 1 "+FToStr(hl->PtransX)+" "+FToStr(-hl->PtransY)+" cm\n";
 					double sr = sin(-hl->PRot* 3.1415927 / 180.0);
 					double cr = cos(-hl->PRot* 3.1415927 / 180.0);
-					if ((cr * cr) < 0.001)
+					if ((cr * cr) < 0.000001)
 						cr = 0;
-					if ((sr * sr) < 0.001)
+					if ((sr * sr) < 0.000001)
 						sr = 0;
 					tmp2 += FToStr(cr)+" "+FToStr(sr)+" "+FToStr(-sr)+" "+FToStr(cr)+
 								" 0 0 cm\n";

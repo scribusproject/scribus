@@ -16,14 +16,12 @@
  ***************************************************************************/
 #include "svgexplugin.h"
 #include "svgexplugin.moc"
-/*
+
 #if (_MSC_VER >= 1200)
- #include "win-config.h"
+	#include "win-config.h"
 #else
- #include "config.h"
+	#include "config.h"
 #endif
-*/
-#include "config.h"
 #include "customfdialog.h"
 #include <qfile.h>
 #include <qtextstream.h>
@@ -61,6 +59,11 @@ QString Name()
 int Type()
 {
 	return 3;
+}
+
+int ID()
+{
+	return 9;
 }
 
 /*!

@@ -29,6 +29,11 @@ int Type()
 	return 1;
 }
 
+int ID()
+{
+	return 1;
+}
+
 void Run(QWidget *d, ScribusApp *plug)
 {
 	if ((plug->HaveDoc) && (plug->view->SelItem.count() != 0))

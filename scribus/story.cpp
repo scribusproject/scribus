@@ -2023,7 +2023,7 @@ void StoryEditor::Do_insSp()
 {
 	ScApp->DLLinput = Editor->CurrFont;
 	ScApp->DLLReturn = "";
-	ScApp->CallDLL( tr("&Insert Special") );
+	ScApp->CallDLL( 1 );
 	Editor->insChars(ScApp->DLLReturn);
 	Editor->insert(ScApp->DLLReturn);
 	ScApp->DLLinput = "";
@@ -2034,7 +2034,7 @@ void StoryEditor::Do_fontPrev()
 {
 	ScApp->DLLinput = Editor->CurrFont;
 	ScApp->DLLReturn = "";
-	ScApp->CallDLL( tr("&Fonts Preview") );
+	ScApp->CallDLL( 2 );
 	if (ScApp->DLLReturn != "")
 	{
 		newTxFont(ScApp->DLLReturn);
