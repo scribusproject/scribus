@@ -151,9 +151,6 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 
 	qApp->processEvents();
 
-	PrefsPfad = getPreferencesLocation();
-	prefsFile = new PrefsFile(QDir::convertSeparators(PrefsPfad + "/prefs.xml"));
-	dirs = prefsFile->getContext("dirs");
 
 	BuFromApp = false;
 
@@ -163,265 +160,52 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 		retVal=1;
 	else
 	{
-		HaveDoc = 0;
-		singleClose = false;
-		ScriptRunning = false;
-		DLLReturn = "";
-		DLLinput = "";
-		view = NULL;
-		doc = NULL;
-		Buffer2 = "";
-		UniCinp = false;
-		UniCinC = 0;
-		UniCinS = "";
-		DispX = 10;
-		DispY = 10;
-		DocNr = 1;
-		UmReFaktor = 1.0;
 		buildFontMenu();
 		initDefaultPrefs();
-		struct arrowDesc arrow;
-		FPointArray points;
-		QWMatrix arrowScaling;
-		arrowScaling.scale(0.5, 0.5);
-		arrow.name = "Arrow1L";
-		arrow.userArrow = false;
-		points.addQuadPoint(0, 0, 0, 0, 0, 0, 0, 0);
-		points.addQuadPoint(-5, -5, -5, -5, -5, -5, -5, -5);
-		points.addQuadPoint(12, 0, 12, 0, 12, 0, 12, 0);
-		points.addQuadPoint(-5, 5, -5, 5, -5, 5, -5, 5);
-		points.addQuadPoint(0, 0, 0, 0, 0, 0, 0, 0);
-		arrow.points = points.copy();
-		Prefs.arrowStyles.append(arrow);
-		arrow.name = "Arrow1M";
-		points.map(arrowScaling);
-		arrow.points = points.copy();
-		Prefs.arrowStyles.append(arrow);
-		arrow.name = "Arrow1S";
-		points.map(arrowScaling);
-		arrow.points = points.copy();
-		Prefs.arrowStyles.append(arrow);
-		arrow.name = "SquareL";
-		points.resize(0);
-		points.addQuadPoint(-5, -5, -5, -5, -5, -5, -5, -5);
-		points.addQuadPoint(5, -5, 5, -5, 5, -5, 5, -5);
-		points.addQuadPoint(5, 5, 5, 5, 5, 5, 5, 5);
-		points.addQuadPoint(-5, 5, -5, 5, -5, 5, -5, 5);
-		points.addQuadPoint(-5, -5, -5, -5, -5, -5, -5, -5);
-		arrow.points = points.copy();
-		Prefs.arrowStyles.append(arrow);
-		arrow.name = "SquareM";
-		points.map(arrowScaling);
-		arrow.points = points.copy();
-		Prefs.arrowStyles.append(arrow);
-		arrow.name = "SquareS";
-		points.map(arrowScaling);
-		arrow.points = points.copy();
-		Prefs.arrowStyles.append(arrow);
-		arrow.name = "TriangleInL";
-		points.resize(0);
-		points.addQuadPoint(5.77, 0, 5.77, 0, 5.77, 0, 5.77, 0);
-		points.addQuadPoint(-2.88, 5, -2.88, 5, -2.88, 5, -2.88, 5);
-		points.addQuadPoint(-2.88, -5, -2.88, -5, -2.88, -5, -2.88, -5);
-		points.addQuadPoint(5.77, 0, 5.77, 0, 5.77, 0, 5.77, 0);
-		arrow.points = points.copy();
-		Prefs.arrowStyles.append(arrow);
-		arrow.name = "TriangleInM";
-		points.map(arrowScaling);
-		arrow.points = points.copy();
-		Prefs.arrowStyles.append(arrow);
-		arrow.name = "TriangleInS";
-		points.map(arrowScaling);
-		arrow.points = points.copy();
-		Prefs.arrowStyles.append(arrow);
-		arrow.name = "TriangleOutL";
-		points.resize(0);
-		points.addQuadPoint(-5.77, 0, -5.77, 0, -5.77, 0, -5.77, 0);
-		points.addQuadPoint(2.88, 5, 2.88, 5, 2.88, 5, 2.88, 5);
-		points.addQuadPoint(2.88, -5, 2.88, -5, 2.88, -5, 2.88, -5);
-		points.addQuadPoint(-5.77, 0, -5.77, 0, -5.77, 0, -5.77, 0);
-		arrow.points = points.copy();
-		Prefs.arrowStyles.append(arrow);
-		arrow.name = "TriangleOutM";
-		points.map(arrowScaling);
-		arrow.points = points.copy();
-		Prefs.arrowStyles.append(arrow);
-		arrow.name = "TriangleOutS";
-		points.map(arrowScaling);
-		arrow.points = points.copy();
-		Prefs.arrowStyles.append(arrow);
-		Prefs.ScratchLeft = 100;
-		Prefs.ScratchRight = 100;
-		Prefs.ScratchTop = 20;
-		Prefs.ScratchBottom = 20;
-		PrinterUsed = false;
-		PDef.Pname = "";
-		PDef.Dname = "";
-		PDef.Command = "";
+		initArrowStyles();
+		initKeyboardShortcuts();
+
 		resize(610, 600);
 		QVBox* vb = new QVBox( this );
 		vb->setFrameStyle( QFrame::StyledPanel | QFrame::Sunken );
 		wsp = new QWorkspace( vb );
 		setCentralWidget( vb );
 		connect(wsp, SIGNAL(windowActivated(QWidget *)), this, SLOT(newActWin(QWidget *)));
-		Tpal = new Tree(this, 0);
-		Mpal = new Mpalette(this, &Prefs);
-		Mpal->Cpal->SetColors(Prefs.DColors);
-		Npal = new NodePalette(this);
-		Lpal = new LayerPalette(this);
-		ScBook = new Biblio(this, &Prefs);
-		Sepal = new SeitenPal(this);
-		BookPal = new BookPalette(this);
-		MaPal = new Measurements(this);
-		MaPal->hide();
-		CMSavail = false;
-		keyrep = false;
 
-
-		SetKeyEntry(56, tr("Smart Hyphen"), 0, CTRL+Key_Minus);
-		SetKeyEntry(57, tr("Align Left"), 0, CTRL+Key_L);
-		SetKeyEntry(58, tr("Align Right"), 0, CTRL+Key_R);
-		SetKeyEntry(59, tr("Align Center"), 0, CTRL+Key_E);
-		SetKeyEntry(60, tr("Insert Page Number"), 0, CTRL+Key_NumberSign);
-		SetKeyEntry(61, tr("Attach Text to Path"), PfadT, 0);
-		SetKeyEntry(62, tr("Show Layers"), viewLpal, 0);
-		SetKeyEntry(63, tr("Javascripts..."), jman, 0);
-		SetKeyEntry(64, tr("Undo"), edUndo, CTRL+Key_Z);
-		SetKeyEntry(65, tr("Show Page Palette"), viewSepal, 0);
-		SetKeyEntry(66, tr("Lock/Unlock"), LockOb, CTRL+Key_F);
-		SetKeyEntry(67, tr("Non Breaking Space"), 0, CTRL+Key_Space);
+		initPalettes();
 
 		if (splashScreen != NULL)
 			splashScreen->setStatus( tr("Reading Preferences"));
 		qApp->processEvents();
 		ReadPrefs();
+
+		initDefaultValues();
+
 		if (splashScreen != NULL)
 			splashScreen->setStatus( tr("Getting ICC Profiles"));
+		CMSavail = false;
 		GetCMSProfiles();
+
 		if (splashScreen != NULL)
 			splashScreen->setStatus( tr("Init Hyphenator"));
 		qApp->processEvents();
 		initHyphenator();
-		Mpal->Cpal->UseTrans(true);
-		Mpal->Fonts->RebuildList(&Prefs, 0);
-		DocDir = Prefs.DocDir;
+
 		if (splashScreen != NULL)
 			splashScreen->setStatus( tr("Setting up Shortcuts"));
 		qApp->processEvents();
-		SetShortCut();
-		if (CMSavail)
-		{
-			ProfilesL::Iterator ip;
-			if ((Prefs.DCMSset.DefaultInputProfile == "") || (!InputProfiles.contains(Prefs.DCMSset.DefaultInputProfile)))
-			{
-				ip = InputProfiles.begin();
-				Prefs.DCMSset.DefaultInputProfile = ip.key();
-			}
-			if ((Prefs.DCMSset.DefaultInputProfile2 == "") || (!InputProfiles.contains(Prefs.DCMSset.DefaultInputProfile2)))
-			{
-				ip = InputProfiles.begin();
-				Prefs.DCMSset.DefaultInputProfile2 = ip.key();
-			}
-			if ((Prefs.DCMSset.DefaultMonitorProfile == "") || (!MonitorProfiles.contains(Prefs.DCMSset.DefaultMonitorProfile)))
-			{
-				ip = MonitorProfiles.begin();
-				Prefs.DCMSset.DefaultMonitorProfile = ip.key();
-			}
-			if ((Prefs.DCMSset.DefaultPrinterProfile == "") || (!PrinterProfiles.contains(Prefs.DCMSset.DefaultPrinterProfile)))
-			{
-				ip = PrinterProfiles.begin();
-				Prefs.DCMSset.DefaultPrinterProfile = ip.key();
-			}
-#ifdef HAVE_CMS
-			SoftProofing = Prefs.DCMSset.SoftProofOn;
-			CMSuse = false;
-			IntentPrinter = Prefs.DCMSset.DefaultIntentPrinter;
-			IntentMonitor = Prefs.DCMSset.DefaultIntentMonitor;
-#endif
 
-		}
+		SetShortCut();
+
 		if (splashScreen != NULL)
 			splashScreen->setStatus( tr("Reading Scrapbook"));
-		QString SCf = PrefsPfad+"/scrap.scs";
-		QFileInfo SCfi = QFileInfo(SCf);
-		if (SCfi.exists())
-			ScBook->BibWin->ReadContents(SCf);
-		ScBook->ScFilename = SCf;
-		ScBook->AdjustMenu();
-		HaveGS = system(Prefs.gs_exe+" -h > /dev/null 2>&1");
-		HavePngAlpha = system(Prefs.gs_exe+" -sDEVICE=pngalpha -c quit > /dev/null 2>&1");
+		initScrapbook();
+
 		if (splashScreen != NULL)
 			splashScreen->setStatus( tr("Initializing Plugins"));
 		qApp->processEvents();
 		initPlugs();
-		ClipB = QApplication::clipboard();
-		PalettesStat[0] = false;
-		GuidesStat[0] = false;
-		connect(WerkTools, SIGNAL(NewMode(int)), this, SLOT(ModeFromTB(int)));
-		connect(WerkTools, SIGNAL(Schliessen()), this, SLOT(ToggleTools()));
-		connect(WerkToolsP, SIGNAL(NewMode(int)), this, SLOT(ModeFromTB(int)));
-		connect(WerkToolsP, SIGNAL(Schliessen()), this, SLOT(TogglePDFTools()));
-		connect(MaPal, SIGNAL(Schliessen(bool)), this, SLOT(setMapal(bool)));
-		connect(Mpal, SIGNAL(DocChanged()), this, SLOT(slotDocCh()));
-		connect(Mpal, SIGNAL(NewAbStyle(int)), this, SLOT(setNewAbStyle(int)));
-		connect(Mpal, SIGNAL(BackHome()), this, SLOT(Aktiv()));
-		connect(Mpal, SIGNAL(Stellung(int)), this, SLOT(setItemHoch(int)));
-		connect(Mpal, SIGNAL(Schliessen()), this, SLOT(ToggleMpal()));
-		connect(Mpal, SIGNAL(EditCL()), this, SLOT(ToggleFrameEdit()));
-		connect(Mpal, SIGNAL(NewTF(QString)), this, SLOT(SetNewFont(QString)));
-		connect(Mpal, SIGNAL(UpdtGui(int)), this, SLOT(HaveNewSel(int)));
-		connect(Mpal->Cpal, SIGNAL(NewPen(QString)), this, SLOT(setPenFarbe(QString)));
-		connect(Mpal->Cpal, SIGNAL(NewBrush(QString)), this, SLOT(setBrushFarbe(QString)));
-		connect(Mpal->Cpal, SIGNAL(NewPenShade(int)), this, SLOT(setPenShade(int)));
-		connect(Mpal->Cpal, SIGNAL(NewBrushShade(int)), this, SLOT(setBrushShade(int)));
-		connect(Mpal->Cpal, SIGNAL(NewTrans(double)), this, SLOT(SetTranspar(double)));
-		connect(Mpal->Cpal, SIGNAL(NewTransS(double)), this, SLOT(SetTransparS(double)));
-		connect(Mpal->Cpal, SIGNAL(NewGradient(int)), this, SLOT(setGradFill(int)));
-		connect(Mpal->Cpal->gradEdit->Preview, SIGNAL(gradientChanged()), this, SLOT(updtGradFill()));
-		connect(Mpal->Cpal, SIGNAL(gradientChanged()), this, SLOT(updtGradFill()));
-		connect(Mpal->Cpal, SIGNAL(QueryItem()), this, SLOT(GetBrushPen()));
-		connect(Tpal, SIGNAL(Schliessen()), this, SLOT(ToggleTpal()));
-		connect(Tpal, SIGNAL(CloseMpal()), this, SLOT(ToggleMpal()));
-		connect(Tpal, SIGNAL(CloseSpal()), this, SLOT(ToggleBpal()));
-		connect(Tpal, SIGNAL(SelectElement(int, int)), this, SLOT(SelectFromOutl(int, int)));
-		connect(Tpal, SIGNAL(SelectSeite(int)), this, SLOT(SelectFromOutlS(int)));
-		connect(Tpal, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
-		connect(Mpal->Spal, SIGNAL(newStyle(int)), this, SLOT(setNewAbStyle(int)));
-		connect(Mpal, SIGNAL(EditLSt()), this, SLOT(slotEditLineStyles()));
-		connect(Mpal, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
-		connect(Mpal, SIGNAL(CloseTpal()), this, SLOT(ToggleTpal()));
-		connect(Mpal, SIGNAL(CloseBpal()), this, SLOT(ToggleBpal()));
-		connect(Npal, SIGNAL(Schliessen()), this, SLOT(NoFrameEdit()));
-		connect(Lpal, SIGNAL(LayerActivated(int)), this, SLOT(changeLayer(int)));
-		connect(Lpal, SIGNAL(LayerRemoved(int, bool)), this, SLOT(LayerRemove(int, bool)));
-		connect(Lpal, SIGNAL(LayerChanged()), this, SLOT(showLayer()));
-		connect(Lpal, SIGNAL(Schliessen()), this, SLOT(ToggleLpal()));
-		connect(Lpal->Table, SIGNAL(Schliessen()), this, SLOT(ToggleLpal()));
-		connect(Lpal->Table, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
-		connect(Sepal, SIGNAL(Schliessen()), this, SLOT(ToggleSepal()));
-		connect(ScBook, SIGNAL(Schliessen()), this, SLOT(ToggleBpal()));
-		connect(ScBook->BibWin, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
-		connect(ScBook->BibWin, SIGNAL(Schliessen()), this, SLOT(ToggleBpal()));
-		connect(ScBook->BibWin, SIGNAL(CloseTpal()), this, SLOT(ToggleTpal()));
-		connect(ScBook->BibWin, SIGNAL(CloseMpal()), this, SLOT(ToggleMpal()));
-		connect(Sepal, SIGNAL(EditTemp(QString)), this, SLOT(ManageTemp(QString)));
-		connect(Sepal->PageView, SIGNAL(UseTemp(QString, int)), this, SLOT(Apply_Temp(QString, int)));
-		connect(Sepal->PageView, SIGNAL(NewPage(int, QString)), this, SLOT(slotNewPageP(int, QString)));
-		connect(Sepal->Trash, SIGNAL(DelPage(int)), this, SLOT(DeletePage2(int)));
-		connect(Sepal, SIGNAL(GotoSeite(int)), this, SLOT(SelectFromOutlS(int)));
-		connect(Sepal, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
-		connect(BookPal->BView, SIGNAL(MarkMoved()), this, SLOT(StoreBookmarks()));
-		connect(BookPal->BView, SIGNAL(ChangeBMNr(int, int, int)), this, SLOT(ChBookmarks(int, int, int)));
-		connect(BookPal->BView, SIGNAL(SelectElement(int, int)), this, SLOT(SelectFromOutl(int, int)));
-		connect(BookPal, SIGNAL(Schliessen()), this, SLOT(ToggleBookpal()));
-		connect(BookPal, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
-		connect(recentMenu, SIGNAL(activated(int)), this, SLOT(LoadRecent(int)));
-		connect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
-		connect(ShadeMenu, SIGNAL(activated(int)), this, SLOT(setItemShade(int)));
-		connect(FontMenu, SIGNAL(activated(int)), this, SLOT(setItemFont(int)));
-		connect(SizeTMenu, SIGNAL(activated(int)), this, SLOT(setItemFSize(int)));
-		connect(TypeStyleMenu, SIGNAL(activated(int)), this, SLOT(setItemTypeStyle(int)));
-		connect(AliMenu, SIGNAL(activated(int)), this, SLOT(setItemTextAli(int)));
+
 		connect(this, SIGNAL(TextIFont(QString)), this, SLOT(AdjustFontMenu(QString)));
 		connect(this, SIGNAL(TextISize(int)), this, SLOT(setFSizeMenu(int)));
 		connect(this, SIGNAL(TextISize(int)), Mpal, SLOT(setSize(int)));
@@ -429,32 +213,8 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 		connect(this, SIGNAL(TextStil(int)), Mpal, SLOT(setStil(int)));
 		connect(this, SIGNAL(TextScale(int)), Mpal, SLOT(setTScale(int)));
 		connect(this, SIGNAL(TextFarben(QString, QString, int, int)), Mpal, SLOT(setActFarben(QString, QString, int, int)));
-		connect(ClipB, SIGNAL(dataChanged()), this, SLOT(ClipChange()));
 
-		typedef void (*HandlerType)(int);
-		HandlerType handler	= 0;
-		handler = ScribusApp::defaultCrashHandler;
-		if (!handler)
-			handler = SIG_DFL;
-		sigset_t mask;
-		sigemptyset(&mask);
-#ifdef SIGSEGV
-		signal (SIGSEGV, handler);
-		sigaddset(&mask, SIGSEGV);
-#endif
-#ifdef SIGFPE
-		signal (SIGFPE, handler);
-		sigaddset(&mask, SIGFPE);
-#endif
-#ifdef SIGILL
-		signal (SIGILL, handler);
-		sigaddset(&mask, SIGILL);
-#endif
-#ifdef SIGABRT
-		signal (SIGABRT, handler);
-		sigaddset(&mask, SIGABRT);
-#endif
-		sigprocmask(SIG_UNBLOCK, &mask, 0);
+		initCrashHandler();
 	}
 	closeSplash();
 	return retVal;
@@ -505,6 +265,11 @@ void ScribusApp::initToolBars()
 	setDockEnabled(WerkToolsP, DockRight, false);
 	WerkToolsP->setEnabled(false);
 	WerkToolsP->Sichtbar = true;
+
+	connect(WerkTools, SIGNAL(NewMode(int)), this, SLOT(ModeFromTB(int)));
+	connect(WerkTools, SIGNAL(Schliessen()), this, SLOT(ToggleTools()));
+	connect(WerkToolsP, SIGNAL(NewMode(int)), this, SLOT(ModeFromTB(int)));
+	connect(WerkToolsP, SIGNAL(Schliessen()), this, SLOT(TogglePDFTools()));
 }
 
 void ScribusApp::initFonts()
@@ -714,7 +479,236 @@ void ScribusApp::initDefaultPrefs()
 	Prefs.DCMSset.DefaultIntentMonitor2 = 1;
 	Prefs.DCMSset.DefaultIntentPrinter = 0;
 	Prefs.GFontSub.clear();
+	Prefs.ScratchLeft = 100;
+	Prefs.ScratchRight = 100;
+	Prefs.ScratchTop = 20;
+	Prefs.ScratchBottom = 20;
+}
 
+
+void ScribusApp::initDefaultValues()
+{
+	HaveDoc = 0;
+	singleClose = false;
+	ScriptRunning = false;
+	DLLReturn = "";
+	DLLinput = "";
+	view = NULL;
+	doc = NULL;
+	Buffer2 = "";
+	UniCinp = false;
+	UniCinC = 0;
+	UniCinS = "";
+	DispX = 10;
+	DispY = 10;
+	DocNr = 1;
+	UmReFaktor = 1.0;
+	PrinterUsed = false;
+	PDef.Pname = "";
+	PDef.Dname = "";
+	PDef.Command = "";
+	keyrep = false;
+	DocDir = Prefs.DocDir;
+	ClipB = QApplication::clipboard();
+	PalettesStat[0] = false;
+	GuidesStat[0] = false;
+	HaveGS = system(Prefs.gs_exe+" -h > /dev/null 2>&1");
+	HavePngAlpha = system(Prefs.gs_exe+" -sDEVICE=pngalpha -c quit > /dev/null 2>&1");
+
+	connect(ClipB, SIGNAL(dataChanged()), this, SLOT(ClipChange()));
+}
+
+void ScribusApp::initKeyboardShortcuts()
+{
+	SetKeyEntry(56, tr("Smart Hyphen"), 0, CTRL+Key_Minus);
+	SetKeyEntry(57, tr("Align Left"), 0, CTRL+Key_L);
+	SetKeyEntry(58, tr("Align Right"), 0, CTRL+Key_R);
+	SetKeyEntry(59, tr("Align Center"), 0, CTRL+Key_E);
+	SetKeyEntry(60, tr("Insert Page Number"), 0, CTRL+Key_NumberSign);
+	SetKeyEntry(67, tr("Non Breaking Space"), 0, CTRL+Key_Space);
+}
+
+void ScribusApp::initArrowStyles()
+{
+	struct arrowDesc arrow;
+	FPointArray points;
+	QWMatrix arrowScaling;
+	arrowScaling.scale(0.5, 0.5);
+	arrow.name = "Arrow1L";
+	arrow.userArrow = false;
+	points.addQuadPoint(0, 0, 0, 0, 0, 0, 0, 0);
+	points.addQuadPoint(-5, -5, -5, -5, -5, -5, -5, -5);
+	points.addQuadPoint(12, 0, 12, 0, 12, 0, 12, 0);
+	points.addQuadPoint(-5, 5, -5, 5, -5, 5, -5, 5);
+	points.addQuadPoint(0, 0, 0, 0, 0, 0, 0, 0);
+	arrow.points = points.copy();
+	Prefs.arrowStyles.append(arrow);
+	arrow.name = "Arrow1M";
+	points.map(arrowScaling);
+	arrow.points = points.copy();
+	Prefs.arrowStyles.append(arrow);
+	arrow.name = "Arrow1S";
+	points.map(arrowScaling);
+	arrow.points = points.copy();
+	Prefs.arrowStyles.append(arrow);
+	arrow.name = "SquareL";
+	points.resize(0);
+	points.addQuadPoint(-5, -5, -5, -5, -5, -5, -5, -5);
+	points.addQuadPoint(5, -5, 5, -5, 5, -5, 5, -5);
+	points.addQuadPoint(5, 5, 5, 5, 5, 5, 5, 5);
+	points.addQuadPoint(-5, 5, -5, 5, -5, 5, -5, 5);
+	points.addQuadPoint(-5, -5, -5, -5, -5, -5, -5, -5);
+	arrow.points = points.copy();
+	Prefs.arrowStyles.append(arrow);
+	arrow.name = "SquareM";
+	points.map(arrowScaling);
+	arrow.points = points.copy();
+	Prefs.arrowStyles.append(arrow);
+	arrow.name = "SquareS";
+	points.map(arrowScaling);
+	arrow.points = points.copy();
+	Prefs.arrowStyles.append(arrow);
+	arrow.name = "TriangleInL";
+	points.resize(0);
+	points.addQuadPoint(5.77, 0, 5.77, 0, 5.77, 0, 5.77, 0);
+	points.addQuadPoint(-2.88, 5, -2.88, 5, -2.88, 5, -2.88, 5);
+	points.addQuadPoint(-2.88, -5, -2.88, -5, -2.88, -5, -2.88, -5);
+	points.addQuadPoint(5.77, 0, 5.77, 0, 5.77, 0, 5.77, 0);
+	arrow.points = points.copy();
+	Prefs.arrowStyles.append(arrow);
+	arrow.name = "TriangleInM";
+	points.map(arrowScaling);
+	arrow.points = points.copy();
+	Prefs.arrowStyles.append(arrow);
+	arrow.name = "TriangleInS";
+	points.map(arrowScaling);
+	arrow.points = points.copy();
+	Prefs.arrowStyles.append(arrow);
+	arrow.name = "TriangleOutL";
+	points.resize(0);
+	points.addQuadPoint(-5.77, 0, -5.77, 0, -5.77, 0, -5.77, 0);
+	points.addQuadPoint(2.88, 5, 2.88, 5, 2.88, 5, 2.88, 5);
+	points.addQuadPoint(2.88, -5, 2.88, -5, 2.88, -5, 2.88, -5);
+	points.addQuadPoint(-5.77, 0, -5.77, 0, -5.77, 0, -5.77, 0);
+	arrow.points = points.copy();
+	Prefs.arrowStyles.append(arrow);
+	arrow.name = "TriangleOutM";
+	points.map(arrowScaling);
+	arrow.points = points.copy();
+	Prefs.arrowStyles.append(arrow);
+	arrow.name = "TriangleOutS";
+	points.map(arrowScaling);
+	arrow.points = points.copy();
+	Prefs.arrowStyles.append(arrow);
+}
+
+void ScribusApp::initPalettes()
+{
+	Tpal = new Tree(this, 0);
+	Mpal = new Mpalette(this, &Prefs);
+	Mpal->Cpal->SetColors(Prefs.DColors);
+	Mpal->Cpal->UseTrans(true);
+	Mpal->Fonts->RebuildList(&Prefs, 0);
+	Npal = new NodePalette(this);
+	Lpal = new LayerPalette(this);
+	ScBook = new Biblio(this, &Prefs);
+	Sepal = new SeitenPal(this);
+	BookPal = new BookPalette(this);
+	MaPal = new Measurements(this);
+	MaPal->hide();
+
+	connect(MaPal, SIGNAL(Schliessen(bool)), this, SLOT(setMapal(bool)));
+	connect(Mpal, SIGNAL(DocChanged()), this, SLOT(slotDocCh()));
+	connect(Mpal, SIGNAL(NewAbStyle(int)), this, SLOT(setNewAbStyle(int)));
+	connect(Mpal, SIGNAL(BackHome()), this, SLOT(Aktiv()));
+	connect(Mpal, SIGNAL(Stellung(int)), this, SLOT(setItemHoch(int)));
+	connect(Mpal, SIGNAL(Schliessen()), this, SLOT(ToggleMpal()));
+	connect(Mpal, SIGNAL(EditCL()), this, SLOT(ToggleFrameEdit()));
+	connect(Mpal, SIGNAL(NewTF(QString)), this, SLOT(SetNewFont(QString)));
+	connect(Mpal, SIGNAL(UpdtGui(int)), this, SLOT(HaveNewSel(int)));
+	connect(Mpal->Cpal, SIGNAL(NewPen(QString)), this, SLOT(setPenFarbe(QString)));
+	connect(Mpal->Cpal, SIGNAL(NewBrush(QString)), this, SLOT(setBrushFarbe(QString)));
+	connect(Mpal->Cpal, SIGNAL(NewPenShade(int)), this, SLOT(setPenShade(int)));
+	connect(Mpal->Cpal, SIGNAL(NewBrushShade(int)), this, SLOT(setBrushShade(int)));
+	connect(Mpal->Cpal, SIGNAL(NewTrans(double)), this, SLOT(SetTranspar(double)));
+	connect(Mpal->Cpal, SIGNAL(NewTransS(double)), this, SLOT(SetTransparS(double)));
+	connect(Mpal->Cpal, SIGNAL(NewGradient(int)), this, SLOT(setGradFill(int)));
+	connect(Mpal->Cpal->gradEdit->Preview, SIGNAL(gradientChanged()), this, SLOT(updtGradFill()));
+	connect(Mpal->Cpal, SIGNAL(gradientChanged()), this, SLOT(updtGradFill()));
+	connect(Mpal->Cpal, SIGNAL(QueryItem()), this, SLOT(GetBrushPen()));
+	connect(Tpal, SIGNAL(Schliessen()), this, SLOT(ToggleTpal()));
+	connect(Tpal, SIGNAL(CloseMpal()), this, SLOT(ToggleMpal()));
+	connect(Tpal, SIGNAL(CloseSpal()), this, SLOT(ToggleBpal()));
+	connect(Tpal, SIGNAL(SelectElement(int, int)), this, SLOT(SelectFromOutl(int, int)));
+	connect(Tpal, SIGNAL(SelectSeite(int)), this, SLOT(SelectFromOutlS(int)));
+	connect(Tpal, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
+	connect(Mpal->Spal, SIGNAL(newStyle(int)), this, SLOT(setNewAbStyle(int)));
+	connect(Mpal, SIGNAL(EditLSt()), this, SLOT(slotEditLineStyles()));
+	connect(Mpal, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
+	connect(Mpal, SIGNAL(CloseTpal()), this, SLOT(ToggleTpal()));
+	connect(Mpal, SIGNAL(CloseBpal()), this, SLOT(ToggleBpal()));
+	connect(Npal, SIGNAL(Schliessen()), this, SLOT(NoFrameEdit()));
+	connect(Lpal, SIGNAL(LayerActivated(int)), this, SLOT(changeLayer(int)));
+	connect(Lpal, SIGNAL(LayerRemoved(int, bool)), this, SLOT(LayerRemove(int, bool)));
+	connect(Lpal, SIGNAL(LayerChanged()), this, SLOT(showLayer()));
+	connect(Lpal, SIGNAL(Schliessen()), this, SLOT(ToggleLpal()));
+	connect(Lpal->Table, SIGNAL(Schliessen()), this, SLOT(ToggleLpal()));
+	connect(Lpal->Table, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
+	connect(Sepal, SIGNAL(Schliessen()), this, SLOT(ToggleSepal()));
+	connect(Sepal, SIGNAL(EditTemp(QString)), this, SLOT(ManageTemp(QString)));
+	connect(Sepal->PageView, SIGNAL(UseTemp(QString, int)), this, SLOT(Apply_Temp(QString, int)));
+	connect(Sepal->PageView, SIGNAL(NewPage(int, QString)), this, SLOT(slotNewPageP(int, QString)));
+	connect(Sepal->Trash, SIGNAL(DelPage(int)), this, SLOT(DeletePage2(int)));
+	connect(Sepal, SIGNAL(GotoSeite(int)), this, SLOT(SelectFromOutlS(int)));
+	connect(Sepal, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
+	connect(BookPal->BView, SIGNAL(MarkMoved()), this, SLOT(StoreBookmarks()));
+	connect(BookPal->BView, SIGNAL(ChangeBMNr(int, int, int)), this, SLOT(ChBookmarks(int, int, int)));
+	connect(BookPal->BView, SIGNAL(SelectElement(int, int)), this, SLOT(SelectFromOutl(int, int)));
+	connect(BookPal, SIGNAL(Schliessen()), this, SLOT(ToggleBookpal()));
+	connect(BookPal, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
+}
+
+void ScribusApp::initScrapbook()
+{
+	QString scrapbookFile = PrefsPfad+"/scrap.scs";
+	QFileInfo scrapbookFileInfo = QFileInfo(scrapbookFile);
+	if (scrapbookFileInfo.exists())
+		ScBook->BibWin->ReadContents(scrapbookFile);
+	ScBook->ScFilename = scrapbookFile;
+	ScBook->AdjustMenu();
+	connect(ScBook, SIGNAL(Schliessen()), this, SLOT(ToggleBpal()));
+	connect(ScBook->BibWin, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
+	connect(ScBook->BibWin, SIGNAL(Schliessen()), this, SLOT(ToggleBpal()));
+	connect(ScBook->BibWin, SIGNAL(CloseTpal()), this, SLOT(ToggleTpal()));
+	connect(ScBook->BibWin, SIGNAL(CloseMpal()), this, SLOT(ToggleMpal()));
+}
+
+void ScribusApp::initCrashHandler()
+{
+	typedef void (*HandlerType)(int);
+	HandlerType handler	= 0;
+	handler = ScribusApp::defaultCrashHandler;
+	if (!handler)
+		handler = SIG_DFL;
+	sigset_t mask;
+	sigemptyset(&mask);
+#ifdef SIGSEGV
+	signal (SIGSEGV, handler);
+	sigaddset(&mask, SIGSEGV);
+#endif
+#ifdef SIGFPE
+	signal (SIGFPE, handler);
+	sigaddset(&mask, SIGFPE);
+#endif
+#ifdef SIGILL
+	signal (SIGILL, handler);
+	sigaddset(&mask, SIGILL);
+#endif
+#ifdef SIGABRT
+	signal (SIGABRT, handler);
+	sigaddset(&mask, SIGABRT);
+#endif
+	sigprocmask(SIG_UNBLOCK, &mask, 0);
 }
 
 const QString ScribusApp::getGuiLanguage()
@@ -1062,6 +1056,21 @@ void ScribusApp::initMenuBar()
 	TypeStyleMenu->insertItem( tr("Superscript"));
 	TypeStyleMenu->insertItem( tr("Subscript"));
 	TypeStyleMenu->insertItem( tr("Outlined"));
+
+	SetKeyEntry(61, tr("Attach Text to Path"), PfadT, 0);
+	SetKeyEntry(62, tr("Show Layers"), viewLpal, 0);
+	SetKeyEntry(63, tr("Javascripts..."), jman, 0);
+	SetKeyEntry(64, tr("Undo"), edUndo, CTRL+Key_Z);
+	SetKeyEntry(65, tr("Show Page Palette"), viewSepal, 0);
+	SetKeyEntry(66, tr("Lock/Unlock"), LockOb, CTRL+Key_F);
+
+	connect(recentMenu, SIGNAL(activated(int)), this, SLOT(LoadRecent(int)));
+	connect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
+	connect(ShadeMenu, SIGNAL(activated(int)), this, SLOT(setItemShade(int)));
+	connect(FontMenu, SIGNAL(activated(int)), this, SLOT(setItemFont(int)));
+	connect(SizeTMenu, SIGNAL(activated(int)), this, SLOT(setItemFSize(int)));
+	connect(TypeStyleMenu, SIGNAL(activated(int)), this, SLOT(setItemTypeStyle(int)));
+	connect(AliMenu, SIGNAL(activated(int)), this, SLOT(setItemTextAli(int)));
 }
 
 void ScribusApp::initStatusBar()
@@ -7286,6 +7295,9 @@ void ScribusApp::SavePrefsXML()
 void ScribusApp::ReadPrefs()
 {
 	ScriXmlDoc *ss = new ScriXmlDoc();
+	PrefsPfad = getPreferencesLocation();
+	prefsFile = new PrefsFile(QDir::convertSeparators(PrefsPfad + "/prefs.xml"));
+	dirs = prefsFile->getContext("dirs");
 	bool erg = ss->ReadPref(&Prefs, PrefsPfad+"/scribus.rc");
 	delete ss;
 	if (!erg)
@@ -8310,6 +8322,37 @@ void ScribusApp::GetCMSProfiles()
 		CMSavail = true;
 	else
 		CMSavail = false;
+
+	if (CMSavail)
+	{
+		ProfilesL::Iterator ip;
+		if ((Prefs.DCMSset.DefaultInputProfile == "") || (!InputProfiles.contains(Prefs.DCMSset.DefaultInputProfile)))
+		{
+			ip = InputProfiles.begin();
+			Prefs.DCMSset.DefaultInputProfile = ip.key();
+		}
+		if ((Prefs.DCMSset.DefaultInputProfile2 == "") || (!InputProfiles.contains(Prefs.DCMSset.DefaultInputProfile2)))
+		{
+			ip = InputProfiles.begin();
+			Prefs.DCMSset.DefaultInputProfile2 = ip.key();
+		}
+		if ((Prefs.DCMSset.DefaultMonitorProfile == "") || (!MonitorProfiles.contains(Prefs.DCMSset.DefaultMonitorProfile)))
+		{
+			ip = MonitorProfiles.begin();
+			Prefs.DCMSset.DefaultMonitorProfile = ip.key();
+		}
+		if ((Prefs.DCMSset.DefaultPrinterProfile == "") || (!PrinterProfiles.contains(Prefs.DCMSset.DefaultPrinterProfile)))
+		{
+			ip = PrinterProfiles.begin();
+			Prefs.DCMSset.DefaultPrinterProfile = ip.key();
+		}
+#ifdef HAVE_CMS
+		SoftProofing = Prefs.DCMSset.SoftProofOn;
+		CMSuse = false;
+		IntentPrinter = Prefs.DCMSset.DefaultIntentPrinter;
+		IntentMonitor = Prefs.DCMSset.DefaultIntentMonitor;
+#endif
+	}
 }
 
 void ScribusApp::GetCMSProfilesDir(QString pfad)
@@ -9429,3 +9472,4 @@ void ScribusApp::slotTest()
 void ScribusApp::slotTest2()
 {
 }
+

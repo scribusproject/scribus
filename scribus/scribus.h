@@ -472,6 +472,12 @@ private:
 	void initPlugs();
 	void initHyphenator();
 	void initDefaultPrefs();
+	void initDefaultValues();
+	void initKeyboardShortcuts();
+	void initPalettes();
+	void initArrowStyles();
+	void initScrapbook();
+	void initCrashHandler();
 
 	QString guiLanguage;
 
