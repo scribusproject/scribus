@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: scribus.sk_SK\n"
-"POT-Creation-Date: 2004-06-11 12:21+0200\n"
+"POT-Creation-Date: 2004-06-18 00:23+0200\n"
 "PO-Revision-Date: 2003-07-12 11:59+0100\n"
 "Last-Translator: Zdenko Podobný <zdpo@mailbox.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -4044,7 +4044,8 @@ msgstr "Nástroje"
 msgid "Do you want to save your changes?"
 msgstr ""
 
-msgid "Insert Special"
+#, fuzzy
+msgid "&Insert Special"
 msgstr "Vlo¾i» ¹peciálne"
 
 #, fuzzy
@@ -5127,10 +5128,6 @@ msgid ""
 msgstr ""
 
 #, fuzzy
-msgid "&Insert Special"
-msgstr "Vlo¾i» ¹peciálne"
-
-#, fuzzy
 msgid "Select Character:"
 msgstr "Vybera» znak"
 
@@ -5559,6 +5556,9 @@ msgstr "Vlastné"
 #, fuzzy
 msgid "Save as &Template..."
 msgstr "Ulo¾i» text..."
+
+#~ msgid "Insert Special"
+#~ msgstr "Vlo¾i» ¹peciálne"
 
 #~ msgid "Show Measurements"
 #~ msgstr "Zobrazi» rozmery"

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.8\n"
-"POT-Creation-Date: 2004-06-11 12:21+0200\n"
+"POT-Creation-Date: 2004-06-18 00:23+0200\n"
 "PO-Revision-Date: 2002-09-18 09:47+0300\n"
 "Last-Translator: erkan <Selamsana@uni.de>\n"
 "Language-Team: Türkçe <tr@li.org>\n"
@@ -4273,7 +4273,7 @@ msgid "Do you want to save your changes?"
 msgstr ""
 
 #, fuzzy
-msgid "Insert Special"
+msgid "&Insert Special"
 msgstr "Dikdörtgen ekle"
 
 #, fuzzy
@@ -5361,10 +5361,6 @@ msgid ""
 msgstr ""
 
 #, fuzzy
-msgid "&Insert Special"
-msgstr "Dikdörtgen ekle"
-
-#, fuzzy
 msgid "Select Character:"
 msgstr "Karakter"
 
@@ -5788,6 +5784,10 @@ msgstr "Kullanıcı tanımlı"
 #, fuzzy
 msgid "Save as &Template..."
 msgstr "Metni kaydet..."
+
+#, fuzzy
+#~ msgid "Insert Special"
+#~ msgstr "Dikdörtgen ekle"
 
 #~ msgid "Show Measurements"
 #~ msgstr "Ölçüm paletini göster"

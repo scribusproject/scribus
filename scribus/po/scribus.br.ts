@@ -9854,7 +9854,11 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Insert Special</source>
-        <translation type="unfinished">Inserir Especial</translation>
+        <translation type="obsolete">Inserir Especial</translation>
+    </message>
+    <message>
+        <source>&amp;Insert Special</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

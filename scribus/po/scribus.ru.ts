@@ -1604,6 +1604,10 @@ This can be set in the Preferences.</source>
         <translation>Перемещается в каталог с документами.
 Это можно изменить через диалог общих настроек.</translation>
     </message>
+    <message>
+        <source>Include Fonts</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DelColor</name>
@@ -1861,13 +1865,13 @@ PDF-файл, что помогает при поиске и индексиро�
         <source>Importing File:
 %1
 failed!</source>
-        <translation type="obsolete">Импорт файла:
+        <translation type="unfinished">Импорт файла:
 %1
 не удался!</translation>
     </message>
     <message>
         <source>Fatal Error</source>
-        <translation type="obsolete">Критическая ошибка</translation>
+        <translation type="unfinished">Критическая ошибка</translation>
     </message>
 </context>
 <context>
@@ -2688,23 +2692,23 @@ A value of 0 means unlimited hyphenations.</source>
     <name>InsertTable</name>
     <message>
         <source>Insert Table</source>
-        <translation type="obsolete">Вставить таблицу</translation>
+        <translation type="unfinished">Вставить таблицу</translation>
     </message>
     <message>
         <source>Number of Rows:</source>
-        <translation type="obsolete">Строк:</translation>
+        <translation type="unfinished">Строк:</translation>
     </message>
     <message>
         <source>Number of Columns:</source>
-        <translation type="obsolete">Столбцов:</translation>
+        <translation type="unfinished">Столбцов:</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="obsolete">ОК</translation>
+        <translation type="unfinished">ОК</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="obsolete">Отменить</translation>
+        <translation type="unfinished">Отменить</translation>
     </message>
 </context>
 <context>
@@ -3001,55 +3005,55 @@ A value of 0 means unlimited hyphenations.</source>
     <name>Measurements</name>
     <message>
         <source>Distances</source>
-        <translation type="obsolete">Расстояния</translation>
+        <translation type="unfinished">Расстояния</translation>
     </message>
     <message>
         <source>X1:</source>
-        <translation type="obsolete">X1:</translation>
+        <translation type="unfinished">X1:</translation>
     </message>
     <message>
         <source>Y1:</source>
-        <translation type="obsolete">Y1:</translation>
+        <translation type="unfinished">Y1:</translation>
     </message>
     <message>
         <source>X2:</source>
-        <translation type="obsolete">X2:</translation>
+        <translation type="unfinished">X2:</translation>
     </message>
     <message>
         <source>Y2:</source>
-        <translation type="obsolete">Y2:</translation>
+        <translation type="unfinished">Y2:</translation>
     </message>
     <message>
         <source>DX:</source>
-        <translation type="obsolete">ДX:</translation>
+        <translation type="unfinished">ДX:</translation>
     </message>
     <message>
         <source>DY:</source>
-        <translation type="obsolete">ДY:</translation>
+        <translation type="unfinished">ДY:</translation>
     </message>
     <message>
         <source>Angle:</source>
-        <translation type="obsolete">Угол:</translation>
+        <translation type="unfinished">Угол:</translation>
     </message>
     <message>
         <source>Length:</source>
-        <translation type="obsolete">Длина:</translation>
+        <translation type="unfinished">Длина:</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation type="obsolete">pt</translation>
+        <translation type="unfinished">pt</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation type="obsolete">mm</translation>
+        <translation type="unfinished">mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation type="obsolete">in</translation>
+        <translation type="unfinished">in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation type="obsolete">p</translation>
+        <translation type="unfinished">p</translation>
     </message>
 </context>
 <context>
@@ -6581,7 +6585,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">У&amp;далить</translation>
     </message>
     <message>
         <source>R&amp;eload</source>
@@ -6880,7 +6884,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>All Files (*)</source>
-        <translation type="obsolete">Все файлы (*)</translation>
+        <translation type="unfinished">Все файлы (*)</translation>
     </message>
     <message>
         <source>New &amp;from Template...</source>
@@ -6888,7 +6892,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Новый</translation>
     </message>
     <message>
         <source>Newsletters</source>
@@ -6984,7 +6988,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Save &amp;As...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Сохранить &amp;как</translation>
     </message>
     <message>
         <source>&amp;Insert Special</source>
@@ -7004,7 +7008,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>&amp;Print...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">На&amp;печатать...</translation>
     </message>
     <message>
         <source>S&amp;cripter Manual...</source>
@@ -7024,7 +7028,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Show &amp;Console</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Показать &amp;консоль</translation>
     </message>
     <message>
         <source>Save Page as &amp;SVG...</source>
@@ -7032,6 +7036,14 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Import &amp;SVG...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import &amp;EPS/PS...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Supported Formats (*.eps *.EPS *.ps *.PS);;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9138,7 +9150,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Insert Special</source>
-        <translation>Вставка символа</translation>
+        <translation type="obsolete">Вставка символа</translation>
     </message>
     <message>
         <source>Do you want to save your changes?</source>
@@ -9155,6 +9167,10 @@ drag a Template to the Pageview below.</source>
     <message>
         <source>Exit Without Updating Text Frame</source>
         <translation>Выйти без обновления текстовой рамки</translation>
+    </message>
+    <message>
+        <source>&amp;Insert Special</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9600,6 +9616,18 @@ Please choose another.</source>
     <message>
         <source>Tabloid</source>
         <translation>Таблоид</translation>
+    </message>
+    <message>
+        <source>landscape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>portrait</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>custom</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.3\n"
-"POT-Creation-Date: 2004-06-11 12:21+0200\n"
+"POT-Creation-Date: 2004-06-18 00:23+0200\n"
 "PO-Revision-Date: 2001-12-14 01:18+0200\n"
 "Last-Translator: Vasko Tomanov <vasko@web.bg>\n"
 "Content-Type: text/plain; charset=cp1251\n"
@@ -3999,7 +3999,7 @@ msgid "Do you want to save your changes?"
 msgstr ""
 
 #, fuzzy
-msgid "Insert Special"
+msgid "&Insert Special"
 msgstr "Вмъкване на правоъгълници"
 
 #, fuzzy
@@ -5064,10 +5064,6 @@ msgid ""
 msgstr ""
 
 #, fuzzy
-msgid "&Insert Special"
-msgstr "Вмъкване на правоъгълници"
-
-#, fuzzy
 msgid "Select Character:"
 msgstr "Символ"
 
@@ -5481,6 +5477,10 @@ msgstr ""
 #, fuzzy
 msgid "Save as &Template..."
 msgstr "Запиши текст..."
+
+#, fuzzy
+#~ msgid "Insert Special"
+#~ msgstr "Вмъкване на правоъгълници"
 
 #~ msgid "Hide Measurements"
 #~ msgstr "Скрий мерките"

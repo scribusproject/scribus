@@ -1,5 +1,13 @@
 Changes since Version 1.1.7
 
+18.06.2004
+	* bug     #765: Paragraph indentation oops when rendering to pdf
+	* bug     #781: Story Editor>Edit>Insert special... does nothing
+	* feature #795: Polish Translation Update
+	* feature #800: Finnish translation update
+	* feature #801: Norwegian Translation Update
+	* feature #802: Italian Translation Update
+
 15.06.2004
 	* bug     #655: Window enlarge each time I select a file
 	* bug     #703: guidelines interfere  selecting a group of objects

@@ -9067,7 +9067,7 @@ til vinduet nedenunder, for at lave en ny side.</translation>
     </message>
     <message>
         <source>Insert Special</source>
-        <translation>Indsæt specialtegn</translation>
+        <translation type="obsolete">Indsæt specialtegn</translation>
     </message>
     <message>
         <source>Do you want to save your changes?</source>
@@ -9084,6 +9084,10 @@ til vinduet nedenunder, for at lave en ny side.</translation>
     <message>
         <source>Exit Without Updating Text Frame</source>
         <translation>Afslut uden at opdatere tekstramme</translation>
+    </message>
+    <message>
+        <source>&amp;Insert Special</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

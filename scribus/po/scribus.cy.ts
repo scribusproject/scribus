@@ -13242,7 +13242,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Insert Special</source>
-        <translation>Mewnosod Arbennig</translation>
+        <translation type="obsolete">Mewnosod Arbennig</translation>
     </message>
     <message>
         <source>Save Document</source>
@@ -13254,6 +13254,10 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Exit Without Updating Text Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Insert Special</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

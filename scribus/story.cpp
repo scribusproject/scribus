@@ -521,7 +521,7 @@ void StoryEditor::Do_insSp()
 		font = doc->CurrFont;
 	ScApp->DLLinput = font;
 	ScApp->DLLReturn = "";
-	ScApp->CallDLL( tr("Insert Special") );
+	ScApp->CallDLL( tr("&Insert Special") );
 	ed->insert(ScApp->DLLReturn);
 	ScApp->DLLinput = "";
 	ScApp->DLLReturn = "";

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.3\n"
-"POT-Creation-Date: 2004-06-11 12:21+0200\n"
+"POT-Creation-Date: 2004-06-18 00:23+0200\n"
 "PO-Revision-Date: 1999-02-23 15:38+0200\n"
 "Last-Translator: Manuel Anxo Rei <manxopar@mixmail.com>\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
@@ -4030,7 +4030,7 @@ msgid "Do you want to save your changes?"
 msgstr ""
 
 #, fuzzy
-msgid "Insert Special"
+msgid "&Insert Special"
 msgstr "Inserir Rectángulos"
 
 #, fuzzy
@@ -5101,10 +5101,6 @@ msgid ""
 msgstr ""
 
 #, fuzzy
-msgid "&Insert Special"
-msgstr "Inserir Rectángulos"
-
-#, fuzzy
 msgid "Select Character:"
 msgstr "Caracter"
 
@@ -5522,6 +5518,10 @@ msgstr ""
 #, fuzzy
 msgid "Save as &Template..."
 msgstr "Gardar texto..."
+
+#, fuzzy
+#~ msgid "Insert Special"
+#~ msgstr "Inserir Rectángulos"
 
 #~ msgid "Hide Measurements"
 #~ msgstr "Agachar Dimensións"

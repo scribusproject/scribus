@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.7\n"
-"POT-Creation-Date: 2004-06-11 12:21+0200\n"
+"POT-Creation-Date: 2004-06-18 00:23+0200\n"
 "PO-Revision-Date: 2002-04-20 22:57GMT\n"
 "Last-Translator: Aivaras Kirejevas <kiras@mail.lt>\n"
 "Language-Team: Lithuanian\n"
@@ -4089,7 +4089,7 @@ msgid "Do you want to save your changes?"
 msgstr ""
 
 #, fuzzy
-msgid "Insert Special"
+msgid "&Insert Special"
 msgstr "Áterpti apskritimà"
 
 #, fuzzy
@@ -5174,10 +5174,6 @@ msgid ""
 msgstr ""
 
 #, fuzzy
-msgid "&Insert Special"
-msgstr "Áterpti apskritimà"
-
-#, fuzzy
 msgid "Select Character:"
 msgstr "Raidë"
 
@@ -5601,6 +5597,10 @@ msgstr "Nuosavas"
 #, fuzzy
 msgid "Save as &Template..."
 msgstr "Iðsaugoti kaip tekstà..."
+
+#, fuzzy
+#~ msgid "Insert Special"
+#~ msgstr "Áterpti apskritimà"
 
 #~ msgid "Show Measurements"
 #~ msgstr "Rodyti matuoklá"

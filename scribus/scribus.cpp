@@ -5958,7 +5958,7 @@ void ScribusApp::ObjektDupM()
 				for (uint b=0; b<doc->ActPage->SelItem.count(); ++b)
 				{
 					doc->ActPage->SelItem.at(b)->Locked = false;
-					doc->ActPage->MoveItem(dH2, dV2, doc->ActPage->SelItem.at(b));
+					doc->ActPage->MoveItem(dH2, dV2, doc->ActPage->SelItem.at(b), true);
 				}
 				dH2 += dH;
 				dV2 += dV;
@@ -6742,7 +6742,6 @@ void ScribusApp::SaveAsPDF()
 	if (dia->exec())
 	{
 		qApp->setOverrideCursor(QCursor(waitCursor), true);
-		ReOrderText(doc, view);
 		fn = dia->Datei->text();
 		doc->PDF_Optionen.Datei = fn;
 		doc->PDF_Optionen.Thumbnails = dia->CheckBox1->isChecked();
@@ -6847,6 +6846,7 @@ void ScribusApp::SaveAsPDF()
 				pm = view->PageToPixmap(ap, 100);
 			thumbs.insert(ap, pm);
 		}
+		ReOrderText(doc, view);
 		if (!getPDFDriver(fn, nam, Components, frPa, toPa, thumbs))
 			QMessageBox::warning(this, tr("Warning"), tr("Can't write the File: \n%1").arg(fn), tr("OK"));
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);

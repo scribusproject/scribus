@@ -9123,7 +9123,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Insert Special</source>
-        <translation>Вставка символів</translation>
+        <translation type="obsolete">Вставка символів</translation>
     </message>
     <message>
         <source>Do you want to save your changes?</source>
@@ -9140,6 +9140,10 @@ drag a Template to the Pageview below.</source>
     <message>
         <source>Exit Without Updating Text Frame</source>
         <translation>Вийти без поновлення текстової рамки</translation>
+    </message>
+    <message>
+        <source>&amp;Insert Special</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -8814,7 +8814,7 @@ drag a Template to the Pageview below.</translation>
     </message>
     <message>
         <source>Insert Special</source>
-        <translation>Insert Special</translation>
+        <translation type="obsolete">Insert Special</translation>
     </message>
     <message>
         <source>Do you want to save your changes?</source>
@@ -8831,6 +8831,10 @@ drag a Template to the Pageview below.</translation>
     <message>
         <source>Exit Without Updating Text Frame</source>
         <translation>Exit Without Updating Text Frame</translation>
+    </message>
+    <message>
+        <source>&amp;Insert Special</source>
+        <translation type="unfinished">&amp;Insert Special</translation>
     </message>
 </context>
 <context>

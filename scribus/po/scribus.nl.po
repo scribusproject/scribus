@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 1.0\n"
-"POT-Creation-Date: 2004-06-11 12:21+0200\n"
+"POT-Creation-Date: 2004-06-18 00:23+0200\n"
 "PO-Revision-Date: 2003-07-20 10:00+0200\n"
 "Last-Translator: Jasja Glasbeek <jasja@benik.nl>\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
@@ -4036,7 +4036,8 @@ msgstr "Gereedschappen"
 msgid "Do you want to save your changes?"
 msgstr ""
 
-msgid "Insert Special"
+#, fuzzy
+msgid "&Insert Special"
 msgstr "Speciaal Invoegen"
 
 #, fuzzy
@@ -5120,10 +5121,6 @@ msgid ""
 msgstr ""
 
 #, fuzzy
-msgid "&Insert Special"
-msgstr "Speciaal Invoegen"
-
-#, fuzzy
 msgid "Select Character:"
 msgstr "Selecteer Teken"
 
@@ -5552,6 +5549,9 @@ msgstr "Aangepast"
 #, fuzzy
 msgid "Save as &Template..."
 msgstr "Opslaan als Tekst..."
+
+#~ msgid "Insert Special"
+#~ msgstr "Speciaal Invoegen"
 
 #~ msgid "Show Measurements"
 #~ msgstr "Toon Metingen"

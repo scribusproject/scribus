@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: scribus.es_LA\n"
-"POT-Creation-Date: 2004-06-11 12:21+0200\n"
+"POT-Creation-Date: 2004-06-18 00:23+0200\n"
 "Last-Translator: Gonzalo Huerta C.\n"
 "Language-Team:  <gonzalo@huerta.cl>\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
@@ -4087,7 +4087,7 @@ msgid "Do you want to save your changes?"
 msgstr ""
 
 #, fuzzy
-msgid "Insert Special"
+msgid "&Insert Special"
 msgstr "Insertar Rectángulos"
 
 #, fuzzy
@@ -5172,10 +5172,6 @@ msgid ""
 msgstr ""
 
 #, fuzzy
-msgid "&Insert Special"
-msgstr "Insertar Rectángulos"
-
-#, fuzzy
 msgid "Select Character:"
 msgstr "Carácter"
 
@@ -5599,6 +5595,10 @@ msgstr "Propio"
 #, fuzzy
 msgid "Save as &Template..."
 msgstr "Guardar el texto..."
+
+#, fuzzy
+#~ msgid "Insert Special"
+#~ msgstr "Insertar Rectángulos"
 
 #~ msgid "Show Measurements"
 #~ msgstr "Mostrar Dimensiones"

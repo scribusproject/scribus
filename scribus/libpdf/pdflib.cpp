@@ -1886,7 +1886,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 		else
 		{
 			if (hl->yp == 0)
-				break;
+				continue;
 		}
 		int tsz = hl->csize;
 		QString chx = hl->ch;

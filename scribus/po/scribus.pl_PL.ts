@@ -198,29 +198,31 @@ O braku obsługi dla danej biblioteki informuje symbol *</translation>
     </message>
     <message>
         <source>PostScript Level 3</source>
-        <translation type="unfinished"></translation>
+        <translation>PostScript Level 3</translation>
     </message>
     <message>
         <source>PostScript Level 2</source>
-        <translation type="unfinished"></translation>
+        <translation>PostScript Level 2</translation>
     </message>
     <message>
         <source>PostScript Level 1</source>
-        <translation type="unfinished"></translation>
+        <translation>PostScript Level 1</translation>
     </message>
     <message>
         <source>Creates PostScript Level 3</source>
-        <translation type="unfinished"></translation>
+        <translation>Tworzy PostScript Level 3</translation>
     </message>
     <message>
         <source>Creates PostScript Level 2 only, beware,
 this can create huge files</source>
-        <translation type="unfinished"></translation>
+        <translation>Tworzy tylko PostScript Level 2. 
+Uwaga: pliki mogą być bardzo duże</translation>
     </message>
     <message>
         <source>Creates PostScript Level 1 only, beware,
 this can create huge files</source>
-        <translation type="unfinished"></translation>
+        <translation>Tworzy tylko PostScript Level 2. 
+Uwaga: pliki mogą być bardzo duże</translation>
     </message>
 </context>
 <context>
@@ -1640,7 +1642,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Include Fonts</source>
-        <translation type="unfinished"></translation>
+        <translation>Dołącz czcionki</translation>
     </message>
 </context>
 <context>
@@ -1907,7 +1909,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Print current page</source>
-        <translation type="unfinished"></translation>
+        <translation>Drukuj aktualną stronę</translation>
     </message>
 </context>
 <context>
@@ -1952,7 +1954,7 @@ failed!</source>
     </message>
     <message>
         <source>Drop Caps</source>
-        <translation>Inicjały wypuszczone</translation>
+        <translation>Inicjały opuszczone</translation>
     </message>
     <message>
         <source>Lines:</source>
@@ -2052,7 +2054,7 @@ failed!</source>
     </message>
     <message>
         <source>Adjust to Baseline Grid</source>
-        <translation>Dopasuj do linii podstawowych</translation>
+        <translation>Dopasuj do linii pisma</translation>
     </message>
     <message>
         <source> mm</source>
@@ -2092,11 +2094,11 @@ failed!</source>
     </message>
     <message>
         <source>Determines the overall height, in line numbers, of the Drop Caps</source>
-        <translation>Całkowita wielkość inicjałów wypuszczonych liczona w ilości wierszy</translation>
+        <translation>Całkowita wielkość inicjałów opuszczonych liczona w ilości wierszy</translation>
     </message>
     <message>
         <source>Align text to baseline grid</source>
-        <translation>Wyrównaj tekst do linii podstawowych</translation>
+        <translation>Wyrównaj tekst do linii pisma</translation>
     </message>
     <message>
         <source>Spacing above the paragraph</source>
@@ -2878,7 +2880,7 @@ Wartość 0 oznacza brak ograniczeń.</translation>
     <name>KeyManager</name>
     <message>
         <source>Manage Keyboard Shortcuts</source>
-        <translation>Konfiguracja skrótów</translation>
+        <translation>Konfiguracja skrótów klawiaturowych</translation>
     </message>
     <message>
         <source>Action</source>
@@ -3200,11 +3202,11 @@ Wartość 0 oznacza brak ograniczeń.</translation>
     </message>
     <message>
         <source>Show &amp;Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyświetlaj &amp;konsolę</translation>
     </message>
     <message>
         <source>Hide &amp;Console</source>
-        <translation type="unfinished"></translation>
+        <translation> &amp;Ukryj konsolę</translation>
     </message>
 </context>
 <context>
@@ -4360,7 +4362,7 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Enable single or spread based layout</source>
-        <translation>Włącz widok dwu stron dokumentu naraz</translation>
+        <translation>Włącz rozkład stron na rozwarciu</translation>
     </message>
     <message>
         <source>Make the first page the left page of the document</source>
@@ -5795,11 +5797,11 @@ w okienku podglądu kosztem nieznacznego spowolnienia generowania podglądu</tra
     </message>
     <message>
         <source>Hide Baseline Grid</source>
-        <translation>Ukryj linie podstawowe</translation>
+        <translation>Ukryj linie pisma</translation>
     </message>
     <message>
         <source>Show Baseline Grid</source>
-        <translation>Wyświetlaj linie podstawowe</translation>
+        <translation>Wyświetlaj linie pisma</translation>
     </message>
     <message>
         <source>Adjust Frame to Picture</source>
@@ -6543,7 +6545,7 @@ Scribus dziedziczy wszystkie dostępne tematy KDE i QT</translation>
     </message>
     <message>
         <source>Enable single or spread based layout</source>
-        <translation>Włącz widok dwu stron dokumentu naraz</translation>
+        <translation>Włącz rozkład stron na rozwarciu</translation>
     </message>
     <message>
         <source>Make the first page the left page of a document</source>
@@ -6607,7 +6609,7 @@ w zdefiniowanym odstępie czasowym.</translation>
     </message>
     <message>
         <source>Displacement above the baseline of the font on a line</source>
-        <translation>Przesunięcie nad linią podstawową czcionki w wierszu</translation>
+        <translation>Przesunięcie nad linią pisma czcionki w wierszu</translation>
     </message>
     <message>
         <source>Relative size of the superscript compared to the normal font</source>
@@ -6615,7 +6617,7 @@ w zdefiniowanym odstępie czasowym.</translation>
     </message>
     <message>
         <source>Displacement below the baseline of the normal font on a line</source>
-        <translation>Przesunięcie pod linią podstawową normalnej czcionki w wierszu</translation>
+        <translation>Przesunięcie pod linią pisma normalnej czcionki w wierszu</translation>
     </message>
     <message>
         <source>Relative size of the subscript compared to the normal font</source>
@@ -6837,11 +6839,11 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Baseline Grid:</source>
-        <translation>Siatka linii podstawowych:</translation>
+        <translation>Siatka linii pisma:</translation>
     </message>
     <message>
         <source>Baseline Offset:</source>
-        <translation>Przesunięcie siatki linii podstawowych:</translation>
+        <translation>Przesunięcie siatki linii pisma:</translation>
     </message>
     <message>
         <source>Save Contents on Changes</source>
@@ -6877,7 +6879,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Baseline Grid</source>
-        <translation>Siatka linii podstawowych</translation>
+        <translation>Siatka linii pisma</translation>
     </message>
     <message>
         <source>On</source>
@@ -6889,11 +6891,11 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Turns on the basegrid</source>
-        <translation>Włącza siatkę linii podstawowych</translation>
+        <translation>Włącza siatkę linii pisma</translation>
     </message>
     <message>
         <source>Turns off the basegrid</source>
-        <translation>Wyłącza siatkę linii podstawowych</translation>
+        <translation>Wyłącza siatkę linii pisma</translation>
     </message>
     <message>
         <source> px</source>
@@ -7238,7 +7240,7 @@ Sprawdź katalog i nazwę pliku.</translation>
     </message>
     <message>
         <source>Cu&amp;t</source>
-        <translation>Wytni&amp;j</translation>
+        <translation>Wy&amp;tnij</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
@@ -7465,159 +7467,159 @@ Sprawdź katalog i nazwę pliku.</translation>
     </message>
     <message>
         <source>&amp;Fonts Preview</source>
-        <translation type="unfinished"></translation>
+        <translation> &amp;Podgląd czcionek</translation>
     </message>
     <message>
         <source>&amp;Insert Special</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodaj znak  &amp;specjalny</translation>
     </message>
     <message>
         <source>New &amp;from Template...</source>
-        <translation type="unfinished"></translation>
+        <translation>Nowy z &amp;szablonu...</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nowy</translation>
     </message>
     <message>
         <source>Newsletters</source>
-        <translation type="unfinished"></translation>
+        <translation>Biuletyny</translation>
     </message>
     <message>
         <source>Brochures</source>
-        <translation type="unfinished"></translation>
+        <translation>Broszury</translation>
     </message>
     <message>
         <source>Catalogs</source>
-        <translation type="unfinished"></translation>
+        <translation>Katalogi</translation>
     </message>
     <message>
         <source>Flyers</source>
-        <translation type="unfinished"></translation>
+        <translation>Ulotki</translation>
     </message>
     <message>
         <source>Signs</source>
-        <translation type="unfinished"></translation>
+        <translation>Znaki</translation>
     </message>
     <message>
         <source>Cards</source>
-        <translation type="unfinished"></translation>
+        <translation>Karty</translation>
     </message>
     <message>
         <source>Letterheads</source>
-        <translation type="unfinished"></translation>
+        <translation>Nagłówki listów</translation>
     </message>
     <message>
         <source>Envelopes</source>
-        <translation type="unfinished"></translation>
+        <translation>Koperty</translation>
     </message>
     <message>
         <source>Business Cards</source>
-        <translation type="unfinished"></translation>
+        <translation>Wizytówki</translation>
     </message>
     <message>
         <source>Calendars</source>
-        <translation type="unfinished"></translation>
+        <translation>Kalendarze</translation>
     </message>
     <message>
         <source>Advertisements</source>
-        <translation type="unfinished"></translation>
+        <translation>Reklamy</translation>
     </message>
     <message>
         <source>Labels</source>
-        <translation type="unfinished"></translation>
+        <translation>Etykiety</translation>
     </message>
     <message>
         <source>Menus</source>
-        <translation type="unfinished">Menu</translation>
+        <translation>Jadłospisy</translation>
     </message>
     <message>
         <source>Programs</source>
-        <translation type="unfinished"></translation>
+        <translation>Programy</translation>
     </message>
     <message>
         <source>PDF Forms</source>
-        <translation type="unfinished"></translation>
+        <translation>Formularze PDF</translation>
     </message>
     <message>
         <source>PDF Presentations</source>
-        <translation type="unfinished"></translation>
+        <translation>Prezentacje PDF</translation>
     </message>
     <message>
         <source>Magazines</source>
-        <translation type="unfinished"></translation>
+        <translation>Magazyny</translation>
     </message>
     <message>
         <source>Posters</source>
-        <translation type="unfinished"></translation>
+        <translation>Plakaty</translation>
     </message>
     <message>
         <source>Announcements</source>
-        <translation type="unfinished"></translation>
+        <translation>Ogłoszenia</translation>
     </message>
     <message>
         <source>Text Documents</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumenty tekstowe</translation>
     </message>
     <message>
         <source>Folds</source>
-        <translation type="unfinished"></translation>
+        <translation>Składanki</translation>
     </message>
     <message>
         <source>Own Templates</source>
-        <translation type="unfinished"></translation>
+        <translation>Własne szablony</translation>
     </message>
     <message>
         <source>Save as &amp;Image...</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz jako &amp;obrazek...</translation>
     </message>
     <message>
         <source>Print Previe&amp;w</source>
-        <translation type="unfinished"></translation>
+        <translation>Pod&amp;gląd wydruku</translation>
     </message>
     <message>
         <source>&amp;Print...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Drukuj...</translation>
     </message>
     <message>
         <source>Import &amp;EPS/PS...</source>
-        <translation type="unfinished"></translation>
+        <translation>Importuj &amp;EPS/PS...</translation>
     </message>
     <message>
         <source>Save as &amp;Template...</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz jako sza&amp;blon...</translation>
     </message>
     <message>
         <source>Save &amp;As...</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz &amp;jako...</translation>
     </message>
     <message>
         <source>S&amp;cripter Manual...</source>
-        <translation type="unfinished"></translation>
+        <translation>Podręcznik &amp;wtyczki skryptowej...</translation>
     </message>
     <message>
         <source>&amp;Scribus Scripts</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Skrypty Scribusa</translation>
     </message>
     <message>
         <source>&amp;Execute Script...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Wykonaj skrypt...</translation>
     </message>
     <message>
         <source>&amp;Recent Scripts</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Otwórz poprzedni skrypt</translation>
     </message>
     <message>
         <source>Show &amp;Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyświetlaj  &amp;konsolę</translation>
     </message>
     <message>
         <source>Save Page as &amp;SVG...</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz stronę jako  &amp;SVG...</translation>
     </message>
     <message>
         <source>Import &amp;SVG...</source>
-        <translation type="unfinished"></translation>
+        <translation>Importuj &amp;SVG...</translation>
     </message>
 </context>
 <context>
@@ -7962,7 +7964,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Setting up Shortcuts</source>
-        <translation>Konfiguracja skrótów</translation>
+        <translation>Konfiguracja skrótów klawiaturowych</translation>
     </message>
     <message>
         <source>Color Management...</source>
@@ -8768,11 +8770,11 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Show Baseline Grid</source>
-        <translation>Wyświetlaj linie podstawowe</translation>
+        <translation>Wyświetlaj linie pisma</translation>
     </message>
     <message>
         <source>Hide Baseline Grid</source>
-        <translation>Ukryj linie podstawowe</translation>
+        <translation>Ukryj linie pisma</translation>
     </message>
     <message>
         <source>Some Objects are locked.</source>
@@ -8852,447 +8854,447 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>&amp;Color Management...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Zarządzanie kolorami...</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nowy</translation>
     </message>
     <message>
         <source>&amp;Open...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Otwórz...</translation>
     </message>
     <message>
         <source>Open &amp;Recent</source>
-        <translation type="unfinished"></translation>
+        <translation>Otwórz &amp;poprzedni</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished">&amp;Zamknij</translation>
+        <translation>&amp;Zamknij</translation>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation type="unfinished">&amp;Zapisz</translation>
+        <translation>Z&amp;apisz</translation>
     </message>
     <message>
         <source>Save &amp;As...</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz &amp;jako...</translation>
     </message>
     <message>
         <source>Re&amp;vert to Saved</source>
-        <translation type="unfinished"></translation>
+        <translation>Pop&amp;rzednia wersja</translation>
     </message>
     <message>
         <source>Collect for O&amp;utput...</source>
-        <translation type="unfinished"></translation>
+        <translation>Zbierz &amp;wszystko dla pliku wyjściowego...</translation>
     </message>
     <message>
         <source>&amp;Get Text/Picture...</source>
-        <translation type="unfinished"></translation>
+        <translation>Po&amp;bierz tekst/obrazek...</translation>
     </message>
     <message>
         <source>Append &amp;Text...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Dołącz tekst...</translation>
     </message>
     <message>
         <source>Insert &amp;Page...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Wklej stronę...</translation>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Importuj</translation>
     </message>
     <message>
         <source>Save &amp;Text...</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz &amp;tekst...</translation>
     </message>
     <message>
         <source>Save Page as &amp;EPS...</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz stronę jako  &amp;EPS...</translation>
     </message>
     <message>
         <source>Save as P&amp;DF...</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz jako &amp;PDF...</translation>
     </message>
     <message>
         <source>&amp;Export</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Eksportuj</translation>
     </message>
     <message>
         <source>Document &amp;Info...</source>
-        <translation type="unfinished"></translation>
+        <translation>In&amp;formacja o dokumencie...</translation>
     </message>
     <message>
         <source>Document &amp;Setup...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ustawienia dokumentu...</translation>
     </message>
     <message>
         <source>&amp;Print...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Drukuj...</translation>
     </message>
     <message>
         <source>&amp;Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>Za&amp;kończ</translation>
     </message>
     <message>
         <source>&amp;Undo</source>
-        <translation type="unfinished">&amp;Cofnij</translation>
+        <translation>&amp;Cofnij</translation>
     </message>
     <message>
         <source>Cu&amp;t</source>
-        <translation type="unfinished">Wytni&amp;j</translation>
+        <translation>Wy&amp;tnij</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation type="unfinished">&amp;Kopiuj</translation>
+        <translation>&amp;Kopiuj</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
-        <translation type="unfinished">&amp;Wklej</translation>
+        <translation>&amp;Wklej</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Usuń</translation>
     </message>
     <message>
         <source>Select &amp;All</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Zaznacz wszystko</translation>
     </message>
     <message>
         <source>&amp;Search/Replace...</source>
-        <translation type="unfinished"></translation>
+        <translation>Z&amp;najdź/Zastąp...</translation>
     </message>
     <message>
         <source>C&amp;olors...</source>
-        <translation type="unfinished"></translation>
+        <translation>K&amp;olory...</translation>
     </message>
     <message>
         <source>&amp;Paragraph Styles...</source>
-        <translation type="unfinished"></translation>
+        <translation>Style &amp;akapitów...</translation>
     </message>
     <message>
         <source>&amp;Line Styles...</source>
-        <translation type="unfinished"></translation>
+        <translation>Style &amp;linii...</translation>
     </message>
     <message>
         <source>&amp;Templates...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Szablony...</translation>
     </message>
     <message>
         <source>&amp;Javascripts...</source>
-        <translation type="unfinished"></translation>
+        <translation>Skrypty w &amp;Javascript...</translation>
     </message>
     <message>
         <source>D&amp;uplicate</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Klonuj</translation>
     </message>
     <message>
         <source>&amp;Multiple Duplicate</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Wielokrotne klonowanie</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Usuń</translation>
+        <translation>&amp;Usuń</translation>
     </message>
     <message>
         <source>&amp;Group</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Grupuj</translation>
     </message>
     <message>
         <source>&amp;Ungroup</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Rozgrupuj</translation>
     </message>
     <message>
         <source>&amp;Lock</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Zabezpiecz</translation>
     </message>
     <message>
         <source>Send to &amp;Back</source>
-        <translation type="unfinished"></translation>
+        <translation>Przesuń na &amp;spód</translation>
     </message>
     <message>
         <source>Bring to &amp;Front</source>
-        <translation type="unfinished"></translation>
+        <translation>Prz&amp;esuń na wierzch</translation>
     </message>
     <message>
         <source>&amp;Lower</source>
-        <translation type="unfinished"></translation>
+        <translation>O poziom &amp;niżej</translation>
     </message>
     <message>
         <source>&amp;Raise</source>
-        <translation type="unfinished"></translation>
+        <translation>O poziom w&amp;yżej</translation>
     </message>
     <message>
         <source>Distribute/&amp;Align...</source>
-        <translation type="unfinished"></translation>
+        <translation>Odstęp/Wyrówn&amp;anie...</translation>
     </message>
     <message>
         <source>&amp;Edit Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Edycja ramki</translation>
     </message>
     <message>
         <source>&amp;Shape</source>
-        <translation type="unfinished"></translation>
+        <translation>Ksz&amp;tałt ramki</translation>
     </message>
     <message>
         <source>&amp;Attach Text to Path</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Dołącz tekst do ścieżki</translation>
     </message>
     <message>
         <source>&amp;Detach Text from Path</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Odłącz tekst od ścieżki</translation>
     </message>
     <message>
         <source>&amp;Combine Polygons</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Połącz wielokąty</translation>
     </message>
     <message>
         <source>Split &amp;Polygons</source>
-        <translation type="unfinished"></translation>
+        <translation>Podzie&amp;l wielokąty</translation>
     </message>
     <message>
         <source>C&amp;onvert to Outlines</source>
-        <translation type="unfinished"></translation>
+        <translation>Zamień na ś&amp;cieżki</translation>
     </message>
     <message>
         <source>&amp;Insert...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Wklej...</translation>
     </message>
     <message>
         <source>&amp;Delete...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Usuń...</translation>
     </message>
     <message>
         <source>&amp;Move...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Przesuń...</translation>
     </message>
     <message>
         <source>&amp;Apply Template...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Zastosuj szablon...</translation>
     </message>
     <message>
         <source>&amp;Manage Guides...</source>
-        <translation type="unfinished"></translation>
+        <translation>Z&amp;arządzaj liniami pomocniczymi...</translation>
     </message>
     <message>
         <source>&amp;Fit in Window</source>
-        <translation type="unfinished"></translation>
+        <translation>Dop&amp;asuj do okna</translation>
     </message>
     <message>
         <source>&amp;100%</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;100%</translation>
     </message>
     <message>
         <source>&amp;Thumbnails</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Miniatury</translation>
     </message>
     <message>
         <source>Hide &amp;Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ukryj marginesy</translation>
     </message>
     <message>
         <source>Hide &amp;Frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukryj &amp;ramki</translation>
     </message>
     <message>
         <source>Hide &amp;Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukryj &amp;obrazki</translation>
     </message>
     <message>
         <source>Show &amp;Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyświetlaj &amp;siatkę</translation>
     </message>
     <message>
         <source>Snap to &amp;Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Wyrównaj do siatki</translation>
     </message>
     <message>
         <source>Hide G&amp;uides</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukryj linie &amp;pomocnicze</translation>
     </message>
     <message>
         <source>Sna&amp;p to Guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyrównaj &amp;do linii pomocniczych</translation>
     </message>
     <message>
         <source>Show &amp;Baseline Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>W&amp;yświetlaj linie pisma</translation>
     </message>
     <message>
         <source>&amp;Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Właściwości</translation>
     </message>
     <message>
         <source>&amp;Outline</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Struktura</translation>
     </message>
     <message>
         <source>&amp;Scrapbook</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Biblioteka</translation>
     </message>
     <message>
         <source>&amp;Layers</source>
-        <translation type="unfinished"></translation>
+        <translation>W&amp;arstwy</translation>
     </message>
     <message>
         <source>P&amp;age Palette</source>
-        <translation type="unfinished"></translation>
+        <translation>S&amp;trony</translation>
     </message>
     <message>
         <source>&amp;Bookmarks</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Zakładki</translation>
     </message>
     <message>
         <source>&amp;Manage Pictures</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Zarządzanie obrazkami</translation>
     </message>
     <message>
         <source>&amp;Hyphenate Text</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Dziel wyrazy</translation>
     </message>
     <message>
         <source>Toolti&amp;ps</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Podpowiedzi</translation>
     </message>
     <message>
         <source>P&amp;DF Tools</source>
-        <translation type="unfinished"></translation>
+        <translation>N&amp;arzędzia PDF</translation>
     </message>
     <message>
         <source>Tooltips</source>
-        <translation type="unfinished"></translation>
+        <translation>Podpowiedzi</translation>
     </message>
     <message>
         <source>&amp;Preferences...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Konfiguracja...</translation>
     </message>
     <message>
         <source>&amp;Fonts...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Czcionki...</translation>
     </message>
     <message>
         <source>&amp;Hyphenator...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Dzielenie wyrazów...</translation>
     </message>
     <message>
         <source>&amp;Keyboard Shortcuts...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Skróty klawiaturowe...</translation>
     </message>
     <message>
         <source>&amp;About Scribus</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;O Scribusie</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>O &amp;Qt</translation>
     </message>
     <message>
         <source>Scribus &amp;Manual...</source>
-        <translation type="unfinished"></translation>
+        <translation>Podręcznik &amp;Scribusa...</translation>
     </message>
     <message>
         <source>St&amp;yle</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Styl</translation>
     </message>
     <message>
         <source>&amp;Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Do &amp;lewej</translation>
     </message>
     <message>
         <source>&amp;Center</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Wyśrodkowane</translation>
     </message>
     <message>
         <source>&amp;Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Do &amp;prawej</translation>
     </message>
     <message>
         <source>&amp;Block</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Justowany</translation>
     </message>
     <message>
         <source>&amp;Forced</source>
-        <translation type="unfinished"></translation>
+        <translation>J&amp;ustowany (z ostatnią linią)</translation>
     </message>
     <message>
         <source>&amp;Other...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Inne...</translation>
     </message>
     <message>
         <source>&amp;Cascade</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kaskada</translation>
     </message>
     <message>
         <source>&amp;Tile</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Sąsiadujące</translation>
     </message>
     <message>
         <source>&amp;Color</source>
-        <translation type="unfinished">&amp;Kolory</translation>
+        <translation>&amp;Kolory</translation>
     </message>
     <message>
         <source>&amp;Invert</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Negatyw</translation>
     </message>
     <message>
         <source>&amp;Get Text...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Pobierz tekst...</translation>
     </message>
     <message>
         <source>&amp;Font</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Czcionka</translation>
     </message>
     <message>
         <source>&amp;Size</source>
-        <translation type="unfinished">&amp;Rozmiar</translation>
+        <translation>&amp;Rozmiar</translation>
     </message>
     <message>
         <source>&amp;Effects</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Atrybuty</translation>
     </message>
     <message>
         <source>&amp;Alignment</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Wyrównanie</translation>
     </message>
     <message>
         <source>&amp;Shade</source>
-        <translation type="unfinished"></translation>
+        <translation>C&amp;ieniowanie</translation>
     </message>
     <message>
         <source>&amp;Tabulators...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Tabulatory...</translation>
     </message>
     <message>
         <source>Un&amp;lock</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Odbezpiecz</translation>
     </message>
     <message>
         <source>Show &amp;Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyświetlaj &amp;obrazki</translation>
     </message>
     <message>
         <source>Show &amp;Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyświetlaj &amp;marginesy</translation>
     </message>
     <message>
         <source>Show &amp;Frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyświetlaj &amp;ramki</translation>
     </message>
     <message>
         <source>Show G&amp;uides</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyświetlaj &amp;linie pomocnicze</translation>
     </message>
     <message>
         <source>Hide &amp;Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukryj &amp;siatkę</translation>
     </message>
     <message>
         <source>Hide &amp;Baseline Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukryj linie &amp;pisma</translation>
     </message>
     <message>
         <source>Ghostscript : You cannot use EPS Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Ghostscript: nie możesz użyć grafik EPS</translation>
     </message>
 </context>
 <context>
@@ -9834,7 +9836,7 @@ przeciągnij szablon na widok strony na dole.</translation>
     </message>
     <message>
         <source>Insert Special</source>
-        <translation>Dodaj znak specjalny</translation>
+        <translation type="obsolete">Dodaj znak specjalny</translation>
     </message>
     <message>
         <source>Do you want to save your changes?</source>
@@ -9851,6 +9853,10 @@ przeciągnij szablon na widok strony na dole.</translation>
     <message>
         <source>Exit Without Updating Text Frame</source>
         <translation>Zakończ bez aktualizowania ramki tekstowej</translation>
+    </message>
+    <message>
+        <source>&amp;Insert Special</source>
+        <translation>Dodaj znak  &amp;specjalny</translation>
     </message>
 </context>
 <context>
@@ -10248,122 +10254,123 @@ Proszę wybrać inną.</translation>
     <name>nftdialog</name>
     <message>
         <source>New From Template</source>
-        <translation type="unfinished"></translation>
+        <translation>Nowy z szablonu</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Anuluj</translation>
+        <translation>Anuluj</translation>
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished">Wszystkie</translation>
+        <translation>Wszystkie</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished">Nazwa</translation>
+        <translation>Nazwa</translation>
     </message>
     <message>
         <source>Page Size</source>
-        <translation type="unfinished">Format strony</translation>
+        <translation>Format strony</translation>
     </message>
     <message>
         <source>Colors</source>
-        <translation type="unfinished">Kolory</translation>
+        <translation>Kolory</translation>
     </message>
     <message>
         <source>Description</source>
-        <translation type="unfinished"></translation>
+        <translation>Opis</translation>
     </message>
     <message>
         <source>Usage</source>
-        <translation type="unfinished"></translation>
+        <translation>Zastosowanie</translation>
     </message>
     <message>
         <source>Created with</source>
-        <translation type="unfinished"></translation>
+        <translation>Utworzony w</translation>
     </message>
     <message>
         <source>Author</source>
-        <translation type="unfinished"></translation>
+        <translation>Autor</translation>
     </message>
 </context>
 <context>
     <name>satdialog</name>
     <message>
         <source>Save as Template</source>
-        <translation type="unfinished"></translation>
+        <translation>Zapisz jako szablon</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished">Nazwa</translation>
+        <translation>Nazwa</translation>
     </message>
     <message>
         <source>Category</source>
-        <translation type="unfinished"></translation>
+        <translation>Kategoria</translation>
     </message>
     <message>
         <source>Page Size</source>
-        <translation type="unfinished">Format strony</translation>
+        <translation>Format strony</translation>
     </message>
     <message>
         <source>Colors</source>
-        <translation type="unfinished">Kolory</translation>
+        <translation>Kolory</translation>
     </message>
     <message>
         <source>Description</source>
-        <translation type="unfinished"></translation>
+        <translation>Opis</translation>
     </message>
     <message>
         <source>Usage</source>
-        <translation type="unfinished"></translation>
+        <translation>Zastosowanie</translation>
     </message>
     <message>
         <source>Author</source>
-        <translation type="unfinished"></translation>
+        <translation>Autor
+</translation>
     </message>
     <message>
         <source>Email</source>
-        <translation type="unfinished"></translation>
+        <translation>Email</translation>
     </message>
     <message>
         <source>More Details</source>
-        <translation type="unfinished"></translation>
+        <translation>Więcej szczegółów</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
     <message>
         <source>Less Details</source>
-        <translation type="unfinished"></translation>
+        <translation>Mniej szczegółów</translation>
     </message>
     <message>
         <source>Legal</source>
-        <translation type="unfinished">Legal</translation>
+        <translation>Legal</translation>
     </message>
     <message>
         <source>Letter</source>
-        <translation type="unfinished">Letter</translation>
+        <translation>Letter</translation>
     </message>
     <message>
         <source>Tabloid</source>
-        <translation type="unfinished">Tabloid</translation>
+        <translation>Tabloid</translation>
     </message>
     <message>
         <source>landscape</source>
-        <translation type="unfinished"></translation>
+        <translation>Pejzaż</translation>
     </message>
     <message>
         <source>portrait</source>
-        <translation type="unfinished"></translation>
+        <translation>Portret</translation>
     </message>
     <message>
         <source>custom</source>
-        <translation type="unfinished"></translation>
+        <translation>Definicja użytkownika</translation>
     </message>
 </context>
 </TS>

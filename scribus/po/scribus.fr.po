@@ -30,7 +30,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 1.2\n"
-"POT-Creation-Date: 2004-06-11 12:21+0200\n"
+"POT-Creation-Date: 2004-06-18 00:23+0200\n"
 "PO-Revision-Date: 2004-05-17 18:58+0100\n"
 "Last-Translator: Nicolas Boos <nicolas.boos@wanadoo.fr>\n"
 "Language-Team: French <traduc@traduc.org>\n"
@@ -3953,7 +3953,8 @@ msgstr "Total :"
 msgid "Do you want to save your changes?"
 msgstr "Enregistrer les modifications ?"
 
-msgid "Insert Special"
+#, fuzzy
+msgid "&Insert Special"
 msgstr "Insérer un caractère spécial"
 
 msgid "Do you really want to lose all your Changes?"
@@ -4951,10 +4952,6 @@ msgstr ""
 "Ne pas afficher les objets en-dehors des marges lors d'une impression ou "
 "d'une exportation"
 
-#, fuzzy
-msgid "&Insert Special"
-msgstr "Insérer un caractère spécial"
-
 msgid "Select Character:"
 msgstr "Choisissez le(s) caractère(s) :"
 
@@ -5380,6 +5377,9 @@ msgstr "Sur mesure"
 #, fuzzy
 msgid "Save as &Template..."
 msgstr "Enregistrer en tant qu'image..."
+
+#~ msgid "Insert Special"
+#~ msgstr "Insérer un caractère spécial"
 
 #~ msgid "Line Style:"
 #~ msgstr "Style de filet :"

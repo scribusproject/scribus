@@ -13562,7 +13562,7 @@ přetáhněte šablonu do náhledu strany.</translation>
     </message>
     <message>
         <source>Insert Special</source>
-        <translation>Vložit speciální</translation>
+        <translation type="obsolete">Vložit speciální</translation>
     </message>
     <message>
         <source>Do you want to save your changes?</source>
@@ -13579,6 +13579,10 @@ přetáhněte šablonu do náhledu strany.</translation>
     <message>
         <source>Exit Without Updating Text Frame</source>
         <translation>Skončit bez aktualizace textového rámu</translation>
+    </message>
+    <message>
+        <source>&amp;Insert Special</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

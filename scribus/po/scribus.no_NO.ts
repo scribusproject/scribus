@@ -4300,163 +4300,167 @@ dialogboks frem, hver gang en mulig orddeling er funnet.</translation>
     <name>About</name>
     <message>
         <source>About Scribus%1%2</source>
-        <translation type="unfinished">Om Scribus</translation>
+        <translation>Om Scribus %1 %2</translation>
     </message>
     <message>
         <source>%1. %2 %3 </source>
-        <translation type="unfinished"></translation>
+        <translation>%1.%2 %3</translation>
     </message>
     <message>
         <source>Scribus Version %1
 %2 %3</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus Versjon %1
+%2 %3</translation>
     </message>
     <message>
         <source>Build-ID:</source>
-        <translation type="unfinished"></translation>
+        <translation>Build-ID:</translation>
     </message>
     <message>
         <source>About</source>
-        <translation type="unfinished">Om</translation>
+        <translation>Om</translation>
     </message>
     <message>
         <source>Programming:</source>
-        <translation type="unfinished">Programmering:</translation>
+        <translation>Programmering:</translation>
     </message>
     <message>
         <source>Contributions from:</source>
-        <translation type="unfinished">Bidrag fra:</translation>
+        <translation>Bidrag fra:</translation>
     </message>
     <message>
         <source>Windows port:</source>
-        <translation type="unfinished">Vinduer</translation>
+        <translation>Windows port:</translation>
     </message>
     <message>
         <source>Documentation:</source>
-        <translation type="unfinished">Dokumentasjon:</translation>
+        <translation>Dokumentasjon:</translation>
     </message>
     <message>
         <source>Authors</source>
-        <translation type="unfinished">Forfattere</translation>
+        <translation>Forfattere</translation>
     </message>
     <message>
         <source>German:</source>
-        <translation type="unfinished">Tysk:</translation>
+        <translation>Tysk:</translation>
     </message>
     <message>
         <source>French:</source>
-        <translation type="unfinished">Fransk:</translation>
+        <translation>Fransk:</translation>
     </message>
     <message>
         <source>Spanish and Catalan:</source>
-        <translation type="unfinished">Spansk og katalansk:</translation>
+        <translation>Spansk og katalansk:</translation>
     </message>
     <message>
         <source>Italian:</source>
-        <translation type="unfinished">Italiensk</translation>
+        <translation>Italiensk:</translation>
     </message>
     <message>
         <source>Hungarian:</source>
-        <translation type="unfinished">Ungarsk og italiensk:</translation>
+        <translation>Ungarsk:</translation>
     </message>
     <message>
         <source>Ukrainian:</source>
-        <translation type="unfinished">Ukrainsk:</translation>
+        <translation>Ukrainsk:</translation>
     </message>
     <message>
         <source>Bulgarian:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bulgarsk:</translation>
     </message>
     <message>
         <source>Galician:</source>
-        <translation type="unfinished">Ukrainsk:</translation>
+        <translation>Galisk:</translation>
     </message>
     <message>
         <source>Turkish:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tyrkisk:</translation>
     </message>
     <message>
         <source>Lithuanian:</source>
-        <translation type="unfinished">Litauisk:</translation>
+        <translation>Litauisk:</translation>
     </message>
     <message>
         <source>Polish:</source>
-        <translation type="unfinished">Polsk:</translation>
+        <translation>Polsk:</translation>
     </message>
     <message>
         <source>Czech:</source>
-        <translation type="unfinished">Tsjekkisk:</translation>
+        <translation>Tsjekkisk:</translation>
     </message>
     <message>
         <source>Slovak:</source>
-        <translation type="unfinished">Slovakisk:</translation>
+        <translation>Slovakisk:</translation>
     </message>
     <message>
         <source>Danish:</source>
-        <translation type="unfinished">Dansk:</translation>
+        <translation>Dansk:</translation>
     </message>
     <message>
         <source>Norwegian:</source>
-        <translation type="unfinished">Norsk:</translation>
+        <translation>Norsk:</translation>
     </message>
     <message>
         <source>English:</source>
-        <translation type="unfinished">Engelsk</translation>
+        <translation>Engelsk:</translation>
     </message>
     <message>
         <source>Welsh:</source>
-        <translation type="unfinished">Polsk:</translation>
+        <translation>Welsk:</translation>
     </message>
     <message>
         <source>Russian:</source>
-        <translation type="unfinished">Russisk:</translation>
+        <translation>Russisk:</translation>
     </message>
     <message>
         <source>Brazilian:</source>
-        <translation type="unfinished">Ukrainsk:</translation>
+        <translation>Brasiliansk:</translation>
     </message>
     <message>
         <source>Finnish:</source>
-        <translation type="unfinished">Dansk:</translation>
+        <translation>Finsk:</translation>
     </message>
     <message>
         <source>Slovenian:</source>
-        <translation type="unfinished">Slovakisk:</translation>
+        <translation>Slovensk:</translation>
     </message>
     <message>
         <source>Basque:</source>
-        <translation type="unfinished">Bl&amp;å:</translation>
+        <translation>Baskisk:</translation>
     </message>
     <message>
         <source>Translations</source>
-        <translation type="unfinished">Oversettelser</translation>
+        <translation>Oversettelser</translation>
     </message>
     <message>
         <source>Homepage and online reference</source>
-        <translation type="unfinished">Henter innstillinger</translation>
+        <translation>Hjemmeside og oline referanse</translation>
     </message>
     <message>
         <source>Mailing list</source>
-        <translation type="unfinished"></translation>
+        <translation>Mailing liste</translation>
     </message>
     <message>
         <source>Bugs and feature requests</source>
-        <translation type="unfinished"></translation>
+        <translation>Feilmeldinger og søknad for nye funksjoner</translation>
     </message>
     <message>
         <source>Online</source>
-        <translation type="unfinished">Oversikt</translation>
+        <translation>Online</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Lukk</translation>
+        <translation>Lukk</translation>
     </message>
     <message>
         <source>This panel shows the version, build date and
  compiled in library support in Scribus
 The C-C-T equates to C=CUPS C=littlecms T=TIFF support.
 Missing library support is indicated by a *</source>
-        <translation type="unfinished"></translation>
+        <translation>Dette panel viser versjonen, datoen den ble
+laget og inkmpilert librarz support i Scribus
+C-C-T står for C=CUPS C=littlecms T=TIFF større.
+Manglende librarz støtte er indikeret ved *</translation>
     </message>
 </context>
 <context>
@@ -4487,29 +4491,31 @@ Missing library support is indicated by a *</source>
     </message>
     <message>
         <source>PostScript Level 3</source>
-        <translation type="unfinished"></translation>
+        <translation>PostScript Nivå 3</translation>
     </message>
     <message>
         <source>PostScript Level 2</source>
-        <translation type="unfinished"></translation>
+        <translation>PostScript Nivå 2</translation>
     </message>
     <message>
         <source>PostScript Level 1</source>
-        <translation type="unfinished"></translation>
+        <translation>PostScript Nivå 1</translation>
     </message>
     <message>
         <source>Creates PostScript Level 3</source>
-        <translation type="unfinished"></translation>
+        <translation>Lager PostScript Nivå 3</translation>
     </message>
     <message>
         <source>Creates PostScript Level 2 only, beware,
 this can create huge files</source>
-        <translation type="unfinished"></translation>
+        <translation>Lager kun PostScript Nivå 2,
+OBS! Dette kan føre til store filer</translation>
     </message>
     <message>
         <source>Creates PostScript Level 1 only, beware,
 this can create huge files</source>
-        <translation type="unfinished"></translation>
+        <translation>Lager kun PostScript Nivå 1,
+OBS! Dette kan føre til store filer</translation>
     </message>
 </context>
 <context>
@@ -4611,7 +4617,7 @@ this can create huge files</source>
     </message>
     <message>
         <source>Align Text Justified</source>
-        <translation>Jester teskt Fyll</translation>
+        <translation>Juster teskt Fyll</translation>
     </message>
     <message>
         <source>Align Text Forced Justified</source>
@@ -5323,21 +5329,21 @@ this can create huge files</source>
     </message>
     <message>
         <source>Rename</source>
-        <translation type="unfinished"></translation>
+        <translation>Endre Navn</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation type="unfinished">Advarsel</translation>
+        <translation>Advarsel</translation>
     </message>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.
 Please choose another.</source>
-        <translation type="unfinished">Navnet &quot;%1&quot; er ikke entydig.
+        <translation>Navnet &quot;%1&quot; er ikke entydig.
 Velg vennligst et annet.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">Greit</translation>
+        <translation>Greit</translation>
     </message>
 </context>
 <context>
@@ -5670,7 +5676,7 @@ Det er smart at aktivere dette hvis du har fotografier i dokumentet ditt.</trans
     </message>
     <message>
         <source>HSV-Colormap</source>
-        <translation type="unfinished"></translation>
+        <translation>HSV-Colormap</translation>
     </message>
 </context>
 <context>
@@ -5749,43 +5755,43 @@ Det er smart at aktivere dette hvis du har fotografier i dokumentet ditt.</trans
     </message>
     <message>
         <source>Free linear Gradient</source>
-        <translation type="unfinished"></translation>
+        <translation>Fri linear Skravering</translation>
     </message>
     <message>
         <source>Free radial Gradient</source>
-        <translation type="unfinished"></translation>
+        <translation>Fri radial Skravering</translation>
     </message>
     <message>
         <source>X1:</source>
-        <translation type="unfinished">X1:</translation>
+        <translation>X1:</translation>
     </message>
     <message>
         <source>Y1:</source>
-        <translation type="unfinished">Y1:</translation>
+        <translation>Y1:</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation type="unfinished">pt</translation>
+        <translation>pt</translation>
     </message>
     <message>
         <source>X2:</source>
-        <translation type="unfinished">X2:</translation>
+        <translation>X2:</translation>
     </message>
     <message>
         <source>Y2:</source>
-        <translation type="unfinished">Y2:</translation>
+        <translation>Y2:</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation type="unfinished">mm</translation>
+        <translation>mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation type="unfinished">in</translation>
+        <translation>in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation type="unfinished">p</translation>
+        <translation>p</translation>
     </message>
 </context>
 <context>
@@ -5893,7 +5899,7 @@ Denne kan stilles inn i Preferanser.</translation>
     </message>
     <message>
         <source>Include Fonts</source>
-        <translation type="unfinished"></translation>
+        <translation>Inkluder Fonter</translation>
     </message>
 </context>
 <context>
@@ -6140,7 +6146,7 @@ Denne kan stilles inn i Preferanser.</translation>
     </message>
     <message>
         <source>Print current page</source>
-        <translation type="unfinished"></translation>
+        <translation>Skriv ut nåværende side</translation>
     </message>
 </context>
 <context>
@@ -6149,11 +6155,13 @@ Denne kan stilles inn i Preferanser.</translation>
         <source>Importing File:
 %1
 failed!</source>
-        <translation type="unfinished"></translation>
+        <translation>Importering av Fil:
+%1
+funket ikke!</translation>
     </message>
     <message>
         <source>Fatal Error</source>
-        <translation type="unfinished">Alvorlig feil</translation>
+        <translation>Alvorlig feil</translation>
     </message>
 </context>
 <context>
@@ -6304,7 +6312,7 @@ failed!</source>
     </message>
     <message>
         <source>Line Spacing:</source>
-        <translation type="unfinished">Linjeavstand:</translation>
+        <translation>Linjeavstand:</translation>
     </message>
 </context>
 <context>
@@ -6378,120 +6386,121 @@ failed!</source>
     <name>ExportForm</name>
     <message>
         <source>Choose a Export Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Velg et Exsport Katalog</translation>
     </message>
     <message>
         <source>Export as Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Eksporter som Bilde</translation>
     </message>
     <message>
         <source>Export to directory:</source>
-        <translation type="unfinished"></translation>
+        <translation>Eksporter til katalog:</translation>
     </message>
     <message>
         <source>&amp;Change...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Forandre...</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <source>Image type:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilde type:</translation>
     </message>
     <message>
         <source>Quality :</source>
-        <translation type="unfinished"></translation>
+        <translation>Kvalitet:</translation>
     </message>
     <message>
         <source>%</source>
-        <translation type="unfinished"></translation>
+        <translation>%</translation>
     </message>
     <message>
         <source>Size:</source>
-        <translation type="unfinished">Størrelse:</translation>
+        <translation>Størrelse:</translation>
     </message>
     <message>
         <source>Export </source>
-        <translation type="unfinished"></translation>
+        <translation>Eksporter</translation>
     </message>
     <message>
         <source>&amp;One page</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;En side</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+O</translation>
     </message>
     <message>
         <source>&amp;All pages</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Alle sider</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <source>&amp;Interval from:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Interval fra:</translation>
     </message>
     <message>
         <source>Alt+I</source>
-        <translation type="unfinished"></translation>
+        <translation>alt+I</translation>
     </message>
     <message>
         <source>to:</source>
-        <translation type="unfinished">til:</translation>
+        <translation>til:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Fortryd</translation>
     </message>
     <message>
         <source>Change the output directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Forandre output katalog</translation>
     </message>
     <message>
         <source>The output directory - the place to store your images.
 Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Ouput Katalogen - stedet til å lagre bildene dine.
+Navnetfor den eksporte fil vil være &apos;dokumentnavm-sidenummer.filtype&apos;</translation>
     </message>
     <message>
         <source>Export only the current page</source>
-        <translation type="unfinished"></translation>
+        <translation>Eksporter kun nåværende side</translation>
     </message>
     <message>
         <source>Export all pages to images</source>
-        <translation type="unfinished"></translation>
+        <translation>Eksporter alle sider til bilder</translation>
     </message>
     <message>
         <source>Export a range of pages to images</source>
-        <translation type="unfinished"></translation>
+        <translation>Ekporter et område av sider til bilder</translation>
     </message>
     <message>
         <source>First page to export when exporting a range</source>
-        <translation type="unfinished">Først side å eksportere ved eksportering av et område</translation>
+        <translation>Først side å eksportere ved eksportering av et område</translation>
     </message>
     <message>
         <source>Last page to export when exporting a range</source>
-        <translation type="unfinished">Siste side å eksportere ved eksportering av et område</translation>
+        <translation>Siste side å eksportere ved eksportering av et område</translation>
     </message>
     <message>
         <source>The height of the output images in pixels</source>
-        <translation type="unfinished"></translation>
+        <translation>Høyden for output bildene i piksler</translation>
     </message>
     <message>
         <source>The quality of your images - 100% is the best, 1% the highest compression</source>
-        <translation type="unfinished"></translation>
+        <translation>Bildenes kvalitet - 100% er best, 1% er høeste kompression</translation>
     </message>
     <message>
         <source>Available export formats</source>
-        <translation type="unfinished"></translation>
+        <translation>Tilgjengelige eksport formater</translation>
     </message>
 </context>
 <context>
@@ -6735,42 +6744,42 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     <name>FontPreview</name>
     <message>
         <source>Font Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Fonter Preview</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+O</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Fortryd</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+F</translation>
     </message>
     <message>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
-        <translation type="unfinished">Woven silk pyjamas exchanged for blue quartz</translation>
+        <translation>Vevet silke pyjamas byttet for blå quartz</translation>
     </message>
 </context>
 <context>
     <name>GradientEditor</name>
     <message>
         <source>Position:</source>
-        <translation type="unfinished">Posisjon:</translation>
+        <translation>Posisjon:</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished">%</translation>
+        <translation>%</translation>
     </message>
     <message>
         <source>Here you can add, change or remove Color-Stops.</source>
-        <translation type="unfinished"></translation>
+        <translation>Her kan du legge til, fornadre eller fjerne Color-Stops.</translation>
     </message>
 </context>
 <context>
@@ -7219,35 +7228,35 @@ A value of 0 means unlimited hyphenations.</source>
     <name>MSpinBox</name>
     <message>
         <source> pt</source>
-        <translation type="unfinished">pt</translation>
+        <translation>pt</translation>
     </message>
     <message>
         <source>pt</source>
-        <translation type="unfinished">pt</translation>
+        <translation>pt</translation>
     </message>
     <message>
         <source>mm</source>
-        <translation type="unfinished">mm</translation>
+        <translation>mm</translation>
     </message>
     <message>
         <source>in</source>
-        <translation type="unfinished"></translation>
+        <translation>in</translation>
     </message>
     <message>
         <source>p</source>
-        <translation type="unfinished">p</translation>
+        <translation>p</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation type="unfinished">mm</translation>
+        <translation>mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation type="unfinished">in</translation>
+        <translation>in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation type="unfinished">p</translation>
+        <translation>p</translation>
     </message>
 </context>
 <context>
@@ -7281,74 +7290,74 @@ A value of 0 means unlimited hyphenations.</source>
     <name>Measurements</name>
     <message>
         <source>Distances</source>
-        <translation type="unfinished"></translation>
+        <translation>Avstander</translation>
     </message>
     <message>
         <source>X1:</source>
-        <translation type="unfinished">X1:</translation>
+        <translation>X1:</translation>
     </message>
     <message>
         <source>Y1:</source>
-        <translation type="unfinished">Y1:</translation>
+        <translation>Y1:</translation>
     </message>
     <message>
         <source>X2:</source>
-        <translation type="unfinished">X2:</translation>
+        <translation>X2:</translation>
     </message>
     <message>
         <source>Y2:</source>
-        <translation type="unfinished">Y2:</translation>
+        <translation>Y2:</translation>
     </message>
     <message>
         <source>DX:</source>
-        <translation type="unfinished"></translation>
+        <translation>DX:</translation>
     </message>
     <message>
         <source>DY:</source>
-        <translation type="unfinished"></translation>
+        <translation>DY:</translation>
     </message>
     <message>
         <source>Angle:</source>
-        <translation type="unfinished"></translation>
+        <translation>Vinkel:</translation>
     </message>
     <message>
         <source>Length:</source>
-        <translation type="unfinished"></translation>
+        <translation>Lengde:</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation type="unfinished">pt</translation>
+        <translation>pt</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation type="unfinished">mm</translation>
+        <translation>mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation type="unfinished">in</translation>
+        <translation>in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation type="unfinished">p</translation>
+        <translation>p</translation>
     </message>
 </context>
 <context>
     <name>MenuTest</name>
     <message>
         <source>Script error</source>
-        <translation type="unfinished">Skript:</translation>
+        <translation>Script feil</translation>
     </message>
     <message>
         <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hvis du kjører et offisielt skript reporter det vennligst til &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
     </message>
     <message>
         <source>Show &amp;Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Vis &amp;Konsole</translation>
     </message>
     <message>
         <source>Hide &amp;Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Gjem &amp;Konsole</translation>
     </message>
 </context>
 <context>
@@ -8041,11 +8050,11 @@ Velg vennligst et annet.</translation>
     </message>
     <message>
         <source>Font Size:</source>
-        <translation type="unfinished">Font størrelse</translation>
+        <translation>Font Størrelse:</translation>
     </message>
     <message>
         <source>Type of Line:</source>
-        <translation type="unfinished"></translation>
+        <translation>Linjetype:</translation>
     </message>
 </context>
 <context>
@@ -8404,15 +8413,15 @@ Hvis Motstående Sider er markert kan denne brukes til å få til den korrekte m
     </message>
     <message>
         <source>Legal</source>
-        <translation type="unfinished"></translation>
+        <translation>Legal</translation>
     </message>
     <message>
         <source>Letter</source>
-        <translation type="unfinished"></translation>
+        <translation>Letter</translation>
     </message>
     <message>
         <source>Tabloid</source>
-        <translation type="unfinished"></translation>
+        <translation>Tabloid</translation>
     </message>
 </context>
 <context>
@@ -8547,7 +8556,7 @@ ellers er Koordinater relative til Objektet.</translation>
     <name>PConsole</name>
     <message>
         <source>Script Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Script Konsole</translation>
     </message>
 </context>
 <context>
@@ -9206,88 +9215,90 @@ følge PDF/X3-conformance. Vi foreslår at du bruker dokumentets titel.</transla
     </message>
     <message>
         <source>Allow Copying Text and Graphics</source>
-        <translation type="unfinished"></translation>
+        <translation>Tillat Kopiering av Tekst og Bilder</translation>
     </message>
     <message>
         <source>Allow Adding Annotations and Fields</source>
-        <translation type="unfinished"></translation>
+        <translation>Tillat Tilleg av Notater og Felter</translation>
     </message>
 </context>
 <context>
     <name>PPreview</name>
     <message>
         <source>Print Preview</source>
-        <translation type="unfinished">Forhåndsvisning av utskrift</translation>
+        <translation>Forhåndsvisning av Utskrift</translation>
     </message>
     <message>
         <source>Anti-alias Text</source>
-        <translation type="unfinished">Antialias tekst</translation>
+        <translation>Antialias tekst</translation>
     </message>
     <message>
         <source>Anti-alias Graphics</source>
-        <translation type="unfinished">Antialias Grafikk</translation>
+        <translation>Antialias Grafikk</translation>
     </message>
     <message>
         <source>Display Transparency</source>
-        <translation type="unfinished">Vis rammer</translation>
+        <translation>Vis Gjennomsiktighet</translation>
     </message>
     <message>
         <source>Display CMYK</source>
-        <translation type="unfinished">Vis rammer</translation>
+        <translation>Vis CMYK</translation>
     </message>
     <message>
         <source>C</source>
-        <translation type="unfinished"></translation>
+        <translation>C</translation>
     </message>
     <message>
         <source>M</source>
-        <translation type="unfinished"></translation>
+        <translation>M</translation>
     </message>
     <message>
         <source>Y</source>
-        <translation type="unfinished"></translation>
+        <translation>Y</translation>
     </message>
     <message>
         <source>K</source>
-        <translation type="unfinished">Greit</translation>
+        <translation>K</translation>
     </message>
     <message>
         <source>Provides a more pleasant view of text items in the viewer, at the expense
 of a slight slowdown in previewing. This only affects Type 1 fonts</source>
-        <translation type="unfinished"></translation>
+        <translation>Gir en skjønnere visning av tekst i viseren, men forhåndsvisning blir
+litt langsommere. Har kun effekt på Type 1 fonter</translation>
     </message>
     <message>
         <source>Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF and
 vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation type="unfinished"></translation>
+        <translation>Gir en skjønnere visning av True Type Fonter, Open Type Fonter, EPS, PDF og
+vektor grafikk i forhåndsvisningen, men det går litt langsommere å forhåndsvise</translation>
     </message>
     <message>
         <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</source>
-        <translation type="unfinished"></translation>
+        <translation>Viser gjennomsiktighet og gjennomsiktige objekter i dokumentet ditt. Trenger Ghostscript 7.07 eller senere</translation>
     </message>
     <message>
         <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Gir en utskrifsforhåndsvisning ved bruk av simulasjoner for generelle CMYK blekk, istedetfor RGB farger</translation>
     </message>
     <message>
         <source>Enable/disable the C (Cyan) ink plate</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiver/deaktiver C (Cyan) ink plate</translation>
     </message>
     <message>
         <source>Enable/disable the M (Magenta) ink plate</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiver/deaktiver M (Magenta) ink plate</translation>
     </message>
     <message>
         <source>Enable/disable the Y (Yellow) ink plate</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiver/deaktiver Y (Yellow) ink plate</translation>
     </message>
     <message>
         <source>Enable/disable the K (Black) ink plate</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiver/deaktiver K (Black) ink plate</translation>
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished">Alle</translation>
+        <translation>Alle</translation>
     </message>
 </context>
 <context>
@@ -9590,7 +9601,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>PDF-Options</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF-Opsjoner</translation>
     </message>
 </context>
 <context>
@@ -9740,636 +9751,639 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     <name>Preferences</name>
     <message>
         <source>Preferences</source>
-        <translation type="unfinished">Innstillinger</translation>
+        <translation>Innstillinger</translation>
     </message>
     <message>
         <source>General</source>
-        <translation type="unfinished">Generelt</translation>
+        <translation>Generelt</translation>
     </message>
     <message>
         <source>Document</source>
-        <translation type="unfinished">Dokument</translation>
+        <translation>Dokument</translation>
     </message>
     <message>
         <source>Guides</source>
-        <translation type="unfinished">Guide</translation>
+        <translation>Guide</translation>
     </message>
     <message>
         <source>Typography</source>
-        <translation type="unfinished">Typografier</translation>
+        <translation>Typografier</translation>
     </message>
     <message>
         <source>Tools</source>
-        <translation type="unfinished">Verktøy</translation>
+        <translation>Verktøy</translation>
     </message>
     <message>
         <source>Scrapbook</source>
-        <translation type="unfinished">Kladdebok</translation>
+        <translation>Kladdebok</translation>
     </message>
     <message>
         <source>Display</source>
-        <translation type="unfinished"></translation>
+        <translation>Display</translation>
     </message>
     <message>
         <source>External Tools</source>
-        <translation type="unfinished">Ekstra</translation>
+        <translation>Eksterne Verktøy</translation>
     </message>
     <message>
         <source>Misc.</source>
-        <translation type="unfinished"></translation>
+        <translation>Misc.</translation>
     </message>
     <message>
         <source>GUI</source>
-        <translation type="unfinished">GUI</translation>
+        <translation>GUI</translation>
     </message>
     <message>
         <source>Theme:</source>
-        <translation type="unfinished">Tema</translation>
+        <translation>Tema:</translation>
     </message>
     <message>
         <source>Font Size:</source>
-        <translation type="unfinished">Font størrelse</translation>
+        <translation>Font Størrelse:</translation>
     </message>
     <message>
         <source> pts</source>
-        <translation type="unfinished">pts</translation>
+        <translation>pts</translation>
     </message>
     <message>
         <source>Units</source>
-        <translation type="unfinished">Enheter</translation>
+        <translation>Enheter</translation>
     </message>
     <message>
         <source>Points (pt)</source>
-        <translation type="unfinished">Punkter (pts)</translation>
+        <translation>Punkter (pt)</translation>
     </message>
     <message>
         <source>Millimetres (mm)</source>
-        <translation type="unfinished">Millimeter (mm)</translation>
+        <translation>Millimeter (mm)</translation>
     </message>
     <message>
         <source>Inches (in)</source>
-        <translation type="unfinished">Tommer (in)</translation>
+        <translation>Tommer (in)</translation>
     </message>
     <message>
         <source>Picas (p)</source>
-        <translation type="unfinished">Picas (p)</translation>
+        <translation>Picas (p)</translation>
     </message>
     <message>
         <source>Mouse-Settings</source>
-        <translation type="unfinished">Museinnstillinger</translation>
+        <translation>Museinnstillinger</translation>
     </message>
     <message>
         <source>Wheel-Jump:</source>
-        <translation type="unfinished">Hjul-hopp</translation>
+        <translation>Hjul-Hopp:</translation>
     </message>
     <message>
         <source>Grab-Radius:</source>
-        <translation type="unfinished">Gripe-radius</translation>
+        <translation>Gripe-Radius:</translation>
     </message>
     <message>
         <source> px</source>
-        <translation type="unfinished"></translation>
+        <translation>px</translation>
     </message>
     <message>
         <source>Menus</source>
-        <translation type="unfinished">Menyer</translation>
+        <translation>Menyer</translation>
     </message>
     <message>
         <source>Recent Documents:</source>
-        <translation type="unfinished">Nylig brukte dokumenter:</translation>
+        <translation>Nylig brukte Dokumenter:</translation>
     </message>
     <message>
         <source>Paths</source>
-        <translation type="unfinished">Stier</translation>
+        <translation>Stier</translation>
     </message>
     <message>
         <source>Documents:</source>
-        <translation type="unfinished">Dokumenter:</translation>
+        <translation>Dokumenter:</translation>
     </message>
     <message>
         <source>Change...</source>
-        <translation type="unfinished"></translation>
+        <translation>Forandre...</translation>
     </message>
     <message>
         <source>ICC-Profiles:</source>
-        <translation type="unfinished">Bruk ICC-Profil</translation>
+        <translation>ICC-Profiler:</translation>
     </message>
     <message>
         <source>Scripts:</source>
-        <translation type="unfinished">Skript:</translation>
+        <translation>Skripter:</translation>
     </message>
     <message>
         <source>Page Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Side Størrelse</translation>
     </message>
     <message>
         <source>Orientation:</source>
-        <translation type="unfinished">Retning:</translation>
+        <translation>Retning:</translation>
     </message>
     <message>
         <source>Custom</source>
-        <translation type="unfinished">Brukerdefinert</translation>
+        <translation>Brukerdefinert</translation>
     </message>
     <message>
         <source>Portrait</source>
-        <translation type="unfinished">Stående</translation>
+        <translation>Stående</translation>
     </message>
     <message>
         <source>Landscape</source>
-        <translation type="unfinished">Landskap</translation>
+        <translation>Landskap</translation>
     </message>
     <message>
         <source>Size:</source>
-        <translation type="unfinished">Størrelse:</translation>
+        <translation>Størrelse:</translation>
     </message>
     <message>
         <source>Width:</source>
-        <translation type="unfinished">Bredde:</translation>
+        <translation>Bredde:</translation>
     </message>
     <message>
         <source>Height:</source>
-        <translation type="unfinished">Høyde:</translation>
+        <translation>Høyde:</translation>
     </message>
     <message>
         <source>Facing Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Motstående Sider</translation>
     </message>
     <message>
         <source>Left Page First</source>
-        <translation type="unfinished">Venstre side først</translation>
+        <translation>Venstre Side Først</translation>
     </message>
     <message>
         <source>Margin Guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Margin Guider</translation>
     </message>
     <message>
         <source>Bottom:</source>
-        <translation type="unfinished">Bunn:</translation>
+        <translation>Bunn:</translation>
     </message>
     <message>
         <source>Top:</source>
-        <translation type="unfinished">Topp:</translation>
+        <translation>Topp:</translation>
     </message>
     <message>
         <source>Right:</source>
-        <translation type="unfinished">Høyre:</translation>
+        <translation>Høyre:</translation>
     </message>
     <message>
         <source>Left:</source>
-        <translation type="unfinished">Venstre:</translation>
+        <translation>Venstre:</translation>
     </message>
     <message>
         <source>Autosave</source>
-        <translation type="unfinished">Autolagre</translation>
+        <translation>Autolagre</translation>
     </message>
     <message>
         <source>Enabled</source>
-        <translation type="unfinished">I bruk</translation>
+        <translation>I bruk</translation>
     </message>
     <message>
         <source>Interval:</source>
-        <translation type="unfinished">Sett inn ellipse</translation>
+        <translation>Interval:</translation>
     </message>
     <message>
         <source>min</source>
-        <translation type="unfinished">minimum</translation>
+        <translation>minimum</translation>
     </message>
     <message>
         <source>Grid Layout</source>
-        <translation type="unfinished">Gitter innstillinger</translation>
+        <translation>Gitter Layout</translation>
     </message>
     <message>
         <source>Minor Grid Spacing:</source>
-        <translation type="unfinished">Avstand mellom linjer:</translation>
+        <translation>Avstand mellom linjer:</translation>
     </message>
     <message>
         <source>Major Grid Spacing:</source>
-        <translation type="unfinished">Avstand mellom hovedlinjer:</translation>
+        <translation>Avstand mellom hovedlinjer:</translation>
     </message>
     <message>
         <source>Guide Snap Distance:</source>
-        <translation type="unfinished">&apos;Fest til&apos; avstand:</translation>
+        <translation>&apos;Fest til&apos; avstand:</translation>
     </message>
     <message>
         <source>Grid Colors</source>
-        <translation type="unfinished">Farge på Gitter</translation>
+        <translation>Farge på Gitter</translation>
     </message>
     <message>
         <source>Minor Grid Color:</source>
-        <translation type="unfinished">Hoved-gitterlinjer:</translation>
+        <translation>Gitterlinjer Farge:</translation>
     </message>
     <message>
         <source>Major Grid Color:</source>
-        <translation type="unfinished">Hoved-gitterlinjer:</translation>
+        <translation>Hoved-Gitterlinjer Farge:</translation>
     </message>
     <message>
         <source>User Guides Color:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bruk Guide Farge:</translation>
     </message>
     <message>
         <source>Placing</source>
-        <translation type="unfinished">Plassering</translation>
+        <translation>Plassering</translation>
     </message>
     <message>
         <source>In the Background</source>
-        <translation type="unfinished">I bakgrunnen</translation>
+        <translation>I Bakgrunnen</translation>
     </message>
     <message>
         <source>In the Foreground</source>
-        <translation type="unfinished">I forgrunnen</translation>
+        <translation>I Forgrunnen</translation>
     </message>
     <message>
         <source>Baseline Grid</source>
-        <translation type="unfinished">Skjul gitter</translation>
+        <translation>Baseline Gitter</translation>
     </message>
     <message>
         <source>On</source>
-        <translation type="unfinished">Åpne</translation>
+        <translation>På</translation>
     </message>
     <message>
         <source>Off</source>
-        <translation type="unfinished"></translation>
+        <translation>Av</translation>
     </message>
     <message>
         <source>Subscript</source>
-        <translation type="unfinished">Senket skrift</translation>
+        <translation>Senket Skrift</translation>
     </message>
     <message>
         <source>Scaling:</source>
-        <translation type="unfinished">Skalering</translation>
+        <translation>Skalering:</translation>
     </message>
     <message>
         <source>Displacement:</source>
-        <translation type="unfinished">Forskyving</translation>
+        <translation>Forskyving:</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished">%</translation>
+        <translation>%</translation>
     </message>
     <message>
         <source>Superscript</source>
-        <translation type="unfinished">Hevet skrift</translation>
+        <translation>Hevet skrift</translation>
     </message>
     <message>
         <source>Small Caps</source>
-        <translation type="unfinished"></translation>
+        <translation>Small Caps</translation>
     </message>
     <message>
         <source>Other</source>
-        <translation type="unfinished">Andre</translation>
+        <translation>Andre</translation>
     </message>
     <message>
         <source>Baseline Grid:</source>
-        <translation type="unfinished">Skjul gitter</translation>
+        <translation>Baseline Gitter:</translation>
     </message>
     <message>
         <source>Baseline Offset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Baseline Offset:</translation>
     </message>
     <message>
         <source>Automatic Line Spacing:</source>
-        <translation type="unfinished">Automatisk linjeavstand</translation>
+        <translation>Automatisk Linjeavstand:</translation>
     </message>
     <message>
         <source>Default Size:</source>
-        <translation type="unfinished">Standard størrelse:</translation>
+        <translation>Standard Størrelse:</translation>
     </message>
     <message>
         <source>Default Font:</source>
-        <translation type="unfinished">Standard font</translation>
+        <translation>Standard Font:</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation type="unfinished">pt</translation>
+        <translation>pt</translation>
     </message>
     <message>
         <source>Text Color:</source>
-        <translation type="unfinished">Farge på tekst</translation>
+        <translation>Farge på Tekst:</translation>
     </message>
     <message>
         <source>Columns:</source>
-        <translation type="unfinished">Kolonner:</translation>
+        <translation>Kolonner:</translation>
     </message>
     <message>
         <source>Gap:</source>
-        <translation type="unfinished">Løkke:</translation>
+        <translation>Løkke:</translation>
     </message>
     <message>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
-        <translation type="unfinished">Woven silk pyjamas exchanged for blue quartz</translation>
+        <translation>Woven silk pyjamas exchanged for blue quartz</translation>
     </message>
     <message>
         <source>Line Color:</source>
-        <translation type="unfinished">Linjefarge:</translation>
+        <translation>Linjefarge:</translation>
     </message>
     <message>
         <source>Shading:</source>
-        <translation type="unfinished">Skyggelegging:</translation>
+        <translation>Skyggelegging:</translation>
     </message>
     <message>
         <source>Fill Color:</source>
-        <translation type="unfinished">Fyllfarge:</translation>
+        <translation>Fyllfarge:</translation>
     </message>
     <message>
         <source>Type of Line:</source>
-        <translation type="unfinished"></translation>
+        <translation>Linjetype:</translation>
     </message>
     <message>
         <source>Line Width:</source>
-        <translation type="unfinished">Linjetykkelse:</translation>
+        <translation>Linjetykkelse:</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished">Ingen</translation>
+        <translation>Ingen</translation>
     </message>
     <message>
         <source>Minimum:</source>
-        <translation type="unfinished">minimum</translation>
+        <translation>Minimum:</translation>
     </message>
     <message>
         <source>Maximum:</source>
-        <translation type="unfinished">maksimum</translation>
+        <translation>Maksimum:</translation>
     </message>
     <message>
         <source>Stepping:</source>
-        <translation type="unfinished">Intervall:</translation>
+        <translation>Intervall:</translation>
     </message>
     <message>
         <source>Free Scaling</source>
-        <translation type="unfinished"></translation>
+        <translation>Fri Skalering</translation>
     </message>
     <message>
         <source>Horizontal Scaling:</source>
-        <translation type="unfinished">Horisontal skalering</translation>
+        <translation>Horisontal Skalering:</translation>
     </message>
     <message>
         <source>Vertical Scaling:</source>
-        <translation type="unfinished">Vertikal skalering</translation>
+        <translation>Vertikal Skalering:</translation>
     </message>
     <message>
         <source>Scale Picture to Frame Size</source>
-        <translation type="unfinished">Skaler bilde til rammestørrelse</translation>
+        <translation>Skaler Bilde til Rammestørrelse</translation>
     </message>
     <message>
         <source>Keep Aspect Ratio</source>
-        <translation type="unfinished">Behold høyde/bredde forhold</translation>
+        <translation>Behold høyde/bredde forhold</translation>
     </message>
     <message>
         <source>Corners:</source>
-        <translation type="unfinished">Hjørner:</translation>
+        <translation>Hjørner:</translation>
     </message>
     <message>
         <source>Rotation:</source>
-        <translation type="unfinished">Rotasjon:</translation>
+        <translation>Rotasjon:</translation>
     </message>
     <message>
         <source>Convex Polygon</source>
-        <translation type="unfinished">Konveks Polygon</translation>
+        <translation>Konveks Polygon</translation>
     </message>
     <message>
         <source>Factor:</source>
-        <translation type="unfinished">Faktor:</translation>
+        <translation>Faktor:</translation>
     </message>
     <message>
         <source>Other Options</source>
-        <translation type="unfinished">Andre innstillinger</translation>
+        <translation>Andre innstillinger</translation>
     </message>
     <message>
         <source>Save Contents on Changes</source>
-        <translation type="unfinished">Lagre innhold ved avslutning</translation>
+        <translation>Lagre Innhold ved Forandringer</translation>
     </message>
     <message>
         <source>Preview</source>
-        <translation type="unfinished">Forhåndsvis</translation>
+        <translation>Forhåndsvis</translation>
     </message>
     <message>
         <source>Small</source>
-        <translation type="unfinished">Liten</translation>
+        <translation>Liten</translation>
     </message>
     <message>
         <source>Medium</source>
-        <translation type="unfinished">Medium</translation>
+        <translation>Medium</translation>
     </message>
     <message>
         <source>Big</source>
-        <translation type="unfinished">Stor</translation>
+        <translation>Stor</translation>
     </message>
     <message>
         <source>Display Pages Side by Side</source>
-        <translation type="unfinished">Vis sider ved siden av hverandre</translation>
+        <translation>Vis Sider ved siden av hverandre</translation>
     </message>
     <message>
         <source>Page-Colors</source>
-        <translation type="unfinished">Sidefarger</translation>
+        <translation>Sidefarger</translation>
     </message>
     <message>
         <source>Background:</source>
-        <translation type="unfinished">Bakgrunn:</translation>
+        <translation>Bakgrunn:</translation>
     </message>
     <message>
         <source>Margins:</source>
-        <translation type="unfinished">Marger:</translation>
+        <translation>Marger:</translation>
     </message>
     <message>
         <source>Display Unprintable Area in Margin Color</source>
-        <translation type="unfinished">Vis område som ikke kan utskrives i margin farge</translation>
+        <translation>Vis område som ikke kan utskrives i margin farge</translation>
     </message>
     <message>
         <source>Use PDF-1.4 Transparency Features</source>
-        <translation type="unfinished">Bruk PDF-1.4 Transparent egenskaper</translation>
+        <translation>Bruk PDF-1.4 Transparent egenskaper</translation>
     </message>
     <message>
         <source>Adjust Display Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Juster Visningsstørrelse</translation>
     </message>
     <message>
         <source>To adjust the display drag the ruler below with the Slider.</source>
-        <translation type="unfinished"></translation>
+        <translation>For å justere viningen trekk linealen nedenfor med Trekkeren.</translation>
     </message>
     <message>
         <source>Postscript Interpreter</source>
-        <translation type="unfinished"></translation>
+        <translation>Postscript Interpreter</translation>
     </message>
     <message>
         <source>Name of executable:</source>
-        <translation type="unfinished"></translation>
+        <translation>Navn for utførbar fil:</translation>
     </message>
     <message>
         <source>Antialias Text</source>
-        <translation type="unfinished">Antialias tekst</translation>
+        <translation>Antialias Tekst</translation>
     </message>
     <message>
         <source>Antialias Graphics</source>
-        <translation type="unfinished">Antialias Grafikk</translation>
+        <translation>Antialias Grafikk</translation>
     </message>
     <message>
         <source>Image Processing Tool</source>
-        <translation type="unfinished"></translation>
+        <translation>Bildebehandlingsverktøy</translation>
     </message>
     <message>
         <source>Printing</source>
-        <translation type="unfinished">Skriver ut</translation>
+        <translation>Skriver ut</translation>
     </message>
     <message>
         <source>Clip to Page Margins</source>
-        <translation type="unfinished">Skjul marg</translation>
+        <translation>Klipp til Side Marger</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">Greit</translation>
+        <translation>Greit</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Avbryt</translation>
+        <translation>Avbryt</translation>
     </message>
     <message>
         <source>Choose the default window decoration and looks.
 Scribus inherits any available KDE or Qt themes</source>
-        <translation type="unfinished"></translation>
+        <translation>Velg standard vinduesdekorasjon.
+Scribus kan bruke alle KDE eller Qt temaer</translation>
     </message>
     <message>
         <source>Default font size for the menus and windows</source>
-        <translation type="unfinished"></translation>
+        <translation>Standard font størrelse for menzer og vinduer</translation>
     </message>
     <message>
         <source>Default unit of measurement for document editing</source>
-        <translation type="unfinished">Standard enhet for måling ved dokument redigering</translation>
+        <translation>Standard enhet for måling ved dokument redigering</translation>
     </message>
     <message>
         <source>Number of lines Scribus will scroll for each move of the mouse wheel</source>
-        <translation type="unfinished"></translation>
+        <translation>Antall linjer Scribus vil scrolle for hver bevägelse med mushjulet</translation>
     </message>
     <message>
         <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
-        <translation type="unfinished"></translation>
+        <translation>Radius for område der Scribus vil la deg fange handles for et objekt</translation>
     </message>
     <message>
         <source>Number of recently edited documents to show in the File menu</source>
-        <translation type="unfinished"></translation>
+        <translation>Antall nylig redigerte filer vist i fil menyen</translation>
     </message>
     <message>
         <source>Default documents directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Standard dokument katalog</translation>
     </message>
     <message>
         <source>Default ICC profiles directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Standard ICC profil katalog</translation>
     </message>
     <message>
         <source>Default Scripter scripts directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Standard Scripter script folder</translation>
     </message>
     <message>
         <source>Default page size, either a standard size or a custom size</source>
-        <translation type="unfinished"></translation>
+        <translation>Standard Dokument side størrelse, enten en standard størrelse eller en brukerdefinert størrelse</translation>
     </message>
     <message>
         <source>Default orientation of document pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Standard retning for dokumentets sider</translation>
     </message>
     <message>
         <source>Width of document pages, editable if you have chosen a custom page size</source>
-        <translation type="unfinished"></translation>
+        <translation>Bredde av dokumentets sider, kun redigerbar hvis du har valgt en brukerdefinert sidestørrelse</translation>
     </message>
     <message>
         <source>Height of document pages, editable if you have chosen a custom page size</source>
-        <translation type="unfinished"></translation>
+        <translation>Høyde av dokumentets sider, kun redigerbar hvis du har valgt en brukerdefinert sidestørrelse</translation>
     </message>
     <message>
         <source>Enable single or spread based layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiver singel eller spredt basert layout</translation>
     </message>
     <message>
         <source>Make the first page the left page of a document</source>
-        <translation type="unfinished"></translation>
+        <translation>Lag første side venstre side av dokumentet</translation>
     </message>
     <message>
         <source>Distance between the top margin guide and the edge of the page</source>
-        <translation type="unfinished"></translation>
+        <translation>Avstanden mellom topp margen guiden og sidens rand</translation>
     </message>
     <message>
         <source>Distance between the bottom margin guide and the edge of the page</source>
-        <translation type="unfinished"></translation>
+        <translation>Avstand mellom bunn margen guiden og sidens rand</translation>
     </message>
     <message>
         <source>Distance between the left margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="unfinished"></translation>
+        <translation>Avstand mellom venstre margen guiden og sidens rand.
+Hvis Motstående Sider er markert kan denne brukes til å få til den korrekte marg for binding</translation>
     </message>
     <message>
         <source>Distance between the right margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="unfinished">Avstand mellom høyre margen guiden og sidens rand.
+        <translation>Avstand mellom høyre margen guiden og sidens rand.
 Hvis Motstående Sider er markert kan denne brukes til å få til den korrekte marg for binding</translation>
     </message>
     <message>
         <source>When enabled, Scribus saves a backup copy of your file with the .bak extension
 each time the time period elapses</source>
-        <translation type="unfinished"></translation>
+        <translation>Hvis slått på, Scribus lager en backup kopi av din fil med navnet *.bak hver
+gang tidsperioden render ut</translation>
     </message>
     <message>
         <source>Time period between saving automatically</source>
-        <translation type="unfinished"></translation>
+        <translation>Tidsperiode mellom automatiske lagringer</translation>
     </message>
     <message>
         <source>Distance between the minor grid lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Avstand mellom gitter linjer</translation>
     </message>
     <message>
         <source>Distance between the major grid lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Avstand mellom hoved-gitterlinjer</translation>
     </message>
     <message>
         <source>Distance within which an object will snap to your placed guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Maksimum avstand for når et objekt vil legge seg på plasseringsguidene</translation>
     </message>
     <message>
         <source>Color of the minor grid lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Farge for gitterlinjer</translation>
     </message>
     <message>
         <source>Color of the major grid lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Farge for hoved-gitterlinjer</translation>
     </message>
     <message>
         <source>Color of the guide lines you insert</source>
-        <translation type="unfinished"></translation>
+        <translation>Farge for guide linjer du innsetter</translation>
     </message>
     <message>
         <source>Place the grid behind your page objects</source>
-        <translation type="unfinished"></translation>
+        <translation>Legg gitter bak dine side objekter</translation>
     </message>
     <message>
         <source>Place the grid in front of your page objects</source>
-        <translation type="unfinished"></translation>
+        <translation>Legg gitter foran dine side objekter</translation>
     </message>
     <message>
         <source>Turns on the basegrid</source>
-        <translation type="unfinished"></translation>
+        <translation>Vis Baseline Gitter</translation>
     </message>
     <message>
         <source>Turns off the basegrid</source>
-        <translation type="unfinished"></translation>
+        <translation>Skjul Baseline Gitter</translation>
     </message>
     <message>
         <source>Displacement above the baseline of the font on a line</source>
-        <translation type="unfinished"></translation>
+        <translation>Forskyvning over bunnlinjen for en font på en linje</translation>
     </message>
     <message>
         <source>Relative size of the superscript compared to the normal font</source>
-        <translation type="unfinished"></translation>
+        <translation>Realativ størrelse av opphøyet skrift i forhold til normal font</translation>
     </message>
     <message>
         <source>Displacement below the baseline of the normal font on a line</source>
-        <translation type="unfinished"></translation>
+        <translation>Forskyvning under bunnlinjen for en font på en linje</translation>
     </message>
     <message>
         <source>Relative size of the subscript compared to the normal font</source>
-        <translation type="unfinished"></translation>
+        <translation>Realativ størrelse av subscript skrift i forhold til normal font</translation>
     </message>
     <message>
         <source>Relative size of the small caps font compared to the normal font</source>
-        <translation type="unfinished"></translation>
+        <translation>Realativ størrelse av small caps i forhold til normal font</translation>
     </message>
     <message>
         <source>Percentage increase over the font size for the line spacing</source>
@@ -10397,43 +10411,43 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>Polygon Drawing Properties</source>
-        <translation type="unfinished">Polygon egenskaper</translation>
+        <translation>Polygon Tegne Egenskaper</translation>
     </message>
     <message>
         <source>Font for new text frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Font for nye tekst frames</translation>
     </message>
     <message>
         <source>Size of font for new text frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Størrelse for font for nye tekst frames</translation>
     </message>
     <message>
         <source>Color of font</source>
-        <translation type="unfinished"></translation>
+        <translation>Fontfarge</translation>
     </message>
     <message>
         <source>Number of columns in a text frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Antall kolonner i en tekst frame</translation>
     </message>
     <message>
         <source>Gap between text frame columns</source>
-        <translation type="unfinished"></translation>
+        <translation>Løkke mellom tekst frame kolonner</translation>
     </message>
     <message>
         <source>Sample of your font</source>
-        <translation type="unfinished"></translation>
+        <translation>Eksemple på fonten din</translation>
     </message>
     <message>
         <source>Picture frames allow pictures to scale to any size</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilde frame tillater bilder å skalere til enhver størrelse</translation>
     </message>
     <message>
         <source>Horizontal scaling of images</source>
-        <translation type="unfinished">Horisontal skalering</translation>
+        <translation>Horisontal skalering av bilder</translation>
     </message>
     <message>
         <source>Vertical scaling of images</source>
-        <translation type="unfinished">Vertikal skalering</translation>
+        <translation>Vertikal skalering av bilder</translation>
     </message>
     <message>
         <source>Keep horizontal and vertical scaling the same</source>
@@ -10581,23 +10595,23 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>Inside:</source>
-        <translation type="unfinished">Innenfor:</translation>
+        <translation>Innenfor:</translation>
     </message>
     <message>
         <source>Outside:</source>
-        <translation type="unfinished"></translation>
+        <translation>Utenfor:</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation type="unfinished">mm</translation>
+        <translation>mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation type="unfinished">in</translation>
+        <translation>in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation type="unfinished">p</translation>
+        <translation>p</translation>
     </message>
 </context>
 <context>
@@ -11021,243 +11035,243 @@ Sjekk sti og filnavn.</translation>
     </message>
     <message>
         <source>&amp;Fonts Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Fonter Forhåndsvisning</translation>
     </message>
     <message>
         <source>&amp;Insert Special</source>
-        <translation type="unfinished"></translation>
+        <translation>Sett &amp;Inn Spesielt</translation>
     </message>
     <message>
         <source>New &amp;from Template...</source>
-        <translation type="unfinished"></translation>
+        <translation>Ny &amp;fra Template...</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ny</translation>
     </message>
     <message>
         <source>Newsletters</source>
-        <translation type="unfinished"></translation>
+        <translation>Nyhetsbrev</translation>
     </message>
     <message>
         <source>Brochures</source>
-        <translation type="unfinished"></translation>
+        <translation>Brosjurer</translation>
     </message>
     <message>
         <source>Catalogs</source>
-        <translation type="unfinished"></translation>
+        <translation>Kataloger</translation>
     </message>
     <message>
         <source>Flyers</source>
-        <translation type="unfinished"></translation>
+        <translation>Løpesedler</translation>
     </message>
     <message>
         <source>Signs</source>
-        <translation type="unfinished"></translation>
+        <translation>Tegn</translation>
     </message>
     <message>
         <source>Cards</source>
-        <translation type="unfinished"></translation>
+        <translation>Kort</translation>
     </message>
     <message>
         <source>Letterheads</source>
-        <translation type="unfinished"></translation>
+        <translation>Letterheads</translation>
     </message>
     <message>
         <source>Envelopes</source>
-        <translation type="unfinished"></translation>
+        <translation>Konvoluter</translation>
     </message>
     <message>
         <source>Business Cards</source>
-        <translation type="unfinished"></translation>
+        <translation>Business Cards</translation>
     </message>
     <message>
         <source>Calendars</source>
-        <translation type="unfinished"></translation>
+        <translation>Kalendere</translation>
     </message>
     <message>
         <source>Advertisements</source>
-        <translation type="unfinished"></translation>
+        <translation>Annonser</translation>
     </message>
     <message>
         <source>Labels</source>
-        <translation type="unfinished"></translation>
+        <translation>Labeler</translation>
     </message>
     <message>
         <source>Menus</source>
-        <translation type="unfinished">Menyer</translation>
+        <translation>Menyer</translation>
     </message>
     <message>
         <source>Programs</source>
-        <translation type="unfinished"></translation>
+        <translation>Programmer</translation>
     </message>
     <message>
         <source>PDF Forms</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF Skjemaer</translation>
     </message>
     <message>
         <source>PDF Presentations</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF Presentasjoner</translation>
     </message>
     <message>
         <source>Magazines</source>
-        <translation type="unfinished"></translation>
+        <translation>Magasiner</translation>
     </message>
     <message>
         <source>Posters</source>
-        <translation type="unfinished"></translation>
+        <translation>Plakater</translation>
     </message>
     <message>
         <source>Announcements</source>
-        <translation type="unfinished"></translation>
+        <translation>Beskjeder</translation>
     </message>
     <message>
         <source>Text Documents</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekst Dokumenter</translation>
     </message>
     <message>
         <source>Folds</source>
-        <translation type="unfinished"></translation>
+        <translation>Foldere</translation>
     </message>
     <message>
         <source>Own Templates</source>
-        <translation type="unfinished"></translation>
+        <translation>Egne Templates</translation>
     </message>
     <message>
         <source>Save as &amp;Image...</source>
-        <translation type="unfinished"></translation>
+        <translation>Lagre som B&amp;Ilde...</translation>
     </message>
     <message>
         <source>Save as Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Lagre som Bilder</translation>
     </message>
     <message>
         <source>Error writting the output file(s).</source>
-        <translation type="unfinished"></translation>
+        <translation>Feil ved skriving av output filen(e).</translation>
     </message>
     <message>
         <source>Error writing the output file(s).</source>
-        <translation type="unfinished"></translation>
+        <translation>Feil ved skriving av output filen(e).</translation>
     </message>
     <message>
         <source>Export successful.</source>
-        <translation type="unfinished"></translation>
+        <translation>Eksportering gjennomført uten problemer.</translation>
     </message>
     <message>
         <source>File exists. Overwrite?</source>
-        <translation type="unfinished"></translation>
+        <translation>Filen eksiterer. Erstatt?</translation>
     </message>
     <message>
         <source>exists already. Overwrite?</source>
-        <translation type="unfinished"></translation>
+        <translation>finnes allerede. Erstatt?</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished">Nei</translation>
+        <translation>Nei</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished">Ja</translation>
+        <translation>Ja</translation>
     </message>
     <message>
         <source>Yes all</source>
-        <translation type="unfinished"></translation>
+        <translation>Ja alle</translation>
     </message>
     <message>
         <source>Print Previe&amp;w</source>
-        <translation type="unfinished"></translation>
+        <translation>Utskriftsforhånds&amp;visning</translation>
     </message>
     <message>
         <source>&amp;Print...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Skriv ut...</translation>
     </message>
     <message>
         <source>Import &amp;EPS/PS...</source>
-        <translation type="unfinished"></translation>
+        <translation>Importer &amp;EPS/PS...</translation>
     </message>
     <message>
         <source>All Supported Formats (*.eps *.EPS *.ps *.PS);;</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle støttede Formater (*.eps *.EPS *.ps *.PS);;</translation>
     </message>
     <message>
         <source>All Files (*)</source>
-        <translation type="unfinished">Alle Filer (*)</translation>
+        <translation>Alle Filer (*)</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation type="unfinished">Åpne</translation>
+        <translation>Åpne</translation>
     </message>
     <message>
         <source>Save as &amp;Template...</source>
-        <translation type="unfinished"></translation>
+        <translation>LAgre som &amp;Template...</translation>
     </message>
     <message>
         <source>Save &amp;As...</source>
-        <translation type="unfinished"></translation>
+        <translation>L&amp;agre som...</translation>
     </message>
     <message>
         <source>Oook! You&apos;re calling an object doesn&apos;t exist!</source>
-        <translation type="unfinished"></translation>
+        <translation>Oook! Du kaller et objekt som ikke eksisterer!</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to erase an object doesn&apos;t exist!</source>
-        <translation type="unfinished"></translation>
+        <translation>Oook! Du prøver å slette et objekt som ikke eksisterer!</translation>
     </message>
     <message>
         <source>Oook! An object you&apos;re trying to textflow doesn&apos;t exist!</source>
-        <translation type="unfinished"></translation>
+        <translation>Oook! Et objekt du prøver å tekstflowe eksisterer ikke!</translation>
     </message>
     <message>
         <source>S&amp;cripter Manual...</source>
-        <translation type="unfinished"></translation>
+        <translation>S&amp;cripter Manual...</translation>
     </message>
     <message>
         <source>&amp;Scribus Scripts</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Scribus Scripts</translation>
     </message>
     <message>
         <source>&amp;Execute Script...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Utfør Script...</translation>
     </message>
     <message>
         <source>&amp;Recent Scripts</source>
-        <translation type="unfinished"></translation>
+        <translation>Nylig b&amp;rukte Scripts</translation>
     </message>
     <message>
         <source>Show &amp;Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Vis &amp;Konsole</translation>
     </message>
     <message>
         <source>S&amp;cript</source>
-        <translation type="unfinished">Skript:</translation>
+        <translation>S&amp;cript</translation>
     </message>
     <message>
         <source>Online Reference</source>
-        <translation type="unfinished">Henter innstillinger</translation>
+        <translation>Online Referanse</translation>
     </message>
     <message>
         <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation type="unfinished">JavaScripts (*.js);; Alle filer (*)</translation>
+        <translation>Python Scripts (*.py);; Alle filer (*)</translation>
     </message>
     <message>
         <source>Save Page as &amp;SVG...</source>
-        <translation type="unfinished"></translation>
+        <translation>Lagre Side som &amp;SVG...</translation>
     </message>
     <message>
         <source>Save as</source>
-        <translation type="unfinished">Lagre som</translation>
+        <translation>Lagre som</translation>
     </message>
     <message>
         <source>SVG-Images (*.svg *.svgz);;All Files (*)</source>
-        <translation type="unfinished">SVG-bilde (*.svg);; Alle Filer (*)</translation>
+        <translation>SVG-Bilder (*.svg ·svgz);;Alle Filer (*)</translation>
     </message>
     <message>
         <source>SVG-Images (*.svg);;All Files (*)</source>
-        <translation type="unfinished">SVG-bilde (*.svg);; Alle Filer (*)</translation>
+        <translation>SVG-Bilder (*.svg);; Alle Filer (*)</translation>
     </message>
     <message>
         <source>Import &amp;SVG...</source>
-        <translation type="unfinished"></translation>
+        <translation>Importer &amp;SVG...</translation>
     </message>
 </context>
 <context>
@@ -12416,167 +12430,167 @@ Hvis Motstående Sider er markert kan denne brukes til å få til den korrekte m
     </message>
     <message>
         <source>&amp;Color Management...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Farge Management...</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ny</translation>
     </message>
     <message>
         <source>&amp;Open...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Åpne...</translation>
     </message>
     <message>
         <source>Open &amp;Recent</source>
-        <translation type="unfinished"></translation>
+        <translation>Åpne Nylig B&amp;rukt</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished">&amp;Lukk</translation>
+        <translation>&amp;Lukk</translation>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Lagre</translation>
     </message>
     <message>
         <source>Save &amp;As...</source>
-        <translation type="unfinished"></translation>
+        <translation>L&amp;agre Som...</translation>
     </message>
     <message>
         <source>Re&amp;vert to Saved</source>
-        <translation type="unfinished"></translation>
+        <translation>Re&amp;verter til Lagret</translation>
     </message>
     <message>
         <source>Collect for O&amp;utput...</source>
-        <translation type="unfinished"></translation>
+        <translation>Sammel for O&amp;utput...</translation>
     </message>
     <message>
         <source>&amp;Get Text/Picture...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Få Tekst/Bilde...</translation>
     </message>
     <message>
         <source>Append &amp;Text...</source>
-        <translation type="unfinished"></translation>
+        <translation>Legg til &amp;Tekst...</translation>
     </message>
     <message>
         <source>Insert &amp;Page...</source>
-        <translation type="unfinished"></translation>
+        <translation>Se&amp;tt Inn Side...</translation>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Importer</translation>
     </message>
     <message>
         <source>Save &amp;Text...</source>
-        <translation type="unfinished"></translation>
+        <translation>Lagre &amp;Tekst...</translation>
     </message>
     <message>
         <source>Save Page as &amp;EPS...</source>
-        <translation type="unfinished"></translation>
+        <translation>Lagre Side som &amp;EPS...</translation>
     </message>
     <message>
         <source>Save as P&amp;DF...</source>
-        <translation type="unfinished"></translation>
+        <translation>Lagre som P&amp;DF...</translation>
     </message>
     <message>
         <source>&amp;Export</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Eksporter</translation>
     </message>
     <message>
         <source>Document &amp;Info...</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokument &amp;Info...</translation>
     </message>
     <message>
         <source>Document &amp;Setup...</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokument Inn&amp;stillinger...</translation>
     </message>
     <message>
         <source>&amp;Print...</source>
-        <translation type="unfinished"></translation>
+        <translation>Skriv &amp;ut...</translation>
     </message>
     <message>
         <source>&amp;Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>Avs&amp;lutt</translation>
     </message>
     <message>
         <source>&amp;Undo</source>
-        <translation type="unfinished"></translation>
+        <translation>Fortr&amp;yd</translation>
     </message>
     <message>
         <source>Cu&amp;t</source>
-        <translation type="unfinished"></translation>
+        <translation>Kli&amp;pp</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kopier</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
-        <translation type="unfinished"></translation>
+        <translation>S&amp;ett Inn</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation type="unfinished"></translation>
+        <translation>T&amp;øm</translation>
     </message>
     <message>
         <source>Select &amp;All</source>
-        <translation type="unfinished"></translation>
+        <translation>Marker &amp;Alt</translation>
     </message>
     <message>
         <source>&amp;Search/Replace...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Søk/Erstatt...</translation>
     </message>
     <message>
         <source>C&amp;olors...</source>
-        <translation type="unfinished"></translation>
+        <translation>Far&amp;ger...</translation>
     </message>
     <message>
         <source>&amp;Paragraph Styles...</source>
-        <translation type="unfinished"></translation>
+        <translation>A&amp;vsnitt Stiler...</translation>
     </message>
     <message>
         <source>&amp;Line Styles...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Linje Stiler...</translation>
     </message>
     <message>
         <source>&amp;Templates...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Templates...</translation>
     </message>
     <message>
         <source>&amp;Javascripts...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Javascripts...</translation>
     </message>
     <message>
         <source>D&amp;uplicate</source>
-        <translation type="unfinished"></translation>
+        <translation>D&amp;upliker</translation>
     </message>
     <message>
         <source>&amp;Multiple Duplicate</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Flere Duplikasjoner</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>F&amp;jern</translation>
     </message>
     <message>
         <source>&amp;Group</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Grupper</translation>
     </message>
     <message>
         <source>&amp;Ungroup</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;U-grupper</translation>
     </message>
     <message>
         <source>&amp;Lock</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Låss</translation>
     </message>
     <message>
         <source>Send to &amp;Back</source>
-        <translation type="unfinished"></translation>
+        <translation>Send til &amp;Bakgrunn</translation>
     </message>
     <message>
         <source>Bring to &amp;Front</source>
-        <translation type="unfinished"></translation>
+        <translation>Ta til &amp;Forgrunn</translation>
     </message>
     <message>
         <source>&amp;Lower</source>
@@ -13347,7 +13361,7 @@ til vinduet nedenunder, for at lage en ny side.</translation>
     </message>
     <message>
         <source>Insert Special</source>
-        <translation>Sett inn Spesiell</translation>
+        <translation type="obsolete">Sett inn Spesiell</translation>
     </message>
     <message>
         <source>Do you really want to lose all your Changes?</source>
@@ -13371,15 +13385,19 @@ til vinduet nedenunder, for at lage en ny side.</translation>
     </message>
     <message>
         <source>Save Document</source>
-        <translation type="unfinished"></translation>
+        <translation>Lagre Dokument</translation>
     </message>
     <message>
         <source>Update Text Frame and Exit</source>
-        <translation type="unfinished"></translation>
+        <translation>Oppdater Tekst Vindue og Avslutt</translation>
     </message>
     <message>
         <source>Exit Without Updating Text Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Avslutt uten å Oppdatere Tekst Vinduet</translation>
+    </message>
+    <message>
+        <source>&amp;Insert Special</source>
+        <translation>Sett &amp;Inn Spesielt</translation>
     </message>
 </context>
 <context>
@@ -13565,7 +13583,7 @@ Velg vennligst et annet.</translation>
     </message>
     <message>
         <source>Group </source>
-        <translation type="unfinished"></translation>
+        <translation>Gruppe</translation>
     </message>
 </context>
 <context>
@@ -13640,7 +13658,7 @@ Velg vennligst et annet.</translation>
     </message>
     <message>
         <source>Do measurements</source>
-        <translation type="unfinished"></translation>
+        <translation>Gjennomfør målinger</translation>
     </message>
 </context>
 <context>
@@ -13690,153 +13708,153 @@ Velg vennligst et annet.</translation>
     <name>ZAuswahl</name>
     <message>
         <source>Select Character:</source>
-        <translation type="unfinished">Velg Tegn</translation>
+        <translation>Velg Tegn:</translation>
     </message>
     <message>
         <source>Insert</source>
-        <translation type="unfinished">Sett inn</translation>
+        <translation>Sett inn</translation>
     </message>
     <message>
         <source>Clear</source>
-        <translation type="unfinished">Tøm</translation>
+        <translation>Tøm</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Lukk</translation>
+        <translation>Lukk</translation>
     </message>
     <message>
         <source>Insert the characters at the cursor in the text</source>
-        <translation type="unfinished"></translation>
+        <translation>Sett inn tegn ved cursorens posisjon i teksten</translation>
     </message>
     <message>
         <source>Delete the current selection(s).</source>
-        <translation type="unfinished"></translation>
+        <translation>Fjern det valgte.</translation>
     </message>
     <message>
         <source>Close this dialog and return to text editing.</source>
-        <translation type="unfinished"></translation>
+        <translation>Lukk denne dialog og gå tilbake til teksteditering.</translation>
     </message>
 </context>
 <context>
     <name>nftdialog</name>
     <message>
         <source>New From Template</source>
-        <translation type="unfinished"></translation>
+        <translation>Ny Fra Template</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">Greit</translation>
+        <translation>Greit</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Avbryt</translation>
+        <translation>Avbryt</translation>
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished">Alle</translation>
+        <translation>Alle</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Navn</translation>
     </message>
     <message>
         <source>Page Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Side Størrelse</translation>
     </message>
     <message>
         <source>Colors</source>
-        <translation type="unfinished">Farger</translation>
+        <translation>Farger</translation>
     </message>
     <message>
         <source>Description</source>
-        <translation type="unfinished"></translation>
+        <translation>Beskrivelse</translation>
     </message>
     <message>
         <source>Usage</source>
-        <translation type="unfinished"></translation>
+        <translation>Bruk</translation>
     </message>
     <message>
         <source>Created with</source>
-        <translation type="unfinished"></translation>
+        <translation>Laget med</translation>
     </message>
     <message>
         <source>Author</source>
-        <translation type="unfinished"></translation>
+        <translation>Forfatter</translation>
     </message>
 </context>
 <context>
     <name>satdialog</name>
     <message>
         <source>Save as Template</source>
-        <translation type="unfinished"></translation>
+        <translation>Lagre som Template</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Navn</translation>
     </message>
     <message>
         <source>Category</source>
-        <translation type="unfinished"></translation>
+        <translation>Kategori</translation>
     </message>
     <message>
         <source>Page Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Side Størrelse</translation>
     </message>
     <message>
         <source>Colors</source>
-        <translation type="unfinished">Farger</translation>
+        <translation>Farger</translation>
     </message>
     <message>
         <source>Description</source>
-        <translation type="unfinished"></translation>
+        <translation>Beskrivelse</translation>
     </message>
     <message>
         <source>Usage</source>
-        <translation type="unfinished"></translation>
+        <translation>Bruk</translation>
     </message>
     <message>
         <source>Author</source>
-        <translation type="unfinished"></translation>
+        <translation>Forfatter</translation>
     </message>
     <message>
         <source>Email</source>
-        <translation type="unfinished"></translation>
+        <translation>Epost</translation>
     </message>
     <message>
         <source>More Details</source>
-        <translation type="unfinished"></translation>
+        <translation>Flere Detaljer</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">Greit</translation>
+        <translation>Greit</translation>
     </message>
     <message>
         <source>Less Details</source>
-        <translation type="unfinished"></translation>
+        <translation>Færre Detaljer</translation>
     </message>
     <message>
         <source>Legal</source>
-        <translation type="unfinished"></translation>
+        <translation>US Legal</translation>
     </message>
     <message>
         <source>Letter</source>
-        <translation type="unfinished"></translation>
+        <translation>US Letter</translation>
     </message>
     <message>
         <source>Tabloid</source>
-        <translation type="unfinished"></translation>
+        <translation>US Tabloid</translation>
     </message>
     <message>
         <source>landscape</source>
-        <translation type="unfinished"></translation>
+        <translation>liggende</translation>
     </message>
     <message>
         <source>portrait</source>
-        <translation type="unfinished"></translation>
+        <translation>stående</translation>
     </message>
     <message>
         <source>custom</source>
-        <translation type="unfinished"></translation>
+        <translation>brukerdefinert</translation>
     </message>
 </context>
 </TS>

@@ -1183,8 +1183,10 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 									hl = ite->Ptext.at(d);
 									if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(9)) || (hl->ch == QChar(28)))
 										continue;
+									if (hl->cstyle & 256)
+										continue;
 									if (hl->yp == 0)
-										break;
+										continue;
 									tsz = hl->csize;
 									chx = hl->ch;
 									if (hl->ch == QChar(29))
@@ -1664,8 +1666,10 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 							hl = c->Ptext.at(d);
 							if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(9)) || (hl->ch == QChar(28)))
 								continue;
+							if (hl->cstyle & 256)
+								continue;
 							if (hl->yp == 0)
-								break;
+								continue;
 							tsz = hl->csize;
 							chx = hl->ch;
 							if (hl->ch == QChar(29))

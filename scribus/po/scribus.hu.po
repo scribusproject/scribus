@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2004-06-11 12:21+0200\n"
+"POT-Creation-Date: 2004-06-18 00:23+0200\n"
 "PO-Revision-Date: 2003-07-16\n"
 "Last-Translator: NAGY Bence <gimb@freemail.hu>\n"
 "Content-Type: text/plain; charset=iso-8859-2\n"
@@ -4016,7 +4016,8 @@ msgstr "Eszközök"
 msgid "Do you want to save your changes?"
 msgstr ""
 
-msgid "Insert Special"
+#, fuzzy
+msgid "&Insert Special"
 msgstr "Speciális karakterek"
 
 #, fuzzy
@@ -5094,10 +5095,6 @@ msgid ""
 msgstr ""
 
 #, fuzzy
-msgid "&Insert Special"
-msgstr "Speciális karakterek"
-
-#, fuzzy
 msgid "Select Character:"
 msgstr "Karakter kiválasztása"
 
@@ -5527,6 +5524,9 @@ msgstr "Saját"
 #, fuzzy
 msgid "Save as &Template..."
 msgstr "Szöveg mentése..."
+
+#~ msgid "Insert Special"
+#~ msgstr "Speciális karakterek"
 
 #~ msgid "Show Measurements"
 #~ msgstr "Méretek mutatása"

@@ -9306,7 +9306,7 @@ povlecite predlogo na delovno področje spodaj.</translation>
     </message>
     <message>
         <source>Insert Special</source>
-        <translation>Vstavi posebej</translation>
+        <translation type="obsolete">Vstavi posebej</translation>
     </message>
     <message>
         <source>Save Document</source>
@@ -9327,6 +9327,10 @@ povlecite predlogo na delovno področje spodaj.</translation>
     <message>
         <source>Update Text Frame</source>
         <translation>Posodobi okvir z besedilom</translation>
+    </message>
+    <message>
+        <source>&amp;Insert Special</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

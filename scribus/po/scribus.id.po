@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 1.0\n"
-"POT-Creation-Date: 2004-06-11 12:21+0200\n"
+"POT-Creation-Date: 2004-06-18 00:23+0200\n"
 "PO-Revision-Date: 2003-07-30 09:04+0700\n"
 "Last-Translator: Triyan W. Nugroho <iyan_kid@yahoo.com>\n"
 "Language-Team: Bahasa Indonesia <id@li.org>\n"
@@ -4014,7 +4014,8 @@ msgstr "Alat bantu"
 msgid "Do you want to save your changes?"
 msgstr ""
 
-msgid "Insert Special"
+#, fuzzy
+msgid "&Insert Special"
 msgstr "Masukkan Spesial"
 
 #, fuzzy
@@ -5097,10 +5098,6 @@ msgid ""
 msgstr ""
 
 #, fuzzy
-msgid "&Insert Special"
-msgstr "Masukkan Spesial"
-
-#, fuzzy
 msgid "Select Character:"
 msgstr "Pilih Karakter"
 
@@ -5529,6 +5526,9 @@ msgstr "Atur Sendiri"
 #, fuzzy
 msgid "Save as &Template..."
 msgstr "Simpan Teks..."
+
+#~ msgid "Insert Special"
+#~ msgstr "Masukkan Spesial"
 
 #~ msgid "Show Measurements"
 #~ msgstr "Tampilkan Ukuran"

@@ -9585,7 +9585,7 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>Insert Special</source>
-        <translation>Sonderzeichen einfügen</translation>
+        <translation type="obsolete">Sonderzeichen einfügen</translation>
     </message>
     <message>
         <source>Do you want to save your changes?</source>
@@ -9602,6 +9602,10 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     <message>
         <source>Save Document</source>
         <translation>Dokument speichern</translation>
+    </message>
+    <message>
+        <source>&amp;Insert Special</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

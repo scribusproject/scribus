@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: scribus\n"
-"POT-Creation-Date: 2004-06-11 12:21+0200\n"
+"POT-Creation-Date: 2004-06-18 00:23+0200\n"
 "PO-Revision-Date: 2003-12-15 23:36+0100\n"
 "Last-Translator: Hizkuntza Politikarako Sailburuordetza <hizpol@ej-gv.es>\n"
 "Language-Team: basque <itzulpena@euskalgnu.org>\n"
@@ -4037,7 +4037,7 @@ msgid "Do you want to save your changes?"
 msgstr ""
 
 #, fuzzy
-msgid "Insert Special"
+msgid "&Insert Special"
 msgstr "Txertatu laukizuzenak"
 
 #, fuzzy
@@ -5131,10 +5131,6 @@ msgid ""
 msgstr ""
 
 #, fuzzy
-msgid "&Insert Special"
-msgstr "Txertatu laukizuzenak"
-
-#, fuzzy
 msgid "Select Character:"
 msgstr "Hautatu karakterea"
 
@@ -5572,6 +5568,10 @@ msgstr "Pertsonalizatua"
 #, fuzzy
 msgid "Save as &Template..."
 msgstr "Gorde testua..."
+
+#, fuzzy
+#~ msgid "Insert Special"
+#~ msgstr "Txertatu laukizuzenak"
 
 #~ msgid "Courier"
 #~ msgstr "Courier"
