@@ -1124,7 +1124,17 @@ NoRoom:	 if (NextBox != 0)
 								break;
 								}
 							}
-						NextBox->paintObj();
+						if (NextBox->OwnPage != OwnPage)
+							{
+							QPainter px;
+							px.begin(NextBox->Parent);
+							px.translate(static_cast<int>(NextBox->Xpos*Doc->Scale), static_cast<int>(NextBox->Ypos*Doc->Scale));
+							px.scale(static_cast<double>(Doc->Scale), static_cast<double>(Doc->Scale));
+							px.rotate(static_cast<double>(NextBox->Rot));
+							px.eraseRect(0, 0, static_cast<int>(NextBox->Width), static_cast<int>(NextBox->Height));
+							px.end();
+							}
+						NextBox->paintObj(QRect(0, 0, NextBox->OwnPage->width(), NextBox->OwnPage->height()));
 						}
 					else
 						{

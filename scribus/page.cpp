@@ -482,7 +482,17 @@ void Page::DrawPageItems(QPaintEvent *e)
 					p.end();
 					if ((e->rect().intersects(apr.boundingRect())) || (e->rect().intersects(apr2.boundingRect())))
 						{
-						if (!b->Redrawn)
+						bool rd = false;
+						if (b->BackBox != 0)
+							{
+							if (b->BackBox->OwnPage == this)
+								rd = false;
+							else
+								rd = true;
+							}
+						else
+							rd = true;
+						if ((!b->Redrawn) && (rd))
 							{
 							if ((b->Transparency != 0) && (vi->Prefs->PDFTransparency))
 								DrawTransparent(b);
@@ -3669,6 +3679,8 @@ void Page::mousePressEvent(QMouseEvent *m)
 					{
 					b->NextBox = bb;
 					bb->BackBox = b;
+//					b->paintObj(QRect(0, 0, b->OwnPage->width(), b->OwnPage->height()));
+					b->OwnPage->repaint();
 					}
 				emit DocChanged();
 				}
@@ -5856,16 +5868,18 @@ void Page::DeleteItem()
 void Page::Deselect(bool prop)
 {
 	float x, y, w, h;
+	PageItem* b;
 	if (doku->ActPage->SelItem.count() != 0)
 		{
 		for (uint a = 0; a < doku->ActPage->Items.count(); ++a)
 			{
-			if ((doku->ActPage->Items.at(a)->PType == 4) && (doku->ActPage->Items.at(a)->isBookmark))
-				emit ChBMText(doku->ActPage->Items.at(a));
-			if (doku->ActPage->Items.at(a)->PType == 2)
-				AdjustPreview(doku->ActPage->Items.at(a));
-			if (doku->ActPage->Items.at(a)->Select)
-				doku->ActPage->Items.at(a)->Select = false;
+			b = doku->ActPage->Items.at(a);
+			if ((b->PType == 4) && (b->isBookmark))
+				emit ChBMText(b);
+			if (b->PType == 2)
+				AdjustPreview(b);
+			if (b->Select)
+				b->Select = false;
 			}
 		if (GroupSel)
 			{
@@ -5875,7 +5889,7 @@ void Page::Deselect(bool prop)
 			}
 		else
 			doku->ActPage->SelItem.clear();
-		update();
+		doku->ActPage->update();
 		GroupSel = false;
 		}
 	if (prop)

@@ -1,4 +1,7 @@
 Changes since Version 1.0RC1
+04.07.2003	page.cpp
+		pageitem.cpp		Fixed Redraw Issues with Text Chains.
+
 03.07.2003	Added Russian Translation.
 		cupsoptions.cpp		Added the missing Pageorientation Option.
 		scribus.cpp		Added Non Breaking Spaces, can be inserted into the Text
