@@ -206,7 +206,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 		firstC = text.find(QRegExp("\\w"), firstC+Ccount);
 		if (firstC < 0)
 			break;
-		lastC = text.find(QRegExp("\\s|\\W|\\d|\\n|\\r"), firstC);
+		lastC = text.find(QRegExp("\\s|\\W|\\d|\\n|\\r|\\t"), firstC);
 		if (lastC < 0)
 			lastC = static_cast<int>(text.length());
 		Ccount = lastC - firstC;

@@ -114,7 +114,7 @@ public:
     QLabel* SRect;
     Autoforms* SCustom;
     QLabel* Text4;
-    QSpinBox* RoundRect;
+    MSpinBox* RoundRect;
     QCheckBox* Textflow;
     QCheckBox* Textflow2;
     QToolButton* EditShape;

@@ -255,6 +255,7 @@ public:
   QValueStack<int> Groups;
 	bool InvPict;
 	QValueList<double> DashValues;
+	QValueList<double> TabValues;
 	double DashOffset;
 	VGradient fill_gradient;
 	QString Language;

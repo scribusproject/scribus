@@ -233,6 +233,8 @@ ScribusApp::ScribusApp(SplashScreen *splash)
 	  Prefs.Dwidth = 1;
 	  Prefs.DpenLine = "Black";
 	  Prefs.DpenText = "Black";
+		Prefs.DCols = 1;
+		Prefs.DGap = 0.0;
 	  Prefs.DshadeLine = 100;
 	  Prefs.DLstyleLine = SolidLine;
 	  Prefs.DwidthLine = 1;
@@ -1239,11 +1241,13 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
  									b->Dirty = true;
 									doc->ActPage->RefreshItem(b);
  									}
- 								if (((kk + KeyMod) == Prefs.KeyActions[60].KeyID) || ((kk + KeyMod) == Prefs.KeyActions[67].KeyID))
+ 								if ((kk == Key_Tab) || ((kk + KeyMod) == Prefs.KeyActions[60].KeyID) || ((kk + KeyMod) == Prefs.KeyActions[67].KeyID))
  									{
  									hg = new Pti;
 									if ((kk + KeyMod) == Prefs.KeyActions[60].KeyID)
  										hg->ch = QString(QChar(30));
+									else if (kk == Key_Tab)
+										hg->ch = QString(QChar(9));
 									else
  										hg->ch = QString(QChar(29));
  									hg->cfont = doc->CurrFont;
@@ -1509,6 +1513,8 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
  	doc->Dbrush = Prefs.Dbrush;
  	doc->Dshade = Prefs.Dshade;
  	doc->Dshade2 = Prefs.Dshade2;
+	doc->DCols = Prefs.DCols;
+	doc->DGap = Prefs.DGap;
  	doc->DLineArt = PenStyle(Prefs.DLineArt);
  	doc->Dwidth = Prefs.Dwidth;
  	doc->DpenLine = Prefs.DpenLine;
@@ -1701,7 +1707,7 @@ void ScribusApp::newActWin(QWidget *w)
 			}
 		if (doc->TemplateMode)
 			ActWin->muster->show();
-		setAppMode(doc->AppMode);
+//		setAppMode(doc->AppMode);
 		}
 	w->setFocus();
 	if (w->isMaximized())
@@ -1715,6 +1721,11 @@ void ScribusApp::newActWin(QWidget *w)
 	BookPal->BView->First = ActWin->First;
 	BookPal->BView->Last = ActWin->Last;
 	RestoreBookMarks();
+	if (doc->ActPage->SelItem.count() != 0)
+		HaveNewSel(doc->ActPage->SelItem.at(0)->PType);
+	else
+		HaveNewSel(-1);
+	setAppMode(doc->AppMode);
 }
 
 void ScribusApp::windowsMenuActivated( int id )
@@ -1863,7 +1874,7 @@ void ScribusApp::SwitchWin()
 			pageMenu->setItemEnabled(pgmv, 0);
 			}
 		if (doc->isModified())
-			slotDocCh();
+			slotDocCh(false);
 		fileMenu->setItemEnabled(fid5, 1);
 		fileMenu->setItemEnabled(fid51, 1);
 		Sepal->EnablePal();
@@ -2128,9 +2139,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		ObjMenu->setItemEnabled(DistM, 1);
 		ObjMenu->setItemEnabled(Gr, 1);
 		ObjMenu->setItemEnabled(PfadTP, 0);
-		bool hPoly = false;
-		if (b->Groups.count() == 0)
-			hPoly = true;
+		bool hPoly = true;
 		for (uint bx=0; bx<doc->ActPage->SelItem.count(); ++bx)
 			{
 			if (doc->ActPage->SelItem.at(bx)->PType != 6)
@@ -2364,6 +2373,8 @@ bool ScribusApp::LadeDoc(QString fileName)
   	doc->Dbrush = Prefs.Dbrush;
   	doc->Dshade = Prefs.Dshade;
   	doc->Dshade2 = Prefs.Dshade2;
+		doc->DCols = Prefs.DCols;
+		doc->DGap = Prefs.DGap;
   	doc->DLineArt = PenStyle(Prefs.DLineArt);
   	doc->Dwidth = Prefs.Dwidth;
   	doc->DpenLine = Prefs.DpenLine;
@@ -2764,6 +2775,7 @@ bool ScribusApp::slotFileClose()
 bool ScribusApp::DoFileClose()
 {
   uint a;
+	setAppMode(1);
   doc->ASaveTimer->stop();
 	disconnect(doc->ASaveTimer, SIGNAL(timeout()), doc->WinHan, SLOT(slotAutoSave()));
 	disconnect(doc->WinHan, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
@@ -3918,9 +3930,9 @@ void ScribusApp::setAppMode(int mode)
 		doc->AppMode = mode;
 		if (oldMode == 7)
 			{
-			disconnect(CurTimer, SIGNAL(timeout()), doc->ActPage, SLOT(BlinkCurs()));
-			CurTimer->stop();
-			delete CurTimer;
+			disconnect(doc->CurTimer, SIGNAL(timeout()), doc->ActPage, SLOT(BlinkCurs()));
+			doc->CurTimer->stop();
+			delete doc->CurTimer;
 			editMenu->setItemEnabled(edid4, 0);
 			editMenu->setItemEnabled(edid5, 0);
 			doc->ActPage->slotDoCurs(false);
@@ -3964,9 +3976,9 @@ void ScribusApp::setAppMode(int mode)
 			WerkTools->Textedit2->setOn(false);
 			doc->ActPage->slotDoCurs(true);
 			menuBar()->setItemEnabled(Obm, 0);
-			CurTimer = new QTimer(doc->ActPage);
-			connect(CurTimer, SIGNAL(timeout()), doc->ActPage, SLOT(BlinkCurs()));
-			CurTimer->start(500);
+			doc->CurTimer = new QTimer(doc->ActPage);
+			connect(doc->CurTimer, SIGNAL(timeout()), doc->ActPage, SLOT(BlinkCurs()));
+			doc->CurTimer->start(500);
 			if (b != 0)
 				{
 				if (b->HasSel)
@@ -4003,6 +4015,24 @@ void ScribusApp::setAppMode(int mode)
 			}
 		else
 			doc->SubMode = -1;
+		if (mode == 1)
+			{
+		  WerkTools->Select->setOn(true);
+			WerkTools->Rotiere->setOn(false);
+			WerkTools->Textedit->setOn(false);
+			WerkTools->Textedit2->setOn(false);
+			WerkTools->Zoom->setOn(false);
+			WerkTools->Texte->setOn(false);
+			WerkTools->BildB->setOn(false);
+			WerkTools->Rechteck->setOn(false);
+			WerkTools->Linien->setOn(false);
+			WerkTools->Polygon->setOn(false);
+			WerkTools->PolyLin->setOn(false);
+			WerkTools->KetteEin->setOn(false);
+			WerkTools->KetteAus->setOn(false);
+			WerkToolsP->PDFTool->setOn(false);
+			WerkToolsP->PDFaTool->setOn(false);
+			}
 		}
 }
 
@@ -5167,6 +5197,8 @@ void ScribusApp::slotPrefsOrg()
 			if (doc->DpenLine == tr("None"))
 				doc->DpenLine = "None";
   		doc->DshadeLine = dia->Shade22->value();
+			doc->DCols = dia->TextColVal->value();
+			doc->DGap = dia->TextGapVal->value() / UmReFaktor / 10;
 			switch (dia->Linestyle2->currentItem())
 				{
 				case 0:
@@ -5251,6 +5283,8 @@ void ScribusApp::slotPrefsOrg()
   		Prefs.DpenText = dia->ForegroundT->currentText();
 			if (Prefs.DpenText == tr("None"))
 				Prefs.DpenText = "None";
+			Prefs.DCols = dia->TextColVal->value();
+			Prefs.DGap = dia->TextGapVal->value() / UmReFaktor / 10;
   		Prefs.Dbrush = dia->Background->currentText();
 			if (Prefs.Dbrush == tr("None"))
 				Prefs.Dbrush = "None";

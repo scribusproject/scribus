@@ -122,7 +122,6 @@ class ScribusApp : public QMainWindow
     ProfilesL PDFXProfiles;
     double DispX;
     double DispY;
-    QTimer *CurTimer;
     bool NoFonts;
     int HaveDoc;
     struct preV Prefs;

@@ -135,6 +135,10 @@ public:
     QLabel* TextLabelT25;
     QLabel* TextLabelT26;
     QComboBox* Foreground;
+		QLabel* TextCol;
+		QLabel* TextGap;
+		QSpinBox* TextColVal;
+		MSpinBox* TextGapVal;
     QSpinBox* Shade2;
     QComboBox* Background;
     QSpinBox* Shade;

@@ -199,11 +199,12 @@ PageItem::PageItem(Page *pa, int art, double x, double y, double w, double h, do
 	InvPict = false;
 	NamedLStyle = "";
 	DashValues.clear();
+	TabValues.clear();
 	DashOffset = 0;
 	fill_gradient = VGradient(VGradient::linear);
 	Language = doc->Language;
-	Cols = 1;
-	ColGap = 0.0;
+	Cols = Doc->DCols;
+	ColGap = Doc->DGap;
 }
 
 /** Zeichnet das Item */
@@ -705,8 +706,28 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						}
 					hl->xp = CurX+hl->cextra;
 					hl->yp = CurY;
-//					CurY = oldCurY;
 					CurX += wide+hl->cextra;
+					if (hl->ch == QChar(9))
+						{
+						if (TabValues.isEmpty())
+							CurX = ceil(CurX / 100.0) * 100.0;
+						else
+							{
+							double tCurX = CurX;
+							double oCurX = CurX;
+							for (int yg = static_cast<int>(TabValues.count()-1); yg > -1; yg--)
+								{
+								if (CurX < TabValues[yg])
+									{
+									tCurX = TabValues[yg];
+									}
+								}
+							if (tCurX == oCurX)
+								CurX = ceil(CurX / 100.0) * 100.0;
+							else
+								CurX = tCurX;
+							}
+						}
 					pt1 = QPoint(static_cast<int>(CurX+RExtra+lineCorr), static_cast<int>(CurY+desc+BExtra+lineCorr));
 					pt2 = QPoint(static_cast<int>(CurX+RExtra+lineCorr), static_cast<int>(CurY-asce));
 					if ((!cl.contains(pf.xForm(pt1))) || (!cl.contains(pf.xForm(pt2))) || (CurX+RExtra+lineCorr > ColBound.y()))
@@ -726,7 +747,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					Zli->wide = wide;
 					Zli->kern = hl->cextra;
 					Zli->scale = hl->cscale;
-					if ((hl->ch == " ") && (!outs))
+					if (((hl->ch == " ") || (hl->ch == QChar(9))) && (!outs))
 						{
 						LastXp = hl->xp;
 						LastSP = BuPos;
@@ -1138,7 +1159,7 @@ NoRoom: if (NextBox != 0)
 				CurY = 0;
 				hl = Ptext.at(a);
 				chx = hl->ch;
-				if ((chx == QChar(30)) || (chx == QChar(13)))
+				if ((chx == QChar(30)) || (chx == QChar(13)) || (chx == QChar(9)))
 					continue;
 				chs = hl->csize;
 				SetZeichAttr(hl, &chs, &chx);
@@ -1474,6 +1495,8 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 	if (ccx == QChar(29))
 		ccx = " ";
 	if (ccx == QChar(13))
+		return;
+	if (ccx == QChar(9))
 		return;
 	double csi = static_cast<double>(hl->Siz) / 100.0;
 	uint chr = ccx[0].unicode();

@@ -786,6 +786,35 @@ while(!DOC.isNull())
 					}
 				else
 					OB.Groups.clear();
+				if ((obj.hasAttribute("NUMTAB")) && (QStoInt(obj.attribute("NUMTAB","0")) != 0))
+					{
+					tmp = obj.attribute("TABS");
+					QTextStream tgv(&tmp, IO_ReadOnly);
+					OB.TabValues.clear();
+					for (int cxv = 0; cxv < QStoInt(obj.attribute("NUMTAB","0")); ++cxv)
+						{
+						tgv >> xf;
+						OB.TabValues.append(xf);
+						}
+					tmp = "";
+					}
+				else
+					OB.TabValues.clear();
+				if ((obj.hasAttribute("NUMDASH")) && (QStoInt(obj.attribute("NUMDASH","0")) != 0))
+					{
+					tmp = obj.attribute("DASHS");
+					QTextStream dgv(&tmp, IO_ReadOnly);
+					OB.DashValues.clear();
+					for (int cxv = 0; cxv < QStoInt(obj.attribute("NUMDASH","0")); ++cxv)
+						{
+						dgv >> xf;
+						OB.DashValues.append(xf);
+						}
+					tmp = "";
+					}
+				else
+					OB.DashValues.clear();
+				OB.DashOffset = QStodouble(obj.attribute("DASHOFF","0.0"));
 				QDomNode IT=OBJ.firstChild();
 				while(!IT.isNull())
 					{
@@ -795,6 +824,7 @@ while(!DOC.isNull())
 						tmp2 = it.attribute("CH");
 						tmp2.replace(QRegExp("\r"), QChar(5));
 						tmp2.replace(QRegExp("\n"), QChar(5));
+						tmp2.replace(QRegExp("\t"), QChar(4));
 						tmf = it.attribute("CFONT", doc->Dfont);
 						if (tmf == "")
 							tmf = doc->Dfont;
@@ -946,6 +976,8 @@ while(!DOC.isNull())
 		DoFonts[Defont] = Defont;
 		}
 	doc->Dsize=qRound(QStodouble(dc.attribute("DSIZE")) * 10);
+	doc->DCols=QStoInt(dc.attribute("DCOL", "1"));
+	doc->DGap=QStodouble(dc.attribute("DGAP", "0.0"));
 	doc->DocAutor=dc.attribute("AUTHOR");
 	doc->DocComments=dc.attribute("COMMENTS");
 	doc->DocKeyWords=dc.attribute("KEYWORDS","");
@@ -1381,6 +1413,35 @@ while(!DOC.isNull())
 					}
 				else
 					OB.Groups.clear();
+				if ((obj.hasAttribute("NUMTAB")) && (QStoInt(obj.attribute("NUMTAB","0")) != 0))
+					{
+					tmp = obj.attribute("TABS");
+					QTextStream tgv(&tmp, IO_ReadOnly);
+					OB.TabValues.clear();
+					for (int cxv = 0; cxv < QStoInt(obj.attribute("NUMTAB","0")); ++cxv)
+						{
+						tgv >> xf;
+						OB.TabValues.append(xf);
+						}
+					tmp = "";
+					}
+				else
+					OB.TabValues.clear();
+				if ((obj.hasAttribute("NUMDASH")) && (QStoInt(obj.attribute("NUMDASH","0")) != 0))
+					{
+					tmp = obj.attribute("DASHS");
+					QTextStream dgv(&tmp, IO_ReadOnly);
+					OB.DashValues.clear();
+					for (int cxv = 0; cxv < QStoInt(obj.attribute("NUMDASH","0")); ++cxv)
+						{
+						dgv >> xf;
+						OB.DashValues.append(xf);
+						}
+					tmp = "";
+					}
+				else
+					OB.DashValues.clear();
+				OB.DashOffset = QStodouble(obj.attribute("DASHOFF","0.0"));
 				QDomNode IT=OBJ.firstChild();
 				while(!IT.isNull())
 				{
@@ -1390,6 +1451,7 @@ while(!DOC.isNull())
 						tmp2 = it.attribute("CH");
 						tmp2.replace(QRegExp("\r"), QChar(5));
 						tmp2.replace(QRegExp("\n"), QChar(5));
+						tmp2.replace(QRegExp("\t"), QChar(4));
 						tmf = it.attribute("CFONT", doc->Dfont);
 						if (tmf == "")
 							tmf = doc->Dfont;
@@ -1886,6 +1948,35 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			else
 				OB.Groups.clear();
 			tmp = "";
+			if ((pg.hasAttribute("NUMTAB")) && (QStoInt(pg.attribute("NUMTAB","0")) != 0))
+				{
+				tmp = pg.attribute("TABS");
+				QTextStream tgv(&tmp, IO_ReadOnly);
+				OB.TabValues.clear();
+				for (int cxv = 0; cxv < QStoInt(pg.attribute("NUMTAB","0")); ++cxv)
+					{
+					tgv >> xf;
+					OB.TabValues.append(xf);
+					}
+				tmp = "";
+				}
+			else
+				OB.TabValues.clear();
+			if ((pg.hasAttribute("NUMDASH")) && (QStoInt(pg.attribute("NUMDASH","0")) != 0))
+				{
+				tmp = pg.attribute("DASHS");
+				QTextStream dgv(&tmp, IO_ReadOnly);
+				OB.DashValues.clear();
+				for (int cxv = 0; cxv < QStoInt(pg.attribute("NUMDASH","0")); ++cxv)
+					{
+					dgv >> xf;
+					OB.DashValues.append(xf);
+					}
+				tmp = "";
+				}
+			else
+				OB.DashValues.clear();
+			OB.DashOffset = QStodouble(pg.attribute("DASHOFF","0.0"));
 			QDomNode IT=DOC.firstChild();
 			while(!IT.isNull())
 				{
@@ -1895,6 +1986,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 						tmp2 = it.attribute("CH");
 						tmp2.replace(QRegExp("\r"), QChar(5));
 						tmp2.replace(QRegExp("\n"), QChar(5));
+						tmp2.replace(QRegExp("\t"), QChar(4));
 						tmf = it.attribute("CFONT", doc->Dfont);
 						if (tmf == "")
 							tmf = doc->Dfont;
@@ -2175,6 +2267,8 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 			tsc = item->Ptext.at(k)->cscale;
 			if (item->Ptext.at(k)->ch == QChar(13))
 				text = QChar(5);
+			if (item->Ptext.at(k)->ch == QChar(9))
+				text = QChar(4);
 			else
 				text = item->Ptext.at(k)->ch;
 			k++;
@@ -2217,6 +2311,8 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 				{
 				if (item->Ptext.at(k)->ch == QChar(13))
 					text += QChar(5);
+				if (item->Ptext.at(k)->ch == QChar(9))
+					text += QChar(4);
 				else
 					text += item->Ptext.at(k)->ch;
 				k++;
@@ -2262,6 +2358,23 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 			glp += tmp.setNum((*nx)) + " ";
 			}
 		ob.setAttribute("GROUPS", glp);
+		ob.setAttribute("NUMTAB", static_cast<int>(item->TabValues.count()));
+		QString tlp = "";
+		QValueList<double>::Iterator tax;
+		for (tax = item->TabValues.begin(); tax != item->TabValues.end(); ++tax)
+			{
+			tlp += tmp.setNum((*tax)) + " ";
+			}
+		ob.setAttribute("TABS", tlp);
+		ob.setAttribute("NUMDASH", static_cast<int>(item->DashValues.count()));
+		QString dlp = "";
+		QValueList<double>::Iterator dax;
+		for (dax = item->DashValues.begin(); dax != item->DashValues.end(); ++dax)
+			{
+			dlp += tmp.setNum((*dax)) + " ";
+			}
+		ob.setAttribute("DASHS", dlp);
+		ob.setAttribute("DASHOFF", item->DashOffset);
 		ob.setAttribute("NUMPO",item->PoLine.size());
 		QString polp = "";
 		for (uint nxx=0; nxx<item->PoLine.size(); ++nxx)
@@ -2556,6 +2669,8 @@ for(uint i=0;i<view->Pages.count();++i)
 			tsc = item->Ptext.at(k)->cscale;
 			if (item->Ptext.at(k)->ch == QChar(13))
 				text = QChar(5);
+			if (item->Ptext.at(k)->ch == QChar(9))
+				text = QChar(4);
 			else
 				text = item->Ptext.at(k)->ch;
 			k++;
@@ -2598,6 +2713,8 @@ for(uint i=0;i<view->Pages.count();++i)
 				{
 				if (item->Ptext.at(k)->ch == QChar(13))
 					text += QChar(5);
+				if (item->Ptext.at(k)->ch == QChar(9))
+					text += QChar(4);
 				else
 					text += item->Ptext.at(k)->ch;
 				k++;
@@ -2636,6 +2753,23 @@ for(uint i=0;i<view->Pages.count();++i)
 			glp += tmp.setNum((*nx)) + " ";
 			}
 		ob.setAttribute("GROUPS", glp);
+		ob.setAttribute("NUMTAB", static_cast<int>(item->TabValues.count()));
+		QString tlp = "";
+		QValueList<double>::Iterator tax;
+		for (tax = item->TabValues.begin(); tax != item->TabValues.end(); ++tax)
+			{
+			tlp += tmp.setNum((*tax)) + " ";
+			}
+		ob.setAttribute("TABS", tlp);
+		ob.setAttribute("NUMDASH", static_cast<int>(item->DashValues.count()));
+		QString dlp = "";
+		QValueList<double>::Iterator dax;
+		for (dax = item->DashValues.begin(); dax != item->DashValues.end(); ++dax)
+			{
+			dlp += tmp.setNum((*dax)) + " ";
+			}
+		ob.setAttribute("DASHS", dlp);
+		ob.setAttribute("DASHOFF", item->DashOffset);
 		ob.setAttribute("NUMPO",item->PoLine.size());
 		QString polp = "";
 		for (uint nxx=0; nxx<item->PoLine.size(); ++nxx)
@@ -2701,6 +2835,8 @@ dc.setAttribute("ABSTSPALTEN",doc->PageSpa);
 dc.setAttribute("UNITS",doc->Einheit);
 dc.setAttribute("DFONT",doc->Dfont);
 dc.setAttribute("DSIZE",doc->Dsize / 10.0);
+dc.setAttribute("DCOL",doc->DCols);
+dc.setAttribute("DGAP",doc->DGap);
 dc.setAttribute("AUTHOR",doc->DocAutor);
 dc.setAttribute("COMMENTS",doc->DocComments);
 dc.setAttribute("KEYWORDS",doc->DocKeyWords);
@@ -2965,6 +3101,8 @@ void ScriXmlDoc::WritePref(preV *Vor, QString ho)
 	dc9.setAttribute("BRUSH",Vor->Dbrush);
 	dc9.setAttribute("PENLINE",Vor->DpenLine);
 	dc9.setAttribute("PENTEXT",Vor->DpenText);
+	dc9.setAttribute("TEXTCOL",Vor->DCols);
+	dc9.setAttribute("TEXTGAP",Vor->DGap);
 	dc9.setAttribute("STIL",Vor->DLineArt);
 	dc9.setAttribute("STILLINE",Vor->DLstyleLine);
 	dc9.setAttribute("WIDTH",Vor->Dwidth);
@@ -3193,6 +3331,8 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 			Vorein->Dbrush = dc.attribute("BRUSH");
 			Vorein->DpenLine = dc.attribute("PENLINE");
 			Vorein->DpenText = dc.attribute("PENTEXT");
+			Vorein->DCols = QStoInt(dc.attribute("TEXTCOL", "1"));
+			Vorein->DGap = QStodouble(dc.attribute("TEXTGAP", "0.0"));
 			Vorein->DLineArt = QStoInt(dc.attribute("STIL"));
 			Vorein->DLstyleLine = QStoInt(dc.attribute("STILLINE"));
 			Vorein->Dwidth = QStodouble(dc.attribute("WIDTH"));

@@ -34,6 +34,15 @@ MSpinBox::MSpinBox(QWidget *pa, int s):QSpinBox(pa)
 		case 2:
 			Decimals = 100;
 			Width = 2;
+			break;
+		case 3:
+			Decimals = 1000;
+			Width = 3;
+			break;
+		case 4:
+			Decimals = 10000;
+			Width = 3;
+			break;
 		default:
 			Decimals = 100;
 			Width = 2;
@@ -73,13 +82,13 @@ bool MSpinBox::eventFilter( QObject* ob, QEvent* ev )
 
 QString MSpinBox::mapValueToText(int value)
 {
-	double dez = Width == 1 ? 10.0 : 100.0;
-	return QString::number(static_cast<double>(value) / dez, 'f', Width);
+//	double dez = Width == 1 ? 10.0 : 100.0;
+	return QString::number(static_cast<double>(value) / Decimals, 'f', Width);
 }
 
 int MSpinBox::mapTextToValue(bool *)
 {
-	double dez = Width == 1 ? 10.0 : 100.0;
+//	double dez = Width == 1 ? 10.0 : 100.0;
   FunctionParser fp;
 	QString ts = text();
 	QString su = suffix();
@@ -120,7 +129,7 @@ int MSpinBox::mapTextToValue(bool *)
 	if (ret >= 0)
 		return 0;
   double erg = fp.Eval(NULL);
-	return qRound(erg*dez);
+	return qRound(erg*Decimals);
 }
 
 void MSpinBox::setDecimals(int deci)
@@ -131,6 +140,10 @@ void MSpinBox::setDecimals(int deci)
 		Width = 0;
 	if (deci > 9 && deci < 100)
 		Width = 1;
-	if (deci > 99)
+	if (deci > 99 && deci < 1000)
 		Width = 2;
+	if (deci > 999 && deci < 10000)
+		Width = 3;
+	if (deci > 9999)
+		Width = 4;
 }

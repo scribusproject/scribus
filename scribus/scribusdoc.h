@@ -177,6 +177,9 @@ struct CLBuf { int PType;
 							 QString Language;
 							 int Cols;
 							 double ColGap;
+							 QValueList<double> TabValues;
+							 QValueList<double> DashValues;
+							 double DashOffset;
 							};
 
   /** Seitenraender */
@@ -409,6 +412,8 @@ struct preV  { SCFonts AvailFonts;
 							 bool AutoSave;
 							 int AutoSaveTime;
 							 double DisScale;
+							 int DCols;
+							 double DGap;
 						 };
 /**
   * the Document Class
@@ -484,6 +489,8 @@ public:
   PenStyle DLineArt;
   QString DpenLine;
   QString DpenText;
+	int DCols;
+	double DGap;
   int DshadeLine;
   PenStyle DLstyleLine;
   double DwidthLine;
@@ -594,6 +601,7 @@ public:
 	QWidget* WinHan;
 	bool DoDrawing;
   QValueList<int> OpenNodes;
+	QTimer *CurTimer;
 };
 
 #endif

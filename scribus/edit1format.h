@@ -19,7 +19,7 @@ class EditStyle : public QDialog
     Q_OBJECT
 
 public:
-    EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v, bool neu, preV *Prefs, double au);
+    EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v, bool neu, preV *Prefs, double au, int dEin);
     ~EditStyle() {};
 
     QLabel* TextLabel1;

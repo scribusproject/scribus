@@ -283,8 +283,8 @@ void Page::dropEvent(QDropEvent *e)
 						hg->ch = text.at(a);
 						if (hg->ch == QChar(10))
 						  hg->ch = QChar(13);
-						if (hg->ch == QChar(9))
-						  hg->ch = " ";
+						if (hg->ch == QChar(4))
+						  hg->ch = QChar(9);
 						if (hg->ch == QChar(5))
 							hg->ch = QChar(13);
 						hg->cfont = b->IFont;
@@ -4960,9 +4960,11 @@ void Page::UniteObj()
   	b = SelItem.at(0);
 		b->Frame = false;
 		b->ClipEdited = true;
+		b->Groups.clear();
   	for (uint a = 1; a < SelItem.count(); ++a)
   		{
   		bb = SelItem.at(a);
+			bb->Groups.clear();
 			toDel.append(bb->ItemNr);
 			QWMatrix ma;
 			ma.translate(bb->Xpos, bb->Ypos);
@@ -6426,6 +6428,8 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 					hg->ch = (*it);
 					if (hg->ch == QChar(5))
 						hg->ch = QChar(13);
+					if (hg->ch == QChar(4))
+						hg->ch = QChar(9);
 					it++;
 					hg->cfont = *it;
 					it++;
@@ -6564,6 +6568,9 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 	b->ISize = Buffer->ISize;
 	b->ExtraV = Buffer->ExtraV;
 	b->Groups = Buffer->Groups;
+	b->TabValues = Buffer->TabValues;
+	b->DashValues = Buffer->DashValues;
+	b->DashOffset = Buffer->DashOffset;
 	b->Locked = Buffer->Locked;
 	b->Transparency = Buffer->Transparency;
 	b->TranspStroke = Buffer->TranspStroke;

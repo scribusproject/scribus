@@ -23,7 +23,7 @@ cflags=
 cppflags=
 cxxflags=\s-O0 -Wall
 ldadd=-ldl -lcms -ltiff -lm $(LIB_QT) -lXext -lX11
-ldflags=\s-s -export-dynamic\s
+ldflags=\s-s   -export-dynamic\s
 
 [General]
 AMChanged=false
@@ -40,7 +40,7 @@ project_type=normal_qt2
 sgml_file=
 short_info=
 sub_dir=scribus/
-version=1.1.4cvs
+version=1.1.5cvs
 version_control=CVS
 workspace=1
 
@@ -101,7 +101,7 @@ install_location=$$(prefix)/lib/scribus/ISOenc.txt
 type=DATA
 
 [scribus/Makefile.am]
-files=scribus/main.cpp,scribus/scribus.cpp,scribus/scribus.h,scribus/scribusdoc.cpp,scribus/scribusdoc.h,scribus/scribusview.cpp,scribus/scribusview.h,scribus/newfile.h,scribus/newfile.cpp,scribus/pageitem.cpp,scribus/pageitem.h,scribus/pageback.cpp,scribus/pageback.h,scribus/hruler.cpp,scribus/hruler.h,scribus/vruler.cpp,scribus/vruler.h,scribus/colorm.cpp,scribus/colorm.h,scribus/query.cpp,scribus/query.h,scribus/dcolor.cpp,scribus/dcolor.h,scribus/cpalette.cpp,scribus/cpalette.h,scribus/mdup.cpp,scribus/mdup.h,scribus/docinfo.cpp,scribus/docinfo.h,scribus/reformdoc.cpp,scribus/reformdoc.h,scribus/serializer.cpp,scribus/serializer.h,scribus/align.cpp,scribus/align.h,scribus/fmitem.cpp,scribus/fmitem.h,scribus/fontprefs.cpp,scribus/fontprefs.h,scribus/missing.cpp,scribus/missing.h,scribus/tree.cpp,scribus/tree.h,scribus/pdfopts.cpp,scribus/pdfopts.h,scribus/inspage.cpp,scribus/inspage.h,scribus/delpages.cpp,scribus/delpages.h,scribus/movepage.cpp,scribus/movepage.h,scribus/mspinbox.cpp,scribus/mspinbox.h,scribus/helpbrowser.cpp,scribus/helpbrowser.h,scribus/icons5.h,scribus/linkbutton.cpp,scribus/linkbutton.h,scribus/icons6.h,scribus/linecombo.cpp,scribus/linecombo.h,scribus/scribusXml.cpp,scribus/scribusXml.h,scribus/cmykfw.cpp,scribus/cmykfw.h,scribus/cmykcolor.cpp,scribus/cmykcolor.h,scribus/util.cpp,scribus/colorchart.cpp,scribus/colorchart.h,scribus/druck.cpp,scribus/druck.h,scribus/editformats.cpp,scribus/editformats.h,scribus/edit1format.cpp,scribus/edit1format.h,scribus/spalette.cpp,scribus/spalette.h,scribus/frameedit.cpp,scribus/frameedit.h,scribus/scfonts.cpp,scribus/scfonts.h,scribus/scrap.cpp,scribus/scrap.h,scribus/scfonts_ttf.cpp,scribus/scfonts_ttf.h,scribus/muster.cpp,scribus/muster.h,scribus/applytemplate.cpp,scribus/applytemplate.h,scribus/newtemp.cpp,scribus/newtemp.h,scribus/picstatus.cpp,scribus/picstatus.h,scribus/picsearch.cpp,scribus/picsearch.h,scribus/customfdialog.cpp,scribus/customfdialog.h,scribus/cmsprefs.cpp,scribus/cmsprefs.h,scribus/bookmwin.cpp,scribus/bookmwin.h,scribus/annot.cpp,scribus/annot.h,scribus/navigator.cpp,scribus/navigator.h,scribus/keymanager.cpp,scribus/keymanager.h,scribus/werktoolb.cpp,scribus/werktoolb.h,scribus/mpalette.h,scribus/mpalette.cpp,scribus/polyprops.cpp,scribus/polyprops.h,scribus/layers.cpp,scribus/layers.h,scribus/page.cpp,scribus/page.h,scribus/editor.cpp,scribus/editor.h,scribus/selfield.cpp,scribus/selfield.h,scribus/javadocs.cpp,scribus/javadocs.h,scribus/buttonicon.cpp,scribus/buttonicon.h,scribus/annota.cpp,scribus/annota.h,scribus/fpoint.cpp,scribus/fpoint.h,scribus/fpointarray.cpp,scribus/fpointarray.h,scribus/seiten.cpp,scribus/seiten.h,scribus/hysettings.cpp,scribus/hysettings.h,scribus/hnjalloc.c,scribus/hnjalloc.h,scribus/hyask.cpp,scribus/hyask.h,scribus/hyphen.c,scribus/hyphen.h,scribus/hyphenator.cpp,scribus/hyphenator.h,scribus/scribuswin.cpp,scribus/scribuswin.h,scribus/guidemanager.cpp,scribus/guidemanager.h,scribus/cupsoptions.cpp,scribus/cupsoptions.h,scribus/md5.c,scribus/md5.h,scribus/rc4.c,scribus/rc4.h,scribus/bookpalette.cpp,scribus/bookpalette.h,scribus/mergedoc.cpp,scribus/mergedoc.h,scribus/splash.cpp,scribus/splash.h,scribus/multiline.cpp,scribus/multiline.h,scribus/lineformats.cpp,scribus/lineformats.h,scribus/scpreview.cpp,scribus/scpreview.h,scribus/fontcombo.cpp,scribus/fontcombo.h,scribus/art_kmisc.c,scribus/art_kmisc.h,scribus/art_render_misc.c,scribus/art_render_misc.h,scribus/art_render_pattern.c,scribus/art_render_pattern.h,scribus/art_rgb.c,scribus/art_rgb.h,scribus/art_rgb_affine_private.c,scribus/art_rgb_affine_private.h,scribus/art_rgb_svp.c,scribus/art_rgb_svp.h,scribus/art_rgba_affine.c,scribus/art_rgba_affine.h,scribus/gdk-pixbuf-xlib-drawable.c,scribus/gdk-pixbuf-xlib-private.h,scribus/gdk-pixbuf-xlib-render.c,scribus/gdk-pixbuf-xlib.c,scribus/gdk-pixbuf-xlib.h,scribus/gdk-pixbuf-xlibrgb.c,scribus/gdk-pixbuf-xlibrgb.h,scribus/vgradient.cpp,scribus/vgradient.h,scribus/scpainter.cpp,scribus/scpainter.h,scribus/story.cpp,scribus/story.h,scribus/autoform.cpp,scribus/autoform.h
+files=scribus/main.cpp,scribus/scribus.cpp,scribus/scribus.h,scribus/scribusdoc.cpp,scribus/scribusdoc.h,scribus/scribusview.cpp,scribus/scribusview.h,scribus/newfile.h,scribus/newfile.cpp,scribus/pageitem.cpp,scribus/pageitem.h,scribus/pageback.cpp,scribus/pageback.h,scribus/hruler.cpp,scribus/hruler.h,scribus/vruler.cpp,scribus/vruler.h,scribus/colorm.cpp,scribus/colorm.h,scribus/query.cpp,scribus/query.h,scribus/dcolor.cpp,scribus/dcolor.h,scribus/cpalette.cpp,scribus/cpalette.h,scribus/mdup.cpp,scribus/mdup.h,scribus/docinfo.cpp,scribus/docinfo.h,scribus/reformdoc.cpp,scribus/reformdoc.h,scribus/serializer.cpp,scribus/serializer.h,scribus/align.cpp,scribus/align.h,scribus/fmitem.cpp,scribus/fmitem.h,scribus/fontprefs.cpp,scribus/fontprefs.h,scribus/missing.cpp,scribus/missing.h,scribus/tree.cpp,scribus/tree.h,scribus/pdfopts.cpp,scribus/pdfopts.h,scribus/inspage.cpp,scribus/inspage.h,scribus/delpages.cpp,scribus/delpages.h,scribus/movepage.cpp,scribus/movepage.h,scribus/mspinbox.cpp,scribus/mspinbox.h,scribus/helpbrowser.cpp,scribus/helpbrowser.h,scribus/icons5.h,scribus/linkbutton.cpp,scribus/linkbutton.h,scribus/icons6.h,scribus/linecombo.cpp,scribus/linecombo.h,scribus/scribusXml.cpp,scribus/scribusXml.h,scribus/cmykfw.cpp,scribus/cmykfw.h,scribus/cmykcolor.cpp,scribus/cmykcolor.h,scribus/util.cpp,scribus/colorchart.cpp,scribus/colorchart.h,scribus/druck.cpp,scribus/druck.h,scribus/editformats.cpp,scribus/editformats.h,scribus/edit1format.cpp,scribus/edit1format.h,scribus/spalette.cpp,scribus/spalette.h,scribus/frameedit.cpp,scribus/frameedit.h,scribus/scfonts.cpp,scribus/scfonts.h,scribus/scrap.cpp,scribus/scrap.h,scribus/scfonts_ttf.cpp,scribus/scfonts_ttf.h,scribus/muster.cpp,scribus/muster.h,scribus/applytemplate.cpp,scribus/applytemplate.h,scribus/newtemp.cpp,scribus/newtemp.h,scribus/picstatus.cpp,scribus/picstatus.h,scribus/picsearch.cpp,scribus/picsearch.h,scribus/customfdialog.cpp,scribus/customfdialog.h,scribus/cmsprefs.cpp,scribus/cmsprefs.h,scribus/bookmwin.cpp,scribus/bookmwin.h,scribus/annot.cpp,scribus/annot.h,scribus/navigator.cpp,scribus/navigator.h,scribus/keymanager.cpp,scribus/keymanager.h,scribus/werktoolb.cpp,scribus/werktoolb.h,scribus/mpalette.h,scribus/mpalette.cpp,scribus/polyprops.cpp,scribus/polyprops.h,scribus/layers.cpp,scribus/layers.h,scribus/page.cpp,scribus/page.h,scribus/editor.cpp,scribus/editor.h,scribus/selfield.cpp,scribus/selfield.h,scribus/javadocs.cpp,scribus/javadocs.h,scribus/buttonicon.cpp,scribus/buttonicon.h,scribus/annota.cpp,scribus/annota.h,scribus/fpoint.cpp,scribus/fpoint.h,scribus/fpointarray.cpp,scribus/fpointarray.h,scribus/seiten.cpp,scribus/seiten.h,scribus/hysettings.cpp,scribus/hysettings.h,scribus/hnjalloc.c,scribus/hnjalloc.h,scribus/hyask.cpp,scribus/hyask.h,scribus/hyphen.c,scribus/hyphen.h,scribus/hyphenator.cpp,scribus/hyphenator.h,scribus/scribuswin.cpp,scribus/scribuswin.h,scribus/guidemanager.cpp,scribus/guidemanager.h,scribus/cupsoptions.cpp,scribus/cupsoptions.h,scribus/md5.c,scribus/md5.h,scribus/rc4.c,scribus/rc4.h,scribus/bookpalette.cpp,scribus/bookpalette.h,scribus/mergedoc.cpp,scribus/mergedoc.h,scribus/splash.cpp,scribus/splash.h,scribus/multiline.cpp,scribus/multiline.h,scribus/lineformats.cpp,scribus/lineformats.h,scribus/scpreview.cpp,scribus/scpreview.h,scribus/fontcombo.cpp,scribus/fontcombo.h,scribus/art_kmisc.c,scribus/art_kmisc.h,scribus/art_render_misc.c,scribus/art_render_misc.h,scribus/art_render_pattern.c,scribus/art_render_pattern.h,scribus/art_rgb.c,scribus/art_rgb.h,scribus/art_rgb_affine_private.c,scribus/art_rgb_affine_private.h,scribus/art_rgb_svp.c,scribus/art_rgb_svp.h,scribus/art_rgba_affine.c,scribus/art_rgba_affine.h,scribus/gdk-pixbuf-xlib-drawable.c,scribus/gdk-pixbuf-xlib-private.h,scribus/gdk-pixbuf-xlib-render.c,scribus/gdk-pixbuf-xlib.c,scribus/gdk-pixbuf-xlib.h,scribus/gdk-pixbuf-xlibrgb.c,scribus/gdk-pixbuf-xlibrgb.h,scribus/vgradient.cpp,scribus/vgradient.h,scribus/scpainter.cpp,scribus/scpainter.h,scribus/story.cpp,scribus/story.h,scribus/autoform.cpp,scribus/autoform.h.scribus/fparser.cpp,scribus/fparser.h
 sub_dirs=icons,libabout,libprefs,plugins,libpostscript,profiles,libpdf,dicts,po,qm
 type=prog_main
 
@@ -554,6 +554,18 @@ install=false
 install_location=
 type=HEADER
 
+[scribus/fparser.cpp]
+dist=true
+install=false
+install_location=
+type=SOURCE
+
+[scribus/fparser.h]
+dist=true
+install=true
+install_location=$$(prefix)/include/scribus/fparser.h
+type=HEADER
+
 [scribus/fpoint.cpp]
 dist=true
 install=false
@@ -973,42 +985,6 @@ files=scribus/icons/Kreuz.xpm,scribus/icons/Bild.xpm,scribus/icons/Editm.xpm,scr
 sub_dirs=
 type=normal
 
-[scribus/icons/arrowl.png]
-dist=true
-install=true
-install_location=$$(prefix)/lib/scribus/icons/arrowl.png
-type=DATA
-
-[scribus/icons/arrowr.png]
-dist=true
-install=true
-install_location=$$(prefix)/lib/scribus/icons/arrowr.png
-type=DATA
-
-[scribus/icons/arrowu.png]
-dist=true
-install=true
-install_location=$$(prefix)/lib/scribus/icons/arrowu.png
-type=DATA
-
-[scribus/icons/arrowd.png]
-dist=true
-install=true
-install_location=$$(prefix)/lib/scribus/icons/arrowd.png
-type=DATA
-
-[scribus/icons/cross.png]
-dist=true
-install=true
-install_location=$$(prefix)/lib/scribus/icons/cross.png
-type=DATA
-
-[scribus/icons/triangle2.png]
-dist=true
-install=true
-install_location=$$(prefix)/lib/scribus/icons/triangle2.png
-type=DATA
-
 [scribus/icons/MiterJoin.png]
 dist=true
 install=true
@@ -1183,6 +1159,30 @@ install=true
 install_location=$$(prefix)/lib/scribus/icons/acrobat.png
 type=DATA
 
+[scribus/icons/arrowd.png]
+dist=true
+install=true
+install_location=$$(prefix)/lib/scribus/icons/arrowd.png
+type=DATA
+
+[scribus/icons/arrowl.png]
+dist=true
+install=true
+install_location=$$(prefix)/lib/scribus/icons/arrowl.png
+type=DATA
+
+[scribus/icons/arrowr.png]
+dist=true
+install=true
+install_location=$$(prefix)/lib/scribus/icons/arrowr.png
+type=DATA
+
+[scribus/icons/arrowu.png]
+dist=true
+install=true
+install_location=$$(prefix)/lib/scribus/icons/arrowu.png
+type=DATA
+
 [scribus/icons/beziertool.png]
 dist=true
 install=true
@@ -1211,6 +1211,12 @@ type=DATA
 dist=true
 install=true
 install_location=$$(prefix)/lib/scribus/icons/combobox.png
+type=DATA
+
+[scribus/icons/cross.png]
+dist=true
+install=true
+install_location=$$(prefix)/lib/scribus/icons/cross.png
 type=DATA
 
 [scribus/icons/doc.png]
@@ -1397,6 +1403,12 @@ type=DATA
 dist=true
 install=true
 install_location=$$(prefix)/lib/scribus/icons/triangle.png
+type=DATA
+
+[scribus/icons/triangle2.png]
+dist=true
+install=true
+install_location=$$(prefix)/lib/scribus/icons/triangle2.png
 type=DATA
 
 [scribus/icons/txt.png]

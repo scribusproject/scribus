@@ -103,7 +103,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     GroupBox20Layout->setMargin( 25 );
     UnitCombo = new QComboBox( true, GroupBox20, "UnitCombo" );
     UnitCombo->insertItem( tr( "Points (pt)" ) );
-    UnitCombo->insertItem( tr( "Millimeters (mm)" ) );
+    UnitCombo->insertItem( tr( "Millimetres (mm)" ) );
     UnitCombo->insertItem( tr( "Inches (in)" ) );
     UnitCombo->insertItem( tr( "Picas (p)" ) );
     UnitCombo->setEditable(false);
@@ -849,13 +849,30 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     		}
 			}
     Layout15a->addWidget( ForegroundT, 2, 1 );
+		TextCol = new QLabel(ToolFrame, "TextCol");
+		TextCol->setText( tr("Columns:") );
+    Layout15a->addWidget( TextCol, 3, 0 );
+    TextColVal = new QSpinBox( ToolFrame, "TextColVal" );
+    TextColVal->setMaxValue( 100 );
+    TextColVal->setMinValue( 1 );
+    TextColVal->setValue(ap->HaveDoc ? ap->doc->DCols : Vor->DCols );
+    Layout15a->addWidget( TextColVal, 3, 1 );
+		TextGap = new QLabel(ToolFrame, "TextCol");
+		TextGap->setText( tr("Gap:") );
+    Layout15a->addWidget( TextGap, 4, 0 );
+    TextGapVal = new MSpinBox( ToolFrame, 1 );
+    TextGapVal->setSuffix( tr( " pt" ) );
+    TextGapVal->setMaxValue( 200 );
+    TextGapVal->setMinValue( 0 );
+		TextGapVal->setValue(ap->HaveDoc ? static_cast<int>(ap->doc->DGap*10) : static_cast<int>(Vor->DGap*10));
+    Layout15a->addWidget( TextGapVal, 4, 1 );
     TextLabel1_4 = new QLabel( ToolFrame, "TextLabel1_4" );
     TextLabel1_4->setMinimumSize(QSize(260, 70));
     TextLabel1_4->setMaximumSize(QSize(260, 70));
     TextLabel1_4->setText( tr( "Woven silk pyjamas exchanged for blue quartz" ) );
     TextLabel1_4->setAlignment( static_cast<int>( QLabel::AlignVCenter | QLabel::AlignLeft ) );
     SetSample();
-    Layout15a->addMultiCellWidget( TextLabel1_4, 3, 3, 0, 1 );
+    Layout15a->addMultiCellWidget( TextLabel1_4, 5, 5, 0, 1 );
     QSpacerItem* sp09 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
     ToolFrameLayout->addItem( sp09 );
     ToolFrameLayout->addLayout( Layout15a );
@@ -966,7 +983,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 			}
     Layout15b->addWidget(Linestyle, 4, 1);
     LineW = new MSpinBox( ToolFrame2, 1 );
-    LineW->setSuffix( tr( " pts" ) );
+    LineW->setSuffix( tr( " pt" ) );
     LineW->setMaxValue( 200 );
     LineW->setMinValue( 0 );
 		LineW->setLineStep(10);
@@ -1948,58 +1965,37 @@ void Preferences::VChange()
 void Preferences::UnitChange()
 {
 	double AltUmrech = Umrech;
+	QString einh;
 	Einheit = UnitCombo->currentItem();
 	switch (UnitCombo->currentItem())
 		{
 		case 0:
 			Umrech = 1.0;
-    	SpinBox1->setSuffix( tr( " pt" ) );
-    	SpinBox2->setSuffix( tr( " pt" ) );
-    	SpinBox2g->setSuffix( tr( " pt" ) );
-    	Breite->setSuffix( tr( " pt" ) );
-    	Hoehe->setSuffix( tr( " pt" ) );
-    	TopR->setSuffix( tr( " pt" ) );
-    	BottomR->setSuffix( tr( " pt" ) );
-    	LeftR->setSuffix( tr( " pt" ) );
-    	RightR->setSuffix( tr( " pt" ) );
+			einh = tr( " pt" );
 			break;
 		case 1:
 			Umrech = 0.3527777;
-    	SpinBox1->setSuffix( tr( " mm" ) );
-    	SpinBox2->setSuffix( tr( " mm" ) );
-    	SpinBox2g->setSuffix( tr( " mm" ) );
-    	Breite->setSuffix( tr( " mm" ) );
-    	Hoehe->setSuffix( tr( " mm" ) );
-    	TopR->setSuffix( tr( " mm" ) );
-    	BottomR->setSuffix( tr( " mm" ) );
-    	LeftR->setSuffix( tr( " mm" ) );
-    	RightR->setSuffix( tr( " mm" ) );
+			einh = tr( " mm" );
 			break;
 		case 2:
 			Umrech = 1.0 / 72.0;
-    	SpinBox1->setSuffix( tr( " in" ) );
-    	SpinBox2->setSuffix( tr( " in" ) );
-    	SpinBox2g->setSuffix( tr( " in" ) );
-    	Breite->setSuffix( tr( " in" ) );
-    	Hoehe->setSuffix( tr( " in" ) );
-    	TopR->setSuffix( tr( " in" ) );
-    	BottomR->setSuffix( tr( " in" ) );
-    	LeftR->setSuffix( tr( " in" ) );
-    	RightR->setSuffix( tr( " in" ) );
+			einh = tr( " in" );
 			break;
 		case 3:
 			Umrech = 1.0 / 12.0;
-    	SpinBox1->setSuffix( tr( " p" ) );
-    	SpinBox2->setSuffix( tr( " p" ) );
-    	SpinBox2g->setSuffix( tr( " p" ) );
-    	Breite->setSuffix( tr( " p" ) );
-    	Hoehe->setSuffix( tr( " p" ) );
-    	TopR->setSuffix( tr( " p" ) );
-    	BottomR->setSuffix( tr( " p" ) );
-    	LeftR->setSuffix( tr( " p" ) );
-    	RightR->setSuffix( tr( " p" ) );
+			einh = tr( " p" );
 			break;
 		}
+  SpinBox1->setSuffix(einh);
+  SpinBox2->setSuffix(einh);
+  SpinBox2g->setSuffix(einh);
+  Breite->setSuffix(einh);
+  Hoehe->setSuffix(einh);
+  TopR->setSuffix(einh);
+  BottomR->setSuffix(einh);
+  LeftR->setSuffix(einh);
+  RightR->setSuffix(einh);
+	TextGapVal->setSuffix(einh);
 	disconnect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
 	disconnect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
 	disconnect(TopR, SIGNAL(valueChanged(int)), this, SLOT(setTop(int)));
@@ -2009,13 +2005,9 @@ void Preferences::UnitChange()
 	SpinBox1->setValue(qRound(SpinBox1->value() / AltUmrech * Umrech));
 	SpinBox2->setValue(qRound(SpinBox2->value() / AltUmrech * Umrech));
 	SpinBox2g->setValue(qRound(SpinBox2g->value() / AltUmrech * Umrech));
+	TextGapVal->setValue(qRound(TextGapVal->value() / AltUmrech * Umrech));
 	Breite->setValue(qRound(Pagebr * Umrech * 100));
 	Hoehe->setValue(qRound(Pageho * Umrech * 100));
-/*	RightR->setMaxValue(Breite->value() - LeftR->value());
-	LeftR->setMaxValue(Breite->value() - RightR->value());
-	TopR->setMaxValue(Hoehe->value() - BottomR->value());
-	BottomR->setMaxValue(Hoehe->value() - TopR->value());    */
-
 
 	RightR->setMaxValue(Breite->value() - qRound(RandL * Umrech * 100));
 	LeftR->setMaxValue(Breite->value() - qRound(RandR * Umrech * 100));
@@ -2026,13 +2018,6 @@ void Preferences::UnitChange()
 	BottomR->setValue(qRound(RandB * Umrech * 100));
 	LeftR->setValue(qRound(RandL * Umrech * 100));
 	RightR->setValue(qRound(RandR * Umrech * 100));
-/*	if (GZComboF->currentItem() == 30)
-		{
-		Breite->setValue(qRound(Breite->value() / AltUmrech * Umrech));
-		Hoehe->setValue(qRound(Hoehe->value() / AltUmrech * Umrech));
-		}
-	else
-		setSize(GZComboF->currentItem());  */
 	DrawRuler();
 	connect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
 	connect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));

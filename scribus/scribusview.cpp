@@ -1077,7 +1077,7 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 								for (uint d = 0; d < ite->MaxChars; ++d)
 									{
 									hl = ite->Ptext.at(d);
-									if ((hl->ch == QChar(13)) || (hl->ch == QChar(10))) // || (hl->ch == QChar(32)))
+									if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(9)))
 										continue;
 									if (hl->yp == 0)
 										break;
@@ -1571,7 +1571,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 							for (d = 0; d < c->MaxChars; ++d)
 								{
 								hl = c->Ptext.at(d);
-								if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)))
+								if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)) || (hl->ch == QChar(9)))
 									continue;
 								if (hl->yp == 0)
 									break;
@@ -1969,7 +1969,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 							for (d = 0; d < c->MaxChars; ++d)
 								{
 								hl = c->Ptext.at(d);
-								if ((hl->ch == QChar(13)) || (hl->ch == QChar(30))) // || (hl->ch == QChar(32)))
+								if ((hl->ch == QChar(13)) || (hl->ch == QChar(30)) || (hl->ch == QChar(9)))
 									continue;
 								tsz = hl->csize;
 								chx = hl->ch;

@@ -1,4 +1,10 @@
 Changes since Version 1.1.4
+31.12.2003	Fixed Rounding Errors in the Properties Palette.
+		Added Settings for Number of Columns and the ColumnGap to the Preferences.
+		First Support for Tabs, currently there is a Tab set every 100 pts in a Textframe.
+
+29.12.2003	Fixed Crash when closing Docs.
+
 28.12.2003	Text flows now around both Sides of Objects.
 		You can use now Units like pt or mm in Floating Point Spinboxes where applicable.
 		Added some new Commands to the Scripter:

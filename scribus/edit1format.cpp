@@ -1,9 +1,10 @@
 #include "edit1format.h"
 #include "edit1format.moc"
 extern QPixmap loadIcon(QString nam);
+extern double UmReFaktor;
 #include <qmessagebox.h>
 
-EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v, bool neu, preV *Prefs, double au)
+EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v, bool neu, preV *Prefs, double au, int dEin)
     : QDialog( parent, "EditST", true, 0)
 {
     setCaption( tr( "Edit Style" ) );
@@ -82,19 +83,15 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
     GroupBox10Layout->addWidget( TextLabel2, 0, 0 );
 
     LeftInd = new MSpinBox( GroupBox10, 1 );
-    LeftInd->setSuffix( tr( " pt" ) );
     LeftInd->setMaxValue( 3000 );
     LeftInd->setMinValue( -3000 );
     LeftInd->setLineStep(10);
-    LeftInd->setValue(qRound(vor->Indent * 10));
     GroupBox10Layout->addWidget( LeftInd, 1, 1 );
 
     FirstLin = new MSpinBox( GroupBox10, 1);
-    FirstLin->setSuffix( tr( " pt" ) );
     FirstLin->setMaxValue( 3000 );
     FirstLin->setMinValue( -3000 );
     FirstLin->setLineStep(10);
-    FirstLin->setValue(qRound(vor->First * 10));
     GroupBox10Layout->addWidget( FirstLin, 0, 1 );
     EditStyleLayout->addWidget( GroupBox10, 3, 1 );
 
@@ -160,19 +157,15 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
 
     AboveV = new MSpinBox( AbstandV, 1 );
     AboveV->setMinimumSize( QSize( 70, 22 ) );
-    AboveV->setSuffix( tr( " pt" ) );
     AboveV->setMaxValue( 3000 );
     AboveV->setMinValue( 0 );
-    AboveV->setValue(qRound(vor->Avor * 10));
     AboveV->setLineStep(10);
     AbstandVLayout->addWidget( AboveV, 0, 1 );
 
     BelowV = new MSpinBox( AbstandV, 1 );
     BelowV->setMinimumSize( QSize( 70, 22 ) );
-    BelowV->setSuffix( tr( " pt" ) );
     BelowV->setMaxValue( 3000 );
     BelowV->setMinValue( 0 );
-    BelowV->setValue(qRound(vor->Anach * 10));
     BelowV->setLineStep(10);
 	  AbstandVLayout->addWidget( BelowV, 1, 1 );
 
@@ -226,6 +219,38 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
     connect( Cancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
     connect( OkButton, SIGNAL( clicked() ), this, SLOT( Verlassen() ) );
     connect(SizeC, SIGNAL(valueChanged(int)), this, SLOT(FontChange(int)));
+		LeftInd->setDecimals(10);
+		FirstLin->setDecimals(10);
+		AboveV->setDecimals(10);
+		BelowV->setDecimals(10);
+		QString ein;
+		switch (dEin)
+			{
+			case 0:
+				ein = " pt";
+				break;
+			case 1:
+	    	ein = " mm";
+				break;
+			case 2:
+	    	ein = " in";
+				LeftInd->setDecimals(10000);
+				FirstLin->setDecimals(10000);
+	  		AboveV->setDecimals(10000);
+	  		BelowV->setDecimals(10000);
+				break;
+			case 3:
+	    	ein = " p";
+				break;
+			}
+    LeftInd->setSuffix(ein);
+    FirstLin->setSuffix(ein);
+    AboveV->setSuffix(ein);
+    BelowV->setSuffix(ein);
+    BelowV->setValue(qRound(vor->Anach * UmReFaktor * BelowV->Decimals));
+    AboveV->setValue(qRound(vor->Avor * UmReFaktor * AboveV->Decimals));
+    FirstLin->setValue(qRound(vor->First * UmReFaktor * FirstLin->Decimals));
+    LeftInd->setValue(qRound(vor->Indent * UmReFaktor * LeftInd->Decimals));
 }
 
 void EditStyle::FontChange(int val)
@@ -274,11 +299,11 @@ void EditStyle::Verlassen()
 		werte->Ausri = 3;
 	if (Forced->isChecked())
 		werte->Ausri = 4;
-	werte->LineSpa = static_cast<double>(LineSpVal->value()) / 10;
-	werte->Indent = static_cast<double>(LeftInd->value() / 10);
-	werte->First = static_cast<double>(FirstLin->value() / 10);
-	werte->Avor = static_cast<double>(AboveV->value() / 10);
-	werte->Anach = static_cast<double>(BelowV->value() / 10);
+	werte->LineSpa = static_cast<double>(LineSpVal->value()) / 10.0;
+	werte->Indent = static_cast<double>(LeftInd->value() / UmReFaktor / LeftInd->Decimals);
+	werte->First = static_cast<double>(FirstLin->value() / UmReFaktor / FirstLin->Decimals);
+	werte->Avor = static_cast<double>(AboveV->value() / UmReFaktor / AboveV->Decimals);
+	werte->Anach = static_cast<double>(BelowV->value() / UmReFaktor / BelowV->Decimals);
 	werte->Vname = Name->text();
 	werte->Font = FontC->currentText();
 	werte->FontSize = SizeC->value();

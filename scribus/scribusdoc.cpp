@@ -194,6 +194,7 @@ void ScribusDoc::AddFont(QString name, QFont fo)
 	UsedFonts[name] = fo;
 	(*AllFonts)[name]->ReadMetrics();
 	(*AllFonts)[name]->CharWidth[13] = 0;
+	(*AllFonts)[name]->CharWidth[9] = 1;
 	QString afnm = (*AllFonts)[name]->Datei.left((*AllFonts)[name]->Datei.length()-3);
 	QFile afm(afnm+"afm");
 	if(!(afm.exists()))

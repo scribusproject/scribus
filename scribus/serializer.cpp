@@ -79,7 +79,6 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 		hg->ch = Objekt.at(a);
 		if ((hg->ch == QChar(10)) || (hg->ch == QChar(5)))
 			hg->ch = QChar(13);
-		if (hg->ch == QChar(9)) { hg->ch = " "; }
 		if (font != "")
 			{
 			hg->cfont = font;
