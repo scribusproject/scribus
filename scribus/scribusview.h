@@ -145,7 +145,7 @@ public:
 	void ToView(QPainter *p);
 	void RefreshItem(PageItem *b);
 	bool MoveItem(double newX, double newY, PageItem* ite, bool fromMP = false);
-	void MoveItemI(double newX, double newY, int ite);
+	void MoveItemI(double newX, double newY, int ite, bool redraw = true);
 	void UpdateClip(PageItem* b);
 	void SetPolyClip(PageItem *b, int up);
 	void ConvertClip(PageItem *b);
