@@ -4735,6 +4735,7 @@ void Page::TextToPath()
 			pts.map(chma);
 			uint z = PaintPoly(b->Xpos, b->Ypos, b->Width, b->Height, b->Pwidth, b->Pcolor2, b->Pcolor);
 			bb = Items.at(z);
+			emit AddObj(PageNr, z);
 			bb->PoLine = pts.copy();
 			bb->Rot = b->Rot;
 			bb->Pcolor = b->Ptext.at(a)->ccolor;
