@@ -23,7 +23,7 @@ extern QPixmap loadIcon(QString nam);
  
 QString Name()
 {
-  return "Print Preview";
+  return QObject::tr("Print Preview");
 }
 
 int Type()

@@ -1,4 +1,7 @@
 Changes since Version 1.1.4
+26.01.2004	Added a Finnish Hyphenation.
+		Adjusted behavior of the Text Effects Selector.
+
 25.01.2004	Added Font Effects and Colors to the Paragraph Styles.
 		Applied Craig's patches for better Precision.
 

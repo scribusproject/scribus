@@ -23,7 +23,7 @@ Query::Query( QWidget* parent,  const char* name, bool modal, WFlags fl, QString
 {
     if ( !name )
 		setName( "Query" );
-    setCaption( tr( titel ) );
+    setCaption( titel );
   	setIcon(loadIcon("AppIcon.png"));
     QueryLayout = new QVBoxLayout( this );
     QueryLayout->setSpacing( 6 );
@@ -34,7 +34,7 @@ Query::Query( QWidget* parent,  const char* name, bool modal, WFlags fl, QString
     Frage = new QLabel( this, "Frage" );
     Frage->setFrameShape( QLabel::MShape );
     Frage->setFrameShadow( QLabel::MShadow );
-    Frage->setText( tr( text ) );
+    Frage->setText( text );
     Frage->adjustSize();
     Layout2->addWidget( Frage );
     Answer = new QLineEdit( this, "Answer" );

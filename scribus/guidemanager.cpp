@@ -7,9 +7,26 @@ GuideManager::GuideManager( QWidget* parent, Page* page, int Einh)
     : QDialog( parent, "GuideManager", true, 0 )
 {
 	QString tmp;
+	int decimals;
     setCaption( tr( "Manage Guides" ) );
   	setIcon(loadIcon("AppIcon.png"));
 	Einheit = Einh;
+	switch (Einheit)
+		{
+			case 0:
+				decimals = 100;
+				break;
+			case 1:
+				decimals = 1000;
+				break;
+			case 2:
+				decimals = 10000;
+				break;
+			case 3:
+				decimals = 100;
+				break;
+		}
+
 	XLocal = page->XGuides;
 	YLocal = page->YGuides;
 	pag = page;
@@ -32,7 +49,8 @@ GuideManager::GuideManager( QWidget* parent, Page* page, int Einh)
     TextLabel1 = new QLabel( VerGroup, "TextLabel1" );
     TextLabel1->setText( tr( "Y-Pos:" ) );
     Layout2->addWidget( TextLabel1 );
-    VertSpin = new MSpinBox( VerGroup, 2 );
+    VertSpin = new MSpinBox( VerGroup, 4 );
+	VertSpin->setDecimals( decimals );
 	VertSpin->setMaxValue(page->doku->PageH);
 	VertSpin->setMinValue(0);
     Layout2->addWidget( VertSpin );
@@ -63,7 +81,8 @@ GuideManager::GuideManager( QWidget* parent, Page* page, int Einh)
     TextLabel2 = new QLabel( HorGroup, "TextLabel2" );
     TextLabel2->setText( tr( "X-Pos:" ) );
     Layout4->addWidget( TextLabel2 );
-    HoriSpin = new MSpinBox( HorGroup, 2 );
+    HoriSpin = new MSpinBox( HorGroup, 4 );
+	HoriSpin->setDecimals( decimals );
 	HoriSpin->setMaxValue(page->doku->PageB);
 	HoriSpin->setMinValue(0);
     Layout4->addWidget( HoriSpin );

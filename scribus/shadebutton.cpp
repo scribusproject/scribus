@@ -35,7 +35,7 @@ void ShadeButton::setShade(int id)
 		b = (c-1) * 10;
 	if (c == 0)
 		{
-		Query* dia = new Query(this, "New", 1, 0, "Shade:", "Shade");
+		Query* dia = new Query(this, "New", 1, 0, tr("Shade:"), tr("Shade"));
 		if (dia->exec())
     		{
 			c = dia->Answer->text().toInt(&ok);

@@ -5888,57 +5888,30 @@ void Page::ItemGradFill(int typ, QString col1, int sh1, QString col2, int sh2)
 
 void Page::chTyStyle(int s)
 {
-	uint a;
-	int old;
-	uint aa;
 	if (SelItem.count() != 0)
   	{
-  		for (aa = 0; aa < SelItem.count(); ++aa)
+  		for (uint aa = 0; aa < SelItem.count(); ++aa)
   		{
 			PageItem *b = SelItem.at(aa);
 			if (b->Ptext.count() != 0)
 			{
 				if (doku->AppMode == 7)
 				{
-					for (a = 0; a < b->Ptext.count(); ++a)
+					for (uint a = 0; a < b->Ptext.count(); ++a)
 					{
 						if (b->Ptext.at(a)->cselect)
 						{
-							if (s == 0)
-								b->Ptext.at(a)->cstyle &= ~127;
-							else
-							{
-								old = b->Ptext.at(a)->cstyle;
-								old = old ^ s;
-								if ((s == 1) && (old & 2))
-									old = old & ~2;
-								if ((s == 2) && (old & 1))
-									old = old & ~1;
-								b->Ptext.at(a)->cstyle = old;
-							}
+							b->Ptext.at(a)->cstyle &= ~127;
+							b->Ptext.at(a)->cstyle |= s;
 						}
 					}
 				}
 				else
 				{
-					for (a = 0; a < b->Ptext.count(); ++a)
+					for (uint a = 0; a < b->Ptext.count(); ++a)
 					{
-						if (s == 0)
-						{
-							b->Ptext.at(a)->cstyle &= ~127;
-							b->TxTStyle = s;
-						}
-						else
-						{
-							old = b->Ptext.at(a)->cstyle;
-							old = old ^ s;
-							if ((s == 1) && (old & 2))
-								old = old & ~2;
-							if ((s == 2) && (old & 1))
-								old = old & ~1;
-							b->Ptext.at(a)->cstyle = old;
-							b->TxTStyle = old;
-						}
+						b->Ptext.at(a)->cstyle &= ~127;
+						b->Ptext.at(a)->cstyle |= s;
 					}
 				}
 				b->Dirty = true;

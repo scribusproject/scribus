@@ -305,8 +305,6 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     ShapeGroupLayout->addWidget( SRect );
     SCustom = new Autoforms( ShapeGroup );
     ShapeGroupLayout->addWidget( SCustom );
-//    QSpacerItem* spacer2L = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
- //   layoutLang->addItem( spacer2L );
     pageLayout_2->addWidget( ShapeGroup );
 
     EditShape = new QToolButton( page_2, "EditShape" );
@@ -866,7 +864,7 @@ void Mpalette::SetDoc(ScribusDoc *d)
 	Extra->setMaxValue( 300 );
 	Extra->setMinValue( -300 );
 	LSize->setMaxValue( 36 );
-	LSize->setMinValue( 1 );
+	LSize->setMinValue( 0 );
   Xpos->setDecimals(100);
   Ypos->setDecimals(100);
   Width->setDecimals(100);

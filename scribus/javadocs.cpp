@@ -58,7 +58,7 @@ JavaDocs::JavaDocs(QWidget* parent, ScribusDoc *doc, ScribusView* vie)
 void JavaDocs::slotAdd()
 {
 	QString nam;
-	Query *dia = new Query(this, "tt", 1, 0, "New Script:", "New Script");
+	Query *dia = new Query(this, "tt", 1, 0, tr("New Script:"), tr("New Script"));
 	dia->Answer->setText( tr("New Script"));
 	if (dia->exec())
 	{

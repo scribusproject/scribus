@@ -154,7 +154,7 @@ void Farbmanager::saveDefaults()
 {
 	QString Cpfad = QString(getenv("HOME"))+"/.scribus/";
 	QString Name = LoadColSet->text();
-	Query* dia = new Query(this, "Name", 1, 0, "Name:", "Choose a Name");
+	Query* dia = new Query(this, "Name", 1, 0, tr("Name:"), tr("Choose a Name"));
 	if ((Name == "Scribus Small") || (Name == "X11 RGB-Set"))
 		dia->Answer->setText("");
 	else
@@ -329,7 +329,7 @@ void Farbmanager::delFarbe()
 void Farbmanager::duplFarbe()
 {
     QString nam;
-    Query *dia = new Query(this, "tt", 1, 0, "New Color:", "New Color");
+    Query *dia = new Query(this, "tt", 1, 0, tr("New Color:"), tr("New Color"));
     dia->Answer->setText( tr("Copy of %1").arg(sFarbe));
     if (dia->exec())
     {
@@ -352,7 +352,7 @@ void Farbmanager::duplFarbe()
 void Farbmanager::neueFarbe()
 {
     QString nam;
-    Query *dia = new Query(this, "tt", 1, 0, "New Color:", "New Color");
+    Query *dia = new Query(this, "tt", 1, 0, tr("New Color:"), tr("New Color"));
     dia->Answer->setText(sFarbe);
     if (dia->exec())
    	{

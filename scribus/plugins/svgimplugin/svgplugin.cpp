@@ -26,7 +26,7 @@ extern FPoint GetMaxClipF(FPointArray Clip);
 
 QString Name()
 {
-  return "Import SVG-Image";
+  return QObject::tr("Import SVG-Image");
 }
 
 int Type()

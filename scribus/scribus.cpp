@@ -2157,6 +2157,7 @@ void ScribusApp::HaveNewSel(int Nr)
 				doc->CurrentStyle = b->TxTStyle;
  				emit TextStil(doc->CurrentStyle);
 				emit TextScale(doc->CurrTextScale);
+				setStilvalue(doc->CurrentStyle);
 				}
 			doc->Vorlagen[0].LineSpa = b->LineSp;
 			doc->Vorlagen[0].Ausri = b->Ausrich;
@@ -2201,6 +2202,7 @@ void ScribusApp::HaveNewSel(int Nr)
 				doc->CurrentStyle = b->TxTStyle;
  				emit TextStil(doc->CurrentStyle);
 				emit TextScale(doc->CurrTextScale);
+				setStilvalue(doc->CurrentStyle);
 				}
 			break;
 		default:
@@ -4212,31 +4214,35 @@ void ScribusApp::Aktiv()
 
 void ScribusApp::setItemTypeStyle(int id)
 {
-	int a = TypeStyleMenu->indexOf(id);
 	int b = 0;
-	switch (a)
+	int a = TypeStyleMenu->indexOf(id);
+	TypeStyleMenu->setItemChecked(id, !TypeStyleMenu->isItemChecked(id));
+	if (a > 0)
 		{
-		case 0:
+		if (a == 4)
+			{
+			if (TypeStyleMenu->isItemChecked(TypeStyleMenu->idAt(4)))
+				TypeStyleMenu->setItemChecked(TypeStyleMenu->idAt(5), false);
+			}
+		if (a == 5)
+			{
+			if (TypeStyleMenu->isItemChecked(TypeStyleMenu->idAt(5)))
+				TypeStyleMenu->setItemChecked(TypeStyleMenu->idAt(4), false);
+			}
+		if (TypeStyleMenu->isItemChecked(TypeStyleMenu->idAt(0)))
 			b = 0;
-			break;
-		case 1:
-			b = 8;
-			break;
-		case 2:
-			b = 16;
-			break;
-		case 3:
-			b = 64;
-			break;
-		case 4:
-			b = 1;
-			break;
-		case 5:
-			b = 2;
-			break;
-		case 6:
-			b = 4;
-			break;
+		if (TypeStyleMenu->isItemChecked(TypeStyleMenu->idAt(1)))
+			b |= 8;
+		if (TypeStyleMenu->isItemChecked(TypeStyleMenu->idAt(2)))
+			b |= 16;
+		if (TypeStyleMenu->isItemChecked(TypeStyleMenu->idAt(3)))
+			b |= 64;
+		if (TypeStyleMenu->isItemChecked(TypeStyleMenu->idAt(4)))
+			b |= 1;
+		if (TypeStyleMenu->isItemChecked(TypeStyleMenu->idAt(5)))
+			b |= 2;
+		if (TypeStyleMenu->isItemChecked(TypeStyleMenu->idAt(6)))
+			b |= 4;
 		}
 	setItemHoch(b);
 }
@@ -4244,8 +4250,8 @@ void ScribusApp::setItemTypeStyle(int id)
 void ScribusApp::setStilvalue(int s)
 {
 	uint a;
-	doc->CurrentStyle = s;
 	int c = s & 127;
+	doc->CurrentStyle = c;
 	for (a = 0; a < TypeStyleMenu->count(); ++a)
 		{
 		TypeStyleMenu->setItemChecked(TypeStyleMenu->idAt(a), false);
@@ -4272,16 +4278,7 @@ void ScribusApp::setItemHoch(int h)
 	if (doc->ActPage->SelItem.count() != 0)
 		{
 		setActiveWindow();
-		if (h == 0)
-			doc->CurrentStyle = 0;
-		else
-			{
-			doc->CurrentStyle = doc->CurrentStyle ^ h;
-			if ((h == 1) && (doc->CurrentStyle & 2))
-				doc->CurrentStyle = doc->CurrentStyle & ~2;
-			if ((h == 2) && (doc->CurrentStyle & 1))
-				doc->CurrentStyle = doc->CurrentStyle & ~1;
-			}
+		doc->CurrentStyle = h;
 		setStilvalue(doc->CurrentStyle);
 		doc->ActPage->chTyStyle(h);
 		slotDocCh();
@@ -4521,7 +4518,7 @@ void ScribusApp::setItemFSize(int id)
 		}
 	else
 		{
-    Query* dia = new Query(this, "New", 1, 0, "Size:", "Size");
+    Query* dia = new Query(this, "New", 1, 0, tr("Size:"), tr("Size"));
     if (dia->exec())
     	{
 			c = qRound(dia->Answer->text().toDouble(&ok) * 10);
@@ -4581,7 +4578,7 @@ void ScribusApp::setItemShade(int id)
 			}
 		else
 			{
-    	Query* dia = new Query(this, "New", 1, 0, "Shade:", "Shade");
+    	Query* dia = new Query(this, "New", 1, 0, tr("Shade:"), tr("Shade"));
     	if (dia->exec())
     		{
 				c = dia->Answer->text().toInt(&ok);
@@ -6332,17 +6329,17 @@ void ScribusApp::InitPlugs(SplashScreen *spl)
 			if (DLLName(d[dc], &nam, &ty, &pda.Zeiger))
 				{
 				if (ty == 1)
-					extraMenu->insertItem(tr(nam));
+					extraMenu->insertItem(nam);
 				if (ty == 2)
-					importMenu->insertItem(tr(nam));
+					importMenu->insertItem(nam);
 				if (ty == 3)
-					exportMenu->insertItem(tr(nam));
+					exportMenu->insertItem(nam);
 				if (ty == 4)
-					helpMenu->insertItem(tr(nam));
+					helpMenu->insertItem(nam);
 				pda.Datei = d[dc];
 				pda.Typ = ty;
-				PluginMap.insert(tr(nam), pda);
-				spl->setStatus( tr("Loading:")+" "+tr(nam));
+				PluginMap.insert(nam, pda);
+				spl->setStatus( tr("Loading:")+" "+nam);
 				}
 			}
 	 	connect(extraMenu, SIGNAL(activated(int)), this, SLOT(RunPlug(int)));
@@ -6883,6 +6880,8 @@ void ScribusApp::InitHyphenator()
 				datein = tr("Greek");
 			if (d[dc] == "hyph_ca.dic")
 				datein = tr("Catalan");
+			if (d[dc] == "hyph_fi.dic")
+				datein = tr("Finnish");
 			Sprachen.insert(datein, d[dc]);
 			if (d[dc] == "hyph_"+lang+".dic")
 				Prefs.Language = datein;

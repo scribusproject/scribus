@@ -271,6 +271,7 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
     AboveV->setValue(vor->Avor * UmReFaktor);
     FirstLin->setValue(vor->First * UmReFaktor);
     LeftInd->setValue(vor->Indent * UmReFaktor);
+	ColorChange();
 }
 
 void EditStyle::ColorChange()

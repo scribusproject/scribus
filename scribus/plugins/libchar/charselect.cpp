@@ -20,7 +20,7 @@ extern QPixmap FontSample(QString da, int s, QString ts, QColor back);
  
 QString Name()
 {
-  return "Insert Special";
+  return QObject::tr("Insert Special");
 }
 
 int Type()

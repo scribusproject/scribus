@@ -116,6 +116,11 @@ int StyleSelect::getStyle()
 void StyleSelect::setTypeStyle()
 {
 	if (Supers == sender())
+		Subs->setOn(false);
+	if (Subs == sender())
+		Supers->setOn(false);
+	emit State(getStyle());
+/*	if (Supers == sender())
 		{
 		emit State(1);
 		Subs->setOn(false);
@@ -147,6 +152,6 @@ void StyleSelect::setTypeStyle()
 		emit State(64);
 		return;
 		}
-	emit State(0);
+	emit State(0);  */
 }
 

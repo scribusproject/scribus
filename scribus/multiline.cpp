@@ -95,7 +95,7 @@ MultiLine::MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString na
 	LWidth = new MSpinBox( Properties, 1 );
 	LWidth->setSuffix( tr( " pt" ) );
 	LWidth->setMaxValue( 36 );
-	LWidth->setMinValue( 1 );
+	LWidth->setMinValue( 0 );
 	layout1->addWidget( LWidth );
 	PropertiesLayout->addLayout( layout1 );
 
