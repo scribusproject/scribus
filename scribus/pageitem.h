@@ -166,8 +166,8 @@ public:
 				QString ZFo;
 			  };
 
-	ObjAttrMap* getObjectAttributes();
-	void setObjectAttributes(ObjAttrMap);
+	ObjAttrVector* getObjectAttributes();
+	void setObjectAttributes(ObjAttrVector*);
   /** Zeichnet das Item */
 	void paintObj(QRect e=QRect(), QPixmap *ppX = 0);
 	void DrawObj(ScPainter *p, QRect e);
@@ -853,7 +853,7 @@ protected:
 	 * @brief Stores the attributes of the pageitem (NOT properties, the user defined ATTRIBUTES)
 	 * @sa 
 	 */		  
-	ObjAttrMap pageItemAttributes;
+	ObjAttrVector pageItemAttributes;
 };
 
 #endif

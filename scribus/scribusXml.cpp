@@ -2826,13 +2826,13 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	}
 	dc.appendChild(pdf);
 	QDomElement docItemAttrs = docu.createElement("DocItemAttributes");
-	for(QMap<int, ObjectAttribute>::Iterator objAttrIt = doc->docItemAttributes.begin() ; objAttrIt != doc->docItemAttributes.end(); ++objAttrIt )
+	for(ObjAttrVector::Iterator objAttrIt = doc->docItemAttributes.begin() ; objAttrIt != doc->docItemAttributes.end(); ++objAttrIt )
 	{
 		QDomElement itemAttr = docu.createElement("ItemAttribute");
-		itemAttr.setAttribute("Name", objAttrIt.data().name);
-		itemAttr.setAttribute("Type", objAttrIt.data().type);
-		itemAttr.setAttribute("Value", objAttrIt.data().value);
-		itemAttr.setAttribute("Parameter", objAttrIt.data().parameter);
+		itemAttr.setAttribute("Name", (*objAttrIt).name);
+		itemAttr.setAttribute("Type", (*objAttrIt).type);
+		itemAttr.setAttribute("Value", (*objAttrIt).value);
+		itemAttr.setAttribute("Parameter", (*objAttrIt).parameter);
 		docItemAttrs.appendChild(itemAttr);
 	}
 	dc.appendChild(docItemAttrs);
@@ -3168,13 +3168,13 @@ void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 	}
 	elem.appendChild(pdf);
 	QDomElement docItemAttrs = docu.createElement("DefaultItemAttributes");
-	for(QMap<int, ObjectAttribute>::Iterator objAttrIt = Vor->defaultItemAttributes.begin() ; objAttrIt != Vor->defaultItemAttributes.end(); ++objAttrIt )
+	for(ObjAttrVector::Iterator objAttrIt = Vor->defaultItemAttributes.begin() ; objAttrIt != Vor->defaultItemAttributes.end(); ++objAttrIt )
 	{
 		QDomElement itemAttr = docu.createElement("ItemAttribute");
-		itemAttr.setAttribute("Name", objAttrIt.data().name);
-		itemAttr.setAttribute("Type", objAttrIt.data().type);
-		itemAttr.setAttribute("Value", objAttrIt.data().value);
-		itemAttr.setAttribute("Parameter", objAttrIt.data().parameter);
+		itemAttr.setAttribute("Name", (*objAttrIt).name);
+		itemAttr.setAttribute("Type", (*objAttrIt).type);
+		itemAttr.setAttribute("Value", (*objAttrIt).value);
+		itemAttr.setAttribute("Parameter", (*objAttrIt).parameter);
 		docItemAttrs.appendChild(itemAttr);
 	}
 	elem.appendChild(docItemAttrs);
@@ -3510,7 +3510,6 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 		if(dc.tagName()=="DefaultItemAttributes")
 		{
 			QDomNode DIA = DOC.firstChild();
-			int count=0;
 			Vorein->defaultItemAttributes.clear();
 			while(!DIA.isNull())
 			{
@@ -3522,7 +3521,7 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 					objattr.type=itemAttr.attribute("Type");
 					objattr.value=itemAttr.attribute("Value");
 					objattr.parameter=itemAttr.attribute("Parameter");
-					Vorein->defaultItemAttributes.insert(count++,objattr);
+					Vorein->defaultItemAttributes.append(objattr);
 				}
 				DIA = DIA.nextSibling();
 			}

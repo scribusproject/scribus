@@ -446,7 +446,7 @@ struct ApplicationPrefs
 	windowPrefs mainWinSettings;
 	
 	PDFOptions PDF_Options;
-	ObjAttrMap defaultItemAttributes;
+	ObjAttrVector defaultItemAttributes;
 	bool SepalT;
 	bool SepalN;
 	int PSize;

@@ -263,7 +263,7 @@ public: // Public attributes
 	QMap<int, errorCodes> docItemErrors;
 	QMap<int, errorCodes> masterItemErrors;
 	//Attributes to be applied to frames
-	ObjAttrMap docItemAttributes;
+	ObjAttrVector docItemAttributes;
 };
 
 #endif

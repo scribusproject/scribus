@@ -3697,12 +3697,12 @@ void PageItem::select()
 	ScApp->view->SelectItem(this, false);
 }
 
-ObjAttrMap* PageItem::getObjectAttributes()
+ObjAttrVector* PageItem::getObjectAttributes()
 {
 	return &pageItemAttributes;
 }
 
-void PageItem::setObjectAttributes(ObjAttrMap map)
+void PageItem::setObjectAttributes(ObjAttrVector* map)
 {
-	pageItemAttributes=map;
+	pageItemAttributes=*map;
 }

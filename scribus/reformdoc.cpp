@@ -31,7 +31,6 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	Umrech = UmReFaktor;
 	QString ein = unitGetSuffixFromIndex(doc->docUnitIndex);
 	decimals = unitGetDecimalsFromIndex(doc->docUnitIndex);
-	int i=-1;
 	pageWidth = doc->PageB * UmReFaktor;
 	pageHeight = doc->PageH * UmReFaktor;
 	setCaption( tr( "Document Setup" ) );

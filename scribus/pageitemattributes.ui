@@ -87,7 +87,7 @@
                         </widget>
                         <widget class="QPushButton">
                             <property name="name">
-                                <cstring>pushButton10</cstring>
+                                <cstring>copyButton</cstring>
                             </property>
                             <property name="text">
                                 <string>&amp;Copy</string>
@@ -98,7 +98,7 @@
                         </widget>
                         <widget class="QPushButton">
                             <property name="name">
-                                <cstring>pushButton9</cstring>
+                                <cstring>deleteButton</cstring>
                             </property>
                             <property name="text">
                                 <string>&amp;Delete</string>
@@ -185,6 +185,12 @@
         <receiver>PageItemAttributes</receiver>
         <slot>accept()</slot>
     </connection>
+    <connection>
+        <sender>attributesTable</sender>
+        <signal>valueChanged(int,int)</signal>
+        <receiver>PageItemAttributes</receiver>
+        <slot>tableItemChanged(int,int)</slot>
+    </connection>
 </connections>
 <includes>
     <include location="local" impldecl="in declaration">pagestructs.h</include>
@@ -193,16 +199,16 @@
     <include location="local" impldecl="in implementation">pageitemattributes.ui.h</include>
 </includes>
 <variables>
-    <variable access="public">ObjAttrMap localAttributes;</variable>
+    <variable access="public">ObjAttrVector localAttributes;</variable>
 </variables>
 <slots>
-    <slot>setup( ObjAttrMap * docItemAttrs )</slot>
+    <slot>setup( ObjAttrVector * docItemAttrs )</slot>
     <slot>tableItemChanged( int row, int col )</slot>
 </slots>
 <functions>
     <function access="private" specifier="non virtual">init()</function>
     <function access="private" specifier="non virtual">destroy()</function>
-    <function returnType="QMap&lt;int,ObjectAttribute&gt;">getNewAttributes()</function>
+    <function returnType="ObjAttrVector*">getNewAttributes()</function>
 </functions>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>

@@ -1,7 +1,7 @@
 #ifndef PAGESTRUCTS_H
 #define PAGESTRUCTS_H
 
-#include <qmap.h>
+#include <qvaluevector.h>
 #include <qstring.h>
 
 struct ObjectAttribute {
@@ -11,5 +11,5 @@ struct ObjectAttribute {
 	QString parameter;
 };
 
-typedef QMap<int, ObjectAttribute> ObjAttrMap;
+typedef QValueVector<ObjectAttribute> ObjAttrVector;
 #endif

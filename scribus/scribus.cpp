@@ -7956,7 +7956,7 @@ void ScribusApp::slotPrefsOrg()
 				}
 		}
 		
-		Prefs.defaultItemAttributes = dia->tabDefaultItemAttributes->getNewAttributes();
+		Prefs.defaultItemAttributes = *(dia->tabDefaultItemAttributes->getNewAttributes());
 		
 		GetCMSProfiles();
 		Prefs.KeyActions = dia->tabKeys->getNewKeyMap();

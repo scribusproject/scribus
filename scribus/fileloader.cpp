@@ -706,7 +706,6 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 			if(pg.tagName()=="DocItemAttributes")
 			{
 				QDomNode DIA = PAGE.firstChild();
-				int count=0;
 				doc->docItemAttributes.clear();
 				while(!DIA.isNull())
 				{
@@ -718,7 +717,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 						objattr.type=itemAttr.attribute("Type");
 						objattr.value=itemAttr.attribute("Value");
 						objattr.parameter=itemAttr.attribute("Parameter");
-						doc->docItemAttributes.insert(count++,objattr);
+						doc->docItemAttributes.append(objattr);
 					}
 					DIA = DIA.nextSibling();
 				}
