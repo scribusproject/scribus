@@ -2,6 +2,7 @@
 # translation of scribus.cs_CZ.po to
 # translation of scribus.cs_CZ.po to
 # translation of scribus.cs_CZ.po to
+# translation of scribus.cs_CZ.po to
 # This is a Qt message file in .po format.  Each msgid starts with
 # a scope.  This scope should *NOT* be translated - eg. "Foo::Bar"
 # would be translated to "Pub", not "Foo::Pub".
@@ -10,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus.cs_CZ\n"
 "POT-Creation-Date: 2003-06-19 10:00+0200\n"
-"PO-Revision-Date: 2003-07-01 16:06+0200\n"
+"PO-Revision-Date: 2003-07-02 10:40+0200\n"
 "Last-Translator: Petr Vanìk <subzero@py.cz>\n"
 "Language-Team:  <cs@li.org>\n"
 "Content-Type: text/plain; charset=ISO-8859-2\n"
@@ -1044,7 +1045,7 @@ msgid "Color Model"
 msgstr "Barevný model"
 
 msgid "Is Spot-Color"
-msgstr "Neseparovaná barva"
+msgstr "Pøímá barva"
 
 msgid "Edit Color"
 msgstr "Upravit barvu"
@@ -2513,7 +2514,7 @@ msgid "User Guides Color:"
 msgstr "Vlastní barva vodítek:"
 
 msgid "Guide Snap Distance:"
-msgstr "Vzdálenost mezi vodítky:"
+msgstr "Dosah magnetických vodítek:"
 
 msgid "Use PDF-1.4 Transparency Features"
 msgstr "Pou¾ít vlastnosti prùsvitnosti PDF-1.4"
