@@ -213,6 +213,8 @@ UndoPalette::UndoPalette(QWidget* parent, const char* name)
 	connect(undoButton, SIGNAL(clicked()), this, SLOT(undoClicked()));
 	connect(redoButton, SIGNAL(clicked()), this, SLOT(redoClicked()));
 	connect(undoList, SIGNAL(highlighted(int)), this, SLOT(undoListClicked(int)));
+	connect(undoList, SIGNAL(onItem(QListBoxItem*)), this, SLOT(showToolTip(QListBoxItem*)));
+	connect(undoList, SIGNAL(onViewPort()), this, SLOT(removeToolTip()));
 }
 
 void UndoPalette::clear()
@@ -259,7 +261,8 @@ void UndoPalette::hideEvent(QHideEvent*)
 void UndoPalette::insertUndoItem(UndoObject* target, UndoState* state)
 {
 	removeRedoItems();
-	undoList->insertItem(new UndoItem(target->getUName(), state->getName(), state->getPixmap()));
+	undoList->insertItem(new UndoItem(target->getUName(), state->getName(),
+                                      state->getDescription(), state->getPixmap()));
 	currentSelection = undoList->numRows() - 1;
 	updateList();
 }
@@ -268,7 +271,8 @@ void UndoPalette::insertRedoItem(UndoObject* target, UndoState* state)
 {
 	if (undoList->count() == 1)
 		undoList->setSelected(0, true);
-	undoList->insertItem(new UndoItem(target->getUName(), state->getName(), state->getPixmap()));
+	undoList->insertItem(new UndoItem(target->getUName(), state->getName(),
+                                      state->getDescription(), state->getPixmap()));
 	updateList();
 }
 
@@ -337,6 +341,24 @@ void UndoPalette::undoListClicked(int i)
 	updateList();
 }
 
+void UndoPalette::showToolTip(QListBoxItem *i)
+{
+	UndoItem *item = dynamic_cast<UndoItem*>(i);
+	if (item)
+	{
+		QString tip = item->getDescription();
+		if (tip != 0)
+		  QToolTip::add(undoList, tip);
+	}
+	else
+		removeToolTip();
+}
+
+void UndoPalette::removeToolTip()
+{
+	QToolTip::remove(undoList);
+}
+
 UndoPalette::~UndoPalette()
 {
 
@@ -348,6 +370,7 @@ UndoPalette::UndoItem::UndoItem() : QListBoxItem()
 {
 	target = "";
 	action = "";
+	description = "";
 	pixmap = NULL;
 }
 
@@ -355,14 +378,17 @@ UndoPalette::UndoItem::UndoItem(const UndoItem &another) : QListBoxItem()
 {
 	target = another.target;
 	action = another.action;
+	description = another.description;
 	pixmap = another.pixmap;
 }
 
 UndoPalette::UndoItem::UndoItem(const QString &targetName, const QString &actionName,
-                                QPixmap *actionPixmap) : QListBoxItem()
+                                const QString &actionDescription, QPixmap *actionPixmap)
+: QListBoxItem()
 {
 	target = targetName;
 	action = actionName;
+	description = actionDescription;
 	pixmap = actionPixmap;
 }
 
@@ -395,6 +421,11 @@ int UndoPalette::UndoItem::width(const QListBox *lb) const
                37 + QFontMetrics(lb->font()).width(action);
 	else
 		return 0;
+}
+
+QString UndoPalette::UndoItem::getDescription()
+{
+  return description;
 }
 
 UndoPalette::UndoItem::~UndoItem()

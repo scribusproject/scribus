@@ -256,6 +256,8 @@ private:
 		QString target;
 		/** @brief Undo action's name */
 		QString action;
+		/** @brief Description of the action */
+		QString description;
 	public:
 		/** @brief Create an empty UndoItem object */
 		UndoItem();
@@ -270,16 +272,20 @@ private:
 		 * the item.
 		 * @param actionName Name of the state (action). Will appear on the 
 		 * second row of the item.
+		 * @param actionDescription This description of the action will be used as a
+		 * tooltip when the mouse cursor is over the item.
 		 * @param actionPixmap Icon for the state (action). Will appear on front
 		 * of the text parts.
 		 */ 
-		UndoItem(const QString &targetName, 
+		UndoItem(const QString &targetName,
                  const QString &actionName,
+                 const QString &actionDescription,
                  QPixmap *actionPixmap);
 		~UndoItem();
 		void paint(QPainter *painter);
 		int height(const QListBox*) const;
 		int width(const QListBox*) const;
+		QString getDescription();
 	};
 	
 /******************************************************************************/
@@ -288,6 +294,8 @@ private slots:
 	void undoClicked();
 	void redoClicked();
 	void undoListClicked(int i);
+	void showToolTip(QListBoxItem *i);
+	void removeToolTip();
 
 protected:
 	/**
