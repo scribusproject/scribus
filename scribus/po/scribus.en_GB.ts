@@ -152,6 +152,20 @@
       <source>Basque:</source>
       <translation>Basque:</translation>
     </message>
+    <message>
+      <source>Slovenian:</source>
+      <translation>Slovenian:</translation>
+    </message>
+    <message>
+      <source>This panel shows the version, build date and
+ compiled in library support in Scribus
+The C-C-T equates to C=CUPS C=littlecms T=TIFF support.
+Missing library support is indicated by a *</source>
+      <translation>This panel shows the version, build date and
+ compiled in library support in Scribus
+The C-C-T equates to C=CUPS C=littlecms T=TIFF support.
+Missing library support is indicated by a *</translation>
+    </message>
   </context>
   <context>
     <name>AdvOptions</name>
@@ -1326,6 +1340,10 @@ This requires very accurate profiles and serves only as a warning.</translation>
       <source></source>
       <translation type="unfinished" />
     </message>
+    <message>
+      <source>HSV-Colormap</source>
+      <translation>HSV-Colormap</translation>
+    </message>
   </context>
   <context>
     <name>Cpalette</name>
@@ -1475,6 +1493,18 @@ This requires very accurate profiles and serves only as a warning.</translation>
     <message>
       <source>Cancel</source>
       <translation>Cancel</translation>
+    </message>
+    <message>
+      <source>This panel displays various CUPS options when printing. 
+The exact parameters available will depend on your printer driver.
+You can confirm CUPS support by selecting Help > About.
+Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support.
+Missing library support is indicated by a *</source>
+      <translation>This panel displays various CUPS options when printing. 
+The exact parameters available will depend on your printer driver.
+You can confirm CUPS support by selecting Help > About.
+Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support.
+Missing library support is indicated by a *</translation>
     </message>
   </context>
   <context>
@@ -1792,22 +1822,6 @@ This can be set in the Preferences.</translation>
       <translation>Lines:</translation>
     </message>
     <message>
-      <source>Indentation</source>
-      <translation>Indentation</translation>
-    </message>
-    <message>
-      <source>Left Indent:</source>
-      <translation>Left Indent:</translation>
-    </message>
-    <message>
-      <source>First Line:</source>
-      <translation>First Line:</translation>
-    </message>
-    <message>
-      <source>Tabulators...</source>
-      <translation>Tabulators...</translation>
-    </message>
-    <message>
       <source>Vertical Spaces</source>
       <translation>Vertical Spaces</translation>
     </message>
@@ -1888,18 +1902,6 @@ This can be set in the Preferences.</translation>
       <translation>Spacing below the paragraph</translation>
     </message>
     <message>
-      <source>Indentation for first line of the paragraph</source>
-      <translation>Indentation for first line of the paragraph</translation>
-    </message>
-    <message>
-      <source>Indentation from the left for the whole paragraph</source>
-      <translation>Indentation from the left for the whole paragraph</translation>
-    </message>
-    <message>
-      <source>Edit tab settings of text frame...</source>
-      <translation>Edit tab settings of text frame...</translation>
-    </message>
-    <message>
       <source> mm</source>
       <translation> mm</translation>
     </message>
@@ -1910,6 +1912,14 @@ This can be set in the Preferences.</translation>
     <message>
       <source> p</source>
       <translation> p</translation>
+    </message>
+    <message>
+      <source>Line Spacing:</source>
+      <translation>Line Spacing:</translation>
+    </message>
+    <message>
+      <source>Tabulators and Indentation</source>
+      <translation>Tabulators and Indentation</translation>
     </message>
   </context>
   <context>
@@ -1977,6 +1987,127 @@ This can be set in the Preferences.</translation>
     <message>
       <source>Javascripts (*.js);;All Files (*)</source>
       <translation>Javascripts (*.js);;All Files (*)</translation>
+    </message>
+  </context>
+  <context>
+    <name>ExportForm</name>
+    <message>
+      <source>Export as Image</source>
+      <translation>Export as Image</translation>
+    </message>
+    <message>
+      <source>Export to directory:</source>
+      <translation>Export to directory:</translation>
+    </message>
+    <message>
+      <source>&amp;Change...</source>
+      <translation>&amp;Change...</translation>
+    </message>
+    <message>
+      <source>Alt+C</source>
+      <translation type="unfinished" />
+    </message>
+    <message>
+      <source>Image type:</source>
+      <translation>Image type:</translation>
+    </message>
+    <message>
+      <source>Quality :</source>
+      <translation>Quality :</translation>
+    </message>
+    <message>
+      <source>%</source>
+      <translation>%</translation>
+    </message>
+    <message>
+      <source>Size:</source>
+      <translation>Size:</translation>
+    </message>
+    <message>
+      <source>Export </source>
+      <translation>Export </translation>
+    </message>
+    <message>
+      <source>&amp;One page</source>
+      <translation>&amp;One page</translation>
+    </message>
+    <message>
+      <source>Alt+O</source>
+      <translation>Alt+O</translation>
+    </message>
+    <message>
+      <source>&amp;All pages</source>
+      <translation>&amp;All pages</translation>
+    </message>
+    <message>
+      <source>Alt+A</source>
+      <translation>Alt+A</translation>
+    </message>
+    <message>
+      <source>&amp;Interval from:</source>
+      <translation>&amp;Interval from:</translation>
+    </message>
+    <message>
+      <source>Alt+I</source>
+      <translation>Alt+I</translation>
+    </message>
+    <message>
+      <source>to:</source>
+      <translation>to:</translation>
+    </message>
+    <message>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
+    </message>
+    <message>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
+    </message>
+    <message>
+      <source>Change the output directory</source>
+      <translation>Change the output directory</translation>
+    </message>
+    <message>
+      <source>The output directory - the place to store your images.
+Name of the export file will be 'documentname-pagenumber.filetype'</source>
+      <translation>The output directory - the place to store your images.
+Name of the export file will be 'documentname-pagenumber.filetype'</translation>
+    </message>
+    <message>
+      <source>Export only the current page</source>
+      <translation>Export only the current page</translation>
+    </message>
+    <message>
+      <source>Export all pages to images</source>
+      <translation>Export all pages to images</translation>
+    </message>
+    <message>
+      <source>Export a range of pages to images</source>
+      <translation>Export a range of pages to images</translation>
+    </message>
+    <message>
+      <source>First page to export when exporting a range</source>
+      <translation>First page to export when exporting a range</translation>
+    </message>
+    <message>
+      <source>Last page to export when exporting a range</source>
+      <translation>Last page to export when exporting a range</translation>
+    </message>
+    <message>
+      <source>The height of the output images in pixels</source>
+      <translation>The height of the output images in pixels</translation>
+    </message>
+    <message>
+      <source>The quality of your images - 100% is the best, 1% the highest compression</source>
+      <translation>The quality of your images - 100% is the best, 1% the highest compression</translation>
+    </message>
+    <message>
+      <source>Available export formats</source>
+      <translation>Available export formats</translation>
+    </message>
+    <message>
+      <source>Choose a Export Directory</source>
+      <translation>Choose a Export Directory</translation>
     </message>
   </context>
   <context>
@@ -2644,6 +2775,41 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
   </context>
   <context>
+    <name>MSpinBox</name>
+    <message>
+      <source> pt</source>
+      <translation> pt</translation>
+    </message>
+    <message>
+      <source>pt</source>
+      <translation>pt</translation>
+    </message>
+    <message>
+      <source>mm</source>
+      <translation>mm</translation>
+    </message>
+    <message>
+      <source>in</source>
+      <translation>in</translation>
+    </message>
+    <message>
+      <source>p</source>
+      <translation>p</translation>
+    </message>
+    <message>
+      <source> mm</source>
+      <translation> mm</translation>
+    </message>
+    <message>
+      <source> in</source>
+      <translation> in</translation>
+    </message>
+    <message>
+      <source> p</source>
+      <translation> p</translation>
+    </message>
+  </context>
+  <context>
     <name>Mdup</name>
     <message>
       <source>Multiple Duplicate</source>
@@ -2906,10 +3072,6 @@ Corners:</translation>
     <message>
       <source>Distance from Curve:</source>
       <translation>Distance from Curve:</translation>
-    </message>
-    <message>
-      <source>Size:</source>
-      <translation>Size:</translation>
     </message>
     <message>
       <source> %</source>
@@ -3381,6 +3543,10 @@ Please choose another.</translation>
       <source>Column width</source>
       <translation>Column width</translation>
     </message>
+    <message>
+      <source>Font Size:</source>
+      <translation>Font Size:</translation>
+    </message>
   </context>
   <context>
     <name>MultiLine</name>
@@ -3735,6 +3901,18 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
       <source>Number of columns to create in automatically created text frames</source>
       <translation>Number of columns to create in automatically created text frames</translation>
+    </message>
+    <message>
+      <source>Legal</source>
+      <translation>Legal</translation>
+    </message>
+    <message>
+      <source>Letter</source>
+      <translation>Letter</translation>
+    </message>
+    <message>
+      <source>Tabloid</source>
+      <translation>Tabloid</translation>
     </message>
   </context>
   <context>
@@ -4119,14 +4297,6 @@ otherwise Coordinates are relative to the Object.</translation>
       <translation>Allow Changing the Document</translation>
     </message>
     <message>
-      <source>Copying Text and Graphics is allowed</source>
-      <translation>Copying Text and Graphics is allowed</translation>
-    </message>
-    <message>
-      <source>Adding Annotations and Fields is allowed</source>
-      <translation>Adding Annotations and Fields is allowed</translation>
-    </message>
-    <message>
       <source>Output intended for:</source>
       <translation>Output intended for:</translation>
     </message>
@@ -4293,10 +4463,6 @@ A shorter time will speed up the effect, a longer one will slow it down.</transl
 security features in your exported PDF</source>
       <translation>Choose a master password which enables or disables all the
 security features in your exported PDF</translation>
-    </message>
-    <message>
-      <source>Choose a password for users to be able to read your PDF</source>
-      <translation>Choose a password for users to be able to read your PDF</translation>
     </message>
     <message>
       <source>Embed a color profile for solid colors</source>
@@ -4475,22 +4641,6 @@ If you selected Acrobat 5.0, the PDF will be protected by 128 bit encryption.
 Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</translation>
     </message>
     <message>
-      <source>Allow printing of the PDF</source>
-      <translation>Allow printing of the PDF</translation>
-    </message>
-    <message>
-      <source>Allow modifying of the PDF</source>
-      <translation>Allow modifying of the PDF</translation>
-    </message>
-    <message>
-      <source>Allow copying of text or graphics from the PDF</source>
-      <translation>Allow copying of text or graphics from the PDF</translation>
-    </message>
-    <message>
-      <source>Allow adding annotations and fields to the PDF</source>
-      <translation>Allow adding annotations and fields to the PDF</translation>
-    </message>
-    <message>
       <source>Color model for the output of your PDF.
 Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.
 Choose Printer when printing to a true 4 color CMYK printer.</source>
@@ -4527,6 +4677,38 @@ PDF/X-3 conformance. We recommend you use the title of the document.</translatio
     <message>
       <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
       <translation>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</translation>
+    </message>
+    <message>
+      <source>Allow Copying Text and Graphics</source>
+      <translation>Allow Copying Text and Graphics</translation>
+    </message>
+    <message>
+      <source>Allow Adding Annotations and Fields</source>
+      <translation>Allow Adding Annotations and Fields</translation>
+    </message>
+    <message>
+      <source>Choose a password for users to be able to read your PDF.</source>
+      <translation>Choose a password for users to be able to read your PDF.</translation>
+    </message>
+    <message>
+      <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
+      <translation>Allow printing of the PDF. If un-checked, printing is prevented. </translation>
+    </message>
+    <message>
+      <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
+      <translation>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</translation>
+    </message>
+    <message>
+      <source>Allow copying of text or graphics from the PDF. 
+If un-checked, text and graphics cannot be copied.</source>
+      <translation>Allow copying of text or graphics from the PDF. 
+If un-checked, text and graphics cannot be copied.</translation>
+    </message>
+    <message>
+      <source>Allow adding annotations and fields to the PDF. 
+If un-checked, editing annotations and fileds is prevented.</source>
+      <translation>Allow adding annotations and fields to the PDF. 
+If un-checked, editing annotations and fileds is prevented.</translation>
     </message>
   </context>
   <context>
@@ -5129,10 +5311,6 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
       <translation>Recent Documents:</translation>
     </message>
     <message>
-      <source>Keyboard Shortcuts...</source>
-      <translation>Keyboard Shortcuts...</translation>
-    </message>
-    <message>
       <source>Paths</source>
       <translation>Paths</translation>
     </message>
@@ -5541,10 +5719,6 @@ Scribus inherits any available KDE or Qt themes</translation>
     <message>
       <source>Number of recently edited documents to show in the File menu</source>
       <translation>Number of recently edited documents to show in the File menu</translation>
-    </message>
-    <message>
-      <source>Change the keyboard shortcuts to your preference</source>
-      <translation>Change the keyboard shortcuts to your preference</translation>
     </message>
     <message>
       <source>Default documents directory</source>
@@ -6295,22 +6469,6 @@ Check path and filename.</translation>
   <context>
     <name>QObject</name>
     <message>
-      <source> pt</source>
-      <translation> pt</translation>
-    </message>
-    <message>
-      <source> mm</source>
-      <translation> mm</translation>
-    </message>
-    <message>
-      <source> in</source>
-      <translation> in</translation>
-    </message>
-    <message>
-      <source> p</source>
-      <translation> p</translation>
-    </message>
-    <message>
       <source>Initializing...</source>
       <translation>Initialising...</translation>
     </message>
@@ -6393,22 +6551,6 @@ Check path and filename.</translation>
       <translation>No</translation>
     </message>
     <message>
-      <source>pt</source>
-      <translation>pt</translation>
-    </message>
-    <message>
-      <source>mm</source>
-      <translation>mm</translation>
-    </message>
-    <message>
-      <source>in</source>
-      <translation>in</translation>
-    </message>
-    <message>
-      <source>p</source>
-      <translation>p</translation>
-    </message>
-    <message>
       <source>Scribus Scripts</source>
       <translation>Scribus Scripts</translation>
     </message>
@@ -6431,6 +6573,38 @@ Check path and filename.</translation>
     <message>
       <source>Import SVG-Image...</source>
       <translation>Import SVG-Image...</translation>
+    </message>
+    <message>
+      <source>Save as Image...</source>
+      <translation>Save as Image...</translation>
+    </message>
+    <message>
+      <source>Save as Image</source>
+      <translation>Save as Image</translation>
+    </message>
+    <message>
+      <source>Error writting the output file(s).</source>
+      <translation>Error writting the output file(s).</translation>
+    </message>
+    <message>
+      <source>Error writing the output file(s).</source>
+      <translation>Error writing the output file(s).</translation>
+    </message>
+    <message>
+      <source>Export successful.</source>
+      <translation>Export successful.</translation>
+    </message>
+    <message>
+      <source>File exists. Overwrite?</source>
+      <translation>File exists. Overwrite?</translation>
+    </message>
+    <message>
+      <source>exists already. Overwrite?</source>
+      <translation>exists already. Overwrite?</translation>
+    </message>
+    <message>
+      <source>Yes all</source>
+      <translation>Yes all</translation>
     </message>
   </context>
   <context>
@@ -6638,6 +6812,22 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
       <translation>Distance between the right margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</translation>
+    </message>
+    <message>
+      <source> pt</source>
+      <translation> pt</translation>
+    </message>
+    <message>
+      <source> mm</source>
+      <translation> mm</translation>
+    </message>
+    <message>
+      <source> in</source>
+      <translation> in</translation>
+    </message>
+    <message>
+      <source> p</source>
+      <translation> p</translation>
     </message>
   </context>
   <context>
@@ -6870,10 +7060,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
       <translation>Templates...</translation>
     </message>
     <message>
-      <source>General...</source>
-      <translation>General...</translation>
-    </message>
-    <message>
       <source>Preferences...</source>
       <translation>Preferences...</translation>
     </message>
@@ -6884,10 +7070,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
       <source>Hyphenator...</source>
       <translation>Hyphenator...</translation>
-    </message>
-    <message>
-      <source>Preferences</source>
-      <translation>Preferences</translation>
     </message>
     <message>
       <source>Select New Font</source>
@@ -7504,10 +7686,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
       <translation>Show Baseline Grid</translation>
     </message>
     <message>
-      <source>Tool&amp;bars</source>
-      <translation>Tool&amp;bars</translation>
-    </message>
-    <message>
       <source>Hide Baseline Grid</source>
       <translation>Hide Baseline Grid</translation>
     </message>
@@ -7562,6 +7740,30 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
       <source>p</source>
       <translation>p</translation>
+    </message>
+    <message>
+      <source>Keyboard Shortcuts...</source>
+      <translation>Keyboard Shortcuts...</translation>
+    </message>
+    <message>
+      <source>Scribus Manual...</source>
+      <translation>Scribus Manual...</translation>
+    </message>
+    <message>
+      <source>&amp;Settings</source>
+      <translation>&amp;Settings</translation>
+    </message>
+    <message>
+      <source>Lithuanian</source>
+      <translation>Lithuanian</translation>
+    </message>
+    <message>
+      <source>Swedish</source>
+      <translation>Swedish</translation>
+    </message>
+    <message>
+      <source>Slovenian</source>
+      <translation>Slovenian</translation>
     </message>
   </context>
   <context>
@@ -8105,13 +8307,16 @@ drag a Template to the Pageview below.</translation>
       <translation>Manage Tabulators</translation>
     </message>
     <message>
-      <source>Position:</source>
-      <translation>Position:</translation>
+      <source>OK</source>
+      <translation>OK</translation>
     </message>
     <message>
-      <source>Alignment:</source>
-      <translation>Alignment:</translation>
+      <source>Cancel</source>
+      <translation>Cancel</translation>
     </message>
+  </context>
+  <context>
+    <name>Tabruler</name>
     <message>
       <source>Left</source>
       <translation>Left</translation>
@@ -8133,24 +8338,48 @@ drag a Template to the Pageview below.</translation>
       <translation>Centre</translation>
     </message>
     <message>
+      <source>Position:</source>
+      <translation>Position:</translation>
+    </message>
+    <message>
+      <source>First Line:</source>
+      <translation>First Line:</translation>
+    </message>
+    <message>
+      <source>Indent:</source>
+      <translation>Indent:</translation>
+    </message>
+    <message>
+      <source>Delete All</source>
+      <translation>Delete All</translation>
+    </message>
+    <message>
+      <source>Indentation for first line of the paragraph</source>
+      <translation>Indentation for first line of the paragraph</translation>
+    </message>
+    <message>
+      <source>Indentation from the left for the whole paragraph</source>
+      <translation>Indentation from the left for the whole paragraph</translation>
+    </message>
+    <message>
+      <source>Delete all Tabulators</source>
+      <translation>Delete all Tabulators</translation>
+    </message>
+    <message>
       <source> pt</source>
       <translation> pt</translation>
     </message>
     <message>
-      <source>OK</source>
-      <translation>OK</translation>
+      <source> mm</source>
+      <translation> mm</translation>
     </message>
     <message>
-      <source>Cancel</source>
-      <translation>Cancel</translation>
+      <source> in</source>
+      <translation> in</translation>
     </message>
     <message>
-      <source>Remove</source>
-      <translation>Remove</translation>
-    </message>
-    <message>
-      <source>Add</source>
-      <translation>Add</translation>
+      <source> p</source>
+      <translation> p</translation>
     </message>
   </context>
   <context>
@@ -8296,6 +8525,10 @@ Please choose another.</translation>
       <source>Insert Table</source>
       <translation>Insert Table</translation>
     </message>
+    <message>
+      <source>Do measurements</source>
+      <translation>Do measurements</translation>
+    </message>
   </context>
   <context>
     <name>WerkToolBP</name>
@@ -8357,6 +8590,18 @@ Please choose another.</translation>
     <message>
       <source>Close</source>
       <translation>Close</translation>
+    </message>
+    <message>
+      <source>Insert the characters at the cursor in the text</source>
+      <translation>Insert the characters at the cursor in the text</translation>
+    </message>
+    <message>
+      <source>Delete the current selection(s).</source>
+      <translation>Delete the current selection(s).</translation>
+    </message>
+    <message>
+      <source>Close this dialog and return to text editing.</source>
+      <translation>Close this dialog and return to text editing.</translation>
     </message>
   </context>
 </TS>

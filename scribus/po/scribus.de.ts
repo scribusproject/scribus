@@ -539,7 +539,7 @@ Fehlende Unterstützung wird duch ein Sternchen angezeigt</translation>
     </message>
     <message>
         <source>Import Data from:</source>
-        <translation>Importiere Daten von:</translation>
+        <translation>Daten importieren von:</translation>
     </message>
     <message>
         <source>Destination</source>
@@ -707,7 +707,7 @@ Fehlende Unterstützung wird duch ein Sternchen angezeigt</translation>
     </message>
     <message>
         <source>You need at least the Icon for Normal to use Icons for Buttons</source>
-        <translation>Sie benötigen mindestens das Icon für Normal um Icons zu benutzen</translation>
+        <translation>Sie benötigen mindestens das Standard um Icons zu benutzen</translation>
     </message>
     <message>
         <source>Open</source>
@@ -727,7 +727,7 @@ Fehlende Unterstützung wird duch ein Sternchen angezeigt</translation>
     </message>
     <message>
         <source>Java Script</source>
-        <translation>JavaScript</translation>
+        <translation>Javascript</translation>
     </message>
     <message>
         <source>PDF-Documents (*.pdf);;All Files (*)</source>
@@ -964,7 +964,7 @@ Fehlende Unterstützung wird duch ein Sternchen angezeigt</translation>
     </message>
     <message>
         <source>Load...</source>
-        <translation>Laden...</translation>
+        <translation>Plugin wird geladen...</translation>
     </message>
     <message>
         <source>Close</source>
@@ -1049,7 +1049,7 @@ Fehlende Unterstützung wird duch ein Sternchen angezeigt</translation>
     </message>
     <message>
         <source>Scale:</source>
-        <translation>Skaliere:</translation>
+        <translation>Skalieren:</translation>
     </message>
     <message>
         <source>Always</source>
@@ -1132,7 +1132,7 @@ Fehlende Unterstützung wird duch ein Sternchen angezeigt</translation>
     <name>CMSPrefs</name>
     <message>
         <source>Color Management Settings</source>
-        <translation>Farbmanagement Einstellungen</translation>
+        <translation>Einstellungen für das Farbmanagement</translation>
     </message>
     <message>
         <source>Activate Color Management</source>
@@ -1160,7 +1160,7 @@ Fehlende Unterstützung wird duch ein Sternchen angezeigt</translation>
     </message>
     <message>
         <source>Rendering Intents</source>
-        <translation>Render-Prioritäten</translation>
+        <translation>Render-Methode</translation>
     </message>
     <message>
         <source>Simulate Printer on the Screen</source>
@@ -1188,7 +1188,7 @@ Fehlende Unterstützung wird duch ein Sternchen angezeigt</translation>
     </message>
     <message>
         <source>Relative Colorimetric</source>
-        <translation>Relativ Farbmetrisch</translation>
+        <translation>Relativ farbmetrisch</translation>
     </message>
     <message>
         <source>Saturation</source>
@@ -1272,7 +1272,7 @@ Das erfordert sehr genaue Profile und dient nur als Anhaltspunkt.</translation>
     </message>
     <message>
         <source>Web Safe RGB</source>
-        <translation>Web Farben</translation>
+        <translation>Web-sichere Farben</translation>
     </message>
     <message>
         <source>New</source>
@@ -1522,8 +1522,8 @@ Fehlende Bibliotheken werden durch ein Sternchen angezeigt</translation>
     <message>
         <source>Moves to your Document Directory.
 This can be set in the Preferences.</source>
-        <translation>Geht zum Dokumenten Verzeichnis.
-Wird in den Voreinstellungen eingestellt.</translation>
+        <translation>Geht zum Dokument-Verzeichnis.
+Das kann in den Voreinstellungen eingestellt werden.</translation>
     </message>
 </context>
 <context>
@@ -1702,15 +1702,15 @@ Wird in den Voreinstellungen eingestellt.</translation>
     </message>
     <message>
         <source>Print last page first</source>
-        <translation>Drucke letzte Seite zuerst</translation>
+        <translation>Letzte Seite zuerst drucken</translation>
     </message>
     <message>
         <source>Print first page first</source>
-        <translation>Drucke erste Seite zuerst</translation>
+        <translation>Erste Seite zuerst drucken</translation>
     </message>
     <message>
         <source>Number of copies:</source>
-        <translation>Anzahl der Kopien:</translation>
+        <translation>Kopien:</translation>
     </message>
     <message>
         <source>Options</source>
@@ -2309,7 +2309,7 @@ Dateinamen der Bilder haben das Format &apos;NamedesDokuments-Seite.Dateiformat<
     </message>
     <message>
         <source>Append colors to the current set from an existing document</source>
-        <translation>Farben aus anderem Dokument nachladen</translation>
+        <translation>Farben aus anderem Dokument anfügen</translation>
     </message>
     <message>
         <source>Create a new color within the current set</source>
@@ -2340,7 +2340,7 @@ Dateinamen der Bilder haben das Format &apos;NamedesDokuments-Seite.Dateiformat<
     <name>FontPrefs</name>
     <message>
         <source>Global Font Settings</source>
-        <translation>Globale Schrifteinstellungen</translation>
+        <translation>Globale Einstellungen für Schriften</translation>
     </message>
     <message>
         <source>Available Fonts</source>
@@ -2348,7 +2348,7 @@ Dateinamen der Bilder haben das Format &apos;NamedesDokuments-Seite.Dateiformat<
     </message>
     <message>
         <source>Font Substitutions</source>
-        <translation>Schrift Ersetzungen</translation>
+        <translation>Schrift-Ersetzungen</translation>
     </message>
     <message>
         <source>Additional Paths</source>
@@ -2364,7 +2364,7 @@ Dateinamen der Bilder haben das Format &apos;NamedesDokuments-Seite.Dateiformat<
     </message>
     <message>
         <source>Font Name</source>
-        <translation>Schrift Name</translation>
+        <translation>Name der Schriftart</translation>
     </message>
     <message>
         <source>Replacement</source>
@@ -2498,14 +2498,14 @@ Dateinamen der Bilder haben das Format &apos;NamedesDokuments-Seite.Dateiformat<
     </message>
     <message>
         <source>Sorry, no manual available! Please see: http://scribus.net for updated docs and downloads.</source>
-        <translation>Leider kein Handbuch verfügbar! Bitte besuchen Sie: http://scribus.net für Updates.</translation>
+        <translation>Leider kein Handbuch verfügbar! Bitte besuchen Sie http://scribus.net,um aktualisierte Handbücher herunterzuladen.</translation>
     </message>
 </context>
 <context>
     <name>HyAsk</name>
     <message>
         <source>Possible Hyphenation</source>
-        <translation>Trennungsvorschlag</translation>
+        <translation>Vorschlag für die Worttrennung</translation>
     </message>
     <message>
         <source>Accept</source>
@@ -2524,7 +2524,7 @@ Dateinamen der Bilder haben das Format &apos;NamedesDokuments-Seite.Dateiformat<
     <name>HySettings</name>
     <message>
         <source>Hyphenator Settings</source>
-        <translation>Einstellungen</translation>
+        <translation>Einstellungen für die Silbentrennung</translation>
     </message>
     <message>
         <source>Fully Automatic</source>
@@ -2662,7 +2662,7 @@ Null bedeutet unbegrenzt.</translation>
     </message>
     <message>
         <source>Edit JavaScripts</source>
-        <translation>JavaScripts bearbeiten</translation>
+        <translation>JavaScripte bearbeiten</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -2713,7 +2713,7 @@ Null bedeutet unbegrenzt.</translation>
     </message>
     <message>
         <source>Set Key</source>
-        <translation>Definiere Taste</translation>
+        <translation>Taste definieren</translation>
     </message>
     <message>
         <source>OK</source>
@@ -2894,22 +2894,22 @@ Null bedeutet unbegrenzt.</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation></translation>
+        <translation>mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation></translation>
+        <translation>in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation></translation>
+        <translation>p</translation>
     </message>
 </context>
 <context>
     <name>Mdup</name>
     <message>
         <source>Multiple Duplicate</source>
-        <translation>Mehrfach Duplizieren</translation>
+        <translation>Mehrfach duplizieren</translation>
     </message>
     <message>
         <source>Number of Copies:</source>
@@ -2948,7 +2948,7 @@ Null bedeutet unbegrenzt.</translation>
     </message>
     <message>
         <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
-        <translation>Falls das Script ein offizelles Scribus-Script ist, den Fehler bitte auf &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; melden.</translation>
+        <translation>Falls das Script ein offizielles Scribus-Script ist, den Fehler bitte auf &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; melden.</translation>
     </message>
 </context>
 <context>
@@ -3130,7 +3130,7 @@ Corners:</source>
     </message>
     <message>
         <source>Distance of Text</source>
-        <translation>Abstand des Textes</translation>
+        <translation>Optionen für Textrahmen</translation>
     </message>
     <message>
         <source>Columns:</source>
@@ -3242,7 +3242,7 @@ Corners:</source>
     </message>
     <message>
         <source>Rendering Intent:</source>
-        <translation>Render Priorität:</translation>
+        <translation>Rendermethode:</translation>
     </message>
     <message>
         <source>Perceptual</source>
@@ -3250,7 +3250,7 @@ Corners:</source>
     </message>
     <message>
         <source>Relative Colorimetric</source>
-        <translation>Relativ Farbmetrisch</translation>
+        <translation>Relativ farbmetrisch</translation>
     </message>
     <message>
         <source>Saturation</source>
@@ -3584,7 +3584,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Edit tab settings of text frame...</source>
-        <translation>Tabulatoren setzen/bearbeiten...</translation>
+        <translation>Tabulatoren des aktiven Textrahmens bearbeiten...</translation>
     </message>
     <message>
         <source>Allow the image to be a different size to the frame</source>
@@ -3935,7 +3935,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>First Page Number:</source>
-        <translation>Erste Seiten Nummer:</translation>
+        <translation>Nummer der ersten Seite:</translation>
     </message>
     <message>
         <source>Default Unit:</source>
@@ -4007,7 +4007,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Automatic Text Frames</source>
-        <translation>Automatisch Textrahmen erzeugen</translation>
+        <translation>Textrahmen automatisch erzeugen</translation>
     </message>
     <message>
         <source>Gap:</source>
@@ -4019,7 +4019,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Orientation of the document&apos;s pages</source>
-        <translation>Ausrichtung der Dokument-Seite</translation>
+        <translation>Ausrichtung der Seite</translation>
     </message>
     <message>
         <source>Width of the document&apos;s pages, editable if you have chosen a custom page size</source>
@@ -4059,7 +4059,7 @@ Wenn Doppelseiten aktiviert sind, kann hier der Abstand gewählt werden, um eine
     </message>
     <message>
         <source>First page number of the document</source>
-        <translation>Erste Seitennummer im Dokument</translation>
+        <translation>Nummer der ersten Seite des Dokuments</translation>
     </message>
     <message>
         <source>Default unit of measurement for document editing</source>
@@ -4169,7 +4169,7 @@ Wenn Doppelseiten aktiviert sind, kann hier der Abstand gewählt werden, um eine
     </message>
     <message>
         <source>Closes this Bezier Curve</source>
-        <translation>Schließt diese Bezier Kurve</translation>
+        <translation>Schließt diese Bezierkurve</translation>
     </message>
     <message>
         <source>Mirrors the Path Horizontally</source>
@@ -4222,7 +4222,7 @@ andernfalls relativ zum Objekt.</translation>
     <name>PConsole</name>
     <message>
         <source>Script Console</source>
-        <translation>Script Konsole</translation>
+        <translation>Script-Konsole</translation>
     </message>
 </context>
 <context>
@@ -4257,7 +4257,7 @@ andernfalls relativ zum Objekt.</translation>
     </message>
     <message>
         <source>File Options</source>
-        <translation>Datei Optionen</translation>
+        <translation>Optionen des Dateiformats</translation>
     </message>
     <message>
         <source>Compatibility:</source>
@@ -4277,11 +4277,11 @@ andernfalls relativ zum Objekt.</translation>
     </message>
     <message>
         <source>Generate Thumbnails</source>
-        <translation>Vorschauen erzeugen</translation>
+        <translation>Vorschaubilder erzeugen</translation>
     </message>
     <message>
         <source>Save linked Text Frames as PDF-Articles</source>
-        <translation>Textrahmenketten als PDF-Artikel speichern</translation>
+        <translation>Verkettete Textrahmen als PDF-Artikel speichern</translation>
     </message>
     <message>
         <source>Include Bookmarks</source>
@@ -4301,7 +4301,7 @@ andernfalls relativ zum Objekt.</translation>
     </message>
     <message>
         <source>Downsample Images to:</source>
-        <translation>Auflösung von Bildern:</translation>
+        <translation>Auflösung der Bildern herunterrechnen auf:</translation>
     </message>
     <message>
         <source>Compress Text and Vector Graphics</source>
@@ -4341,7 +4341,7 @@ andernfalls relativ zum Objekt.</translation>
     </message>
     <message>
         <source>Enable Presentation Effects</source>
-        <translation>Präsentations Effekte verwenden</translation>
+        <translation>Effekte für die Präsentation aktivieren</translation>
     </message>
     <message>
         <source>Page</source>
@@ -4349,7 +4349,7 @@ andernfalls relativ zum Objekt.</translation>
     </message>
     <message>
         <source>Show Page Previews</source>
-        <translation>Zeige Seiten Vorschau</translation>
+        <translation>Vorschau anzeigen</translation>
     </message>
     <message>
         <source>Effects</source>
@@ -4361,7 +4361,7 @@ andernfalls relativ zum Objekt.</translation>
     </message>
     <message>
         <source>Effect Duration:</source>
-        <translation>Effektdauer:</translation>
+        <translation>Dauer des Effekts:</translation>
     </message>
     <message>
         <source>Effect Type:</source>
@@ -4473,7 +4473,7 @@ andernfalls relativ zum Objekt.</translation>
     </message>
     <message>
         <source>Rendering-Intent:</source>
-        <translation>Render Priorität:</translation>
+        <translation>Rendermethode:</translation>
     </message>
     <message>
         <source>Images:</source>
@@ -4489,11 +4489,11 @@ andernfalls relativ zum Objekt.</translation>
     </message>
     <message>
         <source>PDF/X-3 Output Intent</source>
-        <translation>PDF/X-3 Ausgabebedingung</translation>
+        <translation>Einstellungen für PDF/X-3</translation>
     </message>
     <message>
         <source>Info String:</source>
-        <translation>Info Kommentar:</translation>
+        <translation>Kommentar:</translation>
     </message>
     <message>
         <source>Output Profile:</source>
@@ -4501,7 +4501,7 @@ andernfalls relativ zum Objekt.</translation>
     </message>
     <message>
         <source>Trim Box</source>
-        <translation>Trim Box</translation>
+        <translation>Seite zuschneiden</translation>
     </message>
     <message>
         <source>PDF/X-3</source>
@@ -4577,7 +4577,7 @@ andernfalls relativ zum Objekt.</translation>
     </message>
     <message>
         <source>Relative Colorimetric</source>
-        <translation>Relativ Farbmetrisch</translation>
+        <translation>Relativ farbmetrisch</translation>
     </message>
     <message>
         <source>Saturation</source>
@@ -4961,7 +4961,7 @@ Wenn nicht ausgewählt, wird das Hinzufügen von Anmerkungen verhindert.</transl
     </message>
     <message>
         <source>Anti-alias Graphics</source>
-        <translation>Grafik glätten</translation>
+        <translation>Grafiken glätten</translation>
     </message>
     <message>
         <source>All</source>
@@ -5088,11 +5088,11 @@ auf Kosten der Render-Geschwindigkeit glatter dar</translation>
     </message>
     <message>
         <source>Snap to Grid</source>
-        <translation>Am Raster ausrichten</translation>
+        <translation>Magnetisches Raster</translation>
     </message>
     <message>
         <source>Snap to Guides</source>
-        <translation>Hilfslinen sind magnetisch</translation>
+        <translation>Magnetische Hilfslinien</translation>
     </message>
     <message>
         <source>Picture</source>
@@ -5140,11 +5140,11 @@ auf Kosten der Render-Geschwindigkeit glatter dar</translation>
     </message>
     <message>
         <source>Enabled</source>
-        <translation>Ein</translation>
+        <translation>Aktiviert</translation>
     </message>
     <message>
         <source>Disabled</source>
-        <translation>Aus</translation>
+        <translation>Deaktiviert</translation>
     </message>
     <message>
         <source>Info</source>
@@ -5152,15 +5152,15 @@ auf Kosten der Render-Geschwindigkeit glatter dar</translation>
     </message>
     <message>
         <source>Get Picture...</source>
-        <translation>Bild laden...</translation>
+        <translation>Bild auswählen...</translation>
     </message>
     <message>
         <source>Image Visible</source>
-        <translation>Bild anzeigen</translation>
+        <translation>Bild sichtbar</translation>
     </message>
     <message>
         <source>Get Text...</source>
-        <translation>Text laden...</translation>
+        <translation>Text aus Datei laden...</translation>
     </message>
     <message>
         <source>Edit Text...</source>
@@ -5168,23 +5168,23 @@ auf Kosten der Render-Geschwindigkeit glatter dar</translation>
     </message>
     <message>
         <source>Is PDF-Bookmark</source>
-        <translation>Ist PDF-Lesezeichen</translation>
+        <translation>Als PDF-Lesezeichen verwenden</translation>
     </message>
     <message>
         <source>Is PDF-Annotation</source>
-        <translation>Ist PDF-Anmerkung</translation>
+        <translation>Als PDF-Anmerkung verwenden</translation>
     </message>
     <message>
         <source>Annotation Properties</source>
-        <translation>Eigenschaften der Anmerkungen</translation>
+        <translation>Eigenschaften der Anmerkung</translation>
     </message>
     <message>
         <source>Field Properties</source>
-        <translation>Eigenschaften der Felder</translation>
+        <translation>Eigenschaften des Feldes</translation>
     </message>
     <message>
         <source>Group</source>
-        <translation>Gruppieren</translation>
+        <translation>Objekte gruppieren</translation>
     </message>
     <message>
         <source>Un-group</source>
@@ -5220,7 +5220,7 @@ auf Kosten der Render-Geschwindigkeit glatter dar</translation>
     </message>
     <message>
         <source>Send to Layer</source>
-        <translation>Kopiere auf die Ebene</translation>
+        <translation>Verschieben auf die Ebene</translation>
     </message>
     <message>
         <source>Picture Frame</source>
@@ -5320,11 +5320,11 @@ auf Kosten der Render-Geschwindigkeit glatter dar</translation>
     </message>
     <message>
         <source>Lock object size</source>
-        <translation>Objektgröße sperren</translation>
+        <translation>Größe des Objekts nicht veränderbar</translation>
     </message>
     <message>
         <source>Unlock object size</source>
-        <translation>Objektgröße entsperren</translation>
+        <translation>Größe des Objekts veränderbar</translation>
     </message>
     <message>
         <source>Level</source>
@@ -5412,7 +5412,7 @@ auf Kosten der Render-Geschwindigkeit glatter dar</translation>
     </message>
     <message>
         <source>Missing</source>
-        <translation>Nicht vorhanden</translation>
+        <translation>fehlt</translation>
     </message>
     <message>
         <source>Search</source>
@@ -5530,7 +5530,7 @@ auf Kosten der Render-Geschwindigkeit glatter dar</translation>
     </message>
     <message>
         <source>Mouse-Settings</source>
-        <translation>Maus-Einstellungen</translation>
+        <translation>Optionen für die Maus</translation>
     </message>
     <message>
         <source>Wheel-Jump</source>
@@ -5546,7 +5546,7 @@ auf Kosten der Render-Geschwindigkeit glatter dar</translation>
     </message>
     <message>
         <source>Recent Documents:</source>
-        <translation>Letzte Dokumente:</translation>
+        <translation>Zuletzt geöffnete Dokumente:</translation>
     </message>
     <message>
         <source>Keyboard Shortcuts...</source>
@@ -5638,7 +5638,7 @@ auf Kosten der Render-Geschwindigkeit glatter dar</translation>
     </message>
     <message>
         <source>Enabled</source>
-        <translation>Eingeschaltet</translation>
+        <translation>Aktiviert</translation>
     </message>
     <message>
         <source>Interval:</source>
@@ -5650,35 +5650,35 @@ auf Kosten der Render-Geschwindigkeit glatter dar</translation>
     </message>
     <message>
         <source>Grid Layout</source>
-        <translation>Hilfslinien Einrichtung</translation>
+        <translation>Einstellungen für Hilfslinien</translation>
     </message>
     <message>
         <source>Minor Grid Spacing:</source>
-        <translation>Abstand Teillinien:</translation>
+        <translation>Abstand der Teillinien:</translation>
     </message>
     <message>
         <source>Major Grid Spacing:</source>
-        <translation>Abstand Hauptlinien:</translation>
+        <translation>Abstand der Hauptlinien:</translation>
     </message>
     <message>
         <source>Guide Snap Distance:</source>
-        <translation>Fangabstand der Hilfslinien:</translation>
+        <translation>Fangdistanz der Hilfslinien:</translation>
     </message>
     <message>
         <source>Grid Colors</source>
-        <translation>Hilfslinienfarben</translation>
+        <translation>Farbe der Hilfslinien</translation>
     </message>
     <message>
         <source>Minor Grid Color:</source>
-        <translation>Farbe Teillinien:</translation>
+        <translation>Farbe der Teillinien:</translation>
     </message>
     <message>
         <source>Major Grid Color:</source>
-        <translation>Farbe Hauptlinien:</translation>
+        <translation>Farbe der Hauptlinien:</translation>
     </message>
     <message>
         <source>User Guides Color:</source>
-        <translation>Farbe Hilfslinien:</translation>
+        <translation>Farbe der benutzerdefinierten Hilfslinien:</translation>
     </message>
     <message>
         <source>Placing</source>
@@ -5730,7 +5730,7 @@ auf Kosten der Render-Geschwindigkeit glatter dar</translation>
     </message>
     <message>
         <source>Default Font:</source>
-        <translation>Standard Schrift:</translation>
+        <translation>Voreingestellte Schriftart:</translation>
     </message>
     <message>
         <source>Text Color:</source>
@@ -5858,11 +5858,11 @@ auf Kosten der Render-Geschwindigkeit glatter dar</translation>
     </message>
     <message>
         <source>Display Pages Side by Side</source>
-        <translation>Seiten nebeneinander</translation>
+        <translation>Seiten nebeneinander anzeigen</translation>
     </message>
     <message>
         <source>Page-Colors</source>
-        <translation>Seiten-Farben</translation>
+        <translation>Seitenfarbe</translation>
     </message>
     <message>
         <source>Background:</source>
@@ -5878,11 +5878,11 @@ auf Kosten der Render-Geschwindigkeit glatter dar</translation>
     </message>
     <message>
         <source>Use PDF-1.4 Transparency Features</source>
-        <translation>PDF-1.4 Tranzparenzen benutzen</translation>
+        <translation>PDF-1.4 Tranzparenz benutzen</translation>
     </message>
     <message>
         <source>Adjust Display Size</source>
-        <translation>Größenanpassung der Anzeige</translation>
+        <translation>Seitengröße anpassen</translation>
     </message>
     <message>
         <source>To adjust the display drag the ruler below with the Slider.</source>
@@ -5938,11 +5938,11 @@ auf Kosten der Render-Geschwindigkeit glatter dar</translation>
     </message>
     <message>
         <source>External Tools</source>
-        <translation>Externe Hilfsprogramme</translation>
+        <translation>Externe Programme</translation>
     </message>
     <message>
         <source>Misc.</source>
-        <translation>Versch.</translation>
+        <translation>Diverses</translation>
     </message>
     <message>
         <source>Displacement:</source>
@@ -5950,11 +5950,11 @@ auf Kosten der Render-Geschwindigkeit glatter dar</translation>
     </message>
     <message>
         <source>Postscript Interpreter</source>
-        <translation>Postscript Interpreter</translation>
+        <translation>Postscript-Interpreter</translation>
     </message>
     <message>
         <source>Name of executable:</source>
-        <translation>Programmname:</translation>
+        <translation>Name der ausführbaren Datei:</translation>
     </message>
     <message>
         <source>Antialias Text</source>
@@ -6783,7 +6783,7 @@ wirklich überschreiben?</translation>
     </message>
     <message>
         <source>Scripter Manual...</source>
-        <translation>Scripter-Handbuch...</translation>
+        <translation>Handbuch für den Scripter...</translation>
     </message>
     <message>
         <source>Execute Script...</source>
@@ -6803,7 +6803,7 @@ wirklich überschreiben?</translation>
     </message>
     <message>
         <source>Online Reference</source>
-        <translation>Onlinereferenz</translation>
+        <translation>Online-Referenz</translation>
     </message>
     <message>
         <source>Open</source>
@@ -7264,7 +7264,7 @@ Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetrage
     </message>
     <message>
         <source>Show Layers</source>
-        <translation>Zeige Ebenen</translation>
+        <translation>Ebenen-Dialog anzeigen</translation>
     </message>
     <message>
         <source>Javascripts...</source>
@@ -7276,7 +7276,7 @@ Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetrage
     </message>
     <message>
         <source>Show Page Palette</source>
-        <translation>Zeige Seitenpalette</translation>
+        <translation>Seitenpalette anzeigen</translation>
     </message>
     <message>
         <source>Lock/Unlock</source>
@@ -7464,7 +7464,7 @@ Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetrage
     </message>
     <message>
         <source>Multiple Duplicate</source>
-        <translation>Mehrfach Duplizieren</translation>
+        <translation>Mehrfach duplizieren</translation>
     </message>
     <message>
         <source>Delete</source>
@@ -7472,7 +7472,7 @@ Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetrage
     </message>
     <message>
         <source>Group</source>
-        <translation>Gruppieren</translation>
+        <translation>Objekte gruppieren</translation>
     </message>
     <message>
         <source>Un-group</source>
@@ -7524,7 +7524,7 @@ Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetrage
     </message>
     <message>
         <source>Convert to Outlines</source>
-        <translation>In Polygone verwandeln</translation>
+        <translation>In Polygone umwandeln</translation>
     </message>
     <message>
         <source>Insert...</source>
@@ -7875,7 +7875,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>Scribus Manual</source>
-        <translation>Scribus Handbuch</translation>
+        <translation>Handbuch für Scribus</translation>
     </message>
     <message>
         <source>Show Margins</source>
@@ -7923,7 +7923,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>Adjusting Colors</source>
-        <translation>Passe Farben an</translation>
+        <translation>Farben werden angepasst</translation>
     </message>
     <message>
         <source>Undo Delete Object</source>
@@ -8241,7 +8241,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>Save Now</source>
-        <translation>Jetzt sichern</translation>
+        <translation>Jetzt speichern</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -8971,7 +8971,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Insert Freehand Line</source>
-        <translation>Freihand Linie einfügen</translation>
+        <translation>Freihandlinie einfügen</translation>
     </message>
     <message>
         <source>Rotate Item</source>
@@ -9007,7 +9007,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Edit the text with the Story Editor</source>
-        <translation>Text mit dem Story Editor bearbeiten</translation>
+        <translation>Text mit dem Story-Editor bearbeiten</translation>
     </message>
     <message>
         <source>Draw various Shapes</source>

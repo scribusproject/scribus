@@ -1,5 +1,11 @@
 Changes since Version 1.1.6
 
+19.05.2004
+	* bug     #673: Borders of tools are messed up on startup
+	* feature #672: integrate the font preview plugin
+	* feature #675: Update for the German language
+	* feature #676: British English Translation Update
+
 17.05.2004
 	* bug     #656: wrong button behaviour in new xport as bitmap dialog
 	* bug     #665: Line handles do not update after moving the line

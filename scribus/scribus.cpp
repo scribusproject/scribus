@@ -4363,7 +4363,7 @@ void ScribusApp::setTpal(bool visible)
 	{
 		Prefs.Tpalx = Tpal->pos().x();
 		Prefs.Tpaly = Tpal->pos().y();
-		Tpal->close();
+		Tpal->hide();
 	}
 	toolMenu->setItemChecked(viewTpal, visible);
 }
@@ -4384,7 +4384,7 @@ void ScribusApp::setBpal(bool visible)
 		Prefs.SCpaly = ScBook->pos().y();
 		Prefs.SCpalw = ScBook->size().width();
 		Prefs.SCpalh = ScBook->size().height();
-		ScBook->close();
+		ScBook->hide();
 	}
 	toolMenu->setItemChecked(viewBpal, visible);
 }
@@ -4407,7 +4407,7 @@ void ScribusApp::setLpal(bool visible)
 	{
 		Prefs.Lpalx = Lpal->pos().x();
 		Prefs.Lpaly = Lpal->pos().y();
-		Lpal->close();
+		Lpal->hide();
 	}
 	toolMenu->setItemChecked(viewLpal, visible);
 }
@@ -4428,7 +4428,7 @@ void ScribusApp::setSepal(bool visible)
 		Prefs.Sepaly = Sepal->pos().y();
 		Prefs.SepalT = Sepal->TemplList->Thumb;
 		Prefs.SepalN = Sepal->PageView->Namen;
-		Sepal->close();
+		Sepal->hide();
 	}
 	toolMenu->setItemChecked(viewSepal, visible);
 }
