@@ -105,6 +105,8 @@ public slots:
 
 signals:
 	void setProps(int, int);
+	void SideBarUp(bool);
+	void SideBarUpdate();
 };
 
 class SideBar : public QLabel  
@@ -117,10 +119,12 @@ public:
 	void paintEvent(QPaintEvent *e);
 	int offs;
 	SEditor *editor;
+	bool noUpdt;
 
 public slots:
 	void doMove(int x, int y);
 	void doRepaint();
+	void setRepaint(bool r);
 };
 
 class SToolBColorF : public QToolBar  

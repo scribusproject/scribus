@@ -37,6 +37,7 @@ SideBar::SideBar(QWidget *pa) : QLabel(pa)
 	setEraseColor(QColor(255,255,255));
 	offs = 0;
 	editor = 0;
+	noUpdt = true;
 	setMinimumWidth(fontMetrics().width( "No Style" )+30);
 }
 
@@ -46,7 +47,7 @@ void SideBar::paintEvent(QPaintEvent *e)
 	int st;
 	QPainter p;
 	p.begin(this);
-	if (editor != 0)
+	if ((editor != 0) && (noUpdt))
 	{
 		for (int pa = 0; pa < editor->paragraphs(); ++pa)
 		{
@@ -57,6 +58,7 @@ void SideBar::paintEvent(QPaintEvent *e)
 				p.drawLine(0, (re.y()+re.height())-offs, width()-1, (re.y()+re.height())-offs);
 			if (re.y()-offs < height())
 			{
+				re.setY(re.y()-offs);
 				if ((pa < static_cast<int>(editor->StyledText.count())) && (editor->StyledText.count() != 0))
 				{
 					if (editor->StyledText.at(pa)->count() > 0)
@@ -101,6 +103,11 @@ void SideBar::doRepaint()
 	repaint();
 }
 
+void SideBar::setRepaint(bool r)
+{
+	noUpdt = r;
+}
+
 SEditor::SEditor(QWidget* parent, ScribusDoc *docc) : QTextEdit(parent)
 {
 	doc = docc;
@@ -117,6 +124,7 @@ SEditor::SEditor(QWidget* parent, ScribusDoc *docc) : QTextEdit(parent)
 
 void SEditor::keyPressEvent(QKeyEvent *k)
 {
+	emit SideBarUp(false);
 	int p, i;
 	getCursorPosition(&p, &i);
 	int KeyMod;
@@ -139,6 +147,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 	{
 		insChars(QString(QChar(30)));
 		insert("#");
+		emit SideBarUp(true);
 		return;
 	}
 	switch (k->state())
@@ -176,11 +185,15 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 							conv = 32;
 						insChars(QString(QChar(conv)));
  						insert(QString(QChar(conv)));
+						emit SideBarUp(true);
 						return;
 					}
 				}
 				else
+				{
+					emit SideBarUp(true);
 					return;
+				}
 			}
 			wasMod = false;
 			switch (k->key())
@@ -313,6 +326,8 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 			break;
 	}
 	QTextEdit::keyPressEvent(k);
+	emit SideBarUp(true);
+	emit SideBarUpdate();
 }
 
 void SEditor::insChars(QString t)
@@ -1026,31 +1041,39 @@ void SEditor::setFarbe(QString farbe, int shad)
 
 void SEditor::copy()
 {
+	emit SideBarUp(false);
 	if ((hasSelectedText()) && (selectedText() != ""))
 	{
 		tBuffer = selectedText();
 		copyStyledText();
 	}
+	emit SideBarUp(true);
 }
 
 void SEditor::cut()
 {
 	copy();
+	emit SideBarUp(false);
 	if (hasSelectedText())
 	{
 		deleteSel();
 		removeSelectedText();
 	}
+	emit SideBarUp(true);
+	emit SideBarUpdate();
 }
 
 void SEditor::paste()
 {
+	emit SideBarUp(false);
 	int p, i;
 	getCursorPosition(&p, &i);
 	insStyledText();
 	insert(tBuffer);
 	for (int pa = p; pa < static_cast<int>(StyledText.count()); ++pa)
 		updateFromChars(pa);
+	emit SideBarUp(true);
+	emit SideBarUpdate();
 }
 
 /* Toolbar for Fill Colour */
@@ -1431,6 +1454,8 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	connect(Editor, SIGNAL(copyAvailable(bool)), this, SLOT(CopyAvail(bool )));
 	connect(Editor, SIGNAL(contentsMoving(int, int)), EditorBar, SLOT(doMove(int, int)));
 	connect(Editor, SIGNAL(textChanged()), EditorBar, SLOT(doRepaint()));
+	connect(Editor, SIGNAL(SideBarUp(bool )), EditorBar, SLOT(setRepaint(bool )));
+	connect(Editor, SIGNAL(SideBarUpdate( )), EditorBar, SLOT(doRepaint()));
 	connect(AlignTools, SIGNAL(NewStyle(int)), this, SLOT(newAlign(int)));
 	connect(AlignTools, SIGNAL(NewAlign(int)), this, SLOT(newAlign(int)));
 	connect(FillTools, SIGNAL(NewColor(int, int)), this, SLOT(newTxFill(int, int)));
@@ -1880,22 +1905,27 @@ void StoryEditor::Do_copy()
 void StoryEditor::Do_paste()
 {
 	Editor->paste();
+	EditorBar->repaint();
 }
 
 void StoryEditor::Do_cut()
 {
 	Editor->cut();
+	EditorBar->repaint();
 }
 
 void StoryEditor::Do_del()
 {
 	if (Editor->StyledText.count() == 0)
 		return;
+	EditorBar->setRepaint(false);
 	if (Editor->hasSelectedText())
 	{
 		Editor->deleteSel();
 		Editor->removeSelectedText();
 	}
+	EditorBar->setRepaint(true);
+	EditorBar->repaint();
 }
 
 void StoryEditor::CopyAvail(bool u)
