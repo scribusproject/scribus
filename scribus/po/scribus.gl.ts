@@ -1004,7 +1004,7 @@ Image is saved into &quot;filename&quot;. Returns true when success.
 May raise NotFoundError if the specified font can&apos;t be found.
 May raise ValueError if an empty sample or filename is passed.
 </source>
-        <translation type="unfinished">rendeFont(&quot;nome&quot;,&quot;nomedoficheiro&quot;, &quot;mostra&quot;, tamaño) -&gt; bool
+        <translation type="obsolete">rendeFont(&quot;nome&quot;,&quot;nomedoficheiro&quot;, &quot;mostra&quot;, tamaño) -&gt; bool
 
 Crea unha ante-visión da fonte &quot;nome&quot; co texto dado &quot;mostra&quot; e o tamaño.
 A imaxe sálvase en &quot;nomedeficheiro&quot;. Devolve verdadeiro se se garda.
@@ -2204,12 +2204,12 @@ by QPixmap.save(). Common formats are PPM, JPEG, PNG and XPM.
 May raise NotFoundError if the specified font can&apos;t be found.
 May raise ValueError if an empty sample or filename is passed.
 </source>
-        <translation type="obsolete">renderFont(&quot;nome&quot;, &quot;nomedeficheiro&quot;, &quot;exemplo&quot;, tamaño, formato=&quot;PPM&quot;) -&gt; booleano
+        <translation>renderFont(&quot;nome&quot;, &quot;nomedeficheiro&quot;, &quot;exemplo&quot;, tamaño, formato=&quot;PPM&quot;) -&gt; booleano
 
 Crea unha vista previa gráfica da fonte &quot;nome&quot; co texto &quot;exemplo&quot; e o tamaño.
 Se o &quot;nomedeficheiro&quot; non é &quot;&quot;, a imaxe sálvase en &quot;nomedeficheiro&quot;. Do contrario,
 os datos de imaxe devólvense como unha cadea. O argumento opcional
-&quot;formato&quot; especifica o formato de imaxe que se xerará e permite calquer formato
+&quot;formato&quot; especifica o formato de imaxe que se ha de xerar e permite calquer formato
 permitido por QPixmap.save(). Formatos habituais son PPM, JPEG, PNG e XPM.
 
 Pode provocar un NotFoundError se non se atopa a fonte especificada.
@@ -2225,7 +2225,14 @@ that the layer &quot;layer&quot; is visible, a value of False means that the lay
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>isLayerPrintable(&quot;capa&quot;) -&gt; booleano
+
+Devolve se a capa &quot;capa&quot; é visíbel ou non; o valor Verdadeiro significa
+que a capa &quot;capa&quot; é visíbelo, o valor Falso significa que a capa
+&quot;capa&quot; é invisíbel.
+
+Pode provocar un NotFoundError se non se atopou a capa.
+pode provocar un ValueError se o nome da capa non é aceptábel.</translation>
     </message>
     <message>
         <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
@@ -2237,7 +2244,65 @@ the layer &quot;layer&quot; is disabled.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>isLayerPrintable(&quot;capa&quot;) -&gt; booleano
+
+devolve se a capa &quot;capa&quot; é imprimíbel ou non; o valor Verdadeiro significa
+que a capa &quot;capa&quot; pódese imprimir, o valor Falso significa que foi deshabilitada
+a impresión da capa &quot;capa&quot;.
+
+Pode provocar un NotfoundError se non se atopa a capa.
+Pode provocar un ValueError se o nome da capa non é aceptábel.</translation>
+    </message>
+    <message>
+        <source>getColorAsRGB(&quot;name&quot;) -&gt; tuple
+
+Returns a tuple (R,G,B) containing the three color components of the
+color &quot;name&quot; from the current document, converted to the RGB colour
+space. If no document is open, returns the value of the named color
+from the default document colors.
+
+May raise NotFoundError if the named color wasn&apos;t found.
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation>getColorAsRGB(&quot;nome&quot;) -&gt; trio
+
+Devolve un trio (R,G,B) que contén os tres componentes de cor da
+cor &quot;nome&quot; do documento actual, convertidos ao espazo de cor RGB.
+Se non hai nengun documento aberto, devolve o valor da cor nomeada
+das cores por omisión do documento.
+
+Pode provocar un NotFoundError se non se atopou a cor nomeada.
+Pode provocar un ValueError se se indicou un nome de cor non válido.</translation>
+    </message>
+    <message>
+        <source>setPDFBookmark(&quot;toggle&quot;, [&quot;name&quot;])
+
+Sets wether (toggle = 1) the text frame &quot;name&quot; is a bookmark nor not.
+If &quot;name&quot; is not given the currently selected item is used.
+
+May raise WrongFrameTypeError if the target frame is not a text frame
+</source>
+        <translation>setPDFBookmark(&quot;alternar&quot;, [&quot;nome&quot;])
+
+Indica se (alternar = 1) a moldura de texto &quot;nome&quot; é un marcador ou non.
+Se non se lle dá un &quot;nome&quot; selecciónase o elemento seleccionado nese momento.
+
+Pode provocar un WrongFrameTypeError se a moldura de destino non é unha moldura de texto</translation>
+    </message>
+    <message>
+        <source>isPDFBookmark([&quot;name&quot;]) -&gt; bool
+
+Returns true if the text frame &quot;name&quot; is a PDF bookmark.
+If &quot;name&quot; is not given the currently selected item is used.
+
+May raise WrongFrameTypeError if the target frame is not a text frame
+</source>
+        <translation>isPDFBookmark([&quot;nome&quot;]) -&gt; booleano
+
+Devolve verdadeiro se a moldura de texto &quot;nome&quot; é un marcador de PDF.
+Se non se dá un &quot;nome&quot; utilízase o elemento seleccionado nese momento.
+
+Pode provocar un WrongFrameTypeErro se a moldura de destino non é unha moldura de texto</translation>
     </message>
 </context>
 <context>
@@ -2521,7 +2586,7 @@ pódense crear ficheiros enormes</translation>
     </message>
     <message>
         <source>Apply &amp;ICC Profiles</source>
-        <translation>Applicar os Perfís &amp;ICC</translation>
+        <translation>Aplicar os Perfís &amp;ICC</translation>
     </message>
     <message>
         <source>PostScript Level &amp;1</source>
@@ -2618,7 +2683,7 @@ O UCR reduce a posibilidade dun exceso de saturación coas tintas CMY.</translat
     </message>
     <message>
         <source>&amp;Apply</source>
-        <translation>&amp;Applicar</translation>
+        <translation>&amp;Aplicar</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -3724,19 +3789,19 @@ Isto require perfís moi exactos e só serve como advertencia.</translation>
     </message>
     <message>
         <source>C:</source>
-        <translation>C:</translation>
+        <translation>Cián[C]:</translation>
     </message>
     <message>
         <source>M:</source>
-        <translation>M:</translation>
+        <translation>Max.[M]:</translation>
     </message>
     <message>
         <source>Y:</source>
-        <translation>A:</translation>
+        <translation>Ama.[Y]:</translation>
     </message>
     <message>
         <source>K:</source>
-        <translation>N:</translation>
+        <translation>Neg.[K]:</translation>
     </message>
     <message>
         <source>Dynamic Color Bars</source>
@@ -3849,7 +3914,7 @@ It&apos;s a reserved name for transparent color</source>
     </message>
     <message>
         <source>Edit Fill Color Properties</source>
-        <translation>Mudar as Propriedades de Cor do Recheo</translation>
+        <translation>Mudar as Propriedades da Cor do Enchido</translation>
     </message>
     <message>
         <source>Saturation of color</source>
@@ -3857,7 +3922,7 @@ It&apos;s a reserved name for transparent color</source>
     </message>
     <message>
         <source>Normal or gradient fill method</source>
-        <translation>Método de recheo normal ou gradiente</translation>
+        <translation>Método de enchido normal ou gradiente</translation>
     </message>
     <message>
         <source>Set the transparency for the color selected</source>
@@ -4627,7 +4692,7 @@ O erro foi:
     </message>
     <message>
         <source>Color of text fill</source>
-        <translation>Cor do recheo do texto</translation>
+        <translation>Cor do enchido do texto</translation>
     </message>
     <message>
         <source>Color of text stroke</source>
@@ -4843,7 +4908,7 @@ O nome do ficheiro exportado será &quot;nomedodocumento-númerodepáxina.tipode
     </message>
     <message>
         <source>&amp;Quality:</source>
-        <translation>Cali&amp;dade:</translation>
+        <translation>Cuali&amp;dade:</translation>
     </message>
     <message>
         <source>Export as Image(s)</source>
@@ -4905,7 +4970,7 @@ Use 72 dpi (puntos por pulgada) para Imaxes intendadas para a Pantalla</translat
     </message>
     <message>
         <source>The quality of your images - 100% is the best, 1% the lowest quality</source>
-        <translation>A calidade das súas imaxes - 100% é a mellor calidade e 1% a pior</translation>
+        <translation>A cualidade das súas imaxes - 100% é a mellor calidade e 1% a pior</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
@@ -6505,7 +6570,7 @@ Escolla outro.</translation>
     </message>
     <message>
         <source>Color of text fill</source>
-        <translation>Cor do recheo do texto</translation>
+        <translation>Cor do enchido do texto</translation>
     </message>
     <message>
         <source>Saturation of color of text stroke</source>
@@ -6513,7 +6578,7 @@ Escolla outro.</translation>
     </message>
     <message>
         <source>Saturation of color of text fill</source>
-        <translation>Saturación da cor do recheo do texto</translation>
+        <translation>Saturación da cor de enchido do texto</translation>
     </message>
     <message>
         <source>Style of current paragraph</source>
@@ -6669,7 +6734,7 @@ Escolla outro.</translation>
     </message>
     <message>
         <source>Make text in lower frames flow around the object shape</source>
-        <translation>Facer que o texto das molduras inferirores flúa arredor da silueta do obxecto</translation>
+        <translation>Facer que o texto das molduras inferiores flúa arredor da silueta do obxecto</translation>
     </message>
     <message>
         <source>Switches between Gap or Column width</source>
@@ -6855,7 +6920,7 @@ R&amp;edondeadas:</translation>
     </message>
     <message>
         <source>Use a second line originally based on the frame&apos;s shape for text flow</source>
-        <translation>Use unha segunda liña baseada orixinalmente da forma da moldura para que flúa o texto</translation>
+        <translation>Use unha segunda liña baseada orixinalmente na forma da moldura para que flúa o texto</translation>
     </message>
     <message>
         <source>Hyphenation language of frame</source>
@@ -7938,7 +8003,7 @@ Se non se selecciona, impídese a modificación de anotacións e campos.</transl
     </message>
     <message>
         <source>&amp;Quality:</source>
-        <translation>&amp;Calidade:</translation>
+        <translation>&amp;Cualidade:</translation>
     </message>
     <message>
         <source>&amp;Downsample Images to:</source>
@@ -8189,7 +8254,7 @@ os gráficos de vectores na previsualización, a expensas da velocidade</transla
     </message>
     <message>
         <source>Enable/disable the K (Black) ink plate</source>
-        <translation>Des/Activar o tinteiro N (Negro)</translation>
+        <translation>Des/Activar o tinteiro K (Negro)</translation>
     </message>
     <message>
         <source>Anti-alias &amp;Text</source>
@@ -8438,11 +8503,11 @@ O UCR reduce a posibilidade dun exceso de saturación coas tintas CMY.</translat
     </message>
     <message>
         <source>Annotation P&amp;roperties</source>
-        <translation>P&amp;ropiedades da Anotación</translation>
+        <translation>P&amp;ropriedades da Anotación</translation>
     </message>
     <message>
         <source>Field P&amp;roperties</source>
-        <translation>P&amp;ropiedades do Campo</translation>
+        <translation>P&amp;ropriedades do Campo</translation>
     </message>
     <message>
         <source>&amp;PDF Options</source>
@@ -8542,11 +8607,11 @@ O UCR reduce a posibilidade dun exceso de saturación coas tintas CMY.</translat
     </message>
     <message>
         <source>Show P&amp;roperties...</source>
-        <translation>Mostrar as P&amp;ropiedades...</translation>
+        <translation>Mostrar as P&amp;ropriedades...</translation>
     </message>
     <message>
         <source>Hide P&amp;roperties...</source>
-        <translation>Agochar as P&amp;ropiedades...</translation>
+        <translation>Agochar as P&amp;ropriedades...</translation>
     </message>
     <message>
         <source>Do you really want to clear all your Text?</source>
@@ -8770,7 +8835,7 @@ un valor positivo farao convexo</translation>
     </message>
     <message>
         <source>GUI</source>
-        <translation>GUI</translation>
+        <translation>Aparencia da aplicación</translation>
     </message>
     <message>
         <source>Units</source>
@@ -8782,7 +8847,7 @@ un valor positivo farao convexo</translation>
     </message>
     <message>
         <source>Millimetres (mm)</source>
-        <translation>Millímetros (mm)</translation>
+        <translation>Milímetros (mm)</translation>
     </message>
     <message>
         <source>Inches (in)</source>
@@ -9150,11 +9215,11 @@ cada vez que transcorre o período de tempo</translation>
     </message>
     <message>
         <source>Fill color of picture frames</source>
-        <translation>Cor de recheo para as molduras de imaxe</translation>
+        <translation>Cor de enchido para as molduras de imaxe</translation>
     </message>
     <message>
         <source>Saturation of color of fill</source>
-        <translation>Saturación da cor do recheo</translation>
+        <translation>Saturación da cor do enchido</translation>
     </message>
     <message>
         <source>Line color of shapes</source>
@@ -9166,7 +9231,7 @@ cada vez que transcorre o período de tempo</translation>
     </message>
     <message>
         <source>Fill color of shapes</source>
-        <translation>Cor de recheo das figuras</translation>
+        <translation>Cor de enchido das figuras</translation>
     </message>
     <message>
         <source>Line style of shapes</source>
@@ -9494,11 +9559,11 @@ cada vez que transcorre o período de tempo</translation>
     </message>
     <message>
         <source>&amp;Fill Color:</source>
-        <translation>Cor de &amp;Recheo:</translation>
+        <translation>Cor de &amp;Enchido:</translation>
     </message>
     <message>
         <source>S&amp;hading:</source>
-        <translation>Sa&amp;turación:</translation>
+        <translation>Satu&amp;ración:</translation>
     </message>
     <message>
         <source>&amp;Type of Line:</source>
@@ -9542,7 +9607,7 @@ cada vez que transcorre o período de tempo</translation>
     </message>
     <message>
         <source>F&amp;ill Color:</source>
-        <translation>Cor de R&amp;echeo:</translation>
+        <translation>Cor de &amp;Enchido:</translation>
     </message>
     <message>
         <source>Corn&amp;ers:</source>
@@ -9634,7 +9699,7 @@ cada vez que transcorre o período de tempo</translation>
     </message>
     <message>
         <source>Apply &amp;Under Color Removal</source>
-        <translation>Applicar &amp;UCR</translation>
+        <translation>Aplicar &amp;UCR</translation>
     </message>
     <message>
         <source>T&amp;emplates:</source>
@@ -10341,7 +10406,7 @@ Comprobe o camiño e o nome do ficheiro.</translation>
     </message>
     <message>
         <source>Print Previe&amp;w</source>
-        <translation>Imprimir a &amp;Vista Previa</translation>
+        <translation>Mostrar a &amp;Vista Previa</translation>
     </message>
     <message>
         <source>&amp;Print...</source>
@@ -10361,7 +10426,7 @@ Comprobe o camiño e o nome do ficheiro.</translation>
     </message>
     <message>
         <source>S&amp;cripter Manual...</source>
-        <translation>Manual do S&amp;cripter...</translation>
+        <translation>Manual do &amp;Guionista...</translation>
     </message>
     <message>
         <source>&amp;Scribus Scripts</source>
@@ -11317,187 +11382,304 @@ erro do guión</translation>
     <message>
         <source>Color not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Non se atopou a cor.
+
+erro de python.</translation>
     </message>
     <message>
         <source>Color not found in document.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Non se atopou a cor no documento.
+
+erro de python.</translation>
     </message>
     <message>
         <source>Color not found in default colors.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Non se atopou a cor entre as cores predefinidas.
+
+erro de python.</translation>
     </message>
     <message>
         <source>Cannot scale by 0%.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Non se pode ampliar nun =%.
+
+erro de python.</translation>
     </message>
     <message>
         <source>Specified item not an image frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>O elemento indicado non é unha moldura de imaxe.
+
+erro de python.</translation>
     </message>
     <message>
         <source>Font not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Non se atopou esa fonte.
+
+erro de python.</translation>
     </message>
     <message>
         <source>Cannot render an empty sample.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot save to a blank filename.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Non é posíbel mostrar un exemplo baleiro.
+
+erro de python.</translation>
     </message>
     <message>
         <source>Cannot have an empty layer name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Non se pode ter un nome de capa en branco.
+
+erro de python.</translation>
     </message>
     <message>
         <source>Layer not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Non se atopou esa capa.
+
+erro de python.</translation>
     </message>
     <message>
         <source>Cannot remove the last layer.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Non se pode eliminar a última capa.
+
+erro de python.</translation>
     </message>
     <message>
         <source>Cannot create layer without a name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Non se pode crear unha capa se nome.
+
+erro de python.</translation>
     </message>
     <message>
         <source>Insert index out of bounds.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Inserir índice fora de limites.
+
+erro de python.</translation>
     </message>
     <message>
         <source>Cannot set text alignment on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Non se pode asignar un aliñamento de texto nunha
+moldura que non sexa de texto.
+
+erro de python.</translation>
     </message>
     <message>
         <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Tamaño de fonte fora de limites - debe ser 1 &lt;= tamaño &lt;= 512.
+
+erro de python.</translation>
     </message>
     <message>
         <source>Cannot set font size on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Non se pode asignar un tamaño de fonte nunha
+moldura que non sexa de texto.
+
+erro de python.</translation>
     </message>
     <message>
         <source>Cannot set font on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Non se pode asignar unha fonte nunha moldura
+que non sexa de texto.
+
+erro de python.</translation>
     </message>
     <message>
         <source>Line space out of bounds, must be &gt;= 0.1.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Espaciamento de liña fora de limites, debe ser &gt;=0.1.
+
+erro de python.</translation>
     </message>
     <message>
         <source>Cannot set line spacing on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Non se pode asignar un espaciamento de liña
+nunha moldura que non sexa de texto.
+
+erro de python.</translation>
     </message>
     <message>
         <source>Column gap out of bounds, must be positive.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Distancia entre columnas fora de limites, debe ser positiva.
+
+erro de python.</translation>
     </message>
     <message>
         <source>Cannot set column gap on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Non se pode asignar unha distancia entre columnas
+nunha moldura que non sexa de texto.
+
+erro de python.</translation>
     </message>
     <message>
         <source>Column count out of bounds, must be &gt; 1.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Número de columnas fora de limites, debe ser &gt;1.
+
+erro de python.</translation>
     </message>
     <message>
         <source>Cannot set number of columns on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Non se pode asignar un número de columnas nunha
+moldura que non sexa de texto.
+
+erro de python.</translation>
     </message>
     <message>
         <source>Cannot select text in a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Non se pode seleccionar texto nunha moldura
+que non sexa de texto.
+
+erro de python</translation>
     </message>
     <message>
         <source>Cannot delete text from a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Non se pode eliminar texto dunha moldura
+que non sexa de texto.
+
+erro de python.</translation>
     </message>
     <message>
         <source>Cannot set text fill on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Non se pode asignar o enchido de texto nunha
+moldura que non sexa de texto.
+
+erro de python.</translation>
     </message>
     <message>
         <source>Cannot set text stroke on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Non se pode asignar o trazo de texto nunha moldura
+que non sexa de texto.
+
+erro de python.</translation>
     </message>
     <message>
         <source>Cannot set text shade on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Non se pode asignar un sombreado de texto nunha moldura
+que non sexa de texto.
+
+erro de python.</translation>
     </message>
     <message>
         <source>Can only link text frames.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Só se poden vincular molduras de texto.
+
+erro de python.</translation>
     </message>
     <message>
         <source>Target frame must be empty.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>A moldura de destino debe estar baleira.
+
+erro de python.</translation>
     </message>
     <message>
         <source>Target frame links to another frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>A moldura de destino está vinculada con outra moldura.
+
+erro de python.</translation>
     </message>
     <message>
         <source>Target frame is linked to by another frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>A moldura de destino ten un vínculo desde outra moldura.
+
+erro de python.</translation>
     </message>
     <message>
         <source>Source and target are the same object.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>A orixe e o destino son o mesmo obxecto.
+
+erro de python.</translation>
     </message>
     <message>
         <source>Cannot unlink a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Non se pode desvincular unha moldura
+que non sexa de texto.
+
+erro de python.</translation>
     </message>
     <message>
         <source>Object is not a linked text frame, cannot unlink.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>O obxecto non é unha moldura de texto vinculada;
+non se pode desvincular.
+
+erro de python.</translation>
     </message>
     <message>
         <source>Object the last frame in a series, cannot unlink. Unlink the previous frame instead.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>O obxecto é a última moldura dunha serie; non se pode desvincular.
+No seu lugar, desvincule a moldura anterior.
+
+erro de python.</translation>
     </message>
     <message>
         <source>Cannot convert a non-text frame to outlines.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Non é posíbel converter unha moldura que non sexa
+de texto en esquemas.
+
+erro de python.</translation>
+    </message>
+    <message>
+        <source>Cannot get a colour with an empty name.</source>
+        <comment>python error</comment>
+        <translation>Non se pode aceptar unha cor cun nome baleiro.
+
+erro de python.</translation>
+    </message>
+    <message>
+        <source>Colour not found</source>
+        <comment>python error</comment>
+        <translation>Non se atopou a cor
+
+erro de python</translation>
+    </message>
+    <message>
+        <source>Unable to save pixmap.</source>
+        <comment>scripter error</comment>
+        <translation>Non se puido gravar o mapa de bits.</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set bookmark on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Non se pode asignar un marcador a unha moldura
+que non sexa de texto.
+
+erro de python</translation>
+    </message>
+    <message>
+        <source>Can&apos;t get info from a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Non se pode aceptar información dunha moldura
+que non sexa de texto
+
+erro de python</translation>
     </message>
 </context>
 <context>
@@ -11778,15 +11960,15 @@ Se se seleccionan Páxinas Enfrentadas, pódese usar este espazo de marxe para a
     </message>
     <message>
         <source>Color of text fill</source>
-        <translation>Cor de recheo do texto</translation>
+        <translation>Cor de enchido do texto</translation>
     </message>
     <message>
         <source>Saturation of color of text fill</source>
-        <translation>Saturación da cor de recheo do texto</translation>
+        <translation>Saturación da cor de enchido do texto</translation>
     </message>
     <message>
         <source>Fill Color Settings</source>
-        <translation>Configuración da Cor de Recheo</translation>
+        <translation>Configuración da Cor de Enchido</translation>
     </message>
 </context>
 <context>
@@ -12093,7 +12275,7 @@ Se se seleccionan Páxinas Enfrentadas, pódese usar este espazo de marxe para a
     </message>
     <message>
         <source>Apply Template...</source>
-        <translation>Applicar un Modelo...</translation>
+        <translation>Aplicar un Modelo...</translation>
     </message>
     <message>
         <source>Manage Guides...</source>
@@ -13120,75 +13302,81 @@ Se se seleccionan Páxinas Enfrentadas, pódese usar este espazo de marxe para a
     <name>ScripterCore</name>
     <message>
         <source>&amp;Scribus Scripts</source>
-        <translation type="unfinished">Guións do &amp;Scribus</translation>
+        <translation>Guións do &amp;Scribus</translation>
     </message>
     <message>
         <source>&amp;Execute Script...</source>
-        <translation type="unfinished">&amp;Executar Guión...</translation>
+        <translation>&amp;Executar Guión...</translation>
     </message>
     <message>
         <source>Run a Python script from a file.</source>
         <comment>scripter</comment>
-        <translation type="unfinished"></translation>
+        <translation>Executar un guión de Python desde un ficheiro.
+
+guionista.</translation>
     </message>
     <message>
         <source>&amp;Load Extension Script...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Carregar o Guión de Extensións...</translation>
     </message>
     <message>
         <source>Load a Python script as an extension. Used for loading macros and for advanced Python scripts that extend the Scribus user interface.</source>
         <comment>scripter</comment>
-        <translation type="unfinished"></translation>
+        <translation>Carregar un guión de Python como extensión. Utilízase para carregar macros e para guións de Python avanzados que extenden a interface de usuario do Scribus.
+
+guionista.</translation>
     </message>
     <message>
         <source>&amp;Recent Scripts</source>
-        <translation type="unfinished">Guións &amp;Recentes</translation>
+        <translation>Guións &amp;Recentes</translation>
     </message>
     <message>
         <source>Show &amp;Console</source>
-        <translation type="unfinished">Mostrar a &amp;Consola</translation>
+        <translation>Mostrar a &amp;Consola</translation>
     </message>
     <message>
         <source>Display an interactive Python console where you can write and run Python programs that use the Scripter tools.</source>
         <comment>scripter</comment>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar unha consola interactiva de Python na que poderá escreber e executar programas en Python que usen as ferramentas do Guionista.
+
+guionista.</translation>
     </message>
     <message>
         <source>&amp;About Script...</source>
-        <translation type="unfinished">&amp;Acerca de Script...</translation>
+        <translation>&amp;Acerca de Script...</translation>
     </message>
     <message>
         <source>S&amp;cript</source>
-        <translation type="unfinished">&amp;Guión</translation>
+        <translation>&amp;Guión</translation>
     </message>
     <message>
         <source>Scripter &amp;Settings</source>
         <comment>script menu</comment>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Configuración do Guionista</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation type="unfinished">Abrir</translation>
+        <translation>Abrir</translation>
     </message>
     <message>
         <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation type="unfinished">Guións en Python (*.py);; Todo (*)</translation>
+        <translation>Guións en Python (*.py);; Todo (*)</translation>
     </message>
     <message>
         <source>Script error</source>
-        <translation type="unfinished">Erro de Guión</translation>
+        <translation>Erro de Guión</translation>
     </message>
     <message>
         <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
-        <translation type="unfinished">Se se trataba dun guión oficial, teña a bondade de informar en &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
+        <translation>Se se trataba dun guión oficial, faga favor de informar en &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
     </message>
     <message>
         <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
-        <translation type="unfinished">Esta mensaxe enviouse tamén para a área de transferencia. Empregue Ctrl+V para pegala no xestor de erros.</translation>
+        <translation>Esta mensaxe enviouse tamén para a área de transferencia. Empregue Ctrl+V para pegala no xestor de erros.</translation>
     </message>
     <message>
         <source>Scribus - Script Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Extensión de Guión</translation>
     </message>
     <message>
         <source>The &apos;Load Script&apos; function of the script plugin is currently disabled.
@@ -13201,15 +13389,23 @@ scripter extensions there.
 
 Please read the documentation on extension scripts first.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>A función &apos;Carregar Guión&apos; da extensión de guión está desactivada neste momento.
+Se pretende executar un guión normal, moi posibelmente o que queira será
+&apos;Executar Guión...&apos;.
+
+Se o que quer realmente é carregar un guión ou macro de extensión de Python,
+terá que ir á Configuración do Guionista no menú de Guión e activar alí
+as extensións do guionista.
+
+Faga favor de ler primeiro a documentación sobre os guións de extensión.</translation>
     </message>
     <message>
         <source>Hide &amp;Console</source>
-        <translation type="unfinished">Agochar a &amp;Consola</translation>
+        <translation>Agochar a &amp;Consola</translation>
     </message>
     <message>
         <source>About Script</source>
-        <translation type="unfinished">Acerca de Script</translation>
+        <translation>Acerca de Script</translation>
     </message>
 </context>
 <context>
