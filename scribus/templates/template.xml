@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<templates>
+	<template category="Newsletter">
+		<name>Newsletter_1</name>
+    	<file>nl1/nl1.sla</file>
+    	<tnail>nl1/nl1tn.png</tnail>
+    	<img>nl1/nl1.png</img>
+    	<psize>A4</psize>
+    	<color>b/w</color>
+    	<descr>Simple newsletter template in b/w</descr>
+    	<usage>Right click on text frames and replace texts with your own</usage>
+    	<author>RL</author>
+    	<email>tsoots@welho.com</email>
+	</template>
+	<template category="Newsletter">
+  		<name>Newsletter_2</name>
+    	<file>nl2/nl2.sla</file>
+    	<tnail>nl2/nl2tn.png</tnail>
+    	<img>nl2/nl2.png</img>
+    	<psize>A4</psize>
+    	<color>red and blue</color>
+    	<descr>Simple newsletter template with red and blue colors</descr>
+    	<usage>Right click on text frames and replace texts with your own</usage>
+    	<author>RL</author>
+    	<email>tsoots@welho.com</email>
+  	</template>
+	<template category="Brochure">
+  		<name>Brochure_1</name>
+    	<file>br1/br1.sla</file>
+    	<tnail>br1/br1tn.png</tnail>
+    	<img>br1/br1.png</img>
+    	<psize>A4</psize>
+    	<color>color</color>
+    	<descr>Simple brochure with colorful theme.</descr>
+    	<usage>Right click on text frames and replace texts with your own.</usage>
+    	<author>RL</author>
+    	<email>tsoots@welho.com</email>
+	</template>
+</templates>

@@ -13,7 +13,7 @@ AC_CANONICAL_SYSTEM
 AC_ARG_PROGRAM
 
 dnl Automake doc recommends to do this only here. (Janos)
-AM_INIT_AUTOMAKE(scribus,1.2cvs)
+AM_INIT_AUTOMAKE(scribus,1.2RC1cvs)
 
 dnl KDE_SET_PREFIX
 
@@ -164,25 +164,28 @@ AC_CONFIG_FILES([scribus/Makefile])
 AC_CONFIG_FILES([scribus/icons/Makefile])
 AC_CONFIG_FILES([scribus/libabout/Makefile])
 AC_CONFIG_FILES([scribus/libprefs/Makefile])
-AC_CONFIG_FILES([scribus/plugins/libchar/Makefile])
-AC_CONFIG_FILES([scribus/plugins/svgexplugin/Makefile])
-AC_CONFIG_FILES([scribus/plugins/svgimplugin/Makefile])
+AC_CONFIG_FILES([scribus/libpdf/Makefile])
+AC_CONFIG_FILES([scribus/libpostscript/Makefile])
 AC_CONFIG_FILES([scribus/plugins/fontpreview/Makefile])
-AC_CONFIG_FILES([scribus/plugins/psimport/Makefile])
-AC_CONFIG_FILES([scribus/plugins/printpreview/Makefile])
+AC_CONFIG_FILES([scribus/plugins/libchar/Makefile])
+AC_CONFIG_FILES([scribus/plugins/newfromtemplateplugin/Makefile])
 AC_CONFIG_FILES([scribus/plugins/pixmapexport/Makefile])
+AC_CONFIG_FILES([scribus/plugins/printpreview/Makefile])
+AC_CONFIG_FILES([scribus/plugins/psimport/Makefile])
+AC_CONFIG_FILES([scribus/plugins/saveastemplateplugin/Makefile])
 AC_CONFIG_FILES([scribus/plugins/scriptplugin/Makefile])
 AC_CONFIG_FILES([scribus/plugins/scriptplugin/doc/Makefile])
 AC_CONFIG_FILES([scribus/plugins/scriptplugin/doc/en/Makefile])
 AC_CONFIG_FILES([scribus/plugins/scriptplugin/samples/Makefile])
 AC_CONFIG_FILES([scribus/plugins/scriptplugin/scripts/Makefile])
+AC_CONFIG_FILES([scribus/plugins/svgexplugin/Makefile])
+AC_CONFIG_FILES([scribus/plugins/svgimplugin/Makefile])
 AC_CONFIG_FILES([scribus/plugins/Makefile])
-AC_CONFIG_FILES([scribus/libpostscript/Makefile])
 AC_CONFIG_FILES([scribus/profiles/Makefile])
-AC_CONFIG_FILES([scribus/libpdf/Makefile])
 AC_CONFIG_FILES([scribus/dicts/Makefile])
 AC_CONFIG_FILES([scribus/qm/Makefile])
 AC_CONFIG_FILES([scribus/po/Makefile])
+AC_CONFIG_FILES([scribus/templates/Makefile])
 AC_OUTPUT
 echo "Configuration Summary:"
 echo ""

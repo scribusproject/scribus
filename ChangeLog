@@ -1,3 +1,339 @@
+Changes since Version 1.1.6
+
+04.06.2004
+	* bug     #753: Guidelines couldn't be locked
+	* feature #743: Slovenian Translation Update for 1.1.7
+	* feature #747: Polish Translation Update for 1.1.7
+	* feature #748: British English Translation Update for 1.1.7
+	* feature #749: updated UK and FI translations
+	* feature #752: Updated Danish Translation for 1.1.7
+
+02.06.2004
+	* bug     #739: Fonts Preview plugin entry in extras menu is not translatable
+	* feature #741: german .ts update for 1.1.7
+	* feature #742: Czech Translation for 1.1.7
+
+01.06.2004
+	* bug     #720: print dialog does not allow entering of page numbers
+	* bug     #729: Importing SVG with gradient sometimes misses the colors
+	* bug     #733: Choosing and unchoosing Fill buton makes color dialog smaller
+	* bug     #735: move  "save document" up
+	* bug     #737: When dragging the two endpoints of a gradient in the new editor you can only drag left to 1% and right to 99%
+	* feature #732: updated translation files for slovenian language
+	* feature #734: Update for the German language
+	* feature #738: Finnish translation update
+
+29.05.2004
+	* bug     #707: Endian issues with images on fink?
+	* bug     #715: When using Free Linear Gradient, importing an SVG can change the gradient
+	* bug     #720: print dialog does not allow entering of page numbers
+	* feature #662: Missing option to save Scribus file
+	* feature #718: german translation update
+	* feature #727: Add ability for Removing Recently Used Docs
+	* feature #731: Ability to have Gradients with more than 2 Colors
+
+26.05.2004
+	* bug     #713: "Line Style" to "Type of Line"
+	* feature #688: improve the zoom-icon function
+	* feature #714: Added new type of Gradient "Free linear Gradient"
+
+24.05.2004
+	* bug     #623: Selecting Compress file deletes existing file name in dialog
+	* bug     #647: Export as image plugin numbers images as "pagenumber - firstpagenumber".
+	* feature #706: Image placement in a frame if not at 0,0 in frame, changes based on zoom level
+	* feature #710: Updated Czech Translation
+	* feature #711: Updated Brazilian Translation
+	* feature #712: Updated Welsh Translation
+
+23.05.2004
+	* bug     #394: SVG: vertical gradient imported as horizontal gradient
+	* feature #688: improve the zoom-icon function
+	* feature #700: German update
+	* feature #704: saving doesnt add the *.sla suffix
+	* feature #705: No new e-mail since May 17
+
+22.05.2004
+	* bug     #606: Pressing END causes wrong cursor jump
+	* feature #680: show grouped objects as grouped in the object manager
+	* feature #681: sort objects in object manager
+	* feature #690: doubleclick out of the shape could end editing
+	* feature #694: Updated Polish Translation
+
+20.05.2004
+	* bug     #684: open-entry in the library should be moved
+	* bug     #692: New Parameter for GetAllObjects
+	* feature #643: Enable EPS and PS Import as Vector Objects
+	* feature #677: Remove lingering empty messages from some .ts files
+	* feature #679: Update for the German language
+	* feature #687: put the pdf-options in the context menu in a submenu
+	* feature #693: Updated Russian Translation
+
+19.05.2004
+	* bug     #673: Borders of tools are messed up on startup
+	* feature #672: integrate the font preview plugin
+	* feature #675: Update for the German language
+	* feature #676: British English Translation Update
+
+17.05.2004
+	* bug     #656: wrong button behaviour in new xport as bitmap dialog
+	* bug     #665: Line handles do not update after moving the line
+	* bug     #667: Sliders misaligned and not the same length in Edit>Color>New dialog
+	* bug     #669: cannot insert a tab into text frame using scripter
+	* feature #670: Update for the German language
+	* feature #674: French translation update
+
+16.05.2004
+	* bug     #282: Update language detection to use LC_* variables
+	* bug     #623: Selecting Compress file deletes existing file name in dialog
+	* bug     #660: UI translations shouldn't influence scribus behaviour
+	* bug     #664: Bug 572 reloaded
+	* feature #657: update for the german language
+	* feature #661: Finnish translation update
+
+15.05.2004
+	* bug     #604: Grouped items can be grouped again
+	* bug     #634: Can't edit Line Style name
+	* bug     #649: Minor string update
+	* bug     #652: scribus.ca.qm does not get installed on "make install"
+	* feature #406: save must be enabled while creating templates
+	* feature #563: measurement tool
+	* feature #621: Need an addition to the scripter API: variable that is set by using "-lang xx".
+	* feature #653: Implement Settings menu, cleaning up Edit, Tools and Help menu
+
+13.05.2004
+	* bug     #634: Can't edit Line Style name
+	* bug     #638: Rename the translation file for Basque language
+	* bug     #644: Crash caused by mouse cursor crossing from linked text frame # 2 to # 1
+	* bug     #645: Update scribus.no_NO.po to remove some obsolete strings that interfere with msgmerge
+	* bug     #646: There are many empty tr( "" ) strings that confuse and slow down xgettext on the .pot file update
+	* feature #592: Ability to export a page to a bitmap format
+	* feature #640: delete any object by pressing <del>
+
+12.05.2004
+	* bug     #613: Autotools fix for Debian
+	* bug     #625: Suggestion for Speed up of SVG Import
+	* bug     #630: Pasting text in direct text editing.
+	* bug     #634: Can't edit Line Style name
+	* bug     #637: Scribus crashes after a drag with the Right Mouse Button
+	* feature #631: update for german
+	* feature #635: Ukrainian Translation Update
+	* feature #636: Update Danish Translation
+
+09.05.2004
+	* bug     #604: Grouped items can be grouped again
+	* bug     #620: Differing tab settings can cause wrapping text on top of other text
+	* bug     #622: Merge of charselect* and svgexport* POs
+	* bug     #624: Scribus is inserting incorrect paths into file names when saving
+	* feature #609: same style for saturation and intensity of a color
+	* feature #629: Improve the Tabmanager and the EditStyle Dialogs with a Ruler for setting Tabs and Indents.
+
+08.05.2004
+	* bug     #608: Change buttons for "center" and "right" alignment...
+	* bug     #613: Autotools fix for Debian
+	* bug     #618: Minor rearranging of right click menu items
+	* feature #231: Add in ability to import Colour Sets into current document
+	* feature #614: Polish translation update
+	* feature #615: Icon Set Number Two
+	* feature #617: Ability to set, move and delete Tabs in the Ruler
+	* feature #619: Fixes for broken POs
+
+07.05.2004
+	* bug     #596: strange behaviour of tab indicator in textfields
+
+06.05.2004
+	* bug     #596: strange behaviour of tab indicator in textfields
+	* feature #578: one-click/keyboard for toggling off and on all dialogboxes+guides etc
+	* feature #594: French translation update
+	* feature #597: Issue with ending lines of paragraphs not aligning correctly with distances and alignment
+	* feature #598: update for the german language
+
+05.05.2004
+	* bug     #590: Trying to copy frames from actual page to a just made page template crashes scribus with signal 11.
+	* feature #593: Added three new Hyphenation Dictionarys: Lithuanian, Swedish and Slovene
+
+04.05.2004
+	* bug     #554: table context menu - layer is missing
+	* bug     #580: No translation strings for units in "File>Document Setup"
+	* bug     #581: Ruler coordinates in the status bar and the units changer don't have translation strings.
+	* bug     #582: Muster.cpp and newtemp.cpp both translate the text and titel strings, missing Units translations in prefs and main gui
+	* bug     #588: Clicking on the canvas within the "mouse grab radius" from a guide moves the guide.
+	* feature #584: Ukrainian translation update
+	* feature #587: Finnish translation update
+	* feature #589: British English translation update
+	* feature #591: Updated Czech Translation
+
+02.05.2004
+	* bug     #471: guideline symbols are reversed
+	* bug     #571: Seems impossible to actually apply any kind of tab immediately after a right tab
+	* bug     #572: Layers palette still shows a "Background" layer after the last document is closed
+	* bug     #573: View menu should be greyed out if no document is open
+	* feature #552: Tabs could be shown in the ruler
+	* feature #560: layer and level should be displayed in properties and/or status line
+	* feature #574: Windows menu item should be greyed out if no documents are open
+
+01.05.2004
+	* bug     #396: PDF Export: text field at wrong position
+	* bug     #554: table context menu - layer is missing
+	* feature #570: Added Translation for the Basque language
+
+30.04.2004
+	* bug     #499: svg text and box import don't work correctly
+	* bug     #535: Story editor: can't delete selected text with Backspace
+	* bug     #540: Mixed white fonts size on bottom of splash screen
+	* bug     #542: PDF-Export changes img-size on copied pages when downsampling is enabeled
+	* bug     #546: Updated Russian Translation from Alexandre Prokoudine
+	* bug     #549: Empty Object Name
+	* bug     #557: Strange message while updating TS file
+	* bug     #558: Updated some tooltips
+	* feature #536: Please move "Print Preview" to "File" menu
+	* feature #545: translation files for Slovene
+	* feature #548: TS-Update German
+	* feature #550: Unique Object Names
+	* feature #551: edit colour by doubleclick
+	* feature #559: Ugly icons - new icons set
+	* feature #561: Translation update German
+
+28.04.2004
+	* bug     #499: svg text and box import don't work correctly
+	* bug     #525: Insert page after any given page in a document causes a crash with signal 11
+	* bug     #530: Sending an object to another layer does not activate the save button
+	* bug     #534: Scribus closing: After cancel of 'Saving dialog', Scribus is closed, but data are lost
+	* bug     #537: Improve rendering speed of images
+	* feature #503: Item renaming in overview
+	* feature #531: Speaking names for objects
+	* feature #539: Add new Splash Screen and Icons
+
+27.04.2004
+	* feature #529: Polish TS/QM update
+
+26.04.2004
+	* bug     #476: Text is placed to the right of where Scribus thinks it is
+	* bug     #526: Red squares on object's border should not exist when object size is locked
+
+25.04.2004
+	* bug     #517: Move Level RMB menu items to a submenu
+	* bug     #518: Please replace sample PDF form and PHP script in the docs
+	* bug     #519: Deleting multiple characters or spaces causes Sig 11
+	* bug     #524: Textframes with Gradients as Background are not exported correctly
+	* feature #497: Beeing able to determine the column width instead of the gutter width (at will)
+	* feature #503: Item renaming in overview
+	* feature #521: TS-Update German
+
+24.04.2004
+	* bug     #495: unclosed SVG paths not importing properly
+	* bug     #508: Short font and color list in object properties, bad dialog
+	* bug     #513: Not able delete highlighted guide
+	* bug     #514: Guide manager -> Guide coordinate will be resetted to 0.00
+	* feature #462: PDF export resets color tints to solids
+	* feature #511: "Lock object size" in context menu
+	* Fixed Bug #514, Spinbox values are reset to 0.0 in Polish Language. 
+	* Fixed Bug #513, Not able to delete highlighted Guide in the Guidemanager. 
+	* Fixed Bug #508, Short font and color list in object properties. 
+	* Fixed Bug #495, unclosed SVG paths not importing properly 
+	* Opening the same document twice is now no loner possible. 
+
+23.04.2004
+	* Fixed wrong clipping in the Postscript output with styled lines. 
+	* Fixed vanishing text in flipped Textframes when zooming in. 
+	* Updated the Czech and Danish Translations. 
+	* Fixed Bug #511 "Lock object size" is now in context menu 
+	* Fixed Bug #510 Translated units are shown as question marks in the Page>Manage guides dialog. 
+	* Fixed Bug #501 screen refresh when editing tables not nice. 
+	* Fixed Bug #493 Additional Patch to configure for Debian Systems. 
+	* Fixed Bug #462 PDF export resets color tints to solids. 
+
+18.04.2004
+	* Fixed wrong display with flipped textframes. 
+	* Added "Insert LoremIpsum" Command for Textframes to the Context Menue. 
+	* Fixed display issues with Tables. 
+	* Updated the Czech and Russian Translation. 
+
+17.04.2004
+	* Fixed minor error in PDF export with tables. 
+	* Transparent areas in EPS-Images are handled now correct in PDF-Export. 
+
+16.04.2004
+	* Updated the German and Finnish translations. 
+	* Fixed recognition of en_GB locale. 
+
+14.04.2004
+	* Updated the Polish translation 
+	* The Color Names are now editable in the Color Chooser. 
+	* The Cups Options panel is now resizeable. 
+	* The ESC-Key closes now the Scripting Console. 
+
+13.04.2004
+	* Updated the British translation. 
+
+12.04.2004
+	* Added new command "Adjust Frame to Picture" to the context menu. 
+	* Added "Insert Special" Command to the Story Editor. 
+	* You can now insert any Unicode character by entering the 4-digit Hex code after 
+	* pressing F12. 
+
+11.04.2004
+	* Fixed wrong placement of characters in the PDF export. 
+	* Updated the Brazilian translation. 
+
+10.04.2004
+	* Panning mode is now toggled by pressing space. Worls only when not editing a textframe. 
+	* Pressing Shift+Return inserts now a new line into a paragraph, does not count as a paragraph seperator. 
+	* Improved behaviour of the hyphenation, you can set now the number of hyphenations allowed to follow each other. 
+	* Added more Tooltips. 
+
+09.04.2004
+	* Made various adjustments to dialog buttons. 
+	* Improved Panning. 
+
+08.04.2004
+	* Fixed crash when exporting texts on a path to PDF. 
+	* You can scroll now with the Mouse when no Object is selected and you press CTRL and move the Mouse. 
+
+07.04.2004
+	* Applied patch for better detecting CUPS. 
+	* Improved the forced aligning of Text again. 
+
+06.04.2004
+	* Improved forced aligning of text. 
+	* Changed the Styles Listbox to a Combobox in the Properties Palette. 
+
+05.04.2004
+	* Updated the Ukrainian translation. 
+	* Fixed Issues with Polylines on Export to PDF and Postscript. 
+	* Moved the Icons to $prefix/share/scribus/icons to be FHS compliant. 
+
+04.04.2004
+	* Fixed rounding problems with the Baseline Grid. 
+
+03.04.2004
+	* Added a frame independent baseline setting for textframes 
+	* Updated the Finnish Translation. 
+
+02.04.2004
+	* Flipping state of images is now preserved when updating or editing images, Bug #408 
+	* Properties Palette is now updated immediately after text style change, Bug #404 
+	* Textcolor is now imported too when appending Styles, Bug #402 
+	* Applying "No Style" resets now all Textproperties to the default style, Bug #400 
+	* You can now move Objects in 0.1 Point units when pressing CTRL and the Cursor Keys, Bug #397 
+	* Colors in PDF-Textfields are now exported correctly, Bug #396 
+	* Pressing Tab while editing a Text doesn't jump to the Pageselector anymore, Bug #395 
+	* Pressing Shift while rotating the Mouse Whell scrolls now horizontal, Bug #388 
+	* Updated several Tooltips. 
+
+30.03.2004
+	* Fixed Issue on export to PDF and Postscript with objects with zero line width 
+	* Fixed Issues with locked Objects and Groups. 
+	* Double clicking on a Table Cell selects this Cell now. 
+	* Resizing Tableitems with the Properties Palette should work now. 
+	* Updated Polish Translation. 
+	* Added horizontal Scrolling with the horizontal MouseWheel if available. 
+	* Fixed compilation issues. 
+
+29.03.2004
+	* Removed implicit closing of Polylines in the SVG importer. 
+	* Added a "Keep aspect ratio" Button to the X-Y-Z Tab of the Properties Palette. 
+	* Added the missing pageselector.h file to the install function. 
+
 Changes since Version 1.1.5
 27.03.2004	Fixed Bug #364, Kerning isn't apllied anymore for the first Character of a line.
 		Enabled all resizing Handles for Groups.

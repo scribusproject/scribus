@@ -115,6 +115,11 @@ SOURCES += scribus/align.cpp \
            scribus/libpdf/pdflib.cpp \
            scribus/libpostscript/pslib.cpp \
            scribus/libprefs/prefs.cpp \
+           scribus/plugins/newfromtemplateplugin/nftdialog.cpp \
+           scribus/plugins/newfromtemplateplugin/nftemplate.cpp \
+           scribus/plugins/newfromtemplateplugin/nftrcreader.cpp \
+           scribus/plugins/saveastemplateplugin/satdialog.cpp \
+           scribus/plugins/saveastemplateplugin/satemplate.cpp \
            scribus/plugins/libchar/charselect.cpp \
            scribus/plugins/pixmapexport/dialog.cpp \
            scribus/plugins/pixmapexport/dialog.ui.h \

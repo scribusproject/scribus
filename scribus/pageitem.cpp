@@ -235,7 +235,13 @@ PageItem::PageItem(Page *pa, int art, double x, double y, double w, double h, do
 	DashOffset = 0;
 	fill_gradient = VGradient(VGradient::linear);
 	fill_gradient.clearStops();
-	fill_gradient.addStop(Doc->PageColors[Pcolor].getRGBColor(), 0.0, 0.5, 1.0, Pcolor, 100);
+	if (Pcolor == "None")
+		fill_gradient.addStop(Doc->PageColors[Doc->PageColors.begin().key()].getRGBColor(), 0.0, 0.5, 1.0, Doc->PageColors.begin().key(), 100);
+	else
+		fill_gradient.addStop(Doc->PageColors[Pcolor].getRGBColor(), 0.0, 0.5, 1.0, Pcolor, 100);
+	if (Pcolor2 == "None")
+		fill_gradient.addStop(Doc->PageColors[Doc->PageColors.begin().key()].getRGBColor(), 1.0, 0.5, 1.0, Doc->PageColors.begin().key(), 100);
+	else
 	fill_gradient.addStop(Doc->PageColors[Pcolor2].getRGBColor(), 1.0, 0.5, 1.0, Pcolor2, 100);
 	Language = doc->Language;
 	Cols = Doc->DCols;
