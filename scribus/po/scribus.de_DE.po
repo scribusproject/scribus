@@ -2933,20 +2933,8 @@ msgstr "Script ausführen..."
 msgid "Python Scripts (*.py);; All Files (*)"
 msgstr "Python Scripts (*.py);; Alle Dateien (*)"
 
-msgid "About Scripter"
-msgstr "Über Scripter"
-
-msgid "About Scripter..."
-msgstr "Über Scripter..."
-
-msgid "Scripter"
-msgstr "Scripter"
-
-msgid "This Plugin allows you to use Python as a"
-msgstr "Dieses Plugin erlaubt es Python als"
-
-msgid "scripting Language for Scribus."
-msgstr "Script Sprache für Scribus zu benutzen."
+msgid "Scripter Manual..."
+msgstr "Scripter Handbuch..."
 
 msgid "Online Reference"
 msgstr "Scripter-Referenz"
@@ -2965,3 +2953,6 @@ msgstr "Script Konsole"
 
 msgid "Recent Scripts"
 msgstr "Letzte Scripte"
+
+msgid "Outline Text"
+msgstr "Text mit Umrandung"

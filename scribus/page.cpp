@@ -1122,7 +1122,8 @@ bool Page::MoveItem(double newX, double newY, PageItem* b, bool fromMP)
 		else
 			emit ItemPos(b->Xpos, b->Ypos);
 		}
-	emit UpdtObj(PageNr, b->ItemNr);
+	if (!doku->loading)
+		emit UpdtObj(PageNr, b->ItemNr);
 	return retw;
 }
 
@@ -4493,7 +4494,8 @@ void Page::ToTextFrame()
 	b->Frame = true;
 	RefreshItem(b);
 	emit HaveSel(b->PType);
-	emit UpdtObj(PageNr, b->ItemNr);
+	if (!doku->loading)
+		emit UpdtObj(PageNr, b->ItemNr);
 	EmitValues(b);
 }
 
@@ -4505,7 +4507,8 @@ void Page::ToPicFrame()
 	b->Frame = true;
 	RefreshItem(b);
 	emit HaveSel(b->PType);
-	emit UpdtObj(PageNr, b->ItemNr);
+	if (!doku->loading)
+		emit UpdtObj(PageNr, b->ItemNr);
 	EmitValues(b);
 }
 
@@ -4520,7 +4523,8 @@ void Page::ToPolyFrame()
 	b->Clip = FlattenPath(b->PoLine, b->Segments);
 	RefreshItem(b);
 	emit HaveSel(b->PType);
-	emit UpdtObj(PageNr, b->ItemNr);
+	if (!doku->loading)
+		emit UpdtObj(PageNr, b->ItemNr);
 	EmitValues(b);
 }
 
@@ -4534,7 +4538,8 @@ void Page::ToBezierFrame()
 	AdjustItemSize(b);
 	RefreshItem(b);
 	emit HaveSel(b->PType);
-	emit UpdtObj(PageNr, b->ItemNr);
+	if (!doku->loading)
+		emit UpdtObj(PageNr, b->ItemNr);
 	EmitValues(b);
 }
 
@@ -4552,7 +4557,8 @@ void Page::Bezier2Poly()
 	b->Clip = FlattenPath(b->PoLine, b->Segments);
 	RefreshItem(b);
 	emit HaveSel(b->PType);
-	emit UpdtObj(PageNr, b->ItemNr);
+	if (!doku->loading)
+		emit UpdtObj(PageNr, b->ItemNr);
 	EmitValues(b);
 }
 
@@ -4808,7 +4814,8 @@ void Page::ToPathText()
 		b->PLineArt = bb->PLineArt;
 		b->PLineEnd = bb->PLineEnd;
 		b->PLineJoin = bb->PLineJoin;
-		emit UpdtObj(PageNr, b->ItemNr);
+		if (!doku->loading)
+			emit UpdtObj(PageNr, b->ItemNr);
 		UpdatePolyClip(b);
 		AdjustItemSize(b);
 		double dx = bb->Xpos - b->Xpos;
@@ -5116,7 +5123,8 @@ void Page::ItemFont(QString fon)
 						AdjustItemSize(b);
 						}
 					b->Dirty = true;
-					emit UpdtObj(PageNr, b->ItemNr);
+					if (!doku->loading)
+						emit UpdtObj(PageNr, b->ItemNr);
 					RefreshItem(b);
 					}
 				}

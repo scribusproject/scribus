@@ -90,7 +90,6 @@ PyObject *scribus_senttolayer(PyObject *self, PyObject* args)
 	int i = GetItem(QString(Name));
 	if (i != -1)
 		{
-		int la = -1;
 		PageItem *b = doc->ActPage->Items.at(i);
 		doc->ActPage->SelectItemNr(i);
 		for (uint lam=0; lam < doc->Layers.count(); ++lam)

@@ -3,8 +3,9 @@ import calendar
 import time
 from scribus import *
 if HaveDoc():
-	Month = time.localtime(time.time())[1]
-	Year = time.localtime(time.time())[0]
+	SetRedraw(0)
+	Month = time.localtime()[1]
+	Year = time.localtime()[0]
 	Objects = []
 	MonthList = ["January","February","March","April","May","June","July","August","September","October","November","December"]
 	DaysList = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
@@ -50,3 +51,5 @@ if HaveDoc():
 			DayC = DayC + 1
 		Ycoor = Ycoor + 20
 	GroupObjects(Objects)
+	SetRedraw(1)
+	RedrawAll

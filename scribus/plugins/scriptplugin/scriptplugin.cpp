@@ -39,7 +39,7 @@
 
 QString Name()
 {
-  return QObject::tr("About Scripter...");
+  return QObject::tr("Scripter Manual...");
 }
 
 int Type()
@@ -77,8 +77,6 @@ void InitPlug(QWidget *d, ScribusApp *plug)
 	men->insertItem(QObject::tr("Execute Script..."), Tes, SLOT(slotTest()));
 	Tes->rmenid = men->insertItem(QObject::tr("Recent Scripts"), Tes->rmen);
 	Tes->cons = men->insertItem(QObject::tr("Show Console"), Tes, SLOT(slotInteractiveScript()));
-	men->insertSeparator();
-	men->insertItem(QObject::tr("Online-Help"), Tes, SLOT(slotHelp()));
 	plug->menuBar()->insertItem(QObject::tr("Script"), men, -1, plug->menuBar()->count() - 2);
 	QObject::connect(Tes->pcon->OutWin, SIGNAL(returnPressed()), Tes, SLOT(slotExecute()));
 	QObject::connect(Tes->pcon, SIGNAL(Schliessen()), Tes, SLOT(slotInteractiveScript()));
@@ -93,20 +91,6 @@ void CleanUpPlug()
 
 void Run(QWidget *d, ScribusApp *plug)
 {
-	QString mess = QObject::tr("Scripter");
-	mess += "\n\n" + QObject::tr("This Plugin allows you to use Python as a");
-	mess += "\n" + QObject::tr("scripting Language for Scribus.");
-	mess += "\n\n" + QObject::tr("Programming:");
-	mess += "\n\t" + QObject::tr("Franz Schmid <Franz.Schmid@altmuehlnet.de>");
-	mess += "\n\t" + QObject::tr("Paul F. Johnson <paul@all-the-johnsons.co.uk>");
-	mess += "\n\n" + QObject::tr("Documentation:");
-	mess += "\n\t" + QObject::tr("Peter Linnell <netscribe@attbi.com>");
-	mess += "\n\t" + QObject::tr("Franz Schmid <Franz.Schmid@altmuehlnet.de>");
-	QMessageBox::about(d, QObject::tr("About Scripter"), mess);
-}
-
-void MenuTest::slotHelp()
-{
  	QString pfad = PREL;
  	QString pfad2;
   pfad2 = pfad + "/lib/scribus/doc/en/Scripter/index.html";
@@ -117,6 +101,9 @@ void MenuTest::slotHelp()
 void MenuTest::slotTest()
 {
 	QString fileName;
+	QString CurDirP = QDir::currentDirPath();
+	if (Carrier->Prefs.ScriptDir != "")
+		QDir::setCurrent(Carrier->Prefs.ScriptDir);
 	CustomFDialog diaf((QWidget*)parent(), QObject::tr("Open"), QObject::tr("Python Scripts (*.py);; All Files (*)"));
 	if (diaf.exec())
 		{
@@ -136,6 +123,7 @@ void MenuTest::slotTest()
 			rmen->insertItem(RecentScripts[m]);
 			}
 		}
+	QDir::setCurrent(CurDirP);
 }
 
 void MenuTest::RecentScript(int id)

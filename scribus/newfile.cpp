@@ -248,6 +248,7 @@ NewDoc::NewDoc( QWidget* parent, preV *Vor )
     Distance->setSuffix( ein );
     Distance->setMaxValue( 100000 );
     Distance->setValue( qRound(11 * Umrech * 100) );
+   	Distance->setDecimals(100);
 		Dist = 11;
     Layout2->addWidget( Distance, 1, 1, Qt::AlignLeft );
     SpinBox10 = new QSpinBox( GroupBox4, "SpinBox10" );

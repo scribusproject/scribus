@@ -532,22 +532,6 @@ while(!DOC.isNull())
 							tmp += tmp2.at(cxx)+tmp3;
 							}
 						}
-/*					else
-						{
-						tmp += QString(QChar(QStoInt(it.attribute("CH")))) + "\t";
-						tmp += DoFonts[it.attribute("CFONT")] + "\t";
-						tmp += it.attribute("CSIZE") + "\t";
-						tmp += it.attribute("CCOLOR") + "\t";
-						tmp += it.attribute("CEXTRA") + "\t";
-						tmp += it.attribute("CSHADE") + "\t";
-						tmp += it.attribute("CSTYLE") + "\t";
-						tmp += it.attribute("CAB","0") + "\t";
-						tmp += it.attribute("CCOLOR") + "\t";
-						tmp += it.attribute("CSHADE") + "\t";
-						tmp += it.attribute("CSTROKE","None") + "\t";
-						tmp += it.attribute("CSHADE2","100") + "\t";
-						tmp += it.attribute("CSCALE","100") + "\n";
-						}         */
 					IT=IT.nextSibling();
 				}
 				OB.Ptext = tmp;
@@ -1603,28 +1587,6 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 							tmp += tmp2.at(cxx)+tmp3;
 							}
 						}
-/*					else if (it.tagName()=="TEXT")
-						{
-						tmp += QString(QChar(QStoInt(it.attribute("CH")))) + "\t";
-						tmp += DoFonts[it.attribute("CFONT")] + "\t";
-						tmp += it.attribute("CSIZE") + "\t";
-						tmp += it.attribute("CCOLOR") + "\t";
-						tmp += it.attribute("CEXTRA") + "\t";
-						tmp += it.attribute("CSHADE") + "\t";
-						tmp += it.attribute("CSTYLE") + "\t";
-						if ((VorLFound) || (it.attribute("CAB","0").toUInt() < 5))
-							tmp += DoVorl[it.attribute("CAB","0").toUInt()] + "\t";
-						else
-							{
-							if (it.attribute("CAB","0").toUInt() < 5)
-								tmp += it.attribute("CAB","0")+"\t";
-							else
-								tmp += "0\t";
-							}
-						tmp += it.attribute("CSTROKE","None") + "\t";
-						tmp += it.attribute("CSHADE2","100") + "\t";
-						tmp += it.attribute("CSCALE","100") + "\n";
-						}     */
 					IT=IT.nextSibling();
 				}
 			OB.Ptext = tmp;
@@ -1693,7 +1655,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 			}
 		}
 	elem.setAttribute("COUNT", Selitems->count());
-	elem.setAttribute("Version", "1.1.1");
+	elem.setAttribute("Version", "1.1.2");
 	for (uint co=0; co<Selitems->count(); ++co)
 		{
 		QString CurDirP = QDir::currentDirPath();
@@ -2373,7 +2335,7 @@ QDomDocument docu("scribus");
 QString st="<SCRIBUSUTF8></SCRIBUSUTF8>";
 docu.setContent(st);
 QDomElement elem=docu.documentElement();
-elem.setAttribute("Version", "1.1.1");
+elem.setAttribute("Version", "1.1.2");
 QDomElement dc=docu.createElement("DOCUMENT");
 dc.setAttribute("ANZPAGES",doc->PageC);
 dc.setAttribute("PAGEWITH",doc->PageB);
@@ -2623,6 +2585,7 @@ void ScriXmlDoc::WritePref(preV *Vor, QString ho)
 	dc.setAttribute("RCD", Vor->RecentDCount);
 	dc.setAttribute("DOC", Vor->DocDir);
 	dc.setAttribute("PROFILES", Vor->ProfileDir);
+	dc.setAttribute("SCRIPTS", Vor->ScriptDir);
 	elem.appendChild(dc);
 	QDomElement dc1=docu.createElement("GRID");
 	dc1.setAttribute("MINOR",Vor->DminGrid);
@@ -2846,6 +2809,7 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 			Vorein->RecentDCount = dc.attribute("RCD","5").toUInt();
 			Vorein->DocDir = dc.attribute("DOC","");
 			Vorein->ProfileDir = dc.attribute("PROFILES","");
+			Vorein->ScriptDir = dc.attribute("SCRIPTS","");
 
 			}
 		if (dc.tagName()=="GRID")

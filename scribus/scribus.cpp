@@ -288,6 +288,7 @@ ScribusApp::ScribusApp(SplashScreen *splash)
 		Prefs.DisScale = 1.0;
 		Prefs.DocDir = QString(getenv("HOME"));
 		Prefs.ProfileDir = "";
+		Prefs.ScriptDir = "";
 		PDef.Pname = "";
 		PDef.Dname = "";
 		PDef.Command = "";
@@ -1401,6 +1402,8 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 													 bool atf, bool fp, int einh, bool firstleft, int Ori, int SNr)
 {
 	QString cc;
+	if (HaveDoc)
+		doc->OpenNodes = Tpal->buildReopenVals();
 	doc = new ScribusDoc();
 	doc->Einheit = einh;
 	if (fp)
@@ -1523,7 +1526,9 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 			RecalcColors();
 		}
 	doc->setPage(b, h, tpr, lr, rr, br, sp, ab, atf, fp);
+	doc->loading = false;
 	slotNewPage(0);
+	doc->loading = true;
 	HaveNewDoc();
 	view->Pages.at(0)->parentWidget()->hide();
 	view->DocPages = view->Pages;
@@ -1545,6 +1550,7 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	doc->setUnModified();
 	doc->loading = false;
 	doc->ActPage = view->Pages.at(0);
+	doc->OpenNodes.clear();
 	Tpal->BuildTree(view);
 	Sepal->Rebuild();
 	BookPal->BView->clear();
@@ -1598,6 +1604,11 @@ void ScribusApp::newActWin(QWidget *w)
 		return;
 		}
 	ActWin = (ScribusWin*)w;
+	if (doc != NULL)
+		{
+		if ((HaveDoc) && (doc != ActWin->doc))
+			doc->OpenNodes = Tpal->buildReopenVals();
+		}
 	doc = ActWin->doc;
 	view = ActWin->view;
 	Sepal->SetView(view);
@@ -1622,6 +1633,7 @@ void ScribusApp::newActWin(QWidget *w)
 		wsp->setScrollBarsEnabled(true);
 	Sepal->Rebuild();
 	Tpal->BuildTree(view);
+	Tpal->reopenTree(doc->OpenNodes);
 	BookPal->BView->NrItems = ActWin->NrItems;
 	BookPal->BView->First = ActWin->First;
 	BookPal->BView->Last = ActWin->Last;
@@ -1630,6 +1642,8 @@ void ScribusApp::newActWin(QWidget *w)
 
 void ScribusApp::windowsMenuActivated( int id )
 {
+	if (HaveDoc)
+		doc->OpenNodes = Tpal->buildReopenVals();
 	QWidget* w = wsp->windowList().at( id );
 	if ( w )
 		w->showNormal();
@@ -1888,7 +1902,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			WerkTools->Textedit->setEnabled(false);
 			WerkTools->Rotiere->setEnabled(false);
 			Mpal->Cpal->GradCombo->setCurrentItem(0);
-			Tpal->slotShowSelect(0, -1);
+			Tpal->slotShowSelect(doc->ActPage->PageNr, -1);
 			break;
 		case 2:
 			importMenu->changeItem(fid2, tr("Get Picture..."));
@@ -2193,6 +2207,7 @@ bool ScribusApp::LadeSeite(QString fileName, int Nr)
 	bool ret = false;
   if (!fileName.isEmpty())
   	{
+		doc->OpenNodes = Tpal->buildReopenVals();
 		doc->loading = true;
   	ScriXmlDoc *ss = new ScriXmlDoc();
   	if(!ss->ReadPage(fileName, Prefs.AvailFonts, doc, view, Nr))
@@ -2219,6 +2234,7 @@ bool ScribusApp::LadeSeite(QString fileName, int Nr)
 		Mpal->Cpal->SetColors(doc->PageColors);
 		Mpal->updateCList();
 		Tpal->BuildTree(view);
+		Tpal->reopenTree(doc->OpenNodes);
 		slotDocCh();
 		doc->loading = false;
 		ret = true;
@@ -2230,6 +2246,8 @@ bool ScribusApp::LadeSeite(QString fileName, int Nr)
 
 bool ScribusApp::LadeDoc(QString fileName)
 {
+	if (HaveDoc)
+		doc->OpenNodes = Tpal->buildReopenVals();
 	bool ret = false;
   if (!fileName.isEmpty())
   	{
@@ -2281,6 +2299,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 		doc->MinWordLen = Prefs.MinWordLen;
 		doc->Automatic = Prefs.Automatic;
 		doc->AutoCheck = Prefs.AutoCheck;
+		doc->OpenNodes.clear();
 		doc->loading = true;
 		FMess->setText(tr("Loading..."));
 		FProg->reset();
@@ -4008,6 +4027,7 @@ void ScribusApp::MovePage()
 	MovePages *dia = new MovePages(this, doc->ActPage->PageNr+1, view->Pages.count(), true);
 	if (dia->exec())
 		{
+		doc->OpenNodes = Tpal->buildReopenVals();
 		int from = dia->FromPage->value();
 		int to = dia->ToPage->value();
 		int wie = dia->Where->currentItem();
@@ -4020,6 +4040,7 @@ void ScribusApp::MovePage()
 		AdjustBM();
 		Sepal->RebuildPage();
 		Tpal->BuildTree(view);
+		Tpal->reopenTree(doc->OpenNodes);
 		}
 	delete dia;
 }
@@ -4853,6 +4874,7 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.DocDir = dia->Docs->text();
 		DocDir = Prefs.DocDir;
 		Prefs.ProfileDir = dia->ProPfad->text();
+		Prefs.ScriptDir = dia->ScriptPfad->text();
 		GetCMSProfiles();
 		switch (dia->PreviewSize->currentItem())
 			{
@@ -5823,7 +5845,16 @@ void ScribusApp::RunImportPlug(int id)
 {
 	int a = importMenu->indexOf(id);
 	if (a > 1)
+		{
+		if (HaveDoc)
+			doc->OpenNodes = Tpal->buildReopenVals();
 		CallDLL(importMenu->text(id));
+		if (HaveDoc)
+			{
+			Tpal->BuildTree(view);
+			Tpal->reopenTree(doc->OpenNodes);
+			}
+		}
 }
 
 void ScribusApp::RunExportPlug(int id)

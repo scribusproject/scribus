@@ -1,3 +1,28 @@
+Changes since Version 1.1.1
+28.10.2003	The Contents of the Outline Palette doesn't collapse anymore
+		when you are editing Objects or adding or removing Pages.
+
+26.10.2003	Added patch for acinclude.m4 to recognize Python 2.3
+		Fixed issue with certain Hebrew fonts.
+
+25.10.2003	Scribus can now handle Filenames with Spaces correctly.
+		Included Patch for BigEndian Systems.
+
+23.10.2003	Using Symlinks for Fonts works now.
+		Fixed missing Lines around Textbox in PDF-Output.
+
+21.10.2003	Included the new Icons contributed by Sven Powalla.
+
+20.10.2003	Included the Scripter Plugin into the main Package.
+		Fixed the ./configure script that libtiff is recognized
+		on a stock RH9 installation.
+
+17.10.2003	The AutoSave Option is now working again.
+
+11.10.2003	Fixed Bug when converting Text to Outlines.
+
+05.10.2003	Improved History in the Helpbrowser.
+
 Changes since Version 1.1.0
 03.10.2003	Improved rendering of linked Textframes.
 		Added a new .pot file for Scribus-1.1.1
@@ -270,7 +295,7 @@ Changes since Version 0.9.3
 
 08.12.2002	Added User defined Guidelines, which can be dragged out of the Rulers.
 
-05.12.2002	Added Polish Translation contributed by Maciej Hañski <m.hanski@gmx.at>
+05.12.2002	Added Polish Translation contributed by Maciej Haski <m.hanski@gmx.at>
 
 03.12.2002	PDF-Export Options are now saved with the Document.
 
@@ -598,7 +623,7 @@ Changes since Version 0.5.5:
 10.11.2001	Objectgroups are now fully working.
 
 09.11.2001	Fixed a bug which causes Scribus to crash when loading Documents
-		which contain the character è. This crash happens only in the
+		which contain the character ï¿½ This crash happens only in the
 		locale fr.
 
 07.11.2001	Objects can now be grouped together
@@ -855,7 +880,7 @@ Changes since Version 0.5.5:
                 Now Version 0.3.2
 
 15.06.2001      No more use of xset -q to get the Font-Path.
-                Thank to Christian Töpp, who pointed out a
+                Thank to Christian Tpp, who pointed out a
                 way to get the Font-Path without xset.
 
 14.06.2001      Insert Page now works

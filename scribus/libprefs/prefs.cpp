@@ -198,6 +198,19 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     FileC2->setMinimumSize( QSize( 88, 24 ) );
     FileC2->setText( tr( "Change..." ) );
     GroupBox200Layout->addWidget( FileC2, 1, 2 );
+
+		PfadText3 = new QLabel( GroupBox200, "Pfadtext1" );
+		PfadText3->setText(tr("Scripts:"));
+    GroupBox200Layout->addWidget( PfadText3, 2, 0 );
+    ScriptPfad = new QLineEdit( GroupBox200, "Datei1" );
+    ScriptPfad->setMinimumSize( QSize( 268, 22 ) );
+		ScriptPfad->setText(Vor->ScriptDir);
+    GroupBox200Layout->addWidget( ScriptPfad, 2, 1 );
+    FileC3 = new QToolButton( GroupBox200, "FileC3" );
+    FileC3->setMinimumSize( QSize( 88, 24 ) );
+    FileC3->setText( tr( "Change..." ) );
+    GroupBox200Layout->addWidget( FileC3, 2, 2 );
+
     tabLayout->addMultiCellWidget( GroupBox200, 2, 2, 0, 1 );
 
     TabWidget3->addWidget( tab, 0 );
@@ -1533,6 +1546,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     connect(FrameScale, SIGNAL(clicked()), this, SLOT(ChangeScaling()));
 		connect(FileC, SIGNAL(clicked()), this, SLOT(ChangeDocs()));
 		connect(FileC2, SIGNAL(clicked()), this, SLOT(ChangeProfs()));
+		connect(FileC3, SIGNAL(clicked()), this, SLOT(ChangeScripts()));
     connect(CaliSlider, SIGNAL(valueChanged(int)), this, SLOT(SetDisScale()));
 		connect(TabListe, SIGNAL(highlighted(int)), TabWidget3, SLOT(raiseWidget(int)));
 		setSize(Vor->PageFormat);
@@ -1560,6 +1574,13 @@ void Preferences::ChangeProfs()
 	QString s = QFileDialog::getExistingDirectory(Docs->text(), this, "d", tr("Choose a Directory"), true);
 	if (s != "")
 		ProPfad->setText(s);
+}
+
+void Preferences::ChangeScripts()
+{
+	QString s = QFileDialog::getExistingDirectory(Docs->text(), this, "d", tr("Choose a Directory"), true);
+	if (s != "")
+		ScriptPfad->setText(s);
 }
 
 void Preferences::ChangeScaling()

@@ -11,6 +11,7 @@
 
 #include <qdialog.h>
 #include <qptrlist.h>
+#include <qvaluelist.h>
 #include "scribusview.h"
 class QVBoxLayout; 
 class QHBoxLayout; 
@@ -34,6 +35,8 @@ public:
     void closeEvent(QCloseEvent *ce);
     void resizeEvent(QResizeEvent *r);
 		void rebuildPageD();
+		void reopenTree(QValueList<int> op);
+		QValueList<int> buildReopenVals();
 
 public slots:
 		void slotShowSelect(uint SNr, int Nr);

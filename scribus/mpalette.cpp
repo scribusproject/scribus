@@ -19,9 +19,7 @@ void NameWidget::focusOutEvent(QFocusEvent *)
 	emit Leaved();
 }
 
-Mpalette::Mpalette( QWidget* parent, preV *Prefs)
-    : QDialog( parent, "Mdouble", false, 0)
-//    : QDialog( parent, "Mdouble", false, Qt::WStyle_Customize | Qt::WStyle_Title | Qt::WStyle_Tool)
+Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", false, 0)
 {
     setCaption( tr( "Properties" ) );
     HaveDoc = false;
@@ -830,6 +828,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs)
     QToolTip::add( Subs, tr( "Subscript" ) );
     QToolTip::add( Supers, tr( "Superscript" ) );
     QToolTip::add( Strike, tr( "Strikeout" ) );
+    QToolTip::add( Outlined, tr( "Outline Text" ) );
     QToolTip::add( TextL, tr( "Align Text Left" ) );
     QToolTip::add( TextR, tr( "Align Text Right" ) );
     QToolTip::add( TextB, tr( "Align Text Block" ) );

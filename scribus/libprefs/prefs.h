@@ -65,6 +65,9 @@ public:
     QLabel* PfadText2;
 		QLineEdit* ProPfad;
 		QToolButton* FileC2;
+    QLabel* PfadText3;
+		QLineEdit* ScriptPfad;
+		QToolButton* FileC3;
     QButtonGroup* ButtonGroup2;
     QButtonGroup* ButtonGroup5;
     QRadioButton* RadioButton6;
@@ -246,6 +249,7 @@ public slots:
     virtual void changeMicolor();
 		void ChangeDocs();
 		void ChangeProfs();
+		void ChangeScripts();
 		void ChangeScaling();
 		void setDS();
 		void setBreite(int v);

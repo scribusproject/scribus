@@ -400,6 +400,7 @@ struct preV  { SCFonts AvailFonts;
 							 bool AutoCheck;
 							 QString DocDir;
 							 QString ProfileDir;
+							 QString ScriptDir;
 							 QMap<QString,QString> GFontSub;
 							 bool PDFTransparency;
 							 bool AutoSave;
@@ -586,6 +587,7 @@ public:
 	QMap<QString,multiLine> MLineStyles;
 	QWidget* WinHan;
 	bool DoDrawing;
+  QValueList<int> OpenNodes;
 };
 
 #endif

@@ -195,20 +195,20 @@ void Annota::SetCross()
 
 void Annota::SetVals()
 {
-	QString tmp;
+	QString tmp, tmp2;
 	item->AnZiel = SpinBox1->value()-1;
 	item->AnType = ComboBox1->currentItem()+10;
 	if (item->AnType == 10)
 		item->AnActType = 0;
 	if (item->AnType == 11)
 		{
-		item->AnAction = tmp.setNum(SpinBox2->value())+" "+tmp.setNum(Hoehe-SpinBox3->value())+" 0";
+		item->AnAction = tmp.setNum(SpinBox2->value())+" "+tmp2.setNum(Hoehe-SpinBox3->value())+" 0";
 		item->An_Extern = "";
 		item->AnActType = 2;
 		}
 	if (item->AnType == 12)
 		{
-		item->AnAction = tmp.setNum(SpinBox2->value())+" "+tmp.setNum(Hoehe-SpinBox3->value())+" 0";
+		item->AnAction = tmp.setNum(SpinBox2->value())+" "+tmp2.setNum(Hoehe-SpinBox3->value())+" 0";
 		if (Destfile->text() != "")
 			{
 			item->An_Extern = Destfile->text();

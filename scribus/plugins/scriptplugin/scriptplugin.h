@@ -55,7 +55,6 @@ public:
     QStringList RecentScripts;
 
 public slots:
-		void slotHelp();
 		void slotTest();
 		void RecentScript(int id);
 		void slotRunScriptFile(QString fileName);

@@ -48,6 +48,8 @@ void Tree::slotShowSelect(uint SNr, int Nr)
 	ListView1->clearSelection();
 	if (Nr != -1)
 		ListView1->setSelected(PageObj.at(SNr)->Elemente.at(Nr), true);
+	else
+		ListView1->setSelected(Seiten.at(SNr), true);
   connect(ListView1, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
 }
 
@@ -66,6 +68,10 @@ void Tree::slotRemoveElement(uint SNr, uint Nr)
 void Tree::slotUpdateElement(uint SNr, uint Nr)
 {
 	QString cc, xp, yp, fon;
+	if (SNr > Seiten.count()-1)
+		return;
+	if ( Nr > PageObj.at(SNr)->Elemente.count()-1)
+		return;
   PageObj.at(SNr)->Elemente.at(Nr)->setText(0, vie->Pages.at(SNr)->Items.at(Nr)->AnName);
 	xp = tr("X:")+" "+cc.setNum(vie->Pages.at(SNr)->Items.at(Nr)->Xpos);
 	yp = tr("Y:")+" "+cc.setNum(vie->Pages.at(SNr)->Items.at(Nr)->Ypos);
@@ -114,6 +120,8 @@ void Tree::slotMoveElement(uint SNr, uint NrOld, uint NrNew)
 void Tree::slotAddPage(uint Nr)
 {
 	QString cc;
+	if (ListView1->childCount() == 0)
+		return;
 	Seiten.insert(Nr, new QListViewItem(ListView1->firstChild(), "Seiten"));
 	Seiten.current()->setText(0, tr("Page")+" "+cc.setNum(Nr+1));
 	PageObj.insert(Nr, new Elem);
@@ -138,6 +146,36 @@ void Tree::rebuildPageD()
 		{
   	Seiten.at(e)->setText(0, tr("Page")+" "+cc.setNum(e+1));
 		}
+}
+
+void Tree::reopenTree(QValueList<int> op)
+{
+	if (op.count() == 0)
+		return;
+	if (op[0] == 1)
+		ListView1->setOpen(ListView1->firstChild(), true);
+	for (uint e = 1; e < op.count(); ++e)
+		{
+  	ListView1->setOpen(Seiten.at(op[e]), true);
+		}
+}
+
+QValueList<int> Tree::buildReopenVals()
+{
+	QValueList<int> op;
+	op.clear();
+	if (ListView1->childCount() == 0)
+		return op;
+	if (ListView1->firstChild()->isOpen())
+		op.append(1);
+	else
+		op.append(0);
+	for (uint e = 0; e < Seiten.count(); ++e)
+		{
+		if (ListView1->isOpen(Seiten.at(e)))
+  		op.append(e);
+		}
+	return op;
 }
 
 void Tree::slotSelect(QListViewItem* ite)
