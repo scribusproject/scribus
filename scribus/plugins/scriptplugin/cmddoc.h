@@ -8,105 +8,161 @@
 
 /*! docstring */
 PyDoc_STRVAR(scribus_newdoc__doc__,
-    "newDoc(size, margins, orientation, firstPageNumber, unit, facingPages, firstSideLeft) -> bool\n\n\
-Creates a new document and returns true if successful. The parameters have the following meaning:\n\
-size = A Tuple (width, height) describing the Size of the Document.\
-You can use predefined cosntants named PAPER_<paper_type> e.g. PAPER_A4 etc.\n\
-margins = A Tuple (Left, Right, Top, Bottom) describing the Margins of the Document.\n\
-orientation = the Page Orientation - constants PORTRAIT, LANDSCAPE\n\
-firstPageNumer = is the number of the first page in the document used for pagenumbering\n\
-unit: this Value sets the Measurement Unit of the Document\
-UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS\n\
-facingPages = FACINGPAGES, NOFACINGPAGES\n\
-firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT\n\
-The values for Width, Height and the Margins are expressed in the given unit for the document.\n\n\
-example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_PICAS, FACINGPAGES, FIRSTPAGERIGHT)");
+QT_TR_NOOP("newDoc(size, margins, orientation, firstPageNumber,\n\
+                   unit, facingPages, firstSideLeft) -> bool\n\
+\n\
+Creates a new document and returns true if successful. The parameters have the\n\
+following meaning:\n\
+\n\
+    size = A tuple (width, height) describing the size of the document. You can\n\
+    use predefined constants named PAPER_<paper_type> e.g. PAPER_A4 etc.\n\
+\n\
+    margins = A tuple (left, right, top, bottom) describing the document\n\
+    margins\n\
+\n\
+    orientation = the page orientation - constants PORTRAIT, LANDSCAPE\n\
+\n\
+    firstPageNumer = is the number of the first page in the document used for\n\
+    pagenumbering. While you'll usually want 1, it's useful to have higher\n\
+    numbers if you're creating a document in several parts.\n\
+\n\
+    unit: this value sets the measurement units used by the document. Use a\n\
+    predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,\n\
+    UNIT_PICAS, UNIT_POINTS.\n\
+\n\
+    facingPages = FACINGPAGES, NOFACINGPAGES\n\
+\n\
+    firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT\n\
+\n\
+The values for width, height and the margins are expressed in the given unit\n\
+for the document. PAPER_* constants are expressed in points. If your document\n\
+is not in points, make sure to account for this.\n\
+\n\
+example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,\n\
+                FACINGPAGES, FIRSTPAGERIGHT)\n\
+"));
 /** Creates a new document e.g. (Paper_A4, Margins, 1, 1, 1, NoFacingPages, FirstPageLeft)
  first 2 args are lists (tuples) */
 PyObject *scribus_newdoc(PyObject *self, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_closedoc__doc__,
-    "closeDoc() -> bool\n\n\
-Closes the current Document. Returns true if successful.");
+QT_TR_NOOP("closeDoc()\n\
+\n\
+Closes the current document without prompting to save.\n\
+\n\
+May throw NoDocOpenError if there is no document to close\n\
+"));
 /** Closes active doc. No params */
 PyObject *scribus_closedoc(PyObject *self);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_havedoc__doc__,
-    "haveDoc() -> bool\n\n\
-Returns true if there is a document open.");
+QT_TR_NOOP("haveDoc() -> bool\n\
+\n\
+Returns true if there is a document open.\n\
+"));
 /** Checks if is a document opened. */
 PyObject *scribus_havedoc(PyObject *self);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_opendoc__doc__,
-    "openDoc(\"name\") -> bool\n\n\
-Opens the document \"name\". Returns true if successful.");
+QT_TR_NOOP("openDoc(\"name\")\n\
+\n\
+Opens the document \"name\".\n\
+\n\
+May raise ScribusError if the document could not be opened.\n\
+"));
 /** Opens a document with given name. */
 PyObject *scribus_opendoc(PyObject *self, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_savedoc__doc__,
-    "saveDoc() -> bool\n\n\
-Saves the document with its actual name, returns true if successful.");
+QT_TR_NOOP("saveDoc()\n\
+\n\
+Saves the current document with its current name, returns true if successful.\n\
+If the document has not already been saved, this may bring up an interactive\n\
+save file dialog.\n\
+\n\
+If the save fails, there is currently no way to tell.\n\
+"));
 PyObject *scribus_savedoc(PyObject *self);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_savedocas__doc__,
-    "saveDocAs(\"name\") -> bool\n\n\
-    Saves the actual Document under the new Name \"name\". Returns true if successful.");
+QT_TR_NOOP("saveDocAs(\"name\")\n\
+\n\
+Saves the current document under the new name \"name\" (which may be a full or\n\
+relative path).\n\
+\n\
+May raise ScribusError if the save fails.\n\
+"));
 /** Saves active document with given name */
 PyObject *scribus_savedocas(PyObject *self, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setinfo__doc__,
-    "saveDocAs(\"author\", \"info\", \"description\") -> bool\n\n\
-Sets the document information. \"Author\", \"Info\", \"Description\" are strings.\
-Returns true if successful.");
+QT_TR_NOOP("saveDocAs(\"author\", \"info\", \"description\") -> bool\n\
+\n\
+Sets the document information. \"Author\", \"Info\", \"Description\" are\n\
+strings.\n\
+"));
 /** Sets document infos - author, title and description */
 PyObject *scribus_setinfo(PyObject *self, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setmargins__doc__,
-    "setMargins(lr, rr, tr, br)\n\n\
-Sets the print margins of the document, Left(lr), Right(rr), Top(tr) and Bottom(br)\
-Margins are given in the measurement unit of the document - see UNIT_<type> constants.");
+QT_TR_NOOP("setMargins(lr, rr, tr, br)\n\
+\n\
+Sets the margins of the document, Left(lr), Right(rr), Top(tr) and Bottom(br)\n\
+margins are given in the measurement units of the document - see UNIT_<type>\n\
+constants.\n\
+"));
 /** Sets document margins - left, right, top and bottom. */
 PyObject *scribus_setmargins(PyObject *self, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setunit__doc__,
-    "setUnit(type)\n\n\
-Changes the Measurement Unit of the Document. Possible Values for Unit are\
-defined as constants UNIT_<type>.");
+QT_TR_NOOP("setUnit(type)\n\
+\n\
+Changes the measurement unit of the document. Possible values for \"unit\" are\n\
+defined as constants UNIT_<type>.\n\
+\n\
+May raise ValueError if an invalid unit is passed.\n\
+"));
 /** Changes unit scale. */
 PyObject *scribus_setunit(PyObject *self, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getunit__doc__,
-    "getUnit() -> integer (Scribus typo unit)\n\n\
-Returns the Measurement Unit of the Document.\
-Possible Values for Unit are defined as constants.\
-Constants are:\n\
-UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.");
+QT_TR_NOOP("getUnit() -> integer (Scribus unit constant)\n\
+\n\
+Returns the measurement units of the document. The returned value will be one\n\
+of the UNIT_* constants:\n\
+UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.\n\
+"));
 /** Returns actual unit scale. */
 PyObject *scribus_getunit(PyObject *self);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_loadstylesfromfile__doc__,
-    "loadStylesFromFile(\"filename\")\n\n\
-Loads styles specified in the \"filename\" document into actual one.");
+QT_TR_NOOP("loadStylesFromFile(\"filename\")\n\
+\n\
+Loads paragraph styles from the Scribus document at \"filename\" into the\n\
+current document.\n\
+"));
 /** Loads styles from another .sla file (craig r.)*/
 PyObject *scribus_loadstylesfromfile(PyObject *self, PyObject *args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setdoctype__doc__,
-	"setDocType(facingPages, firstPageLeft)\n\n\
-Sets the type of the documents, to get facing pages set the first parameter\
-to FACINGPAGES, to switch facingPages off use NOFACINGPAGES instead.\
-If you want to be the first page a left side set the second parameter\
-to FIRSTPAGELEFT, for a right rage use FIRSTPAGERIGHT.");
+QT_TR_NOOP("setDocType(facingPages, firstPageLeft)\n\
+\n\
+Sets the document type. To get facing pages set the first parameter to\n\
+FACINGPAGES, to switch facingPages off use NOFACINGPAGES instead.  If you want\n\
+to be the first page a left side set the second parameter to FIRSTPAGELEFT, for\n\
+a right page use FIRSTPAGERIGHT.\n\
+"));
 /*! TODO: comment */
 PyObject *scribus_setdoctype(PyObject *self, PyObject* args);
 

@@ -29,9 +29,7 @@ ConsWin::ConsWin(QWidget* parent) : QTextEdit(parent)
 	font without family specification.
 	TODO: get user defined font by (future) KDE integration
 	TODO: is there any component with more user friendly pythonic interface? readline etc?
-	TODO: script console won't handle national (czech) characters.
-	as in somescript.py do. it inserts ??? instead. why? kill all
-	special alphabets :)))*/
+	*/
 	QFont font = QFont("nonexisting:)");
 	font.setStyleHint(QFont::TypeWriter);
 	font.setPointSize(ScApp->Prefs.AppFontSize);

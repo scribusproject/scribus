@@ -71,7 +71,7 @@ PyObject *scribus_setlinewidth(PyObject *self, PyObject* args)
 		return NULL;
 	if ((w < 0.0) || (w > 12.0))
 	{
-		PyErr_SetString(PyExc_ValueError, QString("Line width out of bounds, must be 0 <= line_width <= 12"));
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Line width out of bounds, must be 0 <= line_width <= 12","python error"));
 		return NULL;
 	}
 	PageItem *i = GetUniqueItem(QString(Name));
@@ -92,7 +92,7 @@ PyObject *scribus_setlineshade(PyObject *self, PyObject* args)
 		return NULL;
 	if ((w < 0) || (w > 100))
 	{
-		PyErr_SetString(PyExc_ValueError, QString("Line shade out of bounds, must be 0 <= shade <= 100"));
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Line shade out of bounds, must be 0 <= shade <= 100","python error"));
 		return NULL;
 	}
 	PageItem *it = GetUniqueItem(QString(Name));
@@ -113,7 +113,7 @@ PyObject *scribus_setfillshade(PyObject *self, PyObject* args)
 		return NULL;
 	if ((w < 0) || (w > 100))
 	{
-		PyErr_SetString(PyExc_ValueError, QString("Fill shade out of bounds, must be 0 <= shade <= 100"));
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Fill shade out of bounds, must be 0 <= shade <= 100","python error"));
 		return NULL;
 	}
 	PageItem *i = GetUniqueItem(QString(Name));
@@ -182,13 +182,14 @@ PyObject *scribus_setcornerrad(PyObject *self, PyObject* args)
 		return NULL;
 	if (w < 0)
 	{
-		PyErr_SetString(PyExc_ValueError, QString("Corner radius must be a positive number."));
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Corner radius must be a positive number.","python error"));
 		return NULL;
 	}
 	PageItem *b = GetUniqueItem(QString(Name));
 	if (b == NULL)
 		return NULL;
-	if ((b->PType == 2) || (b->PType == 3) || (b->PType == 4))
+	// What the heck is a type 3 frame?
+	if ((b->PType == FRAME_IMAGE) || (b->PType == 3) || (b->PType == FRAME_TEXT))
 	{
 		b->RadRect = w;
 		if (w > 0)
@@ -203,20 +204,20 @@ PyObject *scribus_setcornerrad(PyObject *self, PyObject* args)
 PyObject *scribus_setmultiline(PyObject *self, PyObject* args)
 {
 	char *Name = "";
-	char *Color;
-	if (!PyArg_ParseTuple(args, "s|s", &Color, &Name))
+	char *Style = NULL;
+	if (!PyArg_ParseTuple(args, "s|s", &Style, &Name))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *b = GetUniqueItem(QString(Name));
 	if (b == NULL)
 		return NULL;
-	if (!Carrier->doc->MLineStyles.contains(QString(Color)))
+	if (!Carrier->doc->MLineStyles.contains(QString(Style)))
 	{
-		PyErr_SetString(ScribusException, QString("Color not found"));
+		PyErr_SetString(NotFoundError, QObject::tr("Line style not found","python error"));
 		return NULL;
 	}
-	b->NamedLStyle = QString(Color);
+	b->NamedLStyle = QString(Style);
 	Py_INCREF(Py_None);
 	return Py_None;
 }

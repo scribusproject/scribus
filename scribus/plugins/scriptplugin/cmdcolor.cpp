@@ -24,13 +24,19 @@ PyObject *scribus_getcolor(PyObject *self, PyObject* args)
 	int c, m, y, k;
 	if (!PyArg_ParseTuple(args, "s", &Name))
 		return NULL;
-	if (Name == "")
-		return Py_BuildValue("(iiii)", 0, 0, 0, 0);
+	if (strcmp(Name, "") == 0)
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot get a colour with an empty name.","python error"));
+		return NULL;
+	}
 	edc = Carrier->HaveDoc ? Carrier->doc->PageColors : Carrier->Prefs.DColors;
 	QString col = QString(Name);
 	if (!edc.contains(col))
-		return Py_BuildValue("(iiii)", 0, 0, 0, 0);
-  edc[col].getCMYK(&c, &m, &y, &k);
+	{
+		PyErr_SetString(NotFoundError, QObject::tr("Colour not found","python error"));
+		return NULL;
+	}
+	edc[col].getCMYK(&c, &m, &y, &k);
 	return Py_BuildValue("(iiii)", static_cast<long>(c), static_cast<long>(m), static_cast<long>(y), static_cast<long>(k));
 }
 
@@ -40,9 +46,9 @@ PyObject *scribus_setcolor(PyObject *self, PyObject* args)
 	int c, m, y, k;
 	if (!PyArg_ParseTuple(args, "siiii", &Name, &c, &m, &y, &k))
 		return NULL;
-	if (Name == "")
+	if (strcmp(Name, "") == 0)
 	{
-		PyErr_SetString(ScribusException, QString("Cannot change a colour with an empty name."));
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot change a colour with an empty name.","python error"));
 		return NULL;
 	}
 	QString col = QString(Name);
@@ -50,7 +56,7 @@ PyObject *scribus_setcolor(PyObject *self, PyObject* args)
 	{
 		if (!Carrier->doc->PageColors.contains(col))
 		{
-			PyErr_SetString(ScribusException, QString("Colour does not exist in document"));
+			PyErr_SetString(NotFoundError, QObject::tr("Colour not found in document","python error"));
 			return NULL;
 		}
 		Carrier->doc->PageColors[col].setColor(c, m, y, k);
@@ -59,7 +65,7 @@ PyObject *scribus_setcolor(PyObject *self, PyObject* args)
 	{
 		if (!Carrier->Prefs.DColors.contains(col))
 		{
-			PyErr_SetString(ScribusException, QString("Colour does not exist in preferences"));
+			PyErr_SetString(NotFoundError, QObject::tr("Colour not found in default colors","python error"));
 			return NULL;
 		}
 		Carrier->Prefs.DColors[col].setColor(c, m, y, k);
@@ -74,9 +80,9 @@ PyObject *scribus_newcolor(PyObject *self, PyObject* args)
 	int c, m, y, k;
 	if (!PyArg_ParseTuple(args, "siiii", &Name, &c, &m, &y, &k))
 		return NULL;
-	if (Name == "")
+	if (strcmp(Name, "") == 0)
 	{
-		PyErr_SetString(ScribusException, QString("Cannot create a colour with an empty name."));
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot create a colour with an empty name.","python error"));
 		return NULL;
 	}
 	QString col = QString(Name);
@@ -108,29 +114,35 @@ PyObject *scribus_delcolor(PyObject *self, PyObject* args)
 	char *Repl = "None";
 	if (!PyArg_ParseTuple(args, "s|s", &Name, &Repl))
 		return NULL;
-	if (Name == "")
+	if (strcmp(Name,"") == 0)
 	{
-		PyErr_SetString(ScribusException, QString("Cannot delete a colour with an empty name."));
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot delete a colour with an empty name.","python error"));
 		return NULL;
 	}
 	QString col = QString(Name);
 	QString rep = QString(Repl);
 	if (Carrier->HaveDoc)
 	{
-		// FIXME: should we raise an exception when the user tries to delete a colour that
-		// does not exist?
 		if (Carrier->doc->PageColors.contains(col) && (Carrier->doc->PageColors.contains(rep) || (rep == "None")))
 			{
 				Carrier->doc->PageColors.remove(col);
 				ReplaceColor(col, rep);
 			}
+		else
+		{
+			PyErr_SetString(NotFoundError, QObject::tr("Colour not found in document","python error"));
+			return NULL;
+		}
 	}
 	else
 	{
-		// FIXME: should we raise an exception when the user tries to delete a colour that
-		// does not exist?
 		if (Carrier->Prefs.DColors.contains(col))
 			Carrier->Prefs.DColors.remove(col);
+		else
+		{
+			PyErr_SetString(NotFoundError, QObject::tr("Colour not found in default colors","python error"));
+			return NULL;
+		}
 	}
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -145,17 +157,20 @@ PyObject *scribus_replcolor(PyObject *self, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Name == "")
+	if (strcmp(Name, "") == 0)
 	{
-		PyErr_SetString(ScribusException, QString("Cannot replace a colour with an empty name."));
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot replace a colour with an empty name.","python error"));
 		return NULL;
 	}
 	QString col = QString(Name);
 	QString rep = QString(Repl);
-	// FIXME: should we raise an error when the user tries to replace a colour and the colour
-	// they're trying to replace does not exist?
 	if (Carrier->doc->PageColors.contains(col) && (Carrier->doc->PageColors.contains(rep) || (rep == "None")))
 		ReplaceColor(col, rep);
+	else
+	{
+		PyErr_SetString(NotFoundError, QObject::tr("Colour not found","python error"));
+		return NULL;
+	}
 	Py_INCREF(Py_None);
 	return Py_None;
 }

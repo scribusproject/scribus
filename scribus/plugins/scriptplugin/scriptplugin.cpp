@@ -59,6 +59,8 @@ PyObject* ScribusException;
 PyObject* NoDocOpenError;
 PyObject* WrongFrameTypeError;
 PyObject* NoValidObjectError;
+PyObject* NotFoundError;
+PyObject* NameExistsError;
 
 QString Name()
 {
@@ -79,6 +81,11 @@ void InitPlug(QWidget *d, ScribusApp *plug)
 {
 	QString cm;
 	Py_Initialize();
+	if (PyUnicode_SetDefaultEncoding("utf-8"))
+	{
+		qDebug("Failed to set default encoding to utf-8.\n");
+		PyErr_Clear();
+	}
 	Carrier = plug;
 	RetVal = 0;
 	initscribus(Carrier);
@@ -246,6 +253,7 @@ void MenuTest::slotRunScriptFile(QString fileName)
 		qDebug("Failed to get __main__ - aborting script");
 	else
 	{
+		// FIXME: If filename contains chars outside 7bit ascii, might be problems
 		PyObject* globals = PyModule_GetDict(m);
 		// Build the Python code to run the script
 		QString cm = QString("import sys,StringIO,traceback\n");
@@ -264,6 +272,7 @@ void MenuTest::slotRunScriptFile(QString fileName)
 		// We re-raise the exception so the return value of PyRun_String reflects
 		// the fact that an exception has ocurred.
 		cm        += QString("    raise\n");
+		// FIXME: if cmd contains chars outside 7bit ascii, might be problems
 		QCString cmd = cm.latin1();
 		// Now run the script in the interpreter's global scope
 		PyObject* result = PyRun_String(cmd.data(), Py_file_input, globals, globals);
@@ -315,6 +324,7 @@ QString MenuTest::slotRunScript(QString Script)
 		initscribus(Carrier);
 		if (RetVal == 0)
 		{
+			// FIXME: if CurDir contains chars outside 7bit ascii, might be problems
 			cm = "import sys\nsys.path[0] = \""+CurDir+"\"\n";
 			cm += "import cStringIO\n";
 			cm += "from scribus import *\n";
@@ -332,6 +342,7 @@ QString MenuTest::slotRunScript(QString Script)
 		cm += "\tre = bu.getvalue()\n";
 		cm += "retval(re, rv)\n";
 	}
+	// FIXME: if cmd contains chars outside 7bit ascii, might be problems
 	QCString cmd = cm.latin1();
 	comm[0] = (char*)"scribus";
 	PySys_SetArgv(1, comm);
@@ -470,7 +481,7 @@ void deprecatedFunctionAlias(PyObject* scribusdict, char* oldName, char* newName
 	wrapperFunc += QString("    \"\"\"Deprecated alias for function %1 - see help(%2).\"\"\"\n").arg(oldName).arg(oldName);
 	wrapperFunc += QString("    warnings.warn(\"Warning, script function %1 is deprecated, use %2 instead.\\n\",exceptions.DeprecationWarning)\n").arg(newName).arg(oldName);
 	wrapperFunc += QString("    return %1(*args,**kwargs)\n").arg(oldName);
-	QCString wsData = wrapperFunc.latin1();
+	QCString wsData = wrapperFunc.latin1();	//this should probably be utf8 now
 	// And run it in the namespace of the scribus module
 	PyObject* result = PyRun_String(wsData, Py_file_input, scribusdict, scribusdict);
 	// NULL is returned if an exception is set. We don't care about any other return value and
@@ -513,20 +524,21 @@ void constantAlias(PyObject* scribusdict, const char* oldName, const char* newNa
 
 static PyObject *scribus_retval(PyObject *self, PyObject* args)
 {
-	char *Name;
-	int retV;
+	char *Name = NULL;
+	int retV = 0;
 	if (!PyArg_ParseTuple(args, (char*)"si", &Name, &retV))
 		return NULL;
-	RetString = QString(Name);
+	// Because sysdefaultencoding is not utf-8, Python is returning utf-8 encoded
+	// 8-bit char* strings. Make sure Qt understands that the input is utf-8 not
+	// the default local encoding (usually latin-1) by using QString::fromUtf8()
+	RetString = QString::fromUtf8(Name);
 	RetVal = retV;
 	return PyInt_FromLong(0L);
 }
 
-static PyObject *scribus_getval(PyObject *self, PyObject* args)
+static PyObject *scribus_getval(PyObject *self)
 {
-	if (!PyArg_ParseTuple(args, (char*)""))
-		return NULL;
-	return PyString_FromString(InValue);
+	return PyString_FromString(InValue.utf8().data());
 }
 
 /*!
@@ -535,17 +547,31 @@ static PyObject *scribus_getval(PyObject *self, PyObject* args)
  */
 char* tr(const char* docstringConstant)
 {
-    // Alas, there's a lot of wasteful string copying going on
-    // here.
-    QString translated = QObject::tr(docstringConstant, "scripter docstring");
-    const char* trch = translated.latin1();
-    return strndup(trch, strlen(trch));
+	// Alas, there's a lot of wasteful string copying going on
+	// here.
+	QString translated = QObject::tr(docstringConstant, "scripter docstring");
+	/*
+	 * Python doesn't support 'unicode' object docstrings in the PyMethodDef,
+	 * and has no way to specify what encoding docstrings are in. The passed C
+	 * strings passed are made into 'str' objects as-is. These are interpreted
+	 * as being in the Python sysdefaultencoding, usually 'ascii', when used.
+	 * We now set systemdefaultencoding to 'utf-8' ...  so we're going to pass
+	 * Python an 8-bit utf-8 encoded string in a char* .  With
+	 * sysdefaultencoding set correctly, Python will interpret it correctly and
+	 * we'll have our unicode docstrings. It's not as ugly a hack as it sounds,
+	 * you just have to remember that C and Python strings can both be
+	 * considered 8-bit strings of binary data that can be later interpreted as
+	 * a text string in a particular text encoding.
+	 */
+	//QCString utfTranslated = translated.utf8();
+	const char* trch = translated.utf8().data();
+	return strndup(trch, strlen(trch));
 }
 
-/* Now we're using the more pyhtonic convention for names:
-	class - ClassName
-	procedure/function/method - procedureName
-etc. */
+/* Now we're using the more pythonic convention for names:
+ * class - ClassName
+ * procedure/function/method - procedureName
+ * etc. */
 PyMethodDef scribus_methods[] = {
 	// 2004/10/03 pv - aliases with common Python syntax - ClassName methodName
 	// 2004-11-06 cr - move aliasing to dynamically generated wrapper functions, sort methoddef
@@ -570,7 +596,7 @@ PyMethodDef scribus_methods[] = {
 	{"deleteText", scribus_deletetext, METH_VARARGS, tr(scribus_deletetext__doc__)},
 	{"deselectAll", (PyCFunction)scribus_deselect, METH_NOARGS, tr(scribus_deselect__doc__)},
 	{"docChanged", scribus_docchanged, METH_VARARGS, tr(scribus_docchanged__doc__)},
-	{"fileDialog", scribus_filedia, METH_VARARGS, tr(scribus_filedia__doc__)},
+	{"fileDialog", (PyCFunction)scribus_filedia, METH_VARARGS|METH_KEYWORDS, tr(scribus_filedia__doc__)},
 	{"getActiveLayer", (PyCFunction)scribus_getactlayer, METH_NOARGS, tr(scribus_getactlayer__doc__)},
 	{"getAllObjects", scribus_getallobj, METH_VARARGS, tr(scribus_getallobj__doc__)},
 	{"getAllStyles", (PyCFunction)scribus_getstylenames, METH_NOARGS, tr(scribus_getstylenames__doc__)},
@@ -623,7 +649,7 @@ PyMethodDef scribus_methods[] = {
 	{"loadStylesFromFile", scribus_loadstylesfromfile, METH_VARARGS, tr(scribus_loadstylesfromfile__doc__)},
 	{"lockObject", scribus_lockobject, METH_VARARGS, tr(scribus_lockobject__doc__)},
 	{"messagebarText", scribus_messagebartext, METH_VARARGS, tr(scribus_messagebartext__doc__)},
-	{"messageBox", scribus_messdia, METH_VARARGS, tr(scribus_messdia__doc__)},
+	{"messageBox", (PyCFunction)scribus_messdia, METH_VARARGS|METH_KEYWORDS, tr(scribus_messdia__doc__)},
 	{"moveObjectAbs", scribus_moveobjabs, METH_VARARGS, tr(scribus_moveobjabs__doc__)},
 	{"moveObject", scribus_moveobjrel, METH_VARARGS, tr(scribus_moveobjrel__doc__)},
 	{"newDocDialog", (PyCFunction)scribus_newdocdia, METH_NOARGS, tr(scribus_newdocdia__doc__)},
@@ -694,7 +720,7 @@ PyMethodDef scribus_methods[] = {
 	{"valueDialog", scribus_valdialog, METH_VARARGS, tr(scribus_valdialog__doc__)},
 	// end of aliases
 	{"retval", scribus_retval, METH_VARARGS, "TODO: docstring"},
-	{"getval", scribus_getval, METH_VARARGS, "TODO: docstring"},
+	{"getval", (PyCFunction)scribus_getval, METH_NOARGS, "TODO: docstring"},
 	{NULL,		NULL}		/* sentinel */
 };
 
@@ -728,6 +754,14 @@ void initscribus(ScribusApp *pl)
 	NoValidObjectError = PyErr_NewException((char*)"scribus.NoValidObjectError", ScribusException, NULL);
 	Py_INCREF(NoValidObjectError);
 	PyModule_AddObject(m, (char*)"NoValidObjectError", NoValidObjectError);
+	// Couldn't find the specified resource - font, color, etc.
+	NotFoundError = PyErr_NewException((char*)"scribus.NotFoundError", ScribusException, NULL);
+	Py_INCREF(NotFoundError);
+	PyModule_AddObject(m, (char*)"NotFoundError", NotFoundError);
+	// Tried to create an object with the same name as one that already exists
+	NameExistsError = PyErr_NewException((char*)"scribus.NameExistsError", ScribusException, NULL);
+	Py_INCREF(NameExistsError);
+	PyModule_AddObject(m, (char*)"NameExistsError", NameExistsError);
 	// Done with exception setup
 
 	// CONSTANTS

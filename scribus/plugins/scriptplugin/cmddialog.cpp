@@ -14,32 +14,33 @@ PyObject *scribus_newdocdia(PyObject *self)
 	return PyInt_FromLong(static_cast<long>(ret));
 }
 
-PyObject *scribus_filedia(PyObject *self, PyObject* args)
+PyObject *scribus_filedia(PyObject *self, PyObject* args, PyObject* kw)
 {
-	char *caption;
-	char *filter;
-	char *defName;
-	QString fName;
-	int pre = 0;
-	int mode = 0;
-	if (!PyArg_ParseTuple(args, "sss|ii", &caption, &filter, &defName, &pre, &mode))
+	char *caption = NULL;
+	char *filter = "";
+	char *defName = "";
+	int haspreview = 0;
+	int issave = 0;
+	char* kwargs[] = {"caption", "filter", "defaultname", "haspreview", "issave", NULL};
+	if (!PyArg_ParseTupleAndKeywords(args, kw, "s|ssii", kwargs, &caption, &filter, &defName, &haspreview, &issave))
 		return NULL;
 	QApplication::setOverrideCursor(QCursor(Qt::ArrowCursor));
-	fName = Carrier->CFileDialog(".", caption, filter, defName, static_cast<bool>(pre), static_cast<bool>(mode), 0, 0);
+	QString fName = Carrier->CFileDialog(".", caption, filter, defName, static_cast<bool>(haspreview), static_cast<bool>(issave), 0, 0);
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 	return PyString_FromString(fName.utf8());
 }
 
-PyObject *scribus_messdia(PyObject *self, PyObject* args)
+PyObject *scribus_messdia(PyObject *self, PyObject* args, PyObject* kw)
 {
 	char *caption = "";
 	char *message = "";
 	uint result;
 	QMessageBox::Icon ico = QMessageBox::NoIcon;
-	int butt1 = QMessageBox::NoButton;
+	int butt1 = QMessageBox::Ok|QMessageBox::Default;
 	int butt2 = QMessageBox::NoButton;
 	int butt3 = QMessageBox::NoButton;
-	if (!PyArg_ParseTuple(args, "ssii|ii", &caption, &message, &ico, &butt1, &butt2, &butt3))
+	char* kwargs[] = {"caption", "message", "icon", "button1", "button2", "button3", NULL};
+	if (!PyArg_ParseTupleAndKeywords(args, kw, "ss|iiii", kwargs, &caption, &message, &ico, &butt1, &butt2, &butt3))
 		return NULL;
 	QApplication::setOverrideCursor(QCursor(Qt::ArrowCursor));
 	QMessageBox mb(caption, message, ico, butt1, butt2, butt3, Carrier);
