@@ -217,6 +217,7 @@ ScribusDoc::ScribusDoc(struct ApplicationPrefs *prefsData)
 	PDF_Optionen.PresentMode = prefsData->PDF_Optionen.PresentMode;
 	PDF_Optionen.Datei = prefsData->PDF_Optionen.Datei;
 	PDF_Optionen.PresentVals = prefsData->PDF_Optionen.PresentVals;
+	PDF_Optionen.isGrayscale = prefsData->PDF_Optionen.isGrayscale;
 	PDF_Optionen.UseRGB = prefsData->PDF_Optionen.UseRGB;
 	PDF_Optionen.UseProfiles = prefsData->PDF_Optionen.UseProfiles;
 	PDF_Optionen.UseProfiles2 = prefsData->PDF_Optionen.UseProfiles2;

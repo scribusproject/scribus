@@ -112,8 +112,9 @@ QString String2Hex(QString *in, bool lang = true);
 QString CompressStr(QString *in);
 QString ImageToTxt(QImage *im);
 QString ImageToCMYK(QImage *im);
+QString ImageToGray(QImage *im);
 QString ImageToCMYK_PS(QImage *im, int pl, bool pre);
-void Convert2JPG(QString fn, QImage *image, int Quality, bool isCMYK);
+void Convert2JPG(QString fn, QImage *image, int Quality, bool isCMYK, bool isGray);
 QString MaskToTxt(QImage *im, bool PDF = true);
 QString MaskToTxt14(QImage *im);
 void Level2Layer(ScribusDoc *currentDoc, struct Layer *ll, int Level);
@@ -1043,6 +1044,26 @@ QString ImageToCMYK(QImage *im)
 	return ImgStr;
 }
 
+QString ImageToGray(QImage *im)
+{
+	int h = im->height();
+	int w = im->width();
+	QString ImgStr = "";
+	for( int yi=0; yi < h; ++yi )
+	{
+		QRgb * s = (QRgb*)(im->scanLine( yi ));
+		for( int xi=0; xi < w; ++xi )
+		{
+			QRgb r=*s;
+			int k = QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
+			*s = qRgba(k, 0, 0, 0);
+			ImgStr += k;
+			s++;
+		}
+	}
+	return ImgStr;
+}
+
 QString ImageToCMYK_PS(QImage *im, int pl, bool pre)
 {
 	int h = im->height();
@@ -1177,7 +1198,7 @@ static void my_error_exit (j_common_ptr cinfo)
   longjmp (myerr->setjmp_buffer, 1);
 }
 
-void Convert2JPG(QString fn, QImage *image, int Quality, bool isCMYK)
+void Convert2JPG(QString fn, QImage *image, int Quality, bool isCMYK, bool isGray)
 {
 	struct jpeg_compress_struct cinfo;
 	struct my_error_mgr         jerr;
@@ -1207,8 +1228,16 @@ void Convert2JPG(QString fn, QImage *image, int Quality, bool isCMYK)
 	}
 	else
 	{
-		cinfo.in_color_space = JCS_RGB;
-		cinfo.input_components = 3;
+		if (isGray)
+		{
+			cinfo.in_color_space = JCS_GRAYSCALE;
+			cinfo.input_components = 1;
+		}
+		else
+		{
+			cinfo.in_color_space = JCS_RGB;
+			cinfo.input_components = 3;
+		}
 	}
 	jpeg_set_defaults (&cinfo);
 	int qual[] = { 95, 85, 75, 50, 25 };  // These are the JPEG Quality settings 100 means best, 0 .. don't discuss
@@ -1233,13 +1262,25 @@ void Convert2JPG(QString fn, QImage *image, int Quality, bool isCMYK)
 		}
 		else
 		{
-			QRgb* rgb = (QRgb*)image->scanLine(cinfo.next_scanline);
-			for (int i=0; i<w; i++)
+			if (isGray)
 			{
-	 			*row++ = qRed(*rgb);
-	 			*row++ = qGreen(*rgb);
-	 			*row++ = qBlue(*rgb);
-	 			++rgb;
+				QRgb* rgba = (QRgb*)image->scanLine(cinfo.next_scanline);
+				for (int i=0; i<w; ++i)
+				{
+					*row++ = qRed(*rgba);
+					++rgba;
+				}
+			}
+			else
+			{
+				QRgb* rgb = (QRgb*)image->scanLine(cinfo.next_scanline);
+				for (int i=0; i<w; i++)
+				{
+					*row++ = qRed(*rgb);
+					*row++ = qGreen(*rgb);
+					*row++ = qBlue(*rgb);
+					++rgb;
+				}
 			}
 		}
 		jpeg_write_scanlines (&cinfo, row_pointer, 1);

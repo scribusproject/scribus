@@ -3444,7 +3444,29 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 						qApp->setOverrideCursor(QCursor(loadIcon("Rotieren2.xpm")), true);
 				}
 				else
-					qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+				{
+					switch (Doc->appMode)
+					{
+						case DrawShapes:
+							qApp->setOverrideCursor(QCursor(loadIcon("DrawFrame.xpm")), true);
+							break;
+						case DrawPicture:
+							qApp->setOverrideCursor(QCursor(loadIcon("DrawImageFrame.xpm")), true);
+							break;
+						case DrawText:
+							qApp->setOverrideCursor(QCursor(loadIcon("DrawTextFrame.xpm")), true);
+							break;
+						case DrawTable:
+							qApp->setOverrideCursor(QCursor(loadIcon("DrawTable.xpm")), true);
+							break;
+						case DrawRegularPolygon:
+							qApp->setOverrideCursor(QCursor(loadIcon("DrawPolylineFrame.xpm")), true);
+							break;
+						default:
+							qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+						break;
+					}
+				}
 				return;
 			}
 			for (a = 0; a < SelItem.count(); ++a)
@@ -3528,8 +3550,30 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 						if (!b->sizeLocked())
 							HandleCurs(&p, b, mpo);
 					}
-					else
-						qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+				}
+				else
+				{
+					switch (Doc->appMode)
+					{
+						case DrawShapes:
+							qApp->setOverrideCursor(QCursor(loadIcon("DrawFrame.xpm")), true);
+							break;
+						case DrawPicture:
+							qApp->setOverrideCursor(QCursor(loadIcon("DrawImageFrame.xpm")), true);
+							break;
+						case DrawText:
+							qApp->setOverrideCursor(QCursor(loadIcon("DrawTextFrame.xpm")), true);
+							break;
+						case DrawTable:
+							qApp->setOverrideCursor(QCursor(loadIcon("DrawTable.xpm")), true);
+							break;
+						case DrawRegularPolygon:
+							qApp->setOverrideCursor(QCursor(loadIcon("DrawPolylineFrame.xpm")), true);
+							break;
+						default:
+							qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+						break;
+					}
 				}
 				p.end();
 			}

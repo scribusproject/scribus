@@ -851,6 +851,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 				doc->PDF_Optionen.Resolution = QStoInt(pg.attribute("Resolution"));
 				doc->PDF_Optionen.Binding = QStoInt(pg.attribute("Binding"));
 				doc->PDF_Optionen.Datei = "";
+				doc->PDF_Optionen.isGrayscale = static_cast<bool>(QStoInt(pg.attribute("Grayscale","0")));
 				doc->PDF_Optionen.UseRGB = static_cast<bool>(QStoInt(pg.attribute("RGBMode","0")));
 				doc->PDF_Optionen.UseProfiles = static_cast<bool>(QStoInt(pg.attribute("UseProfiles","0")));
 				doc->PDF_Optionen.UseProfiles2 = static_cast<bool>(QStoInt(pg.attribute("UseProfiles2","0")));

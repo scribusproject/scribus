@@ -291,6 +291,7 @@ struct PDFOptions
 	bool PresentMode;
 	QValueList<PDFPresentationData> PresentVals;
 	QString Datei;
+	bool isGrayscale;
 	bool UseRGB;
 	bool UseProfiles;
 	bool UseProfiles2;

@@ -67,6 +67,7 @@ private:
 	QString SetClipPathArray(FPointArray *ite, bool poly = true);
 	QString SetClipPath(PageItem *ite, bool poly = true);
 	QString SetFarbe(QString farbe, int Shade);
+	QString putColor(QString color, int Shade, bool fill);
 	QString setTextSt(PageItem *ite, uint PNr);
 	void PutDoc(QString in);
 	void PutPage(QString in);

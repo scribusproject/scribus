@@ -56,7 +56,8 @@ extern void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
 extern QString CompressStr(QString *in);
 extern QString ImageToTxt(QImage *im);
 extern QString ImageToCMYK(QImage *im);
-extern void Convert2JPG(QString fn, QImage *image, int Quality, bool isCMYK);
+extern QString ImageToGray(QImage *im);
+extern void Convert2JPG(QString fn, QImage *image, int Quality, bool isCMYK, bool isGray);
 extern QString MaskToTxt(QImage *im, bool PDF = true);
 extern QString MaskToTxt14(QImage *im);
 extern char *toHex( uchar u );
@@ -927,39 +928,10 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 					PutPage("Q\n");
 					continue;
 				}
-				if (Options->UseRGB)
-				{
-					if (ite->fillColor() != "None")
-						PutPage(SetFarbe(ite->fillColor(), ite->fillShade())+" rg\n");
-					if (ite->lineColor() != "None")
-						PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" RG\n");
-				}
-				else
-				{
-#ifdef HAVE_CMS
-					if ((CMSuse) && (Options->UseProfiles))
-					{
-						QString tmp[] = {"/Perceptual", "/RelativeColorimetric", "/Saturation", "/AbsoluteColorimetric"};
-						PutPage(tmp[Options->Intent]);
-						PutPage(" ri\n");
-						PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" cs\n");
-						PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" CS\n");
-						if (ite->fillColor() != "None")
-							PutPage(SetFarbe(ite->fillColor(), ite->fillShade())+" scn\n");
-						if (ite->lineColor() != "None")
-							PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" SCN\n");
-					}
-					else
-					{
-#endif
-						if (ite->fillColor() != "None")
-							PutPage(SetFarbe(ite->fillColor(), ite->fillShade())+" k\n");
-						if (ite->lineColor() != "None")
-							PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" K\n");
-					}
-#ifdef HAVE_CMS
-				}
-#endif
+				if (ite->fillColor() != "None")
+					PutPage(putColor(ite->fillColor(), ite->fillShade(), true));
+				if (ite->lineColor() != "None")
+					PutPage(putColor(ite->lineColor(), ite->lineShade(), false));
 				Inhalt += FToStr(fabs(ite->Pwidth))+" w\n";
 				if (ite->DashValues.count() != 0)
 				{
@@ -1126,27 +1098,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 								PutDoc("/BM /Normal\n>>\nendobj\n");
 								PutPage("/"+ShName+" gs\n");
 							}
-							if (Options->UseRGB)
-								PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" rg\n");
-							else
-							{
-#ifdef HAVE_CMS
-								if ((CMSuse) && (Options->UseProfiles))
-								{
-									QString tmp[] = {"/Perceptual", "/RelativeColorimetric", "/Saturation", "/AbsoluteColorimetric"};
-									PutPage(tmp[Options->Intent]);
-									PutPage(" ri\n");
-									PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" cs\n");
-									PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" scn\n");
-								}
-								else
-								{
-#endif
-									PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" k\n");
-								}
-#ifdef HAVE_CMS
-							}
-#endif
+							PutPage(putColor(ite->lineColor(), ite->lineShade(), false));
 							PutPage(SetClipPathArray(&arrow));
 							PutPage("h\nf*\n");
 						}
@@ -1170,35 +1122,11 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 								PutDoc("/BM /Normal\n>>\nendobj\n");
 								PutPage("/"+ShName+" gs\n");
 							}
-							if (Options->UseRGB)
-								PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" rg\n");
-							else
-							{
-#ifdef HAVE_CMS
-								if ((CMSuse) && (Options->UseProfiles))
-								{
-									QString tmp[] = {"/Perceptual", "/RelativeColorimetric", "/Saturation", "/AbsoluteColorimetric"};
-									PutPage(tmp[Options->Intent]);
-									PutPage(" ri\n");
-									PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" cs\n");
-									PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" scn\n");
-								}
-								else
-								{
-#endif
-									PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" k\n");
-								}
-#ifdef HAVE_CMS
-							}
-#endif
+							PutPage(putColor(ite->lineColor(), ite->lineShade(), false));
 							PutPage(SetClipPathArray(&arrow));
 							PutPage("h\nf*\n");
 						}
 						break;
-					/* OBSOLETE CR 2005-02-06
-					case 1:
-					case 3:
-					*/
 					case PageItem::FrameType1:
 					case PageItem::FrameType3:
 					case PageItem::Polygon:
@@ -1291,27 +1219,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 										PutDoc("/BM /Normal\n>>\nendobj\n");
 										PutPage("/"+ShName+" gs\n");
 									}
-									if (Options->UseRGB)
-										PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" rg\n");
-									else
-									{
-#ifdef HAVE_CMS
-										if ((CMSuse) && (Options->UseProfiles))
-										{
-											QString tmp[] = {"/Perceptual", "/RelativeColorimetric", "/Saturation", "/AbsoluteColorimetric"};
-											PutPage(tmp[Options->Intent]);
-											PutPage(" ri\n");
-											PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" cs\n");
-											PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" scn\n");
-										}
-										else
-										{
-#endif
-											PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" k\n");
-										}
-#ifdef HAVE_CMS
-									}
-#endif
+									PutPage(putColor(ite->lineColor(), ite->lineShade(), false));
 									PutPage(SetClipPathArray(&arrow));
 									PutPage("h\nf*\n");
 									break;
@@ -1346,27 +1254,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 										PutDoc("/BM /Normal\n>>\nendobj\n");
 										PutPage("/"+ShName+" gs\n");
 									}
-									if (Options->UseRGB)
-										PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" rg\n");
-									else
-									{
-#ifdef HAVE_CMS
-										if ((CMSuse) && (Options->UseProfiles))
-										{
-											QString tmp[] = {"/Perceptual", "/RelativeColorimetric", "/Saturation", "/AbsoluteColorimetric"};
-											PutPage(tmp[Options->Intent]);
-											PutPage(" ri\n");
-											PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" cs\n");
-											PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" scn\n");
-										}
-										else
-										{
-#endif
-											PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" k\n");
-										}
-#ifdef HAVE_CMS
-									}
-#endif
+									PutPage(putColor(ite->lineColor(), ite->lineShade(), false));
 									PutPage(SetClipPathArray(&arrow));
 									PutPage("h\nf*\n");
 									break;
@@ -1674,52 +1562,10 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 							PutPage("q\n");
 							if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options->Version == 14))
 								PDF_Transparenz(ite);
-							if (Options->UseRGB)
-							{
-								if (ite->fillColor() != "None")
-									PutPage(SetFarbe(ite->fillColor(), ite->fillShade())+" rg\n");
-								if (ite->lineColor() != "None")
-									PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" RG\n");
-							}
-							else
-							{
-#ifdef HAVE_CMS
-								if ((CMSuse) && (Options->UseProfiles))
-								{
-									switch (Options->Intent)
-									{
-										case 0:
-											PutPage("/Perceptual");
-											break;
-										case 1:
-											PutPage("/RelativeColorimetric");
-											break;
-										case 2:
-											PutPage("/Saturation");
-											break;
-										case 3:
-											PutPage("/AbsoluteColorimetric");
-											break;
-									}
-									PutPage(" ri\n");
-									PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" cs\n");
-									PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" CS\n");
-									if (ite->fillColor() != "None")
-										PutPage(SetFarbe(ite->fillColor(), ite->fillShade())+" scn\n");
-									if (ite->lineColor() != "None")
-										PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" SCN\n");
-								}
-								else
-								{
-#endif
-									if (ite->fillColor() != "None")
-										PutPage(SetFarbe(ite->fillColor(), ite->fillShade())+" k\n");
-									if (ite->lineColor() != "None")
-										PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" K\n");
-								}
-#ifdef HAVE_CMS
-							}
-#endif
+							if (ite->fillColor() != "None")
+								PutPage(putColor(ite->fillColor(), ite->fillShade(), true));
+							if (ite->lineColor() != "None")
+								PutPage(putColor(ite->lineColor(), ite->lineShade(), false));
 							Inhalt += FToStr(fabs(ite->Pwidth))+" w\n";
 							if (ite->DashValues.count() != 0)
 							{
@@ -1838,39 +1684,10 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 						PutPage("q\n");
 						if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options->Version == 14))
 							PDF_Transparenz(ite);
-						if (Options->UseRGB)
-						{
-							if (ite->fillColor() != "None")
-								PutPage(SetFarbe(ite->fillColor(), ite->fillShade())+" rg\n");
-							if (ite->lineColor() != "None")
-								PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" RG\n");
-						}
-						else
-						{
-#ifdef HAVE_CMS
-					if ((CMSuse) && (Options->UseProfiles))
-					{
-						QString tmp[] = {"/Perceptual", "/RelativeColorimetric", "/Saturation", "/AbsoluteColorimetric"};
-						PutPage(tmp[Options->Intent]);
-						PutPage(" ri\n");
-						PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" cs\n");
-						PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" CS\n");
 						if (ite->fillColor() != "None")
-							PutPage(SetFarbe(ite->fillColor(), ite->fillShade())+" scn\n");
+							PutPage(putColor(ite->fillColor(), ite->fillShade(), true));
 						if (ite->lineColor() != "None")
-							PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" SCN\n");
-					}
-					else
-					{
-#endif
-						if (ite->fillColor() != "None")
-							PutPage(SetFarbe(ite->fillColor(), ite->fillShade())+" k\n");
-						if (ite->lineColor() != "None")
-							PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" K\n");
-					}
-#ifdef HAVE_CMS
-				}
-#endif
+							PutPage(putColor(ite->lineColor(), ite->lineShade(), false));
 						Inhalt += FToStr(fabs(ite->Pwidth))+" w\n";
 						if (ite->DashValues.count() != 0)
 						{
@@ -2008,39 +1825,10 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 					PutPage("Q\n");
 					continue;
 				}
-				if (Options->UseRGB)
-				{
-					if (ite->fillColor() != "None")
-						PutPage(SetFarbe(ite->fillColor(), ite->fillShade())+" rg\n");
-					if (ite->lineColor() != "None")
-						PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" RG\n");
-				}
-				else
-				{
-#ifdef HAVE_CMS
-					if ((CMSuse) && (Options->UseProfiles))
-					{
-						QString tmp[] = {"/Perceptual", "/RelativeColorimetric", "/Saturation", "/AbsoluteColorimetric"};
-						PutPage(tmp[Options->Intent]);
-						PutPage(" ri\n");
-						PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" cs\n");
-						PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" CS\n");
-						if (ite->fillColor() != "None")
-							PutPage(SetFarbe(ite->fillColor(), ite->fillShade())+" scn\n");
-						if (ite->lineColor() != "None")
-							PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" SCN\n");
-					}
-					else
-					{
-#endif
-						if (ite->fillColor() != "None")
-							PutPage(SetFarbe(ite->fillColor(), ite->fillShade())+" k\n");
-						if (ite->lineColor() != "None")
-							PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" K\n");
-					}
-#ifdef HAVE_CMS
-				}
-#endif
+				if (ite->fillColor() != "None")
+					PutPage(putColor(ite->fillColor(), ite->fillShade(), true));
+				if (ite->lineColor() != "None")
+					PutPage(putColor(ite->lineColor(), ite->lineShade(), false));
 				Inhalt += FToStr(fabs(ite->Pwidth))+" w\n";
 				if (ite->DashValues.count() != 0)
 				{
@@ -2247,27 +2035,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 								PutDoc("/BM /Normal\n>>\nendobj\n");
 								PutPage("/"+ShName+" gs\n");
 							}
-							if (Options->UseRGB)
-								PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" rg\n");
-							else
-							{
-#ifdef HAVE_CMS
-								if ((CMSuse) && (Options->UseProfiles))
-								{
-									QString tmp[] = {"/Perceptual", "/RelativeColorimetric", "/Saturation", "/AbsoluteColorimetric"};
-									PutPage(tmp[Options->Intent]);
-									PutPage(" ri\n");
-									PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" cs\n");
-									PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" scn\n");
-								}
-								else
-								{
-#endif
-									PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" k\n");
-								}
-#ifdef HAVE_CMS
-							}
-#endif
+							PutPage(putColor(ite->lineColor(), ite->lineShade(), false));
 							PutPage(SetClipPathArray(&arrow));
 							PutPage("h\nf*\n");
 						}
@@ -2291,35 +2059,11 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 								PutDoc("/BM /Normal\n>>\nendobj\n");
 								PutPage("/"+ShName+" gs\n");
 							}
-							if (Options->UseRGB)
-								PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" rg\n");
-							else
-							{
-#ifdef HAVE_CMS
-								if ((CMSuse) && (Options->UseProfiles))
-								{
-									QString tmp[] = {"/Perceptual", "/RelativeColorimetric", "/Saturation", "/AbsoluteColorimetric"};
-									PutPage(tmp[Options->Intent]);
-									PutPage(" ri\n");
-									PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" cs\n");
-									PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" scn\n");
-								}
-								else
-								{
-#endif
-									PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" k\n");
-								}
-#ifdef HAVE_CMS
-							}
-#endif
+							PutPage(putColor(ite->lineColor(), ite->lineShade(), false));
 							PutPage(SetClipPathArray(&arrow));
 							PutPage("h\nf*\n");
 						}
 						break;
-					/* OBSOLETE 2005-02-06 CR
-					case 1:
-					case 3:
-					*/
 					case PageItem::FrameType1:
 					case PageItem::FrameType3:
 					case PageItem::Polygon:
@@ -2412,27 +2156,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 										PutDoc("/BM /Normal\n>>\nendobj\n");
 										PutPage("/"+ShName+" gs\n");
 									}
-									if (Options->UseRGB)
-										PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" rg\n");
-									else
-									{
-#ifdef HAVE_CMS
-										if ((CMSuse) && (Options->UseProfiles))
-										{
-											QString tmp[] = {"/Perceptual", "/RelativeColorimetric", "/Saturation", "/AbsoluteColorimetric"};
-											PutPage(tmp[Options->Intent]);
-											PutPage(" ri\n");
-											PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" cs\n");
-											PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" scn\n");
-										}
-										else
-										{
-#endif
-											PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" k\n");
-										}
-#ifdef HAVE_CMS
-									}
-#endif
+									PutPage(putColor(ite->lineColor(), ite->lineShade(), false));
 									PutPage(SetClipPathArray(&arrow));
 									PutPage("h\nf*\n");
 									break;
@@ -2467,27 +2191,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 										PutDoc("/BM /Normal\n>>\nendobj\n");
 										PutPage("/"+ShName+" gs\n");
 									}
-									if (Options->UseRGB)
-										PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" rg\n");
-									else
-									{
-#ifdef HAVE_CMS
-										if ((CMSuse) && (Options->UseProfiles))
-										{
-											QString tmp[] = {"/Perceptual", "/RelativeColorimetric", "/Saturation", "/AbsoluteColorimetric"};
-											PutPage(tmp[Options->Intent]);
-											PutPage(" ri\n");
-											PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" cs\n");
-											PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" scn\n");
-										}
-										else
-										{
-#endif
-											PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" k\n");
-										}
-#ifdef HAVE_CMS
-									}
-#endif
+									PutPage(putColor(ite->lineColor(), ite->lineShade(), false));
 									PutPage(SetClipPathArray(&arrow));
 									PutPage("h\nf*\n");
 									break;
@@ -2550,48 +2254,17 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 					if ((pag->PageNam != "") && (ite->OwnPage != static_cast<int>(pag->PageNr)) && (ite->OwnPage != -1))
 						continue;
 					PutPage("q\n");
-					if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && 
-						(Options->Version == 14))
+					if (((ite->fillTransparency() != 0) || (ite->lineTransparency() != 0)) && (Options->Version == 14))
 						PDF_Transparenz(ite);
 					if (!ite->isPrintable)
 					{
 						PutPage("Q\n");
 						continue;
 					}
-					if (Options->UseRGB)
-					{
-						if (ite->fillColor() != "None")
-							PutPage(SetFarbe(ite->fillColor(), ite->fillShade())+" rg\n");
-						if (ite->lineColor() != "None")
-							PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" RG\n");
-					}
-					else
-					{
-#ifdef HAVE_CMS
-					if ((CMSuse) && (Options->UseProfiles))
-					{
-						QString tmp[] = {"/Perceptual", "/RelativeColorimetric",
-								 "/Saturation", "/AbsoluteColorimetric"};
-						PutPage(tmp[Options->Intent]);
-						PutPage(" ri\n");
-						PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" cs\n");
-						PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" CS\n");
-						if (ite->fillColor() != "None")
-							PutPage(SetFarbe(ite->fillColor(), ite->fillShade())+" scn\n");
-						if (ite->lineColor() != "None")
-							PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" SCN\n");
-					}
-					else
-					{
-#endif
-						if (ite->fillColor() != "None")
-							PutPage(SetFarbe(ite->fillColor(), ite->fillShade())+" k\n");
-						if (ite->lineColor() != "None")
-							PutPage(SetFarbe(ite->lineColor(), ite->lineShade())+" K\n");
-					}
-#ifdef HAVE_CMS
-				}
-#endif
+					if (ite->fillColor() != "None")
+						PutPage(putColor(ite->fillColor(), ite->fillShade(), true));
+					if (ite->lineColor() != "None")
+						PutPage(putColor(ite->lineColor(), ite->lineShade(), false));
 					Inhalt += FToStr(fabs(ite->Pwidth))+" w\n";
 					if (ite->DashValues.count() != 0)
 					{
@@ -2692,31 +2365,73 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 	}
 }
 
-QString PDFlib::setStrokeMulti(struct SingleLine *sl)
+QString PDFlib::putColor(QString color, int shade, bool fill)
 {
 	QString tmp = "";
+	QString colString = SetFarbe(color, shade);
+	if (Options->isGrayscale)
+	{
+		if (color != "None")
+		{
+			if (fill)
+				tmp += colString+" g\n";
+			else
+				tmp += colString+" G\n";
+		}
+		return tmp;
+	}
 	if (Options->UseRGB)
-		tmp += SetFarbe(sl->Color, sl->Shade)+" RG\n";
+	{
+		if (color != "None")
+		{
+			if (fill)
+				tmp += colString+" rg\n";
+			else
+				tmp += colString+" RG\n";
+		}
+	}
 	else
 	{
 #ifdef HAVE_CMS
 		if ((CMSuse) && (Options->UseProfiles))
 		{
-			QString t[] = {"/Perceptual", "/RelativeColorimetric", "/Saturation",
-					 "/AbsoluteColorimetric"};
-			tmp += t[Options->Intent];
-			tmp += " ri\n";
-			tmp += "/"+ICCProfiles[Options->SolidProf].ResName+" CS\n";
-			tmp += SetFarbe(sl->Color, sl->Shade)+" SCN\n";
+			QString tmp2[] = {"/Perceptual", "/RelativeColorimetric", "/Saturation", "/AbsoluteColorimetric"};
+			tmp += tmp2[Options->Intent]+ " ri\n";
+			if (color != "None")
+			{
+				if (fill)
+				{
+					tmp += "/"+ICCProfiles[Options->SolidProf].ResName+" cs\n";
+					tmp += colString+" scn\n";
+				}
+				else
+				{
+					tmp += "/"+ICCProfiles[Options->SolidProf].ResName+" CS\n";
+					tmp += colString+" SCN\n";
+				}
+			}
 		}
 		else
 		{
 #endif
-			tmp += SetFarbe(sl->Color, sl->Shade)+" K\n";
-		}
+			if (color != "None")
+			{
+				if (fill)
+					tmp += colString+" k\n";
+				else
+					tmp += colString+" K\n";
+			}
 #ifdef HAVE_CMS
 		}
 #endif
+	}
+	return tmp;
+}
+
+QString PDFlib::setStrokeMulti(struct SingleLine *sl)
+{
+	QString tmp = "";
+	tmp += putColor(sl->Color, sl->Shade, false);
 	tmp += FToStr(sl->Width)+" w\n";
 	QString Dt = FToStr(QMAX(2*sl->Width, 1));
 	QString Da = FToStr(QMAX(6*sl->Width, 1));
@@ -2858,38 +2573,12 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 		if (hl->cstroke != "None")
 		{
 			StrokeColor = "";
-			if (Options->UseRGB)
-				StrokeColor += SetFarbe(hl->cstroke, hl->cshade2)+" RG\n";
-			else
-			{
-#ifdef HAVE_CMS
-				if ((CMSuse) && (Options->UseProfiles))
-				{
-					StrokeColor += "/"+ICCProfiles[Options->SolidProf].ResName+" CS\n";
-					StrokeColor += SetFarbe(hl->cstroke, hl->cshade2)+" SCN\n";
-				}
-				else
-#endif
-				StrokeColor += SetFarbe(hl->cstroke, hl->cshade2)+" K\n";
-			}
+			StrokeColor += putColor(hl->cstroke, hl->cshade2, false);
 		}
 		if (hl->ccolor != "None")
 		{
 			FillColor = "";
-			if (Options->UseRGB)
-				FillColor += SetFarbe(hl->ccolor, hl->cshade)+" rg\n";
-			else
-			{
-#ifdef HAVE_CMS
-				if ((CMSuse) && (Options->UseProfiles))
-				{
-					FillColor += "/"+ICCProfiles[Options->SolidProf].ResName+" cs\n";
-					FillColor += SetFarbe(hl->ccolor, hl->cshade)+" scn\n";
-				}
-				else
-#endif
-				FillColor += SetFarbe(hl->ccolor, hl->cshade)+" k\n";
-			}
+			FillColor += putColor(hl->cstroke, hl->cshade, true);
 		}
 		if (((*doc->AllFonts)[hl->cfont]->isOTF) || ((*doc->AllFonts)[hl->cfont]->Subset) || (Options->SubsetList.contains(hl->cfont)))
 		{
@@ -3076,22 +2765,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 			double Upos = (*doc->AllFonts)[hl->cfont]->underline_pos * (tsz / 10.0);
 			double Uwid = QMAX((*doc->AllFonts)[hl->cfont]->strokeWidth * (tsz / 10.0), 1);
 			if (hl->ccolor != "None")
-			{
-				if (Options->UseRGB)
-					tmp2 += SetFarbe(hl->ccolor, hl->cshade)+" RG\n";
-				else
-				{
-#ifdef HAVE_CMS
-					if ((CMSuse) && (Options->UseProfiles))
-					{
-						tmp2 += "/"+ICCProfiles[Options->SolidProf].ResName+" CS\n";
-						tmp2 += SetFarbe(hl->ccolor, hl->cshade)+" SCN\n";
-					}
-					else
-#endif
-					tmp2 += SetFarbe(hl->ccolor, hl->cshade)+" K\n";
-				}
-			}
+				tmp2 += putColor(hl->cstroke, hl->cshade, false);
 			tmp2 += FToStr(Uwid)+" w\n";
 			tmp2 += FToStr(hl->xp)+" "+FToStr(-hl->yp+Upos)+" m\n";
 			tmp2 += FToStr(hl->xp+Ulen)+" "+FToStr(-hl->yp+Upos)+" l\n";
@@ -3103,22 +2777,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 			double Upos = (*doc->AllFonts)[hl->cfont]->strikeout_pos * (tsz / 10.0);
 			double Uwid = QMAX((*doc->AllFonts)[hl->cfont]->strokeWidth * (tsz / 10.0), 1);
 			if (hl->ccolor != "None")
-			{
-				if (Options->UseRGB)
-					tmp2 += SetFarbe(hl->ccolor, hl->cshade)+" RG\n";
-				else
-				{
-#ifdef HAVE_CMS
-					if ((CMSuse) && (Options->UseProfiles))
-					{
-						tmp2 += "/"+ICCProfiles[Options->SolidProf].ResName+" CS\n";
-						tmp2 += SetFarbe(hl->ccolor, hl->cshade)+" SCN\n";
-					}
-					else
-#endif
-					tmp2 += SetFarbe(hl->ccolor, hl->cshade)+" K\n";
-				}
-			}
+				tmp2 += putColor(hl->cstroke, hl->cshade, false);
 			tmp2 += FToStr(Uwid)+" w\n";
 			tmp2 += FToStr(hl->xp)+" "+FToStr(-hl->yp+Upos)+" m\n";
 			tmp2 += FToStr(hl->xp+Ulen)+" "+FToStr(-hl->yp+Upos)+" l\n";
@@ -3142,6 +2801,26 @@ QString PDFlib::SetFarbe(QString farbe, int Shade)
 	int h, s, v, k, sneu;
 	tmpC = doc->PageColors[farbe];
 	QColor tmpR;
+	if (Options->isGrayscale)
+	{
+		tmpC.getRawRGBColor(&h, &s, &v);
+		tmpR.setRgb(h, s, v);
+		if ((h == s) && (s == v))
+		{
+			tmpR.hsv(&h, &s, &v);
+			sneu = 255 - ((255 - v) * Shade / 100);
+			tmpR.setHsv(h, s, sneu);
+		}
+		else
+		{
+			tmpR.hsv(&h, &s, &v);
+			sneu = s * Shade / 100;
+			tmpR.setHsv(h, sneu, v);
+		}
+		tmpR.rgb(&h, &s, &v);
+		tmp = FToStr((0.3 * h + 0.59 * s + 0.11 * v) / 255.0);
+		return tmp;
+	}
 	if (Options->UseRGB)
 	{
 		tmpC.getRawRGBColor(&h, &s, &v);
@@ -3476,16 +3155,21 @@ void PDFlib::PDF_DoLinGradient(PageItem *b, QValueList<double> Stops, QValueList
 		if (Options->UseRGB)
 			PutDoc("/ColorSpace /DeviceRGB\n");
 		else
-#ifdef HAVE_CMS
 		{
-			if ((CMSuse) && (Options->UseProfiles))
-				PutDoc("/ColorSpace "+ICCProfiles[Options->SolidProf].ICCArray+"\n");
+			if (Options->isGrayscale)
+				PutDoc("/ColorSpace /DeviceGray\n");
 			else
-#endif
-			PutDoc("/ColorSpace /DeviceCMYK\n");
 #ifdef HAVE_CMS
-		}
+			{
+				if ((CMSuse) && (Options->UseProfiles))
+					PutDoc("/ColorSpace "+ICCProfiles[Options->SolidProf].ICCArray+"\n");
+				else
 #endif
+				PutDoc("/ColorSpace /DeviceCMYK\n");
+#ifdef HAVE_CMS
+			}
+#endif
+		}
 		PutDoc("/BBox [0 "+FToStr(h)+" "+FToStr(w)+" 0]\n");
 		if ((b->GrType == 5) || (b->GrType == 7))
 		{
@@ -3627,36 +3311,10 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 			PutDoc(x[ite->AnBsty]);
 			PutDoc(" >>\n");
 			cnx = "("+ind2PDFabr[ite->AnFont]+" "+FToStr(ite->ISize / 10.0)+" Tf";
-			if (Options->UseRGB)
-			{
-				if (ite->TxtFill != "None")
-					cnx += " "+SetFarbe(ite->TxtFill, ite->ShTxtFill)+" rg\n";
-				if (ite->fillColor() != "None")
-					cnx += " "+SetFarbe(ite->fillColor(), ite->fillShade())+" RG\n";
-			}
-			else
-			{
-#ifdef HAVE_CMS
-				if ((CMSuse) && (Options->UseProfiles))
-				{
-					cnx += " /"+ICCProfiles[Options->SolidProf].ResName+" cs\n";
-					cnx += " /"+ICCProfiles[Options->SolidProf].ResName+" CS\n";
-					if (ite->fillColor() != "None")
-						cnx += SetFarbe(ite->fillColor(), ite->fillShade())+" SCN\n";
-					if (ite->TxtFill != "None")
-						cnx += SetFarbe(ite->TxtFill, ite->ShTxtFill)+" scn\n";
-				}
-				else
-				{
-#endif
-				if (ite->TxtFill != "None")
-					cnx += " "+SetFarbe(ite->TxtFill, ite->ShTxtFill)+" k";
-				if (ite->fillColor() != "None")
-					cnx += " "+SetFarbe(ite->fillColor(), ite->fillShade())+" K";
-			}
-#ifdef HAVE_CMS
-			}
-#endif
+			if (ite->TxtFill != "None")
+				cnx += " "+ putColor(ite->TxtFill, ite->ShTxtFill, true);
+			if (ite->fillColor() != "None")
+				cnx += " "+ putColor(ite->fillColor(), ite->fillShade(), false);
 			cnx += ")";
 			PutDoc("/DA "+EncString(cnx,ObjCounter-1)+"\n");
 			int flg = ite->AnFlag;
@@ -3917,60 +3575,12 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 	if (ite->AnType == 3)
 	{
 		cc = "";
-		if (Options->UseRGB)
-		{
-			if (ite->fillColor() != "None")
-				cc += SetFarbe(ite->fillColor(), ite->fillShade())+" RG\n";
-		}
-		else
-		{
-#ifdef HAVE_CMS
-			if ((CMSuse) && (Options->UseProfiles))
-			{
-				if (ite->fillColor() != "None")
-				{
-					cc += " /"+ICCProfiles[Options->SolidProf].ResName+" cs\n";
-					cc += " /"+ICCProfiles[Options->SolidProf].ResName+" CS\n";
-					cc += SetFarbe(ite->fillColor(), ite->fillShade())+" SCN\n";
-				}
-			}
-			else
-			{
-#endif
-			if (ite->fillColor() != "None")
-				cc += SetFarbe(ite->fillColor(), ite->fillShade())+" K\n";
-		}
-#ifdef HAVE_CMS
-		}
-#endif
+		if (ite->fillColor() != "None")
+			cc += putColor(ite->fillColor(), ite->fillShade(), false);
 		cc += FToStr(x)+" "+FToStr(y2)+" "+FToStr(x2-x)+" "+FToStr(y-y2)+" re\nf\n";
 		cc += "/Tx BMC\nBT\n";
-		if (Options->UseRGB)
-		{
-			if (ite->TxtFill != "None")
-				cc += SetFarbe(ite->TxtFill, ite->ShTxtFill)+" rg\n";
-		}
-		else
-		{
-#ifdef HAVE_CMS
-			if ((CMSuse) && (Options->UseProfiles))
-			{
-				if (ite->TxtFill != "None")
-				{
-					cc += " /"+ICCProfiles[Options->SolidProf].ResName+" cs\n";
-					cc += " /"+ICCProfiles[Options->SolidProf].ResName+" CS\n";
-					cc += SetFarbe(ite->TxtFill, ite->ShTxtFill)+" scn\n";
-				}
-			}
-			else
-			{
-#endif
-			if (ite->TxtFill != "None")
-				cc += SetFarbe(ite->TxtFill, ite->ShTxtFill)+" k\n";
-		}
-#ifdef HAVE_CMS
-		}
-#endif
+		if (ite->TxtFill != "None")
+			cc += putColor(ite->TxtFill, ite->ShTxtFill, true);
 		cc += ind2PDFabr[ite->AnFont];
 		cc += " "+FToStr(ite->ISize / 10.0)+" Tf\n";
 		if (bmst.count() > 1)
@@ -3990,32 +3600,8 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 	if (ite->AnType == 4)
 	{
 		cc = "q\nBT\n";
-		if (Options->UseRGB)
-		{
-			if (ite->TxtFill != "None")
-				cc += SetFarbe(ite->TxtFill, ite->ShTxtFill)+" rg\n";
-		}
-		else
-		{
-#ifdef HAVE_CMS
-			if ((CMSuse) && (Options->UseProfiles))
-			{
-				if (ite->TxtFill != "None")
-				{
-					cc += " /"+ICCProfiles[Options->SolidProf].ResName+" cs\n";
-					cc += " /"+ICCProfiles[Options->SolidProf].ResName+" CS\n";
-					cc += SetFarbe(ite->TxtFill, ite->ShTxtFill)+" scn\n";
-				}
-			}
-			else
-			{
-#endif
-			if (ite->TxtFill != "None")
-				cc += SetFarbe(ite->TxtFill, ite->ShTxtFill)+" k\n";
-		}
-#ifdef HAVE_CMS
-		}
-#endif
+		if (ite->TxtFill != "None")
+			cc += putColor(ite->TxtFill, ite->ShTxtFill, true);
 		cc += "/ZaDb "+FToStr(ite->ISize / 10.0)+" Tf\n";
 		cc += "0 0 Td\n("+ct+") Tj\nET\nQ";
 		PDF_Form(cc);
@@ -4026,38 +3612,10 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		cc += "1 g\n";
 		cc += "0 0 "+FToStr(x2-x)+" "+FToStr(y-y2)+" re\nf\n";
 		cc += IToStr(ite->AnBwid)+" w\n";
-		if (Options->UseRGB)
-		{
-			if (ite->AnBColor != "None")
-				cc += SetFarbe(ite->AnBColor, 100)+" RG\n";
-			else
-				cc += "0 G\n";
-		}
+		if (ite->AnBColor != "None")
+			cc += putColor(ite->AnBColor, 100l, false);
 		else
-		{
-#ifdef HAVE_CMS
-			if ((CMSuse) && (Options->UseProfiles))
-			{
-				if (ite->AnBColor != "None")
-				{
-					cc += " /"+ICCProfiles[Options->SolidProf].ResName+" cs\n";
-					cc += " /"+ICCProfiles[Options->SolidProf].ResName+" CS\n";
-					cc += SetFarbe(ite->AnBColor, 100)+" SCN\n";
-				}
-				else
-					cc += "0 G\n";
-			}
-			else
-			{
-#endif
-				if (ite->AnBColor != "None")
-					cc += SetFarbe(ite->AnBColor, 100)+" K\n";
-				else
-					cc += "0 G\n";
-			}
-#ifdef HAVE_CMS
-		}
-#endif
+			cc += "0 G\n";
 		cc += "0 0 "+FToStr(x2-x)+" "+FToStr(y-y2)+" re\nS\n";
 		cc += "/Tx BMC\nq\nBT\n";
 		cc += "0 g\n";
@@ -4484,12 +4042,17 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 			im = ImageToTxt(&img);
 		else
 		{
-#ifdef HAVE_CMS
-			if ((CMSuse) && (Options->UseProfiles2))
-				im = ImageToTxt(&img);
+			if (Options->isGrayscale)
+				im = ImageToGray(&img);
 			else
+			{
+#ifdef HAVE_CMS
+				if ((CMSuse) && (Options->UseProfiles2))
+					im = ImageToTxt(&img);
+				else
 #endif
-				im = ImageToCMYK(&img);
+					im = ImageToCMYK(&img);
+			}
 		}
 		StartObj(ObjCounter);
 		ObjCounter++;
@@ -4516,7 +4079,17 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 			if ((gray) && (Options->UseRGB) && (ext == "jpg") && (!Options->RecalcPic))
 				PutDoc("/ColorSpace /DeviceGray\n");
 			else
-				PutDoc(Options->UseRGB ? "/ColorSpace /DeviceRGB\n" : "/ColorSpace /DeviceCMYK\n");
+			{
+				if (Options->UseRGB)
+					PutDoc("/ColorSpace /DeviceRGB\n");
+				else
+				{
+					if (Options->isGrayscale)
+						PutDoc("/ColorSpace /DeviceGray\n");
+					else
+						PutDoc("/ColorSpace /DeviceCMYK\n");
+				}
+			}
 #ifdef HAVE_CMS
 	}
 #endif
@@ -4535,9 +4108,14 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 			{
 				QString tmpFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/sc.jpg");
 				if ((Options->UseRGB) || (Options->UseProfiles2)) 
-					Convert2JPG(tmpFile, &img, Options->Quality, false);
+					Convert2JPG(tmpFile, &img, Options->Quality, false, false);
 				else
-					Convert2JPG(tmpFile, &img, Options->Quality, true);
+				{
+					if (Options->isGrayscale)
+						Convert2JPG(tmpFile, &img, Options->Quality, false, true);
+					else
+						Convert2JPG(tmpFile, &img, Options->Quality, true, false);
+				}
 				if (Options->CompressMethod == 0)
 				{
 					QFileInfo fi(tmpFile);

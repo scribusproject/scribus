@@ -497,8 +497,17 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent,
 	OutCombo = new QComboBox( true, ColorGroup, "OutCombo" );
 	OutCombo->insertItem( tr( "Screen / Web" ) );
 	OutCombo->insertItem( tr( "Printer" ) );
+	OutCombo->insertItem( tr( "Grayscale" ) );
 	OutCombo->setEditable(false);
-	OutCombo->setCurrentItem(Optionen->UseRGB ? 0 : 1);
+	if (Optionen->UseRGB)
+		OutCombo->setCurrentItem(0);
+	else
+	{
+		if (Optionen->isGrayscale)
+			OutCombo->setCurrentItem(2);
+		else
+			OutCombo->setCurrentItem(1);
+	}
 	ColorText1->setBuddy(OutCombo);
 	ColorGroupLayout->addWidget( OutCombo );
 	tabColorLayout->addWidget( ColorGroup );
@@ -607,12 +616,14 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent,
 	IntendI->setEditable(false);
 	ProfsGroupLayout->addWidget( IntendI, 3, 1 );
 	tabColorLayout->addWidget( ProfsGroup );
-	if (Optionen->UseRGB)
+	if ((Optionen->UseRGB) || (Optionen->isGrayscale))
 	{
 		ProfsGroup->setEnabled(false);
 		GroupBox9->setEnabled(false);
+		EnablePr(0);
 	}
-	EnablePr(Optionen->UseRGB ? 0 : 1);
+	else
+		EnablePr(1);
 	EnablePG();
 	EnablePGI();
 #ifdef HAVE_CMS
@@ -1057,6 +1068,7 @@ void TabPDFOptions::EnableLPI(int a)
 		{
 			GroupBox9->show();
 			ProfsGroup->show();
+			UseLPI->hide();
 		}
 		else
 		{

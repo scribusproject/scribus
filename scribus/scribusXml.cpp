@@ -1522,6 +1522,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				doc->PDF_Optionen.Resolution = QStoInt(pg.attribute("Resolution"));
 				doc->PDF_Optionen.Binding = QStoInt(pg.attribute("Binding"));
 				doc->PDF_Optionen.Datei = "";
+				doc->PDF_Optionen.isGrayscale = false;
 				doc->PDF_Optionen.UseRGB = static_cast<bool>(QStoInt(pg.attribute("RGBMode","0")));
 				doc->PDF_Optionen.UseProfiles = static_cast<bool>(QStoInt(pg.attribute("UseProfiles","0")));
 				doc->PDF_Optionen.UseProfiles2 = static_cast<bool>(QStoInt(pg.attribute("UseProfiles2","0")));
@@ -2762,6 +2763,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	pdf.setAttribute("RotateDeg", static_cast<int>(doc->PDF_Optionen.RotateDeg));
 	pdf.setAttribute("PresentMode", static_cast<int>(doc->PDF_Optionen.PresentMode));
 	pdf.setAttribute("RecalcPic", static_cast<int>(doc->PDF_Optionen.RecalcPic));
+	pdf.setAttribute("Grayscale", static_cast<int>(doc->PDF_Optionen.isGrayscale));
 	pdf.setAttribute("RGBMode", static_cast<int>(doc->PDF_Optionen.UseRGB));
 	pdf.setAttribute("UseProfiles", static_cast<int>(doc->PDF_Optionen.UseProfiles));
 	pdf.setAttribute("UseProfiles2", static_cast<int>(doc->PDF_Optionen.UseProfiles2));
@@ -3158,6 +3160,7 @@ void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 	pdf.setAttribute("RotateDeg", static_cast<int>(Vor->PDF_Optionen.RotateDeg));
 	pdf.setAttribute("PresentMode", static_cast<int>(Vor->PDF_Optionen.PresentMode));
 	pdf.setAttribute("RecalcPic", static_cast<int>(Vor->PDF_Optionen.RecalcPic));
+	pdf.setAttribute("Grayscale", static_cast<int>(Vor->PDF_Optionen.isGrayscale));
 	pdf.setAttribute("RGBMode", static_cast<int>(Vor->PDF_Optionen.UseRGB));
 	pdf.setAttribute("UseProfiles", static_cast<int>(Vor->PDF_Optionen.UseProfiles));
 	pdf.setAttribute("UseProfiles2", static_cast<int>(Vor->PDF_Optionen.UseProfiles2));
@@ -3535,6 +3538,7 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 			Vorein->PDF_Optionen.Resolution = QStoInt(dc.attribute("Resolution"));
 			Vorein->PDF_Optionen.Binding = QStoInt(dc.attribute("Binding"));
 			Vorein->PDF_Optionen.Datei = "";
+			Vorein->PDF_Optionen.isGrayscale = static_cast<bool>(QStoInt(dc.attribute("Grayscale","0")));
 			Vorein->PDF_Optionen.UseRGB = static_cast<bool>(QStoInt(dc.attribute("RGBMode","0")));
 			Vorein->PDF_Optionen.UseProfiles = static_cast<bool>(QStoInt(dc.attribute("UseProfiles","0")));
 			Vorein->PDF_Optionen.UseProfiles2 = static_cast<bool>(QStoInt(dc.attribute("UseProfiles2","0")));

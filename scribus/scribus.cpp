@@ -590,6 +590,7 @@ void ScribusApp::initDefaultPrefs()
 	Prefs.PDF_Optionen.PresentMode = false;
 	Prefs.PDF_Optionen.Datei = "";
 	Prefs.PDF_Optionen.PresentVals.clear();
+	Prefs.PDF_Optionen.isGrayscale = false;
 	Prefs.PDF_Optionen.UseRGB = true;
 	Prefs.PDF_Optionen.UseProfiles = false;
 	Prefs.PDF_Optionen.UseProfiles2 = false;
@@ -3360,26 +3361,38 @@ bool ScribusApp::SetupDoc()
 			doc->PDF_Optionen.Version = 12;
 		if (dia->tabPDF->OutCombo->currentItem() == 0)
 		{
+			doc->PDF_Optionen.isGrayscale = false;
 			doc->PDF_Optionen.UseRGB = true;
 			doc->PDF_Optionen.UseProfiles = false;
 			doc->PDF_Optionen.UseProfiles2 = false;
 		}
 		else
 		{
-			doc->PDF_Optionen.UseRGB = false;
-#ifdef HAVE_CMS
-			if (CMSuse)
+			if (dia->tabPDF->OutCombo->currentItem() == 2)
 			{
-				doc->PDF_Optionen.UseProfiles = dia->tabPDF->EmbedProfs->isChecked();
-				doc->PDF_Optionen.UseProfiles2 = dia->tabPDF->EmbedProfs2->isChecked();
-				doc->PDF_Optionen.Intent = dia->tabPDF->IntendS->currentItem();
-				doc->PDF_Optionen.Intent2 = dia->tabPDF->IntendI->currentItem();
-				doc->PDF_Optionen.EmbeddedI = dia->tabPDF->NoEmbedded->isChecked();
-				doc->PDF_Optionen.SolidProf = dia->tabPDF->SolidPr->currentText();
-				doc->PDF_Optionen.ImageProf = dia->tabPDF->ImageP->currentText();
-				doc->PDF_Optionen.PrintProf = dia->tabPDF->PrintProfC->currentText();
-				}
+				doc->PDF_Optionen.isGrayscale = true;
+				doc->PDF_Optionen.UseRGB = false;
+				doc->PDF_Optionen.UseProfiles = false;
+				doc->PDF_Optionen.UseProfiles2 = false;
+			}
+			else
+			{
+				doc->PDF_Optionen.isGrayscale = false;
+				doc->PDF_Optionen.UseRGB = false;
+#ifdef HAVE_CMS
+				if (CMSuse)
+				{
+					doc->PDF_Optionen.UseProfiles = dia->tabPDF->EmbedProfs->isChecked();
+					doc->PDF_Optionen.UseProfiles2 = dia->tabPDF->EmbedProfs2->isChecked();
+					doc->PDF_Optionen.Intent = dia->tabPDF->IntendS->currentItem();
+					doc->PDF_Optionen.Intent2 = dia->tabPDF->IntendI->currentItem();
+					doc->PDF_Optionen.EmbeddedI = dia->tabPDF->NoEmbedded->isChecked();
+					doc->PDF_Optionen.SolidProf = dia->tabPDF->SolidPr->currentText();
+					doc->PDF_Optionen.ImageProf = dia->tabPDF->ImageP->currentText();
+					doc->PDF_Optionen.PrintProf = dia->tabPDF->PrintProfC->currentText();
+					}
 #endif
+				}
 		}
 		scrActions["viewShowMargins"]->setOn(doc->guidesSettings.marginsShown);
 		scrActions["viewShowFrames"]->setOn(doc->guidesSettings.framesShown);
@@ -3870,6 +3883,8 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrMenuMgr->addMenuToMenu("Shade","Style");
 		if (Nr == 6)
 			scrMenuMgr->setMenuEnabled("ItemShapes", true);
+		WerkTools->Textedit->setEnabled(false);
+		WerkTools->Textedit2->setEnabled(false);
 		WerkTools->KetteAus->setEnabled(false);
 		WerkTools->KetteEin->setEnabled(false);
 		if (Nr != 5)
@@ -6379,10 +6394,30 @@ void ScribusApp::setAppMode(int mode)
 			MaPal->show();
 			connect(view, SIGNAL(MVals(double, double, double, double, double, double, int)), MaPal, SLOT(setValues(double, double, double, double, double, double, int )));
 		}
-		if (mode == Magnifier)
-			qApp->setOverrideCursor(QCursor(loadIcon("LupeZ.xpm")), true);
-		else
-			qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+		switch (mode)
+		{
+			case DrawShapes:
+				qApp->setOverrideCursor(QCursor(loadIcon("DrawFrame.xpm")), true);
+				break;
+			case DrawPicture:
+				qApp->setOverrideCursor(QCursor(loadIcon("DrawImageFrame.xpm")), true);
+				break;
+			case DrawText:
+				qApp->setOverrideCursor(QCursor(loadIcon("DrawTextFrame.xpm")), true);
+				break;
+			case DrawTable:
+				qApp->setOverrideCursor(QCursor(loadIcon("DrawTable.xpm")), true);
+				break;
+			case DrawRegularPolygon:
+				qApp->setOverrideCursor(QCursor(loadIcon("DrawPolylineFrame.xpm")), true);
+				break;
+			case Magnifier:
+				qApp->setOverrideCursor(QCursor(loadIcon("LupeZ.xpm")), true);
+				break;
+			default:
+				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+			break;
+		}
 		if (mode == DrawShapes)
 		{
 			doc->SubMode = WerkTools->SubMode;
@@ -7942,26 +7977,38 @@ void ScribusApp::slotPrefsOrg()
 			Prefs.PDF_Optionen.Version = 12;
 		if (dia->tabPDF->OutCombo->currentItem() == 0)
 		{
+			Prefs.PDF_Optionen.isGrayscale = false;
 			Prefs.PDF_Optionen.UseRGB = true;
 			Prefs.PDF_Optionen.UseProfiles = false;
 			Prefs.PDF_Optionen.UseProfiles2 = false;
 		}
 		else
 		{
-			Prefs.PDF_Optionen.UseRGB = false;
-#ifdef HAVE_CMS
-			if (CMSuse)
+			if (dia->tabPDF->OutCombo->currentItem() == 2)
 			{
-				Prefs.PDF_Optionen.UseProfiles = dia->tabPDF->EmbedProfs->isChecked();
-				Prefs.PDF_Optionen.UseProfiles2 = dia->tabPDF->EmbedProfs2->isChecked();
-				Prefs.PDF_Optionen.Intent = dia->tabPDF->IntendS->currentItem();
-				Prefs.PDF_Optionen.Intent2 = dia->tabPDF->IntendI->currentItem();
-				Prefs.PDF_Optionen.EmbeddedI = dia->tabPDF->NoEmbedded->isChecked();
-				Prefs.PDF_Optionen.SolidProf = dia->tabPDF->SolidPr->currentText();
-				Prefs.PDF_Optionen.ImageProf = dia->tabPDF->ImageP->currentText();
-				Prefs.PDF_Optionen.PrintProf = dia->tabPDF->PrintProfC->currentText();
-				}
+				Prefs.PDF_Optionen.isGrayscale = true;
+				Prefs.PDF_Optionen.UseRGB = false;
+				Prefs.PDF_Optionen.UseProfiles = false;
+				Prefs.PDF_Optionen.UseProfiles2 = false;
+			}
+			else
+			{
+				Prefs.PDF_Optionen.isGrayscale = false;
+				Prefs.PDF_Optionen.UseRGB = false;
+#ifdef HAVE_CMS
+				if (CMSuse)
+				{
+					Prefs.PDF_Optionen.UseProfiles = dia->tabPDF->EmbedProfs->isChecked();
+					Prefs.PDF_Optionen.UseProfiles2 = dia->tabPDF->EmbedProfs2->isChecked();
+					Prefs.PDF_Optionen.Intent = dia->tabPDF->IntendS->currentItem();
+					Prefs.PDF_Optionen.Intent2 = dia->tabPDF->IntendI->currentItem();
+					Prefs.PDF_Optionen.EmbeddedI = dia->tabPDF->NoEmbedded->isChecked();
+					Prefs.PDF_Optionen.SolidProf = dia->tabPDF->SolidPr->currentText();
+					Prefs.PDF_Optionen.ImageProf = dia->tabPDF->ImageP->currentText();
+					Prefs.PDF_Optionen.PrintProf = dia->tabPDF->PrintProfC->currentText();
+					}
 #endif
+				}
 		}
 		GetCMSProfiles();
 		Prefs.KeyActions = dia->tabKeys->getNewKeyMap();
@@ -8422,60 +8469,71 @@ void ScribusApp::SaveAsPDF()
 		if (dia->Options->OutCombo->currentItem() == 0)
 		{
 			doc->PDF_Optionen.UseRGB = true;
+			doc->PDF_Optionen.isGrayscale = false;
 			doc->PDF_Optionen.UseProfiles = false;
 			doc->PDF_Optionen.UseProfiles2 = false;
 		}
 		else
 		{
-			doc->PDF_Optionen.UseRGB = false;
-#ifdef HAVE_CMS
-			if (CMSuse)
+			if (dia->Options->OutCombo->currentItem() == 2)
 			{
-				doc->PDF_Optionen.UseProfiles = dia->Options->EmbedProfs->isChecked();
-				doc->PDF_Optionen.UseProfiles2 = dia->Options->EmbedProfs2->isChecked();
-				doc->PDF_Optionen.Intent = dia->Options->IntendS->currentItem();
-				doc->PDF_Optionen.Intent2 = dia->Options->IntendI->currentItem();
-				doc->PDF_Optionen.EmbeddedI = dia->Options->NoEmbedded->isChecked();
-				doc->PDF_Optionen.SolidProf = dia->Options->SolidPr->currentText();
-				doc->PDF_Optionen.ImageProf = dia->Options->ImageP->currentText();
-				doc->PDF_Optionen.PrintProf = dia->Options->PrintProfC->currentText();
-				if (doc->PDF_Optionen.Version == 12)
-				{
-					const char *Descriptor;
-					cmsHPROFILE hIn;
-					hIn = cmsOpenProfileFromFile(PrinterProfiles[doc->PDF_Optionen.PrintProf], "r");
-					Descriptor = cmsTakeProductDesc(hIn);
-					nam = QString(Descriptor);
-					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigRgbData)
-						Components = 3;
-					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmykData)
-						Components = 4;
-					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmyData)
-						Components = 3;
-					cmsCloseProfile(hIn);
-					doc->PDF_Optionen.Info = dia->Options->InfoString->text();
-					doc->PDF_Optionen.BleedTop = dia->Options->BleedTop->value()/UmReFaktor;
-					doc->PDF_Optionen.BleedLeft = dia->Options->BleedLeft->value()/UmReFaktor;
-					doc->PDF_Optionen.BleedRight = dia->Options->BleedRight->value()/UmReFaktor;
-					doc->PDF_Optionen.BleedBottom = dia->Options->BleedBottom->value()/UmReFaktor;
-					doc->PDF_Optionen.Encrypt = false;
-					doc->PDF_Optionen.MirrorH = false;
-					doc->PDF_Optionen.MirrorV = false;
-					doc->PDF_Optionen.RotateDeg = 0;
-					doc->PDF_Optionen.PresentMode = false;
-					doc->PDF_Optionen.Encrypt = false;
-				}
-			}
-			else
-			{
+				doc->PDF_Optionen.isGrayscale = true;
+				doc->PDF_Optionen.UseRGB = false;
 				doc->PDF_Optionen.UseProfiles = false;
 				doc->PDF_Optionen.UseProfiles2 = false;
 			}
+			else
+			{
+				doc->PDF_Optionen.isGrayscale = false;
+				doc->PDF_Optionen.UseRGB = false;
+#ifdef HAVE_CMS
+				if (CMSuse)
+				{
+					doc->PDF_Optionen.UseProfiles = dia->Options->EmbedProfs->isChecked();
+					doc->PDF_Optionen.UseProfiles2 = dia->Options->EmbedProfs2->isChecked();
+					doc->PDF_Optionen.Intent = dia->Options->IntendS->currentItem();
+					doc->PDF_Optionen.Intent2 = dia->Options->IntendI->currentItem();
+					doc->PDF_Optionen.EmbeddedI = dia->Options->NoEmbedded->isChecked();
+					doc->PDF_Optionen.SolidProf = dia->Options->SolidPr->currentText();
+					doc->PDF_Optionen.ImageProf = dia->Options->ImageP->currentText();
+					doc->PDF_Optionen.PrintProf = dia->Options->PrintProfC->currentText();
+					if (doc->PDF_Optionen.Version == 12)
+					{
+						const char *Descriptor;
+						cmsHPROFILE hIn;
+						hIn = cmsOpenProfileFromFile(PrinterProfiles[doc->PDF_Optionen.PrintProf], "r");
+						Descriptor = cmsTakeProductDesc(hIn);
+						nam = QString(Descriptor);
+						if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigRgbData)
+							Components = 3;
+						if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmykData)
+							Components = 4;
+						if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmyData)
+							Components = 3;
+						cmsCloseProfile(hIn);
+						doc->PDF_Optionen.Info = dia->Options->InfoString->text();
+						doc->PDF_Optionen.BleedTop = dia->Options->BleedTop->value()/UmReFaktor;
+						doc->PDF_Optionen.BleedLeft = dia->Options->BleedLeft->value()/UmReFaktor;
+						doc->PDF_Optionen.BleedRight = dia->Options->BleedRight->value()/UmReFaktor;
+						doc->PDF_Optionen.BleedBottom = dia->Options->BleedBottom->value()/UmReFaktor;
+						doc->PDF_Optionen.Encrypt = false;
+						doc->PDF_Optionen.MirrorH = false;
+						doc->PDF_Optionen.MirrorV = false;
+						doc->PDF_Optionen.RotateDeg = 0;
+						doc->PDF_Optionen.PresentMode = false;
+						doc->PDF_Optionen.Encrypt = false;
+					}
+				}
+				else
+				{
+					doc->PDF_Optionen.UseProfiles = false;
+					doc->PDF_Optionen.UseProfiles2 = false;
+				}
 #else
-			doc->PDF_Optionen.UseProfiles = false;
-			doc->PDF_Optionen.UseProfiles2 = false;
+				doc->PDF_Optionen.UseProfiles = false;
+				doc->PDF_Optionen.UseProfiles2 = false;
 #endif
-
+			}
 		}
 		if (dia->Options->AllPages->isChecked())
 			parsePagesString("*", &pageNs, doc->PageC);
