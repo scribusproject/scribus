@@ -1,7 +1,7 @@
 #include "cmdcolor.h"
 #include "cmdutil.h"
 
-PyObject *scribus_colornames(PyObject *self)
+PyObject *scribus_colornames(PyObject */*self*/)
 {
 	CListe edc;
 	PyObject *l;
@@ -17,10 +17,10 @@ PyObject *scribus_colornames(PyObject *self)
 	return l;
 }
 
-PyObject *scribus_getcolor(PyObject *self, PyObject* args)
+PyObject *scribus_getcolor(PyObject */*self*/, PyObject* args)
 {
 	CListe edc;
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	int c, m, y, k;
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
 		return NULL;
@@ -40,9 +40,9 @@ PyObject *scribus_getcolor(PyObject *self, PyObject* args)
 	return Py_BuildValue("(iiii)", static_cast<long>(c), static_cast<long>(m), static_cast<long>(y), static_cast<long>(k));
 }
 
-PyObject *scribus_setcolor(PyObject *self, PyObject* args)
+PyObject *scribus_setcolor(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	int c, m, y, k;
 	if (!PyArg_ParseTuple(args, "esiiii", "utf-8", &Name, &c, &m, &y, &k))
 		return NULL;
@@ -74,9 +74,9 @@ PyObject *scribus_setcolor(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_newcolor(PyObject *self, PyObject* args)
+PyObject *scribus_newcolor(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	int c, m, y, k;
 	if (!PyArg_ParseTuple(args, "esiiii", "utf-8", &Name, &c, &m, &y, &k))
 		return NULL;
@@ -108,10 +108,10 @@ PyObject *scribus_newcolor(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_delcolor(PyObject *self, PyObject* args)
+PyObject *scribus_delcolor(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
-	char *Repl = "None";
+	char *Name = const_cast<char*>("");
+	char *Repl = const_cast<char*>("None");
 	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &Name, "utf-8", &Repl))
 		return NULL;
 	if (Name == "")
@@ -148,10 +148,10 @@ PyObject *scribus_delcolor(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_replcolor(PyObject *self, PyObject* args)
+PyObject *scribus_replcolor(PyObject */*self*/, PyObject* args)
 {
-	char *Name = NULL;
-	char *Repl = "None";
+	char *Name = const_cast<char*>("");
+	char *Repl = const_cast<char*>("None");
 	//FIXME: this should definitely use keyword arguments
 	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &Name, "utf-8", &Repl))
 		return NULL;
@@ -174,4 +174,3 @@ PyObject *scribus_replcolor(PyObject *self, PyObject* args)
 	Py_INCREF(Py_None);
 	return Py_None;
 }
-

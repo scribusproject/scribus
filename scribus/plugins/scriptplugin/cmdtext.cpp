@@ -1,9 +1,9 @@
 #include "cmdtext.h"
 #include "cmdutil.h"
 
-PyObject *scribus_getfontsize(PyObject *self, PyObject* args)
+PyObject *scribus_getfontsize(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
@@ -26,9 +26,9 @@ PyObject *scribus_getfontsize(PyObject *self, PyObject* args)
 		return PyFloat_FromDouble(static_cast<long>(it->ISize / 10.0));
 }
 
-PyObject *scribus_getfont(PyObject *self, PyObject* args)
+PyObject *scribus_getfont(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
@@ -51,9 +51,9 @@ PyObject *scribus_getfont(PyObject *self, PyObject* args)
 		return PyString_FromString(it->IFont.utf8());
 }
 
-PyObject *scribus_gettextsize(PyObject *self, PyObject* args)
+PyObject *scribus_gettextsize(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
@@ -69,9 +69,9 @@ PyObject *scribus_gettextsize(PyObject *self, PyObject* args)
 	return PyInt_FromLong(static_cast<long>(i->Ptext.count()));
 }
 
-PyObject *scribus_getcolumns(PyObject *self, PyObject* args)
+PyObject *scribus_getcolumns(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
@@ -87,9 +87,9 @@ PyObject *scribus_getcolumns(PyObject *self, PyObject* args)
 	return PyInt_FromLong(static_cast<long>(i->Cols));
 }
 
-PyObject *scribus_getlinespace(PyObject *self, PyObject* args)
+PyObject *scribus_getlinespace(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
@@ -105,9 +105,9 @@ PyObject *scribus_getlinespace(PyObject *self, PyObject* args)
 	return PyFloat_FromDouble(static_cast<double>(i->LineSp));
 }
 
-PyObject *scribus_getcolumngap(PyObject *self, PyObject* args)
+PyObject *scribus_getcolumngap(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
@@ -123,9 +123,9 @@ PyObject *scribus_getcolumngap(PyObject *self, PyObject* args)
 	return PyFloat_FromDouble(static_cast<double>(i->ColGap));
 }
 
-PyObject *scribus_getframetext(PyObject *self, PyObject* args)
+PyObject *scribus_getframetext(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
@@ -154,9 +154,9 @@ PyObject *scribus_getframetext(PyObject *self, PyObject* args)
 	return PyString_FromString(text.utf8());
 }
 
-PyObject *scribus_gettext(PyObject *self, PyObject* args)
+PyObject *scribus_gettext(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
@@ -230,9 +230,9 @@ PyObject *scribus_gettext(PyObject *self, PyObject* args)
 	return PyString_FromString(text.utf8());
 }
 
-PyObject *scribus_setboxtext(PyObject *self, PyObject* args)
+PyObject *scribus_setboxtext(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	char *Text;
 	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &Text, "utf-8", &Name))
 		return NULL;
@@ -288,9 +288,9 @@ PyObject *scribus_setboxtext(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_inserttext(PyObject *self, PyObject* args)
+PyObject *scribus_inserttext(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	char *Text;
 	int pos;
 	if (!PyArg_ParseTuple(args, "esi|es", "utf-8", &Text, &pos, "utf-8", &Name))
@@ -342,9 +342,9 @@ PyObject *scribus_inserttext(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_setalign(PyObject *self, PyObject* args)
+PyObject *scribus_setalign(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	int alignment;
 	if (!PyArg_ParseTuple(args, "i|es", &alignment, "utf-8", &Name))
 		return NULL;
@@ -375,9 +375,9 @@ PyObject *scribus_setalign(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_setfontsize(PyObject *self, PyObject* args)
+PyObject *scribus_setfontsize(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	double size;
 	if (!PyArg_ParseTuple(args, "d|es", &size, "utf-8", &Name))
 		return NULL;
@@ -409,10 +409,10 @@ PyObject *scribus_setfontsize(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_setfont(PyObject *self, PyObject* args)
+PyObject *scribus_setfont(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
-	char *Font = "";
+	char *Name = const_cast<char*>("");
+	char *Font = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &Font, "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
@@ -445,9 +445,9 @@ PyObject *scribus_setfont(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_setlinespace(PyObject *self, PyObject* args)
+PyObject *scribus_setlinespace(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	double w;
 	if (!PyArg_ParseTuple(args, "d|es", &w, "utf-8", &Name))
 		return NULL;
@@ -471,9 +471,9 @@ PyObject *scribus_setlinespace(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_setcolumngap(PyObject *self, PyObject* args)
+PyObject *scribus_setcolumngap(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	double w;
 	if (!PyArg_ParseTuple(args, "d|es", &w, "utf-8", &Name))
 		return NULL;
@@ -497,9 +497,9 @@ PyObject *scribus_setcolumngap(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_setcolumns(PyObject *self, PyObject* args)
+PyObject *scribus_setcolumns(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	int w;
 	if (!PyArg_ParseTuple(args, "i|es", &w, "utf-8", &Name))
 		return NULL;
@@ -523,9 +523,9 @@ PyObject *scribus_setcolumns(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_selecttext(PyObject *self, PyObject* args)
+PyObject *scribus_selecttext(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	int start, ende;
 	if (!PyArg_ParseTuple(args, "ii|es", &start, &ende, "utf-8", &Name))
 		return NULL;
@@ -566,9 +566,9 @@ PyObject *scribus_selecttext(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_deletetext(PyObject *self, PyObject* args)
+PyObject *scribus_deletetext(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
@@ -592,9 +592,9 @@ PyObject *scribus_deletetext(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_settextfill(PyObject *self, PyObject* args)
+PyObject *scribus_settextfill(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	char *Color;
 	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &Color, "utf-8", &Name))
 		return NULL;
@@ -626,9 +626,9 @@ PyObject *scribus_settextfill(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_settextstroke(PyObject *self, PyObject* args)
+PyObject *scribus_settextstroke(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	char *Color;
 	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &Color, "utf-8", &Name))
 		return NULL;
@@ -660,9 +660,9 @@ PyObject *scribus_settextstroke(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_settextshade(PyObject *self, PyObject* args)
+PyObject *scribus_settextshade(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	int w;
 	if (!PyArg_ParseTuple(args, "i|es", &w, "utf-8", &Name))
 		return NULL;
@@ -699,7 +699,7 @@ PyObject *scribus_settextshade(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_linktextframes(PyObject *self, PyObject* args)
+PyObject *scribus_linktextframes(PyObject */*self*/, PyObject* args)
 {
 	char *name1;
 	char *name2;
@@ -750,7 +750,7 @@ PyObject *scribus_linktextframes(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_unlinktextframes(PyObject * self, PyObject* args)
+PyObject *scribus_unlinktextframes(PyObject */*self*/, PyObject* args)
 {
 	char *name;
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &name))
@@ -802,9 +802,9 @@ PyObject *scribus_unlinktextframes(PyObject * self, PyObject* args)
  * 2004-09-07 (Craig Ringer)
  * 2004-09-14 pv frame type, optional frame name param
  */
-PyObject *scribus_tracetext(PyObject *self, PyObject* args)
+PyObject *scribus_tracetext(PyObject */*self*/, PyObject* args)
 {
-	char *name = "";
+	char *name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
 		return NULL;
 	if(!checkHaveDocument())
@@ -821,10 +821,6 @@ PyObject *scribus_tracetext(PyObject *self, PyObject* args)
 	Carrier->doc->ActPage->Deselect(true);
 	Carrier->doc->ActPage->SelectItemNr(item->ItemNr);
 	Carrier->doc->ActPage->TextToPath();
-	/* FIXME: this won't work. need to know why. maybe later...
-	item->OwnPage->Deselect(true);
-	item->OwnPage->SelectItemNr(item->ItemNr);
-	item->OwnPage->TextToPath(); */
 	Py_INCREF(Py_None);
 	return Py_None;
 }

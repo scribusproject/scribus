@@ -15,7 +15,7 @@ the same as for setFillColor() and setFillShade(). See the constants for\n\
 available types (FILL_<type>).\n\
 "));
 /*! Set gradient */
-PyObject *scribus_setgradfill(PyObject *self, PyObject* args);
+PyObject *scribus_setgradfill(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setfillcolor__doc__,
@@ -26,7 +26,7 @@ is the name of one of the defined colors. If \"name\" is not given the\n\
 currently selected item is used.\n\
 "));
 /*! Set fill color */
-PyObject *scribus_setfillcolor(PyObject *self, PyObject* args);
+PyObject *scribus_setfillcolor(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setlinecolor__doc__,
@@ -36,7 +36,7 @@ Sets the line color of the object \"name\" to the color \"color\". If \"name\"\n
 is not given the currently selected item is used.\n\
 "));
 /*! Set line color */
-PyObject *scribus_setlinecolor(PyObject *self, PyObject* args);
+PyObject *scribus_setlinecolor(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setlinewidth__doc__,
@@ -49,7 +49,7 @@ given the currently selected item is used.\n\
 May raise ValueError if the line width is out of bounds.\n\
 "));
 /*! Set line width */
-PyObject *scribus_setlinewidth(PyObject *self, PyObject* args);
+PyObject *scribus_setlinewidth(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setlineshade__doc__,
@@ -63,7 +63,7 @@ is used.\n\
 May raise ValueError if the line shade is out of bounds.\n\
 "));
 /*! Set line shade */
-PyObject *scribus_setlineshade(PyObject *self, PyObject* args);
+PyObject *scribus_setlineshade(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setlinejoin__doc__,
@@ -74,7 +74,7 @@ If \"name\" is not given the currently selected item is used. There are\n\
 predefined constants for join - JOIN_<type>.\n\
 "));
 /*! Set line join */
-PyObject *scribus_setlinejoin(PyObject *self, PyObject* args);
+PyObject *scribus_setlinejoin(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setlineend__doc__,
@@ -85,7 +85,7 @@ If \"name\" is not given the currently selected item is used. There are\n\
 predefined constants for \"cap\" - CAP_<type>.\n\
 "));
 /*! Set line end */
-PyObject *scribus_setlineend(PyObject *self, PyObject* args);
+PyObject *scribus_setlineend(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setlinestyle__doc__,
@@ -96,7 +96,7 @@ is not given the currently selected item is used. There are predefined\n\
 constants for \"style\" - LINE_<style>.\n\
 "));
 /*! Set line end */
-PyObject *scribus_setlinestyle(PyObject *self, PyObject* args);
+PyObject *scribus_setlinestyle(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setfillshade__doc__,
@@ -110,7 +110,7 @@ Item is used.\n\
 May raise ValueError if the fill shade is out of bounds.\n\
 "));
 /*! Set fill shade */
-PyObject *scribus_setfillshade(PyObject *self, PyObject* args);
+PyObject *scribus_setfillshade(PyObject */*self*/, PyObject* args);
 
 /*! docstringscribus_setmultiline__doc__ */
 PyDoc_STRVAR(scribus_setcornerrad__doc__,
@@ -122,7 +122,7 @@ in points. If \"name\" is not given the currently selected item is used.\n\
 May raise ValueError if the corner radius is negative.\n\
 "));
 /*! Set corner radius */
-PyObject *scribus_setcornerrad(PyObject *self, PyObject* args);
+PyObject *scribus_setcornerrad(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setmultiline__doc__,
@@ -134,7 +134,7 @@ If \"name\" is not given the currently selected item is used.\n\
 May raise NotFoundError if the line style doesn't exist.\n\
 "));
 /*! Set multiline */
-PyObject *scribus_setmultiline(PyObject *self, PyObject* args);
+PyObject *scribus_setmultiline(PyObject */*self*/, PyObject* args);
 
 #endif
 

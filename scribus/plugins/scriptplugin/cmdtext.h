@@ -16,7 +16,7 @@ the selection is returned.\n\
 If \"name\" is not given the currently selected item is used.\n\
 "));
 /*! Get font size */
-PyObject *scribus_getfontsize(PyObject *self, PyObject* args);
+PyObject *scribus_getfontsize(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getfont__doc__,
@@ -28,7 +28,7 @@ of the selection is returned. If \"name\" is not given the currently\n\
 selected item is used.\n\
 "));
 /*! Get font */
-PyObject *scribus_getfont(PyObject *self, PyObject* args);
+PyObject *scribus_getfont(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_gettextsize__doc__,
@@ -38,7 +38,7 @@ Returns the length of the text in the text frame \"name\".\n\
 If \"name\" is not given the currently selected item is used.\n\
 "));
 /*! Get text size */
-PyObject *scribus_gettextsize(PyObject *self, PyObject* args);
+PyObject *scribus_gettextsize(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getframetext__doc__,
@@ -50,7 +50,7 @@ currently visible text, is returned. If \"name\" is not given the currently\n\
 selected item is used.\n\
 "));
 /*! Get frame text */
-PyObject *scribus_getframetext(PyObject *self, PyObject* args);
+PyObject *scribus_getframetext(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_gettext__doc__,
@@ -62,7 +62,7 @@ text is returned. If \"name\" is not given the currently selected item is\n\
 used.\n\
 "));
 /*! Get all text */
-PyObject *scribus_gettext(PyObject *self, PyObject* args);
+PyObject *scribus_gettext(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getlinespace__doc__,
@@ -72,7 +72,7 @@ Returns the line spacing (\"leading\") of the text frame \"name\" expressed in\n
 points. If \"name\" is not given the currently selected item is used.\n\
 "));
 /*! Get line space */
-PyObject *scribus_getlinespace(PyObject *self, PyObject* args);
+PyObject *scribus_getlinespace(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getcolumngap__doc__,
@@ -82,7 +82,7 @@ Returns the column gap size of the text frame \"name\" expressed in points. If\n
 \"name\" is not given the currently selected item is used.\n\
 "));
 /*! Get column gap */
-PyObject *scribus_getcolumngap(PyObject *self, PyObject* args);
+PyObject *scribus_getcolumngap(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getcolumns__doc__,
@@ -92,7 +92,7 @@ Gets the number of columns of the text frame \"name\". If \"name\" is not\n\
 given the currently selected item is used.\n\
 "));
 /*! Get columns */
-PyObject *scribus_getcolumns(PyObject *self, PyObject* args);
+PyObject *scribus_getcolumns(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setboxtext__doc__,
@@ -104,7 +104,7 @@ for more details. If \"name\" is not given the currently selected item is\n\
 used.\n\
 "));
 /*! Set text */
-PyObject *scribus_setboxtext(PyObject *self, PyObject* args);
+PyObject *scribus_setboxtext(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_inserttext__doc__,
@@ -118,7 +118,7 @@ used.\n\
 May throw IndexError for an insertion out of bounds.\n\
 "));
 /*! Insert text */
-PyObject *scribus_inserttext(PyObject *self, PyObject* args);
+PyObject *scribus_inserttext(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setfont__doc__,
@@ -131,7 +131,7 @@ currently selected item is used.\n\
 May throw ValueError if the font cannot be found.\n\
 "));
 /*! Set font */
-PyObject *scribus_setfont(PyObject *self, PyObject* args);
+PyObject *scribus_setfont(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setfontsize__doc__,
@@ -145,7 +145,7 @@ currently selected item is used.\n\
 May throw ValueError for a font size that's out of bounds.\n\
 "));
 /*! Set font size */
-PyObject *scribus_setfontsize(PyObject *self, PyObject* args);
+PyObject *scribus_setfontsize(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setlinespace__doc__,
@@ -158,7 +158,7 @@ item is used.\n\
 May throw ValueError if the line spacing is out of bounds.\n\
 "));
 /*! Set line space */
-PyObject *scribus_setlinespace(PyObject *self, PyObject* args);
+PyObject *scribus_setlinespace(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setcolumngap__doc__,
@@ -170,7 +170,7 @@ Sets the column gap of the text frame \"name\" to the value \"size\". If\n\
 May throw ValueError if the column gap is out of bounds (must be positive).\n\
 "));
 /*! Set column gap */
-PyObject *scribus_setcolumngap(PyObject *self, PyObject* args);
+PyObject *scribus_setcolumngap(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setcolumns__doc__,
@@ -182,7 +182,7 @@ If \"name\" is not given the currently selected item is used.\n\
 May throw ValueError if number of columns is not at least one.\n\
 "));
 /*! Set columns */
-PyObject *scribus_setcolumns(PyObject *self, PyObject* args);
+PyObject *scribus_setcolumns(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setalign__doc__,
@@ -195,7 +195,7 @@ be one of the ALIGN_ constants defined in this module - see dir(scribus).\n\
 May throw ValueError for an invalid alignment constant.\n\
 "));
 /*! Set alignt */
-PyObject *scribus_setalign(PyObject *self, PyObject* args);
+PyObject *scribus_setalign(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_selecttext__doc__,
@@ -209,7 +209,7 @@ selected item is used.\n\
 May throw IndexError if the selection is outside the bounds of the text.\n\
 "));
 /*! Select text */
-PyObject *scribus_selecttext(PyObject *self, PyObject* args);
+PyObject *scribus_selecttext(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_deletetext__doc__,
@@ -220,7 +220,7 @@ only the selected text will be deleted. If \"name\" is not given the currently\n
 selected item is used.\n\
 "));
 /*! Delete text */
-PyObject *scribus_deletetext(PyObject *self, PyObject* args);
+PyObject *scribus_deletetext(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_settextfill__doc__,
@@ -231,7 +231,7 @@ is some text selected only the selected text is changed. If \"name\" is not\n\
 given the currently selected item is used.\n\
 "));
 /*! Set text fill */
-PyObject *scribus_settextfill(PyObject *self, PyObject* args);
+PyObject *scribus_settextfill(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_settextstroke__doc__,
@@ -241,7 +241,7 @@ Set \"color\" of the text stroke. If \"name\" is not given the currently\n\
 selected item is used.\n\
 "));
 /*! Set text stroke */
-PyObject *scribus_settextstroke(PyObject *self, PyObject* args);
+PyObject *scribus_settextstroke(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_settextshade__doc__,
@@ -254,7 +254,7 @@ intensity). If \"name\" is not given the currently selected item is\n\
 used.\n\
 "));
 /*! Set text shde */
-PyObject *scribus_settextshade(PyObject *self, PyObject* args);
+PyObject *scribus_settextshade(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_linktextframes__doc__,
@@ -271,7 +271,7 @@ May throw ScribusException if linking rules are violated.\n\
  02/22/04 (petr vanek)
  TODO: PDF bookmarks handling
  */
-PyObject *scribus_linktextframes(PyObject *self, PyObject* args);
+PyObject *scribus_linktextframes(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_unlinktextframes__doc__,

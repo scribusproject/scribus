@@ -15,7 +15,7 @@ This change will persist even after the script exits, so make sure to call\n\
 setRedraw(True) in a finally: clause at the top level of your script.\n\
 "));
 /*! Enable/disable page redrawing. */
-PyObject *scribus_setredraw(PyObject *self, PyObject* args);
+PyObject *scribus_setredraw(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_fontnames__doc__,
@@ -24,7 +24,7 @@ QT_TR_NOOP("getFontNames() -> list\n\
 Returns a list with the names of all available fonts.\n\
 "));
 /*! simple list of font names. */
-PyObject *scribus_fontnames(PyObject *self);
+PyObject *scribus_fontnames(PyObject */*self*/);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_xfontnames__doc__,
@@ -37,7 +37,7 @@ Returns a larger font info. It's a list of the tuples with:\n\
  return a list of the tuples with
  Scribus name, Family, Real name, subset (1|0), embed PS (1|0), font file
 */
-PyObject *scribus_xfontnames(PyObject *self);
+PyObject *scribus_xfontnames(PyObject */*self*/);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_renderfont__doc__,
@@ -50,7 +50,7 @@ May raise NotFoundError if the specified font can't be found.\n\
 May raise ValueError if an empty sample or filename is passed.\n\
 "));
 /*! Font example to image. */
-PyObject *scribus_renderfont(PyObject *self, PyObject* args);
+PyObject *scribus_renderfont(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getlayers__doc__,
@@ -59,7 +59,7 @@ QT_TR_NOOP("getLayers() -> list\n\
 Returns a list with the names of all defined layers.\n\
 "));
 /*! List of the layers */
-PyObject *scribus_getlayers(PyObject *self);
+PyObject *scribus_getlayers(PyObject */*self*/);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setactlayer__doc__,
@@ -71,7 +71,7 @@ May raise NotFoundError if the layer can't be found.\n\
 May raise ValueError if the layer name isn't acceptable.\n\
 "));
 /*! Move into layer */
-PyObject *scribus_setactlayer(PyObject *self, PyObject* args);
+PyObject *scribus_setactlayer(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getactlayer__doc__,
@@ -80,7 +80,7 @@ QT_TR_NOOP("getActiveLayer() -> string\n\
 Returns the name of the current active layer.\n\
 "));
 /*! Get layer name */
-PyObject *scribus_getactlayer(PyObject *self);
+PyObject *scribus_getactlayer(PyObject */*self*/);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_senttolayer__doc__,
@@ -93,7 +93,7 @@ May raise NotFoundError if the layer can't be found.\n\
 May raise ValueError if the layer name isn't acceptable.\n\
 "));
 /*! Move object from one layer to other one */
-PyObject *scribus_senttolayer(PyObject *self, PyObject* args);
+PyObject *scribus_senttolayer(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_layervisible__doc__,
@@ -106,7 +106,7 @@ May raise NotFoundError if the layer can't be found.\n\
 May raise ValueError if the layer name isn't acceptable.\n\
 "));
 /*! Set layer visible */
-PyObject *scribus_layervisible(PyObject *self, PyObject* args);
+PyObject *scribus_layervisible(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_layerprint__doc__,
@@ -119,7 +119,7 @@ May raise NotFoundError if the layer can't be found.\n\
 May raise ValueError if the layer name isn't acceptable.\n\
 "));
 /*! Set layer printable */
-PyObject *scribus_layerprint(PyObject *self, PyObject* args);
+PyObject *scribus_layerprint(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_glayervisib__doc__,
@@ -133,7 +133,7 @@ May raise NotFoundError if the layer can't be found.\n\
 May raise ValueError if the layer name isn't acceptable.\n\
 "));
 /*! Set layer visible */
-PyObject *scribus_glayervisib(PyObject *self, PyObject* args);
+PyObject *scribus_glayervisib(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_glayerprint__doc__,
@@ -147,7 +147,7 @@ May raise NotFoundError if the layer can't be found.\n\
 May raise ValueError if the layer name isn't acceptable.\n\
 "));
 /*! Set layer printable */
-PyObject *scribus_glayerprint(PyObject *self, PyObject* args);
+PyObject *scribus_glayerprint(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_removelayer__doc__,
@@ -160,7 +160,7 @@ May raise NotFoundError if the layer can't be found.\n\
 May raise ValueError if the layer name isn't acceptable.\n\
 "));
 /*! Remove layer */
-PyObject *scribus_removelayer(PyObject *self, PyObject* args);
+PyObject *scribus_removelayer(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_createlayer__doc__,
@@ -171,7 +171,7 @@ Creates a new layer with the name \"name\".\n\
 May raise ValueError if the layer name isn't acceptable.\n\
 "));
 /*! New layer */
-PyObject *scribus_createlayer(PyObject *self, PyObject* args);
+PyObject *scribus_createlayer(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getlanguage__doc__,
@@ -180,7 +180,7 @@ QT_TR_NOOP("getGuiLanguage() -> string\n\
 Returns a string with the -lang value.\n\
 "));
 /*! Language of the GUI */
-PyObject *scribus_getlanguage(PyObject *self);
+PyObject *scribus_getlanguage(PyObject */*self*/);
 
 #endif
 

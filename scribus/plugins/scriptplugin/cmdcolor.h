@@ -14,7 +14,7 @@ Returns a list containing the names of all defined colors in the document.\n\
 If no document is open, returns a list of the default document colors.\n\
 "));
 /** Returns a list with colours available in doc or in prefs. */
-PyObject *scribus_colornames(PyObject *self);
+PyObject *scribus_colornames(PyObject */*self*/);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getcolor__doc__,
@@ -28,7 +28,7 @@ May raise NotFoundError if the named color wasn't found.\n\
 May raise ValueError if an invalid color name is specified.\n\
 "));
 /** Returns a CMYK tuple of the specified color. */
-PyObject *scribus_getcolor(PyObject *self, PyObject* args);
+PyObject *scribus_getcolor(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setcolor__doc__,
@@ -42,7 +42,7 @@ May raise NotFoundError if the named color wasn't found.\n\
 May raise ValueError if an invalid color name is specified.\n\
 "));
 /** Sets named color with C,M,Y,K params. */
-PyObject *scribus_setcolor(PyObject *self, PyObject* args);
+PyObject *scribus_setcolor(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_newcolor__doc__,
@@ -55,7 +55,7 @@ the range from 0 to 255.\n\
 May raise ValueError if an invalid color name is specified.\n\
 "));
 /** Creates new color with name, C, M, Y, K params. */
-PyObject *scribus_newcolor(PyObject *self, PyObject* args);
+PyObject *scribus_newcolor(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_delcolor__doc__,
@@ -72,7 +72,7 @@ May raise NotFoundError if a named color wasn't found.\n\
 May raise ValueError if an invalid color name is specified.\n\
 "));
 /** Deletes named color */
-PyObject *scribus_delcolor(PyObject *self, PyObject* args);
+PyObject *scribus_delcolor(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_replcolor__doc__,
@@ -84,7 +84,7 @@ May raise NotFoundError if a named color wasn't found.\n\
 May raise ValueError if an invalid color name is specified.\n\
 "));
 /** Replaces color with the 2nd one. */
-PyObject *scribus_replcolor(PyObject *self, PyObject* args);
+PyObject *scribus_replcolor(PyObject */*self*/, PyObject* args);
 
 #endif
 

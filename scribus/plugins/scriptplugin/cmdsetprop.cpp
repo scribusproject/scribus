@@ -1,9 +1,9 @@
 #include "cmdsetprop.h"
 #include "cmdutil.h"
 
-PyObject *scribus_setgradfill(PyObject *self, PyObject* args)
+PyObject *scribus_setgradfill(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	char *Color1;
 	char *Color2;
 	int typ, shade1, shade2;
@@ -29,9 +29,9 @@ PyObject *scribus_setgradfill(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_setfillcolor(PyObject *self, PyObject* args)
+PyObject *scribus_setfillcolor(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	char *Color;
 	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &Color, "utf-8", &Name))
 		return NULL;
@@ -45,9 +45,9 @@ PyObject *scribus_setfillcolor(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_setlinecolor(PyObject *self, PyObject* args)
+PyObject *scribus_setlinecolor(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	char *Color;
 	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &Color, "utf-8", &Name))
 		return NULL;
@@ -61,9 +61,9 @@ PyObject *scribus_setlinecolor(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_setlinewidth(PyObject *self, PyObject* args)
+PyObject *scribus_setlinewidth(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	double w;
 	if (!PyArg_ParseTuple(args, "d|es", &w, "utf-8", &Name))
 		return NULL;
@@ -82,9 +82,9 @@ PyObject *scribus_setlinewidth(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_setlineshade(PyObject *self, PyObject* args)
+PyObject *scribus_setlineshade(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	int w;
 	if (!PyArg_ParseTuple(args, "i|es", &w, "utf-8", &Name))
 		return NULL;
@@ -103,9 +103,9 @@ PyObject *scribus_setlineshade(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_setfillshade(PyObject *self, PyObject* args)
+PyObject *scribus_setfillshade(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	int w;
 	if (!PyArg_ParseTuple(args, "i|es", &w, "utf-8", &Name))
 		return NULL;
@@ -124,9 +124,9 @@ PyObject *scribus_setfillshade(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_setlinejoin(PyObject *self, PyObject* args)
+PyObject *scribus_setlinejoin(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	int w;
 	if (!PyArg_ParseTuple(args, "i|es", &w, "utf-8", &Name))
 		return NULL;
@@ -140,9 +140,9 @@ PyObject *scribus_setlinejoin(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_setlineend(PyObject *self, PyObject* args)
+PyObject *scribus_setlineend(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	int w;
 	if (!PyArg_ParseTuple(args, "i|es", &w, "utf-8", &Name))
 		return NULL;
@@ -156,9 +156,9 @@ PyObject *scribus_setlineend(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_setlinestyle(PyObject *self, PyObject* args)
+PyObject *scribus_setlinestyle(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	int w;
 	if (!PyArg_ParseTuple(args, "i|es", &w, "utf-8", &Name))
 		return NULL;
@@ -172,9 +172,9 @@ PyObject *scribus_setlinestyle(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_setcornerrad(PyObject *self, PyObject* args)
+PyObject *scribus_setcornerrad(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	int w;
 	if (!PyArg_ParseTuple(args, "i|es", &w, "utf-8", &Name))
 		return NULL;
@@ -202,9 +202,9 @@ PyObject *scribus_setcornerrad(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_setmultiline(PyObject *self, PyObject* args)
+PyObject *scribus_setmultiline(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	char *Style = NULL;
 	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &Style, "utf-8", &Name))
 		return NULL;

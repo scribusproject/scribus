@@ -1,9 +1,9 @@
 #include "cmdgetprop.h"
 #include "cmdutil.h"
 
-PyObject *scribus_getfillcolor(PyObject *self, PyObject* args)
+PyObject *scribus_getfillcolor(PyObject */*self*/, PyObject* args)
 {
-	char *Name = NULL;
+	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
@@ -12,12 +12,13 @@ PyObject *scribus_getfillcolor(PyObject *self, PyObject* args)
 	return i != NULL ? PyString_FromString(i->Pcolor.utf8()) : NULL;
 }
 
-PyObject *scribus_getlinecolor(PyObject *self, PyObject* args)
+PyObject *scribus_getlinecolor(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	PageItem *it;
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
-		return NULL;
+		return NULL;PyErr_SetString(ScribusException, QObject::tr("Failed to open document","python error"));
+	return NULL;
 	if(!checkHaveDocument())
 		return NULL;
 	it = GetUniqueItem(QString::fromUtf8(Name));
@@ -33,11 +34,14 @@ PyObject *scribus_getlinecolor(PyObject *self, PyObject* args)
 	}
 	else
 		return PyString_FromString(it->Pcolor2.utf8());
+	// FIXME: apply QObject::tr after string unfreezing....
+	PyErr_SetString(NotFoundError, "Color not found - python error");
+	return NULL;
 }
 
-PyObject *scribus_getlinewidth(PyObject *self, PyObject* args)
+PyObject *scribus_getlinewidth(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
@@ -46,9 +50,9 @@ PyObject *scribus_getlinewidth(PyObject *self, PyObject* args)
 	return i != NULL ? PyFloat_FromDouble(static_cast<double>(i->Pwidth)) : NULL;
 }
 
-PyObject *scribus_getlineshade(PyObject *self, PyObject* args)
+PyObject *scribus_getlineshade(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	PageItem *it;
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
 		return NULL;
@@ -70,9 +74,9 @@ PyObject *scribus_getlineshade(PyObject *self, PyObject* args)
 	return PyInt_FromLong(0L);
 }
 
-PyObject *scribus_getlinejoin(PyObject *self, PyObject* args)
+PyObject *scribus_getlinejoin(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
@@ -81,9 +85,9 @@ PyObject *scribus_getlinejoin(PyObject *self, PyObject* args)
 	return i != NULL ? PyInt_FromLong(static_cast<long>(i->PLineJoin)) : NULL;
 }
 
-PyObject *scribus_getlineend(PyObject *self, PyObject* args)
+PyObject *scribus_getlineend(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
@@ -92,9 +96,9 @@ PyObject *scribus_getlineend(PyObject *self, PyObject* args)
 	return i != NULL ? PyInt_FromLong(static_cast<long>(i->PLineEnd)) : NULL;
 }
 
-PyObject *scribus_getlinestyle(PyObject *self, PyObject* args)
+PyObject *scribus_getlinestyle(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
@@ -103,9 +107,9 @@ PyObject *scribus_getlinestyle(PyObject *self, PyObject* args)
 	return i != NULL ? PyInt_FromLong(static_cast<long>(i->PLineArt)) : NULL;
 }
 
-PyObject *scribus_getfillshade(PyObject *self, PyObject* args)
+PyObject *scribus_getfillshade(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
@@ -114,9 +118,9 @@ PyObject *scribus_getfillshade(PyObject *self, PyObject* args)
 	return i != NULL ? PyInt_FromLong(static_cast<long>(i->Shade)) : NULL;
 }
 
-PyObject *scribus_getcornerrad(PyObject *self, PyObject* args)
+PyObject *scribus_getcornerrad(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
@@ -125,9 +129,9 @@ PyObject *scribus_getcornerrad(PyObject *self, PyObject* args)
 	return i != NULL ? PyInt_FromLong(static_cast<long>(i->RadRect)) : NULL;
 }
 
-PyObject *scribus_getimgscale(PyObject *self, PyObject* args)
+PyObject *scribus_getimgscale(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
@@ -136,9 +140,9 @@ PyObject *scribus_getimgscale(PyObject *self, PyObject* args)
 	return i != NULL ? Py_BuildValue("(ff)", i->LocalScX, i->LocalScY) : NULL;
 }
 
-PyObject *scribus_getimgname(PyObject *self, PyObject* args)
+PyObject *scribus_getimgname(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
@@ -147,9 +151,9 @@ PyObject *scribus_getimgname(PyObject *self, PyObject* args)
 	return i != NULL ? PyString_FromString(i->Pfile.utf8()) : NULL;
 }
 
-PyObject *scribus_getposi(PyObject *self, PyObject* args)
+PyObject *scribus_getposi(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
@@ -158,9 +162,9 @@ PyObject *scribus_getposi(PyObject *self, PyObject* args)
 	return (i != NULL) ? Py_BuildValue("(ff)", PointToValue(i->Xpos), PointToValue(i->Ypos)) : NULL;
 }
 
-PyObject *scribus_getsize(PyObject *self, PyObject* args)
+PyObject *scribus_getsize(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
@@ -169,9 +173,9 @@ PyObject *scribus_getsize(PyObject *self, PyObject* args)
 	return (i != NULL) ? Py_BuildValue("(ff)", PointToValue(i->Width), PointToValue(i->Height)) : NULL;
 }
 
-PyObject *scribus_getrotation(PyObject *self, PyObject* args)
+PyObject *scribus_getrotation(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
@@ -180,7 +184,7 @@ PyObject *scribus_getrotation(PyObject *self, PyObject* args)
 	return i != NULL ? PyFloat_FromDouble(static_cast<double>(i->Rot * -1)) : NULL;
 }
 
-PyObject *scribus_getallobj(PyObject *self, PyObject* args)
+PyObject *scribus_getallobj(PyObject */*self*/, PyObject* args)
 {
 	PyObject *l;
 	int typ = -1;

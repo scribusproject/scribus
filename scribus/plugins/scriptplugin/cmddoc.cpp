@@ -1,7 +1,7 @@
 #include "cmddoc.h"
 #include "cmdutil.h"
 
-PyObject *scribus_newdoc(PyObject *self, PyObject* args)
+PyObject *scribus_newdoc(PyObject */*self*/, PyObject* args)
 {
 	double b, h, lr, tpr, btr, rr, ebr;
 	int unit, ds, fsl, fNr, ori;
@@ -27,7 +27,7 @@ PyObject *scribus_newdoc(PyObject *self, PyObject* args)
 	return PyInt_FromLong(static_cast<long>(ret));
 }
 
-PyObject *scribus_setmargins(PyObject *self, PyObject* args)
+PyObject *scribus_setmargins(PyObject */*self*/, PyObject* args)
 {
 	double lr, tpr, btr, rr;
 	if (!PyArg_ParseTuple(args, "dddd", &lr, &rr, &tpr, &btr))
@@ -47,7 +47,7 @@ PyObject *scribus_setmargins(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_closedoc(PyObject *self)
+PyObject *scribus_closedoc(PyObject */*self*/)
 {
 	if(!checkHaveDocument())
 		return NULL;
@@ -57,12 +57,12 @@ PyObject *scribus_closedoc(PyObject *self)
 	return PyInt_FromLong(static_cast<long>(ret));
 }
 
-PyObject *scribus_havedoc(PyObject *self)
+PyObject *scribus_havedoc(PyObject */*self*/)
 {
 	return PyInt_FromLong(static_cast<long>(Carrier->HaveDoc));
 }
 
-PyObject *scribus_opendoc(PyObject *self, PyObject* args)
+PyObject *scribus_opendoc(PyObject */*self*/, PyObject* args)
 {
 	char *Name;
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
@@ -77,7 +77,7 @@ PyObject *scribus_opendoc(PyObject *self, PyObject* args)
 	return Py_True;
 }
 
-PyObject *scribus_savedoc(PyObject *self)
+PyObject *scribus_savedoc(PyObject */*self*/)
 {
 	if(!checkHaveDocument())
 		return NULL;
@@ -86,7 +86,7 @@ PyObject *scribus_savedoc(PyObject *self)
 	return Py_None;
 }
 
-PyObject *scribus_savedocas(PyObject *self, PyObject* args)
+PyObject *scribus_savedocas(PyObject */*self*/, PyObject* args)
 {
 	char *Name;
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
@@ -103,7 +103,7 @@ PyObject *scribus_savedocas(PyObject *self, PyObject* args)
 	return Py_True;
 }
 
-PyObject *scribus_setinfo(PyObject *self, PyObject* args)
+PyObject *scribus_setinfo(PyObject */*self*/, PyObject* args)
 {
 	char *Author;
 	char *Title;
@@ -122,7 +122,7 @@ PyObject *scribus_setinfo(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_setunit(PyObject *self, PyObject* args)
+PyObject *scribus_setunit(PyObject */*self*/, PyObject* args)
 {
 	int e;
 	if (!PyArg_ParseTuple(args, "i", &e))
@@ -139,14 +139,14 @@ PyObject *scribus_setunit(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_getunit(PyObject *self)
+PyObject *scribus_getunit(PyObject */*self*/)
 {
 	if(!checkHaveDocument())
 		return NULL;
 	return PyInt_FromLong(static_cast<long>(Carrier->doc->Einheit));
 }
 
-PyObject *scribus_loadstylesfromfile(PyObject *self, PyObject *args)
+PyObject *scribus_loadstylesfromfile(PyObject */*self*/, PyObject *args)
 {
 	char *fileName;
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &fileName))
@@ -158,7 +158,7 @@ PyObject *scribus_loadstylesfromfile(PyObject *self, PyObject *args)
 	return Py_None;
 }
 
-PyObject *scribus_setdoctype(PyObject *self, PyObject* args)
+PyObject *scribus_setdoctype(PyObject */*self*/, PyObject* args)
 {
 	int fp, fsl;
 	if (!PyArg_ParseTuple(args, "ii", &fp, &fsl))
