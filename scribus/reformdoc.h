@@ -30,9 +30,13 @@ public:
 	~ReformDoc() {};
 	QWidget* tabPage;
 	QGroupBox* GroupBox7;
+	QGroupBox* GroupBox7a;
 	QGroupBox* dsGroupBox7;
+	QGroupBox* groupScratch;
 	QLabel* TextLabel5;
 	QLabel* TextLabel7;
+	QLabel* TextLabel5s;
+	QLabel* TextLabel7s;
 	QLabel* TextLabel1_3;
 	QSpinBox* pageNumber;
 	MSpinBox* topR;
@@ -41,10 +45,16 @@ public:
 	MSpinBox* rightR;
 	MSpinBox* widthMSpinBox;
 	MSpinBox* heightMSpinBox;
+	MSpinBox* topScratch;
+	MSpinBox* bottomScratch;
+	MSpinBox* leftScratch;
+	MSpinBox* rightScratch;
 	QCheckBox* facingPages;
 	QCheckBox* firstPage;
 	QLabel* Links;
 	QLabel* Rechts;
+	QLabel* Linkss;
+	QLabel* Rechtss;
 	QLabel*	widthQLabel;
 	QLabel*	heightQLabel;
 	QLabel*	sizeQLabel;
@@ -56,6 +66,7 @@ public:
 	QWidget* tabView;
 	QWidget* tabTypo;
 	QWidget* tabTools;
+	QWidget* tabMisc;
 	QLabel* textLabel1;
 	QLabel* textLabel2;
 	QLabel* textLabel3;
@@ -174,9 +185,17 @@ public:
 	QLabel* textLabel23b;
 	QSpinBox* maximumZoom;
 	QSpinBox* zoomStep;
+	QGroupBox* groupAutoSave;
+	QLabel* textLabel1m;
+	QSpinBox* autoSaveTime;
+	QGroupBox* groupUnit;
+	QComboBox* unitCombo;
 
+	ScribusDoc* docc;
 	SCFonts *fon;
 	int einheit;
+	int decimals;
+	double Umrech;
 	double pageWidth;
 	double pageHeight;
 	QColor colorMajorGrid;
@@ -190,8 +209,12 @@ protected:
 	QVBoxLayout* ReformDocLayout;
 	QHBoxLayout* dsGroupBox7Layout;
 	QHBoxLayout* GroupBox7Layout;
+	QHBoxLayout* GroupBox7aLayout;
+	QHBoxLayout* groupScratchLayout;
 	QGridLayout* dsLayout4;
 	QGridLayout* Layout4;
+	QGridLayout* Layout4a;
+	QGridLayout* Layout4s;
 	QHBoxLayout* Layout3;
 	QVBoxLayout* tabGuidesLayout;
 	QVBoxLayout* tabViewLayout;
@@ -223,8 +246,12 @@ protected:
 	QHBoxLayout* buttonGroup5Layout;
 	QHBoxLayout* subTabPolygonLayout;
 	QGridLayout* subTabZoomLayout;
+	QVBoxLayout* tabMiscLayout;
+	QHBoxLayout* groupAutoSaveLayout;
+	QHBoxLayout* groupUnitLayout;
 
 protected slots:
+	virtual void unitChange();
 	virtual void toggleChain();
 	virtual void hChange();
 	virtual void vChange();

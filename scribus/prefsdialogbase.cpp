@@ -18,7 +18,7 @@ PrefsDialogBase::PrefsDialogBase( QWidget* parent ) : QDialog( parent, "PrefsDia
 	prefsSelection = new QIconView( this, "prefsSelection" );
 	prefsSelection->setHScrollBarMode( QIconView::AlwaysOff );
 	prefsSelection->setVScrollBarMode( QIconView::Auto );
-	prefsSelection->setArrangement(QIconView::TopToBottom);
+	prefsSelection->setArrangement(QIconView::LeftToRight);
 	prefsSelection->setItemsMovable(false);
 	prefsSelection->setAutoArrange( true );
 	prefsSelection->setSorting( false );
@@ -32,11 +32,11 @@ PrefsDialogBase::PrefsDialogBase( QWidget* parent ) : QDialog( parent, "PrefsDia
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout4->addItem( spacer );
 	buttonOk = new QPushButton( this, "buttonOk" );
-	buttonOk->setAutoDefault( TRUE );
-	buttonOk->setDefault( TRUE );
+	buttonOk->setAutoDefault( true );
+	buttonOk->setDefault( true );
 	layout4->addWidget( buttonOk );
 	buttonCancel = new QPushButton( this, "buttonCancel" );
-	buttonCancel->setAutoDefault( TRUE );
+	buttonCancel->setAutoDefault( true );
 	layout4->addWidget( buttonCancel );
 	prefsLayout->addLayout( layout4 );
 	languageChange();
@@ -49,6 +49,7 @@ void PrefsDialogBase::addItem(QString name, QPixmap icon, QWidget *tab)
 	prefsWidgets->addWidget(tab, counter);
 	itemMap.insert(ic, counter);
 	counter++;
+//	prefsSelection->arrangeItemsInGrid();
 }
 
 void PrefsDialogBase::itemSelected(QIconViewItem* ic)

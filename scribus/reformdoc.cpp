@@ -11,11 +11,13 @@ extern double UmReFaktor;
 ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : PrefsDialogBase( parent )
 {
 	einheit = doc->Einheit;
+	docc = doc;
 	fon = &prefsData->AvailFonts;
+	Umrech = UmReFaktor;
 	QString units[] = { tr(" pt"), tr(" mm"), tr(" in"), tr(" p")};
 	QString ein = units[doc->Einheit];
 	int dp[] = {100, 1000, 10000, 100};
-	int decimals = dp[doc->Einheit];
+	decimals = dp[doc->Einheit];
 	int i=-1;
 	pageWidth = doc->PageB * UmReFaktor;
 	pageHeight = doc->PageH * UmReFaktor;
@@ -129,25 +131,39 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : Pref
 	Rechts = new QLabel( tr( "&Right:" ), GroupBox7, "Rechts" );
 	Rechts->setBuddy(rightR);
 	Layout4->addWidget( Rechts, 1, 2 );
-	facingPages = new QCheckBox( tr( "&Facing Pages" ),GroupBox7, "facingPages" );
+	GroupBox7Layout->addLayout( Layout4 );
+	ReformDocLayout->addWidget( GroupBox7 );
+	GroupBox7a = new QGroupBox( tabPage, "GroupBox7" );
+	GroupBox7a->setTitle( tr( "Layout" ) );
+	GroupBox7a->setColumnLayout(0, Qt::Vertical );
+	GroupBox7a->layout()->setSpacing( 0 );
+	GroupBox7a->layout()->setMargin( 0 );
+	GroupBox7aLayout = new QHBoxLayout( GroupBox7a->layout() );
+	GroupBox7aLayout->setAlignment( Qt::AlignTop );
+	GroupBox7aLayout->setSpacing( 0 );
+	GroupBox7aLayout->setMargin( 10 );
+	Layout4a = new QGridLayout;
+	Layout4a->setSpacing( 6 );
+	Layout4a->setMargin( 0 );
+	facingPages = new QCheckBox( tr( "&Facing Pages" ),GroupBox7a, "facingPages" );
 	facingPages->setChecked( doc->PageFP );
-	Layout4->addMultiCellWidget( facingPages, 2, 2, 0, 1 );
-	firstPage = new QCheckBox( tr( "Left &Page First" ), GroupBox7, "n" );
+	Layout4a->addMultiCellWidget( facingPages, 2, 2, 0, 1 );
+	firstPage = new QCheckBox( tr( "Left &Page First" ), GroupBox7a, "n" );
 	firstPage->setChecked( doc->FirstPageLeft );
-	Layout4->addMultiCellWidget( firstPage, 2, 2, 2, 3 );
+	Layout4a->addMultiCellWidget( firstPage, 2, 2, 2, 3 );
 	if (!doc->PageFP)
 		firstPage->setEnabled(false);
 	setDS();
-	TextLabel1_3 = new QLabel( tr( "F&irst Page Number:" ), GroupBox7, "TextLabel1_3" );
-	Layout4->addMultiCellWidget( TextLabel1_3, 3, 3, 0, 1 );
-	pageNumber = new QSpinBox( GroupBox7, "pageNumber" );
+	TextLabel1_3 = new QLabel( tr( "F&irst Page Number:" ), GroupBox7a, "TextLabel1_3" );
+	Layout4a->addMultiCellWidget( TextLabel1_3, 3, 3, 0, 1 );
+	pageNumber = new QSpinBox( GroupBox7a, "pageNumber" );
 	pageNumber->setMaxValue( 10000 );
 	pageNumber->setMinValue( 1 );
 	pageNumber->setValue(doc->FirstPnum);
-	Layout4->addWidget( pageNumber, 3, 2, Qt::AlignRight );
+	Layout4a->addWidget( pageNumber, 3, 2, Qt::AlignRight );
 	TextLabel1_3->setBuddy(pageNumber);
-	GroupBox7Layout->addLayout( Layout4 );
-	ReformDocLayout->addWidget( GroupBox7 );
+	GroupBox7aLayout->addLayout( Layout4a );
+	ReformDocLayout->addWidget( GroupBox7a );
 	addItem( tr("Page"), loadIcon("page.png"), tabPage);
 
 	tabGuides = new QWidget( prefsWidgets, "tabView" );
@@ -338,6 +354,54 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : Pref
 	checkUnprintable->setChecked( doc->RandFarbig );
 	pageBackgroundLayout->addWidget( checkUnprintable );
 	tabViewLayout->addWidget( pageBackground );
+
+	groupScratch = new QGroupBox( tabView, "GroupBox7" );
+	groupScratch->setTitle( tr( "Scratch Space" ) );
+	groupScratch->setColumnLayout(0, Qt::Vertical );
+	groupScratch->layout()->setSpacing( 0 );
+	groupScratch->layout()->setMargin( 0 );
+	groupScratchLayout = new QHBoxLayout( groupScratch->layout() );
+	groupScratchLayout->setAlignment( Qt::AlignTop );
+	groupScratchLayout->setSpacing( 0 );
+	groupScratchLayout->setMargin( 10 );
+	Layout4s = new QGridLayout;
+	Layout4s->setSpacing( 6 );
+	Layout4s->setMargin( 0 );
+	topScratch = new MSpinBox( groupScratch, 4 );
+	topScratch->setSuffix( ein );
+	topScratch->setDecimals( decimals );
+	topScratch->setMaxValue(1000);
+	topScratch->setValue(doc->ScratchTop * UmReFaktor);
+	Layout4s->addWidget( topScratch, 0, 1 );
+	TextLabel5s = new QLabel(topScratch, tr( "&Top:" ), groupScratch, "TextLabel5" );
+	Layout4s->addWidget( TextLabel5s, 0, 0 );
+	leftScratch = new MSpinBox( groupScratch, 4 );
+	leftScratch->setSuffix( ein );
+	leftScratch->setDecimals( decimals );
+	leftScratch->setMaxValue(1000);
+	leftScratch->setValue(doc->ScratchLeft * UmReFaktor);
+	Layout4s->addWidget( leftScratch, 0, 3 );
+	Linkss = new QLabel(leftScratch, tr( "&Left:" ), groupScratch, "Links" );
+	Layout4s->addWidget( Linkss, 0, 2 );
+	bottomScratch = new MSpinBox( groupScratch, 4 );
+	bottomScratch->setSuffix( ein );
+	bottomScratch->setDecimals( decimals );
+	bottomScratch->setMaxValue(1000);
+	bottomScratch->setValue(doc->ScratchBottom * UmReFaktor);
+	Layout4s->addWidget( bottomScratch, 1, 1 );
+	TextLabel7s = new QLabel(bottomScratch, tr( "&Bottom:" ), groupScratch, "TextLabel7" );
+	Layout4s->addWidget( TextLabel7s, 1, 0 );
+	rightScratch = new MSpinBox( groupScratch, 4 );
+	rightScratch->setSuffix( ein );
+	rightScratch->setDecimals( decimals );
+	rightScratch->setMaxValue(1000);
+	rightScratch->setValue(doc->ScratchRight * UmReFaktor);
+	Layout4s->addWidget( rightScratch, 1, 3 );
+	Rechtss = new QLabel(rightScratch, tr( "&Right:" ), groupScratch, "Rechts" );
+	Layout4s->addWidget( Rechtss, 1, 2 );
+	groupScratchLayout->addLayout( Layout4s );
+	tabViewLayout->addWidget( groupScratch );
+
 	buttonGroup1 = new QButtonGroup( tabView, "buttonGroup1" );
 	buttonGroup1->setExclusive( true );
 	buttonGroup1->setColumnLayout(0, Qt::Vertical );
@@ -455,7 +519,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : Pref
 	tabTools = new QWidget( prefsWidgets, "tabTools" );
 	tabToolsLayout = new QHBoxLayout( tabTools, 11, 6, "tabToolsLayout");
 	buttonGroupTools = new QButtonGroup( tabTools, "buttonGroupTools" );
-	buttonGroupTools->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)5, 0, 0, buttonGroupTools->sizePolicy().hasHeightForWidth() ) );
+	buttonGroupTools->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)0, (QSizePolicy::SizeType)5, 0, 0, buttonGroupTools->sizePolicy().hasHeightForWidth() ) );
 	buttonGroupTools->setExclusive( true );
 	buttonGroupTools->setRadioButtonExclusive( true );
 	buttonGroupTools->setColumnLayout(0, Qt::Vertical );
@@ -496,6 +560,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : Pref
 	buttonGroupToolsLayout->addWidget( toolZoom );
 	tabToolsLayout->addWidget( buttonGroupTools );
 	subStackTools = new QWidgetStack( tabTools, "subStackTools" );
+	subStackTools->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)5, 0, 0, subStackTools->sizePolicy().hasHeightForWidth() ) );
 	subStackTools->setFrameShape( QWidgetStack::GroupBoxPanel );
 	subStackTools->setFrameShadow( QWidgetStack::Sunken );
 	subTabText = new QWidget( subStackTools, "subTabText" );
@@ -559,7 +624,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : Pref
 	subTabTextLayout->addMultiCellWidget( colorComboText, 2, 2, 1, 3 );
 	gapText = new MSpinBox( 0, 200, subTabText, decimals );
 	gapText->setSuffix( tr( " pt" ) );
-	gapText->setValue(doc->DGap);
+	gapText->setValue(doc->DGap * UmReFaktor);
 	subTabTextLayout->addWidget( gapText, 3, 3 );
 	textLabel5b = new QLabel(gapText, tr("&Gap:"), subTabText, "TextCol");
 	subTabTextLayout->addWidget( textLabel5b, 3, 2 );
@@ -817,6 +882,44 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : Pref
 	tabToolsLayout->addWidget( subStackTools );
 	addItem( tr("Tools"), loadIcon("tools.png"), tabTools);
 
+	tabMisc = new QWidget( prefsWidgets, "tabMisc" );
+	tabMiscLayout = new QVBoxLayout( tabMisc, 11, 6, "tabMiscLayout");
+	groupAutoSave = new QGroupBox( tabMisc, "groupAutoSave" );
+	groupAutoSave->setTitle( tr( "Autosave" ) );
+	groupAutoSave->setCheckable( true );
+	groupAutoSave->setChecked( doc->AutoSave );
+	groupAutoSave->setColumnLayout(0, Qt::Vertical );
+	groupAutoSave->layout()->setSpacing( 6 );
+	groupAutoSave->layout()->setMargin( 11 );
+	groupAutoSaveLayout = new QHBoxLayout( groupAutoSave->layout() );
+	groupAutoSaveLayout->setAlignment( Qt::AlignTop );
+	autoSaveTime = new QSpinBox( groupAutoSave, "autoSaveTime" );
+	autoSaveTime->setMinValue( 1 );
+	autoSaveTime->setMaxValue( 60 );
+	autoSaveTime->setSuffix( " " + tr("min") );
+	autoSaveTime->setValue(doc->AutoSaveTime / 1000 / 60);
+	groupAutoSaveLayout->addWidget( autoSaveTime );
+	textLabel1m = new QLabel(autoSaveTime, tr( "&Interval:" ), groupAutoSave, "textLabel1m" );
+	groupAutoSaveLayout->addWidget( textLabel1m );
+	tabMiscLayout->addWidget( groupAutoSave );
+	groupUnit = new QGroupBox( tabMisc, "groupUnit" );
+	groupUnit->setTitle( tr( "Units" ) );
+	groupUnit->setColumnLayout(0, Qt::Vertical );
+	groupUnit->layout()->setSpacing( 6 );
+	groupUnit->layout()->setMargin( 11 );
+	groupUnitLayout = new QHBoxLayout( groupUnit->layout() );
+	groupUnitLayout->setAlignment( Qt::AlignTop );
+	unitCombo = new QComboBox( true, groupUnit, "unitCombo" );
+	unitCombo->insertItem( tr( "Points (pt)" ) );
+	unitCombo->insertItem( tr( "Millimetres (mm)" ) );
+	unitCombo->insertItem( tr( "Inches (in)" ) );
+	unitCombo->insertItem( tr( "Picas (p)" ) );
+	unitCombo->setEditable(false);
+	unitCombo->setCurrentItem(doc->Einheit);
+	groupUnitLayout->addWidget( unitCombo );
+	tabMiscLayout->addWidget( groupUnit );
+	addItem(  tr("Misc."), loadIcon("misc.png"), tabMisc);
+
 	rightR->setMaxValue(pageWidth - leftR->value());
 	leftR->setMaxValue(pageWidth - rightR->value());
 	topR->setMaxValue(pageHeight - bottomR->value());
@@ -858,10 +961,105 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : Pref
 	connect(chainButton, SIGNAL(clicked()), this, SLOT(toggleChain()));
 	connect(scalingHorizontal, SIGNAL(valueChanged(int)), this, SLOT(hChange()));
 	connect(scalingVertical, SIGNAL(valueChanged(int)), this, SLOT(vChange()));
+	connect(unitCombo, SIGNAL(activated(int)), this, SLOT(unitChange()));
 
 	prefsWidgets->raiseWidget(0);
 	resize( minimumSizeHint() );
 	clearWState( WState_Polished );
+}
+
+void ReformDoc::unitChange()
+{
+	disconnect(topR, SIGNAL(valueChanged(int)), this, SLOT(setTop(int)));
+	disconnect(bottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom(int)));
+	disconnect(leftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft(int)));
+	disconnect(rightR, SIGNAL(valueChanged(int)), this, SLOT(setRight(int)));
+	int decimalsOld;
+	double AltUmrech = Umrech;
+	double oldMin, oldMax, val;
+	QString einh;
+	einheit = unitCombo->currentItem();
+	switch (unitCombo->currentItem())
+	{
+	case 0:
+		Umrech = 1.0;
+		decimals = 100;
+		einh = tr( " pt" );
+		break;
+	case 1:
+		Umrech = 0.3527777;
+		decimals = 1000;
+		einh = tr( " mm" );
+		break;
+	case 2:
+		Umrech = 1.0 / 72.0;
+		decimals = 10000;
+		einh = tr( " in" );
+		break;
+	case 3:
+		Umrech = 1.0 / 12.0;
+		decimals = 100;
+		einh = tr( " p" );
+		break;
+	}
+	widthMSpinBox->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	widthMSpinBox->setValues(oldMin / AltUmrech * Umrech, oldMax / AltUmrech * Umrech, decimals, docc->PageB * Umrech);
+	widthMSpinBox->setSuffix(einh);
+	heightMSpinBox->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	heightMSpinBox->setValues(oldMin / AltUmrech * Umrech, oldMax / AltUmrech * Umrech, decimals, docc->PageH * Umrech);
+	heightMSpinBox->setSuffix(einh);
+	topR->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	topR->setValues(0, oldMax / AltUmrech * Umrech, decimals, val / AltUmrech * Umrech);
+	topR->setSuffix(einh);
+	bottomR->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	bottomR->setValues(0, oldMax / AltUmrech * Umrech, decimals, val / AltUmrech * Umrech);
+	bottomR->setSuffix(einh);
+	leftR->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	leftR->setValues(0, oldMax / AltUmrech * Umrech, decimals, val / AltUmrech * Umrech);
+	leftR->setSuffix(einh);
+	rightR->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	rightR->setValues(0, oldMax / AltUmrech * Umrech, decimals, val / AltUmrech * Umrech);
+	rightR->setSuffix(einh);
+	minorSpace->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	minorSpace->setValues(oldMin / AltUmrech * Umrech, oldMax / AltUmrech * Umrech, decimals, val / AltUmrech * Umrech);
+	minorSpace->setSuffix(einh);
+	majorSpace->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	majorSpace->setValues(oldMin / AltUmrech * Umrech, oldMax / AltUmrech * Umrech, decimals, val / AltUmrech * Umrech);
+	majorSpace->setSuffix(einh);
+	snapDistance->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	snapDistance->setValues(oldMin / AltUmrech * Umrech, oldMax / AltUmrech * Umrech, decimals, val / AltUmrech * Umrech);
+	snapDistance->setSuffix(einh);
+	baseGrid->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	baseGrid->setValues(oldMin / AltUmrech * Umrech, oldMax / AltUmrech * Umrech, decimals, val / AltUmrech * Umrech);
+	baseGrid->setSuffix(einh);
+	baseOffset->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	baseOffset->setValues(oldMin / AltUmrech * Umrech, oldMax / AltUmrech * Umrech, decimals, val / AltUmrech * Umrech);
+	baseOffset->setSuffix(einh);
+	gapText->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	gapText->setValues(oldMin / AltUmrech * Umrech, oldMax / AltUmrech * Umrech, decimals, val / AltUmrech * Umrech);
+	gapText->setSuffix(einh);
+	topScratch->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	topScratch->setValues(oldMin / AltUmrech * Umrech, oldMax / AltUmrech * Umrech, decimals, val / AltUmrech * Umrech);
+	topScratch->setSuffix(einh);
+	bottomScratch->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	bottomScratch->setValues(oldMin / AltUmrech * Umrech, oldMax / AltUmrech * Umrech, decimals, val / AltUmrech * Umrech);
+	bottomScratch->setSuffix(einh);
+	leftScratch->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	leftScratch->setValues(oldMin / AltUmrech * Umrech, oldMax / AltUmrech * Umrech, decimals, val / AltUmrech * Umrech);
+	leftScratch->setSuffix(einh);
+	rightScratch->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	rightScratch->setValues(oldMin / AltUmrech * Umrech, oldMax / AltUmrech * Umrech, decimals, val / AltUmrech * Umrech);
+	rightScratch->setSuffix(einh);
+	pageWidth = docc->PageB * Umrech;
+	pageHeight = docc->PageH * Umrech;
+	rightR->setMaxValue(pageWidth - leftR->value());
+	leftR->setMaxValue(pageWidth - rightR->value());
+	topR->setMaxValue(pageHeight - bottomR->value());
+	bottomR->setMaxValue(pageHeight - topR->value());
+	connect(topR, SIGNAL(valueChanged(int)), this, SLOT(setTop(int)));
+	connect(bottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom(int)));
+	connect(leftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft(int)));
+	connect(rightR, SIGNAL(valueChanged(int)), this, SLOT(setRight(int)));
 }
 
 /*!

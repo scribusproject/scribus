@@ -715,6 +715,7 @@ public: // Public attributes
 	bool hasName;
 	int RotMode;
 	bool AutoSave;
+	int AutoSaveTime;
 	QTimer *ASaveTimer;
 	FT_Library   library;
 	QMap<QString,FT_Face> FFonts;

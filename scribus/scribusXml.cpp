@@ -2440,6 +2440,12 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	dc.setAttribute("POLYR", doc->PolyR);
 	dc.setAttribute("POLYFD", doc->PolyFd);
 	dc.setAttribute("POLYS", static_cast<int>(doc->PolyS));
+	dc.setAttribute("AutoSave", static_cast<int>(doc->AutoSave));
+	dc.setAttribute("AutoSaveTime", doc->AutoSaveTime);
+	dc.setAttribute("ScratchBottom", doc->ScratchBottom);
+	dc.setAttribute("ScatchLeft", doc->ScratchLeft);
+	dc.setAttribute("ScratchRight", doc->ScratchRight);
+	dc.setAttribute("ScratchTop", doc->ScratchTop);
 	QMap<QString,multiLine>::Iterator itMU;
 	for (itMU = doc->MLineStyles.begin(); itMU != doc->MLineStyles.end(); ++itMU)
 	{

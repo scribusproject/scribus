@@ -163,6 +163,8 @@ bool FileLoader::LoadFile(ScribusApp* app)
 	app->doc->PolyR = app->Prefs.PolyR;
 	app->doc->PolyFd = app->Prefs.PolyFd;
 	app->doc->PolyS = app->Prefs.PolyS;
+	app->doc->AutoSave = app->Prefs.AutoSave;
+	app->doc->AutoSaveTime = app->Prefs.AutoSaveTime;
 	switch (FileType)
 	{
 		case 0:
@@ -335,6 +337,12 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		doc->PolyR = QStodouble(dc.attribute("POLYR", "0"));
 		doc->PolyFd = QStoInt(dc.attribute("POLYFD", "0"));
 		doc->PolyS = static_cast<bool>(QStoInt(dc.attribute("POLYS", "0")));
+		doc->AutoSave = static_cast<bool>(QStoInt(dc.attribute("AutoSave","0")));
+		doc->AutoSaveTime = QStoInt(dc.attribute("AutoSaveTime","600000"));
+		doc->ScratchBottom = QStodouble(dc.attribute("ScratchBottom"));
+		doc->ScratchLeft = QStodouble(dc.attribute("ScatchLeft"));
+		doc->ScratchRight = QStodouble(dc.attribute("ScratchRight"));
+		doc->ScratchTop = QStodouble(dc.attribute("ScratchTop"));
 		QDomNode PAGE=DOC.firstChild();
 		counter = 0;
 		while(!PAGE.isNull())

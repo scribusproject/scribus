@@ -2288,6 +2288,7 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	connect(doc->ASaveTimer, SIGNAL(timeout()), w, SLOT(slotAutoSave()));
 	connect(w, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
 	doc->AutoSave = Prefs.AutoSave;
+	doc->AutoSaveTime = Prefs.AutoSaveTime;
 	if (doc->AutoSave)
 		doc->ASaveTimer->start(Prefs.AutoSaveTime);
 	DatSav->setEnabled(false);
@@ -2410,7 +2411,6 @@ bool ScribusApp::SetupDoc()
 			doc->FirstPageLeft = dia->firstPage->isChecked();
 		doc->FirstPnum = dia->pageNumber->value();
 		doc->resetPage(tpr2, lr2, rr2, br2, fp);
-		view->reformPages();
 		doc->MarginsShown = dia->checkMargin->isChecked();
 		doc->FramesShown = dia->checkFrame->isChecked();
 		doc->GridShown = dia->checkGrid->isChecked();
@@ -2506,21 +2506,18 @@ bool ScribusApp::SetupDoc()
 		doc->ScaleType = dia->buttonGroup3->isChecked();
 		doc->AspectRatio = dia->checkRatioImage->isChecked();
 		dia->polyWidget->getValues(&doc->PolyC, &doc->PolyFd, &doc->PolyF, &doc->PolyS, &doc->PolyR);
-/*		if (HaveDoc)
+		doc->ScratchBottom = dia->bottomScratch->value();
+		doc->ScratchLeft = dia->leftScratch->value();
+		doc->ScratchRight = dia->rightScratch->value();
+		doc->ScratchTop = dia->topScratch->value();
+		doc->AutoSave = dia->groupAutoSave->isChecked();
+		doc->AutoSaveTime = dia->autoSaveTime->value() * 60 * 1000;
+		if (doc->AutoSave)
 		{
-			slotChangeUnit(dia->UnitCombo->currentItem(), false);
-			doc->GrabRad = dia->SpinBox3_2->value();
-			doc->AutoSave = dia->ASon->isChecked();
-			if (doc->AutoSave)
-			{
-				doc->ASaveTimer->stop();
-				doc->ASaveTimer->start(dia->ASTime->value() * 60 * 1000);
-			}
-			view->reformPages();
-			view->DrawNew();
+			doc->ASaveTimer->stop();
+			doc->ASaveTimer->start(doc->AutoSaveTime);
 		}
-		else
-		{ */
+		slotChangeUnit(dia->unitCombo->currentItem(), false);
 		viewMenu->setItemChecked(Markers, doc->MarginsShown);
 		viewMenu->setItemChecked(FrameDr, doc->FramesShown);
 		viewMenu->setItemChecked(Ras, doc->GridShown);
@@ -2533,6 +2530,7 @@ bool ScribusApp::SetupDoc()
 			if (doc->Items.at(b)->PType == 2)
 				doc->Items.at(b)->PicArt = doc->ShowPic;
 		}
+		view->reformPages();
 		view->GotoPage(doc->ActPage->PageNr);
 		view->DrawNew();
 //		Sepal->RebuildPage();
@@ -3707,9 +3705,8 @@ bool ScribusApp::LadeDoc(QString fileName)
 		newActWin(w);
 		connect(doc->ASaveTimer, SIGNAL(timeout()), w, SLOT(slotAutoSave()));
 		connect(w, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
-		doc->AutoSave = Prefs.AutoSave;
 		if (doc->AutoSave)
-			doc->ASaveTimer->start(Prefs.AutoSaveTime);
+			doc->ASaveTimer->start(doc->AutoSaveTime);
 		DatSav->setEnabled(false);
 		fileMenu->setItemEnabled(fid4, 0);
 	}

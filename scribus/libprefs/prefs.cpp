@@ -1245,7 +1245,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	GroupBox10Layout->setSpacing( 6 );
 	GroupBox10Layout->setMargin( 11 );
 	SidebySide = new QCheckBox( tr( "Display Pages &Side by Side" ), GroupBox10, "SidebySide" );
-	SidebySide->setChecked(ap->HaveDoc ? ap->doc->PagesSbS : Vor->PagesSbS);
+	SidebySide->setChecked(Vor->PagesSbS);
 	GroupBox10Layout->addWidget( SidebySide );
 
 	Layout_6b = new QHBoxLayout();
@@ -2096,9 +2096,6 @@ void Preferences::UnitChange()
 	Breite->getValues(&oldB, &oldBM, &decimals, &val);
 	oldB /= AltUmrech;
 	oldBM /= AltUmrech;
-	Breite->getValues(&oldB, &oldBM, &decimals, &val);
-	oldB /= AltUmrech;
-	oldBM /= AltUmrech;
 	Hoehe->getValues(&oldH, &oldHM, &decimals, &val);
 	oldH /= AltUmrech;
 	oldHM /= AltUmrech;
@@ -2203,6 +2200,11 @@ void Preferences::DrawRuler()
 		iter = 12.0;
 		iter2 = 120.0;
 		maxi = 240.0;
+		break;
+	default:
+		iter = 10.0;
+		iter2 = iter * 10.0;
+		maxi = 200.0;
 		break;
 	}
 	QPixmap pm(static_cast<int>(maxi*DisScale+30), 21);
