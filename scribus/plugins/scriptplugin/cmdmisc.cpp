@@ -294,3 +294,10 @@ PyObject *scribus_createlayer(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
+PyObject *scribus_getlanguage(PyObject *self, PyObject* args)
+{
+	if (!PyArg_ParseTuple(args, ""))
+		return NULL;
+	return PyString_FromString(Carrier->GuiLanguage);
+}
+

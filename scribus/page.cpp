@@ -64,6 +64,8 @@
 	#define SPLITHC SplitHCursor
 #endif
 
+#include <unistd.h>
+
 #ifdef HAVE_TIFF
 	#include <tiffio.h>
 #endif
@@ -2378,10 +2380,21 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			return;
 		}
 	}
-	if (doku->AppMode == 23)
+	if (doku->AppMode == 24)
 	{
+		QPainter p;
+		p.begin(this);
+		p.setRasterOp(XorROP);
+		p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
+		p.drawLine(Dxp, Dyp, Mxp, Myp);
+		p.end();
+		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+		doku->AppMode = 1;
+		emit PaintingDone();
 		return;
 	}
+	if (doku->AppMode == 23)
+		return;
 	if (doku->AppMode == 22)
 	{
 		if ((SelItem.count() == 0) && (HaveSelRect) && (!MidButt))
@@ -2790,7 +2803,24 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			if (!b->Locked)
 			{
 				if (SelItem.count() > 1)
-					pmen->insertItem( tr("Group"), this, SIGNAL(DoGroup()));
+				{
+					bool isGroup = true;
+					int firstElem = -1;
+					if (b->Groups.count() != 0)
+						firstElem = b->Groups.top();
+					for (uint bx = 0; bx < SelItem.count(); ++bx)
+					{
+						if (SelItem.at(bx)->Groups.count() != 0)
+						{
+							if (SelItem.at(bx)->Groups.top() != firstElem)
+								isGroup = false;
+						}
+						else
+							isGroup = false;
+					}
+					if (!isGroup)
+						pmen->insertItem( tr("Group"), this, SIGNAL(DoGroup()));
+				}
 				if (b->Groups.count() != 0)
 					pmen->insertItem( tr("Un-group"), this, SIGNAL(DoUnGroup()));
 				if ((!b->isTableItem) && (!b->isSingleSel))
@@ -3786,6 +3816,21 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 		}
 	else
 		BlockLeave = false;
+	}
+	if (Mpressed && (doku->AppMode == 24))
+	{
+		newX = m->x();
+		newY = m->y();
+		p.begin(this);
+		p.setRasterOp(XorROP);
+		p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
+		p.drawLine(Dxp, Dyp, Mxp, Myp);
+		p.drawLine(Dxp, Dyp, newX, newY);
+		p.end();
+		Mxp = newX;
+		Myp = newY;
+		emit MVals(Dxp/sc, Dyp/sc, newX/sc, newY/sc, -xy2Deg(newX/sc - Dxp*sc, newY/sc - Dyp/sc), sqrt(pow(newX/sc - Dxp/sc,2)+pow(newY/sc - Dyp/sc,2)), doku->Einheit);
+		return;
 	}
 	if (Mpressed && (doku->AppMode == 23))
 	{
@@ -5294,6 +5339,14 @@ void Page::mousePressEvent(QMouseEvent *m)
 		Deselect(false);
 		break;
 	case 23:
+		break;
+	case 24:
+		Mpressed = true;
+		qApp->setOverrideCursor(QCursor(CrossCursor), true);
+		Dxp = m->x();
+		Dyp = m->y();
+		Mxp = m->x();
+		Myp = m->y();
 		break;
 	}
 }
@@ -8195,7 +8248,7 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 				it++;
 				hg->cab = it == NULL ? 0 : (*it).toInt();
 				it++;
-				hg->cstroke = it == NULL ? "None" : *it;
+				hg->cstroke = it == NULL ? QString("None") : *it;
 				it++;
 				hg->cshade2 = it == NULL ? 100 : (*it).toInt();
 				it++;

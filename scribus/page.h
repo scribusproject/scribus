@@ -327,6 +327,7 @@ signals: // Signals
 	void DoGroup();
 	void DoUnGroup();
 	void LevelChanged(uint);
+	void MVals(double, double, double, double, double, double, int);
 	
 protected:
 	virtual void mouseDoubleClickEvent(QMouseEvent *);

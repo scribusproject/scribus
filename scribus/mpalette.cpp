@@ -495,7 +495,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	layout41->addMultiCellWidget( Fonts, 0, 0, 0, 1 );
 
 	Text20 = new QLabel( page_3, "Text20" );
-	Text20->setText( tr("Size:"));
+	Text20->setText( tr("Font Size:"));
 	layout41->addWidget( Text20, 1, 0 );
 	Size = new MSpinBox( page_3, 1 );
 	Size->setPrefix( "" );

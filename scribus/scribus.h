@@ -62,6 +62,7 @@ class FontCombo;
 class StilFormate;
 class LineFormate;
 class Mpalette;
+class Measurements;
 /**
   * This Class is the base class for your application. It sets up the main
   * window and providing a menubar, toolbar
@@ -123,6 +124,7 @@ public:
 	struct CLBuf Buffer;
 	QString Buffer2;
 	QString Buffer3;
+	QString GuiLanguage;
 	bool BuFromApp;
 	ProfilesL MonitorProfiles;
 	ProfilesL PrinterProfiles;
@@ -155,6 +157,7 @@ public:
 	LayerPalette* Lpal;
 	SeitenPal *Sepal;
 	BookPalette *BookPal;
+	Measurements* MaPal;
 	QMap<QString,QString> Sprachen;
 	QWorkspace *wsp;
 	QPopupMenu* windowsMenu;
@@ -411,6 +414,7 @@ public slots:
 	void HaveRaster(bool art);
 	void EditTabs();
 	void SearchText();
+	void DefKB();
 
 signals:
 	void TextISize(int);
@@ -434,8 +438,11 @@ private:
 	QPopupMenu *ObjMenu;
 	/** pageMenu enthaelt das Seitenmenue */
 	QPopupMenu *pageMenu;
-	/** view_menu contains all items of the menubar entry "View" */
+	/** viewMenu contains all items of the menubar entry "View" */
 	QPopupMenu *viewMenu;
+	/** settingsMenu contains all items of the menubar entry "Settings" */
+	int SetMen;
+	QPopupMenu *settingsMenu;
 	/** ColorMenu enthaelt die Farben des Dokuments */
 	int ViMen;
 	QPopupMenu *ColorMenu;
@@ -452,7 +459,6 @@ private:
 	QPopupMenu *TypeStyleMenu;
 	QPopupMenu *AliMenu;
 	QPopupMenu *recentMenu;
-	QPopupMenu *hymen;
 	QToolBar *WerkTools2;
 	WerkToolBP* WerkToolsP;
 	QToolButton* DatOpe;

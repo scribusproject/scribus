@@ -57,7 +57,6 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	else
 		decimals = f[Einheit];
 	DisScale = Vor->DisScale;
-	KKC = Vor->KeyActions;
 	setCaption( tr( "Preferences" ) );
 	setIcon(loadIcon("AppIcon.png"));
 	setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
@@ -188,9 +187,6 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	Recen->setMinValue( 1 );
 	Recen->setValue( Vor->RecentDCount );
 	GroupBox20bLayout->addWidget( Recen, 0, 1 );
-	Shorty = new QPushButton(GroupBox20b, "SH");
-	Shorty->setText( tr("Keyboard Shortcuts..."));
-	GroupBox20bLayout->addMultiCellWidget( Shorty, 1, 1, 0, 1 );
 	tabLayout->addWidget( GroupBox20b, 1, 1 );
 
 	GroupBox200 = new QGroupBox( tab, "GroupBox200" );
@@ -1573,8 +1569,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	QWidget::setTabOrder( SpinBox3, SpinBox3_2 );
 	QWidget::setTabOrder( SpinBox3_2, UnitCombo );
 	QWidget::setTabOrder( UnitCombo, Recen );
-	QWidget::setTabOrder( Recen, Shorty );
-	QWidget::setTabOrder( Shorty, Docs );
+	QWidget::setTabOrder( Recen, Docs );
 	QWidget::setTabOrder( Docs, FileC );
 	QWidget::setTabOrder( FileC, ProPfad );
 	QWidget::setTabOrder( ProPfad, FileC2  );
@@ -1594,7 +1589,6 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	QToolTip::add( SpinBox3, tr( "Number of lines Scribus will scroll for each move of the mouse wheel" ) );
 	QToolTip::add( SpinBox3_2, tr( "Radius of the area where Scribus will allow you to grab an objects handles" ) );
 	QToolTip::add( Recen, tr( "Number of recently edited documents to show in the File menu" ) );
-	QToolTip::add( Shorty, tr( "Change the keyboard shortcuts to your preference" ) );
 	QToolTip::add( Docs, tr( "Default documents directory" ) );
 	QToolTip::add( ProPfad, tr( "Default ICC profiles directory" ) );
 	QToolTip::add( ScriptPfad, tr( "Default Scripter scripts directory" ) );
@@ -1717,7 +1711,6 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	connect(XScale, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
 	connect(YScale, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
 	connect(UnitCombo, SIGNAL(activated(int)), this, SLOT(UnitChange()));
-	connect(Shorty, SIGNAL(clicked()), this, SLOT(DefKB()));
 	connect(T6_Faktor, SIGNAL(valueChanged(int)), this, SLOT(ValFromSpin(int)));
 	connect(T6_Slider1, SIGNAL(valueChanged(int)), T6_Faktor, SLOT(setValue(int)));
 	connect(T6_Slider1, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreView()));
@@ -2004,22 +1997,6 @@ void Preferences::setOrien(int ori)
 	}
 	connect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
 	connect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
-}
-
-/*!
- \fn void Preferences::DefKB()
- \author Franz Schmid 
- \date  
- \brief Preferences (General / Menus), Creates and opens KeyManager dialog for shortcut key preferences.
- \param None
- \retval None 
- */
-void Preferences::DefKB()
-{
-	KeyManager *dia = new KeyManager(this, KKC);
-	if (dia->exec())
-		KKC = dia->KK;
-	delete dia;
 }
 
 /*!

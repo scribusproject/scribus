@@ -11,6 +11,8 @@ install-data-local:
 	$(mkinstalldirs) $(prefix)/lib/scribus/
 	$(INSTALL_DATA) $(srcdir)/scribus.cs.qm $(prefix)/lib/scribus/scribus.cs.qm
 	$(mkinstalldirs) $(prefix)/lib/scribus/
+	$(INSTALL_DATA) $(srcdir)/scribus.ca.qm $(prefix)/lib/scribus/scribus.ca.qm
+	$(mkinstalldirs) $(prefix)/lib/scribus/
 	$(INSTALL_DATA) $(srcdir)/scribus.da.qm $(prefix)/lib/scribus/scribus.da.qm
 	$(mkinstalldirs) $(prefix)/lib/scribus/
 	$(INSTALL_DATA) $(srcdir)/scribus.de.qm $(prefix)/lib/scribus/scribus.de.qm
@@ -57,6 +59,7 @@ uninstall-local:
 	-rm -f $(prefix)/lib/scribus/scribus.bg.qm
 	-rm -f $(prefix)/lib/scribus/scribus.br.qm
 	-rm -f $(prefix)/lib/scribus/scribus.cs.qm
+	-rm -f $(prefix)/lib/scribus/scribus.ca.qm
 	-rm -f $(prefix)/lib/scribus/scribus.da.qm
 	-rm -f $(prefix)/lib/scribus/scribus.de.qm
 	-rm -f $(prefix)/lib/scribus/scribus.en_GB.qm

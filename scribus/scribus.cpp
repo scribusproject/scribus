@@ -66,6 +66,7 @@
 #include "javadocs.h"
 #include "colorm.h"
 #include "mpalette.h"
+#include "measurements.h"
 
 #ifndef _MSC_VER   // jjsa 21-03-2004 (lint complains)
 #define _MSC_VER -1
@@ -85,6 +86,7 @@
 #include "fpointarray.h"
 #include "hysettings.h"
 #include "guidemanager.h"
+#include "keymanager.h"
 #include "mergedoc.h"
 #include "lineformats.h"
 #include "story.h"
@@ -410,6 +412,8 @@ void ScribusApp::initScribus()
 		ScBook = new Biblio(this, &Prefs);
 		Sepal = new SeitenPal(this);
 		BookPal = new BookPalette(this);
+		MaPal = new Measurements(this);
+		MaPal->hide();
 		CMSavail = false;
 		keyrep = false;
 		Prefs.DCMSset.DefaultMonitorProfile = "";
@@ -453,7 +457,7 @@ void ScribusApp::initScribus()
 		SetShortCut();
 		if (CMSavail)
 		{
-			hymen->insertItem( tr("Color Management..."), this , SLOT(SetCMSPrefs()));
+			settingsMenu->insertItem( tr("Color Management..."), this , SLOT(SetCMSPrefs()));
 			ProfilesL::Iterator ip;
 			if ((Prefs.DCMSset.DefaultInputProfile == "") || (!InputProfiles.contains(Prefs.DCMSset.DefaultInputProfile)))
 			{
@@ -665,13 +669,6 @@ void ScribusApp::initMenuBar()
 	tman = editMenu->insertItem( tr("Templates..."), this, SLOT(ManageTemp()));
 	SetKeyEntry(16, tr("Templates..."), tman, 0);
 	jman = editMenu->insertItem( tr("Javascripts..."), this, SLOT(ManageJava()));
-	hymen = new QPopupMenu();
-	MenID = hymen->insertItem( tr("General..."), this , SLOT(slotPrefsOrg()));
-	SetKeyEntry(18, tr("Preferences..."), MenID, 0);
-	MenID = hymen->insertItem( tr("Fonts..."), this , SLOT(slotFontOrg()));
-	SetKeyEntry(17, tr("Fonts..."), MenID, 0);
-	hymen->insertItem( tr("Hyphenator..."), this, SLOT(configHyphenator()));
-	editMenu->insertItem( tr("Preferences"), hymen);
 	editMenu->setItemEnabled(edUndo, 0);
 	editMenu->setItemEnabled(edid1, 0);
 	editMenu->setItemEnabled(edid2, 0);
@@ -774,11 +771,6 @@ void ScribusApp::initMenuBar()
 	uGuide = viewMenu->insertItem( tr("Snap to Guides"), this, SLOT(ToggleUGuides()));
 	Base = viewMenu->insertItem( tr("Show Baseline Grid"), this, SLOT(ToggleBase()));
 	toolMenu=new QPopupMenu();
-	toolbarMenu = new QPopupMenu();
-	toolbarMenuTools = toolbarMenu->insertItem( tr("Tools"), this, SLOT(ToggleTools()));
-	SetKeyEntry(45, tr("Tools"), toolbarMenuTools, 0);
-	toolbarMenuPDFTools = toolbarMenu->insertItem( tr("PDF-Tools"), this, SLOT(TogglePDFTools()));
-	viewToolbars = toolMenu->insertItem ( tr("Tool&bars"), toolbarMenu);
 	viewMpal = toolMenu->insertItem( tr("Properties"), this, SLOT(ToggleMpal()));
 	SetKeyEntry(46, tr("Properties"), viewMpal, 0);
 	viewTpal = toolMenu->insertItem( tr("Outline"), this, SLOT(ToggleTpal()));
@@ -794,6 +786,22 @@ void ScribusApp::initMenuBar()
 	hyph = extraMenu->insertItem( tr("Hyphenate Text"), this, SLOT(doHyphenate()));
 	extraMenu->setItemEnabled(hyph, 0);
 	SetKeyEntry(50, tr("Hyphenate Text"), hyph, 0);
+
+	settingsMenu = new QPopupMenu();
+	tip = settingsMenu->insertItem( tr("Tool-Tips"), this, SLOT(ToggleTips()));
+	toolbarMenuTools = settingsMenu->insertItem( tr("Tools"), this, SLOT(ToggleTools()));
+	toolbarMenuPDFTools = settingsMenu->insertItem( tr("PDF-Tools"), this, SLOT(TogglePDFTools()));
+	SetKeyEntry(45, tr("Tools"), toolbarMenuTools, 0);
+	SetKeyEntry(55, tr("Tool-Tips"), tip, 0);
+	tipsOn = true;
+	settingsMenu->setItemChecked(tip, tipsOn);
+	settingsMenu->insertSeparator();
+	MenID = settingsMenu->insertItem( tr("Preferences..."), this , SLOT(slotPrefsOrg()));
+	MenID = settingsMenu->insertItem( tr("Fonts..."), this , SLOT(slotFontOrg()));
+	SetKeyEntry(17, tr("Fonts..."), MenID, 0);
+	settingsMenu->insertItem( tr("Hyphenator..."), this, SLOT(configHyphenator()));
+	settingsMenu->insertItem( tr("Keyboard Shortcuts..."), this, SLOT(DefKB()));
+
 	windowsMenu = new QPopupMenu();
 	windowsMenu->setCheckable( true );
 	connect(windowsMenu, SIGNAL(aboutToShow()), this, SLOT(windowsMenuAboutToShow()));
@@ -803,12 +811,8 @@ void ScribusApp::initMenuBar()
 	MenID = helpMenu->insertItem( tr("About Qt"), this, SLOT(slotHelpAboutQt()));
 	SetKeyEntry(53, tr("About Qt"), MenID, 0);
 	helpMenu->insertSeparator();
-	MenID = helpMenu->insertItem( tr("Online-Help..."), this, SLOT(slotOnlineHelp()));
+	MenID = helpMenu->insertItem( tr("Scribus Manual..."), this, SLOT(slotOnlineHelp()));
 	SetKeyEntry(54, tr("Online-Help..."), MenID, 0);
-	tip = helpMenu->insertItem( tr("Tool-Tips"), this, SLOT(ToggleTips()));
-	SetKeyEntry(55, tr("Tool-Tips"), tip, 0);
-	tipsOn = true;
-	helpMenu->setItemChecked(tip, tipsOn);
 	//	editMenu->insertItem( tr("Test"), this, SLOT(slotTest()));
 	//	helpMenu->insertItem( tr("Test2"), this, SLOT(slotTest2()));
 	menuBar()->insertItem( tr("&File"), fileMenu);
@@ -824,6 +828,7 @@ void ScribusApp::initMenuBar()
 	menuBar()->insertItem( tr("&Tools"), toolMenu);
 	exmn = menuBar()->insertItem( tr("E&xtras"), extraMenu);
 	menuBar()->setItemEnabled(exmn, 0);
+	SetMen = menuBar()->insertItem( tr("&Settings"), settingsMenu );
 	WinMen = menuBar()->insertItem( tr("&Windows"), windowsMenu );
 	menuBar()->setItemEnabled(WinMen, 0);
 	menuBar()->insertSeparator();
@@ -2319,13 +2324,11 @@ void ScribusApp::SwitchWin()
 		}
 		editMenu->setItemEnabled(tman, 0);
 		DatNeu->setEnabled(false);
-		DatSav->setEnabled(false);
+		DatSav->setEnabled(doc->isModified());
 		DatOpe->setEnabled(false);
 		DatClo->setEnabled(false);
 		fileMenu->setItemEnabled(fid1, 0);
-		fileMenu->setItemEnabled(fid4, 0);
-		fileMenu->setItemEnabled(fid5, 0);
-		fileMenu->setItemEnabled(fid51, 0);
+		fileMenu->setItemEnabled(fid4, doc->isModified());
 		fileMenu->setItemEnabled(fid52, 0);
 		fileMenu->setItemEnabled(fid12, 0);
 		fileMenu->setItemEnabled(fid13, 0);
@@ -2438,6 +2441,8 @@ void ScribusApp::HaveNewDoc()
 	BuildFontMenu();
 	connect(view, SIGNAL(changeUN(int)), this, SLOT(slotChangeUnit(int)));
 	connect(view, SIGNAL(changeLA(int)), Lpal, SLOT(MarkActiveLayer(int)));
+	connect(view->HR, SIGNAL(MarkerMoved(double, double)), this, SLOT(ReportMP(double, double)));
+	connect(view->HR, SIGNAL(DocChanged(bool)), this, SLOT(slotDocCh(bool)));
 	doc->PDF_Optionen.BleedBottom = doc->PageM.Bottom;
 	doc->PDF_Optionen.BleedTop = doc->PageM.Top;
 	doc->PDF_Optionen.BleedLeft = doc->PageM.Left;
@@ -2789,13 +2794,13 @@ void ScribusApp::slotDocCh(bool reb)
 	if (!doc->isModified())
 		doc->setModified();
 	ActWin->setCaption( doc->DocName + "*");
+	fileMenu->setItemEnabled(fid4, 1);
+	DatSav->setEnabled(true);
+	fileMenu->setItemEnabled(fid5, 1);
+	fileMenu->setItemEnabled(fid51, 1);
 	if (!doc->TemplateMode)
 	{
-		fileMenu->setItemEnabled(fid4, 1);
-		DatSav->setEnabled(true);
 		DatClo->setEnabled(true);
-		fileMenu->setItemEnabled(fid5, 1);
-		fileMenu->setItemEnabled(fid51, 1);
 		if (doc->hasName)
 			fileMenu->setItemEnabled(fid52, 1);
 	}
@@ -3145,7 +3150,6 @@ bool ScribusApp::LadeDoc(QString fileName)
 				view->Pages.at(ay)->parentWidget()->show();
 			}
 		}
-		doc->setUnModified();
 		doc->loading = false;
 		view->GotoPage(0);
 		doc->RePos = true;
@@ -3188,6 +3192,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 		ActWin->First = BookPal->BView->First;
 		ActWin->Last = BookPal->BView->Last;
 		doc->RePos = false;
+		doc->setUnModified();
 		UpdateRecent(FName);
 		FMess->setText( tr("Ready"));
 		ret = true;
@@ -3202,6 +3207,8 @@ bool ScribusApp::LadeDoc(QString fileName)
 		doc->AutoSave = Prefs.AutoSave;
 		if (doc->AutoSave)
 			doc->ASaveTimer->start(Prefs.AutoSaveTime);
+		DatSav->setEnabled(false);
+		fileMenu->setItemEnabled(fid4, 0);
 	}
 	else
 	{
@@ -3395,11 +3402,6 @@ bool ScribusApp::slotFileSaveAs()
 bool ScribusApp::DoFileSave(QString fn)
 {
 	bool ret = true;
-	if(doc->TemplateMode)
-	{
-		ActWin->muster->close();
-		qApp->processEvents();
-	}
 	ReorgFonts();
 	FMess->setText( tr("Saving..."));
 	FProg->reset();
@@ -4033,7 +4035,7 @@ void ScribusApp::slotOnlineHelp()
 void ScribusApp::ToggleTips()
 {
 	tipsOn = !tipsOn;
-	helpMenu->setItemChecked(tip, tipsOn);
+	settingsMenu->setItemChecked(tip, tipsOn);
 	QToolTip::setEnabled(tipsOn);
 }
 
@@ -4068,6 +4070,10 @@ void ScribusApp::slotNewPageP(int wo, QString templ)
 	CanUndo();
 	slotNewPage(wo);
 	applyNewMaster(templ);
+	if (doc->TemplateMode)
+		view->MasterPages = view->Pages;
+	else
+		view->DocPages = view->Pages;
 	Sepal->RebuildPage();
 }
 
@@ -4148,6 +4154,10 @@ void ScribusApp::slotNewPageM()
 		}
 		Sepal->RebuildPage();
 		view->DrawNew();
+		if (doc->TemplateMode)
+			view->MasterPages = view->Pages;
+		else
+			view->DocPages = view->Pages;
 	}
 	delete dia;
 }
@@ -4460,7 +4470,7 @@ void ScribusApp::setTools(bool visible)
 		WerkTools->hide();
 		WerkTools->Sichtbar = false;
 	}
-	toolbarMenu->setItemChecked(toolbarMenuTools, visible);
+	settingsMenu->setItemChecked(toolbarMenuTools, visible);
 }
 
 void ScribusApp::ToggleTools()
@@ -4480,7 +4490,7 @@ void ScribusApp::setPDFTools(bool visible)
 		WerkToolsP->hide();
 		WerkToolsP->Sichtbar = false;
 	}
-	toolbarMenu->setItemChecked(toolbarMenuPDFTools, visible);
+	settingsMenu->setItemChecked(toolbarMenuPDFTools, visible);
 }
 
 void ScribusApp::TogglePDFTools()
@@ -4647,6 +4657,7 @@ void ScribusApp::ToggleFrameEdit()
 		WerkTools->Polygon->setEnabled(false);
 		WerkTools->KetteEin->setEnabled(false);
 		WerkTools->KetteAus->setEnabled(false);
+		WerkTools->Measure->setEnabled(false);
 		WerkToolsP->PDFTool->setEnabled(false);
 		WerkToolsP->PDFaTool->setEnabled(false);
 		ObjMenu->setItemEnabled(Loesch, false);
@@ -4677,6 +4688,7 @@ void ScribusApp::NoFrameEdit()
 	WerkToolsP->PDFaTool->setEnabled(true);
 	WerkTools->Textedit->setOn(false);
 	WerkTools->Textedit2->setOn(false);
+	WerkTools->Measure->setEnabled(true);
 	ObjMenu->setItemEnabled(Loesch, true);
 	ShapeMenu->setItemChecked(ShapeEdit, false);
 	if (HaveDoc)
@@ -4709,6 +4721,7 @@ void ScribusApp::slotSelect()
 	WerkTools->KetteAus->setOn(false);
 	WerkToolsP->PDFTool->setOn(false);
 	WerkToolsP->PDFaTool->setOn(false);
+	WerkTools->Measure->setOn(false);
 	setAppMode(1);
 }
 
@@ -4739,6 +4752,11 @@ void ScribusApp::setAppMode(int mode)
 			b = 0;
 		int oldMode = doc->AppMode;
 		doc->AppMode = mode;
+		if (oldMode == 24)
+		{
+			disconnect(doc->ActPage, SIGNAL(MVals(double, double, double, double, double, double, int )), MaPal, SLOT(setValues(double, double, double, double, double, double, int )));
+			MaPal->hide();
+		}
 		if (oldMode == 7)
 		{
 			disconnect(doc->CurTimer, SIGNAL(timeout()), doc->ActPage, SLOT(BlinkCurs()));
@@ -4819,6 +4837,11 @@ void ScribusApp::setAppMode(int mode)
 			if (doc->ActPage->SelItem.count() != 0)
 				doc->ActPage->Deselect(true);
 		}
+		if (mode == 24)
+		{
+			MaPal->show();
+			connect(doc->ActPage, SIGNAL(MVals(double, double, double, double, double, double, int)), MaPal, SLOT(setValues(double, double, double, double, double, double, int )));
+		}
 		if (mode == 6)
 			qApp->setOverrideCursor(QCursor(loadIcon("LupeZ.xpm")), true);
 		else
@@ -4850,6 +4873,7 @@ void ScribusApp::setAppMode(int mode)
 			WerkTools->KetteAus->setOn(false);
 			WerkToolsP->PDFTool->setOn(false);
 			WerkToolsP->PDFaTool->setOn(false);
+			WerkTools->Measure->setOn(false);
 		}
 	}
 }
@@ -6009,7 +6033,7 @@ void ScribusApp::slotFontOrg()
 void ScribusApp::slotPrefsOrg()
 {
 	void *mo;
-	char *error;
+	const char *error;
 	bool zChange = false;
 	typedef Preferences* (*sdem)(QWidget *d, preV *Vor);
 	sdem demo;
@@ -6036,7 +6060,6 @@ void ScribusApp::slotPrefsOrg()
 	Preferences *dia = (*demo)(this, &Prefs);
 	if (dia->exec())
 	{
-		Prefs.KeyActions = dia->KKC;
 		SetShortCut();
 		Prefs.AppFontSize = dia->GFsize->value();
 		Prefs.Wheelval = dia->SpinBox3->value();
@@ -6504,7 +6527,7 @@ void ScribusApp::closePSDriver()
 bool ScribusApp::getPDFDriver(QString fn, QString nam, int Components, int frPa, int toPa, QMap<int,QPixmap> thumbs)
 {
 	bool ret = false;
-	char *error;
+	const char *error;
 	void *PDFDriver;
 	typedef bool (*sdem)(ScribusApp *plug, QString fn, QString nam, int Components, int frPa, int toPa, QMap<int,QPixmap> thumbs, QProgressBar *dia2);
 	sdem demo;
@@ -6886,14 +6909,19 @@ void ScribusApp::ManageTemp(QString temp)
 	}
 	editMenu->setItemEnabled(tman, 0);
 	ActWin->MenuStat[0] = DatSav->isEnabled();
-	ActWin->MenuStat[1] = fileMenu->isItemEnabled(fid1);
+	ActWin->MenuStat[1] = fileMenu->isItemEnabled(fid52);
 	ActWin->MenuStat[2] = fileMenu->isItemEnabled(fid4);
 	ActWin->MenuStat[3] = fileMenu->isItemEnabled(fid5);
 	DatNeu->setEnabled(false);
-	DatSav->setEnabled(false);
 	DatOpe->setEnabled(false);
 	DatClo->setEnabled(false);
-	fileMenu->setEnabled(false);
+	fileMenu->setItemEnabled(fid12, 0);
+	fileMenu->setItemEnabled(fid13, 0);
+	fileMenu->setItemEnabled(fid14, 0);
+	fileMenu->setItemEnabled(fid1, 0);
+	fileMenu->setItemEnabled(fid52, 0);
+	fileMenu->setItemEnabled(fid7, 0);
+	fileMenu->setItemEnabled(fid9, 0);
 	doc->TemplateMode = true;
 	Sepal->DisablePal();
 	doc->UnDoValid = false;
@@ -6911,10 +6939,17 @@ void ScribusApp::ManTempEnd()
 	pageMenu->setItemEnabled(pageMenu->idAt(2), 1);
 	pageMenu->setItemEnabled(pageMenu->idAt(4), 1);
 	DatNeu->setEnabled(true);
-	DatSav->setEnabled(ActWin->MenuStat[0]);
+	DatSav->setEnabled(doc->isModified());
 	DatOpe->setEnabled(true);
 	DatClo->setEnabled(true);
-	fileMenu->setEnabled(true);
+	fileMenu->setItemEnabled(fid12, 1);
+	fileMenu->setItemEnabled(fid13, 1);
+	fileMenu->setItemEnabled(fid14, 1);
+	fileMenu->setItemEnabled(fid1, 1);
+	fileMenu->setItemEnabled(fid52, 1);
+	fileMenu->setItemEnabled(fid4, doc->isModified());
+	fileMenu->setItemEnabled(fid7, 1);
+	fileMenu->setItemEnabled(fid9, 1);
 	int setter = view->Pages.count() > 1 ? 1 : 0;
 	pageMenu->setItemEnabled(pgmd, setter);
 	pageMenu->setItemEnabled(pgmv, setter);
@@ -7084,7 +7119,7 @@ QString ScribusApp::CFileDialog(QString caption, QString filter, QString defNa, 
 		dia.setSelection(defNa);
 	if (dia.exec() == QDialog::Accepted)
 	{
-		LoadEnc = cod ? dia.TxCodeM->currentText() : "";
+		LoadEnc = cod ? dia.TxCodeM->currentText() : QString("");
 		this->repaint();
 		qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
 		return dia.selectedFile();
@@ -8290,6 +8325,23 @@ void ScribusApp::SearchText()
 	delete dia;
 	slotSelect();
 }
+
+/*!
+ \fn void ScribusApp::DefKB()
+ \author Franz Schmid
+ \date
+ \brief Preferences (General / Menus), Creates and opens KeyManager dialog for shortcut key preferences.
+ \param None
+ \retval None
+ */
+void ScribusApp::DefKB()
+{
+    KeyManager *dia = new KeyManager(this, Prefs.KeyActions);
+    if (dia->exec())
+        Prefs.KeyActions = dia->KK;
+    delete dia;
+}
+
 
 void ScribusApp::slotTest()
 {}

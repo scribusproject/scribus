@@ -21,6 +21,7 @@ PyObject *scribus_glayervisib(PyObject *self, PyObject* args);
 PyObject *scribus_glayerprint(PyObject *self, PyObject* args);
 PyObject *scribus_removelayer(PyObject *self, PyObject* args);
 PyObject *scribus_createlayer(PyObject *self, PyObject* args);
+PyObject *scribus_getlanguage(PyObject *self, PyObject* args);
 
 #endif
 

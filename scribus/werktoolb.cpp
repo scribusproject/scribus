@@ -35,12 +35,10 @@ WerkToolB::WerkToolB(QMainWindow* parent) : QToolBar( tr("Tools"), parent)
 									100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 0.0, 100.0, 0.0, 100.0,
 									0.0, 100.0, 0.0, 100.0, 0.0, 0.0, 0.0, 0.0};
 	ShapeVals = AutoShapes0;
-	Select = new QToolButton(loadIcon("Kreuz.xpm"), tr("Select Items"), QString::null, this, 
-								SLOT(ModeFromTB()), this);
+	Select = new QToolButton(loadIcon("Kreuz.xpm"), tr("Select Items"), QString::null, this, SLOT(ModeFromTB()), this);
 	Select->setToggleButton(true);
 	Select->setOn(true);
-	Texte = new QToolButton(loadIcon("Text.xpm"), tr("Insert Text Frame"), QString::null, this,
-						 SLOT(ModeFromTB()), this);
+	Texte = new QToolButton(loadIcon("Text.xpm"), tr("Insert Text Frame"), QString::null, this, SLOT(ModeFromTB()), this);
 	Texte->setToggleButton( true );
 	BildB = new QToolButton(loadIcon("Bild.xpm"), tr("Insert Picture"), QString::null, this, SLOT(ModeFromTB()), this);
 	BildB->setToggleButton( true );
@@ -89,6 +87,8 @@ WerkToolB::WerkToolB(QMainWindow* parent) : QToolBar( tr("Tools"), parent)
 								 SLOT(ModeFromTB()), this);
 	KetteAus->setToggleButton( true );
 	KetteAus->setEnabled(false);
+	Measure = new QToolButton(loadIcon("dist.png"), tr("Do measurements"), QString::null, this, SLOT(ModeFromTB()), this);
+	Measure->setToggleButton( true );
 	setCloseMode(QDockWindow::Undocked);
 	connect(this, SIGNAL(placeChanged(QDockWindow::Place)), this, SLOT(Docken(QDockWindow::Place)));
 	connect(this, SIGNAL(visibilityChanged(bool)), this, SLOT(Verbergen(bool)));
@@ -137,6 +137,7 @@ void WerkToolB::SelShape(int s, int c, double *vals)
 	KetteEin->setOn(false);
 	KetteAus->setOn(false);
 	Polygon->setOn(false);
+	Measure->setOn(false);
 	Rechteck->setOn(true);
 	SubMode = s;
 	ValCount = c;
@@ -158,6 +159,7 @@ void WerkToolB::SelShape2()
 	KetteEin->setOn(false);
 	KetteAus->setOn(false);
 	Polygon->setOn(false);
+	Measure->setOn(false);
 	Rechteck->setOn(true);
 	emit NewMode(2);
 }
@@ -177,6 +179,7 @@ void WerkToolB::ModeFromTB()
 	KetteEin->setOn(false);
 	KetteAus->setOn(false);
 	Polygon->setOn(false);
+	Measure->setOn(false);
 	if (Select == sender())
 	{
 		Select->setOn(true);
@@ -237,6 +240,11 @@ void WerkToolB::ModeFromTB()
 		Polygon->setOn(true);
 		emit NewMode(12);
 	}
+	if (Measure == sender())
+	{
+		Measure->setOn(true);
+		emit NewMode(24);
+	}
 }
 
 void WerkToolB::setLinMode(int id)
@@ -254,6 +262,7 @@ void WerkToolB::setLinMode(int id)
 	KetteEin->setOn(false);
 	KetteAus->setOn(false);
 	Polygon->setOn(false);
+	Measure->setOn(false);
 	int c = LinM->indexOf(id);
 	char *icn[] = {"Stift.xpm", "beziertool.png", "Stiftalt.xpm"};
 	int lm[] = {8, 13, 21};

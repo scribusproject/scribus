@@ -283,6 +283,10 @@ void ScribusView::delPage(int Nr)
 	Doc->UnDoValid = false;
 	Doc->PageC -= 1;
 	Doc->ActPage = Pages.at(0);
+	if (Doc->TemplateMode)
+		MasterPages = Pages;
+	else
+		DocPages = Pages;
 	PGS->setMaxValue(Doc->PageC);
 	PGS->GotoPg(0);
 }
@@ -324,6 +328,10 @@ void ScribusView::movePage(int from, int to, int ziel, int art)
 				}
 			break;
 		}
+	if (Doc->TemplateMode)
+		MasterPages = Pages;
+	else
+		DocPages = Pages;
 	reformPages();
 }
 

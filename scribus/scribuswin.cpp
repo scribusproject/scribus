@@ -43,7 +43,7 @@ void ScribusWin::setView(ScribusView* dview)
 
 void ScribusWin::slotAutoSave()
 {
-	if ((doc->hasName) && (doc->isModified()) && (!doc->TemplateMode))
+	if ((doc->hasName) && (doc->isModified()))
 	{
 		moveFile(doc->DocName, doc->DocName+".bak");
 		QString fn = doc->DocName;

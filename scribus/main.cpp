@@ -234,6 +234,7 @@ int mainGui(int argc, char **argv)
     scribus->initGui();
     if (scribus->NoFonts)
         exit(EXIT_FAILURE);
+	scribus->GuiLanguage = lang;
     app.setMainWidget(scribus);
     app.connect(&app, SIGNAL(lastWindowClosed()), &app, SLOT(quit()));
 

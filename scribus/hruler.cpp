@@ -115,6 +115,7 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 			RulerCode = 5;
 			UpdateTabList();
 			qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
+			emit DocChanged(false);
 		}
 		MouseX = m->x();
 	}
@@ -133,16 +134,20 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 			{
 				case 1:
 					doku->ActPage->SelItem.at(0)->Extra = Extra;
+					emit DocChanged(false);
 					break;
 				case 2:
 					doku->ActPage->SelItem.at(0)->RExtra = RExtra;
+					emit DocChanged(false);
 					break;
 				case 3:
 					doku->Vorlagen[doku->CurrentABStil].First = First;
+					emit DocChanged(false);
 					break;
 				case 4:
 					doku->Vorlagen[doku->CurrentABStil].Indent = Indent;
 					doku->Vorlagen[doku->CurrentABStil].First = First;
+					emit DocChanged(false);
 					break;
 				case 5:
 					if (m->button() == RightButton)
@@ -155,6 +160,7 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 						doku->Vorlagen[doku->CurrentABStil].TabValues = TabValues;
 					else
 						doku->ActPage->SelItem.at(0)->TabValues = TabValues;
+					emit DocChanged(false);
 					break;
 				default:
 					break;
@@ -173,6 +179,7 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 					doku->Vorlagen[doku->CurrentABStil].TabValues = TabValues;
 				else
 					doku->ActPage->SelItem.at(0)->TabValues = TabValues;
+				emit DocChanged(false);
 				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 			}
 		}
@@ -194,6 +201,7 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 		doku->ActPage->DrHY = -1;
 		doku->ActPage->SetYGuide(m);
 		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+		emit DocChanged(false);
 	}
 }
 
@@ -227,6 +235,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 						Extra = 0;
 					if (Extra > toplimit2)
 						Extra = toplimit2;
+					emit MarkerMoved(Extra, 0);
 					repaint();
 					break;
 				case 2:
@@ -235,6 +244,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 						RExtra = 0;
 					if (RExtra > toplimit)
 						RExtra = toplimit;
+					emit MarkerMoved(RExtra, 0);
 					repaint();
 					break;
 				case 3:
@@ -243,6 +253,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 						First += (MouseX - m->x()) / Scaling;
 					if (First+Indent > ColWidth)
 						First  = ColWidth-Indent;
+					emit MarkerMoved(First, 0);
 					repaint();
 					break;
 				case 4:
@@ -253,6 +264,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 					if (Indent > ColWidth-1)
 						Indent  = ColWidth-1;
 					First = oldInd - Indent;
+					emit MarkerMoved(Indent, 0);
 					repaint();
 					break;
 				case 5:
@@ -261,6 +273,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 						TabValues[ActTab+1] = 0;
 					if (TabValues[ActTab+1] > ColWidth-1)
 						TabValues[ActTab+1]  = ColWidth-1;
+					emit MarkerMoved(TabValues[ActTab+1], 0);
 					UpdateTabList();
 					repaint();
 					break;
@@ -329,6 +342,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 					}
 				}
 			}
+			emit MarkerMoved((m->x() - static_cast<int>((ItemPos+Extra+lineCorr+Offset)*Scaling-offs)) / Scaling, 0);
 			return;
 		}
 		if ((Mpressed) && (RulerCode == 5) && ((m->y() > height()) || (m->y() < 0)))

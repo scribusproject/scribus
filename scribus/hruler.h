@@ -69,6 +69,10 @@ private: // Private attributes
 public slots: // Public slots
   /** Zeichnet den Pfeil */
   void Draw(int wo);
+  
+signals:
+	void DocChanged(bool);
+	void MarkerMoved(double, double);
 };
 
 #endif

@@ -9,7 +9,7 @@
 
 QString Name()
 {
-	return QObject::tr("Save As Image...");
+	return QObject::tr("Save as Image...");
 }
 
 
@@ -51,13 +51,13 @@ void Run(QWidget *d, ScribusApp *plug)
 		QApplication::restoreOverrideCursor();
 		if (!res)
 		{
-			QMessageBox::warning(plug, QObject::tr("Export to bitmap"),
-				QObject::tr("Error writting the ouptut file(s)."));
-			plug->FMess->setText(QObject::tr("Error writing the ouptut file(s)."));
+			QMessageBox::warning(plug, QObject::tr("Export to image"),
+				QObject::tr("Error writing the output file(s)."));
+			plug->FMess->setText(QObject::tr("Error writing the output file(s)."));
 		}
 		else
 		{
-			plug->FMess->setText(QObject::tr("Hooray! Export successfull."));
+			plug->FMess->setText(QObject::tr("Export to Image successful"));
 		}
 	} // if accepted
 	// clean the trash

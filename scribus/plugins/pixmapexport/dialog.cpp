@@ -174,11 +174,11 @@ ExportForm::~ExportForm()
  */
 void ExportForm::languageChange()
 {
-	setCaption(tr("Export Bitmap - Save As Image"));
+	setCaption(tr("Export as Image"));
 	TextLabel1->setText(tr("Export to directory:"));
 	OutputDirectoryButton->setText(tr("&Change..."));
 	OutputDirectoryButton->setAccel(QKeySequence(tr("Alt+C")));
-	TextLabel2->setText(tr("Bitmap type:"));
+	TextLabel2->setText(tr("Image type:"));
 	textLabel1->setText(tr("Quality :"));
 	textLabel2->setText(tr("%"));
 	textLabel3->setText(tr("Size:"));
@@ -196,14 +196,14 @@ void ExportForm::languageChange()
 	CancelButton->setAccel(QKeySequence(tr("Alt+C")));
 	// tooltips
 	QToolTip::add(OutputDirectoryButton, tr("Change the output directory"));
-	QToolTip::add(OutputDirectory, tr("The output directory - the place to store your bitmaps.\nName of the eport file will be 'documentname-pagenumber.filetype'"));
-	QToolTip::add(OnePageRadio, tr("Export only the actual page"));
-	QToolTip::add(AllPagesRadio, tr("Export all pages of your document"));
-	QToolTip::add(IntervalPagesRadio, tr("Export only specified pages"));
-	QToolTip::add(FromBox, tr("The beginning of the export"));
-	QToolTip::add(ToBox, tr("The end of the export"));
-	QToolTip::add(SizeBox, tr("The height of the output bitmap in pixels"));
-	QToolTip::add(QualityBox, tr("The quality of your bitmaps - 100% is the best, 1% the biggest compression"));
+	QToolTip::add(OutputDirectory, tr("The output directory - the place to store your images.\nName of the export file will be 'documentname-pagenumber.filetype'"));
+	QToolTip::add(OnePageRadio, tr("Export only the current page"));
+	QToolTip::add(AllPagesRadio, tr("Export all pages to images"));
+	QToolTip::add(IntervalPagesRadio, tr("Export a range of pages to images"));
+	QToolTip::add(FromBox, tr("First page to export when exporting a range"));
+	QToolTip::add(ToBox, tr("Last page to export when exporting a range"));
+	QToolTip::add(SizeBox, tr("The height of the output images in pixels"));
+	QToolTip::add(QualityBox, tr("The quality of your images - 100% is the best, 1% the highest compression"));
 	QToolTip::add(BitmapType, tr("Available export formats" ));
 }
 

@@ -512,6 +512,7 @@ static PyMethodDef scribus_methods[] = {
 	{"IsLayerPrintable",				scribus_glayerprint,					METH_VARARGS},
 	{"CreateLayer",						scribus_createlayer,					METH_VARARGS},
 	{"DeleteLayer",						scribus_removelayer,					METH_VARARGS},
+	{"GetGuiLanguage",				scribus_getlanguage,					METH_VARARGS},
 	{"retval",								scribus_retval,							METH_VARARGS},
 	{"getval",								scribus_getval,							METH_VARARGS},
 	{NULL,		NULL}		/* sentinel */

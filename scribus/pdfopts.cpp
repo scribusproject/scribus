@@ -444,11 +444,11 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	ModifySec->setChecked( Optionen->Permissions & 8 );
 	GroupSecSetLayout->addWidget( ModifySec );
 	CopySec = new QCheckBox( GroupSecSet, "CopySec" );
-	CopySec->setText( tr( "Copying Text and Graphics is allowed" ) );
+	CopySec->setText( tr( "Allow Copying Text and Graphics" ) );
 	CopySec->setChecked( Optionen->Permissions & 16 );
 	GroupSecSetLayout->addWidget( CopySec );
 	AddSec = new QCheckBox( GroupSecSet, "AddSec" );
-	AddSec->setText( tr( "Adding Annotations and Fields is allowed" ) );
+	AddSec->setText( tr( "Allow Adding Annotations and Fields" ) );
 	AddSec->setChecked( Optionen->Permissions & 32 );
 	GroupSecSetLayout->addWidget( AddSec );
 	tabsecLayout->addWidget( GroupSecSet );

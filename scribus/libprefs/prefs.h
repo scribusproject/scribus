@@ -95,7 +95,6 @@ public:
 	QPushButton* GuideColor;
 	QPushButton* PapColor;
 	QPushButton* RandColor;
-	QPushButton* Shorty;
 	QWidget* tab_3;
 	QWidgetStack* Fram;
 	QLabel* TextLabel2_2;
@@ -250,7 +249,6 @@ public:
 	double Umrech;
 	QPixmap* Pre;
 	double PFactor;
-	QMap<int,Keys> KKC;
 	QColor Cmin;
 	QColor Cmax;
 	QColor Crand;
@@ -286,7 +284,6 @@ public slots:
 	void changePapColor();
 	void changeRandColor();
 	void changeGuideColor();
-	void DefKB();
 	void SetSample();
 	void SetTool();
 	void ToggleKette();

@@ -305,14 +305,17 @@ void MultiLine::RebuildList()
 void MultiLine::NewName()
 {
 	QString NameNew = SName->text();
-	if (TempStyles->contains(NameNew))
+	if (NameNew != GivenName)
 	{
-		QMessageBox::warning(this, tr("Warning"), tr("Name \"%1\" isn't unique.\nPlease choose another.").arg(NameNew), tr("OK"));
-		SName->setText(GivenName);
-		SName->setFocus();
+		if (TempStyles->contains(NameNew))
+		{
+			QMessageBox::warning(this, tr("Warning"), tr("Name \"%1\" isn't unique.\nPlease choose another.").arg(NameNew), tr("OK"));
+			SName->setText(GivenName);
+			SName->setFocus();
+		}
+		else
+			GivenName = NameNew;
 	}
-	else
-		GivenName = NameNew;
 }
 
 void MultiLine::NewSubLine()

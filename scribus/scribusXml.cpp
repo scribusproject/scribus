@@ -2409,7 +2409,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 		}
 		else
 			ob.setAttribute("ANNOTATION",0);
-		ob.setAttribute("ANNAME", !item->AutoName ? item->AnName : "");
+		ob.setAttribute("ANNAME", !item->AutoName ? item->AnName : QString(""));
 		ob.setAttribute("TEXTFLOW", item->Textflow ? 1 : 0);
 		ob.setAttribute("TEXTFLOW2", item->Textflow2 ? 1 : 0);
 		ob.setAttribute("AUTOTEXT", item->isAutoText ? 1 : 0);
@@ -2795,7 +2795,7 @@ void ScriXmlDoc::WritePages(ScribusView *view, QDomDocument docu, QDomElement dc
 			}
 			else
 				ob.setAttribute("ANNOTATION",0);
-			ob.setAttribute("ANNAME", !item->AutoName ? item->AnName : "");
+			ob.setAttribute("ANNAME", !item->AutoName ? item->AnName : QString(""));
 			ob.setAttribute("TEXTFLOW", item->Textflow ? 1 : 0);
 			ob.setAttribute("TEXTFLOW2", item->Textflow2 ? 1 : 0);
 			ob.setAttribute("AUTOTEXT", item->isAutoText ? 1 : 0);
@@ -3005,7 +3005,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, ScribusView *view, 
 	QDomElement elem=docu.documentElement();
 	elem.setAttribute("Version", "1.2cvs");
 	QDomElement dc=docu.createElement("DOCUMENT");
-	dc.setAttribute("ANZPAGES",doc->PageC);
+	dc.setAttribute("ANZPAGES",view->DocPages.count());
 	dc.setAttribute("PAGEWITH",doc->PageB);
 	dc.setAttribute("PAGEHEIGHT",doc->PageH);
 	dc.setAttribute("BORDERLEFT",doc->PageM.Left);
@@ -3215,11 +3215,22 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, ScribusView *view, 
 		dia2->setTotalSteps(view->Pages.count()+view->MasterPages.count());
 		dia2->setProgress(0);
 	}
-	WritePages(view, docu, dc, dia2, 0);
-	view->DocPages = view->Pages;
-	view->Pages = view->MasterPages;
-	WritePages(view, docu, dc, dia2, view->DocPages.count());
-	view->Pages = view->DocPages;
+	if (doc->TemplateMode)
+	{
+		view->MasterPages = view->Pages;
+		view->Pages = view->DocPages;
+		WritePages(view, docu, dc, dia2, 0);
+		view->Pages = view->MasterPages;
+		WritePages(view, docu, dc, dia2, view->DocPages.count());
+	}
+	else
+	{
+		WritePages(view, docu, dc, dia2, 0);
+		view->DocPages = view->Pages;
+		view->Pages = view->MasterPages;
+		WritePages(view, docu, dc, dia2, view->DocPages.count());
+		view->Pages = view->DocPages;
+	}
 	elem.appendChild(dc);
 /**
  * changed to enable saving
