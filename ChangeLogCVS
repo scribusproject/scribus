@@ -1,7 +1,12 @@
 Changes since Version 1.1.7
 
+29.06.2004
+	* feature #678: check buttons instead of lock/unlock and hide/show
+	* feature #744: importing a range of pages into another
+	* feature #834: slovenian update
+
 28.06.2004
-	* feature #  3: Ability to create pages when importing pages from other documents
+	* feature #  3: Ability to create pages when importing pages from other documents 
 
 27.06.2004
 	* bug     #832: Scribus RC1cvs crashes (SIG #11) while opening a document

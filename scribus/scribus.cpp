@@ -763,17 +763,22 @@ void ScribusApp::initMenuBar()
 	MenID = viewMenu->insertItem( tr("&Thumbnails"), this, SLOT(slotZoom20()));
 	SetKeyEntry(39, tr("Thumbnails"), MenID, 0);
 	viewMenu->insertSeparator();
-	Markers = viewMenu->insertItem( tr("Hide &Margins"), this, SLOT(ToggleMarks()));
+	Markers = viewMenu->insertItem( tr("Show &Margins"), this, SLOT(ToggleMarks()));
 	SetKeyEntry(40, tr("Hide Margins"), Markers, 0);
-	FrameDr = viewMenu->insertItem( tr("Hide &Frames"), this, SLOT(ToggleFrames()));
+	viewMenu->setItemChecked(Markers, true);
+	FrameDr = viewMenu->insertItem( tr("Show &Frames"), this, SLOT(ToggleFrames()));
 	SetKeyEntry(41, tr("Hide Frames"), FrameDr, 0);
-	Bilder = viewMenu->insertItem( tr("Hide &Images"), this, SLOT(TogglePics()));
+	viewMenu->setItemChecked(FrameDr, true);
+	Bilder = viewMenu->insertItem( tr("Show &Images"), this, SLOT(TogglePics()));
+	viewMenu->setItemChecked(Bilder, true);
 	SetKeyEntry(42, tr("Hide Images"), Bilder, 0);
 	Ras = viewMenu->insertItem( tr("Show &Grid"), this, SLOT(ToggleRaster()));
 	SetKeyEntry(43, tr("Show Grid"), Ras, 0);
+	viewMenu->setItemChecked(Ras, false);
 	uRas = viewMenu->insertItem( tr("Snap to &Grid"), this, SLOT(ToggleURaster()));
 	SetKeyEntry(44, tr("Snap to Grid"), uRas, 0);
-	Guide = viewMenu->insertItem( tr("Hide G&uides"), this, SLOT(ToggleGuides()));
+	Guide = viewMenu->insertItem( tr("Show G&uides"), this, SLOT(ToggleGuides()));
+	viewMenu->setItemChecked(Guide, true);
 	uGuide = viewMenu->insertItem( tr("Sna&p to Guides"), this, SLOT(ToggleUGuides()));
 	Base = viewMenu->insertItem( tr("Show &Baseline Grid"), this, SLOT(ToggleBase()));
 	toolMenu=new QPopupMenu();
@@ -2984,7 +2989,7 @@ bool ScribusApp::slotDocMerge()
 				tr("<p>You are trying to import more pages than there are available "
 				   "in the current document counting from the active page.</p>"
 				"Choose one of the following:<br>"
-				"<ul><li><li><b>Create</b> missing pages</li></li>"
+				"<ul><li><b>Create</b> missing pages</li>"
 				"<li><b>Import</b> pages until the last page</li>"
 				"<li><b>Cancel</b></li></ul><br>"),
 				QMessageBox::Information,
@@ -3012,19 +3017,27 @@ bool ScribusApp::slotDocMerge()
 		}
 		if (doIt)
 		{
-			FProg->reset();
-			FProg->setTotalSteps(nrToImport);
-			int counter = startPage;
-			for (int i = 0; i < nrToImport; ++i)
+			if (nrToImport > 0)
 			{
-				view->GotoPa(counter);
-				LadeSeite(dia->Filename->text(), pageNs[i] - 1, false);
-				counter++;
-				FProg->setProgress(i + 1);
+				FProg->reset();
+				FProg->setTotalSteps(nrToImport);
+				int counter = startPage;
+				for (int i = 0; i < nrToImport; ++i)
+				{
+					view->GotoPa(counter);
+					LadeSeite(dia->Filename->text(), pageNs[i] - 1, false);
+					counter++;
+					FProg->setProgress(i + 1);
+				}
+				view->GotoPa(startPage);
+				FProg->reset();
+				FMess->setText(tr("Import done"));
 			}
-			view->GotoPa(startPage);
-			FProg->reset();
-			FMess->setText("");
+			else
+			{
+				FMess->setText(tr("Found nothing to import"));
+				doIt = false;
+			}
 		}
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 		ret = doIt;
@@ -4745,14 +4758,15 @@ void ScribusApp::TogglePics()
 	uint a, b;
 	if (doc->ShowPic)
 	{
-		viewMenu->changeItem(Bilder, tr("Show &Images"));
+//		viewMenu->changeItem(Bilder, tr("Show &Images"));
 		doc->ShowPic = false;
 	}
 	else
 	{
-		viewMenu->changeItem(Bilder, tr("Hide &Images"));
+//		viewMenu->changeItem(Bilder, tr("Hide &Images"));
 		doc->ShowPic = true;
 	}
+	viewMenu->setItemChecked(Bilder, !doc->ShowPic);
 	for (a=0; a<view->Pages.count(); ++a)
 	{
 		for (b=0; b<view->Pages.at(a)->Items.count(); ++b)
@@ -4795,11 +4809,11 @@ void ScribusApp::ToggleAllGuides()
 		Prefs.GridShown = false;
 		Prefs.GuidesShown = false;
 		Prefs.BaseShown = false;
-		viewMenu->changeItem(Markers, tr("Show &Margins"));
-		viewMenu->changeItem(FrameDr, tr("Show &Frames"));
-		viewMenu->changeItem(Ras, tr("Show &Grid"));
-		viewMenu->changeItem(Guide, tr("Show G&uides"));
-		viewMenu->changeItem(Base, tr("Show &Baseline Grid"));
+		viewMenu->setItemChecked(Markers, Prefs.MarginsShown);
+		viewMenu->setItemChecked(FrameDr, Prefs.FramesShown);
+		viewMenu->setItemChecked(Ras, Prefs.GridShown);
+		viewMenu->setItemChecked(Guide, Prefs.GuidesShown);
+		viewMenu->setItemChecked(Base, Prefs.BaseShown);
 	}
 	view->DrawNew();
 }
@@ -4807,55 +4821,40 @@ void ScribusApp::ToggleAllGuides()
 void ScribusApp::ToggleMarks()
 {
 	GuidesStat[0] = false;
-	if (Prefs.MarginsShown)
-		viewMenu->changeItem(Markers, tr("Show &Margins"));
-	else
-		viewMenu->changeItem(Markers, tr("Hide &Margins"));
 	Prefs.MarginsShown = !Prefs.MarginsShown;
+	viewMenu->setItemChecked(Markers, Prefs.MarginsShown);
 	view->DrawNew();
 }
 
 void ScribusApp::ToggleFrames()
 {
 	GuidesStat[0] = false;
-	if (Prefs.FramesShown)
-		viewMenu->changeItem(FrameDr, tr("Show &Frames"));
-	else
-		viewMenu->changeItem(FrameDr, tr("Hide &Frames"));
 	Prefs.FramesShown = !Prefs.FramesShown;
+	viewMenu->setItemChecked(FrameDr, Prefs.FramesShown);
 	view->DrawNew();
 }
 
 void ScribusApp::ToggleRaster()
 {
 	GuidesStat[0] = false;
-	if (Prefs.GridShown)
-		viewMenu->changeItem(Ras, tr("Show &Grid"));
-	else
-		viewMenu->changeItem(Ras, tr("Hide &Grid"));
 	Prefs.GridShown = !Prefs.GridShown;
+	viewMenu->setItemChecked(Ras, Prefs.GridShown);
 	view->DrawNew();
 }
 
 void ScribusApp::ToggleGuides()
 {
 	GuidesStat[0] = false;
-	if (Prefs.GuidesShown)
-		viewMenu->changeItem(Guide, tr("Show G&uides"));
-	else
-		viewMenu->changeItem(Guide, tr("Hide G&uides"));
 	Prefs.GuidesShown = !Prefs.GuidesShown;
+	viewMenu->setItemChecked(Guide, Prefs.GuidesShown);
 	view->DrawNew();
 }
 
 void ScribusApp::ToggleBase()
 {
 	GuidesStat[0] = false;
-	if (Prefs.BaseShown)
-		viewMenu->changeItem(Base, tr("Show &Baseline Grid"));
-	else
-		viewMenu->changeItem(Base, tr("Hide &Baseline Grid"));
 	Prefs.BaseShown = !Prefs.BaseShown;
+	viewMenu->setItemChecked(Base, Prefs.BaseShown);
 	view->DrawNew();
 }
 
@@ -6769,26 +6768,11 @@ void ScribusApp::ReadPrefs()
 	Npal->move(Prefs.Npalx, Prefs.Npaly);
 	move(Prefs.MainX, Prefs.MainY);
 	resize(Prefs.MainW, Prefs.MainH);
-	if (Prefs.GuidesShown)
-		viewMenu->changeItem(Guide, tr("Hide G&uides"));
-	else
-		viewMenu->changeItem(Guide, tr("Show G&uides"));
-	if (Prefs.MarginsShown)
-		viewMenu->changeItem(Markers, tr("Hide &Margins"));
-	else
-		viewMenu->changeItem(Markers, tr("Show &Margins"));
-	if (Prefs.FramesShown)
-		viewMenu->changeItem(FrameDr, tr("Hide &Frames"));
-	else
-		viewMenu->changeItem(FrameDr, tr("Show &Frames"));
-	if (Prefs.GridShown)
-		viewMenu->changeItem(Ras, tr("Hide &Grid"));
-	else
-		viewMenu->changeItem(Ras, tr("Show &Grid"));
-	if (Prefs.BaseShown)
-		viewMenu->changeItem(Base, tr("Hide &Baseline Grid"));
-	else
-		viewMenu->changeItem(Base, tr("Show &Baseline Grid"));
+	viewMenu->setItemChecked(Markers, Prefs.MarginsShown);
+	viewMenu->setItemChecked(FrameDr, Prefs.FramesShown);
+	viewMenu->setItemChecked(Ras, Prefs.GridShown);
+	viewMenu->setItemChecked(Guide, Prefs.GuidesShown);
+	viewMenu->setItemChecked(Base, Prefs.BaseShown);
 }
 
 void ScribusApp::ShowSubs()
