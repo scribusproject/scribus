@@ -243,6 +243,29 @@ for (uint i=0; i<plug->view->Pages.count(); i++) {
 </pre>
 </small></td></tr></table></blockquote>   
 
+<h4>Storing your plugin's preferences:</h4>
+
+<p>Scribus provides a preferences api for plugin writers to store data between Scribus launches. There are two types of storage formats available: key-value pairs and tables.</p>
+<p>First you will need to get the <code>PrefsContext</code> object for your plugin. Then you can query <code>PrefsContext</code> to get the value for a specific key or you can ask for a <code>PrefsTable</code> by it's name. Here is a short example using key-value pairs.</p>
+
+<pre>
+#include &lt;prefsfile.h&gt;
+#include &lt;prefscontext.h&gt;
+
+extern PrefsFile* prefsFile;
+
+PrefsContext *myPluginPrefs = prefsFile->getPluginContext("MyPlugin");
+
+// default value -1 will be used if "i" doesn't already exist
+int i = myPluginPrefs->getInt("i");
+
+// default value "dog" will be used if "s" doesn't already exist
+QString s = myPluginPrefs->get("s", "dog");
+
+myPluginPrefs->set("i", 221);
+myPluginPrefs->set("s", "cat");
+</pre>
+
 
 <h3>Plugin related links</h3>
 <a href="http://doc.trolltech.com/">Qt documentation from Trolltech</a><br />
