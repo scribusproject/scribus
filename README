@@ -1,7 +1,7 @@
-This is Scribus Version 1.1.7, the eightth Developers Release after Scribus 1.0.1
-
-The Scribus 1.1.x versions feature a complete rewrite of the rendering Engine.
-All rendering is now done via libart and freetype2. This requires that libart and freetype2 are present.
+This is Scribus Version 1.2
+The Scribus 1.2 version features a complete rewrite of the rendering Engine.
+All rendering is now done via libart and freetype2. 
+This requires that libart_lgpl and freetype2 are installed.
 
 Additionally Scribus uses now a different way to find fonts, sadly this gives
 some changes in the font names Scribus uses. To convert old documents follow the
@@ -20,7 +20,7 @@ For Changes please see the ChangeLog.
 To use Scribus in your native language be sure that the environment
 variable LANG is set correctly.
 
-The new EPS/PS import feature in 1.1.7, uses advanced features of Ghostscript. We recommend
+The new EPS/PS import feature in 1.2 uses advanced features of Ghostscript. We recommend
 ALL users update to the newest version of Ghostscript avialable for your distro.
 
 Special note for SuSE 8.1 users, you need the devel packages, at least
@@ -31,7 +31,11 @@ Other notes/known issues at the time of release:
 
 There is a bug in font outline handling for some fonts in the freetype
 libraries. It's being worked on upstream. Don't file a bug report. Instead
-change the font used if you need the outlines. This is not a Scribus bug.
+change the font used if you need the outlines. This is not a Scribus bug. 
+Some testing has shown that this bug is not present in freetype 2.1.9, but 
+we counsel caution trying to upgrade freetype2. Upgrading freetype2 on some
+distros can be quite difficult.
+
 
 For Debian Users:
 
@@ -43,11 +47,12 @@ front-ends.
 For SuSE 9.0/9.1 Users.
 
 The littlecms libs 1.10, which shipped with 9.0 does not offer complete support
-for all the the latest CMS features in Scribus 1.1.7. There are updated
-SuSE 9.x RPM's available on the scribus.net site.
+for all the the latest CMS features in Scribus 1.2. There are updated
+SuSE 9.x RPM's available on the scribus.net site. We also recommend using the 
+latest version of lcms. 
 
 If you are using Qt 3.3.x, please ensure you are using the latest Qt 3.3.2-2+ rpms.
-The -2+ versions have an important fix for drag and drop in Scribus.
+The -2+ versions have an important fix for drag and drop in Scribus. 
 
 Many other hints and info are on the www.scribus.net site. Full compile, install and FAQ's
 are available there.
@@ -55,4 +60,4 @@ are available there.
 For the Scribus Team,
 
 Franz Schmid
-in June 2004
+in August 2004
