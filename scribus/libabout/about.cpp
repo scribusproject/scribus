@@ -12,12 +12,28 @@ extern QPixmap loadIcon(QString nam);
 
 extern "C" void* Run(QWidget *d);
 
+/*! 
+ \fn void* Run(QWidget *d)
+ \author Franz Schmid
+ \date  
+ \brief Creates About dialog and returns pointer to it
+ \param d QWidget pointer to About dialog widget
+ \retval dia returned widget pointer
+ */
 void* Run(QWidget *d)
 {
 	About *dia = new About(d);
 	return dia;
 }
 
+/*! 
+ \fn About::About( QWidget* parent )
+ \author Franz Schmid 
+ \date  
+ \brief Constructor for About dialog box
+ \param parent QWidget pointer to parent window
+ \retval About dialog
+ */
 About::About( QWidget* parent )
     : QDialog( parent, "About", true, 0 )
 {
@@ -38,7 +54,7 @@ About::About( QWidget* parent )
     tabLayout1->addWidget( PixmapLabel1 );
     BuildID = new QLabel( tab, "BB" );
     BuildID->setAlignment(Qt::AlignCenter);
-    QString bu = tr("%1. %2 %3 ").arg(4).arg("January").arg(2004);
+    QString bu = tr("%1. %2 %3 ").arg(5).arg("January").arg(2004);
 #ifdef HAVE_CMS
 		bu += "C";
 #else

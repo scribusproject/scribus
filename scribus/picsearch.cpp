@@ -5,6 +5,16 @@
 extern QImage LoadPict(QString fn);
 extern QPixmap loadIcon(QString nam);
 
+/*!
+ \fn PicSearch::PicSearch(QWidget* parent, QString name, QStringList alt)
+ \author Franz Schmid
+ \date
+ \brief Constructor for PicSearch.[dox?]. Used in Extras / Manage Pictures / Search function
+ \param parent QWidget pointer to parent window
+ \param name QString name of image
+ \param alt QStringList List of Paths where an Image with the given Name is present
+ \retval None
+ */
 PicSearch::PicSearch(QWidget* parent, QString name, QStringList alt)
     : QDialog( parent, "pi2", true, 0 )
 {
@@ -83,6 +93,14 @@ PicSearch::PicSearch(QWidget* parent, QString name, QStringList alt)
   	connect(ListBox1, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selBild(QListBoxItem*)));
 }
 
+/*!
+ \fn void PicSearch::ShowPrev()
+ \author Franz Schmid
+ \date
+ \brief If preview is desired (checked) then the image preview is shown and generated, otherwise hidden.
+ \param None
+ \retval None
+ */
 void PicSearch::ShowPrev()
 {
 	if (Preview->isChecked())
@@ -99,6 +117,14 @@ void PicSearch::ShowPrev()
 		}
 }
 
+/*!
+ \fn void PicSearch::selBild(QListBoxItem *c)
+ \author Franz Schmid
+ \date
+ \brief When image is selected from the ListBox then the image preview may be shown and the Use button is enabled.
+ \param c QListBoxItem
+ \retval None
+ */
 void PicSearch::selBild(QListBoxItem *c)
 {
 	if (c == NULL)
@@ -109,6 +135,14 @@ void PicSearch::selBild(QListBoxItem *c)
 	UseB->setEnabled(true);
 }
 
+/*!
+ \fn void PicSearch::GenPreview()
+ \author Franz Schmid
+ \date
+ \brief Generates image preview for the found Picture
+ \param None
+ \retval None
+ */
 void PicSearch::GenPreview()
 {
 	QPixmap pm;

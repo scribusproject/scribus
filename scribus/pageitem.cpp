@@ -484,32 +484,40 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 			if ((isAnnotation) && (AnType == 2) && (Pfile != "") && (PicAvail) && (PicArt) && (AnUseIcons))
 				{
 				QBitmap bmd = QBitmap(static_cast<int>(Width), static_cast<int>(Height));
-				bmd.fill(Qt::color0);
-				QPainter pb;
-				pb.begin(&bmd);
-				pb.setBrush(Qt::color1);
-				pb.setPen(QPen(Qt::color1, 1, DotLine, FlatCap, MiterJoin));
-				DrawPoly(&pb, Clip, pb.brush().color(), true);
-				pb.end();
-				QPixmap pmd = QPixmap(static_cast<int>(Width), static_cast<int>(Height));
-				pmd.fill();
-				QPainter pd;
-				pd.begin(&pmd);
-				if ((Pcolor != "None") || (GrType != 0))
+				if (!bmd.isNull())
 					{
-					pd.setPen(NoPen);
-					SetFarbe(&tmp, Pcolor, Shade);
-					pd.setBrush(tmp);
-					if (!Doc->RePos)
+					bmd.fill(Qt::color0);
+					QPainter pb;
+					pb.begin(&bmd);
+					pb.setBrush(Qt::color1);
+					pb.setPen(QPen(Qt::color1, 1, DotLine, FlatCap, MiterJoin));
+					DrawPoly(&pb, Clip, pb.brush().color(), true);
+					pb.end();
+					QPixmap pmd = QPixmap(static_cast<int>(Width), static_cast<int>(Height));
+					if (!pmd.isNull())
 						{
-						if (GrType == 0)
-							DrawPoly(&pd, Clip, pd.brush().color());
+						pmd.fill();
+						QPainter pd;
+						pd.begin(&pmd);
+						if ((Pcolor != "None") || (GrType != 0))
+							{
+							pd.setPen(NoPen);
+							SetFarbe(&tmp, Pcolor, Shade);
+							pd.setBrush(tmp);
+							if (!Doc->RePos)
+								{
+								if (GrType == 0)
+									DrawPoly(&pd, Clip, pd.brush().color());
+								}
+							}
+						if (!pixm.isNull())
+							pd.drawImage(static_cast<int>(LocalX*LocalScX), static_cast<int>(LocalY*LocalScY), pixm);
+						pmd.setMask(bmd);
+						QImage ip2 = pmd.convertToImage();
+						if (!ip2.isNull())
+							p->drawImage(ip2);
 						}
 					}
-				pd.drawImage(static_cast<int>(LocalX*LocalScX), static_cast<int>(LocalY*LocalScY), pixm);
-				pmd.setMask(bmd);
-				QImage ip2 = pmd.convertToImage();
-				p->drawImage(ip2);
 				}
 			if ((Ptext.count() != 0) || (Dirty) || (NextBox != 0))
 				{
@@ -671,8 +679,10 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 							CurX++;
 							if (CurX+RExtra+lineCorr > ColBound.y())
 								{
-								CurY += Doc->Vorlagen[hl->cab].LineSpa;
-								CurY += Doc->Vorlagen[hl->cab].Anach;
+								if (a == 0)
+									CurY++;
+								else
+									CurY += QMAX(Doc->Vorlagen[hl->cab].LineSpa, 1);
 								CurX = ColBound.x();
 								if (CurY+BExtra+lineCorr > Height)
 									{
@@ -973,7 +983,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 									if (CurX+RExtra+lineCorr > ColBound.y())
 										{
 										fromOut = false;
-										CurY += Doc->Vorlagen[0].LineSpa;
+										CurY += Doc->Vorlagen[hl->cab].LineSpa;
 										CurX = ColBound.x();
 										if (hl->ch != QChar(13))
 											CurX += Doc->Vorlagen[hl->cab].Indent;

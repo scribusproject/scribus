@@ -1994,6 +1994,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			}
 		update();
 		emit PaintingDone();
+		emit DocChanged();
 		return;
 		}
 	if ((doku->EditClip) && (ClRe == -1) && (HaveSelRect))

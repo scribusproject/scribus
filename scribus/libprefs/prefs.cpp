@@ -18,12 +18,29 @@ extern QPointArray RegularPolygon(double w, double h, uint c, bool star, double 
 
 extern "C" void* Run(QWidget *d, preV *Vor);
 
+/*! 
+ \fn void* Run(QWidget *d, preV *Vor)
+ \author Franz Schmid
+ \date  
+ \brief Creates Preferences dialog and returns pointer to it
+ \param d QWidget pointer to Preferences dialog widget
+ \param Vor preV struct pointer 
+ \retval dia returned widget pointer
+ */
 void* Run(QWidget *d, preV *Vor)
 {
 	Preferences *dia = new Preferences(d, Vor);
 	return dia;
 }
 
+/*! 
+ \fn Preferences::Preferences( QWidget* parent, preV *Vor)
+ \author Franz Schmid 
+ \date  
+ \brief Constructor for Preferences dialog box
+ \param parent QWidget pointer to parent window
+ \retval Preferences dialog
+ */
 Preferences::Preferences( QWidget* parent, preV *Vor)
     : QDialog( parent, "pref", true, 0 )
 {
@@ -1573,14 +1590,27 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     UnitChange();
 }
 
-/*
- *  Destroys the object and frees any allocated resources
+/*! 
+ \fn Preferences::~Preferences
+ \author Franz Schmid 
+ \date  
+ \brief Destructor for Preferences dialog box
+ \param None
+ \retval None
  */
 Preferences::~Preferences()
 {
     // no need to delete child widgets, Qt does it all for us
 }
 
+/*! 
+ \fn void Preferences::ChangeDocs()
+ \author Franz Schmid 
+ \date  
+ \brief Runs QFileDialog to get Preferences (General) Path to Documents directory
+ \param None
+ \retval None
+ */
 void Preferences::ChangeDocs()
 {
 	QString s = QFileDialog::getExistingDirectory(Docs->text(), this, "d", tr("Choose a Directory"), true);
@@ -1588,6 +1618,14 @@ void Preferences::ChangeDocs()
 		Docs->setText(s);
 }
 
+/*! 
+ \fn void Preferences::ChangeProfs()
+ \author Franz Schmid 
+ \date  
+ \brief Runs QFileDialog to get Preferences (General) Path to Colour Profiles directory
+ \param None
+ \retval None
+ */
 void Preferences::ChangeProfs()
 {
 	QString s = QFileDialog::getExistingDirectory(Docs->text(), this, "d", tr("Choose a Directory"), true);
@@ -1595,6 +1633,14 @@ void Preferences::ChangeProfs()
 		ProPfad->setText(s);
 }
 
+/*! 
+ \fn void Preferences::ChangeScripts()
+ \author Franz Schmid 
+ \date  
+ \brief Runs QFileDialog to get Preferences (General) Path to Scripts directory
+ \param None
+ \retval None 
+ */
 void Preferences::ChangeScripts()
 {
 	QString s = QFileDialog::getExistingDirectory(Docs->text(), this, "d", tr("Choose a Directory"), true);
@@ -1602,6 +1648,14 @@ void Preferences::ChangeScripts()
 		ScriptPfad->setText(s);
 }
 
+/*! 
+ \fn void Preferences::ChangeScaling()
+ \author Franz Schmid 
+ \date  
+ \brief Preferences (Tools / Image Frame), switches default between free or set scaling and their settings
+ \param None
+ \retval None 
+ */
 void Preferences::ChangeScaling()
 {
 	bool setter = false;
@@ -1615,6 +1669,14 @@ void Preferences::ChangeScaling()
 	Aspect->setEnabled(!setter);
 }
 
+/*! 
+ \fn void Preferences::setDS()
+ \author Franz Schmid 
+ \date  
+ \brief Preferences (Document / Page Size), switches default between Facing Pages and swaps text labels for margin guides
+ \param None
+ \retval None 
+ */
 void Preferences::setDS()
 {
     if (Doppelseiten->isChecked())
@@ -1632,6 +1694,14 @@ void Preferences::setDS()
     	}
 }
 
+/*! 
+ \fn void Preferences::setBreite(int v)
+ \author Franz Schmid 
+ \date  
+ \brief Preferences (Document / Page Size), sets Page width values
+ \param v Width value
+ \retval None 
+ */
 void Preferences::setBreite(int v)
 {
 	Pagebr = v / Umrech / 100.0;
@@ -1641,6 +1711,14 @@ void Preferences::setBreite(int v)
 	BottomR->setMaxValue(Hoehe->value() - TopR->value());
 }
 
+/*! 
+ \fn void Preferences::setHoehe(int v)
+ \author Franz Schmid 
+ \date  
+ \brief Preferences (Document / Page Size), sets Page height values
+ \param v Height value
+ \retval None 
+ */
 void Preferences::setHoehe(int v)
 {
 	Pageho = v / Umrech / 100.0;
@@ -1650,30 +1728,70 @@ void Preferences::setHoehe(int v)
 	BottomR->setMaxValue(Hoehe->value() - TopR->value());
 }
 
+/*! 
+ \fn void Preferences::setTop(int v)
+ \author Franz Schmid 
+ \date  
+ \brief Preferences (Document / Page Size), sets Page top values
+ \param v Top value
+ \retval None 
+ */
 void Preferences::setTop(int v)
 {
 	RandT = v / Umrech / 100.0;
 	BottomR->setMaxValue(Hoehe->value() - TopR->value());
 }
 
+/*! 
+ \fn void Preferences::setBottom(int v)
+ \author Franz Schmid 
+ \date  
+ \brief Preferences (Document / Page Size), sets Page bottom values
+ \param v Bottom value
+ \retval None 
+ */
 void Preferences::setBottom(int v)
 {
 	RandB = v / Umrech / 100.0;
 	TopR->setMaxValue(Hoehe->value() - BottomR->value());
 }
 
+/*! 
+ \fn void Preferences::setLeft(int v)
+ \author Franz Schmid 
+ \date  
+ \brief Preferences (Document / Page Size), sets Page left values
+ \param v Top value
+ \retval None 
+ */
 void Preferences::setLeft(int v)
 {
 	RandL = v / Umrech / 100.0;
 	RightR->setMaxValue(Breite->value() - LeftR->value());
 }
 
+/*! 
+ \fn void Preferences::setRight(int v)
+ \author Franz Schmid 
+ \date  
+ \brief Preferences (Document / Page Size), sets Page right values
+ \param v Right value
+ \retval None 
+ */
 void Preferences::setRight(int v)
 {
 	RandR = v / Umrech / 100.0;
 	LeftR->setMaxValue(Breite->value() - RightR->value());
 }
 
+/*! 
+ \fn void Preferences::setSize(int gr)
+ \author Franz Schmid 
+ \date  
+ \brief Preferences (Document / Page Size), sets Page size values. Connects signals for setting page dimensions.
+ \param gr Standard page size value (eg A4)
+ \retval None 
+ */
 void Preferences::setSize(int gr)
 {
 	Pagebr = Breite->value() / 100.0;
@@ -1819,6 +1937,14 @@ void Preferences::setSize(int gr)
 	connect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
 }
 
+/*! 
+ \fn void Preferences::setOrien(int ori)
+ \author Franz Schmid 
+ \date  
+ \brief Preferences (Document / Page Size), sets Page orientation value and page dimensions
+ \param ori Orientation value
+ \retval None 
+ */
 void Preferences::setOrien(int ori)
 {
 	int br;
@@ -1844,6 +1970,14 @@ void Preferences::setOrien(int ori)
 	connect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
 }
 
+/*! 
+ \fn void Preferences::DefKB()
+ \author Franz Schmid 
+ \date  
+ \brief Preferences (General / Menus), Creates and opens KeyManager dialog for shortcut key preferences.
+ \param None
+ \retval None 
+ */
 void Preferences::DefKB()
 {
 	KeyManager *dia = new KeyManager(this, KKC);
@@ -1852,6 +1986,14 @@ void Preferences::DefKB()
 	delete dia;
 }
 
+/*! 
+ \fn void Preferences::SetSample()
+ \author Franz Schmid 
+ \date  
+ \brief Preferences (Tools, Text frame), Sets the sample text in selected font in text frame preferences
+ \param None
+ \retval None 
+ */
 void Preferences::SetSample()
 {
 	QString ts = tr( "Woven silk pyjamas exchanged for blue quartz" );
@@ -1861,6 +2003,14 @@ void Preferences::SetSample()
 	TextLabel1_4->setPixmap(pm);
 }
 
+/*! 
+ \fn void Preferences::changeMaColor()
+ \author Franz Schmid 
+ \date  
+ \brief Preferences ([dox?], [dox?]), Sets Maximum colour [dox?]
+ \param None
+ \retval None 
+ */
 void Preferences::changeMaColor()
 {
 	QColor neu = QColor();
@@ -1874,6 +2024,14 @@ void Preferences::changeMaColor()
 		}
 }
 
+/*! 
+ \fn void Preferences::changeMicolor()
+ \author Franz Schmid 
+ \date  
+ \brief Preferences ([dox?], [dox?]), Sets Minimum colour [dox?]
+ \param None
+ \retval None 
+ */
 void Preferences::changeMicolor()
 {
 	QColor neu = QColor();
@@ -1887,6 +2045,14 @@ void Preferences::changeMicolor()
 		}
 }
 
+/*! 
+ \fn void Preferences::changePapColor()
+ \author Franz Schmid 
+ \date  
+ \brief Preferences ([dox?], [dox?]), Sets Paper colour [dox?]
+ \param None
+ \retval None 
+ */
 void Preferences::changePapColor()
 {
 	QColor neu = QColor();
@@ -1900,6 +2066,14 @@ void Preferences::changePapColor()
 		}
 }
 
+/*! 
+ \fn void Preferences::changeRandColor()
+ \author Franz Schmid 
+ \date  
+ \brief Preferences ([dox?], [dox?]), Sets Rand colour [dox?]
+ \param None
+ \retval None 
+ */
 void Preferences::changeRandColor()
 {
 	QColor neu = QColor();
@@ -1913,6 +2087,14 @@ void Preferences::changeRandColor()
 		}
 }
 
+/*! 
+ \fn void Preferences::changeGuideColor()
+ \author Franz Schmid 
+ \date  
+ \brief Preferences ([dox?], [dox?]), Sets Guide colour [dox?]
+ \param None
+ \retval None 
+ */
 void Preferences::changeGuideColor()
 {
 	QColor neu = QColor();
@@ -1926,6 +2108,14 @@ void Preferences::changeGuideColor()
 		}
 }
 
+/*! 
+ \fn void Preferences::SetTool()
+ \author Franz Schmid 
+ \date  
+ \brief Preferences (Tools), Raises widget for selected Tool properties
+ \param None
+ \retval None 
+ */
 void Preferences::SetTool()
 {
 	if (TextButton == sender())
@@ -1944,24 +2134,56 @@ void Preferences::SetTool()
     Fram->raiseWidget(6);
 }
 
+/*! 
+ \fn void Preferences::ToggleKette()
+ \author Franz Schmid 
+ \date  
+ \brief Preferences (Tools, Image Frame), Sets Y Scale value from X Scale value when chain is toggled
+ \param None
+ \retval None 
+ */
 void Preferences::ToggleKette()
 {
 	if (Kette->isOn())
 		YScale->setValue(XScale->value());
 }
 
+/*! 
+ \fn void Preferences::HChange()
+ \author Franz Schmid 
+ \date  
+ \brief Preferences (Tools, Image Frame), Sets Y Scale value from X Scale value when X Scale value is changed
+ \param None
+ \retval None 
+ */
 void Preferences::HChange()
 {
 	if (Kette->isOn())
 		YScale->setValue(XScale->value());
 }
 
+/*! 
+ \fn void Preferences::VChange()
+ \author Franz Schmid 
+ \date  
+ \brief Preferences (Tools, Image Frame). Sets X Scale value from Y Scale value when Y Scale value is changed
+ \param None
+ \retval None 
+ */
 void Preferences::VChange()
 {
 	if (Kette->isOn())
 		XScale->setValue(YScale->value());
 }
 
+/*! 
+ \fn void Preferences::UnitChange()
+ \author Franz Schmid 
+ \date  
+ \brief Preferences (General, Units). Sets scaling factors and units descriptions when default units are changed. Updates preference values
+ \param None
+ \retval None 
+ */
 void Preferences::UnitChange()
 {
 	double AltUmrech = Umrech;
@@ -2027,6 +2249,14 @@ void Preferences::UnitChange()
 	connect(RightR, SIGNAL(valueChanged(int)), this, SLOT(setRight(int)));
 }
 
+/*! 
+ \fn void Preferences::ValFromSpin2(int a)
+ \author Franz Schmid 
+ \date  
+ \brief [dox?]
+ \param a
+ \retval None 
+ */
 void Preferences::ValFromSpin2(int a)
 {
 	disconnect(T6_Slider2, SIGNAL(valueChanged(int)), T6_Faktor2, SLOT(setValue(int)));
@@ -2034,6 +2264,14 @@ void Preferences::ValFromSpin2(int a)
   connect(T6_Slider2, SIGNAL(valueChanged(int)), T6_Faktor2, SLOT(setValue(int)));
 }
 
+/*! 
+ \fn void Preferences::ValFromSpin(int a)
+ \author Franz Schmid 
+ \date  
+ \brief [dox?]
+ \param a
+ \retval None 
+ */
 void Preferences::ValFromSpin(int a)
 {
 	disconnect(T6_Slider1, SIGNAL(valueChanged(int)), T6_Faktor, SLOT(setValue(int)));
@@ -2041,6 +2279,14 @@ void Preferences::ValFromSpin(int a)
   connect(T6_Slider1, SIGNAL(valueChanged(int)), T6_Faktor, SLOT(setValue(int)));
 }
 
+/*! 
+ \fn void Preferences::UpdatePreView()
+ \author Franz Schmid 
+ \date  
+ \brief Preferences (Tools, Polygon). Updates polygon preview based on current settings
+ \param None
+ \retval None 
+ */
 void Preferences::UpdatePreView()
 {
 	Pre->fill(white);
@@ -2067,11 +2313,28 @@ void Preferences::UpdatePreView()
 	T6_Preview->setPixmap(*Pre);
 }
 
+
+/*! 
+ \fn double Preferences::GetZeroFaktor()
+ \author Franz Schmid 
+ \date  
+ \brief Preferences (Tools, Polygon). Calculates Zero Factor [dox?] for polygon
+ \param None
+ \retval (double) Zero Factor
+ */
 double Preferences::GetZeroFaktor()
 {
 	return sqrt(pow(1,2)-pow(((sin((360.0/(T6_Ecken->value()*2))/180*M_PI)* 2.0)/2.0),2));
 }
 
+/*! 
+ \fn double Preferences::GetMaxFaktor()
+ \author Franz Schmid 
+ \date  
+ \brief Preferences (Tools, Polygon). Calculates Max Factor [dox?] for polygon
+ \param None
+ \retval ret (double) Max Factor
+ */
 double Preferences::GetMaxFaktor()
 {
 	double win = (360.0/(T6_Ecken->value()*2)) / 180.0 * M_PI;
@@ -2083,6 +2346,14 @@ double Preferences::GetMaxFaktor()
 	return ret;
 }
 
+/*! 
+ \fn double Preferences::GetFaktor()
+ \author Franz Schmid 
+ \date  
+ \brief Preferences (Tools, Polygon). Calculates Zero Factor [dox?] for polygon
+ \param None
+ \retval PFactor (double) Zero Factor
+ */
 double Preferences::GetFaktor()
 {
 	int val = T6_Slider1->value();
@@ -2099,6 +2370,14 @@ double Preferences::GetFaktor()
 	return PFactor;
 }
 
+/*! 
+ \fn void Preferences::SetDisScale()
+ \author Franz Schmid 
+ \date  
+ \brief Preferences (Display, Display Size). Sets Scale for ruler scale
+ \param None
+ \retval None
+ */
 void Preferences::SetDisScale()
 {
 	DisScale = QMAX((100.0 + CaliSlider->value()) / 100.0, 0.01);
@@ -2106,6 +2385,14 @@ void Preferences::SetDisScale()
 	CaliAnz->setText(QString::number(DisScale*100, 'f', 2)+" %");
 }
 
+/*! 
+ \fn void Preferences::DrawRuler()
+ \author Franz Schmid 
+ \date  
+ \brief Preferences (Display, Display Size). Draws ruler depending on scaling factor
+ \param None
+ \retval None
+ */
 void Preferences::DrawRuler()
 {
 	double xl, iter, iter2, maxi;
