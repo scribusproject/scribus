@@ -9,6 +9,7 @@
 #include <qvaluelist.h>
 #include <qvaluevector.h> 
 #include <qstring.h>
+#include <vector>
 
 #include "scfonts.h"
 #include "cmykcolor.h"
