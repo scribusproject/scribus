@@ -649,7 +649,7 @@ void ScribusApp::initMenuBar()
 	fid11 = fileMenu->insertItem( tr("&Export"), exportMenu);
 	fileMenu->setItemEnabled(fid11, 0);
 	fileMenu->insertSeparator();
-	fid6 = fileMenu->insertItem(loadIcon("documentinfo.png"), tr("Document &Info..."), this, SLOT(InfoDoc()), CTRL+Key_I);
+	fid6 = fileMenu->insertItem(loadIcon("documentinfo.png"), tr("Document &Information..."), this, SLOT(InfoDoc()), CTRL+Key_I);
 	fileMenu->setItemEnabled(fid6, 0);
 	MenuItemsFile.append(fid6);
 	SetKeyEntry(5, tr("Document Info..."), fid6, CTRL+Key_I);

@@ -209,7 +209,7 @@ PageItem::PageItem(Page *pa, int art, double x, double y, double w, double h, do
 	AnMaxChar = -1;
 	AnBColor = outline;
 	HasSel = false;
-	Textflow = true;
+	Textflow = false;
 	Textflow2 = false;
 	Tinput = false;
 	isAutoText = false;

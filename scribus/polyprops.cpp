@@ -36,9 +36,9 @@ PolygonProps::PolygonProps(QWidget* parent) : QDialog( parent, "poly", true, 0 )
 	Ecken->setMaxValue( 999 );
 	Ecken->setMinValue( 3 );
 	Ecken->setValue(PolyC);
-	Layout2->addWidget( Ecken );
 	Text1 = new QLabel( Ecken, tr("Corn&ers:"), this, "Text1" );
 	Layout2->addWidget( Text1 );
+	Layout2->addWidget( Ecken );
 	Layout10->addLayout( Layout2 );
 
 	Layout9_2 = new QHBoxLayout( 0, 0, 5, "Layout9_2");
@@ -49,9 +49,9 @@ PolygonProps::PolygonProps(QWidget* parent) : QDialog( parent, "poly", true, 0 )
 	Faktor2->setMaxValue( 180 );
 	Faktor2->setMinValue( -180 );
 	Faktor2->setValue(static_cast<int>(PolyR));
-	Layout7_2->addWidget( Faktor2 );
 	Text2_2 = new QLabel( Faktor2, tr("&Rotation:"), this, "Text2_2" );
 	Layout7_2->addWidget( Text2_2 );
+	Layout7_2->addWidget( Faktor2 );
 	Layout8_2->addLayout( Layout7_2 );
 	Slider2 = new QSlider( this, "Slider1_2" );
 	Slider2->setMinValue( -180 );
@@ -77,9 +77,9 @@ PolygonProps::PolygonProps(QWidget* parent) : QDialog( parent, "poly", true, 0 )
 	Faktor->setMaxValue( 100 );
 	Faktor->setMinValue( -100 );
 	Faktor->setValue(PolyFd);
-	Layout7->addWidget( Faktor );
 	Text2 = new QLabel( Faktor, tr("&Factor:"), this, "Text2" );
 	Layout7->addWidget( Text2 );
+	Layout7->addWidget( Faktor );
 	Layout8->addLayout( Layout7 );
 	Slider1 = new QSlider( this, "Slider1" );
 	Slider1->setMinValue( -100 );

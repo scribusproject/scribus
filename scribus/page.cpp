@@ -8216,19 +8216,22 @@ void Page::GimpExited()
 		delete proc;
 		proc = 0;
 	}
-	PageItem *b = SelItem.at(0);
-	if (b->PicAvail)
+	if (SelItem.count() != 0)
 	{
-		if ( ex == 0 )
+		PageItem *b = SelItem.at(0);
+		if (b->PicAvail)
 		{
-			int fho = b->flippedH;
-			int fvo = b->flippedV;
-			LoadPict(b->Pfile, b->ItemNr);
-			b->flippedH = fho;
-			b->flippedV = fvo;
-			AdjustPictScale(b);
-			AdjustPreview(b, false);
-			update();
+			if ( ex == 0 )
+			{
+				int fho = b->flippedH;
+				int fvo = b->flippedV;
+				LoadPict(b->Pfile, b->ItemNr);
+				b->flippedH = fho;
+				b->flippedV = fvo;
+				AdjustPictScale(b);
+				AdjustPreview(b, false);
+				update();
+			}
 		}
 	}
 	qApp->mainWidget()->setEnabled(true);
