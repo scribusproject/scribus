@@ -1158,7 +1158,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
  									b->Dirty = true;
  									b->paintObj();
  									}
- 								if (((kk + KeyMod) == Prefs.KeyActions[67].KeyID) || ((kk + KeyMod) == Prefs.KeyActions[67].KeyID))
+ 								if (((kk + KeyMod) == Prefs.KeyActions[60].KeyID) || ((kk + KeyMod) == Prefs.KeyActions[67].KeyID))
  									{
  									hg = new Pti;
 									if ((kk + KeyMod) == Prefs.KeyActions[60].KeyID)
@@ -3051,7 +3051,7 @@ void ScribusApp::DisableTxEdit()
 void ScribusApp::slotHelpAbout()
 {
 	void *mo;
-	char *error;
+	const char *error;
 	typedef About* (*sdem)(QWidget *d);
 	sdem demo;
 	QString pfad = PREL;
@@ -5156,7 +5156,7 @@ void ScribusApp::ShowSubs()
 
 PSLib* ScribusApp::getPSDriver(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, CListe DocColors, bool pdf)
 {
-	char *error;
+	const char *error;
 	typedef PSLib* (*sdem)(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, CListe DocColors, bool pdf);
 	sdem demo;
 	QString pfad = PREL;
@@ -5738,7 +5738,7 @@ void ScribusApp::RunHelpPlug(int id)
 
 void ScribusApp::FinalizePlugs()
 {
-	char *error;
+	const char *error;
 	QMap<QString, PlugData>::Iterator it;
 	struct PlugData pda;
 	typedef void (*sdem2)();
@@ -5808,7 +5808,7 @@ void ScribusApp::InitPlugs(SplashScreen *spl)
 void ScribusApp::CallDLL(QString name)
 {
 	void *mo;
-	char *error;
+	const char *error;
 	struct PlugData pda;
 	pda = PluginMap[name];
 	typedef void (*sdem)(QWidget *d, ScribusApp *plug);
@@ -5842,7 +5842,7 @@ void ScribusApp::CallDLL(QString name)
 bool ScribusApp::DLLName(QString name, QString *PName, int *typ, void **Zeig)
 {
 	void *mo;
-	char *error;
+	const char *error;
 	typedef QString (*sdem0)();
 	typedef int (*sdem1)();
 	typedef void (*sdem2)(QWidget *d, ScribusApp *plug);

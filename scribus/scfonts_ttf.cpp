@@ -22,7 +22,7 @@
 #endif
 // #define doPost
 
-QString showTag(u_int32_t tag)
+QString showTag(uint32_t tag)
 {
 	char tmp[5];
 	tmp[0]=(tag>>24) & 255;
@@ -80,8 +80,8 @@ class sc_TTFont
 		SCFonts_Encoding OwnEncoding;
 		SCFonts_Encoding PostEncoding;
 		sc_TTFontError error;
-		u_int16_t readBEUInt16();
-		u_int32_t readBEUInt32();
+		uint16_t readBEUInt16();
+		uint32_t readBEUInt32();
 
 		bool readHeaders();
 		bool readOffsetTable();
@@ -120,7 +120,7 @@ class sc_TTFont
 		bool GlyphNamesRead;
 #endif
 
-		QArray<u_int32_t> Loca;
+		QArray<uint32_t> Loca;
 		bool LocaRead;
 
 		QArray<tt_longHorMetric> Hmtx;
@@ -456,7 +456,7 @@ bool sc_TTFont::readnGlyphs()
 		return(true);
 	struct {
     fxp16_16_t version;
-    u_int16_t nglyphs;
+    uint16_t nglyphs;
   } data;
 	file.at(entries[o_maxp].offset);
 
@@ -765,9 +765,9 @@ bool sc_TTFont::readCmapTable()
 #if 0		// Need to implement Mac encoding sometime...
 struct CmapFormat0
 {
-	u_int16_t format;
-	u_int16_t length;
-	u_int16_t language;
+	uint16_t format;
+	uint16_t length;
+	uint16_t language;
 	char glyphIdArray[256];
 };
 #endif
