@@ -58,6 +58,8 @@
 #include "seiten.h"
 #include "bookpalette.h"
 #include "splash.h"
+class Autoforms;
+class FontCombo;
 
 /**
   * This Class is the base class for your application. It sets up the main
@@ -309,6 +311,7 @@ public slots:
 	void setItemShade(int id);
 	/** Setzt den Font */
 	void setItemFont(int id);
+	void setItemFont2(int id);
 	/** Korrigiert das FontMenu */
 	void AdjustFontMenu(QString nf);
 	void SetNewFont(QString nf);
@@ -329,11 +332,8 @@ public slots:
 	void setCSMenu(QString f, QString l, int fs, int ls);
 	/** Fragt nach den Farben */
 	void GetBrushPen();
-	/** Erzeugt einen rechteckigen Rahmen */
-	void RectFrame();
-	/** Erzeugt einen ovalen Rahmen */
-	void OvalFrame();
-	void RoundedFrame();
+	/** Erzeugt einen Rahmen */
+	void MakeFrame(int f, int c, double *vals);
 	/** Loescht ein Element */
 	void DeleteObjekt();
 	/** Setzt das Element in den Hintergrund */
@@ -422,8 +422,10 @@ private:
 	QPopupMenu *ShadeMenu;
 	/** ShapeMenu enthaelt die Rahmenformen */
 	QPopupMenu *ShapeMenu;
+	Autoforms* SCustom;
 	/** FontMenu enthaelt die Fonts */
 	QPopupMenu *FontMenu;
+    FontCombo* FontSub;
 	QPopupMenu *TypeStyleMenu;
 	QPopupMenu *AliMenu;
 	QPopupMenu *recentMenu;

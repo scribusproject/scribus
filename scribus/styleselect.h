@@ -1,7 +1,7 @@
 #ifndef STYLESELECT_H
 #define STYLESELECT_H
 
-#include <qbuttongroup.h>
+#include <qgroupbox.h>
 #include <qtoolbutton.h>
 #include <qlayout.h>
 #include <qtooltip.h>
@@ -17,7 +17,7 @@ public:
 	void setStyle(int s);
 	int getStyle();
 
-    QButtonGroup* ButtonGroup1;
+    QGroupBox* ButtonGroup1;
     QToolButton* Underline;
     QToolButton* Subs;
     QToolButton* Supers;

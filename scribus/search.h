@@ -25,6 +25,8 @@ class SearchReplace : public QDialog
 public:
     SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, PageItem* ite );
     ~SearchReplace() {};
+    virtual void slotDoSearch();
+	virtual void slotDoReplace();
 
     QGroupBox* Search;
     QCheckBox* SStroke;

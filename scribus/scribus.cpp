@@ -77,11 +77,11 @@
 #include "guidemanager.h"
 #include "mergedoc.h"
 #include "lineformats.h"
-#include "missing.h"
 #include "story.h"
 #include "autoform.h"
 #include "tabmanager.h"
 #include "search.h"
+#include "fontcombo.h"
 
 #include <unistd.h>
 
@@ -657,9 +657,9 @@ void ScribusApp::initMenuBar()
 	SetKeyEntry(29, tr("Distribute/Align..."), DistM, 0);
 	ObjMenu->insertSeparator();
 	ShapeMenu = new QPopupMenu();
-	ShapeMenu->insertItem( tr("Rectangle"), this, SLOT(RectFrame()));
-	ShapeMenu->insertItem( tr("Rounded Rectangle"), this, SLOT(RoundedFrame()));
-	ShapeMenu->insertItem( tr("Oval"), this, SLOT(OvalFrame()));
+	SCustom = new Autoforms(0);
+	ShapeMenu->insertItem(SCustom);
+    connect(SCustom, SIGNAL(FormSel(int, int, double *)), this, SLOT(MakeFrame(int, int, double *)));
 	ShapeEdit = ShapeMenu->insertItem( tr("Edit Frame"), this, SLOT(ToggleFrameEdit()));
 	ShapeM = ObjMenu->insertItem( tr("Shape"), ShapeMenu);
 	PfadT = ObjMenu->insertItem( tr("Attach Text to Path"), this, SLOT(Pfadtext()));
@@ -2202,6 +2202,8 @@ void ScribusApp::HaveNewSel(int Nr)
 			StilMenu->clear();
 			StilMenu->insertItem( tr("Color"), ColorMenu);
 			StilMenu->insertItem( tr("Shade"), ShadeMenu);
+			if (Nr == 6)
+				ObjMenu->setItemEnabled(ShapeM, 1);
 			WerkTools->KetteAus->setEnabled(false);
 			WerkTools->KetteEin->setEnabled(false);
 			if (Nr != 5)
@@ -4443,28 +4445,21 @@ void ScribusApp::CopyPage()
 	delete dia;
 }
 
+void ScribusApp::setItemFont2(int id)
+{
+	disconnect(FontMenu, SIGNAL(activated(int)), this, SLOT(setItemFont(int)));
+	SetNewFont(FontSub->text(id));
+	connect(FontMenu, SIGNAL(activated(int)), this, SLOT(setItemFont(int)));
+}
+
 void ScribusApp::setItemFont(int id)
 {
 	QString nf;
 	int a = FontMenu->indexOf(id);
-	disconnect(FontMenu, SIGNAL(activated(int)), this, SLOT(setItemFont(int)));
 	if (a == 1)
 		return;
-	if (a == 0)
-		{
-		DmF *dia = new DmF(view, doc->ActPage->SelItem.at(0)->IFont, &Prefs, false);
-		if (dia->exec())
-			nf = dia->Ersatz;
-		else
-			{
-			delete dia;
-			connect(FontMenu, SIGNAL(activated(int)), this, SLOT(setItemFont(int)));
-			return;
-			}
-		delete dia;
-		}
-	else
-		nf = FontID[id];
+	disconnect(FontMenu, SIGNAL(activated(int)), this, SLOT(setItemFont(int)));
+	nf = FontID[id];
 	SetNewFont(nf);
 	connect(FontMenu, SIGNAL(activated(int)), this, SLOT(setItemFont(int)));
 }
@@ -4488,6 +4483,7 @@ void ScribusApp::SetNewFont(QString nf)
 void ScribusApp::AdjustFontMenu(QString nf)
 {
 	QString df;
+	FontSub->setCurrentText(nf);
 	Mpal->Fonts->setCurrentText(nf);
 	for (uint a = 2; a < FontMenu->count(); ++a)
 		{
@@ -4981,25 +4977,22 @@ void ScribusApp::GetBrushPen()
 		}
 }
 
-void ScribusApp::RectFrame()
+void ScribusApp::MakeFrame(int f, int c, double *vals)
 {
-	doc->ActPage->SetFrameRect();
-	slotDocCh();
-	doc->UnDoValid = false;
-	CanUndo();
-}
-
-void ScribusApp::RoundedFrame()
-{
-	doc->ActPage->SetFrameRounded();
-	slotDocCh();
-	doc->UnDoValid = false;
-	CanUndo();
-}
-
-void ScribusApp::OvalFrame()
-{
-	doc->ActPage->SetFrameOval();
+	PageItem *b = doc->ActPage->SelItem.at(0);
+	switch (f)
+		{
+		case 0:
+			doc->ActPage->SetRectFrame(b);
+			break;
+		case 1:
+			doc->ActPage->SetOvalFrame(b);
+			break;
+		default:
+			doc->ActPage->SetFrameShape(b, c, vals);
+			break;
+		}
+	doc->ActPage->RefreshItem(b);
 	slotDocCh();
 	doc->UnDoValid = false;
 	CanUndo();
@@ -5165,7 +5158,9 @@ void ScribusApp::BuildFontMenu()
 	int a;
 	QString b = " ";
 	SCFontsIterator it(Prefs.AvailFonts);
-	FontMenu->insertItem( tr("Other..."));
+    FontSub = new FontCombo(0, &Prefs);
+	FontMenu->insertItem(FontSub);
+    connect(FontSub, SIGNAL(activated(int)), this, SLOT(setItemFont2(int)));
 	FontMenu->insertSeparator();
 	if (!HaveDoc)
 		{
@@ -5220,6 +5215,7 @@ void ScribusApp::slotFontOrg()
 			a++;
 			}
 		}
+	FontSub->RebuildList(&Prefs);
 	Mpal->Fonts->RebuildList(&Prefs);
 	disconnect(dia, SIGNAL(ReReadPrefs()), this, SLOT(ReadPrefs()));
 	delete dia;

@@ -733,6 +733,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 								CurX = ColBound.x();
 								if (CurY+BExtra+lineCorr > Height)
 									{
+									TopOffset = asce+TExtra+lineCorr;
 									StartOfCol = true;
 									fBorder = false;
 									CurrCol++;

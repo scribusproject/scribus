@@ -2,11 +2,7 @@
 ** Form interface generated from reading ui file 'Mline.ui'
 **
 ** Created: Mit Jun 4 23:28:08 2003
-<<<<<<< multiline.h
 **      by: The User Interface Compiler ($Id$)
-=======
-**      by: The User Interface Compiler ($Id$)
->>>>>>> 1.2
 **
 ** WARNING! All changes made in this file will be lost!
 ****************************************************************************/

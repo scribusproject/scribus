@@ -14,11 +14,9 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent, "StyleSelect")
     Underline->setToggleButton( true );
     Layout1->addWidget( Underline );
 
-    ButtonGroup1 = new QButtonGroup( this, "ButtonGroup1" );
-    ButtonGroup1->setFrameShape( QButtonGroup::NoFrame );
+    ButtonGroup1 = new QGroupBox( this, "ButtonGroup1" );
+    ButtonGroup1->setFrameShape( QGroupBox::NoFrame );
     ButtonGroup1->setTitle("");
-    ButtonGroup1->setExclusive( true );
-    ButtonGroup1->setRadioButtonExclusive( false );
     ButtonGroup1->setColumnLayout(0, Qt::Vertical );
     ButtonGroup1->layout()->setSpacing( 0 );
     ButtonGroup1->layout()->setMargin( 0 );

@@ -3837,20 +3837,18 @@ void Page::mousePressEvent(QMouseEvent *m)
 				case 0:
 					z = PaintRect(Rxp, Ryp, 1+Rxpd, 1+Rypd, doku->Dwidth, doku->Dbrush, doku->Dpen);
 					SetupDraw(z);
-					emit HaveSel(3);
 					break;
 				case 1:
 					z = PaintEllipse(Rxp, Ryp, 1+Rxpd, 1+Rypd, doku->Dwidth, doku->Dbrush, doku->Dpen);
 					SetupDraw(z);
-					emit HaveSel(1);
 					break;
 				default:
 					z = PaintPoly(Rxp, Ryp, 1+Rxpd, 1+Rypd, doku->Dwidth, doku->Dbrush, doku->Dpen);
 					SetFrameShape(Items.at(z), doku->ValCount, doku->ShapeValues);
 					SetupDraw(z);
-					emit HaveSel(6);
 					break;
 			}
+			emit HaveSel(6);
 			break;
 		case 4:
 			SeleItem(m);

@@ -330,9 +330,16 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
 void SearchReplace::slotSearch()
 {
 	Doc->ActPage->slotDoCurs(false);
+	slotDoSearch();
+	Doc->ActPage->slotDoCurs(true);
+	Doc->ActPage->RefreshItem(Item, true);
+}
+
+void SearchReplace::slotDoSearch()
+{
 	DoReplace->setEnabled(false);
 	AllReplace->setEnabled(false);
-	for (uint a = 0; a < Item->MaxChars; ++a)
+	for (uint a = 0; a < Item->Ptext.count(); ++a)
 		Item->Ptext.at(a)->cselect = false;
 	Item->HasSel = false;
 	QString fCol = "";
@@ -369,7 +376,7 @@ void SearchReplace::slotSearch()
 	uint inde = 0;
 	uint as = Item->CPos;
 	ReplStart = as;
-	for (uint a = as; a < Item->MaxChars; ++a)
+	for (uint a = as; a < Item->Ptext.count(); ++a)
 	{
 		if (SText->isChecked())
 		{
@@ -471,11 +478,17 @@ void SearchReplace::slotSearch()
 		Item->CPos = 0;
 		NotFound = false;
 	}
+}
+
+void SearchReplace::slotReplace()
+{
+	Doc->ActPage->slotDoCurs(false);
+	slotDoReplace();
 	Doc->ActPage->slotDoCurs(true);
 	Doc->ActPage->RefreshItem(Item, true);
 }
 
-void SearchReplace::slotReplace()
+void SearchReplace::slotDoReplace()
 {
 	QString repl, sear;
 	uint cs, cx;
@@ -579,20 +592,21 @@ void SearchReplace::slotReplace()
 	AllReplace->setEnabled(false);
 	for (uint a = 0; a < Item->Ptext.count(); ++a)
 		Item->Ptext.at(a)->cselect = false;
-	Doc->ActPage->slotDoCurs(true);
-	Doc->ActPage->RefreshItem(Item, true);
 }
 
 void SearchReplace::slotReplaceAll()
 {
+	Doc->ActPage->slotDoCurs(false);
 	Doc->DoDrawing = false;
 	do
 	{
-		slotReplace();
-		slotSearch();
+		slotDoReplace();
+		slotDoSearch();
 	}
 	while (NotFound);
 	Doc->DoDrawing = true;
+	Doc->ActPage->slotDoCurs(true);
+	Doc->ActPage->RefreshItem(Item, true);
 }
 
 void SearchReplace::enableTxSearch()
