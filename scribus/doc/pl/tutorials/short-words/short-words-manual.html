@@ -1,0 +1,94 @@
+<qt>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Short Words dla Scribusa</title>
+
+<h1 class="title">Short Words dla Scribusa</h1>
+
+<p>Copyright © 2004 Maciej Hański, Petr Vaněk, Łukasz Jernaś</p>
+<p>Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.2 or any later version published by the Free Software Foundation;   with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. A copy of the license is included in the section entitled "GNU Free Documentation License".</p>
+
+<h2>Wstęp</h2>
+<p>Jest to instrukcja obsługi wtyczki Short Words dla Scribusa, wolnego i dostępnego za darmo programu do DTP. Aktualne informacje o Short Words można znaleźć pod adresem <a href="http://www.yarpen.cz/scribus-vlna/" target="_top">http://www.yarpen.cz/scribus-vlna</a>.</p>
+<p>Czym jest <a href="http://www.scribus.net" target="_top">Scribus</a>, można dowiedzieć się na stronach internetowych tego programu. Aktualne informacje w języku polskim na temat Scribusa można znaleźć na stronie <a href="http://www.linux.hanski.info/index.php?pid=Scribus" target="_top">Macieja Hańskiego</a>.</p>
+<p>Niezwykle przyjazna i aktywna grupa ludzi wspierających rozwój Scribusa chętnie pomaga w rozwiązywaniu problemów za pośrednictwem <a href="http://nashi.altmuehlnet.de/mailman/listinfo/scribus" target="_top">listy dyskusyjnej</a> oraz kanału IRC <em>#scribus</em> na serwerze <a href="irc.freenode.net" target="_top">freeenode.net</a>.</p>
+
+<h2>Co to jest Short Words dla Scribusa</h2>
+<p>Zgodnie z regułami obowiązującymi w polskiej typografii nie powinno zostawiać się na końcu wiersza jednozgłoskowych spójników <em>a ,i ,o ,w ,u ,z ,A ,E ,I ,O ,W ,U ,Z</em>. Wyjątek stanowić mogą spójniki w wierszach nie przekraczających 25 znaków (więcej informacji na stronie <a href="http://www.typografia.ogme.pl/r3_dzielenie.htm" target="_top">www.typografia.ogme.pl</a>). Z problemem tym można się uporać, wstawiając pomiędzy jednozgłoskowym spójnikiem i następnym słowem tzw. twardą spację, co spowoduje przeniesienie obu słów do następnego wiersza.</p>
+<p>Scribus umożliwia co prawda ręczne wstawianie twardych spacji (kombinacja klawiszy CTRL+SPACE), jednak przy dużych objętościach tekstu jest to metoda zbyt czasochłonna.</p>
+<p>Petr Vaněk napisał moduł do Scribusa wzorujący się na używanym w Czechach programie <code>vlna</code> dla
+systemu T<sub>e</sub>X, który automatyzuje tę monotonną pracę. Początkowo wtyczka ta obsługiwała tylko język czeski, ale od
+wersji 1.2 możliwe jest już dołączenie obsługi dowolnego języka za pośrednictwem odpowiednio spreparowanego pliku
+konfiguracyjnego.</p>
+
+<h2>Przykład zastosowania</h2>
+<p>Na poniższym zrzucie ekranowym widoczne są tzw. "zawieszone spójniki", pozostawione na końcach wierszy:</p>
+
+<p><b>Przykładowy polski tekst przed użyciem wtyczki</b></p>
+<img src="before_short_words.png" alt="Przykładowy polski tekst przed użyciem wtyczki" />
+<p>Po zastąpieniu przez wtyczkę Short Words zwykłych spacji tzw. twardymi spacjami, spójniki zostały przeniesione do następnego wiersza:</p>
+<p><b>Przykładowy tekst po użyciu wtyczki</b></p>
+<img src="after_short_words.png" alt="Przykładowy tekst po użyciu wtyczki" />
+
+<h2>Sposób użycia</h2>
+<p>Po instalacji wtyczki w menu <code>Dodatki</code> pojawi się nowa pozycja <code>Short Words...</code>:</p>
+<p><b>Wywołanie programu</b></p>
+<img src="menu.png" alt="Wywołanie programu" />
+<p>Wybierz z menu Dodatki&gt;Short Words... Pojawi się okienko dialogowe, które pozwoli na wybór rodzaju operacji, którą program ma wykonać.</p>
+<p><b>Okienko dialogowe Short Words</b></p>
+<img src="dialog.png" alt="Okienko dialogowe Short Words" />
+
+<dl>
+<dt>Zaznaczonych ramek</dt>
+	<dd><p>Dodaje twarde spacje w zaznaczonych ramkach tekstowych.</p></dd>
+<dt>Aktualnej strony</dt>
+	<dd><p>Dodaje twarde spacje we wszystkich ramkach tekstowych na aktualnej stronie dokumentu.</p></dd>
+<dt>Całego dokumentu</dt>
+	<dd><p>Dodaje twarde spacje w <em>całym dokumencie</em></p></dd>
+<dt>Zastąp ustawienia domyślne własną konfiguracją</dt>
+	<dd><p>Zakreślenie tej opcji spowoduje, że uwzględnione zostaną tylko ustawienia zdefiniowane we własnym pliku konfiguracyjnym. Jeśli opcja pozostanie niezakreślona, ustawienia własne użytkownika zostaną dołączone do ustawień domyślnych.</p></dd>
+</dl>
+
+<h2>Instalacja</h2>
+<p>Najprostszy sposób instalacji Short Words to sprawdzenie na stronie scribus.net, czy dostępny jest pakiet instalacyjny dla Twojej dystrybucji, np. Fedory, SuSE lub Gentoo.</p>
+<p>Można również ściągnąć <a href="http://www.yarpen.cz/scribus-vlna" target="_top">kod źródłowy wtyczki</a> i zainstalować go za pomocą klasycznych trzech poleceń:</p>
+<pre>
+    # ./configure
+    # make
+    $ make install
+</pre>
+
+<p>Dodatkowo w pierwszym poleceniu zdefinować można docelowy katalog, w którym zainstalowana zostanie wtyczka: <code>./configure --prefix=/katalog/gdzie/poprzednio/zainstalowano/scribusa</code>. Domyślny katalog docelowy to: <code>/usr/local</code>, który również jest domyślnym katalogiem docelowym podczas instalacji Scribusa ze źródeł.</p>
+<p>Instalacja przedstawiona w powyższym przykładzie powiedzie się, jeśli w systemie zainstalowane będą wymagane biblioteki.</p>
+
+<h2>Konfiguracja</h2>
+<p>Short Words dla Scribus dostarczany jest z domyślnym plikem konfiguracyjnym <em>scribus-short-words.rc</em>, który zazwyczaj znaleźć można w katalogu <em>/usr/local/lib/scribus/plugins</em> (rzeczywiste położenie tego pliku zależy od miejsca, w którym zainstalowany został Scribus). Konfiguracja jest łatwo zrozumiała, plik ten zawiera bowiem listę słów i skrótów dla poszczególnych języków, które należy poprzedzić albo po których należy dodać twardą spację. Pozycja spacji (przed lub po słowie) jest ważna, gdyż wskazuje ona wtyczce miejsce, w którym należy wstawić twardą spację. Każdy wiersz z listą słów musi zaczynać się od kodu języka, dla którego ta lista została zdefiniowana, np. en oznacza angielski, a cs język czeski:</p>
+<pre>
+#  English stuff START here
+en=Dr. ,Dr ,Mr. ,Mr ,Mrs. ,Mrs ,Ms. ,Ms ,Prof. ,Prof ,Rev. ,Rev ,
+en= Kg, kg, g, mg, oz, lb, cwt, km, Km, m, cm, mm,
+
+#  Czech short words START here
+## hanging conjunctions
+cs=K ,k ,S ,s ,V ,v ,Z ,z ,O ,o ,U ,u ,I ,i ,A ,
+## physics and math
+cs= kg, g, m, cm, mm, l, hl, s, %,
+</pre>
+
+<p>Jeśli chcesz zdefiniować własne słowa, np. aby dodać obsługę nowego języka, utwórz własny plik konfiguracyjny, skopiuj do niego wszystkie potrzebne ustawienia z domyślnego pliku konfiguracyjnego, dodaj swoje własne ustawienia, a na koniec zapisz plik pod nazwą <em>scribus-short-words.rc</em> w katalogu <em>~/.scribus</em>. Jeśli chcesz używać wyłącznie własnego pliku konfiguracyjnego, wystarczy zakreślić opcję <code>Zastąp ustawienia domyślne własną konfiguracją</code> w okienku dialogowym wtyczki, w innym przypadku program dołączy ustawienia własne do ustawień domyślnych.</p>
+
+<h3>WAŻNE</h3>
+<p>Autor wtyczki chętnie rozszerzy domyślny plik konfiguracyjny o brakujące ustawienia obowiązujące dla twojego języka, powiadom go o nich!</p>
+
+<h2>Copyright programu Short Words</h2>
+<p>Short Words for Scribus Copyright 2003, 2004 Petr Vaněk, &lt;petr@yarpen.cz&gt;</p>
+<p>This program is free software; you can redistribute it
+and/or modify it under the terms of the GNU General Public License as
+published by the Free Software Foundation; either version 2 of the
+License, or (at your option) any later version.</p><p>This program is distributed in the hope that it will be
+useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+General Public License for more details.</p><p>You should have received a copy of the GNU General Public
+License along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.</p>
+
+</qt>
