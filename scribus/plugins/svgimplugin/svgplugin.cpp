@@ -1434,14 +1434,41 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 			unsigned int start = params.find("#") + 1;
 			unsigned int end = params.findRev(")");
 			QString key = params.mid(start, end - start);
-			obj->Gradient = m_gradients[key].Type;
-			obj->GradCo = m_gradients[key].gradient;
-			obj->CSpace = m_gradients[key].CSpace;
-			obj->GX1 = m_gradients[key].X1;
-			obj->GY1 = m_gradients[key].Y1;
-			obj->GX2 = m_gradients[key].X2;
-			obj->GY2 = m_gradients[key].Y2;
-			obj->matrixg = m_gradients[key].matrix;
+			if (m_gradients[key].reference != "")
+			{
+				if (m_gradients[m_gradients[key].reference].typeValid)
+					obj->Gradient = m_gradients[m_gradients[key].reference].Type;
+				if (m_gradients[m_gradients[key].reference].gradientValid)
+					obj->GradCo = m_gradients[m_gradients[key].reference].gradient;
+				if (m_gradients[m_gradients[key].reference].cspaceValid)
+					obj->CSpace = m_gradients[m_gradients[key].reference].CSpace;
+				if (m_gradients[m_gradients[key].reference].x1Valid)
+					obj->GX1 = m_gradients[m_gradients[key].reference].X1;
+				if (m_gradients[m_gradients[key].reference].y1Valid)
+					obj->GY1 = m_gradients[m_gradients[key].reference].Y1;
+				if (m_gradients[m_gradients[key].reference].x2Valid)
+					obj->GX2 = m_gradients[m_gradients[key].reference].X2;
+				if (m_gradients[m_gradients[key].reference].y2Valid)
+					obj->GY2 = m_gradients[m_gradients[key].reference].Y2;
+				if (m_gradients[m_gradients[key].reference].matrixValid)
+					obj->matrixg = m_gradients[m_gradients[key].reference].matrix;
+			}
+			if (m_gradients[key].typeValid)
+				obj->Gradient = m_gradients[key].Type;
+			if (m_gradients[key].gradientValid)
+				obj->GradCo = m_gradients[key].gradient;
+			if (m_gradients[key].cspaceValid)
+				obj->CSpace = m_gradients[key].CSpace;
+			if (m_gradients[key].x1Valid)
+				obj->GX1 = m_gradients[key].X1;
+			if (m_gradients[key].y1Valid)
+				obj->GY1 = m_gradients[key].Y1;
+			if (m_gradients[key].x2Valid)
+				obj->GX2 = m_gradients[key].X2;
+			if (m_gradients[key].y2Valid)
+				obj->GY2 = m_gradients[key].Y2;
+			if (m_gradients[key].matrixValid)
+				obj->matrixg = m_gradients[key].matrix;
 			obj->FillCol = "None";
 		}
 		else
@@ -1673,6 +1700,7 @@ void SVGPlug::parseColorStops(GradientHelper *gradient, const QDomElement &e)
 			}
 		}
 		gradient->gradient.addStop( Doku->PageColors[Col].getRGBColor(), offset, 0.5, opa, Col, 100 );
+		gradient->gradientValid = true;
 	}
 }
 
@@ -1687,6 +1715,7 @@ void SVGPlug::parseColorStops(GradientHelper *gradient, const QDomElement &e)
 void SVGPlug::parseGradient( const QDomElement &e )
 {
 	GradientHelper gradhelper;
+	gradhelper.gradientValid = false;
 	gradhelper.gradient.clearStops();
 	gradhelper.gradient.setRepeatMethod( VGradient::none );
 
@@ -1694,38 +1723,77 @@ void SVGPlug::parseGradient( const QDomElement &e )
 	double x1, y1, x2, y2;
 	if (!href.isEmpty())
 	{
-		gradhelper.Type = m_gradients[href].Type;
-		gradhelper.gradient = m_gradients[href].gradient;
-		gradhelper.X1 = m_gradients[href].X1;
-		gradhelper.Y1 = m_gradients[href].Y1;
-		gradhelper.X2 = m_gradients[href].X2;
-		gradhelper.Y2 = m_gradients[href].Y2;
-		gradhelper.CSpace = m_gradients[href].CSpace;
-		gradhelper.matrix = m_gradients[href].matrix;
+		if (m_gradients.contains(href))
+		{
+			gradhelper.Type = m_gradients[href].Type;
+			gradhelper.gradient = m_gradients[href].gradient;
+			gradhelper.X1 = m_gradients[href].X1;
+			gradhelper.Y1 = m_gradients[href].Y1;
+			gradhelper.X2 = m_gradients[href].X2;
+			gradhelper.Y2 = m_gradients[href].Y2;
+			gradhelper.CSpace = m_gradients[href].CSpace;
+			gradhelper.matrix = m_gradients[href].matrix;
+			gradhelper.x1Valid = m_gradients[href].x1Valid;
+			gradhelper.x2Valid = m_gradients[href].x2Valid;
+			gradhelper.y1Valid = m_gradients[href].y1Valid;
+			gradhelper.y2Valid = m_gradients[href].y2Valid;
+			gradhelper.cspaceValid = m_gradients[href].cspaceValid;
+			gradhelper.matrixValid = m_gradients[href].matrixValid;
+			gradhelper.gradientValid = m_gradients[href].gradientValid;
+			gradhelper.typeValid = m_gradients[href].typeValid;
+		}
+		gradhelper.reference = href;
 	}
 	if (e.tagName() == "linearGradient")
 	{
-		x1 = e.attribute( "x1", "0").toDouble();
-		y1 = e.attribute( "y1", "0" ).toDouble();
-		x2 = e.attribute( "x2", "1" ).toDouble();
-		y2 = e.attribute( "y2", "0" ).toDouble();
-		gradhelper.X1 = x1;
-		gradhelper.Y1 = y1;
-		gradhelper.X2 = x2;
-		gradhelper.Y2 = y2;
+		if (e.hasAttribute("x1"))
+		{
+			gradhelper.X1 = e.attribute( "x1", "0").toDouble();
+			gradhelper.x1Valid = true;
+		}
+		if (e.hasAttribute("y1"))
+		{
+			gradhelper.Y1 = e.attribute( "y1", "0" ).toDouble();
+			gradhelper.y1Valid = true;
+		}
+		if (e.hasAttribute("x2"))
+		{
+			gradhelper.X2 = e.attribute( "x2", "1" ).toDouble();
+			gradhelper.x2Valid = true;
+		}
+		if (e.hasAttribute("y2"))
+		{
+			gradhelper.Y2 = e.attribute( "y2", "0" ).toDouble();
+			gradhelper.y2Valid = true;
+		}
 		gradhelper.Type = 6;
+		gradhelper.typeValid = true;
 	}
 	else
 	{
-		x1 = e.attribute( "cx", "0.5").toDouble();
-		y1 = e.attribute( "cy", "0.5" ).toDouble();
-		x2 = e.attribute( "r", "0.5" ).toDouble();
+		if (e.hasAttribute("x1"))
+		{
+			x1 = e.attribute( "cx", "0.5").toDouble();
+			gradhelper.x1Valid = true;
+		}
+		if (e.hasAttribute("y1"))
+		{
+			y1 = e.attribute( "cy", "0.5" ).toDouble();
+			gradhelper.y1Valid = true;
+		}
+		if (e.hasAttribute("x2"))
+		{
+			x2 = e.attribute( "r", "0.5" ).toDouble();
+			gradhelper.x2Valid = true;
+		}
 		y2 = y1;
+		gradhelper.y2Valid = true;
 		gradhelper.X1 = x1;
 		gradhelper.Y1 = y1;
 		gradhelper.X2 = x1 + x2;
 		gradhelper.Y2 = y1;
 		gradhelper.Type = 7;
+		gradhelper.typeValid = true;
 	}
 	if ( !e.attribute( "gradientUnits" ).isEmpty() )
 	{
@@ -1734,24 +1802,21 @@ void SVGPlug::parseGradient( const QDomElement &e )
 			gradhelper.CSpace = true;
 		else
 			gradhelper.CSpace = false;
+		gradhelper.cspaceValid = true;
 	}
 	else
+	{
 		gradhelper.CSpace = false;
+		gradhelper.cspaceValid = false;
+	}
 	QString transf = e.attribute("gradientTransform");
 	if( !transf.isEmpty() )
 	{
 		gradhelper.matrix = parseTransform( e.attribute( "gradientTransform" ) );
-/*		QWMatrix mat = parseTransform( e.attribute( "gradientTransform" ) );
-		SvgStyle *gc = m_gc.current();
-		mat = mat * gc->matrix;
-		FPointArray gra;
-		gra.setPoints(2, gradhelper.X1, gradhelper.Y1, gradhelper.X2, gradhelper.Y2);
-		gra.map(mat);
-		gradhelper.X1 = gra.point(0).x();
-		gradhelper.Y1 = gra.point(0).y();
-		gradhelper.X2 = gra.point(1).x();
-		gradhelper.Y2 = gra.point(1).y(); */
+		gradhelper.matrixValid = true;
 	}
+	else
+		gradhelper.matrixValid = false;
 	QString spreadMethod = e.attribute( "spreadMethod" );
 	if( !spreadMethod.isEmpty() )
 	{

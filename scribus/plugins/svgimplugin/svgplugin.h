@@ -25,21 +25,40 @@ public:
 	GradientHelper()
 		{
 		Type = 1;
-		Color1 = "Black";
-		Color2 = "Black";
+		typeValid = false;
 		CSpace = false;
+		cspaceValid = false;
+		X1 = 0;
+		x1Valid = false;
+		X2 = 1;
+		x2Valid = false;
+		Y1 = 0;
+		y1Valid = false;
+		Y2 = 1;
+		y2Valid = false;
+		gradient = VGradient(VGradient::linear);
+		gradientValid = false;
 		matrix = QWMatrix();
+		matrixValid = false;
+		reference = "";
 		}
 	int Type;
-	QString Color1;
-	QString Color2;
-	VGradient	gradient;
+	bool typeValid;
+	QString reference;
+	VGradient gradient;
+	bool gradientValid;
 	double X1;
+	bool x1Valid;
 	double Y1;
+	bool y1Valid;
 	double X2;
+	bool x2Valid;
 	double Y2;
+	bool y2Valid;
 	bool CSpace;
+	bool cspaceValid;
 	QWMatrix	matrix;
+	bool matrixValid;
 	};
 
 class SvgStyle
