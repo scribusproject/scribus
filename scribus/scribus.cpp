@@ -3009,7 +3009,7 @@ void ScribusApp::slotEditCut()
 		else
 			{
   		ScriXmlDoc *ss = new ScriXmlDoc();
-			Buffer2 = ss->WriteElem(&doc->ActPage->SelItem, doc);
+			BufferI = ss->WriteElem(&doc->ActPage->SelItem, doc);
 			doc->ActPage->DeleteItem();
 			}
 		slotDocCh();

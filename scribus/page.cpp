@@ -562,16 +562,23 @@ void Page::setGroupRect()
 		b = SelItem.at(gc);
 		if (b->Rot != 0)
 			{
-			QPainter p;
-			p.begin(this);
-			p.translate(static_cast<int>(b->Xpos), static_cast<int>(b->Ypos));
-			p.rotate(b->Rot);
-			QRect apr = QRegion(p.xForm(QRect(0, 0, static_cast<int>(b->Width), static_cast<int>(QMAX(b->Height, 1))))).boundingRect();
-			p.end();
-			minx = QMIN(minx, apr.x());
-			miny = QMIN(miny, apr.y());
-			maxx = QMAX(maxx, apr.x() + apr.width());
-			maxy = QMAX(maxy, apr.y() + apr.height());
+      FPointArray pb;
+			FPoint p1;
+			pb.resize(0);
+			pb.addPoint(FPoint(b->Xpos, b->Ypos));
+			p1 = transformPoint(FPoint(b->Width, 0.0), b->Xpos, b->Ypos, b->Rot, 1.0, 1.0);
+			pb.addPoint(p1);
+			p1 = transformPoint(FPoint(b->Width, b->Height), b->Xpos, b->Ypos, b->Rot, 1.0, 1.0);
+			pb.addPoint(p1);
+			p1 = transformPoint(FPoint(0.0, b->Height), b->Xpos, b->Ypos, b->Rot, 1.0, 1.0);
+			pb.addPoint(p1);
+			for (uint pc = 0; pc < 4; ++pc)
+				{
+				minx = QMIN(minx, pb.point(pc).x());
+				miny = QMIN(miny, pb.point(pc).y());
+				maxx = QMAX(maxx, pb.point(pc).x());
+				maxy = QMAX(maxy, pb.point(pc).y());
+				}
 			}
 		else
 			{

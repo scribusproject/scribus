@@ -1421,14 +1421,22 @@ void Mpalette::UnitChange()
 void Mpalette::setXY(double x, double y)
 {
 	bool tmp = HaveItem;
-	double inX, inY, b, h, r;
+	double inX, inY, b, h, r, dummy1, dummy2;
 	QWMatrix ma;
 	FPoint n;
 	if (HaveItem)
 		{
-		b = CurItem->Width;
-		h = CurItem->Height;
-		r = CurItem->Rot;
+		if (doc->ActPage->GroupSel)
+			{
+			doc->ActPage->getGroupRect(&dummy1, &dummy2, &b, &h);
+			r = 0.0;
+			}
+		else
+			{
+			b = CurItem->Width;
+			h = CurItem->Height;
+			r = CurItem->Rot;
+			}
 		}
 	else
 		{
@@ -1720,7 +1728,13 @@ void Mpalette::NewX()
 		if (doc->ActPage->GroupSel)
 			{
 			doc->ActPage->getGroupRect(&gx, &gy, &gw, &gh);
-			doc->ActPage->moveGroup(x - gx, 0, true);
+ 			if ((TopLeft->isChecked()) || (BottomLeft->isChecked()))
+				base = gx;
+  		if (Center->isChecked())
+				base = gx + gw / 2.0;
+  		if ((TopRight->isChecked()) || (BottomRight->isChecked()))
+				base = gx + gw;
+			doc->ActPage->moveGroup(x - base, 0, true);
 			}
 		else
 			{
@@ -1766,7 +1780,13 @@ void Mpalette::NewY()
 		if (doc->ActPage->GroupSel)
 			{
 			doc->ActPage->getGroupRect(&gx, &gy, &gw, &gh);
-			doc->ActPage->moveGroup(0, y - gy, true);
+ 			if ((TopLeft->isChecked()) || (TopRight->isChecked()))
+				base = gy;
+  		if (Center->isChecked())
+				base = gy + gh / 2.0;
+  		if ((BottomLeft->isChecked()) || (BottomRight->isChecked()))
+				base = gy + gh;
+			doc->ActPage->moveGroup(0, y - base, true);
 			}
 		else
 			{
@@ -1875,10 +1895,15 @@ void Mpalette::NewH()
 
 void Mpalette::NewR()
 {
+	double gx, gy, gh, gw;
 	if ((HaveDoc) && (HaveItem))
 		{
 		if (doc->ActPage->GroupSel)
+			{
 			doc->ActPage->RotateGroup(static_cast<double>(Rot->value() - RoVal)/100.0*(-1));
+			doc->ActPage->getGroupRect(&gx, &gy, &gw, &gh);
+			setXY(gx, gy);
+			}
 		else
 			doc->ActPage->RotateItem(static_cast<double>(Rot->value())/100.0*(-1), CurItem->ItemNr);
 		emit DocChanged();
@@ -2206,28 +2231,50 @@ void Mpalette::DoBack()
 
 void Mpalette::NewRotMode(int m)
 {
-	double gx, gy, gh, gw;
+	double inX, inY, gx, gy, gh, gw;
 	if ((HaveDoc) && (HaveItem))
 		{
+		HaveItem = false;
 		if (doc->ActPage->GroupSel)
 			{
 			doc->ActPage->setGroupRect();
 			doc->ActPage->getGroupRect(&gx, &gy, &gw, &gh);
 			if (m == 0)
+				{
 				doc->ActPage->RCenter = FPoint(gx, gy);
+				inX = gx;
+				inY = gy;
+				}
 			if (m == 1)
+				{
 				doc->ActPage->RCenter = FPoint(gx+gw, gy);
+				inX = gx+gw;
+				inY = gy;
+				}
 			if (m == 2)
+				{
 				doc->ActPage->RCenter = FPoint(gx + gw / 2.0, gy + gh / 2.0);
+				inX = gx + gw / 2.0;
+				inY = gy + gh / 2.0;
+				}
 			if (m == 3)
+				{
 				doc->ActPage->RCenter = FPoint(gx, gy+gh);
+				inX = gx;
+				inY = gy+gh;
+				}
 			if (m == 4)
+				{
 				doc->ActPage->RCenter = FPoint(gx+gw, gy+gh);
+				inX = gx+gw;
+				inY = gy+gh;
+				}
+			Xpos->setValue(qRound(inX*UmReFaktor*100.0));
+			Ypos->setValue(qRound(inY*UmReFaktor*100.0));
 			}
 		else
 			{
-			double inX, inY, b, h, r;
-			HaveItem = false;
+			double b, h, r;
 			QWMatrix ma;
 			FPoint n;
 			b = CurItem->Width;
@@ -2249,8 +2296,8 @@ void Mpalette::NewRotMode(int m)
 			inY = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
 			Xpos->setValue(qRound(inX*UmReFaktor*100.0));
 			Ypos->setValue(qRound(inY*UmReFaktor*100.0));
-			HaveItem = true;
 			}
+		HaveItem = true;
 		doc->RotMode = m;
 		}
 }
