@@ -1664,7 +1664,7 @@ void ScribusApp::SetKeyEntry(QString actName, QString cleanMenuText, QString key
 			Prefs.KeyActions.insert(actName, ke);
 		}
 		else
-			qDebug(QString("Action Name: %1 does not exist").arg(actName));
+			qDebug("%s", QString("Action Name: %1 does not exist").arg(actName).ascii());
 	}
 }
 
@@ -1760,7 +1760,7 @@ void ScribusApp::specialActionKeyEvent(QString actionName)
 			{
 				struct ScText *hg = new ScText;
 				PageItem *b = view->SelItem.at(0);
-				bool insertChar=false;
+				//bool insertChar=false; //unused CR 2005-03-21
 				if (actionName=="specialPageNumber" || actionName=="specialNonBreakingSpace")
 				{
 					if (actionName=="specialPageNumber")
@@ -4112,7 +4112,7 @@ void ScribusApp::HaveNewSel(int Nr)
 	}
 }
 
-void ScribusApp::slotDocCh(bool reb)
+void ScribusApp::slotDocCh(bool /*reb*/)
 {
 /*	if ((reb) && (!doc->TemplateMode) && (view->SelItem.count() != 0))
 	{
@@ -10483,7 +10483,7 @@ void ScribusApp::generateTableOfContents()
 				uint pageCounter[doc->PageC];
 				for (int i=0;i<=doc->PageC;++i)
 					pageCounter[i]=0;
-				int maxDataWidth=0;
+				unsigned int maxDataWidth=0;
 				for (uint d = 0; d < doc->DocItems.count(); ++d)
 				{
 					currentDocItem = doc->DocItems.at(d);
