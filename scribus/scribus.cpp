@@ -8462,7 +8462,6 @@ bool ScribusApp::getPDFDriver(QString fn, QString nam, int Components, std::vect
 
 void ScribusApp::SaveAsPDF()
 {
-	QString fn;
 	if (doc->checkerProfiles[doc->curCheckProfile].autoCheck)
 	{
 		scanDocument();
@@ -8478,6 +8477,8 @@ void ScribusApp::SaveAsPDF()
 			}
 			else
 			{
+				connect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(doSaveAsPDF()));
+				docCheckerPalette->noButton = false;
 				docCheckerPalette->buildErrorList(doc);
 				docCheckerPalette->show();
 				scrActions["toolsPreflightVerifier"]->setOn(true);
@@ -8485,6 +8486,18 @@ void ScribusApp::SaveAsPDF()
 			}
 		}
 	}
+	doSaveAsPDF();
+}
+
+void ScribusApp::doSaveAsPDF()
+{
+	if (!docCheckerPalette->noButton)
+	{
+		docCheckerPalette->hide();
+		scrActions["toolsPreflightVerifier"]->setOn(false);
+		disconnect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(doSaveAsPDF()));
+	}
+	QString fn;
 	int Components = 3;
 	QString nam = "";
 /*	if (bookmarkPalette->BView->childCount() == 0)

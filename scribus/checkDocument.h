@@ -15,6 +15,7 @@ class QListView;
 class QListViewItem;
 class QComboBox;
 class QLabel;
+class QPushButton;
 class ScribusDoc;
 
 class CheckDocument : public ScrPaletteBase
@@ -26,6 +27,7 @@ public:
 	~CheckDocument() {};
 	void clearErrorList();
 	void buildErrorList(ScribusDoc *doc);
+	void hide();
 	/*
 	void closeEvent(QCloseEvent *ce);
 	void keyPressEvent(QKeyEvent *ke);
@@ -33,10 +35,12 @@ public:
 	QComboBox* curCheckProfile;
 	QLabel* textLabel1;
 	QListView* reportDisplay;
+	QPushButton* ignoreErrors;
 	QMap<QListViewItem*, int> itemMap;
 	QMap<QListViewItem*, int> pageMap;
 	QMap<QListViewItem*, QString> templatePageMap;
 	QMap<QListViewItem*, int> templateItemMap;
+	bool noButton;
 
 public slots:
 	void slotSelect(QListViewItem* ite);
@@ -50,10 +54,12 @@ signals:
 	void selectTemplatePage(QString);
 	void selectTemplateElement(QString, int);
 	void selectNormal();
+	void ignoreAllErrors();
 
 protected:
 	QVBoxLayout* checkDocumentLayout;
 	QHBoxLayout* layout1;
+	QHBoxLayout* layout2;
 
 protected slots:
 	virtual void languageChange();

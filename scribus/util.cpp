@@ -1646,7 +1646,7 @@ QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool us
 		args.append("-sOutputFile="+tmpFile);
 		args.append("-dFirstPage=1");
 		args.append("-dLastPage=1");
-		args.append(fn);
+		args.append("\""+fn+"\"");
 		ret = callGS(args);
 		if (ret == 0)
 		{
@@ -1721,7 +1721,7 @@ QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool us
 			args.append("-r"+QString::number(gsRes));
 			args.append("-sOutputFile="+tmpFile);
 			args.append("-g"+tmp.setNum(qRound(b))+"x"+tmp2.setNum(qRound(h)));
-			args.append(fn);
+			args.append("\""+fn+"\"");
 			ret = callGS(args);
 			if (ret == 0)
 			{
@@ -2063,7 +2063,8 @@ QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool us
 				{
 					unsigned int *ptr = (unsigned int *) img.scanLine(i);
 					unsigned char c, m, y ,k;
-					if ((cinfo.saw_Adobe_marker) && (cinfo.Adobe_transform == 2))
+//					if ((cinfo.saw_Adobe_marker) && (cinfo.Adobe_transform == 2))
+					if (cinfo.jpeg_color_space != cinfo.out_color_space)
 					{
 						for (int j = 0; j < img.width(); j++)
 						{
@@ -2483,7 +2484,7 @@ QPixmap LoadPDF(QString fn, int Page, int Size, int *w, int *h)
 	args.append("-sOutputFile="+tmpFile);
 	args.append("-dFirstPage="+tmp);
 	args.append("-dLastPage="+tmp);
-	args.append(fn);
+	args.append("\""+fn+"\"");
 	ret = callGS(args);
 	if (ret == 0)
 	{

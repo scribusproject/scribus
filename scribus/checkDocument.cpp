@@ -140,6 +140,14 @@ CheckDocument::CheckDocument( QWidget* parent, bool modal )  : ScrPaletteBase( p
 	reportDisplay->header()->setResizeEnabled( false, reportDisplay->header()->count() - 1 );
 	reportDisplay->setSorting(-1);
 	checkDocumentLayout->addWidget( reportDisplay );
+	layout2 = new QHBoxLayout( 0, 0, 5, "layou2");
+	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	layout2->addItem( spacer );
+	ignoreErrors = new QPushButton( tr( "&Ignore Errors" ), this, "ignoreErrors" );
+	layout2->addWidget( ignoreErrors );
+	checkDocumentLayout->addLayout( layout2 );
+	ignoreErrors->hide();
+	noButton = true;
 	languageChange();
 	itemMap.clear();
 	pageMap.clear();
@@ -147,6 +155,7 @@ CheckDocument::CheckDocument( QWidget* parent, bool modal )  : ScrPaletteBase( p
 	templateItemMap.clear();
 	resize( QSize(306, 259).expandedTo(minimumSizeHint()) );
 	clearWState( WState_Polished );
+	connect(ignoreErrors, SIGNAL(clicked()), this, SIGNAL(ignoreAllErrors()));
 	connect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(newScan(const QString&)));
 }
 /*
@@ -638,7 +647,18 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 		item->setText( 1, tr( "Problems found" ) );
 		item->setOpen( true );
 	}
+	if (noButton)
+		ignoreErrors->hide();
+	else
+		ignoreErrors->show();
 	connect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
+}
+
+void CheckDocument::hide()
+{
+	noButton = true;
+	ignoreErrors->hide();
+	ScrPaletteBase::hide();
 }
 
 /*

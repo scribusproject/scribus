@@ -442,6 +442,7 @@ public slots:
 	void SelectFromOutlS(int Page);
 	void SaveAsEps();
 	void SaveAsPDF();
+	void doSaveAsPDF();
 	void Aktiv();
 	void setItemHoch(int h);
 	void setStilvalue(int s);
