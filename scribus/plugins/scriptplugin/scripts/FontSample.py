@@ -36,16 +36,18 @@ to a value of 0. This will disable the new preview features.
 ******************************************************************************
 
 First release    : 30/12/2003
-This release     : v0.7tk (released 30th Dec 2004)
-Copyright        : (C) 2003 - 2004 Steve Callcott
-email            : stotte@ntlworld.com
-Latest releases  : www.firstwish.co.uk/sjc/scribus/index.php
-Maintainer       : Steve Callcott 2003 - 2004
+This release     : v0.7.1tk (released 3rd Jan 2005)
+Copyright        : (C) 2003 - 2005 Steve Callcott
+Latest releases
+and support      : www.firstwish.co.uk/sjc/scribus/index.php
+Maintainer       : Steve Callcott 2003 - 2005
 
-Feature requests and bug reports to stotte@ntlworld.com
 For revision history see the ChangeLog file.
 Bugs and future plans are listed in the TODO file.
 See NEWS for new features since last version.
+
+WHATS NEW v0.7.1tk
+Removed discontinued email address.
 
 WHATS NEW v0.7tk
 Added a preview panel so user can see a sample of what a font may look like
@@ -81,7 +83,7 @@ except ImportError,err:
     sys.exit(1)
 
 
-WINDOWTITLE = "Font Sampler v0.7tk - Steve Callcott"
+WINDOWTITLE = "Font Sampler v0.7.1tk - Steve Callcott"
 TEMPPATH = os.path.join(os.path.expanduser("~"), ".scribus")
 
 showPreviewPanel = 1  # change to 0 to permanently hide the preview
@@ -505,7 +507,7 @@ class Application(Frame):
 
         def __listbox1DoLogicCallback(event):
             """Decides if current selection should be previewed. 
-            
+
             Start by counting items in selection list and if equal to one then
             show selected font, ignoring if more or less than one. Then also
             set up buttons logic depending on selection. We bind the FocusIn 
