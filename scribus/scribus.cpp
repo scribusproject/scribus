@@ -603,33 +603,55 @@ void ScribusApp::initKeyboardShortcuts()
 	SetKeyEntry(15, scrActions["editParaStyles"]->cleanMenuText(), 0, scrActions["editParaStyles"]->accel(), "editParaStyles");
 	SetKeyEntry(16, scrActions["editTemplates"]->cleanMenuText(), 0, scrActions["editTemplates"]->accel(), "editTemplates");
 	SetKeyEntry(17, scrActions["editFonts"]->cleanMenuText(), 0, scrActions["editFonts"]->accel(), "editFonts");
-	
 	//SetKeyEntry(, scrActions["editSearchReplace"]->cleanMenuText(), 0, scrActions["editSearchReplace"]->accel(), "editSearchReplace");
 	//SetKeyEntry(, scrActions["editLineStyles"]->cleanMenuText(), 0, scrActions["editLineStyles"]->accel(), "editLineStyles");
 	
 	//SetKeyEntry(, scrActions["editFonts"]->cleanMenuText(), 0, scrActions["editFonts"]->accel(), "editFonts");
 	SetKeyEntry(19, tr("Select New Font"), 0, 0);
-	/* //CB 
-	SetKeyEntry(20, tr("Duplicate"), M_ItemDuplicate, CTRL+Key_D);
-	SetKeyEntry(21, tr("Multiple Duplicate"), M_ItemMultiDuplicate, 0);
-	SetKeyEntry(22, tr("Delete"), M_ItemDelete, CTRL+Key_K);
-	SetKeyEntry(23, tr("Group"), M_ItemGroup, CTRL+Key_G);
-	SetKeyEntry(24, tr("Ungroup"), M_ItemUngroup, CTRL+Key_U);	
-	SetKeyEntry(25, tr("Send to Back"), M_ItemSendToBack, 0);
-	SetKeyEntry(26, tr("Bring to Front"), M_ItemBringToFront, 0);
-	SetKeyEntry(27, tr("Lower"), M_ItemLower, 0);
-	SetKeyEntry(28, tr("Raise"), M_ItemRaise, 0);
-	SetKeyEntry(29, tr("Distribute/Align..."), M_ItemAlignDist, 0);
-	*/
-	/*
-		//Pagemenu
-	SetKeyEntry(30, tr("Insert..."), MenID, 0);
-	SetKeyEntry(31, tr("Delete..."), M_PageDelete, 0);
-	SetKeyEntry(61, tr("Copy..."), MenID, 0);
-	SetKeyEntry(32, tr("Move..."), M_PageMove, 0);
-	SetKeyEntry(33, tr("Apply Template..."), MenID, 0);
-	SetKeyEntry(49, tr("Manage Guides..."), MenID, 0);
-	*/
+	
+	//ITEM MENU
+	SetKeyEntry(20, scrActions["itemDuplicate"]->cleanMenuText(), 0, scrActions["itemDuplicate"]->accel(), "itemDuplicate");
+	SetKeyEntry(21, scrActions["itemMulDuplicate"]->cleanMenuText(), 0, scrActions["itemMulDuplicate"]->accel(), "itemMulDuplicate");
+	SetKeyEntry(22, scrActions["itemDelete"]->cleanMenuText(), 0, scrActions["itemDelete"]->accel(), "itemDelete");
+	SetKeyEntry(23, scrActions["itemGroup"]->cleanMenuText(), 0, scrActions["itemGroup"]->accel(), "itemGroup");
+	SetKeyEntry(24, scrActions["itemUngroup"]->cleanMenuText(), 0, scrActions["itemUngroup"]->accel(), "itemUngroup");
+	SetKeyEntry(25, scrActions["itemSendToBack"]->cleanMenuText(), 0, scrActions["itemSendToBack"]->accel(), "itemSendToBack");
+	SetKeyEntry(26, scrActions["itemBringToFront"]->cleanMenuText(), 0, scrActions["itemBringToFront"]->accel(), "itemBringToFront");
+	SetKeyEntry(27, scrActions["itemLower"]->cleanMenuText(), 0, scrActions["itemLower"]->accel(), "itemLower");
+	SetKeyEntry(28, scrActions["itemRaise"]->cleanMenuText(), 0, scrActions["itemRaise"]->accel(), "itemRaise");
+	SetKeyEntry(29, scrActions["itemAlignDist"]->cleanMenuText(), 0, scrActions["itemAlignDist"]->accel(), "itemAlignDist");
+	SetKeyEntry(67, scrActions["itemLock"]->cleanMenuText(), 0, scrActions["itemLock"]->accel(), "itemLock");
+
+	//SetKeyEntry(, scrActions["itemShapeEdit"]->cleanMenuText(), 0, scrActions["itemShapeEdit"]->accel(), "itemShapeEdit");
+		//CBSetKeyEntry(61, tr("Attach Text to Path"), M_ItemAttachTextToPath, 0);
+	//SetKeyEntry(, scrActions["itemAttachTextToPath"]->cleanMenuText(), 0, scrActions["itemAttachTextToPath"]->accel(), "itemAttachTextToPath");
+	//SetKeyEntry(, scrActions["itemDetachTextFromPath"]->cleanMenuText(), 0, scrActions["itemDetachTextFromPath"]->accel(), "itemDetachTextFromPath");
+	//SetKeyEntry(, scrActions["itemCombinePolygons"]->cleanMenuText(), 0, scrActions["itemCombinePolygons"]->accel(), "itemCombinePolygons");
+	//SetKeyEntry(, scrActions["itemSplitPolygons"]->cleanMenuText(), 0, scrActions["itemSplitPolygons"]->accel(), "itemSplitPolygons");
+	//SetKeyEntry(, scrActions["itemConvertToOutlines"]->cleanMenuText(), 0, scrActions["itemConvertToOutlines"]->accel(), "itemConvertToOutlines");
+	
+	//PAGE MENU
+	SetKeyEntry(30, scrActions["pageInsert"]->cleanMenuText(), 0, scrActions["pageInsert"]->accel(), "pageInsert");
+	SetKeyEntry(31, scrActions["pageDelete"]->cleanMenuText(), 0, scrActions["pageDelete"]->accel(), "pageDelete");
+	SetKeyEntry(32, scrActions["pageMove"]->cleanMenuText(), 0, scrActions["pageMove"]->accel(), "pageMove");
+	SetKeyEntry(33, scrActions["pageApplyTemplate"]->cleanMenuText(), 0, scrActions["pageApplyTemplate"]->accel(), "pageApplyTemplate");
+	SetKeyEntry(49, scrActions["pageManageGuides"]->cleanMenuText(), 0, scrActions["pageManageGuides"]->accel(), "pageManageGuides");
+	SetKeyEntry(61, scrActions["pageCopy"]->cleanMenuText(), 0, scrActions["pageCopy"]->accel(), "pageCopy");
+	
+	//VIEW MENU
+	SetKeyEntry(34, scrActions["viewFitInWindow"]->cleanMenuText(), 0, scrActions["viewFitInWindow"]->accel(), "viewFitInWindow");
+	SetKeyEntry(35, scrActions["viewFit50"]->cleanMenuText(), 0, scrActions["viewFit50"]->accel(), "viewFit50");
+	SetKeyEntry(36, scrActions["viewFit75"]->cleanMenuText(), 0, scrActions["viewFit75"]->accel(), "viewFit75");
+	SetKeyEntry(37, scrActions["viewFit100"]->cleanMenuText(), 0, scrActions["viewFit100"]->accel(), "viewFit100");
+	SetKeyEntry(38, scrActions["viewFit200"]->cleanMenuText(), 0, scrActions["viewFit200"]->accel(), "viewFit200");
+	SetKeyEntry(39, scrActions["viewFit20"]->cleanMenuText(), 0, scrActions["viewFit20"]->accel(), "viewFit20");
+	SetKeyEntry(40, scrActions["viewShowMargins"]->cleanMenuText(), 0, scrActions["viewShowMargins"]->accel(), "viewShowMargins");
+	SetKeyEntry(41, scrActions["viewShowFrames"]->cleanMenuText(), 0, scrActions["viewShowFrames"]->accel(), "viewShowFrames");
+	SetKeyEntry(42, scrActions["viewShowImages"]->cleanMenuText(), 0, scrActions["viewShowImages"]->accel(), "viewShowImages");
+	SetKeyEntry(43, scrActions["viewShowGrid"]->cleanMenuText(), 0, scrActions["viewShowGrid"]->accel(), "viewShowGrid");
+	SetKeyEntry(44, scrActions["viewSnapToGrid"]->cleanMenuText(), 0, scrActions["viewSnapToGrid"]->accel(), "viewSnapToGrid");
+	
+
 	//EXTRAS
 	SetKeyEntry(56, tr("Smart Hyphen"), 0, CTRL+Key_Minus);
 	SetKeyEntry(57, tr("Align Left"), 0, CTRL+Key_L);
@@ -637,7 +659,7 @@ void ScribusApp::initKeyboardShortcuts()
 	SetKeyEntry(59, tr("Align Center"), 0, CTRL+Key_E);
 	SetKeyEntry(60, tr("Insert Page Number"), 0, CTRL+Key_NumberSign);
 	
-	//CBSetKeyEntry(61, tr("Attach Text to Path"), M_ItemAttachTextToPath, 0);
+
 	SetKeyEntry(62, tr("Show Layers"), viewLpal, 0);
 	
 	SetKeyEntry(63, scrActions["editJavascripts"]->cleanMenuText(), 0, scrActions["editJavascripts"]->accel(), "editJavascripts");
@@ -645,7 +667,6 @@ void ScribusApp::initKeyboardShortcuts()
 	SetKeyEntry(65, scrActions["editRedoAction"]->cleanMenuText(), 0, scrActions["editRedoAction"]->accel(), "editRedoAction");
 
 	SetKeyEntry(66, tr("Show Page Palette"), viewSepal, 0);
-	//CBSetKeyEntry(67, tr("Lock/Unlock"), M_ItemLock, CTRL+Key_F);
 
 	SetKeyEntry(68, tr("Non Breaking Space"), 0, CTRL+Key_Space);
 	
@@ -1033,9 +1054,6 @@ void ScribusApp::initEditMenuActions()
 	scrActions.insert("editJavascripts", new ScrAction(tr("&Javascripts..."), QKeySequence(), this, "editJavascripts"));
 	scrActions.insert("editPreferences", new ScrAction(tr("P&references..."), QKeySequence(), this, "editPreferences"));
 	scrActions.insert("editFonts", new ScrAction(tr("&Fonts..."), QKeySequence(), this, "editFonts"));
-	
-	//TODO Extra tooltips
-	//
 		
 	connect( scrActions["editUndoAction"], SIGNAL(activated()) , this, SLOT(UnDoAction()) );
 	connect( scrActions["editRedoAction"], SIGNAL(activated()) , this, SLOT(RedoAction()) );
@@ -1122,6 +1140,53 @@ void ScribusApp::initPageMenuActions()
 
 void ScribusApp::initViewMenuActions()
 {
+	scrActions.insert("viewFitInWindow", new ScrAction(tr("&Fit in window"), CTRL+Key_0, this, "viewFitInWindow"));
+	scrActions.insert("viewFit50", new ScrAction(tr("&50%"), QKeySequence(), this, "viewFit50"));
+	scrActions.insert("viewFit75", new ScrAction(tr("&75%"), QKeySequence(), this, "viewFit75"));
+	scrActions.insert("viewFit100", new ScrAction(tr("&100%"), CTRL+Key_1, this, "viewFit100"));
+	scrActions.insert("viewFit200", new ScrAction(tr("&200%"), QKeySequence(), this, "viewFit200"));
+	scrActions.insert("viewFit20", new ScrAction(tr("&Thumbnails"), QKeySequence(), this, "viewFit20"));
+	scrActions.insert("viewShowMargins", new ScrAction(tr("Show &Margins"), QKeySequence(), this, "viewShowMargins"));
+	scrActions.insert("viewShowFrames", new ScrAction(tr("Show &Frames"), QKeySequence(), this, "viewShowFrames"));
+	scrActions.insert("viewShowImages", new ScrAction(tr("Show &Images"), QKeySequence(), this, "viewShowImages"));
+	scrActions.insert("viewShowGrid", new ScrAction(tr("Show &Grid"), QKeySequence(), this, "viewShowGrid"));
+	scrActions.insert("viewShowGuides", new ScrAction(tr("Show G&uides"), QKeySequence(), this, "viewShowGuides"));
+	scrActions.insert("viewShowBaseline", new ScrAction(tr("Show &Baseline Grid"), QKeySequence(), this, "viewShowBaseline"));
+	scrActions.insert("viewShowTextChain", new ScrAction(tr("Show &Text Chain"), QKeySequence(), this, "viewShowTextChain"));
+	scrActions.insert("viewSnapToGrid", new ScrAction(tr("Sn&ap to Grid"), QKeySequence(), this, "viewSnapToGrid"));
+	scrActions.insert("viewSnapToGuides", new ScrAction(tr("Sna&p to Guides"), QKeySequence(), this, "viewSnapToGuides"));
+
+	scrActions["viewShowMargins"]->setToggleAction(true);
+	scrActions["viewShowFrames"]->setToggleAction(true);
+	scrActions["viewShowImages"]->setToggleAction(true);
+	scrActions["viewShowGrid"]->setToggleAction(true);
+	scrActions["viewShowGuides"]->setToggleAction(true);
+	scrActions["viewShowBaseline"]->setToggleAction(true);
+	scrActions["viewShowTextChain"]->setToggleAction(true);
+	scrActions["viewSnapToGrid"]->setToggleAction(true);
+	scrActions["viewSnapToGuides"]->setToggleAction(true);
+
+	scrActions["viewShowMargins"]->setOn(true);
+	scrActions["viewShowFrames"]->setOn(true);
+	scrActions["viewShowImages"]->setOn(true);
+	scrActions["viewShowGuides"]->setOn(true);
+		
+	connect( scrActions["viewFitInWindow"], SIGNAL(activated()) , this, SLOT(slotZoomFit()) );
+	connect( scrActions["viewFit50"], SIGNAL(activated()) , this, SLOT(slotZoom50()) );
+	connect( scrActions["viewFit75"], SIGNAL(activated()) , this, SLOT(slotZoom75()) );
+	connect( scrActions["viewFit100"], SIGNAL(activated()) , this, SLOT(slotZoom100()) );
+	connect( scrActions["viewFit200"], SIGNAL(activated()) , this, SLOT(slotZoom200()) );
+	connect( scrActions["viewFit20"], SIGNAL(activated()) , this, SLOT(slotZoom20()) );
+	connect( scrActions["viewShowMargins"], SIGNAL(activated()) , this, SLOT(ToggleMarks()) );
+	connect( scrActions["viewShowFrames"], SIGNAL(activated()) , this, SLOT(ToggleFrames()) );
+	connect( scrActions["viewShowImages"], SIGNAL(activated()) , this, SLOT(TogglePics()) );
+	connect( scrActions["viewShowGrid"], SIGNAL(activated()) , this, SLOT(ToggleRaster()) );
+	connect( scrActions["viewShowGuides"], SIGNAL(activated()) , this, SLOT(ToggleGuides()) );
+	connect( scrActions["viewShowBaseline"], SIGNAL(activated()) , this, SLOT(ToggleBase()) );
+	connect( scrActions["viewShowTextChain"], SIGNAL(activated()) , this, SLOT(ToggleTextLinks()) );
+	connect( scrActions["viewSnapToGrid"], SIGNAL(activated()) , this, SLOT(ToggleURaster()) );	
+	connect( scrActions["viewSnapToGuides"], SIGNAL(activated()) , this, SLOT(ToggleUGuides()) );	
+
 }
 
 void ScribusApp::initToolsMenuActions()
@@ -1190,7 +1255,6 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuSeparator("File");
 	scrMenuMgr->addMenuItem(scrActions["fileQuit"], "File");
 
-	
 	scrActions["fileClose"]->setEnabled(false);	
 	scrActions["fileSave"]->setEnabled(false);
 	scrActions["fileSaveAs"]->setEnabled(false);
@@ -1300,42 +1364,24 @@ void ScribusApp::initMenuBar()
 
 	
 	//View menu
-	viewMenu=new QPopupMenu();
-	MenID = viewMenu->insertItem( tr("&Fit in Window"), this, SLOT(slotZoomFit()), CTRL+Key_0);
-	SetKeyEntry(34, tr("Fit in Window"), MenID, CTRL+Key_0);
-	MenID = viewMenu->insertItem("&50%", this, SLOT(slotZoom50()));
-	SetKeyEntry(35, tr("50%"), MenID, 0);
-	MenID = viewMenu->insertItem("&75%", this, SLOT(slotZoom75()));
-	SetKeyEntry(36, tr("75%"), MenID, 0);
-	MenID = viewMenu->insertItem( tr("&100%"), this, SLOT(slotZoom100()), CTRL+Key_1);
-	SetKeyEntry(37, tr("100%"), MenID, CTRL+Key_1);
-	MenID = viewMenu->insertItem("&200%", this, SLOT(slotZoom200()));
-	SetKeyEntry(38, tr("200%"), MenID, 0);
-	MenID = viewMenu->insertItem( tr("&Thumbnails"), this, SLOT(slotZoom20()));
-	SetKeyEntry(39, tr("Thumbnails"), MenID, 0);
-	viewMenu->insertSeparator();
-	M_ViewShowMarkers = viewMenu->insertItem( tr("Show &Margins"), this, SLOT(ToggleMarks()));
-	SetKeyEntry(40, tr("Hide Margins"), M_ViewShowMarkers, 0);
-	viewMenu->setItemChecked(M_ViewShowMarkers, true);
-	M_ViewDrawFrames = viewMenu->insertItem( tr("Show &Frames"), this, SLOT(ToggleFrames()));
-	SetKeyEntry(41, tr("Hide Frames"), M_ViewDrawFrames, 0);
-	viewMenu->setItemChecked(M_ViewDrawFrames, true);
-	M_ViewShowImages = viewMenu->insertItem( tr("Show &Images"), this, SLOT(TogglePics()));
-	viewMenu->setItemChecked(M_ViewShowImages, true);
-	SetKeyEntry(42, tr("Hide Images"), M_ViewShowImages, 0);
-	M_ViewShowGrid = viewMenu->insertItem( tr("Show &Grid"), this, SLOT(ToggleRaster()));
-	SetKeyEntry(43, tr("Show Grid"), M_ViewShowGrid, 0);
-	viewMenu->setItemChecked(M_ViewShowGrid, false);
-	M_ViewShowGuides = viewMenu->insertItem( tr("Show G&uides"), this, SLOT(ToggleGuides()));
-	viewMenu->setItemChecked(M_ViewShowGuides, true);
-	M_ViewShowBaseline = viewMenu->insertItem( tr("Show &Baseline Grid"), this, SLOT(ToggleBase()));
-	viewMenu->setItemChecked(M_ViewShowBaseline, false);
-	M_ViewShowTextChain = viewMenu->insertItem( tr("Show &Text Chain"), this, SLOT(ToggleTextLinks()));
-	viewMenu->setItemChecked(M_ViewShowTextChain, false);
-	viewMenu->insertSeparator();
-	M_ViewSnapToGrid = viewMenu->insertItem( tr("Sn&ap to Grid"), this, SLOT(ToggleURaster()));
-	SetKeyEntry(44, tr("Snap to Grid"), M_ViewSnapToGrid, 0);
-	M_ViewSnapToGuides = viewMenu->insertItem( tr("Sna&p to Guides"), this, SLOT(ToggleUGuides()));
+	scrMenuMgr->createMenu("View", tr("&View"));
+	scrMenuMgr->addMenuItem(scrActions["viewFitInWindow"], "View");
+	scrMenuMgr->addMenuItem(scrActions["viewFit50"], "View");
+	scrMenuMgr->addMenuItem(scrActions["viewFit75"], "View");
+	scrMenuMgr->addMenuItem(scrActions["viewFit100"], "View");
+	scrMenuMgr->addMenuItem(scrActions["viewFit200"], "View");
+	scrMenuMgr->addMenuItem(scrActions["viewFit20"], "View");
+	scrMenuMgr->addMenuSeparator("View");
+	scrMenuMgr->addMenuItem(scrActions["viewShowMargins"], "View");
+	scrMenuMgr->addMenuItem(scrActions["viewShowFrames"], "View");
+	scrMenuMgr->addMenuItem(scrActions["viewShowImages"], "View");
+	scrMenuMgr->addMenuItem(scrActions["viewShowGrid"], "View");
+	scrMenuMgr->addMenuItem(scrActions["viewShowGuides"], "View");
+	scrMenuMgr->addMenuItem(scrActions["viewShowBaselineGrid"], "View");
+	scrMenuMgr->addMenuItem(scrActions["viewShowTextChain"], "View");
+	scrMenuMgr->addMenuSeparator("View");
+	scrMenuMgr->addMenuItem(scrActions["viewSnapToGrid"], "View");
+	scrMenuMgr->addMenuItem(scrActions["viewSnapToGuides"], "View");
 	
 	//Tool menu
 	toolMenu=new QPopupMenu();
@@ -1394,8 +1440,8 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuToMenuBar("Page");
 	scrMenuMgr->setMenuEnabled("Item", false);
 	scrMenuMgr->setMenuEnabled("Page", false);
-	ViMen = menuBar()->insertItem( tr("&View"), viewMenu);
-	menuBar()->setItemEnabled(ViMen, 0);
+	scrMenuMgr->addMenuToMenuBar("View");
+	scrMenuMgr->setMenuEnabled("View", false);
 	menuBar()->insertItem( tr("&Tools"), toolMenu);
 	exmn = menuBar()->insertItem( tr("E&xtras"), extraMenu);
 	menuBar()->setItemEnabled(exmn, 0);
@@ -2852,13 +2898,13 @@ void ScribusApp::newActWin(QWidget *w)
 		wsp->setScrollBarsEnabled(false);
 	else
 		wsp->setScrollBarsEnabled(true);
-	viewMenu->setItemChecked(M_ViewShowMarkers, doc->guidesSettings.marginsShown);
-	viewMenu->setItemChecked(M_ViewDrawFrames, doc->guidesSettings.framesShown);
-	viewMenu->setItemChecked(M_ViewShowGrid, doc->guidesSettings.gridShown);
-	viewMenu->setItemChecked(M_ViewShowGuides, doc->guidesSettings.guidesShown);
-	viewMenu->setItemChecked(M_ViewShowBaseline, doc->guidesSettings.baseShown);
-	viewMenu->setItemChecked(M_ViewShowImages, doc->guidesSettings.showPic);
-	viewMenu->setItemChecked(M_ViewShowTextChain, doc->guidesSettings.linkShown);
+	scrActions["viewShowMargins"]->setOn(doc->guidesSettings.marginsShown);
+	scrActions["viewShowFrames"]->setOn(doc->guidesSettings.framesShown);
+	scrActions["viewShowGrid"]->setOn(doc->guidesSettings.gridShown);
+	scrActions["viewShowGuides"]->setOn(doc->guidesSettings.guidesShown);
+	scrActions["viewShowBaseline"]->setOn(doc->guidesSettings.baseShown);
+	scrActions["viewShowImages"]->setOn(doc->guidesSettings.showPic);
+	scrActions["viewShowTextChain"]->setOn(doc->guidesSettings.linkShown);
 //	if (!doc->TemplateMode)
 //		Sepal->Rebuild();
 //	Tpal->BuildTree(view);
@@ -3089,13 +3135,13 @@ bool ScribusApp::SetupDoc()
 				FProg->reset();
 			}
 		}
-		viewMenu->setItemChecked(M_ViewShowMarkers, doc->guidesSettings.marginsShown);
-		viewMenu->setItemChecked(M_ViewDrawFrames, doc->guidesSettings.framesShown);
-		viewMenu->setItemChecked(M_ViewShowGrid, doc->guidesSettings.gridShown);
-		viewMenu->setItemChecked(M_ViewShowGuides, doc->guidesSettings.guidesShown);
-		viewMenu->setItemChecked(M_ViewShowBaseline, doc->guidesSettings.baseShown);
-		viewMenu->setItemChecked(M_ViewShowImages, doc->guidesSettings.showPic);
-		viewMenu->setItemChecked(M_ViewShowTextChain, doc->guidesSettings.linkShown);
+		scrActions["viewShowMargins"]->setOn(doc->guidesSettings.marginsShown);
+		scrActions["viewShowFrames"]->setOn(doc->guidesSettings.framesShown);
+		scrActions["viewShowGrid"]->setOn(doc->guidesSettings.gridShown);
+		scrActions["viewShowGuides"]->setOn(doc->guidesSettings.guidesShown);
+		scrActions["viewShowBaseline"]->setOn(doc->guidesSettings.baseShown);
+		scrActions["viewShowImages"]->setOn(doc->guidesSettings.showPic);
+		scrActions["viewShowTextChain"]->setOn(doc->guidesSettings.linkShown);
 		for (uint b=0; b<doc->Items.count(); ++b)
 		{
 			if (doc->Items.at(b)->PType == 2)
@@ -3240,10 +3286,11 @@ void ScribusApp::HaveNewDoc()
 	scrActions["editParaStyles"]->setEnabled(true);
 	scrActions["editLineStyles"]->setEnabled(true);
 	
-	menuBar()->setItemEnabled(ViMen, 1);
+	scrMenuMgr->setMenuEnabled("View", true);
+	scrActions["viewSnapToGrid"]->setOn(doc->useRaster);
+	scrActions["viewSnapToGuides"]->setOn(doc->SnapGuides);
+
 	menuBar()->setItemEnabled(WinMen, 1);
-	viewMenu->setItemChecked(M_ViewSnapToGuides, doc->SnapGuides);
-	viewMenu->setItemChecked(M_ViewSnapToGrid, doc->useRaster);
 	scrMenuMgr->setMenuEnabled("Page", true);
 	menuBar()->setItemEnabled(exmn, 1);
 	WerkTools->setEnabled(true);
@@ -4622,10 +4669,10 @@ bool ScribusApp::DoFileClose()
 		scrActions["editJavascripts"]->setEnabled(false);
 
 		extraMenu->setItemEnabled(hyph, 0);
-		menuBar()->setItemEnabled(ViMen, 0);
+		scrMenuMgr->setMenuEnabled("View", false);
 		menuBar()->setItemEnabled(WinMen, 0);
-		viewMenu->setItemChecked(M_ViewSnapToGuides, false);
-		viewMenu->setItemChecked(M_ViewSnapToGrid, false);
+		scrActions["viewSnapToGuides"]->setOn(false);
+		scrActions["viewSnapToGrid"]->setOn(false);
 
 		scrMenuMgr->setMenuEnabled("Page", false);
 		menuBar()->setItemEnabled(exmn, 0);
@@ -5748,7 +5795,6 @@ void ScribusApp::TogglePDFTools()
 void ScribusApp::TogglePics()
 {
 	doc->guidesSettings.showPic = !doc->guidesSettings.showPic;
-	viewMenu->setItemChecked(M_ViewShowImages, doc->guidesSettings.showPic);
 	for (uint b=0; b<doc->Items.count(); ++b)
 	{
 		if (doc->Items.at(b)->PType == 2)
@@ -5790,12 +5836,12 @@ void ScribusApp::ToggleAllGuides()
 		doc->guidesSettings.guidesShown = false;
 		doc->guidesSettings.baseShown = false;
 		doc->guidesSettings.linkShown = false;
-		viewMenu->setItemChecked(M_ViewShowMarkers, doc->guidesSettings.marginsShown);
-		viewMenu->setItemChecked(M_ViewDrawFrames, doc->guidesSettings.framesShown);
-		viewMenu->setItemChecked(M_ViewShowGrid, doc->guidesSettings.gridShown);
-		viewMenu->setItemChecked(M_ViewShowGuides, doc->guidesSettings.guidesShown);
-		viewMenu->setItemChecked(M_ViewShowBaseline, doc->guidesSettings.baseShown);
-		viewMenu->setItemChecked(M_ViewShowTextChain, doc->guidesSettings.linkShown);
+		scrActions["viewShowMargins"]->setOn(doc->guidesSettings.marginsShown);
+		scrActions["viewShowFrames"]->setOn(doc->guidesSettings.framesShown);
+		scrActions["viewShowGrid"]->setOn(doc->guidesSettings.gridShown);
+		scrActions["viewShowGuides"]->setOn(doc->guidesSettings.guidesShown);
+		scrActions["viewShowBaseline"]->setOn(doc->guidesSettings.baseShown);
+		scrActions["viewShowTextChain"]->setOn(doc->guidesSettings.linkShown);
 	}
 	view->DrawNew();
 }
@@ -5804,7 +5850,6 @@ void ScribusApp::ToggleMarks()
 {
 	GuidesStat[0] = false;
 	doc->guidesSettings.marginsShown = !doc->guidesSettings.marginsShown;
-	viewMenu->setItemChecked(M_ViewShowMarkers, doc->guidesSettings.marginsShown);
 	view->DrawNew();
 }
 
@@ -5812,7 +5857,6 @@ void ScribusApp::ToggleFrames()
 {
 	GuidesStat[0] = false;
 	doc->guidesSettings.framesShown = !doc->guidesSettings.framesShown;
-	viewMenu->setItemChecked(M_ViewDrawFrames, doc->guidesSettings.framesShown);
 	view->DrawNew();
 }
 
@@ -5820,7 +5864,6 @@ void ScribusApp::ToggleRaster()
 {
 	GuidesStat[0] = false;
 	doc->guidesSettings.gridShown = !doc->guidesSettings.gridShown;
-	viewMenu->setItemChecked(M_ViewShowGrid, doc->guidesSettings.gridShown);
 	view->DrawNew();
 }
 
@@ -5828,7 +5871,6 @@ void ScribusApp::ToggleGuides()
 {
 	GuidesStat[0] = false;
 	doc->guidesSettings.guidesShown = !doc->guidesSettings.guidesShown;
-	viewMenu->setItemChecked(M_ViewShowGuides, doc->guidesSettings.guidesShown);
 	view->DrawNew();
 }
 
@@ -5836,7 +5878,6 @@ void ScribusApp::ToggleBase()
 {
 	GuidesStat[0] = false;
 	doc->guidesSettings.baseShown = !doc->guidesSettings.baseShown;
-	viewMenu->setItemChecked(M_ViewShowBaseline, doc->guidesSettings.baseShown);
 	view->DrawNew();
 }
 
@@ -5844,20 +5885,17 @@ void ScribusApp::ToggleTextLinks()
 {
 	GuidesStat[0] = false;
 	doc->guidesSettings.linkShown = !doc->guidesSettings.linkShown;
-	viewMenu->setItemChecked(M_ViewShowTextChain, doc->guidesSettings.linkShown);
 	view->DrawNew();
 }
 
 void ScribusApp::ToggleURaster()
 {
 	doc->useRaster = !doc->useRaster;
-	viewMenu->setItemChecked(M_ViewSnapToGrid, doc->useRaster);
 }
 
 void ScribusApp::ToggleUGuides()
 {
 	doc->SnapGuides = !doc->SnapGuides;
-	viewMenu->setItemChecked(M_ViewSnapToGuides, doc->SnapGuides);
 }
 
 void ScribusApp::ToggleFrameEdit()
@@ -8310,7 +8348,7 @@ void ScribusApp::ManTempEnd()
 	scrActions["pageInsert"]->setEnabled(true);
 	scrActions["pageCopy"]->setEnabled(true);
 	scrActions["pageApplyTemplate"]->setEnabled(true);
-	int setter = doc->Pages.count() > 1 ? 1 : 0;
+	bool setter = doc->Pages.count() > 1 ? true : false;
 	scrActions["pageDelete"]->setEnabled(setter);
 	scrActions["pageMove"]->setEnabled(setter);
 	for (uint c=0; c<doc->Pages.count(); ++c)
@@ -9036,24 +9074,34 @@ void ScribusApp::SetShortCut()
 					scrActions[Prefs.KeyActions[a].actionName]->setAccel(Prefs.KeyActions[a].KeyID);
 	}
 	//CB TODO editMenu->setAccel(Prefs.KeyActions[19].KeyID, Prefs.KeyActions[19].MenuID);
-	/* //CB TODO
+
 	for (a = 20; a < 30; ++a)
 	{
-		itemMenu->setAccel(Prefs.KeyActions[a].KeyID, Prefs.KeyActions[a].MenuID);
+		if (Prefs.KeyActions.contains(a))
+			if (Prefs.KeyActions[a].actionName!="")
+				if (scrActions[Prefs.KeyActions[a].actionName])
+					scrActions[Prefs.KeyActions[a].actionName]->setAccel(Prefs.KeyActions[a].KeyID);
 	}
 	
 	for (a = 30; a < 34; ++a)
 	{
-		pageMenu->setAccel(Prefs.KeyActions[a].KeyID, Prefs.KeyActions[a].MenuID);
+		if (Prefs.KeyActions.contains(a))
+			if (Prefs.KeyActions[a].actionName!="")
+				if (scrActions[Prefs.KeyActions[a].actionName])
+					scrActions[Prefs.KeyActions[a].actionName]->setAccel(Prefs.KeyActions[a].KeyID);
 	}
 	
-	pageMenu->setAccel(Prefs.KeyActions[61].KeyID, Prefs.KeyActions[61].MenuID);
-	pageMenu->setAccel(Prefs.KeyActions[49].KeyID, Prefs.KeyActions[49].MenuID);
-	*/
+	//pageMenu->setAccel(Prefs.KeyActions[61].KeyID, Prefs.KeyActions[61].MenuID);
+	//pageMenu->setAccel(Prefs.KeyActions[49].KeyID, Prefs.KeyActions[49].MenuID);
+	
 	for (a = 34; a < 45; ++a)
 	{
-		viewMenu->setAccel(Prefs.KeyActions[a].KeyID, Prefs.KeyActions[a].MenuID);
+		if (Prefs.KeyActions.contains(a))
+			if (Prefs.KeyActions[a].actionName!="")
+				if (scrActions[Prefs.KeyActions[a].actionName])
+					scrActions[Prefs.KeyActions[a].actionName]->setAccel(Prefs.KeyActions[a].KeyID);
 	}
+	
 	for (a = 45; a < 49; ++a)
 	{
 		toolMenu->setAccel(Prefs.KeyActions[a].KeyID, Prefs.KeyActions[a].MenuID);

@@ -520,9 +520,9 @@ private:
 	/** pageMenu enthaelt das Seitenmenue */
 	//QPopupMenu *pageMenu;
 	/** viewMenu contains all items of the menubar entry "View" */
-	QPopupMenu *viewMenu;
+	//QPopupMenu *viewMenu;
 	/** ColorMenu enthaelt die Farben des Dokuments */
-	int ViMen;
+	//int ViMen;
 	QPopupMenu *ColorMenu;
 	QComboBox *ColorMenC;
 	/** SizeTMenu enthaelt die Schriftgroessen */
@@ -570,15 +570,15 @@ private:
 	//int M_PageMove;
 	//int pgmm;
 	int Stm;
-	int M_ViewShowMarkers;
-	int M_ViewDrawFrames;
-	int M_ViewShowImages;
-	int M_ViewShowGrid;
-	int M_ViewSnapToGrid;
-	int M_ViewShowGuides;
-	int M_ViewSnapToGuides;
-	int M_ViewShowBaseline;
-	int M_ViewShowTextChain;
+	//int M_ViewShowMargins;
+	//int M_ViewDrawFrames;
+	//int M_ViewShowImages;
+	//int M_ViewShowGrid;
+	//int M_ViewSnapToGrid;
+	//int M_ViewShowGuides;
+	//int M_ViewSnapToGuides;
+	//int M_ViewShowBaseline;
+	//int M_ViewShowTextChain;
 	int toolbarMenuTools;
 	int toolbarMenuPDFTools;
 	int viewToolbars;
