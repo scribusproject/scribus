@@ -88,6 +88,7 @@ ChTable::ChTable(CharSelect* parent, ScribusApp *pl) : QTable(parent)
 	setFocusPolicy(NoFocus);
 	ap = pl;
 	par = parent;
+	QToolTip::add(this, tr("You can see a thumbnail if you press\nand hold down the right mouse button"));
 }
 
 void ChTable::contentsMousePressEvent(QMouseEvent* e)
