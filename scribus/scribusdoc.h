@@ -198,6 +198,7 @@ struct StVorL { QString Vname;
 								double Anach;
 								QString Font;
 								int FontSize;
+								QValueList<double> TabValues;
 							};
 
 struct CMSset {

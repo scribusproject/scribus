@@ -94,6 +94,7 @@ void StilFormate::dupFormat()
    	sty.Anach = TempVorl[sFnumber].Anach;
    	sty.Font = TempVorl[sFnumber].Font;
    	sty.FontSize = TempVorl[sFnumber].FontSize;
+   	sty.TabValues = TempVorl[sFnumber].TabValues;
    	TempVorl.append(sty);
    	sFnumber = TempVorl.count()-1;
 		EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true, fon, static_cast<double>(Docu->AutoLine), Docu->Einheit);
@@ -115,6 +116,7 @@ void StilFormate::neuesFormat()
    	sty.Anach = 0;
 		sty.Font = Docu->Dfont;
 		sty.FontSize = Docu->Dsize;
+		sty.TabValues.clear();
    	TempVorl.append(sty);
    	sFnumber = TempVorl.count()-1;
 		EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true, fon, static_cast<double>(Docu->AutoLine), Docu->Einheit);
@@ -185,6 +187,7 @@ void StilFormate::loadStyles()
 			   	sty.Anach = ss->Vorlagen[xx].Anach;
 			   	sty.Font = ss->Vorlagen[xx].Font;
 			   	sty.FontSize = ss->Vorlagen[xx].FontSize;
+   				sty.TabValues = ss->Vorlagen[xx].TabValues;
 			   	TempVorl.append(sty);
 					}
 				}

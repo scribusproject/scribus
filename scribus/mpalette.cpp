@@ -7,6 +7,7 @@
 #include "query.h"
 #include "scribusview.h"
 #include "autoform.h"
+#include "tabmanager.h"
 extern QPixmap loadIcon(QString nam);
 extern double UmReFaktor;
 extern ProfilesL InputProfiles;
@@ -381,6 +382,11 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     DRight->setMaxValue( 3000 );
     DRight->setMinValue( 0 );
     DistanceLayout->addWidget( DRight, 5, 1 );
+		TabsButton = new QPushButton( Distance, "Tabul" );
+		TabsButton->setText( tr( "Tabulators..." ) );
+		TabsButton->setDefault( false );
+		TabsButton->setAutoDefault( false );
+		DistanceLayout->addMultiCellWidget( TabsButton, 6, 6, 0, 1 );
 		pageLayout_2a->addWidget(Distance);
     TabStack2->addWidget( page_2a, 0 );
 
@@ -925,6 +931,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     connect(MonitorI, SIGNAL(activated(int)), this, SLOT(ChIntent()));
 		connect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
     connect(LangCombo, SIGNAL(activated(int)), this, SLOT(NewLanguage()));
+    connect( TabsButton, SIGNAL( clicked() ), this, SLOT( ManageTabs() ) );
 		HaveItem = false;
 		Xpos->setValue(0);
 		Ypos->setValue(0);
@@ -2896,5 +2903,20 @@ void Mpalette::NewLanguage()
 		{
 		CurItem->Language = LangCombo->currentText();
 		emit DocChanged();
+		}
+}
+
+void Mpalette::ManageTabs()
+{
+	if ((HaveDoc) && (HaveItem))
+		{
+		TabManager *dia = new TabManager(this, doc->Einheit, CurItem->TabValues);
+		if (dia->exec())
+			{
+			CurItem->TabValues = dia->tmpTab;
+			doc->ActPage->RefreshItem(CurItem);
+			emit DocChanged();
+			}
+		delete dia;
 		}
 }

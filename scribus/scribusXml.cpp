@@ -141,6 +141,7 @@ bool ScriXmlDoc::ReadStyles(QString fileName, ScribusDoc* doc, preV *Prefs)
 	QString tmpf;
 	QFont fo;
 	bool fou;
+	double xf;
 	DoFonts.clear();
 	f = ReadDatei(fileName);
 	if (f == "")
@@ -196,6 +197,20 @@ bool ScriXmlDoc::ReadStyles(QString fileName, ScribusDoc* doc, preV *Prefs)
 				else
 					vg.Font = DoFonts[doc->Dfont];
 				vg.FontSize = qRound(QStodouble(pg.attribute("FONTSIZE","12")) * 10.0);
+				if ((pg.hasAttribute("NUMTAB")) && (QStoInt(pg.attribute("NUMTAB","0")) != 0))
+					{
+					QString tmp = pg.attribute("TABS");
+					QTextStream tgv(&tmp, IO_ReadOnly);
+					vg.TabValues.clear();
+					for (int cxv = 0; cxv < QStoInt(pg.attribute("NUMTAB","0")); ++cxv)
+						{
+						tgv >> xf;
+						vg.TabValues.append(xf);
+						}
+					tmp = "";
+					}
+				else
+					vg.TabValues.clear();
 				for (uint xx=0; xx<Vorlagen.count(); ++xx)
 					{
 					if (vg.Vname == Vorlagen[xx].Vname)
@@ -207,6 +222,7 @@ bool ScriXmlDoc::ReadStyles(QString fileName, ScribusDoc* doc, preV *Prefs)
 								(vg.Avor == Vorlagen[xx].Avor) &&
 								(vg.Anach == Vorlagen[xx].Anach) &&
 								(vg.Font == Vorlagen[xx].Font) &&
+								(vg.TabValues == Vorlagen[xx].TabValues) &&
 								(vg.FontSize == Vorlagen[xx].FontSize))
 							{
 							fou = true;
@@ -433,6 +449,20 @@ while(!DOC.isNull())
 			else
 				vg.Font = DoFonts[Defont];
 			vg.FontSize = qRound(QStodouble(pg.attribute("FONTSIZE","12")) * 10.0);
+			if ((pg.hasAttribute("NUMTAB")) && (QStoInt(pg.attribute("NUMTAB","0")) != 0))
+				{
+				tmp = pg.attribute("TABS");
+				QTextStream tgv(&tmp, IO_ReadOnly);
+				vg.TabValues.clear();
+				for (int cxv = 0; cxv < QStoInt(pg.attribute("NUMTAB","0")); ++cxv)
+					{
+					tgv >> xf;
+					vg.TabValues.append(xf);
+					}
+				tmp = "";
+				}
+			else
+				vg.TabValues.clear();
 			for (uint xx=0; xx<doc->Vorlagen.count(); ++xx)
 				{
 				if (vg.Vname == doc->Vorlagen[xx].Vname)
@@ -444,6 +474,7 @@ while(!DOC.isNull())
 							(vg.Avor == doc->Vorlagen[xx].Avor) &&
 							(vg.Anach == doc->Vorlagen[xx].Anach) &&
 							(vg.Font == doc->Vorlagen[xx].Font) &&
+							(vg.TabValues == Vorlagen[xx].TabValues) &&
 							(vg.FontSize == doc->Vorlagen[xx].FontSize))
 						{
 						DoVorl[VorlC] = tmV.setNum(xx);
@@ -1060,6 +1091,20 @@ while(!DOC.isNull())
 			else
 				vg.Font = DoFonts[Defont];
 			vg.FontSize = qRound(QStodouble(pg.attribute("FONTSIZE","12")) * 10.0);
+			if ((pg.hasAttribute("NUMTAB")) && (QStoInt(pg.attribute("NUMTAB","0")) != 0))
+				{
+				tmp = pg.attribute("TABS");
+				QTextStream tgv(&tmp, IO_ReadOnly);
+				vg.TabValues.clear();
+				for (int cxv = 0; cxv < QStoInt(pg.attribute("NUMTAB","0")); ++cxv)
+					{
+					tgv >> xf;
+					vg.TabValues.append(xf);
+					}
+				tmp = "";
+				}
+			else
+				vg.TabValues.clear();
 			doc->Vorlagen.append(vg);
 			}
 		if(pg.tagName()=="JAVA")
@@ -1734,6 +1779,20 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			else
 				vg.Font = doc->Dfont;
 			vg.FontSize = qRound(QStodouble(pg.attribute("FONTSIZE","12")) * 10);
+			if ((pg.hasAttribute("NUMTAB")) && (QStoInt(pg.attribute("NUMTAB","0")) != 0))
+				{
+				tmp = pg.attribute("TABS");
+				QTextStream tgv(&tmp, IO_ReadOnly);
+				vg.TabValues.clear();
+				for (int cxv = 0; cxv < QStoInt(pg.attribute("NUMTAB","0")); ++cxv)
+					{
+					tgv >> xf;
+					vg.TabValues.append(xf);
+					}
+				tmp = "";
+				}
+			else
+				vg.TabValues.clear();
 			for (uint xx=0; xx<doc->Vorlagen.count(); ++xx)
 				{
 				if (vg.Vname == doc->Vorlagen[xx].Vname)
@@ -1745,6 +1804,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 							(vg.Avor == doc->Vorlagen[xx].Avor) &&
 							(vg.Anach == doc->Vorlagen[xx].Anach) &&
 							(vg.Font == doc->Vorlagen[xx].Font) &&
+							(vg.TabValues == Vorlagen[xx].TabValues) &&
 							(vg.FontSize == doc->Vorlagen[xx].FontSize))
 						{
 						DoVorl[VorlC] = tmV.setNum(xx);
@@ -2267,7 +2327,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 			tsc = item->Ptext.at(k)->cscale;
 			if (item->Ptext.at(k)->ch == QChar(13))
 				text = QChar(5);
-			if (item->Ptext.at(k)->ch == QChar(9))
+			else if (item->Ptext.at(k)->ch == QChar(9))
 				text = QChar(4);
 			else
 				text = item->Ptext.at(k)->ch;
@@ -2311,7 +2371,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 				{
 				if (item->Ptext.at(k)->ch == QChar(13))
 					text += QChar(5);
-				if (item->Ptext.at(k)->ch == QChar(9))
+				else if (item->Ptext.at(k)->ch == QChar(9))
 					text += QChar(4);
 				else
 					text += item->Ptext.at(k)->ch;
@@ -2420,6 +2480,14 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 			fo.setAttribute("NACH",doc->Vorlagen[ff].Anach);
 			fo.setAttribute("FONT",doc->Vorlagen[ff].Font);
 			fo.setAttribute("FONTSIZE",doc->Vorlagen[ff].FontSize / 10.0);
+			fo.setAttribute("NUMTAB", static_cast<int>(doc->Vorlagen[ff].TabValues.count()));
+			QString tlp = "";
+			QValueList<double>::Iterator tax;
+			for (tax = doc->Vorlagen[ff].TabValues.begin(); tax != doc->Vorlagen[ff].TabValues.end(); ++tax)
+				{
+				tlp += tmp.setNum((*tax)) + " ";
+				}
+			fo.setAttribute("TABS", tlp);
 			elem.appendChild(fo);
 			}
 		}
@@ -2669,7 +2737,7 @@ for(uint i=0;i<view->Pages.count();++i)
 			tsc = item->Ptext.at(k)->cscale;
 			if (item->Ptext.at(k)->ch == QChar(13))
 				text = QChar(5);
-			if (item->Ptext.at(k)->ch == QChar(9))
+			else if (item->Ptext.at(k)->ch == QChar(9))
 				text = QChar(4);
 			else
 				text = item->Ptext.at(k)->ch;
@@ -2713,7 +2781,7 @@ for(uint i=0;i<view->Pages.count();++i)
 				{
 				if (item->Ptext.at(k)->ch == QChar(13))
 					text += QChar(5);
-				if (item->Ptext.at(k)->ch == QChar(9))
+				else if (item->Ptext.at(k)->ch == QChar(9))
 					text += QChar(4);
 				else
 					text += item->Ptext.at(k)->ch;
@@ -2940,6 +3008,15 @@ if (doc->Vorlagen.count() > 5)
 		fo.setAttribute("NACH",doc->Vorlagen[ff].Anach);
 		fo.setAttribute("FONT",doc->Vorlagen[ff].Font);
 		fo.setAttribute("FONTSIZE",doc->Vorlagen[ff].FontSize / 10.0);
+		fo.setAttribute("NUMTAB", static_cast<int>(doc->Vorlagen[ff].TabValues.count()));
+		QString tlp = "";
+		QString tmp = "";
+		QValueList<double>::Iterator tax;
+		for (tax = doc->Vorlagen[ff].TabValues.begin(); tax != doc->Vorlagen[ff].TabValues.end(); ++tax)
+			{
+			tlp += tmp.setNum((*tax)) + " ";
+			}
+		fo.setAttribute("TABS", tlp);
 		dc.appendChild(fo);
 		}
 	}

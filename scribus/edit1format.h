@@ -47,6 +47,7 @@ public:
     FontCombo* FontC;
     MSpinBox* SizeC;
     QLabel* TextF2;
+    QPushButton* TabsButton;
     QPushButton* Cancel;
     QPushButton* OkButton;
     struct StVorL *werte;
@@ -54,10 +55,12 @@ public:
     QString OldName;
     bool IsNew;
 		double AutoVal;
+		int DocsEin;
 
 private slots:
 		void Verlassen();
 		void FontChange(int val);
+		void ManageTabs();
 
 protected:
     QHBoxLayout* Layout17;

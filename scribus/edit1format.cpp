@@ -1,5 +1,6 @@
 #include "edit1format.h"
 #include "edit1format.moc"
+#include "tabmanager.h"
 extern QPixmap loadIcon(QString nam);
 extern double UmReFaktor;
 #include <qmessagebox.h>
@@ -10,6 +11,7 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
     setCaption( tr( "Edit Style" ) );
  		setIcon(loadIcon("AppIcon.png"));
 		AutoVal = au;
+		DocsEin = dEin;
     EditStyleLayout = new QGridLayout( this );
     EditStyleLayout->setSpacing( 6 );
     EditStyleLayout->setMargin( 10 );
@@ -93,6 +95,9 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
     FirstLin->setMinValue( -3000 );
     FirstLin->setLineStep(10);
     GroupBox10Layout->addWidget( FirstLin, 0, 1 );
+		TabsButton = new QPushButton( GroupBox10, "Tabul" );
+		TabsButton->setText( tr( "Tabulators..." ) );
+		GroupBox10Layout->addMultiCellWidget( TabsButton, 2, 2, 0, 1 );
     EditStyleLayout->addWidget( GroupBox10, 3, 1 );
 
     ButtonGroup1 = new QButtonGroup( this, "ButtonGroup1" );
@@ -193,7 +198,6 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
     TextLabel1_2_3->setMinimumSize( QSize( 90, 22 ) );
     TextLabel1_2_3->setText( tr( "Below:" ) );
     AbstandVLayout->addWidget( TextLabel1_2_3, 1, 0 );
-//    EditStyleLayout->addWidget( AbstandV, 3, 1 );
     EditStyleLayout->addWidget( AbstandV, 2, 1 );
 
     Layout17 = new QHBoxLayout;
@@ -218,6 +222,7 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
     // signals and slots connections
     connect( Cancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
     connect( OkButton, SIGNAL( clicked() ), this, SLOT( Verlassen() ) );
+    connect( TabsButton, SIGNAL( clicked() ), this, SLOT( ManageTabs() ) );
     connect(SizeC, SIGNAL(valueChanged(int)), this, SLOT(FontChange(int)));
 		LeftInd->setDecimals(10);
 		FirstLin->setDecimals(10);
@@ -251,6 +256,14 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
     AboveV->setValue(qRound(vor->Avor * UmReFaktor * AboveV->Decimals));
     FirstLin->setValue(qRound(vor->First * UmReFaktor * FirstLin->Decimals));
     LeftInd->setValue(qRound(vor->Indent * UmReFaktor * LeftInd->Decimals));
+}
+
+void EditStyle::ManageTabs()
+{
+	TabManager *dia = new TabManager(this, DocsEin, werte->TabValues);
+	if (dia->exec())
+		werte->TabValues = dia->tmpTab;
+	delete dia;
 }
 
 void EditStyle::FontChange(int val)

@@ -230,6 +230,11 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 	QPtrList<ZZ> LiList;
 	bool outs = false;
 	bool fBorder = false;
+	bool RTab = false;
+	uint StartRT, StartRT2;
+	int TabCode = 0;
+	QValueList<double> tTabValues;
+	tTabValues.clear();
 	if (!Doc->DoDrawing)
 		{
 		Redrawn = true;
@@ -568,10 +573,10 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 				if ((Doc->AppMode == 7) && (Dirty))
 					Dirty = false;
 				CurrCol = 0;
-				ColWidth = (Width - (ColGap * (Cols - 1)) - Extra - RExtra) / Cols;
-				ColBound = FPoint((ColWidth + ColGap) * CurrCol, ColWidth * (CurrCol+1) + ColGap * CurrCol + Extra+lineCorr);
+				ColWidth = (Width - (ColGap * (Cols - 1)) - Extra - RExtra - 2*lineCorr) / Cols;
+				ColBound = FPoint((ColWidth + ColGap) * CurrCol+Extra + lineCorr, ColWidth * (CurrCol+1) + ColGap * CurrCol + Extra+lineCorr);
 				ColBound = FPoint(ColBound.x(), ColBound.y()+RExtra+lineCorr);
-				CurX = Extra + lineCorr + ColBound.x();
+				CurX = ColBound.x();
 				CurY = Doc->Vorlagen[0].LineSpa+TExtra+lineCorr;
 				LiList.clear();
 				BuPos = 0;
@@ -675,7 +680,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 									CurrCol++;
 									if (CurrCol < Cols)
 										{
-										ColWidth = (Width - (ColGap * (Cols - 1)) - Extra - RExtra) / Cols;
+										ColWidth = (Width - (ColGap * (Cols - 1)) - Extra - RExtra - 2*lineCorr) / Cols;
 										ColBound = FPoint((ColWidth + ColGap) * CurrCol + Extra+lineCorr, ColWidth * (CurrCol+1) + ColGap * CurrCol + Extra+lineCorr);
 										CurY = Doc->Vorlagen[0].LineSpa+TExtra+lineCorr;
 										CurX = ColBound.x();
@@ -704,30 +709,66 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 							CurX += Extra+lineCorr;
 						fBorder = false;
 						}
-					hl->xp = CurX+hl->cextra;
-					hl->yp = CurY;
-					CurX += wide+hl->cextra;
+					if ((hl->ch == ".") && (TabCode == 2))
+						{
+						RTab = false;
+						TabCode = 0;
+						}
+					if ((hl->ch == ",") && (TabCode == 3))
+						{
+						RTab = false;
+						TabCode = 0;
+						}
 					if (hl->ch == QChar(9))
 						{
-						if (TabValues.isEmpty())
-							CurX = ceil(CurX / 100.0) * 100.0;
+						wide = 1;
+						if (RTab)
+							RTab = false;
 						else
 							{
-							double tCurX = CurX;
-							double oCurX = CurX;
-							for (int yg = static_cast<int>(TabValues.count()-1); yg > -1; yg--)
-								{
-								if (CurX < TabValues[yg])
-									{
-									tCurX = TabValues[yg];
-									}
-								}
-							if (tCurX == oCurX)
-								CurX = ceil(CurX / 100.0) * 100.0;
+							if (hl->cab < 5)
+								tTabValues = TabValues;
 							else
-								CurX = tCurX;
+								tTabValues = Doc->Vorlagen[hl->cab].TabValues;
+							if (tTabValues.isEmpty())
+								{
+								CurX = ColBound.x() + ceil((CurX-ColBound.x()) / 36.0) * 36.0;
+								TabCode = 0;
+								RTab = false;
+								}
+							else
+								{
+								double tCurX = CurX - ColBound.x();
+								double oCurX = CurX - ColBound.x();
+								for (int yg = static_cast<int>(tTabValues.count()-1); yg > 0; yg -= 2)
+									{
+									if (oCurX < tTabValues[yg])
+										{
+										tCurX = tTabValues[yg];
+										TabCode = static_cast<int>(tTabValues[yg-1]);
+										}
+									}
+								if (TabCode == 0)
+									RTab = false;
+								else
+									RTab = true;
+								if (tCurX == oCurX)
+									CurX = ColBound.x() + ceil((CurX-ColBound.x()) / 36.0) * 36.0;
+								else
+									CurX = ColBound.x() + tCurX;
+								}
+							StartRT = LiList.count();
+							StartRT2 = a;
 							}
 						}
+					hl->yp = CurY;
+					if (!RTab)
+						{
+						hl->xp = CurX+hl->cextra;
+						CurX += wide+hl->cextra;
+						}
+					else
+						hl->xp = CurX;
 					pt1 = QPoint(static_cast<int>(CurX+RExtra+lineCorr), static_cast<int>(CurY+desc+BExtra+lineCorr));
 					pt2 = QPoint(static_cast<int>(CurX+RExtra+lineCorr), static_cast<int>(CurY-asce));
 					if ((!cl.contains(pf.xForm(pt1))) || (!cl.contains(pf.xForm(pt2))) || (CurX+RExtra+lineCorr > ColBound.y()))
@@ -763,9 +804,21 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						LastSP = BuPos;
 						}
 					LiList.append(Zli);
+					if (RTab)
+						{
+						uint rtx2 = 0;
+						for (uint rtx = StartRT; rtx < LiList.count(); ++rtx)
+							{
+							LiList.at(rtx)->xco = QMAX(LiList.at(rtx)->xco-(wide+hl->cextra), 0.0);
+							Ptext.at(StartRT2+rtx2)->xp = QMAX(Ptext.at(StartRT2+rtx2)->xp-(wide+hl->cextra), 0.0);
+							rtx2++;
+							}
+						}
 					BuPos++;
 					if ((hl->ch == QChar(13)) || (outs))
 						{
+						RTab = false;
+						TabCode = 0;
 						if (outs)
 							{
 							if (LastSP != 0)            // Hier koenen auch andere Trennungen eingebaut werden
@@ -935,18 +988,13 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 									pt1 = QPoint(static_cast<int>(CurX), static_cast<int>(CurY+desc+BExtra+lineCorr));
 									pt2 = QPoint(static_cast<int>(CurX), static_cast<int>(CurY-asce));
 									}
-								if (CurrCol == 0)
-									CurX += Extra+lineCorr;
-								else if (fromOut)
+								if (fromOut)
 									CurX--;
 								}
 							else
 								{
 								CurY += Doc->Vorlagen[0].LineSpa;
-								if (CurrCol == 0)
-									CurX = Extra+lineCorr+ColBound.x();
-								else
-									CurX = ColBound.x();
+								CurX = ColBound.x();
 								if (hl->ch != QChar(13))
 									CurX += Doc->Vorlagen[hl->cab].Indent;
 								else

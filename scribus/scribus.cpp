@@ -79,6 +79,7 @@
 #include "missing.h"
 #include "story.h"
 #include "autoform.h"
+#include "tabmanager.h"
 
 #include <unistd.h>
 
@@ -2033,6 +2034,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			StilMenu->insertItem( tr("Font"), FontMenu);
 			StilMenu->insertItem( tr("Size"), SizeTMenu);
 			StilMenu->insertItem( tr("Style"), TypeStyleMenu);
+			StilMenu->insertItem( tr("Tabulators..."), this, SLOT(EditTabs()));
 			StilMenu->insertItem( tr("Alignment"), AliMenu);
 			StilMenu->insertItem( tr("Color"), ColorMenu);
 			StilMenu->insertItem( tr("Shade"), ShadeMenu);
@@ -7078,6 +7080,25 @@ void ScribusApp::emergencySave()
   			}
 			delete doc;
 			ActWin->close();
+			}
+		}
+}
+
+void ScribusApp::EditTabs()
+{
+	if (HaveDoc)
+		{
+  	if (doc->ActPage->SelItem.count() != 0)
+			{
+			PageItem *b = doc->ActPage->SelItem.at(0);
+			TabManager *dia = new TabManager(this, doc->Einheit, b->TabValues);
+			if (dia->exec())
+				{
+				b->TabValues = dia->tmpTab;
+				doc->ActPage->RefreshItem(b);
+				slotDocCh();
+				}
+			delete dia;
 			}
 		}
 }

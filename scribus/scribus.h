@@ -387,6 +387,7 @@ class ScribusApp : public QMainWindow
 	void ToggleGuides();
 	void ToggleUGuides();
 	void HaveRaster(bool art);
+	void EditTabs();
 
 signals:
 	void TextISize(int);
