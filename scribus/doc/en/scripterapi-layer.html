@@ -2,71 +2,55 @@
 <title>Layer related Commands</title>
 <h2>Layer related Commands</h2>
 
-
 <dl>
 
-<dl><dt><a name="-createLayer"><strong>createLayer</strong></a>(...)</dt>
-<dd><tt><a href="#-createLayer">createLayer</a>(layer)</tt>
+<dt><a name="-createLayer"><strong>createLayer</strong></a>(...)</dt>
+<dd><code><a href="#-createLayer">createLayer</a>(layer)</code>
 <p>Creates a new layer with the name "name".</p>
-<p>May raise ValueError if the layer name isn't acceptable.</p></dd></dl>
+<p>May raise ValueError if the layer name isn't acceptable.</p></dd>
 
-<dl><dt><a name="-deleteLayer"><strong>deleteLayer</strong></a>(...)</dt>
-<dd><tt><a href="#-deleteLayer">deleteLayer</a>("layer")</tt>
-<p>Deletes the layer with the name "layer". Nothing happens if the layer doesn't
-exists or if it's the only layer in the document.</p>
-<p>May raise <a href="#NotFoundError">NotFoundError</a> if the layer can't be found.
-May raise ValueError if the layer name isn't acceptable.</p></dd></dl>
+<dt><a name="-deleteLayer"><strong>deleteLayer</strong></a>(...)</dt>
+<dd><code><a href="#-deleteLayer">deleteLayer</a>("layer")</code>
+<p>Deletes the layer with the name "layer". Nothing happens if the layer doesn't exists or if it's the only layer in the document.</p>
+<p>May raise <a href="#NotFoundError">NotFoundError</a> if the layer can't be found. May raise ValueError if the layer name isn't acceptable.</p></dd>
 
-<dl><dt><a name="-getActiveLayer"><strong>getActiveLayer</strong></a>(...)</dt>
-<dd><tt><a href="#-getActiveLayer">getActiveLayer</a>() -&gt; string</tt>
-<p>Returns the name of the current active layer.</p></dd></dl>
+<dt><a name="-getActiveLayer"><strong>getActiveLayer</strong></a>(...)</dt>
+<dd><code><a href="#-getActiveLayer">getActiveLayer</a>() -&gt; string</code>
+<p>Returns the name of the current active layer.</p></dd>
 
-<dl><dt><a name="-getLayers"><strong>getLayers</strong></a>(...)</dt>
-<dd><tt><a href="#-getLayers">getLayers</a>() -&gt; list</tt>
-<p>Returns a list with the names of all defined layers.</p></dd></dl>
+<dt><a name="-getLayers"><strong>getLayers</strong></a>(...)</dt>
+<dd><code><a href="#-getLayers">getLayers</a>() -&gt; list</code>
+<p>Returns a list with the names of all defined layers.</p></dd>
 
-<dl><dt><a name="-isLayerPrintable"><strong>isLayerPrintable</strong></a>(...)</dt>
-<dd><tt><a href="#-isLayerPrintable">isLayerPrintable</a>("layer") -&gt; bool</tt>
-<p>Returns wether the layer "layer" is printable or not, a value of True means
-that the layer "layer" can be printed, a value of False means that printing
-the layer "layer" is disabled.</p>
-<p>May raise <a href="#NotFoundError">NotFoundError</a> if the layer can't be found.
-May raise ValueError if the layer name isn't acceptable.</p></dd></dl>
+<dt><a name="-isLayerPrintable"><strong>isLayerPrintable</strong></a>(...)</dt>
+<dd><code><a href="#-isLayerPrintable">isLayerPrintable</a>("layer") -&gt; bool</code>
+<p>Returns wether the layer "layer" is printable or not, a value of True means that the layer "layer" can be printed, a value of False means that printing the layer "layer" is disabled.</p>
+<p>May raise <a href="#NotFoundError">NotFoundError</a> if the layer can't be found. May raise ValueError if the layer name isn't acceptable.</p></dd>
 
-<dl><dt><a name="-isLayerVisible"><strong>isLayerVisible</strong></a>(...)</dt>
-<dd><tt><a href="#-isLayerVisible">isLayerVisible</a>("layer") -&gt; bool</tt>
-<p>Returns wether the Layer "layer" is visible or not, a value of True means
-that the layer "layer" is visible, a value of False means that the layer
-"layer" is invisible.</p>
-<p>May raise <a href="#NotFoundError">NotFoundError</a> if the layer can't be found.
-May raise ValueError if the layer name isn't acceptable.</p></dd></dl>
+<dt><a name="-isLayerVisible"><strong>isLayerVisible</strong></a>(...)</dt>
+<dd><code><a href="#-isLayerVisible">isLayerVisible</a>("layer") -&gt; bool</code>
+<p>Returns wether the Layer "layer" is visible or not, a value of True means that the layer "layer" is visible, a value of False means that the layer "layer" is invisible.</p>
+<p>May raise <a href="#NotFoundError">NotFoundError</a> if the layer can't be found. May raise ValueError if the layer name isn't acceptable.</p></dd>
 
-<dl><dt><a name="-sentToLayer"><strong>sentToLayer</strong></a>(...)</dt>
-<dd><tt><a href="#-sentToLayer">sentToLayer</a>("layer" [, "name"])</tt>
-<p>Sends the object "name" to the layer "layer". The layer must exist.
-If "name" is not given the currently selected item is used.</p>
-<p>May raise <a href="#NotFoundError">NotFoundError</a> if the layer can't be found.
-May raise ValueError if the layer name isn't acceptable.</p></dd></dl>
+<dt><a name="-sentToLayer"><strong>sentToLayer</strong></a>(...)</dt>
+<dd><code><a href="#-sentToLayer">sentToLayer</a>("layer" [, "name"])</code>
+<p>Sends the object "name" to the layer "layer". The layer must exist. If "name" is not given the currently selected item is used.</p>
+<p>May raise <a href="#NotFoundError">NotFoundError</a> if the layer can't be found. May raise ValueError if the layer name isn't acceptable.</p></dd>
 
-<dl><dt><a name="-setActiveLayer"><strong>setActiveLayer</strong></a>(...)</dt>
-<dd><tt><a href="#-setActiveLayer">setActiveLayer</a>("name")</tt>
+<dt><a name="-setActiveLayer"><strong>setActiveLayer</strong></a>(...)</dt>
+<dd><code><a href="#-setActiveLayer">setActiveLayer</a>("name")</code>
 <p>Sets the active layer to the layer named "name".</p>
-<p>May raise <a href="#NotFoundError">NotFoundError</a> if the layer can't be found.
-May raise ValueError if the layer name isn't acceptable.</p></dd></dl>
+<p>May raise <a href="#NotFoundError">NotFoundError</a> if the layer can't be found. May raise ValueError if the layer name isn't acceptable.</p></dd>
 
-<dl><dt><a name="-setLayerPrintable"><strong>setLayerPrintable</strong></a>(...)</dt>
-<dd><tt><a href="#-setLayerPrintable">setLayerPrintable</a>("layer", printable)</tt>
-<p>Sets the layer "layer" to be printable or not. If is the printable set to
-false the layer won't be printed.</p>
-<p>May raise <a href="#NotFoundError">NotFoundError</a> if the layer can't be found.
-May raise ValueError if the layer name isn't acceptable.</p></dd></dl>
+<dt><a name="-setLayerPrintable"><strong>setLayerPrintable</strong></a>(...)</dt>
+<dd><code><a href="#-setLayerPrintable">setLayerPrintable</a>("layer", printable)</code>
+<p>Sets the layer "layer" to be printable or not. If is the printable set to false the layer won't be printed.</p>
+<p>May raise <a href="#NotFoundError">NotFoundError</a> if the layer can't be found. May raise ValueError if the layer name isn't acceptable.</p></dd>
 
-<dl><dt><a name="-setLayerVisible"><strong>setLayerVisible</strong></a>(...)</dt>
-<dd><tt><a href="#-setLayerVisible">setLayerVisible</a>("layer", visible)</tt>
-<p>Sets the layer "layer" to be visible or not. If is the visible set to false
-the layer is invisible.</p>
-<p>May raise <a href="#NotFoundError">NotFoundError</a> if the layer can't be found.
-May raise ValueError if the layer name isn't acceptable.</p></dd></dl>
+<dt><a name="-setLayerVisible"><strong>setLayerVisible</strong></a>(...)</dt>
+<dd><code><a href="#-setLayerVisible">setLayerVisible</a>("layer", visible)</code>
+<p>Sets the layer "layer" to be visible or not. If is the visible set to false the layer is invisible.</p>
+<p>May raise <a href="#NotFoundError">NotFoundError</a> if the layer can't be found. May raise ValueError if the layer name isn't acceptable.</p></dd>
 
 </dl>
 </qt>
