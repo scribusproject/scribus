@@ -6043,8 +6043,7 @@ msgid "Object is not a linked text frame, can't unlink."
 msgstr "L'objet n'est pas un cadre de texte lié, impossible de le délier."
 
 msgid "Object the last frame in a series, can't unlink. Unlink the previous frame instead."
-msgstr "L'objet est le dernier d'une série de cadres liés, impossible de le délier. Déliez plutôt le
-cadre précédent."
+msgstr "L'objet est le dernier d'une série de cadres liés, impossible de le délier. Déliez plutôt le cadre précédent."
 
 msgid "Can't convert a non-text frame to outlines"
 msgstr "Seul un cadre de texte peut être converti en contours"
