@@ -18,7 +18,7 @@ bool loadText(QString nam, QString *Buffer);
 void ReOrderText(ScribusDoc *doc, ScribusView *view);
 // end of utils.cpp
 
-typedef struct 
+typedef struct
 {
         PyObject_HEAD
         PyObject *allPrinters; // list of strings - names of installed printers
@@ -26,7 +26,7 @@ typedef struct
         PyObject *file;  // string - name of file to print into (eg. output.ps)
         PyObject *cmd; // string - if "" use standard command else use this as command (eg. "kprinter", "xpp" ...)
         PyObject *pages; // list of integers - pages to be printed
-        int copies; // numer of printed copies    
+        int copies; // numer of printed copies
         PyObject *separation; // string - No; All; Cyan; Magenta; Yellow; Black
         int color; // bool - do we print in color=1 or greyscale=0
         int useICC; // bool - do we use ICC Profiles 0 = No 1 = Yes
@@ -362,7 +362,7 @@ static int Printer_setpages(Printer *self, PyObject *value, void *closure)
                 if (PyInt_AsLong(tmp) > Carrier->doc->PageC || PyInt_AsLong(tmp) < 1) {
                         PyErr_SetString(PyExc_ValueError, "'pages' value out of range.");
                         return -1;
-                }       
+                }
         }
         Py_DECREF(self->pages);
         Py_INCREF(value);
@@ -403,7 +403,7 @@ static PyGetSetDef Printer_getseters [] = {
         {NULL}  // sentinel
 };
 
-// Here we actually print 
+// Here we actually print
 static PyObject *Printer_print(Printer *self)
 {
         if (!Carrier->HaveDoc) {
@@ -502,13 +502,13 @@ static PyObject *Printer_print(Printer *self)
 
 static PyMethodDef Printer_methods[] = {
 		{"print", (PyCFunction)Printer_print, METH_NOARGS, "Prints selected pages."},
-        {"Print", (PyCFunction)Printer_print, METH_NOARGS, "Prints selected pages."},
+		{"Print", (PyCFunction)Printer_print, METH_NOARGS, "This method is deprecated - use print() instead."},
         {NULL} // sentinel
 };
 
 PyTypeObject Printer_Type = {
-        PyObject_HEAD_INIT(NULL)   // PyObject_VAR_HEAD 
-        0,                         // 
+        PyObject_HEAD_INIT(NULL)   // PyObject_VAR_HEAD
+        0,                         //
         "Printer", // char *tp_name; /* For printing, in format "<module>.<name>" */
         sizeof(Printer),   // int tp_basicsize, /* For allocation */
         0,                       // int tp_itemsize; /* For allocation */
@@ -543,7 +543,7 @@ PyTypeObject Printer_Type = {
         Py_TPFLAGS_DEFAULT|Py_TPFLAGS_BASETYPE,    // long tp_flags;
 
         "Printer Object",      // char *tp_doc; /* Documentation string */
-    
+
 	/* Assigned meaning in release 2.0 */
 	/* call function for all accessible objects */
         0, //     traverseproc tp_traverse;
