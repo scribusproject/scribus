@@ -25,12 +25,12 @@ AM_CPPFLAGS = \
         -DICONDIR=\"$(datadir)/scribus/icons/\" \
         -DTEMPLATEDIR=\"$(datadir)/scribus/templates/\" \
         -DLIBDIR=\"$(libdir)/scribus/\" \
-        -DPLUGINDIR=\"$(libdir)/scribus/plugins/\"
+        -DPLUGINDIR=\"$(libdir)/scribus/plugins/\" \
+        -DPLUGINDATA=\"$(datadir)/scribus/plugins/\"
 
 install-data-local:
-	$(mkinstalldirs) $(libdir)/scribus/plugins/
-	$(INSTALL_DATA) $(srcdir)/scribus-short-words.rc $(libdir)/scribus/plugins/scribus-short-words.rc
+	$(mkinstalldirs) $(datadir)/scribus/plugins/
+	$(INSTALL_DATA) $(srcdir)/scribus-short-words.rc $(datadir)/scribus/plugins/scribus-short-words.rc
 
 uninstall-local:
-	-rm -f $(prefix)/lib/scribus/plugins/scribus-short-words.rc
-
+	-rm -f $(datadir)/scribus/plugins/scribus-short-words.rc
