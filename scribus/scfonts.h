@@ -53,6 +53,7 @@ class Foi
 		QString Datei;
 		QString cached_RealName;
 		QString Family;
+		QString Effect;
 		QFont Font;
 		bool EmbedPS;
 		bool HasMetrics;

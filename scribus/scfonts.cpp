@@ -453,6 +453,7 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 			t->CharWidth[28] = 0;
 			t->CharWidth[9] = 1;
 			t->Family = QString(face->family_name);
+			t->Effect = QString(face->style_name);
 			t->PrivateFont = DocName;
 		}
 	}

@@ -35,6 +35,7 @@ const QString gtFont::fontWeights[FontWeightMAX] =
 	"Demi",
 	"Heavy",
 	"Light",
+	"Lite",
 	"Medium",
 	"Regular",
 	"Roman"
@@ -475,18 +476,18 @@ void gtFont::parseWeight()
 	bool found = false;
 	for (int i = 1; i < FontWeightMAX; ++i)
 	{
-		index = find(name, fontWeights[i]); // f.e. Demi Bold
+		index = name.find(fontWeights[i]); // f.e. Demi Bold
 		QString tmpWeight = "";
 		if ((index == -1) && (fontWeights[i].find(" ") != -1) && (fontWeights[i].find(" ") != 1))
 		{
 			QString fw2 = fontWeights[i];
 			fw2.replace(" ", "-"); // f.e. Demi-Bold
-			index = find(name, fw2);
+			index = name.find(fw2);
 			if (index == -1)
 			{
 				fw2 = fontWeights[i];
 				fw2.replace(" ", ""); // f.e. DemiBold
-				index = find(name, fw2);
+				index = name.find(fw2);
 				if (index == -1)
 				{
 					fw2 = fontWeights[i];
@@ -495,7 +496,7 @@ void gtFont::parseWeight()
 					fw2.replace(" H", " h");
 					fw2.replace(" L", " l");
 					fw2.replace(" ", "");
-					index = find(name, fw2);
+					index = name.find(fw2);
 					if (index != -1)
 						tmpWeight = fw2;
 				}
@@ -530,7 +531,7 @@ void gtFont::parseSlant()
 	bool found = false;
 	for (int i = 1; i < FontSlantMAX; ++i)
 	{
-		index = find(name, fontSlants[i]);
+		index = name.find(fontSlants[i]);
 		if (index != -1)
 		{
 			slant = fontSlants[i];
@@ -552,18 +553,18 @@ void gtFont::parseWidth()
 	bool found = false;
 	for (int i = 1; i < FontWidthMAX; ++i)
 	{
-		index = find(name, fontWidths[i]);
+		index = name.find(fontWidths[i]);
 		QString tmpWidth = "";
 		if ((index == -1) && (fontWidths[i].find(" ") != -1) && (fontWidths[i].find(" ") != 1))
 		{
 			QString fw2 = fontWidths[i];
 			fw2.replace(" ", "-");
-			index = find(name, fw2);
+			index = name.find(fw2);
 			if (index == -1)
 			{
 				fw2 = fontWidths[i];
 				fw2.replace(" ", "");
-				index = find(name, fw2);
+				index = name.find(fw2);
 				if (index == -1)
 				{
 					fw2 = fontWidths[i];
@@ -572,7 +573,7 @@ void gtFont::parseWidth()
 					fw2.replace(" H", " h");
 					fw2.replace(" L", " l");
 					fw2.replace(" ", "");
-					index = find(name, fw2);
+					index = name.find(fw2);
 					if (index != -1)
 						tmpWidth = fw2;
 				}

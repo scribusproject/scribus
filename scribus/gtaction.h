@@ -25,7 +25,6 @@
 #include <qvaluelist.h>
 #include "scribus.h"
 #include "scribusdoc.h"
-#include "mpalette.h"
 #include "gtfont.h"
 #include "gtframestyle.h"
 #include "gtparagraphstyle.h"

@@ -20,6 +20,7 @@
 
 #include "missing.h"
 #include "gtaction.h"
+#include "mpalette.h"
 #include <qcursor.h>
 
 extern ScribusApp* ScApp;

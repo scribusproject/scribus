@@ -50,6 +50,7 @@ enum FontWeight {
 	DEMI,
 	HEAVY,
 	LIGHT,
+	LITE,
 	MEDIUM,
 	REGULAR,
 	ROMAN,
