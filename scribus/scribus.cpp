@@ -183,33 +183,8 @@ void ScribusApp::initScribus()
 	setDockEnabled(WerkToolsP, DockRight, false);
 	WerkToolsP->setEnabled(false);
 	WerkToolsP->Sichtbar = true;
-	QString Pff = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus");
-	QFileInfo Pffi = QFileInfo(Pff);
-	if (Pffi.exists())
-	{
-		if (Pffi.isDir())
-			PrefsPfad = Pff;
-		else
-			PrefsPfad = QDir::homeDirPath();
-	}
-	else
-	{
-		QDir di = QDir();
-		di.mkdir(Pff);
-		PrefsPfad = Pff;
-		QString OldPR = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus.rc");
-		QFileInfo OldPi = QFileInfo(OldPR);
-		if (OldPi.exists())
-			moveFile(OldPR, Pff+"/scribus.rc");
-		QString OldPR2 = QDir::convertSeparators(QDir::homeDirPath()+"/.scribusfont.rc");
-		QFileInfo OldPi2 = QFileInfo(OldPR2);
-		if (OldPi2.exists())
-			moveFile(OldPR2, Pff+"/scribusfont.rc");
-		QString OldPR3 = QDir::convertSeparators(QDir::homeDirPath()+"/.scribusscrap.scs");
-		QFileInfo OldPi3 = QFileInfo(OldPR3);
-		if (OldPi3.exists())
-			moveFile(OldPR3, Pff+"/scrap.scs");
-	}
+
+	PrefsPfad = getPreferencesLocation();
 	prefsFile = new PrefsFile(QDir::convertSeparators(PrefsPfad + "/prefs.xml"));
 	dirs = prefsFile->getContext("dirs");
 	/** Erstelle Fontliste */
@@ -223,7 +198,7 @@ void ScribusApp::initScribus()
 	{
 		if (splashScreen!=NULL)
 			splashScreen->close(); // 10/10/2004 pv fix #1200
-		QString mess = tr("There are no Postscript-Fonts on your System");
+		QString mess = tr("There are no Postscript fonts on your system");
 		mess += "\n" + tr("Exiting now");
 		QMessageBox::critical(this, tr("Fatal Error"), mess, 1, 0, 0);
 	}
@@ -633,6 +608,48 @@ void ScribusApp::initScribus()
 #endif
 		sigprocmask(SIG_UNBLOCK, &mask, 0);
 	}
+}
+
+/*!
+ \fn QString ScribusApp::getPreferencesLocation()
+ \author Craig Bradney
+ \date Thu 18 Nov 2004
+ \brief Get the user's preference file location. Rename any existing old preferences files
+ \param None
+ \retval QString Location of the user's preferences
+ */
+
+QString ScribusApp::getPreferencesLocation()
+{
+	QString Pff = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus");
+	QFileInfo Pffi = QFileInfo(Pff);
+	QString PrefsPfad;
+	if (Pffi.exists())
+	{
+		if (Pffi.isDir())
+			PrefsPfad = Pff;
+		else
+			PrefsPfad = QDir::homeDirPath();
+	}
+	else
+	{
+		QDir di = QDir();
+		di.mkdir(Pff);
+		PrefsPfad = Pff;
+		QString OldPR = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus.rc");
+		QFileInfo OldPi = QFileInfo(OldPR);
+		if (OldPi.exists())
+			moveFile(OldPR, Pff+"/scribus.rc");
+		QString OldPR2 = QDir::convertSeparators(QDir::homeDirPath()+"/.scribusfont.rc");
+		QFileInfo OldPi2 = QFileInfo(OldPR2);
+		if (OldPi2.exists())
+			moveFile(OldPR2, Pff+"/scribusfont.rc");
+		QString OldPR3 = QDir::convertSeparators(QDir::homeDirPath()+"/.scribusscrap.scs");
+		QFileInfo OldPi3 = QFileInfo(OldPR3);
+		if (OldPi3.exists())
+			moveFile(OldPR3, Pff+"/scrap.scs");
+	}
+	return PrefsPfad;
 }
 
 void ScribusApp::initMenuBar()
@@ -4535,17 +4552,13 @@ void ScribusApp::slotNewPageM()
 	InsPage *dia = new InsPage(this, doc, doc->ActPage->PageNr, doc->Pages.count(), doc->PageFP);
 	if (dia->exec())
 	{
-		QString based2;
-		if (doc->PageFP)
-			based2 = dia->Based2->currentText();
-		else
-			based2 = tr("Normal");
+		QString template2 = (doc->PageFP) ? dia->getTemplate2() : tr("Normal");
 
-		addNewPages(dia->ActualPage->value(), 
-		            dia->Where->currentItem(), 
-		            dia->NumPages->value(),
-		            dia->Based->currentText(),
-		            based2);
+		addNewPages(dia->getWherePage(), 
+		            dia->getWhere(),
+		            dia->getCount(),
+		            dia->getTemplate(),
+		            template2);
 	}
 	delete dia;
 }

@@ -100,6 +100,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	langMgr.init();
 	QStringList languageList;
 	langMgr.fillInstalledStringList(&languageList, true);
+	languageList.sort();
 	guiLangCombo = new QComboBox( false, ButtonGroup1, "guiLangCombo");
 	guiLangCombo->insertStringList( languageList );
 	guiLangCombo->setCurrentText(langMgr.getLangFromAbbrev(Vor->guiLanguage));
@@ -1528,6 +1529,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 
 	QWidget::setTabOrder( PreviewSize, SaveAtQuit );
 
+	QToolTip::add( guiLangCombo, tr( "Select your default language for Scribus to run with.\nLeave this blank to choose based on environment variables.\nYou can still override this by passing a command line option when starting Scribus" ) );
 	QToolTip::add( GUICombo, tr( "Choose the default window decoration and looks.\nScribus inherits any available KDE or Qt themes" ) );
 	QToolTip::add( GFsize, tr( "Default font size for the menus and windows" ) );
 	QToolTip::add( UnitCombo, tr( "Default unit of measurement for document editing" ) );

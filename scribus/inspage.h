@@ -22,28 +22,35 @@ class InsPage : public QDialog
     Q_OBJECT
 
 public:
-    InsPage( QWidget* parent, ScribusDoc* doc, int act, int max, bool ds );
+    InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int maxPages, bool facingPages );
     ~InsPage() {};
 
-    QLabel* TextLabel1;
-    QPushButton* PushButton4_2;
-    QPushButton* PushButton4;
-    QComboBox* Where;
-    QComboBox* Based;
-    QComboBox* Based2;
-    QLabel* TextLabel3;
-    QLabel* TextLabel3a;
-    QLabel* TextLabel2;
-    QSpinBox* ActualPage;
-    QSpinBox* NumPages;
+	const QString getTemplate();
+	const QString getTemplate2();
+	const int getWhere();
+	const int getWherePage();
+	const int getCount();
 
-protected:
-    QVBoxLayout* DLayout;
-    QGridLayout* Layout4;
-    QHBoxLayout* Layout4a;
-    QHBoxLayout* Layout4b;
-    QHBoxLayout* Layout3;
+private:
+    QLabel* insCountQLabel;
+    QLabel* templQLabel;
+    QLabel* templ2QLabel;
+    QLabel* pagesQLabel;
+    QPushButton* cancelQPButton;
+    QPushButton* okQPButton;
+    QComboBox* insWhereQCBox;
+    QComboBox* templQCBox;
+    QComboBox* templ2QCBox;
+    QSpinBox* insWherePageQSBox;
+    QSpinBox* insCountQSBox;
+    QVBoxLayout* dialogLayout;
+    QGridLayout* whereLayout;
+    QHBoxLayout* templLayout;
+    QHBoxLayout* templ2Layout;
+    QHBoxLayout* okCancelLayout;
 
+private slots:
+	void insWherePageQSBoxDisable (int index);
 };
 
 #endif // INSPAGE_H

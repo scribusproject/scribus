@@ -471,7 +471,7 @@ signals:
 private:
     /** init methods */
 	void initScribus();
-
+	QString getPreferencesLocation(); //Find preferences location
 	/** edit_menu contains all items of the menubar entry "Edit" */
 	QPopupMenu *editMenu;
 	/** StilMenu enthaelt das Stilemenue */
