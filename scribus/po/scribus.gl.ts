@@ -1,9 +1,2110 @@
 <!DOCTYPE TS><TS>
 <context>
+    <name></name>
+    <message>
+        <source>getColorNames() -&gt; list
+
+Returns a list containing the names of all defined colors in the document.
+If no document is open, returns a list of the default document colors.
+</source>
+        <translation>getColorNames() -&gt; lista(new line)
+Devolve unha lista que contén os nomes de todas as cores definidas no documento.
+Se non hai nengún documento aberto, devolve unha lista das cores do documento padrón.</translation>
+    </message>
+    <message>
+        <source>newDocDialog() -&gt; bool
+
+Displays the &quot;New Document&quot; dialog box. Creates a new document if the user
+accepts the settings. Does not create a document if the user presses cancel.
+Returns true if a new document was created.
+</source>
+        <translation>newDocDialog() -&gt; bool
+
+Mostra o diálogo &quot;Documento Novo&quot;. Crea un documento novo se o usuario
+acepta a configuración. Non crea un documento se o usuario preme sobre Cancelar.
+Devolve verdadeiro se se creou un documento novo.</translation>
+    </message>
+    <message>
+        <source>newDoc(size, margins, orientation, firstPageNumber,
+                   unit, facingPages, firstSideLeft) -&gt; bool
+
+Creates a new document and returns true if successful. The parameters have the
+following meaning:
+
+    size = A tuple (width, height) describing the size of the document. You can
+    use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
+
+    margins = A tuple (left, right, top, bottom) describing the document
+    margins
+
+    orientation = the page orientation - constants PORTRAIT, LANDSCAPE
+
+    firstPageNumber = is the number of the first page in the document used for
+    pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
+    numbers if you&apos;re creating a document in several parts.
+
+    unit: this value sets the measurement units used by the document. Use a
+    predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+    UNIT_PICAS, UNIT_POINTS.
+
+    facingPages = FACINGPAGES, NOFACINGPAGES
+
+    firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
+
+The values for width, height and the margins are expressed in the given unit
+for the document. PAPER_* constants are expressed in points. If your document
+is not in points, make sure to account for this.
+
+example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
+                FACINGPAGES, FIRSTPAGERIGHT)
+</source>
+        <translation>newDoc(tamaño, marxes, orientación, númeroPrimeiraPáxina,
+                   unidade, páxinasEnfrentadas, primeiraCaraEsquerda) -&gt; bool
+
+Crea un documento novo e devolve verdadeiro se o puido crear. Os parámetros teñen
+o significado seguinte:
+
+    tamaño = Un par (anchura, altura) que descrebe o tamaño do documento. Pode
+    usar as constantes pré-definidas chamas PAPER_&lt;tipo_de_papel&gt;, p.ex. PAPER_A4, etc.
+
+    marxes = Catro datos (esquerda, diretia, superior, inferior) que descreben
+    as marxes do documento
+
+    orientación = a orientación da páxina - constantes RETRATO, APAISADO
+
+    númeroPrimeiraPáxina = é o número da primeira páxina no documento, que
+    se usa para a numeración das páxinas. Ainda que normalmente será 1, resulta útil
+    poder usar números máis altos se se crea un documento en varias partes.
+
+    unidade: este valor fixa as unidades de medida usadas polo documento. Use
+    unha constante definida para isto de entre UNIT_INCHES, UNIT_MILLIMETERS,
+    UNIT_PICAS, UNIT_POINTS.
+
+    páxinasEnfrentadas = FACINGPAGES, NOFACINGPAGES
+
+    primeiraPáxinaEsquerda = FIRSTPAGELEFT, FIRSTPAGERIGHT
+
+Os valores para anchura, altura e as marxes exprésanse na unidade dada
+para o documento. As constantes PAPER_* exprésanse en puntos. Se o seu documento
+non está en puntos, asegúrese de telo en conta.
+
+exemplo: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
+               FACINGPAGES, FIRSTPAGERIGHT)</translation>
+    </message>
+    <message>
+        <source>getFillColor([&quot;name&quot;]) -&gt; string
+
+Returns the name of the fill color of the object &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation>getFillColor([&quot;nome&quot;]) -&gt; cadea
+
+Devolve o nome da cor de enchido do obxecto &quot;nome&quot;.
+Se non se fornece un &quot;nome&quot;, úsase o elemento seleccionado nese momento.</translation>
+    </message>
+    <message>
+        <source>moveObject(dx, dy [, &quot;name&quot;])
+
+Moves the object &quot;name&quot; by dx and dy relative to its current position. The
+distances are expressed in the current measurement unit of the document (see
+UNIT constants). If &quot;name&quot; is not given the currently selected item is used.
+If the object &quot;name&quot; belongs to a group, the whole group is moved.
+</source>
+        <translation>moveObject(dx, dy [, &quot;nome&quot;])
+
+Move o obxecto &quot;nome&quot; en dx e dy relativos á súa posición actual.
+As distancias expesanse na unidade de medida actual do documento
+(ver constantes UNIT). Se non se fornece un &quot;nome&quot;, úsase o elemento seleccionado
+nese momento. Se o obxecto &quot;nome&quot; pertence a un grupo, móvese todo o grupo.</translation>
+    </message>
+    <message>
+        <source>setRedraw(bool)
+
+Disables page redraw when bool = False, otherwise redrawing is enabled.
+This change will persist even after the script exits, so make sure to call
+setRedraw(True) in a finally: clause at the top level of your script.
+</source>
+        <translation>setRedraw(bool)
+
+Desactiva o redeseñado da páxina se bool = False e, se non, permite o redeseñado.
+Esta modificación persistirá mesmo logo de sair o guión, de maneira que deberá
+asegurarse de chamar setRedraw(True) nunha cláusula finally: no nível superior do guión.</translation>
+    </message>
+    <message>
+        <source>createRect(x, y, width, height, [&quot;name&quot;]) -&gt; string
+
+Creates a new rectangle on the current page and returns its name. The
+coordinates are given in the current measurement units of the document
+(see UNIT constants). &quot;name&quot; should be a unique identifier for the object
+because you need this name to reference that object in future. If &quot;name&quot;
+is not given Scribus will create one for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+</source>
+        <translation>createRect(x, y, anchura, altura, [&quot;nome&quot;]) -&gt; cadea
+
+Crea un rectángulo novo na páxina actual e devolve o seu nome.
+As coordenadas danse nas unidades de medida actuais do documento
+(ver constantes UNIT). &quot;nome&quot; debería ser un identificador único para o
+obxecto porque precisará deste nome para facer referencia a ese obxecto
+no futuro. Se non se fornece un &quot;nome&quot;, Scribus creará un por vostede.
+
+Pode provocar un NameExistsError se pasar explicitamente un nome que xa exista.</translation>
+    </message>
+    <message>
+        <source>newPage(where [,&quot;template&quot;])
+
+Creates a new page. If &quot;where&quot; is -1 the new Page is appended to the
+document, otherwise the new page is inserted before &quot;where&quot;. Page numbers are
+counted from 1 upwards, no matter what the displayed first page number of your
+document is. The optional parameter &quot;template&quot; specifies the name of the
+template page for the new page.
+
+May raise IndexError if the page number is out of range
+</source>
+        <translation>newPage(where [,&quot;modelo&quot;])
+
+Crea unha páxina nova. Se &quot;where&quot; é -1, a Páxina nova adiciónaselle ao
+documento; se non, a páxina nova insírese antes do &quot;where&quot;. Os números de
+páxina cóntanse a partir do 1, sen importar cal sexa o número da primeira páxina
+do seu documento. O parámetro opcional &quot;modelo&quot; especifica o nome do
+modelo de páxina para a páxina nova.
+
+Pode causar un IndexError se o número de páxina estiver fora de rango</translation>
+    </message>
+    <message>
+        <source>setGradientFill(type, &quot;color1&quot;, shade1, &quot;color2&quot;, shade2, [&quot;name&quot;])
+
+Sets the gradient fill of the object &quot;name&quot; to type. Color descriptions are
+the same as for setFillColor() and setFillShade(). See the constants for
+available types (FILL_&lt;type&gt;).
+</source>
+        <translation>setGradientFill(tipo, &quot;cor1&quot;, saturación1, &quot;co2&quot;, saturación2, [&quot;nome&quot;])
+
+Fixa o gradiente de enchido do obxecto &quot;nome&quot; nese tipo. As descricións
+de cores son as mesmas que para setFillColor() and setFillShade().
+Vexa as constantes para os tipos disponíbeis (FILL_&lt;type&gt;).</translation>
+    </message>
+    <message>
+        <source>getFontSize([&quot;name&quot;]) -&gt; float
+
+Returns the font size in points for the text frame &quot;name&quot;. If this text
+frame has some text selected the value assigned to the first character of
+the selection is returned.
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation>getFontSize([&quot;nome&quot;]) -&gt; float
+
+Devolve o tamaño da fonte en puntos para a moldura de texto &quot;nome&quot;.
+Se esta moldura de texto tiver texto seleccionado, devólvese o valor asignado
+ao primeiro carácter da seleccion.
+Se non se fornece un &quot;nome&quot;, úsase o elemento seleccionado nese momento.</translation>
+    </message>
+    <message>
+        <source>messagebarText(&quot;string&quot;)
+
+Writes the &quot;string&quot; into the Scribus message bar (status line). The text
+must be UTF8 encoded or &apos;unicode&apos; string(recommended).
+</source>
+        <translation>messagebarText(&quot;cadea&quot;)
+
+Escrebe a &quot;cadea&quot; na barra de mensaxes de Scribus (liña de estado).
+O texto debe estar codificado en UTF8 ou ser unha cadea &apos;unicode&apos; (recomendado).</translation>
+    </message>
+</context>
+<context>
+    <name>@default</name>
+    <message>
+        <source>getColor(&quot;name&quot;) -&gt; tuple
+
+Returns a tuple (C, M, Y, K) containing the four color components of the
+color &quot;name&quot; from the current document. If no document is open, returns
+the value of the named color from the default document colors.
+
+May raise NotFoundError if the named color wasn&apos;t found.
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation>getColor(&quot;nome&quot;) -&gt; valores
+
+Devolve catro valores (C, M, Y, K) que conteñen os catro componentes de cor
+da cor &quot;nome&quot; do documento actual. Se non hai nengún documento aberto,
+devolve o valor da cor nomeada das cores do documento padrón.
+
+Pode provocar un NotFoundError se non se atopou a cor nomeada.
+Pode provocar un ValueError se se especifica un nome de cor non válido.</translation>
+    </message>
+    <message>
+        <source>changeColor(&quot;name&quot;, c, m, y, k)
+
+Changes the color &quot;name&quot; to the specified CMYK value. The color value is
+defined via four components c = Cyan, m = Magenta, y = Yellow and k = Black.
+Color components should be in the range from 0 to 255.
+
+May raise NotFoundError if the named color wasn&apos;t found.
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation>changeColor(&quot;nome&quot;, c, m, y, k)
+
+Muda a cor &quot;nome&quot; ao valor CMYK especificado. O valor da cor defínese mediante
+catro componentes c = Cián, m = Maxenta, y = Amarelo e k = Negro.
+As componentes das cores deberían estar no rango entre 0 e 255.
+
+Pode provocar un NotFoundError se non se atopou a cor nomeada.
+Pode provocar un ValueError se se especifica un nome de cor non válido.</translation>
+    </message>
+    <message>
+        <source>defineColor(&quot;name&quot;, c, m, y, k)
+
+Defines a new color &quot;name&quot;. The color Value is defined via four components:
+c = Cyan, m = Magenta, y = Yellow and k = Black. Color components should be in
+the range from 0 to 255.
+
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation>defineColor(&quot;nome&quot;, c, m, y, k)
+
+Define un novo &quot;nome&quot; de cor. O Valor da cor defínese mediante catro componentes:
+c = Cián, m = Maxenta, y = Amarelo e k = Negro.
+As componentes das cores deberían estar no rango entre 0 e 255.
+
+Pode provocar un ValueError se se especifica un nome de cor non válido.</translation>
+    </message>
+    <message>
+        <source>deleteColor(&quot;name&quot;, &quot;replace&quot;)
+
+Deletes the color &quot;name&quot;. Every occurence of that color is replaced by the
+color &quot;replace&quot;. If not specified, &quot;replace&quot; defaults to the color
+&quot;None&quot; - transparent.
+
+deleteColor works on the default document colors if there is no document open.
+In that case, &quot;replace&quot;, if specified, has no effect.
+
+May raise NotFoundError if a named color wasn&apos;t found.
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation>deleteColor(&quot;nome&quot;,&quot;substituta&quot;)
+
+Limpa o &quot;nome&quot; da cor. Toda aparición da cor substituése pola &quot;substituta&quot;.
+Se non se especifica, &quot;substituta&quot; pasa a ser a cor &quot;Nengunha&quot; - transparente.
+
+deleteColor funciona sobre as cores por omisión do documento se non hai
+nengún documento aberto. Nese caso, se se especifica &quot;substituta&quot;, esta non ten efecto.
+
+Pode provocar un NotFoundError se non se atopou a cor nomeada.
+Pode provocar un ValueError se se especifica un nome de cor non válido.</translation>
+    </message>
+    <message>
+        <source>replaceColor(&quot;name&quot;, &quot;replace&quot;)
+
+Every occurence of the color &quot;name&quot; is replaced by the color &quot;replace&quot;.
+
+May raise NotFoundError if a named color wasn&apos;t found.
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation>replaceColor(&quot;name&quot;, &quot;substituta&quot;)
+
+Toda aparición da cor &quot;nome&quot; substitúese pola cor &quot;substituta&quot;.
+
+Pode provocar un NotFoundError se non se atopou a cor nomeada.
+Pode provocar un ValueError se se especifica un nome de cor non válido.</translation>
+    </message>
+    <message>
+        <source>fileDialog(&quot;caption&quot;, [&quot;filter&quot;, &quot;defaultname&quot; ,haspreview, issave]) -&gt; string with filename
+
+Shows a File Open dialog box with the caption &quot;caption&quot;. Files are filtered
+with the filter string &quot;filter&quot;. A default filename or file path can also
+supplied, leave this string empty when you don&apos;t want to use it.  A value of
+True for haspreview enables a small preview widget in the FileSelect box.  When
+the issave parameter is set to True the dialog acts like a &quot;Save As&quot; dialog
+otherwise it acts like a &quot;File Open Dialog&quot;. The default for both of the
+opional parameters is False.
+
+The filter, if specified, takes the form &apos;comment (*.type *.type2 ...)&apos;.
+For example &apos;Images (*.png *.xpm *.jpg)&apos;.
+
+Refer to the Qt-Documentation for QFileDialog for details on filters.
+
+Example: fileDialog(&apos;Open input&apos;, &apos;CSV files (*.csv)&apos;)
+Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;, issave=True)
+</source>
+        <translation>fileDialog(&quot;lexenda&quot;, [&quot;filtro&quot;, &quot;nomePorOmisión&quot; ,haspreview, issave]) -&gt; cadea con nome de ficheiro
+
+Mostra un diálogo Abrir Ficheiro coa lexenda &quot;lexenda&quot;. Os ficheiros fíltranse coa
+cadea de filtro &quot;filtro&quot;. Tamén se poden fornecer un nome de ficheiro ou un camiño por
+omisión; deixe esta cadea baleira cando non a queira usar. O valor True para haspreview
+permite un visor de vista previa na caixa de FileSelect. Se o parámetro issave se fixa en True
+o diálogo funciona como un diálogo &quot;Salvar Como&quot;; se non, funciona como un &quot;Diálogo
+Abrir Ficheiro&quot;. Por omisión, ambos parámetros son False.
+
+O filtro, se se especifica, toma a forma &quot;comentario (*.tipo *.tipo2 ...)&apos;.
+Por exemplo &apos;Imaxes (*.png *.xpm *.jpg)&apos;.
+
+Consulte a Documentación QT para QFileDialog para máis detalles sobre os filtros.
+
+Exemplo: fileDialog(&apos;Abrir fonte&apos;, &apos;ficheiros CSV (*.csv)&apos;)
+Exemplo: fileDialog(&apos;Salvar informe&apos;, defaultname=&apos;informe.txt&apos;, issave=True)
+</translation>
+    </message>
+    <message>
+        <source>messageBox(&quot;caption&quot;, &quot;message&quot;,
+    icon=ICON_NONE, button1=BUTTON_OK|BUTTONOPT_DEFAULT,
+    button2=BUTTON_NONE, button3=BUTTON_NONE) -&gt; integer
+
+Displays a message box with the title &quot;caption&quot;, the message &quot;message&quot;, and
+an icon &quot;icon&quot; and up to 3 buttons. By default no icon is used and a single
+button, OK, is displayed. Only the caption and message arguments are required,
+though setting an icon and appropriate button(s) is strongly
+recommended. The message text may contain simple HTML-like markup.
+
+Returns the number of the button the user pressed. Button numbers start
+at 1.
+
+For the icon and the button parameters there are predefined constants available
+with the same names as in the Qt Documentation. These are the BUTTON_* and
+ICON_* constants defined in the module. There are also two extra constants that
+can be binary-ORed with button constants:
+    BUTTONOPT_DEFAULT   Pressing enter presses this button.
+    BUTTONOPT_ESCAPE    Pressing escape presses this button.
+
+Usage examples:
+result = messageBox(&apos;Script failed&apos;,
+                    &apos;This script only works when you have a text frame selected.&apos;,
+                    ICON_ERROR)
+result = messageBox(&apos;Monkeys!&apos;, &apos;Something went ook! &lt;i&gt;Was it a monkey?&lt;/i&gt;&apos;,
+                    ICON_WARNING, BUTTON_YES|BUTTONOPT_DEFAULT,
+                    BUTTON_NO, BUTTON_IGNORE|BUTTONOPT_ESCAPE)
+
+Defined button and icon constants:
+BUTTON_NONE, BUTTON_ABORT, BUTTON_CANCEL, BUTTON_IGNORE, BUTTON_NO,
+BUTTON_NOALL, BUTTON_OK, BUTTON_RETRY, BUTTON_YES, BUTTON_YESALL,
+ICON_NONE, ICON_INFORMATION, ICON_WARNING, ICON_CRITICAL.
+</source>
+        <translation>messageBox(&quot;lexenda&quot;, &quot;mensaxe&quot;,
+    icon=ICON_NONE, button1=BUTTON_OK|BUTTONOPT_DEFAULT,
+    button2=BUTTON_NONE, button3=BUTTON_NONE) -&gt; inteiro
+
+Mostra unha caixa de mensaxe co título &quot;lexenda&quot;, a mensaxe &quot;mensaxe&quot; e un icone, &quot;icon&quot;
+e até 3 botóns. Por omisión non se usa nengún icone e só se mostra un botón, OK.
+Só son precisos os argumentos da lexenda e da mensaxe, ainda que se recomenda moito
+indicar un icone e un(s) botón(s) apropiados. O texto da mensaxe pode conter linguaxe de etiquetado
+tipo HTML.
+
+Devolve o número do botón que o usuario premeu. Os números dos botóns comezan polo 1.
+
+Para os parámetros do icone e do botón existen constantes pré-definidas cos mesmos nomes que
+na Documentación do QT. Son as constantes BUTTON_* e ICON* definidas no módulo. Hai tamén dúas
+constantes extra que poden ser binary-ORed con contantes de botón:
+    BUTTONOPT_DEFAULT    Ao premer enter prémese este botón.
+    BUTTONOPT_ESCAPE    Ao premer escape prémese este botón.
+
+Exemplos de uso:
+result = messageBox(&apos;Fallou o guión&apos;,
+                    &apos;Este guión só funciona se ten unha moldura de texto seleccionada&apos;,
+                    ICON_ERROR)
+result = messageBox(&apos;Monos!&apos;, &apos;Algo se foi ao carallo!&apos; &lt;i&gt;Era un mono?&lt;/i&gt;&apos;,
+                    ICON_WARNING, BUTTON_YES|BUTTONOPT_DEFAULT
+                    BUTTON_NO, BUTTON_IGNORE|BUTTONOPT_ESCAPE)
+
+Constantes de botón e icone definidas:
+BUTTON_NONE, BUTTON_ABORT, BUTTON_CANCEL, BUTTON_IGNORE, BUTTON_NO,
+BUTTON_NOALL, BUTTON_OK, BUTTON_RETRY, BUTTON_YES, BUTTON_YESALL,
+ICON_NONE, ICON_INFORMATION, ICON_WARNING, ICON_CRITICAL.</translation>
+    </message>
+    <message>
+        <source>valueDialog(caption, message [,defaultvalue]) -&gt; string
+
+Shows the common &apos;Ask for string&apos; dialog and returns its value as a string
+Parameters: window title, text in the window and optional &apos;default&apos; value.
+
+Example: valueDialog(&apos;title&apos;, &apos;text in the window&apos;, &apos;optional&apos;)
+</source>
+        <translation>valueDialog(lexenda, mensaxe [,valorporomisión]) -&gt; cadea
+
+Mostra o diálogo común &apos;Pedir unha cadea&apos; e devolve o seu valor como cadea.
+Parámetros: título da xanela, texto na xanela e valor &apos;por omisión&apos; opcional.
+
+Exemplo: valueDialog(&apos;título&apos;, &apos;texto na xanela&apos;, &apos;opcional&apos;)</translation>
+    </message>
+    <message>
+        <source>closeDoc()
+
+Closes the current document without prompting to save.
+
+May throw NoDocOpenError if there is no document to close
+</source>
+        <translation>closeDoc()
+
+Fecha o documento actual sen pedir se se ha de gardar.
+
+Pode mandar un NoDocOpenError se non hai un documento que fechar</translation>
+    </message>
+    <message>
+        <source>haveDoc() -&gt; bool
+
+Returns true if there is a document open.
+</source>
+        <translation>haveDoc() -&gt; bool
+
+Devolve verdadeiro se hai un documento aberto.</translation>
+    </message>
+    <message>
+        <source>openDoc(&quot;name&quot;)
+
+Opens the document &quot;name&quot;.
+
+May raise ScribusError if the document could not be opened.
+</source>
+        <translation>openDoc(&quot;nome)
+
+Abre o documento &quot;nome&quot;.
+
+Pode provocar un ScribusError se non se puido abrir o documento.</translation>
+    </message>
+    <message>
+        <source>saveDoc()
+
+Saves the current document with its current name, returns true if successful.
+If the document has not already been saved, this may bring up an interactive
+save file dialog.
+
+If the save fails, there is currently no way to tell.
+</source>
+        <translation>saveDoc()
+
+Salva o documento actual co seu nome actual; devolve verdadeiro se se logrou.
+Se o documento ainda non se salvou, pode activar un diálogo interactivo
+para gardalo.
+
+Se falla o gardado non hai maneira de sabelo de momento.</translation>
+    </message>
+    <message>
+        <source>saveDocAs(&quot;name&quot;)
+
+Saves the current document under the new name &quot;name&quot; (which may be a full or
+relative path).
+
+May raise ScribusError if the save fails.
+</source>
+        <translation>saveDocAs(&quot;nome&quot;)
+
+Salva o documento actual co novo nome &quot;nome&quot; (que pode ser un
+camiño completo ou relativo).
+
+Pode provocar un ScribusError se non se puido gardar.</translation>
+    </message>
+    <message>
+        <source>saveDocAs(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
+
+Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
+strings.
+</source>
+        <translation>saveDocAs(&quot;autor&quot;, &quot;información&quot;, &quot;descrición&quot;) -&gt; bool
+
+Consigna a información do documento. &quot;Autor&quot;, &quot;Información&quot;, &quot;Descrición&quot;
+son cadeas.</translation>
+    </message>
+    <message>
+        <source>setMargins(lr, rr, tr, br)
+
+Sets the margins of the document, Left(lr), Right(rr), Top(tr) and Bottom(br)
+margins are given in the measurement units of the document - see UNIT_&lt;type&gt;
+constants.
+</source>
+        <translation>setMargins(lr, rr, tr, br)
+
+Fixa as marxes do documento, Esquerda(lr), Direita(rr), Superior(tr) e Inferior(br)
+As marxes danse nas unidades de medida do documento - vexa as
+constantes UNIT_&lt;tipo&gt;.</translation>
+    </message>
+    <message>
+        <source>setUnit(type)
+
+Changes the measurement unit of the document. Possible values for &quot;unit&quot; are
+defined as constants UNIT_&lt;type&gt;.
+
+May raise ValueError if an invalid unit is passed.
+</source>
+        <translation>setUnit(tipo)
+
+Muda as unidades de medida do documento. Os valores posíbeis para &quot;unidade&quot;
+son definidas como constantes UNIT_&lt;tipo&gt;.</translation>
+    </message>
+    <message>
+        <source>getUnit() -&gt; integer (Scribus unit constant)
+
+Returns the measurement units of the document. The returned value will be one
+of the UNIT_* constants:
+UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
+</source>
+        <translation>getUnit() -&gt; inteiro (Constante da unidade de Scribus)
+
+Devolve as unidades de medida do documento. O valor de retorno será unha
+das constantes UNIT_*:
+UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.</translation>
+    </message>
+    <message>
+        <source>loadStylesFromFile(&quot;filename&quot;)
+
+Loads paragraph styles from the Scribus document at &quot;filename&quot; into the
+current document.
+</source>
+        <translation>loadStylesFromFile(&quot;nomedeficheiro&quot;)
+
+Carrega estilos de parágrafo desde o documento de Scribus en &quot;nomedodocumento&quot;
+no documento actual.</translation>
+    </message>
+    <message>
+        <source>setDocType(facingPages, firstPageLeft)
+
+Sets the document type. To get facing pages set the first parameter to
+FACINGPAGES, to switch facingPages off use NOFACINGPAGES instead.  If you want
+to be the first page a left side set the second parameter to FIRSTPAGELEFT, for
+a right page use FIRSTPAGERIGHT.
+</source>
+        <translation>setDocType(páxinasEnfrentadas, primeiraPáxinaEsquerda)
+
+Indica o tipo de documento. Para obter páxinas enfrendas, fixe o primeiro parámetro en
+FACINGPAGES; para non as ter use NOFACINGPAGES. Se quer ter a primeira páxina
+á esquerda, fixe o segundo parámetro en FIRSTPAGELEFT; para que sexa a esquerda
+use FIRSTPAGERIGHT.</translation>
+    </message>
+    <message>
+        <source>getLineColor([&quot;name&quot;]) -&gt; string
+
+Returns the name of the line color of the object &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation>getLineColor([&quot;nome&quot;[) -&gt; cadea
+
+Devolve o nome da cor da liña do obxecto &quot;nome&quot;.
+Se non se fornece un &quot;nome&quot;, úsase o elemento seleccionado nese momento.</translation>
+    </message>
+    <message>
+        <source>getLineWidth([&quot;name&quot;]) -&gt; integer
+
+Returns the line width of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation>getLineWidth([&quot;nome&quot;[) -&gt;inteiro
+
+Devolve a anchura da liña do obxecto &quot;nome&quot;.
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+    </message>
+    <message>
+        <source>getLineShade([&quot;name&quot;]) -&gt; integer
+
+Returns the shading value of the line color of the object &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation>getLineShade([&quot;nome&quot;[) -&gt;inteiro
+
+Devolve o valor de saturación da liña do obxecto &quot;nome&quot;.
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+    </message>
+    <message>
+        <source>getLineJoin([&quot;name&quot;]) -&gt; integer (see contants)
+
+Returns the line join style of the object &quot;name&quot;. If &quot;name&quot; is not given
+the currently selected item is used.  The join types are:
+JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND
+</source>
+        <translation>getLineJoin([&quot;nome&quot;[) -&gt;inteiro (ver as constantes)
+
+Devolve o estilo da xunta do obxecto &quot;nome&quot;. Se non se fornece un
+&quot;nome&quot; úsase o elemento seleccionado nese momento. Os tipos de bordes son:
+JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND</translation>
+    </message>
+    <message>
+        <source>getLineEnd([&quot;name&quot;]) -&gt; integer (see constants)
+
+Returns the line cap style of the object &quot;name&quot;. If &quot;name&quot; is not given the
+currently selected item is used. The cap types are:
+CAP_FLAT, CAP_ROUND, CAP_SQUARE
+</source>
+        <translation>getLineEnd([&quot;nome&quot;[) -&gt;inteiro (ver as constantes)
+
+Devolve o estilo de terminación do obxecto &quot;nome&quot;.
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+Os estilos de terminación son:
+CAP_FLAT, CAP_ROUND, CAP_SQUARE</translation>
+    </message>
+    <message>
+        <source>getLineStyle([&quot;name&quot;]) -&gt; integer (see constants)
+
+Returns the line style of the object &quot;name&quot;. If &quot;name&quot; is not given the
+currently selected item is used. Line style constants are:
+LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID
+</source>
+        <translation>getLineStyle([&quot;nome&quot;[) -&gt;inteiro (ver as constantes)
+
+Devolve o estilo de liña do obxecto &quot;nome&quot;.
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+As constantes de estilo de liña son:
+LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID</translation>
+    </message>
+    <message>
+        <source>getFillShade([&quot;name&quot;]) -&gt; integer
+
+Returns the shading value of the fill color of the object &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation>getFillShade([&quot;nome&quot;[) -&gt;inteiro
+
+Devolve o valor de saturación da cor de enchido do obxecto &quot;nome&quot;.
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+    </message>
+    <message>
+        <source>getCornerRadius([&quot;name&quot;]) -&gt; integer
+
+Returns the corner radius of the object &quot;name&quot;. The radius is
+expressed in points. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation>getCornerRadius([&quot;nome&quot;[) -&gt;inteiro
+
+Devolve o radio dos vértices do obxecto &quot;nome&quot;. O radio exprésase en puntos.
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+    </message>
+    <message>
+        <source>getImageScale([&quot;name&quot;]) -&gt; (x,y)
+
+Returns a (x, y) tuple containing the scaling values of the image frame
+&quot;name&quot;.  If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation>getLineShade([&quot;nome&quot;[) -&gt;(x,y)
+
+Devolve un par (x, y) que contén os valores de ampliación da moldura de imaxe
+&quot;nome&quot;. Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+    </message>
+    <message>
+        <source>getImageName([&quot;name&quot;]) -&gt; string
+
+Returns the filename for the image in the image frame. If &quot;name&quot; is not
+given the currently selected item is used.
+</source>
+        <translation>getImageName([&quot;nome&quot;[) -&gt;cadea
+
+Devolve o nome do ficheiro da imaxe que está na moldura de imaxe.
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+    </message>
+    <message>
+        <source>getPosition([&quot;name&quot;]) -&gt; (x,y)
+
+Returns a (x, y) tuple with the position of the object &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+The position is expressed in the actual measurement unit of the document
+- see UNIT_&lt;type&gt; for reference.
+</source>
+        <translation>getPosition([&quot;nome&quot;[) -&gt;inteiro
+
+Devolve un par (x, y) coa posición do obxecto &quot;nome&quot;.
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+A posición exprésase na unidade de medida real do documento
+- ver UNIT_&lt;tipo&gt; para máis referencias.</translation>
+    </message>
+    <message>
+        <source>getSize([&quot;name&quot;]) -&gt; (width,height)
+
+Returns a (width, height) tuple with the size of the object &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used. The size is
+expressed in the current measurement unit of the document - see UNIT_&lt;type&gt;
+for reference.
+</source>
+        <translation>getSize([&quot;nome&quot;[) -&gt;(anchura,altura)
+
+Devolve un par (anchura, altura) co tamaño do obxecto &quot;nome&quot;.
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+O tamaño exprésase na unidade de medida real do documento
+- ver UNIT_&lt;tipo&gt; para máis referencias.</translation>
+    </message>
+    <message>
+        <source>getRotation([&quot;name&quot;]) -&gt; integer
+
+Returns the rotation of the object &quot;name&quot;. The value is expressed in degrees,
+and clockwise is positive. If &quot;name&quot; is not given the currently selected item
+is used.
+</source>
+        <translation>getRotation([&quot;nome&quot;[) -&gt;inteiro
+
+Devolve o valor da rotación do obxecto &quot;nome&quot;. O valor exprésase en graus,
+e o sentido das agulLas do reloxio é positivo.
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+    </message>
+    <message>
+        <source>getAllObjects() -&gt; list
+
+Returns a list containing the names of all objects on the current page.
+</source>
+        <translation>getAllObjects() -&gt; lista
+
+Devolve unha lista que contén os nomes de todos os obxectos da páxina actual.</translation>
+    </message>
+    <message>
+        <source>moveObjectAbs(x, y [, &quot;name&quot;])
+
+Moves the object &quot;name&quot; to a new location. The coordinates are expressed in
+the current measurement unit of the document (see UNIT constants).  If &quot;name&quot;
+is not given the currently selected item is used.  If the object &quot;name&quot;
+belongs to a group, the whole group is moved.
+</source>
+        <translation>moveObjectAbs(x, y [, &quot;nome&quot;])
+
+Move o obxecto &quot;nome&quot; a unha localización nova. As coordenadas exprésanse na
+unidade de medida actual do documento (ver as constantes UNIT).
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+Se o obxecto &quot;nome&quot; pertence a un grupo, móvese o grupo inteiro.</translation>
+    </message>
+    <message>
+        <source>rotateObject(rot [, &quot;name&quot;])
+
+Rotates the object &quot;name&quot; by &quot;rot&quot; degrees relatively. The object is
+rotated by the vertex that is currently selected as the rotation point - by
+default, the top left vertext at zero rotation. Positive values mean counter
+clockwise rotation when the default rotation point is used. If &quot;name&quot; is not
+given the currently selected item is used.
+</source>
+        <translation>rotateObject(rot[, &quot;nome&quot;])
+
+Rota o obxecto &quot;nome&quot; en &quot;rot&quot; graus relativamente. O obxecto rótase
+co vértice actualmente seleccionado como punto de rotación - por omisión
+o vértice superior esquerdo con rotación cero. Os valores positivos significan
+rotación anti-reloxio cando se usa o punto de rotación por omisión.
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+    </message>
+    <message>
+        <source>rotateObjectAbs(rot [, &quot;name&quot;])
+
+Sets the rotation of the object &quot;name&quot; to &quot;rot&quot;. Positive values
+mean counter clockwise rotation. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation>rotateObjectAbs(rot [, &quot;nome&quot;])
+
+Fixa a rotación do obxecto &quot;nome&quot; en &quot;rot&quot;. Os valores positivos
+significan rotación anti-reloxio. 
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+    </message>
+    <message>
+        <source>sizeObject(width, height [, &quot;name&quot;])
+
+Resizes the object &quot;name&quot; to the given width and height. If &quot;name&quot;
+is not given the currently selected item is used.
+</source>
+        <translation>sizeObject(anchura, altura[, &quot;nome&quot;])
+
+Modifica o tamaño do obxecto &quot;nome&quot; para a anchura e altura dadas.
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+    </message>
+    <message>
+        <source>getSelectedObject([nr]) -&gt; string
+
+Returns the name of the selected object. &quot;nr&quot; if given indicates the number
+of the selected object, e.g. 0 means the first selected object, 1 means the
+second selected Object and so on.
+</source>
+        <translation>getSelectedObject([nr]) -&gt; cadea
+
+Devolve o nome do obxecto seleccionado. &quot;nr&quot;, de se fornecer, indica o número
+de obxectos seleccionados; p.ex. 0 significa o primeiro obxecto seleccionado,
+1 significa o segundo Obxecto seleccionado, e así.</translation>
+    </message>
+    <message>
+        <source>selectionCount() -&gt; integer
+
+Returns the number of selected objects.
+</source>
+        <translation>selectionCount() -&gt; inteiro
+
+Devolve o número de obxectos seleccionados.</translation>
+    </message>
+    <message>
+        <source>selectObject(&quot;name&quot;)
+
+Selects the object with the given &quot;name&quot;.
+</source>
+        <translation>selectObject(&quot;nome&quot;)
+
+Selecciona o obxecto co &quot;nome&quot; dado.</translation>
+    </message>
+    <message>
+        <source>deselectAll()
+
+Deselects all objects in the whole document.
+</source>
+        <translation>deselectAll()
+
+De-selecciona todos os obxectos do documento.</translation>
+    </message>
+    <message>
+        <source>groupObjects(list)
+
+Groups the objects named in &quot;list&quot; together. &quot;list&quot; must contain the names
+of the objects to be grouped. If &quot;list&quot; is not given the currently selected
+items are used.
+</source>
+        <translation>groupObjects(lista)
+
+Agrupa xuntas os obxectos enunciados na &quot;lista&quot;. &quot;lista&quot; debe conter os nomes
+dos obxectos que se han de agrupar. 
+Se non se fornece unha &quot;lista&quot; úsanse os elementos seleccionados nese momento.</translation>
+    </message>
+    <message>
+        <source>unGroupObjects(&quot;name&quot;)
+
+Destructs the group the object &quot;name&quot; belongs to.If &quot;name&quot; is not given the currently selected item is used.</source>
+        <translation>unGroupObjects(&quot;name&quot;)
+
+Destrúe o grupo ao que pertence o obecto &quot;nome&quot;.
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+    </message>
+    <message>
+        <source>scaleGroup(factor [,&quot;name&quot;])
+
+Scales the group the object &quot;name&quot; belongs to. Values greater than 1 enlarge
+the group, values smaller than 1 make the group smaller e.g a value of 0.5
+scales the group to 50 % of its original size, a value of 1.5 scales the group
+to 150 % of its original size.  The value for &quot;factor&quot; must be greater than
+0. If &quot;name&quot; is not given the currently selected item is used.
+
+May raise ValueError if an invalid scale factor is passed.
+</source>
+        <translation>scaleGroup(factor [, &quot;nome&quot;})
+
+Escala o grupo ao que pertence o obxecto &quot;nome&quot;. Os valores maiores de 1 aumentan
+o grupo; os valores menores de 1 reducen o tamaño do grupo. Por exemplo, un valor
+de 0.5 reduce o grupo ao 50% do seu tamaño orixinal, un valor de 1.5 aumenta o tamaño
+do grupo a un 150% do seu tamaño orixinal. O valor de &quot;factor&quot; debe ser maior de 0.
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+
+Pode provocar un ValueError se se lle pasa un factor de escala non válido.</translation>
+    </message>
+    <message>
+        <source>loadImage(&quot;filename&quot; [, &quot;name&quot;])
+
+Loads the picture &quot;picture&quot; into the image frame &quot;name&quot;. If &quot;name&quot; is
+not given the currently selected item is used.
+
+May raise WrongFrameTypeError if the target frame is not an image frame
+</source>
+        <translation>loadImage(&quot;nomedeficheiro&quot; [, &quot;nome&quot;])
+
+Carrega a imaxe &quot;imaxe&quot; na moldura de imaxe &quot;nome&quot;.
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+
+Pode provocar un WrongFrameTypeError se a moldura de destino non é unha moldura de imaxe</translation>
+    </message>
+    <message>
+        <source>scaleImage(x, y [, &quot;name&quot;])
+
+Sets the scaling factors of the picture in the image frame &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used. A number of 1
+means 100 %.
+
+May raise WrongFrameTypeError if the target frame is not an image frame
+</source>
+        <translation>scaleImaxe(x, y [, &quot;nome&quot;])
+
+Fixa os factores de escala para a imaxe da moldura de imaxe &quot;nome&quot;.
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+O número 1 indica 100%.
+
+Pode provocar un WrongFrameTypeError se a moldura de destino non é unha moldura de imaxe</translation>
+    </message>
+    <message>
+        <source>lockObject([&quot;name&quot;]) -&gt; bool
+
+Locks the object &quot;name&quot; if it&apos;s unlocked or unlock it if it&apos;s locked.
+If &quot;name&quot; is not given the currently selected item is used. Returns true
+if locked.
+</source>
+        <translation>lockObject([&quot;nome&quot;]) -&gt; bool
+
+Bloquea o obxecto &quot;nome&quot; se está desbloqueado ou desbloquéao se está bloqueado.
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+Devolve verdadeiro se está bloqueado.</translation>
+    </message>
+    <message>
+        <source>isLocked([&quot;name&quot;]) -&gt; bool
+
+Returns true if is the object &quot;name&quot; locked.  If &quot;name&quot; is not given the
+currently selected item is used.
+</source>
+        <translation>isLocked([&quot;nome&quot;]) -&gt; bool
+
+Devolve verdadeiro se o obxecto &quot;nome&quot; está bloqueado.
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+    </message>
+    <message>
+        <source>getFontNames() -&gt; list
+
+Returns a list with the names of all available fonts.
+</source>
+        <translation>getFontNames() -&gt; list
+
+Devolve unha lista cos nomes das fontes disponíbeis.</translation>
+    </message>
+    <message>
+        <source>getXFontNames() -&gt; list of tuples
+
+Returns a larger font info. It&apos;s a list of the tuples with:
+[ (Scribus name, Family, Real name, subset (1|0), embed PS (1|0), font file), (...), ... ]
+</source>
+        <translation>getXFontNames() -&gt; lista de valores
+
+Devolve información ampliada sobre a fonte. É unha lista de valores con:
+[ (Nome Scribus, Familia, Nome real, subgrupo (1|0), embed PS (1|0), ficheiro da fonte), (...), ...]</translation>
+    </message>
+    <message>
+        <source>rendeFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size) -&gt; bool
+
+Creates an image preview of font &quot;name&quot; with given text &quot;sample&quot; and size.
+Image is saved into &quot;filename&quot;. Returns true when success.
+
+May raise NotFoundError if the specified font can&apos;t be found.
+May raise ValueError if an empty sample or filename is passed.
+</source>
+        <translation>rendeFont(&quot;nome&quot;,&quot;nomedoficheiro&quot;, &quot;mostra&quot;, tamaño) -&gt; bool
+
+Crea unha ante-visión da fonte &quot;nome&quot; co texto dado &quot;mostra&quot; e o tamaño.
+A imaxe sálvase en &quot;nomedeficheiro&quot;. Devolve verdadeiro se se garda.
+
+Pode provocar un NotFoundError se non se atopa a fonte especificada.
+Pode provocar un ValueError se se lle pasan unha mostra ou nome de ficheiros baleiros.</translation>
+    </message>
+    <message>
+        <source>getLayers() -&gt; list
+
+Returns a list with the names of all defined layers.
+</source>
+        <translation>getLayers() -&gt; lista
+
+Devolve unha lista cos nomes das capas definidas.</translation>
+    </message>
+    <message>
+        <source>setActiveLayer(&quot;name&quot;)
+
+Sets the active layer to the layer named &quot;name&quot;.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation>secActiveLayer(&quot;nome&quot;)
+
+Fixa a capa activa na capa de nome &quot;nome&quot;.
+
+Pode provocar un NotFoundError se non se atopa a capa.
+Pode provocar un ValueError se o nome da capa non é aceptábel.</translation>
+    </message>
+    <message>
+        <source>getActiveLayer() -&gt; string
+
+Returns the name of the current active layer.
+</source>
+        <translation>getActiveLayer() -&gt; string
+
+Devolve o nome da capa activa actual.</translation>
+    </message>
+    <message>
+        <source>sentToLayer(&quot;layer&quot; [, &quot;name&quot;])
+
+Sends the object &quot;name&quot; to the layer &quot;layer&quot;. The layer must exist.
+If &quot;name&quot; is not given the currently selected item is used.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation>sentToLayer(&quot;capa&quot;[ &quot;nome&quot;])
+
+Envía o obxecto &quot;nome&quot; para a capa &quot;capa&quot;. A capa debe existir.
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+
+Pode provocar un NotFoundError se non se atopa a capa.
+Pode provocar un ValueError se o nome da capa non é aceptábel.</translation>
+    </message>
+    <message>
+        <source>setLayerVisible(&quot;layer&quot;, visible)
+
+Sets the layer &quot;layer&quot; to be visible or not. If is the visible set to false
+the layer is invisible.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation>setLayerVisible(&quot;capa&quot;, visible)
+
+Fixa a capa &quot;capa&quot; como visíbel ou non. Se visíbel está fixado como false
+a capa é invisíbel.
+
+Pode provocar un NotFoundError se non se atopa a capa.
+Pode provocar un ValueError se o nome da capa non é aceptábel.</translation>
+    </message>
+    <message>
+        <source>setLayerPrintable(&quot;layer&quot;, printable)
+
+Sets the layer &quot;layer&quot; to be printable or not. If is the printable set to
+false the layer won&apos;t be printed.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation>setLayerPrintable(&quot;capa&quot;, printable)
+
+Fixa a capa &quot;capa&quot; como imprimíbel ou non. Se imprimíbel está fixado como false
+a capa non poderá imprimirse.
+
+Pode provocar un NotFoundError se non se atopa a capa.
+Pode provocar un ValueError se o nome da capa non é aceptábel.</translation>
+    </message>
+    <message>
+        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+
+Returns wether the Layer &quot;layer&quot; is visible or not, a value of True means
+that the layer &quot;layer&quot; is visible, a value of False means that the layer
+&quot;layer&quot; is invisible.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation>isLayerVisible(&quot;capa&quot;) -&gt; bool
+
+Devolve se a Capa &quot;capa&quot; é visíbel ou non; un valor True significa
+que a capa &quot;capa&quot; é visíbel, un valor False significa que a capa
+&quot;capa&quot; é invisíbel.
+
+Pode provocar un NotFoundError se non se atopa a capa.
+Pode provocar un ValueError se o nome da capa non é aceptábel.</translation>
+    </message>
+    <message>
+        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+
+Returns wether the layer &quot;layer&quot; is printable or not, a value of True means
+that the layer &quot;layer&quot; can be printed, a value of False means that printing
+the layer &quot;layer&quot; is disabled.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation>isLayerPrintable(&quot;capa&quot;) -&gt; bool
+
+Devolve se a Capa &quot;capa&quot; é imprimíbel ou non; un valor True significa
+que a capa &quot;capa&quot; é imprimíbel un valor False significa que non se permite imprimir
+a capa &quot;capa&quot;.
+
+Pode provocar un NotFoundError se non se atopa a capa.
+Pode provocar un ValueError se o nome da capa non é aceptábel.</translation>
+    </message>
+    <message>
+        <source>deleteLayer(&quot;layer&quot;)
+
+Deletes the layer with the name &quot;layer&quot;. Nothing happens if the layer doesn&apos;t
+exists or if it&apos;s the only layer in the document.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation>deleteLayer(&quot;layer&quot;)
+
+Eliminar a capa de nome &quot;capa&quot;. Non acontece nada se a capa non existe
+ou se é a única capa do documento.
+Pode provocar un NotFoundError se non se atopa a capa.
+Pode provocar un ValueError se o nome da capa non é aceptábel.</translation>
+    </message>
+    <message>
+        <source>createLayer(layer)
+
+Creates a new layer with the name &quot;name&quot;.
+
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation>createLayer(capa)
+
+Crea unha capa nova co nome &quot;nome&quot;.
+Pode provocar un ValueError se o nome da capa non é aceptábel.</translation>
+    </message>
+    <message>
+        <source>getGuiLanguage() -&gt; string
+
+Returns a string with the -lang value.
+</source>
+        <translation>getGuiLanguage() -&gt; string
+
+Devolve unha cadea co valor -lang.</translation>
+    </message>
+    <message>
+        <source>createEllipse(x, y, width, height, [&quot;name&quot;]) -&gt; string
+
+Creates a new ellipse on the current page and returns its name.
+The coordinates are given in the current measurement units of the document
+(see UNIT constants). &quot;name&quot; should be a unique identifier for the object
+because you need this name for further referencing of that object. If &quot;name&quot;
+is not given Scribus will create one for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+</source>
+        <translation>createEllipse(x, y, anchura, altura, [&quot;nome&quot;]) -&gt; cadea
+
+Crea unha elipse nova na páxina actual e devolve o seu nome.
+As coordenadas fornécense nas unidades de medida do documento
+(ver constantes UNIT). &quot;nome&quot; debería ser un identificador único para o obxecto
+porque precisará deste nome para posteriores referencias a ese obxecto.
+Se non se fornece un &quot;nome&quot; Scribus creará un por vostede.
+
+Pode provocar un NameExistsError se pasa explicitamente un nome que xa se está a usar.</translation>
+    </message>
+    <message>
+        <source>createImage(x, y, width, height, [&quot;name&quot;]) -&gt; string
+
+Creates a new picture frame on the current page and returns its name. The
+coordinates are given in the current measurement units of the document.
+&quot;name&quot; should be a unique identifier for the object because you need this
+name for further access to that object. If &quot;name&quot; is not given Scribus will
+create one for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+</source>
+        <translation>createImage(x, y, anchura, altura, [&quot;nome&quot;]) -&gt; cadea
+
+Crea unha molura de imaxe nova na páxina actual e devolve o seu nome.
+As coordenadas fornécense nas unidades de medida do documento
+(ver constantes UNIT). &quot;nome&quot; debería ser un identificador único para o obxecto
+porque precisará deste nome para posteriores referencias a ese obxecto.
+Se non se fornece un &quot;nome&quot; Scribus creará un por vostede.
+
+Pode provocar un NameExistsError se pasa explicitamente un nome que xa se está a usar.</translation>
+    </message>
+    <message>
+        <source>createText(x, y, width, height, [&quot;name&quot;]) -&gt; string
+
+Creates a new text frame on the actual page and returns its name.
+The coordinates are given in the actual measurement unit of the document (see
+UNIT constants). &quot;name&quot; should be a unique identifier for the object because
+you need this name for further referencing of that object. If &quot;name&quot; is not
+given Scribus will create one for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+</source>
+        <translation>createText(x, y, anchura, altura, [&quot;nome&quot;]) -&gt; cadea
+
+Crea unha moldura de texto nova na páxina actual e devolve o seu nome.
+As coordenadas fornécense nas unidades de medida do documento
+(ver constantes UNIT). &quot;nome&quot; debería ser un identificador único para o obxecto
+porque precisará deste nome para posteriores referencias a ese obxecto.
+Se non se fornece un &quot;nome&quot; Scribus creará un por vostede.
+
+Pode provocar un NameExistsError se pasa explicitamente un nome que xa se está a usar.</translation>
+    </message>
+    <message>
+        <source>createLine(x1, y1, x2, y2, [&quot;name&quot;]) -&gt; string
+
+Creates a new line from the point(x1, y1) to the point(x2, y2) and returns
+its name. The coordinates are given in the current measurement unit of the
+document (see UNIT constants). &quot;name&quot; should be a unique identifier for the
+object because you need this name for further access to that object. If
+&quot;name&quot; is not given Scribus will create one for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+</source>
+        <translation>createLine(x1, y1, x2, y2, [&quot;nome&quot;]) -&gt; cadea
+
+Crea unha liña nova desde o punto(x1, y1) ao punto(x2, y2) e devolve o seu nome.
+As coordenadas fornécense nas unidades de medida do documento
+(ver constantes UNIT). &quot;nome&quot; debería ser un identificador único para o obxecto
+porque precisará deste nome para posteriores referencias a ese obxecto.
+Se non se fornece un &quot;nome&quot; Scribus creará un por vostede.
+
+Pode provocar un NameExistsError se pasa explicitamente un nome que xa se está a usar.</translation>
+    </message>
+    <message>
+        <source>createPolyLine(list, [&quot;name&quot;]) -&gt; string
+
+Creates a new polyline and returns its name. The points for the polyline are
+stored in the list &quot;list&quot; in the following order: [x1, y1, x2, y2...xn. yn].
+The coordinates are given in the current measurement units of the document (see
+UNIT constants). &quot;name&quot; should be a unique identifier for the object because
+you need this name for further access to that object. If &quot;name&quot; is not given
+Scribus will create one for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+May raise ValueError if an insufficient number of points is passed or if
+the number of values passed don&apos;t group into points without leftovers.
+</source>
+        <translation>createPolyLine(lista, [&quot;nome&quot;]) -&gt; cadea
+
+Crea unha poli-liña nova e devolve o seu nome. Os puntos da poli-liña
+armacénanse na lista &quot;lista&quot; na orde seguinte: [x1, y1, x2, y2...xn, yn].
+As coordenadas fornécense nas unidades de medida do documento
+(ver constantes UNIT). &quot;nome&quot; debería ser un identificador único para o obxecto
+porque precisará deste nome para posteriores referencias a ese obxecto.
+Se non se fornece un &quot;nome&quot; Scribus creará un por vostede.
+
+Pode provocar un NameExistsError se pasa explicitamente un nome que xa se está a usar.
+Pode provocar un ValueError se se lle pasa un número insuficiente de puntos ou se
+o número de valores que se lle pasan non se agrupan en puntos sen sobrantes.</translation>
+    </message>
+    <message>
+        <source>createPolygon(list, [&quot;name&quot;]) -&gt; string
+
+Creates a new polygon and returns its name. The points for the polygon are
+stored in the list &quot;list&quot; in the following order: [x1, y1, x2, y2...xn. yn].
+At least three points are required. There is no need to repeat the first point
+to close the polygon. The polygon is automatically closed by connecting the
+first and the last point.  The coordinates are given in the current measurement
+units of the document (see UNIT constants).  &quot;name&quot; should be a unique
+identifier for the object because you need this name for further access to that
+object. If &quot;name&quot; is not given Scribus will create one for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+May raise ValueError if an insufficient number of points is passed or if
+the number of values passed don&apos;t group into points without leftovers.
+</source>
+        <translation>createPolyLigon(lista, [&quot;nome&quot;]) -&gt; cadea
+
+Crea un polígono novo e devolve o seu nome. Os puntos do polígono
+armacénanse na lista &quot;lista&quot; na orde seguinte: [x1, y1, x2, y2...xn. yn].
+Requírense polo menos tres puntos. Non hai necesidade de repetir o
+primeiro para fechar o polígono. O polígono féchase automaticamente
+conectando o primeiro e derradeiro puntos.
+As coordenadas fornécense nas unidades de medida do documento
+(ver constantes UNIT). &quot;nome&quot; debería ser un identificador único para o obxecto
+porque precisará deste nome para posteriores referencias a ese obxecto.
+Se non se fornece un &quot;nome&quot; Scribus creará un por vostede.
+
+Pode provocar un NameExistsError se pasa explicitamente un nome que xa se está a usar.
+Pode provocar un ValueError se se lle pasa un número insuficiente de puntos ou se
+o número de valores que se lle pasan non se agrupan en puntos sen sobrantes.</translation>
+    </message>
+    <message>
+        <source>createBezierLine(list, [&quot;name&quot;]) -&gt; string
+
+Creates a new bezier curve and returns its name. The points for the bezier
+curve are stored in the list &quot;list&quot; in the following order:
+[x1, y1, kx1, ky1, x2, y2, kx2, ky2...xn. yn, kxn. kyn]
+In the points list, x and y mean the x and y coordinates of the point and kx
+and ky meaning the control point for the curve.  The coordinates are given in
+the current measurement units of the document (see UNIT constants). &quot;name&quot;
+should be a unique identifier for the object because you need this name for
+further access to that object. If &quot;name&quot; is not given Scribus will create one
+for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+May raise ValueError if an insufficient number of points is passed or if
+the number of values passed don&apos;t group into points without leftovers.
+</source>
+        <translation>createBezierLine(lista, [&quot;nome&quot;]) -&gt; cadea
+
+Crea unha curva de Bézier nova e devolve o seu nome. Os puntos da curva de Bézier
+armacénanse na lista &quot;lista&quot; na orde seguinte: [x1, y1, kx1, ky1, x2, y2, kx2, ky2...xn. yn, kxn. kyn].
+Na lista de puntos, x e y significan as coordenadas x e y do punto e kx e ky significan
+o punto de control da curva. As coordenadas fornécense nas unidades de medida do documento
+(ver constantes UNIT). &quot;nome&quot; debería ser un identificador único para o obxecto
+porque precisará deste nome para posteriores referencias a ese obxecto.
+Se non se fornece un &quot;nome&quot; Scribus creará un por vostede.
+
+Pode provocar un NameExistsError se pasa explicitamente un nome que xa se está a usar.
+Pode provocar un ValueError se se lle pasa un número insuficiente de puntos ou se
+o número de valores que se lle pasan non se agrupan en puntos sen sobrantes.</translation>
+    </message>
+    <message>
+        <source>createPathText(x, y, &quot;textbox&quot;, &quot;beziercurve&quot;, [&quot;name&quot;]) -&gt; string
+
+Creates a new pathText by merging the two objects &quot;textbox&quot; and
+&quot;beziercurve&quot; and returns its name. The coordinates are given in the current
+measurement unit of the document (see UNIT constants). &quot;name&quot; should be a
+unique identifier for the object because you need this name for further access
+to that object. If &quot;name&quot; is not given Scribus will create one for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+May raise NotFoundError if one or both of the named base object don&apos;t exist.
+</source>
+        <translation>createTrazoDeTexto(x, y, &quot;caixadetexto&quot;, &quot;curvadeBézier&quot;, [&quot;nome&quot;]) -&gt; cadea
+
+Crea un TrazoDeTexto novo unindo os dous obxectos &quot;caixadetexto&quot; e
+&quot;curvadeBézier&quot; e devolve o seu nome. 
+As coordenadas fornécense nas unidades de medida do documento
+(ver constantes UNIT). &quot;nome&quot; debería ser un identificador único para o obxecto
+porque precisará deste nome para posteriores referencias a ese obxecto.
+Se non se fornece un &quot;nome&quot; Scribus creará un por vostede.
+
+Pode provocar un NameExistsError se pasa explicitamente un nome que xa se está a usar.
+Pode provocar un NotFoundError se un ou os dous obxectos de base nomeados non existe.</translation>
+    </message>
+    <message>
+        <source>deleteObject([&quot;name&quot;])
+
+Deletes the item with the name &quot;name&quot;. If &quot;name&quot; is not given the currently
+selected item is deleted.
+</source>
+        <translation>newPage(where [,&quot;modelo&quot;])
+
+Crea unha páxina nova. Se &quot;where&quot; é -1, a Páxina nova adiciónaselle ao
+documento; se non, a páxina nova insírese antes do &quot;where&quot;. Os números de
+páxina cóntanse a partir do 1, sen importar cal sexa o número da primeir páxina
+do seu documento. O parámetro opcional &quot;modelo&quot; especifica o nome do
+modelo de páxina para a páxina nova.
+
+Pode causar un IndexError se o número de páxina está fora de rango.</translation>
+    </message>
+    <message>
+        <source>textFlowsAroundFrame(&quot;name&quot; [, state])
+
+Enables/disables &quot;Text Flows Around Frame&quot; feature for object &quot;name&quot;.
+Called with parameters string name and optional boolean &quot;state&quot;. If &quot;state&quot;
+is not passed, text flow is toggled.
+</source>
+        <translation>textFlowsAroundFrame(&quot;name&quot; [, estado])
+
+Habilita/Deshabilita a función &quot;O Texto Flúe Arredor da Moldura&quot; para o obxecto &quot;nome.
+Chámase cos parámetros cadea nome e un &quot;estado&quot; booleano opcional&quot;.
+Se non se lle pasa un &quot;estado&quot;, múdase o fluxo de texto.</translation>
+    </message>
+    <message>
+        <source>objectExists([&quot;name&quot;]) -&gt; bool
+
+Test if an object with specified name really exists in the document.
+The optional parameter is the object name. When no object name is given,
+returns True if there is something selected.
+</source>
+        <translation>objectExists([&quot;nome&quot;]) -&gt; bool
+
+Comproba se existe un obxecto co nome especificado no documento.
+O parámetro opcional é o nome do obxecto. Se non se lle fornece o nome dun
+obxecto devolve Verdadeiro se hai algo seleccionado.</translation>
+    </message>
+    <message>
+        <source>setStyle(&quot;style&quot; [, &quot;name&quot;])
+
+Apply the named &quot;style&quot; to the object named &quot;name&quot;. If is no object name
+given, it&apos;s applied on the selected object.
+</source>
+        <translation>setStyle(&quot;estilo&quot; [, &quot;nome&quot;])
+
+Aplica o &quot;estilo&quot; nomeado ao obxecto chamado &quot;nome&quot;. Se non se lle fornece
+un nome de obxecto aplícase ao obxecto seleccionado.</translation>
+    </message>
+    <message>
+        <source>getAllStyles() -&gt; list
+
+Return a list of the names of all paragraph styles in the current document.
+</source>
+        <translation>getAllStyles() -&gt; lista
+
+Devolve unha lista dos nomes de todos os estilos de parágrafo do documento actual.</translation>
+    </message>
+    <message>
+        <source>currentPage() -&gt; integer
+
+Returns the number of the current working page. Page numbers are counted from 1
+upwards, no matter what the displayed first page number of your document is.
+</source>
+        <translation>currentPage() -&gt; inteiro
+
+Devolve o núemro da páxina de traballo actual. Os números de páxina cóntanse desde o 1,
+sen importar cal sexa o número que se mostra na primeira páxina do seu documento.</translation>
+    </message>
+    <message>
+        <source>redrawAll()
+
+Redraws all pages.
+</source>
+        <translation>redrawAll()
+
+Redeseña todas as páxinas.</translation>
+    </message>
+    <message>
+        <source>savePageAsEPS(&quot;name&quot;)
+
+Saves the current page as an EPS to the file &quot;name&quot;.
+
+May raise ScribusError if the save failed.
+</source>
+        <translation>savePageAsEPS(&quot;nome&quot;)
+
+Salva a páxina actual como un EPS no ficheiro &quot;nome&quot;.
+
+Pode provocar un ScribusError se non se pode gravar.</translation>
+    </message>
+    <message>
+        <source>deletePage(nr)
+
+Deletes the given page. Does nothing if the document contains only one page.
+Page numbers are counted from 1 upwards, no matter what the displayed first
+page number is.
+
+May raise IndexError if the page number is out of range
+</source>
+        <translation>deletePage(nr)
+
+Elimina a páxina dada. Non fai nada se o documento só contén unha páxina.
+Os números de páxina cóntanse a partir do 1, sen importar cal é o número
+que se mostra na primeira páxina.
+
+Pode provocar un IndexError se o número de páxina está fora de rango</translation>
+    </message>
+    <message>
+        <source>gotoPage(nr)
+
+Moves to the page &quot;nr&quot; (that is, makes the current page &quot;nr&quot;). Note that
+gotoPage doesn&apos;t (curently) change the page the user&apos;s view is displaying, it
+just sets the page that script commands will operates on.
+
+May raise IndexError if the page number is out of range.
+</source>
+        <translation>gotoPage(nr)
+
+Móvese a páxina &quot;nr&quot; (ou sexa, fai que &quot;nr&quot; sexa a páxina actual). Obsérvese que
+gotoPage non cambia (actualmente) a páxina que se lle mostra ao usuario,
+simplemente designa a páxina sobre a que operarán os comandos do guión.
+
+Pode provocar un IndexError se o número de páxina está fora do rango.</translation>
+    </message>
+    <message>
+        <source>pageCount() -&gt; integer
+
+Returns the number of pages in the document.
+</source>
+        <translation>pageCount() -&gt; inteiro
+
+Devolve o número de páxinas do documento.</translation>
+    </message>
+    <message>
+        <source>getHGuides() -&gt; list
+
+Returns a list containing positions of the horizontal guides. Values are in the
+document&apos;s current units - see UNIT_&lt;type&gt; constants.
+</source>
+        <translation>getHGuides() -&gt; lista
+
+Devolve unha lista coas posicións das guías horizontais. Os valores están
+nas unidades actuais do documento - ver as constantes UNIT_&lt;tipo&gt;.</translation>
+    </message>
+    <message>
+        <source>setHGuides(list)
+
+Sets horizontal guides. Input parameter must be a list of guide positions
+measured in the current document units - see UNIT_&lt;type&gt; constants.
+
+Example: setHGuides(getHGuides() + [200.0, 210.0] # add new guides without any lost
+         setHGuides([90,250]) # replace current guides entirely
+</source>
+        <translation>setHGuides() -&gt; lista
+
+Fixa as guías horizontais. O parámetro de entrada debe ser unha lista de posicións de guías
+medidas nas nidades do documento actual - ver as constantes UNIT_&lt;tipo&gt;
+
+Exemplo: setHGuides(getHGuides() + [200.0, 210.0] # adicionar guías novas sen perder nengunha
+         setHGuides([90,250]) # substituir completamente as guías actuais</translation>
+    </message>
+    <message>
+        <source>getVGuides()
+
+See getHGuides.
+</source>
+        <translation>getVGuides() -&gt; lista
+
+ver getHGuides.</translation>
+    </message>
+    <message>
+        <source>setVGuides()
+
+See setHGuides.
+</source>
+        <translation>Ver setHGuides.</translation>
+    </message>
+    <message>
+        <source>getPageSize() -&gt; tuple
+
+Returns a tuple with page dimensions measured in the document&apos;s current units.
+See UNIT_&lt;type&gt; constants and getPageMargins()
+</source>
+        <translation>getPageSize() -&gt; valores
+
+Devolve uns valores coas dimensións da páxina medidas nas unidades actuais do documento.
+Ver as constantes UNIT_&lt;tipo&gt; e getPageMargins()</translation>
+    </message>
+    <message>
+        <source>getPageItems() -&gt; list
+
+Returns a list of tuples with items on the current page. The tuple is:
+(name, objectType, order) E.g. [(&apos;Text1&apos;, 4, 0), (&apos;Image1&apos;, 2, 1)]
+means that object named &apos;Text1&apos; is a text frame (type 4) and is the first at
+the page...
+</source>
+        <translation>getPageItems() -&gt; lista
+
+Devolve unha lista de valores con elementos da páxina actual. Os valores son:
+(nome, tipoDeObxecto, orde). Por exemplo [(&apos;Texto1&apos;, 4, 0), (&apos;Imaxe1&apos;, 2, 1)]
+significa que o obxecto chamado &apos;Texto1&apos; é unha moldura de texto (tipo 4) e que
+é o primeiro na páxina...</translation>
+    </message>
+    <message>
+        <source>getPageMargins()
+
+Returns the page margins as a (left, right, top, bottom) tuple in the current
+units. See UNIT_&lt;type&gt; constants and getPageSize().
+</source>
+        <translation>getPageMargins()
+
+Devolve as marxes da páxina como valores (esquerda, direita, superior, inferior)
+nas unidades actuais. Ver as constantes UNIT_&lt;tipo&gt; e getPageSize().</translation>
+    </message>
+    <message>
+        <source>setFillColor(&quot;color&quot;, [&quot;name&quot;])
+
+Sets the fill color of the object &quot;name&quot; to the color &quot;color&quot;. &quot;color&quot;
+is the name of one of the defined colors. If &quot;name&quot; is not given the
+currently selected item is used.
+</source>
+        <translation>setFillColor(&quot;cor&quot;, [&quot;nome&quot;])
+
+Fixa a cor de enchido do obxecto &quot;nome&quot; para a cor &quot;cor&quot;.
+&quot;cor&quot; é o nome dunha das cores definidas. Se non se fornece un &quot;nome&quot;
+úsase o elemento seleccionado nese momento.</translation>
+    </message>
+    <message>
+        <source>setLineColor(&quot;color&quot;, [&quot;name&quot;])
+
+Sets the line color of the object &quot;name&quot; to the color &quot;color&quot;. If &quot;name&quot;
+is not given the currently selected item is used.
+</source>
+        <translation>setFillColor(&quot;cor&quot;, [&quot;nome&quot;])
+
+Fixa a cor da liña do obxecto &quot;nome&quot; para a cor &quot;cor&quot;.
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+    </message>
+    <message>
+        <source>setLineWidth(width, [&quot;name&quot;])
+
+Sets line width of the object &quot;name&quot; to &quot;width&quot;. &quot;width&quot; must be in the
+range from 0.0 to 12.0 inclusive, and is measured in points. If &quot;name&quot; is not
+given the currently selected item is used.
+
+May raise ValueError if the line width is out of bounds.
+</source>
+        <translation>setLineWidth(anchura, [&quot;nome&quot;])
+
+Fixa a anchura da liña do obxecto &quot;nome&quot; en &quot;anchura&quot;.
+&quot;anchura&quot; debe estar no rango entre 0.0 e 12.0 incluídos e mídese en puntos.
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+
+Pode provocar un ValueError se a anchura da liña está fora dos limites.</translation>
+    </message>
+    <message>
+        <source>setLineShade(shade, [&quot;name&quot;])
+
+Sets the shading of the line color of the object &quot;name&quot; to &quot;shade&quot;.
+&quot;shade&quot; must be an integer value in the range from 0 (lightest) to 100
+(full color intensity). If &quot;name&quot; is not given the currently selected item
+is used.
+
+May raise ValueError if the line shade is out of bounds.
+</source>
+        <translation>setLineShade(saturación, [&quot;nome&quot;])
+
+Fixa a saturación da cor da liña do obxecto &quot;nome&quot; en &quot;saturación&quot;.
+&quot;saturación&quot; debe ser un valor inteiro no rango de 0 (menor) a 100
+(intensidade de cor total). Se non se fornece un &quot;nome&quot;
+úsase o elemento seleccionado nese momento.
+
+Pode provocar un ValueError se a saturación da liña está fora de limites.</translation>
+    </message>
+    <message>
+        <source>setLineJoin(join, [&quot;name&quot;])
+
+Sets the line join style of the object &quot;name&quot; to the style &quot;join&quot;.
+If &quot;name&quot; is not given the currently selected item is used. There are
+predefined constants for join - JOIN_&lt;type&gt;.
+</source>
+        <translation>setLineJoin(borde, [&quot;nome&quot;])
+
+Fixa o estilo do borde da liña do obxecto &quot;nome&quot; no estilo &quot;borde&quot;.
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+Existen unhas constantes pré-definidas para o borde - JOIN_&lt;tipo&gt;.</translation>
+    </message>
+    <message>
+        <source>setLineEnd(endtype, [&quot;name&quot;])
+
+Sets the line cap style of the object &quot;name&quot; to the style &quot;cap&quot;.
+If &quot;name&quot; is not given the currently selected item is used. There are
+predefined constants for &quot;cap&quot; - CAP_&lt;type&gt;.
+</source>
+        <translation>setLineExtremo(extremo, [&quot;nome&quot;])
+
+Fixa o estilo do extremo da liña do obxecto &quot;nome&quot; no estilo &quot;extremo&quot;.
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+Existen unhas constantes pré-definidas para extremo - CAP_&lt;tipo&gt;.</translation>
+    </message>
+    <message>
+        <source>setLineStyle(style, [&quot;name&quot;])
+
+Sets the line style of the object &quot;name&quot; to the style &quot;style&quot;. If &quot;name&quot;
+is not given the currently selected item is used. There are predefined
+constants for &quot;style&quot; - LINE_&lt;style&gt;.
+</source>
+        <translation>setLineStyle(estilo, [&quot;nome&quot;])
+
+Fixa o estilo da liña do obxecto &quot;nome&quot; para o estilo &quot;estilo&quot;.
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+Existen constantes pré-definidas para o &quot;estilo&quot; - LINE_&lt;estilo&gt;.</translation>
+    </message>
+    <message>
+        <source>setFillShade(shade, [&quot;name&quot;])
+
+Sets the shading of the fill color of the object &quot;name&quot; to &quot;shade&quot;.
+&quot;shade&quot; must be an integer value in the range from 0 (lightest) to 100
+(full Color intensity). If &quot;name&quot; is not given the currently selected
+Item is used.
+
+May raise ValueError if the fill shade is out of bounds.
+</source>
+        <translation>setFillShade(saturación, [&quot;nome&quot;])
+
+Fixa a saturación da cor de enchido do obxecto &quot;nome&quot; en &quot;saturación&quot;.
+&quot;saturación&quot; debe ser un valor inteiro no rango de 0 (menor) a 100
+(intensidade de cor total). Se non se fornece un &quot;nome&quot;
+úsase o elemento seleccionado nese momento.
+
+Pode provocar un ValueError se a saturación da liña está fora de limites.</translation>
+    </message>
+    <message>
+        <source>setCornerRadius(radius, [&quot;name&quot;])
+
+Sets the corner radius of the object &quot;name&quot;. The radius is expressed
+in points. If &quot;name&quot; is not given the currently selected item is used.
+
+May raise ValueError if the corner radius is negative.
+</source>
+        <translation>setCornerRadius(radio, [&quot;nome&quot;])
+
+Fixa o radio da esquina do obxecto &quot;nome&quot;. O radio exprésase en puntos.
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+
+Pode provocar un ValueError se a saturación da liña está fora de limites.</translation>
+    </message>
+    <message>
+        <source>setMultiLine(&quot;namedStyle&quot;, [&quot;name&quot;])
+
+Sets the line style of the object &quot;name&quot; to the named style &quot;namedStyle&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+
+May raise NotFoundError if the line style doesn&apos;t exist.
+</source>
+        <translation>setMultiLine(&quot;nomeDeEstilo&quot;, [&quot;nome&quot;])
+
+Fixa o estilo de liña do obxecto &quot;nome&quot; para o estilo de nome &quot;nomeDeEstilo&quot;.
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+
+Pode provocar un ValueError se a saturación da liña está fora de limites.</translation>
+    </message>
+    <message>
+        <source>getFont([&quot;name&quot;]) -&gt; string
+
+Returns the font name for the text frame &quot;name&quot;. If this text frame
+has some text selected the value assigned to the first character
+of the selection is returned. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation>getFont([&quot;nome&quot;]) -&gt; cadea
+
+Devolve o nome da fonte da moldura de texto &quot;nome&quot;. Se esta
+moldura de texto ten algún texto seleccionado, devólvese o valor
+asignado ao primeiro carácter da selección.
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+    </message>
+    <message>
+        <source>getTextLength([&quot;name&quot;]) -&gt; integer
+
+Returns the length of the text in the text frame &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation>getTextLength([&quot;nome&quot;])
+
+Devolve a lonxitude do texto da moldura de texto &quot;nome&quot;.
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+    </message>
+    <message>
+        <source>getText([&quot;name&quot;]) -&gt; string
+
+Returns the text of the text frame &quot;name&quot;. If this text frame has some text
+selected, the selected text is returned. All text in the frame, not just
+currently visible text, is returned. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation>getText([&quot;nome&quot;]) -&gt; cadea
+
+Devolve o texto da moldura de texto &quot;nome&quot;. Se a moldura de texto ten algún
+texto selecconado, devólvese o texto seleccionado. Devólvese todo todo o texto
+da moldura, non só o texto que se pode ver actualmente. 
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+    </message>
+    <message>
+        <source>getAllText([&quot;name&quot;]) -&gt; string
+
+Returns the text of the text frame &quot;name&quot; and of all text frames which are
+linked with this frame. If this textframe has some text selected, the selected
+text is returned. If &quot;name&quot; is not given the currently selected item is
+used.
+</source>
+        <translation>getAllText([&quot;nome&quot;]) -&gt; cadea
+
+Devolve o texto da moldura de texto &quot;nome&quot; e de todas as molduras que están
+vinculadas con esta moldura. Se a moldura de texto ten algún
+texto selecconado, devólvese o texto seleccionado.
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+    </message>
+    <message>
+        <source>getLineSpacing([&quot;name&quot;]) -&gt; float
+
+Returns the line spacing (&quot;leading&quot;) of the text frame &quot;name&quot; expressed in
+points. If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation>getLineSpacing([&quot;nome&quot;]) -&gt; float
+
+Devolve o espaciamento da liña  da moldura de texto &quot;nome&quot; expresado en puntos.
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+    </message>
+    <message>
+        <source>getColumnGap([&quot;name&quot;]) -&gt; float
+
+Returns the column gap size of the text frame &quot;name&quot; expressed in points. If
+&quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation>getColumnGap([&quot;nome&quot;]) -&gt; float
+
+Devolve o tamaño da distancia entre as columnas  da moldura de texto &quot;nome&quot; expresado en puntos.
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+    </message>
+    <message>
+        <source>getColumns([&quot;name&quot;]) -&gt; integer
+
+Gets the number of columns of the text frame &quot;name&quot;. If &quot;name&quot; is not
+given the currently selected item is used.
+</source>
+        <translation>getColumns([&quot;nome&quot;]) -&gt; inteiro
+
+Devolve o número de columnas da moldura de texto &quot;nome&quot;.
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+    </message>
+    <message>
+        <source>setText(&quot;text&quot;, [&quot;name&quot;])
+
+Sets the text of the text frame &quot;name&quot; to the text of the string &quot;text&quot;.
+Text must be UTF8 encoded - use e.g. unicode(text, &apos;iso-8859-2&apos;). See the FAQ
+for more details. If &quot;name&quot; is not given the currently selected item is
+used.
+</source>
+        <translation>setText(&quot;text&quot;, [&quot;nome&quot;])
+
+Fixa o texto da moldura de texto &quot;nome&quot; para o texto da cadea &quot;texto&quot;.
+O texto debe estar codificado en UTF8 - usar, p.ex. unicode(text, &apos;iso-8850-2&apos;).
+Ver as FAQ para máis detalles. Se non se fornece un &quot;nome&quot; úsase o elemento
+seleccionado nese momento.</translation>
+    </message>
+    <message>
+        <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
+
+Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame. Text
+must be UTF encoded (see setText() as reference) The first character has an
+index of 0. &quot;name&quot; If &quot;name&quot; is not given the currently selected Item is
+used.
+
+May throw IndexError for an insertion out of bounds.
+</source>
+        <translation>insertText(&quot;texto&quot;, pos, [&quot;nome&quot;])
+
+Insire o texto &quot;texto&quot; na posición &quot;pos&quot; na moldura de texto. O texto debe estar
+codificado en UTF (ver setText() como referencia). O primeiro carácter ten o
+índice 0. &quot;nome&quot;. Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+
+Pode provocar un IndexError debido a unha inserción fora de limites.</translation>
+    </message>
+    <message>
+        <source>setFont(&quot;font&quot;, [&quot;name&quot;])
+
+Sets the font of the text frame &quot;name&quot; to &quot;font&quot;. If there is some text
+selected only the selected text is changed.  If &quot;name&quot; is not given the
+currently selected item is used.
+
+May throw ValueError if the font cannot be found.
+</source>
+        <translation>setFont(&quot;fonte&quot;, [&quot;nome&quot;])
+
+Fixa a fonte da moldura de texto &quot;nome&quot; en &quot;fonte&quot;. Se hai texto
+seleccionado só se modifica o texto seleccionado. Se non se fornece
+un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+
+Pode devolver un ValueError se non se atopa a fonte.</translation>
+    </message>
+    <message>
+        <source>setFontSize(size, [&quot;name&quot;])
+
+Sets the font size of the text frame &quot;name&quot; to &quot;size&quot;. &quot;size&quot; is treated
+as a value in points. If there is some text selected only the selected text is
+changed. &quot;size&quot; must be in the range 1 to 512. If &quot;name&quot; is not given the
+currently selected item is used.
+
+May throw ValueError for a font size that&apos;s out of bounds.
+</source>
+        <translation>setFontSize(tamaño, [&quot;nome&quot;])
+
+Fixa o tamaño da fonte da moldura de texto &quot;nome&quot; en &quot;tamaño&quot;.
+&quot;tamaño&quot; trátase como un valor en puntos. Se hai texto seleccionado só se
+modifica o texto seleccionado. &quot;tamaño&quot; debe estar no rango 1 a 512.
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+
+Pode provocar un ValueError por un tamaño de fonte que está fora dos limites.</translation>
+    </message>
+    <message>
+        <source>setLineSpacing(size, [&quot;name&quot;])
+
+Sets the line spacing (&quot;leading&quot;) of the text frame &quot;name&quot; to &quot;size&quot;.
+&quot;size&quot; is a value in points. If &quot;name&quot; is not given the currently selected
+item is used.
+
+May throw ValueError if the line spacing is out of bounds.
+</source>
+        <translation>setLineSpacing(tamaño, [&quot;nome&quot;])
+
+Fixa o espaciamento de liña da moldura de texto &quot;nome&quot; en &quot;tamaño&quot;.
+&quot;tamaño&quot; é un valor en puntos. Se non se fornece
+un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+
+Pode provocar un ValueError se o espaciamento de liña está fora de limites.</translation>
+    </message>
+    <message>
+        <source>setColumnGap(size, [&quot;name&quot;])
+
+Sets the column gap of the text frame &quot;name&quot; to the value &quot;size&quot;. If
+&quot;name&quot; is not given the currently selected item is used.
+
+May throw ValueError if the column gap is out of bounds (must be positive).
+</source>
+        <translation>setColumnGap(tamaño, [&quot;nome&quot;])
+
+Fixa a distancia entre columnas da moldura de texto &quot;nome&quot; en &quot;tamaño&quot;.
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+
+Pode provocar un ValueError se a distancia entre columnas está fora de limites.</translation>
+    </message>
+    <message>
+        <source>setColumns(nr, [&quot;name&quot;])
+
+Sets the number of columns of the text frame &quot;name&quot; to the integer &quot;nr&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+
+May throw ValueError if number of columns is not at least one.
+</source>
+        <translation>setColumn(nr, [&quot;nome&quot;])
+
+Fixa o número de columnas da moldura de texto &quot;nome&quot; en &quot;tamaño&quot; no inteiro &quot;nr&quot;.
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+
+Pode provocar un ValueError se o número de columnas está fora de limites.</translation>
+    </message>
+    <message>
+        <source>setTextAlignment(align, [&quot;name&quot;])
+
+Sets the text alignment of the text frame &quot;name&quot; to the specified alignment.
+If &quot;name&quot; is not given the currently selected item is used. &quot;align&quot; should
+be one of the ALIGN_ constants defined in this module - see dir(scribus).
+
+May throw ValueError for an invalid alignment constant.
+</source>
+        <translation>setTextAlignment(aliñamento, [&quot;nome&quot;])
+
+Fixa o aliñamento da moldura de texto &quot;nome&quot; no aliñamento especificado.
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.
+&quot;aliñamento&quot; debería ser unha das constantes ALIGN_constantes definidas
+neste módulo - ver dir(Scribus).
+
+Pode provocar un ValueError se o número de columnas está fora de limites.</translation>
+    </message>
+    <message>
+        <source>selectText(start, count, [&quot;name&quot;])
+
+Selects &quot;count&quot; characters of text in the text frame &quot;name&quot; starting from the
+character &quot;start&quot;. Character counting starts at 0. If &quot;count&quot; is zero, any
+text selection will be cleared.  If &quot;name&quot; is not given the currently
+selected item is used.
+
+May throw IndexError if the selection is outside the bounds of the text.
+</source>
+        <translation>selectText(inicio,conta, [&quot;nome&quot;])
+
+Selecciona &quot;conta&quot; caracteres de texto na moldura de texto &quot;nome&quot; a partir
+do carácter &quot;inicio&quot;. A conta de caracteres comeza no 0. Se &quot;conta&quot; é cero,
+elimínase calquer selección de texto. Se non se fornece un &quot;nome&quot;
+úsase o elemento seleccionado nese momento.
+
+Pode provocar un IndexError se a selección está fora dos limites do texto.</translation>
+    </message>
+    <message>
+        <source>deleteText([&quot;name&quot;])
+
+Deletes any text in the text frame &quot;name&quot;. If there is some text selected,
+only the selected text will be deleted. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation>deleteText([&quot;nome&quot;])
+
+Limpa todo o texto da moldura de texto &quot;nome&quot;. Se hai texto seleccionado
+só se limpará o texto seleccionado. Se non se fornece un &quot;nome&quot;
+úsase o elemento seleccionado nese momento.</translation>
+    </message>
+    <message>
+        <source>setTextColor(&quot;color&quot;, [&quot;name&quot;])
+
+Sets the text color of the text frame &quot;name&quot; to the color &quot;color&quot;. If there
+is some text selected only the selected text is changed. If &quot;name&quot; is not
+given the currently selected item is used.
+</source>
+        <translation>setTextColor(&quot;cor&quot;, [&quot;nome&quot;])
+
+Fixa a cor do texto da moldura de texto &quot;nome&quot; na cor &quot;cor&quot;.
+Se hai texto seleccionado só se modificará o texto seleccionado.
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+    </message>
+    <message>
+        <source>setTextStroke(&quot;color&quot;, [&quot;name&quot;])
+
+Set &quot;color&quot; of the text stroke. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation>setTextStroke(&quot;cor&quot;, [&quot;nome&quot;])
+
+Fixa a cor do trazo do texto.
+Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+    </message>
+    <message>
+        <source>setTextShade(shade, [&quot;name&quot;])
+
+Sets the shading of the text color of the object &quot;name&quot; to &quot;shade&quot;. If
+there is some text selected only the selected text is changed. &quot;shade&quot; must
+be an integer value in the range from 0 (lightest) to 100 (full color
+intensity). If &quot;name&quot; is not given the currently selected item is
+used.
+</source>
+        <translation>setTextShade(&quot;saturación&quot;, [&quot;nome&quot;])
+
+Fixa a saturación da cor do texto do obxecto &quot;nome&quot; en &quot;saturación&quot;.
+Se hai texto seleccionado só se modificará o texto seleccionado.
+&quot;saturación&quot; debe ser un valor inteiro no rango de 0 (menor) a 100 (intensidade
+total da cor). Se non se fornece un &quot;nome&quot; úsase o elemento seleccionado nese momento.</translation>
+    </message>
+    <message>
+        <source>linkTextFrames(&quot;fromname&quot;, &quot;toname&quot;)
+
+Link two text frames. The frame named &quot;fromname&quot; is linked to the
+frame named &quot;toname&quot;. The target frame must be an empty text frame
+and must not link to or be linked from any other frames already.
+
+May throw ScribusException if linking rules are violated.
+</source>
+        <translation>linkTextFrames(&quot;denome&quot;, &quot;anome&quot;)
+
+Vincula dúas molduras de texto. A moldura de nome &quot;denome&quot; vincúlase á
+moldura chamada &quot;anome&quot;. A moldura de destino debe ser unha moldura
+de texto baleira e non debe vincularse ou estar vinculada xa a outras molduras.</translation>
+    </message>
+    <message>
+        <source>unlinkTextFrames(&quot;name&quot;)
+
+Remove the specified (named) object from the text frame flow/linkage. If the
+frame was in the middle of a chain, the previous and next frames will be
+connected, eg &apos;a-&gt;b-&gt;c&apos; becomes &apos;a-&gt;c&apos; when you unlinkTextFrames(b)&apos;
+
+May throw ScribusException if linking rules are violated.
+</source>
+        <translation>unlinkTextFrames(&quot;nome&quot;)
+
+Eliminar o obxecto (con nome) especificado do fluxo/vinculación de moldura
+de texto. Se a moldura estaba no medio dunha cadea, conectaranse as molduras
+anterior e seguinte, p.ex. &apos;a-&gt;b-&gt;c&apos; convírtese en &apos;a-&gt;c&apos; cando se fai
+unlinkTextFrames(b)
+
+Pode provocar unha ScribusException se se violan as regras de vinculación.</translation>
+    </message>
+    <message>
+        <source>traceText([&quot;name&quot;])
+
+Convert the text frame &quot;name&quot; to outlines. If &quot;name&quot; is not given the
+currently selected item is used.</source>
+        <translation>traceText([&quot;nome&quot;])
+
+Convirte a moldura de texto &quot;nome&quot; en siluetas. Se non se fornece un &quot;nome&quot;
+úsase o elemento seleccionado nese momento.</translation>
+    </message>
+    <message>
+        <source>progressReset()
+
+Cleans up the Scribus progress bar previous settings. It is called before the
+new progress bar use. See progressSet.
+</source>
+        <translation>progressReset()
+
+Limpa a configuración anterior da barra de progreso de Scribus. Chámase antes de
+usasr a nova barra de progreso. Ver progressSet.</translation>
+    </message>
+    <message>
+        <source>progressTotal(max)
+
+Sets the progress bar&apos;s maximum steps value to the specified number.
+See progressSet.
+</source>
+        <translation>progressTotal(max)
+
+Fixa o valor de paso máximo da barra de paso no número especificado.
+Ver progressSet.</translation>
+    </message>
+    <message>
+        <source>progressSet(nr)
+
+Set the progress bar position to &quot;nr&quot;, a value relative to the previously set
+progressTotal. The progress bar uses the concept of steps; you give it the
+total number of steps and the number of steps completed so far and it will
+display the percentage of steps that have been completed. You can specify the
+total number of steps with progressTotal(). The current number of steps is set
+with progressSet(). The progress bar can be rewound to the beginning with
+progressReset(). [based on info taken from Trolltech&apos;s Qt docs]
+</source>
+        <translation>progressSet(nr)
+
+Fixa a posición da barra de progreso en &quot;nr&quot;, un valor relativo ao progressTotal
+fixado anteriormente. A barra de progreso usa o concepto de pasos; dáselle o
+número total de pasos e o número de pasos xa completado e mostra a percentaxe
+de pasos xa completados. Pódese especcificar o número total de pasos con
+progressTotal(). O número actual de pasos fíxase con progressSet(). Pódese facer
+retornar a barra de progreso ao principio con progressReset(). [basado en información
+obtida dos documentos do Qt da Trolltech]</translation>
+    </message>
+    <message>
+        <source>setCursor()
+
+[UNSUPPORTED!] This might break things, so steer clear for now.
+</source>
+        <translation>setCursor()
+
+[NON ACEPTADO!] Isto podería foder as cousas, así que non o toques de momento.</translation>
+    </message>
+    <message>
+        <source>docChanged(bool)
+
+Enable/disable save icon in the Scribus icon bar and the Save menu item. It&apos;s
+useful to call this procedure when you&apos;re changing the document, because Scribus
+won&apos;t automatically notice when you change the document using a script.
+</source>
+        <translation>docChanged(bool)
+
+Des/Habilita o icone de gardar na barra de icones de Scribus e o elemento do
+menú Gardar. É útil chamar por este procedimento cando está a modificar o documento
+porque Scribus non perceberá automaticamente cando se modifica o documento
+por medio dun guión.</translation>
+    </message>
+</context>
+<context>
     <name>About</name>
     <message>
         <source>About Scribus%1%2</source>
-        <translation>Acerca de Scribus%1%2</translation>
+        <translation type="obsolete">Acerca de Scribus%1%2</translation>
     </message>
     <message>
         <source>%1. %2 %3 </source>
@@ -21,7 +2122,7 @@
     </message>
     <message>
         <source>Programming:</source>
-        <translation>Programación:</translation>
+        <translation type="obsolete">Programación:</translation>
     </message>
     <message>
         <source>Contributions from:</source>
@@ -33,7 +2134,7 @@
     </message>
     <message>
         <source>Documentation:</source>
-        <translation>Documentación:</translation>
+        <translation type="obsolete">Documentación:</translation>
     </message>
     <message>
         <source>German:</source>
@@ -45,7 +2146,7 @@
     </message>
     <message>
         <source>Spanish and Catalan:</source>
-        <translation>Español e Catalán:</translation>
+        <translation type="obsolete">Español e Catalán:</translation>
     </message>
     <message>
         <source>Italian:</source>
@@ -97,7 +2198,7 @@
     </message>
     <message>
         <source>English:</source>
-        <translation>Inglés:</translation>
+        <translation type="obsolete">Inglés:</translation>
     </message>
     <message>
         <source>Welsh:</source>
@@ -117,15 +2218,15 @@
     </message>
     <message>
         <source>Homepage and online reference</source>
-        <translation>Sitio web e referencia en liña</translation>
+        <translation type="obsolete">Sitio web e referencia en liña</translation>
     </message>
     <message>
         <source>Mailing list</source>
-        <translation>Lista de corrreo</translation>
+        <translation type="obsolete">Lista de corrreo</translation>
     </message>
     <message>
         <source>Bugs and feature requests</source>
-        <translation>Erros e propostas de funcionalidades</translation>
+        <translation type="obsolete">Erros e propostas de funcionalidades</translation>
     </message>
     <message>
         <source>Basque:</source>
@@ -140,7 +2241,7 @@
  compiled in library support in Scribus
 The C-C-T equates to C=CUPS C=littlecms T=TIFF support.
 Missing library support is indicated by a *</source>
-        <translation>Este painel mostra a versión, data da compilación e
+        <translation type="obsolete">Este painel mostra a versión, data da compilación e
 soporte de librarías compiladas en Scribus
 O C-C-T equivale a soporte C=CUPS C=littlecms T=TIFF.
 Se falta o soporte dunha libraría, indícase con *</translation>
@@ -164,6 +2265,84 @@ Se falta o soporte dunha libraría, indícase con *</translation>
     <message>
         <source>&amp;Close</source>
         <translation>&amp;Fechar</translation>
+    </message>
+    <message>
+        <source>About Scribus %1</source>
+        <translation>Acerca de Scribus %1</translation>
+    </message>
+    <message>
+        <source>Development Team:</source>
+        <translation>Equipo de Desenvolvimento:</translation>
+    </message>
+    <message>
+        <source>Official Documentation:</source>
+        <translation>Documentación Oficial:</translation>
+    </message>
+    <message>
+        <source>Other Documentation:</source>
+        <translation>Outra Documentación:</translation>
+    </message>
+    <message>
+        <source>Official Translations and Translators:</source>
+        <translation>Traducións e Tradutores Oficiais:</translation>
+    </message>
+    <message>
+        <source>Catalan:</source>
+        <translation>Catalán:</translation>
+    </message>
+    <message>
+        <source>English (British):</source>
+        <translation>Inglés (británico):</translation>
+    </message>
+    <message>
+        <source>Esperanto:</source>
+        <translation>Esperanto:</translation>
+    </message>
+    <message>
+        <source>Korean:</source>
+        <translation>Coreano:</translation>
+    </message>
+    <message>
+        <source>Serbian:</source>
+        <translation>Serbio:</translation>
+    </message>
+    <message>
+        <source>Spanish:</source>
+        <translation>Español:</translation>
+    </message>
+    <message>
+        <source>Swedish:</source>
+        <translation>Sueco:</translation>
+    </message>
+    <message>
+        <source>Previous Translation Contributors:</source>
+        <translation>Contribuíron anteriormente coas súas traducións:</translation>
+    </message>
+    <message>
+        <source>Homepage</source>
+        <translation>Sitio web</translation>
+    </message>
+    <message>
+        <source>Online Reference</source>
+        <translation>Referencia en liña</translation>
+    </message>
+    <message>
+        <source>Bugs and Feature Requests</source>
+        <translation>Erros e Peticións</translation>
+    </message>
+    <message>
+        <source>Mailing List</source>
+        <translation>Lista de Correo</translation>
+    </message>
+    <message>
+        <source>This panel shows the version, build date and
+ compiled in library support in Scribus
+The C-C-T equates to C=littlecms C=CUPS T=TIFF support.
+Missing library support is indicated by a *</source>
+        <translation>Este painel mostra a versión, data de creación e
+soporte de librarías compilado en Scribus.
+C-C-T significa apoio a C=littlecms C=CUPS T=TIFF.
+A ausencia de apoio a librarías indícase cun *</translation>
     </message>
 </context>
 <context>
@@ -912,7 +3091,7 @@ O UCR reduce a posibilidade dun exceso de saturación coas tintas CMY.</translat
     </message>
     <message>
         <source>Type:</source>
-        <translation>Tipo:</translation>
+        <translation type="obsolete">Tipo:</translation>
     </message>
     <message>
         <source>Text</source>
@@ -936,15 +3115,15 @@ O UCR reduce a posibilidade dun exceso de saturación coas tintas CMY.</translat
     </message>
     <message>
         <source>Change...</source>
-        <translation>Modificar...</translation>
+        <translation type="obsolete">Modificar...</translation>
     </message>
     <message>
         <source>Page:</source>
-        <translation>Páxina:</translation>
+        <translation type="obsolete">Páxina:</translation>
     </message>
     <message>
         <source>X-Pos:</source>
-        <translation>Posición X:</translation>
+        <translation type="obsolete">Posición X:</translation>
     </message>
     <message>
         <source> pt</source>
@@ -952,15 +3131,15 @@ O UCR reduce a posibilidade dun exceso de saturación coas tintas CMY.</translat
     </message>
     <message>
         <source>Y-Pos:</source>
-        <translation>Posición Y:</translation>
+        <translation type="obsolete">Posición Y:</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>Dacordo</translation>
+        <translation type="obsolete">Dacordo</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Cancelar</translation>
+        <translation type="obsolete">Cancelar</translation>
     </message>
     <message>
         <source>Open</source>
@@ -969,6 +3148,34 @@ O UCR reduce a posibilidade dun exceso de saturación coas tintas CMY.</translat
     <message>
         <source>PDF-Documents (*.pdf);;All Files (*)</source>
         <translation>Documentos PDF (*.pdf);;Todos (*)</translation>
+    </message>
+    <message>
+        <source>&amp;Type:</source>
+        <translation>&amp;Tipo:</translation>
+    </message>
+    <message>
+        <source>C&amp;hange...</source>
+        <translation>Cam&amp;biar...</translation>
+    </message>
+    <message>
+        <source>&amp;Page:</source>
+        <translation>&amp;Páxina:</translation>
+    </message>
+    <message>
+        <source>&amp;X-Pos</source>
+        <translation>Pos-&amp;X</translation>
+    </message>
+    <message>
+        <source>&amp;Y-Pos:</source>
+        <translation>Pos-&amp;Y:</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;Dacordo</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Cancelar</translation>
     </message>
 </context>
 <context>
@@ -1439,6 +3646,16 @@ Isto require perfís moi exactos e só serve como advertencia.</translation>
         <source>&amp;Cancel</source>
         <translation>&amp;Cancelar</translation>
     </message>
+    <message>
+        <source>None</source>
+        <translation>Nengunha</translation>
+    </message>
+    <message>
+        <source>You cannot create a color named &quot;%1&quot;.
+It&apos;s a reserved name for transparent color</source>
+        <translation>Non pode crear unha cor chamada &quot;%1&quot;.
+É un nome reservado para a cor transparente</translation>
+    </message>
 </context>
 <context>
     <name>Cpalette</name>
@@ -1706,15 +3923,27 @@ Pódese definir nas Preferencias.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>Dacordo</translation>
+        <translation type="obsolete">Dacordo</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Cancelar</translation>
+        <translation type="obsolete">Cancelar</translation>
     </message>
     <message>
         <source>Delete color:</source>
         <translation>Eliminar a Cor:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Nengunha</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;Dacordo</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Cancelar</translation>
     </message>
 </context>
 <context>
@@ -2398,6 +4627,14 @@ Use 72 dpi (puntos por pulgada) para Imaxes intendadas para a Pantalla</translat
         <source>The quality of your images - 100% is the best, 1% the lowest quality</source>
         <translation>A calidade das súas imaxes - 100% é a mellor calidade e 1% a pior</translation>
     </message>
+    <message>
+        <source>&amp;Size:</source>
+        <translation>Tama&amp;ño:</translation>
+    </message>
+    <message>
+        <source>Size of the images. 100% for no changes, 200% for two times larger etc.</source>
+        <translation>Tamaño das imaxes. 100% sen modificación, 200% o dobre de grande, etc.</translation>
+    </message>
 </context>
 <context>
     <name>FDialogPreview</name>
@@ -2540,6 +4777,10 @@ Use 72 dpi (puntos por pulgada) para Imaxes intendadas para a Pantalla</translat
         <source>&amp;Name:</source>
         <translation>&amp;Nome:</translation>
     </message>
+    <message>
+        <source>None</source>
+        <translation>Nengunha</translation>
+    </message>
 </context>
 <context>
     <name>FontPrefs</name>
@@ -2662,6 +4903,14 @@ Use 72 dpi (puntos por pulgada) para Imaxes intendadas para a Pantalla</translat
         <source>Fonts Preview</source>
         <translation>Vista Previa das Fontes</translation>
     </message>
+    <message>
+        <source>Append selected font into Style, Font menu</source>
+        <translation>Adicionar a fonte seleccionado no menú Estilo, Fonte</translation>
+    </message>
+    <message>
+        <source>Leave preview</source>
+        <translation>Deixar a vista previa</translation>
+    </message>
 </context>
 <context>
     <name>GradientEditor</name>
@@ -2749,7 +4998,26 @@ Use 72 dpi (puntos por pulgada) para Imaxes intendadas para a Pantalla</translat
     <name>HelpBrowser</name>
     <message>
         <source>Sorry, no manual available! Please see: http://scribus.net for updated docs and downloads.</source>
-        <translation>Lamentámolo, pero non hai un manual disponíbel. Visite http://scribus.net se precisar de documentos actualizados e software para baixar.</translation>
+        <translation type="obsolete">Lamentámolo, pero non hai un manual disponíbel. Visite http://scribus.net se precisar de documentos actualizados e software para baixar.</translation>
+    </message>
+    <message>
+        <source>Contents</source>
+        <translation>Contido</translation>
+    </message>
+    <message>
+        <source>Link</source>
+        <translation>Ligazón</translation>
+    </message>
+    <message>
+        <source>Scribus Online Help</source>
+        <translation>Axuda en liña sobre Scribus</translation>
+    </message>
+    <message>
+        <source>Sorry, no manual available! Please see: http://docs.scribus.net for updated docs
+and www.scribus.net for downloads.</source>
+        <translation>Lamentámolo, mais non se dispón dun manual.
+Consulte http://docs.scribus.net  para documentos actualizados
+e www.scribus.net para descargas.</translation>
     </message>
 </context>
 <context>
@@ -2780,12 +5048,12 @@ Use 72 dpi (puntos por pulgada) para Imaxes intendadas para a Pantalla</translat
     <message>
         <source>If you uncheck this you will get a dialog
 everytime a possible Hyphenation is found.</source>
-        <translation>Se non se selecciona, verá un diálogo
+        <translation type="obsolete">Se non se selecciona, verá un diálogo
 cada vez que se propoña un guión novo.</translation>
     </message>
     <message>
         <source>Enables automatic checking of your text while typing.</source>
-        <translation>Permite comprobar o texto automaticamente ao tempo que se escrebe.</translation>
+        <translation type="obsolete">Permite comprobar o texto automaticamente ao tempo que se escrebe.</translation>
     </message>
     <message>
         <source>Length of the smallest word to be hyphenated.</source>
@@ -2799,11 +5067,11 @@ O valor 0 significa que non se contabilizan.</translation>
     </message>
     <message>
         <source>&amp;Fully Automatic</source>
-        <translation>&amp;Totalmente automático</translation>
+        <translation type="obsolete">&amp;Totalmente automático</translation>
     </message>
     <message>
         <source>Check &amp;During Typing</source>
-        <translation>Comprobar &amp;Mentres se Escrebe</translation>
+        <translation type="obsolete">Comprobar &amp;Mentres se Escrebe</translation>
     </message>
     <message>
         <source>&amp;Language:</source>
@@ -2815,7 +5083,7 @@ O valor 0 significa que non se contabilizan.</translation>
     </message>
     <message>
         <source>&amp;Number of Hypenations allowed:</source>
-        <translation>&amp;Número de Guións permitidos:</translation>
+        <translation type="obsolete">&amp;Número de Guións permitidos:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -2824,6 +5092,26 @@ O valor 0 significa que non se contabilizan.</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Cancelar</translation>
+    </message>
+    <message>
+        <source>&amp;Hyphenation Suggestions</source>
+        <translation>Suxestións para colocar os &amp;Guións de palabras</translation>
+    </message>
+    <message>
+        <source>Hyphenate Text Automatically &amp;During Typing</source>
+        <translation>Quebrar o Texto con Guións Automaticamente ao &amp;Escreber</translation>
+    </message>
+    <message>
+        <source>Consecutive Hyphenations &amp;Allowed:</source>
+        <translation>Guións Consecutivos &amp;Permitidos:</translation>
+    </message>
+    <message>
+        <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
+        <translation>Mostraráse unha caixa de diálogo que mostra todos os guións posíbeis para cada palabra cando use Extras, opción Colocar Guións no Texto.</translation>
+    </message>
+    <message>
+        <source>Enables automatic hyphenation of your text while typing.</source>
+        <translation>Permite a colocación automática de guións mentres escrebe.</translation>
     </message>
 </context>
 <context>
@@ -2920,7 +5208,7 @@ O valor 0 significa que non se contabilizan.</translation>
     </message>
     <message>
         <source>Do you really want do delete this Script?</source>
-        <translation>Ten a intención firme de eliminar este Guión?</translation>
+        <translation type="obsolete">Ten a intención firme de eliminar este Guión?</translation>
     </message>
     <message>
         <source>&amp;Edit...</source>
@@ -2949,6 +5237,10 @@ O valor 0 significa que non se contabilizan.</translation>
     <message>
         <source>&amp;Yes</source>
         <translation>&amp;Si</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Script?</source>
+        <translation>Ten a certeza de querer eliminar este Guión?</translation>
     </message>
 </context>
 <context>
@@ -3077,7 +5369,7 @@ O valor 0 significa que non se contabilizan.</translation>
     </message>
     <message>
         <source>Do you really want do delete this Style?</source>
-        <translation>Ten a certeza de querer eliminar este Estilo?</translation>
+        <translation type="obsolete">Ten a certeza de querer eliminar este Estilo?</translation>
     </message>
     <message>
         <source>Open</source>
@@ -3130,6 +5422,10 @@ O valor 0 significa que non se contabilizan.</translation>
     <message>
         <source>&amp;Yes</source>
         <translation>&amp;Si</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Style?</source>
+        <translation>Ten a certeza de querer eliminar este Estilo?</translation>
     </message>
 </context>
 <context>
@@ -3530,7 +5826,7 @@ un rango de páxinas ou unha única páxina.</translation>
     </message>
     <message>
         <source>Reverse Writing</source>
-        <translation>Escrita Inversa</translation>
+        <translation type="obsolete">Escrita Inversa</translation>
     </message>
     <message>
         <source>None</source>
@@ -4008,6 +6304,10 @@ R&amp;edondeadas:</translation>
         <source>Hyphenation language of frame</source>
         <translation>Língua da moldura para colocar os hífens</translation>
     </message>
+    <message>
+        <source>Right to Left Writing</source>
+        <translation>Escrita da Direita para a Esquerda</translation>
+    </message>
 </context>
 <context>
     <name>MultiLine</name>
@@ -4110,7 +6410,7 @@ Escolla outro.</translation>
     </message>
     <message>
         <source>Do you really want do delete this Template?</source>
-        <translation>Ten a certeza de que desexa eliminar este Modelo?</translation>
+        <translation type="obsolete">Ten a certeza de que desexa eliminar este Modelo?</translation>
     </message>
     <message>
         <source>Name:</source>
@@ -4163,6 +6463,10 @@ Escolla outro.</translation>
     <message>
         <source>&amp;Name:</source>
         <translation>&amp;Nome:</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Template?</source>
+        <translation>Ten a certeza de querer eliminar este Modelo?</translation>
     </message>
 </context>
 <context>
@@ -4382,6 +6686,18 @@ Se se seleccionaron Páxinas Enfrentadas, este espazo de marxe pódese usar para
     <message>
         <source>O&amp;utside:</source>
         <translation>E&amp;xterior:</translation>
+    </message>
+    <message>
+        <source>Executive</source>
+        <translation>Executivo</translation>
+    </message>
+    <message>
+        <source>Folio</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Ledger</source>
+        <translation>Libro de contabilidade</translation>
     </message>
 </context>
 <context>
@@ -4827,7 +7143,7 @@ as funcionalidades de seguranza nos seus PDFs exportados</translation>
     </message>
     <message>
         <source>E&amp;xtras</source>
-        <translation>E&amp;xtras</translation>
+        <translation type="obsolete">E&amp;xtras</translation>
     </message>
     <message>
         <source> pt</source>
@@ -5057,7 +7373,7 @@ Se non se selecciona, impídese a modificación de anotacións e campos.</transl
     </message>
     <message>
         <source>Com&amp;press Text and Vector Graphics</source>
-        <translation>Com&amp;primir o Texto e os Gráficos Vectoriais</translation>
+        <translation type="obsolete">Com&amp;primir o Texto e os Gráficos Vectoriais</translation>
     </message>
     <message>
         <source>&amp;Method:</source>
@@ -5085,7 +7401,7 @@ Se non se selecciona, impídese a modificación de anotacións e campos.</transl
     </message>
     <message>
         <source>Enable &amp;Presentation Effects</source>
-        <translation>Permitir os Efectos de &amp;Presentación</translation>
+        <translation type="obsolete">Permitir os Efectos de &amp;Presentación</translation>
     </message>
     <message>
         <source>Show Page Pre&amp;views</source>
@@ -5239,6 +7555,38 @@ Otherwise, your exported PDF may not print properly and is truly not portable ac
 cando así o requira a súa impresora e vostede dispoña de todos os detalles exactos.
 De non facelo así, o seu PDF exportado pode non imprimirse correctamente e con certeza non será portábel entre sistemas.</translation>
     </message>
+    <message>
+        <source>&amp;Rotation:</source>
+        <translation>&amp;Rotación:</translation>
+    </message>
+    <message>
+        <source>Compress Text and &amp;Vector Graphics</source>
+        <translation>Comprimir o Texto e os Gráficos &amp;Vectoriais</translation>
+    </message>
+    <message>
+        <source>&amp;Subset all Fonts</source>
+        <translation>Todas as Fontes a un &amp;Subconxunto</translation>
+    </message>
+    <message>
+        <source>Fonts to subset:</source>
+        <translation>Fontes a meter nun subconxunto:</translation>
+    </message>
+    <message>
+        <source>En&amp;able Presentation Effects</source>
+        <translation>P&amp;ermitir os Efectos de Presentación</translation>
+    </message>
+    <message>
+        <source>&amp;Presentation</source>
+        <translation>&amp;Presentación</translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) horizontally</source>
+        <translation>Reflexar a(s) Páxina(s) horizontalmente</translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) vertically</source>
+        <translation>Reflexar a(s) Páxina(s) verticalmente</translation>
+    </message>
 </context>
 <context>
     <name>PPreview</name>
@@ -5259,7 +7607,7 @@ en detrimento da velocidade. Isto só afecta ás fontes Type 1</translation>
     <message>
         <source>Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF and
 vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation>Permite unha vista máis agradábel das Fontes True Type, Fontes Open Type, EPS, PDF e
+        <translation type="obsolete">Permite unha vista máis agradábel das Fontes True Type, Fontes Open Type, EPS, PDF e
 os gráficos de vectores na previsualización, a expensas da velocidade</translation>
     </message>
     <message>
@@ -5329,12 +7677,32 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Unha das maneiras de evitar as manchas grises compostas
+        <translation type="obsolete">Unha das maneiras de evitar as manchas grises compostas
 de cián, amarelo e maxenta usando negro no seu lugar.
 A UCR afecta sobretodo ás imaxes que teñen tons neutros e/ou escuros
 próximos do gris ou cinza. Se se usa pódese mellorar a impresión dalgunhas imaxes,
 ainda que é preciso experimentar para cada caso.
 A UCR reduce a posibilidade de sobresaturación con tintas CY.</translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and
+vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
+        <translation>Permite unha visión máis agradábel das Fontes TrueType, Fontes OpenType, EPS, PDF e
+os gráficos de vectores na vista previa a costa dun ralentizamento da vista previa</translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed
+of cyan, yellow and magenta and using black instead.
+UCR most affects parts of images which are neutral and/or dark tones
+which are close to the gray. Use of this may improve printing some images
+and some experimentation and testing is need on a case by case basis.
+UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation>Un xeito de apagar algunhas das sombras en gris compostas
+de cian, amarelo e maxenta e usar negro no seu lugar.
+O UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou escuros
+perto do gris. Cando se usa pode mellorar a impresión dalgunhas imaxes,
+ainda que é preciso experimentar segundo cada caso.
+O UCR reduce a posibilidade dun exceso de saturación coas tintas CMY.</translation>
     </message>
 </context>
 <context>
@@ -5760,7 +8128,7 @@ A UCR reduce a posibilidade de sobresaturación con tintas CY.</translation>
     </message>
     <message>
         <source>Conve&amp;x Polygon</source>
-        <translation>Polígono Conve&amp;xo</translation>
+        <translation type="obsolete">Polígono Conve&amp;xo</translation>
     </message>
     <message>
         <source>&amp;Factor:</source>
@@ -5784,7 +8152,7 @@ A UCR reduce a posibilidade de sobresaturación con tintas CY.</translation>
     </message>
     <message>
         <source>Polygons will be convex rather than concave</source>
-        <translation>O polígono será convexo en vez de cóncavo</translation>
+        <translation type="obsolete">O polígono será convexo en vez de cóncavo</translation>
     </message>
     <message>
         <source>Sample Polygon</source>
@@ -5792,7 +8160,21 @@ A UCR reduce a posibilidade de sobresaturación con tintas CY.</translation>
     </message>
     <message>
         <source>Change the angles at which lines of the polygon join</source>
-        <translation>Mudar os ángulos nos que se unen as liñas do polígono</translation>
+        <translation type="obsolete">Mudar os ángulos nos que se unen as liñas do polígono</translation>
+    </message>
+    <message>
+        <source>Apply &amp;Factor</source>
+        <translation>Aplicar &amp;Factor</translation>
+    </message>
+    <message>
+        <source>Apply Convex/Concave Factor to change shape of Polygons</source>
+        <translation>Aplicar Factor Convexo/Cóncavo para mudar a figura dos Polígonos</translation>
+    </message>
+    <message>
+        <source>A negative value will make the polygon concave (or star shaped),
+ a positive value will make it convex</source>
+        <translation>Un valor negativo fará o polígono cóncavo (ou con forma de estrela),
+un valor positivo farao convexo</translation>
     </message>
 </context>
 <context>
@@ -6275,7 +8657,7 @@ cada vez que transcorre o período de tempo</translation>
     </message>
     <message>
         <source>Polygons will be convex rather than concave</source>
-        <translation>Os polígonos serán convexos en vez de cóncavos</translation>
+        <translation type="obsolete">Os polígonos serán convexos en vez de cóncavos</translation>
     </message>
     <message>
         <source>Sample Polygon</source>
@@ -6283,7 +8665,7 @@ cada vez que transcorre o período de tempo</translation>
     </message>
     <message>
         <source>Change the angles at which lines of the polygon join</source>
-        <translation>Mudar os ángulos con que se unen as liñas do polígono</translation>
+        <translation type="obsolete">Mudar os ángulos con que se unen as liñas do polígono</translation>
     </message>
     <message>
         <source>Choose the size of the preview in the scrapbook palette</source>
@@ -6615,7 +8997,7 @@ cada vez que transcorre o período de tempo</translation>
     </message>
     <message>
         <source>Conve&amp;x Polygon</source>
-        <translation>Polígono conve&amp;xo</translation>
+        <translation type="obsolete">Polígono conve&amp;xo</translation>
     </message>
     <message>
         <source>&amp;Factor:</source>
@@ -6696,6 +9078,70 @@ cada vez que transcorre o período de tempo</translation>
     <message>
         <source>Apply &amp;Under Color Removal</source>
         <translation>Applicar &amp;UCR</translation>
+    </message>
+    <message>
+        <source>T&amp;emplates:</source>
+        <translation>&amp;Modelos:</translation>
+    </message>
+    <message>
+        <source>Cha&amp;nge...</source>
+        <translation>&amp;Mudar...</translation>
+    </message>
+    <message>
+        <source>Executive</source>
+        <translation>Executivo</translation>
+    </message>
+    <message>
+        <source>Folio</source>
+        <translation>Folio</translation>
+    </message>
+    <message>
+        <source>Ledger</source>
+        <translation>Libro de contabilidade</translation>
+    </message>
+    <message>
+        <source>Legal</source>
+        <translation>Legal</translation>
+    </message>
+    <message>
+        <source>Letter</source>
+        <translation>Carta</translation>
+    </message>
+    <message>
+        <source>Tabloid</source>
+        <translation>Tabloide</translation>
+    </message>
+    <message>
+        <source>Apply &amp;Factor</source>
+        <translation>Aplicar o &amp;Factor</translation>
+    </message>
+    <message>
+        <source>Additional Directory for Document Templates</source>
+        <translation>Directorio adicional para os Modelos de Documento</translation>
+    </message>
+    <message>
+        <source>Apply Convex/Concave Factor to change shape of Polygons</source>
+        <translation>Aplicar o Factor Convexo/Cóncavo para modificar a figura dos Polígonos</translation>
+    </message>
+    <message>
+        <source>A negative value will make the polygon concave (or star shaped),
+ a positive value will make it convex</source>
+        <translation>Un valor negativo fará que o polígono sexa cóncavo (ou teña forma de estrela),
+un valor positivo farao convexo</translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed
+of cyan, yellow and magenta and using black instead.
+UCR most affects parts of images which are neutral and/or dark tones
+which are close to the gray. Use of this may improve printing some images
+and some experimentation and testing is need on a case by case basis.
+UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation>Un xeito de apagar algunhas das sombras en gris compostas
+de cian, amarelo e maxenta e usar negro no seu lugar.
+O UCR afecta fundamentalmente ás partes das imaxes que teñen tons neutros e/ou escuros
+perto do gris. Cando se usa pode mellorar a impresión dalgunhas imaxes,
+ainda que é preciso experimentar segundo cada caso.
+O UCR reduce a posibilidade dun exceso de saturación coas tintas CMY.</translation>
     </message>
 </context>
 <context>
@@ -7182,15 +9628,15 @@ Comprobe o camiño e o nome do ficheiro.</translation>
     </message>
     <message>
         <source>Oook! You&apos;re calling an object doesn&apos;t exist!</source>
-        <translation>Carafio! Chamas por un obxecto que non existe!</translation>
+        <translation type="obsolete">Carafio! Chamas por un obxecto que non existe!</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to erase an object doesn&apos;t exist!</source>
-        <translation>Carafio! Pretendes eliminar un obxecto que non existe!</translation>
+        <translation type="obsolete">Carafio! Pretendes eliminar un obxecto que non existe!</translation>
     </message>
     <message>
         <source>Oook! An object you&apos;re trying to textflow doesn&apos;t exist!</source>
-        <translation>Carafio! Un obxecto que pretendes desbordar de texto non existe!</translation>
+        <translation type="obsolete">Carafio! Un obxecto que pretendes desbordar de texto non existe!</translation>
     </message>
     <message>
         <source>Save as Image</source>
@@ -7242,7 +9688,7 @@ Comprobe o camiño e o nome do ficheiro.</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation>&amp;Novo</translation>
+        <translation type="obsolete">&amp;Novo</translation>
     </message>
     <message>
         <source>Newsletters</source>
@@ -7342,7 +9788,7 @@ Comprobe o camiño e o nome do ficheiro.</translation>
     </message>
     <message>
         <source>&amp;Print...</source>
-        <translation>Im&amp;primir...</translation>
+        <translation type="obsolete">Im&amp;primir...</translation>
     </message>
     <message>
         <source>Import &amp;EPS/PS...</source>
@@ -7354,7 +9800,7 @@ Comprobe o camiño e o nome do ficheiro.</translation>
     </message>
     <message>
         <source>Save &amp;As...</source>
-        <translation>Gardar &amp;Como...</translation>
+        <translation type="obsolete">Gardar &amp;Como...</translation>
     </message>
     <message>
         <source>S&amp;cripter Manual...</source>
@@ -7386,19 +9832,19 @@ Comprobe o camiño e o nome do ficheiro.</translation>
     </message>
     <message>
         <source>Oook! Wrong arguments! Call: </source>
-        <translation>Carafio! Os argumentos están errados! Chamada: </translation>
+        <translation type="obsolete">Carafio! Os argumentos están errados! Chamada: </translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to load image into an object doesn&apos;t exist or isn&apos;t selected!</source>
-        <translation>Carafio! Pretende carregar unha imaxe nun obxecto que non existe ou non está seleccionado!</translation>
+        <translation type="obsolete">Carafio! Pretende carregar unha imaxe nun obxecto que non existe ou non está seleccionado!</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to (un)lock an object doesn&apos;t exist! None selected too.</source>
-        <translation>Carafio! Pretende (des)bloquear un obxecto que non existe! Nen hai nengún seleccionado.</translation>
+        <translation type="obsolete">Carafio! Pretende (des)bloquear un obxecto que non existe! Nen hai nengún seleccionado.</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to query an object doesn&apos;t exist! None selected too.</source>
-        <translation>Carafio! Pretende interrogar a un obxecto que non existe. Nen hai nengún seleccionado.</translation>
+        <translation type="obsolete">Carafio! Pretende interrogar a un obxecto que non existe. Nen hai nengún seleccionado.</translation>
     </message>
     <message>
         <source>Print Preview</source>
@@ -7410,11 +9856,11 @@ Comprobe o camiño e o nome do ficheiro.</translation>
     </message>
     <message>
         <source>Importer</source>
-        <translation>Importador</translation>
+        <translation type="obsolete">Importador</translation>
     </message>
     <message>
         <source>Choose the importer to use</source>
-        <translation>Escolla o importador que se deba usar</translation>
+        <translation type="obsolete">Escolla o importador que se deba usar</translation>
     </message>
     <message>
         <source>All Supported Formats</source>
@@ -7443,6 +9889,715 @@ Comprobe o camiño e o nome do ficheiro.</translation>
     <message>
         <source>CSV_header</source>
         <translation>Cabezallo CSV</translation>
+    </message>
+    <message>
+        <source>Albanian</source>
+        <translation>Albanés</translation>
+    </message>
+    <message>
+        <source>Basque</source>
+        <translation>Basco</translation>
+    </message>
+    <message>
+        <source>Bulgarian</source>
+        <translation>Búlgaro</translation>
+    </message>
+    <message>
+        <source>Brazilian</source>
+        <translation>Brasileiro</translation>
+    </message>
+    <message>
+        <source>Catalan</source>
+        <translation>Catalán</translation>
+    </message>
+    <message>
+        <source>Chinese</source>
+        <translation>Chinés</translation>
+    </message>
+    <message>
+        <source>Czech</source>
+        <translation>ChecoCheco</translation>
+    </message>
+    <message>
+        <source>Danish</source>
+        <translation>Dinamarqués</translation>
+    </message>
+    <message>
+        <source>Dutch</source>
+        <translation>Holandés</translation>
+    </message>
+    <message>
+        <source>English</source>
+        <translation>Inglés</translation>
+    </message>
+    <message>
+        <source>English (British)</source>
+        <translation>Inglés (británico)</translation>
+    </message>
+    <message>
+        <source>Esperanto</source>
+        <translation>Esperanto</translation>
+    </message>
+    <message>
+        <source>German</source>
+        <translation>Alemán</translation>
+    </message>
+    <message>
+        <source>Finnish</source>
+        <translation>Finés</translation>
+    </message>
+    <message>
+        <source>French</source>
+        <translation>Francés</translation>
+    </message>
+    <message>
+        <source>Galician</source>
+        <translation>Galego</translation>
+    </message>
+    <message>
+        <source>Greek</source>
+        <translation>Grego</translation>
+    </message>
+    <message>
+        <source>Hungarian</source>
+        <translation>Húngaro</translation>
+    </message>
+    <message>
+        <source>Indonesian</source>
+        <translation>Indonesio</translation>
+    </message>
+    <message>
+        <source>Italian</source>
+        <translation>Italiano</translation>
+    </message>
+    <message>
+        <source>Korean</source>
+        <translation>Coreano</translation>
+    </message>
+    <message>
+        <source>Lithuanian</source>
+        <translation>Lituano</translation>
+    </message>
+    <message>
+        <source>Norwegian (Bokmaal)</source>
+        <translation>Noruegués (Bokmaal)</translation>
+    </message>
+    <message>
+        <source>Norwegian (Nnyorsk)</source>
+        <translation>Noruegués (Nnyorsk)</translation>
+    </message>
+    <message>
+        <source>Norwegian</source>
+        <translation>Noruegués</translation>
+    </message>
+    <message>
+        <source>Polish</source>
+        <translation>Polonés</translation>
+    </message>
+    <message>
+        <source>Russian</source>
+        <translation>Ruso</translation>
+    </message>
+    <message>
+        <source>Swedish</source>
+        <translation>Sueco</translation>
+    </message>
+    <message>
+        <source>Spanish</source>
+        <translation>Español</translation>
+    </message>
+    <message>
+        <source>Spanish (Latin)</source>
+        <translation>Español (Latinoamérica)</translation>
+    </message>
+    <message>
+        <source>Slovak</source>
+        <translation>Eslovaco</translation>
+    </message>
+    <message>
+        <source>Slovenian</source>
+        <translation>Esloveno</translation>
+    </message>
+    <message>
+        <source>Serbian</source>
+        <translation>Serbio</translation>
+    </message>
+    <message>
+        <source>Font %1 is broken, discarding it</source>
+        <translation>A Fonte %1 non está ben, non se usará</translation>
+    </message>
+    <message>
+        <source>Template: </source>
+        <translation>Modelo:</translation>
+    </message>
+    <message>
+        <source>Media Cases</source>
+        <translation>Casos de Medios</translation>
+    </message>
+    <message>
+        <source>Cannot get a color with an empty name.</source>
+        <comment>python error</comment>
+        <translation>Non se pode ter unha cor cun nome baleiro.
+
+erro de python.</translation>
+    </message>
+    <message>
+        <source>Color not found</source>
+        <comment>python error</comment>
+        <translation>Non se atopou a cor</translation>
+    </message>
+    <message>
+        <source>Cannot change a color with an empty name.</source>
+        <comment>python error</comment>
+        <translation>Non se pode cambiar unha cor con nome baleiro.</translation>
+    </message>
+    <message>
+        <source>Color not found in document</source>
+        <comment>python error</comment>
+        <translation>Non se atopou a cor no documento</translation>
+    </message>
+    <message>
+        <source>Color not found in default colors</source>
+        <comment>python error</comment>
+        <translation>Non se atopou esta cor entre as cores por omisión</translation>
+    </message>
+    <message>
+        <source>Cannot create a color with an empty name.</source>
+        <comment>python error</comment>
+        <translation>Non se pode crear unha cor con nome baleiro.
+
+erro de python.</translation>
+    </message>
+    <message>
+        <source>Cannot delete a color with an empty name.</source>
+        <comment>python error</comment>
+        <translation>Non se pode eliminar unha cor con nome baleiro.
+
+erro de python.</translation>
+    </message>
+    <message>
+        <source>Cannot replace a color with an empty name.</source>
+        <comment>python error</comment>
+        <translation>Non se pode substituir unha cor con nome baleiro.
+
+erro de python.</translation>
+    </message>
+    <message>
+        <source>Failed to open document</source>
+        <comment>python error</comment>
+        <translation>Non se deu aberto o documento
+
+erro de python</translation>
+    </message>
+    <message>
+        <source>Failed to save document</source>
+        <comment>python error</comment>
+        <translation>Non se deu gardado o documento
+
+erro de python</translation>
+    </message>
+    <message>
+        <source>Unit out of range. Use one of the scribus.UNIT_* constants.</source>
+        <comment>python error</comment>
+        <translation>Unidade fora de rango. Use unha das constantes scribus.UNIT_*.</translation>
+    </message>
+    <message>
+        <source>Target is not an image frame.</source>
+        <comment>python error</comment>
+        <translation>O destino non é unha moldura de imaxe.</translation>
+    </message>
+    <message>
+        <source>Can&apos;t scale by 0%</source>
+        <comment>python error</comment>
+        <translation>Non se pode modificar nun 0%
+
+erro de python</translation>
+    </message>
+    <message>
+        <source>Font not found</source>
+        <comment>python error</comment>
+        <translation>Non se atopou a Fonte</translation>
+    </message>
+    <message>
+        <source>Can&apos;t render an empty sample</source>
+        <comment>python error</comment>
+        <translation>Non se pode exibir unha mostra baleira</translation>
+    </message>
+    <message>
+        <source>Can&apos;t save to a blank filename</source>
+        <comment>python error</comment>
+        <translation>Non se pode salvar nun nome de ficheiro en branco</translation>
+    </message>
+    <message>
+        <source>Can&apos;t have an empty layer name</source>
+        <comment>python error</comment>
+        <translation>Non se pode ter un nome de capa baleiro</translation>
+    </message>
+    <message>
+        <source>Layer not found</source>
+        <comment>python error</comment>
+        <translation>Non se atopou a capa</translation>
+    </message>
+    <message>
+        <source>Can&apos;t remove the last layer</source>
+        <comment>python error</comment>
+        <translation>Non se puido eliminar a última capa</translation>
+    </message>
+    <message>
+        <source>Can&apos;t create layer without a name</source>
+        <comment>python error</comment>
+        <translation>Non se pode crear unha capa sen nome</translation>
+    </message>
+    <message>
+        <source>An object with the requested name already exists</source>
+        <comment>python error</comment>
+        <translation>Xa existe un obxecto co nome solicitado</translation>
+    </message>
+    <message>
+        <source>Point list must contain at least two points (four values)</source>
+        <comment>python error</comment>
+        <translation>A lista de puntos debe conter dous puntos como mínimo (catro valores)</translation>
+    </message>
+    <message>
+        <source>Point list must contain an even number of values</source>
+        <comment>python error</comment>
+        <translation>A lista de puntos debe conter un número par de valores</translation>
+    </message>
+    <message>
+        <source>Point list must contain at least three points (six values)</source>
+        <comment>python error</comment>
+        <translation>A lista de puntos debe conter tres puntos como mínimo (seis valores)</translation>
+    </message>
+    <message>
+        <source>Point list must contain at least four points (eight values)</source>
+        <comment>python error</comment>
+        <translation>A lista de puntos debe conter catro puntos como mínimo (oito valores)</translation>
+    </message>
+    <message>
+        <source>Point list must have a multiple of six values</source>
+        <comment>python error</comment>
+        <translation>A lista de puntos debe ter un múltiplo de seis valores
+
+erro de python</translation>
+    </message>
+    <message>
+        <source>Object not found</source>
+        <comment>python error</comment>
+        <translation>Non se atopou ese obxecto
+
+erro de python</translation>
+    </message>
+    <message>
+        <source>Style not found</source>
+        <comment>python error</comment>
+        <translation>Non se atopou ese estilo
+
+erro de </translation>
+    </message>
+    <message>
+        <source>Can&apos;t set style on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Non se lle pode dar ese estilo a unha moldura que non sexa de texto
+
+erro de python</translation>
+    </message>
+    <message>
+        <source>Failed to save EPS</source>
+        <comment>python error</comment>
+        <translation>Non se puido salvar como EPS
+
+erro de python</translation>
+    </message>
+    <message>
+        <source>Page number out of range</source>
+        <comment>python error</comment>
+        <translation>O número de páxina está fora do rango
+
+erro de python</translation>
+    </message>
+    <message>
+        <source>argument is not list: must be list of float values</source>
+        <comment>python error</comment>
+        <translation>o argumento non é unha lista: debe ser unha lista de valores float
+
+erro de python</translation>
+    </message>
+    <message>
+        <source>argument contains non-numeric values: must be list of float values</source>
+        <comment>python error</comment>
+        <translation>o argumento contén valores non numéricos: debe ser unha lista de valores float
+
+erro de python</translation>
+    </message>
+    <message>
+        <source>Line width out of bounds, must be 0 &lt;= line_width &lt;= 12</source>
+        <comment>python error</comment>
+        <translation>Anchura de liña fora de limites; debe ser 0 &lt;= ancho_de_liña &lt;=12
+
+erro de python</translation>
+    </message>
+    <message>
+        <source>Line shade out of bounds, must be 0 &lt;= shade &lt;= 100</source>
+        <comment>python error</comment>
+        <translation>Saturación da liña fora de limites; debe ser 0 &lt;= saturación &lt;= 100
+
+erro de python</translation>
+    </message>
+    <message>
+        <source>Fill shade out of bounds, must be 0 &lt;= shade &lt;= 100</source>
+        <comment>python error</comment>
+        <translation>Saturación do enchido fora de limites; debe ser 0 &lt;= saturación &lt;= 100
+
+erro de python</translation>
+    </message>
+    <message>
+        <source>Corner radius must be a positive number.</source>
+        <comment>python error</comment>
+        <translation>O radio da esquina debe ser un número positivo.
+
+erro de python.</translation>
+    </message>
+    <message>
+        <source>Line style not found</source>
+        <comment>python error</comment>
+        <translation>Non se atopou ese estilo de liña
+
+erro de python</translation>
+    </message>
+    <message>
+        <source>Cannot get font size of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Non se pode saber o tamaño da fonte dunha moldura que non sexa de texto.
+
+erro de python.</translation>
+    </message>
+    <message>
+        <source>Cannot get font of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Non se pode saber a fonte dunha moldura que non sexa de texto.
+
+erro de python.</translation>
+    </message>
+    <message>
+        <source>Cannot get text size of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Non se pode saber o tamaño do texto dunha moldura que non sexa de texto.
+
+erro de python.</translation>
+    </message>
+    <message>
+        <source>Cannot get column count of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Non se pode saber o número de columnas dunha moldura que non sexa de texto.
+
+erro de python.</translation>
+    </message>
+    <message>
+        <source>Cannot get line space of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Non se pode saber o espaciamento entre liñas dunha moldura que non sexa de texto.
+
+erro de python.</translation>
+    </message>
+    <message>
+        <source>Cannot get column gap of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Non se pode saber a distancia entre columnas dunha moldura que non sexa de texto.
+
+erro de python.</translation>
+    </message>
+    <message>
+        <source>Cannot get text of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Non se pode saber o texto dunha moldura que non sexa de texto.
+
+erro de python.</translation>
+    </message>
+    <message>
+        <source>Cannot set text of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Non se pode asignar texto a unha moldura que non sexa de texto.
+
+erro de python.</translation>
+    </message>
+    <message>
+        <source>Cannot insert text into non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Non se pode inserir texto nunha moldura que non sexa de texto.
+
+erro de python.</translation>
+    </message>
+    <message>
+        <source>Insert index out of bounds</source>
+        <comment>python error</comment>
+        <translation>Índice de inserción fora de limites
+
+erro de python</translation>
+    </message>
+    <message>
+        <source>Alignment out of range. Use one of the scribus.ALIGN* constants.</source>
+        <comment>python error</comment>
+        <translation>Aliñamento fora de rango. Use unha das constantes scribus.ALIGN*.
+
+erro de python.</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set text alignment on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Non se pode asignar un aliñamento a unha moldura que non sexa de texto
+
+erro de python</translation>
+    </message>
+    <message>
+        <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512</source>
+        <comment>python error</comment>
+        <translation>Tamaño da fonte fora de limites - debe ser 1&lt;= tamaño &lt;= 512
+
+erro de python</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set font size on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Non se pode asignar un tamaño de fonte a unha moldura que non sexa de texto
+
+erro de python</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set font on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Non se pode asignar unha fonte a unha moldura que non sexa de texto
+
+erro de python</translation>
+    </message>
+    <message>
+        <source>Line space out of bounds, must be &gt;= 0.1</source>
+        <comment>python error</comment>
+        <translation>Espaciamento de liña fora de limites - debe ser &gt;= 0.1
+
+erro de python</translation>
+    </message>
+    <message>
+        <source>Can&apos;t line spacing on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Non pode haber espaciamento entre liñas nunha moldura que non sexa de texto</translation>
+    </message>
+    <message>
+        <source>Column gap out of bounds, must be positive</source>
+        <comment>python error</comment>
+        <translation>Distancia entre columnas fora de limites - debe ser positiva
+
+erro de python</translation>
+    </message>
+    <message>
+        <source>Can&apos;t column gap on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Non pode haber distancia entre columnas nunha moldura que non sexa de texto
+
+erro de python</translation>
+    </message>
+    <message>
+        <source>Column count out of bounds, must be &gt; 1</source>
+        <comment>python error</comment>
+        <translation>Número de columnas fora de limites - debe ser &gt; 1
+
+erro de python</translation>
+    </message>
+    <message>
+        <source>Can&apos;t number of columns on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Non se poden numerar columnas nunha moldura que non sexa de texto
+
+erro de python</translation>
+    </message>
+    <message>
+        <source>Selection index out of bounds</source>
+        <comment>python error</comment>
+        <translation>Índice da selección fora de limites
+
+erro de python</translation>
+    </message>
+    <message>
+        <source>Can&apos;t select text in a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Non se pode seleccionar texto dunha moldura que non sexa de texto
+
+erro de python</translation>
+    </message>
+    <message>
+        <source>Can&apos;t delete text from a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Non se pode limpar o texto dunha moldura que non sexa de texto
+
+erro de python</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set text fill on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Non se pode asignar un enchido a unha moldura que non sexa de texto
+
+erro de python</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set text stroke on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Non se pode asignar un trazo de texto a unha moldura que non sexa de texto
+
+erro de python</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set text shade on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Non se pode asignar unha saturación de texto a unha moldura que non sexa de texto
+
+erro de python</translation>
+    </message>
+    <message>
+        <source>Can only link text frames</source>
+        <comment>python error</comment>
+        <translation>Só se poden vincular molduras de texto
+
+erro de python</translation>
+    </message>
+    <message>
+        <source>Target frame must be empty</source>
+        <comment>python error</comment>
+        <translation>A moldura de destino debe estar baleira
+
+erro de python</translation>
+    </message>
+    <message>
+        <source>Target frame links to another frame</source>
+        <comment>python error</comment>
+        <translation>A moldura de destino está vinculada a outra moldura 
+
+erro de python</translation>
+    </message>
+    <message>
+        <source>Target frame is linked to by another frame</source>
+        <comment>python error</comment>
+        <translation>A moldura de destino ten vinculación desde outra moldura
+
+erro de python</translation>
+    </message>
+    <message>
+        <source>Source and target are the same object</source>
+        <comment>python error</comment>
+        <translation>A fonte e o destino son o mesmo obxecto
+
+erro de python</translation>
+    </message>
+    <message>
+        <source>Can&apos;t unlink a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Non se pode desvincular unha moldura que non sexa de texto.
+
+erro de python</translation>
+    </message>
+    <message>
+        <source>Object is not a linked text frame, can&apos;t unlink.</source>
+        <comment>python error</comment>
+        <translation>Este obxecto non é unha moldura de texto vinculada, non se pode desvincular.</translation>
+    </message>
+    <message>
+        <source>Object the last frame in a series, can&apos;t unlink. Unlink the previous frame instead.</source>
+        <comment>python error</comment>
+        <translation>Este obxecto é a última moldura dunha serie, non se pode desvincular.
+Desvincule no seu lugar a moldura anterior.
+
+erro de python.</translation>
+    </message>
+    <message>
+        <source>Can&apos;t convert a non-text frame to outlines</source>
+        <comment>python error</comment>
+        <translation>Non se pode converter unha moldura que non sexa de texto en siluetas
+
+erro de python</translation>
+    </message>
+    <message>
+        <source>Tried to set progress &gt; maximum progress</source>
+        <translation>Tentouse asignar progreso &gt; máximo progreso</translation>
+    </message>
+    <message>
+        <source>&amp;About Script...</source>
+        <translation>&amp;Acerca de Script...</translation>
+    </message>
+    <message>
+        <source>About Script</source>
+        <translation>Acerca de Script</translation>
+    </message>
+    <message>
+        <source>Import &amp;OpenOffice.org Draw...</source>
+        <translation>Importar do &amp;Draw de OpenOffice.org...</translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
+        <translation>OpenOffice.org Draw (*.sxd);;Todo (*)</translation>
+    </message>
+    <message>
+        <source>
+External Links
+</source>
+        <translation>Vínculos externos</translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Writer Documents</source>
+        <translation>Documentos do Writer de OpenOffice.org</translation>
+    </message>
+    <message>
+        <source>Text Filters</source>
+        <translation>Filtros de texto</translation>
+    </message>
+    <message>
+        <source>Scribus Python interface module
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>This module is the Python interface for Scribus. It provides functions
+<byte value="x9"/><byte value="x9"/>to control scribus and to manipulate objects on the canvas. Each
+<byte value="x9"/><byte value="x9"/>function is documented individually below.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>A few things are common across most of the interface.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>Most functions operate on frames. Frames are identified by their name,
+<byte value="x9"/><byte value="x9"/>a string - they are not real Python objects. Many functions take an
+<byte value="x9"/><byte value="x9"/>optional (non-keyword) parameter, a frame name.
+<byte value="x9"/><byte value="x9"/>Many exceptions are also common across most functions. These are
+<byte value="x9"/><byte value="x9"/>not currently documented in the docstring for each function.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Many functions will raise a NoDocOpenError if you try to use them
+<byte value="x9"/><byte value="x9"/>      without a document to operate on.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - If you do not pass a frame name to a function that requires one,
+<byte value="x9"/><byte value="x9"/>      the function will use the currently selected frame, if any, or
+<byte value="x9"/><byte value="x9"/>      raise a NoValidObjectError if it can&apos;t find anything to operate
+<byte value="x9"/><byte value="x9"/>      on.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Many functions will raise WrongFrameTypeError if you try to use them
+<byte value="x9"/><byte value="x9"/>      on a frame type that they do not make sense with. For example, setting
+<byte value="x9"/><byte value="x9"/>      the text colour on a graphics frame doesn&apos;t make sense, and will result
+<byte value="x9"/><byte value="x9"/>      in this exception being raised.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Errors resulting from calls to the underlying Python API will be
+<byte value="x9"/><byte value="x9"/>      passed through unaltered. As such, the list of exceptions thrown by
+<byte value="x9"/><byte value="x9"/>      any function as provided here and in its docstring is incomplete.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>Details of what exceptions each function may throw are provided on the
+<byte value="x9"/><byte value="x9"/>function&apos;s documentation.
+<byte value="x9"/><byte value="x9"/></source>
+        <translation>Módulo de interface de Python para Scribus
+    Este módulo é a interface de Python para Scribus. Fornece funcións
+  para controlar Scribus e para manipular obxectos na tela. Cada
+  función documéntase individualmente máis abaixo.
+    Algunhas cousas son comúns en practicamente toda a interface.
+    A maioría das funcións operan sobre molduras. As molduras identifícanse polo seu nome,
+  que é unha cadea (non son obxectos reais de Python). A maioría das funcións levan un
+  parámetro opcional (que non é unha palabra-chave), un nome de moldura.
+  Moitas excepcións son tamén comúns para a maioría das funcións. Estas non se
+  mencionan actualmente no docstring de cada función.
+        Moitas funcións provocarán un NoDocOpenError se tenta utilizalas
+        sen fornecer un documento sobre o que operar.
+        - Se non lle pasa un nome de moldura a unha función que a precisar,
+        a función usará a moldura seleccionada nese momento, de habela, ou
+        provocará un NoValidObjectError se non pode atopar nada sobre o que operar.
+        - Moitas funcións provocarán un WrongFrameTypeError se tenta utilizalas
+        sobre un tipo de moldura que non teña sentido. Por exemplo, asignarlle a
+        cor de texto a unha moldura de gráficos non ten sentido e resultará
+        en que se provoque unha excepción.
+        - Os erros que resulten en chamadas á API de Python subxacente pasaranse
+        sen alterar. Como tal, a lista de excepcións enviadas por calquer función, tal e
+        como se fornecen aquí e no seu docstring, é incompleta.
+    Detalles sobre cais son as excepcións que pode enviar cada función fornécense
+    na documentación da función.</translation>
     </message>
 </context>
 <context>
@@ -7666,6 +10821,42 @@ Se se seleccionan Páxinas Enfrentadas, pódese usar este espazo de marxe para a
     <message>
         <source>&amp;Outside:</source>
         <translation>&amp;Exterior:</translation>
+    </message>
+    <message>
+        <source>Page Size</source>
+        <translation>Tamaño da Páxina</translation>
+    </message>
+    <message>
+        <source>Size:</source>
+        <translation>Tamaño:</translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <translation>Personalizado</translation>
+    </message>
+    <message>
+        <source>Orientation:</source>
+        <translation>Orientación:</translation>
+    </message>
+    <message>
+        <source>Portrait</source>
+        <translation>Retrato</translation>
+    </message>
+    <message>
+        <source>Landscape</source>
+        <translation>Apaisado</translation>
+    </message>
+    <message>
+        <source>Width:</source>
+        <translation>Anchura:</translation>
+    </message>
+    <message>
+        <source>Height:</source>
+        <translation>Altura:</translation>
+    </message>
+    <message>
+        <source>F&amp;irst Page Number:</source>
+        <translation>Número da Pr&amp;imeira Páxina:</translation>
     </message>
 </context>
 <context>
@@ -8946,6 +12137,18 @@ Se se seleccionan Páxinas Enfrentadas, pódese usar este espazo de marxe para a
         <source>&amp;Edit Shape</source>
         <translation>&amp;Modificar a Forma</translation>
     </message>
+    <message>
+        <source>Font System Initialized</source>
+        <translation>Sistema de Fontes Inicializado</translation>
+    </message>
+    <message>
+        <source>File %1 is not in Scribus format</source>
+        <translation>O Ficheiro %1 non está no formato do Scribus</translation>
+    </message>
+    <message>
+        <source>Afrikaans</source>
+        <translation>Afrikaans</translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -9133,6 +12336,10 @@ Se se seleccionan Páxinas Enfrentadas, pódese usar este espazo de marxe para a
         <source>&amp;Close</source>
         <translation>&amp;Fechar</translation>
     </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation>&amp;Limpar</translation>
+    </message>
 </context>
 <context>
     <name>SeitenPal</name>
@@ -9255,7 +12462,7 @@ arrastre un Modelo para a Vista de Páxina de embaixo.</translation>
     </message>
     <message>
         <source>Do you really want do delete this Style?</source>
-        <translation>Seguro que o que quer é eliminar este Estilo?</translation>
+        <translation type="obsolete">Seguro que o que quer é eliminar este Estilo?</translation>
     </message>
     <message>
         <source>No</source>
@@ -9308,6 +12515,10 @@ arrastre un Modelo para a Vista de Páxina de embaixo.</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Cancelar</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this Style?</source>
+        <translation>Pretende realmente eliminar este Estilo?</translation>
     </message>
 </context>
 <context>
@@ -9366,7 +12577,7 @@ arrastre un Modelo para a Vista de Páxina de embaixo.</translation>
     </message>
     <message>
         <source>&amp;Insert Special</source>
-        <translation>&amp;Inserir Especial</translation>
+        <translation type="obsolete">&amp;Inserir Especial</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -9490,11 +12701,15 @@ arrastre un Modelo para a Vista de Páxina de embaixo.</translation>
     </message>
     <message>
         <source>&amp;Fonts Preview</source>
-        <translation>Vista Previa das &amp;Fontes</translation>
+        <translation type="obsolete">Vista Previa das &amp;Fontes</translation>
     </message>
     <message>
         <source>Clear all Text</source>
         <translation>Limpar todo o Texto</translation>
+    </message>
+    <message>
+        <source>&amp;Smart text selection</source>
+        <translation>Selección de texto &amp;intelixente</translation>
     </message>
 </context>
 <context>
@@ -9522,6 +12737,51 @@ arrastre un Modelo para a Vista de Páxina de embaixo.</translation>
     <message>
         <source>Strike Out</source>
         <translation>Tachado</translation>
+    </message>
+</context>
+<context>
+    <name>SxwDialog</name>
+    <message>
+        <source>OpenOffice.org Writer Importer Options</source>
+        <translation>Opcións do Importador do Writer de OpenOffice.org</translation>
+    </message>
+    <message>
+        <source>Update paragraph styles</source>
+        <translation>Actualizar os estilos de parágrafo</translation>
+    </message>
+    <message>
+        <source>If a paragraph style already exists with the same name as the current
+OpenOffice.org document&apos;s paragraph, should the style in Scribus be
+edited to match the one being imported, or left untouched</source>
+        <translation>Se xa existe un estilo de parágrafo co mesmo nome que o parágrafo
+actual do documento de OpenOffice.org, deberíase modificar o estilo en Scribus
+para que equivalla ao que se importa ou non se debería tocar</translation>
+    </message>
+    <message>
+        <source>Use document name as a prefix for paragraph styles</source>
+        <translation>Usar o nome do documento como prefixo dos estilos de parágrafo</translation>
+    </message>
+    <message>
+        <source>Should importer add the name of the document
+on front of the paragraph style name in Scribus</source>
+        <translation>Debería o importador adicionar o nome do documento
+por diante do nome do estilo de parágrafo en Scribus</translation>
+    </message>
+    <message>
+        <source>Do not ask again</source>
+        <translation>Non perguntar máis</translation>
+    </message>
+    <message>
+        <source>Should the importer always use currently
+set value when importing OpenOffice.org document and
+never ask your confirmation again</source>
+        <translation>Debería o importador utilizar sempre o valor actualmente
+asignado ao importar un documento do OpenOffice.org
+e non pedir máis a súa configuración</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>Dacordo</translation>
     </message>
 </context>
 <context>
@@ -9603,7 +12863,11 @@ arrastre un Modelo para a Vista de Páxina de embaixo.</translation>
     </message>
     <message>
         <source>Ind&amp;ent:</source>
-        <translation>Ind&amp;entación:</translation>
+        <translation type="obsolete">Ind&amp;entación:</translation>
+    </message>
+    <message>
+        <source>Left Ind&amp;ent:</source>
+        <translation>Ind&amp;entación á esquerda:</translation>
     </message>
 </context>
 <context>
@@ -9681,6 +12945,33 @@ Póñalle outro.</translation>
     <message>
         <source>Group </source>
         <translation>Grupo</translation>
+    </message>
+</context>
+<context>
+    <name>ValueDialog</name>
+    <message>
+        <source>Insert value</source>
+        <translation>Introdución de valores</translation>
+    </message>
+    <message>
+        <source>Enter a value then press OK.</source>
+        <translation>Introduza un valor e despóis prema sobre Dacordo.</translation>
+    </message>
+    <message>
+        <source>Enter a value then press OK</source>
+        <translation>Introduza un valor e despóis prema sobre Dacordo</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;Dacordo</translation>
+    </message>
+    <message>
+        <source>Alt+O</source>
+        <translation>Alt+O</translation>
+    </message>
+    <message>
+        <source>Send your value to the script</source>
+        <translation>Envíelle o seu valor ao guión</translation>
     </message>
 </context>
 <context>
@@ -9860,6 +13151,29 @@ Póñalle outro.</translation>
     </message>
 </context>
 <context>
+    <name>gtImporterDialog</name>
+    <message>
+        <source>Choose the importer to use</source>
+        <translation>Escolla que importador quer usar</translation>
+    </message>
+    <message>
+        <source>Remember association</source>
+        <translation>Lembrar a asociación</translation>
+    </message>
+    <message>
+        <source>Remember the file extension - importer association
+and do not ask again to select an importer for
+files of this type.</source>
+        <translation>Lembrar a extensión do ficheiro - asociación do importador
+e non perguntar máis ao seleccionar un importador
+para ficheiros deste tipo.</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>Dacordo</translation>
+    </message>
+</context>
+<context>
     <name>nftdialog</name>
     <message>
         <source>New From Template</source>
@@ -10035,6 +13349,120 @@ Póñalle outro.</translation>
     <message>
         <source>custom</source>
         <translation>personalizado</translation>
+    </message>
+</context>
+<context>
+    <name>tfDia</name>
+    <message>
+        <source>Create filter</source>
+        <translation>Crear un filtro</translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation>&amp;Limpar</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation>&amp;Eliminar</translation>
+    </message>
+    <message>
+        <source>Choose a previously saved filter</source>
+        <translation>Escoller un filtro gardado con anterioridade</translation>
+    </message>
+    <message>
+        <source>Give a name to this filter for saving</source>
+        <translation>Darlle un nome a este filtro para gardalo</translation>
+    </message>
+    <message>
+        <source>Give a name for saving</source>
+        <translation>Darlle un nome para gardalo</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;Dacordo</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Cancelar</translation>
+    </message>
+</context>
+<context>
+    <name>tfFilter</name>
+    <message>
+        <source>Disable or enable this filter row</source>
+        <translation>Des/Habilitar esta liña do filtro</translation>
+    </message>
+    <message>
+        <source>Remove this filter row</source>
+        <translation>Limpar esta liña do filtro</translation>
+    </message>
+    <message>
+        <source>Add a new filter row</source>
+        <translation>Adicionar unnha nova liña ao filtro</translation>
+    </message>
+    <message>
+        <source>to</source>
+        <translation>para</translation>
+    </message>
+    <message>
+        <source>and</source>
+        <translation>e</translation>
+    </message>
+    <message>
+        <source>remove match</source>
+        <translation>eliminar a equivalencia</translation>
+    </message>
+    <message>
+        <source>do not remove match</source>
+        <translation>non eliminar a equivalencia</translation>
+    </message>
+    <message>
+        <source>words</source>
+        <translation>palabras</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Eliminar</translation>
+    </message>
+    <message>
+        <source>Replace</source>
+        <translation>Substituir</translation>
+    </message>
+    <message>
+        <source>Apply</source>
+        <translation>Aplicar</translation>
+    </message>
+    <message>
+        <source>Value at the left is a regular expression</source>
+        <translation>O valor da esquerda é unha expresión regular</translation>
+    </message>
+    <message>
+        <source>with</source>
+        <translation>con</translation>
+    </message>
+    <message>
+        <source>paragraph style</source>
+        <translation>estilo do parágrafo</translation>
+    </message>
+    <message>
+        <source>all instances of</source>
+        <translation>todas as veces que apareza</translation>
+    </message>
+    <message>
+        <source>all paragraphs</source>
+        <translation>todos os parágrafos</translation>
+    </message>
+    <message>
+        <source>paragraphs starting with</source>
+        <translation>todos os parágrafos que comecen por</translation>
+    </message>
+    <message>
+        <source>paragraphs with less than</source>
+        <translation>parágrafos con menos de</translation>
+    </message>
+    <message>
+        <source>paragraphs with more than</source>
+        <translation>parágrafos con máis de</translation>
     </message>
 </context>
 </TS>
