@@ -40,6 +40,7 @@
 #include <qdom.h>
 #include <qdir.h>
 #include <qsplitter.h>
+#include <qmime.h>
 
 #ifdef _MSC_VER
 #if (_MSC_VER >= 1200)
@@ -119,6 +120,9 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString caption, QString guiLanguage,
 	//textBrowser = new QTextBrowser( this, "textBrowser" );
 	textBrowser->setSizePolicy( QSizePolicy( QSizePolicy::Ignored, QSizePolicy::Expanding, false ) );
 	textBrowser->setFrameShape( QTextBrowser::StyledPanel );
+	QMimeSourceFactory *textBrowserMSF=textBrowser->mimeSourceFactory();
+	textBrowserMSF->setExtensionType("html", "text/html;charset=UTF-8");
+	
 	//helpBrowserLayout->addWidget( textBrowser );
 	helpBrowsermainLayout->addLayout( helpBrowserLayout );
 
