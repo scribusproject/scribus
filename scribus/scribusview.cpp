@@ -6552,7 +6552,7 @@ void ScribusView::slotDoCurs(bool draw)
 			}
 			else
 			{
-				if (b->itemText.at(b->CPos)->ch == QChar(9))
+				if ((b->itemText.at(b->CPos)->ch == QChar(9)) || (b->itemText.at(b->CPos)->ch == QChar(13)) || (b->itemText.at(b->CPos)->ch == QChar(28)))
 				{
 					double lineCorr;
 					if (b->lineColor() != "None")
@@ -6560,12 +6560,17 @@ void ScribusView::slotDoCurs(bool draw)
 					else
 						lineCorr = 0;
 					xp = static_cast<int>(b->Extra + lineCorr);
+					yp = static_cast<int>(b->TExtra + lineCorr + b->LineSp);
+					desc = static_cast<int>((*Doc->AllFonts)[b->IFont]->numDescender * (-b->ISize / 10.0));
+					asce = static_cast<int>((*Doc->AllFonts)[b->IFont]->numAscent * (b->ISize / 10.0));
 				}
 				else
+				{
 					xp = static_cast<int>(b->itemText.at(b->CPos)->xp);
-				yp = static_cast<int>(b->itemText.at(b->CPos)->yp);
-				desc = static_cast<int>((*Doc->AllFonts)[b->itemText.at(b->CPos)->cfont]->numDescender * (-b->itemText.at(b->CPos)->csize / 10.0));
-				asce = static_cast<int>((*Doc->AllFonts)[b->itemText.at(b->CPos)->cfont]->numAscent * (b->itemText.at(b->CPos)->csize / 10.0));
+					yp = static_cast<int>(b->itemText.at(b->CPos)->yp);
+					desc = static_cast<int>((*Doc->AllFonts)[b->itemText.at(b->CPos)->cfont]->numDescender * (-b->itemText.at(b->CPos)->csize / 10.0));
+					asce = static_cast<int>((*Doc->AllFonts)[b->itemText.at(b->CPos)->cfont]->numAscent * (b->itemText.at(b->CPos)->csize / 10.0));
+				}
 			}
 		}
 		yp1 = yp - asce;

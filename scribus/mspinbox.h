@@ -44,6 +44,8 @@ public:
 	bool isReadOnly() const;
 
 public slots:
+	void textChanged();
+	void stepDown();
 	void setMaxValue(double val);
 	void setMinValue(double val);
 	void setValue(double val);
@@ -56,6 +58,7 @@ protected:
 	void setParameters( int s );
 	bool readOnly;
 	int oldLineStep;
+	bool edited;
 };
 
 #endif

@@ -167,6 +167,10 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi)
 	PicTable->setColumnMovingEnabled(false);
 	PicTable->setRowMovingEnabled(false);
 	Header->setMovingEnabled(false);
+	PicTable->setColumnReadOnly(0, true);
+	PicTable->setColumnReadOnly(1, true);
+	PicTable->setColumnReadOnly(2, true);
+	PicTable->setColumnReadOnly(5, true);
 	PicStatusLayout->addWidget( PicTable );
 
 	Layout2 = new QHBoxLayout;

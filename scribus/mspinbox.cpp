@@ -41,6 +41,8 @@ MSpinBox::MSpinBox(QWidget *pa, int s):QSpinBox(pa)
 	QSpinBox::setLineStep(Decimals);
 	oldLineStep=0;
 	readOnly=false;
+	edited = false;
+    connect( ed, SIGNAL(textChanged(const QString&)), SLOT(textChanged()) );
 }
 /*!
  \fn MSpinBox(double minValue, double maxValue, QWidget *pa, int s)
@@ -62,6 +64,8 @@ MSpinBox::MSpinBox(double minValue, double maxValue, QWidget *pa, int s):QSpinBo
 	setMinValue(minValue);
 	setMaxValue(maxValue);
 	readOnly=false;
+	edited = false;
+    connect( ed, SIGNAL(textChanged(const QString&)), SLOT(textChanged()) );
 }
 
 void MSpinBox::setParameters( int s )
@@ -76,6 +80,7 @@ void MSpinBox::setParameters( int s )
 		Width = 2;
 		Decimals = 100;
 	}
+	edited = false;
 }
 
 bool MSpinBox::eventFilter( QObject* ob, QEvent* ev )
@@ -133,7 +138,7 @@ QString MSpinBox::mapValueToText(int value)
  \fn MSpinBox::mapTextToValue(bool *)
  \author Franz Schmid
  \date
- \brief Maps the Text fo the Spinbox to the Value, does Unit Conversion and Calculations
+ \brief Maps the Text of the Spinbox to the Value, does Unit Conversion and Calculations
  \param None
  \retval The Value
  */
@@ -210,12 +215,28 @@ int MSpinBox::mapTextToValue(bool *)
 	return qRound(erg*Decimals);
 }
 
+void MSpinBox::textChanged()
+{
+	edited = true;
+}
+
+void MSpinBox::stepDown()
+{
+	if ( edited )
+		QSpinBox::interpretText();
+	if ( wrapping() && ( QSpinBox::value()-lineStep() < QSpinBox::minValue() ) )
+		QSpinBox::setValue( QSpinBox::maxValue() - (QSpinBox::maxValue() % lineStep()));
+	else
+		QSpinBox::subtractLine();
+}
+
 void MSpinBox::setValues(double min, double max, int deci, double val)
 {
 	setDecimals(deci);
 	setMinValue(min);
 	setMaxValue(max);
 	setValue(val);
+	edited = false;
 }
 
 void MSpinBox::getValues(double *min, double *max, int *deci, double *val)
@@ -282,6 +303,7 @@ void MSpinBox::setMinValue(double val)
 void MSpinBox::setValue(double val)
 {
 	QSpinBox::setValue(qRound(val*Decimals));
+	edited = false;
 }
 
 /*!

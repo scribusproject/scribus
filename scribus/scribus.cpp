@@ -2568,14 +2568,10 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 								setTBvals(b);
 								view->RefreshItem(b);
 							}
-							keyrep = false;
-							return;
+							break;
 						}
 						if (b->itemText.count() == 0)
-						{
-							keyrep = false;
-							return;
-						}
+							break;
 						cr = b->itemText.at(QMAX(b->CPos-1,0))->ch;
 						if (b->HasSel)
 							DeleteSel(b);
@@ -2630,7 +2626,6 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							view->RefreshItem(b);
 							break;
 						}
-
 						if (((uc[0] > QChar(31)) || (as == 13) || (as == 30)) && ((*doc->AllFonts)[doc->CurrFont]->CharWidth.contains(uc[0].unicode())))
 						{
 							hg = new ScText;
@@ -2684,9 +2679,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						}
 						break;
 					}
-					if (b->itemText.count() != 0)
-						if (b->itemText.at(QMAX(b->CPos-1, 0))->yp != 0)
-							view->slotDoCurs(true);
+					view->slotDoCurs(true);
 					if ((kk == Key_Left) || (kk == Key_Right) || (kk == Key_Up) || (kk == Key_Down))
 					{
 						keyrep = false;

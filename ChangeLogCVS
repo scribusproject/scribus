@@ -2,8 +2,11 @@
 
 Scribus - 1.3.0cvs
 ==================
-- 0001766: [General] Display of right hand margin too long (fschmid)
+- 0001732: [User Interface] in the rotation field of the xyz-tab after 360° comes 0° (fschmid)
+- 0001719: [Story Editor / Text Frames] Deleting first character of text frame leaves editing mode (fschmid)
 - 0001765: [Picture Frames] selectin "goto" in the picture manager crashes scribus (fschmid)
+- 0001582: [Default] A Preflight checker for Files (fschmid)
+- 0001766: [General] Display of right hand margin too long (fschmid)
 - 0001741: [Scripter] textoverflows() not working (subik)
 - 0001762: [Default] Implement a configure check for libtiff 3.6+ (ringerc)
 - 0001761: [Default] Implement an OASIS document format importer (Tsoots)
