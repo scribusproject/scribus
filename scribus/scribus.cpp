@@ -2986,9 +2986,13 @@ void ScribusApp::SelectAll()
 void ScribusApp::ClipChange()
 {
 	QString cc;
+#if QT_VERSION  >= 0x030100
 	cc = ClipB->text(QClipboard::Clipboard);
 	if (cc.isNull())
 		cc = ClipB->text(QClipboard::Selection);
+#else
+	cc = ClipB->text();
+#endif
 	editMenu->setItemEnabled(edid3, 0);
 	if (!cc.isNull())
 		{
@@ -3685,9 +3689,13 @@ void ScribusApp::setAppMode(int mode)
 					}
 				}
 			QString cc;
+#if QT_VERSION  >= 0x030100
 			cc = ClipB->text(QClipboard::Clipboard);
 			if (cc.isNull())
 				cc = ClipB->text(QClipboard::Selection);
+#else
+			cc = ClipB->text();
+#endif
 			editMenu->setItemEnabled(edid3, 0);
 			if (!cc.isNull())
 				{
@@ -5374,7 +5382,6 @@ void ScribusApp::SaveAsPDF()
 			}
 		if (!getPDFDriver(fn, nam, Components, frPa, toPa, thumbs))
 			QMessageBox::warning(this, tr("Warning"), tr("Can't write the File: \n%1").arg(fn), tr("OK"));
-//		BuildFontMenu();
  		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 		}
   delete dia;
@@ -5499,6 +5506,7 @@ void ScribusApp::slotElemRead(QString Name, int x, int y, bool art, bool loca, S
   	{
   	BuildFontMenu();
 		Mpal->Spal->updateFList();
+		Mpal->SetLineFormats(docc);
   	docc->ActPage->update();
   	slotDocCh();
 		docc->UnDoValid = false;
@@ -5555,13 +5563,6 @@ void ScribusApp::ManageTemp(QString temp)
 	DatSav->setEnabled(false);
 	DatOpe->setEnabled(false);
 	DatClo->setEnabled(false);
-/*	fileMenu->setItemEnabled(fid1, 0);
-	fileMenu->setItemEnabled(fid4, 0);
-	fileMenu->setItemEnabled(fid5, 0);
-	fileMenu->setItemEnabled(fid51, 0);
-	fileMenu->setItemEnabled(fid12, 0);
-	fileMenu->setItemEnabled(fid13, 0);
-	fileMenu->setItemEnabled(fid14, 0);   */
 	fileMenu->setEnabled(false);
 	doc->TemplateMode = true;
 	Sepal->DisablePal();

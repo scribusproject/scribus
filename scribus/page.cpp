@@ -4739,6 +4739,8 @@ void Page::TextToPath()
 					continue;
 				}
 			pts = traceCharacter(b, chx, a, &x, &y);
+			if (pts.size() == 0)
+				continue;
 			uint z = PaintPoly(b->Xpos, b->Ypos, b->Width, b->Height, b->Pwidth, b->Pcolor2, b->Pcolor);
 			bb = Items.at(z);
 			bb->PoLine = pts;
@@ -4770,7 +4772,7 @@ void Page::TextToPath()
 			bb->ClipEdited = true;
 			SelItem.append(bb);
 			}
-		if (SelItem.count() != 0)
+		if (SelItem.count() > 1)
 			{
 			for (uint ag = 0; ag < SelItem.count(); ++ag)
 				{

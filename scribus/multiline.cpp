@@ -226,7 +226,13 @@ void MultiLine::updateSList()
 			break;
 		}
 	tmp2 += " ";
-	Styles->changeItem(pm, tmp2, CurLin);
+	if (Styles->count() == 1)				// to avoid Bug in Qt-3.1.2
+		{
+		Styles->clear();
+		Styles->insertItem(pm, tmp2);
+		}
+	else
+		Styles->changeItem(pm, tmp2, CurLin);
 	}
 
 void MultiLine::reSort()

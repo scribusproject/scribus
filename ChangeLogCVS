@@ -1,4 +1,9 @@
 Changes since Version 0.9.10
+10.06.2003	multiline.cpp		Added Workaround for a Bug in Qt-3.1.2
+		page.cpp		Improved Text to Path
+		scribus.cpp		Compile Fix for Qt-3.0.x
+		scribusXml.cpp		Added Saving of Linestyles.
+
 09.06.2003	lineformats.cpp
 		multiline.cpp		Added Support for Named Linestyles, allowing to have
 					Paths stroked with multiple Lines.
@@ -15,7 +20,7 @@ Changes since Version 0.9.10
 		pageitem.cpp
 		serializer.cpp		Fixed various Bugs with the Textbox and Styles.
 
-02.06.2003	svgexplugin.cpp		Improved Image Support, Images are now save as PNG-Images in the
+02.06.2003	svgexplugin.cpp		Improved Image Support, Images are now saved as PNG-Images in the
 					same Folder as the SVG File.
 		preview.cpp		Added New Plugin for Print Preview.
 					Needs Ghostscript to work.

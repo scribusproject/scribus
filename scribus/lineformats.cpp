@@ -153,5 +153,11 @@ void LineFormate::UpdateFList()
    	EditB->setEnabled(false);
     DeleteB->setEnabled(false);
 		}
+	else
+		{
+		EditB->setEnabled(true);
+		DublicateB->setEnabled(true);
+		DeleteB->setEnabled(true);
+		}
 	connect(ListBox1, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selFormat(QListBoxItem*)));
 }

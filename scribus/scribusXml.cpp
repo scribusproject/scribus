@@ -1153,6 +1153,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 	QFont fo;
 	QMap<QString,QString> DoFonts;
 	QMap<uint,QString> DoVorl;
+	QMap<QString,QString> DoMul;
 	uint VorlC;
 	bool fou;
 	bool VorLFound = false;
@@ -1227,14 +1228,32 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			}
 		if(pg.tagName()=="COLOR")
 			{
+			if (pg.hasAttribute("CMYK"))
+				lf.setNamedColor(pg.attribute("CMYK"));
+			else
+				lf.fromQColor(QColor(pg.attribute("RGB")));
 			if (!doc->PageColors.contains(pg.attribute("NAME")))
-				{
-				if (pg.hasAttribute("CMYK"))
-					lf.setNamedColor(pg.attribute("CMYK"));
-				else
-					lf.fromQColor(QColor(pg.attribute("RGB")));
 		  	doc->PageColors[pg.attribute("NAME")] = lf;
+			}
+		if(pg.tagName()=="MultiLine")
+			{
+			multiLine ml;
+			QDomNode MuLn = DOC.firstChild();
+			while(!MuLn.isNull())
+				{
+				QDomElement MuL = MuLn.toElement();
+				struct singleLine sl;
+				sl.Color = MuL.attribute("Color");
+				sl.Dash = QStoInt(MuL.attribute("Dash"));
+				sl.LineEnd = QStoInt(MuL.attribute("LineEnd"));
+				sl.LineJoin = QStoInt(MuL.attribute("LineJoin"));
+				sl.Shade = QStoInt(MuL.attribute("Shade"));
+				sl.Width = QStoFloat(MuL.attribute("Width"));
+				ml.append(sl);
+				MuLn = MuLn.nextSibling();
 				}
+			if (!doc->MLineStyles.contains(pg.attribute("Name")))
+				doc->MLineStyles.insert(pg.attribute("Name"), ml);
 			}
 		if(pg.tagName()=="STYLE")
 			{
@@ -1802,6 +1821,26 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 			fo.setAttribute("FONTSIZE",doc->Vorlagen[ff].FontSize);
 			elem.appendChild(fo);
 			}
+		}
+	QMap<QString,multiLine>::Iterator itMU;
+	for (itMU = doc->MLineStyles.begin(); itMU != doc->MLineStyles.end(); ++itMU)
+		{
+		QDomElement MuL=docu.createElement("MultiLine");
+		MuL.setAttribute("Name",itMU.key());
+		multiLine ml = itMU.data();
+		multiLine::Iterator itMU2;
+		for (itMU2 = ml.begin(); itMU2 != ml.end(); ++itMU2)
+			{
+			QDomElement SuL=docu.createElement("SubLine");
+			SuL.setAttribute("Color", (*itMU2).Color);
+			SuL.setAttribute("Shade", (*itMU2).Shade);
+			SuL.setAttribute("Dash", (*itMU2).Dash);
+			SuL.setAttribute("LineEnd", (*itMU2).LineEnd);
+			SuL.setAttribute("LineJoin", (*itMU2).LineJoin);
+			SuL.setAttribute("Width", (*itMU2).Width);
+			MuL.appendChild(SuL);
+			}
+		elem.appendChild(MuL);
 		}
 	return docu.toString().utf8();
 }
