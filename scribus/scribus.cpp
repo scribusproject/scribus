@@ -4577,7 +4577,7 @@ bool ScribusApp::DoFileSave(QString fn)
 		doc->setUnModified();
 		ActWin->setCaption(fn);
 		doc->setName(fn);
-		undoManager->rename(fn);
+		undoManager->renameStack(fn);
 		scrActions["fileSave"]->setEnabled(false);
 		scrActions["fileRevert"]->setEnabled(false);
 		updateRecent(fn);
@@ -4602,7 +4602,7 @@ bool ScribusApp::slotFileClose()
 
 bool ScribusApp::DoFileClose()
 {
-	undoManager->remove(doc->DocName);
+	undoManager->removeStack(doc->DocName);
 	if(doc->TemplateMode)
 	{
 		ActWin->muster->close();

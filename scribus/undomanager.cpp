@@ -246,7 +246,7 @@ void UndoManager::switchStack(const QString& stackName)
 		setState(undoGuis[i]);
 }
 
-void UndoManager::rename(const QString& newName)
+void UndoManager::renameStack(const QString& newName)
 {
 	if (currentDoc == newName)
 		return;
@@ -256,7 +256,7 @@ void UndoManager::rename(const QString& newName)
 	currentDoc = newName;
 }
 
-void UndoManager::remove(const QString& stackName)
+void UndoManager::removeStack(const QString& stackName)
 {
 	if (stacks.contains(stackName))
 	{
@@ -426,7 +426,7 @@ void UndoManager::showObject(int uid)
 
 }
 
-void UndoManager::replace(ulong uid, UndoObject *newUndoObject)
+void UndoManager::replaceObject(ulong uid, UndoObject *newUndoObject)
 {
 	for (uint i = 0; i < stacks[currentDoc].second.size(); ++i)
 	{

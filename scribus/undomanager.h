@@ -308,13 +308,13 @@ public:
 	 * @brief Rename the current stack
 	 * @param newName New name for the current stack.
 	 */
-	void rename(const QString& newName);
+	void renameStack(const QString& newName);
 
 	/**
 	 * @brief Remove the stack with the name <code>stackName</code>
 	 * @param stackName Name of the stack that is wanted to be removed
 	 */
-	void remove(const QString& stackName);
+	void removeStack(const QString& stackName);
 
 	/**
 	 * @brief Returns true if there are actions that can be undone otherwise returns false.
@@ -348,7 +348,7 @@ public:
 	 * @param uid Id for the UndoObject that is wanted to be replaced.
 	 * @param newUndoObject UndoObject which will replace an old UndoObject in the stack.
 	 */
-	void replace(ulong uid, UndoObject *newUndoObject);
+	void replaceObject(ulong uid, UndoObject *newUndoObject);
 
 	/**
 	 * @brief Returns the maximum length of the undostack.
