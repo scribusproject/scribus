@@ -17,6 +17,7 @@
 #include <qmetaobject.h>
 #include <qpopupmenu.h>
 #include "scmenu.h"
+#include "scmenu.moc"
 #include "scraction.h"
 
 ScrPopupMenu::ScrPopupMenu ( QWidget * parent, const char * name, const QString pMenuName, const QString pMenuText, const QString parentName ) : QObject(parent, name)
@@ -167,8 +168,7 @@ bool ScrPopupMenu::repopulateLocalMenu()
 			else
 				dynamic_cast<ScrAction *>(object)->addTo(localPopupMenu);
 		}
-		else
-			if (menuItemListClassName=="ScrPopupMenu")
+		else if (menuItemListClassName=="ScrPopupMenu")
 			{
 				//qDebug("ScrPopupMenu found");
 				localPopupMenu->insertItem(dynamic_cast<ScrPopupMenu *>(object)->getMenuText(), dynamic_cast<ScrPopupMenu *>(object)->getLocalPopupMenu());

@@ -15,6 +15,7 @@
 #include <qpopupmenu.h>
 #include <qiconset.h>
 #include "scraction.h"
+#include "scraction.moc"
 
 ScrAction::ScrAction( QObject * parent, const char * name ) : QAction( parent, name )
 {
