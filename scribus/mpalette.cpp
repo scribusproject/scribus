@@ -994,7 +994,7 @@ void Mpalette::SetDoc(ScribusDoc *d)
 	DRight->setDecimals(10);
 	LSize->setMaxValue( 36 );
 	LSize->setMinValue( 0 );
-	Dist->setMaxValue( 300 );
+	Dist->setMaxValue( 30000 );
 	Dist->setMinValue( 0 );
 	Dist->setLineStep(10);
 	LineW->setMaxValue( 300 );

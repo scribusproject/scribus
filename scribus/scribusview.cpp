@@ -562,33 +562,42 @@ void ScribusView::SetCPo(int x, int y)
 void ScribusView::LaMenu()
 {
 	uint a;
-	int Lnr;
-	struct Layer ll;
-	ll.LNr = 0;
-	Laymen->clear();
-	if (Doc->Layers.count() != 0)
-	{
-		Lnr = 0;
+	QValueList<Layer>::iterator it;
+ 	Laymen->clear();
+ 	if (Doc->Layers.count() != 0)
+ 	{
 		for (a=0; a < Doc->Layers.count(); a++)
-		{
-			Level2Layer(Doc, &ll, Lnr);
-			Laymen->insertItem(Doc->Layers[ll.LNr].Name);
-			if (Doc->ActiveLayer == static_cast<int>(ll.LNr))
-				Laymen->setItemChecked(Laymen->idAt(a), true);
-			Lnr++;
-		}
-	}
+ 		{
+			int curr,n=0;
+			for (it = Doc->Layers.begin(); it != Doc->Layers.end(); ++it,n++)
+			{
+				if (Doc->Layers.count()-(*it).Level-1 == a)
+				{
+					Laymen->insertItem((*it).Name);
+					if (Doc->ActiveLayer == n)
+						curr=Doc->Layers.count()-(*it).Level-1;
+				}
+			}
+			Laymen->setItemChecked(Laymen->idAt(curr), true);
+ 		}
+ 	}
 }
 
 void ScribusView::GotoLa(int l)
 {
-	int d = Laymen->indexOf(l);
-	struct Layer ll;
-	ll.LNr = 0;
-	Level2Layer(Doc, &ll, d);
-	Doc->ActiveLayer = ll.LNr;
-	LY->setText(Doc->Layers[ll.LNr].Name);
-	emit changeLA(ll.LNr);
+	int a=0;
+	int d = Doc->Layers.count()-Laymen->indexOf(l)-1;
+	QValueList<Layer>::iterator it;
+	for (it = Doc->Layers.begin(); it != Doc->Layers.end(); ++it,a++)
+	{
+		if ( d == (*it).Level )
+		{
+			Doc->ActiveLayer = a;
+			LY->setText(Doc->Layers[a].Name);
+			emit changeLA(a);
+			break;
+		}
+	}
 }
 
 void ScribusView::GotoPa(int Seite)

@@ -12,6 +12,7 @@
 #include "selfield.h"
 #include "customfdialog.h"
 #include "buttonicon.h"
+#include "mpalette.h"
 #include <qstringlist.h>
 #include <qdatetime.h>
 #include <qimage.h>
@@ -87,9 +88,10 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
 	Tip->setText(item->AnToolTip);
 	Layout60->addWidget( Tip, 1, 1 );
 
-	Name = new QLineEdit( GroupBox10, "Name" );
+	Name = new NameWidget(GroupBox10);
 	Name->setText(item->AnName);
 	Layout60->addWidget( Name, 0, 1 );
+	OldName = item->AnName;
 
 	TextLabel30 = new QLabel( GroupBox10, "TextLabel3" );
 	TextLabel30->setText( tr( "Tool-Tip:" ) );
@@ -1072,6 +1074,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
 	connect(PlaceIcon, SIGNAL(clicked()), this, SLOT(IPlace()));
 	connect(ChFile, SIGNAL(clicked()), this, SLOT(GetFile()));
 	connect(LExtern, SIGNAL(clicked()), this, SLOT(SetExternL()));
+	connect(Name, SIGNAL(Leaved()), this, SLOT(NewName()));
 	QToolTip::add(NoSpell, tr( "Flag is ignored for PDF 1.3" ) );
 	QToolTip::add(NoScroll, tr( "Flag is ignored for PDF 1.3" ) );
 	QToolTip::add(CalcFields, tr( "Enter a comma separated list of fields here" ) );
@@ -1082,6 +1085,35 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
 
 Annot::~Annot()
 {}
+
+void Annot::NewName()
+{
+	QString NameNew = Name->text();
+	if (NameNew == "")
+	{
+		Name->setText(OldName);
+		return;
+	}
+	bool found = false;
+	for (uint a = 0; a < view->Pages.count(); ++a)
+	{
+		for (uint b = 0; b < view->Pages.at(a)->Items.count(); ++b)
+		{
+			if ((NameNew == view->Pages.at(a)->Items.at(b)->AnName) && (view->Pages.at(a)->Items.at(b) != item))
+			{
+				found = true;
+				break;
+			}
+		}
+		if (found)
+			break;
+	}
+	if (found)
+	{
+		Name->setText(OldName);
+		Name->setFocus();
+	}
+}
 
 void Annot::IPlace()
 {
@@ -1659,7 +1691,11 @@ void Annot::SetVals()
 	QString Nfo = "";
 	bool AAct = false;
 	item->AnType = ComboBox1->currentItem()+2;
-	item->AnName = Name->text();
+	if (Name->text() != OldName)
+	{
+		item->AnName = Name->text();
+		item->AutoName = false;
+	}
 	item->AnToolTip = Tip->text();
 	item->AnRollOver = TextO->text();
 	item->AnDown = DownT->text();
@@ -1674,7 +1710,7 @@ void Annot::SetVals()
 	item->AnBColor = BorderC->currentText();
 	if (item->AnBColor == tr("None"))
 		item->AnBColor = "None";
-  Limit->isChecked() ? item->AnMaxChar = MaxChars->value() : item->AnMaxChar = -1;
+	Limit->isChecked() ? item->AnMaxChar = MaxChars->value() : item->AnMaxChar = -1;
 	if (item->AnType == 2)
 		{
 		item->AnFlag += 65536;

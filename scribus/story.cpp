@@ -598,6 +598,7 @@ void SEditor::saveItemText(PageItem* b)
 			struct Pti *hg;
 			hg = new Pti;
 			hg->ch = QChar(13);
+			chars = StyledText.at(p-1);
 			if (chars->count() != 0)
 			{
 				hg->cfont = chars->at(c)->cfont;
@@ -608,7 +609,6 @@ void SEditor::saveItemText(PageItem* b)
 				hg->cshade2 = chars->at(c)->cshade2;
 				hg->cscale = chars->at(c)->cscale;
 				hg->cstyle = chars->at(c)->cstyle;
-				hg->cab = chars->at(c)->cab;
 				hg->cextra = chars->at(c)->cextra;
 			}
 			else
@@ -620,15 +620,15 @@ void SEditor::saveItemText(PageItem* b)
 				hg->cfont = CurrFont;
 				hg->csize = CurrFontSize;
 				hg->cstyle = CurrentStyle;
-				hg->cab = CurrentABStil;
 				hg->cextra = CurrTextKern;
 				hg->cscale = CurrTextScale;
-				if (doc->Vorlagen[CurrentABStil].Font != "")
+				if (doc->Vorlagen[ParagStyles[p-1]].Font != "")
 				{
-					hg->cfont = doc->Vorlagen[CurrentABStil].Font;
-					hg->csize = doc->Vorlagen[CurrentABStil].FontSize;
+					hg->cfont = doc->Vorlagen[ParagStyles[p-1]].Font;
+					hg->csize = doc->Vorlagen[ParagStyles[p-1]].FontSize;
 				}
 			}
+			hg->cab = ParagStyles[p-1];
 			hg->cselect = false;
 			hg->xp = 0;
 			hg->yp = 0;
@@ -1598,7 +1598,6 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	Editor->loadItemText(ite);
 	updateProps(0,0);
 	updateStatus();
-	Editor->setFocus();
 	TextChanged = false;
 	EditorBar->setFrameStyle(Editor->frameStyle());
 	EditorBar->setLineWidth(Editor->lineWidth());
@@ -1623,6 +1622,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	connect(FontTools, SIGNAL(NewScale(int )), this, SLOT(newTxScale(int )));
 	connect(StyleTools, SIGNAL(NewKern(double )), this, SLOT(newTxKern(double )));
 	connect(StyleTools, SIGNAL(NewStyle(int )), this, SLOT(newTxStyle(int )));
+	Editor->setFocus();
 }
 
 int StoryEditor::exec()
@@ -1631,6 +1631,7 @@ int StoryEditor::exec()
 	setWFlags( WShowModal );
 	result = 0;
 	show();
+	Editor->setFocus();
 	qApp->enter_loop();
 	clearWFlags( WShowModal );
 	return result;
@@ -2199,9 +2200,7 @@ void StoryEditor::newAlign(int st)
 
 void StoryEditor::changeAlignSB(int pa, int align)
 {
-	int p, i;
 	Editor->CurrentABStil = align;
-	Editor->getCursorPosition(&p, &i);
 	if (Editor->StyledText.count() != 0)
 	{
 		disconnect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
@@ -2241,8 +2240,9 @@ void StoryEditor::changeAlignSB(int pa, int align)
 			}
 			Editor->updateFromChars(pa);
 		}
-		Editor->setCursorPosition(p, i);
-		updateProps(p, i);
+		Editor->setCursorPosition(pa, 0);
+		updateProps(pa, 0);
+		Editor->ensureCursorVisible();
 		connect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
 	}
 	else
@@ -2356,6 +2356,7 @@ void StoryEditor::changeAlign(int align)
 		if (sel)
 			Editor->setSelection(PStart2, SelStart2, PEnd2, SelEnd2);
 		Editor->setCursorPosition(p, i);
+		Editor->ensureCursorVisible();
 		updateProps(p, i);
 		connect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
 	}

@@ -208,8 +208,10 @@ public:
 	int FormNum;
 	QString JavaScr;
 	int MaxSeite;
+	QString OldName;
 
 public slots:
+	void NewName();
 	void IPlace();
 	void RemoveNIcon();
 	void RemovePIcon();

@@ -1721,7 +1721,7 @@ This requires very accurate profiles and serves only as a warning.</source>
     </message>
     <message>
         <source>Edit Fill Color Properties</source>
-        <translation>Изменить свойства заполнения линии</translation>
+        <translation>Изменить свойства заливки линии</translation>
     </message>
     <message>
         <source>Saturation of color</source>
@@ -1729,7 +1729,7 @@ This requires very accurate profiles and serves only as a warning.</source>
     </message>
     <message>
         <source>Normal or gradient fill method</source>
-        <translation>Обычное или градиентное заполнение</translation>
+        <translation>Обычная или градиентная заливка</translation>
     </message>
     <message>
         <source>Set the transparency for the color selected</source>
@@ -2529,7 +2529,7 @@ failed!</source>
     </message>
     <message>
         <source>Name of your paragraph style</source>
-        <translation>Имя стиля параграфа</translation>
+        <translation>Имя стиля абзаца</translation>
     </message>
     <message>
         <source>Font of selected text or object</source>
@@ -2541,7 +2541,7 @@ failed!</source>
     </message>
     <message>
         <source>Color of text fill</source>
-        <translation>Цвет заполнения текста</translation>
+        <translation>Цвет заливки текста</translation>
     </message>
     <message>
         <source>Color of text stroke</source>
@@ -2549,7 +2549,7 @@ failed!</source>
     </message>
     <message>
         <source>Provides an oversized first letter for a paragraph. Used for stylistic effect</source>
-        <translation>Создать увеличенную первую букву параграфа.
+        <translation>Создать увеличенную первую букву абзаца.
 Этот приём используется для стилизации.</translation>
     </message>
     <message>
@@ -2562,11 +2562,11 @@ failed!</source>
     </message>
     <message>
         <source>Spacing above the paragraph</source>
-        <translation>Интервал над параграфом</translation>
+        <translation>Интервал над абзацем</translation>
     </message>
     <message>
         <source>Spacing below the paragraph</source>
-        <translation>Интервал под параграфом</translation>
+        <translation>Интервал под абзацем</translation>
     </message>
     <message>
         <source>Tabulators and Indentation</source>
@@ -4574,19 +4574,19 @@ Please choose another.</source>
     </message>
     <message>
         <source>Color of text fill</source>
-        <translation>Цвет заполнения текста</translation>
+        <translation>Цвет заливки текста</translation>
     </message>
     <message>
         <source>Saturation of color of text stroke</source>
-        <translation>Насыщение цвета текстового штриха</translation>
+        <translation>Насыщенность цвета текстового штриха</translation>
     </message>
     <message>
         <source>Saturation of color of text fill</source>
-        <translation>Насыщение цвета заполнения текста</translation>
+        <translation>Насыщенность цвета заливки текста</translation>
     </message>
     <message>
         <source>Style of current paragraph</source>
-        <translation>Стиль текущего параграфа</translation>
+        <translation>Стиль текущего абзаца</translation>
     </message>
     <message>
         <source>Change settings for left or end points</source>
@@ -6930,7 +6930,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Paragraphs: </source>
-        <translation>Параграфов:</translation>
+        <translation>Абзацев:</translation>
     </message>
     <message>
         <source>Words: </source>
@@ -8006,7 +8006,7 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>Fill color of picture frames</source>
-        <translation>Цвет заполнения рамок изображений</translation>
+        <translation>Цвет заливки рамок изображений</translation>
     </message>
     <message>
         <source>Saturation of color of fill</source>
@@ -8022,7 +8022,7 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>Fill color of shapes</source>
-        <translation>Цвет заполнения очертаний</translation>
+        <translation>Цвет заливки очертаний</translation>
     </message>
     <message>
         <source>Line style of shapes</source>
@@ -9038,23 +9038,23 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Sort by &amp;Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Сортировать по &amp;имени</translation>
     </message>
     <message>
         <source>Sort by &amp;Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Сортировать по &amp;размеру</translation>
     </message>
     <message>
         <source>Sort by &amp;Date</source>
-        <translation type="unfinished"></translation>
+        <translation>Сортировать по &amp;дате</translation>
     </message>
     <message>
         <source>&amp;Unsorted</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Без сортировки</translation>
     </message>
     <message>
         <source>Sort</source>
-        <translation type="unfinished"></translation>
+        <translation>Сортировать</translation>
     </message>
     <message>
         <source>Show &amp;hidden files</source>
@@ -9891,7 +9891,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Style of current paragraph</source>
-        <translation>Стиль текущего параграфа</translation>
+        <translation>Стиль текущего абзаца</translation>
     </message>
 </context>
 <context>
@@ -9906,11 +9906,11 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Color of text fill</source>
-        <translation>Цвет заполнения текста</translation>
+        <translation>Цвет заливки текста</translation>
     </message>
     <message>
         <source>Saturation of color of text fill</source>
-        <translation>Цветонасыщенность заполнения текста</translation>
+        <translation>Цветонасыщенность заливки текста</translation>
     </message>
 </context>
 <context>
@@ -10795,7 +10795,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>&amp;Paragraph Styles...</source>
-        <translation>Стили &amp;параграфа...</translation>
+        <translation>Стили &amp;абзаца...</translation>
     </message>
     <message>
         <source>&amp;Line Styles...</source>
@@ -11542,7 +11542,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Paragraph Style</source>
-        <translation>Стиль параграфа</translation>
+        <translation>Стиль абзаца</translation>
     </message>
     <message>
         <source>Font</source>
@@ -11915,7 +11915,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Current Paragraph:</source>
-        <translation>Текущий параграф:</translation>
+        <translation>Текущий абзац:</translation>
     </message>
     <message>
         <source>Words: </source>
@@ -11931,7 +11931,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Paragraphs: </source>
-        <translation>Параграфов:</translation>
+        <translation>Абзацев:</translation>
     </message>
     <message>
         <source>Update Text Frame</source>
@@ -12248,11 +12248,11 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Indentation for first line of the paragraph</source>
-        <translation>Отступ первой строки параграфа</translation>
+        <translation>Отступ первой строки абзаца</translation>
     </message>
     <message>
         <source>Indentation from the left for the whole paragraph</source>
-        <translation>Отступ слева для всего параграфа</translation>
+        <translation>Отступ слева для всего абзаца</translation>
     </message>
     <message>
         <source>Delete all Tabulators</source>
