@@ -2768,6 +2768,9 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 		pagePalette->hide();
 		measurementPalette->hide();
 		docCheckerPalette->hide();
+		// Shut down plugins before saving prefs to ensure
+		// plugins can use prefs mgr from their cleanup routines.
+		pluginManager->finalizePlugs();
 		SavePrefs();
 		delete prefsFile;
 		UndoManager::deleteInstance();
@@ -2780,7 +2783,6 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 		if (scrapbookPalette->BibWin->Objekte.count() == 0)
 			unlink(PrefsPfad+"/scrap13.scs");
 		Prefs.AvailFonts.~SCFonts();
-		pluginManager->finalizePlugs();
 		exit(0);
 	}
 	else
