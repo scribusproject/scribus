@@ -1,4 +1,10 @@
 Changes since Version 0.9.9
+16.05.2003	prefs.cpp
+		scribus.cpp
+		scribusview.cpp		Added the possiblity to adjust the Display for true WYSIWYG.
+					e.g 1 Inch displayed on the Rulers is now really an Inch on the
+					Screen.
+
 15.05.2003	scribus.cpp		Fixed "Paste"-Bug reported by Gerry
 		scribus.de.po		Updated
 

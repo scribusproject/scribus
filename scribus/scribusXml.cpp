@@ -2308,6 +2308,7 @@ void ScriXmlDoc::WritePref(preV *Vor, QString ho)
 	dc1a.setAttribute("MARGC",Vor->DmargColor.name());
 	dc1a.setAttribute("RANDF", static_cast<int>(Vor->RandFarbig));
 	dc1a.setAttribute("TRANS", static_cast<int>(Vor->PDFTransparency));
+	dc1a.setAttribute("DScale",Vor->DisScale);
 	elem.appendChild(dc1a);
 	QDomElement dc2=docu.createElement("FONTS");
 	dc2.setAttribute("FACE",Vor->DefFont);
@@ -2532,6 +2533,7 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 			Vorein->DmargColor = QColor(dc.attribute("MARGC","#0000ff"));
 			Vorein->RandFarbig = static_cast<bool>(QStoInt(dc.attribute("RANDF","0")));
 			Vorein->PDFTransparency = static_cast<bool>(QStoInt(dc.attribute("TRANS","0")));
+			Vorein->DisScale = QStoFloat(dc.attribute("DScale","1"));
 			}
 		if (dc.tagName()=="TYPO")
 			{

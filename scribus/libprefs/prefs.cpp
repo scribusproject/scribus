@@ -33,6 +33,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 			Einheit = ap->doc->Einheit;
 		else
 			Einheit = Vor->Einheit;
+		DisScale = Vor->DisScale;
     KKC = Vor->KeyActions;
     setCaption( tr( "Preferences" ) );
   	setIcon(loadIcon("AppIcon.xpm"));
@@ -1445,7 +1446,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     GroupBox20aLayout = new QHBoxLayout( GroupBox20a->layout() );
     GroupBox20aLayout->setAlignment( Qt::AlignTop );
     GroupBox20aLayout->setSpacing( 10 );
-    GroupBox20aLayout->setMargin( 25 );
+    GroupBox20aLayout->setMargin( 5 );
     TextLabel4a = new QLabel( GroupBox20a, "TextLabel4" );
     TextLabel4a->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1, TextLabel4a->sizePolicy().hasHeightForWidth() ) );
     TextLabel4a->setText( tr( "Background:" ) );
@@ -1500,6 +1501,40 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     UsePDFTrans->setText( tr( "Use PDF-1.4 Transparency Features" ) );
     UsePDFTrans->setChecked(Vor->PDFTransparency);
     GroupBox10Layout->addWidget( UsePDFTrans );
+
+    CaliGroup = new QGroupBox( GroupBox10, "CaliGroup" );
+    CaliGroup->setTitle( tr( "Adjust Display Size" ) );
+    CaliGroup->setColumnLayout(0, Qt::Vertical );
+    CaliGroup->layout()->setSpacing( 6 );
+    CaliGroup->layout()->setMargin( 11 );
+    CaliGroupLayout = new QVBoxLayout( CaliGroup->layout() );
+    CaliGroupLayout->setAlignment( Qt::AlignTop );
+    CaliText = new QLabel( CaliGroup, "CaliText" );
+    CaliText->setText( tr( "To adjust the Display drag the Ruler below with the Slider." ) );
+    CaliGroupLayout->addWidget( CaliText );
+    CaliRuler = new QLabel( CaliGroup, "CaliRuler" );
+    CaliRuler->setMinimumSize( QSize( 20, 20 ) );
+		DrawRuler();
+    CaliRuler->setFrameShape( QLabel::Box );
+    CaliRuler->setFrameShadow( QLabel::Sunken );
+    CaliRuler->setScaledContents( FALSE );
+    CaliGroupLayout->addWidget( CaliRuler );
+    layout15ca = new QHBoxLayout( 0, 0, 6, "layout15");
+    CaliSlider = new QSlider( CaliGroup, "CaliSlider" );
+    CaliSlider->setMinValue( -100 );
+    CaliSlider->setMaxValue( 100 );
+		CaliSlider->setValue(static_cast<int>(100 * DisScale)-100);
+    CaliSlider->setOrientation( QSlider::Horizontal );
+    CaliSlider->setTickmarks( QSlider::Right );
+    CaliSlider->setTickInterval( 10 );
+    layout15ca->addWidget( CaliSlider );
+    CaliAnz = new QLabel( CaliGroup, "CaliAnz" );
+		CaliAnz->setText(QString::number(DisScale*100, 'f', 2)+" %");
+    layout15ca->addWidget( CaliAnz );
+    CaliGroupLayout->addLayout( layout15ca );
+
+    GroupBox10Layout->addWidget( CaliGroup );
+
     tabLayout_6->addWidget( GroupBox10 );
     TabWidget3->insertTab( tab_6, tr( "Display" ) );
     Fram->raiseWidget(1);
@@ -1563,6 +1598,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     connect(FreeScale, SIGNAL(clicked()), this, SLOT(ChangeScaling()));
     connect(FrameScale, SIGNAL(clicked()), this, SLOT(ChangeScaling()));
 		connect(FileC, SIGNAL(clicked()), this, SLOT(ChangeDocs()));
+    connect(CaliSlider, SIGNAL(valueChanged(int)), this, SLOT(SetDisScale()));
 		setSize(Vor->PageFormat);
 }
 
@@ -1912,6 +1948,7 @@ void Preferences::VChange()
 void Preferences::UnitChange()
 {
 	float AltUmrech = Umrech;
+	Einheit = UnitCombo->currentItem();
 	switch (UnitCombo->currentItem())
 		{
 		case 0:
@@ -1979,6 +2016,7 @@ void Preferences::UnitChange()
 	BottomR->setValue(qRound(BottomR->value() / AltUmrech * Umrech));
 	LeftR->setValue(qRound(LeftR->value() / AltUmrech * Umrech));
 	RightR->setValue(qRound(RightR->value() / AltUmrech * Umrech));
+	DrawRuler();
 	connect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
 	connect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
 }
@@ -2053,5 +2091,73 @@ float Preferences::GetFaktor()
 		PFactor = ((ma - mi) * val / 100.0) + mi;
 		}
 	return PFactor;
+}
+
+void Preferences::SetDisScale()
+{
+	DisScale = QMAX((100.0 + CaliSlider->value()) / 100.0, 0.01);
+	DrawRuler();
+	CaliAnz->setText(QString::number(DisScale*100, 'f', 2)+" %");
+}
+
+void Preferences::DrawRuler()
+{
+	float xl, iter, iter2, maxi;
+	switch (Einheit)
+		{
+		case 0:
+			iter = 10.0;
+  		iter2 = iter * 10.0;
+			maxi = 200.0;
+			break;
+		case 1:
+			iter = (10.0 / 25.4) * 72.0;
+  		iter2 = iter * 10.0;
+			maxi = iter2;
+			break;
+		case 2:
+			iter = 18.0;
+			iter2 = 72.0;
+			maxi = 2 * iter2;
+			break;
+		case 3:
+			iter = 12.0;
+			iter2 = 120.0;
+			maxi = 240.0;
+			break;
+		}
+	QPixmap pm(static_cast<int>(maxi*DisScale+30), 21);
+	pm.fill();
+	QPainter p;
+	p.begin(&pm);
+	p.drawLine(0, 19, width(), 19);
+	p.setBrush(black);
+	p.setPen(black);
+	p.scale(DisScale, 1.0);
+	for (xl = 0; xl < maxi; xl += iter)
+		{
+		p.drawLine(static_cast<int>(xl), 13, static_cast<int>(xl), 19);
+		}
+	for (xl = 0; xl < maxi+10; xl += iter2)
+		{
+		p.drawLine(static_cast<int>(xl), 6, static_cast<int>(xl), 19);
+		p.save();
+		p.scale(1.0 / DisScale, 1.0);
+		switch (Einheit)
+			{
+			case 2:
+				p.drawText(static_cast<int>((xl+qRound(2/DisScale)) * DisScale), 12, QString::number(xl / iter2));
+				break;
+			case 3:
+				p.drawText(static_cast<int>((xl+qRound(2/DisScale)) * DisScale), 12, QString::number(xl / iter));
+				break;
+			default:
+				p.drawText(static_cast<int>((xl+qRound(2/DisScale)) * DisScale), 12, QString::number(xl / iter * 10));
+				break;
+			}
+		p.restore();
+		}
+	p.end();
+	CaliRuler->setPixmap(pm);
 }
 

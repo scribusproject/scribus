@@ -259,6 +259,7 @@ ScribusApp::ScribusApp()
 		Prefs.PDFTransparency = false;
 		Prefs.AutoSave = false;
 		Prefs.AutoSaveTime = 600000;
+		Prefs.DisScale = 1.0;
 		Prefs.DocDir = QString(getenv("HOME"));
 	  PDFavailable = true;
 		PDef.Pname = "";
@@ -1429,7 +1430,7 @@ bool ScribusApp::doFileNew(float b, float h, float tpr, float lr, float rr, floa
 	doc->ActiveLayer = 0;
 	HaveDoc++;
 	DocNr++;
-	doc->Scale = 1.0;
+	doc->Scale = 1.0*Prefs.DisScale;
 	doc->AppMode = 1;
 	doc->Language = Prefs.Language;
 	doc->MinWordLen = Prefs.MinWordLen;
@@ -2214,7 +2215,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 		doc->ShFrames = Prefs.ShFrames;
 		doc->RandFarbig = Prefs.RandFarbig;
 		doc->AutoLine = Prefs.AutoLine;
-		doc->Scale = 1.0;
+		doc->Scale = 1.0*Prefs.DisScale;
 		doc->AppMode = 1;
 		doc->HasCMS = false;
 		doc->ActiveLayer = 0;
@@ -3222,43 +3223,39 @@ void ScribusApp::slotZoomFit()
 	float dx = (view->width()-50) / (doc->PageB+30);
 	float dy = (view->height()-70) / (doc->PageH+30);
 	if (dx > dy)
-		{
 		slotZoomAbs(dy);
-		}
 	else
-		{
 		slotZoomAbs(dx);
-		}
 }
 
 /** Ansicht 20 % */
 void ScribusApp::slotZoom20()
 {
-	slotZoomAbs(0.2);
+	slotZoomAbs(0.2*Prefs.DisScale);
 }
 
 /** Ansicht 50 % */
 void ScribusApp::slotZoom50()
 {
-	slotZoomAbs(0.5);
+	slotZoomAbs(0.5*Prefs.DisScale);
 }
 
 /** Ansicht 75 % */
 void ScribusApp::slotZoom75()
 {
-	slotZoomAbs(0.75);
+	slotZoomAbs(0.75*Prefs.DisScale);
 }
 
 /** Ansicht 100 % */
 void ScribusApp::slotZoom100()
 {
-	slotZoomAbs(1.0);
+	slotZoomAbs(1.0*Prefs.DisScale);
 }
 
 /** Ansicht 200 % */
 void ScribusApp::slotZoom200()
 {
-	slotZoomAbs(2.0);
+	slotZoomAbs(2.0*Prefs.DisScale);
 }
 
 void ScribusApp::ToggleMarks()
@@ -4623,9 +4620,11 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.DoppelSeiten = dia->Doppelseiten->isChecked();
 		Prefs.ErsteLinks = dia->Linkszuerst->isChecked();
 		Prefs.PDFTransparency = dia->UsePDFTrans->isChecked();
+		Prefs.DisScale = dia->DisScale;
 		Mpal->Cpal->UseTrans(Prefs.PDFTransparency);
 		if (HaveDoc)
 			{
+			slotZoomAbs(doc->Scale*Prefs.DisScale);
 			doc->GrabRad = dia->SpinBox3_2->value();
 			doc->GuideRad = dia->SpinBox2g->value() / UmReFaktor / 100;
 			doc->Dfont = dia->FontCombo->currentText();

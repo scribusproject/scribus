@@ -2729,3 +2729,9 @@ msgstr "In Polygone verwandeln"
 msgid "Websave RGB"
 msgstr "Websicheres RGB"
 
+msgid "Adjust Display Size"
+msgstr "Größenanpassung der Anzeige"
+
+msgid "To adjust the Display drag the Ruler below with the Slider."
+msgstr "Zum Einstellen der Anzeigegröße das Lineal mit dem Regler anpassen"
+

@@ -151,7 +151,7 @@ void ScribusView::Zval()
 	float s = (*it).toFloat(&ok);
 	if (ok)
 		{
-		Doc->Scale = s/100;
+		Doc->Scale = s/100 * Prefs->DisScale;
 		slotDoZoom();
 		}
 	setFocus();
@@ -408,7 +408,7 @@ void ScribusView::setLayMenTxt(int l)
 	LY->setText(Doc->Layers[l].Name);
 }
 
-/** Führt die Vergrößerung/Verkleinerung aus */
+/** Fuehrt die Vergroesserung/Verkleinerung aus */
 void ScribusView::slotDoZoom()
 { 	
 	uint a;
@@ -469,7 +469,7 @@ void ScribusView::slotDoZoom()
 			resizeContents(static_cast<int>(PSeite->width()+30*Doc->Scale), static_cast<int>(Doc->PageC * (PSeite->height()+25*Doc->Scale)+30));
 			setContentsPos(0, childY(Doc->ActPage->parentWidget())-static_cast<int>(10*Doc->Scale));
 			}
-		LE->setText(QString::number(double(Doc->Scale*100), 'f', 2)+" %");
+		LE->setText(QString::number(double(Doc->Scale/Prefs->DisScale*100), 'f', 2)+" %");
 		setRulerPos(contentsX(), contentsY());
 		if (Doc->ActPage->SelItem.count() != 0)
 			{

@@ -379,6 +379,7 @@ struct preV  { SCFonts AvailFonts;
 							 bool PDFTransparency;
 							 bool AutoSave;
 							 int AutoSaveTime;
+							 float DisScale;
 						 };
 /**
   * the Document Class

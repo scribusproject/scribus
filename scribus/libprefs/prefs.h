@@ -36,6 +36,7 @@ public:
     ~Preferences();
     float GetZeroFaktor();
     float GetMaxFaktor();
+		void DrawRuler();
 
     QPushButton* buttonOK;
     QPushButton* buttonCancel;
@@ -210,6 +211,11 @@ public:
     QCheckBox* ASon;
     QLabel* ASText;
     QSpinBox* ASTime;
+    QGroupBox* CaliGroup;
+    QLabel* CaliText;
+    QLabel* CaliRuler;
+    QSlider* CaliSlider;
+    QLabel* CaliAnz;
 
     SCFonts *fon; // can't use a reference, and can't copy whole structure...
     float Umrech;
@@ -224,6 +230,7 @@ public:
 		float Pagebr;
 		float Pageho;
 		int Einheit;
+		float DisScale;
     ScribusApp *ap;
 
 public slots:
@@ -250,6 +257,7 @@ public slots:
 		float GetFaktor();
 		void ValFromSpin(int a);
 		void ValFromSpin2(int a);
+		void SetDisScale();
 
 protected:
     QVBoxLayout* PrefsLayout;
@@ -316,6 +324,8 @@ protected:
     QHBoxLayout* Layout8;
     QGridLayout* GroupRandLayout;
     QGridLayout* GroupASLayout;
+    QVBoxLayout* CaliGroupLayout;
+    QHBoxLayout* layout15ca;
 };
 
 #endif // PREFS_H
