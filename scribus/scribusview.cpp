@@ -755,7 +755,7 @@ void ScribusView::contentsDragMoveEvent(QDragMoveEvent *e)
 	}
 }
 
-void ScribusView::contentsDragLeaveEvent(QDragLeaveEvent *e)
+void ScribusView::contentsDragLeaveEvent(QDragLeaveEvent *)
 {
 	if (DraggedGroup)
 	{
@@ -2434,7 +2434,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		else
 		{
 		SizeItem(b->PoLine.WidthHeight().x(), b->PoLine.WidthHeight().y(), b->ItemNr, false, false, false);
-		SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)), qRound(QMAX(b->Pwidth / 2, 1)));
+		SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)));
 		AdjustItemSize(b);
 		b->Sizing = ssiz;
 		b->ContourLine = b->PoLine.copy();
@@ -2447,7 +2447,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		b = SelItem.at(0);
 		b->PoLine.resize(b->PoLine.size()-2);
 		SizeItem(b->PoLine.WidthHeight().x(), b->PoLine.WidthHeight().y(), b->ItemNr, false, false);
-		SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)), qRound(QMAX(b->Pwidth / 2, 1)));
+		SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)));
 		AdjustItemSize(b);
 		b->ContourLine = b->PoLine.copy();
 		Doc->AppMode = 1;
@@ -3491,7 +3491,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 							edited = true;
 							Doc->EditClipMode = 0;
 							b->PType = 7;
-							SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)), qRound(QMAX(b->Pwidth / 2, 1)));
+							SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)));
 							emit PolyOpen();
 						}
 						else
@@ -3517,7 +3517,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 								b->ClipEdited = true;
 								edited = true;
 								Doc->EditClipMode = 0;
-								SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)), qRound(QMAX(b->Pwidth / 2, 1)));
+								SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)));
 								emit PolyOpen();
 							}
 						}
@@ -4055,7 +4055,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				MoveItem(0, npf2.y(), b);
 			}
 			SizeItem(b->PoLine.WidthHeight().x(), b->PoLine.WidthHeight().y(), b->ItemNr, false, false, false);
-			SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)), qRound(QMAX(b->Pwidth / 2, 1)));
+			SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)));
 			b->paintObj();
 //			FirstPoly = false;
 			emit ItemPos(b->Xpos, b->Ypos);
@@ -4667,7 +4667,7 @@ void ScribusView::UpdateClip(PageItem* b)
 	updateGradientVectors(b);
 }
 
-void ScribusView::SetPolyClip(PageItem *b, int up, int down)
+void ScribusView::SetPolyClip(PageItem *b, int up)
 {
 	QPoint np, np2;
 	QPointArray cl, cl1, cl2;
@@ -4718,7 +4718,7 @@ void ScribusView::UpdatePolyClip(PageItem *b)
 		if (des > desc)
 			desc = des;
 	}
-	SetPolyClip(b, static_cast<int>(asce+b->BaseOffs), static_cast<int>(desc+b->BaseOffs));
+	SetPolyClip(b, static_cast<int>(asce+b->BaseOffs));
 }
 
 void ScribusView::MarkClip(PageItem *b)
@@ -5711,7 +5711,7 @@ void ScribusView::AdjustItemSize(PageItem *b)
 	b->ClipEdited = true;
 	b->PoLine = Clip.copy();
 	if (b->PType == 7)
-		SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)), qRound(QMAX(b->Pwidth / 2, 1)));
+		SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)));
 	else
 		b->Clip = FlattenPath(b->PoLine, b->Segments);
 	b->Sizing = siz;
@@ -7003,7 +7003,7 @@ protected:
 static QProcess *proc = 0;
 static AppUserFilter *filter = 0;
 
-bool AppUserFilter::eventFilter(QObject *o, QEvent *e )
+bool AppUserFilter::eventFilter(QObject *, QEvent *e )
 {
 	switch(e->type())
 	{
@@ -7452,7 +7452,7 @@ void ScribusView::ToBezierFrame()
 	PageItem *b = SelItem.at(0);
 	b->PType = 7;
 	b->ClipEdited = true;
-	SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)), qRound(QMAX(b->Pwidth / 2, 1)));
+	SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)));
 	AdjustItemSize(b);
 	RefreshItem(b);
 	emit HaveSel(b->PType);
@@ -8819,7 +8819,7 @@ void ScribusView::ChLineWidth(double w)
 			b->OldPwidth = b->Pwidth;
 			b->Pwidth = w;
 			if (b->PType == 7)
-				SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)), qRound(QMAX(b->Pwidth / 2, 1)));
+				SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)));
 			if (b->PType == 5)
 			{
 				int ph = static_cast<int>(QMAX(1.0, w / 2.0));
@@ -10610,7 +10610,7 @@ void ScribusView::FromPathText()
 		bb->PoLine = b->PoLine.copy();
 		bb->ClipEdited = true;
 		bb->Rot = b->Rot;
-		SetPolyClip(bb, qRound(QMAX(bb->Pwidth / 2, 1)), qRound(QMAX(bb->Pwidth / 2, 1)));
+		SetPolyClip(bb, qRound(QMAX(bb->Pwidth / 2, 1)));
 		AdjustItemSize(bb);
 		b->PType = 4;
 		b->Pcolor2 = "None";

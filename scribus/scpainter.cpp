@@ -427,8 +427,8 @@ void ScPainter::drawVPath( ArtVpath *vec, int mode )
 	// set up world matrix
 	double affine[6];
 	affine[0] = m_matrix.m11();
-	affine[1] = m_matrix.m12();   // was 0 in Karbon
-	affine[2] = m_matrix.m21();   // was 0 in Karbon, don't know why
+	affine[1] = m_matrix.m12();
+	affine[2] = m_matrix.m21();
 	affine[3] = m_matrix.m22();
 	affine[4] = m_matrix.dx();
 	affine[5] = m_matrix.dy();
@@ -664,8 +664,7 @@ void ScPainter::applyGradient( ArtSVP *svp, bool fill )
 		double cy = gradient.origin().y() * m_zoomFactor;
 		double fx = gradient.focalPoint().x() * m_zoomFactor;
 		double fy = gradient.focalPoint().y() * m_zoomFactor;
-		double r = sqrt( pow( gradient.vector().x() - gradient.origin().x(), 2 ) +
-						 pow( gradient.vector().y() - gradient.origin().y(), 2 ) );
+		double r = sqrt( pow( gradient.vector().x() - gradient.origin().x(), 2 ) + pow( gradient.vector().y() - gradient.origin().y(), 2 ) );
 		r *= m_zoomFactor;
 
 		radial->fx = (fx - cx) / r;
@@ -819,8 +818,8 @@ void ScPainter::setClipPath()
 	ArtVpath *vec = art_bez_path_to_vec( m_path , 0.25 );
 	double affine[6];
 	affine[0] = m_matrix.m11();
-	affine[1] = m_matrix.m12();   // was 0 in Karbon
-	affine[2] = m_matrix.m21();   // was 0 in Karbon, don't know why
+	affine[1] = m_matrix.m12();
+	affine[2] = m_matrix.m21();
 	affine[3] = m_matrix.m22();
 	affine[4] = m_matrix.dx();
 	affine[5] = m_matrix.dy();
@@ -845,8 +844,8 @@ void ScPainter::drawImage( QImage *image )
 	affineresult[1] = m_matrix.m12() * m_zoomFactor;
 	affineresult[2] = m_matrix.m21() * m_zoomFactor;
 	affineresult[3] = m_matrix.m22() * m_zoomFactor;
-	affineresult[4] = m_matrix.dx(); // * m_zoomFactor;
-	affineresult[5] = m_matrix.dy(); // * m_zoomFactor;
+	affineresult[4] = m_matrix.dx();
+	affineresult[5] = m_matrix.dy();
 	ksvg_art_rgb_affine_clip( m_clipPath, m_buffer, 0, 0, m_width, m_height, m_width * 4, 4,
 					 image->bits(), image->width(), image->height(), image->width() * 4,
 					 affineresult, qRound( 255 * fill_trans ), 0L );
@@ -877,6 +876,8 @@ void ScPainter::setupPolygon(FPointArray *points, bool closed)
 					m_path[ m_index ].code = ART_MOVETO;
 				else
 					m_path[ m_index ].code = ART_MOVETO_OPEN;
+/*				m_path[ m_index ].x3 = np.x();
+				m_path[ m_index ].y3 = np.y(); */
 				m_path[ m_index ].x3 = np.x() * m_zoomFactor;
 				m_path[ m_index ].y3 = np.y() * m_zoomFactor;
 				m_index++;
@@ -890,12 +891,20 @@ void ScPainter::setupPolygon(FPointArray *points, bool closed)
 			if ((np == np1) && (np2 == np3))
 				{
 				m_path[ m_index ].code = ART_LINETO;
+/*				m_path[ m_index ].x3	= np3.x();
+				m_path[ m_index ].y3	= np3.y(); */
 				m_path[ m_index ].x3	= np3.x() * m_zoomFactor;
 				m_path[ m_index ].y3	= np3.y() * m_zoomFactor;
 				}
 			else
 				{
 				m_path[ m_index ].code = ART_CURVETO;
+/*				m_path[ m_index ].x1	= np1.x();
+				m_path[ m_index ].y1	= np1.y();
+				m_path[ m_index ].x2	= np2.x();
+				m_path[ m_index ].y2	= np2.y();
+				m_path[ m_index ].x3	= np3.x();
+				m_path[ m_index ].y3	= np3.y(); */
 				m_path[ m_index ].x1	= np1.x() * m_zoomFactor;
 				m_path[ m_index ].y1	= np1.y() * m_zoomFactor;
 				m_path[ m_index ].x2	= np2.x() * m_zoomFactor;
