@@ -236,7 +236,17 @@ __call__ method with no arguments. There is no problem with registering
 a callable more than once, nor with registering multiple bound methods
 of a single instance.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>register_macro_callable(navn, kørbar_objekt, accel=&apos;&apos;)
+
+Laver en makro med navnet &quot;navn&quot; med det eksisterende kørbare objekt &quot;kørbar_objekt&quot;.
+Det givne kørbar_objekt må ikke kræve parametre når det kaldes (det må godt tage
+valgfri parametre, men der bliver ikke givet nogen).
+Hvis strengen &quot;accel&quot; er givet, vil den blive brugt til at sætte en tastatur genvej for makroen.
+Hvis det givne kørbar_objekt er en klasse, vil den blive afvist. Funktioner og bundne
+metoder er acceptable, og det gælder også  instanser af klasser der giver en __call__ metode 
+uden argumenter. Der er ikke noget problem med at registrere et kørbar_objekt mere en 
+gang, eller med at registrere flere bundne metoder af en enkelt instans.
+</translation>
     </message>
 </context>
 <context>
@@ -253,7 +263,7 @@ May raise ValueError if an invalid color name is specified.
 </source>
         <translation>getColor(&quot;navn&quot;) -&gt; tuple
 
-Returnerer en tople  (C, M, Y, K), som indeholder de fire farvekomponenter af
+Returnerer en tuple  (C, M, Y, K), som indeholder de fire farvekomponenter af
 farven &quot;navn&quot; fra det aktive dokument. Hvis ingen dokumenter er åben, så
 returneres værdien af den navngivne farve fra standard dokument farver.
 
@@ -1032,24 +1042,6 @@ Returner større mængde font-info. Det er en liste af tuplerne med:
 </translation>
     </message>
     <message>
-        <source>rendeFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size) -&gt; bool
-
-Creates an image preview of font &quot;name&quot; with given text &quot;sample&quot; and size.
-Image is saved into &quot;filename&quot;. Returns true when success.
-
-May raise NotFoundError if the specified font can&apos;t be found.
-May raise ValueError if an empty sample or filename is passed.
-</source>
-        <translation>rendeFont(&quot;navn&quot;, &quot;filenavn&quot;, &quot;eksempel&quot;, størrelse) -&gt; bool
-
-Laver en billed-visning af fonten &quot;navn&quot; med teksten &quot;eksempel&quot; og størrelse.
-Billedet er gemt i &quot;filnavn&quot;. Returnerer &quot;true&quot; når det lykkedes.
-
-Kan rejse NotFoundError hvis den angivne font ikke findes.
-Kan rejse  ValueError hvis &quot;eksempel&quot; eller &quot;filnavn&quot; er tomt.
-</translation>
-    </message>
-    <message>
         <source>getLayers() -&gt; list
 
 Returns a list with the names of all defined layers.
@@ -1115,7 +1107,7 @@ May raise ValueError if the layer name isn&apos;t acceptable.
         <translation>setLayerVisible(&quot;lag&quot;, synlig)
 
 Sætter laget &quot;lag&quot; til at være synligt eller usynligt. Hvis &quot;synlig&quot; sættes til 
-&quot;false&quot;, så er laget usynligt.
+&quot;False&quot;, så er laget usynligt.
 
 Kan rejse NotFoundError hvis laget ikke findes.
 Kan rejse ValueError hvis lagets navn ikke kan accepteres.
@@ -1133,7 +1125,7 @@ May raise ValueError if the layer name isn&apos;t acceptable.
         <translation>setLayerPrintable(&quot;lag&quot;, printbar)
 
 Sætter laget &quot;lag&quot; til at kunne udskrives eller ej. Hvis &quot;printbar&quot; sættes til 
-&quot;false&quot;, så bliver laget ikke udskrivet.
+&quot;False&quot;, så bliver laget ikke udskrivet.
 
 Kan rejse NotFoundError hvis laget ikke findes.
 Kan rejse ValueError hvis lagets navn ikke kan accepteres.
@@ -1149,10 +1141,10 @@ that the layer &quot;layer&quot; is visible, a value of False means that the lay
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="obsolete">isLayerPrintable(&quot;lag&quot;) -&gt; bool
+        <translation>isLayerPrintable(&quot;lag&quot;) -&gt; bool
 
-Returnerer hvorvidt laget &quot;lag&quot; er synligt eller ej, værdien &quot;true&quot; 
-betyder, at laget &quot;lag&quot; er synligt, værdien &quot;false&quot; betyder, at laget 
+Returnerer hvorvidt laget &quot;lag&quot; er synligt eller ej, værdien &quot;True&quot; 
+betyder, at laget &quot;lag&quot; er synligt, værdien &quot;False&quot; betyder, at laget 
 &quot;lag&quot; er usynligt.
 
 Kan rejse NotFoundError hvis laget ikke findes.
@@ -1169,10 +1161,10 @@ the layer &quot;layer&quot; is disabled.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="obsolete">isLayerPrintable(&quot;lag&quot;) -&gt; bool
+        <translation>isLayerPrintable(&quot;lag&quot;) -&gt; bool
 
-Returnerer hvorvidt laget &quot;lag&quot; kan udskrives eller ej, værdien &quot;true&quot; 
-betyder, at laget &quot;lag&quot; kan udskrives, værdien &quot;false&quot; betyder, at laget 
+Returnerer hvorvidt laget &quot;lag&quot; kan udskrives eller ej, værdien &quot;True&quot; 
+betyder, at laget &quot;lag&quot; kan udskrives, værdien &quot;False&quot; betyder, at laget 
 &quot;lag&quot; ikke kan udskrives.
 
 Kan rejse NotFoundError hvis laget ikke findes.
@@ -2049,26 +2041,6 @@ Kan rejse ValueError for en ugyldig ALIGN_konstant.
 </translation>
     </message>
     <message>
-        <source>selectText(start, count, [&quot;name&quot;])
-
-Selects &quot;count&quot; characters of text in the text frame &quot;name&quot; starting from the
-character &quot;start&quot;. Character counting starts at 0. If &quot;count&quot; is zero, any
-text selection will be cleared.  If &quot;name&quot; is not given the currently
-selected item is used.
-
-May throw IndexError if the selection is outside the bounds of the text.
-</source>
-        <translation type="obsolete">selectText(start, antal, [&quot;navn&quot;])
-
-Markerer &quot;antal&quot; karakterer af teksten i tekst-rammen &quot;navn&quot; startende fra
-karakter &quot;start&quot;. Karakter tælling starter ved 0. Hvis &quot;antal&quot; er nul, vil enhver 
-tekstmarkering blive nulstillet.  Hvis &quot;navn&quot; ikke er givet, så bruges det 
-markerede element.
-
-Kan rejse IndexError hvis hvis markeringen er sat udenfor teksten.
-</translation>
-    </message>
-    <message>
         <source>deleteText([&quot;name&quot;])
 
 Deletes any text in the text frame &quot;name&quot;. If there is some text selected,
@@ -2249,7 +2221,14 @@ Both `scaletoframe&apos; and `proportional&apos; are boolean.
 
 May raise WrongFrameTypeError.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setScaleImageToFrame(skalertilramme, proportional=None, name=&lt;markering&gt;)
+
+Sætter skalér til ramme på den markerede eller speciferede billed-ramme til `scaletoframe&apos;.
+Hvis proportional er specificeret, så sættes fast bredde/højde forholdet til `proportionelt&apos;.
+Både `skalertilramme&apos; og `proportional&apos; er boolean.
+
+Kan rejse  WrongFrameTypeError.
+</translation>
     </message>
     <message>
         <source>selectText(start, count, [&quot;name&quot;])
@@ -2261,7 +2240,15 @@ be selected. If &quot;name&quot; is not given the currently selected item is use
 
 May throw IndexError if the selection is outside the bounds of the text.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>selectText(start, antal, [&quot;navn&quot;])
+
+Markerer &quot;antal&quot; karakterer af teksten i tekst-rammen &quot;navn&quot; startende fra
+karakter &quot;start&quot;. Karakter tælling starter ved 0. Hvis &quot;antal&quot; er nul, vil enhver 
+tekstmarkering blive nulstillet. Hvis &quot;antal&quot; er -1, vil al tekst i rammen blive 
+markeret. Hvis &quot;navn&quot; ikke er givet, så bruges det markerede element.
+
+Kan rejse IndexError hvis hvis markeringen er sat udenfor teksten.
+</translation>
     </message>
     <message>
         <source>register_macro_code(name, sourcetext, accel=&apos;&apos;)
@@ -2271,31 +2258,58 @@ Create a macro named &quot;name&quot; by evaluating the the source code &quot;so
 If provided, the string &quot;accel&quot; will be used to set a keyboard shortcut
 for the macro.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>register_macro_code(navn, kildetekst, accel=&apos;&apos;)
+
+Lav en makro der hedder &quot;navn&quot; ved at vurdere kildekoden &quot;kildetekst&quot;.
+&quot;kildetekst&quot; skal følge de samme regler som makroer lavet i GUI&apos;en.
+Hvis angivet, så vil strengen &quot;accel&quot; blive brugt som tastatur-genvej for makroen.
+</translation>
     </message>
     <message>
-        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+        <source>getColorAsRGB(&quot;name&quot;) -&gt; tuple
 
-Returns whether the layer &quot;layer&quot; is visible or not, a value of True means
-that the layer &quot;layer&quot; is visible, a value of False means that the layer
-&quot;layer&quot; is invisible.
+Returns a tuple (R,G,B) containing the three color components of the
+color &quot;name&quot; from the current document, converted to the RGB colour
+space. If no document is open, returns the value of the named color
+from the default document colors.
 
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
+May raise NotFoundError if the named color wasn&apos;t found.
+May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getColorAsRGB(&quot;navn&quot;) -&gt; tuple
+
+Returnerer en tuple  (R, G, B), som indeholder de tre farvekomponenter 
+af farven &quot;navn&quot; fra det aktive dokument. Konverteret til RGB farve rum.
+Hvis ingen dokumenter er åben, så returneres værdien af den navngivne 
+farve fra standard dokument farver.
+
+Kan rejse NotFoundError hvis den navngivne farve ikke findes.
+Kan rejse ValueError hvis et ugyldigt farve-navn er angivet.
+</translation>
     </message>
     <message>
-        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+        <source>renderFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size, format=&quot;PPM&quot;) -&gt; bool
 
-Returns whether the layer &quot;layer&quot; is printable or not, a value of True means
-that the layer &quot;layer&quot; can be printed, a value of False means that printing
-the layer &quot;layer&quot; is disabled.
+Creates an image preview of font &quot;name&quot; with given text &quot;sample&quot; and size.
+If &quot;filename&quot; is not &quot;&quot;, image is saved into &quot;filename&quot;. Otherwise
+image data is returned as a string. The optional &quot;format&quot; argument
+specifies the image format to generate, and supports any format allowed
+by QPixmap.save(). Common formats are PPM, JPEG, PNG and XPM.
 
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
+May raise NotFoundError if the specified font can&apos;t be found.
+May raise ValueError if an empty sample or filename is passed.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>renderFont(&quot;navn&quot;, &quot;filenavn&quot;, &quot;eksempel&quot;, størrelse, format=&quot;PPM&quot;) -&gt; bool
+
+Laver en billed-visning af fonten &quot;navn&quot; med teksten &quot;eksempel&quot; og størrelse.
+Hvis &quot;filnavn&quot; ikke er &quot;&quot;, så bliver billedet gemt i &quot;filnavn&quot;. Ellers returneres 
+billed-data som en streng. Det valgfri &quot;format&quot; argument specificerer billed-formatet, 
+der skal genereres, og støtter de formater, som er tilladt af QPixmap.save().
+Almindelige formater er PPM, JPEG, PNG og XPM.
+
+Kan rejse NotFoundError hvis den angivne font ikke findes.
+Kan rejse  ValueError hvis &quot;eksempel&quot; eller &quot;filnavn&quot; er tomt.
+</translation>
     </message>
 </context>
 <context>
@@ -2502,7 +2516,7 @@ Manglende biblioteksunderstøttelse er vist ved en *</translation>
     </message>
     <message>
         <source>Portugese (Brazilian):</source>
-        <translation type="unfinished"></translation>
+        <translation>Portugisisk (Brasiliansk):</translation>
     </message>
 </context>
 <context>
@@ -4435,129 +4449,140 @@ fejlede!</translation>
     <name>EditMacroDialog</name>
     <message>
         <source>Editing Macro: &lt;b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Redigering af makro: &lt;b&gt;</translation>
     </message>
     <message>
         <source>Scribus - Macro Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Macro håndtering</translation>
     </message>
     <message>
         <source>The file &apos;%1&apos; already exists.
 Are you sure you want to overwrite it?
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Filen &apos;%1&apos; eksisterer allerede.
+Er du sikker på, at du ønsker at overskrive den?
+</translation>
     </message>
     <message>
         <source>You have already edited this macro.
 Are you sure you want to discard all your changes?
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Du har allerede redigeret i denne makro.
+Er du sikker på, at du ønsker at kassere dine ændringer?
+</translation>
     </message>
     <message>
         <source>A full traceback follows:
 
 %1
 </source>
-        <translation type="unfinished"></translation>
+        <translation>En fuldstændig tilbagesporing følger:
+
+%1
+</translation>
     </message>
     <message>
         <source>Compilation of the macro failed, so it can not 
 be saved in its current form. The error was:
 %1
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Komplleringen af makroen mislykkedes, så den 
+kan ikke gemmes i sin nuværende form. Fejlen var:
+%1
+</translation>
     </message>
     <message>
         <source>Scribus - New Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Ny makro</translation>
     </message>
     <message>
         <source>&lt;qt&gt;This is the Edit Macro / New Macro dialog box. Here you can change the source code to macros. Edit the source code to the macro in the text editing area below the &quot;Source Code&quot; label and click OK to save your changes to the macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Dette er Redigér makro / Ny makro dialog vinduet. Her kan du ændre makroers kildekode. Redigere makroens kildekode i
+tekst redigerings området under &quot;Kildekode&quot; mærkaten og klik OK for at gemme dine ændringer til makroen.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Source Code:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kildekode:</translation>
     </message>
     <message>
         <source>Editing Macro:</source>
-        <translation type="unfinished"></translation>
+        <translation>Redigering af makro:</translation>
     </message>
     <message>
         <source>The name of the macro being edited.</source>
-        <translation type="unfinished"></translation>
+        <translation>Navnet på makroen, der bliver redigeret.</translation>
     </message>
     <message>
         <source>&lt;/qt&gt;This item displays the name of the macro you are currently editing.&lt;qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Dette element viser navnet på den makro, du lige nu redigerer.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Annullér</translation>
+        <translation>&amp;Annullér</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Discard all changes and exit.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Forkast alle ændringer og afslut.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Exit the editing dialog, discarding all changes you have made. If you want to exit without saving the macro but don&apos;t want to lose your changes, save your changes with &quot;Save Source As...&quot;.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Hvis du afslutter redigeringsvinduet, så mister du alle ændringer, du har lavet. Hvis du ønsker at afslutte uden at gemme makroen, men ikke ønsker at miste dine ændringer, så gem dine ændringer med &quot;Gem kilde som...&quot;.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ok</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+O</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Save changes and exit.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Gem ændringer og afslut.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Save changes to the macro and exit. If there is a problem with the macro, a message will be displayed and the editing dialog will not close.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Gem ændringer til makroen og afslut. Hvis der er et problem med makroen, så vil en besked blive vist, og redigeringsvinduet vil ikke blive lukket.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;This text area contains the source code of the macro. If you&apos;re creating a new macro there won&apos;t be anything in it, and if you&apos;re editing an existing macro the source code the macro was defined with will be shown here.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Dette tekstområde indeholder makroens kildekode. Hvis du laver en ny makro, så vil der ikke være noget i det, og hvis du redigerer en eksisterende makro, så vil kildekoden, der definerede makroen blive vist her.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Load Source ...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Indlæs kilde ...</translation>
     </message>
     <message>
         <source>Alt+L</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+L</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Replace the current source code with code from a file.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Erstat den nuværende kildekode med kode fra en fil.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Load new source code into the editing area from &quot;file&quot;. Any source code in the editing area is replaced. The loaded source must be a Scribus macro function. If you load any other script, you&apos;ll need to edit it so that it&apos;ll work as a scripter macro before saving it.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Indlæs ny kildekode fra &quot;fil &quot;for redigering. Al kildekode i redigeringsområdet bliver overskrevet. Den indlæste kildekode skal være en Scribus makrofunktion. Hvis du indlæser en anden slags script, så skal den redigeres, så den fungerer som en scripter makro, før den kan gemmes.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Save Source As...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Gem kilde som...</translation>
     </message>
     <message>
         <source>Alt+S</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+S</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Save the source code being edited to a file.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Gem kildekoden, som redigeres, til en fil.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Save the source code - the text - of the macro to a file. You can edit the saved source and load it again with &quot;Load Source...&quot;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Gem makroens kildekode - tekst - til en fil. Du kan redigere den gemte kilde og indlæse den igen med &quot;Indlæs kilde...&quot;. </translation>
     </message>
 </context>
 <context>
@@ -5710,46 +5735,46 @@ Værdien 0 betyder ubegrænset antal.</translation>
     <message>
         <source>Passed object is not callable</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Det givne objekt kan ikke kaldes</translation>
     </message>
 </context>
 <context>
     <name>MacroManager</name>
     <message>
         <source>Manage Macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Håndtér makroer</translation>
     </message>
     <message>
         <source>Brings up a graphical window for creating, deleting, editing, saving and loading macros.</source>
-        <translation type="unfinished"></translation>
+        <translation>Frembringer et grafisk vindue for at kunne lave, slette, redigere, gemme og indlæse makroer.</translation>
     </message>
     <message>
         <source>Create, edit and delete macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Lav, redigér og slet makroer</translation>
     </message>
     <message>
         <source>&amp;Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Makro</translation>
     </message>
     <message>
         <source>Scribus - Macro Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Macro håndtering</translation>
     </message>
     <message>
         <source>Unable to open the requested file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Er ikke i stand til at åbne den efterspurgte fil: %1</translation>
     </message>
     <message>
         <source>Scribus - Edit Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Redigér makro</translation>
     </message>
     <message>
         <source>&lt;qt&gt;The macro name you requested is already taken  by another macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Det makro navn du vil bruge er allerede brugt til en anden makro&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Macro creation failed. The macro manager was unable to set up the macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Det mislykkedes at lave makroen. Makro håndteringen var ikke i stand til at opsætte makroen&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>The macro &apos;%1&apos; has reported a minor error.
@@ -5758,7 +5783,12 @@ A full traceback follows:
 
 %3
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Makroen &apos;%1&apos; har reporteret en mindre fejl.
+Fejlen er: %2
+En fuldstændig tilbagesporing følger:
+
+%3
+</translation>
     </message>
     <message>
         <source>The macro &apos;%1&apos; failed to execute correctly.
@@ -5767,68 +5797,84 @@ A full traceback follows:
 
 %3
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Makroen &apos;%1&apos; kunne ikke udføres korrekt.
+Fejlen er: %2
+En fuldstændig tilbagesporing følger:
+
+%3
+</translation>
     </message>
 </context>
 <context>
     <name>ManageMacrosDialog</name>
     <message>
         <source>Scribus - Macro Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Macro håndtering</translation>
     </message>
     <message>
         <source>Renaming the macro failed because the name is already in use.</source>
-        <translation type="unfinished"></translation>
+        <translation>Makroen kunne ikke omdøbes, da navnet allerede er i brug.</translation>
     </message>
     <message>
         <source>Scribus - Manage Macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Håndtér makroer</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;This window is the Scribus Macro Manager. Here you can create macros, edit macros, etc. All changes are made using the buttons on the right hand side of the window.&lt;/p&gt;
 &lt;p&gt;All changes made in this dialog take effect instantly - you cannot cancel the actions you make here.
 The table in the center of the dialog lists what macros are currently loaded and some information about them. Use &quot;What&apos;s this&quot; on the table for more information.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;Dette vindue er Scribus Makro håndtering. Her kan du lave makroer, redigér makroer, etc. Alle ændrnger laves ved at bruge knapperne på den højre side af vinduet.&lt;/p&gt;
+&lt;p&gt;Alle ændringer foretaget i dette vindue har øjeblikkelig virkning - du kan ikke annullere handlinger du laver her.
+Tabellen i midten af vinduet viser de makroer, der for øjeblikket er indlæst og nogen information om dem. Brug &quot;Hvad er det&quot; på tabellen for at få mere information.&lt;/p&gt;&lt;/qt&gt;
+</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation type="unfinished">&amp;Ny</translation>
+        <translation>&amp;Ny</translation>
     </message>
     <message>
         <source>Alt+N</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+N</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Create a new macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Lav en ny makro.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Create a new macro by prompting for the macro name then bringing up the edit macro dialog box.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Lav en ny makro ved at angive makroens navn og så åbne redigér makro vinduet.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ok</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+O</translation>
+    </message>
+    <message>
+        <source>Close this dialog</source>
+        <translation>Luk dette vindue</translation>
+    </message>
+    <message>
+        <source>Return to Scribus</source>
+        <translation>Returnér til Scribus</translation>
     </message>
     <message>
         <source>Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Makro</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Redigér</translation>
     </message>
     <message>
         <source>Accel</source>
-        <translation type="unfinished"></translation>
+        <translation>Accel</translation>
     </message>
     <message>
         <source>Description</source>
-        <translation type="unfinished">Beskrivelse</translation>
+        <translation>Beskrivelse</translation>
     </message>
     <message>
         <source>&lt;p&gt;This table lists the macros that are currently defined.&lt;/p&gt;
@@ -5837,130 +5883,130 @@ The table in the center of the dialog lists what macros are currently loaded and
 &lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt; If the macro can be edited, &quot;Yes&quot; appears in this column. Usually if a macro cannot be edited it was created using the register_macro command in a script.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Accel:&lt;/b&gt; The menu shortcut key sequence, if any, associated with the macro. For example, CTRL-F8 means that you can press Control-F8 when in Scribus to run the macro.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Description:&lt;/b&gt; If the macro contains a &quot;docstring&quot;, a special string at the start of its definition that describes it, that is shown here. If the docstring is long, only the beginning is shown - use &quot;What&apos;s This&quot; on the macro&apos;s entry in the Macro menu to see the full description.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Denne tabel viser de makroer, der allerede er defineret.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Navn:&lt;/b&gt; Makroens navn, som den er vist i menuen og andre steder i Scribus&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Redigering:&lt;/b&gt; Hvis makroen kan redigeres, står der &quot;Ja&quot; i denne kolonne. Hvis en makro ikke kan redigeres, er den som regel lavet med register_macro kommandoen i en script.&lt;/p&gt;
+ &lt;p&gt;&lt;b&gt;Accel:&lt;/b&gt; Menu genvejstaster, der er knyttet til makroen. For eksempel CTRL-F8 betyder, at du kan taste Control-F8 i scribus for at køre makroen.&lt;/p&gt;
+ &lt;p&gt;&lt;b&gt;Beskrivelse:&lt;/b&gt; Hvis makroen indeholder en &quot;docstring&quot;, en speciel streng i starten af dens defination, som beskriver den. så er den vist her. Hvis beskrivelsen er lang, så er kun begyndelsen vist - brug &quot;Hvad er det&quot; ud for makroen i Makro menuen for at se den fulde beskrivelse.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Rena&amp;me</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nyt navn</translation>
     </message>
     <message>
         <source>Alt+M</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+M</translation>
     </message>
     <message>
         <source>Rename the selected macro.</source>
-        <translation type="unfinished"></translation>
+        <translation>Omdøb den valgte makro.</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Rename the selected macro. You will be prompted for the new name.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Omdøb den valgte makro. Du vil blive spurgt om det nye navn.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Edit...</source>
-        <translation type="unfinished">&amp;Redigér...</translation>
+        <translation>&amp;Redigér...</translation>
     </message>
     <message>
         <source>Alt+E</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+E</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Edit the source of the selected macro, if the source is availible.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Slet</translation>
-    </message>
-    <message>
-        <source>Alt+D</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;qt&gt;Delete the currently selected macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;Delete the selected macro. This is instant, and there is no way to recover the macro once deleted. If the macro is created by a start-up script, it will reappear next time you load Scribus.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Set Accel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Alt+S</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;qt&gt;Set the keyboard shortcut for the selected macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;Set the keyboard shortcut (accelerator) key of the selected macro. You will be prompted for the new shortcut in a dialog box.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>E&amp;xport</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Alt+X</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Export macros to a file.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;Export macros to an external file. The file will be a Python script containing the scripter commands to re-create the macros. It can be run using &lt;tt&gt;Load extension script&lt;/tt&gt; from the &lt;tt&gt;Script&lt;/tt&gt; menu, or the import button in the macro manager.&lt;/p&gt;
-&lt;p&gt;If you want a nice, human readable version of your macros, select the macro you want, press the &lt;tt&gt;Edit&lt;/tt&gt;  button, and use the &lt;tt&gt;Save source&lt;/tt&gt; button in the &lt;tt&gt;Edit Macro&lt;/tt&gt; dialog. You won&apos;t be able to load that version with &lt;tt&gt;Load extension script&lt;/tt&gt; - instead, create a new macro with the&lt;tt&gt; New&lt;/tt&gt; button and use &lt;tt&gt;Load source&lt;/tt&gt;.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delete &amp;All</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Alt+A</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delete all macros.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;Delete all registered macros. This is instant, and there is no way to recover the deleted macros. Any macros created by your start-up script will reappear next time you load Scribus.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Import</source>
-        <translation type="unfinished">&amp;Importër</translation>
-    </message>
-    <message>
-        <source>Alt+I</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Import macros from a file.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;Loads macros from an external file.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Close this dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Return to Scribus</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Redigér kildekoden for den markerede makro, hvis kilden er tilgængelig.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;p&gt;Edit the selected macro. &lt;/p&gt;
 &lt;p&gt;If this button is greyed out, either there is no selected macro or the macro manager does not have the source code for the macro you have selected (in which case &lt;tt&gt;No&lt;/tt&gt; will be shown in the &lt;tt&gt;Edit &lt;/tt&gt;column of the macro).&lt;/p&gt;
 &lt;p&gt;If Scribus doesn&apos;t have the source, the macro was probably created by a script.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Redigér den markerede makro. &lt;/p&gt;
+&lt;p&gt;Hvis knappen ikke er aktiv, så er der enten ikke markeret en makro eller også har makro håndteringen ikke adgang til kildekoden for den markerede makro (i det tilfælde er vist &lt;tt&gt;Nej&lt;/tt&gt; i makroens &lt;tt&gt;Redigering &lt;/tt&gt;kolonne).&lt;/p&gt;
+&lt;p&gt;Hvis Scribus ikke har kildekoden, er makroen sansynligvis lavet med en script.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation>&amp;Slet</translation>
+    </message>
+    <message>
+        <source>Alt+D</source>
+        <translation>Alt+D</translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;Delete the currently selected macro.&lt;/qt&gt;</source>
+        <translation>&lt;qt&gt;Slet den markerede makro.&lt;/qt&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Delete the selected macro. This is instant, and there is no way to recover the macro once deleted. If the macro is created by a start-up script, it will reappear next time you load Scribus.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Slet den markerede makro. Dette er øjeblikkeligt, det er ikke muligt at genskabe makroen, når den en gang er slettet. Hvis makroen er lavet af en opstarts-makro, vil den være der, næste gang Scribus startes.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>&amp;Set Accel</source>
+        <translation>&amp;Sæt Accel</translation>
+    </message>
+    <message>
+        <source>Alt+S</source>
+        <translation>Alt+S</translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;Set the keyboard shortcut for the selected macro.&lt;/qt&gt;</source>
+        <translation>&lt;qt&gt;Sæt tastatur genvej for den markerede makro.&lt;/qt&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Set the keyboard shortcut (accelerator) key of the selected macro. You will be prompted for the new shortcut in a dialog box.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Sæt tastarur genvej (accelerator) taste for den valgte makro. Du vil blive spurgt om den nye genvej i en dialog boks.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>E&amp;xport</source>
+        <translation>E&amp;ksport</translation>
+    </message>
+    <message>
+        <source>Alt+X</source>
+        <translation>Alt+X</translation>
+    </message>
+    <message>
+        <source>Export macros to a file.</source>
+        <translation>Eksportér makroer til en fil.</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Export macros to an external file. The file will be a Python script containing the scripter commands to re-create the macros. It can be run using &lt;tt&gt;Load extension script&lt;/tt&gt; from the &lt;tt&gt;Script&lt;/tt&gt; menu, or the import button in the macro manager.&lt;/p&gt;
+&lt;p&gt;If you want a nice, human readable version of your macros, select the macro you want, press the &lt;tt&gt;Edit&lt;/tt&gt;  button, and use the &lt;tt&gt;Save source&lt;/tt&gt; button in the &lt;tt&gt;Edit Macro&lt;/tt&gt; dialog. You won&apos;t be able to load that version with &lt;tt&gt;Load extension script&lt;/tt&gt; - instead, create a new macro with the&lt;tt&gt; New&lt;/tt&gt; button and use &lt;tt&gt;Load source&lt;/tt&gt;.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Eksportér makroer til en ekstern fil. Filen vil være en Python script, der indeholder scripter kommandoer, som genskaber makroerne. Den kan køres med &lt;tt&gt;Indlæs udvidelses script&lt;/tt&gt; fra &lt;tt&gt;script&lt;/tt&gt; menuen, eller med import knappen i Makro håndteringen.&lt;/p&gt;
+&lt;p&gt;Hvis du ønsker en god, menneske læsbar version af dine makroer, så markér den makro du ønsker, tryk &lt;tt&gt;Rediger&lt;/tt&gt; knappen, og brug &lt;tt&gt;Gem kilde&lt;/tt&gt; knappen i &lt;tt&gt;Rediger makro&lt;/tt&gt; vinduet. Du vil ikke være i stand til at indlæse denne version med &lt;tt&gt;Indlæs udvidelses script&lt;/tt&gt; - lav i stedet for en ny makro med &lt;tt&gt; Ny&lt;/p&gt; knappen og brug &lt;tt&gt;Indlæs kilde&lt;/tt&gt;.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>Delete &amp;All</source>
+        <translation>Slet &amp;alle</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation>Alt+A</translation>
+    </message>
+    <message>
+        <source>Delete all macros.</source>
+        <translation>Slet alle makroer.</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Delete all registered macros. This is instant, and there is no way to recover the deleted macros. Any macros created by your start-up script will reappear next time you load Scribus.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Slet alle registrerede makroer. Dette er øjeblikkeligt, og det er ikke muligt at genskabe de slettede makroer, Makroer lavet af din opstarts-makro, vil være der igen, næste gang Scribus startes.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>&amp;Import</source>
+        <translation>&amp;Importër</translation>
+    </message>
+    <message>
+        <source>Alt+I</source>
+        <translation>Alt+I</translation>
+    </message>
+    <message>
+        <source>Import macros from a file.</source>
+        <translation>Importér makroer fra en fil.</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Loads macros from an external file.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Indlæser makroer fra en ekstern fil.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -6059,29 +6105,6 @@ The table in the center of the dialog lists what macros are currently loaded and
     <message>
         <source> p</source>
         <translation> p</translation>
-    </message>
-</context>
-<context>
-    <name>MenuTest</name>
-    <message>
-        <source>Script error</source>
-        <translation type="obsolete">Script-fejl</translation>
-    </message>
-    <message>
-        <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
-        <translation type="obsolete">Hvis du kører et officielt script, så reportér det venligst til &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
-    </message>
-    <message>
-        <source>Show &amp;Console</source>
-        <translation type="obsolete">Vis &amp;konsol</translation>
-    </message>
-    <message>
-        <source>Hide &amp;Console</source>
-        <translation type="obsolete">Skjul &amp;konsol</translation>
-    </message>
-    <message>
-        <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
-        <translation type="obsolete">Denne meddelelse er også i dit klippebord. Brug Ctrl+V for at indsætte den i &quot;bug tracker&quot;.</translation>
     </message>
 </context>
 <context>
@@ -10064,20 +10087,12 @@ Kontrollér sti og filnavn.</translation>
         <translation>Advarsel</translation>
     </message>
     <message>
-        <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation type="obsolete">Python Scripts (*.py);; Alle filer (*)</translation>
-    </message>
-    <message>
         <source>SVG-Images (*.svg *.svgz);;All Files (*)</source>
         <translation>SVG-billeder (*.svg *.svgz);;Alle filer (*)</translation>
     </message>
     <message>
         <source>SVG-Images (*.svg);;All Files (*)</source>
         <translation>SVG-billeder (*.svg);;Alle filer (*)</translation>
-    </message>
-    <message>
-        <source>S&amp;cript</source>
-        <translation type="obsolete">S&amp;cript</translation>
     </message>
     <message>
         <source>File exists. Overwrite?</source>
@@ -10236,22 +10251,6 @@ Kontrollér sti og filnavn.</translation>
         <translation>S&amp;cripter Manual...</translation>
     </message>
     <message>
-        <source>&amp;Scribus Scripts</source>
-        <translation type="obsolete">&amp;Scribus scripts</translation>
-    </message>
-    <message>
-        <source>&amp;Execute Script...</source>
-        <translation type="obsolete">&amp;Udfør script...</translation>
-    </message>
-    <message>
-        <source>&amp;Recent Scripts</source>
-        <translation type="obsolete">&amp;Nyeste scripts</translation>
-    </message>
-    <message>
-        <source>Show &amp;Console</source>
-        <translation type="obsolete">Vis &amp;konsol</translation>
-    </message>
-    <message>
         <source>Save Page as &amp;SVG...</source>
         <translation>Gem side som &amp;SVG...</translation>
     </message>
@@ -10317,14 +10316,6 @@ Ekstern Lænker</translation>
     <message>
         <source>Media Cases</source>
         <translation>Medie bokse</translation>
-    </message>
-    <message>
-        <source>&amp;About Script...</source>
-        <translation type="obsolete">&amp;Om Script...</translation>
-    </message>
-    <message>
-        <source>About Script</source>
-        <translation type="obsolete">Om Script</translation>
     </message>
     <message>
         <source>Albanian</source>
@@ -10470,7 +10461,7 @@ Ekstern Lænker</translation>
     <message>
         <source>Color not found</source>
         <comment>python error</comment>
-        <translation type="obsolete">Farve ikke fundet</translation>
+        <translation>Farve ikke fundet</translation>
     </message>
     <message>
         <source>Cannot change a color with an empty name.</source>
@@ -10480,12 +10471,12 @@ Ekstern Lænker</translation>
     <message>
         <source>Color not found in document</source>
         <comment>python error</comment>
-        <translation type="obsolete">Farve ikke fundet i dokument</translation>
+        <translation>Farve ikke fundet i dokument</translation>
     </message>
     <message>
         <source>Color not found in default colors</source>
         <comment>python error</comment>
-        <translation type="obsolete">Farve ikke fundet i standard farver</translation>
+        <translation>Farve ikke fundet i standard farver</translation>
     </message>
     <message>
         <source>Cannot create a color with an empty name.</source>
@@ -10525,42 +10516,37 @@ Ekstern Lænker</translation>
     <message>
         <source>Can&apos;t scale by 0%</source>
         <comment>python error</comment>
-        <translation type="obsolete">Kan ikke skalere med 0%</translation>
+        <translation>Kan ikke skalere med 0%</translation>
     </message>
     <message>
         <source>Font not found</source>
         <comment>python error</comment>
-        <translation type="obsolete">Font ikke fundet</translation>
+        <translation>Font ikke fundet</translation>
     </message>
     <message>
         <source>Can&apos;t render an empty sample</source>
         <comment>python error</comment>
-        <translation type="obsolete">Kan ikke gengive et tomt indhold</translation>
-    </message>
-    <message>
-        <source>Can&apos;t save to a blank filename</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Kan ikke gemme uden filnavn</translation>
+        <translation>Kan ikke gengive et tomt indhold</translation>
     </message>
     <message>
         <source>Can&apos;t have an empty layer name</source>
         <comment>python error</comment>
-        <translation type="obsolete">Kan ikke have et lag uden navn</translation>
+        <translation>Kan ikke have et lag uden navn</translation>
     </message>
     <message>
         <source>Layer not found</source>
         <comment>python error</comment>
-        <translation type="obsolete">Lag ikke fundet</translation>
+        <translation>Lag ikke fundet</translation>
     </message>
     <message>
         <source>Can&apos;t remove the last layer</source>
         <comment>python error</comment>
-        <translation type="obsolete">Kan ikke fjerne det sidste lag</translation>
+        <translation>Kan ikke fjerne det sidste lag</translation>
     </message>
     <message>
         <source>Can&apos;t create layer without a name</source>
         <comment>python error</comment>
-        <translation type="obsolete">Kan ikke oprette et lag uden navn</translation>
+        <translation>Kan ikke oprette et lag uden navn</translation>
     </message>
     <message>
         <source>An object with the requested name already exists</source>
@@ -10700,7 +10686,7 @@ Ekstern Lænker</translation>
     <message>
         <source>Insert index out of bounds</source>
         <comment>python error</comment>
-        <translation type="obsolete">Indsæt index - uden for tilladte værdier</translation>
+        <translation>Indsæt index - uden for tilladte værdier</translation>
     </message>
     <message>
         <source>Alignment out of range. Use one of the scribus.ALIGN* constants.</source>
@@ -10710,52 +10696,52 @@ Ekstern Lænker</translation>
     <message>
         <source>Can&apos;t set text alignment on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="obsolete">Kan ikke sætte tekst-justering i andet end tekst-ramme</translation>
+        <translation>Kan ikke sætte tekst-justering i andet end tekst-ramme</translation>
     </message>
     <message>
         <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512</source>
         <comment>python error</comment>
-        <translation type="obsolete">Font-størrelse uden for tilladt område - skal være 1 &lt;= størrelse &lt;= 512</translation>
+        <translation>Font-størrelse uden for tilladt område - skal være 1 &lt;= størrelse &lt;= 512</translation>
     </message>
     <message>
         <source>Can&apos;t set font size on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="obsolete">Kan ikke sætte font-størrelse i andet end tekst-ramme</translation>
+        <translation>Kan ikke sætte font-størrelse i andet end tekst-ramme</translation>
     </message>
     <message>
         <source>Can&apos;t set font on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="obsolete">Kan ikke sætte font i andet end tekst-ramme</translation>
+        <translation>Kan ikke sætte font i andet end tekst-ramme</translation>
     </message>
     <message>
         <source>Line space out of bounds, must be &gt;= 0.1</source>
         <comment>python error</comment>
-        <translation type="obsolete">Linie-afstand uden for tilladt område - skal være &gt;= 0.1</translation>
+        <translation>Linie-afstand uden for tilladt område - skal være &gt;= 0.1</translation>
     </message>
     <message>
         <source>Can&apos;t line spacing on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="obsolete">Kan ikke sætte linie-afstand i andet end tekst-ramme</translation>
+        <translation>Kan ikke sætte linie-afstand i andet end tekst-ramme</translation>
     </message>
     <message>
         <source>Column gap out of bounds, must be positive</source>
         <comment>python error</comment>
-        <translation type="obsolete">Kolonne-afstand uden for tilladt område - skal være positiv</translation>
+        <translation>Kolonne-afstand uden for tilladt område - skal være positiv</translation>
     </message>
     <message>
         <source>Can&apos;t column gap on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="obsolete">Kan ikke sætte kolonne-afstand i andet end tekst-ramme</translation>
+        <translation>Kan ikke sætte kolonne-afstand i andet end tekst-ramme</translation>
     </message>
     <message>
         <source>Column count out of bounds, must be &gt; 1</source>
         <comment>python error</comment>
-        <translation type="obsolete">Kolonne-antal uden for tilladt område - skal være &gt; 1</translation>
+        <translation>Kolonne-antal uden for tilladt område - skal være &gt; 1</translation>
     </message>
     <message>
         <source>Can&apos;t number of columns on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="obsolete">Kan ikke sætte kolonne-antal i andet end tekst-ramme</translation>
+        <translation>Kan ikke sætte kolonne-antal i andet end tekst-ramme</translation>
     </message>
     <message>
         <source>Selection index out of bounds</source>
@@ -10765,72 +10751,72 @@ Ekstern Lænker</translation>
     <message>
         <source>Can&apos;t select text in a non-text frame</source>
         <comment>python error</comment>
-        <translation type="obsolete">Kan ikke markere tekst i andet end tekst-ramme</translation>
+        <translation>Kan ikke markere tekst i andet end tekst-ramme</translation>
     </message>
     <message>
         <source>Can&apos;t delete text from a non-text frame</source>
         <comment>python error</comment>
-        <translation type="obsolete">Kan ikke slette tekst i andet end tekst-ramme</translation>
+        <translation>Kan ikke slette tekst i andet end tekst-ramme</translation>
     </message>
     <message>
         <source>Can&apos;t set text fill on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="obsolete">Kan ikke sætte tekst-fyld i andet end tekst-ramme</translation>
+        <translation>Kan ikke sætte tekst-fyld i andet end tekst-ramme</translation>
     </message>
     <message>
         <source>Can&apos;t set text stroke on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="obsolete">Kan ikke sætte tekst-streg i andet end tekst-ramme</translation>
+        <translation>Kan ikke sætte tekst-streg i andet end tekst-ramme</translation>
     </message>
     <message>
         <source>Can&apos;t set text shade on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="obsolete">Kan ikke sætte tekst-farvemætning i andet end tekst-ramme</translation>
+        <translation>Kan ikke sætte tekst-farvemætning i andet end tekst-ramme</translation>
     </message>
     <message>
         <source>Can only link text frames</source>
         <comment>python error</comment>
-        <translation type="obsolete">Kan kun sammenkæde tekst-rammer</translation>
+        <translation>Kan kun sammenkæde tekst-rammer</translation>
     </message>
     <message>
         <source>Target frame must be empty</source>
         <comment>python error</comment>
-        <translation type="obsolete">Mål-rammen skal være tom</translation>
+        <translation>Mål-rammen skal være tom</translation>
     </message>
     <message>
         <source>Target frame links to another frame</source>
         <comment>python error</comment>
-        <translation type="obsolete">Mål-rammen har lænke til en anden ramme</translation>
+        <translation>Mål-rammen har lænke til en anden ramme</translation>
     </message>
     <message>
         <source>Target frame is linked to by another frame</source>
         <comment>python error</comment>
-        <translation type="obsolete">Mål-rammen har lænke fra en anden ramme</translation>
+        <translation>Mål-rammen har lænke fra en anden ramme</translation>
     </message>
     <message>
         <source>Source and target are the same object</source>
         <comment>python error</comment>
-        <translation type="obsolete">Kilde og mål er det samme objekt</translation>
+        <translation>Kilde og mål er det samme objekt</translation>
     </message>
     <message>
         <source>Can&apos;t unlink a non-text frame</source>
         <comment>python error</comment>
-        <translation type="obsolete">Kan ikke bryde lænke for andet end tekst-ramme</translation>
+        <translation>Kan ikke bryde lænke for andet end tekst-ramme</translation>
     </message>
     <message>
         <source>Object is not a linked text frame, can&apos;t unlink.</source>
         <comment>python error</comment>
-        <translation type="obsolete">Objekt er ikke en sammkædet tekst-ramme, kan ikke bryde lænke.</translation>
+        <translation>Objekt er ikke en sammkædet tekst-ramme, kan ikke bryde lænke.</translation>
     </message>
     <message>
         <source>Object the last frame in a series, can&apos;t unlink. Unlink the previous frame instead.</source>
         <comment>python error</comment>
-        <translation type="obsolete">Objektet er den sidste i en serie. Bryd i stedet for lænken i den foregående ramme.</translation>
+        <translation>Objektet er den sidste i en serie. Bryd i stedet for lænken i den foregående ramme.</translation>
     </message>
     <message>
         <source>Can&apos;t convert a non-text frame to outlines</source>
         <comment>python error</comment>
-        <translation type="obsolete">Kan ikke konvertere til omrids i andet end tekst-ramme</translation>
+        <translation>Kan ikke konvertere til omrids i andet end tekst-ramme</translation>
     </message>
     <message>
         <source>Import &amp;OpenOffice.org Draw...</source>
@@ -10845,9 +10831,22 @@ Ekstern Lænker</translation>
         <translation>OpenOffice.org Tekst dokumenter</translation>
     </message>
     <message>
+        <source>Portugese (Brazilian)</source>
+        <translation>Portugisisk (Brasiliansk)</translation>
+    </message>
+    <message>
+        <source>Welsh</source>
+        <translation>Walisisk</translation>
+    </message>
+    <message>
         <source>Color not found - python error</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Farve ikke fundet - python fejl</translation>
+    </message>
+    <message>
+        <source>Specified item not an image frame</source>
+        <comment>python error</comment>
+        <translation>Specificerede element er ikke en billedramme</translation>
     </message>
     <message>
         <source>Scribus Python interface module
@@ -10875,262 +10874,109 @@ any function as provided here and in its docstring is incomplete.
 
 Details of what exceptions each function may throw are provided on the
 function&apos;s documentation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus Python grænseflade modul
+
+Dette modul er Python grænseflade for Scribus. Det indeholder funktioner
+til at kontrollere scribus og til at manipulere objekter på canvas. Hver
+funktion er dokumenteret individuelt herunder.
+
+Nogle få ting er fælles for det meste i grænsefladen.
+
+De fleste funktioner opererer på rammer. Rammer indentificeres ved deres navn,
+en streng - de er ikke virkelige Python objekter. Mange funktioner tager en
+valgfri (non-keyword) parameter, et ramme-navn.
+Mange indsigelser er også fælles for de fleste functioner. Disse er
+endnu ikke dokumenteret i docstrengen for hver function.
+- Mange funktioner vil rejse en NoDocOpenError hvis du prøver at bruge dem uden at der er et dokument at operere på.
+- Hvis du ikke giver et ramme-navn til en funktion, der behøver det, så vil funktionen bruge den aktive ramme, hvis der er nogen, eller
+rejse en NoValidObjectError hvis den ikke kan finde noget at operere på.
+- Mange funktioner vil rejse en WrongFrameTypeError hvis du prøver at bruge dem
+på en rammetype, hvor det ikke giver mening at bruge dem. For eksempel, sætte
+tekstfarve på en billedramme giver ikke mening, og vil resultere
+i at denne indsigelse rejses.
+- Fejl der kommer fra kald til de underliggende Python API vil blive
+sendt videre uændret. Som sådan, er listen af indsigelser, der rejses af
+en funktion som nævnt her og i dens docstreng, ikke komplet.
+
+Detaljer om hvilke indsigelser hver funktion kan rejse er givet i 
+funktionens dokumentation. </translation>
     </message>
     <message>
         <source>Custom (optional) configuration: </source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Bruger (valgfri) indstilling:</translation>
     </message>
     <message>
         <source>Standard configuration: </source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Standard indstilling:</translation>
     </message>
     <message>
         <source>Short &amp;Words...</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Korte ord...</translation>
     </message>
     <message>
         <source>Short Words processing. Wait please...</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Behandler korte ord. Vent venligst...</translation>
     </message>
     <message>
         <source>Short Words processing. Done.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Behandling af korte ord. Færdig.</translation>
     </message>
     <message>
         <source>Afrikaans</source>
-        <translation type="unfinished">Afrikaans</translation>
-    </message>
-    <message>
-        <source>Portugese (Brazilian)</source>
-        <translation type="unfinished"></translation>
+        <translation>Afrikaans</translation>
     </message>
     <message>
         <source>Turkish</source>
-        <translation type="unfinished"></translation>
+        <translation>Tyrkisk</translation>
     </message>
     <message>
         <source>Ukranian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Welsh</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukrainsk</translation>
     </message>
     <message>
         <source>The filename must be a string.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Filnavnet skal være en streng.</translation>
     </message>
     <message>
         <source>Cannot delete image type settings.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan ikke slette billed-type indstillinger.</translation>
     </message>
     <message>
         <source>The image type must be a string.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Billed-typen skal være en streng.</translation>
     </message>
     <message>
         <source>&apos;allTypes&apos; attribute is READ-ONLY</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>&apos;allTypes&apos; egenskab er READ-ONL</translation>
     </message>
     <message>
         <source>Failed to export image</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Eksport af billede mislykkedes</translation>
     </message>
     <message>
-        <source>Color not found.</source>
+        <source>Cannot get a colour with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan ikke hente en farve med et tomt navn.</translation>
     </message>
     <message>
-        <source>Color not found in document.</source>
+        <source>Colour not found</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Farve ikke fundet</translation>
     </message>
     <message>
-        <source>Color not found in default colors.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot scale by 0%.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Specified item not an image frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Font not found.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot render an empty sample.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot save to a blank filename.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot have an empty layer name.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Layer not found.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot remove the last layer.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot create layer without a name.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Insert index out of bounds.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot set text alignment on a non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot set font size on a non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot set font on a non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Line space out of bounds, must be &gt;= 0.1.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot set line spacing on a non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Column gap out of bounds, must be positive.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot set column gap on a non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Column count out of bounds, must be &gt; 1.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot set number of columns on a non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot select text in a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot delete text from a non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot set text fill on a non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot set text stroke on a non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot set text shade on a non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Can only link text frames.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Target frame must be empty.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Target frame links to another frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Target frame is linked to by another frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Source and target are the same object.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot unlink a non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Object is not a linked text frame, cannot unlink.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Object the last frame in a series, cannot unlink. Unlink the previous frame instead.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cannot convert a non-text frame to outlines.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Unable to save pixmap</source>
+        <comment>scripter error</comment>
+        <translation>Ikke i stand til at gemme pixmap</translation>
     </message>
 </context>
 <context>
@@ -12688,7 +12534,7 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
     </message>
     <message>
         <source>Portuguese (BR)</source>
-        <translation type="unfinished"></translation>
+        <translation>Portugisisk (BR)</translation>
     </message>
 </context>
 <context>
@@ -12754,224 +12600,140 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
     </message>
 </context>
 <context>
-    <name>ScripterCore</name>
-    <message>
-        <source>&amp;Scribus Scripts</source>
-        <translation type="unfinished">&amp;Scribus scripts</translation>
-    </message>
-    <message>
-        <source>&amp;Execute Script...</source>
-        <translation type="unfinished">&amp;Udfør script...</translation>
-    </message>
-    <message>
-        <source>Run a Python script from a file.</source>
-        <comment>scripter</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Load Extension Script...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Load a Python script as an extension. Used for loading macros and for advanced Python scripts that extend the Scribus user interface.</source>
-        <comment>scripter</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Recent Scripts</source>
-        <translation type="unfinished">&amp;Nyeste scripts</translation>
-    </message>
-    <message>
-        <source>Show &amp;Console</source>
-        <translation type="unfinished">Vis &amp;konsol</translation>
-    </message>
-    <message>
-        <source>Display an interactive Python console where you can write and run Python programs that use the Scripter tools.</source>
-        <comment>scripter</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;About Script...</source>
-        <translation type="unfinished">&amp;Om Script...</translation>
-    </message>
-    <message>
-        <source>S&amp;cript</source>
-        <translation type="unfinished">S&amp;cript</translation>
-    </message>
-    <message>
-        <source>Scripter &amp;Settings</source>
-        <comment>script menu</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Open</source>
-        <translation type="unfinished">Åbn</translation>
-    </message>
-    <message>
-        <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation type="unfinished">Python Scripts (*.py);; Alle filer (*)</translation>
-    </message>
-    <message>
-        <source>Script error</source>
-        <translation type="unfinished">Script-fejl</translation>
-    </message>
-    <message>
-        <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
-        <translation type="unfinished">Hvis du kører et officielt script, så reportér det venligst til &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
-    </message>
-    <message>
-        <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
-        <translation type="unfinished">Denne meddelelse er også i dit klippebord. Brug Ctrl+V for at indsætte den i &quot;bug tracker&quot;.</translation>
-    </message>
-    <message>
-        <source>Scribus - Script Plugin</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The &apos;Load Script&apos; function of the script plugin is currently disabled.
-If you just want to run a normal script, you probably want to use
-&apos;Execute Script...&apos; instead.
-
-If you do actually want to load a Python extension script or macro, you
-need to go into the Scripter Settings in the Script menu and enable
-scripter extensions there.
-
-Please read the documentation on extension scripts first.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Hide &amp;Console</source>
-        <translation type="unfinished">Skjul &amp;konsol</translation>
-    </message>
-    <message>
-        <source>About Script</source>
-        <translation type="unfinished">Om Script</translation>
-    </message>
-</context>
-<context>
     <name>ScripterPreferences</name>
     <message>
         <source>Scribus - Scripter Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Scripter Præferencer</translation>
     </message>
     <message>
         <source>Enable Scripter Extensions</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktivér Scripter udvidelser</translation>
     </message>
     <message>
         <source>Turn on extension scripts and macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiver udvidelses scripts og makroer</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;Enabling scripter extensions turns on additional scripter functionality including Python macros and the option of loading a Python script at start-up. Turning on this option unlocks the &lt;tt&gt;Load Extension Script&lt;/tt&gt; item in the Script menu.&lt;/p&gt;
 &lt;p&gt;
 Only scripts written to be run as extension scripts should be used with &lt;tt&gt;Load Extension Script&lt;/tt&gt; or as start-up scripts. See the scripter documentation for more details.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;Aktivering af scripter udvidelser muliggør yderligere scripter funktionalitet, indeholdende Python makroer og muligheden for en Python opstarts script. Aktivering af dette tilvalg, åbner for &lt;tt&gt;Indlæs udvidelses script&lt;/tt&gt; indgangen i Script menuen.&lt;/p&gt;
+&lt;p&gt;
+Kun scripts, som er skrevet til at blive kørt som udvidelses scripts, bør kaldes med &lt;tt&gt;Indlæs udvidelses script&lt;/tt&gt; eller bruges som opstarts script. Se scripter dokumentationen for flere detaljer.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Use a Startup Script</source>
-        <translation type="unfinished"></translation>
+        <translation>Brug en opstarts script</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;If &lt;tt&gt;Use a Startup Script&lt;/tt&gt; is checked, Scribus will load the script file specified here as an extension script at start-up. It is important that the script be written as an extension script, as if not written carefully it can potentially cause problems.&lt;/p&gt;
 &lt;p&gt;&lt;tt&gt;Use a Startup Script&lt;/tt&gt; will be disabled if scripter extensions are off, as extension scripts cannot be loaded without scripter extensions enabled.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;Hvis &lt;tt&gt;Brug en opstarts script&lt;/tt&gt; er valgt, vil Scribus indlæse script-filen, specificeret her, som en udvidelses script ved opstart. Det er vigtigt, at scripten er skrevet som en udvidelses script, den kan forårsage problemer, hvis den ikke er omhyggeligt skrevet.&lt;/p&gt;
+&lt;p&gt;&lt;tt&gt;Brug en opstarts script&lt;/tt&gt; vil være slået fra, hvis scripter udvidelser er slået fra, da udvidelses scripts ikke kan indlæses, hvis ikke scripter udvidelser er aktiveret.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Browse...</source>
-        <translation type="unfinished"></translation>
+        <translation>Gennemse...</translation>
     </message>
     <message>
         <source>Browse for a new script file</source>
-        <translation type="unfinished"></translation>
+        <translation>Gennemse for en ny script fil</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Browse for a new script file&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Gennemse for en ny script fil&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>What script file to load at start-up</source>
-        <translation type="unfinished"></translation>
+        <translation>Hvilken script-fil skal indlæses ved opstart</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;The file containing the Python script to run as an extension script at start-up.&lt;/p&gt;
 &lt;p&gt;Note that when this script is run, Scribus has not completely started up and the workspace does not yet exist.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;Filen med Python scripten, der skal køres som en udvidelses script ved opstart.&lt;/p&gt;
+&lt;/p&gt;Vær opmærksom på, at når denne script køres, er Scribus ikke helt startet og arbejdsområdet eksisterer endnu ikke.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Script File:</source>
-        <translation type="unfinished"></translation>
+        <translation>Script Fil:</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Annullér</translation>
+        <translation>&amp;Annullér</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <source>Close without saving changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Luk uden at gemme ændringer</translation>
     </message>
     <message>
         <source>&amp;Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ok</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+O</translation>
     </message>
     <message>
         <source>Save changes and close</source>
-        <translation type="unfinished"></translation>
+        <translation>Gem ændringer og luk</translation>
     </message>
     <message>
         <source>Advanced Options</source>
-        <translation type="unfinished">Avancerede indstillinger</translation>
+        <translation>Avancerede indstillinger</translation>
     </message>
     <message>
         <source>Import All Names at Startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Importér alle navne ved opstart</translation>
     </message>
     <message>
         <source>Run &apos;from scribus import *&apos; in the script console at start-up</source>
-        <translation type="unfinished"></translation>
+        <translation>Kør &apos;fra scribus import&apos; i script-konsolen ved opstart</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Import All Names at Startup&lt;/tt&gt; is an advanced option. You should probably leave it checked unless you have read the documentation and know what you are doing.&lt;/p&gt;
 &lt;p&gt;Unchecking this option will prevent the scripter from running its usual &lt;tt&gt;from scribus import *&lt;/tt&gt; command when it initializes the main interpreter (used for the script console and extension scripts) at start-up.&lt;/p&gt;
 &lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Importér alle navne verd opstart&lt;/tt&gt; er et avanceret tilvalg. Du bør sansynligvis lade det være valgt, medmindre du har læst dokumentationen og ved hvad du gør.&lt;/p&gt;
+&lt;p&gt;Er det Valgt fra, forhindres scripter i at køre den sædvanlige &lt;tt&gt;from scribus import *&lt;/tt&gt; kommando, når den initialiserer hoved-fortolkeren (brugt af script-konsolen og udvidelses -scripts) ved opstart&lt;/p&gt;
+&lt;p&gt;dette tilvalg træder ikke i funktion før Scribus er genstartet.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Enable Legacy Name Aliases</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiver forældet navne alias</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Enable the use of OldStyle function names&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Aktivér brugen af GammelStil funktions-navne&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Enable Legacy Aliases&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
 &lt;p&gt;If checked, this option will cause the scripter to create a large number of function and constant name aliases for 1.2.0 script compatibility. It defaults to checked.&lt;/p&gt;
 &lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Aktivér forældet navne alias&lt;/tt&gt; er et avanceret tilvalg. Du bør sansynligvis lade det være, som det er.&lt;/p&gt;
+&lt;p&gt;Dette tilvalg vil det forårsage, at scripter laver et stort antal funktion og konstant alias for 1.2.0 script kompatibilitet.
+Tilvalgt er standard.&lt;/p&gt;
+&lt;p&gt;dette tilvalg træder ikke i funktion før Scribus er genstartet.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Use Fake Stdin</source>
-        <translation type="unfinished"></translation>
+        <translation>Brug Erstatnings Stdin</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Replace sys.stdin with a fake file to prevent Scribus hanging when a script tries to read from stdin.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Erstat sys.stdin med en erstatnings-fil, for at forhindre Scribus i at hænge, når en script prøver at læse fra stdin.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Use Fake Stdin&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
 &lt;p&gt;Normally, scribus will provide Python with a fake file object for &lt;tt&gt;sys.stdin&lt;/tt&gt;, so that reads from stdin always return an empty string. If the real &lt;tt&gt;sys.stdin&lt;/tt&gt; is left in place, scripts that try to read from it will block - and in turn block scribus&apos;s execution, making the app appear to hang - until input arrives on stdin. It&apos;s unusual for GUI apps to expect anything on stdin, so mostly users will think scribus has crashed.&lt;/p&gt;
 &lt;p&gt;You can disable this option if you want to accept input on stdin. Generally you should use &lt;tt&gt;os.popen&lt;/tt&gt; to make a pipe instead, or use some other input mechanism, but this option is here just in case.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Brug Erstatnings stdin&lt;/tt&gt; er et avanceret tilvalg.  Du bør sansynligvis lade det være, som det er.&lt;/p&gt;
+&lt;p&gt;Normalt vil Scribus give Python et erstatnings-fil objekt for &lt;tt&gt;sys.stdin&lt;/tt&gt;, så læsning fra stdin altid returnerer en tom streng.
+Hvis den virkelige &lt;tt&gt;sys.stdin&lt;/tt&gt; er på sin plads, så vil scripts, der prøver at læse fra den blokere - og derved blokere Scribus i at køre, så programmet ser ud til at hænge - indtil data ankommer til stdin. Det er usædvanligt, at GUI programmer forventer noget som helst fra stdin, så de fleste brugere vil tænke, at Scribus er brudt sammen.&lt;/p&gt; 
+&lt;p&gt;Du kan deaktivere dette tilvalg, hvis du ønsker at acceptere indput fra stdin. Generelt bør du bruge &lt;tt&gt;os.popen&lt;/tt&gt; til at lave en kanal i stedet, eller brug en anden indput makanisme, men dette tilvalg er her for alle tilfældes skyld.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
 </context>
 <context>
@@ -13486,7 +13248,7 @@ til vinduet nedenunder, for at lave en ny side.</translation>
     </message>
     <message>
         <source>Strike Out</source>
-        <translation>Gennemstreget</translation>
+        <translation>Erstat standardværdier med bruger config</translation>
     </message>
 </context>
 <context>
@@ -13535,14 +13297,17 @@ og aldrig spørge dig om, at bekræfte det igen</translation>
     </message>
     <message>
         <source>Pack paragraph styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Pak afsnits typografier</translation>
     </message>
     <message>
         <source>Group paragraph styles by attributes.
 Less paragraph styles but controlling them may be hard.
 Should be used if it is known that text must not be edited
 after importing.</source>
-        <translation type="unfinished"></translation>
+        <translation>Gruppere afsnits typografier efter egenskaber.
+Færre afsnits typografier, men det kan være svært at styre.
+Bør bruges, hvis man ved, at teksten ikke må rettes, når den 
+er importeret.</translation>
     </message>
 </context>
 <context>
@@ -13736,48 +13501,49 @@ Vælg venligst et andet.</translation>
     <message>
         <source>Short Words</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Korte ord</translation>
     </message>
     <message>
         <source>Apply unbreakable space on:</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Anvend mellemrum, der ikke kan brydes, på: </translation>
     </message>
     <message>
         <source>&amp;Selected frames</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Markerede rammer</translation>
     </message>
     <message>
         <source>Active &amp;page</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Aktiv &amp;side</translation>
     </message>
     <message>
         <source>&amp;All items</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Alle &amp;elementer</translation>
     </message>
     <message>
         <source>&amp;OK</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished">&amp;Annullér</translation>
+        <translation>&amp;Annullér</translation>
     </message>
     <message>
         <source>&amp;Info and
 Languages</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Info og
+Sprog</translation>
     </message>
     <message>
         <source>Replace defaults by user config</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Erstat standardværdier med bruger opsætning</translation>
     </message>
     <message>
         <source>When the user config file exists 
@@ -13788,37 +13554,43 @@ to the global configuration by unchecked button.
 You can replace predefined values by yours
 with checked button too.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Når bruger opsætnings-filen findes
+(%1)
+kan du vælge, om du ønsker at tilføje din opsætning
+til den globale opsætning ved en ikke afkrydset knap.
+
+Du kan også erstatte predefinerede værdier med 
+dine med afkrydset knap.</translation>
     </message>
     <message>
         <source>Only selected frames processed.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kun markerede rammer behandlet.</translation>
     </message>
     <message>
         <source>Only actual page processed.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kun aktive side behandlet.</translation>
     </message>
     <message>
         <source>All items in document processed.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Alle elementer i dokumentet behandlet.</translation>
     </message>
     <message>
         <source>Short Words for Scribus</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Korte ord for Scribus</translation>
     </message>
     <message>
         <source>Available in the following languages</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Tilgængelig i følgende sprog</translation>
     </message>
     <message>
         <source>About Short Words</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Om Korte Ord</translation>
     </message>
 </context>
 <context>
