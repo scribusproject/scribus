@@ -1902,7 +1902,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 		QDomElement MuL=docu.createElement("MultiLine");
 		MuL.setAttribute("Name",itMU.key());
 		multiLine ml = itMU.data();
-		multiLine::Iterator itMU2;
+		multiLine::iterator itMU2;
 		for (itMU2 = ml.begin(); itMU2 != ml.end(); ++itMU2)
 			{
 			QDomElement SuL=docu.createElement("SubLine");
@@ -2277,7 +2277,7 @@ for (itMU = doc->MLineStyles.begin(); itMU != doc->MLineStyles.end(); ++itMU)
 	QDomElement MuL=docu.createElement("MultiLine");
 	MuL.setAttribute("Name",itMU.key());
 	multiLine ml = itMU.data();
-	multiLine::Iterator itMU2;
+	multiLine::iterator itMU2;
 	for (itMU2 = ml.begin(); itMU2 != ml.end(); ++itMU2)
 		{
 		QDomElement SuL=docu.createElement("SubLine");

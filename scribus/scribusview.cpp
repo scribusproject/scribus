@@ -1000,7 +1000,7 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 									else
 										{
 										multiLine ml = Doc->MLineStyles[ite->NamedLStyle];
-										for (int it = ml.count()-1; it > -1; it--)
+										for (int it = ml.size()-1; it > -1; it--)
 											{
 											SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k);
 											p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
@@ -1328,7 +1328,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 								else
 									{
 									multiLine ml = Doc->MLineStyles[c->NamedLStyle];
-									for (int it = ml.count()-1; it > -1; it--)
+									for (int it = ml.size()-1; it > -1; it--)
 										{
 										SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k);
 										p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
@@ -1557,7 +1557,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 							else
 								{
 								multiLine ml = Doc->MLineStyles[c->NamedLStyle];
-								for (int it = ml.count()-1; it > -1; it--)
+								for (int it = ml.size()-1; it > -1; it--)
 									{
 									SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k);
 									p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
@@ -1611,7 +1611,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 								else
 									{
 									multiLine ml = Doc->MLineStyles[c->NamedLStyle];
-									for (int it = ml.count()-1; it > -1; it--)
+									for (int it = ml.size()-1; it > -1; it--)
 										{
 										SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k);
 										p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
@@ -1633,7 +1633,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 							else
 								{
 								multiLine ml = Doc->MLineStyles[c->NamedLStyle];
-								for (int it = ml.count()-1; it > -1; it--)
+								for (int it = ml.size()-1; it > -1; it--)
 									{
 									SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k);
 									p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
@@ -1658,7 +1658,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 									else
 										{
 										multiLine ml = Doc->MLineStyles[c->NamedLStyle];
-										for (int it = ml.count()-1; it > -1; it--)
+										for (int it = ml.size()-1; it > -1; it--)
 											{
 											SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k);
 											p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);

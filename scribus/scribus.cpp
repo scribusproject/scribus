@@ -67,6 +67,7 @@
 #include "guidemanager.h"
 #include "mergedoc.h"
 #include "lineformats.h"
+#include "missing.h"
 extern QPixmap loadIcon(QString nam);
 
 using namespace std;
@@ -282,7 +283,6 @@ ScribusApp::ScribusApp(SplashScreen *splash)
     setCentralWidget( vb );
 		connect(wsp, SIGNAL(windowActivated(QWidget *)), this, SLOT(newActWin(QWidget *)));
 		Tpal = new Tree(this, WStyle_Customize | WStyle_DialogBorder);
-//		Mpal = new Mpalette(this, FontMenu);
 		Mpal = new Mpalette(this, &Prefs);
 		Mpal->Cpal->SetColors(Prefs.DColors);
 		Npal = new NodePalette(this);
@@ -703,7 +703,6 @@ void ScribusApp::initMenuBar()
 	ShadeMenu->insertItem("80 %");
 	ShadeMenu->insertItem("90 %");
 	ShadeMenu->insertItem("100 %");
-	FStyleMenu = new QPopupMenu();
 	FontMenu = new QPopupMenu();
 	TypeStyleMenu = new QPopupMenu();
 	TypeStyleMenu->insertItem(tr("Normal"));
@@ -3970,8 +3969,27 @@ void ScribusApp::CopyPage()
 void ScribusApp::setItemFont(int id)
 {
 	QString nf;
-	nf = *FontID[long(id)];
+	int a = FontMenu->indexOf(id);
+	disconnect(FontMenu, SIGNAL(activated(int)), this, SLOT(setItemFont(int)));
+	if (a == 1)
+		return;
+	if (a == 0)
+		{
+		DmF *dia = new DmF(view, doc->ActPage->SelItem.at(0)->IFont, &Prefs, false);
+		if (dia->exec())
+			nf = dia->Ersatz;
+		else
+			{
+			delete dia;
+			connect(FontMenu, SIGNAL(activated(int)), this, SLOT(setItemFont(int)));
+			return;
+			}
+		delete dia;
+		}
+	else
+		nf = *FontID[long(id)];
 	SetNewFont(nf);
+	connect(FontMenu, SIGNAL(activated(int)), this, SLOT(setItemFont(int)));
 }
 
 void ScribusApp::SetNewFont(QString nf)
@@ -3993,7 +4011,6 @@ void ScribusApp::AdjustFontMenu(QString nf)
 {
 	uint a;
 	QString df;
-//	Mpal->Fonts->setText(nf);
 	Mpal->Fonts->setCurrentText(nf);
 	for (a = 2; a < FontMenu->count(); ++a)
 		{
@@ -4596,47 +4613,13 @@ void ScribusApp::DoAlign(bool xa, bool ya, bool Vth, bool Vtv, float xdp, float 
 
 void ScribusApp::BuildFontMenu()
 {
-	QPopupMenu *pm;
 	FontID.clear();
 	FontMenu->clear();
-	FStyleMenu->clear();
 	int a;
 	QString b = " ";
-	QMap<QString,QStrList> Fami;
 	SCFontsIterator it(Prefs.AvailFonts);
-	for ( ; it.current(); ++it)
-	{
-		QString family,style;
-		if (it.current()->UseFont)
-			{
-			QString &fn=it.current()->SCName;
-			int	pos=fn.find(" ");
-			family=fn.left(pos);
-			style=fn.right(fn.length()-pos);
-			Fami[family].inSort(fn);
-			}
-	}
-
-	QMapIterator<QString,QStrList> qmi;
-	for (qmi = Fami.begin(); qmi != Fami.end(); ++qmi)
-		{
-		pm = new QPopupMenu();
-		QString family=qmi.key();
-		QStrList &qsl=qmi.data();
-		for( QStrListIterator sli(qsl) ; sli.current() ; ++sli)
-			{
-			if (Prefs.AvailFonts[sli.current()]->UseFont)
-				{
-				QString &fn=Prefs.AvailFonts[sli.current()]->SCName;
-				a = pm->insertItem(new FmItem(fn, Prefs.AvailFonts[fn]->Font));
-				FontID.insert(long(a), &fn);
-				}
-			}
-		connect(pm, SIGNAL(activated(int)), this, SLOT(setItemFont(int)));
-		FStyleMenu->insertItem(family, pm);
-		}
-	a = FontMenu->insertItem(tr("Face"), FStyleMenu);
-	a = FontMenu->insertSeparator();
+	FontMenu->insertItem(tr("Other..."));
+	FontMenu->insertSeparator();
 	if (!HaveDoc)
 		{
 		it.toFirst();
@@ -4651,12 +4634,11 @@ void ScribusApp::BuildFontMenu()
 			{
 			a = FontMenu->insertItem(new FmItem(it3.key(), it3.data()));
 			if (it3.key() == doc->Dfont)
-				{
 				FontMenu->setItemChecked(a, true);
-				}
 			FontID.insert(long(a), &it3.key());
 			}
 		}
+	connect(FontMenu, SIGNAL(activated(int)), this, SLOT(setItemFont(int)));
 }
 
 void ScribusApp::GetAllFonts()

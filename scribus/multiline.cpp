@@ -245,7 +245,7 @@ void MultiLine::reSort()
 	sl.LineEnd = TempVorl[CurLin].LineEnd;
 	sl.LineJoin = TempVorl[CurLin].LineJoin;
 	sl.Width = TempVorl[CurLin].Width;
-	multiLine::Iterator it3;
+	multiLine::iterator it3;
 	for (it3 = TempVorl.begin(); it3 != TempVorl.end(); ++it3)
 		{
 		if (cc == CurLin)
@@ -256,7 +256,7 @@ void MultiLine::reSort()
 		cc++;
 		}
 	cc = 0;
-	multiLine::Iterator it2;
+	multiLine::iterator it2;
 	bool fo = false;
 	for (it2 = TempVorl.begin(); it2 != TempVorl.end(); ++it2)
 		{
@@ -280,7 +280,7 @@ void MultiLine::RebuildList()
 {
 	QString tmp, tmp2;
 	Styles->clear();
-	multiLine::Iterator it;
+	multiLine::iterator it;
 	QPixmap pm2 = QPixmap(30, 15);
 	for (it = TempVorl.begin(); it != TempVorl.end(); ++it)
 		{
@@ -335,7 +335,7 @@ void MultiLine::NewSubLine()
 	sl.LineJoin = TempVorl[CurLin].LineJoin;
 	sl.Width = TempVorl[CurLin].Width;
 	int cc = 0;
-	multiLine::Iterator it2;
+	multiLine::iterator it2;
 	bool fo = false;
 	for (it2 = TempVorl.begin(); it2 != TempVorl.end(); ++it2)
 		{
@@ -360,7 +360,7 @@ void MultiLine::DelSubLine()
 	if (TempVorl.size() == 1)
 		return;
 	int cc = 0;
-	multiLine::Iterator it3;
+	multiLine::iterator it3;
 	for (it3 = TempVorl.begin(); it3 != TempVorl.end(); ++it3)
 		{
 		if (cc == CurLin)

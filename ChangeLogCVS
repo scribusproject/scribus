@@ -1,4 +1,7 @@
 Changes since Version 0.9.11.1
+18.06.2003	scribus.cpp		Implemented a new Fontselection Dialog.
+					Fixed Compiling Bugs.
+
 17.06.2003	fontcombo.cpp		This is the Replacement for the former Font Menue
 					It's used in all place where you must select a Font
 					except for the Main Menue Bar.

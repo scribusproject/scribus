@@ -36,3 +36,8 @@ QSize FmItem::sizeHint()
 {
 	return QFontMetrics(font).size(AlignLeft | AlignVCenter | ShowPrefix | DontClip, string);
 }
+
+QString FmItem::Ctext()
+{
+	return string;
+}

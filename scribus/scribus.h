@@ -406,7 +406,6 @@ private:
     QPopupMenu *ShapeMenu;
     /** FontMenu enthaelt die Fonts */
     QPopupMenu *FontMenu;
-    QPopupMenu *FStyleMenu;
     QPopupMenu *TypeStyleMenu;
     QPopupMenu *AliMenu;
     QPopupMenu *recentMenu;
