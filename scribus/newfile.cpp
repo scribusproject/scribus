@@ -400,6 +400,8 @@ void NewDoc::ExitOK()
 	{
 		Pagebr = Breite->value() / Umrech;
 		Pageho = Hoehe->value() / Umrech;
+		accept();
+		return;
 	}
 	if (Orient == 1)
 	{
