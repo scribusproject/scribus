@@ -2,6 +2,8 @@
 #include "editformats.moc"
 #include "edit1format.h"
 #include <qmessagebox.h>
+#include "customfdialog.h"
+#include "scribusXml.h"
 extern QPixmap loadIcon(QString nam);
 
 StilFormate::StilFormate( QWidget* parent, ScribusDoc *doc, preV *avail)
@@ -23,6 +25,10 @@ StilFormate::StilFormate( QWidget* parent, ScribusDoc *doc, preV *avail)
     Layout15 = new QVBoxLayout; 
     Layout15->setSpacing( 6 );
     Layout15->setMargin( 0 );
+
+    LoadS = new QPushButton( this, "LoadF" );
+    LoadS->setText( tr( "Append" ) );
+    Layout15->addWidget( LoadS );
 
     NewB = new QPushButton( this, "NewB" );
     NewB->setText( tr( "New" ) );
@@ -60,6 +66,7 @@ StilFormate::StilFormate( QWidget* parent, ScribusDoc *doc, preV *avail)
     connect(SaveB, SIGNAL(clicked()), this, SLOT(accept()));
     connect(EditB, SIGNAL(clicked()), this, SLOT(editFormat()));
     connect(NewB, SIGNAL(clicked()), this, SLOT(neuesFormat()));
+    connect(LoadS, SIGNAL(clicked()), this, SLOT(loadStyles()));
     connect(DublicateB, SIGNAL(clicked()), this, SLOT(dupFormat()));
     connect(DeleteB, SIGNAL(clicked()), this, SLOT(deleteFormat()));
     connect(ListBox1, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selFormat(QListBoxItem*)));
@@ -139,6 +146,43 @@ void StilFormate::deleteFormat()
 		TempVorl.remove(TempVorl.at(sFnumber));
 		UpdateFList();
 		}
+}
+
+void StilFormate::loadStyles()
+{
+	QString fileName;
+#ifdef HAVE_LIBZ
+	CustomFDialog dia(this, tr("Open"), tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"));
+#else
+	CustomFDialog dia(this, tr("Open"), tr("Documents (*.sla *.scd);;All Files (*)"));
+#endif
+	if (dia.exec() == QDialog::Accepted)
+		fileName = dia.selectedFile();
+	else
+		return;
+  if (!fileName.isEmpty())
+  	{
+  	ScriXmlDoc *ss = new ScriXmlDoc();
+  	if (ss->ReadStyles(fileName, Docu, fon))
+  		{
+			for (uint xx=0; xx<ss->Vorlagen.count(); ++xx)
+				{
+		   	struct StVorL sty;
+		   	sty.Vname = ss->Vorlagen[xx].Vname;
+		   	sty.LineSpa = ss->Vorlagen[xx].LineSpa;
+		   	sty.Ausri = ss->Vorlagen[xx].Ausri;
+		   	sty.Indent = ss->Vorlagen[xx].Indent;
+		   	sty.First = ss->Vorlagen[xx].First;
+		   	sty.Avor = ss->Vorlagen[xx].Avor;
+		   	sty.Anach = ss->Vorlagen[xx].Anach;
+		   	sty.Font = ss->Vorlagen[xx].Font;
+		   	sty.FontSize = ss->Vorlagen[xx].FontSize;
+		   	TempVorl.append(sty);
+				}
+			delete ss;
+			UpdateFList();
+  		}
+  	}
 }
 
 void StilFormate::UpdateFList()

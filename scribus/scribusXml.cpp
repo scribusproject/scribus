@@ -72,6 +72,104 @@ return ff;
 /** end changes */
 }
 
+bool ScriXmlDoc::ReadStyles(QString fileName, ScribusDoc* doc, preV *Prefs)
+{
+	struct StVorL vg;
+	QMap<QString,QString> DoFonts;
+	QDomDocument docu("scridoc");
+	QString f = "";
+	QString tmpf;
+	QFont fo;
+	bool fou;
+	Vorlagen.clear();
+	DoFonts.clear();
+	f = ReadDatei(fileName);
+	if (f == "")
+		return false;
+	if(!docu.setContent(f))
+		return false;
+	QDomElement elem=docu.documentElement();
+	if ((elem.tagName() != "SCRIBUS") && (elem.tagName() != "SCRIBUSUTF8"))
+		return false;
+	QDomNode DOC=elem.firstChild();
+	while(!DOC.isNull())
+		{
+		QDomElement dc=DOC.toElement();
+		QDomNode PAGE=DOC.firstChild();
+		while(!PAGE.isNull())
+			{
+			QDomElement pg=PAGE.toElement();
+			if(pg.tagName()=="FONT")
+				{
+				tmpf = pg.attribute("NAME");
+				if ((!Prefs->AvailFonts.find(tmpf)) || (!Prefs->AvailFonts[tmpf]->UseFont))
+					{
+					if ((!Prefs->GFontSub.contains(tmpf)) || (!Prefs->AvailFonts[Prefs->GFontSub[tmpf]]->UseFont))
+						{
+	  				qApp->setOverrideCursor(QCursor(arrowCursor), true);
+						DmF *dia = new DmF(0, tmpf, Prefs);
+						dia->exec();
+						tmpf = dia->Ersatz;
+						delete dia;
+	  				qApp->setOverrideCursor(QCursor(waitCursor), true);
+						Prefs->GFontSub[pg.attribute("NAME")] = tmpf;
+						}
+					else
+						tmpf = Prefs->GFontSub[tmpf];
+					}
+				fo = Prefs->AvailFonts[tmpf]->Font;
+				fo.setPointSize(qRound(doc->Dsize / 10.0));
+				doc->AddFont(tmpf, fo);
+				DoFonts[pg.attribute("NAME")] = tmpf;
+				}
+			if(pg.tagName()=="STYLE")
+				{
+				fou = false;
+				vg.Vname = pg.attribute("NAME");
+				vg.LineSpa = QStodouble(pg.attribute("LINESP"));
+				vg.Indent = QStodouble(pg.attribute("INDENT","0"));
+				vg.First = QStodouble(pg.attribute("FIRST","0"));
+				vg.Ausri = QStoInt(pg.attribute("ALIGN"));
+				vg.Avor = QStodouble(pg.attribute("VOR","0"));
+				vg.Anach = QStodouble(pg.attribute("NACH","0"));
+				if (pg.hasAttribute("FONT"))
+					vg.Font = DoFonts[pg.attribute("FONT")];
+				else
+					vg.Font = DoFonts[doc->Dfont];
+				vg.FontSize = qRound(QStodouble(pg.attribute("FONTSIZE","12")) * 10.0);
+				for (uint xx=0; xx<Vorlagen.count(); ++xx)
+					{
+					if (vg.Vname == Vorlagen[xx].Vname)
+						{
+						if ((vg.LineSpa == Vorlagen[xx].LineSpa) &&
+								(vg.Indent == Vorlagen[xx].Indent) &&
+								(vg.First == Vorlagen[xx].First) &&
+								(vg.Ausri == Vorlagen[xx].Ausri) &&
+								(vg.Avor == Vorlagen[xx].Avor) &&
+								(vg.Anach == Vorlagen[xx].Anach) &&
+								(vg.Font == Vorlagen[xx].Font) &&
+								(vg.FontSize == Vorlagen[xx].FontSize))
+							{
+							fou = true;
+							}
+						else
+							{
+							vg.Vname = "Copy of "+Vorlagen[xx].Vname;
+							fou = false;
+							}
+						break;
+						}
+					}
+				if (!fou)
+					Vorlagen.append(vg);
+				}
+			PAGE=PAGE.nextSibling();
+			}
+		DOC=DOC.nextSibling();
+		}
+	return true;
+}
+
 bool ScriXmlDoc::ReadColors(QString fileName)
 {
 	QDomDocument docu("scridoc");
@@ -717,6 +815,7 @@ while(!DOC.isNull())
 	doc->CMSSettings.SoftProofOn = static_cast<bool>(QStoInt(dc.attribute("DPSo","0")));
 	doc->CMSSettings.CMSinUse = static_cast<bool>(QStoInt(dc.attribute("DPuse","0")));
 	doc->CMSSettings.GamutCheck = static_cast<bool>(QStoInt(dc.attribute("DPgam","0")));
+	doc->CMSSettings.BlackPoint = static_cast<bool>(QStoInt(dc.attribute("DPbla","1")));
 	doc->CMSSettings.DefaultMonitorProfile = dc.attribute("DPMo","");
 	doc->CMSSettings.DefaultPrinterProfile = dc.attribute("DPPr","");
 	doc->CMSSettings.DefaultInputProfile = dc.attribute("DPIn","");
@@ -2451,6 +2550,7 @@ dc.setAttribute("HCMS", static_cast<int>(doc->HasCMS));
 dc.setAttribute("DPSo", static_cast<int>(doc->CMSSettings.SoftProofOn));
 dc.setAttribute("DPuse", static_cast<int>(doc->CMSSettings.CMSinUse));
 dc.setAttribute("DPgam", static_cast<int>(doc->CMSSettings.GamutCheck));
+dc.setAttribute("DPbla", static_cast<int>(doc->CMSSettings.BlackPoint));
 dc.setAttribute("DPMo",doc->CMSSettings.DefaultMonitorProfile);
 dc.setAttribute("DPPr",doc->CMSSettings.DefaultPrinterProfile);
 dc.setAttribute("DPIn",doc->CMSSettings.DefaultInputProfile);
@@ -2790,6 +2890,7 @@ void ScriXmlDoc::WritePref(preV *Vor, QString ho)
 	dc81.setAttribute("DPSo", static_cast<int>(Vor->DCMSset.SoftProofOn));
 	dc81.setAttribute("DPuse", static_cast<int>(Vor->DCMSset.CMSinUse));
 	dc81.setAttribute("DPgam", static_cast<int>(Vor->DCMSset.GamutCheck));
+	dc81.setAttribute("DPbla", static_cast<int>(Vor->DCMSset.BlackPoint));
 	dc81.setAttribute("DPMo",Vor->DCMSset.DefaultMonitorProfile);
 	dc81.setAttribute("DPPr",Vor->DCMSset.DefaultPrinterProfile);
 	dc81.setAttribute("DPIn",Vor->DCMSset.DefaultInputProfile);
@@ -3017,6 +3118,7 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 			Vorein->DCMSset.SoftProofOn = static_cast<bool>(QStoInt(dc.attribute("DPSo","0")));
 			Vorein->DCMSset.CMSinUse = static_cast<bool>(QStoInt(dc.attribute("DPuse","0")));
 			Vorein->DCMSset.GamutCheck = static_cast<bool>(QStoInt(dc.attribute("DPgam","0")));
+			Vorein->DCMSset.BlackPoint = static_cast<bool>(QStoInt(dc.attribute("DPbla","1")));
 			Vorein->DCMSset.DefaultMonitorProfile = dc.attribute("DPMo","");
 			Vorein->DCMSset.DefaultPrinterProfile = dc.attribute("DPPr","");
 			Vorein->DCMSset.DefaultInputProfile = dc.attribute("DPIn","");

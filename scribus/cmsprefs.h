@@ -45,6 +45,7 @@ public:
     QLabel* Text21;
     QCheckBox* Simulate;
 		QCheckBox* GamutC;
+		QCheckBox* BlackP;
     QPushButton* Cancel;
     QPushButton* OK;
   	CMSset *Prefs;

@@ -164,6 +164,12 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSset *Vor,
     GamutC->setText( tr( "Mark Colors out of Gamut" ) );
     GamutC->setChecked(Vor->GamutCheck);
     CMSPrefsLayout->addWidget( GamutC );
+
+    BlackP = new QCheckBox( this, "Black" );
+    BlackP->setText( tr( "Use Blackpoint Compensation" ) );
+    BlackP->setChecked(Vor->BlackPoint);
+    CMSPrefsLayout->addWidget( BlackP );
+
 		if (!CheckBox1->isChecked())
 			{
     	Simulate->setEnabled( false );
@@ -207,6 +213,7 @@ void CMSPrefs::SetValues()
 	(Prefs->DefaultIntentMonitor != MonitorI->currentItem()) ||
 	(Prefs->SoftProofOn != Simulate->isChecked()) ||
 	(Prefs->GamutCheck != GamutC->isChecked()) ||
+	(Prefs->BlackPoint != BlackP->isChecked()) ||
 	(Prefs->CMSinUse != CheckBox1->isChecked()))
 		Changed = true;
 	Prefs->DefaultInputProfile = InputP->currentText();
@@ -219,6 +226,7 @@ void CMSPrefs::SetValues()
 	Prefs->SoftProofOn = Simulate->isChecked();
 	Prefs->GamutCheck = GamutC->isChecked();
 	Prefs->CMSinUse = CheckBox1->isChecked();
+	Prefs->BlackPoint = BlackP->isChecked();
 	accept();
 }
 

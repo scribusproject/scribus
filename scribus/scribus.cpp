@@ -319,6 +319,7 @@ ScribusApp::ScribusApp(SplashScreen *splash)
 		Prefs.DCMSset.CMSinUse = false;
 		Prefs.DCMSset.SoftProofOn = false;
 		Prefs.DCMSset.GamutCheck = false;
+		Prefs.DCMSset.BlackPoint = true;
 		Prefs.DCMSset.DefaultIntentMonitor = 1;
 		Prefs.DCMSset.DefaultIntentMonitor2 = 1;
 		Prefs.DCMSset.DefaultIntentPrinter = 0;
@@ -1479,6 +1480,7 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	doc->CMSSettings.DefaultIntentMonitor2 = Prefs.DCMSset.DefaultIntentMonitor2;
 	doc->CMSSettings.SoftProofOn = Prefs.DCMSset.SoftProofOn;
 	doc->CMSSettings.GamutCheck = Prefs.DCMSset.GamutCheck;
+	doc->CMSSettings.BlackPoint = Prefs.DCMSset.BlackPoint;
 	doc->CMSSettings.CMSinUse = Prefs.DCMSset.CMSinUse;
 	doc->PDF_Optionen.SolidProf = doc->CMSSettings.DefaultInputProfile2;
 	doc->PDF_Optionen.ImageProf = doc->CMSSettings.DefaultInputProfile;
@@ -2373,6 +2375,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 			doc->CMSSettings.DefaultIntentMonitor2 = Prefs.DCMSset.DefaultIntentMonitor2;
 			doc->CMSSettings.SoftProofOn = Prefs.DCMSset.SoftProofOn;
 			doc->CMSSettings.GamutCheck = Prefs.DCMSset.GamutCheck;
+			doc->CMSSettings.BlackPoint = Prefs.DCMSset.BlackPoint;
 			doc->CMSSettings.CMSinUse = false;
 			}
 		if (CMSavail)

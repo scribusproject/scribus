@@ -120,8 +120,11 @@ void ScribusWin::OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo)
 	else
 		dcmsFlags |= cmsFLAGS_SOFTPROOFING;
 #ifdef cmsFLAGS_BLACKPOINTCOMPENSATION
-	dcmsFlags2 |= cmsFLAGS_BLACKPOINTCOMPENSATION;
-	dcmsFlags |= cmsFLAGS_BLACKPOINTCOMPENSATION;
+	if (doc->CMSSettings.BlackPoint)
+		{
+		dcmsFlags2 |= cmsFLAGS_BLACKPOINTCOMPENSATION;
+		dcmsFlags |= cmsFLAGS_BLACKPOINTCOMPENSATION;
+		}
 #endif
 	stdProof = cmsCreateProofingTransform(doc->DocInputProf, TYPE_RGB_16,
 														 				 		doc->DocOutputProf, TYPE_RGB_16,

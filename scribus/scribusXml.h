@@ -21,6 +21,7 @@ public:
 	ScriXmlDoc() {};
 	~ScriXmlDoc() {};
 	QString ReadDatei(QString fileName);
+	bool ReadStyles(QString fileName, ScribusDoc* doc, preV *Prefs);
 	bool ReadColors(QString fileName);
 	int ReadPageCount(QString fileName);
 	bool ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, ScribusView *view, int PageToLoad);
@@ -33,6 +34,7 @@ public:
 	void WritePref(preV *Vor, QString ho);
 	bool ReadPref(struct preV *Vorein, QString ho);
 	CListe Farben;
+  QValueList<StVorL> Vorlagen;
 	struct Linked { int Start;
 									int StPag;
               	};

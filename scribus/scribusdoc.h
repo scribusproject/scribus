@@ -208,6 +208,7 @@ struct CMSset {
   						bool CMSinUse;
   						bool SoftProofOn;
 							bool GamutCheck;
+							bool BlackPoint;
 							} ;
 
 struct UndoData {

@@ -17,6 +17,7 @@ public:
     ~StilFormate() {};
 
     QListBox* ListBox1;
+    QPushButton* LoadS;
     QPushButton* NewB;
     QPushButton* EditB;
     QPushButton* DublicateB;
@@ -35,6 +36,7 @@ public slots:
 		void neuesFormat();
 		void dupFormat();
 		void deleteFormat();
+		void loadStyles();
 
 protected:
     QHBoxLayout* StilFormateLayout;
