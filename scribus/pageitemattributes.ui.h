@@ -13,7 +13,8 @@
 //Basically the same as Document Item Attributes for now... will get comboboxes later etc
 void PageItemAttributes::init()
 {
-	//blah
+	relationships << tr("None") << tr("Relates To") << tr("Is Parent Of") << tr("Is Child Of");
+	autoAddTo << tr("None") << tr("Text Frames") << tr("Image Frames");
 }
 
 void PageItemAttributes::destroy()
@@ -75,6 +76,8 @@ void PageItemAttributes::tableItemChanged( int row, int col )
 void PageItemAttributes::addEntry()
 {
 	ObjectAttribute blank;
+	blank.relationship="None";
+	blank.autoaddto="none";
 	localAttributes.append(blank);
 	updateTable();
 }
@@ -140,14 +143,27 @@ void PageItemAttributes::updateTable()
 	for(ObjAttrVector::Iterator it = localAttributes.begin(); it!= localAttributes.end(); ++it)
 	{
 		uint i=0;
+		//Name
 		QTableItem *item1 = new QTableItem(attributesTable, QTableItem::WhenCurrent, (*it).name);
 		attributesTable->setItem(row, i++, item1);
+		//Type
 		QTableItem *item2 = new QTableItem(attributesTable, QTableItem::WhenCurrent, (*it).type);
 		attributesTable->setItem(row, i++, item2);
+		//Default Value
 		QTableItem *item3 = new QTableItem(attributesTable, QTableItem::WhenCurrent, (*it).value);
 		attributesTable->setItem(row, i++, item3);
+		//Default Parameter
 		QTableItem *item4 = new QTableItem(attributesTable, QTableItem::WhenCurrent, (*it).parameter);
 		attributesTable->setItem(row, i++, item4);
+		//Relationship
+		QTableItem *item5 = new QComboTableItem(attributesTable, relationships);
+		attributesTable->setItem(row, i++, item5);
+		//Relationship to
+		QTableItem *item6 = new QTableItem(attributesTable, QTableItem::WhenCurrent, (*it).relationshipto);
+		attributesTable->setItem(row, i++, item6);
+		//Auto Add to
+		QTableItem *item7 = new QComboTableItem(attributesTable, autoAddTo);
+		attributesTable->setItem(row, i++, item7);
 		
 		attributesTable->verticalHeader()->setLabel(row, QString("%1").arg(row));
 		row++;

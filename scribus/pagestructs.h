@@ -9,6 +9,9 @@ struct ObjectAttribute {
 	QString type;
 	QString value;
 	QString parameter;
+	QString relationship;
+	QString relationshipto;
+	QString autoaddto;
 };
 
 typedef QValueVector<ObjectAttribute> ObjAttrVector;

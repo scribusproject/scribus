@@ -60,7 +60,7 @@
                             </column>
                             <column>
                                 <property name="text">
-                                    <string>Default Value</string>
+                                    <string>Value</string>
                                 </property>
                                 <property name="pixmap">
                                     <pixmap></pixmap>
@@ -68,7 +68,31 @@
                             </column>
                             <column>
                                 <property name="text">
-                                    <string>Default Parameter</string>
+                                    <string>Parameter</string>
+                                </property>
+                                <property name="pixmap">
+                                    <pixmap></pixmap>
+                                </property>
+                            </column>
+                            <column>
+                                <property name="text">
+                                    <string>Relationship</string>
+                                </property>
+                                <property name="pixmap">
+                                    <pixmap></pixmap>
+                                </property>
+                            </column>
+                            <column>
+                                <property name="text">
+                                    <string>Relationship To</string>
+                                </property>
+                                <property name="pixmap">
+                                    <pixmap></pixmap>
+                                </property>
+                            </column>
+                            <column>
+                                <property name="text">
+                                    <string>Auto Add To</string>
                                 </property>
                                 <property name="pixmap">
                                     <pixmap></pixmap>
@@ -81,7 +105,7 @@
                                 <number>0</number>
                             </property>
                             <property name="numCols">
-                                <number>4</number>
+                                <number>7</number>
                             </property>
                         </widget>
                         <widget class="QLayoutWidget">
@@ -200,7 +224,9 @@
     <include location="local" impldecl="in implementation">docitemattrprefs.ui.h</include>
 </includes>
 <variables>
+    <variable>QStringList relationships;</variable>
     <variable access="public">ObjAttrVector localAttributes;</variable>
+    <variable>QStringList autoAddTo;</variable>
 </variables>
 <slots>
     <slot>setup( ObjAttrVector * docItemAttrs )</slot>

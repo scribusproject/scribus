@@ -63,6 +63,22 @@
                             <pixmap></pixmap>
                         </property>
                     </column>
+                    <column>
+                        <property name="text">
+                            <string>Relationship</string>
+                        </property>
+                        <property name="pixmap">
+                            <pixmap></pixmap>
+                        </property>
+                    </column>
+                    <column>
+                        <property name="text">
+                            <string>Relationship To</string>
+                        </property>
+                        <property name="pixmap">
+                            <pixmap></pixmap>
+                        </property>
+                    </column>
                     <property name="name">
                         <cstring>attributesTable</cstring>
                     </property>
@@ -70,7 +86,7 @@
                         <number>0</number>
                     </property>
                     <property name="numCols">
-                        <number>4</number>
+                        <number>6</number>
                     </property>
                 </widget>
                 <widget class="QLayoutWidget">
@@ -231,6 +247,8 @@
 </includes>
 <variables>
     <variable access="public">ObjAttrVector localAttributes;</variable>
+    <variable>QStringList relationships;</variable>
+    <variable>QStringList autoAddTo;</variable>
 </variables>
 <slots>
     <slot>setup( ObjAttrVector * docItemAttrs )</slot>
