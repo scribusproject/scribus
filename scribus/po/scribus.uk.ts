@@ -20,14 +20,6 @@
         <translation> Збірка:</translation>
     </message>
     <message>
-        <source>About</source>
-        <translation type="obsolete">Програма</translation>
-    </message>
-    <message>
-        <source>Programming:</source>
-        <translation type="obsolete">Програмування:</translation>
-    </message>
-    <message>
         <source>Contributions from:</source>
         <translation>У співпраці з:</translation>
     </message>
@@ -36,24 +28,12 @@
         <translation>Портування до Віндоус:</translation>
     </message>
     <message>
-        <source>Documentation:</source>
-        <translation type="obsolete">Документація:</translation>
-    </message>
-    <message>
-        <source>Authors</source>
-        <translation type="obsolete">Автори</translation>
-    </message>
-    <message>
         <source>German:</source>
         <translation>Німецька:</translation>
     </message>
     <message>
         <source>French:</source>
         <translation>Французська:</translation>
-    </message>
-    <message>
-        <source>Spanish and Catalan:</source>
-        <translation type="obsolete">Іспанська та Каталонська:</translation>
     </message>
     <message>
         <source>Italian:</source>
@@ -104,10 +84,6 @@
         <translation>Норвежська:</translation>
     </message>
     <message>
-        <source>English:</source>
-        <translation type="obsolete">Англійська:</translation>
-    </message>
-    <message>
         <source>Welsh:</source>
         <translation>Уельська:</translation>
     </message>
@@ -122,30 +98,6 @@
     <message>
         <source>Finnish:</source>
         <translation>Фінська:</translation>
-    </message>
-    <message>
-        <source>Translations</source>
-        <translation type="obsolete">Переклад</translation>
-    </message>
-    <message>
-        <source>Close</source>
-        <translation type="obsolete">Зачинити</translation>
-    </message>
-    <message>
-        <source>Homepage and online reference</source>
-        <translation type="obsolete">Веб сторінка та довідник</translation>
-    </message>
-    <message>
-        <source>Mailing list</source>
-        <translation type="obsolete">Розсилка електронної пошти</translation>
-    </message>
-    <message>
-        <source>Bugs and feature requests</source>
-        <translation type="obsolete">Програмні помилки та заявки на нові можливості</translation>
-    </message>
-    <message>
-        <source>Online</source>
-        <translation type="obsolete">Веб ресурси</translation>
     </message>
     <message>
         <source>Basque:</source>
@@ -260,38 +212,6 @@ Missing library support is indicated by a *</source>
         <translation>Додаткові установки</translation>
     </message>
     <message>
-        <source>Mirror Page(s) horizontal</source>
-        <translation type="obsolete">Дзеркально відобразити сторінку(и) горизонтально</translation>
-    </message>
-    <message>
-        <source>Mirror Page(s) vertical</source>
-        <translation type="obsolete">Дзеркально відобразити сторінку(и) вертикально</translation>
-    </message>
-    <message>
-        <source>Apply ICC-Profiles</source>
-        <translation type="obsolete">Застосувати ICC-профілі</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">Гаразд</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Вихід</translation>
-    </message>
-    <message>
-        <source>PostScript Level 3</source>
-        <translation type="obsolete">Постскрипт 3 рівня</translation>
-    </message>
-    <message>
-        <source>PostScript Level 2</source>
-        <translation type="obsolete">Постскрипт 2 рівня</translation>
-    </message>
-    <message>
-        <source>PostScript Level 1</source>
-        <translation type="obsolete">Постскрипт 1 рівня</translation>
-    </message>
-    <message>
         <source>Creates PostScript Level 3</source>
         <translation>Створює постскрипт 3 рівня</translation>
     </message>
@@ -374,10 +294,6 @@ UCR найчастіше впливає на ті частини зображе�
         <translation>Горизонтально</translation>
     </message>
     <message>
-        <source>between:</source>
-        <translation type="obsolete">поміж:</translation>
-    </message>
-    <message>
         <source>Left Sides</source>
         <translation>Ліві сторони</translation>
     </message>
@@ -388,18 +304,6 @@ UCR найчастіше впливає на ті частини зображе�
     <message>
         <source>Right Sides</source>
         <translation>Праві сторони</translation>
-    </message>
-    <message>
-        <source>Don&apos;t change</source>
-        <translation type="obsolete">Не змінювати</translation>
-    </message>
-    <message>
-        <source>Displacement</source>
-        <translation type="obsolete">Зсув елементів</translation>
-    </message>
-    <message>
-        <source>Distribute evenly</source>
-        <translation type="obsolete">Розташувати рівномірно</translation>
     </message>
     <message>
         <source>Vertical</source>
@@ -414,10 +318,6 @@ UCR найчастіше впливає на ті частини зображе�
         <translation>Нижні сторони</translation>
     </message>
     <message>
-        <source> pts</source>
-        <translation type="obsolete">тчк</translation>
-    </message>
-    <message>
         <source> mm</source>
         <translation>мм</translation>
     </message>
@@ -428,18 +328,6 @@ UCR найчастіше впливає на ті частини зображе�
     <message>
         <source> p</source>
         <translation>піки</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">Гаразд</translation>
-    </message>
-    <message>
-        <source>Apply</source>
-        <translation type="obsolete">Застосувати</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Вихід</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -546,10 +434,6 @@ UCR найчастіше впливає на ті частини зображе�
     <message>
         <source>Text</source>
         <translation>Текст</translation>
-    </message>
-    <message>
-        <source>Font for use with PDF-1.3:</source>
-        <translation type="obsolete">Шрифт для використання з PDF-1.3:</translation>
     </message>
     <message>
         <source>Border</source>
@@ -912,10 +796,6 @@ UCR найчастіше впливає на ті частини зображе�
         <translation>Вихід</translation>
     </message>
     <message>
-        <source>Flag is ignored for PDF-1.3</source>
-        <translation type="obsolete">Мітка ігнорується в PDF-1.3</translation>
-    </message>
-    <message>
         <source>Enter a comma separated list of fields here</source>
         <translation>Введіть список полів, розділений комами</translation>
     </message>
@@ -942,10 +822,6 @@ UCR найчастіше впливає на ті частини зображе�
     <message>
         <source>Java Script</source>
         <translation>Сценарій на мові Java</translation>
-    </message>
-    <message>
-        <source>PDF-Documents (*.pdf);;All Files (*)</source>
-        <translation type="obsolete">PDF-документи (*.pdf);;Всі файли (*)</translation>
     </message>
     <message>
         <source>Button</source>
@@ -1064,10 +940,6 @@ UCR найчастіше впливає на ті частини зображе�
         <translation>Установка ігнорується в PDF 1.3</translation>
     </message>
     <message>
-        <source>PDF Documents (*.pdf);;All Files (*)</source>
-        <translation type="obsolete">PDF файли (*.pdf);;Всі файли (*)</translation>
-    </message>
-    <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>PDF файли (*.pdf);;Всі файли (*)</translation>
     </message>
@@ -1077,10 +949,6 @@ UCR найчастіше впливає на ті частини зображе�
     <message>
         <source>Annotation Properties</source>
         <translation>Властивості аннотації</translation>
-    </message>
-    <message>
-        <source>Type:</source>
-        <translation type="obsolete">Тип:</translation>
     </message>
     <message>
         <source>Text</source>
@@ -1103,32 +971,8 @@ UCR найчастіше впливає на ті частини зображе�
         <translation>Призначення</translation>
     </message>
     <message>
-        <source>Change...</source>
-        <translation type="obsolete">Змінити...</translation>
-    </message>
-    <message>
-        <source>Page:</source>
-        <translation type="obsolete">Сторінка:</translation>
-    </message>
-    <message>
-        <source>X-Pos:</source>
-        <translation type="obsolete">Поз. Х:</translation>
-    </message>
-    <message>
         <source> pt</source>
         <translation>точок</translation>
-    </message>
-    <message>
-        <source>Y-Pos:</source>
-        <translation type="obsolete">Поз. У:</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">Гаразд</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Вихід</translation>
     </message>
     <message>
         <source>Open</source>
@@ -1158,6 +1002,14 @@ UCR найчастіше впливає на ті частини зображе�
         <source>&amp;Y-Pos:</source>
         <translation>Поз. &amp;У:</translation>
     </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;Гаразд</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">В&amp;ихід</translation>
+    </message>
 </context>
 <context>
     <name>ApplyT</name>
@@ -1166,32 +1018,8 @@ UCR найчастіше впливає на ті частини зображе�
         <translation>Використати шаблон</translation>
     </message>
     <message>
-        <source>Template:</source>
-        <translation type="obsolete">Шаблон:</translation>
-    </message>
-    <message>
         <source>Normal</source>
         <translation>Звичайний</translation>
-    </message>
-    <message>
-        <source>Apply to Current Page</source>
-        <translation type="obsolete">Застосувати для цієї сторінки</translation>
-    </message>
-    <message>
-        <source>Apply from Page:</source>
-        <translation type="obsolete">Застосувати з сторінки:</translation>
-    </message>
-    <message>
-        <source>to:</source>
-        <translation type="obsolete">до:</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">Гаразд</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Вихід</translation>
     </message>
     <message>
         <source>&amp;Template:</source>
@@ -1233,46 +1061,6 @@ UCR найчастіше впливає на ті частини зображе�
         <translation>Чорновик</translation>
     </message>
     <message>
-        <source>New</source>
-        <translation type="obsolete">Новий</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation type="obsolete">Записати</translation>
-    </message>
-    <message>
-        <source>Save as...</source>
-        <translation type="obsolete">Записати як...</translation>
-    </message>
-    <message>
-        <source>Load...</source>
-        <translation type="obsolete">Завантажити...</translation>
-    </message>
-    <message>
-        <source>Close</source>
-        <translation type="obsolete">Зачинити</translation>
-    </message>
-    <message>
-        <source>Small</source>
-        <translation type="obsolete">Малий</translation>
-    </message>
-    <message>
-        <source>Medium</source>
-        <translation type="obsolete">Середній</translation>
-    </message>
-    <message>
-        <source>Big</source>
-        <translation type="obsolete">Великий</translation>
-    </message>
-    <message>
-        <source>File</source>
-        <translation type="obsolete">Файл</translation>
-    </message>
-    <message>
-        <source>Preview</source>
-        <translation type="obsolete">Попередній перегляд</translation>
-    </message>
-    <message>
         <source>Scrapbooks (*.scs);;All Files (*)</source>
         <translation>Чорновики (*.scs);;Всі файли (*)</translation>
     </message>
@@ -1283,10 +1071,6 @@ UCR найчастіше впливає на ті частини зображе�
     <message>
         <source>Object</source>
         <translation>Об&apos;єкт</translation>
-    </message>
-    <message>
-        <source>Name:</source>
-        <translation type="obsolete">Ім&apos;я:</translation>
     </message>
     <message>
         <source>New Entry</source>
@@ -1475,52 +1259,12 @@ Please choose another.</source>
         <translation>Установка палітри кольорів</translation>
     </message>
     <message>
-        <source>Activate Color Management</source>
-        <translation type="obsolete">Активувати установку палітри кольорів</translation>
-    </message>
-    <message>
         <source>System Profiles</source>
         <translation>Системні профілі</translation>
     </message>
     <message>
-        <source>Pictures:</source>
-        <translation type="obsolete">Зображення:</translation>
-    </message>
-    <message>
-        <source>Solid Colors:</source>
-        <translation type="obsolete">Однотонні кольори:</translation>
-    </message>
-    <message>
-        <source>Monitor:</source>
-        <translation type="obsolete">Монітор:</translation>
-    </message>
-    <message>
-        <source>Printer:</source>
-        <translation type="obsolete">Принтер:</translation>
-    </message>
-    <message>
         <source>Rendering Intents</source>
         <translation>Схеми перерахунку кольорів</translation>
-    </message>
-    <message>
-        <source>Simulate Printer on the Screen</source>
-        <translation type="obsolete">Симулювати принтер на екрані</translation>
-    </message>
-    <message>
-        <source>Mark Colors out of Gamut</source>
-        <translation type="obsolete">Помітити кольору, які не попадають в діапазон</translation>
-    </message>
-    <message>
-        <source>Use Blackpoint Compensation</source>
-        <translation type="obsolete">Використовувати компенсацію чорної точки</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">Гаразд</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Вихід</translation>
     </message>
     <message>
         <source>Perceptual</source>
@@ -1646,14 +1390,6 @@ It is recommended that you enable this if you have photos in your document.</sou
         <translation>Редагування кольору</translation>
     </message>
     <message>
-        <source>Name:</source>
-        <translation type="obsolete">Ім&apos;я:</translation>
-    </message>
-    <message>
-        <source>Color Model</source>
-        <translation type="obsolete">Кольорова модель</translation>
-    </message>
-    <message>
         <source>CMYK</source>
         <translation>CMYK</translation>
     </message>
@@ -1676,10 +1412,6 @@ It is recommended that you enable this if you have photos in your document.</sou
     <message>
         <source>OK</source>
         <translation>Гаразд</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Вихід</translation>
     </message>
     <message>
         <source>C:</source>
@@ -1749,6 +1481,15 @@ It is recommended that you enable this if you have photos in your document.</sou
         <source>&amp;Cancel</source>
         <translation>В&amp;ихід</translation>
     </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You cannot create a color named &quot;%1&quot;.
+It&apos;s a reserved name for transparent color</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Cpalette</name>
@@ -1809,24 +1550,12 @@ It is recommended that you enable this if you have photos in your document.</sou
         <translation>Нормальний або градієнтний метод заливки</translation>
     </message>
     <message>
-        <source>Edit the first color of object</source>
-        <translation type="obsolete">Редагувати перший колір об&apos;єкта</translation>
-    </message>
-    <message>
-        <source>Edit the second color of object</source>
-        <translation type="obsolete">Редагувати другий колір об&apos;єкта</translation>
-    </message>
-    <message>
         <source>Set the transparency for the color selected</source>
         <translation>Зробити вибраний колір прозорим</translation>
     </message>
     <message>
         <source>Color of selected object</source>
         <translation>Колір вибраного об&apos;єкта</translation>
-    </message>
-    <message>
-        <source>Special</source>
-        <translation type="obsolete">Особливий</translation>
     </message>
     <message>
         <source>Free linear Gradient</source>
@@ -1971,14 +1700,6 @@ It is recommended that you enable this if you have photos in your document.</sou
         <translation>Сторінок на лист паперу</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation type="obsolete">Гаразд</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Вихід</translation>
-    </message>
-    <message>
         <source>This panel displays various CUPS options when printing. 
 The exact parameters available will depend on your printer driver.
 You can confirm CUPS support by selecting Help &gt; About.
@@ -2008,10 +1729,6 @@ T=TIFF - Підтримка формату зображень TIFF.
 <context>
     <name>CustomFDialog</name>
     <message>
-        <source>Compress File</source>
-        <translation type="obsolete">Стиснути файл</translation>
-    </message>
-    <message>
         <source>Encoding:</source>
         <translation>Кодування:</translation>
     </message>
@@ -2020,10 +1737,6 @@ T=TIFF - Підтримка формату зображень TIFF.
 This can be set in the Preferences.</source>
         <translation>Переміщує Вас в вашу домашню директорію.
 Її можна установити заздалегідь в Опціях.</translation>
-    </message>
-    <message>
-        <source>Include Fonts</source>
-        <translation type="obsolete">Включити шрифти</translation>
     </message>
     <message>
         <source>&amp;Compress File</source>
@@ -2060,6 +1773,10 @@ This can be set in the Preferences.</source>
         <source>Delete color:</source>
         <translation>Видалити колір:</translation>
     </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DelPages</name>
@@ -2074,14 +1791,6 @@ This can be set in the Preferences.</source>
     <message>
         <source>to:</source>
         <translation>до:</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">Гаразд</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Вихід</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -2117,46 +1826,6 @@ This can be set in the Preferences.</source>
 </context>
 <context>
     <name>DocInfos</name>
-    <message>
-        <source>Document Info</source>
-        <translation type="obsolete">Інформація про документ</translation>
-    </message>
-    <message>
-        <source>Author:</source>
-        <translation type="obsolete">Автор:</translation>
-    </message>
-    <message>
-        <source>Title:</source>
-        <translation type="obsolete">Заголовок:</translation>
-    </message>
-    <message>
-        <source>Description:</source>
-        <translation type="obsolete">Опис:</translation>
-    </message>
-    <message>
-        <source>Keywords:</source>
-        <translation type="obsolete">Ключові слова:</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">Гаразд</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Вихід</translation>
-    </message>
-    <message>
-        <source>This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation type="obsolete">Це поле може бути вбудоване в документ Scribus  чи як метадата в PDF, як довідка</translation>
-    </message>
-    <message>
-        <source>This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
-        <translation type="obsolete">Це поле служить, як короткий опис або абстракт документу. Воно вбудовується в PDF при експорті</translation>
-    </message>
-    <message>
-        <source>This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
-        <translation type="obsolete">Це поле для ключових слів, які Ви бажаєте вбудувати в PDF, для полегшення пошуку чи індексування PDF файлів</translation>
-    </message>
     <message>
         <source>Document Information</source>
         <translation>Інформація про документ</translation>
@@ -2281,10 +1950,6 @@ RFC2045,RFC2046 for MIME types are also useful here</source>
         <translation>Безумовна ссилка на документ у даному контексті, такому як ISBN чи URI</translation>
     </message>
     <message>
-        <source>A reference to a document from which the present document is derived, eg. ISDN or URI</source>
-        <translation type="obsolete">Ссилка на документ нащадком якого є активний документ. Наприклад ISDN чи URI</translation>
-    </message>
-    <message>
         <source>The language in which the content of the document is written, usually a ISO-639 language code
 optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</source>
         <translation>Мова, на якій написано документ, зазвичай мовний код з ISO-639 інколи з додатковим суфіксом через
@@ -2322,96 +1987,16 @@ optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH<
         <translation>Налаштування принтера</translation>
     </message>
     <message>
-        <source>Print destination</source>
-        <translation type="obsolete">Куди друкувати</translation>
-    </message>
-    <message>
         <source>File</source>
         <translation>Файл</translation>
-    </message>
-    <message>
-        <source>Options...</source>
-        <translation type="obsolete">Установки...</translation>
-    </message>
-    <message>
-        <source>File:</source>
-        <translation type="obsolete">Файл:</translation>
-    </message>
-    <message>
-        <source>Change...</source>
-        <translation type="obsolete">Змінити...</translation>
-    </message>
-    <message>
-        <source>Alternative Printer Command</source>
-        <translation type="obsolete">Альтернативна команда для друку</translation>
-    </message>
-    <message>
-        <source>Command:</source>
-        <translation type="obsolete">Команда:</translation>
-    </message>
-    <message>
-        <source>Range:</source>
-        <translation type="obsolete">Діапазон:</translation>
-    </message>
-    <message>
-        <source>To page:</source>
-        <translation type="obsolete">До сторінки номер:</translation>
-    </message>
-    <message>
-        <source>From page:</source>
-        <translation type="obsolete">З сторінки номер:</translation>
-    </message>
-    <message>
-        <source>Print range</source>
-        <translation type="obsolete">Друкувати інтервал</translation>
-    </message>
-    <message>
-        <source>Print all</source>
-        <translation type="obsolete">Друкувати всі сторінки</translation>
-    </message>
-    <message>
-        <source>Print last page first</source>
-        <translation type="obsolete">Почати друк з останньої сторінки</translation>
-    </message>
-    <message>
-        <source>Print first page first</source>
-        <translation type="obsolete">Почати друк з першої сторінки</translation>
-    </message>
-    <message>
-        <source>Number of copies:</source>
-        <translation type="obsolete">Кількість копій:</translation>
     </message>
     <message>
         <source>Options</source>
         <translation>Установки</translation>
     </message>
     <message>
-        <source>Print Normal</source>
-        <translation type="obsolete">Звичайний друк</translation>
-    </message>
-    <message>
-        <source>Print Separations</source>
-        <translation type="obsolete">Друкувати сепарації кольорів</translation>
-    </message>
-    <message>
         <source>All</source>
         <translation>Всі кольори</translation>
-    </message>
-    <message>
-        <source>Print in color if available</source>
-        <translation type="obsolete">Кольоровий друк, якщо доступний</translation>
-    </message>
-    <message>
-        <source>Print in grayscale</source>
-        <translation type="obsolete">Друк у відтінках сірого</translation>
-    </message>
-    <message>
-        <source>Advanced Options...</source>
-        <translation type="obsolete">Додаткові установки...</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Вихід</translation>
     </message>
     <message>
         <source>Save as</source>
@@ -2436,14 +2021,6 @@ optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH<
     <message>
         <source>Black</source>
         <translation>Чорний</translation>
-    </message>
-    <message>
-        <source>Print</source>
-        <translation type="obsolete">Друк</translation>
-    </message>
-    <message>
-        <source>Print current page</source>
-        <translation type="obsolete">Друк активної сторінки</translation>
     </message>
     <message>
         <source>Insert a comma separated list of tokens where
@@ -2554,20 +2131,8 @@ failed!</source>
         <translation>Редагування стилю</translation>
     </message>
     <message>
-        <source>Name:</source>
-        <translation type="obsolete">Ім&apos;я:</translation>
-    </message>
-    <message>
         <source>Character</source>
         <translation>Символ</translation>
-    </message>
-    <message>
-        <source>Face:</source>
-        <translation type="obsolete">Гарнітура:</translation>
-    </message>
-    <message>
-        <source>Size:</source>
-        <translation type="obsolete">Розмір:</translation>
     </message>
     <message>
         <source> pt</source>
@@ -2578,24 +2143,8 @@ failed!</source>
         <translation>Ефект:</translation>
     </message>
     <message>
-        <source>Alignment:</source>
-        <translation type="obsolete">Вирівнювання:</translation>
-    </message>
-    <message>
-        <source>Fill Color:</source>
-        <translation type="obsolete">Колір заповнення:</translation>
-    </message>
-    <message>
         <source>None</source>
         <translation>Немає</translation>
-    </message>
-    <message>
-        <source>Drop Caps</source>
-        <translation type="obsolete">Буквиця</translation>
-    </message>
-    <message>
-        <source>Lines:</source>
-        <translation type="obsolete">Рядків:</translation>
     </message>
     <message>
         <source>Vertical Spaces</source>
@@ -2606,20 +2155,8 @@ failed!</source>
         <translation>Інтервал між рядками</translation>
     </message>
     <message>
-        <source>Above:</source>
-        <translation type="obsolete">Над:</translation>
-    </message>
-    <message>
-        <source>Below:</source>
-        <translation type="obsolete">Під:</translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation>Гаразд</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Вихід</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -2628,14 +2165,6 @@ failed!</source>
     <message>
         <source>Name of the Style is not unique</source>
         <translation>Ім&apos;я стилю вже використане</translation>
-    </message>
-    <message>
-        <source>Stroke Color:</source>
-        <translation type="obsolete">Колір контура:</translation>
-    </message>
-    <message>
-        <source>Adjust to Baseline Grid</source>
-        <translation type="obsolete">Прив&apos;язатися до базової сітки</translation>
     </message>
     <message>
         <source> mm</source>
@@ -2692,10 +2221,6 @@ failed!</source>
     <message>
         <source>Tabulators and Indentation</source>
         <translation>Табулятори та відступи</translation>
-    </message>
-    <message>
-        <source>Line Spacing:</source>
-        <translation type="obsolete">Міжрядковий інтервал:</translation>
     </message>
     <message>
         <source>&amp;Name:</source>
@@ -2759,62 +2284,6 @@ failed!</source>
     <message>
         <source>Editor</source>
         <translation>Редактор</translation>
-    </message>
-    <message>
-        <source>New</source>
-        <translation type="obsolete">Новий</translation>
-    </message>
-    <message>
-        <source>Save as...</source>
-        <translation type="obsolete">Записати як...</translation>
-    </message>
-    <message>
-        <source>Load...</source>
-        <translation type="obsolete">Завантажити...</translation>
-    </message>
-    <message>
-        <source>Save and Exit</source>
-        <translation type="obsolete">Зберегти документ та вийти</translation>
-    </message>
-    <message>
-        <source>Exit without Saving</source>
-        <translation type="obsolete">Вийти без збереження</translation>
-    </message>
-    <message>
-        <source>Undo</source>
-        <translation type="obsolete">Відмінити</translation>
-    </message>
-    <message>
-        <source>Redo</source>
-        <translation type="obsolete">Повторити</translation>
-    </message>
-    <message>
-        <source>Cut</source>
-        <translation type="obsolete">Вирізати</translation>
-    </message>
-    <message>
-        <source>Copy</source>
-        <translation type="obsolete">Копіювати</translation>
-    </message>
-    <message>
-        <source>Paste</source>
-        <translation type="obsolete">Вклеїти</translation>
-    </message>
-    <message>
-        <source>Clear</source>
-        <translation type="obsolete">Очистити</translation>
-    </message>
-    <message>
-        <source>Get Field Names</source>
-        <translation type="obsolete">Визначити імена полів</translation>
-    </message>
-    <message>
-        <source>File</source>
-        <translation type="obsolete">Файл</translation>
-    </message>
-    <message>
-        <source>Edit</source>
-        <translation type="obsolete">Редагування</translation>
     </message>
     <message>
         <source>Javascripts (*.js);;All Files (*)</source>
@@ -2884,68 +2353,8 @@ failed!</source>
         <translation>Виберіть директорію для експортування</translation>
     </message>
     <message>
-        <source>Export as Image</source>
-        <translation type="obsolete">Експортувати, як растрове зображення</translation>
-    </message>
-    <message>
-        <source>Export to directory:</source>
-        <translation type="obsolete">Директорія для експортування:</translation>
-    </message>
-    <message>
-        <source>&amp;Change...</source>
-        <translation type="obsolete">&amp;Замінити...</translation>
-    </message>
-    <message>
-        <source>Alt+C</source>
-        <translation type="obsolete">Alt+C</translation>
-    </message>
-    <message>
-        <source>Image type:</source>
-        <translation type="obsolete">Тип зображення:</translation>
-    </message>
-    <message>
-        <source>Quality :</source>
-        <translation type="obsolete">Якість:</translation>
-    </message>
-    <message>
-        <source>%</source>
-        <translation type="obsolete">%</translation>
-    </message>
-    <message>
-        <source>Size:</source>
-        <translation type="obsolete">Розмір:</translation>
-    </message>
-    <message>
-        <source>Export </source>
-        <translation type="obsolete">Експортування</translation>
-    </message>
-    <message>
-        <source>&amp;One page</source>
-        <translation type="obsolete">&amp;Одна сторінка</translation>
-    </message>
-    <message>
-        <source>Alt+O</source>
-        <translation type="obsolete">Alt+O</translation>
-    </message>
-    <message>
         <source>&amp;All pages</source>
         <translation>&amp;Всі сторінки</translation>
-    </message>
-    <message>
-        <source>Alt+A</source>
-        <translation type="obsolete">Alt+A</translation>
-    </message>
-    <message>
-        <source>&amp;Interval from:</source>
-        <translation type="obsolete">&amp;Інтервал від:</translation>
-    </message>
-    <message>
-        <source>Alt+I</source>
-        <translation type="obsolete">Alt+I</translation>
-    </message>
-    <message>
-        <source>to:</source>
-        <translation type="obsolete">до:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -2971,30 +2380,6 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
         <translation>Експортувати лише активну сторінку</translation>
     </message>
     <message>
-        <source>Export all pages to images</source>
-        <translation type="obsolete">Експортувати всі сторінки, як растрові зображення</translation>
-    </message>
-    <message>
-        <source>Export a range of pages to images</source>
-        <translation type="obsolete">Експортувати діапазон сторінок, як растрові зображення</translation>
-    </message>
-    <message>
-        <source>First page to export when exporting a range</source>
-        <translation type="obsolete">Номер першої сторінки при експорті діапазону сторінок</translation>
-    </message>
-    <message>
-        <source>Last page to export when exporting a range</source>
-        <translation type="obsolete">Номер останньої сторінки при експорті діапазону сторінок</translation>
-    </message>
-    <message>
-        <source>The height of the output images in pixels</source>
-        <translation type="obsolete">Висота вихідних зображень в пікселях</translation>
-    </message>
-    <message>
-        <source>The quality of your images - 100% is the best, 1% the highest compression</source>
-        <translation type="obsolete">Якість зображень - 100% - навища, 1% - максимальне стиснення</translation>
-    </message>
-    <message>
         <source>Available export formats</source>
         <translation>Доступні формати експортування</translation>
     </message>
@@ -3013,10 +2398,6 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     <message>
         <source>&amp;Quality:</source>
         <translation>&amp;Якість:</translation>
-    </message>
-    <message>
-        <source>&amp;Size:</source>
-        <translation type="obsolete">&amp;Розмір:</translation>
     </message>
     <message>
         <source>Export as Image(s)</source>
@@ -3105,10 +2486,6 @@ Use 72 dpi for Images intended for the Screen</source>
         <translation>Невідомий</translation>
     </message>
     <message>
-        <source>Scribus-Document</source>
-        <translation type="obsolete">Документ Scribus</translation>
-    </message>
-    <message>
         <source>Scribus Document</source>
         <translation>Документ Scribus</translation>
     </message>
@@ -3120,44 +2497,12 @@ Use 72 dpi for Images intended for the Screen</source>
         <translation>Кольори</translation>
     </message>
     <message>
-        <source>Append</source>
-        <translation type="obsolete">Зовнішній</translation>
-    </message>
-    <message>
-        <source>New</source>
-        <translation type="obsolete">Новий</translation>
-    </message>
-    <message>
-        <source>Edit</source>
-        <translation type="obsolete">Редагувати</translation>
-    </message>
-    <message>
-        <source>Duplicate</source>
-        <translation type="obsolete">Скопіювати</translation>
-    </message>
-    <message>
-        <source>Delete</source>
-        <translation type="obsolete">Видалити</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Вихід</translation>
-    </message>
-    <message>
         <source>Color Sets</source>
         <translation>Набори кольорів</translation>
     </message>
     <message>
         <source>Current Color Set:</source>
         <translation>Активний набір кольорів:</translation>
-    </message>
-    <message>
-        <source>Save Color Set</source>
-        <translation type="obsolete">Зберегти набір</translation>
-    </message>
-    <message>
-        <source>Name:</source>
-        <translation type="obsolete">Ім&apos;я:</translation>
     </message>
     <message>
         <source>Choose a Name</source>
@@ -3182,10 +2527,6 @@ Use 72 dpi for Images intended for the Screen</source>
     <message>
         <source>Copy of %1</source>
         <translation>Копія %1</translation>
-    </message>
-    <message>
-        <source>Remove Unused</source>
-        <translation type="obsolete">Видалити невикористані</translation>
     </message>
     <message>
         <source>Choose a color set to load</source>
@@ -3222,10 +2563,6 @@ Use 72 dpi for Images intended for the Screen</source>
     <message>
         <source>Make the current colorset the default color set</source>
         <translation>Використовувати активний набір кольорів, як основний</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">Гаразд</translation>
     </message>
     <message>
         <source>&amp;Append</source>
@@ -3267,6 +2604,10 @@ Use 72 dpi for Images intended for the Screen</source>
         <source>&amp;Name:</source>
         <translation>&amp;Ім&apos;я:</translation>
     </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FontPrefs</name>
@@ -3301,30 +2642,6 @@ Use 72 dpi for Images intended for the Screen</source>
     <message>
         <source>Replacement</source>
         <translation>Підміна</translation>
-    </message>
-    <message>
-        <source>Delete</source>
-        <translation type="obsolete">Видалити</translation>
-    </message>
-    <message>
-        <source>Change...</source>
-        <translation type="obsolete">Змінити...</translation>
-    </message>
-    <message>
-        <source>Add...</source>
-        <translation type="obsolete">Додати...</translation>
-    </message>
-    <message>
-        <source>Remove</source>
-        <translation type="obsolete">Видалити</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">Гаразд</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Вихід</translation>
     </message>
     <message>
         <source>Choose a Directory</source>
@@ -3390,10 +2707,6 @@ Use 72 dpi for Images intended for the Screen</source>
 <context>
     <name>FontPreview</name>
     <message>
-        <source>Font Preview</source>
-        <translation type="obsolete">Попередній перегляд шрифта</translation>
-    </message>
-    <message>
         <source>&amp;OK</source>
         <translation>&amp;Гаразд</translation>
     </message>
@@ -3444,36 +2757,8 @@ Use 72 dpi for Images intended for the Screen</source>
         <translation>Горизонтальні направляючі</translation>
     </message>
     <message>
-        <source>Y-Pos:</source>
-        <translation type="obsolete">Поз. У:</translation>
-    </message>
-    <message>
-        <source>Add</source>
-        <translation type="obsolete">Додати</translation>
-    </message>
-    <message>
-        <source>Delete</source>
-        <translation type="obsolete">Видалити</translation>
-    </message>
-    <message>
         <source>Vertical Guides</source>
         <translation>Вертикальні направляючі</translation>
-    </message>
-    <message>
-        <source>X-Pos:</source>
-        <translation type="obsolete">Поз. Х:</translation>
-    </message>
-    <message>
-        <source>Lock Guides</source>
-        <translation type="obsolete">Замкнути направляючі</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">Гаразд</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Вихід</translation>
     </message>
     <message>
         <source> pt</source>
@@ -3531,10 +2816,6 @@ Use 72 dpi for Images intended for the Screen</source>
 <context>
     <name>HelpBrowser</name>
     <message>
-        <source>Sorry, no manual available! Please see: http://scribus.net for updated docs and downloads.</source>
-        <translation type="obsolete">Вибачте - довідка відсутня! Будь-ласка зверніться до http://scribus.net за поновленою документацією та матеріалами доступними для зкачування.</translation>
-    </message>
-    <message>
         <source>Sorry, no manual available! Please see: http://docs.scribus.net for updated docs
 and www.scribus.net for downloads.</source>
         <translation>Вибачте - довідка відсутня! Будь-ласка зверніться на http://docs.scribus.net за поновленою документацією та yf ww.scribus.net для зкачування.</translation>
@@ -3566,47 +2847,8 @@ and www.scribus.net for downloads.</source>
         <translation>Установки переносу</translation>
     </message>
     <message>
-        <source>Fully Automatic</source>
-        <translation type="obsolete">Повністю автоматичний</translation>
-    </message>
-    <message>
-        <source>If you uncheck this you will get a dialog
-everytime a possible Hyphenation is found.</source>
-        <translation type="obsolete">Якщо ви тут не відмітите, то кожен раз,
-як можливий переніс буде знайдено,
-ви побачите діалогове вікно.</translation>
-    </message>
-    <message>
-        <source>Check during Typing</source>
-        <translation type="obsolete">Перевіряти під час друкування</translation>
-    </message>
-    <message>
-        <source>Enables automatic checking of your text while typing.</source>
-        <translation type="obsolete">Дозволяє виконувати автоматичну перевірку тексту під час друкування.</translation>
-    </message>
-    <message>
-        <source>Language:</source>
-        <translation type="obsolete">Мова:</translation>
-    </message>
-    <message>
-        <source>Smallest Word:</source>
-        <translation type="obsolete">Найкоротше слово:</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">Гаразд</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Вихід</translation>
-    </message>
-    <message>
         <source>Length of the smallest word to be hyphenated.</source>
         <translation>Довжина найкоротшого слова, яке буде розділене для переносу.</translation>
-    </message>
-    <message>
-        <source>Number of Hypenations allowed:</source>
-        <translation type="obsolete">Дозволене число переносів:</translation>
     </message>
     <message>
         <source>Maximum number of Hyphenations following each other.
@@ -3616,24 +2858,12 @@ A value of 0 means unlimited hyphenations.</source>
 переносів.</translation>
     </message>
     <message>
-        <source>&amp;Fully Automatic</source>
-        <translation type="obsolete">Повністю &amp;автоматична</translation>
-    </message>
-    <message>
-        <source>Check &amp;During Typing</source>
-        <translation type="obsolete">Перевіряти &amp;під час друкування</translation>
-    </message>
-    <message>
         <source>&amp;Language:</source>
         <translation>&amp;Мова:</translation>
     </message>
     <message>
         <source>&amp;Smallest Word:</source>
         <translation>&amp;Найменше слово:</translation>
-    </message>
-    <message>
-        <source>&amp;Number of Hypenations allowed:</source>
-        <translation type="obsolete">&amp;Дозволене число переносів:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -3675,10 +2905,6 @@ A value of 0 means unlimited hyphenations.</source>
         <translation>Вставка</translation>
     </message>
     <message>
-        <source>page(s)</source>
-        <translation type="obsolete">сторінки(ок)</translation>
-    </message>
-    <message>
         <source>before Page</source>
         <translation>перед цією сторінкою</translation>
     </message>
@@ -3691,28 +2917,12 @@ A value of 0 means unlimited hyphenations.</source>
         <translation>в кінці документа</translation>
     </message>
     <message>
-        <source>Template (Left Page):</source>
-        <translation type="obsolete">Шаблон (Ліва сторінка):</translation>
-    </message>
-    <message>
-        <source>Template:</source>
-        <translation type="obsolete">Шаблон:</translation>
-    </message>
-    <message>
         <source>Normal</source>
         <translation>Звичайний</translation>
     </message>
     <message>
         <source>Template (Right Page):</source>
         <translation>Шаблон (Права сторінка):</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">Гаразд</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Вихід</translation>
     </message>
     <message>
         <source>&amp;Inserting</source>
@@ -3765,26 +2975,6 @@ A value of 0 means unlimited hyphenations.</source>
 <context>
     <name>JavaDocs</name>
     <message>
-        <source>Edit...</source>
-        <translation type="obsolete">Редагування...</translation>
-    </message>
-    <message>
-        <source>Add...</source>
-        <translation type="obsolete">Додати...</translation>
-    </message>
-    <message>
-        <source>Delete</source>
-        <translation type="obsolete">Видалити</translation>
-    </message>
-    <message>
-        <source>Close</source>
-        <translation type="obsolete">Зачинити</translation>
-    </message>
-    <message>
-        <source>New Script:</source>
-        <translation type="obsolete">Новий сценарій:</translation>
-    </message>
-    <message>
         <source>New Script</source>
         <translation>Новий сценарій</translation>
     </message>
@@ -3795,18 +2985,6 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <source>Warning</source>
         <translation>Застереження</translation>
-    </message>
-    <message>
-        <source>Do you really want do delete this Script?</source>
-        <translation type="obsolete">Ви справді бажаєте видалити цей сценарій?</translation>
-    </message>
-    <message>
-        <source>No</source>
-        <translation type="obsolete">Ні</translation>
-    </message>
-    <message>
-        <source>Yes</source>
-        <translation type="obsolete">Так</translation>
     </message>
     <message>
         <source>&amp;Edit...</source>
@@ -3860,28 +3038,8 @@ A value of 0 means unlimited hyphenations.</source>
         <translation>Вибрати клавішу для цієї дії</translation>
     </message>
     <message>
-        <source>No Key</source>
-        <translation type="obsolete">Ніякої клавіші</translation>
-    </message>
-    <message>
-        <source>User Defined Key</source>
-        <translation type="obsolete">Клавіша призначена користувачем</translation>
-    </message>
-    <message>
         <source>ALT+SHIFT+T</source>
         <translation>ALT+SHIFT+T</translation>
-    </message>
-    <message>
-        <source>Set Key</source>
-        <translation type="obsolete">Призначити клавішу</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">Гаразд</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Вихід</translation>
     </message>
     <message>
         <source>Alt</source>
@@ -3910,10 +3068,6 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <source>Warning</source>
         <translation>Застереження</translation>
-    </message>
-    <message>
-        <source>This Key-Sequence is already in use</source>
-        <translation type="obsolete">Ця гаряча клавіша вже використовується</translation>
     </message>
     <message>
         <source>&amp;No Key</source>
@@ -3978,34 +3132,6 @@ A value of 0 means unlimited hyphenations.</source>
         <translation>Редагування стилів ліній</translation>
     </message>
     <message>
-        <source>Append</source>
-        <translation type="obsolete">Зовнішній</translation>
-    </message>
-    <message>
-        <source>New</source>
-        <translation type="obsolete">Новий</translation>
-    </message>
-    <message>
-        <source>Edit</source>
-        <translation type="obsolete">Редагування</translation>
-    </message>
-    <message>
-        <source>Duplicate</source>
-        <translation type="obsolete">Скопіювати</translation>
-    </message>
-    <message>
-        <source>Delete</source>
-        <translation type="obsolete">Видалити</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation type="obsolete">Записати</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Вихід</translation>
-    </message>
-    <message>
         <source>Copy of %1</source>
         <translation>Копія %1</translation>
     </message>
@@ -4018,18 +3144,6 @@ A value of 0 means unlimited hyphenations.</source>
         <translation>Застереження</translation>
     </message>
     <message>
-        <source>Do you really want do delete this Style?</source>
-        <translation type="obsolete">Ви справді бажаєте видалити цей стиль?</translation>
-    </message>
-    <message>
-        <source>No</source>
-        <translation type="obsolete">Ні</translation>
-    </message>
-    <message>
-        <source>Yes</source>
-        <translation type="obsolete">Так</translation>
-    </message>
-    <message>
         <source>Open</source>
         <translation>Відчинити</translation>
     </message>
@@ -4040,10 +3154,6 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
         <translation>Документи (*.sla *.scd);;Всі файли (*)</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">Гаразд</translation>
     </message>
     <message>
         <source>&amp;Append</source>
@@ -4130,26 +3240,6 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <source>Multiple Duplicate</source>
         <translation>Множинне дублювання</translation>
-    </message>
-    <message>
-        <source>Number of Copies:</source>
-        <translation type="obsolete">Кількість копій:</translation>
-    </message>
-    <message>
-        <source>Horizontal Shift:</source>
-        <translation type="obsolete">Горизонтальний зсув:</translation>
-    </message>
-    <message>
-        <source>Vertical Shift:</source>
-        <translation type="obsolete">Вертикальний зсув:</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">Гаразд</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Вихід</translation>
     </message>
     <message>
         <source> pt</source>
@@ -4246,14 +3336,6 @@ A value of 0 means unlimited hyphenations.</source>
 <context>
     <name>MenuTest</name>
     <message>
-        <source>Show Console</source>
-        <translation type="obsolete">Показати консоль</translation>
-    </message>
-    <message>
-        <source>Hide Console</source>
-        <translation type="obsolete">Сховати консоль</translation>
-    </message>
-    <message>
         <source>Script error</source>
         <translation>Помилка сценарія</translation>
     </message>
@@ -4278,24 +3360,8 @@ Ctrl-V для вставки його в систему обробітку пр�
 <context>
     <name>MergeDoc</name>
     <message>
-        <source>Import a Page</source>
-        <translation type="obsolete">Імпортувати сторінку</translation>
-    </message>
-    <message>
-        <source>Document to load:</source>
-        <translation type="obsolete">Документ для завантаження:</translation>
-    </message>
-    <message>
         <source>Change...</source>
         <translation>Вибрати...</translation>
-    </message>
-    <message>
-        <source>Document contains: 0 Page(s)</source>
-        <translation type="obsolete">В документі: 0 сторінка(ок)</translation>
-    </message>
-    <message>
-        <source>Import Page Nr:</source>
-        <translation type="obsolete">Імпортувати сторінку номер:</translation>
     </message>
     <message>
         <source>Import</source>
@@ -4316,10 +3382,6 @@ Ctrl-V для вставки його в систему обробітку пр�
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
         <translation>Документи (*.sla *.scd);;Всі файли (*)</translation>
-    </message>
-    <message>
-        <source>Document contains: %1 Page(s)</source>
-        <translation type="obsolete">В документі: %1 сторінка(ок)</translation>
     </message>
     <message>
         <source>Import Template</source>
@@ -4401,14 +3463,6 @@ a range of pages or a single page number.</source>
         <translation>в кінець документа</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation type="obsolete">Гаразд</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Вихід</translation>
-    </message>
-    <message>
         <source>&amp;OK</source>
         <translation>&amp;Гаразд</translation>
     </message>
@@ -4424,30 +3478,6 @@ a range of pages or a single page number.</source>
         <translation>Властивості</translation>
     </message>
     <message>
-        <source>X, Y, Z</source>
-        <translation type="obsolete">X, Y, Z</translation>
-    </message>
-    <message>
-        <source>Shape</source>
-        <translation type="obsolete">Фігура</translation>
-    </message>
-    <message>
-        <source>Text</source>
-        <translation type="obsolete">Текст</translation>
-    </message>
-    <message>
-        <source>Image</source>
-        <translation type="obsolete">Зображення</translation>
-    </message>
-    <message>
-        <source>Line</source>
-        <translation type="obsolete">Лінія</translation>
-    </message>
-    <message>
-        <source>Colors</source>
-        <translation type="obsolete">Кольори</translation>
-    </message>
-    <message>
         <source>Name</source>
         <translation>Ім&apos;я</translation>
     </message>
@@ -4456,28 +3486,8 @@ a range of pages or a single page number.</source>
         <translation>Геометрія</translation>
     </message>
     <message>
-        <source>X-Pos:</source>
-        <translation type="obsolete">Поз. Х:</translation>
-    </message>
-    <message>
-        <source>Y-Pos:</source>
-        <translation type="obsolete">Поз. У:</translation>
-    </message>
-    <message>
-        <source>Width:</source>
-        <translation type="obsolete">Ширина:</translation>
-    </message>
-    <message>
-        <source>Height:</source>
-        <translation type="obsolete">Висота:</translation>
-    </message>
-    <message>
         <source> pt</source>
         <translation>тчк</translation>
-    </message>
-    <message>
-        <source>Rotation:</source>
-        <translation type="obsolete">Орієнтація:</translation>
     </message>
     <message>
         <source>Basepoint:</source>
@@ -4488,54 +3498,12 @@ a range of pages or a single page number.</source>
         <translation>План</translation>
     </message>
     <message>
-        <source>Use Bounding Box</source>
-        <translation type="obsolete">Використовувати обмежуючу рамку</translation>
-    </message>
-    <message>
         <source>Shape:</source>
         <translation>Фігура:</translation>
     </message>
     <message>
-        <source>Edit Shape...</source>
-        <translation type="obsolete">Редагування фігури...</translation>
-    </message>
-    <message>
-        <source>Round
-Corners:</source>
-        <translation type="obsolete">Заокруглені
-кути:</translation>
-    </message>
-    <message>
         <source>Distance of Text</source>
         <translation>Відстань від тексту</translation>
-    </message>
-    <message>
-        <source>Columns:</source>
-        <translation type="obsolete">Стовпці:</translation>
-    </message>
-    <message>
-        <source>Gap:</source>
-        <translation type="obsolete">Проміжок:</translation>
-    </message>
-    <message>
-        <source>Top:</source>
-        <translation type="obsolete">Верх:</translation>
-    </message>
-    <message>
-        <source>Bottom:</source>
-        <translation type="obsolete">Низ:</translation>
-    </message>
-    <message>
-        <source>Left:</source>
-        <translation type="obsolete">Зліва:</translation>
-    </message>
-    <message>
-        <source>Right:</source>
-        <translation type="obsolete">Зправа:</translation>
-    </message>
-    <message>
-        <source>Tabulators...</source>
-        <translation type="obsolete">Табулятори...</translation>
     </message>
     <message>
         <source>Show Curve</source>
@@ -4556,42 +3524,6 @@ Corners:</source>
     <message>
         <source>Custom Spacing</source>
         <translation>Нестандартний проміжок</translation>
-    </message>
-    <message>
-        <source>Kerning:</source>
-        <translation type="obsolete">Кернінг:</translation>
-    </message>
-    <message>
-        <source>Line Spacing:</source>
-        <translation type="obsolete">Проміжок між рядками:</translation>
-    </message>
-    <message>
-        <source>Free Scaling</source>
-        <translation type="obsolete">Вільне масштабування</translation>
-    </message>
-    <message>
-        <source>X-Pos.:</source>
-        <translation type="obsolete">Поз. Х:</translation>
-    </message>
-    <message>
-        <source>Y-Pos.:</source>
-        <translation type="obsolete">Поз. Y:</translation>
-    </message>
-    <message>
-        <source>X-Scale:</source>
-        <translation type="obsolete">Шкала Х:</translation>
-    </message>
-    <message>
-        <source>Y-Scale:</source>
-        <translation type="obsolete">Шкала Y:</translation>
-    </message>
-    <message>
-        <source>Scale to Frame Size</source>
-        <translation type="obsolete">Установити масштаб по розміру рамки</translation>
-    </message>
-    <message>
-        <source>Proportional</source>
-        <translation type="obsolete">Пропорційно</translation>
     </message>
     <message>
         <source>Input Profile:</source>
@@ -4626,18 +3558,6 @@ Corners:</source>
         <translation>Кінцеві точки</translation>
     </message>
     <message>
-        <source>Line Style:</source>
-        <translation type="obsolete">Стиль лінії:</translation>
-    </message>
-    <message>
-        <source>Line Width:</source>
-        <translation type="obsolete">Товщина лінії:</translation>
-    </message>
-    <message>
-        <source>Edges:</source>
-        <translation type="obsolete">Краї:</translation>
-    </message>
-    <message>
         <source>Miter Join</source>
         <translation>Фацеточне з&apos;єднання</translation>
     </message>
@@ -4648,10 +3568,6 @@ Corners:</source>
     <message>
         <source>Round Join</source>
         <translation>Заокруглене з&apos;єднання</translation>
-    </message>
-    <message>
-        <source>Endings:</source>
-        <translation type="obsolete">Кінці:</translation>
     </message>
     <message>
         <source>Flat Cap</source>
@@ -4682,26 +3598,6 @@ Corners:</source>
         <translation>Ручна обробка</translation>
     </message>
     <message>
-        <source>Reverse Writing</source>
-        <translation type="obsolete">Зворотнє написання</translation>
-    </message>
-    <message>
-        <source>X1:</source>
-        <translation type="obsolete">X1:</translation>
-    </message>
-    <message>
-        <source>X2:</source>
-        <translation type="obsolete">X2:</translation>
-    </message>
-    <message>
-        <source>Y1:</source>
-        <translation type="obsolete">Y1:</translation>
-    </message>
-    <message>
-        <source>Y2:</source>
-        <translation type="obsolete">Y2:</translation>
-    </message>
-    <message>
         <source>None</source>
         <translation>Немає</translation>
     </message>
@@ -4722,14 +3618,6 @@ Please choose another.</source>
     <message>
         <source>Shade:</source>
         <translation>Тінь:</translation>
-    </message>
-    <message>
-        <source>Text flows around frame</source>
-        <translation type="obsolete">Текст огинає рамку</translation>
-    </message>
-    <message>
-        <source>Language:</source>
-        <translation type="obsolete">Мова:</translation>
     </message>
     <message>
         <source>Name of selected object</source>
@@ -4842,10 +3730,6 @@ Please choose another.</source>
     <message>
         <source>Style of current paragraph</source>
         <translation>Стиль активного абзацу</translation>
-    </message>
-    <message>
-        <source>Language of object</source>
-        <translation type="obsolete">Мова об&apos;єкта</translation>
     </message>
     <message>
         <source>Change settings for left or end points</source>
@@ -4988,10 +3872,6 @@ Please choose another.</source>
         <translation>пік</translation>
     </message>
     <message>
-        <source>Style:</source>
-        <translation type="obsolete">Стиль:</translation>
-    </message>
-    <message>
         <source>Switches between Gap or Column width</source>
         <translation>Вибір між шириною стовпців або проміжком між стовпцями</translation>
     </message>
@@ -5008,20 +3888,8 @@ Please choose another.</source>
         <translation>Змусити текст в рамках на задніх планах обтікати форму об&apos;єкта</translation>
     </message>
     <message>
-        <source>Use the frame shape instead of the object one</source>
-        <translation type="obsolete">Використовувати форму рамки, а не об&apos;єкта</translation>
-    </message>
-    <message>
         <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
         <translation>Вказує на план, на якому розташовано об&apos;єкт. Нуль означає, що об&apos;єкт знаходиться на самому нижньому плані</translation>
-    </message>
-    <message>
-        <source>Font Size:</source>
-        <translation type="obsolete">Розмір шрифта:</translation>
-    </message>
-    <message>
-        <source>Type of Line:</source>
-        <translation type="obsolete">Тип лінії:</translation>
     </message>
     <message>
         <source>X, Y, &amp;Z</source>
@@ -5257,10 +4125,6 @@ Corners:</source>
         <translation>Гаразд</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Вихід</translation>
-    </message>
-    <message>
         <source> pt </source>
         <translation>тчк</translation>
     </message>
@@ -5310,36 +4174,8 @@ Please choose another.</source>
         <translation>Редагування шаблонів</translation>
     </message>
     <message>
-        <source>Append</source>
-        <translation type="obsolete">Зовнішній</translation>
-    </message>
-    <message>
-        <source>New</source>
-        <translation type="obsolete">Новий</translation>
-    </message>
-    <message>
-        <source>Duplicate</source>
-        <translation type="obsolete">Скопіювати</translation>
-    </message>
-    <message>
-        <source>Delete</source>
-        <translation type="obsolete">Видалити</translation>
-    </message>
-    <message>
         <source>Warning</source>
         <translation>Застереження</translation>
-    </message>
-    <message>
-        <source>Do you really want do delete this Template?</source>
-        <translation type="obsolete">Ви справді бажаєте видалити цей шаблон?</translation>
-    </message>
-    <message>
-        <source>No</source>
-        <translation type="obsolete">Ні</translation>
-    </message>
-    <message>
-        <source>Yes</source>
-        <translation type="obsolete">Так</translation>
     </message>
     <message>
         <source>Copy of %1</source>
@@ -5360,10 +4196,6 @@ Please choose another.</source>
     <message>
         <source>Name:</source>
         <translation>Ім&apos;я:</translation>
-    </message>
-    <message>
-        <source>Close</source>
-        <translation type="obsolete">Зачинити</translation>
     </message>
     <message>
         <source>&amp;Append</source>
@@ -5413,16 +4245,8 @@ Please choose another.</source>
         <translation>Розмір сторінки</translation>
     </message>
     <message>
-        <source>Size:</source>
-        <translation type="obsolete">Розмір:</translation>
-    </message>
-    <message>
         <source>Custom</source>
         <translation>Нестандартний</translation>
-    </message>
-    <message>
-        <source>Orientation:</source>
-        <translation type="obsolete">Орієнтація:</translation>
     </message>
     <message>
         <source>Portrait</source>
@@ -5433,52 +4257,12 @@ Please choose another.</source>
         <translation>Горизонтальна</translation>
     </message>
     <message>
-        <source>Width:</source>
-        <translation type="obsolete">Ширина:</translation>
-    </message>
-    <message>
-        <source>Height:</source>
-        <translation type="obsolete">Висота:</translation>
-    </message>
-    <message>
-        <source>Facing Pages</source>
-        <translation type="obsolete">Суміжні сторінки</translation>
-    </message>
-    <message>
-        <source>Left Page first</source>
-        <translation type="obsolete">Ліва сторінка перша</translation>
-    </message>
-    <message>
         <source>Margin Guides</source>
         <translation>Розмітка полів</translation>
     </message>
     <message>
-        <source>Left:</source>
-        <translation type="obsolete">Ліве:</translation>
-    </message>
-    <message>
-        <source>Right:</source>
-        <translation type="obsolete">Праве:</translation>
-    </message>
-    <message>
-        <source>Top:</source>
-        <translation type="obsolete">Верхнє:</translation>
-    </message>
-    <message>
-        <source>Bottom:</source>
-        <translation type="obsolete">Нижнє:</translation>
-    </message>
-    <message>
         <source>Options</source>
         <translation>Установки</translation>
-    </message>
-    <message>
-        <source>First Page Number:</source>
-        <translation type="obsolete">Номер першої сторінки:</translation>
-    </message>
-    <message>
-        <source>Default Unit:</source>
-        <translation type="obsolete">Одиниця виміру по умовчанню:</translation>
     </message>
     <message>
         <source>Points (pts)</source>
@@ -5495,26 +4279,6 @@ Please choose another.</source>
     <message>
         <source>Column Guides</source>
         <translation>Розмітка стовпців</translation>
-    </message>
-    <message>
-        <source>Columns:</source>
-        <translation type="obsolete">Кількість стовпців:</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">Гаразд</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Вихід</translation>
-    </message>
-    <message>
-        <source>Inside:</source>
-        <translation type="obsolete">Всередині:</translation>
-    </message>
-    <message>
-        <source>Outside:</source>
-        <translation type="obsolete">Ззовні:</translation>
     </message>
     <message>
         <source>Millimetres (mm)</source>
@@ -5535,14 +4299,6 @@ Please choose another.</source>
     <message>
         <source> p</source>
         <translation>пік</translation>
-    </message>
-    <message>
-        <source>Automatic Text Frames</source>
-        <translation type="obsolete">Автоматичні текстові рамки</translation>
-    </message>
-    <message>
-        <source>Gap:</source>
-        <translation type="obsolete">Проміжок:</translation>
     </message>
     <message>
         <source>Document page size, either a standard size or a custom size</source>
@@ -5702,14 +4458,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
 <context>
     <name>NewTm</name>
     <message>
-        <source>OK</source>
-        <translation type="obsolete">Гаразд</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Вихід</translation>
-    </message>
-    <message>
         <source>Left Page</source>
         <translation>Ліва сторінка</translation>
     </message>
@@ -5733,22 +4481,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Вузли</translation>
     </message>
     <message>
-        <source>Absolute Coordinates</source>
-        <translation type="obsolete">Абсолютні координати</translation>
-    </message>
-    <message>
-        <source>X-Pos:</source>
-        <translation type="obsolete">Поз. Х:</translation>
-    </message>
-    <message>
-        <source>Y-Pos:</source>
-        <translation type="obsolete">Поз. У:</translation>
-    </message>
-    <message>
-        <source>End Editing</source>
-        <translation type="obsolete">Вихід</translation>
-    </message>
-    <message>
         <source>Move Nodes</source>
         <translation>Перемістити вузли</translation>
     </message>
@@ -5765,68 +4497,12 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Видалити вузли</translation>
     </message>
     <message>
-        <source>Move Control Points independently</source>
-        <translation type="obsolete">Переміщати контрольні точки незалежно</translation>
-    </message>
-    <message>
-        <source>Move Control Points symmetrical</source>
-        <translation type="obsolete">Переміщати контрольні точки симетрично</translation>
-    </message>
-    <message>
         <source>Reset Control Points</source>
         <translation>Повернути контрольні точки до початкового стану</translation>
     </message>
     <message>
         <source>Reset this Control Point</source>
         <translation>Повернути цю контрольну точку до початкового стану</translation>
-    </message>
-    <message>
-        <source>Opens a Polygon or cuts a Bezier Curve</source>
-        <translation type="obsolete">Відкриває полігон або розрізає криву Безьє</translation>
-    </message>
-    <message>
-        <source>Closes this Bezier Curve</source>
-        <translation type="obsolete">Закриває цю криву Безьє</translation>
-    </message>
-    <message>
-        <source>Mirrors the Path Horizontally</source>
-        <translation type="obsolete">Горизонтальне віддзеркалення шляху</translation>
-    </message>
-    <message>
-        <source>Mirrors the Path Vertically</source>
-        <translation type="obsolete">Вертикальне віддзеркалення шляху</translation>
-    </message>
-    <message>
-        <source>Shears the Path horizontal to the right</source>
-        <translation type="obsolete">Скошує шлях горизонтально вправо</translation>
-    </message>
-    <message>
-        <source>Shears the Path horizontal to the left</source>
-        <translation type="obsolete">Скошує шлях горизонтально вліво</translation>
-    </message>
-    <message>
-        <source>Shears the Path vertical up</source>
-        <translation type="obsolete">Скошує шлях вертикально вверх</translation>
-    </message>
-    <message>
-        <source>Shears the Path vertical down</source>
-        <translation type="obsolete">Скошує шлях вертикально вниз</translation>
-    </message>
-    <message>
-        <source>Rotates the Path counter-clockwise</source>
-        <translation type="obsolete">Поворот шляху проти часової стрілки</translation>
-    </message>
-    <message>
-        <source>Rotates the Path clockwise</source>
-        <translation type="obsolete">Поворот шляху по часовій стрілці</translation>
-    </message>
-    <message>
-        <source>Reduce the Size of the Path by 10%</source>
-        <translation type="obsolete">Зменшити розмір шляху на 10%</translation>
-    </message>
-    <message>
-        <source>Enlarges the Size of the Path by 10%</source>
-        <translation type="obsolete">Збільшити розмір шляху на 10%</translation>
     </message>
     <message>
         <source>When checked use Coordinates relative to the Page,
@@ -5881,10 +4557,6 @@ otherwise Coordinates are relative to the Object.</source>
     <message>
         <source>Mirror the Path Vertically</source>
         <translation>Віддзеркалити шлях вертикально</translation>
-    </message>
-    <message>
-        <source>Shear the Path Horizontally to the Rright</source>
-        <translation type="obsolete">Зсунути шлях горизонтально вправо</translation>
     </message>
     <message>
         <source>Shear the Path Horizontally to the Left</source>
@@ -5945,44 +4617,12 @@ otherwise Coordinates are relative to the Object.</source>
 <context>
     <name>PDF_Opts</name>
     <message>
-        <source>Create PDF-File</source>
-        <translation type="obsolete">Запис PDF файла</translation>
-    </message>
-    <message>
-        <source>Output to File:</source>
-        <translation type="obsolete">Записати в файл:</translation>
-    </message>
-    <message>
-        <source>Change...</source>
-        <translation type="obsolete">Змінити...</translation>
-    </message>
-    <message>
         <source>Export Range</source>
         <translation>Діапазон експортування</translation>
     </message>
     <message>
-        <source>All Pages</source>
-        <translation type="obsolete">Всі сторінки</translation>
-    </message>
-    <message>
-        <source>From:</source>
-        <translation type="obsolete">Від:</translation>
-    </message>
-    <message>
-        <source>to:</source>
-        <translation type="obsolete">до:</translation>
-    </message>
-    <message>
         <source>File Options</source>
         <translation>Установки файла</translation>
-    </message>
-    <message>
-        <source>Compatibility:</source>
-        <translation type="obsolete">Сумісність:</translation>
-    </message>
-    <message>
-        <source>Binding:</source>
-        <translation type="obsolete">Перепліт:</translation>
     </message>
     <message>
         <source>Left Margin</source>
@@ -5993,40 +4633,12 @@ otherwise Coordinates are relative to the Object.</source>
         <translation>Права сторона</translation>
     </message>
     <message>
-        <source>Generate Thumbnails</source>
-        <translation type="obsolete">Створити мініатюрні зображення</translation>
-    </message>
-    <message>
-        <source>Save linked Text Frames as PDF-Articles</source>
-        <translation type="obsolete">Зберегти зв&apos;язані текстові рамки, як PDF-статтю</translation>
-    </message>
-    <message>
-        <source>Include Bookmarks</source>
-        <translation type="obsolete">Включити закладки</translation>
-    </message>
-    <message>
-        <source>Resolution:</source>
-        <translation type="obsolete">Розрішення:</translation>
-    </message>
-    <message>
         <source> dpi</source>
         <translation>тнд</translation>
     </message>
     <message>
-        <source>Downsample Images to:</source>
-        <translation type="obsolete">Зменшити розрішення до:</translation>
-    </message>
-    <message>
-        <source>Compress Text and Vector Graphics</source>
-        <translation type="obsolete">Стиснути текст та векторну графіку</translation>
-    </message>
-    <message>
         <source>General</source>
         <translation>Загальні</translation>
-    </message>
-    <message>
-        <source>Embed all Fonts</source>
-        <translation type="obsolete">Вкласти всі шрифти в документ</translation>
     </message>
     <message>
         <source>Embedding</source>
@@ -6037,52 +4649,16 @@ otherwise Coordinates are relative to the Object.</source>
         <translation>Доступні шрифти:</translation>
     </message>
     <message>
-        <source>&gt;&gt;</source>
-        <translation type="obsolete">&gt;&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;&lt;</source>
-        <translation type="obsolete">&lt;&lt;</translation>
-    </message>
-    <message>
         <source>Fonts to embed:</source>
         <translation>Шрифти для вкладання:</translation>
-    </message>
-    <message>
-        <source>Enable Presentation Effects</source>
-        <translation type="obsolete">Ввімкнути презентаційні ефекти</translation>
     </message>
     <message>
         <source>Page</source>
         <translation>Сторінка</translation>
     </message>
     <message>
-        <source>Show Page Previews</source>
-        <translation type="obsolete">Показати чорнове зображення сторінок</translation>
-    </message>
-    <message>
         <source>Effects</source>
         <translation>Ефекти</translation>
-    </message>
-    <message>
-        <source>Display Duration:</source>
-        <translation type="obsolete">Час показу:</translation>
-    </message>
-    <message>
-        <source>Effect Duration:</source>
-        <translation type="obsolete">Час дії ефекту:</translation>
-    </message>
-    <message>
-        <source>Effect Type:</source>
-        <translation type="obsolete">Тип ефекту:</translation>
-    </message>
-    <message>
-        <source>Moving Lines:</source>
-        <translation type="obsolete">Переміщення ліній:</translation>
-    </message>
-    <message>
-        <source>Direction:</source>
-        <translation type="obsolete">Напрямок:</translation>
     </message>
     <message>
         <source> sec</source>
@@ -6105,40 +4681,12 @@ otherwise Coordinates are relative to the Object.</source>
         <translation>Ззовні</translation>
     </message>
     <message>
-        <source>Apply Effect on all Pages</source>
-        <translation type="obsolete">Застосувати ефект на всіх сторінках</translation>
-    </message>
-    <message>
-        <source>Use Encryption</source>
-        <translation type="obsolete">Використовувати шифрування</translation>
-    </message>
-    <message>
         <source>Passwords</source>
         <translation>Паролі</translation>
     </message>
     <message>
-        <source>User:</source>
-        <translation type="obsolete">Користувач:</translation>
-    </message>
-    <message>
-        <source>Owner:</source>
-        <translation type="obsolete">Власник:</translation>
-    </message>
-    <message>
         <source>Settings</source>
         <translation>Установки</translation>
-    </message>
-    <message>
-        <source>Allow Printing the Document</source>
-        <translation type="obsolete">Дозволити друк документа</translation>
-    </message>
-    <message>
-        <source>Allow Changing the Document</source>
-        <translation type="obsolete">Дозволити внесення змін в документ</translation>
-    </message>
-    <message>
-        <source>Output intended for:</source>
-        <translation type="obsolete">Призначення експортованого файла:</translation>
     </message>
     <message>
         <source>Screen / Web</source>
@@ -6151,10 +4699,6 @@ otherwise Coordinates are relative to the Object.</source>
     <message>
         <source>Solid Colors:</source>
         <translation>Однотонні кольори:</translation>
-    </message>
-    <message>
-        <source>Use ICC-Profile</source>
-        <translation type="obsolete">Використовувати ICC-профіль</translation>
     </message>
     <message>
         <source>Profile:</source>
@@ -6177,28 +4721,12 @@ otherwise Coordinates are relative to the Object.</source>
         <translation>Призначення вихідного документу PDF/X-3</translation>
     </message>
     <message>
-        <source>Info String:</source>
-        <translation type="obsolete">Опис:</translation>
-    </message>
-    <message>
-        <source>Output Profile:</source>
-        <translation type="obsolete">Вихідний профіль:</translation>
-    </message>
-    <message>
         <source>Trim Box</source>
         <translation>Обрізати рамку</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Вихід</translation>
-    </message>
-    <message>
         <source>Save as</source>
         <translation>Записати як</translation>
-    </message>
-    <message>
-        <source>PDF-Files (*.pdf);;All Files (*)</source>
-        <translation type="obsolete">PDF-файли (*.pdf);;Всі файли (*)</translation>
     </message>
     <message>
         <source>No Effect</source>
@@ -6269,10 +4797,6 @@ otherwise Coordinates are relative to the Object.</source>
         <translation>Установки зображення</translation>
     </message>
     <message>
-        <source>Method:</source>
-        <translation type="obsolete">Метод:</translation>
-    </message>
-    <message>
         <source>Automatic</source>
         <translation>Автоматичний</translation>
     </message>
@@ -6287,10 +4811,6 @@ otherwise Coordinates are relative to the Object.</source>
     <message>
         <source>None</source>
         <translation>Ніякого</translation>
-    </message>
-    <message>
-        <source>Quality:</source>
-        <translation type="obsolete">Якість:</translation>
     </message>
     <message>
         <source>Maximum</source>
@@ -6313,24 +4833,12 @@ otherwise Coordinates are relative to the Object.</source>
         <translation>Мінімальна</translation>
     </message>
     <message>
-        <source>From the:</source>
-        <translation type="obsolete">Від:</translation>
-    </message>
-    <message>
         <source>Export all pages to PDF</source>
         <translation>Експортувати всі сторінки в PDF</translation>
     </message>
     <message>
         <source>Export a range of pages to PDF</source>
         <translation>Експортувати діапазон сторінок в PDF</translation>
-    </message>
-    <message>
-        <source>First page to export when exporting a range</source>
-        <translation type="obsolete">Номер першої сторінки при експорті діапазону сторінок</translation>
-    </message>
-    <message>
-        <source>Last page to export when exporting a range</source>
-        <translation type="obsolete">Номер останньої сторінки при експорті діапазону сторінок</translation>
     </message>
     <message>
         <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
@@ -6535,22 +5043,6 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
         <translation>&amp;Шрифти</translation>
     </message>
     <message>
-        <source>E&amp;xtras</source>
-        <translation type="obsolete">&amp;Додатковi</translation>
-    </message>
-    <message>
-        <source>&amp;Security</source>
-        <translation type="obsolete">&amp;Безпека</translation>
-    </message>
-    <message>
-        <source>&amp;Color</source>
-        <translation type="obsolete">&amp;Колір</translation>
-    </message>
-    <message>
-        <source>&amp;PDF/X-3</source>
-        <translation type="obsolete">&amp;PDF/X-3</translation>
-    </message>
-    <message>
         <source> pt</source>
         <translation>тчк</translation>
     </message>
@@ -6565,10 +5057,6 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
     <message>
         <source> p</source>
         <translation>пік</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation type="obsolete">Записати</translation>
     </message>
     <message>
         <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
@@ -6599,18 +5087,6 @@ If un-checked, editing annotations and fileds is prevented.</source>
         <translation>Дозволити вставку анотацій та полів в PDF.
 Якщо цей параметр не вибрати, то редагування
 анотацій та полів буде заборонено.</translation>
-    </message>
-    <message>
-        <source>Allow Copying Text and Graphics</source>
-        <translation type="obsolete">Дозволити копіювання тексту і зображень</translation>
-    </message>
-    <message>
-        <source>Allow Adding Annotations and Fields</source>
-        <translation type="obsolete">Дозволити вставку анотацій та полів</translation>
-    </message>
-    <message>
-        <source>Choose Pages</source>
-        <translation type="obsolete">Виберіть сторінки</translation>
     </message>
     <message>
         <source>Insert a comma separated list of tokens where
@@ -6665,10 +5141,6 @@ a range of pages or a single page number.</source>
         <translation>&amp;Розрішення:</translation>
     </message>
     <message>
-        <source>Com&amp;press Text and Vector Graphics</source>
-        <translation type="obsolete">С&amp;тиснути текст та векторну графіку</translation>
-    </message>
-    <message>
         <source>&amp;Method:</source>
         <translation>&amp;Метод:</translation>
     </message>
@@ -6691,10 +5163,6 @@ a range of pages or a single page number.</source>
     <message>
         <source>&amp;&lt;&lt;</source>
         <translation>&amp;&lt;&lt;</translation>
-    </message>
-    <message>
-        <source>Enable &amp;Presentation Effects</source>
-        <translation type="obsolete">Ввімкнути &amp;презентаційні ефекти</translation>
     </message>
     <message>
         <source>Show Page Pre&amp;views</source>
@@ -6865,12 +5333,12 @@ Otherwise, your exported PDF may not print properly and is truly not portable ac
         <translation>Шрифти для вибірки:</translation>
     </message>
     <message>
-        <source>Mirror Page(s) horizontal</source>
-        <translation>Дзеркально відобразити сторінку(и) горизонтально</translation>
+        <source>Mirror Page(s) horizontally</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Mirror Page(s) vertical</source>
-        <translation>Дзеркально відобразити сторінку(и) вертикально</translation>
+        <source>Mirror Page(s) vertically</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6880,40 +5348,8 @@ Otherwise, your exported PDF may not print properly and is truly not portable ac
         <translation>Перегляд перед друком</translation>
     </message>
     <message>
-        <source>Anti-alias Text</source>
-        <translation type="obsolete">Згладжування тексту</translation>
-    </message>
-    <message>
-        <source>Anti-alias Graphics</source>
-        <translation type="obsolete">Згладжування зображень</translation>
-    </message>
-    <message>
         <source>All</source>
         <translation>Все</translation>
-    </message>
-    <message>
-        <source>Display Transparency</source>
-        <translation type="obsolete">Показ прозорісті</translation>
-    </message>
-    <message>
-        <source>Display CMYK</source>
-        <translation type="obsolete">Показ CMYK кольорів</translation>
-    </message>
-    <message>
-        <source>C</source>
-        <translation type="obsolete">С</translation>
-    </message>
-    <message>
-        <source>M</source>
-        <translation type="obsolete">М</translation>
-    </message>
-    <message>
-        <source>Y</source>
-        <translation type="obsolete">Y</translation>
-    </message>
-    <message>
-        <source>K</source>
-        <translation type="obsolete">K</translation>
     </message>
     <message>
         <source>Provides a more pleasant view of text items in the viewer, at the expense
@@ -7007,72 +5443,12 @@ UCR найчастіше впливає на ті частини зображе�
 <context>
     <name>Page</name>
     <message>
-        <source>Paste</source>
-        <translation type="obsolete">Вклеїти</translation>
-    </message>
-    <message>
-        <source>Hide Margins</source>
-        <translation type="obsolete">Сховати розмітку полів</translation>
-    </message>
-    <message>
-        <source>Show Margins</source>
-        <translation type="obsolete">Показати розмітку полів</translation>
-    </message>
-    <message>
-        <source>Hide Frames</source>
-        <translation type="obsolete">Сховати рамки</translation>
-    </message>
-    <message>
-        <source>Show Frames</source>
-        <translation type="obsolete">Показати рамки</translation>
-    </message>
-    <message>
-        <source>Hide Images</source>
-        <translation type="obsolete">Сховати зображення</translation>
-    </message>
-    <message>
-        <source>Show Images</source>
-        <translation type="obsolete">Показати зображення</translation>
-    </message>
-    <message>
-        <source>Hide Grid</source>
-        <translation type="obsolete">Сховати сітку</translation>
-    </message>
-    <message>
-        <source>Show Grid</source>
-        <translation type="obsolete">Показати сітку</translation>
-    </message>
-    <message>
-        <source>Hide Guides</source>
-        <translation type="obsolete">Сховати розмітку</translation>
-    </message>
-    <message>
-        <source>Show Guides</source>
-        <translation type="obsolete">Показати розмітку</translation>
-    </message>
-    <message>
-        <source>Snap to Grid</source>
-        <translation type="obsolete">Притягування до сітки</translation>
-    </message>
-    <message>
-        <source>Snap to Guides</source>
-        <translation type="obsolete">Притягування до розмітки</translation>
-    </message>
-    <message>
         <source>Picture</source>
         <translation>Зображення</translation>
     </message>
     <message>
         <source>File: </source>
         <translation>Файл:</translation>
-    </message>
-    <message>
-        <source>Original ppi: </source>
-        <translation type="obsolete">Початкові тчк/д:</translation>
-    </message>
-    <message>
-        <source>Actual ppi: </source>
-        <translation type="obsolete">Реальні тчк/д:</translation>
     </message>
     <message>
         <source>Linked Text</source>
@@ -7099,124 +5475,8 @@ UCR найчастіше впливає на ті частини зображе�
         <translation>Символи:</translation>
     </message>
     <message>
-        <source>Info</source>
-        <translation type="obsolete">Інформація</translation>
-    </message>
-    <message>
-        <source>Get Picture...</source>
-        <translation type="obsolete">Вставити зображення ...</translation>
-    </message>
-    <message>
-        <source>Image Visible</source>
-        <translation type="obsolete">Зображення видиме</translation>
-    </message>
-    <message>
-        <source>Get Text...</source>
-        <translation type="obsolete">Вставити текст...</translation>
-    </message>
-    <message>
         <source>Edit Text...</source>
         <translation>Редагувати текст...</translation>
-    </message>
-    <message>
-        <source>Is PDF-Bookmark</source>
-        <translation type="obsolete">Закладка PDF</translation>
-    </message>
-    <message>
-        <source>Is PDF-Annotation</source>
-        <translation type="obsolete">Аннотація до PDF</translation>
-    </message>
-    <message>
-        <source>Annotation Properties</source>
-        <translation type="obsolete">Властивості аннотації</translation>
-    </message>
-    <message>
-        <source>Field Properties</source>
-        <translation type="obsolete">Властивості поля</translation>
-    </message>
-    <message>
-        <source>Group</source>
-        <translation type="obsolete">Згрупувати</translation>
-    </message>
-    <message>
-        <source>Un-group</source>
-        <translation type="obsolete">Розгрупувати</translation>
-    </message>
-    <message>
-        <source>Lock</source>
-        <translation type="obsolete">Замкнути</translation>
-    </message>
-    <message>
-        <source>Send to Back</source>
-        <translation type="obsolete">Опустити на задній план</translation>
-    </message>
-    <message>
-        <source>Bring to Front</source>
-        <translation type="obsolete">Підняти на передній план</translation>
-    </message>
-    <message>
-        <source>Lower</source>
-        <translation type="obsolete">Вниз</translation>
-    </message>
-    <message>
-        <source>Raise</source>
-        <translation type="obsolete">Вгору</translation>
-    </message>
-    <message>
-        <source>Unlock</source>
-        <translation type="obsolete">Відімкнути</translation>
-    </message>
-    <message>
-        <source>Send to Scrapbook</source>
-        <translation type="obsolete">Послати в чорновик</translation>
-    </message>
-    <message>
-        <source>Send to Layer</source>
-        <translation type="obsolete">Послати на план</translation>
-    </message>
-    <message>
-        <source>Picture Frame</source>
-        <translation type="obsolete">Рамка для зображення</translation>
-    </message>
-    <message>
-        <source>Polygon</source>
-        <translation type="obsolete">Полігон</translation>
-    </message>
-    <message>
-        <source>Outlines</source>
-        <translation type="obsolete">Обриси</translation>
-    </message>
-    <message>
-        <source>Bezier Curve</source>
-        <translation type="obsolete">Крива Безьє</translation>
-    </message>
-    <message>
-        <source>Convert to</source>
-        <translation type="obsolete">Конвертувати до</translation>
-    </message>
-    <message>
-        <source>Show Properties...</source>
-        <translation type="obsolete">Показати властивості...</translation>
-    </message>
-    <message>
-        <source>Hide Properties...</source>
-        <translation type="obsolete">Сховати властивості...</translation>
-    </message>
-    <message>
-        <source>Cut</source>
-        <translation type="obsolete">Вирізати</translation>
-    </message>
-    <message>
-        <source>Copy</source>
-        <translation type="obsolete">Копіювати</translation>
-    </message>
-    <message>
-        <source>Clear Contents</source>
-        <translation type="obsolete">Очистити вміст</translation>
-    </message>
-    <message>
-        <source>Delete</source>
-        <translation type="obsolete">Видалити</translation>
     </message>
     <message>
         <source>None</source>
@@ -7235,18 +5495,6 @@ UCR найчастіше впливає на ті частини зображе�
         <translation>Вимкнено</translation>
     </message>
     <message>
-        <source>Update Picture</source>
-        <translation type="obsolete">Поновити зображення</translation>
-    </message>
-    <message>
-        <source>Edit Picture</source>
-        <translation type="obsolete">Редагувати зображення</translation>
-    </message>
-    <message>
-        <source>Append Text...</source>
-        <translation type="obsolete">Додати текст...</translation>
-    </message>
-    <message>
         <source>The Program</source>
         <translation>Програма</translation>
     </message>
@@ -7263,34 +5511,6 @@ UCR найчастіше впливає на ті частини зображе�
         <translation>Копія</translation>
     </message>
     <message>
-        <source>Hide Baseline Grid</source>
-        <translation type="obsolete">Сховати базову сітку</translation>
-    </message>
-    <message>
-        <source>Show Baseline Grid</source>
-        <translation type="obsolete">Показати базову сітку</translation>
-    </message>
-    <message>
-        <source>Adjust Frame to Picture</source>
-        <translation type="obsolete">Привести рамку у відповідність до зображення</translation>
-    </message>
-    <message>
-        <source>Lock object size</source>
-        <translation type="obsolete">Замкнути розмір об&apos;єкта</translation>
-    </message>
-    <message>
-        <source>Unlock object size</source>
-        <translation type="obsolete">Відімкнути розмір об&apos;єкта</translation>
-    </message>
-    <message>
-        <source>Insert Sample Text</source>
-        <translation type="obsolete">Вставити пробний текст</translation>
-    </message>
-    <message>
-        <source>Level</source>
-        <translation type="obsolete">План</translation>
-    </message>
-    <message>
         <source>Copy Here</source>
         <translation>Копіювати сюди</translation>
     </message>
@@ -7301,10 +5521,6 @@ UCR найчастіше впливає на ті частини зображе�
     <message>
         <source>Cancel</source>
         <translation>Вихід</translation>
-    </message>
-    <message>
-        <source>PDF-Options</source>
-        <translation type="obsolete">Установки PDF</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
@@ -7634,32 +5850,8 @@ UCR найчастіше впливає на ті частини зображе�
         <translation>Властивості полігонів</translation>
     </message>
     <message>
-        <source>Corners:</source>
-        <translation type="obsolete">Кути:</translation>
-    </message>
-    <message>
-        <source>Rotation:</source>
-        <translation type="obsolete">Поворот:</translation>
-    </message>
-    <message>
-        <source>Convex Polygon</source>
-        <translation type="obsolete">Випуклий полігон</translation>
-    </message>
-    <message>
-        <source>Factor:</source>
-        <translation type="obsolete">Фактор:</translation>
-    </message>
-    <message>
         <source> %</source>
         <translation>%</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">Гаразд</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Вихід</translation>
     </message>
     <message>
         <source>Corn&amp;ers:</source>
@@ -7668,10 +5860,6 @@ UCR найчастіше впливає на ті частини зображе�
     <message>
         <source>&amp;Rotation:</source>
         <translation>&amp;Кут повороту:</translation>
-    </message>
-    <message>
-        <source>Conve&amp;x Polygon</source>
-        <translation type="obsolete">Ви&amp;пуклий полігон</translation>
     </message>
     <message>
         <source>&amp;Factor:</source>
@@ -7694,16 +5882,8 @@ UCR найчастіше впливає на ті частини зображе�
         <translation>Кут повороту полігонів</translation>
     </message>
     <message>
-        <source>Polygons will be convex rather than concave</source>
-        <translation type="obsolete">Полігони будуть вигнутими, а не вгнутими</translation>
-    </message>
-    <message>
         <source>Sample Polygon</source>
         <translation>Зразок полігону</translation>
-    </message>
-    <message>
-        <source>Change the angles at which lines of the polygon join</source>
-        <translation type="obsolete">Змінити кути з&apos;єднання сторін полігону</translation>
     </message>
     <message>
         <source>Apply &amp;Factor</source>
@@ -7759,14 +5939,6 @@ UCR найчастіше впливає на ті частини зображе�
         <translation>Графічна оболонка</translation>
     </message>
     <message>
-        <source>Font Size:</source>
-        <translation type="obsolete">Розмір шрифта:</translation>
-    </message>
-    <message>
-        <source> pts</source>
-        <translation type="obsolete">тчк</translation>
-    </message>
-    <message>
         <source>Units</source>
         <translation>Одиниці</translation>
     </message>
@@ -7787,44 +5959,16 @@ UCR найчастіше впливає на ті частини зображе�
         <translation>Піки (п)</translation>
     </message>
     <message>
-        <source>Mouse-Settings</source>
-        <translation type="obsolete">Установки миші</translation>
-    </message>
-    <message>
         <source>Menus</source>
         <translation>Меню</translation>
-    </message>
-    <message>
-        <source>Recent Documents:</source>
-        <translation type="obsolete">Недавно редаговані документи:</translation>
     </message>
     <message>
         <source>Paths</source>
         <translation>Шляхи</translation>
     </message>
     <message>
-        <source>Documents:</source>
-        <translation type="obsolete">Документи:</translation>
-    </message>
-    <message>
-        <source>Change...</source>
-        <translation type="obsolete">Змінити...</translation>
-    </message>
-    <message>
-        <source>ICC-Profiles:</source>
-        <translation type="obsolete">ICC-профілі:</translation>
-    </message>
-    <message>
-        <source>Scripts:</source>
-        <translation type="obsolete">Сценарії:</translation>
-    </message>
-    <message>
         <source>Page Size</source>
         <translation>Розмір сторінки</translation>
-    </message>
-    <message>
-        <source>Orientation:</source>
-        <translation type="obsolete">Орієнтація:</translation>
     </message>
     <message>
         <source>Custom</source>
@@ -7839,56 +5983,12 @@ UCR найчастіше впливає на ті частини зображе�
         <translation>Горизонтальна</translation>
     </message>
     <message>
-        <source>Size:</source>
-        <translation type="obsolete">Розмір:</translation>
-    </message>
-    <message>
-        <source>Width:</source>
-        <translation type="obsolete">Ширина:</translation>
-    </message>
-    <message>
-        <source>Height:</source>
-        <translation type="obsolete">Висота:</translation>
-    </message>
-    <message>
-        <source>Facing Pages</source>
-        <translation type="obsolete">Суміжні сторінки</translation>
-    </message>
-    <message>
-        <source>Left Page First</source>
-        <translation type="obsolete">Ліва сторінка перша</translation>
-    </message>
-    <message>
         <source>Margin Guides</source>
         <translation>Розмітка полів</translation>
     </message>
     <message>
-        <source>Bottom:</source>
-        <translation type="obsolete">Низ:</translation>
-    </message>
-    <message>
-        <source>Top:</source>
-        <translation type="obsolete">Верх:</translation>
-    </message>
-    <message>
-        <source>Right:</source>
-        <translation type="obsolete">Зправа:</translation>
-    </message>
-    <message>
-        <source>Left:</source>
-        <translation type="obsolete">Зліва:</translation>
-    </message>
-    <message>
         <source>Autosave</source>
         <translation>Автоматичне збереження</translation>
-    </message>
-    <message>
-        <source>Enabled</source>
-        <translation type="obsolete">Ввімкнене</translation>
-    </message>
-    <message>
-        <source>Interval:</source>
-        <translation type="obsolete">Інтервал:</translation>
     </message>
     <message>
         <source>min</source>
@@ -7899,52 +5999,16 @@ UCR найчастіше впливає на ті частини зображе�
         <translation>Розташування сітки</translation>
     </message>
     <message>
-        <source>Minor Grid Spacing:</source>
-        <translation type="obsolete">Крок допоміжної сітки:</translation>
-    </message>
-    <message>
-        <source>Major Grid Spacing:</source>
-        <translation type="obsolete">Крок основної сітки:</translation>
-    </message>
-    <message>
-        <source>Guide Snap Distance:</source>
-        <translation type="obsolete">Дистанція притягування до сітки:</translation>
-    </message>
-    <message>
         <source>Grid Colors</source>
         <translation>Кольори сітки</translation>
-    </message>
-    <message>
-        <source>Minor Grid Color:</source>
-        <translation type="obsolete">Колір допоміжної сітки:</translation>
-    </message>
-    <message>
-        <source>Major Grid Color:</source>
-        <translation type="obsolete">Колір основної сітки:</translation>
-    </message>
-    <message>
-        <source>User Guides Color:</source>
-        <translation type="obsolete">Колір розмітки користувача:</translation>
     </message>
     <message>
         <source>Placing</source>
         <translation>Розміщення</translation>
     </message>
     <message>
-        <source>In the Background</source>
-        <translation type="obsolete">На задньому плані</translation>
-    </message>
-    <message>
-        <source>In the Foreground</source>
-        <translation type="obsolete">На передньому плані</translation>
-    </message>
-    <message>
         <source>Subscript</source>
         <translation>Нижній індекс</translation>
-    </message>
-    <message>
-        <source>Scaling:</source>
-        <translation type="obsolete">Масштабування:</translation>
     </message>
     <message>
         <source> %</source>
@@ -7963,30 +6027,6 @@ UCR найчастіше впливає на ті частини зображе�
         <translation>Інше</translation>
     </message>
     <message>
-        <source>Automatic Line Spacing:</source>
-        <translation type="obsolete">Автоматична відстань між рядками:</translation>
-    </message>
-    <message>
-        <source>Default Size:</source>
-        <translation type="obsolete">Стандартний кегль:</translation>
-    </message>
-    <message>
-        <source>Default Font:</source>
-        <translation type="obsolete">Стандартний Шрифт:</translation>
-    </message>
-    <message>
-        <source>Text Color:</source>
-        <translation type="obsolete">Колір тексту:</translation>
-    </message>
-    <message>
-        <source>Columns:</source>
-        <translation type="obsolete">Кількість стовпців:</translation>
-    </message>
-    <message>
-        <source>Gap:</source>
-        <translation type="obsolete">Інтервал:</translation>
-    </message>
-    <message>
         <source> pt</source>
         <translation>тчк</translation>
     </message>
@@ -7995,68 +6035,8 @@ UCR найчастіше впливає на ті частини зображе�
         <translation>Реве та стогне Дніпр широкий, сердитий вітер завива</translation>
     </message>
     <message>
-        <source>Line Color:</source>
-        <translation type="obsolete">Колір лінії:</translation>
-    </message>
-    <message>
-        <source>Shading:</source>
-        <translation type="obsolete">Затінення:</translation>
-    </message>
-    <message>
-        <source>Fill Color:</source>
-        <translation type="obsolete">Колір заповнення:</translation>
-    </message>
-    <message>
-        <source>Line Width:</source>
-        <translation type="obsolete">Товщина лінії:</translation>
-    </message>
-    <message>
         <source>None</source>
         <translation>Немає</translation>
-    </message>
-    <message>
-        <source>Line Style:</source>
-        <translation type="obsolete">Стиль лінії:</translation>
-    </message>
-    <message>
-        <source>Minimum:</source>
-        <translation type="obsolete">Мінімум:</translation>
-    </message>
-    <message>
-        <source>Maximum:</source>
-        <translation type="obsolete">Максимум:</translation>
-    </message>
-    <message>
-        <source>Stepping:</source>
-        <translation type="obsolete">Крок:</translation>
-    </message>
-    <message>
-        <source>Free Scaling</source>
-        <translation type="obsolete">Вільне масштабування</translation>
-    </message>
-    <message>
-        <source>Scale Picture to Frame Size</source>
-        <translation type="obsolete">Масштабувати зображення до розміру рамки</translation>
-    </message>
-    <message>
-        <source>Keep Aspect Ratio</source>
-        <translation type="obsolete">Зберегти відношення сторін</translation>
-    </message>
-    <message>
-        <source>Corners:</source>
-        <translation type="obsolete">Кутів:</translation>
-    </message>
-    <message>
-        <source>Rotation:</source>
-        <translation type="obsolete">Кут обертання:</translation>
-    </message>
-    <message>
-        <source>Convex Polygon</source>
-        <translation type="obsolete">Випуклий полігон</translation>
-    </message>
-    <message>
-        <source>Factor:</source>
-        <translation type="obsolete">Фактор:</translation>
     </message>
     <message>
         <source>Other Options</source>
@@ -8075,60 +6055,12 @@ UCR найчастіше впливає на ті частини зображе�
         <translation>Середній</translation>
     </message>
     <message>
-        <source>Big</source>
-        <translation type="obsolete">Великий</translation>
-    </message>
-    <message>
-        <source>Display Pages Side by Side</source>
-        <translation type="obsolete">Показувати сторінки поруч</translation>
-    </message>
-    <message>
-        <source>Page-Colors</source>
-        <translation type="obsolete">Кольори сторінки</translation>
-    </message>
-    <message>
-        <source>Background:</source>
-        <translation type="obsolete">Фон:</translation>
-    </message>
-    <message>
-        <source>Margins:</source>
-        <translation type="obsolete">Неробочі поля:</translation>
-    </message>
-    <message>
-        <source>Display Unprintable Area in Margin Color</source>
-        <translation type="obsolete">Показати недруковану область кольором поля</translation>
-    </message>
-    <message>
-        <source>Use PDF-1.4 Transparency Features</source>
-        <translation type="obsolete">Використовувати прозорість формату PDF-1.4</translation>
-    </message>
-    <message>
-        <source>Adjust Display Size</source>
-        <translation type="obsolete">Відрегулювати розмір відображення</translation>
-    </message>
-    <message>
         <source>To adjust the display drag the ruler below with the Slider.</source>
         <translation>Щоб відрегулювати відображення, перемістіть повзунок внизу.</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation type="obsolete">Гаразд</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Вихід</translation>
-    </message>
-    <message>
         <source>Choose a Directory</source>
         <translation>Вибрати директорію</translation>
-    </message>
-    <message>
-        <source>Inside:</source>
-        <translation type="obsolete">Всередині:</translation>
-    </message>
-    <message>
-        <source>Outside:</source>
-        <translation type="obsolete">Ззовні:</translation>
     </message>
     <message>
         <source> mm</source>
@@ -8151,14 +6083,6 @@ UCR найчастіше впливає на ті частини зображе�
         <translation>Інтерпретатор постскрипта</translation>
     </message>
     <message>
-        <source>Antialias Text</source>
-        <translation type="obsolete">Антиаліасинг текста</translation>
-    </message>
-    <message>
-        <source>Antialias Graphics</source>
-        <translation type="obsolete">Антиаліасинг зображень</translation>
-    </message>
-    <message>
         <source>Image Processing Tool</source>
         <translation>Інструмент для обробки зображень</translation>
     </message>
@@ -8169,18 +6093,6 @@ UCR найчастіше впливає на ті частини зображе�
     <message>
         <source>Printing</source>
         <translation>Друк</translation>
-    </message>
-    <message>
-        <source>Clip to Page Margins</source>
-        <translation type="obsolete">Обрізати по полях сторінки</translation>
-    </message>
-    <message>
-        <source>Displacement:</source>
-        <translation type="obsolete">Зміщення:</translation>
-    </message>
-    <message>
-        <source>Name of executable:</source>
-        <translation type="obsolete">Назва програми:</translation>
     </message>
     <message>
         <source>Choose the default window decoration and looks.
@@ -8469,16 +6381,8 @@ each time the time period elapses</source>
         <translation>Кут повороту полігонів</translation>
     </message>
     <message>
-        <source>Polygons will be convex rather than concave</source>
-        <translation type="obsolete">Полігони будуть вигнутими, а не вгнутими</translation>
-    </message>
-    <message>
         <source>Sample Polygon</source>
         <translation>Зразок полігону</translation>
-    </message>
-    <message>
-        <source>Change the angles at which lines of the polygon join</source>
-        <translation type="obsolete">Змінити кути з&apos;єднання сторін полігону</translation>
     </message>
     <message>
         <source>Choose the size of the preview in the scrapbook palette</source>
@@ -8525,18 +6429,6 @@ each time the time period elapses</source>
         <translation>Не показувати об&apos;єкти за полями на друкованій сторінці чи в експортованому файлі</translation>
     </message>
     <message>
-        <source>Baseline Grid:</source>
-        <translation type="obsolete">Базова сітка:</translation>
-    </message>
-    <message>
-        <source>Baseline Offset:</source>
-        <translation type="obsolete">Зміщення базової сітки:</translation>
-    </message>
-    <message>
-        <source>Save Contents on Changes</source>
-        <translation type="obsolete">Зберегти вміст після кожної зміни</translation>
-    </message>
-    <message>
         <source>Save the scrapbook contents everytime after a change</source>
         <translation>Зберегти вміст чорновика після зміни</translation>
     </message>
@@ -8545,36 +6437,8 @@ each time the time period elapses</source>
         <translation>Місцезнаходження графічного редактора на жорсткому диску</translation>
     </message>
     <message>
-        <source>Theme:</source>
-        <translation type="obsolete">Тема:</translation>
-    </message>
-    <message>
-        <source>Wheel-Jump:</source>
-        <translation type="obsolete">Число рядків прокручування на кожний рух колеса миші:</translation>
-    </message>
-    <message>
-        <source>Grab-Radius:</source>
-        <translation type="obsolete">Радіус захвату:</translation>
-    </message>
-    <message>
         <source>Baseline Grid</source>
         <translation>Базова сітка</translation>
-    </message>
-    <message>
-        <source>On</source>
-        <translation type="obsolete">Ввімкнути</translation>
-    </message>
-    <message>
-        <source>Off</source>
-        <translation type="obsolete">Вимкнути</translation>
-    </message>
-    <message>
-        <source>Horizontal Scaling:</source>
-        <translation type="obsolete">Горизонтальне масштабування:</translation>
-    </message>
-    <message>
-        <source>Vertical Scaling:</source>
-        <translation type="obsolete">Вертикальне масштабування:</translation>
     </message>
     <message>
         <source>Turns on the basegrid</source>
@@ -8587,10 +6451,6 @@ each time the time period elapses</source>
     <message>
         <source> px</source>
         <translation>пікс</translation>
-    </message>
-    <message>
-        <source>Type of Line:</source>
-        <translation type="obsolete">Тип лінії:</translation>
     </message>
     <message>
         <source>&amp;Theme:</source>
@@ -8851,10 +6711,6 @@ each time the time period elapses</source>
     <message>
         <source>&amp;Rotation:</source>
         <translation>&amp;Кут повороту:</translation>
-    </message>
-    <message>
-        <source>Conve&amp;x Polygon</source>
-        <translation type="obsolete">Ви&amp;пуклий полігон</translation>
     </message>
     <message>
         <source>&amp;Factor:</source>
@@ -9417,28 +7273,8 @@ Check path and filename.</source>
 %1 ?</translation>
     </message>
     <message>
-        <source>Insert Special</source>
-        <translation type="obsolete">Вставити особливий символ</translation>
-    </message>
-    <message>
         <source>Print Preview</source>
         <translation>Перегляд  перед друком</translation>
-    </message>
-    <message>
-        <source>Scripter Manual...</source>
-        <translation type="obsolete">Керівництво по Сценаристу...</translation>
-    </message>
-    <message>
-        <source>Execute Script...</source>
-        <translation type="obsolete">Виконати сценарій...</translation>
-    </message>
-    <message>
-        <source>Recent Scripts</source>
-        <translation type="obsolete">Недавні сценарії</translation>
-    </message>
-    <message>
-        <source>Show Console</source>
-        <translation type="obsolete">Показати консоль</translation>
     </message>
     <message>
         <source>Online Reference</source>
@@ -9451,10 +7287,6 @@ Check path and filename.</source>
     <message>
         <source>Python Scripts (*.py);; All Files (*)</source>
         <translation>Сценарії на Пітоні (*.py);; Всі файли (*)</translation>
-    </message>
-    <message>
-        <source>Save Page as SVG...</source>
-        <translation type="obsolete">Записати сторінку як SVG...</translation>
     </message>
     <message>
         <source>Save as</source>
@@ -9485,10 +7317,6 @@ Check path and filename.</source>
         <translation>Фон</translation>
     </message>
     <message>
-        <source>Scribus Scripts</source>
-        <translation type="obsolete">Сценарії Scribus</translation>
-    </message>
-    <message>
         <source>S&amp;cript</source>
         <translation>С&amp;ценарії</translation>
     </message>
@@ -9503,14 +7331,6 @@ Check path and filename.</source>
     <message>
         <source>Oook! An object you&apos;re trying to textflow doesn&apos;t exist!</source>
         <translation>Ойойой! Спроба оточення неіснуючого об&apos;єкту текстом!</translation>
-    </message>
-    <message>
-        <source>Import SVG-Image...</source>
-        <translation type="obsolete">Вставити SVG-зображення...</translation>
-    </message>
-    <message>
-        <source>Save as Image...</source>
-        <translation type="obsolete">Записати, як растрове зображення...</translation>
     </message>
     <message>
         <source>Error writing the output file(s).</source>
@@ -9541,28 +7361,12 @@ Check path and filename.</source>
         <translation>Експорт успішний.</translation>
     </message>
     <message>
-        <source>Import EPS/PS...</source>
-        <translation type="obsolete">Імпортувати EPS/PS...</translation>
-    </message>
-    <message>
         <source>All Supported Formats (*.eps *.EPS *.ps *.PS);;</source>
         <translation>Всі доступні формати (*.eps *.EPS *.ps *.PS);;</translation>
     </message>
     <message>
         <source>All Files (*)</source>
         <translation>Всі файли (*)</translation>
-    </message>
-    <message>
-        <source>Fonts Preview</source>
-        <translation type="obsolete">Попередній перегляд шрифтів</translation>
-    </message>
-    <message>
-        <source>New From Template...</source>
-        <translation type="obsolete">Новий з Шаблона...</translation>
-    </message>
-    <message>
-        <source>New</source>
-        <translation type="obsolete">Новий</translation>
     </message>
     <message>
         <source>Newsletters</source>
@@ -9649,18 +7453,6 @@ Check path and filename.</source>
         <translation>Шаблони користувача</translation>
     </message>
     <message>
-        <source>Print...</source>
-        <translation type="obsolete">Друк...</translation>
-    </message>
-    <message>
-        <source>Save as Template...</source>
-        <translation type="obsolete">Записати, як Шаблон...</translation>
-    </message>
-    <message>
-        <source>Save as...</source>
-        <translation type="obsolete">Записати як...</translation>
-    </message>
-    <message>
         <source>&amp;Fonts Preview</source>
         <translation>&amp;Попередній перегляд шрифтів</translation>
     </message>
@@ -9671,10 +7463,6 @@ Check path and filename.</source>
     <message>
         <source>New &amp;from Template...</source>
         <translation>Новий з &amp;шаблона...</translation>
-    </message>
-    <message>
-        <source>&amp;New</source>
-        <translation>&amp;Новий</translation>
     </message>
     <message>
         <source>PDF Presentations</source>
@@ -9689,20 +7477,12 @@ Check path and filename.</source>
         <translation>Перегляд перед д&amp;руком</translation>
     </message>
     <message>
-        <source>&amp;Print...</source>
-        <translation>&amp;Друк...</translation>
-    </message>
-    <message>
         <source>Import &amp;EPS/PS...</source>
         <translation>Імпорт &amp;ЕPS/PS...</translation>
     </message>
     <message>
         <source>Save as &amp;Template...</source>
         <translation>Записати як ша&amp;блон...</translation>
-    </message>
-    <message>
-        <source>Save &amp;As...</source>
-        <translation>Записати &amp;як...</translation>
     </message>
     <message>
         <source>S&amp;cripter Manual...</source>
@@ -9751,14 +7531,6 @@ Check path and filename.</source>
     <message>
         <source>Importing text</source>
         <translation>Імпорт тексту</translation>
-    </message>
-    <message>
-        <source>Importer</source>
-        <translation type="obsolete">Імпортер</translation>
-    </message>
-    <message>
-        <source>Choose the importer to use</source>
-        <translation type="obsolete">Вибрати імпортер</translation>
     </message>
     <message>
         <source>All Supported Formats</source>
@@ -9935,14 +7707,6 @@ External Links
 <context>
     <name>Query</name>
     <message>
-        <source>OK</source>
-        <translation type="obsolete">Гаразд</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Вихід</translation>
-    </message>
-    <message>
         <source>&amp;OK</source>
         <translation>&amp;Гаразд</translation>
     </message>
@@ -9960,46 +7724,6 @@ External Links
     <message>
         <source>Margin Guides</source>
         <translation>Розмітка полів</translation>
-    </message>
-    <message>
-        <source>Top:</source>
-        <translation type="obsolete">Верхнє:</translation>
-    </message>
-    <message>
-        <source>Left:</source>
-        <translation type="obsolete">Ліве:</translation>
-    </message>
-    <message>
-        <source>Bottom:</source>
-        <translation type="obsolete">Нижнє:</translation>
-    </message>
-    <message>
-        <source>Right:</source>
-        <translation type="obsolete">Праве:</translation>
-    </message>
-    <message>
-        <source>Facing Pages</source>
-        <translation type="obsolete">Суміжні сторінки</translation>
-    </message>
-    <message>
-        <source>Left Page first</source>
-        <translation type="obsolete">Ліва сторінка перша</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">Гаразд</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Вихід</translation>
-    </message>
-    <message>
-        <source>Inside:</source>
-        <translation type="obsolete">Всередині:</translation>
-    </message>
-    <message>
-        <source>Outside:</source>
-        <translation type="obsolete">Ззовні:</translation>
     </message>
     <message>
         <source>Enable single or spread based layout</source>
@@ -10086,6 +7810,38 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>&amp;Outside:</source>
         <translation>Зз&amp;овні:</translation>
+    </message>
+    <message>
+        <source>Page Size</source>
+        <translation type="unfinished">Розмір сторінки</translation>
+    </message>
+    <message>
+        <source>Size:</source>
+        <translation type="unfinished">Розмір:</translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <translation type="unfinished">Нестандартний</translation>
+    </message>
+    <message>
+        <source>Orientation:</source>
+        <translation type="unfinished">Орієнтація:</translation>
+    </message>
+    <message>
+        <source>Portrait</source>
+        <translation type="unfinished">Вертикальна</translation>
+    </message>
+    <message>
+        <source>Landscape</source>
+        <translation type="unfinished">Горизонтальна</translation>
+    </message>
+    <message>
+        <source>Width:</source>
+        <translation type="unfinished">Товщина:</translation>
+    </message>
+    <message>
+        <source>Height:</source>
+        <translation type="unfinished">Висота:</translation>
     </message>
 </context>
 <context>
@@ -10269,20 +8025,12 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Зчитування установок</translation>
     </message>
     <message>
-        <source>Getting ICC-Profiles</source>
-        <translation type="obsolete">Отримання ICC-профілів</translation>
-    </message>
-    <message>
         <source>Init Hyphenator</source>
         <translation>Ініціалізувати переніс</translation>
     </message>
     <message>
         <source>Setting up Shortcuts</source>
         <translation>Установка гарячих клавіш</translation>
-    </message>
-    <message>
-        <source>Color Management...</source>
-        <translation type="obsolete">Керування кольорами...</translation>
     </message>
     <message>
         <source>Reading Scrapbook</source>
@@ -10301,10 +8049,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Відчинити...</translation>
     </message>
     <message>
-        <source>Recent Documents</source>
-        <translation type="obsolete">Недавно редаговані документи</translation>
-    </message>
-    <message>
         <source>Close</source>
         <translation>Зачинити</translation>
     </message>
@@ -10317,40 +8061,8 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Записати як...</translation>
     </message>
     <message>
-        <source>Revert to Saved</source>
-        <translation type="obsolete">Повернутися до записаного</translation>
-    </message>
-    <message>
-        <source>Collect for Output...</source>
-        <translation type="obsolete">Зібрати для виводу...</translation>
-    </message>
-    <message>
         <source>Get Text/Picture...</source>
         <translation>Вставити текст/зображення... </translation>
-    </message>
-    <message>
-        <source>Insert Page...</source>
-        <translation type="obsolete">Вставити сторінку...</translation>
-    </message>
-    <message>
-        <source>Import...</source>
-        <translation type="obsolete">Імпорт...</translation>
-    </message>
-    <message>
-        <source>Save Text...</source>
-        <translation type="obsolete">Записати текст...</translation>
-    </message>
-    <message>
-        <source>Save Page as EPS...</source>
-        <translation type="obsolete">Записати сторінку як EPS...</translation>
-    </message>
-    <message>
-        <source>Save as PDF...</source>
-        <translation type="obsolete">Записати документ як PDF...</translation>
-    </message>
-    <message>
-        <source>Export...</source>
-        <translation type="obsolete">Експорт...</translation>
     </message>
     <message>
         <source>Document Info...</source>
@@ -10389,20 +8101,8 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Виділити все</translation>
     </message>
     <message>
-        <source>Search/Replace...</source>
-        <translation type="obsolete">Пошук/Заміна...</translation>
-    </message>
-    <message>
         <source>Colors...</source>
         <translation>Кольори...</translation>
-    </message>
-    <message>
-        <source>Paragraph Styles...</source>
-        <translation type="obsolete">Стилі абзаців...</translation>
-    </message>
-    <message>
-        <source>Line Styles...</source>
-        <translation type="obsolete">Стилі ліній...</translation>
     </message>
     <message>
         <source>Styles...</source>
@@ -10415,10 +8115,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Fonts...</source>
         <translation>Шрифти...</translation>
-    </message>
-    <message>
-        <source>Hyphenator...</source>
-        <translation type="obsolete">Переніс...</translation>
     </message>
     <message>
         <source>Select New Font</source>
@@ -10469,30 +8165,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Розташувати/Вирівняти...</translation>
     </message>
     <message>
-        <source>Edit Frame</source>
-        <translation type="obsolete">Редагувати рамку</translation>
-    </message>
-    <message>
-        <source>Shape</source>
-        <translation type="obsolete">Форма</translation>
-    </message>
-    <message>
-        <source>Detach Text from Path</source>
-        <translation type="obsolete">Від&apos;єднати текст від шляху</translation>
-    </message>
-    <message>
-        <source>Combine Polygons</source>
-        <translation type="obsolete">Поєднати полігони</translation>
-    </message>
-    <message>
-        <source>Split Polygons</source>
-        <translation type="obsolete">Розділити полігони</translation>
-    </message>
-    <message>
-        <source>Convert to Outlines</source>
-        <translation type="obsolete">Конвертувати у векторну форму</translation>
-    </message>
-    <message>
         <source>Insert...</source>
         <translation>Вставити...</translation>
     </message>
@@ -10525,10 +8197,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>75%</translation>
     </message>
     <message>
-        <source>Actual Size</source>
-        <translation type="obsolete">Реальний розмір</translation>
-    </message>
-    <message>
         <source>200%</source>
         <translation>200%</translation>
     </message>
@@ -10557,20 +8225,8 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Притягування до сітки</translation>
     </message>
     <message>
-        <source>Hide Guides</source>
-        <translation type="obsolete">Сховати розмітку</translation>
-    </message>
-    <message>
-        <source>Snap to Guides</source>
-        <translation type="obsolete">Притягування до розмітки</translation>
-    </message>
-    <message>
         <source>Tools</source>
         <translation>Інструменти</translation>
-    </message>
-    <message>
-        <source>PDF-Tools</source>
-        <translation type="obsolete">PDF-Інструменти</translation>
     </message>
     <message>
         <source>Properties</source>
@@ -10583,18 +8239,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Scrapbook</source>
         <translation>Чорновик</translation>
-    </message>
-    <message>
-        <source>Layers</source>
-        <translation type="obsolete">Плани</translation>
-    </message>
-    <message>
-        <source>Page Palette</source>
-        <translation type="obsolete">Сторінки і шаблони</translation>
-    </message>
-    <message>
-        <source>Bookmarks</source>
-        <translation type="obsolete">Закладки</translation>
     </message>
     <message>
         <source>Manage Pictures</source>
@@ -10617,36 +8261,8 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Внутрішня довідка ...</translation>
     </message>
     <message>
-        <source>Tool-Tips</source>
-        <translation type="obsolete">Підказка по інструментах</translation>
-    </message>
-    <message>
         <source>Style</source>
         <translation>Стиль</translation>
-    </message>
-    <message>
-        <source>Left</source>
-        <translation type="obsolete">Лівий край</translation>
-    </message>
-    <message>
-        <source>Center</source>
-        <translation type="obsolete">Центр</translation>
-    </message>
-    <message>
-        <source>Right</source>
-        <translation type="obsolete">Правий край</translation>
-    </message>
-    <message>
-        <source>Block</source>
-        <translation type="obsolete">Блок</translation>
-    </message>
-    <message>
-        <source>Forced</source>
-        <translation type="obsolete">Вимушене</translation>
-    </message>
-    <message>
-        <source>Other...</source>
-        <translation type="obsolete">Інший...</translation>
     </message>
     <message>
         <source>Normal</source>
@@ -10689,20 +8305,8 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Готовий</translation>
     </message>
     <message>
-        <source>Cascade</source>
-        <translation type="obsolete">Каскадне розміщення</translation>
-    </message>
-    <message>
-        <source>Tile</source>
-        <translation type="obsolete">Мозаїчне розміщення</translation>
-    </message>
-    <message>
         <source>None</source>
         <translation>Немає</translation>
-    </message>
-    <message>
-        <source>Show Frames</source>
-        <translation type="obsolete">Показати рамки</translation>
     </message>
     <message>
         <source>Get Picture...</source>
@@ -10727,18 +8331,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Size</source>
         <translation>Розмір</translation>
-    </message>
-    <message>
-        <source>Effects</source>
-        <translation type="obsolete">Ефекти</translation>
-    </message>
-    <message>
-        <source>Tabulators...</source>
-        <translation type="obsolete">Табулятори...</translation>
-    </message>
-    <message>
-        <source>Alignment</source>
-        <translation type="obsolete">Вирівнювання</translation>
     </message>
     <message>
         <source>Shade</source>
@@ -10809,36 +8401,8 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Довідка по Scribus</translation>
     </message>
     <message>
-        <source>Show Margins</source>
-        <translation type="obsolete">Показати поля</translation>
-    </message>
-    <message>
-        <source>Show Images</source>
-        <translation type="obsolete">Показати зображення</translation>
-    </message>
-    <message>
-        <source>Hide Grid</source>
-        <translation type="obsolete">Заховати сітку</translation>
-    </message>
-    <message>
-        <source>Show Guides</source>
-        <translation type="obsolete">Показати розмітку</translation>
-    </message>
-    <message>
-        <source>Size:</source>
-        <translation type="obsolete">Розмір:</translation>
-    </message>
-    <message>
-        <source>Shade:</source>
-        <translation type="obsolete">Тінь:</translation>
-    </message>
-    <message>
         <source>The following Programs are missing:</source>
         <translation>Наступні програми відсутні:</translation>
-    </message>
-    <message>
-        <source>Ghostscript : You cannot use EPS-Images</source>
-        <translation type="obsolete">Ghostscript : Ви не можете використовувати EPS зображення</translation>
     </message>
     <message>
         <source>All</source>
@@ -10855,18 +8419,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Adjusting Colors</source>
         <translation>Настройка кольорів</translation>
-    </message>
-    <message>
-        <source>Undo Delete Object</source>
-        <translation type="obsolete">Відмінити видалення об&apos;єкта</translation>
-    </message>
-    <message>
-        <source>Undo Object Move</source>
-        <translation type="obsolete">Відмінити зсув об&apos;єкта</translation>
-    </message>
-    <message>
-        <source>Undo Object Change</source>
-        <translation type="obsolete">Відмінити зміну об&apos;єкта</translation>
     </message>
     <message>
         <source>English</source>
@@ -10987,20 +8539,12 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Записати активний документ як PDF</translation>
     </message>
     <message>
-        <source>Append Text...</source>
-        <translation type="obsolete">Добавити текст...</translation>
-    </message>
-    <message>
         <source>&amp;File</source>
         <translation>&amp;Файл</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
         <translation>&amp;Редагування</translation>
-    </message>
-    <message>
-        <source>&amp;Style</source>
-        <translation type="obsolete">&amp;Стиль</translation>
     </message>
     <message>
         <source>&amp;Item</source>
@@ -11099,20 +8643,8 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Словенська</translation>
     </message>
     <message>
-        <source>Keyboard Shortcuts...</source>
-        <translation type="obsolete">Гарячі клавіші...</translation>
-    </message>
-    <message>
-        <source>Scribus Manual...</source>
-        <translation type="obsolete">Керівництво по Scribus...</translation>
-    </message>
-    <message>
         <source>&amp;Settings</source>
         <translation>&amp;Установки</translation>
-    </message>
-    <message>
-        <source>Preferences...</source>
-        <translation type="obsolete">Параметри...</translation>
     </message>
     <message>
         <source>&amp;Color Management...</source>
@@ -11159,10 +8691,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Додати &amp;текст...</translation>
     </message>
     <message>
-        <source>Insert &amp;Page...</source>
-        <translation type="obsolete">Вставити &amp;сторінку...</translation>
-    </message>
-    <message>
         <source>&amp;Import</source>
         <translation>І&amp;мпортувати</translation>
     </message>
@@ -11181,10 +8709,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>&amp;Export</source>
         <translation>&amp;Експортування</translation>
-    </message>
-    <message>
-        <source>Document &amp;Info...</source>
-        <translation type="obsolete">&amp;Інформація про документ...</translation>
     </message>
     <message>
         <source>Document &amp;Setup...</source>
@@ -11291,10 +8815,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Розташувати/&amp;Вирівняти...</translation>
     </message>
     <message>
-        <source>&amp;Edit Frame</source>
-        <translation type="obsolete">Редагувати ра&amp;мку</translation>
-    </message>
-    <message>
         <source>&amp;Shape</source>
         <translation>&amp;Фігура</translation>
     </message>
@@ -11335,10 +8855,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>&amp;Застосувати шаблон...</translation>
     </message>
     <message>
-        <source>&amp;Manage Guides...</source>
-        <translation type="obsolete">&amp;Установка розмітки...</translation>
-    </message>
-    <message>
         <source>&amp;Fit in Window</source>
         <translation>Вмістити у ві&amp;кно</translation>
     </message>
@@ -11351,28 +8867,8 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>&amp;Мініатюрні зображення</translation>
     </message>
     <message>
-        <source>Hide &amp;Margins</source>
-        <translation type="obsolete">Сховати &amp;поля</translation>
-    </message>
-    <message>
-        <source>Hide &amp;Frames</source>
-        <translation type="obsolete">Сховати &amp;рамки</translation>
-    </message>
-    <message>
-        <source>Hide &amp;Images</source>
-        <translation type="obsolete">Сховати зобра&amp;ження</translation>
-    </message>
-    <message>
         <source>Show &amp;Grid</source>
         <translation>Показати &amp;сітку</translation>
-    </message>
-    <message>
-        <source>Snap to &amp;Grid</source>
-        <translation type="obsolete">Притягування до с&amp;ітки</translation>
-    </message>
-    <message>
-        <source>Hide G&amp;uides</source>
-        <translation type="obsolete">Сховати розмі&amp;тку</translation>
     </message>
     <message>
         <source>Sna&amp;p to Guides</source>
@@ -11425,10 +8921,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Tooltips</source>
         <translation>Підказки</translation>
-    </message>
-    <message>
-        <source>&amp;Preferences...</source>
-        <translation type="obsolete">&amp;Установки...</translation>
     </message>
     <message>
         <source>&amp;Fonts...</source>
@@ -11545,14 +9037,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Show G&amp;uides</source>
         <translation>Показати розм&amp;ітку</translation>
-    </message>
-    <message>
-        <source>Hide &amp;Grid</source>
-        <translation type="obsolete">С&amp;ховати сітку</translation>
-    </message>
-    <message>
-        <source>Hide &amp;Baseline Grid</source>
-        <translation type="obsolete">Сховати &amp;базову сітку</translation>
     </message>
     <message>
         <source>Ghostscript : You cannot use EPS Images</source>
@@ -11681,14 +9165,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
 <context>
     <name>ScribusWin</name>
     <message>
-        <source>Leave Anyway</source>
-        <translation type="obsolete">Ігнорувати і вийти</translation>
-    </message>
-    <message>
-        <source>Close Anyway</source>
-        <translation type="obsolete">Зачинити в любому випадку</translation>
-    </message>
-    <message>
         <source>Warning</source>
         <translation>Застереження</translation>
     </message>
@@ -11699,14 +9175,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>has been changed since the last save.</source>
         <translation>був змінений з часу останнього запису.</translation>
-    </message>
-    <message>
-        <source>Save Now</source>
-        <translation type="obsolete">Записати зараз</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Вихід</translation>
     </message>
     <message>
         <source>&amp;Leave Anyway</source>
@@ -11796,30 +9264,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Replace with:</source>
         <translation>Замінити на:</translation>
-    </message>
-    <message>
-        <source>Whole Word</source>
-        <translation type="obsolete">Ціле слово</translation>
-    </message>
-    <message>
-        <source>Ignore Case</source>
-        <translation type="obsolete">Ігнорувати регістр</translation>
-    </message>
-    <message>
-        <source>Search</source>
-        <translation type="obsolete">Пошук</translation>
-    </message>
-    <message>
-        <source>Replace</source>
-        <translation type="obsolete">Заміна</translation>
-    </message>
-    <message>
-        <source>Replace All</source>
-        <translation type="obsolete">Замінити все</translation>
-    </message>
-    <message>
-        <source>Leave</source>
-        <translation type="obsolete">Вихід</translation>
     </message>
     <message>
         <source>Search finished</source>
@@ -11926,24 +9370,8 @@ drag a Template to the Pageview below.</source>
         <translation>Доступні поля</translation>
     </message>
     <message>
-        <source>&gt;&gt;</source>
-        <translation type="obsolete">&gt;&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;&lt;</source>
-        <translation type="obsolete">&lt;&lt;</translation>
-    </message>
-    <message>
         <source>Selected Fields</source>
         <translation>Вибрані поля</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">Гаразд</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Вихід</translation>
     </message>
     <message>
         <source>&amp;&gt;&gt;</source>
@@ -11967,10 +9395,6 @@ drag a Template to the Pageview below.</source>
     <message>
         <source>Other...</source>
         <translation>Інші...</translation>
-    </message>
-    <message>
-        <source>Shade:</source>
-        <translation type="obsolete">Тінь:</translation>
     </message>
     <message>
         <source>Shade</source>
@@ -12002,34 +9426,6 @@ drag a Template to the Pageview below.</source>
         <translation>Редагування стилю</translation>
     </message>
     <message>
-        <source>Append</source>
-        <translation type="obsolete">Зовнішній</translation>
-    </message>
-    <message>
-        <source>New</source>
-        <translation type="obsolete">Новий</translation>
-    </message>
-    <message>
-        <source>Edit</source>
-        <translation type="obsolete">Редагувати</translation>
-    </message>
-    <message>
-        <source>Duplicate</source>
-        <translation type="obsolete">Копіювати</translation>
-    </message>
-    <message>
-        <source>Delete</source>
-        <translation type="obsolete">Видалити</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation type="obsolete">Записати</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Вихід</translation>
-    </message>
-    <message>
         <source>Copy of %1</source>
         <translation>Копія %1</translation>
     </message>
@@ -12040,10 +9436,6 @@ drag a Template to the Pageview below.</source>
     <message>
         <source>Warning</source>
         <translation>Застереження</translation>
-    </message>
-    <message>
-        <source>Do you really want do delete this Style?</source>
-        <translation type="obsolete">Ви справді бажаєте видалити цей стиль?</translation>
     </message>
     <message>
         <source>No</source>
@@ -12064,10 +9456,6 @@ drag a Template to the Pageview below.</source>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
         <translation>Документи (*.sla *.scd);;Всі файли (*)</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">Гаразд</translation>
     </message>
     <message>
         <source>&amp;Append</source>
@@ -12113,68 +9501,8 @@ drag a Template to the Pageview below.</source>
         <translation>Редактор тексту</translation>
     </message>
     <message>
-        <source>New</source>
-        <translation type="obsolete">Новий</translation>
-    </message>
-    <message>
-        <source>Save to File...</source>
-        <translation type="obsolete">Записати в файл...</translation>
-    </message>
-    <message>
-        <source>Load from File...</source>
-        <translation type="obsolete">Завантажити з файла...</translation>
-    </message>
-    <message>
-        <source>Save and Exit</source>
-        <translation type="obsolete">Записати документ та вийти</translation>
-    </message>
-    <message>
-        <source>Exit without Saving</source>
-        <translation type="obsolete">Вийти без запису</translation>
-    </message>
-    <message>
-        <source>Undo</source>
-        <translation type="obsolete">Відмінити</translation>
-    </message>
-    <message>
-        <source>Redo</source>
-        <translation type="obsolete">Повторити</translation>
-    </message>
-    <message>
-        <source>Cut</source>
-        <translation type="obsolete">Вирізати</translation>
-    </message>
-    <message>
-        <source>Copy</source>
-        <translation type="obsolete">Копіювати</translation>
-    </message>
-    <message>
-        <source>Paste</source>
-        <translation type="obsolete">Вклеїти</translation>
-    </message>
-    <message>
-        <source>Clear</source>
-        <translation type="obsolete">Очистити</translation>
-    </message>
-    <message>
-        <source>Edit Styles...</source>
-        <translation type="obsolete">Редагувати стилі...</translation>
-    </message>
-    <message>
         <source>File</source>
         <translation>Файл</translation>
-    </message>
-    <message>
-        <source>Edit</source>
-        <translation type="obsolete">Редагувати</translation>
-    </message>
-    <message>
-        <source>Style</source>
-        <translation type="obsolete">Стиль</translation>
-    </message>
-    <message>
-        <source>Text</source>
-        <translation type="obsolete">Текст</translation>
     </message>
     <message>
         <source>Current Paragraph:</source>
@@ -12221,44 +9549,12 @@ drag a Template to the Pageview below.</source>
         <translation>Записати як</translation>
     </message>
     <message>
-        <source>Left</source>
-        <translation type="obsolete">Лівий край</translation>
-    </message>
-    <message>
-        <source>Center</source>
-        <translation type="obsolete">Центр</translation>
-    </message>
-    <message>
-        <source>Right</source>
-        <translation type="obsolete">Правий край</translation>
-    </message>
-    <message>
-        <source>Block</source>
-        <translation type="obsolete">Блок</translation>
-    </message>
-    <message>
-        <source>Forced</source>
-        <translation type="obsolete">Вимушене</translation>
-    </message>
-    <message>
         <source>Update Text Frame</source>
         <translation>Обновити вміст текстової рамки</translation>
     </message>
     <message>
-        <source>Insert Special...</source>
-        <translation type="obsolete">Вставити символ...</translation>
-    </message>
-    <message>
-        <source>Insert Special</source>
-        <translation type="obsolete">Вставка символів</translation>
-    </message>
-    <message>
         <source>Do you want to save your changes?</source>
         <translation>Записати зміни?</translation>
-    </message>
-    <message>
-        <source>Save Document</source>
-        <translation type="obsolete">Записати документ</translation>
     </message>
     <message>
         <source>Update Text Frame and Exit</source>
@@ -12339,10 +9635,6 @@ drag a Template to the Pageview below.</source>
     <message>
         <source>&amp;Edit Styles...</source>
         <translation>&amp;Редагувати стилі...</translation>
-    </message>
-    <message>
-        <source>Clears all Text</source>
-        <translation type="obsolete">Очистити весь текст</translation>
     </message>
     <message>
         <source>Load Text from File</source>
@@ -12431,15 +9723,6 @@ drag a Template to the Pageview below.</source>
         <translation>Поновити стилі абзаців</translation>
     </message>
     <message>
-        <source>If there already exists a paragraph style with the same
-name than current OO.o document&apos;s paragraph should the style
-in Scribus be edited to match the one being imported
-or left untouched</source>
-        <translation>Якщо в Scribus вже є стиль абзаца з таким іменем, він може бути 
-приведеним у відповідність з імпортованим стилем абзаца OO.o 
-документа, або залишеним нетронутим</translation>
-    </message>
-    <message>
         <source>Use document name as a prefix for paragraph styles</source>
         <translation>Використовувати ім&quot;я документа, як префікс для стилів абзаців</translation>
     </message>
@@ -12466,20 +9749,18 @@ on front of the paragraph style name in Scribus</source>
         <translation>Чи потрібно, щоб імпортер використовував ім&quot;я
 документа як префікс для імен стилів Scribus</translation>
     </message>
+    <message>
+        <source>If a paragraph style already exists with the same name as the current
+OpenOffice.org document&apos;s paragraph, should the style in Scribus be
+edited to match the one being imported, or left untouched</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabManager</name>
     <message>
         <source>Manage Tabulators</source>
         <translation>Налаштування табуляторів</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">Гаразд</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Вихід</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -12511,18 +9792,6 @@ on front of the paragraph style name in Scribus</source>
     <message>
         <source>Center</source>
         <translation>Центр</translation>
-    </message>
-    <message>
-        <source>Position:</source>
-        <translation type="obsolete">Позиція:</translation>
-    </message>
-    <message>
-        <source>First Line:</source>
-        <translation type="obsolete">Перший рядок:</translation>
-    </message>
-    <message>
-        <source>Indent:</source>
-        <translation type="obsolete">Відступ:</translation>
     </message>
     <message>
         <source>Delete All</source>
@@ -12751,24 +10020,12 @@ Please choose another.</source>
 <context>
     <name>WerkToolBP</name>
     <message>
-        <source>PDF-Tools</source>
-        <translation type="obsolete">PDF Інструменти</translation>
-    </message>
-    <message>
-        <source>Insert PDF-Fields</source>
-        <translation type="obsolete">Вставити PDF поле</translation>
-    </message>
-    <message>
         <source>Text</source>
         <translation>Текст</translation>
     </message>
     <message>
         <source>Link</source>
         <translation>Ссилка</translation>
-    </message>
-    <message>
-        <source>Insert PDF-Annotations</source>
-        <translation type="obsolete">Вставити PDF аннотацію</translation>
     </message>
     <message>
         <source>Button</source>
@@ -12808,18 +10065,6 @@ Please choose another.</source>
     <message>
         <source>Select Character:</source>
         <translation>Вибрати символ:</translation>
-    </message>
-    <message>
-        <source>Insert</source>
-        <translation type="obsolete">Вставити</translation>
-    </message>
-    <message>
-        <source>Clear</source>
-        <translation type="obsolete">Очистити</translation>
-    </message>
-    <message>
-        <source>Close</source>
-        <translation type="obsolete">Зачинити</translation>
     </message>
     <message>
         <source>Insert the characters at the cursor in the text</source>
@@ -12907,14 +10152,6 @@ files of this type.</source>
         <translation>Новий з шаблона</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation type="obsolete">Гаразд</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Вихід</translation>
-    </message>
-    <message>
         <source>All</source>
         <translation>Всі</translation>
     </message>
@@ -12967,10 +10204,6 @@ files of this type.</source>
         <translation>Зкачати шаблони</translation>
     </message>
     <message>
-        <source>Document templates can be found in http://www.scribus.net/ Downloads section.</source>
-        <translation type="obsolete">Шаблони документів можна знайти на http://www.scribus.net/  в секції Downloads.</translation>
-    </message>
-    <message>
         <source>Installing Templates</source>
         <translation>Установка шаблонів</translation>
     </message>
@@ -12983,28 +10216,12 @@ files of this type.</source>
         <translation>Приготування шаблона</translation>
     </message>
     <message>
-        <source>Make sure images you use can be used anywhere. Fonts must be checked for this as well. If fonts cannot be shared do not collect them when saving as a template.</source>
-        <translation type="obsolete">Ви маєте пересвідчитися, що використані Вами зображення дозволяється використовувати без обмежень. Така ж перевірка має бути виконана для шрифтів. Якщо шрифти не дозволяється розповсюджувати, то не включайте їх у архів шаблона.</translation>
-    </message>
-    <message>
-        <source>Template creator should also make sure that the Installing Templates applies to her/his templates as well. Which means a user should download a template package and be able to extract them to the template directory and start using them.</source>
-        <translation type="obsolete">Автор шаблона повинен пересвідчитися, що стандартна процедура установки шаблонів правильно працює для підготовленого ним пакета. Це значить, що користувач повинен мати змогу зкачати пакет з шаблоном, розпакувати його в директорію для шаблонів і почати ним користуватися.</translation>
-    </message>
-    <message>
         <source>Removing a template</source>
         <translation>Видалення шаблона</translation>
     </message>
     <message>
-        <source>Removing a template from the NFT dialog will only remove the entry from the template.xml. It will not delete the document files. Popup menu with remove is only shown if you have write access to the template.xml file.</source>
-        <translation type="obsolete">Видалення шаблона з НЗШ діалога лише приводить до його видалення з файла template.xml. Ця процедура не приводить до видалення файлів. Меню видалення доступне лише при наявності у Вас права на редагування файла template.xml.</translation>
-    </message>
-    <message>
         <source>Translating template.xml</source>
         <translation>Переклад template.xml</translation>
-    </message>
-    <message>
-        <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that&apos;s present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. Copy must locate in the same directory than the original template.xml for NFT being able to load it.</source>
-        <translation type="obsolete">Скопіюйте існуючий файл template.xml у файл template.lang_COUNTRY.xml (використовуйте той же код країни, що і в qm файлі для Вашої мови). Наприклад, template.fi.xml для Фінської мови. Перекладений файл має бути в тій же директорії, що і основний template.xml файл, щоб НЗШ модуль міг його завантажити.</translation>
     </message>
     <message>
         <source>Document templates can be found at http://www.scribus.net/ in the Downloads section.</source>

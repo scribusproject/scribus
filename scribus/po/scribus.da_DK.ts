@@ -1,13 +1,5 @@
 <!DOCTYPE TS><TS>
 <context>
-    <name>@@translation</name>
-    <message>
-        <source>Project-Id-Version: Scribus 1.2.1</source>
-        <translation type="obsolete">Revision-Date: 2004-10-28 20:10:00 CET
-Last-Translator: Morten Langlo &lt;mlanglo@mail.dk&gt;</translation>
-    </message>
-</context>
-<context>
     <name>About</name>
     <message>
         <source>Finnish:</source>
@@ -1009,6 +1001,14 @@ UCR formindsker muligheden for overmætning med CMY farverne.</translation>
     <message>
         <source>&amp;Y-Pos:</source>
         <translation>&amp;Y-Pos:</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Annullér</translation>
     </message>
 </context>
 <context>
@@ -7818,6 +7818,38 @@ Hvis modstående sider er valgt, så kan denne margen afstand bruges til at opn�
     <message>
         <source>&amp;Outside:</source>
         <translation>&amp;Yderside:</translation>
+    </message>
+    <message>
+        <source>Page Size</source>
+        <translation type="unfinished">Sidestørrelse</translation>
+    </message>
+    <message>
+        <source>Size:</source>
+        <translation type="unfinished">Størrelse:</translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <translation type="unfinished">Bruger</translation>
+    </message>
+    <message>
+        <source>Orientation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Portrait</source>
+        <translation type="unfinished">Portræt</translation>
+    </message>
+    <message>
+        <source>Landscape</source>
+        <translation type="unfinished">Landskab</translation>
+    </message>
+    <message>
+        <source>Width:</source>
+        <translation type="unfinished">Bredde:</translation>
+    </message>
+    <message>
+        <source>Height:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -23,20 +23,12 @@
         <translation>&amp;Om</translation>
     </message>
     <message>
-        <source>Programming:</source>
-        <translation type="obsolete">Programmering:</translation>
-    </message>
-    <message>
         <source>Contributions from:</source>
         <translation>Bidrag från:</translation>
     </message>
     <message>
         <source>Windows port:</source>
         <translation>Portning till Windows:</translation>
-    </message>
-    <message>
-        <source>Documentation:</source>
-        <translation type="obsolete">Dokumentation:</translation>
     </message>
     <message>
         <source>A&amp;uthors</source>
@@ -49,10 +41,6 @@
     <message>
         <source>French:</source>
         <translation>Franska:</translation>
-    </message>
-    <message>
-        <source>Spanish and Catalan:</source>
-        <translation type="obsolete">Spanska och katalanska</translation>
     </message>
     <message>
         <source>Italian:</source>
@@ -103,10 +91,6 @@
         <translation>Norska:</translation>
     </message>
     <message>
-        <source>English:</source>
-        <translation type="obsolete">Engelska:</translation>
-    </message>
-    <message>
         <source>Welsh:</source>
         <translation>Walesiska:</translation>
     </message>
@@ -133,18 +117,6 @@
     <message>
         <source>&amp;Translations</source>
         <translation>&amp;Översättningar</translation>
-    </message>
-    <message>
-        <source>Homepage and online reference</source>
-        <translation type="obsolete">Hemsida och online dokumentation</translation>
-    </message>
-    <message>
-        <source>Mailing list</source>
-        <translation type="obsolete">Mailing lista</translation>
-    </message>
-    <message>
-        <source>Bugs and feature requests</source>
-        <translation type="obsolete">Buggar och önskade funktioner</translation>
     </message>
     <message>
         <source>&amp;Online</source>
@@ -975,10 +947,6 @@ UCR förhindrar risken för övermättnad med CMG färger</translation>
         <translation>Egenskaper Anteckningar</translation>
     </message>
     <message>
-        <source>Type:</source>
-        <translation type="obsolete">Typ:</translation>
-    </message>
-    <message>
         <source>Text</source>
         <translation>Text</translation>
     </message>
@@ -999,32 +967,8 @@ UCR förhindrar risken för övermättnad med CMG färger</translation>
         <translation>Mottagare</translation>
     </message>
     <message>
-        <source>Change...</source>
-        <translation type="obsolete">Ändra...</translation>
-    </message>
-    <message>
-        <source>Page:</source>
-        <translation type="obsolete">Sida:</translation>
-    </message>
-    <message>
-        <source>X-Pos:</source>
-        <translation type="obsolete">X-Pos:</translation>
-    </message>
-    <message>
         <source> pt</source>
         <translation>pt</translation>
-    </message>
-    <message>
-        <source>Y-Pos:</source>
-        <translation type="obsolete">Y-Pos:</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">OK</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Avbryt</translation>
     </message>
     <message>
         <source>Open</source>
@@ -1053,6 +997,14 @@ UCR förhindrar risken för övermättnad med CMG färger</translation>
     <message>
         <source>&amp;Y-Pos:</source>
         <translation type="unfinished">&amp;Y-Pos:</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Avbryt</translation>
     </message>
 </context>
 <context>
@@ -1521,6 +1473,15 @@ Du rekommenderas att använda detta om ditt dokument innehåller foton.</transla
         <source>OK</source>
         <translation>OK</translation>
     </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Inget</translation>
+    </message>
+    <message>
+        <source>You cannot create a color named &quot;%1&quot;.
+It&apos;s a reserved name for transparent color</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Cpalette</name>
@@ -1797,6 +1758,10 @@ Du kan ange dokumentmapp i Inställningar.</translation>
     <message>
         <source>Cancel</source>
         <translation>Avbryt</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Inget</translation>
     </message>
 </context>
 <context>
@@ -2623,6 +2588,10 @@ Namnet på den exporterade filen blir &apos;dokumentnamn-sidnummer.filtyp&apos;<
         <source>New Color</source>
         <translation>Ny färg</translation>
     </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Inget</translation>
+    </message>
 </context>
 <context>
     <name>FontPrefs</name>
@@ -2832,11 +2801,6 @@ Du kan också lägga till ytterligare färger i toningen.</translation>
 <context>
     <name>HelpBrowser</name>
     <message>
-        <source>Sorry, no manual available! Please see: http://scribus.net for updated docs and downloads.</source>
-        <translation type="obsolete">Tyvärr finns ingen handbok installerad. Gå till http://www.scribus.net(next)
-för uppdaterad dokumentation och nerladdning</translation>
-    </message>
-    <message>
         <source>Sorry, no manual available! Please see: http://docs.scribus.net for updated docs
 and www.scribus.net for downloads.</source>
         <translation type="unfinished"></translation>
@@ -2868,14 +2832,6 @@ and www.scribus.net for downloads.</source>
         <translation>Inställning för avstavning</translation>
     </message>
     <message>
-        <source>&amp;Fully Automatic</source>
-        <translation type="obsolete">He&amp;lt automatiskt</translation>
-    </message>
-    <message>
-        <source>Check &amp;During Typing</source>
-        <translation type="obsolete">Kontrollera vi&amp;d inskrivning</translation>
-    </message>
-    <message>
         <source>&amp;Language:</source>
         <translation>S&amp;pråk:</translation>
     </message>
@@ -2884,26 +2840,12 @@ and www.scribus.net for downloads.</source>
         <translation>Korta&amp;ste ord</translation>
     </message>
     <message>
-        <source>&amp;Number of Hypenations allowed:</source>
-        <translation type="obsolete">A&amp;ntal tillåtna avstavningar:</translation>
-    </message>
-    <message>
         <source>&amp;OK</source>
         <translation>&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Avbryt</translation>
-    </message>
-    <message>
-        <source>If you uncheck this you will get a dialog
-everytime a possible Hyphenation is found.</source>
-        <translation type="obsolete">Om du avmarkerar denna får du en dialogruta(new line)
-varje gång en möjlig avstavning hittas.</translation>
-    </message>
-    <message>
-        <source>Enables automatic checking of your text while typing.</source>
-        <translation type="obsolete">Aktiverar automatisk kontroll av texten under inskrivning.</translation>
     </message>
     <message>
         <source>Length of the smallest word to be hyphenated.</source>
@@ -3047,10 +2989,6 @@ Värdet 0 innebär obegränsat med avstavningar.</translation>
     <message>
         <source>Warning</source>
         <translation>Varning</translation>
-    </message>
-    <message>
-        <source>Do you really want do delete this Script?</source>
-        <translation type="obsolete">Vill du verkligen ta bort detta skript?</translation>
     </message>
     <message>
         <source>&amp;No</source>
@@ -3220,10 +3158,6 @@ Värdet 0 innebär obegränsat med avstavningar.</translation>
     <message>
         <source>Warning</source>
         <translation>Varning</translation>
-    </message>
-    <message>
-        <source>Do you really want do delete this Style?</source>
-        <translation type="obsolete">Vill du verkligen ta bort denna stilmall?</translation>
     </message>
     <message>
         <source>&amp;No</source>
@@ -3945,10 +3879,6 @@ hörn:</translation>
         <translation>Mättnad på fyllnadsfärg för text</translation>
     </message>
     <message>
-        <source>Reverse Writing</source>
-        <translation type="obsolete">Omvänd skrivning (hö&gt;vä)</translation>
-    </message>
-    <message>
         <source>Manual Kerning</source>
         <translation>Manuell kerning</translation>
     </message>
@@ -4249,10 +4179,6 @@ Vänligen välj ett annat.</translation>
     <message>
         <source>Warning</source>
         <translation>Varning</translation>
-    </message>
-    <message>
-        <source>Do you really want do delete this Template?</source>
-        <translation type="obsolete">Vill du verkligen ta bort denna mall?</translation>
     </message>
     <message>
         <source>&amp;No</source>
@@ -4736,10 +4662,6 @@ annars används koordinater relativt objektet.</translation>
         <translation>&amp;Upplösning:</translation>
     </message>
     <message>
-        <source>Com&amp;press Text and Vector Graphics</source>
-        <translation type="obsolete">Kom&amp;primera text och vektorgrafik</translation>
-    </message>
-    <message>
         <source>Image Settings</source>
         <translation>Bildinställningar</translation>
     </message>
@@ -4822,10 +4744,6 @@ annars används koordinater relativt objektet.</translation>
     <message>
         <source>&amp;Fonts</source>
         <translation>&amp;Typsnitt</translation>
-    </message>
-    <message>
-        <source>Enable &amp;Presentation Effects</source>
-        <translation type="obsolete">Tillåt &amp;presentationseffekter</translation>
     </message>
     <message>
         <source>Page</source>
@@ -4934,10 +4852,6 @@ annars används koordinater relativt objektet.</translation>
     <message>
         <source>&amp;Apply Effect on all Pages</source>
         <translation>&amp;Applicera effekten på alla sidor</translation>
-    </message>
-    <message>
-        <source>E&amp;xtras</source>
-        <translation type="obsolete">E&amp;xtra</translation>
     </message>
     <message>
         <source>&amp;Use Encryption</source>
@@ -5378,15 +5292,23 @@ reglerna för PDF/X-3. Vi rekommenderar att du använder dokumentets titel.</tra
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Mirror Page(s) &amp;Horizontally</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Rotation:</source>
         <translation type="unfinished">&amp;Rotation:</translation>
     </message>
     <message>
-        <source>&amp;Options</source>
+        <source>&amp;Subset all Fonts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fonts to subset:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) horizontally</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) vertically</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5905,10 +5827,6 @@ UCR minskar risken för övermättnad av CMG färger.</translation>
         <translation>&amp;Rotation:</translation>
     </message>
     <message>
-        <source>Conve&amp;x Polygon</source>
-        <translation type="obsolete">Konve&amp;x polygon</translation>
-    </message>
-    <message>
         <source> %</source>
         <translation>%</translation>
     </message>
@@ -5933,16 +5851,8 @@ UCR minskar risken för övermättnad av CMG färger.</translation>
         <translation>Rotationsvinkel för polygoner</translation>
     </message>
     <message>
-        <source>Polygons will be convex rather than concave</source>
-        <translation type="obsolete">Polygonerna blir konvexa snarare än konkava</translation>
-    </message>
-    <message>
         <source>Sample Polygon</source>
         <translation>Förhandsvisning av polygon</translation>
-    </message>
-    <message>
-        <source>Change the angles at which lines of the polygon join</source>
-        <translation type="obsolete">Ändrar vinkeln mellan polygonerna</translation>
     </message>
     <message>
         <source>Apply &amp;Factor</source>
@@ -6373,10 +6283,6 @@ UCR minskar risken för övermättnad av CMG färger.</translation>
         <translation>&amp;Rotation:</translation>
     </message>
     <message>
-        <source>Conve&amp;x Polygon</source>
-        <translation type="obsolete">Konve&amp;x polygon</translation>
-    </message>
-    <message>
         <source>&amp;Factor:</source>
         <translation>&amp;Faktor:</translation>
     </message>
@@ -6773,16 +6679,8 @@ efter varje tidsperiod</translation>
         <translation>Rotationsvinkel för polygoner</translation>
     </message>
     <message>
-        <source>Polygons will be convex rather than concave</source>
-        <translation type="obsolete">Polygonerna blir konvexa snarare än konkava</translation>
-    </message>
-    <message>
         <source>Sample Polygon</source>
         <translation>Förhandsvisning av polygon</translation>
-    </message>
-    <message>
-        <source>Change the angles at which lines of the polygon join</source>
-        <translation type="obsolete">Ändrar vinkeln mellan polygonerna</translation>
     </message>
     <message>
         <source>Choose the size of the preview in the scrapbook palette</source>
@@ -7372,10 +7270,6 @@ Check path and filename.</source>
         <translation>Ny &amp;från mall...</translation>
     </message>
     <message>
-        <source>&amp;New</source>
-        <translation>&amp;Ny</translation>
-    </message>
-    <message>
         <source>Newsletters</source>
         <translation>Nyhetsbrev</translation>
     </message>
@@ -7508,10 +7402,6 @@ Check path and filename.</source>
         <translation>Skriv ut förhandsvisning</translation>
     </message>
     <message>
-        <source>&amp;Print...</source>
-        <translation>&amp;Skriv ut...</translation>
-    </message>
-    <message>
         <source>Print Previe&amp;w</source>
         <translation>Skriv ut förhands&amp;visning</translation>
     </message>
@@ -7530,10 +7420,6 @@ Check path and filename.</source>
     <message>
         <source>Save as &amp;Template...</source>
         <translation>Spara som &amp;mall...</translation>
-    </message>
-    <message>
-        <source>Save &amp;As...</source>
-        <translation>Spara &amp;som...</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to load image into an object doesn&apos;t exist or isn&apos;t selected!</source>
@@ -7882,6 +7768,38 @@ Om Uppslag är valt kan denna marginal justeras för att uppnå korrekt marginal
     </message>
     <message>
         <source>&amp;Outside:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page Size</source>
+        <translation type="unfinished">Sidstorlek</translation>
+    </message>
+    <message>
+        <source>Size:</source>
+        <translation type="unfinished">Storlek:</translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <translation type="unfinished">Anpassad</translation>
+    </message>
+    <message>
+        <source>Orientation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Portrait</source>
+        <translation type="unfinished">Porträtt</translation>
+    </message>
+    <message>
+        <source>Landscape</source>
+        <translation type="unfinished">Landskap</translation>
+    </message>
+    <message>
+        <source>Width:</source>
+        <translation type="unfinished">Bredd:</translation>
+    </message>
+    <message>
+        <source>Height:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9722,6 +9640,10 @@ drag a Template to the Pageview below.</source>
         <source>Save as</source>
         <translation>Spara som</translation>
     </message>
+    <message>
+        <source>&amp;Smart text selection</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>StyleSelect</name>
@@ -9761,13 +9683,6 @@ drag a Template to the Pageview below.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If there already exists a paragraph style with the same
-name than current OO.o document&apos;s paragraph should the style
-in Scribus be edited to match the one being imported
-or left untouched</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Use document name as a prefix for paragraph styles</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9788,6 +9703,12 @@ never ask your confirmation again</source>
     <message>
         <source>Should importer add the name of the document
 on front of the paragraph style name in Scribus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If a paragraph style already exists with the same name as the current
+OpenOffice.org document&apos;s paragraph, should the style in Scribus be
+edited to match the one being imported, or left untouched</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

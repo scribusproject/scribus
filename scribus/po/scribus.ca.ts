@@ -120,10 +120,6 @@
         <translation>Slovè:</translation>
     </message>
     <message>
-        <source>Spanish and Catalan:</source>
-        <translation type="obsolete">Espanyol i Català:</translation>
-    </message>
-    <message>
         <source>Swedish:</source>
         <translation>Suec:</translation>
     </message>
@@ -952,10 +948,6 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
         <translation>Propietats de l&apos;Anotació</translation>
     </message>
     <message>
-        <source>Type:</source>
-        <translation type="obsolete">Tipus:</translation>
-    </message>
-    <message>
         <source>Text</source>
         <translation>Text</translation>
     </message>
@@ -976,32 +968,8 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
         <translation>Destí</translation>
     </message>
     <message>
-        <source>Change...</source>
-        <translation type="obsolete">Canvi...</translation>
-    </message>
-    <message>
-        <source>Page:</source>
-        <translation type="obsolete">Pàgina:</translation>
-    </message>
-    <message>
-        <source>X-Pos:</source>
-        <translation type="obsolete">Posició X:</translation>
-    </message>
-    <message>
         <source> pt</source>
         <translation>pt</translation>
-    </message>
-    <message>
-        <source>Y-Pos:</source>
-        <translation type="obsolete">Posició Y:</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">D&apos;acord</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Cancel.la</translation>
     </message>
     <message>
         <source>Open</source>
@@ -1030,6 +998,14 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
     <message>
         <source>&amp;Y-Pos:</source>
         <translation type="unfinished">Posició &amp;Y:</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">D&apos;ac&amp;ord</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Cancel.la</translation>
     </message>
 </context>
 <context>
@@ -1500,6 +1476,15 @@ Es recomana activar-lo si tens colors en el teu document.</translation>
         <source>OK</source>
         <translation>D&apos;acord</translation>
     </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Cap</translation>
+    </message>
+    <message>
+        <source>You cannot create a color named &quot;%1&quot;.
+It&apos;s a reserved name for transparent color</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Cpalette</name>
@@ -1776,6 +1761,10 @@ Això es pot posar en les Preferències.</translation>
     <message>
         <source>Cancel</source>
         <translation>Cancel.la</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Cap</translation>
     </message>
 </context>
 <context>
@@ -2603,6 +2592,10 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
         <source>New Color</source>
         <translation>Nou Color</translation>
     </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Cap</translation>
+    </message>
 </context>
 <context>
     <name>FontPrefs</name>
@@ -2811,10 +2804,6 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
 <context>
     <name>HelpBrowser</name>
     <message>
-        <source>Sorry, no manual available! Please see: http://scribus.net for updated docs and downloads.</source>
-        <translation type="obsolete">Ho sento, no hi ha manual disponible! Mira: http://scribus.net per actualitzacions i descàrregues.</translation>
-    </message>
-    <message>
         <source>Sorry, no manual available! Please see: http://docs.scribus.net for updated docs
 and www.scribus.net for downloads.</source>
         <translation type="unfinished"></translation>
@@ -2846,10 +2835,6 @@ and www.scribus.net for downloads.</source>
         <translation>Paràmetres Separador Sil.làbic</translation>
     </message>
     <message>
-        <source>&amp;Hyphenation Suggestion</source>
-        <translation type="obsolete">&amp;Consell de Separacions</translation>
-    </message>
-    <message>
         <source>Hyphenate Text Automatically &amp;During Typing</source>
         <translation>Separar Automàticament Al E&amp;scriure</translation>
     </message>
@@ -2860,10 +2845,6 @@ and www.scribus.net for downloads.</source>
     <message>
         <source>&amp;Smallest Word:</source>
         <translation>Paraula mé&amp;s Curta:</translation>
-    </message>
-    <message>
-        <source>Consecutive Hypenations &amp;Allowed:</source>
-        <translation type="obsolete">Separacions Consecutives &amp;Permeses:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -3902,10 +3883,6 @@ A&amp;rrodonits:</translation>
         <translation>Saturació del color d&apos;omplir el text</translation>
     </message>
     <message>
-        <source>Reverse Writing</source>
-        <translation type="obsolete">Escriptura inversa</translation>
-    </message>
-    <message>
         <source>Manual Kerning</source>
         <translation>Interlletratge Manual</translation>
     </message>
@@ -4689,10 +4666,6 @@ Pàgina, i sinó Coordenades Relatives a l&apos;Objecte.</translation>
         <translation>&amp;Resolució:</translation>
     </message>
     <message>
-        <source>Com&amp;press Text and Vector Graphics</source>
-        <translation type="obsolete">Com&amp;primir Text i Gràfics Vectorials</translation>
-    </message>
-    <message>
         <source>Image Settings</source>
         <translation>Paràmetres d&apos;Imatge</translation>
     </message>
@@ -4775,10 +4748,6 @@ Pàgina, i sinó Coordenades Relatives a l&apos;Objecte.</translation>
     <message>
         <source>&amp;Fonts</source>
         <translation>&amp;Fonts</translation>
-    </message>
-    <message>
-        <source>Enable &amp;Presentation Effects</source>
-        <translation type="obsolete">Activa Efectes de &amp;Presentació</translation>
     </message>
     <message>
         <source>Page</source>
@@ -4887,10 +4856,6 @@ Pàgina, i sinó Coordenades Relatives a l&apos;Objecte.</translation>
     <message>
         <source>&amp;Apply Effect on all Pages</source>
         <translation>&amp;Efectes a totes les Pàgines</translation>
-    </message>
-    <message>
-        <source>E&amp;xtras</source>
-        <translation type="obsolete">E&amp;xtres</translation>
     </message>
     <message>
         <source>&amp;Use Encryption</source>
@@ -5332,15 +5297,23 @@ Ajustos PDF/X-3. Recomanem fer servir el títol del document.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Mirror Page(s) &amp;Horizontally</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Rotation:</source>
         <translation type="unfinished">&amp;Rotació:</translation>
     </message>
     <message>
-        <source>&amp;Options</source>
+        <source>&amp;Subset all Fonts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fonts to subset:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) horizontally</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) vertically</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7311,10 +7284,6 @@ Comprova el nom i el camí.</translation>
         <translation>Nou des de P&amp;lantilla...</translation>
     </message>
     <message>
-        <source>&amp;New</source>
-        <translation>&amp;Nou</translation>
-    </message>
-    <message>
         <source>Template: </source>
         <translation>Plantilla:</translation>
     </message>
@@ -7451,10 +7420,6 @@ Comprova el nom i el camí.</translation>
         <translation>Previsualització</translation>
     </message>
     <message>
-        <source>&amp;Print...</source>
-        <translation>Im&amp;primir...</translation>
-    </message>
-    <message>
         <source>Print Previe&amp;w</source>
         <translation>Previsualitzaci&amp;ó</translation>
     </message>
@@ -7473,10 +7438,6 @@ Comprova el nom i el camí.</translation>
     <message>
         <source>Save as &amp;Template...</source>
         <translation>Desa com &amp;Plantilla...</translation>
-    </message>
-    <message>
-        <source>Save &amp;As...</source>
-        <translation>&amp;Anomena i Desa...</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to load image into an object doesn&apos;t exist or isn&apos;t selected!</source>
@@ -7821,6 +7782,38 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     <message>
         <source>&amp;Outside:</source>
         <translation>&amp;Fora:</translation>
+    </message>
+    <message>
+        <source>Page Size</source>
+        <translation type="unfinished">Mida de Pàgina</translation>
+    </message>
+    <message>
+        <source>Size:</source>
+        <translation type="unfinished">Mida:</translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <translation type="unfinished">Personalitzat</translation>
+    </message>
+    <message>
+        <source>Orientation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Portrait</source>
+        <translation type="unfinished">Vertical</translation>
+    </message>
+    <message>
+        <source>Landscape</source>
+        <translation type="unfinished">Apaisat</translation>
+    </message>
+    <message>
+        <source>Width:</source>
+        <translation type="unfinished">Amplada:</translation>
+    </message>
+    <message>
+        <source>Height:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9659,6 +9652,10 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
         <source>Save as</source>
         <translation>Anomena i desa</translation>
     </message>
+    <message>
+        <source>&amp;Smart text selection</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>StyleSelect</name>
@@ -9698,24 +9695,8 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
         <translation>Actualitza estils de paràgraf</translation>
     </message>
     <message>
-        <source>If there already exists a paragraph style with the same
-name than current OO.o document&apos;s paragraph should the style
-in Scribus be edited to match the one being imported
-or left untouched</source>
-        <translation>Si ja existeix un estil de paràgraf amb el mateix
-nom que els paràgrafs del document OO.o l&apos;estil de 
-Scribus s&apos;haurà d&apos;editar per fer-lo quadrar amb l&apos;importat
-o deixar-ho com està</translation>
-    </message>
-    <message>
         <source>Use document name as a prefix for paragraph styles</source>
         <translation>Fes servir el nom de document com estil de paràgraf</translation>
-    </message>
-    <message>
-        <source>Should importer add the name of the document
-on front of the paragraph style name in Scirubs</source>
-        <translation type="obsolete">L&apos;importador hauría d&apos;afegir el nom del document
-en comptes dels noms de paràgraf d&apos;Scribus</translation>
     </message>
     <message>
         <source>Do not ask again</source>
@@ -9736,6 +9717,12 @@ mai tornarà a demanar confirmació</translation>
     <message>
         <source>Should importer add the name of the document
 on front of the paragraph style name in Scribus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If a paragraph style already exists with the same name as the current
+OpenOffice.org document&apos;s paragraph, should the style in Scribus be
+edited to match the one being imported, or left untouched</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
