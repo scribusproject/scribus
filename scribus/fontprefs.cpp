@@ -23,6 +23,7 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, preV *prefs, 
     FontPrefsLayout->setSpacing( 5 );
     FontPrefsLayout->setMargin( 10 );
     TabWidget = new QTabWidget( this, "TabWidget" );
+		TabWidget->setMinimumSize(fontMetrics().width(tr( "Available Fonts" )+tr( "Font Substitutions" )+tr( "Additional Paths" ))+80, 200);
 
     tab1 = new QWidget( TabWidget, "tab1" );
     tab1Layout = new QVBoxLayout( tab1, 11, 6, "tab1Layout");

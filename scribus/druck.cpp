@@ -529,25 +529,23 @@ void Druck::SelPrinter(const QString& prn)
   ToolButton1->setEnabled(setter);
   ToFile = setter;
 #ifdef HAVE_CUPS
-	OptButton->setEnabled(setter);
+	OptButton->setEnabled(!setter);
 #endif
 	Geraet = prn;
 }
 
 void Druck::SelRange(bool e)
 {
-	bool setter = e ? false : true;
-  TextLabel2_2->setEnabled( setter );
-  TextLabel2->setEnabled( setter );
-  To->setEnabled( setter );
-  From->setEnabled( setter );
+  TextLabel2_2->setEnabled( !e );
+  TextLabel2->setEnabled( !e );
+  To->setEnabled( !e );
+  From->setEnabled( !e );
 }
 
 void Druck::SelMode(bool e)
 {
-	bool setter = e ? false : true;
-	SepArt->setEnabled( setter );
-  ToSeparation = setter;
+	SepArt->setEnabled( !e );
+  ToSeparation = !e;
 }
 
 void Druck::SelFile()

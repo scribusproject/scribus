@@ -2237,7 +2237,7 @@ void Mpalette::SetSTline(QListBoxItem *c)
 {
 	if (c == NULL)
   	return;
-  bool setter = c->listBox()->currentItem() == 0 ? false : true;
+  bool setter = c->listBox()->currentItem() == 0 ? true : false;
   if (setter == true)
 		CurItem->NamedLStyle = "";
 	else

@@ -5302,6 +5302,7 @@ bool ScribusApp::getPDFDriver(QString fn, QString nam, int Components, int frPa,
 
 bool ScribusApp::DoSaveAsEps(QString fn)
 {
+	bool return_value = true;
 	qApp->setOverrideCursor(QCursor(waitCursor), true);
 	QMap<QString,QFont> ReallyUsed;
 	ReallyUsed.clear();
@@ -5311,20 +5312,13 @@ bool ScribusApp::DoSaveAsEps(QString fn)
 		{
 		if (dd->PS_set_file(fn))
 			view->CreatePS(dd, doc->ActPage->PageNr, doc->ActPage->PageNr+1, 1, false, tr("All"), true, false, false, false);
-		else
-			{
-			delete dd;
-			closePSDriver();
-			qApp->setOverrideCursor(QCursor(arrowCursor), true);
-			return false;
-			}
+   	else
+			return_value = false;
 		delete dd;
 		closePSDriver();
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
-		return true;
 		}
-	else
-		return false;
+	return return_value;
 }
 
 void ScribusApp::SaveAsEps()
@@ -5445,16 +5439,8 @@ void ScribusApp::SaveAsPDF()
 			doc->PDF_Optionen.UseProfiles2 = false;
 #endif
 			}
-		if (dia->AllPages->isChecked())
-			{
-			frPa = 0;
-			toPa = view->Pages.count();
-			}
-		else
-			{
-			frPa = uint(dia->FirstPage->value()-1);
-			toPa = uint(dia->LastPage->value());
-			}
+		frPa = dia->AllPages->isChecked() ? 0 : static_cast<unsigned int>(dia->FirstPage->value() - 1);
+		toPa = dia->AllPages->isChecked() ? view->Pages.count() : static_cast<unsigned int>(dia->LastPage->value());
 		QMap<int,QPixmap> thumbs;
 		for (uint ap = frPa; ap < toPa; ++ap)
 			{
@@ -5495,14 +5481,13 @@ void ScribusApp::ChBookmarks(int s, int e, int n)
 
 void ScribusApp::RestoreBookMarks()
 {
-	BookMItem* ip;
-	BookMItem* ip2;
-	BookMItem* ip3;
-	QValueList<ScribusDoc::BookMa>::Iterator it2;
-	it2 = doc->BookMarks.begin();
+	QValueList<ScribusDoc::BookMa>::Iterator it2 = doc->BookMarks.begin();
 	BookPal->BView->clear();
 	if (doc->BookMarks.count() == 0)
 		return;
+	BookMItem* ip;
+	BookMItem* ip2;
+	BookMItem* ip3;
 	BookMItem *ite = new BookMItem(BookPal->BView, &(*it2));
 	++it2;
 	for( ; it2 != doc->BookMarks.end(); ++it2 )
@@ -5658,9 +5643,7 @@ void ScribusApp::ManTempEnd()
 	DatOpe->setEnabled(true);
 	DatClo->setEnabled(true);
 	fileMenu->setEnabled(true);
-	int setter = 0;
-	if (view->Pages.count() > 1)
-		setter = 1;
+	int setter = view->Pages.count() > 1 ? 1 : 0;
 	pageMenu->setItemEnabled(pgmd, setter);
 	pageMenu->setItemEnabled(pgmv, setter);
 	if (doc->isModified())
@@ -5790,14 +5773,10 @@ QString ScribusApp::CFileDialog(QString caption, QString filter, QString defNa, 
 		dia.setSelection(defNa);
 	if (dia.exec() == QDialog::Accepted)
 		{
-		if (cod)
-			LoadEnc = dia.TxCodeM->currentText();
-		else
-			LoadEnc = "";
-		return dia.selectedFile();
+			LoadEnc = cod ? dia.TxCodeM->currentText() : "";
+			return dia.selectedFile();
 		}
-	else
-		return "";
+	return "";
 }
 
 void ScribusApp::RunPlug(int id)
@@ -6363,10 +6342,7 @@ void ScribusApp::CanUndo()
 			editMenu->changeItem(edUndo, tr("Undo Object Change"));
 			break;
 		}
-	if (doc->UnDoValid)
-		editMenu->setItemEnabled(edUndo, 1);
-	else
-		editMenu->setItemEnabled(edUndo, 0);
+	editMenu->setItemEnabled(edUndo, doc->UnDoValid ? 1 : 0);
 }
 
 void ScribusApp::InitHyphenator()
