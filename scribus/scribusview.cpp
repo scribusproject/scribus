@@ -9854,7 +9854,7 @@ void ScribusView::ItemTextScale(int sha)
 		for (uint a = 0; a < SelItem.count(); ++a)
 		{
 			b = SelItem.at(a);
-			if (b->itemType() == PageItem::TextFrame) || (b->itemType() == PageItem::PathText))
+			if ((b->itemType() == PageItem::TextFrame) || (b->itemType() == PageItem::PathText))
 			{
 				if (Doc->appMode != EditMode)
 					b->setFontWidth(sha);
