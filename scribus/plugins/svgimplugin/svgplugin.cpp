@@ -163,7 +163,7 @@ void SVGPlug::convert()
 	{
 		if (!Prog->HaveDoc)
 		{
-			Prog->doFileNew(width, height, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1);
+			Prog->doFileNew(width, height, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom");
 			ret = true;
 		}
 	}

@@ -2047,6 +2047,8 @@ bool ScribusApp::slotFileNew()
 {
 	double b, h, tpr, lr, rr, br, sp, ab;
 	bool fp, atf, ret;
+	int ori;
+	QString pagesize;
 	NewDoc* dia = new NewDoc(this, &Prefs);
 	if (dia->exec())
 	{
@@ -2060,8 +2062,10 @@ bool ScribusApp::slotFileNew()
 		sp = dia->SpinBox10->value();
 		atf = dia->AutoFrame->isChecked();
 		fp = dia->Doppelseiten->isChecked();
+		ori = dia->Orient;
+		pagesize = dia->ComboBox1->currentText();
 		ret = doFileNew(b, h, tpr, lr, rr, br, ab, sp, atf, fp, dia->ComboBox3->currentItem(),
-		                dia->ErsteSeite->isChecked(), dia->Orient, dia->PgNr->value());
+		                dia->ErsteSeite->isChecked(), ori, dia->PgNr->value(), pagesize);
 		FMess->setText( tr("Ready"));
 	}
 	else
@@ -2071,7 +2075,7 @@ bool ScribusApp::slotFileNew()
 }
 
 bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr, double br, double ab, double sp,
-                           bool atf, bool fp, int einh, bool firstleft, int Ori, int SNr)
+                           bool atf, bool fp, int einh, bool firstleft, int Ori, int SNr, QString PageSize)
 {
 	QString cc;
 	if (HaveDoc)
@@ -2081,6 +2085,7 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	if (fp)
 		doc->FirstPageLeft = firstleft;
 	doc->PageOri = Ori;
+	doc->PageSize = PageSize;
 	doc->FirstPnum = SNr;
 	doc->AllFonts = &Prefs.AvailFonts;
 	doc->AddFont(Prefs.DefFont, Prefs.AvailFonts[Prefs.DefFont]->Font);
@@ -2357,7 +2362,7 @@ bool ScribusApp::SetupDoc()
 	bool fpe = doc->FirstPageLeft;
 	double tpr2, lr2, rr2, br2;
 	bool ret = false;
-	ReformDoc* dia = new ReformDoc(this, tpr, lr, rr, br, doc->PageB, doc->PageH, fp, fpe, doc->Einheit);
+	ReformDoc* dia = new ReformDoc(this, tpr, lr, rr, br, doc->PageB, doc->PageH, fp, fpe, doc->Einheit, doc->PageOri, doc->PageSize);
 	if (dia->exec())
 	{
 		tpr2 = dia->TopR->value() / UmReFaktor;

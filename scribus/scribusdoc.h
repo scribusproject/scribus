@@ -561,7 +561,8 @@ public: // Public attributes
   /** Flag for facing Pages */
 	bool PageFP;
 	/** Flag fuer Hoch- oder Querformat 0 = Hochformat */
-	int PageOri;
+	int PageOri;	
+	QString PageSize;
 	/** Erste Seitennummer im Dokument */
 	int FirstPnum;
   /** Flag fuer Rasterbenutzung */
