@@ -12,6 +12,7 @@ class QStringList;
 class QComboBox;
 class QFont;
 class ScribusApp;
+class FontCombo;
 
 /** Calls the Plugin with the main Application window as parent
   * and the main Application Class as parameter */
@@ -47,24 +48,67 @@ class CharSelect : public QDialog
 public:
 	CharSelect( QWidget* parent, PageItem *item, ScribusApp *plug );
 	~CharSelect() {};
+	void scanFont();
+	void setupRangeCombo();
+	void generatePreview(int charClass);
 	ChTable* zTabelle;
 	QLabel* sample;
+	QLabel* fontLabel;
+	QLabel* rangeLabel;
+	FontCombo* fontSelector;
+	QComboBox* rangeSelector;
 	QPushButton* insertButton;
 	QPushButton* deleteButton;
 	QPushButton* closeButton;
 	PageItem *ite;
 	ScribusApp *ap;
+	typedef QValueList<uint> charClassDef;
+	QValueList<charClassDef> allClasses;
 	QValueList<uint> characters;
+	QValueList<uint> charactersFull;
+	QValueList<uint> charactersLatin1;
+	QValueList<uint> charactersLatin1Supplement;
+	QValueList<uint> charactersLatinExtendedA;
+	QValueList<uint> charactersLatinExtendedB;
+	QValueList<uint> charactersGeneralPunctuation;
+	QValueList<uint> charactersSuperSubscripts;
+	QValueList<uint> charactersCurrencySymbols;
+	QValueList<uint> charactersLetterlikeSymbols;
+	QValueList<uint> charactersNumberForms;
+	QValueList<uint> charactersArrows;
+	QValueList<uint> charactersMathematicalOperators;
+	QValueList<uint> charactersBoxDrawing;
+	QValueList<uint> charactersBlockElements;
+	QValueList<uint> charactersGeometricShapes;
+	QValueList<uint> charactersMiscellaneousSymbols;
+	QValueList<uint> charactersDingbats;
+	QValueList<uint> charactersSmallFormVariants;
+	QValueList<uint> charactersAlphabeticPresentationForms;
+	QValueList<uint> charactersSpecial;
+	QValueList<uint> charactersGreek;
+	QValueList<uint> charactersGreekExtended;
+	QValueList<uint> charactersCyrillic;
+	QValueList<uint> charactersCyrillicSupplement;
+	QValueList<uint> charactersArabic;
+	QValueList<uint> charactersArabicPresentationFormsA;
+	QValueList<uint> charactersArabicPresentationFormsB;
+	QValueList<uint> charactersHebrew;
+	QMap<int,int> usedCharClasses;
 	QString chToIns;
+	QString fontInUse;
 	int maxCount;
+	int characterClass;
 
 public slots:
 	void newChar(int r, int c);
+	void newFont(int font);
+	void newCharClass(int c);
 	void delEdit();
 	void insChar();
 
 protected:
 	QVBoxLayout* zAuswahlLayout;
+	QHBoxLayout* selectionsLayout;
 	QHBoxLayout* layout1;
 };
 
