@@ -40,6 +40,7 @@ FileLoader::FileLoader(QString fileName, ScribusApp* app)
 	FileType = -1;
 	havePS = app->DLLexists(6);
 	haveSVG = app->DLLexists(10);
+	haveSXD = app->DLLexists(12);
 }
 
 /*!
@@ -63,6 +64,8 @@ int FileLoader::TestFile()
 		ret = 2;
 	if (((ext == "svg") || (ext == "svgz")) && (haveSVG))
 		ret = 3;
+	if ((ext == "sxd") && (haveSXD))
+		ret = 5;
 /*	if (ext == "pdf")
 		ret = 4; */
 	FileType = ret;
@@ -171,10 +174,16 @@ bool FileLoader::LoadFile(ScribusApp* app)
 			app->CallDLL( 10 );
 			ret = true;
 			break;
+		case 5:
+			app->DLLinput = FileName;
+			app->CallDLL( 12 );
+			ret = true;
+			break;
 		default:
 			ret = false;
 			break;
 	}
+	app->DLLinput = "";
 	return ret;
 }
 

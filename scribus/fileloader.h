@@ -23,6 +23,7 @@ public:
 	int FileType;
 	bool havePS;
 	bool haveSVG;
+	bool haveSXD;
 	QValueList<int> LFrames;
 	QMap<QString,QString> DoFonts;
 	QMap<uint,QString> DoVorl;
