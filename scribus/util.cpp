@@ -1922,7 +1922,7 @@ QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool us
 			uint8 ClipBuffer;
 			QString db;
 			if (TIFFGetField(tif, TIFFTAG_CLIPPATH, &ClipLen, &ClipBuffer))
-				qDebug(db.setNum(ClipLen));
+				qDebug("%s", db.setNum(ClipLen).ascii());
 			TIFFClose(tif);
 			if (resolutionunit == RESUNIT_INCH)
 			{
@@ -2501,10 +2501,16 @@ double QStodouble(QString in)
 
 QPixmap loadIcon(QString nam)
 {
-	QString pfad = ICONDIR;
-	pfad += nam;
+	QString iconFilePath = QString("%1/%2").arg(ICONDIR).arg(nam);
 	QPixmap pm;
-	pm.load(pfad);
+	if (!QFile::exists(iconFilePath))
+		qWarning("Unable to load icon %s: File not found", iconFilePath.ascii());
+	else
+	{
+		pm.load(iconFilePath);
+		if (pm.isNull())
+			qWarning("Unable to load icon %s: Got null pixmap", iconFilePath.ascii());
+	}
 	return pm;
 }
 
