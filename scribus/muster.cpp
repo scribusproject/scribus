@@ -65,22 +65,8 @@ MusterSeiten::MusterSeiten( QWidget* parent, ScribusDoc *doc, ScribusView *view,
     connect(ListBox1, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selTemplate(QListBoxItem*)));
 }
 
-/*<<<<<<< muster.cpp
-void MusterSeiten::closeEvent(QCloseEvent *)
-=======
-*  
- *  Destroys the object and frees any allocated resources
- *
-*
-MusterSeiten::~MusterSeiten()
-{
-     no need to delete child widgets, Qt does it all for us
-}*/
-
 void MusterSeiten::closeEvent(QCloseEvent *ce)
-  //>>>>>>> 1.3
 {
-//	View->HideTemplate();
 	emit Fertig();
 	ce->accept();
 }
@@ -128,7 +114,7 @@ void MusterSeiten::DuplTemp()
     bool atf;
     struct CLBuf Buffer;
     NewTm *dia = new NewTm(this, "Name:", "New Template", Doc);
-    dia->Answer->setText( tr("Copy of ")+sMuster);
+    dia->Answer->setText( tr("Copy of %1").arg(sMuster));
     dia->Answer->selectAll();
     if (dia->exec())
     	{

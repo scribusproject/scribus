@@ -78,7 +78,7 @@ void StilFormate::selFormat(QListBoxItem *c)
 void StilFormate::dupFormat()
 {
    	struct StVorL sty;
-   	sty.Vname = tr("Copy of ") + TempVorl[sFnumber].Vname;
+   	sty.Vname = tr("Copy of %1").arg(TempVorl[sFnumber].Vname);
    	sty.LineSpa = TempVorl[sFnumber].LineSpa;
    	sty.Ausri = TempVorl[sFnumber].Ausri;
    	sty.Indent = TempVorl[sFnumber].Indent;

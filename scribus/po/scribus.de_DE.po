@@ -109,6 +109,10 @@ msgstr "Hilfe"
 msgid "About Scribus"
 msgstr "Über Scribus"
 
+
+msgid "About Scribus%1%2"
+msgstr "Über Scribus%1%2"
+
 msgid "About Qt"
 msgstr "Über Qt"
 
@@ -280,6 +284,9 @@ msgstr "Andere..."
 
 msgid "Item"
 msgstr "Objekt"
+
+msgid "Page %1"
+msgstr "Seite %1"
 
 msgid "Page"
 msgstr "Seite"
@@ -542,7 +549,7 @@ msgstr "Hilfslinienfarben"
 msgid "Grid Layout"
 msgstr "Hilfslinien Einrichtung"
 
-msgid "Image visible"
+msgid "Image Visible"
 msgstr "Bild sichtbar"
 
 msgid "Is PDF-Bookmark"
@@ -1223,8 +1230,8 @@ msgstr "Musterseite anwenden..."
 msgid "Exit"
 msgstr "Verlassen"
 
-msgid "Copy of "
-msgstr "Kopie von "
+msgid "Copy of %1"
+msgstr "Kopie von %1"
 
 msgid "Name:"
 msgstr "Name:"

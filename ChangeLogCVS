@@ -1,4 +1,6 @@
 Changes since Version 1.1.2
+27.11.2003	Fixed Bug that caused Scribus to hang when importing the same Page twice.
+
 26.11.2003	Fixed Crash when loading Documents.
 
 24.11.2003	Fixed duplication of Styles when importing Pages or Objects.

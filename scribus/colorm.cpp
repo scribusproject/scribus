@@ -137,7 +137,7 @@ void Farbmanager::duplFarbe()
 {
     QString nam;
     Query *dia = new Query(this, "tt", 1, 0, "New Color:", "New Color");
-    dia->Answer->setText( tr("Copy of ")+sFarbe);
+    dia->Answer->setText( tr("Copy of %1").arg(sFarbe));
     if (dia->exec())
     	{
     	nam = dia->Answer->text();

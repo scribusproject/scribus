@@ -157,7 +157,7 @@ QFont fo;
 QMap<QString,QString> DoFonts;
 QMap<uint,QString> DoVorl;
 uint VorlC;
-int x, y, a, counter;
+int x, y, a, counter, baseobj;
 double xf, yf;
 bool newVersion = false;
 bool fou;
@@ -366,7 +366,8 @@ while(!DOC.isNull())
 			else
 				view->Pages.at(a)->XGuides.clear();
 			QDomNode OBJ=PAGE.firstChild();
-			counter = 0;
+			counter = doc->ActPage->Items.count();
+			baseobj = counter;
 			while(!OBJ.isNull())
 				{
 				QDomElement obj=OBJ.toElement();
@@ -598,7 +599,7 @@ while(!DOC.isNull())
 				Neu = view->Pages.at(a)->Items.at(counter);
 				if (QStoInt(obj.attribute("NEXTPAGE")) == PageToLoad)
 					{
-					Neu->NextIt = QStoInt(obj.attribute("NEXTITEM"));
+					Neu->NextIt = baseobj + QStoInt(obj.attribute("NEXTITEM"));
 					Neu->NextPg = a; // QStoInt(obj.attribute("NEXTPAGE"));
 					}
 				counter++;
