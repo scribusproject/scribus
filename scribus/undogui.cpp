@@ -19,6 +19,7 @@
  ***************************************************************************/
 
 #include "undogui.h"
+#include "undogui.moc"
 #include <qlayout.h>
 #include <qpixmap.h>
 #include <qpushbutton.h>

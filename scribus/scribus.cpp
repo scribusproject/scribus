@@ -3552,6 +3552,8 @@ bool ScribusApp::LadeSeite(QString fileName, int Nr, bool Mpa)
 			Tpal->reopenTree(doc->OpenNodes);
 		}
 		slotDocCh();
+		view->LaMenu();
+		Lpal->rebuildList();
 		doc->loading = false;
 		ret = true;
 	}
@@ -3868,6 +3870,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 		newActWin(w);
 		connect(doc->ASaveTimer, SIGNAL(timeout()), w, SLOT(slotAutoSave()));
 		connect(w, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
+		connect(UndoManager::instance(), SIGNAL(undoRedoDone()), view, SLOT(DrawNew()));
 		if (doc->AutoSave)
 			doc->ASaveTimer->start(doc->AutoSaveTime);
 		DatSav->setEnabled(false);

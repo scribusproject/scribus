@@ -19,6 +19,7 @@
  ***************************************************************************/
 
 #include "undomanager.h"
+#include "undomanager.moc"
 #include <qvaluelist.h>
 
 UndoManager* UndoManager::_instance    = 0;

@@ -682,6 +682,15 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 	double xf;
 	bool newVersion = false;
 	bool VorLFound = false;
+	QMap<int,int> layerTrans;
+	int maxLayer = 0;
+	int maxLevel = 0;
+	layerTrans.clear();
+	for (uint la2 = 0; la2 < doc->Layers.count(); ++la2)
+	{
+		maxLayer = QMAX(doc->Layers[la2].LNr, maxLayer);
+		maxLevel = QMAX(doc->Layers[la2].Level, maxLevel);
+	}
 	DoVorl.clear();
 	DoFonts.clear();
 	DoFonts[doc->Dfont] = doc->Dfont;
@@ -742,10 +751,20 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 				for (uint la2 = 0; la2 < doc->Layers.count(); ++la2)
 				{
 					if (doc->Layers[la2].Name == la.Name)
+					{
 						laex = true;
+						layerTrans.insert(la.LNr, doc->Layers[la2].LNr);
+					}
 				}
 				if (!laex)
+				{
+					maxLayer++;
+					maxLevel++;
+					layerTrans.insert(la.LNr, maxLayer);
+					la.LNr = maxLayer;
+					la.Level = maxLevel;
 					doc->Layers.append(la);
+				}
 			}
 			if(pg.tagName()=="Bookmark")
 			{
@@ -876,7 +895,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 					else
 						tmpf = DoFonts[tmf];
 					OB.IFont = tmpf;
-					OB.LayerNr = QStoInt(obj.attribute("LAYER","0"));
+					OB.LayerNr = layerTrans[QStoInt(obj.attribute("LAYER","0"))];
 					OB.Language = obj.attribute("LANGUAGE", doc->Language);
 					tmp = "";
 					if ((obj.hasAttribute("GROUPS")) && (QStoInt(obj.attribute("NUMGROUP","0")) != 0))
