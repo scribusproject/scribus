@@ -397,7 +397,7 @@ void ScribusApp::initDefaultPrefs()
 	Prefs.DstartArrow = 0;
 	Prefs.DendArrow = 0;
 	Prefs.MagMin = 10;
-	Prefs.MagMax = 800;
+	Prefs.MagMax = 3200;
 	Prefs.MagStep = 25;
 	Prefs.DbrushPict = "White";
 	Prefs.ShadePict = 100;
