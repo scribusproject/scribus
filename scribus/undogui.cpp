@@ -266,6 +266,10 @@ UndoPalette::UndoPalette(QWidget* parent, const char* name)
 	connect(undoList, SIGNAL(onItem(QListBoxItem*)), this, SLOT(showToolTip(QListBoxItem*)));
 	connect(undoList, SIGNAL(onViewport()), this, SLOT(removeToolTip()));
 	connect(objectBox, SIGNAL(toggled(bool)), this, SLOT(objectCheckBoxClicked(bool)));
+	connect(ScApp->scrActions["editActionMode"], SIGNAL(toggled(bool)),
+	        objectBox, SLOT(setChecked(bool)));
+	connect(objectBox, SIGNAL(toggled(bool)), 
+			ScApp->scrActions["editActionMode"], SLOT(setOn(bool)));
 }
 
 void UndoPalette::clear()

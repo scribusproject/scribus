@@ -1044,6 +1044,7 @@ void ScribusApp::initEditMenuActions()
 	scrActions.insert("editUndoAction", new ScrAction(ScrAction::DataInt, QIconSet(loadIcon("u_undo16.png"), loadIcon("u_undo.png")), tr("&Undo"), CTRL+Key_Z, this, "editUndoAction",1));
 	scrActions.insert("editRedoAction", new ScrAction(ScrAction::DataInt, QIconSet(loadIcon("u_redo16.png"), loadIcon("u_redo.png")), tr("&Redo"), CTRL+SHIFT+Key_Z, this, "editRedoAction", 1));
 	scrActions.insert("editActionMode", new ScrAction(tr("&Item Action Mode"), QKeySequence(), this, "editActionMode"));
+	scrActions["editActionMode"]->setToggleAction(true);
 	scrActions.insert("editCut", new ScrAction(QIconSet(loadIcon("editcut.png"), loadIcon("editcut.png")), tr("Cu&t"), CTRL+Key_X, this, "editCut"));
 	scrActions.insert("editCopy", new ScrAction(QIconSet(loadIcon("editcopy.png"), loadIcon("editcopy.png")), tr("&Copy"), CTRL+Key_C, this, "editCopy"));
 	scrActions.insert("editPaste", new ScrAction(QIconSet(loadIcon("editpaste.png"), loadIcon("editpaste.png")), tr("&Paste"), CTRL+Key_V, this, "editPaste"));
@@ -1060,7 +1061,7 @@ void ScribusApp::initEditMenuActions()
 		
 	connect( scrActions["editUndoAction"], SIGNAL(activatedData(int)) , undoManager, SLOT(undo(int)) );
 	connect( scrActions["editRedoAction"], SIGNAL(activatedData(int)) , undoManager, SLOT(redo(int)) );
-	//TODO connect( scrActions["editActionMode"], SIGNAL(activated()) , this, SLOT(changeActionMode()) );
+	connect( scrActions["editActionMode"], SIGNAL(toggled(bool)) , this, SLOT(setUndoMode(bool)) );
 	connect( scrActions["editCut"], SIGNAL(activated()) , this, SLOT(slotEditCut()) );
 	connect( scrActions["editCopy"], SIGNAL(activated()) , this, SLOT(slotEditCopy()) );
 	connect( scrActions["editPaste"], SIGNAL(activated()) , this, SLOT(slotEditPaste()) );
@@ -1433,7 +1434,7 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["editPreferences"], "Edit");
 	scrActions["editUndoAction"]->setEnabled(false);
 	scrActions["editRedoAction"]->setEnabled(false);
-	scrActions["editActionMode"]->setEnabled(false);
+	scrActions["editActionMode"]->setEnabled(true);
 	scrActions["editCut"]->setEnabled(false);
 	scrActions["editCopy"]->setEnabled(false);
 	scrActions["editPaste"]->setEnabled(false);
@@ -10551,9 +10552,10 @@ void ScribusApp::slotCharSelect()
 void ScribusApp::setUndoMode(bool isObjectSpecific)
 {
 	objectSpecificUndo = isObjectSpecific;
-	if (!objectSpecificUndo)
+	
+	if (!objectSpecificUndo && HaveDoc)
 		undoManager->showObject(-1);
-	else
+	else if (HaveDoc)
 	{
 		if (view->SelItem.count() == 1)
 			undoManager->showObject(view->SelItem.at(0)->getUId());
