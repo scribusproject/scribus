@@ -1206,11 +1206,11 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Rendering Intents</source>
-        <translation>Metody konwersji</translation>
+        <translation>Metody renderingu</translation>
     </message>
     <message>
         <source>Perceptual</source>
-        <translation>Percepcja</translation>
+        <translation>Spostrzeżeniowa</translation>
     </message>
     <message>
         <source>Relative Colorimetric</source>
@@ -1222,7 +1222,7 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Absolute Colorimetric</source>
-        <translation>Absolutnie kolorometryczna</translation>
+        <translation>Całkowicie kolorometryczna</translation>
     </message>
     <message>
         <source>Simulate Printer on the Screen</source>
@@ -1230,7 +1230,7 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Mark Colors out of Gamut</source>
-        <translation>Zaznacz kolory spoza przestrzeni barw</translation>
+        <translation>Zaznacz kolory spoza palety barw</translation>
     </message>
     <message>
         <source>Use Blackpoint Compensation</source>
@@ -1297,14 +1297,14 @@ Jest ona zalecana, jeśli twój dokument zawiera zdjęcia.</translation>
     <message>
         <source>Default rendering intent for your monitor. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation>Domyślna metoda konwersji dla twojego monitora. Wybierz  metodę 
-relatywnie kolorometryczną lub percepcję, chyba że wiesz, dlaczego chcesz to zmienić.</translation>
+        <translation>Domyślna metoda renderingu dla twojego monitora. Wybierz  metodę 
+względnie kolorometryczną lub spostrzeżeniową, chyba że wiesz, dlaczego chcesz to zmienić.</translation>
     </message>
     <message>
         <source>Default rendering intent for your printer. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation>Domyślna metoda konwersji dla twojej drukarki. Wybierz  metodę 
-relatywnie kolorometryczną lub percepcję, chyba że wiesz, dlaczego chcesz to zmienić.</translation>
+        <translation>Domyślna metoda renderingu dla twojej drukarki. Wybierz  metodę 
+względnie kolorometryczną lub spostrzeżeniową, chyba że wiesz, dlaczego chcesz to zmienić.</translation>
     </message>
     <message>
         <source>Enable &apos;soft proofing&apos; of how your document colors will print,
@@ -1620,7 +1620,7 @@ Missing library support is indicated by a *</source>
         <translation>Panel ten wyświetla opcje CUPS dla druku.
 Opcje te zależą od zainstalowanego sterownika drukarki.
 Aby upewnić się, czy wbudowana została obsługa CUPS, należy zajrzeć pod Pomoc &gt; O Scribusie
-Sprawdź, czy identyfikator kompilacji zawiera C-C-C. Symbole te oznaczają wsparcie dla C=CUPS C=littlecms T=TIFF
+Sprawdź, czy identyfikator kompilacji zawiera C-C-T. Symbole te oznaczają wsparcie dla C=CUPS C=littlecms T=TIFF
 Brak wparcia dla danej biblioteki symbolizuje znak *</translation>
     </message>
 </context>
@@ -1738,23 +1738,23 @@ This can be set in the Preferences.</source>
     <name>DocInfos</name>
     <message>
         <source>Document Info</source>
-        <translation>Informacja o dokumencie</translation>
+        <translation type="obsolete">Informacja o dokumencie</translation>
     </message>
     <message>
         <source>Author:</source>
-        <translation>Autor:</translation>
+        <translation type="obsolete">Autor:</translation>
     </message>
     <message>
         <source>Title:</source>
-        <translation>Tytuł:</translation>
+        <translation type="obsolete">Tytuł:</translation>
     </message>
     <message>
         <source>Description:</source>
-        <translation>Opis:</translation>
+        <translation type="obsolete">Opis:</translation>
     </message>
     <message>
         <source>Keywords:</source>
-        <translation>Słowa kluczowe:</translation>
+        <translation type="obsolete">Słowa kluczowe:</translation>
     </message>
     <message>
         <source>OK</source>
@@ -1766,15 +1766,159 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation>Pole to może zarówno być dołączone do dokumentu Scribusa jako dodatkowa informacja, jak też jako metadane do dokumentu PDF</translation>
+        <translation type="obsolete">Pole to może zarówno być dołączone do dokumentu Scribusa jako dodatkowa informacja, jak też jako metadane do dokumentu PDF</translation>
     </message>
     <message>
         <source>This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
-        <translation>To pole służy do krótkiego opisu lub streszczenia dokumentu. Zostanie ono włączone do PDF w trakcie eksportu</translation>
+        <translation type="obsolete">To pole służy do krótkiego opisu lub streszczenia dokumentu. Zostanie ono włączone do PDF w trakcie eksportu</translation>
     </message>
     <message>
         <source>This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
-        <translation>To pole przeznaczone jest na słowa kluczowe, które zostaną włączone do PDF, aby ułatwić przeszukiwanie i indeksację plików</translation>
+        <translation type="obsolete">To pole przeznaczone jest na słowa kluczowe, które zostaną włączone do PDF, aby ułatwić przeszukiwanie i indeksację plików</translation>
+    </message>
+    <message>
+        <source>Document Information</source>
+        <translation>Informacja o dokumencie</translation>
+    </message>
+    <message>
+        <source>&amp;Title:</source>
+        <translation>&amp;Tytuł:</translation>
+    </message>
+    <message>
+        <source>&amp;Author:</source>
+        <translation>&amp;Autor:</translation>
+    </message>
+    <message>
+        <source>&amp;Keywords:</source>
+        <translation>&amp;Słowa kluczowe:</translation>
+    </message>
+    <message>
+        <source>Descri&amp;ption:</source>
+        <translation>&amp;Opis:</translation>
+    </message>
+    <message>
+        <source>P&amp;ublisher:</source>
+        <translation>&amp;Wydawca:</translation>
+    </message>
+    <message>
+        <source>&amp;Contributors:</source>
+        <translation>Inni &amp;autorzy:</translation>
+    </message>
+    <message>
+        <source>Dat&amp;e:</source>
+        <translation>&amp;Data:</translation>
+    </message>
+    <message>
+        <source>T&amp;ype:</source>
+        <translation>&amp;Typ:</translation>
+    </message>
+    <message>
+        <source>F&amp;ormat:</source>
+        <translation>&amp;Format:</translation>
+    </message>
+    <message>
+        <source>Identi&amp;fier:</source>
+        <translation>Id&amp;entyfikator:</translation>
+    </message>
+    <message>
+        <source>&amp;Source:</source>
+        <translation>Ź&amp;ródło:</translation>
+    </message>
+    <message>
+        <source>&amp;Language:</source>
+        <translation>&amp;Język:</translation>
+    </message>
+    <message>
+        <source>&amp;Relation:</source>
+        <translation>&amp;Odniesienie:</translation>
+    </message>
+    <message>
+        <source>Co&amp;verage:</source>
+        <translation>&amp;Zakres:</translation>
+    </message>
+    <message>
+        <source>Ri&amp;ghts:</source>
+        <translation>&amp;Prawa:</translation>
+    </message>
+    <message>
+        <source>&amp;Document</source>
+        <translation>&amp;Dokument</translation>
+    </message>
+    <message>
+        <source>Further &amp;Information</source>
+        <translation>Pozostałe &amp;informacje</translation>
+    </message>
+    <message>
+        <source>The person or organisation primarily responsible for making the content of the document.
+This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
+        <translation>Osoba lub organizacja odpowiadająca za zawartość dokumentu.
+Pole to może być dodane do dokumentu Scribusa jako dodatkowa informacja, jak też zagnieżdżone jako metadane w pliku PDF </translation>
+    </message>
+    <message>
+        <source>A name given to the document.
+This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
+        <translation>Nazwa nadana dokumentowi.
+Pole to może być dodane do dokumentu Scribusa jako dodatkowa informacja, jak też zagnieżdżone jako metadane w pliku PDF </translation>
+    </message>
+    <message>
+        <source>An account of the content of the document.
+This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
+        <translation>Opis zawartości dokumentu.
+Pole to może być dodane do dokumentu Scribusa jako dodatkowa informacja, jak też zagnieżdżone jako metadane w pliku PDF </translation>
+    </message>
+    <message>
+        <source>The topic of the content of the document.
+This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
+        <translation>Tematyka, której poświęcona jest zawartość dokumentu.
+Pole to może być dodane do dokumentu Scribusa jako dodatkowa informacja, jak też zagnieżdżone jako metadane w pliku PDF </translation>
+    </message>
+    <message>
+        <source>A person or organisation responsible for making the document available</source>
+        <translation>Osoba lub organizacja odpowiedzialna za opublikowanie dokumentu</translation>
+    </message>
+    <message>
+        <source>A person or organisation responsible for making contributions to the content of the document</source>
+        <translation>Osoby lub organizacje, które uczestniczyły w tworzeniu zawartości dokumentu </translation>
+    </message>
+    <message>
+        <source>A date associated with an event in the life cycle of the document, in YYYY-MM-DD format, as per ISO 8601</source>
+        <translation>Data jakiegoś wydarzenia w cyklu życia dokumentu w formacie YYYY-MM-DD, zgodnie z ISO 8601</translation>
+    </message>
+    <message>
+        <source>The nature or genre of the content of the document, eg. categories, functions, genres, etc</source>
+        <translation>Natura albo rodzaj zawartości dokumentu, np. kategorie, funkcje, gatunki</translation>
+    </message>
+    <message>
+        <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting.
+RFC2045,RFC2046 for MIME types are also useful here</source>
+        <translation>Fizyczna albo cyfrowa forma dokumentu. Tutaj warto podać typ nośnika i rozmiar dokumentu.
+Przydatne informacje na temat typów MIME znajdują się w RFC2045 i RFC2046</translation>
+    </message>
+    <message>
+        <source>An unambiguous reference to the document within a given context such as ISBN or URI</source>
+        <translation>Jednoznaczny odnośnik do dokumentu w danym kontekście, jak np. ISBN lub URI</translation>
+    </message>
+    <message>
+        <source>A reference to a document from which the present document is derived, eg. ISDN or URI</source>
+        <translation>Odnośnik do dokumentu, na podstawie którego powstał aktualny dokument, np. ISBN lub URI</translation>
+    </message>
+    <message>
+        <source>The language in which the content of the document is written, usually a ISO-639 language code
+optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</source>
+        <translation>Język zawartości dokumentu, zazwyczaj podany jako kod językowy ISO-639,
+opcjonalnie uzupełniony o myślnik i kod kraju zgodny z ISO-3166, np pl-PL, fr-CH</translation>
+    </message>
+    <message>
+        <source>A reference to a related document, possibly using a formal identifier such as a ISBN or URI</source>
+        <translation>Odnośnik do powiązanego dokumentu, najlepiej w formie identyfikatora takiego jako ISBN lub URI</translation>
+    </message>
+    <message>
+        <source>The extent or scope of the content of the document, possibly including location, time and jurisdiction ranges</source>
+        <translation>Zakres i zasięg zawartości dokumentu, najlepiej z podaniem miejsca, czasu i jurysdykcji</translation>
+    </message>
+    <message>
+        <source>Information about rights held in and over the document, eg. copyright, patent or trademark</source>
+        <translation>Informacja o prawach obawiązujących dla tego dokumentu, np. prawach autorskich, patentach i znakach towarowych</translation>
     </message>
 </context>
 <context>
@@ -1817,11 +1961,11 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>To page:</source>
-        <translation>Do strony:</translation>
+        <translation type="obsolete">Do strony:</translation>
     </message>
     <message>
         <source>From page:</source>
-        <translation>Od strony:</translation>
+        <translation type="obsolete">Od strony:</translation>
     </message>
     <message>
         <source>Print range</source>
@@ -1833,11 +1977,11 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Print last page first</source>
-        <translation>Zacznij druk od ostatniej strony</translation>
+        <translation type="obsolete">Zacznij druk od ostatniej strony</translation>
     </message>
     <message>
         <source>Print first page first</source>
-        <translation>Zacznij druk od pierwszej strony</translation>
+        <translation type="obsolete">Zacznij druk od pierwszej strony</translation>
     </message>
     <message>
         <source>Number of copies:</source>
@@ -1910,6 +2054,14 @@ This can be set in the Preferences.</source>
     <message>
         <source>Print current page</source>
         <translation>Drukuj aktualną stronę</translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where
+a token can be * for all the pages, 1-5 for
+a range of pages or a single page number.</source>
+        <translation>Wpisz rozdzieloną przecinkami listę wartości,
+gdzie * oznacza wszystkie strony, 1-5 zakres stron 
+a pojedynczy numer oznacza numer strony.</translation>
     </message>
 </context>
 <context>
@@ -3126,6 +3278,22 @@ Wartość 0 oznacza brak ograniczeń.</translation>
         <source>Cancel</source>
         <translation>Anuluj</translation>
     </message>
+    <message>
+        <source> pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
+    </message>
 </context>
 <context>
     <name>Measurements</name>
@@ -3213,11 +3381,11 @@ Wartość 0 oznacza brak ograniczeń.</translation>
     <name>MergeDoc</name>
     <message>
         <source>Import a Page</source>
-        <translation>Importuj stronę</translation>
+        <translation type="obsolete">Importuj stronę</translation>
     </message>
     <message>
         <source>Document to load:</source>
-        <translation>Z dokumentu:</translation>
+        <translation type="obsolete">Z dokumentu:</translation>
     </message>
     <message>
         <source>Change...</source>
@@ -3225,11 +3393,11 @@ Wartość 0 oznacza brak ograniczeń.</translation>
     </message>
     <message>
         <source>Document contains: 0 Page(s)</source>
-        <translation>Dokument zawiera: 0 stron</translation>
+        <translation type="obsolete">Dokument zawiera: 0 stron</translation>
     </message>
     <message>
         <source>Import Page Nr:</source>
-        <translation>Importuj stronę nr:</translation>
+        <translation type="obsolete">Importuj stronę nr:</translation>
     </message>
     <message>
         <source>Import</source>
@@ -3253,7 +3421,55 @@ Wartość 0 oznacza brak ograniczeń.</translation>
     </message>
     <message>
         <source>Document contains: %1 Page(s)</source>
-        <translation>Dokument zawiera: %1 stron</translation>
+        <translation type="obsolete">Dokument zawiera: %1 stron</translation>
+    </message>
+    <message>
+        <source>Import Template</source>
+        <translation>Importuj szablon</translation>
+    </message>
+    <message>
+        <source>Import Page(s)</source>
+        <translation>Importuj strony</translation>
+    </message>
+    <message>
+        <source>From Document:</source>
+        <translation>Z dokumentu:</translation>
+    </message>
+    <message>
+        <source>Import Page(s):</source>
+        <translation>Importuj strony:</translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where
+a token can be * for all the pages, 1-5 for
+a range of pages or a single page number.</source>
+        <translation>Wpisz rozdzieloną przecinkami listę wartości,
+gdzie * oznacza wszystkie strony, 1-5 zakres stron 
+a pojedynczy numer oznacza numer strony.</translation>
+    </message>
+    <message>
+        <source> from 0</source>
+        <translation>od 0</translation>
+    </message>
+    <message>
+        <source>Create Page(s)</source>
+        <translation>Utwórz strony</translation>
+    </message>
+    <message>
+        <source>before Page</source>
+        <translation>przed stroną</translation>
+    </message>
+    <message>
+        <source>after Page</source>
+        <translation>po stronie</translation>
+    </message>
+    <message>
+        <source>at End</source>
+        <translation>na końcu dokumentu</translation>
+    </message>
+    <message>
+        <source> from %1</source>
+        <translation>od %1</translation>
     </message>
 </context>
 <context>
@@ -3501,11 +3717,11 @@ rogi:</translation>
     </message>
     <message>
         <source>Rendering Intent:</source>
-        <translation>Metoda konwersji:</translation>
+        <translation>Metoda renderingu:</translation>
     </message>
     <message>
         <source>Perceptual</source>
-        <translation>Percepcja</translation>
+        <translation>Spostrzeżeniowa</translation>
     </message>
     <message>
         <source>Relative Colorimetric</source>
@@ -3517,7 +3733,7 @@ rogi:</translation>
     </message>
     <message>
         <source>Absolute Colorimetric</source>
-        <translation>Absolutnie kolorometryczna</translation>
+        <translation>Całkowicie kolorometryczna</translation>
     </message>
     <message>
         <source>Left Point</source>
@@ -3545,7 +3761,7 @@ rogi:</translation>
     </message>
     <message>
         <source>Bevel Join</source>
-        <translation>Skośny</translation>
+        <translation>Ścięty</translation>
     </message>
     <message>
         <source>Round Join</source>
@@ -3999,7 +4215,7 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Rendering intent for the image</source>
-        <translation>Metoda konwersji dla obrazka</translation>
+        <translation>Metoda renderingu dla obrazka</translation>
     </message>
     <message>
         <source>Style:</source>
@@ -4062,7 +4278,7 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Bevel Join</source>
-        <translation>Skośny</translation>
+        <translation>Ścięty</translation>
     </message>
     <message>
         <source>Round Join</source>
@@ -4585,11 +4801,11 @@ w innym przypadku do obiektu.</translation>
     </message>
     <message>
         <source>From:</source>
-        <translation>Od:</translation>
+        <translation type="obsolete">Od:</translation>
     </message>
     <message>
         <source>to:</source>
-        <translation>do:</translation>
+        <translation type="obsolete">do:</translation>
     </message>
     <message>
         <source>File Options</source>
@@ -4857,11 +5073,11 @@ w innym przypadku do obiektu.</translation>
     </message>
     <message>
         <source>Rendering-Intent:</source>
-        <translation>Metoda konwersji::</translation>
+        <translation>Metoda renderingu:</translation>
     </message>
     <message>
         <source>Perceptual</source>
-        <translation>Percepcja</translation>
+        <translation>Spostrzeżeniowa</translation>
     </message>
     <message>
         <source>Relative Colorimetric</source>
@@ -4873,7 +5089,7 @@ w innym przypadku do obiektu.</translation>
     </message>
     <message>
         <source>Absolute Colorimetric</source>
-        <translation>Absolutnie kolorometryczna</translation>
+        <translation>Całkowicie kolorometryczna</translation>
     </message>
     <message>
         <source>Images:</source>
@@ -4985,11 +5201,11 @@ w innym przypadku do obiektu.</translation>
     </message>
     <message>
         <source>First page to export when exporting a range</source>
-        <translation>Pierwsza strona zakresu stron przeznaczonego do eskportu</translation>
+        <translation type="obsolete">Pierwsza strona zakresu stron przeznaczonego do eskportu</translation>
     </message>
     <message>
         <source>Last page to export when exporting a range</source>
-        <translation>Ostatnia strona zakresu stron przeznaczonego do eksportu</translation>
+        <translation type="obsolete">Ostatnia strona zakresu stron przeznaczonego do eksportu</translation>
     </message>
     <message>
         <source>Determines the PDF compatibility.
@@ -5342,7 +5558,7 @@ Wybierz opcję &quot;Drukarka&quot;, jeśli będziesz drukował na drukarce obs�
     </message>
     <message>
         <source>Rendering intent for solid colors</source>
-        <translation>Metoda konwersji dla jednolitych kolorów</translation>
+        <translation>Metoda renderingu dla jednolitych kolorów</translation>
     </message>
     <message>
         <source>Color profile for images</source>
@@ -5350,7 +5566,7 @@ Wybierz opcję &quot;Drukarka&quot;, jeśli będziesz drukował na drukarce obs�
     </message>
     <message>
         <source>Rendering intent for images</source>
-        <translation>Metoda konwersji dla obrazków</translation>
+        <translation>Metoda renderingu dla obrazków</translation>
     </message>
     <message>
         <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
@@ -5440,6 +5656,18 @@ If un-checked, text and graphics cannot be copied.</source>
 If un-checked, editing annotations and fileds is prevented.</source>
         <translation>Dozwolone dodawanie adnotacji i pól do dokumentu PDF.
 W przypadku braku zakreślenie edycja adnotacji i pól zostanie uniemożliwiona.</translation>
+    </message>
+    <message>
+        <source>Choose Pages</source>
+        <translation>Wybierz strony</translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where
+a token can be * for all the pages, 1-5 for
+a range of pages or a single page number.</source>
+        <translation>Wpisz rozdzieloną przecinkami listę wartości,
+gdzie * oznacza wszystkie strony, 1-5 zakres stron 
+a pojedynczy numer oznacza numer strony.</translation>
     </message>
 </context>
 <context>
@@ -5545,7 +5773,7 @@ w okienku podglądu kosztem nieznacznego spowolnienia generowania podglądu</tra
     </message>
     <message>
         <source>Hide Margins</source>
-        <translation>Ukryj marginesy</translation>
+        <translation type="obsolete">Ukryj marginesy</translation>
     </message>
     <message>
         <source>Show Margins</source>
@@ -5553,7 +5781,7 @@ w okienku podglądu kosztem nieznacznego spowolnienia generowania podglądu</tra
     </message>
     <message>
         <source>Hide Frames</source>
-        <translation>Ukryj ramki</translation>
+        <translation type="obsolete">Ukryj ramki</translation>
     </message>
     <message>
         <source>Show Frames</source>
@@ -5561,7 +5789,7 @@ w okienku podglądu kosztem nieznacznego spowolnienia generowania podglądu</tra
     </message>
     <message>
         <source>Hide Images</source>
-        <translation>Ukryj obrazki</translation>
+        <translation type="obsolete">Ukryj obrazki</translation>
     </message>
     <message>
         <source>Show Images</source>
@@ -5569,7 +5797,7 @@ w okienku podglądu kosztem nieznacznego spowolnienia generowania podglądu</tra
     </message>
     <message>
         <source>Hide Grid</source>
-        <translation>Ukryj siatkę</translation>
+        <translation type="obsolete">Ukryj siatkę</translation>
     </message>
     <message>
         <source>Show Grid</source>
@@ -5577,7 +5805,7 @@ w okienku podglądu kosztem nieznacznego spowolnienia generowania podglądu</tra
     </message>
     <message>
         <source>Hide Guides</source>
-        <translation>Wyświetlaj linie pomocnicze</translation>
+        <translation type="obsolete">Wyświetlaj linie pomocnicze</translation>
     </message>
     <message>
         <source>Show Guides</source>
@@ -5701,7 +5929,7 @@ w okienku podglądu kosztem nieznacznego spowolnienia generowania podglądu</tra
     </message>
     <message>
         <source>Send to Scrapbook</source>
-        <translation>Przesuń do biblioteki</translation>
+        <translation>Dodaj do biblioteki</translation>
     </message>
     <message>
         <source>Send to Layer</source>
@@ -5717,7 +5945,7 @@ w okienku podglądu kosztem nieznacznego spowolnienia generowania podglądu</tra
     </message>
     <message>
         <source>Outlines</source>
-        <translation>Ścieżki</translation>
+        <translation>Krzywe</translation>
     </message>
     <message>
         <source>Bezier Curve</source>
@@ -5797,7 +6025,7 @@ w okienku podglądu kosztem nieznacznego spowolnienia generowania podglądu</tra
     </message>
     <message>
         <source>Hide Baseline Grid</source>
-        <translation>Ukryj linie pisma</translation>
+        <translation type="obsolete">Ukryj linie pisma</translation>
     </message>
     <message>
         <source>Show Baseline Grid</source>
@@ -7467,7 +7695,7 @@ Sprawdź katalog i nazwę pliku.</translation>
     </message>
     <message>
         <source>&amp;Fonts Preview</source>
-        <translation> &amp;Podgląd czcionek</translation>
+        <translation>&amp;Podgląd czcionek</translation>
     </message>
     <message>
         <source>&amp;Insert Special</source>
@@ -8898,7 +9126,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Insert &amp;Page...</source>
-        <translation>&amp;Wklej stronę...</translation>
+        <translation type="obsolete">&amp;Wklej stronę...</translation>
     </message>
     <message>
         <source>&amp;Import</source>
@@ -9054,7 +9282,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>C&amp;onvert to Outlines</source>
-        <translation>Zamień na ś&amp;cieżki</translation>
+        <translation>Za&amp;mień na krzywe</translation>
     </message>
     <message>
         <source>&amp;Insert...</source>
@@ -9090,15 +9318,15 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Hide &amp;Margins</source>
-        <translation>&amp;Ukryj marginesy</translation>
+        <translation type="obsolete">&amp;Ukryj marginesy</translation>
     </message>
     <message>
         <source>Hide &amp;Frames</source>
-        <translation>Ukryj &amp;ramki</translation>
+        <translation type="obsolete">Ukryj &amp;ramki</translation>
     </message>
     <message>
         <source>Hide &amp;Images</source>
-        <translation>Ukryj &amp;obrazki</translation>
+        <translation type="obsolete">Ukryj &amp;obrazki</translation>
     </message>
     <message>
         <source>Show &amp;Grid</source>
@@ -9110,7 +9338,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Hide G&amp;uides</source>
-        <translation>Ukryj linie &amp;pomocnicze</translation>
+        <translation type="obsolete">Ukryj linie &amp;pomocnicze</translation>
     </message>
     <message>
         <source>Sna&amp;p to Guides</source>
@@ -9286,15 +9514,47 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Hide &amp;Grid</source>
-        <translation>Ukryj &amp;siatkę</translation>
+        <translation type="obsolete">Ukryj &amp;siatkę</translation>
     </message>
     <message>
         <source>Hide &amp;Baseline Grid</source>
-        <translation>Ukryj linie &amp;pisma</translation>
+        <translation type="obsolete">Ukryj linie &amp;pisma</translation>
     </message>
     <message>
         <source>Ghostscript : You cannot use EPS Images</source>
         <translation>Ghostscript: nie możesz użyć grafik EPS</translation>
+    </message>
+    <message>
+        <source>Import &amp;Page(s)...</source>
+        <translation>Importuj st&amp;rony...</translation>
+    </message>
+    <message>
+        <source>Importing Pages...</source>
+        <translation>Import stron w toku...</translation>
+    </message>
+    <message>
+        <source>Import Page(s)</source>
+        <translation>Importuj strony</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;</source>
+        <translation>&lt;p&gt;Próbujesz zaimportować więcej stron, niż jest dostępnych licząc od aktywnej strony. &lt;/p&gt;Wybierz jedną z poniższych możliwości:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Utwórz&lt;/b&gt; brakujące strony&lt;/li&gt;&lt;li&gt;&lt;b&gt;Importuj&lt;/b&gt; strony aż do ostatniej strony&lt;/li&gt;&lt;li&gt;&lt;b&gt;Anuluj&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;</translation>
+    </message>
+    <message>
+        <source>Create</source>
+        <translation>Utwórz</translation>
+    </message>
+    <message>
+        <source>Import</source>
+        <translation>Importuj</translation>
+    </message>
+    <message>
+        <source>Import done</source>
+        <translation>Import zakończony</translation>
+    </message>
+    <message>
+        <source>Found nothing to import</source>
+        <translation>Nie znaleziono niczego do zaimportowania</translation>
     </message>
 </context>
 <context>
@@ -10295,6 +10555,10 @@ Proszę wybrać inną.</translation>
     <message>
         <source>Author</source>
         <translation>Autor</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Usuń</translation>
     </message>
 </context>
 <context>

@@ -453,26 +453,18 @@ void NewDoc::ExitOK()
 void NewDoc::setOrien(int ori)
 {
 	double br;
-	setSize(ComboBox1->currentItem());
 	disconnect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
 	disconnect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
-	if (ori == 0)
+	if (ori != Orient)
 	{
-		if (ComboBox1->currentItem() == 30)
-		{
-			br = Breite->value();
-			Breite->setValue(Hoehe->value());
-			Hoehe->setValue(br);
-		}
-		Orient = 0;
-	}
-	else
-	{
-		Orient = 1;
 		br = Breite->value();
 		Breite->setValue(Hoehe->value());
 		Hoehe->setValue(br);
 	}
+	if (ori == 0)
+		Orient = 0;
+	else
+		Orient = 1;
 	RightR->setMaxValue(Breite->value() - LeftR->value());
 	LeftR->setMaxValue(Breite->value() - RightR->value());
 	TopR->setMaxValue(Hoehe->value() - BottomR->value());
@@ -486,13 +478,16 @@ void NewDoc::setPGsize()
 	if (ComboBox1->currentItem() == 30)
 		setSize(ComboBox1->currentItem());
 	else
+	{
+		setSize(ComboBox1->currentItem());
 		setOrien(ComboBox2->currentItem());
+	}
 }
 
 void NewDoc::setSize(int gr)
 {
-	Pagebr = Breite->value();
-	Pageho = Hoehe->value();
+	Pagebr = Breite->value() / Umrech;
+	Pageho = Hoehe->value() / Umrech;
 	disconnect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
 	disconnect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
 	Breite->setEnabled(false);

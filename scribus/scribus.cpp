@@ -351,7 +351,7 @@ void ScribusApp::initScribus()
 		Prefs.GridShown = false;
 		Prefs.MarginsShown = true;
 		Prefs.GuidesShown = true;
-		Prefs.BaseShown = true;
+		Prefs.BaseShown = false;
 		Prefs.ClipMargin = true;
 		Prefs.PagesSbS = true;
 		Prefs.RecentDocs.clear();
@@ -4546,14 +4546,6 @@ void ScribusApp::ToggleAllPalettes()
 		setSepal(PalettesStat[5]);
 		setBookpal(PalettesStat[6]);
 		setMapal(PalettesStat[7]);
-		Mpal->move(Prefs.Mpalx, Prefs.Mpaly);
-		MaPal->move(Prefs.Mapalx, Prefs.Mapaly);
-		Tpal->move(Prefs.Tpalx, Prefs.Tpaly);
-		Lpal->move(Prefs.Lpalx, Prefs.Lpaly);
-		Sepal->move(Prefs.Sepalx, Prefs.Sepaly);
-		BookPal->move(Prefs.Bopalx, Prefs.Bopaly);
-		ScBook->move(Prefs.SCpalx, Prefs.SCpaly);
-		ScBook->resize(Prefs.SCpalw, Prefs.SCpalh);
 	}
 	else
 	{
@@ -4578,7 +4570,10 @@ void ScribusApp::ToggleAllPalettes()
 void ScribusApp::setMapal(bool visible)
 {
 	if (visible)
+	{
 		MaPal->show();
+		MaPal->move(Prefs.Mapalx, Prefs.Mapaly);
+	}
 	else
 	{
 		Prefs.Mapalx = MaPal->pos().x();
@@ -4593,6 +4588,7 @@ void ScribusApp::setMpal(bool visible)
 	{
 		Mpal->show();
 		Mpal->TabStack->raiseWidget(0);
+		Mpal->move(Prefs.Mpalx, Prefs.Mpaly);
 	}
 	else
 	{
@@ -4612,7 +4608,10 @@ void ScribusApp::ToggleMpal()
 void ScribusApp::setTpal(bool visible)
 {
 	if (visible)
+	{
 		Tpal->show();
+		Tpal->move(Prefs.Tpalx, Prefs.Tpaly);
+	}
 	else
 	{
 		Prefs.Tpalx = Tpal->pos().x();
@@ -4631,7 +4630,11 @@ void ScribusApp::ToggleTpal()
 void ScribusApp::setBpal(bool visible)
 {
 	if (visible)
+	{
 		ScBook->show();
+		ScBook->move(Prefs.SCpalx, Prefs.SCpaly);
+		ScBook->resize(Prefs.SCpalw, Prefs.SCpalh);
+	}
 	else
 	{
 		Prefs.SCpalx = ScBook->pos().x();
@@ -4656,6 +4659,7 @@ void ScribusApp::setLpal(bool visible)
 		if (HaveDoc)
 			Lpal->setLayers(&doc->Layers, &doc->ActiveLayer);
 		Lpal->show();
+		Lpal->move(Prefs.Lpalx, Prefs.Lpaly);
 	}
 	else
 	{
@@ -4675,7 +4679,10 @@ void ScribusApp::ToggleLpal()
 void ScribusApp::setSepal(bool visible)
 {
 	if (visible)
+	{
 		Sepal->show();
+		Sepal->move(Prefs.Sepalx, Prefs.Sepaly);
+	}
 	else
 	{
 		Prefs.Sepalx = Sepal->pos().x();
@@ -4696,7 +4703,10 @@ void ScribusApp::ToggleSepal()
 void ScribusApp::setBookpal(bool visible)
 {
 	if (visible)
+	{
 		BookPal->show();
+		BookPal->move(Prefs.Bopalx, Prefs.Bopaly);
+	}
 	else
 	{
 		Prefs.Bopalx = BookPal->pos().x();
@@ -4873,6 +4883,7 @@ void ScribusApp::ToggleFrameEdit()
 		Npal->HaveNode(false, false);
 		Npal->MoveNode->setOn(true);
 		Npal->show();
+		Npal->move(Prefs.Npalx, Prefs.Npaly);
 		doc->EditClipMode = 0;
 		doc->EditClip = true;
 		WerkTools->Select->setEnabled(false);
@@ -6795,15 +6806,6 @@ void ScribusApp::ShowSubs()
 	setLpal(Prefs.Lpalv);
 	setSepal(Prefs.Sepalv);
 	setBookpal(Prefs.Bopalv);
-	MaPal->move(Prefs.Mapalx, Prefs.Mapaly);
-	Mpal->move(Prefs.Mpalx, Prefs.Mpaly);
-	Tpal->move(Prefs.Tpalx, Prefs.Tpaly);
-	Lpal->move(Prefs.Lpalx, Prefs.Lpaly);
-	Sepal->move(Prefs.Sepalx, Prefs.Sepaly);
-	BookPal->move(Prefs.Bopalx, Prefs.Bopaly);
-	ScBook->move(Prefs.SCpalx, Prefs.SCpaly);
-	ScBook->resize(Prefs.SCpalw, Prefs.SCpalh);
-	Npal->move(Prefs.Npalx, Prefs.Npaly);
 	setActiveWindow();
 	raise();
 }

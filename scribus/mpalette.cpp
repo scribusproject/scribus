@@ -68,9 +68,10 @@ void LabelButton::mouseReleaseEvent(QMouseEvent*)
 NameWidget::NameWidget(QWidget* parent) : QLineEdit(parent)
 {}
 
-void NameWidget::focusOutEvent(QFocusEvent *)
+void NameWidget::focusOutEvent(QFocusEvent *e)
 {
 	emit Leaved();
+	QLineEdit::focusOutEvent(e);
 }
 
 Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", false, 0)
@@ -88,56 +89,62 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	QFont f(font());
 	f.setPointSize(f.pointSize()-1);
 	setFont(f);
-	buttonGroup5 = new QButtonGroup( this, "buttonGroup5" );
-	buttonGroup5->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)5, (QSizePolicy::SizeType)5, 0, 0, buttonGroup5->sizePolicy().hasHeightForWidth() ) );
-	buttonGroup5->setFrameShape( QButtonGroup::NoFrame );
-	buttonGroup5->setExclusive( true );
-	buttonGroup5->setColumnLayout(0, Qt::Vertical );
-	buttonGroup5->setTitle( QString::null );
-	buttonGroup5->layout()->setSpacing( 0 );
-	buttonGroup5->layout()->setMargin( 0 );
-	buttonGroup5Layout = new QGridLayout( buttonGroup5->layout() );
-	buttonGroup5Layout->setAlignment( Qt::AlignTop );
-	SGeom = new QToolButton( buttonGroup5, "toolButton24" );
+
+	proppalButtonGrp = new QButtonGroup( QString::null, this, "proppalButtonGrp" );
+	proppalButtonGrp->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)5, (QSizePolicy::SizeType)5, 0, 0, proppalButtonGrp->sizePolicy().hasHeightForWidth() ) );
+	proppalButtonGrp->setFrameShape( QButtonGroup::NoFrame );
+	proppalButtonGrp->setExclusive( true );
+	proppalButtonGrp->setColumnLayout(0, Qt::Vertical );
+	proppalButtonGrp->layout()->setSpacing( 0 );
+	proppalButtonGrp->layout()->setMargin( 0 );
+	proppalButtonGrpLayout = new QGridLayout( proppalButtonGrp->layout() );
+	proppalButtonGrpLayout->setAlignment( Qt::AlignTop );
+
+	SGeom = new QToolButton( proppalButtonGrp, "toolButton24" );
 	SGeom->setToggleButton( true );
 	SGeom->setOn( true );
 	SGeom->setFont(f);
 	SGeom->setText( tr( "X, Y, Z" ) );
-	buttonGroup5Layout->addWidget( SGeom, 0, 0 );
-	SShape = new QToolButton( buttonGroup5, "toolButton25" );
+	proppalButtonGrpLayout->addWidget( SGeom, 0, 0 );
+
+	SShape = new QToolButton( proppalButtonGrp, "toolButton25" );
 	SShape->setToggleButton( true );
 	SShape->setFont(f);
 	SShape->setText( tr( "Shape" ) );
-	buttonGroup5Layout->addWidget( SShape, 0, 1 );
-	SText = new QToolButton( buttonGroup5, "toolButton26" );
+	proppalButtonGrpLayout->addWidget( SShape, 0, 1 );
+
+	SText = new QToolButton( proppalButtonGrp, "toolButton26" );
 	SText->setToggleButton( true );
 	SText->setFont(f);
 	SText->setText( tr( "Text" ) );
-	buttonGroup5Layout->addWidget( SText, 1, 0 );
-	SImage = new QToolButton( buttonGroup5, "toolButton27" );
+	proppalButtonGrpLayout->addWidget( SText, 1, 0 );
+
+	SImage = new QToolButton( proppalButtonGrp, "toolButton27" );
 	SImage->setToggleButton( true );
 	SImage->setFont(f);
 	SImage->setText( tr( "Image" ) );
-	buttonGroup5Layout->addWidget( SImage, 1, 1 );
-	SLine = new QToolButton( buttonGroup5, "toolButton28" );
+	proppalButtonGrpLayout->addWidget( SImage, 1, 1 );
+
+	SLine = new QToolButton( proppalButtonGrp, "toolButton28" );
 	SLine->setToggleButton( true );
 	SLine->setFont(f);
 	SLine->setText( tr( "Line" ) );
-	buttonGroup5Layout->addWidget( SLine, 2, 0 );
-	SColor = new QToolButton( buttonGroup5, "toolButton29" );
+	proppalButtonGrpLayout->addWidget( SLine, 2, 0 );
+
+	SColor = new QToolButton( proppalButtonGrp, "toolButton29" );
 	SColor->setToggleButton( true );
 	SColor->setFont(f);
 	SColor->setText( tr( "Colors" ) );
-	buttonGroup5Layout->addWidget( SColor, 2, 1 );
-	MpalLayout->addWidget( buttonGroup5 );
+	proppalButtonGrpLayout->addWidget( SColor, 2, 1 );
+
+	MpalLayout->addWidget( proppalButtonGrp );
 	TabStack = new QWidgetStack( this, "TabStack" );
 	TabStack->setFrameShape( QWidgetStack::NoFrame );
 
 	page = new QWidget( TabStack, "page" );
 	pageLayout = new QVBoxLayout( page, 0, 5, "pageLayout");
 
-	NameGroup = new QGroupBox( page, "NameGroup" );
-	NameGroup->setTitle( tr( "Name" ) );
+	NameGroup = new QGroupBox( tr( "Name" ), page, "NameGroup" );
 	NameGroup->setColumnLayout(0, Qt::Vertical );
 	NameGroup->layout()->setSpacing( 4 );
 	NameGroup->layout()->setMargin( 5 );
@@ -147,25 +154,23 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	NameGroupLayout->addWidget( NameEdit );
 	pageLayout->addWidget( NameGroup );
 
-	GeoGroup = new QGroupBox( page, "GeoGroup" );
-	GeoGroup->setTitle( tr( "Geometry" ) );
+	GeoGroup = new QGroupBox( tr( "Geometry" ), page, "GeoGroup" );
 	GeoGroup->setColumnLayout(0, Qt::Vertical );
 	GeoGroup->layout()->setSpacing( 4 );
 	GeoGroup->layout()->setMargin( 5 );
 	GeoGroupLayout = new QGridLayout( GeoGroup->layout() );
 	GeoGroupLayout->setAlignment( Qt::AlignTop );
-	Text1 = new QLabel( GeoGroup, "Text1" );
-	Text1->setText( tr( "X-Pos:" ) );
-	GeoGroupLayout->addWidget( Text1, 0, 0 );
-	Text1a = new QLabel( GeoGroup, "Text1a" );
-	Text1a->setText( tr( "Y-Pos:" ) );
-	GeoGroupLayout->addWidget( Text1a, 1, 0 );
-	Text2 = new QLabel( GeoGroup, "Text2" );
-	Text2->setText( tr( "Width:" ) );
-	GeoGroupLayout->addWidget( Text2, 2, 0 );
-	Text2a = new QLabel( GeoGroup, "Text2a" );
-	Text2a->setText( tr( "Height:" ) );
-	GeoGroupLayout->addWidget( Text2a, 3, 0 );
+
+	xposLabel = new QLabel( tr( "X-Pos:" ), GeoGroup, "xposLabel" );
+	GeoGroupLayout->addWidget( xposLabel, 0, 0 );
+	yposLabel = new QLabel( tr( "Y-Pos:"), GeoGroup, "yposLabel" );
+	GeoGroupLayout->addWidget( yposLabel, 1, 0 );
+	widthLabel = new QLabel( tr( "Width:" ), GeoGroup, "widthLabel" );
+
+	GeoGroupLayout->addWidget( widthLabel, 2, 0 );
+	heightLabel = new QLabel( tr( "Height:" ), GeoGroup, "heightLabel" );
+
+	GeoGroupLayout->addWidget( heightLabel, 3, 0 );
 	Xpos = new MSpinBox( GeoGroup, 2 );
 	Xpos->setSuffix( tr( " pt" ) );
 	Xpos->setMaxValue( 3000 );
@@ -182,9 +187,8 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	Height = new MSpinBox( GeoGroup, 2 );
 	Height->setSuffix( tr( " pt" ) );
 	GeoGroupLayout->addWidget( Height, 3, 1 );
-	Text3 = new QLabel( GeoGroup, "Text3" );
-	Text3->setText( tr( "Rotation:" ) );
-	GeoGroupLayout->addWidget( Text3, 4, 0 );
+	rotationLabel = new QLabel( tr( "Rotation:" ), GeoGroup, "rotationLabel" );
+	GeoGroupLayout->addWidget( rotationLabel, 4, 0 );
 	Kette2 = new LinkButton( GeoGroup );
 	Kette2->setToggleButton( true );
 	Kette2->setAutoRaise( true );
@@ -194,11 +198,9 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	Rot->setSuffix( QString::fromUtf8(" °"));
 	Rot->setWrapping( true );
 	GeoGroupLayout->addWidget( Rot, 4, 1 );
-	Text3r = new QLabel( GeoGroup, "Text3r" );
-	Text3r->setText( tr( "Basepoint:" ) );
-	GeoGroupLayout->addWidget( Text3r, 5, 0 );
-	RotationGroup = new QButtonGroup( GeoGroup, "RotationGroup" );
-	RotationGroup->setTitle( "" );
+	basepointLabel = new QLabel( tr( "Basepoint:" ), GeoGroup, "basepointLabel" );
+	GeoGroupLayout->addWidget( basepointLabel, 5, 0 );
+	RotationGroup = new QButtonGroup( "", GeoGroup, "RotationGroup" );
 	RotationGroup->setFrameShape( QButtonGroup::NoFrame );
 	RotationGroup->setColumnLayout(0, Qt::Vertical );
 	RotationGroup->layout()->setSpacing( 0 );
@@ -263,8 +265,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	QSpacerItem* spacer1 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout60->addItem( spacer1 );
 
-	LayerGroup = new QGroupBox( page, "LayerGroup" );
-	LayerGroup->setTitle( tr( "Level" ) );
+	LayerGroup = new QGroupBox( tr( "Level" ), page, "LayerGroup" );
 	LayerGroup->setColumnLayout(0, Qt::Vertical );
 	LayerGroup->layout()->setSpacing( 4 );
 	LayerGroup->layout()->setMargin( 5 );
@@ -286,9 +287,8 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	ZBottom->setMaximumSize( QSize( 22, 22 ) );
 	ZBottom->setPixmap(loadIcon("bottom.png"));
 	LayerGroupLayout->addWidget( ZBottom, 1, 1 );
-	LevelTxt = new QLabel( LayerGroup, "LevelTxt" );
+	LevelTxt = new QLabel( "  0", LayerGroup, "LevelTxt" );
 	LevelTxt->setAlignment( Qt::AlignCenter );
-	LevelTxt->setText( "  0");
 	LayerGroupLayout->addMultiCellWidget( LevelTxt, 0, 1, 2, 2 );
 
 	layout60->addWidget( LayerGroup );
@@ -346,17 +346,15 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	page_2 = new QWidget( TabStack, "page_2" );
 	pageLayout_2 = new QVBoxLayout( page_2, 0, 5, "pageLayout_2");
 
-	ShapeGroup = new QButtonGroup( page_2, "ShapeGroup" );
+	ShapeGroup = new QButtonGroup( "", page_2, "ShapeGroup" );
 	ShapeGroup->setFrameShape( QButtonGroup::NoFrame );
-	ShapeGroup->setTitle( "" );
 	ShapeGroup->setExclusive( true );
 	ShapeGroup->setColumnLayout(0, Qt::Vertical );
 	ShapeGroup->layout()->setSpacing( 2 );
 	ShapeGroup->layout()->setMargin( 0 );
 	ShapeGroupLayout = new QHBoxLayout( ShapeGroup->layout() );
 	ShapeGroupLayout->setAlignment( Qt::AlignTop );
-	SRect = new QLabel(ShapeGroup, "Text4a" );
-	SRect->setText( tr( "Shape:" ) );
+	SRect = new QLabel( tr( "Shape:" ), ShapeGroup, "SRect" );
 	ShapeGroupLayout->addWidget( SRect );
 	SCustom = new Autoforms( ShapeGroup );
 	ShapeGroupLayout->addWidget( SCustom );
@@ -368,9 +366,8 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 
 	Layout13 = new QHBoxLayout( 0, 0, 2, "Layout13");
 
-	Text4 = new QLabel( page_2, "Text4" );
-	Text4->setText( tr( "Round\nCorners:" ) );
-	Layout13->addWidget( Text4 );
+	rndcornersLabel = new QLabel( tr( "Round\nCorners:" ), page_2, "rndcornersLabel" );
+	Layout13->addWidget( rndcornersLabel );
 
 	RoundRect = new MSpinBox( page_2, 1 );
 	RoundRect->setSuffix( tr( " pt" ) );
@@ -382,30 +379,24 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 
 	page_2a = new QWidget( TabStack2, "page" );
 	pageLayout_2a = new QVBoxLayout( page_2a, 0, 5, "pageLayout_2");
-	Distance = new QGroupBox( page_2a, "Distance" );
-	Distance->setTitle( tr( "Distance of Text" ) );
+	Distance = new QGroupBox( tr( "Distance of Text" ), page_2a, "Distance" );
 	Distance->setColumnLayout(0, Qt::Vertical );
 	Distance->layout()->setSpacing( 2 );
 	Distance->layout()->setMargin( 5 );
 	DistanceLayout = new QGridLayout( Distance->layout() );
 	DistanceLayout->setAlignment( Qt::AlignTop );
-	Text14a = new QLabel( Distance, "Text14a" );
-	Text14a->setText( tr( "Columns:" ) );
-	DistanceLayout->addWidget( Text14a, 0, 0 );
-	Text14b = new LabelButton( Distance, tr("Gap:"), tr("Width:"));
-	DistanceLayout->addWidget( Text14b, 1, 0 );
-	Text14 = new QLabel( Distance, "Text14" );
-	Text14->setText( tr( "Top:" ) );
-	DistanceLayout->addWidget( Text14, 2, 0 );
-	Text15 = new QLabel( Distance, "Text15" );
-	Text15->setText( tr( "Bottom:" ) );
-	DistanceLayout->addWidget( Text15, 3, 0 );
-	Text16 = new QLabel( Distance, "Text16" );
-	Text16->setText( tr( "Left:" ) );
-	DistanceLayout->addWidget( Text16, 4, 0 );
-	Text17 = new QLabel( Distance, "Text17" );
-	Text17->setText( tr( "Right:" ) );
-	DistanceLayout->addWidget( Text17, 5, 0 );
+	columnsLabel = new QLabel( tr( "Columns:" ), Distance, "columnsLabel" );
+	DistanceLayout->addWidget( columnsLabel, 0, 0 );
+	colgapLabel = new LabelButton( Distance, tr("Gap:"), tr("Width:"));
+	DistanceLayout->addWidget( colgapLabel, 1, 0 );
+	topLabel = new QLabel( tr( "Top:" ), Distance, "topLabel" );
+	DistanceLayout->addWidget( topLabel, 2, 0 );
+	bottomLabel = new QLabel( tr( "Bottom:" ), Distance, "bottomLabel" );
+	DistanceLayout->addWidget( bottomLabel, 3, 0 );
+	leftLabel = new QLabel( tr( "Left:" ), Distance, "leftLabel" );
+	DistanceLayout->addWidget( leftLabel, 4, 0 );
+	rightLabel = new QLabel( tr( "Right:" ), Distance, "rightLabel" );
+	DistanceLayout->addWidget( rightLabel, 5, 0 );
 	DCol = new QSpinBox( Distance, "Cols" );
 	DCol->setMaxValue( 3000 );
 	DCol->setMinValue( 1 );
@@ -445,28 +436,25 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 
 	page_2b = new QWidget( TabStack2, "page" );
 	pageLayout_2b = new QVBoxLayout( page_2b, 0, 5, "pageLayout_2");
-	Distance2 = new QGroupBox( page_2b, "Distance" );
-	Distance2->setTitle( tr( "Path Text Properties" ) );
+	Distance2 = new QGroupBox( tr( "Path Text Properties" ), page_2b, "Distance" );
 	Distance2->setColumnLayout(0, Qt::Vertical );
 	Distance2->layout()->setSpacing( 2 );
 	Distance2->layout()->setMargin( 5 );
 	DistanceLayout2 = new QGridLayout( Distance2->layout() );
 	DistanceLayout2->setAlignment( Qt::AlignTop );
-	NormText2 = new QCheckBox( Distance2, "NormText" );
-	NormText2->setText( tr( "Show Curve" ) );
-	DistanceLayout2->addMultiCellWidget( NormText2, 0, 0, 0, 1 );
-	TextLabel3 = new QLabel( Distance2, "TextLabel3" );
-	TextLabel3->setText( tr( "Start Offset:" ) );
-	DistanceLayout2->addWidget( TextLabel3, 1, 0);
+	showcurveCheckBox = new QCheckBox( Distance2, "showcurveCheckBox" );
+	showcurveCheckBox->setText( tr( "Show Curve" ) );
+	DistanceLayout2->addMultiCellWidget( showcurveCheckBox, 0, 0, 0, 1 );
+	startoffsetLabel = new QLabel( tr( "Start Offset:" ), Distance2, "startoffsetLabel" );
+	DistanceLayout2->addWidget( startoffsetLabel, 1, 0);
 	Dist = new MSpinBox( Distance2, 1 );
 	Dist->setSuffix( tr( " pt" ) );
 	Dist->setMaxValue( 300 );
 	Dist->setMinValue( 0 );
 	Dist->setLineStep(10);
 	DistanceLayout2->addWidget( Dist, 1, 1);
-	TextLabel2 = new QLabel( Distance2, "TextLabel2" );
-	TextLabel2->setText( tr( "Distance from Curve:" ) );
-	DistanceLayout2->addWidget( TextLabel2, 2, 0);
+	distfromcurveLabel = new QLabel( tr( "Distance from Curve:" ), Distance2, "distfromcurveLabel" );
+	DistanceLayout2->addWidget( distfromcurveLabel, 2, 0);
 	LineW = new MSpinBox( Distance2, 1 );
 	LineW->setSuffix( tr( " pt" ) );
 	LineW->setMaxValue( 300 );
@@ -494,9 +482,8 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	Fonts->setMaximumSize(190, 30);
 	layout41->addMultiCellWidget( Fonts, 0, 0, 0, 1 );
 
-	Text20 = new QLabel( page_3, "Text20" );
-	Text20->setText( tr("Font Size:"));
-	layout41->addWidget( Text20, 1, 0 );
+	fontsizeLabel = new QLabel( tr("Font Size:"), page_3, "fontsizeLabel" );
+	layout41->addWidget( fontsizeLabel, 1, 0 );
 	Size = new MSpinBox( page_3, 1 );
 	Size->setPrefix( "" );
 	Size->setSuffix( tr( " pt" ) );
@@ -506,8 +493,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	layout46->addLayout( layout41 );
 
 	layout22 = new QHBoxLayout( 0, 0, 5, "layout22");
-	ScaleTxt = new QLabel( page_3, "ScaleTxt" );
-	ScaleTxt->setText( tr("Width:"));
+	ScaleTxt = new QLabel( tr("Width:"), page_3, "ScaleTxt" );
 	layout22->addWidget( ScaleTxt );
 	ChScale = new QSpinBox( page_3, "ChScale" );
 	ChScale->setMaxValue( 400 );
@@ -518,8 +504,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	layout46->addLayout( layout22 );
 
 	layout23 = new QHBoxLayout( 0, 0, 5, "layout23");
-	StrokeIcon = new QLabel( page_3, "StrokeIcon" );
-	StrokeIcon->setText("");
+	StrokeIcon = new QLabel( "", page_3, "StrokeIcon" );
 	StrokeIcon->setPixmap(loadIcon("Stiftalt.xpm"));
 	StrokeIcon->setScaledContents( false );
 	layout23->addWidget( StrokeIcon );
@@ -528,15 +513,13 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	layout23->addWidget( TxStroke );
 	QSpacerItem* spacer2S = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout23->addItem( spacer2S );
-	ShadeTxt1 = new QLabel( page_3, "ShadeTxt" );
-	ShadeTxt1->setText( tr( "Shade:" ) );
+	ShadeTxt1 = new QLabel( tr( "Shade:" ), page_3, "ShadeTxt" );
 	layout23->addWidget( ShadeTxt1 );
 	PM1 = new ShadeButton(page_3);
 	layout23->addWidget( PM1 );
 	layout46->addLayout( layout23 );
 	layout24 = new QHBoxLayout( 0, 0, 5, "layout24");
-	FillIcon = new QLabel( page_3, "FillIcon" );
-	FillIcon->setText("");
+	FillIcon = new QLabel( "", page_3, "FillIcon" );
 	FillIcon->setPixmap(loadIcon("fill.png"));
 	FillIcon->setScaledContents( false );
 	layout24->addWidget( FillIcon );
@@ -545,8 +528,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	layout24->addWidget( TxFill );
 	QSpacerItem* spacer2Sf = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout24->addItem( spacer2Sf );
-	ShadeTxt2 = new QLabel( page_3, "ShadeTxt" );
-	ShadeTxt2->setText( tr( "Shade:" ) );
+	ShadeTxt2 = new QLabel( tr( "Shade:" ), page_3, "ShadeTxt" );
 	layout24->addWidget( ShadeTxt2 );
 	PM2 = new ShadeButton(page_3);
 	layout24->addWidget( PM2 );
@@ -570,8 +552,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	GroupAlign = new AlignSelect(page_3);
 	pageLayout_3->addWidget( GroupAlign );
 
-	GroupBox3 = new QGroupBox( page_3, "GroupBox3" );
-	GroupBox3->setTitle( tr( "Custom Spacing" ) );
+	GroupBox3 = new QGroupBox( tr( "Custom Spacing" ), page_3, "GroupBox3" );
 	GroupBox3->setColumnLayout(0, Qt::Vertical );
 	GroupBox3->layout()->setSpacing( 2 );
 	GroupBox3->layout()->setMargin( 5 );
@@ -586,28 +567,24 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	Extra->setSuffix( tr( " pt" ) );
 	GroupBox3Layout->addWidget( Extra, 0, 1 );
 
-	Text5 = new QLabel( GroupBox3, "Text5" );
-	Text5->setText( tr( "Kerning:" ) );
-	GroupBox3Layout->addWidget( Text5, 0, 0 );
+	kerningLabel = new QLabel( tr( "Kerning:" ), GroupBox3, "kerningLabel" );
+	GroupBox3Layout->addWidget( kerningLabel, 0, 0 );
 
-	Text6 = new QLabel( GroupBox3, "Text6" );
-	Text6->setText( tr( "Line Spacing:" ) );
+	linespacingLabel = new QLabel( tr( "Line Spacing:" ), GroupBox3, "linespacingLabel" );
+	GroupBox3Layout->addWidget( linespacingLabel, 1, 0 );
 
-	GroupBox3Layout->addWidget( Text6, 1, 0 );
 	pageLayout_3->addWidget( GroupBox3 );
 
 	GroupBox3aLayout = new QGridLayout( 0, 1, 1, 0, 5, "Layout25");
-	StilT = new QLabel( page_3, "Stil" );
-	StilT->setText( tr("Style:"));
-	GroupBox3aLayout->addWidget( StilT, 0, 0 );
+	styleLabel = new QLabel( tr("Style:"), page_3, "styleLabel" );
+	GroupBox3aLayout->addWidget( styleLabel, 0, 0 );
 	Spal = new Spalette(page_3);
 	GroupBox3aLayout->addWidget( Spal, 0, 1 );
-	SprachT = new QLabel( page_3, "Sprache" );
-	SprachT->setText( tr("Language:"));
-	GroupBox3aLayout->addWidget( SprachT, 1, 0 );
-	LangCombo = new QComboBox( true, page_3, "Lang" );
-	LangCombo->setEditable(false);
-	GroupBox3aLayout->addWidget( LangCombo, 1, 1 );
+	langLabel = new QLabel( tr("Language:"), page_3, "langLabel" );
+	GroupBox3aLayout->addWidget( langLabel, 1, 0 );
+	langCombo = new QComboBox( true, page_3, "Lang" );
+	langCombo->setEditable(false);
+	GroupBox3aLayout->addWidget( langCombo, 1, 1 );
 	pageLayout_3->addLayout(GroupBox3aLayout);
 
 	QSpacerItem* spacer8 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
@@ -623,27 +600,23 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	pageLayout_4->addWidget( FreeScale );
 
 	layout43 = new QGridLayout( 0, 1, 1, 0, 5, "layout43");
-	Text11 = new QLabel( page_4, "Text11" );
-	Text11->setText( tr( "X-Pos.:" ) );
-	layout43->addWidget( Text11, 0, 0 );
+	xposImgLabel = new QLabel( tr( "X-Pos.:" ), page_4, "xposImgLabel" );
+	layout43->addWidget( xposImgLabel, 0, 0 );
 	LXpos = new MSpinBox( page_4, 2 );
 	LXpos->setSuffix( tr( " pt" ) );
 	layout43->addWidget( LXpos, 0, 1 );
-	Text11a = new QLabel( page_4, "Text11a" );
-	Text11a->setText( tr( "Y-Pos.:" ) );
-	layout43->addWidget( Text11a, 1, 0 );
+	yposImgLabel = new QLabel( tr( "Y-Pos.:" ), page_4, "yposImgLabel" );
+	layout43->addWidget( yposImgLabel, 1, 0 );
 	LYpos = new MSpinBox( page_4, 2 );
 	LYpos->setSuffix( tr( " pt" ) );
 	layout43->addWidget( LYpos, 1, 1 );
-	Text12 = new QLabel( page_4, "Text12" );
-	Text12->setText( tr( "X-Scale:" ) );
-	layout43->addWidget( Text12, 2, 0 );
+	xscaleLabel = new QLabel( tr( "X-Scale:" ), page_4, "xscaleLabel" );
+	layout43->addWidget( xscaleLabel, 2, 0 );
 	ScaleX = new MSpinBox( page_4, 1 );
 	ScaleX->setSuffix( tr( " %" ) );
 	layout43->addWidget( ScaleX, 2, 1 );
-	Text13 = new QLabel( page_4, "Text13" );
-	Text13->setText( tr( "Y-Scale:" ) );
-	layout43->addWidget( Text13, 3, 0 );
+	yscaleLabel = new QLabel( tr( "Y-Scale:" ), page_4, "yscaleLabel" );
+	layout43->addWidget( yscaleLabel, 3, 0 );
 	ScaleY = new MSpinBox( page_4, 1 );
 	ScaleY->setSuffix( tr( " %" ) );
 	layout43->addWidget( ScaleY, 3, 1 );
@@ -678,8 +651,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	Layout24->addLayout( Layout18 );
 	pageLayout_4->addLayout( Layout24 );
 
-	GroupBoxCM = new QGroupBox( page_4, "GroupBoxcm" );
-	GroupBoxCM->setTitle("");
+	GroupBoxCM = new QGroupBox( "", page_4, "GroupBoxcm" );
 	GroupBoxCM->setColumnLayout(0, Qt::Vertical );
 	GroupBoxCM->layout()->setSpacing( 2 );
 	GroupBoxCM->layout()->setMargin( 5 );
@@ -687,14 +659,12 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	GroupBoxCM->setFrameShadow( QFrame::Plain );
 	GroupBoxCMLayout = new QVBoxLayout( GroupBoxCM->layout() );
 	GroupBoxCMLayout->setAlignment( Qt::AlignTop );
-	TextCms1 = new QLabel( GroupBoxCM, "Text1" );
-	TextCms1->setText( tr( "Input Profile:" ) );
+	TextCms1 = new QLabel( tr( "Input Profile:" ), GroupBoxCM, "xposLabel" );
 	GroupBoxCMLayout->addWidget( TextCms1 );
 	InputP = new QComboBox( true, GroupBoxCM, "InputP" );
 	InputP->setEditable(false);
 	GroupBoxCMLayout->addWidget(InputP);
-	TextCms2 = new QLabel( GroupBoxCM, "Text2" );
-	TextCms2->setText( tr( "Rendering Intent:" ) );
+	TextCms2 = new QLabel( tr( "Rendering Intent:" ), GroupBoxCM, "TextCms2" );
 	GroupBoxCMLayout->addWidget(TextCms2);
 	MonitorI = new QComboBox( true, GroupBoxCM, "MonitorI" );
 	MonitorI->insertItem( tr( "Perceptual" ) );
@@ -713,8 +683,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	pageLayout_5 = new QVBoxLayout( page_5, 0, 5, "pageLayout_5");
 
 	Layout13_2 = new QHBoxLayout( 0, 0, 4, "Layout13_2");
-	LineModeT = new QLabel( page_5, "LModeText" );
-	LineModeT->setText( tr( "Basepoint:" ) );
+	LineModeT = new QLabel( tr( "Basepoint:" ), page_5, "LModeText" );
 	Layout13_2->addWidget( LineModeT );
 	LineMode = new QComboBox( true, page_5, "LMode" );
 	LineMode->setEditable(false);
@@ -727,29 +696,25 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	pageLayout_5->addLayout( Layout13_2 );
 
 	Layout12_2 = new QGridLayout( 0, 1, 1, 0, 3, "Layout12_2");
-	Text8 = new QLabel( page_5, "Text8" );
-	Text8->setText( tr( "Type of Line:" ) );
-	Layout12_2->addWidget( Text8, 0, 0 );
+	linetypeLabel = new QLabel( tr( "Type of Line:" ), page_5, "linetypeLabel" );
+	Layout12_2->addWidget( linetypeLabel, 0, 0 );
 	LStyle = new LineCombo(page_5);
 	Layout12_2->addWidget( LStyle, 1, 0 );
-	TextLabel1 = new QLabel( page_5, "TextLabel1" );
-	TextLabel1->setText( tr( "Line Width:" ) );
-	Layout12_2->addWidget( TextLabel1, 2, 0 );
+	linewidthLabel = new QLabel(tr( "Line Width:" ), page_5, "linewidthLabel" );
+	Layout12_2->addWidget( linewidthLabel, 2, 0 );
 	LSize = new MSpinBox( page_5, 1 );
 	LSize->setSuffix( tr( " pt" ) );
 	Layout12_2->addWidget( LSize, 3, 0 );
-	Text9 = new QLabel( page_5, "Text9" );
-	Text9->setText( tr( "Edges:" ) );
-	Layout12_2->addWidget( Text9, 4, 0 );
+	edgesLabel = new QLabel( tr( "Edges:" ), page_5, "edgesLabel" );
+	Layout12_2->addWidget( edgesLabel, 4, 0 );
 	LJoinStyle = new QComboBox( true, page_5, "LJoin" );
 	LJoinStyle->setEditable(false);
 	LJoinStyle->insertItem(loadIcon("MiterJoin.png"), tr( "Miter Join" ) );
 	LJoinStyle->insertItem(loadIcon("BevelJoin.png"), tr( "Bevel Join" ) );
 	LJoinStyle->insertItem(loadIcon("RoundJoin.png"), tr( "Round Join" ) );
 	Layout12_2->addWidget( LJoinStyle, 5, 0 );
-	Text10 = new QLabel( page_5, "Text10" );
-	Text10->setText( tr( "Endings:" ) );
-	Layout12_2->addWidget( Text10, 6, 0 );
+	endingsLabel = new QLabel( tr( "Endings:" ), page_5, "endingsLabel" );
+	Layout12_2->addWidget( endingsLabel, 6, 0 );
 	LEndStyle = new QComboBox( true, page_5, "LCap" );
 	LEndStyle->setEditable(false);
 	LEndStyle->insertItem(loadIcon("ButtCap.png"), tr( "Flat Cap" ) );
@@ -770,8 +735,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 
 	page_5b = new QWidget( TabStack3, "page" );
 	pageLayout_5b = new QVBoxLayout( page_5b, 0, 5, "pageLayout_5a");
-	TLines = new QGroupBox( page_5b, "Distance" );
-	TLines->setTitle( tr( "Cell Lines" ) );
+	TLines = new QGroupBox( tr( "Cell Lines" ), page_5b, "Distance" );
 	TLines->setColumnLayout(0, Qt::Vertical );
 	TLines->layout()->setSpacing( 2 );
 	TLines->layout()->setMargin( 5 );
@@ -796,13 +760,14 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	Cpal = new Cpalette(this);
 	TabStack->addWidget(Cpal, 5);
 	MpalLayout->addWidget( TabStack );
+
 	QToolTip::add( NameEdit, tr( "Name of selected object" ) );
 	QToolTip::add( Xpos, tr( "Horizontal position of current basepoint" ) );
 	QToolTip::add( Ypos, tr( "Vertical position of current basepoint" ) );
 	QToolTip::add( Width, tr( "Width" ) );
 	QToolTip::add( Height, tr( "Height" ) );
 	QToolTip::add( Rot, tr( "Rotation of object at current basepoint" ) );
-	QToolTip::add( Text3r, tr( "Point from which measurements or rotation angles are referenced" ) );
+	QToolTip::add( basepointLabel, tr( "Point from which measurements or rotation angles are referenced" ) );
 	QToolTip::add( TopLeft, tr( "Select top left for basepoint" ) );
 	QToolTip::add( TopRight, tr( "Select top right for basepoint" ) );
 	QToolTip::add( BottomLeft, tr( "Select bottom left for basepoint" ) );
@@ -832,7 +797,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	QToolTip::add( Extra, tr( "Manual Kerning" ) );
 	QToolTip::add( LineSp, tr( "Line Spacing" ) );
 	QToolTip::add( Spal, tr( "Style of current paragraph" ) );
-	QToolTip::add( LangCombo, tr( "Language of object" ) );
+	QToolTip::add( langCombo, tr( "Language of object" ) );
 
 	QToolTip::add( LineMode, tr( "Change settings for left or end points" ) );
 	QToolTip::add( LStyle, tr( "Pattern of line" ) );
@@ -845,7 +810,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	QToolTip::add( EditShape, tr( "Edit shape of the frame..." ) );
 	QToolTip::add( RoundRect, tr( "Set radius of corner rounding" ) );
 	QToolTip::add( DCol, tr( "Number of columns in text frame" ) );
-	QToolTip::add( Text14b, tr("Switches between Gap or Column width"));
+	QToolTip::add( colgapLabel, tr("Switches between Gap or Column width"));
 	QToolTip::add( DGap, tr( "Distance between columns" ) );
 	QToolTip::add( DTop, tr( "Distance of text from top of frame" ) );
 	QToolTip::add( DBottom, tr( "Distance of text from bottom of frame" ) );
@@ -907,7 +872,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	connect(DLeft, SIGNAL(valueChanged(int)), this, SLOT(NewTDist()));
 	connect(DRight, SIGNAL(valueChanged(int)), this, SLOT(NewTDist()));
 	connect(DBottom, SIGNAL(valueChanged(int)), this, SLOT(NewTDist()));
-	connect(buttonGroup5, SIGNAL(clicked(int)), this, SLOT(SelTab(int)));
+	connect(proppalButtonGrp, SIGNAL(clicked(int)), this, SLOT(SelTab(int)));
 	connect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
 	connect(Fonts, SIGNAL(activated(int)), this, SLOT(NewTFont(int)));
 	connect(TxFill, SIGNAL(activated(int)), this, SLOT(newTxtFill()));
@@ -918,19 +883,19 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	connect(Locked, SIGNAL(clicked()), this, SLOT(handleLock()));
 	connect(NoPrint, SIGNAL(clicked()), this, SLOT(handlePrint()));
 	connect(NoResize, SIGNAL(clicked()), this, SLOT(handleResize()));
-	connect(NormText2, SIGNAL(clicked()), this, SLOT(handlePathLine()));
+	connect(showcurveCheckBox, SIGNAL(clicked()), this, SLOT(handlePathLine()));
 	connect(Dist, SIGNAL(valueChanged(int)), this, SLOT(handlePathDist()));
 	connect(LineW, SIGNAL(valueChanged(int)), this, SLOT(handlePathOffs()));
 	connect(InputP, SIGNAL(activated(const QString&)), this, SLOT(ChProf(const QString&)));
 	connect(MonitorI, SIGNAL(activated(int)), this, SLOT(ChIntent()));
 	connect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
-	connect(LangCombo, SIGNAL(activated(int)), this, SLOT(NewLanguage()));
+	connect(langCombo, SIGNAL(activated(int)), this, SLOT(NewLanguage()));
 	connect( TabsButton, SIGNAL( clicked() ), this, SLOT( ManageTabs() ) );
 	connect( TopLine, SIGNAL( clicked() ), this, SLOT( HandleTLines() ) );
 	connect( LeftLine, SIGNAL( clicked() ), this, SLOT( HandleTLines() ) );
 	connect( RightLine, SIGNAL( clicked() ), this, SLOT( HandleTLines() ) );
 	connect( BottomLine, SIGNAL( clicked() ), this, SLOT( HandleTLines() ) );
-	connect( Text14b, SIGNAL( clicked() ), this, SLOT( HandleGapSwitch() ) );
+	connect( colgapLabel, SIGNAL( clicked() ), this, SLOT( HandleGapSwitch() ) );
 	connect( Cpal, SIGNAL(NewSpecial(double, double, double, double )), this, SLOT(NewSpGradient(double, double, double, double )));
 	HaveItem = false;
 	Xpos->setValue(0);
@@ -1076,7 +1041,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	DCol->setMinValue(1);
 	DGap->setMinValue(0);
 	DCol->setValue(i->Cols);
-	if (Text14b->getState())
+	if (colgapLabel->getState())
 	{
 		DGap->setMaxValue(QMAX((i->Width / i->Cols - i->Extra - i->RExtra)*UmReFaktor, 0));
 		DGap->setValue(i->ColGap*UmReFaktor);
@@ -1100,7 +1065,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	Textflow->setChecked(i->Textflow);
 	Textflow2->setChecked(i->Textflow2);
 	ToggleFlow();
-	LangCombo->setCurrentText(i->Language);
+	langCombo->setCurrentText(i->Language);
 	bool setter;
 	if (i->NamedLStyle == "")
 	{
@@ -1158,7 +1123,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	if (i->PType == 8)
 	{
 		TabStack2->raiseWidget(1);
-		NormText2->setChecked(i->PoShow);
+		showcurveCheckBox->setChecked(i->PoShow);
 		LineW->setValue(i->BaseOffs * -1);
 		Dist->setValue(i->Extra);
 	}
@@ -1173,37 +1138,31 @@ void Mpalette::SetCurItem(PageItem *i)
 		else
 			RoundRect->setEnabled(false);
 	}
+
+	if ((i->PType == 5) && LMode) {
+		xposLabel->setText( tr( "X1:" ) );
+		widthLabel->setText( tr( "X2:" ) );
+		yposLabel->setText( tr( "Y1:" ) );
+		heightLabel->setText( tr( "Y2:" ) );
+		Rot->setEnabled(false);
+	} else {
+		xposLabel->setText( tr( "X-Pos:" ) );
+		widthLabel->setText( tr( "Width:" ) );
+		yposLabel->setText( tr( "Y-Pos:" ) );
+		heightLabel->setText( tr( "Height:" ) );
+		Rot->setEnabled(true);
+	}
+
 	if (i->PType == 5)
 	{
 		Kette2->setEnabled(false);
 		if (LMode)
-		{
-			Text1->setText( tr( "X1:" ) );
-			Text2->setText( tr( "X2:" ) );
-			Text1a->setText( tr( "Y1:" ) );
-			Text2a->setText( tr( "Y2:" ) );
-			Rot->setEnabled(false);
 			Height->setEnabled(true);
-		}
 		else
-		{
-			Text1->setText( tr( "X-Pos:" ) );
-			Text2->setText( tr( "Width:" ) );
-			Text1a->setText( tr( "Y-Pos:" ) );
-			Text2a->setText( tr( "Height:" ) );
-			Rot->setEnabled(true);
 			Height->setEnabled(false);
-		}
-		HaveItem = true;
-		return;
 	}
 	else
 	{
-		Text1->setText( tr( "X-Pos:" ) );
-		Text2->setText( tr( "Width:" ) );
-		Text1a->setText( tr( "Y-Pos:" ) );
-		Text2a->setText( tr( "Height:" ) );
-		Rot->setEnabled(true);
 		Kette2->setEnabled(true);
 		if (i->PType == 2)
 		{
@@ -1244,10 +1203,10 @@ void Mpalette::NewSel(int nr)
 			doc->ActPage->RCenter = FPoint(gx, gy + gh);
 		if (BottomRight->isChecked())
 			doc->ActPage->RCenter = FPoint(gx + gw, gy + gh);
-		Text1->setText( tr( "X-Pos:" ) );
-		Text2->setText( tr( "Width:" ) );
-		Text1a->setText( tr( "Y-Pos:" ) );
-		Text2a->setText( tr( "Height:" ) );
+		xposLabel->setText( tr( "X-Pos:" ) );
+		widthLabel->setText( tr( "Width:" ) );
+		yposLabel->setText( tr( "Y-Pos:" ) );
+		heightLabel->setText( tr( "Height:" ) );
 		HaveItem = false;
 		Xpos->setValue(0);
 		Ypos->setValue(0);
@@ -1291,10 +1250,10 @@ void Mpalette::NewSel(int nr)
 		switch (nr)
 		{
 		case -1:
-			Text1->setText( tr( "X-Pos:" ) );
-			Text2->setText( tr( "Width:" ) );
-			Text1a->setText( tr( "Y-Pos:" ) );
-			Text2a->setText( tr( "Height:" ) );
+			xposLabel->setText( tr( "X-Pos:" ) );
+			widthLabel->setText( tr( "Width:" ) );
+			yposLabel->setText( tr( "Y-Pos:" ) );
+			heightLabel->setText( tr( "Height:" ) );
 			Rot->setEnabled(true);
 			Height->setEnabled(true);
 			HaveItem = false;
@@ -1664,7 +1623,7 @@ void Mpalette::setCols(int r, double g)
 	if (tmp)
 	{
 		DCol->setMaxValue(QMAX(qRound(CurItem->Width / QMAX(CurItem->ColGap, 10.0)), 1));
-		if (Text14b->getState())
+		if (colgapLabel->getState())
 		{
 			DGap->setMaxValue(QMAX((CurItem->Width / CurItem->Cols - CurItem->Extra - CurItem->RExtra)*UmReFaktor, 0));
 			DGap->setValue(CurItem->ColGap*UmReFaktor);
@@ -2253,7 +2212,7 @@ void Mpalette::HandleGapSwitch()
 	{
 		setCols(CurItem->Cols, CurItem->ColGap);
 		QToolTip::remove(DGap);
-		if (Text14b->getState())
+		if (colgapLabel->getState())
 			QToolTip::add( DGap, tr( "Distance between columns" ) );
 		else
 			QToolTip::add( DGap, tr( "Column width" ) );
@@ -2279,7 +2238,7 @@ void Mpalette::NewGap()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		if (Text14b->getState())
+		if (colgapLabel->getState())
 			CurItem->ColGap = DGap->value() / UmReFaktor;
 		else
 		{
@@ -2401,20 +2360,20 @@ void Mpalette::NewLMode()
 		return;
 	if (LineMode->currentItem() == 0)
 	{
-		Text1->setText( tr( "X-Pos:" ) );
-		Text2->setText( tr( "Width:" ) );
-		Text1a->setText( tr( "Y-Pos:" ) );
-		Text2a->setText( tr( "Height:" ) );
+		xposLabel->setText( tr( "X-Pos:" ) );
+		widthLabel->setText( tr( "Width:" ) );
+		yposLabel->setText( tr( "Y-Pos:" ) );
+		heightLabel->setText( tr( "Height:" ) );
 		Rot->setEnabled(true);
 		Height->setEnabled(false);
 		LMode = false;
 	}
 	else
 	{
-		Text1->setText( tr( "X1:" ) );
-		Text2->setText( tr( "X2:" ) );
-		Text1a->setText( tr( "Y1:" ) );
-		Text2a->setText( tr( "Y2:" ) );
+		xposLabel->setText( tr( "X1:" ) );
+		widthLabel->setText( tr( "X2:" ) );
+		yposLabel->setText( tr( "Y1:" ) );
+		heightLabel->setText( tr( "Y2:" ) );
 		Rot->setEnabled(false);
 		Height->setEnabled(true);
 		LMode = true;
@@ -3111,7 +3070,7 @@ void Mpalette::handlePathLine()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		CurItem->PoShow = NormText2->isChecked();
+		CurItem->PoShow = showcurveCheckBox->isChecked();
 		doc->ActPage->RefreshItem(CurItem);
 		emit DocChanged();
 	}
@@ -3188,22 +3147,22 @@ void Mpalette::NewName()
 	}
 }
 
-void Mpalette::fillLangCombo(QMap<QString,QString> Sprachen)
+void Mpalette::fillLangCombo(QMap<QString,QString> langMap)
 {
 	if (ScApp->ScriptRunning)
 		return;
-	LangCombo->clear();
+	langCombo->clear();
 	QMap<QString,QString>::Iterator it;
-	for (it = Sprachen.begin(); it != Sprachen.end(); ++it)
-		LangCombo->insertItem(it.key());
-	LangCombo->listBox()->setMinimumWidth(LangCombo->listBox()->maxItemWidth()+24);
+	for (it = langMap.begin(); it != langMap.end(); ++it)
+		langCombo->insertItem(it.key());
+	langCombo->listBox()->setMinimumWidth(langCombo->listBox()->maxItemWidth()+24);
 }
 
 void Mpalette::NewLanguage()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
-		CurItem->Language = LangCombo->currentText();
+		CurItem->Language = langCombo->currentText();
 		emit DocChanged();
 	}
 }

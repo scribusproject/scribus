@@ -56,7 +56,7 @@ About::About( QWidget* parent )
 	tabLayout1->addWidget( PixmapLabel1 );
 	BuildID = new QLabel( tab, "BB" );
 	BuildID->setAlignment(Qt::AlignCenter);
-	QString bu = tr("%1. %2 %3 ").arg("04").arg("July").arg("2004");
+	QString bu = tr("%1. %2 %3 ").arg("12").arg("July").arg("2004");
 #ifdef HAVE_CMS
 	bu += "C";
 #else
@@ -199,7 +199,7 @@ About::About( QWidget* parent )
 	TextView4 = new QTextView( tab_4, "TextView4" );
 	TextView4->setText(QString::fromUtf8(
 		"<table><tr><td><b>" + tr("Homepage and online reference").utf8() + "</b></td><td></td></tr>" +
-		"<tr><td colspan=\"2\"><p><a href=\"http://scribus.net\">http://scribus.net</a></p></td></tr>" +
+		"<tr><td colspan=\"2\"><p><a href=\"http://www.scribus.net\">http://www.scribus.net</a></p></td></tr>" +
 		"<tr><td><b>" + tr("Mailing list").utf8() + "</b></td><td></td></tr>" +
 		"<tr><td colspan=\"2\"><p><a href=\"http://nashi.altmuehlnet.de/mailman/listinfo/scribus\">http://nashi.altmuehlnet.de/mailman/listinfo/scribus</a></p></td></tr>" +
 		"<tr><td><b>" + tr("Bugs and feature requests").utf8() + "</b></td><td></td></tr>" +

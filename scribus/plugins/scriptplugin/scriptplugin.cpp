@@ -233,11 +233,15 @@ void MenuTest::slotRunScriptFile(QString fileName)
 	QString cres = QString(PyString_AsString(strres));
 	// just tell the truth :)
 	if (cres.length() > 0)
+	{
+		QClipboard *cp = QApplication::clipboard();
+		cp->setText(cres);
 		QMessageBox::warning(Carrier,
 		                     tr("Script error"),
 		                     tr("If you are running an official script report it at <a href=\"http://bugs.scribus.net\">bugs.scribus.net</a> please.")
-		                     + "<br><br>"
-		                     + cres);
+		                     + "<pre>"
+		                     + cres + "</pre>" + tr("This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker."));
+	}
 	Py_EndInterpreter(state);
 	PyEval_RestoreThread(stateo);
 	Carrier->ScriptRunning = false;
@@ -386,6 +390,8 @@ static PyObject *scribus_getval(PyObject *self, PyObject* args)
 
 static PyMethodDef scribus_methods[] = {
 // petr's stuff
+	{"LockObject", scribus_lockobject, METH_VARARGS},
+	{"IsLocked", scribus_islocked, METH_VARARGS},
 	{"ObjectExists",						scribus_objectexists,					METH_VARARGS},
 	{"GetPageItems",					scribus_getpageitems,				METH_VARARGS},
 	{"TextFlowsAroundFrame",		scribus_textflow,						METH_VARARGS},

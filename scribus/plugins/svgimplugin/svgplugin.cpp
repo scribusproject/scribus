@@ -672,7 +672,15 @@ QWMatrix SVGPlug::parseTransform( const QString &transform )
 		else if(subtransform[0] == "matrix")
 		{
 			if(params.count() >= 6)
-				result.setMatrix(params[0].toDouble(), params[1].toDouble(), params[2].toDouble(), params[3].toDouble(), params[4].toDouble(), params[5].toDouble());
+			{
+				double sx = params[0].toDouble();
+				if (sx == 0)
+					sx = 1.0;
+				double sy = params[3].toDouble();
+				if (sy == 0)
+					sy = 1.0;
+				result.setMatrix(sx, params[1].toDouble(), params[2].toDouble(), sy, params[4].toDouble(), params[5].toDouble());
+			}
 		}
 	}
 	return result;

@@ -17,6 +17,9 @@ PyObject *scribus_ungroupobj(PyObject *self, PyObject* args);
 PyObject *scribus_scalegroup(PyObject *self, PyObject* args);
 PyObject *scribus_loadimage(PyObject *self, PyObject* args);
 PyObject *scribus_scaleimage(PyObject *self, PyObject* args);
-
+/** (Un)Lock the object
+2004/7/10 pv.*/
+PyObject *scribus_lockobject(PyObject *self, PyObject* args);
+PyObject *scribus_islocked(PyObject *self, PyObject* args);
 #endif
 

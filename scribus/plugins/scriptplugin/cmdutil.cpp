@@ -135,9 +135,13 @@ void ReplaceColor(QString col, QString rep)
 	}
 }
 
+/* 04/07/10 returns selection if is not name specified  pv  */
 PageItem* GetUniqueItem(QString name)
 {
 	if (name.length()==0)
+		if (Carrier->doc->ActPage->SelItem.count() != 0)
+			return Carrier->doc->ActPage->SelItem.at(0);
+	if (name.length()==0) // in the case of no selection and ""
 		return NULL;
 	for (uint i = 0; i<Carrier->view->Pages.count(); i++)
 	{
@@ -149,4 +153,3 @@ PageItem* GetUniqueItem(QString name)
 	} // for pages
 	return NULL;
 }
-

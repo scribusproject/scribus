@@ -53,7 +53,8 @@ nftdialog::nftdialog(QWidget* parent, QString lang) : QDialog(parent, "nftdialog
 	tnailGrid->setItemsMovable(false);
 	
 	popUp = new QPopupMenu(tnailGrid, "popUp");
-	popUp->insertItem(tr("Remove"), this, SLOT(removeTemplate()));
+	popUp->insertItem(tr("&Remove"), this, SLOT(removeTemplate()));
+	popUp->insertItem(tr("&Open"), this, SLOT(exitOK()));
 	
 	QWidget* dtTmp = new QWidget(splitter, "dtTmp", 0);
 	dtTmp->setMinimumWidth(235);
@@ -130,6 +131,7 @@ nftdialog::nftdialog(QWidget* parent, QString lang) : QDialog(parent, "nftdialog
 	connect(okButton, SIGNAL(clicked()), this, SLOT(exitOK()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(exitCancel()));
 	connect(tnailGrid, SIGNAL(selectionChanged(QIconViewItem*)),this,SLOT(setInfo(QIconViewItem*)));
+	connect(tnailGrid, SIGNAL(doubleClicked(QIconViewItem*)),this,SLOT(exitOK()));
 	connect(tnailGrid, SIGNAL(rightButtonPressed(QIconViewItem*, const QPoint&)), 
 	        this, SLOT(showPopup(QIconViewItem*, const QPoint&)));
 	

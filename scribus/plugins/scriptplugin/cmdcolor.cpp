@@ -9,7 +9,10 @@ PyObject *scribus_colornames(PyObject *self, PyObject* args)
 	PyObject *l;
 	int cc = 0;
 	if (!PyArg_ParseTuple(args, ""))
+	{
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("GetColorNames()"));
 		return NULL;
+	}
 	edc = Carrier->HaveDoc ? Carrier->doc->PageColors : Carrier->Prefs.DColors;
 	CListe::Iterator it;
 	l = PyList_New(edc.count());
@@ -27,7 +30,10 @@ PyObject *scribus_getcolor(PyObject *self, PyObject* args)
 	char *Name = "";
 	int c, m, y, k;
 	if (!PyArg_ParseTuple(args, "s", &Name))
+	{
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("GetColor(name)"));
 		return NULL;
+	}
 	if (Name == "")
 		return Py_BuildValue("(iiii)", 0, 0, 0, 0);
 	edc = Carrier->HaveDoc ? Carrier->doc->PageColors : Carrier->Prefs.DColors;
@@ -43,23 +49,26 @@ PyObject *scribus_setcolor(PyObject *self, PyObject* args)
 	char *Name = "";
 	int c, m, y, k;
 	if (!PyArg_ParseTuple(args, "siiii", &Name, &c, &m, &y, &k))
+	{
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("ChangeColor(colorname, c, m, y, k)"));
 		return NULL;
+	}
 	Py_INCREF(Py_None);
 	if (Name == "")
 		return Py_None;
 	QString col = QString(Name);
 	if (Carrier->HaveDoc)
-		{
+	{
 		if (!Carrier->doc->PageColors.contains(col))
 			return Py_None;
-  	Carrier->doc->PageColors[col].setColor(c, m, y, k);
-		}
+		Carrier->doc->PageColors[col].setColor(c, m, y, k);
+	}
 	else
-		{
+	{
 		if (!Carrier->Prefs.DColors.contains(col))
 			return Py_None;
 		Carrier->Prefs.DColors[col].setColor(c, m, y, k);
-		}
+	}
 	return Py_None;
 }
 
@@ -68,7 +77,10 @@ PyObject *scribus_newcolor(PyObject *self, PyObject* args)
 	char *Name = "";
 	int c, m, y, k;
 	if (!PyArg_ParseTuple(args, "siiii", &Name, &c, &m, &y, &k))
+	{
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("DefineColor(colorname, c, m, y, k)"));
 		return NULL;
+	}
 	Py_INCREF(Py_None);
 	if (Name == "")
 		return Py_None;
@@ -95,7 +107,10 @@ PyObject *scribus_delcolor(PyObject *self, PyObject* args)
 	char *Name = "";
 	char *Repl = "None";
 	if (!PyArg_ParseTuple(args, "s|s", &Name, &Repl))
+	{
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("DeleteColor(colorname [, replacewithname])"));
 		return NULL;
+	}
 	Py_INCREF(Py_None);
 	if (Name == "")
 		return Py_None;
@@ -122,7 +137,10 @@ PyObject *scribus_replcolor(PyObject *self, PyObject* args)
 	char *Name = "";
 	char *Repl = "None";
 	if (!PyArg_ParseTuple(args, "s|s", &Name, &Repl))
+	{
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("ReplaceColor(colorname [, replacewithname])"));
 		return NULL;
+	}
 	Py_INCREF(Py_None);
 	if (Name == "")
 		return Py_None;

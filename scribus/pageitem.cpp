@@ -474,17 +474,23 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 			if ((Pcolor != "None") || (GrType != 0))
 			{
 				FPointArray cli;
+				FPoint Start;
+				bool firstp = true;
 				for (uint n = 0; n < PoLine.size()-3; n += 4)
 				{
+					if (firstp)
+					{
+						Start = PoLine.point(n);
+						firstp = false;
+					}
 					if (PoLine.point(n).x() > 900000)
 					{
 						cli.addPoint(PoLine.point(n-2));
 						cli.addPoint(PoLine.point(n-2));
-						cli.addPoint(cli.point(0));
-						cli.addPoint(cli.point(0));
-						p->setupPolygon(&cli);
-						p->drawPolygon();
-						cli.resize(0);
+						cli.addPoint(Start);
+						cli.addPoint(Start);
+						cli.setMarker();
+						firstp = true;
 						continue;
 					}
 					cli.addPoint(PoLine.point(n));
@@ -497,11 +503,11 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					FPoint l1 = cli.point(cli.size()-2);
 					cli.addPoint(l1);
 					cli.addPoint(l1);
-					cli.addPoint(cli.point(0));
-					cli.addPoint(cli.point(0));
-					p->setupPolygon(&cli);
-					p->drawPolygon();
+					cli.addPoint(Start);
+					cli.addPoint(Start);
 				}
+				p->setupPolygon(&cli);
+				p->drawPolygon();
 			}
 			p->setupPolygon(&PoLine, false);
 			if (NamedLStyle == "")

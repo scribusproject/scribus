@@ -302,20 +302,6 @@ QPixmap ScPreview::createPreview(QString data)
 						tmpx += tmp2.at(cxx)+tmp3;
 					}
 				}
-				else
-				{
-					tmpx += QString(QChar(QStoInt(it.attribute("CH")))) + "\t";
-					tmpx += DoFonts[it.attribute("CFONT")] + "\t";
-					tmpx += it.attribute("CSIZE") + "\t";
-					tmpx += it.attribute("CCOLOR") + "\t";
-					tmpx += it.attribute("CEXTRA") + "\t";
-					tmpx += it.attribute("CSHADE") + "\t";
-					tmpx += it.attribute("CSTYLE") + "\t";
-					tmpx += "0\t";
-					tmpx += it.attribute("CSTROKE","None") + "\t";
-					tmpx += it.attribute("CSHADE2","100") + "\t";
-					tmpx += it.attribute("CSCALE","100") + "\n";
-				}
 				IT=IT.nextSibling();
 			}
 			OB.Ptext = tmpx;

@@ -1,5 +1,18 @@
 Changes since Version 1.1.7
 
+13.07.2004
+	* bug     #859: New File with Custom Page Size and mm, page size gets smaller when switching portrait and landscape
+	* feature #856: Translation update for German
+	* feature #857: Polish Translation Update
+
+11.07.2004
+	* bug     #852: import SVG, export PDF, import SVG again => crash
+	* feature #844: selecting importet eps text very slow and not nice
+
+08.07.2004
+	* bug     #849: Scribus mailing list seems seems to be down
+	* bug     #851: SVG import does not support paths properly
+
 04.07.2004
 	* bug     #844: selecting importet eps text very slow and not nice
 	* feature #578: one-click/keyboard for toggling off and on all dialogboxes+guides etc

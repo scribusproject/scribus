@@ -6,7 +6,10 @@
 PyObject *scribus_actualpage(PyObject *self, PyObject* args)
 {
 	if (!PyArg_ParseTuple(args, ""))
+	{
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("CurrentPage()"));
 		return NULL;
+	}
 	if (!Carrier->HaveDoc)
 		return PyInt_FromLong(0L);
 	return PyInt_FromLong(static_cast<long>(Carrier->doc->ActPage->PageNr + 1));
@@ -15,7 +18,10 @@ PyObject *scribus_actualpage(PyObject *self, PyObject* args)
 PyObject *scribus_redraw(PyObject *self, PyObject* args)
 {
 	if (!PyArg_ParseTuple(args, ""))
+	{
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("RedrawAll()"));
 		return NULL;
+	}
 	Py_INCREF(Py_None);
 	if (!Carrier->HaveDoc)
 		return Py_None;
@@ -27,7 +33,10 @@ PyObject *scribus_savepageeps(PyObject *self, PyObject* args)
 {
 	char *Name;
 	if (!PyArg_ParseTuple(args, "s", &Name))
+	{
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("SavePageAsEPS(filename)"));
 		return NULL;
+	}
 	if (!Carrier->HaveDoc)
 		return PyInt_FromLong(0L);
 	bool ret = Carrier->DoSaveAsEps(QString(Name));
@@ -39,7 +48,10 @@ PyObject *scribus_deletepage(PyObject *self, PyObject* args)
 {
 	int e;
 	if (!PyArg_ParseTuple(args, "i", &e))
+	{
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("DeletePage(pagenumber)"));
 		return NULL;
+	}
 	Py_INCREF(Py_None);
 	if (!Carrier->HaveDoc)
 		return Py_None;
@@ -55,7 +67,10 @@ PyObject *scribus_gotopage(PyObject *self, PyObject* args)
 {
 	int e;
 	if (!PyArg_ParseTuple(args, "i", &e))
+	{
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("GotoPage(pagenumber)"));
 		return NULL;
+	}
 	Py_INCREF(Py_None);
 	if (!Carrier->HaveDoc)
 		return Py_None;
@@ -72,7 +87,10 @@ PyObject *scribus_newpage(PyObject *self, PyObject* args)
 	int e;
 	char *name = "Normal";
 	if (!PyArg_ParseTuple(args, "i|s", &e, &name))
+	{
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("NewPage(pagenumber [, pagename])"));
 		return NULL;
+	}
 	Py_INCREF(Py_None);
 	if (!Carrier->HaveDoc)
 		return Py_None;
@@ -92,7 +110,10 @@ PyObject *scribus_newpage(PyObject *self, PyObject* args)
 PyObject *scribus_pagecount(PyObject *self, PyObject* args)
 {
 	if (!PyArg_ParseTuple(args, ""))
+	{
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("PageCount()"));
 		return NULL;
+	}
 	if (!Carrier->HaveDoc)
 		return PyInt_FromLong(0L);
 	return PyInt_FromLong(static_cast<long>(Carrier->view->Pages.count()));
@@ -100,14 +121,16 @@ PyObject *scribus_pagecount(PyObject *self, PyObject* args)
 
 PyObject *scribus_pagedimension(PyObject *self, PyObject *args)
 {
-	if (!PyArg_ParseTuple(args, "")) {
+	if (!PyArg_ParseTuple(args, ""))
+	{
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("PageDimension()"));
 		return NULL;
 	}
-	if (!Carrier->HaveDoc) {
-    Py_INCREF(Py_None);
+	if (!Carrier->HaveDoc)
+	{
+		Py_INCREF(Py_None);
 		return Py_None;
 	}
-	
 	PyObject *t;
 	t = Py_BuildValue(
 		"(dd)",
@@ -120,7 +143,10 @@ PyObject *scribus_pagedimension(PyObject *self, PyObject *args)
 PyObject *scribus_getpageitems(PyObject *self, PyObject* args)
 {
 	if (!PyArg_ParseTuple(args, ""))
+	{
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("GetPageItems()"));
 		return NULL;
+	}
 	if ((!Carrier->HaveDoc) || (Carrier->doc->ActPage->Items.count() == 0))
 		return Py_BuildValue((char*)"[]");
 	PyObject *l = PyList_New(Carrier->doc->ActPage->Items.count());
@@ -131,7 +157,7 @@ PyObject *scribus_getpageitems(PyObject *self, PyObject* args)
 				Carrier->doc->ActPage->Items.at(i)->AnName.ascii(),
 				Carrier->doc->ActPage->Items.at(i)->PType,
 				Carrier->doc->ActPage->Items.at(i)->ItemNr
-		);
+			);
 		PyList_SetItem(l, i, row);
 	} // for
 	return l;

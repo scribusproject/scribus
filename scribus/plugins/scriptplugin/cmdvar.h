@@ -7,6 +7,8 @@
 
 #include "scribus.h"
 
+#define ERRPARAM QObject::tr("Oook! Wrong arguments! Call: ")
+
 /* Static global Variables */
 extern ScribusApp* Carrier;
 

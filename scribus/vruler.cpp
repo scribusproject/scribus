@@ -65,6 +65,9 @@ void Vruler::paintEvent(QPaintEvent *)
 	double of, xl, iter, iter2;
 	double sc = doku->Scale;
 	int cor = 1;
+	QFont ff = font();
+	ff.setPointSize(8);
+	setFont(ff);
 	switch (doku->Einheit)
 	{
 		case 0:

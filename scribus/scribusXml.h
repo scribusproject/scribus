@@ -21,12 +21,16 @@ public:
 	ScriXmlDoc() {};
 	~ScriXmlDoc() {};
 	QString ReadDatei(QString fileName);
+	void GetItemProps(bool newVersion, QDomElement *obj, struct CLBuf *OB);
+	void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item);
+	QString GetItemText(QDomElement *it, ScribusDoc *doc, preV *Prefs, bool VorLFound, bool impo);
+	QString AskForFont(SCFonts &avail, QString fStr, preV *Prefs, ScribusDoc *doc);
 	bool ReadLStyles(QString fileName, QMap<QString,multiLine> *Sty);
+	void GetStyle(QDomElement *pg, struct StVorL *vg, QValueList<StVorL> &Vorlagen, ScribusDoc* doc, preV *Prefs, bool fl);
 	bool ReadStyles(QString fileName, ScribusDoc* doc, preV *Prefs);
 	bool ReadColors(QString fileName);
 	bool ReadPageCount(QString fileName, int *num1, int *num2);
-	bool ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, ScribusView *view, int PageToLoad, 
-					bool Mpage);
+	bool ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, ScribusView *view, int PageToLoad, bool Mpage);
 	QString WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc);
 	bool ReadElemHeader(QString file, bool isFile, double *x, double *y, double *w, double *h);
 	bool ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int Xp, int Yp, bool Fi, bool loc,
@@ -45,6 +49,9 @@ public:
               	};
 	QValueList<Linked> LFrames;
 	QStringList MNames;
+	QMap<QString,QString> DoFonts;
+	QMap<uint,QString> DoVorl;
+	uint VorlC;
 	
 signals:
 	void NewPage(int);

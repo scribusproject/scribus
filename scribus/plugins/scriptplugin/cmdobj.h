@@ -20,7 +20,7 @@ PyObject *scribus_newtext(PyObject *self, PyObject* args);
 PyObject *scribus_newline(PyObject *self, PyObject* args);
 /** Creates a polygon line - list with points and opt. name as params. */
 PyObject *scribus_polyline(PyObject *self, PyObject* args);
-/** Creates a polygon - - list with points and opt. name as params. */
+/** Creates a polygon - list with points and opt. name as params. */
 PyObject *scribus_polygon(PyObject *self, PyObject* args);
 /** Creates a Bezier line - list with points and opt. name as params. */
 PyObject *scribus_bezierline(PyObject *self, PyObject* args);
@@ -43,6 +43,8 @@ PyObject *scribus_textflow(PyObject *self, PyObject* args);
 User test if an object with specified name really exists in
 the doc. Object name as param.
 03/29/2004 petr vanek
+ObjectName is now optional. When none set, search for selection...
+07/11/2004 pv
 */
 PyObject *scribus_objectexists(PyObject *self, PyObject* args);
 

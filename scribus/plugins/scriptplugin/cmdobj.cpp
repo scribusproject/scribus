@@ -4,38 +4,47 @@
 #include "cmdutil.h"
 #include "cmdvar.h"
 
+// commented out in the code due the Scribus Scripts backward compatibility
+#define ERROBJ "Oook! Object with given name exists already. Default name given."
 
-/* 03/29/2004 - pynone
-*/
 PyObject *scribus_newrect(PyObject *self, PyObject* args)
 {
 	double x, y, b, h;
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "dddd|s", &x, &y, &b, &h, &Name))
+	{
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("CreateRect(x, y, w, h [, objectname])"));
 		return NULL;
+	}
 	if (!Carrier->HaveDoc)
-  {
-    Py_INCREF(Py_None);
-    return Py_None;
-  }
+	{
+		Py_INCREF(Py_None);
+		return Py_None;
+	}
 	int i = Carrier->doc->ActPage->PaintRect(ValueToPoint(x), ValueToPoint(y),
 															ValueToPoint(b), ValueToPoint(h),
 															Carrier->doc->Dwidth, Carrier->doc->Dbrush, Carrier->doc->Dpen);
 	Carrier->doc->ActPage->SetRectFrame(Carrier->doc->ActPage->Items.at(i));
-	if (Name != "")
-		Carrier->doc->ActPage->Items.at(i)->AnName = QString(Name);
+	if (GetUniqueItem(QString(Name)) == NULL)
+		(Name != "") ? Carrier->doc->ActPage->Items.at(i)->AnName = QString(Name) : NULL;
+/*	else
+	{
+		PyErr_SetString(PyExc_Exception, ERROBJ);
+		return NULL;
+	}*/
 	return PyString_FromString(Carrier->doc->ActPage->Items.at(i)->AnName);
 }
 
 
-/* 03/29/2004 - pynone
-*/
 PyObject *scribus_newellipse(PyObject *self, PyObject* args)
 {
 	double x, y, b, h;
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "dddd|s", &x, &y, &b, &h, &Name))
+	{
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("CreateEllipse(x, y, w, h [, objectname])"));
 		return NULL;
+	}
 	if (!Carrier->HaveDoc)
 	{
 		Py_INCREF(Py_None);
@@ -45,20 +54,27 @@ PyObject *scribus_newellipse(PyObject *self, PyObject* args)
 																 ValueToPoint(b), ValueToPoint(h),
 																 Carrier->doc->Dwidth, Carrier->doc->Dbrush, Carrier->doc->Dpen);
 	Carrier->doc->ActPage->SetOvalFrame(Carrier->doc->ActPage->Items.at(i));
-	if (Name != "")
-		Carrier->doc->ActPage->Items.at(i)->AnName = QString(Name);
+	if (GetUniqueItem(QString(Name)) == NULL)
+		if (Name != "")
+			Carrier->doc->ActPage->Items.at(i)->AnName = QString(Name);
+/*	else
+	{
+		PyErr_SetString(PyExc_Exception, ERROBJ);
+		return NULL;
+	}*/
 	return PyString_FromString(Carrier->doc->ActPage->Items.at(i)->AnName);
 }
 
 
-/* 03/29/2004 - pynone
-*/
 PyObject *scribus_newimage(PyObject *self, PyObject* args)
 {
 	double x, y, b, h;
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "dddd|s", &x, &y, &b, &h, &Name))
+	{
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("CreateImage(x, y, w, h [, objectname])"));
 		return NULL;
+	}
 	if (!Carrier->HaveDoc)
 	{
 		Py_INCREF(Py_None);
@@ -66,20 +82,27 @@ PyObject *scribus_newimage(PyObject *self, PyObject* args)
 	}
 	int i = Carrier->doc->ActPage->PaintPict(ValueToPoint(x), ValueToPoint(y), ValueToPoint(b), ValueToPoint(h));
 	Carrier->doc->ActPage->SetRectFrame(Carrier->doc->ActPage->Items.at(i));
-	if (Name != "")
-		Carrier->doc->ActPage->Items.at(i)->AnName = QString(Name);
+	if (GetUniqueItem(QString(Name)) == NULL)
+		if (Name != "")
+			Carrier->doc->ActPage->Items.at(i)->AnName = QString(Name);
+/*	else
+	{
+		PyErr_SetString(PyExc_Exception, ERROBJ);
+		return NULL;
+	}*/
 	return PyString_FromString(Carrier->doc->ActPage->Items.at(i)->AnName);
 }
 
 
-/* 03/31/2004 pynone
- */
 PyObject *scribus_newtext(PyObject *self, PyObject* args)
 {
 	double x, y, b, h;
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "dddd|s", &x, &y, &b, &h, &Name))
+	{
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("CreateText(x, y, w, h [, objectname])"));
 		return NULL;
+	}
 	if (!Carrier->HaveDoc)
 	{
 		Py_INCREF(Py_None);
@@ -89,20 +112,29 @@ PyObject *scribus_newtext(PyObject *self, PyObject* args)
 															ValueToPoint(b), ValueToPoint(h),
 															Carrier->doc->Dwidth, Carrier->doc->DpenText);
 	Carrier->doc->ActPage->SetRectFrame(Carrier->doc->ActPage->Items.at(i));
-	if (Name != "")
-		Carrier->doc->ActPage->Items.at(i)->AnName = QString(Name);
+	if (GetUniqueItem(QString(Name)) == NULL)
+	{
+		if (Name != "")
+			Carrier->doc->ActPage->Items.at(i)->AnName = QString(Name);
+	}
+/*	else
+	{
+		PyErr_SetString(PyExc_Exception, ERROBJ);
+		return NULL;
+	}*/
 	return PyString_FromString(Carrier->doc->ActPage->Items.at(i)->AnName);
 }
 
 
-/* 03/29/2004 pynone
- */
 PyObject *scribus_newline(PyObject *self, PyObject* args)
 {
 	double x, y, b, h;
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "dddd|s", &x, &y, &b, &h, &Name))
+	{
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("CreateLine(x, y, w, h [, objectname])"));
 		return NULL;
+	}
 	if (!Carrier->HaveDoc)
 	{
 		Py_INCREF(Py_None);
@@ -132,20 +164,27 @@ PyObject *scribus_newline(PyObject *self, PyObject* args)
 		}
 	Carrier->doc->ActPage->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), i, false, false);
 	Carrier->doc->ActPage->AdjustItemSize(it);
-	if (Name != "")
-		it->AnName = QString(Name);
+	if (GetUniqueItem(QString(Name)) == NULL)
+		if (Name != "")
+			it->AnName = QString(Name);
+/*	else
+	{
+		PyErr_SetString(PyExc_Exception, ERROBJ);
+		return NULL;
+	}*/
 	return PyString_FromString(it->AnName);
 }
 
 
-/* 03/31/2004 pynone
- */
 PyObject *scribus_polyline(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	PyObject *il;
 	if ((!PyArg_ParseTuple(args, "O|s", &il, &Name)) || (!PyList_Check(il)))
+	{
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("CreatePolyLine(pointlist [, objectname])"));
 		return NULL;
+	}
 	if (!Carrier->HaveDoc)
 	{
 		Py_INCREF(Py_None);
@@ -196,20 +235,27 @@ PyObject *scribus_polyline(PyObject *self, PyObject* args)
 		}
 	Carrier->doc->ActPage->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false);
 	Carrier->doc->ActPage->AdjustItemSize(it);
-	if (Name != "")
-		it->AnName = QString(Name);
+	if (GetUniqueItem(QString(Name)) == NULL)
+		if (Name != "")
+			it->AnName = QString(Name);
+/*	else
+	{
+		PyErr_SetString(PyExc_Exception, ERROBJ);
+		return NULL;
+	}*/
 	return PyString_FromString(it->AnName);
 }
 
 
-/* 03/31/2004 pynone
- */
 PyObject *scribus_polygon(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	PyObject *il;
 	if ((!PyArg_ParseTuple(args, "O|s", &il, &Name)) || (!PyList_Check(il)))
+	{
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("CreatePolygon(pointlist [, objectname])"));
 		return NULL;
+	}
 	if (!Carrier->HaveDoc)
 	{
 	Py_INCREF(Py_None);
@@ -265,8 +311,14 @@ PyObject *scribus_polygon(PyObject *self, PyObject* args)
 		}
 	Carrier->doc->ActPage->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false);
 	Carrier->doc->ActPage->AdjustItemSize(it);
-	if (Name != "")
-		it->AnName = QString(Name);
+	if (GetUniqueItem(QString(Name)) == NULL)
+		if (Name != "")
+			it->AnName = QString(Name);
+/*	else
+	{
+		PyErr_SetString(PyExc_Exception, ERROBJ);
+		return NULL;
+	}*/
 	return PyString_FromString(it->AnName);
 }
 
@@ -275,7 +327,10 @@ PyObject *scribus_bezierline(PyObject *self, PyObject* args)
 	char *Name = "";
 	PyObject *il;
 	if ((!PyArg_ParseTuple(args, "O|s", &il, &Name)) || (!PyList_Check(il)))
+	{
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("CreateBezierLine(pointlist [, objectname])"));
 		return NULL;
+	}
 	if (!Carrier->HaveDoc)
 		return PyString_FromString("");
 	int len = PyList_Size(il);
@@ -337,8 +392,14 @@ PyObject *scribus_bezierline(PyObject *self, PyObject* args)
 		}
 	Carrier->doc->ActPage->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false);
 	Carrier->doc->ActPage->AdjustItemSize(it);
-	if (Name != "")
-		it->AnName = QString(Name);
+	if (GetUniqueItem(QString(Name)) == NULL)
+		if (Name != "")
+			it->AnName = QString(Name);
+/*	else
+	{
+		PyErr_SetString(PyExc_Exception, ERROBJ);
+		return NULL;
+	}*/
 	return PyString_FromString(it->AnName);
 }
 
@@ -352,7 +413,10 @@ PyObject *scribus_pathtext(PyObject *self, PyObject* args)
 	char *TextB = "";
 	char *PolyB = "";
 	if (!PyArg_ParseTuple(args, "ddss|s", &x, &y, &TextB, &PolyB, &Name))
+	{
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("CreatePathText(x, y, textbox, beziercurve [, objectname])"));
 		return NULL;
+	}
 	if ((!Carrier->HaveDoc) || ((TextB == "") || (PolyB == "")))
 	{
 		Py_INCREF(Py_None);
@@ -372,8 +436,14 @@ PyObject *scribus_pathtext(PyObject *self, PyObject* args)
 	PageItem *it = Carrier->doc->ActPage->Items.at(i);
 	Carrier->doc->ActPage->ToPathText();
 	Carrier->doc->ActPage->MoveItem(ValueToPoint(x) - it->Xpos, ValueToPoint(y) - it->Ypos, it);
-	if (Name != "")
-		it->AnName = QString(Name);
+	if (GetUniqueItem(QString(Name)) == NULL)
+		if (Name != "")
+			it->AnName = QString(Name);
+/*	else
+	{
+		PyErr_SetString(PyExc_Exception, ERROBJ);
+		return NULL;
+	}*/
 	return PyString_FromString(it->AnName);
 }
 
@@ -384,25 +454,27 @@ PyObject *scribus_deleteobj(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "|s", &Name))
+	{
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("DeleteObject([objectname])"));
 		return NULL;
+	}
 	Py_INCREF(Py_None);
 	if (!Carrier->HaveDoc)
 		return Py_None;
-	if (Name != "")
+	PageItem *i = GetUniqueItem(QString(Name));
+	if (Name != NULL)
 	{
-		Carrier->doc->ActPage->SelItem.clear();
-		int i = GetItem(QString(Name));
-		if (i != -1)
-			Carrier->doc->ActPage->SelItem.append(Carrier->doc->ActPage->Items.at(i));
-		else
-		{
-			PyErr_SetString(PyExc_Exception,
-				QObject::tr("Oook! You're trying to erase an object doesn't exist!"));
-			Py_DECREF(Py_None);
-			return NULL;
-		}
+		i->OwnPage->SelItem.clear();
+		i->OwnPage->SelItem.append(i);
+		i->OwnPage->DeleteItem();
 	}
-	Carrier->doc->ActPage->DeleteItem();
+	else
+	{
+		PyErr_SetString(PyExc_Exception,
+			QObject::tr("Oook! You're trying to erase an object doesn't exist!"));
+		Py_DECREF(Py_None);
+		return NULL;
+	}
 	return Py_None;
 }
 
@@ -411,36 +483,28 @@ PyObject *scribus_deleteobj(PyObject *self, PyObject* args)
  */
 PyObject *scribus_textflow(PyObject *self, PyObject* args)
 {
-	char* name;
-	int id, state = -1;
+	char *name = "";
+	int state = -1;
 
 	if (!PyArg_ParseTuple(args, "s|i", &name, &state))
+	{
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("TextFlowsAroundFrame(objectname [,state])"));
 		return NULL;
+	}
 	Py_INCREF(Py_None);
 	if (!Carrier->HaveDoc)
 		return Py_None;
-
-	id = GetItem(QString(name));
-	if (id == -1)
+	PageItem *i = GetUniqueItem(QString(name));
+	if (i == NULL)
 	{
-		PyErr_SetString(PyExc_Exception,
-      QObject::tr("Oook! An object you're trying to textflow doesn't exist!"));
+		PyErr_SetString(PyExc_Exception, QObject::tr("Oook! An object you're trying to textflow doesn't exist!"));
 		Py_DECREF(Py_None);
 		return NULL;
 	}
-
 	if (state == -1)
-	{
-		Carrier->doc->ActPage->Items.at(id)->Textflow =
-			!Carrier->doc->ActPage->Items.at(id)->Textflow;
-	}
+		i->Textflow = !i->Textflow;
 	else
-	{
-		state
-			? Carrier->doc->ActPage->Items.at(id)->Textflow = true
-			: Carrier->doc->ActPage->Items.at(id)->Textflow = false;
-	} // if state null
-
+		state ? i->Textflow = true : i->Textflow = false;
 	Carrier->view->DrawNew();
 	Carrier->slotDocCh(true);
 	return Py_None;
@@ -449,10 +513,13 @@ PyObject *scribus_textflow(PyObject *self, PyObject* args)
 
 PyObject *scribus_objectexists(PyObject *self, PyObject* args)
 {
-	char* name;
+	char* name = "";
 
-	if (!PyArg_ParseTuple(args, "s", &name))
+	if (!PyArg_ParseTuple(args, "|s", &name))
+	{
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("ObjectExists([objectname])"));
 		return NULL;
+	}
 	if (!Carrier->HaveDoc)
 	{
 		Py_INCREF(Py_None);

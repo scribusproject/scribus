@@ -172,6 +172,7 @@ private:
 	QByteArray EncryKey;
 	int Encrypt;
 	int KeyLen;
+	QString HTName;
 };
 
 #endif

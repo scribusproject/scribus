@@ -16,4 +16,3 @@ void ReplaceColor(QString col, QString rep);
 PageItem* GetUniqueItem(QString name);
 
 #endif
-

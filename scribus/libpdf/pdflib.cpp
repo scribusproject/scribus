@@ -807,6 +807,21 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 		}
 		a++;
 	}
+/*	StartObj(ObjCounter);
+	PutDoc("<<\n/Type /Halftone\n/HalftoneType 5\n");
+	PutDoc("/Cyan\n<<\n/Type /Halftone\n/HalftoneType 1\n/Frequency 50\n/Angle 45\n/SpotFunction /Round\n>>\n");
+	PutDoc("/Magenta\n<<\n/Type /Halftone\n/HalftoneType 1\n/Frequency 50\n/Angle 45\n/SpotFunction /Round\n>>\n");
+	PutDoc("/Yellow\n<<\n/Type /Halftone\n/HalftoneType 1\n/Frequency 50\n/Angle 45\n/SpotFunction /Round\n>>\n");
+	PutDoc("/Black\n<<\n/Type /Halftone\n/HalftoneType 1\n/Frequency 50\n/Angle 45\n/SpotFunction /Round\n>>\n");
+	PutDoc("/Default\n<<\n/Type /Halftone\n/HalftoneType 1\n/Frequency 50\n/Angle 45\n/SpotFunction /Round\n>>\n");
+	PutDoc(">>\nendobj\n");
+	ObjCounter++;
+	StartObj(ObjCounter);
+	HTName = ResNam+IToStr(ResCount);
+	Transpar[HTName] = ObjCounter;
+	PutDoc("<< /Type /ExtGState\n/HT "+IToStr(ObjCounter-1)+" 0 R\n>>\nendobj\n");
+	ResCount++;
+	ObjCounter++; */
 #ifdef HAVE_CMS
 	if ((CMSuse) && (Options->UseProfiles))
 	{
@@ -1033,6 +1048,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 	struct Layer ll;
 	ll.Drucken = false;
 	ll.LNr = 0;
+//	PutPage("/"+HTName+" gs\n");
 	QString name = "/"+pag->MPageNam.simplifyWhiteSpace().replace( QRegExp("\\s"), "" );
 	if (pag->MPageNam != "")
 	{

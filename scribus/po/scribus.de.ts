@@ -1701,23 +1701,23 @@ Wird in den Voreinstellungen eingestellt.</translation>
     <name>DocInfos</name>
     <message>
         <source>Document Info</source>
-        <translation>Information</translation>
+        <translation type="obsolete">Information</translation>
     </message>
     <message>
         <source>Author:</source>
-        <translation>Autor:</translation>
+        <translation type="obsolete">Autor:</translation>
     </message>
     <message>
         <source>Title:</source>
-        <translation>Titel:</translation>
+        <translation type="obsolete">Titel:</translation>
     </message>
     <message>
         <source>Description:</source>
-        <translation>Beschreibung:</translation>
+        <translation type="obsolete">Beschreibung:</translation>
     </message>
     <message>
         <source>Keywords:</source>
-        <translation>Schlüsselwörter:</translation>
+        <translation type="obsolete">Schlüsselwörter:</translation>
     </message>
     <message>
         <source>OK</source>
@@ -1729,15 +1729,159 @@ Wird in den Voreinstellungen eingestellt.</translation>
     </message>
     <message>
         <source>This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation>Dieses Feld kann als Referenz in das Dokument eingebettet werden oder in den Meta-Daten der PDF&apos;s enthalten sein</translation>
+        <translation type="obsolete">Dieses Feld kann als Referenz in das Dokument eingebettet werden oder in den Meta-Daten der PDF&apos;s enthalten sein</translation>
     </message>
     <message>
         <source>This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
-        <translation>Dieses Feld ist für eine kurze Beschreibung oder Zusammenfassung des Dokuments gedacht, sie wird beim PDF-Export mit in die PDF-Datei eingebunden</translation>
+        <translation type="obsolete">Dieses Feld ist für eine kurze Beschreibung oder Zusammenfassung des Dokuments gedacht, sie wird beim PDF-Export mit in die PDF-Datei eingebunden</translation>
     </message>
     <message>
         <source>This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
-        <translation>In dieses Feld können Sie Stichworte eingeben, die sie in die PDF-Datei übernehmen wollen - das erleichtert das Suchen und Indizieren der PDF-Dateien</translation>
+        <translation type="obsolete">In dieses Feld können Sie Stichworte eingeben, die sie in die PDF-Datei übernehmen wollen - das erleichtert das Suchen und Indizieren der PDF-Dateien</translation>
+    </message>
+    <message>
+        <source>Document Information</source>
+        <translation>Dokumentinformationen</translation>
+    </message>
+    <message>
+        <source>&amp;Title:</source>
+        <translation>&amp;Titel:</translation>
+    </message>
+    <message>
+        <source>&amp;Author:</source>
+        <translation>&amp;Autor:</translation>
+    </message>
+    <message>
+        <source>&amp;Keywords:</source>
+        <translation>&amp;Stichworte:</translation>
+    </message>
+    <message>
+        <source>Descri&amp;ption:</source>
+        <translation>Beschrei&amp;bung:</translation>
+    </message>
+    <message>
+        <source>P&amp;ublisher:</source>
+        <translation>&amp;Herausgeber:</translation>
+    </message>
+    <message>
+        <source>&amp;Contributors:</source>
+        <translation>&amp;Mitarbeiter:</translation>
+    </message>
+    <message>
+        <source>Dat&amp;e:</source>
+        <translation>&amp;Datum:</translation>
+    </message>
+    <message>
+        <source>T&amp;ype:</source>
+        <translation>&amp;Typ:</translation>
+    </message>
+    <message>
+        <source>F&amp;ormat:</source>
+        <translation>&amp;Format:</translation>
+    </message>
+    <message>
+        <source>Identi&amp;fier:</source>
+        <translation>&amp;Identifikation:</translation>
+    </message>
+    <message>
+        <source>&amp;Source:</source>
+        <translation>&amp;Quelle:</translation>
+    </message>
+    <message>
+        <source>&amp;Language:</source>
+        <translation>&amp;Sprache:</translation>
+    </message>
+    <message>
+        <source>&amp;Relation:</source>
+        <translation>&amp;Beziehung:</translation>
+    </message>
+    <message>
+        <source>Co&amp;verage:</source>
+        <translation>&amp;Gültigkeitsbereich:</translation>
+    </message>
+    <message>
+        <source>Ri&amp;ghts:</source>
+        <translation>&amp;Rechte:</translation>
+    </message>
+    <message>
+        <source>&amp;Document</source>
+        <translation>&amp;Dokument</translation>
+    </message>
+    <message>
+        <source>Further &amp;Information</source>
+        <translation>Weitere &amp;Informationen</translation>
+    </message>
+    <message>
+        <source>The person or organisation primarily responsible for making the content of the document.
+This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
+        <translation>Die Person oder Organisation, die vorrangig verantwortlich für den Inhalt des Dokuments ist.
+Diese Feld kann sowohl in das Scribus-Dokument als auch in die Meta-Daten einer PDF-Datei eingebettet werden</translation>
+    </message>
+    <message>
+        <source>A name given to the document.
+This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
+        <translation>Ein Name für das Dokment
+Diese Feld kann sowohl in das Scribus-Dokument als auch in die Meta-Daten einer PDF-Datei eingebettet werden</translation>
+    </message>
+    <message>
+        <source>An account of the content of the document.
+This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
+        <translation>Ein Abriss des Inhalts.
+Hier kann eine kurze Beschreibung oder Zusammenfassung stehen. Sie wird in die PDF-Datei exportiert</translation>
+    </message>
+    <message>
+        <source>The topic of the content of the document.
+This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
+        <translation>Worte, die den Inhalt des Dokuments beschreiben.
+Der Inhalt dieses Feldes wird in die PDF-Datei exportiert und hilft Ihnen, PDF-Dateien zu indizieren und und wiederzufinden</translation>
+    </message>
+    <message>
+        <source>A person or organisation responsible for making the document available</source>
+        <translation>Eine Person oder Organisation, die für die Veröffentlichung des Dokuments verantwortlich ist</translation>
+    </message>
+    <message>
+        <source>A person or organisation responsible for making contributions to the content of the document</source>
+        <translation>Eine Person oder Organisation, die bei dem Dokument mitgearbeitet hat</translation>
+    </message>
+    <message>
+        <source>A date associated with an event in the life cycle of the document, in YYYY-MM-DD format, as per ISO 8601</source>
+        <translation>Ein Datum, das mit der Entstehung des Dokuments verbunden ist, nach ISO 8601 im Format YYYY-MM-DD </translation>
+    </message>
+    <message>
+        <source>The nature or genre of the content of the document, eg. categories, functions, genres, etc</source>
+        <translation>Die Gattung oder der Typ des Dokuments, z.B. Kategorien, Funktionen, Arten usw</translation>
+    </message>
+    <message>
+        <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting.
+RFC2045,RFC2046 for MIME types are also useful here</source>
+        <translation>Die physische oder digitale Veröffentlichungsform des Dokuments. Abmessung und Medien-Typ können hier notiert werden.
+Für MIME-Typen sind auch RFC2045 und RFC2046 gebräuchlich</translation>
+    </message>
+    <message>
+        <source>An unambiguous reference to the document within a given context such as ISBN or URI</source>
+        <translation>Eine eindeutige Referenz zu dem Dokument in einem gegebenen Kontext wie ISBN oder URI</translation>
+    </message>
+    <message>
+        <source>A reference to a document from which the present document is derived, eg. ISDN or URI</source>
+        <translation>Eine Referenz zu einem Dokument, von dem sich das aktuelle Dokument ableitet, z.B. ISBN oder URI</translation>
+    </message>
+    <message>
+        <source>The language in which the content of the document is written, usually a ISO-639 language code
+optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</source>
+        <translation>Die Sprache , in der der Inhalt des Dokuments geschrieben ist, normalerweise ein ISO-639 Sprachcode,
+optional ergänzt durch ein Bindestrich und den ISO-3166 Ländercode, wie z.B. en-GB oder fr-CH</translation>
+    </message>
+    <message>
+        <source>A reference to a related document, possibly using a formal identifier such as a ISBN or URI</source>
+        <translation>Eine Referenz zu einem ähnlichen Dokument, wenn möglich eine formale Identifikation wie ISBN oder URI benutzen</translation>
+    </message>
+    <message>
+        <source>The extent or scope of the content of the document, possibly including location, time and jurisdiction ranges</source>
+        <translation type="unfinished">Der Ausbreitungsbereich des Dokuments, wenn möglich mit Ort, Zeit und Gerichtsbarkeit</translation>
+    </message>
+    <message>
+        <source>Information about rights held in and over the document, eg. copyright, patent or trademark</source>
+        <translation>Informationen über Rechte in dem oder über das Dokument, z.B. Copyright, Patente oder Handelsmarken</translation>
     </message>
 </context>
 <context>
@@ -1796,11 +1940,11 @@ Wird in den Voreinstellungen eingestellt.</translation>
     </message>
     <message>
         <source>Print last page first</source>
-        <translation>Drucke letzte Seite zuerst</translation>
+        <translation type="obsolete">Drucke letzte Seite zuerst</translation>
     </message>
     <message>
         <source>Print first page first</source>
-        <translation>Drucke erste Seite zuerst</translation>
+        <translation type="obsolete">Drucke erste Seite zuerst</translation>
     </message>
     <message>
         <source>Number of copies:</source>
@@ -8053,7 +8197,7 @@ Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetrage
     </message>
     <message>
         <source>Insert...</source>
-        <translation type="unfinished">Einfügen...</translation>
+        <translation>Einfügen...</translation>
     </message>
     <message>
         <source>Delete...</source>
@@ -8908,7 +9052,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>&amp;Insert...</source>
-        <translation>Ein&amp;fügen...</translation>
+        <translation>EIn&amp;fügen...</translation>
     </message>
     <message>
         <source>&amp;Delete...</source>
@@ -9992,7 +10136,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Insert Freehand Line</source>
-        <translation>Freihandlinie einfügen</translation>
+        <translation>Freihand Linie einfügen</translation>
     </message>
     <message>
         <source>Rotate Item</source>
