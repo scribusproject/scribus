@@ -466,15 +466,6 @@ void deprecatedFunctionAlias(PyObject* scribusdict, char* oldName, char* newName
 	wrapperFunc += QString("    return %1(*args,**kwargs)\n").arg(oldName);
 	QCString wsData = wrapperFunc.latin1();
 	// And run it in the namespace of the scribus module
-	/*
-	PyObject* m = PyImport_AddModule("__main__");
-	if (m == NULL)
-	{
-		qDebug("Failed to import __main__!");
-		return;
-	}
-	PyObject* globals = PyModule_GetDict(m);
-	*/
 	PyObject* result = PyRun_String(wsData, Py_file_input, scribusdict, scribusdict);
 	// NULL is returned if an exception is set. We don't care about any other return value and
 	// can ignore it.
@@ -487,19 +478,25 @@ void deprecatedFunctionAlias(PyObject* scribusdict, char* oldName, char* newName
 	Py_XDECREF(result);
 }
 
-// Behaves as above - it's for cosntants
-void deprecatedConstantAlias(PyObject* scribusdict, char* oldName, char* newName)
+// Copy constants by coping the reference to them. Equivalent to
+// scribus.__dict__[newName] = scribus.__dict__[oldName].
+void constantAlias(PyObject* scribusdict, const char* oldName, const char* newName)
 {
-	QString wrapperFunc = "";
-	wrapperFunc += QString("%1 = %2\n").arg(oldName).arg(newName);
-	QCString wsData = wrapperFunc.latin1();
-	PyObject* result = PyRun_String(wsData, Py_file_input, scribusdict, scribusdict);
-	if (result == NULL)
-	{
-		qDebug("Failed to alias %s to %s in Python scripter - exception raised!", oldName, newName);
-		PyErr_Print();
-	}
-	Py_XDECREF(result);
+	/* Work around the braindead Python/C API not using 'const' for
+	 * strings it won't change. */
+	char* newNameTemp = strndup(newName, strlen(newName));
+	char* oldNameTemp = strndup(oldName, strlen(oldName));
+	assert(newNameTemp != NULL);
+	assert(oldNameTemp != NULL);
+	/* We use PyMapping_GetItemString because unlike PyDict_GetItemString it
+	 * returns a new (not borrowed) reference, while PyDict_SetItemString
+	 * consumes the reference. That means we don't have to Py_INCREF anything.
+	 */
+	PyObject* item = PyMapping_GetItemString(scribusdict, oldNameTemp);
+	assert(item != NULL);
+	PyDict_SetItemString(scribusdict, newNameTemp, item);
+	free(newNameTemp);
+	free(oldNameTemp);
 }
 
 /****************************************************************************************/
@@ -954,80 +951,81 @@ void initscribus(ScribusApp *pl)
 	deprecatedFunctionAlias(d, "unlinkTextFrames", "UnlinkTextFrames");
 	deprecatedFunctionAlias(d, "valueDialog", "ValueDialog");
 	// end function aliases
-	// legacy constants
-	deprecatedConstantAlias(d, "Points", "UNIT_POINTS");
-	deprecatedConstantAlias(d, "Millimeters", "UNIT_MILLIMETERS");
-	deprecatedConstantAlias(d, "Inches", "UNIT_INCHES");
-	deprecatedConstantAlias(d, "Picas", "UNIT_PICAS");
-	deprecatedConstantAlias(d, "Portrait", "PORTRAIT");
-	deprecatedConstantAlias(d, "Landscape", "LANDSCAPE");
-	deprecatedConstantAlias(d, "NoFacingPages", "NOFACINGPAGES");
-	deprecatedConstantAlias(d, "FacingPages",  "FACINGPAGES");
-	deprecatedConstantAlias(d, "FirstPageRight", "FIRSTPAGERIGHT");
-	deprecatedConstantAlias(d, "FirstPageLeft", "FIRSTPAGELEFT");
-	deprecatedConstantAlias(d, "LeftAlign", "ALIGN_LEFT");
-	deprecatedConstantAlias(d, "RightAlign", "ALIGN_RIGHT");
-	deprecatedConstantAlias(d, "Centered", "ALIGN_CENTERED");
-	deprecatedConstantAlias(d, "Forced", "ALIGN_FORCED");
-	deprecatedConstantAlias(d, "NoGradient", "FILL_NOG");
-	deprecatedConstantAlias(d, "HorizontalGradient", "FILL_HORIZONTALG");
-	deprecatedConstantAlias(d, "VerticalGradient", "FILL_VERTICALG");
-	deprecatedConstantAlias(d, "DiagonalGradient", "FILL_DIAGONALG");
-	deprecatedConstantAlias(d, "CrossDiagonalGradient", "FILL_CROSSDIAGONALG");
-	deprecatedConstantAlias(d, "RadialGradient", "FILL_RADIALG");
-	deprecatedConstantAlias(d, "SolidLine", "LINE_SOLID");
-	deprecatedConstantAlias(d, "DashLine", "LINE_DASH");
-	deprecatedConstantAlias(d, "DotLine", "LINE_DOT");
-	deprecatedConstantAlias(d, "DashDotLine", "LINE_DASHDOT");
-	deprecatedConstantAlias(d, "DashDotDotLine", "LINE_DASHDOTDOT");
-	deprecatedConstantAlias(d, "MiterJoin", "JOIN_MITTER");
-	deprecatedConstantAlias(d, "BevelJoin", "JOIN_BEVEL");
-	deprecatedConstantAlias(d, "RoundJoin", "JOIN_ROUND");
-	deprecatedConstantAlias(d, "FlatCap", "CAP_FLAT");
-	deprecatedConstantAlias(d, "SquareCap", "CAP_SQUARE");
-	deprecatedConstantAlias(d, "RoundCap", "CAP_ROUND");
-	deprecatedConstantAlias(d, "NoButton", "BUTTON_NONE");
-	deprecatedConstantAlias(d, "Ok", "BUTTON_OK");
-	deprecatedConstantAlias(d, "Cancel", "BUTTON_CANCEL");
-	deprecatedConstantAlias(d, "Yes", "BUTTON_YES");
-	deprecatedConstantAlias(d, "No", "BUTTON_NO");
-	deprecatedConstantAlias(d, "Abort", "BUTTON_ABORT");
-	deprecatedConstantAlias(d, "Retry", "BUTTON_RETRY");
-	deprecatedConstantAlias(d, "Ignore", "BUTTON_IGNORE");
-	deprecatedConstantAlias(d, "NoIcon", "ICON_NONE");
-	deprecatedConstantAlias(d, "Information", "ICON_INFORMATION");
-	deprecatedConstantAlias(d, "Warning", "ICON_WARNING");
-	deprecatedConstantAlias(d, "Critical", "ICON_CRITICAL");
-	deprecatedConstantAlias(d, "Paper_A0", "PAPER_A0");
-	deprecatedConstantAlias(d, "Paper_A1", "PAPER_A1");
-	deprecatedConstantAlias(d, "Paper_A2", "PAPER_A2");
-	deprecatedConstantAlias(d, "Paper_A3", "PAPER_A3");
-	deprecatedConstantAlias(d, "Paper_A4", "PAPER_A4");
-	deprecatedConstantAlias(d, "Paper_A5", "PAPER_A5");
-	deprecatedConstantAlias(d, "Paper_A6", "PAPER_A6");
-	deprecatedConstantAlias(d, "Paper_A7", "PAPER_A7");
-	deprecatedConstantAlias(d, "Paper_A8", "PAPER_A8");
-	deprecatedConstantAlias(d, "Paper_A9", "PAPER_A9");
-	deprecatedConstantAlias(d, "Paper_B0", "PAPER_B0");
-	deprecatedConstantAlias(d, "Paper_B1", "PAPER_B1");
-	deprecatedConstantAlias(d, "Paper_B2", "PAPER_B2");
-	deprecatedConstantAlias(d, "Paper_B3", "PAPER_B3");
-	deprecatedConstantAlias(d, "Paper_B4", "PAPER_B4");
-	deprecatedConstantAlias(d, "Paper_B5", "PAPER_B5");
-	deprecatedConstantAlias(d, "Paper_B6", "PAPER_B6");
-	deprecatedConstantAlias(d, "Paper_B7", "PAPER_B7");
-	deprecatedConstantAlias(d, "Paper_B8", "PAPER_B8");
-	deprecatedConstantAlias(d, "Paper_B9", "PAPER_B9");
-	deprecatedConstantAlias(d, "Paper_B10", "PAPER_B10");
-	deprecatedConstantAlias(d, "Paper_C5E", "PAPER_C5E");
-	deprecatedConstantAlias(d, "Paper_Comm10E", "PAPER_COMM10E");
-	deprecatedConstantAlias(d, "Paper_DLE", "PAPER_DLE");
-	deprecatedConstantAlias(d, "Paper_Executive", "PAPER_EXECUTIVE");
-	deprecatedConstantAlias(d, "Paper_Folio", "PAPER_FOLIO");
-	deprecatedConstantAlias(d, "Paper_Ledger", "PAPER_LEDGER");
-	deprecatedConstantAlias(d, "Paper_Legal", "PAPER_LEGAL");
-	deprecatedConstantAlias(d, "Paper_Letter", "PAPER_LETTER");
-	deprecatedConstantAlias(d, "Paper_Tabloid", "PAPER_TABLOID");
+	// legacy constants - alas, we can't print warnings when these
+	// are used.
+	constantAlias(d, "UNIT_POINTS", "Points");
+	constantAlias(d, "UNIT_MILLIMETERS", "Millimeters");
+	constantAlias(d, "UNIT_INCHES", "Inches");
+	constantAlias(d, "UNIT_PICAS", "Picas");
+	constantAlias(d, "PORTRAIT", "Portrait");
+	constantAlias(d, "LANDSCAPE", "Landscape");
+	constantAlias(d, "NOFACINGPAGES", "NoFacingPages");
+	constantAlias(d, "FACINGPAGES", "FacingPages");
+	constantAlias(d, "FIRSTPAGERIGHT", "FirstPageRight");
+	constantAlias(d, "FIRSTPAGELEFT", "FirstPageLeft");
+	constantAlias(d, "ALIGN_LEFT", "LeftAlign");
+	constantAlias(d, "ALIGN_RIGHT", "RightAlign");
+	constantAlias(d, "ALIGN_CENTERED", "Centered");
+	constantAlias(d, "ALIGN_FORCED", "Forced");
+	constantAlias(d, "FILL_NOG", "NoGradient");
+	constantAlias(d, "FILL_HORIZONTALG", "HorizontalGradient");
+	constantAlias(d, "FILL_VERTICALG", "VerticalGradient");
+	constantAlias(d, "FILL_DIAGONALG", "DiagonalGradient");
+	constantAlias(d, "FILL_CROSSDIAGONALG", "CrossDiagonalGradient");
+	constantAlias(d, "FILL_RADIALG", "RadialGradient");
+	constantAlias(d, "LINE_SOLID", "SolidLine");
+	constantAlias(d, "LINE_DASH", "DashLine");
+	constantAlias(d, "LINE_DOT", "DotLine");
+	constantAlias(d, "LINE_DASHDOT", "DashDotLine");
+	constantAlias(d, "LINE_DASHDOTDOT", "DashDotDotLine");
+	constantAlias(d, "JOIN_MITTER", "MiterJoin");
+	constantAlias(d, "JOIN_BEVEL", "BevelJoin");
+	constantAlias(d, "JOIN_ROUND", "RoundJoin");
+	constantAlias(d, "CAP_FLAT", "FlatCap");
+	constantAlias(d, "CAP_SQUARE", "SquareCap");
+	constantAlias(d, "CAP_ROUND", "RoundCap");
+	constantAlias(d, "BUTTON_NONE", "NoButton");
+	constantAlias(d, "BUTTON_OK", "Ok");
+	constantAlias(d, "BUTTON_CANCEL", "Cancel");
+	constantAlias(d, "BUTTON_YES", "Yes");
+	constantAlias(d, "BUTTON_NO", "No");
+	constantAlias(d, "BUTTON_ABORT", "Abort");
+	constantAlias(d, "BUTTON_RETRY", "Retry");
+	constantAlias(d, "BUTTON_IGNORE", "Ignore");
+	constantAlias(d, "ICON_NONE", "NoIcon");
+	constantAlias(d, "ICON_INFORMATION", "Information");
+	constantAlias(d, "ICON_WARNING", "Warning");
+	constantAlias(d, "ICON_CRITICAL", "Critical");
+	constantAlias(d, "PAPER_A0", "Paper_A0");
+	constantAlias(d, "PAPER_A1", "Paper_A1");
+	constantAlias(d, "PAPER_A2", "Paper_A2");
+	constantAlias(d, "PAPER_A3", "Paper_A3");
+	constantAlias(d, "PAPER_A4", "Paper_A4");
+	constantAlias(d, "PAPER_A5", "Paper_A5");
+	constantAlias(d, "PAPER_A6", "Paper_A6");
+	constantAlias(d, "PAPER_A7", "Paper_A7");
+	constantAlias(d, "PAPER_A8", "Paper_A8");
+	constantAlias(d, "PAPER_A9", "Paper_A9");
+	constantAlias(d, "PAPER_B0", "Paper_B0");
+	constantAlias(d, "PAPER_B1", "Paper_B1");
+	constantAlias(d, "PAPER_B2", "Paper_B2");
+	constantAlias(d, "PAPER_B3", "Paper_B3");
+	constantAlias(d, "PAPER_B4", "Paper_B4");
+	constantAlias(d, "PAPER_B5", "Paper_B5");
+	constantAlias(d, "PAPER_B6", "Paper_B6");
+	constantAlias(d, "PAPER_B7", "Paper_B7");
+	constantAlias(d, "PAPER_B8", "Paper_B8");
+	constantAlias(d, "PAPER_B9", "Paper_B9");
+	constantAlias(d, "PAPER_B10", "Paper_B10");
+	constantAlias(d, "PAPER_C5E", "Paper_C5E");
+	constantAlias(d, "PAPER_COMM10E", "Paper_Comm10E");
+	constantAlias(d, "PAPER_DLE", "Paper_DLE");
+	constantAlias(d, "PAPER_EXECUTIVE", "Paper_Executive");
+	constantAlias(d, "PAPER_FOLIO", "Paper_Folio");
+	constantAlias(d, "PAPER_LEDGER", "Paper_Ledger");
+	constantAlias(d, "PAPER_LEGAL", "Paper_Legal");
+	constantAlias(d, "PAPER_LETTER", "Paper_Letter");
+	constantAlias(d, "PAPER_TABLOID", "Paper_Tabloid");
 	// end of deprecated cosntants
 }
 
