@@ -1935,6 +1935,15 @@ QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool us
 				img.setDotsPerMeterX ((int) (xres / 100.0));
 				img.setDotsPerMeterY ((int) (yres / 100.0));
 			}
+			if (info != 0)
+			{
+				if (isCMYK)
+					info->colorspace = 1;
+				else if (bilevel)
+					info->colorspace = 2;
+				else
+					info->colorspace = 0;
+			}
 		}
 	}
 #endif // HAVE_TIFF
@@ -1975,7 +1984,12 @@ QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool us
 				*realCMYK = isCMYK;
 			if (info != 0)
 			{
-				info->colorspace = isCMYK;
+				if (header.color_mode == CM_CMYK)
+					info->colorspace = 1;
+				else if (header.color_mode == CM_RGB)
+					info->colorspace = 0;
+				else if (header.color_mode == CM_GRAYSCALE)
+					info->colorspace = 2;
 				info->valid = true;
 				img.setDotsPerMeterX ((int) (info->xres / 0.0254));
 				img.setDotsPerMeterY ((int) (info->yres / 0.0254));
@@ -2102,6 +2116,15 @@ QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool us
 				img.setDotsPerMeterX( int(100. * cinfo.X_density) );
 				img.setDotsPerMeterY( int(100. * cinfo.Y_density) );
 			}
+			if (info != 0)
+			{
+				if (isCMYK)
+					info->colorspace = 1;
+				else if (cinfo.output_components == 3)
+					info->colorspace = 0;
+				else if (cinfo.output_components == 1)
+					info->colorspace = 2;
+			}
 		}
 		(void) jpeg_finish_decompress(&cinfo);
 		fclose (infile);
@@ -2115,6 +2138,8 @@ QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool us
 			yres = img.dotsPerMeterY() * 0.0254;
 			img = img.convertDepth(32);
 			img.setAlphaBuffer(true);
+			if (info != 0)
+				info->colorspace = 0;
 		}
 	}
 	if (img.isNull())

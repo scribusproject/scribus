@@ -64,7 +64,7 @@ struct ImageInfoRecord
 {
 	int xres;
 	int yres;
-	bool colorspace;
+	int colorspace; /* 0 = RGB  1 = CMYK  2 = Grayscale */
 	bool valid;
 	bool isRequest;
 	QMap<QString, FPointArray> PDSpathData;

@@ -100,6 +100,7 @@ void FDialogPreview::GenPreview(QString name)
 {
 	QPixmap pm;
 	QString Buffer = "";
+	ImageInfoRecord imgInfo;
 	QFileInfo fi = QFileInfo(name);
 	if (fi.isDir())
 		return;
@@ -107,7 +108,7 @@ void FDialogPreview::GenPreview(QString name)
 	int w = pixmap()->width();
 	int h = pixmap()->height();
 	bool mode = false;
-	QImage im = LoadPicture(name, "", 0, false, false, 1, 72, &mode);
+	QImage im = LoadPicture(name, "", 0, false, false, 1, 72, &mode, &imgInfo);
 	if (!im.isNull())
 	{
 		int ix = im.width();
@@ -133,13 +134,24 @@ void FDialogPreview::GenPreview(QString name)
 		p.drawText(2, h-29, tr("Size:")+" "+tmp.setNum(ix)+" x "+tmp2.setNum(iy));
 		p.drawText(2, h-17, tr("Resolution:")+" "+tmp.setNum(xres)+" x "+tmp2.setNum(yres)+" "+ tr("DPI"));
 		QString cSpace;
-		if (mode)
-			cSpace = tr("CMYK");
-		else
-			cSpace = tr("RGB");
 		QString ext = fi.extension(false).lower();
 		if ((ext == "pdf") || (ext == "eps") || (ext == "ps"))
 			cSpace = tr("Unknown");
+		else
+		{
+			switch (imgInfo.colorspace)
+			{
+				case 0:
+					cSpace = tr("RGB");
+					break;
+				case 1:
+					cSpace = tr("CMYK");
+					break;
+				case 2:
+					cSpace = tr("Grayscale");
+					break;
+			}
+		}
 		p.drawText(2, h-5, tr("Colorspace:")+" "+cSpace);
 		p.end();
 		repaint();
