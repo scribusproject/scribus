@@ -77,7 +77,7 @@ public:
 	QToolButton* FileC4;
 
 	TabGuides* tabGuides;
-	
+
 	QLabel* TextLabel4c;
 
 	TabTypograpy* tabTypo;
@@ -161,6 +161,12 @@ public:
 	QGroupBox* groupPrint;
 	QCheckBox* ClipMarg;
 	QCheckBox* DoGCR;
+	// plugin manager
+	QWidget* pluginManagerWidget;
+	QGroupBox* groupPluginManager;
+	QListView* pluginsList;
+	QPushButton* pluginRefreshButton;
+	QPushButton* pluginUpdateButton;
 
 	double Umrech;
 	double PFactor;
@@ -227,6 +233,11 @@ protected:
 	QHBoxLayout* layout10;
 	QHBoxLayout* groupScratchLayout;
 	QGridLayout* Layout4s;
+	// plugin manager
+	QSpacerItem* pluginSpacer;
+	QGridLayout* groupPluginManagerLayout;
+	QHBoxLayout* groupPluginLayout2;
+	QVBoxLayout* groupPluginLayout1;
 
 private slots:
 	void setSelectedGUILang( const QString &newLang );

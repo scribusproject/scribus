@@ -60,6 +60,7 @@
 #include "bookpalette.h"
 #include "splash.h"
 #include "prefscontext.h"
+#include "scribusstructs.h"
 
 class Autoforms;
 class FontCombo;
@@ -90,7 +91,7 @@ class Tree;
 class ScribusApp : public QMainWindow, public UndoObject
 {
 	Q_OBJECT
-  
+
 public:
 	/** constructor */
 	ScribusApp();
@@ -208,7 +209,7 @@ public:
 	int UniCinC;
 	QString UniCinS;
 
-
+	QMap<int, PlugData> PluginMap;
 	QMap<QString, QStringList> InstLang;
 	QMap<QString,QString> LangTransl;
 	FileWatcher* fileWatcher;
@@ -538,25 +539,12 @@ private:
 	int DocNr;
 	QStringList RecentDocs;
 	UndoManager *undoManager;
-	struct PlugData { 
-						QString Datei;
-						QString Name;
-						void *Zeiger;
-						int Typ;
-						int MenuID;
-						QString actName;
-						QString actKeySequence;
-						QString actMenu;
-						QString actMenuAfterName;
-						bool actEnabledOnStartup;
-					} ;
-	QMap<int, PlugData> PluginMap;
 	bool PrinterUsed;
-	struct PDe { 
+	struct PDe {
 					QString Pname;
 					QString Dname;
 					QString Command;
 				} PDef ;
 };
-#endif 
+#endif
 

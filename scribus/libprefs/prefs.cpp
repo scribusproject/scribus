@@ -2,6 +2,7 @@
 #include "prefs.moc"
 #include "keymanager.h"
 #include "scribusdoc.h"
+#include "scribusstructs.h"
 #include <qfont.h>
 #include <qcolordialog.h>
 #include <qcombobox.h>
@@ -31,6 +32,7 @@ using namespace std;
 extern QPixmap loadIcon(QString nam);
 extern bool CMSavail;
 extern ProfilesL InputProfiles;
+extern ScribusApp *ScApp;
 
 extern "C" void* Run(QWidget *d, ApplicationPrefs *prefsData);
 
@@ -369,7 +371,7 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	tabHyphenator->wordLen->setValue(prefsData->MinWordLen);
 	tabHyphenator->maxCount->setValue(prefsData->HyCount);
 	addItem( tr("Hyphenator"), loadIcon("hyphenate.png"), tabHyphenator);
-	
+
 	tabFonts = new FontPrefs(  prefsWidgets, ap->Prefs.AvailFonts, false, prefsData, ap->PrefsPfad, 0);
 	addItem( tr("Fonts"), loadIcon("font.png"), tabFonts);
 
@@ -616,6 +618,44 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	QSpacerItem* spacer_3m = new QSpacerItem( 0, 1, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	MiscLayout->addItem( spacer_3m );
 	addItem(  tr("Misc."), loadIcon("misc.png"), Misc);
+
+	// plugin manager. pv.
+	pluginManagerWidget = new QWidget(prefsWidgets, "pluginManagerWidget");
+	groupPluginManager = new QGroupBox(tr("Plugin Manager"), pluginManagerWidget, "groupPluginManager");
+	groupPluginManager->setColumnLayout(0, Qt::Vertical );
+	groupPluginManager->layout()->setSpacing(10);
+	groupPluginManager->layout()->setMargin(10);
+	groupPluginManagerLayout = new QGridLayout(groupPluginManager->layout());
+	groupPluginManagerLayout->setAlignment( Qt::AlignTop );
+	pluginsList = new QListView(pluginManagerWidget, "pluginsList");
+	pluginsList->addColumn("plugin");
+	// TODO: plugin handlimg should be better done with some separate class...
+	for (QMap<int,PlugData>::Iterator it = ScApp->PluginMap.begin(); it != ScApp->PluginMap.end(); ++it)
+	{
+		QListViewItem *plugItem = new QListViewItem(pluginsList, (*it).Name);
+	/*QString Datei;
+	QString Name;
+	void *Zeiger;
+	int Typ;
+	int MenuID;
+	QString actName;
+	QString actKeySequence;
+	QString actMenu;
+	QString actMenuAfterName;
+		bool actEnabledOnStartup;*/
+	}
+	groupPluginLayout1 = new QVBoxLayout(pluginManagerWidget, 0, 6, "groupPluginLayout1");
+	groupPluginLayout1->addWidget(pluginsList);
+	groupPluginLayout2 = new QHBoxLayout(pluginManagerWidget, 0, 6, "groupPluginLayout2");
+	pluginSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+	groupPluginLayout2->addItem(pluginSpacer);
+	pluginRefreshButton = new QPushButton(tr("&Refresh"), pluginManagerWidget, "pluginRefreshButton");
+	groupPluginLayout2->addWidget(pluginRefreshButton);
+	pluginUpdateButton = new QPushButton(tr("&Update"), pluginManagerWidget, "pluginUpdateButton");
+	groupPluginLayout2->addWidget(pluginUpdateButton);
+	groupPluginLayout1->addLayout(groupPluginLayout2);
+	groupPluginManagerLayout->addLayout(groupPluginLayout1, 1, 1);
+	addItem(tr("Plugins"), loadIcon("misc.png"), pluginManagerWidget);
 
 	setDS();
 	//tab order

@@ -7,7 +7,7 @@
 
 #include <qvaluestack.h>
 #include <qvaluelist.h>
-#include <qvaluevector.h> 
+#include <qvaluevector.h>
 #include <qstring.h>
 #include <qaction.h>
 #include <vector>
@@ -21,7 +21,7 @@
 
 /* Struktur fuer Pageitem Text */
 struct ScText
-{ 
+{
 	bool cselect;
 	int csize;
 	int cshade;
@@ -42,7 +42,7 @@ struct ScText
 };
 
 struct CopyPasteBuffer
-{ 
+{
 	int PType;
 	double Xpos;
 	double Ypos;
@@ -181,7 +181,7 @@ struct CopyPasteBuffer
 
   /** Pagemargins */
 struct MarginStruct
-{ 
+{
 	double Top;
 	double Left;
 	double Right;
@@ -189,7 +189,7 @@ struct MarginStruct
 };
 
 struct ParagraphStyle
-{ 
+{
 	QString Vname;
 	double LineSpa;
 	int textAlignment;
@@ -228,7 +228,7 @@ struct CMSData
 } ;
 
 struct SingleLine
-{ 
+{
 	double Width;
 	int Dash;
 	int LineEnd;
@@ -245,7 +245,7 @@ struct ArrowDesc
 };
 
 struct Layer
-{ 
+{
 	int LNr;
 	int Level;
 	QString Name;
@@ -254,7 +254,7 @@ struct Layer
 };
 
 struct PDFPresentationData
-{ 
+{
 	int pageEffectDuration;
 	int pageViewDuration;
 	int effectType;
@@ -264,14 +264,14 @@ struct PDFPresentationData
 };
 
 struct LPIData
-{ 
+{
 	int Frequency;
 	int Angle;
 	int SpotFunc;
 };
 
 struct PDFOptions
-{ 
+{
 	bool Thumbnails;
 	bool Articles;
 	bool Compress;
@@ -315,7 +315,7 @@ struct PDFOptions
 };
 
 struct Keys
-{ 
+{
 	QString actionName;
 	QString cleanMenuText;
 	QString keySequence;
@@ -426,7 +426,7 @@ struct toolPrefs
 };
 
 struct ApplicationPrefs
-{ 
+{
 	SCFonts AvailFonts;
 	QValueList<ArrowDesc> arrowStyles;
 	ColorList DColors;
@@ -514,7 +514,7 @@ struct ApplicationPrefs
 	double ScratchBottom;
 };
 
-struct PrintOptions 
+struct PrintOptions
 {
 	QString printer;
 	QString filename;
@@ -566,5 +566,18 @@ enum AppMode
 	EditGradientVectors
 };
 
+/** Plugin informations/data */
+struct PlugData {
+	QString Datei;
+	QString Name;
+	void *Zeiger;
+	int Typ;
+	int MenuID;
+	QString actName;
+	QString actKeySequence;
+	QString actMenu;
+	QString actMenuAfterName;
+	bool actEnabledOnStartup;
+} ;
 #endif
 
