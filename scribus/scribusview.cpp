@@ -171,6 +171,9 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc, ApplicationPrefs *pre
 	MoveGX = false;
 	EditContour = false;
 	CursVis = false;
+	mCG = false;
+	MidButt = false;
+	Doc->SubMode = -1;
 	GroupX = 0;
 	GroupY = 0;
 	GroupW = 0;

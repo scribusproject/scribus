@@ -32,6 +32,11 @@ ScribusDoc::ScribusDoc(struct ApplicationPrefs *prefsData)
 	prefsValues = prefsData;
 	modified = false;
 	MasterP = false;
+	NrItems = 0;
+	First = 1;
+	Last = 0;
+	viewCount = 0;
+	viewID = 0;
 	UsedFonts.clear();
 	FT_Init_FreeType( &library );
 	AllFonts = &prefsData->AvailFonts;
@@ -275,6 +280,64 @@ ScribusDoc::~ScribusDoc()
 			(*AllFonts).removeFont(it3.key());
 	}
 	FT_Done_FreeType( library );
+}
+
+void ScribusDoc::CloseCMSProfiles()
+{
+#ifdef HAVE_CMS
+	cmsCloseProfile(DocInputProf);
+	cmsCloseProfile(DocOutputProf);
+	cmsCloseProfile(DocPrinterProf);
+	cmsDeleteTransform(stdTrans);
+	cmsDeleteTransform(stdProof);
+	cmsDeleteTransform(stdTransImg);
+	cmsDeleteTransform(stdProofImg);
+#endif
+}
+
+void ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo)
+{
+#ifdef HAVE_CMS
+	DocInputProf = cmsOpenProfileFromFile(InPo[CMSSettings.DefaultInputProfile2], "r");
+	DocOutputProf = cmsOpenProfileFromFile(MoPo[CMSSettings.DefaultMonitorProfile], "r");
+	DocPrinterProf = cmsOpenProfileFromFile(PrPo[CMSSettings.DefaultPrinterProfile], "r");
+	if ((DocInputProf == NULL) || (DocOutputProf == NULL) || (DocPrinterProf == NULL))
+	{
+		CMSSettings.CMSinUse = false;
+		return;
+	}
+	int dcmsFlags = 0;
+	int dcmsFlags2 = cmsFLAGS_NOTPRECALC;
+	if (Gamut)
+		dcmsFlags |= cmsFLAGS_GAMUTCHECK;
+	else
+		dcmsFlags |= cmsFLAGS_SOFTPROOFING;
+#ifdef cmsFLAGS_BLACKPOINTCOMPENSATION
+	if (CMSSettings.BlackPoint)
+	{
+		dcmsFlags2 |= cmsFLAGS_BLACKPOINTCOMPENSATION;
+		dcmsFlags |= cmsFLAGS_BLACKPOINTCOMPENSATION;
+	}
+#endif
+	stdProof = cmsCreateProofingTransform(DocInputProf, TYPE_RGB_16,
+	                                      DocOutputProf, TYPE_RGB_16,
+	                                      DocPrinterProf,
+	                                      IntentPrinter,
+	                                      IntentMonitor, dcmsFlags);
+	stdTrans = cmsCreateTransform(DocInputProf, TYPE_RGB_16,
+	                              DocOutputProf, TYPE_RGB_16,
+	                              IntentMonitor,
+	                              dcmsFlags2);
+	stdProofImg = cmsCreateProofingTransform(DocInputProf, TYPE_RGBA_8,
+	              DocOutputProf, TYPE_RGBA_8,
+	              DocPrinterProf,
+	              IntentPrinter,
+	              IntentMonitor, dcmsFlags);
+	stdTransImg = cmsCreateTransform(DocInputProf, TYPE_RGBA_8,
+	                                DocOutputProf, TYPE_RGBA_8,
+	                                 IntentMonitor,
+	                                 dcmsFlags2);
+#endif
 }
 
 /*

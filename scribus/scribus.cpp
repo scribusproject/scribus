@@ -1327,6 +1327,7 @@ void ScribusApp::initViewMenuActions()
 	scrActions.insert("viewShowTextChain", new ScrAction(tr("Show &Text Chain"), QKeySequence(), this, "viewShowTextChain"));
 	scrActions.insert("viewSnapToGrid", new ScrAction(tr("Sn&ap to Grid"), QKeySequence(), this, "viewSnapToGrid"));
 	scrActions.insert("viewSnapToGuides", new ScrAction(tr("Sna&p to Guides"), QKeySequence(), this, "viewSnapToGuides"));
+//	scrActions.insert("viewNewView", new ScrAction(tr("New View"), QKeySequence(), this, "viewNewView"));
 
 	scrActions["viewShowMargins"]->setToggleAction(true);
 	scrActions["viewShowFrames"]->setToggleAction(true);
@@ -1356,8 +1357,9 @@ void ScribusApp::initViewMenuActions()
 	connect( scrActions["viewShowGuides"], SIGNAL(activated()) , this, SLOT(ToggleGuides()) );
 	connect( scrActions["viewShowBaseline"], SIGNAL(activated()) , this, SLOT(ToggleBase()) );
 	connect( scrActions["viewShowTextChain"], SIGNAL(activated()) , this, SLOT(ToggleTextLinks()) );
-	connect( scrActions["viewSnapToGrid"], SIGNAL(activated()) , this, SLOT(ToggleURaster()) );	
-	connect( scrActions["viewSnapToGuides"], SIGNAL(activated()) , this, SLOT(ToggleUGuides()) );	
+	connect( scrActions["viewSnapToGrid"], SIGNAL(activated()) , this, SLOT(ToggleURaster()) );
+	connect( scrActions["viewSnapToGuides"], SIGNAL(activated()) , this, SLOT(ToggleUGuides()) );
+//	connect( scrActions["viewNewView"], SIGNAL(activated()) , this, SLOT(newView()) );
 
 }
 
@@ -1594,6 +1596,7 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuSeparator("View");
 	scrMenuMgr->addMenuItem(scrActions["viewSnapToGrid"], "View");
 	scrMenuMgr->addMenuItem(scrActions["viewSnapToGuides"], "View");
+//	scrMenuMgr->addMenuItem(scrActions["viewNewView"], "View");
 	
 	//Tool menu
 	scrMenuMgr->createMenu("Tools", tr("&Tools"));
@@ -2965,20 +2968,20 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	if (CMSavail)
 	{
 #ifdef HAVE_CMS
-		w->SoftProofing = Prefs.DCMSset.SoftProofOn;
-		w->Gamut = Prefs.DCMSset.GamutCheck;
+		doc->SoftProofing = Prefs.DCMSset.SoftProofOn;
+		doc->Gamut = Prefs.DCMSset.GamutCheck;
 		CMSuse = Prefs.DCMSset.CMSinUse;
-		w->IntentPrinter = Prefs.DCMSset.DefaultIntentPrinter;
-		w->IntentMonitor = Prefs.DCMSset.DefaultIntentMonitor;
+		doc->IntentPrinter = Prefs.DCMSset.DefaultIntentPrinter;
+		doc->IntentMonitor = Prefs.DCMSset.DefaultIntentMonitor;
 		SoftProofing = Prefs.DCMSset.SoftProofOn;
 		Gamut = Prefs.DCMSset.GamutCheck;
 		IntentPrinter = Prefs.DCMSset.DefaultIntentPrinter;
 		IntentMonitor = Prefs.DCMSset.DefaultIntentMonitor;
-		w->OpenCMSProfiles(InputProfiles, MonitorProfiles, PrinterProfiles);
-		stdProof = w->stdProof;
-		stdTrans = w->stdTrans;
-		stdProofImg = w->stdProofImg;
-		stdTransImg = w->stdTransImg;
+		doc->OpenCMSProfiles(InputProfiles, MonitorProfiles, PrinterProfiles);
+		stdProof = doc->stdProof;
+		stdTrans = doc->stdTrans;
+		stdProofImg = doc->stdProofImg;
+		stdTransImg = doc->stdTransImg;
 		CMSoutputProf = doc->DocOutputProf;
 		CMSprinterProf = doc->DocPrinterProf;
 		if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigRgbData)
@@ -3043,6 +3046,18 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	undoManager->switchStack(doc->DocName);
 
 	return true;
+}
+
+void ScribusApp::newView()
+{
+	ScribusWin* w = new ScribusWin(wsp, doc);
+	view = new ScribusView(w, doc, &Prefs);
+	view->Scale = 1.0*Prefs.DisScale;
+	w->setView(view);
+	ActWin = w;
+	w->setCentralWidget(view);
+	connect(undoManager, SIGNAL(undoRedoDone()), view, SLOT(DrawNew()));
+	connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
 }
 
 bool ScribusApp::DoSaveClose()
@@ -3142,9 +3157,9 @@ void ScribusApp::newActWin(QWidget *w)
 //		Sepal->Rebuild();
 //	Tpal->BuildTree(view);
 //	Tpal->reopenTree(doc->OpenNodes);
-	BookPal->BView->NrItems = ActWin->NrItems;
-	BookPal->BView->First = ActWin->First;
-	BookPal->BView->Last = ActWin->Last;
+	BookPal->BView->NrItems = doc->NrItems;
+	BookPal->BView->First = doc->First;
+	BookPal->BView->Last = doc->Last;
 	RestoreBookMarks();
 	if (!doc->loading)
 	{
@@ -3317,22 +3332,22 @@ bool ScribusApp::SetupDoc()
 				FProg->setTotalSteps(cc);
 #ifdef HAVE_CMS
 				doc->HasCMS = doc->CMSSettings.CMSinUse;
-				ActWin->SoftProofing = doc->CMSSettings.SoftProofOn;
-				ActWin->Gamut = doc->CMSSettings.GamutCheck;
+				doc->SoftProofing = doc->CMSSettings.SoftProofOn;
+				doc->Gamut = doc->CMSSettings.GamutCheck;
 				CMSuse = doc->CMSSettings.CMSinUse;
-				ActWin->IntentPrinter = doc->CMSSettings.DefaultIntentPrinter;
-				ActWin->IntentMonitor = doc->CMSSettings.DefaultIntentMonitor;
+				doc->IntentPrinter = doc->CMSSettings.DefaultIntentPrinter;
+				doc->IntentMonitor = doc->CMSSettings.DefaultIntentMonitor;
 				SoftProofing = doc->CMSSettings.SoftProofOn;
 				Gamut = doc->CMSSettings.GamutCheck;
 				IntentPrinter = doc->CMSSettings.DefaultIntentPrinter;
 				IntentMonitor = doc->CMSSettings.DefaultIntentMonitor;
 				qApp->setOverrideCursor(QCursor(waitCursor), true);
-				ActWin->CloseCMSProfiles();
-				ActWin->OpenCMSProfiles(InputProfiles, MonitorProfiles, PrinterProfiles);
-				stdProof = ActWin->stdProof;
-				stdTrans = ActWin->stdTrans;
-				stdProofImg = ActWin->stdProofImg;
-				stdTransImg = ActWin->stdTransImg;
+				doc->CloseCMSProfiles();
+				doc->OpenCMSProfiles(InputProfiles, MonitorProfiles, PrinterProfiles);
+				stdProof = doc->stdProof;
+				stdTrans = doc->stdTrans;
+				stdProofImg = doc->stdProofImg;
+				stdTransImg = doc->stdTransImg;
 				CMSoutputProf = doc->DocOutputProf;
 				CMSprinterProf = doc->DocPrinterProf;
 				if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigRgbData)
@@ -3487,14 +3502,14 @@ void ScribusApp::SwitchWin()
 	}
 	buildFontMenu();
 #ifdef HAVE_CMS
-	SoftProofing = ActWin->SoftProofing;
-	Gamut = ActWin->Gamut;
-	IntentPrinter = ActWin->IntentPrinter;
-	IntentMonitor = ActWin->IntentMonitor;
-	stdProof = ActWin->stdProof;
-	stdTrans = ActWin->stdTrans;
-	stdProofImg = ActWin->stdProofImg;
-	stdTransImg = ActWin->stdTransImg;
+	SoftProofing = doc->SoftProofing;
+	Gamut = doc->Gamut;
+	IntentPrinter = doc->IntentPrinter;
+	IntentMonitor = doc->IntentMonitor;
+	stdProof = doc->stdProof;
+	stdTrans = doc->stdTrans;
+	stdProofImg = doc->stdProofImg;
+	stdTransImg = doc->stdTransImg;
 	CMSoutputProf = doc->DocOutputProf;
 	CMSprinterProf = doc->DocPrinterProf;
 #endif
@@ -4377,8 +4392,8 @@ bool ScribusApp::LadeDoc(QString fileName)
 		doc->WinHan = w;
 		w->setCentralWidget(view);
 #ifdef HAVE_CMS
-		w->SoftProofing = false;
-		w->Gamut = false;
+		doc->SoftProofing = false;
+		doc->Gamut = false;
 		bool cmsu = CMSuse;
 		CMSuse = false;
 #endif
@@ -4534,21 +4549,21 @@ bool ScribusApp::LadeDoc(QString fileName)
 				QMessageBox::warning(this, tr("Warning"), mess, 1, 0, 0);
 			}
 #ifdef HAVE_CMS
-			w->SoftProofing = doc->CMSSettings.SoftProofOn;
-			w->Gamut = doc->CMSSettings.GamutCheck;
+			doc->SoftProofing = doc->CMSSettings.SoftProofOn;
+			doc->Gamut = doc->CMSSettings.GamutCheck;
 			CMSuse = doc->CMSSettings.CMSinUse;
-			w->IntentPrinter = doc->CMSSettings.DefaultIntentPrinter;
-			w->IntentMonitor = doc->CMSSettings.DefaultIntentMonitor;
+			doc->IntentPrinter = doc->CMSSettings.DefaultIntentPrinter;
+			doc->IntentMonitor = doc->CMSSettings.DefaultIntentMonitor;
 			SoftProofing = doc->CMSSettings.SoftProofOn;
 			Gamut = doc->CMSSettings.GamutCheck;
 			IntentPrinter = doc->CMSSettings.DefaultIntentPrinter;
 			IntentMonitor = doc->CMSSettings.DefaultIntentMonitor;
-			w->OpenCMSProfiles(InputProfiles, MonitorProfiles, PrinterProfiles);
+			doc->OpenCMSProfiles(InputProfiles, MonitorProfiles, PrinterProfiles);
 			CMSuse = doc->CMSSettings.CMSinUse;
-			stdProof = w->stdProof;
-			stdTrans = w->stdTrans;
-			stdProofImg = w->stdProofImg;
-			stdTransImg = w->stdTransImg;
+			stdProof = doc->stdProof;
+			stdTrans = doc->stdTrans;
+			stdProofImg = doc->stdProofImg;
+			stdTransImg = doc->stdTransImg;
 			CMSoutputProf = doc->DocOutputProf;
 			CMSprinterProf = doc->DocPrinterProf;
 			if (static_cast<int>(cmsGetColorSpace(doc->DocInputProf)) == icSigRgbData)
@@ -4909,6 +4924,24 @@ bool ScribusApp::slotFileClose()
 
 bool ScribusApp::DoFileClose()
 {
+	if (doc->viewCount > 1)
+	{
+		doc->viewCount--;
+		if(doc->TemplateMode)
+		{
+			ActWin->muster->close();
+			qApp->processEvents();
+		}
+		setAppMode(NormalMode);
+		disconnect(fileWatcher, SIGNAL(fileChanged(QString )), view, SLOT(updatePict(QString)));
+		disconnect(fileWatcher, SIGNAL(fileDeleted(QString )), view, SLOT(removePict(QString)));
+		view->close();
+		delete view;
+		view = NULL;
+		doc = NULL;
+		ActWin = NULL;
+		return true;
+	}
 	undoManager->removeStack(doc->DocName);
 	if(doc->TemplateMode)
 	{
@@ -4928,7 +4961,7 @@ bool ScribusApp::DoFileClose()
 			fileWatcher->removeFile(b->Pfile);
 	}
 	if (CMSavail)
-		ActWin->CloseCMSProfiles();
+		doc->CloseCMSProfiles();
 //	Mpal->NewSel(-1);
 	Mpal->UnsetDoc();
 	Sepal->Vie = 0;
@@ -8624,9 +8657,9 @@ void ScribusApp::StoreBookmarks()
 		Boma.Last = ip->Last;
 		doc->BookMarks.append(Boma);
 	}
-	ActWin->NrItems = BookPal->BView->NrItems;
-	ActWin->First = BookPal->BView->First;
-	ActWin->Last = BookPal->BView->Last;
+	doc->NrItems = BookPal->BView->NrItems;
+	doc->First = BookPal->BView->First;
+	doc->Last = BookPal->BView->Last;
 }
 
 void ScribusApp::slotElemRead(QString Name, int x, int y, bool art, bool loca, ScribusDoc* docc, ScribusView* vie)

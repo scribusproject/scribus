@@ -36,25 +36,11 @@ public:
 	~ScribusWin() {};
 	void setView(ScribusView* dview);
 	void closeEvent(QCloseEvent *ce);
-	void OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo);
-	void CloseCMSProfiles();
 	ScribusView* view;
 	ScribusDoc* doc;
 	MusterPages* muster;
 	bool MenuStat[7];
-#ifdef HAVE_CMS
-	cmsHTRANSFORM stdTrans;
-	cmsHTRANSFORM stdProof;
-	cmsHTRANSFORM stdTransImg;
-	cmsHTRANSFORM stdProofImg;
-	bool SoftProofing;
-	bool Gamut;
-	int IntentMonitor;
-	int IntentPrinter;
-#endif
-	int	NrItems;
-	int First;
-	int Last;
+	int winIndex;
 	
 public slots:
 	void slotAutoSave();

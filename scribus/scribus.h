@@ -220,6 +220,7 @@ public:
 	MenuManager* scrMenuMgr;
 
 public slots:
+	void newView();
 	void callDLLBySlot(int pluginID);
 	void ToggleAllPalettes();
 	void slotStoryEditor();

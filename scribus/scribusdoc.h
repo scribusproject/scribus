@@ -64,6 +64,8 @@ public:
 	void setPage(double b, double h, double t, double l, double r, double bo, double sp, double ab, bool atf, bool fp);
 	void resetPage(double t, double l, double r, double bo, bool fp);
 	bool AddFont(QString name, QFont fo);
+	void OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo);
+	void CloseCMSProfiles();
 	void loadStylesFromFile(QString fileName, QValueList<ParagraphStyle> *tempStyles = NULL);
 	/** 
 	 * @brief Should guides be locked or not
@@ -91,6 +93,11 @@ protected:
     UndoManager *undoManager;
 
 public: // Public attributes
+	int NrItems;
+	int First;
+	int Last;
+	int viewCount;
+	int viewID;
 	bool SnapGuides;
 	bool GuideLock;
 	bool loading;
@@ -201,6 +208,14 @@ public: // Public attributes
 	cmsHPROFILE DocInputProf;
 	cmsHPROFILE DocOutputProf;
 	cmsHPROFILE DocPrinterProf;
+	cmsHTRANSFORM stdTrans;
+	cmsHTRANSFORM stdProof;
+	cmsHTRANSFORM stdTransImg;
+	cmsHTRANSFORM stdProofImg;
+	bool SoftProofing;
+	bool Gamut;
+	int IntentMonitor;
+	int IntentPrinter;
 #endif
 	bool HasCMS;
 	QMap<QString,QString> JavaScripts;
