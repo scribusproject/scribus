@@ -172,7 +172,7 @@ About::About( QWidget* parent )
 	                                      "<tr><td>Kitae Kim</td><td>neeum@yahoo.com</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +               
 	                                      "<tr><td><b>" + tr("Norwegian:").utf8()  + "</b></td><td></td></tr>" +
-	                                      "<tr><td>Klaus Ade Johnstad</td><td>klaus@astro.uio.no</td></tr>" +
+	                                      "<tr><td>Klaus Ade Johnstad</td><td>klaus@inout.no</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +
 	                                      "<tr><td><b>" + tr("Polish:").utf8()  + "</b></td><td> </td></tr>" +
 	                                      "<tr><td>Maciej Hański</td><td>m.hanski@gmx.at</td></tr>" +
