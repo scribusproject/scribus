@@ -2,6 +2,10 @@
 <context>
     <name>About</name>
     <message>
+        <source>About Scribus%1%2</source>
+        <translation type="obsolete">O Scribusie%1%2</translation>
+    </message>
+    <message>
         <source>%1. %2 %3 </source>
         <translation>%1. %2 %3 </translation>
     </message>
@@ -104,6 +108,16 @@
         <translation>Baskijski:</translation>
     </message>
     <message>
+        <source>This panel shows the version, build date and
+ compiled in library support in Scribus
+The C-C-T equates to C=CUPS C=littlecms T=TIFF support.
+Missing library support is indicated by a *</source>
+        <translation>Panel ten informuje o numerze wersji, dacie kompilacji
+oraz wkompilowanej obsłudze bibliotek.
+Symbole C-C-T oznaczają wsparcie dla C=CUPS C=littlecms T=TIFF
+O braku obsługi dla danej biblioteki informuje symbol *</translation>
+    </message>
+    <message>
         <source>&amp;About</source>
         <translation>&amp;O programie</translation>
     </message>
@@ -189,14 +203,7 @@
     </message>
     <message>
         <source>About Scribus %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This panel shows the version, build date and
- compiled in library support in Scribus
-The C-C-T-F equates to C=CUPS C=littlecms T=TIFF support F=Fontconfig support.
-Missing library support is indicated by a *</source>
-        <translation type="unfinished"></translation>
+        <translation>O Scribusie %/</translation>
     </message>
 </context>
 <context>
@@ -998,11 +1005,11 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Anuluj</translation>
+        <translation>&amp;Anuluj</translation>
     </message>
 </context>
 <context>
@@ -1046,13 +1053,6 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     <message>
         <source>Apply to all &amp;odd Pages</source>
         <translation>Zastosuj dla wszystkich &amp;nieparzystych stron</translation>
-    </message>
-</context>
-<context>
-    <name>ArrowChooser</name>
-    <message>
-        <source>None</source>
-        <translation type="unfinished">Brak</translation>
     </message>
 </context>
 <context>
@@ -1586,13 +1586,16 @@ Nazwa ta jest zarezerwowana dla przezroczystości</translation>
         <translation>Y2:</translation>
     </message>
     <message>
-        <source>Move Vector</source>
-        <translation type="unfinished"></translation>
+        <source> mm</source>
+        <translation>mm</translation>
     </message>
     <message>
-        <source>Move the start of the Gradient Vector with the left Mouse Button pressed and
-nove the end of the Gradient Vector with the right Mouse Button pressed</source>
-        <translation type="unfinished"></translation>
+        <source> in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
     </message>
 </context>
 <context>
@@ -1745,24 +1748,36 @@ This can be set in the Preferences.</source>
         <translation>Usuń kolor</translation>
     </message>
     <message>
+        <source>?</source>
+        <translation>?</translation>
+    </message>
+    <message>
+        <source>Replace it with:</source>
+        <translation>Zastąp przez:</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="obsolete">OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="obsolete">Anuluj</translation>
+    </message>
+    <message>
+        <source>Delete color:</source>
+        <translation>Usuń kolor:</translation>
+    </message>
+    <message>
         <source>None</source>
         <translation>Brak</translation>
     </message>
     <message>
-        <source>Delete Color:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Replace With:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Anuluj</translation>
+        <translation>&amp;Anuluj</translation>
     </message>
 </context>
 <context>
@@ -1770,6 +1785,10 @@ This can be set in the Preferences.</source>
     <message>
         <source>Delete Pages</source>
         <translation>Usuń strony</translation>
+    </message>
+    <message>
+        <source>Delete from:</source>
+        <translation>Usuń od:</translation>
     </message>
     <message>
         <source>to:</source>
@@ -1783,9 +1802,28 @@ This can be set in the Preferences.</source>
         <source>&amp;Cancel</source>
         <translation>&amp;Anuluj</translation>
     </message>
+</context>
+<context>
+    <name>DmF</name>
     <message>
-        <source>Delete From:</source>
-        <translation type="unfinished"></translation>
+        <source>Missing Font</source>
+        <translation>Brakująca czcionka</translation>
+    </message>
+    <message>
+        <source>The Font %1 is not installed.</source>
+        <translation>Czcionka %1 nie jest zainstalowana.</translation>
+    </message>
+    <message>
+        <source>Use</source>
+        <translation>Użyj</translation>
+    </message>
+    <message>
+        <source>instead</source>
+        <translation>zamiast</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -2361,10 +2399,6 @@ Nazwa wyeksportowanego pliku będzie następująca: &quot;nazwa_dokumentu-numer_
         <translation>&amp;Jakość:</translation>
     </message>
     <message>
-        <source>&amp;Size:</source>
-        <translation type="unfinished">&amp;Rozmiar:</translation>
-    </message>
-    <message>
         <source>Export as Image(s)</source>
         <translation>Eksportuj jako obrazek(ki)</translation>
     </message>
@@ -2427,8 +2461,12 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
         <translation>Eksportuj wszystkie strony</translation>
     </message>
     <message>
+        <source>&amp;Size:</source>
+        <translation>&amp;Rozmiar:</translation>
+    </message>
+    <message>
         <source>Size of the images. 100% for no changes, 200% for two times larger etc.</source>
-        <translation type="unfinished"></translation>
+        <translation>Rozmiar obrazków. 100% oznacza niezmieniony rozmiar, 200%  dwa razy większy itd.</translation>
     </message>
 </context>
 <context>
@@ -2700,11 +2738,11 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     </message>
     <message>
         <source>Append selected font into Style, Font menu</source>
-        <translation type="unfinished"></translation>
+        <translation>Dołącz wybrane czcionki do Czcionek w menu Styl</translation>
     </message>
     <message>
         <source>Leave preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Zamknij podgląd</translation>
     </message>
 </context>
 <context>
@@ -2799,15 +2837,15 @@ proszę również zajrzeć pod www.scribus.net do działu &quot;Download&quot;.<
     </message>
     <message>
         <source>Contents</source>
-        <translation type="unfinished"></translation>
+        <translation>Zawartość</translation>
     </message>
     <message>
         <source>Link</source>
-        <translation type="unfinished">Dowiązanie</translation>
+        <translation>Dowiązanie</translation>
     </message>
     <message>
         <source>Scribus Online Help</source>
-        <translation type="unfinished"></translation>
+        <translation>Pomoc online Scribusa</translation>
     </message>
 </context>
 <context>
@@ -2889,6 +2927,10 @@ Wartość 0 oznacza brak ograniczeń.</translation>
         <translation>Wklej stronę</translation>
     </message>
     <message>
+        <source>Inserting</source>
+        <translation>Wstaw</translation>
+    </message>
+    <message>
         <source>before Page</source>
         <translation>przed stroną</translation>
     </message>
@@ -2905,8 +2947,20 @@ Wartość 0 oznacza brak ograniczeń.</translation>
         <translation>Normalny</translation>
     </message>
     <message>
+        <source>Template (Right Page):</source>
+        <translation>Szablon (prawa strona):</translation>
+    </message>
+    <message>
+        <source>&amp;Inserting</source>
+        <translation>&amp;Wklej</translation>
+    </message>
+    <message>
         <source>Page(s)</source>
         <translation>stron</translation>
+    </message>
+    <message>
+        <source>&amp;Template (Left Page):</source>
+        <translation>Szab&amp;lon (lewa strona):</translation>
     </message>
     <message>
         <source>&amp;Template:</source>
@@ -2919,18 +2973,6 @@ Wartość 0 oznacza brak ograniczeń.</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Anuluj</translation>
-    </message>
-    <message>
-        <source>&amp;Insert</source>
-        <translation type="unfinished">&amp;Wklej</translation>
-    </message>
-    <message>
-        <source>Template (&amp;Left Page):</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Template (&amp;Right Page):</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3301,8 +3343,20 @@ Wartość 0 oznacza brak ograniczeń.</translation>
         <translation>Długość:</translation>
     </message>
     <message>
-        <source>pt</source>
-        <translation type="unfinished">pt</translation>
+        <source> pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
     </message>
 </context>
 <context>
@@ -3331,6 +3385,18 @@ Wartość 0 oznacza brak ograniczeń.</translation>
 <context>
     <name>MergeDoc</name>
     <message>
+        <source>Change...</source>
+        <translation>Zmień...</translation>
+    </message>
+    <message>
+        <source>Import</source>
+        <translation>Importuj</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+    <message>
         <source>Open</source>
         <translation>Otwórz</translation>
     </message>
@@ -3351,6 +3417,22 @@ Wartość 0 oznacza brak ograniczeń.</translation>
         <translation>Importuj strony</translation>
     </message>
     <message>
+        <source>From Document:</source>
+        <translation>Z dokumentu:</translation>
+    </message>
+    <message>
+        <source>Import Page(s):</source>
+        <translation>Importuj strony:</translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where
+a token can be * for all the pages, 1-5 for
+a range of pages or a single page number.</source>
+        <translation>Wpisz rozdzieloną przecinkami listę wartości,
+gdzie * oznacza wszystkie strony, 1-5 zakres stron 
+a pojedynczy numer oznacza numer strony.</translation>
+    </message>
+    <message>
         <source> from 0</source>
         <translation>od 0</translation>
     </message>
@@ -3359,73 +3441,20 @@ Wartość 0 oznacza brak ograniczeń.</translation>
         <translation>Utwórz strony</translation>
     </message>
     <message>
+        <source>before Page</source>
+        <translation>przed stroną</translation>
+    </message>
+    <message>
+        <source>after Page</source>
+        <translation>po stronie</translation>
+    </message>
+    <message>
+        <source>at End</source>
+        <translation>na końcu dokumentu</translation>
+    </message>
+    <message>
         <source> from %1</source>
         <translation>od %1</translation>
-    </message>
-    <message>
-        <source>&amp;From Document:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Chan&amp;ge...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Import Page(s):</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Import Template</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Insert a comma separated list of tokens importWhereData
-a token can be * for all the pages, 1-5 for
-a range of pages or a single page number.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Before Page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>After Page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>At End</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Import</source>
-        <translation type="unfinished">&amp;Importuj</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Anuluj</translation>
-    </message>
-</context>
-<context>
-    <name>MissingFont</name>
-    <message>
-        <source>Missing Font</source>
-        <translation type="unfinished">Brakująca czcionka</translation>
-    </message>
-    <message>
-        <source>The Font %1 is not installed.</source>
-        <translation type="unfinished">Czcionka %1 nie jest zainstalowana.</translation>
-    </message>
-    <message>
-        <source>Use</source>
-        <translation type="unfinished">Użyj</translation>
-    </message>
-    <message>
-        <source>instead</source>
-        <translation type="unfinished">zamiast</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
     </message>
 </context>
 <context>
@@ -3447,28 +3476,24 @@ a range of pages or a single page number.</source>
         <translation>do:</translation>
     </message>
     <message>
+        <source>before Page</source>
+        <translation>przed stroną</translation>
+    </message>
+    <message>
+        <source>after Page</source>
+        <translation>po stronie</translation>
+    </message>
+    <message>
+        <source>at End</source>
+        <translation>na końcu dokumentu</translation>
+    </message>
+    <message>
         <source>&amp;OK</source>
         <translation>&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Anuluj</translation>
-    </message>
-    <message>
-        <source>Move Page(s)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Before Page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>After Page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>At End</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4076,14 +4101,6 @@ Corners:</source>
     <message>
         <source>Right to Left Writing</source>
         <translation>Pisanie od prawej do lewej</translation>
-    </message>
-    <message>
-        <source>Start Arrow:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>End Arrow:</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5042,10 +5059,6 @@ Zalecane jest wpisanie tutaj tytułu dokumentu.</translation>
         <translation>&amp;Czcionki</translation>
     </message>
     <message>
-        <source>E&amp;xtras</source>
-        <translation type="unfinished">&amp;Dodatki</translation>
-    </message>
-    <message>
         <source> pt</source>
         <translation>pt</translation>
     </message>
@@ -5161,10 +5174,6 @@ a pojedynczy numer oznacza numer strony.</translation>
         <translation>&amp;Rozdzielczość:</translation>
     </message>
     <message>
-        <source>Com&amp;press Text and Vector Graphics</source>
-        <translation type="unfinished">Kompre&amp;sja tekstu i grafiki wektorowej</translation>
-    </message>
-    <message>
         <source>&amp;Method:</source>
         <translation>&amp;Metoda:</translation>
     </message>
@@ -5187,10 +5196,6 @@ a pojedynczy numer oznacza numer strony.</translation>
     <message>
         <source>&amp;&lt;&lt;</source>
         <translation>&amp;&lt;&lt;</translation>
-    </message>
-    <message>
-        <source>Enable &amp;Presentation Effects</source>
-        <translation type="unfinished">Włącz e&amp;fekty prezentacyjne</translation>
     </message>
     <message>
         <source>Show Page Pre&amp;views</source>
@@ -5317,6 +5322,18 @@ kiedy zostaniesz o to poproszony przez twoją drukarnię i dostaniesz od nich sz
 W innym przypadku twój wyeksportowany plik PDF może sprawiać problemy przy druku i przy otwieraniu w innym systemach.</translation>
     </message>
     <message>
+        <source>Compress Text and &amp;Vector Graphics</source>
+        <translation>Kompresja &amp;tekstu i grafiki wektorowej</translation>
+    </message>
+    <message>
+        <source>En&amp;able Presentation Effects</source>
+        <translation>Włącz e&amp;fekty prezentacyjne</translation>
+    </message>
+    <message>
+        <source>&amp;Presentation</source>
+        <translation>&amp;Prezentacja</translation>
+    </message>
+    <message>
         <source>&amp;Rotation:</source>
         <translation>&amp;Obrót:</translation>
     </message>
@@ -5420,13 +5437,325 @@ w okienku podglądu kosztem nieznacznego spowolnienia generowania podglądu</tra
         <translation>Zastosuj &amp;UCR (usuwanie koloru neutralnego)</translation>
     </message>
     <message>
+        <source>A way of switching some of the gray shades which are composed
+of cyan, yellow and magenta and using black instead.
+UCR most affects parts of images which are neutral and/or dark tones
+which are close to the gray. Use of this may improve printing some images
+and some experimentation and testing is need on a case by case basis.
+UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="obsolete">UCR jest to sposób zamiany niektórych odcieni szarości, które
+składają się z cyjanu (C), żółci (Y) i madżenty (M) na czarny.
+UCR najbardziej ma wpływ na obszary obrazków, które mają neutralne
+lub ciemne odcienie bliskie szarości. Użycie go może poprawić wydruk niektórych 
+obrazków, jednakże wymaga wykonania wcześniej kilku prób i testów dla każdego
+przypadku.
+UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
+    </message>
+    <message>
         <source>A way of switching off some of the gray shades which are composed
 of cyan, yellow and magenta and using black instead.
 UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished"></translation>
+        <translation>UCR jest to sposób zamiany niektórych odcieni szarości, które
+składają się z cyjanu (C), żółci (Y) i madżenty (M) na czarny.
+UCR ma największy wpływ na obszary obrazków, które mają neutralne
+lub ciemne odcienie bliskie szarości. Użycie go może poprawić wydruk niektórych 
+obrazków, jednakże wymaga wykonania wcześniej kilku prób i testów dla każdego
+przypadku.
+UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
+    </message>
+</context>
+<context>
+    <name>Page</name>
+    <message>
+        <source>Copy Here</source>
+        <translation>Kopiuj tutaj</translation>
+    </message>
+    <message>
+        <source>Move Here</source>
+        <translation>Przesuń tutaj</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+    <message>
+        <source>Picture</source>
+        <translation>Obrazek</translation>
+    </message>
+    <message>
+        <source>File: </source>
+        <translation>Plik: </translation>
+    </message>
+    <message>
+        <source>Linked Text</source>
+        <translation>Dowiązany tekst</translation>
+    </message>
+    <message>
+        <source>Text Frame</source>
+        <translation>Ramka tekstowa</translation>
+    </message>
+    <message>
+        <source>Text on a Path</source>
+        <translation>Tekst na ścieżce</translation>
+    </message>
+    <message>
+        <source>Paragraphs: </source>
+        <translation>Akapitów: </translation>
+    </message>
+    <message>
+        <source>Words: </source>
+        <translation>Słów: </translation>
+    </message>
+    <message>
+        <source>Chars: </source>
+        <translation>Znaków: </translation>
+    </message>
+    <message>
+        <source>Edit Text...</source>
+        <translation>Edytuj tekst...</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Brak</translation>
+    </message>
+    <message>
+        <source>Print: </source>
+        <translation>Drukowanie:</translation>
+    </message>
+    <message>
+        <source>Enabled</source>
+        <translation>Włączone</translation>
+    </message>
+    <message>
+        <source>Disabled</source>
+        <translation>Wyłączone</translation>
+    </message>
+    <message>
+        <source>The Program</source>
+        <translation>Program</translation>
+    </message>
+    <message>
+        <source>is missing!</source>
+        <translation>nie istnieje!</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Ostrzeżenie</translation>
+    </message>
+    <message>
+        <source>Copy of</source>
+        <translation>Kopia</translation>
+    </message>
+    <message>
+        <source>&amp;Paste</source>
+        <translation>&amp;Wklej</translation>
+    </message>
+    <message>
+        <source>Show &amp;Margins</source>
+        <translation>Wyświetlaj &amp;marginesy</translation>
+    </message>
+    <message>
+        <source>Show &amp;Frames</source>
+        <translation>Wyświetlaj &amp;ramki</translation>
+    </message>
+    <message>
+        <source>Show &amp;Images</source>
+        <translation>Wyświetlaj &amp;obrazki</translation>
+    </message>
+    <message>
+        <source>Show &amp;Grid</source>
+        <translation>Wyświetlaj &amp;siatkę</translation>
+    </message>
+    <message>
+        <source>Show G&amp;uides</source>
+        <translation>Wyświetlaj &amp;linie pomocnicze</translation>
+    </message>
+    <message>
+        <source>Show &amp;Baseline Grid</source>
+        <translation>W&amp;yświetlaj linie pisma</translation>
+    </message>
+    <message>
+        <source>Sn&amp;ap to Grid</source>
+        <translation>Wyrów&amp;naj do siatki</translation>
+    </message>
+    <message>
+        <source>Sna&amp;p to Guides</source>
+        <translation>Wyrównaj &amp;do linii pomocniczych</translation>
+    </message>
+    <message>
+        <source>Original PPI: </source>
+        <translation>Oryginalne DPI: </translation>
+    </message>
+    <message>
+        <source>Actual PPI: </source>
+        <translation>Rzeczywiste DPI: </translation>
+    </message>
+    <message>
+        <source>In&amp;fo</source>
+        <translation>In&amp;formacja</translation>
+    </message>
+    <message>
+        <source>&amp;Get Picture...</source>
+        <translation>&amp;Pobierz obrazek...</translation>
+    </message>
+    <message>
+        <source>I&amp;mage Visible</source>
+        <translation>&amp;Obrazek widoczny</translation>
+    </message>
+    <message>
+        <source>&amp;Update Picture</source>
+        <translation>&amp;Aktualizuj obrazek</translation>
+    </message>
+    <message>
+        <source>&amp;Edit Picture</source>
+        <translation>&amp;Edytuj obrazek</translation>
+    </message>
+    <message>
+        <source>&amp;Adjust Frame to Picture</source>
+        <translation>&amp;Dopasuj ramkę do obrazka</translation>
+    </message>
+    <message>
+        <source>&amp;Get Text...</source>
+        <translation>&amp;Pobierz tekst...</translation>
+    </message>
+    <message>
+        <source>&amp;Append Text...</source>
+        <translation>Dołą&amp;cz tekst...</translation>
+    </message>
+    <message>
+        <source>&amp;Edit Text...</source>
+        <translation>&amp;Edytuj tekst...</translation>
+    </message>
+    <message>
+        <source>&amp;Insert Sample Text</source>
+        <translation>&amp;Wstaw przykładowy tekst</translation>
+    </message>
+    <message>
+        <source>Is PDF &amp;Bookmark</source>
+        <translation>Jest &amp;zakładką PDF</translation>
+    </message>
+    <message>
+        <source>Is PDF A&amp;nnotation</source>
+        <translation>Jest adnotac&amp;ją PDF</translation>
+    </message>
+    <message>
+        <source>Annotation P&amp;roperties</source>
+        <translation>Właściwości &amp;adnotacji</translation>
+    </message>
+    <message>
+        <source>Field P&amp;roperties</source>
+        <translation>Właściwości &amp;pola</translation>
+    </message>
+    <message>
+        <source>&amp;PDF Options</source>
+        <translation>&amp;Opcje PDF</translation>
+    </message>
+    <message>
+        <source>&amp;Lock</source>
+        <translation>&amp;Zabezpiecz</translation>
+    </message>
+    <message>
+        <source>Un&amp;lock</source>
+        <translation>&amp;Odbezpiecz</translation>
+    </message>
+    <message>
+        <source>Lock Object &amp;Size</source>
+        <translation>Zabezpiecz roz&amp;miary obiektu</translation>
+    </message>
+    <message>
+        <source>Unlock Object &amp;Size</source>
+        <translation>Odbezp&amp;iecz rozmiary obiektu</translation>
+    </message>
+    <message>
+        <source>Send to S&amp;crapbook</source>
+        <translation>Dodaj do &amp;biblioteki</translation>
+    </message>
+    <message>
+        <source>Send to La&amp;yer</source>
+        <translation>P&amp;rzesuń do warstwy</translation>
+    </message>
+    <message>
+        <source>&amp;Group</source>
+        <translation>&amp;Grupuj</translation>
+    </message>
+    <message>
+        <source>Un&amp;group</source>
+        <translation>&amp;Rozgrupuj</translation>
+    </message>
+    <message>
+        <source>Le&amp;vel</source>
+        <translation>Poz&amp;iom</translation>
+    </message>
+    <message>
+        <source>Send to &amp;Back</source>
+        <translation>Przesuń na &amp;spód</translation>
+    </message>
+    <message>
+        <source>Bring to &amp;Front</source>
+        <translation>Prz&amp;esuń na wierzch</translation>
+    </message>
+    <message>
+        <source>&amp;Lower</source>
+        <translation>O poziom &amp;niżej</translation>
+    </message>
+    <message>
+        <source>&amp;Raise</source>
+        <translation>O poziom w&amp;yżej</translation>
+    </message>
+    <message>
+        <source>&amp;Picture Frame</source>
+        <translation>Ramka &amp;graficzna</translation>
+    </message>
+    <message>
+        <source>Pol&amp;ygon</source>
+        <translation>&amp;Wielokąt</translation>
+    </message>
+    <message>
+        <source>&amp;Outlines</source>
+        <translation>&amp;Krzywe</translation>
+    </message>
+    <message>
+        <source>&amp;Text Frame</source>
+        <translation>Ramka &amp;tekstowa</translation>
+    </message>
+    <message>
+        <source>&amp;Bezier Curve</source>
+        <translation>Krzywa &amp;Beziera</translation>
+    </message>
+    <message>
+        <source>Conve&amp;rt to</source>
+        <translation>Z&amp;amień na</translation>
+    </message>
+    <message>
+        <source>Cu&amp;t</source>
+        <translation>Wy&amp;tnij</translation>
+    </message>
+    <message>
+        <source>&amp;Copy</source>
+        <translation>&amp;Kopiuj</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation>&amp;Usuń</translation>
+    </message>
+    <message>
+        <source>C&amp;lear Contents</source>
+        <translation>W&amp;yczyść zawartość</translation>
+    </message>
+    <message>
+        <source>Show P&amp;roperties...</source>
+        <translation>Wyświet&amp;laj właściwości...</translation>
+    </message>
+    <message>
+        <source>Hide P&amp;roperties...</source>
+        <translation>Ukry&amp;j właściwości...</translation>
+    </message>
+    <message>
+        <source>Do you really want to clear all your Text?</source>
+        <translation>Naprawdę usunąć cały tekst?</translation>
     </message>
 </context>
 <context>
@@ -5548,6 +5877,22 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation>Właściwości wielokąta</translation>
     </message>
     <message>
+        <source> %</source>
+        <translation>%</translation>
+    </message>
+    <message>
+        <source>Corn&amp;ers:</source>
+        <translation>&amp;Rogi:</translation>
+    </message>
+    <message>
+        <source>&amp;Rotation:</source>
+        <translation>O&amp;brót:</translation>
+    </message>
+    <message>
+        <source>&amp;Factor:</source>
+        <translation>W&amp;spółczynnik:</translation>
+    </message>
+    <message>
         <source>&amp;OK</source>
         <translation>&amp;OK</translation>
     </message>
@@ -5555,49 +5900,30 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
         <source>&amp;Cancel</source>
         <translation>&amp;Anuluj</translation>
     </message>
-</context>
-<context>
-    <name>PolygonWidget</name>
-    <message>
-        <source>Corn&amp;ers:</source>
-        <translation type="unfinished">&amp;Rogi:</translation>
-    </message>
-    <message>
-        <source>&amp;Rotation:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Apply &amp;Factor</source>
-        <translation type="unfinished">&amp;Zastosuj współczynnik</translation>
-    </message>
-    <message>
-        <source> %</source>
-        <translation type="unfinished">%</translation>
-    </message>
-    <message>
-        <source>&amp;Factor:</source>
-        <translation type="unfinished">W&amp;spółczynnik:</translation>
-    </message>
     <message>
         <source>Number of corners for polygons</source>
-        <translation type="unfinished">Ilość rogów wielokątów</translation>
+        <translation>Ilość rogów wielokątów</translation>
     </message>
     <message>
         <source>Degrees of rotation for polygons</source>
-        <translation type="unfinished">Kąt obrotu wielokątów</translation>
-    </message>
-    <message>
-        <source>Apply Convex/Concave Factor to change shape of Polygons</source>
-        <translation type="unfinished">Zastosuj współczynnik wklęsłości/wypukłości, aby zmienić kształt wiekąta</translation>
+        <translation>Kąt obrotu wielokątów</translation>
     </message>
     <message>
         <source>Sample Polygon</source>
-        <translation type="unfinished">Przykładowy wielokąt</translation>
+        <translation>Przykładowy wielokąt</translation>
+    </message>
+    <message>
+        <source>Apply &amp;Factor</source>
+        <translation>&amp;Zastosuj współczynnik</translation>
+    </message>
+    <message>
+        <source>Apply Convex/Concave Factor to change shape of Polygons</source>
+        <translation>Zastosuj współczynnik wklęsłości/wypukłości, aby zmienić kształt wiekąta</translation>
     </message>
     <message>
         <source>A negative value will make the polygon concave (or star shaped),
  a positive value will make it convex</source>
-        <translation type="unfinished">Wartość ujemna zmieni kształt wielokąta na wklęsły (albo gwiaździsty),
+        <translation>Wartość ujemna zmieni kształt wielokąta na wklęsły (albo gwiaździsty),
 wartość dodatnia zmieni jego kształt na wypukły</translation>
     </message>
 </context>
@@ -5660,6 +5986,10 @@ wartość dodatnia zmieni jego kształt na wypukły</translation>
         <translation>Pica (p)</translation>
     </message>
     <message>
+        <source>Menus</source>
+        <translation>Menu</translation>
+    </message>
+    <message>
         <source>Paths</source>
         <translation>Ścieżki</translation>
     </message>
@@ -5692,16 +6022,16 @@ wartość dodatnia zmieni jego kształt na wypukły</translation>
         <translation>min</translation>
     </message>
     <message>
-        <source>Guide Snap Distance:</source>
-        <translation type="unfinished">Zasięg chwytu linii pomocniczej:</translation>
+        <source>Grid Layout</source>
+        <translation>Układ linii pomocniczych</translation>
     </message>
     <message>
-        <source>In the Background</source>
-        <translation type="unfinished">W tle</translation>
+        <source>Grid Colors</source>
+        <translation>Kolor linii pomocniczych</translation>
     </message>
     <message>
-        <source>In the Foreground</source>
-        <translation type="unfinished">Z przodu</translation>
+        <source>Placing</source>
+        <translation>Pozycja</translation>
     </message>
     <message>
         <source>Subscript</source>
@@ -5770,6 +6100,10 @@ wartość dodatnia zmieni jego kształt na wypukły</translation>
     <message>
         <source> p</source>
         <translation>p</translation>
+    </message>
+    <message>
+        <source>External Tools</source>
+        <translation>Zewnętrzne narzędzia</translation>
     </message>
     <message>
         <source>Misc.</source>
@@ -6058,8 +6392,24 @@ w zdefiniowanym odstępie czasowym.</translation>
         <translation>Grubość linii</translation>
     </message>
     <message>
+        <source>Number of corners for polygons</source>
+        <translation>Ilość rogów wielokątów</translation>
+    </message>
+    <message>
+        <source>Degrees of rotation for polygons</source>
+        <translation>Kąt obrotu wielokątów</translation>
+    </message>
+    <message>
+        <source>Sample Polygon</source>
+        <translation>Przykładowy wielokąt</translation>
+    </message>
+    <message>
         <source>Choose the size of the preview in the scrapbook palette</source>
         <translation>Wybierz rozmiar podglądu w bibliotece</translation>
+    </message>
+    <message>
+        <source>When using facing pages, show the two pages side by side</source>
+        <translation>Przy zastosowaniu stron widzących się, wyświetl obie strony obok siebie</translation>
     </message>
     <message>
         <source>Color for paper</source>
@@ -6072,6 +6422,10 @@ w zdefiniowanym odstępie czasowym.</translation>
     <message>
         <source>Mask the area outside the margins in the margin color</source>
         <translation>Wyświetl obszar poza marginesami w kolorze marginesu</translation>
+    </message>
+    <message>
+        <source>Enable transparency features within PDF 1.4 export</source>
+        <translation>Włącz obsługę przezroczystości w ramach eksportu do PDF 1.4</translation>
     </message>
     <message>
         <source>Set the default zoom level</source>
@@ -6108,6 +6462,18 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
         <translation>Lokalizacja edytora grafiki w systemie plików</translation>
     </message>
     <message>
+        <source>Baseline Grid</source>
+        <translation>Siatka linii pisma</translation>
+    </message>
+    <message>
+        <source>Turns on the basegrid</source>
+        <translation>Włącza siatkę linii pisma</translation>
+    </message>
+    <message>
+        <source>Turns off the basegrid</source>
+        <translation>Wyłącza siatkę linii pisma</translation>
+    </message>
+    <message>
         <source> px</source>
         <translation>px</translation>
     </message>
@@ -6118,6 +6484,10 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <message>
         <source>&amp;Font Size:</source>
         <translation>&amp;Rozmiar czcionki:</translation>
+    </message>
+    <message>
+        <source>Mouse Settings</source>
+        <translation>Konfiguracja myszy</translation>
     </message>
     <message>
         <source>&amp;Wheel Jump:</source>
@@ -6202,6 +6572,50 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <message>
         <source>&amp;Interval:</source>
         <translation>&amp;Interwał:</translation>
+    </message>
+    <message>
+        <source>M&amp;inor Grid Spacing:</source>
+        <translation>Odstęp linii &amp;dodatkowej siatki:</translation>
+    </message>
+    <message>
+        <source>Ma&amp;jor Grid Spacing:</source>
+        <translation>Odstęp linii &amp;głównej siatki:</translation>
+    </message>
+    <message>
+        <source>Guide &amp;Snap Distance:</source>
+        <translation>&amp;Zasięg chwytu linii pomocniczej:</translation>
+    </message>
+    <message>
+        <source>Min&amp;or Grid Color:</source>
+        <translation>Ko&amp;lor linii dodatkowej siatki:</translation>
+    </message>
+    <message>
+        <source>Majo&amp;r Grid Color:</source>
+        <translation>&amp;Kolor linii głównej siatki:</translation>
+    </message>
+    <message>
+        <source>&amp;User Guides Color:</source>
+        <translation>Kolor linii &amp;pomocniczych:</translation>
+    </message>
+    <message>
+        <source>Base&amp;line Grid Color:</source>
+        <translation>Kolo&amp;r siatki linii pisma:</translation>
+    </message>
+    <message>
+        <source>In the &amp;Background</source>
+        <translation>&amp;W tle</translation>
+    </message>
+    <message>
+        <source>In the Fore&amp;ground</source>
+        <translation>Z przod&amp;u</translation>
+    </message>
+    <message>
+        <source>O&amp;n</source>
+        <translation>Włą&amp;czona</translation>
+    </message>
+    <message>
+        <source>O&amp;ff</source>
+        <translation>W&amp;yłączona</translation>
     </message>
     <message>
         <source>&amp;Displacement:</source>
@@ -6316,6 +6730,18 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
         <translation>&amp;Kolor wypełnienia:</translation>
     </message>
     <message>
+        <source>Corn&amp;ers:</source>
+        <translation>&amp;Rogi:</translation>
+    </message>
+    <message>
+        <source>&amp;Rotation:</source>
+        <translation>&amp;Obrót:</translation>
+    </message>
+    <message>
+        <source>&amp;Factor:</source>
+        <translation>W&amp;spółczynnik:</translation>
+    </message>
+    <message>
         <source>Sa&amp;ve Contents on Changes</source>
         <translation>&amp;Zapisuj zawartość po zmianie</translation>
     </message>
@@ -6324,8 +6750,28 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
         <translation>Duży</translation>
     </message>
     <message>
+        <source>Display Pages &amp;Side by Side</source>
+        <translation>&amp;Wyświetlaj strony obok siebie</translation>
+    </message>
+    <message>
+        <source>Page Colors</source>
+        <translation>Kolory strony</translation>
+    </message>
+    <message>
+        <source>&amp;Background:</source>
+        <translation>&amp;Tło:</translation>
+    </message>
+    <message>
+        <source>&amp;Margins:</source>
+        <translation>&amp;Marginesy:</translation>
+    </message>
+    <message>
         <source>Display &amp;Unprintable Area in Margin Color</source>
         <translation>Wyświetlaj obszar &amp;niedrukowalny w kolorze marginesu</translation>
+    </message>
+    <message>
+        <source>Use PDF 1.4 &amp;Transparency Features</source>
+        <translation>Zastosuj przezroczystość z PDF-&amp;1.4</translation>
     </message>
     <message>
         <source>&amp;Adjust Display Size</source>
@@ -6352,6 +6798,14 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
         <translation>&amp;Przycinaj do krawędzi strony</translation>
     </message>
     <message>
+        <source>&amp;OK</source>
+        <translation>&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Anuluj</translation>
+    </message>
+    <message>
         <source>&amp;Inside:</source>
         <translation>Wewnąt&amp;rz:</translation>
     </message>
@@ -6376,6 +6830,20 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
         <translation>Dodatkowy katalog na szablony dokumentów</translation>
     </message>
     <message>
+        <source>Apply &amp;Factor</source>
+        <translation>&amp;Zastosuj współczynnik</translation>
+    </message>
+    <message>
+        <source>Apply Convex/Concave Factor to change shape of Polygons</source>
+        <translation>Zastosuj współczynnik wklęsłości/wypukłości, aby zmienić kształt wiekąta</translation>
+    </message>
+    <message>
+        <source>A negative value will make the polygon concave (or star shaped),
+ a positive value will make it convex</source>
+        <translation>Wartość ujemna zmieni kształt wielokąta na wklęsły (albo gwiaździsty),
+wartość dodatnia zmieni jego kształt na wypukły</translation>
+    </message>
+    <message>
         <source>A way of switching off some of the gray shades which are composed
 of cyan, yellow and magenta and using black instead.
 UCR most affects parts of images which are neutral and/or dark tones
@@ -6389,127 +6857,6 @@ lub ciemne odcienie bliskie szarości. Użycie go może poprawić wydruk niektó
 obrazków, jednakże wymaga wykonania wcześniej kilku prób i testów dla każdego
 przypadku.
 UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
-    </message>
-    <message>
-        <source>&amp;Language:</source>
-        <translation type="unfinished">&amp;Język:</translation>
-    </message>
-    <message>
-        <source>Select your default language for Scribus to run with.
-Leave this blank to choose based on environment variables.
-You can still override this by passing a command line option when starting Scribus</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Other Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show Grid</source>
-        <translation type="unfinished">Wyświetlaj siatkę</translation>
-    </message>
-    <message>
-        <source>Major Grid</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Color:</source>
-        <translation type="unfinished">Kolor:</translation>
-    </message>
-    <message>
-        <source>Spacing:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Minor Grid</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show Margins</source>
-        <translation type="unfinished">Wyświetlaj marginesy</translation>
-    </message>
-    <message>
-        <source>Show Guides</source>
-        <translation type="unfinished">Wyświetlaj linie pomocnicze</translation>
-    </message>
-    <message>
-        <source>Show Baseline Grid</source>
-        <translation type="unfinished">Wyświetlaj linie pisma</translation>
-    </message>
-    <message>
-        <source>Show Text Chains</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show Frames</source>
-        <translation type="unfinished">Wyświetlaj ramki</translation>
-    </message>
-    <message>
-        <source>Show Pictures</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Page Background</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Alt+U</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Scratch Space</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Placing of Guides</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>External Tools.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Color for the basegrid lines</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the basegrid on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the gridlines on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the guides on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the margins on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the of linked frames on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the display of frames on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the display of pictures on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>PrefsDialogBase</name>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Anuluj</translation>
     </message>
 </context>
 <context>
@@ -6995,40 +7342,20 @@ Sprawdź katalog i nazwę pliku.</translation>
         <translation>Tło</translation>
     </message>
     <message>
-        <source> pt</source>
-        <translation type="unfinished">pt</translation>
-    </message>
-    <message>
-        <source> mm</source>
-        <translation type="unfinished">mm</translation>
-    </message>
-    <message>
-        <source> in</source>
-        <translation type="unfinished">in</translation>
-    </message>
-    <message>
-        <source> p</source>
-        <translation type="unfinished">p</translation>
-    </message>
-    <message>
-        <source>pt</source>
-        <translation type="unfinished">pt</translation>
-    </message>
-    <message>
-        <source>mm</source>
-        <translation type="unfinished">mm</translation>
-    </message>
-    <message>
-        <source>in</source>
-        <translation type="unfinished">in</translation>
-    </message>
-    <message>
-        <source>p</source>
-        <translation type="unfinished">p</translation>
-    </message>
-    <message>
         <source>S&amp;cript</source>
         <translation>S&amp;krypt</translation>
+    </message>
+    <message>
+        <source>Oook! You&apos;re calling an object doesn&apos;t exist!</source>
+        <translation type="obsolete">Uwaga! Próbujesz wywołać nieistniejący obiekt!</translation>
+    </message>
+    <message>
+        <source>Oook! You&apos;re trying to erase an object doesn&apos;t exist!</source>
+        <translation type="obsolete">Uwaga! Próbujesz usunąć nieistniejący obiekt!</translation>
+    </message>
+    <message>
+        <source>Oook! An object you&apos;re trying to textflow doesn&apos;t exist!</source>
+        <translation type="obsolete">Uwaga! Obiekt, w którym chcesz wpisać tekst, nie istnieje!</translation>
     </message>
     <message>
         <source>Save as Image</source>
@@ -7215,6 +7542,18 @@ Sprawdź katalog i nazwę pliku.</translation>
         <translation>Uwaga! Niepoprawne argumenty! Wywołaj:</translation>
     </message>
     <message>
+        <source>Oook! You&apos;re trying to load image into an object doesn&apos;t exist or isn&apos;t selected!</source>
+        <translation type="obsolete">Uwaga! Próbujesz wstawić obrazek do nieistniejącego lub niezaznaczonego obiektu!</translation>
+    </message>
+    <message>
+        <source>Oook! You&apos;re trying to (un)lock an object doesn&apos;t exist! None selected too.</source>
+        <translation type="obsolete">Uwaga! Próbujesz zabezpieczyć lub odbezpieczyć nieistniejący lub niezaznaczony obiekt.</translation>
+    </message>
+    <message>
+        <source>Oook! You&apos;re trying to query an object doesn&apos;t exist! None selected too.</source>
+        <translation type="obsolete">Uwaga! Próbujesz znaleźć nieistniejący lub niezaznaczony obiekt.</translation>
+    </message>
+    <message>
         <source>Importing text</source>
         <translation>Importuję tekst</translation>
     </message>
@@ -7275,180 +7614,156 @@ Zewnętrzne dowiązania
         <translation>Pudełka na CD/DVD</translation>
     </message>
     <message>
-        <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Failed to load a font - freetype couldn&apos;t find the font file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>All</source>
-        <translation type="unfinished">Wszystkie</translation>
-    </message>
-    <message>
         <source>Albanian</source>
-        <translation type="unfinished"></translation>
+        <translation>Albański</translation>
     </message>
     <message>
         <source>Basque</source>
-        <translation type="unfinished"></translation>
+        <translation>Baskijski</translation>
     </message>
     <message>
         <source>Bulgarian</source>
-        <translation type="unfinished"></translation>
+        <translation>Bułgarski</translation>
     </message>
     <message>
         <source>Brazilian</source>
-        <translation type="unfinished"></translation>
+        <translation>Brazylijski</translation>
     </message>
     <message>
         <source>Catalan</source>
-        <translation type="unfinished">Kataloński</translation>
+        <translation>Kataloński</translation>
     </message>
     <message>
         <source>Chinese</source>
-        <translation type="unfinished"></translation>
+        <translation>Chiński</translation>
     </message>
     <message>
         <source>Czech</source>
-        <translation type="unfinished">Czeski</translation>
+        <translation>Czeski</translation>
     </message>
     <message>
         <source>Danish</source>
-        <translation type="unfinished">Duński</translation>
+        <translation>Duński</translation>
     </message>
     <message>
         <source>Dutch</source>
-        <translation type="unfinished">Holenderski</translation>
+        <translation>Holenderski</translation>
     </message>
     <message>
         <source>English</source>
-        <translation type="unfinished">Angielski</translation>
+        <translation>Angielski</translation>
     </message>
     <message>
         <source>English (British)</source>
-        <translation type="unfinished"></translation>
+        <translation>Angielski (Brytyjski)</translation>
     </message>
     <message>
         <source>Esperanto</source>
-        <translation type="unfinished"></translation>
+        <translation>Esperanto</translation>
     </message>
     <message>
         <source>German</source>
-        <translation type="unfinished">Niemiecki</translation>
+        <translation>Niemiecki</translation>
     </message>
     <message>
         <source>Finnish</source>
-        <translation type="unfinished">Fiński</translation>
+        <translation>Fiński</translation>
     </message>
     <message>
         <source>French</source>
-        <translation type="unfinished">Francuski</translation>
+        <translation>Francuski</translation>
     </message>
     <message>
         <source>Galician</source>
-        <translation type="unfinished"></translation>
+        <translation>Galicyjski</translation>
     </message>
     <message>
         <source>Greek</source>
-        <translation type="unfinished">Grecki</translation>
+        <translation>Grecki</translation>
     </message>
     <message>
         <source>Hungarian</source>
-        <translation type="unfinished">Węgierski</translation>
+        <translation>Węgierski</translation>
     </message>
     <message>
         <source>Indonesian</source>
-        <translation type="unfinished"></translation>
+        <translation>Indonezyjski</translation>
     </message>
     <message>
         <source>Italian</source>
-        <translation type="unfinished">Włoski</translation>
+        <translation>Włoski</translation>
     </message>
     <message>
         <source>Korean</source>
-        <translation type="unfinished"></translation>
+        <translation>Koreański</translation>
     </message>
     <message>
         <source>Lithuanian</source>
-        <translation type="unfinished">Litewski</translation>
+        <translation>Litewski</translation>
     </message>
     <message>
         <source>Norwegian (Bokmaal)</source>
-        <translation type="unfinished"></translation>
+        <translation>Norweski (Bokmaal)</translation>
     </message>
     <message>
         <source>Norwegian (Nnyorsk)</source>
-        <translation type="unfinished"></translation>
+        <translation>Norweski (Nynorsk)</translation>
     </message>
     <message>
         <source>Norwegian</source>
-        <translation type="unfinished"></translation>
+        <translation>Norweski</translation>
     </message>
     <message>
         <source>Polish</source>
-        <translation type="unfinished">Polski</translation>
+        <translation>Polski</translation>
     </message>
     <message>
         <source>Russian</source>
-        <translation type="unfinished">Rosyjski</translation>
+        <translation>Rosyjski</translation>
     </message>
     <message>
         <source>Swedish</source>
-        <translation type="unfinished">Szwedzki</translation>
+        <translation>Szwedzki</translation>
     </message>
     <message>
         <source>Spanish</source>
-        <translation type="unfinished">Hiszpański</translation>
+        <translation>Hiszpański</translation>
     </message>
     <message>
         <source>Spanish (Latin)</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiszpański (LA)</translation>
     </message>
     <message>
         <source>Slovak</source>
-        <translation type="unfinished">Słowacki</translation>
+        <translation>Słowacki</translation>
     </message>
     <message>
         <source>Slovenian</source>
-        <translation type="unfinished">Słoweński</translation>
+        <translation>Słoweński</translation>
     </message>
     <message>
         <source>Serbian</source>
-        <translation type="unfinished"></translation>
+        <translation>Serbski</translation>
     </message>
     <message>
-        <source>Turkish</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ukranian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Welsh</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Specified item not an image frame</source>
-        <translation type="unfinished"></translation>
+        <source>Tried to set progress &gt; maximum progress</source>
+        <translation>Próba ustawienia postępu większego niż maksymalny</translation>
     </message>
     <message>
         <source>&amp;About Script...</source>
-        <translation type="unfinished"></translation>
+        <translation>O sk&amp;rypcie...</translation>
     </message>
     <message>
         <source>About Script</source>
-        <translation type="unfinished"></translation>
+        <translation>O skrypcie</translation>
     </message>
     <message>
         <source>Import &amp;Open Office Draw...</source>
-        <translation type="unfinished"></translation>
+        <translation>Importuj &amp;Open Office Draw...</translation>
     </message>
     <message>
         <source>Open Office Draw (*.sxd);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Open Office Draw (*.sxd);;Wszystkie pliki (*)</translation>
     </message>
 </context>
 <context>
@@ -7658,6 +7973,14 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
         <translation>Lewa strona &amp;najpierw</translation>
     </message>
     <message>
+        <source>&amp;OK</source>
+        <translation>&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Anuluj</translation>
+    </message>
+    <message>
         <source>&amp;Inside:</source>
         <translation>Wewnąt&amp;rz:</translation>
     </message>
@@ -7671,11 +7994,15 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Size:</source>
-        <translation type="unfinished">Rozmiar:</translation>
+        <translation>Rozmiar:</translation>
     </message>
     <message>
         <source>Custom</source>
         <translation>Definicja użytkownika</translation>
+    </message>
+    <message>
+        <source>Orientation:</source>
+        <translation>Orientacja:</translation>
     </message>
     <message>
         <source>Portrait</source>
@@ -7686,408 +8013,16 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
         <translation>Pejzaż</translation>
     </message>
     <message>
-        <source>&amp;Size:</source>
-        <translation type="unfinished">&amp;Rozmiar:</translation>
+        <source>Width:</source>
+        <translation>Szerokość:</translation>
     </message>
     <message>
-        <source>Legal</source>
-        <translation type="unfinished">Legal</translation>
-    </message>
-    <message>
-        <source>Letter</source>
-        <translation type="unfinished">Letter</translation>
-    </message>
-    <message>
-        <source>Tabloid</source>
-        <translation type="unfinished">Tabloid</translation>
-    </message>
-    <message>
-        <source>Orie&amp;ntation:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Width:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Height:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Layout</source>
-        <translation type="unfinished"></translation>
+        <source>Height:</source>
+        <translation>Wysokość:</translation>
     </message>
     <message>
         <source>F&amp;irst Page Number:</source>
-        <translation type="unfinished">Pierwszy &amp;numer strony:</translation>
-    </message>
-    <message>
-        <source>Page</source>
-        <translation type="unfinished">Strona</translation>
-    </message>
-    <message>
-        <source>Major Grid</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Color:</source>
-        <translation type="unfinished">Kolor:</translation>
-    </message>
-    <message>
-        <source>Spacing:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Minor Grid</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Guide Snap Distance:</source>
-        <translation type="unfinished">Zasięg chwytu linii pomocniczej:</translation>
-    </message>
-    <message>
-        <source>Show Margins</source>
-        <translation type="unfinished">Wyświetlaj marginesy</translation>
-    </message>
-    <message>
-        <source>Show Guides</source>
-        <translation type="unfinished">Wyświetlaj linie pomocnicze</translation>
-    </message>
-    <message>
-        <source>Show Baseline Grid</source>
-        <translation type="unfinished">Wyświetlaj linie pisma</translation>
-    </message>
-    <message>
-        <source>Show Text Chains</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show Frames</source>
-        <translation type="unfinished">Wyświetlaj ramki</translation>
-    </message>
-    <message>
-        <source>Show Pictures</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Guides</source>
-        <translation type="unfinished">Linie pomocnicze</translation>
-    </message>
-    <message>
-        <source>Page Background</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Display &amp;Unprintable Area in Margin Color</source>
-        <translation type="unfinished">Wyświetlaj obszar &amp;niedrukowalny w kolorze marginesu</translation>
-    </message>
-    <message>
-        <source>Alt+U</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Scratch Space</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Placing of Guides</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>In the Background</source>
-        <translation type="unfinished">W tle</translation>
-    </message>
-    <message>
-        <source>In the Foreground</source>
-        <translation type="unfinished">Z przodu</translation>
-    </message>
-    <message>
-        <source>Display</source>
-        <translation type="unfinished">Widok</translation>
-    </message>
-    <message>
-        <source>Subscript</source>
-        <translation type="unfinished">Indeks dolny</translation>
-    </message>
-    <message>
-        <source> %</source>
-        <translation type="unfinished">%</translation>
-    </message>
-    <message>
-        <source>&amp;Displacement:</source>
-        <translation type="unfinished">&amp;Przesunięcie:</translation>
-    </message>
-    <message>
-        <source>&amp;Scaling:</source>
-        <translation type="unfinished">&amp;Rozmiar:</translation>
-    </message>
-    <message>
-        <source>Superscript</source>
-        <translation type="unfinished">Indeks górny</translation>
-    </message>
-    <message>
-        <source>D&amp;isplacement:</source>
-        <translation type="unfinished">Przesu&amp;nięcie:</translation>
-    </message>
-    <message>
-        <source>S&amp;caling:</source>
-        <translation type="unfinished">Ro&amp;zmiar:</translation>
-    </message>
-    <message>
-        <source>Small Caps</source>
-        <translation type="unfinished">Kapitaliki</translation>
-    </message>
-    <message>
-        <source>Sc&amp;aling:</source>
-        <translation type="unfinished">Roz&amp;miar:</translation>
-    </message>
-    <message>
-        <source>Other</source>
-        <translation type="unfinished">Inne</translation>
-    </message>
-    <message>
-        <source>Baseline &amp;Grid:</source>
-        <translation type="unfinished">&amp;Siatka linii pisma:</translation>
-    </message>
-    <message>
-        <source>Baseline &amp;Offset:</source>
-        <translation type="unfinished">Przesunię&amp;cie siatki linii pisma:</translation>
-    </message>
-    <message>
-        <source>Automatic &amp;Line Spacing:</source>
-        <translation type="unfinished">Automatyczna &amp;interlinia:</translation>
-    </message>
-    <message>
-        <source>Typography</source>
-        <translation type="unfinished">Typografia</translation>
-    </message>
-    <message>
-        <source>Font:</source>
-        <translation type="unfinished">Czcionka:</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="unfinished">Brak</translation>
-    </message>
-    <message>
-        <source>Fill Color:</source>
-        <translation type="unfinished">Kolor wypełnienia:</translation>
-    </message>
-    <message>
-        <source>Stroke Color:</source>
-        <translation type="unfinished">Kolor obrysu:</translation>
-    </message>
-    <message>
-        <source>Colu&amp;mns:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Gap:</source>
-        <translation type="unfinished">Odstęp &amp;między szpaltami:</translation>
-    </message>
-    <message>
-        <source>Woven silk pyjamas exchanged for blue quartz</source>
-        <translation type="unfinished">Zażółć Gęślą Jaźń AaBbCc1!2@3#</translation>
-    </message>
-    <message>
-        <source>&amp;Line Color:</source>
-        <translation type="unfinished">&amp;Kolor linii:</translation>
-    </message>
-    <message>
-        <source>&amp;Shading:</source>
-        <translation type="unfinished">&amp;Cieniowanie:</translation>
-    </message>
-    <message>
-        <source>&amp;Fill Color:</source>
-        <translation type="unfinished">Kolor &amp;wypełnienia:</translation>
-    </message>
-    <message>
-        <source>S&amp;hading:</source>
-        <translation type="unfinished">C&amp;ieniowanie:</translation>
-    </message>
-    <message>
-        <source>Line Style:</source>
-        <translation type="unfinished">Styl linii:</translation>
-    </message>
-    <message>
-        <source>Line &amp;Width:</source>
-        <translation type="unfinished">&amp;Grubość linii:</translation>
-    </message>
-    <message>
-        <source>Line S&amp;tyle:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Arrows:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Start:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>End:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Free Scaling</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Horizontal Scaling:</source>
-        <translation type="unfinished">Skalowanie w &amp;poziomie:</translation>
-    </message>
-    <message>
-        <source>&amp;Vertical Scaling:</source>
-        <translation type="unfinished">Ska&amp;lowanie w pionie:</translation>
-    </message>
-    <message>
-        <source>&amp;Scale Picture to Frame Size</source>
-        <translation type="unfinished">Dopas&amp;uj obrazek do rozmiaru ramki</translation>
-    </message>
-    <message>
-        <source>Keep Aspect &amp;Ratio</source>
-        <translation type="unfinished">Zachowa&amp;j proporcje</translation>
-    </message>
-    <message>
-        <source>F&amp;ill Color:</source>
-        <translation type="unfinished">&amp;Kolor wypełnienia:</translation>
-    </message>
-    <message>
-        <source>Mi&amp;nimum:</source>
-        <translation type="unfinished">Mi&amp;nimum:</translation>
-    </message>
-    <message>
-        <source>Ma&amp;ximum:</source>
-        <translation type="unfinished">Ma&amp;ksimum:</translation>
-    </message>
-    <message>
-        <source>&amp;Stepping:</source>
-        <translation type="unfinished">&amp;Skok:</translation>
-    </message>
-    <message>
-        <source>Tools</source>
-        <translation type="unfinished">Narzędzia</translation>
-    </message>
-    <message>
-        <source>Autosave</source>
-        <translation type="unfinished">Automatyczny zapis</translation>
-    </message>
-    <message>
-        <source>min</source>
-        <translation type="unfinished">min</translation>
-    </message>
-    <message>
-        <source>&amp;Interval:</source>
-        <translation type="unfinished">&amp;Interwał:</translation>
-    </message>
-    <message>
-        <source>Units</source>
-        <translation type="unfinished">Jednostki</translation>
-    </message>
-    <message>
-        <source>Points (pt)</source>
-        <translation type="unfinished">Punkty (pt)</translation>
-    </message>
-    <message>
-        <source>Millimetres (mm)</source>
-        <translation type="unfinished">Milimetry (mm)</translation>
-    </message>
-    <message>
-        <source>Inches (in)</source>
-        <translation type="unfinished">Cale (in)</translation>
-    </message>
-    <message>
-        <source>Picas (p)</source>
-        <translation type="unfinished">Pica (p)</translation>
-    </message>
-    <message>
-        <source>Misc.</source>
-        <translation type="unfinished">Różne</translation>
-    </message>
-    <message>
-        <source>Show Grid</source>
-        <translation type="unfinished">Wyświetlaj siatkę</translation>
-    </message>
-    <message>
-        <source>Grab Radius:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> px</source>
-        <translation type="unfinished">px</translation>
-    </message>
-    <message>
-        <source>Color for paper</source>
-        <translation type="unfinished">Kolor papieru</translation>
-    </message>
-    <message>
-        <source>Mask the area outside the margins in the margin color</source>
-        <translation type="unfinished">Wyświetl obszar poza marginesami w kolorze marginesu</translation>
-    </message>
-    <message>
-        <source>Distance between the minor grid lines</source>
-        <translation type="unfinished">Odstęp pomiędzy liniami dodatkowej siatki</translation>
-    </message>
-    <message>
-        <source>Distance between the major grid lines</source>
-        <translation type="unfinished">Odstęp pomiędzy liniami głównej siatki</translation>
-    </message>
-    <message>
-        <source>Distance within which an object will snap to your placed guides</source>
-        <translation type="unfinished">Odstęp, w którego granicach obiekt przemieści się do linii pomocniczych</translation>
-    </message>
-    <message>
-        <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
-        <translation type="unfinished">Promień obszaru, w którym Scribus pozwoli ci na uchwycenie obiektu</translation>
-    </message>
-    <message>
-        <source>Color of the minor grid lines</source>
-        <translation type="unfinished">Kolor linii dodatkowej siatki</translation>
-    </message>
-    <message>
-        <source>Color of the major grid lines</source>
-        <translation type="unfinished">Kolor linii głównej siatki</translation>
-    </message>
-    <message>
-        <source>Color of the guide lines you insert</source>
-        <translation type="unfinished">Kolor linii siatki, które zostaną dodane przez użytkownika</translation>
-    </message>
-    <message>
-        <source>Color for the margin lines</source>
-        <translation type="unfinished">Kolor linii marginesu</translation>
-    </message>
-    <message>
-        <source>Color for the basegrid lines</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the basegrid on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the gridlines on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the guides on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the margins on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the of linked frames on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the display of frames on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the display of pictures on or off</source>
-        <translation type="unfinished"></translation>
+        <translation>Pierwszy &amp;numer strony:</translation>
     </message>
 </context>
 <context>
@@ -8205,6 +8140,10 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <message>
         <source>Searching for Fonts</source>
         <translation>Szukanie czcionek</translation>
+    </message>
+    <message>
+        <source>There are no Postscript-Fonts on your System</source>
+        <translation>Czcionki Postscript nie są zainstalowane</translation>
     </message>
     <message>
         <source>Exiting now</source>
@@ -8587,6 +8526,10 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
         <translation>Otwórz</translation>
     </message>
     <message>
+        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
+        <translation>Dokumenty (*.sla *.sla.gz *.scd *.scd.gz);;Wszystkie pliki (*)</translation>
+    </message>
+    <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
         <translation>Dokumenty (*.sla *.scd);;Wszystkie pliki (*)</translation>
     </message>
@@ -8811,6 +8754,14 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <message>
         <source>&amp;Help</source>
         <translation>Po&amp;moc</translation>
+    </message>
+    <message>
+        <source>Show Baseline Grid</source>
+        <translation>Wyświetlaj linie pisma</translation>
+    </message>
+    <message>
+        <source>Hide Baseline Grid</source>
+        <translation>Ukryj linie pisma</translation>
     </message>
     <message>
         <source>Some Objects are locked.</source>
@@ -9353,49 +9304,12 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
         <translation>&amp;Edytuj kształt</translation>
     </message>
     <message>
+        <source>File %1 is not in Scribus format</source>
+        <translation>Plik %1 nie jest w formacie Scribusa</translation>
+    </message>
+    <message>
         <source>Afrikaans</source>
         <translation>Afrykanerski</translation>
-    </message>
-    <message>
-        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Documents (*.sla *.scd);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Postscript-Files (*.eps *.EPS *.ps *.PS);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SVG-Images (*.svg *.svgz);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SVG-Images (*.svg);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>File %1 
-is not in an acceptable format</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>There are no Postscript fonts on your system</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show &amp;Text Chain</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Open Office Draw (*.sxd);;All Files (*)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(converted)</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9407,6 +9321,10 @@ is not in an acceptable format</source>
     <message>
         <source>Layer</source>
         <translation>Warstwa</translation>
+    </message>
+    <message>
+        <source>All</source>
+        <translation>Wszystkie</translation>
     </message>
     <message>
         <source>pt</source>
@@ -9423,294 +9341,6 @@ is not in an acceptable format</source>
     <message>
         <source>p</source>
         <translation>p</translation>
-    </message>
-    <message>
-        <source>Copy Here</source>
-        <translation type="unfinished">Kopiuj tutaj</translation>
-    </message>
-    <message>
-        <source>Move Here</source>
-        <translation type="unfinished">Przesuń tutaj</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="unfinished">Anuluj</translation>
-    </message>
-    <message>
-        <source>&amp;Paste</source>
-        <translation type="unfinished">&amp;Wklej</translation>
-    </message>
-    <message>
-        <source>Show &amp;Margins</source>
-        <translation type="unfinished">Wyświetlaj &amp;marginesy</translation>
-    </message>
-    <message>
-        <source>Show &amp;Frames</source>
-        <translation type="unfinished">Wyświetlaj &amp;ramki</translation>
-    </message>
-    <message>
-        <source>Show &amp;Images</source>
-        <translation type="unfinished">Wyświetlaj &amp;obrazki</translation>
-    </message>
-    <message>
-        <source>Show &amp;Grid</source>
-        <translation type="unfinished">Wyświetlaj &amp;siatkę</translation>
-    </message>
-    <message>
-        <source>Show G&amp;uides</source>
-        <translation type="unfinished">Wyświetlaj &amp;linie pomocnicze</translation>
-    </message>
-    <message>
-        <source>Show &amp;Baseline Grid</source>
-        <translation type="unfinished">W&amp;yświetlaj linie pisma</translation>
-    </message>
-    <message>
-        <source>Sn&amp;ap to Grid</source>
-        <translation type="unfinished">Wyrów&amp;naj do siatki</translation>
-    </message>
-    <message>
-        <source>Sna&amp;p to Guides</source>
-        <translation type="unfinished">Wyrównaj &amp;do linii pomocniczych</translation>
-    </message>
-    <message>
-        <source>Picture</source>
-        <translation type="unfinished">Obrazek</translation>
-    </message>
-    <message>
-        <source>File: </source>
-        <translation type="unfinished">Plik: </translation>
-    </message>
-    <message>
-        <source>Original PPI: </source>
-        <translation type="unfinished">Oryginalne DPI: </translation>
-    </message>
-    <message>
-        <source>Actual PPI: </source>
-        <translation type="unfinished">Rzeczywiste DPI: </translation>
-    </message>
-    <message>
-        <source>Linked Text</source>
-        <translation type="unfinished">Dowiązany tekst</translation>
-    </message>
-    <message>
-        <source>Text Frame</source>
-        <translation type="unfinished">Ramka tekstowa</translation>
-    </message>
-    <message>
-        <source>Text on a Path</source>
-        <translation type="unfinished">Tekst na ścieżce</translation>
-    </message>
-    <message>
-        <source>Paragraphs: </source>
-        <translation type="unfinished">Akapitów: </translation>
-    </message>
-    <message>
-        <source>Words: </source>
-        <translation type="unfinished">Słów: </translation>
-    </message>
-    <message>
-        <source>Chars: </source>
-        <translation type="unfinished">Znaków: </translation>
-    </message>
-    <message>
-        <source>Print: </source>
-        <translation type="unfinished">Drukowanie:</translation>
-    </message>
-    <message>
-        <source>Enabled</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Disabled</source>
-        <translation type="unfinished">Wyłączone</translation>
-    </message>
-    <message>
-        <source>In&amp;fo</source>
-        <translation type="unfinished">In&amp;formacja</translation>
-    </message>
-    <message>
-        <source>&amp;Get Picture...</source>
-        <translation type="unfinished">&amp;Pobierz obrazek...</translation>
-    </message>
-    <message>
-        <source>I&amp;mage Visible</source>
-        <translation type="unfinished">&amp;Obrazek widoczny</translation>
-    </message>
-    <message>
-        <source>&amp;Update Picture</source>
-        <translation type="unfinished">&amp;Aktualizuj obrazek</translation>
-    </message>
-    <message>
-        <source>&amp;Edit Picture</source>
-        <translation type="unfinished">&amp;Edytuj obrazek</translation>
-    </message>
-    <message>
-        <source>&amp;Adjust Frame to Picture</source>
-        <translation type="unfinished">&amp;Dopasuj ramkę do obrazka</translation>
-    </message>
-    <message>
-        <source>&amp;Get Text...</source>
-        <translation type="unfinished">&amp;Pobierz tekst...</translation>
-    </message>
-    <message>
-        <source>&amp;Append Text...</source>
-        <translation type="unfinished">Dołą&amp;cz tekst...</translation>
-    </message>
-    <message>
-        <source>&amp;Edit Text...</source>
-        <translation type="unfinished">&amp;Edytuj tekst...</translation>
-    </message>
-    <message>
-        <source>Is PDF &amp;Bookmark</source>
-        <translation type="unfinished">Jest &amp;zakładką PDF</translation>
-    </message>
-    <message>
-        <source>Is PDF A&amp;nnotation</source>
-        <translation type="unfinished">Jest adnotac&amp;ją PDF</translation>
-    </message>
-    <message>
-        <source>Annotation P&amp;roperties</source>
-        <translation type="unfinished">Właściwości &amp;adnotacji</translation>
-    </message>
-    <message>
-        <source>Field P&amp;roperties</source>
-        <translation type="unfinished">Właściwości &amp;pola</translation>
-    </message>
-    <message>
-        <source>&amp;PDF Options</source>
-        <translation type="unfinished">&amp;Opcje PDF</translation>
-    </message>
-    <message>
-        <source>Edit Text...</source>
-        <translation type="unfinished">Edytuj tekst...</translation>
-    </message>
-    <message>
-        <source>&amp;Lock</source>
-        <translation type="unfinished">&amp;Zabezpiecz</translation>
-    </message>
-    <message>
-        <source>Un&amp;lock</source>
-        <translation type="unfinished">&amp;Odbezpiecz</translation>
-    </message>
-    <message>
-        <source>Lock Object &amp;Size</source>
-        <translation type="unfinished">Zabezpiecz roz&amp;miary obiektu</translation>
-    </message>
-    <message>
-        <source>Unlock Object &amp;Size</source>
-        <translation type="unfinished">Odbezp&amp;iecz rozmiary obiektu</translation>
-    </message>
-    <message>
-        <source>Send to S&amp;crapbook</source>
-        <translation type="unfinished">Dodaj do &amp;biblioteki</translation>
-    </message>
-    <message>
-        <source>Send to La&amp;yer</source>
-        <translation type="unfinished">P&amp;rzesuń do warstwy</translation>
-    </message>
-    <message>
-        <source>&amp;Insert Sample Text</source>
-        <translation type="unfinished">&amp;Wstaw przykładowy tekst</translation>
-    </message>
-    <message>
-        <source>&amp;Group</source>
-        <translation type="unfinished">&amp;Grupuj</translation>
-    </message>
-    <message>
-        <source>Un&amp;group</source>
-        <translation type="unfinished">&amp;Rozgrupuj</translation>
-    </message>
-    <message>
-        <source>Le&amp;vel</source>
-        <translation type="unfinished">Poz&amp;iom</translation>
-    </message>
-    <message>
-        <source>Send to &amp;Back</source>
-        <translation type="unfinished">Przesuń na &amp;spód</translation>
-    </message>
-    <message>
-        <source>Bring to &amp;Front</source>
-        <translation type="unfinished">Prz&amp;esuń na wierzch</translation>
-    </message>
-    <message>
-        <source>&amp;Lower</source>
-        <translation type="unfinished">O poziom &amp;niżej</translation>
-    </message>
-    <message>
-        <source>&amp;Raise</source>
-        <translation type="unfinished">O poziom w&amp;yżej</translation>
-    </message>
-    <message>
-        <source>&amp;Picture Frame</source>
-        <translation type="unfinished">Ramka &amp;graficzna</translation>
-    </message>
-    <message>
-        <source>Pol&amp;ygon</source>
-        <translation type="unfinished">&amp;Wielokąt</translation>
-    </message>
-    <message>
-        <source>&amp;Outlines</source>
-        <translation type="unfinished">&amp;Krzywe</translation>
-    </message>
-    <message>
-        <source>&amp;Text Frame</source>
-        <translation type="unfinished">Ramka &amp;tekstowa</translation>
-    </message>
-    <message>
-        <source>&amp;Bezier Curve</source>
-        <translation type="unfinished">Krzywa &amp;Beziera</translation>
-    </message>
-    <message>
-        <source>Conve&amp;rt to</source>
-        <translation type="unfinished">Z&amp;amień na</translation>
-    </message>
-    <message>
-        <source>Cu&amp;t</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Copy</source>
-        <translation type="unfinished">&amp;Kopiuj</translation>
-    </message>
-    <message>
-        <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Usuń</translation>
-    </message>
-    <message>
-        <source>C&amp;lear Contents</source>
-        <translation type="unfinished">W&amp;yczyść zawartość</translation>
-    </message>
-    <message>
-        <source>Show P&amp;roperties...</source>
-        <translation type="unfinished">Wyświet&amp;laj właściwości...</translation>
-    </message>
-    <message>
-        <source>Hide P&amp;roperties...</source>
-        <translation type="unfinished">Ukry&amp;j właściwości...</translation>
-    </message>
-    <message>
-        <source>The Program</source>
-        <translation type="unfinished">Program</translation>
-    </message>
-    <message>
-        <source>is missing!</source>
-        <translation type="unfinished">nie istnieje!</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation type="unfinished">Ostrzeżenie</translation>
-    </message>
-    <message>
-        <source>Do you really want to clear all your Text?</source>
-        <translation type="unfinished">Naprawdę usunąć cały tekst?</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="unfinished">Brak</translation>
-    </message>
-    <message>
-        <source>Copy of</source>
-        <translation type="unfinished">Kopia</translation>
     </message>
 </context>
 <context>
@@ -10116,6 +9746,10 @@ przeciągnij szablon na widok strony na dole.</translation>
         <translation>Zakończ bez aktualizowania ramki tekstowej</translation>
     </message>
     <message>
+        <source>&amp;Insert Special</source>
+        <translation type="obsolete">Dodaj znak  &amp;specjalny</translation>
+    </message>
+    <message>
         <source>&amp;New</source>
         <translation>&amp;Nowy</translation>
     </message>
@@ -10216,6 +9850,10 @@ przeciągnij szablon na widok strony na dole.</translation>
         <translation>Znajdź/Zastąp</translation>
     </message>
     <message>
+        <source>&amp;Fonts Preview</source>
+        <translation type="obsolete">&amp;Podgląd czcionek</translation>
+    </message>
+    <message>
         <source>&amp;Fonts Preview...</source>
         <translation>&amp;Podgląd czcionek...</translation>
     </message>
@@ -10247,12 +9885,12 @@ przeciągnij szablon na widok strony na dole.</translation>
         <translation>Indeks górny</translation>
     </message>
     <message>
-        <source>Strike Out</source>
-        <translation>Przekreślenie</translation>
+        <source>Outline Text</source>
+        <translation>Obramowanie tekstu</translation>
     </message>
     <message>
-        <source>Outline</source>
-        <translation type="unfinished">Struktura</translation>
+        <source>Strike Out</source>
+        <translation>Przekreślenie</translation>
     </message>
 </context>
 <context>
@@ -10400,8 +10038,62 @@ jeśli w dokumencie OO.o Writera pojawi się styl o tej samej nazwie</translatio
         <translation>Informacja</translation>
     </message>
     <message>
+        <source>X:</source>
+        <translation>X:</translation>
+    </message>
+    <message>
+        <source>Y:</source>
+        <translation>Y:</translation>
+    </message>
+    <message>
+        <source>Font:</source>
+        <translation>Czcionka:</translation>
+    </message>
+    <message>
+        <source>Image</source>
+        <translation>Obrazek</translation>
+    </message>
+    <message>
+        <source>Text</source>
+        <translation>Tekst</translation>
+    </message>
+    <message>
+        <source>Line</source>
+        <translation>Linia</translation>
+    </message>
+    <message>
+        <source>Polygon</source>
+        <translation>Wielokąt</translation>
+    </message>
+    <message>
+        <source>Polyline</source>
+        <translation>Linia łamana</translation>
+    </message>
+    <message>
+        <source>PathText</source>
+        <translation>Tekst na ścieżce</translation>
+    </message>
+    <message>
         <source>Page</source>
         <translation>Strona</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Ostrzeżenie</translation>
+    </message>
+    <message>
+        <source>Name &quot;%1&quot; isn&apos;t unique.
+Please choose another.</source>
+        <translation>Nazwa &quot;%1&quot; już istnieje.
+Proszę wybrać inną.</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Group </source>
+        <translation>Grupuj</translation>
     </message>
 </context>
 <context>
