@@ -2344,9 +2344,6 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	view = new ScribusView(w, doc, &Prefs);
 	view->Scale = 1.0*Prefs.DisScale;
 	w->setView(view);
-	QString oldDocName = "";
-	if (ActWin && ActWin->doc && ActWin->doc->DocName)
-		oldDocName = ActWin->doc->DocName;
 	ActWin = w;
 	doc->WinHan = w;
 	w->setCentralWidget(view);
