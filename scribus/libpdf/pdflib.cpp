@@ -432,14 +432,15 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 	BookMinUse = false;
 	UsedFontsP.clear();
 	ObjCounter = Options->Articles ? 9 : 8;
+	ObjCounter = 10;
   	PutDoc(Options->Version <= 13 ? "%PDF-1.3\n" : "%PDF-1.4\n");
  	if (Options->Version == 12)
 		ObjCounter++;
 	PutDoc("%"+QString(QChar(199))+QString(QChar(236))+QString(QChar(143))+QString(QChar(162))+"\n");
 	StartObj(1);
-	PutDoc("<<\n/Type /Catalog\n/Outlines 3 0 R\n/Pages 4 0 R\n/Dests 5 0 R\n/AcroForm 6 0 R\n/Names 7 0 R\n");
-	if (Options->Articles)
-		PutDoc("/Threads 8 0 R\n");
+	PutDoc("<<\n/Type /Catalog\n/Outlines 3 0 R\n/Pages 4 0 R\n/Dests 5 0 R\n/AcroForm 6 0 R\n/Names 7 0 R\n/Threads 8 0 R\n");
+//	if (doc->Layers.count() > 1)
+		PutDoc("/OCProperties 9 0 R\n");
 	if (Options->Version == 12)
 		PutDoc("/OutputIntents [ "+IToStr(ObjCounter-1)+" 0 R ]\n");
 	PutDoc("/ViewerPreferences << /PageDirection ");
@@ -499,9 +500,9 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 	if (Options->Version == 12)
 		PutDoc("/GTS_PDFXVersion (PDF/X-3:2002)\n");
 	PutDoc("/Trapped /False\n>>\nendobj\n");
-  	for (int t = 0; t < 5; ++t)
+  	for (int t = 0; t < 6; ++t)
 		XRef.append(Dokument);
-	if (Options->Articles)
+//	if (Options->Articles)
 		XRef.append(Dokument);
 	if (Options->Version == 12)
 		XRef.append(Dokument);
@@ -882,6 +883,27 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 		ObjCounter++;
 	}
 #endif
+	struct Layer ll;
+	struct OCGInfo ocg;
+	ll.isPrintable = false;
+	ll.LNr = 0;
+	int Lnr = 0;
+	QString ocgNam = "oc";
+	for (uint la = 0; la < doc->Layers.count(); ++la)
+	{
+		QString tmp = "";
+		Level2Layer(doc, &ll, Lnr);
+		ocg.Name = ocgNam+tmp.setNum(ll.LNr);
+		ocg.ObjNum = ObjCounter;
+		OCGEntries.insert(ll.Name, ocg);
+		StartObj(ObjCounter);
+		ObjCounter++;
+		PutDoc("<<\n");
+		PutDoc("/Type /OCG\n");
+		PutDoc("/Name ("+ll.Name+")\n");
+		PutDoc(">>\nendobj\n");
+		Lnr++;
+	}
 	return true;
 }
 
@@ -1804,6 +1826,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 			PItems = doc->Items;
 		if (ll.isPrintable)
 		{
+			PutPage("/OC /"+OCGEntries[ll.Name].Name+" BDC\n");
 			for (uint a = 0; a < PItems.count(); ++a)
 			{
 				ite =PItems.at(a);
@@ -2368,6 +2391,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 					}
 					PutPage("Q\n");
 				}
+			PutPage("EMC\n");
 			}
 		Lnr++;
 	}
@@ -4247,6 +4271,18 @@ void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 			PutDoc("/"+it3c.data().ResName+" "+IToStr(it3c.data().ResNum)+" 0 R\n");
 		PutDoc(">>\n");
 	}
+	PutDoc("/Properties <<\n");
+	struct Layer ll;
+	ll.isPrintable = false;
+	ll.LNr = 0;
+	int Lnr = 0;
+	for (uint la = 0; la < doc->Layers.count(); ++la)
+	{
+		Level2Layer(doc, &ll, la);
+		PutDoc("/"+OCGEntries[ll.Name].Name+" "+IToStr(OCGEntries[ll.Name].ObjNum)+" 0 R\n");
+		Lnr++;
+	}
+	PutDoc(">>\n");
 	PutDoc(">>\nendobj\n");
 	ObjCounter++;
 	XRef[2] = Dokument;
@@ -4326,9 +4362,9 @@ void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 	if (doc->JavaScripts.count() != 0)
 		PutDoc("/JavaScript "+IToStr(ObjCounter-1)+" 0 R");
 	PutDoc(" >>\nendobj\n");
+	Threads.clear();
 	if (Options->Articles)
 	{
-		Threads.clear();
 		for (uint ele = 0; ele < doc->Items.count(); ++ele)
 		{
 			PageItem* tel = doc->Items.at(ele);
@@ -4395,12 +4431,25 @@ void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 		}
 		for (uint ele = 0; ele < doc->Items.count(); ++ele)
 			doc->Items.at(ele)->Redrawn = false;
-		XRef[7] = Dokument;
-		PutDoc("8 0 obj\n[");
-		for (uint th = 0; th < Threads.count(); ++th)
-			PutDoc(IToStr(Threads[th])+" 0 R ");
-		PutDoc("]\nendobj\n");
 	}
+	XRef[7] = Dokument;
+	PutDoc("8 0 obj\n[");
+	for (uint th = 0; th < Threads.count(); ++th)
+		PutDoc(IToStr(Threads[th])+" 0 R ");
+	PutDoc("]\nendobj\n");
+	XRef[8] = Dokument;
+	PutDoc("9 0 obj\n<<\n/D << /BaseState /ON /Order [ ");
+	QMap<QString, OCGInfo>::Iterator itoc;
+	for (itoc = OCGEntries.begin(); itoc != OCGEntries.end(); ++itoc)
+	{
+		PutDoc(IToStr(itoc.data().ObjNum)+" 0 R ");
+	}
+	PutDoc("] >>\n/OCGs [ ");
+	for (itoc = OCGEntries.begin(); itoc != OCGEntries.end(); ++itoc)
+	{
+		PutDoc(IToStr(itoc.data().ObjNum)+" 0 R ");
+	}
+	PutDoc("]\n>>\nendobj\n");
 	if (Options->Version == 12)
 	{
 		StartObj(ObjCounter);

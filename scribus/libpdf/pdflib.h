@@ -152,6 +152,11 @@ private:
 		double xa;
 		double ya;
 	};
+	struct OCGInfo
+	{
+		int ObjNum;
+		QString Name;
+	};
 	QMap<QString,ShIm> SharedImages;
 	QValueList<uint> XRef;
 	QValueList<Dest> NamedDest;
@@ -161,6 +166,7 @@ private:
 	QMap<QString,int> Shadings;
 	QMap<QString,int> Transpar;
 	QMap<QString,ICCD> ICCProfiles;
+	QMap<QString, OCGInfo> OCGEntries;
 	int ObjCounter;
 	QString ResNam;
 	int ResCount;

@@ -2710,6 +2710,7 @@ void Level2Layer(ScribusDoc *currentDoc, struct Layer *ll, int Level)
 			ll->isViewable = currentDoc->Layers[la2].isViewable;
 			ll->isPrintable = currentDoc->Layers[la2].isPrintable;
 			ll->LNr = currentDoc->Layers[la2].LNr;
+			ll->Name = currentDoc->Layers[la2].Name;
 			break;
 		}
 	}
