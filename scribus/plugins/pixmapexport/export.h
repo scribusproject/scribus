@@ -21,6 +21,7 @@ extern "C" QString Name();
   \retval 3 = the Plugin is a Export Plugin, which appears in the Export Menue
   \retval 4 = the Plugin is a resident Plugin	*/
 extern "C" int Type();
+extern "C" int ID();
 
 
 /*! Handles export. */

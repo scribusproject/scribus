@@ -48,6 +48,11 @@ int Type()
 	return 2;
 }
 
+int ID()
+{
+	return 6;
+}
+
 /*!
  \fn void Run(QWidget *d, ScribusApp *plug)
  \author Franz Schmid

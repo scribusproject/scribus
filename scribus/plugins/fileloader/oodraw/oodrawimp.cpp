@@ -58,6 +58,11 @@ int Type()
 	return 2;
 }
 
+int ID()
+{
+	return 12;
+}
+
 void Run(QWidget *d, ScribusApp *plug)
 {
 	QString fileName;
@@ -1039,8 +1044,8 @@ bool OODPlug::parseSVG( const QString &s, FPointArray *ite )
 			case 'z':
 			case 'Z':
 				{
-					curx = subpathx;
-					cury = subpathy;
+//					curx = subpathx;
+//					cury = subpathy;
 					svgClosePath(ite);
 					break;
 				}

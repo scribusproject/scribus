@@ -21,6 +21,11 @@ int Type()
     return 5;
 }
 
+int ID()
+{
+	return 3;
+}
+
 void InitPlug(QWidget *d, ScribusApp *plug)
 {
 	Carrier = plug;

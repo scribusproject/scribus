@@ -62,6 +62,11 @@ int Type()
 	return 4;
 }
 
+int ID()
+{
+	return 8;
+}
+
 void InitPlug(QWidget *d, ScribusApp *plug)
 {
 	QString cm;

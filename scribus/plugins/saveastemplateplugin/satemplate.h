@@ -23,6 +23,7 @@ extern "C" QString Name();
   * 3 = the Plugin is a Export Plugin, which appears in the Export Menue
   * 4 = the Plugin is a resident Plugin   */
 extern "C" int Type();
+extern "C" int ID();
 
 /** Initializes the Plugin if it's a Plugin of Type 4 or 5 */
 extern "C" void InitPlug(QWidget *d, ScribusApp *plug);

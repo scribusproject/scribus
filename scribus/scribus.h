@@ -128,8 +128,10 @@ public:
 	void InitHyphenator();
 	QString GetLang(QString inLang);
 	void FinalizePlugs();
-	bool DLLName(QString name, QString *PName, int *typ, void **Zeig);
-	void CallDLL(QString name);
+	bool DLLName(QString name, QString *PName, int *typ, void **Zeig, int *idNr);
+	void CallDLLbyMenu(int id);
+	void CallDLL(int ident);
+	bool DLLexists(int ident);
 	PSLib* getPSDriver(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, CListe DocColors, bool pdf);
 	void closePSDriver();
 	bool getPDFDriver(QString fn, QString nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs);
@@ -599,10 +601,12 @@ private:
 	QStringList RecentDocs;
 	struct PlugData { 
 						QString Datei;
-						void *Zeiger;
-						int Typ;
+						QString Name;
+					  	void *Zeiger;
+					  	int Typ;
+						int MenuID;
 					} ;
-	QMap<QString, PlugData> PluginMap;
+	QMap<int, PlugData> PluginMap;
 	bool PrinterUsed;
 	struct PDe { 
 					QString Pname;

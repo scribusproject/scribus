@@ -11,6 +11,11 @@ int Type()
 	return 1;
 }
 
+int ID()
+{
+	return 2;
+}
+
 /**
 Create dialog and insert font into Style meny when user accepts.
 */
