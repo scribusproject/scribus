@@ -1078,8 +1078,8 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		doc->PageM.Bottom=QStodouble(dc.attribute("BORDERBOTTOM"));
 		doc->PageOri = QStoInt(dc.attribute("ORIENTATION","0"));
 		doc->FirstPnum = QStoInt(dc.attribute("FIRSTNUM","1"));
-		doc->PageFP=QStoInt(dc.attribute("BOOK"));
-		doc->FirstPageLeft=QStoInt(dc.attribute("FIRSTLEFT"));
+		doc->PageFP=QStoInt(dc.attribute("BOOK", "0"));
+		doc->FirstPageLeft=QStoInt(dc.attribute("FIRSTLEFT","0"));
 		doc->PageAT=QStoInt(dc.attribute("AUTOTEXT"));
 		doc->PageSp=QStoInt(dc.attribute("AUTOSPALTEN"));
 		doc->PageSpa=QStodouble(dc.attribute("ABSTSPALTEN"));
@@ -3292,12 +3292,12 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, ScribusView *view, 
 		pdf3.setAttribute("Di", doc->PDF_Optionen.PresentVals[pdoE].Di);
 		pdf.appendChild(pdf3);
 	}
-	dc.appendChild(pdf);
 	if (dia2 != 0)
 	{
-		dia2->setTotalSteps(view->Pages.count()+view->MasterPages.count());
+		dia2->setTotalSteps(view->DocPages.count()+view->MasterPages.count());
 		dia2->setProgress(0);
 	}
+	dc.appendChild(pdf);
 	if (doc->TemplateMode)
 	{
 		view->MasterPages = view->Pages;

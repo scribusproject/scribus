@@ -8266,6 +8266,8 @@ void ScribusApp::ReorgFonts()
 	QMap<QString,QFont> Really;
 	QMap<QString,QFont> DocF;
 	DocF = doc->UsedFonts;
+	if (!doc->TemplateMode)
+		view->DocPages = view->Pages;
 	for (uint c = 0; c < view->MasterPages.count(); ++c)
 	{
 		pg = view->MasterPages.at(c);
@@ -8282,9 +8284,9 @@ void ScribusApp::ReorgFonts()
 			}
 		}
 	}
-	for (uint c = 0; c < view->Pages.count(); ++c)
+	for (uint c = 0; c < view->DocPages.count(); ++c)
 	{
-		pg = view->Pages.at(c);
+		pg = view->DocPages.at(c);
 		for (uint d = 0; d < pg->Items.count(); ++d)
 		{
 			it = pg->Items.at(d);

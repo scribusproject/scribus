@@ -193,8 +193,8 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
 	GroupBox10Layout->setMargin( 10 );
 	TabList = new Tabruler(GroupBox10, true, DocsEin, vor->TabValues, -1);
 	TabList->setIndentSpin(vor->Indent);
-	TabList->setFirstSpin(vor->First);
 	TabList->setIndent();
+	TabList->setFirstSpin(vor->First);
 	TabList->setFirst();
 	GroupBox10Layout->addWidget( TabList );
 

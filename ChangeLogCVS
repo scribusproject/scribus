@@ -3,10 +3,14 @@ Changes since Version 1.1.7
 18.06.2004
 	* bug     #765: Paragraph indentation oops when rendering to pdf
 	* bug     #781: Story Editor>Edit>Insert special... does nothing
+	* bug     #807: saving doc in template mode corrupts file
+	* bug     #811: indent not shown when editing styles
 	* feature #795: Polish Translation Update
 	* feature #800: Finnish translation update
 	* feature #801: Norwegian Translation Update
 	* feature #802: Italian Translation Update
+	* feature #806: german translation update
+	* feature #808: First Line Indent not saved from Paragraph Styles after closing and reopening the editor
 
 15.06.2004
 	* bug     #655: Window enlarge each time I select a file

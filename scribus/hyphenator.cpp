@@ -192,7 +192,7 @@ void Hyphenator::slotHyphenateWord(PageItem* it, QString text, int firstC)
 			for (i = 1; i < found.length()-1; ++i)
 			{
 				if(buffer[i] & 1)
-					it->Ptext.at(QMIN(maxC, i+firstC))->cstyle ^= 128;	// Set new Hyphens according Buffer
+					it->Ptext.at(QMIN(maxC, i+firstC))->cstyle |= 128;	// Set new Hyphens according Buffer
 			}
 		}
 		free(buffer);
@@ -303,7 +303,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 							{
 								QChar cht = outs[i];
 								if (cht == "-")
-									it->Ptext.at(QMIN(maxC, ii+firstC))->cstyle ^= 128;	
+									it->Ptext.at(QMIN(maxC, ii+firstC))->cstyle |= 128;
 								else
 									ii++;
 							}
@@ -322,7 +322,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 						for (i = 1; i < found.length()-1; ++i)
 						{
 							if(buffer[i] & 1)
-								it->Ptext.at(QMIN(maxC, i+firstC))->cstyle ^= 128;	
+								it->Ptext.at(QMIN(maxC, i+firstC))->cstyle |= 128;
 						}
 	  				}
 				}

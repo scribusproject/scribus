@@ -701,7 +701,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						}
 					if (((Doc->Vorlagen[absa].Ausri == 3) || (Doc->Vorlagen[absa].Ausri == 4)) && (LiList.count() == 0) && (hl->ch == " "))
 					{
-						hl->cstyle ^= 256;
+						hl->cstyle |= 256;
 						continue;
 					}
 					else
@@ -1044,7 +1044,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 								if (Ptext.at(a)->cstyle & 128)
 								{
 									HyphenCount++;
-									Ptext.at(a)->cstyle ^= 512;
+									Ptext.at(a)->cstyle |= 512;
 									Zli = new ZZ;
 									Zli->Zeich = "-";
 									Zli->Farb = Ptext.at(a)->ccolor;
