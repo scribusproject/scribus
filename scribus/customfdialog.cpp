@@ -33,7 +33,7 @@ extern QString DocDir;
 ImIconProvider::ImIconProvider(QWidget *pa) : QFileIconProvider(pa)
 {
 	fmts.clear();
-	QString tmp[] = {"eps", "gif", "png", "jpg", "jpeg", "xpm", "tif", "bmp", "pbm", "pgm", "ppm", "xbm", "xpm", "psd"};
+	QString tmp[] = {"eps", "gif", "png", "jpg", "jpeg", "xpm", "tif", "tiff", "bmp", "pbm", "pgm", "ppm", "xbm", "xpm", "psd"};
 	size_t array = sizeof(tmp) / sizeof(*tmp);
 	for (uint a = 0; a < array; ++a)
 		fmts += tmp[a];

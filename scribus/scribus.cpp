@@ -4918,8 +4918,8 @@ void ScribusApp::slotFileOpen()
 				}
 			}
 #ifdef HAVE_TIFF
-			formats += "TIFF (*.tif *.TIF);;";
-			formatD += "*.tif *.TIF";
+			formats += "TIFF (*.tif *.tiff *.TIF *TIFF);;";
+			formatD += "*.tif *.tiff *.TIF *TIFF";
 #endif
 			formats += "PSD (*.psd *.PSD);;";
 			formatD += " *.psd *.PSD";

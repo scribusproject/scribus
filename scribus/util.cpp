@@ -1380,7 +1380,7 @@ QString getAlpha(QString fn, bool PDF, bool pdf14)
 	QString tmpFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/sc.png");
 	if ((ext == "pdf") || (ext == "eps") || (ext == "ps") || (ext == "jpg") || (ext == "jpeg"))
 		return retS;
-	if (ext == "tif")
+	if ((ext == "tif") || (ext == "tiff"))
 	{
 #ifdef HAVE_TIFF
 		TIFF* tif = TIFFOpen(fn, "r");
@@ -1640,7 +1640,7 @@ QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool us
 		}
 	}
 #ifdef HAVE_TIFF
-	else if (ext == "tif")
+	else if ((ext == "tif") || (ext == "tiff"))
 	{
 		QImage img2;
 		TIFF* tif = TIFFOpen(fn, "r");
