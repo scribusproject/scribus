@@ -1,15 +1,13 @@
 #ifndef AUTOFORM_H
 #define AUTOFORM_H
 
-#include <qvariant.h>
 #include <qwidget.h>
-#include <qbuttongroup.h>
 #include <qtoolbutton.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <qwhatsthis.h>
-#include <qpopupmenu.h>
-#include <qpixmap.h>
+class QGridLayout;
+class QPopupMenu;
+class QPixmap;
+class QBbuttonGroup;
+
 
 class Autoforms : public QToolButton
 {

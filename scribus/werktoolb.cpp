@@ -15,6 +15,8 @@
  *                                                                         *
  ***************************************************************************/
 
+#include <qtooltip.h>
+#include <qpopupmenu.h>
 #include "werktoolb.h"
 #include "werktoolb.moc"
 #include "polyprops.h"

@@ -14,6 +14,10 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
+
+#include <qfile.h>
+#include <qtextstream.h>
+
 #include "svgexplugin.h"
 #include "svgexplugin.moc"
 
@@ -24,9 +28,9 @@
 #else
  #include "config.h"
 #endif
+
 #include "customfdialog.h"
-#include <qfile.h>
-#include <qtextstream.h>
+#include "scribus.h"
 #ifdef HAVE_LIBZ
 #include <zlib.h>
 #endif

@@ -1,8 +1,19 @@
+#include <qtextcodec.h>
+#include <qcursor.h>
+
+#include <qlabel.h>
+#include <qpushbutton.h>
+#include <qtable.h>
+#include <qlayout.h>
+#include <qtooltip.h>
+#include <qstringlist.h>
+#include <qcombobox.h>
+#include <qfont.h>
+
+#include "scribus.h"
 #include "charselect.h"
 #include "charselect.moc"
 #include "scpainter.h"
-#include <qtextcodec.h>
-#include <qcursor.h>
 #ifdef _MSC_VER
  #if (_MSC_VER >= 1200)
   #include "win-config.h"

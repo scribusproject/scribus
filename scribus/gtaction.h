@@ -23,8 +23,9 @@
 
 #include <qtextcodec.h>
 #include <qvaluelist.h>
-#include "scribus.h"
-#include "scribusdoc.h"
+#include <qmap.h>
+#include <qstring.h>
+#include "pageitem.h"
 #include "gtfont.h"
 #include "gtframestyle.h"
 #include "gtparagraphstyle.h"

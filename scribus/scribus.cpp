@@ -94,6 +94,7 @@
 #include "fontcombo.h"
 #include "prefsfile.h"
 #include "polygonwidget.h"
+#include "werktoolb.h"
 
 extern QPixmap loadIcon(QString nam);
 extern bool overwrite(QWidget *parent, QString filename);
@@ -155,31 +156,12 @@ void ScribusApp::initScribus()
 	setKeyCompression(false);
 	setIcon(loadIcon("AppIcon.png"));
 	MenuItemsFile.clear();
+
 	initMenuBar();
 	initStatusBar();
+	initToolBars();
+
 	qApp->processEvents();
-	WerkTools2 = new QToolBar( tr("File"), this);
-	DatNeu = new QToolButton(loadIcon("DateiNeu.xpm"), tr("Create a new Document"), QString::null, this, SLOT(slotFileNew()), WerkTools2);
-	DatOpe = new QToolButton(loadIcon("DateiOpen.xpm"), tr("Open a Document"), QString::null, this, SLOT(slotDocOpen()), WerkTools2);
-	DatSav = new QToolButton(loadIcon("DateiSave2.png"), tr("Save the current Document"), QString::null, this, SLOT(slotFileSave()), WerkTools2);
-	DatClo = new QToolButton(loadIcon("DateiClose.png"), tr("Close the current Document"), QString::null, this, SLOT(slotFileClose()), WerkTools2);
-	DatPri = new QToolButton(loadIcon("DateiPrint.xpm"), tr("Print the current Document"), QString::null, this, SLOT(slotFilePrint()), WerkTools2);
-	DatPDF = new QToolButton(loadIcon("acrobat.png"), tr("Save the current Document as PDF"), QString::null, this, SLOT(SaveAsPDF()), WerkTools2);
-	DatSav->setEnabled(false);
-	DatClo->setEnabled(false);
-	DatPri->setEnabled(false);
-	DatPDF->setEnabled(false);
-	DatOpe->setPopup(recentMenu);
-	WerkTools = new WerkToolB(this);
-	setDockEnabled(WerkTools, DockLeft, false);
-	setDockEnabled(WerkTools, DockRight, false);
-	WerkTools->Sichtbar = true;
-	WerkTools->setEnabled(false);
-	WerkToolsP = new WerkToolBP(this);
-	setDockEnabled(WerkToolsP, DockLeft, false);
-	setDockEnabled(WerkToolsP, DockRight, false);
-	WerkToolsP->setEnabled(false);
-	WerkToolsP->Sichtbar = true;
 
 	PrefsPfad = getPreferencesLocation();
 	prefsFile = new PrefsFile(QDir::convertSeparators(PrefsPfad + "/prefs.xml"));
@@ -449,7 +431,7 @@ void ScribusApp::initScribus()
 		if (splashScreen != NULL)
 			splashScreen->setStatus( tr("Init Hyphenator"));
 		qApp->processEvents();
-		InitHyphenator();
+		initHyphenator();
 		Mpal->Cpal->UseTrans(Prefs.PDFTransparency);
 		Mpal->Fonts->RebuildList(&Prefs, 0);
 		DocDir = Prefs.DocDir;
@@ -502,7 +484,7 @@ void ScribusApp::initScribus()
 		if (splashScreen != NULL)
 			splashScreen->setStatus( tr("Initializing Plugins"));
 		qApp->processEvents();
-		InitPlugs();
+		initPlugs();
 		ClipB = QApplication::clipboard();
 		PalettesStat[0] = false;
 		GuidesStat[0] = false;
@@ -579,6 +561,7 @@ void ScribusApp::initScribus()
 		connect(this, SIGNAL(TextScale(int)), Mpal, SLOT(setTScale(int)));
 		connect(this, SIGNAL(TextFarben(QString, QString, int, int)), Mpal, SLOT(setActFarben(QString, QString, int, int)));
 		connect(ClipB, SIGNAL(dataChanged()), this, SLOT(ClipChange()));
+
 		typedef void (*HandlerType)(int);
 		HandlerType handler	= 0;
 		handler = ScribusApp::defaultCrashHandler;
@@ -605,6 +588,33 @@ void ScribusApp::initScribus()
 		sigprocmask(SIG_UNBLOCK, &mask, 0);
 	}
 }
+
+void ScribusApp::initToolBars()
+{
+	WerkTools2 = new QToolBar( tr("File"), this);
+	DatNeu = new QToolButton(loadIcon("DateiNeu.xpm"), tr("Create a new Document"), QString::null, this, SLOT(slotFileNew()), WerkTools2);
+	DatOpe = new QToolButton(loadIcon("DateiOpen.xpm"), tr("Open a Document"), QString::null, this, SLOT(slotDocOpen()), WerkTools2);
+	DatSav = new QToolButton(loadIcon("DateiSave2.png"), tr("Save the current Document"), QString::null, this, SLOT(slotFileSave()), WerkTools2);
+	DatClo = new QToolButton(loadIcon("DateiClose.png"), tr("Close the current Document"), QString::null, this, SLOT(slotFileClose()), WerkTools2);
+	DatPri = new QToolButton(loadIcon("DateiPrint.xpm"), tr("Print the current Document"), QString::null, this, SLOT(slotFilePrint()), WerkTools2);
+	DatPDF = new QToolButton(loadIcon("acrobat.png"), tr("Save the current Document as PDF"), QString::null, this, SLOT(SaveAsPDF()), WerkTools2);
+	DatSav->setEnabled(false);
+	DatClo->setEnabled(false);
+	DatPri->setEnabled(false);
+	DatPDF->setEnabled(false);
+	DatOpe->setPopup(recentMenu);
+	WerkTools = new WerkToolB(this);
+	setDockEnabled(WerkTools, DockLeft, false);
+	setDockEnabled(WerkTools, DockRight, false);
+	WerkTools->Sichtbar = true;
+	WerkTools->setEnabled(false);
+	WerkToolsP = new WerkToolBP(this);
+	setDockEnabled(WerkToolsP, DockLeft, false);
+	setDockEnabled(WerkToolsP, DockRight, false);
+	WerkToolsP->setEnabled(false);
+	WerkToolsP->Sichtbar = true;
+}
+
 
 /*!
  \fn QString ScribusApp::getPreferencesLocation()
@@ -7838,15 +7848,13 @@ QString ScribusApp::CFileDialog(QString wDir, QString caption, QString filter, Q
 
 void ScribusApp::RunPlug(int id)
 {
-	int a = extraMenu->indexOf(id);
-	if (a > 2)
+	if (extraMenu->indexOf(id) > 2)
 		CallDLLbyMenu(id);
 }
 
 void ScribusApp::RunImportPlug(int id)
 {
-	int a = importMenu->indexOf(id);
-	if (a > 2)
+	if (importMenu->indexOf(id) > 2)
 	{
 		if (HaveDoc)
 			doc->OpenNodes = Tpal->buildReopenVals();
@@ -7862,15 +7870,13 @@ void ScribusApp::RunImportPlug(int id)
 
 void ScribusApp::RunExportPlug(int id)
 {
-	int a = exportMenu->indexOf(id);
-	if (a > 2)
+	if (exportMenu->indexOf(id) > 2)
 		CallDLLbyMenu(id);
 }
 
 void ScribusApp::RunHelpPlug(int id)
 {
-	int a = helpMenu->indexOf(id);
-	if (a > 3)
+	if (helpMenu->indexOf(id) > 3)
 		CallDLLbyMenu(id);
 }
 
@@ -7900,7 +7906,7 @@ void ScribusApp::FinalizePlugs()
 	}
 }
 
-void ScribusApp::InitPlugs()
+void ScribusApp::initPlugs()
 {
 	QString pfad = PREL;
 	QString nam = "";
@@ -8508,7 +8514,7 @@ void ScribusApp::CanUndo()
 	editMenu->setItemEnabled(edUndo, doc->UnDoValid ? 1 : 0);
 }
 
-void ScribusApp::InitHyphenator()
+void ScribusApp::initHyphenator()
 {
 	QString pfad = PREL;
 	pfad += "/lib/scribus/";

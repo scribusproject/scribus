@@ -1,3 +1,13 @@
+#include <qwidget.h>
+#include <qfile.h>
+#include <qtextstream.h>
+#include <qregexp.h>
+#include <qcursor.h>
+#include <qdragobject.h>
+#include <qdir.h>
+#include <qstring.h>
+#include <cmath>
+
 #include "oodrawimp.h"
 #include "oodrawimp.moc"
 #ifdef _MSC_VER
@@ -7,6 +17,11 @@
 #else
  #include "config.h"
 #endif
+
+#include "scribus.h"
+#include "scribusdoc.h"
+#include "pageitem.h"
+#include "fpointarray.h"
 #include "customfdialog.h"
 #include "color.h"
 #include "scribusXml.h"
@@ -16,14 +31,6 @@
 #include "prefstable.h"
 #include "sxwunzip.h"
 #include "serializer.h"
-#include <qfile.h>
-#include <qtextstream.h>
-#include <qregexp.h>
-#include <qcursor.h>
-#include <qdragobject.h>
-#include <qdir.h>
-#include <qstring.h>
-#include <cmath>
 
 using namespace std;
 

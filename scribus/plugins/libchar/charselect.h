@@ -10,15 +10,16 @@
 #define QUERY_H
 
 #include <qdialog.h>
-#include <qlabel.h>
-#include <qpushbutton.h>
-#include <qtable.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <qstringlist.h>
-#include <qcombobox.h>
-#include <qfont.h>
-#include "scribus.h"
+
+class QLabel;
+class QPushbutton;
+class QTable;
+class QLayout;
+class QToolTip;
+class QStringList;
+class QComboBox;
+class QFont;
+class ScribusApp;
 
 /** Calls the Plugin with the main Application window as parent
   * and the main Application Class as parameter */

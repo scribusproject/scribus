@@ -56,7 +56,8 @@
 #include "scrap.h"
 #include "layers.h"
 #include "libpostscript/pslib.h"
-#include "werktoolb.h"
+class WerkToolB;
+class WerkToolBP;
 #include "seiten.h"
 #include "bookpalette.h"
 #include "splash.h"
@@ -104,10 +105,10 @@ public:
 	~ScribusApp() {};
     /** init methods */
 	void initGui(bool showSplash);
-	/** initMenuBar creates the menu_bar and inserts the menuitems */
-	void initMenuBar();
-	/** setup the statusbar */
-	void initStatusBar();
+	void initMenuBar(); // initMenuBar creates the menu_bar and inserts the menuitems
+	void initStatusBar(); // setup the statusbar
+	void initToolBars(); // setup the toolbars
+
 	void SetShortCut();
 	void SetKeyEntry(int Nr, QString text, int Men, int KeyC);
 	bool doFileNew(double b, double h, double tpr, double lr, double rr, double br, double ab, double sp,
@@ -123,8 +124,8 @@ public:
 	void ShowSubs();
 	void applyNewMaster(QString name);
 	void UpdateRecent(QString fn);
-	void InitPlugs();
-	void InitHyphenator();
+	void initPlugs();
+	void initHyphenator();
 	QString GetLang(QString inLang);
 	void FinalizePlugs();
 	bool DLLName(QString name, QString *PName, int *typ, void **Zeig, int *idNr);

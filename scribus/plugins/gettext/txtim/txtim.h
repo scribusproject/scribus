@@ -1,7 +1,6 @@
 #ifndef TXTIM_H
 #define TXTIM_H
 
-#include <scribus.h>
 #include "gtwriter.h"
 
 extern "C" void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer);

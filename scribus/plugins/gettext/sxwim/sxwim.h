@@ -22,7 +22,6 @@
 #define SXWIM_H
 
 #include <qstring.h>
-#include <scribus.h>
 #include <gtwriter.h>
 #include "config.h"
 

@@ -35,7 +35,6 @@
 #include "gtdialogs.h"
 #include "gtwriter.h"
 #include "pageitem.h"
-#include "scribus.h"
 
 struct ImporterData {
 	QString     soFilePath;

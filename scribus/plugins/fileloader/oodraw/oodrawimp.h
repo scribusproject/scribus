@@ -1,9 +1,16 @@
 #ifndef OODPLUG_H
 #define OODPLUG_H
 
+#include <qobject.h>
 #include <qdom.h>
 #include <qdict.h>
-#include "scribus.h"
+#include <qptrlist.h>
+class QWidget;
+
+class ScribusApp;
+class ScribusDoc;
+class PageItem;
+class FPointArray;
 #include "stylestack.h"
 
 /** Calls the Plugin with the main Application window as parent

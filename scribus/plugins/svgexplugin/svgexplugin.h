@@ -1,8 +1,12 @@
 #ifndef SVGPLUG_H
 #define SVGPLUG_H
 
+#include <qobject.h>
 #include <qdom.h>
-#include "scribus.h"
+class QString;
+class ScribusApp;
+class PageItem;
+class Page;
 
 /** Calls the Plugin with the main Application window as parent
   * and the main Application Class as parameter */

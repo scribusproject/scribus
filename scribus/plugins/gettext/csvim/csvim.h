@@ -2,7 +2,6 @@
 #define CSVIM_H
 
 #include "csvdia.h"
-#include <scribus.h>
 #include <gtwriter.h>
 #include <gtparagraphstyle.h>
 #include <qcstring.h>

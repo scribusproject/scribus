@@ -7,9 +7,18 @@
 **
 ****************************************************************************/
 #include <qmessagebox.h>
+#include <qpushbutton.h>
+#include <qlayout.h>
+#include <qtooltip.h>
+#include <qpixmap.h>
+#include <qcheckbox.h>
+#include <qheader.h>
+#include <qvaluelist.h>
+
+#include "scribus.h"
+
 #include "layers.h"
 #include "layers.moc"
-#include "scribus.h"
 
 extern QPixmap loadIcon(QString nam);
 extern ScribusApp* ScApp;

@@ -2,16 +2,16 @@
 #define LAYERPALETTE_H
 
 #include <qdialog.h>
-#include <qpushbutton.h>
 #include <qtable.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <qpixmap.h>
-#include <qcheckbox.h>
-#include <qheader.h>
 #include <qptrlist.h>
 #include <qvaluelist.h>
-#include <scribusdoc.h>
+
+class QPushButton;
+class QLayout;
+class QToolTip;
+class QPixmap;
+class QCheckBox;
+class QHeader;
 
 class LayerTable : public QTable
 {

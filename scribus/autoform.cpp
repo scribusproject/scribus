@@ -1,8 +1,13 @@
+#include <qimage.h>
+#include <qlayout.h>
+#include <qpopupmenu.h>
+#include <qpixmap.h>
+#include <qbuttongroup.h>
+
 #include "autoform.h"
 #include "autoform.moc"
 #include "fpointarray.h"
 #include "scpainter.h"
-#include <qimage.h>
 
 Autoforms::Autoforms( QWidget* parent ) : QToolButton( parent, "auto" )
 {

@@ -20,9 +20,8 @@
 
 #include <qtoolbar.h>
 #include <qmainwindow.h>
-#include <qtoolbutton.h>
-#include <qtooltip.h>
-#include <qpopupmenu.h>
+class QToolButton;
+class QPopupMenu;
 
 class Autoforms;
 /**
