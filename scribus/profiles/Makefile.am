@@ -4,10 +4,10 @@
 EXTRA_DIST = Readme 
 
 install-data-local:
-	$(mkinstalldirs) $(prefix)/lib/scribus/profiles/
-	$(INSTALL_DATA) $(srcdir)/Readme $(prefix)/lib/scribus/profiles/ReadMe
+	$(mkinstalldirs) $(DESTDIR)$(prefix)/lib/scribus/profiles/
+	$(INSTALL_DATA) $(srcdir)/Readme $(DESTDIR)$(prefix)/lib/scribus/profiles/ReadMe
 
 uninstall-local:
-	-rm -f $(prefix)/lib/scribus/profiles/ReadMe
+	-rm -f $(DESTDIR)$(prefix)/lib/scribus/profiles/ReadMe
 
 ####### kdevelop will overwrite this part!!! (end)############

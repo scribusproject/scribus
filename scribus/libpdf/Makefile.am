@@ -15,10 +15,10 @@ KDE_OPTIONS = qtonly
 EXTRA_DIST = pdflib.cpp pdflib.h 
 
 install-data-local:
-	$(mkinstalldirs) $(prefix)/include/scribus/libpdf/
-	$(INSTALL_DATA) $(srcdir)/pdflib.h $(prefix)/include/scribus/libpdf/pdflib.h
+	$(mkinstalldirs) $(DESTDIR)$(prefix)/include/scribus/libpdf/
+	$(INSTALL_DATA) $(srcdir)/pdflib.h $(DESTDIR)$(prefix)/include/scribus/libpdf/pdflib.h
 
 uninstall-local:
-	-rm -f $(prefix)/include/scribus/libpdf/pdflib.h
+	-rm -f $(DESTDIR)$(prefix)/include/scribus/libpdf/pdflib.h
 
 AM_LDFLAGS =  -s $(LIBFREETYPE_LIBS) 
