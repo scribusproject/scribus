@@ -239,19 +239,19 @@ O braku obsługi dla danej biblioteki informuje symbol *</translation>
     </message>
     <message>
         <source>Official Translations and Translators:</source>
-        <translation type="unfinished"></translation>
+        <translation>Oficjalne tłumaczenia i tłumacze:</translation>
     </message>
     <message>
         <source>Esperanto:</source>
-        <translation type="unfinished"></translation>
+        <translation>Esperanto:</translation>
     </message>
     <message>
         <source>Serbian:</source>
-        <translation type="unfinished"></translation>
+        <translation>Serbski:</translation>
     </message>
     <message>
         <source>Previous Translation Contributors:</source>
-        <translation type="unfinished"></translation>
+        <translation>Poprzedni tłumacze:</translation>
     </message>
 </context>
 <context>
@@ -1168,23 +1168,23 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     </message>
     <message>
         <source>&amp;Type:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Typ:</translation>
     </message>
     <message>
         <source>C&amp;hange...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Zmień...</translation>
     </message>
     <message>
         <source>&amp;Page:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Strona:</translation>
     </message>
     <message>
         <source>&amp;X-Pos</source>
-        <translation type="unfinished"></translation>
+        <translation>Wsp. &amp;X</translation>
     </message>
     <message>
         <source>&amp;Y-Pos:</source>
-        <translation type="unfinished">Wsp. &amp;Y:</translation>
+        <translation>Wsp. &amp;Y:</translation>
     </message>
 </context>
 <context>
@@ -1807,6 +1807,16 @@ Wymaga ona bardzo dokładnie dopasowanych profili i służy jedynie jako ostrze�
         <source>&amp;Cancel</source>
         <translation>&amp;Anuluj</translation>
     </message>
+    <message>
+        <source>None</source>
+        <translation>Brak</translation>
+    </message>
+    <message>
+        <source>You cannot create a color named &quot;%1&quot;.
+It&apos;s a reserved name for transparent color</source>
+        <translation>Nie można utworzyć koloru o nazwie &quot;%1&quot;.
+Nazwa ta jest zarezerwowana dla przezroczystości</translation>
+    </message>
 </context>
 <context>
     <name>Cpalette</name>
@@ -2115,6 +2125,10 @@ This can be set in the Preferences.</source>
     <message>
         <source>Delete color:</source>
         <translation>Usuń kolor:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Brak</translation>
     </message>
 </context>
 <context>
@@ -3401,6 +3415,10 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
         <source>&amp;Name:</source>
         <translation>&amp;Nazwa:</translation>
     </message>
+    <message>
+        <source>None</source>
+        <translation>Brak</translation>
+    </message>
 </context>
 <context>
     <name>FontPrefs</name>
@@ -3805,7 +3823,7 @@ Wartość 0 oznacza brak ograniczeń.</translation>
     </message>
     <message>
         <source>Consecutive Hyphenations &amp;Allowed:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ilość dozwolonych kolejnych podziałów:</translation>
     </message>
 </context>
 <context>
@@ -5502,7 +5520,7 @@ Corners:</source>
     </message>
     <message>
         <source>Right to Left Writing</source>
-        <translation type="unfinished"></translation>
+        <translation>Pisanie od prawej do lewej</translation>
     </message>
 </context>
 <context>
@@ -7418,27 +7436,35 @@ W innym przypadku twój wyeksportowany plik PDF może sprawiać problemy przy dr
     </message>
     <message>
         <source>Compress Text and &amp;Vector Graphics</source>
-        <translation type="unfinished"></translation>
+        <translation>Kompresja &amp;tekstu i grafiki wektorowej</translation>
     </message>
     <message>
         <source>En&amp;able Presentation Effects</source>
-        <translation type="unfinished"></translation>
+        <translation>Włącz e&amp;fekty prezentacyjne</translation>
     </message>
     <message>
         <source>&amp;Presentation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Mirror Page(s) &amp;Horizontally</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Prezentacja</translation>
     </message>
     <message>
         <source>&amp;Rotation:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Obrót:</translation>
     </message>
     <message>
-        <source>&amp;Options</source>
-        <translation type="unfinished"></translation>
+        <source>&amp;Subset all Fonts</source>
+        <translation>Zag&amp;nieżdż podzbiory wszystkich czcionek</translation>
+    </message>
+    <message>
+        <source>Fonts to subset:</source>
+        <translation>Podzbiory czcionek do zagnieżdżenia:</translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) horizontally</source>
+        <translation>Odwróć strony w poziomie</translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) vertically</source>
+        <translation>Odwróć strony w pionie</translation>
     </message>
 </context>
 <context>
@@ -10243,7 +10269,7 @@ Sprawdź katalog i nazwę pliku.</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation>&amp;Nowy</translation>
+        <translation type="obsolete">&amp;Nowy</translation>
     </message>
     <message>
         <source>Newsletters</source>
@@ -10343,7 +10369,7 @@ Sprawdź katalog i nazwę pliku.</translation>
     </message>
     <message>
         <source>&amp;Print...</source>
-        <translation>&amp;Drukuj...</translation>
+        <translation type="obsolete">&amp;Drukuj...</translation>
     </message>
     <message>
         <source>Import &amp;EPS/PS...</source>
@@ -10355,7 +10381,7 @@ Sprawdź katalog i nazwę pliku.</translation>
     </message>
     <message>
         <source>Save &amp;As...</source>
-        <translation>Zapisz &amp;jako...</translation>
+        <translation type="obsolete">Zapisz &amp;jako...</translation>
     </message>
     <message>
         <source>S&amp;cripter Manual...</source>
@@ -10467,7 +10493,7 @@ Zewnętrzne dowiązania
     </message>
     <message>
         <source>Media Cases</source>
-        <translation type="unfinished"></translation>
+        <translation>Pudełka na CD/DVD</translation>
     </message>
 </context>
 <context>
@@ -10739,6 +10765,38 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <message>
         <source>&amp;Outside:</source>
         <translation>Na &amp;zewnątrz:</translation>
+    </message>
+    <message>
+        <source>Page Size</source>
+        <translation>Format strony</translation>
+    </message>
+    <message>
+        <source>Size:</source>
+        <translation>Rozmiar:</translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <translation>Definicja użytkownika</translation>
+    </message>
+    <message>
+        <source>Orientation:</source>
+        <translation>Orientacja:</translation>
+    </message>
+    <message>
+        <source>Portrait</source>
+        <translation>Portret</translation>
+    </message>
+    <message>
+        <source>Landscape</source>
+        <translation>Pejzaż</translation>
+    </message>
+    <message>
+        <source>Width:</source>
+        <translation>Szerokość:</translation>
+    </message>
+    <message>
+        <source>Height:</source>
+        <translation>Wysokość:</translation>
     </message>
 </context>
 <context>
@@ -13188,6 +13246,10 @@ przeciągnij szablon na widok strony na dole.</translation>
         <source>Clear all Text</source>
         <translation>Usuń cały tekst</translation>
     </message>
+    <message>
+        <source>&amp;Smart text selection</source>
+        <translation>&amp;Inteligentne zaznaczanie tekstu</translation>
+    </message>
 </context>
 <context>
     <name>StyleSelect</name>
@@ -13235,7 +13297,7 @@ przeciągnij szablon na widok strony na dole.</translation>
 name than current OO.o document&apos;s paragraph should the style
 in Scribus be edited to match the one being imported
 or left untouched</source>
-        <translation>Zmień właściwości istniejącego stylu akapitu w Scribusie, 
+        <translation type="obsolete">Zmień właściwości istniejącego stylu akapitu w Scribusie, 
 jeśli w dokumencie OO.o Writera pojawi się styl o tej samej nazwie</translation>
     </message>
     <message>
@@ -13267,7 +13329,15 @@ pytanie o potwierdzenie przez użytkownika</translation>
     <message>
         <source>Should importer add the name of the document
 on front of the paragraph style name in Scribus</source>
-        <translation type="unfinished"></translation>
+        <translation>Włącza dodawanie przez importer nazwy dokumentu
+przed nazwą stylu akapitu w Scribusie</translation>
+    </message>
+    <message>
+        <source>If a paragraph style already exists with the same name as the current
+OpenOffice.org document&apos;s paragraph, should the style in Scribus be
+edited to match the one being imported, or left untouched</source>
+        <translation>Zmień właściwości istniejącego stylu akapitu w Scribusie, 
+jeśli w dokumencie OO.o Writera pojawi się styl o tej samej nazwie</translation>
     </message>
 </context>
 <context>
