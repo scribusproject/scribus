@@ -1993,6 +1993,56 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 			case EditMode:
 				int oldPos = b->CPos; // 15-mar-2004 jjsa for cursor movement with Shift + Arrow key
 				view->oldCp = b->CPos;
+				if (b->PType == 2)
+				{
+					switch (kk)
+					{
+						case Key_Left:
+							if (!b->Locked)
+							{
+								if ( buttonState & ShiftButton )
+									view->MoveItemI(-10, 0, b->ItemNr, true);
+								else if ( buttonState & ControlButton )
+									view->MoveItemI(-0.1, 0, b->ItemNr, true);
+								else
+									view->MoveItemI(-1, 0, b->ItemNr, true);
+							}
+							break;
+						case Key_Right:
+							if (!b->Locked)
+							{
+								if ( buttonState & ShiftButton )
+									view->MoveItemI(10, 0, b->ItemNr, true);
+								else if ( buttonState & ControlButton )
+									view->MoveItemI(0.1, 0, b->ItemNr, true);
+								else
+									view->MoveItemI(1, 0, b->ItemNr, true);
+							}
+							break;
+						case Key_Up:
+							if (!b->Locked)
+							{
+								if ( buttonState & ShiftButton )
+									view->MoveItemI(0, -10, b->ItemNr, true);
+								else if ( buttonState & ControlButton )
+									view->MoveItemI(0, -0.1, b->ItemNr, true);
+								else
+									view->MoveItemI(0, -1, b->ItemNr, true);
+							}
+							break;
+						case Key_Down:
+							if (!b->Locked)
+							{
+								if ( buttonState & ShiftButton )
+									view->MoveItemI(0, 10, b->ItemNr, true);
+								else if ( buttonState & ControlButton )
+									view->MoveItemI(0, 0.1, b->ItemNr, true);
+								else
+									view->MoveItemI(0, 1, b->ItemNr, true);
+							}
+							break;
+					}
+				}
 				if (b->PType == 4)
 				{
 					view->slotDoCurs(false);

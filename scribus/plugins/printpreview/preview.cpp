@@ -127,8 +127,15 @@ void MenuPreview::RunPreview()
 {
 	if (Carrier->HaveDoc)
 	{
+		Carrier->DLLReturn = "";
 		PPreview *dia = new PPreview(par, Carrier);
+		if (Carrier->DLLReturn != "")
+		{
+			delete dia;
+			return;
+		}
 		dia->exec();
+		Carrier->DLLReturn = "";
 		Carrier->Prefs.PrPr_Mode = dia->EnableCMYK->isChecked();
 		Carrier->Prefs.PrPr_AlphaText = dia->AliasText->isChecked();
 		Carrier->Prefs.PrPr_AlphaGraphics = dia->AliasGr->isChecked();
@@ -396,7 +403,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 												tr("Abort"), tr("Ignore"), 0, 0, 0);
 					if (t == 0)
 					{
-						reject();
+						app->DLLReturn = "Failed";
 						return ret;
 					}
 				}
@@ -405,7 +412,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 					app->docChecker->buildErrorList(app->doc);
 					app->docChecker->show();
 					app->scrActions["toolsPreflightVerifier"]->setOn(true);
-					reject();
+					app->DLLReturn = "Failed";
 					return ret;
 				}
 			}

@@ -220,6 +220,7 @@ int mainGui(int argc, char **argv)
 	int scribusRetVal = scribus->initScribus(showSplash, lang);
 	if (scribusRetVal == 1)
 		exit(EXIT_FAILURE);
+	scribus->initCrashHandler();
 	app.setMainWidget(scribus);
 	app.connect(&app, SIGNAL(lastWindowClosed()), &app, SLOT(quit()));
 

@@ -2379,6 +2379,14 @@ void PageItem::toggleSizeLock()
 	LockRes = !LockRes;
 }
 
+void PageItem::setSizeLocked(bool isLocked)
+{
+	if (isLocked == LockRes)
+		return; // nothing to do return
+	else
+		toggleSizeLock();
+}
+
 void PageItem::checkChanges(bool force)
 {
 	// has the item been resized

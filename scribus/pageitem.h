@@ -341,6 +341,8 @@ public:
 	void setLocked(bool isLocked);
 	/** @brief Toggle lock for resizing */
 	void toggleSizeLock();
+	/** @brief Toggle lock for resizing */
+	void setSizeLocked(bool isLocked);
 	/** 
 	 * @brief Check the changes to the item and add undo actions for them.
 	 * @param force Force the check. Do not care if mouse button or arrow key is down

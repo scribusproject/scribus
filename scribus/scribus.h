@@ -137,6 +137,7 @@ public:
 	void ReorgFonts();
 	void GetUsedFonts(QMap<QString,QFont> *Really);
 	void ToggleAllGuides();
+	void initCrashHandler();
 	static void defaultCrashHandler (int sig);
 	void emergencySave();
 	void parsePagesString(QString pages, std::vector<int>* pageNs, int sourcePageCount);
@@ -495,7 +496,6 @@ private:
 	void initPalettes();
 	void initArrowStyles();
 	void initScrapbook();
-	void initCrashHandler();
 	void initCMS();
 	void initFileMenuActions();
 	void initEditMenuActions();

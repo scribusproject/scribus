@@ -62,6 +62,7 @@ public:
   /** Dokument zu dem die Seite gehoert */
 	ScribusDoc *Doc;
 	ApplicationPrefs *Prefs;
+	UndoManager *undoManager;
 	double Scale;
 	double OldScale;
 	double GroupX;
@@ -324,7 +325,6 @@ private: // Private attributes
 	int    oldX;
 	int    oldY;
 	bool _groupTransactionStarted;
-	UndoManager *undoManager;
 	void creationUndoAction(PageItem *pi);
 
 private slots:

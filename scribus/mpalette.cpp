@@ -1507,13 +1507,13 @@ void Mpalette::UnitChange()
 	Width->setValues( UmReFaktor, maxXYWHVal, xywhdecimals, newW );
 	Height->setValues( UmReFaktor, maxXYWHVal, xywhdecimals, newH );
 
-	LXpos->setMaxValue( maxXYWHVal );
 	LXpos->setDecimals(xywhdecimals);
+	LXpos->setMaxValue( maxXYWHVal );
 	LXpos->setValue(newLX);
 
-	LYpos->setValue(newLY);
 	LYpos->setDecimals(xywhdecimals);
 	LYpos->setMaxValue( maxXYWHVal );
+	LYpos->setValue(newLY);
 
 	dGap->setDecimals(distdecimals);
 	dGap->setMaxValue(newGM);
@@ -3131,9 +3131,18 @@ void Mpalette::handleLock()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
+		if (ScApp->view->SelItem.count() > 1)
+		{
+			if (ScApp->view->SelItem.at(0)->Locked)
+				ScApp->view->undoManager->beginTransaction(Um::Selection + "/" + Um::Group,
+											  Um::IGroup, Um::UnLock, 0, Um::IUnLock);
+			else
+				ScApp->view->undoManager->beginTransaction(Um::Selection + "/" + Um::Group,
+											  Um::IGroup, Um::Lock, 0, Um::ILock);
+		}
 		for ( uint a = 0; a < ScApp->view->SelItem.count(); ++a)
 		{
-			ScApp->view->SelItem.at(a)->Locked = Locked->isOn();
+			ScApp->view->SelItem.at(a)->setLocked(Locked->isOn());
 			ScApp->view->RefreshItem(ScApp->view->SelItem.at(a));
 		}
 		bool setter = Locked->isOn();
@@ -3147,6 +3156,8 @@ void Mpalette::handleLock()
 		ShapeGroup->setEnabled(!setter);
 		LayerGroup->setEnabled(!setter);
 		emit DocChanged();
+		if (ScApp->view->SelItem.count() > 1)
+			ScApp->view->undoManager->commit();
 	}
 }
 
@@ -3166,14 +3177,25 @@ void Mpalette::handleResize()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
+		if (ScApp->view->SelItem.count() > 1)
+		{
+			if (ScApp->view->SelItem.at(0)->LockRes)
+				ScApp->view->undoManager->beginTransaction(Um::Selection + "/" + Um::Group,
+											  Um::IGroup, Um::SizeUnLock, 0, Um::IUnLock);
+			else
+				ScApp->view->undoManager->beginTransaction(Um::Selection + "/" + Um::Group,
+											  Um::IGroup, Um::SizeLock, 0, Um::ILock);
+		}
 		for ( uint a = 0; a < ScApp->view->SelItem.count(); ++a)
 		{
-			ScApp->view->SelItem.at(a)->LockRes = NoResize->isOn();
+			ScApp->view->SelItem.at(a)->setSizeLocked(NoResize->isOn());
 			ScApp->view->RefreshItem(ScApp->view->SelItem.at(a));
 		}
 		Width->setReadOnly(NoResize->isOn());
 		Height->setReadOnly(NoResize->isOn());
 		emit DocChanged();
+		if (ScApp->view->SelItem.count() > 1)
+			ScApp->view->undoManager->commit();
 	}
 }
 
