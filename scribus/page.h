@@ -228,6 +228,7 @@ public slots:
 	void RaiseItem();
 	void ClearItem();
 	void DeleteItem();
+	void ExpandSel(PageItem *b, int inc);
 	bool slotSetCurs(int x, int y);
 	void slotDoCurs(bool draw);
 	void BlinkCurs();

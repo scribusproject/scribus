@@ -238,22 +238,16 @@ void Cpalette::updateBoxS(QString Farbe)
 	ListBox1->setCurrentItem(c);
 }
 
-void Cpalette::updateShade(int sh)
-{
-	/* PFJ - 29.02.04 - rewritten to use tenary */
-	SetMen(sh % 10 == 0 ? sh / 10 + 1 : 0);
-}
-
 void Cpalette::setActFarben(QString p, QString b, int shp, int shb)
 {
 	switch (Mode)
 	{
 		case 1:
-			updateShade(shp);
+			PM1->setValue(shp);
 			updateBoxS(p);
 			break;
 		case 2:
-			updateShade(shb);
+			PM1->setValue(shb);
 			updateBoxS(b);
 			Color3 = b;
 			Shade3 = shb;
@@ -265,12 +259,12 @@ void Cpalette::slotColor()
 {
 	if (GrColor1->isChecked())
 	{
-		updateShade(Shade);
+		PM1->setValue(Shade);
 		updateBoxS(Color);
 	}
 	if (GrColor2->isChecked())
 	{
-		updateShade(Shade2);
+		PM1->setValue(Shade2);
 		updateBoxS(Color2);
 	}
 }
@@ -293,19 +287,19 @@ void Cpalette::ChooseGrad(int nr)
 			updateCList();
 			updateGeometry();
 			repaint();
-			updateShade(Shade3);
+			PM1->setValue(Shade3);
 			updateBoxS(Color3);
 			break;
 		default:
 			updateCList();
 			if (GrColor1->isChecked())
 			{
-				updateShade(Shade);
+				PM1->setValue(Shade);
 				updateBoxS(Color);
 			}
 			if (GrColor2->isChecked())
 			{
-				updateShade(Shade2);
+				PM1->setValue(Shade2);
 				updateBoxS(Color2);
 			}
 			break;
@@ -365,14 +359,6 @@ void Cpalette::setActGradient(QString p, QString b, int shp, int shb, int typ)
 		ChooseGrad(typ);
 	}
 	connect(GradCombo, SIGNAL(activated(int)), this, SLOT(slotGrad(int)));
-}
-
-int Cpalette::SetMen(int c)
-{
-	/* PFJ - 29.02.04 - merged initialisation of b and removed if (c > 0) */
-	int b = c > 0 ? (c - 1) * 10 : 0;
-	PM1->setValue(b);
-	return b;
 }
 
 void Cpalette::setActShade()

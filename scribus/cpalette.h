@@ -73,7 +73,6 @@ public slots:
 	void InnenButton();
 	void SetColors(CListe farben);
 	void updateCList();
-	void updateShade(int sh);
 	void updateBoxS(QString Farbe);
 	void selFarbe(QListBoxItem *c);
 	void slotGrad(int nr);
@@ -81,7 +80,6 @@ public slots:
 	void ChooseGrad(int nr);
 	void setActFarben(QString p, QString b, int shp, int shb);
 	void setActGradient(QString p, QString b, int shp, int shb, int typ);
-	int SetMen(int c);
 	void setActShade();
 	void setActTrans(double, double);
 	void slotTrans(int val);

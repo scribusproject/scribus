@@ -807,6 +807,9 @@ void Page::TransformM(PageItem *b, QPainter *p)
 
 void Page::PaintSizeRect(QPainter *p, QRect alt, QRect neu)
 {
+	QWMatrix ma = p->worldMatrix();
+	ma.setTransformationMode ( QWMatrix::Areas );
+	p->setWorldMatrix(ma);
 	p->setRasterOp(XorROP);
 	p->setBrush(NoBrush);
 	p->setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
@@ -1212,7 +1215,7 @@ bool Page::SizeItem(double newX, double newY, int ite, bool fromMP, bool DoUpdat
 		b->Tinput = true;
 		if ((HowTo == 1) && (b->PType != 5))
 			b->paintObj();
-		if ((b->FrameType == 0) ||  (b->PType == 5) || (HowTo != 1))
+		if ((b->FrameType == 0) || (b->PType == 5) || (HowTo != 1))
 			return true;
 		QPainter p;
 		p.begin(this);
@@ -3296,6 +3299,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 				{
 					for (a = 0; a < SelItem.count(); ++a)
 					{
+						QWMatrix ma;
 						b = SelItem.at(0);
 						switch (HowTo)
 						{
@@ -3381,6 +3385,9 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 							{
 								p.begin(this);
 								Transform(b, &p);
+								ma = p.worldMatrix();
+								ma.setTransformationMode ( QWMatrix::Areas );
+								p.setWorldMatrix(ma);
 								np = p.xFormDev(QPoint(static_cast<int>(Mxp*sc), static_cast<int>(Myp*sc)));
 								np2 = ApplyGrid(p.xFormDev(QPoint(m->x(), m->y())));
 								PaintSizeRect(&p, QRect(np, QPoint(static_cast<int>(b->Width),
@@ -3393,6 +3400,9 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 						case 3:
 							p.begin(this);
 							Transform(b, &p);
+							ma = p.worldMatrix();
+							ma.setTransformationMode ( QWMatrix::Areas );
+							p.setWorldMatrix(ma);
 							np = p.xFormDev(QPoint(static_cast<int>(Mxp*sc), static_cast<int>(Myp*sc)));
 							np2 = ApplyGrid(p.xFormDev(QPoint(m->x(), m->y())));
 							PaintSizeRect(&p, QRect(np, QPoint(0, static_cast<int>(b->Height))),
@@ -3402,6 +3412,9 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 						case 4:
 							p.begin(this);
 							Transform(b, &p);
+							ma = p.worldMatrix();
+							ma.setTransformationMode ( QWMatrix::Areas );
+							p.setWorldMatrix(ma);
 							np = p.xFormDev(QPoint(static_cast<int>(Mxp*sc), static_cast<int>(Myp*sc)));
 							np2 = ApplyGrid(p.xFormDev(QPoint(m->x(), m->y())));
 							PaintSizeRect(&p, QRect(np, QPoint(static_cast<int>(b->Width), 0)),
@@ -3411,6 +3424,9 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 						case 5:
 							p.begin(this);
 							Transform(b, &p);
+							ma = p.worldMatrix();
+							ma.setTransformationMode ( QWMatrix::Areas );
+							p.setWorldMatrix(ma);
 							np = p.xFormDev(QPoint(static_cast<int>(Mxp*sc), static_cast<int>(Myp*sc)));
 							np2 = ApplyGrid(p.xFormDev(QPoint(m->x(), m->y())));
 							PaintSizeRect(&p, QRect(QPoint(static_cast<int>(b->Width), np.y()), QPoint(0, 0)),
@@ -3421,6 +3437,9 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 						case 6:
 							p.begin(this);
 							Transform(b, &p);
+							ma = p.worldMatrix();
+							ma.setTransformationMode ( QWMatrix::Areas );
+							p.setWorldMatrix(ma);
 							np = p.xFormDev(QPoint(static_cast<int>(Mxp*sc), static_cast<int>(Myp*sc)));
 							np2 = ApplyGrid(p.xFormDev(QPoint(m->x(), m->y())));
 							PaintSizeRect(&p, QRect(QPoint(np.x(), static_cast<int>(b->Height)),
@@ -3431,6 +3450,9 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 						case 7:
 							p.begin(this);
 							Transform(b, &p);
+							ma = p.worldMatrix();
+							ma.setTransformationMode ( QWMatrix::Areas );
+							p.setWorldMatrix(ma);
 							np = p.xFormDev(QPoint(static_cast<int>(Mxp*sc), static_cast<int>(Myp*sc)));
 							np2 = ApplyGrid(p.xFormDev(QPoint(m->x(), m->y())));
 							PaintSizeRect(&p, QRect(QPoint(np.x(), static_cast<int>(b->Height)),
@@ -3442,6 +3464,9 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 						case 8:
 							p.begin(this);
 							Transform(b, &p);
+							ma = p.worldMatrix();
+							ma.setTransformationMode ( QWMatrix::Areas );
+							p.setWorldMatrix(ma);
 							np = p.xFormDev(QPoint(static_cast<int>(Mxp*sc), static_cast<int>(Myp*sc)));
 							np2 = ApplyGrid(p.xFormDev(QPoint(m->x(), m->y())));
 							PaintSizeRect(&p, QRect(QPoint(static_cast<int>(b->Width),np.y()),
@@ -3481,7 +3506,10 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 					p.setRasterOp(XorROP);
 					p.setBrush(NoBrush);
 					p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
-					p.drawRect(0, 0, static_cast<int>(b->Width)+1, static_cast<int>(b->Height)+1);
+					if ((b->PType != 5) && (b->FrameType != 0) || (b->PType == 7))
+						b->DrawPolyL(&p, b->Clip);
+					else
+						p.drawRect(0, 0, static_cast<int>(b->Width)+1, static_cast<int>(b->Height)+1);
 					p.end();
 					erf = MoveItem(newX-Mxp, newY-Myp, b);
 					p.begin(this);
@@ -3489,7 +3517,10 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 					p.setRasterOp(XorROP);
 					p.setBrush(NoBrush);
 					p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
-					p.drawRect(0, 0, static_cast<int>(b->Width)+1, static_cast<int>(b->Height)+1);
+					if ((b->PType != 5) && (b->FrameType != 0) || (b->PType == 7))
+						b->DrawPolyL(&p, b->Clip);
+					else
+						p.drawRect(0, 0, static_cast<int>(b->Width)+1, static_cast<int>(b->Height)+1);
 					p.end();
 				}
 				if (erf)
@@ -3592,6 +3623,12 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 							}
 						}
 					}
+					QWMatrix ma;
+					ma.scale(doku->Scale, doku->Scale);
+					ma.translate(b->Xpos, b->Ypos);
+					ma.rotate(b->Rot);
+					ma.setTransformationMode ( QWMatrix::Areas );
+					p.setWorldMatrix(ma);
 					tx = p.xForm(QRect(0, 0, static_cast<int>(b->Width), static_cast<int>(b->Height)));
 					if (tx.contains(m->pos()))
 					{
@@ -3605,8 +3642,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 							if (b->PType == 2)
 								qApp->setOverrideCursor(QCursor(loadIcon("HandC.xpm")), true);
 						}
-						QRect mpo = QRect(m->x()-doku->GrabRad, m->y()-doku->GrabRad, doku->GrabRad*2,
-						                  doku->GrabRad*2);
+						QRect mpo = QRect(m->x()-doku->GrabRad, m->y()-doku->GrabRad, doku->GrabRad*2, doku->GrabRad*2);
 						HandleCurs(&p, b, mpo);
 					}
 					else
@@ -3968,8 +4004,13 @@ void Page::mousePressEvent(QMouseEvent *m)
 			{
 				p.begin(this);
 				Transform(b, &p);
-				if (!QRegion(p.xForm(QPointArray(QRect(0, 0, static_cast<int>(b->Width),
-				                                       static_cast<int>(b->Height))))).contains(mpo))
+				QWMatrix ma;
+				ma.scale(doku->Scale, doku->Scale);
+				ma.translate(b->Xpos, b->Ypos);
+				ma.rotate(b->Rot);
+				ma.setTransformationMode ( QWMatrix::Areas );
+				p.setWorldMatrix(ma);
+				if (!QRegion(p.xForm(QPointArray(QRect(0, 0, static_cast<int>(b->Width), static_cast<int>(b->Height))))).contains(mpo))
 				{
 					SeleItem(m);
 					if (SelItem.count() != 0)
@@ -4394,6 +4435,12 @@ void Page::mousePressEvent(QMouseEvent *m)
 
 void Page::HandleCurs(QPainter *p, PageItem *b, QRect mpo)
 {
+	QWMatrix ma;
+	ma.scale(doku->Scale, doku->Scale);
+	ma.translate(b->Xpos, b->Ypos);
+	ma.rotate(b->Rot);
+	ma.setTransformationMode ( QWMatrix::Areas );
+	p->setWorldMatrix(ma);
 	QPoint tx, tx2;
 	tx = p->xForm(QPoint(static_cast<int>(b->Width), 0));
 	tx2 = p->xForm(QPoint(0, static_cast<int>(b->Height)));
@@ -4459,6 +4506,14 @@ void Page::HandleSizer(QPainter *p, PageItem *b, QRect mpo)
 	HowTo = 0;
 	if (b->LockRes)
 		return;
+	if (mpo.contains(p->xForm(QPoint(static_cast<int>(b->Width), static_cast<int>(b->Height)))))
+		HowTo = 1;
+	QWMatrix ma;
+	ma.scale(doku->Scale, doku->Scale);
+	ma.translate(b->Xpos, b->Ypos);
+	ma.rotate(b->Rot);
+	ma.setTransformationMode ( QWMatrix::Areas );
+	p->setWorldMatrix(ma);
 	if (b->PType != 5)
 	{
 		if (mpo.contains(p->xForm(QPoint(0, 0))))
@@ -4476,8 +4531,6 @@ void Page::HandleSizer(QPainter *p, PageItem *b, QRect mpo)
 		if (mpo.contains(p->xForm(QPoint(static_cast<int>(b->Width), 0))))
 			HowTo = 3;
 	}
-	if (mpo.contains(p->xForm(QPoint(static_cast<int>(b->Width), static_cast<int>(b->Height)))))
-		HowTo = 1;
 	HandleCurs(p, b, mpo);
 	storeUndoInf(b);
 	if (HowTo != 0)
@@ -4603,12 +4656,16 @@ bool Page::SeleItem(QMouseEvent *m)
 	double sc = doku->Scale;
 	QPainter p;
 	QRect tx, mpo;
-	PageItem* b = Items.last();
+	PageItem* b;
 	Mpressed = true;
 	Mxp = static_cast<int>(m->x()/sc);
 	Myp = static_cast<int>(m->y()/sc);
 	mpo = QRect(m->x()-doku->GrabRad, m->y()-doku->GrabRad, doku->GrabRad*2, doku->GrabRad*2);
 	ClRe = -1;
+	if ((SelItem.count() != 0) && (m->state() == ControlButton))
+		b = SelItem.at(0);
+	else
+		b = Items.last();
 	if (doku->ActPage != this)
 	{
 		Deselect(false);
@@ -4637,13 +4694,21 @@ bool Page::SeleItem(QMouseEvent *m)
 	for (a = 0; a < Items.count(); ++a)
 	{
 		if (b == NULL)
+		{
+			Deselect(true);
+			SelItem.clear();
 			return false;
+		}
 		if (b->LayerNr == doku->ActiveLayer)
 		{
 			p.begin(this);
 			Transform(b, &p);
-			if ((QRegion(p.xForm(QPointArray(QRect(0, 0, static_cast<int>(b->Width),
-			                                       static_cast<int>(b->Height))))).contains(mpo)) ||
+			QWMatrix ma;
+			ma.scale(doku->Scale, doku->Scale);
+			ma.translate(b->Xpos, b->Ypos);
+			ma.rotate(b->Rot);
+			ma.setTransformationMode ( QWMatrix::Areas );
+			if ((QRegion(p.xForm(QPointArray(QRect(0, 0, static_cast<int>(b->Width), static_cast<int>(b->Height))))).contains(mpo)) ||
 			        (QRegion(p.xForm(b->Clip)).contains(mpo)))
 			{
 				if (!b->Select)
@@ -4858,6 +4923,109 @@ void Page::SelectItemNr(int nr)
 	emit HaveSel(b->PType);
 }
 
+// jjsa added on 14-mar-2004 text selection with pressed
+// shift button and <-, -> cursor keys
+// Parameters
+//   PageItem *b text item to be processed
+//   inc < 0 for left key > 0 for right key
+//  if value is +/-1 work on slection
+//  if value is +/-2 refresh if text under cursor is selected
+
+void Page::ExpandSel(PageItem *b, int inc)
+{
+	int pos = b->CPos;
+	int len = b->Ptext.count();
+	int rightSel = false; // assume left right and actual char not selected
+	int leftSel  = false;
+	int actSel   = false;
+	int selMode  = false;
+	if ( inc == -1 || inc == 1 )
+	selMode = true;
+   // show for selection of previous, actual and next character
+	if ( b->HasSel ) /* selection allready present */
+	{
+		if (inc > 0 ) // -> key
+		{
+			actSel = b->Ptext.at(pos-1)->cselect;
+			if ( pos < len )
+				rightSel =  b->Ptext.at(pos)->cselect;
+			if ( pos > 1 )
+				leftSel = b->Ptext.at(pos-2)->cselect;
+		}
+		else // <- key
+		{
+			actSel = b->Ptext.at(pos)->cselect;
+			if ( pos > 0 )
+				leftSel =  b->Ptext.at(pos-1)->cselect;
+			if ( pos+1 < len )
+				rightSel = b->Ptext.at(pos+1)->cselect;
+		}
+		if ( selMode && ! (leftSel||actSel||rightSel) )
+		{
+         // selected outside from concerned range
+         // deselect all
+			int i;
+			for (i=0; i < len; ++i )
+ 			{
+				b->Ptext.at(i)->cselect = false;
+			}
+			b->HasSel = false;
+			emit  HasNoTextSel();
+		}
+		else if ( !selMode )
+		{
+			if (leftSel||actSel||rightSel) 
+				Page::RefreshItem(b);
+		}
+	}
+	if ( !selMode )
+		return;
+    // no selection
+	if ( !b->HasSel )
+	{
+		if ( inc == -1 ) // <- key
+			b->Ptext.at(pos)->cselect = true;
+		else  // -> key
+			b->Ptext.at(pos-1)->cselect = true;
+		b->HasSel = true;
+		emit HasTextSel();
+	}
+	else  // Selection present
+	{  
+		if (inc == 1) // ->  key
+		{
+			if ( leftSel == true )
+				b->Ptext.at(pos-1)->cselect = true;
+			else
+			{
+				b->Ptext.at(pos-1)->cselect = false;
+				if ( rightSel == false )
+				{
+					b->HasSel = false;
+					emit  HasNoTextSel();
+				}
+			}
+		}
+		else // <-  key
+		{
+			if ( rightSel == true )
+			{
+				b->Ptext.at(pos)->cselect = true;
+			}
+			else
+			{
+				b->Ptext.at(pos)->cselect = false;
+				if ( leftSel == false )
+				{
+					b->HasSel = false;
+					emit  HasNoTextSel();
+				}
+			}
+		}
+	}
+	Page::RefreshItem(b);
+}
+
 bool Page::slotSetCurs(int x, int y)
 {
 	if (doku->ActPage != this) {return false;}
@@ -4992,9 +5160,9 @@ void Page::slotDoCurs(bool draw)
 		TransformM(b, &p);
 		if (b->CPos > 0)
 		{
-			if (b->Ptext.at(b->CPos-1)->yp == 0)
+			offs = QMIN(b->CPos-1, static_cast<int>(b->Ptext.count()-1));
+			if (b->Ptext.at(offs)->yp == 0)
 				return;
-			offs = b->CPos-1;
 			chx = b->Ptext.at(offs)->ch;
 			if (chx == QChar(30))
 				chx = b->ExpandToken(offs);

@@ -964,6 +964,9 @@ void ScribusApp::DeleteSel(PageItem *b)
 		}
 	else
 		b->CPos = 0;
+	int l;
+	if (b->CPos > (l = b->Ptext.count()) )
+		b->CPos = l;
  	b->HasSel = false;
  	DisableTxEdit();
 }
@@ -1283,6 +1286,16 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 										b = b->BackBox;
  										}
  									}
+									// jjsa add (de)selection if keyMode == 0x00200000
+									// shift pressed ?
+									else if ( KeyMod & 0x00200000 && b->CPos >= 0 )
+										{
+										doc->ActPage->ExpandSel(b, -1 );
+										}
+									else // refresh if selected text under our cursor
+										{
+										doc->ActPage->ExpandSel(b,-2);
+										}
  								setTBvals(b);
  								break;
  							case Key_Right:
@@ -1302,6 +1315,16 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 											}
  										}
  									}
+									// jjsa add (de)selection if keyMode == 0x00200000
+									// shift pressed ?
+									else if ( KeyMod & 0x00200000 && b->CPos <= b->Ptext.count())
+										{
+										doc->ActPage->ExpandSel(b,1);
+										}
+									else // refresh if selected text under our cursor
+										{
+										doc->ActPage->ExpandSel(b,2);
+										}
  								setTBvals(b);
  								break;
  							case Key_Delete:
@@ -2186,7 +2209,10 @@ void ScribusApp::HaveNewSel(int Nr)
 			if (doc->MasterP)
 				WerkTools->KetteEin->setEnabled(false);
 			if (doc->AppMode == 7)
+			{
 				setTBvals(b);
+				editMenu->setItemEnabled(edid5, 1);
+			}
 			else
 				{
 				doc->CurrFont = b->IFont;

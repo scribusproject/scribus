@@ -40,7 +40,7 @@ void ShadeButton::setShade(int id)
     		{
 			c = dia->Answer->text().toInt(&ok);
 			if (ok)
-				b = c;
+				b = QMAX(QMIN(c, 100),0);
 			else
 				b = 100;
 			delete dia;
@@ -57,7 +57,9 @@ void ShadeButton::setShade(int id)
 
 int ShadeButton::getValue()
 {
-	return text().remove(" %").toInt();
+	int l = text().length();
+	QString tx = text().remove(l-2,2);
+	return tx.toInt();
 }
 
 void ShadeButton::setValue(int val)

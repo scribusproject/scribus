@@ -174,6 +174,7 @@ public:
     QLabel* TextCms2;
     QComboBox* InputP;
     QComboBox* MonitorI;
+    QLabel* LineModeT;
     QComboBox* LineMode;
     QLabel* Text9;
     MSpinBox* LSize;

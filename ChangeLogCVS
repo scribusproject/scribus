@@ -1,4 +1,9 @@
 Changes since Version 1.1.5
+13.03.2004	Added Patch from Jean-Jacques Sarton to enable Textselection with the Cursor Keys and Shift pressed.
+		Fixed Crash when cutting Text (also by Jean-Jacques Sarton).
+		Improved Object resizing and selecting.
+		Improved Display when moving Objects.
+
 12.03.2004	Updated the Polish Translation.
 		Fixed a Typo in the Brazilian Translation.
 		Fixed Bug #340.

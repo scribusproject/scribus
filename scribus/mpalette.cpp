@@ -663,7 +663,9 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	pageLayout_5 = new QVBoxLayout( page_5, 0, 5, "pageLayout_5");
 
 	Layout13_2 = new QHBoxLayout( 0, 0, 4, "Layout13_2");
-
+	LineModeT = new QLabel( page_5, "LModeText" );
+	LineModeT->setText( tr( "Basepoint:" ) );
+	Layout13_2->addWidget( LineModeT );
 	LineMode = new QComboBox( true, page_5, "LMode" );
 	LineMode->setEditable(false);
 	LineMode->insertItem( tr( "Left Point" ) );

@@ -1343,17 +1343,19 @@ NoRoom: pf2.end();
 					}
 					if (NextBox->OwnPage != OwnPage)
 					{
-						bool savre = Doc->RePos;
-						Doc->RePos = true;
-						p->save();
-						QPixmap pgPix(1, 1);
-						ScPainter *painter = new ScPainter(&pgPix, 1, 1);
-						painter->translate(0.5, 0.5);
-						NextBox->DrawObj(painter, QRect(0, 0, 1, 1));
-						painter->end();
-						delete painter;
-						p->restore();
-						Doc->RePos = savre;
+						if (Doc->RePos)
+						{
+							p->save();
+							QPixmap pgPix(1, 1);
+							ScPainter *painter = new ScPainter(&pgPix, 1, 1);
+							painter->translate(0.5, 0.5);
+							NextBox->DrawObj(painter, QRect(0, 0, 1, 1));
+							painter->end();
+							delete painter;
+							p->restore();
+						}
+						else
+							NextBox->OwnPage->update();
 					}
 					else
 					{
