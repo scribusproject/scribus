@@ -1,3 +1,3 @@
 #SUBDIRS = freedomyug 
-SUBDIRS = 
+SUBDIRS = short-words
 
