@@ -23,6 +23,8 @@
 const double unitGetRatioFromIndex(const int index)
 {
 	//PT, MM, IN, P
+	//NOTE: Calling functions that divide by this value will crash on divide by 0. They shouldnt be getting
+	// a zero value if they are accessing here with a correct index.
 	if (index>UNITCOUNT) 
 		return 0;
 	double ratio[] = { 1.0, 25.4/72.0, 1.0/72.0, 1.0/12.0 };
@@ -196,6 +198,7 @@ double value2pts(double unitValue, int unit)
 			break;
 		default:
 			ret = unitValue / unitGetRatioFromIndex(unit);
+			break;
 	}
 	return ret;
 }

@@ -1,53 +1,23 @@
 #include "cmdutil.h"
+#include "units.h"
 
 ScribusApp* Carrier;
 ScribusDoc* doc;
 
 double PointToValue(double Val)
 {
-	double ret = 0.0;
-	switch (Carrier->doc->docUnitIndex)
-	{
-	case 0:
-		ret = Val;
-		break;
-	case 1:
-		ret = Val * 0.3527777;
-		break;
-	case 2:
-		ret = Val * (1.0 / 72.0);
-		break;
-	case 3:
-		ret = Val * (1.0 / 12.0);
-		break;
-	}
-	return ret;
+	return pts2value(Val, Carrier->doc->docUnitIndex);
 }
 
 double ValToPts(double Val, int ein)
 {
-	double ret = 0.0;
-	switch (ein)
-	{
-	case 0:
-		ret = Val;
-		break;
-	case 1:
-		ret = Val / 0.3527777;
-		break;
-	case 2:
-		ret = Val / (1.0 / 72.0);
-		break;
-	case 3:
-		ret = Val / (1.0 / 12.0);
-		break;
-	}
-	return ret;
+	//TODO Remove references to the old function, use the units.cpp one only in the future.
+	return value2pts(Val, ein);
 }
 
 double ValueToPoint(double Val)
 {
-	return ValToPts(Val, Carrier->doc->docUnitIndex);
+	return value2pts(Val, Carrier->doc->docUnitIndex);
 }
 
 /// Convert an X co-ordinate part in page units to a document co-ordinate
