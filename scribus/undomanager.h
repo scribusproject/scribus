@@ -547,6 +547,7 @@ public:
 	static const QString PrintLayer;
 	static const QString DoNotPrintLayer;
 	static const QString SetLayerName;
+	static const QString GetImage;
 	/*@}*/
 
 	/**
@@ -595,6 +596,7 @@ public:
 	static QPixmap *IUp;
 	static QPixmap *IDown;
 	static QPixmap *IPrint;
+	static QPixmap *IGetImage;
 	/*@}*/
 
 protected:

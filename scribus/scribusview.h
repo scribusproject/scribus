@@ -250,6 +250,7 @@ public:
 	void FlipImageH();
 	void FlipImageV();
 	void LoadPict(QString fn, int ItNr, bool reload = false);
+	void loadPict(QString fn, PageItem *pageItem, bool reload = false);
 	void AdjustPreview(PageItem *b, bool reload = true);
 	void AdjustPictScale(PageItem *b, bool reload = true);
 	void PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool drag = false);

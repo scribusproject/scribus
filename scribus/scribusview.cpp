@@ -10329,9 +10329,14 @@ void ScribusView::useEmbeddedPath()
 
 void ScribusView::LoadPict(QString fn, int ItNr, bool reload)
 {
+	loadPict(fn, Doc->Items.at(ItNr), reload);
+}
+
+void ScribusView::loadPict(QString fn, PageItem *pageItem, bool reload)
+{
 	bool dummy;
 	QFileInfo fi = QFileInfo(fn);
-	PageItem *Item = Doc->Items.at(ItNr);
+	PageItem *Item = pageItem;
 	Item->imgInfo.valid = false;
 	Item->imgInfo.clipPath = "";
 	Item->imgInfo.PDSpathData.clear();
@@ -10350,6 +10355,14 @@ void ScribusView::LoadPict(QString fn, int ItNr, bool reload)
 	}
 	else
 	{
+		if (UndoManager::undoEnabled() && !reload)
+		{
+			SimpleState *ss = new SimpleState(Um::GetImage, fn, Um::IGetImage);
+			ss->set("GET_IMAGE", "get_image");
+			ss->set("OLD_IMAGE_PATH", Item->Pfile);
+			ss->set("NEW_IMAGE_PATH", fn);
+			undoManager->action(Item, ss);
+		}
 		double xres = qRound(img.dotsPerMeterX() * 0.0254);
 		double yres = qRound(img.dotsPerMeterY() * 0.0254);
 		Item->pixm = img.copy();
@@ -11396,3 +11409,4 @@ void ScribusView::setGlobalUndoMode()
 		}
 	}
 }
+

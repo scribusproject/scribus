@@ -798,6 +798,7 @@ protected:
 	void restorePoly(SimpleState *state, bool isUndo, bool isContour);
 	void restoreContourLine(SimpleState *state, bool isUndo);
 	void restoreLayer(SimpleState *state, bool isUndo);
+	void restoreGetImage(SimpleState *state, bool isUndo);
 	/*@}*/
 
 	/**

@@ -3435,6 +3435,8 @@ void PageItem::restore(UndoState *state, bool isUndo)
 		}
 		else if (ss->contains("SEND_TO_LAYER"))
 			restoreLayer(ss, isUndo);
+		else if (ss->contains("GET_IMAGE"))
+			restoreGetImage(ss, isUndo);
 	}
 }
 
@@ -3869,6 +3871,20 @@ void PageItem::restoreLayer(SimpleState *state, bool isUndo)
 	setLayer(isUndo ? state->getInt("OLD_LAYER") : state->getInt("NEW_LAYER"));
 	ScApp->view->Deselect(true);
 	ScApp->view->updateContents();
+}
+
+void PageItem::restoreGetImage(SimpleState *state, bool isUndo)
+{
+	QString fn = state->get("OLD_IMAGE_PATH");
+	if (!isUndo)
+		fn = state->get("NEW_IMAGE_PATH");
+	if (fn == "")
+	{
+		select();
+		ScApp->view->ClearItem();
+	}
+	else
+		ScApp->view->loadPict(fn, this, false);
 }
 
 void PageItem::select()
