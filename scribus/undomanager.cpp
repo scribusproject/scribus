@@ -664,6 +664,9 @@ const QString UndoManager::LineStyle         = tr("Set line style");
 const QString UndoManager::LineEnd           = tr("Set the style of line end");
 const QString UndoManager::LineJoin          = tr("Set the style of line join");
 const QString UndoManager::LineWidth         = tr("Set line width");
+const QString UndoManager::NoStyle           = tr("No style");
+const QString UndoManager::CustomLineStyle   = tr("Set custom line style");
+const QString UndoManager::NoLineStyle       = tr("Do not use custom line style");
 
 /*** Icons for UndoObjects *******************************************/
 QPixmap *UndoManager::IImageFrame      = NULL;

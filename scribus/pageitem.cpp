@@ -2445,6 +2445,23 @@ void PageItem::setLineJoin(PenJoinStyle newStyle)
 	PLineJoin = newStyle;
 }
 
+void PageItem::setCustomLineStyle(const QString& newStyle)
+{
+	if (UndoManager::undoEnabled())
+	{
+		QString oldStyle = NamedLStyle == "" ? Um::NoStyle : NamedLStyle;
+		QString nStyle   = newStyle == "" ? Um::NoStyle : newStyle;
+		QString action   = newStyle == "" ? Um::NoLineStyle : Um::CustomLineStyle;
+		SimpleState *ss = new SimpleState(action,
+				QString(Um::FromTo).arg(oldStyle).arg(nStyle),Um::ILineStyle);
+		ss->set("CUSTOM_LINE_STYLE", "customlinestyle");
+		ss->set("OLD_STYLE", NamedLStyle);
+		ss->set("NEW_STYLE", newStyle);
+		undoManager->action(this, ss);
+	}
+	NamedLStyle = newStyle;
+}
+
 void PageItem::flipImageH()
 {
 	if (UndoManager::undoEnabled())
@@ -2681,6 +2698,8 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreLineJoin(ss, isUndo);
 		else if (ss->contains("LINE_WIDTH"))
 			restoreLineWidth(ss, isUndo);
+		else if (ss->contains("CUSTOM_LINE_STYLE"))
+			restoreCustomLineStyle(ss, isUndo);
 	}
 }
 
@@ -2864,6 +2883,14 @@ void PageItem::restoreLineWidth(SimpleState *state, bool isUndo)
 		w = state->getDouble("NEW_WIDTH");
 	select();
 	ScApp->view->ChLineWidth(w);
+}
+
+void PageItem::restoreCustomLineStyle(SimpleState *state, bool isUndo)
+{
+	QString style = state->get("OLD_STYLE");
+	if (!isUndo)
+		style = state->get("NEW_STYLE");
+	setCustomLineStyle(style);
 }
 
 void PageItem::restoreName(SimpleState *state, bool isUndo)

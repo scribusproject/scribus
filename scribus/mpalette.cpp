@@ -2935,9 +2935,9 @@ void Mpalette::SetSTline(QListBoxItem *c)
 		return;
 	bool setter = c->listBox()->currentItem() == 0 ? true : false;
 	if (setter == true)
-		CurItem->NamedLStyle = "";
+		CurItem->setCustomLineStyle("");
 	else
-		CurItem->NamedLStyle = c->text();
+		CurItem->setCustomLineStyle(c->text());
 	LStyle->setEnabled(setter);
 	LSize->setEnabled(setter);
 	LJoinStyle->setEnabled(setter);

@@ -438,6 +438,9 @@ public:
 	static const QString LineEnd;
 	static const QString LineJoin;
 	static const QString LineWidth;
+	static const QString NoStyle;
+	static const QString CustomLineStyle;
+	static const QString NoLineStyle;
 	/*@}*/
 
 	/**

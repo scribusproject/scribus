@@ -401,6 +401,11 @@ public:
 	 * @sa Qt::PenJoinStyle
 	 */
 	void setLineJoin(PenJoinStyle newStyle);
+	/** 
+	 * @brief Set custom line style
+	 * @param newStyle name of the custom style
+	 */
+	void setCustomLineStyle(const QString& newStyle);
 	/** @brief Flip an image horizontally. */
 	void flipImageH();
 	/** @brief Flip an image vertically */
@@ -461,6 +466,7 @@ protected:
 	void restoreLineEnd(SimpleState *state, bool isUndo);
 	void restoreLineJoin(SimpleState *state, bool isUndo);
 	void restoreLineWidth(SimpleState *state, bool isUndo);
+	void restoreCustomLineStyle(SimpleState *state, bool isUndo);
 	/*@}*/
 
 	/**
