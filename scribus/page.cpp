@@ -998,8 +998,9 @@ QPoint Page::ApplyGrid(QPoint in)
 	return np;
 }
 
-void Page::ApplyGuides(double *x, double *y)
+bool Page::ApplyGuides(double *x, double *y)
 {
+	bool ret = false;
 	if (doku->SnapGuides)
 	{
 		if (YGuides.count() != 0)
@@ -1009,6 +1010,7 @@ void Page::ApplyGuides(double *x, double *y)
 				if ((YGuides[yg] < (*y+doku->GuideRad)) && (YGuides[yg] > (*y-doku->GuideRad)))
 				{
 					*y= YGuides[yg];
+					ret = true;
 					break;
 				}
 			}
@@ -1020,11 +1022,13 @@ void Page::ApplyGuides(double *x, double *y)
 				if ((XGuides[xg] < (*x+doku->GuideRad)) && (XGuides[xg] > (*x-doku->GuideRad)))
 				{
 					*x = XGuides[xg];
+					ret = true;
 					break;
 				}
 			}
 		}
 	}
+	return ret;
 }
 
 FPoint Page::ApplyGridF(FPoint in)
@@ -2645,10 +2649,12 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			b->OldH2 = b->Height;
 			double nx = m->x()/doku->Scale;
 			double ny = m->y()/doku->Scale;
-			FPoint npg = ApplyGridF(FPoint(nx, ny));
-			nx = npg.x();
-			ny = npg.y();
-			ApplyGuides(&nx, &ny);
+			if (!ApplyGuides(&nx, &ny))
+			{
+				FPoint npg = ApplyGridF(FPoint(nx, ny));
+				nx = npg.x();
+				ny = npg.y();
+			}
 			FPoint np = transformPointI(FPoint(nx, ny), b->Xpos, b->Ypos, b->Rot, 1, 1);
 			MoveClipPoint(b, np);
 		}
@@ -3567,10 +3573,9 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 					getGroupRect(&gx, &gy, &gw, &gh);
 					double nx = gx;
 					double ny = gy;
-					ApplyGuides(&nx, &ny);
-					FPoint npx;
-					if ((nx == gx) && (ny == gy))
+					if (!ApplyGuides(&nx, &ny))
 					{
+						FPoint npx;
 						npx = ApplyGridF(FPoint(nx, ny));
 						nx = npx.x();
 						ny = npx.y();
@@ -3598,10 +3603,9 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 					{
 						double nx = b->Xpos;
 						double ny = b->Ypos;
-						ApplyGuides(&nx, &ny);
-						FPoint npx;
-						if ((nx == b->Xpos) && (ny == b->Ypos))
+						if (!ApplyGuides(&nx, &ny))
 						{
+							FPoint npx;
 							npx = ApplyGridF(FPoint(nx, ny));
 							nx = npx.x();
 							ny = npx.y();
@@ -4310,14 +4314,14 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 									nx = (qRound(np.x() / doku->minorGrid) * doku->minorGrid - dx);
 									ny = (qRound(np.y() / doku->minorGrid) * doku->minorGrid - dy);
 								}
-/*								if (doku->SnapGuides)
+								if (doku->SnapGuides)
 								{
 									nx += b->Xpos;
 									ny += b->Ypos;
 									ApplyGuides(&nx, &ny);
 									nx -= b->Xpos;
 									ny -= b->Ypos;
-								} */
+								}
 								erf = SizeItem(nx, ny, b->ItemNr);
 							}
 							else
@@ -4448,6 +4452,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 			else
 			{
 				Imoved = true;
+				erf = false;
 				if (!GroupSel)
 				{
 					doku->UnData.UnCode = 1;
@@ -4456,51 +4461,36 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 					b = SelItem.at(0);
 					if (!((b->isTableItem) && (b->isSingleSel)))
 					{
-						p.begin(this);
-						Transform(b, &p);
-						p.setRasterOp(XorROP);
-						p.setBrush(NoBrush);
-						p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
-						if ((b->PType != 5) && (b->FrameType != 0) || (b->PType == 7))
-							b->DrawPolyL(&p, b->Clip);
-						else
-							p.drawRect(0, 0, static_cast<int>(b->Width)+1, static_cast<int>(b->Height)+1);
-						p.end();
-						erf = MoveItem(newX-Mxp, newY-Myp, b);
+						double oldX = b->Xpos;
+						double oldY = b->Ypos;
+						moveGroup(newX-Mxp, newY-Myp, false);
 						if (doku->SnapGuides)
 						{
 							double nx = b->Xpos;
 							double ny = b->Ypos;
 							ApplyGuides(&nx, &ny);
-							MoveItem(nx-b->Xpos, ny-b->Ypos, b);
+							moveGroup(nx-b->Xpos, ny-b->Ypos, false);
 							nx = b->Xpos+b->Width;
 							ny = b->Ypos+b->Height;
 							ApplyGuides(&nx, &ny);
-							MoveItem(nx-(b->Xpos+b->Width), ny-(b->Ypos+b->Height), b);
+							moveGroup(nx-(b->Xpos+b->Width), ny-(b->Ypos+b->Height), false);
 						}
-						p.begin(this);
-						Transform(b, &p);
-						p.setRasterOp(XorROP);
-						p.setBrush(NoBrush);
-						p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
-						if ((b->PType != 5) && (b->FrameType != 0) || (b->PType == 7))
-							b->DrawPolyL(&p, b->Clip);
-						else
-							p.drawRect(0, 0, static_cast<int>(b->Width)+1, static_cast<int>(b->Height)+1);
-						p.end();
+						if ((oldX != b->Xpos) || (oldY != b->Ypos))
+							erf = true;
 					}
 				}
 				else
 				{
+					setGroupRect();
+					double gx, gy, gh, gw;
+					getGroupRect(&gx, &gy, &gw, &gh);
+					double oldX = gx;
+					double oldY = gy;
 					doku->UnDoValid = false;
 					emit UndoAvail();
 					moveGroup(newX-Mxp, newY-Myp, false);
-					erf = true;
 					if (doku->SnapGuides)
 					{
-						setGroupRect();
-						double gx, gy, gh, gw;
-						getGroupRect(&gx, &gy, &gw, &gh);
 						double nx = gx;
 						double ny = gy;
 						ApplyGuides(&nx, &ny);
@@ -4513,6 +4503,9 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 						moveGroup(nx-(gx+gw), ny-(gy+gh), false);
 					}
 					setGroupRect();
+					getGroupRect(&gx, &gy, &gw, &gh);
+					if ((oldX != gx) || (oldY != gy))
+						erf = true;
 				}
 				if (erf)
 				{

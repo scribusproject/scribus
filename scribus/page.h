@@ -116,7 +116,7 @@ public:
 	void SetYGuide(QMouseEvent *m);
 	void SetXGuide(QMouseEvent *m);
 	void SnapToGuides(PageItem* b);
-	void ApplyGuides(double *x, double *y);
+	bool ApplyGuides(double *x, double *y);
 	void UniteObj();
 	void SplitObj();
 	void PasteItem(struct CLBuf *Buffer, bool loading, bool drag = false);

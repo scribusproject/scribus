@@ -7302,7 +7302,7 @@ void ScribusApp::FinalizePlugs()
 	sdem2 demo2;
 	for (it = PluginMap.begin(); it != PluginMap.end(); ++it)
 	{
-		if (it.data().Typ == 4)
+		if (it.data().Typ > 3)
 		{
 			dlerror();
 			demo2 = (sdem2)dlsym(it.data().Zeiger, "CleanUpPlug");
@@ -7371,7 +7371,7 @@ void ScribusApp::CallDLL(QString name)
 	typedef void (*sdem)(QWidget *d, ScribusApp *plug);
 	sdem demo;
 	QString pfad = PREL;
-	if (pda.Typ != 4)
+	if (pda.Typ < 4)
 	{
 		pfad += "/lib/scribus/plugins/" + pda.Datei;
 		mo = dlopen(pfad, RTLD_LAZY | RTLD_GLOBAL);
