@@ -23,7 +23,7 @@ PyObject *scribus_filedia(PyObject */*self*/, PyObject* args, PyObject* kw)
 	int issave = 0;
 	char* kwargs[] = {const_cast<char*>("caption"), const_cast<char*>("filter"),
 						const_cast<char*>("defaultname"), const_cast<char*>("haspreview"),
-						const_cast<char*>("issave"), const_cast<char*>("")};
+						const_cast<char*>("issave"), NULL};
 	if (!PyArg_ParseTupleAndKeywords(args, kw, "es|esesii", kwargs,
 									 "utf-8", &caption, "utf-8", &filter, "utf-8", &defName,
 									 &haspreview, &issave))
@@ -48,7 +48,7 @@ PyObject *scribus_messdia(PyObject */*self*/, PyObject* args, PyObject* kw)
 	int butt3 = QMessageBox::NoButton;
 	char* kwargs[] = {const_cast<char*>("caption"), const_cast<char*>("message"),
 						const_cast<char*>("icon"), const_cast<char*>("button1"),
-						const_cast<char*>("button2"), const_cast<char*>("button3"), const_cast<char*>("")};
+						const_cast<char*>("button2"), const_cast<char*>("button3"), NULL};
 	if (!PyArg_ParseTupleAndKeywords(args, kw, "eses|iiii", kwargs, "utf-8", &caption, "utf-8", &message, &ico, &butt1, &butt2, &butt3))
 		return NULL;
 	QApplication::setOverrideCursor(QCursor(Qt::ArrowCursor));
