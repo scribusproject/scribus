@@ -460,7 +460,7 @@ Preferences::Preferences( QWidget* parent, preV *prefsData) : PrefsDialogBase( p
 	textLabel5b = new QLabel(gapText, tr("&Gap:"), subTabText, "TextCol");
 	subTabTextLayout->addWidget( textLabel5b, 4, 2 );
 	previewText = new QLabel( tr( "Woven silk pyjamas exchanged for blue quartz" ), subTabText, "previewText" );
-	previewText->setMinimumSize( QSize( 280, 70 ) );
+	previewText->setMaximumWidth(width());
 	previewText->setAlignment( static_cast<int>( QLabel::AlignVCenter | QLabel::AlignLeft ) );
 	previewText->setFrameShape(QFrame::Box);
 	previewText->setPaletteBackgroundColor(paletteBackgroundColor());
