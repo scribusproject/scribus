@@ -9,8 +9,6 @@
 #include "config.h"
 #include "langmgr.h"
 
-#define SCRIBUS_LIB  PREL "/lib/scribus/"
-
 void LanguageManager::init()
 {
 	generateLangList();
@@ -68,7 +66,7 @@ void LanguageManager::generateLangList()
 
 void LanguageManager::generateInstalledLangList()
 {
-    QString path = SCRIBUS_LIB;
+    QString path = LIBDIR;
     QString langAbbrev;
     QMap<QString, QString>::Iterator it;
 

@@ -213,8 +213,8 @@ void Farbmanager::loadDefaults(int id)
 	LoadColSet->setText(CSets->text(id));
 	EditColors.clear();
 	QString Cpfad = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/"+CSets->text(id));
-	QString pfadC = PREL;
-	QString pfadC2 = pfadC + "/lib/scribus/rgbscribus.txt";
+	QString pfadC = LIBDIR;
+	QString pfadC2 = pfadC + "rgbscribus.txt";
 	switch (c)
 	{
 	case 0:
@@ -229,16 +229,16 @@ void Farbmanager::loadDefaults(int id)
 		EditColors.insert("Magenta", CMYKColor(0, 255, 0, 0));
 		break;
 	case 1:
-		pfadC2 = pfadC + "/lib/scribus/rgbscribus.txt";
+		pfadC2 = pfadC + "rgbscribus.txt";
 		break;
 	case 2:
-		pfadC2 = pfadC + "/lib/scribus/rgbscribusgreys.txt";
+		pfadC2 = pfadC + "rgbscribusgreys.txt";
 		break;
 	case 3:
-		pfadC2 = pfadC + "/lib/scribus/rgbscribusgnome.txt";
+		pfadC2 = pfadC + "rgbscribusgnome.txt";
 		break;
 	case 4:
-		pfadC2 = pfadC + "/lib/scribus/rgbsvg.txt";
+		pfadC2 = pfadC + "rgbsvg.txt";
 		break;
 	default:
 		pfadC2 = Cpfad;

@@ -7504,9 +7504,9 @@ void ScribusView::LoremIpsum()
 			if (t == QMessageBox::No)
 				return;
 		}
-		QString pfad = PREL;
+		QString pfad = SAMPLESDIR;
 		QString pfad2;
-		pfad2 = pfad + "/share/scribus/samples/LoremIpsum.txt";
+		pfad2 = pfad + "LoremIpsum.txt";
 		Serializer *ss = new Serializer(pfad2);
 		if (ss->Read(""))
 		{

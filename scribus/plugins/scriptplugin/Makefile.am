@@ -1,6 +1,5 @@
 SUBDIRS = samples scripts
 pluginsdir = $(libdir)/scribus/plugins
-AM_CPPFLAGS = -I$(top_builddir)/scribus $(PYTHONINC)
 plugins_LTLIBRARIES = libscriptplugin.la
 INCLUDES = $(LIBFREETYPE_CFLAGS) $(all_includes)
 libscriptplugin_la_LDFLAGS = -version-info 0:0:0
@@ -14,3 +13,13 @@ else
  linkflag = -s
 endif
 AM_LDFLAGS =  $(linkflag) -Xlinker $(PYTHONLIB) $(LIBPYTHON)
+
+AM_CPPFLAGS = \
+    -I$(top_builddir)/scribus $(PYTHONINC) \
+    -DDOCDIR=\"$(datadir)/scribus/doc/\" \
+    -DICONDIR=\"$(datadir)/scribus/icons/\" \
+    -DSAMPLESDIR=\"$(datadir)/scribus/samples/\" \
+    -DSCRIPTSDIR=\"$(datadir)/scribus/scripts/\" \
+    -DTEMPLATEDIR=\"$(datadir)/scribus/templates/\" \
+    -DLIBDIR=\"$(libdir)/scribus/\" \
+    -DPLUGINDIR=\"$(libdir)/scribus/plugins/\"

@@ -189,8 +189,8 @@ void HelpBrowser::jumpToHelpSection(const QString newGuiLanguage, QString jumpTo
 
 	if (jumpToFile=="") 
 	{
-		QString pfad = PREL;
-		toLoad = pfad + "/share/scribus/doc/" + guiLanguage.left(2) + "/"; //clean this later to handle 5 char locales
+		QString pfad = DOCDIR;
+		toLoad = pfad + + guiLanguage.left(2) + "/"; //clean this later to handle 5 char locales
 		if (jumpToSection=="") 
 		{
 			toLoad+="index.html";
@@ -227,8 +227,8 @@ void HelpBrowser::loadHelp(QString filename)
 		toLoad=filename;
 	else 
 	{
-		QString pfad = PREL;
-		toLoad = pfad + "/share/scribus/doc/en/index.html";
+		QString pfad = DOCDIR;
+		toLoad = pfad + "en/index.html";
 		fi = QFileInfo(toLoad);
 		if (!fi.exists())
 		{
@@ -249,12 +249,11 @@ void HelpBrowser::loadHelp(QString filename)
 
 void HelpBrowser::loadMenu(const QString newGuiLanguage)
 {
-	QString pfad = PREL;
+	QString pfad = DOCDIR;
 	QString toLoad;
 	QString guiLanguage = newGuiLanguage=="" ? "en" : newGuiLanguage;
 
-	QString baseDir = "/share/scribus/doc/";
-	QString pfad2 = pfad + baseDir + guiLanguage.left(2) + "/menu.xml";
+	QString pfad2 = pfad + guiLanguage.left(2) + "/menu.xml";
 
 	QFileInfo fi = QFileInfo(pfad2);
 
@@ -262,7 +261,7 @@ void HelpBrowser::loadMenu(const QString newGuiLanguage)
 		toLoad=pfad2;
 	else
 	{
-		toLoad = pfad + baseDir + "en/menu.xml";
+		toLoad = pfad + "en/menu.xml";
 		fi = QFileInfo(toLoad);
 		qDebug("Scribus help in your selected language does not exist, trying English. Otherwise, please visit http://docs.scribus.net.");
 	}
@@ -377,9 +376,9 @@ void HelpBrowser::loadMenu(const QString newGuiLanguage)
 
 void HelpBrowser::itemSelected(QListViewItem *item)
 {
-	QString pfad = PREL;
+	QString pfad = DOCDIR;
 	if ( !item )
 		return;
 	else if ((item->text(1)!=QString::null) && (item->text(1)!=QString("")))
-		loadHelp(pfad + "/share/scribus/doc/en/"+item->text(1));
+		loadHelp(pfad + "en/"+item->text(1));
 }

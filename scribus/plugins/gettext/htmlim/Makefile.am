@@ -1,5 +1,4 @@
-pluginsdir = $(prefix)/lib/scribus/plugins/gettext
-AM_CPPFLAGS = -I$(top_builddir)/scribus
+pluginsdir = $(libdir)/scribus/plugins/gettext
 
 SUBDIRS =  
 
@@ -21,3 +20,12 @@ else
 endif
 AM_LDFLAGS =  $(linkflag) $(LIBFREETYPE_LIBS) $(XML_LIBS)
 
+AM_CPPFLAGS = \
+    -I$(top_builddir)/scribus \
+    -DDOCDIR=\"$(datadir)/scribus/doc/\" \
+    -DICONDIR=\"$(datadir)/scribus/icons/\" \
+    -DSAMPLESDIR=\"$(datadir)/scribus/samples/\" \
+    -DSCRIPTSDIR=\"$(datadir)/scribus/scripts/\" \
+    -DTEMPLATEDIR=\"$(datadir)/scribus/templates/\" \
+    -DLIBDIR=\"$(libdir)/scribus/\" \
+    -DPLUGINDIR=\"$(libdir)/scribus/plugins/\"

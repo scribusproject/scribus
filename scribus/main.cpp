@@ -29,8 +29,6 @@
 
 #include <iostream>
 
-#define SCRIBUS_LIB  PREL "/lib/scribus/"
-#define SCRIBUS_PLUGIN  PREL "/lib/scribus/plugins/"
 #define BASE_QM "scribus"
 
 #include "scribus.h"
@@ -310,7 +308,7 @@ QStringList getLang(QString lang)
 void installTranslators(QApplication *app, QStringList langs)
 {
 	QTranslator *trans= new QTranslator(0);
-	QString path = SCRIBUS_LIB;
+	QString path = LIBDIR;
 	path += BASE_QM;
 
 	bool loaded = false;
@@ -329,7 +327,7 @@ void installTranslators(QApplication *app, QStringList langs)
 	if (loaded)
 		app->installTranslator(trans);
 
-	path = SCRIBUS_PLUGIN;
+	path = PLUGINDIR;
 	QDir dir(path , "*.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
 	if (dir.exists() && (dir.count() != 0)) {
 		for (uint i = 0; i < dir.count(); ++i) {

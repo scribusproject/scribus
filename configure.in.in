@@ -173,7 +173,6 @@ AC_SUBST(LIBDL2)
 dnl generate the config header
 AM_CONFIG_HEADER(config.h) dnl at the distribution this done
 
-AC_DEFINE_UNQUOTED(PREL, "$prefix", [Dataprefix])
 dnl Checks for programs.
 AC_CHECK_COMPILERS
 AC_ENABLE_SHARED(yes)

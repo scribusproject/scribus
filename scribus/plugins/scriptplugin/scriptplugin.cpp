@@ -88,9 +88,9 @@ void InitPlug(QWidget *d, ScribusApp *plug)
 	Tes->smen = new QPopupMenu();
 	Tes->SavedRecentScripts.clear();
 	Tes->ReadPlugPrefs();
-	QString pfad = PREL;
+	QString pfad = SCRIPTSDIR;
 	QString pfad2;
-	pfad2 = QDir::convertSeparators(pfad + "/share/scribus/scripts/");
+	pfad2 = QDir::convertSeparators(pfad);
 	QDir ds(pfad2, "*.py", QDir::Name, QDir::Files | QDir::NoSymLinks);
 	if ((ds.exists()) && (ds.count() != 0))
 	{
@@ -136,9 +136,9 @@ void CleanUpPlug()
 
 void Run(QWidget *d, ScribusApp *plug)
 {
-	QString pfad = PREL;
+	QString pfad = DOCDIR;
 	QString pfad2;
-	pfad2 = QDir::convertSeparators(pfad + "/share/scribus/doc/en/Scripter/index.html");
+	pfad2 = QDir::convertSeparators(pfad + "en/Scripter/index.html");
 	HelpBrowser *dia = new HelpBrowser(0, QObject::tr("Online Reference"), Carrier->getGuiLanguage(), "scripter");
 	dia->show();
 }
@@ -197,9 +197,9 @@ void MenuTest::slotTest()
 
 void MenuTest::StdScript(int id)
 {
-	QString pfad = PREL;
+	QString pfad = SCRIPTSDIR;
 	QString pfad2;
-	pfad2 = QDir::convertSeparators(pfad + "/share/scribus/scripts/");
+	pfad2 = QDir::convertSeparators(pfad);
 	QString fn = pfad2+smen->text(id)+".py";
 	QFileInfo fd(fn);
 	if (!fd.exists())

@@ -312,8 +312,8 @@ void ScribusApp::initDefaultPrefs()
 
 	/** Default colours **/
 	Prefs.DColors.clear();
-	QString pfadC = PREL;
-	QString pfadC2 = pfadC + "/lib/scribus/rgbscribus.txt";
+	QString pfadC = LIBDIR;
+	QString pfadC2 = pfadC + "rgbscribus.txt";
 	QFile fiC(pfadC2);
 	if (!fiC.exists())
 	{
@@ -4742,11 +4742,11 @@ void ScribusApp::slotHelpAbout()
 	const char *error;
 	typedef About* (*sdem)(QWidget *d);
 	sdem demo;
-	QString pfad = PREL;
+	QString pfad = LIBDIR;
 #if defined(__hpux)
-	pfad += "/lib/scribus/libs/libabout.sl";
+	pfad += "libs/libabout.sl";
 #else
-	pfad += "/lib/scribus/libs/libabout.so";
+	pfad += "libs/libabout.so";
 #endif
 	mo = dlopen(pfad, RTLD_LAZY);
 	if (!mo)
@@ -6895,11 +6895,11 @@ void ScribusApp::slotPrefsOrg()
 	bool zChange = false;
 	typedef Preferences* (*sdem)(QWidget *d, preV *Vor);
 	sdem demo;
-	QString pfad = PREL;
+	QString pfad = LIBDIR;
 #if defined(__hpux)
-	pfad += "/lib/scribus/libs/libpreferences.sl";
+	pfad += "libs/libpreferences.sl";
 #else
-	pfad += "/lib/scribus/libs/libpreferences.so";
+	pfad += "libs/libpreferences.so";
 #endif
 	mo = dlopen(pfad, RTLD_LAZY);
 	if (!mo)
@@ -7280,11 +7280,11 @@ PSLib* ScribusApp::getPSDriver(bool psart, SCFonts &AllFonts, QMap<QString,QFont
 	const char *error;
 	typedef PSLib* (*sdem)(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, CListe DocColors, bool pdf);
 	sdem demo;
-	QString pfad = PREL;
+	QString pfad = LIBDIR;
 #if defined(__hpux)
-	pfad += "/lib/scribus/libs/libpostscript.sl";
+	pfad += "libs/libpostscript.sl";
 #else
-	pfad += "/lib/scribus/libs/libpostscript.so";
+	pfad += "libs/libpostscript.so";
 #endif
 	PSDriver = dlopen(pfad, RTLD_LAZY);
 	if (!PSDriver)
@@ -7370,11 +7370,11 @@ bool ScribusApp::getPDFDriver(QString fn, QString nam, int Components, std::vect
 	void *PDFDriver;
 	typedef bool (*sdem)(ScribusApp *plug, QString fn, QString nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs, QProgressBar *dia2);
 	sdem demo;
-	QString pfad = PREL;
+	QString pfad = LIBDIR;
 #if defined(__hpux)
-	pfad += "/lib/scribus/libs/libpdf.sl";
+	pfad += "libs/libpdf.sl";
 #else
-	pfad += "/lib/scribus/libs/libpdf.so";
+	pfad += "libs/libpdf.so";
 #endif
 	PDFDriver = dlopen(pfad, RTLD_NOW);
 	if (!PDFDriver)
@@ -8034,13 +8034,12 @@ void ScribusApp::FinalizePlugs()
 
 void ScribusApp::initPlugs()
 {
-	QString pfad = PREL;
+	QString pfad = PLUGINDIR;
 	QString nam = "";
 	int id = 0;
 	int ty = 0;
 	int menid = 0;
 	struct PlugData pda;
-	pfad += "/lib/scribus/plugins/";
 #if defined(__hpux)
 	QDir d(pfad, "*.sl*", QDir::Name, QDir::Files | QDir::Executable | QDir::NoSymLinks);
 #else
@@ -8105,10 +8104,10 @@ void ScribusApp::CallDLL(int ident)
 	pda = PluginMap[ident];
 	typedef void (*sdem)(QWidget *d, ScribusApp *plug);
 	sdem demo;
-	QString pfad = PREL;
+	QString pfad = PLUGINDIR;
 	if (pda.Typ < 4)
 	{
-		pfad += "/lib/scribus/plugins/" + pda.Datei;
+		pfad += pda.Datei;
 		mo = dlopen(pfad, RTLD_LAZY | RTLD_GLOBAL);
 		if (!mo)
 		{
@@ -8148,8 +8147,8 @@ bool ScribusApp::DLLName(QString name, QString *PName, int *typ, void **Zeig, in
 	sdem0 demo;
 	sdem1 demo1;
 	sdem2 demo2;
-	QString pfad = PREL;
-	pfad += "/lib/scribus/plugins/" + name;
+	QString pfad = PLUGINDIR;
+	pfad += name;
 	mo = dlopen(pfad, RTLD_LAZY | RTLD_GLOBAL);
 	if (!mo)
 	{
@@ -8201,8 +8200,8 @@ void ScribusApp::GetCMSProfiles()
 	MonitorProfiles.clear();
 	PrinterProfiles.clear();
 	InputProfiles.clear();
-	QString pfad = PREL;
-	pfad += "/lib/scribus/profiles/";
+	QString pfad = LIBDIR;
+	pfad += "profiles/";
 	GetCMSProfilesDir(pfad);
 	if (Prefs.ProfileDir != "")
 	{
@@ -8601,8 +8600,7 @@ void ScribusApp::CanUndo()
 
 void ScribusApp::initHyphenator()
 {
-	QString pfad = PREL;
-	pfad += "/lib/scribus/";
+	QString pfad = LIBDIR;
 	QStringList L_German;
 	QStringList L_Polish;
 	QStringList L_English;
@@ -8777,8 +8775,8 @@ void ScribusApp::initHyphenator()
 	QString lang = QString(QTextCodec::locale()).left(2);
 	LangTransl.clear();
 	Prefs.Language = "English";
-	pfad = PREL;
-	pfad += "/lib/scribus/dicts/";
+	pfad = LIBDIR;
+	pfad += "dicts/";
 	QDir d(pfad, "*.dic", QDir::Name, QDir::Files | QDir::NoSymLinks);
 	if ((d.exists()) && (d.count() != 0))
 	{

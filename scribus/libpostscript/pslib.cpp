@@ -63,7 +63,6 @@ PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, CListe
 {
 	QString tmp, tmp2, tmp3, tmp4, CHset;
 	QStringList wt;
-  	QString Epfad = PREL;
 	Seiten = 0;
 	User = "";
 	Creator = "Scribus 1.3.0cvs";
