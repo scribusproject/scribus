@@ -353,7 +353,6 @@ void Hyphenator::slotHyphenate(PageItem* it)
 		if (Ccount == 0)
 			Ccount++;
 	}
-	nb1->Dirty = true;
 	qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 	doc->DoDrawing = true;
 	nb1->OwnPage->RefreshItem(nb1);

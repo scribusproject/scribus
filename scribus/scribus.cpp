@@ -1281,21 +1281,18 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						if ((kk + KeyMod) == Prefs.KeyActions[59].KeyID)
 						{
 							setNewAbStyle(1);
-							b->Dirty = true;
 							b->Tinput = true;
 							doc->ActPage->RefreshItem(b);
 						}
 						if ((kk + KeyMod) == Prefs.KeyActions[58].KeyID)
 						{
 							setNewAbStyle(2);
-							b->Dirty = true;
 							b->Tinput = true;
 							doc->ActPage->RefreshItem(b);
 						}
 						if ((kk + KeyMod) == Prefs.KeyActions[57].KeyID)
 						{
 							setNewAbStyle(0);
-							b->Dirty = true;
 							b->Tinput = true;
 							doc->ActPage->RefreshItem(b);
 						}
@@ -1374,7 +1371,6 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 								hg->PtransY = 0;
 								b->Ptext.insert(b->CPos, hg);
 								b->CPos += 1;
-								b->Dirty = true;
 								b->Tinput = true;
 								setTBvals(b);
 								doc->ActPage->RefreshItem(b, true);
@@ -1716,7 +1712,6 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							{
 								DeleteSel(b);
 								setTBvals(b);
-								b->Dirty = true;
 								doc->ActPage->RefreshItem(b, true);
 							}
 							keyrep = false;
@@ -1739,7 +1734,6 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							b->Tinput = false;
 						}
 						setTBvals(b);
-						b->Dirty = true;
 						doc->ActPage->RefreshItem(b, true);
 						break;
 					case Key_Backspace:
@@ -1749,7 +1743,6 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							{
 								DeleteSel(b);
 								setTBvals(b);
-								b->Dirty = true;
 								doc->ActPage->RefreshItem(b, true);
 							}
 							keyrep = false;
@@ -1773,16 +1766,11 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							b->Tinput = false;
 						}
 						setTBvals(b);
-						b->Dirty = true;
 						doc->ActPage->RefreshItem(b, true);
 						break;
 					default:
 						if ((b->HasSel) && (kk < 0x1000))
-						{
 							DeleteSel(b);
-							b->Dirty = true;
-//							doc->ActPage->RefreshItem(b, true);
-						}
 						if ((kk == Key_Tab)
 						        || ((kk == Key_Return) && (buttonState & ShiftButton))
 						        || ((kk + KeyMod) == Prefs.KeyActions[60].KeyID)
@@ -1820,7 +1808,6 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							hg->PtransY = 0;
 							b->Ptext.insert(b->CPos, hg);
 							b->CPos += 1;
-							b->Dirty = true;
 							b->Tinput = true;
 							doc->ActPage->RefreshItem(b, true);
 							break;
@@ -1828,7 +1815,6 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						if ((kk + KeyMod) == Prefs.KeyActions[56].KeyID)
 						{
 							b->Ptext.at(QMAX(b->CPos-1,0))->cstyle ^= 128;
-							b->Dirty = true;
 							b->Tinput = true;
 							doc->ActPage->RefreshItem(b, true);
 							break;
@@ -1836,7 +1822,6 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						if ((kk + KeyMod) == Prefs.KeyActions[59].KeyID)
 						{
 							setNewAbStyle(1);
-							b->Dirty = true;
 							b->Tinput = true;
 							doc->ActPage->RefreshItem(b, true);
 							break;
@@ -1844,7 +1829,6 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						if ((kk + KeyMod) == Prefs.KeyActions[57].KeyID)
 						{
 							setNewAbStyle(0);
-							b->Dirty = true;
 							b->Tinput = true;
 							doc->ActPage->RefreshItem(b, true);
 							break;
@@ -1852,7 +1836,6 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						if ((kk + KeyMod) == Prefs.KeyActions[58].KeyID)
 						{
 							setNewAbStyle(2);
-							b->Dirty = true;
 							b->Tinput = true;
 							doc->ActPage->RefreshItem(b, true);
 							break;
@@ -1903,11 +1886,8 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 									if (doc->Trenner->Language != b->Language)
 										doc->Trenner->slotNewDict(b->Language);
 									doc->Trenner->slotHyphenateWord(b, Twort, Tcoun);
-									b->Dirty = true;
 								}
 							}
-							if ((b->CPos < static_cast<int>(b->Ptext.count())) || (as == 30))
-								b->Dirty = true;
 							b->Tinput = true;
 							doc->ActPage->RefreshItem(b, true);
 						}
@@ -3190,6 +3170,15 @@ bool ScribusApp::LadeDoc(QString fileName)
 	{
 		QString FName = fi.absFilePath();
 		QDir::setCurrent(fi.dirPath(true));
+		ScriXmlDoc *ss = new ScriXmlDoc();
+		//test if the file is a scribus one
+		if (!ss->IsScribus(FName))
+		{
+			delete ss;
+			//next line to add only after strings are no longer frozen
+			//QMessageBox::warning(this, tr("Warning"), tr("File %1 is not in Scribus format").arg(FName), tr("OK"));
+			return false;
+		}
 		doc=new ScribusDoc();
 		doc->AllFonts = &Prefs.AvailFonts;
 		doc->AddFont(Prefs.DefFont, Prefs.AvailFonts[Prefs.DefFont]->Font);
@@ -3253,7 +3242,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 		ActWin = w;
 		doc->WinHan = w;
 		w->setCentralWidget(view);
-		ScriXmlDoc *ss = new ScriXmlDoc();
+//		ScriXmlDoc *ss = new ScriXmlDoc();
 		connect(ss, SIGNAL(NewPage(int)), this, SLOT(slotNewPage(int)));
 #ifdef HAVE_CMS
 		w->SoftProofing = false;
@@ -3989,7 +3978,6 @@ void ScribusApp::slotEditCut()
 					}
 				}
 				DeleteSel(nb);
-				nb->Dirty = true;
 				nb = nb->NextBox;
 			}
 			doc->ActPage->RefreshItem(b);
@@ -4160,7 +4148,6 @@ void ScribusApp::slotEditPaste()
 				if (doc->Trenner->AutoCheck)
 					doc->Trenner->slotHyphenate(b);
 			}
-		if (b->CPos < static_cast<int>(b->Ptext.count())) { b->Dirty = true; }
 			doc->ActPage->RefreshItem(b);
 		}
 		else
@@ -4199,7 +4186,6 @@ void ScribusApp::SelectAll()
 			{
 				nb->Ptext.at(a)->cselect = true;
 				nb->HasSel = true;
-				nb->Dirty = true;
 			}
 			nb = nb->NextBox;
 		}
@@ -4290,7 +4276,6 @@ void ScribusApp::DeleteText()
 		for (uint a = 0; a < nb->Ptext.count(); ++a)
 		{
 			DeleteSel(nb);
-			nb->Dirty = true;
 			nb->CPos = 0;
 		}
 		nb = nb->NextBox;

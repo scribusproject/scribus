@@ -309,7 +309,6 @@ void ZAuswahl::InsChar()
 		ite->Ptext.insert(ite->CPos, hg);
 		ite->CPos += 1;
 	}
-	ite->Dirty = true;
 	ap->doc->ActPage->update();
 	ap->slotDocCh();
 }

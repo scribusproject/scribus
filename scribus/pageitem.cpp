@@ -259,6 +259,7 @@ PageItem::PageItem(Page *pa, int art, double x, double y, double w, double h, do
 	BottomLine = false;
 	isTableItem = false;
 	isSingleSel = false;
+	Dirty = false;
 }
 
 /** Zeichnet das Item */
@@ -300,7 +301,6 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 		Redrawn = true;
 		Tinput = false;
 		FrameOnly = false;
-		Dirty = false;
 		return;
 	}
 	LiList.setAutoDelete(true);
@@ -551,7 +551,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						p->drawImage(&pixm);
 					p->restore();
 				}
-			if ((Ptext.count() != 0) || (Dirty) || (NextBox != 0))
+			if ((Ptext.count() != 0) || (NextBox != 0))
 				{
 				if (NextBox != 0)
 					{
@@ -564,7 +564,6 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 							Ptext.append(nb->Ptext.take(0));
 							}
 						nb->MaxChars = 0;
-						nb->Dirty = true;
 						nb = nb->NextBox;
 						}
 					nb = NextBox;
@@ -608,21 +607,19 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						}
 					}
 				if (flippedH % 2 != 0)
-					{
+				{
 					p->translate(Width * sc, 0);
 					p->scale(-1, 1);
 					pf2.translate(Width, 0);
 					pf2.scale(-1, 1);
-					}
+				}
 				if (flippedV % 2 != 0)
-					{
+				{
 					p->translate(0, Height * sc);
 					p->scale(1, -1);
 					pf2.translate(0, Height);
 					pf2.scale(1, -1);
-					}
-				if ((Doc->AppMode == 7) && (Dirty))
-					Dirty = false;
+				}
 				CurrCol = 0;
 				ColWidth = (Width - (ColGap * (Cols - 1)) - Extra - RExtra - 2*lineCorr) / Cols;
 				ColBound = FPoint((ColWidth + ColGap) * CurrCol+Extra + lineCorr, ColWidth * (CurrCol+1) + ColGap * CurrCol + Extra+lineCorr);
@@ -1417,7 +1414,6 @@ NoRoom: pf2.end();
 					{
 						NextBox->Ptext.append(Ptext.take(nrc));
 					}
-					NextBox->Dirty = true;
 					if (uint(CPos) > nrc)
 					{
 						int nCP = CPos - nrc;
@@ -1669,7 +1665,6 @@ NoRoom: pf2.end();
 	}
 	Tinput = false;
 	FrameOnly = false;
-	Dirty = false;
 	p->restore();
 	pf.end();
 }
@@ -1682,7 +1677,6 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 		Redrawn = true;
 		Tinput = false;
 		FrameOnly = false;
-		Dirty = false;
 		return;
 	}
 	if (toPixmap)
@@ -1807,7 +1801,6 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 	}
 	Tinput = false;
 	FrameOnly = false;
-	Dirty = false;
 	p.end();
 }
 

@@ -38,7 +38,6 @@ gtAction::gtAction(bool append)
 			{
 				nb->Ptext.clear();
 				nb->CPos = 0;
-				nb->Dirty = true;
 				nb = nb->NextBox;
 			}
 		}
@@ -69,7 +68,6 @@ void gtAction::clearFrame()
 {
 	textFrame->Ptext.clear();
 	textFrame->CPos = 0;
-	textFrame->Dirty = true;
 }
 
 void gtAction::write(QString text, gtStyle *style)

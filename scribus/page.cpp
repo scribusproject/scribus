@@ -330,7 +330,6 @@ void Page::dropEvent(QDropEvent *e)
 						b->Ptext.insert(b->CPos, hg);
 						b->CPos += 1;
 					}
-					b->Dirty = true;
 					emit DocChanged();
 					update();
 				}
@@ -1162,7 +1161,6 @@ void Page::RepaintTextRegion(PageItem *b, QRegion alt, bool single)
 	Transform(b, &p);
 	neu = QRegion(p.xForm(QRect(0, 0, static_cast<int>(b->Width+1), static_cast<int>(b->Height+1)))).unite(alt);
 	p.end();
-	b->Dirty = true;
 	QRect g = neu.boundingRect();
 	if (!single)
 	{
@@ -3997,7 +3995,6 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 					b->Ptext.at(a)->cselect = false;
 				b->HasSel = false;
 				emit HasNoTextSel();
-				b->Dirty = true;
 				RefreshItem(b);
 			}
 		}
@@ -5144,7 +5141,6 @@ void Page::mousePressEvent(QMouseEvent *m)
 								bb->Rot = b->Rot;
 								AdjustItemSize(bb);
 								bb->ClipEdited = true;
-								b->Dirty = true;
 								PageItem *bx = Items.take(bb->ItemNr);
 								Items.insert(bb->ItemNr-1, bx);
 								for (uint al = 0; al < Items.count(); ++al)
@@ -7458,7 +7454,6 @@ void Page::ItemFont(QString fon)
 						UpdatePolyClip(b);
 						AdjustItemSize(b);
 					}
-					b->Dirty = true;
 					if (!doku->loading)
 						emit UpdtObj(PageNr, b->ItemNr);
 					RefreshItem(b);
@@ -7473,7 +7468,6 @@ void Page::ItemFont(QString fon)
 						if (b->Ptext.at(a)->cselect)
 							b->Ptext.at(a)->cfont = fon;
 					}
-					b->Dirty = true;
 					RefreshItem(b);
 				}
 			}
@@ -7748,7 +7742,6 @@ void Page::chTyStyle(int s)
 						b->Ptext.at(a)->cstyle |= s;
 					}
 				}
-				b->Dirty = true;
 				RefreshItem(b);
 			}
 		}
@@ -7914,10 +7907,7 @@ void Page::chAbStyle(PageItem *b, int s)
 		}
 	}
 	if (!b->Tinput)
-	{
-		b->Dirty = true;
 		RefreshItem(b);
-	}
 }
 
 void Page::chKerning(double us)
@@ -7938,7 +7928,6 @@ void Page::chKerning(double us)
 						if (b->Ptext.at(a)->cselect)
 							b->Ptext.at(a)->cextra = us;
 					}
-					b->Dirty = true;
 					RefreshItem(b);
 				}
 			}
@@ -7952,7 +7941,6 @@ void Page::chKerning(double us)
 					{
 						b->Ptext.at(a)->cextra = us;
 					}
-					b->Dirty = true;
 					RefreshItem(b);
 				}
 			}
@@ -8002,7 +7990,6 @@ void Page::chFSize(int size)
 					UpdatePolyClip(b);
 					AdjustItemSize(b);
 				}
-				b->Dirty = true;
 				RefreshItem(b);
 			}
 		}
@@ -8329,7 +8316,6 @@ void Page::ToBack()
 		doku->UnData.UnCode = 4;
 		doku->UnDoValid = true;
 		emit UndoAvail();
-		b->Dirty = true;
 		Items.prepend(b);
 		for (a = 0; a < Items.count(); ++a)
 		{
@@ -8360,7 +8346,6 @@ void Page::ToFront()
 		doku->UnData.UnCode = 4;
 		doku->UnDoValid = true;
 		emit UndoAvail();
-		b->Dirty = true;
 		Items.append(b);
 		for (a = 0; a < Items.count(); ++a)
 		{
@@ -8391,7 +8376,6 @@ void Page::LowerItem()
 		doku->UnData.UnCode = 4;
 		doku->UnDoValid = true;
 		emit UndoAvail();
-		b->Dirty = true;
 		Items.insert(SelItem.at(0)->ItemNr-1, b);
 		for (a = 0; a < Items.count(); ++a)
 		{
@@ -8422,7 +8406,6 @@ void Page::RaiseItem()
 		doku->UnData.UnCode = 4;
 		doku->UnDoValid = true;
 		emit UndoAvail();
-		b->Dirty = true;
 		Items.insert(SelItem.at(0)->ItemNr+1, b);
 		for (uint a = 0; a < Items.count(); ++a)
 		{
@@ -8942,15 +8925,12 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 	if (!loading)
 	{
 		b->Select = true;
-		b->Dirty = true;
 		SelItem.append(b);
 		emit HaveSel(b->PType);
 		EmitValues(b);
 		emit DocChanged();
 		update();
 	}
-	if ((b->PType == 4) && (loading))
-		b->Dirty = true;
 	if ((b->isBookmark) && (!loading))
 		emit NewBMNr(b->BMnr, z);
 }

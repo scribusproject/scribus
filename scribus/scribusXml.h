@@ -20,6 +20,7 @@ Q_OBJECT
 public:
 	ScriXmlDoc() {};
 	~ScriXmlDoc() {};
+	bool IsScribus(QString fileName);
 	QString ReadDatei(QString fileName);
 	void GetItemProps(bool newVersion, QDomElement *obj, struct CLBuf *OB);
 	void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item);

@@ -69,7 +69,6 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 		{
 			nb->Ptext.clear();
 			nb->CPos = 0;
-			nb->Dirty = true;
 			nb = nb->NextBox;
 		}
 	}

@@ -2109,7 +2109,6 @@ void StoryEditor::updateTextFrame()
 	{
 		nb2->Ptext.clear();
 		nb2->CPos = 0;
-		nb2->Dirty = true;
 		nb2 = nb2->NextBox;
 	}
 	Editor->saveItemText(nb);

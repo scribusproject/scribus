@@ -1,3 +1,279 @@
+Changes since Version 1.1.7
+
+15.08.2004
+	* bug     #963: Scribus crashes after launching font substitution dialog with document templates
+
+14.08.2004
+	* feature #828: Group members should be hidden for aligning and other operations
+
+13.08.2004
+	* bug     #263: distribute items shuffles the order of the items
+	* feature #966: Scribus 1.2 Slovene translation file
+
+11.08.2004
+	* bug     #957: Scribus crashes when adding new paragraph style while text is selected
+	* bug     #962: Scribus crashes when opening a document not in .sla format
+	* feature #965: Welsh translation of 1.2rc1
+
+09.08.2004
+	* bug     #955: When switching between multiple windows size and X,Y origin location are not updated for the selected object
+
+08.08.2004
+	* bug     #160: zoom tool should recenter
+	* bug     #616: Properties/Language: Wrong language descriptions
+	* bug     #784: changing zoom level jumps to various pages
+	* bug     #947: Ukrainian Translation Update
+	* bug     #949: Saving
+	* feature #946: Danish translation for 1.2
+	* feature #951: Finnish translation update
+
+07.08.2004
+	* bug     #724: No left aligned page numbers
+	* bug     #925: clicking on bookmarks in bookmark window should activate the corresponding text frame
+	* bug     #936: shortcuts for palettes activates only hides them again when then main window has the focus
+	* bug     #940: "general" is not highlighted when calling settings > preferences
+	* bug     #942: change icon style for warning icon in replace font dialog
+	* bug     #943: Deleting selected text in SE makes Scribus crash
+	* feature # 28: Prepare shortcut keys for menus and dialogs, and more hotkeys for actions for 1.2 release
+	* feature # 77: Prepare tooltips for 1.2 release
+	* feature #190: left, right, centered, ... styles
+	* feature #938: German Translation Update for 1.2
+	* feature #939: British English Translation Update for 1.2
+	* feature #941: German ts-file for 1.2
+	* feature #944: Polish translation for 1.2
+
+06.08.2004
+	* bug     #167: spacing across columns/frames
+	* bug     #312: Newlines not handled properly when c/p'ing
+	* bug     #602: shift+scroll doesn't work in the text size box...
+	* bug     #724: No left aligned page numbers
+	* feature #650: cleaning-up main.cpp
+	* feature #933: Scripter crash on running sample script when no previous documents open
+	* feature #934: Search/Replace enabled when multiple items are selected and they arent all text frames
+	* feature #935: add option to apply a template page to all odd/even pages
+
+04.08.2004
+	* bug     #790: Update Picture From Right-Click Menu Does Not Work
+	* bug     #927: layer chooser on the bottom of scribus isnt updated after adding a new layer immediately
+	* bug     #930: different width of opacity and shade text fields on the property palette, colors
+	* feature #767: enter shouldnt close guideline dialog
+	* feature #890: changing the level of of objects with pageup / pagedown keys
+
+03.08.2004
+	* bug     #926: with disabled guidelines the guide line cursor is shown when clicking onto a ruler
+	* bug     #929: alignment in story editor does not work with empty text frame for the first paragraph
+
+02.08.2004
+	* bug     #467: The *Cancel* button does not work after using the *Apply* button in Distribute/Align feature
+	* bug     #658: Templates: issues with text editing in story editor
+	* bug     #659: Templates > Story Editor & Properties: Confusion about styles
+	* bug     #707: Endian issues with images on fink?
+	* bug     #921: importing SVG does not set save flag
+	* bug     #928: Ukrainian Translation Update
+	* feature # 25: Add Find & Replace option to Story Editor / Text Frames
+	* feature # 25: Add Find & Replace option to Story Editor / Text Frames
+	* feature #138: Add Clear Contents right click option for linked text frames
+	* feature #883: Way of Switching between edit and select mode
+	* feature #904: integrate font preview plugin to the story editor
+
+01.08.2004
+	* bug     #450: Dialog Tools>Layers needs <ESC> binding and loose the "X" button
+	* bug     #768: insert sample text
+	* bug     #794: Style>Colors: Color list doesn't disappear when cursor moves away
+	* bug     #858: Palettes do not hide with F10 when one is selected
+	* feature #902: hyphenate in linked text frames
+
+31.07.2004
+	* bug     #527: Wrong page shown in Properties Palette when reopened
+	* bug     #528: Wrong page shown in Properties Palette - COLORS - when reopened
+	* bug     #919: Text from story editor duplicates when two text frames are linked...
+	* feature #909: add access possibility to text styles to the story editor
+	* feature #920: Updated French Translation
+
+30.07.2004
+	* bug     #905: first line typed in the story editor is invisible
+	* bug     #910: text alignment does not work after the first line
+	* bug     #911: selected text gets unselected after changing the alignment setting of the selected text
+	* bug     #912: improve stroke/fill color style
+	* bug     #913: pressing shift after changing values for kerning, size & widht reset that values
+	* feature #906: french translation updated
+	* feature #907: improve "update textframe"
+
+29.07.2004
+	* bug     #135: Text properties disappears when using story editor and not set by styles
+	* bug     #899: ctrl+a doesnt select the whole text
+	* bug     #900: selecting text alignment without any text in the editor crashes scribus
+	* bug     #905: first line typed in the story editor is invisible
+	* bug     #908: toolbar for stroke color not movable if stroke is disabled
+	* feature #901: Polish Translation Update
+	* feature #903: British English Translation Update
+
+28.07.2004
+	* bug     #135: Text properties disappears when using story editor and not set by styles
+	* feature #746: Story Editor rewrite
+	* feature #896: German translation update
+	* feature #897: Finnish translation update
+
+27.07.2004
+	* bug     #892: resizing imported svg with rotated elements  hurts gradients
+	* feature #893: Polish Translation Update
+	* feature #894: Crash when hypenating Swedish Texts
+
+26.07.2004
+	* bug     #891: gradients position does not change when objects are re-sized
+
+24.07.2004
+	* feature #884: German language update
+	* feature #888: Updated Danish Translation
+
+21.07.2004
+	* bug     #878: Scribus crashes repeatedly while editing frame shapes
+	* bug     #879: problem with registration color
+	* feature # 58: Add registration colour for colour crop, fold and registration marks
+	* feature #880: Updated British English translation
+	* feature #881: Polish Translation Update
+
+18.07.2004
+	* bug     #874: Tab order in Multiple Duplicate
+	* bug     #875: Preset values for linescreen angles, per color
+	* feature # 98: Ability to have distance of text from outside edge of text or image frame
+	* feature # 98: Ability to have distance of text from outside edge of text or image frame
+	* feature #871: Corrupted PDF export issue
+
+17.07.2004
+	* bug     #860: Lots of crash saying that is due to signal 11
+
+16.07.2004
+	* bug     #860: Lots of crash saying that is due to signal 11
+	* bug     #868: Editing shapes of frames needs lock/unlock actions
+	* feature #848: Baseline Grid Behaviour
+	* feature #855: Setting Linescreen in PDF export
+	* feature #864: Ukrainian Translation Update
+
+15.07.2004
+	* bug     #863: Issue with background gradients overwriting images
+
+14.07.2004
+	* bug     #399: unable to copy from Properties/Geometry if object is locked
+	* bug     #861: Cut / Copy / Paste broken on Paste
+
+13.07.2004
+	* bug     #756: Scribus does not honor settings for custom page sizes
+	* bug     #850: moving grouped vector elements imported from large-scale eps
+	* bug     #859: New File with Custom Page Size and mm, page size gets smaller when switching portrait and landscape
+	* feature #848: Baseline Grid Behaviour
+	* feature #856: Translation update for German
+	* feature #857: Polish Translation Update
+
+11.07.2004
+	* bug     #852: import SVG, export PDF, import SVG again => crash
+	* feature #844: selecting importet eps text very slow and not nice
+
+08.07.2004
+	* bug     #849: Scribus mailing list seems seems to be down
+	* bug     #851: SVG import does not support paths properly
+
+04.07.2004
+	* bug     #844: selecting importet eps text very slow and not nice
+	* feature #578: one-click/keyboard for toggling off and on all dialogboxes+guides etc
+	* feature #845: Export Selection only to EPS
+
+03.07.2004
+	* feature #789: Calculating error
+	* feature #841: Implement the primary Dublin Core Metadata Element Set for RDF Implementation
+
+01.07.2004
+	* feature #678: check buttons instead of lock/unlock and hide/show
+	* feature #785: Add option to export PDFs with custom page numbers
+	* feature #838: german update
+	* feature #839: Updated Czech Translation
+
+29.06.2004
+	* feature #678: check buttons instead of lock/unlock and hide/show
+	* feature #744: importing a range of pages into another
+	* feature #834: slovenian update
+
+28.06.2004
+	* feature #  3: Ability to create pages when importing pages from other documents
+
+27.06.2004
+	* bug     #832: Scribus RC1cvs crashes (SIG #11) while opening a document
+
+24.06.2004
+	* bug     #829: when emergency save it called - font tags are stripped from the top of file
+	* feature #831: Updated Brazilian Translation
+
+23.06.2004
+	* bug     #823: When dragging to and from the Scrapbook, unneeded styles are copied
+	* bug     #824: Modifying a paragraph style does not affect all text previously formatted with that style.
+
+22.06.2004
+	* bug     #568: Copying items creates copies of paragraph styles
+	* bug     #821: Detaching a text from a path doesn't keep the rotation for the path.
+	* bug     #822: Gradients in PDF rendered in the wrong direction
+
+21.06.2004
+	* bug     #817: Ukrainian Translation Update
+	* bug     #818: Attaching text from a path resets the rotation (if any) of a rotated path
+	* bug     #820: Don't display the & Characters for Shortcuts in the Splash Screen
+
+20.06.2004
+	* bug     #343: Ctrl+H shouldn't delete characters
+	* bug     #812: drop caps error with linked text frames on pdf export
+	* feature #355: Allow of automatic page margin creation / snappy page margins.
+	* feature #787: Complete the ps-importer for reading OpenOffice generated files
+	* feature #814: Updated Danish Translation
+	* feature #815: Updated Norwegian Translation
+
+19.06.2004
+	* bug     #813: Snap to Guides for moving and resizing of Groups
+	* feature #799: Feature Request: Select All
+
+18.06.2004
+	* bug     #765: Paragraph indentation oops when rendering to pdf
+	* bug     #781: Story Editor>Edit>Insert special... does nothing
+	* bug     #807: saving doc in template mode corrupts file
+	* bug     #811: indent not shown when editing styles
+	* feature #795: Polish Translation Update
+	* feature #800: Finnish translation update
+	* feature #801: Norwegian Translation Update
+	* feature #802: Italian Translation Update
+	* feature #806: german translation update
+	* feature #808: First Line Indent not saved from Paragraph Styles after closing and reopening the editor
+
+15.06.2004
+	* bug     #655: Window enlarge each time I select a file
+	* bug     #703: guidelines interfere  selecting a group of objects
+	* bug     #780: Automatic Pagenumber not placed correct on Export
+	* feature #203: Snap to Grid/Guidelines too strong
+	* feature #778: Updated Russian Translation
+
+11.06.2004
+	* bug     #633: Drop caps not reaching to the top, and other issues
+	* bug     #655: Window enlarge each time I select a file
+	* bug     #671: measurement icon
+	* bug     #703: guidelines interfere  selecting a group of objects
+	* feature #770: Update for the German language
+
+10.06.2004
+	* bug     #755: Collect for Output should ask confirmation
+	* bug     #760: "icons" dir does not get copied by "make dist"
+	* feature #761: Right-click on graphics tablet triggers drag-and-drop
+	* feature #764: Enable transparent Gradients in PDF
+
+08.06.2004
+	* bug     #356: Margin Dialog not intuituve enough
+	* bug     #721: add "current page" to print dialog
+	* bug     #750: Placing guides in the foreground not saved on document save
+	* bug     #751: Text box border magically reappears on reopening previously saved document
+	* bug     #756: Scribus does not honor settings for custom page sizes
+	* bug     #758: v1.1.7 (Alyssa) compile stops with an error at file scribusview.cpp
+	* feature #759: Ability to create PostScript Level 2 or Level 1 only files.
+
+06.06.2004
+	* feature #745: Tracker for 1.1.7
+	* feature #754: Inclusion of Tsoots "New from Template" Plugin
+
 Changes since Version 1.1.6
 
 04.06.2004

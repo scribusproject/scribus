@@ -3570,7 +3570,7 @@ Bildschirm betrachten wollen</translation>
     <name>HySettings</name>
     <message>
         <source>Hyphenator Settings</source>
-        <translation>Einstellungen</translation>
+        <translation>Silbentrennungs-Einstellungen</translation>
     </message>
     <message>
         <source>Fully Automatic</source>

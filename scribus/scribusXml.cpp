@@ -36,6 +36,70 @@ extern int QStoInt(QString in);
 extern bool loadText(QString nam, QString *Buffer);
 extern QString Path2Relative(QString Path);
 
+/*!
+	\fn ScriXmlDoc::IsScribus(QString fileName)
+	\author Frederic Dubuy <effediwhy@gmail.com>
+	\date august 17th 2004
+	\brief Preliminary Scribus file validator
+	\param Qtring filename of file to test
+	\retval true = Scribus format file, false : not Scribus
+*/
+bool ScriXmlDoc::IsScribus(QString fileName)
+{
+	QString f = "";
+	QFile file(fileName);
+#ifdef HAVE_LIBZ
+	if(fileName.right(2) == "gz")
+	{
+		gzFile gzDoc;
+		char buff[17];
+		int i;
+		gzDoc = gzopen(fileName.latin1(),"rb");
+		if(gzDoc == NULL)
+			return false;
+		//read the beginning of the file
+		i = gzread(gzDoc,&buff,16);
+		gzclose(gzDoc);
+		if (i<16)
+			return false;
+		buff[i] = '\0';
+		f.append(buff);
+	}
+	else
+// a normal document
+	if ( file.open( IO_ReadOnly ) )
+		{
+		QTextStream stream( &file );
+		f = stream.readLine();
+		}
+	else
+	{
+		file.close();
+		return false;
+	}
+	file.close();
+
+#else
+	QFile file( FName );
+	if ( file.open( IO_ReadOnly ) )
+		{
+		QTextStream stream( &file );
+		f = stream.readLine();
+		}
+	else
+	{
+		file.close();
+		return false;
+	}
+	file.close();
+
+#endif
+	if (f.startsWith("<SCRIBUS"))
+		return true;
+	else
+		return false;
+}
+
 QString ScriXmlDoc::ReadDatei(QString fileName)
 {
 /**
@@ -69,7 +133,7 @@ QString ScriXmlDoc::ReadDatei(QString fileName)
 	QString ff = "";
 	if (f.startsWith("<SCRIBUSUTF8"))
 		ff = QString::fromUtf8(f);
-	else
+	else if (f.startsWith("<SCRIBUS"))
 		ff = f;
 	return ff;
 /** end changes */
@@ -1157,7 +1221,6 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 								break;
 						}
 						Its->NextBox = 0;
-						Itr->Dirty = true;
 					}
 				}
 				if (!Mpage)
@@ -1696,7 +1759,6 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				Its = Itn;
 			}
 			Its->NextBox = 0;
-			Itr->Dirty = true;
 		}
 	}
 	view->UN->setText(doc->Einheit == 0 ? "pt" : "mm");

@@ -220,7 +220,6 @@ PyObject *scribus_setboxtext(PyObject *self, PyObject* args)
 			{
 				nb->Ptext.clear();
 				nb->CPos = 0;
-				nb->Dirty = true;
 				nb = nb->NextBox;
 			}
 		}
@@ -298,7 +297,6 @@ PyObject *scribus_inserttext(PyObject *self, PyObject* args)
 			it->Ptext.insert(pos, hg);
 		}
 		it->CPos = pos + Daten.length();
-		it->Dirty = true;
 		it->paintObj();
 	}
 	return Py_None;

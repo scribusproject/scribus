@@ -2273,7 +2273,6 @@ void Mpalette::NewExtra()
 			if (uint(CurItem->CPos) != CurItem->Ptext.count())
 			{
 				CurItem->Ptext.at(CurItem->CPos)->cextra = Extra->value();
-				CurItem->Dirty = true;
 				doc->ActPage->RefreshItem(CurItem);
 				emit DocChanged();
 			}

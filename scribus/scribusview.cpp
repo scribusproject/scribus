@@ -241,7 +241,6 @@ Page* ScribusView::addPage(int nr)
 			Doc->FirstAuto = fe->Items.at(z);
 		Doc->LastAuto = fe->Items.at(z);
 		fe->SetRectFrame(fe->Items.at(z));
-		Doc->FirstAuto->Dirty = true;
 		if (nr > 0)
 		{
 			bool savre = Doc->RePos;
