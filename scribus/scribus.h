@@ -204,10 +204,7 @@ public:
 	int UniCinC;
 	QString UniCinS;
 
-	//int M_FileNew;
-	//int M_FilePrint;
-	//int M_FileSaveAs;
-	//int M_FileQuit;
+
 	QMap<QString, QStringList> InstLang;
 	QMap<QString,QString> LangTransl;
 	FileWatcher* fileWatcher;
@@ -591,6 +588,10 @@ private:
 	int viewSepal;
 	int viewBopal;
 	int viewUndoPalette;
+	//int M_FileNew;
+	//int M_FilePrint;
+	//int M_FileSaveAs;
+	//int M_FileQuit;
 	//int M_FileClose;
 	//int M_FileImportGetText;
 	//int M_FileImportPages;
@@ -630,7 +631,7 @@ private:
 	/** @brief Tells if an arrow key is pressed down */
 	bool _arrowKeyDown;
 	QPopupMenu *helpMenu;
-	QPopupMenu *toolMenu;
+	//QPopupMenu *toolMenu;
 	QPopupMenu *extraMenu;
 	//QPopupMenu *importMenu;
 	//QPopupMenu *exportMenu;

@@ -283,13 +283,15 @@ void ScribusApp::initToolBars()
 	scrActions["fileSave"]->addTo(WerkTools2);
 	scrActions["fileClose"]->addTo(WerkTools2);
 	scrActions["filePrint"]->addTo(WerkTools2);
+	scrActions["toolsPreflightVerifier"]->addTo(WerkTools2);
 	scrActions["fileExportAsPDF"]->addTo(WerkTools2);
 	
+/*
 	scrActions["fileClose"]->setEnabled(false);
 	scrActions["filePrint"]->setEnabled(false);
 	scrActions["fileSave"]->setEnabled(false);
 	scrActions["fileExportAsPDF"]->setEnabled(false);
-
+*/
 	editToolBar = new QToolBar(tr("Edit"), this);
 	UndoWidget* uWidget = new UndoWidget(editToolBar, "uWidget");
 	undoManager->registerGui(uWidget);
@@ -653,7 +655,14 @@ void ScribusApp::initKeyboardShortcuts()
 	SetKeyEntry(43, scrActions["viewShowGrid"]->cleanMenuText(), 0, scrActions["viewShowGrid"]->accel(), "viewShowGrid");
 	SetKeyEntry(44, scrActions["viewSnapToGrid"]->cleanMenuText(), 0, scrActions["viewSnapToGrid"]->accel(), "viewSnapToGrid");
 	
-
+	//TOOLS MENU
+	/*
+	SetKeyEntry(46, tr("Properties"), viewMpal, 0);
+	SetKeyEntry(47, tr("Outline"), viewTpal, 0);
+	SetKeyEntry(48, tr("Scrapbook"), viewBpal, 0);
+	SetKeyEntry(45, tr("Tools"), toolbarMenuTools, 0);
+	SetKeyEntry(55, tr("Tooltips"), tip, 0);
+	*/
 	//EXTRAS
 	SetKeyEntry(56, tr("Smart Hyphen"), 0, CTRL+Key_Minus);
 	SetKeyEntry(57, tr("Align Left"), 0, CTRL+Key_L);
@@ -767,7 +776,8 @@ void ScribusApp::initPalettes()
 
 	undoPalette = new UndoPalette(this, "undoPalette");
 	undoManager->registerGui(undoPalette);
-
+	connect(undoPalette, SIGNAL(closePalette(bool)), this, SLOT(setUndoPalette(bool)));
+	
 	connect(MaPal, SIGNAL(Schliessen(bool)), this, SLOT(setMapal(bool)));
 	connect(Mpal, SIGNAL(DocChanged()), this, SLOT(slotDocCh()));
 	connect(Mpal, SIGNAL(NewAbStyle(int)), this, SLOT(setNewAbStyle(int)));
@@ -1193,6 +1203,41 @@ void ScribusApp::initViewMenuActions()
 
 void ScribusApp::initToolsMenuActions()
 {
+	//Tool menu
+	scrActions.insert("toolsProperties", new ScrAction(tr("&Properties"), QKeySequence(), this, "toolsProperties"));
+	scrActions.insert("toolsOutline", new ScrAction(tr("&Outline"), QKeySequence(), this, "toolsOutline"));
+	scrActions.insert("toolsScrapbook", new ScrAction(tr("&Scrapbook"), QKeySequence(), this, "toolsScrapbook"));
+	scrActions.insert("toolsLayers", new ScrAction(tr("&Layers"), QKeySequence(), this, "toolsLayers"));
+	scrActions.insert("toolsPages", new ScrAction(tr("P&age Palette"), QKeySequence(), this, "toolsPages"));
+	scrActions.insert("toolsBookmarks", new ScrAction(tr("&Bookmarks"), QKeySequence(), this, "toolsBookmarks"));
+	scrActions.insert("toolsActionHistory", new ScrAction(tr("Action &History"), QKeySequence(), this, "toolsActionHistory"));
+	scrActions.insert("toolsPreflightVerifier", new ScrAction(QIconSet(loadIcon("launch16.png"), loadIcon("launch.png")),tr("Preflight &Verifier"), QKeySequence(), this, "toolsPreflightVerifier"));
+	scrActions.insert("toolsToolbarTools", new ScrAction(tr("&Tools"), QKeySequence(), this, "toolsToolbarTools"));
+	scrActions.insert("toolsToolbarPDF", new ScrAction(tr("P&DF Tools"), QKeySequence(), this, "toolsToolbarPDF"));
+	
+	scrActions["toolsProperties"]->setToggleAction(true);
+	scrActions["toolsOutline"]->setToggleAction(true);
+	scrActions["toolsScrapbook"]->setToggleAction(true);
+	scrActions["toolsLayers"]->setToggleAction(true);
+	scrActions["toolsPages"]->setToggleAction(true);
+	scrActions["toolsBookmarks"]->setToggleAction(true);
+	scrActions["toolsActionHistory"]->setToggleAction(true);
+	scrActions["toolsPreflightVerifier"]->setToggleAction(true);
+	scrActions["toolsToolbarTools"]->setToggleAction(true);
+	scrActions["toolsToolbarPDF"]->setToggleAction(true);
+	
+	connect( scrActions["toolsProperties"], SIGNAL(activated()) , this, SLOT(ToggleMpal()) );
+	connect( scrActions["toolsOutline"], SIGNAL(activated()) , this, SLOT(ToggleTpal()) );
+	connect( scrActions["toolsScrapbook"], SIGNAL(activated()) , this, SLOT(ToggleBpal()) );
+	connect( scrActions["toolsLayers"], SIGNAL(activated()) , this, SLOT(ToggleLpal()) );
+	connect( scrActions["toolsPages"], SIGNAL(activated()) , this, SLOT(ToggleSepal()) );
+	connect( scrActions["toolsBookmarks"], SIGNAL(activated()) , this, SLOT(ToggleBookpal()) );
+	connect( scrActions["toolsActionHistory"], SIGNAL(activated()) , this, SLOT(ToggleUndoPalette()) );
+	connect( scrActions["toolsPreflightVerifier"], SIGNAL(activated()) , this, SLOT(ToggleCheckPal()) );
+	connect( scrActions["toolsToolbarTools"], SIGNAL(activated()) , this, SLOT(ToggleTools()) );
+	connect( scrActions["toolsToolbarPDF"], SIGNAL(activated()) , this, SLOT(TogglePDFTools()) );
+	
+	
 }
 
 void ScribusApp::initExtrasMenuActions()
@@ -1386,22 +1431,20 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["viewSnapToGuides"], "View");
 	
 	//Tool menu
-	toolMenu=new QPopupMenu();
-	viewMpal = toolMenu->insertItem( tr("&Properties"), this, SLOT(ToggleMpal()));
-	SetKeyEntry(46, tr("Properties"), viewMpal, 0);
-	viewTpal = toolMenu->insertItem( tr("&Outline"), this, SLOT(ToggleTpal()));
-	SetKeyEntry(47, tr("Outline"), viewTpal, 0);
-	viewBpal = toolMenu->insertItem( tr("&Scrapbook"), this, SLOT(ToggleBpal()));
-	SetKeyEntry(48, tr("Scrapbook"), viewBpal, 0);
-	viewLpal = toolMenu->insertItem( tr("&Layers"), this, SLOT(ToggleLpal()));
-	viewSepal = toolMenu->insertItem( tr("P&age Palette"), this, SLOT(ToggleSepal()));
-	viewBopal = toolMenu->insertItem( tr("&Bookmarks"), this, SLOT(ToggleBookpal()));
-	viewUndoPalette = toolMenu->insertItem(tr("Action &History"), this, SLOT(ToggleUndoPalette()));
-	M_ToolsCheckDoc = toolMenu->insertItem( tr("Preflight Verifier"), this, SLOT(slotCheckDoc()));
-	toolbarMenuTools = toolMenu->insertItem( tr("&Tools"), this, SLOT(ToggleTools()));
-	toolbarMenuPDFTools = toolMenu->insertItem( tr("P&DF Tools"), this, SLOT(TogglePDFTools()));
-	SetKeyEntry(45, tr("Tools"), toolbarMenuTools, 0);
-	SetKeyEntry(55, tr("Tooltips"), tip, 0);
+	scrMenuMgr->createMenu("Tools", tr("&Tools"));
+	scrMenuMgr->addMenuItem(scrActions["toolsProperties"], "Tools");
+	scrMenuMgr->addMenuItem(scrActions["toolsOutline"], "Tools");
+	scrMenuMgr->addMenuItem(scrActions["toolsScrapbook"], "Tools");
+	scrMenuMgr->addMenuItem(scrActions["toolsLayers"], "Tools");
+	scrMenuMgr->addMenuItem(scrActions["toolsPages"], "Tools");
+	scrMenuMgr->addMenuItem(scrActions["toolsBookmarks"], "Tools");
+	scrMenuMgr->addMenuItem(scrActions["toolsActionHistory"], "Tools");
+	scrMenuMgr->addMenuItem(scrActions["toolsPreflightVerifier"], "Tools");
+	scrMenuMgr->addMenuSeparator("Tools");
+	scrMenuMgr->addMenuItem(scrActions["toolsToolbarTools"], "Tools");
+	scrMenuMgr->addMenuItem(scrActions["toolsToolbarPDF"], "Tools");
+	
+	scrActions["toolsPreflightVerifier"]->setEnabled(false);
 	
 	//Extra menu
 	extraMenu=new QPopupMenu();
@@ -1444,7 +1487,7 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->setMenuEnabled("Page", false);
 	scrMenuMgr->addMenuToMenuBar("View");
 	scrMenuMgr->setMenuEnabled("View", false);
-	menuBar()->insertItem( tr("&Tools"), toolMenu);
+	scrMenuMgr->addMenuToMenuBar("Tools");
 	exmn = menuBar()->insertItem( tr("E&xtras"), extraMenu);
 	menuBar()->setItemEnabled(exmn, 0);
 	WinMen = menuBar()->insertItem( tr("&Windows"), windowsMenu );
@@ -1509,8 +1552,6 @@ void ScribusApp::initMenuBar()
 	connect(undoManager, SIGNAL(newAction(UndoObject*, UndoState*)),
 	        this, SLOT(refreshUndoRedoItems()));
 	connect(undoManager, SIGNAL(undoRedoDone()), this, SLOT(refreshUndoRedoItems()));
-	connect(toolMenu, SIGNAL(aboutToShow()), this, SLOT(refreshUndoRedoItems()));
-	
 	connect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
 	connect(ShadeMenu, SIGNAL(activated(int)), this, SLOT(setItemShade(int)));
 	connect(FontMenu, SIGNAL(activated(int)), this, SLOT(setItemFont(int)));
@@ -3277,6 +3318,7 @@ void ScribusApp::HaveNewDoc()
 	scrActions["fileExportAsEPS"]->setEnabled(true);
 	scrActions["fileExportAsPDF"]->setEnabled(true);
 	scrActions["fileImportPage"]->setEnabled(true);
+	scrActions["toolsPreflightVerifier"]->setEnabled(true);
 
 	if (scrDLLActions["PrintPreview"])
 		scrDLLActions["PrintPreview"]->setEnabled(true);
@@ -4671,6 +4713,8 @@ bool ScribusApp::DoFileClose()
 		scrActions["editSearchReplace"]->setEnabled(false);
 		scrActions["editTemplates"]->setEnabled(false);
 		scrActions["editJavascripts"]->setEnabled(false);
+		
+		scrActions["toolsPreflightVerifier"]->setEnabled(false);
 
 		extraMenu->setItemEnabled(hyph, 0);
 		scrMenuMgr->setMenuEnabled("View", false);
@@ -4726,7 +4770,7 @@ void ScribusApp::slotFilePrint()
 		{
 			docChecker->buildErrorList(doc);
 			docChecker->show();
-			toolMenu->setItemChecked(M_ToolsCheckDoc, true);
+			scrActions["toolsPreflightVerifier"]->setOn(true);
 			return;
 		}
 	}
@@ -5581,7 +5625,7 @@ void ScribusApp::setCheckPal(bool visible)
 		Prefs.checkPalSettings.yPosition = docChecker->pos().y();
 		docChecker->hide();
 	}
-	toolMenu->setItemChecked(M_ToolsCheckDoc, visible);
+	scrActions["toolsPreflightVerifier"]->setOn(visible);
 }
 
 void ScribusApp::ToggleCheckPal()
@@ -5608,7 +5652,7 @@ void ScribusApp::setMapal(bool visible)
 void ScribusApp::setUndoPalette(bool visible)
 {
 	visible ? undoPalette->show() : undoPalette->hide();
-	toolMenu->setItemChecked(viewUndoPalette, visible);
+	scrActions["toolsActionHistory"]->setOn(visible);
 }
 
 void ScribusApp::setMpal(bool visible)
@@ -5624,7 +5668,7 @@ void ScribusApp::setMpal(bool visible)
 		Prefs.mPaletteSettings.yPosition = Mpal->pos().y();
 		Mpal->hide();
 	}
-	toolMenu->setItemChecked(viewMpal, visible);
+	scrActions["toolsProperties"]->setOn(visible);
 }
 
 void ScribusApp::ToggleMpal()
@@ -5646,7 +5690,7 @@ void ScribusApp::setTpal(bool visible)
 		Prefs.treePalSettings.yPosition = Tpal->pos().y();
 		Tpal->hide();
 	}
-	toolMenu->setItemChecked(viewTpal, visible);
+	scrActions["toolsOutline"]->setOn(visible);
 }
 
 void ScribusApp::ToggleTpal()
@@ -5671,7 +5715,7 @@ void ScribusApp::setBpal(bool visible)
 		Prefs.scrapPalSettings.height = ScBook->size().height();
 		ScBook->hide();
 	}
-	toolMenu->setItemChecked(viewBpal, visible);
+	scrActions["toolsScrapbook"]->setOn(visible);
 }
 
 void ScribusApp::ToggleBpal()
@@ -5695,7 +5739,7 @@ void ScribusApp::setLpal(bool visible)
 		Prefs.layerPalSettings.yPosition = Lpal->pos().y();
 		Lpal->hide();
 	}
-	toolMenu->setItemChecked(viewLpal, visible);
+	scrActions["toolsLayers"]->setOn(visible);
 }
 
 void ScribusApp::ToggleLpal()
@@ -5719,7 +5763,7 @@ void ScribusApp::setSepal(bool visible)
 		Prefs.SepalN = Sepal->PageView->Namen;
 		Sepal->hide();
 	}
-	toolMenu->setItemChecked(viewSepal, visible);
+	scrActions["toolsPages"]->setOn(visible);
 }
 
 void ScribusApp::ToggleSepal()
@@ -5741,7 +5785,7 @@ void ScribusApp::setBookpal(bool visible)
 		Prefs.bookmPalSettings.yPosition = BookPal->pos().y();
 		BookPal->hide();
 	}
-	toolMenu->setItemChecked(viewBopal, visible);
+	scrActions["toolsBookmarks"]->setOn(visible);
 }
 
 void ScribusApp::ToggleBookpal()
@@ -5768,7 +5812,7 @@ void ScribusApp::setTools(bool visible)
 		WerkTools->hide();
 		WerkTools->Sichtbar = false;
 	}
-	toolMenu->setItemChecked(toolbarMenuTools, visible);
+	scrActions["toolsToolbarTools"]->setOn(visible);
 }
 
 void ScribusApp::ToggleTools()
@@ -5788,7 +5832,7 @@ void ScribusApp::setPDFTools(bool visible)
 		WerkToolsP->hide();
 		WerkToolsP->Sichtbar = false;
 	}
-	toolMenu->setItemChecked(toolbarMenuPDFTools, visible);
+	scrActions["toolsToolbarPDF"]->setOn(visible);
 }
 
 void ScribusApp::TogglePDFTools()
@@ -7950,7 +7994,7 @@ void ScribusApp::SaveAsEps()
 		{
 			docChecker->buildErrorList(doc);
 			docChecker->show();
-			toolMenu->setItemChecked(M_ToolsCheckDoc, true);
+			scrActions["toolsPreflightVerifier"]->setOn(true);
 			return;
 		}
 	}
@@ -8026,7 +8070,7 @@ void ScribusApp::SaveAsPDF()
 		{
 			docChecker->buildErrorList(doc);
 			docChecker->show();
-			toolMenu->setItemChecked(M_ToolsCheckDoc, true);
+			scrActions["toolsPreflightVerifier"]->setOn(true);
 			return;
 		}
 	}
@@ -9127,11 +9171,12 @@ void ScribusApp::SetShortCut()
 				if (scrActions[Prefs.KeyActions[a].actionName])
 					scrActions[Prefs.KeyActions[a].actionName]->setAccel(Prefs.KeyActions[a].KeyID);
 	}
-	
+	/*
 	for (a = 45; a < 49; ++a)
 	{
 		toolMenu->setAccel(Prefs.KeyActions[a].KeyID, Prefs.KeyActions[a].MenuID);
 	}
+	*/
 	extraMenu->setAccel(Prefs.KeyActions[50].KeyID, Prefs.KeyActions[50].MenuID);
 	extraMenu->setAccel(Prefs.KeyActions[51].KeyID, Prefs.KeyActions[51].MenuID);
 	for (a = 52; a < 56; ++a)
@@ -9139,8 +9184,8 @@ void ScribusApp::SetShortCut()
 		helpMenu->setAccel(Prefs.KeyActions[a].KeyID, Prefs.KeyActions[a].MenuID);
 	}
 	//CB itemMenu->setAccel(Prefs.KeyActions[61].KeyID, Prefs.KeyActions[61].MenuID);
-	toolMenu->setAccel(Prefs.KeyActions[62].KeyID, Prefs.KeyActions[62].MenuID);
-	toolMenu->setAccel(Prefs.KeyActions[66].KeyID, Prefs.KeyActions[66].MenuID);
+	//CB toolMenu->setAccel(Prefs.KeyActions[62].KeyID, Prefs.KeyActions[62].MenuID);
+	//CB toolMenu->setAccel(Prefs.KeyActions[66].KeyID, Prefs.KeyActions[66].MenuID);
 	//CBitemMenu->setAccel(Prefs.KeyActions[67].KeyID, Prefs.KeyActions[67].MenuID);
 	//CBitemMenu->setAccel(Prefs.KeyActions[68].KeyID, Prefs.KeyActions[68].MenuID);
 //CB TODO	fileMenu->setAccel(Prefs.KeyActions[18].KeyID, Prefs.KeyActions[18].MenuID);
@@ -9243,7 +9288,7 @@ void ScribusApp::RedoAction()
 
 void ScribusApp::refreshUndoRedoItems()
 {
-	toolMenu->setItemChecked(viewUndoPalette, undoPalette->isVisible());
+	scrActions["toolsActionHistory"]->setOn(undoPalette->isVisible());
 	scrActions["editUndoAction"]->setEnabled(undoManager->hasUndoActions());
 	scrActions["editRedoAction"]->setEnabled(undoManager->hasRedoActions());
 }
@@ -9909,7 +9954,7 @@ void ScribusApp::slotCheckDoc()
 	scanDocument();
 	docChecker->buildErrorList(doc);
 	docChecker->show();
-	toolMenu->setItemChecked(M_ToolsCheckDoc, true);
+	scrActions["toolsPreflightVerifier"]->setOn(true);
 }
 
 void ScribusApp::scanDocument()

@@ -256,6 +256,7 @@ void UndoPalette::hideEvent(QHideEvent*)
 	undoPrefs->set("up_top", top);
 	undoPrefs->set("up_width", width);
 	undoPrefs->set("up_height", height);
+	emit closePalette(false);
 }
 
 void UndoPalette::insertUndoItem(UndoObject* target, UndoState* state)
