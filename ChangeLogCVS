@@ -1,4 +1,7 @@
 Changes since Version 0.9.10
+31.05.2003	svgexplugin.cpp		Moved the SVG-Export Plugin to the Main Package
+					and added Support for Gradients and combined Polygons.
+
 30.05.2003	scribus.cpp		Now you can invert Images.
 		navigator.cpp		External PDF-Documents can have now a different Size.
 

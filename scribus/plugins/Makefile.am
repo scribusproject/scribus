@@ -1,5 +1,5 @@
 ####### kdevelop will overwrite this part!!! (begin)##########
 
-SUBDIRS = libchar 
+SUBDIRS = libchar svgexplugin 
 
 ####### kdevelop will overwrite this part!!! (end)############
