@@ -1017,7 +1017,12 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			}
 			uint ac = Doc->Items.count();
 			if ((!img) && (Doc->DraggedElem == 0))
-				emit LoadElem(QString(text), qRound(e->pos().x()/Scale), qRound(e->pos().y()/Scale), false, false, Doc, this);
+			{
+				if ((fi.exists()) && (!img))
+					emit LoadElem(ur.path(), qRound(e->pos().x()/Scale), qRound(e->pos().y()/Scale), true, false, Doc, this);
+				else
+					emit LoadElem(QString(text), qRound(e->pos().x()/Scale), qRound(e->pos().y()/Scale), false, false, Doc, this);
+			}
 			else
 			{
 				if (Doc->DraggedElem != 0)
@@ -1188,7 +1193,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				}
 			}
 		}
-		if ((fg) && (m->button() == RightButton))
+		if ((fg) && (m->button() == RightButton) && (!GetItem(&b)))
 		{
 			qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 			MoveGY = false;
@@ -8283,13 +8288,6 @@ void ScribusView::reformPages()
 		item->Ypos = item->Ypos - oldPg.oldYO + Doc->Pages.at(oldPg.newPg)->Yoffset;
 		item->OwnPage = static_cast<int>(oldPg.newPg);
 		setRedrawBounding(item);
-/*		if (item->OwnPage == static_cast<int>(oldPgNr))
-		{
-			item->Xpos = item->Xpos - oldXO + Seite->Xoffset;
-			item->Ypos = item->Ypos - oldYO + Seite->Yoffset;
-			item->OwnPage = static_cast<int>(a);
-			setRedrawBounding(item);
-		} */
 	}
 	if (Doc->PageFP)
 	{
