@@ -24,6 +24,26 @@ extern "C" QString Name();
   * 3 = the Plugins is a export Plugin, which appears in the Export Menue */
 extern "C" int Type();
 
+/** Initializes the Plugin if it's a Plugin of Type 4 or 5 */
+extern "C" void InitPlug(QWidget *d, ScribusApp *plug);
+
+/** Possible CleanUpOperations when closing the Plugin */
+extern "C" void CleanUpPlug();
+
+class MenuPreview : public QObject
+{
+    Q_OBJECT
+
+public:
+    MenuPreview(QWidget* parent) {};
+    ~MenuPreview() {};
+
+public slots:
+	void RunPreview();
+};
+
+static MenuPreview* Tes;
+
 class PPreview : public QDialog
 {
 	Q_OBJECT

@@ -3323,6 +3323,8 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 		ImInfo.Width = ImWid;
 		ImInfo.Height = ImHei;
 		ImInfo.aufl = aufl;
+		ImInfo.sxa = sxn;
+		ImInfo.sya = syn;
 		SharedImages.insert(fn, ImInfo);
 		ResCount++;
 	}
@@ -3332,13 +3334,20 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 		ImWid = SharedImages[fn].Width;
 		ImHei = SharedImages[fn].Height;
 		aufl = SharedImages[fn].aufl;
-		sxn = sx * (1.0 / aufl);
-		syn = sy * (1.0 / aufl);
+		if (!Options->RecalcPic)
+		{
+			sxn = sx * (1.0 / aufl);
+			syn = sy * (1.0 / aufl);
+		}
+		else
+		{
+			sxn = SharedImages[fn].sxa;
+			syn = SharedImages[fn].sya;
+		}
 	}
 	if (!fromAN)
 	{
-		Inhalt += FToStr(ImWid*sxn)+" 0 0 "+FToStr(ImHei*syn)+" "+FToStr(x*sx)+
-				" "+FToStr((-ImHei*syn+y*sy))+" cm\n";
+		Inhalt += FToStr(ImWid*sxn)+" 0 0 "+FToStr(ImHei*syn)+" "+FToStr(x*sx)+" "+FToStr((-ImHei*syn+y*sy))+" cm\n";
 		Inhalt += "/"+ResNam+IToStr(ImRes)+" Do\n";
 	}
 }

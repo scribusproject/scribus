@@ -823,6 +823,10 @@
         <source>Custom</source>
         <translation>Benutzerdefiniert</translation>
     </message>
+    <message>
+        <source></source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Annota</name>
@@ -1109,6 +1113,10 @@
         <source>When Icon it too small</source>
         <translation type="obsolete">bei zu kleinem Icon</translation>
     </message>
+    <message>
+        <source></source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CMSPrefs</name>
@@ -1319,6 +1327,10 @@ Das erfordert sehr genaue Profile und dient nur als Anhaltspunkt.</translation>
     <message>
         <source>Name of the Color is not unique</source>
         <translation>Der Name der Farbe ist nicht eindeutig</translation>
+    </message>
+    <message>
+        <source></source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1738,6 +1750,10 @@ Wird in den Voreinstellungen eingestellt.</translation>
         <source>Print</source>
         <translation>Drucken</translation>
     </message>
+    <message>
+        <source></source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditStyle</name>
@@ -2012,7 +2028,7 @@ Wird in den Voreinstellungen eingestellt.</translation>
     </message>
     <message>
         <source>Append</source>
-        <translation>Hinzufügen</translation>
+        <translation>Anfügen</translation>
     </message>
     <message>
         <source>New</source>
@@ -2226,15 +2242,15 @@ Wird in den Voreinstellungen eingestellt.</translation>
     <name>GuideManager</name>
     <message>
         <source>Manage Guides</source>
-        <translation>Hilflinien bearbeiten</translation>
+        <translation>Hilfslinien bearbeiten</translation>
     </message>
     <message>
         <source>Horizontal Guides</source>
-        <translation>Waagrechte Linien</translation>
+        <translation>Waagerechte Linien</translation>
     </message>
     <message>
         <source>Y-Pos:</source>
-        <translation>Y-Pos:</translation>
+        <translation>Y-Position:</translation>
     </message>
     <message>
         <source>Add</source>
@@ -2250,7 +2266,7 @@ Wird in den Voreinstellungen eingestellt.</translation>
     </message>
     <message>
         <source>X-Pos:</source>
-        <translation>X-Pos:</translation>
+        <translation>X-Position:</translation>
     </message>
     <message>
         <source>Lock Guides</source>
@@ -2290,6 +2306,10 @@ Wird in den Voreinstellungen eingestellt.</translation>
     <message>
         <source>Sorry, no manual available! Please see: http://scribus.net for updated docs and downloads.</source>
         <translation>Leider kein Handbuch verfügbar! Bitte besuchen Sie: http://scribus.net für Updates.</translation>
+    </message>
+    <message>
+        <source></source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2580,6 +2600,10 @@ Null bedeutet unbegrenzt.</translation>
     <message>
         <source>Do you want to delete all Objects on this Layer too?</source>
         <translation>Wollen Sie auch alle Objekte dieser Ebene löschen?</translation>
+    </message>
+    <message>
+        <source></source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3244,7 +3268,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Enable or disable printing of the object</source>
-        <translation>Drucken aktivieren/deaktivieren</translation>
+        <translation>Drucken aktivieren oder deaktivieren</translation>
     </message>
     <message>
         <source>Font of selected text or object</source>
@@ -3437,6 +3461,18 @@ Bitte wählen Sie einen anderen.</translation>
     <message>
         <source>Rendering intent for the image</source>
         <translation>Render-Methode für das Bild</translation>
+    </message>
+    <message>
+        <source></source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Switches between Gap or Column width</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Column width</source>
+        <translation>Spaltenbreite</translation>
     </message>
 </context>
 <context>
@@ -3913,11 +3949,11 @@ Wenn Doppelseiten aktiviert sind, kann hier der Abstand gewählt werden, um eine
     </message>
     <message>
         <source>Rotates the Path counter-clockwise</source>
-        <translation>Rotiert Pfad um 1° gegen den Uhrzeigersinn</translation>
+        <translation>Rotiert den Pfad um 1° gegen den Uhrzeigersinn</translation>
     </message>
     <message>
         <source>Rotates the Path clockwise</source>
-        <translation>Rotiert Pfad um 1° im Uhrzeigersinn</translation>
+        <translation>Rotiert den Pfad um 1° im Uhrzeigersinn</translation>
     </message>
     <message>
         <source>Reduce the Size of the Path by 10%</source>
@@ -3932,6 +3968,10 @@ Wenn Doppelseiten aktiviert sind, kann hier der Abstand gewählt werden, um eine
 otherwise Coordinates are relative to the Object.</source>
         <translation>Aktiviert bedeutet Koordinaten relativ zur Seite,
 andernfalls relativ zum Objekt.</translation>
+    </message>
+    <message>
+        <source></source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4992,7 +5032,50 @@ auf Kosten der Render-Geschwindigkeit glatter dar</translation>
     </message>
     <message>
         <source>Insert LoremIpsum</source>
-        <translation>Blindtext einfügen</translation>
+        <translation type="obsolete">Blindtext einfügen</translation>
+    </message>
+    <message>
+        <source>Insert Sample Text</source>
+        <translation>Beispiel-Text einfügen</translation>
+    </message>
+    <message>
+        <source>Lock object size</source>
+        <translation>Objektgröße sperren</translation>
+    </message>
+    <message>
+        <source>Unlock object size</source>
+        <translation>Objektgröße entsperren</translation>
+    </message>
+    <message>
+        <source>Level</source>
+        <translation>Ebene</translation>
+    </message>
+</context>
+<context>
+    <name>PageItem</name>
+    <message>
+        <source>Image</source>
+        <translation>Bild</translation>
+    </message>
+    <message>
+        <source>Text</source>
+        <translation>Text</translation>
+    </message>
+    <message>
+        <source>Line</source>
+        <translation>Linie</translation>
+    </message>
+    <message>
+        <source>Polygon</source>
+        <translation>Polygon</translation>
+    </message>
+    <message>
+        <source>Polyline</source>
+        <translation type="unfinished">Polyline</translation>
+    </message>
+    <message>
+        <source>PathText</source>
+        <translation>Pfadtext</translation>
     </message>
 </context>
 <context>
@@ -5387,7 +5470,7 @@ auf Kosten der Render-Geschwindigkeit glatter dar</translation>
     </message>
     <message>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
-        <translation type="unfinished">The quick brown fox jumps over the lazy dog</translation>
+        <translation>The quick brown fox jumps over the lazy dog</translation>
     </message>
     <message>
         <source>Line Color:</source>
@@ -5979,11 +6062,11 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>Theme:</source>
-        <translation type="unfinished"></translation>
+        <translation>Thema:</translation>
     </message>
     <message>
         <source>Wheel-Jump:</source>
-        <translation type="unfinished"></translation>
+        <translation>Scroll-Intensität:</translation>
     </message>
     <message>
         <source>Grab-Radius:</source>
@@ -5991,11 +6074,35 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>Horizontal Scaling:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Horizontale Größe:</translation>
     </message>
     <message>
         <source>Vertical Scaling:</source>
+        <translation type="unfinished">Vertikale Größe</translation>
+    </message>
+    <message>
+        <source></source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Baseline Grid</source>
+        <translation>Grundlinien-Raster</translation>
+    </message>
+    <message>
+        <source>On</source>
+        <translation>Ein</translation>
+    </message>
+    <message>
+        <source>Off</source>
+        <translation>Aus</translation>
+    </message>
+    <message>
+        <source>Turns on the basegrid</source>
+        <translation>Grundlinien-Raster anzeigen</translation>
+    </message>
+    <message>
+        <source>Turns off the basegrid</source>
+        <translation>Grundlinien-Raster nicht anzeigen</translation>
     </message>
 </context>
 <context>
@@ -7658,6 +7765,10 @@ nicht speichern</translation>
         <source>Unlock all</source>
         <translation>Alle entsperren</translation>
     </message>
+    <message>
+        <source></source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -8313,6 +8424,20 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     <message>
         <source>Page</source>
         <translation>Seite</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Warnung</translation>
+    </message>
+    <message>
+        <source>Name &quot;%1&quot; isn&apos;t unique.
+Please choose another.</source>
+        <translation>Der Name %1 ist nicht eindeutig.
+Bitte wählen Sie einen anderen.</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
     </message>
 </context>
 <context>

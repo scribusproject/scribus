@@ -128,6 +128,8 @@ private:
 			int Width;
 			int Height;
 			double aufl;
+			double sxa;
+			double sya;
 			};
 	QMap<QString,ShIm> SharedImages;
 	QValueList<uint> XRef;

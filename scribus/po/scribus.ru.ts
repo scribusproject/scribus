@@ -3646,67 +3646,75 @@ Please choose another.</source>
     </message>
     <message>
         <source>Document page size, either a standard size or a custom size</source>
-        <translation type="unfinished"></translation>
+        <translation>Размер страницы  документа -- в виде 
+предустановки или назначаемый пользователем</translation>
     </message>
     <message>
         <source>Orientation of the document&apos;s pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Ориентация страниц документа</translation>
     </message>
     <message>
         <source>Width of the document&apos;s pages, editable if you have chosen a custom page size</source>
-        <translation type="unfinished"></translation>
+        <translation>Изменяемая ширина страниц документа</translation>
     </message>
     <message>
         <source>Height of the document&apos;s pages, editable if you have chosen a custom page size</source>
-        <translation type="unfinished"></translation>
+        <translation>Изменяемая высота страниц документа</translation>
     </message>
     <message>
         <source>Enable single or spread based layout</source>
-        <translation type="unfinished">Включить одиночный или парный режим страниц</translation>
+        <translation>Включить одиночный или парный режим страниц</translation>
     </message>
     <message>
         <source>Make the first page the left page of the document</source>
-        <translation type="unfinished"></translation>
+        <translation>Сделать первую страницу левой страницей документа</translation>
     </message>
     <message>
         <source>Distance between the top margin guide and the edge of the page</source>
-        <translation type="unfinished">Расстояние между направляющей верхнего поля и краем страницы</translation>
+        <translation>Расстояние между направляющей 
+верхнего поля и краем страницы</translation>
     </message>
     <message>
         <source>Distance between the bottom margin guide and the edge of the page</source>
-        <translation type="unfinished">Расстояние между направляющей нижнего поля и краем страницы</translation>
+        <translation>Расстояние между направляющей 
+нижнего поля и краем страницы</translation>
     </message>
     <message>
         <source>Distance between the left margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="unfinished">Расстояние между направляющей нижнего поля и краем страницы.
+        <translation>Расстояние между направляющей нижнего поля и краем страницы.
 Если включён режим парных страниц, пространство полей может 
 быть использовано для просчёта правильных полей для переплёта</translation>
     </message>
     <message>
         <source>Distance between the right margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="unfinished"></translation>
+        <translation>Расстояние между направляющей правого поля и краем страницы.
+Если включён режим парных страниц, пространство полей может 
+быть использовано для просчёта правильных полей для переплёта</translation>
     </message>
     <message>
         <source>First page number of the document</source>
-        <translation type="unfinished"></translation>
+        <translation>Первая страница документа</translation>
     </message>
     <message>
         <source>Default unit of measurement for document editing</source>
-        <translation type="unfinished">Стандартная единица измерения в работе</translation>
+        <translation>Стандартная единица измерения в работе</translation>
     </message>
     <message>
         <source>Create text frames automatically when new pages are added</source>
-        <translation type="unfinished"></translation>
+        <translation>Автоматически создавать текстовые 
+рамки в новых страницах</translation>
     </message>
     <message>
         <source>Number of columns to create in automatically created text frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Количество столбцов в автоматически 
+создаваемых текстовых рамках</translation>
     </message>
     <message>
         <source>Distance between automatically created columns</source>
-        <translation type="unfinished"></translation>
+        <translation>Расстояние между автоматически 
+создаваемыми столбцами</translation>
     </message>
 </context>
 <context>
@@ -4262,12 +4270,14 @@ otherwise Coordinates are relative to the Object.</source>
     </message>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page.</source>
-        <translation type="unfinished">Как долго отображается страница</translation>
+        <translation type="unfinished">Как долго отображается страница перед показом следующей</translation>
     </message>
     <message>
         <source>Length of time the effect runs.
 A shorter time will speed up the effect, a longer one will slow it down.</source>
-        <translation type="unfinished"></translation>
+        <translation>Продолжительность выбранного эффекта.
+Меньшее время ускоряет воспроизведение 
+эффекта, более продолжительное увеличивает его.</translation>
     </message>
     <message>
         <source>Apply the selected effect to all pages.</source>
@@ -4298,19 +4308,23 @@ security features in your exported PDF</source>
     </message>
     <message>
         <source>Distance for bleed from the top of the physical page</source>
-        <translation type="unfinished"></translation>
+        <translation>Расстояние от линии обреза 
+до верха физической страницы</translation>
     </message>
     <message>
         <source>Distance for bleed from the bottom of the physical page</source>
-        <translation type="unfinished"></translation>
+        <translation>Расстояние от линии обреза 
+до низа физической страницы</translation>
     </message>
     <message>
         <source>Distance for bleed from the left of the physical page</source>
-        <translation type="unfinished"></translation>
+        <translation>Расстояние от линии обреза до левой 
+стороны физической страницы</translation>
     </message>
     <message>
         <source>Distance for bleed from the right of the physical page</source>
-        <translation type="unfinished"></translation>
+        <translation>Расстояние от линии обреза до правой 
+стороны физической страницы</translation>
     </message>
     <message>
         <source>&amp;General</source>
@@ -4393,7 +4407,14 @@ Automatic allows Scribus to choose the best method.
 ZIP is good for images with solid colors.
 JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
 Leave it set to automatic, unless you have a need for special compression options.</source>
-        <translation type="unfinished"></translation>
+        <translation>Способ компрессии изображений.
+Автоматический -- Scribus сам выбирает оптимальный способ.
+ZIP лучше подходит для изображений со сплошными тонами.
+JPEG больше подходит для создания PDF меньшего размера 
+с большим количеством фотографий (с меньшими потерями 
+в качестве ).
+Рекомендуется оставить автоматически определяемый способ  
+сжатия до тех пока не возникнет особых потребностей.</translation>
     </message>
     <message>
         <source>Compression level: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
@@ -4415,11 +4436,14 @@ will preserve the layout and appearance of your document.</source>
     </message>
     <message>
         <source>Enables presentation effects when using Acrobat Reader in full screen mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Включить презентационные эффекты 
+при использовании Acrobat Reader 
+в полноэкранном режиме.</translation>
     </message>
     <message>
         <source>Show page previews of each page listed above.</source>
-        <translation type="unfinished"></translation>
+        <translation>Показывать миниатюры для каждой 
+перечисленной выше страницы.</translation>
     </message>
     <message>
         <source>Type of the display effect.</source>
@@ -4468,7 +4492,8 @@ Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does 
         <source>Color model for the output of your PDF.
 Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.
 Choose Printer when printing to a true 4 color CMYK printer.</source>
-        <translation type="unfinished">Цветовая модель</translation>
+        <translation type="unfinished">Цветовая модель вывода в PDF.
+Выберите </translation>
     </message>
     <message>
         <source>Color profile for solid colors</source>
@@ -4859,6 +4884,18 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
         <source>Adjust Frame to Picture</source>
         <translation>Подстроить рамку под изображение</translation>
     </message>
+    <message>
+        <source>Insert LoremIpsum</source>
+        <translation>Вставить LoremIpsem</translation>
+    </message>
+    <message>
+        <source>Lock object size</source>
+        <translation>Заблокировать размер объекта</translation>
+    </message>
+    <message>
+        <source>Unlock object size</source>
+        <translation>Разблокировать размер объекта</translation>
+    </message>
 </context>
 <context>
     <name>PageSelector</name>
@@ -5016,7 +5053,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Theme</source>
-        <translation>Тема</translation>
+        <translation type="obsolete">Тема</translation>
     </message>
     <message>
         <source>Font Size:</source>
@@ -5048,11 +5085,11 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Wheel-Jump</source>
-        <translation>Сколько прокручивает колесо мыши</translation>
+        <translation type="obsolete">Сколько прокручивает колесо мыши</translation>
     </message>
     <message>
         <source>Grab-Radius</source>
-        <translation>Радиус захвата</translation>
+        <translation type="obsolete">Радиус захвата</translation>
     </message>
     <message>
         <source>Menus</source>
@@ -5292,11 +5329,11 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Horizontal Scaling</source>
-        <translation>По горизонтали</translation>
+        <translation type="obsolete">По горизонтали</translation>
     </message>
     <message>
         <source>Vertical Scaling</source>
-        <translation>По вертикали</translation>
+        <translation type="obsolete">По вертикали</translation>
     </message>
     <message>
         <source>Scale Picture to Frame Size</source>
@@ -5659,7 +5696,7 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>Picture frames allow pictures to scale to any size</source>
-        <translation type="unfinished"></translation>
+        <translation>Рамки изображений позволяют им свободно масштабироваться</translation>
     </message>
     <message>
         <source>Horizontal scaling of images</source>
@@ -5832,6 +5869,46 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <source>Filesystem location for graphics editor</source>
         <translation>Местоположение графического редактора</translation>
     </message>
+    <message>
+        <source>Theme:</source>
+        <translation>Тема:</translation>
+    </message>
+    <message>
+        <source>Wheel-Jump:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grab-Radius:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Baseline Grid</source>
+        <translation>Опорная сетка</translation>
+    </message>
+    <message>
+        <source>On</source>
+        <translation>Вкл</translation>
+    </message>
+    <message>
+        <source>Off</source>
+        <translation>Выкл</translation>
+    </message>
+    <message>
+        <source>Horizontal Scaling:</source>
+        <translation>Горизонт. масшт.:</translation>
+    </message>
+    <message>
+        <source>Vertical Scaling:</source>
+        <translation>Вертикал. масшт.:</translation>
+    </message>
+    <message>
+        <source>Turns on the basegrid</source>
+        <translation>Включает опорную сетку</translation>
+    </message>
+    <message>
+        <source>Turns off the basegrid</source>
+        <translation>Выключает опорную сетку</translation>
+    </message>
 </context>
 <context>
     <name>QColorDialog</name>
@@ -5900,11 +5977,11 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Read: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Чтение: %1</translation>
     </message>
     <message>
         <source>Write: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Запись: %1</translation>
     </message>
     <message>
         <source>File &amp;name:</source>
@@ -6316,7 +6393,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Import SVG-Image</source>
-        <translation>Импортировать SVG-файл...</translation>
+        <translation type="obsolete">Импортировать SVG-файл...</translation>
     </message>
     <message>
         <source>S&amp;cript</source>
@@ -6332,6 +6409,10 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Oook! An object you&apos;re trying to textflow doesn&apos;t exist!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import SVG-Image...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

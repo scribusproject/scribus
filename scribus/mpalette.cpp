@@ -3121,6 +3121,11 @@ void Mpalette::NewName()
 		return;
 	QString NameOld = CurItem->AnName;
 	QString NameNew = NameEdit->text();
+	if (NameNew == "")
+	{
+		NameEdit->setText(NameOld);
+		return;
+	}
 	bool found = false;
 	ScribusView* view = (ScribusView*)doc->ActPage->Anz;
 	for (uint a = 0; a < view->Pages.count(); ++a)

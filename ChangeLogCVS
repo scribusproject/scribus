@@ -1,5 +1,16 @@
 Changes since Version 1.1.6
 
+30.04.2004
+	* bug     #499: svg text and box import don't work correctly
+	* bug     #535: Story editor: can't delete selected text with Backspace
+	* bug     #540: Mixed white fonts size on bottom of splash screen
+	* bug     #542: PDF-Export changes img-size on copied pages when downsampling is enabeled
+	* bug     #546: Updated Russian Translation from Alexandre Prokoudine
+	* bug     #549: Empty Object Name
+	* feature #536: Please move "Print Preview" to "File" menu
+	* feature #545: translation files for Slovene
+	* feature #548: TS-Update German
+
 28.04.2004
 	* bug     #499: svg text and box import don't work correctly
 	* bug     #525: Insert page after any given page in a document causes a crash with signal 11

@@ -25,6 +25,8 @@
 
 extern QPixmap loadIcon(QString nam);
 extern void ReOrderText(ScribusDoc *doc, ScribusView *view);
+ScribusApp* Carrier;
+QWidget* par;
  
 /*!
  \fn QString Name()
@@ -49,7 +51,20 @@ QString Name()
  */
 int Type()
 {
-	return 1;
+	return 5;
+}
+
+void InitPlug(QWidget *d, ScribusApp *plug)
+{
+	Carrier = plug;
+	par = d;
+	Tes = new MenuPreview(d);
+	int id = plug->fileMenu->insertItem(QObject::tr("Print Preview"), -1, 16);
+	plug->fileMenu->connectItem(id, Tes, SLOT(RunPreview()));
+}
+
+void CleanUpPlug()
+{
 }
 
 /*!
@@ -63,21 +78,25 @@ int Type()
  */
 void Run(QWidget *d, ScribusApp *plug)
 {
-	if (plug->HaveDoc)
+}
+
+void MenuPreview::RunPreview()
+{
+	if (Carrier->HaveDoc)
 	{
-  		PPreview *dia = new PPreview(d, plug);
+  		PPreview *dia = new PPreview(par, Carrier);
   		dia->exec();
-		plug->Prefs.PrPr_Mode = dia->EnableCMYK->isChecked();
-		plug->Prefs.PrPr_AlphaText = dia->AliasText->isChecked();
-		plug->Prefs.PrPr_AlphaGraphics = dia->AliasGr->isChecked();
-		plug->Prefs.PrPr_Transparency = dia->AliasTr->isChecked();
-		plug->Prefs.PrPr_C = dia->EnableCMYK_C->isChecked();
-		plug->Prefs.PrPr_M = dia->EnableCMYK_M->isChecked();
-		plug->Prefs.PrPr_Y = dia->EnableCMYK_Y->isChecked();
-		plug->Prefs.PrPr_K = dia->EnableCMYK_K->isChecked();
+		Carrier->Prefs.PrPr_Mode = dia->EnableCMYK->isChecked();
+		Carrier->Prefs.PrPr_AlphaText = dia->AliasText->isChecked();
+		Carrier->Prefs.PrPr_AlphaGraphics = dia->AliasGr->isChecked();
+		Carrier->Prefs.PrPr_Transparency = dia->AliasTr->isChecked();
+		Carrier->Prefs.PrPr_C = dia->EnableCMYK_C->isChecked();
+		Carrier->Prefs.PrPr_M = dia->EnableCMYK_M->isChecked();
+		Carrier->Prefs.PrPr_Y = dia->EnableCMYK_Y->isChecked();
+		Carrier->Prefs.PrPr_K = dia->EnableCMYK_K->isChecked();
   		delete dia;
-		system("rm -f "+plug->PrefsPfad+"/tmp.ps");
-		system("rm -f "+plug->PrefsPfad+"/sc.png");
+		system("rm -f "+Carrier->PrefsPfad+"/tmp.ps");
+		system("rm -f "+Carrier->PrefsPfad+"/sc.png");
   	}
 }
 
@@ -316,7 +335,8 @@ int PPreview::RenderPreview(int Seite, int Res)
 	}
 	double b = app->doc->PageB * Res / 72;
 	double h = app->doc->PageH * Res / 72;
-	cmd1 = "gs -q -dNOPAUSE -r"+tmp.setNum(Res)+" -g"+tmp2.setNum(qRound(b))+"x"+tmp3.setNum(qRound(h));
+	cmd1 = app->Prefs.gs_exe;
+	cmd1 += " -q -dNOPAUSE -r"+tmp.setNum(Res)+" -g"+tmp2.setNum(qRound(b))+"x"+tmp3.setNum(qRound(h));
 	if (EnableCMYK->isChecked())
 		cmd1 += " -sDEVICE=bitcmyk -dGrayValues=256";
 	else

@@ -1632,6 +1632,13 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
  							case Key_Delete:
  								if (b->CPos == static_cast<int>(b->Ptext.count()))
 									{
+ 									if (b->HasSel)
+									{
+ 										DeleteSel(b);
+ 										setTBvals(b);
+ 										b->Dirty = true;
+										doc->ActPage->RefreshItem(b, true);
+									}
 									keyrep = false;
 									return;
 									}
@@ -1658,6 +1665,13 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
  							case Key_Backspace:
  								if (b->CPos == 0)
 									{
+ 									if (b->HasSel)
+									{
+ 										DeleteSel(b);
+ 										setTBvals(b);
+ 										b->Dirty = true;
+										doc->ActPage->RefreshItem(b, true);
+									}
 									keyrep = false;
  									return;
 									}
@@ -7077,7 +7091,7 @@ void ScribusApp::CallDLL(QString name)
 		return;
 		}
 	(*demo)(this, this);
-	if (pda.Typ != 4)
+	if (pda.Typ < 4)
 		dlclose(mo);
 	if (HaveDoc)
 	 	doc->ActPage->update();
@@ -7097,7 +7111,10 @@ bool ScribusApp::DLLName(QString name, QString *PName, int *typ, void **Zeig)
 	pfad += "/lib/scribus/plugins/" + name;
 	mo = dlopen(pfad, RTLD_LAZY | RTLD_GLOBAL);
 	if (!mo)
+	{
+		std::cout << dlerror() << endl;
 		return false;
+	}
 	dlerror();
 	demo = (sdem0)dlsym(mo, "Name");
 	if ((error = dlerror()) != NULL)
@@ -7115,7 +7132,7 @@ bool ScribusApp::DLLName(QString name, QString *PName, int *typ, void **Zeig)
 		}
 	*typ = (*demo1)();
 	*Zeig = mo;
-	if (*typ != 4)
+	if (*typ < 4)
 		dlclose(mo);
 	else
 		{

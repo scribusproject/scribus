@@ -170,6 +170,8 @@ public:
 	bool UniCinp;
 	int UniCinC;
 	QString UniCinS;
+	/** file_menu contains all items of the menubar entry "File" */
+	QPopupMenu *fileMenu;
 
 public slots:
 	void slotStoryEditor();
@@ -420,8 +422,6 @@ private:
     /** init methods */
 	void initScribus();
 
-	/** file_menu contains all items of the menubar entry "File" */
-	QPopupMenu *fileMenu;
 	/** edit_menu contains all items of the menubar entry "Edit" */
 	QPopupMenu *editMenu;
 	/** StilMenu enthaelt das Stilemenue */

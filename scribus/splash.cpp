@@ -63,6 +63,7 @@ void SplashScreen::setStatus( const QString &message )
 {
 	QPixmap textPix = pix;
 	QPainter painter( &textPix, this );
+	painter.setFont(QFont("Helvetica", 10));
 	painter.setPen( white );
 	painter.drawText( 10, textPix.height()-8, message );
 	setErasePixmap( textPix );

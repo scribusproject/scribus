@@ -81,12 +81,12 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 		else
 			return;
 	}
-	if ((k->key() == Key_Backspace) && (i == 0))
+	if ((k->key() == Key_Backspace) && (i == 0) && (!hasSelectedText()))
 	{
 		emit bsPressed();
 		return;
 	}
-	if ((k->key() == Key_Delete) && (i == static_cast<int>(text().length())))
+	if ((k->key() == Key_Delete) && (i == static_cast<int>(text().length())) && (!hasSelectedText()))
 	{
 		emit delPressed();
 		return;
@@ -296,9 +296,9 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite) : QDi
 	Mpaste = emenu->insertItem(loadIcon("editpaste.png"), tr("Paste"), this, SLOT(Do_paste()), CTRL+Key_V);
 	Mdel = emenu->insertItem(loadIcon("editdelete.png"), tr("Clear"), this, SLOT(Do_del()), CTRL+Key_V);
 	emenu->insertSeparator();
-	int sr = emenu->insertItem( tr("Search/Replace..."), this, SLOT(SearchText()));
+//	int sr = emenu->insertItem( tr("Search/Replace..."), this, SLOT(SearchText()));
 	emenu->insertItem( tr("Insert Special..."), this , SLOT(Do_insSp()));
-	emenu->setItemEnabled(sr, 0);
+//	emenu->setItemEnabled(sr, 0);
 	emenu->insertSeparator();
 	emenu->insertItem( tr("Edit Styles..."), this , SLOT(slotEditStyles()));
 	Mupdt = emenu->insertItem( tr("Update Text Frame"), this, SLOT(updateTextFrame()));
