@@ -26,6 +26,7 @@
 #include "mspinbox.h"
 #include "scribus.h"
 class FontCombo;
+class PolygonWidget;
 
 #include "langmgr.h"
 
@@ -39,8 +40,6 @@ public:
 
 	//const QString getSelectedGUILang( void );
 	QString selectedGUILang;
-	double GetZeroFaktor();
-	double GetMaxFaktor();
 	void DrawRuler();
 
 	QPushButton* buttonOK;
@@ -199,16 +198,7 @@ public:
 	QCheckBox* SidebySide;
 	QCheckBox* RandFarb;
 	QFrame* ToolFrame6;
-	QLabel* T6_Text1;
-	QSpinBox* T6_Ecken;
-	QCheckBox* T6_Konvex;
-	QLabel* T6_Text2;
-	QSpinBox* T6_Faktor;
-	QSlider* T6_Slider1;
-	QLabel* T6_Preview;
-	QLabel* T6_Text2_2;
-	QSpinBox* T6_Faktor2;
-	QSlider* T6_Slider2;
+	PolygonWidget* polyWidget;
 	QWidget* tab_7;
 	QButtonGroup* GroupSize;
 	QLabel* GZText2;
@@ -260,7 +250,6 @@ public:
 	
 	SCFonts *fon; // can't use a reference, and can't copy whole structure...
 	double Umrech;
-	QPixmap* Pre;
 	double PFactor;
 	QColor Cmin;
 	QColor Cmax;
@@ -308,10 +297,6 @@ public slots:
 	void HChange();
 	void VChange();
 	void UnitChange();
-	void UpdatePreView();
-	double GetFaktor();
-	void ValFromSpin(int a);
-	void ValFromSpin2(int a);
 	void SetDisScale();
 
 protected:
@@ -363,15 +348,6 @@ protected:
 	QVBoxLayout* GroupBox10Layout;
 	QHBoxLayout* Layout3;
 	QHBoxLayout* PolygonPropsLayout;
-	QHBoxLayout* T6_Layout11;
-	QVBoxLayout* T6_Layout10;
-	QHBoxLayout* T6_Layout2;
-	QHBoxLayout* T6_Layout9;
-	QVBoxLayout* T6_Layout8;
-	QHBoxLayout* T6_Layout7;
-	QHBoxLayout* T6_Layout9_2;
-	QVBoxLayout* T6_Layout8_2;
-	QHBoxLayout* T6_Layout7_2;
 	QHBoxLayout* tabLayout_7;
 	QVBoxLayout* Layout21;
 	QVBoxLayout* Layout21b;

@@ -92,6 +92,7 @@
 #include "search.h"
 #include "fontcombo.h"
 #include "prefsfile.h"
+#include "polygonwidget.h"
 
 extern QPixmap loadIcon(QString nam);
 extern bool overwrite(QWidget *parent, QString filename);
@@ -117,11 +118,6 @@ int IntentPrinter;
 #endif
 bool CMSavail;
 ProfilesL InputProfiles;
-int PolyC;
-int PolyFd;
-double PolyF;
-bool PolyS;
-double PolyR;
 double UmReFaktor;
 QString DocDir;
 ScribusApp* ScApp;
@@ -304,16 +300,11 @@ void ScribusApp::initScribus()
 		Prefs.Before = true;
 		Prefs.Einheit = 0;
 		UmReFaktor = 1.0;
-		PolyC = 4;
-		PolyF = 0.5;
-		PolyS = false;
-		PolyFd = 0;
-		PolyR = 0;
-		Prefs.PolyC = PolyC;
-		Prefs.PolyF = PolyF;
-		Prefs.PolyFd = PolyFd;
-		Prefs.PolyS = PolyS;
-		Prefs.PolyR = PolyR;
+		Prefs.PolyC = 4;
+		Prefs.PolyF = 0.5;
+		Prefs.PolyS = false;
+		Prefs.PolyFd = 0;
+		Prefs.PolyR = 0;
 		Prefs.Werkv = true;
 		Prefs.WerkvP = true;
 		Prefs.Mpalv = false;
@@ -2211,6 +2202,11 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	doc->GuidesShown = Prefs.GuidesShown;
 	doc->BaseShown = Prefs.BaseShown;
 	doc->linkShown = Prefs.linkShown;
+	doc->PolyC = Prefs.PolyC;
+	doc->PolyF = Prefs.PolyF;
+	doc->PolyS = Prefs.PolyS;
+	doc->PolyFd = Prefs.PolyFd;
+	doc->PolyR = Prefs.PolyR;
 	doc->loading = true;
 	ScribusWin* w = new ScribusWin(wsp, doc);
 	view = new ScribusView(w, doc, &Prefs);
@@ -2478,6 +2474,53 @@ bool ScribusApp::SetupDoc()
 		doc->MagMin = dia->minimumZoom->value();
 		doc->MagMax = dia->maximumZoom->value();
 		doc->MagStep = dia->zoomStep->value();
+		doc->DpenLine = dia->colorComboLine->currentText();
+		if (doc->DpenLine == tr("None"))
+			doc->DpenLine = "None";
+		doc->DshadeLine = dia->shadingLine->value();
+		switch (dia->comboStyleLine->currentItem())
+		{
+		case 0:
+			doc->DLstyleLine = SolidLine;
+			break;
+		case 1:
+			doc->DLstyleLine = DashLine;
+			break;
+		case 2:
+			doc->DLstyleLine = DotLine;
+			break;
+		case 3:
+			doc->DLstyleLine = DashDotLine;
+			break;
+		case 4:
+			doc->DLstyleLine = DashDotDotLine;
+			break;
+		}
+		doc->DwidthLine = dia->lineWidthLine->value();
+		doc->DbrushPict = dia->comboFillImage->currentText();
+		if (doc->DbrushPict == tr("None"))
+			doc->DbrushPict = "None";
+		doc->ShadePict = dia->shadingFillImage->value();
+		doc->ScaleX = static_cast<double>(dia->scalingHorizontal->value()) / 100.0;
+		doc->ScaleY = static_cast<double>(dia->scalingVertical->value()) / 100.0;
+		doc->ScaleType = dia->buttonGroup3->isChecked();
+		doc->AspectRatio = dia->checkRatioImage->isChecked();
+		dia->polyWidget->getValues(&doc->PolyC, &doc->PolyFd, &doc->PolyF, &doc->PolyS, &doc->PolyR);
+/*		if (HaveDoc)
+		{
+			slotChangeUnit(dia->UnitCombo->currentItem(), false);
+			doc->GrabRad = dia->SpinBox3_2->value();
+			doc->AutoSave = dia->ASon->isChecked();
+			if (doc->AutoSave)
+			{
+				doc->ASaveTimer->stop();
+				doc->ASaveTimer->start(dia->ASTime->value() * 60 * 1000);
+			}
+			view->reformPages();
+			view->DrawNew();
+		}
+		else
+		{ */
 		viewMenu->setItemChecked(Markers, doc->MarginsShown);
 		viewMenu->setItemChecked(FrameDr, doc->FramesShown);
 		viewMenu->setItemChecked(Ras, doc->GridShown);
@@ -6751,16 +6794,7 @@ void ScribusApp::slotPrefsOrg()
 		QFont apf = qApp->font();
 		apf.setPointSize(Prefs.AppFontSize);
 		qApp->setFont(apf,true);
-		PolyC = dia->T6_Ecken->value();
-		PolyF = dia->PFactor;
-		PolyR = dia->T6_Faktor2->value();
-		PolyS = dia->T6_Konvex->isChecked();
-		PolyFd = dia->T6_Slider1->value();
-		Prefs.PolyC = PolyC;
-		Prefs.PolyF = PolyF;
-		Prefs.PolyFd = PolyFd;
-		Prefs.PolyS = PolyS;
-		Prefs.PolyR = PolyR;
+		dia->polyWidget->getValues(&Prefs.PolyC, &Prefs.PolyFd, &Prefs.PolyF, &Prefs.PolyS, &Prefs.PolyR);
 		Prefs.PageFormat = dia->GZComboF->currentItem();
 		Prefs.Ausrichtung = dia->GZComboO->currentItem();
 		Prefs.PageBreite = dia->Pagebr;
@@ -6787,218 +6821,111 @@ void ScribusApp::slotPrefsOrg()
 			zChange = true;
 		}
 		Mpal->Cpal->UseTrans(Prefs.PDFTransparency);
-/*		Prefs.BaseShown = dia->RadioButton8->isChecked();
-		if (Prefs.BaseShown)
-			viewMenu->changeItem(Base, tr("Hide Baseline Grid"));
-		else
-			viewMenu->changeItem(Base, tr("Show Baseline Grid"));
-		if (HaveDoc)
+		Prefs.BaseShown = dia->RadioButton8->isChecked();
+		Prefs.Einheit = dia->UnitCombo->currentItem();
+		switch (Prefs.Einheit)
 		{
-			slotChangeUnit(dia->UnitCombo->currentItem(), false);
-			if (zChange)
-				slotZoomAbs(view->Scale*Prefs.DisScale);
-			doc->GrabRad = dia->SpinBox3_2->value();
-			doc->GuideRad = dia->SpinBox2g->value() / UmReFaktor;
-			doc->Dfont = dia->FontComb->currentText();
-			doc->Dsize = dia->SizeCombo->currentText().left(2).toInt() * 10;
-			doc->minorGrid = dia->SpinBox1->value() / UmReFaktor;
-			doc->majorGrid = dia->SpinBox2->value() / UmReFaktor;
-			doc->minorColor = dia->Cmin;
-			doc->majorColor = dia->Cmax;
-			doc->papColor = dia->Cpaper;
-			doc->margColor = dia->Crand;
-			doc->guideColor = dia->Cgui;
-			doc->baseColor = dia->Cbase;
-			doc->VHoch = dia->VHochW->value();
-			doc->VHochSc = dia->VHochWSc->value();
-			doc->VTief = dia->VTiefW->value();
-			doc->VTiefSc = dia->VTiefWSc->value();
-			doc->VKapit = dia->SmallCaps->value();
-			doc->Dpen = dia->Foreground->currentText();
-			if (doc->Dpen == tr("None"))
-				doc->Dpen = "None";
-			doc->DpenText = dia->ForegroundT->currentText();
-			if (doc->DpenText == tr("None"))
-				doc->DpenText = "None";
-			doc->Dbrush = dia->Background->currentText();
-			if (doc->Dbrush == tr("None"))
-				doc->Dbrush = "None";
-			doc->Dshade = dia->Shade->value();
-			doc->Dshade2 = dia->Shade2->value();
-			switch (dia->Linestyle->currentItem())
-			{
-			case 0:
-				doc->DLineArt = SolidLine;
-				break;
-			case 1:
-				doc->DLineArt = DashLine;
-				break;
-			case 2:
-				doc->DLineArt = DotLine;
-				break;
-			case 3:
-				doc->DLineArt = DashDotLine;
-				break;
-			case 4:
-				doc->DLineArt = DashDotDotLine;
-				break;
-			}
-			doc->Dwidth = dia->LineW->value();
-			doc->DpenLine = dia->Foreground2->currentText();
-			if (doc->DpenLine == tr("None"))
-				doc->DpenLine = "None";
-			doc->DshadeLine = dia->Shade22->value();
-			doc->DCols = dia->TextColVal->value();
-			doc->DGap = dia->TextGapVal->value() / UmReFaktor;
-			switch (dia->Linestyle2->currentItem())
-			{
-			case 0:
-				doc->DLstyleLine = SolidLine;
-				break;
-			case 1:
-				doc->DLstyleLine = DashLine;
-				break;
-			case 2:
-				doc->DLstyleLine = DotLine;
-				break;
-			case 3:
-				doc->DLstyleLine = DashDotLine;
-				break;
-			case 4:
-				doc->DLstyleLine = DashDotDotLine;
-				break;
-			}
-			doc->DwidthLine = dia->LineW2->value();
-			doc->MagMin = dia->MinMag->value();
-			doc->MagMax = dia->MaxMag->value();
-			doc->MagStep = dia->StepMag->value();
-			doc->DbrushPict = dia->BackgroundP->currentText();
-			if (doc->DbrushPict == tr("None"))
-				doc->DbrushPict = "None";
-			doc->ShadePict = dia->ShadeP->value();
-			doc->ScaleX = static_cast<double>(dia->XScale->value()) / 100.0;
-			doc->ScaleY = static_cast<double>(dia->YScale->value()) / 100.0;
-			doc->ScaleType = dia->FreeScale->isChecked();
-			doc->AspectRatio = dia->Aspect->isChecked();
-			doc->AutoLine = dia->AutoLineV->value();
-			doc->AutoSave = dia->ASon->isChecked();
-			doc->BaseGrid = dia->BaseGrid->value();
-			doc->BaseOffs = dia->BaseOffs->value();
-			if (doc->AutoSave)
-			{
-				doc->ASaveTimer->stop();
-				doc->ASaveTimer->start(dia->ASTime->value() * 60 * 1000);
-			}
-			view->reformPages();
-			view->DrawNew();
+		case 0:
+			UmReFaktor = 1.0;
+			break;
+		case 1:
+			UmReFaktor = 1.0 / 72.0 * 25.4;
+			break;
+		case 2:
+			UmReFaktor = 1.0 / 72.0;
+			break;
+		case 3:
+			UmReFaktor = 1.0 / 12.0;
+			break;
 		}
-		else
-		{ */
-			Prefs.Einheit = dia->UnitCombo->currentItem();
-			switch (Prefs.Einheit)
-			{
-			case 0:
-				UmReFaktor = 1.0;
-				break;
-			case 1:
-				UmReFaktor = 1.0 / 72.0 * 25.4;
-				break;
-			case 2:
-				UmReFaktor = 1.0 / 72.0;
-				break;
-			case 3:
-				UmReFaktor = 1.0 / 12.0;
-				break;
-			}
-			Prefs.GrabRad = dia->SpinBox3_2->value();
-			Prefs.GuideRad = dia->SpinBox2g->value() / UmReFaktor;
-			Prefs.DefFont = dia->FontComb->currentText();
-			Prefs.DefSize = dia->SizeCombo->currentText().left(2).toInt() * 10;
-			Prefs.DminGrid = dia->SpinBox1->value() / UmReFaktor;
-			Prefs.DmajGrid = dia->SpinBox2->value() / UmReFaktor;
-			Prefs.DminColor = dia->Cmin;
-			Prefs.DmajColor = dia->Cmax;
-			Prefs.DpapColor = dia->Cpaper;
-			Prefs.DmargColor = dia->Crand;
-			Prefs.guideColor = dia->Cgui;
-			Prefs.baseColor = dia->Cbase;
-			Prefs.DVHoch = dia->VHochW->value();
-			Prefs.DVHochSc = dia->VHochWSc->value();
-			Prefs.DVTief = dia->VTiefW->value();
-			Prefs.DVTiefSc = dia->VTiefWSc->value();
-			Prefs.DVKapit = dia->SmallCaps->value();
-			Prefs.Dpen = dia->Foreground->currentText();
-			if (Prefs.Dpen == tr("None"))
-				Prefs.Dpen = "None";
-			Prefs.DpenText = dia->ForegroundT->currentText();
-			if (Prefs.DpenText == tr("None"))
-				Prefs.DpenText = "None";
-			Prefs.DCols = dia->TextColVal->value();
-			Prefs.DGap = dia->TextGapVal->value() / UmReFaktor;
-			Prefs.Dbrush = dia->Background->currentText();
-			if (Prefs.Dbrush == tr("None"))
-				Prefs.Dbrush = "None";
-			Prefs.Dshade = dia->Shade->value();
-			Prefs.Dshade2 = dia->Shade2->value();
-			switch (dia->Linestyle->currentItem())
-			{
-			case 0:
-				Prefs.DLineArt = SolidLine;
-				break;
-			case 1:
-				Prefs.DLineArt = DashLine;
-				break;
-			case 2:
-				Prefs.DLineArt = DotLine;
-				break;
-			case 3:
-				Prefs.DLineArt = DashDotLine;
-				break;
-			case 4:
-				Prefs.DLineArt = DashDotDotLine;
-				break;
-			}
-			Prefs.Dwidth = dia->LineW->value();
-			Prefs.DpenLine = dia->Foreground2->currentText();
-			if (Prefs.DpenLine == tr("None"))
-				Prefs.DpenLine = "None";
-			Prefs.DshadeLine = dia->Shade22->value();
-			switch (dia->Linestyle2->currentItem())
-			{
-			case 0:
-				Prefs.DLstyleLine = SolidLine;
-				break;
-			case 1:
-				Prefs.DLstyleLine = DashLine;
-				break;
-			case 2:
-				Prefs.DLstyleLine = DotLine;
-				break;
-			case 3:
-				Prefs.DLstyleLine = DashDotLine;
-				break;
-			case 4:
-				Prefs.DLstyleLine = DashDotDotLine;
-				break;
-			}
-			Prefs.DwidthLine = dia->LineW2->value();
-			Prefs.MagMin = dia->MinMag->value();
-			Prefs.MagMax = dia->MaxMag->value();
-			Prefs.MagStep = dia->StepMag->value();
-			Prefs.DbrushPict = dia->BackgroundP->currentText();
-			if (Prefs.DbrushPict == tr("None"))
-				Prefs.DbrushPict = "None";
-			Prefs.ShadePict = dia->ShadeP->value();
-			Prefs.ScaleX = static_cast<double>(dia->XScale->value()) / 100.0;
-			Prefs.ScaleY = static_cast<double>(dia->YScale->value()) / 100.0;
-			Prefs.ScaleType = dia->FreeScale->isChecked();
-			Prefs.AspectRatio = dia->Aspect->isChecked();
-			Prefs.AutoLine = dia->AutoLineV->value();
-			Prefs.AutoSave = dia->ASon->isChecked();
-			Prefs.AutoSaveTime = dia->ASTime->value() * 60 * 1000;
-			Prefs.BaseGrid = dia->BaseGrid->value();
-			Prefs.BaseOffs = dia->BaseOffs->value();
-//		}
+		Prefs.GrabRad = dia->SpinBox3_2->value();
+		Prefs.GuideRad = dia->SpinBox2g->value() / UmReFaktor;
+		Prefs.DefFont = dia->FontComb->currentText();
+		Prefs.DefSize = dia->SizeCombo->currentText().left(2).toInt() * 10;
+		Prefs.DminGrid = dia->SpinBox1->value() / UmReFaktor;
+		Prefs.DmajGrid = dia->SpinBox2->value() / UmReFaktor;
+		Prefs.DminColor = dia->Cmin;
+		Prefs.DmajColor = dia->Cmax;
+		Prefs.DpapColor = dia->Cpaper;
+		Prefs.DmargColor = dia->Crand;
+		Prefs.guideColor = dia->Cgui;
+		Prefs.baseColor = dia->Cbase;
+		Prefs.DVHoch = dia->VHochW->value();
+		Prefs.DVHochSc = dia->VHochWSc->value();
+		Prefs.DVTief = dia->VTiefW->value();
+		Prefs.DVTiefSc = dia->VTiefWSc->value();
+		Prefs.DVKapit = dia->SmallCaps->value();
+		Prefs.Dpen = dia->Foreground->currentText();
+		if (Prefs.Dpen == tr("None"))
+			Prefs.Dpen = "None";
+		Prefs.DpenText = dia->ForegroundT->currentText();
+		if (Prefs.DpenText == tr("None"))
+			Prefs.DpenText = "None";
+		Prefs.DCols = dia->TextColVal->value();
+		Prefs.DGap = dia->TextGapVal->value() / UmReFaktor;
+		Prefs.Dbrush = dia->Background->currentText();
+		if (Prefs.Dbrush == tr("None"))
+			Prefs.Dbrush = "None";
+		Prefs.Dshade = dia->Shade->value();
+		Prefs.Dshade2 = dia->Shade2->value();
+		switch (dia->Linestyle->currentItem())
+		{
+		case 0:
+			Prefs.DLineArt = SolidLine;
+			break;
+		case 1:
+			Prefs.DLineArt = DashLine;
+			break;
+		case 2:
+			Prefs.DLineArt = DotLine;
+			break;
+		case 3:
+			Prefs.DLineArt = DashDotLine;
+			break;
+		case 4:
+			Prefs.DLineArt = DashDotDotLine;
+			break;
+		}
+		Prefs.Dwidth = dia->LineW->value();
+		Prefs.DpenLine = dia->Foreground2->currentText();
+		if (Prefs.DpenLine == tr("None"))
+			Prefs.DpenLine = "None";
+		Prefs.DshadeLine = dia->Shade22->value();
+		switch (dia->Linestyle2->currentItem())
+		{
+		case 0:
+			Prefs.DLstyleLine = SolidLine;
+			break;
+		case 1:
+			Prefs.DLstyleLine = DashLine;
+			break;
+		case 2:
+			Prefs.DLstyleLine = DotLine;
+			break;
+		case 3:
+			Prefs.DLstyleLine = DashDotLine;
+			break;
+		case 4:
+			Prefs.DLstyleLine = DashDotDotLine;
+			break;
+		}
+		Prefs.DwidthLine = dia->LineW2->value();
+		Prefs.MagMin = dia->MinMag->value();
+		Prefs.MagMax = dia->MaxMag->value();
+		Prefs.MagStep = dia->StepMag->value();
+		Prefs.DbrushPict = dia->BackgroundP->currentText();
+		if (Prefs.DbrushPict == tr("None"))
+			Prefs.DbrushPict = "None";
+		Prefs.ShadePict = dia->ShadeP->value();
+		Prefs.ScaleX = static_cast<double>(dia->XScale->value()) / 100.0;
+		Prefs.ScaleY = static_cast<double>(dia->YScale->value()) / 100.0;
+		Prefs.ScaleType = dia->FreeScale->isChecked();
+		Prefs.AspectRatio = dia->Aspect->isChecked();
+		Prefs.AutoLine = dia->AutoLineV->value();
+		Prefs.AutoSave = dia->ASon->isChecked();
+		Prefs.AutoSaveTime = dia->ASTime->value() * 60 * 1000;
+		Prefs.BaseGrid = dia->BaseGrid->value();
+		Prefs.BaseOffs = dia->BaseOffs->value();
 		SavePrefs();
 		QWidgetList windows = wsp->windowList();
 		for ( int i = 0; i < static_cast<int>(windows.count()); ++i )
@@ -7109,11 +7036,6 @@ void ScribusApp::ReadPrefs()
 	PDef.Pname = Prefs.PrinterName;
 	PDef.Dname = Prefs.PrinterFile;
 	PDef.Command = Prefs.PrinterCommand;
-	PolyC = Prefs.PolyC;
-	PolyF = Prefs.PolyF;
-	PolyFd = Prefs.PolyFd;
-	PolyS = Prefs.PolyS;
-	PolyR = Prefs.PolyR;
 	recentMenu->clear();
 	uint max = QMIN(Prefs.RecentDCount, Prefs.RecentDocs.count());
 	for (uint m = 0; m < max; ++m)

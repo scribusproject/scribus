@@ -84,11 +84,6 @@ QImage ProofPict(QImage *Im, QString Prof, int Rend);
 #endif
 extern int callGS(const QStringList & args);
 extern double UmReFaktor;
-extern int PolyC;
-extern int PolyFd;
-extern double PolyF;
-extern bool PolyS;
-extern double PolyR;
 extern ProfilesL InputProfiles;
 
 ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc, preV *prefs) : QScrollView(parent, "s", WRepaintNoErase | WNorthWestGravity)
@@ -1641,7 +1636,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			np1 = ApplyGridF(np1);
 			b->Width = np1.x() - b->Xpos;
 			b->Height = np1.y()- b->Ypos;
-			FPointArray cli = RegularPolygonF(b->Width, b->Height, PolyC, PolyS, PolyF, PolyR);
+			FPointArray cli = RegularPolygonF(b->Width, b->Height, Doc->PolyC, Doc->PolyS, Doc->PolyF, Doc->PolyR);
 			FPoint np = FPoint(cli.point(0));
 			b->PoLine.resize(2);
 			b->PoLine.setPoint(0, np);
@@ -4039,7 +4034,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				Deselect(false);
 				z = PaintPoly(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->Dwidth, Doc->Dbrush, Doc->Dpen);
 				b = Doc->Items.at(z);
-				FPointArray cli = RegularPolygonF(b->Width, b->Height, PolyC, PolyS, PolyF, PolyR);
+				FPointArray cli = RegularPolygonF(b->Width, b->Height, Doc->PolyC, Doc->PolyS, Doc->PolyF, Doc->PolyR);
 				FPoint np = FPoint(cli.point(0));
 				b->PoLine.resize(2);
 				b->PoLine.setPoint(0, np);

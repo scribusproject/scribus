@@ -15,12 +15,12 @@
 #include <cmath>
 #include "langmgr.h"
 #include "fontcombo.h"
+#include "polygonwidget.h"
 
 using namespace std;
 
 extern QPixmap fontSamples(QString da, int s, QString ts, QColor back);
 extern QPixmap loadIcon(QString nam);
-extern QPointArray RegularPolygon(double w, double h, uint c, bool star, double factor, double rota);
 
 extern "C" void* Run(QWidget *d, preV *Vor);
 
@@ -986,7 +986,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	Shade22->setSuffix( tr( " %" ) );
 	Shade22->setMaxValue( 100 );
 	Shade22->setMinValue( 0 );
-	Shade22->setValue(ap->HaveDoc ? ap->doc->DshadeLine : Vor->DshadeLine );
+	Shade22->setValue(Vor->DshadeLine );
 	TextLabelT32 = new QLabel( Shade22, tr( "&Shading:" ), ToolFrame3, "TextLabel2_2" );
 	TextLabelT32->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                                        TextLabelT32->sizePolicy().hasHeightForWidth() ) );
@@ -994,7 +994,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	Layout15c->addWidget(Shade22, 1, 1);
 	Linestyle2 = new LineCombo(ToolFrame3);
 	Linestyle2->setEditable(false);
-	int dla = ap->HaveDoc ? ap->doc->DLstyleLine : Vor->DLstyleLine;
+	int dla = Vor->DLstyleLine;
 	switch (dla)
 	{
 	case SolidLine:
@@ -1024,7 +1024,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	
 	LineW2 = new MSpinBox( 1, 36, ToolFrame3, 1 );
 	LineW2->setSuffix( tr( " pt" ) );
-	LineW2->setValue(ap->HaveDoc ? ap->doc->DwidthLine : Vor->DwidthLine);
+	LineW2->setValue(Vor->DwidthLine);
 	TextLabelT36 = new QLabel( LineW2, tr( "Line &Width:" ), ToolFrame3, "TextLabel2_3_4" );
 	TextLabelT36->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                                        TextLabelT36->sizePolicy().hasHeightForWidth() ) );
@@ -1108,7 +1108,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	XScale->setSuffix( tr( " %" ) );
 	XScale->setMaxValue( 1000 );
 	XScale->setMinValue( 1 );
-	XScale->setValue(ap->HaveDoc ? qRound(ap->doc->ScaleX * 100) : qRound(Vor->ScaleX * 100) );
+	XScale->setValue(qRound(Vor->ScaleX * 100) );
 	TextLabelT51 = new QLabel( XScale, tr( "&Horizontal Scaling:" ), ToolFrame5, "TextLabelT51" );
 	TextLabelT51->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                             TextLabelT51->sizePolicy().hasHeightForWidth() ) );
@@ -1118,7 +1118,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	YScale->setSuffix( tr( " %" ) );
 	YScale->setMaxValue( 1000 );
 	YScale->setMinValue( 1 );
-	YScale->setValue(ap->HaveDoc ? qRound(ap->doc->ScaleY * 100) : qRound(Vor->ScaleY * 100) );
+	YScale->setValue(qRound(Vor->ScaleY * 100) );
 	TextLabelT52 = new QLabel( YScale, tr( "&Vertical Scaling:" ), ToolFrame5, "TextLabelT52" );
 	TextLabelT52->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                             TextLabelT52->sizePolicy().hasHeightForWidth() ) );
@@ -1136,7 +1136,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	ShadeP->setSuffix( tr( " %" ) );
 	ShadeP->setMaxValue( 100 );
 	ShadeP->setMinValue( 0 );
-	ShadeP->setValue(ap->HaveDoc ? ap->doc->ShadePict : Vor->ShadePict );
+	ShadeP->setValue(Vor->ShadePict );
 	TextLabelT54 = new QLabel( ShadeP, tr( "S&hading:" ), ToolFrame5, "TextLabelT54" );
 	TextLabelT54->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                                        TextLabelT54->sizePolicy().hasHeightForWidth() ) );
@@ -1164,97 +1164,20 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	ToolFrame5Layout->addLayout( Layout15 );
 	QSpacerItem* sp02 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	ToolFrame5Layout->addItem( sp02 );
-	Aspect->setChecked(ap->HaveDoc ? ap->doc->AspectRatio : Vor->AspectRatio);
-	bool sct = ap->HaveDoc ? ap->doc->ScaleType : Vor->ScaleType;
-	FreeScale->setChecked(sct ? true : false);
-	FrameScale->setChecked(sct ? false : true);
+	Aspect->setChecked(Vor->AspectRatio);
+	FreeScale->setChecked(Vor->ScaleType ? true : false);
+	FrameScale->setChecked(Vor->ScaleType ? false : true);
 	ChangeScaling();
 	Fram->addWidget(ToolFrame5, 5);
 
 	ToolFrame6 = new QFrame( this, "ToolFrame6" );
 	ToolFrame6->setFrameShape( QFrame::Box );
 	ToolFrame6->setFrameShadow( QFrame::Sunken );
-	Pre = new QPixmap(101, 101);
-	Pre->fill(white);
 	PolygonPropsLayout = new QHBoxLayout( ToolFrame6, 10, 5, "PolygonPropsLayout");
-	T6_Layout11 = new QHBoxLayout( 0, 0, 5, "Layout11");
-	T6_Layout10 = new QVBoxLayout( 0, 0, 5, "Layout10");
-	T6_Layout2 = new QHBoxLayout( 0, 0, 5, "Layout2");
-
-	T6_Ecken = new QSpinBox( ToolFrame6, "Ecken" );
-	T6_Ecken->setMaxValue( 999 );
-	T6_Ecken->setMinValue( 3 );
-	T6_Ecken->setValue(Vor->PolyC);
-	T6_Text1 = new QLabel( T6_Ecken, tr( "Corn&ers:" ), ToolFrame6, "Text1" );
-	T6_Layout2->addWidget( T6_Text1 );	
-	T6_Layout2->addWidget( T6_Ecken );
-	T6_Layout10->addLayout( T6_Layout2 );
-	T6_Layout9_2 = new QHBoxLayout( 0, 0, 5, "Layout9_2");
-	T6_Layout8_2 = new QVBoxLayout( 0, 0, 5, "Layout8_2");
-	T6_Layout7_2 = new QHBoxLayout( 0, 0, 5, "Layout7_2");
-
-	T6_Faktor2 = new QSpinBox( ToolFrame6, "Faktor_2" );
-	T6_Faktor2->setSuffix(" ");
-	T6_Faktor2->setMaxValue( 180 );
-	T6_Faktor2->setMinValue( -180 );
-	T6_Faktor2->setValue(static_cast<int>(Vor->PolyR));
-	T6_Text2_2 = new QLabel( T6_Faktor2, tr( "&Rotation:" ), ToolFrame6, "Text2_2" );
-	T6_Layout7_2->addWidget( T6_Text2_2 );	
-	T6_Layout7_2->addWidget( T6_Faktor2 );
-	T6_Layout8_2->addLayout( T6_Layout7_2 );
-	T6_Slider2 = new QSlider( ToolFrame6, "Slider1_2" );
-	T6_Slider2->setMinValue( -180 );
-	T6_Slider2->setMaxValue( 180 );
-	T6_Slider2->setValue(static_cast<int>(Vor->PolyR));
-	T6_Slider2->setOrientation( QSlider::Horizontal );
-	T6_Slider2->setTickmarks( QSlider::Right );
-	T6_Layout8_2->addWidget( T6_Slider2 );
-	T6_Layout9_2->addLayout( T6_Layout8_2 );
-	T6_Layout10->addLayout( T6_Layout9_2 );
-	T6_Konvex = new QCheckBox( tr( "Apply &Factor" ), ToolFrame6, "Konvex" );
-	T6_Konvex->setChecked(Vor->PolyS);
-	T6_Layout10->addWidget( T6_Konvex );
-	T6_Layout9 = new QHBoxLayout( 0, 0, 5, "Layout9");
-	QSpacerItem* T6_spacer = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	T6_Layout9->addItem( T6_spacer );
-	T6_Layout8 = new QVBoxLayout( 0, 0, 5, "Layout8");
-	T6_Layout7 = new QHBoxLayout( 0, 0, 5, "Layout7");
-	T6_Faktor = new QSpinBox( ToolFrame6, "&Faktor" );
-	T6_Faktor->setSuffix( tr( " %" ) );
-	T6_Faktor->setMaxValue( 100 );
-	T6_Faktor->setMinValue( -100 );
-	T6_Faktor->setValue(Vor->PolyFd);
-	T6_Text2 = new QLabel( T6_Faktor, tr( "&Factor:" ), ToolFrame6, "Text2" );
-	T6_Layout7->addWidget( T6_Text2 );	
-	T6_Layout7->addWidget( T6_Faktor );
-	T6_Layout8->addLayout( T6_Layout7 );
-	T6_Slider1 = new QSlider( ToolFrame6, "Slider1" );
-	T6_Slider1->setMinValue( -100 );
-	T6_Slider1->setMaxValue( 100 );
-	T6_Slider1->setOrientation( QSlider::Horizontal );
-	T6_Slider1->setTickmarks( QSlider::Right );
-	T6_Slider1->setValue(Vor->PolyFd);
-	if (Vor->PolyFd == 0)
-		T6_Konvex->setChecked(false);
-	T6_Layout8->addWidget( T6_Slider1 );
-	T6_Layout9->addLayout( T6_Layout8 );
-	T6_Layout10->addLayout( T6_Layout9 );
-	T6_Layout11->addLayout( T6_Layout10 );
-	T6_Preview = new QLabel( ToolFrame6, "Preview" );
-	T6_Preview->setMinimumSize( QSize( 106, 106 ) );
-	T6_Preview->setMaximumSize( QSize( 106, 106 ) );
-	T6_Preview->setFrameShape( QLabel::Panel );
-	T6_Preview->setFrameShadow( QLabel::Sunken );
-	T6_Preview->setLineWidth(2);
-	T6_Preview->setAlignment(AlignCenter);
-	T6_Preview->setPixmap(*Pre);
-	T6_Layout11->addWidget( T6_Preview );
-	QSpacerItem* T6_spacer3 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	PolygonPropsLayout->addItem( T6_spacer3 );
-	PolygonPropsLayout->addLayout( T6_Layout11 );
+	polyWidget = new PolygonWidget(ToolFrame6, Vor->PolyC, Vor->PolyFd, Vor->PolyF, Vor->PolyS, Vor->PolyR);
+	PolygonPropsLayout->addWidget( polyWidget );
 	QSpacerItem* T6_spacer2 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	PolygonPropsLayout->addItem( T6_spacer2 );
-	UpdatePreView();
 	Fram->addWidget(ToolFrame6, 6);
 
 	TabWidget3->addWidget( tab_3, 4 );
@@ -1588,14 +1511,6 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	QToolTip::add( Linestyle2, tr( "Style of lines" ) );
 	QToolTip::add( LineW2, tr( "Width of lines" ) );
 
-	QToolTip::add( T6_Ecken, tr( "Number of corners for polygons" ) );
-	QToolTip::add( T6_Faktor2, tr( "Degrees of rotation for polygons" ) );
-	QToolTip::add( T6_Slider2, tr( "Degrees of rotation for polygons" ) );
-	QToolTip::add( T6_Konvex, tr( "Apply Convex/Concave Factor to change shape of Polygons" ) );
-	QToolTip::add( T6_Preview, tr( "Sample Polygon" ) );
-	QToolTip::add( T6_Faktor, tr( "A negative value will make the polygon concave (or star shaped),\n a positive value will make it convex" ) );
-	QToolTip::add( T6_Slider1, tr( "A negative value will make the polygon concave (or star shaped),\n a positive value will make it convex" ) );
-
 	QToolTip::add( PreviewSize, tr( "Choose the size of the preview in the scrapbook palette" ) );
 	QToolTip::add( SaveAtQuit, tr( "Save the scrapbook contents everytime after a change" ) );
 
@@ -1643,14 +1558,6 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	connect(XScale, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
 	connect(YScale, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
 	connect(UnitCombo, SIGNAL(activated(int)), this, SLOT(UnitChange()));
-	connect(T6_Faktor, SIGNAL(valueChanged(int)), this, SLOT(ValFromSpin(int)));
-	connect(T6_Slider1, SIGNAL(valueChanged(int)), T6_Faktor, SLOT(setValue(int)));
-	connect(T6_Slider1, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreView()));
-	connect(T6_Faktor2, SIGNAL(valueChanged(int)), this, SLOT(ValFromSpin2(int)));
-	connect(T6_Slider2, SIGNAL(valueChanged(int)), T6_Faktor2, SLOT(setValue(int)));
-	connect(T6_Slider2, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreView()));
-	connect(T6_Ecken, SIGNAL(valueChanged(int)), this, SLOT(UpdatePreView()));
-	connect(T6_Konvex, SIGNAL(clicked()), this, SLOT(UpdatePreView()));
 	connect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
 	connect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
 	connect(TopR, SIGNAL(valueChanged(int)), this, SLOT(setTop(int)));
@@ -2247,136 +2154,6 @@ void Preferences::UnitChange()
 	connect(BottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom(int)));
 	connect(LeftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft(int)));
 	connect(RightR, SIGNAL(valueChanged(int)), this, SLOT(setRight(int)));
-}
-
-/*!
- \fn void Preferences::ValFromSpin2(int a)
- \author Franz Schmid 
- \date  
- \brief [dox?]
- \param a
- \retval None 
- */
-void Preferences::ValFromSpin2(int a)
-{
-	disconnect(T6_Slider2, SIGNAL(valueChanged(int)), T6_Faktor2, SLOT(setValue(int)));
-	T6_Slider2->setValue(a);
-	connect(T6_Slider2, SIGNAL(valueChanged(int)), T6_Faktor2, SLOT(setValue(int)));
-}
-
-/*!
- \fn void Preferences::ValFromSpin(int a)
- \author Franz Schmid 
- \date  
- \brief [dox?]
- \param a
- \retval None 
- */
-void Preferences::ValFromSpin(int a)
-{
-	disconnect(T6_Slider1, SIGNAL(valueChanged(int)), T6_Faktor, SLOT(setValue(int)));
-	T6_Slider1->setValue(a);
-	connect(T6_Slider1, SIGNAL(valueChanged(int)), T6_Faktor, SLOT(setValue(int)));
-}
-
-/*!
- \fn void Preferences::UpdatePreView()
- \author Franz Schmid 
- \date  
- \brief Preferences (Tools, Polygon). Updates polygon preview based on current settings
- \param None
- \retval None 
- */
-void Preferences::UpdatePreView()
-{
-	if (T6_Konvex->isChecked())
-	{
-		T6_Slider1->setEnabled(true);
-		T6_Faktor->setEnabled(true);
-	}
-	else
-	{
-		T6_Slider1->setEnabled(false);
-		T6_Faktor->setEnabled(false);
-	}
-	Pre->fill(white);
-	QPainter p;
-	p.begin(Pre);
-	p.setBrush(NoBrush);
-	p.setPen(black);
-	QPointArray pp = RegularPolygon(100, 100, T6_Ecken->value(), T6_Konvex->isChecked(), GetFaktor(),
-	                                T6_Slider2->value());
-	QRect br = pp.boundingRect();
-	if (br.x() < 0)
-		pp.translate(-br.x(), 0);
-	if (br.y() < 0)
-		pp.translate(0, -br.y());
-	br = pp.boundingRect();
-	if ((br.height() > 100) || (br.width() > 100))
-	{
-		QWMatrix ma;
-		double sca = 100.0 / static_cast<double>(QMAX(br.width(), br.height()));
-		ma.scale(sca, sca);
-		pp = ma * pp;
-	}
-	p.drawPolygon(pp);
-	p.end();
-	T6_Preview->setPixmap(*Pre);
-}
-
-
-/*!
- \fn double Preferences::GetZeroFaktor()
- \author Franz Schmid 
- \date  
- \brief Preferences (Tools, Polygon). Calculates Zero Factor [dox?] for polygon
- \param None
- \retval (double) Zero Factor
- */
-double Preferences::GetZeroFaktor()
-{
-	return sqrt(pow(1.0,2.0)-pow(((sin((360.0/(T6_Ecken->value()*2))/180*M_PI)* 2.0)/2.0),2));
-}
-
-/*!
- \fn double Preferences::GetMaxFaktor()
- \author Franz Schmid 
- \date  
- \brief Preferences (Tools, Polygon). Calculates Max Factor [dox?] for polygon
- \param None
- \retval ret (double) Max Factor
- */
-double Preferences::GetMaxFaktor()
-{
-	double win = (360.0/(T6_Ecken->value()*2)) / 180.0 * M_PI;
-	double ret;
-	if ((360.0/(T6_Ecken->value()*2)) > 45)
-		ret = 1/sin(win);
-	else
-		ret = 1/cos(win);
-	return ret;
-}
-
-/*!
- \fn double Preferences::GetFaktor()
- \author Franz Schmid 
- \date  
- \brief Preferences (Tools, Polygon). Calculates Zero Factor [dox?] for polygon
- \param None
- \retval PFactor (double) Zero Factor
- */
-double Preferences::GetFaktor()
-{
-	int val = T6_Slider1->value();
-	if (val < 0)
-		PFactor = GetZeroFaktor() * (100.0 + val) / 100.0;
-	else
-	{
-		double ma = GetMaxFaktor();
-		double mi = GetZeroFaktor();
-		PFactor = ((ma - mi) * val / 100.0) + mi;
-	}
-	return PFactor;
 }
 
 /*!

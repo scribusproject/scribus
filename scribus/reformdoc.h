@@ -19,6 +19,7 @@
 #include "scfonts.h"
 #include "scribusdoc.h"
 class FontCombo;
+class PolygonWidget;
 
 class ReformDoc : public PrefsDialogBase
 {
@@ -143,14 +144,14 @@ public:
 	QComboBox* colorComboLineShape;
 	QLabel* textLabel8b;
 	QWidget* subTabLine;
-	QSpinBox* lineWidthLine;
+	MSpinBox* lineWidthLine;
 	QSpinBox* shadingLine;
 	QComboBox* colorComboLine;
 	QLabel* textLabel13b;
 	QLabel* textLabel14b;
 	QLabel* textLabel15b;
 	QLabel* textLabel16b;
-	QComboBox* comboStyleLine;
+	LineCombo* comboStyleLine;
 	QWidget* subTabImage;
 	QComboBox* comboFillImage;
 	QLabel* textLabel19b;
@@ -165,7 +166,7 @@ public:
 	QButtonGroup* buttonGroup5;
 	QCheckBox* checkRatioImage;
 	QWidget* subTabPolygon;
-	QLabel* textLabel16du;
+	PolygonWidget* polyWidget;
 	QWidget* subTabZoom;
 	QLabel* textLabel21b;
 	QSpinBox* minimumZoom;
@@ -224,6 +225,9 @@ protected:
 	QGridLayout* subTabZoomLayout;
 
 protected slots:
+	virtual void toggleChain();
+	virtual void hChange();
+	virtual void vChange();
 	virtual void changeImageScalingFree(int);
 	virtual void changeImageScalingRatio(int);
 	virtual void setSample();

@@ -2435,6 +2435,11 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	dc.setAttribute("SHOWBASE", static_cast<int>(doc->BaseShown));
 	dc.setAttribute("SHOWPICT", static_cast<int>(doc->ShowPic));
 	dc.setAttribute("SHOWLINK", static_cast<int>(doc->linkShown));
+	dc.setAttribute("POLYC", doc->PolyC);
+	dc.setAttribute("POLYF", doc->PolyF);
+	dc.setAttribute("POLYR", doc->PolyR);
+	dc.setAttribute("POLYFD", doc->PolyFd);
+	dc.setAttribute("POLYS", static_cast<int>(doc->PolyS));
 	QMap<QString,multiLine>::Iterator itMU;
 	for (itMU = doc->MLineStyles.begin(); itMU != doc->MLineStyles.end(); ++itMU)
 	{

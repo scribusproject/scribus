@@ -19,13 +19,10 @@
 #include "werktoolb.moc"
 #include "polyprops.h"
 #include "autoform.h"
+#include "scribus.h"
 
-extern int PolyC;
-extern int PolyFd;
-extern double PolyF;
-extern bool PolyS;
-extern double PolyR;
 extern QPixmap loadIcon(QString nam);
+extern ScribusApp* ScApp;
 
 WerkToolB::WerkToolB(QMainWindow* parent) : QToolBar( tr("Tools"), parent)
 {
@@ -49,8 +46,7 @@ WerkToolB::WerkToolB(QMainWindow* parent) : QToolBar( tr("Tools"), parent)
 	Rechteck->setToggleButton( true );
 	PolyM = new QPopupMenu();
 	PolyM->insertItem( tr("Properties..."), this, SLOT(GetPolyProps()));
-	Polygon = new QToolButton(loadIcon("spline.png"), tr("Insert Polygons"), QString::null, this,
-								 SLOT(ModeFromTB()), this);
+	Polygon = new QToolButton(loadIcon("spline.png"), tr("Insert Polygons"), QString::null, this, SLOT(ModeFromTB()), this);
 	Polygon->setToggleButton( true );
 	Polygon->setPopup(PolyM);
 	Polygon->setPopupDelay(0);
@@ -75,16 +71,13 @@ WerkToolB::WerkToolB(QMainWindow* parent) : QToolBar( tr("Tools"), parent)
 	Textedit = new QToolButton(loadIcon("Editm.xpm"), tr("Edit Contents of Frame"), QString::null, this, SLOT(ModeFromTB()), this);
 	Textedit->setToggleButton( true );
 	Textedit->setEnabled( false );
-	Textedit2 = new QToolButton(loadIcon("signature.png"), tr("Edit the text with the Story Editor"),
-								 QString::null, this, SLOT(ModeFromTB()), this);
+	Textedit2 = new QToolButton(loadIcon("signature.png"), tr("Edit the text with the Story Editor"), QString::null, this, SLOT(ModeFromTB()), this);
 	Textedit2->setToggleButton( true );
 	Textedit2->setEnabled( false );
-	KetteEin = new QToolButton(loadIcon("Lock.xpm"), tr("Link Text Frames"), QString::null, this,
-								 SLOT(ModeFromTB()), this);
+	KetteEin = new QToolButton(loadIcon("Lock.xpm"), tr("Link Text Frames"), QString::null, this, SLOT(ModeFromTB()), this);
 	KetteEin->setToggleButton( true );
 	KetteEin->setEnabled(false);
-	KetteAus = new QToolButton(loadIcon("Unlock.xpm"), tr("Unlink Text Frames"), QString::null, this,
-								 SLOT(ModeFromTB()), this);
+	KetteAus = new QToolButton(loadIcon("Unlock.xpm"), tr("Unlink Text Frames"), QString::null, this, SLOT(ModeFromTB()), this);
 	KetteAus->setToggleButton( true );
 	KetteAus->setEnabled(false);
 	Measure = new QToolButton(loadIcon("dist.png"), tr("Do measurements"), QString::null, this, SLOT(ModeFromTB()), this);
@@ -111,15 +104,9 @@ void WerkToolB::Verbergen(bool vis)
 
 void WerkToolB::GetPolyProps()
 {
-	PolygonProps* dia = new PolygonProps(this);
+	PolygonProps* dia = new PolygonProps(this, ScApp->doc->PolyC, ScApp->doc->PolyFd, ScApp->doc->PolyF, ScApp->doc->PolyS, ScApp->doc->PolyR);
 	if (dia->exec())
-  	{
-		PolyC = dia->Ecken->value();
-		PolyF = dia->PFactor;
-		PolyS = dia->Konvex->isChecked();
-		PolyFd = dia->Slider1->value();
-		PolyR = dia->Faktor2->value();
-	}
+		dia->getValues(&ScApp->doc->PolyC, &ScApp->doc->PolyFd, &ScApp->doc->PolyF, &ScApp->doc->PolyS, &ScApp->doc->PolyR);
 	delete dia;
 }
 
@@ -280,8 +267,7 @@ WerkToolBP::WerkToolBP(QMainWindow* parent) : QToolBar( tr("PDF Tools"), parent)
 	size_t ar_tmp = sizeof(tmp_icn) / sizeof(*tmp_icn);
 	for (uint a = 0; a < ar_tmp; ++a)
 		PDFM->insertItem(loadIcon(tmp_icn[a]), tmp_txt[a]);
-	PDFTool = new QToolButton(loadIcon("pushbutton.png"), tr("Insert PDF Fields"), QString::null, this,
-								 SLOT(ModeFromTB()), this);
+	PDFTool = new QToolButton(loadIcon("pushbutton.png"), tr("Insert PDF Fields"), QString::null, this, SLOT(ModeFromTB()), this);
 	PDFTool->setToggleButton(true);
 	PDFTool->setPopup(PDFM);
 	PDFTool->setPopupDelay(0);
@@ -289,8 +275,7 @@ WerkToolBP::WerkToolBP(QMainWindow* parent) : QToolBar( tr("PDF Tools"), parent)
 	PDFA = new QPopupMenu();
 	PDFA->insertItem(loadIcon("charset.png"), tr("Text"));
 	PDFA->insertItem(loadIcon("goto.png"), tr("Link"));
-	PDFaTool = new QToolButton(loadIcon("charset.png"), tr("Insert PDF Annotations"), QString::null, this,
-								 SLOT(ModeFromTB()), this);
+	PDFaTool = new QToolButton(loadIcon("charset.png"), tr("Insert PDF Annotations"), QString::null, this, SLOT(ModeFromTB()), this);
 	PDFaTool->setToggleButton(true);
 	PDFaTool->setPopup(PDFA);
 	PDFaTool->setPopupDelay(0);

@@ -158,6 +158,11 @@ bool FileLoader::LoadFile(ScribusApp* app)
 	app->doc->GuidesShown = app->Prefs.GuidesShown;
 	app->doc->BaseShown = app->Prefs.BaseShown;
 	app->doc->linkShown = app->Prefs.linkShown;
+	app->doc->PolyC = app->Prefs.PolyC;
+	app->doc->PolyF = app->Prefs.PolyF;
+	app->doc->PolyR = app->Prefs.PolyR;
+	app->doc->PolyFd = app->Prefs.PolyFd;
+	app->doc->PolyS = app->Prefs.PolyS;
 	switch (FileType)
 	{
 		case 0:
@@ -325,6 +330,11 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		doc->BaseShown = static_cast<bool>(QStoInt(dc.attribute("SHOWBASE", "0")));
 		doc->ShowPic = static_cast<bool>(QStoInt(dc.attribute("SHOWPICT", "1")));
 		doc->linkShown = static_cast<bool>(QStoInt(dc.attribute("SHOWLINK", "0")));
+		doc->PolyC = QStoInt(dc.attribute("POLYC", "4"));
+		doc->PolyF = QStodouble(dc.attribute("POLYF", "0.5"));
+		doc->PolyR = QStodouble(dc.attribute("POLYR", "0"));
+		doc->PolyFd = QStoInt(dc.attribute("POLYFD", "0"));
+		doc->PolyS = static_cast<bool>(QStoInt(dc.attribute("POLYS", "0")));
 		QDomNode PAGE=DOC.firstChild();
 		counter = 0;
 		while(!PAGE.isNull())

@@ -725,6 +725,11 @@ public: // Public attributes
 	QTimer *CurTimer;
 	double BaseGrid;
 	double BaseOffs;
+	int PolyC;
+	int PolyFd;
+	double PolyF;
+	bool PolyS;
+	double PolyR;
 };
 
 #endif
