@@ -1058,8 +1058,8 @@ bool OODPlug::parseSVG( const QString &s, FPointArray *ite )
 			case 'z':
 			case 'Z':
 				{
-					curx = subpathx;
-					cury = subpathy;
+//					curx = subpathx;
+//					cury = subpathy;
 					svgClosePath(ite);
 					break;
 				}
