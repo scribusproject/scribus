@@ -60,6 +60,7 @@ public:
 	PageItem* Item;
 	ScribusDoc* Doc;
 	uint ReplStart;
+	bool NotFound;
 
 public slots:
     virtual void slotSearch();
