@@ -1,0 +1,68 @@
+<HTML>
+<HEAD>
+<TITLE>class Tree</TITLE>
+
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+<TABLE WIDTH="100%" BORDER="0">
+<TR>
+<TD>
+	<TABLE BORDER="0">
+		<TR><TD valign="top" align="left" cellspacing="10">
+		<h1>class Tree</h1>
+		</TD>
+		<TD valign="top" align="right" colspan="1"></TD></TR>
+	</TABLE>
+	<HR>
+	<TABLE BORDER="0">
+		<TR><TH>Definition</TH><TD><code>#include &lt;<A HREF="scribus___tree_h.html">scribus/tree.h</A>&gt;</code></TD></TR>
+<TR><TH>Inherits</TH><TD>QDialog <small>(unknown)</small> <small>[public ]</small></TD></TR>
+<TR><TH><A HREF="full-list-Tree.html">List of all Methods</A></TH></TR>
+	</TABLE>
+	</TD>
+<TD align="right"><TABLE BORDER="0"><TR><TD><small><A HREF="index-long.html">Annotated List</A></small></TD></TR>
+<TR><TD><small><A HREF="header-list.html">Files</A></small></TD></TR>
+<TR><TD><small><A HREF="all-globals.html">Globals</A></small></TD></TR>
+<TR><TD><small><A HREF="hier.html">Hierarchy</A></small></TD></TR>
+<TR><TD><small><A HREF="index.html">Index</A></small></TD></TR>
+</TABLE></TD></TR></TABLE>
+<h4>Public Methods</h4><ul><LI>&nbsp;<b><A HREF="#ref1">Tree</A></b> ( QWidget* parent, WFlags fl ) 
+</LI>
+<LI>&nbsp;<b><A HREF="#ref2">~Tree</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref6">closeEvent</A></b> (QCloseEvent *ce) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref7">resizeEvent</A></b> (QResizeEvent *r) 
+</LI>
+</ul><h4>Public Slots</h4><ul><LI>virtual  void &nbsp;<b><A HREF="#ref8">slotSelect</A></b> (<A HREF="#QListViewItem">QListViewItem</A>* ite) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref9">BuildTree</A></b> (<A HREF="ScribusView.html">ScribusView</A> *view) 
+</LI>
+</ul><h4>Signals</h4><ul><LI>void &nbsp;<b><A HREF="#ref10">Schliessen</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref11">SelectElement</A></b> (int, int) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref12">SelectSeite</A></b> (int) 
+</LI>
+</ul><h4>Public Members</h4><ul><LI>QListView* <b><A HREF="#ref3">ListView1</A></b></LI>
+<LI>QPtrList<QListViewItem> <b><A HREF="#ref4">Seiten</A></b></LI>
+<LI>QPtrList<QListViewItem> <b><A HREF="#ref5">Elemente</A></b></LI>
+</ul><HR><H2><A NAME="longdesc">Detailed Description</A></H2><A NAME="Tree"></A><A NAME="ref1"></A><table width="100%"><tr bgcolor="#eeeeee"><td>&nbsp;<strong>Tree</strong> ( QWidget* parent, WFlags fl )
+<br></td><td align="right"><h3><strong>Tree</strong></h3></td></tr></table><p></p><A NAME="~Tree"></A><A NAME="ref2"></A><table width="100%"><tr bgcolor="#eeeeee"><td>&nbsp;<strong>~Tree</strong> ()
+<br></td><td align="right"><h3><strong>~Tree</strong></h3></td></tr></table><p></p><A NAME="ListView1"></A><A NAME="ref3"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QListView">QListView</A>*  <strong>ListView1</strong>
+</td><td align="right"><h3><strong>ListView1</strong></h3></td></tr></table><p></p><A NAME="Seiten"></A><A NAME="ref4"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPtrList<<A HREF="#QListViewItem">QListViewItem</A>>  <strong>Seiten</strong>
+</td><td align="right"><h3><strong>Seiten</strong></h3></td></tr></table><p></p><A NAME="Elemente"></A><A NAME="ref5"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPtrList<<A HREF="#QListViewItem">QListViewItem</A>>  <strong>Elemente</strong>
+</td><td align="right"><h3><strong>Elemente</strong></h3></td></tr></table><p></p><A NAME="closeEvent"></A><A NAME="ref6"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>closeEvent</strong> (QCloseEvent *ce)
+<br></td><td align="right"><h3><strong>closeEvent</strong></h3></td></tr></table><p></p><A NAME="resizeEvent"></A><A NAME="ref7"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>resizeEvent</strong> (QResizeEvent *r)
+<br></td><td align="right"><h3><strong>resizeEvent</strong></h3></td></tr></table><p></p><A NAME="slotSelect"></A><A NAME="ref8"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>slotSelect</strong> (<A HREF="#QListViewItem">QListViewItem</A>* ite)
+<br></td><td align="right"><h3><strong>slotSelect</strong></h3></td></tr></table><p> <small>[virtual slot]</small></p><A NAME="BuildTree"></A><A NAME="ref9"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>BuildTree</strong> (<A HREF="ScribusView.html">ScribusView</A> *view)
+<br></td><td align="right"><h3><strong>BuildTree</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="Schliessen"></A><A NAME="ref10"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>Schliessen</strong> ()
+<br></td><td align="right"><h3><strong>Schliessen</strong></h3></td></tr></table><p> <small>[signal]</small></p><A NAME="SelectElement"></A><A NAME="ref11"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>SelectElement</strong> (int, int)
+<br></td><td align="right"><h3><strong>SelectElement</strong></h3></td></tr></table><p> <small>[signal]</small></p><A NAME="SelectSeite"></A><A NAME="ref12"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>SelectSeite</strong> (int)
+<br></td><td align="right"><h3><strong>SelectSeite</strong></h3></td></tr></table><p> <small>[signal]</small></p><HR>
+	<table>
+	<tr><td><small>Generated by: paul on T6.linux on Tue Mar 18 23:32:13 2003, using kdoc 2.0a54.</small></td></tr>
+	</table>
+</BODY>
+</HTML>

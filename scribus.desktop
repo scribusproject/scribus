@@ -1,0 +1,24 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Type=Application
+Name=scribus
+Name[en_US]=scribus
+Comment=
+Comment[en_US]=
+Exec=scribus %f
+GenericName=
+GenericName[en_US]=
+Icon=/usr/local/lib/scribus/icons/scribusicon.png
+MimeType=scd,scd.gz,sla,sla.gz
+Name=scribus
+Name[en_US]=scribus
+Path=
+ServiceTypes=
+SwallowExec=
+SwallowTitle=Scribus
+Terminal=false
+TerminalOptions=
+Type=Application
+X-KDE-SubstituteUID=false
+X-KDE-Username=

@@ -1,0 +1,2312 @@
+# This is a Qt message file in .po format.  Each msgid starts with
+# a scope.  This scope should *NOT* be translated - eg. "Foo::Bar"
+# would be translated to "Pub", not "Foo::Pub".
+msgid ""
+msgstr ""
+"Project-Id-Version: Scribus 0.7\n"
+"POT-Creation-Date: 2002-04-18 15:38+0200\n"
+"PO-Revision-Date: 2002-04-20 22:57GMT\n"
+"Last-Translator: Aivaras Kirejevas <kiras@mail.lt>\n"
+"Content-Type: text/plain; charset=ISO-8859-13\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 0.8\n"
+"Language-Team: Lithuanian\n"
+
+#: mywidget.cpp:30
+msgid "File"
+msgstr "Failas"
+
+msgid "New"
+msgstr "Naujas"
+
+msgid "Open..."
+msgstr "Atidaryti..."
+
+msgid "Open"
+msgstr "Atidaryti"
+
+msgid "Close"
+msgstr "Uþdaryti"
+
+msgid "Save"
+msgstr "Iðsaugoti"
+
+msgid "Save as..."
+msgstr "Iðsaugoti kitu vardu..."
+
+msgid "Save as"
+msgstr "Iðsaugoti kitu vardu"
+
+msgid "Revert to Saved"
+msgstr "Gráþti prie iðsaugoto"
+
+msgid "Save Text..."
+msgstr "Iðsaugoti kaip tekstà..."
+
+msgid "Save Page as EPS..."
+msgstr "Iðsaugoti kaip EPS..."
+
+msgid "Save as PDF..."
+msgstr "Iðsaugoti kaip PDF..."
+
+msgid "Document Setup..."
+msgstr "Dokumento nuostatø keitimas..."
+
+msgid "Document Setup"
+msgstr "Dokumento nuostatos"
+
+msgid "Document Info..."
+msgstr "Dokumento info..."
+
+msgid "Print..."
+msgstr "Spausdinti..."
+
+msgid "Quit"
+msgstr "Nutraukti darbus"
+
+msgid "View"
+msgstr "Vaizdas"
+
+msgid "Fit in Window"
+msgstr "Dydis kaip lango"
+
+msgid "Actual Size"
+msgstr "Realus dydis"
+
+msgid "Thumbnails"
+msgstr "Bendras vaizdas"
+
+msgid "Show Tools"
+msgstr "Rodyti árankinæ"
+
+msgid "Hide Tools"
+msgstr "Slëpti árankinæ"
+
+msgid "Hide Margins"
+msgstr "Slëpti paraðtes"
+
+msgid "Show Margins"
+msgstr "Rodyti paraðtes"
+
+msgid "Hide Guides"
+msgstr "Slëpti pagalbines linijas"
+
+msgid "Hide Images"
+msgstr "Slëpti paveiksliukus"
+
+msgid "Show Images"
+msgstr "Rodyti paveiksliukus"
+
+msgid "Show Guides"
+msgstr "Rodyti pagalbines linijas"
+
+msgid "Show Measurements"
+msgstr "Rodyti matuoklá"
+
+msgid "Hide Measurements"
+msgstr "Slëpti matuoklá"
+
+msgid "Help"
+msgstr "Pagalba"
+
+msgid "About Scribus"
+msgstr "Apie Scribus"
+
+msgid "About Qt"
+msgstr "Apie Qt"
+
+msgid "Ready"
+msgstr "Paruoðtas"
+
+msgid "Scaled to "
+msgstr "Dydis pakeistas iki "
+
+msgid "Get Picture..."
+msgstr "Naudoti paveiksliukà..."
+
+msgid "Get Text/Picture..."
+msgstr "Naudoti tekstà/paveiksliukà..."
+
+msgid "Get Text..."
+msgstr "Naudoti tekstà..."
+
+msgid "New Document"
+msgstr "Naujas dokumentas"
+
+msgid "Page Size"
+msgstr "Lapo dydis"
+
+msgid "Margin Guides"
+msgstr "Paraðèiø linijos"
+
+msgid "Column Guides"
+msgstr "Stulpeliø linijos"
+
+msgid "Columns:"
+msgstr "Stulpeliai:"
+
+msgid "Gutter Width:"
+msgstr "Uþribio plotis:"
+
+msgid "Width:"
+msgstr "Plotis:"
+
+msgid "Height:"
+msgstr "Aukðtis:"
+
+msgid "Top:"
+msgstr "Nuo virðaus:"
+
+msgid "Left:"
+msgstr "Nuo kairës:"
+
+msgid "Inside:"
+msgstr "Vidinë paraðtë:"
+
+msgid "Right:"
+msgstr "Nuo deðinës:"
+
+msgid "Outside:"
+msgstr "Iðorinë paraðtë:"
+
+msgid "Bottom:"
+msgstr "Nuo apaèios:"
+
+msgid "Other"
+msgstr "Kita"
+
+msgid "Facing Pages"
+msgstr "Tituliniai puslapiai"
+
+msgid "OK"
+msgstr "Tinka!"
+
+msgid "Cancel"
+msgstr "Netinka"
+
+msgid "Automatic Text Box"
+msgstr "Teksto langelis"
+
+msgid "W:"
+msgstr "W:"
+
+msgid "Tabloid"
+msgstr "11 x 17 coliai"
+
+msgid "Documents (*.sdc);; All Files (*)"
+msgstr "Dokumentai (*.sdc);; Visi failai (*)"
+
+msgid "Document "
+msgstr "Dokumentas "
+
+msgid "No Document"
+msgstr "Nëra dokumento"
+
+msgid "Warning"
+msgstr "Dëmesio!"
+
+msgid "The document has been changed since the last save."
+msgstr "Po paskutinio iðsaugojimo dokumente padaryti pakeitimai."
+
+msgid "Save Now"
+msgstr "Iðsaugoti tuoj pat"
+
+msgid "Leave Anyway"
+msgstr "Vistiek uþdaryti"
+
+msgid "Textfiles (*.txt);;All Files (*)"
+msgstr "Tekstinis failas (*.txt);;Visi failai (*)"
+
+msgid "Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)"
+msgstr "Taðkinë grafika (*.tif *.png *.jpg *.xpm);;Vektorinë grafika (*.eps);;Visi failai (*)"
+
+msgid "Look &in:"
+msgstr "Ieðkok è&ia:"
+
+msgid "File &type:"
+msgstr "Failo &tipas:"
+
+msgid "File &name:"
+msgstr "Failo &vardas:"
+
+msgid "PDF-Options"
+msgstr "PDF-nuostatos"
+
+msgid "Compatibility:"
+msgstr "Suderinamumas:"
+
+msgid "Images:"
+msgstr "Paveiksliukai:"
+
+msgid "Resolution for EPS-Images:"
+msgstr "EPS-paveiksliuko skyra:"
+
+msgid "Document Info"
+msgstr "Informacija"
+
+msgid "Description:"
+msgstr "Komentarai:"
+
+msgid "Author:"
+msgstr "Autorius:"
+
+msgid "Edit"
+msgstr "Taisa"
+
+msgid "Cut"
+msgstr "Iðkirpti"
+
+msgid "Copy"
+msgstr "Kopijuoti"
+
+msgid "Paste"
+msgstr "Áterpti"
+
+msgid "Clear"
+msgstr "Trinti"
+
+msgid "Select all"
+msgstr "Paþymëti viskà"
+
+msgid "Deselect all"
+msgstr "Nuimti þymëjimà"
+
+msgid "Style"
+msgstr "Stilius"
+
+msgid "Other..."
+msgstr "Kita..."
+
+msgid "Item"
+msgstr "Objektas"
+
+msgid "Page"
+msgstr "Puslapis"
+
+msgid "Insert..."
+msgstr "Áterpti..."
+
+msgid "Delete..."
+msgstr "Iðtrinti..."
+
+msgid "Delete"
+msgstr "Iðtrinti"
+
+msgid "Font"
+msgstr "Ðriftas"
+
+msgid "Size"
+msgstr "Dydis"
+
+msgid "Font Size"
+msgstr "Ðrifto dydis"
+
+msgid "Font Size:"
+msgstr "Ðrifto dydis:"
+
+msgid "Shade:"
+msgstr "Ðeðëlis:"
+
+msgid "Shade"
+msgstr "Ðeðëlis"
+
+msgid "Color"
+msgstr "Spalva"
+
+msgid "Colors..."
+msgstr "Spalvos..."
+
+msgid "Duplicate"
+msgstr "Padvigubinti"
+
+msgid "New Color:"
+msgstr "Nauja spalva:"
+
+msgid "New Color"
+msgstr "Nauja spalva"
+
+msgid "OK to delete Color:"
+msgstr "Noriu iðtrinti spalvà:"
+
+msgid "Replace it with:"
+msgstr "Pakeisti á:"
+
+msgid "Delete Color"
+msgstr "Iðtrinti spalvà"
+
+msgid "Colors"
+msgstr "Spalvos"
+
+msgid "Edit Colors"
+msgstr "Keisti spalvas"
+
+msgid "Hide Colors"
+msgstr "Slëpti spalvø áranká"
+
+msgid "Show Colors"
+msgstr "Rodyti spalvø áranká"
+
+msgid "Show Outline"
+msgstr "Rodyti kontûrø áranká"
+
+msgid "Hide Outline"
+msgstr "Slëpti kontûrø áranká"
+
+msgid "Outline"
+msgstr "Kontûras"
+
+msgid "Rectangle"
+msgstr "Staèiakampis"
+
+msgid "Shape"
+msgstr "Forma"
+
+msgid "Edit Frame"
+msgstr "Keisti rëmelá"
+
+msgid "Image"
+msgstr "Paveiksliukas"
+
+msgid "Type"
+msgstr "Tipas"
+
+msgid "Send to Back"
+msgstr "Perkelti apaèion"
+
+msgid "Bring to Front"
+msgstr "Perkelti virðun"
+
+msgid "Lower"
+msgstr "Per vienà þemiau"
+
+msgid "Raise"
+msgstr "Per vienà aukðèiau"
+
+msgid "Delete Page:"
+msgstr "Iðplëðti puslapá:"
+
+msgid "Delete Page"
+msgstr "Iðplëðti puslapá"
+
+msgid "Line"
+msgstr "Linija"
+
+msgid "Line Width"
+msgstr "Linijos storis"
+
+msgid "Line Width:"
+msgstr "Linijos storis:"
+
+msgid "Print destination"
+msgstr "Spausdinimo vieta"
+
+msgid "Print to printer:"
+msgstr "Spausdinti spausdintuvu:"
+
+msgid "Printer"
+msgstr "Spausdintuvas"
+
+msgid "locally connected"
+msgstr "prijungtas èia pat"
+
+msgid "Comment"
+msgstr "Komentarai"
+
+msgid "Print to file:"
+msgstr "Spausdinti á failà:"
+
+msgid "Browse..."
+msgstr "Pasirink..."
+
+msgid "Printer settings"
+msgstr "Spausdintuvo nuostatos"
+
+msgid "Print in color if available"
+msgstr "Jei ámanoma, spausdinti visas spalvas"
+
+msgid "Print in grayscale"
+msgstr "Spausdinti nespalvotai"
+
+msgid "Paper format"
+msgstr "Lapo formatas"
+
+msgid "Portrait"
+msgstr "Portretui"
+
+msgid "Landscape"
+msgstr "Peizaþui"
+
+msgid "Options"
+msgstr "Nuostatos"
+
+msgid "Print all"
+msgstr "Spausdinti viskà"
+
+msgid "Print range"
+msgstr "Spausdinimo eiliðkumas"
+
+msgid "From page:"
+msgstr "Nuo - "
+
+msgid "To page:"
+msgstr "iki - "
+
+msgid "Print first page first"
+msgstr "Pradëti nuo pirmojo puslapio"
+
+msgid "Print last page first"
+msgstr "Pradëti nuo paskutiniojo puslapio"
+
+msgid "Number of copies:"
+msgstr "Kopijø skaièius"
+
+msgid "Select color"
+msgstr "Pasirink spalvà"
+
+msgid "&Basic colors"
+msgstr "&Pagrindinës spalvos"
+
+msgid "&Custom colors"
+msgstr "&Darbo spalvos"
+
+msgid "&Add To Custom Colors"
+msgstr "P&apildyti darbo spalvas"
+
+msgid "&Define Custom Colors >>"
+msgstr "Pa&keisti darbo spalvas >>"
+
+msgid "&Red:"
+msgstr "&Raudona:"
+
+msgid "&Green:"
+msgstr "&Þalia:"
+
+msgid "Bl&ue:"
+msgstr "&Mëlyna:"
+
+msgid "Select Font"
+msgstr "Pasirink ðriftà"
+
+msgid "&Font"
+msgstr "&Ðriftas"
+
+msgid "Font st&yle"
+msgstr "Ðriftas ir &stilius"
+
+msgid "&Size"
+msgstr "&Dydis"
+
+msgid "Effects"
+msgstr "Efektai"
+
+msgid "Stri&keout"
+msgstr "Perb&raukta"
+
+msgid "&Underline"
+msgstr "Pa&braukta"
+
+msgid "Sample"
+msgstr "Pavyzdys"
+
+msgid "Scr&ipt"
+msgstr "Skr&iptas"
+
+msgid "Preferences..."
+msgstr "Parinktys..."
+
+msgid "Preferences"
+msgstr "Parinktys"
+
+msgid "General"
+msgstr "Pagrindinis"
+
+msgid "Platinum-Style"
+msgstr "Platinos-stilius"
+
+msgid "Windows-Style"
+msgstr "Windows-stilius"
+
+msgid "Motif-Style"
+msgstr "Motif-stilius"
+
+msgid "Motif-Plus-Style"
+msgstr "Motif-Plus-stilius"
+
+msgid "CDE-Style"
+msgstr "CDE-stilius"
+
+msgid "Guides"
+msgstr "Pagalbinës linijos"
+
+msgid "Major Grid Spacing:"
+msgstr "Pagrindinio tinklelio tankis:"
+
+msgid "Minor Grid Spacing:"
+msgstr "Pagalbinio tinklelio tankis:"
+
+msgid "Major Grid Color:"
+msgstr "Pagrindinio tinklelio spalva:"
+
+msgid "Minor Grid Color:"
+msgstr "Pagalbinio tinklelio spalva:"
+
+msgid "Grid Colors:"
+msgstr "Tinklelio spalvos:"
+
+msgid "Grid Layout:"
+msgstr "Tinklelio iðdëstymas:"
+
+msgid "Image visible"
+msgstr "Paveiksliuko matomumas"
+
+msgid "Is PDF-Bookmark"
+msgstr "Tai PDF-þymos"
+
+msgid "Snap to Guides"
+msgstr "Pritraukti prie pagalbiniø linijø"
+
+msgid "Apply"
+msgstr "Pritaikyti"
+
+msgid "Snap to Grid"
+msgstr "Pritraukti prie tinklelio"
+
+msgid "Mouse-Settings"
+msgstr "Pelës nuostatos"
+
+msgid "Wheel-Jump"
+msgstr "Ratuko þingsnis"
+
+msgid "Grab-Radius"
+msgstr "Pagriebimo atstumas"
+
+msgid "Printing-Error"
+msgstr "Spausdinimo klaida"
+
+msgid "Printing completed"
+msgstr "Atspausdinta"
+
+msgid "Printing aborted"
+msgstr "Spausdinimas nutrauktas"
+
+msgid "Printing..."
+msgstr "Spausdinu..."
+
+msgid "Saving aborted"
+msgstr "Áraðymas nutrauktas"
+
+msgid "Loading aborted"
+msgstr "Atidarymas nutrauktas"
+
+msgid "Global Fontsettings"
+msgstr "Visuotinës ðrifto nuostatos"
+
+msgid "Path to Fontfile"
+msgstr "Ðriftu saugojimo vieta"
+
+msgid "Embed in:"
+msgstr "Áterpti á:"
+
+msgid "Default Size:"
+msgstr "Nutylimas dydis"
+
+msgid "Default Font:"
+msgstr "Nutylimas ðriftas"
+
+msgid "Sample Text"
+msgstr "Pavyzdinis tekstas"
+
+msgid "Fonts"
+msgstr "Ðriftai"
+
+msgid "Missing Font"
+msgstr "Nerasti ðriftai"
+
+msgid "Missing"
+msgstr "Neradau"
+
+msgid "The Font %1 is not installed."
+msgstr "Ðriftas %1 neádiegtas."
+
+msgid "Use"
+msgstr "Naudoti"
+
+msgid "instead"
+msgstr "vietoj to"
+
+msgid "Fonts..."
+msgstr "Ðriftai..."
+
+msgid " loaded"
+msgstr " pakrautas"
+
+msgid "Picture "
+msgstr "Paveiksliukas "
+
+msgid "File "
+msgstr "Failas "
+
+msgid " saved"
+msgstr " iðsaugotas"
+
+msgid "Unable to create PDF-File."
+msgstr "Neámanoma áraðyti PDFo."
+
+msgid "Error creating PDF-File.."
+msgstr "Klaida PDFo áraðyme"
+
+msgid "Error during EPS-Export"
+msgstr "Klaida EPSo áraðyme"
+
+msgid "The following Programs are missing:"
+msgstr "Ðios programos nerastos:"
+
+msgid "Ghostscript : You cannot use EPS-Images"
+msgstr "Ghostscript: negalite naudoti EPS paveiksliukø"
+
+msgid "Multiple Duplicate"
+msgstr "Sukurti daug kopijø"
+
+msgid "Number of Copies:"
+msgstr "Kopijø skaièius:"
+
+msgid "Horizontal Shift:"
+msgstr "Horiz. postûmis:"
+
+msgid "Vertical Shift:"
+msgstr "Vert. postûmis:"
+
+msgid "Distribute/Align"
+msgstr "Iðskirstyti/iðligiuoti"
+
+msgid "Distribute/Align..."
+msgstr "Iðskirstyti/iðlygiuoti..."
+
+msgid "Don't change"
+msgstr "Nekeisk!"
+
+msgid "Align"
+msgstr "Lygiuoti"
+
+msgid "Displacement"
+msgstr "Slinktis"
+
+msgid "Distribute evenly"
+msgstr "Paskirstyti tolygiai"
+
+msgid "between:"
+msgstr "tarp:"
+
+msgid "Left Sides"
+msgstr "pagal kairá kraðtà"
+
+msgid "Middles"
+msgstr "Vidurinis"
+
+msgid "Right Sides"
+msgstr "pagal deðiná kraðtà"
+
+msgid "Top Sides"
+msgstr "pagal virðutiná kraðtà"
+
+msgid "Bottom Sides"
+msgstr "pagal apatiná kraðtà"
+
+msgid "Vertical"
+msgstr "Vertikaliai"
+
+msgid "Horizontal"
+msgstr "Horizontaliai"
+
+msgid "Fatal Error"
+msgstr "Tragiðka klaida"
+
+msgid "There are no Postscript-Fonts on your System"
+msgstr "Jûsø sistemoje nëra postscriptiniø ðriftø"
+
+msgid "Exiting now"
+msgstr "Uþdaryti tuoj pat"
+
+msgid "Insert Page"
+msgstr "Áklijuoti puslapá"
+
+msgid "Inserting"
+msgstr "Áterpinëju"
+
+msgid "before Page"
+msgstr "prieð puslapá"
+
+msgid "after Page"
+msgstr "po puslapio"
+
+msgid "At End"
+msgstr "á galà"
+
+msgid "Page(s)"
+msgstr "Puslapis(iai)"
+
+msgid "To End"
+msgstr "á pabaigà"
+
+msgid "Delete Pages"
+msgstr "Iðplëðti puslapius"
+
+msgid "Delete from:"
+msgstr "Iðplëðti nuo:"
+
+msgid "Move Page(s):"
+msgstr "Perkelti puslapá(ius):"
+
+msgid "Move Pages"
+msgstr "Perkelti puslapius"
+
+msgid "Move..."
+msgstr "Perkelti..."
+
+msgid "to:"
+msgstr "iki:"
+
+msgid "Select Items"
+msgstr "Paþymëti objekts"
+
+msgid "Edit Contents of Frame"
+msgstr "Kà nors pakeisti rëmelyje"
+
+msgid "Zooms in or out"
+msgstr "Padidinti/sumaþinti"
+
+msgid "Insert Textbox"
+msgstr "Áterpti teksto langelá"
+
+msgid "Insert Picture"
+msgstr "Áterpti paveiksliukà"
+
+msgid "Insert Lines"
+msgstr "Áterpti linijas"
+
+msgid "Insert Ovals"
+msgstr "Áterpti elipsæ"
+
+msgid "Insert Rectangles"
+msgstr "Áterpti apskritimà"
+
+msgid "Rotate Item"
+msgstr "Pasukti objektà"
+
+msgid "Modify..."
+msgstr "Pataisyti..."
+
+msgid "Modify Textframe"
+msgstr "Pataisyti teksto rëmelá"
+
+msgid "Modify Frame"
+msgstr "Pataisyti rëmelá"
+
+msgid "Other:"
+msgstr "Kita:"
+
+msgid "Don't print"
+msgstr "Nespausdink ðito"
+
+msgid "Properties:"
+msgstr "Nuostatos:"
+
+msgid "Ordinary Text"
+msgstr "Tiesiog tekstas"
+
+msgid "Is PDF-Annotation"
+msgstr "Yra PDF anotacija"
+
+msgid "Angle:"
+msgstr "Kampas:"
+
+msgid "Textdistance"
+msgstr "Atstumas iki teksto"
+
+msgid "Face"
+msgstr "Priekis"
+
+msgid "Superscript"
+msgstr "Antraðtis"
+
+msgid "Subscript"
+msgstr "Poraðtis"
+
+msgid "Flip horizontal"
+msgstr "Apversk horizontaliai"
+
+msgid "Flip vertical"
+msgstr "Apversk vertikaliai"
+
+msgid "Scaling:"
+msgstr "Dydis:"
+
+msgid "Disp.:"
+msgstr "Rodom:"
+
+msgid "Small Caps"
+msgstr "Maþos didþiosios"
+
+msgid "Typographics"
+msgstr "Tipografiniai"
+
+msgid "Italic"
+msgstr "Pasviras"
+
+msgid "No Fill"
+msgstr "Kiauras"
+
+msgid "Underline"
+msgstr "Pabrauktas"
+
+msgid "Strikethru"
+msgstr "Perbrauktas"
+
+msgid "Strikeout"
+msgstr "Perbrauktas"
+
+msgid "Append"
+msgstr "Papildyk"
+
+msgid "Bold"
+msgstr "Pusjuodis"
+
+msgid "Shading:"
+msgstr "Su ðeðëliu:"
+
+msgid "Background Color:"
+msgstr "Pagrindo spalva:"
+
+msgid "Vertical flipped"
+msgstr "Apverstas vertikaliai"
+
+msgid "Horizontal flipped"
+msgstr "Apverstas horizontaliai"
+
+msgid "Text flows around Box"
+msgstr "Tekstas aplenks rëmelá"
+
+msgid "Online-Help..."
+msgstr "Pagalba tinkle..."
+
+msgid "Scribus Manual"
+msgstr "Scribus vadovas"
+
+msgid "Local X-Pos:"
+msgstr "X vieta èia pat:"
+
+msgid "Local Y-Pos:"
+msgstr "Y vieta èia pat:"
+
+msgid "Horizontal Scaling"
+msgstr "Horiz. dydis"
+
+msgid "Vertical Scaling"
+msgstr "Vertik. dydis"
+
+msgid "Modify Pictureframe"
+msgstr "Keisti pav.rëmelá"
+
+msgid "Line Color:"
+msgstr "Linijos spalva:"
+
+msgid "Fill Color:"
+msgstr "Uþpildo spalva:"
+
+msgid "Linestyle:"
+msgstr "Linijos forma"
+
+msgid "Linewidth:"
+msgstr "Linijos ilgis:"
+
+msgid "Scaling X:"
+msgstr "Keisti X dydá:"
+
+msgid "Scaling Y:"
+msgstr "Keisti Y dydá:"
+
+msgid "Manual Kerning"
+msgstr "Pasirinktinis kerningas"
+
+msgid "Linespacing"
+msgstr "Tarpai tarp eiluèiø"
+
+msgid "Frame"
+msgstr "Rëmelis"
+
+msgid "Contents"
+msgstr "Turinys"
+
+msgid "Tools"
+msgstr "Árankiai"
+
+msgid "Create Textchains"
+msgstr "Prijungti teksto grandá"
+
+msgid "Break Textchains"
+msgstr "Nutraukti teksto grandá"
+
+msgid "Stepping:"
+msgstr "Þingsneliai:"
+
+msgid "Placing:"
+msgstr "Áterpti:"
+
+msgid "In the Background"
+msgstr "Po apaèia"
+
+msgid "In the Foreground"
+msgstr "Virðuje"
+
+msgid "Text Color:"
+msgstr "Teksto spalva:"
+
+msgid "Units"
+msgstr "Vienetai"
+
+msgid "Points (pt)"
+msgstr "Punktai (pt)"
+
+msgid "Millimeters (mm)"
+msgstr "Millimetrai (mm)"
+
+msgid "Creates a new Document"
+msgstr "Sukurk naujà dokumentà"
+
+msgid "Opens a Document"
+msgstr "Naudok esamà dokumentà"
+
+msgid "Saves the current Document"
+msgstr "Áðsaugok savo darbà"
+
+msgid "Prints the current Document"
+msgstr "Atspausdink darbà"
+
+msgid "Copy Here"
+msgstr "Nukopijuok èia"
+
+msgid "Move Here"
+msgstr "Perkelk èia"
+
+msgid "About"
+msgstr "Apie"
+
+msgid "Authors"
+msgstr "Autoriai"
+
+msgid "Translations"
+msgstr "Vertë"
+
+msgid "Programming:"
+msgstr "Programavo:"
+
+msgid "Contributions from:"
+msgstr "Pagalbininkai:"
+
+msgid "Documentation:"
+msgstr "Viskà apraðë:"
+
+msgid "German:"
+msgstr "Vokiðkai:"
+
+msgid "French:"
+msgstr "Prancûziðkai:"
+
+msgid "Spanish and Catalan:"
+msgstr "Ispanø ir katalonës:"
+
+msgid "Hungarian and Italian:"
+msgstr "Vengrø ir italø:"
+
+msgid "Slovak:"
+msgstr "Slovakø:"
+
+msgid "Ukrainian:"
+msgstr "Ukrainos:"
+
+msgid "Lithuaniain:"
+msgstr "Lietuviø:"
+
+msgid "None"
+msgstr "Nieko"
+
+msgid "Closes the current Document"
+msgstr "Nutraukti darbà su ðiuo dokumentu"
+
+msgid "Range:"
+msgstr "Eilë:"
+
+msgid "File:"
+msgstr "Failas:"
+
+msgid "Print Normal"
+msgstr "Spausdinti paprastai"
+
+msgid "Print Separations"
+msgstr "Spausdinti skaidant spalvas"
+
+msgid "All"
+msgstr "Viskà"
+
+msgid "Setup Printer"
+msgstr "Spausdintuvo nuostatos"
+
+msgid "Old"
+msgstr "Senas"
+
+msgid "Colormodel"
+msgstr "Spalvø modelis"
+
+msgid "Is Spot-Color"
+msgstr "Atskira spalva"
+
+msgid "Edit Color"
+msgstr "Keisti spalvà"
+
+msgid "Alignment"
+msgstr "Lygiavimas"
+
+msgid "Left"
+msgstr "Kairën"
+
+msgid "Center"
+msgstr "Per vidurá"
+
+msgid "Right"
+msgstr "Deðinën"
+
+msgid "Edit Styles"
+msgstr "Keisti stilius"
+
+msgid "Edit Style"
+msgstr "Keisti stiliø"
+
+msgid "New Style"
+msgstr "Naujas stilius"
+
+msgid "New Style:"
+msgstr "Naujas stilius:"
+
+msgid "Show Styles"
+msgstr "Rodyti sliliø sàraðà"
+
+msgid "Hide Styles"
+msgstr "Slëpti sliliø sàraðà"
+
+msgid "Styles..."
+msgstr "Stiliai..."
+
+msgid "Styles"
+msgstr "Stiliai"
+
+msgid "No Style"
+msgstr "Be stiliaus"
+
+msgid "Block"
+msgstr "Riboti"
+
+msgid "Forced"
+msgstr "Pagreitintas"
+
+msgid "Indentation"
+msgstr "Atitraukimas"
+
+msgid "Page-Colors"
+msgstr "Popieriaus spalva"
+
+msgid "Background:"
+msgstr "Pagrindas"
+
+msgid "Left Indent:"
+msgstr "Kairioji átrauka:"
+
+msgid "First Line:"
+msgstr "Pirmoji eilutë:"
+
+msgid "Character"
+msgstr "Raidë"
+
+msgid "Face:"
+msgstr "Priekis:"
+
+msgid "Size:"
+msgstr "Dydis:"
+
+msgid "Color:"
+msgstr "Spalva:"
+
+msgid "Name of the Style is not unique"
+msgstr "Stiliaus pavadinimas kartojasi"
+
+msgid "Do you really want do delete this Style?"
+msgstr "Ar tu tikrai labai nori paðalinti stiliø?"
+
+msgid "No"
+msgstr "Ne"
+
+msgid "Yes"
+msgstr "Taip"
+
+msgid "Vertical Spaces"
+msgstr "Vertikalûs tarpai"
+
+msgid "Above:"
+msgstr "Prieð:"
+
+msgid "Below:"
+msgstr "Po:"
+
+msgid "AFM-File available"
+msgstr "AFM failas leistinas"
+
+msgid "Nodes"
+msgstr "Mazgai"
+
+msgid "End Editing Frame"
+msgstr "Rëmelio taisymo baigtis"
+
+msgid "Add Node"
+msgstr "Pridëti mazgà"
+
+msgid "Delete Node"
+msgstr "Nuimti mazgà"
+
+msgid "Move Node"
+msgstr "Perkelti mazgà"
+
+msgid "New Entry"
+msgstr "Naujas áraðas"
+
+msgid "Scrapbooks (*.scs);; All Files (*)"
+msgstr "Kiðenë (*.scs);; Visi failai (*)"
+
+msgid "Scrapbook"
+msgstr "Kiðenë"
+
+msgid "Load..."
+msgstr "Atidaryti..."
+
+msgid "Object"
+msgstr "Objektas"
+
+msgid "Show Scrapbook"
+msgstr "Rodyti kiðenæ"
+
+msgid "Hide Scrapbook"
+msgstr "Slëpti kiðenæ"
+
+msgid "Other Options"
+msgstr "Kitos parinktys"
+
+msgid "Save Contents on Exit"
+msgstr "Iðsaugoti kas sukaupta iðeinant"
+
+msgid "Preview"
+msgstr "Pasiþiûrëti kaip atrodys"
+
+msgid "Small"
+msgstr "Maþas"
+
+msgid "Medium"
+msgstr "Vidutinis"
+
+msgid "Big"
+msgstr "Didelis"
+
+msgid "Edit Templates"
+msgstr "Keisti ðablonus"
+
+msgid "Apply Template..."
+msgstr "Pritaikyti ðablonà..."
+
+msgid "Exit"
+msgstr "Iðeiti"
+
+msgid "Copy of "
+msgstr "Kopijuoti "
+
+msgid "Name:"
+msgstr "Pavadinimas:"
+
+msgid "New Template"
+msgstr "Naujas ðablonas"
+
+msgid "Normal"
+msgstr "Paprastas"
+
+msgid "Templates..."
+msgstr "Ðablonai..."
+
+msgid "Based on:"
+msgstr "Ðiuo pagrindu:"
+
+msgid "Apply Template"
+msgstr "Pritaikyti ðablonà"
+
+msgid "Template for this Page:"
+msgstr "Ðablonas pirmam puslapiui:"
+
+msgid "Do you really want do delete this Template?"
+msgstr "Ar tikrai nori paðalinti ðá graþø ðablonà?"
+
+msgid "Left Page"
+msgstr "Kairysis puslapis"
+
+msgid "Right Page"
+msgstr "Deðinysis puslapis"
+
+msgid "Display Frames"
+msgstr "Rodyti rëmelius"
+
+msgid "Display Pages Side by Side"
+msgstr "Rodyti puslapius vienà po kito"
+
+msgid "Display"
+msgstr "Rodyti"
+
+msgid "Left Page first"
+msgstr "Kairysis puslapis pirmas"
+
+msgid "Group"
+msgstr "Sudaryti junginá"
+
+msgid "Ungroup"
+msgstr "Iðardyti junginá"
+
+msgid "Do you really want to overwrite the File:\n%1 ?"
+msgstr "Ar tikrai nori pakeisti esamo failo:\n%1\n turiná?"
+
+msgid "Show Frames"
+msgstr "Rodyti rëmelius"
+
+msgid "Hide Frames"
+msgstr "Slëpti rëmelius"
+
+msgid "Left Page based on:"
+msgstr "Kairysis puslapis pagal:"
+
+msgid "Right Page based on:"
+msgstr "Deðinysis puslapis pagal:"
+
+msgid "Manage Pictures"
+msgstr "Priþiûrëti paveiksliukus"
+
+msgid "Pictures"
+msgstr "Paveiksliukai"
+
+msgid "Goto"
+msgstr "Keliauk á"
+
+msgid "Search"
+msgstr "Ieðkoti"
+
+msgid "Path"
+msgstr "Kelias"
+
+msgid "Print"
+msgstr "Spausdinti"
+
+msgid "Status"
+msgstr "Bûsena"
+
+msgid "Margins:"
+msgstr "Paraðtë:"
+
+msgid "Recent Documents:"
+msgstr "Paskutinis dokumentas:"
+
+msgid "Recent Documents"
+msgstr "Paskutiniai dokumentai"
+
+msgid "Display unprintable Area in Margin Color"
+msgstr "Rodyti nespausdinamà srytá pasirinkta spalva"
+
+msgid "Automatic Linespaceing:"
+msgstr "Autotarpai tarp eiluèiø:"
+
+msgid "Distances"
+msgstr "Atstumas"
+
+msgid "Menues"
+msgstr "Meniu"
+
+msgid "Result"
+msgstr "Rezultatas"
+
+msgid "Search Results for: "
+msgstr "Paieðkos rezultatai pagal: "
+
+msgid "Select"
+msgstr "Paþymëti"
+
+msgid "Import..."
+msgstr "Importuoti..."
+
+msgid "Export..."
+msgstr "Eksportuoti..."
+
+msgid "Dynamic Color Bars"
+msgstr "Kintanèios spalvø juostos"
+
+msgid "Static Color Bars"
+msgstr "Pastovios spalvø juostos"
+
+msgid "Colormanagement Settings"
+msgstr "Spalvø derinimo parinktys"
+
+msgid "Activate Colormanagement"
+msgstr "Naudoti spalvø derinimà"
+
+msgid "System Profiles"
+msgstr "Sistemos ðablonai"
+
+msgid "Pictures:"
+msgstr "Paveiksliukai:"
+
+msgid "Solid Colors:"
+msgstr "Iðtisinës spalvos:"
+
+msgid "Monitor:"
+msgstr "Monitorius:"
+
+msgid "Printer:"
+msgstr "Spausdintuvas:"
+
+msgid "Rendering Intents"
+msgstr "Atvaizdavimo tikslumas"
+
+msgid "Rendering Intent:"
+msgstr "Atvaizdavimo tikslumas:"
+
+msgid "Perceptual"
+msgstr "Suvokimas"
+
+msgid "Relative Colorimetric"
+msgstr "Santykinis spalvos matavimas"
+
+msgid "Saturation"
+msgstr "Sodrumas"
+
+msgid "Absolute Colorimetric"
+msgstr "Absoliutinis spalvos matavimas"
+
+msgid "Simulate Printer on the Screen"
+msgstr "Imituoti spausdintuvà ekrane"
+
+msgid "Colormanagement..."
+msgstr "Spalvø valdymas..."
+
+msgid "Inputprofil:"
+msgstr "Ávesties apibudinimas:"
+
+msgid "No Title"
+msgstr "Be antraðtës"
+
+msgid "Unknown"
+msgstr "Neþinomas"
+
+msgid "Adjusting Colors"
+msgstr "Parinkti spalvas"
+
+msgid "Scribus-Document"
+msgstr "Scribus-dokumentas"
+
+msgid "Title:"
+msgstr "Antraðtë:"
+
+msgid "Sorry, no Manual available!"
+msgstr "Deja, pagalbiniø apraðymø nëra!"
+
+msgid "Embed all Fonts"
+msgstr "Átraukti naudotus ðriftus"
+
+msgid "Embedding"
+msgstr "Ákelti"
+
+msgid "Available Fonts:"
+msgstr "Galimi ðriftai:"
+
+msgid "Fonts to embed:"
+msgstr "Átraukti ðiuos ðriftus:"
+
+msgid "Output to File:"
+msgstr "Iðvesti á failà:"
+
+msgid "Change..."
+msgstr "Pakeisti..."
+
+msgid "Compression"
+msgstr "Suspaudimas"
+
+msgid "Downsample Images to:"
+msgstr "Nusiûsti failus á:"
+
+msgid "Compress Text and Vectorgraphics"
+msgstr "Suspausti tekstinius ir vektorinës grafikos failus"
+
+msgid "File Options"
+msgstr "Failo parinktys"
+
+msgid "Generate Thumbnails"
+msgstr "Sukurti miniatiuras"
+
+msgid "Resolution:"
+msgstr "Skiriamoji geba:"
+
+msgid "Create PDF-File"
+msgstr "Sukurti PDF failà"
+
+msgid "X-Coor.:"
+msgstr "X-Koord.:"
+
+msgid "Y-Coor.:"
+msgstr "Y-Koord.:"
+
+msgid "Page:"
+msgstr "Puslapis:"
+
+msgid "Destination"
+msgstr "Vieta"
+
+msgid "Type:"
+msgstr "Tipas:"
+
+msgid "Annotation Properties"
+msgstr "Apraðymo parinktys"
+
+msgid "Bookmarks"
+msgstr "Nuorodos"
+
+msgid "Include Bookmarks"
+msgstr "Átraukti nuorodas"
+
+msgid "Manage Keyboard Shortcuts"
+msgstr "Tvarkyti klaviðø derinius veiksmams"
+
+msgid "Action"
+msgstr "Veiksmas"
+
+msgid "Current Key"
+msgstr "Esamas derinys"
+
+msgid "Select a Key for this Action"
+msgstr "Pasirink deriná ðiam veiksmui"
+
+msgid "No Key"
+msgstr "Jokiø deriniø"
+
+msgid "User Defined Key"
+msgstr "Tavo pasirinktas derinys"
+
+msgid "Set Key"
+msgstr "Parinkti deriná"
+
+msgid "This Key-Sequence is already in use"
+msgstr "Ðis klaviðø derinys jau naudojamas"
+
+msgid "Keyboard Shortcuts..."
+msgstr "Klaviðø deriniai..."
+
+msgid "Smart Hyphen"
+msgstr "Gudrus brûkðnys"
+
+msgid "Align Left"
+msgstr "Lygiuoti kairëje"
+
+msgid "Align Right"
+msgstr "Lygiuoti deðinëje"
+
+msgid "Align Center"
+msgstr "Lygiuoti per vidurá"
+
+msgid "Insert Pagenumber"
+msgstr "Numeruoti puslapius"
+
+msgid "Binding:"
+msgstr "Sietis:"
+
+msgid "Left Margin"
+msgstr "Kairioji paraðtë"
+
+msgid "Right Margin"
+msgstr "Deðinioji paraðtë"
+
+msgid "Corner Radius:"
+msgstr "Kampo apvalumas:"
+
+msgid "Save linked Textframes as PDF-Articles"
+msgstr "Tekstø rëmelius su iðoriniu failu iðsaugoti kaip PDF-Artikulus"
+
+msgid "Enable Presentation Effects"
+msgstr "Galimi pristatymø efektai"
+
+msgid "Show Page Previews"
+msgstr "Parodyti spausdinto puslapio iðvaizdà"
+
+msgid "Display Duration:"
+msgstr "Rodymo trukmë:"
+
+msgid "Effect Duration:"
+msgstr "Efekto trukmë:"
+
+msgid "Effect Type:"
+msgstr "Efekto tipas:"
+
+msgid "Moving Lines:"
+msgstr "Slenkanèios eilutës:"
+
+msgid "from the:"
+msgstr "ið:"
+
+msgid "Direction:"
+msgstr "Kryptis:"
+
+msgid "No Effect"
+msgstr "Be efektø"
+
+msgid "Blinds"
+msgstr "Uþdangos"
+
+msgid "Box"
+msgstr "Dëþutë"
+
+msgid "Dissolve"
+msgstr "Iðsisklaidymas"
+
+msgid "Glitter"
+msgstr "Blizgesys"
+
+msgid "Split"
+msgstr "Atskirti"
+
+msgid "Wipe"
+msgstr "Pravalyti"
+
+msgid "Inside"
+msgstr "Vidun"
+
+msgid "Outside"
+msgstr "Iðorën"
+
+msgid "Left to Right"
+msgstr "Ið kairës deðinën"
+
+msgid "Top to Bottom"
+msgstr "Ið virðaus apaèion"
+
+msgid "Bottom to Top"
+msgstr "Ið apaèios virðun"
+
+msgid "Right to Left"
+msgstr "Ið deðinës kairën"
+
+msgid "Top-Left to Bottom-Right"
+msgstr "Ið virðutinio kairio kampo á prieðingà"
+
+msgid "Extras"
+msgstr "Priedai"
+
+msgid "Saves the current Document as PDF"
+msgstr "Iðsaugok darbiná dokumentà PDF formatu"
+
+msgid "Rounded Rectangle"
+msgstr "Staèiakampis apvaliais kampais"
+
+msgid "Align Text Left"
+msgstr "Lygiuoti tekstà kairën"
+
+msgid "Align Text Right"
+msgstr "Lygiuoti tekstà deðinën"
+
+msgid "Align Text Center"
+msgstr "Tekstas per vidurá"
+
+msgid "Align Text Block"
+msgstr "Iðlyginti abu teksto pakraðèius"
+
+msgid "Endings:"
+msgstr "Pabaigos:"
+
+msgid "Edges:"
+msgstr "Pakraðèiai:"
+
+msgid "MiterJoin"
+msgstr "Áþambi jungtis"
+
+msgid "BevelJoin"
+msgstr "Nuoþulni jungtis"
+
+msgid "RoundJoin"
+msgstr "Kreiva jungtis"
+
+msgid "FlatCap"
+msgstr "Plokðèias virðus"
+
+msgid "SquareCap"
+msgstr "Kvadratinis virðus"
+
+msgid "RoundCap"
+msgstr "Apvalus virðus"
+
+msgid "Move Bookmark"
+msgstr "Perkelti nuorodà"
+
+msgid "Insert Bookmark"
+msgstr "Áterpti nuorodà"
+
+msgid "Copy Page"
+msgstr "Kopijuoti puslapá"
+
+msgid "To the End"
+msgstr "Á pabaigà"
+
+msgid "GUI"
+msgstr "Grafinë vartotojo aplinka"
+
+msgid "Fontsize"
+msgstr "Ðrifto dydis"
+
+# New in Version 0.8
+msgid "Apply Effect on all Pages"
+msgstr "Pritaikyti efektus visuose puslapiuose"
+
+msgid "Print via other Command"
+msgstr "Spausdinti naudojant kità komandà"
+
+msgid "Command:"
+msgstr "Komanda:"
+
+msgid "Orientation:"
+msgstr "Orientacija:"
+
+msgid "First Pagenumber:"
+msgstr "Pradinis puslapis:"
+
+msgid "Default Unit:"
+msgstr "Pagrindinis vienetas:"
+
+msgid "Send to Scrapbook"
+msgstr "Á iðkarpø krepðá"
+
+msgid "Left Point"
+msgstr "Kaurysis taðkas"
+
+msgid "Endpoints"
+msgstr "Pabaigos taðkas"
+
+msgid "Scaling"
+msgstr "Dydþio keitimas"
+
+msgid "X-Dir:"
+msgstr "X-kryptis:"
+
+msgid "Y-Dir:"
+msgstr "Y-kryptis:"
+
+msgid "Linespacing:"
+msgstr "Tarpas tarp eiluèiø"
+
+msgid "Character Settings"
+msgstr "Simboliø parinktys"
+
+msgid "Length:"
+msgstr "Ilgis"
+
+msgid "Polygon Properties"
+msgstr "Daugiakampio parinktys"
+
+msgid "Corners:"
+msgstr "Kampai:"
+
+msgid "Convex Polygon"
+msgstr "Iðgaubtas daugiakampis"
+
+msgid "Factor:"
+msgstr "Daugiklis:"
+
+msgid "Edit Polygon"
+msgstr "Keisti daugiakampá"
+
+msgid "Properties..."
+msgstr "Parinktys..."
+
+msgid "Lithuanian:"
+msgstr "Lietuviø:"
+
+msgid "Measurements"
+msgstr "Matø sistema"
+
+msgid "Insert Polygons"
+msgstr "Áterpti daugiakampá"
+
+msgid "Rotation:"
+msgstr "Pasukti:"
+
+msgid "Loading..."
+msgstr "Ruoðiama..."
+
+msgid "Convert to"
+msgstr "Pakeisti á"
+
+msgid "Text Frame"
+msgstr "Teksto rëmelis"
+
+msgid "Picture Frame"
+msgstr "Paveiksliuko rëmelis"
+
+msgid "Polygon"
+msgstr "Daugiakampis"
+
+msgid "Bezier Curve"
+msgstr "Bezje kreivë"
+
+msgid "Modify Pathtext"
+msgstr "Pakeisti marðruto tekstà"
+
+msgid "Show Curve"
+msgstr "Rodyti kreivæ"
+
+msgid "Startoffset:"
+msgstr "Atðakos pradþia:"
+
+msgid "Distance from Curve:"
+msgstr "Atstumas nuo kreivës"
+
+msgid "Attach Text to Path"
+msgstr "Priskirti tekstui marðtutà"
+
+msgid "Layers"
+msgstr "Sluoksniai"
+
+msgid "Add a new Layer"
+msgstr "Pridëti naujà sluoksná"
+
+msgid "Delete Layer"
+msgstr "Paðalinti sluoksná"
+
+msgid "Raise Layer"
+msgstr "Iðkelti sluoksná"
+
+msgid "Lower Layer"
+msgstr "Nuleisti sluoksná"
+
+msgid "Closes this Dialog"
+msgstr "Uþdaryti ðá dialogà"
+
+msgid "New Layer"
+msgstr "Naujas sluoksnis"
+
+msgid "Background"
+msgstr "Fonas"
+
+msgid "Reset Control Points"
+msgstr "Atitaisyti valdymo taðkus"
+
+msgid "Reset this Control Points"
+msgstr "Atitaisyti ðiuos valdymo taðkus"
+
+msgid "Opens a Polygon or cuts a Bezier Curve"
+msgstr "Iðardyti daugiakampá arba iðkirpti atkarpà"
+
+msgid "Closes this Bezier Curve"
+msgstr "Sujungti kreivës galus"
+
+msgid "Show Layers"
+msgstr "Paroddyti sluoksná"
+
+msgid "Hide Layers"
+msgstr "Slëpti sluoksná"
+
+msgid "Sent to Layer"
+msgstr "Pereiti prie slouksnio"
+
+msgid "Link"
+msgstr "Saitas"
+
+msgid "Text Field"
+msgstr "Teksto laukelis"
+
+msgid "Button"
+msgstr "Mygtukas"
+
+msgid "Check Box"
+msgstr "Parinkties laukelis"
+
+msgid "Properties"
+msgstr "Savybës"
+
+msgid "Tool-Tip:"
+msgstr "Patarëjas:"
+
+msgid "Read Only"
+msgstr "Tik skaitymui"
+
+msgid "Visibility:"
+msgstr "Matomumas"
+
+msgid "Border"
+msgstr "Kontûras"
+
+msgid "Thin"
+msgstr "Plonas"
+
+msgid "Wide"
+msgstr "Platus"
+
+msgid "Solid"
+msgstr "Ryðkus"
+
+msgid "Dashed"
+msgstr "Punktyris"
+
+msgid "Beveled"
+msgstr "Nuoþulnus"
+
+msgid "Inset"
+msgstr "Áklija"
+
+msgid "Visible"
+msgstr "Matomas"
+
+msgid "Hidden"
+msgstr "Paslëptas"
+
+msgid "No Print"
+msgstr "Nespausdinti"
+
+msgid "No View"
+msgstr "Nerodyti"
+
+msgid "Appearance"
+msgstr "Iðvaizda"
+
+msgid "Text"
+msgstr "Tekstas"
+
+msgid "Text for Button Down"
+msgstr "Mygtuko þemyn tekstas"
+
+msgid "Text for Roll Over"
+msgstr "Sàraðo tekstas"
+
+msgid "Highlight"
+msgstr "Paryðkinti"
+
+msgid "Invert"
+msgstr "Invertuoti"
+
+msgid "Outlined"
+msgstr "Su kontûrais"
+
+msgid "Push"
+msgstr "Spausti"
+
+msgid "Multi-Line"
+msgstr "Daugiaeilë"
+
+msgid "Password"
+msgstr "Slaptaþodis"
+
+msgid "Limit of"
+msgstr "Riba nuo"
+
+msgid "Characters"
+msgstr "Simboliai"
+
+msgid "Do Not Scroll"
+msgstr "Neprasukti"
+
+msgid "Do Not Spell Check"
+msgstr "Netikrinti raðybos"
+
+msgid "Check Style:"
+msgstr "Langelio stilius"
+
+msgid "Check"
+msgstr "Þymëti"
+
+msgid "Cross"
+msgstr "Kryþelis"
+
+msgid "Diamond"
+msgstr "Prizmë"
+
+msgid "Circle"
+msgstr "Apskritimas"
+
+msgid "Star"
+msgstr "Þvaigþdë"
+
+msgid "Square"
+msgstr "Kvadratas"
+
+msgid "Default is Checked"
+msgstr "Pagrindinis paþymëjus"
+
+msgid "Java Script"
+msgstr "Java Script"
+
+msgid "Go To"
+msgstr "Go To"
+
+msgid "Submit Form"
+msgstr "Patvirtinti"
+
+msgid "Reset Form"
+msgstr "Atitaisyti"
+
+msgid "Flag is ignored for PDF-1.3"
+msgstr "Þymë ignoruojama PDF-1.3"
+
+msgid "Font for use with PDF-1.3:"
+msgstr "Ðriftas naudojimui su PDF-1.3:"
+
+msgid "Required"
+msgstr "Bûtinas"
+
+msgid "Don't Export Value"
+msgstr "Neperduoti reikðmës"
+
+msgid "Event:"
+msgstr "Ávykis:"
+
+msgid "Mouse Up"
+msgstr "Mouse Up"
+
+msgid "Mouse Down"
+msgstr "Mouse Down"
+
+msgid "Mouse Enter"
+msgstr "Mouse Enter"
+
+msgid "Mouse Exit"
+msgstr "Mouse Exit"
+
+msgid "On Focus"
+msgstr "On Focus"
+
+msgid "On Blur"
+msgstr "On Blur"
+
+msgid "Script:"
+msgstr "Skriptas:"
+
+msgid "Field is formatted as:"
+msgstr "Laukelis suformuotas kaip:"
+
+msgid "Plain"
+msgstr "Paprastas"
+
+msgid "Number"
+msgstr "Skaièius"
+
+msgid "Percentage"
+msgstr "Procentinis"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Time"
+msgstr "Laikas"
+
+msgid "Custom"
+msgstr "Nuosavas"
+
+msgid "Number Format"
+msgstr "Skaièiaus formatas"
+
+msgid "Decimals:"
+msgstr "Deðimtainis:"
+
+msgid "Use Currency Symbol"
+msgstr "Naudoti valiutos þenklà"
+
+msgid "Prepend Currency Symbol"
+msgstr "Parinktas valiutos þenklas"
+
+msgid "Formatting"
+msgstr "Formatavimas"
+
+msgid "Percent Format"
+msgstr "Procento formatas"
+
+msgid "Date Format"
+msgstr "Datos formatas"
+
+msgid "Time Format"
+msgstr "Laiko formatas"
+
+msgid "Custom Scripts"
+msgstr "Nuosavas skriptas"
+
+msgid "Format:"
+msgstr "Formatas:"
+
+msgid "Edit..."
+msgstr "Taisyti..."
+
+msgid "Combo Box"
+msgstr "Kombinuotas laukelis"
+
+msgid "List Box"
+msgstr "Sàraðo laukelis"
+
+msgid "Keystroke:"
+msgstr "Klaviðas:"
+
+msgid "Format"
+msgstr "Formatas"
+
+msgid "Value is not validated"
+msgstr "Reikðmë negaliojanti"
+
+msgid "Value must be greater than or equal to:"
+msgstr "Reikðmë turi bûti didesnë ar lygi negu:"
+
+msgid "and less or equal to:"
+msgstr "ir maþesnë ar lygi negu:"
+
+msgid "Custom validate script:"
+msgstr "Nuosavas galiojimo scriptas:"
+
+msgid "Value is not calculated"
+msgstr "Reiðmë nesuskaièiuota"
+
+msgid "Value is the"
+msgstr "Reikðmë yra"
+
+msgid "sum"
+msgstr "suma"
+
+msgid "product"
+msgstr "sandauga"
+
+msgid "average"
+msgstr "apytiksli"
+
+msgid "minimum"
+msgstr "maþiausia"
+
+msgid "maximum"
+msgstr "didþiausia"
+
+msgid "of the following fields:"
+msgstr "ið sekanèiø laukeliø:"
+
+msgid "Custom calculation script:"
+msgstr "Nuosavas skaièiavimø skriptas:"
+
+msgid "Calculate"
+msgstr "Skaièiuoti"
+
+msgid "Validate"
+msgstr "Patvirtinti"
+
+msgid "Enter a comma separated list of Fields here"
+msgstr "Ávesti kableliu atskirtà sàraðà ið laukeliø èia"
+
+msgid "Example:"
+msgstr "Pavyzdys:"
+
+msgid "Selection Change"
+msgstr "Parinkties keitimas"
+
+msgid "Use Icons"
+msgstr "Naudoti þenkliukà"
+
+msgid "Remove"
+msgstr "Paðalinti"
+
+msgid "Pressed"
+msgstr "Paspaustas"
+
+msgid "Roll Over"
+msgstr "Iðskleisti"
+
+msgid "Icon Placement..."
+msgstr "Þenkliuko áterpimas..."
+
+msgid "Editable"
+msgstr "Keièiamas"
+
+msgid "Submit to URL:"
+msgstr "Submit to URL:"
+
+msgid "Submit Data as HTML"
+msgstr "Patvirtinti duomenis kaip HTML"
+
+msgid "Layout:"
+msgstr "Iðvaizda:"
+
+msgid "Caption only"
+msgstr "Tik pavadinimas"
+
+msgid "Icon only"
+msgstr "Tik þenkliukas"
+
+msgid "Caption below Icon"
+msgstr "Pavadinimas po þenkliuku"
+
+msgid "Caption above Icon"
+msgstr "Pavadinimas virð þenkliuko"
+
+msgid "Caption right to Icon"
+msgstr "Pavadinimas þenkliuko deðinëje"
+
+msgid "Caption left to Icon"
+msgstr "Pavadinimas þenkliuko kairëje"
+
+msgid "Caption overlays Icon"
+msgstr "Pavadinimas virð þenkliuko"
+
+msgid "Scale When:"
+msgstr "Keisti mastelá kai:"
+
+msgid "Always"
+msgstr "Visada"
+
+msgid "When Icon is too small"
+msgstr "Kai þenkliukas per maþas"
+
+msgid "When Icon is too big"
+msgstr "Kai þenkliukas per didelis"
+
+msgid "Never"
+msgstr "Niekada"
+
+msgid "Scale How:"
+msgstr "Keisti mastelá kaip:"
+
+msgid "Proportional"
+msgstr "Proporcingai"
+
+msgid "Non Proportional"
+msgstr "Ne proporcingai"
+
+msgid "Reset"
+msgstr "Atitaisyti"
+
+msgid "You need at least the Icon for Normal to use Icons for Buttons"
+msgstr "Reiktu turëti nors paprastus þenkliukus mygtukams"
+
+msgid "Save and Exit"
+msgstr "Iðsaugoti ir uþdaryti"
+
+msgid "Exit without Saving"
+msgstr "Uþdaryti neiðsaugant"
+
+msgid "Get Field Names"
+msgstr "Gauti laukelio pavadinimus"
+
+msgid "JavaScripts (*.js);; All Files (*)"
+msgstr "JavaScript (*.js);; Visi failai (*)"
+
+msgid "Pick..."
+msgstr "Parink..."
+
+msgid "Export Range"
+msgstr "Eksporto grupë"
+
+msgid "All Pages"
+msgstr "Visi puslapiai"
+
+msgid "From:"
+msgstr "Nuo:"
+
+msgid "Insert PDF-Fields"
+msgstr "Áterpti PDF-laukelá"
+
+msgid "Undo"
+msgstr "Gràþinti"
+
+msgid "Redo"
+msgstr "Atitaisyti"
+
+msgid "Select Fields"
+msgstr "Pasirinkti laukelá"
+
+msgid "Available Fields"
+msgstr "Pasiekiami laukleliai"
+
+msgid "Selected Fields"
+msgstr "Parinkti laukeliai"
+
+msgid "Field Properties"
+msgstr "Laukeliø parinktys"
+
+msgid "Global JavaScripts"
+msgstr "Globalûs JavaScriptai"
+
+msgid "Add..."
+msgstr "Pridëti..."
+
+msgid "New Script:"
+msgstr "Naujas skriptas:"
+
+msgid "New Script"
+msgstr "Naujas skriptas"
+
+msgid "Insert PDF-Annotations"
+msgstr "Áterpti PDF-anotacijas"
+
+msgid "Import Data"
+msgstr "Ákelti duomenis"
+
+msgid "Import Data from:"
+msgstr "Ákelti duomenis ið:"
+
+msgid "Undo Object Change"
+msgstr "Atðaukti objekto pakeitimus"
+
+msgid "Undo Object Move"
+msgstr "Atðaukti objekto postûmá"
+
+msgid "Undo Delete Object"
+msgstr "Atðaukti objekto paðalinimà"
+
+msgid "Compress File"
+msgstr "Suspausti failà"
+
+msgid "Inches (in)"
+msgstr "Coliai (col)"
+
+msgid "Picas (p)"
+msgstr "Ciceros (cic)"
+
+msgid "Show Template Names"
+msgstr "Rodyti ðablono pavadinimà"
+
+msgid "Arrange Pages"
+msgstr "Sutvarkyti puslapius"
+
+msgid "Available Templates:"
+msgstr "Esami ðablonai:"
+
+msgid "Document Pages:"
+msgstr "Dokumento puslapiai:"
+
+msgid "Hide Page Palette"
+msgstr "Slëpti puslapio paletæ"
+
+msgid "Show Page Palette"
+msgstr "Rodyti puslapio paletæ"
+
+msgid "Drag Pages or Template Pages onto the Trashbin to delete them."
+msgstr "Perkelk puslapá ar ðablono puslapá á ðiukðlinæ kad paðalinti já."
+
+msgid "Here are all your Templates, to create a new Page\ndrag a Template to the Pageview below."
+msgstr "Èia visi ðablonai, kad sukurti naujà puslapá\npertempk ðablonà á langà þemiau."
+
+msgid "Here you can see all Pages of your Document."
+msgstr "Èia galite matyti visus dokumento puslapius."
+
+msgid "Free Scaling"
+msgstr "Laisvas mastelio keitimas"
+
+msgid "Scale Picture to Frame Size"
+msgstr "Paveiksliuko mastelis pagal rëmelio dydá"
+
+msgid "Keep Aspect Ratio"
+msgstr "Iðlaikyti proporcijas"
+
+

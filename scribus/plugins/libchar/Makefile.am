@@ -1,0 +1,16 @@
+libdir = $(prefix)/lib/scribus/plugins
+AM_CPPFLAGS = -I$(top_builddir)/scribus
+lib_LTLIBRARIES = libcharselect.la
+
+INCLUDES = $(LIBFREETYPE_CFLAGS) $(all_includes)
+
+libcharselect_la_LDFLAGS = -version-info 0:0:0
+
+libcharselect_la_METASOURCES = AUTO
+
+libcharselect_la_SOURCES = charselect.cpp 
+KDE_OPTIONS = qtonly
+
+EXTRA_DIST = charselect.cpp charselect.h 
+
+AM_LDFLAGS =  -s $(LIBFREETYPE_LIBS) 

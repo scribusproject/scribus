@@ -1,0 +1,166 @@
+# Original Author was Kalle@kde.org
+# I lifted it in some mater. (Stephan Kulow)
+# I used much code from Janos Farkas
+
+dnl Process this file with autoconf to produce a configure script.
+
+AC_INIT(acinclude.m4) dnl a source file from your sub dir
+
+dnl This is so we can use kde-common
+AC_CONFIG_AUX_DIR(admin)
+
+AC_CANONICAL_SYSTEM 
+AC_ARG_PROGRAM
+
+dnl Automake doc recommends to do this only here. (Janos)
+AM_INIT_AUTOMAKE(scribus,0.9.10)
+
+dnl KDE_SET_PREFIX
+
+AC_PREFIX_DEFAULT(/usr/local)
+if test "x$prefix" = "xNONE"; then
+  prefix=$ac_default_prefix
+  ac_configure_args="$ac_configure_args --prefix $prefix"
+fi
+
+AC_ARG_ENABLE(debug, [  --enable-debug     Enables Debug-Code],
+[if test "x$enable_debug" = "xyes"; then
+	AC_DEFINE_UNQUOTED(DEBUG, 1, [Debug Messages])
+fi])
+LIBFREETYPE_LIBS=""
+LIBFREETYPE_CFLAGS=""
+
+FREETYPE_CONFIG=""
+AC_PATH_PROG(FREETYPE_CONFIG, freetype-config, [AC_MSG_WARN([Could not find libfreetype anywhere, check http://www.freetype.org/])], [${prefix}/bin ${exec_prefix}/bin /usr/local/bin /opt/local/bin /usr/bin /usr/X11/bin])
+
+if test -n "$FREETYPE_CONFIG"; then
+  vers=`$FREETYPE_CONFIG --version 2>/dev/null | sed -e 's/libfreetype //' | awk 'BEGIN { FS = "."; } { printf "%d", ($1 * 1000 + $2) * 1000 + $3;}'`
+  if test -n "$vers" && test "$vers" -ge 5000000
+  then
+     LIBFREETYPE_LIBS="`$FREETYPE_CONFIG --libs`"
+     LIBFREETYPE_CFLAGS="`$FREETYPE_CONFIG --cflags`"
+		 AC_SUBST(LIBFREETYPE_LIBS)
+		 AC_SUBST(LIBFREETYPE_CFLAGS)
+     AC_DEFINE_UNQUOTED(HAVE_FREETYPE, 1, [Defines if your system has the libfreetype library])
+  else
+     AC_MSG_WARN([You need at least libfreetype 5.0])
+  fi
+fi
+
+AC_CHECK_LIB(socket,socket,
+if test "$uname" != "IRIX"; then
+	LIBS="-lsocket $LIBS"
+else
+	echo "Not using -lsocket since you are running IRIX."
+fi)
+AC_CHECK_LIB(nsl,gethostbyaddr,
+if test "$uname" != "IRIX"; then
+	LIBS="-lnsl $LIBS"
+else
+	echo "Not using -lnsl since you are running IRIX."
+fi)
+LIBCUPS=""
+hacups=
+AC_CHECK_LIB(cups, httpConnect, [LIBCUPS="-lcups";hacups=yes],[LIBCUPS="";hacups=no])
+AC_SUBST(LIBCUPS)
+LIBLCMS=""
+hacms=
+AC_CHECK_LIB(lcms, _cmsChannelsOf, [LIBLCMS="-llcms";hacms=yes],[LIBLCMS="";hacms=no])
+hacmsh=
+AC_CHECK_HEADER(lcms.h, [hacmsh=yes],[hacmsh=no])
+if test $hacmsh = no; then
+	AC_CHECK_HEADER(lcms/lcms.h, [hacmsh=yes],[hacmsh=no])
+fi
+AC_SUBST(LIBLCMS)
+if test $hacms = yes && test $hacmsh = yes; then
+ AC_DEFINE_UNQUOTED(HAVE_CMS, 1, [ColorManagement])
+fi
+LIBTIFF=""
+hastif=
+AC_CHECK_LIB(tiff, TIFFOpen, [LIBTIFF="-ltiff";hastif=yes],[LIBTIFF="";hastif=no])
+AC_SUBST(LIBTIFF)
+if test $hastif = yes; then
+ AC_DEFINE_UNQUOTED(HAVE_TIFF, 1, [Tifflib])
+fi
+LIBDL2=""
+AC_CHECK_LIB(c, dlopen, [LIBDL2="-lc"],[LIBDL2=""])
+AC_SUBST(LIBDL2)
+
+dnl generate the config header
+AM_CONFIG_HEADER(config.h) dnl at the distribution this done
+
+AC_DEFINE_UNQUOTED(PREL, "$prefix", [Dataprefix])
+dnl Checks for programs.
+AC_CHECK_COMPILERS
+AC_ENABLE_SHARED(yes)
+AC_ENABLE_STATIC(no)
+KDE_PROG_LIBTOOL
+
+AC_CHECK_HEADER(cups/cups.h, [foo=""],[hacups=no])
+if test $hacups = yes; then
+ AC_DEFINE_UNQUOTED(HAVE_CUPS, 1, [Cups])
+fi
+
+dnl AC_REQUIRE([KDE_CHECK_EXTRA_LIBS])
+all_libraries="$all_libraries $USER_LDFLAGS"
+all_includes="$all_includes $USER_INCLUDES"
+AC_SUBST(all_includes)
+AC_SUBST(all_libraries)
+
+dnl for NLS support. Call them in this order!
+dnl WITH_NLS is for the po files
+dnl AM_KDE_WITH_NLS
+
+AC_PATH_QT
+
+dnl Perform program name transformation
+dnl AC_ARG_PROGRAM
+
+dnl PACKAGE set before
+
+dnl KDE_CREATE_SUBDIRSLIST
+
+dnl add here all your Makefiles. This are created by configure
+dnl The following line is for Autoconf 2.13, Uncomment it, if you are using this old version
+dnl and delete all lines with AC_CONFIG_FILES
+dnl AC_OUTPUT(Makefile scribus/Makefile scribus/icons/Makefile scribus/libabout/Makefile scribus/libprefs/Makefile scribus/plugins/libchar/Makefile scribus/plugins/Makefile scribus/libpostscript/Makefile scribus/profiles/Makefile scribus/libpdf/Makefile scribus/dicts/Makefile scribus/po/Makefile scribus/qm/Makefile )
+
+dnl This stuff is for Autoconf 2.5 and above
+AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([scribus/Makefile])
+AC_CONFIG_FILES([scribus/icons/Makefile])
+AC_CONFIG_FILES([scribus/libabout/Makefile])
+AC_CONFIG_FILES([scribus/libprefs/Makefile])
+AC_CONFIG_FILES([scribus/plugins/libchar/Makefile])
+AC_CONFIG_FILES([scribus/plugins/Makefile])
+AC_CONFIG_FILES([scribus/libpostscript/Makefile])
+AC_CONFIG_FILES([scribus/profiles/Makefile])
+AC_CONFIG_FILES([scribus/libpdf/Makefile])
+AC_CONFIG_FILES([scribus/dicts/Makefile])
+AC_CONFIG_FILES([scribus/qm/Makefile])
+AC_CONFIG_FILES([scribus/po/Makefile])
+AC_OUTPUT
+echo "Configuration Summary:"
+echo ""
+if test -z "$LIBFREETYPE_LIBS"; then
+	echo "FreeType2 installed: No"
+else
+	echo "FreeType2 installed: Yes"
+fi
+if test $hacups = yes; then
+	echo "CUPS installed: Yes"
+else
+	echo "CUPS installed: No"
+fi
+if test $hacms = yes; then
+	echo "LittleCMS installed: Yes"
+else
+	echo "LittleCMS installed: No"
+fi
+if test $hastif = yes; then
+	echo "TiffLib installed: Yes"
+else
+	echo "TiffLib installed: No"
+fi
+echo ""
+echo "Start make now."

@@ -1,0 +1,181 @@
+/****************************************************************************
+** Form implementation generated from reading ui file 'Annot.ui'
+**
+** Created: Tue Feb 19 22:31:55 2002
+**      by:  The User Interface Compiler (uic)
+**
+** WARNING! All changes made in this file will be lost!
+****************************************************************************/
+#include "annota.h"
+#include "annota.moc"
+#include <qstringlist.h>
+
+extern QPixmap loadIcon(QString nam);
+
+Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farben, ScribusView* vie)
+            : QDialog( parent, "AN", true, 0 )
+{
+    setCaption( tr( "Annotation Properties" ) );
+  	setIcon(loadIcon("AppIcon.xpm"));
+  	item = it;
+  	Breite = b;
+  	Hoehe = h;
+  	view = vie;
+    QStringList tl;
+		if (item->AnActType == 2)
+			{
+    	QString tm = item->AnAction;
+    	tl = tl.split(" ", tm);
+			}
+		else
+			{
+			tl.append("0");
+			tl.append("0");
+			}
+		
+    AnnotLayout = new QVBoxLayout( this ); 
+    AnnotLayout->setSpacing( 6 );
+    AnnotLayout->setMargin( 11 );
+
+    Layout1 = new QHBoxLayout; 
+    Layout1->setSpacing( 6 );
+    Layout1->setMargin( 0 );
+
+    TextLabel1 = new QLabel( this, "TextLabel1" );
+    TextLabel1->setText( tr( "Type:" ) );
+    Layout1->addWidget( TextLabel1 );
+
+    ComboBox1 = new QComboBox( true, this, "ComboBox1" );
+    ComboBox1->insertItem( tr( "Text" ) );
+    ComboBox1->insertItem( tr( "Link" ) );
+    ComboBox1->setEditable(false);
+    Layout1->addWidget( ComboBox1 );
+    AnnotLayout->addLayout( Layout1 );
+		item->AnType < 2 ? ComboBox1->setCurrentItem(item->AnType) : ComboBox1->setCurrentItem(item->AnType-10);
+
+    Fram = new QWidgetStack(this);
+    AnnotLayout->addWidget( Fram );
+
+    GroupBox1 = new QGroupBox( this, "GroupBox1" );
+    GroupBox1->setTitle( tr( "Destination" ) );
+    GroupBox1->setColumnLayout(0, Qt::Vertical );
+    GroupBox1->layout()->setSpacing( 0 );
+    GroupBox1->layout()->setMargin( 0 );
+    GroupBox1Layout = new QGridLayout( GroupBox1->layout() );
+    GroupBox1Layout->setAlignment( Qt::AlignTop );
+    GroupBox1Layout->setSpacing( 6 );
+    GroupBox1Layout->setMargin( 11 );
+    TextLabel3 = new QLabel( GroupBox1, "TextLabel3" );
+    TextLabel3->setText( tr( "Page:" ) );
+    GroupBox1Layout->addWidget( TextLabel3, 0, 0 );
+    SpinBox1 = new QSpinBox( GroupBox1, "SpinBox1" );
+    SpinBox1->setMinValue(1);
+    SpinBox1->setMaxValue(Seite);
+    SpinBox1->setValue(item->AnZiel+1);
+    GroupBox1Layout->addWidget( SpinBox1, 0, 1 );
+
+    Pg = new Navigator( GroupBox1, 100, item->AnZiel, view);
+    Pg->setMinimumSize(QSize(Pg->pmx.width(), Pg->pmx.height()));
+    GroupBox1Layout->addMultiCellWidget(Pg, 0, 2, 2, 2);
+
+    TextLabel4 = new QLabel( GroupBox1, "TextLabel4" );
+    TextLabel4->setText( tr( "X-Pos:" ) );
+    GroupBox1Layout->addWidget( TextLabel4, 1, 0 );
+    SpinBox2 = new QSpinBox( GroupBox1, "SpinBox2" );
+    SpinBox2->setSuffix( tr( " pt" ) );
+    SpinBox2->setMaxValue(Breite);
+    SpinBox2->setValue(tl[0].toInt());
+    GroupBox1Layout->addWidget( SpinBox2, 1, 1 );
+    TextLabel5 = new QLabel( GroupBox1, "TextLabel5" );
+    TextLabel5->setText( tr( "Y-Pos:" ) );
+    GroupBox1Layout->addWidget( TextLabel5, 2, 0 );
+    SpinBox3 = new QSpinBox( GroupBox1, "SpinBox3" );
+    SpinBox3->setMaxValue(Hoehe);
+    SpinBox3->setSuffix( tr( " pt" ) );
+    SpinBox3->setValue(Hoehe-tl[1].toInt());
+    GroupBox1Layout->addWidget( SpinBox3, 2, 1 );
+    Fram->addWidget(GroupBox1, 1);
+
+    Frame9 = new QFrame( this, "Frame7" );
+    Frame9->setFrameShape( QFrame::NoFrame );
+    Frame9->setFrameShadow( QFrame::Plain );
+    Fram->addWidget(Frame9, 2);
+
+    SetZiel(item->AnType);
+    Layout1_2 = new QHBoxLayout; 
+    Layout1_2->setSpacing( 6 );
+    Layout1_2->setMargin( 0 );
+
+    QSpacerItem* spacerr = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+    Layout1_2->addItem( spacerr );
+    PushButton1 = new QPushButton( this, "PushButton1" );
+    PushButton1->setText( tr( "OK" ) );
+    PushButton1->setDefault( TRUE );
+    Layout1_2->addWidget( PushButton1 );
+    PushButton2 = new QPushButton( this, "PushButton2" );
+    PushButton2->setText( tr( "Cancel" ) );
+    Layout1_2->addWidget( PushButton2 );
+    QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+    Layout1_2->addItem( spacer );
+    AnnotLayout->addLayout( Layout1_2 );
+    SetCross();
+    connect(PushButton1, SIGNAL(clicked()), this, SLOT(SetVals()));
+    connect(PushButton2, SIGNAL(clicked()), this, SLOT(reject()));
+    connect(ComboBox1, SIGNAL(activated(int)), this, SLOT(SetZiel(int)));
+    connect(SpinBox1, SIGNAL(valueChanged(int)), this, SLOT(SetPg(int)));
+    connect(Pg, SIGNAL(Coords(float, float)), this, SLOT(SetCo(float, float)));
+    connect(SpinBox2, SIGNAL(valueChanged(int)), this, SLOT(SetCross()));
+    connect(SpinBox3, SIGNAL(valueChanged(int)), this, SLOT(SetCross()));
+}
+
+
+void Annota::SetCo(float x, float y)
+{
+	SpinBox2->setValue(static_cast<int>(x*Breite));
+	SpinBox3->setValue(static_cast<int>(y*Hoehe));
+}
+
+void Annota::SetPg(int v)
+{
+	Pg->SetSeite(v-1, 100);
+}
+
+void Annota::SetCross()
+{
+	int x,y;
+  disconnect(Pg, SIGNAL(Coords(float, float)), this, SLOT(SetCo(float, float)));
+	x = static_cast<int>(static_cast<float>(SpinBox2->value())/static_cast<float>(Breite)*Pg->pmx.width());
+	y = static_cast<int>(static_cast<float>(SpinBox3->value())/static_cast<float>(Hoehe)*Pg->pmx.height());
+	Pg->drawMark(x, y);
+  connect(Pg, SIGNAL(Coords(float, float)), this, SLOT(SetCo(float, float)));
+}
+
+void Annota::SetVals()
+{
+	QString tmp;
+	item->AnZiel = SpinBox1->value()-1;
+	item->AnType = ComboBox1->currentItem()+10;
+	if (item->AnType == 10)
+		item->AnActType = 0;
+	if (item->AnType == 11)
+		{
+		item->AnAction = tmp.setNum(SpinBox2->value())+" "+tmp.setNum(Hoehe-SpinBox3->value())+" 0";
+		item->AnActType = 2;
+		}
+	accept();
+}
+
+void Annota::SetZiel(int it)
+{
+	switch (it)
+		{
+		case 1:
+		case 11:
+    	Fram->raiseWidget(1);
+			break;
+		default:
+    	Fram->raiseWidget(2);
+			break;
+		}
+}
+

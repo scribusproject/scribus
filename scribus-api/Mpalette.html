@@ -1,0 +1,508 @@
+<HTML>
+<HEAD>
+<TITLE>class Mpalette</TITLE>
+
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+<TABLE WIDTH="100%" BORDER="0">
+<TR>
+<TD>
+	<TABLE BORDER="0">
+		<TR><TD valign="top" align="left" cellspacing="10">
+		<h1>class Mpalette</h1>
+		</TD>
+		<TD valign="top" align="right" colspan="1"></TD></TR>
+	</TABLE>
+	<HR>
+	<TABLE BORDER="0">
+		<TR><TH>Definition</TH><TD><code>#include &lt;<A HREF="scribus___mpalette_h.html">scribus/mpalette.h</A>&gt;</code></TD></TR>
+<TR><TH>Inherits</TH><TD>QDialog <small>(unknown)</small> <small>[public ]</small></TD></TR>
+<TR><TH><A HREF="full-list-Mpalette.html">List of all Methods</A></TH></TR>
+	</TABLE>
+	</TD>
+<TD align="right"><TABLE BORDER="0"><TR><TD><small><A HREF="index-long.html">Annotated List</A></small></TD></TR>
+<TR><TD><small><A HREF="header-list.html">Files</A></small></TD></TR>
+<TR><TD><small><A HREF="all-globals.html">Globals</A></small></TD></TR>
+<TR><TD><small><A HREF="hier.html">Hierarchy</A></small></TD></TR>
+<TR><TD><small><A HREF="index.html">Index</A></small></TD></TR>
+</TABLE></TD></TR></TABLE>
+<h4>Public Methods</h4><ul><LI>&nbsp;<b><A HREF="#ref1">Mpalette</A></b> (QWidget* parent, QPopupMenu* FontMenu) 
+</LI>
+<LI>&nbsp;<b><A HREF="#ref2">~Mpalette</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref3">closeEvent</A></b> (QCloseEvent *ce) 
+</LI>
+</ul><h4>Public Slots</h4><ul><LI>void &nbsp;<b><A HREF="#ref115">SetDoc</A></b> (<A HREF="ScribusDoc.html">ScribusDoc</A> *d) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref116">UnsetDoc</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref117">NewSel</A></b> (int nr) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref118">SetCurItem</A></b> (<A HREF="PageItem.html">PageItem</A> *i) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref119">UnitChange</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref120">setXY</A></b> (float x, float y) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref121">setBH</A></b> (float x, float y) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref122">setR</A></b> (float r) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref123">setRR</A></b> (float r) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref124">setRM</A></b> (int r) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref125">setLsp</A></b> (float r) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref126">setSize</A></b> (int s) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref127">setExtra</A></b> (float e) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref128">ChangeScaling</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref129">setLvalue</A></b> (float scx, float scy, float x, float y) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref130">setSvalue</A></b> (float s) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref131">setLIvalue</A></b> (PenStyle p, PenCapStyle pc, PenJoinStyle pj) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref132">setStil</A></b> (int s) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref133">setAli</A></b> (int e) 
+</LI>
+</ul><h4>Signals</h4><ul><LI>void &nbsp;<b><A HREF="#ref169">Schliessen</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref170">DocChanged</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref171">NewAbStyle</A></b> (int) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref172">BackHome</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref173">Stellung</A></b> (int) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref174">EditCL</A></b> () 
+</LI>
+</ul><h4>Public Members</h4><ul><LI>QButtonGroup* <b><A HREF="#ref4">buttonGroup5</A></b></LI>
+<LI>QToolButton* <b><A HREF="#ref5">SShape</A></b></LI>
+<LI>QToolButton* <b><A HREF="#ref6">SText</A></b></LI>
+<LI>QToolButton* <b><A HREF="#ref7">SImage</A></b></LI>
+<LI>QToolButton* <b><A HREF="#ref8">SLine</A></b></LI>
+<LI>QToolButton* <b><A HREF="#ref9">SGeom</A></b></LI>
+<LI>QToolButton* <b><A HREF="#ref10">SColor</A></b></LI>
+<LI>QWidgetStack* <b><A HREF="#ref11">TabStack</A></b></LI>
+<LI>QWidget* <b><A HREF="#ref12">page</A></b></LI>
+<LI>QWidget* <b><A HREF="#ref13">page_2</A></b></LI>
+<LI>QWidget* <b><A HREF="#ref14">page_3</A></b></LI>
+<LI>QWidget* <b><A HREF="#ref15">page_4</A></b></LI>
+<LI>QWidget* <b><A HREF="#ref16">page_5</A></b></LI>
+<LI>Cpalette *<b><A HREF="#ref17">Cpal</A></b></LI>
+<LI>QGroupBox* <b><A HREF="#ref18">GeoGroup</A></b></LI>
+<LI>QLabel* <b><A HREF="#ref19">Text1</A></b></LI>
+<LI>QLabel* <b><A HREF="#ref20">Text2</A></b></LI>
+<LI>QLabel* <b><A HREF="#ref21">Text1a</A></b></LI>
+<LI>QLabel* <b><A HREF="#ref22">Text2a</A></b></LI>
+<LI>MSpinBox* <b><A HREF="#ref23">Width</A></b></LI>
+<LI>MSpinBox* <b><A HREF="#ref24">Xpos</A></b></LI>
+<LI>MSpinBox* <b><A HREF="#ref25">Ypos</A></b></LI>
+<LI>MSpinBox* <b><A HREF="#ref26">Height</A></b></LI>
+<LI>QGroupBox* <b><A HREF="#ref27">LayerGroup</A></b></LI>
+<LI>QToolButton* <b><A HREF="#ref28">Zup</A></b></LI>
+<LI>QToolButton* <b><A HREF="#ref29">ZDown</A></b></LI>
+<LI>QToolButton* <b><A HREF="#ref30">ZTop</A></b></LI>
+<LI>QToolButton* <b><A HREF="#ref31">ZBottom</A></b></LI>
+<LI>QButtonGroup* <b><A HREF="#ref32">RotationGroup</A></b></LI>
+<LI>QRadioButton* <b><A HREF="#ref33">TopLeft</A></b></LI>
+<LI>QFrame* <b><A HREF="#ref34">Line1</A></b></LI>
+<LI>QRadioButton* <b><A HREF="#ref35">TopRight</A></b></LI>
+<LI>QFrame* <b><A HREF="#ref36">Line2</A></b></LI>
+<LI>QRadioButton* <b><A HREF="#ref37">Center</A></b></LI>
+<LI>QFrame* <b><A HREF="#ref38">Line4</A></b></LI>
+<LI>QRadioButton* <b><A HREF="#ref39">BottomLeft</A></b></LI>
+<LI>QFrame* <b><A HREF="#ref40">Line5</A></b></LI>
+<LI>QRadioButton* <b><A HREF="#ref41">BottomRight</A></b></LI>
+<LI>QLabel* <b><A HREF="#ref42">Text3</A></b></LI>
+<LI>MSpinBox* <b><A HREF="#ref43">Rot</A></b></LI>
+<LI>QToolButton* <b><A HREF="#ref44">FlipH</A></b></LI>
+<LI>QToolButton* <b><A HREF="#ref45">FlipV</A></b></LI>
+<LI>QButtonGroup* <b><A HREF="#ref46">ShapeGroup</A></b></LI>
+<LI>QToolButton* <b><A HREF="#ref47">SRect</A></b></LI>
+<LI>QToolButton* <b><A HREF="#ref48">SOval</A></b></LI>
+<LI>QToolButton* <b><A HREF="#ref49">SCustom</A></b></LI>
+<LI>QLabel* <b><A HREF="#ref50">Text4</A></b></LI>
+<LI>QSpinBox* <b><A HREF="#ref51">RoundRect</A></b></LI>
+<LI>QCheckBox* <b><A HREF="#ref52">Textflow</A></b></LI>
+<LI>QToolButton* <b><A HREF="#ref53">EditShape</A></b></LI>
+<LI>QGroupBox* <b><A HREF="#ref54">Distance</A></b></LI>
+<LI>QLabel* <b><A HREF="#ref55">Text14</A></b></LI>
+<LI>QLabel* <b><A HREF="#ref56">Text15</A></b></LI>
+<LI>QLabel* <b><A HREF="#ref57">Text16</A></b></LI>
+<LI>MSpinBox* <b><A HREF="#ref58">DTop</A></b></LI>
+<LI>MSpinBox* <b><A HREF="#ref59">DBottom</A></b></LI>
+<LI>MSpinBox* <b><A HREF="#ref60">DLeft</A></b></LI>
+<LI>QLabel* <b><A HREF="#ref61">Text17</A></b></LI>
+<LI>MSpinBox* <b><A HREF="#ref62">DRight</A></b></LI>
+<LI>QToolButton* <b><A HREF="#ref63">Fonts</A></b></LI>
+<LI>QSpinBox* <b><A HREF="#ref64">Size</A></b></LI>
+<LI>QToolButton* <b><A HREF="#ref65">Bold</A></b></LI>
+<LI>QToolButton* <b><A HREF="#ref66">Italic</A></b></LI>
+<LI>QToolButton* <b><A HREF="#ref67">Underline</A></b></LI>
+<LI>QButtonGroup* <b><A HREF="#ref68">ButtonGroup1</A></b></LI>
+<LI>QToolButton* <b><A HREF="#ref69">Subs</A></b></LI>
+<LI>QToolButton* <b><A HREF="#ref70">Supers</A></b></LI>
+<LI>QToolButton* <b><A HREF="#ref71">Kapital</A></b></LI>
+<LI>QToolButton* <b><A HREF="#ref72">Strike</A></b></LI>
+<LI>QButtonGroup* <b><A HREF="#ref73">GroupAlign</A></b></LI>
+<LI>QToolButton* <b><A HREF="#ref74">TextL</A></b></LI>
+<LI>QToolButton* <b><A HREF="#ref75">TextR</A></b></LI>
+<LI>QToolButton* <b><A HREF="#ref76">TextC</A></b></LI>
+<LI>QToolButton* <b><A HREF="#ref77">TextB</A></b></LI>
+<LI>QToolButton* <b><A HREF="#ref78">TextF</A></b></LI>
+<LI>QGroupBox* <b><A HREF="#ref79">GroupBox3</A></b></LI>
+<LI>MSpinBox* <b><A HREF="#ref80">LineSp</A></b></LI>
+<LI>MSpinBox* <b><A HREF="#ref81">Extra</A></b></LI>
+<LI>QLabel* <b><A HREF="#ref82">Text5</A></b></LI>
+<LI>QLabel* <b><A HREF="#ref83">Text6</A></b></LI>
+<LI>QGroupBox* <b><A HREF="#ref84">GroupBox3a</A></b></LI>
+<LI>Spalette *<b><A HREF="#ref85">Spal</A></b></LI>
+<LI>QLabel* <b><A HREF="#ref86">Text20</A></b></LI>
+<LI>QRadioButton* <b><A HREF="#ref87">FreeScale</A></b></LI>
+<LI>QLabel* <b><A HREF="#ref88">Text13</A></b></LI>
+<LI>MSpinBox* <b><A HREF="#ref89">LYpos</A></b></LI>
+<LI>QLabel* <b><A HREF="#ref90">Text12</A></b></LI>
+<LI>QLabel* <b><A HREF="#ref91">Text11</A></b></LI>
+<LI>MSpinBox* <b><A HREF="#ref92">LXpos</A></b></LI>
+<LI>LinkButton* <b><A HREF="#ref93">Kette</A></b></LI>
+<LI>MSpinBox* <b><A HREF="#ref94">ScaleY</A></b></LI>
+<LI>MSpinBox* <b><A HREF="#ref95">ScaleX</A></b></LI>
+<LI>QFrame* <b><A HREF="#ref96">Line5_2</A></b></LI>
+<LI>QRadioButton* <b><A HREF="#ref97">FrameScale</A></b></LI>
+<LI>QFrame* <b><A HREF="#ref98">Frame4</A></b></LI>
+<LI>QCheckBox* <b><A HREF="#ref99">Aspect</A></b></LI>
+<LI>QComboBox* <b><A HREF="#ref100">LineMode</A></b></LI>
+<LI>QLabel* <b><A HREF="#ref101">Text9</A></b></LI>
+<LI>MSpinBox* <b><A HREF="#ref102">LSize</A></b></LI>
+<LI>QLabel* <b><A HREF="#ref103">TextLabel1</A></b></LI>
+<LI>QComboBox* <b><A HREF="#ref104">LJoinStyle</A></b></LI>
+<LI>QLabel* <b><A HREF="#ref105">Text10</A></b></LI>
+<LI>QComboBox* <b><A HREF="#ref106">LEndStyle</A></b></LI>
+<LI>QLabel* <b><A HREF="#ref107">Text8</A></b></LI>
+<LI>LineCombo* <b><A HREF="#ref108">LStyle</A></b></LI>
+<LI>PageItem *<b><A HREF="#ref109">CurItem</A></b></LI>
+<LI>bool <b><A HREF="#ref110">HaveDoc</A></b></LI>
+<LI>bool <b><A HREF="#ref111">HaveItem</A></b></LI>
+<LI>ScribusDoc *<b><A HREF="#ref112">doc</A></b></LI>
+<LI>float <b><A HREF="#ref113">Umrech</A></b></LI>
+<LI>bool <b><A HREF="#ref114">LMode</A></b></LI>
+</ul><h4>Protected Members</h4><ul><LI>QVBoxLayout* <b><A HREF="#ref175">MpalLayout</A></b></LI>
+<LI>QGridLayout* <b><A HREF="#ref176">buttonGroup5Layout</A></b></LI>
+<LI>QVBoxLayout* <b><A HREF="#ref177">pageLayout</A></b></LI>
+<LI>QVBoxLayout* <b><A HREF="#ref178">pageLayout_2</A></b></LI>
+<LI>QVBoxLayout* <b><A HREF="#ref179">pageLayout_3</A></b></LI>
+<LI>QVBoxLayout* <b><A HREF="#ref180">pageLayout_4</A></b></LI>
+<LI>QVBoxLayout* <b><A HREF="#ref181">pageLayout_5</A></b></LI>
+<LI>QHBoxLayout* <b><A HREF="#ref182">layout60</A></b></LI>
+<LI>QHBoxLayout* <b><A HREF="#ref183">layout60a</A></b></LI>
+<LI>QVBoxLayout* <b><A HREF="#ref184">Layout44</A></b></LI>
+<LI>QGridLayout* <b><A HREF="#ref185">Layout12</A></b></LI>
+<LI>QVBoxLayout* <b><A HREF="#ref186">Layout15_2</A></b></LI>
+<LI>QHBoxLayout* <b><A HREF="#ref187">Layout13</A></b></LI>
+<LI>QHBoxLayout* <b><A HREF="#ref188">layout47</A></b></LI>
+<LI>QVBoxLayout* <b><A HREF="#ref189">layout46</A></b></LI>
+<LI>QGridLayout* <b><A HREF="#ref190">layout41</A></b></LI>
+<LI>QHBoxLayout* <b><A HREF="#ref191">Layout1</A></b></LI>
+<LI>QGridLayout* <b><A HREF="#ref192">layout43</A></b></LI>
+<LI>QVBoxLayout* <b><A HREF="#ref193">Layout24</A></b></LI>
+<LI>QHBoxLayout* <b><A HREF="#ref194">Layout18</A></b></LI>
+<LI>QHBoxLayout* <b><A HREF="#ref195">Layout13_2</A></b></LI>
+<LI>QGridLayout* <b><A HREF="#ref196">Layout12_2</A></b></LI>
+<LI>QGridLayout* <b><A HREF="#ref197">GeoGroupLayout</A></b></LI>
+<LI>QGridLayout* <b><A HREF="#ref198">LayerGroupLayout</A></b></LI>
+<LI>QHBoxLayout* <b><A HREF="#ref199">RotationGroupLayout</A></b></LI>
+<LI>QHBoxLayout* <b><A HREF="#ref200">ShapeGroupLayout</A></b></LI>
+<LI>QGridLayout* <b><A HREF="#ref201">DistanceLayout</A></b></LI>
+<LI>QHBoxLayout* <b><A HREF="#ref202">ButtonGroup1Layout</A></b></LI>
+<LI>QGridLayout* <b><A HREF="#ref203">GroupAlignLayout</A></b></LI>
+<LI>QGridLayout* <b><A HREF="#ref204">GroupBox3Layout</A></b></LI>
+<LI>QVBoxLayout* <b><A HREF="#ref205">GroupBox3aLayout</A></b></LI>
+</ul><h4>Private Slots</h4><ul><LI>void &nbsp;<b><A HREF="#ref134">SelTab</A></b> (int t) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref135">NewX</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref136">NewY</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref137">NewW</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref138">NewH</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref139">NewR</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref140">NewRR</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref141">NewLsp</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref142">NewSize</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref143">NewExtra</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref144">DoFlipH</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref145">DoFlipV</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref146">ToggleKette</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref147">HChange</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref148">VChange</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref149">NewLocalXY</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref150">NewLocalSC</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref151">NewLS</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref152">NewLSty</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref153">NewLJoin</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref154">NewLEnd</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref155">NewAli</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref156">setTypeStyle</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref157">NewLMode</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref158">DoLower</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref159">DoRaise</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref160">DoFront</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref161">DoBack</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref162">NewRotMode</A></b> (int m) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref163">DoFlow</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref164">MakeRect</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref165">MakeOval</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref166">MakeIrre</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref167">EditSh</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref168">NewTDist</A></b> () 
+</LI>
+</ul><HR><H2><A NAME="longdesc">Detailed Description</A></H2><A NAME="Mpalette"></A><A NAME="ref1"></A><table width="100%"><tr bgcolor="#eeeeee"><td>&nbsp;<strong>Mpalette</strong> (QWidget* parent, QPopupMenu* FontMenu)
+<br></td><td align="right"><h3><strong>Mpalette</strong></h3></td></tr></table><p></p><A NAME="~Mpalette"></A><A NAME="ref2"></A><table width="100%"><tr bgcolor="#eeeeee"><td>&nbsp;<strong>~Mpalette</strong> ()
+<br></td><td align="right"><h3><strong>~Mpalette</strong></h3></td></tr></table><p></p><A NAME="closeEvent"></A><A NAME="ref3"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>closeEvent</strong> (QCloseEvent *ce)
+<br></td><td align="right"><h3><strong>closeEvent</strong></h3></td></tr></table><p></p><A NAME="buttonGroup5"></A><A NAME="ref4"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QButtonGroup*  <strong>buttonGroup5</strong>
+</td><td align="right"><h3><strong>buttonGroup5</strong></h3></td></tr></table><p></p><A NAME="SShape"></A><A NAME="ref5"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QToolButton">QToolButton</A>*  <strong>SShape</strong>
+</td><td align="right"><h3><strong>SShape</strong></h3></td></tr></table><p></p><A NAME="SText"></A><A NAME="ref6"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QToolButton">QToolButton</A>*  <strong>SText</strong>
+</td><td align="right"><h3><strong>SText</strong></h3></td></tr></table><p></p><A NAME="SImage"></A><A NAME="ref7"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QToolButton">QToolButton</A>*  <strong>SImage</strong>
+</td><td align="right"><h3><strong>SImage</strong></h3></td></tr></table><p></p><A NAME="SLine"></A><A NAME="ref8"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QToolButton">QToolButton</A>*  <strong>SLine</strong>
+</td><td align="right"><h3><strong>SLine</strong></h3></td></tr></table><p></p><A NAME="SGeom"></A><A NAME="ref9"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QToolButton">QToolButton</A>*  <strong>SGeom</strong>
+</td><td align="right"><h3><strong>SGeom</strong></h3></td></tr></table><p></p><A NAME="SColor"></A><A NAME="ref10"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QToolButton">QToolButton</A>*  <strong>SColor</strong>
+</td><td align="right"><h3><strong>SColor</strong></h3></td></tr></table><p></p><A NAME="TabStack"></A><A NAME="ref11"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QWidgetStack*  <strong>TabStack</strong>
+</td><td align="right"><h3><strong>TabStack</strong></h3></td></tr></table><p></p><A NAME="page"></A><A NAME="ref12"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QWidget*  <strong>page</strong>
+</td><td align="right"><h3><strong>page</strong></h3></td></tr></table><p></p><A NAME="page_2"></A><A NAME="ref13"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QWidget*  <strong>page_2</strong>
+</td><td align="right"><h3><strong>page_2</strong></h3></td></tr></table><p></p><A NAME="page_3"></A><A NAME="ref14"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QWidget*  <strong>page_3</strong>
+</td><td align="right"><h3><strong>page_3</strong></h3></td></tr></table><p></p><A NAME="page_4"></A><A NAME="ref15"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QWidget*  <strong>page_4</strong>
+</td><td align="right"><h3><strong>page_4</strong></h3></td></tr></table><p></p><A NAME="page_5"></A><A NAME="ref16"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QWidget*  <strong>page_5</strong>
+</td><td align="right"><h3><strong>page_5</strong></h3></td></tr></table><p></p><A NAME="Cpal"></A><A NAME="ref17"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="Cpalette.html">Cpalette</A> * <strong>Cpal</strong>
+</td><td align="right"><h3><strong>Cpal</strong></h3></td></tr></table><p></p><A NAME="GeoGroup"></A><A NAME="ref18"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QGroupBox*  <strong>GeoGroup</strong>
+</td><td align="right"><h3><strong>GeoGroup</strong></h3></td></tr></table><p></p><A NAME="Text1"></A><A NAME="ref19"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QLabel*  <strong>Text1</strong>
+</td><td align="right"><h3><strong>Text1</strong></h3></td></tr></table><p></p><A NAME="Text2"></A><A NAME="ref20"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QLabel*  <strong>Text2</strong>
+</td><td align="right"><h3><strong>Text2</strong></h3></td></tr></table><p></p><A NAME="Text1a"></A><A NAME="ref21"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QLabel*  <strong>Text1a</strong>
+</td><td align="right"><h3><strong>Text1a</strong></h3></td></tr></table><p></p><A NAME="Text2a"></A><A NAME="ref22"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QLabel*  <strong>Text2a</strong>
+</td><td align="right"><h3><strong>Text2a</strong></h3></td></tr></table><p></p><A NAME="Width"></A><A NAME="ref23"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="MSpinBox.html">MSpinBox</A>*  <strong>Width</strong>
+</td><td align="right"><h3><strong>Width</strong></h3></td></tr></table><p></p><A NAME="Xpos"></A><A NAME="ref24"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="MSpinBox.html">MSpinBox</A>*  <strong>Xpos</strong>
+</td><td align="right"><h3><strong>Xpos</strong></h3></td></tr></table><p></p><A NAME="Ypos"></A><A NAME="ref25"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="MSpinBox.html">MSpinBox</A>*  <strong>Ypos</strong>
+</td><td align="right"><h3><strong>Ypos</strong></h3></td></tr></table><p></p><A NAME="Height"></A><A NAME="ref26"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="MSpinBox.html">MSpinBox</A>*  <strong>Height</strong>
+</td><td align="right"><h3><strong>Height</strong></h3></td></tr></table><p></p><A NAME="LayerGroup"></A><A NAME="ref27"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QGroupBox*  <strong>LayerGroup</strong>
+</td><td align="right"><h3><strong>LayerGroup</strong></h3></td></tr></table><p></p><A NAME="Zup"></A><A NAME="ref28"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QToolButton">QToolButton</A>*  <strong>Zup</strong>
+</td><td align="right"><h3><strong>Zup</strong></h3></td></tr></table><p></p><A NAME="ZDown"></A><A NAME="ref29"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QToolButton">QToolButton</A>*  <strong>ZDown</strong>
+</td><td align="right"><h3><strong>ZDown</strong></h3></td></tr></table><p></p><A NAME="ZTop"></A><A NAME="ref30"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QToolButton">QToolButton</A>*  <strong>ZTop</strong>
+</td><td align="right"><h3><strong>ZTop</strong></h3></td></tr></table><p></p><A NAME="ZBottom"></A><A NAME="ref31"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QToolButton">QToolButton</A>*  <strong>ZBottom</strong>
+</td><td align="right"><h3><strong>ZBottom</strong></h3></td></tr></table><p></p><A NAME="RotationGroup"></A><A NAME="ref32"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QButtonGroup*  <strong>RotationGroup</strong>
+</td><td align="right"><h3><strong>RotationGroup</strong></h3></td></tr></table><p></p><A NAME="TopLeft"></A><A NAME="ref33"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QRadioButton*  <strong>TopLeft</strong>
+</td><td align="right"><h3><strong>TopLeft</strong></h3></td></tr></table><p></p><A NAME="Line1"></A><A NAME="ref34"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QFrame*  <strong>Line1</strong>
+</td><td align="right"><h3><strong>Line1</strong></h3></td></tr></table><p></p><A NAME="TopRight"></A><A NAME="ref35"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QRadioButton*  <strong>TopRight</strong>
+</td><td align="right"><h3><strong>TopRight</strong></h3></td></tr></table><p></p><A NAME="Line2"></A><A NAME="ref36"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QFrame*  <strong>Line2</strong>
+</td><td align="right"><h3><strong>Line2</strong></h3></td></tr></table><p></p><A NAME="Center"></A><A NAME="ref37"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QRadioButton*  <strong>Center</strong>
+</td><td align="right"><h3><strong>Center</strong></h3></td></tr></table><p></p><A NAME="Line4"></A><A NAME="ref38"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QFrame*  <strong>Line4</strong>
+</td><td align="right"><h3><strong>Line4</strong></h3></td></tr></table><p></p><A NAME="BottomLeft"></A><A NAME="ref39"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QRadioButton*  <strong>BottomLeft</strong>
+</td><td align="right"><h3><strong>BottomLeft</strong></h3></td></tr></table><p></p><A NAME="Line5"></A><A NAME="ref40"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QFrame*  <strong>Line5</strong>
+</td><td align="right"><h3><strong>Line5</strong></h3></td></tr></table><p></p><A NAME="BottomRight"></A><A NAME="ref41"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QRadioButton*  <strong>BottomRight</strong>
+</td><td align="right"><h3><strong>BottomRight</strong></h3></td></tr></table><p></p><A NAME="Text3"></A><A NAME="ref42"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QLabel*  <strong>Text3</strong>
+</td><td align="right"><h3><strong>Text3</strong></h3></td></tr></table><p></p><A NAME="Rot"></A><A NAME="ref43"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="MSpinBox.html">MSpinBox</A>*  <strong>Rot</strong>
+</td><td align="right"><h3><strong>Rot</strong></h3></td></tr></table><p></p><A NAME="FlipH"></A><A NAME="ref44"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QToolButton">QToolButton</A>*  <strong>FlipH</strong>
+</td><td align="right"><h3><strong>FlipH</strong></h3></td></tr></table><p></p><A NAME="FlipV"></A><A NAME="ref45"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QToolButton">QToolButton</A>*  <strong>FlipV</strong>
+</td><td align="right"><h3><strong>FlipV</strong></h3></td></tr></table><p></p><A NAME="ShapeGroup"></A><A NAME="ref46"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QButtonGroup*  <strong>ShapeGroup</strong>
+</td><td align="right"><h3><strong>ShapeGroup</strong></h3></td></tr></table><p></p><A NAME="SRect"></A><A NAME="ref47"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QToolButton">QToolButton</A>*  <strong>SRect</strong>
+</td><td align="right"><h3><strong>SRect</strong></h3></td></tr></table><p></p><A NAME="SOval"></A><A NAME="ref48"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QToolButton">QToolButton</A>*  <strong>SOval</strong>
+</td><td align="right"><h3><strong>SOval</strong></h3></td></tr></table><p></p><A NAME="SCustom"></A><A NAME="ref49"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QToolButton">QToolButton</A>*  <strong>SCustom</strong>
+</td><td align="right"><h3><strong>SCustom</strong></h3></td></tr></table><p></p><A NAME="Text4"></A><A NAME="ref50"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QLabel*  <strong>Text4</strong>
+</td><td align="right"><h3><strong>Text4</strong></h3></td></tr></table><p></p><A NAME="RoundRect"></A><A NAME="ref51"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QSpinBox*  <strong>RoundRect</strong>
+</td><td align="right"><h3><strong>RoundRect</strong></h3></td></tr></table><p></p><A NAME="Textflow"></A><A NAME="ref52"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QCheckBox*  <strong>Textflow</strong>
+</td><td align="right"><h3><strong>Textflow</strong></h3></td></tr></table><p></p><A NAME="EditShape"></A><A NAME="ref53"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QToolButton">QToolButton</A>*  <strong>EditShape</strong>
+</td><td align="right"><h3><strong>EditShape</strong></h3></td></tr></table><p></p><A NAME="Distance"></A><A NAME="ref54"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QGroupBox*  <strong>Distance</strong>
+</td><td align="right"><h3><strong>Distance</strong></h3></td></tr></table><p></p><A NAME="Text14"></A><A NAME="ref55"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QLabel*  <strong>Text14</strong>
+</td><td align="right"><h3><strong>Text14</strong></h3></td></tr></table><p></p><A NAME="Text15"></A><A NAME="ref56"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QLabel*  <strong>Text15</strong>
+</td><td align="right"><h3><strong>Text15</strong></h3></td></tr></table><p></p><A NAME="Text16"></A><A NAME="ref57"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QLabel*  <strong>Text16</strong>
+</td><td align="right"><h3><strong>Text16</strong></h3></td></tr></table><p></p><A NAME="DTop"></A><A NAME="ref58"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="MSpinBox.html">MSpinBox</A>*  <strong>DTop</strong>
+</td><td align="right"><h3><strong>DTop</strong></h3></td></tr></table><p></p><A NAME="DBottom"></A><A NAME="ref59"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="MSpinBox.html">MSpinBox</A>*  <strong>DBottom</strong>
+</td><td align="right"><h3><strong>DBottom</strong></h3></td></tr></table><p></p><A NAME="DLeft"></A><A NAME="ref60"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="MSpinBox.html">MSpinBox</A>*  <strong>DLeft</strong>
+</td><td align="right"><h3><strong>DLeft</strong></h3></td></tr></table><p></p><A NAME="Text17"></A><A NAME="ref61"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QLabel*  <strong>Text17</strong>
+</td><td align="right"><h3><strong>Text17</strong></h3></td></tr></table><p></p><A NAME="DRight"></A><A NAME="ref62"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="MSpinBox.html">MSpinBox</A>*  <strong>DRight</strong>
+</td><td align="right"><h3><strong>DRight</strong></h3></td></tr></table><p></p><A NAME="Fonts"></A><A NAME="ref63"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QToolButton">QToolButton</A>*  <strong>Fonts</strong>
+</td><td align="right"><h3><strong>Fonts</strong></h3></td></tr></table><p></p><A NAME="Size"></A><A NAME="ref64"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QSpinBox*  <strong>Size</strong>
+</td><td align="right"><h3><strong>Size</strong></h3></td></tr></table><p></p><A NAME="Bold"></A><A NAME="ref65"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QToolButton">QToolButton</A>*  <strong>Bold</strong>
+</td><td align="right"><h3><strong>Bold</strong></h3></td></tr></table><p></p><A NAME="Italic"></A><A NAME="ref66"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QToolButton">QToolButton</A>*  <strong>Italic</strong>
+</td><td align="right"><h3><strong>Italic</strong></h3></td></tr></table><p></p><A NAME="Underline"></A><A NAME="ref67"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QToolButton">QToolButton</A>*  <strong>Underline</strong>
+</td><td align="right"><h3><strong>Underline</strong></h3></td></tr></table><p></p><A NAME="ButtonGroup1"></A><A NAME="ref68"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QButtonGroup*  <strong>ButtonGroup1</strong>
+</td><td align="right"><h3><strong>ButtonGroup1</strong></h3></td></tr></table><p></p><A NAME="Subs"></A><A NAME="ref69"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QToolButton">QToolButton</A>*  <strong>Subs</strong>
+</td><td align="right"><h3><strong>Subs</strong></h3></td></tr></table><p></p><A NAME="Supers"></A><A NAME="ref70"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QToolButton">QToolButton</A>*  <strong>Supers</strong>
+</td><td align="right"><h3><strong>Supers</strong></h3></td></tr></table><p></p><A NAME="Kapital"></A><A NAME="ref71"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QToolButton">QToolButton</A>*  <strong>Kapital</strong>
+</td><td align="right"><h3><strong>Kapital</strong></h3></td></tr></table><p></p><A NAME="Strike"></A><A NAME="ref72"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QToolButton">QToolButton</A>*  <strong>Strike</strong>
+</td><td align="right"><h3><strong>Strike</strong></h3></td></tr></table><p></p><A NAME="GroupAlign"></A><A NAME="ref73"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QButtonGroup*  <strong>GroupAlign</strong>
+</td><td align="right"><h3><strong>GroupAlign</strong></h3></td></tr></table><p></p><A NAME="TextL"></A><A NAME="ref74"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QToolButton">QToolButton</A>*  <strong>TextL</strong>
+</td><td align="right"><h3><strong>TextL</strong></h3></td></tr></table><p></p><A NAME="TextR"></A><A NAME="ref75"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QToolButton">QToolButton</A>*  <strong>TextR</strong>
+</td><td align="right"><h3><strong>TextR</strong></h3></td></tr></table><p></p><A NAME="TextC"></A><A NAME="ref76"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QToolButton">QToolButton</A>*  <strong>TextC</strong>
+</td><td align="right"><h3><strong>TextC</strong></h3></td></tr></table><p></p><A NAME="TextB"></A><A NAME="ref77"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QToolButton">QToolButton</A>*  <strong>TextB</strong>
+</td><td align="right"><h3><strong>TextB</strong></h3></td></tr></table><p></p><A NAME="TextF"></A><A NAME="ref78"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QToolButton">QToolButton</A>*  <strong>TextF</strong>
+</td><td align="right"><h3><strong>TextF</strong></h3></td></tr></table><p></p><A NAME="GroupBox3"></A><A NAME="ref79"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QGroupBox*  <strong>GroupBox3</strong>
+</td><td align="right"><h3><strong>GroupBox3</strong></h3></td></tr></table><p></p><A NAME="LineSp"></A><A NAME="ref80"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="MSpinBox.html">MSpinBox</A>*  <strong>LineSp</strong>
+</td><td align="right"><h3><strong>LineSp</strong></h3></td></tr></table><p></p><A NAME="Extra"></A><A NAME="ref81"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="MSpinBox.html">MSpinBox</A>*  <strong>Extra</strong>
+</td><td align="right"><h3><strong>Extra</strong></h3></td></tr></table><p></p><A NAME="Text5"></A><A NAME="ref82"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QLabel*  <strong>Text5</strong>
+</td><td align="right"><h3><strong>Text5</strong></h3></td></tr></table><p></p><A NAME="Text6"></A><A NAME="ref83"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QLabel*  <strong>Text6</strong>
+</td><td align="right"><h3><strong>Text6</strong></h3></td></tr></table><p></p><A NAME="GroupBox3a"></A><A NAME="ref84"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QGroupBox*  <strong>GroupBox3a</strong>
+</td><td align="right"><h3><strong>GroupBox3a</strong></h3></td></tr></table><p></p><A NAME="Spal"></A><A NAME="ref85"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="Spalette.html">Spalette</A> * <strong>Spal</strong>
+</td><td align="right"><h3><strong>Spal</strong></h3></td></tr></table><p></p><A NAME="Text20"></A><A NAME="ref86"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QLabel*  <strong>Text20</strong>
+</td><td align="right"><h3><strong>Text20</strong></h3></td></tr></table><p></p><A NAME="FreeScale"></A><A NAME="ref87"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QRadioButton*  <strong>FreeScale</strong>
+</td><td align="right"><h3><strong>FreeScale</strong></h3></td></tr></table><p></p><A NAME="Text13"></A><A NAME="ref88"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QLabel*  <strong>Text13</strong>
+</td><td align="right"><h3><strong>Text13</strong></h3></td></tr></table><p></p><A NAME="LYpos"></A><A NAME="ref89"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="MSpinBox.html">MSpinBox</A>*  <strong>LYpos</strong>
+</td><td align="right"><h3><strong>LYpos</strong></h3></td></tr></table><p></p><A NAME="Text12"></A><A NAME="ref90"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QLabel*  <strong>Text12</strong>
+</td><td align="right"><h3><strong>Text12</strong></h3></td></tr></table><p></p><A NAME="Text11"></A><A NAME="ref91"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QLabel*  <strong>Text11</strong>
+</td><td align="right"><h3><strong>Text11</strong></h3></td></tr></table><p></p><A NAME="LXpos"></A><A NAME="ref92"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="MSpinBox.html">MSpinBox</A>*  <strong>LXpos</strong>
+</td><td align="right"><h3><strong>LXpos</strong></h3></td></tr></table><p></p><A NAME="Kette"></A><A NAME="ref93"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="LinkButton.html">LinkButton</A>*  <strong>Kette</strong>
+</td><td align="right"><h3><strong>Kette</strong></h3></td></tr></table><p></p><A NAME="ScaleY"></A><A NAME="ref94"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="MSpinBox.html">MSpinBox</A>*  <strong>ScaleY</strong>
+</td><td align="right"><h3><strong>ScaleY</strong></h3></td></tr></table><p></p><A NAME="ScaleX"></A><A NAME="ref95"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="MSpinBox.html">MSpinBox</A>*  <strong>ScaleX</strong>
+</td><td align="right"><h3><strong>ScaleX</strong></h3></td></tr></table><p></p><A NAME="Line5_2"></A><A NAME="ref96"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QFrame*  <strong>Line5_2</strong>
+</td><td align="right"><h3><strong>Line5_2</strong></h3></td></tr></table><p></p><A NAME="FrameScale"></A><A NAME="ref97"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QRadioButton*  <strong>FrameScale</strong>
+</td><td align="right"><h3><strong>FrameScale</strong></h3></td></tr></table><p></p><A NAME="Frame4"></A><A NAME="ref98"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QFrame*  <strong>Frame4</strong>
+</td><td align="right"><h3><strong>Frame4</strong></h3></td></tr></table><p></p><A NAME="Aspect"></A><A NAME="ref99"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QCheckBox*  <strong>Aspect</strong>
+</td><td align="right"><h3><strong>Aspect</strong></h3></td></tr></table><p></p><A NAME="LineMode"></A><A NAME="ref100"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QComboBox*  <strong>LineMode</strong>
+</td><td align="right"><h3><strong>LineMode</strong></h3></td></tr></table><p></p><A NAME="Text9"></A><A NAME="ref101"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QLabel*  <strong>Text9</strong>
+</td><td align="right"><h3><strong>Text9</strong></h3></td></tr></table><p></p><A NAME="LSize"></A><A NAME="ref102"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="MSpinBox.html">MSpinBox</A>*  <strong>LSize</strong>
+</td><td align="right"><h3><strong>LSize</strong></h3></td></tr></table><p></p><A NAME="TextLabel1"></A><A NAME="ref103"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QLabel*  <strong>TextLabel1</strong>
+</td><td align="right"><h3><strong>TextLabel1</strong></h3></td></tr></table><p></p><A NAME="LJoinStyle"></A><A NAME="ref104"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QComboBox*  <strong>LJoinStyle</strong>
+</td><td align="right"><h3><strong>LJoinStyle</strong></h3></td></tr></table><p></p><A NAME="Text10"></A><A NAME="ref105"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QLabel*  <strong>Text10</strong>
+</td><td align="right"><h3><strong>Text10</strong></h3></td></tr></table><p></p><A NAME="LEndStyle"></A><A NAME="ref106"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QComboBox*  <strong>LEndStyle</strong>
+</td><td align="right"><h3><strong>LEndStyle</strong></h3></td></tr></table><p></p><A NAME="Text8"></A><A NAME="ref107"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QLabel*  <strong>Text8</strong>
+</td><td align="right"><h3><strong>Text8</strong></h3></td></tr></table><p></p><A NAME="LStyle"></A><A NAME="ref108"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="LineCombo.html">LineCombo</A>*  <strong>LStyle</strong>
+</td><td align="right"><h3><strong>LStyle</strong></h3></td></tr></table><p></p><A NAME="CurItem"></A><A NAME="ref109"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="PageItem.html">PageItem</A> * <strong>CurItem</strong>
+</td><td align="right"><h3><strong>CurItem</strong></h3></td></tr></table><p></p><A NAME="HaveDoc"></A><A NAME="ref110"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>HaveDoc</strong>
+</td><td align="right"><h3><strong>HaveDoc</strong></h3></td></tr></table><p></p><A NAME="HaveItem"></A><A NAME="ref111"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>HaveItem</strong>
+</td><td align="right"><h3><strong>HaveItem</strong></h3></td></tr></table><p></p><A NAME="doc"></A><A NAME="ref112"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="ScribusDoc.html">ScribusDoc</A> * <strong>doc</strong>
+</td><td align="right"><h3><strong>doc</strong></h3></td></tr></table><p></p><A NAME="Umrech"></A><A NAME="ref113"></A><table width="100%"><tr bgcolor="#eeeeee"><td>float  <strong>Umrech</strong>
+</td><td align="right"><h3><strong>Umrech</strong></h3></td></tr></table><p></p><A NAME="LMode"></A><A NAME="ref114"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>LMode</strong>
+</td><td align="right"><h3><strong>LMode</strong></h3></td></tr></table><p></p><A NAME="SetDoc"></A><A NAME="ref115"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>SetDoc</strong> (<A HREF="ScribusDoc.html">ScribusDoc</A> *d)
+<br></td><td align="right"><h3><strong>SetDoc</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="UnsetDoc"></A><A NAME="ref116"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>UnsetDoc</strong> ()
+<br></td><td align="right"><h3><strong>UnsetDoc</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="NewSel"></A><A NAME="ref117"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>NewSel</strong> (int nr)
+<br></td><td align="right"><h3><strong>NewSel</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="SetCurItem"></A><A NAME="ref118"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>SetCurItem</strong> (<A HREF="PageItem.html">PageItem</A> *i)
+<br></td><td align="right"><h3><strong>SetCurItem</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="UnitChange"></A><A NAME="ref119"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>UnitChange</strong> ()
+<br></td><td align="right"><h3><strong>UnitChange</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="setXY"></A><A NAME="ref120"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setXY</strong> (float x, float y)
+<br></td><td align="right"><h3><strong>setXY</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="setBH"></A><A NAME="ref121"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setBH</strong> (float x, float y)
+<br></td><td align="right"><h3><strong>setBH</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="setR"></A><A NAME="ref122"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setR</strong> (float r)
+<br></td><td align="right"><h3><strong>setR</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="setRR"></A><A NAME="ref123"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setRR</strong> (float r)
+<br></td><td align="right"><h3><strong>setRR</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="setRM"></A><A NAME="ref124"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setRM</strong> (int r)
+<br></td><td align="right"><h3><strong>setRM</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="setLsp"></A><A NAME="ref125"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setLsp</strong> (float r)
+<br></td><td align="right"><h3><strong>setLsp</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="setSize"></A><A NAME="ref126"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setSize</strong> (int s)
+<br></td><td align="right"><h3><strong>setSize</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="setExtra"></A><A NAME="ref127"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setExtra</strong> (float e)
+<br></td><td align="right"><h3><strong>setExtra</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ChangeScaling"></A><A NAME="ref128"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ChangeScaling</strong> ()
+<br></td><td align="right"><h3><strong>ChangeScaling</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="setLvalue"></A><A NAME="ref129"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setLvalue</strong> (float scx, float scy, float x, float y)
+<br></td><td align="right"><h3><strong>setLvalue</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="setSvalue"></A><A NAME="ref130"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setSvalue</strong> (float s)
+<br></td><td align="right"><h3><strong>setSvalue</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="setLIvalue"></A><A NAME="ref131"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setLIvalue</strong> (PenStyle p, PenCapStyle pc, PenJoinStyle pj)
+<br></td><td align="right"><h3><strong>setLIvalue</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="setStil"></A><A NAME="ref132"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setStil</strong> (int s)
+<br></td><td align="right"><h3><strong>setStil</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="setAli"></A><A NAME="ref133"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setAli</strong> (int e)
+<br></td><td align="right"><h3><strong>setAli</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="SelTab"></A><A NAME="ref134"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>SelTab</strong> (int t)
+<br></td><td align="right"><h3><strong>SelTab</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="NewX"></A><A NAME="ref135"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>NewX</strong> ()
+<br></td><td align="right"><h3><strong>NewX</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="NewY"></A><A NAME="ref136"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>NewY</strong> ()
+<br></td><td align="right"><h3><strong>NewY</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="NewW"></A><A NAME="ref137"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>NewW</strong> ()
+<br></td><td align="right"><h3><strong>NewW</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="NewH"></A><A NAME="ref138"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>NewH</strong> ()
+<br></td><td align="right"><h3><strong>NewH</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="NewR"></A><A NAME="ref139"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>NewR</strong> ()
+<br></td><td align="right"><h3><strong>NewR</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="NewRR"></A><A NAME="ref140"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>NewRR</strong> ()
+<br></td><td align="right"><h3><strong>NewRR</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="NewLsp"></A><A NAME="ref141"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>NewLsp</strong> ()
+<br></td><td align="right"><h3><strong>NewLsp</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="NewSize"></A><A NAME="ref142"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>NewSize</strong> ()
+<br></td><td align="right"><h3><strong>NewSize</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="NewExtra"></A><A NAME="ref143"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>NewExtra</strong> ()
+<br></td><td align="right"><h3><strong>NewExtra</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="DoFlipH"></A><A NAME="ref144"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>DoFlipH</strong> ()
+<br></td><td align="right"><h3><strong>DoFlipH</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="DoFlipV"></A><A NAME="ref145"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>DoFlipV</strong> ()
+<br></td><td align="right"><h3><strong>DoFlipV</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="ToggleKette"></A><A NAME="ref146"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ToggleKette</strong> ()
+<br></td><td align="right"><h3><strong>ToggleKette</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="HChange"></A><A NAME="ref147"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>HChange</strong> ()
+<br></td><td align="right"><h3><strong>HChange</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="VChange"></A><A NAME="ref148"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>VChange</strong> ()
+<br></td><td align="right"><h3><strong>VChange</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="NewLocalXY"></A><A NAME="ref149"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>NewLocalXY</strong> ()
+<br></td><td align="right"><h3><strong>NewLocalXY</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="NewLocalSC"></A><A NAME="ref150"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>NewLocalSC</strong> ()
+<br></td><td align="right"><h3><strong>NewLocalSC</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="NewLS"></A><A NAME="ref151"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>NewLS</strong> ()
+<br></td><td align="right"><h3><strong>NewLS</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="NewLSty"></A><A NAME="ref152"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>NewLSty</strong> ()
+<br></td><td align="right"><h3><strong>NewLSty</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="NewLJoin"></A><A NAME="ref153"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>NewLJoin</strong> ()
+<br></td><td align="right"><h3><strong>NewLJoin</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="NewLEnd"></A><A NAME="ref154"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>NewLEnd</strong> ()
+<br></td><td align="right"><h3><strong>NewLEnd</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="NewAli"></A><A NAME="ref155"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>NewAli</strong> ()
+<br></td><td align="right"><h3><strong>NewAli</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="setTypeStyle"></A><A NAME="ref156"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setTypeStyle</strong> ()
+<br></td><td align="right"><h3><strong>setTypeStyle</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="NewLMode"></A><A NAME="ref157"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>NewLMode</strong> ()
+<br></td><td align="right"><h3><strong>NewLMode</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="DoLower"></A><A NAME="ref158"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>DoLower</strong> ()
+<br></td><td align="right"><h3><strong>DoLower</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="DoRaise"></A><A NAME="ref159"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>DoRaise</strong> ()
+<br></td><td align="right"><h3><strong>DoRaise</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="DoFront"></A><A NAME="ref160"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>DoFront</strong> ()
+<br></td><td align="right"><h3><strong>DoFront</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="DoBack"></A><A NAME="ref161"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>DoBack</strong> ()
+<br></td><td align="right"><h3><strong>DoBack</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="NewRotMode"></A><A NAME="ref162"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>NewRotMode</strong> (int m)
+<br></td><td align="right"><h3><strong>NewRotMode</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="DoFlow"></A><A NAME="ref163"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>DoFlow</strong> ()
+<br></td><td align="right"><h3><strong>DoFlow</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="MakeRect"></A><A NAME="ref164"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>MakeRect</strong> ()
+<br></td><td align="right"><h3><strong>MakeRect</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="MakeOval"></A><A NAME="ref165"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>MakeOval</strong> ()
+<br></td><td align="right"><h3><strong>MakeOval</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="MakeIrre"></A><A NAME="ref166"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>MakeIrre</strong> ()
+<br></td><td align="right"><h3><strong>MakeIrre</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="EditSh"></A><A NAME="ref167"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>EditSh</strong> ()
+<br></td><td align="right"><h3><strong>EditSh</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="NewTDist"></A><A NAME="ref168"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>NewTDist</strong> ()
+<br></td><td align="right"><h3><strong>NewTDist</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="Schliessen"></A><A NAME="ref169"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>Schliessen</strong> ()
+<br></td><td align="right"><h3><strong>Schliessen</strong></h3></td></tr></table><p> <small>[signal]</small></p><A NAME="DocChanged"></A><A NAME="ref170"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>DocChanged</strong> ()
+<br></td><td align="right"><h3><strong>DocChanged</strong></h3></td></tr></table><p> <small>[signal]</small></p><A NAME="NewAbStyle"></A><A NAME="ref171"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>NewAbStyle</strong> (int)
+<br></td><td align="right"><h3><strong>NewAbStyle</strong></h3></td></tr></table><p> <small>[signal]</small></p><A NAME="BackHome"></A><A NAME="ref172"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>BackHome</strong> ()
+<br></td><td align="right"><h3><strong>BackHome</strong></h3></td></tr></table><p> <small>[signal]</small></p><A NAME="Stellung"></A><A NAME="ref173"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>Stellung</strong> (int)
+<br></td><td align="right"><h3><strong>Stellung</strong></h3></td></tr></table><p> <small>[signal]</small></p><A NAME="EditCL"></A><A NAME="ref174"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>EditCL</strong> ()
+<br></td><td align="right"><h3><strong>EditCL</strong></h3></td></tr></table><p> <small>[signal]</small></p><A NAME="MpalLayout"></A><A NAME="ref175"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QVBoxLayout">QVBoxLayout</A>*  <strong>MpalLayout</strong>
+</td><td align="right"><h3><strong>MpalLayout</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="buttonGroup5Layout"></A><A NAME="ref176"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QGridLayout">QGridLayout</A>*  <strong>buttonGroup5Layout</strong>
+</td><td align="right"><h3><strong>buttonGroup5Layout</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="pageLayout"></A><A NAME="ref177"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QVBoxLayout">QVBoxLayout</A>*  <strong>pageLayout</strong>
+</td><td align="right"><h3><strong>pageLayout</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="pageLayout_2"></A><A NAME="ref178"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QVBoxLayout">QVBoxLayout</A>*  <strong>pageLayout_2</strong>
+</td><td align="right"><h3><strong>pageLayout_2</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="pageLayout_3"></A><A NAME="ref179"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QVBoxLayout">QVBoxLayout</A>*  <strong>pageLayout_3</strong>
+</td><td align="right"><h3><strong>pageLayout_3</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="pageLayout_4"></A><A NAME="ref180"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QVBoxLayout">QVBoxLayout</A>*  <strong>pageLayout_4</strong>
+</td><td align="right"><h3><strong>pageLayout_4</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="pageLayout_5"></A><A NAME="ref181"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QVBoxLayout">QVBoxLayout</A>*  <strong>pageLayout_5</strong>
+</td><td align="right"><h3><strong>pageLayout_5</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="layout60"></A><A NAME="ref182"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QHBoxLayout">QHBoxLayout</A>*  <strong>layout60</strong>
+</td><td align="right"><h3><strong>layout60</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="layout60a"></A><A NAME="ref183"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QHBoxLayout">QHBoxLayout</A>*  <strong>layout60a</strong>
+</td><td align="right"><h3><strong>layout60a</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="Layout44"></A><A NAME="ref184"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QVBoxLayout">QVBoxLayout</A>*  <strong>Layout44</strong>
+</td><td align="right"><h3><strong>Layout44</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="Layout12"></A><A NAME="ref185"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QGridLayout">QGridLayout</A>*  <strong>Layout12</strong>
+</td><td align="right"><h3><strong>Layout12</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="Layout15_2"></A><A NAME="ref186"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QVBoxLayout">QVBoxLayout</A>*  <strong>Layout15_2</strong>
+</td><td align="right"><h3><strong>Layout15_2</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="Layout13"></A><A NAME="ref187"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QHBoxLayout">QHBoxLayout</A>*  <strong>Layout13</strong>
+</td><td align="right"><h3><strong>Layout13</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="layout47"></A><A NAME="ref188"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QHBoxLayout">QHBoxLayout</A>*  <strong>layout47</strong>
+</td><td align="right"><h3><strong>layout47</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="layout46"></A><A NAME="ref189"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QVBoxLayout">QVBoxLayout</A>*  <strong>layout46</strong>
+</td><td align="right"><h3><strong>layout46</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="layout41"></A><A NAME="ref190"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QGridLayout">QGridLayout</A>*  <strong>layout41</strong>
+</td><td align="right"><h3><strong>layout41</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="Layout1"></A><A NAME="ref191"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QHBoxLayout">QHBoxLayout</A>*  <strong>Layout1</strong>
+</td><td align="right"><h3><strong>Layout1</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="layout43"></A><A NAME="ref192"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QGridLayout">QGridLayout</A>*  <strong>layout43</strong>
+</td><td align="right"><h3><strong>layout43</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="Layout24"></A><A NAME="ref193"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QVBoxLayout">QVBoxLayout</A>*  <strong>Layout24</strong>
+</td><td align="right"><h3><strong>Layout24</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="Layout18"></A><A NAME="ref194"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QHBoxLayout">QHBoxLayout</A>*  <strong>Layout18</strong>
+</td><td align="right"><h3><strong>Layout18</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="Layout13_2"></A><A NAME="ref195"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QHBoxLayout">QHBoxLayout</A>*  <strong>Layout13_2</strong>
+</td><td align="right"><h3><strong>Layout13_2</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="Layout12_2"></A><A NAME="ref196"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QGridLayout">QGridLayout</A>*  <strong>Layout12_2</strong>
+</td><td align="right"><h3><strong>Layout12_2</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="GeoGroupLayout"></A><A NAME="ref197"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QGridLayout">QGridLayout</A>*  <strong>GeoGroupLayout</strong>
+</td><td align="right"><h3><strong>GeoGroupLayout</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="LayerGroupLayout"></A><A NAME="ref198"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QGridLayout">QGridLayout</A>*  <strong>LayerGroupLayout</strong>
+</td><td align="right"><h3><strong>LayerGroupLayout</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="RotationGroupLayout"></A><A NAME="ref199"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QHBoxLayout">QHBoxLayout</A>*  <strong>RotationGroupLayout</strong>
+</td><td align="right"><h3><strong>RotationGroupLayout</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="ShapeGroupLayout"></A><A NAME="ref200"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QHBoxLayout">QHBoxLayout</A>*  <strong>ShapeGroupLayout</strong>
+</td><td align="right"><h3><strong>ShapeGroupLayout</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="DistanceLayout"></A><A NAME="ref201"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QGridLayout">QGridLayout</A>*  <strong>DistanceLayout</strong>
+</td><td align="right"><h3><strong>DistanceLayout</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="ButtonGroup1Layout"></A><A NAME="ref202"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QHBoxLayout">QHBoxLayout</A>*  <strong>ButtonGroup1Layout</strong>
+</td><td align="right"><h3><strong>ButtonGroup1Layout</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="GroupAlignLayout"></A><A NAME="ref203"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QGridLayout">QGridLayout</A>*  <strong>GroupAlignLayout</strong>
+</td><td align="right"><h3><strong>GroupAlignLayout</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="GroupBox3Layout"></A><A NAME="ref204"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QGridLayout">QGridLayout</A>*  <strong>GroupBox3Layout</strong>
+</td><td align="right"><h3><strong>GroupBox3Layout</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="GroupBox3aLayout"></A><A NAME="ref205"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QVBoxLayout">QVBoxLayout</A>*  <strong>GroupBox3aLayout</strong>
+</td><td align="right"><h3><strong>GroupBox3aLayout</strong></h3></td></tr></table><p> <small>[protected]</small></p><HR>
+	<table>
+	<tr><td><small>Generated by: paul on T6.linux on Tue Mar 18 23:32:13 2003, using kdoc 2.0a54.</small></td></tr>
+	</table>
+</BODY>
+</HTML>

@@ -1,0 +1,732 @@
+Changes since Version 0.9.9
+05.05.2003	When you edit a Path, you can select now more than one Point for moving,
+		either by pressing the Shift Key or using the selection Rectangle.
+		Fonts are now scanned for their Chararcter width only when they are used.
+		(Avoids building big Tables for never used Fonts)
+
+04.05.2003	Extended the Node-Palette.
+		The PDF-Exporter now embeds only really used Fonts.
+
+03.05.2003	Added new Command "Convert Text to Polygons"
+
+27.04.2003	Implemented Subpaths for Polygons.
+		Removed various Copy and Paste Errors.
+
+26.04.2003	Improved Textrendering for Zoomfactors > 100 %
+
+Changes since Version 0.9.8
+18.04.2003	Added a Build-ID to the About Box for easier finding out which Librarys are used when
+		Scribus was compiled.
+
+17.04.2003	There is now an Option in the Print Dialog to apply ICC-Profiles before printing.
+
+16.04.2003	Extended the PDF-Exporter to use Unicode too.
+
+12.04.2003	Implemented Reverse Writing Mode for Textboxes.
+
+11.04.2003	Character Widths are now also calculated with Freetype.
+		The "Insert Special" now uses Freetype for displaying the Characaters.
+
+08.04.2003	Scribus uses now Freetype2 (if available) to do the embedding of TTF-Fonts
+		into Postscript, this allows the use of Unicode in the Postscript Output.
+
+05.04.2003	Added a Dialog to choose the Page when importing Pages from other Documents
+		Apply Template doesn't duplicate Guidelines anymore.
+
+03.04.2003	Added Import of Pages from other Documents.
+
+29.03.2003	Improved the zooming with the Mouse Wheel by enableing it when you press the Mouse Wheel.
+
+28.03.2003	Added an Autosave Option.
+
+27.03.2003	Added Hungarian Hyphenation.
+		The Scrapbook is now saved everytime you drop an Item on it.
+		
+Changes since Version 0.9.7
+25.03.2003	You can now zoom In and Out withe the Mouse Wheel when you hold the Shift-Key
+		whilst rotating the Wheel.
+
+23.03.2003	The Postscript Driver can now seperate RGB-Images too. The only thing that
+		doesn't work are Gradient Fills of Objects on Template Pages.
+		
+22.03.2003	The PDF-Exporter converts now RGB-Images to CMYK when Destination Printer is
+		selected.
+		
+17.03.2003	Added support for the Clipboard. (works with KDE and QT Applications)
+
+14.03.2003	Added the ability to print Pages mirrored.
+
+10.03.2003	Guides can now be locked.
+
+01.03.2003	Again redesigned the Measurement Palette to reduce their Size.
+
+26.02.2003	Fixed Bug with the Docking Palettes.
+
+24.02.2003	Added a Workaround for the Qt-3.1.1 setClipRegion Bug.
+
+Changes since Version 0.9.6
+21.02.2003	Scribus is now complete Qt-3.1.1 compatible.
+
+18.02.2003	Completed Redesign of the Measurement Palette.
+
+15.02.2003	Made Rotation from Center possible.
+
+02.02.2003	Added a "Collect for Output" Command to save everything into
+		a User Defined Folder.
+
+31.01.2003	Images are stored now with their relative Paths.
+
+29.01.2003	Added Slovak Hyphenation.
+
+28.01.2003	Added Danish Translation and Hyphenation.
+
+27.01.2003	Finished the new Bookmark-Palette.
+
+19.01.2003	Redesigned the handling of Bookmarks.
+
+18.01.2003	Added the missing Textproperties Underline and Striketrough to
+		the PDF-Exporter.
+
+16.01.2003	Moved the Documentation to a seperate Package.
+
+15.01.2003	Added several Patches.
+
+Changes since Version 0.9.5
+11.01.2003	Extended the Encryption for PDF-1.4 File to 128 Bits.
+
+07.01.2003	Added PDF-Encryption.
+
+03.01.2003	Added support for CUPS.
+
+02.01.2003	Scribus can now write PDF/X-3 conform Documents.
+
+31.12.2002	Fixed a long standing Bug with Documents printed directly after loading.
+
+Changes since Version 0.9.4
+30.12.2002	You can now embed ICC-Profiles in the PDF-Output.
+
+27.12.2002	Fixed a Bug in the PDF-Exporter with resampled Images.
+
+26.12.2002	Template Pages are now stored as Forms in the PDF and Postscript Output.
+
+24.12.2002	Added Compression for Images in the Postscript Output.
+
+22.12.2002	PDF-1.4 Transparency added.
+
+21.12.2002	Now you can manage the additional Fontpath in the Fontpreferences.
+
+20.12.2002	Now you can edit the Font Substitution List.
+
+19.12.2002	Extended the Font Preferences, now you can exlude certain Fonts from being used.
+
+18.12.2002	Added a Font Substitution List.
+
+16.12.2002	Fixed several Bugs in the Postscript Driver.
+
+Changes since Version 0.9.3
+14.12.2002	Improved the File-Format to prevent troubles loading Documents.
+
+12.12.2002	Added a Dialog to manage the Guidelines.
+
+09.12.2002	Now you can snap Objects to the Guidelines.
+
+08.12.2002	Added User defined Guidelines, which can be dragged out of the Rulers.
+
+05.12.2002	Added Polish Translation contributed by Maciej Hañski <m.hanski@gmx.at>
+
+03.12.2002	PDF-Export Options are now saved with the Document.
+
+02.12.2002	The PDF-Export now also supports the Gradient Fills.
+
+01.12.2002	Gradient Fills are printable now.
+
+30.11.2002	Added Gradient Fills.
+
+26.11.2002	Added a Button to the File Select Dialog which moves to a
+		User Defined Folder.
+		Disabled deleting and editing of the Colors: White, Black, Cyan
+		Magenta and Yellow.
+		
+25.11.2002	You can now lock Objects.
+
+Changes since Version 0.9.2
+23.11.2002	PDF and Postscript Files are now spooled to Disk instead of
+		creating them in Memory.
+
+22.11.2002	Now you can set Font and Fontsize in Paragraph-Style-Templates.
+
+21.11.2002	Added Russian Hyphenation.
+
+20.11.2002	LowRes Previews are now used for displaying on the Screen.
+
+19.11.2002	Scribus now works with QT 3.1
+
+17.11.2002	You can set the Name of an Object in the "Modify Object" Dialog.
+
+Changes since Version 0.9.1
+14.11.2002	Fixed a crash in the Print Dialog when /etc/printcap is missing.
+		Type1 Fonts are now recognized even when your local encoding is
+		is08859-15 or utf8.
+
+13.11.2002	Made some cosmetic Changes to the Button Layout of varios Dialogs.
+		Fixed handling of Toolbar Buttons and Menu-Entrys when switching
+		Documents.
+
+12.11.2002	Preferences are now stored in an own Folder called ".scribus".
+
+11.11.2002	Fixed a grave Bug when opening Documents with missing Fonts.
+		MDI-Mode is generally more stable now.
+
+10.11.2002	Moved a misplaced #endif that caused Compilation Errors to the
+		right Place (the Line 5050 Bug)
+
+Changes since Version 0.8
+09.11.2002	MDI-Mode complete.
+
+05.11.2002	Begun to implement MDI-Mode.
+
+03.11.2002	Enhanched the Hyphenator by adding an Auto-Check-Mode during Typing
+
+02.11.2002	The Hypenator-Plugin is now fully integrated into the Main Code.
+
+29.09.2002	Release of Scribus 0.8
+
+Changes since Version 0.7.8
+24.09.2002	Made last Code Refinements.
+
+22.09.2002	Fixed a Bug with Documents created with Automatic Text Frames.
+
+Changes since Version 0.7.7
+08.09.2002	Added Tooltips to the Page Palette.
+
+07.09.2002	Fixed a bug in the PDF-Export with Grayscale jpg's.
+
+03.09.2002	Now you can change the Size of Textboxes during Edit-Mode.
+
+01.09.2002	Added a new Commandline Option --lang xx
+		xx represents a Language code just like the 
+		Environment Variable LANG.
+		Fixed some Bugs in the PDF-Fields.
+		
+29.08.2002	Added a Page Palette for better handling of Pages.
+
+15.08.2002	Added the missing Home and End Keys to the Textbox.
+		The Print Dialog now remembers the last extended
+		Printing Command.
+		
+Changes since Version 0.7.6
+30.07.2002	New Developers Version 0.7.7
+
+26.07.2002	Fixed a Bug with transparent Images in the Postscript Driver
+
+25.07.2002	Changed all Path Descriptions to use floating Point Coordinates.
+
+24.07.2002	Written a FPointArray Class (with floating Point Coordinate Values)
+		for the internal Path representation.
+
+23.07.2002	New Measurement Unit: Picas
+
+22.07.2002	New Measurement Unit: Inches
+		Object Movements with the Keyboard can now be undone too.
+
+21.07.2002	Improved scaling of Groups, should now be more exact.
+		Scaling of Groups is always proportional.
+		Added Undo for raising and lowering of Objects.
+
+20.07.2002	Support for Colormanagement improved.
+
+17.07.2002	Fixed Bug in the creation of Master Pages
+		Added Progress Bar for Saving
+		If you create Elements with Shift Key pressed while dragging the 
+		Mouse the dimensions are now constrained to a square.
+		
+16.07.2002	Now you can undo: Delete Object
+				  Move Object
+				  Resize Object
+				  Rotate Object
+
+15.07.2002	First Undo-Code implemented
+
+14.07.2002	Added Gamut-Check to the Colormanagement Options
+
+Changes since Version 0.7.5
+14.07.2002	New Developers Release 0.7.6
+
+13.07.2002	Improved Drag'n'Drop of Groups.
+
+06.07.2002	Groups can now be moved with the Cursor Keys,
+		Measurement-Palette and scaled with the Mouse.
+
+02.07.2002	Added Toolbar-Icon for creating PDF-Annotations.
+
+01.07.2002	Completed the Icon properties for PDF-Buttons.
+		Added Import Data Action.
+
+30.06.2002	Added Icons for PDF-Buttons.
+
+29.06.2002	Added Submit Form Action for PDF-Buttons
+		Added the ability to rotate PDF-Fields
+		Added turkish Translation for the GUI.
+
+28.06.2002	Added Toolbar-Icon for creating PDF-Fields.
+		Added support for global JavaScripts.
+
+27.06.2002	Added Page Rages to to the PDF-Export Options.
+		Added Support for translation files for Plugins.
+		The Translations must be stored in the Folder ..../scribus/plugins
+
+26.06.2002	Fixed a minor Bug in the PDF-Exporter.
+		Added a Dialog for selecting Fields in the Annotation Properties Dialog
+		Extended the JavaScript Editor with a Menu Bar for the most common
+		editing tasks.
+
+Changes since Version 0.7.4
+25.06.2002	New Developers Release 0.7.5
+
+24.06.2002	Finished development of the export of PDF-Forms.
+		Doubleclicking an Annotation now opens the Annotation Properties Dialog
+		
+08.06.2002	Began to develop the export of interactive PDF-Elements.
+
+Changes since Version 0.7.3
+07.06.2002	New Developers Release 0.7.4
+
+03.06.2002	Added document-wide Layers.
+
+01.06.2002	Added 2 new Buttons to the Node-Palette for resetting Controlpoints
+
+29.05.2002	The Clipping Paths of Picture and Text Frame are now
+		also Bezier Curves.
+
+27.05.2002	You can now convert Polygons to Beziercurves and vice versa
+
+Changes since Version 0.7.2
+26.05.2002	New Developers Release 0.7.3
+
+25.05.2002	Doubleclicking on an Object does now the following:
+		for Rectangles, Ovals and Lines:  Opens the Modify Object Dialog
+		for Text and Pictures:            Enters Textediting or Picture moving state
+		for Path-Texts and Bezier Curves: Enters Node editing mode
+
+24.05.2002	Text can now be attached to a Bezier Curve.
+
+23.05.2002	New Object: Bezier Curves
+		Combined with Polylines in one Objecttype.
+
+22.05.2002	Finished Redesign of the Node-Palette
+
+20.05.2002	New Object: Polylines
+
+19.05.2002	Now all 8 handles of an object are fully functional.
+
+16.05.2002	Improved behavior of the Zoom Tool.
+
+15.05.2002	Color-Profiles can have now the extensions .icm or .icc (Lower or Uppercase)
+
+14.05.2002	The Polygon properties Dialog has now an Option to rotate the Polygon
+
+13.05.2002	You can convert between Textframes, Pictureframes and Polygons with the
+		Context Menu.
+
+Changes since Version 0.7.1:
+12.05.2002	New Developers Release 0.7.2
+
+11.05.2002	Finished the Polygon Preferences Dialog.
+
+10.05.2002	Added Polygons
+		Final fixes for the Line-Code.
+
+09.05.2002	Finished Redesign of the Measurements Palette
+
+08.05.2002	Lines thinner than 1 pt are now possible.
+
+05.05.2002	Begun redesign of the Measurements Palette
+
+03.05.2002	Improved editing the Clipping-Path.
+
+28.04.2002	New Developers-Release 0.7.1
+		Fixed bug with "Save as..."
+		Added missing math.h to scribusXml.h
+		Added Lithauian translation
+
+27.04.2002	New Developers-Release 0.7
+		Ported to QT3
+		Rewrote the code for the Lines.
+		Changed the New File Dialog
+		Added the ability to print via an external Command.
+
+13.04.2002	New stable Version 0.6
+		Fixed a great bunch of bugs since Version 0.5.8
+		
+Changes since Version 0.5.7:
+29.03.2002	Extended the Measurements Palette a little.
+
+26.03.2002	Removed a bug with linked Textframes which caused infinite recursion.
+		Added the ability to set the Application Font Size in the Preferences.
+		
+25.03.2002	Added iso8859-15 encoding for the PDF-Export
+
+24.03.2002	Changed the Font related Code so that Fonts encoded in ISO-8859-2
+		can be used for PDF-Export
+
+Changes since Version 0.5.6:
+21.03.2002	Linked Textframes are now exported as PDF-Articles.
+
+20.03.2002	Added PDF-Presentation Effects to the PDF-Exporter.
+
+19.03.2002	Costum Clipping Paths of Text- and Pictureframes are now
+		scaled accordingly if the Frame is resized.
+
+18.03.2002	Changed the behaviour of Template Pages. They act now as
+		a background Layer. Objects of Template Pages are no longer
+		selectable if you are working on normal Pages.
+
+17.03.2002	Text- and Pictureframes are able to have rounded Corners.
+
+09.03.2002	Rectangles can have round Edges.
+
+Changes since Version 0.5.5:
+01.03.2002	Now you can define your own Keyboard-Shortcuts.
+
+23.02.2002	Hypertext-Links in PDF are now useable.
+
+17.02.2002	Now you can export PDF-Bookmarks as a Tree.
+
+07.02.2002	Redesigned the PDF-Options dialog a little.
+		Changed parsing of /etc/printcap .
+		
+06.02.2002	Enabled downsampling of Pictures in the PDF-Export.
+
+05.02.2002	Scribus now checks that fonts which are listed in fonts.dir
+		or fonts.scale really do exist.(Mandrake 8.1 seems to have
+		some faulty font.dir files)
+
+04.02.2002	Made some Bugfixes with linked Textboxes.
+
+02.02.2002	The PDF-Export works now.
+
+19.01.2002	Began work on a new PDF-Exporter.
+
+17.01.2002	Scribus can now read embedded Profiles from
+		TIFF-Pictures.
+		
+15.01.2002	Added TIFF-Support.
+
+06.01.2002	Experimental Support for Colormanagement
+
+28.12.2001	Plugins are now working.
+
+15.12.2001	Last Bugfixes in the postscript driver and some other places.
+
+11.12.2001	RGB-Mode of the Color-Chooser changed slightly.
+
+09.12.2001	Scribus now uses the extension .scd for Documents to avoid
+		conflicts with other Applications.
+		
+08.12.2001	The Postscript-Driver now uses only PS-Level 2 constructs
+		except for PDF-creation. PS-Level 3 is used to create PDF-
+		Files with masked Images due to a bug in Ghostscript.
+
+30.11.2001	Added custom Fileselector with Previews.
+
+28.11.2001	New Dialog for searching of Pictures.
+
+26.11.2001	Added RGB-Mode to the Color-Chooser
+		New Version 0.5
+
+24.11.2001	Added Keyboard Shortcuts for Textalignments
+		CTRL-E = centered, CTRL-L = left, CTRL-R = right
+		Extended the Preferences a little.
+		Added zooming to Selection Rectangle.
+
+22.11.2001	Added a Recent Documents Menue.
+
+21.11.2001	Added a Dialog for quick finding of missing Pictures.
+		Improved Screen-Redraw
+		New Version 0.4.10
+
+17.11.2001	Added french documentation contributed by Yves Ceccone <yves@yeccoe.org>
+		Made even more speed improvements.
+
+16.11.2001	Fixed several bugs
+
+14.11.2001	New french translation contributed by Yves Ceccone <yves@yeccoe.org>
+		Made some more speed improvements with large Documents.
+		Added smart hypens for better Wordbreaks.
+
+12.11.2001	Eliminated more unneeded redraws.
+		New Version 0.4.9
+
+10.11.2001	Objectgroups are now fully working.
+
+09.11.2001	Fixed a bug which causes Scribus to crash when loading Documents
+		which contain the character è. This crash happens only in the
+		locale fr.
+
+07.11.2001	Objects can now be grouped together
+
+05.11.2001	Scribus now displays Pages of Documents with facing Pages side by side.
+		This can switched off in the Preferences.
+		Some new Icons contributed by Alastair Robinson.
+		New Version 0.4.8
+
+03.11.2001	Template pages are now fully working.
+		Added Slovak and Ukrainian translation.
+		
+01.11.2001	Template pages can now be used.
+
+31.10.2001	Updated TTF-Code from Alastair Robinson
+
+29.01.2001	New Version 0.4.7
+		Began work on template pages.
+
+28.10.2001	Fixed a bug that caused Scribus not to find Fonts on RedHat-Systems (again)
+		Polished the Scrapbook-Window a little.
+
+26.10.2001	Implemented the first subset of Keyboard Shortcuts.
+
+24.10.2001	Implemented the usual Selection Rectangle.
+		Bugfixes, Bugfixes, Bugfixes....
+
+23.10.2001	Fixed some bugs in the printing of text on the screen.
+		New Version 0.4.6
+
+22.10.2001	Fixed a bug that prevents Scribus from starting properly.
+		Patch submitted by Arnd Bergmann <arnd@bergmann-dalldorf.de>
+
+20.10.2001	Added a Scrapbook-Window for storing often used objects.
+		Fixed numerous minor bugs.
+		TTF-Fonts can now be printed. Code contributed by Alastair Robinson.
+
+14.10.2001	Fixed a Bug that causes Scribus not to print correctly.
+		Began work on TTF-Support, Code contributed by Alastair Robinson.
+		New version 0.4.5
+
+11.10.2001	Added a Palette for Frame-Editing
+
+06.10.2001	New Version 0.4.4
+		Scribus now uses the AFM-File of a Font if available.
+		
+03.10.2001	Added the Alignments Full and Forced.
+
+02.10.2001	Added new Options to Paragraph-Styles
+		Fixed various bugs.
+		Enhanched printing speed.
+		Patch submitted by Alastair Robinson <blackfive@fakenhamweb.co.uk>
+
+01.10.2001	New Version 0.4.3
+
+29.09.2001	Now you can set a Backgroundcolor for the Pages (Display only)
+
+28.09.2001	Implemented first subset of Paragraph-Style-Templates.
+		Fixed bug regarding the display of the rulers
+		Fixed bug in the code for the Wheel-Mouse
+		Patches submitted by Alastair Robinson <blackfive@fakenhamweb.co.uk>
+
+23.09.2001	Fixed a bug in the installation of the German documentation.
+		Fixed bug regarding the display of the Gridlines.
+		Patch submitted by Alastair Robinson <blackfive@fakenhamweb.co.uk>
+
+22.09.2001	New Version 0.4.2
+		Implemented Textalignments Left, Right and Center.
+		
+21.09.2001	Finished basic Color-Separations.
+		Fixed a bug in the embedding of Fonts in the Postscript-
+		output. Patch submitted by Alastair Robinson <blackfive@fakenhamweb.co.uk>
+
+20.09.2001	Removed a bug that causes Text that is located on other
+		pages than the first not being printed.
+
+18.09.2001	New Print-Dialog which supports Options required for
+		doing Separations.
+
+16.09.2001	The EPS-Import now recognizes DCS-Comments for CMYK-Colors
+		in the EPS-Files. Scribus imports these Colors.
+		
+15.09.2001	New ColorPicker for CMYK-Colors.
+
+10.09.2000	Changed the Color-Representation to CMYK-Colors
+
+08.09.2001	Released Version 0.4 to the Public
+
+29.08.2001	Finished reprogramming the Dialogs.
+
+27.08.2001	Version 0.4
+		Redesigned Distribute/Align Dialog
+		
+25.08.2001	Decided to make Version 0.3.11 the Release Candiate for 0.4
+		Limited maximum Pointsize for Text to 512 pt.
+		
+19.08.2001	New Version 0.3.11
+		Begin redesigning all Dialog so that Texts in all
+		Languages will fit.
+
+17.08.2001      Added Confirmation Dialogs for File->New, File->Open
+                if there is an unsaved Document in use.
+
+15.08.2001      Added automatic Linebreak on Word-Boundarys.
+
+14.08.2001      Removed the "No Fill" Checkboxes in the Modify Objects Dialog,
+                Preferencens and in the Contextmenue. Their Functionality is
+                now achieved by the Color "None".
+
+13.08.2001      Redesigned About-Box.
+
+12.08.2001      Improved Drag'nDrop.
+                New Version 0.3.10
+
+10.08.2001      ImageMagick and pfb2pfa are no longer required
+                to run Scribus
+
+09.08.2001      Added Toolbar to Main Window.
+
+08.08.2001      Added Spanish and Catalan Translations.
+                Images with Transparency are now correct printed.
+
+06.08.2001      Added PDF-Annnotations to PDF-Export.
+
+05.08.2001      Extended Drag'n'Drop.
+                Now you can:
+                Drag Pictures into a Picture-Frame.
+                Drag Textfiles into a Textbox.
+                Drag Text from another Applications into a Textbox.
+                Drag Items from Konquerer to Scribus.
+                With the right Mousebutton you can:
+                Drag Items to another place in the Document (copying it).
+                Drag Items to the KDE-Desktop.
+                Drag Items to Konquerer.
+                Drag Items to another Application, where they appear as Text.
+
+04.08.2001      Enabled Drag'n'Drop of Pictures to Scribus
+                New Version 0.3.9
+
+03.08.2001      Now you can choose Units for the Documents. Currently there
+                are Typographic Points (pt) and Millimeters (mm) supported.
+
+01.08.2001      Added new About-Box with a Logo contributed by Thomas Zastrow.
+                Added ability to display the Margins and the Guides in front
+                of the Page.
+
+31.07.2001      New Try on supporting other codecs than ISO-8859-1
+
+29.07.2001      Fixed various Bugs, implemented Clipping on Page-Boundarys
+                in the Postscript-Output.
+
+28.07.2001      Added extended German Documentation contributed
+                by Thomas Zastrow.
+                New Version 0.3.8
+
+26.07.2001      Added Preferences for the Tools.
+
+25.07.2001      Added Cursor-Up and Cursor-Down for Textframes.
+
+23.07.2001      Linked Textframes finished, Automatic Textframes
+                are now connected to a Textchain.
+
+21.07.2001      Linked Textframes can be created with the mouse,
+                new Version 0.3.7
+
+19.07.2001      Linked Textframes can now be saved to Disk.
+                Disabled linked Frames for Release 0.3.6 because
+                this Feature isn't ready for public Release.
+
+18.07.2001      Linked Textframes added (experimental)
+
+16.07.2001      Scribus now uses XML for his Preferences.
+
+15.07.2001      File-Format for Documents changed to XML.
+
+14.07.2001      Export to XML added
+                New version 0.3.6
+
+13.07.2001      Added French translation contributed from Michel Briand
+
+12.07.2001      Fixed Bug in PageItem.cpp that prevents large Textfiles to
+                be loaded and display correct.
+                Measurement Palette finished.
+
+11.07.2001      Old Measurement-Palette removed
+                Minimized Redraws
+
+10.07.2001      In the Measurement-Palette you can step by 10th of a unit
+                in all SpinBoxes by holding down the Shift-Key.
+
+09.07.2001      New Measurement-Palette partially functional
+
+08.07.2001      Begin redesigning Measurement-Palette.
+                Textflow-Flag added to PageItems.
+
+07.07.2001      Completed redesigning Modify-Object Dialog.
+                Serializer: Fixed Bug loading Documents.
+                New Version 0.3.5
+
+06.07.2001      Modify-Objects also handles Pictureframes now.
+
+05.07.2001      Documentation is now installed in $prefix/share/scribus/doc/(locale)
+                Added Modify-Dialog to Context-Menue
+
+04.07.2001      Begin redesigning Modify-Object Dialog
+
+03.07.2001      Added Online-Helpbrowser
+                Fixed a bug with magnetic Guides
+
+01.07.2001      Added Typestyles Bold and Small Caps.
+
+30.06.2001      Added transparency to EPS-Images.
+                Added ability to load Colors from other Documents
+                New Version 0.3.4
+
+29.06.2001      Improved printing of underlined and strike Characters.
+                Documentation extended.
+
+28.06.2001      Bugs in Bugreport submitted by Uwe Steinmann fixed
+                Made Resizing and Moving of Objects covered by other
+                Objects more useable.
+                Linespacing is now a float Value.
+
+27.06.2001      Added Typestyles Underline and Strikethru
+
+26.06.2001      Fixed various Redraw-Bugs introduced by QT-2.3
+                In scaled Painters Lines must have a width >= 1
+                to avoid drawing outside of Clipping-Area
+
+24.06.2001      Hopefully fixed a serious Bug, Scribus could
+                crash badly killing the X-Server when editing
+                the Clipping-Path of a Picture. Bug was reported
+                by Attila Keller.
+                Added Typstyle Italic
+                New Version 0.3.3
+
+22.06.2001      Bugfixes for Cursorhandling, changed behavior
+                of the Buttons for the Typestyles.
+                Added Preferences for Typestyles
+
+21.06.2001      Implemented Typestyle Subscribt
+                Partially added Tool-Tips to Measurement-Palette
+
+20.06.2001      Implemented first Typestyle Superscript
+
+18.06.2001      Removed Bug from Manual Kerning
+                Now it is possible to flip Textboxes like Images
+
+17.06.2001      Modify Objects Dialog for Textframes working
+                Manual Kerning added
+
+16.06.2001      Move Pages Dialog added
+                Start working on Modify Objects Dialog
+                Now Version 0.3.2
+
+15.06.2001      No more use of xset -q to get the Font-Path.
+                Thank to Christian Töpp, who pointed out a
+                way to get the Font-Path without xset.
+
+14.06.2001      Insert Page now works
+                Delete Page Dialog works
+                Added Tooltips for Tools-Palette
+
+12.06.2001	Unicode-Support enhanced???
+		Insert Page-Dialog added
+
+10.06.2001      new Options added to PDF-Options-Dialog
+                configure recognizes now --prefix
+

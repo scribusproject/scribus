@@ -1,0 +1,71 @@
+<HTML>
+<HEAD>
+<TITLE>class SCFonts_Encoding</TITLE>
+
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+<TABLE WIDTH="100%" BORDER="0">
+<TR>
+<TD>
+	<TABLE BORDER="0">
+		<TR><TD valign="top" align="left" cellspacing="10">
+		<h1>class SCFonts_Encoding</h1>
+		</TD>
+		<TD valign="top" align="right" colspan="1"></TD></TR>
+	</TABLE>
+	<HR>
+	<TABLE BORDER="0">
+		<TR><TH>Definition</TH><TD><code>#include &lt;<A HREF="scribus___scfonts__encoding_h.html">scribus/scfonts_encoding.h</A>&gt;</code></TD></TR>
+<TR><TH><A HREF="full-list-SCFonts_Encoding.html">List of all Methods</A></TH></TR>
+	</TABLE>
+	</TD>
+<TD align="right"><TABLE BORDER="0"><TR><TD><small><A HREF="index-long.html">Annotated List</A></small></TD></TR>
+<TR><TD><small><A HREF="header-list.html">Files</A></small></TD></TR>
+<TR><TD><small><A HREF="all-globals.html">Globals</A></small></TD></TR>
+<TR><TD><small><A HREF="hier.html">Hierarchy</A></small></TD></TR>
+<TR><TD><small><A HREF="index.html">Index</A></small></TD></TR>
+</TABLE></TD></TR></TABLE>
+<h4>Public Methods</h4><ul><LI>&nbsp;<b><A HREF="#ref1">SCFonts_Encoding</A></b> () 
+</LI>
+<LI>&nbsp;<b><A HREF="#ref2">SCFonts_Encoding</A></b> (QString name) 
+</LI>
+<LI>bool &nbsp;<b><A HREF="#ref3">read</A></b> (QString name) 
+</LI>
+<LI>bool &nbsp;<b><A HREF="#ref4">present</A></b> (int code) 
+</LI>
+<LI>bool &nbsp;<b><A HREF="#ref5">present</A></b> (QString &name) 
+</LI>
+<LI>QString &&nbsp;<b><A HREF="#ref6">operator[]</A></b> (int code) 
+</LI>
+<LI>int &&nbsp;<b><A HREF="#ref7">operator[]</A></b> (QString &name) 
+</LI>
+<LI>QMap<int,QString>::Iterator &nbsp;<b><A HREF="#ref8">beginByCode</A></b> () 
+</LI>
+<LI>QMap<int,QString>::Iterator &nbsp;<b><A HREF="#ref9">endByCode</A></b> () 
+</LI>
+<LI>QMap<QString,int>::Iterator &nbsp;<b><A HREF="#ref10">beginByName</A></b> () 
+</LI>
+<LI>QMap<QString,int>::Iterator &nbsp;<b><A HREF="#ref11">endByName</A></b> () 
+</LI>
+</ul><h4>Private Members</h4><ul><LI>QMap<QString,int> <b><A HREF="#ref12">Codes</A></b></LI>
+<LI>QMap<int,QString> <b><A HREF="#ref13">Names</A></b></LI>
+</ul><HR><H2><A NAME="longdesc">Detailed Description</A></H2><A NAME="SCFonts_Encoding"></A><A NAME="ref1"></A><table width="100%"><tr bgcolor="#eeeeee"><td>&nbsp;<strong>SCFonts_Encoding</strong> ()
+<br></td><td align="right"><h3><strong>SCFonts_Encoding</strong></h3></td></tr></table><p></p><A NAME="SCFonts_Encoding"></A><A NAME="ref2"></A><table width="100%"><tr bgcolor="#eeeeee"><td>&nbsp;<strong>SCFonts_Encoding</strong> (QString name)
+<br></td><td align="right"><h3><strong>SCFonts_Encoding</strong></h3></td></tr></table><p></p><A NAME="read"></A><A NAME="ref3"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool &nbsp;<strong>read</strong> (QString name)
+<br></td><td align="right"><h3><strong>read</strong></h3></td></tr></table><p></p><A NAME="present"></A><A NAME="ref4"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool &nbsp;<strong>present</strong> (int code)
+<br></td><td align="right"><h3><strong>present</strong></h3></td></tr></table><p></p><A NAME="present"></A><A NAME="ref5"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool &nbsp;<strong>present</strong> (QString &name)
+<br></td><td align="right"><h3><strong>present</strong></h3></td></tr></table><p></p><A NAME="operator[]"></A><A NAME="ref6"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString &&nbsp;<strong>operator[]</strong> (int code)
+<br></td><td align="right"><h3><strong>operator[]</strong></h3></td></tr></table><p></p><A NAME="operator[]"></A><A NAME="ref7"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int &&nbsp;<strong>operator[]</strong> (QString &name)
+<br></td><td align="right"><h3><strong>operator[]</strong></h3></td></tr></table><p></p><A NAME="beginByCode"></A><A NAME="ref8"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QMap<int,QString>::Iterator &nbsp;<strong>beginByCode</strong> ()
+<br></td><td align="right"><h3><strong>beginByCode</strong></h3></td></tr></table><p></p><A NAME="endByCode"></A><A NAME="ref9"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QMap<int,QString>::Iterator &nbsp;<strong>endByCode</strong> ()
+<br></td><td align="right"><h3><strong>endByCode</strong></h3></td></tr></table><p></p><A NAME="beginByName"></A><A NAME="ref10"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QMap<QString,int>::Iterator &nbsp;<strong>beginByName</strong> ()
+<br></td><td align="right"><h3><strong>beginByName</strong></h3></td></tr></table><p></p><A NAME="endByName"></A><A NAME="ref11"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QMap<QString,int>::Iterator &nbsp;<strong>endByName</strong> ()
+<br></td><td align="right"><h3><strong>endByName</strong></h3></td></tr></table><p></p><A NAME="Codes"></A><A NAME="ref12"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QMap<QString,int>  <strong>Codes</strong>
+</td><td align="right"><h3><strong>Codes</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Names"></A><A NAME="ref13"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QMap<int,QString>  <strong>Names</strong>
+</td><td align="right"><h3><strong>Names</strong></h3></td></tr></table><p> <small>[private]</small></p><HR>
+	<table>
+	<tr><td><small>Generated by: paul on T6.linux on Tue Mar 18 23:32:13 2003, using kdoc 2.0a54.</small></td></tr>
+	</table>
+</BODY>
+</HTML>

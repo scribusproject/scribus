@@ -1,0 +1,122 @@
+<HTML>
+<HEAD>
+<TITLE>class SeitenPal</TITLE>
+
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+<TABLE WIDTH="100%" BORDER="0">
+<TR>
+<TD>
+	<TABLE BORDER="0">
+		<TR><TD valign="top" align="left" cellspacing="10">
+		<h1>class SeitenPal</h1>
+		</TD>
+		<TD valign="top" align="right" colspan="1"></TD></TR>
+	</TABLE>
+	<HR>
+	<TABLE BORDER="0">
+		<TR><TH>Definition</TH><TD><code>#include &lt;<A HREF="scribus___seiten_h.html">scribus/seiten.h</A>&gt;</code></TD></TR>
+<TR><TH>Inherits</TH><TD>QDialog <small>(unknown)</small> <small>[public ]</small></TD></TR>
+<TR><TH><A HREF="full-list-SeitenPal.html">List of all Methods</A></TH></TR>
+	</TABLE>
+	</TD>
+<TD align="right"><TABLE BORDER="0"><TR><TD><small><A HREF="index-long.html">Annotated List</A></small></TD></TR>
+<TR><TD><small><A HREF="header-list.html">Files</A></small></TD></TR>
+<TR><TD><small><A HREF="all-globals.html">Globals</A></small></TD></TR>
+<TR><TD><small><A HREF="hier.html">Hierarchy</A></small></TD></TR>
+<TR><TD><small><A HREF="index.html">Index</A></small></TD></TR>
+</TABLE></TD></TR></TABLE>
+<h4>Public Methods</h4><ul><LI>&nbsp;<b><A HREF="#ref1">SeitenPal</A></b> (QWidget* parent) 
+</LI>
+<LI>&nbsp;<b><A HREF="#ref2">~SeitenPal</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref3">closeEvent</A></b> (QCloseEvent *ce) 
+</LI>
+</ul><h4>Public Slots</h4><ul><LI>void &nbsp;<b><A HREF="#ref14">SetView</A></b> (<A HREF="ScribusView.html">ScribusView</A> *view) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref15">DelMPage</A></b> (QString tmp) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref16">MPage</A></b> (int r, int c) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref17">GotoPage</A></b> (int r, int c, int b) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref18">DisablePal</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref19">EnablePal</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref20">HandleDS</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref21">HandleLP</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref22">RebuildTemp</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref23">RebuildPage</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref24">Rebuild</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref25">selTemplate</A></b> () 
+</LI>
+<LI>QPixmap &nbsp;<b><A HREF="#ref26">CreateIcon</A></b> (int nr, QPixmap ret) 
+</LI>
+</ul><h4>Signals</h4><ul><LI>void &nbsp;<b><A HREF="#ref27">EditTemp</A></b> (QString) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref28">GotoSeite</A></b> (int) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref29">Schliessen</A></b> () 
+</LI>
+</ul><h4>Public Members</h4><ul><LI>QSplitter* <b><A HREF="#ref4">Splitter1</A></b></LI>
+<LI>TrashBin* <b><A HREF="#ref5">Trash</A></b></LI>
+<LI>QLabel* <b><A HREF="#ref6">TextLabel1</A></b></LI>
+<LI>QLabel* <b><A HREF="#ref7">TextLabel2</A></b></LI>
+<LI>SeList* <b><A HREF="#ref8">TemplList</A></b></LI>
+<LI>SeView* <b><A HREF="#ref9">PageView</A></b></LI>
+<LI>QCheckBox* <b><A HREF="#ref10">DS</A></b></LI>
+<LI>QCheckBox* <b><A HREF="#ref11">LP</A></b></LI>
+<LI>ScribusView *<b><A HREF="#ref12">Vie</A></b></LI>
+<LI>QPixmap <b><A HREF="#ref13">pix</A></b></LI>
+</ul><h4>Protected Members</h4><ul><LI>QVBoxLayout* <b><A HREF="#ref30">SeitenPalLayout</A></b></LI>
+<LI>QHBoxLayout* <b><A HREF="#ref31">Layout1</A></b></LI>
+<LI>QVBoxLayout* <b><A HREF="#ref32">Layout2</A></b></LI>
+<LI>QVBoxLayout* <b><A HREF="#ref33">Layout3</A></b></LI>
+<LI>QVBoxLayout* <b><A HREF="#ref34">Layout4</A></b></LI>
+</ul><HR><H2><A NAME="longdesc">Detailed Description</A></H2><A NAME="SeitenPal"></A><A NAME="ref1"></A><table width="100%"><tr bgcolor="#eeeeee"><td>&nbsp;<strong>SeitenPal</strong> (QWidget* parent)
+<br></td><td align="right"><h3><strong>SeitenPal</strong></h3></td></tr></table><p></p><A NAME="~SeitenPal"></A><A NAME="ref2"></A><table width="100%"><tr bgcolor="#eeeeee"><td>&nbsp;<strong>~SeitenPal</strong> ()
+<br></td><td align="right"><h3><strong>~SeitenPal</strong></h3></td></tr></table><p></p><A NAME="closeEvent"></A><A NAME="ref3"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>closeEvent</strong> (QCloseEvent *ce)
+<br></td><td align="right"><h3><strong>closeEvent</strong></h3></td></tr></table><p></p><A NAME="Splitter1"></A><A NAME="ref4"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QSplitter*  <strong>Splitter1</strong>
+</td><td align="right"><h3><strong>Splitter1</strong></h3></td></tr></table><p></p><A NAME="Trash"></A><A NAME="ref5"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="TrashBin.html">TrashBin</A>*  <strong>Trash</strong>
+</td><td align="right"><h3><strong>Trash</strong></h3></td></tr></table><p></p><A NAME="TextLabel1"></A><A NAME="ref6"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QLabel*  <strong>TextLabel1</strong>
+</td><td align="right"><h3><strong>TextLabel1</strong></h3></td></tr></table><p></p><A NAME="TextLabel2"></A><A NAME="ref7"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QLabel*  <strong>TextLabel2</strong>
+</td><td align="right"><h3><strong>TextLabel2</strong></h3></td></tr></table><p></p><A NAME="TemplList"></A><A NAME="ref8"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="SeList.html">SeList</A>*  <strong>TemplList</strong>
+</td><td align="right"><h3><strong>TemplList</strong></h3></td></tr></table><p></p><A NAME="PageView"></A><A NAME="ref9"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="SeView.html">SeView</A>*  <strong>PageView</strong>
+</td><td align="right"><h3><strong>PageView</strong></h3></td></tr></table><p></p><A NAME="DS"></A><A NAME="ref10"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QCheckBox*  <strong>DS</strong>
+</td><td align="right"><h3><strong>DS</strong></h3></td></tr></table><p></p><A NAME="LP"></A><A NAME="ref11"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QCheckBox*  <strong>LP</strong>
+</td><td align="right"><h3><strong>LP</strong></h3></td></tr></table><p></p><A NAME="Vie"></A><A NAME="ref12"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="ScribusView.html">ScribusView</A> * <strong>Vie</strong>
+</td><td align="right"><h3><strong>Vie</strong></h3></td></tr></table><p></p><A NAME="pix"></A><A NAME="ref13"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPixmap  <strong>pix</strong>
+</td><td align="right"><h3><strong>pix</strong></h3></td></tr></table><p></p><A NAME="SetView"></A><A NAME="ref14"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>SetView</strong> (<A HREF="ScribusView.html">ScribusView</A> *view)
+<br></td><td align="right"><h3><strong>SetView</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="DelMPage"></A><A NAME="ref15"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>DelMPage</strong> (QString tmp)
+<br></td><td align="right"><h3><strong>DelMPage</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="MPage"></A><A NAME="ref16"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>MPage</strong> (int r, int c)
+<br></td><td align="right"><h3><strong>MPage</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="GotoPage"></A><A NAME="ref17"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>GotoPage</strong> (int r, int c, int b)
+<br></td><td align="right"><h3><strong>GotoPage</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="DisablePal"></A><A NAME="ref18"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>DisablePal</strong> ()
+<br></td><td align="right"><h3><strong>DisablePal</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="EnablePal"></A><A NAME="ref19"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>EnablePal</strong> ()
+<br></td><td align="right"><h3><strong>EnablePal</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="HandleDS"></A><A NAME="ref20"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>HandleDS</strong> ()
+<br></td><td align="right"><h3><strong>HandleDS</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="HandleLP"></A><A NAME="ref21"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>HandleLP</strong> ()
+<br></td><td align="right"><h3><strong>HandleLP</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="RebuildTemp"></A><A NAME="ref22"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>RebuildTemp</strong> ()
+<br></td><td align="right"><h3><strong>RebuildTemp</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="RebuildPage"></A><A NAME="ref23"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>RebuildPage</strong> ()
+<br></td><td align="right"><h3><strong>RebuildPage</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="Rebuild"></A><A NAME="ref24"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>Rebuild</strong> ()
+<br></td><td align="right"><h3><strong>Rebuild</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="selTemplate"></A><A NAME="ref25"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>selTemplate</strong> ()
+<br></td><td align="right"><h3><strong>selTemplate</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="CreateIcon"></A><A NAME="ref26"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPixmap &nbsp;<strong>CreateIcon</strong> (int nr, QPixmap ret)
+<br></td><td align="right"><h3><strong>CreateIcon</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="EditTemp"></A><A NAME="ref27"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>EditTemp</strong> (QString)
+<br></td><td align="right"><h3><strong>EditTemp</strong></h3></td></tr></table><p> <small>[signal]</small></p><A NAME="GotoSeite"></A><A NAME="ref28"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>GotoSeite</strong> (int)
+<br></td><td align="right"><h3><strong>GotoSeite</strong></h3></td></tr></table><p> <small>[signal]</small></p><A NAME="Schliessen"></A><A NAME="ref29"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>Schliessen</strong> ()
+<br></td><td align="right"><h3><strong>Schliessen</strong></h3></td></tr></table><p> <small>[signal]</small></p><A NAME="SeitenPalLayout"></A><A NAME="ref30"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QVBoxLayout">QVBoxLayout</A>*  <strong>SeitenPalLayout</strong>
+</td><td align="right"><h3><strong>SeitenPalLayout</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="Layout1"></A><A NAME="ref31"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QHBoxLayout">QHBoxLayout</A>*  <strong>Layout1</strong>
+</td><td align="right"><h3><strong>Layout1</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="Layout2"></A><A NAME="ref32"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QVBoxLayout">QVBoxLayout</A>*  <strong>Layout2</strong>
+</td><td align="right"><h3><strong>Layout2</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="Layout3"></A><A NAME="ref33"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QVBoxLayout">QVBoxLayout</A>*  <strong>Layout3</strong>
+</td><td align="right"><h3><strong>Layout3</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="Layout4"></A><A NAME="ref34"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QVBoxLayout">QVBoxLayout</A>*  <strong>Layout4</strong>
+</td><td align="right"><h3><strong>Layout4</strong></h3></td></tr></table><p> <small>[protected]</small></p><HR>
+	<table>
+	<tr><td><small>Generated by: paul on T6.linux on Tue Mar 18 23:32:13 2003, using kdoc 2.0a54.</small></td></tr>
+	</table>
+</BODY>
+</HTML>

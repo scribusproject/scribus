@@ -1,0 +1,246 @@
+<HTML>
+<HEAD>
+<TITLE>class PSLib</TITLE>
+
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+<TABLE WIDTH="100%" BORDER="0">
+<TR>
+<TD>
+	<TABLE BORDER="0">
+		<TR><TD valign="top" align="left" cellspacing="10">
+		<h1>class PSLib</h1>
+		</TD>
+		<TD valign="top" align="right" colspan="1">
+ <small><A HREF="#longdesc">More...</A></small></TD></TR>
+	</TABLE>
+	<HR>
+	<TABLE BORDER="0">
+		<TR><TH>Definition</TH><TD><code>#include &lt;<A HREF="scribus___libpostscript___pslib_h.html">scribus/libpostscript/pslib.h</A>&gt;</code></TD></TR>
+<TR><TH><A HREF="full-list-PSLib.html">List of all Methods</A></TH></TR>
+	</TABLE>
+	</TD>
+<TD align="right"><TABLE BORDER="0"><TR><TD><small><A HREF="index-long.html">Annotated List</A></small></TD></TR>
+<TR><TD><small><A HREF="header-list.html">Files</A></small></TD></TR>
+<TR><TD><small><A HREF="all-globals.html">Globals</A></small></TD></TR>
+<TR><TD><small><A HREF="hier.html">Hierarchy</A></small></TD></TR>
+<TR><TD><small><A HREF="index.html">Index</A></small></TD></TR>
+</TABLE></TD></TR></TABLE>
+<h4>Public Methods</h4><ul><LI>&nbsp;<b><A HREF="#ref1">PSLib</A></b> (bool psart, <A HREF="SCFonts.html">SCFonts</A> &AllFonts, QMap<QString,QFont> DocFonts, <A HREF="#CListe">CListe</A> DocColors, bool pdf = false) 
+</LI>
+<LI>virtual  &nbsp;<b><A HREF="#ref2">~PSLib</A></b> () 
+</LI>
+<LI>virtual  bool &nbsp;<b><A HREF="#ref3">PS_set_file</A></b> (QString fn) 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref4">PS_set_Info</A></b> (QString art, QString was) 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref5">PS_begin_doc</A></b> (int Ori, float breite, float hoehe, int numpage) 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref6">PS_begin_page</A></b> (float breite, float hoehe, struct <A HREF="Margs.html">Margs</A>* Ma) 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref7">PS_end_page</A></b> () 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref8">PS_rect</A></b> (float x, float y, float b, float h) 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref9">PS_RoundRect</A></b> (float x, float y, float b, float h, float r) 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref10">PS_circle</A></b> (float r, float r2) 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref11">PS_curve</A></b> (float x1, float y1, float x2, float y2, float x3, float y3) 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref12">PS_moveto</A></b> (float x, float y) 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref13">PS_lineto</A></b> (float x, float y) 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref14">PS_closepath</A></b> () 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref15">PS_translate</A></b> (float x, float y) 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref16">PS_scale</A></b> (float x, float y) 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref17">PS_rotate</A></b> (float x) 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref18">PS_clip</A></b> () 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref19">PS_save</A></b> () 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref20">PS_restore</A></b> () 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref21">PS_setcmykcolor_fill</A></b> (float c, float m, float y, float k) 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref22">PS_setcmykcolor_stroke</A></b> (float c, float m, float y, float k) 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref23">PS_setlinewidth</A></b> (float w) 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref24">PS_setdash</A></b> (Qt::PenStyle st, Qt::PenCapStyle ca, Qt::PenJoinStyle jo) 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref25">PS_selectfont</A></b> (QString f, int s) 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref26">PS_selectfontItalic</A></b> (QString f, int s) 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref27">PS_fill</A></b> () 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref28">PS_stroke</A></b> () 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref29">PS_fill_stroke</A></b> () 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref30">PS_newpath</A></b> () 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref31">PS_GradientCol1</A></b> (float c, float m, float y, float k) 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref32">PS_GradientCol2</A></b> (float c, float m, float y, float k) 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref33">PS_LinGradient</A></b> (float w, float h, int item, int grad) 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref34">PS_RadGradient</A></b> (float w, float h, int item) 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref35">PS_underline</A></b> (QCString ch, float x, float y) 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref36">PS_strikeout</A></b> (QCString ch, float x, float y) 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref37">PS_show_xy</A></b> (QCString ch, float x, float y) 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref38">PS_show</A></b> (float x, float y) 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref39">PS_show_xyBold</A></b> (QCString ch, float x, float y) 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref40">PS_image</A></b> (float x, float y, QString fn, float scalex, float scaley, QString Name = "") 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref41">PS_plate</A></b> (int nr) 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref42">PS_setGray</A></b> () 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref43">PDF_Bookmark</A></b> (QString text, uint Seite) 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref44">PDF_Annotation</A></b> (QString text, float x, float y, float b, float h) 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref45">PS_close</A></b> () 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref46">PS_TemplateStart</A></b> (QString Name, float breite, float hoehe) 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref47">PS_TemplateEnd</A></b> () 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref48">PS_UseTemplate</A></b> (QString Name) 
+</LI>
+<LI>virtual  void &nbsp;<b><A HREF="#ref49">PS_ImageData</A></b> (QString fn, QString Name) 
+</LI>
+</ul><h4>Private Methods</h4><ul><LI>void &nbsp;<b><A HREF="#ref50">PutSeite</A></b> (QString c) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref51">PutDoc</A></b> (QString c) 
+</LI>
+<LI>QString &nbsp;<b><A HREF="#ref52">ToStr</A></b> (float c) 
+</LI>
+<LI>QString &nbsp;<b><A HREF="#ref53">IToStr</A></b> (int c) 
+</LI>
+<LI>QString &nbsp;<b><A HREF="#ref54">PSEncode</A></b> (QString in) 
+</LI>
+</ul><h4>Private Members</h4><ul><LI>bool <b><A HREF="#ref55">Art</A></b></LI>
+<LI>QString <b><A HREF="#ref56">Prolog</A></b></LI>
+<LI>QString <b><A HREF="#ref57">Header</A></b></LI>
+<LI>QString <b><A HREF="#ref58">Creator</A></b></LI>
+<LI>QString <b><A HREF="#ref59">User</A></b></LI>
+<LI>QString <b><A HREF="#ref60">Titel</A></b></LI>
+<LI>QString <b><A HREF="#ref61">BBox</A></b></LI>
+<LI>QString <b><A HREF="#ref62">BBoxH</A></b></LI>
+<LI>QString <b><A HREF="#ref63">Farben</A></b></LI>
+<LI>QString <b><A HREF="#ref64">FNamen</A></b></LI>
+<LI>QString <b><A HREF="#ref65">PDev</A></b></LI>
+<LI>QString <b><A HREF="#ref66">GrayCalc</A></b></LI>
+<LI>bool <b><A HREF="#ref67">GraySc</A></b></LI>
+<LI>int <b><A HREF="#ref68">Seiten</A></b></LI>
+<LI>QString <b><A HREF="#ref69">FillColor</A></b></LI>
+<LI>QString <b><A HREF="#ref70">StrokeColor</A></b></LI>
+<LI>QString <b><A HREF="#ref71">GrColor1</A></b></LI>
+<LI>QString <b><A HREF="#ref72">GrColor2</A></b></LI>
+<LI>float <b><A HREF="#ref73">LineW</A></b></LI>
+<LI>QString <b><A HREF="#ref74">Fonts</A></b></LI>
+<LI>QString <b><A HREF="#ref75">FontDesc</A></b></LI>
+<LI>QMap<QString, QString> <b><A HREF="#ref76">UsedFonts</A></b></LI>
+<LI>bool <b><A HREF="#ref77">isPDF</A></b></LI>
+<LI>QFile <b><A HREF="#ref78">Spool</A></b></LI>
+<LI>bool <b><A HREF="#ref79">CompAvail</A></b></LI>
+</ul><HR><H2><A NAME="longdesc">Detailed Description</A></H2><p>
+</p>
+<A NAME="PSLib"></A><A NAME="ref1"></A><table width="100%"><tr bgcolor="#eeeeee"><td>&nbsp;<strong>PSLib</strong> (bool psart, <A HREF="SCFonts.html">SCFonts</A> &AllFonts, QMap<QString,QFont> DocFonts, <A HREF="#CListe">CListe</A> DocColors, bool pdf = false)
+<br></td><td align="right"><h3><strong>PSLib</strong></h3></td></tr></table><p></p><A NAME="~PSLib"></A><A NAME="ref2"></A><table width="100%"><tr bgcolor="#eeeeee"><td> &nbsp;<strong>~PSLib</strong> ()
+<br></td><td align="right"><h3><strong>~PSLib</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_set_file"></A><A NAME="ref3"></A><table width="100%"><tr bgcolor="#eeeeee"><td> bool &nbsp;<strong>PS_set_file</strong> (QString fn)
+<br></td><td align="right"><h3><strong>PS_set_file</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_set_Info"></A><A NAME="ref4"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_set_Info</strong> (QString art, QString was)
+<br></td><td align="right"><h3><strong>PS_set_Info</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_begin_doc"></A><A NAME="ref5"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_begin_doc</strong> (int Ori, float breite, float hoehe, int numpage)
+<br></td><td align="right"><h3><strong>PS_begin_doc</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_begin_page"></A><A NAME="ref6"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_begin_page</strong> (float breite, float hoehe, struct <A HREF="Margs.html">Margs</A>* Ma)
+<br></td><td align="right"><h3><strong>PS_begin_page</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_end_page"></A><A NAME="ref7"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_end_page</strong> ()
+<br></td><td align="right"><h3><strong>PS_end_page</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_rect"></A><A NAME="ref8"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_rect</strong> (float x, float y, float b, float h)
+<br></td><td align="right"><h3><strong>PS_rect</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_RoundRect"></A><A NAME="ref9"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_RoundRect</strong> (float x, float y, float b, float h, float r)
+<br></td><td align="right"><h3><strong>PS_RoundRect</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_circle"></A><A NAME="ref10"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_circle</strong> (float r, float r2)
+<br></td><td align="right"><h3><strong>PS_circle</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_curve"></A><A NAME="ref11"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_curve</strong> (float x1, float y1, float x2, float y2, float x3, float y3)
+<br></td><td align="right"><h3><strong>PS_curve</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_moveto"></A><A NAME="ref12"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_moveto</strong> (float x, float y)
+<br></td><td align="right"><h3><strong>PS_moveto</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_lineto"></A><A NAME="ref13"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_lineto</strong> (float x, float y)
+<br></td><td align="right"><h3><strong>PS_lineto</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_closepath"></A><A NAME="ref14"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_closepath</strong> ()
+<br></td><td align="right"><h3><strong>PS_closepath</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_translate"></A><A NAME="ref15"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_translate</strong> (float x, float y)
+<br></td><td align="right"><h3><strong>PS_translate</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_scale"></A><A NAME="ref16"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_scale</strong> (float x, float y)
+<br></td><td align="right"><h3><strong>PS_scale</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_rotate"></A><A NAME="ref17"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_rotate</strong> (float x)
+<br></td><td align="right"><h3><strong>PS_rotate</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_clip"></A><A NAME="ref18"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_clip</strong> ()
+<br></td><td align="right"><h3><strong>PS_clip</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_save"></A><A NAME="ref19"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_save</strong> ()
+<br></td><td align="right"><h3><strong>PS_save</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_restore"></A><A NAME="ref20"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_restore</strong> ()
+<br></td><td align="right"><h3><strong>PS_restore</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_setcmykcolor_fill"></A><A NAME="ref21"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_setcmykcolor_fill</strong> (float c, float m, float y, float k)
+<br></td><td align="right"><h3><strong>PS_setcmykcolor_fill</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_setcmykcolor_stroke"></A><A NAME="ref22"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_setcmykcolor_stroke</strong> (float c, float m, float y, float k)
+<br></td><td align="right"><h3><strong>PS_setcmykcolor_stroke</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_setlinewidth"></A><A NAME="ref23"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_setlinewidth</strong> (float w)
+<br></td><td align="right"><h3><strong>PS_setlinewidth</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_setdash"></A><A NAME="ref24"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_setdash</strong> (Qt::PenStyle st, Qt::PenCapStyle ca, Qt::PenJoinStyle jo)
+<br></td><td align="right"><h3><strong>PS_setdash</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_selectfont"></A><A NAME="ref25"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_selectfont</strong> (QString f, int s)
+<br></td><td align="right"><h3><strong>PS_selectfont</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_selectfontItalic"></A><A NAME="ref26"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_selectfontItalic</strong> (QString f, int s)
+<br></td><td align="right"><h3><strong>PS_selectfontItalic</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_fill"></A><A NAME="ref27"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_fill</strong> ()
+<br></td><td align="right"><h3><strong>PS_fill</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_stroke"></A><A NAME="ref28"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_stroke</strong> ()
+<br></td><td align="right"><h3><strong>PS_stroke</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_fill_stroke"></A><A NAME="ref29"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_fill_stroke</strong> ()
+<br></td><td align="right"><h3><strong>PS_fill_stroke</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_newpath"></A><A NAME="ref30"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_newpath</strong> ()
+<br></td><td align="right"><h3><strong>PS_newpath</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_GradientCol1"></A><A NAME="ref31"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_GradientCol1</strong> (float c, float m, float y, float k)
+<br></td><td align="right"><h3><strong>PS_GradientCol1</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_GradientCol2"></A><A NAME="ref32"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_GradientCol2</strong> (float c, float m, float y, float k)
+<br></td><td align="right"><h3><strong>PS_GradientCol2</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_LinGradient"></A><A NAME="ref33"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_LinGradient</strong> (float w, float h, int item, int grad)
+<br></td><td align="right"><h3><strong>PS_LinGradient</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_RadGradient"></A><A NAME="ref34"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_RadGradient</strong> (float w, float h, int item)
+<br></td><td align="right"><h3><strong>PS_RadGradient</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_underline"></A><A NAME="ref35"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_underline</strong> (QCString ch, float x, float y)
+<br></td><td align="right"><h3><strong>PS_underline</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_strikeout"></A><A NAME="ref36"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_strikeout</strong> (QCString ch, float x, float y)
+<br></td><td align="right"><h3><strong>PS_strikeout</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_show_xy"></A><A NAME="ref37"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_show_xy</strong> (QCString ch, float x, float y)
+<br></td><td align="right"><h3><strong>PS_show_xy</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_show"></A><A NAME="ref38"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_show</strong> (float x, float y)
+<br></td><td align="right"><h3><strong>PS_show</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_show_xyBold"></A><A NAME="ref39"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_show_xyBold</strong> (QCString ch, float x, float y)
+<br></td><td align="right"><h3><strong>PS_show_xyBold</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_image"></A><A NAME="ref40"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_image</strong> (float x, float y, QString fn, float scalex, float scaley, QString Name = "")
+<br></td><td align="right"><h3><strong>PS_image</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_plate"></A><A NAME="ref41"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_plate</strong> (int nr)
+<br></td><td align="right"><h3><strong>PS_plate</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_setGray"></A><A NAME="ref42"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_setGray</strong> ()
+<br></td><td align="right"><h3><strong>PS_setGray</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PDF_Bookmark"></A><A NAME="ref43"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PDF_Bookmark</strong> (QString text, uint Seite)
+<br></td><td align="right"><h3><strong>PDF_Bookmark</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PDF_Annotation"></A><A NAME="ref44"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PDF_Annotation</strong> (QString text, float x, float y, float b, float h)
+<br></td><td align="right"><h3><strong>PDF_Annotation</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_close"></A><A NAME="ref45"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_close</strong> ()
+<br></td><td align="right"><h3><strong>PS_close</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_TemplateStart"></A><A NAME="ref46"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_TemplateStart</strong> (QString Name, float breite, float hoehe)
+<br></td><td align="right"><h3><strong>PS_TemplateStart</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_TemplateEnd"></A><A NAME="ref47"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_TemplateEnd</strong> ()
+<br></td><td align="right"><h3><strong>PS_TemplateEnd</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_UseTemplate"></A><A NAME="ref48"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_UseTemplate</strong> (QString Name)
+<br></td><td align="right"><h3><strong>PS_UseTemplate</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PS_ImageData"></A><A NAME="ref49"></A><table width="100%"><tr bgcolor="#eeeeee"><td> void &nbsp;<strong>PS_ImageData</strong> (QString fn, QString Name)
+<br></td><td align="right"><h3><strong>PS_ImageData</strong></h3></td></tr></table><p> <small>[virtual]</small></p><A NAME="PutSeite"></A><A NAME="ref50"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>PutSeite</strong> (QString c)
+<br></td><td align="right"><h3><strong>PutSeite</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PutDoc"></A><A NAME="ref51"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>PutDoc</strong> (QString c)
+<br></td><td align="right"><h3><strong>PutDoc</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="ToStr"></A><A NAME="ref52"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString &nbsp;<strong>ToStr</strong> (float c)
+<br></td><td align="right"><h3><strong>ToStr</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="IToStr"></A><A NAME="ref53"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString &nbsp;<strong>IToStr</strong> (int c)
+<br></td><td align="right"><h3><strong>IToStr</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PSEncode"></A><A NAME="ref54"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString &nbsp;<strong>PSEncode</strong> (QString in)
+<br></td><td align="right"><h3><strong>PSEncode</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Art"></A><A NAME="ref55"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>Art</strong>
+</td><td align="right"><h3><strong>Art</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Prolog"></A><A NAME="ref56"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>Prolog</strong>
+</td><td align="right"><h3><strong>Prolog</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Header"></A><A NAME="ref57"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>Header</strong>
+</td><td align="right"><h3><strong>Header</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Creator"></A><A NAME="ref58"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>Creator</strong>
+</td><td align="right"><h3><strong>Creator</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="User"></A><A NAME="ref59"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>User</strong>
+</td><td align="right"><h3><strong>User</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Titel"></A><A NAME="ref60"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>Titel</strong>
+</td><td align="right"><h3><strong>Titel</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="BBox"></A><A NAME="ref61"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>BBox</strong>
+</td><td align="right"><h3><strong>BBox</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="BBoxH"></A><A NAME="ref62"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>BBoxH</strong>
+</td><td align="right"><h3><strong>BBoxH</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Farben"></A><A NAME="ref63"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>Farben</strong>
+</td><td align="right"><h3><strong>Farben</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="FNamen"></A><A NAME="ref64"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>FNamen</strong>
+</td><td align="right"><h3><strong>FNamen</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PDev"></A><A NAME="ref65"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>PDev</strong>
+</td><td align="right"><h3><strong>PDev</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="GrayCalc"></A><A NAME="ref66"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>GrayCalc</strong>
+</td><td align="right"><h3><strong>GrayCalc</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="GraySc"></A><A NAME="ref67"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>GraySc</strong>
+</td><td align="right"><h3><strong>GraySc</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Seiten"></A><A NAME="ref68"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>Seiten</strong>
+</td><td align="right"><h3><strong>Seiten</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="FillColor"></A><A NAME="ref69"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>FillColor</strong>
+</td><td align="right"><h3><strong>FillColor</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="StrokeColor"></A><A NAME="ref70"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>StrokeColor</strong>
+</td><td align="right"><h3><strong>StrokeColor</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="GrColor1"></A><A NAME="ref71"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>GrColor1</strong>
+</td><td align="right"><h3><strong>GrColor1</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="GrColor2"></A><A NAME="ref72"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>GrColor2</strong>
+</td><td align="right"><h3><strong>GrColor2</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="LineW"></A><A NAME="ref73"></A><table width="100%"><tr bgcolor="#eeeeee"><td>float  <strong>LineW</strong>
+</td><td align="right"><h3><strong>LineW</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Fonts"></A><A NAME="ref74"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>Fonts</strong>
+</td><td align="right"><h3><strong>Fonts</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="FontDesc"></A><A NAME="ref75"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>FontDesc</strong>
+</td><td align="right"><h3><strong>FontDesc</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="UsedFonts"></A><A NAME="ref76"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QMap<QString, QString>  <strong>UsedFonts</strong>
+</td><td align="right"><h3><strong>UsedFonts</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="isPDF"></A><A NAME="ref77"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>isPDF</strong>
+</td><td align="right"><h3><strong>isPDF</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Spool"></A><A NAME="ref78"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QFile  <strong>Spool</strong>
+</td><td align="right"><h3><strong>Spool</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="CompAvail"></A><A NAME="ref79"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>CompAvail</strong>
+</td><td align="right"><h3><strong>CompAvail</strong></h3></td></tr></table><p> <small>[private]</small></p><HR><UL><LI><i>Author</i>: Franz Schmid
+ Diese Klasse erzeugt Postscript-Dateien
+  </LI><LI><i>Generated</i>: paul on T6.linux on Tue Mar 18 23:32:13 2003, using kdoc 2.0a54.</LI></UL></BODY></HTML>

@@ -1,0 +1,36 @@
+This is Scribus Version 0.9.9, the nineth Developers Version after
+Version 0.8.
+
+This Version adds complete Support for Unicode. In order to use it, you
+must have Freetype2 installed (of course the Devel Package too).
+
+There is also a new Build-ID String in the About Box. This is mainly for
+me to see which libs where used when Scribus was compiled. Please include
+this String to any Bugreports you are submitting. His will help a lot.
+
+For Changes please see the ChangeLog.
+
+If Scribus won't start complaining about No Fonts do the following:
+
+1) Make sure that your XF86Config contains a line Load Type1 in the Section Modules
+2) Make sure that you have Postscript-Fonts.
+3) Make sure that the Path to your Postscript-Fonts contains a Type1 or type1.
+4) Make sure that all Fonts listed in fonts.dir and fonts.scale are present.
+5) Verify that the Fonts have an encoding that matches your local encoding.
+
+If this is all true, but Scribus won't start do the following:
+1) Create a Textfile containing your Fontpaths.
+   e.g:
+   /usr/share/fonts/Type1,
+   /usr/X11/lib/X11/fonts/Type1
+2) Save this file as scribusfont.rc in the .scribus Folder in your Home Directory.
+
+To use Scribus in your native language be sure that the
+environment variable LANG is set correctly.
+
+Special note for SuSE 8.1 users, you need the devel packages, at least
+xdevel.rpm, qtdevel.rpm and tiffdevel.rpm. In the Standard-Install they
+were not installed.
+
+Franz Schmid
+in February 2003

@@ -1,0 +1,2454 @@
+# translation of scribus.tr_TR.po to Türkçe
+# This is a Qt message file in .po format.  Each msgid starts with
+# a scope.  This scope should *NOT* be translated - eg. "Foo::Bar"
+# would be translated to "Pub", not "Foo::Pub".
+# erkan <Selamsana@uni.de>, 2002
+msgid ""
+msgstr ""
+"Project-Id-Version: Scribus 0.8\n"
+"POT-Creation-Date: 1999-02-23 15:38+0200\n"
+"PO-Revision-Date: 2002-09-18 09:47+0300\n"
+"Last-Translator: erkan <Selamsana@uni.de>\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language-Team: Türkçe <tr@li.org>\n"
+"MIME-Version: 1.0\n"
+"X-Generator: KBabel 1.0beta2\n"
+
+# msgid "Use Icons"
+# msgstr "İkonları kullan"
+
+# msgid "Remove"
+# msgstr "Sil"
+
+# msgid "Pressed"
+# msgstr "Basıldı"
+
+# msgid "Roll Over"
+# msgstr "Roll Over"
+
+# msgid "Icon Placement..."
+# msgstr "Düzenle..."
+
+# msgid "Editable"
+# msgstr "Düzenlenebilir"
+
+# msgid "Submit to URL:"
+# msgstr "URL'ye gönder:"
+
+# msgid "Submit Data as HTML"
+# msgstr "Verileri HTML olarak gönder"
+
+# msgid "Layout:"
+# msgstr "Düzen:"
+
+# msgid "Caption only"
+# msgstr "Sadece metin"
+
+# msgid "Icon only"
+# msgstr "Sadece ikon"
+
+# msgid "Caption below Icon"
+# msgstr "Metin ikonun altında"
+
+# msgid "Caption above Icon"
+# msgstr "Metin ikonun üstünde"
+
+# msgid "Caption right to Icon"
+# msgstr "Metin ikonun sağında"
+
+# msgid "Caption left to Icon"
+# msgstr "Metin ikonun solunda"
+
+# msgid "Caption overlays Icon"
+# msgstr "Metin ikonun üstünde"
+
+# msgid "Scale When:"
+# msgstr "Ölçek:"
+
+# msgid "Always"
+# msgstr "Daima"
+
+# msgid "When Icon is too small"
+# msgstr "Eğer ikon çok küçükse"
+
+# msgid "When Icon is too big"
+# msgstr "Eğer ikon çok büyükse"
+
+# msgid "Never"
+# msgstr "Asla"
+
+# msgid "Scale How:"
+# msgstr "Ölçekleme yöntemi:"
+
+# msgid "Proportional"
+# msgstr "Orantılı"
+
+# msgid "Non Proportional"
+# msgstr "Orantısız"
+
+# msgid "Reset"
+# msgstr "Sıfırla"
+
+# msgid "You need at least the Icon for Normal to use Icons for Buttons"
+# msgstr "İkonları kullanabilmek için en azından normal olarak bu ikona ihtıyacınız var"
+
+# msgid "Save and Exit"
+# msgstr "Kaydet ve çık"
+
+# msgid "Exit without Saving"
+# msgstr "Kaydetmeden çık"
+
+# msgid "Get Field Names"
+# msgstr "Alan ismini seçin"
+
+# msgid "JavaScripts (*.js);; All Files (*)"
+# msgstr "JavaScripts (*.js);; Bütün dosyalar (*)"
+
+# msgid "Pick..."
+# msgstr "Seçin..."
+
+# msgid "Export Range"
+# msgstr "Kenarlar"
+
+# msgid "All Pages"
+# msgstr "Bütün sayfalar"
+
+# msgid "From:"
+# msgstr "Burdan:"
+
+# msgid "Insert PDF-Fields"
+# msgstr "PDF-alanları ekle"
+
+# msgid "Undo"
+# msgstr "Geri"
+
+# msgid "Redo"
+# msgstr "Tekrar oluştur"
+
+# msgid "Select Fields"
+# msgstr "Alan seçin"
+
+# msgid "Available Fields"
+# msgstr "Mevcut alanlar"
+
+# msgid "Selected Fields"
+# msgstr "Seçilen alanlar"
+
+# msgid "Field Properties"
+# msgstr "Alan özellikleri"
+
+# msgid "Global JavaScripts"
+# msgstr "Genel JavaScripts"
+
+# msgid "Add..."
+# msgstr "Ekle..."
+
+# msgid "New Script:"
+# msgstr "Yeni Script:"
+
+# msgid "New Script"
+# msgstr "Yeni Script"
+
+# msgid "Insert PDF-Annotations"
+# msgstr "PDF-Notu ekle"
+
+# msgid "Import Data"
+# msgstr "Verileri içe aktar"
+
+# msgid "Import Data from:"
+# msgstr "Veriler burdan içe aktar:"
+
+msgid "File"
+msgstr "Dosya"
+
+msgid "New"
+msgstr "Yeni"
+
+msgid "Open..."
+msgstr "Aç..."
+
+msgid "Open"
+msgstr "Aç"
+
+msgid "Close"
+msgstr "Kapat"
+
+msgid "Save"
+msgstr "Kaydet"
+
+msgid "Save as..."
+msgstr "Farklı kaydet..."
+
+msgid "Save as"
+msgstr "Farklı kaydet"
+
+msgid "Revert to Saved"
+msgstr "Eski haline getir"
+
+msgid "Save Text..."
+msgstr "Metni kaydet..."
+
+msgid "Save Page as EPS..."
+msgstr "Sayfayı EPS olarak kaydet..."
+
+msgid "Save as PDF..."
+msgstr "PDF olarak kaydet..."
+
+msgid "Document Setup..."
+msgstr "Belge ayarları..."
+
+msgid "Document Setup"
+msgstr "Belge ayarları"
+
+msgid "Document Info..."
+msgstr "Belge bilgileri..."
+
+msgid "Print..."
+msgstr "Yazdır..."
+
+msgid "Quit"
+msgstr "Çık"
+
+msgid "View"
+msgstr "Göster"
+
+msgid "Fit in Window"
+msgstr "Bütün sayfa"
+
+msgid "Actual Size"
+msgstr "Orjinal boyut"
+
+msgid "Thumbnails"
+msgstr "Minyatürleştir"
+
+msgid "Show Tools"
+msgstr "Araçları göster"
+
+msgid "Hide Tools"
+msgstr "Araçları sakla"
+
+msgid "Hide Margins"
+msgstr "Kenarları sakla"
+
+msgid "Show Margins"
+msgstr "Kenarları göster"
+
+msgid "Hide Guides"
+msgstr "Yardımcı çizgileri sakla"
+
+msgid "Hide Images"
+msgstr "Resimleri sakla"
+
+msgid "Show Images"
+msgstr "Resimleri göster"
+
+msgid "Show Guides"
+msgstr "Yardımcı çizgileri göster"
+
+msgid "Show Measurements"
+msgstr "Ölçüm paletini göster"
+
+msgid "Hide Measurements"
+msgstr "Ölçüm paletini sakla"
+
+msgid "Help"
+msgstr "Yardım"
+
+msgid "About Scribus"
+msgstr "Scribus hakkında"
+
+msgid "About Qt"
+msgstr "Qt hakkında"
+
+msgid "Ready"
+msgstr "Hazır"
+
+msgid "Scaled to "
+msgstr "Ölçek"
+
+msgid "Get Picture..."
+msgstr "Resim yükle..."
+
+msgid "Get Text/Picture..."
+msgstr "Resim/Metin yükle..."
+
+msgid "Get Text..."
+msgstr "Metin yükle..."
+
+msgid "New Document"
+msgstr "Yeni belge"
+
+msgid "Page Size"
+msgstr "Sayfa boyutu"
+
+msgid "Margin Guides"
+msgstr "Aralık"
+
+msgid "Column Guides"
+msgstr "Sütun dağılımı"
+
+msgid "Columns:"
+msgstr "Kolanlar:"
+
+msgid "Gutter Width:"
+msgstr "Aralık:"
+
+msgid "Width:"
+msgstr "Genişlik:"
+
+msgid "Height:"
+msgstr "Yükseklik:"
+
+msgid "Top:"
+msgstr "Üst:"
+
+msgid "Left:"
+msgstr "Sol:"
+
+msgid "Inside:"
+msgstr "İç taraf:"
+
+msgid "Right:"
+msgstr "Sağ:"
+
+msgid "Outside:"
+msgstr "Dış taraf:"
+
+msgid "Bottom:"
+msgstr "Alt:"
+
+msgid "Other"
+msgstr "Diğer"
+
+msgid "Facing Pages"
+msgstr "Çift sayfalar"
+
+msgid "OK"
+msgstr "Tamam"
+
+msgid "Cancel"
+msgstr "Vazgeç"
+
+msgid "Automatic Text Box"
+msgstr "Otomatik metin kutuları"
+
+msgid "W:"
+msgstr "B:"
+
+msgid "Tabloid"
+msgstr "11 x 17 Zoll"
+
+msgid "Documents (*.sdc);; All Files (*)"
+msgstr "Belgeler (*.sdc);; Bütün dosyalar (*)"
+
+msgid "Document "
+msgstr "Belge"
+
+msgid "No Document"
+msgstr "Belge yok"
+
+msgid "Warning"
+msgstr "Uyarı"
+
+msgid "The document has been changed since the last save."
+msgstr "Bu belge, en son kayıt olduğundan beri değişikliğe uğradı."
+
+msgid "Save Now"
+msgstr "Şimdi kaydet"
+
+msgid "Leave Anyway"
+msgstr "Terket"
+
+msgid "Textfiles (*.txt);;All Files (*)"
+msgstr "Metin dosyaları (*.txt);;Bütün dosyalar (*)"
+
+msgid "Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)"
+msgstr "Resim dosyaları (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Bütün dosyalar (*)"
+
+msgid "Look &in:"
+msgstr "&Burada ara:"
+
+msgid "File &type:"
+msgstr "Dosya &türü:"
+
+msgid "File &name:"
+msgstr "Dosya &adı:"
+
+msgid "PDF-Options"
+msgstr "PDF-Seçenekleri"
+
+msgid "Compatibility:"
+msgstr "Dosya biçemi:"
+
+msgid "Images:"
+msgstr "Resim:"
+
+msgid "Resolution for EPS-Images:"
+msgstr "EPS-Resimleri için çözünürlük:"
+
+msgid "Document Info"
+msgstr "Belge bilgileri"
+
+msgid "Description:"
+msgstr "Açıklama:"
+
+msgid "Author:"
+msgstr "Yazar:"
+
+msgid "Edit"
+msgstr "Düzenle"
+
+msgid "Cut"
+msgstr "Kes"
+
+msgid "Copy"
+msgstr "Kopyala"
+
+msgid "Paste"
+msgstr "Yapıştır"
+
+msgid "Clear"
+msgstr "Sil"
+
+msgid "Select all"
+msgstr "Hepsini seç"
+
+msgid "Deselect all"
+msgstr "Hiçbirşey seçme"
+
+msgid "Theme"
+msgstr "Tema"
+
+msgid "Other..."
+msgstr "Diğer..."
+
+msgid "Item"
+msgstr "Nesne"
+
+msgid "Page"
+msgstr "Sayfa"
+
+msgid "Insert..."
+msgstr "Arasına ekle..."
+
+msgid "Delete..."
+msgstr "Sil..."
+
+msgid "Delete"
+msgstr "Sil"
+
+msgid "Font"
+msgstr "Yazıtipi"
+
+msgid "Size"
+msgstr "Boyut"
+
+msgid "Font Size"
+msgstr "Yazıtipi boyutu"
+
+msgid "Font Size:"
+msgstr "Yazıtipi boyutu:"
+
+msgid "Shade:"
+msgstr "Gölge:"
+
+msgid "Shade"
+msgstr "Gölge"
+
+msgid "Color"
+msgstr "Renk"
+
+msgid "Colors..."
+msgstr "Renkler..."
+
+msgid "Duplicate"
+msgstr "Çift"
+
+msgid "New Color:"
+msgstr "Yeni renk:"
+
+msgid "New Color"
+msgstr "Yeni renk"
+
+msgid "OK to delete Color:"
+msgstr "Renk silmek için TAMAM:"
+
+msgid "Replace it with:"
+msgstr "Değiştir:"
+
+msgid "Delete Color"
+msgstr "Renk sil"
+
+msgid "Colors"
+msgstr "Renk"
+
+msgid "Edit Colors"
+msgstr "Renkleri düzenle"
+
+msgid "Hide Colors"
+msgstr "Renkleri sakla"
+
+msgid "Show Colors"
+msgstr "Renkleri göster"
+
+msgid "Show Outline"
+msgstr "Çıktıyı göster"
+
+msgid "Hide Outline"
+msgstr "Çıktıyı gizle"
+
+msgid "Outline"
+msgstr "Çıktı"
+
+msgid "Rectangle"
+msgstr "dikdörtgen"
+
+msgid "Shape"
+msgstr "Biçim"
+
+msgid "Edit Frame"
+msgstr "Çerçeve düzenle"
+
+msgid "Image"
+msgstr "Resim"
+
+msgid "Type"
+msgstr "Tür"
+
+msgid "Send to Back"
+msgstr "Arka planda"
+
+msgid "Bring to Front"
+msgstr "Ön planda"
+
+msgid "Lower"
+msgstr "Bir basamak aşağıya"
+
+msgid "Raise"
+msgstr "Bir basamak yukarıya"
+
+msgid "Delete Page:"
+msgstr "Sayfayı sil:"
+
+msgid "Delete Page"
+msgstr "Sayfayı sil"
+
+msgid "Line"
+msgstr "Çizgi"
+
+msgid "Line Width"
+msgstr "Çizgi genişliği"
+
+msgid "Line Width:"
+msgstr "Çizgi genişliği:"
+
+msgid "Print destination"
+msgstr "Yazdırma açıklaması"
+
+msgid "Print to printer:"
+msgstr "Yazıcıya:"
+
+msgid "Printer"
+msgstr "Yazıcı"
+
+msgid "locally connected"
+msgstr "Yerel bağlı"
+
+msgid "Comment"
+msgstr "Yorum"
+
+msgid "Print to file:"
+msgstr "Dosya içine:"
+
+msgid "Browse..."
+msgstr "Seç..."
+
+msgid "Printer settings"
+msgstr "Yazıcı ayarları"
+
+msgid "Print in color if available"
+msgstr "Mümkünse renkli yazdır"
+
+msgid "Print in grayscale"
+msgstr "Gri tonlarda yazdır"
+
+msgid "Paper format"
+msgstr "Sayfa biçemi"
+
+msgid "Portrait"
+msgstr "Dikey"
+
+msgid "Landscape"
+msgstr "Yatay"
+
+msgid "Options"
+msgstr "Seçenekler"
+
+msgid "Print all"
+msgstr "Hepsini yazdır"
+
+msgid "Print range"
+msgstr "Alanı yazdır"
+
+msgid "From page:"
+msgstr "Başlangıç:"
+
+msgid "To page:"
+msgstr "Bitiş:"
+
+msgid "Print first page first"
+msgstr "Birinci sayfayı ilk önce yazdır"
+
+msgid "Print last page first"
+msgstr "Son sayfayı en son yazdır"
+
+msgid "Number of copies:"
+msgstr "Kopya sayısı:"
+
+msgid "Select color"
+msgstr "Renk seç"
+
+msgid "&Basic colors"
+msgstr "&Temel renkler"
+
+msgid "&Custom colors"
+msgstr "&Kullanıcı tanımlı renkler"
+
+msgid "&Add To Custom Colors"
+msgstr "K&ullanıcı tanımlı renklere ekle"
+
+msgid "&Define Custom Colors >>"
+msgstr "Ku&llanıcı tanımlı renkler >>"
+
+msgid "&Red:"
+msgstr "K&ırmızı:"
+
+msgid "&Green:"
+msgstr "&Yeşil:"
+
+msgid "Bl&ue:"
+msgstr "&Mavi:"
+
+msgid "Select Font"
+msgstr "Yazıtipi seç"
+
+msgid "&Font"
+msgstr "&Yazıtipi"
+
+msgid "Font st&yle"
+msgstr "Yazıtipi &biçemi"
+
+msgid "&Size"
+msgstr "&Boyut"
+
+msgid "Effects"
+msgstr "Efekt"
+
+msgid "Stri&keout"
+msgstr "&Ortası çizgili"
+
+msgid "&Underline"
+msgstr "&Altı çizgili"
+
+msgid "Sample"
+msgstr "Örnek"
+
+msgid "Scr&ipt"
+msgstr "&Script"
+
+msgid "Preferences..."
+msgstr "Ayarlar..."
+
+msgid "Preferences"
+msgstr "Ayarlar"
+
+msgid "General"
+msgstr "Genel"
+
+msgid "Guides"
+msgstr "Yardımcı çizgiler"
+
+msgid "Major Grid Spacing:"
+msgstr "Ana çizgi boşluğu:"
+
+msgid "Minor Grid Spacing:"
+msgstr "Bölüm çizginin boşluğu:"
+
+msgid "Major Grid Color:"
+msgstr "Ana çizgi rengi:"
+
+msgid "Minor Grid Color:"
+msgstr "Bölüm çizgi rengi:"
+
+msgid "Grid Colors:"
+msgstr "Yardımcı çizgi renkleri:"
+
+msgid "Grid Layout:"
+msgstr "Yardımcı çizgi düzeni:"
+
+msgid "Image visible"
+msgstr "Resim görülebilir"
+
+msgid "Is PDF-Bookmark"
+msgstr "PDF-yer imi"
+
+msgid "Snap to Guides"
+msgstr "Manyetik yardımcı çizgiler"
+
+msgid "Apply"
+msgstr "Uygula"
+
+msgid "Snap to Grid"
+msgstr "Yardımcı çizgi yerleştir"
+
+msgid "Mouse-Settings"
+msgstr "Fare ayarları"
+
+msgid "Wheel-Jump"
+msgstr "Tekerlek-Sıçraması"
+
+msgid "Grab-Radius"
+msgstr "Yarıçap yakalaması"
+
+msgid "Printing-Error"
+msgstr "Yazdırma hatası"
+
+msgid "Printing completed"
+msgstr "Yazdırma tamamlandı"
+
+msgid "Printing aborted"
+msgstr "Yazdırma iptal edildi"
+
+msgid "Printing..."
+msgstr "Yazılıyor..."
+
+msgid "Saving aborted"
+msgstr "Kayıt iptal edildi"
+
+msgid "Loading aborted"
+msgstr "Yükleme iptal edildi"
+
+msgid "Global Fontsettings"
+msgstr "Genel yazıtipi ayarları"
+
+msgid "Path to Fontfile"
+msgstr "Yazıtipi dosyasının yolu"
+
+msgid "Embed in:"
+msgstr "İçinde:"
+
+msgid "Default Size:"
+msgstr "Öntanımlı boyut:"
+
+msgid "Default Font:"
+msgstr "Öntanımlı yazıtipi:"
+
+msgid "Sample Text"
+msgstr "Örnek Metin"
+
+msgid "Fonts"
+msgstr "Yazı tipleri"
+
+msgid "Missing Font"
+msgstr "Eksik yazıtipi"
+
+msgid "Missing"
+msgstr "Eksik"
+
+msgid "The Font %1 is not installed."
+msgstr "%1  yazıtipi kurulu değil."
+
+msgid "Use"
+msgstr "Kullan"
+
+msgid "instead"
+msgstr "yedek olarak"
+
+msgid "Fonts..."
+msgstr "Yazıtipleri..."
+
+msgid " loaded"
+msgstr " yüklendi"
+
+msgid "Picture "
+msgstr "Resim"
+
+msgid "File "
+msgstr "Dosya"
+
+msgid " saved"
+msgstr " kaydoldu"
+
+msgid "Unable to create PDF-File."
+msgstr "PDF dosyası oluşturulamıyor."
+
+msgid "Error creating PDF-File.."
+msgstr "PDF-Dosya oluşumunda hata..."
+
+msgid "Error during EPS-Export"
+msgstr "EPS-dışa aktarımında hata"
+
+msgid "The following Programs are missing:"
+msgstr "Aşağıdaki programlar eksik:"
+
+msgid "Ghostscript : You cannot use EPS-Images"
+msgstr "Ghostscript : EPS-Resimlerini kullanamazsınız"
+
+msgid "Multiple Duplicate"
+msgstr "Bir çok kere çiftleştir"
+
+msgid "Number of Copies:"
+msgstr "Kopya sayısı:"
+
+msgid "Horizontal Shift:"
+msgstr "Dikey Uzaklık:"
+
+msgid "Vertical Shift:"
+msgstr "Yatay Uzaklık:"
+
+msgid "Distribute/Align"
+msgstr "Mesafe/Sıralama"
+
+msgid "Distribute/Align..."
+msgstr "Mesafe/Sıralama..."
+
+msgid "Don't change"
+msgstr "Değiştirme"
+
+msgid "Align"
+msgstr "Sırala"
+
+msgid "Displacement"
+msgstr "Uzaklık"
+
+msgid "Distribute evenly"
+msgstr "Eşit parçalarda böl"
+
+msgid "between:"
+msgstr "arasında:"
+
+msgid "Left Sides"
+msgstr "Sol kenarda"
+
+msgid "Middles"
+msgstr "Ortada"
+
+msgid "Right Sides"
+msgstr "Sağ kenarda"
+
+msgid "Top Sides"
+msgstr "Üst kenarda"
+
+msgid "Bottom Sides"
+msgstr "Alt kenarda"
+
+msgid "Vertical"
+msgstr "Yatay"
+
+msgid "Horizontal"
+msgstr "Dikey"
+
+msgid "Fatal Error"
+msgstr "Onarılmaz hata"
+
+msgid "There are no Postscript-Fonts on your System"
+msgstr "Postscript-yazıtipleri kurulu değil."
+
+msgid "Exiting now"
+msgstr "Programdan çık"
+
+msgid "Insert Page"
+msgstr "Sayfa ekle"
+
+msgid "Inserting"
+msgstr "Buradan ekle"
+
+msgid "before Page"
+msgstr "Sayfadan önce"
+
+msgid "after Page"
+msgstr "Sayfadan sonra"
+
+msgid "At End"
+msgstr "Belge sonunda"
+
+msgid "Page(s)"
+msgstr "Sayfa(lar)"
+
+msgid "To End"
+msgstr "Belge sonuna"
+
+msgid "Delete Pages"
+msgstr "Sayfaları sil"
+
+msgid "Delete from:"
+msgstr "Silinen:"
+
+msgid "Move Page(s):"
+msgstr "Sayfa(lar) taşı:"
+
+msgid "Move Pages"
+msgstr "Sayfaları taşı"
+
+msgid "Move..."
+msgstr "Taşınıyor..."
+
+msgid "to:"
+msgstr "buraya:"
+
+msgid "Select Items"
+msgstr "Öğe seç"
+
+msgid "Edit Contents of Frame"
+msgstr "Çerçeve içeriği düzenle"
+
+msgid "Zooms in or out"
+msgstr "Görüntüyü büyült/küçült"
+
+msgid "Insert Textbox"
+msgstr "Metin kutusu ekle"
+
+msgid "Insert Picture"
+msgstr "Resim çerçevesi ekle"
+
+msgid "Insert Lines"
+msgstr "Çizgi ekle"
+
+msgid "Insert Ovals"
+msgstr "Elips ekle"
+
+msgid "Insert Rectangles"
+msgstr "Dikdörtgen ekle"
+
+msgid "Rotate Item"
+msgstr "Öğeyi döndür"
+
+msgid "Modify..."
+msgstr "Değiştir..."
+
+msgid "Modify Textframe"
+msgstr "Metin çerçevesini değiştir"
+
+msgid "Modify Frame"
+msgstr "Çerçeveyi değiştir"
+
+msgid "Other:"
+msgstr "Diğer:"
+
+msgid "Don't print"
+msgstr "yazma"
+
+msgid "Properties:"
+msgstr "Özellikler:"
+
+msgid "Ordinary Text"
+msgstr "Normal metin"
+
+msgid "Is PDF-Annotation"
+msgstr "PDF-dipnotu"
+
+msgid "Angle:"
+msgstr "Açı:"
+
+msgid "Textdistance"
+msgstr "Metin Mesafesi"
+
+msgid "Face"
+msgstr "Yüz"
+
+msgid "Superscript"
+msgstr "Superscript"
+
+msgid "Subscript"
+msgstr "Alçak script"
+
+msgid "Flip horizontal"
+msgstr "Dikey çevir"
+
+msgid "Flip vertical"
+msgstr "Yatay çevir"
+
+msgid "Scaling:"
+msgstr "Boyut:"
+
+msgid "Disp.:"
+msgstr "Böl:"
+
+msgid "Small Caps"
+msgstr "Küçük bölüm"
+
+msgid "Typographics"
+msgstr "Tipografik"
+
+msgid "Italic"
+msgstr "Eğik"
+
+msgid "No Fill"
+msgstr "Transparent"
+
+msgid "Underline"
+msgstr "Altı çizgili"
+
+msgid "Strikethru"
+msgstr "Ortasına kadar çizgili"
+
+msgid "Strikeout"
+msgstr "Ortası çizgili"
+
+msgid "Append"
+msgstr "İliştir"
+
+msgid "Bold"
+msgstr "Koyu"
+
+msgid "Shading:"
+msgstr "Gölge:"
+
+msgid "Background Color:"
+msgstr "Arka plan rengi:"
+
+msgid "Vertical flipped"
+msgstr "Yatay çevrildi"
+
+msgid "Horizontal flipped"
+msgstr "Dikey çevrildi"
+
+msgid "Text flows around Box"
+msgstr "Metin kutu etrafında"
+
+msgid "Online-Help..."
+msgstr "Yardımcı kılavuz..."
+
+msgid "Scribus Manual"
+msgstr "Scribus Kılavuzu"
+
+msgid "Local X-Pos:"
+msgstr "Yerel X-Pos:"
+
+msgid "Local Y-Pos:"
+msgstr "Yerel Y-Pos:"
+
+msgid "Horizontal Scaling"
+msgstr "Dikey ölçek"
+
+msgid "Vertical Scaling"
+msgstr "Yatay ölçek"
+
+msgid "Modify Pictureframe"
+msgstr "Resim çerçevelerini değiştir"
+
+msgid "Line Color:"
+msgstr "Çizgi rengi:"
+
+msgid "Fill Color:"
+msgstr "Doldurma rengi:"
+
+msgid "Linestyle:"
+msgstr "Çizgi biçemi:"
+
+msgid "Linewidth:"
+msgstr "Çizgi genişliği"
+
+msgid "Scaling X:"
+msgstr "Ölçek X:"
+
+msgid "Scaling Y:"
+msgstr "Ölçek Y:"
+
+msgid "Manual Kerning"
+msgstr "Manual Kerning"
+
+msgid "Linespacing"
+msgstr "Çizgi boşluğu"
+
+msgid "Frame"
+msgstr "Çerçeve"
+
+msgid "Contents"
+msgstr "İçerik"
+
+msgid "Tools"
+msgstr "Araçlar"
+
+msgid "Create Textchains"
+msgstr "Metin bağlantısı oluştur"
+
+msgid "Break Textchains"
+msgstr "Metin bağlantısını kaldır"
+
+msgid "Stepping:"
+msgstr "Adım adım:"
+
+msgid "Placing:"
+msgstr "Yerleştir:"
+
+msgid "In the Background"
+msgstr "Arka planda"
+
+msgid "In the Foreground"
+msgstr "Ön planda"
+
+msgid "Text Color:"
+msgstr "Metin rengi"
+
+msgid "Units"
+msgstr "Birimler"
+
+msgid "Points (pt)"
+msgstr "Noktalar (pt)"
+
+msgid "Millimeters (mm)"
+msgstr "Milimetre (mm)"
+
+msgid "Creates a new Document"
+msgstr "Yeni bir belge oluştur"
+
+msgid "Opens a Document"
+msgstr "Belge aç"
+
+msgid "Saves the current Document"
+msgstr "Güncel belgeyi kaydet"
+
+msgid "Prints the current Document"
+msgstr "Güncel belgeyi yazdır"
+
+msgid "Copy Here"
+msgstr "Buraya kopyala"
+
+msgid "Move Here"
+msgstr "Buraya taşı"
+
+msgid "About"
+msgstr "Hakkında"
+
+msgid "Authors"
+msgstr "Yazarlar"
+
+msgid "Translations"
+msgstr "Çeviri"
+
+msgid "Programming:"
+msgstr "Programlama:"
+
+msgid "Contributions from:"
+msgstr "Yardımda bulunan:"
+
+msgid "Documentation:"
+msgstr "Belgeleme:"
+
+msgid "German:"
+msgstr "Almanca:"
+
+msgid "French:"
+msgstr "Fransızca:"
+
+msgid "Spanish and Catalan:"
+msgstr "İsponyolca ve katalan:"
+
+msgid "Hungarian and Italian:"
+msgstr "Macarca ve italyanca:"
+
+msgid "Slovak:"
+msgstr "Slovak:"
+
+msgid "Ukrainian:"
+msgstr "Ukrayna:"
+
+msgid "None"
+msgstr "yok"
+
+msgid "Closes the current Document"
+msgstr "Güncel belgeyi kapat"
+
+msgid "Range:"
+msgstr "Yazdırma alanı:"
+
+msgid "File:"
+msgstr "Dosya:"
+
+msgid "Print Normal"
+msgstr "Normal yazdır"
+
+msgid "Print Separations"
+msgstr "Ayraçları yazdır"
+
+msgid "All"
+msgstr "Hepsi"
+
+msgid "Setup Printer"
+msgstr "Yazıcı ayarları"
+
+msgid "Old"
+msgstr "Eski"
+
+msgid "Color Model"
+msgstr "Renk modeli"
+
+msgid "Is Spot-Color"
+msgstr "Spot rengi"
+
+msgid "Edit Color"
+msgstr "Renk düzenle"
+
+msgid "Alignment"
+msgstr "Sıralama"
+
+msgid "Left"
+msgstr "Sol"
+
+msgid "Center"
+msgstr "Ortala"
+
+msgid "Right"
+msgstr "Sağ"
+
+msgid "Edit Styles"
+msgstr "Biçemleri düzenle"
+
+msgid "Edit Style"
+msgstr "Biçem düzenle"
+
+msgid "New Style"
+msgstr "Yeni biçem"
+
+msgid "New Style:"
+msgstr "Yeni biçem:"
+
+msgid "Show Styles"
+msgstr "Biçemleri göster"
+
+msgid "Hide Styles"
+msgstr "Biçemleri sakla"
+
+msgid "Styles..."
+msgstr "Biçemler..."
+
+msgid "Styles"
+msgstr "Biçemler"
+
+msgid "No Style"
+msgstr "Biçem yok"
+
+msgid "Block"
+msgstr "Blok"
+
+msgid "Forced"
+msgstr "Gerekli Blok"
+
+msgid "Indentation"
+msgstr "Satır başı"
+
+msgid "Page-Colors"
+msgstr "Sayfa renkleri"
+
+msgid "Background:"
+msgstr "Arka plan:"
+
+msgid "Left Indent:"
+msgstr "Sol:"
+
+msgid "First Line:"
+msgstr "İlk satır:"
+
+msgid "Character"
+msgstr "Karakter"
+
+msgid "Face:"
+msgstr "Yazı şekli:"
+
+msgid "Size:"
+msgstr "Boyut:"
+
+msgid "Color:"
+msgstr "Renk:"
+
+msgid "Name of the Style is not unique"
+msgstr "Biçem ismi belirsiz"
+
+msgid "Do you really want do delete this Style?"
+msgstr "Bu biçemi silmek istediğinizden eminmisiniz?"
+
+msgid "No"
+msgstr "Hayır"
+
+msgid "Yes"
+msgstr "Evet"
+
+msgid "Vertical Spaces"
+msgstr "Yatay boşluklar"
+
+msgid "Above:"
+msgstr "Üst:"
+
+msgid "Below:"
+msgstr "Alt:"
+
+msgid "AFM-File available"
+msgstr "AFM-Dosyası mevcut"
+
+msgid "Nodes"
+msgstr "Düğümler"
+
+msgid "End Editing"
+msgstr "Bitir"
+
+msgid "Add Nodes"
+msgstr "Düğüm ekle"
+
+msgid "Delete Nodes"
+msgstr "Düğüm sil"
+
+msgid "Move Nodes"
+msgstr "Düğümleri taşı"
+
+msgid "Move Control Points"
+msgstr "Kontrol noktalarını taşı"
+
+msgid "Move Control Points independently"
+msgstr "Kontrol noktalarını bağımsız taşı"
+
+msgid "Move Control Points symmetrical"
+msgstr "Kontrol noktalarını simetrik taşı"
+
+msgid "Insert Bezier Curves"
+msgstr "Bezir eğrileri ekle"
+
+msgid "New Entry"
+msgstr "Yeni giriş"
+
+msgid "Scrapbooks (*.scs);; All Files (*)"
+msgstr "Kütüphane (*.scs);; Bütün dosyalar (*)"
+
+msgid "Scrapbook"
+msgstr "Kütüphane"
+
+msgid "Load..."
+msgstr "Yükle..."
+
+msgid "Object"
+msgstr "Nesne"
+
+msgid "Show Scrapbook"
+msgstr "Kütüphaneyi göster"
+
+msgid "Hide Scrapbook"
+msgstr "Kütüphaneyi sakla"
+
+msgid "Other Options"
+msgstr "Diğer seçenekler"
+
+msgid "Save Contents on Exit"
+msgstr "Program bitiminde içeriği kaydet"
+
+msgid "Preview"
+msgstr "Önizleme"
+
+msgid "Small"
+msgstr "Küçük"
+
+msgid "Medium"
+msgstr "Orta"
+
+msgid "Big"
+msgstr "Büyük"
+
+msgid "Edit Templates"
+msgstr "Geçici sayfaları düzenle"
+
+msgid "Apply Template..."
+msgstr "Geçici sayfaları uygula..."
+
+msgid "Exit"
+msgstr "Çık"
+
+msgid "Copy of "
+msgstr "Kopyası"
+
+msgid "Name:"
+msgstr "İsim:"
+
+msgid "New Template"
+msgstr "Yeni geçici sayfa"
+
+msgid "Normal"
+msgstr "Normal"
+
+msgid "Templates..."
+msgstr "Geçici sayfalar..."
+
+msgid "Based on:"
+msgstr "Örnek sayfa:"
+
+msgid "Apply Template"
+msgstr "Geçici sayfayı uygula"
+
+msgid "Template for this Page:"
+msgstr "Bu sayfa için geçici dosya "
+
+msgid "Do you really want do delete this Template?"
+msgstr "Geçici sayfayı gerçekten silmek istiyormusunuz ?"
+
+msgid "Left Page"
+msgstr "Sol sayfa"
+
+msgid "Right Page"
+msgstr "Sağ sayfa"
+
+msgid "Display Frames"
+msgstr "Çerçeveyi göster"
+
+msgid "Display Pages Side by Side"
+msgstr "Sayfaları yanyana göster"
+
+msgid "Display"
+msgstr "Göster"
+
+msgid "Left Page first"
+msgstr "İlk önce sol sayfa"
+
+msgid "Group"
+msgstr "Grublaştır"
+
+msgid "Ungroup"
+msgstr "Grublaştırmayı boz"
+
+msgid "Do you really want to overwrite the File:\n%1 ?"
+msgstr "Dosya ismini değiştirmek istediğinizden eminmisiniz:\n%1\n ?"
+
+msgid "Show Frames"
+msgstr "Çerçeveleri göster"
+
+msgid "Hide Frames"
+msgstr "Çerçeveleri göster"
+
+msgid "Left Page based on:"
+msgstr "Sol sayfanın temeli buna dayanıyor:"
+
+msgid "Right Page based on:"
+msgstr "Sağ sayfanın temeli buna dayanıyor:"
+
+msgid "Manage Pictures"
+msgstr "Resimleri düzenle"
+
+msgid "Pictures"
+msgstr "Resimler"
+
+msgid "Goto"
+msgstr "Git"
+
+msgid "Search"
+msgstr "Ara"
+
+msgid "Path"
+msgstr "Yol"
+
+msgid "Print"
+msgstr "Yazdır"
+
+msgid "Status"
+msgstr "Durum"
+
+msgid "Margins:"
+msgstr "Aralık:"
+
+msgid "Recent Documents:"
+msgstr "En son belge:"
+
+msgid "Recent Documents"
+msgstr "En son kullanılan belge"
+
+msgid "Display unprintable Area in Margin Color"
+msgstr "Yazdırılmayan alanları kenar renginde göster"
+
+msgid "Automatic Linespaceing:"
+msgstr "Otomatik satır boşluğu:"
+
+msgid "Distances"
+msgstr "Mesafe"
+
+msgid "Menues"
+msgstr "Menüler"
+
+msgid "Result"
+msgstr "Sonuç"
+
+msgid "Search Results for: "
+msgstr "Arama sonucu:"
+
+msgid "Select"
+msgstr "Seç"
+
+msgid "Import..."
+msgstr "İçe aktar..."
+
+msgid "Export..."
+msgstr "Dışa aktar..."
+
+msgid "Dynamic Color Bars"
+msgstr "Dinamik renk çubukları"
+
+msgid "Static Color Bars"
+msgstr "Statik renk çubukları"
+
+msgid "Color Management Settings"
+msgstr "Renk yönetimi ayarları"
+
+msgid "Activate Color Management"
+msgstr "Renk yönetimi etkinleştir"
+
+msgid "System Profiles"
+msgstr "Sistem profili"
+
+msgid "Pictures:"
+msgstr "Resimler:"
+
+msgid "Solid Colors:"
+msgstr "Yoğun renkler:"
+
+msgid "Monitor:"
+msgstr "Monitör:"
+
+msgid "Printer:"
+msgstr "Yazıcı:"
+
+msgid "Rendering Intents"
+msgstr "Rendering amaçlar"
+
+msgid "Rendering Intent:"
+msgstr "Rendering amaçları:"
+
+msgid "Perceptual"
+msgstr "Algılama"
+
+msgid "Relative Colorimetric"
+msgstr "Göreceli renk ölçer"
+
+msgid "Saturation"
+msgstr "Gölgelendirme"
+
+msgid "Absolute Colorimetric"
+msgstr "Tam renk ölçer"
+
+msgid "Simulate Printer on the Screen"
+msgstr "Yazıcıyı ekranda simule et"
+
+msgid "Color Management..."
+msgstr "Renk yönetimi..."
+
+msgid "Input Profile:"
+msgstr "Renkprofili:"
+
+msgid "No Title"
+msgstr "Başlıksız"
+
+msgid "Unknown"
+msgstr "Bilinmiyor"
+
+msgid "Adjusting Colors"
+msgstr "Renkleri ayarla"
+
+msgid "Scribus-Document"
+msgstr "Scribus-Belgesi"
+
+msgid "Title:"
+msgstr "Başlık:"
+
+msgid "Sorry, no Manual available!"
+msgstr "Malesef yardımcı kılavuz mevcut değil!"
+
+msgid "Embed all Fonts"
+msgstr "Bütün yazıtiplerini yerleştir"
+
+msgid "Embedding"
+msgstr "Yerleştir"
+
+msgid "Available Fonts:"
+msgstr "Mevcut yazıtipleri:"
+
+msgid "Fonts to embed:"
+msgstr "Yerleştirilen yazıtipleri:"
+
+msgid "Output to File:"
+msgstr "Çıktı dosyası:"
+
+msgid "Change..."
+msgstr "Değiştir..."
+
+msgid "Compression"
+msgstr "Sıkıştır"
+
+msgid "Downsample Images to:"
+msgstr "Resimlerin çözülümü:"
+
+msgid "Compress Text and Vector Graphics"
+msgstr "Metin ve Vektor grafikleri sıkıştır"
+
+msgid "File Options"
+msgstr "Dosya seçenekleri"
+
+msgid "Generate Thumbnails"
+msgstr "Göstermelik oluştur"
+
+msgid "Resolution:"
+msgstr "Çözünüm:"
+
+msgid "Create PDF-File"
+msgstr "PDF-Dosyası oluştur"
+
+msgid "X-Coor.:"
+msgstr "X-Koordinatları.:"
+
+msgid "Y-Coor.:"
+msgstr "Y-Koordinatları.:"
+
+msgid "Page:"
+msgstr "Sayfa"
+
+msgid "Destination"
+msgstr "Hedef"
+
+msgid "Type:"
+msgstr "Tür:"
+
+msgid "Annotation Properties"
+msgstr "Dipnot özellikleri"
+
+msgid "Bookmarks"
+msgstr "Yer imleri"
+
+msgid "Include Bookmarks"
+msgstr "Yer imleriyle birlikte kaydet"
+
+msgid "Manage Keyboard Shortcuts"
+msgstr "Kısayol tuşlarını yönet"
+
+msgid "Action"
+msgstr "Eylem"
+
+msgid "Current Key"
+msgstr "Güncel tuş"
+
+msgid "Select a Key for this Action"
+msgstr "Bu eylem için bir anahtar seç"
+
+msgid "No Key"
+msgstr "Tuş yok"
+
+msgid "User Defined Key"
+msgstr "Kullanıcı tanımlı anahtarlar"
+
+msgid "Set Key"
+msgstr "Tuşları yerleştir"
+
+msgid "This Key-Sequence is already in use"
+msgstr "Bu anahtar kombinasyonu daha önceden tanımlanmış"
+
+msgid "Keyboard Shortcuts..."
+msgstr "Kısayol tuşları..."
+
+msgid "Smart Hyphen"
+msgstr "Küçük tire"
+
+msgid "Align Left"
+msgstr "Soldan sırala"
+
+msgid "Align Right"
+msgstr "Sağdan sırala"
+
+msgid "Align Center"
+msgstr "Ortala"
+
+msgid "Insert Pagenumber"
+msgstr "Sayfa numarası ekle"
+
+msgid "Binding:"
+msgstr "Bağlama:"
+
+msgid "Left Margin"
+msgstr "Sol kenar"
+
+msgid "Right Margin"
+msgstr "Sağ kenar"
+
+msgid "Corner Radius:"
+msgstr "Köşe yarıçapı:"
+
+msgid "Save linked Text Frames as PDF-Articles"
+msgstr "Bağlantılı metin çerçevesini PDF Dosyası olarak kaydet"
+
+msgid "Enable Presentation Effects"
+msgstr "Sunu Efektleri kullan"
+
+msgid "Show Page Previews"
+msgstr "Sayfa önizlemeyi göster"
+
+msgid "Display Duration:"
+msgstr "Gösterme süresi:"
+
+msgid "Effect Duration:"
+msgstr "Efekt süresi:"
+
+msgid "Effect Type:"
+msgstr "Efekt türü:"
+
+msgid "Moving Lines:"
+msgstr "Hareketli çizgiler:"
+
+msgid "from the:"
+msgstr "burdan:"
+
+msgid "Direction:"
+msgstr "Yön:"
+
+msgid "No Effect"
+msgstr "Efekt yok"
+
+msgid "Blinds"
+msgstr "Panjur"
+
+msgid "Box"
+msgstr "Kutu"
+
+msgid "Dissolve"
+msgstr "Çözünüm"
+
+msgid "Glitter"
+msgstr "Satrantç tahtası"
+
+msgid "Split"
+msgstr "Böl"
+
+msgid "Wipe"
+msgstr "Temizleme"
+
+msgid "Inside"
+msgstr "İç taraf"
+
+msgid "Outside"
+msgstr "Dış taraf"
+
+msgid "Left to Right"
+msgstr "Soldan sağa"
+
+msgid "Top to Bottom"
+msgstr "Yukardan aşağıya"
+
+msgid "Bottom to Top"
+msgstr "Aşağıdan yukarıya"
+
+msgid "Right to Left"
+msgstr "Sağdan sola"
+
+msgid "Top-Left to Bottom-Right"
+msgstr "Sol yukardan çapraz olarak sağ aşağıya"
+
+msgid "Extras"
+msgstr "Diğer"
+
+msgid "Saves the current Document as PDF"
+msgstr "Güncel dosyayı PDF dosyası olarak kaydet"
+
+msgid "Rounded Rectangle"
+msgstr "Yuvarlanmış dikdörtgen"
+
+msgid "Align Text Left"
+msgstr "Metni soldan sırala"
+
+msgid "Align Text Right"
+msgstr "Metni sağdan sırala"
+
+msgid "Align Text Center"
+msgstr "Metni ortala"
+
+msgid "Align Text Block"
+msgstr "Metni blok sırala"
+
+msgid "Endings:"
+msgstr "Çizgi sonları:"
+
+msgid "Edges:"
+msgstr "Köşe:"
+
+msgid "MiterJoin"
+msgstr "Sivri"
+
+msgid "BevelJoin"
+msgstr "Eğimli"
+
+msgid "RoundJoin"
+msgstr "Yuvarlak"
+
+msgid "FlatCap"
+msgstr "Düz"
+
+msgid "SquareCap"
+msgstr "Kare"
+
+msgid "RoundCap"
+msgstr "Yuvarlatılmış"
+
+msgid "Move Bookmark"
+msgstr "Yer imine taşı"
+
+msgid "Insert Bookmark"
+msgstr "Yer imine ekle"
+
+msgid "Copy Page"
+msgstr "Sayfayı kopyala"
+
+msgid "To the End"
+msgstr "Belge sonuna"
+
+msgid "GUI"
+msgstr "Arayüz"
+
+msgid "Fontsize"
+msgstr "Yazı büyüklüğü"
+
+msgid "Apply Effect on all Pages"
+msgstr "Efekti bütün sayfalarda uygula"
+
+msgid "Print via other Command"
+msgstr "Başka bir komut ile yazdır"
+
+msgid "Command:"
+msgstr "Komut:"
+
+msgid "Orientation:"
+msgstr "Konum:"
+
+msgid "First Pagenumber:"
+msgstr "Birinci sayfa numarası:"
+
+msgid "Default Unit:"
+msgstr "Öntanımlı birim:"
+
+msgid "Sent to Scrapbook"
+msgstr "Kütüphaneye kopyala"
+
+msgid "Left Point"
+msgstr "Sol nokta"
+
+msgid "Endpoints"
+msgstr "Son noktalar"
+
+msgid "Scaling"
+msgstr "Ölçek"
+
+msgid "X-Dir:"
+msgstr "Yatay.:"
+
+msgid "Y-Dir:"
+msgstr "Dikey.:"
+
+msgid "Linespacing:"
+msgstr "Çizgi boşluğu:"
+
+msgid "Character Settings"
+msgstr "Karakter ayarları"
+
+msgid "Length:"
+msgstr "Uzunluk:"
+
+msgid "Polygon Properties"
+msgstr "Çokgen özellikleri"
+
+msgid "Corners:"
+msgstr "Köşe:"
+
+msgid "Convex Polygon"
+msgstr "Dış bükey çokgen"
+
+msgid "Factor:"
+msgstr "Çarpan:"
+
+msgid "Edit Polygon"
+msgstr "Çokgen düzenle"
+
+msgid "Properties..."
+msgstr "Özellikler..."
+
+msgid "Lithuanian:"
+msgstr "Litvanya dili"
+
+msgid "Measurements"
+msgstr "Ölçümler"
+
+msgid "Insert Polygons"
+msgstr "Çokgen ekle"
+
+msgid "Rotation:"
+msgstr "Eğim:"
+
+msgid "Loading..."
+msgstr "Yükle..."
+
+msgid "Convert to"
+msgstr "Dönüştürme"
+
+msgid "Text Frame"
+msgstr "Metin çerçevesi"
+
+msgid "Picture Frame"
+msgstr "Resim çerçevesi"
+
+msgid "Polygon"
+msgstr "Çokgen"
+
+msgid "Bezier Curve"
+msgstr "Bezir eğrileri"
+
+msgid "Style"
+msgstr "Biçem"
+
+msgid "Modify Pathtext"
+msgstr "Yol metnini değiştir"
+
+msgid "Show Curve"
+msgstr "Eğrileri göster"
+
+msgid "Startoffset:"
+msgstr "Başlangıç ofseti:"
+
+msgid "Distance from Curve:"
+msgstr "Eğriye olan mesafe:"
+
+msgid "Attach Text to Path"
+msgstr "Yola metin ekle"
+
+msgid "Layers"
+msgstr "Katmanlar"
+
+msgid "Add a new Layer"
+msgstr "Yeni katman ekle"
+
+msgid "Delete Layer"
+msgstr "Katmanı sil"
+
+msgid "Raise Layer"
+msgstr "Katmanı yukarıya taşı"
+
+msgid "Lower Layer"
+msgstr "Katmanı aşağıya taşı"
+
+msgid "Closes this Dialog"
+msgstr "Bu iletişimi kapat"
+
+msgid "New Layer"
+msgstr "Yeni katman"
+
+msgid "Background"
+msgstr "Arka plan"
+
+msgid "Reset Control Points"
+msgstr "Kontrol noktalarını sıfırla"
+
+msgid "Reset this Control Points"
+msgstr "Bu kontrol noktalarını sıfırla"
+
+msgid "Opens a Polygon or cuts a Bezier Curve"
+msgstr "Çokgen aç veya bezir eğrisini kes"
+
+msgid "Closes this Bezier Curve"
+msgstr "Bu bezir eğrisini kapat"
+
+msgid "Show Layers"
+msgstr "Katmanları göster"
+
+msgid "Hide Layers"
+msgstr "Katmanları sakla"
+
+msgid "Sent to Layer"
+msgstr "Katmana gönder"
+
+msgid "Link"
+msgstr "Bağlantı"
+
+msgid "Text Field"
+msgstr "Metin alanı"
+
+msgid "Button"
+msgstr "Tuş"
+
+msgid "Check Box"
+msgstr "Kontrol kutusu"
+
+msgid "Properties"
+msgstr "Özellikler"
+
+msgid "Tool-Tip:"
+msgstr "İpucu"
+
+msgid "Read Only"
+msgstr "Salt okunur"
+
+msgid "Visibility:"
+msgstr "Görünebilirlik:"
+
+msgid "Border"
+msgstr "Sınır"
+
+msgid "Thin"
+msgstr "İnce"
+
+msgid "Wide"
+msgstr "Geniş"
+
+msgid "Solid"
+msgstr "Katı"
+
+msgid "Dashed"
+msgstr "Çizgili"
+
+msgid "Beveled"
+msgstr "Vurgulu"
+
+msgid "Inset"
+msgstr "Derin"
+
+msgid "Visible"
+msgstr "Görünür"
+
+msgid "Hidden"
+msgstr "Saklı"
+
+msgid "No Print"
+msgstr "Yazdırma"
+
+msgid "No View"
+msgstr "Görünmez"
+
+msgid "Appearance"
+msgstr "Görünüş"
+
+msgid "Text"
+msgstr "Metin"
+
+msgid "Text for Button Down"
+msgstr "Aşağıya tuşu için Metin"
+
+msgid "Text for Roll Over"
+msgstr "Yuvarlama için Metin"
+
+msgid "Highlight"
+msgstr "Önemli"
+
+msgid "Invert"
+msgstr "Tersi"
+
+msgid "Outlined"
+msgstr "Taslağı çizilmiş"
+
+msgid "Push"
+msgstr "Bas"
+
+msgid "Multi-Line"
+msgstr "Çok çizgili"
+
+msgid "Password"
+msgstr "Şifre"
+
+msgid "Limit of"
+msgstr "Azami"
+
+msgid "Characters"
+msgstr "Karakterler"
+
+msgid "Do Not Scroll"
+msgstr "Döndürme"
+
+msgid "Do Not Spell Check"
+msgstr "İmla kurallarını kotrol etme"
+
+msgid "Check Style:"
+msgstr "Biçem kontrol:"
+
+msgid "Check"
+msgstr "Kontrol"
+
+msgid "Cross"
+msgstr "Çarpı"
+
+msgid "Diamond"
+msgstr "Eşkenar dörtgen"
+
+msgid "Circle"
+msgstr "Daire"
+
+msgid "Star"
+msgstr "Yıldız"
+
+msgid "Square"
+msgstr "Kare"
+
+msgid "Default is Checked"
+msgstr "Öntanımlılar aktif"
+
+msgid "Java Script"
+msgstr "Java Script"
+
+msgid "Go To"
+msgstr "Git"
+
+msgid "Submit Form"
+msgstr "Form gönder"
+
+msgid "Reset Form"
+msgstr "Formu sıfırla"
+
+msgid "Flag is ignored for PDF-1.3"
+msgstr "PDF-1.3 için kullanılamaz"
+
+msgid "Font for use with PDF-1.3:"
+msgstr "PDF-1.3 için yazıtipi:"
+
+msgid "Required"
+msgstr "Gerekli"
+
+msgid "Don't Export Value"
+msgstr "Değeri dışa gönderme"
+
+msgid "Event:"
+msgstr "Olay:"
+
+msgid "Mouse Up"
+msgstr "Fare tuşunu bırak"
+
+msgid "Mouse Down"
+msgstr "Fare tuşuna bas"
+
+msgid "Mouse Enter"
+msgstr "Fare ile Enter"
+
+msgid "Mouse Exit"
+msgstr "Fare işareti çıktığında"
+
+msgid "On Focus"
+msgstr "Alan fokusda"
+
+msgid "On Blur"
+msgstr "Alan fokusu verdiğinde"
+
+msgid "Script:"
+msgstr "Script:"
+
+msgid "Field is formatted as:"
+msgstr "Alan formatı:"
+
+msgid "Plain"
+msgstr "Sade"
+
+msgid "Number"
+msgstr "Sayı"
+
+msgid "Percentage"
+msgstr "Oran"
+
+msgid "Date"
+msgstr "Tarih"
+
+msgid "Time"
+msgstr "Zaman"
+
+msgid "Custom"
+msgstr "Kullanıcı tanımlı"
+
+msgid "Number Format"
+msgstr "Sayı biçemi"
+
+msgid "Decimals:"
+msgstr "Ondalık sayılar:"
+
+msgid "Use Currency Symbol"
+msgstr "Tedavül sembollerini kullan"
+
+msgid "Prepend Currency Symbol"
+msgstr "Tedavül sembollerini ekle"
+
+msgid "Formatting"
+msgstr "Biçemler"
+
+msgid "Percent Format"
+msgstr "Yüzdelik biçemi"
+
+msgid "Date Format"
+msgstr "Tarih biçemi"
+
+msgid "Time Format"
+msgstr "Zaman biçemi"
+
+msgid "Custom Scripts"
+msgstr "Kullanıcı tanımlı"
+
+msgid "Format:"
+msgstr "Biçem:"
+
+msgid "Edit..."
+msgstr "Düzenle..."
+
+msgid "Combo Box"
+msgstr "Birleşik kutu"
+
+msgid "List Box"
+msgstr "Liste kutusu"
+
+msgid "Keystroke:"
+msgstr "Tuş vuruşu:"
+
+msgid "Format"
+msgstr "Biçem"
+
+msgid "Value is not validated"
+msgstr "Değer kontrol edilmedi"
+
+msgid "Value must be greater than or equal to:"
+msgstr "Değer bundan büyük veya küçük olmalı:"
+
+msgid "and less or equal to:"
+msgstr " ve küçük veya eşit:"
+
+msgid "Custom validate script:"
+msgstr "Özel kontrol scripti:"
+
+msgid "Value is not calculated"
+msgstr "Değer hesaplanmayacak"
+
+msgid "Value is the"
+msgstr "Değer"
+
+msgid "sum"
+msgstr "Toplam"
+
+msgid "product"
+msgstr "ürün"
+
+msgid "average"
+msgstr "ortalama"
+
+msgid "minimum"
+msgstr "asgari"
+
+msgid "maximum"
+msgstr "azami"
+
+msgid "of the following fields:"
+msgstr "aşağıdaki alanlar:"
+
+msgid "Custom calculation script:"
+msgstr "Özel hesaplama scripti:"
+
+msgid "Calculate"
+msgstr "Hesapla"
+
+msgid "Validate"
+msgstr "Kontrol et"
+
+msgid "Enter a comma separated list of Fields here"
+msgstr "Ayrılmış alan listesine virgül girin"
+
+msgid "Example:"
+msgstr "Örnek:"
+
+msgid "Selection Change"
+msgstr "Seçimi değiştir"
+
+# New in Version 0.8
+msgid "Use Icons"
+msgstr "İkonları kullan"
+
+msgid "Remove"
+msgstr "Sil"
+
+msgid "Pressed"
+msgstr "Basılı"
+
+msgid "Roll Over"
+msgstr "Roll Over"
+
+msgid "Icon Placement..."
+msgstr "İkon yerleştir..."
+
+msgid "Editable"
+msgstr "Düzenlenebilir"
+
+msgid "Submit to URL:"
+msgstr "URL 'ye gönder:"
+
+msgid "Submit Data as HTML"
+msgstr "Verileri HTML olarak gönder"
+
+msgid "Layout:"
+msgstr "Düzen:"
+
+msgid "Caption only"
+msgstr "Sadece Metin"
+
+msgid "Icon only"
+msgstr "Sadece ikon"
+
+msgid "Caption below Icon"
+msgstr "Metin ikonun altında"
+
+msgid "Caption above Icon"
+msgstr "Metin ikonun üstünde"
+
+msgid "Caption right to Icon"
+msgstr "Metin ikonun sağında"
+
+msgid "Caption left to Icon"
+msgstr "Metin ikonun solunda"
+
+msgid "Caption overlays Icon"
+msgstr "Metin ikonun üstünde"
+
+msgid "Scale When:"
+msgstr "Ölçek:"
+
+msgid "Always"
+msgstr "Daima"
+
+msgid "When Icon is too small"
+msgstr "Eğer ikon çok küçükse"
+
+msgid "When Icon is too big"
+msgstr "Eğer ikon çok büyükse"
+
+msgid "Never"
+msgstr "Asla"
+
+msgid "Scale How:"
+msgstr "Ölçekleme yöntemi:"
+
+msgid "Proportional"
+msgstr "Orantılı"
+
+msgid "Non Proportional"
+msgstr "Orantısız"
+
+msgid "Reset"
+msgstr "Sıfırla"
+
+msgid "You need at least the Icon for Normal to use Icons for Buttons"
+msgstr "İkonları kullanabilmek için en azından normal olarak bu ikona ihtıyacınız var"
+
+msgid "Save and Exit"
+msgstr "Kaydet ve çık"
+
+msgid "Exit without Saving"
+msgstr "Kaydetmeden çık"
+
+msgid "Get Field Names"
+msgstr "Alan ismini seçin"
+
+msgid "JavaScripts (*.js);; All Files (*)"
+msgstr "JavaScripts (*.js);; Bütün dosyalar (*)"
+
+msgid "Pick..."
+msgstr "Seçin..."
+
+msgid "Export Range"
+msgstr "Kenarlar"
+
+msgid "All Pages"
+msgstr "Bütün sayfalar"
+
+msgid "From:"
+msgstr "Burdan:"
+
+msgid "Insert PDF-Fields"
+msgstr "PDF alanları ekle"
+
+msgid "Undo"
+msgstr "Geri"
+
+msgid "Redo"
+msgstr "Tekrar oluştur"
+
+msgid "Select Fields"
+msgstr "Alan seçin"
+
+msgid "Available Fields"
+msgstr "Mevcut alanlar"
+
+msgid "Selected Fields"
+msgstr "Seçilen alanlar"
+
+msgid "Field Properties"
+msgstr "Alan özellikleri"
+
+msgid "Global JavaScripts"
+msgstr "Genel JavaScriptler"
+
+msgid "Add..."
+msgstr "Ekle..."
+
+msgid "New Script:"
+msgstr "Yeni script:"
+
+msgid "New Script"
+msgstr "Yeni script"
+
+msgid "Insert PDF-Annotations"
+msgstr "PDF notu ekle"
+
+msgid "Import Data"
+msgstr "Verileri içe aktar"
+
+msgid "Import Data from:"
+msgstr "Verileri burdan içe aktar:"
+
+msgid "Undo Object Change"
+msgstr "Nesne değişikliğini geri al"
+
+msgid "Undo Object Move"
+msgstr "Nesne taşımasını geri al"
+
+msgid "Undo Delete Object"
+msgstr "Silinen nesneyi geri al"
+
+msgid "Compress File"
+msgstr "Dosya sıklaştır"
+
+msgid "Inches (in)"
+msgstr "İnç (in)"
+
+msgid "Picas (p)"
+msgstr "Pixel (p)"
+
+msgid "Show Template Names"
+msgstr "Geçici isimleri göster"
+
+msgid "Arrange Pages"
+msgstr "Sayları düzenle"
+
+msgid "Available Templates:"
+msgstr "Mevcut geçici dosyalar:"
+
+msgid "Document Pages:"
+msgstr "Belge sayfaları:"
+
+msgid "Hide Page Palette"
+msgstr "Sayfa paletini sakla"
+
+msgid "Show Page Palette"
+msgstr "Sayfa paletini göster"
+
+msgid "Drag Pages or Template Pages onto the Trashbin to delete them."
+msgstr "Çöpteki sayfaları veya şablonları sil."
+
+msgid "Here are all your Templates, to create a new Page\ndrag a Template to the Pageview below."
+msgstr "Bunlar yeni sayfa oluşturmak için gerekli olan geçici dosyalar\nSayfa gösterimi için dosyayı çekin ve bırakın. "
+
+msgid "Here you can see all Pages of your Document."
+msgstr "Belgenizin bütün sayfalarını görebilirsiniz."
+
+msgid "Free Scaling"
+msgstr "Serbest ölçek"
+
+msgid "Scale Picture to Frame Size"
+msgstr "Resimleri çerçeve boyutuna ölçekle"
+
+msgid "Keep Aspect Ratio"
+msgstr "Uzun bağlantıları bırak"
+

@@ -1,0 +1,883 @@
+<HTML>
+<HEAD>
+<TITLE>class ScribusApp</TITLE>
+
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+<TABLE WIDTH="100%" BORDER="0">
+<TR>
+<TD>
+	<TABLE BORDER="0">
+		<TR><TD valign="top" align="left" cellspacing="10">
+		<h1>class ScribusApp</h1>
+		</TD>
+		<TD valign="top" align="right" colspan="1">
+ This Class is the base class for your application. <small><A HREF="#longdesc">More...</A></small></TD></TR>
+	</TABLE>
+	<HR>
+	<TABLE BORDER="0">
+		<TR><TH>Definition</TH><TD><code>#include &lt;<A HREF="scribus___scribus_h.html">scribus/scribus.h</A>&gt;</code></TD></TR>
+<TR><TH>Inherits</TH><TD>QMainWindow <small>(unknown)</small> <small>[public ]</small></TD></TR>
+<TR><TH><A HREF="full-list-ScribusApp.html">List of all Methods</A></TH></TR>
+	</TABLE>
+	</TD>
+<TD align="right"><TABLE BORDER="0"><TR><TD><small><A HREF="index-long.html">Annotated List</A></small></TD></TR>
+<TR><TD><small><A HREF="header-list.html">Files</A></small></TD></TR>
+<TR><TD><small><A HREF="all-globals.html">Globals</A></small></TD></TR>
+<TR><TD><small><A HREF="hier.html">Hierarchy</A></small></TD></TR>
+<TR><TD><small><A HREF="index.html">Index</A></small></TD></TR>
+</TABLE></TD></TR></TABLE>
+<h4>Public Methods</h4><ul><LI>&nbsp;<b><A HREF="#ref1">ScribusApp</A></b> () 
+</LI>
+<LI>&nbsp;<b><A HREF="#ref2">~ScribusApp</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref3">initMenuBar</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref4">initStatusBar</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref5">SetShortCut</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref6">SetKeyEntry</A></b> (int Nr, QString text, int Men, int KeyC) 
+</LI>
+<LI>bool &nbsp;<b><A HREF="#ref7">doFileNew</A></b> (float b, float h, float tpr, float lr, float rr, float br, float ab, float sp,
+									 bool atf, bool fp, int einh, bool firstleft, int Ori, int SNr) 
+</LI>
+<LI>bool &nbsp;<b><A HREF="#ref8">DoFileSave</A></b> (QString fn) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref9">closeEvent</A></b> (QCloseEvent *ce) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref10">keyPressEvent</A></b> (QKeyEvent *k) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref11">wheelEvent</A></b> (QWheelEvent *w) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref12">DeleteSel</A></b> (<A HREF="PageItem.html">PageItem</A> *b) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref13">setTBvals</A></b> (<A HREF="PageItem.html">PageItem</A> *b) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref14">SavePrefs</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref15">ShowSubs</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref16">applyNewMaster</A></b> (QString name) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref17">UpdateRecent</A></b> (QString fn) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref18">InitPlugs</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref19">InitHyphenator</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref20">FinalizePlugs</A></b> () 
+</LI>
+<LI>bool &nbsp;<b><A HREF="#ref21">DLLName</A></b> (QString name, QString *PName, int *typ, void **Zeig) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref22">CallDLL</A></b> (QString name) 
+</LI>
+<LI><A HREF="PSLib.html">PSLib</A>* &nbsp;<b><A HREF="#ref23">getPSDriver</A></b> (bool psart, <A HREF="SCFonts.html">SCFonts</A> &AllFonts, QMap<QString,QFont> DocFonts, <A HREF="#CListe">CListe</A> DocColors, bool pdf) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref24">closePSDriver</A></b> () 
+</LI>
+<LI><A HREF="PDFlib.html">PDFlib</A>* &nbsp;<b><A HREF="#ref25">getPDFDriver</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref26">closePDFDriver</A></b> () 
+</LI>
+<LI>bool &nbsp;<b><A HREF="#ref27">DoSaveAsEps</A></b> (QString fn) 
+</LI>
+<LI>QString &nbsp;<b><A HREF="#ref28">CFileDialog</A></b> (QString caption = "", QString filter = "", QString defNa = "", bool Pre = false, bool mod = true, bool comp = false) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref29">GetCMSProfiles</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref30">RecalcColors</A></b> (QProgressBar *dia = 0) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref31">SwitchWin</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref32">RestoreBookMarks</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref33">AdjustBM</A></b> () 
+</LI>
+</ul><h4>Public Slots</h4><ul><LI>void &nbsp;<b><A HREF="#ref66">Collect</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref67">ChBookmarks</A></b> (int s, int e, int n) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref68">AddBookMark</A></b> (<A HREF="PageItem.html">PageItem</A> *ite) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref69">DelBookMark</A></b> (<A HREF="PageItem.html">PageItem</A> *ite) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref70">BookMarkTxT</A></b> (<A HREF="PageItem.html">PageItem</A> *ite) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref71">StoreBookmarks</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref72">ReadPrefs</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref73">ManageGuides</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref74">SetTranspar</A></b> (float t) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref75">ReportMP</A></b> (float xp, float yp) 
+</LI>
+<LI>bool &nbsp;<b><A HREF="#ref76">DoFileClose</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref77">DoSaveClose</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref78">windowsMenuAboutToShow</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref79">newActWin</A></b> (QWidget *w) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref80">windowsMenuActivated</A></b> (int id) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref81">ToggleObjLock</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref82">UnDoAction</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref83">CanUndo</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref84">configHyphenator</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref85">doHyphenate</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref86">slotTest</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref87">slotTest2</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref88">PutScrap</A></b> (QString t) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref89">Pfadtext</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref90">changeLayer</A></b> (int l) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref91">showLayer</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref92">LayerRemove</A></b> (int l) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref93">SetCMSPrefs</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref94">ManageJava</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref95">ManageTemp</A></b> (QString temp = "") 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref96">ManTempEnd</A></b> () 
+</LI>
+<LI>bool &nbsp;<b><A HREF="#ref97">slotFileNew</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref98">slotFileOpen</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref99">LoadRecent</A></b> (int id) 
+</LI>
+<LI>bool &nbsp;<b><A HREF="#ref100">slotDocOpen</A></b> () 
+</LI>
+<LI>bool &nbsp;<b><A HREF="#ref101">LadeDoc</A></b> (QString fileName) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref102">slotFileSave</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref103">slotFileSaveAs</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref104">SaveText</A></b> () 
+</LI>
+<LI>bool &nbsp;<b><A HREF="#ref105">slotFileClose</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref106">slotFilePrint</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref107">slotFileQuit</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref108">slotEditCut</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref109">slotEditCopy</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref110">slotEditPaste</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref111">EnableTxEdit</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref112">DisableTxEdit</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref113">SelectAll</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref114">DeleteText</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref115">slotHelpAbout</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref116">slotHelpAboutQt</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref117">slotOnlineHelp</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref118">ToggleTips</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref119">slotNewPageP</A></b> (int wo, QString templ) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref120">slotNewPageM</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref121">slotNewPageT</A></b> (int w) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref122">slotNewPage</A></b> (int w) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref123">DeletePage</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref124">DeletePage2</A></b> (int pg) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref125">MovePage</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref126">CopyPage</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref127">slotZoomAbs</A></b> (float z) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref128">slotZoomFit</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref129">slotZoom20</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref130">slotZoom50</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref131">slotZoom75</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref132">slotZoom100</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref133">slotZoom200</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref134">ToggleMarks</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref135">ToggleFrames</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref136">ToggleTools</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref137">ToggleMpal</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref138">ToggleTpal</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref139">ToggleBpal</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref140">ToggleLpal</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref141">ToggleSepal</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref142">ToggleBookpal</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref143">TogglePics</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref144">ToggleRaster</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref145">ToggleURaster</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref146">ToggleFrameEdit</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref147">slotSelect</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref148">ModeFromTB</A></b> (int) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref149">setAppMode</A></b> (int mode) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref150">HaveNewDoc</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref151">HaveNewSel</A></b> (int Nr) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref152">slotDocCh</A></b> (bool reb = true) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref153">setItemFarbe</A></b> (int id) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref154">setItemShade</A></b> (int id) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref155">setItemFont</A></b> (int id) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref156">AdjustFontMenu</A></b> (QString nf) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref157">SetNewFont</A></b> (QString nf) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref158">setItemFSize</A></b> (int id) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref159">setFSizeMenu</A></b> (int size) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref160">slotEditColors</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref161">setPenShade</A></b> (int sh) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref162">setBrushShade</A></b> (int sh) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref163">setGradFill</A></b> (int typ, QString col1, int sh1, QString col2, int sh2) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref164">setPenFarbe</A></b> (QString farbe) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref165">setBrushFarbe</A></b> (QString farbe) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref166">setCSMenu</A></b> (QString f, QString l, int fs, int ls) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref167">GetBrushPen</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref168">RectFrame</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref169">OvalFrame</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref170">RoundedFrame</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref171">DeleteObjekt</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref172">Objekt2Back</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref173">Objekt2Front</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref174">ObjektRaise</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref175">ObjektLower</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref176">ObjektDup</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref177">ObjektDupM</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref178">InfoDoc</A></b> () 
+</LI>
+<LI>bool &nbsp;<b><A HREF="#ref179">SetupDoc</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref180">ObjektAlign</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref181">DoAlign</A></b> (bool xa, bool ya, bool Vth, bool Vtv, float xdp, float ydp, int xart, int yart) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref182">GetAllFonts</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref183">BuildFontMenu</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref184">slotFontOrg</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref185">slotPrefsOrg</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref186">slotEditStyles</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref187">setNewAbStyle</A></b> (int a) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref188">setAbsValue</A></b> (int a) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref189">SelectFromOutl</A></b> (int <A HREF="Page.html">Page</A>, int Item) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref190">SelectFromOutlS</A></b> (int <A HREF="Page.html">Page</A>) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref191">SaveAsEps</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref192">SaveAsPDF</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref193">ModifyObject</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref194">Aktiv</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref195">setItemHoch</A></b> (int h) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref196">setStilvalue</A></b> (int s) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref197">setItemTypeStyle</A></b> (int id) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref198">slotElemRead</A></b> (QString Name, int x, int y, bool art, bool loca, <A HREF="ScribusDoc.html">ScribusDoc</A>* docc) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref199">slotChangeUnit</A></b> (int art) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref200">NoFrameEdit</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref201">setItemTextAli</A></b> (int id) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref202">ApplyTemp</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref203">Apply_Temp</A></b> (QString in, int Snr) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref204">GroupObj</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref205">UnGroupObj</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref206">StatusPic</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref207">RunPlug</A></b> (int id) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref208">RunImportPlug</A></b> (int id) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref209">RunExportPlug</A></b> (int id) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref210">RunHelpPlug</A></b> (int id) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref211">ModifyAnnot</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref212">ToggleGuides</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref213">ToggleUGuides</A></b> () 
+</LI>
+</ul><h4>Signals</h4><ul><LI>void &nbsp;<b><A HREF="#ref214">TextISize</A></b> (int) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref215">TextIFont</A></b> (QString) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref216">TextUSval</A></b> (float) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref217">TextStil</A></b> (int) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref218">TextFarben</A></b> (QString, QString, int, int) 
+</LI>
+</ul><h4>Public Members</h4><ul><LI>Forward <A HREF="#ref34">Buffer</A>
+</LI>
+<LI>QString <b><A HREF="#ref35">Buffer2</A></b></LI>
+<LI>QString <b><A HREF="#ref36">Buffer3</A></b></LI>
+<LI>ProfilesL <b><A HREF="#ref37">MonitorProfiles</A></b></LI>
+<LI>ProfilesL <b><A HREF="#ref38">PrinterProfiles</A></b></LI>
+<LI>ProfilesL <b><A HREF="#ref39">PDFXProfiles</A></b></LI>
+<LI>float <b><A HREF="#ref40">DispX</A></b></LI>
+<LI>float <b><A HREF="#ref41">DispY</A></b></LI>
+<LI>QTimer *<b><A HREF="#ref42">CurTimer</A></b></LI>
+<LI>bool <b><A HREF="#ref43">NoFonts</A></b></LI>
+<LI>int <b><A HREF="#ref44">HaveDoc</A></b></LI>
+<LI>Forward <A HREF="#ref45">Prefs</A>
+</LI>
+<LI>ScribusView *<b><A HREF="#ref46">view</A></b></LI>
+<LI>ScribusDoc *<b><A HREF="#ref47">doc</A></b></LI>
+<LI>QLabel* <b><A HREF="#ref48">FMess</A></b></LI>
+<LI>QProgressBar* <b><A HREF="#ref49">FProg</A></b></LI>
+<LI>QLabel* <b><A HREF="#ref50">XMess</A></b></LI>
+<LI>QLabel* <b><A HREF="#ref51">XDat</A></b></LI>
+<LI>QLabel* <b><A HREF="#ref52">YMess</A></b></LI>
+<LI>QLabel* <b><A HREF="#ref53">YDat</A></b></LI>
+<LI>Mpalette *<b><A HREF="#ref54">Mpal</A></b></LI>
+<LI>NodePalette *<b><A HREF="#ref55">Npal</A></b></LI>
+<LI>Tree *<b><A HREF="#ref56">Tpal</A></b></LI>
+<LI>Biblio *<b><A HREF="#ref57">ScBook</A></b></LI>
+<LI>LayerPalette* <b><A HREF="#ref58">Lpal</A></b></LI>
+<LI>SeitenPal *<b><A HREF="#ref59">Sepal</A></b></LI>
+<LI>BookPalette *<b><A HREF="#ref60">BookPal</A></b></LI>
+<LI>QMap<QString,QString> <b><A HREF="#ref61">Sprachen</A></b></LI>
+<LI>QWorkspace *<b><A HREF="#ref62">wsp</A></b></LI>
+<LI>QPopupMenu* <b><A HREF="#ref63">windowsMenu</A></b></LI>
+<LI>ScribusWin* <b><A HREF="#ref64">ActWin</A></b></LI>
+<LI>QString <b><A HREF="#ref65">PrefsPfad</A></b></LI>
+</ul><h4>Private Types</h4><ul><LI>struct <A HREF="ScribusApp__PlugData.html">PlugData</A>
+</LI>
+<LI>struct <A HREF="ScribusApp__PDe.html">PDe</A>
+</LI>
+</ul><h4>Private Methods</h4><ul><LI>float &nbsp;<b><A HREF="#ref309">mm2pts</A></b> (int mm) 
+</LI>
+<LI>float &nbsp;<b><A HREF="#ref310">pts2mm</A></b> (float pts) 
+</LI>
+</ul><h4>Private Members</h4><ul><LI>QPopupMenu *<b><A HREF="#ref219">fileMenu</A></b></LI>
+<LI>QPopupMenu *<b><A HREF="#ref220">editMenu</A></b></LI>
+<LI>QPopupMenu *<b><A HREF="#ref221">StilMenu</A></b></LI>
+<LI>QPopupMenu *<b><A HREF="#ref222">ObjMenu</A></b></LI>
+<LI>QPopupMenu *<b><A HREF="#ref223">pageMenu</A></b></LI>
+<LI>QPopupMenu *<b><A HREF="#ref224">viewMenu</A></b></LI>
+<LI>QPopupMenu *<b><A HREF="#ref225">ColorMenu</A></b></LI>
+<LI>QPopupMenu *<b><A HREF="#ref226">SizeTMenu</A></b></LI>
+<LI>QPopupMenu *<b><A HREF="#ref227">ShadeMenu</A></b></LI>
+<LI>QPopupMenu *<b><A HREF="#ref228">ShapeMenu</A></b></LI>
+<LI>QPopupMenu *<b><A HREF="#ref229">FontMenu</A></b></LI>
+<LI>QPopupMenu *<b><A HREF="#ref230">FStyleMenu</A></b></LI>
+<LI>QPopupMenu *<b><A HREF="#ref231">TypeStyleMenu</A></b></LI>
+<LI>QPopupMenu *<b><A HREF="#ref232">AliMenu</A></b></LI>
+<LI>QPopupMenu *<b><A HREF="#ref233">recentMenu</A></b></LI>
+<LI>QPopupMenu *<b><A HREF="#ref234">hymen</A></b></LI>
+<LI>QToolBar *<b><A HREF="#ref235">WerkTools2</A></b></LI>
+<LI>WerkToolB* <b><A HREF="#ref236">WerkTools</A></b></LI>
+<LI>QToolButton* <b><A HREF="#ref237">DatOpe</A></b></LI>
+<LI>QToolButton* <b><A HREF="#ref238">DatSav</A></b></LI>
+<LI>QToolButton* <b><A HREF="#ref239">DatClo</A></b></LI>
+<LI>QToolButton* <b><A HREF="#ref240">DatPri</A></b></LI>
+<LI>QToolButton* <b><A HREF="#ref241">DatPDF</A></b></LI>
+<LI>QToolButton* <b><A HREF="#ref242">DatNeu</A></b></LI>
+<LI>int <b><A HREF="#ref243">KeyMod</A></b></LI>
+<LI>int <b><A HREF="#ref244">ShapeEdit</A></b></LI>
+<LI>int <b><A HREF="#ref245">ShapeM</A></b></LI>
+<LI>int <b><A HREF="#ref246">DistM</A></b></LI>
+<LI>int <b><A HREF="#ref247">PfadT</A></b></LI>
+<LI>int <b><A HREF="#ref248">pgmd</A></b></LI>
+<LI>int <b><A HREF="#ref249">pgmm</A></b></LI>
+<LI>int <b><A HREF="#ref250">pgmv</A></b></LI>
+<LI>int <b><A HREF="#ref251">Stm</A></b></LI>
+<LI>int <b><A HREF="#ref252">Obm</A></b></LI>
+<LI>int <b><A HREF="#ref253">Markers</A></b></LI>
+<LI>int <b><A HREF="#ref254">FrameDr</A></b></LI>
+<LI>int <b><A HREF="#ref255">Bilder</A></b></LI>
+<LI>int <b><A HREF="#ref256">Ras</A></b></LI>
+<LI>int <b><A HREF="#ref257">uRas</A></b></LI>
+<LI>int <b><A HREF="#ref258">Guide</A></b></LI>
+<LI>int <b><A HREF="#ref259">uGuide</A></b></LI>
+<LI>int <b><A HREF="#ref260">viewTools</A></b></LI>
+<LI>int <b><A HREF="#ref261">viewMpal</A></b></LI>
+<LI>int <b><A HREF="#ref262">viewTpal</A></b></LI>
+<LI>int <b><A HREF="#ref263">viewNpal</A></b></LI>
+<LI>int <b><A HREF="#ref264">viewBpal</A></b></LI>
+<LI>int <b><A HREF="#ref265">viewLpal</A></b></LI>
+<LI>int <b><A HREF="#ref266">viewSepal</A></b></LI>
+<LI>int <b><A HREF="#ref267">viewBopal</A></b></LI>
+<LI>int <b><A HREF="#ref268">fid1</A></b></LI>
+<LI>int <b><A HREF="#ref269">fid2</A></b></LI>
+<LI>int <b><A HREF="#ref270">fid3</A></b></LI>
+<LI>int <b><A HREF="#ref271">fid4</A></b></LI>
+<LI>int <b><A HREF="#ref272">fid5</A></b></LI>
+<LI>int <b><A HREF="#ref273">fid51</A></b></LI>
+<LI>int <b><A HREF="#ref274">fid6</A></b></LI>
+<LI>int <b><A HREF="#ref275">fid7</A></b></LI>
+<LI>int <b><A HREF="#ref276">fid8</A></b></LI>
+<LI>int <b><A HREF="#ref277">fid9</A></b></LI>
+<LI>int <b><A HREF="#ref278">fid10</A></b></LI>
+<LI>int <b><A HREF="#ref279">fid11</A></b></LI>
+<LI>int <b><A HREF="#ref280">fid12</A></b></LI>
+<LI>int <b><A HREF="#ref281">fid13</A></b></LI>
+<LI>int <b><A HREF="#ref282">fid14</A></b></LI>
+<LI>int <b><A HREF="#ref283">edUndo</A></b></LI>
+<LI>int <b><A HREF="#ref284">edid1</A></b></LI>
+<LI>int <b><A HREF="#ref285">edid2</A></b></LI>
+<LI>int <b><A HREF="#ref286">edid3</A></b></LI>
+<LI>int <b><A HREF="#ref287">edid4</A></b></LI>
+<LI>int <b><A HREF="#ref288">edid5</A></b></LI>
+<LI>int <b><A HREF="#ref289">edid6</A></b></LI>
+<LI>int <b><A HREF="#ref290">Loesch</A></b></LI>
+<LI>int <b><A HREF="#ref291">tman</A></b></LI>
+<LI>int <b><A HREF="#ref292">jman</A></b></LI>
+<LI>int <b><A HREF="#ref293">tip</A></b></LI>
+<LI>int <b><A HREF="#ref294">Gr</A></b></LI>
+<LI>int <b><A HREF="#ref295">UnGr</A></b></LI>
+<LI>int <b><A HREF="#ref296">LockOb</A></b></LI>
+<LI>int <b><A HREF="#ref297">exmn</A></b></LI>
+<LI>int <b><A HREF="#ref298">hyph</A></b></LI>
+<LI>int <b><A HREF="#ref299">ORaise</A></b></LI>
+<LI>int <b><A HREF="#ref300">OLower</A></b></LI>
+<LI>int <b><A HREF="#ref301">OBack</A></b></LI>
+<LI>int <b><A HREF="#ref302">OFront</A></b></LI>
+<LI>bool <b><A HREF="#ref303">tipsOn</A></b></LI>
+<LI>QPopupMenu *<b><A HREF="#ref304">helpMenu</A></b></LI>
+<LI>QPopupMenu *<b><A HREF="#ref305">toolMenu</A></b></LI>
+<LI>QPopupMenu *<b><A HREF="#ref306">extraMenu</A></b></LI>
+<LI>QPopupMenu *<b><A HREF="#ref307">importMenu</A></b></LI>
+<LI>QPopupMenu *<b><A HREF="#ref308">exportMenu</A></b></LI>
+<LI>bool <b><A HREF="#ref311">BufferSet</A></b></LI>
+<LI>bool <b><A HREF="#ref312">BufferSet2</A></b></LI>
+<LI>QIntDict<QString> <b><A HREF="#ref313">FontID</A></b></LI>
+<LI>int <b><A HREF="#ref314">HaveGS</A></b></LI>
+<LI>bool <b><A HREF="#ref315">PDFavailable</A></b></LI>
+<LI>void *<b><A HREF="#ref316">PSDriver</A></b></LI>
+<LI>void *<b><A HREF="#ref317">PDFDriver</A></b></LI>
+<LI>int <b><A HREF="#ref318">DocNr</A></b></LI>
+<LI>QStringList <b><A HREF="#ref319">RecentDocs</A></b></LI>
+<LI>QMap<QString, PlugData> <b><A HREF="#ref321">PluginMap</A></b></LI>
+<LI>bool <b><A HREF="#ref322">PrinterUsed</A></b></LI>
+</ul><HR><H2><A NAME="longdesc">Detailed Description</A></H2><p>
+ This Class is the base class for your application. It sets up the main
+ window and providing a menubar, toolbar
+ and statusbar. For the main view, an instance of class ScribusView is
+ created which creates your view.
+  </p>
+<A NAME="ScribusApp"></A><A NAME="ref1"></A><table width="100%"><tr bgcolor="#eeeeee"><td>&nbsp;<strong>ScribusApp</strong> ()
+<br></td><td align="right"><h3><strong>ScribusApp</strong></h3></td></tr></table><p></p><A NAME="~ScribusApp"></A><A NAME="ref2"></A><table width="100%"><tr bgcolor="#eeeeee"><td>&nbsp;<strong>~ScribusApp</strong> ()
+<br></td><td align="right"><h3><strong>~ScribusApp</strong></h3></td></tr></table><p></p><A NAME="initMenuBar"></A><A NAME="ref3"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>initMenuBar</strong> ()
+<br></td><td align="right"><h3><strong>initMenuBar</strong></h3></td></tr></table><p></p><A NAME="initStatusBar"></A><A NAME="ref4"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>initStatusBar</strong> ()
+<br></td><td align="right"><h3><strong>initStatusBar</strong></h3></td></tr></table><p></p><A NAME="SetShortCut"></A><A NAME="ref5"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>SetShortCut</strong> ()
+<br></td><td align="right"><h3><strong>SetShortCut</strong></h3></td></tr></table><p></p><A NAME="SetKeyEntry"></A><A NAME="ref6"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>SetKeyEntry</strong> (int Nr, QString text, int Men, int KeyC)
+<br></td><td align="right"><h3><strong>SetKeyEntry</strong></h3></td></tr></table><p></p><A NAME="doFileNew"></A><A NAME="ref7"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool &nbsp;<strong>doFileNew</strong> (float b, float h, float tpr, float lr, float rr, float br, float ab, float sp,
+									 bool atf, bool fp, int einh, bool firstleft, int Ori, int SNr)
+<br></td><td align="right"><h3><strong>doFileNew</strong></h3></td></tr></table><p></p><A NAME="DoFileSave"></A><A NAME="ref8"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool &nbsp;<strong>DoFileSave</strong> (QString fn)
+<br></td><td align="right"><h3><strong>DoFileSave</strong></h3></td></tr></table><p></p><A NAME="closeEvent"></A><A NAME="ref9"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>closeEvent</strong> (QCloseEvent *ce)
+<br></td><td align="right"><h3><strong>closeEvent</strong></h3></td></tr></table><p></p><A NAME="keyPressEvent"></A><A NAME="ref10"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>keyPressEvent</strong> (QKeyEvent *k)
+<br></td><td align="right"><h3><strong>keyPressEvent</strong></h3></td></tr></table><p></p><A NAME="wheelEvent"></A><A NAME="ref11"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>wheelEvent</strong> (QWheelEvent *w)
+<br></td><td align="right"><h3><strong>wheelEvent</strong></h3></td></tr></table><p></p><A NAME="DeleteSel"></A><A NAME="ref12"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>DeleteSel</strong> (<A HREF="PageItem.html">PageItem</A> *b)
+<br></td><td align="right"><h3><strong>DeleteSel</strong></h3></td></tr></table><p></p><A NAME="setTBvals"></A><A NAME="ref13"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setTBvals</strong> (<A HREF="PageItem.html">PageItem</A> *b)
+<br></td><td align="right"><h3><strong>setTBvals</strong></h3></td></tr></table><p></p><A NAME="SavePrefs"></A><A NAME="ref14"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>SavePrefs</strong> ()
+<br></td><td align="right"><h3><strong>SavePrefs</strong></h3></td></tr></table><p></p><A NAME="ShowSubs"></A><A NAME="ref15"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ShowSubs</strong> ()
+<br></td><td align="right"><h3><strong>ShowSubs</strong></h3></td></tr></table><p></p><A NAME="applyNewMaster"></A><A NAME="ref16"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>applyNewMaster</strong> (QString name)
+<br></td><td align="right"><h3><strong>applyNewMaster</strong></h3></td></tr></table><p></p><A NAME="UpdateRecent"></A><A NAME="ref17"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>UpdateRecent</strong> (QString fn)
+<br></td><td align="right"><h3><strong>UpdateRecent</strong></h3></td></tr></table><p></p><A NAME="InitPlugs"></A><A NAME="ref18"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>InitPlugs</strong> ()
+<br></td><td align="right"><h3><strong>InitPlugs</strong></h3></td></tr></table><p></p><A NAME="InitHyphenator"></A><A NAME="ref19"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>InitHyphenator</strong> ()
+<br></td><td align="right"><h3><strong>InitHyphenator</strong></h3></td></tr></table><p></p><A NAME="FinalizePlugs"></A><A NAME="ref20"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>FinalizePlugs</strong> ()
+<br></td><td align="right"><h3><strong>FinalizePlugs</strong></h3></td></tr></table><p></p><A NAME="DLLName"></A><A NAME="ref21"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool &nbsp;<strong>DLLName</strong> (QString name, QString *PName, int *typ, void **Zeig)
+<br></td><td align="right"><h3><strong>DLLName</strong></h3></td></tr></table><p></p><A NAME="CallDLL"></A><A NAME="ref22"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>CallDLL</strong> (QString name)
+<br></td><td align="right"><h3><strong>CallDLL</strong></h3></td></tr></table><p></p><A NAME="getPSDriver"></A><A NAME="ref23"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="PSLib.html">PSLib</A>* &nbsp;<strong>getPSDriver</strong> (bool psart, <A HREF="SCFonts.html">SCFonts</A> &AllFonts, QMap<QString,QFont> DocFonts, <A HREF="#CListe">CListe</A> DocColors, bool pdf)
+<br></td><td align="right"><h3><strong>getPSDriver</strong></h3></td></tr></table><p></p><A NAME="closePSDriver"></A><A NAME="ref24"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>closePSDriver</strong> ()
+<br></td><td align="right"><h3><strong>closePSDriver</strong></h3></td></tr></table><p></p><A NAME="getPDFDriver"></A><A NAME="ref25"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="PDFlib.html">PDFlib</A>* &nbsp;<strong>getPDFDriver</strong> ()
+<br></td><td align="right"><h3><strong>getPDFDriver</strong></h3></td></tr></table><p></p><A NAME="closePDFDriver"></A><A NAME="ref26"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>closePDFDriver</strong> ()
+<br></td><td align="right"><h3><strong>closePDFDriver</strong></h3></td></tr></table><p></p><A NAME="DoSaveAsEps"></A><A NAME="ref27"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool &nbsp;<strong>DoSaveAsEps</strong> (QString fn)
+<br></td><td align="right"><h3><strong>DoSaveAsEps</strong></h3></td></tr></table><p></p><A NAME="CFileDialog"></A><A NAME="ref28"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString &nbsp;<strong>CFileDialog</strong> (QString caption = "", QString filter = "", QString defNa = "", bool Pre = false, bool mod = true, bool comp = false)
+<br></td><td align="right"><h3><strong>CFileDialog</strong></h3></td></tr></table><p></p><A NAME="GetCMSProfiles"></A><A NAME="ref29"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>GetCMSProfiles</strong> ()
+<br></td><td align="right"><h3><strong>GetCMSProfiles</strong></h3></td></tr></table><p></p><A NAME="RecalcColors"></A><A NAME="ref30"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>RecalcColors</strong> (QProgressBar *dia = 0)
+<br></td><td align="right"><h3><strong>RecalcColors</strong></h3></td></tr></table><p></p><A NAME="SwitchWin"></A><A NAME="ref31"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>SwitchWin</strong> ()
+<br></td><td align="right"><h3><strong>SwitchWin</strong></h3></td></tr></table><p></p><A NAME="RestoreBookMarks"></A><A NAME="ref32"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>RestoreBookMarks</strong> ()
+<br></td><td align="right"><h3><strong>RestoreBookMarks</strong></h3></td></tr></table><p></p><A NAME="AdjustBM"></A><A NAME="ref33"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>AdjustBM</strong> ()
+<br></td><td align="right"><h3><strong>AdjustBM</strong></h3></td></tr></table><p></p><A NAME="Buffer2"></A><A NAME="ref35"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>Buffer2</strong>
+</td><td align="right"><h3><strong>Buffer2</strong></h3></td></tr></table><p></p><A NAME="Buffer3"></A><A NAME="ref36"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>Buffer3</strong>
+</td><td align="right"><h3><strong>Buffer3</strong></h3></td></tr></table><p></p><A NAME="MonitorProfiles"></A><A NAME="ref37"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#ProfilesL">ProfilesL</A>  <strong>MonitorProfiles</strong>
+</td><td align="right"><h3><strong>MonitorProfiles</strong></h3></td></tr></table><p></p><A NAME="PrinterProfiles"></A><A NAME="ref38"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#ProfilesL">ProfilesL</A>  <strong>PrinterProfiles</strong>
+</td><td align="right"><h3><strong>PrinterProfiles</strong></h3></td></tr></table><p></p><A NAME="PDFXProfiles"></A><A NAME="ref39"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#ProfilesL">ProfilesL</A>  <strong>PDFXProfiles</strong>
+</td><td align="right"><h3><strong>PDFXProfiles</strong></h3></td></tr></table><p></p><A NAME="DispX"></A><A NAME="ref40"></A><table width="100%"><tr bgcolor="#eeeeee"><td>float  <strong>DispX</strong>
+</td><td align="right"><h3><strong>DispX</strong></h3></td></tr></table><p></p><A NAME="DispY"></A><A NAME="ref41"></A><table width="100%"><tr bgcolor="#eeeeee"><td>float  <strong>DispY</strong>
+</td><td align="right"><h3><strong>DispY</strong></h3></td></tr></table><p></p><A NAME="CurTimer"></A><A NAME="ref42"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QTimer * <strong>CurTimer</strong>
+</td><td align="right"><h3><strong>CurTimer</strong></h3></td></tr></table><p></p><A NAME="NoFonts"></A><A NAME="ref43"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>NoFonts</strong>
+</td><td align="right"><h3><strong>NoFonts</strong></h3></td></tr></table><p></p><A NAME="HaveDoc"></A><A NAME="ref44"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>HaveDoc</strong>
+</td><td align="right"><h3><strong>HaveDoc</strong></h3></td></tr></table><p></p><A NAME="view"></A><A NAME="ref46"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="ScribusView.html">ScribusView</A> * <strong>view</strong>
+</td><td align="right"><h3><strong>view</strong></h3></td></tr></table><p></p><A NAME="doc"></A><A NAME="ref47"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="ScribusDoc.html">ScribusDoc</A> * <strong>doc</strong>
+</td><td align="right"><h3><strong>doc</strong></h3></td></tr></table><p></p><A NAME="FMess"></A><A NAME="ref48"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QLabel*  <strong>FMess</strong>
+</td><td align="right"><h3><strong>FMess</strong></h3></td></tr></table><p></p><A NAME="FProg"></A><A NAME="ref49"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QProgressBar*  <strong>FProg</strong>
+</td><td align="right"><h3><strong>FProg</strong></h3></td></tr></table><p></p><A NAME="XMess"></A><A NAME="ref50"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QLabel*  <strong>XMess</strong>
+</td><td align="right"><h3><strong>XMess</strong></h3></td></tr></table><p></p><A NAME="XDat"></A><A NAME="ref51"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QLabel*  <strong>XDat</strong>
+</td><td align="right"><h3><strong>XDat</strong></h3></td></tr></table><p></p><A NAME="YMess"></A><A NAME="ref52"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QLabel*  <strong>YMess</strong>
+</td><td align="right"><h3><strong>YMess</strong></h3></td></tr></table><p></p><A NAME="YDat"></A><A NAME="ref53"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QLabel*  <strong>YDat</strong>
+</td><td align="right"><h3><strong>YDat</strong></h3></td></tr></table><p></p><A NAME="Mpal"></A><A NAME="ref54"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="Mpalette.html">Mpalette</A> * <strong>Mpal</strong>
+</td><td align="right"><h3><strong>Mpal</strong></h3></td></tr></table><p></p><A NAME="Npal"></A><A NAME="ref55"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="NodePalette.html">NodePalette</A> * <strong>Npal</strong>
+</td><td align="right"><h3><strong>Npal</strong></h3></td></tr></table><p></p><A NAME="Tpal"></A><A NAME="ref56"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="Tree.html">Tree</A> * <strong>Tpal</strong>
+</td><td align="right"><h3><strong>Tpal</strong></h3></td></tr></table><p></p><A NAME="ScBook"></A><A NAME="ref57"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="Biblio.html">Biblio</A> * <strong>ScBook</strong>
+</td><td align="right"><h3><strong>ScBook</strong></h3></td></tr></table><p></p><A NAME="Lpal"></A><A NAME="ref58"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="LayerPalette.html">LayerPalette</A>*  <strong>Lpal</strong>
+</td><td align="right"><h3><strong>Lpal</strong></h3></td></tr></table><p></p><A NAME="Sepal"></A><A NAME="ref59"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="SeitenPal.html">SeitenPal</A> * <strong>Sepal</strong>
+</td><td align="right"><h3><strong>Sepal</strong></h3></td></tr></table><p></p><A NAME="BookPal"></A><A NAME="ref60"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="BookPalette.html">BookPalette</A> * <strong>BookPal</strong>
+</td><td align="right"><h3><strong>BookPal</strong></h3></td></tr></table><p></p><A NAME="Sprachen"></A><A NAME="ref61"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QMap<QString,QString>  <strong>Sprachen</strong>
+</td><td align="right"><h3><strong>Sprachen</strong></h3></td></tr></table><p></p><A NAME="wsp"></A><A NAME="ref62"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QWorkspace * <strong>wsp</strong>
+</td><td align="right"><h3><strong>wsp</strong></h3></td></tr></table><p></p><A NAME="windowsMenu"></A><A NAME="ref63"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu*  <strong>windowsMenu</strong>
+</td><td align="right"><h3><strong>windowsMenu</strong></h3></td></tr></table><p></p><A NAME="ActWin"></A><A NAME="ref64"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="ScribusWin.html">ScribusWin</A>*  <strong>ActWin</strong>
+</td><td align="right"><h3><strong>ActWin</strong></h3></td></tr></table><p></p><A NAME="PrefsPfad"></A><A NAME="ref65"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>PrefsPfad</strong>
+</td><td align="right"><h3><strong>PrefsPfad</strong></h3></td></tr></table><p></p><A NAME="Collect"></A><A NAME="ref66"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>Collect</strong> ()
+<br></td><td align="right"><h3><strong>Collect</strong></h3></td></tr></table><p> <small>[slot]</small></p><p> doc represents your actual document and is created only once. It keeps
+ information such as filename and does the serialization of your files.
+     </p>
+<A NAME="ChBookmarks"></A><A NAME="ref67"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ChBookmarks</strong> (int s, int e, int n)
+<br></td><td align="right"><h3><strong>ChBookmarks</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="AddBookMark"></A><A NAME="ref68"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>AddBookMark</strong> (<A HREF="PageItem.html">PageItem</A> *ite)
+<br></td><td align="right"><h3><strong>AddBookMark</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="DelBookMark"></A><A NAME="ref69"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>DelBookMark</strong> (<A HREF="PageItem.html">PageItem</A> *ite)
+<br></td><td align="right"><h3><strong>DelBookMark</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="BookMarkTxT"></A><A NAME="ref70"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>BookMarkTxT</strong> (<A HREF="PageItem.html">PageItem</A> *ite)
+<br></td><td align="right"><h3><strong>BookMarkTxT</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="StoreBookmarks"></A><A NAME="ref71"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>StoreBookmarks</strong> ()
+<br></td><td align="right"><h3><strong>StoreBookmarks</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ReadPrefs"></A><A NAME="ref72"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ReadPrefs</strong> ()
+<br></td><td align="right"><h3><strong>ReadPrefs</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ManageGuides"></A><A NAME="ref73"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ManageGuides</strong> ()
+<br></td><td align="right"><h3><strong>ManageGuides</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="SetTranspar"></A><A NAME="ref74"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>SetTranspar</strong> (float t)
+<br></td><td align="right"><h3><strong>SetTranspar</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ReportMP"></A><A NAME="ref75"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ReportMP</strong> (float xp, float yp)
+<br></td><td align="right"><h3><strong>ReportMP</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="DoFileClose"></A><A NAME="ref76"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool &nbsp;<strong>DoFileClose</strong> ()
+<br></td><td align="right"><h3><strong>DoFileClose</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="DoSaveClose"></A><A NAME="ref77"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>DoSaveClose</strong> ()
+<br></td><td align="right"><h3><strong>DoSaveClose</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="windowsMenuAboutToShow"></A><A NAME="ref78"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>windowsMenuAboutToShow</strong> ()
+<br></td><td align="right"><h3><strong>windowsMenuAboutToShow</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="newActWin"></A><A NAME="ref79"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>newActWin</strong> (QWidget *w)
+<br></td><td align="right"><h3><strong>newActWin</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="windowsMenuActivated"></A><A NAME="ref80"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>windowsMenuActivated</strong> (int id)
+<br></td><td align="right"><h3><strong>windowsMenuActivated</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ToggleObjLock"></A><A NAME="ref81"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ToggleObjLock</strong> ()
+<br></td><td align="right"><h3><strong>ToggleObjLock</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="UnDoAction"></A><A NAME="ref82"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>UnDoAction</strong> ()
+<br></td><td align="right"><h3><strong>UnDoAction</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="CanUndo"></A><A NAME="ref83"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>CanUndo</strong> ()
+<br></td><td align="right"><h3><strong>CanUndo</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="configHyphenator"></A><A NAME="ref84"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>configHyphenator</strong> ()
+<br></td><td align="right"><h3><strong>configHyphenator</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="doHyphenate"></A><A NAME="ref85"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>doHyphenate</strong> ()
+<br></td><td align="right"><h3><strong>doHyphenate</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotTest"></A><A NAME="ref86"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotTest</strong> ()
+<br></td><td align="right"><h3><strong>slotTest</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotTest2"></A><A NAME="ref87"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotTest2</strong> ()
+<br></td><td align="right"><h3><strong>slotTest2</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="PutScrap"></A><A NAME="ref88"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>PutScrap</strong> (QString t)
+<br></td><td align="right"><h3><strong>PutScrap</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="Pfadtext"></A><A NAME="ref89"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>Pfadtext</strong> ()
+<br></td><td align="right"><h3><strong>Pfadtext</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="changeLayer"></A><A NAME="ref90"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>changeLayer</strong> (int l)
+<br></td><td align="right"><h3><strong>changeLayer</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="showLayer"></A><A NAME="ref91"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>showLayer</strong> ()
+<br></td><td align="right"><h3><strong>showLayer</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="LayerRemove"></A><A NAME="ref92"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>LayerRemove</strong> (int l)
+<br></td><td align="right"><h3><strong>LayerRemove</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="SetCMSPrefs"></A><A NAME="ref93"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>SetCMSPrefs</strong> ()
+<br></td><td align="right"><h3><strong>SetCMSPrefs</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ManageJava"></A><A NAME="ref94"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ManageJava</strong> ()
+<br></td><td align="right"><h3><strong>ManageJava</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ManageTemp"></A><A NAME="ref95"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ManageTemp</strong> (QString temp = "")
+<br></td><td align="right"><h3><strong>ManageTemp</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ManTempEnd"></A><A NAME="ref96"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ManTempEnd</strong> ()
+<br></td><td align="right"><h3><strong>ManTempEnd</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotFileNew"></A><A NAME="ref97"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool &nbsp;<strong>slotFileNew</strong> ()
+<br></td><td align="right"><h3><strong>slotFileNew</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotFileOpen"></A><A NAME="ref98"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotFileOpen</strong> ()
+<br></td><td align="right"><h3><strong>slotFileOpen</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="LoadRecent"></A><A NAME="ref99"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>LoadRecent</strong> (int id)
+<br></td><td align="right"><h3><strong>LoadRecent</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotDocOpen"></A><A NAME="ref100"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool &nbsp;<strong>slotDocOpen</strong> ()
+<br></td><td align="right"><h3><strong>slotDocOpen</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="LadeDoc"></A><A NAME="ref101"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool &nbsp;<strong>LadeDoc</strong> (QString fileName)
+<br></td><td align="right"><h3><strong>LadeDoc</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotFileSave"></A><A NAME="ref102"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotFileSave</strong> ()
+<br></td><td align="right"><h3><strong>slotFileSave</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotFileSaveAs"></A><A NAME="ref103"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotFileSaveAs</strong> ()
+<br></td><td align="right"><h3><strong>slotFileSaveAs</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="SaveText"></A><A NAME="ref104"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>SaveText</strong> ()
+<br></td><td align="right"><h3><strong>SaveText</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotFileClose"></A><A NAME="ref105"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool &nbsp;<strong>slotFileClose</strong> ()
+<br></td><td align="right"><h3><strong>slotFileClose</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotFilePrint"></A><A NAME="ref106"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotFilePrint</strong> ()
+<br></td><td align="right"><h3><strong>slotFilePrint</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotFileQuit"></A><A NAME="ref107"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotFileQuit</strong> ()
+<br></td><td align="right"><h3><strong>slotFileQuit</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotEditCut"></A><A NAME="ref108"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotEditCut</strong> ()
+<br></td><td align="right"><h3><strong>slotEditCut</strong></h3></td></tr></table><p> <small>[slot]</small></p><p> put the marked text/object into the clipboard and remove
+ it from the document </p>
+<A NAME="slotEditCopy"></A><A NAME="ref109"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotEditCopy</strong> ()
+<br></td><td align="right"><h3><strong>slotEditCopy</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotEditPaste"></A><A NAME="ref110"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotEditPaste</strong> ()
+<br></td><td align="right"><h3><strong>slotEditPaste</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="EnableTxEdit"></A><A NAME="ref111"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>EnableTxEdit</strong> ()
+<br></td><td align="right"><h3><strong>EnableTxEdit</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="DisableTxEdit"></A><A NAME="ref112"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>DisableTxEdit</strong> ()
+<br></td><td align="right"><h3><strong>DisableTxEdit</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="SelectAll"></A><A NAME="ref113"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>SelectAll</strong> ()
+<br></td><td align="right"><h3><strong>SelectAll</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="DeleteText"></A><A NAME="ref114"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>DeleteText</strong> ()
+<br></td><td align="right"><h3><strong>DeleteText</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotHelpAbout"></A><A NAME="ref115"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotHelpAbout</strong> ()
+<br></td><td align="right"><h3><strong>slotHelpAbout</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotHelpAboutQt"></A><A NAME="ref116"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotHelpAboutQt</strong> ()
+<br></td><td align="right"><h3><strong>slotHelpAboutQt</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotOnlineHelp"></A><A NAME="ref117"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotOnlineHelp</strong> ()
+<br></td><td align="right"><h3><strong>slotOnlineHelp</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ToggleTips"></A><A NAME="ref118"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ToggleTips</strong> ()
+<br></td><td align="right"><h3><strong>ToggleTips</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotNewPageP"></A><A NAME="ref119"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotNewPageP</strong> (int wo, QString templ)
+<br></td><td align="right"><h3><strong>slotNewPageP</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotNewPageM"></A><A NAME="ref120"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotNewPageM</strong> ()
+<br></td><td align="right"><h3><strong>slotNewPageM</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotNewPageT"></A><A NAME="ref121"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotNewPageT</strong> (int w)
+<br></td><td align="right"><h3><strong>slotNewPageT</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotNewPage"></A><A NAME="ref122"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotNewPage</strong> (int w)
+<br></td><td align="right"><h3><strong>slotNewPage</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="DeletePage"></A><A NAME="ref123"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>DeletePage</strong> ()
+<br></td><td align="right"><h3><strong>DeletePage</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="DeletePage2"></A><A NAME="ref124"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>DeletePage2</strong> (int pg)
+<br></td><td align="right"><h3><strong>DeletePage2</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="MovePage"></A><A NAME="ref125"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>MovePage</strong> ()
+<br></td><td align="right"><h3><strong>MovePage</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="CopyPage"></A><A NAME="ref126"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>CopyPage</strong> ()
+<br></td><td align="right"><h3><strong>CopyPage</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotZoomAbs"></A><A NAME="ref127"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotZoomAbs</strong> (float z)
+<br></td><td align="right"><h3><strong>slotZoomAbs</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotZoomFit"></A><A NAME="ref128"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotZoomFit</strong> ()
+<br></td><td align="right"><h3><strong>slotZoomFit</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotZoom20"></A><A NAME="ref129"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotZoom20</strong> ()
+<br></td><td align="right"><h3><strong>slotZoom20</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotZoom50"></A><A NAME="ref130"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotZoom50</strong> ()
+<br></td><td align="right"><h3><strong>slotZoom50</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotZoom75"></A><A NAME="ref131"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotZoom75</strong> ()
+<br></td><td align="right"><h3><strong>slotZoom75</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotZoom100"></A><A NAME="ref132"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotZoom100</strong> ()
+<br></td><td align="right"><h3><strong>slotZoom100</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotZoom200"></A><A NAME="ref133"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotZoom200</strong> ()
+<br></td><td align="right"><h3><strong>slotZoom200</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ToggleMarks"></A><A NAME="ref134"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ToggleMarks</strong> ()
+<br></td><td align="right"><h3><strong>ToggleMarks</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ToggleFrames"></A><A NAME="ref135"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ToggleFrames</strong> ()
+<br></td><td align="right"><h3><strong>ToggleFrames</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ToggleTools"></A><A NAME="ref136"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ToggleTools</strong> ()
+<br></td><td align="right"><h3><strong>ToggleTools</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ToggleMpal"></A><A NAME="ref137"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ToggleMpal</strong> ()
+<br></td><td align="right"><h3><strong>ToggleMpal</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ToggleTpal"></A><A NAME="ref138"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ToggleTpal</strong> ()
+<br></td><td align="right"><h3><strong>ToggleTpal</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ToggleBpal"></A><A NAME="ref139"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ToggleBpal</strong> ()
+<br></td><td align="right"><h3><strong>ToggleBpal</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ToggleLpal"></A><A NAME="ref140"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ToggleLpal</strong> ()
+<br></td><td align="right"><h3><strong>ToggleLpal</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ToggleSepal"></A><A NAME="ref141"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ToggleSepal</strong> ()
+<br></td><td align="right"><h3><strong>ToggleSepal</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ToggleBookpal"></A><A NAME="ref142"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ToggleBookpal</strong> ()
+<br></td><td align="right"><h3><strong>ToggleBookpal</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="TogglePics"></A><A NAME="ref143"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>TogglePics</strong> ()
+<br></td><td align="right"><h3><strong>TogglePics</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ToggleRaster"></A><A NAME="ref144"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ToggleRaster</strong> ()
+<br></td><td align="right"><h3><strong>ToggleRaster</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ToggleURaster"></A><A NAME="ref145"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ToggleURaster</strong> ()
+<br></td><td align="right"><h3><strong>ToggleURaster</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ToggleFrameEdit"></A><A NAME="ref146"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ToggleFrameEdit</strong> ()
+<br></td><td align="right"><h3><strong>ToggleFrameEdit</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotSelect"></A><A NAME="ref147"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotSelect</strong> ()
+<br></td><td align="right"><h3><strong>slotSelect</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ModeFromTB"></A><A NAME="ref148"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ModeFromTB</strong> (int)
+<br></td><td align="right"><h3><strong>ModeFromTB</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="setAppMode"></A><A NAME="ref149"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setAppMode</strong> (int mode)
+<br></td><td align="right"><h3><strong>setAppMode</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="HaveNewDoc"></A><A NAME="ref150"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>HaveNewDoc</strong> ()
+<br></td><td align="right"><h3><strong>HaveNewDoc</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="HaveNewSel"></A><A NAME="ref151"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>HaveNewSel</strong> (int Nr)
+<br></td><td align="right"><h3><strong>HaveNewSel</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotDocCh"></A><A NAME="ref152"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotDocCh</strong> (bool reb = true)
+<br></td><td align="right"><h3><strong>slotDocCh</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="setItemFarbe"></A><A NAME="ref153"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setItemFarbe</strong> (int id)
+<br></td><td align="right"><h3><strong>setItemFarbe</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="setItemShade"></A><A NAME="ref154"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setItemShade</strong> (int id)
+<br></td><td align="right"><h3><strong>setItemShade</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="setItemFont"></A><A NAME="ref155"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setItemFont</strong> (int id)
+<br></td><td align="right"><h3><strong>setItemFont</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="AdjustFontMenu"></A><A NAME="ref156"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>AdjustFontMenu</strong> (QString nf)
+<br></td><td align="right"><h3><strong>AdjustFontMenu</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="SetNewFont"></A><A NAME="ref157"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>SetNewFont</strong> (QString nf)
+<br></td><td align="right"><h3><strong>SetNewFont</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="setItemFSize"></A><A NAME="ref158"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setItemFSize</strong> (int id)
+<br></td><td align="right"><h3><strong>setItemFSize</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="setFSizeMenu"></A><A NAME="ref159"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setFSizeMenu</strong> (int size)
+<br></td><td align="right"><h3><strong>setFSizeMenu</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotEditColors"></A><A NAME="ref160"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotEditColors</strong> ()
+<br></td><td align="right"><h3><strong>slotEditColors</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="setPenShade"></A><A NAME="ref161"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setPenShade</strong> (int sh)
+<br></td><td align="right"><h3><strong>setPenShade</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="setBrushShade"></A><A NAME="ref162"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setBrushShade</strong> (int sh)
+<br></td><td align="right"><h3><strong>setBrushShade</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="setGradFill"></A><A NAME="ref163"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setGradFill</strong> (int typ, QString col1, int sh1, QString col2, int sh2)
+<br></td><td align="right"><h3><strong>setGradFill</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="setPenFarbe"></A><A NAME="ref164"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setPenFarbe</strong> (QString farbe)
+<br></td><td align="right"><h3><strong>setPenFarbe</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="setBrushFarbe"></A><A NAME="ref165"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setBrushFarbe</strong> (QString farbe)
+<br></td><td align="right"><h3><strong>setBrushFarbe</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="setCSMenu"></A><A NAME="ref166"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setCSMenu</strong> (QString f, QString l, int fs, int ls)
+<br></td><td align="right"><h3><strong>setCSMenu</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="GetBrushPen"></A><A NAME="ref167"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>GetBrushPen</strong> ()
+<br></td><td align="right"><h3><strong>GetBrushPen</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="RectFrame"></A><A NAME="ref168"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>RectFrame</strong> ()
+<br></td><td align="right"><h3><strong>RectFrame</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="OvalFrame"></A><A NAME="ref169"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>OvalFrame</strong> ()
+<br></td><td align="right"><h3><strong>OvalFrame</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="RoundedFrame"></A><A NAME="ref170"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>RoundedFrame</strong> ()
+<br></td><td align="right"><h3><strong>RoundedFrame</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="DeleteObjekt"></A><A NAME="ref171"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>DeleteObjekt</strong> ()
+<br></td><td align="right"><h3><strong>DeleteObjekt</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="Objekt2Back"></A><A NAME="ref172"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>Objekt2Back</strong> ()
+<br></td><td align="right"><h3><strong>Objekt2Back</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="Objekt2Front"></A><A NAME="ref173"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>Objekt2Front</strong> ()
+<br></td><td align="right"><h3><strong>Objekt2Front</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ObjektRaise"></A><A NAME="ref174"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ObjektRaise</strong> ()
+<br></td><td align="right"><h3><strong>ObjektRaise</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ObjektLower"></A><A NAME="ref175"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ObjektLower</strong> ()
+<br></td><td align="right"><h3><strong>ObjektLower</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ObjektDup"></A><A NAME="ref176"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ObjektDup</strong> ()
+<br></td><td align="right"><h3><strong>ObjektDup</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ObjektDupM"></A><A NAME="ref177"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ObjektDupM</strong> ()
+<br></td><td align="right"><h3><strong>ObjektDupM</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="InfoDoc"></A><A NAME="ref178"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>InfoDoc</strong> ()
+<br></td><td align="right"><h3><strong>InfoDoc</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="SetupDoc"></A><A NAME="ref179"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool &nbsp;<strong>SetupDoc</strong> ()
+<br></td><td align="right"><h3><strong>SetupDoc</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ObjektAlign"></A><A NAME="ref180"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ObjektAlign</strong> ()
+<br></td><td align="right"><h3><strong>ObjektAlign</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="DoAlign"></A><A NAME="ref181"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>DoAlign</strong> (bool xa, bool ya, bool Vth, bool Vtv, float xdp, float ydp, int xart, int yart)
+<br></td><td align="right"><h3><strong>DoAlign</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="GetAllFonts"></A><A NAME="ref182"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>GetAllFonts</strong> ()
+<br></td><td align="right"><h3><strong>GetAllFonts</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="BuildFontMenu"></A><A NAME="ref183"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>BuildFontMenu</strong> ()
+<br></td><td align="right"><h3><strong>BuildFontMenu</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotFontOrg"></A><A NAME="ref184"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotFontOrg</strong> ()
+<br></td><td align="right"><h3><strong>slotFontOrg</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotPrefsOrg"></A><A NAME="ref185"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotPrefsOrg</strong> ()
+<br></td><td align="right"><h3><strong>slotPrefsOrg</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotEditStyles"></A><A NAME="ref186"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotEditStyles</strong> ()
+<br></td><td align="right"><h3><strong>slotEditStyles</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="setNewAbStyle"></A><A NAME="ref187"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setNewAbStyle</strong> (int a)
+<br></td><td align="right"><h3><strong>setNewAbStyle</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="setAbsValue"></A><A NAME="ref188"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setAbsValue</strong> (int a)
+<br></td><td align="right"><h3><strong>setAbsValue</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="SelectFromOutl"></A><A NAME="ref189"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>SelectFromOutl</strong> (int <A HREF="Page.html">Page</A>, int Item)
+<br></td><td align="right"><h3><strong>SelectFromOutl</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="SelectFromOutlS"></A><A NAME="ref190"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>SelectFromOutlS</strong> (int <A HREF="Page.html">Page</A>)
+<br></td><td align="right"><h3><strong>SelectFromOutlS</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="SaveAsEps"></A><A NAME="ref191"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>SaveAsEps</strong> ()
+<br></td><td align="right"><h3><strong>SaveAsEps</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="SaveAsPDF"></A><A NAME="ref192"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>SaveAsPDF</strong> ()
+<br></td><td align="right"><h3><strong>SaveAsPDF</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ModifyObject"></A><A NAME="ref193"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ModifyObject</strong> ()
+<br></td><td align="right"><h3><strong>ModifyObject</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="Aktiv"></A><A NAME="ref194"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>Aktiv</strong> ()
+<br></td><td align="right"><h3><strong>Aktiv</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="setItemHoch"></A><A NAME="ref195"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setItemHoch</strong> (int h)
+<br></td><td align="right"><h3><strong>setItemHoch</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="setStilvalue"></A><A NAME="ref196"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setStilvalue</strong> (int s)
+<br></td><td align="right"><h3><strong>setStilvalue</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="setItemTypeStyle"></A><A NAME="ref197"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setItemTypeStyle</strong> (int id)
+<br></td><td align="right"><h3><strong>setItemTypeStyle</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotElemRead"></A><A NAME="ref198"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotElemRead</strong> (QString Name, int x, int y, bool art, bool loca, <A HREF="ScribusDoc.html">ScribusDoc</A>* docc)
+<br></td><td align="right"><h3><strong>slotElemRead</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="slotChangeUnit"></A><A NAME="ref199"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>slotChangeUnit</strong> (int art)
+<br></td><td align="right"><h3><strong>slotChangeUnit</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="NoFrameEdit"></A><A NAME="ref200"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>NoFrameEdit</strong> ()
+<br></td><td align="right"><h3><strong>NoFrameEdit</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="setItemTextAli"></A><A NAME="ref201"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>setItemTextAli</strong> (int id)
+<br></td><td align="right"><h3><strong>setItemTextAli</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ApplyTemp"></A><A NAME="ref202"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ApplyTemp</strong> ()
+<br></td><td align="right"><h3><strong>ApplyTemp</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="Apply_Temp"></A><A NAME="ref203"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>Apply_Temp</strong> (QString in, int Snr)
+<br></td><td align="right"><h3><strong>Apply_Temp</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="GroupObj"></A><A NAME="ref204"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>GroupObj</strong> ()
+<br></td><td align="right"><h3><strong>GroupObj</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="UnGroupObj"></A><A NAME="ref205"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>UnGroupObj</strong> ()
+<br></td><td align="right"><h3><strong>UnGroupObj</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="StatusPic"></A><A NAME="ref206"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>StatusPic</strong> ()
+<br></td><td align="right"><h3><strong>StatusPic</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="RunPlug"></A><A NAME="ref207"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>RunPlug</strong> (int id)
+<br></td><td align="right"><h3><strong>RunPlug</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="RunImportPlug"></A><A NAME="ref208"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>RunImportPlug</strong> (int id)
+<br></td><td align="right"><h3><strong>RunImportPlug</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="RunExportPlug"></A><A NAME="ref209"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>RunExportPlug</strong> (int id)
+<br></td><td align="right"><h3><strong>RunExportPlug</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="RunHelpPlug"></A><A NAME="ref210"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>RunHelpPlug</strong> (int id)
+<br></td><td align="right"><h3><strong>RunHelpPlug</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ModifyAnnot"></A><A NAME="ref211"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ModifyAnnot</strong> ()
+<br></td><td align="right"><h3><strong>ModifyAnnot</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ToggleGuides"></A><A NAME="ref212"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ToggleGuides</strong> ()
+<br></td><td align="right"><h3><strong>ToggleGuides</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ToggleUGuides"></A><A NAME="ref213"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ToggleUGuides</strong> ()
+<br></td><td align="right"><h3><strong>ToggleUGuides</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="TextISize"></A><A NAME="ref214"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>TextISize</strong> (int)
+<br></td><td align="right"><h3><strong>TextISize</strong></h3></td></tr></table><p> <small>[signal]</small></p><A NAME="TextIFont"></A><A NAME="ref215"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>TextIFont</strong> (QString)
+<br></td><td align="right"><h3><strong>TextIFont</strong></h3></td></tr></table><p> <small>[signal]</small></p><A NAME="TextUSval"></A><A NAME="ref216"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>TextUSval</strong> (float)
+<br></td><td align="right"><h3><strong>TextUSval</strong></h3></td></tr></table><p> <small>[signal]</small></p><A NAME="TextStil"></A><A NAME="ref217"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>TextStil</strong> (int)
+<br></td><td align="right"><h3><strong>TextStil</strong></h3></td></tr></table><p> <small>[signal]</small></p><A NAME="TextFarben"></A><A NAME="ref218"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>TextFarben</strong> (QString, QString, int, int)
+<br></td><td align="right"><h3><strong>TextFarben</strong></h3></td></tr></table><p> <small>[signal]</small></p><A NAME="fileMenu"></A><A NAME="ref219"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>fileMenu</strong>
+</td><td align="right"><h3><strong>fileMenu</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="editMenu"></A><A NAME="ref220"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>editMenu</strong>
+</td><td align="right"><h3><strong>editMenu</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="StilMenu"></A><A NAME="ref221"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>StilMenu</strong>
+</td><td align="right"><h3><strong>StilMenu</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="ObjMenu"></A><A NAME="ref222"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>ObjMenu</strong>
+</td><td align="right"><h3><strong>ObjMenu</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="pageMenu"></A><A NAME="ref223"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>pageMenu</strong>
+</td><td align="right"><h3><strong>pageMenu</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="viewMenu"></A><A NAME="ref224"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>viewMenu</strong>
+</td><td align="right"><h3><strong>viewMenu</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="ColorMenu"></A><A NAME="ref225"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>ColorMenu</strong>
+</td><td align="right"><h3><strong>ColorMenu</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="SizeTMenu"></A><A NAME="ref226"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>SizeTMenu</strong>
+</td><td align="right"><h3><strong>SizeTMenu</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="ShadeMenu"></A><A NAME="ref227"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>ShadeMenu</strong>
+</td><td align="right"><h3><strong>ShadeMenu</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="ShapeMenu"></A><A NAME="ref228"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>ShapeMenu</strong>
+</td><td align="right"><h3><strong>ShapeMenu</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="FontMenu"></A><A NAME="ref229"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>FontMenu</strong>
+</td><td align="right"><h3><strong>FontMenu</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="FStyleMenu"></A><A NAME="ref230"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>FStyleMenu</strong>
+</td><td align="right"><h3><strong>FStyleMenu</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="TypeStyleMenu"></A><A NAME="ref231"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>TypeStyleMenu</strong>
+</td><td align="right"><h3><strong>TypeStyleMenu</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="AliMenu"></A><A NAME="ref232"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>AliMenu</strong>
+</td><td align="right"><h3><strong>AliMenu</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="recentMenu"></A><A NAME="ref233"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>recentMenu</strong>
+</td><td align="right"><h3><strong>recentMenu</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="hymen"></A><A NAME="ref234"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>hymen</strong>
+</td><td align="right"><h3><strong>hymen</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="WerkTools2"></A><A NAME="ref235"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QToolBar * <strong>WerkTools2</strong>
+</td><td align="right"><h3><strong>WerkTools2</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="WerkTools"></A><A NAME="ref236"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="WerkToolB.html">WerkToolB</A>*  <strong>WerkTools</strong>
+</td><td align="right"><h3><strong>WerkTools</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="DatOpe"></A><A NAME="ref237"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QToolButton">QToolButton</A>*  <strong>DatOpe</strong>
+</td><td align="right"><h3><strong>DatOpe</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="DatSav"></A><A NAME="ref238"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QToolButton">QToolButton</A>*  <strong>DatSav</strong>
+</td><td align="right"><h3><strong>DatSav</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="DatClo"></A><A NAME="ref239"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QToolButton">QToolButton</A>*  <strong>DatClo</strong>
+</td><td align="right"><h3><strong>DatClo</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="DatPri"></A><A NAME="ref240"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QToolButton">QToolButton</A>*  <strong>DatPri</strong>
+</td><td align="right"><h3><strong>DatPri</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="DatPDF"></A><A NAME="ref241"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QToolButton">QToolButton</A>*  <strong>DatPDF</strong>
+</td><td align="right"><h3><strong>DatPDF</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="DatNeu"></A><A NAME="ref242"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QToolButton">QToolButton</A>*  <strong>DatNeu</strong>
+</td><td align="right"><h3><strong>DatNeu</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="KeyMod"></A><A NAME="ref243"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>KeyMod</strong>
+</td><td align="right"><h3><strong>KeyMod</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="ShapeEdit"></A><A NAME="ref244"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>ShapeEdit</strong>
+</td><td align="right"><h3><strong>ShapeEdit</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="ShapeM"></A><A NAME="ref245"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>ShapeM</strong>
+</td><td align="right"><h3><strong>ShapeM</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="DistM"></A><A NAME="ref246"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>DistM</strong>
+</td><td align="right"><h3><strong>DistM</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PfadT"></A><A NAME="ref247"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>PfadT</strong>
+</td><td align="right"><h3><strong>PfadT</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="pgmd"></A><A NAME="ref248"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>pgmd</strong>
+</td><td align="right"><h3><strong>pgmd</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="pgmm"></A><A NAME="ref249"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>pgmm</strong>
+</td><td align="right"><h3><strong>pgmm</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="pgmv"></A><A NAME="ref250"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>pgmv</strong>
+</td><td align="right"><h3><strong>pgmv</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Stm"></A><A NAME="ref251"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>Stm</strong>
+</td><td align="right"><h3><strong>Stm</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Obm"></A><A NAME="ref252"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>Obm</strong>
+</td><td align="right"><h3><strong>Obm</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Markers"></A><A NAME="ref253"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>Markers</strong>
+</td><td align="right"><h3><strong>Markers</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="FrameDr"></A><A NAME="ref254"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>FrameDr</strong>
+</td><td align="right"><h3><strong>FrameDr</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Bilder"></A><A NAME="ref255"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>Bilder</strong>
+</td><td align="right"><h3><strong>Bilder</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Ras"></A><A NAME="ref256"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>Ras</strong>
+</td><td align="right"><h3><strong>Ras</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="uRas"></A><A NAME="ref257"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>uRas</strong>
+</td><td align="right"><h3><strong>uRas</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Guide"></A><A NAME="ref258"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>Guide</strong>
+</td><td align="right"><h3><strong>Guide</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="uGuide"></A><A NAME="ref259"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>uGuide</strong>
+</td><td align="right"><h3><strong>uGuide</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="viewTools"></A><A NAME="ref260"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>viewTools</strong>
+</td><td align="right"><h3><strong>viewTools</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="viewMpal"></A><A NAME="ref261"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>viewMpal</strong>
+</td><td align="right"><h3><strong>viewMpal</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="viewTpal"></A><A NAME="ref262"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>viewTpal</strong>
+</td><td align="right"><h3><strong>viewTpal</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="viewNpal"></A><A NAME="ref263"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>viewNpal</strong>
+</td><td align="right"><h3><strong>viewNpal</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="viewBpal"></A><A NAME="ref264"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>viewBpal</strong>
+</td><td align="right"><h3><strong>viewBpal</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="viewLpal"></A><A NAME="ref265"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>viewLpal</strong>
+</td><td align="right"><h3><strong>viewLpal</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="viewSepal"></A><A NAME="ref266"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>viewSepal</strong>
+</td><td align="right"><h3><strong>viewSepal</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="viewBopal"></A><A NAME="ref267"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>viewBopal</strong>
+</td><td align="right"><h3><strong>viewBopal</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="fid1"></A><A NAME="ref268"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>fid1</strong>
+</td><td align="right"><h3><strong>fid1</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="fid2"></A><A NAME="ref269"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>fid2</strong>
+</td><td align="right"><h3><strong>fid2</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="fid3"></A><A NAME="ref270"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>fid3</strong>
+</td><td align="right"><h3><strong>fid3</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="fid4"></A><A NAME="ref271"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>fid4</strong>
+</td><td align="right"><h3><strong>fid4</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="fid5"></A><A NAME="ref272"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>fid5</strong>
+</td><td align="right"><h3><strong>fid5</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="fid51"></A><A NAME="ref273"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>fid51</strong>
+</td><td align="right"><h3><strong>fid51</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="fid6"></A><A NAME="ref274"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>fid6</strong>
+</td><td align="right"><h3><strong>fid6</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="fid7"></A><A NAME="ref275"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>fid7</strong>
+</td><td align="right"><h3><strong>fid7</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="fid8"></A><A NAME="ref276"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>fid8</strong>
+</td><td align="right"><h3><strong>fid8</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="fid9"></A><A NAME="ref277"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>fid9</strong>
+</td><td align="right"><h3><strong>fid9</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="fid10"></A><A NAME="ref278"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>fid10</strong>
+</td><td align="right"><h3><strong>fid10</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="fid11"></A><A NAME="ref279"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>fid11</strong>
+</td><td align="right"><h3><strong>fid11</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="fid12"></A><A NAME="ref280"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>fid12</strong>
+</td><td align="right"><h3><strong>fid12</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="fid13"></A><A NAME="ref281"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>fid13</strong>
+</td><td align="right"><h3><strong>fid13</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="fid14"></A><A NAME="ref282"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>fid14</strong>
+</td><td align="right"><h3><strong>fid14</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="edUndo"></A><A NAME="ref283"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>edUndo</strong>
+</td><td align="right"><h3><strong>edUndo</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="edid1"></A><A NAME="ref284"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>edid1</strong>
+</td><td align="right"><h3><strong>edid1</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="edid2"></A><A NAME="ref285"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>edid2</strong>
+</td><td align="right"><h3><strong>edid2</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="edid3"></A><A NAME="ref286"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>edid3</strong>
+</td><td align="right"><h3><strong>edid3</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="edid4"></A><A NAME="ref287"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>edid4</strong>
+</td><td align="right"><h3><strong>edid4</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="edid5"></A><A NAME="ref288"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>edid5</strong>
+</td><td align="right"><h3><strong>edid5</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="edid6"></A><A NAME="ref289"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>edid6</strong>
+</td><td align="right"><h3><strong>edid6</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Loesch"></A><A NAME="ref290"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>Loesch</strong>
+</td><td align="right"><h3><strong>Loesch</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="tman"></A><A NAME="ref291"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>tman</strong>
+</td><td align="right"><h3><strong>tman</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="jman"></A><A NAME="ref292"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>jman</strong>
+</td><td align="right"><h3><strong>jman</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="tip"></A><A NAME="ref293"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>tip</strong>
+</td><td align="right"><h3><strong>tip</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="Gr"></A><A NAME="ref294"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>Gr</strong>
+</td><td align="right"><h3><strong>Gr</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="UnGr"></A><A NAME="ref295"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>UnGr</strong>
+</td><td align="right"><h3><strong>UnGr</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="LockOb"></A><A NAME="ref296"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>LockOb</strong>
+</td><td align="right"><h3><strong>LockOb</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="exmn"></A><A NAME="ref297"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>exmn</strong>
+</td><td align="right"><h3><strong>exmn</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="hyph"></A><A NAME="ref298"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>hyph</strong>
+</td><td align="right"><h3><strong>hyph</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="ORaise"></A><A NAME="ref299"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>ORaise</strong>
+</td><td align="right"><h3><strong>ORaise</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="OLower"></A><A NAME="ref300"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>OLower</strong>
+</td><td align="right"><h3><strong>OLower</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="OBack"></A><A NAME="ref301"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>OBack</strong>
+</td><td align="right"><h3><strong>OBack</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="OFront"></A><A NAME="ref302"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>OFront</strong>
+</td><td align="right"><h3><strong>OFront</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="tipsOn"></A><A NAME="ref303"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>tipsOn</strong>
+</td><td align="right"><h3><strong>tipsOn</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="helpMenu"></A><A NAME="ref304"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>helpMenu</strong>
+</td><td align="right"><h3><strong>helpMenu</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="toolMenu"></A><A NAME="ref305"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>toolMenu</strong>
+</td><td align="right"><h3><strong>toolMenu</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="extraMenu"></A><A NAME="ref306"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>extraMenu</strong>
+</td><td align="right"><h3><strong>extraMenu</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="importMenu"></A><A NAME="ref307"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>importMenu</strong>
+</td><td align="right"><h3><strong>importMenu</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="exportMenu"></A><A NAME="ref308"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu * <strong>exportMenu</strong>
+</td><td align="right"><h3><strong>exportMenu</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="mm2pts"></A><A NAME="ref309"></A><table width="100%"><tr bgcolor="#eeeeee"><td>float &nbsp;<strong>mm2pts</strong> (int mm)
+<br></td><td align="right"><h3><strong>mm2pts</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="pts2mm"></A><A NAME="ref310"></A><table width="100%"><tr bgcolor="#eeeeee"><td>float &nbsp;<strong>pts2mm</strong> (float pts)
+<br></td><td align="right"><h3><strong>pts2mm</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="BufferSet"></A><A NAME="ref311"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>BufferSet</strong>
+</td><td align="right"><h3><strong>BufferSet</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="BufferSet2"></A><A NAME="ref312"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>BufferSet2</strong>
+</td><td align="right"><h3><strong>BufferSet2</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="FontID"></A><A NAME="ref313"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QIntDict<QString>  <strong>FontID</strong>
+</td><td align="right"><h3><strong>FontID</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="HaveGS"></A><A NAME="ref314"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>HaveGS</strong>
+</td><td align="right"><h3><strong>HaveGS</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PDFavailable"></A><A NAME="ref315"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>PDFavailable</strong>
+</td><td align="right"><h3><strong>PDFavailable</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PSDriver"></A><A NAME="ref316"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void * <strong>PSDriver</strong>
+</td><td align="right"><h3><strong>PSDriver</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PDFDriver"></A><A NAME="ref317"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void * <strong>PDFDriver</strong>
+</td><td align="right"><h3><strong>PDFDriver</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="DocNr"></A><A NAME="ref318"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>DocNr</strong>
+</td><td align="right"><h3><strong>DocNr</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="RecentDocs"></A><A NAME="ref319"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QStringList  <strong>RecentDocs</strong>
+</td><td align="right"><h3><strong>RecentDocs</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="ScribusApp__PlugData.html"></A><A NAME="ref320"></A><table width="100%"><tr bgcolor="#eeeeee"><td><strong>PlugData</strong> <small>(struct)</small></td><td align="right"><h3><strong>PlugData</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PluginMap"></A><A NAME="ref321"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QMap<QString, PlugData>  <strong>PluginMap</strong>
+</td><td align="right"><h3><strong>PluginMap</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="PrinterUsed"></A><A NAME="ref322"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>PrinterUsed</strong>
+</td><td align="right"><h3><strong>PrinterUsed</strong></h3></td></tr></table><p> <small>[private]</small></p><A NAME="ScribusApp__PDe.html"></A><A NAME="ref323"></A><table width="100%"><tr bgcolor="#eeeeee"><td><strong>PDe</strong> <small>(struct)</small></td><td align="right"><h3><strong>PDe</strong></h3></td></tr></table><p> <small>[private]</small></p><HR>
+	<table>
+	<tr><td><small>Generated by: paul on T6.linux on Tue Mar 18 23:32:13 2003, using kdoc 2.0a54.</small></td></tr>
+	</table>
+</BODY>
+</HTML>

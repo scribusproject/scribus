@@ -1,0 +1,108 @@
+<HTML>
+<HEAD>
+<TITLE>class Biblio</TITLE>
+
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+<TABLE WIDTH="100%" BORDER="0">
+<TR>
+<TD>
+	<TABLE BORDER="0">
+		<TR><TD valign="top" align="left" cellspacing="10">
+		<h1>class Biblio</h1>
+		</TD>
+		<TD valign="top" align="right" colspan="1"></TD></TR>
+	</TABLE>
+	<HR>
+	<TABLE BORDER="0">
+		<TR><TH>Definition</TH><TD><code>#include &lt;<A HREF="scribus___scrap_h.html">scribus/scrap.h</A>&gt;</code></TD></TR>
+<TR><TH>Inherits</TH><TD>QDialog <small>(unknown)</small> <small>[public ]</small></TD></TR>
+<TR><TH><A HREF="full-list-Biblio.html">List of all Methods</A></TH></TR>
+	</TABLE>
+	</TD>
+<TD align="right"><TABLE BORDER="0"><TR><TD><small><A HREF="index-long.html">Annotated List</A></small></TD></TR>
+<TR><TD><small><A HREF="header-list.html">Files</A></small></TD></TR>
+<TR><TD><small><A HREF="all-globals.html">Globals</A></small></TD></TR>
+<TR><TD><small><A HREF="hier.html">Hierarchy</A></small></TD></TR>
+<TR><TD><small><A HREF="index.html">Index</A></small></TD></TR>
+</TABLE></TD></TR></TABLE>
+<h4>Public Methods</h4><ul><LI>&nbsp;<b><A HREF="#ref1">Biblio</A></b> ( QWidget* parent, <A HREF="SCFonts.html">SCFonts</A> &avail, <A HREF="preV.html">preV</A> *prefs) 
+</LI>
+<LI>&nbsp;<b><A HREF="#ref2">~Biblio</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref3">closeEvent</A></b> (QCloseEvent *ce) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref4">AdjustMenu</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref5">ObjFromMenu</A></b> (QString text) 
+</LI>
+</ul><h4>Public Slots</h4><ul><LI>void &nbsp;<b><A HREF="#ref18">Save</A></b> () 
+</LI>
+</ul><h4>Signals</h4><ul><LI>void &nbsp;<b><A HREF="#ref29">Schliessen</A></b> () 
+</LI>
+</ul><h4>Public Members</h4><ul><LI>QPopupMenu* <b><A HREF="#ref6">pmenu</A></b></LI>
+<LI>QPopupMenu* <b><A HREF="#ref7">fmenu</A></b></LI>
+<LI>QPopupMenu* <b><A HREF="#ref8">vmenu</A></b></LI>
+<LI>QMenuBar* <b><A HREF="#ref9">menuBar</A></b></LI>
+<LI>QFrame* <b><A HREF="#ref10">Frame3</A></b></LI>
+<LI>BibView* <b><A HREF="#ref11">BibWin</A></b></LI>
+<LI>preV *<b><A HREF="#ref12">Prefs</A></b></LI>
+<LI>QString <b><A HREF="#ref13">ScFilename</A></b></LI>
+<LI>int <b><A HREF="#ref14">fSave</A></b></LI>
+<LI>int <b><A HREF="#ref15">vS</A></b></LI>
+<LI>int <b><A HREF="#ref16">vM</A></b></LI>
+<LI>int <b><A HREF="#ref17">vB</A></b></LI>
+</ul><h4>Protected Members</h4><ul><LI>QVBoxLayout* <b><A HREF="#ref27">BiblioLayout</A></b></LI>
+<LI>QVBoxLayout* <b><A HREF="#ref28">Frame3Layout</A></b></LI>
+</ul><h4>Private Slots</h4><ul><LI>void &nbsp;<b><A HREF="#ref19">HandleMouse</A></b> (QIconViewItem *ite) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref20">DeleteObj</A></b> (QString name, QIconViewItem *ite) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref21">DropOn</A></b> (QDropEvent *e) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref22">SaveAs</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref23">Load</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref24">CloseWin</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref25">NewLib</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref26">SetPreview</A></b> (int id) 
+</LI>
+</ul><HR><H2><A NAME="longdesc">Detailed Description</A></H2><A NAME="Biblio"></A><A NAME="ref1"></A><table width="100%"><tr bgcolor="#eeeeee"><td>&nbsp;<strong>Biblio</strong> ( QWidget* parent, <A HREF="SCFonts.html">SCFonts</A> &avail, <A HREF="preV.html">preV</A> *prefs)
+<br></td><td align="right"><h3><strong>Biblio</strong></h3></td></tr></table><p></p><A NAME="~Biblio"></A><A NAME="ref2"></A><table width="100%"><tr bgcolor="#eeeeee"><td>&nbsp;<strong>~Biblio</strong> ()
+<br></td><td align="right"><h3><strong>~Biblio</strong></h3></td></tr></table><p></p><A NAME="closeEvent"></A><A NAME="ref3"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>closeEvent</strong> (QCloseEvent *ce)
+<br></td><td align="right"><h3><strong>closeEvent</strong></h3></td></tr></table><p></p><A NAME="AdjustMenu"></A><A NAME="ref4"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>AdjustMenu</strong> ()
+<br></td><td align="right"><h3><strong>AdjustMenu</strong></h3></td></tr></table><p></p><A NAME="ObjFromMenu"></A><A NAME="ref5"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ObjFromMenu</strong> (QString text)
+<br></td><td align="right"><h3><strong>ObjFromMenu</strong></h3></td></tr></table><p></p><A NAME="pmenu"></A><A NAME="ref6"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu*  <strong>pmenu</strong>
+</td><td align="right"><h3><strong>pmenu</strong></h3></td></tr></table><p></p><A NAME="fmenu"></A><A NAME="ref7"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu*  <strong>fmenu</strong>
+</td><td align="right"><h3><strong>fmenu</strong></h3></td></tr></table><p></p><A NAME="vmenu"></A><A NAME="ref8"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPopupMenu*  <strong>vmenu</strong>
+</td><td align="right"><h3><strong>vmenu</strong></h3></td></tr></table><p></p><A NAME="menuBar"></A><A NAME="ref9"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QMenuBar*  <strong>menuBar</strong>
+</td><td align="right"><h3><strong>menuBar</strong></h3></td></tr></table><p></p><A NAME="Frame3"></A><A NAME="ref10"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QFrame*  <strong>Frame3</strong>
+</td><td align="right"><h3><strong>Frame3</strong></h3></td></tr></table><p></p><A NAME="BibWin"></A><A NAME="ref11"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="BibView.html">BibView</A>*  <strong>BibWin</strong>
+</td><td align="right"><h3><strong>BibWin</strong></h3></td></tr></table><p></p><A NAME="Prefs"></A><A NAME="ref12"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="preV.html">preV</A> * <strong>Prefs</strong>
+</td><td align="right"><h3><strong>Prefs</strong></h3></td></tr></table><p></p><A NAME="ScFilename"></A><A NAME="ref13"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>ScFilename</strong>
+</td><td align="right"><h3><strong>ScFilename</strong></h3></td></tr></table><p></p><A NAME="fSave"></A><A NAME="ref14"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>fSave</strong>
+</td><td align="right"><h3><strong>fSave</strong></h3></td></tr></table><p></p><A NAME="vS"></A><A NAME="ref15"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>vS</strong>
+</td><td align="right"><h3><strong>vS</strong></h3></td></tr></table><p></p><A NAME="vM"></A><A NAME="ref16"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>vM</strong>
+</td><td align="right"><h3><strong>vM</strong></h3></td></tr></table><p></p><A NAME="vB"></A><A NAME="ref17"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>vB</strong>
+</td><td align="right"><h3><strong>vB</strong></h3></td></tr></table><p></p><A NAME="Save"></A><A NAME="ref18"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>Save</strong> ()
+<br></td><td align="right"><h3><strong>Save</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="HandleMouse"></A><A NAME="ref19"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>HandleMouse</strong> (QIconViewItem *ite)
+<br></td><td align="right"><h3><strong>HandleMouse</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="DeleteObj"></A><A NAME="ref20"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>DeleteObj</strong> (QString name, QIconViewItem *ite)
+<br></td><td align="right"><h3><strong>DeleteObj</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="DropOn"></A><A NAME="ref21"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>DropOn</strong> (QDropEvent *e)
+<br></td><td align="right"><h3><strong>DropOn</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="SaveAs"></A><A NAME="ref22"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>SaveAs</strong> ()
+<br></td><td align="right"><h3><strong>SaveAs</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="Load"></A><A NAME="ref23"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>Load</strong> ()
+<br></td><td align="right"><h3><strong>Load</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="CloseWin"></A><A NAME="ref24"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>CloseWin</strong> ()
+<br></td><td align="right"><h3><strong>CloseWin</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="NewLib"></A><A NAME="ref25"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>NewLib</strong> ()
+<br></td><td align="right"><h3><strong>NewLib</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="SetPreview"></A><A NAME="ref26"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>SetPreview</strong> (int id)
+<br></td><td align="right"><h3><strong>SetPreview</strong></h3></td></tr></table><p> <small>[private slots slot]</small></p><A NAME="BiblioLayout"></A><A NAME="ref27"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QVBoxLayout">QVBoxLayout</A>*  <strong>BiblioLayout</strong>
+</td><td align="right"><h3><strong>BiblioLayout</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="Frame3Layout"></A><A NAME="ref28"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QVBoxLayout">QVBoxLayout</A>*  <strong>Frame3Layout</strong>
+</td><td align="right"><h3><strong>Frame3Layout</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="Schliessen"></A><A NAME="ref29"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>Schliessen</strong> ()
+<br></td><td align="right"><h3><strong>Schliessen</strong></h3></td></tr></table><p> <small>[signal]</small></p><HR>
+	<table>
+	<tr><td><small>Generated by: paul on T6.linux on Tue Mar 18 23:32:13 2003, using kdoc 2.0a54.</small></td></tr>
+	</table>
+</BODY>
+</HTML>

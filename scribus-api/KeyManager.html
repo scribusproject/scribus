@@ -1,0 +1,112 @@
+<HTML>
+<HEAD>
+<TITLE>class KeyManager</TITLE>
+
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+<TABLE WIDTH="100%" BORDER="0">
+<TR>
+<TD>
+	<TABLE BORDER="0">
+		<TR><TD valign="top" align="left" cellspacing="10">
+		<h1>class KeyManager</h1>
+		</TD>
+		<TD valign="top" align="right" colspan="1">
+* Form interface generated from reading ui file 'KeysManager. <small><A HREF="#longdesc">More...</A></small></TD></TR>
+	</TABLE>
+	<HR>
+	<TABLE BORDER="0">
+		<TR><TH>Definition</TH><TD><code>#include &lt;<A HREF="scribus___keymanager_h.html">scribus/keymanager.h</A>&gt;</code></TD></TR>
+<TR><TH>Inherits</TH><TD>QDialog <small>(unknown)</small> <small>[public ]</small></TD></TR>
+<TR><TH><A HREF="full-list-KeyManager.html">List of all Methods</A></TH></TR>
+	</TABLE>
+	</TD>
+<TD align="right"><TABLE BORDER="0"><TR><TD><small><A HREF="index-long.html">Annotated List</A></small></TD></TR>
+<TR><TD><small><A HREF="header-list.html">Files</A></small></TD></TR>
+<TR><TD><small><A HREF="all-globals.html">Globals</A></small></TD></TR>
+<TR><TD><small><A HREF="hier.html">Hierarchy</A></small></TD></TR>
+<TR><TD><small><A HREF="index.html">Index</A></small></TD></TR>
+</TABLE></TD></TR></TABLE>
+<h4>Public Methods</h4><ul><LI>&nbsp;<b><A HREF="#ref1">KeyManager</A></b> ( QWidget* parent, QMap<int,<A HREF="Keys.html">Keys</A>> Ke) 
+</LI>
+<LI>bool &nbsp;<b><A HREF="#ref2">event</A></b> ( QEvent* ev ) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref3">keyPressEvent</A></b> (QKeyEvent *k) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref4">keyReleaseEvent</A></b> (QKeyEvent *k) 
+</LI>
+<LI>QString &nbsp;<b><A HREF="#ref5">GetKeyText</A></b> (int KeyC) 
+</LI>
+<LI>bool &nbsp;<b><A HREF="#ref6">CheckKey</A></b> (int Code) 
+</LI>
+<LI>&nbsp;<b><A HREF="#ref7">~KeyManager</A></b> () 
+</LI>
+</ul><h4>Public Slots</h4><ul><LI>void &nbsp;<b><A HREF="#ref24">SetKeyText</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref25">DispKey</A></b> (int r) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref26">SetNoKey</A></b> () 
+</LI>
+</ul><h4>Public Members</h4><ul><LI>QTable* <b><A HREF="#ref8">TastenT</A></b></LI>
+<LI>QButtonGroup* <b><A HREF="#ref9">KeyGroup</A></b></LI>
+<LI>QRadioButton* <b><A HREF="#ref10">NoKey</A></b></LI>
+<LI>QRadioButton* <b><A HREF="#ref11">UserDef</A></b></LI>
+<LI>QLabel* <b><A HREF="#ref12">Tdisplay</A></b></LI>
+<LI>QPushButton* <b><A HREF="#ref13">SetKey</A></b></LI>
+<LI>QPushButton* <b><A HREF="#ref14">CancelB</A></b></LI>
+<LI>QPushButton* <b><A HREF="#ref15">OKButton</A></b></LI>
+<LI>QHeader *<b><A HREF="#ref16">Header</A></b></LI>
+<LI>QMap<int,Keys> <b><A HREF="#ref17">KK</A></b></LI>
+<LI>int <b><A HREF="#ref18">ActRow</A></b></LI>
+<LI>QString <b><A HREF="#ref19">Part1</A></b></LI>
+<LI>QString <b><A HREF="#ref20">Part2</A></b></LI>
+<LI>QString <b><A HREF="#ref21">Part3</A></b></LI>
+<LI>QString <b><A HREF="#ref22">Part4</A></b></LI>
+<LI>int <b><A HREF="#ref23">Kcode</A></b></LI>
+</ul><h4>Protected Members</h4><ul><LI>QVBoxLayout* <b><A HREF="#ref27">KeyManagerLayout</A></b></LI>
+<LI>QGridLayout* <b><A HREF="#ref28">KeyGroupLayout</A></b></LI>
+<LI>QHBoxLayout* <b><A HREF="#ref29">Layout4</A></b></LI>
+</ul><HR><H2><A NAME="longdesc">Detailed Description</A></H2><p>
+* Form interface generated from reading ui file 'KeysManager.ui'
+*
+* Created: Sun Feb 24 09:24:21 2002
+*      by:  The User Interface Compiler (uic)
+*
+* WARNING! All changes made in this file will be lost!
+**************************************************************************</p>
+<A NAME="KeyManager"></A><A NAME="ref1"></A><table width="100%"><tr bgcolor="#eeeeee"><td>&nbsp;<strong>KeyManager</strong> ( QWidget* parent, QMap<int,<A HREF="Keys.html">Keys</A>> Ke)
+<br></td><td align="right"><h3><strong>KeyManager</strong></h3></td></tr></table><p></p><A NAME="event"></A><A NAME="ref2"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool &nbsp;<strong>event</strong> ( QEvent* ev )
+<br></td><td align="right"><h3><strong>event</strong></h3></td></tr></table><p></p><A NAME="keyPressEvent"></A><A NAME="ref3"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>keyPressEvent</strong> (QKeyEvent *k)
+<br></td><td align="right"><h3><strong>keyPressEvent</strong></h3></td></tr></table><p></p><A NAME="keyReleaseEvent"></A><A NAME="ref4"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>keyReleaseEvent</strong> (QKeyEvent *k)
+<br></td><td align="right"><h3><strong>keyReleaseEvent</strong></h3></td></tr></table><p></p><A NAME="GetKeyText"></A><A NAME="ref5"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString &nbsp;<strong>GetKeyText</strong> (int KeyC)
+<br></td><td align="right"><h3><strong>GetKeyText</strong></h3></td></tr></table><p></p><A NAME="CheckKey"></A><A NAME="ref6"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool &nbsp;<strong>CheckKey</strong> (int Code)
+<br></td><td align="right"><h3><strong>CheckKey</strong></h3></td></tr></table><p></p><A NAME="~KeyManager"></A><A NAME="ref7"></A><table width="100%"><tr bgcolor="#eeeeee"><td>&nbsp;<strong>~KeyManager</strong> ()
+<br></td><td align="right"><h3><strong>~KeyManager</strong></h3></td></tr></table><p></p><A NAME="TastenT"></A><A NAME="ref8"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QTable*  <strong>TastenT</strong>
+</td><td align="right"><h3><strong>TastenT</strong></h3></td></tr></table><p></p><A NAME="KeyGroup"></A><A NAME="ref9"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QButtonGroup*  <strong>KeyGroup</strong>
+</td><td align="right"><h3><strong>KeyGroup</strong></h3></td></tr></table><p></p><A NAME="NoKey"></A><A NAME="ref10"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QRadioButton*  <strong>NoKey</strong>
+</td><td align="right"><h3><strong>NoKey</strong></h3></td></tr></table><p></p><A NAME="UserDef"></A><A NAME="ref11"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QRadioButton*  <strong>UserDef</strong>
+</td><td align="right"><h3><strong>UserDef</strong></h3></td></tr></table><p></p><A NAME="Tdisplay"></A><A NAME="ref12"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QLabel*  <strong>Tdisplay</strong>
+</td><td align="right"><h3><strong>Tdisplay</strong></h3></td></tr></table><p></p><A NAME="SetKey"></A><A NAME="ref13"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPushButton*  <strong>SetKey</strong>
+</td><td align="right"><h3><strong>SetKey</strong></h3></td></tr></table><p></p><A NAME="CancelB"></A><A NAME="ref14"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPushButton*  <strong>CancelB</strong>
+</td><td align="right"><h3><strong>CancelB</strong></h3></td></tr></table><p></p><A NAME="OKButton"></A><A NAME="ref15"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPushButton*  <strong>OKButton</strong>
+</td><td align="right"><h3><strong>OKButton</strong></h3></td></tr></table><p></p><A NAME="Header"></A><A NAME="ref16"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QHeader * <strong>Header</strong>
+</td><td align="right"><h3><strong>Header</strong></h3></td></tr></table><p></p><A NAME="KK"></A><A NAME="ref17"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QMap<int,<A HREF="Keys.html">Keys</A>>  <strong>KK</strong>
+</td><td align="right"><h3><strong>KK</strong></h3></td></tr></table><p></p><A NAME="ActRow"></A><A NAME="ref18"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>ActRow</strong>
+</td><td align="right"><h3><strong>ActRow</strong></h3></td></tr></table><p></p><A NAME="Part1"></A><A NAME="ref19"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>Part1</strong>
+</td><td align="right"><h3><strong>Part1</strong></h3></td></tr></table><p></p><A NAME="Part2"></A><A NAME="ref20"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>Part2</strong>
+</td><td align="right"><h3><strong>Part2</strong></h3></td></tr></table><p></p><A NAME="Part3"></A><A NAME="ref21"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>Part3</strong>
+</td><td align="right"><h3><strong>Part3</strong></h3></td></tr></table><p></p><A NAME="Part4"></A><A NAME="ref22"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>Part4</strong>
+</td><td align="right"><h3><strong>Part4</strong></h3></td></tr></table><p></p><A NAME="Kcode"></A><A NAME="ref23"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>Kcode</strong>
+</td><td align="right"><h3><strong>Kcode</strong></h3></td></tr></table><p></p><A NAME="SetKeyText"></A><A NAME="ref24"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>SetKeyText</strong> ()
+<br></td><td align="right"><h3><strong>SetKeyText</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="DispKey"></A><A NAME="ref25"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>DispKey</strong> (int r)
+<br></td><td align="right"><h3><strong>DispKey</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="SetNoKey"></A><A NAME="ref26"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>SetNoKey</strong> ()
+<br></td><td align="right"><h3><strong>SetNoKey</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="KeyManagerLayout"></A><A NAME="ref27"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QVBoxLayout">QVBoxLayout</A>*  <strong>KeyManagerLayout</strong>
+</td><td align="right"><h3><strong>KeyManagerLayout</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="KeyGroupLayout"></A><A NAME="ref28"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QGridLayout">QGridLayout</A>*  <strong>KeyGroupLayout</strong>
+</td><td align="right"><h3><strong>KeyGroupLayout</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="Layout4"></A><A NAME="ref29"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QHBoxLayout">QHBoxLayout</A>*  <strong>Layout4</strong>
+</td><td align="right"><h3><strong>Layout4</strong></h3></td></tr></table><p> <small>[protected]</small></p><HR>
+	<table>
+	<tr><td><small>Generated by: paul on T6.linux on Tue Mar 18 23:32:13 2003, using kdoc 2.0a54.</small></td></tr>
+	</table>
+</BODY>
+</HTML>

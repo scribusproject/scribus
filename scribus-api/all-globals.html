@@ -1,0 +1,192 @@
+<HTML>
+<HEAD>
+<TITLE>Scribus Globals</TITLE>
+
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+<TABLE WIDTH="100%" BORDER="0">
+<TR>
+<TD>
+	<TABLE BORDER="0">
+		<TR><TD valign="top" align="left" cellspacing="10">
+		<h1>Scribus Globals</h1>
+		</TD>
+		<TD valign="top" align="right" colspan="1"></TD></TR>
+	</TABLE>
+	<HR>
+	<TABLE BORDER="0">
+		
+	</TABLE>
+	</TD>
+<TD align="right"><TABLE BORDER="0"><TR><TD><small><A HREF="index-long.html">Annotated List</A></small></TD></TR>
+<TR><TD><small><A HREF="header-list.html">Files</A></small></TD></TR>
+<TR><TD><small><A HREF="all-globals.html">Globals</A></small></TD></TR>
+<TR><TD><small><A HREF="hier.html">Hierarchy</A></small></TD></TR>
+<TR><TD><small><A HREF="index.html">Index</A></small></TD></TR>
+</TABLE></TD></TR></TABLE>
+<h3>scribus/hnjalloc.h</h3><ul>
+<LI>void *
+&nbsp;<b>hnj_malloc</b> (int size) 
+</LI>
+<LI>void *
+&nbsp;<b>hnj_realloc</b> (void *p, int size) 
+</LI>
+<LI>void
+&nbsp;<b>hnj_free</b> (void *p) 
+</LI>
+</ul>
+<h3>scribus/hyphen.h</h3><ul>
+<LI>typedef struct _HyphenDict  HyphenDict
+</LI>
+<LI>typedef struct _HyphenState  HyphenState
+</LI>
+<LI>typedef struct _HyphenTrans  HyphenTrans
+</LI>
+</ul>
+<h3>scribus/icc34.h</h3><ul>
+<LI>typedef __int32_t        <A HREF="#ref111">icSignature</A>
+</LI>
+<LI>typedef unsigned char    icUInt8Number
+</LI>
+<LI>typedef unsigned short   icUInt16Number
+</LI>
+<LI>typedef __uint32_t       icUInt32Number
+</LI>
+<LI>typedef char             icInt8Number
+</LI>
+<LI>typedef short            icInt16Number
+</LI>
+<LI>typedef __int32_t        icInt32Number
+</LI>
+<LI>typedef __int32_t        icS15Fixed16Number
+</LI>
+<LI>typedef __uint32_t       icU16Fixed16Number
+</LI>
+<LI>typedef int32_t        icSignature
+</LI>
+<LI>typedef u_int8_t    icUInt8Number
+</LI>
+<LI>typedef u_int16_t   icUInt16Number
+</LI>
+<LI>typedef u_int32_t   icUInt32Number
+</LI>
+<LI>typedef int8_t	    icInt8Number
+</LI>
+<LI>typedef int16_t     icInt16Number
+</LI>
+<LI>typedef int32_t     icInt32Number
+</LI>
+<LI>typedef int32_t     icS15Fixed16Number
+</LI>
+<LI>typedef u_int32_t    icU16Fixed16Number
+</LI>
+<LI>typedef long             icSignature
+</LI>
+<LI>typedef unsigned char    icUInt8Number
+</LI>
+<LI>typedef unsigned short   icUInt16Number
+</LI>
+<LI>typedef unsigned long    icUInt32Number
+</LI>
+<LI>typedef char             icInt8Number
+</LI>
+<LI>typedef short            icInt16Number
+</LI>
+<LI>typedef long             icInt32Number
+</LI>
+<LI>typedef long             icS15Fixed16Number
+</LI>
+<LI>typedef unsigned long    icU16Fixed16Number
+</LI>
+<LI>typedef enum --
+</LI>
+</ul>
+<h3>scribus/md5.h</h3><ul>
+<LI>extern void md5_init_ctx &nbsp;<b>__P</b> ((struct md5_ctx *ctx)) 
+</LI>
+<LI>extern void md5_process_block &nbsp;<b>__P</b> ((const void *buffer, size_t len,
+				    struct md5_ctx *ctx)) 
+</LI>
+<LI>extern void md5_process_bytes &nbsp;<b>__P</b> ((const void *buffer, size_t len,
+				    struct md5_ctx *ctx)) 
+</LI>
+<LI>extern int md5_stream &nbsp;<b>__P</b> ((FILE *stream, void *resblock)) 
+</LI>
+</ul>
+<h3>scribus/scfonts.h</h3><ul>
+<LI>typedef QDictIterator<Foi>  SCFontsIterator
+</LI>
+</ul>
+<h3>scribus/scfonts_ttftypes.h</h3><ul>
+<LI>typedef u_int16_t  fxp14_2_t
+</LI>
+</ul>
+<h3>scribus/scribusdoc.h</h3><ul>
+<LI>typedef QMap<QString,CMYKColor>  CListe
+</LI>
+<LI>typedef QMap<QString,QString>  ProfilesL
+</LI>
+</ul>
+<h3>scribus/scribusview.h</h3><ul>
+<LI>extern QPixmap &nbsp;<b><A HREF="#ref18">loadIcon</A></b> (QString nam) 
+</LI>
+</ul>
+<h2>Global member Documentation</h2>
+<A NAME="hnj_malloc"></A><A NAME="ref163"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void *
+&nbsp;<strong>hnj_malloc</strong> (int size)
+<br></td><td align="right"><h3><strong>hnj_malloc</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___hnjalloc_h.html">scribus/hnjalloc.h</A>&gt;</code></small></p><A NAME="hnj_realloc"></A><A NAME="ref164"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void *
+&nbsp;<strong>hnj_realloc</strong> (void *p, int size)
+<br></td><td align="right"><h3><strong>hnj_realloc</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___hnjalloc_h.html">scribus/hnjalloc.h</A>&gt;</code></small></p><A NAME="hnj_free"></A><A NAME="ref165"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void
+&nbsp;<strong>hnj_free</strong> (void *p)
+<br></td><td align="right"><h3><strong>hnj_free</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___hnjalloc_h.html">scribus/hnjalloc.h</A>&gt;</code></small></p><A NAME="HyphenDict"></A><A NAME="ref168"></A><table width="100%"><tr bgcolor="#eeeeee"><td>typedef struct <A HREF="_HyphenDict.html">_HyphenDict</A>  <strong>HyphenDict</strong></td><td align="right"><h3><strong>HyphenDict</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___hyphen_h.html">scribus/hyphen.h</A>&gt;</code></small></p><A NAME="HyphenState"></A><A NAME="ref169"></A><table width="100%"><tr bgcolor="#eeeeee"><td>typedef struct _HyphenState  <strong>HyphenState</strong></td><td align="right"><h3><strong>HyphenState</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___hyphen_h.html">scribus/hyphen.h</A>&gt;</code></small></p><A NAME="HyphenTrans"></A><A NAME="ref170"></A><table width="100%"><tr bgcolor="#eeeeee"><td>typedef struct _HyphenTrans  <strong>HyphenTrans</strong></td><td align="right"><h3><strong>HyphenTrans</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___hyphen_h.html">scribus/hyphen.h</A>&gt;</code></small></p><A NAME="icSignature"></A><A NAME="ref111"></A><table width="100%"><tr bgcolor="#eeeeee"><td>typedef __int32_t        <strong>icSignature</strong></td><td align="right"><h3><strong>icSignature</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___icc34_h.html">scribus/icc34.h</A>&gt;</code></small></p><p> 
+ Copyright (c) 1994-1996 SunSoft, Inc.
+</p>
+<p>                    Rights Reserved
+</p>
+<p>Permission is hereby granted, free of charge, to any person 
+obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without restrict- 
+ion, including without limitation the rights to use, copy, modify, 
+merge, publish distribute, sublicense, and/or sell copies of the 
+Software, and to permit persons to whom the Software is furnished 
+to do so, subject to the following conditions: 
+</p>
+<p>The above copyright notice and this permission notice shall be 
+included in all copies or substantial portions of the Software. 
+</p>
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES 
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-
+INFRINGEMENT.  IN NO EVENT SHALL SUNSOFT, INC. OR ITS PARENT 
+COMPANY BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING 
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR 
+OTHER DEALINGS IN THE SOFTWARE. 
+</p>
+<p>Except as contained in this notice, the name of SunSoft, Inc. 
+shall not be used in advertising or otherwise to promote the 
+sale, use or other dealings in this Software without written 
+authorization from SunSoft Inc. 
+****************************************************************</p>
+<A NAME="icUInt8Number"></A><A NAME="ref112"></A><table width="100%"><tr bgcolor="#eeeeee"><td>typedef unsigned char    <strong>icUInt8Number</strong></td><td align="right"><h3><strong>icUInt8Number</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___icc34_h.html">scribus/icc34.h</A>&gt;</code></small></p><A NAME="icUInt16Number"></A><A NAME="ref113"></A><table width="100%"><tr bgcolor="#eeeeee"><td>typedef unsigned short   <strong>icUInt16Number</strong></td><td align="right"><h3><strong>icUInt16Number</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___icc34_h.html">scribus/icc34.h</A>&gt;</code></small></p><A NAME="icUInt32Number"></A><A NAME="ref114"></A><table width="100%"><tr bgcolor="#eeeeee"><td>typedef __uint32_t       <strong>icUInt32Number</strong></td><td align="right"><h3><strong>icUInt32Number</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___icc34_h.html">scribus/icc34.h</A>&gt;</code></small></p><A NAME="icInt8Number"></A><A NAME="ref116"></A><table width="100%"><tr bgcolor="#eeeeee"><td>typedef char             <strong>icInt8Number</strong></td><td align="right"><h3><strong>icInt8Number</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___icc34_h.html">scribus/icc34.h</A>&gt;</code></small></p><A NAME="icInt16Number"></A><A NAME="ref117"></A><table width="100%"><tr bgcolor="#eeeeee"><td>typedef short            <strong>icInt16Number</strong></td><td align="right"><h3><strong>icInt16Number</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___icc34_h.html">scribus/icc34.h</A>&gt;</code></small></p><A NAME="icInt32Number"></A><A NAME="ref118"></A><table width="100%"><tr bgcolor="#eeeeee"><td>typedef __int32_t        <strong>icInt32Number</strong></td><td align="right"><h3><strong>icInt32Number</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___icc34_h.html">scribus/icc34.h</A>&gt;</code></small></p><A NAME="icS15Fixed16Number"></A><A NAME="ref120"></A><table width="100%"><tr bgcolor="#eeeeee"><td>typedef __int32_t        <strong>icS15Fixed16Number</strong></td><td align="right"><h3><strong>icS15Fixed16Number</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___icc34_h.html">scribus/icc34.h</A>&gt;</code></small></p><A NAME="icU16Fixed16Number"></A><A NAME="ref121"></A><table width="100%"><tr bgcolor="#eeeeee"><td>typedef __uint32_t       <strong>icU16Fixed16Number</strong></td><td align="right"><h3><strong>icU16Fixed16Number</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___icc34_h.html">scribus/icc34.h</A>&gt;</code></small></p><A NAME="icSignature"></A><A NAME="ref122"></A><table width="100%"><tr bgcolor="#eeeeee"><td>typedef int32_t        <strong>icSignature</strong></td><td align="right"><h3><strong>icSignature</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___icc34_h.html">scribus/icc34.h</A>&gt;</code></small></p><A NAME="icUInt8Number"></A><A NAME="ref123"></A><table width="100%"><tr bgcolor="#eeeeee"><td>typedef u_int8_t    <strong>icUInt8Number</strong></td><td align="right"><h3><strong>icUInt8Number</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___icc34_h.html">scribus/icc34.h</A>&gt;</code></small></p><A NAME="icUInt16Number"></A><A NAME="ref124"></A><table width="100%"><tr bgcolor="#eeeeee"><td>typedef u_int16_t   <strong>icUInt16Number</strong></td><td align="right"><h3><strong>icUInt16Number</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___icc34_h.html">scribus/icc34.h</A>&gt;</code></small></p><A NAME="icUInt32Number"></A><A NAME="ref125"></A><table width="100%"><tr bgcolor="#eeeeee"><td>typedef u_int32_t   <strong>icUInt32Number</strong></td><td align="right"><h3><strong>icUInt32Number</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___icc34_h.html">scribus/icc34.h</A>&gt;</code></small></p><A NAME="icInt8Number"></A><A NAME="ref127"></A><table width="100%"><tr bgcolor="#eeeeee"><td>typedef int8_t	    <strong>icInt8Number</strong></td><td align="right"><h3><strong>icInt8Number</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___icc34_h.html">scribus/icc34.h</A>&gt;</code></small></p><A NAME="icInt16Number"></A><A NAME="ref128"></A><table width="100%"><tr bgcolor="#eeeeee"><td>typedef int16_t     <strong>icInt16Number</strong></td><td align="right"><h3><strong>icInt16Number</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___icc34_h.html">scribus/icc34.h</A>&gt;</code></small></p><A NAME="icInt32Number"></A><A NAME="ref129"></A><table width="100%"><tr bgcolor="#eeeeee"><td>typedef int32_t     <strong>icInt32Number</strong></td><td align="right"><h3><strong>icInt32Number</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___icc34_h.html">scribus/icc34.h</A>&gt;</code></small></p><A NAME="icS15Fixed16Number"></A><A NAME="ref131"></A><table width="100%"><tr bgcolor="#eeeeee"><td>typedef int32_t     <strong>icS15Fixed16Number</strong></td><td align="right"><h3><strong>icS15Fixed16Number</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___icc34_h.html">scribus/icc34.h</A>&gt;</code></small></p><A NAME="icU16Fixed16Number"></A><A NAME="ref132"></A><table width="100%"><tr bgcolor="#eeeeee"><td>typedef u_int32_t    <strong>icU16Fixed16Number</strong></td><td align="right"><h3><strong>icU16Fixed16Number</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___icc34_h.html">scribus/icc34.h</A>&gt;</code></small></p><A NAME="icSignature"></A><A NAME="ref133"></A><table width="100%"><tr bgcolor="#eeeeee"><td>typedef long             <strong>icSignature</strong></td><td align="right"><h3><strong>icSignature</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___icc34_h.html">scribus/icc34.h</A>&gt;</code></small></p><A NAME="icUInt8Number"></A><A NAME="ref134"></A><table width="100%"><tr bgcolor="#eeeeee"><td>typedef unsigned char    <strong>icUInt8Number</strong></td><td align="right"><h3><strong>icUInt8Number</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___icc34_h.html">scribus/icc34.h</A>&gt;</code></small></p><A NAME="icUInt16Number"></A><A NAME="ref135"></A><table width="100%"><tr bgcolor="#eeeeee"><td>typedef unsigned short   <strong>icUInt16Number</strong></td><td align="right"><h3><strong>icUInt16Number</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___icc34_h.html">scribus/icc34.h</A>&gt;</code></small></p><A NAME="icUInt32Number"></A><A NAME="ref136"></A><table width="100%"><tr bgcolor="#eeeeee"><td>typedef unsigned long    <strong>icUInt32Number</strong></td><td align="right"><h3><strong>icUInt32Number</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___icc34_h.html">scribus/icc34.h</A>&gt;</code></small></p><A NAME="icInt8Number"></A><A NAME="ref138"></A><table width="100%"><tr bgcolor="#eeeeee"><td>typedef char             <strong>icInt8Number</strong></td><td align="right"><h3><strong>icInt8Number</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___icc34_h.html">scribus/icc34.h</A>&gt;</code></small></p><A NAME="icInt16Number"></A><A NAME="ref139"></A><table width="100%"><tr bgcolor="#eeeeee"><td>typedef short            <strong>icInt16Number</strong></td><td align="right"><h3><strong>icInt16Number</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___icc34_h.html">scribus/icc34.h</A>&gt;</code></small></p><A NAME="icInt32Number"></A><A NAME="ref140"></A><table width="100%"><tr bgcolor="#eeeeee"><td>typedef long             <strong>icInt32Number</strong></td><td align="right"><h3><strong>icInt32Number</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___icc34_h.html">scribus/icc34.h</A>&gt;</code></small></p><A NAME="icS15Fixed16Number"></A><A NAME="ref142"></A><table width="100%"><tr bgcolor="#eeeeee"><td>typedef long             <strong>icS15Fixed16Number</strong></td><td align="right"><h3><strong>icS15Fixed16Number</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___icc34_h.html">scribus/icc34.h</A>&gt;</code></small></p><A NAME="icU16Fixed16Number"></A><A NAME="ref143"></A><table width="100%"><tr bgcolor="#eeeeee"><td>typedef unsigned long    <strong>icU16Fixed16Number</strong></td><td align="right"><h3><strong>icU16Fixed16Number</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___icc34_h.html">scribus/icc34.h</A>&gt;</code></small></p><A NAME="--"></A><A NAME="ref144"></A><table width="100%"><tr bgcolor="#eeeeee"><td>typedef enum <strong>--</strong></td><td align="right"><h3><strong>--</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___icc34_h.html">scribus/icc34.h</A>&gt;</code></small></p><A NAME="__P"></A><A NAME="ref180"></A><table width="100%"><tr bgcolor="#eeeeee"><td>extern void md5_init_ctx &nbsp;<strong>__P</strong> ((struct md5_ctx *ctx))
+<br></td><td align="right"><h3><strong>__P</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___md5_h.html">scribus/md5.h</A>&gt;</code></small></p><A NAME="__P"></A><A NAME="ref181"></A><table width="100%"><tr bgcolor="#eeeeee"><td>extern void md5_process_block &nbsp;<strong>__P</strong> ((const void *buffer, size_t len,
+				    struct md5_ctx *ctx))
+<br></td><td align="right"><h3><strong>__P</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___md5_h.html">scribus/md5.h</A>&gt;</code></small></p><A NAME="__P"></A><A NAME="ref182"></A><table width="100%"><tr bgcolor="#eeeeee"><td>extern void md5_process_bytes &nbsp;<strong>__P</strong> ((const void *buffer, size_t len,
+				    struct md5_ctx *ctx))
+<br></td><td align="right"><h3><strong>__P</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___md5_h.html">scribus/md5.h</A>&gt;</code></small></p><A NAME="__P"></A><A NAME="ref183"></A><table width="100%"><tr bgcolor="#eeeeee"><td>extern int md5_stream &nbsp;<strong>__P</strong> ((FILE *stream, void *resblock))
+<br></td><td align="right"><h3><strong>__P</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___md5_h.html">scribus/md5.h</A>&gt;</code></small></p><A NAME="SCFontsIterator"></A><A NAME="ref72"></A><table width="100%"><tr bgcolor="#eeeeee"><td>typedef QDictIterator<<A HREF="Foi.html">Foi</A>>  <strong>SCFontsIterator</strong></td><td align="right"><h3><strong>SCFontsIterator</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___scfonts_h.html">scribus/scfonts.h</A>&gt;</code></small></p><A NAME="fxp14_2_t"></A><A NAME="ref79"></A><table width="100%"><tr bgcolor="#eeeeee"><td>typedef u_int16_t  <strong>fxp14_2_t</strong></td><td align="right"><h3><strong>fxp14_2_t</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___scfonts__ttftypes_h.html">scribus/scfonts_ttftypes.h</A>&gt;</code></small></p><A NAME="CListe"></A><A NAME="ref10"></A><table width="100%"><tr bgcolor="#eeeeee"><td>typedef QMap<QString,<A HREF="CMYKColor.html">CMYKColor</A>>  <strong>CListe</strong></td><td align="right"><h3><strong>CListe</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___scribusdoc_h.html">scribus/scribusdoc.h</A>&gt;</code></small></p><A NAME="ProfilesL"></A><A NAME="ref11"></A><table width="100%"><tr bgcolor="#eeeeee"><td>typedef QMap<QString,QString>  <strong>ProfilesL</strong></td><td align="right"><h3><strong>ProfilesL</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___scribusdoc_h.html">scribus/scribusdoc.h</A>&gt;</code></small></p><A NAME="loadIcon"></A><A NAME="ref18"></A><table width="100%"><tr bgcolor="#eeeeee"><td>extern QPixmap &nbsp;<strong>loadIcon</strong> (QString nam)
+<br></td><td align="right"><h3><strong>loadIcon</strong></h3></td></tr></table><p></p><p><small><code>#include &lt;<A HREF="scribus___scribusview_h.html">scribus/scribusview.h</A>&gt;</code></small></p><p>
+                                                                         *
+   This program is free software; you can redistribute it and/or modify  *
+   it under the terms of the GNU General Public License as published by  *
+   the Free Software Foundation; either version 2 of the License, or     *
+   (at your option) any later version.                                   *
+                                                                         *
+*************************************************************************</p>
+<HR>
+	<table>
+	<tr><td><small>Generated by: paul on T6.linux on Tue Mar 18 23:32:13 2003, using kdoc 2.0a54.</small></td></tr>
+	</table>
+</BODY>
+</HTML>

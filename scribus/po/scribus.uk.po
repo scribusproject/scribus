@@ -1,0 +1,1058 @@
+# This is a Qt message file in .po format.  Each msgid starts with
+# a scope.  This scope should *NOT* be translated - eg. "Foo::Bar"
+# would be translated to "Pub", not "Foo::Pub".
+msgid ""
+msgstr ""
+"Project-Id-Version: Scribus 0.3\n"
+"POT-Creation-Date: 1999-02-23 15:38+0200\n"
+"PO-Revision-Date: 2001-10-01 21:53GMT+2\n"
+"Last-Translator: Serge Kudryk <kudryk@yahoo.com>\n"
+"Content-Type: text/plain; charset=KOI8-U\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language-Team: Ukrainian <linux@linux.org.ua>\n"
+"X-Generator: KBabel 0.8\n"
+
+#: mywidget.cpp:30
+msgid "File"
+msgstr "Файл"
+
+msgid "New"
+msgstr "Новий"
+
+msgid "Open..."
+msgstr "В╕дкрити..."
+
+msgid "Open"
+msgstr "В╕дкрити"
+
+msgid "Close"
+msgstr "Закрити"
+
+msgid "Save"
+msgstr "Записати"
+
+msgid "Save as..."
+msgstr "Записати як..."
+
+msgid "Save as"
+msgstr "Записати як"
+
+msgid "Revert to Saved"
+msgstr "Повернутися до записаного"
+
+msgid "Save Text..."
+msgstr "Записати текст.."
+
+msgid "Save Page as EPS..."
+msgstr "Записати текст як EPS..."
+
+msgid "Save as PDF..."
+msgstr "Записати як PDF..."
+
+msgid "Document Setup..."
+msgstr "Настройка опц╕й документу..."
+
+msgid "Document Setup"
+msgstr "Настройка опц╕й документу"
+
+msgid "Document Info..."
+msgstr "╤нформац╕я о документ╕.."
+
+msgid "Print..."
+msgstr "Друк.."
+
+msgid "Quit"
+msgstr "Вих╕д"
+
+msgid "View"
+msgstr "Вид"
+
+msgid "Fit in Window"
+msgstr "Показати всю стор╕нку"
+
+msgid "Actual Size"
+msgstr "Реальний розм╕р"
+
+msgid "Thumbnails"
+msgstr "М╕н╕атюрн╕ зображення"
+
+msgid "Show Tools"
+msgstr "Показати ╕нструменти"
+
+msgid "Hide Tools"
+msgstr "Сховати ╕нструменти"
+
+msgid "Hide Margins"
+msgstr "Сховати меж╕ робочо╖ зони"
+
+msgid "Show Margins"
+msgstr "Показати меж╕ робочо╖ зони"
+
+msgid "Hide Guides"
+msgstr "Сховати розм╕тку"
+
+msgid "Hide Images"
+msgstr "Сховати зображення"
+
+msgid "Show Images"
+msgstr "Показати зображення"
+
+msgid "Show Guides"
+msgstr "Показати розм╕тку"
+
+msgid "Show Measurements"
+msgstr "Показати панель кадру"
+
+msgid "Hide Measurements"
+msgstr "Сховати панель кадру"
+
+msgid "Help"
+msgstr "Допомога"
+
+msgid "About Scribus"
+msgstr "О програм╕ Scribus"
+
+msgid "About Qt"
+msgstr "О систем╕ QT"
+
+msgid "Ready"
+msgstr "Готовий"
+
+msgid "Scaled to "
+msgstr "Масштабувати до "
+
+msgid "Get Picture..."
+msgstr "Вставити граф╕ку ..."
+
+msgid "Get Text/Picture..."
+msgstr "Вставити текст/граф╕ку... "
+
+msgid "Get Text..."
+msgstr "Вставити текст..."
+
+msgid "New Document"
+msgstr "Новий документ"
+
+msgid "Page Size"
+msgstr "Розм╕р стор╕нки"
+
+msgid "Margin Guides"
+msgstr "Розм╕тка зон документу"
+
+msgid "Column Guides"
+msgstr "Розм╕тка стовпц╕в"
+
+msgid "Columns:"
+msgstr "Стовпц╕:"
+
+msgid "Gutter Width:"
+msgstr "Ширина пром╕жку:"
+
+msgid "Width:"
+msgstr "Ширина:"
+
+msgid "Height:"
+msgstr "Висота:"
+
+msgid "Top:"
+msgstr "Верх:"
+
+msgid "Left:"
+msgstr "Зл╕ва:"
+
+msgid "Inside:"
+msgstr "Внутр╕:"
+
+msgid "Right:"
+msgstr "Зправа:"
+
+msgid "Outside:"
+msgstr "Ззовн╕:"
+
+msgid "Bottom:"
+msgstr "Низ:"
+
+msgid "Other"
+msgstr "╤нш╕"
+
+msgid "Facing Pages"
+msgstr "Сум╕жн╕ стор╕нки"
+
+msgid "OK"
+msgstr "Гаразд"
+
+msgid "Cancel"
+msgstr "Вих╕д"
+
+msgid "Automatic Text Box"
+msgstr "Автоматичний бокс тексту"
+
+msgid "W:"
+msgstr "Шир:"
+
+msgid "Tabloid"
+msgstr "Табличний"
+
+msgid "Documents (*.scd);; All Files (*)"
+msgstr "Документи (*.scd);; Вс╕ файли (*)"
+
+msgid "Document "
+msgstr "Документ "
+
+msgid "No Document"
+msgstr "Нема╓ документу"
+
+msgid "Warning"
+msgstr "Попередження"
+
+msgid "The document has been changed since the last save."
+msgstr "Документ був зм╕нен п╕сля останнього запису."
+
+msgid "Save Now"
+msgstr "Записати зараз"
+
+msgid "Leave Anyway"
+msgstr "╤гнорувати"
+
+msgid "Textfiles (*.txt);;All Files (*)"
+msgstr "Текстов╕ файли (*.txt);;Вс╕ файли (*)"
+
+msgid "Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)"
+msgstr "Зображення (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Вс╕ файли (*)"
+
+msgid "Look &in:"
+msgstr "Шукати &в:"
+
+msgid "File &type:"
+msgstr "Тип &файлу:"
+
+msgid "File &name:"
+msgstr "╤м'я &файлу:"
+
+msgid "PDF-Options"
+msgstr "Опц╕╖ PDF"
+
+msgid "Compatibility:"
+msgstr "Сум╕сн╕сть:"
+
+msgid "Images:"
+msgstr "Зображення:"
+
+msgid "Resolution for EPS-Images:"
+msgstr "Розд╕льча здатн╕сть для зображень EPS:"
+
+msgid "Document Info"
+msgstr "╤нформац╕я о документ╕"
+
+msgid "Description:"
+msgstr "Опис:"
+
+msgid "Author:"
+msgstr "Автор:"
+
+msgid "Edit"
+msgstr "Редагування"
+
+msgid "Cut"
+msgstr "Вир╕зати"
+
+msgid "Copy"
+msgstr "Коп╕ювати"
+
+msgid "Paste"
+msgstr "Вкле╖ти"
+
+msgid "Clear"
+msgstr "Очистити"
+
+msgid "Select all"
+msgstr "Вид╕лити все"
+
+msgid "Deselect all"
+msgstr "Зняти все вид╕лення"
+
+msgid "Style"
+msgstr "Стиль"
+
+msgid "Other..."
+msgstr "╤нш╕..."
+
+msgid "Item"
+msgstr "Об'╓кт"
+
+msgid "Page"
+msgstr "Стор╕нка"
+
+msgid "Insert..."
+msgstr "Вставити.."
+
+msgid "Delete..."
+msgstr "Видалити..."
+
+msgid "Delete"
+msgstr "Видалити"
+
+msgid "Font"
+msgstr "Шрифт"
+
+msgid "Size"
+msgstr "Розм╕р"
+
+msgid "Font Size"
+msgstr "Розм╕р шрифту"
+
+msgid "Font Size:"
+msgstr "Розм╕р шрифту:"
+
+msgid "Shade:"
+msgstr "Т╕нь:"
+
+msgid "Shade"
+msgstr "Т╕нь"
+
+msgid "Color"
+msgstr "Кол╕р"
+
+msgid "Colors..."
+msgstr "Кольори..."
+
+msgid "Duplicate"
+msgstr "Дублювати"
+
+msgid "New Color:"
+msgstr "Новий кол╕р:"
+
+msgid "New Color"
+msgstr "Новий кол╕р"
+
+msgid "OK to delete Color:"
+msgstr "Так видалити кол╕р:"
+
+msgid "Replace it with:"
+msgstr "Зам╕нити це на:"
+
+msgid "Delete Color"
+msgstr "Видалити кол╕р"
+
+msgid "Colors"
+msgstr "Кольори"
+
+msgid "Edit Colors"
+msgstr "Редагувати кольори"
+
+msgid "Hide Colors"
+msgstr "Сховати кольори"
+
+msgid "Show Colors"
+msgstr "Показати кольори"
+
+msgid "Show Outline"
+msgstr "Показати об'╓кти"
+
+msgid "Hide Outline"
+msgstr "Сховати об'╓кти"
+
+msgid "Outline"
+msgstr "Об'╓кт"
+
+msgid "Rectangle"
+msgstr "Прямокутник"
+
+msgid "Shape"
+msgstr "Ф╕гура"
+
+msgid "Edit Frame"
+msgstr "Редагувати кадр"
+
+msgid "Image"
+msgstr "Зображення"
+
+msgid "Type"
+msgstr "Тип"
+
+msgid "Send to Back"
+msgstr "Послати на задн╕й план"
+
+msgid "Bring to Front"
+msgstr "Пересунути на передн╕й план"
+
+msgid "Lower"
+msgstr "Нижче"
+
+msgid "Raise"
+msgstr "Вгору"
+
+msgid "Delete Page:"
+msgstr "Видалити стор╕нку:"
+
+msgid "Delete Page"
+msgstr "Видалити стор╕нку"
+
+msgid "Line"
+msgstr "Л╕н╕я"
+
+msgid "Line Width"
+msgstr "Ширина л╕н╕╖"
+
+msgid "Line Width:"
+msgstr "Ширина л╕н╕╖:"
+
+msgid "Print destination"
+msgstr "Друкувати розташування"
+
+msgid "Print to printer:"
+msgstr "Друкувати на принтер"
+
+msgid "Printer"
+msgstr "Принтер"
+
+msgid "locally connected"
+msgstr "локально п╕дключенний"
+
+msgid "Comment"
+msgstr "Коментар"
+
+msgid "Print to file:"
+msgstr "Друкувати до файлу:"
+
+msgid "Browse..."
+msgstr "Перегляд..."
+
+msgid "Printer settings"
+msgstr "Установки принтера"
+
+msgid "Print in color if available"
+msgstr "Кольоровий друк якщо доступен"
+
+msgid "Print in grayscale"
+msgstr "Монохромний друк"
+
+msgid "Paper format"
+msgstr "Формат пап╕ру"
+
+msgid "Portrait"
+msgstr "Вертикальний"
+
+msgid "Landscape"
+msgstr "Горизонтальний"
+
+msgid "Options"
+msgstr "Опц╕╖"
+
+msgid "Print all"
+msgstr "Друкувати все"
+
+msgid "Print range"
+msgstr "Друкувати ╕нтервал"
+
+msgid "From page:"
+msgstr "З стор╕нки"
+
+msgid "To page:"
+msgstr "До стор╕нки:"
+
+msgid "Print first page first"
+msgstr "Починати друк з першо╖ стор╕нки"
+
+msgid "Print last page first"
+msgstr "Починати друк з останньо╖ стор╕нки"
+
+msgid "Number of copies:"
+msgstr "К╕льк╕сть коп╕й:"
+
+msgid "Select color"
+msgstr "Вибрати кол╕р"
+
+msgid "&Basic colors"
+msgstr "&Базов╕ кольори"
+
+msgid "&Custom colors"
+msgstr "&Власн╕ кольори"
+
+msgid "&Add To Custom Colors"
+msgstr "&Додати до власних кольор╕в"
+
+msgid "&Define Custom Colors >>"
+msgstr "&Вибрати власн╕ кольори >>"
+
+msgid "&Red:"
+msgstr "&Червон.:"
+
+msgid "&Green:"
+msgstr "&Зелений:"
+
+msgid "Bl&ue:"
+msgstr "Си&н╕й:"
+
+msgid "Select Font"
+msgstr "Вибрати шрифт"
+
+msgid "&Font"
+msgstr "&Шрифт"
+
+msgid "Font st&yle"
+msgstr "&Стиль шрифту"
+
+msgid "&Size"
+msgstr "&Розм╕р"
+
+msgid "Effects"
+msgstr "Ефекти"
+
+msgid "Stri&keout"
+msgstr "&Перекреслений"
+
+msgid "&Underline"
+msgstr "&П╕дкреслений"
+
+msgid "Sample"
+msgstr "Приклад"
+
+msgid "Scr&ipt"
+msgstr "Скр&╕пт"
+
+msgid "Preferences..."
+msgstr "Установки.."
+
+msgid "Preferences"
+msgstr "Установки"
+
+msgid "General"
+msgstr "Загальне"
+
+msgid "GUI-Style"
+msgstr "Стиль ╕нтерфейсу"
+
+msgid "Platinum-Style"
+msgstr "Платиновий стиль"
+
+msgid "Windows-Style"
+msgstr "Стиль Windows"
+
+msgid "Motif-Style"
+msgstr "Стиль Motif"
+
+msgid "Motif-Plus-Style"
+msgstr "Стиль Motif-Plus"
+
+msgid "CDE-Style"
+msgstr "Стиль CDE"
+
+msgid "Guides"
+msgstr "Розм╕тки"
+
+msgid "Major Grid Spacing:"
+msgstr "Крок основно╖ с╕тки"
+
+msgid "Minor Grid Spacing:"
+msgstr "Крок допом╕жно╖ с╕тки:"
+
+msgid "Major Grid Color:"
+msgstr "Кол╕р основно╖ с╕тки:"
+
+msgid "Minor Grid Color:"
+msgstr "Кол╕р допом╕жно╖ с╕тки:"
+
+msgid "Grid Colors:"
+msgstr "Кольори с╕тки:"
+
+msgid "Grid Layout:"
+msgstr "Шар с╕тки:"
+
+msgid "Image visible"
+msgstr "Зображення видиме"
+
+msgid "Is PDF-Bookmark"
+msgstr "Закладка PDF"
+
+msgid "Snap to Guides"
+msgstr "Прив'язка до розм╕тки"
+
+msgid "Apply"
+msgstr "Застосувати"
+
+msgid "Snap to Grid"
+msgstr "Прив'язка до с╕тки"
+
+msgid "Mouse-Settings"
+msgstr "Установки миши"
+
+msgid "Wheel-Jump"
+msgstr "Крок курсора миши"
+
+msgid "Grab-Radius"
+msgstr "Рад╕ус захоплення об'╓кту"
+
+msgid "Printing-Error"
+msgstr "Помилка друку"
+
+msgid "Printing completed"
+msgstr "Друк завершен"
+
+msgid "Printing aborted"
+msgstr "Зб╕й друку"
+
+msgid "Printing..."
+msgstr "Друкую..."
+
+msgid "Saving aborted"
+msgstr "Зб╕й запису"
+
+msgid "Loading aborted"
+msgstr "Зб╕й загрузки"
+
+msgid "Global Fontsettings"
+msgstr "Глобальн╕ установки шрифт╕в"
+
+msgid "Path to Fontfile"
+msgstr "Шлях до файл╕в шрифт╕в"
+
+msgid "Embed in:"
+msgstr "Вбудовано в:"
+
+msgid "Default Size:"
+msgstr "Розм╕р по умовчанню:"
+
+msgid "Default Font:"
+msgstr "Шрифт по умовчанню:"
+
+msgid "Sample Text"
+msgstr "Latin text: sample text; Укра╖нский текст: ╕╖ ╜удзик ╓ .."
+
+msgid "Fonts"
+msgstr "Шрифти"
+
+msgid "Missing Font"
+msgstr "В╕дсутн╕й шрифт"
+
+msgid "Missing"
+msgstr "В╕дсутн╕(й)"
+
+msgid "The Font %1 is not installed."
+msgstr "Шрифт %1 не встановлен"
+
+msgid "Use"
+msgstr "Використати"
+
+msgid "instead"
+msgstr "зам╕сть"
+
+msgid "Fonts..."
+msgstr "Шрифти"
+
+msgid " loaded"
+msgstr " завантажено"
+
+msgid "Picture "
+msgstr "Картинка"
+
+msgid "File "
+msgstr "Файл "
+
+msgid " saved"
+msgstr " записано"
+
+msgid "Unable to create PDF-File."
+msgstr "Не можу створити файл PDF."
+
+msgid "Error creating PDF-File.."
+msgstr "Помилка створення файлу PDF"
+
+msgid "Error during EPS-Export"
+msgstr "Помилка п╕д час експорту EPS файлу."
+
+msgid "The following Programs are missing:"
+msgstr "Наступн╕ програми в╕дсутн╕:"
+
+msgid "Ghostscript : You cannot use EPS-Images"
+msgstr "Ghostscript : Ви не можете використовувати EPS зображення"
+
+msgid "Multiple Duplicate"
+msgstr "Множинне дублювання"
+
+msgid "Number of Copies:"
+msgstr "К╕льк╕сть коп╕й:"
+
+msgid "Horizontal Shift:"
+msgstr "Горизонтальний зсув:"
+
+msgid "Vertical Shift:"
+msgstr "Вертикальний зсув:"
+
+msgid "Distribute/Align"
+msgstr "Розташувати/Вир╕вняти"
+
+msgid "Distribute/Align..."
+msgstr "Розташувати/Вир╕вняти..."
+
+msgid "Don't change"
+msgstr "Не зм╕нювати"
+
+msgid "Align"
+msgstr "Вир╕вняти"
+
+msgid "Displacement"
+msgstr "Зсув елемент╕в"
+
+msgid "Distribute evenly"
+msgstr "Розташувати випадково"
+
+msgid "between:"
+msgstr "пом╕ж:"
+
+msgid "Left Sides"
+msgstr "Л╕в╕ сторони"
+
+msgid "Middles"
+msgstr "Середини"
+
+msgid "Right Sides"
+msgstr "Прав╕ сторони"
+
+msgid "Top Sides"
+msgstr "Верхн╕ сторони"
+
+msgid "Bottom Sides"
+msgstr "Нижн╕ сторони"
+
+msgid "Vertical"
+msgstr "Вертикально"
+
+msgid "Horizontal"
+msgstr "Горизонтально"
+
+msgid "Output to File:"
+msgstr "Результат записати до файлу"
+
+msgid "Change..."
+msgstr "Зм╕нити..."
+
+msgid "Compression"
+msgstr "Компрес╕я"
+
+msgid "Downsample Color-Images to:"
+msgstr "Перетворення кольорових зображень до:"
+
+msgid "Downsample Grayscale-Images to:"
+msgstr "Перетворення монохромних зображень до:"
+
+msgid "Downsample Mono-Images to:"
+msgstr "Перетворення моно-зображень до:"
+
+msgid "Compress Text and Vectorgraphics"
+msgstr "Стиснути текст та векторну граф╕ку"
+
+msgid "Compatibility"
+msgstr "Сум╕сн╕сть"
+
+msgid "Device Settings"
+msgstr "Установки пристрою"
+
+msgid "Resolution:"
+msgstr "Розд╕льча здатн╕сть:"
+
+msgid "Create PDF-File"
+msgstr "Створити PDF файл"
+
+msgid "Fatal Error"
+msgstr "Фатальна помилка"
+
+msgid "There are no Postscript-Fonts on your System"
+msgstr "Нема╓ Postscript шрифт╕в у Ваш╕й систем╕"
+
+msgid "Exiting now"
+msgstr "Вихожу зараз"
+
+msgid "Insert Page"
+msgstr "Вставити стор╕нку"
+
+msgid "Inserting"
+msgstr "Вставка"
+
+msgid "before Page"
+msgstr "перед стор╕нкою"
+
+msgid "after Page"
+msgstr "п╕сля стор╕нки"
+
+msgid "At End"
+msgstr "в к╕нц╕"
+
+msgid "Page(s)"
+msgstr "стор╕нки(ок)"
+
+msgid "To End"
+msgstr "В к╕нець"
+
+msgid "Delete Pages"
+msgstr "Видалити стор╕нки"
+
+msgid "Delete from:"
+msgstr "Видалити з:"
+
+msgid "Move Page(s):"
+msgstr "Пересунути стор╕нку(и):"
+
+msgid "Move Pages"
+msgstr "Пересунути стор╕нки"
+
+msgid "Move..."
+msgstr "Пересунути..."
+
+msgid "to:"
+msgstr "до:"
+
+msgid "Select Items"
+msgstr "Вибрати об'╓кти"
+
+msgid "Edit Contents of Frame"
+msgstr "Редагувати зм╕ст кадру"
+
+msgid "Zooms in or out"
+msgstr "Зб╕льшити або зменьшити"
+
+msgid "Insert Textbox"
+msgstr "Вставити текстовий бокс"
+
+msgid "Insert Picture"
+msgstr "Вставити граф╕ку"
+
+msgid "Insert Lines"
+msgstr "Вставити л╕н╕╖"
+
+msgid "Insert Ovals"
+msgstr "Вставити овали"
+
+msgid "Insert Rectangles"
+msgstr "Вставити прямокутники"
+
+msgid "Rotate Item"
+msgstr "Повернути об'╓кт"
+
+msgid "Modify..."
+msgstr "Модиф╕кувати ..."
+
+msgid "Modify Textframe"
+msgstr "Модиф╕кувати текстовий кадр"
+
+msgid "Modify Frame"
+msgstr "Модиф╕кувати кадр"
+
+msgid "Other:"
+msgstr "╤нш╕:"
+
+msgid "Don't print"
+msgstr "Не друкувати"
+
+msgid "Properties:"
+msgstr "Властивост╕:"
+
+msgid "Ordinary Text"
+msgstr "Звичайний текст"
+
+msgid "Is PDF-Annotation"
+msgstr "Анотац╕я до PDF"
+
+msgid "Angle:"
+msgstr "Кут:"
+
+msgid "Textdistance"
+msgstr "В╕дстань у текст╕"
+
+msgid "Face"
+msgstr "Гарн╕тура"
+
+msgid "Superscript"
+msgstr "Верхн╕й ╕ндекс"
+
+msgid "Subscript"
+msgstr "Нижн╕й ╕ндекс"
+
+msgid "Flip horizontal"
+msgstr "Перегорнути горизонтально"
+
+msgid "Flip vertical"
+msgstr "Перегорнути вертикально"
+
+msgid "Scaling:"
+msgstr "Масштабування:"
+
+msgid "Disp.:"
+msgstr "Диспропорц╕я:"
+
+msgid "Small Caps"
+msgstr "Мал╕ л╕тери"
+
+msgid "Typographics"
+msgstr "Типограф╕чний"
+
+msgid "Italic"
+msgstr "Курс╕в"
+
+msgid "Shift+Click to add Point; Ctrl+Click to delete Point"
+msgstr "Shift+Click щоб додати точку; Ctrl+Click щоб видалити точку"
+
+msgid "No Fill"
+msgstr "Без заповнення"
+
+msgid "Underline"
+msgstr "П╕дкреслення"
+
+msgid "Strikethru"
+msgstr "Перекреслення"
+
+msgid "Strikeout"
+msgstr "Strikeout"
+
+msgid "Append"
+msgstr "Додати"
+
+msgid "Bold"
+msgstr "Жирний"
+
+msgid "Shading:"
+msgstr "Зат╕нення:"
+
+msgid "Background Color:"
+msgstr "Кол╕р фону:"
+
+msgid "Vertical flipped"
+msgstr "Вертикально перегорнутий"
+
+msgid "Horizontal flipped"
+msgstr "Горизонтально перегорнутий"
+
+msgid "Text flows around Box"
+msgstr "Текст оточю╓ навколо бокс"
+
+msgid "Online-Help..."
+msgstr "Онлайнова допомога..."
+
+msgid "Scribus Manual"
+msgstr "Дов╕дник Scribus"
+
+msgid "Local X-Pos:"
+msgstr "Локальна поз. X:"
+
+msgid "Local Y-Pos:"
+msgstr "Локальна поз. Y:"
+
+msgid "Horizontal Scaling"
+msgstr "Горизонтальне масштабування"
+
+msgid "Vertical Scaling"
+msgstr "Вертикальне масштабування"
+
+msgid "Modify Pictureframe"
+msgstr "Модиф╕кувати граф╕чний кадр"
+
+msgid "Line Color:"
+msgstr "Кол╕р л╕н╕╖:"
+
+msgid "Fill Color:"
+msgstr "Кол╕р заповнення:"
+
+msgid "Linestyle:"
+msgstr "Стиль л╕н╕╖:"
+
+msgid "Linewidth:"
+msgstr "Ширина л╕н╕╖:"
+
+msgid "Scaling X:"
+msgstr "Масштабування по ос╕ Х:"
+
+msgid "Scaling Y:"
+msgstr "Масштабування по ос╕ Y:"
+
+msgid "Manual Kerning"
+msgstr "Ручна обробка"
+
+msgid "Linespacing"
+msgstr "М╕жл╕н╕йна в╕дстань"
+
+msgid "Frame"
+msgstr "Кадр"
+
+msgid "Contents"
+msgstr "Зм╕ст"
+
+msgid "Tools"
+msgstr "╤нструменти"
+
+msgid "Create Textchains"
+msgstr "Створити текстов╕ ланцюжки"
+
+msgid "Break Textchains"
+msgstr "Перервати текстов╕ ланцюжки"
+
+msgid "Stepping:"
+msgstr "Крок:"
+
+msgid "Placing:"
+msgstr "Розм╕щення:"
+
+msgid "In the Background"
+msgstr "На фон╕:"
+
+msgid "In the Foreground"
+msgstr "На передньому план╕"
+
+msgid "Text Color:"
+msgstr "Кол╕р тексту:"
+
+msgid "Units"
+msgstr "Одиниц╕"
+
+msgid "Points (pt)"
+msgstr "Точки (pt)"
+
+msgid "Millimeters (mm)"
+msgstr "М╕л╕метри (mm)"
+
+msgid "Creates a new Document"
+msgstr "Створити новий документ"
+
+msgid "Opens a Document"
+msgstr "В╕дкрити документ"
+
+msgid "Saves the current Document"
+msgstr "Записати поточний документ"
+
+msgid "Prints the current Document"
+msgstr "Друкувати поточний документ"
+
+msgid "Copy Here"
+msgstr "Коп╕ювати тут"
+
+msgid "Move Here"
+msgstr "Пересунути сюди"
+
+msgid "About"
+msgstr "О"
+
+msgid "Authors"
+msgstr "Автори"
+
+msgid "Translations"
+msgstr "Переклад"
+
+msgid "Programming:"
+msgstr "Програмування:"
+
+msgid "Contributions from:"
+msgstr "При сп╕впрац╕ з:"
+
+msgid "Documentation:"
+msgstr "Документац╕я:"
+
+msgid "German:"
+msgstr "Н╕мецька:"
+
+msgid "French:"
+msgstr "Французська:"
+
+msgid "Spanish and Catalan:"
+msgstr "╤спанська та Каталонська:"
+
+msgid "None"
+msgstr "Нема╓"

@@ -1,0 +1,38 @@
+Changes since Version 0.9.9
+12.05.2003	customfdialog.cpp	Fixed a small Bug with the File-Preview.
+		pdflib.cpp		Removed some unneeded Code.
+
+11.05.2003	pdflib.cpp		Removed Bug with Small Caps.
+		scfonts.cpp
+		util.cpp		Added Support for Automatic Kerning Values from .afm Files.
+		
+09.05.2003	cmykfw.cpp		Added Color Model "Websave RGB".
+		pdflib.cpp	
+		pslib.cpp		Solved the Problem that the last Hyphen in linked Textframes wasn't printed.
+		scribus.cpp		Fixed crash with PDF-Previes enabled.
+		
+08.05.2003	scribus.cpp		Disabled Autosave when in Template Pages Mode.
+		page.cpp		Some Bugfixes for Polygon Editing and Context Menue.
+
+06.05.2003	page.cpp		Added a Command to split combined Polygons.
+					UniteObj() works now with more than two Objects.
+		pdflib.cpp		Improved Detection of unused Fonts.
+		scribus.cpp		Added a Command to split combined Polygons.
+		util.cpp		traceCharacter() handles now Small Caps correctly.
+		
+05.05.2003	When you edit a Path, you can select now more than one Point for moving,
+		either by pressing the Shift Key or using the selection Rectangle.
+		Fonts are now scanned for their Chararcter width only when they are used.
+		(Avoids building big Tables for never used Fonts)
+
+04.05.2003	Extended the Node-Palette.
+		The PDF-Exporter now embeds only really used Fonts.
+
+03.05.2003	Added new Command "Convert Text to Polygons"
+
+27.04.2003	Implemented Subpaths for Polygons.
+		Removed various Copy and Paste Errors.
+
+26.04.2003	Improved Textrendering for Zoomfactors > 100 %
+
+

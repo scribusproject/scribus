@@ -1,0 +1,317 @@
+<HTML>
+<HEAD>
+<TITLE>class PageItem</TITLE>
+
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+<TABLE WIDTH="100%" BORDER="0">
+<TR>
+<TD>
+	<TABLE BORDER="0">
+		<TR><TD valign="top" align="left" cellspacing="10">
+		<h1>class PageItem</h1>
+		</TD>
+		<TD valign="top" align="right" colspan="1">
+ <small><A HREF="#longdesc">More...</A></small></TD></TR>
+	</TABLE>
+	<HR>
+	<TABLE BORDER="0">
+		<TR><TH>Definition</TH><TD><code>#include &lt;<A HREF="scribus___pageitem_h.html">scribus/pageitem.h</A>&gt;</code></TD></TR>
+<TR><TH>Inherits</TH><TD>QObject <small>(unknown)</small> <small>[public ]</small></TD></TR>
+<TR><TH><A HREF="full-list-PageItem.html">List of all Methods</A></TH></TR>
+	</TABLE>
+	</TD>
+<TD align="right"><TABLE BORDER="0"><TR><TD><small><A HREF="index-long.html">Annotated List</A></small></TD></TR>
+<TR><TD><small><A HREF="header-list.html">Files</A></small></TD></TR>
+<TR><TD><small><A HREF="all-globals.html">Globals</A></small></TD></TR>
+<TR><TD><small><A HREF="hier.html">Hierarchy</A></small></TD></TR>
+<TR><TD><small><A HREF="index.html">Index</A></small></TD></TR>
+</TABLE></TD></TR></TABLE>
+<h4>Public Types</h4><ul><LI>struct <A HREF="PageItem__ZZ.html">ZZ</A>
+</LI>
+</ul><h4>Public Methods</h4><ul><LI>&nbsp;<b><A HREF="#ref1">PageItem</A></b> (<A HREF="Page.html">Page</A>* pa, int art, float x, float y, float w, float h, float w2, QString fill, QString outline, <A HREF="ScribusDoc.html">ScribusDoc</A> *doc) 
+</LI>
+<LI>&nbsp;<b><A HREF="#ref2">~PageItem</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref3">paintObj</A></b> (QRect e=QRect(), QPixmap *ppX = 0) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref4">CopyIt</A></b> (struct <A HREF="CLBuf.html">CLBuf</A> *Buffer) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref5">SetZeichAttr</A></b> (QPainter *p, QFont *ffo, struct <A HREF="Pti.html">Pti</A> *hl, int *chs, QString *chx) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref6">SetFarbe</A></b> (<A HREF="#QColor">QColor</A> *tmp, QString farbe, int shad) 
+</LI>
+<LI>QString &nbsp;<b><A HREF="#ref7">ExpandToken</A></b> (uint base) 
+</LI>
+</ul><h4>Public Members</h4><ul><LI>bool <b><A HREF="#ref8">Locked</A></b></LI>
+<LI>float <b><A HREF="#ref9">Xpos</A></b></LI>
+<LI>float <b><A HREF="#ref10">Ypos</A></b></LI>
+<LI>float <b><A HREF="#ref11">Width</A></b></LI>
+<LI>float <b><A HREF="#ref12">Height</A></b></LI>
+<LI>float <b><A HREF="#ref13">RadRect</A></b></LI>
+<LI>int <b><A HREF="#ref14">PType</A></b></LI>
+<LI>float <b><A HREF="#ref15">Rot</A></b></LI>
+<LI>QWidget *<b><A HREF="#ref16">Parent</A></b></LI>
+<LI>ScribusDoc *<b><A HREF="#ref17">Doc</A></b></LI>
+<LI>QString <b><A HREF="#ref18">GrColor</A></b></LI>
+<LI>QString <b><A HREF="#ref19">GrColor2</A></b></LI>
+<LI>int <b><A HREF="#ref20">GrShade</A></b></LI>
+<LI>int <b><A HREF="#ref21">GrShade2</A></b></LI>
+<LI>int <b><A HREF="#ref22">GrType</A></b></LI>
+<LI>QString <b><A HREF="#ref23">Pcolor</A></b></LI>
+<LI>int <b><A HREF="#ref24">Shade</A></b></LI>
+<LI>QString <b><A HREF="#ref25">Pcolor2</A></b></LI>
+<LI>int <b><A HREF="#ref26">Shade2</A></b></LI>
+<LI>float <b><A HREF="#ref27">Pwidth</A></b></LI>
+<LI>PenStyle <b><A HREF="#ref28">PLineArt</A></b></LI>
+<LI>PenCapStyle <b><A HREF="#ref29">PLineEnd</A></b></LI>
+<LI>PenJoinStyle <b><A HREF="#ref30">PLineJoin</A></b></LI>
+<LI>bool <b><A HREF="#ref31">Select</A></b></LI>
+<LI>QPointArray <b><A HREF="#ref32">Clip</A></b></LI>
+<LI>FPointArray <b><A HREF="#ref33">PoLine</A></b></LI>
+<LI>bool <b><A HREF="#ref34">PoShow</A></b></LI>
+<LI>float <b><A HREF="#ref35">BaseOffs</A></b></LI>
+<LI>bool <b><A HREF="#ref36">ClipEdited</A></b></LI>
+<LI>int <b><A HREF="#ref37">FrameType</A></b></LI>
+<LI>uint <b><A HREF="#ref38">ItemNr</A></b></LI>
+<LI>bool <b><A HREF="#ref39">Frame</A></b></LI>
+<LI>Page *<b><A HREF="#ref40">OwnPage</A></b></LI>
+<LI>QImage <b><A HREF="#ref41">pixm</A></b></LI>
+<LI>QString <b><A HREF="#ref42">Pfile</A></b></LI>
+<LI>QString <b><A HREF="#ref43">Pfile2</A></b></LI>
+<LI>QString <b><A HREF="#ref44">Pfile3</A></b></LI>
+<LI>QString <b><A HREF="#ref45">IProfile</A></b></LI>
+<LI>bool <b><A HREF="#ref46">UseEmbedded</A></b></LI>
+<LI>QString <b><A HREF="#ref47">EmProfile</A></b></LI>
+<LI>int <b><A HREF="#ref48">IRender</A></b></LI>
+<LI>bool <b><A HREF="#ref49">PicArt</A></b></LI>
+<LI>bool <b><A HREF="#ref50">PicAvail</A></b></LI>
+<LI>float <b><A HREF="#ref51">LocalScX</A></b></LI>
+<LI>float <b><A HREF="#ref52">LocalViewX</A></b></LI>
+<LI>float <b><A HREF="#ref53">LocalScY</A></b></LI>
+<LI>float <b><A HREF="#ref54">LocalViewY</A></b></LI>
+<LI>float <b><A HREF="#ref55">LocalX</A></b></LI>
+<LI>float <b><A HREF="#ref56">LocalY</A></b></LI>
+<LI>int <b><A HREF="#ref57">OrigW</A></b></LI>
+<LI>int <b><A HREF="#ref58">OrigH</A></b></LI>
+<LI>int <b><A HREF="#ref59">flippedH</A></b></LI>
+<LI>int <b><A HREF="#ref60">flippedV</A></b></LI>
+<LI>float <b><A HREF="#ref61">BBoxX</A></b></LI>
+<LI>float <b><A HREF="#ref62">BBoxH</A></b></LI>
+<LI>float <b><A HREF="#ref63">Extra</A></b></LI>
+<LI>float <b><A HREF="#ref64">TExtra</A></b></LI>
+<LI>float <b><A HREF="#ref65">BExtra</A></b></LI>
+<LI>float <b><A HREF="#ref66">RExtra</A></b></LI>
+<LI>float <b><A HREF="#ref67">LineSp</A></b></LI>
+<LI>float <b><A HREF="#ref68">CurX</A></b></LI>
+<LI>float <b><A HREF="#ref69">CurY</A></b></LI>
+<LI>int <b><A HREF="#ref70">CPos</A></b></LI>
+<LI>QPtrList<Pti> <b><A HREF="#ref71">Ptext</A></b></LI>
+<LI>bool <b><A HREF="#ref72">isPrintable</A></b></LI>
+<LI>bool <b><A HREF="#ref73">isBookmark</A></b></LI>
+<LI>int <b><A HREF="#ref74">BMnr</A></b></LI>
+<LI>bool <b><A HREF="#ref75">isAnnotation</A></b></LI>
+<LI>int <b><A HREF="#ref76">AnType</A></b></LI>
+<LI>int <b><A HREF="#ref77">AnActType</A></b></LI>
+<LI>QString <b><A HREF="#ref78">AnAction</A></b></LI>
+<LI>QString <b><A HREF="#ref79">An_E_act</A></b></LI>
+<LI>QString <b><A HREF="#ref80">An_X_act</A></b></LI>
+<LI>QString <b><A HREF="#ref81">An_D_act</A></b></LI>
+<LI>QString <b><A HREF="#ref82">An_Fo_act</A></b></LI>
+<LI>QString <b><A HREF="#ref83">An_Bl_act</A></b></LI>
+<LI>QString <b><A HREF="#ref84">An_K_act</A></b></LI>
+<LI>QString <b><A HREF="#ref85">An_F_act</A></b></LI>
+<LI>QString <b><A HREF="#ref86">An_V_act</A></b></LI>
+<LI>QString <b><A HREF="#ref87">An_C_act</A></b></LI>
+<LI>QString <b><A HREF="#ref88">AnName</A></b></LI>
+<LI>QString <b><A HREF="#ref89">AnToolTip</A></b></LI>
+<LI>QString <b><A HREF="#ref90">AnRollOver</A></b></LI>
+<LI>QString <b><A HREF="#ref91">AnDown</A></b></LI>
+<LI>QString <b><A HREF="#ref92">AnBColor</A></b></LI>
+<LI>int <b><A HREF="#ref93">AnBsty</A></b></LI>
+<LI>int <b><A HREF="#ref94">AnBwid</A></b></LI>
+<LI>int <b><A HREF="#ref95">AnFeed</A></b></LI>
+<LI>int <b><A HREF="#ref96">AnZiel</A></b></LI>
+<LI>int <b><A HREF="#ref97">AnFlag</A></b></LI>
+<LI>int <b><A HREF="#ref98">AnMaxChar</A></b></LI>
+<LI>int <b><A HREF="#ref99">AnVis</A></b></LI>
+<LI>int <b><A HREF="#ref100">AnChkStil</A></b></LI>
+<LI>int <b><A HREF="#ref101">AnFont</A></b></LI>
+<LI>bool <b><A HREF="#ref102">AnIsChk</A></b></LI>
+<LI>bool <b><A HREF="#ref103">AnAAact</A></b></LI>
+<LI>bool <b><A HREF="#ref104">AnHTML</A></b></LI>
+<LI>bool <b><A HREF="#ref105">AnUseIcons</A></b></LI>
+<LI>int <b><A HREF="#ref106">AnIPlace</A></b></LI>
+<LI>int <b><A HREF="#ref107">AnScaleW</A></b></LI>
+<LI>int <b><A HREF="#ref108">AnFormat</A></b></LI>
+<LI>bool <b><A HREF="#ref109">Dirty</A></b></LI>
+<LI>QString <b><A HREF="#ref110">IFont</A></b></LI>
+<LI>int <b><A HREF="#ref111">ISize</A></b></LI>
+<LI>bool <b><A HREF="#ref112">HasSel</A></b></LI>
+<LI>bool <b><A HREF="#ref113">Textflow</A></b></LI>
+<LI>bool <b><A HREF="#ref114">FrameOnly</A></b></LI>
+<LI>PageItem *<b><A HREF="#ref115">BackBox</A></b></LI>
+<LI>PageItem *<b><A HREF="#ref116">NextBox</A></b></LI>
+<LI>int <b><A HREF="#ref117">NextIt</A></b></LI>
+<LI>int <b><A HREF="#ref118">NextPg</A></b></LI>
+<LI>bool <b><A HREF="#ref119">Tinput</A></b></LI>
+<LI>bool <b><A HREF="#ref120">isAutoText</A></b></LI>
+<LI>int <b><A HREF="#ref121">Ausrich</A></b></LI>
+<LI>uint <b><A HREF="#ref122">MaxChars</A></b></LI>
+<LI>bool <b><A HREF="#ref123">Redrawn</A></b></LI>
+<LI>float <b><A HREF="#ref124">ExtraV</A></b></LI>
+<LI>bool <b><A HREF="#ref125">isRaster</A></b></LI>
+<LI>float <b><A HREF="#ref126">OldB</A></b></LI>
+<LI>float <b><A HREF="#ref127">OldH</A></b></LI>
+<LI>float <b><A HREF="#ref128">OldB2</A></b></LI>
+<LI>float <b><A HREF="#ref129">OldH2</A></b></LI>
+<LI>bool <b><A HREF="#ref130">Sizing</A></b></LI>
+<LI>bool <b><A HREF="#ref131">toPixmap</A></b></LI>
+<LI>float <b><A HREF="#ref132">DevRes</A></b></LI>
+<LI>int <b><A HREF="#ref133">LayerNr</A></b></LI>
+<LI>bool <b><A HREF="#ref134">ScaleType</A></b></LI>
+<LI>bool <b><A HREF="#ref135">AspectRatio</A></b></LI>
+<LI>float <b><A HREF="#ref136">Transparency</A></b></LI>
+<LI>QValueStack<int> <b><A HREF="#ref137">Groups</A></b></LI>
+</ul><HR><H2><A NAME="longdesc">Detailed Description</A></H2><p>
+</p>
+<A NAME="PageItem"></A><A NAME="ref1"></A><table width="100%"><tr bgcolor="#eeeeee"><td>&nbsp;<strong>PageItem</strong> (<A HREF="Page.html">Page</A>* pa, int art, float x, float y, float w, float h, float w2, QString fill, QString outline, <A HREF="ScribusDoc.html">ScribusDoc</A> *doc)
+<br></td><td align="right"><h3><strong>PageItem</strong></h3></td></tr></table><p></p><A NAME="~PageItem"></A><A NAME="ref2"></A><table width="100%"><tr bgcolor="#eeeeee"><td>&nbsp;<strong>~PageItem</strong> ()
+<br></td><td align="right"><h3><strong>~PageItem</strong></h3></td></tr></table><p></p><A NAME="paintObj"></A><A NAME="ref3"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>paintObj</strong> (QRect e=QRect(), QPixmap *ppX = 0)
+<br></td><td align="right"><h3><strong>paintObj</strong></h3></td></tr></table><p></p><A NAME="CopyIt"></A><A NAME="ref4"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>CopyIt</strong> (struct <A HREF="CLBuf.html">CLBuf</A> *Buffer)
+<br></td><td align="right"><h3><strong>CopyIt</strong></h3></td></tr></table><p></p><A NAME="SetZeichAttr"></A><A NAME="ref5"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>SetZeichAttr</strong> (QPainter *p, QFont *ffo, struct <A HREF="Pti.html">Pti</A> *hl, int *chs, QString *chx)
+<br></td><td align="right"><h3><strong>SetZeichAttr</strong></h3></td></tr></table><p></p><A NAME="SetFarbe"></A><A NAME="ref6"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>SetFarbe</strong> (<A HREF="#QColor">QColor</A> *tmp, QString farbe, int shad)
+<br></td><td align="right"><h3><strong>SetFarbe</strong></h3></td></tr></table><p></p><A NAME="ExpandToken"></A><A NAME="ref7"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString &nbsp;<strong>ExpandToken</strong> (uint base)
+<br></td><td align="right"><h3><strong>ExpandToken</strong></h3></td></tr></table><p></p><A NAME="Locked"></A><A NAME="ref8"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>Locked</strong>
+</td><td align="right"><h3><strong>Locked</strong></h3></td></tr></table><p></p><A NAME="Xpos"></A><A NAME="ref9"></A><table width="100%"><tr bgcolor="#eeeeee"><td>float  <strong>Xpos</strong>
+</td><td align="right"><h3><strong>Xpos</strong></h3></td></tr></table><p></p><A NAME="Ypos"></A><A NAME="ref10"></A><table width="100%"><tr bgcolor="#eeeeee"><td>float  <strong>Ypos</strong>
+</td><td align="right"><h3><strong>Ypos</strong></h3></td></tr></table><p></p><A NAME="Width"></A><A NAME="ref11"></A><table width="100%"><tr bgcolor="#eeeeee"><td>float  <strong>Width</strong>
+</td><td align="right"><h3><strong>Width</strong></h3></td></tr></table><p></p><A NAME="Height"></A><A NAME="ref12"></A><table width="100%"><tr bgcolor="#eeeeee"><td>float  <strong>Height</strong>
+</td><td align="right"><h3><strong>Height</strong></h3></td></tr></table><p></p><A NAME="RadRect"></A><A NAME="ref13"></A><table width="100%"><tr bgcolor="#eeeeee"><td>float  <strong>RadRect</strong>
+</td><td align="right"><h3><strong>RadRect</strong></h3></td></tr></table><p></p><A NAME="PType"></A><A NAME="ref14"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>PType</strong>
+</td><td align="right"><h3><strong>PType</strong></h3></td></tr></table><p></p><A NAME="Rot"></A><A NAME="ref15"></A><table width="100%"><tr bgcolor="#eeeeee"><td>float  <strong>Rot</strong>
+</td><td align="right"><h3><strong>Rot</strong></h3></td></tr></table><p></p><A NAME="Parent"></A><A NAME="ref16"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QWidget * <strong>Parent</strong>
+</td><td align="right"><h3><strong>Parent</strong></h3></td></tr></table><p></p><A NAME="Doc"></A><A NAME="ref17"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="ScribusDoc.html">ScribusDoc</A> * <strong>Doc</strong>
+</td><td align="right"><h3><strong>Doc</strong></h3></td></tr></table><p></p><A NAME="GrColor"></A><A NAME="ref18"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>GrColor</strong>
+</td><td align="right"><h3><strong>GrColor</strong></h3></td></tr></table><p></p><A NAME="GrColor2"></A><A NAME="ref19"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>GrColor2</strong>
+</td><td align="right"><h3><strong>GrColor2</strong></h3></td></tr></table><p></p><A NAME="GrShade"></A><A NAME="ref20"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>GrShade</strong>
+</td><td align="right"><h3><strong>GrShade</strong></h3></td></tr></table><p></p><A NAME="GrShade2"></A><A NAME="ref21"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>GrShade2</strong>
+</td><td align="right"><h3><strong>GrShade2</strong></h3></td></tr></table><p></p><A NAME="GrType"></A><A NAME="ref22"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>GrType</strong>
+</td><td align="right"><h3><strong>GrType</strong></h3></td></tr></table><p></p><A NAME="Pcolor"></A><A NAME="ref23"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>Pcolor</strong>
+</td><td align="right"><h3><strong>Pcolor</strong></h3></td></tr></table><p></p><A NAME="Shade"></A><A NAME="ref24"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>Shade</strong>
+</td><td align="right"><h3><strong>Shade</strong></h3></td></tr></table><p></p><A NAME="Pcolor2"></A><A NAME="ref25"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>Pcolor2</strong>
+</td><td align="right"><h3><strong>Pcolor2</strong></h3></td></tr></table><p></p><A NAME="Shade2"></A><A NAME="ref26"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>Shade2</strong>
+</td><td align="right"><h3><strong>Shade2</strong></h3></td></tr></table><p></p><A NAME="Pwidth"></A><A NAME="ref27"></A><table width="100%"><tr bgcolor="#eeeeee"><td>float  <strong>Pwidth</strong>
+</td><td align="right"><h3><strong>Pwidth</strong></h3></td></tr></table><p></p><A NAME="PLineArt"></A><A NAME="ref28"></A><table width="100%"><tr bgcolor="#eeeeee"><td>PenStyle  <strong>PLineArt</strong>
+</td><td align="right"><h3><strong>PLineArt</strong></h3></td></tr></table><p></p><A NAME="PLineEnd"></A><A NAME="ref29"></A><table width="100%"><tr bgcolor="#eeeeee"><td>PenCapStyle  <strong>PLineEnd</strong>
+</td><td align="right"><h3><strong>PLineEnd</strong></h3></td></tr></table><p></p><A NAME="PLineJoin"></A><A NAME="ref30"></A><table width="100%"><tr bgcolor="#eeeeee"><td>PenJoinStyle  <strong>PLineJoin</strong>
+</td><td align="right"><h3><strong>PLineJoin</strong></h3></td></tr></table><p></p><A NAME="Select"></A><A NAME="ref31"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>Select</strong>
+</td><td align="right"><h3><strong>Select</strong></h3></td></tr></table><p></p><A NAME="Clip"></A><A NAME="ref32"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPointArray  <strong>Clip</strong>
+</td><td align="right"><h3><strong>Clip</strong></h3></td></tr></table><p></p><A NAME="PoLine"></A><A NAME="ref33"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="FPointArray.html">FPointArray</A>  <strong>PoLine</strong>
+</td><td align="right"><h3><strong>PoLine</strong></h3></td></tr></table><p></p><A NAME="PoShow"></A><A NAME="ref34"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>PoShow</strong>
+</td><td align="right"><h3><strong>PoShow</strong></h3></td></tr></table><p></p><A NAME="BaseOffs"></A><A NAME="ref35"></A><table width="100%"><tr bgcolor="#eeeeee"><td>float  <strong>BaseOffs</strong>
+</td><td align="right"><h3><strong>BaseOffs</strong></h3></td></tr></table><p></p><A NAME="ClipEdited"></A><A NAME="ref36"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>ClipEdited</strong>
+</td><td align="right"><h3><strong>ClipEdited</strong></h3></td></tr></table><p></p><A NAME="FrameType"></A><A NAME="ref37"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>FrameType</strong>
+</td><td align="right"><h3><strong>FrameType</strong></h3></td></tr></table><p></p><A NAME="ItemNr"></A><A NAME="ref38"></A><table width="100%"><tr bgcolor="#eeeeee"><td>uint  <strong>ItemNr</strong>
+</td><td align="right"><h3><strong>ItemNr</strong></h3></td></tr></table><p></p><A NAME="Frame"></A><A NAME="ref39"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>Frame</strong>
+</td><td align="right"><h3><strong>Frame</strong></h3></td></tr></table><p></p><A NAME="OwnPage"></A><A NAME="ref40"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="Page.html">Page</A> * <strong>OwnPage</strong>
+</td><td align="right"><h3><strong>OwnPage</strong></h3></td></tr></table><p></p><A NAME="pixm"></A><A NAME="ref41"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="#QImage">QImage</A>  <strong>pixm</strong>
+</td><td align="right"><h3><strong>pixm</strong></h3></td></tr></table><p></p><A NAME="Pfile"></A><A NAME="ref42"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>Pfile</strong>
+</td><td align="right"><h3><strong>Pfile</strong></h3></td></tr></table><p></p><A NAME="Pfile2"></A><A NAME="ref43"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>Pfile2</strong>
+</td><td align="right"><h3><strong>Pfile2</strong></h3></td></tr></table><p></p><A NAME="Pfile3"></A><A NAME="ref44"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>Pfile3</strong>
+</td><td align="right"><h3><strong>Pfile3</strong></h3></td></tr></table><p></p><A NAME="IProfile"></A><A NAME="ref45"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>IProfile</strong>
+</td><td align="right"><h3><strong>IProfile</strong></h3></td></tr></table><p></p><A NAME="UseEmbedded"></A><A NAME="ref46"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>UseEmbedded</strong>
+</td><td align="right"><h3><strong>UseEmbedded</strong></h3></td></tr></table><p></p><A NAME="EmProfile"></A><A NAME="ref47"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>EmProfile</strong>
+</td><td align="right"><h3><strong>EmProfile</strong></h3></td></tr></table><p></p><A NAME="IRender"></A><A NAME="ref48"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>IRender</strong>
+</td><td align="right"><h3><strong>IRender</strong></h3></td></tr></table><p></p><A NAME="PicArt"></A><A NAME="ref49"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>PicArt</strong>
+</td><td align="right"><h3><strong>PicArt</strong></h3></td></tr></table><p></p><A NAME="PicAvail"></A><A NAME="ref50"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>PicAvail</strong>
+</td><td align="right"><h3><strong>PicAvail</strong></h3></td></tr></table><p></p><A NAME="LocalScX"></A><A NAME="ref51"></A><table width="100%"><tr bgcolor="#eeeeee"><td>float  <strong>LocalScX</strong>
+</td><td align="right"><h3><strong>LocalScX</strong></h3></td></tr></table><p></p><A NAME="LocalViewX"></A><A NAME="ref52"></A><table width="100%"><tr bgcolor="#eeeeee"><td>float  <strong>LocalViewX</strong>
+</td><td align="right"><h3><strong>LocalViewX</strong></h3></td></tr></table><p></p><A NAME="LocalScY"></A><A NAME="ref53"></A><table width="100%"><tr bgcolor="#eeeeee"><td>float  <strong>LocalScY</strong>
+</td><td align="right"><h3><strong>LocalScY</strong></h3></td></tr></table><p></p><A NAME="LocalViewY"></A><A NAME="ref54"></A><table width="100%"><tr bgcolor="#eeeeee"><td>float  <strong>LocalViewY</strong>
+</td><td align="right"><h3><strong>LocalViewY</strong></h3></td></tr></table><p></p><A NAME="LocalX"></A><A NAME="ref55"></A><table width="100%"><tr bgcolor="#eeeeee"><td>float  <strong>LocalX</strong>
+</td><td align="right"><h3><strong>LocalX</strong></h3></td></tr></table><p></p><A NAME="LocalY"></A><A NAME="ref56"></A><table width="100%"><tr bgcolor="#eeeeee"><td>float  <strong>LocalY</strong>
+</td><td align="right"><h3><strong>LocalY</strong></h3></td></tr></table><p></p><A NAME="OrigW"></A><A NAME="ref57"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>OrigW</strong>
+</td><td align="right"><h3><strong>OrigW</strong></h3></td></tr></table><p></p><A NAME="OrigH"></A><A NAME="ref58"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>OrigH</strong>
+</td><td align="right"><h3><strong>OrigH</strong></h3></td></tr></table><p></p><A NAME="flippedH"></A><A NAME="ref59"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>flippedH</strong>
+</td><td align="right"><h3><strong>flippedH</strong></h3></td></tr></table><p></p><A NAME="flippedV"></A><A NAME="ref60"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>flippedV</strong>
+</td><td align="right"><h3><strong>flippedV</strong></h3></td></tr></table><p></p><A NAME="BBoxX"></A><A NAME="ref61"></A><table width="100%"><tr bgcolor="#eeeeee"><td>float  <strong>BBoxX</strong>
+</td><td align="right"><h3><strong>BBoxX</strong></h3></td></tr></table><p></p><A NAME="BBoxH"></A><A NAME="ref62"></A><table width="100%"><tr bgcolor="#eeeeee"><td>float  <strong>BBoxH</strong>
+</td><td align="right"><h3><strong>BBoxH</strong></h3></td></tr></table><p></p><A NAME="Extra"></A><A NAME="ref63"></A><table width="100%"><tr bgcolor="#eeeeee"><td>float  <strong>Extra</strong>
+</td><td align="right"><h3><strong>Extra</strong></h3></td></tr></table><p></p><A NAME="TExtra"></A><A NAME="ref64"></A><table width="100%"><tr bgcolor="#eeeeee"><td>float  <strong>TExtra</strong>
+</td><td align="right"><h3><strong>TExtra</strong></h3></td></tr></table><p></p><A NAME="BExtra"></A><A NAME="ref65"></A><table width="100%"><tr bgcolor="#eeeeee"><td>float  <strong>BExtra</strong>
+</td><td align="right"><h3><strong>BExtra</strong></h3></td></tr></table><p></p><A NAME="RExtra"></A><A NAME="ref66"></A><table width="100%"><tr bgcolor="#eeeeee"><td>float  <strong>RExtra</strong>
+</td><td align="right"><h3><strong>RExtra</strong></h3></td></tr></table><p></p><A NAME="LineSp"></A><A NAME="ref67"></A><table width="100%"><tr bgcolor="#eeeeee"><td>float  <strong>LineSp</strong>
+</td><td align="right"><h3><strong>LineSp</strong></h3></td></tr></table><p></p><A NAME="CurX"></A><A NAME="ref68"></A><table width="100%"><tr bgcolor="#eeeeee"><td>float  <strong>CurX</strong>
+</td><td align="right"><h3><strong>CurX</strong></h3></td></tr></table><p></p><A NAME="CurY"></A><A NAME="ref69"></A><table width="100%"><tr bgcolor="#eeeeee"><td>float  <strong>CurY</strong>
+</td><td align="right"><h3><strong>CurY</strong></h3></td></tr></table><p></p><A NAME="CPos"></A><A NAME="ref70"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>CPos</strong>
+</td><td align="right"><h3><strong>CPos</strong></h3></td></tr></table><p></p><A NAME="Ptext"></A><A NAME="ref71"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPtrList<<A HREF="Pti.html">Pti</A>>  <strong>Ptext</strong>
+</td><td align="right"><h3><strong>Ptext</strong></h3></td></tr></table><p></p><A NAME="isPrintable"></A><A NAME="ref72"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>isPrintable</strong>
+</td><td align="right"><h3><strong>isPrintable</strong></h3></td></tr></table><p></p><A NAME="isBookmark"></A><A NAME="ref73"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>isBookmark</strong>
+</td><td align="right"><h3><strong>isBookmark</strong></h3></td></tr></table><p></p><A NAME="BMnr"></A><A NAME="ref74"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>BMnr</strong>
+</td><td align="right"><h3><strong>BMnr</strong></h3></td></tr></table><p></p><A NAME="isAnnotation"></A><A NAME="ref75"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>isAnnotation</strong>
+</td><td align="right"><h3><strong>isAnnotation</strong></h3></td></tr></table><p></p><A NAME="AnType"></A><A NAME="ref76"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>AnType</strong>
+</td><td align="right"><h3><strong>AnType</strong></h3></td></tr></table><p></p><A NAME="AnActType"></A><A NAME="ref77"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>AnActType</strong>
+</td><td align="right"><h3><strong>AnActType</strong></h3></td></tr></table><p></p><A NAME="AnAction"></A><A NAME="ref78"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>AnAction</strong>
+</td><td align="right"><h3><strong>AnAction</strong></h3></td></tr></table><p></p><A NAME="An_E_act"></A><A NAME="ref79"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>An_E_act</strong>
+</td><td align="right"><h3><strong>An_E_act</strong></h3></td></tr></table><p></p><A NAME="An_X_act"></A><A NAME="ref80"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>An_X_act</strong>
+</td><td align="right"><h3><strong>An_X_act</strong></h3></td></tr></table><p></p><A NAME="An_D_act"></A><A NAME="ref81"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>An_D_act</strong>
+</td><td align="right"><h3><strong>An_D_act</strong></h3></td></tr></table><p></p><A NAME="An_Fo_act"></A><A NAME="ref82"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>An_Fo_act</strong>
+</td><td align="right"><h3><strong>An_Fo_act</strong></h3></td></tr></table><p></p><A NAME="An_Bl_act"></A><A NAME="ref83"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>An_Bl_act</strong>
+</td><td align="right"><h3><strong>An_Bl_act</strong></h3></td></tr></table><p></p><A NAME="An_K_act"></A><A NAME="ref84"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>An_K_act</strong>
+</td><td align="right"><h3><strong>An_K_act</strong></h3></td></tr></table><p></p><A NAME="An_F_act"></A><A NAME="ref85"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>An_F_act</strong>
+</td><td align="right"><h3><strong>An_F_act</strong></h3></td></tr></table><p></p><A NAME="An_V_act"></A><A NAME="ref86"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>An_V_act</strong>
+</td><td align="right"><h3><strong>An_V_act</strong></h3></td></tr></table><p></p><A NAME="An_C_act"></A><A NAME="ref87"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>An_C_act</strong>
+</td><td align="right"><h3><strong>An_C_act</strong></h3></td></tr></table><p></p><A NAME="AnName"></A><A NAME="ref88"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>AnName</strong>
+</td><td align="right"><h3><strong>AnName</strong></h3></td></tr></table><p></p><A NAME="AnToolTip"></A><A NAME="ref89"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>AnToolTip</strong>
+</td><td align="right"><h3><strong>AnToolTip</strong></h3></td></tr></table><p></p><A NAME="AnRollOver"></A><A NAME="ref90"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>AnRollOver</strong>
+</td><td align="right"><h3><strong>AnRollOver</strong></h3></td></tr></table><p></p><A NAME="AnDown"></A><A NAME="ref91"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>AnDown</strong>
+</td><td align="right"><h3><strong>AnDown</strong></h3></td></tr></table><p></p><A NAME="AnBColor"></A><A NAME="ref92"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>AnBColor</strong>
+</td><td align="right"><h3><strong>AnBColor</strong></h3></td></tr></table><p></p><A NAME="AnBsty"></A><A NAME="ref93"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>AnBsty</strong>
+</td><td align="right"><h3><strong>AnBsty</strong></h3></td></tr></table><p></p><A NAME="AnBwid"></A><A NAME="ref94"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>AnBwid</strong>
+</td><td align="right"><h3><strong>AnBwid</strong></h3></td></tr></table><p></p><A NAME="AnFeed"></A><A NAME="ref95"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>AnFeed</strong>
+</td><td align="right"><h3><strong>AnFeed</strong></h3></td></tr></table><p></p><A NAME="AnZiel"></A><A NAME="ref96"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>AnZiel</strong>
+</td><td align="right"><h3><strong>AnZiel</strong></h3></td></tr></table><p></p><A NAME="AnFlag"></A><A NAME="ref97"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>AnFlag</strong>
+</td><td align="right"><h3><strong>AnFlag</strong></h3></td></tr></table><p></p><A NAME="AnMaxChar"></A><A NAME="ref98"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>AnMaxChar</strong>
+</td><td align="right"><h3><strong>AnMaxChar</strong></h3></td></tr></table><p></p><A NAME="AnVis"></A><A NAME="ref99"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>AnVis</strong>
+</td><td align="right"><h3><strong>AnVis</strong></h3></td></tr></table><p></p><A NAME="AnChkStil"></A><A NAME="ref100"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>AnChkStil</strong>
+</td><td align="right"><h3><strong>AnChkStil</strong></h3></td></tr></table><p></p><A NAME="AnFont"></A><A NAME="ref101"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>AnFont</strong>
+</td><td align="right"><h3><strong>AnFont</strong></h3></td></tr></table><p></p><A NAME="AnIsChk"></A><A NAME="ref102"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>AnIsChk</strong>
+</td><td align="right"><h3><strong>AnIsChk</strong></h3></td></tr></table><p></p><A NAME="AnAAact"></A><A NAME="ref103"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>AnAAact</strong>
+</td><td align="right"><h3><strong>AnAAact</strong></h3></td></tr></table><p></p><A NAME="AnHTML"></A><A NAME="ref104"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>AnHTML</strong>
+</td><td align="right"><h3><strong>AnHTML</strong></h3></td></tr></table><p></p><A NAME="AnUseIcons"></A><A NAME="ref105"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>AnUseIcons</strong>
+</td><td align="right"><h3><strong>AnUseIcons</strong></h3></td></tr></table><p></p><A NAME="AnIPlace"></A><A NAME="ref106"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>AnIPlace</strong>
+</td><td align="right"><h3><strong>AnIPlace</strong></h3></td></tr></table><p></p><A NAME="AnScaleW"></A><A NAME="ref107"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>AnScaleW</strong>
+</td><td align="right"><h3><strong>AnScaleW</strong></h3></td></tr></table><p></p><A NAME="AnFormat"></A><A NAME="ref108"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>AnFormat</strong>
+</td><td align="right"><h3><strong>AnFormat</strong></h3></td></tr></table><p></p><A NAME="Dirty"></A><A NAME="ref109"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>Dirty</strong>
+</td><td align="right"><h3><strong>Dirty</strong></h3></td></tr></table><p></p><A NAME="IFont"></A><A NAME="ref110"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QString  <strong>IFont</strong>
+</td><td align="right"><h3><strong>IFont</strong></h3></td></tr></table><p></p><A NAME="ISize"></A><A NAME="ref111"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>ISize</strong>
+</td><td align="right"><h3><strong>ISize</strong></h3></td></tr></table><p></p><A NAME="HasSel"></A><A NAME="ref112"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>HasSel</strong>
+</td><td align="right"><h3><strong>HasSel</strong></h3></td></tr></table><p></p><A NAME="Textflow"></A><A NAME="ref113"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>Textflow</strong>
+</td><td align="right"><h3><strong>Textflow</strong></h3></td></tr></table><p></p><A NAME="FrameOnly"></A><A NAME="ref114"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>FrameOnly</strong>
+</td><td align="right"><h3><strong>FrameOnly</strong></h3></td></tr></table><p></p><A NAME="BackBox"></A><A NAME="ref115"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="PageItem.html">PageItem</A> * <strong>BackBox</strong>
+</td><td align="right"><h3><strong>BackBox</strong></h3></td></tr></table><p></p><A NAME="NextBox"></A><A NAME="ref116"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="PageItem.html">PageItem</A> * <strong>NextBox</strong>
+</td><td align="right"><h3><strong>NextBox</strong></h3></td></tr></table><p></p><A NAME="NextIt"></A><A NAME="ref117"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>NextIt</strong>
+</td><td align="right"><h3><strong>NextIt</strong></h3></td></tr></table><p></p><A NAME="NextPg"></A><A NAME="ref118"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>NextPg</strong>
+</td><td align="right"><h3><strong>NextPg</strong></h3></td></tr></table><p></p><A NAME="Tinput"></A><A NAME="ref119"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>Tinput</strong>
+</td><td align="right"><h3><strong>Tinput</strong></h3></td></tr></table><p></p><A NAME="isAutoText"></A><A NAME="ref120"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>isAutoText</strong>
+</td><td align="right"><h3><strong>isAutoText</strong></h3></td></tr></table><p></p><A NAME="Ausrich"></A><A NAME="ref121"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>Ausrich</strong>
+</td><td align="right"><h3><strong>Ausrich</strong></h3></td></tr></table><p></p><A NAME="MaxChars"></A><A NAME="ref122"></A><table width="100%"><tr bgcolor="#eeeeee"><td>uint  <strong>MaxChars</strong>
+</td><td align="right"><h3><strong>MaxChars</strong></h3></td></tr></table><p></p><A NAME="Redrawn"></A><A NAME="ref123"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>Redrawn</strong>
+</td><td align="right"><h3><strong>Redrawn</strong></h3></td></tr></table><p></p><A NAME="ExtraV"></A><A NAME="ref124"></A><table width="100%"><tr bgcolor="#eeeeee"><td>float  <strong>ExtraV</strong>
+</td><td align="right"><h3><strong>ExtraV</strong></h3></td></tr></table><p></p><A NAME="isRaster"></A><A NAME="ref125"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>isRaster</strong>
+</td><td align="right"><h3><strong>isRaster</strong></h3></td></tr></table><p></p><A NAME="OldB"></A><A NAME="ref126"></A><table width="100%"><tr bgcolor="#eeeeee"><td>float  <strong>OldB</strong>
+</td><td align="right"><h3><strong>OldB</strong></h3></td></tr></table><p></p><A NAME="OldH"></A><A NAME="ref127"></A><table width="100%"><tr bgcolor="#eeeeee"><td>float  <strong>OldH</strong>
+</td><td align="right"><h3><strong>OldH</strong></h3></td></tr></table><p></p><A NAME="OldB2"></A><A NAME="ref128"></A><table width="100%"><tr bgcolor="#eeeeee"><td>float  <strong>OldB2</strong>
+</td><td align="right"><h3><strong>OldB2</strong></h3></td></tr></table><p></p><A NAME="OldH2"></A><A NAME="ref129"></A><table width="100%"><tr bgcolor="#eeeeee"><td>float  <strong>OldH2</strong>
+</td><td align="right"><h3><strong>OldH2</strong></h3></td></tr></table><p></p><A NAME="Sizing"></A><A NAME="ref130"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>Sizing</strong>
+</td><td align="right"><h3><strong>Sizing</strong></h3></td></tr></table><p></p><A NAME="toPixmap"></A><A NAME="ref131"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>toPixmap</strong>
+</td><td align="right"><h3><strong>toPixmap</strong></h3></td></tr></table><p></p><A NAME="DevRes"></A><A NAME="ref132"></A><table width="100%"><tr bgcolor="#eeeeee"><td>float  <strong>DevRes</strong>
+</td><td align="right"><h3><strong>DevRes</strong></h3></td></tr></table><p></p><A NAME="LayerNr"></A><A NAME="ref133"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>LayerNr</strong>
+</td><td align="right"><h3><strong>LayerNr</strong></h3></td></tr></table><p></p><A NAME="ScaleType"></A><A NAME="ref134"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>ScaleType</strong>
+</td><td align="right"><h3><strong>ScaleType</strong></h3></td></tr></table><p></p><A NAME="AspectRatio"></A><A NAME="ref135"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>AspectRatio</strong>
+</td><td align="right"><h3><strong>AspectRatio</strong></h3></td></tr></table><p></p><A NAME="Transparency"></A><A NAME="ref136"></A><table width="100%"><tr bgcolor="#eeeeee"><td>float  <strong>Transparency</strong>
+</td><td align="right"><h3><strong>Transparency</strong></h3></td></tr></table><p></p><A NAME="Groups"></A><A NAME="ref137"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QValueStack<int>  <strong>Groups</strong>
+</td><td align="right"><h3><strong>Groups</strong></h3></td></tr></table><p></p><A NAME="PageItem__ZZ.html"></A><A NAME="ref138"></A><table width="100%"><tr bgcolor="#eeeeee"><td><strong>ZZ</strong> <small>(struct)</small></td><td align="right"><h3><strong>ZZ</strong></h3></td></tr></table><p></p><HR><UL><LI><i>Author</i>: Franz Schmid
+  </LI><LI><i>Generated</i>: paul on T6.linux on Tue Mar 18 23:32:13 2003, using kdoc 2.0a54.</LI></UL></BODY></HTML>

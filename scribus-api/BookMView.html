@@ -1,0 +1,92 @@
+<HTML>
+<HEAD>
+<TITLE>class BookMView</TITLE>
+
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+<TABLE WIDTH="100%" BORDER="0">
+<TR>
+<TD>
+	<TABLE BORDER="0">
+		<TR><TD valign="top" align="left" cellspacing="10">
+		<h1>class BookMView</h1>
+		</TD>
+		<TD valign="top" align="right" colspan="1"></TD></TR>
+	</TABLE>
+	<HR>
+	<TABLE BORDER="0">
+		<TR><TH>Definition</TH><TD><code>#include &lt;<A HREF="scribus___bookmwin_h.html">scribus/bookmwin.h</A>&gt;</code></TD></TR>
+<TR><TH>Inherits</TH><TD><A HREF="#QListView">QListView</A> <small>[public ]</small></TD></TR>
+<TR><TH><A HREF="full-list-BookMView.html">List of all Methods</A></TH></TR>
+	</TABLE>
+	</TD>
+<TD align="right"><TABLE BORDER="0"><TR><TD><small><A HREF="index-long.html">Annotated List</A></small></TD></TR>
+<TR><TD><small><A HREF="header-list.html">Files</A></small></TD></TR>
+<TR><TD><small><A HREF="all-globals.html">Globals</A></small></TD></TR>
+<TR><TD><small><A HREF="hier.html">Hierarchy</A></small></TD></TR>
+<TR><TD><small><A HREF="index.html">Index</A></small></TD></TR>
+</TABLE></TD></TR></TABLE>
+<h4>Public Methods</h4><ul><LI>&nbsp;<b><A HREF="#ref1">BookMView</A></b> (QWidget* parent) 
+</LI>
+<LI>&nbsp;<b><A HREF="#ref2">~BookMView</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref3">AddItem</A></b> (QString text, QString Tit, int s, int el) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref4">DeleteItem</A></b> (int nr) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref5">SetAction</A></b> (int nr, QString Act) 
+</LI>
+</ul><h4>Public Slots</h4><ul><LI>void &nbsp;<b><A HREF="#ref12">AddPageItem</A></b> (<A HREF="PageItem.html">PageItem</A>* ite) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref13">ChangeItem</A></b> (int nr, int itnr) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref14">ChangeText</A></b> (<A HREF="PageItem.html">PageItem</A> *b) 
+</LI>
+</ul><h4>Signals</h4><ul><LI>void &nbsp;<b><A HREF="#ref15">MarkMoved</A></b> () 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref16">ChangeBMNr</A></b> (int, int, int) 
+</LI>
+</ul><h4>Public Members</h4><ul><LI>int <b><A HREF="#ref6">NrItems</A></b></LI>
+<LI>bool <b><A HREF="#ref7">Mpressed</A></b></LI>
+<LI>QPoint <b><A HREF="#ref8">Mpos</A></b></LI>
+<LI>BookMItem *<b><A HREF="#ref9">DraggedI</A></b></LI>
+<LI>int <b><A HREF="#ref10">First</A></b></LI>
+<LI>int <b><A HREF="#ref11">Last</A></b></LI>
+</ul><h4>Protected Methods</h4><ul><LI>void &nbsp;<b><A HREF="#ref17">contentsMouseReleaseEvent</A></b> (QMouseEvent *m) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref18">contentsMousePressEvent</A></b> (QMouseEvent* e) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref19">contentsMouseMoveEvent</A></b> (QMouseEvent* e) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref20">contentsDropEvent</A></b> (QDropEvent *e) 
+</LI>
+<LI>void &nbsp;<b><A HREF="#ref21">contentsDragMoveEvent</A></b> (QDragMoveEvent *e) 
+</LI>
+</ul><HR><H2><A NAME="longdesc">Detailed Description</A></H2><A NAME="BookMView"></A><A NAME="ref1"></A><table width="100%"><tr bgcolor="#eeeeee"><td>&nbsp;<strong>BookMView</strong> (QWidget* parent)
+<br></td><td align="right"><h3><strong>BookMView</strong></h3></td></tr></table><p></p><A NAME="~BookMView"></A><A NAME="ref2"></A><table width="100%"><tr bgcolor="#eeeeee"><td>&nbsp;<strong>~BookMView</strong> ()
+<br></td><td align="right"><h3><strong>~BookMView</strong></h3></td></tr></table><p></p><A NAME="AddItem"></A><A NAME="ref3"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>AddItem</strong> (QString text, QString Tit, int s, int el)
+<br></td><td align="right"><h3><strong>AddItem</strong></h3></td></tr></table><p></p><A NAME="DeleteItem"></A><A NAME="ref4"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>DeleteItem</strong> (int nr)
+<br></td><td align="right"><h3><strong>DeleteItem</strong></h3></td></tr></table><p></p><A NAME="SetAction"></A><A NAME="ref5"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>SetAction</strong> (int nr, QString Act)
+<br></td><td align="right"><h3><strong>SetAction</strong></h3></td></tr></table><p></p><A NAME="NrItems"></A><A NAME="ref6"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>NrItems</strong>
+</td><td align="right"><h3><strong>NrItems</strong></h3></td></tr></table><p></p><A NAME="Mpressed"></A><A NAME="ref7"></A><table width="100%"><tr bgcolor="#eeeeee"><td>bool  <strong>Mpressed</strong>
+</td><td align="right"><h3><strong>Mpressed</strong></h3></td></tr></table><p></p><A NAME="Mpos"></A><A NAME="ref8"></A><table width="100%"><tr bgcolor="#eeeeee"><td>QPoint  <strong>Mpos</strong>
+</td><td align="right"><h3><strong>Mpos</strong></h3></td></tr></table><p></p><A NAME="DraggedI"></A><A NAME="ref9"></A><table width="100%"><tr bgcolor="#eeeeee"><td><A HREF="BookMItem.html">BookMItem</A> * <strong>DraggedI</strong>
+</td><td align="right"><h3><strong>DraggedI</strong></h3></td></tr></table><p></p><A NAME="First"></A><A NAME="ref10"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>First</strong>
+</td><td align="right"><h3><strong>First</strong></h3></td></tr></table><p></p><A NAME="Last"></A><A NAME="ref11"></A><table width="100%"><tr bgcolor="#eeeeee"><td>int  <strong>Last</strong>
+</td><td align="right"><h3><strong>Last</strong></h3></td></tr></table><p></p><A NAME="AddPageItem"></A><A NAME="ref12"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>AddPageItem</strong> (<A HREF="PageItem.html">PageItem</A>* ite)
+<br></td><td align="right"><h3><strong>AddPageItem</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ChangeItem"></A><A NAME="ref13"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ChangeItem</strong> (int nr, int itnr)
+<br></td><td align="right"><h3><strong>ChangeItem</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="ChangeText"></A><A NAME="ref14"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ChangeText</strong> (<A HREF="PageItem.html">PageItem</A> *b)
+<br></td><td align="right"><h3><strong>ChangeText</strong></h3></td></tr></table><p> <small>[slot]</small></p><A NAME="MarkMoved"></A><A NAME="ref15"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>MarkMoved</strong> ()
+<br></td><td align="right"><h3><strong>MarkMoved</strong></h3></td></tr></table><p> <small>[signal]</small></p><A NAME="ChangeBMNr"></A><A NAME="ref16"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>ChangeBMNr</strong> (int, int, int)
+<br></td><td align="right"><h3><strong>ChangeBMNr</strong></h3></td></tr></table><p> <small>[signal]</small></p><A NAME="contentsMouseReleaseEvent"></A><A NAME="ref17"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>contentsMouseReleaseEvent</strong> (QMouseEvent *m)
+<br></td><td align="right"><h3><strong>contentsMouseReleaseEvent</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="contentsMousePressEvent"></A><A NAME="ref18"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>contentsMousePressEvent</strong> (QMouseEvent* e)
+<br></td><td align="right"><h3><strong>contentsMousePressEvent</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="contentsMouseMoveEvent"></A><A NAME="ref19"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>contentsMouseMoveEvent</strong> (QMouseEvent* e)
+<br></td><td align="right"><h3><strong>contentsMouseMoveEvent</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="contentsDropEvent"></A><A NAME="ref20"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>contentsDropEvent</strong> (QDropEvent *e)
+<br></td><td align="right"><h3><strong>contentsDropEvent</strong></h3></td></tr></table><p> <small>[protected]</small></p><A NAME="contentsDragMoveEvent"></A><A NAME="ref21"></A><table width="100%"><tr bgcolor="#eeeeee"><td>void &nbsp;<strong>contentsDragMoveEvent</strong> (QDragMoveEvent *e)
+<br></td><td align="right"><h3><strong>contentsDragMoveEvent</strong></h3></td></tr></table><p> <small>[protected]</small></p><HR>
+	<table>
+	<tr><td><small>Generated by: paul on T6.linux on Tue Mar 18 23:32:13 2003, using kdoc 2.0a54.</small></td></tr>
+	</table>
+</BODY>
+</HTML>
