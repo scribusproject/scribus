@@ -90,12 +90,12 @@ void Parse::parseItem(PageItem *aFrame)
 
 void Parse::parseSelection()
 {
-	uint cnt = ScApp->doc->currentPage->SelItem.count();
+	uint cnt = ScApp->view->SelItem.count();
 	ScApp->FProg->setTotalSteps(cnt);
 	for (uint i=0; i < cnt; i++)
 	{
 		ScApp->FProg->setProgress(i);
-		parseItem(ScApp->doc->currentPage->SelItem.at(i));
+		parseItem(ScApp->view->SelItem.at(i));
 	} // for items
 	ScApp->FProg->setProgress(cnt);
 }
@@ -108,19 +108,23 @@ void Parse::parsePage()
 
 void Parse::parsePage(Page *page)
 {
-	uint cnt = page->Items.count();
+	/* FIXME: following line isn't page related!
+	The page-items relation isn't finished yet.
+	 it's for compilation.
+	SEARCH SCRIPTER FOR IT TOO! */
+	uint cnt = ScApp->doc->Items.count();//page->Items.count();
 	ScApp->FProg->setTotalSteps(cnt);
 	ScApp->view->GotoPage(page->PageNr);
 	for (uint i=0; i<cnt; i++)
 	{
 		ScApp->FProg->setProgress(i);
-		parseItem(page->Items.at(i));
+		parseItem(ScApp->doc->Items.at(i));//page->Items.at(i));
 	} // for items
 	ScApp->FProg->setProgress(cnt);
 }
 
 void Parse::parseAll()
 {
-	for (uint i=0; i < ScApp->view->Pages.count(); i++)
-		parsePage(ScApp->view->Pages.at(i));
+	for (uint i=0; i < ScApp->doc->Pages.count(); i++)
+		parsePage(ScApp->doc->Pages.at(i));
 }

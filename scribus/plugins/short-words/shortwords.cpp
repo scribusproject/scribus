@@ -75,7 +75,7 @@ void Run(QWidget *d, ScribusApp *plug)
 ShortWords::ShortWords()
 {
 	shortWords = this;
-	originalPage = ScApp->doc->ActPage->PageNr;
+	originalPage = ScApp->doc->currentPage->PageNr;
 	cfg = new Config();
 	VlnaDialog *dlg = new VlnaDialog(ScApp, "dlg", TRUE, 0);
 
@@ -92,7 +92,7 @@ ShortWords::ShortWords()
 				parse->parseSelection();
 				break;
 			case 1:
-				parse->parsePage(ScApp->doc->ActPage);
+				parse->parsePage(ScApp->doc->currentPage);
 				break;
 			case 2:
 				parse->parseAll();
