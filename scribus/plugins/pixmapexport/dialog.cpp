@@ -173,9 +173,9 @@ void ExportForm::languageChange()
 	OkButton->setText( tr( "&OK" ) );
 	CancelButton->setText( tr( "&Cancel" ) );
 	CancelButton->setAccel( QKeySequence( tr( "C" ) ) );
-	QToolTip::add( IntervalPagesRadio, tr( "Export a range of pages to images" ) );
+	QToolTip::add( IntervalPagesRadio, tr( "Export a range of pages" ) );
 	QToolTip::add( RangeVal, tr( "Insert a comma separated list of tokens where\na token can be * for all the pages, 1-5 for\na range of pages or a single page number." ) );
-	QToolTip::add( AllPagesRadio, tr( "Export all pages to images" ) );
+	QToolTip::add( AllPagesRadio, tr( "Export all pages" ) );
 	QToolTip::add( OnePageRadio, tr( "Export only the current page" ) );
 	QToolTip::add( SizeBox, tr( "Resolution of the Images\nUse 72 dpi for Images intended for the Screen" ) );
 	QToolTip::add( QualityBox, tr( "The quality of your images - 100% is the best, 1% the lowest quality" ) );

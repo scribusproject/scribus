@@ -29,8 +29,10 @@ void LayerTable::keyPressEvent(QKeyEvent *k)
 
 void LayerTable::endEdit ( int row, int col, bool accept, bool replace )
 {
+	QTable::EditMode ed = editMode();
 	QTable::endEdit(row, col, accept, replace);
-	emit updtName(row);
+	if (ed != QTable::NotEditing)
+		emit updtName(row);
 }
 
 LayerPalette::LayerPalette(QWidget* parent)
@@ -120,19 +122,6 @@ void LayerPalette::updateName(int r)
 {
 	changeName(r, 0);
 	emit LayerActivated(*Activ);
-}
-
-void LayerPalette::windowActivationChange(bool oldActive)
-{
-	QDialog::windowActivationChange(oldActive);
-	if (oldActive)
-	{
-		if (Table->numRows() > 0)
-		{
-			changeName(Table->currentRow(), 0);
-			emit LayerActivated(*Activ);
-		}
-	}
 }
 
 void LayerPalette::ClearInhalt()

@@ -73,7 +73,6 @@ signals:
 	void Schliessen();
 
 protected:
-	virtual void windowActivationChange(bool oldActive);
 	QVBoxLayout* LayerPaletteLayout;
 	QHBoxLayout* Layout1;
 

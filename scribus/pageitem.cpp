@@ -1811,17 +1811,29 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 QString PageItem::ExpandToken(uint base)
 {
 	uint zae = 0;
+	uint za2 = base;
 	QString chx = "#";
 	if (!Doc->MasterP)
 	{
-		while (Ptext.at(base+zae)->ch == QChar(30))
+		do
+		{
+			if (za2 == 0)
+				break;
+			za2--;
+		}
+		while (Ptext.at(za2)->ch == QChar(30));
+		if (Ptext.at(za2)->ch != QChar(30))
+			za2++;
+		while (Ptext.at(za2+zae)->ch == QChar(30))
 		{
 			zae++;
-			if (base+zae == Ptext.count())
+			if (za2+zae == Ptext.count())
 				break;
 		}
 		QString out="%1";
-		chx = out.arg(OwnPage->PageNr+Doc->FirstPnum, zae).right(zae).left(1);
+		QString out2;
+		out2 = out.arg(OwnPage->PageNr+Doc->FirstPnum, -zae);
+		chx = out2.mid(base-za2, 1);
 	}
 	return chx;
 }

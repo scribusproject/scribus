@@ -95,7 +95,7 @@ AdvOptions::AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic, int ps, bool 
 	QToolTip::add( PS3, tr( "Creates PostScript Level 3" ) );
 	QToolTip::add( PS2, tr( "Creates PostScript Level 2 only, beware,\nthis can create huge files" ) );
 	QToolTip::add( PS1, tr( "Creates PostScript Level 1 only, beware,\nthis can create huge files" ) );
-	QToolTip::add( GcR, tr( "A way of switching some of the gray shades which are composed\n"
+	QToolTip::add( GcR, tr( "A way of switching off some of the gray shades which are composed\n"
 	                                   "of cyan, yellow and magenta and using black instead.\n"
 									   "UCR most affects parts of images which are neutral and/or dark tones\n"
 									   "which are close to the gray. Use of this may improve printing some images\n"
@@ -211,7 +211,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool 
 
 	OtherCom = new QCheckBox(tr("A&lternative Printer Command"), Drucker, "Dc");
 	OtherCom->setChecked(false);
-	QToolTip::add( OtherCom, tr( "Use an alternative print manager to utilize additional\nprinting options, such as kprinter or gtklp") );
+	QToolTip::add( OtherCom, tr( "Use an alternative print manager, such as kprinter or gtklp,\nto utilize additional printing options") );
 	DruckerLayout->addWidget( OtherCom, 2, 0, Qt::AlignLeft);
 	LayoutCC = new QHBoxLayout;
 	LayoutCC->setSpacing( 6 );

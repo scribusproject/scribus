@@ -38,6 +38,8 @@ SEditor::SEditor(QWidget* parent, ScribusDoc *docc) : QTextEdit(parent)
 	wasMod = false;
 	StyledText.clear();
 	StyledText.setAutoDelete(true);
+	cBuffer.setAutoDelete(true);
+	cBuffer.clear();
 	setUndoRedoEnabled(true);
 	setUndoDepth(0);
 	setTextFormat(Qt::PlainText);
@@ -204,7 +206,6 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 						chars = new ChList;
 						chars->setAutoDelete(true);
 						chars->clear();
-						QString db;
 						if (StyledText.count() != 0)
 						{
 							if (p >= static_cast<int>(StyledText.count()))
@@ -278,6 +279,123 @@ void SEditor::insChars(QString t)
 		hg->cscale = CurrTextScale;
 		chars->insert(i, hg);
 		i++;
+	}
+}
+
+void SEditor::insStyledText()
+{
+	if (cBuffer.count() == 0)
+		return;
+	int p, i, p2, ccab;
+	if (hasSelectedText())
+		deleteSel();
+	getCursorPosition(&p, &i);
+	ChList *chars;
+	p2 = p;
+	if ((p >= static_cast<int>(StyledText.count())) || (StyledText.count() == 0))
+	{
+		chars = new ChList;
+		chars->setAutoDelete(true);
+		chars->clear();
+		p2 = static_cast<int>(StyledText.count());
+	}
+	else
+		chars = StyledText.at(p);
+	if (chars->count() != 0)
+		ccab = chars->at(0)->cab;
+	else
+		ccab = CurrentABStil;
+	for (uint a = 0; a < cBuffer.count()-1; ++a)
+	{
+		struct PtiSmall *hg;
+		if (cBuffer.at(a)->ch == QChar(13))
+		{
+			ChList *chars2;
+			chars2 = new ChList;
+			chars2->setAutoDelete(true);
+			chars2->clear();
+			if (p2 >= static_cast<int>(StyledText.count()))
+				StyledText.append(chars2);
+			else
+			{
+				int a = static_cast<int>(chars->count());
+				for (int s = i; s < a; ++s)
+				{
+					chars2->append(chars->take(i));
+				}
+				StyledText.insert(p2+1, chars2);
+			}
+			p2++;
+			chars = StyledText.at(p2);
+			i = 0;
+		}
+		else
+		{
+			hg = new PtiSmall;
+			hg->ch = cBuffer.at(a)->ch;
+			hg->ccolor = cBuffer.at(a)->ccolor;
+			hg->cshade = cBuffer.at(a)->cshade;
+			hg->cstroke = cBuffer.at(a)->cstroke;
+			hg->cshade2 = cBuffer.at(a)->cshade2;
+			hg->cfont = cBuffer.at(a)->cfont;
+			hg->csize = cBuffer.at(a)->csize;
+			hg->cstyle = cBuffer.at(a)->cstyle;
+			hg->cab = ccab;
+			hg->cextra = cBuffer.at(a)->cextra;
+			hg->cscale = cBuffer.at(a)->cscale;
+			chars->insert(i, hg);
+			i++;
+		}
+	}
+}
+
+void SEditor::copyStyledText()
+{
+	int PStart, PEnd, SelStart, SelEnd, start, end;
+	ChList *chars;
+	struct PtiSmall *hg;
+	cBuffer.clear();
+	getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
+	for (int pa = PStart; pa < PEnd+1; ++pa)
+	{
+		chars = StyledText.at(pa);
+		if (pa == PStart)
+			start = SelStart;
+		else
+			start = 0;
+		if (pa == PEnd)
+			end = SelEnd;
+		else
+			end = chars->count();
+		for (int ca = start; ca < end; ++ca)
+		{
+			hg = new PtiSmall;
+			hg->ch = chars->at(ca)->ch;
+			hg->cfont = chars->at(ca)->cfont;
+			hg->csize = chars->at(ca)->csize;
+			hg->ccolor = chars->at(ca)->ccolor;
+			hg->cshade = chars->at(ca)->cshade;
+			hg->cstroke = chars->at(ca)->cstroke;
+			hg->cshade2 = chars->at(ca)->cshade2;
+			hg->cscale = chars->at(ca)->cscale;
+			hg->cstyle = chars->at(ca)->cstyle;
+			hg->cab = chars->at(ca)->cab;
+			hg->cextra = chars->at(ca)->cextra;
+			cBuffer.append(hg);
+		}
+		hg = new PtiSmall;
+		hg->ch = QChar(13);
+		hg->cfont = "";
+		hg->csize = 1;
+		hg->ccolor = "";
+		hg->cshade = 1;
+		hg->cstroke = "";
+		hg->cshade2 = 1;
+		hg->cscale = 0;
+		hg->cstyle = 0;
+		hg->cab = 0;
+		hg->cextra = 0;
+		cBuffer.append(hg);
 	}
 }
 
@@ -560,7 +678,6 @@ void SEditor::updateFromChars(int pa)
 	QString Ccol = chars->at(0)->ccolor;
 	int Csha = chars->at(0)->cshade;
 	int Csty = chars->at(0)->cstyle;
-	setAlign(chars->at(0)->cab);
 	for (uint a = 0; a < chars->count(); ++a)
 	{
 		if ((Ccol == chars->at(a)->ccolor) && (Csha == chars->at(a)->cshade) && (Csty == chars->at(a)->cstyle))
@@ -568,22 +685,21 @@ void SEditor::updateFromChars(int pa)
 		else
 		{
 			setSelection(pa, SelStart, pa, SelEnd);
-			setAlign(chars->at(0)->cab);
 			setFarbe(Ccol, Csha);
 			setStyle(Csty);
 			removeSelection();
 			Ccol = chars->at(a)->ccolor;
 			Csha = chars->at(a)->cshade;
 			Csty = chars->at(a)->cstyle;
-			SelEnd++;
 			SelStart = SelEnd;
+			SelEnd++;
 		}
 	}
 	setSelection(pa, SelStart, pa, SelEnd);
-	setAlign(chars->at(0)->cab);
 	setFarbe(Ccol, Csha);
 	setStyle(Csty);
 	removeSelection();
+	setAlign(chars->at(0)->cab);
 	setCursorPosition(p, i);
 }
 
@@ -743,12 +859,33 @@ void SEditor::setFarbe(QString farbe, int shad)
 	setColor(tmp);
 }
 
+void SEditor::copy()
+{
+	if ((hasSelectedText()) && (selectedText() != ""))
+	{
+		tBuffer = selectedText();
+		copyStyledText();
+	}
+}
+
 void SEditor::cut()
 {
+	copy();
+	if (hasSelectedText())
+	{
+		deleteSel();
+		removeSelectedText();
+	}
 }
 
 void SEditor::paste()
 {
+	int p, i;
+	getCursorPosition(&p, &i);
+	insStyledText();
+	insert(tBuffer);
+	for (int pa = p; pa < static_cast<int>(StyledText.count()); ++pa)
+		updateFromChars(pa);
 }
 
 /* Toolbar for Fill Colour */
@@ -1371,7 +1508,6 @@ void StoryEditor::updateProps(int p, int ch)
 	Editor->CurrFont = hg->cfont;
 	Editor->CurrFontSize = hg->csize;
 	Editor->CurrentStyle = hg->cstyle & 127;
-	Editor->CurrentABStil = hg->cab;
 	Editor->CurrTextKern = hg->cextra;
 	Editor->CurrTextScale = hg->cscale;
 	StrokeTools->SetShade(hg->cshade2);
@@ -1411,12 +1547,14 @@ void StoryEditor::updateProps(int p, int ch)
 		StrokeTools->TxStroke->setEnabled(false);
 		StrokeTools->PM1->setEnabled(false);
 	}
-	AlignTools->SetAlign(hg->cab);
 	StyleTools->SetKern(hg->cextra);
 	StyleTools->SetStyle(hg->cstyle & 127);
 	FontTools->SetSize(hg->csize / 10.0);
 	FontTools->SetFont(hg->cfont);
 	FontTools->SetScale(hg->cscale);
+	hg = chars->at(0);
+	Editor->CurrentABStil = hg->cab;
+	AlignTools->SetAlign(hg->cab);
 	updateStatus();
 }
 
@@ -1562,23 +1700,17 @@ void StoryEditor::Do_selectAll()
 
 void StoryEditor::Do_copy()
 {
-/*	SEditor *cp = dynamic_cast<SEditor*>(table1->cellWidget(table1->currentRow(), 1));
-	cp->copy();
-	table1->adjHeight(table1->currentRow()); */
+	Editor->copy();
 }
 
 void StoryEditor::Do_paste()
 {
-/*	SEditor *cp = dynamic_cast<SEditor*>(table1->cellWidget(table1->currentRow(), 1));
-	cp->paste();
-	table1->adjHeight(table1->currentRow()); */
+	Editor->paste();
 }
 
 void StoryEditor::Do_cut()
 {
-/*	SEditor *cp = dynamic_cast<SEditor*>(table1->cellWidget(table1->currentRow(), 1));
-	cp->cut();
-	table1->adjHeight(table1->currentRow()); */
+	Editor->cut();
 }
 
 void StoryEditor::Do_del()
@@ -1594,9 +1726,13 @@ void StoryEditor::Do_del()
 
 void StoryEditor::CopyAvail(bool u)
 {
-//	emenu->setItemEnabled(Mcopy, u);
-//	emenu->setItemEnabled(Mcut, u);
+	emenu->setItemEnabled(Mcopy, u);
+	emenu->setItemEnabled(Mcut, u);
 	emenu->setItemEnabled(Mdel, u);
+	if (Editor->tBuffer.length() != 0)
+		emenu->setItemEnabled(Mpaste, 1);
+	else
+		emenu->setItemEnabled(Mpaste, 0);
 }
 
 void StoryEditor::updateTextFrame()
@@ -1782,6 +1918,10 @@ void StoryEditor::modifiedText()
 	firstSet = true;
 	emenu->setItemEnabled(Mupdt, 1);
 	fmenu->setItemEnabled(fid52, 1);
+	if (Editor->tBuffer.length() != 0)
+		emenu->setItemEnabled(Mpaste, 1);
+	else
+		emenu->setItemEnabled(Mpaste, 0);
 	DatUpdt->setEnabled(true);
 	DatRel->setEnabled(true);
 	updateStatus();

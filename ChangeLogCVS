@@ -1,5 +1,12 @@
 Changes since Version 1.1.7
 
+06.08.2004
+	* bug     #167: spacing across columns/frames
+	* bug     #312: Newlines not handled properly when c/p'ing
+	* bug     #724: No left aligned page numbers
+	* feature #933: Scripter crash on running sample script when no previous documents open
+	* feature #934: Search/Replace enabled when multiple items are selected and they arent all text frames
+
 04.08.2004
 	* bug     #790: Update Picture From Right-Click Menu Does Not Work
 	* bug     #927: layer chooser on the bottom of scribus isnt updated after adding a new layer immediately

@@ -2634,7 +2634,10 @@ void ScribusApp::HaveNewSel(int Nr)
 		editMenu->setItemEnabled(edid1, 1);
 		editMenu->setItemEnabled(edid2, 1);
 		editMenu->setItemEnabled(edid4, 0);
-		editMenu->setItemEnabled(Sear, 1);
+		if (b->Ptext.count() == 0)
+			editMenu->setItemEnabled(Sear, 0);
+		else
+			editMenu->setItemEnabled(Sear, 1);
 		extraMenu->setItemEnabled(hyph, 1);
 		menuBar()->setItemEnabled(Stm, 1);
 		menuBar()->setItemEnabled(Obm, 1);
@@ -2788,6 +2791,7 @@ void ScribusApp::HaveNewSel(int Nr)
 	{
 		ObjMenu->setItemEnabled(DistM, 1);
 		ObjMenu->setItemEnabled(PfadTP, 0);
+		editMenu->setItemEnabled(Sear, 0);
 		bool hPoly = true;
 		bool isGroup = true;
 		int firstElem = -1;
