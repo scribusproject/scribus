@@ -632,6 +632,13 @@ signals:
 	 */
 	void redoSignal(int steps);
 
+	/** 
+	 * @brief Emitted when a new actions comes in and UndoManager is in object
+	 * @brief specific mode and action does not belong to the currently selected
+	 * @brief object.
+ 	 */
+	void clearRedo();
+
 	/**
 	 * @brief This signal is used to notify registered UndoGui instances that
 	 * @brief history limit is reached and the last item from the stack 

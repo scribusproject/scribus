@@ -108,6 +108,9 @@ public slots:
 	 */
 	virtual void updateRedo(int steps) = 0;
 
+	/** @brief Clear the redo action items. */
+	virtual void clearRedo() = 0;
+
 	/** @brief Remove the last (oldest) item from the undo stack representation. */
 	virtual void popBack() = 0;
 /* signals: do not implement these but emit when action happens
@@ -145,7 +148,6 @@ private:
 	QPopupMenu* redoMenu;
 	void updateUndoMenu();
 	void updateRedoMenu();
-	void clearRedoMenu();
 public:
 	/** @brief Creates a new UndoWidget instance. */
 	UndoWidget(QWidget* parent = 0, const char* name = 0);
@@ -199,6 +201,9 @@ public slots:
 	 */
 	void updateRedo(int steps);
 
+	/** @brief Clear the redo action items. */
+	void clearRedo();
+	
 	/** @brief Remove the last (oldest) item from the undo stack representation. */
 	void popBack();
 signals:
@@ -376,6 +381,9 @@ public slots:
 	 */
 	void updateRedo(int steps);
 
+	/** @brief Clear the redo action items. */
+	void clearRedo();
+	
 	/** @brief Remove the last (oldest) item from the undo stack representation. */
 	void popBack();
 

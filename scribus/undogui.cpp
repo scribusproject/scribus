@@ -146,7 +146,7 @@ void UndoWidget::insertUndoItem(UndoObject* target, UndoState* state)
 {
 	undoItems.insert(undoItems.begin(), QString(tr("%1: %2", "undo target: action (f.e. Text frame: Resize)"))
                                         .arg(target->getUName()).arg(state->getName()));
-	clearRedoMenu();
+	clearRedo();
 	updateUndoMenu();
 	updateRedoMenu();
 }
@@ -159,7 +159,7 @@ void UndoWidget::insertRedoItem(UndoObject* target, UndoState* state)
 	updateUndoMenu();
 }
 
-void UndoWidget::clearRedoMenu()
+void UndoWidget::clearRedo()
 {
 	redoItems.erase(redoItems.begin(), redoItems.end());
 	updateRedoMenu();
@@ -333,7 +333,7 @@ void UndoPalette::keyReleaseEvent(QKeyEvent* e)
 
 void UndoPalette::insertUndoItem(UndoObject* target, UndoState* state)
 {
-	removeRedoItems();
+	clearRedo();
 	undoList->insertItem(new UndoItem(target->getUName(), state->getName(),
                          state->getDescription(), target->getUPixmap(),
                          state->getPixmap()));
@@ -391,7 +391,7 @@ void UndoPalette::updateList()
 		undoList->setBottomItem(currentSelection);
 }
 
-void UndoPalette::removeRedoItems()
+void UndoPalette::clearRedo()
 {
 	for (int i = (undoList->numRows() - 1); i > currentSelection; --i)
 		undoList->removeItem(i);

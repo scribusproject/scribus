@@ -236,6 +236,7 @@ void UndoManager::connectGuis()
 		connect(this, SIGNAL(popBack()), gui, SLOT(popBack()));
 		connect(this, SIGNAL(undoSignal(int)), gui, SLOT(updateUndo(int)));
 		connect(this, SIGNAL(redoSignal(int)), gui, SLOT(updateRedo(int)));
+		connect(this, SIGNAL(clearRedo()), gui, SLOT(clearRedo()));
 	}
 }
 
@@ -252,6 +253,7 @@ void UndoManager::disconnectGuis()
 		disconnect(this, SIGNAL(popBack()), gui, SLOT(popBack()));
 		disconnect(this, SIGNAL(undoSignal(int)), gui, SLOT(updateUndo(int)));
 		disconnect(this, SIGNAL(redoSignal(int)), gui, SLOT(updateRedo(int)));
+		disconnect(this, SIGNAL(clearRedo()), gui, SLOT(clearRedo()));
 	}
 }
 
@@ -327,6 +329,8 @@ void UndoManager::action(UndoObject* target, UndoState* state, QPixmap *targetPi
 	if ((!transaction) &&
         (currentUndoObjectId == -1 || currentUndoObjectId == static_cast<long>(target->getUId())))
 		emit newAction(target, state); // send action to the guis
+	else
+		emit clearRedo();
 
 	if (stacks[currentDoc].second.size() > 1 && !transaction) // delete redo states
 	{
@@ -507,11 +511,13 @@ void UndoManager::doTransactionRedo(TransactionState *tstate)
 
 bool UndoManager::hasUndoActions(int uid)
 {
+	// TODO Needs to fixed for object specific mode
 	return stacks[currentDoc].first < stacks[currentDoc].second.end();
 }
 
 bool UndoManager::hasRedoActions(int uid)
 {
+	// TODO Needs to be fixed for object specific mode
 	return stacks[currentDoc].first > stacks[currentDoc].second.begin();
 }
 
