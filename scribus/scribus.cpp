@@ -396,6 +396,7 @@ void ScribusApp::initDefaultPrefs()
 	Prefs.DpenLine = "Black";
 	Prefs.DpenText = "Black";
 	Prefs.DstrokeText = "Black";
+	Prefs.DpapColor = QColor(white);
 	Prefs.DCols = 1;
 	Prefs.DGap = 0.0;
 	Prefs.DshadeLine = 100;
