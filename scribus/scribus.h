@@ -66,6 +66,7 @@ class StilFormate;
 class LineFormate;
 class Mpalette;
 class Measurements;
+class StoryEditor;
 /**
   * This Class is the base class for your application. It sets up the main
   * window and providing a menubar, toolbar
@@ -161,6 +162,7 @@ public:
 	SeitenPal *Sepal;
 	BookPalette *BookPal;
 	Measurements* MaPal;
+	StoryEditor* CurrStED;
 	QMap<QString,QString> Sprachen;
 	QWorkspace *wsp;
 	QPopupMenu* windowsMenu;

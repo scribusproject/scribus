@@ -144,6 +144,7 @@ void ScribusApp::initGui()
 void ScribusApp::initScribus()
 {
 	ScApp = this;
+	CurrStED = NULL;
 	setCaption( tr("Scribus " VERSION));
 	setKeyCompression(false);
 	setIcon(loadIcon("AppIcon.png"));
@@ -4620,7 +4621,7 @@ void ScribusApp::setMpal(bool visible)
 	if (visible)
 	{
 		Mpal->show();
-		Mpal->TabStack->raiseWidget(0);
+//		Mpal->TabStack->raiseWidget(0);
 		Mpal->move(Prefs.Mpalx, Prefs.Mpaly);
 	}
 	else
@@ -5868,7 +5869,69 @@ void ScribusApp::saveStyles(StilFormate *dia)
 			}
 		}
 	}
+	if (CurrStED != NULL)
+	{
+		if (CurrStED->Editor->StyledText.count() != 0)
+		{
+			for (uint pa = 0; pa < CurrStED->Editor->StyledText.count(); ++pa)
+			{
+				SEditor::ChList *chars;
+				chars = CurrStED->Editor->StyledText.at(pa);
+				int cabneu = 0;
+				for (uint e = 0; e < chars->count(); ++e)
+				{
+					int cabori = chars->at(e)->cab;
+					cabneu = ers[cabori];
+					if (cabori > 4)
+					{
+						if (cabneu > 0)
+						{
+							if (chars->at(e)->cfont == doc->Vorlagen[cabori].Font)
+								chars->at(e)->cfont = dia->TempVorl[cabneu].Font;
+							if (chars->at(e)->csize == doc->Vorlagen[cabori].FontSize)
+								chars->at(e)->csize = dia->TempVorl[cabneu].FontSize;
+							if ((chars->at(e)->cstyle & 127 ) == doc->Vorlagen[cabori].FontEffect)
+							{
+								chars->at(e)->cstyle &= ~127;
+								chars->at(e)->cstyle |= dia->TempVorl[cabneu].FontEffect;
+							}
+							if (chars->at(e)->ccolor == doc->Vorlagen[cabori].FColor)
+								chars->at(e)->ccolor = dia->TempVorl[cabneu].FColor;
+							if (chars->at(e)->cshade == doc->Vorlagen[cabori].FShade)
+								chars->at(e)->cshade = dia->TempVorl[cabneu].FShade;
+							if (chars->at(e)->cstroke == doc->Vorlagen[cabori].SColor)
+								chars->at(e)->cstroke = dia->TempVorl[cabneu].SColor;
+							if (chars->at(e)->cshade2 == doc->Vorlagen[cabori].SShade)
+								chars->at(e)->cshade2 = dia->TempVorl[cabneu].SShade;
+						}
+						else
+						{
+							chars->at(e)->ccolor = ite->TxtFill;
+							chars->at(e)->cshade = ite->ShTxtFill;
+							chars->at(e)->cstroke = ite->TxtStroke;
+							chars->at(e)->cshade2 = ite->ShTxtStroke;
+							chars->at(e)->csize = ite->ISize;
+							chars->at(e)->cstyle &= ~127;
+							chars->at(e)->cstyle |= ite->TxTStyle;
+						}
+						chars->at(e)->cab = cabneu;
+					}
+				}
+			}
+			CurrStED->Editor->CurrentABStil = ers[CurrStED->Editor->CurrentABStil];
+		}
+	}
 	doc->Vorlagen = dia->TempVorl;
+	if (CurrStED != NULL)
+	{
+		if (CurrStED->Editor->StyledText.count() != 0)
+		{
+			for (uint pa = 0; pa < CurrStED->Editor->StyledText.count(); ++pa)
+			{
+				CurrStED->Editor->updateFromChars(pa);
+			}
+		}
+	}
 	for (uint a=0; a<doc->Vorlagen.count(); ++a)
 	{
 		if (doc->Vorlagen[a].Font != "")
@@ -8685,6 +8748,7 @@ void ScribusApp::slotStoryEditor()
 	{
 		PageItem *b = doc->ActPage->SelItem.at(0);
 		StoryEditor* dia = new StoryEditor(this, doc, b);
+		CurrStED = dia;
 		connect(dia, SIGNAL(DocChanged()), this, SLOT(slotDocCh()));
 		connect(dia, SIGNAL(EditSt()), this, SLOT(slotEditStyles()));
 		if (dia->exec())
@@ -8693,6 +8757,7 @@ void ScribusApp::slotStoryEditor()
 				dia->updateTextFrame();
 		}
 		BuildFontMenu();
+		CurrStED = NULL;
 		delete dia;
 	}
 }

@@ -265,7 +265,6 @@ public slots:
 	void newTxStyle(int s);
 	void newTxKern(double s);
 	void updateProps(int p, int ch);
-	void styleChange(int st);
 	void newAlign(int st);
 	void updateStatus();
 	void Do_leave();

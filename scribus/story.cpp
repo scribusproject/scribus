@@ -39,6 +39,7 @@ SEditor::SEditor(QWidget* parent, ScribusDoc *docc) : QTextEdit(parent)
 	setUndoRedoEnabled(true);
 	setUndoDepth(0);
 	setTextFormat(Qt::PlainText);
+	viewport()->setAcceptDrops(false);
 }
 
 void SEditor::keyPressEvent(QKeyEvent *k)
@@ -557,6 +558,7 @@ void SEditor::updateFromChars(int pa)
 	QString Ccol = chars->at(0)->ccolor;
 	int Csha = chars->at(0)->cshade;
 	int Csty = chars->at(0)->cstyle;
+	setAlign(chars->at(0)->cab);
 	for (uint a = 0; a < chars->count(); ++a)
 	{
 		if ((Ccol == chars->at(a)->ccolor) && (Csha == chars->at(a)->cshade) && (Csty == chars->at(a)->cstyle))
@@ -564,6 +566,7 @@ void SEditor::updateFromChars(int pa)
 		else
 		{
 			setSelection(pa, SelStart, pa, SelEnd);
+			setAlign(chars->at(0)->cab);
 			setFarbe(Ccol, Csha);
 			setStyle(Csty);
 			removeSelection();
@@ -575,6 +578,7 @@ void SEditor::updateFromChars(int pa)
 		}
 	}
 	setSelection(pa, SelStart, pa, SelEnd);
+	setAlign(chars->at(0)->cab);
 	setFarbe(Ccol, Csha);
 	setStyle(Csty);
 	removeSelection();
@@ -871,7 +875,7 @@ SToolBAlign::SToolBAlign(QMainWindow* parent) : QToolBar( tr("Style Settings"), 
 	GroupAlign = new AlignSelect(this);
 	Spal = new Spalette(this);
 	QToolTip::add( Spal, tr( "Style of current paragraph" ) );
-	connect(Spal, SIGNAL(activated(int)), this, SLOT(newStyleHandler(int )));
+	connect(Spal, SIGNAL(NewStyle(int)), this, SLOT(newStyleHandler(int )));
 	connect(GroupAlign, SIGNAL(State(int)), this, SIGNAL(NewAlign(int )));
 }
 
@@ -886,7 +890,7 @@ void SToolBAlign::newStyleHandler(int s)
 
 void SToolBAlign::SetAlign(int s)
 {
-	disconnect(Spal, SIGNAL(activated(int)), this, SIGNAL(NewStyle(int )));
+	disconnect(Spal, SIGNAL(NewStyle(int)), this, SLOT(newStyleHandler(int )));
 	disconnect(GroupAlign, SIGNAL(State(int)), this, SIGNAL(NewAlign(int )));
 	if (s < 5)
 	{
@@ -896,8 +900,8 @@ void SToolBAlign::SetAlign(int s)
 	else
 		GroupAlign->setEnabled(false);
 	Spal->setFormat(s);
-	connect(Spal, SIGNAL(activated(int)), this, SIGNAL(NewStyle(int )));
 	connect(GroupAlign, SIGNAL(State(int)), this, SIGNAL(NewAlign(int )));
+	connect(Spal, SIGNAL(NewStyle(int)), this, SLOT(newStyleHandler(int )));
 }
 
 /* Toolbar for Font related Settings */
@@ -980,7 +984,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	emenu->insertItem( tr("&Insert Special..."), this , SLOT(Do_insSp()));
 //	emenu->setItemEnabled(sr, 0);
 	emenu->insertSeparator();
-//	emenu->insertItem( tr("&Edit Styles..."), this , SLOT(slotEditStyles()));
+	emenu->insertItem( tr("&Edit Styles..."), this , SLOT(slotEditStyles()));
 	Mupdt = emenu->insertItem(loadIcon("compfile16.png"),  tr("&Update Text Frame"), this, SLOT(updateTextFrame()), CTRL+Key_U);
 //	menuBar = new QMenuBar(this);
 	menuBar()->insertItem( tr("&File"), fmenu);
@@ -1106,7 +1110,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	connect(Editor, SIGNAL(clicked(int, int)), this, SLOT(updateStatus()));
 	connect(Editor, SIGNAL(setProps(int, int)), this, SLOT(updateProps(int, int)));
 	connect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
-	connect(AlignTools, SIGNAL(NewStyle(int)), this, SLOT(styleChange(int)));
+	connect(AlignTools, SIGNAL(NewStyle(int)), this, SLOT(newAlign(int)));
 	connect(AlignTools, SIGNAL(NewAlign(int)), this, SLOT(newAlign(int)));
 	connect(FillTools, SIGNAL(NewColor(int, int)), this, SLOT(newTxFill(int, int)));
 	connect(StrokeTools, SIGNAL(NewColor(int, int)), this, SLOT(newTxStroke(int, int)));
@@ -1305,6 +1309,7 @@ void StoryEditor::updateProps(int p, int ch)
 		Editor->setAlign(Editor->CurrentABStil);
 		Editor->setStyle(Editor->CurrentStyle);
 		Editor->setFarbe(Editor->CurrTextFill, Editor->CurrTextFillSh);
+		firstSet = true;
 		return;
 	}
 	chars = Editor->StyledText.at(p);
@@ -1597,70 +1602,19 @@ void StoryEditor::SearchText()
 
 void StoryEditor::slotEditStyles()
 {
-/*	int sty;
-	QComboBox *ct;
+	int p, i;
+	Editor->getCursorPosition(&p, &i);
+	disconnect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
+	disconnect(AlignTools, SIGNAL(NewStyle(int)), this, SLOT(newAlign(int)));
+	disconnect(AlignTools, SIGNAL(NewAlign(int)), this, SLOT(newAlign(int)));
 	emit EditSt();
-	style.clear();
-	if (doc->Vorlagen.count() > 5)
-	{
-		for (uint a = 5; a < doc->Vorlagen.count(); ++a)
-			style.append(doc->Vorlagen[a].Vname);
-	}
-	style.sort();
-	QString tmp[] = { tr("Forced"), tr("Block"), tr("Right"), tr("Center"), tr("Left") };
-	size_t ar = sizeof(tmp) / sizeof(*tmp);
-	for (uint a = 0; a < ar; ++a)
-		style.prepend(tmp[a]);
-	for (uint b = 0; b < stList.count(); ++b)
-	{
-		ct = stList.at(b);
-		sty = ct->currentItem();
-		QString StText = ct->text(sty);
-		int align = 0;
-		if (sty > 4)
-		{
-			for (uint x = 5; x < style.count(); ++x)
-			{
-				if (style[x] == StText)
-				{
-					align = x;
-					break;
-				}
-			}
-		}
-		else
-			align = sty;
-		disconnect(ct, SIGNAL(activated(int)), this, SLOT(styleChange(int)));
-		ct->clear();
-		ct->insertStringList(style);
-		connect(ct, SIGNAL(highlighted(int)), this, SLOT(styleChange(int)));
-		ct->setCurrentItem(align);
-		disconnect(ct, SIGNAL(highlighted(int)), this, SLOT(styleChange(int)));
-		connect(ct, SIGNAL(activated(int)), this, SLOT(styleChange(int)));
-	} */
-}
-
-void StoryEditor::styleChange(int st)
-{
-	if (st == 0)
-		Editor->CurrentABStil = 0;
-	else
-		Editor->CurrentABStil = st+4;
-	int align = 0;
-	if (st > 0)
-	{
-		for (uint x = 5; x < doc->Vorlagen.count(); ++x)
-		{
-			if (doc->Vorlagen[x].Vname == AlignTools->Spal->text(st))
-			{
-				align = doc->Vorlagen[x].Ausri;
-				break;
-			}
-		}
-	}
-	else
-		align = 0;
-	changeAlign(align);
+	AlignTools->Spal->SetFormats(doc);
+	AlignTools->SetAlign(Editor->CurrentABStil);
+	connect(AlignTools, SIGNAL(NewStyle(int)), this, SLOT(newAlign(int)));
+	connect(AlignTools, SIGNAL(NewAlign(int)), this, SLOT(newAlign(int)));
+	Editor->setCursorPosition(p, i);
+	updateProps(p, i);
+	connect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
 }
 
 void StoryEditor::newAlign(int st)
@@ -1671,7 +1625,6 @@ void StoryEditor::newAlign(int st)
 
 void StoryEditor::changeAlign(int align)
 {
-	Editor->setAlign(align);
 	int p, i;
 	bool sel = false;
 	Editor->getCursorPosition(&p, &i);

@@ -7491,6 +7491,8 @@ void Page::ItemTextBrush(QString farbe)
 			b = SelItem.at(a);
 			if ((b->PType == 4) || (b->PType == 8))
 			{
+				if (doku->AppMode != 7)
+					b->TxtFill = farbe;
 				for (i=0; i<b->Ptext.count(); ++i)
 				{
 					if (doku->AppMode == 7)
@@ -7499,10 +7501,7 @@ void Page::ItemTextBrush(QString farbe)
 							b->Ptext.at(i)->ccolor = farbe;
 					}
 					else
-					{
 						b->Ptext.at(i)->ccolor = farbe;
-						b->TxtFill = farbe;
-					}
 				}
 			}
 			RefreshItem(b);
@@ -7522,6 +7521,8 @@ void Page::ItemTextBrushS(int sha)
 			b = SelItem.at(a);
 			if (b->PType == 4)
 			{
+				if (doku->AppMode != 7)
+					b->ShTxtFill = sha;
 				for (i=0; i<b->Ptext.count(); ++i)
 				{
 					if (doku->AppMode == 7)
@@ -7530,10 +7531,7 @@ void Page::ItemTextBrushS(int sha)
 							b->Ptext.at(i)->cshade = sha;
 					}
 					else
-					{
 						b->Ptext.at(i)->cshade = sha;
-						b->ShTxtFill = sha;
-					}
 				}
 			}
 			RefreshItem(b);
@@ -7555,6 +7553,8 @@ void Page::ItemTextPen(QString farbe)
 			b = SelItem.at(a);
 			if ((b->PType == 4) || (b->PType == 8))
 			{
+				if (doku->AppMode != 7)
+					b->TxtStroke = farbe;
 				for (i=0; i<b->Ptext.count(); ++i)
 				{
 					if (doku->AppMode == 7)
@@ -7563,10 +7563,7 @@ void Page::ItemTextPen(QString farbe)
 							b->Ptext.at(i)->cstroke = farbe;
 					}
 					else
-					{
 						b->Ptext.at(i)->cstroke = farbe;
-						b->TxtStroke = farbe;
-					}
 				}
 			}
 			RefreshItem(b);
@@ -7585,6 +7582,8 @@ void Page::ItemTextPenS(int sha)
 			b = SelItem.at(a);
 			if (b->PType == 4)
 			{
+				if (doku->AppMode != 7)
+					b->ShTxtStroke = sha;
 				for (i=0; i<b->Ptext.count(); ++i)
 				{
 					if (doku->AppMode == 7)
@@ -7593,10 +7592,7 @@ void Page::ItemTextPenS(int sha)
 							b->Ptext.at(i)->cshade2 = sha;
 					}
 					else
-					{
 						b->Ptext.at(i)->cshade2 = sha;
-						b->ShTxtStroke = sha;
-					}
 				}
 			}
 			RefreshItem(b);
@@ -7615,6 +7611,8 @@ void Page::ItemTextScale(int sha)
 			b = SelItem.at(a);
 			if (b->PType == 4)
 			{
+				if (doku->AppMode != 7)
+					b->TxtScale = sha;
 				for (i=0; i<b->Ptext.count(); ++i)
 				{
 					if (doku->AppMode == 7)
@@ -7623,10 +7621,7 @@ void Page::ItemTextScale(int sha)
 							b->Ptext.at(i)->cscale = sha;
 					}
 					else
-					{
 						b->Ptext.at(i)->cscale = sha;
-						b->TxtScale = sha;
-					}
 				}
 			}
 			RefreshItem(b);
@@ -7704,6 +7699,11 @@ void Page::chTyStyle(int s)
 		for (uint aa = 0; aa < SelItem.count(); ++aa)
 		{
 			PageItem *b = SelItem.at(aa);
+			if (doku->AppMode != 7)
+			{
+				b->TxTStyle &= ~127;
+				b->TxTStyle |= s;
+			}
 			if (b->Ptext.count() != 0)
 			{
 				if (doku->AppMode == 7)
@@ -7724,8 +7724,6 @@ void Page::chTyStyle(int s)
 						b->Ptext.at(a)->cstyle &= ~127;
 						b->Ptext.at(a)->cstyle |= s;
 					}
-					b->TxTStyle &= ~127;
-					b->TxTStyle |= s;
 				}
 				b->Dirty = true;
 				RefreshItem(b);
@@ -7923,6 +7921,8 @@ void Page::chKerning(double us)
 			}
 			else
 			{
+				if (doku->AppMode != 7)
+					b->ExtraV = us;
 				if (b->Ptext.count() != 0)
 				{
 					for (a = 0; a < b->Ptext.count(); ++a)
@@ -7931,7 +7931,6 @@ void Page::chKerning(double us)
 					}
 					b->Dirty = true;
 					RefreshItem(b);
-					b->ExtraV = us;
 				}
 			}
 		}

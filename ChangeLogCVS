@@ -1,7 +1,10 @@
 Changes since Version 1.1.7
 
 31.07.2004
+	* bug     #527: Wrong page shown in Properties Palette when reopened
+	* bug     #528:  Wrong page shown in Properties Palette - COLORS - when reopened
 	* bug     #919: Text from story editor duplicates when two text frames are linked...
+	* feature #909: add access possibility to text styles to the story editor
 	* feature #920: Updated French Translation
 
 30.07.2004
