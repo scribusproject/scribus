@@ -7534,9 +7534,9 @@ void Page::LoadPict(QString fn, int ItNr)
 		QImage inI2;
 		if (inI.load(fn))
 		{
-			inI = inI.convertDepth(32);
 			double dpiX = QMAX(72.0, qRound(inI.dotsPerMeterX() / 100.0 * 2.54));
 			double dpiY = QMAX(72.0, qRound(inI.dotsPerMeterY() / 100.0 * 2.54));
+			inI = inI.convertDepth(32);
 			inI2 = ProofPict(&inI, Items.at(ItNr)->IProfile, Items.at(ItNr)->IRender);
 			Items.at(ItNr)->pixm = inI2.copy();
 			if (Items.at(ItNr)->Pfile != fn)
