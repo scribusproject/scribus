@@ -233,6 +233,7 @@ void OODPlug::parseGroup(const QDomElement &e)
 	double x, y, w, h;
 	double FillTrans = 0;
 	double StrokeTrans = 0;
+	QValueList<double> dashes;
 	for (QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
 	{
 		QString StrokeColor = "None";
@@ -240,6 +241,7 @@ void OODPlug::parseGroup(const QDomElement &e)
 		FillTrans = 0;
 		StrokeTrans = 0;
 		int z = -1;
+		dashes.clear();
 		QDomElement b = n.toElement();
 		if( b.isNull() )
 			continue;
@@ -262,6 +264,32 @@ void OODPlug::parseGroup(const QDomElement &e)
 					StrokeColor = parseColor(m_styleStack.attribute("svg:stroke-color"));
 				if( m_styleStack.hasAttribute( "svg:stroke-opacity" ) )
 					StrokeTrans = m_styleStack.attribute( "svg:stroke-opacity" ).remove( '%' ).toDouble() / 100.0;
+				if( m_styleStack.attribute( "draw:stroke" ) == "dash" )
+				{
+					QString style = m_styleStack.attribute( "draw:stroke-dash" );
+/*					QDomElement* draw = m_draws[style];
+					if( draw )
+					{
+					} */
+					if( style == "Ultrafine Dashed")
+						dashes << 1.4 << 1.4;
+					else if( style == "Fine Dashed" )
+						dashes << 14.4 << 14.4;
+					else if( style == "Fine Dotted")
+						dashes << 13 << 13;
+					else if( style == "Ultrafine 2 Dots 3 Dashes") 
+						dashes << 1.45 << 3.6 << 1.45 << 3.6 << 7.2 << 3.6 << 7.2 << 3.6 << 7.2 << 3.6;
+					else if( style == "Line with Fine Dots")
+					{
+						dashes << 56.9 << 4.31;
+						for (int dd = 0; dd < 10; ++ dd)
+						{
+							dashes << 8.6 << 4.31;
+						}
+					}
+					else if( style == "2 Dots 1 Dash" )
+						dashes << 2.8 << 5.75 << 2.8 << 5.75 << 5.75 << 5.75;
+				}
 			}
 		}
 		if( m_styleStack.hasAttribute( "draw:fill" ) )
@@ -318,6 +346,12 @@ void OODPlug::parseGroup(const QDomElement &e)
 		if( STag == "draw:g" )
 		{
 			parseGroup( b );
+			for (uint gr = 0; gr < GElements.count(); ++gr)
+			{
+				GElements.at(gr)->Groups.push(Doku->GroupCounter);
+			}
+			GElements.clear();
+			Doku->GroupCounter++;
 		}
 		else if( STag == "draw:rect" )
 		{
@@ -358,8 +392,11 @@ void OODPlug::parseGroup(const QDomElement &e)
 			FPoint wh = GetMaxClipF(ite->PoLine);
 			ite->Width = wh.x();
 			ite->Height = wh.y();
-			ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-			Prog->view->AdjustItemSize(ite);
+			if (!b.hasAttribute("draw:transform"))
+			{
+				ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
+				Prog->view->AdjustItemSize(ite);
+			}
 		} 
 		else if ( STag == "draw:polygon" )
 		{
@@ -370,8 +407,11 @@ void OODPlug::parseGroup(const QDomElement &e)
 			FPoint wh = GetMaxClipF(ite->PoLine);
 			ite->Width = wh.x();
 			ite->Height = wh.y();
-			ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-			Prog->view->AdjustItemSize(ite);
+			if (!b.hasAttribute("draw:transform"))
+			{
+				ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
+				Prog->view->AdjustItemSize(ite);
+			}
 		}
 		else if( STag == "draw:polyline" )
 		{
@@ -382,8 +422,11 @@ void OODPlug::parseGroup(const QDomElement &e)
 			FPoint wh = GetMaxClipF(ite->PoLine);
 			ite->Width = wh.x();
 			ite->Height = wh.y();
-			ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-			Prog->view->AdjustItemSize(ite);
+			if (!b.hasAttribute("draw:transform"))
+			{
+				ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
+				Prog->view->AdjustItemSize(ite);
+			}
 		}
 		else if( STag == "draw:path" )
 		{
@@ -416,8 +459,11 @@ void OODPlug::parseGroup(const QDomElement &e)
 				FPoint wh = GetMaxClipF(ite->PoLine);
 				ite->Width = wh.x();
 				ite->Height = wh.y();
-				ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-				Prog->view->AdjustItemSize(ite);
+				if (!b.hasAttribute("draw:transform"))
+				{
+					ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
+					Prog->view->AdjustItemSize(ite);
+				}
 			}
 		}
 		else if ( STag == "draw:text-box" )
@@ -459,6 +505,8 @@ void OODPlug::parseGroup(const QDomElement &e)
 			PageItem* ite = Doku->Items.at(z);
 			ite->Transparency = FillTrans;
 			ite->TranspStroke = StrokeTrans;
+			if (dashes.count() != 0)
+				ite->DashValues = dashes;
 			if (drawID != "")
 				ite->AnName = drawID;
 			if (b.hasAttribute("draw:transform"))
