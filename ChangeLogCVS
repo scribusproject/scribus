@@ -1,4 +1,7 @@
 Changes since Version 1.1.4
+09.02.2004	Updated Danish Translation.
+		Fixed Transparency Issues with Tiff Images.
+
 08.02.2004	Fixed Problems with Images having an Alpha Channel.
 		Added an Option to remove unused Colors.
 

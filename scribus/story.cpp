@@ -24,8 +24,9 @@
 #include <qregexp.h>
 #include "serializer.h"
 #include "customfdialog.h"
-extern QPixmap loadIcon(QString nam);
+#include "search.h"
 
+extern QPixmap loadIcon(QString nam);
 
 SEditor::SEditor(QWidget* parent) : QTextEdit(parent)
 {
@@ -216,7 +217,7 @@ void STable::adjHeight(int r)
 
 StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite) : QDialog(parent, "StoryEditor", true, 0)
 {
-  uint a;
+	uint a;
 	int para = 0;
 	int pstyle;
 	doc = docc;
@@ -253,6 +254,9 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite) : QDi
 	Mcut = emenu->insertItem(loadIcon("editcopy.png"), tr("Copy"), this, SLOT(Do_copy()), CTRL+Key_C);
 	Mpaste = emenu->insertItem(loadIcon("editpaste.png"), tr("Paste"), this, SLOT(Do_paste()), CTRL+Key_V);
 	Mdel = emenu->insertItem(loadIcon("editdelete.png"), tr("Clear"), this, SLOT(Do_del()), CTRL+Key_V);
+	emenu->insertSeparator();
+	int sr = emenu->insertItem( tr("Search/Replace..."), this, SLOT(SearchText()));
+	emenu->setItemEnabled(sr, 0);
 	emenu->insertSeparator();
 	emenu->insertItem( tr("Edit Styles..."), this , SLOT(slotEditStyles()));
 	Mupdt = emenu->insertItem( tr("Update Text Frame"), this, SLOT(updateTextFrame()));
@@ -439,7 +443,7 @@ void StoryEditor::Do_leave()
 	if (TextChanged)
 	{
 		int t = QMessageBox::warning(this, tr("Warning"),
-  										 	tr("Do you really want to lose all your Changes?"),
+  							 	tr("Do you really want to lose all your Changes?"),
                          			 	QMessageBox::No, QMessageBox::Yes, QMessageBox::NoButton);
   		if (t == QMessageBox::No)
 			return;
@@ -450,7 +454,7 @@ void StoryEditor::Do_leave()
 void StoryEditor::Do_new()
 {
 	int t = QMessageBox::warning(this, tr("Warning"),
-  									 tr("Do you really want to clear all your Text?"),
+  							 tr("Do you really want to clear all your Text?"),
                          			 QMessageBox::No, QMessageBox::Yes, QMessageBox::NoButton);
 	if (t == QMessageBox::No)
 		return;
@@ -566,6 +570,13 @@ void StoryEditor::updateTextFrame()
 	TextChanged = false;
 	emenu->setItemEnabled(Mupdt, 0);
 	emit DocChanged();
+}
+
+void StoryEditor::SearchText()
+{
+	SearchReplace* dia = new SearchReplace(this, doc, 0, CurrItem, false);
+	dia->exec();
+	delete dia;
 }
 
 void StoryEditor::slotEditStyles()

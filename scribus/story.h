@@ -125,6 +125,7 @@ public slots:
 	void UnReMenu(bool u, bool r);
 	void CopyAvail(bool u);
 	void updateTextFrame();
+	void SearchText();
 	void slotEditStyles();
 	void styleChange(int st);
 	void modifiedText();

@@ -40,6 +40,12 @@ public:
 	QToolButton* Last;
 	QCheckBox* AliasText;
 	QCheckBox* AliasGr;
+	QCheckBox* AliasTr;
+	QCheckBox* EnableCMYK;
+	QCheckBox* EnableCMYK_C;
+	QCheckBox* EnableCMYK_M;
+	QCheckBox* EnableCMYK_Y;
+	QCheckBox* EnableCMYK_K;
 	QScrollView* Anzeige;
 	QLabel* Anz;
 	QPixmap* Bild;
@@ -54,11 +60,15 @@ public slots:
 	void ToEnd();
 	void ToSeite(int num);
 	void ToggleTextAA();
+	void ToggleGr();
+	void ToggleTr();
+	void ToggleCMYK();
+	void ToggleCMYK_Colour();
 
 protected:
 	QVBoxLayout* PLayout;
 	QHBoxLayout* Layout1;
 	QVBoxLayout* Layout2;
-
+	QVBoxLayout* Layout3;
 };
 #endif // QUERY_H

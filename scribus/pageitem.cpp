@@ -397,7 +397,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						QRgb *s = (QRgb*)(imd.scanLine( yi ));
 						for(int xi=0; xi < wi; ++xi )
 						{
-							if(qAlpha((*s)) != 0)
+							if(qAlpha((*s)) >127)
 								(*s) = 0xff000000;
 							else
 								(*s) = 0xffffffff;

@@ -7412,18 +7412,18 @@ void Page::LoadPict(QString fn, int ItNr)
 		}
 #ifdef HAVE_TIFF
 	if (ext == "tif")
-		{
+	{
 		QImage img;
 		QImage inI2;
 #ifdef HAVE_CMS
-    DWORD EmbedLen = 0;
-    LPBYTE EmbedBuffer;
+		DWORD EmbedLen = 0;
+		LPBYTE EmbedBuffer;
 		const char *Descriptor;
 		cmsHPROFILE hIn;
 #endif
 		TIFF* tif = TIFFOpen(fn, "r");
 		if(tif)
-			{
+		{
 			unsigned width, height,size;
 			float xresIn, yresIn;
 			double xres, yres;
@@ -7440,82 +7440,83 @@ void Page::LoadPict(QString fn, int ItNr)
 				if (TIFFReadRGBAImage(tif, width, height, bits, 0))
 				{
         			img.create(width,height,32);
-					if(TIFFGetR(0x1234567)==qRed  (0x1234567) &&
-						 TIFFGetG(0x1234567)==qGreen(0x1234567) &&
-						 TIFFGetB(0x1234567)==qBlue (0x1234567))
+				img.setAlphaBuffer(true);
+				if(TIFFGetR(0x1234567)==qRed  (0x1234567) &&
+					 TIFFGetG(0x1234567)==qGreen(0x1234567) &&
+					 TIFFGetB(0x1234567)==qBlue (0x1234567))
+				{
+					for (unsigned y=0; y<height; ++y)
+						memcpy(img.scanLine(height-1-y),bits+y*width,width*4);
+				}
+				else
+				{
+					uint32 *inp=bits;
+					for (unsigned y=0; y<height; ++y)
 					{
-						for (unsigned y=0; y<height; ++y)
-							memcpy(img.scanLine(height-1-y),bits+y*width,width*4);
-					}
-					else
-					{
-						uint32 *inp=bits;
-						for (unsigned y=0; y<height; ++y)
+						QRgb *row=(QRgb*) (img.scanLine(height-1-y));
+						for(unsigned x=0; x<width; ++x)
 						{
-							QRgb *row=(QRgb*) (img.scanLine(height-1-y));
-							for(unsigned x=0; x<width; ++x)
-							{
-								const uint32 col=*(inp++);
-								row[x]=qRgb(TIFFGetR(col), TIFFGetG(col), TIFFGetB(col) ) | (TIFFGetA(col)<<24);
-							}
+							const uint32 col=*(inp++);
+							row[x]=qRgba(TIFFGetR(col), TIFFGetG(col), TIFFGetB(col), TIFFGetA(col));
 						}
 					}
+				}
 #ifdef HAVE_CMS
-					if((TIFFGetField(tif, TIFFTAG_ICCPROFILE, &EmbedLen, &EmbedBuffer)) &&
-									 (Items.at(ItNr)->UseEmbedded))
+				if((TIFFGetField(tif, TIFFTAG_ICCPROFILE, &EmbedLen, &EmbedBuffer)) &&
+							 (Items.at(ItNr)->UseEmbedded))
+				{
+					hIn = cmsOpenProfileFromMem(EmbedBuffer, EmbedLen);
+  					Descriptor = cmsTakeProductDesc(hIn);
+					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigRgbData)
 					{
-						hIn = cmsOpenProfileFromMem(EmbedBuffer, EmbedLen);
-  						Descriptor = cmsTakeProductDesc(hIn);
-						if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigRgbData)
-						{
-							Items.at(ItNr)->IProfile = "Embedded " + QString(Descriptor);
-							Items.at(ItNr)->EmProfile = "Embedded " + QString(Descriptor);
-							inI2 = ProofPict(&img, Items.at(ItNr)->IProfile, Items.at(ItNr)->IRender, hIn);
-						}
-						else
-						{
-							if (!InputProfiles.contains(Items.at(ItNr)->IProfile))
-								Items.at(ItNr)->IProfile = oldPr;
-							Items.at(ItNr)->EmProfile = "";
-							Items.at(ItNr)->UseEmbedded = false;
-							inI2 = ProofPict(&img, Items.at(ItNr)->IProfile, Items.at(ItNr)->IRender);
-						}
-						cmsCloseProfile(hIn);
+						Items.at(ItNr)->IProfile = "Embedded " + QString(Descriptor);
+						Items.at(ItNr)->EmProfile = "Embedded " + QString(Descriptor);
+						inI2 = ProofPict(&img, Items.at(ItNr)->IProfile, Items.at(ItNr)->IRender, hIn);
 					}
 					else
 					{
 						if (!InputProfiles.contains(Items.at(ItNr)->IProfile))
 							Items.at(ItNr)->IProfile = oldPr;
+						Items.at(ItNr)->EmProfile = "";
+						Items.at(ItNr)->UseEmbedded = false;
 						inI2 = ProofPict(&img, Items.at(ItNr)->IProfile, Items.at(ItNr)->IRender);
 					}
-#else
-					inI2 = ProofPict(&img, Items.at(ItNr)->IProfile, Items.at(ItNr)->IRender);
-#endif
-					Items.at(ItNr)->pixm = inI2;
-					Items.at(ItNr)->PicAvail = true;
-					Items.at(ItNr)->PicArt = true;
-					Items.at(ItNr)->BBoxX = 0;
-					if (Items.at(ItNr)->Pfile != fn)
-					{
-						Items.at(ItNr)->LocalScX = 72.0 / xres;
-						Items.at(ItNr)->LocalScY = 72.0 / yres;
-						Items.at(ItNr)->LocalViewX = 72.0 / xres;
-						Items.at(ItNr)->LocalViewY = 72.0 / yres;
-					}
-					else
-					{
-						Items.at(ItNr)->LocalViewX = Items.at(ItNr)->LocalScX;
-						Items.at(ItNr)->LocalViewY = Items.at(ItNr)->LocalScY;
-					}
-					Items.at(ItNr)->Pfile = fi.absFilePath();
-					Items.at(ItNr)->BBoxH = Items.at(ItNr)->pixm.height();
-					Items.at(ItNr)->OrigW = Items.at(ItNr)->pixm.width();
-					Items.at(ItNr)->OrigH = Items.at(ItNr)->pixm.height();
-					Items.at(ItNr)->isRaster = true;
-					Items.at(ItNr)->dpiX = xres;
-					Items.at(ItNr)->dpiY = yres;
+					cmsCloseProfile(hIn);
 				}
-				_TIFFfree(bits);
+				else
+				{
+					if (!InputProfiles.contains(Items.at(ItNr)->IProfile))
+						Items.at(ItNr)->IProfile = oldPr;
+					inI2 = ProofPict(&img, Items.at(ItNr)->IProfile, Items.at(ItNr)->IRender);
+				}
+#else
+				inI2 = ProofPict(&img, Items.at(ItNr)->IProfile, Items.at(ItNr)->IRender);
+#endif
+				Items.at(ItNr)->pixm = inI2;
+				Items.at(ItNr)->PicAvail = true;
+				Items.at(ItNr)->PicArt = true;
+				Items.at(ItNr)->BBoxX = 0;
+				if (Items.at(ItNr)->Pfile != fn)
+				{
+					Items.at(ItNr)->LocalScX = 72.0 / xres;
+					Items.at(ItNr)->LocalScY = 72.0 / yres;
+					Items.at(ItNr)->LocalViewX = 72.0 / xres;
+					Items.at(ItNr)->LocalViewY = 72.0 / yres;
+				}
+				else
+				{
+					Items.at(ItNr)->LocalViewX = Items.at(ItNr)->LocalScX;
+					Items.at(ItNr)->LocalViewY = Items.at(ItNr)->LocalScY;
+				}
+				Items.at(ItNr)->Pfile = fi.absFilePath();
+				Items.at(ItNr)->BBoxH = Items.at(ItNr)->pixm.height();
+				Items.at(ItNr)->OrigW = Items.at(ItNr)->pixm.width();
+				Items.at(ItNr)->OrigH = Items.at(ItNr)->pixm.height();
+				Items.at(ItNr)->isRaster = true;
+				Items.at(ItNr)->dpiX = xres;
+				Items.at(ItNr)->dpiY = yres;
+			}
+			_TIFFfree(bits);
 			}
 			TIFFClose(tif);
 		}

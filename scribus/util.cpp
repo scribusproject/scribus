@@ -338,7 +338,8 @@ QImage LoadPict(QString fn)
 			{
 				if (TIFFReadRGBAImage(tif, width, height, bits, 0))
 				{
-    		    	img.create(width,height,32);
+    		    		img.create(width,height,32);
+				img.setAlphaBuffer(true);
 					if(TIFFGetR(0x1234567)==qRed  (0x1234567) &&
 						 TIFFGetG(0x1234567)==qGreen(0x1234567) &&
 						 TIFFGetB(0x1234567)==qBlue (0x1234567))
@@ -355,7 +356,7 @@ QImage LoadPict(QString fn)
 							for(unsigned x=0; x<width; ++x)
 							{
 								const uint32 col=*(inp++);
-								row[x]=qRgb(TIFFGetR(col), TIFFGetG(col), TIFFGetB(col) ) | (TIFFGetA(col)<<24);
+								row[x]=qRgba(TIFFGetR(col), TIFFGetG(col), TIFFGetB(col), TIFFGetA(col));
 							}
 						}
 					}
@@ -479,6 +480,7 @@ QImage LoadPictCol(QString fn, QString Prof, bool UseEmbedded, bool *realCMYK)
 					if (TIFFReadRGBAImage(tif, width, height, bits, 0))
 					{
     			    	img.create(width,height,32);
+				img.setAlphaBuffer(true);
 						if(TIFFGetR(0x1234567)==qRed  (0x1234567) &&
 							 TIFFGetG(0x1234567)==qGreen(0x1234567) &&
 							 TIFFGetB(0x1234567)==qBlue (0x1234567))
@@ -495,8 +497,7 @@ QImage LoadPictCol(QString fn, QString Prof, bool UseEmbedded, bool *realCMYK)
 								for(unsigned x=0; x<width; ++x)
 								{
 									const uint32 col=*(inp++);
-									row[x]=qRgb(TIFFGetR(col), TIFFGetG(col), TIFFGetB(col) ) |
-												 (TIFFGetA(col)<<24);
+									row[x]=qRgba(TIFFGetR(col), TIFFGetG(col), TIFFGetB(col), TIFFGetA(col));
 								}
 							}
 						}
