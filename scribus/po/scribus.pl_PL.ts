@@ -1010,6 +1010,24 @@ O braku obsługi dla danej biblioteki informuje symbol *</translation>
         <source>New Entry</source>
         <translation>Nowy wpis</translation>
     </message>
+    <message>
+        <source>Rename</source>
+        <translation>Zmień nazwę</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Ostrzeżenie</translation>
+    </message>
+    <message>
+        <source>Name &quot;%1&quot; isn&apos;t unique.
+Please choose another.</source>
+        <translation>Nazwa &quot;%1&quot; już istnieje.
+Proszę wybrać inną.</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
 </context>
 <context>
     <name>BookMView</name>
@@ -1436,11 +1454,11 @@ Wymaga ona bardzo dokładnie dopasowanych profili i służy jedynie jako ostrze�
     </message>
     <message>
         <source>Edit the first color of object</source>
-        <translation>Edytuj pierwszy kolor obiektu</translation>
+        <translation type="obsolete">Edytuj pierwszy kolor obiektu</translation>
     </message>
     <message>
         <source>Edit the second color of object</source>
-        <translation>Edytuj drugi kolor obiektu</translation>
+        <translation type="obsolete">Edytuj drugi kolor obiektu</translation>
     </message>
     <message>
         <source>Set the transparency for the color selected</source>
@@ -1449,6 +1467,46 @@ Wymaga ona bardzo dokładnie dopasowanych profili i służy jedynie jako ostrze�
     <message>
         <source>Color of selected object</source>
         <translation>Kolor wybranego obiektu</translation>
+    </message>
+    <message>
+        <source>Free linear Gradient</source>
+        <translation>Wolny gradient linearny</translation>
+    </message>
+    <message>
+        <source>Free radial Gradient</source>
+        <translation>Wolny gradient promieniowy</translation>
+    </message>
+    <message>
+        <source>X1:</source>
+        <translation>X1:</translation>
+    </message>
+    <message>
+        <source>Y1:</source>
+        <translation>Y1:</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source>X2:</source>
+        <translation>X2:</translation>
+    </message>
+    <message>
+        <source>Y2:</source>
+        <translation>Y2:</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
     </message>
 </context>
 <context>
@@ -2496,6 +2554,21 @@ Nazwa wyeksportowanego pliku będzie następująca: &quot;nazwa_dokumentu-numer_
     </message>
 </context>
 <context>
+    <name>GradientEditor</name>
+    <message>
+        <source>Position:</source>
+        <translation>Pozycja:</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation>%</translation>
+    </message>
+    <message>
+        <source>Here you can add, change or remove Color-Stops.</source>
+        <translation>Tutaj można dodawać, zmieniać i usuwać stopery kolorów.</translation>
+    </message>
+</context>
+<context>
     <name>GuideManager</name>
     <message>
         <source>Manage Guides</source>
@@ -3412,7 +3485,7 @@ rogi:</translation>
     </message>
     <message>
         <source>Line Style:</source>
-        <translation>Styl linii:</translation>
+        <translation type="obsolete">Styl linii:</translation>
     </message>
     <message>
         <source>Line Width:</source>
@@ -3915,6 +3988,10 @@ Proszę wybrać inną.</translation>
     <message>
         <source>Font Size:</source>
         <translation>Rozmiar czcionki:</translation>
+    </message>
+    <message>
+        <source>Type of Line:</source>
+        <translation>Typ linii:</translation>
     </message>
 </context>
 <context>
@@ -6182,7 +6259,7 @@ w okienku podglądu kosztem nieznacznego spowolnienia generowania podglądu</tra
     </message>
     <message>
         <source>Line Style:</source>
-        <translation>Styl linii:</translation>
+        <translation type="obsolete">Styl linii:</translation>
     </message>
     <message>
         <source>Minimum:</source>
@@ -6780,6 +6857,10 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
         <source> px</source>
         <translation>px</translation>
     </message>
+    <message>
+        <source>Type of Line:</source>
+        <translation>Typ linii:</translation>
+    </message>
 </context>
 <context>
     <name>QColorDialog</name>
@@ -7335,6 +7416,10 @@ Sprawdź katalog i nazwę pliku.</translation>
     <message>
         <source>All Files (*)</source>
         <translation>Wszystkie pliki (*)</translation>
+    </message>
+    <message>
+        <source>Fonts Preview</source>
+        <translation>Podgląd czcionek</translation>
     </message>
 </context>
 <context>
@@ -8991,11 +9076,11 @@ przeciągnij szablon na widok strony na dole.</translation>
     </message>
     <message>
         <source>Save and Exit</source>
-        <translation>Zapisz i zakończ</translation>
+        <translation type="obsolete">Zapisz i zakończ</translation>
     </message>
     <message>
         <source>Exit without Saving</source>
-        <translation>Zakończ bez zapisywania</translation>
+        <translation type="obsolete">Zakończ bez zapisywania</translation>
     </message>
     <message>
         <source>Undo</source>
@@ -9112,6 +9197,18 @@ przeciągnij szablon na widok strony na dole.</translation>
     <message>
         <source>Do you want to save your changes?</source>
         <translation>Czy chcesz zachować zmiany?</translation>
+    </message>
+    <message>
+        <source>Save Document</source>
+        <translation>Zapisz dokument</translation>
+    </message>
+    <message>
+        <source>Update Text Frame and Exit</source>
+        <translation>Aktualizuj ramkę tekstową i zakończ</translation>
+    </message>
+    <message>
+        <source>Exit Without Updating Text Frame</source>
+        <translation>Zakończ bez aktualizowania ramki tekstowej</translation>
     </message>
 </context>
 <context>
@@ -9338,6 +9435,10 @@ Proszę wybrać inną.</translation>
     <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+    <message>
+        <source>Group </source>
+        <translation>Grupuj</translation>
     </message>
 </context>
 <context>

@@ -834,10 +834,6 @@ Missing library support is indicated by a *</translation>
       <source>PDF-Documents (*.pdf);;All Files (*)</source>
       <translation>PDF-Documents (*.pdf);;All Files (*)</translation>
     </message>
-    <message>
-      <source></source>
-      <translation type="unfinished" />
-    </message>
   </context>
   <context>
     <name>Annota</name>
@@ -1007,6 +1003,24 @@ Missing library support is indicated by a *</translation>
       <source>New Entry</source>
       <translation>New Entry</translation>
     </message>
+    <message>
+      <source>Rename</source>
+      <translation>Rename</translation>
+    </message>
+    <message>
+      <source>Warning</source>
+      <translation>Warning</translation>
+    </message>
+    <message>
+      <source>Name &quot;%1&quot; isn't unique.
+Please choose another.</source>
+      <translation>Name &quot;%1&quot; isn't unique.
+Please choose another.</translation>
+    </message>
+    <message>
+      <source>OK</source>
+      <translation>OK</translation>
+    </message>
   </context>
   <context>
     <name>BookMView</name>
@@ -1119,10 +1133,6 @@ Missing library support is indicated by a *</translation>
     <message>
       <source>When Icon is too small</source>
       <translation>When Icon is too small</translation>
-    </message>
-    <message>
-      <source></source>
-      <translation type="unfinished" />
     </message>
   </context>
   <context>
@@ -1337,10 +1347,6 @@ This requires very accurate profiles and serves only as a warning.</translation>
       <translation>Name of the colour is not unique</translation>
     </message>
     <message>
-      <source></source>
-      <translation type="unfinished" />
-    </message>
-    <message>
       <source>HSV-Colormap</source>
       <translation>HSV-Colormap</translation>
     </message>
@@ -1404,20 +1410,52 @@ This requires very accurate profiles and serves only as a warning.</translation>
       <translation>Normal or gradient fill method</translation>
     </message>
     <message>
-      <source>Edit the first color of object</source>
-      <translation>Edit the first colour of object</translation>
-    </message>
-    <message>
-      <source>Edit the second color of object</source>
-      <translation>Edit the second colour of object</translation>
-    </message>
-    <message>
       <source>Set the transparency for the color selected</source>
       <translation>Set the transparency for the colour selected</translation>
     </message>
     <message>
       <source>Color of selected object</source>
       <translation>Colour of selected object</translation>
+    </message>
+    <message>
+      <source>Free linear Gradient</source>
+      <translation>Free linear Gradient</translation>
+    </message>
+    <message>
+      <source>Free radial Gradient</source>
+      <translation>Free radial Gradient</translation>
+    </message>
+    <message>
+      <source>X1:</source>
+      <translation>X1:</translation>
+    </message>
+    <message>
+      <source>Y1:</source>
+      <translation>Y1:</translation>
+    </message>
+    <message>
+      <source> pt</source>
+      <translation> pt</translation>
+    </message>
+    <message>
+      <source>X2:</source>
+      <translation>X2:</translation>
+    </message>
+    <message>
+      <source>Y2:</source>
+      <translation>Y2:</translation>
+    </message>
+    <message>
+      <source> mm</source>
+      <translation> mm</translation>
+    </message>
+    <message>
+      <source> in</source>
+      <translation> in</translation>
+    </message>
+    <message>
+      <source> p</source>
+      <translation> p</translation>
     </message>
   </context>
   <context>
@@ -1766,9 +1804,20 @@ This can be set in the Preferences.</translation>
       <source>Print</source>
       <translation>Print</translation>
     </message>
+  </context>
+  <context>
+    <name>EPSPlug</name>
     <message>
-      <source></source>
-      <translation type="unfinished" />
+      <source>Importing File:
+%1
+failed!</source>
+      <translation>Importing File:
+%1
+failed!</translation>
+    </message>
+    <message>
+      <source>Fatal Error</source>
+      <translation>Fatal Error</translation>
     </message>
   </context>
   <context>
@@ -2005,7 +2054,7 @@ This can be set in the Preferences.</translation>
     </message>
     <message>
       <source>Alt+C</source>
-      <translation type="unfinished" />
+      <translation>Alt+C</translation>
     </message>
     <message>
       <source>Image type:</source>
@@ -2348,6 +2397,48 @@ Name of the export file will be 'documentname-pagenumber.filetype'</translation>
     </message>
   </context>
   <context>
+    <name>FontPreview</name>
+    <message>
+      <source>Font Preview</source>
+      <translation>Font Preview</translation>
+    </message>
+    <message>
+      <source>&amp;OK</source>
+      <translation>&amp;OK</translation>
+    </message>
+    <message>
+      <source>Alt+O</source>
+      <translation>Alt+O</translation>
+    </message>
+    <message>
+      <source>&amp;Cancel</source>
+      <translation>&amp;Cancel</translation>
+    </message>
+    <message>
+      <source>Alt+C</source>
+      <translation>Alt+C</translation>
+    </message>
+    <message>
+      <source>Woven silk pyjamas exchanged for blue quartz</source>
+      <translation>Woven silk pyjamas exchanged for blue quartz</translation>
+    </message>
+  </context>
+  <context>
+    <name>GradientEditor</name>
+    <message>
+      <source>Position:</source>
+      <translation>Position:</translation>
+    </message>
+    <message>
+      <source> %</source>
+      <translation> %</translation>
+    </message>
+    <message>
+      <source>Here you can add, change or remove Color-Stops.</source>
+      <translation>Here you can add, change or remove Colour-Stops.</translation>
+    </message>
+  </context>
+  <context>
     <name>GuideManager</name>
     <message>
       <source>Manage Guides</source>
@@ -2411,10 +2502,6 @@ Name of the export file will be 'documentname-pagenumber.filetype'</translation>
     <message>
       <source>Sorry, no manual available! Please see: http://scribus.net for updated docs and downloads.</source>
       <translation>Sorry, no manual available! Please see: http://www.scribus.net for updated documents and downloads.</translation>
-    </message>
-    <message>
-      <source></source>
-      <translation type="unfinished" />
     </message>
   </context>
   <context>
@@ -2532,6 +2619,29 @@ A value of 0 means unlimited hyphenations.</translation>
     <message>
       <source>Template (Right Page):</source>
       <translation>Template (Right Page):</translation>
+    </message>
+    <message>
+      <source>OK</source>
+      <translation>OK</translation>
+    </message>
+    <message>
+      <source>Cancel</source>
+      <translation>Cancel</translation>
+    </message>
+  </context>
+  <context>
+    <name>InsertTable</name>
+    <message>
+      <source>Insert Table</source>
+      <translation>Insert Table</translation>
+    </message>
+    <message>
+      <source>Number of Rows:</source>
+      <translation>Number of Rows:</translation>
+    </message>
+    <message>
+      <source>Number of Columns:</source>
+      <translation>Number of Columns:</translation>
     </message>
     <message>
       <source>OK</source>
@@ -2694,10 +2804,6 @@ A value of 0 means unlimited hyphenations.</translation>
       <source>Do you want to delete all Objects on this Layer too?</source>
       <translation>Do you want to delete all Objects on this Layer too?</translation>
     </message>
-    <message>
-      <source></source>
-      <translation type="unfinished" />
-    </message>
   </context>
   <context>
     <name>LineFormate</name>
@@ -2834,6 +2940,61 @@ A value of 0 means unlimited hyphenations.</translation>
     <message>
       <source>Cancel</source>
       <translation>Cancel</translation>
+    </message>
+  </context>
+  <context>
+    <name>Measurements</name>
+    <message>
+      <source>Distances</source>
+      <translation>Distances</translation>
+    </message>
+    <message>
+      <source>X1:</source>
+      <translation>X1:</translation>
+    </message>
+    <message>
+      <source>Y1:</source>
+      <translation>Y1:</translation>
+    </message>
+    <message>
+      <source>X2:</source>
+      <translation>X2:</translation>
+    </message>
+    <message>
+      <source>Y2:</source>
+      <translation>Y2:</translation>
+    </message>
+    <message>
+      <source>DX:</source>
+      <translation>DX:</translation>
+    </message>
+    <message>
+      <source>DY:</source>
+      <translation>DY:</translation>
+    </message>
+    <message>
+      <source>Angle:</source>
+      <translation>Angle:</translation>
+    </message>
+    <message>
+      <source>Length:</source>
+      <translation>Length:</translation>
+    </message>
+    <message>
+      <source> pt</source>
+      <translation> pt</translation>
+    </message>
+    <message>
+      <source> mm</source>
+      <translation> mm</translation>
+    </message>
+    <message>
+      <source> in</source>
+      <translation> in</translation>
+    </message>
+    <message>
+      <source> p</source>
+      <translation> p</translation>
     </message>
   </context>
   <context>
@@ -3148,10 +3309,6 @@ Corners:</translation>
     <message>
       <source>End Points</source>
       <translation>End Points</translation>
-    </message>
-    <message>
-      <source>Line Style:</source>
-      <translation>Line Style:</translation>
     </message>
     <message>
       <source>Line Width:</source>
@@ -3516,10 +3673,6 @@ Please choose another.</translation>
       <translation>Rendering intent for the image</translation>
     </message>
     <message>
-      <source></source>
-      <translation type="unfinished" />
-    </message>
-    <message>
       <source>Path Text Properties</source>
       <translation>Path Text Properties</translation>
     </message>
@@ -3546,6 +3699,10 @@ Please choose another.</translation>
     <message>
       <source>Font Size:</source>
       <translation>Font Size:</translation>
+    </message>
+    <message>
+      <source>Type of Line:</source>
+      <translation>Type of Line:</translation>
     </message>
   </context>
   <context>
@@ -4041,10 +4198,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
 otherwise Coordinates are relative to the Object.</source>
       <translation>When checked use Coordinates relative to the Page,
 otherwise Coordinates are relative to the Object.</translation>
-    </message>
-    <message>
-      <source></source>
-      <translation type="unfinished" />
     </message>
   </context>
   <context>
@@ -5088,6 +5241,10 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
       <source>Level</source>
       <translation>Level</translation>
     </message>
+    <message>
+      <source>PDF-Options</source>
+      <translation>PDF-Options</translation>
+    </message>
   </context>
   <context>
     <name>PageItem</name>
@@ -5525,10 +5682,6 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     <message>
       <source>None</source>
       <translation>None</translation>
-    </message>
-    <message>
-      <source>Line Style:</source>
-      <translation>Line Style:</translation>
     </message>
     <message>
       <source>Minimum:</source>
@@ -6079,10 +6232,6 @@ each time the time period elapses</translation>
       <translation> px</translation>
     </message>
     <message>
-      <source></source>
-      <translation type="unfinished" />
-    </message>
-    <message>
       <source>Baseline Grid</source>
       <translation>Baseline Grid</translation>
     </message>
@@ -6101,6 +6250,10 @@ each time the time period elapses</translation>
     <message>
       <source>Turns off the basegrid</source>
       <translation>Turns off the basegrid</translation>
+    </message>
+    <message>
+      <source>Type of Line:</source>
+      <translation>Type of Line:</translation>
     </message>
   </context>
   <context>
@@ -6605,6 +6758,22 @@ Check path and filename.</translation>
     <message>
       <source>Yes all</source>
       <translation>Yes all</translation>
+    </message>
+    <message>
+      <source>Fonts Preview</source>
+      <translation>Fonts Preview</translation>
+    </message>
+    <message>
+      <source>Import EPS/PS...</source>
+      <translation>Import EPS/PS...</translation>
+    </message>
+    <message>
+      <source>All Supported Formats (*.eps *.EPS *.ps *.PS);;</source>
+      <translation>All Supported Formats (*.eps *.EPS *.ps *.PS);;</translation>
+    </message>
+    <message>
+      <source>All Files (*)</source>
+      <translation>All Files (*)</translation>
     </message>
   </context>
   <context>
@@ -7706,10 +7875,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
       <translation>Unlock all</translation>
     </message>
     <message>
-      <source></source>
-      <translation type="unfinished" />
-    </message>
-    <message>
       <source> pt</source>
       <translation> pt</translation>
     </message>
@@ -8161,14 +8326,6 @@ drag a Template to the Pageview below.</translation>
       <translation>Load from File...</translation>
     </message>
     <message>
-      <source>Save and Exit</source>
-      <translation>Save and Exit</translation>
-    </message>
-    <message>
-      <source>Exit without Saving</source>
-      <translation>Exit without Saving</translation>
-    </message>
-    <message>
       <source>Undo</source>
       <translation>Undo</translation>
     </message>
@@ -8271,6 +8428,18 @@ drag a Template to the Pageview below.</translation>
     <message>
       <source>Do you want to save your changes?</source>
       <translation>Do you want to save your changes?</translation>
+    </message>
+    <message>
+      <source>Save Document</source>
+      <translation>Save Document</translation>
+    </message>
+    <message>
+      <source>Update Text Frame and Exit</source>
+      <translation>Update Text Frame and Exit</translation>
+    </message>
+    <message>
+      <source>Exit Without Updating Text Frame</source>
+      <translation>Exit Without Updating Text Frame</translation>
     </message>
   </context>
   <context>
@@ -8453,6 +8622,10 @@ Please choose another.</translation>
     <message>
       <source>OK</source>
       <translation>OK</translation>
+    </message>
+    <message>
+      <source>Group </source>
+      <translation>Group </translation>
     </message>
   </context>
   <context>
