@@ -2893,7 +2893,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
       <source>Hyphenate Text Automatically &amp;During Typing</source>
-      <translation type="unfinished" />
+      <translation>Bruk ordeling automatisk mens du skriver</translation>
     </message>
     <message>
       <source>Consecutive Hyphenations &amp;Allowed:</source>
@@ -2905,7 +2905,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
       <source>Enables automatic hyphenation of your text while typing.</source>
-      <translation type="unfinished" />
+      <translation>Skrur på automatisk orddeling mens du skriver.</translation>
     </message>
   </context>
   <context>
@@ -4536,7 +4536,7 @@ ellers er Koordinater relative til Objektet.</translation>
     </message>
     <message>
       <source>Edit &amp;Contour Line</source>
-      <translation>Editer &amp;konturlinjer</translation>
+      <translation>Rediger &amp;konturlinjer</translation>
     </message>
     <message>
       <source>&amp;Reset Contour Line</source>
@@ -4544,7 +4544,7 @@ ellers er Koordinater relative til Objektet.</translation>
     </message>
     <message>
       <source>&amp;End Editing</source>
-      <translation>Slutt &amp;editering</translation>
+      <translation>Avslutt r&amp;edigeringen</translation>
     </message>
     <message>
       <source>Move Control Points Independently</source>
@@ -5114,7 +5114,7 @@ følge PDF/X3-conformance. Vi foreslår at du bruker dokumentets tittel.</transl
     </message>
     <message>
       <source>&amp;Binding:</source>
-      <translation type="unfinished" />
+      <translation>Inn&amp;binding:</translation>
     </message>
     <message>
       <source>Generate &amp;Thumbnails</source>
@@ -5174,7 +5174,7 @@ følge PDF/X3-conformance. Vi foreslår at du bruker dokumentets tittel.</transl
     </message>
     <message>
       <source>&amp;Moving Lines:</source>
-      <translation type="unfinished" />
+      <translation>Beve&amp;gelige linjer:</translation>
     </message>
     <message>
       <source>F&amp;rom the:</source>
@@ -5242,7 +5242,7 @@ følge PDF/X3-conformance. Vi foreslår at du bruker dokumentets tittel.</transl
     </message>
     <message>
       <source>S&amp;pot Function:</source>
-      <translation type="unfinished" />
+      <translation>S&amp;pot funksjon:</translation>
     </message>
     <message>
       <source>Simple Dot</source>
@@ -5883,16 +5883,17 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     </message>
     <message>
       <source>Apply &amp;Factor</source>
-      <translation type="unfinished" />
+      <translation>Bruk &amp;faktor</translation>
     </message>
     <message>
       <source>Apply Convex/Concave Factor to change shape of Polygons</source>
-      <translation type="unfinished" />
+      <translation>Bruk konvenks/konkav faktor for å fornandre formen på polygoner</translation>
     </message>
     <message>
       <source>A negative value will make the polygon concave (or star shaped),
  a positive value will make it convex</source>
-      <translation type="unfinished" />
+      <translation>En negativ verdi vil gjøre polygonet konkavt (stjerneformet), mens en 
+positiv verdi vil gjøre det konveks</translation>
     </message>
   </context>
   <context>
@@ -6667,7 +6668,7 @@ gang tidsperioden utløper</translation>
     </message>
     <message>
       <source>&amp;Stepping:</source>
-      <translation type="unfinished" />
+      <translation>&amp;Skritt:</translation>
     </message>
     <message>
       <source>&amp;Free Scaling</source>
@@ -6795,20 +6796,21 @@ gang tidsperioden utløper</translation>
     </message>
     <message>
       <source>Apply &amp;Factor</source>
-      <translation type="unfinished" />
+      <translation>Bruk &amp;faktor</translation>
     </message>
     <message>
       <source>Additional Directory for Document Templates</source>
-      <translation type="unfinished" />
+      <translation>Flere kataloger for dokumentmaler</translation>
     </message>
     <message>
       <source>Apply Convex/Concave Factor to change shape of Polygons</source>
-      <translation type="unfinished" />
+      <translation>Bruk konveks/konkav faktoren for å endre formen på polygonet</translation>
     </message>
     <message>
       <source>A negative value will make the polygon concave (or star shaped),
  a positive value will make it convex</source>
-      <translation type="unfinished" />
+      <translation>En negativ verdi vil gjøre polygonet konkavt (stjerneformet), mens en 
+positiv verdi vil gjøre det konveks</translation>
     </message>
     <message>
       <source>A way of switching off some of the gray shades which are composed
@@ -7517,7 +7519,7 @@ Sjekk sti og filnavn.</translation>
     </message>
     <message>
       <source>Font %1 is broken, discarding it</source>
-      <translation type="unfinished" />
+      <translation>Skrifttype %1 er ødelagt</translation>
     </message>
     <message>
       <source>Template: </source>
@@ -7529,7 +7531,7 @@ Sjekk sti og filnavn.</translation>
     </message>
     <message>
       <source>Comma Separated Value Files</source>
-      <translation type="unfinished" />
+      <translation>Komma separert fil</translation>
     </message>
     <message>
       <source>CSV_data</source>
@@ -7548,7 +7550,7 @@ Eksterne lenker</translation>
     </message>
     <message>
       <source>OO.o Writer Documents</source>
-      <translation>OO.o Writer dokumenter</translation>
+      <translation>OpenOffice Writer dokumenter</translation>
     </message>
     <message>
       <source>Text Filters</source>
@@ -9300,11 +9302,11 @@ Hvis Motstående Sider er markert kan denne brukes til å få til den korrekte m
     </message>
     <message>
       <source>&amp;Leave Anyway</source>
-      <translation>&amp;Avslutt allikevel</translation>
+      <translation>&amp;Avslutt uten å lagre</translation>
     </message>
     <message>
       <source>C&amp;lose Anyway</source>
-      <translation>&amp;Lukk allikevel</translation>
+      <translation>&amp;Lukk uten å lagre</translation>
     </message>
     <message>
       <source>&amp;Save Now</source>
@@ -9700,7 +9702,7 @@ til vinduet nedenunder, for å lage en ny side.</translation>
     </message>
     <message>
       <source>&amp;Load from File...</source>
-      <translation>&amp;Hent fra fil ...</translation>
+      <translation>&amp;Hent fil ...</translation>
     </message>
     <message>
       <source>Save &amp;Document</source>
@@ -9708,7 +9710,7 @@ til vinduet nedenunder, for å lage en ny side.</translation>
     </message>
     <message>
       <source>&amp;Update Text Frame and Exit</source>
-      <translation>&amp;Oppdater tekstramme og avslutt</translation>
+      <translation>&amp;Oppdater tekstrammen og avslutt</translation>
     </message>
     <message>
       <source>&amp;Exit Without Updating Text Frame</source>
@@ -9823,22 +9825,22 @@ til vinduet nedenunder, for å lage en ny side.</translation>
     </message>
     <message>
       <source>Outline Text</source>
-      <translation>Tekstoversikt</translation>
+      <translation>Fremhev tekst</translation>
     </message>
   </context>
   <context>
     <name>SxwDialog</name>
     <message>
       <source>OO.o Writer Importer Options</source>
-      <translation>Innstillinger for import fra OO.o Writer</translation>
+      <translation>Innstillinger for import fra OpenOffice Writer</translation>
     </message>
     <message>
       <source>Update paragraph styles</source>
-      <translation type="unfinished" />
+      <translation>Oppdater stilen på avsnittet</translation>
     </message>
     <message>
       <source>Use document name as a prefix for paragraph styles</source>
-      <translation type="unfinished" />
+      <translation>Bruk filnavnet som begynnelse på navnet på stilen til avsnittet</translation>
     </message>
     <message>
       <source>Should importer add the name of the document
