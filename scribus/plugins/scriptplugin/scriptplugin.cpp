@@ -1118,39 +1118,34 @@ void initscribus(ScribusApp *pl)
 	// the others, because we can just create a Unicode object and insert it in our
 	// module dictionary.
 	QString docstring = QObject::tr("Scribus Python interface module\n\
-		\n\
-		This module is the Python interface for Scribus. It provides functions\n\
-		to control scribus and to manipulate objects on the canvas. Each\n\
-		function is documented individually below.\n\
-		\n\
-		A few things are common across most of the interface.\n\
-		\n\
-		Most functions operate on frames. Frames are identified by their name,\n\
-		a string - they are not real Python objects. Many functions take an\n\
-		optional (non-keyword) parameter, a frame name.\n\
-		Many exceptions are also common across most functions. These are\n\
-		not currently documented in the docstring for each function.\n\
-		\n\
-		    - Many functions will raise a NoDocOpenError if you try to use them\n\
-		      without a document to operate on.\n\
-		\n\
-		    - If you do not pass a frame name to a function that requires one,\n\
-		      the function will use the currently selected frame, if any, or\n\
-		      raise a NoValidObjectError if it can't find anything to operate\n\
-		      on.\n\
-		\n\
-		    - Many functions will raise WrongFrameTypeError if you try to use them\n\
-		      on a frame type that they do not make sense with. For example, setting\n\
-		      the text colour on a graphics frame doesn't make sense, and will result\n\
-		      in this exception being raised.\n\
-		\n\
-		    - Errors resulting from calls to the underlying Python API will be\n\
-		      passed through unaltered. As such, the list of exceptions thrown by\n\
-		      any function as provided here and in its docstring is incomplete.\n\
-		\n\
-		Details of what exceptions each function may throw are provided on the\n\
-		function's documentation.\n\
-		");
+\n\
+This module is the Python interface for Scribus. It provides functions\n\
+to control scribus and to manipulate objects on the canvas. Each\n\
+function is documented individually below.\n\
+\n\
+A few things are common across most of the interface.\n\
+\n\
+Most functions operate on frames. Frames are identified by their name,\n\
+a string - they are not real Python objects. Many functions take an\n\
+optional (non-keyword) parameter, a frame name.\n\
+Many exceptions are also common across most functions. These are\n\
+not currently documented in the docstring for each function.\n\
+- Many functions will raise a NoDocOpenError if you try to use them\
+without a document to operate on.\n\
+- If you do not pass a frame name to a function that requires one,\
+the function will use the currently selected frame, if any, or\
+raise a NoValidObjectError if it can't find anything to operate\
+on.\n\
+- Many functions will raise WrongFrameTypeError if you try to use them\n\
+on a frame type that they do not make sense with. For example, setting\n\
+the text colour on a graphics frame doesn't make sense, and will result\n\
+in this exception being raised.\n\
+- Errors resulting from calls to the underlying Python API will be\n\
+passed through unaltered. As such, the list of exceptions thrown by\n\
+any function as provided here and in its docstring is incomplete.\n\
+\n\
+Details of what exceptions each function may throw are provided on the\n\
+function's documentation.");
 
 	// Py_UNICODE is a typedef for unsigned short
 	PyObject* uniDocStr = Py_BuildValue(const_cast<char*>("u"), (Py_UNICODE*)(docstring.ucs2()));
