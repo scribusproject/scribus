@@ -501,8 +501,12 @@ void Farbmanager::updateCList()
 	QPixmap pm = QPixmap(30, 15);
 	for (it = EditColors.begin(); it != EditColors.end(); ++it)
 	{
-		pm.fill(EditColors[it.key()].getRGBColor());
-		ListBox1->insertItem(pm, it.key());
+		// if condition 10/21/2004 pv #1191
+		if (it.key() != "None" && it.key() != tr("None"))
+		{
+			pm.fill(EditColors[it.key()].getRGBColor());
+			ListBox1->insertItem(pm, it.key());
+		}
 	}
 	DelF->setEnabled(EditColors.count() == 1 ? false : true);
 	if (ListBox1->currentItem() == -1)
