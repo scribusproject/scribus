@@ -671,7 +671,19 @@ void StoryEditor::styleChange(int st)
 int StoryEditor::getStyle(int where)
 {
 	QComboBox *cp = stList.at(where);
-	return cp->currentItem();
+	int st = cp->currentItem();
+	if (st > 4)
+	{
+		for (uint x = 5; x < doc->Vorlagen.count(); ++x)
+		{
+			if (doc->Vorlagen[x].Vname == cp->text(st))
+			{
+				st = x;
+				break;
+			}
+		}
+	}
+	return st;
 }
 
 void StoryEditor::addPar(int where, QString text, int sty)

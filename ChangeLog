@@ -1,3 +1,139 @@
+Changes since Version 1.1.4
+13.02.2004	Fixed Crash when editing Linestyles.
+		Found last missing Strings for Translations.
+
+12.02.2004	Updated the Finnish and the German Translation.
+
+11.02.2004	Updated the Ukrainian Translation.
+
+10.02.2004	Updated the CzechTranslation.
+		Added a CMYK Preview to the Print Preview.
+
+09.02.2004	Updated Danish Translation.
+		Fixed Transparency Issues with Tiff Images.
+
+08.02.2004	Fixed Problems with Images having an Alpha Channel.
+		Added an Option to remove unused Colors.
+
+05.02.2004	Added two new Color Sets, a Greyscale one, and a Gnome Colors Set.
+		Added a new Splash Screen and Icons.
+ 
+02.02.2004	Added Irish Hyphenation Patterns.
+		Updated the Polish Translation.
+		Groups can now freely scaled with the Mouse.
+		Pressing the Control-Key while scaling Objects and Groups
+		keeps now the Aspect Ratio.
+		Selecting Objects below others works now with Shift+Control Click.
+
+01.02.2004	The Rulers are now following the Magnification.
+		Added a Scribus.pro file for use with lupdate for creating Translations.
+
+31.01.2004	Added a new Guide Manager from Allessandro Rimoldini.
+		More speedups for the Scripter.
+
+30.01.2004	Fixed Problems with accented Filenames.
+		Fixed some more translation Problems.
+
+29.01.2004	Added a Progress Bar for the PDF-Export too.
+
+28.01.2004	Line Styles and Paragraph Styles are now listed in alphapetical Order.
+		The Style Menue is now disabled instead of being empty when no Object is selected.
+
+26.01.2004	Added a Finnish Hyphenation.
+
+25.01.2004	Added Font Effects and Colors to the Paragraph Styles.
+		Applied Craig's patches for better Precision.
+
+24.01.2004	Since there is a bad Bug in the Font embedding Functions all
+		TrueType Fonts are now subsetted.
+
+22.01.2004	Updated Python Scripts from Henning Schröder.
+
+21.01.2004	Added the possiblity to search and replace Font Effects.
+
+20.01.2004	First Version of the "Search/Replace" Dialog working.
+
+17.01.2004	Added "Save to File" and "Load from File" Commands to the Story Editor.
+		The Clipboard no longer discards Textattributes.
+		Its no longer possible to attach linked Textframes to a Path.
+		Added new Command "Detach Text from Path".
+
+15.01.2004	Updated the Russian Translation.
+		The Page Selector on the Bottom of the Window is now a Spinbox.
+
+14.01.2004	Removed Hardcoded Paths from the Source.
+
+13.01.2004	Fixed Cursor Placement Issues.
+
+12.01.2004	Fixed Bug with Sub/Superscript.
+		Fixed Crash when copying Pages.
+
+11.01.2004	Added Drop Caps to the Paragraph Styles.
+		Applied Ted Powells Layers Patch.
+
+10.01.2004	Added Named Color Sets.
+
+09.01.2004	Fixed a problem when deleting a Layer.
+		Fixed memory leak in the Postscript Export.
+
+08.01.2004	Replaced the Color Submenue in the Style Menue with a ComboBox.
+
+07.01.2004	Added the missing centered Tabulator.
+		Added the Colors of the XFree RGB Color Database as alternative Default Colors.
+		Added a Button to restore the Default Colors to the Color Editor.
+
+06.01.2004	The Tab-Key switches now between Docs when not in Edit-Mode.
+		Improved the MSpinBox API.
+
+05.01.2004	Fixed Bug with multicolumn Textframes.
+		Started Code Documentation.
+
+04.01.2004	Added a Freehand Drawing Tool.
+		Enabled Rotation of Groups with the Mouse.
+
+03.01.2004	Fixed Cursor placement Issues with Tabulators.
+		Fixed Text editing Issues with linked Textframes.
+
+01.01.2004	Added Right, Full Stop and Comma Tabulators.
+		Default Tabs are now every 36 pts == 1.27 mm == 0.5 in.
+		Added a Dialog to manage the Tabulator Settings.
+		Textstyles have now also a Tabulator Property.
+
+31.12.2003	Fixed Rounding Errors in the Properties Palette.
+		Added Settings for Number of Columns and the ColumnGap to the Preferences.
+		First Support for Tabs, currently there is a Tab set every 100 pts in a Textframe.
+
+29.12.2003	Fixed Crash when closing Docs.
+
+28.12.2003	Text flows now around both Sides of Objects.
+		You can use now Units like pt or mm in Floating Point Spinboxes where applicable.
+		Added some new Commands to the Scripter:
+			- MessageBox
+			- StatusMessage
+			- GetColums
+			- GetColumnGap
+			- SetColums
+			- SetColumnGap
+
+27.12.2003	All Floating Point Spinboxes can now evaluate Expressions like
+		(1 + 3) * 5, there is now a full calculator available. (Code borrowed from QCad)
+
+26.12.2003	Fixed Issues with rotated Text when converting to Outlines.
+		Fixed Issues with rotated Object when joining Polygons.
+		Fixed column width not being equal for all columns on Textframes.
+
+25.12.2003	Added a Gap Setting for multi-column Textframes.
+
+23.12.2003	Textframes can have now more than 1 Column.
+		Added an Clear Contents Entry to the Context Menu.
+
+22.12.2003	Improved the Geometry Settings in the Properties Palette for Groups.
+
+21.12.2003	Added a right Click Context Menu for Pages too.
+		Improved the Node Palette.
+		You can set now the Base Point for Object resizing and moving
+		in the Properties Palette the same way as for the Rotation.
+
 Changes since Version 1.1.3
 18.12.2003	Groups can now rotated with the Properties Palette.
 

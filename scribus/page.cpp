@@ -6014,7 +6014,7 @@ void Page::chAbStyle(PageItem *b, int s)
 					nb->Ptext.at(a)->cshade2 = nb->ShTxtStroke;
 					nb->Ptext.at(a)->csize = nb->ISize;
 					nb->Ptext.at(a)->cstyle &= ~127;
-					nb->Ptext.at(a)->cstyle |= doku->CurrentStyle;
+					nb->Ptext.at(a)->cstyle |= nb->TxTStyle;
 					}
 				a--;
 				}
@@ -6054,7 +6054,7 @@ void Page::chAbStyle(PageItem *b, int s)
 					nb->Ptext.at(a)->cshade2 = nb->ShTxtStroke;
 					nb->Ptext.at(a)->csize = nb->ISize;
 					nb->Ptext.at(a)->cstyle &= ~127;
-					nb->Ptext.at(a)->cstyle |= doku->CurrentStyle;
+					nb->Ptext.at(a)->cstyle |= nb->TxTStyle;
 					}
 				if (nb->Ptext.at(a)->ch == QChar(13))
 					{
@@ -6097,7 +6097,7 @@ void Page::chAbStyle(PageItem *b, int s)
 					b->Ptext.at(a)->cshade2 = b->ShTxtStroke;
 					b->Ptext.at(a)->csize = b->ISize;
 					b->Ptext.at(a)->cstyle &= ~127;
-					b->Ptext.at(a)->cstyle |= doku->CurrentStyle;
+					b->Ptext.at(a)->cstyle |= b->TxTStyle;
 					}
 				}
 			}

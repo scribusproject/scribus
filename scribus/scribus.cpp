@@ -4728,12 +4728,17 @@ void ScribusApp::slotEditStyles()
 	bool ff;
 	uint nr;
 	ers.clear();
+	ers.append(0);
+	ers.append(1);
+	ers.append(2);
+	ers.append(3);
+	ers.append(4);
 	if (HaveDoc)
 		{
 		StilFormate *dia = new StilFormate(this, doc, &Prefs);
 		if (dia->exec())
 			{
-			for (uint a=0; a<doc->Vorlagen.count(); ++a)
+			for (uint a=5; a<doc->Vorlagen.count(); ++a)
 				{
 				ff = false;
 				nn = doc->Vorlagen[a].Vname;
@@ -4782,7 +4787,7 @@ void ScribusApp::slotEditStyles()
 								ite->Ptext.at(e)->cshade2 = ite->ShTxtStroke;
 								ite->Ptext.at(e)->csize = ite->ISize;
 								ite->Ptext.at(e)->cstyle &= ~127;
-								ite->Ptext.at(e)->cstyle |= doc->CurrentStyle;
+								ite->Ptext.at(e)->cstyle |= ite->TxTStyle;
 								}
 							}
 						}
@@ -4818,7 +4823,7 @@ void ScribusApp::slotEditStyles()
 								ite->Ptext.at(e)->cshade2 = ite->ShTxtStroke;
 								ite->Ptext.at(e)->csize = ite->ISize;
 								ite->Ptext.at(e)->cstyle &= ~127;
-								ite->Ptext.at(e)->cstyle |= doc->CurrentStyle;
+								ite->Ptext.at(e)->cstyle |= ite->TxTStyle;
 								}
 							}
 						}

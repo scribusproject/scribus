@@ -99,6 +99,7 @@ About::About( QWidget* parent )
                         "<tr><td><b>" + tr("Documentation:").utf8()  + "</b></td><td></td></tr>" +
                         "<tr><td>Peter Linnell</td><td>scribusdocs@atlantictechsolutions.com</td></tr>" +
                         "<tr><td>Yves Ceccone</td><td>yves@yeccoe.org</td></tr>" +
+                        "<tr><td>Holger Reibold</td><td>http://www.bomots.de/scribus/</td></tr>" +
                         "<tr><td>Thomas Zastrow</td><td>webmaster@thomas-zastrow.de</td></tr></table>"));
 	TextView1->setTextFormat( QTextView::RichText );
 	tabLayout->addWidget( TextView1 );
