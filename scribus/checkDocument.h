@@ -29,6 +29,7 @@ public:
 	QPushButton* okButton;
 	QPushButton* newCheck;
 	QMap<QListViewItem*, int> itemMap;
+	QMap<QListViewItem*, int> pageMap;
 
 public slots:
 	void slotSelect(QListViewItem* ite);
@@ -38,6 +39,7 @@ signals:
 	void rescan();
 	void closePal();
 	void selectElement(int, int);
+	void selectPage(int);
 
 protected:
 	QVBoxLayout* checkDocumentLayout;

@@ -152,7 +152,15 @@ void CheckDocument::slotSelect(QListViewItem* ite)
 	if (document->TemplateMode)
 		return;
 	if (itemMap.contains(ite))
-		emit selectElement(-1, itemMap[ite]);
+	{
+		emit selectElement(document->Items.at(itemMap[ite])->OwnPage, itemMap[ite]);
+		return;
+	}
+	if (pageMap.contains(ite))
+	{
+		emit selectPage(pageMap[ite]);
+		return;
+	}
 }
 
 void CheckDocument::newScan()
@@ -166,6 +174,7 @@ void CheckDocument::clearErrorList()
 	disconnect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
 	reportDisplay->clear();
 	itemMap.clear();
+	pageMap.clear();
 	newCheck->setEnabled(false);
 }
 
@@ -176,11 +185,12 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 	QString textOverflow = tr("Text overflow");
 	QString notOnPage = tr("Object is not on a Page");
 	QString missingImg = tr("Missing Image");
-	QString lowDPI = tr("Image has a DPI-Value less than 72 DPI");
+	QString lowDPI = tr("Image has a DPI-Value less than %1 DPI").arg(qRound(doc->checkerSettings.minResolution));
 	QString transpar = tr("Object has transparency");
 	reportDisplay->clear();
 	reportDisplay->setSorting(-1);
 	itemMap.clear();
+	pageMap.clear();
 	QListViewItem * item = new QListViewItem( reportDisplay, 0 );
 	item->setText( 0, tr( "Document" ) );
 	if ((doc->docItemErrors.count() == 0) && (doc->masterItemErrors.count() == 0))
@@ -310,6 +320,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 			hasError = false;
 			bool pageGraveError = false;
 			QListViewItem * page = new QListViewItem( item, pagep );
+			pageMap.insert(page, a);
 			pagep = page;
 			QMap<int, errorCodes>::Iterator it2;
 			for (it2 = doc->docItemErrors.begin(); it2 != doc->docItemErrors.end(); ++it2)

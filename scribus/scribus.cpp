@@ -767,6 +767,7 @@ void ScribusApp::initPalettes()
 	connect(docChecker, SIGNAL(closePal()), this, SLOT(ToggleCheckPal()));
 	connect(docChecker, SIGNAL(rescan()), this, SLOT(slotCheckDoc()));
 	connect(docChecker, SIGNAL(selectElement(int, int)), this, SLOT(SelectFromOutl(int, int)));
+	connect(docChecker, SIGNAL(selectPage(int)), this, SLOT(SelectFromOutlS(int)));
 	connect(Tpal, SIGNAL(Schliessen()), this, SLOT(ToggleTpal()));
 	connect(Tpal, SIGNAL(CloseMpal()), this, SLOT(ToggleMpal()));
 	connect(Tpal, SIGNAL(CloseSpal()), this, SLOT(ToggleBpal()));
@@ -7225,7 +7226,7 @@ void ScribusApp::SelectFromOutl(int Page, int Item)
 	NoFrameEdit();
 	setActiveWindow();
 	view->Deselect(true);
-	if (Page != -1)
+	if ((Page != -1) && (Page != doc->currentPage->PageNr))
 		view->GotoPage(Page);
 	view->SelectItemNr(Item);
 	if (view->SelItem.count() != 0)
@@ -7240,10 +7241,20 @@ void ScribusApp::SelectFromOutl(int Page, int Item)
 			double x2 = cos((b->Rot+90.)/180*M_PI) * b->Height;
 			double mx = b->Xpos + ((x1 + x2)/2.0);
 			double my = b->Ypos + ((y1 + y2)/2.0);
+			if ((qRound((b->Xpos + QMAX(x1, x2)) * view->Scale) > view->contentsWidth()) ||
+				(qRound((b->Ypos + QMAX(y1, y2)) * view->Scale) > view->contentsHeight()))
+				view->resizeContents(QMAX(qRound((b->Xpos + QMAX(x1, x2)) * view->Scale), view->contentsWidth()),
+														  QMAX(qRound((b->Ypos + QMAX(y1, y2)) * view->Scale), view->contentsHeight()));
 			view->SetCCPo(static_cast<int>(mx), static_cast<int>(my));
 		}
 		else
+		{
+			if ((qRound((b->Xpos + b->Width) * view->Scale) > view->contentsWidth()) ||
+				(qRound((b->Ypos + b->Height) * view->Scale) > view->contentsHeight()))
+				view->resizeContents(QMAX(qRound((b->Xpos + b->Width) * view->Scale), view->contentsWidth()),
+														  QMAX(qRound((b->Ypos + b->Height) * view->Scale), view->contentsHeight()));
 			view->SetCCPo(static_cast<int>(b->Xpos + b->Width/2), static_cast<int>(b->Ypos + b->Height/2));
+		}
 	}
 }
 
@@ -9895,7 +9906,7 @@ void ScribusApp::scanDocument()
 	{
 		it = doc->Items.at(d);
 		itemError.clear();
-		if (((it->TranspStroke != 0.0) || (it->TranspStroke != 0.0)) && (doc->checkerSettings.checkTransparency))
+		if (((it->Transparency != 0.0) || (it->TranspStroke != 0.0)) && (doc->checkerSettings.checkTransparency))
 			itemError.insert(6, 0);
 		if ((it->OwnPage == -1) && (doc->checkerSettings.checkOrphans))
 			itemError.insert(3, 0);
