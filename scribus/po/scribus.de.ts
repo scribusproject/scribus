@@ -1780,11 +1780,11 @@ Wird in den Voreinstellungen eingestellt.</translation>
     </message>
     <message>
         <source>To page:</source>
-        <translation>bis Seite:</translation>
+        <translation type="obsolete">bis Seite:</translation>
     </message>
     <message>
         <source>From page:</source>
-        <translation>Von Seite:</translation>
+        <translation type="obsolete">Von Seite:</translation>
     </message>
     <message>
         <source>Print range</source>
@@ -1873,6 +1873,14 @@ Wird in den Voreinstellungen eingestellt.</translation>
     <message>
         <source>Print current page</source>
         <translation>Aktuelle Seite drucken</translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where
+a token can be * for all the pages, 1-5 for
+a range of pages or a single page number.</source>
+        <translation>Geben sie durch Kommata getrennt ein, welche
+Seiten importiert werden sollen, zum Beispiel
+1-5 oder 3,4. * steht  für alle Seiten.</translation>
     </message>
 </context>
 <context>
@@ -3109,6 +3117,22 @@ Null bedeutet unbegrenzt.</translation>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
     </message>
+    <message>
+        <source> pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
+    </message>
 </context>
 <context>
     <name>Measurements</name>
@@ -3196,11 +3220,11 @@ Null bedeutet unbegrenzt.</translation>
     <name>MergeDoc</name>
     <message>
         <source>Import a Page</source>
-        <translation>Seite einfügen</translation>
+        <translation type="obsolete">Seite einfügen</translation>
     </message>
     <message>
         <source>Document to load:</source>
-        <translation>Aus Dokument:</translation>
+        <translation type="obsolete">Aus Dokument:</translation>
     </message>
     <message>
         <source>Change...</source>
@@ -3208,11 +3232,11 @@ Null bedeutet unbegrenzt.</translation>
     </message>
     <message>
         <source>Document contains: 0 Page(s)</source>
-        <translation>Das Dokument enthält 0 Seiten</translation>
+        <translation type="obsolete">Das Dokument enthält 0 Seiten</translation>
     </message>
     <message>
         <source>Import Page Nr:</source>
-        <translation>Importiere Seite:</translation>
+        <translation type="obsolete">Importiere Seite:</translation>
     </message>
     <message>
         <source>Import</source>
@@ -3236,7 +3260,55 @@ Null bedeutet unbegrenzt.</translation>
     </message>
     <message>
         <source>Document contains: %1 Page(s)</source>
-        <translation>Dokument enthält %1 Seite(n)</translation>
+        <translation type="obsolete">Dokument enthält %1 Seite(n)</translation>
+    </message>
+    <message>
+        <source>Import Template</source>
+        <translation>Vorlage importieren</translation>
+    </message>
+    <message>
+        <source>Import Page(s)</source>
+        <translation>Seiten importieren</translation>
+    </message>
+    <message>
+        <source>From Document:</source>
+        <translation>Vom Dokument:</translation>
+    </message>
+    <message>
+        <source>Import Page(s):</source>
+        <translation>Seiten:</translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where
+a token can be * for all the pages, 1-5 for
+a range of pages or a single page number.</source>
+        <translation>Geben sie durch Kommata getrennt ein, welche
+Seiten importiert werden sollen, zum Beispiel
+1-5 oder 3,4. * steht  für alle Seiten.</translation>
+    </message>
+    <message>
+        <source> from 0</source>
+        <translation>von 0</translation>
+    </message>
+    <message>
+        <source>Create Page(s)</source>
+        <translation>Seiten erstellen</translation>
+    </message>
+    <message>
+        <source>before Page</source>
+        <translation>vor Seite</translation>
+    </message>
+    <message>
+        <source>after Page</source>
+        <translation>nach Seite</translation>
+    </message>
+    <message>
+        <source>at End</source>
+        <translation>am Ende des Dokuments</translation>
+    </message>
+    <message>
+        <source> from %1</source>
+        <translation>von %1</translation>
     </message>
 </context>
 <context>
@@ -4494,11 +4566,11 @@ andernfalls relativ zum Objekt.</translation>
     </message>
     <message>
         <source>From:</source>
-        <translation>Von:</translation>
+        <translation type="obsolete">Von:</translation>
     </message>
     <message>
         <source>to:</source>
-        <translation>bis:</translation>
+        <translation type="obsolete">bis:</translation>
     </message>
     <message>
         <source>File Options</source>
@@ -4894,11 +4966,11 @@ andernfalls relativ zum Objekt.</translation>
     </message>
     <message>
         <source>First page to export when exporting a range</source>
-        <translation>Erste Seite</translation>
+        <translation type="obsolete">Erste Seite</translation>
     </message>
     <message>
         <source>Last page to export when exporting a range</source>
-        <translation>Letzte Seite</translation>
+        <translation type="obsolete">Letzte Seite</translation>
     </message>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page.</source>
@@ -5189,6 +5261,18 @@ Wenn nicht ausgewählt, wird das Hinzufügen von Anmerkungen verhindert.</transl
         <source>Allow Adding Annotations and Fields</source>
         <translation>Hinzufügen von Anmerkungen gestatten</translation>
     </message>
+    <message>
+        <source>Choose Pages</source>
+        <translation>Seiten auswählen</translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where
+a token can be * for all the pages, 1-5 for
+a range of pages or a single page number.</source>
+        <translation>Geben sie durch Kommata getrennt ein, welche
+Seiten importiert werden sollen, zum Beispiel
+1-5 oder 3,4. * steht  für alle Seiten.</translation>
+    </message>
 </context>
 <context>
     <name>PPreview</name>
@@ -5293,7 +5377,7 @@ auf Kosten der Render-Geschwindigkeit glatter dar</translation>
     </message>
     <message>
         <source>Hide Margins</source>
-        <translation>Ränder verbergen</translation>
+        <translation type="obsolete">Ränder verbergen</translation>
     </message>
     <message>
         <source>Show Margins</source>
@@ -5301,7 +5385,7 @@ auf Kosten der Render-Geschwindigkeit glatter dar</translation>
     </message>
     <message>
         <source>Hide Frames</source>
-        <translation>Rahmen verbergen</translation>
+        <translation type="obsolete">Rahmen verbergen</translation>
     </message>
     <message>
         <source>Show Frames</source>
@@ -5309,7 +5393,7 @@ auf Kosten der Render-Geschwindigkeit glatter dar</translation>
     </message>
     <message>
         <source>Hide Images</source>
-        <translation>Bilder verbergen</translation>
+        <translation type="obsolete">Bilder verbergen</translation>
     </message>
     <message>
         <source>Show Images</source>
@@ -5317,7 +5401,7 @@ auf Kosten der Render-Geschwindigkeit glatter dar</translation>
     </message>
     <message>
         <source>Hide Grid</source>
-        <translation>Raster verbergen</translation>
+        <translation type="obsolete">Raster verbergen</translation>
     </message>
     <message>
         <source>Show Grid</source>
@@ -5325,7 +5409,7 @@ auf Kosten der Render-Geschwindigkeit glatter dar</translation>
     </message>
     <message>
         <source>Hide Guides</source>
-        <translation>Hilfslinien verbergen</translation>
+        <translation type="obsolete">Hilfslinien verbergen</translation>
     </message>
     <message>
         <source>Show Guides</source>
@@ -5545,7 +5629,7 @@ auf Kosten der Render-Geschwindigkeit glatter dar</translation>
     </message>
     <message>
         <source>Hide Baseline Grid</source>
-        <translation>Grundlinien-Raster verstecken</translation>
+        <translation type="obsolete">Grundlinien-Raster verstecken</translation>
     </message>
     <message>
         <source>Show Baseline Grid</source>
@@ -7969,7 +8053,7 @@ Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetrage
     </message>
     <message>
         <source>Insert...</source>
-        <translation>Einfügen...</translation>
+        <translation type="unfinished">Einfügen...</translation>
     </message>
     <message>
         <source>Delete...</source>
@@ -8664,7 +8748,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>Insert &amp;Page...</source>
-        <translation>&amp;Seite einfügen...</translation>
+        <translation type="obsolete">&amp;Seite einfügen...</translation>
     </message>
     <message>
         <source>&amp;Import</source>
@@ -8824,7 +8908,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>&amp;Insert...</source>
-        <translation>EIn&amp;fügen...</translation>
+        <translation>Ein&amp;fügen...</translation>
     </message>
     <message>
         <source>&amp;Delete...</source>
@@ -8856,15 +8940,15 @@ nicht speichern</translation>
     </message>
     <message>
         <source>Hide &amp;Margins</source>
-        <translation>&amp;Ränder verbergen</translation>
+        <translation type="obsolete">&amp;Ränder verbergen</translation>
     </message>
     <message>
         <source>Hide &amp;Frames</source>
-        <translation>Ra&amp;hmen verbergen</translation>
+        <translation type="obsolete">Ra&amp;hmen verbergen</translation>
     </message>
     <message>
         <source>Hide &amp;Images</source>
-        <translation>&amp;Bilder verbergen</translation>
+        <translation type="obsolete">&amp;Bilder verbergen</translation>
     </message>
     <message>
         <source>Show &amp;Grid</source>
@@ -8876,7 +8960,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>Hide G&amp;uides</source>
-        <translation>&amp;Hilfslinien verbergen</translation>
+        <translation type="obsolete">&amp;Hilfslinien verbergen</translation>
     </message>
     <message>
         <source>Sna&amp;p to Guides</source>
@@ -9052,15 +9136,47 @@ nicht speichern</translation>
     </message>
     <message>
         <source>Hide &amp;Grid</source>
-        <translation>Ra&amp;ster verbergen</translation>
+        <translation type="obsolete">Ra&amp;ster verbergen</translation>
     </message>
     <message>
         <source>Hide &amp;Baseline Grid</source>
-        <translation>&amp;Grundlinien-Raster verstecken</translation>
+        <translation type="obsolete">&amp;Grundlinien-Raster verstecken</translation>
     </message>
     <message>
         <source>Ghostscript : You cannot use EPS Images</source>
         <translation>Ghostscript: Sie können keine EPS-Dateien einfügen</translation>
+    </message>
+    <message>
+        <source>Import &amp;Page(s)...</source>
+        <translation>Seiten &amp;importieren...</translation>
+    </message>
+    <message>
+        <source>Importing Pages...</source>
+        <translation>Seiten werden importiert...</translation>
+    </message>
+    <message>
+        <source>Import Page(s)</source>
+        <translation>Seiten importieren</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;</source>
+        <translation>&lt;p&gt;Sie versuchen, mehr Seiten zu importieren als im aktiven Dokument vorhanden sind.&lt;/p&gt;Wählen Sie bitte aus:&lt;br&gt;&lt;ul&gt;&lt;li&gt;fehlende Seiten &lt;b&gt;erstellen&lt;/b&gt;&lt;/li&gt;&lt;li&gt;Bis zur letzten vorhandenen Seite &lt;b&gt;einfügen&lt;/b&gt;&lt;/li&gt;&lt;li&gt;&lt;b&gt;Abbrechen&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;</translation>
+    </message>
+    <message>
+        <source>Create</source>
+        <translation>Erstellen</translation>
+    </message>
+    <message>
+        <source>Import</source>
+        <translation>Importieren</translation>
+    </message>
+    <message>
+        <source>Import done</source>
+        <translation>Importvorgang erfolgreich abgeschlossen</translation>
+    </message>
+    <message>
+        <source>Found nothing to import</source>
+        <translation>Nichts zum Importieren gefunden</translation>
     </message>
 </context>
 <context>
@@ -9876,7 +9992,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Insert Freehand Line</source>
-        <translation>Freihand Linie einfügen</translation>
+        <translation>Freihandlinie einfügen</translation>
     </message>
     <message>
         <source>Rotate Item</source>
@@ -10046,6 +10162,10 @@ Bitte wählen Sie einen anderen.</translation>
     <message>
         <source>Created with</source>
         <translation>Erstellt mit</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Entfernen</translation>
     </message>
 </context>
 <context>

@@ -63,7 +63,6 @@ public:
 	QLineEdit* PageNr;
 	bool outputToFile();
 	int numCopies();
-	int pageOrder();
 	bool outputSeparations();
 	QString separationName();
 	QString PrinterOpts;
@@ -109,8 +108,6 @@ private:
 	QButtonGroup* ButtonGroup5;
 	QRadioButton* RadioButton2;
 	QButtonGroup* ButtonGroup4;
-	QRadioButton* FirstPlast;
-	QRadioButton* FirstPfirst;
 	QLabel* TextLabel3;
 	QSpinBox* Copies;
 	QButtonGroup* Optionen;

@@ -285,23 +285,10 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
 	ButtonGroup4Layout->setSpacing( 6 );
 	ButtonGroup4Layout->setMargin( 5 );
 
-	FirstPlast = new QRadioButton( ButtonGroup4, "FirstPlast" );
-	FirstPlast->setText( tr( "Print last page first" ) );
-	FirstPlast->setFocusPolicy( QRadioButton::TabFocus );
-
-	ButtonGroup4Layout->addMultiCellWidget( FirstPlast, 1, 1, 0, 1 );
-
-	FirstPfirst = new QRadioButton( ButtonGroup4, "FirstPfirst" );
-	FirstPfirst->setText( tr( "Print first page first" ) );
-	FirstPfirst->setChecked( true );
-    FirstPfirst->setFocusPolicy( QRadioButton::TabFocus );
-
-	ButtonGroup4Layout->addMultiCellWidget( FirstPfirst, 0, 0, 0, 1 );
-
 	TextLabel3 = new QLabel( ButtonGroup4, "TextLabel3" );
 	TextLabel3->setText( tr( "Number of copies:" ) );
 
-	ButtonGroup4Layout->addWidget( TextLabel3, 2, 0 );
+	ButtonGroup4Layout->addWidget( TextLabel3, 0, 0 );
 
 	Copies = new QSpinBox( ButtonGroup4, "Copies" );
 	Copies->setEnabled( true );
@@ -310,7 +297,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
 	Copies->setMaxValue(1000);
 	Copies->setValue(1);
 
-	ButtonGroup4Layout->addWidget( Copies, 2, 1 );
+	ButtonGroup4Layout->addWidget( Copies, 0, 1 );
 	UmfangLayout->addWidget( ButtonGroup4 );
 	DruckLayout->addWidget( Umfang );
 
@@ -431,8 +418,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
 	setTabOrder( Command, RadioButton1 );
 	setTabOrder( RadioButton1, CurrentPage );
 	setTabOrder( CurrentPage, RadioButton2 );
-	setTabOrder( FirstPfirst, FirstPlast );
-	setTabOrder( FirstPlast, Copies );
+	setTabOrder( RadioButton2, Copies );
 	setTabOrder( Copies, NormalP );
 	setTabOrder( NormalP, PrintSep );
 	setTabOrder( PrintSep, SepArt );
@@ -607,18 +593,9 @@ void Druck::SelFile()
 
 void Druck::setMinMax(int min, int max, int cur)
 {
-	QString tmp;
+	QString tmp, tmp2;
 	CurrentPage->setText(tr( "Print current page" )+" ("+tmp.setNum(cur)+")");
-	if ((max - min) == 0)
-	{
-		FirstPlast->setEnabled(false);
-		FirstPfirst->setEnabled(false);
-	}
-	else
-	{
-		FirstPlast->setEnabled(true);
-		FirstPfirst->setEnabled(true);
-	}
+	PageNr->setText(tmp.setNum(min)+"-"+tmp2.setNum(max));
 }
 
 QString Druck::printerName()
@@ -639,11 +616,6 @@ bool Druck::outputToFile()
 int Druck::numCopies()
 {
 	return Copies->value();
-}
-
-int Druck::pageOrder()
-{
-	return FirstPfirst->isChecked() ? 0 : 1;
 }
 
 bool Druck::outputSeparations()

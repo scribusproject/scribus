@@ -1980,9 +1980,12 @@ void ScribusApp::parsePagesString(QString pages, std::vector<int>* pageNs, int s
 		{
 			from = QString(token.left(token.find("-"))).toInt();
 			to = QString(token.right(token.length() - token.find("-") - 1)).toInt();
-			if ((from != 0) && (to != 0) && 
-			    (from <= sourcePageCount) && (to <= sourcePageCount))
+			if ((from != 0) && (to != 0))
 			{
+				if (from > sourcePageCount)
+					from = sourcePageCount;
+				if (to > sourcePageCount)
+					to = sourcePageCount;
 				if (from == to)
 					pageNs->push_back(to);
 				else if (from < to)
@@ -3775,17 +3778,7 @@ void ScribusApp::slotFilePrint()
 			}
 			if (PSfile)
 			{
-				if (printer->pageOrder() == 0)
-					view->CreatePS(dd, pageNs, sep, SepNam, farbe, mirrorH, mirrorV, useICC);
-				else
-				{
-					std::vector<int> another;
-					for (uint ap = pageNs.size(); ap > 0; ap--)
-					{
-						another.push_back(pageNs[ap-1]);
-					}
-					view->CreatePS(dd, another, sep, SepNam, farbe, mirrorH, mirrorV, useICC);
-				}
+				view->CreatePS(dd, pageNs, sep, SepNam, farbe, mirrorH, mirrorV, useICC);
 				if (printer->PSLevel != 3)
 				{
 					QString tmp;
