@@ -319,6 +319,7 @@ void UndoPalette::keyReleaseEvent(QKeyEvent* e)
 {
 	//TODO Do we need to check more meta keys, CTRL, SHIFT, META, UNICODE_ACCEL ? Could just grab the meta keys used
 	QKeySequence ks(ALT + e->key());
+	//QKeySequence ks(e->key()|e->state());
 	if (ks==initialUndoKS)
 		undoClicked();
 	if (ks==initialRedoKS)

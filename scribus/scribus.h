@@ -236,6 +236,7 @@ public:
 	MenuManager* scrMenuMgr;
 
 public slots:
+	void specialActionKeyEvent(QString actionName);
 	void newView();
 	void callDLLBySlot(int pluginID);
 	void ToggleAllPalettes();
@@ -508,6 +509,7 @@ private:
 	void initWindowsMenuActions();
 	void initScriptMenuActions();
 	void initHelpMenuActions();
+	void initSpecialActions();
 
 	QString guiLanguage;
 	QString recentFileMenuName;

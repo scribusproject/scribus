@@ -29,7 +29,6 @@ KeyManager::KeyManager(QWidget* parent, QMap<QString,Keys> oldKeyMap): QWidget( 
 	//Generate our list of entries in the key manager from the menu system
 	QStringList menuKeys;
 	ScApp->scrMenuMgr->generateKeyManList(&menuKeys);
-
 	uint currentRow=0;
 	for ( QStringList::Iterator it = menuKeys.begin(); it != menuKeys.end(); ++it )
 	{
@@ -84,8 +83,10 @@ KeyManager::KeyManager(QWidget* parent, QMap<QString,Keys> oldKeyMap): QWidget( 
 	header = keyTable->horizontalHeader();
 	header->setLabel(0, tr("Action"));
 	header->setLabel(1, tr("Current Key"));
+	//header->setLabel(2, tr("Action Name"));
 	keyTable->adjustColumn(0);
 	keyTable->adjustColumn(1);
+	//keyTable->adjustColumn(2);
 	keyTable->setColumnMovingEnabled(false);
 	keyTable->setRowMovingEnabled(false);
 	header->setMovingEnabled(false);

@@ -197,6 +197,7 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 	initWindowsMenuActions();
 	initScriptMenuActions();
 	initHelpMenuActions();
+	initSpecialActions();
 	
 	initMenuBar();
 	initStatusBar();
@@ -647,17 +648,9 @@ void ScribusApp::initDefaultValues()
 
 void ScribusApp::initKeyboardShortcuts()
 {
-	//Set up key entries
-	//CB TODO Maybe rewrite this key management stuff.. these would be much simpler done in the action themselves.
-
 	QDictIterator<ScrAction> it( scrActions );
 	for( ; it.current(); ++it )
 		SetKeyEntry(it.currentKey(), it.current()->cleanMenuText(), QString(it.current()->accel()),0);
-	//SetKeyEntry(19, tr("Select New Font"), 0, 0);
-	//SetKeyEntry(55, tr("Tooltips"), tip, 0);
-	//SetKeyEntry(56, tr("Smart Hyphen"), 0, CTRL+Key_Minus);
-	//SetKeyEntry(60, tr("Insert Page Number"), 0, CTRL+Key_NumberSign);
-	//SetKeyEntry(68, tr("Non Breaking Space"), 0, CTRL+Key_Space);
 }
 
 void ScribusApp::initArrowStyles()
@@ -1101,11 +1094,11 @@ void ScribusApp::initStyleMenuActions()
 	
 	
 	//Alignment actions
-	scrActions.insert("alignLeft", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Left"), QKeySequence(), scrActionGroups["alignment"], "alignLeft", 0));
-	scrActions.insert("alignCenter", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Center"), QKeySequence(), scrActionGroups["alignment"], "alignCenter", 1));
-	scrActions.insert("alignRight", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Right"), QKeySequence(), scrActionGroups["alignment"], "alignRight", 2));
-	scrActions.insert("alignBlock", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Block"), QKeySequence(), scrActionGroups["alignment"], "alignBlock", 3));
-	scrActions.insert("alignForced", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Forced"), QKeySequence(), scrActionGroups["alignment"], "alignForced", 4));
+	scrActions.insert("alignLeft", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Left"), QKeySequence(), this, "alignLeft", 0));
+	scrActions.insert("alignCenter", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Center"), QKeySequence(), this, "alignCenter", 1));
+	scrActions.insert("alignRight", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Right"), QKeySequence(), this, "alignRight", 2));
+	scrActions.insert("alignBlock", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Block"), QKeySequence(), this, "alignBlock", 3));
+	scrActions.insert("alignForced", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Forced"), QKeySequence(), this, "alignForced", 4));
 	
 	scrActions["alignLeft"]->setToggleAction(true);
 	scrActions["alignCenter"]->setToggleAction(true);
@@ -1352,6 +1345,20 @@ void ScribusApp::initHelpMenuActions()
 	connect( scrActions["helpTooltips"], SIGNAL(activated()) , this, SLOT(ToggleTips()) );
 	connect( scrActions["helpManual"], SIGNAL(activated()) , this, SLOT(slotOnlineHelp()) );
 
+}
+
+void ScribusApp::initSpecialActions()
+{
+	scrActions.insert("specialSmartHyphen", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Insert Smart Hyphen"), CTRL+Key_Minus, this, "specialSmartHyphen",0,0.0,"specialSmartHyphen"));
+	scrActions.insert("specialNonBreakingSpace", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Insert Non Breaking Space"), CTRL+Key_Space, this, "specialNonBreakingSpace",0,0.0,"specialNonBreakingSpace"));
+	scrActions.insert("specialPageNumber", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Insert Page Number"), CTRL+Key_NumberSign, this, "specialPageNumber",0,0.0,"specialPageNumber"));
+
+	connect( scrActions["specialSmartHyphen"], SIGNAL(activatedData(QString)) , this, SLOT(specialActionKeyEvent(QString)) );
+	connect( scrActions["specialNonBreakingSpace"], SIGNAL(activatedData(QString)) , this, SLOT(specialActionKeyEvent(QString)) );
+	connect( scrActions["specialPageNumber"], SIGNAL(activatedData(QString)) , this, SLOT(specialActionKeyEvent(QString)) );
+	//SetKeyEntry(56, tr("Smart Hyphen"), 0, CTRL+Key_Minus);
+	//SetKeyEntry(60, tr("Insert Page Number"), 0, CTRL+Key_NumberSign);
+	//SetKeyEntry(68, tr("Non Breaking Space"), 0, CTRL+Key_Space);
 }
 
 void ScribusApp::initMenuBar()
@@ -1731,6 +1738,64 @@ void ScribusApp::wheelEvent(QWheelEvent *w)
 	}
 }
 
+//Special keys assigned to actions are stolen by the action and not passed to 
+//keyPressEvent so process them here.
+void ScribusApp::specialActionKeyEvent(QString actionName)
+{
+	if (HaveDoc)
+	{
+		if (doc->appMode==EditMode)
+		{
+			if (view->SelItem.count() == 1)
+			{
+				struct ScText *hg = new ScText;
+				PageItem *b = view->SelItem.at(0);
+				bool insertChar=false;
+				if (actionName=="specialPageNumber" || actionName=="specialNonBreakingSpace")
+				{
+					if (actionName=="specialPageNumber")
+						hg->ch = QString(QChar(30));
+					else
+						if (actionName=="specialNonBreakingSpace")
+							hg->ch = QString(QChar(29));
+
+					hg->cfont = doc->CurrFont;
+					hg->csize = doc->CurrFontSize;
+					hg->ccolor = doc->CurrTextFill;
+					hg->cshade = doc->CurrTextFillSh;
+					hg->cstroke = doc->CurrTextStroke;
+					hg->cshade2 = doc->CurrTextStrokeSh;
+					hg->cscale = doc->CurrTextScale;
+					hg->cselect = false;
+					hg->cstyle = doc->CurrentStyle;
+					hg->cab = doc->currentParaStyle;
+					if (doc->docParagraphStyles[doc->currentParaStyle].Font != "")
+					{
+						hg->cfont = doc->docParagraphStyles[doc->currentParaStyle].Font;
+						hg->csize = doc->docParagraphStyles[doc->currentParaStyle].FontSize;
+					}
+					hg->cextra = 0;
+					hg->xp = 0;
+					hg->yp = 0;
+					hg->PRot = 0;
+					hg->PtransX = 0;
+					hg->PtransY = 0;
+					b->itemText.insert(b->CPos, hg);
+					b->CPos += 1;
+					b->Tinput = true;
+					view->RefreshItem(b);
+				}
+				else if (actionName=="specialSmartHypen")
+				{
+					b->itemText.at(QMAX(b->CPos-1,0))->cstyle ^= 128;
+					b->Tinput = true;
+					view->RefreshItem(b);
+				}	
+			}
+		}
+	}
+}
+
 void ScribusApp::keyPressEvent(QKeyEvent *k)
 {
 	QWidgetList windows;
@@ -1965,29 +2030,6 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 					}
 					break;
 				default:
-					if (b->PType == 4)
-					{
-						/* CB TODO
-						if ((kk + KeyMod) == Prefs.KeyActions[59].KeyID)
-						{
-							setNewAbStyle(1);
-							b->Tinput = true;
-							view->RefreshItem(b);
-						}
-						if ((kk + KeyMod) == Prefs.KeyActions[58].KeyID)
-						{
-							setNewAbStyle(2);
-							b->Tinput = true;
-							view->RefreshItem(b);
-						}
-						if ((kk + KeyMod) == Prefs.KeyActions[57].KeyID)
-						{
-							setNewAbStyle(0);
-							b->Tinput = true;
-							view->RefreshItem(b);
-						}
-						*/
-					}
 					break;
 				}
 				slotDocCh();
@@ -2508,23 +2550,13 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 					default:
 						if ((b->HasSel) && (kk < 0x1000))
 							DeleteSel(b);
-						if ((kk == Key_Tab)
-						        || ((kk == Key_Return) && (buttonState & ShiftButton))
-						        //CB TODO || ((kk + KeyMod) == Prefs.KeyActions[60].KeyID)
-						        //CB TODO || ((kk + KeyMod) == Prefs.KeyActions[67].KeyID)
-						   )
+						if ((kk == Key_Tab) || ((kk == Key_Return) && (buttonState & ShiftButton)))
 						{
 							hg = new ScText;
-							/* CB TODO
-							if ((kk + KeyMod) == Prefs.KeyActions[60].KeyID)
-								hg->ch = QString(QChar(30));
-							else */ 
-								if (kk == Key_Return)
+							if (kk == Key_Return)
 								hg->ch = QString(QChar(28));
 							else if (kk == Key_Tab)
 								hg->ch = QString(QChar(9));
-							else
-								hg->ch = QString(QChar(29));
 							hg->cfont = doc->CurrFont;
 							hg->csize = doc->CurrFontSize;
 							hg->ccolor = doc->CurrTextFill;
@@ -2552,36 +2584,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							view->RefreshItem(b);
 							break;
 						}
-						/*CB TODO
-						if ((kk + KeyMod) == Prefs.KeyActions[56].KeyID)
-						{
-							b->itemText.at(QMAX(b->CPos-1,0))->cstyle ^= 128;
-							b->Tinput = true;
-							view->RefreshItem(b);
-							break;
-						}
-						if ((kk + KeyMod) == Prefs.KeyActions[59].KeyID)
-						{
-							setNewAbStyle(1);
-							b->Tinput = true;
-							view->RefreshItem(b);
-							break;
-						}
-						if ((kk + KeyMod) == Prefs.KeyActions[57].KeyID)
-						{
-							setNewAbStyle(0);
-							b->Tinput = true;
-							view->RefreshItem(b);
-							break;
-						}
-						if ((kk + KeyMod) == Prefs.KeyActions[58].KeyID)
-						{
-							setNewAbStyle(2);
-							b->Tinput = true;
-							view->RefreshItem(b);
-							break;
-						}
-						*/
+						
 						if (((uc[0] > QChar(31)) || (as == 13) || (as == 30)) && ((*doc->AllFonts)[doc->CurrFont]->CharWidth.contains(uc[0].unicode())))
 						{
 							hg = new ScText;
@@ -9453,7 +9456,7 @@ void ScribusApp::SetShortCut()
 	{
 		if (it.data().actionName!="")
 			if (scrActions[it.data().actionName])
-					scrActions[it.data().actionName]->setAccel(it.data().keySequence);
+				scrActions[it.data().actionName]->setAccel(it.data().keySequence);
 	}
 	
 	//CB TODO editMenu->setAccel(Prefs.KeyActions[19].KeyID, Prefs.KeyActions[19].MenuID);
