@@ -314,6 +314,9 @@ protected:
 	/** @brief Stores the geometry of the window when hiding. */
 	void hideEvent(QHideEvent*);
 
+	/** @brief Hide the window when ESC is pressed */
+	void keyPressEvent(QKeyEvent* e);
+
 public:
 	/** 
 	 * @brief Creates a new UndoPalette instance.

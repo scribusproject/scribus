@@ -302,6 +302,13 @@ void UndoPalette::hideEvent(QHideEvent*)
 	undoPrefs->set("up_height", height);
 }
 
+void UndoPalette::keyPressEvent(QKeyEvent* e)
+{
+	if (e->key() == Key_Escape)
+		hide();
+	QWidget::keyPressEvent(e);
+}
+
 void UndoPalette::insertUndoItem(UndoObject* target, UndoState* state)
 {
 	removeRedoItems();
