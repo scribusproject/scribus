@@ -3213,13 +3213,15 @@ bool ScribusApp::LadeSeite(QString fileName, int Nr, bool Mpa)
 			Tpal->BuildTree(view);
 			Tpal->reopenTree(doc->OpenNodes);
 		}
+		view->LaMenu();
+		Lpal->rebuildList();
 		slotDocCh();
 		doc->loading = false;
 		ret = true;
 	}
 	if (!Mpa)
 		Sepal->Rebuild();
-	doc->ActPage->update();
+	view->DrawNew();
 	return ret;
 }
 

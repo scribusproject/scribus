@@ -9,8 +9,8 @@
   </kdevvalgrind>
   <kdevdebugger>
    <breakpointList>
-    <breakpoint0 location="/home/franz/Entwicklung/AnonCVS/Scribus2/Scribus/scribus/scribus.cpp:4613" type="1" condition="" enabled="1" />
-    <breakpoint1 location="/home/franz/Entwicklung/AnonCVS/Scribus2/Scribus/scribus/scribus.cpp:5484" type="1" condition="" enabled="1" />
+    <breakpoint0 location="/home/franz/Entwicklung/AnonCVS/Scribus2/Scribus/scribus/scribus.cpp:4615" type="1" condition="" enabled="1" />
+    <breakpoint1 location="/home/franz/Entwicklung/AnonCVS/Scribus2/Scribus/scribus/scribus.cpp:5486" type="1" condition="" enabled="1" />
    </breakpointList>
   </kdevdebugger>
   <kdevbookmarks>
