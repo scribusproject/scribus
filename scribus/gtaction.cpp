@@ -23,6 +23,8 @@
 #include "mpalette.h"
 #include "scribus.h"
 #include <qcursor.h>
+#include <qstringlist.h>
+#include "color.h"
 
 extern ScribusApp* ScApp;
 
@@ -135,9 +137,9 @@ void gtAction::write(const QString& text, gtStyle *style)
 		{
 			hg->cfont = fontName;
 			hg->csize = font->getSize();
-			hg->ccolor = font->getColor();
+			hg->ccolor = parseColor(font->getColor());
 			hg->cshade = font->getShade();
-			hg->cstroke = font->getStrokeColor();
+			hg->cstroke = parseColor(font->getStrokeColor());
 			hg->cshade2 = font->getStrokeShade();
 			hg->cstyle = font->getEffectsValue();
 		}
@@ -196,7 +198,7 @@ void gtAction::applyFrameStyle(gtFrameStyle* fstyle)
 {
 	textFrame->Cols = fstyle->getColumns();
 	textFrame->ColGap = fstyle->getColumnsGap();
-	textFrame->Pcolor = fstyle->getBgColor();
+	textFrame->Pcolor = parseColor(fstyle->getBgColor());
 	textFrame->Shade = fstyle->getBgShade();
 	textFrame->TabValues = QValueList<double>(*(fstyle->getTabValues()));
 	
@@ -217,9 +219,9 @@ void gtAction::applyFrameStyle(gtFrameStyle* fstyle)
 	QString fontName = validateFont(font);
 	textFrame->IFont = fontName;
 	textFrame->ISize = font->getSize();
-	textFrame->TxtFill = font->getColor();
+	textFrame->TxtFill = parseColor(font->getColor());
 	textFrame->ShTxtFill = font->getShade();
-	textFrame->TxtStroke = font->getStrokeColor();
+	textFrame->TxtStroke = parseColor(font->getStrokeColor());
 	textFrame->ShTxtStroke = font->getStrokeShade();
 	textFrame->TxtScale = font->getHscale();
 	textFrame->ExtraV = font->getKerning();
@@ -298,9 +300,9 @@ void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 	vg.Drop = pstyle->hasDropCap();
 	vg.DropLin = pstyle->getDropCapHeight();
 	vg.FontEffect = font->getEffectsValue();
-	vg.FColor = font->getColor();
+	vg.FColor = parseColor(font->getColor());
 	vg.FShade = font->getShade();
-	vg.SColor = font->getStrokeColor();
+	vg.SColor = parseColor(font->getStrokeColor());
 	vg.SShade = font->getStrokeShade();
 	vg.BaseAdj = pstyle->isAdjToBaseline();
 	textFrame->Doc->Vorlagen.append(vg);
@@ -355,9 +357,9 @@ void gtAction::updateParagraphStyle(int pstyleIndex, gtParagraphStyle* pstyle)
 	vg.Drop = pstyle->hasDropCap();
 	vg.DropLin = pstyle->getDropCapHeight();
 	vg.FontEffect = font->getEffectsValue();
-	vg.FColor = font->getColor();
+	vg.FColor = parseColor(font->getColor());
 	vg.FShade = font->getShade();
-	vg.SColor = font->getStrokeColor();
+	vg.SColor = parseColor(font->getStrokeColor());
 	vg.SShade = font->getStrokeShade();
 	vg.BaseAdj = pstyle->isAdjToBaseline();
 	ScApp->doc->Vorlagen[pstyleIndex] = vg;
@@ -480,6 +482,84 @@ bool gtAction::getOverridePStyleFont()
 void gtAction::setOverridePStyleFont(bool newOPSF)
 {
 	overridePStyleFont = newOPSF;
+}
+
+QString gtAction::parseColor(const QString &s)
+{
+	QString ret = "None";
+	if (s == "None")
+		return ret; // don't want None to become Black or any color
+	bool found = false;
+	CListe::Iterator it;
+	for (it = ScApp->doc->PageColors.begin(); it != ScApp->doc->PageColors.end(); ++it)
+	{
+		if (it.key() == s)
+		{
+			ret = it.key();
+			found = true;
+		}
+	}
+	if (!found)
+	{
+		QColor c;
+		if( s.startsWith( "rgb(" ) )
+		{
+			QString parse = s.stripWhiteSpace();
+			QStringList colors = QStringList::split( ',', parse );
+			QString r = colors[0].right( ( colors[0].length() - 4 ) );
+			QString g = colors[1];
+			QString b = colors[2].left( ( colors[2].length() - 1 ) );
+			if( r.contains( "%" ) )
+			{
+				r = r.left( r.length() - 1 );
+				r = QString::number( static_cast<int>( ( static_cast<double>( 255 * r.toDouble() ) / 100.0 ) ) );
+			}
+			if( g.contains( "%" ) )
+			{
+				g = g.left( g.length() - 1 );
+				g = QString::number( static_cast<int>( ( static_cast<double>( 255 * g.toDouble() ) / 100.0 ) ) );
+			}
+			if( b.contains( "%" ) )
+			{
+				b = b.left( b.length() - 1 );
+				b = QString::number( static_cast<int>( ( static_cast<double>( 255 * b.toDouble() ) / 100.0 ) ) );
+			}
+			c = QColor(r.toInt(), g.toInt(), b.toInt());
+		}
+		else
+		{
+			QString rgbColor = s.stripWhiteSpace();
+			if( rgbColor.startsWith( "#" ) )
+				c.setNamedColor( rgbColor );
+			else
+				c = parseColorN( rgbColor );
+		}
+		found = false;
+		for (it = ScApp->doc->PageColors.begin(); it != ScApp->doc->PageColors.end(); ++it)
+		{
+			if (c == ScApp->doc->PageColors[it.key()].getRGBColor())
+			{
+				ret = it.key();
+				found = true;
+			}
+		}
+		if (!found)
+		{
+			CMYKColor tmp;
+			tmp.fromQColor(c);
+			ScApp->doc->PageColors.insert("FromGetText"+c.name(), tmp);
+			ScApp->Mpal->Cpal->SetColors(ScApp->doc->PageColors);
+			ret = "FromGetText"+c.name();
+		}
+	}
+	return ret;
+}
+
+QColor gtAction::parseColorN(const QString &rgbColor)
+{
+	int r, g, b;
+	keywordToRGB( rgbColor, r, g, b );
+	return QColor( r, g, b );
 }
 
 void gtAction::finalize()

@@ -21,6 +21,7 @@
 #ifndef GTACTION_H
 #define GTACTION_H
 
+#include <qcolor.h>
 #include <qtextcodec.h>
 #include <qvaluelist.h>
 #include <qmap.h>
@@ -56,6 +57,8 @@ private:
 	QString validateFont(gtFont* font);
 	QString findFontName(gtFont* font);
 	void updateParagraphStyle(int pstyleIndex, gtParagraphStyle* pstyle);
+	QString parseColor(const QString &s);
+	QColor parseColorN(const QString &rgbColor);
 	void finalize();
 public:
 	gtAction(bool append);
