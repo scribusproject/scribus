@@ -2586,6 +2586,8 @@ void ScribusApp::SwitchWin()
 	Mpal->SetLineFormats(doc);
 	Mpal->startArrow->rebuildList(doc);
 	Mpal->endArrow->rebuildList(doc);
+	FontSub->RebuildList(&Prefs, doc);
+	Mpal->Fonts->RebuildList(&Prefs, doc);
 	Lpal->setLayers(&doc->Layers, &doc->ActiveLayer);
 	view->LaMenu();
 	view->setLayMenTxt(doc->ActiveLayer);

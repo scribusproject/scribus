@@ -363,6 +363,8 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 		glp += tmp.setNum((*nx)) + " ";
 	ob->setAttribute("GROUPS", glp);
 	ob->setAttribute("LANGUAGE", item->Language);
+	ob->setAttribute("startArrowIndex", item->startArrowIndex);
+	ob->setAttribute("endArrowIndex", item->endArrowIndex);
 }
 
 bool ScriXmlDoc::ReadLStyles(QString fileName, QMap<QString,multiLine> *Sty)
@@ -1614,6 +1616,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 	QFont fo;
 	QMap<QString,QString> DoMul;
 	QMap<int,int> TableID;
+	QMap<int,int> arrowID;
 	QPtrList<PageItem> TableItems;
 	bool VorLFound = false;
 	bool newVersion = false;
@@ -1671,11 +1674,33 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 	VorlC = 5;
 	TableItems.clear();
 	TableID.clear();
+	arrowID.clear();
 	QString CurDirP = QDir::currentDirPath();
 	QDir::setCurrent(QDir::homeDirPath());
+	int startNumArrows = doc->arrowStyles.count();
 	while(!DOC.isNull())
 	{
 		QDomElement pg=DOC.toElement();
+		if(pg.tagName()=="Arrows")
+		{
+			if (QStoInt(pg.attribute("Index")) > startNumArrows)
+			{
+				FPointArray arrow;
+				double xa, ya;
+				QString tmp = pg.attribute("Points");
+				QTextStream fp(&tmp, IO_ReadOnly);
+				for (uint cx = 0; cx < pg.attribute("NumPoints").toUInt(); ++cx)
+				{
+					fp >> xa;
+					fp >> ya;
+					arrow.addPoint(xa, ya);
+				}
+				doc->arrowStyles.append(arrow);
+				arrowID.insert(QStoInt(pg.attribute("Index")), doc->arrowStyles.count());
+			}
+			else
+				arrowID.insert(QStoInt(pg.attribute("Index")), QStoInt(pg.attribute("Index")));
+		}
 		if(pg.tagName()=="FONT")
 		{
 			tmpf = pg.attribute("NAME");
@@ -1744,6 +1769,8 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			OB.Xpos = static_cast<double>(Xp) + QStodouble(pg.attribute("XPOS")) - GrX;
 			OB.Ypos = static_cast<double>(Yp) + QStodouble(pg.attribute("YPOS")) - GrY;
 			GetItemProps(newVersion, &pg, &OB);
+			OB.startArrowIndex =  arrowID[QStoInt(pg.attribute("startArrowIndex","0"))];
+			OB.endArrowIndex =  arrowID[QStoInt(pg.attribute("endArrowIndex","0"))];
 			OB.NamedLStyle = pg.attribute("NAMEDLST", "");
 			if (!doc->MLineStyles.contains(OB.NamedLStyle))
 				OB.NamedLStyle = "";
@@ -2002,6 +2029,40 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 			MuL.appendChild(SuL);
 		}
 		elem.appendChild(MuL);
+	}
+	QMap<int, FPointArray> usedArrows;
+	QMap<int, FPointArray>::Iterator itar;
+	for (uint co=0; co<Selitems->count(); ++co)
+	{
+		item = doc->Items.at(ELL[co]);
+		if (item->startArrowIndex != 0)
+		{
+			FPointArray arrow = (*doc->arrowStyles.at(item->startArrowIndex-1)).copy();
+			usedArrows.insert(item->startArrowIndex, arrow.copy());
+		}
+		if (item->endArrowIndex != 0)
+		{
+			FPointArray arrow = (*doc->arrowStyles.at(item->endArrowIndex-1)).copy();
+			usedArrows.insert(item->endArrowIndex, arrow.copy());
+		}
+	}
+	if (usedArrows.count() != 0)
+	{
+		for (itar = usedArrows.begin(); itar != usedArrows.end(); ++itar)
+		{
+			QDomElement ar=docu.createElement("Arrows");
+			ar.setAttribute("NumPoints", itar.data().size());
+			QString arp = "";
+			double xa, ya;
+			for (uint nxx = 0; nxx < itar.data().size(); ++nxx)
+			{
+				itar.data().point(nxx, &xa, &ya);
+				arp += tmp.setNum(xa) + " " + tmpy.setNum(ya) + " ";
+			}
+			ar.setAttribute("Points", arp);
+			ar.setAttribute("Index", itar.key());
+			elem.appendChild(ar);
+		}
 	}
 	for (uint co=0; co<Selitems->count(); ++co)
 	{
@@ -2465,7 +2526,23 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 			MuL.appendChild(SuL);
 		}
 		dc.appendChild(MuL);
-	}	
+	}
+	QValueList<FPointArray>::Iterator itar;
+	for (itar = doc->arrowStyles.begin(); itar != doc->arrowStyles.end(); ++itar)
+	{
+		QDomElement ar=docu.createElement("Arrows");
+		ar.setAttribute("NumPoints", (*itar).size());
+		QString arp = "";
+		QString tmp, tmpy;
+		double xa, ya;
+		for (uint nxx = 0; nxx < (*itar).size(); ++nxx)
+		{
+			(*itar).point(nxx, &xa, &ya);
+			arp += tmp.setNum(xa) + " " + tmpy.setNum(ya) + " ";
+		}
+		ar.setAttribute("Points", arp);
+		dc.appendChild(ar);
+	}
 	QMap<QString,QString>::Iterator itja;
 	for (itja = doc->JavaScripts.begin(); itja != doc->JavaScripts.end(); ++itja)
 	{

@@ -10176,6 +10176,8 @@ void ScribusView::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 	b->LeftLinkID = Buffer->LeftLinkID;
 	b->RightLinkID = Buffer->RightLinkID;
 	b->BottomLinkID = Buffer->BottomLinkID;
+	b->startArrowIndex = Buffer->startArrowIndex;
+	b->endArrowIndex = Buffer->endArrowIndex;
 	if (Buffer->AnName != "")
 	{
 		if (!drag)

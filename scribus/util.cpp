@@ -1860,6 +1860,8 @@ void CopyPageItem(struct CLBuf *Buffer, PageItem *b)
 		else
 			Buffer->BottomLinkID = -1;
 	}
+	Buffer->startArrowIndex = b->startArrowIndex;
+	Buffer->endArrowIndex = b->endArrowIndex;
 }
 
 void WordAndPara(PageItem* b, int *w, int *p, int *c, int *wN, int *pN, int *cN)

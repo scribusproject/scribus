@@ -200,6 +200,8 @@ struct CLBuf {
 				int RightLinkID;
 				int TopLinkID;
 				int BottomLinkID;
+				int startArrowIndex;
+				int endArrowIndex;
 			};
 
   /** Seitenraender */
@@ -720,7 +722,7 @@ public: // Public attributes
 	FT_Library   library;
 	QMap<QString,FT_Face> FFonts;
 	QMap<QString,multiLine> MLineStyles;
-	QMap<int, FPointArray> arrowStyles;
+	QValueList<FPointArray> arrowStyles;
 	QWidget* WinHan;
 	bool DoDrawing;
 	QValueList<int> OpenNodes;

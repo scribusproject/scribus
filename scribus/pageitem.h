@@ -285,12 +285,8 @@ public:
 	double BoundingH;
 	bool ChangedMasterItem;
 	QString OnMasterPage;
-	bool haveStartArrow;
-	bool haveEndArrow;
 	int startArrowIndex;
 	int endArrowIndex;
-	FPointArray startArrow;
-	FPointArray endArrow;
 };
 
 #endif

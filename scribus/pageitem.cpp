@@ -271,12 +271,8 @@ PageItem::PageItem(ScribusDoc *pa, int art, double x, double y, double w, double
 	Dirty = false;
 	ChangedMasterItem = false;
 	OnMasterPage = Doc->ActPage->PageNam;
-	haveStartArrow = false;
-	haveEndArrow = false;
-	startArrowIndex = 1;
-	endArrowIndex = 1;
-	startArrow = Doc->arrowStyles[startArrowIndex].copy();
-	endArrow = Doc->arrowStyles[endArrowIndex].copy();
+	startArrowIndex = 0;
+	endArrowIndex = 0;
 }
 
 /** Zeichnet das Item */
@@ -476,10 +472,10 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					p->drawLine(FPoint(0, 0), FPoint(Width, 0));
 				}
 			}
-			if (haveStartArrow)
+			if (startArrowIndex != 0)
 			{
 				QWMatrix arrowTrans;
-				FPointArray arrow = startArrow.copy();
+				FPointArray arrow = (*Doc->arrowStyles.at(startArrowIndex-1)).copy();
 				arrowTrans.translate(0, 0);
 				arrowTrans.scale(Pwidth, Pwidth);
 				arrowTrans.scale(-1,1);
@@ -490,10 +486,10 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 				p->setupPolygon(&arrow);
 				p->drawPolygon();
 			}
-			if (haveEndArrow)
+			if (endArrowIndex != 0)
 			{
 				QWMatrix arrowTrans;
-				FPointArray arrow = endArrow.copy();
+				FPointArray arrow = (*Doc->arrowStyles.at(endArrowIndex-1)).copy();
 				arrowTrans.translate(Width, 0);
 				arrowTrans.scale(Pwidth, Pwidth);
 				arrow.map(arrowTrans);
@@ -572,7 +568,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					p->drawPolyLine();
 					}
 				}
-				if (haveStartArrow)
+				if (startArrowIndex != 0)
 				{
 					FPoint Start = PoLine.point(0);
 					for (uint xx = 1; xx < PoLine.size(); xx += 2)
@@ -582,7 +578,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						{
 							double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/3.1415927);
 							QWMatrix arrowTrans;
-							FPointArray arrow = startArrow.copy();
+							FPointArray arrow = (*Doc->arrowStyles.at(startArrowIndex-1)).copy();
 							arrowTrans.translate(Start.x(), Start.y());
 							arrowTrans.rotate(r);
 							arrowTrans.scale(Pwidth, Pwidth);
@@ -596,7 +592,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						}
 					}
 				}
-				if (haveEndArrow)
+				if (endArrowIndex != 0)
 				{
 					FPoint End = PoLine.point(PoLine.size()-2);
 					for (uint xx = PoLine.size()-1; xx > 0; xx -= 2)
@@ -606,7 +602,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						{
 							double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/3.1415927);
 							QWMatrix arrowTrans;
-							FPointArray arrow = endArrow.copy();
+							FPointArray arrow = (*Doc->arrowStyles.at(endArrowIndex-1)).copy();
 							arrowTrans.translate(End.x(), End.y());
 							arrowTrans.rotate(r);
 							arrowTrans.scale(Pwidth, Pwidth);

@@ -190,14 +190,14 @@ ScribusDoc::ScribusDoc()
 	arrow.addQuadPoint(2, 0, 2, 0, 2, 0, 2, 0);
 	arrow.addQuadPoint(0, 2, 0, 2, 0, 2, 0, 2);
 	arrow.addQuadPoint(0, -2, 0, -2, 0, -2, 0, -2);
-	arrowStyles.insert(1, arrow);
+	arrowStyles.append(arrow);
 	FPointArray arrow2;
 	arrow2.addQuadPoint(0, -4, 0, -4, 0, -4, 0, -4);
 	arrow2.addQuadPoint(8, -4, 8, -4, 8, -4, 8, -4);
 	arrow2.addQuadPoint(8, 4, 8, 4, 8, 4, 8, 4);
 	arrow2.addQuadPoint(0, 4, 0, 4, 0, 4, 0, 4);
 	arrow2.addQuadPoint(0, -4, 0, -4, 0, -4, 0, -4);
-	arrowStyles.insert(2, arrow2);
+	arrowStyles.append(arrow2);
 }
 
 ScribusDoc::~ScribusDoc()

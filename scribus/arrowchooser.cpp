@@ -24,12 +24,12 @@ void ArrowChooser::rebuildList(ScribusDoc *currentDoc)
 	{
 		QPixmap Ico(22, 22);
 		ScPainter *painter = new ScPainter(&Ico, 22, 22);
-		painter->setBrush(qRgb(230, 230, 230));
+		painter->setBrush(qRgb(0, 0, 0));
 		painter->setPen(qRgb(0, 0, 0));
 		painter->setFillMode(1);
 		painter->translate(3.0, 3.0);
 		Path.resize(0);
-		Path = currentDoc->arrowStyles[a+1].copy();
+		Path = currentDoc->arrowStyles[a].copy();
 		FPoint min = GetMinClipF(Path);
 		Path.translate(-min.x(), -min.y());
 		FPoint max = Path.WidthHeight();

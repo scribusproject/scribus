@@ -43,6 +43,7 @@ QPixmap ScPreview::createPreview(QString data)
 	QFont fo;
 	QMap<QString,QString> DoFonts;
 	QMap<QString,QFont> DoFonts2;
+	QMap<int,int> arrowID;
 	QString tmpf, tmpx, tmp2, tmp3;
 	int x, y;
 	double xf, yf, asce;
@@ -59,6 +60,7 @@ QPixmap ScPreview::createPreview(QString data)
 	QString chx;
 	uint a, zae;
 	double CurY, EndX, CurX, wide, rota, wid;
+	QValueList<FPointArray> arrowStyles;
 	QDomDocument docu("scridoc");
 	docu.setContent(data);
 	QDomElement elem=docu.documentElement();
@@ -71,16 +73,31 @@ QPixmap ScPreview::createPreview(QString data)
 	double GrY = QStodouble(elem.attribute("YP"));
 	double GrW = QStodouble(elem.attribute("W"));
 	double GrH = QStodouble(elem.attribute("H"));
-	double pmmax = Prefs->PSize / QMAX(GrW+30, GrH+30);
-	QPixmap tmp = QPixmap(static_cast<int>(GrW)+30, static_cast<int>(GrH)+30);
+	double pmmax = Prefs->PSize / QMAX(GrW+50, GrH+50);
+	QPixmap tmp = QPixmap(static_cast<int>(GrW)+50, static_cast<int>(GrH)+50);
 	ScPainter *pS = new ScPainter(&tmp, tmp.width(), tmp.height());
-	pS->translate(15,15);
+	pS->translate(25,25);
 	QDomNode DOC=elem.firstChild();
 	DoFonts.clear();
 	FT_Init_FreeType( &library );
 	while(!DOC.isNull())
 	{
 		QDomElement pg=DOC.toElement();
+		if(pg.tagName()=="Arrows")
+		{
+			FPointArray arrow;
+			double xa, ya;
+			QString tmp = pg.attribute("Points");
+			QTextStream fp(&tmp, IO_ReadOnly);
+			for (uint cx = 0; cx < pg.attribute("NumPoints").toUInt(); ++cx)
+			{
+				fp >> xa;
+				fp >> ya;
+				arrow.addPoint(xa, ya);
+			}
+			arrowStyles.append(arrow);
+			arrowID.insert(QStoInt(pg.attribute("Index")), arrowStyles.count());
+		}
 		if(pg.tagName()=="FONT")
 		{
 			tmpf = GetAttr(&pg, "NAME");
@@ -391,6 +408,8 @@ QPixmap ScPreview::createPreview(QString data)
 				OB.Clip.setPoints(4, -1,-1, static_cast<int>(OB.Width+1),-1, static_cast<int>(OB.Width+1), static_cast<int>(OB.Height+1), -1, static_cast<int>(OB.Height+1));
 			}
 			OB.LayerNr = -1;
+			OB.startArrowIndex =  arrowID[QStoInt(pg.attribute("startArrowIndex","0"))];
+			OB.endArrowIndex =  arrowID[QStoInt(pg.attribute("endArrowIndex","0"))];
 			pS->save();
 			pS->translate(OB.Xpos, OB.Ypos);
 			pS->rotate(static_cast<double>(OB.Rot));
@@ -596,6 +615,33 @@ QPixmap ScPreview::createPreview(QString data)
 						pS->drawLine(FPoint(0, 0), FPoint(OB.Width, 0));
 					}
 				}
+				if (OB.startArrowIndex != 0)
+				{
+					QWMatrix arrowTrans;
+					FPointArray arrow = (*arrowStyles.at(OB.startArrowIndex-1)).copy();
+					arrowTrans.translate(0, 0);
+					arrowTrans.scale(OB.Pwidth, OB.Pwidth);
+					arrowTrans.scale(-1,1);
+					arrow.map(arrowTrans);
+					pS->setBrush(pS->pen());
+					pS->setLineWidth(0);
+					pS->setFillMode(ScPainter::Solid);
+					pS->setupPolygon(&arrow);
+					pS->drawPolygon();
+				}
+				if (OB.endArrowIndex != 0)
+				{
+					QWMatrix arrowTrans;
+					FPointArray arrow = (*arrowStyles.at(OB.endArrowIndex-1)).copy();
+					arrowTrans.translate(OB.Width, 0);
+					arrowTrans.scale(OB.Pwidth, OB.Pwidth);
+					arrow.map(arrowTrans);
+					pS->setBrush(pS->pen());
+					pS->setLineWidth(0);
+					pS->setFillMode(ScPainter::Solid);
+					pS->setupPolygon(&arrow);
+					pS->drawPolygon();
+				}
 				doStroke = false;
 				break;
 			case 1:
@@ -619,6 +665,54 @@ QPixmap ScPreview::createPreview(QString data)
 						           static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
 						           static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
 						pS->drawPolyLine();
+					}
+				}
+				if (OB.startArrowIndex != 0)
+				{
+					FPoint Start = OB.PoLine.point(0);
+					for (uint xx = 1; xx < OB.PoLine.size(); xx += 2)
+					{
+						FPoint Vector = OB.PoLine.point(xx);
+						if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
+						{
+							double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/3.1415927);
+							QWMatrix arrowTrans;
+							FPointArray arrow = (*arrowStyles.at(OB.startArrowIndex-1)).copy();
+							arrowTrans.translate(Start.x(), Start.y());
+							arrowTrans.rotate(r);
+							arrowTrans.scale(OB.Pwidth, OB.Pwidth);
+							arrow.map(arrowTrans);
+							pS->setBrush(pS->pen());
+							pS->setLineWidth(0);
+							pS->setFillMode(ScPainter::Solid);
+							pS->setupPolygon(&arrow);
+							pS->drawPolygon();
+							break;
+						}
+					}
+				}
+				if (OB.endArrowIndex != 0)
+				{
+					FPoint End = OB.PoLine.point(OB.PoLine.size()-2);
+					for (uint xx = OB.PoLine.size()-1; xx > 0; xx -= 2)
+					{
+						FPoint Vector = OB.PoLine.point(xx);
+						if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
+						{
+							double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/3.1415927);
+							QWMatrix arrowTrans;
+							FPointArray arrow = (*arrowStyles.at(OB.endArrowIndex-1)).copy();
+							arrowTrans.translate(End.x(), End.y());
+							arrowTrans.rotate(r);
+							arrowTrans.scale(OB.Pwidth, OB.Pwidth);
+							arrow.map(arrowTrans);
+							pS->setBrush(pS->pen());
+							pS->setLineWidth(0);
+							pS->setFillMode(ScPainter::Solid);
+							pS->setupPolygon(&arrow);
+							pS->drawPolygon();
+							break;
+						}
 					}
 				}
 				doStroke = false;

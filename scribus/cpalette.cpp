@@ -137,7 +137,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	gY2->setMaxValue(3000);
 	freeGradientLayout->addWidget( gY2, 1, 3 );
 	gradEditButton = new QToolButton(freeGradientQFrame, "t1");
-	gradEditButton->setText( tr("Edit..."));
+	gradEditButton->setText( tr("Move Vector"));
 	gradEditButton->setToggleButton(true);
 	freeGradientLayout->addMultiCellWidget(gradEditButton, 2, 2, 0, 3);
 	GradLayout->addWidget( freeGradientQFrame );
@@ -156,6 +156,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	QToolTip::add( gradientQCombo, tr( "Normal or gradient fill method" ) );
 	QToolTip::add( TransSpin, tr( "Set the transparency for the color selected" ) );
 	QToolTip::add( colorListQLBox, tr( "Color of selected object" ) );
+	QToolTip::add( gradEditButton, tr( "Move the start of the Gradient Vector with the left Mouse Button pressed and\nnove the end of the Gradient Vector with the right Mouse Button pressed" ) );
 
 	connect(Inhalt, SIGNAL(clicked()), this, SLOT(InhaltButton()));
 	connect(Innen, SIGNAL(clicked()), this, SLOT(InnenButton()));

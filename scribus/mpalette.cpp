@@ -1055,14 +1055,8 @@ void Mpalette::SetCurItem(PageItem *i)
 	{
 		startArrow->setEnabled(true);
 		endArrow->setEnabled(true);
-		if (i->haveStartArrow)
-			startArrow->setCurrentItem(i->startArrowIndex);
-		else
-			startArrow->setCurrentItem(0);
-		if (i->haveEndArrow)
-			endArrow->setCurrentItem(i->endArrowIndex);
-		else
-			endArrow->setCurrentItem(0);
+		startArrow->setCurrentItem(i->startArrowIndex);
+		endArrow->setCurrentItem(i->endArrowIndex);
 	}
 	else
 	{
@@ -2372,14 +2366,7 @@ void Mpalette::setStartArrow(int id)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		if (id == 0)
-			CurItem->haveStartArrow = false;
-		else
-		{
-			CurItem->haveStartArrow = true;
-			CurItem->startArrowIndex = id;
-			CurItem->startArrow = doc->arrowStyles[id].copy();
-		}
+		CurItem->startArrowIndex = id;
 		ScApp->view->RefreshItem(CurItem);
 		emit DocChanged();
 	}
@@ -2391,14 +2378,7 @@ void Mpalette::setEndArrow(int id)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		if (id == 0)
-			CurItem->haveEndArrow = false;
-		else
-		{
-			CurItem->haveEndArrow = true;
-			CurItem->endArrowIndex = id;
-			CurItem->endArrow = doc->arrowStyles[id].copy();
-		}
+		CurItem->endArrowIndex = id;
 		ScApp->view->RefreshItem(CurItem);
 		emit DocChanged();
 	}

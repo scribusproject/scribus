@@ -267,7 +267,7 @@ bool PSLib::PS_set_file(QString fn)
 	return Spool.open(IO_WriteOnly);
 }
 
-void PSLib::PS_begin_doc(int Ori, double x, double y, double breite, double hoehe, int numpage)
+void PSLib::PS_begin_doc(int, double x, double y, double breite, double hoehe, int numpage)
 {
 	PutDoc(Header);
 	PutDoc("%%For: " + User + "\n");
@@ -1012,7 +1012,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 {
 	uint a;
 	int sepac;
-	double wideR;
+	double wideR = 0;
 	QValueList<double> dum;
 	double gx, gy, gw, gh;
 	dum.clear();
@@ -1571,7 +1571,7 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 {
 	uint b, d;
 	int h, s, v, k, tsz;
-	double wideR;
+	double wideR = 0;
 	QValueList<double> dum;
 	dum.clear();
 	QCString chxc;
@@ -2027,6 +2027,35 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 								PS_stroke();
 							}
 						}
+						if (c->startArrowIndex != 0)
+						{
+							QWMatrix arrowTrans;
+							FPointArray arrow = (*Doc->arrowStyles.at(c->startArrowIndex-1)).copy();
+							arrowTrans.translate(0, 0);
+							arrowTrans.scale(c->Pwidth, c->Pwidth);
+							arrowTrans.scale(-1,1);
+							arrow.map(arrowTrans);
+							SetFarbe(Doc, c->Pcolor2, c->Shade2, &h, &s, &v, &k, gcr);
+							PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+							PS_newpath();
+							SetClipPath(&arrow);
+							PS_closepath();
+							PS_fill();
+						}
+						if (c->endArrowIndex != 0)
+						{
+							QWMatrix arrowTrans;
+							FPointArray arrow = (*Doc->arrowStyles.at(c->endArrowIndex-1)).copy();
+							arrowTrans.translate(c->Width, 0);
+							arrowTrans.scale(c->Pwidth, c->Pwidth);
+							arrow.map(arrowTrans);
+							SetFarbe(Doc, c->Pcolor2, c->Shade2, &h, &s, &v, &k, gcr);
+							PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+							PS_newpath();
+							SetClipPath(&arrow);
+							PS_closepath();
+							PS_fill();
+						}
 						break;
 					case 1:
 					case 3:
@@ -2093,6 +2122,56 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 								PS_setdash(static_cast<Qt::PenStyle>(ml[it].Dash), 0, dum);
 								SetClipPath(&c->PoLine, false);
 								PS_stroke();
+							}
+						}
+						if (c->startArrowIndex != 0)
+						{
+							FPoint Start = c->PoLine.point(0);
+							for (uint xx = 1; xx < c->PoLine.size(); xx += 2)
+							{
+								FPoint Vector = c->PoLine.point(xx);
+								if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
+								{
+									double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/3.1415927);
+									QWMatrix arrowTrans;
+									FPointArray arrow = (*Doc->arrowStyles.at(c->startArrowIndex-1)).copy();
+									arrowTrans.translate(Start.x(), Start.y());
+									arrowTrans.rotate(r);
+									arrowTrans.scale(c->Pwidth, c->Pwidth);
+									arrow.map(arrowTrans);
+									SetFarbe(Doc, c->Pcolor2, c->Shade2, &h, &s, &v, &k, gcr);
+									PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+									PS_newpath();
+									SetClipPath(&arrow);
+									PS_closepath();
+									PS_fill();
+									break;
+								}
+							}
+						}
+						if (c->endArrowIndex != 0)
+						{
+							FPoint End = c->PoLine.point(c->PoLine.size()-2);
+							for (uint xx = c->PoLine.size()-1; xx > 0; xx -= 2)
+							{
+								FPoint Vector = c->PoLine.point(xx);
+								if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
+								{
+									double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/3.1415927);
+									QWMatrix arrowTrans;
+									FPointArray arrow = (*Doc->arrowStyles.at(c->endArrowIndex-1)).copy();
+									arrowTrans.translate(End.x(), End.y());
+									arrowTrans.rotate(r);
+									arrowTrans.scale(c->Pwidth, c->Pwidth);
+									arrow.map(arrowTrans);
+									SetFarbe(Doc, c->Pcolor2, c->Shade2, &h, &s, &v, &k, gcr);
+									PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+									PS_newpath();
+									SetClipPath(&arrow);
+									PS_closepath();
+									PS_fill();
+									break;
+								}
 							}
 						}
 						break;
@@ -2279,7 +2358,10 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 void PSLib::HandleGradient(ScribusDoc* Doc, PageItem *c, double w, double h, bool gcr)
 {
 	int ch,cs,cv,ck;
-	double StartX, StartY, EndX, EndY;
+	double StartX = 0;
+	double StartY = 0;
+	double EndX = 0;
+	double EndY =0;
 	QPtrVector<VColorStop> cstops = c->fill_gradient.colorStops();
 	switch (c->GrType)
 	{

@@ -229,6 +229,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		return false;
 	doc->PageColors.clear();	
 	doc->Layers.clear();
+	doc->arrowStyles.clear();
 	CMYKColor lf = CMYKColor();
 	QDomElement elem=docu.documentElement();
 	if (elem.tagName() != "SCRIBUSUTF8NEW")
@@ -447,6 +448,20 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 				}
 				doc->MLineStyles.insert(pg.attribute("Name"), ml);
 			}
+			if(pg.tagName()=="Arrows")
+			{
+				FPointArray arrow;
+				double xa, ya;
+				QString tmp = pg.attribute("Points");
+				QTextStream fp(&tmp, IO_ReadOnly);
+				for (uint cx = 0; cx < pg.attribute("NumPoints").toUInt(); ++cx)
+				{
+					fp >> xa;
+					fp >> ya;
+					arrow.addPoint(xa, ya);
+				}
+				doc->arrowStyles.append(arrow);
+			}
 			if ((pg.tagName()=="PAGE") || (pg.tagName()=="MASTERPAGE"))
 			{
 				a = QStoInt(pg.attribute("NUM"));
@@ -557,6 +572,8 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 					GetItemProps(newVersion, &pg, &OB);
 					OB.Xpos = QStodouble(pg.attribute("XPOS"));
 					OB.Ypos=QStodouble(pg.attribute("YPOS"));
+					OB.startArrowIndex =  QStoInt(pg.attribute("startArrowIndex","0"));
+					OB.endArrowIndex =  QStoInt(pg.attribute("endArrowIndex","0"));
 					OB.NamedLStyle = pg.attribute("NAMEDLST", "");
 					OB.isBookmark=QStoInt(pg.attribute("BOOKMARK"));
 					if ((OB.isBookmark) && (doc->BookMarks.count() == 0))

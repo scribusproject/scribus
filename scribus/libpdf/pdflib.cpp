@@ -1642,6 +1642,69 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 								PutPage("S\n");
 							}
 						}
+						if (ite->startArrowIndex != 0)
+						{
+							QWMatrix arrowTrans;
+							FPointArray arrow = (*doc->arrowStyles.at(ite->startArrowIndex-1)).copy();
+							arrowTrans.translate(0, 0);
+							arrowTrans.scale(ite->Pwidth, ite->Pwidth);
+							arrowTrans.scale(-1,1);
+							arrow.map(arrowTrans);
+							if (Options->UseRGB)
+								PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" rg\n");
+							else
+							{
+#ifdef HAVE_CMS
+								if ((CMSuse) && (Options->UseProfiles))
+								{
+									QString tmp[] = {"/Perceptual", "/RelativeColorimetric", "/Saturation", "/AbsoluteColorimetric"};
+									PutPage(tmp[Options->Intent]);
+									PutPage(" ri\n");
+									PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" cs\n");
+									PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" scn\n");
+								}
+								else
+								{
+#endif
+									PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" k\n");
+								}
+#ifdef HAVE_CMS
+							}
+#endif
+							PutPage(SetClipPathArray(&arrow));
+							PutPage("h\nf*\n");
+						}
+						if (ite->endArrowIndex != 0)
+						{
+							QWMatrix arrowTrans;
+							FPointArray arrow = (*doc->arrowStyles.at(ite->endArrowIndex-1)).copy();
+							arrowTrans.translate(ite->Width, 0);
+							arrowTrans.scale(ite->Pwidth, ite->Pwidth);
+							arrow.map(arrowTrans);
+							if (Options->UseRGB)
+								PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" rg\n");
+							else
+							{
+#ifdef HAVE_CMS
+								if ((CMSuse) && (Options->UseProfiles))
+								{
+									QString tmp[] = {"/Perceptual", "/RelativeColorimetric", "/Saturation", "/AbsoluteColorimetric"};
+									PutPage(tmp[Options->Intent]);
+									PutPage(" ri\n");
+									PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" cs\n");
+									PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" scn\n");
+								}
+								else
+								{
+#endif
+									PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" k\n");
+								}
+#ifdef HAVE_CMS
+							}
+#endif
+							PutPage(SetClipPathArray(&arrow));
+							PutPage("h\nf*\n");
+						}
 						break;
 					case 1:
 					case 3:
@@ -1704,6 +1767,90 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 									PutPage(setStrokeMulti(&ml[it]));
 									PutPage(SetClipPath(ite, false));
 									PutPage("S\n");
+								}
+							}
+						}
+						if (ite->startArrowIndex != 0)
+						{
+							FPoint Start = ite->PoLine.point(0);
+							for (uint xx = 1; xx < ite->PoLine.size(); xx += 2)
+							{
+								FPoint Vector = ite->PoLine.point(xx);
+								if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
+								{
+									double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/3.1415927);
+									QWMatrix arrowTrans;
+									FPointArray arrow = (*doc->arrowStyles.at(ite->startArrowIndex-1)).copy();
+									arrowTrans.translate(Start.x(), Start.y());
+									arrowTrans.rotate(r);
+									arrowTrans.scale(ite->Pwidth, ite->Pwidth);
+									arrow.map(arrowTrans);
+									if (Options->UseRGB)
+										PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" rg\n");
+									else
+									{
+#ifdef HAVE_CMS
+										if ((CMSuse) && (Options->UseProfiles))
+										{
+											QString tmp[] = {"/Perceptual", "/RelativeColorimetric", "/Saturation", "/AbsoluteColorimetric"};
+											PutPage(tmp[Options->Intent]);
+											PutPage(" ri\n");
+											PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" cs\n");
+											PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" scn\n");
+										}
+										else
+										{
+#endif
+											PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" k\n");
+										}
+#ifdef HAVE_CMS
+									}
+#endif
+									PutPage(SetClipPathArray(&arrow));
+									PutPage("h\nf*\n");
+									break;
+								}
+							}
+						}
+						if (ite->endArrowIndex != 0)
+						{
+							FPoint End = ite->PoLine.point(ite->PoLine.size()-2);
+							for (uint xx = ite->PoLine.size()-1; xx > 0; xx -= 2)
+							{
+								FPoint Vector = ite->PoLine.point(xx);
+								if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
+								{
+									double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/3.1415927);
+									QWMatrix arrowTrans;
+									FPointArray arrow = (*doc->arrowStyles.at(ite->endArrowIndex-1)).copy();
+									arrowTrans.translate(End.x(), End.y());
+									arrowTrans.rotate(r);
+									arrowTrans.scale(ite->Pwidth, ite->Pwidth);
+									arrow.map(arrowTrans);
+									if (Options->UseRGB)
+										PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" rg\n");
+									else
+									{
+#ifdef HAVE_CMS
+										if ((CMSuse) && (Options->UseProfiles))
+										{
+											QString tmp[] = {"/Perceptual", "/RelativeColorimetric", "/Saturation", "/AbsoluteColorimetric"};
+											PutPage(tmp[Options->Intent]);
+											PutPage(" ri\n");
+											PutPage("/"+ICCProfiles[Options->SolidProf].ResName+" cs\n");
+											PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" scn\n");
+										}
+										else
+										{
+#endif
+											PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" k\n");
+										}
+#ifdef HAVE_CMS
+									}
+#endif
+									PutPage(SetClipPathArray(&arrow));
+									PutPage("h\nf*\n");
+									break;
 								}
 							}
 						}
@@ -2454,6 +2601,39 @@ QString PDFlib::SetClipPath(PageItem *ite, bool poly)
 	return tmp;
 }
 
+QString PDFlib::SetClipPathArray(FPointArray *ite, bool poly)
+{
+	bool nPath = true;
+	QString tmp = "";
+	FPoint np;
+	if (ite->size() > 3)
+	{
+		for (uint poi=0; poi<ite->size()-3; poi += 4)
+		{
+			if (ite->point(poi).x() > 900000)
+			{
+				if (poly)
+					tmp += "h\n";
+				nPath = true;
+				continue;
+			}
+			if (nPath)
+			{
+				np = ite->point(poi);
+				tmp += FToStr(np.x())+" "+FToStr(-np.y())+" m\n";
+				nPath = false;
+			}
+			np = ite->point(poi+1);
+			tmp += FToStr(np.x())+" "+FToStr(-np.y())+" ";
+			np = ite->point(poi+3);
+			tmp += FToStr(np.x())+" "+FToStr(-np.y())+" ";
+			np = ite->point(poi+2);
+			tmp += FToStr(np.x())+" "+FToStr(-np.y())+" c\n";
+		}
+	}
+	return tmp;
+}
+
 void PDFlib::PDF_Transparenz(PageItem *b)
 {
 	StartObj(ObjCounter);
@@ -2474,7 +2654,10 @@ void PDFlib::PDF_Gradient(PageItem *b)
 	double h = -b->Height;
 	double w2 = w / 2.0;
 	double h2 = h / 2.0;
-	double StartX, StartY, EndX, EndY;
+	double StartX = 0;
+	double StartY = 0;
+	double EndX = 0;
+	double EndY =0;
 	QValueList<double> StopVec;
 	QValueList<double> TransVec;
 	QStringList Gcolors;
@@ -2713,7 +2896,7 @@ void PDFlib::PDF_DoLinGradient(PageItem *b, QValueList<double> Stops, QValueList
 	}
 }
 
-void PDFlib::PDF_Annotation(PageItem *ite, uint PNr)
+void PDFlib::PDF_Annotation(PageItem *ite, uint)
 {
 	struct Dest de;
 	QString bm = "";
@@ -3404,7 +3587,9 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 	bool alphaM = false;
 	int ret = -1;
 	int afl;
-	double x2, y2, b, h, ax, ay, a2, a1, sxn, syn;
+	double x2, y2, b, h, ax, ay, a2, a1;
+	double sxn = 0;
+	double syn = 0;
 	x2 = 0;
 	double aufl = Options->Resolution / 72.0;
 	int ImRes, ImWid, ImHei;

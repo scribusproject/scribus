@@ -61,6 +61,7 @@ private:
 	QString FToStr(double c);
 	QString IToStr(int c);
 	QString setStrokeMulti(struct singleLine *sl);
+	QString SetClipPathArray(FPointArray *ite, bool poly = true);
 	QString SetClipPath(PageItem *ite, bool poly = true);
 	QString SetFarbe(QString farbe, int Shade);
 	QString setTextSt(PageItem *ite, uint PNr);
