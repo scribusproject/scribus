@@ -3239,6 +3239,12 @@ void ScriXmlDoc::WritePref(preV *Vor, QString ho)
 	dc8Pr.setAttribute("Yellow", static_cast<int>(Vor->PrPr_Y));
 	dc8Pr.setAttribute("Black", static_cast<int>(Vor->PrPr_K));
 	elem.appendChild(dc8Pr);
+	QDomElement dc8Ex = docu.createElement("EXTERNAL");
+	dc8Ex.setAttribute("GIMP", Vor->gimp_exe);
+	dc8Ex.setAttribute("GS", Vor->gs_exe);
+	dc8Ex.setAttribute("AlphaGraphics", static_cast<int>(Vor->gs_antiGraph));
+	dc8Ex.setAttribute("AlphaText", static_cast<int>(Vor->gs_antiText));
+	elem.appendChild(dc8Ex);
 	QDomElement rde=docu.createElement("HYPHEN");
 	rde.setAttribute("LANG", Vor->Language);
 	rde.setAttribute("WORDLEN", Vor->MinWordLen);
@@ -3503,6 +3509,13 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 			Vorein->PrPr_M = static_cast<bool>(QStoInt(dc.attribute("Magenta", "1")));
 			Vorein->PrPr_Y = static_cast<bool>(QStoInt(dc.attribute("Yellow", "1")));
 			Vorein->PrPr_K = static_cast<bool>(QStoInt(dc.attribute("Black", "1")));
+		}
+		if (dc.tagName()=="EXTERNAL")
+		{
+			Vorein->gs_exe = dc.attribute("GS", "gs");
+			Vorein->gs_antiText = static_cast<bool>(QStoInt(dc.attribute("AlphaText", "0")));
+			Vorein->gs_antiGraph = static_cast<bool>(QStoInt(dc.attribute("AlphaGraphics", "0")));
+			Vorein->gimp_exe = dc.attribute("GIMP", "gimp");
 		}
 		if (dc.tagName()=="HYPHEN")
 		{

@@ -227,6 +227,15 @@ public:
 	QLabel* CaliRuler;
 	QSlider* CaliSlider;
 	QLabel* CaliAnz;
+ 	QWidget* ExtTool;
+	QGroupBox* groupGS;
+	QLabel* GSText;
+	QLineEdit* GSName;
+	QCheckBox* GSantiText;
+	QCheckBox* GSantiGraph;
+	QGroupBox* groupGimp;
+	QLabel* GimpText;
+	QLineEdit* GimpName;
 	
 	SCFonts *fon; // can't use a reference, and can't copy whole structure...
 	double Umrech;
@@ -348,6 +357,10 @@ protected:
 	QGridLayout* GroupASLayout;
 	QVBoxLayout* CaliGroupLayout;
 	QHBoxLayout* layout15ca;
+	QVBoxLayout* ExtToolLayout;
+	QVBoxLayout* groupGSLayout;
+	QHBoxLayout* GSlayout;
+	QHBoxLayout* groupGimpLayout;
 };
 
 #endif // PREFS_H

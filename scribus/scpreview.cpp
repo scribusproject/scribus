@@ -32,7 +32,8 @@ QPixmap ScPreview::createPreview(QString data)
 	struct CLBuf OB;
 	struct Pti *hg;
 	struct Pti *hl;
-  QPtrList<Pti> Ptexti;
+	QPtrList<Pti> Ptexti;
+	bool error;
 	CMYKColor lf = CMYKColor();
 	QFont fo;
 	QMap<QString,QString> DoFonts;
@@ -91,15 +92,23 @@ QPixmap ScPreview::createPreview(QString data)
 				else
 					tmpf = Prefs->GFontSub[tmpf];
 				}
+			if (!DoFonts2.contains(tmpf))
+			{
+				FT_Face      face;
+				error = FT_New_Face( library, Prefs->AvailFonts[tmpf]->Datei, 0, &face );
+				if (error)
+					tmpf = Prefs->DefFont;
+				if (Prefs->AvailFonts[tmpf]->ReadMetrics())
+					Prefs->AvailFonts[tmpf]->CharWidth[13] = 0;
+				else
+				{
+					tmpf = Prefs->DefFont;
+					Prefs->AvailFonts[tmpf]->ReadMetrics();
+					Prefs->AvailFonts[tmpf]->CharWidth[13] = 0;
+				}
+			}
 			fo = Prefs->AvailFonts[tmpf]->Font;
 			fo.setPointSize(12);
-			if (!DoFonts2.contains(tmpf))
-				{
-				FT_Face      face;
-				FT_New_Face( library, Prefs->AvailFonts[tmpf]->Datei, 0, &face );
-				Prefs->AvailFonts[tmpf]->ReadMetrics();
-				Prefs->AvailFonts[tmpf]->CharWidth[13] = 0;
-				}
 			DoFonts[GetAttr(&pg, "NAME")] = tmpf;
 			DoFonts2[GetAttr(&pg, "NAME")] = fo;
 			}

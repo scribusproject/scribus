@@ -16,7 +16,7 @@
 #include FT_FREETYPE_H
 #include FT_OUTLINE_H
 #include FT_GLYPH_H
-extern FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y);
+extern FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y, bool *err);
 
 QString Foi_ttf::RealName()
 {
@@ -36,6 +36,7 @@ bool Foi_ttf::ReadMetrics()
 		return(true);
 	CharWidth.clear();
 	GlyphArray.clear();
+	isStroked = false;
 	QString tmp, tmp2, tmp3, tmp4;
 	bool			error;
 	FT_Library library;
@@ -46,7 +47,17 @@ bool Foi_ttf::ReadMetrics()
 	double x, y;
 	struct GlyphR GRec;
 	error = FT_Init_FreeType( &library );
+	if (error)
+	{
+		UseFont = false;
+		return false;
+	}
 	error = FT_New_Face( library, Datei, 0, &face );
+	if (error)
+	{
+		UseFont = false;
+		return false;
+	}
 	uniEM = static_cast<double>(face->units_per_EM);
 	HasKern = FT_HAS_KERNING(face);
 	Ascent = tmp.setNum(face->ascender * 1000 / uniEM);
@@ -64,19 +75,31 @@ bool Foi_ttf::ReadMetrics()
 	gindex = 0;
 	charcode = FT_Get_First_Char( face, &gindex );
 	while ( gindex != 0 )
+	{
+		error = FT_Load_Glyph( face, gindex, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
+		if (error)
 		{
-		FT_Load_Glyph( face, gindex, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
-		CharWidth.insert(charcode, face->glyph->metrics.horiAdvance / uniEM);
-		outlines = traceChar(face, charcode, 10, &x, &y);
-		GRec.Outlines = outlines.copy();
-		GRec.x = x;
-		GRec.y = y;
-		GlyphArray.insert(charcode, GRec);
-		charcode = FT_Get_Next_Char( face, charcode, &gindex );
+			UseFont = false;
+			break;
 		}
+		double ww = face->glyph->metrics.horiAdvance / uniEM;
+		if (face->glyph->format == FT_GLYPH_FORMAT_PLOTTER)
+			isStroked = true;
+		error = false;
+		outlines = traceChar(face, charcode, 10, &x, &y, &error);
+		if (!error)
+		{
+			CharWidth.insert(charcode, ww);
+			GRec.Outlines = outlines.copy();
+			GRec.x = x;
+			GRec.y = y;
+			GlyphArray.insert(charcode, GRec);
+		}
+		charcode = FT_Get_Next_Char( face, charcode, &gindex );
+	}
 	FT_Done_FreeType( library );
-	HasMetrics=true;
-	metricsread=true;
+	HasMetrics=UseFont;
+	metricsread=UseFont;
 	return(HasMetrics);
 }
 

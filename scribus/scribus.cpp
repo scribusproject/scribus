@@ -363,9 +363,6 @@ void ScribusApp::initScribus()
 		Prefs.ScriptDir = "";
 		Prefs.DColorSet = "Scribus-Small";
 		Prefs.CustomColorSets.clear();
-		PDef.Pname = "";
-		PDef.Dname = "";
-		PDef.Command = "";
 		Prefs.PrPr_Mode = false;
 		Prefs.PrPr_AlphaText = false;
 		Prefs.PrPr_AlphaGraphics = false;
@@ -374,6 +371,13 @@ void ScribusApp::initScribus()
 		Prefs.PrPr_M = true;
 		Prefs.PrPr_Y = true;
 		Prefs.PrPr_K = true;
+		Prefs.gimp_exe = "gimp";
+		Prefs.gs_antiGraph = true;
+		Prefs.gs_antiText = true;
+		Prefs.gs_exe = "gs";
+		PDef.Pname = "";
+		PDef.Dname = "";
+		PDef.Command = "";
 	  PrinterUsed = false;
 		resize(610, 600);
     QVBox* vb = new QVBox( this );
@@ -470,8 +474,8 @@ void ScribusApp::initScribus()
 			ScBook->ScFilename = SCf;
 			}
 		ScBook->AdjustMenu();
-		HaveGS = system("gs -h > /dev/null 2>&1");
-		HavePngAlpha = system("gs -sDEVICE=pngalpha -c quit > /dev/null 2>&1");
+		HaveGS = system(Prefs.gs_exe+" -h > /dev/null 2>&1");
+		HavePngAlpha = system(Prefs.gs_exe+" -sDEVICE=pngalpha -c quit > /dev/null 2>&1");
 		splash->setStatus( tr("Initializing Plugins"));
 		InitPlugs(splash);
 		ClipB = QApplication::clipboard();
@@ -1879,15 +1883,16 @@ bool ScribusApp::SetupDoc()
 			doc->FirstPageLeft = dia->ErsteSeite->isChecked();
 		doc->resetPage(tpr2, lr2, rr2, br2, fp);
 		view->reformPages();
-		doc->setModified();
 		view->GotoPage(doc->ActPage->PageNr);
 		view->DrawNew();
 		Sepal->RebuildPage();
+		slotDocCh();
 		ret = true;
 		doc->PDF_Optionen.BleedBottom = doc->PageM.Bottom;
 		doc->PDF_Optionen.BleedTop = doc->PageM.Top;
 		doc->PDF_Optionen.BleedLeft = doc->PageM.Left;
 		doc->PDF_Optionen.BleedRight = doc->PageM.Right;
+		
 		}
 	delete dia;
 	return ret;
@@ -4591,15 +4596,24 @@ void ScribusApp::SetNewFont(QString nf)
 {
 	Aktiv();
 	int a;
+	QString nf2 = nf;
 	if (!doc->UsedFonts.contains(nf))
+	{
+		if (doc->AddFont(nf, Prefs.AvailFonts[nf]->Font))
 		{
-		doc->AddFont(nf, Prefs.AvailFonts[nf]->Font);
-		a = FontMenu->insertItem(new FmItem(nf, Prefs.AvailFonts[nf]->Font));
-		FontID.insert(a, Prefs.AvailFonts[nf]->SCName);
+			a = FontMenu->insertItem(new FmItem(nf, Prefs.AvailFonts[nf]->Font));
+			FontID.insert(a, Prefs.AvailFonts[nf]->SCName);
 		}
-	AdjustFontMenu(nf);
-	doc->ActPage->ItemFont(nf);
-	doc->CurrFont = nf;
+		else
+		{
+			nf2 = doc->Dfont;
+			Mpal->Fonts->RebuildList(&Prefs);
+			BuildFontMenu();
+		}
+	}
+	AdjustFontMenu(nf2);
+	doc->ActPage->ItemFont(nf2);
+	doc->CurrFont = nf2;
 	slotDocCh();
 }
 
@@ -4824,7 +4838,6 @@ void ScribusApp::slotEditStyles()
 				else
 					ers.append(0);
 			}
-//			doc->Vorlagen = dia->TempVorl;
 			for (uint c=0; c<view->DocPages.count(); ++c)
 			{
 				for (uint d=0; d<view->DocPages.at(c)->Items.count(); ++d)
@@ -4931,9 +4944,13 @@ void ScribusApp::slotEditStyles()
 					QString nf = doc->Vorlagen[a].Font;
 					if (!doc->UsedFonts.contains(nf))
 					{
-						doc->AddFont(nf, Prefs.AvailFonts[nf]->Font);
-						int ff = FontMenu->insertItem(new FmItem(nf, Prefs.AvailFonts[nf]->Font));
-						FontID.insert(ff, Prefs.AvailFonts[nf]->SCName);
+						if (doc->AddFont(nf, Prefs.AvailFonts[nf]->Font))
+						{
+							int ff = FontMenu->insertItem(new FmItem(nf, Prefs.AvailFonts[nf]->Font));
+							FontID.insert(ff, Prefs.AvailFonts[nf]->SCName);
+						}
+						else
+							doc->Vorlagen[a].Font = doc->Dfont;
 					}
 				}
 			}
@@ -5483,6 +5500,10 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.DoppelSeiten = dia->Doppelseiten->isChecked();
 		Prefs.ErsteLinks = dia->Linkszuerst->isChecked();
 		Prefs.PDFTransparency = dia->UsePDFTrans->isChecked();
+		Prefs.gimp_exe = dia->GimpName->text();
+		Prefs.gs_antiGraph = dia->GSantiGraph->isChecked();
+		Prefs.gs_antiText = dia->GSantiText->isChecked();
+		Prefs.gs_exe = dia->GSName->text();
 		if (Prefs.DisScale != dia->DisScale)
 			{
 			Prefs.DisScale = dia->DisScale;

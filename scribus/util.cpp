@@ -88,7 +88,7 @@ void ReOrderText(ScribusDoc *doc, ScribusView *view);
 void WordAndPara(PageItem* b, int *w, int *p, int *c, int *wN, int *pN, int *cN);
 void CopyPageItem(struct CLBuf *Buffer, PageItem *b);
 bool overwrite(QWidget *parent, QString filename);
-FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y);
+FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y, bool &err);
 FPoint GetMaxClipF(FPointArray Clip);
 QPixmap FontSample(QString da, int s, QString ts, QColor back);
 QString Path2Relative(QString Path);
@@ -114,6 +114,7 @@ FPointArray RegularPolygonF(double w, double h, uint c, bool star, double factor
 QPixmap loadIcon(QString nam);
 bool loadText(QString nam, QString *Buffer);
 double Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2 = " ");
+double RealCWidth(ScribusDoc *doc, QString name, QString ch, int Siz);
 double QStodouble(QString in);
 int QStoInt(QString in);
 QString GetAttr(QDomElement *el, QString at, QString def="0");
@@ -273,15 +274,17 @@ int callGS(const QStringList & args_in)
 	QStringList args;
 
 	/* these parameters are always the same */
-	args.append("gs");
+	args.append(ScApp->Prefs.gs_exe);
 	args.append("-q");
 	args.append("-dNOPAUSE");
 	if (ScApp->HavePngAlpha != 0)
 		args.append("-sDEVICE=png16m");
 	else
 		args.append("-sDEVICE=pngalpha");
-	args.append("-dTextAlphaBits=4");
-	args.append("-dGraphicsAlphaBits=4");
+	if (ScApp->Prefs.gs_antiText)
+		args.append("-dTextAlphaBits=4");
+	if (ScApp->Prefs.gs_antiGraph)
+		args.append("-dGraphicsAlphaBits=4");
 	
 	/* insert specific arguments */
 	QStringList p;
@@ -810,6 +813,22 @@ double Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2)
 			FT_Get_Kerning(doc->FFonts[name], cl, cr, ft_kerning_unscaled, &delta);
 			w += delta.x / fo->uniEM * (Siz / 10.0);
 		}
+		return w;
+	}
+	else
+		return static_cast<double>(Siz / 10.0);
+}
+
+double RealCWidth(ScribusDoc *doc, QString name, QString ch, int Siz)
+{
+	double w;
+	uint c1 = ch.at(0).unicode();
+	Foi* fo = (*doc->AllFonts)[name];
+	if (fo->CharWidth.contains(c1))
+	{
+		uint cl = FT_Get_Char_Index(doc->FFonts[name], c1);
+		FT_Load_Glyph( doc->FFonts[name], cl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
+		w = (doc->FFonts[name]->glyph->metrics.width + doc->FFonts[name]->glyph->metrics.horiBearingX) / fo->uniEM * (Siz / 10.0);
 		return w;
 	}
 	else
@@ -1437,24 +1456,45 @@ FT_Outline_Funcs OutlineMethods =
 	0
 };
 
-FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y)
+FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y, bool *err)
 {
+	bool error = false;
 	FT_UInt glyphIndex;
 	FPointArray pts, pts2;
 	pts.resize(0);
+	pts2.resize(0);
 	firstP = FPoint(0,0);
 	FirstM = true;
-	FT_Set_Char_Size(	face, 0, chs*64, 72, 72 );
+	error = FT_Set_Char_Size( face, 0, chs*64, 72, 72 );
+	if (error)
+	{
+		*err = error;
+		return pts2;
+	}
 	glyphIndex = FT_Get_Char_Index(face, chr);
-	FT_Load_Glyph( face, glyphIndex, FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP );
-	FT_Outline_Decompose(&face->glyph->outline, &OutlineMethods, reinterpret_cast<void*>(&pts));
+	if (glyphIndex == 0)
+	{
+		*err = true;
+		return pts2;
+	}
+	error = FT_Load_Glyph( face, glyphIndex, FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP );
+	if (error)
+	{
+		*err = error;
+		return pts2;
+	}
+	error = FT_Outline_Decompose(&face->glyph->outline, &OutlineMethods, reinterpret_cast<void*>(&pts));
+	if (error)
+	{
+		*err = error;
+		return pts2;
+	}
 	*x = face->glyph->metrics.horiBearingX / 64.0;
 	*y = face->glyph->metrics.horiBearingY / 64.0;
 	QWMatrix ma;
 	ma.scale(1, -1);
 	pts.map(ma);
 	pts.translate(0, chs);
-	pts2.resize(0);
 	pts2.putPoints(0, pts.size()-2, pts, 0);
 	return pts2;
 }
@@ -1505,7 +1545,7 @@ QPixmap FontSample(QString da, int s, QString ts, QColor back)
 	for (uint n = 0; n < ts.length(); ++n)
 	{
 		uint dv = ts[n].unicode();
-		FPointArray gly = traceChar(face, dv, s, &x, &y);
+		FPointArray gly = traceChar(face, dv, s, &x, &y, &error);
 		if (gly.size() > 3)
 		{
 			gly.translate(static_cast<double>(pen_x) / 64.0, a);

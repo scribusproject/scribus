@@ -636,13 +636,26 @@ void StoryEditor::slotEditStyles()
 	{
 		ct = stList.at(b);
 		sty = ct->currentItem();
-		if (sty > static_cast<int>(doc->Vorlagen.count()-1))
-			sty = 0;
+		QString StText = ct->text(sty);
+		int align = 0;
+		if (sty > 4)
+		{
+			for (uint x = 5; x < style.count(); ++x)
+			{
+				if (style[x] == StText)
+				{
+					align = x;
+					break;
+				}
+			}
+		}
+		else
+			align = sty;
 		disconnect(ct, SIGNAL(activated(int)), this, SLOT(styleChange(int)));
 		ct->clear();
 		ct->insertStringList(style);
 		connect(ct, SIGNAL(highlighted(int)), this, SLOT(styleChange(int)));
-		ct->setCurrentItem(sty);
+		ct->setCurrentItem(align);
 		disconnect(ct, SIGNAL(highlighted(int)), this, SLOT(styleChange(int)));
 		connect(ct, SIGNAL(activated(int)), this, SLOT(styleChange(int)));
 	}

@@ -67,7 +67,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	PrefsLayout2 = new QHBoxLayout(0, 0, 6);
 
 	TabListe = new QListBox(this, "StyledL");
-	QString ar_tab[] = { tr("General"), tr("Document"), tr("Guides"), tr("Typography"), tr("Tools"), tr("Scrapbook"), tr("Display")};
+	QString ar_tab[] = { tr("General"), tr("Document"), tr("Guides"), tr("Typography"), tr("Tools"), tr("Scrapbook"), tr("Display"), tr("External Tools")};
 	size_t a_tab = sizeof(ar_tab) / sizeof(*ar_tab);
 	for (uint s = 0; s < a_tab; ++s)
 		TabListe->insertItem(ar_tab[s]);
@@ -1442,6 +1442,51 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 
 	tabLayout_6->addWidget( GroupBox10 );
 	TabWidget3->addWidget( tab_6, 6 );
+	
+	ExtTool = new QWidget( TabWidget3, "ExtTool" );
+	ExtToolLayout = new QVBoxLayout( ExtTool, 11, 6, "ExtToolLayout"); 
+	groupGS = new QGroupBox( ExtTool, "groupGS" );
+	groupGS->setTitle( tr( "Postscript Interpreter" ) );
+	groupGS->setColumnLayout(0, Qt::Vertical );
+	groupGS->layout()->setSpacing( 6 );
+	groupGS->layout()->setMargin( 10 );
+	groupGSLayout = new QVBoxLayout( groupGS->layout() );
+	groupGSLayout->setAlignment( Qt::AlignTop );
+	GSlayout = new QHBoxLayout( 0, 0, 6, "GSlayout"); 
+	GSText = new QLabel( groupGS, "GSText" );
+	GSText->setText( tr( "Name of executeable:" ) );
+	GSlayout->addWidget( GSText );
+	GSName = new QLineEdit( groupGS, "GSName" );
+	GSName->setText(Vor->gs_exe);
+	GSlayout->addWidget( GSName );
+	groupGSLayout->addLayout( GSlayout );
+	GSantiText = new QCheckBox( groupGS, "GSantiText" );
+	GSantiText->setText( tr( "Antialias Text" ) );
+	GSantiText->setChecked(Vor->gs_antiText);
+	groupGSLayout->addWidget( GSantiText );
+	GSantiGraph = new QCheckBox( groupGS, "GSantiGraph" );
+	GSantiGraph->setText( tr( "Antialias Graphics" ) );
+	GSantiGraph->setChecked(Vor->gs_antiGraph);
+	groupGSLayout->addWidget( GSantiGraph );
+	ExtToolLayout->addWidget( groupGS );
+	groupGimp = new QGroupBox( ExtTool, "groupGimp" );
+	groupGimp->setTitle( tr( "Image Processing Tool" ) );
+	groupGimp->setColumnLayout(0, Qt::Vertical );
+	groupGimp->layout()->setSpacing( 6 );
+	groupGimp->layout()->setMargin( 10 );
+	groupGimpLayout = new QHBoxLayout( groupGimp->layout() );
+	groupGimpLayout->setAlignment( Qt::AlignTop );
+	GimpText = new QLabel( groupGimp, "GimpText" );
+	GimpText->setText( tr( "Name of executeable:" ) );
+	groupGimpLayout->addWidget( GimpText );
+	GimpName = new QLineEdit( groupGimp, "GimpName" );
+	GimpName->setText(Vor->gimp_exe);
+	groupGimpLayout->addWidget( GimpName );
+	ExtToolLayout->addWidget( groupGimp );
+	QSpacerItem* spacer_gs = new QSpacerItem( 0, 1, QSizePolicy::Minimum, QSizePolicy::Expanding );
+	ExtToolLayout->addItem( spacer_gs );
+	TabWidget3->addWidget( ExtTool, 7 );
+	
 	Fram->raiseWidget(1);
 
 	PrefsLayout2->addWidget( TabWidget3 );

@@ -446,6 +446,10 @@ struct preV  {
 				bool PrPr_M;
 				bool PrPr_Y;
 				bool PrPr_K;
+				QString gs_exe;
+				bool gs_antiText;
+				bool gs_antiGraph;
+				QString gimp_exe;
 			};
 /**
   * the Document Class
@@ -464,7 +468,7 @@ public:
 	void setPage(double b, double h, double t, double l, double r, double bo, double sp, double ab, 
 					bool atf, bool fp);
 	void resetPage(double t, double l, double r, double bo, bool fp);
-	void AddFont(QString name, QFont fo);
+	bool AddFont(QString name, QFont fo);
 
 protected:
     bool modified;

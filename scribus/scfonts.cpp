@@ -2,7 +2,7 @@
 	Scribus font handling code - copyright (C) 2001 by
 	Alastair M. Robinson
 
-	Based on code by Christian Töpp and Franz Schmid.
+	Based on code by Christian Tpp and Franz Schmid.
 
 	Contributed to the Scribus project under the terms of
 	the GNU General Public License version 2, or any later
@@ -30,7 +30,7 @@
 #include FT_FREETYPE_H
 #include FT_OUTLINE_H
 #include FT_GLYPH_H
-extern FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y);
+extern FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y, bool *err);
 
 extern bool loadText(QString nam, QString *Buffer);
 extern bool GlyNames(QMap<uint, QString> *GList, QString Dat);
@@ -164,6 +164,7 @@ class Foi_postscript : public Foi
 			FT_ULong  charcode;
 			FT_UInt   gindex;
 			FT_Face   face;
+			isStroked = false;
 			error = FT_Init_FreeType( &library );
 			if (error)
 				{
@@ -204,18 +205,30 @@ class Foi_postscript : public Foi
 			charcode = FT_Get_First_Char( face, &gindex );
 			while ( gindex != 0 )
 				{
-				FT_Load_Glyph( face, gindex, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
-				CharWidth.insert(charcode, face->glyph->metrics.horiAdvance / uniEM);
-				outlines = traceChar(face, charcode, 10, &x, &y);
-				GRec.Outlines = outlines.copy();
-				GRec.x = x;
-				GRec.y = y;
-				GlyphArray.insert(charcode, GRec);
+				error = FT_Load_Glyph( face, gindex, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
+				if (error)
+					{
+					UseFont = false;
+					break;
+					}
+				double ww = face->glyph->metrics.horiAdvance / uniEM;
+				if (face->glyph->format == FT_GLYPH_FORMAT_PLOTTER)
+					isStroked = true;
+				error = false;
+				outlines = traceChar(face, charcode, 10, &x, &y, &error);
+				if (!error)
+					{
+					CharWidth.insert(charcode, ww);
+					GRec.Outlines = outlines.copy();
+					GRec.x = x;
+					GRec.y = y;
+					GlyphArray.insert(charcode, GRec);
+					}
 				charcode = FT_Get_Next_Char( face, charcode, &gindex );
 				}
 			FT_Done_FreeType( library );
-			HasMetrics=true;
-			metricsread=true;
+			HasMetrics=UseFont;
+			metricsread=UseFont;
 			return(HasMetrics);
 		}
 	private:

@@ -54,6 +54,7 @@ class Foi
 		bool HasMetrics;
 		bool isOTF;
 		bool Subset;
+		bool isStroked;
 		struct GlyphR { FPointArray Outlines;
 					 					double x;
 					 					double y;

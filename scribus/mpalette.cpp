@@ -2687,6 +2687,7 @@ void Mpalette::setActFarben(QString p, QString b, int shp, int shb)
 	PM1->setValue(shp);
 	if ((b != "None") && (b != ""))
 	{
+		c++;
 		for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 		{
 			if (it.key() == b)
@@ -2698,6 +2699,7 @@ void Mpalette::setActFarben(QString p, QString b, int shp, int shb)
 	c = 0;
 	if ((p != "None") && (p != ""))
 	{
+		c++;
 		for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 		{
 			if (it.key() == p)

@@ -36,6 +36,7 @@
 #include <ft2build.h>
 #include FT_GLYPH_H
 extern double Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2 = " ");
+extern double RealCWidth(ScribusDoc *doc, QString name, QString ch, int Siz);
 extern QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
 extern double xy2Deg(double x, double y);
 extern void BezierPoints(QPointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4);
@@ -598,9 +599,6 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						if (OwnPage->Items.at(a)->Textflow)
 							{
 							pp.begin(Parent);
-//							pp.translate(OwnPage->Items.at(a)->Xpos*sc, OwnPage->Items.at(a)->Ypos*sc);
-//							pp.scale(sc, sc);
-//							pp.scale(sc, sc);
 							pp.translate(OwnPage->Items.at(a)->Xpos, OwnPage->Items.at(a)->Ypos);
 							pp.rotate(OwnPage->Items.at(a)->Rot);
 							if (OwnPage->Items.at(a)->Textflow2)
@@ -757,6 +755,8 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						}
 					else
 						wide = Cwidth(Doc, hl->cfont, chx2, chs);
+					if (DropCmode)
+						wide = RealCWidth(Doc, hl->cfont, chx2, chs);
 					wide = wide * (hl->cscale / 100.0);
 					desc2 = -(*Doc->AllFonts)[hl->cfont]->numDescender * (chs / 10.0);
 					desc = qRound(-(*Doc->AllFonts)[hl->cfont]->numDescender * (chs / 10.0));
@@ -1790,12 +1790,22 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 			gly.map(chma);
 			p->setFillMode(1);
 			p->setupPolygon(&gly);
-			if (hl->Farb != "None")
-				p->fillPath();
-			if ((hl->Style & 4) && (hl->Farb2 != "None"))
+			if ((*Doc->AllFonts)[hl->ZFo]->isStroked)
 			{
+				QColor tmp = p->brush();
+				p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
 				p->setLineWidth(QMAX((*Doc->AllFonts)[hl->ZFo]->strokeWidth * (hl->Siz / 10.0) / 2, 1));
 				p->strokePath();
+			}
+			else
+			{
+				if (hl->Farb != "None")
+					p->fillPath();
+				if ((hl->Style & 4) && (hl->Farb2 != "None"))
+				{
+					p->setLineWidth(QMAX((*Doc->AllFonts)[hl->ZFo]->strokeWidth * (hl->Siz / 10.0) / 2, 1));
+					p->strokePath();
+				}
 			}
 		}
 		if (hl->Style & 16)

@@ -1,4 +1,8 @@
 Changes since Version 1.1.5
+06.03.2004	Added Settings for the external Tools to the Preferences.
+		Scribus should now be more stable when it finds a corrupt Font on startup.
+		Fixed Bugs #323, #311, #209 and #80
+
 05.03.2004	Improved the PDF-Exporter, Images are now written only once into the PDF.
 		Fixed Bug #314.
 

@@ -196,23 +196,33 @@ void ScribusDoc::resetPage(double t, double l, double r, double bo, bool fp)
 	PageFP = fp;
 }
 
-void ScribusDoc::AddFont(QString name, QFont fo)
+bool ScribusDoc::AddFont(QString name, QFont fo)
 {
+	bool ret = false;
+	bool error;
 	FT_Face      face;
-	FT_New_Face( library, (*AllFonts)[name]->Datei, 0, &face );
-	FFonts[name] = face;
-	UsedFonts[name] = fo;
-	(*AllFonts)[name]->ReadMetrics();
-	(*AllFonts)[name]->CharWidth[13] = 0;
-	(*AllFonts)[name]->CharWidth[9] = 1;
-	QString afnm = (*AllFonts)[name]->Datei.left((*AllFonts)[name]->Datei.length()-3);
-	QFile afm(afnm+"afm");
-	if(!(afm.exists()))
+	error = FT_New_Face( library, (*AllFonts)[name]->Datei, 0, &face );
+	if (error)
+		return ret;
+	if ((*AllFonts)[name]->ReadMetrics())
 	{
-		afm.setName(afnm+"Afm");
+		(*AllFonts)[name]->CharWidth[13] = 0;
+		(*AllFonts)[name]->CharWidth[9] = 1;
+		QString afnm = (*AllFonts)[name]->Datei.left((*AllFonts)[name]->Datei.length()-3);
+		QFile afm(afnm+"afm");
 		if(!(afm.exists()))
-			afm.setName(afnm+"AFM");
+		{
+			afm.setName(afnm+"Afm");
+			if(!(afm.exists()))
+				afm.setName(afnm+"AFM");
+		}
+		if (afm.exists())
+			FT_Attach_File(face, afm.name());
+		FFonts[name] = face;
+		UsedFonts[name] = fo;
+		ret = true;
 	}
-	if (afm.exists())
-		FT_Attach_File(face, afm.name());
+	else
+		FT_Done_Face( face );
+	return ret;
 }
