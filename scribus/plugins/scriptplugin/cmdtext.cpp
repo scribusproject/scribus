@@ -21,6 +21,7 @@ PyObject *scribus_getfontsize(PyObject */*self*/, PyObject* args)
 		for (uint b = 0; b < it->Ptext.count(); b++)
 			if (it->Ptext.at(b)->cselect)
 				return PyFloat_FromDouble(static_cast<double>(it->Ptext.at(b)->csize / 10.0));
+		return NULL;
 	}
 	else
 		return PyFloat_FromDouble(static_cast<long>(it->ISize / 10.0));
@@ -46,6 +47,7 @@ PyObject *scribus_getfont(PyObject */*self*/, PyObject* args)
 		for (uint b = 0; b < it->Ptext.count(); b++)
 			if (it->Ptext.at(b)->cselect)
 				return PyString_FromString(it->Ptext.at(b)->cfont.utf8());
+		return NULL;
 	}
 	else
 		return PyString_FromString(it->IFont.utf8());
