@@ -13,10 +13,9 @@ PyObject *scribus_setredraw(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setRedraw(e)"));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
-	if (!Carrier->HaveDoc)
-		return Py_None;
+	HAVEDOC_OR_ERR
 	Carrier->doc->DoDrawing = static_cast<bool>(e);
+	Py_INCREF(Py_None);
 	return Py_None;
 }
 
@@ -105,17 +104,11 @@ PyObject *scribus_getlayers(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getLayers()"));
 		return NULL;
 	}
+	HAVEDOC_OR_ERR
 	PyObject *l;
-	if (Carrier->HaveDoc)
-	{
-		l = PyList_New(Carrier->doc->Layers.count());
-		for (uint lam=0; lam < Carrier->doc->Layers.count(); lam++)
-		{
-			PyList_SetItem(l, lam, PyString_FromString(Carrier->doc->Layers[lam].Name));
-		}
-	}
-	else
-		l = PyList_New(0);
+	l = PyList_New(Carrier->doc->Layers.count());
+	for (uint lam=0; lam < Carrier->doc->Layers.count(); lam++)
+		PyList_SetItem(l, lam, PyString_FromString(Carrier->doc->Layers[lam].Name));
 	return l;
 }
 
@@ -127,9 +120,12 @@ PyObject *scribus_setactlayer(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setActiveLayer(layername)"));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
-	if ((!Carrier->HaveDoc) || (Name == ""))
+	HAVEDOC_OR_ERR
+	if (Name == "")
+	{
+		Py_INCREF(Py_None);
 		return Py_None;
+	}
 	int i = -1;
 	for (uint lam=0; lam < Carrier->doc->Layers.count(); ++lam)
 	{
@@ -141,6 +137,7 @@ PyObject *scribus_setactlayer(PyObject *self, PyObject* args)
 			break;
 		}
 	}
+	Py_INCREF(Py_None);
 	return Py_None;
 }
 
@@ -151,8 +148,7 @@ PyObject *scribus_getactlayer(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getActiveLayer()"));
 		return NULL;
 	}
-	if (!Carrier->HaveDoc)
-		return PyString_FromString("");
+	HAVEDOC_OR_ERR
 	return PyString_FromString(Carrier->doc->Layers[Carrier->doc->ActiveLayer].Name);
 }
 
@@ -165,9 +161,12 @@ PyObject *scribus_senttolayer(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("sentToLayer(layername [,obejctname])"));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
-	if ((!Carrier->HaveDoc) || (Layer == ""))
+	HAVEDOC_OR_ERR
+	if (Layer == "")
+	{
+		Py_INCREF(Py_None);
 		return Py_None;
+	}
 	PageItem *i = GetUniqueItem(QString(Name));
 	if (i != NULL)
 	{
@@ -179,6 +178,7 @@ PyObject *scribus_senttolayer(PyObject *self, PyObject* args)
 				break;
 			}
 	}
+	Py_INCREF(Py_None);
 	return Py_None;
 }
 
@@ -191,9 +191,12 @@ PyObject *scribus_layervisible(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setLayerVisible(layername, visible)"));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
-	if ((!Carrier->HaveDoc) || (Name == ""))
+	HAVEDOC_OR_ERR
+	if (Name == "")
+	{
+		Py_INCREF(Py_None);
 		return Py_None;
+	}
 	for (uint lam=0; lam < Carrier->doc->Layers.count(); ++lam)
 	{
 		if (Carrier->doc->Layers[lam].Name == QString(Name))
@@ -202,6 +205,7 @@ PyObject *scribus_layervisible(PyObject *self, PyObject* args)
 			break;
 		}
 	}
+	Py_INCREF(Py_None);
 	return Py_None;
 }
 
@@ -214,9 +218,12 @@ PyObject *scribus_layerprint(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setLayerPrintable(layername, Printable)"));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
-	if ((!Carrier->HaveDoc) || (Name == ""))
+	HAVEDOC_OR_ERR
+	if (Name == "")
+	{
+		Py_INCREF(Py_None);
 		return Py_None;
+	}
 	for (uint lam=0; lam < Carrier->doc->Layers.count(); ++lam)
 	{
 		if (Carrier->doc->Layers[lam].Name == QString(Name))
@@ -225,6 +232,7 @@ PyObject *scribus_layerprint(PyObject *self, PyObject* args)
 			break;
 		}
 	}
+	Py_INCREF(Py_None);
 	return Py_None;
 }
 
@@ -236,7 +244,8 @@ PyObject *scribus_glayervisib(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("isLayerVisible(layername)"));
 		return NULL;
 	}
-	if ((!Carrier->HaveDoc) || (Name == ""))
+	HAVEDOC_OR_ERR
+	if (Name == "")
 		return PyInt_FromLong(0L);
 	int i = 0;
 	for (uint lam=0; lam < Carrier->doc->Layers.count(); lam++)
@@ -258,7 +267,8 @@ PyObject *scribus_glayerprint(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("isLayerPrintable(layername)"));
 		return NULL;
 	}
-	if ((!Carrier->HaveDoc) || (Name == ""))
+	HAVEDOC_OR_ERR
+	if (Name == "")
 		return PyInt_FromLong(0L);
 	int i = 0;
 	for (uint lam=0; lam < Carrier->doc->Layers.count(); ++lam)
@@ -280,9 +290,12 @@ PyObject *scribus_removelayer(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("deleteLayer(layername)"));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
-	if ((!Carrier->HaveDoc) || (Name == "") || (Carrier->doc->Layers.count() == 1))
+	HAVEDOC_OR_ERR
+	if ((Name == "") || (Carrier->doc->Layers.count() == 1))
+	{
+		Py_INCREF(Py_None);
 		return Py_None;
+	}
 	for (uint lam=0; lam < Carrier->doc->Layers.count(); ++lam)
 	{
 		if (Carrier->doc->Layers[lam].Name == QString(Name))
@@ -306,6 +319,7 @@ PyObject *scribus_removelayer(PyObject *self, PyObject* args)
 			break;
 		}
 	}
+	Py_INCREF(Py_None);
 	return Py_None;
 }
 
@@ -317,9 +331,12 @@ PyObject *scribus_createlayer(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("createLayer(layername)"));
 		return NULL;
 	}
-	Py_INCREF(Py_None);
+	HAVEDOC_OR_ERR
 	if ((!Carrier->HaveDoc) || (Name == ""))
+	{
+		Py_INCREF(Py_None);
 		return Py_None;
+	}
 	QString tmp;
 	struct Layer ll;
 	ll.LNr = Carrier->doc->Layers.last().LNr + 1;
@@ -330,6 +347,7 @@ PyObject *scribus_createlayer(PyObject *self, PyObject* args)
 	Carrier->doc->Layers.append(ll);
 	Carrier->doc->ActiveLayer = ll.LNr;
 	Carrier->changeLayer(ll.LNr);
+	Py_INCREF(Py_None);
 	return Py_None;
 }
 

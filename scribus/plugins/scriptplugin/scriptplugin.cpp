@@ -48,6 +48,10 @@
 #include <qtextstream.h>
 #include <cstdlib>
 
+// Exceptions; visible from cmdvar.h, set up in initscribus()
+PyObject* ScribusException;
+PyObject* NoDocOpenError;
+
 QString Name()
 {
 	return QObject::tr("S&cripter Manual...");
@@ -698,6 +702,18 @@ void initscribus(ScribusApp *pl)
 	Py_INCREF(&PDFfile_Type);
 	PyModule_AddObject(m, "PDFfile", (PyObject *) &PDFfile_Type);
 	d = PyModule_GetDict(m);
+
+	// Set up the module exceptions
+	// common exc.
+	ScribusException = PyErr_NewException("scribus.ScribusException", NULL, NULL);
+	Py_INCREF(ScribusException);
+	PyModule_AddObject(m, "ScribusException", ScribusException);
+	// no doc open
+	NoDocOpenError = PyErr_NewException("scribus.NoDocOpenError", ScribusException, NULL);
+	Py_INCREF(NoDocOpenError);
+	PyModule_AddObject(m, "NoDocOpenError", NoDocOpenError);
+	// Done with exception setup
+
 	// CONSTANTS
 	PyDict_SetItemString(d, "UNIT_POINTS", Py_BuildValue("i", 0));
 	PyDict_SetItemString(d, "UNIT_MILLIMETERS", Py_BuildValue("i", 1));

@@ -3,6 +3,11 @@
 
 #include "scribus.h"
 
+/*! Macro to check for Carrier->HaveDoc and set a sensible
+exception if not found. */
+#define HAVEDOC_OR_ERR if (!Carrier->HaveDoc) { PyErr_SetString(NoDocOpenError, "Command does not make sense without an open document"); return NULL; }
+
+
 double PointToValue(double Val);
 double ValToPts(double Val, int ein);
 double ValueToPoint(double Val);

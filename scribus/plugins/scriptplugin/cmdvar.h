@@ -12,5 +12,11 @@
 /* Static global Variables */
 extern ScribusApp* Carrier;
 
+/* Exceptions */
+/*! Common scribus Exception */
+extern PyObject* ScribusException;
+/*! Exception raised when no document opened - see. HAVEDOC_OR_ERR in cmdutil.h */
+extern PyObject* NoDocOpenError;
+
 #endif
 
