@@ -41,16 +41,19 @@ PyObject *scribus_xfontnames(PyObject */*self*/);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_renderfont__doc__,
-QT_TR_NOOP("rendeFont(\"name\", \"filename\", \"sample\", size) -> bool\n\
+QT_TR_NOOP("renderFont(\"name\", \"filename\", \"sample\", size, format=\"PPM\") -> bool\n\
 \n\
 Creates an image preview of font \"name\" with given text \"sample\" and size.\n\
-Image is saved into \"filename\". Returns true when success.\n\
+If \"filename\" is not \"\", image is saved into \"filename\". Otherwise\n\
+image data is returned as a string. The optional \"format\" argument\n\
+specifies the image format to generate, and supports any format allowed\n\
+by QPixmap.save(). Common formats are PPM, JPEG, PNG and XPM.\n\
 \n\
 May raise NotFoundError if the specified font can't be found.\n\
 May raise ValueError if an empty sample or filename is passed.\n\
 "));
 /*! Font example to image. */
-PyObject *scribus_renderfont(PyObject */*self*/, PyObject* args);
+PyObject *scribus_renderfont(PyObject* /*self*/, PyObject* args, PyObject* kw);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getlayers__doc__,

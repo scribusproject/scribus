@@ -68,14 +68,24 @@ PyObject *scribus_xfontnames(PyObject */*self*/)
 	return l;
 }
 
-PyObject *scribus_renderfont(PyObject */*self*/, PyObject* args)
+// This function is fairly complex because it can either save its output to a
+// file, or return it as a Python string.
+PyObject *scribus_renderfont(PyObject* /*self*/, PyObject* args, PyObject* kw)
 {
 	char *Name = const_cast<char*>("");
 	char *FileName = const_cast<char*>("");
 	char *Sample = const_cast<char*>("");
+	char *format = NULL;
 	int Size;
 	bool ret = false;
-	if (!PyArg_ParseTuple(args, "esesesi", "utf-8", &Name, "utf-8", &FileName, "utf-8", &Sample, &Size))
+	char *kwargs[] = {const_cast<char*>("fontname"),
+					  const_cast<char*>("filename"),
+					  const_cast<char*>("sample"),
+					  const_cast<char*>("size"),
+					  const_cast<char*>("format"),
+					  NULL};
+	if (!PyArg_ParseTupleAndKeywords(args, kw, "esesesi|es", kwargs,
+				"utf-8", &Name, "utf-8", &FileName, "utf-8", &Sample, &Size, "ascii", &format))
 		return NULL;
 	if (!Carrier->Prefs.AvailFonts.find(QString::fromUtf8(Name)))
 	{
@@ -88,17 +98,45 @@ PyObject *scribus_renderfont(PyObject */*self*/, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Can't render an empty sample","python error"));
 		return NULL;
 	}
-	if (QString::fromUtf8(FileName) == "")
-	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Can't save to a blank filename","python error"));
-		return NULL;
-	}
+	if (!format)
+		// User specified no format, so use the historical default of PPM format.
+		format = "PPM";
 	QString da = Carrier->Prefs.AvailFonts[QString::fromUtf8(Name)]->Datei;
 	QPixmap pm = FontSample(da, Size, ts, Qt::white);
-	ret = pm.save(QString::fromUtf8(FileName), "PPM");
-	// FIXME: we should probably return None on success and throw an exception on failure
-	// rather than returning an error code here.
-	return PyInt_FromLong(static_cast<long>(ret));
+	// If the user specified an empty filename, return the image data as
+	// a string. Otherwise, save it to disk.
+	if (QString::fromUtf8(FileName) == "")
+	{
+		QCString buffer_string = "";
+		QBuffer buffer(buffer_string);
+		buffer.open(IO_WriteOnly);
+		bool ret = pm.save(&buffer, format);
+		if (!ret)
+		{
+			PyErr_SetString(ScribusException, QObject::tr("Unable to save pixmap","scripter error"));
+			return NULL;
+		}
+		int bufferSize = buffer.size();
+		buffer.close();
+		// Now make a Python string from the data we generated
+		PyObject* stringPython = PyString_FromStringAndSize(buffer_string,bufferSize);
+		// Return even if the result is NULL (error) since an exception will have been
+		// set in that case.
+		return stringPython;
+	}
+	else
+	// Save the pixmap to a file, since the filename is non-empty
+	{
+		ret = pm.save(QString::fromUtf8(FileName), format);
+		if (!ret)
+		{
+			PyErr_SetString(PyExc_Exception, QObject::tr("Unable to save pixmap","scripter error"));
+			return NULL;
+		}
+		// For historical reasons, we need to return true on success.
+		Py_INCREF(Py_True);
+		return Py_True;
+	}
 }
 
 PyObject *scribus_getlayers(PyObject */*self*/)
