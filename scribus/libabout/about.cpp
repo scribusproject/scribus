@@ -84,43 +84,47 @@ About::About( QWidget* parent )
 	tabLayout->setMargin( 10 );
 	TextView1 = new QTextView( tab_2, "TextView1" );
 	TextView1->setText(QString::fromUtf8("<table><tr><td><b>" + tr("Development Team:").utf8() + "</b></td><td> </td></tr>" +
-	                                     "<tr><td>Franz Schmid</td><td>Franz.Schmid@altmuehlnet.de</td></tr>" +
-	                                     "<tr><td>Peter Linnell</td><td>scribusdocs@atlantictechsolutions.com</td></tr>" + 
-	                                     "<tr><td>Paul F. Johnson</td><td>paul@all-the-johnsons.co.uk</td></tr>" +
-	                                     "<tr><td>Craig Bradney</td><td>cbradney@zip.com.au</td></tr>" +
-	                                     "<tr><td>Petr Vaněk</td><td>petr@yarpen.cz</td></tr>" +
-	                                     "<tr><td>Riku Leino</td><td>tsoots@welho.com</td></tr>" +
-	                                     "<tr><td> </td><td> </td></tr>" +
-	                                     "<tr><td><b>" + tr("Contributions from:").utf8()  + "</b></td><td></td></tr>" +
-	                                     "<tr><td>Niyam Bhushan</td><td></td></tr>" +
-	                                     "<tr><td>Martin Costabel</td><td></td></tr>" +
-	                                     "<tr><td>Steve Callcott</td><td>stotte@ntlworld.com</td></tr>" +
-	                                     "<tr><td>Maciej Hański</td><td>m.hanski@gmx.at</td></tr>" +
-	                                     "<tr><td>Oleksandr Moskalenko</td><td>malex@tagancha.org</td></tr>" +
-	                                     "<tr><td>Marti Maria</td><td></td></tr>" +
-	                                     "<tr><td>Alexandre Prokoudine</td><td>techwriter@land.ru</td></tr>"
-	                                     "<tr><td>Alessandro Rimoldi</td><td>http://ideale.ch/contact</td></tr>" +
-	                                     "<tr><td>Craig Ringer</td><td></td></tr>" +
-	                                     "<tr><td>Alastair Robinson</td><td>blackfive@fakenhamweb.co.uk</td></tr>" +
-	                                     "<tr><td>Johannes Rüschel</td><td>jo.rueschel@gmx.de</td></tr>" +
-	                                     "<tr><td>Jean-Jacques Sarton</td><td>jj.sarton@t-online.de</td></tr>" +
-	                                     "<tr><td>Christian Töpp</td><td>mr-ct@gmx.de</td></tr>" +	                                     
-	                                     "<tr><td></td><td> </td></tr>" +
+										"<tr><td>Franz Schmid</td><td>Franz.Schmid@altmuehlnet.de</td></tr>" +
+										"<tr><td>Peter Linnell</td><td>scribusdocs@atlantictechsolutions.com</td></tr>" + 
+										"<tr><td>Paul F. Johnson</td><td>paul@all-the-johnsons.co.uk</td></tr>" +
+										"<tr><td>Craig Bradney</td><td>cbradney@zip.com.au</td></tr>" +
+										"<tr><td>Petr Vaněk</td><td>petr@yarpen.cz</td></tr>" +
+										"<tr><td>Riku Leino</td><td>tsoots@welho.com</td></tr>" +
+										"<tr><td> </td><td> </td></tr>" +
+
+										"<tr><td><b>" + tr("Contributions from:").utf8()  + "</b></td><td></td></tr>" +
+										"<tr><td>Niyam Bhushan</td><td></td></tr>" +
+										"<tr><td>Martin Costabel</td><td></td></tr>" +
+										"<tr><td>Steve Callcott</td><td>stotte@ntlworld.com</td></tr>" +
+										"<tr><td>Frank Everdij</td><td>f.everdij@citg.tudelft.nl</td></tr>" +
+										"<tr><td>S. Hakim Hamdani</td><td>hakimoto@eroteme.org</td></tr>" +
+										"<tr><td>Maciej Hański</td><td>m.hanski@gmx.at</td></tr>" +
+										"<tr><td>Oleksandr Moskalenko</td><td>malex@tagancha.org</td></tr>" +
+										"<tr><td>Marti Maria</td><td></td></tr>" +
+										"<tr><td>Alexandre Prokoudine</td><td>techwriter@land.ru</td></tr>"
+										"<tr><td>Alessandro Rimoldi</td><td>http://ideale.ch/contact</td></tr>" +
+										"<tr><td>Craig Ringer</td><td></td></tr>" +
+										"<tr><td>Alastair Robinson</td><td>blackfive@fakenhamweb.co.uk</td></tr>" +
+										"<tr><td>Johannes Rüschel</td><td>jo.rueschel@gmx.de</td></tr>" +
+										"<tr><td>Jean-Jacques Sarton</td><td>jj.sarton@t-online.de</td></tr>" +
+										"<tr><td>Christian Töpp</td><td>mr-ct@gmx.de</td></tr>" +	                                     
+										"<tr><td></td><td> </td></tr>" +
 #if (_MSC_VER >= 1200)
-	                                     "<tr><td><b>" + tr("Windows port:").utf8()  + "</b></td><td> </td></tr>" +
-	                                     "<tr><td>Paul F. Johnson</td><td>paul@all-the-johnsons.co.uk</td></tr>" +
-	                                     "<tr><td> </td><td> </td></tr>" +
+										"<tr><td><b>" + tr("Windows port:").utf8()  + "</b></td><td> </td></tr>" +
+										"<tr><td>Paul F. Johnson</td><td>paul@all-the-johnsons.co.uk</td></tr>" +
+										"<tr><td> </td><td> </td></tr>" +
 #endif
-	                                     "<tr><td><b>" + tr("Official Documentation:").utf8()  + "</b></td><td></td></tr>" +
-	                                     "<tr><td>Peter Linnell</td><td>scribusdocs@atlantictechsolutions.com</td></tr>" + 
-	                                     "<tr><td>Craig Bradney</td><td>cbradney@zip.com.au</td></tr>" +
-	                                     "<tr><td>Frédéric Dubuy</td><td>effediwhy@gmail.com</td></tr>" +
-	                                     "<tr><td>Johannes Rüschel</td><td>jo.rueschel@gmx.de</td></tr>" + 
-	                                     "<tr><td> </td><td> </td></tr>" +
-	                                     "<tr><td><b>" + tr("Other Documentation:").utf8()  + "</b></td><td></td></tr>" +
-	                                     "<tr><td>Yves Ceccone</td><td>yves@yeccoe.org</td></tr>" + 
-	                                     "<tr><td>Holger Reibold</td><td>http://www.bomots.de/scribus/</td></tr>" +
-	                                     "<tr><td>Thomas Zastrow</td><td>webmaster@thomas-zastrow.de</td></tr></table>"));
+										"<tr><td><b>" + tr("Official Documentation:").utf8()  + "</b></td><td></td></tr>" +
+										"<tr><td>Peter Linnell</td><td>scribusdocs@atlantictechsolutions.com</td></tr>" + 
+										"<tr><td>Craig Bradney</td><td>cbradney@zip.com.au</td></tr>" +
+										"<tr><td>Frédéric Dubuy</td><td>effediwhy@gmail.com</td></tr>" +
+										"<tr><td>Johannes Rüschel</td><td>jo.rueschel@gmx.de</td></tr>" + 
+										"<tr><td> </td><td> </td></tr>" +
+
+										"<tr><td><b>" + tr("Other Documentation:").utf8()  + "</b></td><td></td></tr>" +
+										"<tr><td>Yves Ceccone</td><td>yves@yeccoe.org</td></tr>" + 
+										"<tr><td>Holger Reibold</td><td>http://www.bomots.de/scribus/</td></tr>" +
+										"<tr><td>Thomas Zastrow</td><td>webmaster@thomas-zastrow.de</td></tr></table>"));
 	TextView1->setTextFormat( QTextView::RichText );
 	tabLayout->addWidget( TextView1 );
 	TabWidget2->insertTab( tab_2, tr( "A&uthors" ) );
