@@ -724,7 +724,7 @@ void ScribusApp::initMenuBar()
 	SetKeyEntry(55, tr("Tool-Tips"), tip, 0);
   tipsOn = true;
   helpMenu->setItemChecked(tip, tipsOn);
-//	editMenu->insertItem( tr("Test"), this, SLOT(slotTest()));
+	editMenu->insertItem( tr("Test"), this, SLOT(slotTest()));
 //	helpMenu->insertItem( tr("Test2"), this, SLOT(slotTest2()));
 	menuBar()->insertItem( tr("File"), fileMenu);
 	menuBar()->insertItem( tr("Edit"), editMenu);
@@ -1708,7 +1708,7 @@ void ScribusApp::newActWin(QWidget *w)
 			}
 		if (doc->TemplateMode)
 			ActWin->muster->show();
-//		setAppMode(doc->AppMode);
+		setAppMode(doc->AppMode);
 		}
 	w->setFocus();
 	if (w->isMaximized())
@@ -1722,11 +1722,13 @@ void ScribusApp::newActWin(QWidget *w)
 	BookPal->BView->First = ActWin->First;
 	BookPal->BView->Last = ActWin->Last;
 	RestoreBookMarks();
-	if (doc->ActPage->SelItem.count() != 0)
-		HaveNewSel(doc->ActPage->SelItem.at(0)->PType);
-	else
-		HaveNewSel(-1);
-	setAppMode(doc->AppMode);
+	if (!doc->loading)
+		{
+		if (doc->ActPage->SelItem.count() != 0)
+			HaveNewSel(doc->ActPage->SelItem.at(0)->PType);
+		else
+			HaveNewSel(-1);
+		}
 }
 
 void ScribusApp::windowsMenuActivated( int id )
@@ -2739,6 +2741,7 @@ void ScribusApp::slotFileSaveAs()
 bool ScribusApp::DoFileSave(QString fn)
 {
 	bool ret = true;
+	ReorgFonts();
 	FMess->setText( tr("Saving..."));
 	FProg->reset();
   QFileInfo fi(fn);
@@ -6935,6 +6938,60 @@ void ScribusApp::Collect()
 			}
 		}
 	QDir::setCurrent(CurDirP);
+}
+
+void ScribusApp::ReorgFonts()
+{
+	Page* pg;
+	PageItem* it;
+	QMap<QString,QFont> Really;
+	QMap<QString,QFont> DocF;
+	DocF = doc->UsedFonts;
+	for (uint c = 0; c < view->MasterPages.count(); ++c)
+		{
+		pg = view->MasterPages.at(c);
+		for (uint d = 0; d < pg->Items.count(); ++d)
+			{
+			it = pg->Items.at(d);
+			Really.insert(it->IFont, doc->UsedFonts[it->IFont]);
+			if ((it->PType == 4) || (it->PType == 8))
+				{
+				for (uint e = 0; e < it->Ptext.count(); ++e)
+					{
+					Really.insert(it->Ptext.at(e)->cfont, doc->UsedFonts[it->Ptext.at(e)->cfont]);
+					}
+				}
+			}
+		}
+	for (uint c = 0; c < view->Pages.count(); ++c)
+		{
+		pg = view->Pages.at(c);
+		for (uint d = 0; d < pg->Items.count(); ++d)
+			{
+			it = pg->Items.at(d);
+			Really.insert(it->IFont, doc->UsedFonts[it->IFont]);
+			if ((it->PType == 4) || (it->PType == 8))
+				{
+				for (uint e = 0; e < it->Ptext.count(); ++e)
+					{
+					Really.insert(it->Ptext.at(e)->cfont, doc->UsedFonts[it->Ptext.at(e)->cfont]);
+					}
+				}
+			}
+		}
+	QMap<QString,QFont>::Iterator itfo;
+	for (itfo = doc->UsedFonts.begin(); itfo != doc->UsedFonts.end(); ++itfo)
+		{
+		if (!Really.contains(itfo.key()))
+			{
+			FT_Done_Face(doc->FFonts[itfo.key()]);
+			doc->FFonts.remove(itfo.key());
+			doc->UsedFonts.remove(itfo);
+			}
+		}
+	doc->AddFont(Prefs.DefFont, Prefs.AvailFonts[Prefs.DefFont]->Font);
+	doc->AddFont(doc->Dfont, Prefs.AvailFonts[doc->Dfont]->Font);
+	BuildFontMenu();
 }
 
 void ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)

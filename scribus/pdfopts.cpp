@@ -461,7 +461,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     ColorText1->setText( tr( "Output intended for:" ) );
     ColorGroupLayout->addWidget( ColorText1 );
     OutCombo = new QComboBox( true, ColorGroup, "OutCombo" );
-    OutCombo->insertItem( tr( "Screen" ) );
+    OutCombo->insertItem( tr( "Screen / Web" ) );
     OutCombo->insertItem( tr( "Printer" ) );
 		OutCombo->setEditable(false);
 		if (Optionen->UseRGB)

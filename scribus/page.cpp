@@ -1357,8 +1357,14 @@ void Page::sentToScrap()
 void Page::sentToLayer(int id)
 {
 	int d = pmen3->indexOf(id);
-	PageItem *b = SelItem.at(0);
-	b->LayerNr = d;
+  if (SelItem.count() != 0)
+  	{
+  	for (uint a = 0; a < SelItem.count(); ++a)
+  		{
+			PageItem *b = SelItem.at(a);
+			b->LayerNr = d;
+			}
+		}
 	Deselect(true);
   update();
 }
@@ -2210,6 +2216,10 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 					}
 				pmen->insertItem( tr("Convert to"), pmen2);
 				}
+			if (!ScApp->Mpal->isVisible())
+				pmen->insertItem( tr("Show Properties..."), ScApp, SLOT(ToggleMpal()));
+			else
+				pmen->insertItem( tr("Hide Properties..."), ScApp, SLOT(ToggleMpal()));
 			pmen->insertSeparator();
 			if (!b->Locked)
 				pmen->insertItem( tr("Cut"), this, SIGNAL(CutItem()));
@@ -4087,27 +4097,6 @@ void Page::mousePressEvent(QMouseEvent *m)
 void Page::HandleCurs(QPainter *p, PageItem *b, QRect mpo)
 {
 	QRect tx, tx2;
-	tx = p->xForm(QRect(static_cast<int>(b->Width)-6, static_cast<int>(b->Height)-6, 6, 6));
-	tx2 = p->xForm(QRect(0, 0, 6, 6));
-	if (tx.intersects(mpo) || tx2.intersects(mpo))
-		{
-		if (doku->AppMode == 9)
-			qApp->setOverrideCursor(QCursor(loadIcon("Rotieren2.xpm")), true);
-		else
-			{
-			double rr = fabs(b->Rot);
-			if ((rr >= 0.0) && (rr < 45.0))
-				qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
-			if ((rr >= 45.0) && (rr < 135.0))
-				qApp->setOverrideCursor(QCursor(SizeBDiagCursor), true);
-			if ((rr >= 135.0) && (rr < 225.0))
-				qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
-			if ((rr >= 225.0) && (rr < 315.0))
-				qApp->setOverrideCursor(QCursor(SizeBDiagCursor), true);
-			if ((rr >= 315.0) && (rr <= 360.0))
-				qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
-			}
-		}
 	tx = p->xForm(QRect(static_cast<int>(b->Width)-6, 0, 6, 6));
 	tx2 = p->xForm(QRect(0, static_cast<int>(b->Height)-6, 6, 6));
 	if (tx.intersects(mpo) || tx2.intersects(mpo))
@@ -4161,6 +4150,27 @@ void Page::HandleCurs(QPainter *p, PageItem *b, QRect mpo)
 		if ((rr >= 315.0) && (rr <= 360.0))
 			qApp->setOverrideCursor(QCursor(SizeVerCursor), true);
 		}
+	tx = p->xForm(QRect(static_cast<int>(b->Width)-6, static_cast<int>(b->Height)-6, 6, 6));
+	tx2 = p->xForm(QRect(0, 0, 6, 6));
+	if (tx.intersects(mpo) || tx2.intersects(mpo))
+		{
+		if (doku->AppMode == 9)
+			qApp->setOverrideCursor(QCursor(loadIcon("Rotieren2.xpm")), true);
+		else
+			{
+			double rr = fabs(b->Rot);
+			if ((rr >= 0.0) && (rr < 45.0))
+				qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
+			if ((rr >= 45.0) && (rr < 135.0))
+				qApp->setOverrideCursor(QCursor(SizeBDiagCursor), true);
+			if ((rr >= 135.0) && (rr < 225.0))
+				qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
+			if ((rr >= 225.0) && (rr < 315.0))
+				qApp->setOverrideCursor(QCursor(SizeBDiagCursor), true);
+			if ((rr >= 315.0) && (rr <= 360.0))
+				qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
+			}
+		}
 	if (doku->EditClip)
 		qApp->setOverrideCursor(QCursor(crossCursor), true);
 }
@@ -4172,8 +4182,6 @@ void Page::HandleSizer(QPainter *p, PageItem *b, QRect mpo)
 	b->OldB2 = b->Width;
 	b->OldH2 = b->Height;
 	HowTo = 0;
-	if (p->xForm(QRect(static_cast<int>(b->Width)-6, static_cast<int>(b->Height)-6, 6, 6)).intersects(mpo))
-		HowTo = 1;
 	if (b->PType != 5)
 		{
 		if (p->xForm(QRect(0, 0, 6, 6)).intersects(mpo))
@@ -4191,6 +4199,8 @@ void Page::HandleSizer(QPainter *p, PageItem *b, QRect mpo)
 		if (p->xForm(QRect(static_cast<int>(b->Width)-6, 0, 6, 6)).intersects(mpo))
 			HowTo = 3;
 		}
+	if (p->xForm(QRect(static_cast<int>(b->Width)-6, static_cast<int>(b->Height)-6, 6, 6)).intersects(mpo))
+		HowTo = 1;
 	HandleCurs(p, b, mpo);
 	storeUndoInf(b);
 	if (HowTo != 0)
@@ -4568,7 +4578,10 @@ bool Page::slotSetCurs(int x, int y)
 					chx = " ";
 				chs = b->Ptext.at(a)->csize;
 				b->SetZeichAttr(b->Ptext.at(a), &chs, &chx);
-  			w = qRound(Cwidth(doku, b->Ptext.at(a)->cfont, chx, chs)*(b->Ptext.at(a)->cscale / 100.0));
+				if ((chx == QChar(13)) || (chx == QChar(9)))
+					w = 1;
+				else
+  				w = qRound(Cwidth(doku, b->Ptext.at(a)->cfont, chx, chs)*(b->Ptext.at(a)->cscale / 100.0));
   			h = static_cast<int>(doku->Vorlagen[b->Ptext.at(a)->cab].LineSpa);
   			if (QRegion(p.xForm(QRect(xp-1, yp-h, w+1, h))).contains(QPoint(x, y)))
   				{
@@ -4675,7 +4688,9 @@ void Page::slotDoCurs(bool draw)
 			chs = b->Ptext.at(b->CPos-1)->csize;
 			b->SetZeichAttr(b->Ptext.at(b->CPos-1), &chs, &chx);
   		xp = static_cast<int>(b->Ptext.at(b->CPos-1)->xp);
-  		if (b->Ptext.at(b->CPos-1)->ch != QChar(13))
+  		if ((b->Ptext.at(b->CPos-1)->ch == QChar(13)) && (b->CPos != static_cast<int>(b->Ptext.count())))
+  			xp = static_cast<int>(b->Ptext.at(b->CPos)->xp);
+  		if ((b->Ptext.at(b->CPos-1)->ch != QChar(13)) && (b->Ptext.at(b->CPos-1)->ch != QChar(9)))
   			xp += qRound(Cwidth(doku, b->Ptext.at(b->CPos-1)->cfont, chx, chs)*(b->Ptext.at(b->CPos-1)->cscale / 100.0));
   		yp = static_cast<int>(b->Ptext.at(b->CPos-1)->yp);
 			int desc = static_cast<int>((*doku->AllFonts)[b->Ptext.at(b->CPos-1)->cfont]->numDescender * (-b->Ptext.at(b->CPos-1)->csize / 10.0));

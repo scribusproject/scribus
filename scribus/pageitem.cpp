@@ -1145,11 +1145,12 @@ NoRoom: if (NextBox != 0)
 					NextBox->Dirty = true;
 					if (uint(CPos) > nrc)
 						{
+						int nCP = CPos - nrc;
 						CPos = nrc;
 						if ((Doc->AppMode == 7) && (Tinput))
 							{
 							OwnPage->Deselect(true);
-							NextBox->CPos = 1;
+							NextBox->CPos = QMAX(nCP, 1);
 							Doc->ActPage = NextBox->OwnPage;
 							NextBox->OwnPage->SelectItemNr(NextBox->ItemNr);
 							break;
@@ -1159,12 +1160,17 @@ NoRoom: if (NextBox != 0)
 						NextBox->OwnPage->RefreshItem(NextBox, true);
 					else
 						{
-						bool savre = Doc->RePos;
-						Doc->RePos = true;
-						p->save();
-						NextBox->DrawObj(p, QRect(0, 0, 1, 1));
-						p->restore();
-						Doc->RePos = savre;
+						if ((Doc->AppMode == 7) && (Tinput))
+							NextBox->OwnPage->RefreshItem(NextBox, true);
+						else
+							{
+							bool savre = Doc->RePos;
+							Doc->RePos = true;
+							p->save();
+							NextBox->DrawObj(p, QRect(0, 0, 1, 1));
+							p->restore();
+							Doc->RePos = savre;
+							}
 						}
 					}
 				else

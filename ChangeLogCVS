@@ -1,4 +1,7 @@
 Changes since Version 1.1.4
+03.01.2004	Fixed Cursor placement Issues with Tabulators.
+		Fixed Text editing Issues with linked Textframes.
+
 01.01.2004	Added Right, Full Stop and Comma Tabulators.
 		Default Tabs are now every 36 pts == 1.27 mm == 0.5 in.
 		Added a Dialog to manage the Tabulator Settings.

@@ -110,6 +110,7 @@ class ScribusApp : public QMainWindow
 		void SwitchWin();
 		void RestoreBookMarks();
 		void AdjustBM();
+		void ReorgFonts();
 		void GetUsedFonts(QMap<QString,QFont> *Really);
 		static void defaultCrashHandler (int sig);
 		void emergencySave();
