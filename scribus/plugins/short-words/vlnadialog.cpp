@@ -118,21 +118,21 @@ VlnaDialog::~VlnaDialog()
  */
 void VlnaDialog::languageChange()
 {
-	setCaption(tr("Short Words", TR_INFO));
-	buttonGroup->setTitle(tr("Apply unbreakable space on:", TR_INFO));
-	frameRadio->setText(tr("&Selected frames", TR_INFO));
-	pageRadio->setText(tr("Active &page", TR_INFO));
-	allRadio->setText(tr("&All items", TR_INFO));
-	okButton->setText(tr("&OK", TR_INFO));
-	cancelButton->setText(tr("&Cancel", TR_INFO));
-	infoButton->setText(tr("&Info and\nLanguages", TR_INFO));
+	setCaption(tr("Short Words", "short words plugin"));
+	buttonGroup->setTitle(tr("Apply unbreakable space on:", "short words plugin"));
+	frameRadio->setText(tr("&Selected frames", "short words plugin"));
+	pageRadio->setText(tr("Active &page", "short words plugin"));
+	allRadio->setText(tr("&All items", "short words plugin"));
+	okButton->setText(tr("&OK", "short words plugin"));
+	cancelButton->setText(tr("&Cancel", "short words plugin"));
+	infoButton->setText(tr("&Info and\nLanguages", "short words plugin"));
 	//statusLabel->setText(tr("Select action..."));
-	userCheckBox->setText(tr("Replace defaults by user config", TR_INFO));
+	userCheckBox->setText(tr("Replace defaults by user config", "short words plugin"));
 	// hints
-	QToolTip::add(userCheckBox, tr("When the user config file exists \n(%1)\nyou can choose if you want to append your config\nto the global configuration by unchecked button.\n\nYou can replace predefined values by yours\nwith checked button too.", TR_INFO).arg(RC_PATH_USR));
-	QToolTip::add(frameRadio, tr("Only selected frames processed.", TR_INFO));
-	QToolTip::add(pageRadio, tr("Only actual page processed.", TR_INFO));
-	QToolTip::add(allRadio, tr("All items in document processed.", TR_INFO));
+	QToolTip::add(userCheckBox, tr("When the user config file exists \n(%1)\nyou can choose if you want to append your config\nto the global configuration by unchecked button.\n\nYou can replace predefined values by yours\nwith checked button too.", "short words plugin").arg(RC_PATH_USR));
+	QToolTip::add(frameRadio, tr("Only selected frames processed.", "short words plugin"));
+	QToolTip::add(pageRadio, tr("Only actual page processed.", "short words plugin"));
+	QToolTip::add(allRadio, tr("All items in document processed.", "short words plugin"));
 }
 
 void VlnaDialog::okButton_pressed()
@@ -150,12 +150,12 @@ void VlnaDialog::infoButton_pressed()
 {
 	QString aMessage;
 	aMessage += "<h1>";
-	aMessage += tr("Short Words for Scribus", TR_INFO);
+	aMessage += tr("Short Words for Scribus", "short words plugin");
 	aMessage += "</h1><b>";
-	aMessage += tr("Available in the following languages", TR_INFO);
+	aMessage += tr("Available in the following languages", "short words plugin");
 	aMessage += "</b><br>";
 	aMessage += shortWords->cfg->getAvailableLanguages();
-	QMessageBox::about(ScApp, tr("About Short Words", TR_INFO), aMessage);
+	QMessageBox::about(ScApp, tr("About Short Words", "short words plugin"), aMessage);
 	infoButton->setDown(FALSE);
 }
 
