@@ -94,9 +94,7 @@ public:
 	QButtonGroup* RangeGroup;
 	QRadioButton* AllPages;
 	QRadioButton* OnlySome;
-	QSpinBox* LastPage;
-	QLabel* RText;
-	QSpinBox* FirstPage;
+	QLineEdit* PageNr;
 	QListBox* EmbedList;
 	QWidget* tabcolor;
 	QGroupBox* ColorGroup;
@@ -165,8 +163,6 @@ public slots:
 	void DoEffects();
 	void EffectOnAll();
 	void SelRange(bool e);
-	void ChFrom();
-	void ChTo();
 	void EnablePr(int a);
 	void EnablePG();
 	void EnablePGI();

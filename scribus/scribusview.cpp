@@ -961,7 +961,7 @@ QPixmap ScribusView::PageToPixmap(int Nr, int maxGr)
 	return pm;
 }
 
-void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QString SepNam, bool farb, bool Hm, bool Vm, bool Ic)
+void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString SepNam, bool farb, bool Hm, bool Vm, bool Ic)
 {
 	uint a;
 	int sepac;
@@ -973,9 +973,7 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 	p->PS_set_Info("Title", Doc->DocTitel);
 	if (!farb)
 		p->PS_setGray();
-	p->PS_begin_doc(Doc->PageOri, Doc->PageB, Doc->PageH, abs(bis-von));
-	a = von;
-	sepac = 0;
+	p->PS_begin_doc(Doc->PageOri, Doc->PageB, Doc->PageH, pageNs.size());
 	for (uint ap = 0; ap < MasterPages.count(); ++ap)
 	{
 		if (MasterPages.at(ap)->Items.count() != 0)
@@ -994,8 +992,11 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 			p->PS_TemplateEnd();
 		}
 	}
-	while (a != bis)
+	sepac = 0;
+	uint aa = 0;
+	while (aa < pageNs.size())
 	{
+		a = pageNs[aa]-1;
 		p->PS_begin_page(Doc->PageB, Doc->PageH, &Pages.at(a)->Margins, Prefs->ClipMargin);
 		if (Hm)
 		{
@@ -1465,12 +1466,12 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 		if (sep)
 		{
 			if (SepNam != tr("All"))
-				a += step;
+				aa++;
 			else
 			{
 				if (sepac == 3)
 				{
-					a += step;
+					aa++;
 					sepac = 0;
 				}
 				else
@@ -1478,7 +1479,7 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 			}
 		}
 		else
-			a += step;
+			aa++;
 	}
 	p->PS_close();
 }

@@ -3705,7 +3705,7 @@ bool ScribusApp::DoFileClose()
 void ScribusApp::slotFilePrint()
 {
 	QString fna, prn, cmd, scmd, cc, data, SepNam;
-	int Anf, Ende, Nr;
+	int Nr;
 	bool fil, sep, farbe, PSfile, mirrorH, mirrorV, useICC;
 	PSfile = false;
 	FMess->setText( tr("Printing..."));
@@ -3731,23 +3731,22 @@ void ScribusApp::slotFilePrint()
 	scmd = PDef.Command;
 	Druck *printer = new Druck(this, fna, prn, scmd);
 	printer->setMinMax(1, view->Pages.count(), doc->ActPage->PageNr+1);
-	printer->setFromTo(1, view->Pages.count());
 	if (printer->exec())
 	{
+		std::vector<int> pageNs;
 		ReOrderText(doc, view);
 		qApp->setOverrideCursor(QCursor(waitCursor), true);
 		prn = printer->printerName();
 		fna = printer->outputFileName();
 		fil = printer->outputToFile();
 		if (printer->CurrentPage->isChecked())
-		{
-			Anf = doc->ActPage->PageNr+1;
-			Ende = doc->ActPage->PageNr+1;
-		}
+			pageNs.push_back(doc->ActPage->PageNr+1);
 		else
 		{
-			Anf = printer->fromPage();
-			Ende = printer->toPage();
+			if (printer->RadioButton1->isChecked())
+				parsePagesString("*", &pageNs, doc->PageC);
+			else
+				parsePagesString(printer->PageNr->text(), &pageNs, doc->PageC);
 		}
 		Nr = printer->numCopies();
 		sep = printer->outputSeparations();
@@ -3777,9 +3776,16 @@ void ScribusApp::slotFilePrint()
 			if (PSfile)
 			{
 				if (printer->pageOrder() == 0)
-					view->CreatePS(dd, Anf-1, Ende, 1, sep, SepNam, farbe, mirrorH, mirrorV, useICC);
+					view->CreatePS(dd, pageNs, sep, SepNam, farbe, mirrorH, mirrorV, useICC);
 				else
-					view->CreatePS(dd, Ende-1, Anf-2, -1, sep, SepNam, farbe, mirrorH, mirrorV, useICC);
+				{
+					std::vector<int> another;
+					for (uint ap = pageNs.size(); ap > 0; ap--)
+					{
+						another.push_back(pageNs[ap-1]);
+					}
+					view->CreatePS(dd, another, sep, SepNam, farbe, mirrorH, mirrorV, useICC);
+				}
 				if (printer->PSLevel != 3)
 				{
 					QString tmp;
@@ -4756,17 +4762,8 @@ void ScribusApp::TogglePDFTools()
 void ScribusApp::TogglePics()
 {
 	uint a, b;
-	if (doc->ShowPic)
-	{
-//		viewMenu->changeItem(Bilder, tr("Show &Images"));
-		doc->ShowPic = false;
-	}
-	else
-	{
-//		viewMenu->changeItem(Bilder, tr("Hide &Images"));
-		doc->ShowPic = true;
-	}
-	viewMenu->setItemChecked(Bilder, !doc->ShowPic);
+	doc->ShowPic = !doc->ShowPic;
+	viewMenu->setItemChecked(Bilder, doc->ShowPic);
 	for (a=0; a<view->Pages.count(); ++a)
 	{
 		for (b=0; b<view->Pages.at(a)->Items.count(); ++b)
@@ -6832,41 +6829,11 @@ void ScribusApp::closePSDriver()
 	dlclose(PSDriver);
 }
 
-bool ScribusApp::getPDFDriver(QString fn, QString nam, int Components, int frPa, int toPa, QMap<int,QPixmap> thumbs)
-{
-	bool ret = false;
-	const char *error;
-	void *PDFDriver;
-	typedef bool (*sdem)(ScribusApp *plug, QString fn, QString nam, int Components, int frPa, int toPa, QMap<int,QPixmap> thumbs, QProgressBar *dia2);
-	sdem demo;
-	QString pfad = PREL;
-#if defined(__hpux)
-	pfad += "/lib/scribus/libs/libpdf.sl";
-#else
-	pfad += "/lib/scribus/libs/libpdf.so";
-#endif
-	PDFDriver = dlopen(pfad, RTLD_NOW);
-	if (!PDFDriver)
-	{
-		std::cout << "Can't find Plugin" << endl;
-		return false;
-	}
-	dlerror();
-	demo = (sdem)dlsym(PDFDriver, "Run");
-	if ((error = dlerror()) != NULL)
-	{
-		std::cout << "Can't find Symbol" << endl;
-		dlclose(PDFDriver);
-		return false;
-	}
-	ret = (*demo)(this, fn, nam, Components, frPa, toPa, thumbs, FProg);
-	dlclose(PDFDriver);
-	return ret;
-}
-
 bool ScribusApp::DoSaveAsEps(QString fn)
 {
 	bool return_value = true;
+	std::vector<int> pageNs;
+	pageNs.push_back(doc->ActPage->PageNr+1);
 	ReOrderText(doc, view);
 	qApp->setOverrideCursor(QCursor(waitCursor), true);
 	QMap<QString,QFont> ReallyUsed;
@@ -6876,7 +6843,7 @@ bool ScribusApp::DoSaveAsEps(QString fn)
 	if (dd != NULL)
 	{
 		if (dd->PS_set_file(fn))
-			view->CreatePS(dd, doc->ActPage->PageNr, doc->ActPage->PageNr+1, 1, false, tr("All"), true, false, false, false);
+			view->CreatePS(dd, pageNs, false, tr("All"), true, false, false, false);
 		else
 			return_value = false;
 		delete dd;
@@ -6910,10 +6877,41 @@ void ScribusApp::SaveAsEps()
 	}
 }
 
+bool ScribusApp::getPDFDriver(QString fn, QString nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs)
+{
+	bool ret = false;
+	const char *error;
+	void *PDFDriver;
+	typedef bool (*sdem)(ScribusApp *plug, QString fn, QString nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs, QProgressBar *dia2);
+	sdem demo;
+	QString pfad = PREL;
+#if defined(__hpux)
+	pfad += "/lib/scribus/libs/libpdf.sl";
+#else
+	pfad += "/lib/scribus/libs/libpdf.so";
+#endif
+	PDFDriver = dlopen(pfad, RTLD_NOW);
+	if (!PDFDriver)
+	{
+		std::cout << "Can't find Plugin" << endl;
+		return false;
+	}
+	dlerror();
+	demo = (sdem)dlsym(PDFDriver, "Run");
+	if ((error = dlerror()) != NULL)
+	{
+		std::cout << "Can't find Symbol" << endl;
+		dlclose(PDFDriver);
+		return false;
+	}
+	ret = (*demo)(this, fn, nam, Components, pageNs, thumbs, FProg);
+	dlclose(PDFDriver);
+	return ret;
+}
+
 void ScribusApp::SaveAsPDF()
 {
 	QString fn;
-	uint frPa, toPa;
 	int Components = 3;
 	QString nam = "";
 	if (BookPal->BView->childCount() == 0)
@@ -6935,6 +6933,7 @@ void ScribusApp::SaveAsPDF()
 	PDF_Opts *dia = new PDF_Opts(this, doc->DocName, ReallyUsed, view, &doc->PDF_Optionen, doc->PDF_Optionen.PresentVals, &PDFXProfiles, Prefs.AvailFonts);
 	if (dia->exec())
 	{
+		std::vector<int> pageNs;
 		qApp->setOverrideCursor(QCursor(waitCursor), true);
 		fn = dia->Datei->text();
 		doc->PDF_Optionen.Datei = fn;
@@ -7030,18 +7029,20 @@ void ScribusApp::SaveAsPDF()
 #endif
 
 		}
-		frPa = dia->AllPages->isChecked() ? 0 : static_cast<unsigned int>(dia->FirstPage->value() - 1);
-		toPa = dia->AllPages->isChecked() ? view->Pages.count() : static_cast<unsigned int>(dia->LastPage->value());
+		if (dia->AllPages->isChecked())
+			parsePagesString("*", &pageNs, doc->PageC);
+		else
+			parsePagesString(dia->PageNr->text(), &pageNs, doc->PageC);
 		QMap<int,QPixmap> thumbs;
-		for (uint ap = frPa; ap < toPa; ++ap)
+		for (uint ap = 0; ap < pageNs.size(); ++ap)
 		{
 			QPixmap pm(10,10);
 			if (doc->PDF_Optionen.Thumbnails)
-				pm = view->PageToPixmap(ap, 100);
-			thumbs.insert(ap, pm);
+				pm = view->PageToPixmap(pageNs[ap]-1, 100);
+			thumbs.insert(pageNs[ap], pm);
 		}
 		ReOrderText(doc, view);
-		if (!getPDFDriver(fn, nam, Components, frPa, toPa, thumbs))
+		if (!getPDFDriver(fn, nam, Components, pageNs, thumbs))
 			QMessageBox::warning(this, tr("Warning"), tr("Can't write the File: \n%1").arg(fn), tr("OK"));
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	}

@@ -58,10 +58,10 @@ public:
 	QCheckBox* OtherCom;
 	QLabel* OthText;
 	QLineEdit* Command;
+	QRadioButton* RadioButton1;
 	QRadioButton* CurrentPage;
+	QLineEdit* PageNr;
 	bool outputToFile();
-	int fromPage();
-	int toPage();
 	int numCopies();
 	int pageOrder();
 	bool outputSeparations();
@@ -75,7 +75,6 @@ public:
 
 public slots:
 	void setMinMax(int min, int max, int cur);
-	void setFromTo(int min, int max);
 
 protected:
 	QVBoxLayout* DruckLayout;
@@ -99,8 +98,6 @@ private slots:
 	void SelMode(bool e);
 	void SelFile();
 	void SelComm();
-	void ChFrom();
-	void ChTo();
 
 private:
 	QGroupBox* Drucker;
@@ -110,12 +107,7 @@ private:
 	QToolButton* ToolButton1;
 	QButtonGroup* Umfang;
 	QButtonGroup* ButtonGroup5;
-	QLabel* TextLabel2_2;
-	QSpinBox* To;
-	QSpinBox* From;
-	QLabel* TextLabel2;
 	QRadioButton* RadioButton2;
-	QRadioButton* RadioButton1;
 	QButtonGroup* ButtonGroup4;
 	QRadioButton* FirstPlast;
 	QRadioButton* FirstPfirst;

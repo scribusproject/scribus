@@ -336,7 +336,9 @@ int PPreview::RenderPreview(int Seite, int Res)
 		if (dd != NULL)
 		{
 			dd->PS_set_file(app->PrefsPfad+"/tmp.ps");
-			app->view->CreatePS(dd, Seite, Seite+1, 1, false, tr("All"), true, false, false, false);
+			std::vector<int> pageNs;
+			pageNs.push_back(Seite+1);
+			app->view->CreatePS(dd, pageNs, false, tr("All"), true, false, false, false);
 			delete dd;
 			app->closePSDriver();
 		}

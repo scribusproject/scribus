@@ -59,9 +59,9 @@ extern bool CMSuse;
 #endif
 extern ProfilesL InputProfiles;
 
-extern "C" bool Run(ScribusApp *plug, QString fn, QString nam, int Components, int frPa, int toPa, QMap<int,QPixmap> thumbs, QProgressBar *dia2);
+extern "C" bool Run(ScribusApp *plug, QString fn, QString nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs, QProgressBar *dia2);
 
-bool Run(ScribusApp *plug, QString fn, QString nam, int Components, int frPa, int toPa, QMap<int,QPixmap> thumbs, QProgressBar *dia2)
+bool Run(ScribusApp *plug, QString fn, QString nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs, QProgressBar *dia2)
 {
 	QPixmap pm;
 	bool ret = false;
@@ -71,7 +71,7 @@ bool Run(ScribusApp *plug, QString fn, QString nam, int Components, int frPa, in
 				 plug->doc->UsedFonts, plug->BookPal->BView))
 		{
 			dia2->reset();
-			dia2->setTotalSteps(plug->view->MasterPages.count()+(toPa-frPa+1));
+			dia2->setTotalSteps(plug->view->MasterPages.count()+pageNs.size());
 			dia2->setProgress(0);
 			for (uint ap = 0; ap < plug->view->MasterPages.count(); ++ap)
 			{
@@ -80,12 +80,12 @@ bool Run(ScribusApp *plug, QString fn, QString nam, int Components, int frPa, in
 				progresscount++;
 				dia2->setProgress(progresscount);
 			}
-		for (int a = frPa; a < toPa; ++a)
+		for (uint a = 0; a < pageNs.size(); ++a)
 		{
 			if (plug->doc->PDF_Optionen.Thumbnails)
-				pm = thumbs[a];
-			dia->PDF_Begin_Page(plug->view->Pages.at(a), pm);
-			dia->PDF_ProcessPage(plug->view->Pages.at(a), a);
+				pm = thumbs[pageNs[a]];
+			dia->PDF_Begin_Page(plug->view->Pages.at(pageNs[a]-1), pm);
+			dia->PDF_ProcessPage(plug->view->Pages.at(pageNs[a]-1), pageNs[a]-1);
 			dia->PDF_End_Page();
 			progresscount++;
 			dia2->setProgress(progresscount);

@@ -2699,6 +2699,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 	}
 	if ((!GetItem(&b)) && (m->button() == RightButton) && (!doku->DragP) && (doku->AppMode == 1))
 	{
+		int menid;
 		QPopupMenu *pmen = new QPopupMenu();
 		if (ScApp->Buffer2.startsWith("<SCRIBUSELEM"))
 		{
@@ -2707,12 +2708,18 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			pmen->insertItem( tr("Paste") , this, SLOT(PasteToPage()));
 			pmen->insertSeparator();
 		}
-		pmen->insertItem((ScApp->Prefs.MarginsShown ? tr("Hide Margins") : tr("Show Margins")), ScApp, SLOT(ToggleMarks()));
-		pmen->insertItem((ScApp->Prefs.FramesShown ? tr("Hide Frames") : tr("Show Frames")), ScApp, SLOT(ToggleFrames()));
-		pmen->insertItem((doku->ShowPic ? tr("Hide Images") : tr("Show Images")), ScApp, SLOT(TogglePics()));
-		pmen->insertItem((ScApp->Prefs.GridShown ? tr("Hide Grid") : tr("Show Grid")), ScApp, SLOT(ToggleRaster()));
-		pmen->insertItem((ScApp->Prefs.GuidesShown ? tr("Hide Guides") : tr("Show Guides")), ScApp, SLOT(ToggleGuides()));
-		pmen->insertItem((ScApp->Prefs.BaseShown ? tr("Hide Baseline Grid") : tr("Show Baseline Grid")), ScApp, SLOT(ToggleBase()));
+		menid = pmen->insertItem(tr("Show Margins"), ScApp, SLOT(ToggleMarks()));
+		pmen->setItemChecked(menid, ScApp->Prefs.MarginsShown);
+		menid = pmen->insertItem(tr("Show Frames"), ScApp, SLOT(ToggleFrames()));
+		pmen->setItemChecked(menid, ScApp->Prefs.FramesShown);
+		menid = pmen->insertItem(tr("Show Images"), ScApp, SLOT(TogglePics()));
+		pmen->setItemChecked(menid, doku->ShowPic);
+		menid = pmen->insertItem(tr("Show Grid"), ScApp, SLOT(ToggleRaster()));
+		pmen->setItemChecked(menid, ScApp->Prefs.GridShown);
+		menid = pmen->insertItem(tr("Show Guides"), ScApp, SLOT(ToggleGuides()));
+		pmen->setItemChecked(menid, ScApp->Prefs.GuidesShown);
+		menid = pmen->insertItem(tr("Show Baseline Grid"), ScApp, SLOT(ToggleBase()));
+		pmen->setItemChecked(menid, ScApp->Prefs.BaseShown);
 		int uRas = pmen->insertItem( tr("Snap to Grid"), ScApp, SLOT(ToggleURaster()));
 		pmen->setItemChecked(uRas, doku->useRaster);
 		int uGuide = pmen->insertItem( tr("Snap to Guides"), ScApp, SLOT(ToggleUGuides()));

@@ -72,25 +72,15 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	RangeGroupLayout->addWidget( AllPages );
 	Layout11 = new QGridLayout( 0, 1, 1, 0, 5, "Layout11");
 	OnlySome = new QRadioButton( RangeGroup, "OnlySome" );
-	OnlySome->setText( tr( "From:" ) );
+	OnlySome->setText( tr( "Choose Pages" ) );
 	Layout11->addWidget( OnlySome, 0, 0 );
-	LastPage = new QSpinBox( RangeGroup, "LastPage" );
-	LastPage->setMaxValue(view->Pages.count());
-	LastPage->setMinValue( 1 );
-	Layout11->addWidget( LastPage, 1, 1 );
-	RText = new QLabel( RangeGroup, "RText" );
-	RText->setText( tr( "to:" ) );
-	Layout11->addWidget( RText, 1, 0, AlignRight );
-	FirstPage = new QSpinBox( RangeGroup, "FirstPage" );
-	FirstPage->setMaxValue(view->Pages.count());
-	FirstPage->setMinValue( 1 );
-	FirstPage->setValue(1);
-	LastPage->setValue(view->Pages.count());
-	Layout11->addWidget( FirstPage, 0, 1 );
+	PageNr = new QLineEdit( RangeGroup, "PageNr" );
+	PageNr->setEnabled(false);
+	QToolTip::add( PageNr, tr( "Insert a comma separated list of tokens where\n"
+		                           "a token can be * for all the pages, 1-5 for\n"
+		                           "a range of pages or a single page number.") );
+	Layout11->addWidget( PageNr, 1, 0 );
 	RangeGroupLayout->addLayout( Layout11 );
-	FirstPage->setEnabled(false);
-	LastPage->setEnabled(false);
-	RText->setEnabled(false);
 	Layout13->addWidget( RangeGroup );
 
 	GroupBox1 = new QGroupBox( tab, "GroupBox1" );
@@ -247,7 +237,6 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 		}
 	}
 	AvailFlist->setMinimumSize(QSize(150, 140));
-	//    AvailFlist->setMaximumSize(QSize(150, 140));
 	Layout4_2->addWidget( AvailFlist );
 	GroupFontLayout->addLayout( Layout4_2 );
 	Layout5_2 = new QVBoxLayout;
@@ -720,9 +709,8 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	setMaximumSize( sizeHint() );
 	//tab order
 	QWidget::setTabOrder ( AllPages, OnlySome );
-	QWidget::setTabOrder ( OnlySome, FirstPage );
-	QWidget::setTabOrder ( FirstPage, LastPage );
-	QWidget::setTabOrder ( LastPage, ComboBox1 );
+	QWidget::setTabOrder ( OnlySome, PageNr );
+	QWidget::setTabOrder ( PageNr, ComboBox1 );
 	QWidget::setTabOrder ( ComboBox1, ComboBind );
 	QWidget::setTabOrder ( ComboBind, CheckBox1 );
 	QWidget::setTabOrder ( CheckBox1, Article );
@@ -743,8 +731,6 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	//tooltips
 	QToolTip::add( AllPages, tr( "Export all pages to PDF" ) );
 	QToolTip::add( OnlySome, tr( "Export a range of pages to PDF" ) );
-	QToolTip::add( FirstPage, tr( "First page to export when exporting a range" ) );
-	QToolTip::add( LastPage, tr( "Last page to export when exporting a range" ) );
 	QToolTip::add( ComboBox1, tr( "Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.\nChoose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.\nPDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management." ) );
 	QToolTip::add( ComboBind, tr( "Determines the binding of pages in the PDF. Unless you know\nyou need to change it leave the default choice - Left." ) );
 	QToolTip::add( CheckBox1, tr( "Generates thumbnails of each page in the PDF.\nSome viewers can use the thumbnails for navigation." ) );
@@ -810,8 +796,6 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	connect(CheckBox10, SIGNAL(clicked()), this, SLOT(DoEffects()));
 	connect(EonAllPg, SIGNAL(clicked()), this, SLOT(EffectOnAll()));
 	connect(AllPages, SIGNAL(toggled(bool)), this, SLOT(SelRange(bool)));
-	connect(FirstPage, SIGNAL(valueChanged(int)), this, SLOT(ChFrom()));
-	connect(LastPage, SIGNAL(valueChanged(int)), this, SLOT(ChTo()));
 	connect(OutCombo, SIGNAL(activated(int)), this, SLOT(EnablePr(int)));
 	connect(EmbedProfs, SIGNAL(clicked()), this, SLOT(EnablePG()));
 	connect(EmbedProfs2, SIGNAL(clicked()), this, SLOT(EnablePGI()));
@@ -946,29 +930,10 @@ void PDF_Opts::EnablePr(int a)
 	ProfsGroup->setEnabled(setter);
 }
 
-void PDF_Opts::ChFrom()
-{
-	disconnect(LastPage, SIGNAL(valueChanged(int)), this, SLOT(ChTo()));
-	if (FirstPage->value() > LastPage->value())
-		LastPage->setValue(FirstPage->value());
-	connect(LastPage, SIGNAL(valueChanged(int)), this, SLOT(ChTo()));
-}
-
-void PDF_Opts::ChTo()
-{
-	disconnect(FirstPage, SIGNAL(valueChanged(int)), this, SLOT(ChFrom()));
-	if (LastPage->value() < FirstPage->value())
-		FirstPage->setValue(LastPage->value());
-	connect(FirstPage, SIGNAL(valueChanged(int)), this, SLOT(ChFrom()));
-}
-
 void PDF_Opts::SelRange(bool e)
 {
 	bool setter = e ? false : true;
-
-	RText->setEnabled( setter );
-	FirstPage->setEnabled( setter );
-	LastPage->setEnabled( setter );
+	PageNr->setEnabled( setter );
 	if (setter == false)
 		CheckBM->setChecked(false);
 }

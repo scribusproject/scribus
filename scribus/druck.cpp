@@ -266,28 +266,12 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
 	RadioButton2 = new QRadioButton( ButtonGroup5, "RadioButton2" );
 	RadioButton2->setText( tr( "Print range" ) );
 	ButtonGroup5Layout->addMultiCellWidget( RadioButton2, 2, 2, 0, 1 );
-	TextLabel2 = new QLabel( ButtonGroup5, "TextLabel2" );
-	TextLabel2->setEnabled( false );
-	TextLabel2->setText( tr( "From page:" ) );
-	ButtonGroup5Layout->addWidget( TextLabel2, 3, 0 );
-	From = new QSpinBox( ButtonGroup5, "From" );
-	From->setEnabled( false );
-	From->setMinimumSize( QSize( 70, 22 ) );
-	From->setMinValue(1);
-	From->setMaxValue(1000);
-	From->setValue(1);
-	ButtonGroup5Layout->addWidget( From, 3, 1 );
-	TextLabel2_2 = new QLabel( ButtonGroup5, "TextLabel2_2" );
-	TextLabel2_2->setEnabled( false );
-	TextLabel2_2->setText( tr( "To page:" ) );
-	ButtonGroup5Layout->addWidget( TextLabel2_2, 4, 0 );
-	To = new QSpinBox( ButtonGroup5, "To" );
-	To->setEnabled( false );
-	To->setMinimumSize( QSize( 70, 22 ) );
-	To->setMinValue(1);
-	To->setMaxValue(1000);
-	To->setValue(1);
-	ButtonGroup5Layout->addWidget( To, 4, 1 );
+	PageNr = new QLineEdit( ButtonGroup5, "PageNr" );
+	PageNr->setEnabled(false);
+	QToolTip::add( PageNr, tr( "Insert a comma separated list of tokens where\n"
+		                           "a token can be * for all the pages, 1-5 for\n"
+		                           "a range of pages or a single page number.") );
+	ButtonGroup5Layout->addWidget( PageNr, 3, 1 );
 	UmfangLayout->addWidget( ButtonGroup5 );
 
 	ButtonGroup4 = new QButtonGroup( Umfang, "ButtonGroup4" );
@@ -447,9 +431,6 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
 	setTabOrder( Command, RadioButton1 );
 	setTabOrder( RadioButton1, CurrentPage );
 	setTabOrder( CurrentPage, RadioButton2 );
-	setTabOrder( RadioButton2, From );
-	setTabOrder( From, To );
-	setTabOrder( To, FirstPfirst );
 	setTabOrder( FirstPfirst, FirstPlast );
 	setTabOrder( FirstPlast, Copies );
 	setTabOrder( Copies, NormalP );
@@ -472,47 +453,9 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
 	connect( ToolButton1, SIGNAL(clicked()), this, SLOT(SelFile()));
 	connect( OtherCom, SIGNAL(clicked()), this, SLOT(SelComm()));
 	connect( AdvOptButton, SIGNAL( clicked() ), this, SLOT( SetAdvOptions() ) );
-	connect(To, SIGNAL(valueChanged(int)), this, SLOT(ChTo()));
-	connect(From, SIGNAL(valueChanged(int)), this, SLOT(ChFrom()));
 #ifdef HAVE_CUPS
 	connect( OptButton, SIGNAL( clicked() ), this, SLOT( SetOptions() ) );
 #endif
-}
-
-void Druck::ChFrom()
-{
-	disconnect(To, SIGNAL(valueChanged(int)), this, SLOT(ChTo()));
-	if (From->value() > To->value())
-		To->setValue(From->value());
-	connect(To, SIGNAL(valueChanged(int)), this, SLOT(ChTo()));
-	if ((From->value() - To->value()) == 0)
-	{
-		FirstPlast->setEnabled(false);
-		FirstPfirst->setEnabled(false);
-	}
-	else
-	{
-		FirstPlast->setEnabled(true);
-		FirstPfirst->setEnabled(true);
-	}
-}
-
-void Druck::ChTo()
-{
-	disconnect(From, SIGNAL(valueChanged(int)), this, SLOT(ChFrom()));
-	if (To->value() < From->value())
-		From->setValue(To->value());
-	connect(From, SIGNAL(valueChanged(int)), this, SLOT(ChFrom()));
-	if ((From->value() - To->value()) == 0)
-	{
-		FirstPlast->setEnabled(false);
-		FirstPfirst->setEnabled(false);
-	}
-	else
-	{
-		FirstPlast->setEnabled(true);
-		FirstPfirst->setEnabled(true);
-	}
 }
 
 void Druck::SetAdvOptions()
@@ -644,10 +587,7 @@ void Druck::SelPrinter(const QString& prn)
 
 void Druck::SelRange(bool e)
 {
-	TextLabel2_2->setEnabled( !e );
-	TextLabel2->setEnabled( !e );
-	To->setEnabled( !e );
-	From->setEnabled( !e );
+	PageNr->setEnabled(!e);
 }
 
 void Druck::SelMode(bool e)
@@ -668,17 +608,7 @@ void Druck::SelFile()
 void Druck::setMinMax(int min, int max, int cur)
 {
 	QString tmp;
-	To->setMinValue(min);
-	To->setMaxValue(max);
-	From->setMinValue(min);
-	From->setMaxValue(max);
 	CurrentPage->setText(tr( "Print current page" )+" ("+tmp.setNum(cur)+")");
-}
-
-void Druck::setFromTo(int min, int max)
-{
-	To->setValue(max);
-	From->setValue(min);
 	if ((max - min) == 0)
 	{
 		FirstPlast->setEnabled(false);
@@ -704,16 +634,6 @@ QString Druck::outputFileName()
 bool Druck::outputToFile()
 {
 	return ToFile;
-}
-
-int Druck::fromPage()
-{
-	return From->value();
-}
-
-int Druck::toPage()
-{
-	return To->value();
 }
 
 int Druck::numCopies()

@@ -593,14 +593,19 @@ void PSLib::PS_MultiLinGradient(double w, double h, QValueList<double> Stops, QS
 		PutSeite("/ShadingType 2\n");
 		PutSeite( DoSep ? "/ColorSpace /DeviceGray\n" : "/ColorSpace /DeviceCMYK\n" );
 		PutSeite("/BBox [0 "+ToStr(h)+" "+ToStr(w)+" 0]\n");
-		if (first)
-			PutSeite("/Extend [true false]\n");
+		if (Colors.count() == 2)
+			PutDoc("/Extend [true true]\n");
 		else
 		{
-			if (c == Colors.count()-2)
-				PutSeite("/Extend [false true]\n");
+			if (first)
+				PutSeite("/Extend [true false]\n");
 			else
-				PutSeite("/Extend [false false]\n");
+			{
+				if (c == Colors.count()-2)
+					PutSeite("/Extend [false true]\n");
+				else
+					PutSeite("/Extend [false false]\n");
+			}
 		}
 		first = false;
 		PutSeite("/Coords ["+ToStr((*Stops.at(c*2)))+"  "+ToStr((*Stops.at(c*2+1)))+" "+ToStr((*Stops.at(c*2+2)))+" "+ToStr((*Stops.at(c*2+3)))+"]\n");

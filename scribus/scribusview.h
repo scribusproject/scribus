@@ -79,8 +79,7 @@ public:
 	QPixmap PageToPixmap(int Nr, int maxGr);
 	QPixmap MPageToPixmap(QString name, int maxGr);
 	void RecalcPictures(ProfilesL *Pr, QProgressBar *dia = 0);
-	void CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QString SepNam, bool farb, 
-					bool Hm, bool Vm, bool Ic);
+	void CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString SepNam, bool farb, bool Hm, bool Vm, bool Ic);
 	void ProcessPage(PSLib *p, Page* a, uint PNr, bool sep = false, bool farb = true, bool ic = false);
 	void SetClipPath(PSLib *p, FPointArray *c, bool poly = true);
 	void HandleGradient(PSLib *p, PageItem *c, double w, double h);
