@@ -30,7 +30,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/scribus.1 $(prefix)/share/man/man1/scribus.1
 
 uninstall-local:
-	-rm -f $(prefix)/man/man1/scribus.1
+	-rm -f $(prefix)/share/man/man1/scribus.1
 
 dist-hook:
 	cd $(top_distdir) && perl admin/am_edit -padmin
