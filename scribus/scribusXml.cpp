@@ -2537,7 +2537,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, ScribusView *view, 
 	QString st="<SCRIBUSUTF8></SCRIBUSUTF8>";
 	docu.setContent(st);
 	QDomElement elem=docu.documentElement();
-	elem.setAttribute("Version", "1.2cvs");
+	elem.setAttribute("Version", "1.2.1cvs");
 	QDomElement dc=docu.createElement("DOCUMENT");
 	dc.setAttribute("ANZPAGES",view->DocPages.count());
 	dc.setAttribute("PAGEWITH",doc->PageB);
