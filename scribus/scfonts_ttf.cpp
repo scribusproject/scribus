@@ -80,7 +80,7 @@ bool Foi_ttf::ReadMetrics()
 	bool foundEncoding = false;
 	for(int u = 0; u < face->num_charmaps; u++)
 	{
-		if (face->charmaps[u]->encoding == FT_ENCODING_UNICODE)
+		if (face->charmaps[u]->encoding == FT_ENCODING_ADOBE_CUSTOM)
 		{
 			FT_Set_Charmap(face,face->charmaps[u]);
 			foundEncoding = true;
@@ -91,10 +91,23 @@ bool Foi_ttf::ReadMetrics()
 	{
 		for(int u = 0; u < face->num_charmaps; u++)
 		{
-			if (face->charmaps[u]->encoding == FT_ENCODING_ADOBE_CUSTOM)
+			if (face->charmaps[u]->encoding == FT_ENCODING_UNICODE)
 			{
 				FT_Set_Charmap(face,face->charmaps[u]);
+				foundEncoding = true;
 				break;
+			}
+		}
+		if (!foundEncoding)
+		{
+			for(int u = 0; u < face->num_charmaps; u++)
+			{
+				if (face->charmaps[u]->encoding == FT_ENCODING_ADOBE_EXPERT)
+				{
+					FT_Set_Charmap(face,face->charmaps[u]);
+					foundEncoding = true;
+					break;
+				}
 			}
 		}
 	}
