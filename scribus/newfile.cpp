@@ -273,7 +273,7 @@ NewDoc::NewDoc( QWidget* parent, preV *Vor )
 	QToolTip::add( PgNr, tr( "First page number of the document" ) );
 	QToolTip::add( ComboBox3, tr( "Default unit of measurement for document editing" ) );
 	QToolTip::add( AutoFrame, tr( "Create text frames automatically when new pages are added" ) );
-	QToolTip::add( SpinBox10, tr( "Number of columns to create in text frames\non automatically created pages" ) );
+	QToolTip::add( SpinBox10, tr( "Number of columns to create in automatically created text frames" ) );
 	QToolTip::add( Distance, tr( "Distance between automatically created columns" ) );
 
 	// signals and slots connections

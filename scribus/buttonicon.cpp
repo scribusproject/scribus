@@ -28,7 +28,7 @@ ButtonIcon::ButtonIcon(QWidget* parent, PageItem* ite)
 	ScaleW = new QComboBox( true, this, "ScaleW" );
 	/* PFJ - 29/02/04 - Changed to QString/size_t/for style. It saves a small
 						of time during the setup */
-	QString scalew[] = {tr("Always"), tr("When Icon it too small"),
+	QString scalew[] = { tr("Always"), tr("When Icon is too small"),
 	                    tr("When Icon is too big"), tr("Never")};
 	size_t scalewArray = sizeof(scalew) / sizeof(*scalew);
 	for (uint prop = 0; prop < scalewArray; ++prop)
