@@ -697,13 +697,15 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					Zli3.scale = hl->cscale;
 					if (!Doc->RePos)
 					{
-						if (e2.intersects(pf2.xForm(QRect(qRound(Zli3.xco),qRound(Zli3.yco-LineSp), qRound(Zli3.wide+1), qRound(LineSp*1.5)))))
+						desc = static_cast<int>((*Doc->AllFonts)[Zli3.ZFo]->numDescender * (-Zli3.Siz / 10.0));
+						asce = static_cast<int>((*Doc->AllFonts)[Zli3.ZFo]->numAscent * (Zli3.Siz / 10.0));
+						if (e2.intersects(pf2.xForm(QRect(qRound(Zli3.xco),qRound(Zli3.yco-asce), qRound(Zli3.wide+1), qRound(asce+desc)))))
 							DrawZeichenS(p, &Zli3);
 						if (hl->cstyle & 512)
 						{
 							Zli3.Zeich = "-";
 							Zli3.xco = Zli3.xco + Cwidth(Doc, hl->cfont, chx, hl->csize);
-							if (e2.intersects(pf2.xForm(QRect(qRound(Zli3.xco),qRound(Zli3.yco-LineSp), qRound(Zli3.wide+1), qRound(LineSp*1.5)))))
+							if (e2.intersects(pf2.xForm(QRect(qRound(Zli3.xco),qRound(Zli3.yco-asce), qRound(Zli3.wide+1), qRound(asce+desc)))))
 								DrawZeichenS(p, &Zli3);
 						}
 					}
@@ -1511,11 +1513,11 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 								SetFarbe(&tmp, Zli2->Farb, Zli2->shade);
 								p->setBrush(tmp);
 							}
+							desc = static_cast<int>((*Doc->AllFonts)[Zli2->ZFo]->numDescender * (-Zli2->Siz / 10.0));
+							asce = static_cast<int>((*Doc->AllFonts)[Zli2->ZFo]->numAscent * (Zli2->Siz / 10.0));
 							if ((((Zli2->Sele) && (Select)) || (((NextBox != 0) || (BackBox != 0)) && (Zli2->Sele))) && (Doc->appMode == EditMode))
 							{
 								wide = Zli2->wide;
-								desc = static_cast<int>((*Doc->AllFonts)[Zli2->ZFo]->numDescender * (-Zli2->Siz / 10.0));
-								asce = static_cast<int>((*Doc->AllFonts)[Zli2->ZFo]->numAscent * (Zli2->Siz / 10.0));
 								p->setFillMode(1);
 								p->setBrush(darkBlue);
 								p->setLineWidth(0);
@@ -1536,7 +1538,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 							}
 							if (!Doc->RePos)
 							{
-								if (e2.intersects(pf2.xForm(QRect(qRound(Zli2->xco),qRound(Zli2->yco-LineSp), qRound(Zli2->wide+1), qRound(LineSp*1.5)))))
+								if (e2.intersects(pf2.xForm(QRect(qRound(Zli2->xco),qRound(Zli2->yco-asce), qRound(Zli2->wide+1), qRound(asce+desc)))))
 									DrawZeichenS(p, Zli2);
 							}
 						}
@@ -1609,11 +1611,11 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						SetFarbe(&tmp, Zli2->Farb, Zli2->shade);
 						p->setBrush(tmp);
 					}
+					desc = qRound((*Doc->AllFonts)[Zli2->ZFo]->numDescender * (-Zli2->Siz / 10.0));
+					asce = qRound((*Doc->AllFonts)[Zli2->ZFo]->numAscent * (Zli2->Siz / 10.0));
 					if ((((Zli2->Sele) && (Select)) || (((NextBox != 0) || (BackBox != 0)) && (Zli2->Sele))) && (Doc->appMode == EditMode))
 					{
 						wide = Zli2->wide;
-						desc = qRound((*Doc->AllFonts)[Zli2->ZFo]->numDescender * (-Zli2->Siz / 10.0));
-						asce = qRound((*Doc->AllFonts)[Zli2->ZFo]->numAscent * (Zli2->Siz / 10.0));
 						p->setFillMode(1);
 						p->setBrush(darkBlue);
 						p->setLineWidth(0);
@@ -1634,7 +1636,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					}
 					if (!Doc->RePos)
 					{
-						if (e2.intersects(pf2.xForm(QRect(qRound(Zli2->xco),qRound(Zli2->yco-LineSp), qRound(Zli2->wide+1), qRound(LineSp*1.5)))))
+						if (e2.intersects(pf2.xForm(QRect(qRound(Zli2->xco),qRound(Zli2->yco-asce), qRound(Zli2->wide+1), qRound(asce+desc)))))
 							DrawZeichenS(p, Zli2);
 					}
 				}
