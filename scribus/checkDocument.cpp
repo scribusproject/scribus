@@ -557,7 +557,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
  */
 void CheckDocument::languageChange()
 {
-	setCaption( tr( "Document Checker" ) );
+	setCaption( tr( "Preflight Verifier" ) );
 	reportDisplay->header()->setLabel( 0, tr( "Items" ) );
 	reportDisplay->header()->setLabel( 1, tr( "Problems" ) );
 //	okButton->setText( tr( "Close" ) );

@@ -1349,7 +1349,7 @@ void ScribusApp::initMenuBar()
 	viewSepal = toolMenu->insertItem( tr("P&age Palette"), this, SLOT(ToggleSepal()));
 	viewBopal = toolMenu->insertItem( tr("&Bookmarks"), this, SLOT(ToggleBookpal()));
 	viewUndoPalette = toolMenu->insertItem(tr("Action &History"), this, SLOT(ToggleUndoPalette()));
-	M_ToolsCheckDoc = toolMenu->insertItem( tr("Check Document"), this, SLOT(slotCheckDoc()));
+	M_ToolsCheckDoc = toolMenu->insertItem( tr("Preflight Verifier"), this, SLOT(slotCheckDoc()));
 	toolbarMenuTools = toolMenu->insertItem( tr("&Tools"), this, SLOT(ToggleTools()));
 	toolbarMenuPDFTools = toolMenu->insertItem( tr("P&DF Tools"), this, SLOT(TogglePDFTools()));
 	SetKeyEntry(45, tr("Tools"), toolbarMenuTools, 0);
@@ -7226,7 +7226,7 @@ void ScribusApp::SelectFromOutl(int Page, int Item)
 	NoFrameEdit();
 	setActiveWindow();
 	view->Deselect(true);
-	if ((Page != -1) && (Page != doc->currentPage->PageNr))
+	if ((Page != -1) && (Page != static_cast<int>(doc->currentPage->PageNr)))
 		view->GotoPage(Page);
 	view->SelectItemNr(Item);
 	if (view->SelItem.count() != 0)
@@ -9448,13 +9448,7 @@ void ScribusApp::doHyphenate()
 void ScribusApp::ToggleObjLock()
 {
 	if (HaveDoc)
-	{
-		if (view->SelItem.count() != 0)
-		{
-			PageItem* b = view->SelItem.at(0);
-			view->ToggleLock();
-		}
-	}
+		view->ToggleLock();
 }
 
 void ScribusApp::ManageGuides()
