@@ -1894,7 +1894,7 @@ void StoryEditor::updateProps(int p, int ch)
 			StrokeTools->TxStroke->setEnabled(false);
 			StrokeTools->PM1->setEnabled(false);
 		}
-		Editor->setAlign(Editor->currentParaStyle);
+		//Editor->setAlign(Editor->currentParaStyle); breaks 1st paragraph bug #1669
 		Editor->setStyle(Editor->CurrentStyle);
 		Editor->setFarbe(Editor->CurrTextFill, Editor->CurrTextFillSh);
 		firstSet = true;
