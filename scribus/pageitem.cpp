@@ -2392,6 +2392,19 @@ void PageItem::setLineTransparency(double newTransparency)
 	TranspStroke = newTransparency;
 }
 
+void PageItem::setLineStyle(PenStyle newStyle)
+{
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::LineStyle,"",Um::ILineStyle);
+		ss->set("LINE_STYLE", "line_style");
+		ss->set("OLD_STYLE", static_cast<int>(PLineArt));
+		ss->set("NEW_STYLE", static_cast<int>(newStyle));
+		undoManager->action(this, ss);
+	}
+	PLineArt = newStyle;
+}
+
 void PageItem::flipImageH()
 {
 	if (UndoManager::undoEnabled())
@@ -2620,6 +2633,8 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreFillTP(ss, isUndo);
 		else if (ss->contains("LINE_TRANSPARENCY"))
 			restoreLineTP(ss, isUndo);
+		else if (ss->contains("LINE_STYLE"))
+			restoreLineStyle(ss, isUndo);
 	}
 }
 
@@ -2766,6 +2781,16 @@ void PageItem::restoreLineTP(SimpleState *state, bool isUndo)
 		tp = state->getDouble("NEW_TP");
 	select();
 	ScApp->SetTransparS(tp);
+}
+
+
+void PageItem::restoreLineStyle(SimpleState *state, bool isUndo)
+{
+	PenStyle ps = static_cast<PenStyle>(state->getInt("OLD_STYLE"));
+	if (!isUndo)
+		ps = static_cast<PenStyle>(state->getInt("NEW_STYLE"));
+	select();
+	ScApp->view->ChLineArt(ps);
 }
 
 void PageItem::restoreName(SimpleState *state, bool isUndo)

@@ -614,6 +614,7 @@ void UndoManager::initIcons()
 	UndoManager::IPaste           = new QPixmap(iconDir + "editpaste.png");
 	UndoManager::ICut             = new QPixmap(iconDir + "u_cut.png");
 	UndoManager::ITransparency    = new QPixmap(iconDir + "u_transp.png");
+	UndoManager::ILineStyle       = new QPixmap(iconDir + "u_line.png");
 }
 
 const QString UndoManager::AddVGuide         = tr("Add vertical guide");
@@ -659,6 +660,7 @@ const QString UndoManager::Paste             = tr("Paste");
 const QString UndoManager::Cut               = tr("Cut");
 const QString UndoManager::Transparency      = tr("Set fill color transparency");
 const QString UndoManager::LineTransparency  = tr("Set line color transparency");
+const QString UndoManager::LineStyle         = tr("Set line style");
 
 /*** Icons for UndoObjects *******************************************/
 QPixmap *UndoManager::IImageFrame      = NULL;
@@ -686,3 +688,4 @@ QPixmap *UndoManager::ICreate          = NULL;
 QPixmap *UndoManager::IPaste           = NULL;
 QPixmap *UndoManager::ICut             = NULL;
 QPixmap *UndoManager::ITransparency    = NULL;
+QPixmap *UndoManager::ILineStyle       = NULL;

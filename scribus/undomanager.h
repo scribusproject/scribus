@@ -434,6 +434,7 @@ public:
 	static const QString Cut;
 	static const QString Transparency;
 	static const QString LineTransparency;
+	static const QString LineStyle;
 	/*@}*/
 
 	/**
@@ -467,6 +468,7 @@ public:
 	static QPixmap *IPaste;
 	static QPixmap *ICut;
 	static QPixmap *ITransparency;
+	static QPixmap *ILineStyle;
 	/*@}*/
 
 protected:

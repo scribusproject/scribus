@@ -378,7 +378,12 @@ public:
 	 * @param newTransparency transparency of the line color
 	 */
 	void setLineTransparency(double newTransparency);
-
+	/**
+	 * @brief Set the style of line.
+	 * @param newStyle style of line
+	 * @sa Qt::PenStyle
+	 */
+	void setLineStyle(PenStyle newStyle);
 	/** @brief Flip an image horizontally. */
 	void flipImageH();
 	/** @brief Flip an image vertically */
@@ -435,6 +440,7 @@ protected:
 	void restoreName(SimpleState *state, bool isUndo);
 	void restoreFillTP(SimpleState *state, bool isUndo);
 	void restoreLineTP(SimpleState *state, bool isUndo);
+	void restoreLineStyle(SimpleState *state, bool isUndo);
 	/*@}*/
 
 	/**

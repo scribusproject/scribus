@@ -9367,11 +9367,16 @@ void ScribusView::ChLineArt(PenStyle w)
 {
 	if (SelItem.count() != 0)
 	{
+		if (SelItem.count() > 1)
+			undoManager->beginTransaction(Um::SelectionGroup,
+						  Um::IGroup, Um::LineStyle, "", Um::ILineStyle);
 		for (uint a = 0; a < SelItem.count(); ++a)
 		{
-			SelItem.at(a)->PLineArt = w;
+			SelItem.at(a)->setLineStyle(w);
 			RefreshItem(SelItem.at(a));
 		}
+		if (SelItem.count() > 1)
+			undoManager->commit();
 	}
 }
 
