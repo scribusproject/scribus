@@ -6736,7 +6736,7 @@ void Page::slotDoCurs(bool draw)
 				if (b->Ptext.at(offs)->yp != b->Ptext.at(offs+1)->yp)
 				{
 					offs++;
-					if (b->Ptext.at(offs)->ch == QChar(13))
+					if ((b->Ptext.at(offs)->ch == QChar(13)) || (b->Ptext.at(offs)->ch == QChar(28)))
 					{
 						offs--;
 						xp = static_cast<int>(b->Ptext.at(offs)->xp);

@@ -118,6 +118,7 @@ QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
 QPointArray RegularPolygon(double w, double h, uint c, bool star, double factor, double rota);
 FPointArray RegularPolygonF(double w, double h, uint c, bool star, double factor, double rota);
 QPixmap loadIcon(QString nam);
+uint getDouble(QString in, bool raw);
 bool loadText(QString nam, QString *Buffer);
 double Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2 = " ");
 double RealCWidth(ScribusDoc *doc, QString name, QString ch, int Siz);
@@ -796,6 +797,31 @@ QPixmap loadIcon(QString nam)
 	QPixmap pm;
 	pm.load(pfad);
 	return pm;
+}
+
+uint getDouble(QString in, bool raw)
+{
+	QByteArray bb(4);
+	if (raw)
+	{
+		bb[3] = static_cast<uchar>(QChar(in.at(0)));
+		bb[2] = static_cast<uchar>(QChar(in.at(1)));
+		bb[1] = static_cast<uchar>(QChar(in.at(2)));
+		bb[0] = static_cast<uchar>(QChar(in.at(3)));
+	}
+	else
+	{
+		bb[0] = static_cast<uchar>(QChar(in.at(0)));
+		bb[1] = static_cast<uchar>(QChar(in.at(1)));
+		bb[2] = static_cast<uchar>(QChar(in.at(2)));
+		bb[3] = static_cast<uchar>(QChar(in.at(3)));
+	}
+	uint ret;
+	ret = bb[0] & 0xff;
+	ret |= (bb[1] << 8) & 0xff00;
+	ret |= (bb[2] << 16) & 0xff0000;
+	ret |= (bb[3] << 24) & 0xff000000;
+	return ret;
 }
 
 bool loadText(QString nam, QString *Buffer)

@@ -1511,7 +1511,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							break; // at end of frame
 						if ( (buttonState & ControlButton) == 0 )
 						{
-							if ( b->CPos < len && b->Ptext.at(b->CPos)->ch.at(0).latin1() == 13 )
+							if ((b->CPos < len) && ((b->Ptext.at(b->CPos)->ch.at(0).latin1() == 13) || (b->Ptext.at(b->CPos)->ch.at(0).latin1() == 28)))
 							{
 								// at end of paragraph and therefore line
 								break;
@@ -1519,27 +1519,24 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							alty =  b->Ptext.at(b->CPos)->yp;
 							while (  b->CPos < len-1 &&  b->Ptext.at(b->CPos+1)->yp == alty )
 								b->CPos++;
-
 							if ( b->CPos < len -1 )
 								c = b->Ptext.at(b->CPos+1)->ch.at(0).latin1();
 							else if ( b->CPos == len - 1 )
 								c = 13;
 							else
 								c = 0;
-							if ( c == 13 )
+							if (( c == 13 ) || (c = 28))
 								b->CPos++;
 						}
 						else
 						{
 							// go to end of paragraph
-							if ( b->Ptext.at(b->CPos)->ch.at(0).latin1() == 13 )
-							{
+							if (b->Ptext.at(b->CPos)->ch.at(0).latin1() == 13)
 								break;
-							}
 							pos = b->CPos;
 							while ( pos < len )
 							{
-								if ( b->Ptext.at(pos)->ch.at(0).latin1() == 13 )
+								if (b->Ptext.at(pos)->ch.at(0).latin1() == 13)
 									break;
 								else
 									pos++;

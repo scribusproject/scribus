@@ -1,5 +1,47 @@
 Changes since 1.2
 
+06.01.2005
+	* bug     #1296: End key in right-aligned text is 1 char short
+	* bug     #1307: wrong indentation on first line
+	* bug     #1491: A paragraph with an Above value, starting on top of a column, should start right at the top, no space
+	* bug     #1500: Certain EPS-Files with included Preview won't print from Scribus.
+	* feature # 830: Integration of 3rd party docs within Scribus
+
+05.01.2005
+	* bug     # 522: screen refresh not perfect
+	* bug     #1450: replace icons for leaving & saving changes and leaving without saving
+	* bug     #1469: Scribus crashed on the attached document
+	* bug     #1482: Filename not updated when exporting to pdf
+	* bug     #1490: Zoom Tool not capable of  > 800% view, unlike status bar tool
+	* bug     #1492: Updated french translation
+	* bug     #1495: Startup error notification window gets stuck behind splash image
+
+04.01.2005
+	* bug     #1481: Scribus crashed on the attached document when trying to add a page
+
+03.01.2005
+	* bug     #1287: calendier.py doesn't work
+	* bug     #1368: Justified or right aligned text is misaligned when hyphenated
+	* bug     #1459: Control drag for proportional resize doesnt work on imported vectors
+	* bug     #1478: New afrikaans translation dated 31 Dec
+	* bug     #1480: Bookmark reorganisation can cause sig11
+
+02.01.2005
+	* bug     #1479: [PATCH] minor fix: correct usage of setOverrideCursor() so cursors are restored properly
+
+01.01.2005
+	* feature #1438: Usability-improvement for Extras:Insert Special. Point out that you can use the RMB for the magnifier
+
+30.12.2004
+	* bug     #1375: Missing pictures in built-in documentation
+	* bug     #1396: make font preview field in preview transparent
+	* feature #1312: Update screenshots  and add to documentation
+	* feature #1317: Script plugin FAQ and boilerplate script wrapper code
+	* feature #1472: Export scribus version to Python
+
+29.12.2004
+	* feature #1468: New Afrikaans translation
+
 28.12.2004
 	* bug     #1465: Scribus crashes on attached file
 	* bug     #1466: aligning tab stops not functioning
