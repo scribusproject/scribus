@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-11-30 21:24+0100\n"
+"POT-Creation-Date: 2004-12-10 21:57+0100\n"
 "PO-Revision-Date: 1999-02-23 15:38+0200\n"
 "Last-Translator: Manuel Anxo Rei <manxopar@mixmail.com>\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
@@ -226,7 +226,7 @@ msgid "First &Line:"
 msgstr "Primeira Liña:"
 
 #, fuzzy
-msgid "Ind&ent:"
+msgid "Left Ind&ent:"
 msgstr "Indentación Esquerda"
 
 #, fuzzy
@@ -1818,6 +1818,17 @@ msgstr "Tamaño da Páxina"
 msgid "&Size:"
 msgstr "Tamaño:"
 
+msgid "Executive"
+msgstr ""
+
+#, fuzzy
+msgid "Folio"
+msgstr "Negriña"
+
+#, fuzzy
+msgid "Ledger"
+msgstr "Centrado"
+
 msgid "Legal"
 msgstr ""
 
@@ -2908,6 +2919,9 @@ msgstr "Saíndo agora"
 
 msgid "Fatal Error"
 msgstr "Erro Chungo"
+
+msgid "Font System Initialized"
+msgstr ""
 
 msgid "Smart Hyphen"
 msgstr "Esquema Elegante"
@@ -6427,7 +6441,14 @@ msgstr ""
 msgid "Enable/disable the K (Black) ink plate"
 msgstr ""
 
-msgid "Oook! Wrong arguments! Call: "
+#, fuzzy
+msgid "Failed to open document"
+msgstr "Gardar o Documento actual"
+
+msgid "Failed to save document"
+msgstr ""
+
+msgid "Unit out of range. Use one of the scribus.UNIT_* constants."
 msgstr ""
 
 #, fuzzy
@@ -6483,10 +6504,231 @@ msgstr "Agachar ferramentas"
 msgid "About Script"
 msgstr "Sobre Scribus"
 
+msgid ""
+"Scribus Python interface module\n"
+"\t\t\n"
+"\t\tThis module is the Python interface for Scribus. It provides functions\n"
+"\t\tto control scribus and to manipulate objects on the canvas. Each\n"
+"\t\tfunction is documented individually below.\n"
+"\t\t\n"
+"\t\tA few things are common across most of the interface.\n"
+"\t\t\n"
+"\t\tMost functions operate on frames. Frames are identified by their name,\n"
+"\t\ta string - they are not real Python objects. Many functions take an\n"
+"\t\toptional (non-keyword) parameter, a frame name.\n"
+"\t\tMany exceptions are also common across most functions. These are\n"
+"\t\tnot currently documented in the docstring for each function.\n"
+"\t\t\n"
+"\t\t    - Many functions will raise a NoDocOpenError if you try to use them\n"
+"\t\t      without a document to operate on.\n"
+"\t\t\n"
+"\t\t    - If you do not pass a frame name to a function that requires one,\n"
+"\t\t      the function will use the currently selected frame, if any, or\n"
+"\t\t      raise a NoValidObjectError if it can't find anything to operate\n"
+"\t\t      on.\n"
+"\t\t\n"
+"\t\t    - Many functions will raise WrongFrameTypeError if you try to use "
+"them\n"
+"\t\t      on a frame type that they do not make sense with. For example, "
+"setting\n"
+"\t\t      the text colour on a graphics frame doesn't make sense, and will "
+"result\n"
+"\t\t      in this exception being raised.\n"
+"\t\t\n"
+"\t\t    - Errors resulting from calls to the underlying Python API will be\n"
+"\t\t      passed through unaltered. As such, the list of exceptions thrown "
+"by\n"
+"\t\t      any function as provided here and in its docstring is incomplete.\n"
+"\t\t\n"
+"\t\tDetails of what exceptions each function may throw are provided on the\n"
+"\t\tfunction's documentation.\n"
+"\t\t"
+msgstr ""
+
 msgid "Script Console"
 msgstr ""
 
 msgid "Tried to set progress > maximum progress"
+msgstr ""
+
+msgid "Failed to save EPS"
+msgstr ""
+
+msgid "Page number out of range"
+msgstr ""
+
+msgid "argument is not list: must be list of float values"
+msgstr ""
+
+msgid "argument contains non-numeric values: must be list of float values"
+msgstr ""
+
+msgid "An object with the requested name already exists"
+msgstr ""
+
+msgid "Point list must contain at least two points (four values)"
+msgstr ""
+
+msgid "Point list must contain an even number of values"
+msgstr ""
+
+msgid "Point list must contain at least three points (six values)"
+msgstr ""
+
+msgid "Point list must contain at least four points (eight values)"
+msgstr ""
+
+msgid "Point list must have a multiple of six values"
+msgstr ""
+
+msgid "Object not found"
+msgstr ""
+
+#, fuzzy
+msgid "Style not found"
+msgstr "Perfís do sistema"
+
+#, fuzzy
+msgid "Can't set style on a non-text frame"
+msgstr "Editar contidos do marco"
+
+msgid "Line width out of bounds, must be 0 <= line_width <= 12"
+msgstr ""
+
+msgid "Line shade out of bounds, must be 0 <= shade <= 100"
+msgstr ""
+
+msgid "Fill shade out of bounds, must be 0 <= shade <= 100"
+msgstr ""
+
+msgid "Corner radius must be a positive number."
+msgstr ""
+
+#, fuzzy
+msgid "Line style not found"
+msgstr "Imprimir o Documento actual"
+
+msgid "Target is not an image frame."
+msgstr ""
+
+msgid "Can't scale by 0%"
+msgstr ""
+
+msgid "Cannot get font size of non-text frame."
+msgstr ""
+
+msgid "Cannot get font of non-text frame."
+msgstr ""
+
+#, fuzzy
+msgid "Cannot get text size of non-text frame."
+msgstr "Editar contidos do marco"
+
+msgid "Cannot get column count of non-text frame."
+msgstr ""
+
+msgid "Cannot get line space of non-text frame."
+msgstr ""
+
+msgid "Cannot get column gap of non-text frame."
+msgstr ""
+
+#, fuzzy
+msgid "Cannot get text of non-text frame."
+msgstr "Editar contidos do marco"
+
+#, fuzzy
+msgid "Cannot set text of non-text frame."
+msgstr "Editar contidos do marco"
+
+msgid "Cannot insert text into non-text frame."
+msgstr ""
+
+msgid "Insert index out of bounds"
+msgstr ""
+
+msgid "Alignment out of range. Use one of the scribus.ALIGN* constants."
+msgstr ""
+
+msgid "Can't set text alignment on a non-text frame"
+msgstr ""
+
+msgid "Font size out of bounds - must be 1 <= size <= 512"
+msgstr ""
+
+msgid "Can't set font size on a non-text frame"
+msgstr ""
+
+msgid "Can't set font on a non-text frame"
+msgstr ""
+
+msgid "Font not found"
+msgstr ""
+
+msgid "Line space out of bounds, must be >= 0.1"
+msgstr ""
+
+msgid "Can't line spacing on a non-text frame"
+msgstr ""
+
+msgid "Column gap out of bounds, must be positive"
+msgstr ""
+
+msgid "Can't column gap on a non-text frame"
+msgstr ""
+
+msgid "Column count out of bounds, must be > 1"
+msgstr ""
+
+msgid "Can't number of columns on a non-text frame"
+msgstr ""
+
+msgid "Selection index out of bounds"
+msgstr ""
+
+msgid "Can't select text in a non-text frame"
+msgstr ""
+
+msgid "Can't delete text from a non-text frame"
+msgstr ""
+
+msgid "Can't set text fill on a non-text frame"
+msgstr ""
+
+msgid "Can't set text stroke on a non-text frame"
+msgstr ""
+
+msgid "Can't set text shade on a non-text frame"
+msgstr ""
+
+#, fuzzy
+msgid "Can only link text frames"
+msgstr "Agachar Marcos"
+
+msgid "Target frame must be empty"
+msgstr ""
+
+msgid "Target frame links to another frame"
+msgstr ""
+
+msgid "Target frame is linked to by another frame"
+msgstr ""
+
+msgid "Source and target are the same object"
+msgstr ""
+
+msgid "Can't unlink a non-text frame"
+msgstr ""
+
+msgid "Object is not a linked text frame, can't unlink."
+msgstr ""
+
+msgid ""
+"Object the last frame in a series, can't unlink. Unlink the previous frame "
+"instead."
+msgstr ""
+
+msgid "Can't convert a non-text frame to outlines"
 msgstr ""
 
 #, fuzzy
@@ -6501,6 +6743,55 @@ msgstr ""
 
 msgid "Send your value to the script"
 msgstr ""
+
+msgid "Can't render an empty sample"
+msgstr ""
+
+msgid "Can't save to a blank filename"
+msgstr ""
+
+msgid "Can't have an empty layer name"
+msgstr ""
+
+msgid "Layer not found"
+msgstr ""
+
+msgid "Can't remove the last layer"
+msgstr ""
+
+msgid "Can't create layer without a name"
+msgstr ""
+
+#, fuzzy
+msgid "Cannot get a color with an empty name."
+msgstr "Editar contidos do marco"
+
+#, fuzzy
+msgid "Color not found"
+msgstr "Perfís do sistema"
+
+#, fuzzy
+msgid "Cannot change a color with an empty name."
+msgstr "Editar contidos do marco"
+
+#, fuzzy
+msgid "Color not found in document"
+msgstr "Pecha o documento actual"
+
+msgid "Color not found in default colors"
+msgstr ""
+
+#, fuzzy
+msgid "Cannot create a color with an empty name."
+msgstr "Crear novo Documento"
+
+#, fuzzy
+msgid "Cannot delete a color with an empty name."
+msgstr "Editar contidos do marco"
+
+#, fuzzy
+msgid "Cannot replace a color with an empty name."
+msgstr "Crear novo Documento"
 
 #, fuzzy
 msgid "Import &SVG..."

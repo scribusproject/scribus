@@ -1,5 +1,1402 @@
 <!DOCTYPE TS><TS>
 <context>
+    <name></name>
+    <message>
+        <source>getFontSize([&quot;name&quot;]) -&gt; float
+
+Returns the font size in points for the text frame &quot;name&quot;. If this text
+frame has some text selected the value assigned to the first character of
+the selection is returned.
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getColorNames() -&gt; list
+
+Returns a list containing the names of all defined colors in the document.
+If no document is open, returns a list of the default document colors.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>newDocDialog() -&gt; bool
+
+Displays the &quot;New Document&quot; dialog box. Creates a new document if the user
+accepts the settings. Does not create a document if the user presses cancel.
+Returns true if a new document was created.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getFillColor([&quot;name&quot;]) -&gt; string
+
+Returns the name of the fill color of the object &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>moveObject(dx, dy [, &quot;name&quot;])
+
+Moves the object &quot;name&quot; by dx and dy relative to its current position. The
+distances are expressed in the current measurement unit of the document (see
+UNIT constants). If &quot;name&quot; is not given the currently selected item is used.
+If the object &quot;name&quot; belongs to a group, the whole group is moved.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setRedraw(bool)
+
+Disables page redraw when bool = False, otherwise redrawing is enabled.
+This change will persist even after the script exits, so make sure to call
+setRedraw(True) in a finally: clause at the top level of your script.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>createRect(x, y, width, height, [&quot;name&quot;]) -&gt; string
+
+Creates a new rectangle on the current page and returns its name. The
+coordinates are given in the current measurement units of the document
+(see UNIT constants). &quot;name&quot; should be a unique identifier for the object
+because you need this name to reference that object in future. If &quot;name&quot;
+is not given Scribus will create one for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>newPage(where [,&quot;template&quot;])
+
+Creates a new page. If &quot;where&quot; is -1 the new Page is appended to the
+document, otherwise the new page is inserted before &quot;where&quot;. Page numbers are
+counted from 1 upwards, no matter what the displayed first page number of your
+document is. The optional parameter &quot;template&quot; specifies the name of the
+template page for the new page.
+
+May raise IndexError if the page number is out of range
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setGradientFill(type, &quot;color1&quot;, shade1, &quot;color2&quot;, shade2, [&quot;name&quot;])
+
+Sets the gradient fill of the object &quot;name&quot; to type. Color descriptions are
+the same as for setFillColor() and setFillShade(). See the constants for
+available types (FILL_&lt;type&gt;).
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>messagebarText(&quot;string&quot;)
+
+Writes the &quot;string&quot; into the Scribus message bar (status line). The text
+must be UTF8 encoded or &apos;unicode&apos; string(recommended).
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>newDoc(size, margins, orientation, firstPageNumber,
+                   unit, facingPages, firstSideLeft) -&gt; bool
+
+Creates a new document and returns true if successful. The parameters have the
+following meaning:
+
+    size = A tuple (width, height) describing the size of the document. You can
+    use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
+
+    margins = A tuple (left, right, top, bottom) describing the document
+    margins
+
+    orientation = the page orientation - constants PORTRAIT, LANDSCAPE
+
+    firstPageNumber = is the number of the first page in the document used for
+    pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
+    numbers if you&apos;re creating a document in several parts.
+
+    unit: this value sets the measurement units used by the document. Use a
+    predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+    UNIT_PICAS, UNIT_POINTS.
+
+    facingPages = FACINGPAGES, NOFACINGPAGES
+
+    firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
+
+The values for width, height and the margins are expressed in the given unit
+for the document. PAPER_* constants are expressed in points. If your document
+is not in points, make sure to account for this.
+
+example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
+                FACINGPAGES, FIRSTPAGERIGHT)
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>@default</name>
+    <message>
+        <source>getFont([&quot;name&quot;]) -&gt; string
+
+Returns the font name for the text frame &quot;name&quot;. If this text frame
+has some text selected the value assigned to the first character
+of the selection is returned. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getTextLength([&quot;name&quot;]) -&gt; integer
+
+Returns the length of the text in the text frame &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getText([&quot;name&quot;]) -&gt; string
+
+Returns the text of the text frame &quot;name&quot;. If this text frame has some text
+selected, the selected text is returned. All text in the frame, not just
+currently visible text, is returned. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getAllText([&quot;name&quot;]) -&gt; string
+
+Returns the text of the text frame &quot;name&quot; and of all text frames which are
+linked with this frame. If this textframe has some text selected, the selected
+text is returned. If &quot;name&quot; is not given the currently selected item is
+used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLineSpacing([&quot;name&quot;]) -&gt; float
+
+Returns the line spacing (&quot;leading&quot;) of the text frame &quot;name&quot; expressed in
+points. If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getColumnGap([&quot;name&quot;]) -&gt; float
+
+Returns the column gap size of the text frame &quot;name&quot; expressed in points. If
+&quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getColumns([&quot;name&quot;]) -&gt; integer
+
+Gets the number of columns of the text frame &quot;name&quot;. If &quot;name&quot; is not
+given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setText(&quot;text&quot;, [&quot;name&quot;])
+
+Sets the text of the text frame &quot;name&quot; to the text of the string &quot;text&quot;.
+Text must be UTF8 encoded - use e.g. unicode(text, &apos;iso-8859-2&apos;). See the FAQ
+for more details. If &quot;name&quot; is not given the currently selected item is
+used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
+
+Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame. Text
+must be UTF encoded (see setText() as reference) The first character has an
+index of 0. &quot;name&quot; If &quot;name&quot; is not given the currently selected Item is
+used.
+
+May throw IndexError for an insertion out of bounds.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setFont(&quot;font&quot;, [&quot;name&quot;])
+
+Sets the font of the text frame &quot;name&quot; to &quot;font&quot;. If there is some text
+selected only the selected text is changed.  If &quot;name&quot; is not given the
+currently selected item is used.
+
+May throw ValueError if the font cannot be found.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setFontSize(size, [&quot;name&quot;])
+
+Sets the font size of the text frame &quot;name&quot; to &quot;size&quot;. &quot;size&quot; is treated
+as a value in points. If there is some text selected only the selected text is
+changed. &quot;size&quot; must be in the range 1 to 512. If &quot;name&quot; is not given the
+currently selected item is used.
+
+May throw ValueError for a font size that&apos;s out of bounds.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineSpacing(size, [&quot;name&quot;])
+
+Sets the line spacing (&quot;leading&quot;) of the text frame &quot;name&quot; to &quot;size&quot;.
+&quot;size&quot; is a value in points. If &quot;name&quot; is not given the currently selected
+item is used.
+
+May throw ValueError if the line spacing is out of bounds.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setColumnGap(size, [&quot;name&quot;])
+
+Sets the column gap of the text frame &quot;name&quot; to the value &quot;size&quot;. If
+&quot;name&quot; is not given the currently selected item is used.
+
+May throw ValueError if the column gap is out of bounds (must be positive).
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setColumns(nr, [&quot;name&quot;])
+
+Sets the number of columns of the text frame &quot;name&quot; to the integer &quot;nr&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+
+May throw ValueError if number of columns is not at least one.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setTextAlignment(align, [&quot;name&quot;])
+
+Sets the text alignment of the text frame &quot;name&quot; to the specified alignment.
+If &quot;name&quot; is not given the currently selected item is used. &quot;align&quot; should
+be one of the ALIGN_ constants defined in this module - see dir(scribus).
+
+May throw ValueError for an invalid alignment constant.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>selectText(start, count, [&quot;name&quot;])
+
+Selects &quot;count&quot; characters of text in the text frame &quot;name&quot; starting from the
+character &quot;start&quot;. Character counting starts at 0. If &quot;count&quot; is zero, any
+text selection will be cleared.  If &quot;name&quot; is not given the currently
+selected item is used.
+
+May throw IndexError if the selection is outside the bounds of the text.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>deleteText([&quot;name&quot;])
+
+Deletes any text in the text frame &quot;name&quot;. If there is some text selected,
+only the selected text will be deleted. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setTextColor(&quot;color&quot;, [&quot;name&quot;])
+
+Sets the text color of the text frame &quot;name&quot; to the color &quot;color&quot;. If there
+is some text selected only the selected text is changed. If &quot;name&quot; is not
+given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setTextStroke(&quot;color&quot;, [&quot;name&quot;])
+
+Set &quot;color&quot; of the text stroke. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setTextShade(shade, [&quot;name&quot;])
+
+Sets the shading of the text color of the object &quot;name&quot; to &quot;shade&quot;. If
+there is some text selected only the selected text is changed. &quot;shade&quot; must
+be an integer value in the range from 0 (lightest) to 100 (full color
+intensity). If &quot;name&quot; is not given the currently selected item is
+used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>linkTextFrames(&quot;fromname&quot;, &quot;toname&quot;)
+
+Link two text frames. The frame named &quot;fromname&quot; is linked to the
+frame named &quot;toname&quot;. The target frame must be an empty text frame
+and must not link to or be linked from any other frames already.
+
+May throw ScribusException if linking rules are violated.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>unlinkTextFrames(&quot;name&quot;)
+
+Remove the specified (named) object from the text frame flow/linkage. If the
+frame was in the middle of a chain, the previous and next frames will be
+connected, eg &apos;a-&gt;b-&gt;c&apos; becomes &apos;a-&gt;c&apos; when you unlinkTextFrames(b)&apos;
+
+May throw ScribusException if linking rules are violated.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>traceText([&quot;name&quot;])
+
+Convert the text frame &quot;name&quot; to outlines. If &quot;name&quot; is not given the
+currently selected item is used.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getColor(&quot;name&quot;) -&gt; tuple
+
+Returns a tuple (C, M, Y, K) containing the four color components of the
+color &quot;name&quot; from the current document. If no document is open, returns
+the value of the named color from the default document colors.
+
+May raise NotFoundError if the named color wasn&apos;t found.
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>changeColor(&quot;name&quot;, c, m, y, k)
+
+Changes the color &quot;name&quot; to the specified CMYK value. The color value is
+defined via four components c = Cyan, m = Magenta, y = Yellow and k = Black.
+Color components should be in the range from 0 to 255.
+
+May raise NotFoundError if the named color wasn&apos;t found.
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>deleteColor(&quot;name&quot;, &quot;replace&quot;)
+
+Deletes the color &quot;name&quot;. Every occurence of that color is replaced by the
+color &quot;replace&quot;. If not specified, &quot;replace&quot; defaults to the color
+&quot;None&quot; - transparent.
+
+deleteColor works on the default document colors if there is no document open.
+In that case, &quot;replace&quot;, if specified, has no effect.
+
+May raise NotFoundError if a named color wasn&apos;t found.
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>replaceColor(&quot;name&quot;, &quot;replace&quot;)
+
+Every occurence of the color &quot;name&quot; is replaced by the color &quot;replace&quot;.
+
+May raise NotFoundError if a named color wasn&apos;t found.
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>fileDialog(&quot;caption&quot;, [&quot;filter&quot;, &quot;defaultname&quot; ,haspreview, issave]) -&gt; string with filename
+
+Shows a File Open dialog box with the caption &quot;caption&quot;. Files are filtered
+with the filter string &quot;filter&quot;. A default filename or file path can also
+supplied, leave this string empty when you don&apos;t want to use it.  A value of
+True for haspreview enables a small preview widget in the FileSelect box.  When
+the issave parameter is set to True the dialog acts like a &quot;Save As&quot; dialog
+otherwise it acts like a &quot;File Open Dialog&quot;. The default for both of the
+opional parameters is False.
+
+The filter, if specified, takes the form &apos;comment (*.type *.type2 ...)&apos;.
+For example &apos;Images (*.png *.xpm *.jpg)&apos;.
+
+Refer to the Qt-Documentation for QFileDialog for details on filters.
+
+Example: fileDialog(&apos;Open input&apos;, &apos;CSV files (*.csv)&apos;)
+Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;, issave=True)
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>messageBox(&quot;caption&quot;, &quot;message&quot;,
+    icon=ICON_NONE, button1=BUTTON_OK|BUTTONOPT_DEFAULT,
+    button2=BUTTON_NONE, button3=BUTTON_NONE) -&gt; integer
+
+Displays a message box with the title &quot;caption&quot;, the message &quot;message&quot;, and
+an icon &quot;icon&quot; and up to 3 buttons. By default no icon is used and a single
+button, OK, is displayed. Only the caption and message arguments are required,
+though setting an icon and appropriate button(s) is strongly
+recommended. The message text may contain simple HTML-like markup.
+
+Returns the number of the button the user pressed. Button numbers start
+at 1.
+
+For the icon and the button parameters there are predefined constants available
+with the same names as in the Qt Documentation. These are the BUTTON_* and
+ICON_* constants defined in the module. There are also two extra constants that
+can be binary-ORed with button constants:
+    BUTTONOPT_DEFAULT   Pressing enter presses this button.
+    BUTTONOPT_ESCAPE    Pressing escape presses this button.
+
+Usage examples:
+result = messageBox(&apos;Script failed&apos;,
+                    &apos;This script only works when you have a text frame selected.&apos;,
+                    ICON_ERROR)
+result = messageBox(&apos;Monkeys!&apos;, &apos;Something went ook! &lt;i&gt;Was it a monkey?&lt;/i&gt;&apos;,
+                    ICON_WARNING, BUTTON_YES|BUTTONOPT_DEFAULT,
+                    BUTTON_NO, BUTTON_IGNORE|BUTTONOPT_ESCAPE)
+
+Defined button and icon constants:
+BUTTON_NONE, BUTTON_ABORT, BUTTON_CANCEL, BUTTON_IGNORE, BUTTON_NO,
+BUTTON_NOALL, BUTTON_OK, BUTTON_RETRY, BUTTON_YES, BUTTON_YESALL,
+ICON_NONE, ICON_INFORMATION, ICON_WARNING, ICON_CRITICAL.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>valueDialog(caption, message [,defaultvalue]) -&gt; string
+
+Shows the common &apos;Ask for string&apos; dialog and returns its value as a string
+Parameters: window title, text in the window and optional &apos;default&apos; value.
+
+Example: valueDialog(&apos;title&apos;, &apos;text in the window&apos;, &apos;optional&apos;)
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>closeDoc()
+
+Closes the current document without prompting to save.
+
+May throw NoDocOpenError if there is no document to close
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>haveDoc() -&gt; bool
+
+Returns true if there is a document open.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>openDoc(&quot;name&quot;)
+
+Opens the document &quot;name&quot;.
+
+May raise ScribusError if the document could not be opened.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>saveDoc()
+
+Saves the current document with its current name, returns true if successful.
+If the document has not already been saved, this may bring up an interactive
+save file dialog.
+
+If the save fails, there is currently no way to tell.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>saveDocAs(&quot;name&quot;)
+
+Saves the current document under the new name &quot;name&quot; (which may be a full or
+relative path).
+
+May raise ScribusError if the save fails.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>saveDocAs(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
+
+Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
+strings.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setMargins(lr, rr, tr, br)
+
+Sets the margins of the document, Left(lr), Right(rr), Top(tr) and Bottom(br)
+margins are given in the measurement units of the document - see UNIT_&lt;type&gt;
+constants.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setUnit(type)
+
+Changes the measurement unit of the document. Possible values for &quot;unit&quot; are
+defined as constants UNIT_&lt;type&gt;.
+
+May raise ValueError if an invalid unit is passed.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getUnit() -&gt; integer (Scribus unit constant)
+
+Returns the measurement units of the document. The returned value will be one
+of the UNIT_* constants:
+UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>loadStylesFromFile(&quot;filename&quot;)
+
+Loads paragraph styles from the Scribus document at &quot;filename&quot; into the
+current document.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setDocType(facingPages, firstPageLeft)
+
+Sets the document type. To get facing pages set the first parameter to
+FACINGPAGES, to switch facingPages off use NOFACINGPAGES instead.  If you want
+to be the first page a left side set the second parameter to FIRSTPAGELEFT, for
+a right page use FIRSTPAGERIGHT.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLineColor([&quot;name&quot;]) -&gt; string
+
+Returns the name of the line color of the object &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLineWidth([&quot;name&quot;]) -&gt; integer
+
+Returns the line width of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLineShade([&quot;name&quot;]) -&gt; integer
+
+Returns the shading value of the line color of the object &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLineJoin([&quot;name&quot;]) -&gt; integer (see contants)
+
+Returns the line join style of the object &quot;name&quot;. If &quot;name&quot; is not given
+the currently selected item is used.  The join types are:
+JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLineEnd([&quot;name&quot;]) -&gt; integer (see constants)
+
+Returns the line cap style of the object &quot;name&quot;. If &quot;name&quot; is not given the
+currently selected item is used. The cap types are:
+CAP_FLAT, CAP_ROUND, CAP_SQUARE
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLineStyle([&quot;name&quot;]) -&gt; integer (see constants)
+
+Returns the line style of the object &quot;name&quot;. If &quot;name&quot; is not given the
+currently selected item is used. Line style constants are:
+LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getFillShade([&quot;name&quot;]) -&gt; integer
+
+Returns the shading value of the fill color of the object &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getImageScale([&quot;name&quot;]) -&gt; (x,y)
+
+Returns a (x, y) tuple containing the scaling values of the image frame
+&quot;name&quot;.  If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getImageName([&quot;name&quot;]) -&gt; string
+
+Returns the filename for the image in the image frame. If &quot;name&quot; is not
+given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getSize([&quot;name&quot;]) -&gt; (width,height)
+
+Returns a (width, height) tuple with the size of the object &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used. The size is
+expressed in the current measurement unit of the document - see UNIT_&lt;type&gt;
+for reference.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getRotation([&quot;name&quot;]) -&gt; integer
+
+Returns the rotation of the object &quot;name&quot;. The value is expressed in degrees,
+and clockwise is positive. If &quot;name&quot; is not given the currently selected item
+is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getAllObjects() -&gt; list
+
+Returns a list containing the names of all objects on the current page.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>moveObjectAbs(x, y [, &quot;name&quot;])
+
+Moves the object &quot;name&quot; to a new location. The coordinates are expressed in
+the current measurement unit of the document (see UNIT constants).  If &quot;name&quot;
+is not given the currently selected item is used.  If the object &quot;name&quot;
+belongs to a group, the whole group is moved.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>rotateObject(rot [, &quot;name&quot;])
+
+Rotates the object &quot;name&quot; by &quot;rot&quot; degrees relatively. The object is
+rotated by the vertex that is currently selected as the rotation point - by
+default, the top left vertext at zero rotation. Positive values mean counter
+clockwise rotation when the default rotation point is used. If &quot;name&quot; is not
+given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sizeObject(width, height [, &quot;name&quot;])
+
+Resizes the object &quot;name&quot; to the given width and height. If &quot;name&quot;
+is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getSelectedObject([nr]) -&gt; string
+
+Returns the name of the selected object. &quot;nr&quot; if given indicates the number
+of the selected object, e.g. 0 means the first selected object, 1 means the
+second selected Object and so on.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>selectionCount() -&gt; integer
+
+Returns the number of selected objects.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>selectObject(&quot;name&quot;)
+
+Selects the object with the given &quot;name&quot;.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>deselectAll()
+
+Deselects all objects in the whole document.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>groupObjects(list)
+
+Groups the objects named in &quot;list&quot; together. &quot;list&quot; must contain the names
+of the objects to be grouped. If &quot;list&quot; is not given the currently selected
+items are used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>unGroupObjects(&quot;name&quot;)
+
+Destructs the group the object &quot;name&quot; belongs to.If &quot;name&quot; is not given the currently selected item is used.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>scaleGroup(factor [,&quot;name&quot;])
+
+Scales the group the object &quot;name&quot; belongs to. Values greater than 1 enlarge
+the group, values smaller than 1 make the group smaller e.g a value of 0.5
+scales the group to 50 % of its original size, a value of 1.5 scales the group
+to 150 % of its original size.  The value for &quot;factor&quot; must be greater than
+0. If &quot;name&quot; is not given the currently selected item is used.
+
+May raise ValueError if an invalid scale factor is passed.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>loadImage(&quot;filename&quot; [, &quot;name&quot;])
+
+Loads the picture &quot;picture&quot; into the image frame &quot;name&quot;. If &quot;name&quot; is
+not given the currently selected item is used.
+
+May raise WrongFrameTypeError if the target frame is not an image frame
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>scaleImage(x, y [, &quot;name&quot;])
+
+Sets the scaling factors of the picture in the image frame &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used. A number of 1
+means 100 %.
+
+May raise WrongFrameTypeError if the target frame is not an image frame
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>lockObject([&quot;name&quot;]) -&gt; bool
+
+Locks the object &quot;name&quot; if it&apos;s unlocked or unlock it if it&apos;s locked.
+If &quot;name&quot; is not given the currently selected item is used. Returns true
+if locked.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>isLocked([&quot;name&quot;]) -&gt; bool
+
+Returns true if is the object &quot;name&quot; locked.  If &quot;name&quot; is not given the
+currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getFontNames() -&gt; list
+
+Returns a list with the names of all available fonts.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getXFontNames() -&gt; list of tuples
+
+Returns a larger font info. It&apos;s a list of the tuples with:
+[ (Scribus name, Family, Real name, subset (1|0), embed PS (1|0), font file), (...), ... ]
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>rendeFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size) -&gt; bool
+
+Creates an image preview of font &quot;name&quot; with given text &quot;sample&quot; and size.
+Image is saved into &quot;filename&quot;. Returns true when success.
+
+May raise NotFoundError if the specified font can&apos;t be found.
+May raise ValueError if an empty sample or filename is passed.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLayers() -&gt; list
+
+Returns a list with the names of all defined layers.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setActiveLayer(&quot;name&quot;)
+
+Sets the active layer to the layer named &quot;name&quot;.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getActiveLayer() -&gt; string
+
+Returns the name of the current active layer.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sentToLayer(&quot;layer&quot; [, &quot;name&quot;])
+
+Sends the object &quot;name&quot; to the layer &quot;layer&quot;. The layer must exist.
+If &quot;name&quot; is not given the currently selected item is used.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLayerVisible(&quot;layer&quot;, visible)
+
+Sets the layer &quot;layer&quot; to be visible or not. If is the visible set to false
+the layer is invisible.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLayerPrintable(&quot;layer&quot;, printable)
+
+Sets the layer &quot;layer&quot; to be printable or not. If is the printable set to
+false the layer won&apos;t be printed.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+
+Returns wether the Layer &quot;layer&quot; is visible or not, a value of True means
+that the layer &quot;layer&quot; is visible, a value of False means that the layer
+&quot;layer&quot; is invisible.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+
+Returns wether the layer &quot;layer&quot; is printable or not, a value of True means
+that the layer &quot;layer&quot; can be printed, a value of False means that printing
+the layer &quot;layer&quot; is disabled.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>deleteLayer(&quot;layer&quot;)
+
+Deletes the layer with the name &quot;layer&quot;. Nothing happens if the layer doesn&apos;t
+exists or if it&apos;s the only layer in the document.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>createLayer(layer)
+
+Creates a new layer with the name &quot;name&quot;.
+
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getGuiLanguage() -&gt; string
+
+Returns a string with the -lang value.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>createEllipse(x, y, width, height, [&quot;name&quot;]) -&gt; string
+
+Creates a new ellipse on the current page and returns its name.
+The coordinates are given in the current measurement units of the document
+(see UNIT constants). &quot;name&quot; should be a unique identifier for the object
+because you need this name for further referencing of that object. If &quot;name&quot;
+is not given Scribus will create one for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>createImage(x, y, width, height, [&quot;name&quot;]) -&gt; string
+
+Creates a new picture frame on the current page and returns its name. The
+coordinates are given in the current measurement units of the document.
+&quot;name&quot; should be a unique identifier for the object because you need this
+name for further access to that object. If &quot;name&quot; is not given Scribus will
+create one for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>createText(x, y, width, height, [&quot;name&quot;]) -&gt; string
+
+Creates a new text frame on the actual page and returns its name.
+The coordinates are given in the actual measurement unit of the document (see
+UNIT constants). &quot;name&quot; should be a unique identifier for the object because
+you need this name for further referencing of that object. If &quot;name&quot; is not
+given Scribus will create one for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>createLine(x1, y1, x2, y2, [&quot;name&quot;]) -&gt; string
+
+Creates a new line from the point(x1, y1) to the point(x2, y2) and returns
+its name. The coordinates are given in the current measurement unit of the
+document (see UNIT constants). &quot;name&quot; should be a unique identifier for the
+object because you need this name for further access to that object. If
+&quot;name&quot; is not given Scribus will create one for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>createPolyLine(list, [&quot;name&quot;]) -&gt; string
+
+Creates a new polyline and returns its name. The points for the polyline are
+stored in the list &quot;list&quot; in the following order: [x1, y1, x2, y2...xn. yn].
+The coordinates are given in the current measurement units of the document (see
+UNIT constants). &quot;name&quot; should be a unique identifier for the object because
+you need this name for further access to that object. If &quot;name&quot; is not given
+Scribus will create one for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+May raise ValueError if an insufficient number of points is passed or if
+the number of values passed don&apos;t group into points without leftovers.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>createPolygon(list, [&quot;name&quot;]) -&gt; string
+
+Creates a new polygon and returns its name. The points for the polygon are
+stored in the list &quot;list&quot; in the following order: [x1, y1, x2, y2...xn. yn].
+At least three points are required. There is no need to repeat the first point
+to close the polygon. The polygon is automatically closed by connecting the
+first and the last point.  The coordinates are given in the current measurement
+units of the document (see UNIT constants).  &quot;name&quot; should be a unique
+identifier for the object because you need this name for further access to that
+object. If &quot;name&quot; is not given Scribus will create one for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+May raise ValueError if an insufficient number of points is passed or if
+the number of values passed don&apos;t group into points without leftovers.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>createBezierLine(list, [&quot;name&quot;]) -&gt; string
+
+Creates a new bezier curve and returns its name. The points for the bezier
+curve are stored in the list &quot;list&quot; in the following order:
+[x1, y1, kx1, ky1, x2, y2, kx2, ky2...xn. yn, kxn. kyn]
+In the points list, x and y mean the x and y coordinates of the point and kx
+and ky meaning the control point for the curve.  The coordinates are given in
+the current measurement units of the document (see UNIT constants). &quot;name&quot;
+should be a unique identifier for the object because you need this name for
+further access to that object. If &quot;name&quot; is not given Scribus will create one
+for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+May raise ValueError if an insufficient number of points is passed or if
+the number of values passed don&apos;t group into points without leftovers.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>createPathText(x, y, &quot;textbox&quot;, &quot;beziercurve&quot;, [&quot;name&quot;]) -&gt; string
+
+Creates a new pathText by merging the two objects &quot;textbox&quot; and
+&quot;beziercurve&quot; and returns its name. The coordinates are given in the current
+measurement unit of the document (see UNIT constants). &quot;name&quot; should be a
+unique identifier for the object because you need this name for further access
+to that object. If &quot;name&quot; is not given Scribus will create one for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+May raise NotFoundError if one or both of the named base object don&apos;t exist.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>deleteObject([&quot;name&quot;])
+
+Deletes the item with the name &quot;name&quot;. If &quot;name&quot; is not given the currently
+selected item is deleted.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>textFlowsAroundFrame(&quot;name&quot; [, state])
+
+Enables/disables &quot;Text Flows Around Frame&quot; feature for object &quot;name&quot;.
+Called with parameters string name and optional boolean &quot;state&quot;. If &quot;state&quot;
+is not passed, text flow is toggled.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>objectExists([&quot;name&quot;]) -&gt; bool
+
+Test if an object with specified name really exists in the document.
+The optional parameter is the object name. When no object name is given,
+returns True if there is something selected.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setStyle(&quot;style&quot; [, &quot;name&quot;])
+
+Apply the named &quot;style&quot; to the object named &quot;name&quot;. If is no object name
+given, it&apos;s applied on the selected object.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getAllStyles() -&gt; list
+
+Return a list of the names of all paragraph styles in the current document.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>currentPage() -&gt; integer
+
+Returns the number of the current working page. Page numbers are counted from 1
+upwards, no matter what the displayed first page number of your document is.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>redrawAll()
+
+Redraws all pages.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>savePageAsEPS(&quot;name&quot;)
+
+Saves the current page as an EPS to the file &quot;name&quot;.
+
+May raise ScribusError if the save failed.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>deletePage(nr)
+
+Deletes the given page. Does nothing if the document contains only one page.
+Page numbers are counted from 1 upwards, no matter what the displayed first
+page number is.
+
+May raise IndexError if the page number is out of range
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>gotoPage(nr)
+
+Moves to the page &quot;nr&quot; (that is, makes the current page &quot;nr&quot;). Note that
+gotoPage doesn&apos;t (curently) change the page the user&apos;s view is displaying, it
+just sets the page that script commands will operates on.
+
+May raise IndexError if the page number is out of range.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>pageCount() -&gt; integer
+
+Returns the number of pages in the document.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getHGuides() -&gt; list
+
+Returns a list containing positions of the horizontal guides. Values are in the
+document&apos;s current units - see UNIT_&lt;type&gt; constants.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setHGuides(list)
+
+Sets horizontal guides. Input parameter must be a list of guide positions
+measured in the current document units - see UNIT_&lt;type&gt; constants.
+
+Example: setHGuides(getHGuides() + [200.0, 210.0] # add new guides without any lost
+         setHGuides([90,250]) # replace current guides entirely
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getVGuides()
+
+See getHGuides.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setVGuides()
+
+See setHGuides.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getPageSize() -&gt; tuple
+
+Returns a tuple with page dimensions measured in the document&apos;s current units.
+See UNIT_&lt;type&gt; constants and getPageMargins()
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getPageItems() -&gt; list
+
+Returns a list of tuples with items on the current page. The tuple is:
+(name, objectType, order) E.g. [(&apos;Text1&apos;, 4, 0), (&apos;Image1&apos;, 2, 1)]
+means that object named &apos;Text1&apos; is a text frame (type 4) and is the first at
+the page...
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getPageMargins()
+
+Returns the page margins as a (left, right, top, bottom) tuple in the current
+units. See UNIT_&lt;type&gt; constants and getPageSize().
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setFillColor(&quot;color&quot;, [&quot;name&quot;])
+
+Sets the fill color of the object &quot;name&quot; to the color &quot;color&quot;. &quot;color&quot;
+is the name of one of the defined colors. If &quot;name&quot; is not given the
+currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineColor(&quot;color&quot;, [&quot;name&quot;])
+
+Sets the line color of the object &quot;name&quot; to the color &quot;color&quot;. If &quot;name&quot;
+is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineWidth(width, [&quot;name&quot;])
+
+Sets line width of the object &quot;name&quot; to &quot;width&quot;. &quot;width&quot; must be in the
+range from 0.0 to 12.0 inclusive, and is measured in points. If &quot;name&quot; is not
+given the currently selected item is used.
+
+May raise ValueError if the line width is out of bounds.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineShade(shade, [&quot;name&quot;])
+
+Sets the shading of the line color of the object &quot;name&quot; to &quot;shade&quot;.
+&quot;shade&quot; must be an integer value in the range from 0 (lightest) to 100
+(full color intensity). If &quot;name&quot; is not given the currently selected item
+is used.
+
+May raise ValueError if the line shade is out of bounds.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineJoin(join, [&quot;name&quot;])
+
+Sets the line join style of the object &quot;name&quot; to the style &quot;join&quot;.
+If &quot;name&quot; is not given the currently selected item is used. There are
+predefined constants for join - JOIN_&lt;type&gt;.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineEnd(endtype, [&quot;name&quot;])
+
+Sets the line cap style of the object &quot;name&quot; to the style &quot;cap&quot;.
+If &quot;name&quot; is not given the currently selected item is used. There are
+predefined constants for &quot;cap&quot; - CAP_&lt;type&gt;.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineStyle(style, [&quot;name&quot;])
+
+Sets the line style of the object &quot;name&quot; to the style &quot;style&quot;. If &quot;name&quot;
+is not given the currently selected item is used. There are predefined
+constants for &quot;style&quot; - LINE_&lt;style&gt;.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setFillShade(shade, [&quot;name&quot;])
+
+Sets the shading of the fill color of the object &quot;name&quot; to &quot;shade&quot;.
+&quot;shade&quot; must be an integer value in the range from 0 (lightest) to 100
+(full Color intensity). If &quot;name&quot; is not given the currently selected
+Item is used.
+
+May raise ValueError if the fill shade is out of bounds.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setCornerRadius(radius, [&quot;name&quot;])
+
+Sets the corner radius of the object &quot;name&quot;. The radius is expressed
+in points. If &quot;name&quot; is not given the currently selected item is used.
+
+May raise ValueError if the corner radius is negative.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setMultiLine(&quot;namedStyle&quot;, [&quot;name&quot;])
+
+Sets the line style of the object &quot;name&quot; to the named style &quot;namedStyle&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+
+May raise NotFoundError if the line style doesn&apos;t exist.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>progressReset()
+
+Cleans up the Scribus progress bar previous settings. It is called before the
+new progress bar use. See progressSet.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>progressTotal(max)
+
+Sets the progress bar&apos;s maximum steps value to the specified number.
+See progressSet.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>progressSet(nr)
+
+Set the progress bar position to &quot;nr&quot;, a value relative to the previously set
+progressTotal. The progress bar uses the concept of steps; you give it the
+total number of steps and the number of steps completed so far and it will
+display the percentage of steps that have been completed. You can specify the
+total number of steps with progressTotal(). The current number of steps is set
+with progressSet(). The progress bar can be rewound to the beginning with
+progressReset(). [based on info taken from Trolltech&apos;s Qt docs]
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setCursor()
+
+[UNSUPPORTED!] This might break things, so steer clear for now.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>docChanged(bool)
+
+Enable/disable save icon in the Scribus icon bar and the Save menu item. It&apos;s
+useful to call this procedure when you&apos;re changing the document, because Scribus
+won&apos;t automatically notice when you change the document using a script.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>defineColor(&quot;name&quot;, c, m, y, k)
+
+Defines a new color &quot;name&quot;. The color Value is defined via four components:
+c = Cyan, m = Magenta, y = Yellow and k = Black. Color components should be in
+the range from 0 to 255.
+
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getCornerRadius([&quot;name&quot;]) -&gt; integer
+
+Returns the corner radius of the object &quot;name&quot;. The radius is
+expressed in points. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getPosition([&quot;name&quot;]) -&gt; (x,y)
+
+Returns a (x, y) tuple with the position of the object &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+The position is expressed in the actual measurement unit of the document
+- see UNIT_&lt;type&gt; for reference.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>rotateObjectAbs(rot [, &quot;name&quot;])
+
+Sets the rotation of the object &quot;name&quot; to &quot;rot&quot;. Positive values
+mean counter clockwise rotation. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>About</name>
     <message>
         <source>%1. %2 %3 </source>
@@ -4427,6 +5824,18 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <source>O&amp;utside:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Executive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Folio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ledger</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>NewTm</name>
@@ -6745,6 +8154,30 @@ and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Executive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Folio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ledger</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Legal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Letter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tabloid</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QColorDialog</name>
@@ -7168,10 +8601,6 @@ Check path and filename.</source>
 </context>
 <context>
     <name>QObject</name>
-    <message>
-        <source>Oook! Wrong arguments! Call: </source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Importing text</source>
         <translation type="unfinished"></translation>
@@ -7622,6 +9051,413 @@ External Links
     </message>
     <message>
         <source>Open Office Draw (*.sxd);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot get font size of non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot get font of non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot get text size of non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot get column count of non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot get line space of non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot get column gap of non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot get text of non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set text of non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot insert text into non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert index out of bounds</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alignment out of range. Use one of the scribus.ALIGN* constants.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t set text alignment on a non-text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t set font size on a non-text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t set font on a non-text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font not found</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line space out of bounds, must be &gt;= 0.1</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t line spacing on a non-text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Column gap out of bounds, must be positive</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t column gap on a non-text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Column count out of bounds, must be &gt; 1</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t number of columns on a non-text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Selection index out of bounds</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t select text in a non-text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t delete text from a non-text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t set text fill on a non-text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t set text stroke on a non-text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t set text shade on a non-text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can only link text frames</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target frame must be empty</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target frame links to another frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target frame is linked to by another frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Source and target are the same object</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t unlink a non-text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Object is not a linked text frame, can&apos;t unlink.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Object the last frame in a series, can&apos;t unlink. Unlink the previous frame instead.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t convert a non-text frame to outlines</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to open document</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to save document</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unit out of range. Use one of the scribus.UNIT_* constants.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target is not an image frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t scale by 0%</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t render an empty sample</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t save to a blank filename</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t have an empty layer name</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Layer not found</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t remove the last layer</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t create layer without a name</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An object with the requested name already exists</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Point list must contain at least two points (four values)</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Point list must contain an even number of values</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Point list must contain at least three points (six values)</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Point list must contain at least four points (eight values)</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Point list must have a multiple of six values</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Object not found</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Style not found</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t set style on a non-text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to save EPS</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page number out of range</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>argument is not list: must be list of float values</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>argument contains non-numeric values: must be list of float values</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line width out of bounds, must be 0 &lt;= line_width &lt;= 12</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line shade out of bounds, must be 0 &lt;= shade &lt;= 100</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill shade out of bounds, must be 0 &lt;= shade &lt;= 100</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Corner radius must be a positive number.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line style not found</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot get a color with an empty name.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color not found</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot change a color with an empty name.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color not found in document</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color not found in default colors</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot create a color with an empty name.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot delete a color with an empty name.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot replace a color with an empty name.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus Python interface module
+<byte value="x9"/><byte value="x9"/>
+<byte value="x9"/><byte value="x9"/>This module is the Python interface for Scribus. It provides functions
+<byte value="x9"/><byte value="x9"/>to control scribus and to manipulate objects on the canvas. Each
+<byte value="x9"/><byte value="x9"/>function is documented individually below.
+<byte value="x9"/><byte value="x9"/>
+<byte value="x9"/><byte value="x9"/>A few things are common across most of the interface.
+<byte value="x9"/><byte value="x9"/>
+<byte value="x9"/><byte value="x9"/>Most functions operate on frames. Frames are identified by their name,
+<byte value="x9"/><byte value="x9"/>a string - they are not real Python objects. Many functions take an
+<byte value="x9"/><byte value="x9"/>optional (non-keyword) parameter, a frame name.
+<byte value="x9"/><byte value="x9"/>Many exceptions are also common across most functions. These are
+<byte value="x9"/><byte value="x9"/>not currently documented in the docstring for each function.
+<byte value="x9"/><byte value="x9"/>
+<byte value="x9"/><byte value="x9"/>    - Many functions will raise a NoDocOpenError if you try to use them
+<byte value="x9"/><byte value="x9"/>      without a document to operate on.
+<byte value="x9"/><byte value="x9"/>
+<byte value="x9"/><byte value="x9"/>    - If you do not pass a frame name to a function that requires one,
+<byte value="x9"/><byte value="x9"/>      the function will use the currently selected frame, if any, or
+<byte value="x9"/><byte value="x9"/>      raise a NoValidObjectError if it can&apos;t find anything to operate
+<byte value="x9"/><byte value="x9"/>      on.
+<byte value="x9"/><byte value="x9"/>
+<byte value="x9"/><byte value="x9"/>    - Many functions will raise WrongFrameTypeError if you try to use them
+<byte value="x9"/><byte value="x9"/>      on a frame type that they do not make sense with. For example, setting
+<byte value="x9"/><byte value="x9"/>      the text colour on a graphics frame doesn&apos;t make sense, and will result
+<byte value="x9"/><byte value="x9"/>      in this exception being raised.
+<byte value="x9"/><byte value="x9"/>
+<byte value="x9"/><byte value="x9"/>    - Errors resulting from calls to the underlying Python API will be
+<byte value="x9"/><byte value="x9"/>      passed through unaltered. As such, the list of exceptions thrown by
+<byte value="x9"/><byte value="x9"/>      any function as provided here and in its docstring is incomplete.
+<byte value="x9"/><byte value="x9"/>
+<byte value="x9"/><byte value="x9"/>Details of what exceptions each function may throw are provided on the
+<byte value="x9"/><byte value="x9"/>function&apos;s documentation.
+<byte value="x9"/><byte value="x9"/></source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9168,6 +11004,10 @@ fájl nem írható!</translation>
         <source>Scribus crashes due to Signal #%1</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Font System Initialized</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -9354,6 +11194,10 @@ fájl nem írható!</translation>
     <message>
         <source>OK</source>
         <translation type="unfinished">Rendben</translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9828,10 +11672,6 @@ edited to match the one being imported, or left untouched</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Ind&amp;ent:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Delete All</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9861,6 +11701,10 @@ edited to match the one being imported, or left untouched</source>
     </message>
     <message>
         <source> p</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left Ind&amp;ent:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
