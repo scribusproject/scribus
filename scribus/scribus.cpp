@@ -3723,6 +3723,8 @@ bool ScribusApp::slotFileSaveAs()
 			ret = DoFileSave(fna);
 			if (!ret)
 				QMessageBox::warning(this, tr("Warning"), tr("Can't write the File: \n%1").arg(fn), tr("OK"));
+			else
+				doc->PDF_Optionen.Datei = ""; // #1482, resets the pdf file name
 		}
 	}
 	FMess->setText( tr("Ready"));
