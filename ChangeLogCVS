@@ -1,5 +1,33 @@
 Changes since 1.2 
 
+20.12.2004
+	* bug     #1283: Scripter code cleanup
+	* bug     #1415: Update of russian translation
+	* bug     #1416: Slovakian translation update
+
+19.12.2004
+	* bug     #1383: Export to PDF and PS is not readable by acrobat or gnome ghostview
+	* bug     #1399: Flipped text return to normal after convert to outlines
+	* bug     #1403: Selecting a group in the middle of the group near the edge of an item in the group can cause a resize
+
+18.12.2004
+	* bug     #1385: Scribus 1.2.x hangs when vertically resizing a frame from the top
+	* feature #1411: Polish translation update
+
+17.12.2004
+	* bug     #1400: Converting outlined fonts to outlined polygons chooses random outline width
+	* bug     #1402: Selecting unlocked objects and locked objects allows locked ones to be deleted
+	* bug     #1404: Scribus crashes when duplicating a text frame with the text selected.
+	* feature #1409: Updated nb_NO translation.
+
+16.12.2004
+	* bug     #1395: Polish manpage must not be compressed in the source tarball.
+	* feature #1397: Polish man page for 1.2.1 (final version)
+
+15.12.2004
+	* bug     #1382: "Non-breaking space" character rendered as "unknown character" in PDF output
+	* bug     #1392: Catalan Translation Update
+
 14.12.2004
 	* bug     #1376: Some glyphs in Luxi Sans font family disappear when file is exported to PDF
 	* bug     #1378: Some elements on a template don't make it into PDF
