@@ -528,26 +528,35 @@ PyObject *scribus_setcolumns(PyObject */*self*/, PyObject* args)
 PyObject *scribus_selecttext(PyObject */*self*/, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
-	int start, ende;
-	if (!PyArg_ParseTuple(args, "ii|es", &start, &ende, "utf-8", &Name))
+	int start, selcount;
+	if (!PyArg_ParseTuple(args, "ii|es", &start, &selcount, "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *it = GetUniqueItem(QString::fromUtf8(Name));
 	if (it == NULL)
 		return NULL;
-	if ((start < 0) || ((start + ende) > static_cast<int>(it->Ptext.count()-1)))
+	if (selcount == -1)
 	{
-		PyErr_SetString(PyExc_IndexError, QObject::tr("Selection index out of bounds","python error"));
+		// user wants to select all after the start point -- CR
+		selcount = it->Ptext.count() - start;
+		if (selcount < 0)
+			// user passed start that's > text in the frame
+			selcount = 0;
+	}
+	// cr 2005-01-18 fixed off-by-one with end bound that made selecting the last char impossible
+	if ((start < 0) || ((start + selcount) > static_cast<int>(it->Ptext.count())))
+	{
+		PyErr_SetString(PyExc_IndexError, QObject::tr("Selection index out of bounds", "python error"));
 		return NULL;
 	}
 	if ((it->PType != FRAME_TEXT) && (it->PType != FRAME_PATHTEXT))
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Can't select text in a non-text frame","python error"));
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Can't select text in a non-text frame", "python error"));
 		return NULL;
 	}
 	/* FIXME: not sure if we should make this check or not
-	if (start > ende)
+	if (start > selcount)
 	{
 		PyErr_SetString(PyExc_ValueError, QString("Selection start > selection end"));
 		return NULL;
@@ -555,13 +564,13 @@ PyObject *scribus_selecttext(PyObject */*self*/, PyObject* args)
 	*/
 	for (uint a = 0; a < it->Ptext.count(); ++a)
 		it->Ptext.at(a)->cselect = false;
-	if (ende == 0)
+	if (selcount == 0)
 	{
 		it->HasSel = false;
 		Py_INCREF(Py_None);
 		return Py_None;
 	}
-	for (int aa = start; aa < (start + ende); ++aa)
+	for (int aa = start; aa < (start + selcount); ++aa)
 		it->Ptext.at(aa)->cselect = true;
 	it->HasSel = true;
 	Py_INCREF(Py_None);
