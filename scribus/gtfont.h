@@ -143,7 +143,7 @@ public:
 	void    setStrokeShade(int newShade);
 	QString getName();
 	QString getName(uint i);
-	const static int NAMECOUNT = 14;
+	static const int NAMECOUNT = 14;
 	int     getSize();
 	QString getColor();
 	int     getShade();
