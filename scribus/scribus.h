@@ -356,7 +356,7 @@ public slots:
 	void ToggleUndoPalette();
 	void setUndoPalette(bool visible);
 	void setCheckPal(bool visible);
-	void toggleCheckPal(bool);
+	void toggleCheckPal();
 	/** Schaltet M_ViewShowImages ein/aus */
 	void TogglePics();
 	/** Schaltet Raster ein/aus */
@@ -473,6 +473,9 @@ signals:
 	void TextScale(int);
 	
 	void prefsChanged();
+	
+protected:
+	bool eventFilter( QObject *o, QEvent *e );
 
 private:
     /** init methods */

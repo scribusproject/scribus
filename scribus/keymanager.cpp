@@ -49,14 +49,14 @@ KeyManager::KeyManager(QWidget* parent, QMap<QString,Keys> oldKeyMap): QWidget( 
 			}		
 		}
 	}
-	/*
+	
 	//Add in non menu item ScrActions, make a list, sort and add	
 	QStringList menuKeys2;
-
 	for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = ScApp->scrActions.begin(); it!=ScApp->scrActions.end(); ++it )
 	{
-		if (!menuKeys.contains(QString(it.key())))
-			menuKeys2.append(it.data()->name());
+		if (*it)
+			if (!menuKeys.contains(QString(it.key())))
+				menuKeys2.append(it.data()->name());
 	}
 	menuKeys2.sort();
 	for ( QStringList::Iterator it = menuKeys2.begin(); it != menuKeys2.end(); ++it )
@@ -77,7 +77,7 @@ KeyManager::KeyManager(QWidget* parent, QMap<QString,Keys> oldKeyMap): QWidget( 
 			}		
 		}
 	}
-	*/
+	
 	keyTable->setNumRows(currentRow);
 	keyTable->setSorting(false);
 	keyTable->setSelectionMode(QTable::NoSelection);

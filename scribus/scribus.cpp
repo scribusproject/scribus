@@ -729,24 +729,37 @@ void ScribusApp::initArrowStyles()
 
 void ScribusApp::initPalettes()
 {
+	//CB TODO hide the publicly available members of some palettes
+	// these must be filtered too as they take control of the palettes events
 	Tpal = new Tree(this, this);
+	Tpal->reportDisplay->installEventFilter(this);
 	Mpal = new Mpalette(this, &Prefs);
 	Mpal->Cpal->SetColors(Prefs.DColors);
 	Mpal->Cpal->UseTrans(true);
 	Mpal->Fonts->RebuildList(&Prefs, 0);
+	Mpal->installEventFilter(this);
 	Npal = new NodePalette(this);
 	Lpal = new LayerPalette(this);
+	Lpal->installEventFilter(this);
+	Lpal->Table->installEventFilter(this);
 	ScBook = new Biblio(this, &Prefs);
+	ScBook->installEventFilter(this);
+	ScBook->BibWin->installEventFilter(this);
 	Sepal = new SeitenPal(this);
+	Sepal->installEventFilter(this);
 	BookPal = new BookPalette(this);
+	BookPal->installEventFilter(this);
 	MaPal = new Measurements(this);
+	MaPal->installEventFilter(this);
 	MaPal->hide();
 	docChecker = new CheckDocument(this, false);
+	docChecker->installEventFilter(this);
 	docChecker->hide();
 
 	undoPalette = new UndoPalette(this, "undoPalette");
+	undoPalette->installEventFilter(this);
 	undoManager->registerGui(undoPalette);
-	connect(undoPalette, SIGNAL(closePalette(bool)), this, SLOT(setUndoPalette(bool)));
+	connect(undoPalette, SIGNAL(paletteShown(bool)), this, SLOT(setUndoPalette(bool)));
 	connect(undoPalette, SIGNAL(objectMode(bool)), this, SLOT(setUndoMode(bool)));
 
 	connect(MaPal, SIGNAL(Schliessen(bool)), this, SLOT(setMapal(bool)));
@@ -774,36 +787,36 @@ void ScribusApp::initPalettes()
 	connect(docChecker, SIGNAL(selectPage(int)), this, SLOT(SelectFromOutlS(int)));
 	connect(docChecker, SIGNAL(selectTemplatePage(QString)), this, SLOT(ManageTemp(QString)));
 	connect(Tpal, SIGNAL(Schliessen()), this, SLOT(ToggleTpal()));
-	connect(Tpal, SIGNAL(CloseMpal()), this, SLOT(ToggleMpal()));
-	connect(Tpal, SIGNAL(CloseSpal()), this, SLOT(ToggleBpal()));
+	//connect(Tpal, SIGNAL(CloseMpal()), this, SLOT(ToggleMpal()));
+	//connect(Tpal, SIGNAL(CloseSpal()), this, SLOT(ToggleBpal()));
 	connect(Tpal, SIGNAL(selectElement(int, int, bool)), this, SLOT(SelectFromOutl(int, int, bool)));
 	connect(Tpal, SIGNAL(selectPage(int)), this, SLOT(SelectFromOutlS(int)));
 	connect(Tpal, SIGNAL(selectTemplatePage(QString)), this, SLOT(ManageTemp(QString)));
-	connect(Tpal, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
+	//connect(Tpal, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
 	connect(Mpal->Spal, SIGNAL(newStyle(int)), this, SLOT(setNewAbStyle(int)));
 	connect(Mpal, SIGNAL(EditLSt()), this, SLOT(slotEditLineStyles()));
-	connect(Mpal, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
-	connect(Mpal, SIGNAL(CloseTpal()), this, SLOT(ToggleTpal()));
-	connect(Mpal, SIGNAL(CloseBpal()), this, SLOT(ToggleBpal()));
+	//connect(Mpal, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
+	//connect(Mpal, SIGNAL(CloseTpal()), this, SLOT(ToggleTpal()));
+	//connect(Mpal, SIGNAL(CloseBpal()), this, SLOT(ToggleBpal()));
 	connect(Npal, SIGNAL(Schliessen()), this, SLOT(NoFrameEdit()));
 	connect(Lpal, SIGNAL(LayerActivated(int)), this, SLOT(changeLayer(int)));
 	connect(Lpal, SIGNAL(LayerRemoved(int, bool)), this, SLOT(LayerRemove(int, bool)));
 	connect(Lpal, SIGNAL(LayerChanged()), this, SLOT(showLayer()));
 	connect(Lpal, SIGNAL(Schliessen()), this, SLOT(ToggleLpal()));
 	connect(Lpal->Table, SIGNAL(Schliessen()), this, SLOT(ToggleLpal()));
-	connect(Lpal->Table, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
+	//connect(Lpal->Table, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
 	connect(Sepal, SIGNAL(Schliessen()), this, SLOT(ToggleSepal()));
 	connect(Sepal, SIGNAL(EditTemp(QString)), this, SLOT(ManageTemp(QString)));
 	connect(Sepal->PageView, SIGNAL(UseTemp(QString, int)), this, SLOT(Apply_Temp(QString, int)));
 	connect(Sepal->PageView, SIGNAL(NewPage(int, QString)), this, SLOT(slotNewPageP(int, QString)));
 	connect(Sepal->Trash, SIGNAL(DelPage(int)), this, SLOT(DeletePage2(int)));
 	connect(Sepal, SIGNAL(GotoSeite(int)), this, SLOT(SelectFromOutlS(int)));
-	connect(Sepal, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
+	//connect(Sepal, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
 	connect(BookPal->BView, SIGNAL(MarkMoved()), this, SLOT(StoreBookmarks()));
 	connect(BookPal->BView, SIGNAL(ChangeBMNr(int, int, int)), this, SLOT(ChBookmarks(int, int, int)));
 	connect(BookPal->BView, SIGNAL(SelectElement(int, int)), this, SLOT(SelectFromOutl(int, int)));
 	connect(BookPal, SIGNAL(Schliessen()), this, SLOT(ToggleBookpal()));
-	connect(BookPal, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
+	//connect(BookPal, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
 }
 
 void ScribusApp::initScrapbook()
@@ -815,10 +828,10 @@ void ScribusApp::initScrapbook()
 	ScBook->ScFilename = scrapbookFile;
 	ScBook->AdjustMenu();
 	connect(ScBook, SIGNAL(Schliessen()), this, SLOT(ToggleBpal()));
-	connect(ScBook->BibWin, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
+	//connect(ScBook->BibWin, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
 	connect(ScBook->BibWin, SIGNAL(Schliessen()), this, SLOT(ToggleBpal()));
-	connect(ScBook->BibWin, SIGNAL(CloseTpal()), this, SLOT(ToggleTpal()));
-	connect(ScBook->BibWin, SIGNAL(CloseMpal()), this, SLOT(ToggleMpal()));
+	//connect(ScBook->BibWin, SIGNAL(CloseTpal()), this, SLOT(ToggleTpal()));
+	//connect(ScBook->BibWin, SIGNAL(CloseMpal()), this, SLOT(ToggleMpal()));
 }
 
 void ScribusApp::initCrashHandler()
@@ -1043,7 +1056,7 @@ void ScribusApp::initEditMenuActions()
 	scrActions.insert("editTemplates", new ScrAction(tr("&Templates..."), QKeySequence(), this, "editTemplates"));
 	scrActions.insert("editJavascripts", new ScrAction(tr("&Javascripts..."), QKeySequence(), this, "editJavascripts"));
 	scrActions.insert("editPreferences", new ScrAction(tr("P&references..."), QKeySequence(), this, "editPreferences"));
-
+	
 	connect( scrActions["editUndoAction"], SIGNAL(activatedData(int)) , undoManager, SLOT(undo(int)) );
 	connect( scrActions["editRedoAction"], SIGNAL(activatedData(int)) , undoManager, SLOT(redo(int)) );
 	connect( scrActions["editActionMode"], SIGNAL(toggled(bool)) , this, SLOT(setUndoMode(bool)) );
@@ -1282,18 +1295,16 @@ void ScribusApp::initToolsMenuActions()
 	scrActions["toolsToolbarTools"]->setToggleAction(true);
 	scrActions["toolsToolbarPDF"]->setToggleAction(true);
 
-	connect( scrActions["toolsProperties"], SIGNAL(activated()) , this, SLOT(ToggleMpal()) );
-	connect( scrActions["toolsOutline"], SIGNAL(activated()) , this, SLOT(ToggleTpal()) );
-	connect( scrActions["toolsScrapbook"], SIGNAL(activated()) , this, SLOT(ToggleBpal()) );
-	connect( scrActions["toolsLayers"], SIGNAL(activated()) , this, SLOT(ToggleLpal()) );
-	connect( scrActions["toolsPages"], SIGNAL(activated()) , this, SLOT(ToggleSepal()) );
-	connect( scrActions["toolsBookmarks"], SIGNAL(activated()) , this, SLOT(ToggleBookpal()) );
-	connect( scrActions["toolsActionHistory"], SIGNAL(activated()) , this, SLOT(ToggleUndoPalette()) );
-	connect( scrActions["toolsPreflightVerifier"], SIGNAL(toggled(bool)) , this, SLOT(toggleCheckPal(bool)) );
-	connect( scrActions["toolsToolbarTools"], SIGNAL(activated()) , this, SLOT(ToggleTools()) );
-	connect( scrActions["toolsToolbarPDF"], SIGNAL(activated()) , this, SLOT(TogglePDFTools()) );
-
-
+	connect( scrActions["toolsProperties"], SIGNAL(toggled(bool)) , this, SLOT(setMpal(bool)) );
+	connect( scrActions["toolsOutline"], SIGNAL(toggled(bool)) , this, SLOT(setTpal(bool)) );
+	connect( scrActions["toolsScrapbook"], SIGNAL(toggled(bool)) , this, SLOT(setBpal(bool)) );
+	connect( scrActions["toolsLayers"], SIGNAL(toggled(bool)) , this, SLOT(setLpal(bool)) );
+	connect( scrActions["toolsPages"], SIGNAL(toggled(bool)) , this, SLOT(setSepal(bool)) );
+	connect( scrActions["toolsBookmarks"], SIGNAL(toggled(bool)) , this, SLOT(setBookpal(bool)) );
+	connect( scrActions["toolsActionHistory"], SIGNAL(toggled(bool)) , this, SLOT(setUndoPalette(bool)) );
+	connect( scrActions["toolsPreflightVerifier"], SIGNAL(toggled(bool)) , this, SLOT(setCheckPal(bool)) );
+	connect( scrActions["toolsToolbarTools"], SIGNAL(toggled(bool)) , this, SLOT(setTools(bool)) );
+	connect( scrActions["toolsToolbarPDF"], SIGNAL(toggled(bool)) , this, SLOT(setPDFTools(bool)) );
 }
 
 void ScribusApp::initExtrasMenuActions()
@@ -1335,16 +1346,18 @@ void ScribusApp::initHelpMenuActions()
 
 void ScribusApp::initSpecialActions()
 {
+	//typography
 	scrActions.insert("specialSmartHyphen", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Insert Smart Hyphen"), CTRL+Key_Minus, this, "specialSmartHyphen",0,0.0,"specialSmartHyphen"));
 	scrActions.insert("specialNonBreakingSpace", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Insert Non Breaking Space"), CTRL+Key_Space, this, "specialNonBreakingSpace",0,0.0,"specialNonBreakingSpace"));
 	scrActions.insert("specialPageNumber", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Insert Page Number"), CTRL+Key_NumberSign, this, "specialPageNumber",0,0.0,"specialPageNumber"));
+	
+	//GUI
+	scrActions.insert("specialToggleAllPalettes", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Toggle Palettes"), Key_F10, this, "specialToggleAllPalettes",0,0.0,"specialToggleAllPalettes"));
 
 	connect( scrActions["specialSmartHyphen"], SIGNAL(activatedData(QString)) , this, SLOT(specialActionKeyEvent(QString)) );
 	connect( scrActions["specialNonBreakingSpace"], SIGNAL(activatedData(QString)) , this, SLOT(specialActionKeyEvent(QString)) );
 	connect( scrActions["specialPageNumber"], SIGNAL(activatedData(QString)) , this, SLOT(specialActionKeyEvent(QString)) );
-	//SetKeyEntry(56, tr("Smart Hyphen"), 0, CTRL+Key_Minus);
-	//SetKeyEntry(60, tr("Insert Page Number"), 0, CTRL+Key_NumberSign);
-	//SetKeyEntry(68, tr("Non Breaking Space"), 0, CTRL+Key_Space);
+	connect( scrActions["specialToggleAllPalettes"], SIGNAL(activated()) , this, SLOT(ToggleAllPalettes()) );
 }
 
 void ScribusApp::initMenuBar()
@@ -1771,7 +1784,7 @@ void ScribusApp::specialActionKeyEvent(QString actionName)
 					b->Tinput = true;
 					view->RefreshItem(b);
 				}
-				else if (actionName=="specialSmartHypen")
+				else if (actionName=="specialSmartHyphen")
 				{
 					b->itemText.at(QMAX(b->CPos-1,0))->cstyle ^= 128;
 					b->Tinput = true;
@@ -1780,6 +1793,92 @@ void ScribusApp::specialActionKeyEvent(QString actionName)
 			}
 		}
 	}
+}
+
+/*!
+  \brief Receive key events from palettes such as palette hiding events. Possibly eaier way but this is cleaner than before. No need to modify all those palettes and each new one in future.
+ */
+bool ScribusApp::eventFilter( QObject *o, QEvent *e )
+{
+	bool retVal=false;
+	if ( e->type() == QEvent::KeyPress ) {
+		QKeyEvent *k = (QKeyEvent *)e;
+		int keyMod;
+		switch (k->state())
+		{
+			case ShiftButton:
+				keyMod = SHIFT;
+				break;
+			case AltButton:
+				keyMod = ALT;
+				break;
+			case ControlButton:
+				keyMod = CTRL;
+				break;
+			default:
+				keyMod = 0;
+				break;
+		}
+		
+		QKeySequence currKeySeq = QKeySequence(k->key() | keyMod);
+		
+		if (currKeySeq == scrActions["specialToggleAllPalettes"]->accel())
+		{
+			retVal=true;
+			scrActions["specialToggleAllPalettes"]->activate();
+		}
+		else
+		if (currKeySeq == scrActions["toolsProperties"]->accel())
+		{
+			retVal=true;
+			scrActions["toolsProperties"]->toggle();
+		}
+		else
+		if (currKeySeq == scrActions["toolsOutline"]->accel())
+		{
+			retVal=true;
+			scrActions["toolsOutline"]->toggle();
+		}
+		else
+		if (currKeySeq == scrActions["toolsScrapbook"]->accel())
+		{
+			retVal=true;
+			scrActions["toolsScrapbook"]->toggle();
+		}
+		else
+		if (currKeySeq == scrActions["toolsLayers"]->accel())
+		{
+			retVal=true;
+			scrActions["toolsLayers"]->toggle();
+		}
+		else
+		if (currKeySeq == scrActions["toolsPages"]->accel())
+		{
+			retVal=true;
+			scrActions["toolsPages"]->toggle();
+		}
+		else
+		if (currKeySeq == scrActions["toolsBookmarks"]->accel())
+		{
+			retVal=true;
+			scrActions["toolsBookmarks"]->toggle();
+		}
+		else
+		if (currKeySeq == scrActions["toolsActionHistory"]->accel())
+		{
+			retVal=true;
+			scrActions["toolsActionHistory"]->toggle();
+		}
+		else
+		if (currKeySeq == scrActions["toolsPreflightVerifier"]->accel())
+		{
+			retVal=true;
+			scrActions["toolsPreflightVerifier"]->toggle();
+		}
+		
+	}
+	//Return false to pass event to object
+	return retVal;
 }
 
 void ScribusApp::keyPressEvent(QKeyEvent *k)
@@ -1812,12 +1911,14 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 		KeyMod = 0;
 		break;
 	}
+	/*
 	if (kk == Key_F10)
 	{
 		keyrep = false;
 		ToggleAllPalettes();
 		return;
 	}
+	*/
 	if ((kk == Key_F11) && (HaveDoc))
 	{
 		keyrep = false;
@@ -5874,12 +5975,6 @@ void ScribusApp::ToggleAllPalettes()
 
 void ScribusApp::setCheckPal(bool visible)
 {
-	scrActions["toolsPreflightVerifier"]->setOn(visible);
-	toggleCheckPal(visible);
-}
-
-void ScribusApp::toggleCheckPal(bool visible)
-{
 	if (visible)
 	{
 		if (HaveDoc)
@@ -5899,7 +5994,14 @@ void ScribusApp::toggleCheckPal(bool visible)
 			docChecker->hide();
 		}
 	}
-	PalettesStat[9] = visible;
+	scrActions["toolsPreflightVerifier"]->setOn(visible);
+	//PalettesStat[9] = visible;
+}
+
+void ScribusApp::toggleCheckPal()
+{
+	setCheckPal(!docChecker->isVisible());
+	PalettesStat[0] = false;
 }
 
 void ScribusApp::setMapal(bool visible)

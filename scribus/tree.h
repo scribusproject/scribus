@@ -28,7 +28,6 @@ class Tree : public QDialog
 
 public:
 	Tree( QWidget* parent, ScribusApp* scApp );
-	~Tree() {};
 	void keyPressEvent(QKeyEvent *k);
 	void closeEvent(QCloseEvent *ce);
 	void resizeEvent(QResizeEvent *r);

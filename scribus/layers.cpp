@@ -30,10 +30,12 @@ LayerTable::LayerTable(QWidget* parent) : QTable(parent)
 
 void LayerTable::keyPressEvent(QKeyEvent *k)
 {
+	/*
 	if (k->key() == Key_F10)
 		emit ToggleAllPalettes();
 	if (k->key() == Key_Escape)
 		emit Schliessen();
+	*/
 	QTable::keyPressEvent(k);
 }
 

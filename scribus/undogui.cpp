@@ -282,7 +282,7 @@ void UndoPalette::clear()
 
 void UndoPalette::closeEvent(QCloseEvent* e)
 {
-	emit closePalette(false);
+	emit paletteShown(false);
 	e->ignore();
 	hide();
 }

@@ -189,15 +189,15 @@ bool ScrPopupMenu::insertMenuItemAfter(ScrAction *newMenuAction, const QString a
 bool ScrPopupMenu::repopulateLocalMenu()
 {
 	localPopupMenu->clear();
-	
-	for ( QValueList< QGuardedPtr<QObject> >::Iterator menuItemListIt = menuItemList.begin();
-			 menuItemListIt!=menuItemList.end(); ++menuItemListIt ) 
+	QValueList< QGuardedPtr<QObject> >::Iterator menuItemListIt = menuItemList.begin();
+	while (menuItemListIt!=menuItemList.end())
 	{
-		//CB TODO make safer
 		QObject *listObj=(*menuItemListIt);
 		if (listObj==NULL)
 		{
-			menuItemList.remove(listObj);
+			QValueList< QGuardedPtr<QObject> >::Iterator menuItemListItToDelete = menuItemListIt;
+			++menuItemListIt;
+			menuItemList.remove(*menuItemListItToDelete);
 			continue;
 		}
 		
@@ -219,24 +219,24 @@ bool ScrPopupMenu::repopulateLocalMenu()
 			else
 				qDebug(QString("Alien found: %1").arg((*menuItemListIt)->className()));
 		}
+		++menuItemListIt;
 	}
 	return true;
 }
 
 bool ScrPopupMenu::generateEntryList(QStringList *actNames)
 {
-	for ( QValueList< QGuardedPtr<QObject> >::Iterator menuItemListIt = menuItemList.begin();
-			 menuItemListIt!=menuItemList.end(); ++menuItemListIt ) 
+	QValueList< QGuardedPtr<QObject> >::Iterator menuItemListIt = menuItemList.begin();
+	while (menuItemListIt!=menuItemList.end())
 	{
-		//CB TODO make safer
 		QObject *listObj=(*menuItemListIt);
 		if (listObj==NULL)
 		{
-			menuItemList.remove(listObj);
+			QValueList< QGuardedPtr<QObject> >::Iterator menuItemListItToDelete = menuItemListIt;
+			++menuItemListIt;
+			menuItemList.remove(*menuItemListItToDelete);
 			continue;
 		}
-			
-		//qDebug(QString("%1").arg(listObj->name()));
 		
 		QString menuItemListClassName=listObj->className();
 		if (menuItemListClassName=="ScrAction")
@@ -257,6 +257,7 @@ bool ScrPopupMenu::generateEntryList(QStringList *actNames)
 			if (scp)
 				scp->generateEntryList(actNames);
 		}
+		++menuItemListIt;
 	}
 	return true;
 	

@@ -421,7 +421,7 @@ signals:
 	 * 
 	 * When the user closes the palette this signal is emitted.
 	 */
-	void closePalette(bool);
+	void paletteShown(bool);
 };
 
 #endif // UNDOGUI_H

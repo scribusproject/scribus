@@ -930,6 +930,7 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : QDialog( parent,
 
 void Mpalette::keyPressEvent(QKeyEvent *k)
 {
+	/*
 	int KeyMod;
 	int kk = k->key();
 	switch (k->state())
@@ -949,13 +950,13 @@ void Mpalette::keyPressEvent(QKeyEvent *k)
 	}
 	if (kk == Key_F10)
 		emit ToggleAllPalettes();
-	/* CB TODO
-	if ((kk + KeyMod) == ScApp->Prefs.KeyActions[46].KeyID)
-		emit Schliessen();
-	if ((kk + KeyMod) == ScApp->Prefs.KeyActions[47].KeyID)
-		emit CloseTpal();
-	if ((kk + KeyMod) == ScApp->Prefs.KeyActions[48].KeyID)
-		emit CloseBpal();
+	// CB TODO
+	//if ((kk + KeyMod) == ScApp->Prefs.KeyActions[46].KeyID)
+	//	emit Schliessen();
+	//if ((kk + KeyMod) == ScApp->Prefs.KeyActions[47].KeyID)
+	//	emit CloseTpal();
+	//if ((kk + KeyMod) == ScApp->Prefs.KeyActions[48].KeyID)
+	//	emit CloseBpal();
 	*/
 	QDialog::keyPressEvent(k);
 }
