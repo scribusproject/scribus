@@ -41,8 +41,8 @@ public:
 	bool PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOpt *opts, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, BookMView* vi);
 	void PDF_Begin_Page(Page* pag, QPixmap pm = 0);
 	void PDF_End_Page();
-	void PDF_TemplatePage(Page* pag);
-	void PDF_ProcessPage(Page* pag, uint PNr);
+	void PDF_TemplatePage(Page* pag, bool clip = false);
+	void PDF_ProcessPage(Page* pag, uint PNr, bool clip = false);
 	void PDF_End_Doc(QString PrintPr = "", QString Name = "", int Components = 0);
 	struct GlNamInd
 	{
