@@ -29,11 +29,11 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/Stift.xpm $(prefix)/share/scribus/icons/Stift.xpm
 	$(INSTALL_DATA) $(srcdir)/Text.xpm $(prefix)/share/scribus/icons/Text.xpm
 	$(INSTALL_DATA) $(srcdir)/Unlock.xpm $(prefix)/share/scribus/icons/Unlock.xpm
-	$(INSTALL_DATA) $(srcdir)/DateiClos.png $(prefix)/share/scribus/icons/DateiClose.png
+	$(INSTALL_DATA) $(srcdir)/DateiClose.png $(prefix)/share/scribus/icons/DateiClose.png
 	$(INSTALL_DATA) $(srcdir)/DateiNeu.xpm $(prefix)/share/scribus/icons/DateiNeu.xpm
 	$(INSTALL_DATA) $(srcdir)/DateiOpen.xpm $(prefix)/share/scribus/icons/DateiOpen.xpm
 	$(INSTALL_DATA) $(srcdir)/DateiPrint.xpm $(prefix)/share/scribus/icons/DateiPrint.xpm
-	$(INSTALL_DATA) $(srcdir)/DateiSave.png $(prefix)/share/scribus/icons/DateiSave2.png
+	$(INSTALL_DATA) $(srcdir)/DateiSave2.png $(prefix)/share/scribus/icons/DateiSave2.png
 	$(INSTALL_DATA) $(srcdir)/AppIcon2.png $(prefix)/share/scribus/icons/AppIcon2.png
 	$(INSTALL_DATA) $(srcdir)/AppIcon.png $(prefix)/share/scribus/icons/AppIcon.png
 	$(INSTALL_DATA) $(srcdir)/LupeZ.xpm $(prefix)/share/scribus/icons/LupeZ.xpm
