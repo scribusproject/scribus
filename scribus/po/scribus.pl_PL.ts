@@ -10272,32 +10272,7 @@ Zewnętrzne dowiązania
     <message>
         <source>Color not found - python error</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Custom (optional) configuration: </source>
-        <comment>short words plugin</comment>
-        <translation>Ustawienia własne (opcjonalne):</translation>
-    </message>
-    <message>
-        <source>Standard configuration: </source>
-        <comment>short words plugin</comment>
-        <translation>Ustawienia domyślne:</translation>
-    </message>
-    <message>
-        <source>Short &amp;Words...</source>
-        <comment>short words plugin</comment>
-        <translation>Short &amp;Words...</translation>
-    </message>
-    <message>
-        <source>Short Words processing. Wait please...</source>
-        <comment>short words plugin</comment>
-        <translation>Operacja w toku. Proszę czekać...</translation>
-    </message>
-    <message>
-        <source>Short Words processing. Done.</source>
-        <comment>short words plugin</comment>
-        <translation>Operacja zakończona.</translation>
+        <translation>Nie znaleziono koloru - błąd pythona</translation>
     </message>
     <message>
         <source>Scribus Python interface module
@@ -10325,7 +10300,55 @@ any function as provided here and in its docstring is incomplete.
 
 Details of what exceptions each function may throw are provided on the
 function&apos;s documentation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Moduł interfejsu Pythona w Scribusie
+
+Moduł ten udostępnia interfejs Pythona w Scribusie. Pozwala on na używanie funkcji
+kontrolujących Scribusa i na manipulowanie obiektami w obszarze roboczym.
+Każda funkcja została opisana poniżej.
+
+Parę rzeczy jest wspólnych dla całego interfejsu. 
+
+Większość funkcji operuje na ramkach. Ramki identyfikowane są 
+na podstawie ich nazwy - ciągu znaków, który nie jest obiektem Pythona. 
+Wiele funkcji używa opcjonalnego (nie kluczowego) parametru: nazwy ramki.
+Wiele wyjątków jest również wspólnych dla większości funkcji. Nie są one 
+aktualnie opisane w dokumentacji poszczególnych funkcji.
+- Wiele funkcji zwróci błąd NoDocOpenError, jeśli użyjesz ich bez dokumentu, na którym mają operować.
+- Jeśli nie przekażesz funkcji nazwy ramki, a funkcja jej wymaga, funkcja ta użyje
+aktualnie wybranej ramki, jeśli taka istnieje, lub zwróci błąd NoValidObjectError, 
+jeśli nie znajdzie niczego, na czym będzie mogła operować.
+- Wiele funkcji zwróci błąd WrongFrameTypeError, jeśli spróbujesz użyć ich na typie 
+ramki, dla którego nie ma to żadnego sensu. Na przykład, przypisanie koloru tekstu 
+w ramce graficznej nie ma żadnego sensu i spowoduje zwrócenie tego błędu.
+- Błędy wynikające z wywołań API Pythona będą przekazywane bez zmiany.
+Lista wyjątków zwracanych przez poszczególne funkcje zarówno opisana tutaj jak i dołączona do opisów funkcji jest niekompletna. 
+
+Szczegóły na temat wyjątków zwracanych przez każdą funkcję zawarte są w dokumentacji poszczególnych funkcji.</translation>
+    </message>
+    <message>
+        <source>Custom (optional) configuration: </source>
+        <comment>short words plugin</comment>
+        <translation>Ustawienia własne (opcjonalne):</translation>
+    </message>
+    <message>
+        <source>Standard configuration: </source>
+        <comment>short words plugin</comment>
+        <translation>Ustawienia domyślne:</translation>
+    </message>
+    <message>
+        <source>Short &amp;Words...</source>
+        <comment>short words plugin</comment>
+        <translation>Short &amp;Words...</translation>
+    </message>
+    <message>
+        <source>Short Words processing. Wait please...</source>
+        <comment>short words plugin</comment>
+        <translation>Operacja w toku. Proszę czekać...</translation>
+    </message>
+    <message>
+        <source>Short Words processing. Done.</source>
+        <comment>short words plugin</comment>
+        <translation>Operacja zakończona.</translation>
     </message>
 </context>
 <context>
@@ -12520,14 +12543,17 @@ nie pytać już więcej o potwierdzenie</translation>
     </message>
     <message>
         <source>Pack paragraph styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Pakuj style akapitów</translation>
     </message>
     <message>
         <source>Group paragraph styles by attributes.
 Less paragraph styles but controlling them may be hard.
 Should be used if it is known that text must not be edited
 after importing.</source>
-        <translation type="unfinished"></translation>
+        <translation>Grupuj style akapitów według atrybutów.
+Mniej styli akapitów, ale kontrola nad nimi może być trudna.
+Powinno się stosować, kiedy wiadomo, że tekst nie będzie
+edytowany po zaimportowaniu.</translation>
     </message>
 </context>
 <context>
@@ -12777,7 +12803,9 @@ to the global configuration by unchecked button.
 You can replace predefined values by yours
 with checked button too.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>możesz wybrać, czy dołączyć ustawienia własne
+do ustawień domyślnych, nie zakreślając tej opcji,
+czy też zastąpić domyślne ustawienia własnymi, zakreślając ją.</translation>
     </message>
     <message>
         <source>Only selected frames processed.</source>
