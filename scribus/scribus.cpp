@@ -2095,7 +2095,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			StilMenu->clear();
 			StilMenu->insertItem( tr("Font"), FontMenu);
 			StilMenu->insertItem( tr("Size"), SizeTMenu);
-			StilMenu->insertItem( tr("Style"), TypeStyleMenu);
+			StilMenu->insertItem( tr("Effects"), TypeStyleMenu);
 			StilMenu->insertItem( tr("Tabulators..."), this, SLOT(EditTabs()));
 			StilMenu->insertItem( tr("Alignment"), AliMenu);
 			StilMenu->insertItem( tr("Color"), ColorMenu);
@@ -2682,21 +2682,29 @@ void ScribusApp::slotFileOpen()
   	if (b->PType == 2)
   		{
 			QString formats = "";
-			QString form = "";
+			QString form1 = "";
+			QString form2 = "";
 			for ( uint i = 0; i < QImageIO::inputFormats().count(); ++i )
 				{
-				form = QString(QImageIO::inputFormats().at(i)).lower();
-				if (form == "jpeg")
-					form = "jpg";
-        formats += "*."+form+" ";
+				form1 = QString(QImageIO::inputFormats().at(i)).lower();
+				form2 = QString(QImageIO::inputFormats().at(i)).upper();
+				if (form1 == "jpeg")
+					{
+					form1 = "jpg";
+					form2 = "JPG";
+					}
+				if ((form1 == "jpg") || (form1 == "png") || (form1 == "xpm") || (form1 == "gif"))
+        	formats += form2 + " (*."+form1+" *."+form2+");;";
 				}
-			formats += "*.tif";
-  		QString fileName = CFileDialog( tr("Open"), tr("Images")+
-    " ("+formats+ tr(");;Vector Files (*.eps *.pdf);;All Files (*)"), "", true);
-    if (!fileName.isEmpty())
-    {
-      b->EmProfile = "";
-      b->UseEmbedded = true;
+#ifdef HAVE_TIFF
+			formats += "TIFF (*.tif *.TIF);;";
+#endif
+			formats += "EPS (*.eps *.EPS);;PDF (*.pdf *.PDF);;" + tr("All Files (*)");
+  		QString fileName = CFileDialog( tr("Open"), formats, "", true);
+    	if (!fileName.isEmpty())
+    		{
+     		b->EmProfile = "";
+      	b->UseEmbedded = true;
   			b->IProfile = doc->CMSSettings.DefaultInputProfile;
 				b->IRender = doc->CMSSettings.DefaultIntentMonitor2;
     		doc->ActPage->LoadPict(fileName, b->ItemNr);
@@ -3287,15 +3295,19 @@ void ScribusApp::SelectAll()
 		}
 	while (nb != 0)
 		{
+//		bool sel = nb->Select;
+//		nb->Select = true;
 		for (uint a = 0; a < nb->Ptext.count(); ++a)
 			{
 			nb->Ptext.at(a)->cselect = true;
 			nb->HasSel = true;
 			nb->Dirty = true;
 			}
+//		nb->OwnPage->RefreshItem(nb);
+//		nb->Select = sel;
 		nb = nb->NextBox;
 		}
-	doc->ActPage->RefreshItem(b);
+	view->DrawNew();
 	EnableTxEdit();
 }
 
@@ -3347,10 +3359,12 @@ void ScribusApp::DeleteText()
 			{
 			DeleteSel(nb);
 			nb->Dirty = true;
+			nb->CPos = 0;
 			}
 		nb = nb->NextBox;
 		}
-	doc->ActPage->RefreshItem(b);
+//	doc->ActPage->RefreshItem(b);
+	view->DrawNew();
 	slotDocCh();
 }
 

@@ -28,6 +28,7 @@
 #include <qlabel.h>
 #include <qtoolbutton.h>
 #include <qprogressdialog.h>
+#include <qspinbox.h>
 // application specific includes
 #include "scribusdoc.h"
 #include "page.h"
@@ -49,6 +50,7 @@ class ScribusView : public QScrollView
     ~ScribusView() {};
   /** Vergroesserungseingabefeld */
 	MSpinBox* LE;
+	QSpinBox* PGS;
   QToolButton *UN;
   Hruler *HR;
   Vruler *VR;
@@ -67,7 +69,6 @@ class ScribusView : public QScrollView
   /** verschiebt Seiten */
   void movePage(int from, int to, int ziel, int art);
   void reformPages();
-  void PaMenu();
 	void LaMenu();
   void ShowTemplate(int nr);
   void HideTemplate();
@@ -108,9 +109,7 @@ public slots: // Public slots
 private: // Private attributes
   QPushButton *SB1;
   QPushButton *SB2;
-  QPushButton *LA;
   QPushButton *LY;
-  QPopupMenu *Seitmen;
   QPopupMenu *Unitmen;
 	QPopupMenu *Laymen;
   bool Ready;

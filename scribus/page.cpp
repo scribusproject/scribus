@@ -3804,25 +3804,21 @@ void Page::mousePressEvent(QMouseEvent *m)
 						}
 					else
 						{
-						if (m->state() == ControlButton)
-							SeleItem(m);
-						else
+						SeleItem(m);
+						if (!b->Locked)
 							{
-							if (!b->Locked)
+							HandleSizer(&p, b, mpo);
+							if (HowTo != 0)
 								{
-								HandleSizer(&p, b, mpo);
-								if (HowTo != 0)
-									{
-									doku->UnData.UnCode = 2;
-									if (b->PType != 5)
-										b->Sizing = true;
-									mCG = true;
-									}
-								else
-									doku->UnData.UnCode = 1;
-								doku->UnDoValid = true;
-								emit UndoAvail();
+								doku->UnData.UnCode = 2;
+								if (b->PType != 5)
+									b->Sizing = true;
+								mCG = true;
 								}
+							else
+								doku->UnData.UnCode = 1;
+							doku->UnDoValid = true;
+							emit UndoAvail();
 							}
 						}
 					p.end();
