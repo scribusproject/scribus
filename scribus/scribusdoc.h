@@ -37,7 +37,7 @@
 #include "fpointarray.h"
 #include "hyphenator.h"
 #ifdef HAVE_CMS
-	#include <lcms.h>
+	#include CMS_INC
 #endif
 
 #ifdef HAVE_FREETYPE

@@ -1,5 +1,8 @@
 /* config.h.in.  Generated from configure.in by autoheader.  */
 
+/* ColorManagementInclude */
+#undef CMS_INC
+
 /* Debug Messages */
 #undef DEBUG
 

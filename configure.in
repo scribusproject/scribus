@@ -70,6 +70,11 @@ hacmsh=
 AC_CHECK_HEADER(lcms.h, [hacmsh=yes],[hacmsh=no])
 if test $hacmsh = no; then
 	AC_CHECK_HEADER(lcms/lcms.h, [hacmsh=yes],[hacmsh=no])
+	if test $hacmsh = yes; then
+ 		AC_DEFINE_UNQUOTED(CMS_INC, "lcms/lcms.h", [ColorManagementInclude])
+	fi
+else
+ AC_DEFINE_UNQUOTED(CMS_INC, "lcms.h", [ColorManagementInclude])
 fi
 AC_SUBST(LIBLCMS)
 if test $hacms = yes && test $hacmsh = yes; then

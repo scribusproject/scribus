@@ -45,7 +45,7 @@
 	#include <tiffio.h>
 #endif
 #ifdef HAVE_CMS
-	#include <lcms.h>
+	#include CMS_INC
 #endif
 extern int PolyC;
 extern int PolyFd;

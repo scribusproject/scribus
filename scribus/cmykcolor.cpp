@@ -18,7 +18,7 @@
 #include "cmykcolor.h"
 #include "config.h"
 #ifdef HAVE_CMS
-#include <lcms.h>
+	#include CMS_INC
 extern cmsHTRANSFORM stdTrans;
 extern cmsHTRANSFORM stdProof;
 extern bool SoftProofing;

@@ -48,7 +48,7 @@
 	#include <tiffio.h>
 #endif
 #ifdef HAVE_CMS
-	#include <lcms.h>
+	#include CMS_INC
 extern cmsHPROFILE CMSoutputProf;
 extern cmsHPROFILE CMSprinterProf;
 extern cmsHTRANSFORM stdTrans;

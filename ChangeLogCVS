@@ -1,4 +1,7 @@
 Changes since Version 1.0RC1
+28.06.2003	configure.in		Changed configure script to ensure proper recognition of lcms.h
+		customfdialog.cpp	Added CP1251 encoding and friends.
+
 26.06.2003	mpalette.cpp		Bugfix: Height and Width can now set below 1 Inch.
 		newfile.cpp		Bugfix: Landscape Mode works again.
 		prefs.cpp		Bugfix: Fixed Margin Values when switching Units.

@@ -3,7 +3,7 @@
 #include "config.h"
 #include <qmessagebox.h>
 #ifdef HAVE_CMS
-	#include <lcms.h>
+	#include CMS_INC
 extern bool SoftProofing;
 extern bool Gamut;
 extern bool CMSuse;

@@ -220,6 +220,14 @@ CustomFDialog::CustomFDialog(QWidget *pa, QString cap, QString filter, bool Pre,
 		TxCodeM->insertItem("utf8");
 		TxCodeM->insertItem("KOI8-R");
 		TxCodeM->insertItem("KOI8-U");
+		TxCodeM->insertItem("CP1250");
+		TxCodeM->insertItem("CP1251");
+		TxCodeM->insertItem("CP1252");
+		TxCodeM->insertItem("CP1253");
+		TxCodeM->insertItem("CP1254");
+		TxCodeM->insertItem("CP1255");
+		TxCodeM->insertItem("CP1256");
+		TxCodeM->insertItem("CP1257");
 		QString localEn = QTextCodec::codecForLocale()->name();
 		bool hasIt = false;
 		for (int cc = 0; cc < TxCodeM->count(); cc++)
