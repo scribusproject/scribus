@@ -42,7 +42,7 @@ void CleanUpPlug()
 
 void MenuNFT::RunNFTPlug()
 {
-	nftdialog* nftdia = new nftdialog(par, Carrier->GuiLanguage, Carrier->Prefs.TemplateDir);
+	nftdialog* nftdia = new nftdialog(par, Carrier->getGuiLanguage(), Carrier->Prefs.TemplateDir);
 	if (nftdia->exec())
 	{
 		qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);

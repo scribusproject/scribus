@@ -3287,15 +3287,18 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 		if (dc.tagName()=="FONTS")
 		{
 			QString tmpf = dc.attribute("FACE");
+			QString newFont = "";
 			if (!Vorein->AvailFonts.find(tmpf))
 			{
 				MissingFont *dia = new MissingFont(0, tmpf, Vorein);
 				dia->exec();
-				Vorein->DefFont = dia->getReplacementFont();
+				newFont = dia->getReplacementFont();
 				delete dia;
 			}
 			else
-				Vorein->DefFont = dc.attribute("FACE");
+				newFont = dc.attribute("FACE");
+			if (newFont!="")
+				Vorein->DefFont = newFont;
 			Vorein->DefSize = qRound(QStodouble(dc.attribute("SIZE")) * 10.0);
 		}
 		if (dc.tagName()=="FONT")

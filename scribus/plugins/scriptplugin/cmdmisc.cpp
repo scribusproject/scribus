@@ -426,6 +426,6 @@ PyObject *scribus_createlayer(PyObject *self, PyObject* args)
 
 PyObject *scribus_getlanguage(PyObject *self)
 {
-	return PyString_FromString(Carrier->GuiLanguage);
+	return PyString_FromString(Carrier->getGuiLanguage());
 }
 

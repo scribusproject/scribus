@@ -106,7 +106,7 @@ void MenuSAT::RunSATPlug()
 
 sat::sat(ScribusApp* scribusApp, satdialog* satdia, QString fileName, QString tmplDir)
 {
-	lang = scribusApp->GuiLanguage;
+	lang = scribusApp->getGuiLanguage();
 	sapp = scribusApp;
 	dia = satdia;
 	dir = tmplDir;

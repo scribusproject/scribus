@@ -133,7 +133,7 @@ void Run(QWidget *d, ScribusApp *plug)
 	QString pfad = PREL;
 	QString pfad2;
 	pfad2 = QDir::convertSeparators(pfad + "/share/scribus/doc/en/Scripter/index.html");
-	HelpBrowser *dia = new HelpBrowser(0, QObject::tr("Online Reference"), Carrier->GuiLanguage, "scripter");
+	HelpBrowser *dia = new HelpBrowser(0, QObject::tr("Online Reference"), Carrier->getGuiLanguage(), "scripter");
 	dia->show();
 }
 

@@ -134,7 +134,7 @@ ScribusApp::ScribusApp()
 int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 {
 	int retVal=0;
-	GuiLanguage = newGuiLanguage;
+	guiLanguage = newGuiLanguage;
 	initSplash(showSplash);
 
 	ScApp = this;
@@ -173,185 +173,16 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 		UniCinp = false;
 		UniCinC = 0;
 		UniCinS = "";
-		BuildFontMenu();
-		SCFontsIterator it(Prefs.AvailFonts);
-		Prefs.DefFont = it.currentKey();
-		Prefs.DefSize = 120;
-		Prefs.AppFontSize = qApp->font().pointSize();
-		/** Default Farbenliste */
-		Prefs.DColors.clear();
-		QString pfadC = PREL;
-		QString pfadC2 = pfadC + "/lib/scribus/rgbscribus.txt";
-		QFile fiC(pfadC2);
-		if (!fiC.exists())
-		{
-			Prefs.DColors.insert("White", CMYKColor(0, 0, 0, 0));
-			Prefs.DColors.insert("Black", CMYKColor(0, 0, 0, 255));
-			Prefs.DColors.insert("Blue", CMYKColor(255, 255, 0, 0));
-			Prefs.DColors.insert("Cyan", CMYKColor(255, 0, 0, 0));
-			Prefs.DColors.insert("Green", CMYKColor(255, 0, 255, 0));
-			Prefs.DColors.insert("Red", CMYKColor(0, 255, 255, 0));
-			Prefs.DColors.insert("Yellow", CMYKColor(0, 0, 255, 0));
-			Prefs.DColors.insert("Magenta", CMYKColor(0, 255, 0, 0));
-			Prefs.DColorSet = "Scribus-Small";
-		}
-		else
-		{
-			if (fiC.open(IO_ReadOnly))
-			{
-				QString ColorEn, Cname;
-				int Rval, Gval, Bval;
-				QTextStream tsC(&fiC);
-				ColorEn = tsC.readLine();
-				while (!tsC.atEnd())
-				{
-					ColorEn = tsC.readLine();
-					QTextStream CoE(&ColorEn, IO_ReadOnly);
-					CoE >> Rval;
-					CoE >> Gval;
-					CoE >> Bval;
-					CoE >> Cname;
-					CMYKColor tmp;
-					tmp.setColorRGB(Rval, Gval, Bval);
-					Prefs.DColors.insert(Cname, tmp);
-				}
-				fiC.close();
-			}
-			Prefs.DColorSet = "X11 RGB-Set";
-		}
 		DispX = 10;
 		DispY = 10;
-		Prefs.Wheelval = 40;
-		Prefs.GrabRad = 4;
-		Prefs.GuideRad = 10;
-		Prefs.DminGrid = 20;
-		Prefs.DmajGrid = 100;
 		DocNr = 1;
-		Prefs.DminColor = QColor(green);
-		Prefs.DmajColor = QColor(green);
-		Prefs.DpapColor = QColor(white);
-		Prefs.DmargColor = QColor(blue);
-		Prefs.guideColor = QColor(darkBlue);
-		Prefs.baseColor = QColor(lightGray);
-		Prefs.DVHoch = 33;
-		Prefs.DVHochSc = 100;
-		Prefs.DVTief = 33;
-		Prefs.DVTiefSc = 100;
-		Prefs.DVKapit = 75;
-		Prefs.GUI = "Default";
-		Prefs.Dpen = "Black";
-		Prefs.Dbrush = "Black";
-		Prefs.Dshade = 100;
-		Prefs.Dshade2 = 100;
-		Prefs.DLineArt = SolidLine;
-		Prefs.Dwidth = 1;
-		Prefs.DpenLine = "Black";
-		Prefs.DpenText = "Black";
-		Prefs.DstrokeText = "Black";
-		Prefs.DCols = 1;
-		Prefs.DGap = 0.0;
-		Prefs.DshadeLine = 100;
-		Prefs.DLstyleLine = SolidLine;
-		Prefs.DwidthLine = 1;
-		Prefs.DstartArrow = 0;
-		Prefs.DendArrow = 0;
-		Prefs.MagMin = 10;
-		Prefs.MagMax = 800;
-		Prefs.MagStep = 25;
-		Prefs.DbrushPict = "White";
-		Prefs.ShadePict = 100;
-		Prefs.ScaleX = 1;
-		Prefs.ScaleY = 1;
-		Prefs.Before = true;
-		Prefs.Einheit = 0;
 		UmReFaktor = 1.0;
-		Prefs.PolyC = 4;
-		Prefs.PolyF = 0.5;
-		Prefs.PolyS = false;
-		Prefs.PolyFd = 0;
-		Prefs.PolyR = 0;
-		Prefs.Werkv = true;
-		Prefs.WerkvP = true;
-		Prefs.Mpalv = false;
-		Prefs.Mapalv = false;
-		Prefs.Tpalv = false;
-		Prefs.SCpalv = false;
-		Prefs.Lpalv = false;
-		Prefs.Bopalv = false;
-		Prefs.Mpalx = 0;
-		Prefs.Mpaly = 0;
-		Prefs.Mapalx = 0;
-		Prefs.Mapaly = 0;
-		Prefs.Tpalx = 0;
-		Prefs.Tpaly = 0;
-		Prefs.SCpalx = 0;
-		Prefs.SCpaly = 0;
-		Prefs.SCpalw = 100;
-		Prefs.SCpalh = 200;
-		Prefs.Sepalx = 0;
-		Prefs.Sepaly = 0;
-		Prefs.Bopalx = 0;
-		Prefs.Bopaly = 0;
-		Prefs.Lpalx = 0;
-		Prefs.Lpaly = 0;
-		Prefs.PSize = 40;
-		Prefs.SaveAtQ = true;
-		Prefs.FramesShown = true;
-		Prefs.GridShown = false;
-		Prefs.MarginsShown = true;
-		Prefs.GuidesShown = true;
-		Prefs.BaseShown = false;
-		Prefs.linkShown = false;
-		Prefs.ClipMargin = true;
-		Prefs.GCRMode = true;
-		Prefs.PagesSbS = true;
-		Prefs.RecentDocs.clear();
-		Prefs.RecentDCount = 5;
-		Prefs.RandFarbig = false;
-		Prefs.AutoLine = 20;
-		Prefs.PageFormat = 4;
-		Prefs.Ausrichtung = 0;
-		Prefs.PageBreite = 595;
-		Prefs.PageHoehe = 842;
-		Prefs.RandOben = 9;
-		Prefs.RandUnten = 40;
-		Prefs.RandLinks = 9;
-		Prefs.RandRechts = 9;
-		Prefs.DoppelSeiten = false;
-		Prefs.ErsteLinks = false;
-		Prefs.ScaleType = true;
-		Prefs.AspectRatio = true;
-		Prefs.MinWordLen = 3;
-		Prefs.HyCount = 2;
-		Prefs.Language = "";
-		Prefs.Automatic = true;
-		Prefs.AutoCheck = false;
-		Prefs.PDFTransparency = false;
-		Prefs.AutoSave = false;
-		Prefs.AutoSaveTime = 600000;
-		Prefs.DisScale = 1.0;
-		Prefs.DocDir = QDir::homeDirPath();
-		Prefs.ProfileDir = "";
-		Prefs.ScriptDir = "";
-		Prefs.TemplateDir = "";
-		Prefs.CustomColorSets.clear();
-		Prefs.PrPr_Mode = false;
-		Prefs.Gcr_Mode = true;
-		Prefs.PrPr_AlphaText = false;
-		Prefs.PrPr_AlphaGraphics = false;
-		Prefs.PrPr_Transparency = false;
-		Prefs.PrPr_C = true;
-		Prefs.PrPr_M = true;
-		Prefs.PrPr_Y = true;
-		Prefs.PrPr_K = true;
-		Prefs.gimp_exe = "gimp";
-		Prefs.gs_antiGraph = true;
-		Prefs.gs_antiText = true;
-		Prefs.gs_exe = "gs";
-		Prefs.BaseGrid = 14.4;
-		Prefs.BaseOffs = 0.0;
-		Prefs.STEcolor = QColor(white);
-		Prefs.STEfont = font().toString();
+
+		buildFontMenu();
+		initDefaultPrefs();
+
+
+
 		PDef.Pname = "";
 		PDef.Dname = "";
 		PDef.Command = "";
@@ -374,18 +205,8 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 		MaPal->hide();
 		CMSavail = false;
 		keyrep = false;
-		Prefs.DCMSset.DefaultMonitorProfile = "";
-		Prefs.DCMSset.DefaultPrinterProfile = "";
-		Prefs.DCMSset.DefaultInputProfile = "";
-		Prefs.DCMSset.DefaultInputProfile2 = "";
-		Prefs.DCMSset.CMSinUse = false;
-		Prefs.DCMSset.SoftProofOn = false;
-		Prefs.DCMSset.GamutCheck = false;
-		Prefs.DCMSset.BlackPoint = true;
-		Prefs.DCMSset.DefaultIntentMonitor = 1;
-		Prefs.DCMSset.DefaultIntentMonitor2 = 1;
-		Prefs.DCMSset.DefaultIntentPrinter = 0;
-		Prefs.GFontSub.clear();
+
+
 		SetKeyEntry(56, tr("Smart Hyphen"), 0, CTRL+Key_Minus);
 		SetKeyEntry(57, tr("Align Left"), 0, CTRL+Key_L);
 		SetKeyEntry(58, tr("Align Right"), 0, CTRL+Key_R);
@@ -398,12 +219,11 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 		SetKeyEntry(65, tr("Show Page Palette"), viewSepal, 0);
 		SetKeyEntry(66, tr("Lock/Unlock"), LockOb, CTRL+Key_F);
 		SetKeyEntry(67, tr("Non Breaking Space"), 0, CTRL+Key_Space);
+
 		if (splashScreen != NULL)
 			splashScreen->setStatus( tr("Reading Preferences"));
 		qApp->processEvents();
 		ReadPrefs();
-		if (Prefs.DefFont == "")
-			Prefs.DefFont = it.currentKey();
 		if (splashScreen != NULL)
 			splashScreen->setStatus( tr("Getting ICC Profiles"));
 		GetCMSProfiles();
@@ -632,6 +452,205 @@ void ScribusApp::initFonts()
 		mess += "\n" + tr("Exiting now");
 		QMessageBox::critical(this, tr("Fatal Error"), mess, 1, 0, 0);
 	}
+}
+
+void ScribusApp::initDefaultPrefs()
+{
+	/** Default font and size **/
+	SCFontsIterator it(Prefs.AvailFonts);
+	Prefs.DefFont = it.currentKey();
+	Prefs.DefSize = 120;
+	Prefs.AppFontSize = qApp->font().pointSize();
+
+	/** Default colours **/
+	Prefs.DColors.clear();
+	QString pfadC = PREL;
+	QString pfadC2 = pfadC + "/lib/scribus/rgbscribus.txt";
+	QFile fiC(pfadC2);
+	if (!fiC.exists())
+	{
+		Prefs.DColors.insert("White", CMYKColor(0, 0, 0, 0));
+		Prefs.DColors.insert("Black", CMYKColor(0, 0, 0, 255));
+		Prefs.DColors.insert("Blue", CMYKColor(255, 255, 0, 0));
+		Prefs.DColors.insert("Cyan", CMYKColor(255, 0, 0, 0));
+		Prefs.DColors.insert("Green", CMYKColor(255, 0, 255, 0));
+		Prefs.DColors.insert("Red", CMYKColor(0, 255, 255, 0));
+		Prefs.DColors.insert("Yellow", CMYKColor(0, 0, 255, 0));
+		Prefs.DColors.insert("Magenta", CMYKColor(0, 255, 0, 0));
+		Prefs.DColorSet = "Scribus-Small";
+	}
+	else
+	{
+		if (fiC.open(IO_ReadOnly))
+		{
+			QString ColorEn, Cname;
+			int Rval, Gval, Bval;
+			QTextStream tsC(&fiC);
+			ColorEn = tsC.readLine();
+			while (!tsC.atEnd())
+			{
+				ColorEn = tsC.readLine();
+				QTextStream CoE(&ColorEn, IO_ReadOnly);
+				CoE >> Rval;
+				CoE >> Gval;
+				CoE >> Bval;
+				CoE >> Cname;
+				CMYKColor tmp;
+				tmp.setColorRGB(Rval, Gval, Bval);
+				Prefs.DColors.insert(Cname, tmp);
+			}
+			fiC.close();
+		}
+		Prefs.DColorSet = "X11 RGB-Set";
+	}
+
+	Prefs.Wheelval = 40;
+	Prefs.GrabRad = 4;
+	Prefs.GuideRad = 10;
+	Prefs.DminGrid = 20;
+	Prefs.DmajGrid = 100;
+	Prefs.DminColor = QColor(green);
+	Prefs.DmajColor = QColor(green);
+	Prefs.DpapColor = QColor(white);
+	Prefs.DmargColor = QColor(blue);
+	Prefs.guideColor = QColor(darkBlue);
+	Prefs.baseColor = QColor(lightGray);
+	Prefs.DVHoch = 33;
+	Prefs.DVHochSc = 100;
+	Prefs.DVTief = 33;
+	Prefs.DVTiefSc = 100;
+	Prefs.DVKapit = 75;
+	Prefs.GUI = "Default";
+	Prefs.Dpen = "Black";
+	Prefs.Dbrush = "Black";
+	Prefs.Dshade = 100;
+	Prefs.Dshade2 = 100;
+	Prefs.DLineArt = SolidLine;
+	Prefs.Dwidth = 1;
+	Prefs.DpenLine = "Black";
+	Prefs.DpenText = "Black";
+	Prefs.DstrokeText = "Black";
+	Prefs.DCols = 1;
+	Prefs.DGap = 0.0;
+	Prefs.DshadeLine = 100;
+	Prefs.DLstyleLine = SolidLine;
+	Prefs.DwidthLine = 1;
+	Prefs.DstartArrow = 0;
+	Prefs.DendArrow = 0;
+	Prefs.MagMin = 10;
+	Prefs.MagMax = 800;
+	Prefs.MagStep = 25;
+	Prefs.DbrushPict = "White";
+	Prefs.ShadePict = 100;
+	Prefs.ScaleX = 1;
+	Prefs.ScaleY = 1;
+	Prefs.Before = true;
+	Prefs.Einheit = 0;
+	Prefs.PolyC = 4;
+	Prefs.PolyF = 0.5;
+	Prefs.PolyS = false;
+	Prefs.PolyFd = 0;
+	Prefs.PolyR = 0;
+	Prefs.Werkv = true;
+	Prefs.WerkvP = true;
+	Prefs.Mpalv = false;
+	Prefs.Mapalv = false;
+	Prefs.Tpalv = false;
+	Prefs.SCpalv = false;
+	Prefs.Lpalv = false;
+	Prefs.Bopalv = false;
+	Prefs.Mpalx = 0;
+	Prefs.Mpaly = 0;
+	Prefs.Mapalx = 0;
+	Prefs.Mapaly = 0;
+	Prefs.Tpalx = 0;
+	Prefs.Tpaly = 0;
+	Prefs.SCpalx = 0;
+	Prefs.SCpaly = 0;
+	Prefs.SCpalw = 100;
+	Prefs.SCpalh = 200;
+	Prefs.Sepalx = 0;
+	Prefs.Sepaly = 0;
+	Prefs.Bopalx = 0;
+	Prefs.Bopaly = 0;
+	Prefs.Lpalx = 0;
+	Prefs.Lpaly = 0;
+	Prefs.PSize = 40;
+	Prefs.SaveAtQ = true;
+	Prefs.FramesShown = true;
+	Prefs.GridShown = false;
+	Prefs.MarginsShown = true;
+	Prefs.GuidesShown = true;
+	Prefs.BaseShown = false;
+	Prefs.linkShown = false;
+	Prefs.ClipMargin = true;
+	Prefs.GCRMode = true;
+	Prefs.PagesSbS = true;
+	Prefs.RecentDocs.clear();
+	Prefs.RecentDCount = 5;
+	Prefs.RandFarbig = false;
+	Prefs.AutoLine = 20;
+	Prefs.PageFormat = 4;
+	Prefs.Ausrichtung = 0;
+	Prefs.PageBreite = 595;
+	Prefs.PageHoehe = 842;
+	Prefs.RandOben = 9;
+	Prefs.RandUnten = 40;
+	Prefs.RandLinks = 9;
+	Prefs.RandRechts = 9;
+	Prefs.DoppelSeiten = false;
+	Prefs.ErsteLinks = false;
+	Prefs.ScaleType = true;
+	Prefs.AspectRatio = true;
+	Prefs.MinWordLen = 3;
+	Prefs.HyCount = 2;
+	Prefs.Language = "";
+	Prefs.Automatic = true;
+	Prefs.AutoCheck = false;
+	Prefs.PDFTransparency = false;
+	Prefs.AutoSave = false;
+	Prefs.AutoSaveTime = 600000;
+	Prefs.DisScale = 1.0;
+	Prefs.DocDir = QDir::homeDirPath();
+	Prefs.ProfileDir = "";
+	Prefs.ScriptDir = "";
+	Prefs.TemplateDir = "";
+	Prefs.CustomColorSets.clear();
+	Prefs.PrPr_Mode = false;
+	Prefs.Gcr_Mode = true;
+	Prefs.PrPr_AlphaText = false;
+	Prefs.PrPr_AlphaGraphics = false;
+	Prefs.PrPr_Transparency = false;
+	Prefs.PrPr_C = true;
+	Prefs.PrPr_M = true;
+	Prefs.PrPr_Y = true;
+	Prefs.PrPr_K = true;
+	Prefs.gimp_exe = "gimp";
+	Prefs.gs_antiGraph = true;
+	Prefs.gs_antiText = true;
+	Prefs.gs_exe = "gs";
+	Prefs.BaseGrid = 14.4;
+	Prefs.BaseOffs = 0.0;
+	Prefs.STEcolor = QColor(white);
+	Prefs.STEfont = font().toString();
+	Prefs.DCMSset.DefaultMonitorProfile = "";
+	Prefs.DCMSset.DefaultPrinterProfile = "";
+	Prefs.DCMSset.DefaultInputProfile = "";
+	Prefs.DCMSset.DefaultInputProfile2 = "";
+	Prefs.DCMSset.CMSinUse = false;
+	Prefs.DCMSset.SoftProofOn = false;
+	Prefs.DCMSset.GamutCheck = false;
+	Prefs.DCMSset.BlackPoint = true;
+	Prefs.DCMSset.DefaultIntentMonitor = 1;
+	Prefs.DCMSset.DefaultIntentMonitor2 = 1;
+	Prefs.DCMSset.DefaultIntentPrinter = 0;
+	Prefs.GFontSub.clear();
+
+}
+
+const QString ScribusApp::getGuiLanguage()
+{
+	return guiLanguage;
 }
 
 /*!
@@ -2601,7 +2620,7 @@ void ScribusApp::SwitchWin()
 			ColorMenC->setCurrentItem(a);
 		a++;
 	}
-	BuildFontMenu();
+	buildFontMenu();
 #ifdef HAVE_CMS
 	SoftProofing = ActWin->SoftProofing;
 	Gamut = ActWin->Gamut;
@@ -2763,7 +2782,7 @@ void ScribusApp::HaveNewDoc()
 	doc->CurrentABStil = 0;
 	slotChangeUnit(doc->Einheit);
 	doc->Trenner = new Hyphenator(this, doc, this);
-	BuildFontMenu();
+	buildFontMenu();
 	connect(view, SIGNAL(changeUN(int)), this, SLOT(slotChangeUnit(int)));
 	connect(view, SIGNAL(changeLA(int)), Lpal, SLOT(MarkActiveLayer(int)));
 	connect(view->HR, SIGNAL(MarkerMoved(double, double)), this, SLOT(ReportMP(double, double)));
@@ -4670,7 +4689,7 @@ void ScribusApp::slotHelpAboutQt()
 
 void ScribusApp::slotOnlineHelp()
 {
-	HelpBrowser *dia = new HelpBrowser(this, tr("Scribus Manual"), ScApp->GuiLanguage);
+	HelpBrowser *dia = new HelpBrowser(this, tr("Scribus Manual"), ScApp->guiLanguage);
 	dia->show();
 }
 
@@ -5824,7 +5843,7 @@ void ScribusApp::SetNewFont(QString nf)
 				nf2 = b->IFont;
 			}
 			Mpal->Fonts->RebuildList(&Prefs, doc);
-			BuildFontMenu();
+			buildFontMenu();
 		}
 	}
 	AdjustFontMenu(nf2);
@@ -6697,7 +6716,7 @@ void ScribusApp::DoAlign(bool xa, bool ya, bool Vth, bool Vtv, double xdp, doubl
 	CanUndo();
 }
 
-void ScribusApp::BuildFontMenu()
+void ScribusApp::buildFontMenu()
 {
 	FontID.clear();
 	FontMenu->clear();
@@ -7539,7 +7558,7 @@ void ScribusApp::slotElemRead(QString Name, int x, int y, bool art, bool loca, S
 		if (doc == docc)
 		{
 			doc->OpenNodes = Tpal->buildReopenVals();
-			BuildFontMenu();
+			buildFontMenu();
 			Mpal->Cpal->SetColors(docc->PageColors);
 			Mpal->updateCList();
 			Mpal->Spal->updateFormatList();
@@ -9141,7 +9160,7 @@ void ScribusApp::ReorgFonts()
 	}
 	doc->AddFont(Prefs.DefFont, Prefs.AvailFonts[Prefs.DefFont]->Font);
 	doc->AddFont(doc->Dfont, Prefs.AvailFonts[doc->Dfont]->Font);
-	BuildFontMenu();
+	buildFontMenu();
 }
 
 void ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
@@ -9245,7 +9264,7 @@ void ScribusApp::slotStoryEditor()
 		}
 		else
 			view->DrawNew();
-		BuildFontMenu();
+		buildFontMenu();
 		CurrStED = NULL;
 		delete dia;
 	}

@@ -104,6 +104,7 @@ public:
 	/** destructor */
 	~ScribusApp() {};
 	int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage);
+	const QString getGuiLanguage();
 
 	void SetShortCut();
 	void SetKeyEntry(int Nr, QString text, int Men, int KeyC);
@@ -148,7 +149,6 @@ public:
 	struct CLBuf Buffer;
 	QString Buffer2;
 	QString Buffer3;
-	QString GuiLanguage;
 	bool BuFromApp;
 	ProfilesL MonitorProfiles;
 	ProfilesL PrinterProfiles;
@@ -417,7 +417,7 @@ public slots:
 	void ObjektAlign();
 	void DoAlign(bool xa, bool ya, bool Vth, bool Vtv, double xdp, double ydp, int xart, int yart);
 	const bool GetAllFonts();
-	void BuildFontMenu();
+	void buildFontMenu();
 	void slotFontOrg();
 	void slotPrefsOrg();
 	void slotEditStyles();
@@ -474,6 +474,9 @@ private:
 	void initFonts(); // setup the toolbars
 	void initPlugs();
 	void initHyphenator();
+	void initDefaultPrefs();
+
+	QString guiLanguage;
 
 	QString getPreferencesLocation(); //Find preferences location
 	/** edit_menu contains all items of the menubar entry "Edit" */
