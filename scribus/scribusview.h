@@ -143,8 +143,8 @@ public:
 	void RecalcPictures(ProfilesL *Pr, QProgressBar *dia = 0);
 	void FromHRuler(QMouseEvent *m);
 	void FromVRuler(QMouseEvent *m);
-	void SetYGuide(QMouseEvent *m);
-	void SetXGuide(QMouseEvent *m);
+	void SetYGuide(QMouseEvent *m, int oldIndex);
+	void SetXGuide(QMouseEvent *m, int oldIndex);
 	bool ApplyGuides(double *x, double *y);
 	void SnapToGuides(PageItem* b);
 	QPoint ApplyGrid(QPoint in);
@@ -260,13 +260,13 @@ public:
 	void rememberPreviousSettings(int mx=0, int my=0);
 
 public slots: // Public slots
-  /** Fhrt die Vergrï¿½erung/Verkleinerung aus; */
+  /** Fhrt die Vergrï¿?erung/Verkleinerung aus; */
 	void slotDoZoom();
-  /** Vergrï¿½ert die Ansicht */
+  /** Vergrï¿?ert die Ansicht */
 	void slotZoomIn(int mx=0,int my=0);
   /** Verkleinert die Ansicht */
 	void slotZoomOut(int mx=0,int my=0);
-  /** Vergrï¿½ert die Ansicht */
+  /** Vergrï¿?ert die Ansicht */
 	void slotZoomIn2(int mx=0,int my=0);
   /** Verkleinert die Ansicht */
 	void slotZoomOut2(int mx=0,int my=0);

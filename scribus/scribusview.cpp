@@ -1199,8 +1199,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		}
 		if (MoveGY)
 		{
-			Doc->currentPage->YGuides.remove(Doc->currentPage->YGuides[GyM]);
-			SetYGuide(m);
+			SetYGuide(m, GyM);
 			MoveGY = false;
 			qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 			updateContents();
@@ -1208,8 +1207,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		}
 		if (MoveGX)
 		{
-			Doc->currentPage->XGuides.remove(Doc->currentPage->XGuides[GxM]);
-			SetXGuide(m);
+			SetXGuide(m, GxM);
 			MoveGX = false;
 			qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 			updateContents();
@@ -8082,7 +8080,7 @@ Page* ScribusView::addPage(int nr)
 	Page* fe = new Page(Doc->ScratchLeft, Doc->PageC*(Doc->PageH+Doc->ScratchBottom+Doc->ScratchTop)+Doc->ScratchTop, Doc->PageB, Doc->PageH);
 	fe->Margins.Top = Doc->PageM.Top;
 	fe->Margins.Bottom = Doc->PageM.Bottom;
-	fe->PageNr = nr;
+	fe->setPageNr(nr);
 	Doc->Pages.insert(nr, fe);
 	Doc->currentPage = fe;
 	Doc->PageC++;
@@ -8226,7 +8224,7 @@ void ScribusView::reformPages()
 		oldPg.oldYO = Seite->Yoffset;
 		oldPg.newPg = a;
 		pageTable.insert(Seite->PageNr, oldPg);
-		Seite->PageNr = a;
+		Seite->setPageNr(a);
 		if (Doc->PageFP)
 		{
 			if (Doc->MasterP)
@@ -8795,7 +8793,7 @@ void ScribusView::FromVRuler(QMouseEvent *m)
 	}
 }
 
-void ScribusView::SetYGuide(QMouseEvent *m)
+void ScribusView::SetYGuide(QMouseEvent *m, int oldIndex)
 {
 	QPoint py = viewport()->mapFromGlobal(m->globalPos());
 	QPoint out = viewportToContents(py);
@@ -8804,14 +8802,21 @@ void ScribusView::SetYGuide(QMouseEvent *m)
 	int pg = OnPage(newX, newY);
 	if (pg != -1)
 	{
-		Doc->Pages.at(pg)->YGuides.append(newY-Doc->Pages.at(pg)->Yoffset);
-		qHeapSort(Doc->Pages.at(pg)->YGuides);
+		if (oldIndex < 0)
+			Doc->Pages.at(pg)->addYGuide(newY-Doc->Pages.at(pg)->Yoffset);
+		else
+			Doc->Pages.at(pg)->moveYGuide(oldIndex, newY-Doc->Pages.at(pg)->Yoffset);
+		emit DocChanged();
+	}
+	else if (oldIndex >= 0)
+	{
+		Doc->currentPage->removeYGuide(oldIndex);
 		emit DocChanged();
 	}
 	updateContents();
 }
 
-void ScribusView::SetXGuide(QMouseEvent *m)
+void ScribusView::SetXGuide(QMouseEvent *m, int oldIndex)
 {
 	QPoint py = viewport()->mapFromGlobal(m->globalPos());
 	QPoint out = viewportToContents(py);
@@ -8820,8 +8825,15 @@ void ScribusView::SetXGuide(QMouseEvent *m)
 	int pg = OnPage(newX, newY);
 	if (pg != -1)
 	{
-		Doc->Pages.at(pg)->XGuides.append(newX-Doc->Pages.at(pg)->Xoffset);
-		qHeapSort(Doc->Pages.at(pg)->XGuides);
+		if (oldIndex < 0)
+			Doc->Pages.at(pg)->addXGuide(newX-Doc->Pages.at(pg)->Xoffset);
+		else
+			Doc->Pages.at(pg)->moveXGuide(oldIndex, newX-Doc->Pages.at(pg)->Xoffset);
+		emit DocChanged();
+	}
+	else if (oldIndex >= 0)
+	{
+		Doc->currentPage->removeXGuide(oldIndex);
 		emit DocChanged();
 	}
 	updateContents();

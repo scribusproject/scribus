@@ -210,7 +210,7 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 		if ((Mpressed) && (m->pos().y() > height()))
 		{
 			view->DrHY = -1;
-			view->SetYGuide(m);
+			view->SetYGuide(m, -1);
 		}
 		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 		emit DocChanged(false);

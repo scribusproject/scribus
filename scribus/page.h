@@ -21,14 +21,21 @@
 class QString;
 #include "qvaluelist.h"
 #include "qptrlist.h"
+#include "qpixmap.h"
 
+#include "undomanager.h"
+#include "undoobject.h"
+#include "undostate.h"
 #include "scribusstructs.h"
 #include "pageitem.h"
 /**
   *@author Franz Schmid
   */
-class Page 
+class Page : public UndoObject
 {
+private:
+	QPixmap undoIcon;
+	UndoManager* undoManager;
 public:
 	Page(double x, double y, double b, double h);
 	~Page() {};
@@ -45,6 +52,19 @@ public:
 	QValueList<double> XGuides;
 	QValueList<double> YGuides;
 	QPtrList<PageItem> FromMaster;
+	void setPageNr(int pageNr);
+	uint getPageNr();
+	void addXGuide(double position);
+	void addYGuide(double position);
+	void addXGuides(QValueList<double>& guides);
+	void addYGuides(QValueList<double>& guides);
+	void removeXGuide(double position);
+	void removeXGuide(int index);
+	void removeYGuide(double position);
+	void removeYGuide(int index);
+	void moveXGuide(int fromIndex, double to);
+	void moveYGuide(int fromIndex, double to);
+	void restore(UndoState* state, bool isUndo);
 };
 
 #endif

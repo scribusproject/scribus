@@ -60,7 +60,7 @@ void Vruler::mouseReleaseEvent(QMouseEvent *m)
 	if ((Mpressed) && (m->pos().x() > width()))
 	{
 		view->DrVX = -1;
-		view->SetXGuide(m);
+		view->SetXGuide(m, -1);
 	}
 	qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 	Mpressed = false;
