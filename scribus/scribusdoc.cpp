@@ -109,6 +109,15 @@ ScribusDoc::ScribusDoc(struct ApplicationPrefs *prefsData)
 	toolSettings.magMin = prefsData->toolSettings.magMin;
 	toolSettings.magMax = prefsData->toolSettings.magMax;
 	toolSettings.magStep = prefsData->toolSettings.magStep;
+	checkerSettings.ignoreErrors = prefsData->checkerSettings.ignoreErrors;
+	checkerSettings.autoCheck = prefsData->checkerSettings.autoCheck;
+	checkerSettings.checkGlyphs = prefsData->checkerSettings.checkGlyphs;
+	checkerSettings.checkOrphans = prefsData->checkerSettings.checkOrphans;
+	checkerSettings.checkOverflow = prefsData->checkerSettings.checkOverflow;
+	checkerSettings.checkPictures = prefsData->checkerSettings.checkPictures;
+	checkerSettings.checkResolution = prefsData->checkerSettings.checkResolution;
+	checkerSettings.checkTransparency = prefsData->checkerSettings.checkTransparency;
+	checkerSettings.minResolution = prefsData->checkerSettings.minResolution;
 	docUnitIndex = prefsData->docUnitIndex;
 	marginColored = prefsData->marginColored;
 	Language = prefsData->Language;
@@ -187,8 +196,6 @@ ScribusDoc::ScribusDoc(struct ApplicationPrefs *prefsData)
 	Layers.append(ll);
 	ActiveLayer = 0;
 	JavaScripts.clear();
-	UnDoValid = false;
-	UnData.UnCode = -1;
 	CurrentStyle = 0;
 	currentParaStyle = 0;
 	TotalItems = 0;
@@ -254,6 +261,8 @@ ScribusDoc::ScribusDoc(struct ApplicationPrefs *prefsData)
 	ScratchBottom = prefsData->ScratchBottom;
 	arrowStyles = prefsData->arrowStyles;
 	undoManager = UndoManager::instance();
+	docItemErrors.clear();
+	masterItemErrors.clear();
 }
 
 ScribusDoc::~ScribusDoc()

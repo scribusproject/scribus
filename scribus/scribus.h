@@ -132,7 +132,7 @@ public:
 	void RestoreBookMarks();
 	void AdjustBM();
 	void ReorgFonts();
-	bool GetUsedFonts(QMap<QString,QFont> *Really);
+	void GetUsedFonts(QMap<QString,QFont> *Really);
 	void ToggleAllGuides();
 	static void defaultCrashHandler (int sig);
 	void emergencySave();
@@ -606,7 +606,7 @@ private:
 	int exmn;
 	int hyph;
 	int M_ExtraCharSelect;
-	int M_ExtraCheckDoc;
+	int M_ToolsCheckDoc;
 	int M_ItemRaise;
 	int M_ItemLower;
 	int M_ItemSendToBack;

@@ -6,6 +6,7 @@
 #include "tabtypography.h"
 #include "tabguides.h"
 #include "tabtools.h"
+#include "tabcheckdoc.h"
 #include "hysettings.h"
 #include "cmsprefs.h"
 #include "units.h"
@@ -312,7 +313,10 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	tabHyphenator->wordLen->setValue(doc->docHyphenator->MinWordLen);
 	tabHyphenator->maxCount->setValue(doc->docHyphenator->HyCount);
 	addItem( tr("Hyphenator"), loadIcon("hyphenate.png"), tabHyphenator);
-	
+
+	tabDocChecker = new TabCheckDoc(  prefsWidgets, &doc->checkerSettings);
+	addItem( tr("Doc-Checker"), loadIcon("checkdoc.png"), tabDocChecker);
+
 	int cmsTab = 0;
 	if (CMSavail)
 	{

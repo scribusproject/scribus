@@ -25,7 +25,7 @@ class CMSPrefs;
 class MSpinBox;
 class TabGuides;
 class TabTools;
-
+class TabCheckDoc;
 
 class ReformDoc : public PrefsDialogBase
 {
@@ -77,6 +77,7 @@ public:
 	TabTypograpy* tabTypo;
 	TabTools* tabTools;
 	HySettings* tabHyphenator;
+	TabCheckDoc* tabDocChecker;
 	CMSPrefs* tabColorManagement;
 	QLabel* textLabel9;
 	QPushButton* backColor;

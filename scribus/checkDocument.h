@@ -28,13 +28,16 @@ public:
 	QListView* reportDisplay;
 	QPushButton* okButton;
 	QPushButton* newCheck;
+	QMap<QListViewItem*, int> itemMap;
 
 public slots:
+	void slotSelect(QListViewItem* ite);
 	void newScan();
 
 signals:
 	void rescan();
 	void closePal();
+	void selectElement(int, int);
 
 protected:
 	QVBoxLayout* checkDocumentLayout;
@@ -44,6 +47,7 @@ protected slots:
 	virtual void languageChange();
 
 private:
+	ScribusDoc* document;
 	QPixmap graveError;
 	QPixmap onlyWarning;
 	QPixmap noErrors;

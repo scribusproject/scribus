@@ -10,6 +10,7 @@
 #include <qwhatsthis.h>
 #include <qimage.h>
 #include <qpixmap.h>
+#include <qmap.h>
 #include "scribusdoc.h"
 #include "page.h"
 extern QPixmap loadIcon(QString nam);
@@ -130,9 +131,11 @@ CheckDocument::CheckDocument( QWidget* parent, bool modal )  : QDialog( parent, 
 //	okButton = new QPushButton( this, "okButton" );
 //	layout1->addWidget( okButton );
 	newCheck = new QPushButton( this, "newCheck" );
+	newCheck->setEnabled(false);
 	layout1->addWidget( newCheck );
 	checkDocumentLayout->addLayout( layout1 );
 	languageChange();
+	itemMap.clear();
 	resize( QSize(306, 259).expandedTo(minimumSizeHint()) );
 	clearWState( WState_Polished );
 	connect(newCheck, SIGNAL(clicked()), this, SLOT(newScan()));
@@ -144,6 +147,14 @@ void CheckDocument::closeEvent(QCloseEvent *ce)
 	ce->accept();
 }
 
+void CheckDocument::slotSelect(QListViewItem* ite)
+{
+	if (document->TemplateMode)
+		return;
+	if (itemMap.contains(ite))
+		emit selectElement(-1, itemMap[ite]);
+}
+
 void CheckDocument::newScan()
 {
 	clearErrorList();
@@ -152,18 +163,24 @@ void CheckDocument::newScan()
 
 void CheckDocument::clearErrorList()
 {
+	disconnect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
 	reportDisplay->clear();
+	itemMap.clear();
+	newCheck->setEnabled(false);
 }
 
 void CheckDocument::buildErrorList(ScribusDoc *doc)
 {
+	document = doc;
 	QString missingGlyph = tr("Glyphs missing");
 	QString textOverflow = tr("Text overflow");
 	QString notOnPage = tr("Object is not on a Page");
 	QString missingImg = tr("Missing Image");
 	QString lowDPI = tr("Image has a DPI-Value less than 72 DPI");
+	QString transpar = tr("Object has transparency");
 	reportDisplay->clear();
 	reportDisplay->setSorting(-1);
+	itemMap.clear();
 	QListViewItem * item = new QListViewItem( reportDisplay, 0 );
 	item->setText( 0, tr( "Document" ) );
 	if ((doc->docItemErrors.count() == 0) && (doc->masterItemErrors.count() == 0))
@@ -219,6 +236,12 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 						case 5:
 							object->setText(1, lowDPI);
 							break;
+						case 6:
+							object->setText(1, transpar);
+							hasGraveError = true;
+							pageGraveError = true;
+							itemError = true;
+							break;
 						}
 					}
 					else
@@ -253,6 +276,13 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 							case 5:
 								errorText->setText(1, lowDPI);
 								errorText->setPixmap( 0, onlyWarning );
+								break;
+							case 6:
+								errorText->setText(1, transpar);
+								errorText->setPixmap( 0, graveError );
+								hasGraveError = true;
+								pageGraveError = true;
+								itemError = true;
 								break;
 							}
 						}
@@ -290,6 +320,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 					bool itemError = false;
 					QListViewItem * object = new QListViewItem( page, 0 );
 					object->setText(0, doc->DocItems.at(it2.key())->AnName);
+					itemMap.insert(object, doc->DocItems.at(it2.key())->ItemNr);
 					errorCodes::Iterator it3;
 					if (it2.data().count() == 1)
 					{
@@ -316,6 +347,12 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 							break;
 						case 5:
 							object->setText(1, lowDPI);
+							break;
+						case 6:
+							object->setText(1, transpar);
+							hasGraveError = true;
+							pageGraveError = true;
+							itemError = true;
 							break;
 						}
 					}
@@ -351,6 +388,13 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 							case 5:
 								errorText->setText(1, lowDPI);
 								errorText->setPixmap( 0, onlyWarning );
+								break;
+							case 6:
+								errorText->setText(1, transpar);
+								errorText->setPixmap( 0, graveError );
+								hasGraveError = true;
+								pageGraveError = true;
+								itemError = true;
 								break;
 							}
 						}
@@ -395,6 +439,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 					hasError = true;
 					QListViewItem * object = new QListViewItem( page, 0 );
 					object->setText(0, doc->DocItems.at(it2.key())->AnName);
+					itemMap.insert(object, doc->DocItems.at(it2.key())->ItemNr);
 					errorCodes::Iterator it3;
 					if (it2.data().count() == 1)
 					{
@@ -419,6 +464,11 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 							break;
 						case 5:
 							object->setText(1, lowDPI);
+							break;
+						case 6:
+							object->setText(1, transpar);
+							hasGraveError = true;
+							pageGraveError = true;
 							break;
 						}
 					}
@@ -453,6 +503,12 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 								errorText->setText(1, lowDPI);
 								errorText->setPixmap( 0, onlyWarning );
 								break;
+							case 6:
+								errorText->setText(1, transpar);
+								errorText->setPixmap( 0, graveError );
+								hasGraveError = true;
+								pageGraveError = true;
+								break;
 							}
 						}
 					}
@@ -480,6 +536,8 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 		item->setText( 1, tr( "Problems found" ) );
 		item->setOpen( true );
 	}
+	newCheck->setEnabled(true);
+	connect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
 }
 
 /*

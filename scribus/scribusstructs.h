@@ -227,23 +227,6 @@ struct CMSData
 	bool BlackPoint;
 } ;
 
-struct UndoData
-{
-	PageItem* Item;
-	uint PageNr;
-	uint ItemNr;
-	double Xpos;
-	double Ypos;
-	double Width;
-	double Height;
-	double Rot;
-	double Gx;
-	double Gy;
-	double Gw;
-	double Gh;
-	int UnCode;
-};
-
 struct SingleLine
 { 
 	double Width;
@@ -342,6 +325,19 @@ struct Keys
 /** Definition der Farbenlisten */
 typedef QMap<QString,CMYKColor> ColorList;
 
+struct checkerPrefs
+{
+	bool ignoreErrors;
+	bool autoCheck;
+	bool checkGlyphs;
+	bool checkOverflow;
+	bool checkOrphans;
+	bool checkPictures;
+	bool checkResolution;
+	double minResolution;
+	bool checkTransparency;
+};
+
 struct typoPrefs
 {
 	int valueSuperScript;
@@ -439,6 +435,7 @@ struct ApplicationPrefs
 	guidesPrefs guidesSettings;
 	typoPrefs typographicSetttings;
 	toolPrefs toolSettings;
+	checkerPrefs checkerSettings;
 	int docUnitIndex;
 	windowPrefs mainToolBarSettings;
 	windowPrefs pdfToolBarSettings;

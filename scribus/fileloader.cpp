@@ -393,6 +393,18 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		doc->guidesSettings.before = static_cast<bool>(QStoInt(dc.attribute("BACKG","1")));
 		doc->guidesSettings.guideRad = QStoInt(dc.attribute("GuideRad","10"));
 		doc->guidesSettings.grabRad = QStoInt(dc.attribute("GRAB","4"));
+		if (dc.hasAttribute("checkGlyphs"))
+		{
+			doc->checkerSettings.ignoreErrors = static_cast<bool>(QStoInt(dc.attribute("ignoreErrors", "0")));
+			doc->checkerSettings.autoCheck = static_cast<bool>(QStoInt(dc.attribute("autoCheck", "1")));
+			doc->checkerSettings.checkGlyphs = static_cast<bool>(QStoInt(dc.attribute("checkGlyphs", "1")));
+			doc->checkerSettings.checkOrphans = static_cast<bool>(QStoInt(dc.attribute("checkOrphans", "1")));
+			doc->checkerSettings.checkOverflow = static_cast<bool>(QStoInt(dc.attribute("checkOverflow", "1")));
+			doc->checkerSettings.checkPictures = static_cast<bool>(QStoInt(dc.attribute("checkPictures", "1")));
+			doc->checkerSettings.checkResolution = static_cast<bool>(QStoInt(dc.attribute("checkResolution", "1")));
+			doc->checkerSettings.checkTransparency = static_cast<bool>(QStoInt(dc.attribute("checkTransparency", "1")));
+			doc->checkerSettings.minResolution = QStodouble(dc.attribute("minResolution","72"));
+		}
 		doc->LastAuto = 0;
 		QDomNode PAGE=DOC.firstChild();
 		counter = 0;

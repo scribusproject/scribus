@@ -21,6 +21,7 @@
 #include "keymanager.h"
 #include "tabtools.h"
 #include "undomanager.h"
+#include "tabcheckdoc.h"
 
 using namespace std;
 
@@ -365,6 +366,9 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	tabHyphenator->wordLen->setValue(prefsData->MinWordLen);
 	tabHyphenator->maxCount->setValue(prefsData->HyCount);
 	addItem( tr("Hyphenator"), loadIcon("hyphenate.png"), tabHyphenator);
+
+	tabDocChecker = new TabCheckDoc(  prefsWidgets, &prefsData->checkerSettings);
+	addItem( tr("Doc-Checker"), loadIcon("checkdoc.png"), tabDocChecker);
 
 	if (CMSavail)
 	{

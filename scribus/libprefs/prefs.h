@@ -31,6 +31,7 @@ class CMSPrefs;
 class KeyManager;
 class TabGuides;
 class TabTools;
+class TabCheckDoc;
 
 #include "langmgr.h"
 
@@ -100,6 +101,7 @@ public:
 	TabTools* tabTools;
 
 	HySettings* tabHyphenator;
+	TabCheckDoc* tabDocChecker;
 	CMSPrefs* tabColorManagement;
 	KeyManager* tabKeys;
 

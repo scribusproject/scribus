@@ -177,6 +177,7 @@ public: // Public attributes
 	typoPrefs typographicSetttings;
 	guidesPrefs guidesSettings;
 	toolPrefs toolSettings;
+	checkerPrefs checkerSettings;
   /** Letztes Element fuer AutoTextrahmen */
 	PageItem *LastAuto;
   /** Erstes Element fuer AutoTextrahmen */
@@ -202,8 +203,6 @@ public: // Public attributes
 #endif
 	bool HasCMS;
 	QMap<QString,QString> JavaScripts;
-	bool UnDoValid;
-	UndoData UnData;
 	int TotalItems;
 	Hyphenator *docHyphenator;
 	int MinWordLen;
