@@ -74,16 +74,16 @@ void UndoManager::beginTransaction(const QString &targetName,
 {
 	// TODO What if there already is a transaction? -rl
 	if (transaction)
-		commit();
+		commit(); // Now we're commiting. Is this the best solution?
 	transaction = new TransactionState();
 	transactionTarget = new TransactionObject();
-	transactionTarget->setUName(targetName);
-	if (name.length() > 0)
-		transaction->setName(name);
-	if (description.length() > 0)
-		transaction->setDescription(description);
+	transactionTarget->setUName(targetName); // Name which will be in action history
+	if (name.length() > 0)          // if left to 0 length action will be fetched from the
+		transaction->setName(name); // last added UndoState in this transaction
+	if (description.length() > 0) 
+		transaction->setDescription(description); // tool tip for action history
 	if (pixmap)
-		transaction->setPixmap(pixmap);
+		transaction->setPixmap(pixmap); // for action history
 }
 
 void UndoManager::cancelTransaction()
@@ -250,18 +250,30 @@ void UndoManager::remove(const QString& stackName)
 
 void UndoManager::action(UndoObject* target, UndoState* state)
 {
+	if (!_undoEnabled) // if so flush down the state
+	{
+		TransactionState *ts = dynamic_cast<TransactionState*>(state);
+		if (ts) // flush the TransactionObject too
+			delete target;
+		delete state;
+		return;
+	}
+
 	if ((!transaction) &&
         (currentUndoObjectId == -1 || currentUndoObjectId == static_cast<long>(target->getUId())))
 		emit newAction(target, state); // send action to the guis
 
-	if (stacks[currentDoc].second.size() > 1) // delete redo states
+	if (stacks[currentDoc].second.size() > 1 && !transaction) // delete redo states
 	{
 		ActionList::iterator it;
 		for (it = stacks[currentDoc].second.begin(); it != stacks[currentDoc].first; ++it)
 		{
 			TransactionState *ts = dynamic_cast<TransactionState*>((*it).second);
 			if (ts)
+			{
 				delete (*it).first; // delete TransactionObject
+				(*it).first = NULL;
+			}
 			delete (*it).second;
 			(*it).second = NULL;
 		}
@@ -305,13 +317,16 @@ void UndoManager::doUndo(int steps)
 			TransactionState *ts = dynamic_cast<TransactionState*>(tmpUndoState);
 			if (tmpUndoState && !ts)
 				tmpUndoObject->restore(tmpUndoState, true);
-			else if (ts)
+			else if (tmpUndoState && ts)
 				doTransactionUndo(ts);
+			ts = NULL;
 			++stacks[currentDoc].first;
 		}
+
+		setUndoEnabled(tmpUndoEnabled);
+
 		if (tmpUndoState)
 		{
-			setUndoEnabled(tmpUndoEnabled);
 			emit undoSignal(steps);
 			emit undoRedoDone();
 		}
@@ -335,7 +350,7 @@ void UndoManager::doRedo(int steps)
 		bool tmpUndoEnabled = _undoEnabled;
 		setUndoEnabled(false);
 		UndoState* tmpUndoState = NULL;
-		for (int i = 0; i < steps; ++i)
+		for (int i = 0; i < steps; ++i) // TODO compare to stack size too
 		{
 			--stacks[currentDoc].first;
 			ActionPair aPair = *stacks[currentDoc].first;
@@ -344,12 +359,15 @@ void UndoManager::doRedo(int steps)
 			TransactionState *ts = dynamic_cast<TransactionState*>(tmpUndoState);
 			if (tmpUndoState && !ts)
 				tmpUndoObject->restore(tmpUndoState, false);
-			else if (ts)
+			else if (tmpUndoState && ts)
 				doTransactionRedo(ts);
+			ts = NULL;
 		}
+
+		setUndoEnabled(tmpUndoEnabled);
+
 		if (tmpUndoState)
 		{
-			setUndoEnabled(tmpUndoEnabled);
 			emit redoSignal(steps);
 			emit undoRedoDone();
 		}
