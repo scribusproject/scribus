@@ -602,22 +602,8 @@ void ScribusApp::initDefaultPrefs()
 	Prefs.PDF_Options.UseLPI = false;
 	Prefs.PDF_Options.LPISettings.clear();
 	
-		//Attribute setup
-	ObjectAttribute objattr;
-	objattr.name="Name";
-	objattr.type="String";
-	objattr.value="";
-	objattr.parameter="";
+	//Attribute setup
 	Prefs.defaultItemAttributes.clear();
-	Prefs.defaultItemAttributes.insert(0,objattr);
-	objattr.name="Author";
-	Prefs.defaultItemAttributes.insert(1,objattr);
-	objattr.name="Title";
-	Prefs.defaultItemAttributes.insert(2,objattr);
-	objattr.name="Table of Contents Entry";
-	objattr.value="My Toc Entry";
-	objattr.parameter="1";
-	Prefs.defaultItemAttributes.insert(3,objattr);
 }
 
 
@@ -2939,24 +2925,6 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	doc->PDF_Options.PrintProf = doc->CMSSettings.DefaultPrinterProfile;
 	doc->PDF_Options.Intent = doc->CMSSettings.DefaultIntentMonitor;
 	doc->PDF_Options.Intent2 = doc->CMSSettings.DefaultIntentMonitor2;
-	
-/*CB TODO
-	for(QMap<int, ObjectAttribute>::Iterator it = Prefs.defaultItemAttributes->begin(); it!= Prefs.defaultItemAttributes->end(); ++it)
-	{
-		uint i=0;
-		QTableItem *item = new QTableItem(attributesTable, QTableItem::Never, it.data().name);
-		attributesTable->setItem(it.key(), i++, item);
-		QTableItem *item1 = new QTableItem(attributesTable, QTableItem::Never, it.data().type);
-		attributesTable->setItem(it.key(), i++, item1);
-		QTableItem *item2 = new QTableItem(attributesTable, QTableItem::Never, it.data().value);
-		attributesTable->setItem(it.key(), i++, item2);
-		QTableItem *item3 = new QTableItem(attributesTable, QTableItem::Never, it.data().parameter);
-		attributesTable->setItem(it.key(), i++, item3);
-
-		
-		attributesTable->verticalHeader()->setLabel(it.key(), QString("%1").arg(it.key()));
-	}
-	*/
 	
 	struct LPIData lpo;
 	lpo.Frequency = 75;

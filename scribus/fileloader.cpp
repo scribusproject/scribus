@@ -620,6 +620,109 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 				}
 				doc->arrowStyles.append(arrow);
 			}
+			if(pg.tagName()=="PDF")
+			{
+				doc->PDF_Options.Articles = static_cast<bool>(QStoInt(pg.attribute("Articles")));
+				doc->PDF_Options.Thumbnails = static_cast<bool>(QStoInt(pg.attribute("Thumbnails")));
+				doc->PDF_Options.Compress = static_cast<bool>(QStoInt(pg.attribute("Compress")));
+				doc->PDF_Options.CompressMethod = QStoInt(pg.attribute("CMethod","0"));
+				doc->PDF_Options.Quality = QStoInt(pg.attribute("Quality","0"));
+				doc->PDF_Options.RecalcPic = static_cast<bool>(QStoInt(pg.attribute("RecalcPic")));
+				doc->PDF_Options.Bookmarks = static_cast<bool>(QStoInt(pg.attribute("Bookmarks")));
+				if (pg.hasAttribute("MirrorH"))
+					doc->PDF_Options.MirrorH = static_cast<bool>(QStoInt(pg.attribute("MirrorH")));
+				else
+					doc->PDF_Options.MirrorH = false;
+				if (pg.hasAttribute("MirrorV"))
+					doc->PDF_Options.MirrorV = static_cast<bool>(QStoInt(pg.attribute("MirrorV")));
+				else
+					doc->PDF_Options.MirrorV = false;
+				if (pg.hasAttribute("RotateDeg"))
+					doc->PDF_Options.RotateDeg = QStoInt(pg.attribute("RotateDeg","0"));
+				else
+					doc->PDF_Options.RotateDeg = 0;
+				doc->PDF_Options.PresentMode = static_cast<bool>(QStoInt(pg.attribute("PresentMode")));
+				doc->PDF_Options.PicRes = QStoInt(pg.attribute("PicRes"));
+				doc->PDF_Options.Version = QStoInt(pg.attribute("Version"));
+				doc->PDF_Options.Resolution = QStoInt(pg.attribute("Resolution"));
+				doc->PDF_Options.Binding = QStoInt(pg.attribute("Binding"));
+				doc->PDF_Options.Datei = "";
+				doc->PDF_Options.isGrayscale = static_cast<bool>(QStoInt(pg.attribute("Grayscale","0")));
+				doc->PDF_Options.UseRGB = static_cast<bool>(QStoInt(pg.attribute("RGBMode","0")));
+				doc->PDF_Options.UseProfiles = static_cast<bool>(QStoInt(pg.attribute("UseProfiles","0")));
+				doc->PDF_Options.UseProfiles2 = static_cast<bool>(QStoInt(pg.attribute("UseProfiles2","0")));
+				doc->PDF_Options.Intent = QStoInt(pg.attribute("Intent","1"));
+				doc->PDF_Options.Intent2 = QStoInt(pg.attribute("Intent2","1"));
+				doc->PDF_Options.SolidProf = pg.attribute("SolidP", "");
+				doc->PDF_Options.ImageProf = pg.attribute("ImageP", "");
+				doc->PDF_Options.PrintProf = pg.attribute("PrintP", "");
+				doc->PDF_Options.Info = pg.attribute("InfoString", "");
+				doc->PDF_Options.BleedTop = QStodouble(pg.attribute("BTop","0"));
+				doc->PDF_Options.BleedLeft = QStodouble(pg.attribute("BLeft","0"));
+				doc->PDF_Options.BleedRight = QStodouble(pg.attribute("BRight","0"));
+				doc->PDF_Options.BleedBottom = QStodouble(pg.attribute("BBottom","0"));
+				doc->PDF_Options.EmbeddedI = static_cast<bool>(QStoInt(pg.attribute("ImagePr","0")));
+				doc->PDF_Options.PassOwner = pg.attribute("PassOwner", "");
+				doc->PDF_Options.PassUser = pg.attribute("PassUser", "");
+				doc->PDF_Options.Permissions = QStoInt(pg.attribute("Permissions","-4"));
+				doc->PDF_Options.Encrypt = static_cast<bool>(QStoInt(pg.attribute("Encrypt","0")));
+				doc->PDF_Options.UseLPI = static_cast<bool>(QStoInt(pg.attribute("UseLpi","0")));
+				QDomNode PFO = PAGE.firstChild();
+				while(!PFO.isNull())
+				{
+					QDomElement pdfF = PFO.toElement();
+					if(pdfF.tagName() == "LPI")
+					{
+						struct LPIData lpo;
+						lpo.Angle = QStoInt(pdfF.attribute("Angle"));
+						lpo.Frequency = QStoInt(pdfF.attribute("Frequency"));
+						lpo.SpotFunc = QStoInt(pdfF.attribute("SpotFunction"));
+						doc->PDF_Options.LPISettings[pdfF.attribute("Color")] = lpo;
+					}
+					if(pdfF.tagName() == "Fonts")
+					{
+						if (!doc->PDF_Options.EmbedList.contains(pdfF.attribute("Name")))
+							doc->PDF_Options.EmbedList.append(pdfF.attribute("Name"));
+					}
+					if(pdfF.tagName() == "Subset")
+					{
+						if (!doc->PDF_Options.SubsetList.contains(pdfF.attribute("Name")))
+							doc->PDF_Options.SubsetList.append(pdfF.attribute("Name"));
+					}
+					if(pdfF.tagName() == "Effekte")
+					{
+						struct PDFPresentationData ef;
+						ef.pageEffectDuration = QStoInt(pdfF.attribute("pageEffectDuration"));
+						ef.pageViewDuration = QStoInt(pdfF.attribute("pageViewDuration"));
+						ef.effectType = QStoInt(pdfF.attribute("effectType"));
+						ef.Dm = QStoInt(pdfF.attribute("Dm"));
+						ef.M = QStoInt(pdfF.attribute("M"));
+						ef.Di = QStoInt(pdfF.attribute("Di"));
+						doc->PDF_Options.PresentVals.append(ef);
+					}
+					PFO = PFO.nextSibling();
+				}
+			}
+			if(pg.tagName()=="DocItemAttributes")
+			{
+				QDomNode DIA = PAGE.firstChild();
+				int count=0;
+				doc->docItemAttributes.clear();
+				while(!DIA.isNull())
+				{
+					QDomElement itemAttr = DIA.toElement();
+					if(itemAttr.tagName() == "ItemAttribute")
+					{
+						ObjectAttribute objattr;
+						objattr.name=itemAttr.attribute("Name");
+						objattr.type=itemAttr.attribute("Type");
+						objattr.value=itemAttr.attribute("Value");
+						objattr.parameter=itemAttr.attribute("Parameter");
+						doc->docItemAttributes.insert(count++,objattr);
+					}
+					DIA = DIA.nextSibling();
+				}
+			}
 			if ((pg.tagName()=="PAGE") || (pg.tagName()=="MASTERPAGE"))
 			{
 				a = QStoInt(pg.attribute("NUM"));
@@ -828,6 +931,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 				}
 			PAGE=PAGE.nextSibling();
 		}
+		/*
 		PAGE=DOC.firstChild();
 		while(!PAGE.isNull())
 		{
@@ -916,7 +1020,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 				}
 			}
 			PAGE=PAGE.nextSibling();
-		}
+	}*/
 		DOC=DOC.nextSibling();
 	}
 	if (TableItems.count() != 0)

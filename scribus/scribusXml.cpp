@@ -2824,12 +2824,23 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 		pdf4.setAttribute("SpotFunction", itlp.data().SpotFunc);
 		pdf.appendChild(pdf4);
 	}
+	dc.appendChild(pdf);
+	QDomElement docItemAttrs = docu.createElement("DocItemAttributes");
+	for(QMap<int, ObjectAttribute>::Iterator objAttrIt = doc->docItemAttributes.begin() ; objAttrIt != doc->docItemAttributes.end(); ++objAttrIt )
+	{
+		QDomElement itemAttr = docu.createElement("ItemAttribute");
+		itemAttr.setAttribute("Name", objAttrIt.data().name);
+		itemAttr.setAttribute("Type", objAttrIt.data().type);
+		itemAttr.setAttribute("Value", objAttrIt.data().value);
+		itemAttr.setAttribute("Parameter", objAttrIt.data().parameter);
+		docItemAttrs.appendChild(itemAttr);
+	}
+	dc.appendChild(docItemAttrs);
 	if (dia2 != 0)
 	{
 		dia2->setTotalSteps(doc->DocPages.count()+doc->MasterPages.count()+doc->DocItems.count()+doc->MasterItems.count());
 		dia2->setProgress(0);
 	}
-	dc.appendChild(pdf);
 	WritePages(doc, &docu, &dc, dia2, 0, true);
 	WritePages(doc, &docu, &dc, dia2, doc->MasterPages.count(), false);
 	WriteObjects(doc, &docu, &dc, dia2, doc->MasterPages.count()+doc->DocPages.count(), true);
@@ -3155,6 +3166,18 @@ void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 		pdf4.setAttribute("SpotFunction", itlp.data().SpotFunc);
 		pdf.appendChild(pdf4);
 	}
+	elem.appendChild(pdf);
+	QDomElement docItemAttrs = docu.createElement("DefaultItemAttributes");
+	for(QMap<int, ObjectAttribute>::Iterator objAttrIt = Vor->defaultItemAttributes.begin() ; objAttrIt != Vor->defaultItemAttributes.end(); ++objAttrIt )
+	{
+		QDomElement itemAttr = docu.createElement("ItemAttribute");
+		itemAttr.setAttribute("Name", objAttrIt.data().name);
+		itemAttr.setAttribute("Type", objAttrIt.data().type);
+		itemAttr.setAttribute("Value", objAttrIt.data().value);
+		itemAttr.setAttribute("Parameter", objAttrIt.data().parameter);
+		docItemAttrs.appendChild(itemAttr);
+	}
+	elem.appendChild(docItemAttrs);
 	QFile f(ho);
 	if(!f.open(IO_WriteOnly))
 		return;
@@ -3482,6 +3505,26 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 					Vorein->PDF_Options.LPISettings[pdfF.attribute("Color")] = lpo;
 				}
 				PFO = PFO.nextSibling();
+			}
+		}
+		if(dc.tagName()=="DefaultItemAttributes")
+		{
+			QDomNode DIA = DOC.firstChild();
+			int count=0;
+			Vorein->defaultItemAttributes.clear();
+			while(!DIA.isNull())
+			{
+				QDomElement itemAttr = DIA.toElement();
+				if(itemAttr.tagName() == "ItemAttribute")
+				{
+					ObjectAttribute objattr;
+					objattr.name=itemAttr.attribute("Name");
+					objattr.type=itemAttr.attribute("Type");
+					objattr.value=itemAttr.attribute("Value");
+					objattr.parameter=itemAttr.attribute("Parameter");
+					Vorein->defaultItemAttributes.insert(count++,objattr);
+				}
+				DIA = DIA.nextSibling();
 			}
 		}
 		DOC=DOC.nextSibling();

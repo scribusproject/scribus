@@ -36,7 +36,6 @@ void DocumentItemAttributes::setup(QMap<int, ObjectAttribute> *docItemAttrs)
 		attributesTable->setItem(it.key(), i++, item2);
 		QTableItem *item3 = new QTableItem(attributesTable, QTableItem::WhenCurrent, it.data().parameter);
 		attributesTable->setItem(it.key(), i++, item3);
-
 		
 		attributesTable->verticalHeader()->setLabel(it.key(), QString("%1").arg(it.key()));
 	}

@@ -370,7 +370,7 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	addItem( tr("Fonts"), loadIcon("font.png"), tabFonts);
 
 	tabDocChecker = new TabCheckDoc(  prefsWidgets, prefsData->checkerProfiles, prefsData->curCheckProfile);
-	addItem( tr("Doc-Checker"), loadIcon("checkdoc.png"), tabDocChecker);
+	addItem( tr("Document Checker"), loadIcon("checkdoc.png"), tabDocChecker);
 
 	if (CMSavail)
 	{
