@@ -204,17 +204,29 @@ void gtFont::setWeight(FontWeight newWeight)
 		setSlant(NO_SLANT);
 		setWidth(NO_WIDTH);
 	}
+	if (weightIndex < 0)
+	{
+		weightIndex = 0;
+		slantIndex = 1;
+		widthIndex = 2;
+	}
 }
 
 void gtFont::setWeight(QString newWeight)
 {
 	weight = newWeight;
 	useFullName = false;
-		if ((newWeight == fontWeights[ROMAN]) || 
-		    (newWeight == fontWeights[REGULAR]))
+	if ((newWeight == fontWeights[ROMAN]) || 
+		(newWeight == fontWeights[REGULAR]))
 	{
 		setSlant(NO_SLANT);
 		setWidth(NO_WIDTH);
+	}
+	if (weightIndex < 0)
+	{
+		weightIndex = 0;
+		slantIndex = 1;
+		widthIndex = 2;
 	}
 }
 
@@ -234,6 +246,12 @@ void gtFont::setSlant(FontSlant newSlant)
 		else if (weight == fontWeights[ROMAN])
 			setWeight(NO_WEIGHT);
 	}
+	if (slantIndex < 0)
+	{
+		weightIndex = 0;
+		slantIndex = 1;
+		widthIndex = 2;
+	}
 }
 
 void gtFont::setSlant(QString newSlant)
@@ -246,6 +264,12 @@ void gtFont::setSlant(QString newSlant)
 			setWeight(NO_WEIGHT);
 		else if (weight == fontWeights[ROMAN])
 			setWeight(NO_WEIGHT);
+	}
+	if (slantIndex < 0)
+	{
+		weightIndex = 0;
+		slantIndex = 1;
+		widthIndex = 2;
 	}
 }
 
@@ -265,6 +289,12 @@ void gtFont::setWidth(FontWidth newWidth)
 		else if (weight == fontWeights[ROMAN])
 			setWeight(NO_WEIGHT);
 	}
+	if (widthIndex < 0)
+	{
+		weightIndex = 0;
+		slantIndex = 1;
+		widthIndex = 2;
+	}
 }
 
 void gtFont::setWidth(QString newWidth)
@@ -277,6 +307,12 @@ void gtFont::setWidth(QString newWidth)
 			setWeight(NO_WEIGHT);
 		else if (weight == fontWeights[ROMAN])
 			setWeight(NO_WEIGHT);
+	}
+	if (widthIndex < 0)
+	{
+		weightIndex = 0;
+		slantIndex = 1;
+		widthIndex = 2;
 	}
 }
 
@@ -322,24 +358,28 @@ QString gtFont::getName()
 		return name;
 
 	QString name2 = family + " ";
+
 	if (weightIndex == 0)
 		name2 += weight + " ";
 	else if (slantIndex == 0) 
 		name2 += slant + " ";
 	else if (widthIndex == 0)
 		name2 += width + " ";
+
 	if (weightIndex == 1)
 		name2 += weight + " ";
 	else if (slantIndex == 1) 
 		name2 += slant + " ";
 	else if (widthIndex == 1)
 		name2 += width + " ";
+
 	if (weightIndex == 2)
 		name2 += weight + " ";
 	else if (slantIndex == 2) 
 		name2 += slant + " ";
 	else if (widthIndex == 2)
 		name2 += width + " ";
+
 	name2 += append;
 	name2 = name2.simplifyWhiteSpace();
 	return name2;
