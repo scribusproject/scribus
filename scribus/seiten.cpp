@@ -476,8 +476,7 @@ void TrashBin::dropEvent(QDropEvent * e)
 }
 
 
-SeitenPal::SeitenPal(QWidget* parent)
-		: ScrPaletteBase( parent, "SP", false, 0)
+SeitenPal::SeitenPal(QWidget* parent) : ScrPaletteBase( parent, "SP", false, 0)
 		//    : QDialog( parent, "SP", false, Qt::WStyle_Customize | Qt::WStyle_Title | Qt::WStyle_Tool)
 {
 	setCaption( tr( "Arrange Pages" ) );
@@ -550,8 +549,7 @@ SeitenPal::SeitenPal(QWidget* parent)
 	connect(Trash, SIGNAL(DelMaster(QString)), this, SLOT(DelMPage(QString)));
 	QToolTip::add( Trash, tr( "Drag Pages or Template Pages onto the Trashbin to delete them." ) );
 	QToolTip::add( PageView, tr( "Previews all the pages of your document." ));
-	QToolTip::add( TemplList,
-		               tr( "Here are all your Templates, to create a new Page\ndrag a Template to the Pageview below." ) );
+	QToolTip::add( TemplList, tr( "Here are all your Templates, to create a new Page\ndrag a Template to the Pageview below." ) );
 }
 /*
 void SeitenPal::keyPressEvent(QKeyEvent *k)

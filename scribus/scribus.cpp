@@ -3035,7 +3035,7 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	doc->currentPage = doc->Pages.at(0);
 	doc->OpenNodes.clear();
 	outlinePalette->BuildTree(doc);
-//	pagePalette->Rebuild();
+	pagePalette->Rebuild();
 	bookmarkPalette->BView->clear();
 	if ( wsp->windowList().isEmpty() )
 		w->showMaximized();
@@ -3165,8 +3165,8 @@ void ScribusApp::newActWin(QWidget *w)
 	scrActions["viewShowBaseline"]->setOn(doc->guidesSettings.baseShown);
 	scrActions["viewShowImages"]->setOn(doc->guidesSettings.showPic);
 	scrActions["viewShowTextChain"]->setOn(doc->guidesSettings.linkShown);
-//	if (!doc->TemplateMode)
-//		pagePalette->Rebuild();
+	if (!doc->TemplateMode)
+		pagePalette->Rebuild();
 	outlinePalette->BuildTree(doc);
 //	outlinePalette->reopenTree(doc->OpenNodes);
 	bookmarkPalette->BView->NrItems = doc->NrItems;
@@ -3521,7 +3521,7 @@ bool ScribusApp::SetupDoc()
 		view->GotoPage(doc->currentPage->PageNr);
 		view->DrawNew();
 		propertiesPalette->ShowCMS();
-//		pagePalette->RebuildPage();
+		pagePalette->RebuildPage();
 		slotDocCh();
 		ret = true;
 	}
@@ -4399,11 +4399,6 @@ bool ScribusApp::LadeSeite(QString fileName, int Nr, bool Mpa)
 
 bool ScribusApp::LadeDoc(QString fileName)
 {
-	//Scribus 1.3.x warning, remove at a later stage
-	if (!warningVersion(this))
-		return false;
-	//
-
 	undoManager->setUndoEnabled(false);
 	QFileInfo fi(fileName);
 	if (!fi.exists())
@@ -4437,6 +4432,16 @@ bool ScribusApp::LadeDoc(QString fileName)
 		QString FName = fi.absFilePath();
 		QDir::setCurrent(fi.dirPath(true));
 		FileLoader *fl = new FileLoader(FName, this);
+		if (fl->TestFile() == 0)
+		{
+			qApp->setOverrideCursor(QCursor(arrowCursor), true);
+			//Scribus 1.3.x warning, remove at a later stage
+			if (!warningVersion(this))
+			{
+				delete fl;
+				return false;
+			}
+		}
 		if (fl->TestFile() == -1)
 		{
 			delete fl;
@@ -4777,7 +4782,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 		pagePalette->Vie = 0;
 	}
 	undoManager->switchStack(doc->DocName);
-//	pagePalette->Rebuild();
+	pagePalette->Rebuild();
 	qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	undoManager->setUndoEnabled(true);
 	return ret;
@@ -5789,7 +5794,7 @@ void ScribusApp::applyNewMaster(QString name)
 	Apply_Temp(name, doc->currentPage->PageNr);
 	view->DrawNew();
 	slotDocCh();
-//	pagePalette->Rebuild();
+	pagePalette->Rebuild();
 }
 
 void ScribusApp::slotNewPageP(int wo, QString templ)
@@ -5803,7 +5808,7 @@ void ScribusApp::slotNewPageP(int wo, QString templ)
 	else
 		doc->DocPages = doc->Pages;
 	outlinePalette->BuildTree(doc);
-//	pagePalette->RebuildPage();
+	pagePalette->RebuildPage();
 }
 
 /** Erzeugt eine neue Seite */
@@ -5906,7 +5911,7 @@ void ScribusApp::addNewPages(int wo, int where, int numPages, QString based1, QS
 			}
 			break;
 		}
-//		pagePalette->RebuildPage();
+		pagePalette->RebuildPage();
 		view->DrawNew();
 		if (doc->TemplateMode)
 			doc->MasterPages = doc->Pages;
@@ -6579,24 +6584,40 @@ void ScribusApp::DeletePage2(int pg)
 	NoFrameEdit();
 	if (doc->Pages.count() == 1)
 		return;
+	if (UndoManager::undoEnabled())
+		undoManager->beginTransaction(doc->DocName, Um::IDocument, Um::DeletePage, "", Um::IDelete);
 /*	if (!doc->TemplateMode)
 		disconnect(doc->currentPage, SIGNAL(DelObj(uint, uint)), outlinePalette, SLOT(slotRemoveElement(uint, uint))); */
 	view->SelItem.clear();
 	for (uint d = 0; d < doc->Items.count(); ++d)
 	{
 		ite = doc->Items.at(d);
-		if (ite->isBookmark)
-			DelBookMark(ite);
-		view->SelItem.append(ite);
+		if (ite->OwnPage == pg)
+		{
+//				if (ite->isBookmark)
+//					DelBookMark(ite);
+			view->SelItem.append(ite);
+		}
 	}
 	if (view->SelItem.count() != 0)
 		view->DeleteItem();
-//	disconnect(view->Pages.at(pg), SIGNAL(DelObj(uint, uint)), outlinePalette, SLOT(slotRemoveElement(uint, uint)));
-	view->reformPages();
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::DeletePage, "", Um::ICreate);
+		ss->set("DELETE_PAGE", "delete_page");
+		ss->set("PAGENR", pg + 1);
+		ss->set("TEMPLATE", doc->Pages.at(pg)->MPageNam);
+		// replace the deleted page in the undostack by a dummy object that will
+		// replaced with the "undone" page if user choose to undo the action
+		DummyUndoObject *duo = new DummyUndoObject();
+		uint id = static_cast<uint>(duo->getUId());
+		undoManager->replaceObject(doc->Pages.at(pg)->getUId(), duo);
+		ss->set("DUMMY_ID", id);
+		undoManager->action(this, ss);
+	}
 	view->delPage(pg);
+	view->reformPages();
 //	AdjustBM();
-//	if (!doc->TemplateMode)
-//		connect(doc->currentPage, SIGNAL(DelObj(uint, uint)), outlinePalette, SLOT(slotRemoveElement(uint, uint)));
 	view->DrawNew();
 	doc->OpenNodes.clear();
 	outlinePalette->BuildTree(doc);
@@ -6604,7 +6625,9 @@ void ScribusApp::DeletePage2(int pg)
 	scrActions["pageDelete"]->setEnabled(setter);
 	scrActions["pageMove"]->setEnabled(setter);
 	slotDocCh();
-//	pagePalette->RebuildPage();
+	pagePalette->RebuildPage();
+	if (UndoManager::undoEnabled())
+		undoManager->commit();
 }
 
 void ScribusApp::DeletePage()
@@ -6625,11 +6648,8 @@ void ScribusApp::DeletePage(int from, int to)
 									  Um::IDelete);
 	PageItem* ite;
 	view->SelItem.clear();
-//	if (!doc->TemplateMode)
-//		disconnect(doc->currentPage, SIGNAL(DelObj(uint, uint)), outlinePalette, SLOT(slotRemoveElement(uint, uint)));
 	for (int a = to - 1; a >= from - 1; a--)
 	{
-/*		disconnect(view->Pages.at(pg), SIGNAL(DelObj(uint, uint)), outlinePalette, SLOT(slotRemoveElement(uint, uint))); */
 		for (uint d = 0; d < doc->Items.count(); ++d)
 		{
 			ite = doc->Items.at(d);
@@ -6642,8 +6662,6 @@ void ScribusApp::DeletePage(int from, int to)
 		}
 //		AdjustBM();
 	}
-//	if (!doc->TemplateMode)
-//		connect(doc->currentPage, SIGNAL(DelObj(uint, uint)), outlinePalette, SLOT(slotRemoveElement(uint, uint)));
 	if (view->SelItem.count() != 0)
 		view->DeleteItem();
 	for (int a = to - 1; a >= from - 1; a--)
@@ -6672,14 +6690,14 @@ void ScribusApp::DeletePage(int from, int to)
 	scrActions["pageDelete"]->setEnabled(setter);
 	scrActions["pageMove"]->setEnabled(setter);
 	slotDocCh();
-//	pagePalette->RebuildPage();
+	pagePalette->RebuildPage();
 	if (UndoManager::undoEnabled())
 		undoManager->commit();
 }
 
 void ScribusApp::MovePage()
 {
-//	NoFrameEdit();
+	NoFrameEdit();
 	MovePages *dia = new MovePages(this, doc->currentPage->PageNr+1, doc->Pages.count(), true);
 	if (dia->exec())
 	{
@@ -6692,8 +6710,8 @@ void ScribusApp::MovePage()
 			view->movePage(from-1, to, wo-1, wie);
 		slotDocCh();
 		view->DrawNew();
-/*		AdjustBM();
-		pagePalette->RebuildPage(); */
+/*		AdjustBM(); */
+		pagePalette->RebuildPage();
 		outlinePalette->BuildTree(doc);
 		outlinePalette->reopenTree(doc->OpenNodes);
 	}
@@ -6788,7 +6806,7 @@ void ScribusApp::CopyPage()
 		doc->loading = false;
 		view->DrawNew();
 		slotDocCh();
-//		pagePalette->RebuildPage();
+		pagePalette->RebuildPage();
 		outlinePalette->BuildTree(doc);
 //		AdjustBM();
 	}
@@ -8687,6 +8705,7 @@ void ScribusApp::ManageTemp(QString temp)
 		}
 		else
 		{
+			doc->TemplateMode = true;
 			MusterPages *dia = new MusterPages(this, doc, view, temp);
 			connect(dia, SIGNAL(createNew(int)), this, SLOT(slotNewPageT(int)));
 			connect(dia, SIGNAL(loadPage(QString, int, bool)), this, SLOT(LadeSeite(QString, int, bool)));
@@ -8709,7 +8728,6 @@ void ScribusApp::ManageTemp(QString temp)
 			scrActions["fileRevert"]->setEnabled(false);
 			scrActions["fileDocSetup"]->setEnabled(false);
 			scrActions["filePrint"]->setEnabled(false);
-			doc->TemplateMode = true;
 			pagePalette->DisablePal();
 			dia->show();
 			ActWin->muster = dia;
@@ -8724,7 +8742,7 @@ void ScribusApp::ManTempEnd()
 	scrActions["editTemplates"]->setEnabled(true);
 	scrActions["fileNew"]->setEnabled(true);
 	scrActions["fileOpen"]->setEnabled(true);
-	scrActions["fileClose"]->setEnabled(false);
+	scrActions["fileClose"]->setEnabled(true);
 	scrActions["fileSave"]->setEnabled(doc->isModified());
 	scrMenuMgr->setMenuEnabled("FileOpenRecent", true);
 	scrActions["fileRevert"]->setEnabled(true);
@@ -8743,11 +8761,11 @@ void ScribusApp::ManTempEnd()
 	}
 	doc->TemplateMode = false;
 	pagePalette->EnablePal();
-//	pagePalette->RebuildTemp();
+	pagePalette->RebuildTemp();
 	ActWin->muster = NULL;
 	view->DrawNew();
-//	pagePalette->Rebuild();
-//	outlinePalette->BuildTree(doc);
+	pagePalette->Rebuild();
+	outlinePalette->BuildTree(doc);
 //	outlinePalette->reopenTree(doc->OpenNodes);
 //	slotDocCh();
 }
@@ -8787,7 +8805,7 @@ void ScribusApp::ApplyTemp()
 	}
 	view->DrawNew();
 	slotDocCh();
-//	pagePalette->Rebuild();
+	pagePalette->Rebuild();
 	delete dia;
 }
 
@@ -8851,7 +8869,7 @@ void ScribusApp::Apply_Temp(QString in, int Snr, bool reb)
 	{
 		view->DrawNew();
 		slotDocCh();
-//		pagePalette->Rebuild();
+		pagePalette->Rebuild();
 	}
 }
 

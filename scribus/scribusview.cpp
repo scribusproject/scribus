@@ -1483,7 +1483,6 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		ScApp->scrActions["editRedoAction"]->addTo(pmen);
 		pmen->insertSeparator();
 		ScApp->scrActions["viewShowMargins"]->addTo(pmen);
-		ScApp->scrActions["viewShowMargins"]->addTo(pmen);
 		ScApp->scrActions["viewShowFrames"]->addTo(pmen);
 		ScApp->scrActions["viewShowImages"]->addTo(pmen);
 		ScApp->scrActions["viewShowGrid"]->addTo(pmen);
@@ -8820,6 +8819,7 @@ void ScribusView::ShowTemplate(int nr)
 	Doc->currentPage = Doc->Pages.at(nr);
 	PGS->setEnabled(false);
 	updateOn = false;
+	reformPages();
 	slotDoZoom();
 	oldX = qRound(Doc->currentPage->Xoffset - 10);
 	oldY = qRound(Doc->currentPage->Yoffset - 10);
@@ -8901,7 +8901,7 @@ QPixmap ScribusView::MPageToPixmap(QString name, int maxGr)
 		double sca = Scale;
 		bool frs = Doc->guidesSettings.framesShown;
 		bool mas = Doc->MasterP;
-		Doc->MasterP = true;
+//		Doc->MasterP = true;
 		Page* act = Doc->currentPage;
 		Doc->currentPage = Doc->MasterPages.at(Nr);
 		if (!mas)
@@ -8928,6 +8928,7 @@ QPixmap ScribusView::MPageToPixmap(QString name, int maxGr)
 			Doc->Items = Doc->DocItems;
 		}
 		Doc->MasterP = mas;
+		painter->end();
 		QImage im2;
 		QImage im = pm.convertToImage();
 		double sx = im.width() / static_cast<double>(maxGr);
