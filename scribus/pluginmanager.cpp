@@ -37,11 +37,8 @@ void PluginManager::initPlugs()
 	QString name = "";
 	int id = 0;
 	struct PluginData pda;
-#if defined(__hpux)
-	QDir dirList(PLUGINDIR, "*.sl*", QDir::Name, QDir::Files | QDir::Executable | QDir::NoSymLinks);
-#else
-	QDir dirList(PLUGINDIR, "*.so*", QDir::Name, QDir::Files | QDir::Executable | QDir::NoSymLinks);
-#endif
+	QString libPattern = QString("*.%1*").arg(PluginManager::platformDllExtension());
+	QDir dirList(PLUGINDIR, libPattern, QDir::Name, QDir::Files | QDir::Executable | QDir::NoSymLinks);
 	if ((dirList.exists()) && (dirList.count() != 0))
 	{
 		ScApp->scrMenuMgr->addMenuSeparator("Extras");
@@ -330,4 +327,18 @@ QString PluginManager::getPluginType(PluginType aType)
 		default:
 			return tr("Unknown", "plugin manager");
 	}
+}
+
+QCString PluginManager::platformDllExtension()
+{
+#ifdef __hpux
+	// HP/UX
+	return "sl";
+#elif defined(__APPLE__) && defined(__MACH__)
+	// MacOS/X, Darwin
+	return "dylib";
+#else
+	// Generic *NIX
+	return "so";
+#endif
 }

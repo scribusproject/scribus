@@ -19,6 +19,7 @@
  ***************************************************************************/
 
 #include "gtgettext.h"
+#include "pluginmanager.h"
 #include "scribus.h"
 
 extern QPixmap loadIcon(QString nam);
@@ -59,11 +60,8 @@ void gtGetText::loadImporterPlugins()
 {
 	QString gtdir = PLUGINDIR;
 	gtdir += "gettext";
-#if defined(__hpux)
-	QDir d(gtdir, "*.sl*", QDir::Name, QDir::Files | QDir::Executable | QDir::NoSymLinks);
-#else
-	QDir d(gtdir, "*.so*", QDir::Name, QDir::Files | QDir::Executable | QDir::NoSymLinks);
-#endif
+	QString libPattern = QString("*.%1*").arg(PluginManager::platformDllExtension());
+	QDir d(gtdir, libPattern, QDir::Name, QDir::Files | QDir::Executable | QDir::NoSymLinks);
 
 	struct ImporterData ida;
 	ida.fileFormatName = "";

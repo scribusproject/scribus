@@ -8151,12 +8151,7 @@ PSLib* ScribusApp::getPSDriver(bool psart, SCFonts &AllFonts, QMap<QString,QFont
 	const char *error;
 	typedef PSLib* (*sdem)(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, ColorList DocColors, bool pdf);
 	sdem demo;
-	QString pfad = LIBDIR;
-#if defined(__hpux)
-	pfad += "libs/libpostscript.sl";
-#else
-	pfad += "libs/libpostscript.so";
-#endif
+	QString pfad = QString("%1/libs/libpostscript.%3").arg(LIBDIR).arg(PluginManager::platformDllExtension());
 	PSDriver = dlopen(pfad, RTLD_LAZY);
 	if (!PSDriver)
 	{
@@ -8266,12 +8261,7 @@ bool ScribusApp::getPDFDriver(QString fn, QString nam, int Components, std::vect
 	void *PDFDriver;
 	typedef bool (*sdem)(ScribusApp *plug, QString fn, QString nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs, QProgressBar *dia2);
 	sdem demo;
-	QString pfad = LIBDIR;
-#if defined(__hpux)
-	pfad += "libs/libpdf.sl";
-#else
-	pfad += "libs/libpdf.so";
-#endif
+	QString pfad = QString("%1/libs/libpdf.%3").arg(LIBDIR).arg(PluginManager::platformDllExtension());
 	PDFDriver = dlopen(pfad, RTLD_NOW);
 	if (!PDFDriver)
 	{

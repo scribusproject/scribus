@@ -94,6 +94,9 @@ public:
 	 * Each plugin has its record key() -> PluginData */
 	QMap<int, PluginData> pluginMap;
 
+	/*! \brief Return file extension used for shared libs on this platform */
+	static QCString PluginManager::platformDllExtension();
+
 public slots:
 	/*! obsolete */
 	void callDLLBySlot(int pluginID);
