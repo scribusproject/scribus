@@ -8,7 +8,9 @@
 #include <qregexp.h>
 #include <qfileinfo.h>
 #include <qbitmap.h>
+#include <qdir.h>
 #include <cmath>
+#include <cstdlib>
 #include "missing.h"
 #include "kimageeffect.h"
 extern float QStoFloat(QString in);
@@ -25,6 +27,7 @@ ScPreview::ScPreview(preV *prefs)
 	MLineStyles.clear();
 	Segments.clear();
 }
+
 QPixmap ScPreview::createPreview(QString data)
 {
 	struct CLBuf OB;
@@ -59,10 +62,11 @@ QPixmap ScPreview::createPreview(QString data)
 	float GrY = QStoFloat(elem.attribute("YP"));
 	float GrW = QStoFloat(elem.attribute("W"));
 	float GrH = QStoFloat(elem.attribute("H"));
-	float pmmax = Prefs->PSize / QMAX(GrW+15, GrH+15);
-	QPixmap tmp = QPixmap(static_cast<int>(GrW)+15, static_cast<int>(GrH)+15);
+	float pmmax = Prefs->PSize / QMAX(GrW+30, GrH+30);
+	QPixmap tmp = QPixmap(static_cast<int>(GrW)+30, static_cast<int>(GrH)+30);
 	tmp.fill(Qt::white);
 	pm.begin(&tmp);
+	pm.translate(15,15);
 	QDomNode DOC=elem.firstChild();
 	DoFonts.clear();
 	while(!DOC.isNull())
@@ -125,6 +129,8 @@ QPixmap ScPreview::createPreview(QString data)
 		QDomElement pg=DOC.toElement();
 		if(pg.tagName()=="ITEM")
 			{
+			QString CurDirP = QDir::currentDirPath();
+			QDir::setCurrent(QString(getenv("HOME")));
 			Segments.clear();
 			OB.PType = QStoInt(pg.attribute("PTYPE"));
 			OB.Xpos = QStoFloat(pg.attribute("XPOS")) - GrX;
@@ -446,7 +452,7 @@ QPixmap ScPreview::createPreview(QString data)
 					else
 						{
 						multiLine ml = MLineStyles[OB.NamedLStyle];
-						for (int it = ml.count()-1; it > -1; it--)
+						for (int it = ml.size()-1; it > -1; it--)
 							{
 							SetFarbe(&tmpfa, ml[it].Color, ml[it].Shade);
 							pm.setPen(QPen(tmpfa,
@@ -539,7 +545,7 @@ QPixmap ScPreview::createPreview(QString data)
 							else
 								{
 								multiLine ml = MLineStyles[OB.NamedLStyle];
-								for (int it = ml.count()-1; it > -1; it--)
+								for (int it = ml.size()-1; it > -1; it--)
 									{
 									SetFarbe(&tmpfa, ml[it].Color, ml[it].Shade);
 									pm.setPen(QPen(tmpfa,
@@ -571,7 +577,7 @@ QPixmap ScPreview::createPreview(QString data)
 								else
 									{
 									multiLine ml = MLineStyles[OB.NamedLStyle];
-									for (int it = ml.count()-1; it > -1; it--)
+									for (int it = ml.size()-1; it > -1; it--)
 										{
 										SetFarbe(&tmpfa, ml[it].Color, ml[it].Shade);
 										pm.setPen(QPen(tmpfa,
@@ -686,6 +692,7 @@ QPixmap ScPreview::createPreview(QString data)
 PfadEnd:	break;
 				}
 			pm.restore();
+			QDir::setCurrent(CurDirP);
 			}
 		DOC=DOC.nextSibling();
 		}
@@ -762,7 +769,7 @@ void ScPreview::DrawPolyL(QPainter *p, QPointArray pts, struct CLBuf *OB)
 			else
 				{
 				multiLine ml = MLineStyles[OB->NamedLStyle];
-				for (int it = ml.count()-1; it > -1; it--)
+				for (int it = ml.size()-1; it > -1; it--)
 					{
 					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
 					p->setPen(QPen(tmp,
@@ -780,7 +787,7 @@ void ScPreview::DrawPolyL(QPainter *p, QPointArray pts, struct CLBuf *OB)
 		else
 			{
 			multiLine ml = MLineStyles[OB->NamedLStyle];
-			for (int it = ml.count()-1; it > -1; it--)
+			for (int it = ml.size()-1; it > -1; it--)
 				{
 				SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
 				p->setPen(QPen(tmp,
@@ -799,7 +806,7 @@ void ScPreview::DrawPolyL(QPainter *p, QPointArray pts, struct CLBuf *OB)
 		else
 			{
 			multiLine ml = MLineStyles[OB->NamedLStyle];
-			for (int it = ml.count()-1; it > -1; it--)
+			for (int it = ml.size()-1; it > -1; it--)
 				{
 				SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
 				p->setPen(QPen(tmp,

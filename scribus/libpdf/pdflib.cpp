@@ -1342,13 +1342,18 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 				switch (ite->PType)
 					{
 					case 2:
-						if (ite->Pcolor != "None")
+						if ((ite->Pcolor != "None") || (ite->GrType != 0))
 							{
 							PutPage(SetClipPath(ite));
-							if (ite->Segments.count() != 0)
-								PutPage("h\nf*\n");
+							if (ite->GrType != 0)
+								PDF_Gradient(ite);
 							else
-								PutPage("h\nf\n");
+								{
+								if (ite->Segments.count() != 0)
+									PutPage("h\nf*\n");
+								else
+									PutPage("h\nf\n");
+								}
 							}
 						PutPage("q\n");
 						PutPage(SetClipPath(ite));
@@ -1375,7 +1380,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 							else
 								{
 								multiLine ml = doc->MLineStyles[ite->NamedLStyle];
-								for (int it = ml.count()-1; it > -1; it--)
+								for (int it = ml.size()-1; it > -1; it--)
 									{
 									PutPage(setStrokeMulti(&ml[it]));
 									PutPage(SetClipPath(ite));
@@ -1419,7 +1424,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 						else
 							{
 							multiLine ml = doc->MLineStyles[ite->NamedLStyle];
-							for (int it = ml.count()-1; it > -1; it--)
+							for (int it = ml.size()-1; it > -1; it--)
 								{
 								PutPage(setStrokeMulti(&ml[it]));
 								PutPage("0 0 m\n");
@@ -1454,7 +1459,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 							else
 								{
 								multiLine ml = doc->MLineStyles[ite->NamedLStyle];
-								for (int it = ml.count()-1; it > -1; it--)
+								for (int it = ml.size()-1; it > -1; it--)
 									{
 									PutPage(setStrokeMulti(&ml[it]));
 									PutPage(SetClipPath(ite));
@@ -1474,7 +1479,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 							else
 								{
 								multiLine ml = doc->MLineStyles[ite->NamedLStyle];
-								for (int it = ml.count()-1; it > -1; it--)
+								for (int it = ml.size()-1; it > -1; it--)
 									{
 									PutPage(setStrokeMulti(&ml[it]));
 									PutPage(SetClipPath(ite));
@@ -1499,7 +1504,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 									else
 										{
 										multiLine ml = doc->MLineStyles[ite->NamedLStyle];
-										for (int it = ml.count()-1; it > -1; it--)
+										for (int it = ml.size()-1; it > -1; it--)
 											{
 											PutPage(setStrokeMulti(&ml[it]));
 											PutPage(SetClipPath(ite));
@@ -2017,7 +2022,7 @@ void PDFlib::PDF_Gradient(PageItem *b)
 		PutDoc("/C0 ["+SetFarbe(b->GrColor2, b->GrShade2)+"]\n");
 		PutDoc("/C1 ["+SetFarbe(b->GrColor, b->GrShade)+"]\n");
 		}
-	PutDoc("/N 1\n>>\n>>\nendobj\nq\n");
+	PutDoc("/N 1\n>>\n>>\nendobj\n");
 	PutPage("q\n");
 	PutPage(SetClipPath(b));
 	if (b->Segments.count() != 0)

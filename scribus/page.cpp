@@ -5278,7 +5278,7 @@ void Page::UpdateGradient(PageItem *i)
 		default:
 			break;
 		}
-	i->pixm = KImageEffect::gradient(QSize(static_cast<int>(i->Width),static_cast<int>(i->Height)), co1, co2, tt, 0);
+	i->Gpixm = KImageEffect::gradient(QSize(static_cast<int>(i->Width),static_cast<int>(i->Height)), co1, co2, tt, 0);
 }
 
 void Page::ItemGradFill(int typ, QString col1, int sh1, QString col2, int sh2)

@@ -111,7 +111,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 				Item = Seite->Items.at(j);
 				if (Item->LayerNr != ll.LNr)
 					continue;
-				if (Item->Pcolor != "None")
+				if ((Item->Pcolor != "None") || (Item->GrType != 0))
 					{
 					fill = "fill:"+SetFarbe(Item->Pcolor, Item->Shade, plug)+";";
 					if (Item->GrType != 0)
@@ -270,7 +270,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 							ob.setAttribute("style", fill);
 							gr.appendChild(ob);
 							multiLine ml = plug->doc->MLineStyles[Item->NamedLStyle];
-							for (int it = ml.count()-1; it > -1; it--)
+							for (int it = ml.size()-1; it > -1; it--)
 								{
 								ob = docu->createElement("path");
 								ob.setAttribute("d", SetClipPath(Item)+"Z");
@@ -280,7 +280,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 							}
 						break;
 					case 2:
-						if (Item->Pcolor != "None")
+						if ((Item->Pcolor != "None") || (Item->GrType != 0))
 							{
 							ob = docu->createElement("path");
 							ob.setAttribute("d", SetClipPath(Item)+"Z");
@@ -315,7 +315,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 						else
 							{
 							multiLine ml = plug->doc->MLineStyles[Item->NamedLStyle];
-							for (int it = ml.count()-1; it > -1; it--)
+							for (int it = ml.size()-1; it > -1; it--)
 								{
 								ob = docu->createElement("path");
 								ob.setAttribute("d", SetClipPath(Item));
@@ -333,7 +333,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 						else
 							{
 							multiLine ml = plug->doc->MLineStyles[Item->NamedLStyle];
-							for (int it = ml.count()-1; it > -1; it--)
+							for (int it = ml.size()-1; it > -1; it--)
 								{
 								ob = docu->createElement("path");
 								ob.setAttribute("d", SetClipPath(Item));
@@ -343,7 +343,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 							}
 						break;
 					case 4:
-						if (Item->Pcolor != "None")
+						if ((Item->Pcolor != "None") || (Item->GrType != 0))
 							{
 							ob = docu->createElement("path");
 							ob.setAttribute("d", SetClipPath(Item)+"Z");
@@ -376,7 +376,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 						else
 							{
 							multiLine ml = plug->doc->MLineStyles[Item->NamedLStyle];
-							for (int it = ml.count()-1; it > -1; it--)
+							for (int it = ml.size()-1; it > -1; it--)
 								{
 								ob = docu->createElement("path");
 								ob.setAttribute("d", "M 0 0 L "+FToStr(Item->Width)+" 0");
@@ -397,7 +397,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 							else
 								{
 								multiLine ml = plug->doc->MLineStyles[Item->NamedLStyle];
-								for (int it = ml.count()-1; it > -1; it--)
+								for (int it = ml.size()-1; it > -1; it--)
 									{
 									ob = docu->createElement("path");
 									ob.setAttribute("d", SetClipPath(Item));

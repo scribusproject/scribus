@@ -2753,3 +2753,36 @@ msgstr "Scherung nach open"
 msgid "Shears the Path vertical down"
 msgstr "Scherung nach unten"
 
+msgid "Line Styles..."
+msgstr "Linien Stile..."
+
+msgid "Initializing Plugins"
+msgstr "Lade Plugins"
+
+msgid "Reading Scrapbook"
+msgstr "Lese Bibliothek"
+
+msgid "Setting up Shortcuts"
+msgstr "Lese Tastaturkürzel"
+
+msgid "Reading Preferences"
+msgstr "Lese Voreinstellungen"
+
+msgid "Init Hyphenator"
+msgstr "Initialisiere Silbentrennung"
+
+msgid "Getting ICC-Profiles"
+msgstr "Lese ICC-Profile"
+
+msgid "Searching for Fonts"
+msgstr "Suche Schriften"
+
+msgid "Print Preview"
+msgstr "Druck Vorschau"
+
+msgid "Antialias Text"
+msgstr "Text weichzeichnen"
+
+msgid "Antialias Graphics"
+msgstr "Graphiken weichzeichnen"
+

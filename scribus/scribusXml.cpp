@@ -148,10 +148,13 @@ struct CLBuf OB;
 struct StVorL vg;
 struct Layer la;
 struct ScribusDoc::BookMa bok;
+struct Linked Link;
+PageItem *Neu;
+LFrames.clear();
 QString tmp, tmpf, tmp2, tmp3, tmp4, PgNam, f, Defont;
 QFont fo;
 QMap<QString,QString> DoFonts;
-int x, y, a;
+int x, y, a, counter;
 float xf, yf;
 QDomDocument docu("scridoc");
 f = "";
@@ -259,23 +262,31 @@ while(!DOC.isNull())
 			bok.Parent = QStoInt(pg.attribute("Parent"));
 			doc->BookMarks.append(bok);
 			}
+		if(pg.tagName()=="MultiLine")
+			{
+			multiLine ml;
+			QDomNode MuLn = PAGE.firstChild();
+			while(!MuLn.isNull())
+				{
+				QDomElement MuL = MuLn.toElement();
+				struct singleLine sl;
+				sl.Color = MuL.attribute("Color");
+				sl.Dash = QStoInt(MuL.attribute("Dash"));
+				sl.LineEnd = QStoInt(MuL.attribute("LineEnd"));
+				sl.LineJoin = QStoInt(MuL.attribute("LineJoin"));
+				sl.Shade = QStoInt(MuL.attribute("Shade"));
+				sl.Width = QStoFloat(MuL.attribute("Width"));
+				ml.append(sl);
+				MuLn = MuLn.nextSibling();
+				}
+			doc->MLineStyles.insert(pg.attribute("Name"), ml);
+			}
 		if ((pg.tagName()=="PAGE") && (QStoInt(pg.attribute("NUM")) == PageToLoad))
 		{
 			/*
 			* Attribute von PAGE auslesen
 			*/
-/*			a = QStoInt(pg.attribute("NUM"));
-			if ((a > PageToLoad) && (pg.attribute("NAM", "") == ""))
-				return false;
-			if (a != PageToLoad)
-				continue;      */
 			a = doc->ActPage->PageNr;
-/*			if (doc->MasterP)
-				emit NewPage(0);
-			else
-				emit NewPage(doc->PageC);  */
-//			view->Pages.at(a)->LeftPg=QStoInt(pg.attribute("LEFT","0"));
-//			view->Pages.at(a)->MPageNam=pg.attribute("MNAM","");
 			if ((pg.hasAttribute("NumVGuides")) && (QStoInt(pg.attribute("NumVGuides","0")) != 0))
 				{
 				tmp = pg.attribute("VerticalGuides");
@@ -307,12 +318,22 @@ while(!DOC.isNull())
 			else
 				view->Pages.at(a)->XGuides.clear();
 			QDomNode OBJ=PAGE.firstChild();
+			counter = 0;
 			while(!OBJ.isNull())
 			{
 				QDomElement obj=OBJ.toElement();
 				/*
 				* Attribute von OBJECT auslesen
 				*/
+				if ((QStoInt(obj.attribute("NEXTITEM")) != -1) && (QStoInt(obj.attribute("NEXTPAGE")) == PageToLoad))
+					{
+					if (QStoInt(obj.attribute("BACKITEM")) == -1)
+						{
+						Link.Start = counter;
+						Link.StPag = a;
+						LFrames.append(Link);
+						}
+					}
 				OB.PType = QStoInt(obj.attribute("PTYPE"));
 				OB.Xpos = QStoFloat(obj.attribute("XPOS"));
 				OB.Ypos=QStoFloat(obj.attribute("YPOS"));
@@ -507,7 +528,41 @@ while(!DOC.isNull())
 					OB.Clip.setPoints(4, -1,-1, static_cast<int>(OB.Width+1),-1, static_cast<int>(OB.Width+1), static_cast<int>(OB.Height+1), -1, static_cast<int>(OB.Height+1));
 					}
 				view->Pages.at(a)->PasteItem(&OB, true);
+				Neu = view->Pages.at(a)->Items.at(counter);
+				if (QStoInt(obj.attribute("NEXTPAGE")) == PageToLoad)
+					{
+					Neu->NextIt = QStoInt(obj.attribute("NEXTITEM"));
+					Neu->NextPg = QStoInt(obj.attribute("NEXTPAGE"));
+					}
 				OBJ=OBJ.nextSibling();
+			}
+			if (LFrames.count() != 0)
+				{
+				PageItem *Its;
+				PageItem *Itn;
+				PageItem *Itr;
+				QValueList<Linked>::Iterator lc;
+				for (lc = LFrames.begin(); lc != LFrames.end(); ++lc)
+					{
+					Its = view->Pages.at((*lc).StPag)->Items.at((*lc).Start);
+					Itr = Its;
+					Its->BackBox = 0;
+				while (Its->NextIt != -1)
+					{
+					if (Its->NextPg == PageToLoad)
+						{
+						Itn = view->Pages.at(Its->NextPg)->Items.at(Its->NextIt);
+						Its->NextBox = Itn;
+						Itn->BackBox = Its;
+						Its = Itn;
+						}
+					else
+						break;
+					}
+				Its->NextBox = 0;
+				Itr->Dirty = true;
+				Itr->paintObj();
+				}
 			}
 			view->reformPages();
 			return true;
@@ -1563,6 +1618,8 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 	elem.setAttribute("COUNT", Selitems->count());	
 	for (uint co=0; co<Selitems->count(); ++co)
 		{
+		QString CurDirP = QDir::currentDirPath();
+		QDir::setCurrent(QString(getenv("HOME")));
 		item = doc->ActPage->Items.at(ELL[co]);
 		QDomElement ob=docu.createElement("ITEM");
 		ob.setAttribute("PTYPE",item->PType);
@@ -1693,6 +1750,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 			ob.setAttribute("PFILE3",Path2Relative(item->Pfile3));
 		else
 			ob.setAttribute("PFILE3","");
+		QDir::setCurrent(CurDirP);
 		ob.setAttribute("PRFILE",item->IProfile);
 		ob.setAttribute("EPROF", item->EmProfile);
 		ob.setAttribute("IRENDER",item->IRender);

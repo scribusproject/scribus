@@ -165,6 +165,7 @@ Biblio::Biblio( QWidget* parent, preV *prefs)
     BibWin = new BibView(Frame3, prefs);
     BibWin->setAutoArrange(true);
     BibWin->setSorting(true);
+		BibWin->setResizeMode(QIconView::Adjust);
     Frame3Layout->addWidget( BibWin );
     BiblioLayout->addWidget( Frame3 );
     connect(BibWin, SIGNAL(dropped(QDropEvent *, const QValueList<QIconDragItem> &)),

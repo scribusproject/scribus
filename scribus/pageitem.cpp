@@ -99,6 +99,7 @@ PageItem::PageItem(Page *pa, int art, float x, float y, float w, float h, float 
 	Ptext.setAutoDelete(true);
 	Pfile = "";
 	pixm = QImage();
+	Gpixm = QImage();
 	Pfile2 = "";
 	Pfile3 = "";
 	LocalScX = 1;
@@ -288,14 +289,21 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 				pmd = QPixmap(static_cast<int>(Width), static_cast<int>(Height));
 				pmd.fill();
 				pd.begin(&pmd);
-				if (Pcolor != "None")
+				if ((Pcolor != "None") || (GrType != 0))
 					{
 					pd.setPen(NoPen);
 					SetFarbe(&tmp, Pcolor, Shade);
 					pd.setBrush(tmp);
 					if (!Doc->RePos)
-						DrawPoly(&pd, Clip, pd.brush().color());
-//						pd.drawPolygon(Clip);
+						{
+						if (GrType == 0)
+							DrawPoly(&pd, Clip, pd.brush().color());
+						else
+							{
+							if (!Gpixm.isNull())
+								pd.drawImage(0, 0, Gpixm);
+							}
+						}
 					}
 				if (Pfile == "")
 					{
@@ -367,11 +375,19 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 					p.setClipRegion(QRegion(p.xForm(Clip)));
 				else
 					p.setClipRegion(QRegion(p.xForm(Clip)).intersect(gesClip));
-				if (Pcolor != "None")
+				if ((Pcolor != "None") || (GrType != 0))
 					{
 					p.setPen(NoPen);
 					if (!Doc->RePos)
-						DrawPoly(&p, Clip, p.brush().color());
+						{
+						if (GrType == 0)
+							DrawPoly(&p, Clip, p.brush().color());
+						else
+							{
+							if (!Gpixm.isNull())
+								p.drawImage(0, 0, Gpixm);
+							}
+						}
 					}
 				if (Pfile == "")
 					{
@@ -472,8 +488,8 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 							}
 						else
 							{
-							if (!pixm.isNull())
-								pd.drawImage(0, 0, pixm);
+							if (!Gpixm.isNull())
+								pd.drawImage(0, 0, Gpixm);
 							}
 						}
 					pd.end();
@@ -499,8 +515,8 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 							}
 						else
 							{
-							if (!pixm.isNull())
-								p.drawImage(0, 0, pixm);
+							if (!Gpixm.isNull())
+								p.drawImage(0, 0, Gpixm);
 							}
 						}
 					}
@@ -521,8 +537,8 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 						}
 					else
 						{
-						if (!pixm.isNull())
-							p.drawImage(0, 0, pixm);
+						if (!Gpixm.isNull())
+							p.drawImage(0, 0, Gpixm);
 						}
 					}
 #endif
@@ -1103,8 +1119,6 @@ NoRoom:	 if (NextBox != 0)
 						}
 					else
 						{
-//						if (uint(CPos) > nrc)
-//							CPos = nrc;
 						if (!Doc->RePos)
 							{
 							p.setPen(QPen(black, 1, SolidLine, FlatCap, MiterJoin));
@@ -1126,7 +1140,7 @@ NoRoom:	 if (NextBox != 0)
 					else
 						{
 						multiLine ml = Doc->MLineStyles[NamedLStyle];
-						for (int it = ml.count()-1; it > -1; it--)
+						for (int it = ml.size()-1; it > -1; it--)
 							{
 							SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
 							p.setPen(QPen(tmp,
@@ -1170,8 +1184,8 @@ NoRoom:	 if (NextBox != 0)
 						pmd = QPixmap(static_cast<int>(Width), static_cast<int>(Height));
 						pmd.fill();
 						pd.begin(&pmd);
-						if ((!Doc->RePos) && (!pixm.isNull()))
-							pd.drawImage(0, 0, pixm);
+						if ((!Doc->RePos) && (!Gpixm.isNull()))
+							pd.drawImage(0, 0, Gpixm);
 						pd.end();
 						pmd.setMask(bmd);
 						p.drawPixmap(0, 0, pmd);
@@ -1180,8 +1194,8 @@ NoRoom:	 if (NextBox != 0)
 							p.setClipRegion(QRegion(p.xForm(Clip)));
 						else
 							p.setClipRegion(QRegion(p.xForm(Clip)).intersect(gesClip));
-						if (!pixm.isNull())
-							p.drawImage(0, 0, pixm);
+						if (!Gpixm.isNull())
+							p.drawImage(0, 0, Gpixm);
 #endif
 						p.setBrush(NoBrush);
 						DrawPolyL(&p, Clip);
@@ -1203,7 +1217,7 @@ NoRoom:	 if (NextBox != 0)
 							else
 								{
 								multiLine ml = Doc->MLineStyles[NamedLStyle];
-								for (int it = ml.count()-1; it > -1; it--)
+								for (int it = ml.size()-1; it > -1; it--)
 									{
 									SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
 									p.setPen(QPen(tmp,
@@ -1235,7 +1249,7 @@ NoRoom:	 if (NextBox != 0)
 								else
 									{
 									multiLine ml = Doc->MLineStyles[NamedLStyle];
-									for (int it = ml.count()-1; it > -1; it--)
+									for (int it = ml.size()-1; it > -1; it--)
 										{
 										SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
 										p.setPen(QPen(tmp,
@@ -1665,7 +1679,7 @@ void PageItem::DrawPolyL(QPainter *p, QPointArray pts)
 			else
 				{
 				multiLine ml = Doc->MLineStyles[NamedLStyle];
-				for (int it = ml.count()-1; it > -1; it--)
+				for (int it = ml.size()-1; it > -1; it--)
 					{
 					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
 					p->setPen(QPen(tmp,
@@ -1683,7 +1697,7 @@ void PageItem::DrawPolyL(QPainter *p, QPointArray pts)
 		else
 			{
 			multiLine ml = Doc->MLineStyles[NamedLStyle];
-			for (int it = ml.count()-1; it > -1; it--)
+			for (int it = ml.size()-1; it > -1; it--)
 				{
 				SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
 				p->setPen(QPen(tmp,
@@ -1702,7 +1716,7 @@ void PageItem::DrawPolyL(QPainter *p, QPointArray pts)
 		else
 			{
 			multiLine ml = Doc->MLineStyles[NamedLStyle];
-			for (int it = ml.count()-1; it > -1; it--)
+			for (int it = ml.size()-1; it > -1; it--)
 				{
 				SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
 				p->setPen(QPen(tmp,
