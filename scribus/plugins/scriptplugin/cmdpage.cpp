@@ -44,7 +44,7 @@ PyObject *scribus_deletepage(PyObject *self, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	e--;
-	if ((e < 0) || (e > static_cast<int>(Carrier->view->Pages.count())-1))
+	if ((e < 0) || (e > static_cast<int>(Carrier->doc->Pages.count())-1))
 	{
 		PyErr_SetString(PyExc_IndexError, "Page number out of range");
 		return NULL;
@@ -65,7 +65,7 @@ PyObject *scribus_gotopage(PyObject *self, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	e--;
-	if ((e < 0) || (e > static_cast<int>(Carrier->view->Pages.count())-1))
+	if ((e < 0) || (e > static_cast<int>(Carrier->doc->Pages.count())-1))
 	{
 		PyErr_SetString(PyExc_IndexError, "Page number out of range");
 		return NULL;
@@ -87,11 +87,11 @@ PyObject *scribus_newpage(PyObject *self, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	if (e < 0)
-		Carrier->slotNewPageP(Carrier->view->Pages.count(), QString(name));
+		Carrier->slotNewPageP(Carrier->doc->Pages.count(), QString(name));
 	else
 	{
 		e--;
-		if ((e < 0) || (e > static_cast<int>(Carrier->view->Pages.count())-1))
+		if ((e < 0) || (e > static_cast<int>(Carrier->doc->Pages.count())-1))
 		{
 			PyErr_SetString(PyExc_IndexError, "Page number out of range");
 			return NULL;
@@ -106,7 +106,7 @@ PyObject *scribus_pagecount(PyObject *self)
 {
 	if(!checkHaveDocument())
 		return NULL;
-	return PyInt_FromLong(static_cast<long>(Carrier->view->Pages.count()));
+	return PyInt_FromLong(static_cast<long>(Carrier->doc->Pages.count()));
 }
 
 PyObject *scribus_pagedimension(PyObject *self)
@@ -126,16 +126,16 @@ PyObject *scribus_getpageitems(PyObject *self)
 {
 	if(!checkHaveDocument())
 		return NULL;
-	if (Carrier->doc->ActPage->Items.count() == 0)
+	if (Carrier->doc->Items.count() == 0)
 		return Py_BuildValue((char*)"[]");
-	PyObject *l = PyList_New(Carrier->doc->ActPage->Items.count());
+	PyObject *l = PyList_New(Carrier->doc->Items.count());
 	PyObject *row;
-	for (uint i = 0; i<Carrier->doc->ActPage->Items.count(); ++i)
+	for (uint i = 0; i<Carrier->doc->Items.count(); ++i)
 	{
 		row = Py_BuildValue((char*)"(sii)",
-		                    Carrier->doc->ActPage->Items.at(i)->AnName.ascii(),
-		                    Carrier->doc->ActPage->Items.at(i)->PType,
-		                    Carrier->doc->ActPage->Items.at(i)->ItemNr
+		                    Carrier->doc->Items.at(i)->AnName.ascii(),
+		                    Carrier->doc->Items.at(i)->PType,
+		                    Carrier->doc->Items.at(i)->ItemNr
 		                   );
 		PyList_SetItem(l, i, row);
 	} // for

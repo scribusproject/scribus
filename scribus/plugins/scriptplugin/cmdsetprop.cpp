@@ -28,8 +28,8 @@ PyObject *scribus_setgradfill(PyObject *self, PyObject* args)
 		b->SetFarbe(&tmp, c2, shade2);
 		b->fill_gradient.addStop(tmp, 1.0, 0.5, 1.0, c2, shade2);
 		b->GrType = typ;
-		b->OwnPage->updateGradientVectors(b);
-		b->OwnPage->RefreshItem(b);
+		Carrier->view->updateGradientVectors(b);
+		Carrier->view->RefreshItem(b);
 	}
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -217,10 +217,10 @@ PyObject *scribus_setcornerrad(PyObject *self, PyObject* args)
 		{
 			b->RadRect = w;
 			if (w > 0)
-				b->OwnPage->SetFrameRound(b);
+				Carrier->view->SetFrameRound(b);
 		}
 		else
-				b->OwnPage->SetRectFrame(b);
+				Carrier->view->SetRectFrame(b);
 	}
 	Py_INCREF(Py_None);
 	return Py_None;

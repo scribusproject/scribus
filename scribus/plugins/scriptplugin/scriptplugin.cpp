@@ -151,8 +151,8 @@ void MenuTest::FinishScriptRun()
 		Carrier->Tpal->BuildTree(Carrier->view);
 		Carrier->Sepal->SetView(Carrier->view);
 		Carrier->Sepal->Rebuild();
-		if (Carrier->doc->ActPage->SelItem.count() != 0)
-			Carrier->HaveNewSel(Carrier->doc->ActPage->SelItem.at(0)->PType);
+		if (Carrier->view->SelItem.count() != 0)
+			Carrier->HaveNewSel(Carrier->view->SelItem.at(0)->PType);
 		else
 			Carrier->HaveNewSel(-1);
 		Carrier->view->DrawNew();

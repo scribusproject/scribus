@@ -155,7 +155,7 @@ PyObject *scribus_senttolayer(PyObject *self, PyObject* args)
 	PageItem *i = GetUniqueItem(QString(Name));
 	if (i != NULL)
 	{
-		i->OwnPage->SelectItemNr(i->ItemNr);
+		Carrier->view->SelectItemNr(i->ItemNr);
 		for (uint lam=0; lam < Carrier->doc->Layers.count(); ++lam)
 			if (Carrier->doc->Layers[lam].Name == QString(Layer))
 			{
