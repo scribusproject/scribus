@@ -1441,12 +1441,12 @@ bool Page::MoveItem(double newX, double newY, PageItem* b, bool fromMP)
 	}
 	b->Xpos += newX;
 	b->Ypos += newY;
-	if ((doku->useRaster) && (!Imoved))
+	if ((doku->useRaster) && (!Imoved) && (!fromMP))
 	{
 		b->Xpos = qRound(b->Xpos / doku->minorGrid) * doku->minorGrid;
 		b->Ypos = qRound(b->Ypos / doku->minorGrid) * doku->minorGrid;
 	}
-	if ((doku->SnapGuides) && (!Imoved) && (doku->AppMode == 1) && (!doku->EditClip))
+	if ((doku->SnapGuides) && (!Imoved) && (doku->AppMode == 1) && (!doku->EditClip) && (!fromMP))
 		SnapToGuides(b);
 	if ((b->Xpos != oldx) || (b->Ypos != oldy))
 		retw = true;

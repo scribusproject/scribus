@@ -1911,7 +1911,7 @@ void Mpalette::NewY()
 					base = ma.m22() * CurItem->Height + ma.m12() * CurItem->Width + ma.dy();
 				if (BottomLeft->isChecked())
 					base = ma.m22() * CurItem->Height + ma.m12() * 0.0 + ma.dy();
-				doc->ActPage->MoveItem(0, y - base, CurItem);
+				doc->ActPage->MoveItem(0, y - base, CurItem, true);
 			}
 		}
 		emit DocChanged();
