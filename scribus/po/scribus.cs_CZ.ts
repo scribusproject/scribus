@@ -3979,6 +3979,10 @@ přetáhněte šablonu do náhledu strany.</translation>
         <source>Basque:</source>
         <translation>Baskitsky:</translation>
     </message>
+    <message>
+        <source>Slovenian:</source>
+        <translation>Slovinsky:</translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
@@ -5219,6 +5223,10 @@ jakým lze zlepšit kontrast fotografií. Doporučeno, jestliže je máte v doku
     <message>
         <source>Name of the Color is not unique</source>
         <translation>Jméno barvy není unikátní</translation>
+    </message>
+    <message>
+        <source>HSB-Colormap</source>
+        <translation>HSB-barevná mapa</translation>
     </message>
 </context>
 <context>
@@ -8831,15 +8839,15 @@ a vektorové grafiky náhledu, ale zpomalí jeho vytváření</translation>
     <name>Page</name>
     <message>
         <source>Copy Here</source>
-        <translation>Kopírovat sem</translation>
+        <translation type="obsolete">Kopírovat sem</translation>
     </message>
     <message>
         <source>Move Here</source>
-        <translation>Přesunout sem</translation>
+        <translation type="obsolete">Přesunout sem</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Zrušit</translation>
+        <translation type="obsolete">Zrušit</translation>
     </message>
     <message>
         <source>Paste</source>
@@ -10187,6 +10195,10 @@ po každém automatickém uložení</translation>
         <source>Turns off the basegrid</source>
         <translation>Vypnout pomocnou mřížku</translation>
     </message>
+    <message>
+        <source> px</source>
+        <translation>px</translation>
+    </message>
 </context>
 <context>
     <name>QColorDialog</name>
@@ -10905,6 +10917,22 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
         <translation>Vzdálenost mezi pravým vodítkem okraje a okrajem strany
 Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
     </message>
 </context>
 <context>
@@ -11870,6 +11898,50 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
         <source>Unlock all</source>
         <translation>Odemknout vše</translation>
     </message>
+    <message>
+        <source> pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source>mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source>in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source>p</source>
+        <translation>p</translation>
+    </message>
+    <message>
+        <source>Lithuanian</source>
+        <translation>Litevsky</translation>
+    </message>
+    <message>
+        <source>Swedish</source>
+        <translation>Švédsky</translation>
+    </message>
+    <message>
+        <source>Slovenian</source>
+        <translation>Slovinsky</translation>
+    </message>
 </context>
 <context>
     <name>ScribusDoc</name>
@@ -11907,6 +11979,22 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     <message>
         <source> of %1</source>
         <translation type="obsolete">z %1</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source>mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source>in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source>p</source>
+        <translation>p</translation>
     </message>
 </context>
 <context>
@@ -12485,6 +12573,18 @@ přetáhněte šablonu do náhledu strany.</translation>
     <message>
         <source>Center</source>
         <translation>Na střed</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
     </message>
 </context>
 <context>
