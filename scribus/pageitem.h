@@ -38,7 +38,8 @@ class UndoState;
 class PageItem : public QObject, public UndoObject
 {
 	Q_OBJECT
-
+	// Properties - see http://doc.trolltech.com/3.3/properties.html
+	Q_PROPERTY(QString itemName READ itemName WRITE setItemName DESIGNABLE false)
 public: 
 	PageItem(ScribusDoc *pa, int art, double x, double y, double w, double h, double w2, QString fill, QString outline);
 	~PageItem() {};
