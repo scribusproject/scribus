@@ -2097,6 +2097,8 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 				QLabel *WordC = new QLabel(InfoGroup, "wc");
 				QLabel *CharCT = new QLabel(InfoGroup, "ct");
 				QLabel *CharC = new QLabel(InfoGroup, "cc");
+				QLabel *PrintCT = new QLabel(InfoGroup, "nt"); // <a.l.e>
+				QLabel *PrintC = new QLabel(InfoGroup, "nc"); // </a.l.e>
 				if (b->PType == 2)
 				{
 					QFileInfo fi = QFileInfo(b->Pfile);
@@ -2157,6 +2159,16 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 						CharC->setText(txtC.setNum(Chara));
 					InfoGroupLayout->addWidget( CharC, 3, 1 );
 				}
+
+        int row = InfoGroupLayout->numRows(); // <a.l.e>
+
+        PrintCT->setText( tr("Print: "));
+        InfoGroupLayout->addWidget( PrintCT, row, 0, Qt::AlignRight );
+        if (b->isPrintable == true)
+          PrintC->setText(tr("enabled"));
+        else
+          PrintC->setText(tr("disabled"));
+        InfoGroupLayout->addWidget( PrintC, row, 1 ); // </a.l.e>
 
 				pmen4->insertItem(InfoGroup);
 
