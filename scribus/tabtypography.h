@@ -31,12 +31,16 @@ public:
 	QGroupBox* groupBox3a;
 	QLabel* textLabel5a;
 	QSpinBox* capsScaling;
+	QGroupBox* groupBox4a;
+	QLabel* textLabel8a;
+	QSpinBox* autoLine;
 
 protected:
 	QGridLayout* tabTypoLayout;
 	QGridLayout* groupBox1aLayout;
 	QGridLayout* groupBox2aLayout;
 	QGridLayout* groupBox3aLayout;
+	QGridLayout* groupBox4aLayout;
 };
 
 #endif

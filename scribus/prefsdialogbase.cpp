@@ -5,6 +5,8 @@
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qwhatsthis.h>
+#include <qlabel.h>
+#include <qfont.h>
 extern QPixmap loadIcon(QString nam);
 
 PrefsDialogBase::PrefsDialogBase( QWidget* parent ) : QDialog( parent, "PrefsDialogBase", true, 0 )
@@ -25,8 +27,17 @@ PrefsDialogBase::PrefsDialogBase( QWidget* parent ) : QDialog( parent, "PrefsDia
 	prefsSelection->setFocusPolicy(QWidget::NoFocus);
 	prefsSelection->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)0, (QSizePolicy::SizeType)7, 0, 0, prefsSelection->sizePolicy().hasHeightForWidth() ) );
 	layout3->addWidget( prefsSelection );
+	layout5 = new QVBoxLayout( 0, 0, 6, "layout5");
+	textLabel1 = new QLabel( this, "textLabel1" );
+	QFont f(textLabel1->font());
+	f.setPointSize(f.pointSize()+4);
+	f.setBold(true);
+	textLabel1->setFont(f);
+	textLabel1->setText("");
+	layout5->addWidget( textLabel1 );
 	prefsWidgets = new QWidgetStack( this, "prefsWidgets" );
-	layout3->addWidget( prefsWidgets );
+	layout5->addWidget( prefsWidgets );
+	layout3->addLayout(layout5);
 	prefsLayout->addLayout( layout3 );
 	layout4 = new QHBoxLayout( 0, 0, 6, "layout4");
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -89,7 +100,10 @@ void PrefsDialogBase::itemSelected(QIconViewItem* ic)
 	if (ic == 0)
 		return;
 	if (itemMap.contains(ic))
+	{
 		prefsWidgets->raiseWidget(itemMap[ic]);
+		textLabel1->setText(ic->text());
+	}
 }
 /*
  *  Sets the strings of the subwidgets using the current

@@ -76,14 +76,15 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	tabGuidesLayout->addWidget( commonBox );
 	layout9 = new QHBoxLayout( 0, 0, 5, "layout9");
 	guideBox = new QGroupBox( this, "guideBox" );
-	guideBox->setTitle( tr( "Guides" ) );
+	guideBox->setTitle( tr( "Show Guides" ) );
+	guideBox->setCheckable( true );
+	guideBox->setChecked(prefsData->guidesShown);
 	guideBox->setColumnLayout(0, Qt::Vertical );
 	guideBox->layout()->setSpacing( 5 );
 	guideBox->layout()->setMargin( 10 );
 	guideBoxLayout = new QHBoxLayout( guideBox->layout() );
-	checkGuides = new QCheckBox( guideBox, "checkGuides" );
-	checkGuides->setText( tr( "Show Guides" ) );
-	checkGuides->setChecked(prefsData->guidesShown);
+	checkGuides = new QLabel( guideBox, "checkGuides" );
+	checkGuides->setText( tr( "Color:" ) );
 	guideBoxLayout->addWidget( checkGuides );
 	guideColor = new QPushButton( guideBox, "guideColor" );
 	guideColor->setMinimumSize( QSize( 60, 20 ) );
@@ -98,14 +99,15 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	guideBoxLayout->addWidget( guideColor );
 	layout9->addWidget( guideBox );
 	marginBox = new QGroupBox( this, "guideBox" );
-	marginBox->setTitle( tr( "Margins" ) );
+	marginBox->setCheckable( true );
+	marginBox->setTitle( tr( "Show Margins" ) );
+	marginBox->setChecked(prefsData->marginsShown);
 	marginBox->setColumnLayout(0, Qt::Vertical );
 	marginBox->layout()->setSpacing( 5 );
 	marginBox->layout()->setMargin( 10 );
 	marginBoxLayout = new QHBoxLayout( marginBox->layout() );
-	checkMargin = new QCheckBox( marginBox, "checkMargin" );
-	checkMargin->setText( tr( "Show Margins" ) );
-	checkMargin->setChecked(prefsData->marginsShown);
+	checkMargin = new QLabel( marginBox, "checkMargin" );
+	checkMargin->setText( tr( "Color:" ) );
 	marginBoxLayout->addWidget( checkMargin );
 	marginColor = new QPushButton( marginBox, "marginColor" );
 	marginColor->setMinimumSize( QSize( 60, 20 ) );
@@ -190,16 +192,18 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	checkGridLayout->addWidget( groupBox2, 0, 1 );
 	tabGuidesLayout->addWidget( checkGrid );
 
+	layout9a = new QHBoxLayout( 0, 0, 5, "layout9");
 	baselineBox = new QGroupBox( this, "baselineBox" );
-	baselineBox->setTitle( tr( "Baseline Grid" ) );
+	baselineBox->setTitle( tr( "Show Baseline Grid" ) );
+	baselineBox->setCheckable( true );
+	baselineBox->setChecked(prefsData->baseShown);
 	baselineBox->setColumnLayout(0, Qt::Vertical );
 	baselineBox->layout()->setSpacing( 5 );
 	baselineBox->layout()->setMargin( 10 );
 	baselineBoxLayout = new QGridLayout( baselineBox->layout() );
 	baselineBoxLayout->setAlignment( Qt::AlignTop );
-	checkBaseline = new QCheckBox( baselineBox, "checkBaseline" );
+	checkBaseline = new QLabel( baselineBox, "checkBaseline" );
 	checkBaseline->setText( tr( "Show Baseline Grid" ) );
-	checkBaseline->setChecked(prefsData->baseShown);
 	baselineBoxLayout->addWidget( checkBaseline, 0, 0 );
 	baselineColor = new QPushButton( baselineBox, "baselineColor" );
 	baselineColor->setMinimumSize( QSize( 60, 20 ) );
@@ -212,27 +216,29 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	baselineColor->setPixmap(pm4);
 	baselineColor->setText( QString::null );
 	baselineBoxLayout->addWidget( baselineColor, 0, 1 );
-	autoLine = new QSpinBox( baselineBox, "autoLine" );
-	autoLine->setMaxValue( 100 );
-	autoLine->setMinValue( 1 );
-	autoLine->setValue( prefsData2->autoLineSpacing );
-	autoLine->setSuffix( tr( " %" ) );
-	baselineBoxLayout->addWidget( autoLine, 1, 1 );
-	textLabel8a = new QLabel( autoLine, tr( "Automatic &Line Spacing:" ), baselineBox, "textLabel8a" );
-	baselineBoxLayout->addWidget( textLabel8a, 1, 0 );
-	baseGrid = new MSpinBox( 1, 1000, baselineBox, precision );
+	layout9a->addWidget( baselineBox );
+
+	baseGridBox = new QGroupBox( this, "baseGridBox" );
+	baseGridBox->setTitle( tr( "Baseline Settings" ) );
+	baseGridBox->setColumnLayout(0, Qt::Vertical );
+	baseGridBox->layout()->setSpacing( 5 );
+	baseGridBox->layout()->setMargin( 10 );
+	baseGridBoxLayout = new QGridLayout( baseGridBox->layout() );
+	baseGridBoxLayout->setAlignment( Qt::AlignTop );
+	baseGrid = new MSpinBox( 1, 1000, baseGridBox, precision );
 	baseGrid->setSuffix( unit );
 	baseGrid->setValue(prefsData2->valueBaseGrid * unitRatio);
-	baselineBoxLayout->addWidget( baseGrid, 0, 3 );
-	textLabel6a = new QLabel(baseGrid, tr( "Baseline &Grid:" ), baselineBox, "textLabel6a" );
-	baselineBoxLayout->addWidget( textLabel6a, 0, 2 );
-	baseOffset = new MSpinBox( 0, 1000, baselineBox, precision );
+	baseGridBoxLayout->addWidget( baseGrid, 0, 1 );
+	textLabel6a = new QLabel(baseGrid, tr( "Baseline &Grid:" ), baseGridBox, "textLabel6a" );
+	baseGridBoxLayout->addWidget( textLabel6a, 0, 0 );
+	baseOffset = new MSpinBox( 0, 1000, baseGridBox, precision );
 	baseOffset->setSuffix( unit );
 	baseOffset->setValue(prefsData2->offsetBaseGrid * unitRatio);
-	baselineBoxLayout->addWidget( baseOffset, 1, 3 );
-	textLabel7a = new QLabel(baseOffset, tr( "Baseline &Offset:" ), baselineBox, "textLabel7a" );
-	baselineBoxLayout->addWidget( textLabel7a, 1, 2 );
-	tabGuidesLayout->addWidget( baselineBox );
+	baseGridBoxLayout->addWidget( baseOffset, 1, 1 );
+	textLabel7a = new QLabel(baseOffset, tr( "Baseline &Offset:" ), baseGridBox, "textLabel7a" );
+	baseGridBoxLayout->addWidget( textLabel7a, 1, 0 );
+	layout9a->addWidget( baseGridBox );
+	tabGuidesLayout->addLayout( layout9a );
 
 	connect(majorGridColor, SIGNAL(clicked()), this, SLOT(changeMajorColor()));
 	connect(minorGridColor, SIGNAL(clicked()), this, SLOT(changeMinorColor()));
@@ -248,11 +254,10 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	QToolTip::add( guideColor, tr( "Color of the guide lines you insert" ) );
 	QToolTip::add( marginColor, tr( "Color for the margin lines" ) );
 	QToolTip::add( baselineColor, tr( "Color for the basegrid lines" ) );
-	QToolTip::add( checkBaseline, tr("Turns the basegrid on or off"));
+	QToolTip::add( baselineBox, tr("Turns the basegrid on or off"));
 	QToolTip::add( checkGrid, tr("Turns the gridlines on or off"));
-	QToolTip::add( checkGuides, tr("Turns the guides on or off"));
-	QToolTip::add( checkMargin, tr("Turns the margins on or off"));
-	QToolTip::add( autoLine, tr( "Percentage increase over the font size for the line spacing" ) );
+	QToolTip::add( guideBox, tr("Turns the guides on or off"));
+	QToolTip::add( marginBox, tr("Turns the margins on or off"));
 }
 
 void TabGuides::restoreDefaults(struct guidesPrefs *prefsData, struct typoPrefs *prefsData2, int unitIndex)
@@ -288,10 +293,10 @@ void TabGuides::restoreDefaults(struct guidesPrefs *prefsData, struct typoPrefs 
 	baseOffset->setValue(prefsData2->offsetBaseGrid * unitRatio);
 	inBackground->setChecked( prefsData->before );
 	inForeground->setChecked( !prefsData->before );
-	checkBaseline->setChecked(prefsData->baseShown);
+	baselineBox->setChecked(prefsData->baseShown);
 	checkGrid->setChecked(prefsData->gridShown);
-	checkMargin->setChecked(prefsData->marginsShown);
-	checkGuides->setChecked(prefsData->guidesShown);
+	marginBox->setChecked(prefsData->marginsShown);
+	guideBox->setChecked(prefsData->guidesShown);
 }
 
 void TabGuides::changeMajorColor()

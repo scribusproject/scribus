@@ -13,6 +13,7 @@ class QHBoxLayout;
 class QGridLayout;
 class QSpacerItem;
 class QPushButton;
+class QLabel;
 
 class PrefsDialogBase : public QDialog
 {
@@ -23,23 +24,23 @@ public:
 	~PrefsDialogBase() {};
 	int addItem(QString name, QPixmap icon, QWidget *tab);
 	void arrangeIcons();
+	QLabel* textLabel1;
 	QWidgetStack* prefsWidgets;
 	QPushButton* backToDefaults;
 	QPushButton* buttonOk;
 	QPushButton* buttonCancel;
-
-private:
 	QIconView* prefsSelection;
 	QMap<QIconViewItem*, int> itemMap;
 	int counter;
 
-private slots:
+public slots:
 	void itemSelected(QIconViewItem* ic);
 
 protected:
 	QVBoxLayout* prefsLayout;
 	QHBoxLayout* layout3;
 	QHBoxLayout* layout4;
+	QVBoxLayout* layout5;
 
 protected slots:
 	virtual void languageChange();

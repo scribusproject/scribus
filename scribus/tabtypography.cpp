@@ -73,12 +73,30 @@ TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWid
 	textLabel5a = new QLabel(capsScaling, tr( "Sc&aling:" ), groupBox3a, "textLabel5a" );
 	groupBox3aLayout->addWidget( textLabel5a, 0, 0 );
 	tabTypoLayout->addWidget( groupBox3a, 2, 0 );
+	
+	groupBox4a = new QGroupBox( this, "groupBox3a" );
+	groupBox4a->setColumnLayout(0, Qt::Vertical );
+	groupBox4a->layout()->setSpacing( 6 );
+	groupBox4a->layout()->setMargin( 11 );
+	groupBox4a->setTitle( tr( "Automatic &Line Spacing" ) );
+	groupBox4aLayout = new QGridLayout( groupBox4a->layout() );
+	groupBox4aLayout->setAlignment( Qt::AlignTop );
+	autoLine = new QSpinBox( groupBox4a, "autoLine" );
+	autoLine->setMaxValue( 100 );
+	autoLine->setMinValue( 1 );
+	autoLine->setValue( prefsData->autoLineSpacing );
+	autoLine->setSuffix( tr( " %" ) );
+	groupBox4aLayout->addWidget( autoLine, 1, 1 );
+	textLabel8a = new QLabel( autoLine, tr( "Line Spacing:" ), groupBox4a, "textLabel8a" );
+	groupBox4aLayout->addWidget( textLabel8a, 1, 0 );
+	tabTypoLayout->addWidget( groupBox4a, 3, 0 );
 
 	QToolTip::add( superDisplacement, tr( "Displacement above the baseline of the font on a line" ) );
 	QToolTip::add( superScaling, tr( "Relative size of the superscript compared to the normal font" ) );
 	QToolTip::add( subDisplacement, tr( "Displacement below the baseline of the normal font on a line" ) );
 	QToolTip::add( subScaling, tr( "Relative size of the subscript compared to the normal font" ) );
 	QToolTip::add( capsScaling, tr( "Relative size of the small caps font compared to the normal font" ) );
+	QToolTip::add( autoLine, tr( "Percentage increase over the font size for the line spacing" ) );
 }
 
 void TabTypograpy::restoreDefaults(struct typoPrefs *prefsData)
@@ -87,4 +105,5 @@ void TabTypograpy::restoreDefaults(struct typoPrefs *prefsData)
 	capsScaling->setValue( prefsData->valueSmallCaps );
 	superScaling->setValue( prefsData->scalingSuperScript );
 	subScaling->setValue( prefsData->scalingSubScript );
+	autoLine->setValue( prefsData->autoLineSpacing );
 }

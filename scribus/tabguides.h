@@ -28,9 +28,7 @@ public:
 	MSpinBox* majorSpace;
 	MSpinBox* minorSpace;
 	MSpinBox* snapDistance;
-	QCheckBox* checkMargin;
-	QCheckBox* checkGuides;
-	QCheckBox* checkBaseline;
+	QLabel* checkBaseline;
 	QColor colorGuides;
 	QColor colorMargin;
 	QColor colorMajorGrid;
@@ -44,6 +42,7 @@ public:
 	QGroupBox* guideBox;
 	QGroupBox* marginBox;
 	QGroupBox* baselineBox;
+	QGroupBox* baseGridBox;
 	QButtonGroup* buttonGroup1;
 	QRadioButton* inBackground;
 	QRadioButton* inForeground;
@@ -53,6 +52,8 @@ public:
 	QLabel* textLabel7;
 	QLabel* textLabel8;
 	QLabel* textLabel82;
+	QLabel* checkMargin;
+	QLabel* checkGuides;
 	QPushButton* majorGridColor;
 	QPushButton* minorGridColor;
 	QPushButton* baselineColor;
@@ -60,7 +61,6 @@ public:
 	QPushButton* marginColor;
 	QSpinBox* grabDistance;
 	QLabel* textLabel6a;
-	QSpinBox* autoLine;
 	QLabel* textLabel7a;
 	MSpinBox* baseGrid;
 	MSpinBox* baseOffset;
@@ -83,8 +83,10 @@ protected:
 	QHBoxLayout* guideBoxLayout;
 	QHBoxLayout* marginBoxLayout;
 	QGridLayout* baselineBoxLayout;
+	QGridLayout* baseGridBoxLayout;
 	QVBoxLayout* buttonGroup1Layout;
 	QHBoxLayout* layout9;
+	QHBoxLayout* layout9a;
 	
 	double unitRatio;
 	QString unit;

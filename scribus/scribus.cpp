@@ -3308,11 +3308,11 @@ bool ScribusApp::SetupDoc()
 		doc->guidesSettings.before = dia->tabGuides->inBackground->isChecked();
 		doc->marginColored = dia->checkUnprintable->isChecked();
 		doc->papColor = dia->colorPaper;
-		doc->guidesSettings.marginsShown = dia->tabGuides->checkMargin->isChecked();
+		doc->guidesSettings.marginsShown = dia->tabGuides->marginBox->isChecked();
 		doc->guidesSettings.framesShown = dia->checkFrame->isChecked();
 		doc->guidesSettings.gridShown = dia->tabGuides->checkGrid->isChecked();
-		doc->guidesSettings.guidesShown = dia->tabGuides->checkGuides->isChecked();
-		doc->guidesSettings.baseShown = dia->tabGuides->checkBaseline->isChecked();
+		doc->guidesSettings.guidesShown = dia->tabGuides->guideBox->isChecked();
+		doc->guidesSettings.baseShown = dia->tabGuides->baselineBox->isChecked();
 		doc->guidesSettings.showPic = dia->checkPictures->isChecked();
 		doc->guidesSettings.linkShown = dia->checkLink->isChecked();
 		doc->guidesSettings.grabRad = dia->tabGuides->grabDistance->value();
@@ -3331,7 +3331,7 @@ bool ScribusApp::SetupDoc()
 		doc->typographicSetttings.valueSubScript = dia->tabTypo->subDisplacement->value();
 		doc->typographicSetttings.scalingSubScript = dia->tabTypo->subScaling->value();
 		doc->typographicSetttings.valueSmallCaps = dia->tabTypo->capsScaling->value();
-		doc->typographicSetttings.autoLineSpacing = dia->tabGuides->autoLine->value();
+		doc->typographicSetttings.autoLineSpacing = dia->tabTypo->autoLine->value();
 		doc->typographicSetttings.valueBaseGrid = dia->tabGuides->baseGrid->value() / UmReFaktor;
 		doc->typographicSetttings.offsetBaseGrid = dia->tabGuides->baseOffset->value() / UmReFaktor;
 		doc->toolSettings.defFont = dia->tabTools->fontComboText->currentText();
@@ -8037,11 +8037,11 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.DpapColor = dia->colorPaper;
 		Prefs.toolSettings.defFont = dia->tabTools->fontComboText->currentText();
 		Prefs.toolSettings.defSize = dia->tabTools->sizeComboText->currentText().left(2).toInt() * 10;
-		Prefs.guidesSettings.marginsShown = dia->tabGuides->checkMargin->isChecked();
+		Prefs.guidesSettings.marginsShown = dia->tabGuides->marginBox->isChecked();
 		Prefs.guidesSettings.framesShown = dia->checkFrame->isChecked();
 		Prefs.guidesSettings.gridShown = dia->tabGuides->checkGrid->isChecked();
-		Prefs.guidesSettings.guidesShown = dia->tabGuides->checkGuides->isChecked();
-		Prefs.guidesSettings.baseShown = dia->tabGuides->checkBaseline->isChecked();
+		Prefs.guidesSettings.guidesShown = dia->tabGuides->guideBox->isChecked();
+		Prefs.guidesSettings.baseShown = dia->tabGuides->baselineBox->isChecked();
 		Prefs.guidesSettings.showPic = dia->checkPictures->isChecked();
 		Prefs.guidesSettings.linkShown = dia->checkLink->isChecked();
 		Prefs.guidesSettings.grabRad = dia->tabGuides->grabDistance->value();
@@ -8060,7 +8060,7 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.typographicSetttings.valueSubScript = dia->tabTypo->subDisplacement->value();
 		Prefs.typographicSetttings.scalingSubScript = dia->tabTypo->subScaling->value();
 		Prefs.typographicSetttings.valueSmallCaps = dia->tabTypo->capsScaling->value();
-		Prefs.typographicSetttings.autoLineSpacing = dia->tabGuides->autoLine->value();
+		Prefs.typographicSetttings.autoLineSpacing = dia->tabTypo->autoLine->value();
 		Prefs.typographicSetttings.valueBaseGrid = dia->tabGuides->baseGrid->value() / UmReFaktor;
 		Prefs.typographicSetttings.offsetBaseGrid = dia->tabGuides->baseOffset->value() / UmReFaktor;
 		Prefs.toolSettings.dPen = dia->tabTools->colorComboLineShape->currentText();

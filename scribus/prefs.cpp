@@ -767,11 +767,11 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	pageHeight->setValue(prefsData->PageHeight * unitRatio);
 
 	//unitChange();
-
-	prefsWidgets->raiseWidget(0);
 	resize( minimumSizeHint() );
 	arrangeIcons();
 	backToDefaults->hide();
+	prefsSelection->setSelected(prefsSelection->firstItem(), true);
+	itemSelected(prefsSelection->firstItem());
 	clearWState( WState_Polished );
 }
 
