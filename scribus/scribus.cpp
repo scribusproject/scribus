@@ -3485,6 +3485,9 @@ bool ScribusApp::SetupDoc()
 #endif
 				}
 		}
+		
+		doc->docItemAttributes = *(dia->tabDocItemAttributes->getNewAttributes());
+		
 		scrActions["viewShowMargins"]->setOn(doc->guidesSettings.marginsShown);
 		scrActions["viewShowFrames"]->setOn(doc->guidesSettings.framesShown);
 		scrActions["viewShowGrid"]->setOn(doc->guidesSettings.gridShown);
