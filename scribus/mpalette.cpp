@@ -1475,13 +1475,13 @@ void Mpalette::UnitChange()
 	Width->setValues( UmReFaktor, maxXYWHVal, xywhdecimals, newW );
 	Height->setValues( UmReFaktor, maxXYWHVal, xywhdecimals, newH );
 
-	LXpos->setMaxValue( maxXYWHVal );
 	LXpos->setDecimals(xywhdecimals);
+	LXpos->setMaxValue( maxXYWHVal );
 	LXpos->setValue(newLX);
 
-	LYpos->setValue(newLY);
 	LYpos->setDecimals(xywhdecimals);
 	LYpos->setMaxValue( maxXYWHVal );
+	LYpos->setValue(newLY);
 
 	DGap->setDecimals(distdecimals);
 	DGap->setMaxValue(newGM);
