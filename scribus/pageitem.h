@@ -155,7 +155,6 @@ public:
 	double oldHeight;
   /** Eckrundung von Rechtecken */
 	double RadRect;
-	ItemType PType;
   /** Winkel um den das Item gedreht wird */
 	double Rot;
 	/** @brief Stores the old rotation value for undo action. Is used to detect rotation actions. */
