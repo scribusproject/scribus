@@ -1585,6 +1585,10 @@ Dette kræver meget nøjagtige profiler og er kun ment som en advarsel.</transla
         <source>Cancel</source>
         <translation type="unfinished">Annullér</translation>
     </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Ingen</translation>
+    </message>
 </context>
 <context>
     <name>CupsOptions</name>

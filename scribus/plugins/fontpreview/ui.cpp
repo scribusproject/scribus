@@ -26,21 +26,14 @@ FontPreview::FontPreview( ScribusApp *carrier, QWidget* parent, const char* name
 	setName( "FontPreview" );
 	setIcon(loadIcon("AppIcon.png"));
 	FontPreviewLayout = new QGridLayout( this, 1, 1, 11, 6, "FontPreviewLayout");
-
 	layout6 = new QVBoxLayout( 0, 0, 6, "layout6");
-
 	layout5 = new QHBoxLayout( 0, 0, 6, "layout5");
-
 	fontList = new QListBox( this, "fontList" );
 	layout5->addWidget( fontList );
-
 	layout2 = new QVBoxLayout( 0, 0, 6, "layout2");
-
 	layout1 = new QVBoxLayout( 0, 0, 6, "layout1");
-
 	okButton = new QPushButton( this, "okButton" );
 	layout1->addWidget( okButton );
-
 	cancelButton = new QPushButton( this, "cancelButton" );
 	layout1->addWidget( cancelButton );
 	layout2->addLayout( layout1 );
@@ -48,11 +41,8 @@ FontPreview::FontPreview( ScribusApp *carrier, QWidget* parent, const char* name
 	layout2->addItem( spacer );
 	layout5->addLayout( layout2 );
 	layout6->addLayout( layout5 );
-
 	fontPreview = new QLabel( this, "fontPreview" );
-	fontPreview->setMinimumSize(QSize(400,80));
-/*	fontPreview->setScaledContents( TRUE );
-	fontPreview->setPixmap(loadIcon("scribus_head.png")); */
+	fontPreview->setMinimumSize(QSize(400,90));
 	layout6->addWidget( fontPreview );
 
 	FontPreviewLayout->addLayout( layout6, 0, 0 );
@@ -86,9 +76,8 @@ FontPreview::FontPreview( ScribusApp *carrier, QWidget* parent, const char* name
 	}
 
 	// signals and slots connections
-	connect( okButton, SIGNAL( clicked() ), this, SLOT( okButton_clicked() ) );
-	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( cancelButton_clicked() ) );
-	//connect( fontList, SIGNAL( clicked(QListBoxItem*,const QPoint&) ), this, SLOT( fontList_clicked(QListBoxItem*,const QPoint&) ) );
+	connect( okButton, SIGNAL( clicked() ), this, SLOT(accept()));
+	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect( fontList, SIGNAL( selectionChanged(QListBoxItem*) ), this, SLOT( fontList_changed(QListBoxItem*) ) );
 }
 
@@ -113,41 +102,13 @@ void FontPreview::languageChange()
 	cancelButton->setAccel( QKeySequence( tr( "Alt+C" ) ) );
 }
 
-
-/**
-User wants to add font into Style menu
-*/
-void FontPreview::okButton_clicked()
-{
-	accept();
-}
-
-
-/**
-Just close the dialog
-*/
-void FontPreview::cancelButton_clicked()
-{
-	reject();
-}
-
-
 /**
 Creates pixmap with font sample
 */
 void FontPreview::fontList_changed( QListBoxItem *item )
 {
-	int w = fontPreview->width();
-	int h = fontPreview->height();
 	QString da = carrier->Prefs.AvailFonts[item->text()]->Datei;
-	QPixmap pixmap = FontSample(	da, 28, tr("Woven silk pyjamas exchanged for blue quartz"), paletteBackgroundColor());
-	if ((pixmap.width() > w) || (pixmap.height() > h))
-	{
-		pixmap.resize(pixmap.width() > w ? w : pixmap.width(), pixmap.height() > h ? h : pixmap.height());
-	}
+	QPixmap pixmap = FontSample(da, 28, tr("Woven silk pyjamas exchanged for blue quartz"), paletteBackgroundColor());
 	fontPreview->clear();
-	fontPreview->setScaledContents(FALSE);
 	fontPreview->setPixmap(pixmap);
-	fontPreview->setMinimumSize(w, h);
-	fontPreview->setMaximumSize(w, h);
 }

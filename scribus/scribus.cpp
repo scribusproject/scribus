@@ -6489,10 +6489,13 @@ void ScribusApp::GetAllFonts()
 void ScribusApp::slotFontOrg()
 {
 	uint a;
+	qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
 	FontPrefs *dia = new FontPrefs(this, Prefs.AvailFonts, HaveDoc, &Prefs, PrefsPfad);
 	connect(dia, SIGNAL(ReReadPrefs()), this, SLOT(ReadPrefs()));
+	qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 	if (dia->exec())
 	{
+		qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
 		a = 0;
 		SCFontsIterator it(Prefs.AvailFonts);
 		for ( ; it.current() ; ++it)
@@ -6510,11 +6513,14 @@ void ScribusApp::slotFontOrg()
 			Prefs.GFontSub[itfsu.key()] = dia->FlagsRepl.at(a)->currentText();
 			a++;
 		}
+		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 	}
+	qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
 	FontSub->RebuildList(&Prefs);
 	Mpal->Fonts->RebuildList(&Prefs);
 	disconnect(dia, SIGNAL(ReReadPrefs()), this, SLOT(ReadPrefs()));
 	delete dia;
+	qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
 }
 
 void ScribusApp::slotPrefsOrg()

@@ -5703,6 +5703,10 @@ jakým lze zlepšit kontrast fotografií. Doporučeno, jestliže je máte v doku
         <source>Cancel</source>
         <translation type="unfinished">Zrušit</translation>
     </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Žádné</translation>
+    </message>
 </context>
 <context>
     <name>CupsOptions</name>

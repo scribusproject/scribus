@@ -1576,6 +1576,10 @@ Toiminnon käyttö vaatii tarkat profiilit ja sitä tulee käyttää ainoastaan 
         <source>Cancel</source>
         <translation type="unfinished">Peruuta</translation>
     </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CupsOptions</name>
@@ -2656,7 +2660,7 @@ joita on tarkoitus katsella näytöltä</translation>
     </message>
     <message>
         <source>Fonts Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Kirjasinten esikatselu</translation>
     </message>
 </context>
 <context>
@@ -7009,7 +7013,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     <name>QFontDialog</name>
     <message>
         <source>&amp;Font</source>
-        <translation type="unfinished">&amp;Kirjasin</translation>
+        <translation>&amp;Kirjasin</translation>
     </message>
     <message>
         <source>Font st&amp;yle</source>
@@ -7017,11 +7021,11 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>&amp;Size</source>
-        <translation type="unfinished">&amp;Koko</translation>
+        <translation>&amp;Koko</translation>
     </message>
     <message>
         <source>Effects</source>
-        <translation type="unfinished">Efektit</translation>
+        <translation>Efektit</translation>
     </message>
     <message>
         <source>Stri&amp;keout</source>
@@ -7033,7 +7037,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>&amp;Color</source>
-        <translation type="unfinished">&amp;Väri</translation>
+        <translation>&amp;Väri</translation>
     </message>
     <message>
         <source>Sample</source>
@@ -7045,7 +7049,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
     <message>
         <source>Apply</source>
@@ -7053,11 +7057,11 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Peruuta</translation>
+        <translation>Peruuta</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Sulje</translation>
+        <translation>Sulje</translation>
     </message>
     <message>
         <source>Select Font</source>

@@ -6097,6 +6097,10 @@ Det er smart at aktivere dette hvis du har fotografier i dokumentet ditt.</trans
         <source>Cancel</source>
         <translation type="unfinished">Avbryt</translation>
     </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Ingen</translation>
+    </message>
 </context>
 <context>
     <name>CupsOptions</name>

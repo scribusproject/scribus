@@ -9189,8 +9189,8 @@ void Page::AlignObj(bool xa, bool ya, bool Vth, bool Vtv, double xdisp, double y
 	BuildAObj();
 	for (uint a = 0; a < AObjects.count(); ++a)
 	{
-		Ysorted.insert(AObjects[a].y1, a, false);
-		Xsorted.insert(AObjects[a].x1, a, false);
+		Ysorted.insert(qRound(AObjects[a].y1)*1000000+qRound(AObjects[a].x1*100)+a, a, false);
+		Xsorted.insert(qRound(AObjects[a].x1)*1000000+qRound(AObjects[a].y1*100)+a, a, false);
 	}
 	QValueList<uint> Yindex = Ysorted.values();
 	QValueList<uint> Xindex = Xsorted.values();

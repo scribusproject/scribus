@@ -1813,6 +1813,10 @@ To zahteva zelo natančno izbiro vseh profilov.</translation>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Brez</translation>
+    </message>
 </context>
 <context>
     <name>CupsOptions</name>

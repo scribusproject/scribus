@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+	<template category="Devel Templates">
+		<name>textbased</name>
+		<file>textbased.sla.gz</file>
+		<tnail>textbasedtn.png</tnail>
+		<img>textbased.png</img>
+		<psize>A4, na výšku</psize>
+		<color>color</color>
+		<descr>A decent newsletter/magazine originaly created for one non-profit organization. Unrealized unfortunately.</descr>
+		<usage>Right click on text replace what's inside with your own. Or whatever you want to... ;)</usage>
+		<scribus_version>1.2RC1cvs</scribus_version>
+		<date>2004-07-10</date>
+		<author>Petr Vaněk</author>
+		<email>petr@yarpen.cz</email>
+	</template>
+</templates>

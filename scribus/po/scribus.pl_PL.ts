@@ -1873,6 +1873,10 @@ Wymaga ona bardzo dokładnie dopasowanych profili i służy jedynie jako ostrze�
         <source>Cancel</source>
         <translation type="unfinished">Anuluj</translation>
     </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Brak</translation>
+    </message>
 </context>
 <context>
     <name>CupsOptions</name>

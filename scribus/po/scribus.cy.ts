@@ -5614,6 +5614,10 @@ Argymhellir alluogi hyn os oes gennych ffotos yn eich dogfen.</translation>
         <source>Cancel</source>
         <translation type="unfinished">Diddymu</translation>
     </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Dim</translation>
+    </message>
 </context>
 <context>
     <name>CupsOptions</name>

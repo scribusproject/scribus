@@ -1577,6 +1577,10 @@ This requires very accurate profiles and serves only as a warning.</translation>
         <source>Cancel</source>
         <translation>Cancel</translation>
     </message>
+    <message>
+        <source>None</source>
+        <translation>None</translation>
+    </message>
 </context>
 <context>
     <name>CupsOptions</name>

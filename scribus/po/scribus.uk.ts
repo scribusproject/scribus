@@ -1815,6 +1815,10 @@ It is recommended that you enable this if you have photos in your document.</sou
         <source>Cancel</source>
         <translation type="unfinished">Вихід</translation>
     </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CupsOptions</name>

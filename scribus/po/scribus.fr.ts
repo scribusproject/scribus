@@ -8394,6 +8394,10 @@ vous avez des photos dans votre composition.</translation>
         <source>Cancel</source>
         <translation type="unfinished">Annuler</translation>
     </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Aucune</translation>
+    </message>
 </context>
 <context>
     <name>CupsOptions</name>

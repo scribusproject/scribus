@@ -1808,6 +1808,10 @@ This requires very accurate profiles and serves only as a warning.</source>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CupsOptions</name>

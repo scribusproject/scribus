@@ -1829,6 +1829,10 @@ Das erfordert sehr genaue Profile und dient nur als Anhaltspunkt.</translation>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
     </message>
+    <message>
+        <source>None</source>
+        <translation>Keiner</translation>
+    </message>
 </context>
 <context>
     <name>CupsOptions</name>

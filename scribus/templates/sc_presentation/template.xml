@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+	<template category="Devel Templates">
+		<name>presentation</name>
+		<file>presentation.sla.gz</file>
+		<tnail>presentationtn.png</tnail>
+		<img>presentation.png</img>
+		<psize>custom, 760x620</psize>
+		<color>color - Scribus website (or team Rabobank jersey ;))</color>
+		<descr>Based on the Maciej Hanski's presentation layout. I made it more simple because I like simple things. Used often in my office presentations.</descr>
+		<usage>Right click on text replace what's inside with your own. (Beware the management newspeak! ;)</usage>
+		<scribus_version>1.2RC1cvs</scribus_version>
+		<date>2004-07-1</date>
+		<author>Petr Vaněk</author>
+		<email>petr@yarpen.cz</email>
+	</template>
+</templates>
