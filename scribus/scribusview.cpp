@@ -206,7 +206,7 @@ Page* ScribusView::addPage(int nr)
 										1, Doc->Dpen);
 		fe->Items.at(z)->isAutoText = true;
 		fe->Items.at(z)->BackBox = Doc->LastAuto;
-		fe->Items.at(z)->Cols = Doc->PageSp;
+		fe->Items.at(z)->Cols = qRound(Doc->PageSp);
 		fe->Items.at(z)->ColGap = Doc->PageSpa;
 		if (Doc->LastAuto != 0)
 			Doc->LastAuto->NextBox = fe->Items.at(z);

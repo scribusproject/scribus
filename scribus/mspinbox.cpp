@@ -16,7 +16,8 @@
  ***************************************************************************/
 
 #include "mspinbox.h"
-#include "qapplication.h"
+#include <qapplication.h>
+#include "fparser.h"
 
 MSpinBox::MSpinBox(QWidget *pa, int s):QSpinBox(pa)
 {
@@ -75,7 +76,12 @@ QString MSpinBox::mapValueToText(int value)
 int MSpinBox::mapTextToValue(bool *)
 {
 	double dez = Width == 1 ? 10.0 : 100.0;
-	return static_cast<int>(qRound(text().toDouble()*dez));
+  FunctionParser fp;
+  int ret = fp.Parse(cleanText().latin1(), "", true);
+	if (ret >= 0)
+		return 0;
+  double erg = fp.Eval(NULL);
+	return qRound(erg*dez);
 }
 
 void MSpinBox::setDecimals(int deci)

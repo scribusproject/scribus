@@ -1039,7 +1039,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	DCol->setValue(i->Cols);
 	DGap->setValue(qRound(i->ColGap*10.0));
 	DCol->setMaxValue(QMAX(qRound(i->Width / QMAX(i->ColGap, 10.0)), 1));
-	DGap->setMaxValue(QMAX(qRound((i->Width / i->Cols - i->Extra - i->RExtra)*10.0), 0.0));
+	DGap->setMaxValue(QMAX(qRound((i->Width / i->Cols - i->Extra - i->RExtra)*10.0), 0));
 	DCol->setMinValue(1);
 	DGap->setMinValue(0);
   DLeft->setValue(qRound(i->Extra*10.0));
@@ -1541,7 +1541,7 @@ void Mpalette::setCols(int r, double g)
 	if (tmp)
 		{
 		DCol->setMaxValue(QMAX(qRound(CurItem->Width / QMAX(CurItem->ColGap, 10.0)), 1));
-		DGap->setMaxValue(QMAX(qRound((CurItem->Width / CurItem->Cols - CurItem->Extra - CurItem->RExtra)*10.0), 0.0));
+		DGap->setMaxValue(QMAX(qRound((CurItem->Width / CurItem->Cols - CurItem->Extra - CurItem->RExtra)*10.0), 0));
 		}
 	DCol->setMinValue(1);
 	DGap->setMinValue(0);

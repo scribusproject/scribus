@@ -70,6 +70,7 @@ public:
 	void mouseReleaseEvent(QMouseEvent *m);
 	void mouseMoveEvent(QMouseEvent *m);
 	void mousePressEvent(QMouseEvent *m);
+	void HandleCurs(QPainter *p, PageItem *b, QRect mpo);
 	void HandleSizer(QPainter *p, PageItem *b, QRect mpo);
 	void dragLeaveEvent(QDragLeaveEvent *e);
 	void dragEnterEvent(QDragEnterEvent *e);

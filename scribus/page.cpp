@@ -3334,52 +3334,8 @@ void Page::mouseMoveEvent(QMouseEvent *m)
   						if (b->PType == 2)
   							qApp->setOverrideCursor(QCursor(loadIcon("HandC.xpm")), true);
   						}
-  					tx = p.xForm(QRect(static_cast<int>(b->Width)-6, static_cast<int>(b->Height)-6, 6, 6));
-  					if (tx.contains(m->pos()))
-  						{
-  						if (doku->AppMode == 9)
-  							qApp->setOverrideCursor(QCursor(loadIcon("Rotieren2.xpm")), true);
-  						else
-  							qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
-  						}
-  					tx = p.xForm(QRect(0, 0, 6, 6));
-  					if (tx.contains(m->pos()))
-  						{
-  						if (doku->AppMode == 9)
-  							qApp->setOverrideCursor(QCursor(loadIcon("Rotieren2.xpm")), true);
-  						else
-  							qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
-							}
-  					tx = p.xForm(QRect(static_cast<int>(b->Width)-6, 0, 6, 6));
-  					if (tx.contains(m->pos()))
-  						{
-  						if (doku->AppMode == 9)
-  							qApp->setOverrideCursor(QCursor(loadIcon("Rotieren2.xpm")), true);
-  						else
-  							qApp->setOverrideCursor(QCursor(SizeBDiagCursor), true);
-							}
-  					tx = p.xForm(QRect(0, static_cast<int>(b->Height)-6, 6, 6));
-  					if (tx.contains(m->pos()))
-  						{
-  						if (doku->AppMode == 9)
-  							qApp->setOverrideCursor(QCursor(loadIcon("Rotieren2.xpm")), true);
-  						else
-  							qApp->setOverrideCursor(QCursor(SizeBDiagCursor), true);
-							}
-  					tx = p.xForm(QRect(static_cast<int>(b->Width)/2 - 3, static_cast<int>(b->Height)-6, 6, 6));
-  					if (tx.contains(m->pos()))
-  						qApp->setOverrideCursor(QCursor(SizeVerCursor), true);
-  					tx = p.xForm(QRect(static_cast<int>(b->Width)-6, static_cast<int>(b->Height)/2 - 3, 6, 6));
-  					if (tx.contains(m->pos()))
-  						qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
-  					tx = p.xForm(QRect(0, static_cast<int>(b->Height)/2 - 3, 6, 6));
-  					if (tx.contains(m->pos()))
-  						qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
-  					if (doku->EditClip)
-  						qApp->setOverrideCursor(QCursor(crossCursor), true);
-  					tx = p.xForm(QRect(static_cast<int>(b->Width)/2 - 3, 0, 6, 6));
-  					if (tx.contains(m->pos()))
-  						qApp->setOverrideCursor(QCursor(SizeVerCursor), true);
+						QRect mpo = QRect(m->x()-doku->GrabRad, m->y()-doku->GrabRad, doku->GrabRad*2, doku->GrabRad*2);
+						HandleCurs(&p, b, mpo);
 						}
 					else
   					qApp->setOverrideCursor(QCursor(ArrowCursor), true);
@@ -4128,6 +4084,87 @@ void Page::mousePressEvent(QMouseEvent *m)
 		}
 }
 
+void Page::HandleCurs(QPainter *p, PageItem *b, QRect mpo)
+{
+	QRect tx, tx2;
+	tx = p->xForm(QRect(static_cast<int>(b->Width)-6, static_cast<int>(b->Height)-6, 6, 6));
+	tx2 = p->xForm(QRect(0, 0, 6, 6));
+	if (tx.intersects(mpo) || tx2.intersects(mpo))
+		{
+		if (doku->AppMode == 9)
+			qApp->setOverrideCursor(QCursor(loadIcon("Rotieren2.xpm")), true);
+		else
+			{
+			double rr = fabs(b->Rot);
+			if ((rr >= 0.0) && (rr < 45.0))
+				qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
+			if ((rr >= 45.0) && (rr < 135.0))
+				qApp->setOverrideCursor(QCursor(SizeBDiagCursor), true);
+			if ((rr >= 135.0) && (rr < 225.0))
+				qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
+			if ((rr >= 225.0) && (rr < 315.0))
+				qApp->setOverrideCursor(QCursor(SizeBDiagCursor), true);
+			if ((rr >= 315.0) && (rr <= 360.0))
+				qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
+			}
+		}
+	tx = p->xForm(QRect(static_cast<int>(b->Width)-6, 0, 6, 6));
+	tx2 = p->xForm(QRect(0, static_cast<int>(b->Height)-6, 6, 6));
+	if (tx.intersects(mpo) || tx2.intersects(mpo))
+		{
+		if (doku->AppMode == 9)
+			qApp->setOverrideCursor(QCursor(loadIcon("Rotieren2.xpm")), true);
+		else
+			{
+			double rr = fabs(b->Rot);
+			if ((rr >= 0.0) && (rr < 45.0))
+				qApp->setOverrideCursor(QCursor(SizeBDiagCursor), true);
+			if ((rr >= 45.0) && (rr < 135.0))
+				qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
+			if ((rr >= 135.0) && (rr < 225.0))
+				qApp->setOverrideCursor(QCursor(SizeBDiagCursor), true);
+			if ((rr >= 225.0) && (rr < 315.0))
+				qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
+			if ((rr >= 315.0) && (rr <= 360.0))
+				qApp->setOverrideCursor(QCursor(SizeBDiagCursor), true);
+			}
+		}
+	tx = p->xForm(QRect(static_cast<int>(b->Width)-6, static_cast<int>(b->Height)/2 - 3, 6, 6));
+	tx2 = p->xForm(QRect(0, static_cast<int>(b->Height)/2 - 3, 6, 6));
+	if (tx.intersects(mpo) || tx2.intersects(mpo))
+		{
+		double rr = fabs(b->Rot);
+		if ((rr >= 0.0) && (rr < 45.0))
+			qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
+		if ((rr >= 45.0) && (rr < 135.0))
+			qApp->setOverrideCursor(QCursor(SizeVerCursor), true);
+		if ((rr >= 135.0) && (rr < 225.0))
+			qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
+		if ((rr >= 225.0) && (rr < 315.0))
+			qApp->setOverrideCursor(QCursor(SizeVerCursor), true);
+		if ((rr >= 315.0) && (rr <= 360.0))
+			qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
+			}
+	tx = p->xForm(QRect(static_cast<int>(b->Width)/2 - 3, 0, 6, 6));
+	tx2 = p->xForm(QRect(static_cast<int>(b->Width)/2 - 3, static_cast<int>(b->Height)-6, 6, 6));
+	if (tx.intersects(mpo) || tx2.intersects(mpo))
+		{
+		double rr = fabs(b->Rot);
+		if ((rr >= 0.0) && (rr < 45.0))
+			qApp->setOverrideCursor(QCursor(SizeVerCursor), true);
+		if ((rr >= 45.0) && (rr < 135.0))
+			qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
+		if ((rr >= 135.0) && (rr < 225.0))
+			qApp->setOverrideCursor(QCursor(SizeVerCursor), true);
+		if ((rr >= 225.0) && (rr < 315.0))
+			qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
+		if ((rr >= 315.0) && (rr <= 360.0))
+			qApp->setOverrideCursor(QCursor(SizeVerCursor), true);
+		}
+	if (doku->EditClip)
+		qApp->setOverrideCursor(QCursor(crossCursor), true);
+}
+
 void Page::HandleSizer(QPainter *p, PageItem *b, QRect mpo)
 {
 	b->OldB = b->Width;
@@ -4136,48 +4173,25 @@ void Page::HandleSizer(QPainter *p, PageItem *b, QRect mpo)
 	b->OldH2 = b->Height;
 	HowTo = 0;
 	if (p->xForm(QRect(static_cast<int>(b->Width)-6, static_cast<int>(b->Height)-6, 6, 6)).intersects(mpo))
-		{
 		HowTo = 1;
-		qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
-		}
 	if (b->PType != 5)
 		{
 		if (p->xForm(QRect(0, 0, 6, 6)).intersects(mpo))
-			{
 			HowTo = 2;
-			qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
-			}
 		if (p->xForm(QRect(static_cast<int>(b->Width/2) - 3, 0, 6, 6)).intersects(mpo))
-			{
 			HowTo = 8;
-			qApp->setOverrideCursor(QCursor(SizeVerCursor), true);
-			}
 		if (p->xForm(QRect(0, static_cast<int>(b->Height)/2 - 3, 6, 6)).intersects(mpo))
-			{
 			HowTo = 7;
-			qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
-			}
 		if (p->xForm(QRect(static_cast<int>(b->Width) - 6, static_cast<int>(b->Height)/2 - 3, 6, 6)).intersects(mpo))
-			{
 			HowTo = 6;
-			qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
-			}
 		if (p->xForm(QRect(static_cast<int>(b->Width)/2 - 3, static_cast<int>(b->Height)-6, 6, 6)).intersects(mpo))
-			{
 			HowTo = 5;
-			qApp->setOverrideCursor(QCursor(SizeVerCursor), true);
-			}
 		if (p->xForm(QRect(0, static_cast<int>(b->Height)-6, 6, 6)).intersects(mpo))
-			{
 			HowTo = 4;
-			qApp->setOverrideCursor(QCursor(SizeBDiagCursor), true);
-			}
 		if (p->xForm(QRect(static_cast<int>(b->Width)-6, 0, 6, 6)).intersects(mpo))
-			{
 			HowTo = 3;
-			qApp->setOverrideCursor(QCursor(SizeBDiagCursor), true);
-			}
 		}
+	HandleCurs(p, b, mpo);
 	storeUndoInf(b);
 	if (HowTo != 0)
 		{

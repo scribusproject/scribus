@@ -1,4 +1,7 @@
 Changes since Version 1.1.4
+27.12.2003	All Floating Point Spinboxes can now evaluate Expressions like
+		(1 + 3) * 5, there is now a full calculator available. (Code borrowed from QCad)
+
 26.12.2003	Fixed Issues with rotated Text when converting to Outlines.
 		Fixed Issues with rotated Object when joining Polygons.
 		Fixed column width not being equal for all columns on Textframes.
