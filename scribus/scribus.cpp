@@ -8638,7 +8638,7 @@ void ScribusApp::configHyphenator()
 	HySettings *dia = new HySettings(this, &LangTransl);
 	if (HaveDoc)
 	{
-		dia->Verbose->setChecked(doc->Trenner->Automatic);
+		dia->Verbose->setChecked(!doc->Trenner->Automatic);
 		dia->Input->setChecked(doc->Trenner->AutoCheck);
 		dia->Language->setCurrentText(LangTransl[doc->Trenner->Language]);
 		dia->WordLen->setValue(doc->Trenner->MinWordLen);
@@ -8646,7 +8646,7 @@ void ScribusApp::configHyphenator()
 	}
 	else
 	{
-		dia->Verbose->setChecked(Prefs.Automatic);
+		dia->Verbose->setChecked(!Prefs.Automatic);
 		dia->Input->setChecked(Prefs.AutoCheck);
 		dia->Language->setCurrentText(LangTransl[Prefs.Language]);
 		dia->WordLen->setValue(Prefs.MinWordLen);
