@@ -193,8 +193,8 @@ void UndoManager::setState(UndoGui* gui, int uid)
 	ActionList::iterator it;
 	if (uid > -1)
 	{
-		ActionList::iterator it2 = stacks[currentDoc].second.begin();
-		for (it2; it2 != stacks[currentDoc].second.end(); ++it2)
+		ActionList::iterator it2;
+		for (it2 = stacks[currentDoc].second.begin(); it2 != stacks[currentDoc].second.end(); ++it2)
 		{
 			UndoState*  tmp  = (*it2).second;
 			TransactionState *ts = dynamic_cast<TransactionState*>(tmp);
@@ -207,7 +207,7 @@ void UndoManager::setState(UndoGui* gui, int uid)
 	}
 	else
 		it = stacks[currentDoc].second.end() - 1;
-	for (it; it > stacks[currentDoc].second.begin() - 1; --it)
+	for (; it > stacks[currentDoc].second.begin() - 1; --it)
 	{
 		ActionPair pair = *it;
 		UndoObject* target = pair.first;
@@ -565,6 +565,11 @@ int UndoManager::getHistoryLength()
 	if (stacks.size() > 0 && stacks[currentDoc].first != stacks[currentDoc].second.begin())
 		return -1;
 	return historyLength;
+}
+
+bool UndoManager::isGlobalMode()
+{
+	return currentUndoObjectId == -1;
 }
 
 void UndoManager::checkStackLength()

@@ -394,6 +394,12 @@ public:
 	 */
 	int getHistoryLength();
 
+	/** 
+	 * @brief Returns true if in global mode and false if in object specific mode.
+	 * @return true if in global mode and false if in object specific mode
+	 */
+	bool isGlobalMode();
+
 	/**
 	* @name Action strings
 	* Strings describing undo actions

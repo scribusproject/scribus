@@ -326,11 +326,14 @@ private: // Private attributes
 	int    oldY;
 	bool _groupTransactionStarted;
 	bool _itemCreationTransactionStarted;
+	bool _isGlobalMode;
 
 private slots:
 	void Zval();
 	void setRulerPos(int x, int y);
 	void selectionChanged();
+	void setObjectUndoMode();
+	void setGlobalUndoMode();
 
 protected: // Protected methods
 	virtual void drawContents(QPainter *p, int clipx, int clipy, int clipw, int cliph);

@@ -187,6 +187,7 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc, ApplicationPrefs *pre
 	ClRe2 = -1;
 	_groupTransactionStarted = false;
 	_itemCreationTransactionStarted = false;
+	_isGlobalMode = true;
 	undoManager = UndoManager::instance();
 	connect(SB1, SIGNAL(clicked()), this, SLOT(slotZoomOut()));
 	connect(SB2, SIGNAL(clicked()), this, SLOT(slotZoomIn()));
@@ -1482,6 +1483,11 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			pmen->insertItem( tr("&Paste") , this, SLOT(PasteToPage()));
 			pmen->insertSeparator();
 		}
+		setObjectUndoMode();
+		pmen->insertSeparator();
+		ScApp->scrActions["editUndoAction"]->addTo(pmen);
+		ScApp->scrActions["editRedoAction"]->addTo(pmen);
+		pmen->insertSeparator();
 		ScApp->scrActions["viewShowMargins"]->addTo(pmen);
 		ScApp->scrActions["viewShowMargins"]->addTo(pmen);
 		ScApp->scrActions["viewShowFrames"]->addTo(pmen);
@@ -1494,6 +1500,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		ScApp->scrActions["viewSnapToGrid"]->addTo(pmen);
 		ScApp->scrActions["viewSnapToGuides"]->addTo(pmen);
 		pmen->exec(QCursor::pos());
+		setGlobalUndoMode();
 		delete pmen;
 		return;
 	}
@@ -1508,7 +1515,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			QPopupMenu *pmen4 = new QPopupMenu();
 			QPopupMenu *pmenLevel = new QPopupMenu();
 			QPopupMenu *pmenPDF = new QPopupMenu();
-
+			setObjectUndoMode();
 			if ((b->itemType() == PageItem::TextFrame) || (b->itemType() == PageItem::ImageFrame) || (b->itemType() == PageItem::PathText))
 			{
 				QButtonGroup *InfoGroup = new QButtonGroup( this, "InfoGroup" );
@@ -1608,6 +1615,10 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 
 				pmen->insertItem( tr("In&fo"), pmen4);
 			}
+			pmen->insertSeparator();
+			ScApp->scrActions["editUndoAction"]->addTo(pmen);
+			ScApp->scrActions["editRedoAction"]->addTo(pmen);
+			pmen->insertSeparator();
 			if (b->itemType() == PageItem::ImageFrame)
 			{
 				ScApp->scrActions["fileImportImage"]->addTo(pmen);
@@ -1745,6 +1756,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			else
 				pmen->insertItem( tr("Hide P&roperties..."), ScApp, SLOT(ToggleMpal()));
 			pmen->exec(QCursor::pos());
+			setGlobalUndoMode();
 			delete pmen;
 			delete pmen2;
 			disconnect(pmen3, SIGNAL(activated(int)), this, SLOT(sentToLayer(int)));
@@ -11516,4 +11528,36 @@ void ScribusView::contentsWheelEvent(QWheelEvent *w)
 		}
 	}
 	w->accept();
+}
+
+void ScribusView::setObjectUndoMode()
+{
+	_isGlobalMode = undoManager->isGlobalMode();
+	if (ScApp->HaveDoc)
+	{
+		if (SelItem.count() == 1)
+			undoManager->showObject(SelItem.at(0)->getUId());
+		else if (SelItem.count() > 1)
+			undoManager->showObject(-2);
+		else if (SelItem.count() == 0)
+			undoManager->showObject(Doc->currentPage->getUId());
+	}
+}
+
+void ScribusView::setGlobalUndoMode()
+{
+	if (ScApp->HaveDoc)
+	{
+		if (_isGlobalMode)
+			undoManager->showObject(-1);
+		else
+		{
+			if (SelItem.count() == 1)
+				undoManager->showObject(SelItem.at(0)->getUId());
+			else if (SelItem.count() > 1)
+				undoManager->showObject(-2);
+			else if (SelItem.count() == 0)
+				undoManager->showObject(Doc->currentPage->getUId());
+		}
+	}
 }
