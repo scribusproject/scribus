@@ -155,7 +155,7 @@ class Foi_postscript : public Foi
 				return(HasMetrics);
 			CharWidth.clear();
 			GlyphArray.clear();
-			QString tmp;
+			QString tmp, tmp2, tmp3, tmp4;
 			double x, y;
 			FPointArray outlines;
 			struct GlyphR GRec;
@@ -198,7 +198,7 @@ class Foi_postscript : public Foi
 			CapHeight = Ascent;
 			ItalicAngle = "0";
 			StdVW = "1";
-			FontBBox = tmp.setNum(face->bbox.xMin)+" "+tmp.setNum(face->bbox.yMin)+" "+tmp.setNum(face->bbox.xMax)+" "+tmp.setNum(face->bbox.yMax);
+			FontBBox = tmp.setNum(face->bbox.xMin)+" "+tmp2.setNum(face->bbox.yMin)+" "+tmp3.setNum(face->bbox.xMax)+" "+tmp4.setNum(face->bbox.yMax);
 			IsFixedPitch = face->face_flags & 4;
 			gindex = 0;
 			charcode = FT_Get_First_Char( face, &gindex );
@@ -350,19 +350,32 @@ void SCFonts::AddScalableFonts(const QString &path)
 {
 	FT_Face face;
 	FT_Library library;
-	QString ts;
+	QString ts, pathfile;
 	bool error;
-	error = FT_Init_FreeType( &library );
-	QDir d(path, "*.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
+	error = FT_Init_FreeType( &library );        
+	QDir d(path, "*", QDir::Name, QDir::Dirs | QDir::Files | QDir::Readable);
 	if ((d.exists()) && (d.count() != 0))
 		{
 		for (uint dc = 0; dc < d.count(); ++dc)
 			{
-			QFileInfo fi(path + d[dc]);
-			QString ext = fi.extension(false).lower();
+			QFileInfo fi(path+d[dc]);
+			if (!fi.exists())      // Sanity check for broken Symlinks
+				continue;
+			if (fi.isSymLink())
+				{
+				QFileInfo fi3(fi.readLink());
+				if (fi3.isRelative())
+					pathfile = path+fi.readLink();
+				else
+					pathfile = fi3.absFilePath();
+				}
+			else
+				pathfile = path+d[dc];
+			QFileInfo fi2(pathfile);
+			QString ext = fi2.extension(false).lower();
 			if ((ext == "pfa") || (ext == "pfb") || (ext == "ttf") || (ext == "otf"))
 				{
-				error = FT_New_Face( library, path + d[dc], 0, &face );
+				error = FT_New_Face( library, pathfile, 0, &face );
 				if (error)
 					continue;
 				}
@@ -373,13 +386,13 @@ void SCFonts::AddScalableFonts(const QString &path)
 				{
 				Foi *t=0;
 				if(ext == "pfa")
-					t = new Foi_pfa(ts, path + d[dc], true);
+					t = new Foi_pfa(ts, pathfile, true);
 				else if(ext == "pfb")
-					t = new Foi_pfb(ts, path + d[dc], true);
+					t = new Foi_pfb(ts, pathfile, true);
 				else if(ext == "ttf")
-					t = new Foi_ttf(ts, path + d[dc], true);
+					t = new Foi_ttf(ts, pathfile, true);
 				else if(ext == "otf")
-					t = new Foi_ttf(ts, path + d[dc], true);
+					t = new Foi_ttf(ts, pathfile, true);
 				if(t)
 					{
 					t->cached_RealName = QString(FT_Get_Postscript_Name(face));

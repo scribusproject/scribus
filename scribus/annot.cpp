@@ -1681,7 +1681,7 @@ void Annot::SetCross()
 
 void Annot::SetVals()
 {
-	QString tmp;
+	QString tmp, tmp2;
 	QString Nfo = "";
 	bool AAct = false;
 	item->AnType = ComboBox1->currentItem()+2;
@@ -1787,7 +1787,7 @@ void Annot::SetVals()
 				item->An_K_act = "";
 				break;
 			case 1:
-				Nfo = tmp.setNum(Decim->value())+", "+tmp.setNum(FormNum)+", 0, 0, \"";
+				Nfo = tmp.setNum(Decim->value())+", "+tmp2.setNum(FormNum)+", 0, 0, \"";
 				if (UseCurr->isChecked())
 					{
 					if (!PreCurr->isChecked())
@@ -1804,7 +1804,7 @@ void Annot::SetVals()
 				item->An_K_act = "AFNumber_Keystroke("+Nfo;
 				break;
 			case 2:
-				Nfo = tmp.setNum(Decim2->value())+", "+tmp.setNum(FormNum)+")";
+				Nfo = tmp.setNum(Decim2->value())+", "+tmp2.setNum(FormNum)+")";
 				item->An_F_act = "AFPercent_Format("+Nfo;
 				item->An_K_act = "AFPercent_Keystroke("+Nfo;
 				break;
@@ -1869,7 +1869,7 @@ void Annot::SetVals()
 				item->AnActType = 2;
 				}
 			item->AnZiel = SpinBox11->value()-1;
-			item->AnAction = tmp.setNum(SpinBox21->value())+" "+tmp.setNum(Hoehe-SpinBox31->value())+" 0";
+			item->AnAction = tmp.setNum(SpinBox21->value())+" "+tmp2.setNum(Hoehe-SpinBox31->value())+" 0";
 			break;
 		case 3:
 			item->AnActType = 3;

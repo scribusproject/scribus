@@ -30,7 +30,7 @@ bool Foi_ttf::ReadMetrics()
 		return(true);
 	CharWidth.clear();
 	GlyphArray.clear();
-	QString tmp;
+	QString tmp, tmp2, tmp3, tmp4;
 	bool			error;
 	FT_Library library;
 	FT_ULong  charcode;
@@ -53,7 +53,7 @@ bool Foi_ttf::ReadMetrics()
 	strokeWidth = face->underline_thickness / uniEM;
 	ItalicAngle = "0";
 	StdVW = "1";
-	FontBBox = tmp.setNum(face->bbox.xMin * 1000 / uniEM)+" "+tmp.setNum(face->bbox.yMin * 1000 / uniEM)+" "+tmp.setNum(face->bbox.xMax * 1000 / uniEM)+" "+tmp.setNum(face->bbox.yMax * 1000 / uniEM);
+	FontBBox = tmp.setNum(face->bbox.xMin * 1000 / uniEM)+" "+tmp2.setNum(face->bbox.yMin * 1000 / uniEM)+" "+tmp3.setNum(face->bbox.xMax * 1000 / uniEM)+" "+tmp4.setNum(face->bbox.yMax * 1000 / uniEM);
 	IsFixedPitch = face->face_flags & 4;
 	gindex = 0;
 	charcode = FT_Get_First_Char( face, &gindex );

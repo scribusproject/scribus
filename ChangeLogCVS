@@ -1,4 +1,7 @@
 Changes since Version 1.1.1
+23.10.2003	Using Symlinks for Fonts works now.
+		Fixed missing Lines around Textbox in PDF-Output.
+
 21.10.2003	Included the new Icons contributed by Sven Powalla.
 		Fixed issue with the "Find Picture" Command.
 		Locked Object can't be dragged anymore.

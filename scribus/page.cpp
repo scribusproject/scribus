@@ -6647,7 +6647,7 @@ void Page::insertColor(QString nam, double c, double m, double y, double k)
 
 void Page::LoadPict(QString fn, int ItNr)
 {
-	QString tmp, dummy, cmd1, cmd2, BBox, FarNam;
+	QString tmp, tmp2, dummy, cmd1, cmd2, BBox, FarNam;
 	QChar tc;
 	QString oldPr = doku->CMSSettings.DefaultInputProfile;
 	double x, y, b, h, c, m, k;
@@ -6758,7 +6758,7 @@ void Page::LoadPict(QString fn, int ItNr)
 				ts2 >> dummy >> x >> y >> b >> h;
 				cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r72 -sOutputFile=/tmp/sc.png -g";
 				cmd2 = " -c showpage -c quit";
-				ret = system(cmd1 + tmp.setNum(qRound(b)) + "x" + tmp.setNum(qRound(h)) + " " + fn + cmd2);
+				ret = system(cmd1 + tmp.setNum(qRound(b)) + "x" + tmp2.setNum(qRound(h)) + " " + fn + cmd2);
 				if (ret == 0)
 					{
 					QImage im4;

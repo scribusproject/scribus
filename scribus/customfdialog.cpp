@@ -104,6 +104,7 @@ void FDialogPreview::GenPreview(QString name)
 			int ix = im.width();
 			int iy = im.height();
 			QString tmp = "";
+			QString tmp2 = "";
 			if ((im.width() > width()-5) || (im.height() > height()-20))
 				{
 				QImage im2;
@@ -118,7 +119,7 @@ void FDialogPreview::GenPreview(QString name)
 			pm.fill(white);
 			p.begin(&pm);
 			p.drawImage(0, 0, im);
-			p.drawText(2, height()-5, tr("Size:")+" "+tmp.setNum(ix)+" x "+tmp.setNum(iy));
+			p.drawText(2, height()-5, tr("Size:")+" "+tmp.setNum(ix)+" x "+tmp2.setNum(iy));
 			p.end();
 			setPixmap(pm);
 			}

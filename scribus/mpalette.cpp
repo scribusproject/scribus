@@ -424,6 +424,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs)
     layout41 = new QGridLayout( 0, 1, 1, 0, 5, "layout41");
 
     Fonts = new FontCombo(page_3, Prefs);
+		Fonts->setMaximumSize(200, 30);
     layout41->addMultiCellWidget( Fonts, 0, 0, 0, 1 );
 
     Text20 = new QLabel( page_3, "Text20" );

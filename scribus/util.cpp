@@ -234,7 +234,7 @@ QPixmap LoadPDF(QString fn, int Seite, int Size, int *w, int *h)
 
 QImage LoadPict(QString fn)
 {
-	QString tmp, dummy, cmd1, cmd2, BBox;
+	QString tmp, dummy, cmd1, cmd2, BBox, tmp2;
 	QChar tc;
 	QImage Bild;
 	double x, y, b, h;
@@ -286,7 +286,7 @@ QImage LoadPict(QString fn)
 				ts2 >> dummy >> x >> y >> b >> h;
 				cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r72 -sOutputFile=/tmp/sc.png -g";
 				cmd2 = " -c showpage -c quit";
-				ret = system(cmd1 + tmp.setNum(qRound(b)) + "x" + tmp.setNum(qRound(h)) + " " + fn + cmd2);
+				ret = system(cmd1 + tmp.setNum(qRound(b)) + "x" + tmp2.setNum(qRound(h)) + " " + fn + cmd2);
 				if (ret == 0)
 					{
 					QImage im4;
@@ -394,7 +394,7 @@ QImage LoadPict(QString fn)
 #ifdef HAVE_CMS
 QImage LoadPictCol(QString fn, QString Prof, bool UseEmbedded, bool *realCMYK)
 {
-	QString tmp, dummy, cmd1, cmd2, BBox;
+	QString tmp, dummy, cmd1, cmd2, BBox, tmp2;
 	QChar tc;
 	QImage Bild;
 	double x, y, b, h;
@@ -447,7 +447,7 @@ QImage LoadPictCol(QString fn, QString Prof, bool UseEmbedded, bool *realCMYK)
 				ts2 >> dummy >> x >> y >> b >> h;
 				cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r72 -sOutputFile=/tmp/sc.png -g";
 				cmd2 = " -c showpage -c quit";
-				ret = system(cmd1 + tmp.setNum(qRound(b)) + "x" + tmp.setNum(qRound(h)) + " " + fn + cmd2);
+				ret = system(cmd1 + tmp.setNum(qRound(b)) + "x" + tmp2.setNum(qRound(h)) + " " + fn + cmd2);
 				if (ret == 0)
 					{
 					QImage im4;

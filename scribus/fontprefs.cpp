@@ -270,12 +270,6 @@ void FontPrefs::AddPath()
 	QString s = QFileDialog::getExistingDirectory(CurrentPath, this, "d", tr("Choose a Directory"), true);
 	if (s != "")
 		{
-  	QFile fp(s+"fonts.scale");
-		if(!(fp.exists()))
-		{
-			fp.setName(s+"fonts.dir");
-			return;
-		}
 		s = s.left(s.length()-1);
 		if (PathList->findItem(s))
 			return;
@@ -305,12 +299,6 @@ void FontPrefs::ChangePath()
 	QString s = QFileDialog::getExistingDirectory(CurrentPath, this, "d", tr("Choose a Directory"), true);
 	if (s != "")
 		{
-  	QFile fp(s+"fonts.scale");
-		if(!(fp.exists()))
-		{
-			fp.setName(s+"fonts.dir");
-			return;
-		}
 		s = s.left(s.length()-1);
 		if (PathList->findItem(s))
 			return;

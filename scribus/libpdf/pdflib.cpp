@@ -1397,11 +1397,31 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 							else
 								PutPage(ite->Segments.count() != 0 ? "h\nf*\n" : "h\nf\n");
 							}
+						PutPage("q\n");
 						if ((ite->flippedH % 2) != 0)
 							PutPage("-1 0 0 1 "+FToStr(ite->Width)+" 0 cm\n");
 						if ((ite->flippedV % 2) != 0)
 							PutPage("1 0 0 -1 0 "+FToStr(-ite->Height)+" cm\n");
 						PutPage(setTextSt(ite, PNr));
+						PutPage("Q\n");
+						if ((ite->Pcolor2 != "None") || (ite->NamedLStyle != ""))
+							{
+							if (ite->NamedLStyle == "")
+								{
+								PutPage(SetClipPath(ite));
+								PutPage("h\nS\n");
+								}
+							else
+								{
+								multiLine ml = doc->MLineStyles[ite->NamedLStyle];
+								for (int it = ml.size()-1; it > -1; it--)
+									{
+									PutPage(setStrokeMulti(&ml[it]));
+									PutPage(SetClipPath(ite));
+									PutPage("h\nS\n");
+									}
+								}
+							}
 						break;
 					case 5:
 						if (ite->NamedLStyle == "")

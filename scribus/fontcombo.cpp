@@ -57,7 +57,8 @@ FontCombo::FontCombo(QWidget* pa, preV *Prefs) : QComboBox(true, pa)
 	clear();
 	for (QStringList::ConstIterator it2 = rlist.begin(); it2 != rlist.end(); ++it2)
 		{
-		new FontListItem(this, *it2, Prefs->AvailFonts[*it2]->Font);
+		insertItem(*it2);
+//		new FontListItem(this, *it2, Prefs->AvailFonts[*it2]->Font);
 		}
 }
 
@@ -75,6 +76,7 @@ void FontCombo::RebuildList(preV *Prefs)
 	rlist.sort();
 	for (QStringList::ConstIterator it2 = rlist.begin(); it2 != rlist.end(); ++it2)
 		{
-		new FontListItem(this, *it2, Prefs->AvailFonts[*it2]->Font);
+		insertItem(*it2);
+//		new FontListItem(this, *it2, Prefs->AvailFonts[*it2]->Font);
 		}
 }
