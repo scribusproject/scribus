@@ -49,6 +49,7 @@ TabManager::TabManager( QWidget* parent, int dEin, QValueList<double> inTab) : Q
 	Align->insertItem( tr( "Right" ) );
 	Align->insertItem( tr( "Full Stop" ) );
 	Align->insertItem( tr( "Comma" ) );
+	Align->insertItem( tr( "Center" ) );
 	Align->setEditable(false);
 	Align->setEnabled(false);
 	layout7->addWidget( Align, 1, 1 );

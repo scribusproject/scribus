@@ -22,7 +22,7 @@ class Farbmanager : public QDialog
     Q_OBJECT
 
 public:
-    Farbmanager( QWidget* parent, CListe doco );
+    Farbmanager( QWidget* parent, CListe doco, bool HDoc );
     ~Farbmanager() {};
   	CListe EditColors;
   	QMap<QString,QString> Ersatzliste;
@@ -33,13 +33,16 @@ private:
     QPushButton* EditF;
     QPushButton* DupF;
     QPushButton* DelF;
+		QPushButton* Rest;
     QPushButton* SaveF;
     QPushButton* CancF;
     QString sFarbe;
     QColor tmpFarbe;
 		QStringList DontChange;
+		bool HaveDoc;
 
 private slots:
+		void loadDefaults();
 		void loadFarben();
     void delFarbe();
     void duplFarbe();

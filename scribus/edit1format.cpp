@@ -54,7 +54,7 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
     SizeC->setSuffix( tr( " pt" ) );
 		SizeC->setMinValue(1);
 		SizeC->setMaxValue(1024);
-		SizeC->setValue(vor->FontSize);
+		SizeC->setValue(vor->FontSize / 10.0);
 
     GroupFontLayout->addWidget( SizeC, 1, 1 );
     TextF2 = new QLabel( GroupFont, "TextF2" );

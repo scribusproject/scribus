@@ -1,4 +1,10 @@
 Changes since Version 1.1.4
+07.01.2004	Added the missing centered Tabulator.
+		Added the Colors of the XFree RGB Color Database as alternative
+		Default Colors.
+		Added a Button to restore the Default Colors to the Color Editor.
+		Updated the Russian Translation.
+
 06.01.2004	The Tab-Key switches now between Docs when not in Edit-Mode.
 		Improved the MSpinBox API.
 

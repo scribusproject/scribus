@@ -5797,11 +5797,35 @@ void Page::ItemPenShade(int sha)
 		}
 }
 
+void Page::AdjItemGradient(PageItem *b, int typ, QString col1, int sh1, QString col2, int sh2)
+{
+	QColor tmp;
+	b->fill_gradient.clearStops();
+	if (typ == 5)
+		{
+		b->SetFarbe(&tmp, col2, sh2);
+		b->fill_gradient.addStop(tmp, 0.0, 0.5, 1.0);
+		b->SetFarbe(&tmp, col1, sh1);
+		b->fill_gradient.addStop(tmp, 1.0, 0.5, 1.0);
+		}
+	else
+		{
+		b->SetFarbe(&tmp, col1, sh1);
+		b->fill_gradient.addStop(tmp, 0.0, 0.5, 1.0);
+		b->SetFarbe(&tmp, col2, sh2);
+		b->fill_gradient.addStop(tmp, 1.0, 0.5, 1.0);
+		}
+	b->GrColor2 = col1;
+	b->GrShade2 = sh1;
+	b->GrColor = col2;
+	b->GrShade = sh2;
+	b->GrType = typ;
+}
+
 void Page::ItemGradFill(int typ, QString col1, int sh1, QString col2, int sh2)
 {
 	uint a;
 	PageItem *i;
-	QColor tmp;
 	QString col1c, col2c;
 	if ((col1 == "None") || (col1 == ""))
 		col1c = "Black";
@@ -5816,26 +5840,7 @@ void Page::ItemGradFill(int typ, QString col1, int sh1, QString col2, int sh2)
   	for (a = 0; a < SelItem.count(); ++a)
   		{
   		i = SelItem.at(a);
-			i->fill_gradient.clearStops();
-			if (typ == 5)
-				{
-				i->SetFarbe(&tmp, col2c, sh2);
-				i->fill_gradient.addStop(tmp, 0.0, 0.5, 1.0);
-				i->SetFarbe(&tmp, col1c, sh1);
-				i->fill_gradient.addStop(tmp, 1.0, 0.5, 1.0);
-				}
-			else
-				{
-				i->SetFarbe(&tmp, col1c, sh1);
-				i->fill_gradient.addStop(tmp, 0.0, 0.5, 1.0);
-				i->SetFarbe(&tmp, col2c, sh2);
-				i->fill_gradient.addStop(tmp, 1.0, 0.5, 1.0);
-				}
-			i->GrColor2 = col1c;
-			i->GrShade2 = sh1;
-			i->GrColor = col2c;
-			i->GrShade = sh2;
-			i->GrType = typ;
+			AdjItemGradient(i, typ, col1c, sh1, col2c, sh2);
 			RefreshItem(i);
 			}
 		}

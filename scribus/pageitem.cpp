@@ -729,6 +729,11 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						RTab = false;
 						TabCode = 0;
 						}
+					if ((hl->ch == QChar(9)) && (TabCode == 4))
+						{
+						RTab = false;
+						TabCode = 0;
+						}
 					if (hl->ch == QChar(9))
 						{
 						wide = 1;
@@ -779,6 +784,8 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						}
 					else
 						hl->xp = CurX;
+					if (TabCode == 4)
+						CurX += (wide+hl->cextra) / 2;
 					pt1 = QPoint(static_cast<int>(CurX+RExtra+lineCorr), static_cast<int>(CurY+desc+BExtra+lineCorr));
 					pt2 = QPoint(static_cast<int>(CurX+RExtra+lineCorr), static_cast<int>(CurY-asce));
 					if ((!cl.contains(pf.xForm(pt1))) || (!cl.contains(pf.xForm(pt2))) || (CurX+RExtra+lineCorr > ColBound.y()))
@@ -817,10 +824,13 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					if (RTab)
 						{
 						uint rtx2 = 0;
+						double cen = 1;
+						if (TabCode == 4)
+							cen = 2;
 						for (uint rtx = StartRT; rtx < LiList.count(); ++rtx)
 							{
-							LiList.at(rtx)->xco = QMAX(LiList.at(rtx)->xco-(wide+hl->cextra), 0.0);
-							Ptext.at(StartRT2+rtx2)->xp = QMAX(Ptext.at(StartRT2+rtx2)->xp-(wide+hl->cextra), 0.0);
+							LiList.at(rtx)->xco = QMAX(LiList.at(rtx)->xco-(wide+hl->cextra) / cen, 0.0);
+							Ptext.at(StartRT2+rtx2)->xp = QMAX(Ptext.at(StartRT2+rtx2)->xp-(wide+hl->cextra) / cen, 0.0);
 							rtx2++;
 							}
 						}

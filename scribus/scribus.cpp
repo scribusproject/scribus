@@ -199,14 +199,43 @@ ScribusApp::ScribusApp(SplashScreen *splash)
   	Prefs.AppFontSize = qApp->font().pointSize();
   	/** Default Farbenliste */
   	Prefs.DColors.clear();
-	  Prefs.DColors.insert("White", CMYKColor(0, 0, 0, 0));
-  	Prefs.DColors.insert("Black", CMYKColor(0, 0, 0, 255));
-		Prefs.DColors.insert("Blue", CMYKColor(255, 255, 0, 0));
-		Prefs.DColors.insert("Cyan", CMYKColor(255, 0, 0, 0));
-		Prefs.DColors.insert("Green", CMYKColor(255, 0, 255, 0));
-		Prefs.DColors.insert("Red", CMYKColor(0, 255, 255, 0));
-		Prefs.DColors.insert("Yellow", CMYKColor(0, 0, 255, 0));
-		Prefs.DColors.insert("Magenta", CMYKColor(0, 255, 0, 0));
+  	QString pfadC = PREL;
+  	QString pfadC2 = pfadC + "/lib/scribus/rgbscribus.txt";
+  	QFile fiC(pfadC2);
+  	if (!fiC.exists())
+			{
+	  	Prefs.DColors.insert("White", CMYKColor(0, 0, 0, 0));
+  		Prefs.DColors.insert("Black", CMYKColor(0, 0, 0, 255));
+			Prefs.DColors.insert("Blue", CMYKColor(255, 255, 0, 0));
+			Prefs.DColors.insert("Cyan", CMYKColor(255, 0, 0, 0));
+			Prefs.DColors.insert("Green", CMYKColor(255, 0, 255, 0));
+			Prefs.DColors.insert("Red", CMYKColor(0, 255, 255, 0));
+			Prefs.DColors.insert("Yellow", CMYKColor(0, 0, 255, 0));
+			Prefs.DColors.insert("Magenta", CMYKColor(0, 255, 0, 0));
+			}
+		else
+			{
+			if (fiC.open(IO_ReadOnly))
+				{
+				QString ColorEn, Cname;
+				int Rval, Gval, Bval;
+				QTextStream tsC(&fiC);
+				ColorEn = tsC.readLine();
+				while (!tsC.atEnd())
+					{
+					ColorEn = tsC.readLine();
+					QTextStream CoE(&ColorEn, IO_ReadOnly);
+					CoE >> Rval;
+					CoE >> Gval;
+					CoE >> Bval;
+					CoE >> Cname;
+					CMYKColor tmp;
+					tmp.setColorRGB(Rval, Gval, Bval);
+					Prefs.DColors.insert(Cname, tmp);
+					}
+				fiC.close();
+				}
+			}
 		DispX = 10;
 		DispY = 10;
 		Prefs.Wheelval = 40;
@@ -4685,6 +4714,7 @@ void ScribusApp::slotEditColors()
 	uint b, c, d;
 	CListe edc;
 	QMap<QString,QString> ers;
+	PageItem *ite;
 	if (HaveDoc)
 		{
 		edc = doc->PageColors;
@@ -4693,7 +4723,7 @@ void ScribusApp::slotEditColors()
 		{
 		edc = Prefs.DColors;
 		}
-	Farbmanager* dia = new Farbmanager(this, edc);
+	Farbmanager* dia = new Farbmanager(this, edc, HaveDoc);
 	if (dia->exec())
 		{
 		if (HaveDoc)
@@ -4729,22 +4759,34 @@ void ScribusApp::slotEditColors()
 					QMap<QString,QString>::Iterator it;
 					for (it = ers.begin(); it != ers.end(); ++it)
 						{
+						if (it.key() == doc->CurrTextFill)
+							doc->CurrTextFill = it.data();
+						if (it.key() == doc->CurrTextStroke)
+							doc->CurrTextStroke = it.data();
 						for (b=0; b<view->DocPages.count(); ++b)
 							{
 							for (c=0; c<view->DocPages.at(b)->Items.count(); ++c)
 								{
-								if (view->DocPages.at(b)->Items.at(c)->PType == 4)
+								ite = view->DocPages.at(b)->Items.at(c);
+								if ((ite->PType == 4) || (ite->PType == 8))
 									{
-									for (d=0; d<view->DocPages.at(b)->Items.at(c)->Ptext.count(); ++d)
+									for (d=0; d<ite->Ptext.count(); ++d)
 										{
-										if (it.key() == view->DocPages.at(b)->Items.at(c)->Ptext.at(d)->ccolor)
-											view->DocPages.at(b)->Items.at(c)->Ptext.at(d)->ccolor = it.data();
+										if (it.key() == ite->Ptext.at(d)->ccolor)
+											ite->Ptext.at(d)->ccolor = it.data();
+										if (it.key() == ite->Ptext.at(d)->cstroke)
+											ite->Ptext.at(d)->cstroke = it.data();
 										}
 									}
-								if (it.key() == view->DocPages.at(b)->Items.at(c)->Pcolor)
-									view->DocPages.at(b)->Items.at(c)->Pcolor = it.data();
-								if (it.key() == view->DocPages.at(b)->Items.at(c)->Pcolor2)
-									view->DocPages.at(b)->Items.at(c)->Pcolor2 = it.data();
+								if (it.key() == ite->Pcolor)
+									ite->Pcolor = it.data();
+								if (it.key() == ite->Pcolor2)
+									ite->Pcolor2 = it.data();
+								if (it.key() == ite->GrColor)
+									ite->GrColor = it.data();
+								if (it.key() == ite->GrColor2)
+									ite->GrColor2 = it.data();
+								view->DocPages.at(b)->AdjItemGradient(ite, ite->GrType, ite->GrColor2, ite->GrShade2, ite->GrColor, ite->GrShade);
 								}
 							}
 						}
@@ -4754,18 +4796,26 @@ void ScribusApp::slotEditColors()
 							{
 							for (c=0; c<view->MasterPages.at(b)->Items.count(); ++c)
 								{
-								if (view->MasterPages.at(b)->Items.at(c)->PType == 4)
+								ite = view->MasterPages.at(b)->Items.at(c);
+								if ((ite->PType == 4) || (ite->PType == 8))
 									{
-									for (d=0; d<view->MasterPages.at(b)->Items.at(c)->Ptext.count(); ++d)
+									for (d=0; d<ite->Ptext.count(); ++d)
 										{
-										if (it.key() == view->MasterPages.at(b)->Items.at(c)->Ptext.at(d)->ccolor)
-											view->MasterPages.at(b)->Items.at(c)->Ptext.at(d)->ccolor = it.data();
+										if (it.key() == ite->Ptext.at(d)->ccolor)
+											ite->Ptext.at(d)->ccolor = it.data();
+										if (it.key() == ite->Ptext.at(d)->cstroke)
+											ite->Ptext.at(d)->cstroke = it.data();
 										}
 									}
-								if (it.key() == view->MasterPages.at(b)->Items.at(c)->Pcolor)
-									view->MasterPages.at(b)->Items.at(c)->Pcolor = it.data();
-								if (it.key() == view->MasterPages.at(b)->Items.at(c)->Pcolor2)
-									view->MasterPages.at(b)->Items.at(c)->Pcolor2 = it.data();
+								if (it.key() == ite->Pcolor)
+									ite->Pcolor = it.data();
+								if (it.key() == ite->Pcolor2)
+									ite->Pcolor2 = it.data();
+								if (it.key() == ite->GrColor)
+									ite->GrColor = it.data();
+								if (it.key() == ite->GrColor2)
+									ite->GrColor2 = it.data();
+								view->MasterPages.at(b)->AdjItemGradient(ite, ite->GrType, ite->GrColor2, ite->GrShade2, ite->GrColor, ite->GrShade);
 								}
 							}
 						}

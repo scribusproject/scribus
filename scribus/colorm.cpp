@@ -25,7 +25,7 @@
 
 extern QPixmap loadIcon(QString nam);
 
-Farbmanager::Farbmanager( QWidget* parent, CListe doco )
+Farbmanager::Farbmanager( QWidget* parent, CListe doco, bool HDoc )
     : QDialog( parent, "dd", true, 0 )
 {
 		setName( "Farbmanager" );
@@ -34,6 +34,7 @@ Farbmanager::Farbmanager( QWidget* parent, CListe doco )
 		DontChange += "Cyan";
 		DontChange += "Magenta";
 		DontChange += "Yellow";
+		HaveDoc = HDoc;
     setSizePolicy(QSizePolicy((QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, sizePolicy().hasHeightForWidth() ) );
     setMinimumSize( QSize( 300, 260 ) );
     setSizeGripEnabled(true);
@@ -69,6 +70,12 @@ Farbmanager::Farbmanager( QWidget* parent, CListe doco )
     DelF->setEnabled( false );
     DelF->setText( tr( "Delete" ) );
     Layout1->addWidget( DelF );
+		if (!HaveDoc)
+			{
+    	Rest = new QPushButton( this, "Rest" );
+    	Rest->setText( tr( "Defaults" ) );
+    	Layout1->addWidget( Rest );
+			}
     SaveF = new QPushButton( this, "SaveF" );
     SaveF->setText( tr( "Save" ) );
     Layout1->addWidget( SaveF );
@@ -83,6 +90,8 @@ Farbmanager::Farbmanager( QWidget* parent, CListe doco )
     EditColors = doco;
     updateCList();
     // signals and slots connections
+		if (!HaveDoc)
+    	connect( Rest, SIGNAL( clicked() ), this, SLOT( loadDefaults() ) );
     connect( SaveF, SIGNAL( clicked() ), this, SLOT( accept() ) );
     connect( CancF, SIGNAL( clicked() ), this, SLOT( reject() ) );
     connect( NewF, SIGNAL( clicked() ), this, SLOT( neueFarbe() ) );
@@ -91,6 +100,49 @@ Farbmanager::Farbmanager( QWidget* parent, CListe doco )
     connect( DelF, SIGNAL( clicked() ), this, SLOT( delFarbe() ) );
     connect( LoadF, SIGNAL( clicked() ), this, SLOT( loadFarben() ) );
     connect( ListBox1, SIGNAL( highlighted(QListBoxItem*) ), this, SLOT( selFarbe(QListBoxItem*) ) );
+}
+
+void Farbmanager::loadDefaults()
+{
+  EditColors.clear();
+  QString pfadC = PREL;
+  QString pfadC2 = pfadC + "/lib/scribus/rgbscribus.txt";
+  QFile fiC(pfadC2);
+  if (!fiC.exists())
+		{
+	 	EditColors.insert("White", CMYKColor(0, 0, 0, 0));
+  	EditColors.insert("Black", CMYKColor(0, 0, 0, 255));
+		EditColors.insert("Blue", CMYKColor(255, 255, 0, 0));
+		EditColors.insert("Cyan", CMYKColor(255, 0, 0, 0));
+		EditColors.insert("Green", CMYKColor(255, 0, 255, 0));
+		EditColors.insert("Red", CMYKColor(0, 255, 255, 0));
+		EditColors.insert("Yellow", CMYKColor(0, 0, 255, 0));
+		EditColors.insert("Magenta", CMYKColor(0, 255, 0, 0));
+		}
+	else
+		{
+		if (fiC.open(IO_ReadOnly))
+			{
+			QString ColorEn, Cname;
+			int Rval, Gval, Bval;
+			QTextStream tsC(&fiC);
+			ColorEn = tsC.readLine();
+			while (!tsC.atEnd())
+				{
+				ColorEn = tsC.readLine();
+				QTextStream CoE(&ColorEn, IO_ReadOnly);
+				CoE >> Rval;
+				CoE >> Gval;
+				CoE >> Bval;
+				CoE >> Cname;
+				CMYKColor tmp;
+				tmp.setColorRGB(Rval, Gval, Bval);
+				EditColors.insert(Cname, tmp);
+				}
+			fiC.close();
+			}
+		}
+	updateCList();
 }
 
 void Farbmanager::loadFarben()
@@ -129,7 +181,7 @@ void Farbmanager::delFarbe()
 {
 	if (DontChange.contains(sFarbe))
 		return;
-	DelColor *dia = new DelColor(this, EditColors, sFarbe);
+	DelColor *dia = new DelColor(this, EditColors, sFarbe, HaveDoc);
 	if (dia->exec())
 		{
     Ersatzliste.insert(sFarbe, dia->EFarbe);

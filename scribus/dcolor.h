@@ -21,7 +21,7 @@ class DelColor : public QDialog
     Q_OBJECT
 
 public:
-    DelColor(QWidget* parent, CListe farben, QString Fnam );
+    DelColor(QWidget* parent, CListe farben, QString Fnam, bool HDoc );
     ~DelColor() {};
     QString EFarbe;
 private:

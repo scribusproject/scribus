@@ -132,6 +132,7 @@ public:
 	void ItemTextPen(QString farbe);
 	void ItemTextPenS(int sha);
 	void ItemTextScale(int sha);
+	void AdjItemGradient(PageItem *b, int typ, QString col1, int sh1, QString col2, int sh2);
 	QRegion ViewReg();
   /** Liste der Elemente */
   QPtrList<PageItem> Items;
