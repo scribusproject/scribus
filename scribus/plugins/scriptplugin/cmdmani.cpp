@@ -57,10 +57,23 @@ PyObject *scribus_moveobjrel(PyObject */*self*/, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == NULL)
 		return NULL;
-	if (item->OwnPage->GroupSel)
+	// Grab the old selection
+	QPtrList<PageItem> oldSelection = item->OwnPage->SelItem;
+	// Clear the selection
+	item->OwnPage->Deselect();
+	// Select the item, which will also select its group if
+	// there is one.
+	item->OwnPage->SelectItemNr(item->ItemNr);
+	// Move the item, or items
+	if (item->OwnPage->SelItem.count() > 1)
 		item->OwnPage->moveGroup(ValueToPoint(x), ValueToPoint(y));
 	else
 		item->OwnPage->MoveItem(ValueToPoint(x), ValueToPoint(y), item);
+	// Now restore the selection. We just have to go through and select
+	// each and every item, unfortunately.
+	item->OwnPage->Deselect();
+	for ( oldSelection.first(); oldSelection.current(); oldSelection.next() )
+		item->OwnPage->SelectItemNr(oldSelection.current()->ItemNr);
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -76,15 +89,27 @@ PyObject *scribus_moveobjabs(PyObject */*self*/, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == NULL)
 		return NULL;
-	if (item->OwnPage->GroupSel)
+	// Grab the old selection
+	QPtrList<PageItem> oldSelection = item->OwnPage->SelItem;
+	// Clear the selection
+	item->OwnPage->Deselect();
+	// Select the item, which will also select its group if
+	// there is one.
+	item->OwnPage->SelectItemNr(item->ItemNr);
+	// Move the item, or items
+	if (item->OwnPage->SelItem.count() > 1)
 	{
 		double x2, y2, w, h;
 		item->OwnPage->getGroupRect(&x2, &y2, &w, &h);
 		item->OwnPage->moveGroup(ValueToPoint(x) - x2, ValueToPoint(y) - y2);
 	}
 	else
-		//PageItem *b = Carrier->doc->ActPage->Items.at(i);
 		item->OwnPage->MoveItem(ValueToPoint(x) - item->Xpos, ValueToPoint(y) - item->Ypos, item);
+	// Now restore the selection. We just have to go through and select
+	// each and every item, unfortunately.
+	item->OwnPage->Deselect();
+	for ( oldSelection.first(); oldSelection.current(); oldSelection.next() )
+		item->OwnPage->SelectItemNr(oldSelection.current()->ItemNr);
 	Py_INCREF(Py_None);
 	return Py_None;
 }
