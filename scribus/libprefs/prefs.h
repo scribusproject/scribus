@@ -33,6 +33,7 @@ class TabGuides;
 class TabTools;
 class TabCheckDoc;
 class TabPDFOptions;
+class FontPrefs;
 
 #include "langmgr.h"
 
@@ -102,6 +103,7 @@ public:
 	TabTools* tabTools;
 
 	HySettings* tabHyphenator;
+	FontPrefs* tabFonts;
 	TabCheckDoc* tabDocChecker;
 	CMSPrefs* tabColorManagement;
 	TabPDFOptions* tabPDF;

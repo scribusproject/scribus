@@ -431,7 +431,6 @@ public slots:
 	void DoAlign(bool xa, bool ya, bool Vth, bool Vtv, double xdp, double ydp, int xart, int yart);
 	const bool GetAllFonts();
 	void buildFontMenu();
-	void slotFontOrg();
 	void slotPrefsOrg();
 	void slotEditStyles();
 	void saveStyles(StilFormate *dia);

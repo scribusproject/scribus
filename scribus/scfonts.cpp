@@ -419,13 +419,25 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 		//QFileInfo fi2(filename);
 		QString ext = QFileInfo(filename).extension(false).lower();
 		if(ext == "pfa")
+		{
 			t = new Foi_pfa(ts, filename, true);
+			t->typeCode = 1;
+		}
 		else if(ext == "pfb")
+		{
 			t = new Foi_pfb(ts, filename, true);
+			t->typeCode = 1;
+		}
 		else if(ext == "ttf")
+		{
 			t = new Foi_ttf(ts, filename, true);
+			t->typeCode = 2;
+		}
 		else if(ext == "otf")
+		{
 			t = new Foi_ttf(ts, filename, true);
+			t->typeCode = 3;
+		}
 		if(t)
 		{
 			t->cached_RealName = QString(FT_Get_Postscript_Name(face));

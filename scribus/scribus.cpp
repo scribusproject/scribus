@@ -667,7 +667,6 @@ void ScribusApp::initKeyboardShortcuts()
 	SetKeyEntry(14, scrActions["editColors"]->cleanMenuText(), 0, scrActions["editColors"]->accel(), "editColors");
 	SetKeyEntry(15, scrActions["editParaStyles"]->cleanMenuText(), 0, scrActions["editParaStyles"]->accel(), "editParaStyles");
 	SetKeyEntry(16, scrActions["editTemplates"]->cleanMenuText(), 0, scrActions["editTemplates"]->accel(), "editTemplates");
-	SetKeyEntry(17, scrActions["editFonts"]->cleanMenuText(), 0, scrActions["editFonts"]->accel(), "editFonts");
 	//SetKeyEntry(, scrActions["editSearchReplace"]->cleanMenuText(), 0, scrActions["editSearchReplace"]->accel(), "editSearchReplace");
 	//SetKeyEntry(, scrActions["editLineStyles"]->cleanMenuText(), 0, scrActions["editLineStyles"]->accel(), "editLineStyles");
 	
@@ -1149,7 +1148,6 @@ void ScribusApp::initEditMenuActions()
 	scrActions.insert("editTemplates", new ScrAction(tr("&Templates..."), QKeySequence(), this, "editTemplates"));
 	scrActions.insert("editJavascripts", new ScrAction(tr("&Javascripts..."), QKeySequence(), this, "editJavascripts"));
 	scrActions.insert("editPreferences", new ScrAction(tr("P&references..."), QKeySequence(), this, "editPreferences"));
-	scrActions.insert("editFonts", new ScrAction(tr("&Fonts..."), QKeySequence(), this, "editFonts"));
 		
 	connect( scrActions["editUndoAction"], SIGNAL(activatedData(int)) , undoManager, SLOT(undo(int)) );
 	connect( scrActions["editRedoAction"], SIGNAL(activatedData(int)) , undoManager, SLOT(redo(int)) );
@@ -1166,7 +1164,6 @@ void ScribusApp::initEditMenuActions()
 	connect( scrActions["editTemplates"], SIGNAL(activated()) , this, SLOT(ManageTemp()) );
 	connect( scrActions["editJavascripts"], SIGNAL(activated()) , this, SLOT(ManageJava()) );
 	connect( scrActions["editPreferences"], SIGNAL(activated()) , this, SLOT(slotPrefsOrg()) );
-	connect( scrActions["editFonts"], SIGNAL(activated()) , this, SLOT(slotFontOrg()) );
 }
 
 void ScribusApp::initStyleMenuActions()
@@ -1431,7 +1428,6 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["editJavascripts"], "Edit");
 	scrMenuMgr->addMenuSeparator("Edit");
 	scrMenuMgr->addMenuItem(scrActions["editPreferences"], "Edit");
-	scrMenuMgr->addMenuItem(scrActions["editFonts"], "Edit");
 	scrActions["editUndoAction"]->setEnabled(false);
 	scrActions["editRedoAction"]->setEnabled(false);
 	scrActions["editActionMode"]->setEnabled(false);
@@ -3321,6 +3317,25 @@ bool ScribusApp::SetupDoc()
 				FProg->reset();
 			}
 		}
+		uint a = 0;
+		SCFontsIterator it(Prefs.AvailFonts);
+		for ( ; it.current() ; ++it)
+		{
+			it.current()->EmbedPS = dia->tabFonts->FlagsPS.at(a)->isChecked();
+			it.current()->UseFont = dia->tabFonts->FlagsUse.at(a)->isChecked();
+			it.current()->Subset = dia->tabFonts->FlagsSub.at(a)->isChecked();
+			a++;
+		}
+		a = 0;
+		QMap<QString,QString>::Iterator itfsu;
+		Prefs.GFontSub.clear();
+		for (itfsu = dia->tabFonts->RList.begin(); itfsu != dia->tabFonts->RList.end(); ++itfsu)
+		{
+			Prefs.GFontSub[itfsu.key()] = dia->tabFonts->FlagsRepl.at(a)->currentText();
+			a++;
+		}
+		FontSub->RebuildList(&Prefs, doc);
+		Mpal->Fonts->RebuildList(&Prefs, doc);
 		doc->PDF_Optionen.Thumbnails = dia->tabPDF->CheckBox1->isChecked();
 		doc->PDF_Optionen.Compress = dia->tabPDF->Compression->isChecked();
 		doc->PDF_Optionen.CompressMethod = dia->tabPDF->CMethod->currentItem();
@@ -7690,51 +7705,6 @@ const bool ScribusApp::GetAllFonts()
 	return false;
 }
 
-void ScribusApp::slotFontOrg()
-{
-	uint a;
-	qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
-	FontPrefs *dia = new FontPrefs(this, Prefs.AvailFonts, HaveDoc, &Prefs, PrefsPfad);
-	connect(dia, SIGNAL(ReReadPrefs()), this, SLOT(ReadPrefs()));
-	qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
-	if (dia->exec())
-	{
-		qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
-		a = 0;
-		SCFontsIterator it(Prefs.AvailFonts);
-		for ( ; it.current() ; ++it)
-		{
-			it.current()->EmbedPS = dia->FlagsPS.at(a)->isChecked();
-			it.current()->UseFont = dia->FlagsUse.at(a)->isChecked();
-			it.current()->Subset = dia->FlagsSub.at(a)->isChecked();
-			a++;
-		}
-		a = 0;
-		QMap<QString,QString>::Iterator itfsu;
-		Prefs.GFontSub.clear();
-		for (itfsu = dia->RList.begin(); itfsu != dia->RList.end(); ++itfsu)
-		{
-			Prefs.GFontSub[itfsu.key()] = dia->FlagsRepl.at(a)->currentText();
-			a++;
-		}
-		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
-	}
-	qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
-	if (HaveDoc)
-	{
-		FontSub->RebuildList(&Prefs, doc);
-		Mpal->Fonts->RebuildList(&Prefs, doc);
-	}
-	else
-	{
-		FontSub->RebuildList(&Prefs, 0);
-		Mpal->Fonts->RebuildList(&Prefs, 0);
-	}
-	disconnect(dia, SIGNAL(ReReadPrefs()), this, SLOT(ReadPrefs()));
-	delete dia;
-	qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
-}
-
 void ScribusApp::slotPrefsOrg()
 {
 	void *mo;
@@ -7951,6 +7921,25 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.HyCount = dia->tabHyphenator->maxCount->value();
 		if (CMSavail)
 			dia->tabColorManagement->setValues();
+		uint a = 0;
+		SCFontsIterator it(Prefs.AvailFonts);
+		for ( ; it.current() ; ++it)
+		{
+			it.current()->EmbedPS = dia->tabFonts->FlagsPS.at(a)->isChecked();
+			it.current()->UseFont = dia->tabFonts->FlagsUse.at(a)->isChecked();
+			it.current()->Subset = dia->tabFonts->FlagsSub.at(a)->isChecked();
+			a++;
+		}
+		a = 0;
+		QMap<QString,QString>::Iterator itfsu;
+		Prefs.GFontSub.clear();
+		for (itfsu = dia->tabFonts->RList.begin(); itfsu != dia->tabFonts->RList.end(); ++itfsu)
+		{
+			Prefs.GFontSub[itfsu.key()] = dia->tabFonts->FlagsRepl.at(a)->currentText();
+			a++;
+		}
+		FontSub->RebuildList(&Prefs, 0);
+		Mpal->Fonts->RebuildList(&Prefs, 0);
 		Prefs.PDF_Optionen.Thumbnails = dia->tabPDF->CheckBox1->isChecked();
 		Prefs.PDF_Optionen.Compress = dia->tabPDF->Compression->isChecked();
 		Prefs.PDF_Optionen.CompressMethod = dia->tabPDF->CMethod->currentItem();

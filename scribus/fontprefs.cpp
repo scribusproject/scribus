@@ -6,6 +6,7 @@
 #include <qfiledialog.h>
 #include "prefscontext.h"
 #include "prefsfile.h"
+#include "scribusdoc.h"
 
 #ifdef _MSC_VER
  #if (_MSC_VER >= 1200)
@@ -18,25 +19,18 @@
 extern QPixmap loadIcon(QString nam);
 extern PrefsFile* prefsFile;
 
-FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, ApplicationPrefs *prefs, QString PPath )
-		: QDialog( parent, "fpre", true, 0 )
+FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, ApplicationPrefs *prefs, QString PPath, ScribusDoc* doc ) : QTabWidget( parent, "fpre" )
 {
-	setCaption( tr( "Global Font Settings" ) );
-	setIcon(loadIcon("AppIcon.png"));
 	Prefs = prefs;
 	RList = Prefs->GFontSub;
 	HomeP = PPath;
 	DocAvail = Hdoc;
 	UsedFonts.clear();
 	CurrentPath = "";
-	FontPrefsLayout = new QVBoxLayout( this );
-	FontPrefsLayout->setSpacing( 5 );
-	FontPrefsLayout->setMargin( 10 );
-	TabWidget = new QTabWidget( this, "TabWidget" );
-	TabWidget->setMinimumSize(fontMetrics().width( tr( "Available Fonts" )+ tr( "Font Substitutions" )+
-	                          tr( "Additional Paths" ))+180, 200);
-	tab1 = new QWidget( TabWidget, "tab1" );
-	tab1Layout = new QVBoxLayout( tab1, 11, 6, "tab1Layout");
+	docc = doc;
+	setMinimumSize(fontMetrics().width( tr( "Available Fonts" )+ tr( "Font Substitutions" )+ tr( "Additional Paths" ))+180, 200);
+	tab1 = new QWidget( this, "tab1" );
+	tab1Layout = new QVBoxLayout( tab1, 10, 5, "tab1Layout");
 	Table1 = new QTable( tab1, "FONT" );
 	Table1->setNumRows( flist.count() );
 	Table1->setNumCols( 6 );
@@ -78,13 +72,13 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, ApplicationPr
 		FlagsSub.append(cp3);
 		Table1->setCellWidget(a, 3, cp3);
 		if ((ext == "pfa") || (ext == "pfb"))
-			Table1->setText(a, 4, "PostScript");
+			Table1->setPixmap(a, 4, loadIcon("font_type1.png"));
 		else
 		{
 			if (ext == "ttf")
-				Table1->setText(a, 4, "TrueType");
+				Table1->setPixmap(a, 4, loadIcon("font_truetype.png"));
 			if (ext == "otf")
-				Table1->setText(a, 4, "OpenType");
+				Table1->setPixmap(a, 4, loadIcon("font_otf.png"));
 		}
 		Table1->setText(a, 5, it.current()->Datei);
 		++a;
@@ -114,10 +108,10 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, ApplicationPr
 	Table1->setColumnReadOnly(3, true);
 	Header->setMovingEnabled(false);
 	tab1Layout->addWidget( Table1 );
-	TabWidget->insertTab( tab1, tr( "&Available Fonts" ) );
+	insertTab( tab1, tr( "&Available Fonts" ) );
 
-	tab = new QWidget( TabWidget, "tab" );
-	tabLayout = new QVBoxLayout( tab, 11, 6, "tabLayout");
+	tab = new QWidget( this, "tab" );
+	tabLayout = new QVBoxLayout( tab, 10, 5, "tabLayout");
 	Table3 = new QTable( tab, "Repl" );
 	Table3->setSorting(false);
 	Table3->setSelectionMode(QTable::SingleRow);
@@ -145,7 +139,7 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, ApplicationPr
 	Table3->setColumnStretchable(1, true);
 	Table3->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 	tabLayout->addWidget( Table3 );
-	Layout2a = new QHBoxLayout( 0, 0, 6, "Layout2");
+	Layout2a = new QHBoxLayout( 0, 0, 5, "Layout2");
 	QSpacerItem* spacer1 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout2a->addItem( spacer1 );
 	DelB = new QPushButton( tr( "&Delete" ), tab, "DelB" );
@@ -154,15 +148,15 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, ApplicationPr
 	QSpacerItem* spacer2 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout2a->addItem( spacer2 );
 	tabLayout->addLayout( Layout2a );
-	TabWidget->insertTab( tab, tr( "Font &Substitutions" ) );
+	insertTab( tab, tr( "Font &Substitutions" ) );
 
-	tab3 = new QWidget( TabWidget, "tab3" );
-	tab3Layout = new QHBoxLayout( tab3, 11, 6, "tab3Layout");
+	tab3 = new QWidget( this, "tab3" );
+	tab3Layout = new QHBoxLayout( tab3, 10, 5, "tab3Layout");
 	PathList = new QListBox( tab3, "PathList" );
 	ReadPath();
 	PathList->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 	tab3Layout->addWidget( PathList );
-	LayoutR = new QVBoxLayout( 0, 0, 6, "LayoutR");
+	LayoutR = new QVBoxLayout( 0, 0, 5, "LayoutR");
 	ChangeB = new QPushButton( tr( "C&hange..." ), tab3, "ChangeB" );
 	LayoutR->addWidget( ChangeB );
 	AddB = new QPushButton( tr( "A&dd..." ), tab3, "AddB" );
@@ -172,44 +166,19 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, ApplicationPr
 	QSpacerItem* spacer_2 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	LayoutR->addItem( spacer_2 );
 	tab3Layout->addLayout( LayoutR );
-	TabWidget->insertTab( tab3, tr( "Additional &Paths" ) );
-	if (Hdoc)
-		TabWidget->setTabEnabled(tab3, false);
+	insertTab( tab3, tr( "Additional &Paths" ) );
+//	if (Hdoc)
+//		setTabEnabled(tab3, false);
 	ChangeB->setEnabled(false);
 	RemoveB->setEnabled(false);
 
-	FontPrefsLayout->addWidget( TabWidget );
-
-	Layout2 = new QHBoxLayout;
-	Layout2->setSpacing( 30 );
-	Layout2->setMargin( 0 );
-	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout2->addItem( spacer );
-	PushButton1 = new QPushButton( tr( "&OK" ), this, "PushButton1" );
-	Layout2->addWidget( PushButton1 );
-	PushButton1_2 = new QPushButton( tr( "&Cancel" ), this, "PushButton1_2" );
-	PushButton1_2->setDefault( true );
-	PushButton1_2->setFocus();
-	Layout2->addWidget( PushButton1_2 );
-	FontPrefsLayout->addLayout( Layout2 );
-	resize(minimumSizeHint());
-	//   setMinimumSize( sizeHint() );
-
 	// signals and slots connections
-	connect( PushButton1_2, SIGNAL( clicked() ), this, SLOT( LeaveDia() ) );
-	connect( PushButton1, SIGNAL( clicked() ), this, SLOT( accept() ) );
 	connect(Table3, SIGNAL(currentChanged(int, int)), this, SLOT(ReplaceSel(int, int)));
 	connect(DelB, SIGNAL(clicked()), this, SLOT(DelEntry()));
 	connect(PathList, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(SelectPath(QListBoxItem*)));
 	connect(AddB, SIGNAL(clicked()), this, SLOT(AddPath()));
 	connect(ChangeB, SIGNAL(clicked()), this, SLOT(ChangePath()));
 	connect(RemoveB, SIGNAL(clicked()), this, SLOT(DelPath()));
-}
-
-void FontPrefs::LeaveDia()
-{
-	UpdateFliste();
-	reject();
 }
 
 void FontPrefs::ReplaceSel(int, int)
@@ -272,8 +241,11 @@ void FontPrefs::ReadPath()
 
 void FontPrefs::SelectPath(QListBoxItem *c)
 {
-	ChangeB->setEnabled(true);
-	RemoveB->setEnabled(true);
+	if (!DocAvail)
+	{
+		ChangeB->setEnabled(true);
+		RemoveB->setEnabled(true);
+	}
 	CurrentPath = c->text();
 }
 
@@ -288,22 +260,25 @@ void FontPrefs::AddPath()
 		s = s.left(s.length()-1);
 		if (PathList->findItem(s))
 			return;
-		QFile fx(HomeP+"/scribusfont13.rc");
-		if (fx.open(IO_WriteOnly))
+		if (!DocAvail)
 		{
-			QTextStream tsx(&fx);
-			for (uint a = 0; a < PathList->count(); ++a)
-				tsx << PathList->text(a) << "\n" ;
-			tsx << s;
-			fx.close();
+			QFile fx(HomeP+"/scribusfont13.rc");
+			if (fx.open(IO_WriteOnly))
+			{
+				QTextStream tsx(&fx);
+				for (uint a = 0; a < PathList->count(); ++a)
+					tsx << PathList->text(a) << "\n" ;
+				tsx << s;
+				fx.close();
+			}
+			else
+				return;
+			ChangeB->setEnabled(true);
+			RemoveB->setEnabled(true);
 		}
-		else
-			return;
 		PathList->insertItem(s);
 		CurrentPath = s;
 		RebuildDialog();
-		ChangeB->setEnabled(true);
-		RemoveB->setEnabled(true);
 	}
 }
 
@@ -360,11 +335,19 @@ void FontPrefs::RebuildDialog()
 {
 	Prefs->AvailFonts.clear();
 	Prefs->AvailFonts.GetFonts(HomeP);
+	if (DocAvail)
+	{
+		for (uint a = 0; a < PathList->count(); ++a)
+		{
+			if (ExtraFonts.contains(PathList->text(a)) == 0)
+				Prefs->AvailFonts.AddScalableFonts(PathList->text(a)+"/", docc->DocName);
+		}
+	}
 	UsedFonts.clear();
 	FlagsUse.clear();
 	FlagsPS.clear();
 	FlagsSub.clear();
-	emit ReReadPrefs();
+//	emit ReReadPrefs();
 	Table1->setNumRows( Prefs->AvailFonts.count() );
 	Table1->setNumCols( 6 );
 	Table1->setSorting(true);
@@ -405,13 +388,13 @@ void FontPrefs::RebuildDialog()
 		FlagsSub.append(cp3);
 		Table1->setCellWidget(a, 3, cp3);
 		if ((ext == "pfa") || (ext == "pfb"))
-			Table1->setText(a, 4, "PostScript");
+			Table1->setPixmap(a, 4, loadIcon("font_type1.png"));
 		else
 		{
 			if (ext == "ttf")
-				Table1->setText(a, 4, "TrueType");
+				Table1->setPixmap(a, 4, loadIcon("font_truetype.png"));
 			if (ext == "otf")
-				Table1->setText(a, 4, "OpenType");
+				Table1->setPixmap(a, 4, loadIcon("font_otf.png"));
 		}
 		Table1->setText(a, 5, it.current()->Datei);
 		a++;

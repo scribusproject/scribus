@@ -36,9 +36,9 @@ FontPreview::FontPreview(ScribusApp *carrier, QWidget* parent, const char* name,
 	xsize = prefs->getUInt("xsize", 640);
 	ysize = prefs->getUInt("ysize", 480);
 
-	FontPreviewLayout = new QGridLayout(this, 1, 1, 11, 6, "FontPreviewLayout");
-	layout6 = new QVBoxLayout(0, 0, 6, "layout6");
-	layout5 = new QHBoxLayout(0, 0, 6, "layout5");
+	FontPreviewLayout = new QGridLayout(this, 1, 1, 10, 5, "FontPreviewLayout");
+	layout6 = new QVBoxLayout(0, 0, 5, "layout6");
+	layout5 = new QHBoxLayout(0, 0, 5, "layout5");
 	fontList = new QListView(this, "fontList" );
 	fontList->setAllColumnsShowFocus(true);
 	layout5->addWidget(fontList);
@@ -48,8 +48,8 @@ FontPreview::FontPreview(ScribusApp *carrier, QWidget* parent, const char* name,
 	fontList->addColumn(tr("Type"));
 	fontList->addColumn(tr("Subset"));
 
-	layout2 = new QVBoxLayout(0, 0, 6, "layout2");
-	layout1 = new QVBoxLayout(0, 0, 6, "layout1");
+	layout2 = new QVBoxLayout(0, 0, 5, "layout2");
+	layout1 = new QVBoxLayout(0, 0, 5, "layout1");
 	okButton = new QPushButton(this, "okButton");
 	layout1->addWidget(okButton);
 	cancelButton = new QPushButton(this, "cancelButton");
@@ -75,39 +75,28 @@ FontPreview::FontPreview(ScribusApp *carrier, QWidget* parent, const char* name,
 	QMap<QString,QFont> reallyUsedFonts;
 	reallyUsedFonts.clear();
 	carrier->GetUsedFonts(&reallyUsedFonts);
+	QPixmap ttfFont = loadIcon("font_truetype.png");
+	QPixmap otfFont = loadIcon("font_otf.png");
+	QPixmap psFont = loadIcon("font_type1.png");
+	QPixmap okIcon = loadIcon("ok.png");
 	for (SCFontsIterator fontIter(carrier->Prefs.AvailFonts); fontIter.current(); ++fontIter)
 	{
 		if (fontIter.current()->UseFont)
 		{
 			QFileInfo fi = QFileInfo(fontIter.current()->Datei);
-			QPixmap fontTypeIcon(QString(ICONDIR) + QString("testfill.png"));
-			QPixmap subsetIcon(QString(ICONDIR) + QString("testfill.png"));
-			QPixmap docIcon(QString(ICONDIR) + QString("editdelete.png"));
 			QString ext = fi.extension(false).lower();
-
-			if (reallyUsedFonts.contains(fontIter.current()->SCName))
-				docIcon.load(QString(ICONDIR) + QString("ok.png"));
-
-			if (ext == "otf")
-			{
-				subsetIcon.load(QString(ICONDIR) + QString("ok.png"));// Open Type Fonts are always Subsetted
-				fontTypeIcon.load(QString(ICONDIR) + QString("outlined.png")); //FIXME: real opentype icon!
-			}
-			else
-				// FIXME: no.png icon
-				fontIter.current()->Subset ? subsetIcon.load(ICONDIR + QString("ok.png")) : subsetIcon.load(ICONDIR + QString("editdelete.png"));
-
-			if ((ext == "pfa") || (ext == "pfb")) // type1
-				fontTypeIcon.load(QString(ICONDIR) + QString("Editm.xpm")); // FIXME: type1 icon
-			if (ext == "ttf")
-				fontTypeIcon.load(QString(ICONDIR) + QString("font.png"));
-
 			QListViewItem *row = new QListViewItem(fontList);
 			row->setText(0, fontIter.current()->SCName);
-			row->setPixmap(1, docIcon);
-			row->setPixmap(2, fontTypeIcon);
-			row->setPixmap(3, subsetIcon);
-			fontList->insertItem(row);
+			if (reallyUsedFonts.contains(fontIter.current()->SCName))
+				row->setPixmap(1, okIcon);
+			if ((ext == "pfa") || (ext == "pfb")) // type1
+				row->setPixmap(2, psFont);
+			if (ext == "ttf")
+				row->setPixmap(2, ttfFont);
+			if (ext == "otf")
+				row->setPixmap(2, otfFont);
+			if (fontIter.current()->Subset)
+				row->setPixmap(3, okIcon);
 		}
 	} // for fontIter
 

@@ -27,6 +27,7 @@ class TabGuides;
 class TabTools;
 class TabCheckDoc;
 class TabPDFOptions;
+class FontPrefs;
 
 class ReformDoc : public PrefsDialogBase
 {
@@ -78,6 +79,7 @@ public:
 	TabTypograpy* tabTypo;
 	TabTools* tabTools;
 	HySettings* tabHyphenator;
+	FontPrefs* tabFonts;
 	TabCheckDoc* tabDocChecker;
 	CMSPrefs* tabColorManagement;
 	TabPDFOptions* tabPDF;

@@ -84,6 +84,7 @@ class Foi
 		double underline_pos;
 		double strikeout_pos;
 		double strokeWidth;
+		int typeCode;
 //		QPixmap Appearance;
 };
 

@@ -1,7 +1,6 @@
 #ifndef FONTPREFS_H
 #define FONTPREFS_H
 
-#include <qdialog.h>
 #include <qlayout.h>
 #include <qpushbutton.h>
 #include <qtable.h>
@@ -13,17 +12,17 @@
 #include <qcombobox.h>
 #include <qlistbox.h>
 #include "scribusstructs.h"
+class ScribusDoc;
 
-class FontPrefs : public QDialog
+class FontPrefs : public QTabWidget
 {
     Q_OBJECT
 
 public:
-    FontPrefs( QWidget* parent, SCFonts &flist, bool Hdoc, ApplicationPrefs *prefs, QString PPath );
+    FontPrefs( QWidget* parent, SCFonts &flist, bool Hdoc, ApplicationPrefs *prefs, QString PPath, ScribusDoc* doc );
     ~FontPrefs() {};
 	void ReadPath();
 	void RebuildDialog();
-    QTabWidget* TabWidget;
     QWidget* tab1;
     QWidget* tab;
     QWidget* tab3;
@@ -32,8 +31,6 @@ public:
     QTable* Table3;
     QHeader *Header;
     QHeader *Header2;
-    QPushButton* PushButton1;
-    QPushButton* PushButton1_2;
     QPushButton* DelB;
     QPushButton* ChangeB;
     QPushButton* AddB;
@@ -49,9 +46,9 @@ public:
 	QString HomeP;
 	QString CurrentPath;
 	bool DocAvail;
+	ScribusDoc* docc;
 
 public slots:
-	void LeaveDia();
 	void ReplaceSel(int r, int c);
 	void UpdateFliste();
 	void DelEntry();
@@ -64,10 +61,8 @@ signals:
 	void ReReadPrefs();
 
 protected:
-    QVBoxLayout* FontPrefsLayout;
     QVBoxLayout* tab1Layout;
     QVBoxLayout* tabLayout;
-    QHBoxLayout* Layout2;
     QHBoxLayout* Layout2a;
     QHBoxLayout* tab3Layout;
     QVBoxLayout* LayoutR;

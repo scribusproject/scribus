@@ -24,6 +24,7 @@
 #include "undomanager.h"
 #include "tabcheckdoc.h"
 #include "tabpdfoptions.h"
+#include "fontprefs.h"
 
 using namespace std;
 
@@ -368,6 +369,9 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	tabHyphenator->wordLen->setValue(prefsData->MinWordLen);
 	tabHyphenator->maxCount->setValue(prefsData->HyCount);
 	addItem( tr("Hyphenator"), loadIcon("hyphenate.png"), tabHyphenator);
+	
+	tabFonts = new FontPrefs(  prefsWidgets, ap->Prefs.AvailFonts, false, prefsData, ap->PrefsPfad, 0);
+	addItem( tr("Fonts"), loadIcon("font.png"), tabFonts);
 
 	tabDocChecker = new TabCheckDoc(  prefsWidgets, prefsData->checkerProfiles, prefsData->curCheckProfile);
 	addItem( tr("Doc-Checker"), loadIcon("checkdoc.png"), tabDocChecker);

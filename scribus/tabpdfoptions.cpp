@@ -233,13 +233,12 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent,
 		QMap<QString,QFont>::Iterator it;
 		for (it = DocFonts.begin(); it != DocFonts.end(); ++it)
 		{
-			if (AllFonts[it.key()]->HasMetrics)
-				AvailFlist->insertItem(loadIcon("ok.png"), it.key());
-			else
-			{
-				AvailFlist->insertItem(it.key());
-				AvailFlist->item(AvailFlist->count()-1)->setSelectable(false);
-			}
+			if (AllFonts[it.key()]->typeCode == 1)
+				AvailFlist->insertItem(loadIcon("font_type1.png"), it.key());
+			else if (AllFonts[it.key()]->typeCode == 2)
+				AvailFlist->insertItem(loadIcon("font_truetype.png"), it.key());
+			else if (AllFonts[it.key()]->typeCode == 3)
+				AvailFlist->insertItem(loadIcon("font_otf.png"), it.key());
 		}
 		AvailFlist->setMinimumSize(QSize(150, 140));
 		Layout4_2->addWidget( AvailFlist );
@@ -247,14 +246,16 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent,
 		Layout5_2 = new QVBoxLayout;
 		Layout5_2->setSpacing( 5 );
 		Layout5_2->setMargin( 0 );
-		QSpacerItem* spacerS3 = new QSpacerItem( 20, 30, QSizePolicy::Minimum, QSizePolicy::Minimum );
-		Layout5_2->addItem( spacerS3 );
+		QSpacerItem* spacerS3a = new QSpacerItem( 20, 30, QSizePolicy::Minimum, QSizePolicy::Minimum );
+		Layout5_2->addItem( spacerS3a );
 		ToEmbed = new QPushButton( tr( "&>>" ), GroupFont, "ToEmbed" );
 		ToEmbed->setEnabled(false);
 		Layout5_2->addWidget( ToEmbed );
 		FromEmbed = new QPushButton( tr( "&<<" ), GroupFont, "FromEmbed" );
 		FromEmbed->setEnabled(false);
 		Layout5_2->addWidget( FromEmbed );
+		QSpacerItem* spacerS3 = new QSpacerItem( 20, 30, QSizePolicy::Minimum, QSizePolicy::Expanding );
+		Layout5_2->addItem( spacerS3 );
 		GroupFontLayout->addLayout( Layout5_2 );
 		Layout6 = new QVBoxLayout;
 		Layout6->setSpacing( 5 );

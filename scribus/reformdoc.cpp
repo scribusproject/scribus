@@ -13,6 +13,7 @@
 #include "mspinbox.h"
 #include "scribus.h"
 #include "tabpdfoptions.h"
+#include "fontprefs.h"
 
 extern QPixmap loadIcon(QString nam);
 extern double UmReFaktor;
@@ -297,8 +298,6 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	layout4s->addWidget( Rechtss, 1, 2 );
 	groupScratchLayout->addLayout( layout4s );
 	tabViewLayout->addWidget( groupScratch );
-
-
 	addItem( tr("Display"), loadIcon("screen.png"), tabView);
 
 	tabTypo = new TabTypograpy(  prefsWidgets, &doc->typographicSetttings);
@@ -314,6 +313,9 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	tabHyphenator->wordLen->setValue(doc->docHyphenator->MinWordLen);
 	tabHyphenator->maxCount->setValue(doc->docHyphenator->HyCount);
 	addItem( tr("Hyphenator"), loadIcon("hyphenate.png"), tabHyphenator);
+	
+	tabFonts = new FontPrefs(  prefsWidgets, ap->Prefs.AvailFonts, true, &ap->Prefs, ap->PrefsPfad, doc);
+	addItem( tr("Fonts"), loadIcon("font.png"), tabFonts);
 
 	tabDocChecker = new TabCheckDoc(  prefsWidgets, doc->checkerProfiles, doc->curCheckProfile);
 	addItem( tr("Doc-Checker"), loadIcon("checkdoc.png"), tabDocChecker);
