@@ -15,7 +15,7 @@
 <dt><a name="-lockObject"><strong>lockObject</strong></a>(...)</dt>
 <dd><code><a href="#-lockObject">lockObject</a>(["name"]) -&gt; bool</code>
 <p>Locks the object "name" if it's unlocked or unlock it if it's locked. If "name" is not given the currently selected item is used. Returns true if locked.</p></dd>
-	
+
 <dt><a name="-moveObject"><strong>moveObject</strong></a>(...)</dt>
 <dd><code><a href="#-moveObject">moveObject</a>(dx, dy [, "name"])</code>
 <p>Moves the object "name" by dx and dy relative to its current position. The distances are expressed in the current measurement unit of the document (see UNIT constants). If "name" is not given the currently selected item is used. If the object "name" belongs to a group, the whole group is moved.</p></dd>
@@ -31,7 +31,7 @@
 <dt><a name="-rotateObjectAbs"><strong>rotateObjectAbs</strong></a>(...)</dt>
 <dd><code><a href="#-rotateObjectAbs">rotateObjectAbs</a>(rot [, "name"])</code>
 <p>Sets the rotation of the object "name" to "rot". Positive values mean counter clockwise rotation. If "name" is not given the currently selected item is used.</p></dd>
-	
+
 <dt><a name="-scaleGroup"><strong>scaleGroup</strong></a>(...)</dt>
 <dd><code><a href="#-scaleGroup">scaleGroup</a>(factor [,"name"])</code>
 <p>Scales the group the object "name" belongs to. Values greater than 1 enlarge the group, values smaller than 1 make the group smaller e.g a value of 0.5 scales the group to 50 % of its original size, a value of 1.5 scales the group to 150 % of its original size.  The value for "factor" must be greater than 0. If "name" is not given the currently selected item is used.</p>
@@ -40,11 +40,11 @@
 <dt><a name="-setStyle"><strong>setStyle</strong></a>(...)</dt>
 <dd><code><a href="#-setStyle">setStyle</a>("style" [, "name"])</code>
 <p>Apply the named "style" to the object named "name". If is no object name given, it's applied on the selected object.</p></dd>
-	
+
 <dt><a name="-sizeObject"><strong>sizeObject</strong></a>(...)</dt>
 <dd><code><a href="#-sizeObject">sizeObject</a>(width, height [, "name"])</code>
 <p>Resizes the object "name" to the given width and height. If "name" is not given the currently selected item is used.</p></dd>
-	
+
 <dt><a name="-unGroupObject"><strong>unGroupObject</strong></a>(...)</dt>
 <dd><code>unGroupObjects("name")</code>
 <p>Destructs the group the object "name" belongs to.If "name" is not given the currently selected item is used.</p></dd>
@@ -52,6 +52,11 @@
 <dt><a name="-textFlowsAroundFrame"><strong>textFlowsAroundFrame</strong></a>(...)</dt>
 <dd><code><a href="#-textFlowsAroundFrame">textFlowsAroundFrame</a>("name" [, state])</code>
 <p>Enables/disables "Text Flows Around Frame" feature for object "name". Called with parameters string name and optional boolean "state". If "state" is not passed, text flow is toggled.</p></dd>
+
+<dt><a name="-setScaleImageToFrame"><strong>setScaleImageToFrame</strong></a>(...)</dt>
+<dd><code><a href="#-setScaleImageToFrame">setScaleImageToFrame</a>(scaletoframe, proportional=None, name=<selection>)</code>
+<p>Sets the scale to frame on the selected or specified image frame to `scaletoframe'. If `proportional' is specified, set fixed aspect ratio scaling to `proportional'. Both `scaletoframe' and `proportional' are boolean.</p>
+<p>May raise WrongFrameTypeError.</p></dd>
 
 </dl>
 </qt>
