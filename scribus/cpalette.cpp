@@ -78,9 +78,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	TransGroupLayout->addWidget( TransSpin );
 	Layout1->addMultiCellWidget( TransGroup, 1, 1, 2, 3 );
 	Form1Layout->addLayout(Layout1);
-
 	GradLayout = new QVBoxLayout( 0, 0, 6, "GradLayout");
-
 	QFont fo = QFont(font());
 	fo.setPointSize(fo.pointSize()-1);
 	GradCombo = new QComboBox( true, this, "GradCombo" );
@@ -92,7 +90,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	GradCombo->insertItem( tr("Diagonal Gradient"));
 	GradCombo->insertItem( tr("Cross Diagonal Gradient"));
 	GradCombo->insertItem( tr("Radial Gradient"));
-	GradCombo->insertItem( tr("Special"));
+	GradCombo->insertItem( tr("Free linear Gradient"));
 	GradCombo->setCurrentItem(0);
 	GradLayout->addWidget( GradCombo );
 	GradGroup = new QButtonGroup( this, "GradGroup" );
@@ -102,18 +100,56 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	GradGroup->setColumnLayout(0, Qt::Vertical );
 	GradGroup->layout()->setSpacing( 5 );
 	GradGroup->layout()->setMargin( 0 );
-	GradGroupLayout = new QHBoxLayout( GradGroup->layout() );
+	GradGroupLayout = new QVBoxLayout( GradGroup->layout() );
 	GradGroupLayout->setAlignment( Qt::AlignTop );
+	layout19 = new QHBoxLayout( 0, 0, 5, "layout19");
 	GrColor1 = new QRadioButton( GradGroup, "GrColor1" );
 	GrColor1->setText("#1");
 	GrColor1->setChecked( true );
-	GradGroupLayout->addWidget( GrColor1 );
+	layout19->addWidget( GrColor1 );
 	GrColor2 = new QRadioButton( GradGroup, "GrColor2" );
 	GrColor2->setText("#2");
-	GradGroupLayout->addWidget( GrColor2 );
+	layout19->addWidget( GrColor2 );
+	GradGroupLayout->addLayout( layout19 );
+	frame8 = new QFrame( GradGroup, "frame8" );
+	frame8->setFrameShape( QFrame::NoFrame );
+	frame8->setFrameShadow( QFrame::Plain );
+	frame8Layout = new QGridLayout( frame8, 1, 1, 5, 5, "frame8Layout");
+	GTextX1 = new QLabel( frame8, "GTextX1" );
+	GTextX1->setText( tr( "X1:" ) );
+	frame8Layout->addWidget( GTextX1, 0, 0 );
+	GTextY1 = new QLabel( frame8, "GTextY1" );
+	GTextY1->setText( tr( "Y1:" ) );
+	frame8Layout->addWidget( GTextY1, 1, 0 );
+	gX1 = new MSpinBox( frame8, 2);
+	gX1->setDecimals(100);
+	gX1->setSuffix( tr( " pt" ) );
+	gX1->setMaxValue(3000);
+	frame8Layout->addWidget( gX1, 0, 1 );
+	gY1 = new MSpinBox( frame8, 2 );
+	gY1->setSuffix( tr( " pt" ) );
+	gY1->setDecimals(100);
+	gY1->setMaxValue(3000);
+	frame8Layout->addWidget( gY1, 1, 1 );
+	GTextX2 = new QLabel( frame8, "GTextX2" );
+	GTextX2->setText( tr( "X2:" ) );
+	frame8Layout->addWidget( GTextX2, 0, 2 );
+	GTextY2 = new QLabel( frame8, "GTextY2" );
+	GTextY2->setText( tr( "Y2:" ) );
+	frame8Layout->addWidget( GTextY2, 1, 2 );
+	gX2 = new MSpinBox( frame8, 2 );
+	gX2->setSuffix( tr( " pt" ) );
+	gX2->setDecimals(100);
+	gX2->setMaxValue(3000);
+	frame8Layout->addWidget( gX2, 0, 3 );
+	gY2 = new MSpinBox( frame8, 2 );
+	gY2->setSuffix( tr( " pt" ) );
+	gY2->setDecimals(100);
+	gY2->setMaxValue(3000);
+	frame8Layout->addWidget( gY2, 1, 3 );
+	GradGroupLayout->addWidget( frame8 );
 	GradLayout->addWidget( GradGroup );
 	Form1Layout->addLayout(GradLayout);
-
 	ListBox1 = new QListBox(this, "ListBox1");
 	ListBox1->setMinimumSize( QSize( 150, 210 ) );
 	Form1Layout->addWidget(ListBox1);
@@ -135,6 +171,10 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	connect(GrColor1, SIGNAL(clicked()), this, SLOT(slotColor()));
 	connect(GrColor2, SIGNAL(clicked()), this, SLOT(slotColor()));
 	connect(TransSpin, SIGNAL(valueChanged(int)), this, SLOT(slotTrans(int)));
+	connect(gX1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
+	connect(gX2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
+	connect(gY1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
+	connect(gY2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
 }
 
 void Cpalette::InhaltButton()
@@ -165,8 +205,13 @@ void Cpalette::InnenButton()
 		Mode = 2;
 		Inhalt->setOn(false);
 		GradCombo->show();
-		GradGroup->show();
 		GradientMode = GradCombo->currentItem() != 0 ? true : false;
+		if (GradientMode)
+			GradGroup->show();
+		if (GradCombo->currentItem() == 6)
+			frame8->show();
+		else
+			frame8->hide();
 		updateCList();
 		updateGeometry();
 		repaint();
@@ -275,8 +320,7 @@ void Cpalette::slotColor()
 void Cpalette::slotGrad(int nr)
 {
 	ChooseGrad(nr);
-	if (nr < 6)
-		emit NewGradient(nr, Color, Shade, Color2, Shade2);
+	emit NewGradient(nr, Color, Shade, Color2, Shade2);
 }
 
 void Cpalette::ChooseGrad(int nr)
@@ -285,6 +329,14 @@ void Cpalette::ChooseGrad(int nr)
 	bool test = nr == 0 ? false : true;
 	GradGroup->setEnabled(test);
 	GradientMode = test;
+	if (GradientMode)
+		GradGroup->show();
+	else
+		GradGroup->hide();
+	if (nr == 6)
+		frame8->show();
+	else
+		frame8->hide();
 	switch (nr)
 	{
 	case 0:
@@ -293,8 +345,6 @@ void Cpalette::ChooseGrad(int nr)
 		repaint();
 		PM1->setValue(Shade3);
 		updateBoxS(Color3);
-		break;
-	case 6:
 		break;
 	default:
 		updateCList();
@@ -363,6 +413,31 @@ void Cpalette::setActGradient(QString p, QString b, int shp, int shb, int typ)
 	connect(GradCombo, SIGNAL(activated(int)), this, SLOT(slotGrad(int)));
 }
 
+void Cpalette::setSpecialGradient(double x1, double y1, double x2, double y2, double w, double h)
+{
+	disconnect(gX1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
+	disconnect(gX2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
+	disconnect(gY1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
+	disconnect(gY2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
+	gX1->setMaxValue(w);
+	gX2->setMaxValue(w);
+	gY1->setMaxValue(h);
+	gY2->setMaxValue(h);
+	gX1->setValue(x1);
+	gX2->setValue(x2);
+	gY1->setValue(y1);
+	gY2->setValue(y2);
+	connect(gX1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
+	connect(gX2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
+	connect(gY1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
+	connect(gY2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
+}
+
+void Cpalette::changeSpecial()
+{
+	emit NewSpecial(gX1->value(), gY1->value(), gX2->value(), gY2->value());
+}
+
 void Cpalette::setActShade()
 {
 	int b = PM1->value();
@@ -387,4 +462,50 @@ void Cpalette::setActShade()
 		}
 		break;
 	}
+}
+
+void Cpalette::UnitChange(double old, double neww, int ein)
+{
+	disconnect(gX1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
+	disconnect(gX2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
+	disconnect(gY1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
+	disconnect(gY2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
+	double oldX = gX1->value() / old;
+	double oldXM = gX1->maxValue() / old;
+	double oldY = gY1->value() / old;
+	double oldYM = gY1->maxValue() / old;
+	double oldW = gX2->value() / old;
+	double oldWM = gX2->maxValue() / old;
+	double oldH = gY2->value() / old;
+	double oldHM = gY2->maxValue() / old;
+	gX1->setDecimals(100);
+	gY1->setDecimals(100);
+	gX2->setDecimals(100);
+	gY2->setDecimals(100);
+	QString point[] = { tr(" pt"), tr(" mm"), tr(" in"), tr(" p")};
+	QString einh = point[ein];
+	int val = ein == 1 ? 1000 : 10000;
+	if ((ein == 1) || (ein == 2))
+	{
+		gX1->setDecimals(val);
+		gY1->setDecimals(val);
+		gX2->setDecimals(val);
+		gY2->setDecimals(val);
+	}
+	gX1->setSuffix( einh );
+	gY1->setSuffix( einh );
+	gX2->setSuffix( einh );
+	gY2->setSuffix( einh );
+	gX1->setMaxValue(oldXM * neww);
+	gX1->setValue(oldX * neww);
+	gY1->setMaxValue(oldYM * neww);
+	gY1->setValue(oldY * neww);
+	gX2->setMaxValue(oldWM * neww);
+	gX2->setValue(oldW * neww);
+	gY2->setMaxValue(oldHM * neww);
+	gY2->setValue(oldH * neww);
+	connect(gX1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
+	connect(gX2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
+	connect(gY1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
+	connect(gY2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
 }

@@ -32,6 +32,7 @@
 #include <qspinbox.h>
 #include "scribusdoc.h"
 #include "shadebutton.h"
+#include "mspinbox.h"
 
 /**
   *@author Franz Schmid
@@ -52,6 +53,15 @@ public:
 	QButtonGroup* GradGroup;
 	QRadioButton* GrColor1;
 	QRadioButton* GrColor2;
+	QFrame* frame8;
+	QLabel* GTextX1;
+	QLabel* GTextY1;
+	QLabel* GTextX2;
+	QLabel* GTextY2;
+	MSpinBox* gY1;
+	MSpinBox* gX2;
+	MSpinBox* gX1;
+	MSpinBox* gY2;
 	QButtonGroup* TransGroup;
 	QLabel* TransTxt;
 	QLabel* ShadeTxt;
@@ -81,10 +91,13 @@ public slots:
 	void ChooseGrad(int nr);
 	void setActFarben(QString p, QString b, int shp, int shb);
 	void setActGradient(QString p, QString b, int shp, int shb, int typ);
+	void setSpecialGradient(double x1, double y1, double x2, double y2, double w, double h);
+	void changeSpecial();
 	void setActShade();
 	void setActTrans(double, double);
 	void slotTrans(int val);
 	void UseTrans(bool b);
+	void UnitChange(double old, double neww, int ein);
 
 signals:
 	void NewPen(QString);
@@ -92,6 +105,7 @@ signals:
 	void NewPenShade(int);
 	void NewBrushShade(int);
 	void NewGradient(int, QString, int, QString, int);
+	void NewSpecial(double, double, double, double);
 	void NewTrans(double);
 	void NewTransS(double);
 	void QueryItem();
@@ -100,8 +114,10 @@ protected:
 	QVBoxLayout* Form1Layout;
 	QGridLayout* Layout1;
 	QVBoxLayout* GradLayout;
-	QHBoxLayout* GradGroupLayout;
+	QVBoxLayout* GradGroupLayout;
 	QHBoxLayout* TransGroupLayout;
+	QHBoxLayout* layout19;
+	QGridLayout* frame8Layout;
 };
 
 #endif

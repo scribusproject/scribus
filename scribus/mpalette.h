@@ -314,6 +314,7 @@ private slots:
 	void MakeIrre(int f, int c, double *vals);
 	void EditSh();
 	void NewTDist();
+	void NewSpGradient(double x1, double y1, double x2, double y2);
 	void DoRevert();
 	void handleLock();
 	void handlePrint();

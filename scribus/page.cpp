@@ -77,6 +77,7 @@ extern int PolyFd;
 extern double PolyF;
 extern bool PolyS;
 extern double PolyR;
+extern double UmReFaktor;
 extern ProfilesL InputProfiles;
 extern QPixmap loadIcon(QString nam);
 extern double Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2 = " ");
@@ -1419,6 +1420,7 @@ void Page::UpdateClip(PageItem* b)
 		}
 		break;
 	}
+	updateGradientVectors(b);
 }
 
 bool Page::SizeItem(double newX, double newY, int ite, bool fromMP, bool DoUpdateClip)
@@ -4401,6 +4403,11 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 		}
 		if ((!Mpressed) && (doku->AppMode != 13))
 		{
+			if (doku->AppMode == 6)
+			{
+				qApp->setOverrideCursor(QCursor(loadIcon("LupeZ.xpm")), true);
+				return;
+			}
 			if (GroupSel)
 			{
 				QRect mpo = QRect(m->x()-doku->GrabRad, m->y()-doku->GrabRad, doku->GrabRad*2, doku->GrabRad*2);
@@ -7285,6 +7292,10 @@ void Page::AdjItemGradient(PageItem *b, int typ, QString col1, int sh1, QString 
 	b->GrColor = col2;
 	b->GrShade = sh2;
 	b->GrType = typ;
+	updateGradientVectors(b);
+	ScApp->Mpal->Cpal->setSpecialGradient(b->GrStartX * UmReFaktor, b->GrStartY * UmReFaktor,
+																 b->GrEndX * UmReFaktor, b->GrEndY * UmReFaktor,
+																 b->Width * UmReFaktor, b->Height * UmReFaktor);
 }
 
 void Page::ItemGradFill(int typ, QString col1, int sh1, QString col2, int sh2)
@@ -8490,6 +8501,7 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 		b->GrStartY = Buffer->GrStartY;
 		b->GrEndX = Buffer->GrEndX;
 		b->GrEndY = Buffer->GrEndY;
+		updateGradientVectors(b);
 	}
 	if (!loading)
 	{
@@ -8505,6 +8517,46 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 		b->Dirty = true;
 	if ((b->isBookmark) && (!loading))
 		emit NewBMNr(b->BMnr, z);
+}
+
+void Page::updateGradientVectors(PageItem *b)
+{
+	switch (b->GrType)
+	{
+		case 0:
+		case 1:
+			b->GrStartX = 0;
+			b->GrStartY = b->Height / 2.0;
+			b->GrEndX = b->Width;
+			b->GrEndY = b->Height / 2.0;
+			break;
+		case 2:
+			b->GrStartX = b->Width / 2.0;
+			b->GrStartY = 0;
+			b->GrEndX = b->Width / 2.0;
+			b->GrEndY = b->Height;
+			break;
+		case 3:
+			b->GrStartX = 0;
+			b->GrStartY = 0;
+			b->GrEndX = b->Width;
+			b->GrEndY = b->Height;
+			break;
+		case 4:
+			b->GrStartX = 0;
+			b->GrStartY = b->Height;
+			b->GrEndX = b->Width;
+			b->GrEndY = 0;
+			break;
+		case 5:
+			b->GrStartX = b->Width / 2.0;
+			b->GrStartY = b->Height / 2.0;
+			b->GrEndX = 0;
+			b->GrEndY = 0;
+			break;
+		default:
+			break;
+	}
 }
 
 void Page::SetupDraw(int nr)
@@ -8545,6 +8597,9 @@ void Page::EmitValues(PageItem *b)
 		emit ItemTextFont(b->IFont);
 		emit ItemTextSize(b->ISize);
 	}
+	ScApp->Mpal->Cpal->setSpecialGradient(b->GrStartX * UmReFaktor, b->GrStartY * UmReFaktor,
+																 b->GrEndX * UmReFaktor, b->GrEndY * UmReFaktor,
+																 b->Width * UmReFaktor, b->Height * UmReFaktor);
 }
 
 void Page::AlignObj(bool xa, bool ya, bool Vth, bool Vtv, double xdisp, double ydisp, int xart, int yart)

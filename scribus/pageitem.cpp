@@ -73,14 +73,14 @@ PageItem::PageItem(Page *pa, int art, double x, double y, double w, double h, do
 	TxTStyle = 0;
 	Shade = 100;
 	Shade2 = 100;
-	GrColor = Pcolor2;
+	GrColor = Pcolor;
 	GrColor2 = Pcolor2;
 	GrShade = 100;
 	GrShade2 = 100;
 	GrType = 0;
 	GrStartX = 0;
 	GrStartY = 0;
-	GrEndX = 0;
+	GrEndX = w;
 	GrEndY = 0;
 	Pwidth = w2;
 	OldPwidth = w2;

@@ -1,5 +1,10 @@
 Changes since Version 1.1.6
 
+26.05.2004
+	* bug     #713: "Line Style" to "Type of Line"
+	* feature #688: improve the zoom-icon function
+	* feature #714: Added new type of Gradient "Free linear Gradient"
+
 24.05.2004
 	* bug     #623: Selecting Compress file deletes existing file name in dialog
 	* bug     #647: Export as image plugin numbers images as "pagenumber - firstpagenumber".

@@ -130,6 +130,7 @@ public:
 	void setNewPos(PageItem *b, int oldPos, int len, int dir);
 	void ExpandSel(PageItem *b, int dir, int oldPos);
 	void deselectAll(PageItem *b);
+	void updateGradientVectors(PageItem *b);
 	QRegion ViewReg();
   /** Liste der Elemente */
 	QPtrList<PageItem> Items;

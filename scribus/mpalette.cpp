@@ -728,7 +728,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 
 	Layout12_2 = new QGridLayout( 0, 1, 1, 0, 3, "Layout12_2");
 	Text8 = new QLabel( page_5, "Text8" );
-	Text8->setText( tr( "Line Style:" ) );
+	Text8->setText( tr( "Type of Line:" ) );
 	Layout12_2->addWidget( Text8, 0, 0 );
 	LStyle = new LineCombo(page_5);
 	Layout12_2->addWidget( LStyle, 1, 0 );
@@ -931,6 +931,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	connect( RightLine, SIGNAL( clicked() ), this, SLOT( HandleTLines() ) );
 	connect( BottomLine, SIGNAL( clicked() ), this, SLOT( HandleTLines() ) );
 	connect( Text14b, SIGNAL( clicked() ), this, SLOT( HandleGapSwitch() ) );
+	connect( Cpal, SIGNAL(NewSpecial(double, double, double, double )), this, SLOT(NewSpGradient(double, double, double, double )));
 	HaveItem = false;
 	Xpos->setValue(0);
 	Ypos->setValue(0);
@@ -970,13 +971,6 @@ void Mpalette::SelTab(int t)
 	if (ScApp->ScriptRunning)
 		return;
 	TabStack->raiseWidget(t);
-	if (HaveItem)
-	{
-		Cpal->GradCombo->setCurrentItem(CurItem->GrType);
-		Cpal->ChooseGrad(CurItem->GrType);
-		Cpal->updateGeometry();
-		Cpal->repaint();
-	}
 }
 
 void Mpalette::SetDoc(ScribusDoc *d)
@@ -1052,6 +1046,13 @@ void Mpalette::SetCurItem(PageItem *i)
 	disconnect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
 	HaveItem = false;
 	CurItem = i;
+	Cpal->GradCombo->setCurrentItem(CurItem->GrType);
+	Cpal->ChooseGrad(CurItem->GrType);
+	Cpal->setSpecialGradient(CurItem->GrStartX * UmReFaktor, CurItem->GrStartY * UmReFaktor,
+										  CurItem->GrEndX * UmReFaktor, CurItem->GrEndY * UmReFaktor,
+										  CurItem->Width * UmReFaktor, CurItem->Height * UmReFaktor);
+	Cpal->updateGeometry();
+	Cpal->repaint();
 	if (i->FrameType == 0)
 		SCustom->setPixmap(SCustom->getIconPixmap(0));
 	if (i->FrameType == 1)
@@ -1297,6 +1298,7 @@ void Mpalette::NewSel(int nr)
 			SImage->setEnabled(false);
 			SLine->setEnabled(false);
 			SColor->setEnabled(false);
+			Cpal->ChooseGrad(0);
 			//				SGeom->setOn(true);
 			break;
 		case 1:
@@ -1562,6 +1564,7 @@ void Mpalette::UnitChange()
 	DRight->setValue(oldDR * UmReFaktor);
 	RoundRect->setMaxValue(oldRM * UmReFaktor);
 	RoundRect->setValue(oldRR * UmReFaktor);
+	Cpal->UnitChange(old, UmReFaktor, doc->Einheit);
 	HaveItem = tmp;
 }
 
@@ -2769,6 +2772,21 @@ void Mpalette::NewTDist()
 		CurItem->BExtra = DBottom->value() / UmReFaktor;
 		CurItem->RExtra = DRight->value() / UmReFaktor;
 		setCols(CurItem->Cols, CurItem->ColGap);
+		doc->ActPage->RefreshItem(CurItem);
+		emit DocChanged();
+	}
+}
+
+void Mpalette::NewSpGradient(double x1, double y1, double x2, double y2)
+{
+	if (ScApp->ScriptRunning)
+		return;
+	if ((HaveDoc) && (HaveItem))
+	{
+		CurItem->GrStartX = x1 / UmReFaktor;
+		CurItem->GrStartY = y1 / UmReFaktor;
+		CurItem->GrEndX = x2 / UmReFaktor;
+		CurItem->GrEndY = y2 / UmReFaktor;
 		doc->ActPage->RefreshItem(CurItem);
 		emit DocChanged();
 	}

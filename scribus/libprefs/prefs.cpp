@@ -921,7 +921,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	TextLabelT25 = new QLabel( ToolFrame2, "TextLabel1_3_3" );
 	TextLabelT25->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                                        TextLabelT25->sizePolicy().hasHeightForWidth() ) );
-	TextLabelT25->setText( tr( "Line Style:" ) );
+	TextLabelT25->setText( tr( "Type of Line:" ) );
 	Layout15b->addWidget(TextLabelT25, 4, 0);
 	TextLabelT26 = new QLabel( ToolFrame2, "TextLabel2_3_4" );
 	TextLabelT26->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
@@ -1027,7 +1027,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	TextLabelT35 = new QLabel( ToolFrame3, "TextLabel1_3_3" );
 	TextLabelT35->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                                        TextLabelT35->sizePolicy().hasHeightForWidth() ) );
-	TextLabelT35->setText( tr( "Line Style:" ) );
+	TextLabelT35->setText( tr( "Type of Line:" ) );
 	Layout15c->addWidget(TextLabelT35, 2, 0);
 	TextLabelT36 = new QLabel( ToolFrame3, "TextLabel2_3_4" );
 	TextLabelT36->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,

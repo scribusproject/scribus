@@ -616,12 +616,12 @@ void ScPainter::applyGradient( ArtSVP *svp, bool fill )
 		ArtGradientLinear *linear = art_new( ArtGradientLinear, 1 );
 
 		// TODO : make variable
-		if( gradient.repeatMethod() == VGradient::none )
+//		if( gradient.repeatMethod() == VGradient::none )
 			linear->spread = ART_GRADIENT_PAD;
-		else if( gradient.repeatMethod() == VGradient::repeat )
+/*		else if( gradient.repeatMethod() == VGradient::repeat )
 			linear->spread = ART_GRADIENT_REPEAT;
 		else if( gradient.repeatMethod() == VGradient::reflect )
-			linear->spread = ART_GRADIENT_REFLECT;
+			linear->spread = ART_GRADIENT_REFLECT; */
 
 		double _x1 = static_cast<double>(gradient.origin().x());
 		double _x2 = static_cast<double>(gradient.vector().x());
