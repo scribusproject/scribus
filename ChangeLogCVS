@@ -1,7 +1,28 @@
 Changes since 1.2 
 
+11.10.2004
+	* bug     #1093: Deleting selected text from text frame deletes also one character after the selction
+	* bug     #1199: Updated Norwegian Bokmaal Translation
+	* bug     #1200: Fontconversation dialog behind supermodal splash screen
+	* bug     #1206: Serbian Translation Update
+	* feature #1157: scribus man page
+	* feature #1198: Script console should use fixed-width font
+
+09.10.2004
+	* bug     #1182: Build issues for SXW unzipping
+	* bug     #1185: Aphabetical order of languages in Properties retains that of English denominations in all other languages
+	* feature #1196: Finnish translation update
+
+08.10.2004
+	* bug     #1111: Some accented letters and other diacritic marks only available from within the Story Editor
+
+05.10.2004
+	* bug     #1091: Luxi Fonts: Polish and Czech glyphs stopped displaying in Scribus 1.2
+	* bug     #1092: Crash when opening bad document
+
 04.10.2004
 	* bug     #1187: Initial Esperanto translation
+	* bug     #1188: Italian Translation Update
 	* feature #1178: Polish Translation Update
 
 03.10.2004
