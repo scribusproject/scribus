@@ -21,11 +21,25 @@ double pageUnitYToDocY(double pageUnitY);
 int GetItem(QString Name);
 void ReplaceColor(QString col, QString rep);
 /*!
- * Returns PageItem itself by its unique name - page
- * independent.
- * 03/10/2004 petr vanek
+ * @brief Returns named PageItem, or selection if name '', or exception and NULL if no item.
+ *
+ * Returns a pointer to a PageItem by looking it up by name - page independent.
+ * If `name' is empty, returns selected item.  If the named item is not found,
+ * or `name' is empty and no item is selected, sets an exception and returns
+ * NULL.
+ *
+ * @author 03/10/2004 petr vanek
+ * @author 05/02/02 Craig Ringer
  */
 PageItem* GetUniqueItem(QString name);
+
+/*!
+ * @brief Returns named PageItem, or exception and NULL if not found.
+ *
+ * @author 03/10/2004 Petr Vanek
+ * @author 05/02/02 Craig Ringer
+ */
+PageItem* getPageItemByName(QString name);
 
 // 2004-10-27 Craig Ringer see cmdutil.cpp for description
 bool checkHaveDocument();

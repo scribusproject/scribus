@@ -156,6 +156,17 @@ PageItem* GetUniqueItem(QString name)
 			PyErr_SetString(NoValidObjectError, QString("Can't use empty string for object name when there is no selection"));
 			return NULL;
 		}
+	else
+		return getPageItemByName(name);
+}
+
+PageItem* getPageItemByName(QString name)
+{
+	if (name.length() == 0)
+	{
+		PyErr_SetString(PyExc_ValueError, QString("Cannot accept empty name for pageitem"));
+		return NULL;
+	}
 	for (uint j = 0; j<Carrier->doc->Items.count(); j++)
 	{
 		if (name==Carrier->doc->Items.at(j)->itemName())

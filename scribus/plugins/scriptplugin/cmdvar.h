@@ -19,6 +19,13 @@
 /* Static global Variables */
 extern ScribusApp* Carrier;
 
+// Globals for testing Qt properties and probably other more intresting future
+// uses.
+/** @brief A PyCObject containing a pointer to qApp */
+extern PyObject* wrappedQApp;
+/** @brief A PyCObject containing a pointer to the main window ('Carrier') */
+extern PyObject* wrappedMainWindow;
+
 /* Exceptions */
 /*! Common scribus Exception */
 extern PyObject* ScribusException;

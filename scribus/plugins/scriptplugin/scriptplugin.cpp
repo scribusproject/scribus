@@ -28,6 +28,7 @@
 #include "cmdmani.h"
 #include "cmdcolor.h"
 #include "cmdmisc.h"
+#include "cmdgetsetprop.h"
 #include "scriptplugin.h"
 #include "scriptplugin.moc"
 #include "cmdutil.h"
@@ -51,6 +52,7 @@
  #include "config.h"
 #endif
 
+#include <qapplication.h>
 #include <qmessagebox.h>
 #include <qtextcodec.h>
 #include <qdom.h>
@@ -66,6 +68,10 @@ PyObject* WrongFrameTypeError;
 PyObject* NoValidObjectError;
 PyObject* NotFoundError;
 PyObject* NameExistsError;
+
+// Other extern variables defined in cmdvar.h
+PyObject* wrappedMainWindow;
+PyObject* wrappedQApp;
 
 QString Name()
 {
@@ -788,7 +794,14 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("unlinkTextFrames"), scribus_unlinktextframes, METH_VARARGS, tr(scribus_unlinktextframes__doc__)},
 	{const_cast<char*>("valueDialog"), scribus_valdialog, METH_VARARGS, tr(scribus_valdialog__doc__)},
 	{const_cast<char*>("textOverflows"), scribus_istextoverflowing, METH_VARARGS, tr(scribus_istextoverflowing__doc__)},
-	// end of aliases
+	// Property magic
+	{const_cast<char*>("getPropertyCType"), (PyCFunction)scribus_propertyctype, METH_KEYWORDS, tr(scribus_propertyctype__doc__)},
+	{const_cast<char*>("getPropertyNames"), (PyCFunction)scribus_getpropertynames, METH_KEYWORDS, tr(scribus_getpropertynames__doc__)},
+	{const_cast<char*>("getProperty"), (PyCFunction)scribus_getproperty, METH_KEYWORDS, tr(scribus_getproperty__doc__)},
+	{const_cast<char*>("setProperty"), (PyCFunction)scribus_setproperty, METH_KEYWORDS, tr(scribus_setproperty__doc__)},
+	{const_cast<char*>("getChildren"), (PyCFunction)scribus_getchildren, METH_KEYWORDS, tr(scribus_getchildren__doc__)},
+	{const_cast<char*>("getChild"), (PyCFunction)scribus_getchild, METH_KEYWORDS, tr(scribus_getchild__doc__)},
+	// Internal methods - Not for public use
 	{const_cast<char*>("retval"), scribus_retval, METH_VARARGS, const_cast<char*>("Scribus internal.")},
 	{const_cast<char*>("getval"), (PyCFunction)scribus_getval, METH_NOARGS, const_cast<char*>("Scribus internal.")},
 	{NULL, (PyCFunction)(0), 0, NULL} /* sentinel */
@@ -1229,5 +1242,29 @@ function's documentation.");
 	else
 		PyDict_SetItemString(d, const_cast<char*>("__doc__"), uniDocStr);
 	Py_DECREF(uniDocStr);
+
+	// Wrap up pointers to the the QApp and main window and push them out
+	// to Python.
+	wrappedQApp = wrapQObject(qApp);
+	if (!wrappedQApp)
+	{
+		qDebug("Failed to wrap up QApp");
+		PyErr_Print();
+	}
+	// Push it into the module dict, stealing a ref in the process
+	PyDict_SetItemString(d, const_cast<char*>("qApp"), wrappedQApp);
+	Py_DECREF(wrappedQApp);
+	wrappedQApp = NULL;
+
+	wrappedMainWindow = wrapQObject(Carrier);
+	if (!wrappedMainWindow)
+	{
+		qDebug("Failed to wrap up Carrier");
+		PyErr_Print();
+	}
+	// Push it into the module dict, stealing a ref in the process
+	PyDict_SetItemString(d, const_cast<char*>("mainWindow"), wrappedMainWindow);
+	Py_DECREF(wrappedMainWindow);
+	wrappedMainWindow = NULL;
 }
 
