@@ -341,7 +341,14 @@ QCString PluginManager::platformDllExtension()
 	return "sl";
 #elif defined(__APPLE__) && defined(__MACH__)
 	// MacOS/X, Darwin
-	return "dylib";
+
+	// MacOS/X may actually use both 'so' and 'dylib'. .so is usually used
+	// for plugins etc, dylib for system and app libraries We need to
+	// support this distinction in the plugin manager, but for now it's
+	// most appropriate to return the extension used by plugins -- CR
+
+	//return "dylib";
+	return "so";
 #else
 	// Generic *NIX
 	return "so";
