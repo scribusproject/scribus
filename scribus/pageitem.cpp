@@ -319,7 +319,6 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 		FrameOnly = false;
 		return;
 	}
-	DrawObj_Pre(p, e);
 	switch(itemType())
 	{
 		case ImageFrame:
@@ -346,11 +345,79 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 	//DrawObj_Post(p, e);
 }
 
-void PageItem::DrawObj_Pre(ScPainter *p, QRect e)
+void PageItem::DrawObj_Pre(ScPainter *p, QRect &e, QPainter &pf, double &sc)
 {
+	sc = ScApp->view->Scale;
+	pf.begin(ScApp->view->viewport());
+	QPoint trans = ScApp->view->contentsToViewport(QPoint(qRound(Xpos*sc), qRound(Ypos*sc)));
+	pf.translate(trans.x(), trans.y());
+	pf.rotate(Rot);
+	pf.scale(sc, sc);
+	if (!Doc->RePos)
+		pf.setClipRect(!e.isEmpty() ? e : QRect(0, 0, ScApp->view->viewport()->width(), ScApp->view->viewport()->height()));
+	p->setZoomFactor(sc);
+	p->save();
+	p->translate(Xpos*sc, Ypos*sc);
+	p->rotate(Rot);
+	p->setLineWidth(Pwidth);
+	if (GrType != 0)
+	{
+		p->setFillMode(ScPainter::Gradient);
+		p->fill_gradient = fill_gradient;
+		QWMatrix grm;
+		grm.rotate(Rot);
+		FPointArray gra;
+		switch (GrType)
+		{
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+			case 6:
+				gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
+				gra.map(grm);
+				p->setGradient(VGradient::linear, gra.point(0), gra.point(1));
+				break;
+			case 5:
+			case 7:
+				gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
+				p->setGradient(VGradient::radial, gra.point(0), gra.point(1), gra.point(0));
+				break;
+		}
+	}
+	else
+	{
+		p->fill_gradient = VGradient(VGradient::linear);
+		if (fillColor() != "None")
+		{
+			QColor tmp;
+			SetFarbe(&tmp, fillColor(), fillShade());
+			p->setBrush(tmp);
+			p->setFillMode(ScPainter::Solid);
+		}
+		else
+			p->setFillMode(ScPainter::None);
+	}
+	if (lineColor() != "None")
+	{
+		QColor tmp;
+		SetFarbe(&tmp, lineColor(), lineShade());
+		if ((Pwidth == 0) && (itemType() != Line))
+			p->setLineWidth(0);
+		else
+		{
+			p->setPen(tmp, Pwidth, PLineArt, PLineEnd, PLineJoin);
+			if (DashValues.count() != 0)
+				p->setDash(DashValues, DashOffset);
+		}
+	}
+	else
+		p->setLineWidth(0);
+	p->setBrushOpacity(1.0 - fillTransparency());
+	p->setPenOpacity(1.0 - lineTransparency());
 }
 
-void PageItem::DrawObj_Post(ScPainter *p, QRect e)
+void PageItem::DrawObj_Post(ScPainter *p, QRect &e)
 {
 	if (Doc->RePos)
 		return;
@@ -424,79 +491,9 @@ void PageItem::DrawObj_Post(ScPainter *p, QRect e)
 /** Zeichnet das Item */
 void PageItem::DrawObj_ImageFrame(ScPainter *p, QRect e)
 {
-	QColor tmp;
 	QPainter pf;
-	double sc = ScApp->view->Scale;
-	pf.begin(ScApp->view->viewport());
-	QPoint trans = ScApp->view->contentsToViewport(QPoint(qRound(Xpos*sc), qRound(Ypos*sc)));
-	pf.translate(trans.x(), trans.y());
-	pf.rotate(Rot);
-	pf.scale(sc, sc);
-	if (!Doc->RePos)
-		pf.setClipRect(!e.isEmpty() ? e : QRect(0, 0, ScApp->view->viewport()->width(), ScApp->view->viewport()->height()));
-	p->setZoomFactor(sc);
-	p->save();
-	p->translate(Xpos*sc, Ypos*sc);
-	p->rotate(Rot);
-	p->setLineWidth(Pwidth);
-	if (GrType != 0)
-	{
-		p->setFillMode(ScPainter::Gradient);
-		p->fill_gradient = fill_gradient;
-		QWMatrix grm;
-		grm.rotate(Rot);
-		FPointArray gra;
-		switch (GrType)
-		{
-			case 1:
-			case 2:
-			case 3:
-			case 4:
-			case 6:
-				gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
-				gra.map(grm);
-				p->setGradient(VGradient::linear, gra.point(0), gra.point(1));
-				break;
-			case 5:
-			case 7:
-				gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
-				p->setGradient(VGradient::radial, gra.point(0), gra.point(1), gra.point(0));
-				break;
-		}
-	}
-	else
-	{
-		p->fill_gradient = VGradient(VGradient::linear);
-		if (fillColor() != "None")
-		{
-			SetFarbe(&tmp, fillColor(), fillShade());
-			p->setBrush(tmp);
-			p->setFillMode(ScPainter::Solid);
-		}
-		else
-			p->setFillMode(ScPainter::None);
-	}
-	if (lineColor() != "None")
-	{
-		SetFarbe(&tmp, lineColor(), lineShade());
-		if ((Pwidth == 0) && (itemType() != Line))
-			p->setLineWidth(0);
-		else
-		{
-			p->setPen(tmp, Pwidth, PLineArt, PLineEnd, PLineJoin);
-			if (DashValues.count() != 0)
-				p->setDash(DashValues, DashOffset);
-		}
-	}
-	else
-		p->setLineWidth(0);
-	p->setBrushOpacity(1.0 - fillTransparency());
-	p->setPenOpacity(1.0 - lineTransparency());
-	//switch (itemType())
-	//{
-	//	case ImageFrame:
-	//		if (Doc->RePos)
-	//			break;
+	double sc;
+	DrawObj_Pre(p, e, pf, sc);
 	if(!Doc->RePos)
 	{
 			if ((fillColor() != "None") || (GrType != 0))
@@ -553,7 +550,6 @@ void PageItem::DrawObj_ImageFrame(ScPainter *p, QRect e)
 					p->restore();
 				}
 			}
-	//		break;
 	}
 	DrawObj_Post(p, e);
 	Tinput = false;
@@ -565,116 +561,56 @@ void PageItem::DrawObj_ImageFrame(ScPainter *p, QRect e)
 /** Zeichnet das Item */
 void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 {
-	QColor tmp;
-	QPainter pf, pp, pf2;
-	PageItem *nb;
-	QPoint pt1, pt2;
-	FPoint ColBound;
-	QRegion cm;
-	uint a, nrc, nrc2, startLin;
-	int desc, asce, absa, aSpa, chs, chsd, CurrCol;
-	uint BuPos, LastSP, MaxText;
-	double oldCurY, LastXp, EndX, OFs, OFs2, wide, lineCorr, ColWidth, kernVal, RTabX;
-	double sc = ScApp->view->Scale;
-	QString chx, chx2, chx3;
-	struct ScText *hl;
-	struct ZZ *Zli;
-	struct ZZ *Zli2;
-	QPtrList<ZZ> LiList;
-	bool outs = false;
-	bool fBorder = false;
-	bool RTab = false;
-	bool goNoRoom = false;
-	uint StartRT, StartRT2;
-	int TabCode = 0;
-	int HyphenCount = 0;
-	QValueList<double> tTabValues;
-	bool DropCmode = false;
-	bool AbsHasDrop = false;
-	double maxDY, firstDes, desc2, maxDX;
-	int DropLines;
-	bool StartOfCol = true;
-	tTabValues.clear();
-	LiList.setAutoDelete(true);
-	for (int xxx=0; xxx<5; ++xxx)
-	{
-		Doc->docParagraphStyles[xxx].LineSpa = LineSp;
-		Doc->docParagraphStyles[xxx].FontSize = ISize;
-		Doc->docParagraphStyles[xxx].Indent = 0;
-		Doc->docParagraphStyles[xxx].First = 0;
-		Doc->docParagraphStyles[xxx].gapBefore = 0;
-		Doc->docParagraphStyles[xxx].gapAfter = 0;
-		Doc->docParagraphStyles[xxx].textAlignment = xxx;
-	}
-	pf.begin(ScApp->view->viewport());
-	QPoint trans = ScApp->view->contentsToViewport(QPoint(qRound(Xpos*sc), qRound(Ypos*sc)));
-	pf.translate(trans.x(), trans.y());
-	pf.rotate(Rot);
-	pf.scale(sc, sc);
-	if (!Doc->RePos)
-		pf.setClipRect(!e.isEmpty() ? e : QRect(0, 0, ScApp->view->viewport()->width(), ScApp->view->viewport()->height()));
-	QRect e2 = QRect(qRound(e.x() / sc), qRound(e.y() / sc), qRound(e.width() / sc), qRound(e.height() / sc));
-	p->setZoomFactor(sc);
-	p->save();
-	p->translate(Xpos*sc, Ypos*sc);
-	p->rotate(Rot);
-	p->setLineWidth(Pwidth);
-	if (GrType != 0)
-	{
-		p->setFillMode(ScPainter::Gradient);
-		p->fill_gradient = fill_gradient;
-		QWMatrix grm;
-		grm.rotate(Rot);
-		FPointArray gra;
-		switch (GrType)
-		{
-			case 1:
-			case 2:
-			case 3:
-			case 4:
-			case 6:
-				gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
-				gra.map(grm);
-				p->setGradient(VGradient::linear, gra.point(0), gra.point(1));
-				break;
-			case 5:
-			case 7:
-				gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
-				p->setGradient(VGradient::radial, gra.point(0), gra.point(1), gra.point(0));
-				break;
-		}
-	}
-	else
-	{
-		p->fill_gradient = VGradient(VGradient::linear);
-		if (fillColor() != "None")
-		{
-			SetFarbe(&tmp, fillColor(), fillShade());
-			p->setBrush(tmp);
-			p->setFillMode(ScPainter::Solid);
-		}
-		else
-			p->setFillMode(ScPainter::None);
-	}
-	if (lineColor() != "None")
-	{
-		SetFarbe(&tmp, lineColor(), lineShade());
-		if ((Pwidth == 0) && (itemType() != Line))
-			p->setLineWidth(0);
-		else
-		{
-			p->setPen(tmp, Pwidth, PLineArt, PLineEnd, PLineJoin);
-			if (DashValues.count() != 0)
-				p->setDash(DashValues, DashOffset);
-		}
-	}
-	else
-		p->setLineWidth(0);
-	p->setBrushOpacity(1.0 - fillTransparency());
-	p->setPenOpacity(1.0 - lineTransparency());
+	QPainter pf;
+	double sc;
+	DrawObj_Pre(p, e, pf, sc);
 	switch (itemType())
 	{
 		case TextFrame:
+		{
+			QPainter pp, pf2;
+			PageItem *nb;
+			QPoint pt1, pt2;
+			FPoint ColBound;
+			QRegion cm;
+			uint a, nrc, nrc2, startLin;
+			int desc, asce, absa, aSpa, chs, chsd, CurrCol;
+			uint BuPos, LastSP, MaxText;
+			double oldCurY, LastXp, EndX, OFs, OFs2, wide, lineCorr, ColWidth, kernVal, RTabX;
+			QString chx, chx2, chx3;
+			struct ScText *hl;
+			struct ZZ *Zli;
+			struct ZZ *Zli2;
+	
+			bool outs = false;
+			bool fBorder = false;
+			bool RTab = false;
+			bool goNoRoom = false;
+			uint StartRT, StartRT2;
+			int TabCode = 0;
+			int HyphenCount = 0;
+			QValueList<double> tTabValues;
+			bool DropCmode = false;
+			bool AbsHasDrop = false;
+			double maxDY, firstDes, desc2, maxDX;
+			int DropLines;
+			bool StartOfCol = true;
+			tTabValues.clear();
+	
+			for (int xxx=0; xxx<5; ++xxx)
+			{
+				Doc->docParagraphStyles[xxx].LineSpa = LineSp;
+				Doc->docParagraphStyles[xxx].FontSize = ISize;
+				Doc->docParagraphStyles[xxx].Indent = 0;
+				Doc->docParagraphStyles[xxx].First = 0;
+				Doc->docParagraphStyles[xxx].gapBefore = 0;
+				Doc->docParagraphStyles[xxx].gapAfter = 0;
+				Doc->docParagraphStyles[xxx].textAlignment = xxx;
+			}
+			
+			QPtrList<ZZ> LiList;
+			LiList.setAutoDelete(true);
+			QRect e2 = QRect(qRound(e.x() / sc), qRound(e.y() / sc), qRound(e.width() / sc), qRound(e.height() / sc));
 			p->save();
 			pf2.begin(ScApp->view->viewport());
 			pf2.translate(Xpos, Ypos);
@@ -722,11 +658,13 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 						chx = ExpandToken(a);
 					if (hl->ccolor != "None")
 					{
+						QColor tmp;
 						SetFarbe(&tmp, hl->ccolor, hl->cshade);
 						p->setBrush(tmp);
 					}
 					if (hl->cstroke != "None")
 					{
+						QColor tmp;
 						SetFarbe(&tmp, hl->cstroke, hl->cshade2);
 						p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
 					}
@@ -1559,6 +1497,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 							itemText.at(startLin+zc)->yp = Zli2->yco;
 							if (Zli2->Farb != "None")
 							{
+								QColor tmp;
 								SetFarbe(&tmp, Zli2->Farb, Zli2->shade);
 								p->setBrush(tmp);
 							}
@@ -1582,6 +1521,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 							}
 							if (Zli2->Farb2 != "None")
 							{
+								QColor tmp;
 								SetFarbe(&tmp, Zli2->Farb2, Zli2->shade2);
 								p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
 							}
@@ -1657,6 +1597,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					itemText.at(startLin+zc)->yp = Zli2->yco;
 					if (Zli2->Farb != "None")
 					{
+						QColor tmp;
 						SetFarbe(&tmp, Zli2->Farb, Zli2->shade);
 						p->setBrush(tmp);
 					}
@@ -1680,6 +1621,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 					}
 					if (Zli2->Farb2 != "None")
 					{
+						QColor tmp;
 						SetFarbe(&tmp, Zli2->Farb2, Zli2->shade2);
 						p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
 					}
@@ -1756,6 +1698,7 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 			MaxChars = nrc;
 			Redrawn = true;
 			p->restore();
+		}
 			break;
 		default:
 			break;
@@ -1770,79 +1713,9 @@ void PageItem::DrawObj_TextFrame(ScPainter *p, QRect e)
 /** Zeichnet das Item */
 void PageItem::DrawObj_Line(ScPainter *p, QRect e)
 {
-	QColor tmp;
 	QPainter pf;
-	double sc = ScApp->view->Scale;
-	pf.begin(ScApp->view->viewport());
-	QPoint trans = ScApp->view->contentsToViewport(QPoint(qRound(Xpos*sc), qRound(Ypos*sc)));
-	pf.translate(trans.x(), trans.y());
-	pf.rotate(Rot);
-	pf.scale(sc, sc);
-	if (!Doc->RePos)
-		pf.setClipRect(!e.isEmpty() ? e : QRect(0, 0, ScApp->view->viewport()->width(), ScApp->view->viewport()->height()));
-	p->setZoomFactor(sc);
-	p->save();
-	p->translate(Xpos*sc, Ypos*sc);
-	p->rotate(Rot);
-	p->setLineWidth(Pwidth);
-	if (GrType != 0)
-	{
-		p->setFillMode(ScPainter::Gradient);
-		p->fill_gradient = fill_gradient;
-		QWMatrix grm;
-		grm.rotate(Rot);
-		FPointArray gra;
-		switch (GrType)
-		{
-			case 1:
-			case 2:
-			case 3:
-			case 4:
-			case 6:
-				gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
-				gra.map(grm);
-				p->setGradient(VGradient::linear, gra.point(0), gra.point(1));
-				break;
-			case 5:
-			case 7:
-				gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
-				p->setGradient(VGradient::radial, gra.point(0), gra.point(1), gra.point(0));
-				break;
-		}
-	}
-	else
-	{
-		p->fill_gradient = VGradient(VGradient::linear);
-		if (fillColor() != "None")
-		{
-			SetFarbe(&tmp, fillColor(), fillShade());
-			p->setBrush(tmp);
-			p->setFillMode(ScPainter::Solid);
-		}
-		else
-			p->setFillMode(ScPainter::None);
-	}
-	if (lineColor() != "None")
-	{
-		SetFarbe(&tmp, lineColor(), lineShade());
-		if ((Pwidth == 0) && (itemType() != Line))
-			p->setLineWidth(0);
-		else
-		{
-			p->setPen(tmp, Pwidth, PLineArt, PLineEnd, PLineJoin);
-			if (DashValues.count() != 0)
-				p->setDash(DashValues, DashOffset);
-		}
-	}
-	else
-		p->setLineWidth(0);
-	p->setBrushOpacity(1.0 - fillTransparency());
-	p->setPenOpacity(1.0 - lineTransparency());
-	//switch (itemType())
-	//{
-	//	case Line:
-	//		if (Doc->RePos)
-	//			break;
+	double sc;
+	DrawObj_Pre(p, e, pf, sc);	
 	if (!Doc->RePos)
 	{
 			if (NamedLStyle == "")
@@ -1850,6 +1723,7 @@ void PageItem::DrawObj_Line(ScPainter *p, QRect e)
 			else
 			{
 				multiLine ml = Doc->MLineStyles[NamedLStyle];
+				QColor tmp;
 				for (int it = ml.size()-1; it > -1; it--)
 				{
 					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
@@ -1889,7 +1763,6 @@ void PageItem::DrawObj_Line(ScPainter *p, QRect e)
 				p->setupPolygon(&arrow);
 				p->fillPath();
 			}
-	//		break;
 	}
 	DrawObj_Post(p, e);
 	Tinput = false;
@@ -1901,84 +1774,13 @@ void PageItem::DrawObj_Line(ScPainter *p, QRect e)
 /** Zeichnet das Item */
 void PageItem::DrawObj_Polygon(ScPainter *p, QRect e)
 {
-	QColor tmp;
 	QPainter pf;
-	double sc = ScApp->view->Scale;
-	pf.begin(ScApp->view->viewport());
-	QPoint trans = ScApp->view->contentsToViewport(QPoint(qRound(Xpos*sc), qRound(Ypos*sc)));
-	pf.translate(trans.x(), trans.y());
-	pf.rotate(Rot);
-	pf.scale(sc, sc);
-	if (!Doc->RePos)
-		pf.setClipRect(!e.isEmpty() ? e : QRect(0, 0, ScApp->view->viewport()->width(), ScApp->view->viewport()->height()));
-	p->setZoomFactor(sc);
-	p->save();
-	p->translate(Xpos*sc, Ypos*sc);
-	p->rotate(Rot);
-	p->setLineWidth(Pwidth);
-	if (GrType != 0)
-	{
-		p->setFillMode(ScPainter::Gradient);
-		p->fill_gradient = fill_gradient;
-		QWMatrix grm;
-		grm.rotate(Rot);
-		FPointArray gra;
-		switch (GrType)
-		{
-			case 1:
-			case 2:
-			case 3:
-			case 4:
-			case 6:
-				gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
-				gra.map(grm);
-				p->setGradient(VGradient::linear, gra.point(0), gra.point(1));
-				break;
-			case 5:
-			case 7:
-				gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
-				p->setGradient(VGradient::radial, gra.point(0), gra.point(1), gra.point(0));
-				break;
-		}
-	}
-	else
-	{
-		p->fill_gradient = VGradient(VGradient::linear);
-		if (fillColor() != "None")
-		{
-			SetFarbe(&tmp, fillColor(), fillShade());
-			p->setBrush(tmp);
-			p->setFillMode(ScPainter::Solid);
-		}
-		else
-			p->setFillMode(ScPainter::None);
-	}
-	if (lineColor() != "None")
-	{
-		SetFarbe(&tmp, lineColor(), lineShade());
-		if ((Pwidth == 0) && (itemType() != Line))
-			p->setLineWidth(0);
-		else
-		{
-			p->setPen(tmp, Pwidth, PLineArt, PLineEnd, PLineJoin);
-			if (DashValues.count() != 0)
-				p->setDash(DashValues, DashOffset);
-		}
-	}
-	else
-		p->setLineWidth(0);
-	p->setBrushOpacity(1.0 - fillTransparency());
-	p->setPenOpacity(1.0 - lineTransparency());
-	//switch (itemType())
-	//{
-	//	case Polygon:
-	//		if (Doc->RePos)
-	//			break;
+	double sc;
+	DrawObj_Pre(p, e, pf, sc);
 	if (!Doc->RePos)
 	{
 			p->setupPolygon(&PoLine);
 			p->fillPath();
-	//		break;
 	}
 	DrawObj_Post(p, e);
 	Tinput = false;
@@ -1990,81 +1792,9 @@ void PageItem::DrawObj_Polygon(ScPainter *p, QRect e)
 /** Zeichnet das Item */
 void PageItem::DrawObj_PolyLine(ScPainter *p, QRect e)
 {
-	QColor tmp;
 	QPainter pf;
-	double sc = ScApp->view->Scale;
-	pf.begin(ScApp->view->viewport());
-	QPoint trans = ScApp->view->contentsToViewport(QPoint(qRound(Xpos*sc), qRound(Ypos*sc)));
-	pf.translate(trans.x(), trans.y());
-	pf.rotate(Rot);
-	pf.scale(sc, sc);
-	if (!Doc->RePos)
-		pf.setClipRect(!e.isEmpty() ? e : QRect(0, 0, ScApp->view->viewport()->width(), ScApp->view->viewport()->height()));
-	p->setZoomFactor(sc);
-	p->save();
-	p->translate(Xpos*sc, Ypos*sc);
-	p->rotate(Rot);
-	p->setLineWidth(Pwidth);
-	if (GrType != 0)
-	{
-		p->setFillMode(ScPainter::Gradient);
-		p->fill_gradient = fill_gradient;
-		QWMatrix grm;
-		grm.rotate(Rot);
-		FPointArray gra;
-		switch (GrType)
-		{
-			case 1:
-			case 2:
-			case 3:
-			case 4:
-			case 6:
-				gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
-				gra.map(grm);
-				p->setGradient(VGradient::linear, gra.point(0), gra.point(1));
-				break;
-			case 5:
-			case 7:
-				gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
-				p->setGradient(VGradient::radial, gra.point(0), gra.point(1), gra.point(0));
-				break;
-		}
-	}
-	else
-	{
-		p->fill_gradient = VGradient(VGradient::linear);
-		if (fillColor() != "None")
-		{
-			SetFarbe(&tmp, fillColor(), fillShade());
-			p->setBrush(tmp);
-			p->setFillMode(ScPainter::Solid);
-		}
-		else
-			p->setFillMode(ScPainter::None);
-	}
-	if (lineColor() != "None")
-	{
-		SetFarbe(&tmp, lineColor(), lineShade());
-		if ((Pwidth == 0) && (itemType() != Line))
-			p->setLineWidth(0);
-		else
-		{
-			p->setPen(tmp, Pwidth, PLineArt, PLineEnd, PLineJoin);
-			if (DashValues.count() != 0)
-				p->setDash(DashValues, DashOffset);
-		}
-	}
-	else
-		p->setLineWidth(0);
-	p->setBrushOpacity(1.0 - fillTransparency());
-	p->setPenOpacity(1.0 - lineTransparency());
-	//switch (itemType())
-	//{
-	//	case PolyLine:
-	//		if (Doc->RePos)
-	//			break;
-	//		if (PoLine.size() < 4)
-	//			break;
+	double sc;
+	DrawObj_Pre(p, e, pf, sc);
 	if (!Doc->RePos && PoLine.size()>=4)
 	{
 			if ((fillColor() != "None") || (GrType != 0))
@@ -2111,6 +1841,7 @@ void PageItem::DrawObj_PolyLine(ScPainter *p, QRect e)
 			else
 			{
 				multiLine ml = Doc->MLineStyles[NamedLStyle];
+				QColor tmp;
 				for (int it = ml.size()-1; it > -1; it--)
 				{
 					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
@@ -2171,97 +1902,26 @@ void PageItem::DrawObj_PolyLine(ScPainter *p, QRect e)
 					}
 				}
 			}
-	//		break;
 	}
 	DrawObj_Post(p, e);
 	Tinput = false;
 	FrameOnly = false;
 	p->restore();
 	pf.end();
-// 	checkChanges(); // check the changes for undo actions
 }
 
 /** Zeichnet das Item */
 void PageItem::DrawObj_PathText(ScPainter *p, QRect e)
 {
-	QColor tmp;
 	QPainter pf;
 	uint a;
 	int chs;
 	double wide;
-	double sc = ScApp->view->Scale;
 	QString chx, chx2, chx3;
 	struct ScText *hl;
 	struct ZZ *Zli;
-	pf.begin(ScApp->view->viewport());
-	QPoint trans = ScApp->view->contentsToViewport(QPoint(qRound(Xpos*sc), qRound(Ypos*sc)));
-	pf.translate(trans.x(), trans.y());
-	pf.rotate(Rot);
-	pf.scale(sc, sc);
-	if (!Doc->RePos)
-		pf.setClipRect(!e.isEmpty() ? e : QRect(0, 0, ScApp->view->viewport()->width(), ScApp->view->viewport()->height()));
-	p->setZoomFactor(sc);
-	p->save();
-	p->translate(Xpos*sc, Ypos*sc);
-	p->rotate(Rot);
-	p->setLineWidth(Pwidth);
-	if (GrType != 0)
-	{
-		p->setFillMode(ScPainter::Gradient);
-		p->fill_gradient = fill_gradient;
-		QWMatrix grm;
-		grm.rotate(Rot);
-		FPointArray gra;
-		switch (GrType)
-		{
-			case 1:
-			case 2:
-			case 3:
-			case 4:
-			case 6:
-				gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
-				gra.map(grm);
-				p->setGradient(VGradient::linear, gra.point(0), gra.point(1));
-				break;
-			case 5:
-			case 7:
-				gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
-				p->setGradient(VGradient::radial, gra.point(0), gra.point(1), gra.point(0));
-				break;
-		}
-	}
-	else
-	{
-		p->fill_gradient = VGradient(VGradient::linear);
-		if (fillColor() != "None")
-		{
-			SetFarbe(&tmp, fillColor(), fillShade());
-			p->setBrush(tmp);
-			p->setFillMode(ScPainter::Solid);
-		}
-		else
-			p->setFillMode(ScPainter::None);
-	}
-	if (lineColor() != "None")
-	{
-		SetFarbe(&tmp, lineColor(), lineShade());
-		if ((Pwidth == 0) && (itemType() != Line))
-			p->setLineWidth(0);
-		else
-		{
-			p->setPen(tmp, Pwidth, PLineArt, PLineEnd, PLineJoin);
-			if (DashValues.count() != 0)
-				p->setDash(DashValues, DashOffset);
-		}
-	}
-	else
-		p->setLineWidth(0);
-	p->setBrushOpacity(1.0 - fillTransparency());
-	p->setPenOpacity(1.0 - lineTransparency());
-	//switch (itemType())
-	//{
-	//	case PathText:
-		{
+	double sc;
+	DrawObj_Pre(p, e, pf, sc);
 			double dx;
 			double sp = 0;
 			double oldSp = 0;
@@ -2374,11 +2034,13 @@ void PageItem::DrawObj_PathText(ScPainter *p, QRect e)
 				Zli->Zeich = chx;
 				if (hl->ccolor != "None")
 				{
+					QColor tmp;
 					SetFarbe(&tmp, hl->ccolor, hl->cshade);
 					p->setBrush(tmp);
 				}
 				if (hl->cstroke != "None")
 				{
+					QColor tmp;
 					SetFarbe(&tmp, hl->cstroke, hl->cshade2);
 					p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
 				}
@@ -2407,8 +2069,6 @@ void PageItem::DrawObj_PathText(ScPainter *p, QRect e)
 				CurX += wide+hl->cextra;
 				first = false;
 			}
-		}
-	//}
 	DrawObj_Post(p, e);
 	Tinput = false;
 	FrameOnly = false;
