@@ -533,10 +533,7 @@ void OODPlug::parseGroup(const QDomElement &e)
 			z = Doku->ActPage->PaintText(x, y, w, h+(h*0.1), lwidth, StrokeColor);
 		}
 		else
-		{
-			qDebug("Not supported yet: "+STag);
 			continue;
-		}
 		if (z != -1)
 		{
 			PageItem* ite = Doku->ActPage->Items.at(z);
@@ -567,7 +564,7 @@ void OODPlug::parseGroup(const QDomElement &e)
 				Serializer *ss = new Serializer("");
 				ite->LineSp = FontSize + FontSize * 0.2;
 				ss->Objekt = QString::fromUtf8(e.text())+QChar(10);
-				ss->GetText(ite, AbsStyle, Doku->Dfont, FontSize, firstPa);
+				ss->GetText(ite, AbsStyle, Doku->Dfont, FontSize * 10, firstPa);
 				delete ss;
 				firstPa = true;
 				if (ite->PType != 7)

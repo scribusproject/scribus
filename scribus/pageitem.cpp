@@ -1973,29 +1973,24 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 	uint chr = ccx[0].unicode();
 	if ((*Doc->AllFonts)[hl->ZFo]->CharWidth.contains(chr))
 	{
-		QWMatrix chma;
+		QWMatrix chma, chma2, chma3, chma4, chma5;
 		chma.scale(csi, csi);
+		chma5.scale(p->zoomFactor(), p->zoomFactor());
 		FPointArray gly = (*Doc->AllFonts)[hl->ZFo]->GlyphArray[chr].Outlines.copy();
 		if (gly.size() > 3)
 		{
-			gly.map(chma);
-			chma = QWMatrix();
-			chma.scale(hl->scale / 100.0, 1);
-			gly.map(chma);
-			chma = QWMatrix();
+			chma2.scale(hl->scale / 100.0, 1);
 			if (Reverse)
 			{
-				chma.scale(-1, 1);
-				chma.translate(-hl->wide, 0);
-				gly.map(chma);
-				chma = QWMatrix();
-				chma.translate(hl->xco, hl->yco-(hl->Siz / 10.0));
+				chma3.scale(-1, 1);
+				chma3.translate(-hl->wide, 0);
+				chma4.translate(hl->xco, hl->yco-(hl->Siz / 10.0));
 			}
 			else
-				chma.translate(hl->xco, hl->yco-(hl->Siz / 10.0));
-			gly.map(chma);
+				chma4.translate(hl->xco, hl->yco-(hl->Siz / 10.0));
+			gly.map(chma * chma2 * chma3 * chma4 * chma5);
 			p->setFillMode(1);
-			p->setupPolygon(&gly);
+			p->setupTextPolygon(&gly);
 			if ((*Doc->AllFonts)[hl->ZFo]->isStroked)
 			{
 				QColor tmp = p->brush();

@@ -85,7 +85,12 @@ void CleanUpPlug()
  \retval None
  */
 void Run(QWidget *d, ScribusApp *plug)
-{}
+{
+	QWidget *p;
+	p = d;
+	ScribusApp *a;
+	a = plug;
+}
 
 void MenuPreview::RunPreview()
 {

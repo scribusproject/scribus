@@ -52,7 +52,7 @@ class ZAuswahl : public QDialog
 	Q_OBJECT
 
 public:
-	ZAuswahl( QWidget* parent, preV *Vor, PageItem *item, ScribusApp *plug );
+	ZAuswahl( QWidget* parent, PageItem *item, ScribusApp *plug );
 	~ZAuswahl() {};
 	ChTable* ZTabelle;
 	QLabel* Zeichen;

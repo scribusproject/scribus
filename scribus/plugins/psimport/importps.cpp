@@ -95,6 +95,8 @@ void Run(QWidget *d, ScribusApp *plug)
  */
 EPSPlug::EPSPlug( QWidget* parent, ScribusApp *plug, QString fName )
 {
+	QWidget *d;
+	d = parent;
 	double x, y, b, h, c, m, k;
 	bool ret = false;
 	bool found = false;

@@ -133,7 +133,7 @@ void Run(QWidget *d, ScribusApp *plug)
 	QString pfad = PREL;
 	QString pfad2;
 	pfad2 = QDir::convertSeparators(pfad + "/share/scribus/doc/en/Scripter/index.html");
-	HelpBrowser *dia = new HelpBrowser(0, QObject::tr("Online Reference"), Carrier->GuiLanguage, "scripter");
+	HelpBrowser *dia = new HelpBrowser(d, QObject::tr("Online Reference"), plug->GuiLanguage, "scripter");
 	dia->show();
 }
 
@@ -235,7 +235,7 @@ void MenuTest::slotRunScriptFile(QString fileName)
 	comm[0] = na.data();
 	// call python script
 	PySys_SetArgv(1, comm);
-	PyObject* m = PyImport_AddModule("__main__");
+	PyObject* m = PyImport_AddModule((char*)"__main__");
 	if (m == NULL)
 		qDebug("Failed to get __main__ - aborting script");
 	else
@@ -265,7 +265,7 @@ void MenuTest::slotRunScriptFile(QString fileName)
 		// other return value (most likely None anyway) and can ignore it.
 		if (result == NULL)
 		{
-			PyObject* errorMsgPyStr = PyMapping_GetItemString(globals, "errorMsg");
+			PyObject* errorMsgPyStr = PyMapping_GetItemString(globals, (char*)"errorMsg");
 			if (errorMsgPyStr == NULL)
 			{
 				// It's rather unlikely that this will ever be reached - to get here
@@ -327,7 +327,7 @@ QString MenuTest::slotRunScript(QString Script)
 		cm += "retval(re, rv)\n";
 	}
 	QCString cmd = cm.latin1();
-	comm[0] = "scribus";
+	comm[0] = (char*)"scribus";
 	PySys_SetArgv(1, comm);
 	PyRun_SimpleString(cmd.data());
 	if (RetVal == 0)
@@ -497,7 +497,7 @@ static PyObject *scribus_retval(PyObject *self, PyObject* args)
 {
 	char *Name;
 	int retV;
-	if (!PyArg_ParseTuple(args, "si", &Name, &retV))
+	if (!PyArg_ParseTuple(args, (char*)"si", &Name, &retV))
 		return NULL;
 	RetString = QString(Name);
 	RetVal = retV;
@@ -506,7 +506,7 @@ static PyObject *scribus_retval(PyObject *self, PyObject* args)
 
 static PyObject *scribus_getval(PyObject *self, PyObject* args)
 {
-	if (!PyArg_ParseTuple(args, ""))
+	if (!PyArg_ParseTuple(args, (char*)""))
 		return NULL;
 	return PyString_FromString(InValue);
 }
@@ -670,25 +670,25 @@ static PyMethodDef scribus_methods[] = {
 void initscribus(ScribusApp *pl)
 {
 	PyObject *m, *d;
-	PyImport_AddModule("scribus");
+	PyImport_AddModule((char*)"scribus");
 	PyType_Ready(&Printer_Type);
 	PyType_Ready(&PDFfile_Type);
-	m = Py_InitModule("scribus", scribus_methods);
+	m = Py_InitModule((char*)"scribus", scribus_methods);
 	Py_INCREF(&Printer_Type);
-	PyModule_AddObject(m, "Printer", (PyObject *) &Printer_Type);
+	PyModule_AddObject(m, (char*)"Printer", (PyObject *) &Printer_Type);
 	Py_INCREF(&PDFfile_Type);
-	PyModule_AddObject(m, "PDFfile", (PyObject *) &PDFfile_Type);
+	PyModule_AddObject(m, (char*)"PDFfile", (PyObject *) &PDFfile_Type);
 	d = PyModule_GetDict(m);
 
 	// Set up the module exceptions
 	// common exc.
-	ScribusException = PyErr_NewException("scribus.ScribusException", NULL, NULL);
+	ScribusException = PyErr_NewException((char*)"scribus.ScribusException", NULL, NULL);
 	Py_INCREF(ScribusException);
-	PyModule_AddObject(m, "ScribusException", ScribusException);
+	PyModule_AddObject(m, (char*)"ScribusException", ScribusException);
 	// no doc open
-	NoDocOpenError = PyErr_NewException("scribus.NoDocOpenError", ScribusException, NULL);
+	NoDocOpenError = PyErr_NewException((char*)"scribus.NoDocOpenError", ScribusException, NULL);
 	Py_INCREF(NoDocOpenError);
-	PyModule_AddObject(m, "NoDocOpenError", NoDocOpenError);
+	PyModule_AddObject(m, (char*)"NoDocOpenError", NoDocOpenError);
 	// Done with exception setup
 
 	// CONSTANTS

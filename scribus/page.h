@@ -55,7 +55,7 @@ public:
 	void LoadPict(QString fn, int ItNr);
 	void insertColor(QString nam, double c, double m, double y, double k);
 	void DrawPageMarks(ScPainter *p, QRect rd);
-	void DrawPageItems(ScPainter *painter, QRect rd, bool sp = false);
+	void DrawPageItems(ScPainter *painter, QRect rd);
 	void leaveEvent(QEvent *);
 	void paintEvent(QPaintEvent *e);
 	void setGroupRect();
@@ -80,7 +80,7 @@ public:
 	FPoint GetMinClipF(FPointArray Clip);
 	QPoint GetMaxClip(QPointArray Clip);
 	QPoint GetMinClip(QPointArray Clip);
-	void SetPolyClip(PageItem *b, int up, int down);
+	void SetPolyClip(PageItem *b, int up);
 	void UpdatePolyClip(PageItem *b);
 	void ConvertClip(PageItem *b);
 	void SetFrameShape(PageItem *b, int count, double *vals);

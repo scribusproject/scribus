@@ -118,7 +118,7 @@ public:
 	bool parseSVG( const QString &s, FPointArray *ite );
 	void calculateArc(FPointArray *ite, bool relative, double &curx, double &cury, double angle, double x, double y, double r1, double r2, bool largeArcFlag, bool sweepFlag);
 	void svgClosePath(FPointArray *i);
-	void svgMoveTo(FPointArray *i, double x1, double y1);
+	void svgMoveTo(double x1, double y1);
 	void svgLineTo(FPointArray *i, double x1, double y1);
 	void svgCurveToCubic(FPointArray *i, double x1, double y1, double x2, double y2, double x3, double y3);
 	QColor parseColorN( const QString &rgbColor );

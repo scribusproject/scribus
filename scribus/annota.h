@@ -29,7 +29,7 @@ class Annota : public QDialog
     Q_OBJECT
 
 public:
-    Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farben, ScribusView* vie);
+    Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusView* vie);
     ~Annota() {};
 	QWidgetStack* Fram;
     QLabel* TextLabel1;

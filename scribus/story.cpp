@@ -130,6 +130,8 @@ void SideBar::paintEvent(QPaintEvent *e)
 
 void SideBar::doMove(int x, int y)
 {
+	int dummy;
+	dummy = x;
 	offs = y;
 	if (!inRep)
 		update();
@@ -1689,7 +1691,7 @@ int StoryEditor::exec()
 	return result;
 }
 
-void StoryEditor::closeEvent(QCloseEvent *event)
+void StoryEditor::closeEvent(QCloseEvent *)
 {
 	if (TextChanged)
 	{
@@ -2253,7 +2255,7 @@ void StoryEditor::slotEditStyles()
 void StoryEditor::newAlign(int st)
 {
 	Editor->CurrentABStil = st;
-	changeAlign(st);
+	changeAlign();
 }
 
 void StoryEditor::changeAlignSB(int pa, int align)
@@ -2349,7 +2351,7 @@ void StoryEditor::changeAlignSB(int pa, int align)
 	Editor->setFocus();
 }
 
-void StoryEditor::changeAlign(int align)
+void StoryEditor::changeAlign()
 {
 	int p, i;
 	bool sel = false;

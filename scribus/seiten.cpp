@@ -334,7 +334,7 @@ void SeView::contentsDragEnterEvent(QDragEnterEvent *e)
 		e->accept();
 }
 
-void SeView::contentsDragLeaveEvent(QDragLeaveEvent *e)
+void SeView::contentsDragLeaveEvent(QDragLeaveEvent *)
 {
 	ClearPix();
 }

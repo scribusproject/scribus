@@ -5703,6 +5703,10 @@ void ScribusApp::setItemShade(int id)
 
 void ScribusApp::setCSMenu(QString k, QString l, int lk , int ls)
 {
+	QString kd;
+	kd = k;
+	int lkd;
+	lkd = lk;
 	uint a;
 	QString la;
 	int lb;
@@ -8189,7 +8193,7 @@ void ScribusApp::ModifyAnnot()
 			int AnActType = b->AnActType;
 			QString AnAction = b->AnAction;
 			QString An_Extern = b->An_Extern;
-			Annota *dia = new Annota(this, b, doc->PageC, static_cast<int>(doc->PageB), static_cast<int>(doc->PageH), doc->PageColors, view);
+			Annota *dia = new Annota(this, b, doc->PageC, static_cast<int>(doc->PageB), static_cast<int>(doc->PageH), view);
 			if (dia->exec())
 				slotDocCh();
 			else

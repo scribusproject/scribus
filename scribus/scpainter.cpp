@@ -502,132 +502,62 @@ void ScPainter::drawVPath( ArtVpath *vec, int mode )
 		strokeSvp = art_svp_vpath_stroke( vec, joinStyle, capStyle, ratio * LineWidth, 10, 0.25 );
 		}
 	int x0, y0, x1, y1;
-
-	// render the svp to the buffer
-
 	if(( fillSvp ) && (mode == 0))
-		{
+	{
 		if (fillMode == 2)
 			applyGradient( fillSvp, true );
 		else
-			{
-/*		if( m_fill && m_fill->type() == VFill::grad )
-			applyGradient( fillSvp, true );
-		else if( m_fill && m_fill->type() == VFill::patt )
-			applyPattern( fillSvp, true );
-		else
-		{ */
+		{
 			clampToViewport( *fillSvp, x0, y0, x1, y1 );
 			if( x0 != x1 && y0 != y1 )
 				art_rgb_svp_alpha_( fillSvp, x0, y0, x1, y1, fillColor, af, m_buffer + x0 * 4 + y0 * m_width * 4, m_width * 4, 0 );
-			}
-		art_svp_free( fillSvp );
 		}
+		art_svp_free( fillSvp );
+	}
 	if(( strokeSvp ) && (mode == 1))
 	{
-/*		if( m_stroke && m_stroke->type() == VStroke::grad )
-			applyGradient( strokeSvp, false );
-		else if( m_stroke && m_stroke->type() == VStroke::patt )
-			applyPattern( strokeSvp, false );
-		else
-		{ */
-			clampToViewport( *strokeSvp, x0, y0, x1, y1 );
-			if( x0 != x1 && y0 != y1 )
-				art_rgb_svp_alpha_( strokeSvp, x0, y0, x1, y1, strokeColor, as, m_buffer + x0 * 4 + y0 * m_width * 4, m_width * 4, 0 );
-//		}
+		clampToViewport( *strokeSvp, x0, y0, x1, y1 );
+		if( x0 != x1 && y0 != y1 )
+			art_rgb_svp_alpha_( strokeSvp, x0, y0, x1, y1, strokeColor, as, m_buffer + x0 * 4 + y0 * m_width * 4, m_width * 4, 0 );
 		art_svp_free( strokeSvp );
 	}
 	art_free( vec );
 }
-/*
-void
-VKoPainter::applyPattern( ArtSVP *svp, bool fill )
-{
-	int x0, y0, x1, y1;
-	clampToViewport( *svp, x0, y0, x1, y1 );
 
-	ArtRender *render = 0L;
-
-	VPattern pat = fill ? m_fill->pattern() : m_stroke->pattern();
-	if( !pat.isValid() )
-		pat.load( "pics/cr32-app-karbon.png" );
-
-	ArtPattern *pattern = art_new( ArtPattern, 1 );
-
-	double dx = ( pat.vector().x() - pat.origin().x() ) * m_zoomFactor;
-	double dy = ( pat.vector().y() - pat.origin().y() ) * m_zoomFactor;
-
-	pattern->twidth = pat.tileWidth();
-	pattern->theight = pat.tileHeight();
-	pattern->buffer = pat.pixels();
-	pattern->opacity = fill ? short( m_fill->color().opacity() * 255.0 ) : short( m_stroke->color().opacity() * 255.0 );
-	pattern->angle = atan2( dy, dx );
-
-	if( x0 != x1 && y0 != y1 )
-	{
-		render = art_render_new( x0, y0, x1, y1, m_buffer + 4 * int(x0) + m_width * 4 * int(y0), m_width * 4, 3, 8, ART_ALPHA_PREMUL, 0 );
-		art_render_svp( render, svp );
-		art_render_pattern( render, pattern, ART_FILTER_HYPER );
-	}
-
-	if( render )
-		art_render_invoke( render );
-	art_free( pattern );
-}
-*/
 void ScPainter::applyGradient( ArtSVP *svp, bool fill )
 {
 	int x0, y0, x1, y1;
 	clampToViewport( *svp, x0, y0, x1, y1 );
-
 	ArtRender *render = 0L;
-
-//	VGradient gradient = fill ? fill_gradient : stroke_gradient;
 	VGradient gradient;
 	if (fill)
 		gradient = fill_gradient;
 	else
 		gradient = stroke_gradient;
 	double opa = fill ? fill_trans : stroke_trans;
-
 	if (gradient.type() == VGradient::linear)
 		{
 		ArtGradientLinear *linear = art_new( ArtGradientLinear, 1 );
-
-		// TODO : make variable
-//		if( gradient.repeatMethod() == VGradient::none )
-			linear->spread = ART_GRADIENT_PAD;
-/*		else if( gradient.repeatMethod() == VGradient::repeat )
-			linear->spread = ART_GRADIENT_REPEAT;
-		else if( gradient.repeatMethod() == VGradient::reflect )
-			linear->spread = ART_GRADIENT_REFLECT; */
-
+		linear->spread = ART_GRADIENT_PAD;
 		double _x1 = static_cast<double>(gradient.origin().x());
 		double _x2 = static_cast<double>(gradient.vector().x());
 		double _y2 = static_cast<double>(gradient.origin().y());
 		double _y1 = static_cast<double>(gradient.vector().y());
-
 		double dx = ( _x2 - _x1 ) * m_zoomFactor;
-		_y1 = /* m_matrix.m22() * */ _y1 + m_matrix.dy() / m_zoomFactor;
-		_y2 = /* m_matrix.m22() * */ _y2 + m_matrix.dy() / m_zoomFactor;
-
+		_y1 =  _y1 + m_matrix.dy() / m_zoomFactor;
+		_y2 =  _y2 + m_matrix.dy() / m_zoomFactor;
 		if (dx == 0.0)
 			dx = 1;
 		double dy = ( _y1 - _y2 ) * m_zoomFactor;
 		if (dy == 0.0)
 			dy = 1;
 		double scale = 1.0 / ( dx * dx + dy * dy );
-
 		linear->a = dx * scale;
 		linear->b = dy * scale;
-		linear->c = -( ( _x1 * m_zoomFactor + m_matrix.dx() ) * linear->a +
-					   ( _y2 * m_zoomFactor ) * linear->b );
-
-		// get stop array
+		linear->c = -( ( _x1 * m_zoomFactor + m_matrix.dx() ) * linear->a + ( _y2 * m_zoomFactor ) * linear->b );
 		int offsets = -1;
 		linear->stops = buildStopArray( gradient, offsets );
 		linear->n_stops = offsets;
-
 		if( x0 != x1 && y0 != y1 )
 		{
 			render = art_render_new( x0, y0, x1, y1, m_buffer + 4 * static_cast<int>(x0) + m_width * 4 * static_cast<int>(y0), m_width * 4, 3, 8, ART_ALPHA_PREMUL, 0 );
@@ -640,49 +570,33 @@ void ScPainter::applyGradient( ArtSVP *svp, bool fill )
 		art_free( linear->stops );
 		art_free( linear );
 	}
-
 	else if( gradient.type() == VGradient::radial )
 	{
 		ArtGradientRadial *radial = art_new( ArtGradientRadial, 1 );
-
-		// TODO : make variable
-//		if( gradient.repeatMethod() == VGradient::none )
-			radial->spread = ART_GRADIENT_PAD;
-/*		else if( gradient.repeatMethod() == VGradient::repeat )
-			radial->spread = ART_GRADIENT_REPEAT;
-		else if( gradient.repeatMethod() == VGradient::reflect )
-			radial->spread = ART_GRADIENT_REFLECT; */
-
+		radial->spread = ART_GRADIENT_PAD;
 		radial->affine[0] = m_matrix.m11();
 		radial->affine[1] = m_matrix.m12();
 		radial->affine[2] = m_matrix.m21();
 		radial->affine[3] = m_matrix.m22();
 		radial->affine[4] = m_matrix.dx();
 		radial->affine[5] = m_matrix.dy();
-
 		double cx = gradient.origin().x() * m_zoomFactor;
 		double cy = gradient.origin().y() * m_zoomFactor;
 		double fx = gradient.focalPoint().x() * m_zoomFactor;
 		double fy = gradient.focalPoint().y() * m_zoomFactor;
-		double r = sqrt( pow( gradient.vector().x() - gradient.origin().x(), 2 ) +
-						 pow( gradient.vector().y() - gradient.origin().y(), 2 ) );
+		double r = sqrt( pow( gradient.vector().x() - gradient.origin().x(), 2 ) + pow( gradient.vector().y() - gradient.origin().y(), 2 ) );
 		r *= m_zoomFactor;
-
 		radial->fx = (fx - cx) / r;
 		radial->fy = (fy - cy) / r;
-
 		double aff1[6], aff2[6];
 		art_affine_scale( aff1, r, r);
 		art_affine_translate( aff2, cx, cy );
 		art_affine_multiply( aff1, aff1, aff2 );
 		art_affine_multiply( aff1, aff1, radial->affine );
 		art_affine_invert( radial->affine, aff1 );
-
-		// get stop array
 		int offsets = -1;
 		radial->stops = buildStopArray( gradient, offsets );
 		radial->n_stops = offsets;
-
 		if( x0 != x1 && y0 != y1 )
 		{
 			render = art_render_new( x0, y0, x1, y1, m_buffer + 4 * x0 + m_width * 4 * y0, m_width * 4, 3, 8, ART_ALPHA_PREMUL, 0 );
@@ -695,53 +609,11 @@ void ScPainter::applyGradient( ArtSVP *svp, bool fill )
 		art_free( radial->stops );
 		art_free( radial );
 	}
-/*	else if( gradient.type() == VGradient::conic )
-	{
-		ArtGradientConical *conical = art_new( ArtGradientConical, 1 );
-
-		// TODO : make variable
-		if( gradient.repeatMethod() == VGradient::none )
-			conical->spread = ART_GRADIENT_PAD;
-		else if( gradient.repeatMethod() == VGradient::repeat )
-			conical->spread = ART_GRADIENT_REPEAT;
-		else if( gradient.repeatMethod() == VGradient::reflect )
-			conical->spread = ART_GRADIENT_REFLECT;
-
-		double cx = gradient.origin().x() * m_zoomFactor;
-		cx = m_matrix.m11() * cx + m_matrix.dx();
-		double cy = gradient.origin().y() * m_zoomFactor;
-		cy = m_matrix.m22() * cy + m_matrix.dy();
-		double r = sqrt( pow( gradient.vector().x() - gradient.origin().x(), 2 ) +
-						 pow( gradient.vector().y() - gradient.origin().y(), 2 ) );
-		r *= m_zoomFactor;
-
-		conical->cx = cx;
-		conical->cy = cy;
-		conical->r  = r;
-
-		// get stop array
-		int offsets = -1;
-		conical->stops = buildStopArray( gradient, offsets );
-		conical->n_stops = offsets;
-
-		if( x0 != x1 && y0 != y1 )
-		{
-			render = art_render_new( x0, y0, x1, y1, m_buffer + 4 * x0 + m_width * 4 * y0, m_width * 4, 3, 8, ART_ALPHA_PREMUL, 0 );
-			int opacity = static_cast<int>( opa * 255.0 );
-			art_render_svp( render, svp );
-			art_render_mask_solid (render, (opacity << 8) + opacity + (opacity >> 7));
-			art_ksvg_render_gradient_conical( render, conical, ART_FILTER_NEAREST );
-			art_render_invoke( render );
-		}
-		art_free( conical->stops );
-		art_free( conical );
-	} */
 }
 
 
 ArtGradientStop * ScPainter::buildStopArray( VGradient &gradient, int &offsets )
 {
-	// TODO : make this generic
 	QPtrVector<VColorStop> colorStops = gradient.colorStops();
 	offsets = colorStops.count();
 
@@ -750,7 +622,6 @@ ArtGradientStop * ScPainter::buildStopArray( VGradient &gradient, int &offsets )
 	for( int offset = 0 ; offset < offsets ; offset++ )
 	{
 		double ramp = colorStops[ offset ]->rampPoint;
-		//double mid  = colorStops[ offset ]->midPoint;
 		stopArray[ offset * 2 ].offset = ramp;
 
 		QColor qStopColor = colorStops[ offset ]->color;
@@ -774,7 +645,6 @@ ArtGradientStop * ScPainter::buildStopArray( VGradient &gradient, int &offsets )
 		int b = qBlue( qStopColor.rgb() );
 		art_u32 rgba = (r << 24) | (g << 16) | (b << 8) | qAlpha(qStopColor.rgb());
 		int a = static_cast<int>( colorStops[offset]->opacity * 255.0 );
-//		int a = int( fill_trans * 255.0 );
 		r = (rgba >> 24) * a + 0x80;
 		r = (r + (r >> 8)) >> 8;
 		g = ((rgba >> 16) & 0xff) * a + 0x80;
@@ -796,7 +666,6 @@ ArtGradientStop * ScPainter::buildStopArray( VGradient &gradient, int &offsets )
 						 static_cast<int>(b + ((qBlue(qStopColor2.rgb()) - b)) * 0.5) << 8 |
 						qAlpha(qStopColor2.rgb());
 			int a = static_cast<int>( colorStops[offset]->opacity * 255.0 );
-//			int a = int( fill_trans * 255.0 );
 			r = (rgba >> 24) * a + 0x80;
 			r = (r + (r >> 8)) >> 8;
 			g = ((rgba >> 16) & 0xff) * a + 0x80;
@@ -845,8 +714,8 @@ void ScPainter::drawImage( QImage *image )
 	affineresult[1] = m_matrix.m12() * m_zoomFactor;
 	affineresult[2] = m_matrix.m21() * m_zoomFactor;
 	affineresult[3] = m_matrix.m22() * m_zoomFactor;
-	affineresult[4] = m_matrix.dx(); // * m_zoomFactor;
-	affineresult[5] = m_matrix.dy(); // * m_zoomFactor;
+	affineresult[4] = m_matrix.dx();
+	affineresult[5] = m_matrix.dy();
 	ksvg_art_rgb_affine_clip( m_clipPath, m_buffer, 0, 0, m_width, m_height, m_width * 4, 4,
 					 image->bits(), image->width(), image->height(), image->width() * 4,
 					 affineresult, qRound( 255 * fill_trans ), 0L );
@@ -909,6 +778,58 @@ void ScPainter::setupPolygon(FPointArray *points, bool closed)
 		m_path[ m_index ].code = ART_END;
 		m_index++;
 		}
+}
+
+void ScPainter::setupTextPolygon(FPointArray *points)
+{
+	bool nPath = true;
+	FPoint np, np1, np2, np3;
+	newPath();
+	for (uint poi=0; poi<points->size()-3; poi += 4)
+	{
+		if (points->point(poi).x() > 900000)
+		{
+			nPath = true;
+			ensureSpace( m_index + 1 );
+			m_path[ m_index ].code = ART_END;
+			continue;
+		}
+		if (nPath)
+		{
+			np = points->point(poi);
+			ensureSpace( m_index + 1 );
+			m_path[ m_index ].code = ART_MOVETO;
+			m_path[ m_index ].x3 = np.x();
+			m_path[ m_index ].y3 = np.y();
+			m_index++;
+			nPath = false;
+		}
+		np = points->point(poi);
+		np1 = points->point(poi+1);
+		np2 = points->point(poi+3);
+		np3 = points->point(poi+2);
+		ensureSpace( m_index + 1 );
+		if ((np == np1) && (np2 == np3))
+		{
+			m_path[ m_index ].code = ART_LINETO;
+			m_path[ m_index ].x3	= np3.x();
+			m_path[ m_index ].y3	= np3.y();
+		}
+		else
+		{
+			m_path[ m_index ].code = ART_CURVETO;
+			m_path[ m_index ].x1	= np1.x();
+			m_path[ m_index ].y1	= np1.y();
+			m_path[ m_index ].x2	= np2.x();
+			m_path[ m_index ].y2	= np2.y();
+			m_path[ m_index ].x3	= np3.x();
+			m_path[ m_index ].y3	= np3.y();
+		}
+		m_index++;
+	}
+	ensureSpace( m_index + 1 );
+	m_path[ m_index ].code = ART_END;
+	m_index++;
 }
 
 void ScPainter::drawPolygon()

@@ -15,7 +15,7 @@
 extern QPixmap loadIcon(QString nam);
 extern PrefsFile* prefsFile;
 
-Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farben, ScribusView* vie)
+Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusView* vie)
             : QDialog( parent, "AN", true, 0 )
 {
     setCaption( tr( "Annotation Properties" ) );

@@ -1533,7 +1533,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 					case 4:
 						if ((ite->isAnnotation) && (Options->Version != 12))
 						{
-							PDF_Annotation(ite, PNr);
+							PDF_Annotation(ite);
 							break;
 							}
 						if ((ite->Pcolor != "None") || (ite->GrType != 0))
@@ -2647,7 +2647,7 @@ void PDFlib::PDF_DoLinGradient(PageItem *b, QValueList<double> Stops, QValueList
 	}
 }
 
-void PDFlib::PDF_Annotation(PageItem *ite, uint PNr)
+void PDFlib::PDF_Annotation(PageItem *ite)
 {
 	struct Dest de;
 	QString bm = "";

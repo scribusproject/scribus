@@ -151,7 +151,7 @@ Page::Page(QWidget *pa, int x, int y, int b, int h, ScribusDoc *doc, QScrollView
 	EditContour = false;
 }
 
-void Page::dragLeaveEvent(QDragLeaveEvent *e)
+void Page::dragLeaveEvent(QDragLeaveEvent *)
 {
 	if (DraggedGroup)
 	{
@@ -473,14 +473,13 @@ void Page::paintEvent(QPaintEvent *e)
 //	tim.start();
 	if (doku->AppMode == 7)
 		slotDoCurs(false);
-	bool sp = e->spontaneous();
 	QPixmap pgPix(vr.width(), vr.height());
 	ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
 	painter->clear(doku->papColor);
 	painter->translate(0.5, 0.5);
 	if (doku->Before)
 		DrawPageMarks(painter, vr);
-	DrawPageItems(painter, vr, sp);
+	DrawPageItems(painter, vr);
 	if (!doku->Before)
 		DrawPageMarks(painter, vr);
 	painter->end();
@@ -596,7 +595,7 @@ void Page::DrawPageMarks(ScPainter *p, QRect rd)
 	p->setWorldMatrix(ma2);
 }
 
-void Page::DrawPageItems(ScPainter *painter, QRect rd, bool sp)
+void Page::DrawPageItems(ScPainter *painter, QRect rd)
 {
 	QPainter p;
 	uint a;
@@ -1952,7 +1951,7 @@ void Page::AdjustItemSize(PageItem *b)
 	SizeItem(tp.x(), tp.y(), b->ItemNr, true, false);
 	b->PoLine = Clip.copy();
 	if (b->PType == 7)
-		SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)), qRound(QMAX(b->Pwidth / 2, 1)));
+		SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)));
 	else
 		b->Clip = FlattenPath(b->PoLine, b->Segments);
 	b->ClipEdited = true;
@@ -4045,7 +4044,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			MoveItem(0, np2.y(), b);
 		}
 		SizeItem(b->PoLine.WidthHeight().x(), b->PoLine.WidthHeight().y(), b->ItemNr, false, false);
-		SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)), qRound(QMAX(b->Pwidth / 2, 1)));
+		SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)));
 		AdjustItemSize(b);
 		RefreshItem(b);
 		b->ContourLine = b->PoLine.copy();
@@ -4056,7 +4055,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 		b = SelItem.at(0);
 		b->PoLine.resize(b->PoLine.size()-2);
 		SizeItem(b->PoLine.WidthHeight().x(), b->PoLine.WidthHeight().y(), b->ItemNr, false, false);
-		SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)), qRound(QMAX(b->Pwidth / 2, 1)));
+		SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)));
 		AdjustItemSize(b);
 		b->ContourLine = b->PoLine.copy();
 		b->ClipEdited = true;
@@ -5173,7 +5172,7 @@ void Page::mousePressEvent(QMouseEvent *m)
 						edited = true;
 						doku->EditClipMode = 0;
 						b->PType = 7;
-						SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)), qRound(QMAX(b->Pwidth / 2, 1)));
+						SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)));
 						emit PolyOpen();
 					}
 					else
@@ -5199,7 +5198,7 @@ void Page::mousePressEvent(QMouseEvent *m)
 							b->ClipEdited = true;
 							edited = true;
 							doku->EditClipMode = 0;
-							SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)), qRound(QMAX(b->Pwidth / 2, 1)));
+							SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)));
 							emit PolyOpen();
 						}
 					}
@@ -5773,7 +5772,7 @@ void Page::mousePressEvent(QMouseEvent *m)
 			MoveItem(0, npf2.y(), b);
 		}
 		SizeItem(b->PoLine.WidthHeight().x(), b->PoLine.WidthHeight().y(), b->ItemNr, false, false);
-		SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)), qRound(QMAX(b->Pwidth / 2, 1)));
+		SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)));
 		b->paintObj();
 		if (b->PoLine.size() > 2)
 		{
@@ -6894,7 +6893,7 @@ void Page::ToBezierFrame()
 	PageItem *b = SelItem.at(0);
 	b->PType = 7;
 	b->ClipEdited = true;
-	SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)), qRound(QMAX(b->Pwidth / 2, 1)));
+	SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)));
 	AdjustItemSize(b);
 	RefreshItem(b);
 	emit HaveSel(b->PType);
@@ -6925,7 +6924,7 @@ void Page::Bezier2Poly()
 	emit DocChanged();
 }
 
-void Page::SetPolyClip(PageItem *b, int up, int down)
+void Page::SetPolyClip(PageItem *b, int up)
 {
 	QPoint np, np2;
 	QPointArray cl, cl1, cl2;
@@ -6976,7 +6975,7 @@ void Page::UpdatePolyClip(PageItem *b)
 		if (des > desc)
 			desc = des;
 	}
-	SetPolyClip(b, static_cast<int>(asce+b->BaseOffs), static_cast<int>(desc+b->BaseOffs));
+	SetPolyClip(b, static_cast<int>(asce+b->BaseOffs));
 }
 
 void Page::SplitObj()
@@ -7176,7 +7175,7 @@ void Page::FromPathText()
 		bb->PoLine = b->PoLine.copy();
 		bb->ClipEdited = true;
 		bb->Rot = b->Rot;
-		SetPolyClip(bb, qRound(QMAX(bb->Pwidth / 2, 1)), qRound(QMAX(bb->Pwidth / 2, 1)));
+		SetPolyClip(bb, qRound(QMAX(bb->Pwidth / 2, 1)));
 		AdjustItemSize(bb);
 		b->PType = 4;
 		b->Pcolor2 = "None";
@@ -7409,7 +7408,7 @@ void Page::ChLineWidth(double w)
 			b->OldPwidth = b->Pwidth;
 			b->Pwidth = w;
 			if (b->PType == 7)
-				SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)), qRound(QMAX(b->Pwidth / 2, 1)));
+				SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)));
 			if (b->PType == 5)
 			{
 				int ph = static_cast<int>(QMAX(1.0, w / 2.0));
@@ -8259,7 +8258,7 @@ protected:
 static QProcess *proc = 0;
 static AppUserFilter *filter = 0;
 
-bool AppUserFilter::eventFilter(QObject *o, QEvent *e )
+bool AppUserFilter::eventFilter(QObject *, QEvent *e )
 {
 	switch(e->type())
 	{

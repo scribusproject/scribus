@@ -264,7 +264,7 @@ public:
 	~StoryEditor() {};
 	void closeEvent(QCloseEvent *);
 	int exec();
-	void changeAlign(int align);
+	void changeAlign();
 	int result;
 
 	QPopupMenu* fmenu;

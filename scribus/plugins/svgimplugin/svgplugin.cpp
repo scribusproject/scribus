@@ -105,6 +105,8 @@ void Run(QWidget *d, ScribusApp *plug)
  */
 SVGPlug::SVGPlug( QWidget* parent, ScribusApp *plug, QString fName )
 {
+	QWidget *d;
+	d = parent;
 	QString f = "";
 #ifdef HAVE_LIBZ
 	if(fName.right(2) == "gz")
@@ -420,7 +422,7 @@ void SVGPlug::parseGroup(const QDomElement &e)
 				{
 					x = (*(it++)).toDouble();
 					y = (*it).toDouble();
-					svgMoveTo(&ite->PoLine, x, y);
+					svgMoveTo(x, y);
 					bFirst = false;
 					WasM = true;
 				}
@@ -818,7 +820,7 @@ bool SVGPlug::parseSVG( const QString &s, FPointArray *ite )
 					WasM = true;
 					subpathx = curx = relative ? curx + tox : tox;
 					subpathy = cury = relative ? cury + toy : toy;
-					svgMoveTo(ite, curx, cury );
+					svgMoveTo(curx, cury );
 					break;
 				}
 			case 'l':
@@ -1132,16 +1134,15 @@ void SVGPlug::calculateArc(FPointArray *ite, bool relative, double &curx, double
 }
 
 /*!
- \fn void SVGPlug::svgMoveTo(FPointArray *i, double x1, double y1)
+ \fn void SVGPlug::svgMoveTo(double x1, double y1)
  \author Franz Schmid
  \date
  \brief
- \param i FPointArray *
  \param x1 double
  \param y1 double
  \retval None
  */
-void SVGPlug::svgMoveTo(FPointArray *i, double x1, double y1)
+void SVGPlug::svgMoveTo(double x1, double y1)
 {
 	CurrX = x1;
 	CurrY = y1;

@@ -123,6 +123,8 @@ void Run(QWidget *d, ScribusApp *plug)
  */
 SVGExPlug::SVGExPlug( QWidget* parent, ScribusApp *plug, QString fName )
 {
+	QWidget *d;
+	d = parent;
 	QDomDocument docu("svgdoc");
 	QString vo = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 	QString st = "<svg></svg>";
