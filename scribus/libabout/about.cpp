@@ -138,6 +138,9 @@ About::About( QWidget* parent )
 	tabLayout_2->setMargin( 10 );
 	TextView2 = new QTextView( tab_3, "TextView1_2" );
 	TextView2->setText(QString::fromUtf8( "<table><tr><td><b><i>" + tr("Official Translations and Translators:").utf8() + "</i></b></td><td></td></tr>" +
+	                                      "<tr><td><b>" + QString("Afrikaans:").utf8()  + "</b></td><td></td></tr>" +
+	                                      "<tr><td>Kobus Wolvaardt</td><td>kobuswolf@diewereld.co.za</td></tr>" +
+	                                      "<tr><td> </td><td> </td></tr>" +
 									      "<tr><td><b>" + tr("Catalan:").utf8()  + "</b></td><td> </td></tr>" +
 									      "<tr><td>Xavier Sala Pujolar</td><td>utrescu@xaviersala.net</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +
@@ -146,6 +149,9 @@ About::About( QWidget* parent )
 	                                      "<tr><td> </td><td> </td></tr>" +
 	                                      "<tr><td><b>" + tr("Danish:").utf8()  + "</b></td><td></td></tr>" +
 	                                      "<tr><td>Morten Langlo</td><td>mlanglo@mail.dk</td></tr>" +
+	                                      "<tr><td> </td><td> </td></tr>" +
+	                                      "<tr><td><b>" + QString("Dutch:").utf8()  + "</b></td><td></td></tr>" +
+	                                      "<tr><td>Wilbert Berendsen</td><td>wbsoft@xs4all.nl</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +
 	                                      "<tr><td><b>" + tr("English (British):").utf8()  + "</b></td><td></td></tr>" +
 	                                      "<tr><td>Craig Bradney</td><td>cbradney@zip.com.au</td></tr>" +
