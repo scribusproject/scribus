@@ -446,8 +446,8 @@ void StoryEditor::Do_leave()
 	if (TextChanged)
 	{
 		int t = QMessageBox::warning(this, tr("Warning"),
-  							 	tr("Do you really want to lose all your Changes?"),
-                         			 	QMessageBox::No, QMessageBox::Yes, QMessageBox::NoButton);
+													tr("Do you really want to lose all your Changes?"),
+													QMessageBox::No, QMessageBox::Yes, QMessageBox::NoButton);
   		if (t == QMessageBox::No)
 			return;
 	}
@@ -676,6 +676,7 @@ int StoryEditor::getStyle(int where)
 
 void StoryEditor::addPar(int where, QString text, int sty)
 {
+	int styl = sty;
 	table1->insertRows(where);
 	QComboBox *ct = new QComboBox( this );
 	ct->insertStringList(style);
@@ -690,18 +691,18 @@ void StoryEditor::addPar(int where, QString text, int sty)
 	cp->setText(text);
 	table1->adjHeight(where);
 	connect(ct, SIGNAL(highlighted(int)), this, SLOT(styleChange(int)));
-	if (sty > 4)
+	if (styl > 4)
 	{
 		for (uint x = 5; x < doc->Vorlagen.count(); ++x)
 		{
-			if (doc->Vorlagen[x].Vname == ct->text(sty))
+			if (doc->Vorlagen[styl].Vname == ct->text(x))
 			{
-				sty = x;
+				styl = x;
 				break;
 			}
 		}
 	}
-	ct->setCurrentItem(sty);
+	ct->setCurrentItem(styl);
 	disconnect(ct, SIGNAL(highlighted(int)), this, SLOT(styleChange(int)));
 	cp->setFocus();
 	cp->setCursorPosition(0, 0);

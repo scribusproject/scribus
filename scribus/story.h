@@ -75,7 +75,7 @@ class StoryEditor : public QDialog
 public:
 	StoryEditor( QWidget* parent, ScribusDoc *docc, PageItem* ite );
 	~StoryEditor() {};
-	void closeEvent(QCloseEvent *);
+	void closeEvent(QCloseEvent *event);
 	int getStyle(int where);
 	void addPar(int where, QString text, int sty);
 

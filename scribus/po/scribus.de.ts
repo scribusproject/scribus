@@ -3,16 +3,16 @@
     <name>About</name>
     <message>
         <source>About Scribus%1%2</source>
-        <translation>O Scribusie%1%2</translation>
+        <translation>Über Scribus%1%2</translation>
     </message>
     <message>
         <source>%1. %2 %3 </source>
-        <translation></translation>
+        <translation>%1. %2 %3 </translation>
     </message>
     <message>
         <source>Scribus Version %1
 %2 %3</source>
-        <translation>Scribus - wersja %1
+        <translation>Scribus Version %1
 %2 %3</translation>
     </message>
     <message>
@@ -21,134 +21,134 @@
     </message>
     <message>
         <source>About</source>
-        <translation>O programie</translation>
+        <translation>Über</translation>
     </message>
     <message>
         <source>Programming:</source>
-        <translation>Programowanie:</translation>
+        <translation>Programmierung:</translation>
     </message>
     <message>
         <source>Contributions from:</source>
-        <translation>Podziękowania:</translation>
+        <translation>Beiträge von:</translation>
     </message>
     <message>
         <source>Windows port:</source>
-        <translation>Windows port:</translation>
+        <translation>Windows Portierung:</translation>
     </message>
     <message>
         <source>Documentation:</source>
-        <translation>Dokumentacja:</translation>
+        <translation>Dokumentation:</translation>
     </message>
     <message>
         <source>Authors</source>
-        <translation>Autorzy</translation>
+        <translation>Autoren</translation>
     </message>
     <message>
         <source>German:</source>
-        <translation>Niemiecki:</translation>
+        <translation>Deutsch:</translation>
     </message>
     <message>
         <source>French:</source>
-        <translation>Francuski:</translation>
+        <translation>Französisch:</translation>
     </message>
     <message>
         <source>Spanish and Catalan:</source>
-        <translation>Hiszpański i kataloński:</translation>
+        <translation>Spanisch und Katalanisch:</translation>
     </message>
     <message>
         <source>Italian:</source>
-        <translation>Włoski:</translation>
+        <translation>Italienisch:</translation>
     </message>
     <message>
         <source>Hungarian:</source>
-        <translation>Węgierski:</translation>
+        <translation>Ungarisch:</translation>
     </message>
     <message>
         <source>Ukrainian:</source>
-        <translation>Ukraiński:</translation>
+        <translation>Ukrainisch:</translation>
     </message>
     <message>
         <source>Bulgarian:</source>
-        <translation>Bułgarski:</translation>
+        <translation>Bulgarisch:</translation>
     </message>
     <message>
         <source>Galician:</source>
-        <translation>Galicyjski:</translation>
+        <translation>Galizisch:</translation>
     </message>
     <message>
         <source>Turkish:</source>
-        <translation>Turecki:</translation>
+        <translation>Türkisch:</translation>
     </message>
     <message>
         <source>Lithuanian:</source>
-        <translation>Litewski:</translation>
+        <translation>Litauisch:</translation>
     </message>
     <message>
         <source>Polish:</source>
-        <translation>Polski:</translation>
+        <translation>Polnisch:</translation>
     </message>
     <message>
         <source>Czech:</source>
-        <translation>Czeski:</translation>
+        <translation>Tschechisch:</translation>
     </message>
     <message>
         <source>Slovak:</source>
-        <translation>Słowacki:</translation>
+        <translation>Slowakisch:</translation>
     </message>
     <message>
         <source>Danish:</source>
-        <translation>Duński:</translation>
+        <translation>Dänisch:</translation>
     </message>
     <message>
         <source>Norwegian:</source>
-        <translation>Norweski:</translation>
+        <translation>Norwegisch:</translation>
     </message>
     <message>
         <source>English:</source>
-        <translation>Angielski:</translation>
+        <translation>Englisch:</translation>
     </message>
     <message>
         <source>Welsh:</source>
-        <translation>Walijski:</translation>
+        <translation>Walisisch:</translation>
     </message>
     <message>
         <source>Russian:</source>
-        <translation>Rosyjski:</translation>
+        <translation>Russisch:</translation>
     </message>
     <message>
         <source>Brazilian:</source>
-        <translation>Brazylijski:</translation>
-    </message>
-    <message>
-        <source>Translations</source>
-        <translation>Tłumaczenia</translation>
-    </message>
-    <message>
-        <source>Close</source>
-        <translation>Zamknij</translation>
+        <translation>Brasilianisch:</translation>
     </message>
     <message>
         <source>Finnish:</source>
-        <translation>Fiński:</translation>
+        <translation>Finnisch:</translation>
+    </message>
+    <message>
+        <source>Translations</source>
+        <translation>Übersetzungen</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Schließen</translation>
     </message>
 </context>
 <context>
     <name>AdvOptions</name>
     <message>
         <source>Advanced Options</source>
-        <translation>Zaawansowane opcje</translation>
+        <translation>Weitere Optionen</translation>
     </message>
     <message>
         <source>Mirror Page(s) horizontal</source>
-        <translation>Odwróć strony w poziomie</translation>
+        <translation>Seite(n) horizontal spiegeln</translation>
     </message>
     <message>
         <source>Mirror Page(s) vertical</source>
-        <translation>Odwróć strony w pionie</translation>
+        <translation>Seite(n) vertikal spiegeln</translation>
     </message>
     <message>
         <source>Apply ICC-Profiles</source>
-        <translation>Zastosuj profile ICC</translation>
+        <translation>ICC-Profile anwenden</translation>
     </message>
     <message>
         <source>OK</source>
@@ -156,78 +156,78 @@
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Abbrechen</translation>
     </message>
 </context>
 <context>
     <name>Align</name>
     <message>
         <source>Distribute/Align</source>
-        <translation>Odstęp/Wyrównanie</translation>
+        <translation>Abstand/Ausrichtung</translation>
     </message>
     <message>
         <source>Align</source>
-        <translation>Wyrównaj</translation>
+        <translation>Ausrichten</translation>
     </message>
     <message>
         <source>Horizontal</source>
-        <translation>Poziomo</translation>
+        <translation>Waagrecht</translation>
     </message>
     <message>
         <source>between:</source>
-        <translation>między:</translation>
+        <translation>zwischen:</translation>
     </message>
     <message>
         <source>Left Sides</source>
-        <translation>Lewe brzegi</translation>
+        <translation>Linken Kanten</translation>
     </message>
     <message>
         <source>Middles</source>
-        <translation>Środki</translation>
+        <translation>Mitten</translation>
     </message>
     <message>
         <source>Right Sides</source>
-        <translation>Prawe brzegi</translation>
+        <translation>Rechten Kanten</translation>
     </message>
     <message>
         <source>Don&apos;t change</source>
-        <translation>Nie zmieniaj</translation>
+        <translation>Nicht ändern</translation>
     </message>
     <message>
         <source>Displacement</source>
-        <translation>Przesunięcie</translation>
+        <translation>Versatz</translation>
     </message>
     <message>
         <source>Distribute evenly</source>
-        <translation>Rozmieść równomiernie</translation>
+        <translation>Gleichmäßig verteilen</translation>
     </message>
     <message>
         <source>Vertical</source>
-        <translation>Pionowo</translation>
+        <translation>Vertikal</translation>
     </message>
     <message>
         <source>Top Sides</source>
-        <translation>Górne brzegi</translation>
+        <translation>Oberen Kanten</translation>
     </message>
     <message>
         <source>Bottom Sides</source>
-        <translation>Dolne brzegi</translation>
+        <translation>Unteren Kanten</translation>
     </message>
     <message>
         <source> pts</source>
-        <translation>pt</translation>
+        <translation>pts</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation></translation>
+        <translation>mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation></translation>
+        <translation>in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation></translation>
+        <translation>p</translation>
     </message>
     <message>
         <source>OK</source>
@@ -235,197 +235,177 @@
     </message>
     <message>
         <source>Apply</source>
-        <translation>Zastosuj</translation>
+        <translation>Anwenden</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Abbrechen</translation>
     </message>
 </context>
 <context>
     <name>AlignSelect</name>
     <message>
         <source>Align Text Left</source>
-        <translation>Wyrównaj tekst do lewej</translation>
+        <translation>Linksbündig</translation>
     </message>
     <message>
         <source>Align Text Right</source>
-        <translation>Wyrównaj tekst do prawej</translation>
+        <translation>Rechtsbündig</translation>
     </message>
     <message>
         <source>Align Text Block</source>
-        <translation>Justuj tekst</translation>
+        <translation>Zentriert</translation>
     </message>
     <message>
         <source>Align Text Center</source>
-        <translation>Wyśrodkuj tekst</translation>
+        <translation>Blocksatz</translation>
     </message>
 </context>
 <context>
     <name>Annot</name>
     <message>
         <source>Field Properties</source>
-        <translation>Właściwości pola</translation>
+        <translation>Feldeigenschaften</translation>
     </message>
     <message>
         <source>Type:</source>
         <translation>Typ:</translation>
     </message>
     <message>
-        <source>Button</source>
-        <translation>Przycisk</translation>
-    </message>
-    <message>
-        <source>Text Field</source>
-        <translation>Pole tekstowe</translation>
-    </message>
-    <message>
-        <source>Check Box</source>
-        <translation>Pole wyboru</translation>
-    </message>
-    <message>
-        <source>Combo Box</source>
-        <translation>Lista rozwijana</translation>
-    </message>
-    <message>
-        <source>List Box</source>
-        <translation>Lista</translation>
-    </message>
-    <message>
         <source>Properties</source>
-        <translation>Właściwości</translation>
+        <translation>Eigenschaften</translation>
     </message>
     <message>
         <source>Name:</source>
-        <translation>Nazwa:</translation>
+        <translation>Name:</translation>
     </message>
     <message>
         <source>Tool-Tip:</source>
-        <translation>Podpowiedź:</translation>
+        <translation>Hilfstext:</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation>Tekst</translation>
+        <translation>Text</translation>
     </message>
     <message>
         <source>Font for use with PDF-1.3:</source>
-        <translation>Czcionka dla PDF-1.3:</translation>
+        <translation>Schriftart für PDF-1.3:</translation>
     </message>
     <message>
         <source>Border</source>
-        <translation>Brzeg</translation>
+        <translation>Rand</translation>
     </message>
     <message>
         <source>Color:</source>
-        <translation>Kolor:</translation>
+        <translation>Farbe:</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>Brak</translation>
+        <translation>Keine</translation>
     </message>
     <message>
         <source>Width:</source>
-        <translation>Szerokość:</translation>
+        <translation>Breite:</translation>
     </message>
     <message>
         <source>Thin</source>
-        <translation>Cienki</translation>
+        <translation>Schmal</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation>Normalny</translation>
+        <translation>Normal</translation>
     </message>
     <message>
         <source>Wide</source>
-        <translation>Szeroki</translation>
+        <translation>Breit</translation>
     </message>
     <message>
         <source>Style:</source>
-        <translation>Styl:</translation>
+        <translation>Stil:</translation>
     </message>
     <message>
         <source>Solid</source>
-        <translation>Jednolity</translation>
+        <translation>Durchgehend</translation>
     </message>
     <message>
         <source>Dashed</source>
-        <translation>Kreskowany</translation>
+        <translation>Gestrichelt</translation>
     </message>
     <message>
         <source>Underline</source>
-        <translation>Podkreślenie</translation>
+        <translation>Unterstrichen</translation>
     </message>
     <message>
         <source>Beveled</source>
-        <translation>Wytłoczony</translation>
+        <translation>Hervorgehoben</translation>
     </message>
     <message>
         <source>Inset</source>
-        <translation>Wstawka</translation>
+        <translation>Vertieft</translation>
     </message>
     <message>
         <source>Other</source>
-        <translation>Inne</translation>
+        <translation>Andere</translation>
     </message>
     <message>
         <source>Read Only</source>
-        <translation>Tylko do odczytu</translation>
+        <translation>Nur Lesen</translation>
     </message>
     <message>
         <source>Required</source>
-        <translation>Wymagane</translation>
+        <translation>Erforderlich</translation>
     </message>
     <message>
         <source>Don&apos;t Export Value</source>
-        <translation>Nie wysyłaj wartości</translation>
+        <translation>Wert nicht senden</translation>
     </message>
     <message>
         <source>Visibility:</source>
-        <translation>Widoczność:</translation>
+        <translation>Darstellung:</translation>
     </message>
     <message>
         <source>Visible</source>
-        <translation>Widoczny</translation>
+        <translation>Sichtbar</translation>
     </message>
     <message>
         <source>Hidden</source>
-        <translation>Ukryty</translation>
+        <translation>Versteckt</translation>
     </message>
     <message>
         <source>No Print</source>
-        <translation>Nie drukuj</translation>
+        <translation>Nicht Drucken</translation>
     </message>
     <message>
         <source>No View</source>
-        <translation>Nie wyświetlaj</translation>
+        <translation>Nicht Sichtbar</translation>
     </message>
     <message>
         <source>Appearance</source>
-        <translation>Wygląd</translation>
+        <translation>Aussehen</translation>
     </message>
     <message>
         <source>Text for Button Down</source>
-        <translation>Tekst dla Button Down</translation>
+        <translation>Text für Button Down</translation>
     </message>
     <message>
         <source>Text for Roll Over</source>
-        <translation>Text dla Roll Over</translation>
+        <translation>Text für Roll Over</translation>
     </message>
     <message>
         <source>Icons</source>
-        <translation>Ikony</translation>
+        <translation>Icons</translation>
     </message>
     <message>
         <source>Use Icons</source>
-        <translation>Użyj ikon</translation>
+        <translation>Icons benutzen</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation>Usuń</translation>
+        <translation>Entfernen</translation>
     </message>
     <message>
         <source>Pressed</source>
-        <translation>Wciśnięty</translation>
+        <translation>Gedrückt</translation>
     </message>
     <message>
         <source>Roll Over</source>
@@ -433,251 +413,159 @@
     </message>
     <message>
         <source>Icon Placement...</source>
-        <translation>Rozmieszczenie ikon...</translation>
+        <translation>Anordnung...</translation>
     </message>
     <message>
         <source>Highlight</source>
-        <translation>Wyróżnienie</translation>
+        <translation>Hervorhebung</translation>
     </message>
     <message>
         <source>Invert</source>
-        <translation>Negatyw</translation>
+        <translation>Invertieren</translation>
     </message>
     <message>
         <source>Outlined</source>
-        <translation>Obramowanie</translation>
+        <translation>Umrandung</translation>
     </message>
     <message>
         <source>Push</source>
-        <translation>Wciśnięty</translation>
+        <translation>Gedrückt</translation>
     </message>
     <message>
         <source>Multi-Line</source>
-        <translation>Wielowierszowe</translation>
+        <translation>Mehrzeilig</translation>
     </message>
     <message>
         <source>Password</source>
-        <translation>Hasło</translation>
+        <translation>Passwort</translation>
     </message>
     <message>
         <source>Limit of</source>
-        <translation>Maksymalnie</translation>
+        <translation>Maximum von</translation>
     </message>
     <message>
         <source>Characters</source>
-        <translation>znaków</translation>
+        <translation>Zeichen</translation>
     </message>
     <message>
         <source>Do Not Scroll</source>
-        <translation>Nie przewijaj</translation>
+        <translation>Nicht Rollen</translation>
     </message>
     <message>
         <source>Do Not Spell Check</source>
-        <translation>Nie sprawdzaj pisowni</translation>
+        <translation>Nicht in Rechtschreibprüfung einbeziehen</translation>
     </message>
     <message>
         <source>Check Style:</source>
-        <translation>Sposób zaznaczenia:</translation>
-    </message>
-    <message>
-        <source>Check</source>
-        <translation>Haczyk</translation>
-    </message>
-    <message>
-        <source>Cross</source>
-        <translation>Krzyżyk</translation>
-    </message>
-    <message>
-        <source>Diamond</source>
-        <translation>Romb</translation>
-    </message>
-    <message>
-        <source>Circle</source>
-        <translation>Kółko</translation>
-    </message>
-    <message>
-        <source>Star</source>
-        <translation>Gwiazdka</translation>
-    </message>
-    <message>
-        <source>Square</source>
-        <translation>Kwadrat</translation>
+        <translation>Art des Häkchens:</translation>
     </message>
     <message>
         <source>Default is Checked</source>
-        <translation>Domyślnie zaznaczone</translation>
+        <translation>Vereinstellung ist angekreuzt</translation>
     </message>
     <message>
         <source>Editable</source>
-        <translation>Edycja dozwolona</translation>
+        <translation>Änderbar</translation>
     </message>
     <message>
         <source>Options</source>
-        <translation>Opcje</translation>
-    </message>
-    <message>
-        <source>Java Script</source>
-        <translation>Java Script</translation>
-    </message>
-    <message>
-        <source>Go To</source>
-        <translation>Idź do</translation>
-    </message>
-    <message>
-        <source>Submit Form</source>
-        <translation>Wyślij formularz</translation>
-    </message>
-    <message>
-        <source>Reset Form</source>
-        <translation>Wyzeruj formularz</translation>
-    </message>
-    <message>
-        <source>Import Data</source>
-        <translation>Importuj dane</translation>
+        <translation>Optionen</translation>
     </message>
     <message>
         <source>Event:</source>
-        <translation>Zdarzenie:</translation>
-    </message>
-    <message>
-        <source>Mouse Up</source>
-        <translation>Klawisz myszy puszczony</translation>
-    </message>
-    <message>
-        <source>Mouse Down</source>
-        <translation>Klawisz myszy przyciśnięty</translation>
-    </message>
-    <message>
-        <source>Mouse Enter</source>
-        <translation>Kursor myszy wchodzi w pole</translation>
-    </message>
-    <message>
-        <source>Mouse Exit</source>
-        <translation>Kursor myszy opuszcza pole</translation>
-    </message>
-    <message>
-        <source>On Focus</source>
-        <translation>Wejście w pole</translation>
-    </message>
-    <message>
-        <source>On Blur</source>
-        <translation>Opuszczenie pola</translation>
+        <translation>Ereignis:</translation>
     </message>
     <message>
         <source>Script:</source>
-        <translation>Skrypt:</translation>
+        <translation>Script:</translation>
     </message>
     <message>
         <source>Edit...</source>
-        <translation>Edytuj...</translation>
+        <translation>Bearbeiten...</translation>
     </message>
     <message>
         <source>Submit to URL:</source>
-        <translation>Wyślij do URL:</translation>
+        <translation>Sende an URL:</translation>
     </message>
     <message>
         <source>Submit Data as HTML</source>
-        <translation>Wyślij dane jako HTML</translation>
+        <translation>Sende Daten als HTML</translation>
     </message>
     <message>
         <source>Import Data from:</source>
-        <translation>Importuj dane z:</translation>
+        <translation>Importiere Daten von:</translation>
     </message>
     <message>
         <source>Destination</source>
-        <translation>Cel</translation>
+        <translation>Ziel</translation>
     </message>
     <message>
         <source>To File:</source>
-        <translation>Do pliku:</translation>
+        <translation>In Datei:</translation>
     </message>
     <message>
         <source>Change...</source>
-        <translation>Zmień...</translation>
+        <translation>Ändern...</translation>
     </message>
     <message>
         <source>Page:</source>
-        <translation>Strona:</translation>
+        <translation>Seite:</translation>
     </message>
     <message>
         <source>X-Pos:</source>
-        <translation>Wsp. X:</translation>
+        <translation>X-Pos:</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation></translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source>Y-Pos:</source>
-        <translation>Wsp. Y:</translation>
+        <translation>Y-Pos:</translation>
     </message>
     <message>
         <source>Action</source>
-        <translation>Akcja</translation>
+        <translation>Aktion</translation>
     </message>
     <message>
         <source>Field is formatted as:</source>
-        <translation>Pole jest sformatowane jako:</translation>
-    </message>
-    <message>
-        <source>Plain</source>
-        <translation>Bez formatowania</translation>
-    </message>
-    <message>
-        <source>Number</source>
-        <translation>Liczba</translation>
-    </message>
-    <message>
-        <source>Percentage</source>
-        <translation>Procent</translation>
-    </message>
-    <message>
-        <source>Date</source>
-        <translation>Data</translation>
-    </message>
-    <message>
-        <source>Time</source>
-        <translation>Czas</translation>
-    </message>
-    <message>
-        <source>Custom</source>
-        <translation>Definicja użytkownika</translation>
+        <translation>Feld ist formatiert als:</translation>
     </message>
     <message>
         <source>Number Format</source>
-        <translation>Format liczby</translation>
+        <translation>Zahlenformat</translation>
     </message>
     <message>
         <source>Decimals:</source>
-        <translation>Miejsca po przecinku:</translation>
+        <translation>Dezimalstellen:</translation>
     </message>
     <message>
         <source>Use Currency Symbol</source>
-        <translation>Użyj symbolu waluty</translation>
+        <translation>Währungssymbol benutzen</translation>
     </message>
     <message>
         <source>Prepend Currency Symbol</source>
-        <translation>Poprzedź symbolem waluty</translation>
+        <translation>Währungssymbol voranstellen</translation>
     </message>
     <message>
         <source>Formatting</source>
-        <translation>Format</translation>
+        <translation>Formatierung</translation>
     </message>
     <message>
         <source>Percent Format</source>
-        <translation>Format procentu</translation>
+        <translation>Prozent Format</translation>
     </message>
     <message>
         <source>Date Format</source>
-        <translation>Format daty</translation>
+        <translation>Datums Format</translation>
     </message>
     <message>
         <source>Time Format</source>
-        <translation>Format czasu</translation>
+        <translation>Zeit Format</translation>
     </message>
     <message>
         <source>Custom Scripts</source>
-        <translation>Skrypty użytkownika</translation>
+        <translation>Benutzerdefiniert</translation>
     </message>
     <message>
         <source>Format:</source>
@@ -685,7 +573,7 @@
     </message>
     <message>
         <source>Keystroke:</source>
-        <translation>Wciśnięty klawisz:</translation>
+        <translation>Tastendruck:</translation>
     </message>
     <message>
         <source>Format</source>
@@ -693,67 +581,67 @@
     </message>
     <message>
         <source>Value is not validated</source>
-        <translation>Nie sprawdzaj wartości</translation>
+        <translation>Wert wird nicht überprüft</translation>
     </message>
     <message>
         <source>Value must be greater than or equal to:</source>
-        <translation>Wartość musi być równa lub większa:</translation>
+        <translation>Wert muß größer oder gleich sein als:</translation>
     </message>
     <message>
         <source>and less or equal to:</source>
-        <translation>i równa lub mniejsza:</translation>
+        <translation>und kleiner oder gleich als:</translation>
     </message>
     <message>
         <source>Custom validate script:</source>
-        <translation>Własny skrypt sprawdzający wartość:</translation>
+        <translation>Eigenes Überprüfungsscript:</translation>
     </message>
     <message>
         <source>Validate</source>
-        <translation>Sprawdź</translation>
+        <translation>Überprüfen</translation>
     </message>
     <message>
         <source>Value is not calculated</source>
-        <translation>Wartość nie jest obliczana</translation>
+        <translation>Wert wird nicht berechnet</translation>
     </message>
     <message>
         <source>Value is the</source>
-        <translation>Wartość jest</translation>
+        <translation>Wert ist</translation>
     </message>
     <message>
         <source>sum</source>
-        <translation>sumą</translation>
+        <translation>die Summe</translation>
     </message>
     <message>
         <source>product</source>
-        <translation>iloczynem</translation>
+        <translation>das Produkt</translation>
     </message>
     <message>
         <source>average</source>
-        <translation>średnią</translation>
+        <translation>der Durchschnitt</translation>
     </message>
     <message>
         <source>minimum</source>
-        <translation>minimum</translation>
+        <translation>das Minimum</translation>
     </message>
     <message>
         <source>maximum</source>
-        <translation>maksimum</translation>
+        <translation>das Maximum</translation>
     </message>
     <message>
         <source>of the following fields:</source>
-        <translation>następujących pól:</translation>
+        <translation>der folgenden Felder:</translation>
     </message>
     <message>
         <source>Pick...</source>
-        <translation>Wybierz...</translation>
+        <translation>Auswählen...</translation>
     </message>
     <message>
         <source>Custom calculation script:</source>
-        <translation>Własny skrypt obliczeniowy:</translation>
+        <translation>Eigenes Berechnungs Script:</translation>
     </message>
     <message>
         <source>Calculate</source>
-        <translation>Oblicz</translation>
+        <translation>Berechnen</translation>
     </message>
     <message>
         <source>OK</source>
@@ -761,46 +649,158 @@
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <source>Flag is ignored for PDF-1.3</source>
-        <translation>W PDF-1.3 ignorowane</translation>
+        <translation>In PDF-1.3 nicht benutzbar</translation>
     </message>
     <message>
         <source>Enter a comma separated list of fields here</source>
-        <translation>Tutaj podaj listę pól rozdzielonych przecinkami</translation>
+        <translation>Hier eine Komma separierte Liste der Felder eintragen</translation>
     </message>
     <message>
         <source>You need at least the Icon for Normal to use Icons for Buttons</source>
-        <translation>Aby używać ikon, konieczna jest przynajmniej ikona dla pozycji normalnej</translation>
+        <translation>Sie benötigen mindestens das Icon für Normal um Icons zu benutzen</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation>Otwórz</translation>
+        <translation>Öffnen</translation>
     </message>
     <message>
         <source>Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)</source>
-        <translation>Obrazki (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Wszystkie pliki (*)</translation>
+        <translation>Bilder (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Alle Dateien (*)</translation>
     </message>
     <message>
         <source>Example:</source>
-        <translation>Przykład:</translation>
+        <translation>Beispiel:</translation>
     </message>
     <message>
         <source>Selection Change</source>
-        <translation>Zmiana wyboru</translation>
+        <translation>Auswahl geändert</translation>
+    </message>
+    <message>
+        <source>Java Script</source>
+        <translation>Java Script</translation>
     </message>
     <message>
         <source>PDF-Documents (*.pdf);;All Files (*)</source>
-        <translation>Dokumenty PDF (*.pdf);;Wszystkie pliki (*)</translation>
+        <translation>PDF-Dateien (*.pdf);;Alle Dateien (*)</translation>
+    </message>
+    <message>
+        <source>Button</source>
+        <translation>Schaltfläche</translation>
+    </message>
+    <message>
+        <source>Text Field</source>
+        <translation>Textfeld</translation>
+    </message>
+    <message>
+        <source>Check Box</source>
+        <translation>Kontrollkästchen</translation>
+    </message>
+    <message>
+        <source>Combo Box</source>
+        <translation>Kombinationsfeld</translation>
+    </message>
+    <message>
+        <source>List Box</source>
+        <translation>Listenfeld</translation>
+    </message>
+    <message>
+        <source>Check</source>
+        <translation>Haken</translation>
+    </message>
+    <message>
+        <source>Cross</source>
+        <translation>Kreuz</translation>
+    </message>
+    <message>
+        <source>Diamond</source>
+        <translation>Raute</translation>
+    </message>
+    <message>
+        <source>Circle</source>
+        <translation>Kreis</translation>
+    </message>
+    <message>
+        <source>Star</source>
+        <translation>Stern</translation>
+    </message>
+    <message>
+        <source>Square</source>
+        <translation>Quadrat</translation>
+    </message>
+    <message>
+        <source>Go To</source>
+        <translation>Gehe zu</translation>
+    </message>
+    <message>
+        <source>Submit Form</source>
+        <translation>Formular senden</translation>
+    </message>
+    <message>
+        <source>Reset Form</source>
+        <translation>Formular zurücksetzen</translation>
+    </message>
+    <message>
+        <source>Import Data</source>
+        <translation>Daten importieren</translation>
+    </message>
+    <message>
+        <source>Mouse Up</source>
+        <translation>Maustaste loslassen</translation>
+    </message>
+    <message>
+        <source>Mouse Down</source>
+        <translation>Maustaste drücken</translation>
+    </message>
+    <message>
+        <source>Mouse Enter</source>
+        <translation>Mauszeiger betritt Feld</translation>
+    </message>
+    <message>
+        <source>Mouse Exit</source>
+        <translation>Mauszeiger verlässt Feld</translation>
+    </message>
+    <message>
+        <source>On Focus</source>
+        <translation>Feld hat Fokus</translation>
+    </message>
+    <message>
+        <source>On Blur</source>
+        <translation>Feld verliert Fokus</translation>
+    </message>
+    <message>
+        <source>Plain</source>
+        <translation>Nichts</translation>
+    </message>
+    <message>
+        <source>Number</source>
+        <translation>Zahl</translation>
+    </message>
+    <message>
+        <source>Percentage</source>
+        <translation>Prozent</translation>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation>Datum</translation>
+    </message>
+    <message>
+        <source>Time</source>
+        <translation>Zeit</translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <translation>Benutzerdefiniert</translation>
     </message>
 </context>
 <context>
     <name>Annota</name>
     <message>
         <source>Annotation Properties</source>
-        <translation>Właściwości adnotacji</translation>
+        <translation>Anmerkungs Eigenschaften</translation>
     </message>
     <message>
         <source>Type:</source>
@@ -808,43 +808,43 @@
     </message>
     <message>
         <source>Text</source>
-        <translation>Tekst</translation>
+        <translation>Text</translation>
     </message>
     <message>
         <source>Link</source>
-        <translation>Dowiązanie</translation>
+        <translation>Verknüpfung</translation>
     </message>
     <message>
         <source>External Link</source>
-        <translation>Zewnętrzne dowiązanie</translation>
+        <translation>Externe Verknüpfung</translation>
     </message>
     <message>
         <source>External Web-Link</source>
-        <translation>Zewnętrzny web link</translation>
+        <translation>Externe Web - Verknüpfung</translation>
     </message>
     <message>
         <source>Destination</source>
-        <translation>Cel</translation>
+        <translation>Ziel</translation>
     </message>
     <message>
         <source>Change...</source>
-        <translation>Zmień...</translation>
+        <translation>Ändern...</translation>
     </message>
     <message>
         <source>Page:</source>
-        <translation>Strona:</translation>
+        <translation>Seite:</translation>
     </message>
     <message>
         <source>X-Pos:</source>
-        <translation>Wsp. X:</translation>
+        <translation>X-Pos:</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation></translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source>Y-Pos:</source>
-        <translation>Wsp. Y:</translation>
+        <translation>Y-Pos:</translation>
     </message>
     <message>
         <source>OK</source>
@@ -852,42 +852,42 @@
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation>Otwórz</translation>
+        <translation>Öffnen</translation>
     </message>
     <message>
         <source>PDF-Documents (*.pdf);;All Files (*)</source>
-        <translation>Dokumenty PDF (*.pdf);;Wszystkie pliki (*)</translation>
+        <translation>PDF-Dateien (*.pdf);;Alle Dateien (*)</translation>
     </message>
 </context>
 <context>
     <name>ApplyT</name>
     <message>
         <source>Apply Template</source>
-        <translation>Zastosuj szablon</translation>
+        <translation>Musterseite anwenden</translation>
     </message>
     <message>
         <source>Template:</source>
-        <translation>Szablon:</translation>
+        <translation>Musterseite:</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation>Normalny</translation>
+        <translation>Normal</translation>
     </message>
     <message>
         <source>Apply to Current Page</source>
-        <translation>Zastosuj do aktualnej strony</translation>
+        <translation>Auf aktuelle Seite anwenden</translation>
     </message>
     <message>
         <source>Apply from Page:</source>
-        <translation>Zastosuj ze strony:</translation>
+        <translation>Anwenden von Seite:</translation>
     </message>
     <message>
         <source>to:</source>
-        <translation>do:</translation>
+        <translation>bis:</translation>
     </message>
     <message>
         <source>OK</source>
@@ -895,175 +895,147 @@
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Abbrechen</translation>
     </message>
 </context>
 <context>
     <name>Biblio</name>
     <message>
         <source>Scrapbook</source>
-        <translation>Biblioteka</translation>
+        <translation>Bibliothek</translation>
     </message>
     <message>
         <source>New</source>
-        <translation>Nowy</translation>
+        <translation>Neu</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Zapisz</translation>
+        <translation>Speichern</translation>
     </message>
     <message>
         <source>Save as...</source>
-        <translation>Zapisz jako...</translation>
+        <translation>Speichern unter...</translation>
     </message>
     <message>
         <source>Load...</source>
-        <translation>Pobierz...</translation>
+        <translation>Laden...</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation>Zamknij</translation>
+        <translation>Schließen</translation>
     </message>
     <message>
         <source>Small</source>
-        <translation>Mały</translation>
+        <translation>Klein</translation>
     </message>
     <message>
         <source>Medium</source>
-        <translation>Średni</translation>
+        <translation>Mittel</translation>
     </message>
     <message>
         <source>Big</source>
-        <translation>Duży</translation>
+        <translation>Groß</translation>
     </message>
     <message>
         <source>File</source>
-        <translation>Plik</translation>
+        <translation>Datei</translation>
     </message>
     <message>
         <source>Preview</source>
-        <translation>Podgląd</translation>
+        <translation>Vorschau</translation>
     </message>
     <message>
         <source>Scrapbooks (*.scs);;All Files (*)</source>
-        <translation>Biblioteki (*.scs);;Wszystkie pliki (*)</translation>
+        <translation>Bibliotheken (*.scs);;Alle Dateien (*)</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Usuń</translation>
+        <translation>Löschen</translation>
     </message>
     <message>
         <source>Object</source>
-        <translation>Obiekt</translation>
+        <translation>Objekt</translation>
     </message>
     <message>
         <source>Name:</source>
-        <translation>Nazwa:</translation>
+        <translation>Name:</translation>
     </message>
     <message>
         <source>New Entry</source>
-        <translation>Nowy wpis</translation>
+        <translation>Neuer Eintrag</translation>
     </message>
 </context>
 <context>
     <name>BookMView</name>
     <message>
         <source>Bookmarks</source>
-        <translation>Zakładki</translation>
+        <translation>Lesezeichen</translation>
     </message>
     <message>
         <source>Move Bookmark</source>
-        <translation>Przesuń zakładkę</translation>
+        <translation>Lesezeichen verschieben</translation>
     </message>
     <message>
         <source>Insert Bookmark</source>
-        <translation>Wstaw zakładkę</translation>
+        <translation>Lesezeichen einfügen</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Abbrechen</translation>
     </message>
 </context>
 <context>
     <name>BookPalette</name>
     <message>
         <source>Bookmarks</source>
-        <translation>Zakładki</translation>
+        <translation>Lesezeichen</translation>
     </message>
 </context>
 <context>
     <name>ButtonIcon</name>
     <message>
         <source>Icon Placement</source>
-        <translation>Rozmieszczenie ikon</translation>
+        <translation>Anordnung</translation>
     </message>
     <message>
         <source>Layout:</source>
-        <translation>Układ:</translation>
-    </message>
-    <message>
-        <source>Caption only</source>
-        <translation>Tylko tekst</translation>
-    </message>
-    <message>
-        <source>Icon only</source>
-        <translation>Tylko ikona</translation>
-    </message>
-    <message>
-        <source>Caption below Icon</source>
-        <translation>Tekst pod ikoną</translation>
-    </message>
-    <message>
-        <source>Caption above Icon</source>
-        <translation>Tekst nad ikoną</translation>
-    </message>
-    <message>
-        <source>Caption right to Icon</source>
-        <translation>Tekst na prawo od ikony</translation>
-    </message>
-    <message>
-        <source>Caption left to Icon</source>
-        <translation>Tekst na lewo od ikony</translation>
-    </message>
-    <message>
-        <source>Caption overlays Icon</source>
-        <translation>Tekst na ikonie</translation>
+        <translation>Anordnung:</translation>
     </message>
     <message>
         <source>Scale:</source>
-        <translation>Skaluj:</translation>
+        <translation>Skaliere:</translation>
     </message>
     <message>
         <source>Always</source>
-        <translation>zawsze</translation>
+        <translation>Immer</translation>
     </message>
     <message>
         <source>When Icon is too small</source>
-        <translation>kiedy ikona jest za mała</translation>
+        <translation>bei zu kleinem Icon</translation>
     </message>
     <message>
         <source>When Icon is too big</source>
-        <translation>kiedy ikona jest za duża</translation>
+        <translation>bei zu großem Icon</translation>
     </message>
     <message>
         <source>Never</source>
-        <translation>nigdy</translation>
+        <translation>Nie</translation>
     </message>
     <message>
         <source>Scale How:</source>
-        <translation>Jak skalować:</translation>
+        <translation>Skalierungsart:</translation>
     </message>
     <message>
         <source>Proportional</source>
-        <translation>proporcjonalnie</translation>
+        <translation>Proportional</translation>
     </message>
     <message>
         <source>Non Proportional</source>
-        <translation>nieproporcjonalnie</translation>
+        <translation>Unproportional</translation>
     </message>
     <message>
         <source>Icon</source>
-        <translation>Ikona</translation>
+        <translation>Icon</translation>
     </message>
     <message>
         <source>OK</source>
@@ -1071,34 +1043,62 @@
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <source>Reset</source>
-        <translation>Wyzeruj</translation>
+        <translation>Zurücksetzen</translation>
+    </message>
+    <message>
+        <source>Caption only</source>
+        <translation>Nur Text</translation>
+    </message>
+    <message>
+        <source>Icon only</source>
+        <translation>Nur Icon</translation>
+    </message>
+    <message>
+        <source>Caption below Icon</source>
+        <translation>Text unter dem Icon</translation>
+    </message>
+    <message>
+        <source>Caption above Icon</source>
+        <translation>Text über dem Icon</translation>
+    </message>
+    <message>
+        <source>Caption right to Icon</source>
+        <translation>Text rechts vom Icon</translation>
+    </message>
+    <message>
+        <source>Caption left to Icon</source>
+        <translation>Text links vom Icon</translation>
+    </message>
+    <message>
+        <source>Caption overlays Icon</source>
+        <translation>Text überlagert Icon</translation>
     </message>
 </context>
 <context>
     <name>CMSPrefs</name>
     <message>
         <source>Color Management Settings</source>
-        <translation>Konfiguracja zarządzania kolorami</translation>
+        <translation>Farbmanagement Einstellungen</translation>
     </message>
     <message>
         <source>Activate Color Management</source>
-        <translation>Włącz zarządzanie kolorami</translation>
+        <translation>Farbmanagement aktivieren</translation>
     </message>
     <message>
         <source>System Profiles</source>
-        <translation>Profile systemowe</translation>
+        <translation>Farbprofile</translation>
     </message>
     <message>
         <source>Pictures:</source>
-        <translation>Obrazki:</translation>
+        <translation>Bilder:</translation>
     </message>
     <message>
         <source>Solid Colors:</source>
-        <translation>Jednolite kolory:</translation>
+        <translation>Farben:</translation>
     </message>
     <message>
         <source>Monitor:</source>
@@ -1106,39 +1106,23 @@
     </message>
     <message>
         <source>Printer:</source>
-        <translation>Drukarka:</translation>
+        <translation>Drucker:</translation>
     </message>
     <message>
         <source>Rendering Intents</source>
-        <translation>Metody konwersji</translation>
-    </message>
-    <message>
-        <source>Perceptual</source>
-        <translation>Percepcja</translation>
-    </message>
-    <message>
-        <source>Relative Colorimetric</source>
-        <translation>Względnie kolorometryczna</translation>
-    </message>
-    <message>
-        <source>Saturation</source>
-        <translation>Nasycenie </translation>
-    </message>
-    <message>
-        <source>Absolute Colorimetric</source>
-        <translation>Absolutnie kolorometryczna</translation>
+        <translation>Render Prioritäten</translation>
     </message>
     <message>
         <source>Simulate Printer on the Screen</source>
-        <translation>Symuluj drukarkę na ekranie</translation>
+        <translation>Drucker auf Bildschirm simulieren</translation>
     </message>
     <message>
         <source>Mark Colors out of Gamut</source>
-        <translation>Zaznacz kolory spoza przestrzeni barw</translation>
+        <translation>Farben außerhalb des Farbbereichs markieren</translation>
     </message>
     <message>
         <source>Use Blackpoint Compensation</source>
-        <translation>Zastosuj kompensację poziomu czerni</translation>
+        <translation>Schwarzpunkt Ausgleich benutzen</translation>
     </message>
     <message>
         <source>OK</source>
@@ -1146,22 +1130,38 @@
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <source>Perceptual</source>
+        <translation>Wahrnehmung</translation>
+    </message>
+    <message>
+        <source>Relative Colorimetric</source>
+        <translation>Relativ Farbmetrisch</translation>
+    </message>
+    <message>
+        <source>Saturation</source>
+        <translation>Farbsättigung</translation>
+    </message>
+    <message>
+        <source>Absolute Colorimetric</source>
+        <translation>Absolut farbmetrisch</translation>
     </message>
 </context>
 <context>
     <name>CMYKChoose</name>
     <message>
         <source>Edit Color</source>
-        <translation>Edytuj kolor</translation>
+        <translation>Farbe bearbeiten</translation>
     </message>
     <message>
         <source>Name:</source>
-        <translation>Nazwa:</translation>
+        <translation>Name:</translation>
     </message>
     <message>
         <source>Color Model</source>
-        <translation>Model kolorów</translation>
+        <translation>Farbmodell</translation>
     </message>
     <message>
         <source>CMYK</source>
@@ -1173,15 +1173,15 @@
     </message>
     <message>
         <source>Web Safe RGB</source>
-        <translation>RGB dla internetu</translation>
+        <translation>Web Farben</translation>
     </message>
     <message>
         <source>New</source>
-        <translation>Nowy</translation>
+        <translation>Neu</translation>
     </message>
     <message>
         <source>Old</source>
-        <translation>Stary</translation>
+        <translation>Alt</translation>
     </message>
     <message>
         <source>OK</source>
@@ -1189,7 +1189,7 @@
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <source>C:</source>
@@ -1209,11 +1209,11 @@
     </message>
     <message>
         <source>Dynamic Color Bars</source>
-        <translation>Dynamiczne paski kolorów</translation>
+        <translation>Dynamische Farbregler</translation>
     </message>
     <message>
         <source>Static Color Bars</source>
-        <translation>Statyczne paski kolorów</translation>
+        <translation>Statische Farbregler</translation>
     </message>
     <message>
         <source>R:</source>
@@ -1227,119 +1227,111 @@
         <source>B:</source>
         <translation>B:</translation>
     </message>
-    <message>
-        <source>Websave RGB</source>
-        <translation>RGB dla internetu</translation>
-    </message>
 </context>
 <context>
     <name>Cpalette</name>
     <message>
-        <source>Other...</source>
-        <translation>Inne...</translation>
-    </message>
-    <message>
         <source>Normal</source>
-        <translation>Normalny</translation>
+        <translation>Normal</translation>
     </message>
     <message>
         <source>Horizontal Gradient</source>
-        <translation>Gradient w poziomie</translation>
+        <translation>Waagrechter Verlauf</translation>
     </message>
     <message>
         <source>Vertical Gradient</source>
-        <translation>Gradient w pionie</translation>
+        <translation>Senkrechter Verlauf</translation>
     </message>
     <message>
         <source>Diagonal Gradient</source>
-        <translation>Gradient wzdłuż przekątnej</translation>
+        <translation>Diagonaler Verlauf</translation>
     </message>
     <message>
         <source>Cross Diagonal Gradient</source>
-        <translation>Gradient wzdłuż skrzyżowanych przekątnych</translation>
+        <translation>Umgekehrt Diagonaler Verlauf</translation>
     </message>
     <message>
         <source>Radial Gradient</source>
-        <translation>Gradient promieniowy</translation>
+        <translation>Kreisförmiger Verlauf</translation>
     </message>
     <message>
         <source>Opacity:</source>
-        <translation>Nieprzezroczystość:</translation>
+        <translation>Deckkraft:</translation>
     </message>
     <message>
         <source> %</source>
-        <translation>%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>Brak</translation>
+        <translation>Keine</translation>
     </message>
 </context>
 <context>
     <name>CupsOptions</name>
     <message>
         <source>Printer Options</source>
-        <translation>Ustawienia drukarki (CUPS)</translation>
+        <translation>Druckereinstellungen (CUPS)</translation>
     </message>
     <message>
         <source>Option</source>
-        <translation>Opcja</translation>
+        <translation>Einstellung</translation>
     </message>
     <message>
         <source>Value</source>
-        <translation>Wartość</translation>
+        <translation>Wert</translation>
     </message>
     <message>
         <source>Page Set</source>
-        <translation>Zestaw stron</translation>
+        <translation>Welche Seiten</translation>
     </message>
     <message>
         <source>All Pages</source>
-        <translation>Wszystkie strony</translation>
+        <translation>Alle Seiten</translation>
     </message>
     <message>
         <source>Even Pages only</source>
-        <translation>Tylko strony parzyste</translation>
+        <translation>Nur gerade Seiten</translation>
     </message>
     <message>
         <source>Odd Pages only</source>
-        <translation>Tylko strony nieparzyste</translation>
+        <translation>Nur ungerade Seiten</translation>
     </message>
     <message>
         <source>Mirror</source>
-        <translation>Odwrócone</translation>
+        <translation>Spiegeln</translation>
     </message>
     <message>
         <source>No</source>
-        <translation>Nie</translation>
+        <translation>Nein</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation>Tak</translation>
+        <translation>Ja</translation>
     </message>
     <message>
         <source>Orientation</source>
-        <translation>Orientacja</translation>
+        <translation>Ausrichtung</translation>
     </message>
     <message>
         <source>Portrait</source>
-        <translation>Portret</translation>
+        <translation>Hochformat</translation>
     </message>
     <message>
         <source>Landscape</source>
-        <translation>Pejzaż</translation>
+        <translation>Querformat</translation>
     </message>
     <message>
         <source>N-Up Printing</source>
-        <translation>Zgrupowanie stron</translation>
+        <translation>Seiten zusammenfassen</translation>
     </message>
     <message>
         <source>Page per Sheet</source>
-        <translation>strona na kartkę</translation>
+        <translation>Seite pro Blatt</translation>
     </message>
     <message>
         <source>Pages per Sheet</source>
-        <translation>Stron na kartkę</translation>
+        <translation>Seiten pro Blatt</translation>
     </message>
     <message>
         <source>OK</source>
@@ -1347,35 +1339,35 @@
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Abbrechen</translation>
     </message>
 </context>
 <context>
     <name>CustomFDialog</name>
     <message>
         <source>Compress File</source>
-        <translation>Kompresja pliku</translation>
+        <translation>Datei komprimieren</translation>
     </message>
     <message>
         <source>Encoding:</source>
-        <translation>Kodowanie:</translation>
+        <translation>Kodierung:</translation>
     </message>
     <message>
         <source>Moves to your Document Directory.
 This can be set in the Preferences.</source>
-        <translation>Otwiera katalog dokumentów.
-Ścieżkę tego katalogu można zmienić w &quot;Ustawieniach&quot;.</translation>
+        <translation>Geht zum Dokumenten Verzeichnis.
+Wird in den Voreinstellungen gesetzt.</translation>
     </message>
 </context>
 <context>
     <name>DelColor</name>
     <message>
         <source>Delete Color</source>
-        <translation>Usuń kolor</translation>
+        <translation>Lösche Farbe</translation>
     </message>
     <message>
         <source>OK to delete Color:</source>
-        <translation>Potwierdź usunięcie koloru:</translation>
+        <translation>Löschen der Farbe:</translation>
     </message>
     <message>
         <source>?</source>
@@ -1383,7 +1375,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Replace it with:</source>
-        <translation>Zastąp przez:</translation>
+        <translation>Ersetzen durch:</translation>
     </message>
     <message>
         <source>OK</source>
@@ -1391,22 +1383,22 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Abbrechen</translation>
     </message>
 </context>
 <context>
     <name>DelPages</name>
     <message>
         <source>Delete Pages</source>
-        <translation>Usuń strony</translation>
+        <translation>Lösche Seiten</translation>
     </message>
     <message>
         <source>Delete from:</source>
-        <translation>Usuń od:</translation>
+        <translation>Löschen von:</translation>
     </message>
     <message>
         <source>to:</source>
-        <translation>do:</translation>
+        <translation>bis:</translation>
     </message>
     <message>
         <source>OK</source>
@@ -1414,38 +1406,26 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Abbrechen</translation>
     </message>
 </context>
 <context>
     <name>DmF</name>
     <message>
         <source>Missing Font</source>
-        <translation>Brakująca czcionka</translation>
-    </message>
-    <message>
-        <source>Select Font</source>
-        <translation>Wybierz czcionkę</translation>
+        <translation>Fehlende Schrift</translation>
     </message>
     <message>
         <source>The Font %1 is not installed.</source>
-        <translation>Czcionka %1 nie jest zainstalowana.</translation>
-    </message>
-    <message>
-        <source>Select New Font:</source>
-        <translation>Wybierz nową czcionkę:</translation>
+        <translation>Die Schrift %1 ist nicht installiert.</translation>
     </message>
     <message>
         <source>Use</source>
-        <translation>Użyj</translation>
+        <translation>Benutze</translation>
     </message>
     <message>
         <source>instead</source>
-        <translation>zamiast</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation></translation>
     </message>
     <message>
         <source>OK</source>
@@ -1456,7 +1436,7 @@ This can be set in the Preferences.</source>
     <name>DocInfos</name>
     <message>
         <source>Document Info</source>
-        <translation>Informacja o dokumencie</translation>
+        <translation>Information</translation>
     </message>
     <message>
         <source>Author:</source>
@@ -1464,15 +1444,15 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Title:</source>
-        <translation>Tytuł:</translation>
+        <translation>Titel:</translation>
     </message>
     <message>
         <source>Description:</source>
-        <translation>Opis:</translation>
+        <translation>Beschreibung:</translation>
     </message>
     <message>
         <source>Keywords:</source>
-        <translation>Słowa kluczowe:</translation>
+        <translation>Schlüsselwörter:</translation>
     </message>
     <message>
         <source>OK</source>
@@ -1480,102 +1460,102 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Abbrechen</translation>
     </message>
 </context>
 <context>
     <name>Druck</name>
     <message>
         <source>Setup Printer</source>
-        <translation>Ustawienia drukarki</translation>
+        <translation>Drucken</translation>
     </message>
     <message>
         <source>Print destination</source>
-        <translation>Nazwa</translation>
+        <translation>Ziel</translation>
     </message>
     <message>
         <source>File</source>
-        <translation>Plik</translation>
+        <translation>Datei</translation>
     </message>
     <message>
         <source>Options...</source>
-        <translation>Opcje...</translation>
+        <translation>Optionen...</translation>
     </message>
     <message>
         <source>File:</source>
-        <translation>Plik:</translation>
+        <translation>Datei:</translation>
     </message>
     <message>
         <source>Change...</source>
-        <translation>Zmień...</translation>
+        <translation>Ändern...</translation>
     </message>
     <message>
         <source>Alternative Printer Command</source>
-        <translation>Alternatywne polecenie drukarki</translation>
+        <translation>Anderer Druckbefehl</translation>
     </message>
     <message>
         <source>Command:</source>
-        <translation>Polecenie:</translation>
+        <translation>Befehl:</translation>
     </message>
     <message>
         <source>Range:</source>
-        <translation>Zakres:</translation>
+        <translation>Bereich:</translation>
     </message>
     <message>
         <source>To page:</source>
-        <translation>Do strony:</translation>
+        <translation>bis Seite:</translation>
     </message>
     <message>
         <source>From page:</source>
-        <translation>Od strony:</translation>
+        <translation>Von Seite:</translation>
     </message>
     <message>
         <source>Print range</source>
-        <translation>Drukuj zakres</translation>
+        <translation>Druckbereich</translation>
     </message>
     <message>
         <source>Print all</source>
-        <translation>Drukuj wszystko</translation>
+        <translation>Alles drucken</translation>
     </message>
     <message>
         <source>Print last page first</source>
-        <translation>Zacznij druk od ostatniej strony</translation>
+        <translation>Drucke letzte Seite zuerst</translation>
     </message>
     <message>
         <source>Print first page first</source>
-        <translation>Zacznij druk od pierwszej strony</translation>
+        <translation>Drucke erste Seite zuerst</translation>
     </message>
     <message>
         <source>Number of copies:</source>
-        <translation>Ilość kopii:</translation>
+        <translation>Anzahl der Kopien:</translation>
     </message>
     <message>
         <source>Options</source>
-        <translation>Opcje</translation>
+        <translation>Optionen</translation>
     </message>
     <message>
         <source>Print Normal</source>
-        <translation>Drukuj normalnie</translation>
+        <translation>Normal drucken</translation>
     </message>
     <message>
         <source>Print Separations</source>
-        <translation>Drukuj barwne wyciągi</translation>
+        <translation>Farbauszüge drucken</translation>
     </message>
     <message>
         <source>All</source>
-        <translation>Wszystkie</translation>
+        <translation>Alle</translation>
     </message>
     <message>
         <source>Print in color if available</source>
-        <translation>Drukuj w kolorze, jeśli to możliwe</translation>
+        <translation>In Farbe drucken, wenn verfügbar</translation>
     </message>
     <message>
         <source>Print in grayscale</source>
-        <translation>Drukuj w odcieniach szarości</translation>
+        <translation>In Graustufen drucken</translation>
     </message>
     <message>
         <source>Advanced Options...</source>
-        <translation>Zaawansowane opcje...</translation>
+        <translation>Weitere Optionen...</translation>
     </message>
     <message>
         <source>OK</source>
@@ -1583,106 +1563,98 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <source>Save as</source>
-        <translation>Zapisz jako</translation>
+        <translation>Speichern unter</translation>
     </message>
     <message>
         <source>Postscript-Files (*.ps);;All Files (*)</source>
-        <translation>Postscript (*.ps);;Wszystkie pliki (*)</translation>
+        <translation>Postscript-Dateien (*.ps);;Alle Dateien (*)</translation>
     </message>
 </context>
 <context>
     <name>EditStyle</name>
     <message>
         <source>Edit Style</source>
-        <translation>Edytuj style</translation>
+        <translation>Stilvorlage bearbeiten</translation>
     </message>
     <message>
         <source>Name:</source>
-        <translation>Nazwa:</translation>
+        <translation>Name:</translation>
     </message>
     <message>
         <source>Character</source>
-        <translation>Znak</translation>
+        <translation>Zeichen</translation>
     </message>
     <message>
         <source>Face:</source>
-        <translation>Rodzaj czcionki:</translation>
+        <translation>Schriftart:</translation>
     </message>
     <message>
         <source>Size:</source>
-        <translation>Rozmiar:</translation>
+        <translation>Größe:</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation></translation>
+        <translation> pt</translation>
+    </message>
+    <message>
+        <source>Effect:</source>
+        <translation>Effekt:</translation>
+    </message>
+    <message>
+        <source>Alignment:</source>
+        <translation>Ausrichtung:</translation>
+    </message>
+    <message>
+        <source>Fill Color:</source>
+        <translation>Füllfarbe:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Keine</translation>
     </message>
     <message>
         <source>Drop Caps</source>
-        <translation>Inicjały wypuszczone</translation>
+        <translation>Initialien</translation>
     </message>
     <message>
         <source>Lines:</source>
-        <translation>Wierszy:</translation>
+        <translation>Zeilen:</translation>
     </message>
     <message>
         <source>Indentation</source>
-        <translation>Wcięcie</translation>
+        <translation>Einrückungen</translation>
     </message>
     <message>
         <source>Left Indent:</source>
-        <translation>Wcięcie z lewej:</translation>
+        <translation>Links:</translation>
     </message>
     <message>
         <source>First Line:</source>
-        <translation>Pierwsza linia:</translation>
+        <translation>Erste Zeile:</translation>
     </message>
     <message>
         <source>Tabulators...</source>
-        <translation>Tabulatory...</translation>
-    </message>
-    <message>
-        <source>Alignment</source>
-        <translation>Wyrównanie</translation>
-    </message>
-    <message>
-        <source>Left</source>
-        <translation>Do lewej</translation>
-    </message>
-    <message>
-        <source>Right</source>
-        <translation>Do prawej</translation>
-    </message>
-    <message>
-        <source>Center</source>
-        <translation>Wyśrodkowane</translation>
-    </message>
-    <message>
-        <source>Block</source>
-        <translation>Justowany</translation>
-    </message>
-    <message>
-        <source>Forced</source>
-        <translation>Justowany (z ostatnią linią)</translation>
+        <translation>Tabulatoren...</translation>
     </message>
     <message>
         <source>Vertical Spaces</source>
-        <translation>Odstępy w pionie</translation>
+        <translation>Senkrechte Abstände</translation>
     </message>
     <message>
         <source>Line Spacing</source>
-        <translation>Interlinia</translation>
+        <translation>Zeilenabstand</translation>
     </message>
     <message>
         <source>Above:</source>
-        <translation>Nad:</translation>
+        <translation>Oben:</translation>
     </message>
     <message>
         <source>Below:</source>
-        <translation>Pod:</translation>
+        <translation>Unten:</translation>
     </message>
     <message>
         <source>OK</source>
@@ -1690,117 +1662,97 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Ostrzeżenie</translation>
+        <translation>Warnung</translation>
     </message>
     <message>
         <source>Name of the Style is not unique</source>
-        <translation>Nazwa stylu nie jest jednoznaczna</translation>
-    </message>
-    <message>
-        <source>Effect:</source>
-        <translation>Atrybut:</translation>
-    </message>
-    <message>
-        <source>Alignment:</source>
-        <translation>Wyrównanie:</translation>
-    </message>
-    <message>
-        <source>Fill Color:</source>
-        <translation>Kolor wypełnienia:</translation>
-    </message>
-    <message>
-        <source>Stroke Color:</source>
-        <translation>Kolor obrysu:</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation>Brak</translation>
+        <translation>Der Name der Stilvorlage ist nicht eindeutig</translation>
     </message>
 </context>
 <context>
     <name>Editor</name>
     <message>
         <source>Editor</source>
-        <translation>Edytor</translation>
+        <translation>Editor</translation>
     </message>
     <message>
         <source>New</source>
-        <translation>Nowy</translation>
+        <translation>Neu</translation>
     </message>
     <message>
         <source>Save as...</source>
-        <translation>Zapisz jako...</translation>
+        <translation>Speichern unter...</translation>
     </message>
     <message>
         <source>Load...</source>
-        <translation>Pobierz...</translation>
+        <translation>Laden...</translation>
     </message>
     <message>
         <source>Save and Exit</source>
-        <translation>Zapisz i zakończ</translation>
+        <translation>Speichern und Beenden</translation>
     </message>
     <message>
         <source>Exit without Saving</source>
-        <translation>Zakończ bez zapisywania</translation>
+        <translation>Beenden ohne Speichern</translation>
     </message>
     <message>
         <source>Undo</source>
-        <translation>Cofnij</translation>
+        <translation>Rückgängig</translation>
     </message>
     <message>
         <source>Redo</source>
-        <translation>Przywróć</translation>
+        <translation>Wiederherstellen</translation>
     </message>
     <message>
         <source>Cut</source>
-        <translation>Wytnij</translation>
+        <translation>Ausschneiden</translation>
     </message>
     <message>
         <source>Copy</source>
-        <translation>Kopiuj</translation>
+        <translation>Kopieren</translation>
     </message>
     <message>
         <source>Paste</source>
-        <translation>Wklej</translation>
+        <translation>Einfügen</translation>
     </message>
     <message>
         <source>Clear</source>
-        <translation>Usuń</translation>
+        <translation>Löschen</translation>
     </message>
     <message>
         <source>Get Field Names</source>
-        <translation>Wybierz nazwy pól</translation>
+        <translation>Feldnamen auswählen</translation>
     </message>
     <message>
         <source>File</source>
-        <translation>Plik</translation>
+        <translation>Datei</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation>Edycja</translation>
+        <translation>Bearbeiten</translation>
     </message>
     <message>
         <source>Javascripts (*.js);;All Files (*)</source>
-        <translation>Skrypty Javascript (*.js);;Wszystkie pliki(*)</translation>
+        <translation>Javascripte (*.js);;Alle Dateien (*)</translation>
     </message>
 </context>
 <context>
     <name>FDialogPreview</name>
     <message>
         <source>Size:</source>
-        <translation>Rozmiar:</translation>
+        <translation>Größe:</translation>
     </message>
     <message>
         <source>Title:</source>
-        <translation>Tytuł:</translation>
+        <translation>Titel:</translation>
     </message>
     <message>
         <source>No Title</source>
-        <translation>Bez tytułu</translation>
+        <translation>Kein Titel</translation>
     </message>
     <message>
         <source>Author:</source>
@@ -1808,113 +1760,113 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Unknown</source>
-        <translation>Nieznany</translation>
+        <translation>Unbekannt</translation>
     </message>
     <message>
         <source>Scribus-Document</source>
-        <translation>Dokument Scribusa</translation>
+        <translation>Scribus-Dokument</translation>
     </message>
 </context>
 <context>
     <name>Farbmanager</name>
     <message>
         <source>Colors</source>
-        <translation>Kolory</translation>
+        <translation>Farben</translation>
     </message>
     <message>
         <source>Append</source>
-        <translation>Dołącz</translation>
+        <translation>Anfügen</translation>
     </message>
     <message>
         <source>New</source>
-        <translation>Nowy</translation>
+        <translation>Neu</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation>Edycja</translation>
+        <translation>Bearbeiten</translation>
     </message>
     <message>
         <source>Duplicate</source>
-        <translation>Klonuj</translation>
+        <translation>Duplizieren</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Usuń</translation>
+        <translation>Löschen</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Zapisz</translation>
+        <translation>Speichern</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <source>Color Sets</source>
-        <translation>Zestawy kolorów</translation>
+        <translation>Paletten</translation>
     </message>
     <message>
         <source>Current Color Set:</source>
-        <translation>Aktualny zestaw kolorów:</translation>
+        <translation>Aktive Palette:</translation>
     </message>
     <message>
         <source>Save Color Set</source>
-        <translation>Zapisz zestaw kolorów</translation>
-    </message>
-    <message>
-        <source>Open</source>
-        <translation>Otwórz</translation>
-    </message>
-    <message>
-        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-        <translation>Dokumenty (*.sla *.sla.gz *.scd *.scd.gz);;Wszystkie pliki (*)</translation>
-    </message>
-    <message>
-        <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Dokumenty (*.sla *.scd);;Wszystkie pliki (*)</translation>
-    </message>
-    <message>
-        <source>Copy of %1</source>
-        <translation>Kopia %1</translation>
+        <translation>Palette speichern</translation>
     </message>
     <message>
         <source>Name:</source>
-        <translation>Nazwa:</translation>
+        <translation>Name:</translation>
     </message>
     <message>
         <source>Choose a Name</source>
-        <translation>Wybierz nazwę</translation>
+        <translation>Namen wählen</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation>Öffnen</translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
+        <translation>Dokumente (*.sla *.sla.gz *.scd *.scd.gz);;Alle Dateien (*)</translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.scd);;All Files (*)</source>
+        <translation>Dokumente (*.sla *.scd);;Alle Dateien (*)</translation>
     </message>
     <message>
         <source>New Color:</source>
-        <translation>Nowy kolor:</translation>
+        <translation>Neue Farbe:</translation>
     </message>
     <message>
         <source>New Color</source>
-        <translation>Nowy kolor</translation>
+        <translation>Neue Farbe</translation>
+    </message>
+    <message>
+        <source>Copy of %1</source>
+        <translation>Kopie von %1</translation>
     </message>
     <message>
         <source>Remove Unused</source>
-        <translation>Usuń nieużywane</translation>
+        <translation>Unbenutzte löschen</translation>
     </message>
 </context>
 <context>
     <name>FontPrefs</name>
     <message>
         <source>Global Font Settings</source>
-        <translation>Globalne ustawienia czcionek</translation>
+        <translation>Globale Schrifteinstellungen</translation>
     </message>
     <message>
         <source>Available Fonts</source>
-        <translation>Dostępne czcionki</translation>
+        <translation>Verfügbare Schriften</translation>
     </message>
     <message>
         <source>Font Substitutions</source>
-        <translation>Czcionki zastępcze</translation>
+        <translation>Schrift Ersetzungen</translation>
     </message>
     <message>
         <source>Additional Paths</source>
-        <translation>Dodatkowe ścieżki</translation>
+        <translation>Zusätzliche Pfade</translation>
     </message>
     <message>
         <source>Postscript</source>
@@ -1922,23 +1874,55 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Yes</source>
-        <translation>Tak</translation>
+        <translation>Ja</translation>
     </message>
     <message>
         <source>Font Name</source>
-        <translation>Nazwa czcionki</translation>
+        <translation>Schrift Name</translation>
+    </message>
+    <message>
+        <source>Replacement</source>
+        <translation>Ersatz</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Löschen</translation>
+    </message>
+    <message>
+        <source>Change...</source>
+        <translation>Ändern...</translation>
+    </message>
+    <message>
+        <source>Add...</source>
+        <translation>Hinzufügen...</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Entfernen</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <source>Choose a Directory</source>
+        <translation>Wählen Sie ein Verzeichnis</translation>
     </message>
     <message>
         <source>Use Font</source>
-        <translation>Użyj czcionkę</translation>
+        <translation>Benutzen</translation>
     </message>
     <message>
         <source>Embed in:</source>
-        <translation>Zagnieźdź w:</translation>
+        <translation>Einbetten in:</translation>
     </message>
     <message>
         <source>Subset</source>
-        <translation>Podzbiór</translation>
+        <translation>Unterteilen</translation>
     </message>
     <message>
         <source>Type</source>
@@ -1946,74 +1930,42 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Path to Font File</source>
-        <translation>Ścieżka do pliku czcionki</translation>
-    </message>
-    <message>
-        <source>Replacement</source>
-        <translation>Czcionka zastępcza</translation>
-    </message>
-    <message>
-        <source>Delete</source>
-        <translation>Usuń</translation>
-    </message>
-    <message>
-        <source>Change...</source>
-        <translation>Zmień...</translation>
-    </message>
-    <message>
-        <source>Add...</source>
-        <translation>Dodaj...</translation>
-    </message>
-    <message>
-        <source>Remove</source>
-        <translation>Usuń</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation>OK</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation>Anuluj</translation>
-    </message>
-    <message>
-        <source>Choose a Directory</source>
-        <translation>Wybierz katalog</translation>
+        <translation>Pfad zur Schriftdatei</translation>
     </message>
 </context>
 <context>
     <name>GuideManager</name>
     <message>
         <source>Manage Guides</source>
-        <translation>Zarządzaj liniami pomocniczymi</translation>
+        <translation>Hilflinien bearbeiten</translation>
     </message>
     <message>
         <source>Horizontal Guides</source>
-        <translation>Poziome</translation>
+        <translation>Waagrechte</translation>
     </message>
     <message>
         <source>Y-Pos:</source>
-        <translation>Wsp. Y:</translation>
+        <translation>Y-Pos:</translation>
     </message>
     <message>
         <source>Add</source>
-        <translation>Dodaj</translation>
+        <translation>Hinzufügen</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Usuń</translation>
+        <translation>Löschen</translation>
     </message>
     <message>
         <source>Vertical Guides</source>
-        <translation>Pionowe</translation>
+        <translation>Senkrechte</translation>
     </message>
     <message>
         <source>X-Pos:</source>
-        <translation>Wsp. X:</translation>
+        <translation>X-Pos:</translation>
     </message>
     <message>
         <source>Lock Guides</source>
-        <translation>Zabezpiecz linie pomocnicze</translation>
+        <translation>Sperren</translation>
     </message>
     <message>
         <source>OK</source>
@@ -2021,69 +1973,69 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Abbrechen</translation>
     </message>
 </context>
 <context>
     <name>HelpBrowser</name>
     <message>
         <source>Sorry, no manual available!</source>
-        <translation>Niestety brak podręcznika!</translation>
+        <translation>Leider kein Handbuch verfügbar!</translation>
     </message>
 </context>
 <context>
     <name>HyAsk</name>
     <message>
         <source>Possible Hyphenation</source>
-        <translation>Propozycja podziału</translation>
+        <translation>Trennvorschlag</translation>
     </message>
     <message>
         <source>Accept</source>
-        <translation>Zastosuj</translation>
+        <translation>Anwenden</translation>
     </message>
     <message>
         <source>Skip</source>
-        <translation>Pomiń</translation>
+        <translation>Überspringen</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Abbrechen</translation>
     </message>
 </context>
 <context>
     <name>HySettings</name>
     <message>
         <source>Hyphenator Settings</source>
-        <translation>Ustawienia</translation>
+        <translation>Einstellungen</translation>
     </message>
     <message>
         <source>Fully Automatic</source>
-        <translation>W pełni automatyczne</translation>
+        <translation>Vollautomatisch</translation>
     </message>
     <message>
         <source>If you uncheck this you will get a dialog
 everytime a possible Hyphenation is found.</source>
-        <translation>Jeśli nie zaznaczysz tej opcji, za każdym razem, gdy znaleziona zostanie propozycja podziału, ukaże się okienko dialogowe.</translation>
+        <translation>Falls nicht Vollautomatisch gewählt ist,\nerscheint bei jeder möglichen Trennung eine\nDialogbox.</translation>
     </message>
     <message>
         <source>Check during Typing</source>
-        <translation>Sprawdzaj w trakcie pisania</translation>
+        <translation>Während Texteingabe überprüfen</translation>
     </message>
     <message>
         <source>Enables automatic checking of your text while typing.</source>
-        <translation>Umożliwia automatyczne sprawdzanie tekstu w trakcie pisania.</translation>
+        <translation>Schaltet die automatische Überprüfung während der Eingabe ein.</translation>
     </message>
     <message>
         <source>Language:</source>
-        <translation>Język:</translation>
+        <translation>Sprache:</translation>
     </message>
     <message>
         <source>Smallest Word:</source>
-        <translation>Najkrótsze słowo:</translation>
+        <translation>Kleinstes Wort:</translation>
     </message>
     <message>
         <source>This is the length of the smallest word to be hyphenated.</source>
-        <translation>To jest długość najkrótszego słowa podlegającego podziałowi.</translation>
+        <translation>Dies ist die Länge des kleinsten trennbaren Wortes.</translation>
     </message>
     <message>
         <source>OK</source>
@@ -2091,50 +2043,50 @@ everytime a possible Hyphenation is found.</source>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Abbrechen</translation>
     </message>
 </context>
 <context>
     <name>InsPage</name>
     <message>
         <source>Insert Page</source>
-        <translation>Wklej stronę</translation>
+        <translation>Seite einfügen</translation>
     </message>
     <message>
         <source>Inserting</source>
-        <translation>Wstaw</translation>
+        <translation>Einfügen von</translation>
     </message>
     <message>
         <source>page(s)</source>
-        <translation>stron</translation>
+        <translation>Seite(n)</translation>
     </message>
     <message>
         <source>before Page</source>
-        <translation>przed stroną</translation>
+        <translation>vor Seite</translation>
     </message>
     <message>
         <source>after Page</source>
-        <translation>po stronie</translation>
+        <translation>nach Seite</translation>
     </message>
     <message>
         <source>at End</source>
-        <translation>na końcu dokumentu</translation>
+        <translation>am Dokumentende</translation>
     </message>
     <message>
         <source>Template (Left Page):</source>
-        <translation>Szablon (lewa strona):</translation>
+        <translation>Linke Seite basiert auf:</translation>
     </message>
     <message>
         <source>Template:</source>
-        <translation>Szablon:</translation>
+        <translation>Musterseite:</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation>Normalny</translation>
+        <translation>Normal</translation>
     </message>
     <message>
         <source>Template (Right Page):</source>
-        <translation>Szablon (prawa strona):</translation>
+        <translation>Rechte Seite basiert auf:</translation>
     </message>
     <message>
         <source>OK</source>
@@ -2142,73 +2094,73 @@ everytime a possible Hyphenation is found.</source>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Abbrechen</translation>
     </message>
 </context>
 <context>
     <name>JavaDocs</name>
     <message>
         <source>Global JavaScripts</source>
-        <translation>Globalne skrypty JavaScript</translation>
+        <translation>Globale Java-Scripte</translation>
     </message>
     <message>
         <source>Edit...</source>
-        <translation>Edytuj...</translation>
+        <translation>Bearbeiten...</translation>
     </message>
     <message>
         <source>Add...</source>
-        <translation>Dodaj...</translation>
+        <translation>Hinzufügen...</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Usuń</translation>
+        <translation>Löschen</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation>Zamknij</translation>
-    </message>
-    <message>
-        <source>New Script</source>
-        <translation>Nowy skrypt</translation>
+        <translation>Schließen</translation>
     </message>
     <message>
         <source>New Script:</source>
-        <translation>Nowy skrypt:</translation>
+        <translation>Neues Script:</translation>
+    </message>
+    <message>
+        <source>New Script</source>
+        <translation>Neues Script</translation>
     </message>
 </context>
 <context>
     <name>KeyManager</name>
     <message>
         <source>Manage Keyboard Shortcuts</source>
-        <translation>Konfiguracja skrótów</translation>
+        <translation>Tastenzuordungen vornehmen</translation>
     </message>
     <message>
         <source>Action</source>
-        <translation>Akcja</translation>
+        <translation>Aktion</translation>
     </message>
     <message>
         <source>Current Key</source>
-        <translation>Aktualny skrót</translation>
+        <translation>Aktuelle Taste</translation>
     </message>
     <message>
         <source>Select a Key for this Action</source>
-        <translation>Wybierz kombinację klawiszy dla tej akcji</translation>
+        <translation>Tastenkombination für die ausgewählte Aktion</translation>
     </message>
     <message>
         <source>No Key</source>
-        <translation>Bez skrótu</translation>
+        <translation>Keine Taste</translation>
     </message>
     <message>
         <source>User Defined Key</source>
-        <translation>Skrót przyporządkowany przez użytkownika</translation>
+        <translation>Benutzerdefinierte Taste</translation>
     </message>
     <message>
         <source>ALT+SHIFT+T</source>
-        <translation></translation>
+        <translation>ALT+SHIFT+T</translation>
     </message>
     <message>
         <source>Set Key</source>
-        <translation>Przyporządkuj skrót</translation>
+        <translation>Definiere Taste</translation>
     </message>
     <message>
         <source>OK</source>
@@ -2216,160 +2168,160 @@ everytime a possible Hyphenation is found.</source>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <source>Alt</source>
-        <translation></translation>
+        <translation>Alt</translation>
     </message>
     <message>
         <source>Ctrl</source>
-        <translation></translation>
+        <translation>Strg</translation>
     </message>
     <message>
         <source>Shift</source>
-        <translation></translation>
+        <translation>Shift</translation>
     </message>
     <message>
         <source>Shift+</source>
-        <translation></translation>
+        <translation>Shift+</translation>
     </message>
     <message>
         <source>Alt+</source>
-        <translation></translation>
+        <translation>Alt+</translation>
     </message>
     <message>
         <source>Ctrl+</source>
-        <translation></translation>
+        <translation>Strg+</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Ostrzeżenie</translation>
+        <translation>Warnung</translation>
     </message>
     <message>
         <source>This Key-Sequence is already in use</source>
-        <translation>Ta kombinacja klawiszy jest już używana</translation>
+        <translation>Diese Tastenkombination wird bereits verwendet</translation>
     </message>
 </context>
 <context>
     <name>LayerPalette</name>
     <message>
         <source>Layers</source>
-        <translation>Warstwy</translation>
+        <translation>Ebenen</translation>
     </message>
     <message>
         <source>Add a new Layer</source>
-        <translation>Dodaj nową wartwę</translation>
+        <translation>Neue Ebene hinzufügen</translation>
     </message>
     <message>
         <source>Delete Layer</source>
-        <translation>Usuń warstwę</translation>
+        <translation>Ebene löschen</translation>
     </message>
     <message>
         <source>Raise Layer</source>
-        <translation>Przesuń wartwę do przodu</translation>
+        <translation>Ebene nach oben verschieben</translation>
     </message>
     <message>
         <source>Lower Layer</source>
-        <translation>Przesuń warstwę do tyłu</translation>
+        <translation>Ebene nach unten verschieben</translation>
     </message>
     <message>
         <source>Closes this Dialog</source>
-        <translation>Zamyka to okienko dialogowe</translation>
+        <translation>Schließt diese Palette</translation>
     </message>
     <message>
         <source>New Layer</source>
-        <translation>Nowa warstwa</translation>
+        <translation>Neue Ebene</translation>
     </message>
 </context>
 <context>
     <name>LineFormate</name>
     <message>
         <source>Edit Line Styles</source>
-        <translation>Edytuj style linii</translation>
+        <translation>Linienstile bearbeiten</translation>
     </message>
     <message>
         <source>Append</source>
-        <translation>Dołącz</translation>
+        <translation>Anfügen</translation>
     </message>
     <message>
         <source>New</source>
-        <translation>Nowy</translation>
+        <translation>Neu</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation>Edycja</translation>
+        <translation>Bearbeiten</translation>
     </message>
     <message>
         <source>Duplicate</source>
-        <translation>Klonuj</translation>
+        <translation>Duplizieren</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Usuń</translation>
+        <translation>Löschen</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Zapisz</translation>
+        <translation>Speichern</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <source>Copy of %1</source>
-        <translation>Kopia %1</translation>
+        <translation>Kopie von %1</translation>
     </message>
     <message>
         <source>New Style</source>
-        <translation>Nowy styl</translation>
+        <translation>Neuer Stil</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Ostrzeżenie</translation>
+        <translation>Warnung</translation>
     </message>
     <message>
         <source>Do you really want do delete this Style?</source>
-        <translation>Naprawdę usunąć ten styl?</translation>
+        <translation>Wollen Sie diesen Stil wirklich löschen?</translation>
     </message>
     <message>
         <source>No</source>
-        <translation>Nie</translation>
+        <translation>Nein</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation>Tak</translation>
+        <translation>Ja</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation>Otwórz</translation>
+        <translation>Öffnen</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-        <translation>Dokumenty (*.sla *.sla.gz *.scd *.scd.gz);;Wszystkie pliki (*)</translation>
+        <translation>Dokumente (*.sla *.sla.gz *.scd *.scd.gz);;Alle Dateien (*)</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Dokumenty (*.sla *.scd);;Wszystkie pliki (*)</translation>
+        <translation>Dokumente (*.sla *.scd);;Alle Dateien (*)</translation>
     </message>
 </context>
 <context>
     <name>Mdup</name>
     <message>
         <source>Multiple Duplicate</source>
-        <translation>Wielokrotne klonowanie</translation>
+        <translation>Mehrfach Duplizieren</translation>
     </message>
     <message>
         <source>Number of Copies:</source>
-        <translation>Ilość kopii:</translation>
+        <translation>Anzahl Kopien:</translation>
     </message>
     <message>
         <source>Horizontal Shift:</source>
-        <translation>Przesunięcie poziome:</translation>
+        <translation>Horiz. Versatz:</translation>
     </message>
     <message>
         <source>Vertical Shift:</source>
-        <translation>Przesunięcie pionowe:</translation>
+        <translation>Vertik. Versatz:</translation>
     </message>
     <message>
         <source>OK</source>
@@ -2377,96 +2329,96 @@ everytime a possible Hyphenation is found.</source>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Abbrechen</translation>
     </message>
 </context>
 <context>
     <name>MenuTest</name>
     <message>
         <source>Show Console</source>
-        <translation>Wyświetlaj konsolę</translation>
+        <translation>Konsole zeigen</translation>
     </message>
     <message>
         <source>Hide Console</source>
-        <translation>Ukryj konsolę</translation>
+        <translation>Konsole verbergen</translation>
     </message>
 </context>
 <context>
     <name>MergeDoc</name>
     <message>
         <source>Import a Page</source>
-        <translation>Importuj stronę</translation>
+        <translation>Seite einfügen</translation>
     </message>
     <message>
         <source>Document to load:</source>
-        <translation>Z dokumentu:</translation>
+        <translation>Aus Dokument:</translation>
     </message>
     <message>
         <source>Change...</source>
-        <translation>Zmień...</translation>
+        <translation>Ändern...</translation>
     </message>
     <message>
         <source>Document contains: 0 Page(s)</source>
-        <translation>Dokument zawiera: 0 stron</translation>
+        <translation>Dokument enthält: 0 Seite(n)</translation>
     </message>
     <message>
         <source>Import Page Nr:</source>
-        <translation>Importuj stronę nr:</translation>
+        <translation>Importiere Seite Nr:</translation>
     </message>
     <message>
         <source>Import</source>
-        <translation>Importuj</translation>
+        <translation>Importiere</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation>Otwórz</translation>
+        <translation>Öffnen</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-        <translation>Dokumenty (*.sla *.sla.gz *.scd *.scd.gz);;Wszystkie pliki (*)</translation>
+        <translation>Dokumente (*.sla *.sla.gz *.scd *.scd.gz);;Alle Dateien (*)</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Dokumenty (*.sla *.scd);;Wszystkie pliki (*)</translation>
+        <translation>Dokumente (*.sla *.scd);;Alle Dateien (*)</translation>
     </message>
     <message>
         <source>Document contains: %1 Page(s)</source>
-        <translation>Dokument zawiera: %1 stron</translation>
+        <translation>Dokument enthält: %1 Seite(n)</translation>
     </message>
 </context>
 <context>
     <name>MovePages</name>
     <message>
         <source>Move Pages</source>
-        <translation>Przesuń strony</translation>
+        <translation>Verschiebe Seiten</translation>
     </message>
     <message>
         <source>Copy Page</source>
-        <translation>Kopiuj stronę</translation>
+        <translation>Kopiere Seite</translation>
     </message>
     <message>
         <source>Move Page(s):</source>
-        <translation>Przesuń strony:</translation>
+        <translation>Verschiebe Seite(n):</translation>
     </message>
     <message>
         <source>to:</source>
-        <translation>do:</translation>
+        <translation>bis:</translation>
     </message>
     <message>
         <source>before Page</source>
-        <translation>przed stroną</translation>
+        <translation>vor Seite</translation>
     </message>
     <message>
         <source>after Page</source>
-        <translation>po stronie</translation>
+        <translation>nach Seite</translation>
     </message>
     <message>
         <source>at End</source>
-        <translation>na końcu dokumentu</translation>
+        <translation>am Dokumentende</translation>
     </message>
     <message>
         <source>OK</source>
@@ -2474,372 +2426,332 @@ everytime a possible Hyphenation is found.</source>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Abbrechen</translation>
     </message>
 </context>
 <context>
     <name>Mpalette</name>
     <message>
         <source>Properties</source>
-        <translation>Właściwości</translation>
+        <translation>Eigenschaften</translation>
     </message>
     <message>
         <source>X, Y, Z</source>
-        <translation></translation>
+        <translation>X, Y, Z</translation>
     </message>
     <message>
         <source>Shape</source>
-        <translation>Kształt ramki</translation>
+        <translation>Form</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation>Tekst</translation>
+        <translation>Text</translation>
     </message>
     <message>
         <source>Image</source>
-        <translation>Obrazek</translation>
+        <translation>Bild</translation>
     </message>
     <message>
         <source>Line</source>
-        <translation>Linia</translation>
+        <translation>Linie</translation>
     </message>
     <message>
         <source>Colors</source>
-        <translation>Kolory</translation>
+        <translation>Farben</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation>Nazwa</translation>
+        <translation>Name</translation>
     </message>
     <message>
         <source>Geometry</source>
-        <translation>Geometria</translation>
+        <translation>Geometrie</translation>
     </message>
     <message>
         <source>X-Pos:</source>
-        <translation>Wsp. X:</translation>
+        <translation>X-Pos:</translation>
     </message>
     <message>
         <source>Y-Pos:</source>
-        <translation>Wsp. Y:</translation>
+        <translation>Y-Pos:</translation>
     </message>
     <message>
         <source>Width:</source>
-        <translation>Szerokość:</translation>
+        <translation>Breite:</translation>
     </message>
     <message>
         <source>Height:</source>
-        <translation>Wysokość:</translation>
+        <translation>Höhe:</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation></translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source>Rotation:</source>
-        <translation>Obrót:</translation>
+        <translation>Drehung:</translation>
     </message>
     <message>
         <source>Basepoint:</source>
-        <translation>Środek obrotu:</translation>
+        <translation>Ursprung:</translation>
     </message>
     <message>
         <source>Level</source>
-        <translation>Warstwa</translation>
+        <translation>Ebene</translation>
     </message>
     <message>
         <source>Text flows around Box</source>
-        <translation>Tekst opływa ramkę</translation>
+        <translation>Text umfließt Objekt</translation>
     </message>
     <message>
         <source>Use Bounding Box</source>
-        <translation>Zastosuj ramkę ograniczającą</translation>
+        <translation>Umgebendes Rechteck benutzen</translation>
     </message>
     <message>
         <source>Shape:</source>
-        <translation>Kształt:</translation>
+        <translation>Form:</translation>
     </message>
     <message>
         <source>Edit Shape...</source>
-        <translation>Edycja ramki...</translation>
+        <translation>Form bearbeiten...</translation>
     </message>
     <message>
         <source>Round
 Corners:</source>
-        <translation>Zaokrąglone
-rogi:</translation>
+        <translation>Eck-
+rundung:</translation>
     </message>
     <message>
         <source>Distance of Text</source>
-        <translation>Odstęp tekstu</translation>
+        <translation>Textabstand</translation>
     </message>
     <message>
         <source>Columns:</source>
-        <translation>Szpalty:</translation>
+        <translation>Spalten:</translation>
     </message>
     <message>
         <source>Gap:</source>
-        <translation>Między szpaltami:</translation>
+        <translation>Abstand:</translation>
     </message>
     <message>
         <source>Top:</source>
-        <translation>Na górze:</translation>
+        <translation>Oben:</translation>
     </message>
     <message>
         <source>Bottom:</source>
-        <translation>Na dole:</translation>
+        <translation>Unten:</translation>
     </message>
     <message>
         <source>Left:</source>
-        <translation>Po lewej:</translation>
+        <translation>Links:</translation>
     </message>
     <message>
         <source>Right:</source>
-        <translation>Po prawej:</translation>
+        <translation>Rechts:</translation>
     </message>
     <message>
         <source>Tabulators...</source>
-        <translation>Tabulatory...</translation>
+        <translation>Tabulatoren...</translation>
     </message>
     <message>
         <source>Path Text Properites</source>
-        <translation>Właściwości tekstu na ścieżce</translation>
+        <translation>Pfadtext Eigenschaften</translation>
     </message>
     <message>
         <source>Show Curve</source>
-        <translation>Wyświetlaj krzywą</translation>
+        <translation>Pfad zeigen</translation>
     </message>
     <message>
         <source>Start Offset:</source>
-        <translation>Początkowe przesunięcie:</translation>
+        <translation>Anfangsoffset:</translation>
     </message>
     <message>
         <source>Distance from Curve:</source>
-        <translation>Odstęp od krzywej:</translation>
+        <translation>Abstand zum Pfad:</translation>
     </message>
     <message>
         <source>Size:</source>
-        <translation>Rozmiar:</translation>
+        <translation>Größe:</translation>
     </message>
     <message>
         <source> %</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Other...</source>
-        <translation>Inne...</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>Custom Spacing</source>
-        <translation>Odstępy</translation>
+        <translation>Abstände</translation>
     </message>
     <message>
         <source>Kerning:</source>
-        <translation>Podcięcie:</translation>
+        <translation>Kerning:</translation>
     </message>
     <message>
         <source>Line Spacing:</source>
-        <translation>Interlinia:</translation>
+        <translation>Zeilenabstand:</translation>
     </message>
     <message>
         <source>Styles</source>
-        <translation>Style</translation>
+        <translation>Stile</translation>
     </message>
     <message>
         <source>Lang.:</source>
-        <translation>Język:</translation>
+        <translation>Sprache:</translation>
     </message>
     <message>
         <source>Free Scaling</source>
-        <translation>Skalowanie ręczne</translation>
+        <translation>Freies Skalieren</translation>
     </message>
     <message>
-        <source>Position:</source>
-        <translation>Pozycja:</translation>
+        <source>X-Pos.:</source>
+        <translation>X-Pos.:</translation>
     </message>
     <message>
-        <source>Horiz. Scale:</source>
-        <translation>Poziomo:</translation>
+        <source>Y-Pos.:</source>
+        <translation>Y-Pos.:</translation>
     </message>
     <message>
-        <source>Vert. Scale:</source>
-        <translation>Pionowo:</translation>
+        <source>X-Scale:</source>
+        <translation>X-Skalierung:</translation>
+    </message>
+    <message>
+        <source>Y-Scale:</source>
+        <translation>Y-Skalierung:</translation>
     </message>
     <message>
         <source>Scale to Frame Size</source>
-        <translation>Skaluj do rozmiaru ramki</translation>
+        <translation>An Rahmen anpassen</translation>
     </message>
     <message>
         <source>Keep Aspect Ratio</source>
-        <translation>Zachowaj proporcje</translation>
+        <translation>Seitenverhältnis beibehalten</translation>
     </message>
     <message>
         <source>Proportional</source>
-        <translation>proporcjonalnie</translation>
+        <translation>Proportional</translation>
     </message>
     <message>
         <source>Input Profile:</source>
-        <translation>Profil wejściowy:</translation>
+        <translation>Farbprofil:</translation>
     </message>
     <message>
         <source>Rendering Intent:</source>
-        <translation>Metoda konwersji:</translation>
+        <translation>Render Priorität:</translation>
     </message>
     <message>
         <source>Perceptual</source>
-        <translation>Percepcja</translation>
+        <translation>Wahrnehmung</translation>
     </message>
     <message>
         <source>Relative Colorimetric</source>
-        <translation>Względnie kolorometryczna</translation>
+        <translation>Relativ Farbmetrisch</translation>
     </message>
     <message>
         <source>Saturation</source>
-        <translation>Nasycenie </translation>
+        <translation>Farbsättigung</translation>
     </message>
     <message>
         <source>Absolute Colorimetric</source>
-        <translation>Absolutnie kolorometryczna</translation>
+        <translation>Absolut farbmetrisch</translation>
     </message>
     <message>
         <source>Left Point</source>
-        <translation>Lewy punkt</translation>
+        <translation>Linker Punkt</translation>
     </message>
     <message>
         <source>End Points</source>
-        <translation>Punkty końcowe</translation>
+        <translation>Endpunkte</translation>
     </message>
     <message>
         <source>Line Style:</source>
-        <translation>Styl linii:</translation>
+        <translation>Linienstil:</translation>
     </message>
     <message>
         <source>Line Width:</source>
-        <translation>Grubość linii:</translation>
+        <translation>Linienbreite:</translation>
     </message>
     <message>
         <source>Edges:</source>
-        <translation>Rogi:</translation>
+        <translation>Ecken:</translation>
     </message>
     <message>
         <source>Miter Join</source>
-        <translation>Szpic</translation>
+        <translation>Spitz</translation>
     </message>
     <message>
         <source>Bevel Join</source>
-        <translation>Skośny</translation>
+        <translation>Gefast</translation>
     </message>
     <message>
         <source>Round Join</source>
-        <translation>Okrągły</translation>
+        <translation>Rund</translation>
     </message>
     <message>
         <source>Endings:</source>
-        <translation>Zakończenia:</translation>
+        <translation>Enden:</translation>
     </message>
     <message>
         <source>Flat Cap</source>
-        <translation>Płaski</translation>
+        <translation>Flach</translation>
     </message>
     <message>
         <source>Square Cap</source>
-        <translation>Kwadratowy</translation>
+        <translation>Quadratisch</translation>
     </message>
     <message>
         <source>Round Cap</source>
-        <translation>Zaokrąglony</translation>
+        <translation>Abgerundet</translation>
     </message>
     <message>
         <source>No Style</source>
-        <translation>Bez stylu</translation>
+        <translation>Kein Stil</translation>
     </message>
     <message>
         <source>Font Size</source>
-        <translation>Rozmiar czcionki</translation>
+        <translation>Schriftgröße</translation>
     </message>
     <message>
         <source>Line Spacing</source>
-        <translation>Interlinia</translation>
+        <translation>Zeilenabstand</translation>
     </message>
     <message>
         <source>Manual Kerning</source>
-        <translation>Manualne podcinanie</translation>
+        <translation>Manuelles Kerning</translation>
     </message>
     <message>
         <source>Reverse Writing</source>
-        <translation>Pisanie wstecz</translation>
-    </message>
-    <message>
-        <source>Underline</source>
-        <translation>Podkreślenie</translation>
-    </message>
-    <message>
-        <source>Small Caps</source>
-        <translation>Kapitaliki</translation>
-    </message>
-    <message>
-        <source>Subscript</source>
-        <translation>Indeks dolny</translation>
-    </message>
-    <message>
-        <source>Superscript</source>
-        <translation>Indeks górny</translation>
-    </message>
-    <message>
-        <source>Strikeout</source>
-        <translation>Przekreślenie</translation>
-    </message>
-    <message>
-        <source>Outline Text</source>
-        <translation>Obramowanie tekstu</translation>
-    </message>
-    <message>
-        <source>Align Text Left</source>
-        <translation>Wyrównaj tekst do lewej</translation>
-    </message>
-    <message>
-        <source>Align Text Right</source>
-        <translation>Wyrównaj tekst do prawej</translation>
-    </message>
-    <message>
-        <source>Align Text Block</source>
-        <translation>Justuj tekst</translation>
-    </message>
-    <message>
-        <source>Align Text Center</source>
-        <translation>Wyśrodkuj tekst</translation>
+        <translation>Gespiegelt</translation>
     </message>
     <message>
         <source>Flip horizontal</source>
-        <translation>Odbicie lustrzane w poziomie</translation>
+        <translation>Horizontal spiegeln</translation>
     </message>
     <message>
         <source>Flip vertical</source>
-        <translation>Odbicie lustrzane w pionie</translation>
+        <translation>Vertikal spiegeln</translation>
     </message>
     <message>
         <source>Move one Level up</source>
-        <translation>Przesuń o warstwę wyżej</translation>
+        <translation>Eine Ebene höher</translation>
     </message>
     <message>
         <source>Move one Level down</source>
-        <translation>Przesuń o warstwę niżej</translation>
+        <translation>Eine Ebene tiefer</translation>
     </message>
     <message>
         <source>Move to Front</source>
-        <translation>Przesuń na wierzch</translation>
+        <translation>In den Vordergrund</translation>
     </message>
     <message>
         <source>Move to Back</source>
-        <translation>Przesuń na spód</translation>
+        <translation>In den Hintergrund</translation>
     </message>
     <message>
         <source>Locks or unlocks the Object</source>
-        <translation>Zabezpiecza lub odbezpiecza obiekt</translation>
+        <translation>Sperrt oder entsperrt das Objekt</translation>
     </message>
     <message>
         <source>Enables or disables printing of the Object</source>
-        <translation>Włącza lub wyłącza drukowanie obiektu</translation>
+        <translation>Schaltet die Druckbarkeit des Objekts ein oder aus</translation>
     </message>
     <message>
         <source>X1:</source>
@@ -2859,80 +2771,64 @@ rogi:</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>Brak</translation>
+        <translation>Keine</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Ostrzeżenie</translation>
+        <translation>Warnung</translation>
     </message>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.
 Please choose another.</source>
-        <translation>Nazwa &quot;%1&quot; już istnieje.
-Proszę wybrać inną.</translation>
+        <translation>Der Name %1 ist nicht eindeutig.
+Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>OK</source>
         <translation>OK</translation>
-    </message>
-    <message>
-        <source>X-Pos.:</source>
-        <translation>Wsp. X:</translation>
-    </message>
-    <message>
-        <source>Y-Pos.:</source>
-        <translation>Wsp. Y:</translation>
-    </message>
-    <message>
-        <source>X-Scale:</source>
-        <translation>Skalowanie X:</translation>
-    </message>
-    <message>
-        <source>Y-Scale:</source>
-        <translation>Skalowanie Y:</translation>
     </message>
 </context>
 <context>
     <name>MultiLine</name>
     <message>
         <source>Edit Style</source>
-        <translation>Edytuj style</translation>
+        <translation>Stil bearbeiten</translation>
     </message>
     <message>
         <source>Flat Cap</source>
-        <translation>Płaski</translation>
+        <translation>Flach</translation>
     </message>
     <message>
         <source>Square Cap</source>
-        <translation>Kwadratowy</translation>
+        <translation>Quadratisch</translation>
     </message>
     <message>
         <source>Round Cap</source>
-        <translation>Zaokrąglony</translation>
+        <translation>Abgerundet</translation>
     </message>
     <message>
         <source>Miter Join</source>
-        <translation>Szpic</translation>
+        <translation>Spitz</translation>
     </message>
     <message>
         <source>Bevel Join</source>
-        <translation>Skośny</translation>
+        <translation>Gefast</translation>
     </message>
     <message>
         <source>Round Join</source>
-        <translation>Okrągły</translation>
+        <translation>Rund</translation>
     </message>
     <message>
         <source>Line Width:</source>
-        <translation>Grubość linii:</translation>
+        <translation>Linienbreite:</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation></translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source> %</source>
-        <translation></translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>OK</source>
@@ -2940,215 +2836,215 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <source> pt </source>
-        <translation></translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source>Solid Line</source>
-        <translation>Linia ciągła</translation>
+        <translation>Durchgehend</translation>
     </message>
     <message>
         <source>Dashed Line</source>
-        <translation>Linia przerywana</translation>
+        <translation>Gestrichelt</translation>
     </message>
     <message>
         <source>Dotted Line</source>
-        <translation>Linia punktowana</translation>
+        <translation>Gepunktet</translation>
     </message>
     <message>
         <source>Dash Dot Line</source>
-        <translation>Linia kreskowo-punktowa</translation>
+        <translation>Strich-Punkt</translation>
     </message>
     <message>
         <source>Dash Dot Dot Line</source>
-        <translation>Linia punkt punkt kreska</translation>
+        <translation>Strich-Punkt-Punkt</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Ostrzeżenie</translation>
+        <translation>Warnung</translation>
     </message>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.
 Please choose another.</source>
-        <translation>Nazwa &quot;%1&quot; już istnieje.
-Proszę wybrać inną.</translation>
+        <translation>Der Name %1 ist nicht eindeutig.
+Bitte wählen Sie einen anderen.</translation>
     </message>
 </context>
 <context>
     <name>MusterSeiten</name>
     <message>
         <source>Edit Templates</source>
-        <translation>Edytuj szablony</translation>
+        <translation>Musterseiten bearbeiten</translation>
     </message>
     <message>
         <source>Append</source>
-        <translation>Dołącz</translation>
+        <translation>Anfügen</translation>
     </message>
     <message>
         <source>New</source>
-        <translation>Nowy</translation>
+        <translation>Neu</translation>
     </message>
     <message>
         <source>Duplicate</source>
-        <translation>Klonuj</translation>
+        <translation>Duplizieren</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Usuń</translation>
+        <translation>Löschen</translation>
     </message>
     <message>
         <source>Exit</source>
-        <translation>Zakończ</translation>
+        <translation>Verlassen</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Ostrzeżenie</translation>
+        <translation>Warnung</translation>
     </message>
     <message>
         <source>Do you really want do delete this Template?</source>
-        <translation>Naprawdę usunąć ten szablon?</translation>
+        <translation>Wollen Sie wirklich diese Musterseite löschen?</translation>
     </message>
     <message>
         <source>No</source>
-        <translation>Nie</translation>
+        <translation>Nein</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation>Tak</translation>
+        <translation>Ja</translation>
     </message>
     <message>
         <source>Copy of %1</source>
-        <translation>Kopia %1</translation>
+        <translation>Kopie von %1</translation>
     </message>
     <message>
         <source>New Template</source>
-        <translation>Nowy szablon</translation>
+        <translation>Neue Musterseite</translation>
     </message>
     <message>
         <source>Copy #%1 of </source>
-        <translation></translation>
+        <translation>Kopie #%1 von</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation>Normalny</translation>
+        <translation>Normal</translation>
     </message>
     <message>
         <source>Name:</source>
-        <translation>Nazwa:</translation>
+        <translation>Name:</translation>
     </message>
 </context>
 <context>
     <name>NewDoc</name>
     <message>
         <source>New Document</source>
-        <translation>Nowy dokument</translation>
+        <translation>Neues Dokument</translation>
     </message>
     <message>
         <source>Page Size</source>
-        <translation>Format strony</translation>
+        <translation>Seitenformat</translation>
     </message>
     <message>
         <source>Size:</source>
-        <translation>Rozmiar:</translation>
+        <translation>Größe:</translation>
     </message>
     <message>
         <source>Custom</source>
-        <translation>Definicja użytkownika</translation>
+        <translation>Benutzerdefiniert</translation>
     </message>
     <message>
         <source>Orientation:</source>
-        <translation>Orientacja:</translation>
+        <translation>Ausrichtung:</translation>
     </message>
     <message>
         <source>Portrait</source>
-        <translation>Portret</translation>
+        <translation>Hochformat</translation>
     </message>
     <message>
         <source>Landscape</source>
-        <translation>Pejzaż</translation>
+        <translation>Querformat</translation>
     </message>
     <message>
         <source>Width:</source>
-        <translation>Szerokość:</translation>
+        <translation>Breite:</translation>
     </message>
     <message>
         <source>Height:</source>
-        <translation>Wysokość:</translation>
+        <translation>Höhe:</translation>
     </message>
     <message>
         <source>Facing Pages</source>
-        <translation>Strony widzące się</translation>
+        <translation>Doppelseiten</translation>
     </message>
     <message>
         <source>Left Page first</source>
-        <translation>Lewa strona najpierw</translation>
+        <translation>Linke Seite zuerst</translation>
     </message>
     <message>
         <source>Margin Guides</source>
-        <translation>Marginesy</translation>
+        <translation>Ränder</translation>
     </message>
     <message>
         <source>Left:</source>
-        <translation>Po lewej:</translation>
+        <translation>Links:</translation>
     </message>
     <message>
         <source>Right:</source>
-        <translation>Po prawej:</translation>
+        <translation>Rechts:</translation>
     </message>
     <message>
         <source>Top:</source>
-        <translation>Na górze:</translation>
+        <translation>Oben:</translation>
     </message>
     <message>
         <source>Bottom:</source>
-        <translation>Na dole:</translation>
+        <translation>Unten:</translation>
     </message>
     <message>
         <source>Options</source>
-        <translation>Opcje</translation>
+        <translation>Optionen</translation>
     </message>
     <message>
         <source>First Page Number:</source>
-        <translation>Pierwszy numer strony:</translation>
+        <translation>Erste Seiten Nummer:</translation>
     </message>
     <message>
         <source>Default Unit:</source>
-        <translation>Jednostka:</translation>
+        <translation>Maßeinheit:</translation>
     </message>
     <message>
         <source>Points (pts)</source>
-        <translation>Punkty (pt)</translation>
+        <translation>Punkte (pts)</translation>
     </message>
     <message>
-        <source>Millimeters (mm)</source>
-        <translation>Milimetry (mm)</translation>
+        <source>Millimetres (mm)</source>
+        <translation>Millimeter (mm)</translation>
     </message>
     <message>
         <source>Inches (in)</source>
-        <translation>Cale (in)</translation>
+        <translation>Zoll (in)</translation>
     </message>
     <message>
         <source>Picas (p)</source>
-        <translation>Pica (p)</translation>
+        <translation>Picas (p)</translation>
     </message>
     <message>
         <source>Autom. Text Frames</source>
-        <translation>Autom. obramowanie tekstu</translation>
+        <translation>Autom. Textrahmen</translation>
     </message>
     <message>
         <source>Column Guides</source>
-        <translation>Szpalty</translation>
+        <translation>Spalteneinteilung</translation>
     </message>
     <message>
         <source>Gutter Width:</source>
-        <translation>Odstęp szpalt:</translation>
+        <translation>-abstand:</translation>
     </message>
     <message>
         <source>Columns:</source>
-        <translation>Szpalty:</translation>
+        <translation>Spalten:</translation>
     </message>
     <message>
         <source>OK</source>
@@ -3156,30 +3052,26 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <source>Inside:</source>
-        <translation>Wewnątrz:</translation>
+        <translation>Innen:</translation>
     </message>
     <message>
         <source>Outside:</source>
-        <translation>Na zewnątrz:</translation>
-    </message>
-    <message>
-        <source>Millimetres (mm)</source>
-        <translation>Milimetry (mm)</translation>
+        <translation>Außen:</translation>
     </message>
 </context>
 <context>
     <name>NewTm</name>
     <message>
         <source>Left Page</source>
-        <translation>Lewa strona</translation>
+        <translation>Linke Seite</translation>
     </message>
     <message>
         <source>Right Page</source>
-        <translation>Prawa strona</translation>
+        <translation>Rechte Seite</translation>
     </message>
     <message>
         <source>OK</source>
@@ -3187,414 +3079,366 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Abbrechen</translation>
     </message>
 </context>
 <context>
     <name>NodePalette</name>
     <message>
         <source>Nodes</source>
-        <translation>Węzły</translation>
+        <translation>Pfade</translation>
     </message>
     <message>
         <source>Absolute Coordinates</source>
-        <translation>Współrzędne bezwzględne</translation>
+        <translation>Absolute Koordinaten</translation>
     </message>
     <message>
         <source>X-Pos:</source>
-        <translation>Wsp. X:</translation>
+        <translation>X-Pos:</translation>
     </message>
     <message>
         <source>Y-Pos:</source>
-        <translation>Wsp. Y:</translation>
+        <translation>Y-Pos:</translation>
     </message>
     <message>
         <source>End Editing</source>
-        <translation>Zakończ edycję</translation>
+        <translation>Beenden</translation>
     </message>
     <message>
         <source>Move Nodes</source>
-        <translation>Przesuń węzły</translation>
+        <translation>Punkte verschieben</translation>
     </message>
     <message>
         <source>Move Control Points</source>
-        <translation>Przesuń punkty kontrolne</translation>
+        <translation>Kontrollpunkte verschieben</translation>
     </message>
     <message>
         <source>Add Nodes</source>
-        <translation>Dodaj węzły</translation>
+        <translation>Punkte hinzufügen</translation>
     </message>
     <message>
         <source>Delete Nodes</source>
-        <translation>Usuń węzły</translation>
+        <translation>Punkte löschen</translation>
     </message>
     <message>
         <source>Move Control Points independently</source>
-        <translation>Przesuń punkty kontrolne niezależnie od siebie</translation>
+        <translation>Kontrollpunkte unabhängig verschieben</translation>
     </message>
     <message>
         <source>Move Control Points symmetrical</source>
-        <translation>Przesuń punkty kontrolne symetrycznie</translation>
+        <translation>Kontrollpunkte symmetrisch verschieben</translation>
     </message>
     <message>
         <source>Reset Control Points</source>
-        <translation>Wyzeruj punkty kontrolne</translation>
+        <translation>Kontrollpunkte zurücksetzen</translation>
     </message>
     <message>
         <source>Reset this Control Point</source>
-        <translation>Wyzeruj ten punkt kontrolny</translation>
+        <translation>Diesen Kontrollpunkt zurücksetzen</translation>
     </message>
     <message>
         <source>Opens a Polygon or cuts a Bezier Curve</source>
-        <translation>Otwiera wielokąt lub przecina krzywą Beziera</translation>
+        <translation>Öffnet ein Polygon oder trennt eine Bezier Kurve auf</translation>
     </message>
     <message>
         <source>Closes this Bezier Curve</source>
-        <translation>Zamyka tę krzywą Beziera</translation>
+        <translation>Schließt diese Bezier Kurve</translation>
     </message>
     <message>
         <source>Mirrors the Path Horizontally</source>
-        <translation>Odwróć ścieżkę w poziomie</translation>
+        <translation>Spiegelt den Pfad horizontal</translation>
     </message>
     <message>
         <source>Mirrors the Path Vertically</source>
-        <translation>Odwróć ścieżkę w pionie</translation>
+        <translation>Spiegelt den Pfad vertikal</translation>
     </message>
     <message>
         <source>Shears the Path horizontal to the right</source>
-        <translation>Przemieszczenie w poziomie w prawo</translation>
+        <translation>Scherung nach rechts</translation>
     </message>
     <message>
         <source>Shears the Path horizontal to the left</source>
-        <translation>Przemieszczenie w poziomie w lewo</translation>
+        <translation>Scherung nach links</translation>
     </message>
     <message>
         <source>Shears the Path vertical up</source>
-        <translation>Przemieszczenie w pionie do góry</translation>
+        <translation>Scherung nach open</translation>
     </message>
     <message>
         <source>Shears the Path vertical down</source>
-        <translation>Przemieszczeniu w pionie na dół</translation>
+        <translation>Scherung nach unten</translation>
     </message>
     <message>
         <source>Rotates the Path counter-clockwise</source>
-        <translation>Obraca ścieżkę odwrotnie do ruchu wskazówek zegara</translation>
+        <translation>Rotiert Pfad um 1° gegen den Uhrzeigersinn</translation>
     </message>
     <message>
         <source>Rotates the Path clockwise</source>
-        <translation>Obraca ścieżkę zgodnie z ruchem wskazówek zegara</translation>
+        <translation>Rotiert Pfad um 1° im Uhrzeigersinn</translation>
     </message>
     <message>
         <source>Reduce the Size of the Path by 10%</source>
-        <translation>Zmniejsza rozmiar ścieżki o 10%</translation>
+        <translation>Verkleinert den Pfad um 10%</translation>
     </message>
     <message>
         <source>Enlarges the Size of the Path by 10%</source>
-        <translation>Zwiększa rozmiar ścieżki o 10%</translation>
+        <translation>Vergrößert den Pfad um 10%</translation>
     </message>
     <message>
         <source>When checked use Coordinates relative to the Page,
 otherwise Coordinates are relative to the Object.</source>
-        <translation>W przypadku zakreślenia, współrzędne odnoszą się do strony,
-w innym przypadku do obiektu.</translation>
+        <translation>Angekreuzt bedeutet Koordinaten sind relativ zur Seite,
+andernfalls relativ zum Objekt.</translation>
     </message>
 </context>
 <context>
     <name>PConsole</name>
     <message>
         <source>Script Console</source>
-        <translation>Konsola skryptowa</translation>
+        <translation>Script Konsole</translation>
     </message>
 </context>
 <context>
     <name>PDF_Opts</name>
     <message>
         <source>Create PDF-File</source>
-        <translation>Utwórz plik PDF</translation>
+        <translation>PDF erzeugen</translation>
     </message>
     <message>
         <source>Output to File:</source>
-        <translation>Plik wyjściowy:</translation>
+        <translation>Ausgabe in Datei:</translation>
     </message>
     <message>
         <source>Change...</source>
-        <translation>Zmień...</translation>
+        <translation>Ändern...</translation>
     </message>
     <message>
         <source>Export Range</source>
-        <translation>Zakres eksportu</translation>
+        <translation>Bereich</translation>
     </message>
     <message>
         <source>All Pages</source>
-        <translation>Wszystkie strony</translation>
+        <translation>Alle Seiten</translation>
     </message>
     <message>
         <source>From:</source>
-        <translation>Od:</translation>
+        <translation>Von:</translation>
     </message>
     <message>
         <source>to:</source>
-        <translation>do:</translation>
+        <translation>bis:</translation>
     </message>
     <message>
         <source>File Options</source>
-        <translation>Opcje pliku</translation>
+        <translation>Datei Optionen</translation>
     </message>
     <message>
         <source>Compatibility:</source>
-        <translation>Format pliku:</translation>
+        <translation>Dateiformat:</translation>
     </message>
     <message>
         <source>Binding:</source>
-        <translation>Odstęp dla zszycia:</translation>
+        <translation>Bund:</translation>
     </message>
     <message>
         <source>Left Margin</source>
-        <translation>Lewy margines</translation>
+        <translation>Linker Rand</translation>
     </message>
     <message>
         <source>Right Margin</source>
-        <translation>Prawy margines</translation>
+        <translation>Rechter Rand</translation>
     </message>
     <message>
         <source>Generate Thumbnails</source>
-        <translation>Generuj miniatury</translation>
+        <translation>Vorschauen erzeugen</translation>
     </message>
     <message>
         <source>Save linked Text Frames as PDF-Articles</source>
-        <translation>Zapisz połączone ramki tekstowe jako artykuły PDF</translation>
+        <translation>Textrahmenketten als PDF-Artikel speichern</translation>
     </message>
     <message>
         <source>Include Bookmarks</source>
-        <translation>Dołącz zakładki</translation>
+        <translation>Lesezeichen einfügen</translation>
     </message>
     <message>
         <source>Resolution:</source>
-        <translation>Rozdzielczość:</translation>
+        <translation>Auflösung:</translation>
     </message>
     <message>
         <source> dpi</source>
-        <translation></translation>
+        <translation> dpi</translation>
     </message>
     <message>
         <source>Compression</source>
-        <translation>Kompresja</translation>
+        <translation>Komprimierung</translation>
     </message>
     <message>
         <source>Downsample Images to:</source>
-        <translation>Rozdzielczość obrazków:</translation>
+        <translation>Auflösung von Bildern:</translation>
     </message>
     <message>
         <source>Compress Text and Vector Graphics</source>
-        <translation>Kompresja tekstu i grafiki wektorowej</translation>
+        <translation>Text und Vektorgrafiken komprimieren</translation>
     </message>
     <message>
         <source>General</source>
-        <translation>Ogólne</translation>
+        <translation>Allgemein</translation>
     </message>
     <message>
         <source>Embed all Fonts</source>
-        <translation>Zagnieźdź wszystkie czcionki</translation>
+        <translation>Alle Schriften einbetten</translation>
     </message>
     <message>
         <source>Embedding</source>
-        <translation>Zagnieżdżanie</translation>
+        <translation>Einbetten</translation>
     </message>
     <message>
         <source>Available Fonts:</source>
-        <translation>Dostępne czcionki:</translation>
+        <translation>Verfügbare Schriften:</translation>
     </message>
     <message>
         <source>&gt;&gt;</source>
-        <translation></translation>
+        <translation>&gt;&gt;</translation>
     </message>
     <message>
         <source>&lt;&lt;</source>
-        <translation></translation>
+        <translation>&lt;&lt;</translation>
     </message>
     <message>
         <source>Fonts to embed:</source>
-        <translation>Czcionki do zagnieżdżenia:</translation>
+        <translation>Einzubettende Schriften:</translation>
     </message>
     <message>
         <source>Fonts</source>
-        <translation>Czcionki</translation>
+        <translation>Schriften</translation>
     </message>
     <message>
         <source>Enable Presentation Effects</source>
-        <translation>Uaktywnij efekty prezentacyjne</translation>
+        <translation>Präsentations Effekte verwenden</translation>
     </message>
     <message>
         <source>Page</source>
-        <translation>Strona</translation>
+        <translation>Seite</translation>
     </message>
     <message>
         <source>Show Page Previews</source>
-        <translation>Wyświetlaj podgląd strony</translation>
+        <translation>Zeige Seiten Vorschau</translation>
     </message>
     <message>
         <source>Effects</source>
-        <translation>Efekty</translation>
+        <translation>Effekte</translation>
     </message>
     <message>
         <source>Display Duration:</source>
-        <translation>Czas wyświetlania:</translation>
+        <translation>Anzeigedauer:</translation>
     </message>
     <message>
         <source>Effect Duration:</source>
-        <translation>Trwanie efektu:</translation>
+        <translation>Effektdauer:</translation>
     </message>
     <message>
         <source>Effect Type:</source>
-        <translation>Typ efektu:</translation>
+        <translation>Art des Effekts:</translation>
     </message>
     <message>
         <source>Moving Lines:</source>
-        <translation>Ruchome linie:</translation>
+        <translation>Bewegte Linien:</translation>
     </message>
     <message>
         <source>from the:</source>
-        <translation>Od:</translation>
+        <translation>von:</translation>
     </message>
     <message>
         <source>Direction:</source>
-        <translation>Kierunek:</translation>
+        <translation>Richtung:</translation>
     </message>
     <message>
         <source> sec</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>No Effect</source>
-        <translation>Brak efektu</translation>
-    </message>
-    <message>
-        <source>Blinds</source>
-        <translation>Żaluzje</translation>
-    </message>
-    <message>
-        <source>Box</source>
-        <translation>Ramka</translation>
-    </message>
-    <message>
-        <source>Dissolve</source>
-        <translation>Znikanie</translation>
-    </message>
-    <message>
-        <source>Glitter</source>
-        <translation>Szachownica</translation>
-    </message>
-    <message>
-        <source>Split</source>
-        <translation>Dzielenie</translation>
-    </message>
-    <message>
-        <source>Wipe</source>
-        <translation>Zacieranie</translation>
+        <translation> sek</translation>
     </message>
     <message>
         <source>Horizontal</source>
-        <translation>Poziomo</translation>
+        <translation>Waagrecht</translation>
     </message>
     <message>
         <source>Vertical</source>
-        <translation>Pionowo</translation>
+        <translation>Vertikal</translation>
     </message>
     <message>
         <source>Inside</source>
-        <translation>Wewnątrz</translation>
+        <translation>Innen</translation>
     </message>
     <message>
         <source>Outside</source>
-        <translation>Zewnątrz</translation>
-    </message>
-    <message>
-        <source>Left to Right</source>
-        <translation>Od lewej do prawej</translation>
-    </message>
-    <message>
-        <source>Top to Bottom</source>
-        <translation>Od góry do dołu</translation>
-    </message>
-    <message>
-        <source>Bottom to Top</source>
-        <translation>Od dołu do góry</translation>
-    </message>
-    <message>
-        <source>Right to Left</source>
-        <translation>Od prawej do lewej</translation>
-    </message>
-    <message>
-        <source>Top-Left to Bottom-Right</source>
-        <translation>Od góry po lewej do dołu po prawej</translation>
+        <translation>Außen</translation>
     </message>
     <message>
         <source>Apply Effect on all Pages</source>
-        <translation>Zastosuj efekt do wszystkich stron</translation>
+        <translation>Effekt auf alle Seiten anwenden</translation>
     </message>
     <message>
         <source>Extras</source>
-        <translation>Dodatki</translation>
+        <translation>Extras</translation>
     </message>
     <message>
         <source>Use Encryption</source>
-        <translation>Zastosuj szyfrowanie</translation>
+        <translation>Verschlüsseln</translation>
     </message>
     <message>
         <source>Passwords</source>
-        <translation>Hasła</translation>
+        <translation>Passwörter</translation>
     </message>
     <message>
         <source>User:</source>
-        <translation>Użytkownik:</translation>
+        <translation>Benutzer:</translation>
     </message>
     <message>
         <source>Owner:</source>
-        <translation>Właściciel:</translation>
+        <translation>Eigentümer:</translation>
     </message>
     <message>
         <source>Settings</source>
-        <translation>Uprawnienia</translation>
+        <translation>Berechtigungen</translation>
     </message>
     <message>
         <source>Allow Printing the Document</source>
-        <translation>Dozwolone drukowanie dokumentu</translation>
+        <translation>Dokument drucken erlaubt</translation>
     </message>
     <message>
         <source>Allow Changing the Document</source>
-        <translation>Dozwolona zmiana dokumentu</translation>
+        <translation>Dokument ändern erlaubt</translation>
     </message>
     <message>
         <source>Copying Text and Graphics is allowed</source>
-        <translation>Dozwolone kopiowanie tekstu i grafiki</translation>
+        <translation>Texte und Bilder kopieren erlaubt</translation>
     </message>
     <message>
         <source>Adding Annotations and Fields is allowed</source>
-        <translation>Dozwolone dodawanie adnotacji i pól</translation>
+        <translation>Notizen und Formularfelder hinzufügen erlaubt</translation>
     </message>
     <message>
         <source>Security</source>
-        <translation>Bezpieczeństwo</translation>
+        <translation>Sicherheit</translation>
     </message>
     <message>
         <source>Output intended for:</source>
-        <translation>Plik wyjściowy przeznaczony dla:</translation>
+        <translation>Ausgabe vorgesehen für:</translation>
     </message>
     <message>
         <source>Screen / Web</source>
-        <translation>Monitor / Web</translation>
+        <translation>Monitor / Internet</translation>
     </message>
     <message>
         <source>Printer</source>
-        <translation>Drukarka</translation>
+        <translation>Drucker</translation>
     </message>
     <message>
         <source>Solid Colors:</source>
-        <translation>Jednolite kolory:</translation>
+        <translation>Farben:</translation>
     </message>
     <message>
         <source>Use ICC-Profile</source>
-        <translation>Zastosuj profil ICC</translation>
+        <translation>ICC-Profile einbetten</translation>
     </message>
     <message>
         <source>Profile:</source>
@@ -3602,55 +3446,39 @@ w innym przypadku do obiektu.</translation>
     </message>
     <message>
         <source>Rendering-Intent:</source>
-        <translation>Metoda konwersji::</translation>
-    </message>
-    <message>
-        <source>Perceptual</source>
-        <translation>Percepcja</translation>
-    </message>
-    <message>
-        <source>Relative Colorimetric</source>
-        <translation>Względnie kolorometryczna</translation>
-    </message>
-    <message>
-        <source>Saturation</source>
-        <translation>Nasycenie </translation>
-    </message>
-    <message>
-        <source>Absolute Colorimetric</source>
-        <translation>Absolutnie kolorometryczna</translation>
+        <translation>Render Priorität:</translation>
     </message>
     <message>
         <source>Images:</source>
-        <translation>Obrazki:</translation>
+        <translation>Bilder:</translation>
     </message>
     <message>
         <source>Don&apos;t use embedded ICC profiles</source>
-        <translation>Nie używaj zagnieżdżonych profili ICC</translation>
+        <translation>Eingebettete Profile nicht benutzen</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation>Kolor</translation>
+        <translation>Farbe</translation>
     </message>
     <message>
         <source>PDF/X-3 Output Intent</source>
-        <translation>Ustawienia dla pliku wyjściowego PDF/X-3</translation>
+        <translation>PDF/X-3 Ausgabebedingung</translation>
     </message>
     <message>
         <source>Info String:</source>
-        <translation>Komentarz:</translation>
+        <translation>Info Kommentar:</translation>
     </message>
     <message>
         <source>Output Profile:</source>
-        <translation>Profil wyjściowy:</translation>
+        <translation>Ausgabeprofil:</translation>
     </message>
     <message>
         <source>Trim Box</source>
-        <translation>Przycinanie</translation>
+        <translation>Trim Box</translation>
     </message>
     <message>
         <source>PDF/X-3</source>
-        <translation></translation>
+        <translation>PDF/X-3</translation>
     </message>
     <message>
         <source>OK</source>
@@ -3658,347 +3486,407 @@ w innym przypadku do obiektu.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <source>Save as</source>
-        <translation>Zapisz jako</translation>
+        <translation>Speichern unter</translation>
     </message>
     <message>
         <source>PDF-Files (*.pdf);;All Files (*)</source>
-        <translation>Pliki PDF (*.pdf);;Wszystkie pliki (*)</translation>
+        <translation>PDF-Dateien (*.pdf);;Alle Dateien (*)</translation>
+    </message>
+    <message>
+        <source>No Effect</source>
+        <translation>Kein Effekt</translation>
+    </message>
+    <message>
+        <source>Blinds</source>
+        <translation>Jalusie</translation>
+    </message>
+    <message>
+        <source>Box</source>
+        <translation>Einblenden</translation>
+    </message>
+    <message>
+        <source>Dissolve</source>
+        <translation>Auflösen</translation>
+    </message>
+    <message>
+        <source>Glitter</source>
+        <translation>Schachbrett</translation>
+    </message>
+    <message>
+        <source>Split</source>
+        <translation>Teilen</translation>
+    </message>
+    <message>
+        <source>Wipe</source>
+        <translation>Rollen</translation>
+    </message>
+    <message>
+        <source>Left to Right</source>
+        <translation>Links nach Rechts</translation>
+    </message>
+    <message>
+        <source>Top to Bottom</source>
+        <translation>Oben nach Unten</translation>
+    </message>
+    <message>
+        <source>Bottom to Top</source>
+        <translation>Unten nach Oben</translation>
+    </message>
+    <message>
+        <source>Right to Left</source>
+        <translation>Rechts nach Links</translation>
     </message>
     <message>
         <source>Top-left to Bottom-Right</source>
-        <translation>Od góry po lewej do dołu po prawej</translation>
+        <translation>Schräg von Links Oben</translation>
+    </message>
+    <message>
+        <source>Perceptual</source>
+        <translation>Wahrnehmung</translation>
+    </message>
+    <message>
+        <source>Relative Colorimetric</source>
+        <translation>Relativ Farbmetrisch</translation>
+    </message>
+    <message>
+        <source>Saturation</source>
+        <translation>Farbsättigung</translation>
+    </message>
+    <message>
+        <source>Absolute Colorimetric</source>
+        <translation>Absolut farbmetrisch</translation>
     </message>
 </context>
 <context>
     <name>PPreview</name>
     <message>
         <source>Print Preview</source>
-        <translation>Podgląd wydruku</translation>
+        <translation>Druck Vorschau</translation>
     </message>
     <message>
         <source>Page:</source>
-        <translation>Strona:</translation>
+        <translation>Seite:</translation>
     </message>
     <message>
         <source>Anti-alias Text</source>
-        <translation>Wygładzanie tekstu</translation>
+        <translation>Text glätten</translation>
     </message>
     <message>
         <source>Anti-alias Graphics</source>
-        <translation>Wygładzanie grafiki</translation>
+        <translation>Grafik glätten</translation>
     </message>
     <message>
         <source>All</source>
-        <translation>Wszystkie</translation>
+        <translation>Alle</translation>
     </message>
     <message>
         <source>Display Transparency</source>
-        <translation>Wyświetlaj przezroczystość</translation>
+        <translation>Transparenz anzeigen</translation>
+    </message>
+    <message>
+        <source>Display CMYK</source>
+        <translation>In CMYK anzeigen</translation>
+    </message>
+    <message>
+        <source>C</source>
+        <translation>C</translation>
+    </message>
+    <message>
+        <source>M</source>
+        <translation>M</translation>
+    </message>
+    <message>
+        <source>Y</source>
+        <translation>Y</translation>
+    </message>
+    <message>
+        <source>K</source>
+        <translation>K</translation>
     </message>
 </context>
 <context>
     <name>Page</name>
     <message>
         <source>Copy Here</source>
-        <translation>Kopiuj tutaj</translation>
+        <translation>Hierher kopieren</translation>
     </message>
     <message>
         <source>Move Here</source>
-        <translation>Przesuń tutaj</translation>
+        <translation>Hierher verschieben</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <source>Paste</source>
-        <translation>Wklej</translation>
+        <translation>Einfügen</translation>
     </message>
     <message>
         <source>Hide Margins</source>
-        <translation>Ukryj marginesy</translation>
+        <translation>Ränder verbergen</translation>
     </message>
     <message>
         <source>Show Margins</source>
-        <translation>Wyświetlaj marginesy</translation>
+        <translation>Zeige Ränder</translation>
     </message>
     <message>
         <source>Hide Frames</source>
-        <translation>Ukryj ramki</translation>
+        <translation>Rahmen verbergen</translation>
     </message>
     <message>
         <source>Show Frames</source>
-        <translation>Wyświetlaj ramki</translation>
+        <translation>Zeige Rahmen</translation>
     </message>
     <message>
         <source>Hide Images</source>
-        <translation>Ukryj obrazki</translation>
+        <translation>Bilder verbergen</translation>
     </message>
     <message>
         <source>Show Images</source>
-        <translation>Wyświetlaj obrazki</translation>
+        <translation>Zeige Bilder</translation>
     </message>
     <message>
         <source>Hide Grid</source>
-        <translation>Ukryj siatkę</translation>
+        <translation>Raster verbergen</translation>
     </message>
     <message>
         <source>Show Grid</source>
-        <translation>Wyświetlaj siatkę</translation>
+        <translation>Raster zeigen</translation>
     </message>
     <message>
         <source>Hide Guides</source>
-        <translation>Wyświetlaj linie pomocnicze</translation>
+        <translation>Hilfslinien verbergen</translation>
     </message>
     <message>
         <source>Show Guides</source>
-        <translation>Wyświetlaj linie pomocnicze</translation>
+        <translation>Hilfslinien zeigen</translation>
     </message>
     <message>
         <source>Snap to Grid</source>
-        <translation>Wyrównaj do siatki</translation>
+        <translation>Am Raster ausrichten</translation>
     </message>
     <message>
         <source>Snap to Guides</source>
-        <translation>Wyrównaj do linii pomocniczych</translation>
+        <translation>Hilfslinen magnetisch</translation>
     </message>
     <message>
         <source>Picture</source>
-        <translation>Obrazek</translation>
+        <translation>Bild</translation>
     </message>
     <message>
         <source>File: </source>
-        <translation>Plik: </translation>
+        <translation>Datei:</translation>
     </message>
     <message>
         <source>Original ppi: </source>
-        <translation>Oryginalne DPI: </translation>
+        <translation>DPI original: </translation>
     </message>
     <message>
         <source>Actual ppi: </source>
-        <translation>Rzeczywiste DPI: </translation>
+        <translation>DPI aktuell: </translation>
     </message>
     <message>
         <source>Linked Text</source>
-        <translation>Dowiązany tekst</translation>
+        <translation>Textkette</translation>
     </message>
     <message>
         <source>Text Frame</source>
-        <translation>Ramka tekstowa</translation>
+        <translation>Textrahmen</translation>
     </message>
     <message>
         <source>Text on a Path</source>
-        <translation>Tekst na ścieżce</translation>
+        <translation>Pfadtext</translation>
     </message>
     <message>
         <source>Paragraphs: </source>
-        <translation>Akapitów: </translation>
+        <translation>Absätze:</translation>
     </message>
     <message>
         <source>Words: </source>
-        <translation>Słów: </translation>
+        <translation>Wörter:</translation>
     </message>
     <message>
         <source>Chars: </source>
-        <translation>Znaków: </translation>
-    </message>
-    <message>
-        <source>Info</source>
-        <translation>Informacja</translation>
-    </message>
-    <message>
-        <source>Get Picture...</source>
-        <translation>Pobierz obrazek...</translation>
-    </message>
-    <message>
-        <source>Image Visible</source>
-        <translation>Obrazek widoczny</translation>
-    </message>
-    <message>
-        <source>Get Text...</source>
-        <translation>Pobierz tekst...</translation>
-    </message>
-    <message>
-        <source>Edit Text...</source>
-        <translation>Edytuj tekst...</translation>
-    </message>
-    <message>
-        <source>Is PDF-Bookmark</source>
-        <translation>Jest zakładką PDF</translation>
-    </message>
-    <message>
-        <source>Is PDF-Annotation</source>
-        <translation>Jest adnotacją PDF</translation>
-    </message>
-    <message>
-        <source>Annotation Properties</source>
-        <translation>Właściwości adnotacji</translation>
-    </message>
-    <message>
-        <source>Field Properties</source>
-        <translation>Właściwości pola</translation>
-    </message>
-    <message>
-        <source>Group</source>
-        <translation>Grupuj</translation>
-    </message>
-    <message>
-        <source>Un-group</source>
-        <translation>Rozgrupuj</translation>
-    </message>
-    <message>
-        <source>Lock</source>
-        <translation>Zabezpiecz</translation>
-    </message>
-    <message>
-        <source>Send to Back</source>
-        <translation>Przesuń na spód</translation>
-    </message>
-    <message>
-        <source>Bring to Front</source>
-        <translation>Przesuń na wierzch</translation>
-    </message>
-    <message>
-        <source>Lower</source>
-        <translation>O warstwę niżej</translation>
-    </message>
-    <message>
-        <source>Raise</source>
-        <translation>O warstwę wyżej</translation>
-    </message>
-    <message>
-        <source>Unlock</source>
-        <translation>Odbezpiecz</translation>
-    </message>
-    <message>
-        <source>Send to Scrapbook</source>
-        <translation>Przesuń do biblioteki</translation>
-    </message>
-    <message>
-        <source>Send to Layer</source>
-        <translation>Przesuń do warstwy</translation>
-    </message>
-    <message>
-        <source>Picture Frame</source>
-        <translation>Ramka graficzna</translation>
-    </message>
-    <message>
-        <source>Polygon</source>
-        <translation>Wielokąt</translation>
-    </message>
-    <message>
-        <source>Outlines</source>
-        <translation>Ścieżki</translation>
-    </message>
-    <message>
-        <source>Bezier Curve</source>
-        <translation>Krzywa Beziera</translation>
-    </message>
-    <message>
-        <source>Convert to</source>
-        <translation>Zamień na</translation>
-    </message>
-    <message>
-        <source>Show Properties...</source>
-        <translation>Wyświetlaj właściwości...</translation>
-    </message>
-    <message>
-        <source>Hide Properties...</source>
-        <translation>Ukryj właściwości...</translation>
-    </message>
-    <message>
-        <source>Cut</source>
-        <translation>Wytnij</translation>
-    </message>
-    <message>
-        <source>Copy</source>
-        <translation>Kopiuj</translation>
-    </message>
-    <message>
-        <source>Clear Contents</source>
-        <translation>Wyczyść zawartość</translation>
-    </message>
-    <message>
-        <source>Delete</source>
-        <translation>Usuń</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation>Brak</translation>
+        <translation>Zeichen:</translation>
     </message>
     <message>
         <source>Print: </source>
-        <translation>Drukuj:</translation>
+        <translation>Drucken:</translation>
     </message>
     <message>
         <source>Enabled</source>
-        <translation>Włączony</translation>
+        <translation>Ein</translation>
     </message>
     <message>
         <source>Disabled</source>
-        <translation>Wyłączony</translation>
+        <translation>Aus</translation>
+    </message>
+    <message>
+        <source>Info</source>
+        <translation>Info</translation>
+    </message>
+    <message>
+        <source>Get Picture...</source>
+        <translation>Bild laden...</translation>
+    </message>
+    <message>
+        <source>Image Visible</source>
+        <translation>Bild sichtbar</translation>
+    </message>
+    <message>
+        <source>Get Text...</source>
+        <translation>Text laden...</translation>
+    </message>
+    <message>
+        <source>Edit Text...</source>
+        <translation>Text bearbeiten...</translation>
+    </message>
+    <message>
+        <source>Is PDF-Bookmark</source>
+        <translation>Ist PDF-Lesezeichen</translation>
+    </message>
+    <message>
+        <source>Is PDF-Annotation</source>
+        <translation>Ist PDF-Anmerkung</translation>
+    </message>
+    <message>
+        <source>Annotation Properties</source>
+        <translation>Anmerkungs Eigenschaften</translation>
+    </message>
+    <message>
+        <source>Field Properties</source>
+        <translation>Feldeigenschaften</translation>
+    </message>
+    <message>
+        <source>Group</source>
+        <translation>Gruppieren</translation>
+    </message>
+    <message>
+        <source>Un-group</source>
+        <translation>Gruppe auflösen</translation>
+    </message>
+    <message>
+        <source>Lock</source>
+        <translation>Sperren</translation>
+    </message>
+    <message>
+        <source>Send to Back</source>
+        <translation>In den Hintergrund</translation>
+    </message>
+    <message>
+        <source>Bring to Front</source>
+        <translation>In den Vordergrund</translation>
+    </message>
+    <message>
+        <source>Lower</source>
+        <translation>Eine Ebene tiefer</translation>
+    </message>
+    <message>
+        <source>Raise</source>
+        <translation>Eine Ebene höher</translation>
+    </message>
+    <message>
+        <source>Unlock</source>
+        <translation>Entsperren</translation>
+    </message>
+    <message>
+        <source>Send to Scrapbook</source>
+        <translation>In die Bibliothek kopieren</translation>
+    </message>
+    <message>
+        <source>Send to Layer</source>
+        <translation>Kopiere nach Ebene</translation>
+    </message>
+    <message>
+        <source>Picture Frame</source>
+        <translation>Bildrahmen</translation>
+    </message>
+    <message>
+        <source>Polygon</source>
+        <translation>Polygon</translation>
+    </message>
+    <message>
+        <source>Outlines</source>
+        <translation>Pfade</translation>
+    </message>
+    <message>
+        <source>Bezier Curve</source>
+        <translation>Bezierkurve</translation>
+    </message>
+    <message>
+        <source>Convert to</source>
+        <translation>Umwandeln in</translation>
+    </message>
+    <message>
+        <source>Show Properties...</source>
+        <translation>Eigenschaften zeigen...</translation>
+    </message>
+    <message>
+        <source>Hide Properties...</source>
+        <translation>Eigenschaften verbergen...</translation>
+    </message>
+    <message>
+        <source>Cut</source>
+        <translation>Ausschneiden</translation>
+    </message>
+    <message>
+        <source>Copy</source>
+        <translation>Kopieren</translation>
+    </message>
+    <message>
+        <source>Clear Contents</source>
+        <translation>Inhalt löschen</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Löschen</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Keine</translation>
     </message>
 </context>
 <context>
     <name>PicSearch</name>
     <message>
         <source>Result</source>
-        <translation>Wynik</translation>
+        <translation>Ergebnis</translation>
     </message>
     <message>
         <source>Search Results for: </source>
-        <translation>Wynik szukania dla: </translation>
+        <translation>Suchergebnis für: </translation>
     </message>
     <message>
         <source>Preview</source>
-        <translation>Podgląd</translation>
+        <translation>Vorschau</translation>
     </message>
     <message>
         <source>Select</source>
-        <translation>Wybierz</translation>
+        <translation>Auswählen</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Abbrechen</translation>
     </message>
 </context>
 <context>
     <name>PicStatus</name>
     <message>
         <source>Pictures</source>
-        <translation>Obrazki</translation>
-    </message>
-    <message>
-        <source>Name</source>
-        <translation>Nazwa</translation>
-    </message>
-    <message>
-        <source>Path</source>
-        <translation>Ścieżka</translation>
-    </message>
-    <message>
-        <source>Page</source>
-        <translation>Strona</translation>
-    </message>
-    <message>
-        <source>Print</source>
-        <translation>Drukuj</translation>
-    </message>
-    <message>
-        <source>Status</source>
-        <translation>Stan</translation>
+        <translation>Bilder</translation>
     </message>
     <message>
         <source>Goto</source>
-        <translation>Idź do</translation>
+        <translation>Gehe zu</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation>Tak</translation>
+        <translation>Ja</translation>
     </message>
     <message>
         <source>OK</source>
@@ -4006,38 +3894,38 @@ w innym przypadku do obiektu.</translation>
     </message>
     <message>
         <source>Missing</source>
-        <translation>Brakująca</translation>
+        <translation>Fehlend</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation>Szukaj</translation>
+        <translation>Suche</translation>
     </message>
 </context>
 <context>
     <name>PolygonProps</name>
     <message>
         <source>Polygon Properties</source>
-        <translation>Właściwości wielokąta</translation>
+        <translation>Polygon Eigenschaften</translation>
     </message>
     <message>
         <source>Corners:</source>
-        <translation>Rogi:</translation>
+        <translation>Ecken:</translation>
     </message>
     <message>
         <source>Rotation:</source>
-        <translation>Obrót:</translation>
+        <translation>Drehung:</translation>
     </message>
     <message>
         <source>Convex Polygon</source>
-        <translation>Wypukły wielokąt</translation>
+        <translation>Konvexes Polygon</translation>
     </message>
     <message>
         <source>Factor:</source>
-        <translation>Współczynnik:</translation>
+        <translation>Faktor:</translation>
     </message>
     <message>
         <source> %</source>
-        <translation></translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>OK</source>
@@ -4045,330 +3933,314 @@ w innym przypadku do obiektu.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Abbrechen</translation>
     </message>
 </context>
 <context>
     <name>Preferences</name>
     <message>
         <source>Preferences</source>
-        <translation>Ustawienia</translation>
-    </message>
-    <message>
-        <source>General</source>
-        <translation>Ogólne</translation>
+        <translation>Voreinstellungen</translation>
     </message>
     <message>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
     <message>
-        <source>Guides</source>
-        <translation>Linie pomocnicze</translation>
-    </message>
-    <message>
-        <source>Typography</source>
-        <translation>Typografia</translation>
-    </message>
-    <message>
         <source>Tools</source>
-        <translation>Narzędzia</translation>
+        <translation>Werkzeuge</translation>
     </message>
     <message>
         <source>Scrapbook</source>
-        <translation>Biblioteka</translation>
-    </message>
-    <message>
-        <source>Display</source>
-        <translation>Widok</translation>
+        <translation>Bibliothek</translation>
     </message>
     <message>
         <source>GUI</source>
-        <translation>Graficzny interfejs użytkownika</translation>
+        <translation>Oberfläche</translation>
     </message>
     <message>
         <source>Theme</source>
-        <translation>Styl</translation>
+        <translation>Thema</translation>
     </message>
     <message>
         <source>Font Size:</source>
-        <translation>Rozmiar czcionki:</translation>
+        <translation>Schriftgröße:</translation>
     </message>
     <message>
         <source> pts</source>
-        <translation></translation>
+        <translation>pts</translation>
     </message>
     <message>
         <source>Units</source>
-        <translation>Jednostki</translation>
+        <translation>Einheiten</translation>
     </message>
     <message>
         <source>Points (pt)</source>
-        <translation>Punkty (pt)</translation>
+        <translation>Punkte (pt)</translation>
     </message>
     <message>
         <source>Millimetres (mm)</source>
-        <translation>Milimetry (mm)</translation>
+        <translation>Millimeter (mm)</translation>
     </message>
     <message>
         <source>Inches (in)</source>
-        <translation>Cale (in)</translation>
+        <translation>Zoll (in)</translation>
     </message>
     <message>
         <source>Picas (p)</source>
-        <translation>Pica (p)</translation>
+        <translation>Picas (p)</translation>
     </message>
     <message>
         <source>Mouse-Settings</source>
-        <translation>Konfiguracja myszy</translation>
+        <translation>Maus-Einstellungen</translation>
     </message>
     <message>
         <source>Wheel-Jump</source>
-        <translation>Skok kółka</translation>
+        <translation>Rad-Vorschub</translation>
     </message>
     <message>
         <source>Grab-Radius</source>
-        <translation>Zasięg chwytania</translation>
+        <translation>Fangradius</translation>
     </message>
     <message>
         <source>Menus</source>
-        <translation>Menu</translation>
+        <translation>Menüs</translation>
     </message>
     <message>
         <source>Recent Documents:</source>
-        <translation>Otwórz poprzedni:</translation>
+        <translation>Letzte Dokumente:</translation>
     </message>
     <message>
         <source>Keyboard Shortcuts...</source>
-        <translation>Skróty klawiszowe...</translation>
+        <translation>Tastaturkürzel...</translation>
     </message>
     <message>
         <source>Paths</source>
-        <translation>Ścieżki</translation>
+        <translation>Pfade</translation>
     </message>
     <message>
         <source>Documents:</source>
-        <translation>Dokumenty:</translation>
+        <translation>Dokumente:</translation>
     </message>
     <message>
         <source>Change...</source>
-        <translation>Zmień...</translation>
+        <translation>Ändern...</translation>
     </message>
     <message>
         <source>ICC-Profiles:</source>
-        <translation>Profile ICC:</translation>
+        <translation>ICC-Profile:</translation>
     </message>
     <message>
         <source>Scripts:</source>
-        <translation>Skrypty:</translation>
+        <translation>Skripte:</translation>
     </message>
     <message>
         <source>Page Size</source>
-        <translation>Format strony</translation>
+        <translation>Seitenformat</translation>
     </message>
     <message>
         <source>Orientation:</source>
-        <translation>Orientacja:</translation>
+        <translation>Ausrichtung:</translation>
     </message>
     <message>
         <source>Custom</source>
-        <translation>Definicja użytkownika</translation>
+        <translation>Benutzerdefiniert</translation>
     </message>
     <message>
         <source>Portrait</source>
-        <translation>Portret</translation>
+        <translation>Hochformat</translation>
     </message>
     <message>
         <source>Landscape</source>
-        <translation>Pejzaż</translation>
+        <translation>Querformat</translation>
     </message>
     <message>
         <source>Size:</source>
-        <translation>Rozmiar:</translation>
+        <translation>Größe:</translation>
     </message>
     <message>
         <source>Width:</source>
-        <translation>Szerokość:</translation>
+        <translation>Breite:</translation>
     </message>
     <message>
         <source>Height:</source>
-        <translation>Wysokość:</translation>
+        <translation>Höhe:</translation>
     </message>
     <message>
         <source>Facing Pages</source>
-        <translation>Strony widzące się</translation>
+        <translation>Doppelseiten</translation>
     </message>
     <message>
         <source>Left Page First</source>
-        <translation>Lewa strona najpierw</translation>
+        <translation>Linke Seite zuerst</translation>
     </message>
     <message>
         <source>Margin Guides</source>
-        <translation>Marginesy</translation>
+        <translation>Ränder</translation>
     </message>
     <message>
         <source>Bottom:</source>
-        <translation>Na dole:</translation>
+        <translation>Unten:</translation>
     </message>
     <message>
         <source>Top:</source>
-        <translation>Na górze:</translation>
+        <translation>Oben:</translation>
     </message>
     <message>
         <source>Right:</source>
-        <translation>Po prawej:</translation>
+        <translation>Rechts:</translation>
     </message>
     <message>
         <source>Left:</source>
-        <translation>Po lewej:</translation>
+        <translation>Links:</translation>
     </message>
     <message>
         <source>Autosave</source>
-        <translation>Automatyczny zapis</translation>
+        <translation>Autom. Speichern</translation>
     </message>
     <message>
         <source>Enabled</source>
-        <translation>Włączony</translation>
+        <translation>Eingeschaltet</translation>
     </message>
     <message>
         <source>Interval:</source>
-        <translation>Interwał:</translation>
+        <translation>alle:</translation>
     </message>
     <message>
         <source>min</source>
-        <translation></translation>
+        <translation>min</translation>
     </message>
     <message>
         <source>Grid Layout</source>
-        <translation>Układ linii pomocniczych</translation>
+        <translation>Hilfslinien Einrichtung</translation>
     </message>
     <message>
         <source>Minor Grid Spacing:</source>
-        <translation>Odstęp linii dodatkowej siatki:</translation>
+        <translation>Abstand Teillinien:</translation>
     </message>
     <message>
         <source>Major Grid Spacing:</source>
-        <translation>Odstęp linii głównej siatki:</translation>
+        <translation>Abstand Hauptlinien:</translation>
     </message>
     <message>
         <source>Guide Snap Distance:</source>
-        <translation>Zasięg chwytu linii pomocniczej:</translation>
+        <translation>Fang Hilfslinien:</translation>
     </message>
     <message>
         <source>Grid Colors</source>
-        <translation>Kolor linii pomocniczych</translation>
+        <translation>Hilfslinienfarben</translation>
     </message>
     <message>
         <source>Minor Grid Color:</source>
-        <translation>Kolor linii dodatkowej siatki:</translation>
+        <translation>Farbe Teillinien:</translation>
     </message>
     <message>
         <source>Major Grid Color:</source>
-        <translation>Kolor linii głównej siatki:</translation>
+        <translation>Farbe Hauptlinien:</translation>
     </message>
     <message>
         <source>User Guides Color:</source>
-        <translation>Kolor linii pomocniczych:</translation>
+        <translation>Farbe Hilfslinien:</translation>
     </message>
     <message>
         <source>Placing</source>
-        <translation>Pozycja</translation>
+        <translation>Platzierung</translation>
     </message>
     <message>
         <source>In the Background</source>
-        <translation>W tle</translation>
+        <translation>Im Hintergrund</translation>
     </message>
     <message>
         <source>In the Foreground</source>
-        <translation>Z przodu</translation>
+        <translation>Im Vordergrund</translation>
     </message>
     <message>
         <source>Subscript</source>
-        <translation>Indeks dolny</translation>
+        <translation>Tiefgestellt</translation>
     </message>
     <message>
         <source>Scaling:</source>
-        <translation>Rozmiar:</translation>
+        <translation>Skalierung:</translation>
     </message>
     <message>
         <source>Disp.:</source>
-        <translation>Przesunięcie:</translation>
+        <translation>Versatz:</translation>
     </message>
     <message>
         <source> %</source>
-        <translation></translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>Superscript</source>
-        <translation>Indeks górny</translation>
+        <translation>Hochgestellt</translation>
     </message>
     <message>
         <source>Small Caps</source>
-        <translation>Kapitaliki</translation>
+        <translation>Kapitälchen</translation>
     </message>
     <message>
         <source>Other</source>
-        <translation>Inne</translation>
+        <translation>Andere</translation>
     </message>
     <message>
         <source>Automatic Line Spacing:</source>
-        <translation>Automatyczna interlinia:</translation>
+        <translation>Automatischer Zeilenabstand:</translation>
     </message>
     <message>
         <source>Default Size:</source>
-        <translation>Domyślny rozmiar:</translation>
+        <translation>Größenvorgabe:</translation>
     </message>
     <message>
         <source>Default Font:</source>
-        <translation>Domyślna czcionka:</translation>
+        <translation>Standard Schrift:</translation>
     </message>
     <message>
         <source>Text Color:</source>
-        <translation>Kolor tekstu:</translation>
+        <translation>Textfarbe:</translation>
     </message>
     <message>
         <source>Columns:</source>
-        <translation>Szpalty:</translation>
+        <translation>Spalten:</translation>
     </message>
     <message>
         <source>Gap:</source>
-        <translation>Odstęp między szpaltami:</translation>
+        <translation>Abstand:</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation></translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
-        <translation>Zażółć Gęślą Jaźń AaBbCc1!2@3#</translation>
+        <translation>Beispiel Text</translation>
     </message>
     <message>
         <source>Line Color:</source>
-        <translation>Kolor linii:</translation>
+        <translation>Linienfarbe:</translation>
     </message>
     <message>
         <source>Shading:</source>
-        <translation>Cieniowanie:</translation>
+        <translation>Tonwert:</translation>
     </message>
     <message>
         <source>Fill Color:</source>
-        <translation>Kolor wypełnienia:</translation>
+        <translation>Füllfarbe:</translation>
     </message>
     <message>
         <source>Linestyle:</source>
-        <translation>Styl linii:</translation>
+        <translation>Linienstil:</translation>
     </message>
     <message>
         <source>Line Width:</source>
-        <translation>Grubość linii:</translation>
+        <translation>Linienbreite:</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>Brak</translation>
+        <translation>Keine</translation>
     </message>
     <message>
         <source>Line Style:</source>
-        <translation>Styl linii:</translation>
+        <translation>Linienstil:</translation>
     </message>
     <message>
         <source>Minimum:</source>
@@ -4376,107 +4248,107 @@ w innym przypadku do obiektu.</translation>
     </message>
     <message>
         <source>Maximum:</source>
-        <translation>Maksimum:</translation>
+        <translation>Maximum:</translation>
     </message>
     <message>
         <source>Stepping:</source>
-        <translation>Skok:</translation>
+        <translation>Schrittweite:</translation>
     </message>
     <message>
         <source>Free Scaling</source>
-        <translation>Skalowanie ręczne</translation>
+        <translation>Freies Skalieren</translation>
     </message>
     <message>
         <source>Horizontal Scaling</source>
-        <translation>Skalowanie w poziomie</translation>
+        <translation>Horiz. Skalierung</translation>
     </message>
     <message>
         <source>Vertical Scaling</source>
-        <translation>Skalowanie w pionie</translation>
+        <translation>Vertik. Skalierung</translation>
     </message>
     <message>
         <source>Scale Picture to Frame Size</source>
-        <translation>Dopasuj obrazek do rozmiaru ramki</translation>
+        <translation>Bild an Rahmen anpassen</translation>
     </message>
     <message>
         <source>Keep Aspect Ratio</source>
-        <translation>Zachowaj proporcje</translation>
+        <translation>Seitenverhältnis beibehalten</translation>
     </message>
     <message>
         <source>Corners:</source>
-        <translation>Rogi:</translation>
+        <translation>Ecken:</translation>
     </message>
     <message>
         <source>Rotation:</source>
-        <translation>Obrót:</translation>
+        <translation>Drehung:</translation>
     </message>
     <message>
         <source>Convex Polygon</source>
-        <translation>Wypukły wielokąt</translation>
+        <translation>Konvexes Polygon</translation>
     </message>
     <message>
         <source>Factor:</source>
-        <translation>Współczynnik:</translation>
+        <translation>Faktor:</translation>
     </message>
     <message>
         <source>Other Options</source>
-        <translation>Inne opcje</translation>
+        <translation>Andere Optionen</translation>
     </message>
     <message>
         <source>Save Contents on Exit</source>
-        <translation>Zapisz zawartość przed zakończeniem programu</translation>
+        <translation>Inhalt bei Programmende speichern</translation>
     </message>
     <message>
         <source>Preview</source>
-        <translation>Podgląd</translation>
+        <translation>Vorschau</translation>
     </message>
     <message>
         <source>Small</source>
-        <translation>Mały</translation>
+        <translation>Klein</translation>
     </message>
     <message>
         <source>Medium</source>
-        <translation>Średni</translation>
+        <translation>Mittel</translation>
     </message>
     <message>
         <source>Big</source>
-        <translation>Duży</translation>
+        <translation>Groß</translation>
     </message>
     <message>
         <source>Display Frames</source>
-        <translation>Wyświetlaj ramki</translation>
+        <translation>Zeige Rahmen</translation>
     </message>
     <message>
         <source>Display Pages Side by Side</source>
-        <translation>Wyświetlaj strony obok siebie</translation>
+        <translation>Seiten nebeneinander</translation>
     </message>
     <message>
         <source>Page-Colors</source>
-        <translation>Kolory strony</translation>
+        <translation>Seiten-Farben</translation>
     </message>
     <message>
         <source>Background:</source>
-        <translation>Tło:</translation>
+        <translation>Hintergrund:</translation>
     </message>
     <message>
         <source>Margins:</source>
-        <translation>Marginesy:</translation>
+        <translation>Ränder:</translation>
     </message>
     <message>
         <source>Display Unprintable Area in Margin Color</source>
-        <translation>Wyświetlaj obszar niedrukowalny w kolorze marginesu</translation>
+        <translation>Nicht druckbaren Bereich in Randfarbe zeigen</translation>
     </message>
     <message>
         <source>Use PDF-1.4 Transparency Features</source>
-        <translation>Zastosuj przezroczystość z PDF-1.4</translation>
+        <translation>PDF-1.4 Tranzparenzen benutzen</translation>
     </message>
     <message>
         <source>Adjust Display Size</source>
-        <translation>Dopasuj wielkość widoku</translation>
+        <translation>Größenanpassung der Anzeige</translation>
     </message>
     <message>
         <source>To adjust the display drag the ruler below with the Slider.</source>
-        <translation>Aby dopasować wielkość widoku, użyj suwaka znajdującego się poniżej.</translation>
+        <translation>Zum Einstellen der Anzeigegröße das Lineal mit dem Regler anpassen.</translation>
     </message>
     <message>
         <source>OK</source>
@@ -4484,74 +4356,90 @@ w innym przypadku do obiektu.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <source>Choose a Directory</source>
-        <translation>Wybierz katalog</translation>
+        <translation>Wählen Sie ein Verzeichnis</translation>
     </message>
     <message>
         <source>Inside:</source>
-        <translation>Wewnątrz:</translation>
+        <translation>Innen:</translation>
     </message>
     <message>
         <source>Outside:</source>
-        <translation>Na zewnątrz:</translation>
+        <translation>Außen:</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation></translation>
+        <translation>mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation></translation>
+        <translation>in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation></translation>
+        <translation>p</translation>
+    </message>
+    <message>
+        <source>General</source>
+        <translation>Allgemein</translation>
+    </message>
+    <message>
+        <source>Guides</source>
+        <translation>Hilfslinien</translation>
+    </message>
+    <message>
+        <source>Typography</source>
+        <translation>Typografie</translation>
+    </message>
+    <message>
+        <source>Display</source>
+        <translation>Anzeige</translation>
     </message>
 </context>
 <context>
     <name>QColorDialog</name>
     <message>
         <source>Hu&amp;e:</source>
-        <translation>&amp;H:</translation>
+        <translation>Farb&amp;ton:</translation>
     </message>
     <message>
         <source>&amp;Sat:</source>
-        <translation>&amp;S:</translation>
+        <translation>&amp;Sat:</translation>
     </message>
     <message>
         <source>&amp;Val:</source>
-        <translation>&amp;V:</translation>
+        <translation>&amp;Val:</translation>
     </message>
     <message>
         <source>&amp;Red:</source>
-        <translation>&amp;R:</translation>
+        <translation>&amp;Rot:</translation>
     </message>
     <message>
         <source>&amp;Green:</source>
-        <translation>&amp;G:</translation>
+        <translation>&amp;Grün:</translation>
     </message>
     <message>
         <source>Bl&amp;ue:</source>
-        <translation>&amp;B:</translation>
+        <translation>Bla&amp;u:</translation>
     </message>
     <message>
         <source>A&amp;lpha channel:</source>
-        <translation>K&amp;anał alfa:</translation>
+        <translation>A&amp;lphakanal:</translation>
     </message>
     <message>
         <source>&amp;Basic colors</source>
-        <translation>&amp;Podstawowe kolory</translation>
+        <translation>Grundfar&amp;ben</translation>
     </message>
     <message>
         <source>&amp;Custom colors</source>
-        <translation>&amp;Kolory użytkownika</translation>
+        <translation>&amp;Benutzerdefinierte Farben</translation>
     </message>
     <message>
         <source>&amp;Define Custom Colors &gt;&gt;</source>
-        <translation>&amp;Definiuj kolory użytkownika &gt;&gt;</translation>
+        <translation>Eigene Farben &amp;definieren &gt;&gt;</translation>
     </message>
     <message>
         <source>OK</source>
@@ -4559,58 +4447,58 @@ w innym przypadku do obiektu.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <source>&amp;Add to Custom Colors</source>
-        <translation>D&amp;odaj do kolorów użytkownika</translation>
+        <translation>Zu benutzerdefinierten Farben &amp;hinzufügen</translation>
     </message>
     <message>
         <source>Select color</source>
-        <translation>Wybierz kolor</translation>
+        <translation>Farbauswahl</translation>
     </message>
 </context>
 <context>
     <name>QFileDialog</name>
     <message>
         <source>Copy or Move a File</source>
-        <translation>Kopiuj albo przesuń plik</translation>
+        <translation>Datei kopieren oder verschieben</translation>
     </message>
     <message>
         <source>Read: %1</source>
-        <translation>Odczyt: %1</translation>
+        <translation>Lesen: %1</translation>
     </message>
     <message>
         <source>Write: %1</source>
-        <translation>Zapis: %1</translation>
+        <translation>Schreiben: %1</translation>
     </message>
     <message>
         <source>File &amp;name:</source>
-        <translation>&amp;Nazwa pliku:</translation>
+        <translation>Datei&amp;name:</translation>
     </message>
     <message>
         <source>File &amp;type:</source>
-        <translation>&amp;Typ pliku:</translation>
+        <translation>Datei&amp;typ:</translation>
     </message>
     <message>
         <source>One directory up</source>
-        <translation>Katalog wyżej</translation>
+        <translation>Ein Verzeichnis zurück</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <source>All Files (*)</source>
-        <translation>Wszystkie pliki (*)</translation>
+        <translation>Alle Dateien (*)</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation>Nazwa</translation>
+        <translation>Name</translation>
     </message>
     <message>
         <source>Size</source>
-        <translation>Rozmiar</translation>
+        <translation>Größe</translation>
     </message>
     <message>
         <source>Type</source>
@@ -4618,11 +4506,11 @@ w innym przypadku do obiektu.</translation>
     </message>
     <message>
         <source>Date</source>
-        <translation>Data</translation>
+        <translation>Datum</translation>
     </message>
     <message>
         <source>Attributes</source>
-        <translation>Atrybuty</translation>
+        <translation>Attribute</translation>
     </message>
     <message>
         <source>OK</source>
@@ -4630,333 +4518,255 @@ w innym przypadku do obiektu.</translation>
     </message>
     <message>
         <source>Look &amp;in:</source>
-        <translation>Szukaj &amp;w:</translation>
+        <translation>Su&amp;chen in:</translation>
     </message>
     <message>
         <source>Back</source>
-        <translation>Cofnij</translation>
+        <translation>Zurück</translation>
     </message>
     <message>
         <source>Create New Folder</source>
-        <translation>Nowy katalog</translation>
+        <translation>Neuen Ordner erstellen</translation>
     </message>
     <message>
         <source>List View</source>
-        <translation>Widok listy</translation>
+        <translation>Liste</translation>
     </message>
     <message>
         <source>Detail View</source>
-        <translation>Widok szczegółowy</translation>
+        <translation>Ausführlich</translation>
     </message>
     <message>
         <source>Preview File Info</source>
-        <translation>Podgląd informacji o pliku</translation>
+        <translation>Voransicht der Datei-Info</translation>
     </message>
     <message>
         <source>Preview File Contents</source>
-        <translation>Podgląd zawartości pliku</translation>
+        <translation>Voransicht des Datei-Inhalts</translation>
     </message>
     <message>
         <source>Read-write</source>
-        <translation>Odczyt-zapis</translation>
+        <translation>Lesen/Schreiben</translation>
     </message>
     <message>
         <source>Read-only</source>
-        <translation>Tylko odczyt</translation>
+        <translation>Nur Lesen</translation>
     </message>
     <message>
         <source>Write-only</source>
-        <translation>Tylko zapis</translation>
+        <translation>Nur Schreiben</translation>
     </message>
     <message>
         <source>Inaccessible</source>
-        <translation>Niedostępny</translation>
+        <translation>Gesperrt</translation>
     </message>
     <message>
         <source>Symlink to File</source>
-        <translation>Symboliczne dowiązanie do pliku</translation>
+        <translation>Link auf Datei</translation>
     </message>
     <message>
         <source>Symlink to Directory</source>
-        <translation>Symboliczne dowiązanie do katalogu</translation>
+        <translation>Link auf Verzeichnis</translation>
     </message>
     <message>
         <source>Symlink to Special</source>
-        <translation>Symboliczne dowiązanie do specjalnego pliku</translation>
+        <translation>Link auf Spezialdatei</translation>
     </message>
     <message>
         <source>File</source>
-        <translation>Plik</translation>
+        <translation>Datei</translation>
     </message>
     <message>
         <source>Dir</source>
-        <translation>Katalog</translation>
+        <translation>Verzeichnis</translation>
     </message>
     <message>
         <source>Special</source>
-        <translation>Plik specjalny</translation>
+        <translation>Spezialattribut</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation>Otwórz</translation>
+        <translation>Öffnen</translation>
     </message>
     <message>
         <source>Save As</source>
-        <translation>Zapisz jako</translation>
+        <translation>Speichern unter</translation>
     </message>
     <message>
         <source>&amp;Open</source>
-        <translation>&amp;Otwórz</translation>
+        <translation>&amp;Öffnen</translation>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation>&amp;Zapisz</translation>
+        <translation>S&amp;peichern</translation>
     </message>
     <message>
         <source>&amp;Rename</source>
-        <translation>Z&amp;mień nazwę</translation>
+        <translation>&amp;Umbenennen</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation>&amp;Usuń</translation>
+        <translation>&amp;Löschen</translation>
     </message>
     <message>
         <source>R&amp;eload</source>
-        <translation>&amp;Aktualizuj</translation>
+        <translation>Erne&amp;ut laden</translation>
     </message>
     <message>
         <source>Sort by &amp;Name</source>
-        <translation>&amp;Sortuj według nazwy</translation>
+        <translation>Nach &amp;Name sortieren</translation>
     </message>
     <message>
         <source>Sort by &amp;Size</source>
-        <translation>Sortuj według &amp;wielkości</translation>
+        <translation>Nach &amp;Größe sortieren</translation>
     </message>
     <message>
         <source>Sort by &amp;Date</source>
-        <translation>Sortuj według &amp;daty</translation>
+        <translation>Nach &amp;Datum sortieren</translation>
     </message>
     <message>
         <source>&amp;Unsorted</source>
-        <translation>&amp;Bez sortowania</translation>
+        <translation>&amp;Unsortiert</translation>
     </message>
     <message>
         <source>Sort</source>
-        <translation>Sortuj</translation>
+        <translation>Sortieren</translation>
     </message>
     <message>
         <source>Show &amp;hidden files</source>
-        <translation>Pokaż ukryt&amp;e pliki</translation>
+        <translation>&amp;Versteckte Dateien anzeigen</translation>
     </message>
     <message>
         <source>the file</source>
-        <translation>plik</translation>
+        <translation>die Datei</translation>
     </message>
     <message>
         <source>the directory</source>
-        <translation>katalog</translation>
+        <translation>das Verzeichnis</translation>
     </message>
     <message>
         <source>the symlink</source>
-        <translation>symboliczne dowiązanie</translation>
+        <translation>den symbolischen Link</translation>
     </message>
     <message>
         <source>Delete %1</source>
-        <translation>Usuń %1</translation>
+        <translation>%1 löschen</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Are you sure you wish to delete %1 &quot;%2&quot;?&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Czy na pewno usunąć %1 &quot;%2&quot;?&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;Sind Sie sicher, dass Sie %1 &quot;%2&quot; löschen möchten?&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
-        <translation>&amp;Tak</translation>
+        <translation>&amp;Ja</translation>
     </message>
     <message>
         <source>&amp;No</source>
-        <translation>&amp;Nie</translation>
+        <translation>N&amp;ein</translation>
     </message>
     <message>
         <source>New Folder 1</source>
-        <translation>Nowy katalog 1</translation>
+        <translation>Neues Verzeichnis 1</translation>
     </message>
     <message>
         <source>New Folder</source>
-        <translation>Nowy katalog</translation>
+        <translation>Neues Verzeichnis</translation>
     </message>
     <message>
         <source>New Folder %1</source>
-        <translation>Nowy katalog %1</translation>
+        <translation>Neues Verzeichnis %1</translation>
     </message>
     <message>
         <source>Find Directory</source>
-        <translation>Znajdź katalog</translation>
+        <translation>Verzeichnis suchen</translation>
     </message>
     <message>
         <source>Directories</source>
-        <translation>Katalogi</translation>
+        <translation>Verzeichnisse</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Zapisz</translation>
+        <translation>Speichern</translation>
     </message>
     <message>
         <source>Error</source>
-        <translation>Błąd</translation>
+        <translation>Fehler</translation>
+    </message>
+    <message>
+        <source>All Files (*.*)</source>
+        <translation>Alle Dateien (*.*)</translation>
+    </message>
+    <message>
+        <source>Select a Directory</source>
+        <translation>Wählen Sie ein Verzeichnis</translation>
+    </message>
+    <message>
+        <source>Directory:</source>
+        <translation>Verzeichnis:</translation>
     </message>
     <message>
         <source>%1
 File not found.
 Check path and filename.</source>
         <translation>%1
-Nie znaleziono pliku.
-Sprawdź katalog i nazwę pliku.</translation>
-    </message>
-    <message>
-        <source>All Files (*.*)</source>
-        <translation>Wszystkie pliki (*)</translation>
-    </message>
-    <message>
-        <source>Select a Directory</source>
-        <translation>Wybierz katalog</translation>
-    </message>
-    <message>
-        <source>Directory:</source>
-        <translation>Katalog:</translation>
+Datei wurde nicht gefunden.
+Überprüfen Sie Pfad und Dateinamen.</translation>
     </message>
 </context>
 <context>
     <name>QLineEdit</name>
     <message>
         <source>Clear</source>
-        <translation>Usuń</translation>
+        <translation>Löschen</translation>
     </message>
     <message>
         <source>Select All</source>
-        <translation>Zaznacz wszystko</translation>
+        <translation>Alles auswählen</translation>
     </message>
     <message>
         <source>&amp;Undo</source>
-        <translation>&amp;Cofnij</translation>
+        <translation>&amp;Rückgängig</translation>
     </message>
     <message>
         <source>&amp;Redo</source>
-        <translation>&amp;Przywróć</translation>
+        <translation>Wieder&amp;herstellen</translation>
     </message>
     <message>
         <source>Cu&amp;t</source>
-        <translation>Wytni&amp;j</translation>
+        <translation>&amp;Ausschneiden</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation>&amp;Kopiuj</translation>
+        <translation>&amp;Kopieren</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
-        <translation>&amp;Wklej</translation>
+        <translation>Einf&amp;ügen</translation>
     </message>
 </context>
 <context>
     <name>QMainWindow</name>
     <message>
         <source>Line up</source>
-        <translation>Wyrównaj</translation>
+        <translation>Ausrichten</translation>
     </message>
     <message>
         <source>Customize...</source>
-        <translation>Dopasuj...</translation>
+        <translation>Anpassen...</translation>
     </message>
 </context>
 <context>
     <name>QMessageBox</name>
     <message>
         <source>&lt;h3&gt;About Qt&lt;/h3&gt;&lt;p&gt;This program uses Qt version %1.&lt;/p&gt;&lt;p&gt;Qt is a C++ toolkit for multiplatform GUI &amp;amp; application development.&lt;/p&gt;&lt;p&gt;Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants.&lt;br&gt;Qt is also available for embedded devices.&lt;/p&gt;&lt;p&gt;Qt is a Trolltech product. See &lt;tt&gt;http://www.trolltech.com/qt/&lt;/tt&gt; for more information.&lt;/p&gt;</source>
-        <translation>&lt;h3&gt;O Qt&lt;/h3&gt;&lt;p&gt;Niniejszy  program używa Qt w wersji %1.&lt;/p&gt;&lt;p&gt;Qt to zestaw narzędzi C++ do programowania aplikacji i graficznych interfejsow użytkownika dla wielu platform.&lt;/p&gt;&lt;p&gt;Qt zapewnia przenośność kodu źródłowego pomiędzy systemami MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux oraz wszystkimi głównymi komercyjnymi wariantami systemu Unix.&lt;br&gt;Qt dostępne jest również dla urządzeń osadzonych.&lt;/p&gt;&lt;p&gt;Qt jest produktem firmy Trolltech. Więcej informacji dostępnych jest na stronie &lt;tt&gt;http://www.trolltech.com/qt/&lt;/tt&gt;.&lt;/p&gt;</translation>
+        <translation>&lt;h3&gt;Über Qt&lt;/h3&gt;&lt;p&gt;Dieses Programm verwendet Qt Version %1&lt;/p&gt;&lt;p&gt;Qt ist ein multi-platform Framework zum Erstellen von GUI-Programmen in C++.&lt;/p&gt;&lt;p&gt;Qt bietet Portierungsmöglichkeiten mit nur einer Quellcode-Basis auf MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux und allen anderen großen kommerziellen Unix-Versionen.&lt;br&gt;Qt ist auch für eingebettete Systeme erhältlich.&lt;/p&gt;&lt;p&gt;Qt ist ein Produkt von Trolltech. Weitere Informationen finden Sie unter &lt;tt&gt;http://www.trolltech.com/qt/&lt;/tt&gt;.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
-        <source>Warning</source>
-        <translation>Ostrzeżenie</translation>
-    </message>
-    <message>
-        <source>Do you really want to overwrite the File:
-%1 ?</source>
-        <translation>Naprawdę zastąpić plik:
-%1?</translation>
-    </message>
-    <message>
-        <source>Scripter Manual...</source>
-        <translation>Podręcznik wtyczki skryptowej...</translation>
-    </message>
-    <message>
-        <source>Execute Script...</source>
-        <translation>Wykonaj skrypt...</translation>
-    </message>
-    <message>
-        <source>Recent Scripts</source>
-        <translation>Otwórz poprzedni skrypt</translation>
-    </message>
-    <message>
-        <source>Show Console</source>
-        <translation>Wyświetlaj konsolę</translation>
-    </message>
-    <message>
-        <source>Script</source>
-        <translation>Skrypt</translation>
-    </message>
-    <message>
-        <source>Online Reference</source>
-        <translation>Podręcznik wtyczki skryptowej</translation>
-    </message>
-    <message>
-        <source>Open</source>
-        <translation>Otwórz</translation>
-    </message>
-    <message>
-        <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation>Skrypty w Pythonie (*.py);; Wszystkie pliki (*)</translation>
-    </message>
-    <message>
-        <source>Save as</source>
-        <translation>Zapisz jako</translation>
-    </message>
-    <message>
-        <source>SVG-Images (*.svg *.svgz);;All Files (*)</source>
-        <translation>Grafiki SVG (*.svg *.svgz);;Wszystkie pliki (*)</translation>
-    </message>
-    <message>
-        <source>SVG-Images (*.svg);;All Files (*)</source>
-        <translation>Grafiki SVG (*.svg);;Wszystkie pliki (*)</translation>
-    </message>
-    <message>
-        <source>Yes</source>
-        <translation>Tak</translation>
-    </message>
-    <message>
-        <source>No</source>
-        <translation>Nie</translation>
-    </message>
-    <message>
-        <source>Insert Special</source>
-        <translation>Dodaj znak specjalny</translation>
-    </message>
-    <message>
-        <source>Print Preview</source>
-        <translation>Podgląd wydruku</translation>
-    </message>
-    <message>
-        <source>Save Page as SVG...</source>
-        <translation>Zapisz stronę jako SVG...</translation>
-    </message>
-    <message>
-        <source>Import SVG-Image</source>
-        <translation>Importuj grafikę SVG</translation>
-    </message>
-    <message>
         <source>Initializing...</source>
-        <translation>Inicjalizacja...</translation>
+        <translation>Initialisierung...</translation>
     </message>
     <message>
         <source>Document</source>
@@ -4964,109 +4774,188 @@ Sprawdź katalog i nazwę pliku.</translation>
     </message>
     <message>
         <source>Background</source>
-        <translation>Tło</translation>
+        <translation>Hintergrund</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Warnung</translation>
+    </message>
+    <message>
+        <source>Do you really want to overwrite the File:
+%1 ?</source>
+        <translation>Wollen sie wirklich die Datei:
+%1
+überschreiben?</translation>
+    </message>
+    <message>
+        <source>Insert Special</source>
+        <translation>Sonderzeichen einfügen</translation>
+    </message>
+    <message>
+        <source>Print Preview</source>
+        <translation>Druck Vorschau</translation>
+    </message>
+    <message>
+        <source>Scripter Manual...</source>
+        <translation>Scripter Handbuch...</translation>
+    </message>
+    <message>
+        <source>Execute Script...</source>
+        <translation>Script ausführen...</translation>
+    </message>
+    <message>
+        <source>Recent Scripts</source>
+        <translation>Letzte Scripte</translation>
+    </message>
+    <message>
+        <source>Show Console</source>
+        <translation>Konsole zeigen</translation>
+    </message>
+    <message>
+        <source>Script</source>
+        <translation>Script</translation>
+    </message>
+    <message>
+        <source>Online Reference</source>
+        <translation>Online Referenz</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation>Öffnen</translation>
+    </message>
+    <message>
+        <source>Python Scripts (*.py);; All Files (*)</source>
+        <translation>Python Scripte (*.py);; Alle Dateien (*)</translation>
+    </message>
+    <message>
+        <source>Save Page as SVG...</source>
+        <translation>Seite als SVG speichern...</translation>
+    </message>
+    <message>
+        <source>Save as</source>
+        <translation>Speichern unter</translation>
+    </message>
+    <message>
+        <source>SVG-Images (*.svg *.svgz);;All Files (*)</source>
+        <translation>SVG-Bilder (*.svg *.svgz);;Alle Dateien (*)</translation>
+    </message>
+    <message>
+        <source>SVG-Images (*.svg);;All Files (*)</source>
+        <translation>SVG-Bilder (*.svg);;Alle Dateien (*)</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation>Ja</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation>Nein</translation>
+    </message>
+    <message>
+        <source>Import SVG-Image</source>
+        <translation>Importiere SVG-Bild</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation></translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation></translation>
+        <translation> mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation></translation>
+        <translation> in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation></translation>
+        <translation> p</translation>
     </message>
 </context>
 <context>
     <name>QTextEdit</name>
     <message>
         <source>Clear</source>
-        <translation>Usuń</translation>
+        <translation>Löschen</translation>
     </message>
     <message>
         <source>Select All</source>
-        <translation>Zaznacz wszystko</translation>
+        <translation>Alles auswählen</translation>
     </message>
     <message>
         <source>&amp;Undo</source>
-        <translation>&amp;Cofnij</translation>
+        <translation>&amp;Rückgängig</translation>
     </message>
     <message>
         <source>&amp;Redo</source>
-        <translation>&amp;Przywróć</translation>
+        <translation>Wieder&amp;herstellen</translation>
     </message>
     <message>
         <source>Cu&amp;t</source>
-        <translation>Wytni&amp;j</translation>
+        <translation>&amp;Ausschneiden</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation>&amp;Kopiuj</translation>
+        <translation>&amp;Kopieren</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
-        <translation>&amp;Wklej</translation>
+        <translation>Einf&amp;ügen</translation>
     </message>
 </context>
 <context>
     <name>QWorkspace</name>
     <message>
         <source>&amp;Restore</source>
-        <translation>&amp;Przywróć</translation>
+        <translation>Wieder&amp;herstellen</translation>
     </message>
     <message>
         <source>&amp;Move</source>
-        <translation>Prz&amp;esuń</translation>
+        <translation>Ver&amp;schieben</translation>
     </message>
     <message>
         <source>&amp;Size</source>
-        <translation>&amp;Rozmiar</translation>
+        <translation>&amp;Größe ändern</translation>
     </message>
     <message>
         <source>Mi&amp;nimize</source>
-        <translation>Mi&amp;nimalizuj</translation>
+        <translation>M&amp;inimieren</translation>
     </message>
     <message>
         <source>Ma&amp;ximize</source>
-        <translation>Maks&amp;ymalizuj</translation>
+        <translation>Ma&amp;ximieren</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation>&amp;Zamknij</translation>
+        <translation>Schl&amp;ießen</translation>
     </message>
     <message>
         <source>Stay on &amp;Top</source>
-        <translation>Zawsze na &amp;wierzchu</translation>
+        <translation>Im &amp;Vordergrund bleiben</translation>
     </message>
     <message>
         <source>Minimize</source>
-        <translation>Minimalizuj</translation>
+        <translation>Minimieren</translation>
     </message>
     <message>
         <source>Restore Down</source>
-        <translation>Przywróć</translation>
+        <translation>Wiederherstellen</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation>Zamknij</translation>
+        <translation>Schließen</translation>
     </message>
     <message>
         <source>Sh&amp;ade</source>
-        <translation>C&amp;ieniowanie</translation>
+        <translation>&amp;Aufrollen</translation>
     </message>
     <message>
         <source>%1 - [%2]</source>
-        <translation></translation>
+        <translation>%1 - [%2]</translation>
     </message>
     <message>
         <source>&amp;Unshade</source>
-        <translation>&amp;Bez cieniowania</translation>
+        <translation>&amp;Herabrollen</translation>
     </message>
 </context>
 <context>
@@ -5077,42 +4966,42 @@ Sprawdź katalog i nazwę pliku.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Abbrechen</translation>
     </message>
 </context>
 <context>
     <name>ReformDoc</name>
     <message>
         <source>Document Setup</source>
-        <translation>Ustawienia dokumentu</translation>
+        <translation>Dokument einrichten</translation>
     </message>
     <message>
         <source>Margin Guides</source>
-        <translation>Marginesy</translation>
+        <translation>Ränder</translation>
     </message>
     <message>
         <source>Top:</source>
-        <translation>Na górze:</translation>
+        <translation>Oben:</translation>
     </message>
     <message>
         <source>Left:</source>
-        <translation>Po lewej:</translation>
+        <translation>Links:</translation>
     </message>
     <message>
         <source>Bottom:</source>
-        <translation>Na dole:</translation>
+        <translation>Unten:</translation>
     </message>
     <message>
         <source>Right:</source>
-        <translation>Po prawej:</translation>
+        <translation>Rechts:</translation>
     </message>
     <message>
         <source>Facing Pages</source>
-        <translation>Strony widzące się</translation>
+        <translation>Doppelseiten</translation>
     </message>
     <message>
         <source>Left Page first</source>
-        <translation>Lewa strona najpierw</translation>
+        <translation>Linke Seite zuerst</translation>
     </message>
     <message>
         <source>OK</source>
@@ -5120,687 +5009,680 @@ Sprawdź katalog i nazwę pliku.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <source>Inside:</source>
-        <translation>Wewnątrz:</translation>
+        <translation>Innen:</translation>
     </message>
     <message>
         <source>Outside:</source>
-        <translation>Na zewnątrz:</translation>
+        <translation>Außen:</translation>
     </message>
 </context>
 <context>
     <name>ScriXmlDoc</name>
     <message>
         <source>Copy #%1 of </source>
-        <translation>Kopia %1</translation>
+        <translation>Kopie #%1 von</translation>
     </message>
     <message>
         <source>Background</source>
-        <translation>Tło</translation>
+        <translation>Hintergrund</translation>
     </message>
 </context>
 <context>
     <name>ScribusApp</name>
     <message>
         <source>File</source>
-        <translation>Plik</translation>
+        <translation>Datei</translation>
     </message>
     <message>
         <source>Creates a new Document</source>
-        <translation>Tworzy nowy dokument</translation>
+        <translation>Erzeugt ein neues Dokument</translation>
     </message>
     <message>
         <source>Opens a Document</source>
-        <translation>Otwiera dokument</translation>
+        <translation>Öffnet ein Dokument</translation>
     </message>
     <message>
         <source>Saves the Current Document</source>
-        <translation>Zapisuje aktualny dokument</translation>
+        <translation>Speichert das aktuelle Dokument</translation>
     </message>
     <message>
         <source>Closes the Current Document</source>
-        <translation>Zamyka aktualny dokument</translation>
+        <translation>Schließt das aktuelle Dokument</translation>
     </message>
     <message>
         <source>Prints the Current Document</source>
-        <translation>Drukuje aktualny dokument</translation>
+        <translation>Druckt das aktuelle Dokument</translation>
     </message>
     <message>
         <source>Saves the Current Document as PDF</source>
-        <translation>Zapisuje aktualny dokument jako PDF</translation>
+        <translation>Speichert das aktuelle Dokument als PDF</translation>
     </message>
     <message>
         <source>Searching for Fonts</source>
-        <translation>Szukanie czcionek</translation>
+        <translation>Suche Schriften</translation>
     </message>
     <message>
         <source>There are no Postscript-Fonts on your System</source>
-        <translation>Czcionki Postscript nie są zainstalowane</translation>
+        <translation>Es sind keine Postscript-Fonts installiert</translation>
     </message>
     <message>
         <source>Exiting now</source>
-        <translation>Zakończ teraz</translation>
+        <translation>Program beenden</translation>
     </message>
     <message>
         <source>Fatal Error</source>
-        <translation>Krytyczny błąd</translation>
+        <translation>Fataler Fehler</translation>
     </message>
     <message>
         <source>Smart Hyphen</source>
-        <translation>Inteligentne dzielenie wyrazów</translation>
+        <translation>Weiche Trennung</translation>
     </message>
     <message>
         <source>Align Left</source>
-        <translation>Wyrównaj do lewej</translation>
+        <translation>Links ausrichten</translation>
     </message>
     <message>
         <source>Align Right</source>
-        <translation>Wyrównaj do prawej</translation>
+        <translation>Rechts ausrichten</translation>
     </message>
     <message>
         <source>Align Center</source>
-        <translation>Wyśrodkuj</translation>
+        <translation>Zentrieren</translation>
     </message>
     <message>
         <source>Insert Page Number</source>
-        <translation>Wstaw numer strony</translation>
+        <translation>Seitennummer einfügen</translation>
     </message>
     <message>
         <source>Attach Text to Path</source>
-        <translation>Dołącz tekst do ścieżki</translation>
+        <translation>Text auf Pfad setzen</translation>
     </message>
     <message>
         <source>Show Layers</source>
-        <translation>Wyświetlaj paletę warstw</translation>
+        <translation>Zeige Ebenen</translation>
     </message>
     <message>
         <source>Javascripts...</source>
-        <translation>Skrypty w Javascript...</translation>
+        <translation>Javascripte...</translation>
     </message>
     <message>
         <source>Undo</source>
-        <translation>Cofnij</translation>
+        <translation>Rückgängig</translation>
     </message>
     <message>
         <source>Show Page Palette</source>
-        <translation>Wyświetlaj paletę stron</translation>
+        <translation>Zeige Seitenpalette</translation>
     </message>
     <message>
         <source>Lock/Unlock</source>
-        <translation>Zabezpiecz/Odbezpiecz</translation>
+        <translation>Sperren/Entsperren</translation>
     </message>
     <message>
         <source>Non Breaking Space</source>
-        <translation>Twarda spacja</translation>
+        <translation>Fester Leerraum</translation>
     </message>
     <message>
         <source>Reading Preferences</source>
-        <translation>Wczytywanie ustawień</translation>
+        <translation>Lese Voreinstellungen</translation>
     </message>
     <message>
         <source>Getting ICC-Profiles</source>
-        <translation>Wczytywanie profili ICC</translation>
+        <translation>Lese ICC-Profile</translation>
     </message>
     <message>
         <source>Init Hyphenator</source>
-        <translation>Inicjalizacja dzielenia wyrazów</translation>
+        <translation>Initialisiere Silbentrennung</translation>
     </message>
     <message>
         <source>Setting up Shortcuts</source>
-        <translation>Konfiguracja skrótów</translation>
+        <translation>Lese Tastaturkürzel</translation>
     </message>
     <message>
         <source>Color Management...</source>
-        <translation>Zarządzanie kolorami...</translation>
+        <translation>Farbmanagement...</translation>
     </message>
     <message>
         <source>Reading Scrapbook</source>
-        <translation>Wczytywanie biblioteki</translation>
+        <translation>Lese Bibliothek</translation>
     </message>
     <message>
         <source>Initializing Plugins</source>
-        <translation>Inicjalizacja wtyczek</translation>
+        <translation>Lade Plugins</translation>
     </message>
     <message>
         <source>New</source>
-        <translation>Nowy</translation>
+        <translation>Neu</translation>
     </message>
     <message>
         <source>Open...</source>
-        <translation>Otwórz...</translation>
+        <translation>Öffnen...</translation>
     </message>
     <message>
         <source>Recent Documents</source>
-        <translation>Otwórz poprzedni</translation>
+        <translation>Zuletzt benutzte Dateien</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation>Zamknij</translation>
+        <translation>Schließen</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Zapisz</translation>
+        <translation>Speichern</translation>
     </message>
     <message>
         <source>Save as...</source>
-        <translation>Zapisz jako...</translation>
+        <translation>Speichern unter...</translation>
     </message>
     <message>
         <source>Revert to Saved</source>
-        <translation>Poprzednia wersja</translation>
+        <translation>Alte Fassung</translation>
     </message>
     <message>
         <source>Collect for Output...</source>
-        <translation>Zbieraj dla pliku wyjściowego...</translation>
+        <translation>Für Ausgabe sammeln...</translation>
     </message>
     <message>
         <source>Get Text/Picture...</source>
-        <translation>Pobierz tekst/obrazek...</translation>
+        <translation>Bild/Text laden...</translation>
     </message>
     <message>
         <source>Insert Page...</source>
-        <translation>Wstaw stronę...</translation>
+        <translation>Seite einfügen...</translation>
     </message>
     <message>
         <source>Import...</source>
-        <translation>Importuj...</translation>
+        <translation>Importiere...</translation>
     </message>
     <message>
         <source>Save Text...</source>
-        <translation>Zapisz tekst...</translation>
+        <translation>Text speichern...</translation>
     </message>
     <message>
         <source>Save Page as EPS...</source>
-        <translation>Zapisz stronę jako EPS...</translation>
+        <translation>Seite als EPS sichern...</translation>
     </message>
     <message>
         <source>Save as PDF...</source>
-        <translation>Zapisz jako PDF...</translation>
+        <translation>Als PDF sichern...</translation>
     </message>
     <message>
         <source>Export...</source>
-        <translation>Eksportuj...</translation>
+        <translation>Exportiere...</translation>
     </message>
     <message>
         <source>Document Info...</source>
-        <translation>Informacja o dokumencie...</translation>
+        <translation>Information...</translation>
     </message>
     <message>
         <source>Document Setup...</source>
-        <translation>Ustawienia dokumentu...</translation>
+        <translation>Dokument einrichten...</translation>
     </message>
     <message>
         <source>Print...</source>
-        <translation>Drukuj...</translation>
+        <translation>Drucke...</translation>
     </message>
     <message>
         <source>Quit</source>
-        <translation>Zakończ</translation>
+        <translation>Beenden</translation>
     </message>
     <message>
         <source>Cut</source>
-        <translation>Wytnij</translation>
+        <translation>Ausschneiden</translation>
     </message>
     <message>
         <source>Copy</source>
-        <translation>Kopiuj</translation>
+        <translation>Kopieren</translation>
     </message>
     <message>
         <source>Paste</source>
-        <translation>Wklej</translation>
+        <translation>Einfügen</translation>
     </message>
     <message>
         <source>Clear</source>
-        <translation>Usuń</translation>
+        <translation>Löschen</translation>
     </message>
     <message>
         <source>Select all</source>
-        <translation>Zaznacz wszystko</translation>
+        <translation>Alles auswählen</translation>
+    </message>
+    <message>
+        <source>Search/Replace...</source>
+        <translation>Suchen/Ersetzen...</translation>
     </message>
     <message>
         <source>Colors...</source>
-        <translation>Kolory...</translation>
+        <translation>Farben...</translation>
     </message>
     <message>
         <source>Paragraph Styles...</source>
-        <translation>Style akapitów...</translation>
+        <translation>Stilvorlagen...</translation>
     </message>
     <message>
         <source>Line Styles...</source>
-        <translation>Style linii...</translation>
+        <translation>Linienstile...</translation>
     </message>
     <message>
         <source>Styles...</source>
-        <translation>Style...</translation>
+        <translation>Stilvorlagen...</translation>
     </message>
     <message>
         <source>Templates...</source>
-        <translation>Szablony...</translation>
+        <translation>Musterseiten...</translation>
     </message>
     <message>
         <source>General...</source>
-        <translation>Ogólne...</translation>
+        <translation>Allgemein...</translation>
     </message>
     <message>
         <source>Preferences...</source>
-        <translation>Ustawienia...</translation>
+        <translation>Voreinstellungen...</translation>
     </message>
     <message>
         <source>Fonts...</source>
-        <translation>Czcionki...</translation>
+        <translation>Schriften...</translation>
     </message>
     <message>
         <source>Hyphenator...</source>
-        <translation>Dzielenie wyrazów...</translation>
+        <translation>Silbentrennung...</translation>
     </message>
     <message>
         <source>Preferences</source>
-        <translation>Ustawienia</translation>
+        <translation>Voreinstellungen</translation>
     </message>
     <message>
         <source>Select New Font</source>
-        <translation>Wybierz nową czcionkę</translation>
+        <translation>Neue Schrift auswählen</translation>
     </message>
     <message>
         <source>Duplicate</source>
-        <translation>Klonuj</translation>
+        <translation>Duplizieren</translation>
     </message>
     <message>
         <source>Multiple Duplicate</source>
-        <translation>Wielokrotne klonowanie</translation>
+        <translation>Mehrfach Duplizieren</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Usuń</translation>
+        <translation>Löschen</translation>
     </message>
     <message>
         <source>Group</source>
-        <translation>Grupuj</translation>
+        <translation>Gruppieren</translation>
     </message>
     <message>
         <source>Un-group</source>
-        <translation>Rozgrupuj</translation>
+        <translation>Gruppe auflösen</translation>
     </message>
     <message>
         <source>Lock</source>
-        <translation>Zabezpiecz</translation>
+        <translation>Sperren</translation>
     </message>
     <message>
         <source>Send to Back</source>
-        <translation>Przesuń na spód</translation>
+        <translation>In den Hintergrund</translation>
     </message>
     <message>
         <source>Bring to Front</source>
-        <translation>Przesuń na wierzch</translation>
+        <translation>In den Vordergrund</translation>
     </message>
     <message>
         <source>Lower</source>
-        <translation>O warstwę niżej</translation>
+        <translation>Eine Ebene tiefer</translation>
     </message>
     <message>
         <source>Raise</source>
-        <translation>O warstwę wyżej</translation>
+        <translation>Eine Ebene höher</translation>
     </message>
     <message>
         <source>Distribute/Align...</source>
-        <translation>Odstęp/Wyrównanie...</translation>
-    </message>
-    <message>
-        <source>Rectangle</source>
-        <translation>Prostokąt</translation>
-    </message>
-    <message>
-        <source>Rounded Rectangle</source>
-        <translation>Zaokrąglony prostokąt</translation>
-    </message>
-    <message>
-        <source>Oval</source>
-        <translation>Elipsa</translation>
+        <translation>Abstand/Ausrichtung...</translation>
     </message>
     <message>
         <source>Edit Frame</source>
-        <translation>Edycja ramki</translation>
+        <translation>Rahmen bearbeiten</translation>
     </message>
     <message>
         <source>Shape</source>
-        <translation>Kształt ramki</translation>
+        <translation>Form</translation>
     </message>
     <message>
         <source>Detach Text from Path</source>
-        <translation>Odłącz tekst od ścieżki</translation>
+        <translation>Text vom Pfad lösen</translation>
     </message>
     <message>
         <source>Combine Polygons</source>
-        <translation>Połącz wielokąty</translation>
+        <translation>Polygone vereinen</translation>
     </message>
     <message>
         <source>Split Polygons</source>
-        <translation>Podziel wielokąt</translation>
+        <translation>Polygone teilen</translation>
     </message>
     <message>
         <source>Convert to Outlines</source>
-        <translation>Zamień na wielokąty</translation>
+        <translation>In Polygone verwandeln</translation>
     </message>
     <message>
         <source>Insert...</source>
-        <translation>Wklej...</translation>
+        <translation>Einfügen...</translation>
     </message>
     <message>
         <source>Delete...</source>
-        <translation>Usuń...</translation>
+        <translation>Löschen...</translation>
     </message>
     <message>
         <source>Move...</source>
-        <translation>Przesuń...</translation>
+        <translation>Verschieben...</translation>
     </message>
     <message>
         <source>Apply Template...</source>
-        <translation>Zastosuj szablon...</translation>
+        <translation>Musterseite anwenden...</translation>
     </message>
     <message>
         <source>Manage Guides...</source>
-        <translation>Zarządzaj liniami pomocniczymi...</translation>
+        <translation>Hilfslinien bearbeiten...</translation>
     </message>
     <message>
         <source>Fit in Window</source>
-        <translation>Dopasuj do okna</translation>
+        <translation>Ganze Seite</translation>
     </message>
     <message>
         <source>50%</source>
-        <translation></translation>
+        <translation>50%</translation>
     </message>
     <message>
         <source>75%</source>
-        <translation></translation>
+        <translation>75%</translation>
     </message>
     <message>
         <source>Actual Size</source>
-        <translation>Oryginalna wielkość</translation>
+        <translation>Originalgröße</translation>
     </message>
     <message>
         <source>200%</source>
-        <translation></translation>
+        <translation>200%</translation>
     </message>
     <message>
         <source>Thumbnails</source>
-        <translation>Miniatury</translation>
+        <translation>Miniaturen</translation>
     </message>
     <message>
         <source>Hide Margins</source>
-        <translation>Ukryj marginesy</translation>
+        <translation>Ränder verbergen</translation>
     </message>
     <message>
         <source>Hide Frames</source>
-        <translation>Ukryj ramki</translation>
+        <translation>Rahmen verbergen</translation>
     </message>
     <message>
         <source>Hide Images</source>
-        <translation>Ukryj obrazki</translation>
+        <translation>Bilder verbergen</translation>
     </message>
     <message>
         <source>Show Grid</source>
-        <translation>Wyświetlaj siatkę</translation>
+        <translation>Raster zeigen</translation>
     </message>
     <message>
         <source>Snap to Grid</source>
-        <translation>Wyrównaj do siatki</translation>
+        <translation>Am Raster ausrichten</translation>
     </message>
     <message>
         <source>Hide Guides</source>
-        <translation>Wyświetlaj linie pomocnicze</translation>
+        <translation>Hilfslinien verbergen</translation>
     </message>
     <message>
         <source>Snap to Guides</source>
-        <translation>Wyrównaj do linii pomocniczych</translation>
+        <translation>Hilfslinen magnetisch</translation>
     </message>
     <message>
         <source>Tools</source>
-        <translation>Narzędzia</translation>
+        <translation>Werkzeuge</translation>
     </message>
     <message>
         <source>PDF-Tools</source>
-        <translation>Narzędzia PDF</translation>
+        <translation>PDF-Werkzeuge</translation>
     </message>
     <message>
         <source>Properties</source>
-        <translation>Właściwości</translation>
+        <translation>Eigenschaften</translation>
     </message>
     <message>
         <source>Outline</source>
-        <translation>Struktura</translation>
+        <translation>Übersicht</translation>
     </message>
     <message>
         <source>Scrapbook</source>
-        <translation>Biblioteka</translation>
+        <translation>Bibliothek</translation>
     </message>
     <message>
         <source>Layers</source>
-        <translation>Warstwy</translation>
+        <translation>Ebenen</translation>
     </message>
     <message>
         <source>Page Palette</source>
-        <translation>Paleta stron</translation>
+        <translation>Seitenpalette</translation>
     </message>
     <message>
         <source>Bookmarks</source>
-        <translation>Zakładki</translation>
+        <translation>Lesezeichen</translation>
     </message>
     <message>
         <source>Manage Pictures</source>
-        <translation>Zarządzanie obrazkami</translation>
+        <translation>Bilder verwalten</translation>
     </message>
     <message>
         <source>Hyphenate Text</source>
-        <translation>Dziel wyrazy</translation>
+        <translation>Silbentrennung</translation>
     </message>
     <message>
         <source>About Scribus</source>
-        <translation>O Scribusie</translation>
+        <translation>Über Scribus</translation>
     </message>
     <message>
         <source>About Qt</source>
-        <translation>O Qt</translation>
+        <translation>Über Qt</translation>
     </message>
     <message>
         <source>Online-Help...</source>
-        <translation>Podręcznik Scribusa...</translation>
+        <translation>Online-Hilfe...</translation>
     </message>
     <message>
         <source>Tool-Tips</source>
-        <translation>Podpowiedzi</translation>
+        <translation>Tool-Tips</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation>Edycja</translation>
+        <translation>Bearbeiten</translation>
     </message>
     <message>
         <source>Style</source>
-        <translation>Styl</translation>
+        <translation>Stil</translation>
     </message>
     <message>
         <source>Item</source>
-        <translation>Obiekt</translation>
+        <translation>Objekt</translation>
     </message>
     <message>
         <source>Page</source>
-        <translation>Strona</translation>
+        <translation>Seite</translation>
     </message>
     <message>
         <source>View</source>
-        <translation>Widok</translation>
+        <translation>Ansicht</translation>
     </message>
     <message>
         <source>Extras</source>
-        <translation>Dodatki</translation>
+        <translation>Extras</translation>
     </message>
     <message>
         <source>Windows</source>
-        <translation>Okna</translation>
+        <translation>Fenster</translation>
     </message>
     <message>
         <source>Help</source>
-        <translation>Pomoc</translation>
+        <translation>Hilfe</translation>
     </message>
     <message>
         <source>Left</source>
-        <translation>Do lewej</translation>
+        <translation>Links</translation>
     </message>
     <message>
         <source>Center</source>
-        <translation>Wyśrodkowane</translation>
+        <translation>Zentriert</translation>
     </message>
     <message>
         <source>Right</source>
-        <translation>Do prawej</translation>
+        <translation>Rechts</translation>
     </message>
     <message>
         <source>Block</source>
-        <translation>Justowany</translation>
+        <translation>Blocksatz</translation>
     </message>
     <message>
         <source>Forced</source>
-        <translation>Justowany (z ostatnią linią)</translation>
+        <translation>Erzw. Blocksatz</translation>
     </message>
     <message>
         <source>Other...</source>
-        <translation>Inne...</translation>
+        <translation>Andere...</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation>Normalny</translation>
+        <translation>Normal</translation>
     </message>
     <message>
         <source>Underline</source>
-        <translation>Podkreślenie</translation>
+        <translation>Unterstrichen</translation>
     </message>
     <message>
         <source>Strikethru</source>
-        <translation>Przekreślenie</translation>
+        <translation>Durchgestrichen</translation>
     </message>
     <message>
         <source>Small Caps</source>
-        <translation>Kapitaliki</translation>
+        <translation>Kapitälchen</translation>
     </message>
     <message>
         <source>Superscript</source>
-        <translation>Indeks górny</translation>
+        <translation>Hochgestellt</translation>
     </message>
     <message>
         <source>Subscript</source>
-        <translation>Indeks dolny</translation>
+        <translation>Tiefgestellt</translation>
     </message>
     <message>
         <source>Outlined</source>
-        <translation>Obramowanie</translation>
+        <translation>Umrandung</translation>
     </message>
     <message>
         <source>X-Pos:</source>
-        <translation>Wsp. X:</translation>
+        <translation>X-Pos:</translation>
     </message>
     <message>
         <source>Y-Pos:</source>
-        <translation>Wsp. Y:</translation>
+        <translation>Y-Pos:</translation>
     </message>
     <message>
         <source>Ready</source>
-        <translation>Gotowy</translation>
+        <translation>Fertig</translation>
     </message>
     <message>
         <source>Cascade</source>
-        <translation>Kaskada</translation>
+        <translation>Überlappen</translation>
     </message>
     <message>
         <source>Tile</source>
-        <translation>Sąsiadujące</translation>
+        <translation>Kacheln</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>Brak</translation>
+        <translation>Keine</translation>
     </message>
     <message>
         <source>Show Frames</source>
-        <translation>Wyświetlaj ramki</translation>
+        <translation>Zeige Rahmen</translation>
     </message>
     <message>
         <source>Get Picture...</source>
-        <translation>Pobierz obrazek...</translation>
+        <translation>Bild laden...</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation>Kolor</translation>
+        <translation>Farbe</translation>
     </message>
     <message>
         <source>Invert</source>
-        <translation>Negatyw</translation>
+        <translation>Invertieren</translation>
     </message>
     <message>
         <source>Get Text...</source>
-        <translation>Pobierz tekst...</translation>
+        <translation>Text laden...</translation>
     </message>
     <message>
         <source>Font</source>
-        <translation>Czcionka</translation>
+        <translation>Schrift</translation>
     </message>
     <message>
         <source>Size</source>
-        <translation>Rozmiar</translation>
+        <translation>Größe</translation>
     </message>
     <message>
         <source>Effects</source>
-        <translation>Atrybuty</translation>
+        <translation>Effekte</translation>
     </message>
     <message>
         <source>Tabulators...</source>
-        <translation>Tabulatory...</translation>
+        <translation>Tabulatoren...</translation>
     </message>
     <message>
         <source>Alignment</source>
-        <translation>Wyrównanie</translation>
+        <translation>Ausrichtung</translation>
     </message>
     <message>
         <source>Shade</source>
-        <translation>Cieniowanie</translation>
+        <translation>Tonwert</translation>
     </message>
     <message>
         <source>Unlock</source>
-        <translation>Odbezpiecz</translation>
+        <translation>Entsperren</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation>Otwórz</translation>
+        <translation>Öffnen</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-        <translation>Dokumenty (*.sla *.sla.gz *.scd *.scd.gz);;Wszystkie pliki (*)</translation>
+        <translation>Dokumente (*.sla *.sla.gz *.scd *.scd.gz);;Alle Dateien (*)</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Dokumenty (*.sla *.scd);;Wszystkie pliki (*)</translation>
+        <translation>Dokumente (*.sla *.scd);;Alle Dateien (*)</translation>
     </message>
     <message>
         <source>Loading...</source>
-        <translation>Pobieranie...</translation>
+        <translation>Lade...</translation>
     </message>
     <message>
         <source>All Files (*)</source>
-        <translation>Wszystkie pliki (*)</translation>
+        <translation>Alle Dateien (*)</translation>
     </message>
     <message>
         <source>Text Files (*.txt);;All Files(*)</source>
-        <translation>Pliki tekstowe (*.txt);;Wszystkie pliki(*)</translation>
+        <translation>Textdateien (*.txt);;Alle Dateien(*)</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Ostrzeżenie</translation>
+        <translation>Warnung</translation>
     </message>
     <message>
         <source>Can&apos;t write the File: 
 %1</source>
-        <translation>Niemożliwy zapis pliku:
-%1</translation>
+        <translation>Kann die Datei:
+%1
+nicht speichern</translation>
     </message>
     <message>
         <source>OK</source>
@@ -5808,19 +5690,19 @@ Sprawdź katalog i nazwę pliku.</translation>
     </message>
     <message>
         <source>Save as</source>
-        <translation>Zapisz jako</translation>
+        <translation>Speichern unter</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)</source>
-        <translation>Dokumenty (*.sla *.sla.gz *.scd *.scd.gz);;Wszystkie pliki (*)</translation>
+        <translation>Dokumente (*.sla *.sla.gz *.scd *.scd.gz);;Alle Dateien (*)</translation>
     </message>
     <message>
         <source>Saving...</source>
-        <translation>Zapisywanie...</translation>
+        <translation>Speichere...</translation>
     </message>
     <message>
         <source>Printing...</source>
-        <translation>Drukowanie...</translation>
+        <translation>Drucke...</translation>
     </message>
     <message>
         <source>Document</source>
@@ -5828,417 +5710,402 @@ Sprawdź katalog i nazwę pliku.</translation>
     </message>
     <message>
         <source>Printing failed!</source>
-        <translation>Wydruk nie został ukończony!</translation>
+        <translation>Drucken fehlgeschlagen!</translation>
     </message>
     <message>
         <source>Scribus Manual</source>
-        <translation>Podręcznik Scribusa</translation>
+        <translation>Scribus Handbuch</translation>
     </message>
     <message>
         <source>Show Margins</source>
-        <translation>Wyświetlaj marginesy</translation>
+        <translation>Zeige Ränder</translation>
     </message>
     <message>
         <source>Show Images</source>
-        <translation>Wyświetlaj obrazki</translation>
+        <translation>Zeige Bilder</translation>
     </message>
     <message>
         <source>Hide Grid</source>
-        <translation>Ukryj siatkę</translation>
+        <translation>Raster verbergen</translation>
     </message>
     <message>
         <source>Show Guides</source>
-        <translation>Wyświetlaj linie pomocnicze</translation>
-    </message>
-    <message>
-        <source>The following Programs are missing:</source>
-        <translation>Brak następujących programów:</translation>
-    </message>
-    <message>
-        <source>Ghostscript : You cannot use EPS-Images</source>
-        <translation>Ghostscript : Użycie obrazków EPS niemożliwe</translation>
-    </message>
-    <message>
-        <source>All</source>
-        <translation>Wszystkie</translation>
-    </message>
-    <message>
-        <source>EPS-Files (*.eps);;All Files (*)</source>
-        <translation>Pliki EPS (*.eps);;Wszystkie pliki (*)</translation>
-    </message>
-    <message>
-        <source>Loading:</source>
-        <translation>Pobieranie:</translation>
-    </message>
-    <message>
-        <source>Adjusting Colors</source>
-        <translation>Dopasuj kolory</translation>
-    </message>
-    <message>
-        <source>Undo Delete Object</source>
-        <translation>Cofnij usuwanie obiektu</translation>
-    </message>
-    <message>
-        <source>Undo Object Move</source>
-        <translation>Cofnij przesunięcie obiektu</translation>
-    </message>
-    <message>
-        <source>Undo Object Change</source>
-        <translation>Cofnij zmianę obiektu</translation>
-    </message>
-    <message>
-        <source>English</source>
-        <translation>Angielski</translation>
-    </message>
-    <message>
-        <source>German</source>
-        <translation>Niemiecki</translation>
-    </message>
-    <message>
-        <source>Spanish</source>
-        <translation>Hiszpański</translation>
-    </message>
-    <message>
-        <source>Italian</source>
-        <translation>Włoski</translation>
-    </message>
-    <message>
-        <source>French</source>
-        <translation>Francuski</translation>
-    </message>
-    <message>
-        <source>Russian</source>
-        <translation>Rosyjski</translation>
-    </message>
-    <message>
-        <source>Danish</source>
-        <translation>Duński</translation>
-    </message>
-    <message>
-        <source>Slovak</source>
-        <translation>Słowacki</translation>
-    </message>
-    <message>
-        <source>Hungarian</source>
-        <translation>Węgierski</translation>
-    </message>
-    <message>
-        <source>Czech</source>
-        <translation>Czeski</translation>
-    </message>
-    <message>
-        <source>Dutch</source>
-        <translation>Holenderski</translation>
-    </message>
-    <message>
-        <source>Portuguese</source>
-        <translation>Portugalski</translation>
-    </message>
-    <message>
-        <source>Ukrainian</source>
-        <translation>Ukraiński</translation>
-    </message>
-    <message>
-        <source>Polish</source>
-        <translation>Polski</translation>
-    </message>
-    <message>
-        <source>Greek</source>
-        <translation>Grecki</translation>
-    </message>
-    <message>
-        <source>Catalan</source>
-        <translation>Kataloński</translation>
-    </message>
-    <message>
-        <source>Choose a Directory</source>
-        <translation>Wybierz katalog</translation>
-    </message>
-    <message>
-        <source>Scribus Crash</source>
-        <translation>Scribus zakonczył działanie</translation>
-    </message>
-    <message>
-        <source>Scribus crashes due to Signal #%1</source>
-        <translation>Scribus przestał działać z powodu sygnału #%1</translation>
-    </message>
-    <message>
-        <source>Search/Replace...</source>
-        <translation>Znajdź/Zastąp...</translation>
+        <translation>Hilfslinien zeigen</translation>
     </message>
     <message>
         <source>Size:</source>
-        <translation>Rozmiar:</translation>
+        <translation>Größe:</translation>
     </message>
     <message>
         <source>Shade:</source>
-        <translation>Cieniowanie:</translation>
+        <translation>Tonwert:</translation>
+    </message>
+    <message>
+        <source>The following Programs are missing:</source>
+        <translation>Die folgenden Programme fehlen:</translation>
+    </message>
+    <message>
+        <source>Ghostscript : You cannot use EPS-Images</source>
+        <translation>Ghostscript: Sie können keine EPS-Bilder benutzen</translation>
+    </message>
+    <message>
+        <source>All</source>
+        <translation>Alle</translation>
+    </message>
+    <message>
+        <source>EPS-Files (*.eps);;All Files (*)</source>
+        <translation>EPS-Bilder (*.eps);;Alle Dateien (*)</translation>
+    </message>
+    <message>
+        <source>Loading:</source>
+        <translation>Lade:</translation>
+    </message>
+    <message>
+        <source>Adjusting Colors</source>
+        <translation>Passe Farben an</translation>
+    </message>
+    <message>
+        <source>Undo Delete Object</source>
+        <translation>Rückgängig: Objekt Löschen</translation>
+    </message>
+    <message>
+        <source>Undo Object Move</source>
+        <translation>Rückgängig: Objekt Bewegen</translation>
+    </message>
+    <message>
+        <source>Undo Object Change</source>
+        <translation>Rückgängig: Objektänderung</translation>
+    </message>
+    <message>
+        <source>English</source>
+        <translation>Englisch</translation>
+    </message>
+    <message>
+        <source>German</source>
+        <translation>Deutsch</translation>
+    </message>
+    <message>
+        <source>Spanish</source>
+        <translation>Spanisch</translation>
+    </message>
+    <message>
+        <source>Italian</source>
+        <translation>Italienisch</translation>
+    </message>
+    <message>
+        <source>French</source>
+        <translation>Französisch</translation>
+    </message>
+    <message>
+        <source>Russian</source>
+        <translation>Russisch</translation>
+    </message>
+    <message>
+        <source>Danish</source>
+        <translation>Dänisch</translation>
+    </message>
+    <message>
+        <source>Slovak</source>
+        <translation>Slowakisch</translation>
+    </message>
+    <message>
+        <source>Hungarian</source>
+        <translation>Ungarisch</translation>
+    </message>
+    <message>
+        <source>Czech</source>
+        <translation>Tschechisch</translation>
+    </message>
+    <message>
+        <source>Dutch</source>
+        <translation>Holländisch</translation>
+    </message>
+    <message>
+        <source>Portuguese</source>
+        <translation>Portugiesisch</translation>
+    </message>
+    <message>
+        <source>Ukrainian</source>
+        <translation>Ukrainisch</translation>
+    </message>
+    <message>
+        <source>Polish</source>
+        <translation>Polnisch</translation>
+    </message>
+    <message>
+        <source>Greek</source>
+        <translation>Griechisch</translation>
+    </message>
+    <message>
+        <source>Catalan</source>
+        <translation>Katalanisch</translation>
     </message>
     <message>
         <source>Finnish</source>
-        <translation>Fiński</translation>
+        <translation>Finnisch</translation>
+    </message>
+    <message>
+        <source>Choose a Directory</source>
+        <translation>Wählen Sie ein Verzeichnis</translation>
+    </message>
+    <message>
+        <source>Scribus Crash</source>
+        <translation>Programm Absturz</translation>
+    </message>
+    <message>
+        <source>Scribus crashes due to Signal #%1</source>
+        <translation>Absturz durch Signal #%1</translation>
     </message>
     <message>
         <source>All Supported Formats</source>
-        <translation>Wszystkie obsługiwane formaty</translation>
+        <translation>Alle unterstützten Formate</translation>
     </message>
     <message>
         <source>Irish</source>
-        <translation>Irlandzki</translation>
-    </message>
-</context>
-<context>
-    <name>ScribusDoc</name>
-    <message>
-        <source>Document</source>
-        <translation>Dokument</translation>
-    </message>
-    <message>
-        <source>Background</source>
-        <translation>Tło</translation>
+        <translation>Irisch</translation>
     </message>
 </context>
 <context>
     <name>ScribusView</name>
     <message>
         <source> %</source>
-        <translation></translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>Page </source>
-        <translation>Strona </translation>
-    </message>
-    <message>
-        <source>Layer</source>
-        <translation>Warstwa</translation>
-    </message>
-    <message>
-        <source>All</source>
-        <translation>Wszystkie</translation>
+        <translation>Seite </translation>
     </message>
     <message>
         <source> of %1</source>
-        <translation> z %1</translation>
+        <translation> von %1</translation>
+    </message>
+    <message>
+        <source>Layer</source>
+        <translation>Ebene</translation>
+    </message>
+    <message>
+        <source>All</source>
+        <translation>Alle</translation>
     </message>
 </context>
 <context>
     <name>ScribusWin</name>
     <message>
         <source>Leave Anyway</source>
-        <translation>Zakończ</translation>
+        <translation>Verlassen</translation>
     </message>
     <message>
         <source>Close Anyway</source>
-        <translation>Zamknij</translation>
+        <translation>Schließen</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Ostrzeżenie</translation>
+        <translation>Warnung</translation>
     </message>
     <message>
         <source>Document:</source>
-        <translation>Dokument:</translation>
+        <translation>Datei:</translation>
     </message>
     <message>
         <source>has been changed since the last save.</source>
-        <translation>został zmieniony od ostatniego zapisu.</translation>
+        <translation>wurde seit dem letzten Speichern verändert.</translation>
     </message>
     <message>
         <source>Save Now</source>
-        <translation>Zapisz teraz</translation>
+        <translation>Jetzt Sichern</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Abbrechen</translation>
     </message>
 </context>
 <context>
     <name>SeList</name>
     <message>
         <source>Show Page Previews</source>
-        <translation>Wyświetlaj podgląd strony</translation>
+        <translation>Zeige Seiten Vorschau</translation>
     </message>
 </context>
 <context>
     <name>SeView</name>
     <message>
         <source>Show Template Names</source>
-        <translation>Wyświetlaj nazwy szablonów</translation>
+        <translation>Zeige Vorlagen Namen</translation>
     </message>
 </context>
 <context>
     <name>SearchReplace</name>
     <message>
         <source>Search/Replace</source>
-        <translation>Znajdź/Zastąp</translation>
+        <translation>Suchen/Ersetzen</translation>
     </message>
     <message>
         <source>Search for:</source>
-        <translation>Znajdź:</translation>
+        <translation>Suche nach:</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation>Tekst</translation>
+        <translation>Text</translation>
     </message>
     <message>
         <source>Paragraph Style</source>
-        <translation>Styl akapitu</translation>
+        <translation>Absatzstil</translation>
     </message>
     <message>
         <source>Font</source>
-        <translation>Czcionka</translation>
+        <translation>Schrift</translation>
     </message>
     <message>
         <source>Font Size</source>
-        <translation>Rozmiar czcionki</translation>
+        <translation>Schriftgröße</translation>
+    </message>
+    <message>
+        <source>Font Effects</source>
+        <translation>Effekte</translation>
     </message>
     <message>
         <source>Fill Color</source>
-        <translation>Kolor wypełnienia</translation>
+        <translation>Füllfarbe</translation>
+    </message>
+    <message>
+        <source>Fill Shade</source>
+        <translation>Tonwert</translation>
     </message>
     <message>
         <source>Stroke Color</source>
-        <translation>Kolor obrysu</translation>
+        <translation>Randfarbe</translation>
     </message>
     <message>
-        <source>Left</source>
-        <translation>Do lewej</translation>
-    </message>
-    <message>
-        <source>Center</source>
-        <translation>Wyśrodkowane</translation>
-    </message>
-    <message>
-        <source>Right</source>
-        <translation>Do prawej</translation>
-    </message>
-    <message>
-        <source>Block</source>
-        <translation>Justowany</translation>
-    </message>
-    <message>
-        <source>Forced</source>
-        <translation>Justowany (z ostatnią linią)</translation>
+        <source>Stroke Shade</source>
+        <translation>Tonwert</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>Brak</translation>
+        <translation>Keine</translation>
     </message>
     <message>
         <source>Replace with:</source>
-        <translation>Zastąp przez:</translation>
+        <translation>Ersetze durch:</translation>
     </message>
     <message>
         <source>Whole Word</source>
-        <translation>Całe słowo</translation>
+        <translation>Ganzes Wort</translation>
     </message>
     <message>
         <source>Ignore Case</source>
-        <translation>Ignoruj wielkość liter</translation>
+        <translation>Groß-/Kleinschreibung ignorieren</translation>
     </message>
     <message>
         <source>Search</source>
-        <translation>Szukaj</translation>
+        <translation>Suchen</translation>
     </message>
     <message>
         <source>Replace</source>
-        <translation>Zastąp</translation>
+        <translation>Ersetzen</translation>
     </message>
     <message>
         <source>Replace All</source>
-        <translation>Zastąp wszystko</translation>
+        <translation>Alles ersetzen</translation>
     </message>
     <message>
         <source>Leave</source>
-        <translation>Zakończ</translation>
+        <translation>Verlassen</translation>
     </message>
     <message>
         <source>Search finished</source>
-        <translation>Przeszukiwanie zostało ukończone</translation>
+        <translation>Suche beendet</translation>
     </message>
     <message>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <source>Font Effects</source>
-        <translation>Atrybuty czcionki</translation>
+        <source>Left</source>
+        <translation>Links</translation>
     </message>
     <message>
-        <source>Fill Shade</source>
-        <translation>Cieniowanie wypełnienia</translation>
+        <source>Center</source>
+        <translation>Zentriert</translation>
     </message>
     <message>
-        <source>Stroke Shade</source>
-        <translation>Cieniowanie obrysu</translation>
+        <source>Right</source>
+        <translation>Rechts</translation>
+    </message>
+    <message>
+        <source>Block</source>
+        <translation>Blocksatz</translation>
+    </message>
+    <message>
+        <source>Forced</source>
+        <translation>Erzw. Blocksatz</translation>
     </message>
 </context>
 <context>
     <name>SeitenPal</name>
     <message>
         <source>Arrange Pages</source>
-        <translation>Rozmieść strony</translation>
+        <translation>Seiten anordnen</translation>
     </message>
     <message>
         <source>Available Templates:</source>
-        <translation>Dostępne szablony:</translation>
+        <translation>Verfügbare Vorlagen:</translation>
     </message>
     <message>
         <source>Document Pages:</source>
-        <translation>Strony dokumentu:</translation>
+        <translation>Seiten des Dokuments:</translation>
     </message>
     <message>
         <source>Facing Pages</source>
-        <translation>Strony widzące się</translation>
+        <translation>Doppelseiten</translation>
     </message>
     <message>
         <source>Left Page first</source>
-        <translation>Lewa strona najpierw</translation>
+        <translation>Linke Seite zuerst</translation>
     </message>
     <message>
         <source>Drag Pages or Template Pages onto the Trashbin to delete them.</source>
-        <translation>Przeciągnij strony lub szablony do śmietnika, aby je usunąć.</translation>
+        <translation>Ziehen Sie Seiten oder Vorlagen auf den Mülleimer um sie zu löschen.</translation>
     </message>
     <message>
         <source>This previews all the pages of your Document.</source>
-        <translation>Podgląd wszystkich stron dokumentu.</translation>
+        <translation>Hier sind alle Seiten Ihres Dokuments dargestellt.</translation>
     </message>
     <message>
         <source>Here are all your Templates, to create a new Page
 drag a Template to the Pageview below.</source>
-        <translation>Tutaj są twoje szablony. Aby stworzyć nową stronę, 
-przeciągnij szablon na widok strony na dole.</translation>
+        <translation>Hier sind Ihre Vorlagen, um eine neue Seite zu erzeugen
+ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation>Normalny</translation>
+        <translation>Normal</translation>
     </message>
 </context>
 <context>
     <name>SelectFields</name>
     <message>
         <source>Select Fields</source>
-        <translation>Wybierz pola</translation>
+        <translation>Felder auswählen</translation>
     </message>
     <message>
         <source>Available Fields</source>
-        <translation>Dostępne pola</translation>
+        <translation>Verfügbare Felder</translation>
     </message>
     <message>
         <source>&gt;&gt;</source>
-        <translation></translation>
+        <translation>&gt;&gt;</translation>
     </message>
     <message>
         <source>&lt;&lt;</source>
-        <translation></translation>
+        <translation>&lt;&lt;</translation>
     </message>
     <message>
         <source>Selected Fields</source>
-        <translation>Wybrane pola</translation>
+        <translation>Ausgewählte Felder</translation>
     </message>
     <message>
         <source>OK</source>
@@ -6246,313 +6113,289 @@ przeciągnij szablon na widok strony na dole.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Abbrechen</translation>
     </message>
 </context>
 <context>
     <name>ShadeButton</name>
     <message>
         <source>Other...</source>
-        <translation>Inne...</translation>
+        <translation>Andere...</translation>
     </message>
     <message>
         <source>Shade:</source>
-        <translation>Cieniowanie:</translation>
+        <translation>Tonwert:</translation>
     </message>
     <message>
         <source>Shade</source>
-        <translation>Cieniowanie</translation>
+        <translation>Tonwert</translation>
     </message>
 </context>
 <context>
     <name>Spalette</name>
     <message>
         <source>No Style</source>
-        <translation>Bez stylu</translation>
+        <translation>Kein Stil</translation>
     </message>
 </context>
 <context>
     <name>StilFormate</name>
     <message>
         <source>Edit Styles</source>
-        <translation>Edytuj style</translation>
+        <translation>Stilvorlagen bearbeiten</translation>
     </message>
     <message>
         <source>Append</source>
-        <translation>Dołącz</translation>
+        <translation>Anfügen</translation>
     </message>
     <message>
         <source>New</source>
-        <translation>Nowy</translation>
+        <translation>Neu</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation>Edycja</translation>
+        <translation>Bearbeiten</translation>
     </message>
     <message>
         <source>Duplicate</source>
-        <translation>Klonuj</translation>
+        <translation>Duplizieren</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation>Usuń</translation>
+        <translation>Löschen</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Zapisz</translation>
+        <translation>Speichern</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <source>Copy of %1</source>
-        <translation>Kopia %1</translation>
+        <translation>Kopie von %1</translation>
     </message>
     <message>
         <source>New Style</source>
-        <translation>Nowy styl</translation>
+        <translation>Neue Stilvorlage</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Ostrzeżenie</translation>
+        <translation>Warnung</translation>
     </message>
     <message>
         <source>Do you really want do delete this Style?</source>
-        <translation>Naprawdę usunąć ten styl?</translation>
+        <translation>Wollen Sie diese Stilvorlage wirklich löschen?</translation>
     </message>
     <message>
         <source>No</source>
-        <translation>Nie</translation>
+        <translation>Nein</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation>Tak</translation>
+        <translation>Ja</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation>Otwórz</translation>
+        <translation>Öffnen</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-        <translation>Dokumenty (*.sla *.sla.gz *.scd *.scd.gz);;Wszystkie pliki (*)</translation>
+        <translation>Dokumente (*.sla *.sla.gz *.scd *.scd.gz);;Alle Dateien (*)</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Dokumenty (*.sla *.scd);;Wszystkie pliki (*)</translation>
+        <translation>Dokumente (*.sla *.scd);;Alle Dateien (*)</translation>
     </message>
 </context>
 <context>
     <name>StoryEditor</name>
     <message>
         <source>Story Editor</source>
-        <translation>Edytor artykułów</translation>
-    </message>
-    <message>
-        <source>Left</source>
-        <translation>Do lewej</translation>
-    </message>
-    <message>
-        <source>Center</source>
-        <translation>Wyśrodkowane</translation>
-    </message>
-    <message>
-        <source>Right</source>
-        <translation>Do prawej</translation>
-    </message>
-    <message>
-        <source>Block</source>
-        <translation>Justowany</translation>
-    </message>
-    <message>
-        <source>Forced</source>
-        <translation>Justowany (z ostatnią linią)</translation>
+        <translation>Textbearbeitung</translation>
     </message>
     <message>
         <source>New</source>
-        <translation>Nowy</translation>
+        <translation>Neu</translation>
     </message>
     <message>
         <source>Save to File...</source>
-        <translation>Zapisz do pliku...</translation>
+        <translation>In Datei speichern...</translation>
     </message>
     <message>
         <source>Load from File...</source>
-        <translation>Pobierz z pliku...</translation>
+        <translation>Von Datei laden...</translation>
     </message>
     <message>
         <source>Save and Exit</source>
-        <translation>Zapisz i zakończ</translation>
+        <translation>Speichern und Beenden</translation>
     </message>
     <message>
         <source>Exit without Saving</source>
-        <translation>Zakończ bez zapisywania</translation>
+        <translation>Beenden ohne Speichern</translation>
     </message>
     <message>
         <source>Undo</source>
-        <translation>Cofnij</translation>
+        <translation>Rückgängig</translation>
     </message>
     <message>
         <source>Redo</source>
-        <translation>Przywróć</translation>
+        <translation>Wiederherstellen</translation>
     </message>
     <message>
         <source>Cut</source>
-        <translation>Wytnij</translation>
+        <translation>Ausschneiden</translation>
     </message>
     <message>
         <source>Copy</source>
-        <translation>Kopiuj</translation>
+        <translation>Kopieren</translation>
     </message>
     <message>
         <source>Paste</source>
-        <translation>Wklej</translation>
+        <translation>Einfügen</translation>
     </message>
     <message>
         <source>Clear</source>
-        <translation>Usuń</translation>
+        <translation>Löschen</translation>
     </message>
     <message>
         <source>Edit Styles...</source>
-        <translation>Edytuj style...</translation>
-    </message>
-    <message>
-        <source>Update Textframe</source>
-        <translation>Aktualizuj ramkę tekstową</translation>
+        <translation>Stilvorlagen bearbeiten...</translation>
     </message>
     <message>
         <source>File</source>
-        <translation>Plik</translation>
+        <translation>Datei</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation>Edycja</translation>
+        <translation>Bearbeiten</translation>
     </message>
     <message>
         <source>Style</source>
-        <translation>Styl</translation>
+        <translation>Stil</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation>Tekst</translation>
+        <translation>Text</translation>
     </message>
     <message>
         <source>Current Paragraph:</source>
-        <translation>Aktualny akapit:</translation>
+        <translation>Aktueller Absatz:</translation>
     </message>
     <message>
         <source>Words: </source>
-        <translation>Słów: </translation>
+        <translation>Wörter:</translation>
     </message>
     <message>
         <source>Chars: </source>
-        <translation>Znaków: </translation>
+        <translation>Zeichen:</translation>
     </message>
     <message>
         <source>Totals:</source>
-        <translation>Ogólnie:</translation>
+        <translation>Gesamt:</translation>
     </message>
     <message>
         <source>Paragraphs: </source>
-        <translation>Akapitów: </translation>
+        <translation>Absätze:</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Ostrzeżenie</translation>
+        <translation>Warnung</translation>
     </message>
     <message>
         <source>Do you really want to lose all your Changes?</source>
-        <translation>Naprawdę anulować wszystkie zmiany?</translation>
+        <translation>Wollen Sie wirklich alle Änderungen verlieren?</translation>
     </message>
     <message>
         <source>Do you really want to clear all your Text?</source>
-        <translation>Naprawdę usunąć cały tekst?</translation>
+        <translation>Wollen Sie wirklich den ganzen Text löschen?</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation>Otwórz</translation>
+        <translation>Öffnen</translation>
     </message>
     <message>
         <source>Text Files (*.txt);;All Files(*)</source>
-        <translation>Pliki tekstowe (*.txt);;Wszystkie pliki(*)</translation>
+        <translation>Textdateien (*.txt);;Alle Dateien(*)</translation>
     </message>
     <message>
         <source>Save as</source>
-        <translation>Zapisz jako</translation>
+        <translation>Speichern unter</translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <translation>Links</translation>
+    </message>
+    <message>
+        <source>Center</source>
+        <translation>Zentriert</translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation>Rechts</translation>
+    </message>
+    <message>
+        <source>Block</source>
+        <translation>Blocksatz</translation>
+    </message>
+    <message>
+        <source>Forced</source>
+        <translation>Erzw. Blocksatz</translation>
     </message>
     <message>
         <source>Update Text Frame</source>
-        <translation>Aktualizuj ramkę tekstową</translation>
+        <translation>Textrahmen auffrischen</translation>
     </message>
     <message>
         <source>Search/Replace...</source>
-        <translation>Znajdź/Zastąp...</translation>
+        <translation>Suchen/Ersetzen...</translation>
     </message>
 </context>
 <context>
     <name>StyleSelect</name>
     <message>
         <source>Underline</source>
-        <translation>Podkreślenie</translation>
+        <translation>Unterstrichen</translation>
     </message>
     <message>
         <source>Small Caps</source>
-        <translation>Kapitaliki</translation>
+        <translation>Kapitälchen</translation>
     </message>
     <message>
         <source>Subscript</source>
-        <translation>Indeks dolny</translation>
+        <translation>Tiefgestellt</translation>
     </message>
     <message>
         <source>Superscript</source>
-        <translation>Indeks górny</translation>
+        <translation>Hochgestellt</translation>
     </message>
     <message>
         <source>Strikeout</source>
-        <translation>Przekreślenie</translation>
+        <translation>Durchgestrichen</translation>
     </message>
     <message>
         <source>Outline Text</source>
-        <translation>Obramowanie tekstu</translation>
+        <translation>Umrandet</translation>
     </message>
 </context>
 <context>
     <name>TabManager</name>
     <message>
         <source>Manage Tabulators</source>
-        <translation>Konfiguracja tabulatorów</translation>
+        <translation>Tabulatoren bearbeiten</translation>
     </message>
     <message>
         <source>Position:</source>
-        <translation>Pozycja:</translation>
+        <translation>Position:</translation>
     </message>
     <message>
         <source>Alignment:</source>
-        <translation>Wyrównanie:</translation>
-    </message>
-    <message>
-        <source>Left</source>
-        <translation>Do lewej</translation>
-    </message>
-    <message>
-        <source>Right</source>
-        <translation>Do prawej</translation>
-    </message>
-    <message>
-        <source>Full Stop</source>
-        <translation>Kropka</translation>
-    </message>
-    <message>
-        <source>Comma</source>
-        <translation>Przecinek</translation>
-    </message>
-    <message>
-        <source>Center</source>
-        <translation>Wyśrodkowane</translation>
+        <translation>Ausrichtung:</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation></translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source>OK</source>
@@ -6560,26 +6403,46 @@ przeciągnij szablon na widok strony na dole.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation>Usuń</translation>
+        <translation>Entfernen</translation>
     </message>
     <message>
         <source>Add</source>
-        <translation>Dodaj</translation>
+        <translation>Hinzufügen</translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <translation>Links</translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation>Rechts</translation>
+    </message>
+    <message>
+        <source>Full Stop</source>
+        <translation>Punkt</translation>
+    </message>
+    <message>
+        <source>Comma</source>
+        <translation>Komma</translation>
+    </message>
+    <message>
+        <source>Center</source>
+        <translation>Zentriert</translation>
     </message>
 </context>
 <context>
     <name>Tree</name>
     <message>
         <source>Outline</source>
-        <translation>Struktura</translation>
+        <translation>Übersicht</translation>
     </message>
     <message>
         <source>Element</source>
-        <translation>Element</translation>
+        <translation>Objekt</translation>
     </message>
     <message>
         <source>Type</source>
@@ -6587,7 +6450,7 @@ przeciągnij szablon na widok strony na dole.</translation>
     </message>
     <message>
         <source>Information</source>
-        <translation>Informacja</translation>
+        <translation>Information</translation>
     </message>
     <message>
         <source>X:</source>
@@ -6599,164 +6462,164 @@ przeciągnij szablon na widok strony na dole.</translation>
     </message>
     <message>
         <source>Font:</source>
-        <translation>Czcionka:</translation>
+        <translation>Schrift:</translation>
     </message>
     <message>
         <source>Image</source>
-        <translation>Obrazek</translation>
+        <translation>Bild</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation>Tekst</translation>
+        <translation>Text</translation>
     </message>
     <message>
         <source>Line</source>
-        <translation>Linia</translation>
+        <translation>Linie</translation>
     </message>
     <message>
         <source>Polygon</source>
-        <translation>Wielokąt</translation>
+        <translation>Polygon</translation>
     </message>
     <message>
         <source>Polyline</source>
-        <translation>Linia łamana</translation>
+        <translation>Polyline</translation>
     </message>
     <message>
         <source>PathText</source>
-        <translation>Tekst na ścieżce</translation>
+        <translation>Pfadtext</translation>
     </message>
     <message>
         <source>Page</source>
-        <translation>Strona</translation>
+        <translation>Seite</translation>
     </message>
 </context>
 <context>
     <name>WerkToolB</name>
     <message>
         <source>Tools</source>
-        <translation>Narzędzia</translation>
+        <translation>Werkzeuge</translation>
     </message>
     <message>
         <source>Select Items</source>
-        <translation>Wybiera elementy</translation>
+        <translation>Objekte auswählen</translation>
     </message>
     <message>
         <source>Insert Text Frame</source>
-        <translation>Wstawia ramkę tekstową</translation>
+        <translation>Textrahmen einfügen</translation>
     </message>
     <message>
         <source>Insert Picture</source>
-        <translation>Wstawia ramkę graficzną</translation>
+        <translation>Bild einfügen</translation>
     </message>
     <message>
         <source>Properties...</source>
-        <translation>Właściwości...</translation>
+        <translation>Eigenschaften...</translation>
     </message>
     <message>
         <source>Insert Polygons</source>
-        <translation>Wstawia wielokąty</translation>
+        <translation>Polygone einfügen</translation>
     </message>
     <message>
         <source>Insert Lines</source>
-        <translation>Wstawia linie</translation>
+        <translation>Linien einfügen</translation>
     </message>
     <message>
         <source>Insert Bezier Curves</source>
-        <translation>Wstawia krzywe Beziera</translation>
+        <translation>Bezierlinien einfügen</translation>
     </message>
     <message>
         <source>Insert Freehand Line</source>
-        <translation>Wstawia odręczną linię</translation>
+        <translation>Freihand Linie einfügen</translation>
     </message>
     <message>
         <source>Rotate Item</source>
-        <translation>Obraca element</translation>
+        <translation>Objekt drehen</translation>
     </message>
     <message>
         <source>Zooms in or out</source>
-        <translation>Powiększa/Pomniejsza widok</translation>
+        <translation>Vergrößern oder verkleinern</translation>
     </message>
     <message>
         <source>Edit Contents of Frame</source>
-        <translation>Edytuje zawartość ramki</translation>
+        <translation>Rahmeninhalt bearbeiten</translation>
     </message>
     <message>
         <source>Edit the Text with the Story Editor</source>
-        <translation>Edytuje tekst w edytorze artykułów</translation>
+        <translation>Text mit dem Story Editor bearbeiten</translation>
     </message>
     <message>
         <source>Link Text Frames</source>
-        <translation>Łączy ramki tekstowe</translation>
+        <translation>Textrahmen verbinden</translation>
     </message>
     <message>
         <source>Unlink Text Frames</source>
-        <translation>Rozłącza ramki tekstowe</translation>
+        <translation>Textrahmenverbindung lösen</translation>
     </message>
     <message>
         <source>Draws various Shapes</source>
-        <translation>Rysuje różne formy</translation>
+        <translation>Zeichnet verschiedene Formen</translation>
     </message>
 </context>
 <context>
     <name>WerkToolBP</name>
     <message>
         <source>PDF-Tools</source>
-        <translation>Narzędzia PDF</translation>
-    </message>
-    <message>
-        <source>Button</source>
-        <translation>Przycisk</translation>
-    </message>
-    <message>
-        <source>Text Field</source>
-        <translation>Pole tekstowe</translation>
-    </message>
-    <message>
-        <source>Check Box</source>
-        <translation>Pole wyboru</translation>
-    </message>
-    <message>
-        <source>Combo Box</source>
-        <translation>Lista rozwijana</translation>
-    </message>
-    <message>
-        <source>List Box</source>
-        <translation>Lista</translation>
+        <translation>PDF-Werkzeuge</translation>
     </message>
     <message>
         <source>Insert PDF-Fields</source>
-        <translation>Wstawia pola PDF</translation>
+        <translation>PDF-Felder einfügen</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation>Tekst</translation>
+        <translation>Text</translation>
     </message>
     <message>
         <source>Link</source>
-        <translation>Dowiązanie</translation>
+        <translation>Verknüpfung</translation>
     </message>
     <message>
         <source>Insert PDF-Annotations</source>
-        <translation>Wstawia adnotacje PDF</translation>
+        <translation>PDF-Anmerkungen einfügen</translation>
+    </message>
+    <message>
+        <source>Button</source>
+        <translation>Schaltfläche</translation>
+    </message>
+    <message>
+        <source>Text Field</source>
+        <translation>Textfeld</translation>
+    </message>
+    <message>
+        <source>Check Box</source>
+        <translation>Kontrollkästchen</translation>
+    </message>
+    <message>
+        <source>Combo Box</source>
+        <translation>Kombinationsfeld</translation>
+    </message>
+    <message>
+        <source>List Box</source>
+        <translation>Listenfeld</translation>
     </message>
 </context>
 <context>
     <name>ZAuswahl</name>
     <message>
         <source>Select Character:</source>
-        <translation>Wybierz znak:</translation>
+        <translation>Zeichen auswählen:</translation>
     </message>
     <message>
         <source>Insert</source>
-        <translation>Wklej</translation>
+        <translation>Einfügen</translation>
     </message>
     <message>
         <source>Clear</source>
-        <translation>Usuń</translation>
+        <translation>Löschen</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation>Zamknij</translation>
+        <translation>Schließen</translation>
     </message>
 </context>
 </TS>

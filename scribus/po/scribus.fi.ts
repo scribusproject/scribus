@@ -2170,7 +2170,7 @@ Voit määrittää sen asetuksissa.</translation>
     </message>
     <message>
         <source>Enables automatic checking of your text while typing.</source>
-        <translation>Mahdollistaa automaattisen tekstin tarkastuksen kirjoittaessasi.</translation>
+        <translation>Mahdollistaa automaattisen tavutuksen kirjoittaessasi.</translation>
     </message>
     <message>
         <source>Smallest Word:</source>
@@ -3889,6 +3889,26 @@ muulloin suhteessa kohteeseen.</translation>
     <message>
         <source>Display Transparency</source>
         <translation>Näytä läpinäkyvyys</translation>
+    </message>
+    <message>
+        <source>Display CMYK</source>
+        <translation>Näytä CMYK</translation>
+    </message>
+    <message>
+        <source>C</source>
+        <translation>C</translation>
+    </message>
+    <message>
+        <source>M</source>
+        <translation>M</translation>
+    </message>
+    <message>
+        <source>Y</source>
+        <translation>Y</translation>
+    </message>
+    <message>
+        <source>K</source>
+        <translation>K</translation>
     </message>
 </context>
 <context>
