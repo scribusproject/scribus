@@ -4201,7 +4201,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Leave preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Закрыть этот диалог</translation>
     </message>
 </context>
 <context>
@@ -5736,7 +5736,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Page Size</source>
-        <translation>Размер страницы</translation>
+        <translation>Формат страницы</translation>
     </message>
     <message>
         <source>Custom</source>
@@ -9277,7 +9277,7 @@ External Links
     </message>
     <message>
         <source>Galician</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Галицийский</translation>
     </message>
     <message>
         <source>Greek</source>
@@ -9305,11 +9305,11 @@ External Links
     </message>
     <message>
         <source>Norwegian (Bokmaal)</source>
-        <translation>Норвежский (Бокмол)</translation>
+        <translation>Норвежский (бокмол)</translation>
     </message>
     <message>
         <source>Norwegian (Nnyorsk)</source>
-        <translation type="unfinished">Норвежский</translation>
+        <translation>Норвежский (новонорвежский)</translation>
     </message>
     <message>
         <source>Norwegian</source>
@@ -9450,7 +9450,7 @@ External Links
     <message>
         <source>Can&apos;t have an empty layer name</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Не может быть слоя без имени</translation>
     </message>
     <message>
         <source>Layer not found</source>
@@ -9768,7 +9768,7 @@ External Links
     </message>
     <message>
         <source>Import &amp;OpenOffice.org Draw...</source>
-        <translation type="unfinished"></translation>
+        <translation>Импортировать  &amp;OpenOffice.org Draw...</translation>
     </message>
     <message>
         <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
