@@ -616,6 +616,7 @@ void UndoManager::initIcons()
 	UndoManager::ITransparency    = new QPixmap(iconDir + "u_transp.png");
 	UndoManager::ILineStyle       = new QPixmap(iconDir + "u_line.png");
 	UndoManager::IArrow           = new QPixmap(iconDir + "u_arrow.png");
+	UndoManager::ITable           = new QPixmap(iconDir + "frame_table.png");
 }
 
 const QString UndoManager::AddVGuide         = tr("Add vertical guide");
@@ -670,6 +671,8 @@ const QString UndoManager::CustomLineStyle   = tr("Set custom line style");
 const QString UndoManager::NoLineStyle       = tr("Do not use custom line style");
 const QString UndoManager::StartArrow        = tr("Set start arrow");
 const QString UndoManager::EndArrow          = tr("Set end arrow");
+const QString UndoManager::CreateTable       = tr("Create table");
+const QString UndoManager::RowsCols          = tr("Rows: %1, Cols: %2");
 
 /*** Icons for UndoObjects *******************************************/
 QPixmap *UndoManager::IImageFrame      = NULL;
@@ -679,6 +682,7 @@ QPixmap *UndoManager::IPolygon         = NULL;
 QPixmap *UndoManager::IPolyline        = NULL;
 QPixmap *UndoManager::IPathText        = NULL;
 QPixmap *UndoManager::IGroup           = NULL;
+QPixmap *UndoManager::ITable           = NULL;
 /*** Icons for actions ***********************************************/
 QPixmap *UndoManager::IMove            = NULL;
 QPixmap *UndoManager::IResize          = NULL;

@@ -1301,6 +1301,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			offX = 0.0;
 			offY = 0.0;
 			SelItem.clear();
+			if (UndoManager::undoEnabled())
+				undoManager->beginTransaction(Doc->currentPage->getUName(), Um::ITable, Um::CreateTable,
+											  QString(Um::RowsCols).arg(Rows).arg(Cols), Um::ICreate);
 			for (int rc = 0; rc < Rows; ++rc)
 			{
 				for (int cc = 0; cc < Cols; ++cc)
@@ -1338,6 +1341,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				}
 			}
 			emit DoGroup();
+			if (UndoManager::undoEnabled())
+				undoManager->commit();
 		}
 		Doc->appMode = NormalMode;
 		emit PaintingDone();

@@ -443,6 +443,8 @@ public:
 	static const QString NoLineStyle;
 	static const QString StartArrow;
 	static const QString EndArrow;
+	static const QString CreateTable;
+	static const QString RowsCols;
 	/*@}*/
 
 	/**
@@ -478,6 +480,7 @@ public:
 	static QPixmap *ITransparency;
 	static QPixmap *ILineStyle;
 	static QPixmap *IArrow;
+	static QPixmap *ITable;
 	/*@}*/
 
 protected:
