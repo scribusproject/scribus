@@ -201,7 +201,7 @@ void MusterPages::duplicateTemplate()
 		}
 		currentView->Deselect(true);
 		currentView->DrawNew();
-		currentDoc->Pages.at(nr)->PageNam = templateName;
+		currentDoc->Pages.at(nr)->setPageName(templateName);
 		currentDoc->Pages.at(nr)->MPageNam = "";
 		updateTemplateList(templateName);
 		currentDoc->PageAT = atf;
@@ -237,7 +237,7 @@ void MusterPages::newTemplate()
 		emit createNew(nr);
 		if (currentDoc->PageFP)
 			currentDoc->Pages.at(nr)->LeftPg = dia->Links->currentItem() == 0 ? true : false;
-		currentDoc->Pages.at(nr)->PageNam = templateName;
+		currentDoc->Pages.at(nr)->setPageName(templateName);
 		currentDoc->Pages.at(nr)->MPageNam = "";
 		updateTemplateList(templateName);
 		currentDoc->PageAT = atf;
@@ -272,7 +272,7 @@ void MusterPages::appendPage()
 			copyC++;
 		}
 		currentDoc->MasterNames.insert(templateName2, nr);
-		currentDoc->Pages.at(nr)->PageNam = templateName2;
+		currentDoc->Pages.at(nr)->setPageName(templateName2);
 		currentDoc->Pages.at(nr)->MPageNam = "";
 		updateTemplateList(templateName2);
 		currentDoc->PageAT = atf;

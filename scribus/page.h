@@ -64,6 +64,7 @@ public:
 	void removeYGuide(int index);
 	void moveXGuide(int fromIndex, double to);
 	void moveYGuide(int fromIndex, double to);
+	void setPageName(const QString& newName);
 	void restore(UndoState* state, bool isUndo);
 };
 

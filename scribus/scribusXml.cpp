@@ -820,7 +820,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 				if (Mpage)
 				{
 					doc->Pages.at(a)->LeftPg=QStoInt(pg.attribute("LEFT","0"));
-					doc->Pages.at(a)->PageNam = pg.attribute("NAM","");
+					doc->Pages.at(a)->setPageName(pg.attribute("NAM",""));
 				}
 				TableItems.clear();
 				TableID.clear();
@@ -1443,7 +1443,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				}
 				else
 				{
-					doc->Pages.at(a)->PageNam = PgNam;
+				  doc->Pages.at(a)->setPageName(PgNam);
 					doc->MasterNames[PgNam] = a;
 					doc->MasterPages = doc->Pages;
 					doc->MasterItems = doc->Items;

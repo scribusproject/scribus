@@ -2401,7 +2401,7 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	slotNewPage(0);
 	doc->PageAT = atfb;
 	doc->MasterNames["Normal"] = 0;
-	doc->Pages.at(0)->PageNam = "Normal";
+	doc->Pages.at(0)->setPageName("Normal");
 	doc->MasterPages = doc->Pages;
 	doc->PageC = doc->DocPages.count();
 	doc->Pages = doc->DocPages;
@@ -3886,7 +3886,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 			slotNewPage(0);
 			doc->PageAT = atf;
 			doc->MasterNames["Normal"] = 0;
-			doc->Pages.at(0)->PageNam = "Normal";
+			doc->Pages.at(0)->setPageName("Normal");
 			doc->MasterPages = doc->Pages;
 			doc->PageC = doc->DocPages.count();
 			doc->Pages = doc->DocPages;

@@ -44,7 +44,10 @@ Page::Page(double x, double y, double b, double h) : UndoObject(QObject::tr("Pag
 void Page::setPageNr(int pageNr)
 {
 	PageNr = pageNr;
-	setUName(QString(QObject::tr("Page") + " %1").arg(ScApp->doc->FirstPnum + PageNr));
+	if (PageNam == "")
+		setUName(QString(QObject::tr("Page") + " %1").arg(ScApp->doc->FirstPnum + PageNr));
+	else
+		setUName(PageNam);
 }
 
 uint Page::getPageNr()
@@ -172,6 +175,13 @@ void Page::moveYGuide(int fromIndex, double to)
 		ss->set("MOVE_H_TO", to);
 		undoManager->action(this, ss);
 	}
+}
+
+void Page::setPageName(const QString& newName)
+{
+	PageNam = newName;
+	if (newName != "")
+		setUName(QObject::tr("Template ") + newName);
 }
 
 void Page::restore(UndoState* state, bool isUndo)

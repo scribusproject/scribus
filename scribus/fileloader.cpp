@@ -541,7 +541,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 					doc->DocPages = doc->Pages;
 				else
 				{
-					Apage->PageNam = PgNam;
+				  Apage->setPageName(PgNam);
 					doc->MasterNames[PgNam] = a;
 					doc->MasterPages = doc->Pages;
 				}

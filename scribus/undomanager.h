@@ -207,7 +207,7 @@ public:
 	 */
 	int getHistoryLength();
 
-	/***
+	/**
 	* @name Action strings
 	* Strings describing undo actions
 	*/
