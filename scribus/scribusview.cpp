@@ -7300,7 +7300,6 @@ void ScribusView::removePict(QString name)
 		PageItem *b = Doc->DocItems.at(a);
 		if ((b->PicAvail) && (b->Pfile == name))
 		{
-			b->Pfile = "";
 			b->PicAvail = false;
 			b->pixm = QImage();
 			b->pixmOrg = QImage();
@@ -7313,7 +7312,6 @@ void ScribusView::removePict(QString name)
 		PageItem *b = Doc->MasterItems.at(a);
 		if ((b->PicAvail) && (b->Pfile == name))
 		{
-			b->Pfile = "";
 			b->PicAvail = false;
 			b->pixm = QImage();
 			b->pixmOrg = QImage();
