@@ -4747,10 +4747,14 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.Ausrichtung = dia->GZComboO->currentItem();
 		Prefs.PageBreite = dia->Pagebr;
 		Prefs.PageHoehe = dia->Pageho;
-		Prefs.RandOben = dia->TopR->value() / UmReFaktor / 100;
+/*		Prefs.RandOben = dia->TopR->value() / UmReFaktor / 100;
 		Prefs.RandUnten = dia->BottomR->value() / UmReFaktor / 100;
 		Prefs.RandLinks = dia->LeftR->value() / UmReFaktor / 100;
-		Prefs.RandRechts = dia->RightR->value() / UmReFaktor / 100;
+		Prefs.RandRechts = dia->RightR->value() / UmReFaktor / 100;   */
+		Prefs.RandOben = dia->RandT;
+		Prefs.RandUnten = dia->RandB;
+		Prefs.RandLinks = dia->RandL;
+		Prefs.RandRechts = dia->RandR;
 		Prefs.DoppelSeiten = dia->Doppelseiten->isChecked();
 		Prefs.ErsteLinks = dia->Linkszuerst->isChecked();
 		Prefs.PDFTransparency = dia->UsePDFTrans->isChecked();

@@ -230,6 +230,10 @@ public:
 		QColor Cgui;
 		float Pagebr;
 		float Pageho;
+		float RandT;
+		float RandB;
+		float RandL;
+		float RandR;
 		int Einheit;
 		float DisScale;
     ScribusApp *ap;

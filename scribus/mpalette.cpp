@@ -720,9 +720,9 @@ void Mpalette::SetDoc(ScribusDoc *d)
 	Ypos->setMaxValue( 300000 );
 	Ypos->setMinValue( -300000 );
 	Width->setMaxValue( 300000 );
-	Width->setMinValue( 100 );
+	Width->setMinValue( 1 );
 	Height->setMaxValue( 300000 );
-	Height->setMinValue( 100 );
+	Height->setMinValue( 1 );
 	Rot->setMaxValue( 36000 );
 	Rot->setMinValue( 0 );
 	RoundRect->setMaxValue( 3000 );
@@ -772,7 +772,6 @@ void Mpalette::SetCurItem(PageItem *i)
 	CurItem = i;
 	if (i->IFont != "");
 		Fonts->setCurrentText(i->IFont);
-//		Fonts->setText(i->IFont);
 	RoundRect->setValue(qRound(i->RadRect));
   DLeft->setValue(static_cast<int>(i->Extra*10));
   DTop->setValue(static_cast<int>(i->TExtra*10));
@@ -1069,6 +1068,8 @@ void Mpalette::UnitChange()
 	HaveItem = false;
 	QString ein;
 	Umrech = UmReFaktor;
+  Width->setLineStep(100);
+  Height->setLineStep(100);
 	switch (doc->Einheit)
 		{
 		case 0:
@@ -1079,6 +1080,8 @@ void Mpalette::UnitChange()
 			break;
 		case 2:
     	ein = " in";
+  		Width->setLineStep(10);
+  		Height->setLineStep(10);
 			break;
 		case 3:
     	ein = " p";

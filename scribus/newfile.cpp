@@ -191,6 +191,7 @@ NewDoc::NewDoc( QWidget* parent, preV *Vor )
     RightR->setDecimals(100);
    	BottomR->setDecimals(100);
 		setSize(Vor->PageFormat);
+		setOrien(Vor->Ausrichtung);
 
     Layout10 = new QVBoxLayout( 0, 0, 6, "Layout10");
 
@@ -244,14 +245,12 @@ NewDoc::NewDoc( QWidget* parent, preV *Vor )
     TextLabel3->setText( tr( "Columns:" ) );
     Layout2->addWidget( TextLabel3, 0, 0 );
 		Distance = new MSpinBox( GroupBox4, 2 );
-//    Distance->setMinimumSize( QSize( 70, 20 ) );
     Distance->setSuffix( ein );
     Distance->setMaxValue( 100000 );
     Distance->setValue( qRound(11 * Umrech * 100) );
 		Dist = 11;
     Layout2->addWidget( Distance, 1, 1, Qt::AlignLeft );
     SpinBox10 = new QSpinBox( GroupBox4, "SpinBox10" );
-//    SpinBox10->setMinimumSize( QSize( 70, 20 ) );
     SpinBox10->setButtonSymbols( QSpinBox::UpDownArrows );
     SpinBox10->setMinValue( 1 );
     SpinBox10->setValue( 1 );
@@ -362,12 +361,30 @@ void NewDoc::setUnit(int u)
 			break;
 		}
 	einheit = u;
+	disconnect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
+	disconnect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
+	disconnect(TopR, SIGNAL(valueChanged(int)), this, SLOT(setTop(int)));
+	disconnect(BottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom(int)));
+	disconnect(LeftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft(int)));
+	disconnect(RightR, SIGNAL(valueChanged(int)), this, SLOT(setRight(int)));
+	Breite->setValue(qRound(Pagebr * Umrech * 100));
+	Hoehe->setValue(qRound(Pageho * Umrech * 100));
+	RightR->setMaxValue(Breite->value() - qRound(Left * Umrech * 100));
+	LeftR->setMaxValue(Breite->value() - qRound(Right * Umrech * 100));
+	TopR->setMaxValue(Hoehe->value() - qRound(Bottom * Umrech * 100));
+	BottomR->setMaxValue(Hoehe->value() - qRound(Top * Umrech * 100));
 	TopR->setValue(qRound(Top * Umrech * 100));
 	BottomR->setValue(qRound(Bottom * Umrech * 100));
 	LeftR->setValue(qRound(Left * Umrech * 100));
 	RightR->setValue(qRound(Right * Umrech * 100));
+	connect(TopR, SIGNAL(valueChanged(int)), this, SLOT(setTop(int)));
+	connect(BottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom(int)));
+	connect(LeftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft(int)));
+	connect(RightR, SIGNAL(valueChanged(int)), this, SLOT(setRight(int)));
+	connect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
+	connect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
 	Distance->setValue(qRound(Dist * Umrech * 100));
-	setSize(ComboBox1->currentItem());
+//	setSize(ComboBox1->currentItem());
   TopR->setSuffix(ein);
   BottomR->setSuffix(ein);
   LeftR->setSuffix(ein);
@@ -397,6 +414,8 @@ void NewDoc::setOrien(int ori)
 {
 	int br;
 	setSize(ComboBox1->currentItem());
+	disconnect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
+	disconnect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
 	if (ori == 0)
 		{
 		if (ComboBox1->currentItem() == 30)
@@ -418,6 +437,8 @@ void NewDoc::setOrien(int ori)
 	LeftR->setMaxValue(Breite->value() - RightR->value());
 	TopR->setMaxValue(Hoehe->value() - BottomR->value());
 	BottomR->setMaxValue(Hoehe->value() - TopR->value());
+	connect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
+	connect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
 }
 
 void NewDoc::setPGsize()

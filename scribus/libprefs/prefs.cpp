@@ -307,24 +307,28 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     TopR->setMaxValue( 100000 );
     TopR->setMinValue( 0 );
     TopR->setValue( qRound(Vor->RandOben * Umrech * 100));
+		RandT = Vor->RandOben;
     GroupRandLayout->addWidget( TopR, 0, 1 );
     BottomR = new MSpinBox( GroupRand, 2 );
     BottomR->setMinimumSize( QSize( 70, 20 ) );
     BottomR->setMaxValue( 100000 );
     BottomR->setMinValue( 0 );
     BottomR->setValue( qRound(Vor->RandUnten * Umrech * 100));
+		RandB = Vor->RandUnten;
     GroupRandLayout->addWidget( BottomR, 1, 1 );
     RightR = new MSpinBox( GroupRand, 2 );
     RightR->setMinimumSize( QSize( 70, 20 ) );
     RightR->setMaxValue( 100000 );
     RightR->setMinValue( 0 );
     RightR->setValue( qRound(Vor->RandRechts * Umrech * 100));
+		RandR = Vor->RandRechts;
     GroupRandLayout->addWidget( RightR, 1, 3 );
     LeftR = new MSpinBox( GroupRand, 2 );
     LeftR->setMinimumSize( QSize( 70, 20 ) );
     LeftR->setMaxValue( 100000 );
     LeftR->setMinValue( 0 );
     LeftR->setValue( qRound(Vor->RandLinks * Umrech * 100));
+		RandL = Vor->RandLinks;
     GroupRandLayout->addWidget( LeftR, 0, 3 );
     Breite->setLineStep(100);
     Hoehe->setLineStep(100);
@@ -1547,7 +1551,6 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     QSpacerItem* spacer_3 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
     Layout3->addItem( spacer_3 );
     PrefsLayout->addLayout( Layout3 );
-    UnitChange();
 
     // signals and slots connections
     connect( minColor, SIGNAL( clicked() ), this, SLOT( changeMicolor() ) );
@@ -1593,6 +1596,8 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 		connect(FileC, SIGNAL(clicked()), this, SLOT(ChangeDocs()));
     connect(CaliSlider, SIGNAL(valueChanged(int)), this, SLOT(SetDisScale()));
 		setSize(Vor->PageFormat);
+		setOrien(Vor->Ausrichtung);
+    UnitChange();
 }
 
 /*
@@ -1669,21 +1674,25 @@ void Preferences::setHoehe(int v)
 
 void Preferences::setTop(int v)
 {
+	RandT = v / Umrech / 100.0;
 	BottomR->setMaxValue(Hoehe->value() - TopR->value());
 }
 
 void Preferences::setBottom(int v)
 {
+	RandB = v / Umrech / 100.0;
 	TopR->setMaxValue(Hoehe->value() - BottomR->value());
 }
 
 void Preferences::setLeft(int v)
 {
+	RandR = v / Umrech / 100.0;
 	RightR->setMaxValue(Breite->value() - LeftR->value());
 }
 
 void Preferences::setRight(int v)
 {
+	RandL = v / Umrech / 100.0;
 	LeftR->setMaxValue(Breite->value() - RightR->value());
 }
 
@@ -1836,6 +1845,8 @@ void Preferences::setOrien(int ori)
 {
 	int br;
 	setSize(GZComboF->currentItem());
+	disconnect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
+	disconnect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
 	if (ori == 0)
 		{
 		if (GZComboF->currentItem() == 30)
@@ -1851,6 +1862,8 @@ void Preferences::setOrien(int ori)
 		Breite->setValue(Hoehe->value());
 		Hoehe->setValue(br);
 		}
+	connect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
+	connect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
 }
 
 void Preferences::DefKB()
@@ -2027,23 +2040,44 @@ void Preferences::UnitChange()
 		}
 	disconnect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
 	disconnect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
+	disconnect(TopR, SIGNAL(valueChanged(int)), this, SLOT(setTop(int)));
+	disconnect(BottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom(int)));
+	disconnect(LeftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft(int)));
+	disconnect(RightR, SIGNAL(valueChanged(int)), this, SLOT(setRight(int)));
 	SpinBox1->setValue(qRound(SpinBox1->value() / AltUmrech * Umrech));
 	SpinBox2->setValue(qRound(SpinBox2->value() / AltUmrech * Umrech));
 	SpinBox2g->setValue(qRound(SpinBox2g->value() / AltUmrech * Umrech));
-	if (GZComboF->currentItem() == 30)
+	Breite->setValue(qRound(Pagebr * Umrech * 100));
+	Hoehe->setValue(qRound(Pageho * Umrech * 100));
+/*	RightR->setMaxValue(Breite->value() - LeftR->value());
+	LeftR->setMaxValue(Breite->value() - RightR->value());
+	TopR->setMaxValue(Hoehe->value() - BottomR->value());
+	BottomR->setMaxValue(Hoehe->value() - TopR->value());    */
+
+
+	RightR->setMaxValue(Breite->value() - qRound(RandL * Umrech * 100));
+	LeftR->setMaxValue(Breite->value() - qRound(RandR * Umrech * 100));
+	TopR->setMaxValue(Hoehe->value() - qRound(RandB * Umrech * 100));
+	BottomR->setMaxValue(Hoehe->value() - qRound(RandT * Umrech * 100));
+
+	TopR->setValue(qRound(RandT * Umrech * 100));
+	BottomR->setValue(qRound(RandB * Umrech * 100));
+	LeftR->setValue(qRound(RandL * Umrech * 100));
+	RightR->setValue(qRound(RandR * Umrech * 100));
+/*	if (GZComboF->currentItem() == 30)
 		{
 		Breite->setValue(qRound(Breite->value() / AltUmrech * Umrech));
 		Hoehe->setValue(qRound(Hoehe->value() / AltUmrech * Umrech));
 		}
 	else
-		setSize(GZComboF->currentItem());
-	TopR->setValue(qRound(TopR->value() / AltUmrech * Umrech));
-	BottomR->setValue(qRound(BottomR->value() / AltUmrech * Umrech));
-	LeftR->setValue(qRound(LeftR->value() / AltUmrech * Umrech));
-	RightR->setValue(qRound(RightR->value() / AltUmrech * Umrech));
+		setSize(GZComboF->currentItem());  */
 	DrawRuler();
 	connect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
 	connect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
+	connect(TopR, SIGNAL(valueChanged(int)), this, SLOT(setTop(int)));
+	connect(BottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom(int)));
+	connect(LeftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft(int)));
+	connect(RightR, SIGNAL(valueChanged(int)), this, SLOT(setRight(int)));
 }
 
 void Preferences::ValFromSpin2(int a)
