@@ -1,12 +1,3 @@
-/****************************************************************************
-** Form interface generated from reading ui file 'measurements.ui'
-**
-** Created: Fre Mai 14 21:58:35 2004
-**      by: The User Interface Compiler ($Id$)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
-
 #ifndef MEASUREMENTS_H
 #define MEASUREMENTS_H
 

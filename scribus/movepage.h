@@ -1,11 +1,3 @@
-/****************************************************************************
-** Form interface generated from reading ui file 'MovePage.ui'
-**
-** Created: Thu Jun 14 18:47:58 2001
-**      by:  The User Interface Compiler (uic)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
 #ifndef MOVEPAGES_H
 #define MOVEPAGES_H
 

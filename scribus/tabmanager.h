@@ -1,12 +1,3 @@
-/****************************************************************************
-** Form interface generated from reading ui file 'tabmanager.ui'
-**
-** Created: Don Jan 1 12:57:07 2004
-**      by: The User Interface Compiler ($Id$)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
-
 #ifndef TABMANAGER_H
 #define TABMANAGER_H
 

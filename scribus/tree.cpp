@@ -1,11 +1,3 @@
-/****************************************************************************
-** Form implementation generated from reading ui file 'tree.ui'
-**
-** Created: Thu May 24 10:46:23 2001
-**      by:  The User Interface Compiler (uic)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
 #include "tree.h"
 #include "tree.moc"
 #include <qheader.h>

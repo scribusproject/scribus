@@ -1,12 +1,3 @@
-/****************************************************************************
-** Form interface generated from reading ui file 'tabruler.ui'
-**
-** Created: Son Mai 9 12:45:32 2004
-**      by: The User Interface Compiler ($Id$)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
-
 #ifndef TABRULER_H
 #define TABRULER_H
 

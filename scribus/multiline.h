@@ -1,12 +1,3 @@
-/****************************************************************************
-** Form interface generated from reading ui file 'Mline.ui'
-**
-** Created: Mit Jun 4 23:28:08 2003
-**      by: The User Interface Compiler ($Id$)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
-
 #ifndef MULTILINE_H
 #define MULTILINE_H
 

@@ -1,12 +1,3 @@
-/****************************************************************************
-** Form implementation generated from reading ui file 'tabmanager.ui'
-**
-** Created: Don Jan 1 12:57:21 2004
-**      by: The User Interface Compiler ($Id$)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
-
 #include "tabmanager.h"
 #include "tabmanager.moc"
 #include <qvariant.h>

@@ -1,11 +1,3 @@
-/****************************************************************************
-** Form implementation generated from reading ui file 'MovePage.ui'
-**
-** Created: Thu Jun 14 18:48:22 2001
-**      by:  The User Interface Compiler (uic)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
 #include "movepage.h"
 #include "movepage.moc"
 extern QPixmap loadIcon(QString nam);

@@ -1,12 +1,3 @@
-/****************************************************************************
-** Form implementation generated from reading ui file 'tabruler.ui'
-**
-** Created: Son Mai 9 12:45:43 2004
-**      by: The User Interface Compiler ($Id$)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
-
 #include "tabruler.h"
 #include "tabruler.moc"
 #include <qvariant.h>
