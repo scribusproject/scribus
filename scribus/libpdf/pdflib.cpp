@@ -973,6 +973,7 @@ void PDFlib::PDF_End_Page()
 	PutDoc("/MediaBox [0 0 "+FToStr(doc->PageB)+" "+FToStr(doc->PageH)+"]\n");
 	PutDoc("/TrimBox ["+FToStr(Options->BleedLeft)+" "+FToStr(Options->BleedBottom)+
 		" "+FToStr(doc->PageB-Options->BleedRight)+" "+FToStr(doc->PageH-Options->BleedTop)+"]\n");
+	PutDoc("/Rotate "+IToStr(Options->RotateDeg)+"\n");
 	PutDoc("/Contents "+IToStr(Seite.ObjNum)+" 0 R\n");
 	if (Options->Thumbnails)
 		PutDoc("/Thumb "+IToStr(Seite.Thumb)+" 0 R\n");
@@ -1345,8 +1346,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 				if (ite->LayerNr != ll.LNr)
 					continue;
 				PutPage("q\n");
-				if (((ite->Transparency != 0) || (ite->TranspStroke != 0)) && 
-					(Options->Version == 14))
+				if (((ite->Transparency != 0) || (ite->TranspStroke != 0)) && (Options->Version == 14))
 					PDF_Transparenz(ite);
 				if ((ite->isBookmark) && (Options->Bookmarks))
 					PDF_Bookmark(ite->BMnr, doc->PageH - ite->Ypos);
@@ -1464,8 +1464,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 						cr = 0;
 					if ((sr * sr) < 0.001)
 						sr = 0;
-					PutPage(FToStr(cr)+" "+FToStr(sr)+" "+FToStr(-sr)+" "+FToStr(cr)+
-								" 0 0 cm\n");
+					PutPage(FToStr(cr)+" "+FToStr(sr)+" "+FToStr(-sr)+" "+FToStr(cr)+" 0 0 cm\n");
 				}
 				switch (ite->PType)
 				{
@@ -1606,7 +1605,8 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 						}
 						break;
 					case 7:
-						if ((ite->PoLine.size() > 3) && ((ite->PoLine.point(0) != ite->PoLine.point(1)) || (ite->PoLine.point(2) != ite->PoLine.point(3))))
+						if (((ite->PoLine.size() < 5) && ((ite->PoLine.point(0) != ite->PoLine.point(1)) || (ite->PoLine.point(2) != ite->PoLine.point(3)))) ||
+						    (ite->PoLine.size() > 4))
 						{
 							if (ite->GrType != 0)
 								PDF_Gradient(ite);
