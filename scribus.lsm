@@ -1,6 +1,6 @@
 Begin4
 Title:           Scribus 
-Version:         1.2.1
+Version:         1.3.0cvs
 Entered-date:    2003-10-01
 Description:     Scribus is a Desktop Publishing Program for Linux published under the GNU GPL. 
 Keywords:        desktop publishing, PDF, text processing, graphics, postscript, SVG, EPS 
@@ -9,6 +9,6 @@ Maintained-by:   franz.schmid@altmuehlnet.de Franz Schmid
 Primary-site:    http://www.scribus.net        
 Alternate-site:  http://www.scribus.org.uk/	        
 Original-site:   http://web2.altmuehlnet.de/fschmid  
-Platforms:       Linux and other Unices, MacOSX, Requires: Python >= 2.2, Qt >= 3.0.5+, libart_lgpl >= 2.3.11, freetype2 >=2.1.3
+Platforms:       Linux and other Unices, MacOSX, Requires: Python >= 2.2, Qt >= 3.3.0+, libart_lgpl >= 2.3.11, freetype2 >=2.1.3
 Copying-policy:  GNU Public License
 End
