@@ -1,0 +1,37 @@
+echo "Configuration Summary:"
+echo ""
+if test $hafree = yes; then
+	echo "FreeType2 installed: Yes"
+else
+	echo "FreeType2 installed: No"
+fi
+if test $hacups = yes; then
+	echo "CUPS installed:      Yes"
+else
+	echo "CUPS installed:      No"
+fi
+if test $hacms = yes; then
+	echo "LittleCMS installed: Yes"
+else
+	echo "LittleCMS installed: No"
+fi
+if test $hastif = yes; then
+	echo "TiffLib installed:   Yes"
+else
+	echo "TiffLib installed:   No"
+fi
+if test $haxml = yes; then
+	echo "Libxml2 installed:   Yes"
+else
+	echo "Libxml2 installed:   No"
+fi
+if test $COMPILE_PYTHON = no; then
+	echo "The Scripter-Plugin will not be compiled."
+else
+	if test $hapython = yes; then
+  	echo "Using Python 2.3"
+	else
+  	echo "Using Python < 2.3"
+	fi
+fi
+echo ""
