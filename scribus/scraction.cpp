@@ -28,7 +28,7 @@ ScrAction::ScrAction( const QString & menuText, QKeySequence accel, QObject * pa
 	menuType=ScrAction::Normal;
 }
 
-ScrAction::ScrAction( MenuType mType, const QString & menuText, QKeySequence accel, QObject * parent, const char * name ) : QAction( menuText, accel, parent, name )
+ScrAction::ScrAction( MenuType mType, const QString & menuText, QKeySequence accel, QObject * parent, const char * name, int extraParameter ) : QAction( menuText, accel, parent, name )
 {
 	menuType=mType;
 	switch (mType)
@@ -38,6 +38,10 @@ ScrAction::ScrAction( MenuType mType, const QString & menuText, QKeySequence acc
 			break;
 		case DLL:
 			qDebug("Wrong constructor for now!");
+			break;
+		case Window:
+			windowID=extraParameter;
+			connect (this, SIGNAL(activated()), this, SLOT(activatedToActivatedWindowID()));
 			break;
 		case Normal:
 		default:
@@ -94,6 +98,12 @@ void ScrAction::activatedToActivatedRecentFile()
 		emit activatedRecentFile(menuText());
 }
 
+void ScrAction::activatedToActivatedWindowID()
+{
+	if (menuType==ScrAction::Window)
+		emit activatedWindowID(windowID);
+}
+
 void ScrAction::addedTo ( int index, QPopupMenu * menu )
 {
 	menuIndex=index;
@@ -127,6 +137,18 @@ bool ScrAction::addTo ( QWidget * w )
 {
 	widgetAddedTo=w;
 	return (QAction::addTo(w));
+}
+
+const bool ScrAction::isDLLAction()
+{
+	return menuType==ScrAction::DLL;
+}
+
+const int ScrAction::dllID()
+{
+	if (menuType==ScrAction::DLL)
+		return pluginID;
+	return -1;
 }
 
 

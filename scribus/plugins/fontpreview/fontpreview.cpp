@@ -8,12 +8,38 @@ QString Name()
 
 int Type()
 {
-	return 1;
+	return 6;
 }
 
 int ID()
 {
 	return 2;
+}
+
+
+QString actionName()
+{
+	return "FontsPreview";
+}
+
+QString actionKeySequence()
+{
+	return "";
+}
+
+QString actionMenu()
+{
+	return "Extras";
+}
+
+QString actionMenuAfterName()
+{
+	return "";
+}
+
+bool actionEnabledOnStartup()
+{
+	return true;
 }
 
 /**

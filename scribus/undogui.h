@@ -389,17 +389,11 @@ signals:
 	 */
 	void redo(int steps);
 	/** 
-	 * @brief Emitted when redo is requested.
-	 * 
-	 * When redo action is done by this class this signal is emitted.
-	 * @param steps How many redo steps to take
-	 */			  
-	void closePalette(bool);
-	/** 
 	 * @brief Emitted when palette is closed.
 	 * 
 	 * When the user closes the palette this signal is emitted.
 	 */
+	void closePalette(bool);
 };
 
 #endif // UNDOGUI_H

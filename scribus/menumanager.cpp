@@ -21,7 +21,7 @@
 
 extern ScribusApp* ScApp;
 
-MenuManager::MenuManager(QMenuBar *scrMenuBar, QObject *parent, const char *name)
+MenuManager::MenuManager(QMenuBar *scrMenuBar, QObject */*parent*/, const char */*name*/)
 {
 	scribusMenuBar=scrMenuBar;
 	menuList.clear();
@@ -59,6 +59,15 @@ bool MenuManager::clearMenu(const QString menuName)
 	else
 		retVal=false;
 	return retVal;
+}
+
+const QPopupMenu *MenuManager::getLocalPopupMenu(const QString menuName)
+{
+	if (menuList[menuName])
+	{
+		return menuList[menuName]->getLocalPopupMenu();
+	}
+	return NULL;
 }
 
 bool MenuManager::deleteMenu(const QString menuName, const QString parent)

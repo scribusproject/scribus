@@ -36,6 +36,7 @@ public:
 	bool createMenu(const QString menuName, const QString menuText, const QString parent = QString::null);
 	bool deleteMenu(const QString menuName, const QString parent = QString::null);
 	bool clearMenu(const QString menuName);
+	const QPopupMenu *getLocalPopupMenu(const QString menuName);
 	void setMenuEnabled(const QString menuName, const bool enabled);
 	bool addMenuToMenuBar(const QString menuName);
 	bool removeMenuFromMenuBar(const QString menuName);

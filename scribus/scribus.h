@@ -187,8 +187,8 @@ public:
 	StoryEditor* CurrStED;
 	QMap<QString,QString> Sprachen;
 	QWorkspace *wsp;
-	QPopupMenu* windowsMenu;
-	int WinMen;
+	//QPopupMenu* windowsMenu;
+	//int WinMen;
 	ScribusWin* ActWin;
 	QString PrefsPfad;
 	QClipboard *ClipB;
@@ -210,8 +210,10 @@ public:
 	FileWatcher* fileWatcher;
 	QProcess *ExternalApp;
 	QDict<ScrAction> scrActions;
-	QDict<ScrAction> scrDLLActions;
+	//QDict<ScrAction> scrDLLActions;
 	QDict<ScrAction> scrRecentFileActions;
+	QDict<ScrAction> scrRecentScriptActions;
+	QDict<ScrAction> scrWindowsActions;
 	MenuManager* scrMenuMgr;
 
 public slots:
@@ -620,9 +622,9 @@ private:
 	//int M_EditTemplates;
 	//int M_EditJavascripts;
 	int tip;
-	int exmn;
-	int hyph;
-	int M_ExtraCharSelect;
+	//int exmn;
+	//int hyph;
+	//int M_ExtraCharSelect;
 	int M_ToolsCheckDoc;
 	bool PalettesStat[10];
 	bool GuidesStat[7];

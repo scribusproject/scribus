@@ -25,7 +25,7 @@ class ScrAction : public QAction
 {
 	Q_OBJECT;
 public:
-	enum MenuType {Normal, RecentFile, DLL};
+	enum MenuType {Normal, RecentFile, DLL, Window, RecentScript };
 	
 	/*!
 		\fn ScrAction::ScrAction( QObject * parent, const char * name )
@@ -63,7 +63,7 @@ public:
 		\param name Name of the action
 		\retval None
 	 */
-	ScrAction( MenuType mType, const QString &menuText, QKeySequence accel, QObject *parent, const char *name = 0 );
+	ScrAction( MenuType mType, const QString &menuText, QKeySequence accel, QObject *parent, const char *name = 0, int extraParameter = 0 );
 			
 	/*!
 		\fn ScrAction::ScrAction( const QIconSet & icon, const QString & menuText, QKeySequence accel, QObject * parent, const char * name )
@@ -156,13 +156,35 @@ public:
 		\retval QString Stripped copy of the menu text
 	*/
 	QString cleanMenuText();
-				
+
+	/*!
+		\fn ScrAction::isDLLAction()
+		\author Craig Bradney
+		\date Jan 2005
+		\brief Return true if action is a DLL
+		\param None
+		\retval bool True if action is from a DLL
+	 */
+	const bool isDLLAction();
+	
+	/*!
+		\fn ScrAction::dllID()
+		\author Craig Bradney
+		\date Jan 2005
+		\brief Return DLL ID if the action is from a DLL, otherwise return -1
+		\param None
+		\retval int DLL ID or -1
+	 */
+	const int dllID();
+	
 signals:
 	void activatedDLL(int);
 	void activatedRecentFile(QString);
+	void activatedWindowID(int);
 protected:
 	int menuIndex;
 	int pluginID;
+	int windowID;
 	MenuType menuType;
 	QWidget *widgetAddedTo;
 	QWidget *containerWidgetAddedTo;
@@ -218,6 +240,15 @@ private slots:
 		\retval None
 	*/
 	void activatedToActivatedRecentFile();
+	/*!
+		\fn ScrAction::activatedToActivatedRecentFile()
+		\author Craig Bradney
+		\date Jan 2005
+		\brief This passed the activated() action signal back out but with the menutext which is the filename to load.
+		\param None
+		\retval None
+	 */
+	void activatedToActivatedWindowID();
 };
 
 #endif
