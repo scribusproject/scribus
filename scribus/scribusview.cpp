@@ -256,7 +256,8 @@ Page* ScribusView::addPage(int nr)
 			QPixmap pgPix(1, 1);
 			ScPainter *painter = new ScPainter(&pgPix, 1, 1);
 			painter->translate(0.5, 0.5);
-			fe->Items.at(z)->BackBox->DrawObj(painter, QRect(0, 0, 1, 1));
+			if (fe->Items.at(z)->BackBox != 0)
+				fe->Items.at(z)->BackBox->DrawObj(painter, QRect(0, 0, 1, 1));
 			painter->end();
 			delete painter;
 			Doc->RePos = savre;

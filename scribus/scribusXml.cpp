@@ -1364,6 +1364,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		doc->Before = static_cast<bool>(QStoInt(dc.attribute("BACKG","1")));
 		doc->GuideRad = QStoInt(dc.attribute("GuideRad","10"));
 		doc->GrabRad = QStoInt(dc.attribute("GRAB","4"));
+		doc->LastAuto = 0;
 		QDomNode PAGE=DOC.firstChild();
 		while(!PAGE.isNull())
 		{
