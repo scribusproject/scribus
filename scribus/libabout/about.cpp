@@ -113,6 +113,7 @@ About::About( QWidget* parent )
 	TextView2 = new QTextView( tab_3, "TextView1_2" );
 	TextView2->setText(QString::fromUtf8( "<table><tr><td><b>" + tr("German:").utf8()  + "</b></td><td> </td></tr>" +
 	                                      "<tr><td>Franz Schmid</td><td>Franz.Schmid@altmuehlnet.de</td></tr>" +
+	                                      "<tr><td>Johannes Rüschel</td><td>jo.rueschel@gmx.de</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +
 	                                      "<tr><td><b>" + tr("French:").utf8()  + "</b></td><td> </td>" +
 	                                      "<tr><td>Michel Briand</td><td>michelbriand@free.fr</td></tr>" +

@@ -406,7 +406,33 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
 		ToFile = true;
 	}
 	setMaximumSize(sizeHint());
-
+	//tab order
+#ifdef HAVE_CUPS
+	setTabOrder( PrintDest, OptButton );
+	setTabOrder( OptButton, LineEdit1);
+#else
+	setTabOrder( PrintDest, LineEdit1 );
+#endif
+	setTabOrder( LineEdit1,ToolButton1);
+	setTabOrder( ToolButton1,OtherCom);
+	setTabOrder( OtherCom, Command );
+	setTabOrder( Command, RadioButton1 );
+	setTabOrder( RadioButton1, RadioButton2 );
+	setTabOrder( RadioButton2, From );
+	setTabOrder( From, To );
+	setTabOrder( To, FirstPfirst );
+	setTabOrder( FirstPfirst, FirstPlast );
+	setTabOrder( FirstPlast, Copies );
+	setTabOrder( Copies, NormalP );
+	setTabOrder( NormalP, PrintSep );
+	setTabOrder( PrintSep, SepArt );
+	setTabOrder( SepArt, PrintGray );
+	setTabOrder( PrintGray, PrintGray2 );
+	setTabOrder( PrintGray2, AdvOptButton );
+	setTabOrder( AdvOptButton, OKButton );
+	setTabOrder( OKButton, OKButton_2 );
+	setTabOrder( OKButton_2, PrintDest );
+	PrintDest->setFocus();
 	// signals and slots connections
 	connect( OKButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
 	connect( OKButton_2, SIGNAL( clicked() ), this, SLOT( reject() ) );

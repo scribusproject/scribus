@@ -1,4 +1,7 @@
 Changes since Version 1.1.6
+16.04.2004	Updated the German and Finnish Translation.
+		Fixed recognition of en_GB locale.
+
 14.04.2004	Updated the Polish Translation.
 		The Color Names are now editable in the Color Chooser.
 		The Cups Options panel is now resizeable.

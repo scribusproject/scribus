@@ -33,7 +33,7 @@
     </message>
     <message>
         <source>Windows port:</source>
-        <translation>Windows Portierung:</translation>
+        <translation>Windows-Portierung:</translation>
     </message>
     <message>
         <source>Documentation:</source>
@@ -1201,27 +1201,33 @@ This profile should be specific to your printer and not a generic profile (i.e. 
     <message>
         <source>Black Point Compensation is a method of improving contrast in photos.
 It is recommended that you enable this if you have photos in your document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiefenkompensierung ist eine Methode zur Verbesserung des Kontrasts.
+Diese Option sollte aktiviert sein, wenn Sie Fotos im Dokument haben.</translation>
     </message>
     <message>
         <source>Default rendering intent for your monitor. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation type="unfinished"></translation>
+        <translation>Standard-Rendering Methode für Ihren Monitor. Ohne einen Grund zur Veränderung
+sollte entweder relativ farbmetrisch oder Wahrnehmung aktiviert sein.</translation>
     </message>
     <message>
         <source>Default rendering intent for your printer. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation type="unfinished"></translation>
+        <translation>Standard-Rendering Methode für den Drucker. Ohne einen Grund zur Veränderung
+sollte entweder relativ farbmetrisch oder Wahrnehmung aktiviert sein.</translation>
     </message>
     <message>
         <source>Enable &apos;soft proofing&apos; of how your document colors will print,
 based on the chosen printer profile.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiviert die Darstellung der Farben basierend auf dem 
+gewählten Druckerprofil.
+</translation>
     </message>
     <message>
         <source>Method of showing colors on the screen which may not print properly.
 This requires very accurate profiles and serves only as a warning.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiviert die Darstellung der Farben, die mit dem aktuellen Profil ungenau wiedergegeben werden.
+Das erfordert sehr genaue Profile und dient nur als Anhaltspunkt.</translation>
     </message>
 </context>
 <context>
@@ -1305,14 +1311,6 @@ This requires very accurate profiles and serves only as a warning.</source>
     <message>
         <source> %</source>
         <translation> %</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation>Warnung</translation>
-    </message>
-    <message>
-        <source>Name of the Color is not unique</source>
-        <translation>Der Name der Farbe ist nicht eindeutig</translation>
     </message>
 </context>
 <context>
@@ -1591,15 +1589,15 @@ Wird in den Voreinstellungen gesetzt.</translation>
     </message>
     <message>
         <source>This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Dieses Feld kann als Referenz in das Dokument eingebettet werden oder in den Meta-Daten der PDF&apos;s enthalten sein</translation>
     </message>
     <message>
         <source>This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
-        <translation type="unfinished"></translation>
+        <translation>Dieses Feld ist für eine kurze Beschreibung oder Zusammenfassung des Dokuments gedacht, sie wird beim PDF-Export mit in die PDF-Datei eingebunden</translation>
     </message>
     <message>
         <source>This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
-        <translation type="unfinished"></translation>
+        <translation>In dieses Feld können Sie Stichworte eingeben, die sie in die PDF-Datei übernehmen wollen - das erleichtert das Suchen und Indizieren der PDF-Dateien</translation>
     </message>
 </context>
 <context>
@@ -1837,11 +1835,11 @@ Wird in den Voreinstellungen gesetzt.</translation>
     </message>
     <message>
         <source>Adjust to Baseline Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausrichten am Grundlinienraster</translation>
     </message>
     <message>
         <source>Name of your paragraph style</source>
-        <translation type="unfinished"></translation>
+        <translation>Name des Absatz-Stils</translation>
     </message>
     <message>
         <source>Font of selected text or object</source>
@@ -1861,31 +1859,31 @@ Wird in den Voreinstellungen gesetzt.</translation>
     </message>
     <message>
         <source>Provides an oversized first letter for a paragraph. Used for stylistic effect</source>
-        <translation type="unfinished"></translation>
+        <translation>Stilistischer Effekt: Erzeugt einen übergroßen ersten Buchstaben in einem Absatz</translation>
     </message>
     <message>
         <source>Determines the overall height, in line numbers, of the Drop Caps</source>
-        <translation type="unfinished"></translation>
+        <translation>Legt die gesamte Höhe des Initials in Zeilennummern fest</translation>
     </message>
     <message>
         <source>Align text to baseline grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Text am Grundlinienraster ausrichten</translation>
     </message>
     <message>
         <source>Spacing above the paragraph</source>
-        <translation type="unfinished"></translation>
+        <translation>Abstand über dem Absatz</translation>
     </message>
     <message>
         <source>Spacing below the paragraph</source>
-        <translation type="unfinished"></translation>
+        <translation>Abstand unter dem Absatz</translation>
     </message>
     <message>
         <source>Indentation for first line of the paragraph</source>
-        <translation type="unfinished"></translation>
+        <translation>Einzug für die erste Zeile des Absatzes</translation>
     </message>
     <message>
         <source>Indentation from the left for the whole paragraph</source>
-        <translation type="unfinished"></translation>
+        <translation>Einzug von links für den ganzen Absatz</translation>
     </message>
     <message>
         <source>Edit tab settings of text frame...</source>
@@ -1893,15 +1891,15 @@ Wird in den Voreinstellungen gesetzt.</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation> mm</translation>
+        <translation>mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation> in</translation>
+        <translation>in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation> p</translation>
+        <translation>p</translation>
     </message>
 </context>
 <context>
@@ -2066,7 +2064,7 @@ Wird in den Voreinstellungen gesetzt.</translation>
     </message>
     <message>
         <source>New Color:</source>
-        <translation type="obsolete">Neue Farbe:</translation>
+        <translation>Neue Farbe:</translation>
     </message>
     <message>
         <source>New Color</source>
@@ -2205,15 +2203,15 @@ Wird in den Voreinstellungen gesetzt.</translation>
     </message>
     <message>
         <source>&amp;Available Fonts</source>
-        <translation type="unfinished"></translation>
+        <translation>Verfügbare &amp;Schriftarten</translation>
     </message>
     <message>
         <source>Font &amp;Substitutions</source>
-        <translation type="unfinished"></translation>
+        <translation>Schriftarten-&amp;Ersetzung</translation>
     </message>
     <message>
         <source>Additional &amp;Paths</source>
-        <translation type="unfinished"></translation>
+        <translation>Zusätzliche &amp;Pfade</translation>
     </message>
 </context>
 <context>
@@ -2260,19 +2258,19 @@ Wird in den Voreinstellungen gesetzt.</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation> pt</translation>
+        <translation>pt</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation> mm</translation>
+        <translation>mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation> in</translation>
+        <translation>in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation> p</translation>
+        <translation>p</translation>
     </message>
 </context>
 <context>
@@ -2350,16 +2348,17 @@ everytime a possible Hyphenation is found.</source>
     </message>
     <message>
         <source>Length of the smallest word to be hyphenated.</source>
-        <translation type="unfinished"></translation>
+        <translation>Länge des kürzesten Wortes, das getrennt werden soll.</translation>
     </message>
     <message>
         <source>Number of Hypenations allowed:</source>
-        <translation type="unfinished"></translation>
+        <translation>Anzahl der möglichen Trennungen:</translation>
     </message>
     <message>
         <source>Maximum number of Hyphenations following each other.
 A value of 0 means unlimited hyphenations.</source>
-        <translation type="unfinished"></translation>
+        <translation>Maximale Anzahl aufeinanderfolgender Trennungen.
+Null bedeutet unbegrenzt.</translation>
     </message>
 </context>
 <context>
@@ -2650,7 +2649,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -3273,7 +3272,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Change settings for left or end points</source>
-        <translation type="unfinished"></translation>
+        <translation>Ändert die Einstellungen für die linken und End-Punkte</translation>
     </message>
     <message>
         <source>Pattern of line</source>
@@ -3365,7 +3364,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Use image proportions rather than those of the frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzt die Bildproportionen an Stelle der Rahmenproportionen</translation>
     </message>
     <message>
         <source>Select the source profile of the image</source>
@@ -3409,27 +3408,27 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Style:</source>
-        <translation type="unfinished">Stil:</translation>
+        <translation>Stil:</translation>
     </message>
     <message>
         <source>Make text in lower objects flow around this frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Lässt den Text in untergeordneten Objekten um diesen Rahmen fließen</translation>
     </message>
     <message>
         <source>Use the imaginary square border around your object, rather than its actual shape</source>
-        <translation type="unfinished"></translation>
+        <translation>Ein Rechteck an Stelle der wirklichen Form als Vorlage für umfließenden Text benutzen</translation>
     </message>
     <message>
         <source>Keep the aspect ratio</source>
-        <translation type="unfinished"></translation>
+        <translation>Seitenverhältnisse beibehalten</translation>
     </message>
     <message>
         <source>Source profile of the image</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbprofil des Bildes</translation>
     </message>
     <message>
         <source>Rendering intent for the image</source>
-        <translation type="unfinished"></translation>
+        <translation>Render-Methode für das Bild</translation>
     </message>
 </context>
 <context>
@@ -3712,23 +3711,23 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation> pt</translation>
+        <translation>pt</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation> mm</translation>
+        <translation>mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation> in</translation>
+        <translation>in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation> p</translation>
+        <translation>p</translation>
     </message>
     <message>
         <source>Automatic Text Frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatisch Textrahmen erzeugen</translation>
     </message>
     <message>
         <source>Gap:</source>
@@ -3736,65 +3735,67 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Document page size, either a standard size or a custom size</source>
-        <translation type="unfinished"></translation>
+        <translation>Seitengröße des Dokuments, entweder eine Standardgröße oder benutzerdefiniert</translation>
     </message>
     <message>
         <source>Orientation of the document&apos;s pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausrichtung der Dokument-Seite</translation>
     </message>
     <message>
         <source>Width of the document&apos;s pages, editable if you have chosen a custom page size</source>
-        <translation type="unfinished"></translation>
+        <translation>Breite der Seite, veränderbar, wenn &quot;Benutzerdefiniert&quot; ausgewählt ist</translation>
     </message>
     <message>
         <source>Height of the document&apos;s pages, editable if you have chosen a custom page size</source>
-        <translation type="unfinished"></translation>
+        <translation>Höhe der Seite , veränderbar, wenn &quot;Benutzerdefiniert&quot; ausgewählt ist</translation>
     </message>
     <message>
         <source>Enable single or spread based layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiviert doppelseitiges Layout</translation>
     </message>
     <message>
         <source>Make the first page the left page of the document</source>
-        <translation type="unfinished"></translation>
+        <translation>Macht die erste Seite zu der linken Seite des Dokuments</translation>
     </message>
     <message>
         <source>Distance between the top margin guide and the edge of the page</source>
-        <translation type="unfinished"></translation>
+        <translation>Abstand zwischen dem oberen Seitenrand und der Papierkante</translation>
     </message>
     <message>
         <source>Distance between the bottom margin guide and the edge of the page</source>
-        <translation type="unfinished"></translation>
+        <translation>Abstand zwischen dem unteren Seitenrand und der Papierkante</translation>
     </message>
     <message>
         <source>Distance between the left margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="unfinished"></translation>
+        <translation>Abstand zwischen dem linken Seitenrand und der Papierkante.
+Wenn Doppelseiten aktiviert sind, kann hier der Abstand gewählt werden, um eine genaue Bindung zu ermöglichen</translation>
     </message>
     <message>
         <source>Distance between the right margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="unfinished"></translation>
+        <translation>Abstand zwischen dem rechten Seitenrand und der Papierkante.
+Wenn Doppelseiten aktiviert sind, kann hier der Abstand gewählt werden, um eine genaue Bindung zu ermöglichen</translation>
     </message>
     <message>
         <source>First page number of the document</source>
-        <translation type="unfinished"></translation>
+        <translation>Erste Seitennummer im Dokument</translation>
     </message>
     <message>
         <source>Default unit of measurement for document editing</source>
-        <translation>Maßeinheit für Dokumente</translation>
+        <translation>Standard-Maßeinheit für das Dokument</translation>
     </message>
     <message>
         <source>Create text frames automatically when new pages are added</source>
-        <translation type="unfinished"></translation>
+        <translation>Textrahmen automatisch erstellen, wenn neue Seiten hinzugefügt werden</translation>
     </message>
     <message>
         <source>Number of columns to create in automatically created text frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Anzahl der Spalten in den automatisch erzeugten Textrahmen</translation>
     </message>
     <message>
         <source>Distance between automatically created columns</source>
-        <translation type="unfinished"></translation>
+        <translation>Abstand zwischen den Spalten</translation>
     </message>
 </context>
 <context>
@@ -4364,41 +4365,42 @@ andernfalls relativ zum Objekt.</translation>
     </message>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeit bis die nächste Seite angezeigt wird.</translation>
     </message>
     <message>
         <source>Length of time the effect runs.
 A shorter time will speed up the effect, a longer one will slow it down.</source>
-        <translation type="unfinished"></translation>
+        <translation>Länge des Effekts in Sekunden.</translation>
     </message>
     <message>
         <source>Apply the selected effect to all pages.</source>
-        <translation type="unfinished"></translation>
+        <translation>Gewählten Effekt auf alle Seiten anwenden.</translation>
     </message>
     <message>
         <source>Choose a master password which enables or disables all the
 security features in your exported PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Wählen Sie ein Masterpasswort, dass alle Sicherheitsfunktionen
+in der exportierten Datei aktiviert</translation>
     </message>
     <message>
         <source>Choose a password for users to be able to read your PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Wählen Sie ein Passwort, dass es Benutzern erlaubt, die PDF-Datei zu lesen</translation>
     </message>
     <message>
         <source>Embed a color profile for solid colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbprofil für Dokumentfarben einbetten</translation>
     </message>
     <message>
         <source>Embed a color profile for images</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbprofil für Bilder einbetten</translation>
     </message>
     <message>
         <source>Do not use color profiles that are embedded in source images</source>
-        <translation type="unfinished"></translation>
+        <translation>Nicht die Farbprofile der Quell-Bilder benutzen</translation>
     </message>
     <message>
         <source>Distance for bleed from the top of the physical page</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Distance for bleed from the bottom of the physical page</source>
@@ -4414,82 +4416,90 @@ security features in your exported PDF</source>
     </message>
     <message>
         <source>&amp;General</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Allgemein</translation>
     </message>
     <message>
         <source>&amp;Fonts</source>
-        <translation type="unfinished"></translation>
+        <translation>Schrift&amp;arten</translation>
     </message>
     <message>
         <source>E&amp;xtras</source>
-        <translation type="unfinished">E&amp;xtras</translation>
+        <translation>E&amp;xtras</translation>
     </message>
     <message>
         <source>&amp;Security</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Sicherheit</translation>
     </message>
     <message>
         <source>&amp;Color</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Farben</translation>
     </message>
     <message>
         <source>&amp;PDF/X-3</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;PDF/X-3</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation type="unfinished"> pt</translation>
+        <translation>pt</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation type="unfinished"></translation>
+        <translation>mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation type="unfinished"></translation>
+        <translation>in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation type="unfinished"></translation>
+        <translation>p</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation type="unfinished">Speichern</translation>
+        <translation>Speichern</translation>
     </message>
     <message>
         <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
 Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
 PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management.</source>
-        <translation type="unfinished"></translation>
+        <translation>Legt die PDF-Kompatiblität fest. Standard ist Acrobat 4.0, weil das die größte Kompatiblität ermöglicht.
+Wählen Sie Acrobat 5.0, wenn Sie PDF 1.4-Funktionen wie Transparenz oder 128 bit-Verschlüsselung benötigen.
+PDF/X-3 ist gedacht für gewerbliche Druckereien und nur möglich, wenn Sie das Farb-Management aktiviert haben.</translation>
     </message>
     <message>
         <source>Determines the binding of pages in the PDF. Unless you know
 you need to change it leave the default choice - Left.</source>
-        <translation type="unfinished"></translation>
+        <translation>Legt die Art des Bundes in der PDF-Datei fest. Lassen die Standard-
+Einstellung (Links), wenn Sie das nicht verändern müssen.</translation>
     </message>
     <message>
         <source>Generates thumbnails of each page in the PDF.
 Some viewers can use the thumbnails for navigation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Erzeugt Vorschau-Bilder für jede Seite der PDF-Datei.
+Einige Programme nutzen diese Bilder zur Navigation.</translation>
     </message>
     <message>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
-        <translation type="unfinished"></translation>
+        <translation>Erzeugt PDF-Artikel, die für die Navigation in verketteten Textrahmen nützlich sind.</translation>
     </message>
     <message>
         <source>Embed the bookmarks you created in your document.
 These are useful for navigating long PDF documents.</source>
-        <translation type="unfinished"></translation>
+        <translation>Lesezeichen im Dokument in die PDF-Datei einbetten.
+Nützlich zur Navigation in langen PDF-Dateien.</translation>
     </message>
     <message>
         <source>Export resolution of text and vector graphics.
 This does not affect the resolution of bitmap images like photos.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgabe-Auflösung für Text und Vektor-Grafiken.
+Das beeinflusst nicht die Auflösung der Bitmap-Grafiken.</translation>
     </message>
     <message>
         <source>Compression of text and graphics.
 Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kompression von Text und Grafiken reduziert die Dateigröße.
+Nicht ohne Grund deaktivieren.
+</translation>
     </message>
     <message>
         <source>Version of compression for images.
@@ -4497,103 +4507,114 @@ Automatic allows Scribus to choose the best method.
 ZIP is good for images with solid colors.
 JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
 Leave it set to automatic, unless you have a need for special compression options.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kompressions-Methode für Bitmap-Bilder.
+Automatisch - Scribus wählt die beste Methode.
+ZIP - Gut für Bilder mit Farbflächen.
+JPEG - erzeugt kleinere PDF&apos;s bei Dokumenten mit viel Bildern ohne große Kompressionsverluste.
+Braucht normalerweise nicht geändert werden.</translation>
     </message>
     <message>
         <source>Compression level: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
-        <translation type="unfinished"></translation>
+        <translation>Kompressions-Stärke: Minimum (25%), Niedrig (50%), Mittel (75%), Hoch (85%), Maximum (95%)</translation>
     </message>
     <message>
         <source>Downsample your bitmap images to the selected DPI.
 Leaving this unchecked will render them at their native resolution.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bitmap-Bilder neu mit gewählten DPI rendern.
+Ist die Option deaktiviert, wird die natürliche Auflösung der Bilder übernommen.</translation>
     </message>
     <message>
         <source>DPI (Dots Per Inch) for image export.</source>
-        <translation type="unfinished"></translation>
+        <translation>DPI (Punkte pro Zoll) für den Export von Bildern.</translation>
     </message>
     <message>
         <source>Embed fonts into the PDF. Embedding the fonts
 will preserve the layout and appearance of your document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Schriftarten in PDF&apos;s einbetten. Das schützt das
+Layout und Erscheinungsbild des Dokuments vor Veränderungen.</translation>
     </message>
     <message>
         <source>Enables presentation effects when using Acrobat Reader in full screen mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiviert die Präsentationseffekte, wenn der Acrobat Reader im Vollbild-Modus ausgeführt wird.</translation>
     </message>
     <message>
         <source>Show page previews of each page listed above.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vorschau für aufgeführte Seiten anzeigen.</translation>
     </message>
     <message>
         <source>Type of the display effect.</source>
-        <translation type="unfinished"></translation>
+        <translation>Auswahl des Effekts.</translation>
     </message>
     <message>
         <source>Direction of the effect of moving lines for the split and blind effects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Richtung für die Effekte Rollen und Schachbrett.</translation>
     </message>
     <message>
         <source>Starting position for the box and split effects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Start-Position für die Effekte Einblenden und Teilen.</translation>
     </message>
     <message>
         <source>Direction of the glitter or wipe effects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Richtung für die Effekte Jalusie und Teilen.</translation>
     </message>
     <message>
         <source>Enable the security features in your exported PDF.
 If you selected Acrobat 4.0, the PDF will be protected by 40 bit encryption.
 If you selected Acrobat 5.0, the PDF will be protected by 128 bit encryption.
 Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiviert die Sicherheits-Funktionen in der exportierten PDF-Datei.
+Wenn Acrobat 4.0 ausgewählt ist, wird die PDF-Datei mit 40 bit verschlüsselt.
+Wenn Acrobat 5.0 ausgewählt ist, wird die PDF-Datei mit 128 bit verschlüsselt.
+Hinweis: Die Verschlüsselung ist nicht so zuverlässig wie GPG oder PGP und hat einige Begrenzungen.</translation>
     </message>
     <message>
         <source>Allow printing of the PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Erlaubt das Drucken der PDF-Datei</translation>
     </message>
     <message>
         <source>Allow modifying of the PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Erlaubt das Verändern der PDF-Datei</translation>
     </message>
     <message>
         <source>Allow copying of text or graphics from the PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Erlaubt das Kopieren von Bildern oder Texten aus der PDF-Datei</translation>
     </message>
     <message>
         <source>Allow adding annotations and fields to the PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Erlaubt das Anfügen von Anmerkungen zu der PDF-Datei</translation>
     </message>
     <message>
         <source>Color model for the output of your PDF.
 Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.
 Choose Printer when printing to a true 4 color CMYK printer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbmodell für die Ausgabe der PDF-Datei.
+Wählen Sie Monitor/Internet für PDF-Dateien, die auf dem Monitor angezeigt oder mit herkömmlichen Druckern gedruckt werden sollen.
+Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben.</translation>
     </message>
     <message>
         <source>Color profile for solid colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbprofil für Farben</translation>
     </message>
     <message>
         <source>Rendering intent for solid colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Render-Methode für Farben</translation>
     </message>
     <message>
         <source>Color profile for images</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbprofil für Bilder</translation>
     </message>
     <message>
         <source>Rendering intent for images</source>
-        <translation type="unfinished"></translation>
+        <translation>Render-Methode für Bilder</translation>
     </message>
     <message>
         <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgabe-Profil zum Drucken. Wenn möglich, benutzen Sie das Profil Ihres Druckers.</translation>
     </message>
     <message>
         <source>Mandatory string for PDF/X-3 or the PDF will fail
 PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Erforderliche Eingabe für PDF/X-3, ohne die das Dokument nicht PDF/X-3-konform ist. Benutzen Sie z.B. den Titel des Dokuments.</translation>
     </message>
 </context>
 <context>
@@ -4645,36 +4666,38 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
     <message>
         <source>Provides a more pleasant view of text items in the viewer, at the expense
 of a slight slowdown in previewing. This only affects Type 1 fonts</source>
-        <translation type="unfinished"></translation>
+        <translation>Stellt den Text auf Kosten der Render-Geschwindigkeit glatter dar.
+Funktioniert nur mit Type-1-Schriftarten</translation>
     </message>
     <message>
         <source>Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF and
 vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation type="unfinished"></translation>
+        <translation>Stellt True Type Fonts, Open Type Fonts, EPS, PDF und Vektor-Grafiken 
+auf Kosten der Render-Geschwindigkeit glatter dar</translation>
     </message>
     <message>
         <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiviert Transparenz und transparente Objekt im Dokument. Erfordert Ghostscript 7.07 oder höher</translation>
     </message>
     <message>
         <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Benutzt zur Vorschau CMYK an Stelle der RGB-Farben</translation>
     </message>
     <message>
         <source>Enable/disable the C (Cyan) ink plate</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiviert den C (Cyan)-Auszug</translation>
     </message>
     <message>
         <source>Enable/disable the M (Magenta) ink plate</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiviert den M(Magenta)-Auszug</translation>
     </message>
     <message>
         <source>Enable/disable the Y (Yellow) ink plate</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiviert den Y(Yellow)-Auszug</translation>
     </message>
     <message>
         <source>Enable/disable the K (Black) ink plate</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiviert den K(Black)-Auszug</translation>
     </message>
 </context>
 <context>
@@ -4949,15 +4972,15 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Hide Baseline Grid</source>
-        <translation>Basislinienraster verbergen</translation>
+        <translation>Grundlinien-Raster verstecken</translation>
     </message>
     <message>
         <source>Show Baseline Grid</source>
-        <translation>Basislinienraster zeigen</translation>
+        <translation>Grundlinien-Raster anzeigen</translation>
     </message>
     <message>
         <source>Adjust Frame to Picture</source>
-        <translation>Rahmen an Bild anpassen</translation>
+        <translation>Rahmen am Bild ausrichten</translation>
     </message>
 </context>
 <context>
@@ -5581,7 +5604,8 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     <message>
         <source>Choose the default window decoration and looks.
 Scribus inherits any available KDE or Qt themes</source>
-        <translation type="unfinished"></translation>
+        <translation>Auswahl der Standard-Fenster-Dekoration.
+Scribus stellt alle verfügbaren KDE und QT-Themen zur Verfügung</translation>
     </message>
     <message>
         <source>Default font size for the menus and windows</source>
@@ -5593,15 +5617,15 @@ Scribus inherits any available KDE or Qt themes</source>
     </message>
     <message>
         <source>Number of lines Scribus will scroll for each move of the mouse wheel</source>
-        <translation type="unfinished"></translation>
+        <translation>Anzahl der Zeilen, die Scribus bei der Bewegung des Mausrades scrollen soll</translation>
     </message>
     <message>
         <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
-        <translation type="unfinished"></translation>
+        <translation>Radius des Bereichs, in dem es möglich ist, die Objektbegrenzungen zu aktivieren</translation>
     </message>
     <message>
         <source>Number of recently edited documents to show in the File menu</source>
-        <translation type="unfinished"></translation>
+        <translation>Anzahl der zuletzt geöffneten Dokumenten im Datei-Menü</translation>
     </message>
     <message>
         <source>Change the keyboard shortcuts to your preference</source>
@@ -5609,334 +5633,337 @@ Scribus inherits any available KDE or Qt themes</source>
     </message>
     <message>
         <source>Default documents directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Standard-Verzeichnis für Dokumente</translation>
     </message>
     <message>
         <source>Default ICC profiles directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Standard-Verzeichnis für ICC-Profile</translation>
     </message>
     <message>
         <source>Default Scripter scripts directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Standard-Verzeichnis für Scripte</translation>
     </message>
     <message>
         <source>Default page size, either a standard size or a custom size</source>
-        <translation type="unfinished"></translation>
+        <translation>Standard-Größe der Seite</translation>
     </message>
     <message>
         <source>Default orientation of document pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Standard-Ausrichtung der Seite in neuen Dokumente</translation>
     </message>
     <message>
         <source>Width of document pages, editable if you have chosen a custom page size</source>
-        <translation type="unfinished"></translation>
+        <translation>Breite der Seite, veränderbar, wenn Benutzerdefiniert ausgewählt ist</translation>
     </message>
     <message>
         <source>Height of document pages, editable if you have chosen a custom page size</source>
-        <translation type="unfinished"></translation>
+        <translation>Höhe der Seite, veränderbar, wenn Benutzerdefiniert ausgewählt ist</translation>
     </message>
     <message>
         <source>Enable single or spread based layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiviert doppelseitiges Layout</translation>
     </message>
     <message>
         <source>Make the first page the left page of a document</source>
-        <translation type="unfinished"></translation>
+        <translation>Die erste Seite im Dokument soll eine linke Seite sein</translation>
     </message>
     <message>
         <source>Distance between the top margin guide and the edge of the page</source>
-        <translation type="unfinished"></translation>
+        <translation>Abstand zwischen dem oberen Seitenrand und der Papierkante</translation>
     </message>
     <message>
         <source>Distance between the bottom margin guide and the edge of the page</source>
-        <translation type="unfinished"></translation>
+        <translation>Abstand zwischen dem unteren Seitenrand und der Papierkante</translation>
     </message>
     <message>
         <source>Distance between the left margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="unfinished"></translation>
+        <translation>Abstand zwischen dem linken Seitenrand und der Papierkante.
+Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetragen werden</translation>
     </message>
     <message>
         <source>Distance between the right margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="unfinished"></translation>
+        <translation>Abstand zwischen dem rechten Seitenrand und der Papierkante.
+Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetragen werden</translation>
     </message>
     <message>
         <source>When enabled, Scribus saves a backup copy of your file with the .bak extension
 each time the time period elapses</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus speichert im gegebenen Intervall selbstständig eine Backup-Kopie 
+des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>Time period between saving automatically</source>
-        <translation type="unfinished"></translation>
+        <translation>Abstand zwischen zwei automatischen Sicherungen</translation>
     </message>
     <message>
         <source>Distance between the minor grid lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Abstand zwischen den Teillinien</translation>
     </message>
     <message>
         <source>Distance between the major grid lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Abstand zwischen den Hauptlinien</translation>
     </message>
     <message>
         <source>Distance within which an object will snap to your placed guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Abstand, in dem ein Objekt an die Hilfslinien einrastet</translation>
     </message>
     <message>
         <source>Color of the minor grid lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe der Teillinien</translation>
     </message>
     <message>
         <source>Color of the major grid lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe der Hauptlinien</translation>
     </message>
     <message>
         <source>Color of the guide lines you insert</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe der Hilfslinien</translation>
     </message>
     <message>
         <source>Place the grid behind your page objects</source>
-        <translation type="unfinished"></translation>
+        <translation>Gitter im Hintergrund platzieren</translation>
     </message>
     <message>
         <source>Place the grid in front of your page objects</source>
-        <translation type="unfinished"></translation>
+        <translation>Gitter im Vordergrund platzieren</translation>
     </message>
     <message>
         <source>Displacement above the baseline of the font on a line</source>
-        <translation type="unfinished"></translation>
+        <translation>Versatz über der Grundlinie auf einer Zeile</translation>
     </message>
     <message>
         <source>Relative size of the superscript compared to the normal font</source>
-        <translation type="unfinished"></translation>
+        <translation>Relative Größe der tiefgestellen Buchstaben im Vergleich zur normalen Schriftgröße</translation>
     </message>
     <message>
         <source>Displacement below the baseline of the normal font on a line</source>
-        <translation type="unfinished"></translation>
+        <translation>Versatz unter der Grundlinie auf einer Zeile</translation>
     </message>
     <message>
         <source>Relative size of the subscript compared to the normal font</source>
-        <translation type="unfinished"></translation>
+        <translation>Relative Größe der hochgestellten Buchstaben im Vergleich zur normalen Schriftgröße</translation>
     </message>
     <message>
         <source>Relative size of the small caps font compared to the normal font</source>
-        <translation type="unfinished"></translation>
+        <translation>Relative Größe der Kapitälchen im Vergleich zur normalen Schriftgröße</translation>
     </message>
     <message>
         <source>Percentage increase over the font size for the line spacing</source>
-        <translation type="unfinished"></translation>
+        <translation>Prozentuale Vergrößerung des Zeilenabstandes zur Schriftgröße</translation>
     </message>
     <message>
         <source>Text Frame Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Eigenschaften der Text-Rahmen</translation>
     </message>
     <message>
         <source>Picture Frame Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Eigenschaften der Bilder-Rahmen</translation>
     </message>
     <message>
         <source>Shape Drawing Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Eigenschaften der Formen</translation>
     </message>
     <message>
         <source>Magnification Level Defaults</source>
-        <translation type="unfinished"></translation>
+        <translation>Eigenschaften der Zoom-Level</translation>
     </message>
     <message>
         <source>Line Drawing Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Eigenschaften des Linien-Werkzeuges</translation>
     </message>
     <message>
         <source>Polygon Drawing Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Eigenschaften des Polygon-Werkzeuges</translation>
     </message>
     <message>
         <source>Font for new text frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Schriftart für einen neuen Text-Rahmen</translation>
     </message>
     <message>
         <source>Size of font for new text frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Schriftgröße für einen neuen Textrahmen</translation>
     </message>
     <message>
         <source>Color of font</source>
-        <translation type="unfinished"></translation>
+        <translation>Schriftfarbe</translation>
     </message>
     <message>
         <source>Number of columns in a text frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Anzahl der Spalten in einem neuen Text-Rahmen</translation>
     </message>
     <message>
         <source>Gap between text frame columns</source>
-        <translation type="unfinished"></translation>
+        <translation>Abstand zwischen den Spalten</translation>
     </message>
     <message>
         <source>Sample of your font</source>
-        <translation type="unfinished"></translation>
+        <translation>Vorschau der gewählten Schriftart</translation>
     </message>
     <message>
         <source>Picture frames allow pictures to scale to any size</source>
-        <translation type="unfinished"></translation>
+        <translation>Bild-Rahmen ermöglicht das Skalieren auf eine beliebige Größe</translation>
     </message>
     <message>
         <source>Horizontal scaling of images</source>
-        <translation type="unfinished"></translation>
+        <translation>Horizontale Skalierung des Bildes</translation>
     </message>
     <message>
         <source>Vertical scaling of images</source>
-        <translation type="unfinished"></translation>
+        <translation>Vertikale Skalierung des Bildes</translation>
     </message>
     <message>
         <source>Keep horizontal and vertical scaling the same</source>
-        <translation type="unfinished"></translation>
+        <translation>Seitenverhältnisse beibehalten</translation>
     </message>
     <message>
         <source>Pictures in picture frames are scaled to the size of the frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilder werden auf die Größe des Rahmens skaliert</translation>
     </message>
     <message>
         <source>Automatically scaled pictures keep their original proportions</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilder behalten automatisch ihre originalen Seitenverhältnisse</translation>
     </message>
     <message>
         <source>Fill color of picture frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Füllfarbe für Bild-Rahmen</translation>
     </message>
     <message>
         <source>Saturation of color of fill</source>
-        <translation type="unfinished"></translation>
+        <translation>Intensität der Füllfarbe</translation>
     </message>
     <message>
         <source>Line color of shapes</source>
-        <translation type="unfinished"></translation>
+        <translation>Linienfarbe der Form</translation>
     </message>
     <message>
         <source>Saturation of color of lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Intensität der Linienfarbe</translation>
     </message>
     <message>
         <source>Fill color of shapes</source>
-        <translation type="unfinished"></translation>
+        <translation>Füllfarbe der Form</translation>
     </message>
     <message>
         <source>Line style of shapes</source>
-        <translation type="unfinished"></translation>
+        <translation>Linien-Stil der Form</translation>
     </message>
     <message>
         <source>Line width of shapes</source>
-        <translation type="unfinished"></translation>
+        <translation>Linien-Breite der Form</translation>
     </message>
     <message>
         <source>Minimum magnification allowed</source>
-        <translation type="unfinished"></translation>
+        <translation>Kleinstmögliche Vergrößerungsstufe</translation>
     </message>
     <message>
         <source>Maximum magnification allowed</source>
-        <translation type="unfinished"></translation>
+        <translation>Größtmögliche Vergrößerungstufe</translation>
     </message>
     <message>
         <source>Change in magnification for each zoom operation</source>
-        <translation type="unfinished"></translation>
+        <translation>Abstand zwischen zwei Zoom-Stufen</translation>
     </message>
     <message>
         <source>Color of lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe der Linien</translation>
     </message>
     <message>
         <source>Saturation of color</source>
-        <translation type="unfinished">Tonwert der Farbe</translation>
+        <translation>Tonwert der Farbe</translation>
     </message>
     <message>
         <source>Style of lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Linien-Stil</translation>
     </message>
     <message>
         <source>Width of lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Breite der Linien</translation>
     </message>
     <message>
         <source>Number of corners for polygons</source>
-        <translation type="unfinished"></translation>
+        <translation>Anzahl der Ecken in Polygonen</translation>
     </message>
     <message>
         <source>Degrees of rotation for polygons</source>
-        <translation type="unfinished"></translation>
+        <translation>Grad der Drehung des Polygons</translation>
     </message>
     <message>
         <source>Polygons will be convex rather than concave</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeichnet ein konvexes Polygon</translation>
     </message>
     <message>
         <source>Sample Polygon</source>
-        <translation type="unfinished"></translation>
+        <translation>Vorschau der gewählten Eigenschaften</translation>
     </message>
     <message>
         <source>Change the angles at which lines of the polygon join</source>
-        <translation type="unfinished"></translation>
+        <translation>Legt den Winkel fest, bei dem sich die Linien des Polygons verbinden</translation>
     </message>
     <message>
         <source>Choose the size of the preview in the scrapbook palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Ändert die Größe der Vorschau im Bibliotheks-Fenster</translation>
     </message>
     <message>
         <source>When using facing pages, show the two pages side by side</source>
-        <translation type="unfinished"></translation>
+        <translation>Wenn Doppelseiten aktiviert sind, werden zwei Seiten nebeneinander gezeigt</translation>
     </message>
     <message>
         <source>Color for paper</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe des Seiten-Hintergrundes</translation>
     </message>
     <message>
         <source>Color for the margin lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe für die Seiten-Ränder</translation>
     </message>
     <message>
         <source>Mask the area outside the margins in the margin color</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeigt den nicht-druckbaren Bereich in der Farbe des Seiten-Randes</translation>
     </message>
     <message>
         <source>Enable transparency features within PDF 1.4 export</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiviert die Transparenz-Funktion mit dem PDF 1.4-Export</translation>
     </message>
     <message>
         <source>Set the default zoom level</source>
-        <translation type="unfinished"></translation>
+        <translation>Legt das Standard-Zoom-Einstellung fest</translation>
     </message>
     <message>
         <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation type="unfinished"></translation>
+        <translation>Pfad zum Ghostscript-Interpreter</translation>
     </message>
     <message>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
-        <translation type="unfinished"></translation>
+        <translation>Text bei EPS- und PDF-Anzeige weichzeichnen</translation>
     </message>
     <message>
         <source>Antialias graphics for EPS and PDF onscreen rendering</source>
-        <translation type="unfinished"></translation>
+        <translation>Grafiken ebi EPS- und PDF-Anzeige weichzeichnen</translation>
     </message>
     <message>
         <source>Do not show objects outside the margins on the printed page or exported file</source>
-        <translation type="unfinished"></translation>
+        <translation>Objekte außerhalb der Seitenränder auf den gedruckten oder exportierten Seiten nicht zeigen</translation>
     </message>
     <message>
         <source>Baseline Grid:</source>
-        <translation type="unfinished"></translation>
+        <translation>Grundlinien-Raster:</translation>
     </message>
     <message>
         <source>Baseline Offset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Grundlinien-Versatz:</translation>
     </message>
     <message>
         <source>Save Contents on Changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Inhalt bei Veränderungen sichern</translation>
     </message>
     <message>
         <source>Save the scrapbook contents everytime after a change</source>
-        <translation type="unfinished"></translation>
+        <translation>Bibliothek nach jeder Veränderung erneut speichern</translation>
     </message>
     <message>
         <source>Filesystem location for graphics editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Pfad zum Bildbearbeitungsprogramm</translation>
     </message>
 </context>
 <context>
@@ -6437,15 +6464,15 @@ Datei wurde nicht gefunden.
     </message>
     <message>
         <source>Oook! You&apos;re calling an object doesn&apos;t exist!</source>
-        <translation type="unfinished"></translation>
+        <translation>Fehler! Sie versuchen ein Objekt zu aktivieren, das nicht existiert!</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to erase an object doesn&apos;t exist!</source>
-        <translation type="unfinished"></translation>
+        <translation>Fehler! Sie versuchen, ein Objekt zu löschen, das nicht existiert!</translation>
     </message>
     <message>
         <source>Oook! An object you&apos;re trying to textflow doesn&apos;t exist!</source>
-        <translation type="unfinished"></translation>
+        <translation>Fehler! Sie versuchen, bei einem nicht existierenden Objekt die Textfluss-Eigenschaften zu ändern!</translation>
     </message>
 </context>
 <context>
@@ -6628,29 +6655,31 @@ Datei wurde nicht gefunden.
     </message>
     <message>
         <source>Enable single or spread based layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiviert das doppelseitige Layout</translation>
     </message>
     <message>
         <source>Make the first page the left page of the document</source>
-        <translation type="unfinished"></translation>
+        <translation>Macht die erste Seite des Dokuments zu einer linken Seite</translation>
     </message>
     <message>
         <source>Distance between the top margin guide and the edge of the page</source>
-        <translation type="unfinished"></translation>
+        <translation>Abstand zwischen dem oberen Seitenrand und der Papierkante</translation>
     </message>
     <message>
         <source>Distance between the bottom margin guide and the edge of the page</source>
-        <translation type="unfinished"></translation>
+        <translation>Abstand zwischen dem unteren Seitenrand und der Papierkante</translation>
     </message>
     <message>
         <source>Distance between the left margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="unfinished"></translation>
+        <translation>Abstand zwischen dem linken Seitenrand und der Papierkante.
+Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetragen werden</translation>
     </message>
     <message>
         <source>Distance between the right margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="unfinished"></translation>
+        <translation>Abstand zwischen dem rechten Seitenrand und der Papierkante.
+Wenn Doppelseiten aktiviert sind, kann hier der korrekte Bund-Abstand eingetragen werden</translation>
     </message>
 </context>
 <context>
@@ -7567,19 +7596,19 @@ nicht speichern</translation>
     </message>
     <message>
         <source>Show Baseline Grid</source>
-        <translation>Basislinienraster zeigen</translation>
+        <translation>Grundlinien-Raster anzeigen</translation>
     </message>
     <message>
         <source>Tool&amp;bars</source>
-        <translation type="unfinished"></translation>
+        <translation>Tool&amp;bars</translation>
     </message>
     <message>
         <source>Hide Baseline Grid</source>
-        <translation>Basislinienraster verbergen</translation>
+        <translation>Grundlinien-Raster verbergen</translation>
     </message>
     <message>
         <source>Some Objects are locked.</source>
-        <translation type="unfinished"></translation>
+        <translation>Einige Objekte sind gesperrt.</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -7587,11 +7616,11 @@ nicht speichern</translation>
     </message>
     <message>
         <source>Lock all</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle sperren</translation>
     </message>
     <message>
         <source>Unlock all</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle entsperren</translation>
     </message>
 </context>
 <context>
@@ -7815,7 +7844,7 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>Previews all the pages of your document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vorschau aller Seiten des Dokuments.</translation>
     </message>
 </context>
 <context>
@@ -7947,7 +7976,7 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -8098,11 +8127,11 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>Insert Special...</source>
-        <translation type="unfinished"></translation>
+        <translation>Sonderzeichen einfügen...</translation>
     </message>
     <message>
         <source>Insert Special</source>
-        <translation type="unfinished">Sonderzeichen einfügen</translation>
+        <translation>Sonderzeichen einfügen</translation>
     </message>
 </context>
 <context>

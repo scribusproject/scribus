@@ -261,18 +261,17 @@ int mainGui(int argc, char **argv)
  */
 QString getLang(QString lang)
 {
-    if (lang == "") {
-        QString locale = QString(QTextCodec::locale());
-        if (locale.left(5) == "en_GB") {
-            lang = "en_GB";
-        } else if (locale.left(2) != "en") {
-            lang = locale.left(2);
-        }
-    } else if (lang.left(2) == "en") {
-        lang = "";
-    } else  {
-        lang = lang.left(2);
-    }
+	if (lang == "")
+		lang = QString(QTextCodec::locale());
+	
+	if (lang.left(5) == "en_GB")
+		lang = "en_GB";
+	else {
+		if (lang.left(2) == "en")
+			lang = "";
+		else
+	    	lang = lang.left(2);
+	}
     return lang;
 }
 
