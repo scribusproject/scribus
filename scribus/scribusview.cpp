@@ -3397,9 +3397,9 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 				QRect mpo = QRect(qRound(m->x()/Scale)-Doc->guidesSettings.grabRad, qRound(m->y()/Scale)-Doc->guidesSettings.grabRad, Doc->guidesSettings.grabRad*2, Doc->guidesSettings.grabRad*2);
 				double gx, gy, gh, gw;
 				getGroupRect(&gx, &gy, &gw, &gh);
-				if (QRect(static_cast<int>(gx), static_cast<int>(gy), static_cast<int>(gw), static_cast<int>(gh)).intersects(mpo))
+				if ((QRect(static_cast<int>(gx), static_cast<int>(gy), static_cast<int>(gw), static_cast<int>(gh)).intersects(mpo))
+					&& ((Doc->appMode == NormalMode) || (Doc->appMode == Rotation)))
 				{
-					qApp->setOverrideCursor(QCursor(SizeAllCursor), true);
 					int how = 0;
 					QMap<double,int> distance;
 					double d1 = sqrt(pow(((gx+gw) * Scale) - m->x(),2)+pow(((gy+gh) * Scale) - m->y(),2));
@@ -3448,6 +3448,9 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 							case 7:
 								qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
 								break;
+							default:
+								qApp->setOverrideCursor(QCursor(SizeAllCursor), true);
+								break;
 						}
 					}
 					if (Doc->appMode == Rotation)
@@ -3486,7 +3489,6 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 					break;
 				p.begin(viewport());
 				Transform(b, &p);
-				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 				QRect mpo = QRect(m->x()-Doc->guidesSettings.grabRad, m->y()-Doc->guidesSettings.grabRad, Doc->guidesSettings.grabRad*2, Doc->guidesSettings.grabRad*2);
 				if (Doc->EditClip)
 				{
@@ -3519,6 +3521,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 								return;
 							}
 						}
+						qApp->setOverrideCursor(QCursor(SizeAllCursor), true);
 					}
 					if ((Doc->EditClipMode == 1) || (Doc->EditClipMode == 0) && (EdPoints))
 					{
@@ -3539,10 +3542,12 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 									return;
 								}
 							}
+							qApp->setOverrideCursor(QCursor(SizeAllCursor), true);
 						}
 					}
 				}
-				if (QRegion(p.xForm(QPointArray(QRect(-3, -3, static_cast<int>(b->Width+6), static_cast<int>(b->Height+6))))).contains(mpo))
+				if ((QRegion(p.xForm(QPointArray(QRect(-3, -3, static_cast<int>(b->Width+6), static_cast<int>(b->Height+6))))).contains(mpo))
+					&& ((Doc->appMode == NormalMode) || (Doc->appMode == Rotation) || (Doc->appMode == EditMode)))
 				{
 					tx = p.xForm(QRect(0, 0, static_cast<int>(b->Width), static_cast<int>(b->Height)));
 					if ((tx.intersects(mpo)) && (!b->locked()))
