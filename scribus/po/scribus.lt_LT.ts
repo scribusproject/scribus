@@ -3070,10 +3070,6 @@ pertempk šabloną į langą žemiau.</translation>
 <context>
     <name>About</name>
     <message>
-        <source>About Scribus%1%2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>%1. %2 %3 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -3275,6 +3271,10 @@ Missing library support is indicated by a *</source>
     </message>
     <message>
         <source>Catalan:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>About Scribus %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4140,6 +4140,13 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
 </context>
 <context>
+    <name>ArrowChooser</name>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Nieko</translation>
+    </message>
+</context>
+<context>
     <name>Biblio</name>
     <message>
         <source>Scrapbook</source>
@@ -4661,15 +4668,12 @@ It&apos;s a reserved name for transparent color</source>
         <translation type="unfinished">Nieko</translation>
     </message>
     <message>
-        <source> mm</source>
+        <source>Move Vector</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source> in</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> p</source>
+        <source>Move the start of the Gradient Vector with the left Mouse Button pressed and
+nove the end of the Gradient Vector with the right Mouse Button pressed</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4818,28 +4822,36 @@ This can be set in the Preferences.</source>
         <translation type="unfinished">Ištrinti spalvą</translation>
     </message>
     <message>
-        <source>Delete color:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Replace it with:</source>
-        <translation type="unfinished">Pakeisti į:</translation>
+        <translation type="obsolete">Pakeisti į:</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">Tinka!</translation>
+        <translation type="obsolete">Tinka!</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Netinka</translation>
+        <translation type="obsolete">Netinka</translation>
     </message>
     <message>
         <source>None</source>
         <translation type="unfinished">Nieko</translation>
+    </message>
+    <message>
+        <source>Delete Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Replace With:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4850,7 +4862,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Delete from:</source>
-        <translation type="unfinished">Išplėšti nuo:</translation>
+        <translation type="obsolete">Išplėšti nuo:</translation>
     </message>
     <message>
         <source>to:</source>
@@ -4864,28 +4876,32 @@ This can be set in the Preferences.</source>
         <source>&amp;Cancel</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Delete From:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DmF</name>
     <message>
         <source>Missing Font</source>
-        <translation type="unfinished">Nerasti šriftai</translation>
+        <translation type="obsolete">Nerasti šriftai</translation>
     </message>
     <message>
         <source>The Font %1 is not installed.</source>
-        <translation type="unfinished">Šriftas %1 neįdiegtas.</translation>
+        <translation type="obsolete">Šriftas %1 neįdiegtas.</translation>
     </message>
     <message>
         <source>Use</source>
-        <translation type="unfinished">Naudoti</translation>
+        <translation type="obsolete">Naudoti</translation>
     </message>
     <message>
         <source>instead</source>
-        <translation type="unfinished">vietoj to</translation>
+        <translation type="obsolete">vietoj to</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">Tinka!</translation>
+        <translation type="obsolete">Tinka!</translation>
     </message>
 </context>
 <context>
@@ -5508,6 +5524,14 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
         <source>Change the output directory</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&amp;Size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Size of the images. 100% for no changes, 200% for two times larger etc.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FDialogPreview</name>
@@ -5776,6 +5800,14 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
         <source>Woven silk pyjamas exchanged for blue quartz</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Append selected font into Style, Font menu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Leave preview</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GradientEditor</name>
@@ -5866,6 +5898,41 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
 and www.scribus.net for downloads.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Contents</source>
+        <translation type="unfinished">Turinys</translation>
+    </message>
+    <message>
+        <source>Link</source>
+        <translation type="unfinished">Saitas</translation>
+    </message>
+    <message>
+        <source>Scribus Online Help</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>HelpBrowser2</name>
+    <message>
+        <source>Scribus Online Help</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tab 1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Column 1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tab 2</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>HyAsk</name>
@@ -5945,10 +6012,6 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished">Įklijuoti puslapį</translation>
     </message>
     <message>
-        <source>&amp;Inserting</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Page(s)</source>
         <translation type="unfinished">Puslapis(iai)</translation>
     </message>
@@ -5966,11 +6029,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Inserting</source>
-        <translation type="unfinished">Įterpinėju</translation>
-    </message>
-    <message>
-        <source>&amp;Template (Left Page):</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Įterpinėju</translation>
     </message>
     <message>
         <source>&amp;Template:</source>
@@ -5981,15 +6040,23 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished">Paprastas</translation>
     </message>
     <message>
-        <source>Template (Right Page):</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Insert</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Template (&amp;Left Page):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Template (&amp;Right Page):</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6365,19 +6432,7 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished">Ilgis</translation>
     </message>
     <message>
-        <source> pt</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> mm</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> in</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> p</source>
+        <source>pt</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6415,22 +6470,8 @@ A value of 0 means unlimited hyphenations.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>From Document:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Change...</source>
-        <translation type="unfinished">Pakeisti...</translation>
-    </message>
-    <message>
-        <source>Import Page(s):</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Insert a comma separated list of tokens where
-a token can be * for all the pages, 1-5 for
-a range of pages or a single page number.</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Pakeisti...</translation>
     </message>
     <message>
         <source> from 0</source>
@@ -6442,23 +6483,15 @@ a range of pages or a single page number.</source>
     </message>
     <message>
         <source>before Page</source>
-        <translation type="unfinished">prieš puslapį</translation>
+        <translation type="obsolete">prieš puslapį</translation>
     </message>
     <message>
         <source>after Page</source>
-        <translation type="unfinished">po puslapio</translation>
-    </message>
-    <message>
-        <source>at End</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Import</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">po puslapio</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Netinka</translation>
+        <translation type="obsolete">Netinka</translation>
     </message>
     <message>
         <source>Open</source>
@@ -6474,6 +6507,71 @@ a range of pages or a single page number.</source>
     </message>
     <message>
         <source> from %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;From Document:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Chan&amp;ge...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Import Page(s):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Import Template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens importWhereData
+a token can be * for all the pages, 1-5 for
+a range of pages or a single page number.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Before Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>After Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>At End</source>
+        <translation type="unfinished">į galą</translation>
+    </message>
+    <message>
+        <source>&amp;Import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>MissingFont</name>
+    <message>
+        <source>Missing Font</source>
+        <translation type="unfinished">Nerasti šriftai</translation>
+    </message>
+    <message>
+        <source>The Font %1 is not installed.</source>
+        <translation type="unfinished">Šriftas %1 neįdiegtas.</translation>
+    </message>
+    <message>
+        <source>Use</source>
+        <translation type="unfinished">Naudoti</translation>
+    </message>
+    <message>
+        <source>instead</source>
+        <translation type="unfinished">vietoj to</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6497,15 +6595,11 @@ a range of pages or a single page number.</source>
     </message>
     <message>
         <source>before Page</source>
-        <translation type="unfinished">prieš puslapį</translation>
+        <translation type="obsolete">prieš puslapį</translation>
     </message>
     <message>
         <source>after Page</source>
-        <translation type="unfinished">po puslapio</translation>
-    </message>
-    <message>
-        <source>at End</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">po puslapio</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -6514,6 +6608,22 @@ a range of pages or a single page number.</source>
     <message>
         <source>&amp;Cancel</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move Page(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Before Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>After Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>At End</source>
+        <translation type="unfinished">į galą</translation>
     </message>
 </context>
 <context>
@@ -7118,6 +7228,14 @@ Please choose another.</source>
     </message>
     <message>
         <source>Right to Left Writing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start Arrow:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>End Arrow:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8422,17 +8540,17 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>A way of switching some of the gray shades which are composed
+        <source>All</source>
+        <translation type="unfinished">Viską</translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed
 of cyan, yellow and magenta and using black instead.
 UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>All</source>
-        <translation type="unfinished">Viską</translation>
     </message>
 </context>
 <context>
@@ -8581,11 +8699,26 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation type="unfinished">Daugiakampio parinktys</translation>
     </message>
     <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PolygonWidget</name>
+    <message>
         <source>Corn&amp;ers:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&amp;Rotation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply &amp;Factor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8597,14 +8730,6 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Number of corners for polygons</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8613,15 +8738,11 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Sample Polygon</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Apply &amp;Factor</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Apply Convex/Concave Factor to change shape of Polygons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sample Polygon</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -9037,18 +9158,6 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Corn&amp;ers:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Rotation:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Factor:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Other Options</source>
         <translation type="unfinished">Kitos parinktys</translation>
     </message>
@@ -9429,18 +9538,6 @@ each time the time period elapses</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Number of corners for polygons</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Degrees of rotation for polygons</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Sample Polygon</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Choose the size of the preview in the scrapbook palette</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9525,20 +9622,7 @@ each time the time period elapses</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Apply &amp;Factor</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Additional Directory for Document Templates</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Apply Convex/Concave Factor to change shape of Polygons</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>A negative value will make the polygon concave (or star shaped),
- a positive value will make it convex</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -9548,6 +9632,27 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Language:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select your default language for Scribus to run with.
+Leave this blank to choose based on environment variables.
+You can still override this by passing a command line option when starting Scribus</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PrefsDialogBase</name>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10181,30 +10286,6 @@ Check path and filename.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Oook! You&apos;re trying to load image into an object doesn&apos;t exist or isn&apos;t selected!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to (un)lock an object doesn&apos;t exist! None selected too.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to query an object doesn&apos;t exist! None selected too.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re calling an object doesn&apos;t exist!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to erase an object doesn&apos;t exist!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Oook! An object you&apos;re trying to textflow doesn&apos;t exist!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>S&amp;cripter Manual...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10313,6 +10394,202 @@ External Links
     <message>
         <source>All</source>
         <translation type="unfinished">Viską</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>mm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>in</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>p</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Albanian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Basque</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bulgarian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Brazilian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Catalan</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Chinese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Czech</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Danish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dutch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (British)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Esperanto</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>German</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Finnish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>French</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Galician</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Greek</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hungarian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Indonesian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Italian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Korean</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lithuanian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Norwegian (Bokmaal)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Norwegian (Nnyorsk)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Norwegian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Polish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Russian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Swedish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spanish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spanish (Latin)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Slovak</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Slovenian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Serbian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turkish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ukranian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Welsh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Specified item not an image frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;About Script...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>About Script</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import &amp;Open Office Draw...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Office Draw (*.sxd);;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10494,14 +10771,6 @@ External Links
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Enable single or spread based layout</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10577,6 +10846,306 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>&amp;Height:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>F&amp;irst Page Number:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page</source>
+        <translation type="unfinished">Puslapis</translation>
+    </message>
+    <message>
+        <source>ShowGrid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Major Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color:</source>
+        <translation type="unfinished">Spalva:</translation>
+    </message>
+    <message>
+        <source>Spacing:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minor Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Guide Snap Distance:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Margins</source>
+        <translation type="unfinished">Rodyti paraštes</translation>
+    </message>
+    <message>
+        <source>Show Guides</source>
+        <translation type="unfinished">Rodyti pagalbines linijas</translation>
+    </message>
+    <message>
+        <source>Show Baseline Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Text Chains</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Frames</source>
+        <translation type="unfinished">Rodyti rėmelius</translation>
+    </message>
+    <message>
+        <source>Show Pictures</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Guides</source>
+        <translation type="unfinished">Pagalbinės linijos</translation>
+    </message>
+    <message>
+        <source>Page Background</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display &amp;Unprintable Area in Margin Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+U</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scratch Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Placing of Guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In the Background</source>
+        <translation type="unfinished">Po apačia</translation>
+    </message>
+    <message>
+        <source>In the Foreground</source>
+        <translation type="unfinished">Viršuje</translation>
+    </message>
+    <message>
+        <source>Display</source>
+        <translation type="unfinished">Rodyti</translation>
+    </message>
+    <message>
+        <source>Subscript</source>
+        <translation type="unfinished">Poraštis</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Displacement:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Scaling:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Superscript</source>
+        <translation type="unfinished">Antraštis</translation>
+    </message>
+    <message>
+        <source>D&amp;isplacement:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>S&amp;caling:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Small Caps</source>
+        <translation type="unfinished">Mažos didžiosios</translation>
+    </message>
+    <message>
+        <source>Sc&amp;aling:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Other</source>
+        <translation type="unfinished">Kita</translation>
+    </message>
+    <message>
+        <source>Baseline &amp;Grid:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Baseline &amp;Offset:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatic &amp;Line Spacing:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Typography</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Size:</source>
+        <translation type="unfinished">Dydis:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Nieko</translation>
+    </message>
+    <message>
+        <source>Fill Color:</source>
+        <translation type="unfinished">Užpildo spalva:</translation>
+    </message>
+    <message>
+        <source>Stroke Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Colu&amp;mns:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Gap:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Woven silk pyjamas exchanged for blue quartz</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Line Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Shading:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Fill Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>S&amp;hading:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line Style:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line &amp;Width:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line S&amp;tyle:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Arrows:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>End:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Free Scaling</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Horizontal Scaling:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Vertical Scaling:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Scale Picture to Frame Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keep Aspect &amp;Ratio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>F&amp;ill Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mi&amp;nimum:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ma&amp;ximum:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Stepping:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tools</source>
+        <translation type="unfinished">Įrankiai</translation>
+    </message>
+    <message>
+        <source>Autosave</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>min</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Interval:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Units</source>
+        <translation type="unfinished">Vienetai</translation>
+    </message>
+    <message>
+        <source>Points (pt)</source>
+        <translation type="unfinished">Punktai (pt)</translation>
+    </message>
+    <message>
+        <source>Millimetres (mm)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Inches (in)</source>
+        <translation type="unfinished">Coliai (col)</translation>
+    </message>
+    <message>
+        <source>Picas (p)</source>
+        <translation type="unfinished">Ciceros (cic)</translation>
+    </message>
+    <message>
+        <source>Misc.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10726,7 +11295,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>There are no Postscript-Fonts on your System</source>
-        <translation type="unfinished">Jūsų sistemoje nėra postscriptinių šriftų</translation>
+        <translation type="obsolete">Jūsų sistemoje nėra postscriptinių šriftų</translation>
     </message>
     <message>
         <source>Exiting now</source>
@@ -11670,14 +12239,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Hide Baseline Grid</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show Baseline Grid</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>The following Programs are missing:</source>
         <translation type="unfinished">Šios programos nerastos:</translation>
     </message>
@@ -11880,6 +12441,22 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>File %1 
 is not in an acceptable format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There are no Postscript fonts on your system</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show &amp;Text Chain</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Office Draw (*.sxd);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(converted)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -12744,8 +13321,8 @@ pertempk šabloną į langą žemiau.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Outline Text</source>
-        <translation type="unfinished"></translation>
+        <source>Outline</source>
+        <translation type="unfinished">Kontūras</translation>
     </message>
 </context>
 <context>

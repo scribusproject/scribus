@@ -3,7 +3,7 @@
     <name>About</name>
     <message>
         <source>About Scribus%1%2</source>
-        <translation>Quant a Scribus %1%2</translation>
+        <translation type="obsolete">Quant a Scribus %1%2</translation>
     </message>
     <message>
         <source>%1. %2 %3 </source>
@@ -204,6 +204,10 @@ La falta de llibreries està indicat per un *
     </message>
     <message>
         <source>Catalan:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>About Scribus %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1084,6 +1088,13 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
     </message>
 </context>
 <context>
+    <name>ArrowChooser</name>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Cap</translation>
+    </message>
+</context>
+<context>
     <name>Biblio</name>
     <message>
         <source>Scrapbook</source>
@@ -1614,15 +1625,24 @@ It&apos;s a reserved name for transparent color</source>
     </message>
     <message>
         <source> mm</source>
-        <translation>mm</translation>
+        <translation type="obsolete">mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation>po</translation>
+        <translation type="obsolete">po</translation>
     </message>
     <message>
         <source> p</source>
-        <translation>p</translation>
+        <translation type="obsolete">p</translation>
+    </message>
+    <message>
+        <source>Move Vector</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move the start of the Gradient Vector with the left Mouse Button pressed and
+nove the end of the Gradient Vector with the right Mouse Button pressed</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1776,27 +1796,43 @@ Això es pot posar en les Preferències.</translation>
     </message>
     <message>
         <source>Delete color:</source>
-        <translation>Esborra Color:</translation>
+        <translation type="obsolete">Esborra Color:</translation>
     </message>
     <message>
         <source>?</source>
-        <translation>?</translation>
+        <translation type="obsolete">?</translation>
     </message>
     <message>
         <source>Replace it with:</source>
-        <translation>Canvia&apos;l per:</translation>
+        <translation type="obsolete">Canvia&apos;l per:</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>D&apos;acord</translation>
+        <translation type="obsolete">D&apos;acord</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Cancel.la</translation>
+        <translation type="obsolete">Cancel.la</translation>
     </message>
     <message>
         <source>None</source>
         <translation type="unfinished">Cap</translation>
+    </message>
+    <message>
+        <source>Delete Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Replace With:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">D&apos;ac&amp;ord</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Cancel.la</translation>
     </message>
 </context>
 <context>
@@ -1807,7 +1843,7 @@ Això es pot posar en les Preferències.</translation>
     </message>
     <message>
         <source>Delete from:</source>
-        <translation>Esborra des de:</translation>
+        <translation type="obsolete">Esborra des de:</translation>
     </message>
     <message>
         <source>to:</source>
@@ -1821,28 +1857,32 @@ Això es pot posar en les Preferències.</translation>
         <source>&amp;Cancel</source>
         <translation>&amp;Cancel.la</translation>
     </message>
+    <message>
+        <source>Delete From:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DmF</name>
     <message>
         <source>Missing Font</source>
-        <translation>Font Perduda</translation>
+        <translation type="obsolete">Font Perduda</translation>
     </message>
     <message>
         <source>The Font %1 is not installed.</source>
-        <translation>La Font %1 no està instal.lada.</translation>
+        <translation type="obsolete">La Font %1 no està instal.lada.</translation>
     </message>
     <message>
         <source>Use</source>
-        <translation>Usa</translation>
+        <translation type="obsolete">Usa</translation>
     </message>
     <message>
         <source>instead</source>
-        <translation>en comptes</translation>
+        <translation type="obsolete">en comptes</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>D&apos;acord</translation>
+        <translation type="obsolete">D&apos;acord</translation>
     </message>
 </context>
 <context>
@@ -2482,6 +2522,14 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
         <source>Change the output directory</source>
         <translation>Canvia el directori de sortida</translation>
     </message>
+    <message>
+        <source>&amp;Size:</source>
+        <translation type="unfinished">&amp;Mida:</translation>
+    </message>
+    <message>
+        <source>Size of the images. 100% for no changes, 200% for two times larger etc.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FDialogPreview</name>
@@ -2750,6 +2798,14 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
         <source>Woven silk pyjamas exchanged for blue quartz</source>
         <translation>Woven silk pyjamas exchanged for blue quartz</translation>
     </message>
+    <message>
+        <source>Append selected font into Style, Font menu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Leave preview</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GradientEditor</name>
@@ -2844,6 +2900,41 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
 and www.scribus.net for downloads.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Contents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Link</source>
+        <translation type="unfinished">Enllaç</translation>
+    </message>
+    <message>
+        <source>Scribus Online Help</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>HelpBrowser2</name>
+    <message>
+        <source>Scribus Online Help</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tab 1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Column 1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tab 2</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>HyAsk</name>
@@ -2933,7 +3024,7 @@ Un valor de 0 significa infinites separacions.</translation>
     </message>
     <message>
         <source>&amp;Inserting</source>
-        <translation>&amp;Inserint</translation>
+        <translation type="obsolete">&amp;Inserint</translation>
     </message>
     <message>
         <source>Page(s)</source>
@@ -2953,11 +3044,11 @@ Un valor de 0 significa infinites separacions.</translation>
     </message>
     <message>
         <source>Inserting</source>
-        <translation>Inserint</translation>
+        <translation type="obsolete">Inserint</translation>
     </message>
     <message>
         <source>&amp;Template (Left Page):</source>
-        <translation>Plan&amp;tilla (Pàgina Esquerra):</translation>
+        <translation type="obsolete">Plan&amp;tilla (Pàgina Esquerra):</translation>
     </message>
     <message>
         <source>&amp;Template:</source>
@@ -2969,7 +3060,7 @@ Un valor de 0 significa infinites separacions.</translation>
     </message>
     <message>
         <source>Template (Right Page):</source>
-        <translation>Plantilla (Pàgina Dreta):</translation>
+        <translation type="obsolete">Plantilla (Pàgina Dreta):</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -2978,6 +3069,18 @@ Un valor de 0 significa infinites separacions.</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Cancel.la</translation>
+    </message>
+    <message>
+        <source>&amp;Insert</source>
+        <translation type="unfinished">&amp;Insereix</translation>
+    </message>
+    <message>
+        <source>Template (&amp;Left Page):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Template (&amp;Right Page):</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3349,19 +3452,23 @@ Un valor de 0 significa infinites separacions.</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation type="obsolete">pt</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation>mm</translation>
+        <translation type="obsolete">mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation>po</translation>
+        <translation type="obsolete">po</translation>
     </message>
     <message>
         <source> p</source>
-        <translation>p</translation>
+        <translation type="obsolete">p</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation type="unfinished">pt</translation>
     </message>
 </context>
 <context>
@@ -3399,21 +3506,21 @@ Un valor de 0 significa infinites separacions.</translation>
     </message>
     <message>
         <source>From Document:</source>
-        <translation>Des del Document:</translation>
+        <translation type="obsolete">Des del Document:</translation>
     </message>
     <message>
         <source>Change...</source>
-        <translation>Canvia...</translation>
+        <translation type="obsolete">Canvia...</translation>
     </message>
     <message>
         <source>Import Page(s):</source>
-        <translation>Importa Pàgina(es):</translation>
+        <translation type="obsolete">Importa Pàgina(es):</translation>
     </message>
     <message>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
-        <translation>Insereix una llista de tokens separats per coma
+        <translation type="obsolete">Insereix una llista de tokens separats per coma
 un token pot ser * per totes, 1-5 per
 un rang de pàgines o un número sol.
 </translation>
@@ -3428,23 +3535,23 @@ un rang de pàgines o un número sol.
     </message>
     <message>
         <source>before Page</source>
-        <translation>abans Pàgina</translation>
+        <translation type="obsolete">abans Pàgina</translation>
     </message>
     <message>
         <source>after Page</source>
-        <translation>després Pàgina</translation>
+        <translation type="obsolete">després Pàgina</translation>
     </message>
     <message>
         <source>at End</source>
-        <translation>al Final</translation>
+        <translation type="obsolete">al Final</translation>
     </message>
     <message>
         <source>Import</source>
-        <translation>Importa</translation>
+        <translation type="obsolete">Importa</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Cancel.la</translation>
+        <translation type="obsolete">Cancel.la</translation>
     </message>
     <message>
         <source>Open</source>
@@ -3461,6 +3568,71 @@ un rang de pàgines o un número sol.
     <message>
         <source> from %1</source>
         <translation>Des de %1</translation>
+    </message>
+    <message>
+        <source>&amp;From Document:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Chan&amp;ge...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Import Page(s):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Import Template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens importWhereData
+a token can be * for all the pages, 1-5 for
+a range of pages or a single page number.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Before Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>After Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>At End</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Import</source>
+        <translation type="unfinished">&amp;Importa</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Cancel.la</translation>
+    </message>
+</context>
+<context>
+    <name>MissingFont</name>
+    <message>
+        <source>Missing Font</source>
+        <translation type="unfinished">Font Perduda</translation>
+    </message>
+    <message>
+        <source>The Font %1 is not installed.</source>
+        <translation type="unfinished">La Font %1 no està instal.lada.</translation>
+    </message>
+    <message>
+        <source>Use</source>
+        <translation type="unfinished">Usa</translation>
+    </message>
+    <message>
+        <source>instead</source>
+        <translation type="unfinished">en comptes</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">D&apos;ac&amp;ord</translation>
     </message>
 </context>
 <context>
@@ -3483,15 +3655,15 @@ un rang de pàgines o un número sol.
     </message>
     <message>
         <source>before Page</source>
-        <translation>abans Pàgina</translation>
+        <translation type="obsolete">abans Pàgina</translation>
     </message>
     <message>
         <source>after Page</source>
-        <translation>després Pàgina</translation>
+        <translation type="obsolete">després Pàgina</translation>
     </message>
     <message>
         <source>at End</source>
-        <translation>al Final</translation>
+        <translation type="obsolete">al Final</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -3500,6 +3672,22 @@ un rang de pàgines o un número sol.
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Cancel.la</translation>
+    </message>
+    <message>
+        <source>Move Page(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Before Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>After Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>At End</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4110,6 +4298,14 @@ Si us plau tria&apos;n un altre.</translation>
     </message>
     <message>
         <source>Right to Left Writing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start Arrow:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>End Arrow:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5450,7 +5646,7 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Una forma de canviar algunes de les ombres grises que estan compostes
+        <translation type="obsolete">Una forma de canviar algunes de les ombres grises que estan compostes
 de cian, groc i magenta i al seu lloc fer servir negre.
 UCR pot afectar parts d&apos;imatges que són neutrals i/o amb tons foscos
 que estan propers al gris. Fes servir això millora la impressió d&apos;algunes imatges
@@ -5460,6 +5656,20 @@ UCR redueix la possibilitat de sobresaturació amb tintes CMY.</translation>
     <message>
         <source>All</source>
         <translation>Tot</translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed
+of cyan, yellow and magenta and using black instead.
+UCR most affects parts of images which are neutral and/or dark tones
+which are close to the gray. Use of this may improve printing some images
+and some experimentation and testing is need on a case by case basis.
+UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="unfinished">Una forma d&apos;apagar algunes de les ombres grises que estan composades
+per cian, groc i magenta però fan servir negre
+UCR pot afectar parts de imatges que són de color neutral o tons foscos
+propers a gris. Fes servir això pot millorar la impressió d&apos;algunes imatges 
+però cal algunes proves i experimentació per cada cas
+UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
     </message>
 </context>
 <context>
@@ -5873,23 +6083,23 @@ UCR redueix la possibilitat de sobresaturació amb tintes CMY.</translation>
     </message>
     <message>
         <source>Corn&amp;ers:</source>
-        <translation>Can&amp;tos:</translation>
+        <translation type="obsolete">Can&amp;tos:</translation>
     </message>
     <message>
         <source>&amp;Rotation:</source>
-        <translation>&amp;Rotació:</translation>
+        <translation type="obsolete">&amp;Rotació:</translation>
     </message>
     <message>
         <source>Apply &amp;Factor</source>
-        <translation>Aplica &amp;Factor</translation>
+        <translation type="obsolete">Aplica &amp;Factor</translation>
     </message>
     <message>
         <source> %</source>
-        <translation>%</translation>
+        <translation type="obsolete">%</translation>
     </message>
     <message>
         <source>&amp;Factor:</source>
-        <translation>&amp;Factor:</translation>
+        <translation type="obsolete">&amp;Factor:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -5901,24 +6111,69 @@ UCR redueix la possibilitat de sobresaturació amb tintes CMY.</translation>
     </message>
     <message>
         <source>Number of corners for polygons</source>
-        <translation>Número de cantos pels polígons</translation>
+        <translation type="obsolete">Número de cantos pels polígons</translation>
     </message>
     <message>
         <source>Degrees of rotation for polygons</source>
-        <translation>Graus de rotació dels polígons</translation>
+        <translation type="obsolete">Graus de rotació dels polígons</translation>
     </message>
     <message>
         <source>Apply Convex/Concave Factor to change shape of Polygons</source>
-        <translation>Aplica factor Convex/Concau per canviar la forma del Polígon</translation>
+        <translation type="obsolete">Aplica factor Convex/Concau per canviar la forma del Polígon</translation>
     </message>
     <message>
         <source>Sample Polygon</source>
-        <translation>Polígon de Mostra</translation>
+        <translation type="obsolete">Polígon de Mostra</translation>
     </message>
     <message>
         <source>A negative value will make the polygon concave (or star shaped),
  a positive value will make it convex</source>
-        <translation>Un valor negatiu farà el polígon concau ( o de forma estrellada),
+        <translation type="obsolete">Un valor negatiu farà el polígon concau ( o de forma estrellada),
+i un valor positiu el farà convex</translation>
+    </message>
+</context>
+<context>
+    <name>PolygonWidget</name>
+    <message>
+        <source>Corn&amp;ers:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Rotation:</source>
+        <translation type="unfinished">&amp;Rotació:</translation>
+    </message>
+    <message>
+        <source>Apply &amp;Factor</source>
+        <translation type="unfinished">Aplica &amp;Factor</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation type="unfinished">%</translation>
+    </message>
+    <message>
+        <source>&amp;Factor:</source>
+        <translation type="unfinished">&amp;Factor:</translation>
+    </message>
+    <message>
+        <source>Number of corners for polygons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Degrees of rotation for polygons</source>
+        <translation type="unfinished">Graus de rotació dels polígons</translation>
+    </message>
+    <message>
+        <source>Apply Convex/Concave Factor to change shape of Polygons</source>
+        <translation type="unfinished">Aplica factor Convex/Concau per canviar la forma del Polígon</translation>
+    </message>
+    <message>
+        <source>Sample Polygon</source>
+        <translation type="unfinished">Polígon de Mostra</translation>
+    </message>
+    <message>
+        <source>A negative value will make the polygon concave (or star shaped),
+ a positive value will make it convex</source>
+        <translation type="unfinished">Un valor negatiu farà el polígon concau ( o de forma estrellada),
 i un valor positiu el farà convex</translation>
     </message>
 </context>
@@ -6338,19 +6593,19 @@ i un valor positiu el farà convex</translation>
     </message>
     <message>
         <source>Corn&amp;ers:</source>
-        <translation>Vor&amp;es:</translation>
+        <translation type="obsolete">Vor&amp;es:</translation>
     </message>
     <message>
         <source>&amp;Rotation:</source>
-        <translation>&amp;Rotació:</translation>
+        <translation type="obsolete">&amp;Rotació:</translation>
     </message>
     <message>
         <source>Apply &amp;Factor</source>
-        <translation>Aplica &amp;Factor</translation>
+        <translation type="obsolete">Aplica &amp;Factor</translation>
     </message>
     <message>
         <source>&amp;Factor:</source>
-        <translation>&amp;Factor:</translation>
+        <translation type="obsolete">&amp;Factor:</translation>
     </message>
     <message>
         <source>Other Options</source>
@@ -6742,24 +6997,24 @@ cada vegada que passa el període de temps</translation>
     </message>
     <message>
         <source>Number of corners for polygons</source>
-        <translation>Número de vores dels polígons</translation>
+        <translation type="obsolete">Número de vores dels polígons</translation>
     </message>
     <message>
         <source>Degrees of rotation for polygons</source>
-        <translation>Graus de rotació dels polígons</translation>
+        <translation type="obsolete">Graus de rotació dels polígons</translation>
     </message>
     <message>
         <source>Apply Convex/Concave Factor to change shape of Polygons</source>
-        <translation>Aplica factor Convex/Concau per canviar la forma del Polígon</translation>
+        <translation type="obsolete">Aplica factor Convex/Concau per canviar la forma del Polígon</translation>
     </message>
     <message>
         <source>Sample Polygon</source>
-        <translation>Polígon de Mostra</translation>
+        <translation type="obsolete">Polígon de Mostra</translation>
     </message>
     <message>
         <source>A negative value will make the polygon concave (or star shaped),
  a positive value will make it convex</source>
-        <translation>Un valor negatiu farà el polígon concau ( o de forma estrellada),
+        <translation type="obsolete">Un valor negatiu farà el polígon concau ( o de forma estrellada),
 i un valor positiu el farà convex</translation>
     </message>
     <message>
@@ -6851,6 +7106,27 @@ UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
     <message>
         <source> p</source>
         <translation>p</translation>
+    </message>
+    <message>
+        <source>&amp;Language:</source>
+        <translation type="unfinished">&amp;Idioma:</translation>
+    </message>
+    <message>
+        <source>Select your default language for Scribus to run with.
+Leave this blank to choose based on environment variables.
+You can still override this by passing a command line option when starting Scribus</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PrefsDialogBase</name>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">D&apos;ac&amp;ord</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Cancel.la</translation>
     </message>
 </context>
 <context>
@@ -7501,27 +7777,27 @@ Comprova el nom i el camí.</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to load image into an object doesn&apos;t exist or isn&apos;t selected!</source>
-        <translation>Ostres! Intentes carregar una imatge a un objecte que no existeix o no està triat!</translation>
+        <translation type="obsolete">Ostres! Intentes carregar una imatge a un objecte que no existeix o no està triat!</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to (un)lock an object doesn&apos;t exist! None selected too.</source>
-        <translation>Ostres! Intentes (des)bloquejar un objecte que no existeix! Ni seleccionat.</translation>
+        <translation type="obsolete">Ostres! Intentes (des)bloquejar un objecte que no existeix! Ni seleccionat.</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to query an object doesn&apos;t exist! None selected too.</source>
-        <translation>Ostres! Intentes preguntar a un objecte que no existeix! Ni seleccionat.</translation>
+        <translation type="obsolete">Ostres! Intentes preguntar a un objecte que no existeix! Ni seleccionat.</translation>
     </message>
     <message>
         <source>Oook! You&apos;re calling an object doesn&apos;t exist!</source>
-        <translation>Ostres! Crides un objecte que no existeix!</translation>
+        <translation type="obsolete">Ostres! Crides un objecte que no existeix!</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to erase an object doesn&apos;t exist!</source>
-        <translation>Ostres! Vols esborrar un objecte que no existeix!</translation>
+        <translation type="obsolete">Ostres! Vols esborrar un objecte que no existeix!</translation>
     </message>
     <message>
         <source>Oook! An object you&apos;re trying to textflow doesn&apos;t exist!</source>
-        <translation>Ostres! Vols passar text a un objecte que no existeix!</translation>
+        <translation type="obsolete">Ostres! Vols passar text a un objecte que no existeix!</translation>
     </message>
     <message>
         <source>S&amp;cripter Manual...</source>
@@ -7631,6 +7907,202 @@ Enllaços Externs
     <message>
         <source>All</source>
         <translation type="unfinished">Tot</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation type="unfinished">pt</translation>
+    </message>
+    <message>
+        <source>mm</source>
+        <translation type="unfinished">mm</translation>
+    </message>
+    <message>
+        <source>in</source>
+        <translation type="unfinished">po</translation>
+    </message>
+    <message>
+        <source>p</source>
+        <translation type="unfinished">p</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation type="unfinished">pt</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation type="unfinished">mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation type="unfinished">po</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation type="unfinished">p</translation>
+    </message>
+    <message>
+        <source>Albanian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Basque</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bulgarian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Brazilian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Catalan</source>
+        <translation type="unfinished">Català</translation>
+    </message>
+    <message>
+        <source>Chinese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Czech</source>
+        <translation type="unfinished">Txec</translation>
+    </message>
+    <message>
+        <source>Danish</source>
+        <translation type="unfinished">Danès</translation>
+    </message>
+    <message>
+        <source>Dutch</source>
+        <translation type="unfinished">Holandès</translation>
+    </message>
+    <message>
+        <source>English</source>
+        <translation type="unfinished">Anglès</translation>
+    </message>
+    <message>
+        <source>English (British)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Esperanto</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>German</source>
+        <translation type="unfinished">Alemany</translation>
+    </message>
+    <message>
+        <source>Finnish</source>
+        <translation type="unfinished">Finès</translation>
+    </message>
+    <message>
+        <source>French</source>
+        <translation type="unfinished">Francès</translation>
+    </message>
+    <message>
+        <source>Galician</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Greek</source>
+        <translation type="unfinished">Grec</translation>
+    </message>
+    <message>
+        <source>Hungarian</source>
+        <translation type="unfinished">Hongarès</translation>
+    </message>
+    <message>
+        <source>Indonesian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Italian</source>
+        <translation type="unfinished">Italià</translation>
+    </message>
+    <message>
+        <source>Korean</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lithuanian</source>
+        <translation type="unfinished">Lituà</translation>
+    </message>
+    <message>
+        <source>Norwegian (Bokmaal)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Norwegian (Nnyorsk)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Norwegian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Polish</source>
+        <translation type="unfinished">Polonès</translation>
+    </message>
+    <message>
+        <source>Russian</source>
+        <translation type="unfinished">Rus</translation>
+    </message>
+    <message>
+        <source>Swedish</source>
+        <translation type="unfinished">Suec</translation>
+    </message>
+    <message>
+        <source>Spanish</source>
+        <translation type="unfinished">Espanyol</translation>
+    </message>
+    <message>
+        <source>Spanish (Latin)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Slovak</source>
+        <translation type="unfinished">Eslovac</translation>
+    </message>
+    <message>
+        <source>Slovenian</source>
+        <translation type="unfinished">Eslovè</translation>
+    </message>
+    <message>
+        <source>Serbian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turkish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ukranian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Welsh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Specified item not an image frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;About Script...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>About Script</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import &amp;Open Office Draw...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Office Draw (*.sxd);;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7813,11 +8285,11 @@ Enllaços Externs
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>D&apos;ac&amp;ord</translation>
+        <translation type="obsolete">D&apos;ac&amp;ord</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Cancel.la</translation>
+        <translation type="obsolete">&amp;Cancel.la</translation>
     </message>
     <message>
         <source>Enable single or spread based layout</source>
@@ -7898,6 +8370,306 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     <message>
         <source>&amp;Height:</source>
         <translation type="unfinished">A&amp;lçada:</translation>
+    </message>
+    <message>
+        <source>Layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>F&amp;irst Page Number:</source>
+        <translation type="unfinished">Pr&amp;imer Número de Pàgina:</translation>
+    </message>
+    <message>
+        <source>Page</source>
+        <translation type="unfinished">Pàgina</translation>
+    </message>
+    <message>
+        <source>ShowGrid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Major Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color:</source>
+        <translation type="unfinished">Color:</translation>
+    </message>
+    <message>
+        <source>Spacing:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minor Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Guide Snap Distance:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Margins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Baseline Grid</source>
+        <translation type="unfinished">Mostra Reixa Base</translation>
+    </message>
+    <message>
+        <source>Show Text Chains</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Pictures</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Guides</source>
+        <translation type="unfinished">Guies</translation>
+    </message>
+    <message>
+        <source>Page Background</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display &amp;Unprintable Area in Margin Color</source>
+        <translation type="unfinished">Mostra àrea no imprimible en C&amp;olor de marge</translation>
+    </message>
+    <message>
+        <source>Alt+U</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scratch Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Placing of Guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In the Background</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In the Foreground</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display</source>
+        <translation type="unfinished">Pantalla</translation>
+    </message>
+    <message>
+        <source>Subscript</source>
+        <translation type="unfinished">Subíndex</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation type="unfinished">%</translation>
+    </message>
+    <message>
+        <source>&amp;Displacement:</source>
+        <translation type="unfinished">&amp;Desplaçament:</translation>
+    </message>
+    <message>
+        <source>&amp;Scaling:</source>
+        <translation type="unfinished">E&amp;scalat:</translation>
+    </message>
+    <message>
+        <source>Superscript</source>
+        <translation type="unfinished">Superíndex</translation>
+    </message>
+    <message>
+        <source>D&amp;isplacement:</source>
+        <translation type="unfinished">De&amp;splaçament:</translation>
+    </message>
+    <message>
+        <source>S&amp;caling:</source>
+        <translation type="unfinished">Es&amp;calat:</translation>
+    </message>
+    <message>
+        <source>Small Caps</source>
+        <translation type="unfinished">Majúscules Petites</translation>
+    </message>
+    <message>
+        <source>Sc&amp;aling:</source>
+        <translation type="unfinished">Es&amp;calat:</translation>
+    </message>
+    <message>
+        <source>Other</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Baseline &amp;Grid:</source>
+        <translation type="unfinished">&amp;Reixa Base:</translation>
+    </message>
+    <message>
+        <source>Baseline &amp;Offset:</source>
+        <translation type="unfinished">C&amp;ompensa Linea Base:</translation>
+    </message>
+    <message>
+        <source>Automatic &amp;Line Spacing:</source>
+        <translation type="unfinished">Inter&amp;lineat Automàtic:</translation>
+    </message>
+    <message>
+        <source>Typography</source>
+        <translation type="unfinished">Tipografia</translation>
+    </message>
+    <message>
+        <source>Font:</source>
+        <translation type="unfinished">Font:</translation>
+    </message>
+    <message>
+        <source>Size:</source>
+        <translation type="unfinished">Mida:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Cap</translation>
+    </message>
+    <message>
+        <source>Fill Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stroke Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Colu&amp;mns:</source>
+        <translation type="unfinished">Colu&amp;mnes:</translation>
+    </message>
+    <message>
+        <source>&amp;Gap:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Woven silk pyjamas exchanged for blue quartz</source>
+        <translation type="unfinished">Woven silk pyjamas exchanged for blue quartz</translation>
+    </message>
+    <message>
+        <source>&amp;Line Color:</source>
+        <translation type="unfinished">Color de &amp;Línia:</translation>
+    </message>
+    <message>
+        <source>&amp;Shading:</source>
+        <translation type="unfinished">Ombre&amp;jat:</translation>
+    </message>
+    <message>
+        <source>&amp;Fill Color:</source>
+        <translation type="unfinished">Color d&apos;&amp;Emplenat:</translation>
+    </message>
+    <message>
+        <source>S&amp;hading:</source>
+        <translation type="unfinished">Ombre&amp;jat:</translation>
+    </message>
+    <message>
+        <source>Line Style:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line &amp;Width:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line S&amp;tyle:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Arrows:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>End:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Free Scaling</source>
+        <translation type="unfinished">Escalat Lli&amp;ure</translation>
+    </message>
+    <message>
+        <source>&amp;Horizontal Scaling:</source>
+        <translation type="unfinished">Escalat &amp;Horitzontal:</translation>
+    </message>
+    <message>
+        <source>&amp;Vertical Scaling:</source>
+        <translation type="unfinished">Escalat &amp;Vertical:</translation>
+    </message>
+    <message>
+        <source>&amp;Scale Picture to Frame Size</source>
+        <translation type="unfinished">E&amp;scala Imatge a Mida de Marc</translation>
+    </message>
+    <message>
+        <source>Keep Aspect &amp;Ratio</source>
+        <translation type="unfinished">Manteni&amp;r l&apos;aspecte</translation>
+    </message>
+    <message>
+        <source>F&amp;ill Color:</source>
+        <translation type="unfinished">Color d&apos;&amp;Emplenat:</translation>
+    </message>
+    <message>
+        <source>Mi&amp;nimum:</source>
+        <translation type="unfinished">Mí&amp;nim:</translation>
+    </message>
+    <message>
+        <source>Ma&amp;ximum:</source>
+        <translation type="unfinished">Mà&amp;xim:</translation>
+    </message>
+    <message>
+        <source>&amp;Stepping:</source>
+        <translation type="unfinished">&amp;Increment:</translation>
+    </message>
+    <message>
+        <source>Tools</source>
+        <translation type="unfinished">Eines</translation>
+    </message>
+    <message>
+        <source>Autosave</source>
+        <translation type="unfinished">Autodesa</translation>
+    </message>
+    <message>
+        <source>min</source>
+        <translation type="unfinished">min</translation>
+    </message>
+    <message>
+        <source>&amp;Interval:</source>
+        <translation type="unfinished">&amp;Interval:</translation>
+    </message>
+    <message>
+        <source>Units</source>
+        <translation type="unfinished">Unitats</translation>
+    </message>
+    <message>
+        <source>Points (pt)</source>
+        <translation type="unfinished">Punts (pts)</translation>
+    </message>
+    <message>
+        <source>Millimetres (mm)</source>
+        <translation type="unfinished">Milímetres (mm)</translation>
+    </message>
+    <message>
+        <source>Inches (in)</source>
+        <translation type="unfinished">Polzades (po)</translation>
+    </message>
+    <message>
+        <source>Picas (p)</source>
+        <translation type="unfinished">Piques (p)</translation>
+    </message>
+    <message>
+        <source>Misc.</source>
+        <translation type="unfinished">Misc.</translation>
     </message>
 </context>
 <context>
@@ -8046,7 +8818,7 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     </message>
     <message>
         <source>There are no Postscript-Fonts on your System</source>
-        <translation>No hi ha Postscript Fonts en el teu Sistema</translation>
+        <translation type="obsolete">No hi ha Postscript Fonts en el teu Sistema</translation>
     </message>
     <message>
         <source>Exiting now</source>
@@ -9000,11 +9772,11 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     </message>
     <message>
         <source>Hide Baseline Grid</source>
-        <translation>Amaga Reixa Base</translation>
+        <translation type="obsolete">Amaga Reixa Base</translation>
     </message>
     <message>
         <source>Show Baseline Grid</source>
-        <translation>Mostra Reixa Base</translation>
+        <translation type="obsolete">Mostra Reixa Base</translation>
     </message>
     <message>
         <source>The following Programs are missing:</source>
@@ -9209,6 +9981,22 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     <message>
         <source>File %1 
 is not in an acceptable format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There are no Postscript fonts on your system</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show &amp;Text Chain</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Office Draw (*.sxd);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(converted)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10078,7 +10866,11 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
     </message>
     <message>
         <source>Outline Text</source>
-        <translation>Text amb Contorn</translation>
+        <translation type="obsolete">Text amb Contorn</translation>
+    </message>
+    <message>
+        <source>Outline</source>
+        <translation type="unfinished">Esquema</translation>
     </message>
 </context>
 <context>

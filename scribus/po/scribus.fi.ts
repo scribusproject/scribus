@@ -93,7 +93,7 @@
     </message>
     <message>
         <source>About Scribus%1%2</source>
-        <translation>Tietoja Scribuksesta%1%2</translation>
+        <translation type="obsolete">Tietoja Scribuksesta%1%2</translation>
     </message>
     <message>
         <source>Finnish:</source>
@@ -199,6 +199,10 @@ Puuttuva kirjaston tuki on merkitty * -merkillä</translation>
     </message>
     <message>
         <source>Previous Translation Contributors:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>About Scribus %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1078,6 +1082,13 @@ testausta. UCR parantaa kykyä välttää värien liikaa kylläisyyttä CMY-must
     </message>
 </context>
 <context>
+    <name>ArrowChooser</name>
+    <message>
+        <source>None</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Biblio</name>
     <message>
         <source>Delete</source>
@@ -1604,19 +1615,28 @@ It&apos;s a reserved name for transparent color</source>
     </message>
     <message>
         <source> mm</source>
-        <translation> mm</translation>
+        <translation type="obsolete"> mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation> in</translation>
+        <translation type="obsolete"> in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation> p</translation>
+        <translation type="obsolete"> p</translation>
     </message>
     <message>
         <source>Free radial Gradient</source>
         <translation>Vapaa säteittäinen väriliuku</translation>
+    </message>
+    <message>
+        <source>Move Vector</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move the start of the Gradient Vector with the left Mouse Button pressed and
+nove the end of the Gradient Vector with the right Mouse Button pressed</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1766,11 +1786,11 @@ Voit määrittää sen asetuksissa.</translation>
     <name>DelColor</name>
     <message>
         <source>?</source>
-        <translation>?</translation>
+        <translation type="obsolete">?</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Delete Color</source>
@@ -1778,19 +1798,35 @@ Voit määrittää sen asetuksissa.</translation>
     </message>
     <message>
         <source>Replace it with:</source>
-        <translation>Korvaa:</translation>
+        <translation type="obsolete">Korvaa:</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Peruuta</translation>
+        <translation type="obsolete">Peruuta</translation>
     </message>
     <message>
         <source>Delete color:</source>
-        <translation>Poista väri:</translation>
+        <translation type="obsolete">Poista väri:</translation>
     </message>
     <message>
         <source>None</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Replace With:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Peruuta</translation>
     </message>
 </context>
 <context>
@@ -1801,7 +1837,7 @@ Voit määrittää sen asetuksissa.</translation>
     </message>
     <message>
         <source>Delete from:</source>
-        <translation>Poista kohdasta:</translation>
+        <translation type="obsolete">Poista kohdasta:</translation>
     </message>
     <message>
         <source>Delete Pages</source>
@@ -1815,28 +1851,32 @@ Voit määrittää sen asetuksissa.</translation>
         <source>&amp;Cancel</source>
         <translation>&amp;Peruuta</translation>
     </message>
+    <message>
+        <source>Delete From:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DmF</name>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Use</source>
-        <translation>Käytä</translation>
+        <translation type="obsolete">Käytä</translation>
     </message>
     <message>
         <source>instead</source>
-        <translation>sijasta</translation>
+        <translation type="obsolete">sijasta</translation>
     </message>
     <message>
         <source>Missing Font</source>
-        <translation>Puuttuva kirjasin</translation>
+        <translation type="obsolete">Puuttuva kirjasin</translation>
     </message>
     <message>
         <source>The Font %1 is not installed.</source>
-        <translation>Kirjasinta %1 ei ole asennettu.</translation>
+        <translation type="obsolete">Kirjasinta %1 ei ole asennettu.</translation>
     </message>
 </context>
 <context>
@@ -2471,6 +2511,14 @@ joita on tarkoitus katsella näytöltä</translation>
         <source>Export all pages</source>
         <translation>Vie kaikki sivut</translation>
     </message>
+    <message>
+        <source>&amp;Size:</source>
+        <translation type="unfinished">&amp;Koko:</translation>
+    </message>
+    <message>
+        <source>Size of the images. 100% for no changes, 200% for two times larger etc.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FDialogPreview</name>
@@ -2739,6 +2787,14 @@ joita on tarkoitus katsella näytöltä</translation>
         <source>Fonts Preview</source>
         <translation>Kirjasinten esikatselu</translation>
     </message>
+    <message>
+        <source>Append selected font into Style, Font menu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Leave preview</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GradientEditor</name>
@@ -2830,6 +2886,41 @@ and www.scribus.net for downloads.</source>
         <translation>Ohjetta ei ole vielä saatavissa tässä muodossa. Osoitteesta http://docs.scribus.net 
 löydät viimeisimmän version dokumentaatiosta. Lisää materiaalia löydät myös 
 osoitteesta www.scribus.net.</translation>
+    </message>
+    <message>
+        <source>Contents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Link</source>
+        <translation type="unfinished">Linkki</translation>
+    </message>
+    <message>
+        <source>Scribus Online Help</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>HelpBrowser2</name>
+    <message>
+        <source>Scribus Online Help</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tab 1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Column 1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tab 2</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2929,7 +3020,7 @@ ilmestyy, kun käytät Työkalut, Tavuta teksti.</translation>
     </message>
     <message>
         <source>Inserting</source>
-        <translation>Lisää</translation>
+        <translation type="obsolete">Lisää</translation>
     </message>
     <message>
         <source>after Page</source>
@@ -2937,11 +3028,11 @@ ilmestyy, kun käytät Työkalut, Tavuta teksti.</translation>
     </message>
     <message>
         <source>Template (Right Page):</source>
-        <translation>Sivumalli (oikea sivu):</translation>
+        <translation type="obsolete">Sivumalli (oikea sivu):</translation>
     </message>
     <message>
         <source>&amp;Inserting</source>
-        <translation>&amp;Lisää</translation>
+        <translation type="obsolete">&amp;Lisää</translation>
     </message>
     <message>
         <source>Page(s)</source>
@@ -2949,7 +3040,7 @@ ilmestyy, kun käytät Työkalut, Tavuta teksti.</translation>
     </message>
     <message>
         <source>&amp;Template (Left Page):</source>
-        <translation>Sivumalli (&amp;vasen sivu):</translation>
+        <translation type="obsolete">Sivumalli (&amp;vasen sivu):</translation>
     </message>
     <message>
         <source>&amp;Template:</source>
@@ -2962,6 +3053,18 @@ ilmestyy, kun käytät Työkalut, Tavuta teksti.</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Peruuta</translation>
+    </message>
+    <message>
+        <source>&amp;Insert</source>
+        <translation type="unfinished">&amp;Lisää</translation>
+    </message>
+    <message>
+        <source>Template (&amp;Left Page):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Template (&amp;Right Page):</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3333,19 +3436,23 @@ ilmestyy, kun käytät Työkalut, Tavuta teksti.</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation> pt</translation>
+        <translation type="obsolete"> pt</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation> mm</translation>
+        <translation type="obsolete"> mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation> in</translation>
+        <translation type="obsolete"> in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation> p</translation>
+        <translation type="obsolete"> p</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation type="unfinished">pt</translation>
     </message>
 </context>
 <context>
@@ -3383,11 +3490,11 @@ ilmestyy, kun käytät Työkalut, Tavuta teksti.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Peruuta</translation>
+        <translation type="obsolete">Peruuta</translation>
     </message>
     <message>
         <source>Import</source>
-        <translation>Tuo</translation>
+        <translation type="obsolete">Tuo</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
@@ -3395,7 +3502,7 @@ ilmestyy, kun käytät Työkalut, Tavuta teksti.</translation>
     </message>
     <message>
         <source>Change...</source>
-        <translation>Muuta...</translation>
+        <translation type="obsolete">Muuta...</translation>
     </message>
     <message>
         <source>Import Template</source>
@@ -3407,17 +3514,17 @@ ilmestyy, kun käytät Työkalut, Tavuta teksti.</translation>
     </message>
     <message>
         <source>From Document:</source>
-        <translation>Asiakirjasta:</translation>
+        <translation type="obsolete">Asiakirjasta:</translation>
     </message>
     <message>
         <source>Import Page(s):</source>
-        <translation>Tuo sivu(t):</translation>
+        <translation type="obsolete">Tuo sivu(t):</translation>
     </message>
     <message>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
-        <translation>Syötä pilkuin eroteltu lista tuotavista sivuista.
+        <translation type="obsolete">Syötä pilkuin eroteltu lista tuotavista sivuista.
 Pelkän sivunumeron lisäksi voit käyttää
 * kuvaamaan kaikkia sivuja tai 1-5 sivuväliä.</translation>
     </message>
@@ -3431,19 +3538,84 @@ Pelkän sivunumeron lisäksi voit käyttää
     </message>
     <message>
         <source>before Page</source>
-        <translation>Ennen sivua</translation>
+        <translation type="obsolete">Ennen sivua</translation>
     </message>
     <message>
         <source>after Page</source>
-        <translation>Jälkeen sivun</translation>
+        <translation type="obsolete">Jälkeen sivun</translation>
     </message>
     <message>
         <source>at End</source>
-        <translation>Loppuun</translation>
+        <translation type="obsolete">Loppuun</translation>
     </message>
     <message>
         <source> from %1</source>
         <translation>/ %1</translation>
+    </message>
+    <message>
+        <source>&amp;From Document:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Chan&amp;ge...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Import Page(s):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Import Template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens importWhereData
+a token can be * for all the pages, 1-5 for
+a range of pages or a single page number.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Before Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>After Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>At End</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Import</source>
+        <translation type="unfinished">T&amp;uo</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Peruuta</translation>
+    </message>
+</context>
+<context>
+    <name>MissingFont</name>
+    <message>
+        <source>Missing Font</source>
+        <translation type="unfinished">Puuttuva kirjasin</translation>
+    </message>
+    <message>
+        <source>The Font %1 is not installed.</source>
+        <translation type="unfinished">Kirjasinta %1 ei ole asennettu.</translation>
+    </message>
+    <message>
+        <source>Use</source>
+        <translation type="unfinished">Käytä</translation>
+    </message>
+    <message>
+        <source>instead</source>
+        <translation type="unfinished">sijasta</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
     </message>
 </context>
 <context>
@@ -3458,7 +3630,7 @@ Pelkän sivunumeron lisäksi voit käyttää
     </message>
     <message>
         <source>at End</source>
-        <translation>Loppuun</translation>
+        <translation type="obsolete">Loppuun</translation>
     </message>
     <message>
         <source>Move Pages</source>
@@ -3470,11 +3642,11 @@ Pelkän sivunumeron lisäksi voit käyttää
     </message>
     <message>
         <source>before Page</source>
-        <translation>Ennen sivua</translation>
+        <translation type="obsolete">Ennen sivua</translation>
     </message>
     <message>
         <source>after Page</source>
-        <translation>Jälkeen sivun</translation>
+        <translation type="obsolete">Jälkeen sivun</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -3483,6 +3655,22 @@ Pelkän sivunumeron lisäksi voit käyttää
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Peruuta</translation>
+    </message>
+    <message>
+        <source>Move Page(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Before Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>After Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>At End</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4092,6 +4280,14 @@ Corners:</source>
     </message>
     <message>
         <source>Right to Left Writing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start Arrow:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>End Arrow:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5438,7 +5634,20 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Tapa vaihtaa syaanin, magentan ja keltaisen värien tekemä harmaa mustalla tehdyksi.
+        <translation type="obsolete">Tapa vaihtaa syaanin, magentan ja keltaisen värien tekemä harmaa mustalla tehdyksi.
+UCR vaikuttaa kuvien kohdissa, jotka ovat neutraaleja tai lähellä harmaata
+olevia tummia värejä. UCR:n käyttäminen saattaa parantaa joidenkin kuvien
+tulostamista. Parhaan tuloksen saavuttamiseksi tarvitaan tapauskohtaista
+testausta. UCR parantaa kykyä välttää värien liikaa kylläisyyttä CMY-musteilla.</translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed
+of cyan, yellow and magenta and using black instead.
+UCR most affects parts of images which are neutral and/or dark tones
+which are close to the gray. Use of this may improve printing some images
+and some experimentation and testing is need on a case by case basis.
+UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="unfinished">Tapa vaihtaa C, Y ja M värien tekemä harmaa mustalla tehdyksi.
 UCR vaikuttaa kuvien kohdissa, jotka ovat neutraaleja tai lähellä harmaata
 olevia tummia värejä. UCR:n käyttäminen saattaa parantaa joidenkin kuvien
 tulostamista. Parhaan tuloksen saavuttamiseksi tarvitaan tapauskohtaista
@@ -5852,7 +6061,7 @@ testausta. UCR parantaa kykyä välttää värien liikaa kylläisyyttä CMY-must
     <name>PolygonProps</name>
     <message>
         <source> %</source>
-        <translation> %</translation>
+        <translation type="obsolete"> %</translation>
     </message>
     <message>
         <source>Polygon Properties</source>
@@ -5860,15 +6069,15 @@ testausta. UCR parantaa kykyä välttää värien liikaa kylläisyyttä CMY-must
     </message>
     <message>
         <source>Corn&amp;ers:</source>
-        <translation>K&amp;ulmat:</translation>
+        <translation type="obsolete">K&amp;ulmat:</translation>
     </message>
     <message>
         <source>&amp;Rotation:</source>
-        <translation>Ki&amp;erto:</translation>
+        <translation type="obsolete">Ki&amp;erto:</translation>
     </message>
     <message>
         <source>&amp;Factor:</source>
-        <translation>&amp;Kerroin:</translation>
+        <translation type="obsolete">&amp;Kerroin:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -5880,29 +6089,73 @@ testausta. UCR parantaa kykyä välttää värien liikaa kylläisyyttä CMY-must
     </message>
     <message>
         <source>Number of corners for polygons</source>
-        <translation>Monikulmion kulmien lukumäärä</translation>
+        <translation type="obsolete">Monikulmion kulmien lukumäärä</translation>
     </message>
     <message>
         <source>Degrees of rotation for polygons</source>
-        <translation>Monikulmion kierron aste</translation>
+        <translation type="obsolete">Monikulmion kierron aste</translation>
     </message>
     <message>
         <source>Sample Polygon</source>
-        <translation>Esimerkki monikulmiosta</translation>
+        <translation type="obsolete">Esimerkki monikulmiosta</translation>
     </message>
     <message>
         <source>Apply &amp;Factor</source>
-        <translation>Käytä &amp;kerrointa</translation>
+        <translation type="obsolete">Käytä &amp;kerrointa</translation>
     </message>
     <message>
         <source>Apply Convex/Concave Factor to change shape of Polygons</source>
-        <translation>Käytä kuperaa/koveraa kerrointa muuttaaksesi monikulmion muotoa</translation>
+        <translation type="obsolete">Käytä kuperaa/koveraa kerrointa muuttaaksesi monikulmion muotoa</translation>
     </message>
     <message>
         <source>A negative value will make the polygon concave (or star shaped),
  a positive value will make it convex</source>
-        <translation>Negatiivinen arvo tekee monikulmiosta koveran (tähden muotoisen),
+        <translation type="obsolete">Negatiivinen arvo tekee monikulmiosta koveran (tähden muotoisen),
 positiivinen kuperan</translation>
+    </message>
+</context>
+<context>
+    <name>PolygonWidget</name>
+    <message>
+        <source>Corn&amp;ers:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Rotation:</source>
+        <translation type="unfinished">Ki&amp;erto:</translation>
+    </message>
+    <message>
+        <source>Apply &amp;Factor</source>
+        <translation type="unfinished">Käytä &amp;kerrointa</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation type="unfinished"> %</translation>
+    </message>
+    <message>
+        <source>&amp;Factor:</source>
+        <translation type="unfinished">&amp;Kerroin:</translation>
+    </message>
+    <message>
+        <source>Number of corners for polygons</source>
+        <translation type="unfinished">Monikulmion kulmien lukumäärä</translation>
+    </message>
+    <message>
+        <source>Degrees of rotation for polygons</source>
+        <translation type="unfinished">Monikulmion kierron aste</translation>
+    </message>
+    <message>
+        <source>Apply Convex/Concave Factor to change shape of Polygons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sample Polygon</source>
+        <translation type="unfinished">Esimerkki monikulmiosta</translation>
+    </message>
+    <message>
+        <source>A negative value will make the polygon concave (or star shaped),
+ a positive value will make it convex</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6371,15 +6624,15 @@ aina valitun ajan kuluttua</translation>
     </message>
     <message>
         <source>Number of corners for polygons</source>
-        <translation>Monikulmion kulmien lukumäärä</translation>
+        <translation type="obsolete">Monikulmion kulmien lukumäärä</translation>
     </message>
     <message>
         <source>Degrees of rotation for polygons</source>
-        <translation>Monikulmion kierron aste</translation>
+        <translation type="obsolete">Monikulmion kierron aste</translation>
     </message>
     <message>
         <source>Sample Polygon</source>
-        <translation>Esimerkki monikulmiosta</translation>
+        <translation type="obsolete">Esimerkki monikulmiosta</translation>
     </message>
     <message>
         <source>Choose the size of the preview in the scrapbook palette</source>
@@ -6709,15 +6962,15 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Corn&amp;ers:</source>
-        <translation>&amp;Kulmat:</translation>
+        <translation type="obsolete">&amp;Kulmat:</translation>
     </message>
     <message>
         <source>&amp;Rotation:</source>
-        <translation>Ki&amp;erto:</translation>
+        <translation type="obsolete">Ki&amp;erto:</translation>
     </message>
     <message>
         <source>&amp;Factor:</source>
-        <translation>&amp;Kerroin:</translation>
+        <translation type="obsolete">&amp;Kerroin:</translation>
     </message>
     <message>
         <source>Sa&amp;ve Contents on Changes</source>
@@ -6809,16 +7062,16 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Apply &amp;Factor</source>
-        <translation>Käytä &amp;kerrointa</translation>
+        <translation type="obsolete">Käytä &amp;kerrointa</translation>
     </message>
     <message>
         <source>Apply Convex/Concave Factor to change shape of Polygons</source>
-        <translation>Käytä kuperaa/koveraa kerroint muuttaaksesi monikulmion muodon</translation>
+        <translation type="obsolete">Käytä kuperaa/koveraa kerroint muuttaaksesi monikulmion muodon</translation>
     </message>
     <message>
         <source>A negative value will make the polygon concave (or star shaped),
  a positive value will make it convex</source>
-        <translation>Negatiivinen arvo tekee monikulmiosta koveran (tähden muotoisen)
+        <translation type="obsolete">Negatiivinen arvo tekee monikulmiosta koveran (tähden muotoisen)
 positiivinen kuperan</translation>
     </message>
     <message>
@@ -6833,6 +7086,27 @@ UCR vaikuttaa kuvien kohdissa, jotka ovat neutraaleja tai lähellä harmaata
 olevia tummia värejä. UCR:n käyttäminen saattaa parantaa joidenkin kuvien
 tulostamista. Parhaan tuloksen saavuttamiseksi tarvitaan tapauskohtaista
 testausta. UCR parantaa kykyä välttää värien liikaa kylläisyyttä CMY-musteilla.</translation>
+    </message>
+    <message>
+        <source>&amp;Language:</source>
+        <translation type="unfinished">&amp;Kieli:</translation>
+    </message>
+    <message>
+        <source>Select your default language for Scribus to run with.
+Leave this blank to choose based on environment variables.
+You can still override this by passing a command line option when starting Scribus</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PrefsDialogBase</name>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Peruuta</translation>
     </message>
 </context>
 <context>
@@ -7318,15 +7592,15 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Oook! You&apos;re calling an object doesn&apos;t exist!</source>
-        <translation>Iiik! Kutsut kohdetta, jota ei ole olemassa!</translation>
+        <translation type="obsolete">Iiik! Kutsut kohdetta, jota ei ole olemassa!</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to erase an object doesn&apos;t exist!</source>
-        <translation>Iiik! Yrität poistaa kohdetta, jota ei ole olemassa!</translation>
+        <translation type="obsolete">Iiik! Yrität poistaa kohdetta, jota ei ole olemassa!</translation>
     </message>
     <message>
         <source>Oook! An object you&apos;re trying to textflow doesn&apos;t exist!</source>
-        <translation>Iiik! Kohdetta, jonka ympäri yrität viedä tekstiä ei ole olemassa!</translation>
+        <translation type="obsolete">Iiik! Kohdetta, jonka ympäri yrität viedä tekstiä ei ole olemassa!</translation>
     </message>
     <message>
         <source>File exists. Overwrite?</source>
@@ -7526,15 +7800,15 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to load image into an object doesn&apos;t exist or isn&apos;t selected!</source>
-        <translation>Iik! Yrität ladata kuvaa kohteesen, jota ei ole tai joka ei ole valittuna!</translation>
+        <translation type="obsolete">Iik! Yrität ladata kuvaa kohteesen, jota ei ole tai joka ei ole valittuna!</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to (un)lock an object doesn&apos;t exist! None selected too.</source>
-        <translation>Iik! Yrität vapauttaa tai lukita kohdetta, jota ei ole! Valittujakaan kohteita ei ole.</translation>
+        <translation type="obsolete">Iik! Yrität vapauttaa tai lukita kohdetta, jota ei ole! Valittujakaan kohteita ei ole.</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to query an object doesn&apos;t exist! None selected too.</source>
-        <translation>Iik! Yrität kutsua kohdetta, jota ei ole. Valittujakaan kohteita ei ole.</translation>
+        <translation type="obsolete">Iik! Yrität kutsua kohdetta, jota ei ole. Valittujakaan kohteita ei ole.</translation>
     </message>
     <message>
         <source>Importing text</source>
@@ -7609,6 +7883,202 @@ External Links
     <message>
         <source>All</source>
         <translation type="unfinished">Kaikki</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation type="unfinished">pt</translation>
+    </message>
+    <message>
+        <source>mm</source>
+        <translation type="unfinished">mm</translation>
+    </message>
+    <message>
+        <source>in</source>
+        <translation type="unfinished">in</translation>
+    </message>
+    <message>
+        <source>p</source>
+        <translation type="unfinished">p</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation type="unfinished"> mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation type="unfinished"> in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation type="unfinished"> p</translation>
+    </message>
+    <message>
+        <source>Albanian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Basque</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bulgarian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Brazilian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Catalan</source>
+        <translation type="unfinished">katalonia</translation>
+    </message>
+    <message>
+        <source>Chinese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Czech</source>
+        <translation type="unfinished">tsekki</translation>
+    </message>
+    <message>
+        <source>Danish</source>
+        <translation type="unfinished">tanska</translation>
+    </message>
+    <message>
+        <source>Dutch</source>
+        <translation type="unfinished">hollanti</translation>
+    </message>
+    <message>
+        <source>English</source>
+        <translation type="unfinished">englanti</translation>
+    </message>
+    <message>
+        <source>English (British)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Esperanto</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>German</source>
+        <translation type="unfinished">saksa</translation>
+    </message>
+    <message>
+        <source>Finnish</source>
+        <translation type="unfinished">suomi</translation>
+    </message>
+    <message>
+        <source>French</source>
+        <translation type="unfinished">ranska</translation>
+    </message>
+    <message>
+        <source>Galician</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Greek</source>
+        <translation type="unfinished">kreikka</translation>
+    </message>
+    <message>
+        <source>Hungarian</source>
+        <translation type="unfinished">unkari</translation>
+    </message>
+    <message>
+        <source>Indonesian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Italian</source>
+        <translation type="unfinished">italia</translation>
+    </message>
+    <message>
+        <source>Korean</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lithuanian</source>
+        <translation type="unfinished">Liettua</translation>
+    </message>
+    <message>
+        <source>Norwegian (Bokmaal)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Norwegian (Nnyorsk)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Norwegian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Polish</source>
+        <translation type="unfinished">puola</translation>
+    </message>
+    <message>
+        <source>Russian</source>
+        <translation type="unfinished">venäjä</translation>
+    </message>
+    <message>
+        <source>Swedish</source>
+        <translation type="unfinished">ruotsi</translation>
+    </message>
+    <message>
+        <source>Spanish</source>
+        <translation type="unfinished">espanja</translation>
+    </message>
+    <message>
+        <source>Spanish (Latin)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Slovak</source>
+        <translation type="unfinished">slovakki</translation>
+    </message>
+    <message>
+        <source>Slovenian</source>
+        <translation type="unfinished">Slovenia</translation>
+    </message>
+    <message>
+        <source>Serbian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turkish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ukranian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Welsh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Specified item not an image frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;About Script...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>About Script</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import &amp;Open Office Draw...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Office Draw (*.sxd);;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7819,11 +8289,11 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>&amp;Peruuta</translation>
+        <translation type="obsolete">&amp;Peruuta</translation>
     </message>
     <message>
         <source>&amp;Inside:</source>
@@ -7876,6 +8346,306 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     <message>
         <source>&amp;Height:</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>F&amp;irst Page Number:</source>
+        <translation type="unfinished">&amp;Ensimmäisen sivun numero:</translation>
+    </message>
+    <message>
+        <source>Page</source>
+        <translation type="unfinished">Sivu</translation>
+    </message>
+    <message>
+        <source>ShowGrid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Major Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color:</source>
+        <translation type="unfinished">Väri:</translation>
+    </message>
+    <message>
+        <source>Spacing:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minor Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Guide Snap Distance:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Margins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Baseline Grid</source>
+        <translation type="unfinished">Näytä peruslinja</translation>
+    </message>
+    <message>
+        <source>Show Text Chains</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Pictures</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Guides</source>
+        <translation type="unfinished">Apuviivat</translation>
+    </message>
+    <message>
+        <source>Page Background</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display &amp;Unprintable Area in Margin Color</source>
+        <translation type="unfinished">N&amp;äytä tulostumaton alue reunuksen värillä</translation>
+    </message>
+    <message>
+        <source>Alt+U</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scratch Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Placing of Guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In the Background</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In the Foreground</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display</source>
+        <translation type="unfinished">Näyttö</translation>
+    </message>
+    <message>
+        <source>Subscript</source>
+        <translation type="unfinished">Alaindeksi</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation type="unfinished"> %</translation>
+    </message>
+    <message>
+        <source>&amp;Displacement:</source>
+        <translation type="unfinished">&amp;Siirtymä:</translation>
+    </message>
+    <message>
+        <source>&amp;Scaling:</source>
+        <translation type="unfinished">&amp;Skaalaus:</translation>
+    </message>
+    <message>
+        <source>Superscript</source>
+        <translation type="unfinished">Yläindeksi</translation>
+    </message>
+    <message>
+        <source>D&amp;isplacement:</source>
+        <translation type="unfinished">S&amp;iirtymä:</translation>
+    </message>
+    <message>
+        <source>S&amp;caling:</source>
+        <translation type="unfinished">S&amp;kaalaus:</translation>
+    </message>
+    <message>
+        <source>Small Caps</source>
+        <translation type="unfinished">Pienet isot kirjaimet</translation>
+    </message>
+    <message>
+        <source>Sc&amp;aling:</source>
+        <translation type="unfinished">Skaa&amp;laus:</translation>
+    </message>
+    <message>
+        <source>Other</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Baseline &amp;Grid:</source>
+        <translation type="unfinished">&amp;Peruslinja:</translation>
+    </message>
+    <message>
+        <source>Baseline &amp;Offset:</source>
+        <translation type="unfinished">Peruslinjan &amp;siirtymä:</translation>
+    </message>
+    <message>
+        <source>Automatic &amp;Line Spacing:</source>
+        <translation type="unfinished">&amp;Automaattinen riviväli:</translation>
+    </message>
+    <message>
+        <source>Typography</source>
+        <translation type="unfinished">Typografia</translation>
+    </message>
+    <message>
+        <source>Font:</source>
+        <translation type="unfinished">Kirjasin:</translation>
+    </message>
+    <message>
+        <source>Size:</source>
+        <translation type="unfinished">Koko:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stroke Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Colu&amp;mns:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Gap:</source>
+        <translation type="unfinished">&amp;Väli:</translation>
+    </message>
+    <message>
+        <source>Woven silk pyjamas exchanged for blue quartz</source>
+        <translation type="unfinished">Wowen silk pyjamas exchanged for blue quarz</translation>
+    </message>
+    <message>
+        <source>&amp;Line Color:</source>
+        <translation type="unfinished">V&amp;iivan väri:</translation>
+    </message>
+    <message>
+        <source>&amp;Shading:</source>
+        <translation type="unfinished">&amp;Sävy:</translation>
+    </message>
+    <message>
+        <source>&amp;Fill Color:</source>
+        <translation type="unfinished">&amp;Täyttöväri:</translation>
+    </message>
+    <message>
+        <source>S&amp;hading:</source>
+        <translation type="unfinished">S&amp;ävy:</translation>
+    </message>
+    <message>
+        <source>Line Style:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line &amp;Width:</source>
+        <translation type="unfinished">Viivan &amp;leveys:</translation>
+    </message>
+    <message>
+        <source>Line S&amp;tyle:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Arrows:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>End:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Free Scaling</source>
+        <translation type="unfinished">&amp;Ei skaalausta</translation>
+    </message>
+    <message>
+        <source>&amp;Horizontal Scaling:</source>
+        <translation type="unfinished">&amp;Vaakasuora skaalaus:</translation>
+    </message>
+    <message>
+        <source>&amp;Vertical Scaling:</source>
+        <translation type="unfinished">&amp;Pystysuora skaalaus:</translation>
+    </message>
+    <message>
+        <source>&amp;Scale Picture to Frame Size</source>
+        <translation type="unfinished">&amp;Skaalaa kuva kehyksen kokoon</translation>
+    </message>
+    <message>
+        <source>Keep Aspect &amp;Ratio</source>
+        <translation type="unfinished">S&amp;äilytä sivujen suhteet</translation>
+    </message>
+    <message>
+        <source>F&amp;ill Color:</source>
+        <translation type="unfinished">&amp;Täyttöväri:</translation>
+    </message>
+    <message>
+        <source>Mi&amp;nimum:</source>
+        <translation type="unfinished">&amp;Pienin:</translation>
+    </message>
+    <message>
+        <source>Ma&amp;ximum:</source>
+        <translation type="unfinished">&amp;Suurin:</translation>
+    </message>
+    <message>
+        <source>&amp;Stepping:</source>
+        <translation type="unfinished">&amp;Askellus:</translation>
+    </message>
+    <message>
+        <source>Tools</source>
+        <translation type="unfinished">Työkalut</translation>
+    </message>
+    <message>
+        <source>Autosave</source>
+        <translation type="unfinished">Automaattinen tallennus</translation>
+    </message>
+    <message>
+        <source>min</source>
+        <translation type="unfinished">min</translation>
+    </message>
+    <message>
+        <source>&amp;Interval:</source>
+        <translation type="unfinished">&amp;Väli:</translation>
+    </message>
+    <message>
+        <source>Units</source>
+        <translation type="unfinished">Yksiköt</translation>
+    </message>
+    <message>
+        <source>Points (pt)</source>
+        <translation type="unfinished">Pisteet (pt)</translation>
+    </message>
+    <message>
+        <source>Millimetres (mm)</source>
+        <translation type="unfinished">Millimetrit (mm)</translation>
+    </message>
+    <message>
+        <source>Inches (in)</source>
+        <translation type="unfinished">Tuumat (in)</translation>
+    </message>
+    <message>
+        <source>Picas (p)</source>
+        <translation type="unfinished">Picat (p)</translation>
+    </message>
+    <message>
+        <source>Misc.</source>
+        <translation type="unfinished">Sekalaista</translation>
     </message>
 </context>
 <context>
@@ -8252,7 +9022,7 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>There are no Postscript-Fonts on your System</source>
-        <translation>Järjestelmästäsi ei löydy postscript-kirjasimia</translation>
+        <translation type="obsolete">Järjestelmästäsi ei löydy postscript-kirjasimia</translation>
     </message>
     <message>
         <source>Show Layers</source>
@@ -8626,11 +9396,11 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Show Baseline Grid</source>
-        <translation>Näytä peruslinja</translation>
+        <translation type="obsolete">Näytä peruslinja</translation>
     </message>
     <message>
         <source>Hide Baseline Grid</source>
-        <translation>Piilota peruslinja</translation>
+        <translation type="obsolete">Piilota peruslinja</translation>
     </message>
     <message>
         <source> pt</source>
@@ -9187,6 +9957,22 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     <message>
         <source>File %1 
 is not in an acceptable format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There are no Postscript fonts on your system</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show &amp;Text Chain</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Office Draw (*.sxd);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(converted)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10052,11 +10838,15 @@ raahaa malli sivualueelle.</translation>
     </message>
     <message>
         <source>Outline Text</source>
-        <translation>Teksti ääriviivoilla</translation>
+        <translation type="obsolete">Teksti ääriviivoilla</translation>
     </message>
     <message>
         <source>Strike Out</source>
         <translation>Yliviivattu</translation>
+    </message>
+    <message>
+        <source>Outline</source>
+        <translation type="unfinished">Rakenne</translation>
     </message>
 </context>
 <context>
