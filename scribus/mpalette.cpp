@@ -11,6 +11,7 @@
 #include "scribus.h"
 #include "styleselect.h"
 #include "spalette.h"
+#include "arrowchooser.h"
 
 using namespace std;
 
@@ -690,29 +691,37 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	Layout12_2 = new QGridLayout( 0, 1, 1, 0, 3, "Layout12_2");
 	LStyle = new LineCombo(page_5);
 	linetypeLabel = new QLabel( LStyle, tr( "T&ype of Line:" ), page_5, "linetypeLabel" );
-	Layout12_2->addWidget( linetypeLabel, 0, 0 );
-	Layout12_2->addWidget( LStyle, 1, 0 );
+	Layout12_2->addMultiCellWidget( linetypeLabel, 0, 0, 0, 1 );
+	Layout12_2->addMultiCellWidget( LStyle, 1, 1, 0, 1 );
+	startArrow = new ArrowChooser(page_5, true);
+	Layout12_2->addWidget( startArrow, 3, 0 );
+	endArrow = new ArrowChooser(page_5, false);
+	Layout12_2->addWidget( endArrow, 3, 1 );
+	startArrowText = new QLabel( startArrow, tr( "Start Arrow:" ), page_5, "startArrowText" );
+	Layout12_2->addWidget( startArrowText, 2, 0 );
+	endArrowText = new QLabel( endArrow, tr( "End Arrow:" ), page_5, "endArrowText" );
+	Layout12_2->addWidget( endArrowText, 2, 1 );
 	LSize = new MSpinBox( page_5, 1 );
 	LSize->setSuffix( tr( " pt" ) );
 	linewidthLabel = new QLabel(LSize, tr( "Line &Width:" ), page_5, "linewidthLabel" );
-	Layout12_2->addWidget( linewidthLabel, 2, 0 );
-	Layout12_2->addWidget( LSize, 3, 0 );
+	Layout12_2->addMultiCellWidget( linewidthLabel, 4, 4, 0, 1 );
+	Layout12_2->addMultiCellWidget( LSize, 5, 5, 0, 1 );
 	LJoinStyle = new QComboBox( true, page_5, "LJoin" );
 	LJoinStyle->setEditable(false);
 	LJoinStyle->insertItem(loadIcon("MiterJoin.png"), tr( "Miter Join" ) );
 	LJoinStyle->insertItem(loadIcon("BevelJoin.png"), tr( "Bevel Join" ) );
 	LJoinStyle->insertItem(loadIcon("RoundJoin.png"), tr( "Round Join" ) );
 	edgesLabel = new QLabel( LJoinStyle, tr( "Ed&ges:" ), page_5, "edgesLabel" );
-	Layout12_2->addWidget( edgesLabel, 4, 0 );
-	Layout12_2->addWidget( LJoinStyle, 5, 0 );
+	Layout12_2->addMultiCellWidget( edgesLabel, 6, 6, 0, 1 );
+	Layout12_2->addMultiCellWidget( LJoinStyle, 7, 7, 0, 1 );
 	LEndStyle = new QComboBox( true, page_5, "LCap" );
 	LEndStyle->setEditable(false);
 	LEndStyle->insertItem(loadIcon("ButtCap.png"), tr( "Flat Cap" ) );
 	LEndStyle->insertItem(loadIcon("SquareCap.png"), tr( "Square Cap" ) );
 	LEndStyle->insertItem(loadIcon("RoundCap.png"), tr( "Round Cap" ) );
 	endingsLabel = new QLabel( LEndStyle, tr( "&Endings:" ), page_5, "endingsLabel" );
-	Layout12_2->addWidget( endingsLabel, 6, 0 );
-	Layout12_2->addWidget( LEndStyle, 7, 0 );
+	Layout12_2->addMultiCellWidget( endingsLabel, 8, 8, 0, 1 );
+	Layout12_2->addMultiCellWidget( LEndStyle, 9, 9, 0, 1 );
 	pageLayout_5->addLayout( Layout12_2 );
 
 	TabStack3 = new QWidgetStack( page_5, "TabStack3" );
@@ -892,6 +901,8 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	connect( colgapLabel, SIGNAL( clicked() ), this, SLOT( HandleGapSwitch() ) );
 	connect( Cpal, SIGNAL(NewSpecial(double, double, double, double )), this, SLOT(NewSpGradient(double, double, double, double )));
 	connect( Cpal, SIGNAL(editGradient()), this, SLOT(toggleGradientEdit()));
+	connect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
+	connect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
 	HaveItem = false;
 	Xpos->setValue(0);
 	Ypos->setValue(0);
@@ -1023,6 +1034,8 @@ void Mpalette::SetCurItem(PageItem *i)
 		return;
 	disconnect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
 	disconnect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
+	disconnect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
+	disconnect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
 	HaveItem = false;
 	CurItem = i;
 	if (TabStack->id(TabStack->visibleWidget()) == 5)
@@ -1038,6 +1051,24 @@ void Mpalette::SetCurItem(PageItem *i)
 		SCustom->setPixmap(SCustom->getIconPixmap(1));
 	if (i->FrameType > 3)
 		SCustom->setPixmap(SCustom->getIconPixmap(i->FrameType-2));
+	if ((i->PType == 5) || (i->PType == 7))
+	{
+		startArrow->setEnabled(true);
+		endArrow->setEnabled(true);
+		if (i->haveStartArrow)
+			startArrow->setCurrentItem(i->startArrowIndex);
+		else
+			startArrow->setCurrentItem(0);
+		if (i->haveEndArrow)
+			endArrow->setCurrentItem(i->endArrowIndex);
+		else
+			endArrow->setCurrentItem(0);
+	}
+	else
+	{
+		startArrow->setEnabled(false);
+		endArrow->setEnabled(false);
+	}
 	NameEdit->setText(i->AnName);
 	RoundRect->setValue(i->RadRect*UmReFaktor);
 	QString tm;
@@ -1093,6 +1124,8 @@ void Mpalette::SetCurItem(PageItem *i)
 	LEndStyle->setEnabled(setter);
 	connect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
 	connect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
+	connect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
+	connect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
 	NoPrint->setOn(!i->isPrintable);
 	setter = i->Locked;
 	Kette2->setOn(false);
@@ -1875,6 +1908,7 @@ void Mpalette::NewX()
 	y = Ypos->value() / UmReFaktor;
 	w = Width->value() / UmReFaktor;
 	h = Height->value() / UmReFaktor;
+	base = 0;
 	if ((HaveDoc) && (HaveItem))
 	{
 		x += doc->ActPage->Xoffset;
@@ -1931,6 +1965,7 @@ void Mpalette::NewY()
 	y = Ypos->value() / UmReFaktor;
 	w = Width->value() / UmReFaktor;
 	h = Height->value() / UmReFaktor;
+	base = 0;
 	if ((HaveDoc) && (HaveItem))
 	{
 		x += doc->ActPage->Xoffset;
@@ -2331,6 +2366,44 @@ void Mpalette::NewLS()
 	}
 }
 
+void Mpalette::setStartArrow(int id)
+{
+	if (ScApp->ScriptRunning)
+		return;
+	if ((HaveDoc) && (HaveItem))
+	{
+		if (id == 0)
+			CurItem->haveStartArrow = false;
+		else
+		{
+			CurItem->haveStartArrow = true;
+			CurItem->startArrowIndex = id;
+			CurItem->startArrow = doc->arrowStyles[id].copy();
+		}
+		ScApp->view->RefreshItem(CurItem);
+		emit DocChanged();
+	}
+}
+
+void Mpalette::setEndArrow(int id)
+{
+	if (ScApp->ScriptRunning)
+		return;
+	if ((HaveDoc) && (HaveItem))
+	{
+		if (id == 0)
+			CurItem->haveEndArrow = false;
+		else
+		{
+			CurItem->haveEndArrow = true;
+			CurItem->endArrowIndex = id;
+			CurItem->endArrow = doc->arrowStyles[id].copy();
+		}
+		ScApp->view->RefreshItem(CurItem);
+		emit DocChanged();
+	}
+}
+
 void Mpalette::NewLSty()
 {
 	if (ScApp->ScriptRunning)
@@ -2560,6 +2633,8 @@ void Mpalette::NewRotMode(int m)
 	if (ScApp->ScriptRunning)
 		return;
 	double inX, inY, gx, gy, gh, gw;
+	inX = 0;
+	inY = 0;
 	if ((HaveDoc) && (HaveItem))
 	{
 		HaveItem = false;

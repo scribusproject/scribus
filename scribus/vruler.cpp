@@ -128,6 +128,14 @@ void Vruler::paintEvent(QPaintEvent *)
 				iter2 = 12.0;
 				}
 			break;
+		default:
+			if (sc > 1)
+				cor = 2;
+			if (sc > 4)
+				cor = 10;
+			iter = 10.0 / cor;
+	  		iter2 = iter * 10.0;
+			break;
 	}
 	QPainter p;
 	p.begin(this);

@@ -194,3 +194,27 @@ void FPointArray::addPoint(FPoint p)
 	resize(size()+1);
 	setPoint(size()-1, p.x(), p.y());
 }
+
+void FPointArray::addQuadPoint(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4)
+{
+	resize(size()+1);
+	setPoint(size()-1, FPoint(x1, y1));
+	resize(size()+1);
+	setPoint(size()-1, FPoint(x2, y2));
+	resize(size()+1);
+	setPoint(size()-1, FPoint(x3, y3));
+	resize(size()+1);
+	setPoint(size()-1, FPoint(x4, y4));
+}
+
+void FPointArray::addQuadPoint(FPoint p1, FPoint p2, FPoint p3, FPoint p4)
+{
+	resize(size()+1);
+	setPoint(size()-1, p1.x(), p1.y());
+	resize(size()+1);
+	setPoint(size()-1, p2.x(), p2.y());
+	resize(size()+1);
+	setPoint(size()-1, p3.x(), p3.y());
+	resize(size()+1);
+	setPoint(size()-1, p4.x(), p4.y());
+}

@@ -76,6 +76,7 @@ extern double xy2Deg(double x, double y);
 extern void BezierPoints(QPointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4);
 extern FPointArray RegularPolygonF(double w, double h, uint c, bool star, double factor, double rota);
 extern FPoint GetMaxClipF(FPointArray Clip);
+extern FPoint GetMinClipF(FPointArray Clip);
 extern void WordAndPara(PageItem* b, int *w, int *p, int *c, int *wN, int *pN, int *cN);
 #ifdef HAVE_CMS
 QImage ProofPict(QImage *Im, QString Prof, int Rend, cmsHPROFILE emPr=0);
@@ -1121,7 +1122,6 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		QPainter p;
 		p.begin(viewport());
 		ToView(&p);
-		p.scale(Scale, Scale);
 		p.setRasterOp(XorROP);
 		p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
 		p.drawLine(Dxp, Dyp, Mxp, Myp);
@@ -2611,7 +2611,6 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 		newY = m->y();
 		p.begin(viewport());
 		ToView(&p);
-		p.scale(Scale, Scale);
 		p.setRasterOp(XorROP);
 		p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
 		p.drawLine(Dxp, Dyp, Mxp, Myp);
@@ -2619,7 +2618,11 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 		p.end();
 		Mxp = newX;
 		Myp = newY;
-		emit MVals(Dxp/sc, Dyp/sc, newX/sc, newY/sc, -xy2Deg(newX/sc - Dxp*sc, newY/sc - Dyp/sc), sqrt(pow(newX/sc - Dxp/sc,2)+pow(newY/sc - Dyp/sc,2)), Doc->Einheit);
+		double dxp = Dxp / sc - Doc->ActPage->Xoffset;
+		double dyp = Dyp / sc - Doc->ActPage->Yoffset;
+		double nxp = newX / sc - Doc->ActPage->Xoffset;
+		double nyp = newY / sc - Doc->ActPage->Yoffset;
+		emit MVals(dxp, dyp, nxp, nyp, -xy2Deg(newX/sc - Dxp*sc, newY/sc - Dyp/sc), sqrt(pow(newX/sc - Dxp/sc,2)+pow(newY/sc - Dyp/sc,2)), Doc->Einheit);
 		return;
 	}
 	if (Mpressed && (Doc->AppMode == 23))
@@ -5802,25 +5805,6 @@ void ScribusView::AdjustItemSize(PageItem *b)
 	b->Sizing = siz;
 }
 
-FPoint ScribusView::GetMinClipF(FPointArray Clip)
-{
-	FPoint np, rp;
-	double mx = 99999;
-	double my = 99999;
-	for (uint c = 0; c < Clip.size(); ++c)
-	{
-		np = Clip.point(c);
-		if (np.x() > 900000)
-			continue;
-		if (np.x() < mx)
-			mx = np.x();
-		if (np.y() < my)
-			my = np.y();
-	}
-	rp = FPoint(mx, my);
-	return rp;
-}
-
 void ScribusView::AdvanceSel(PageItem *b, int oldPos, int len, int dir, int expandSel, int state)
 {
 	int i;
@@ -8614,73 +8598,25 @@ void ScribusView::SetFrameRound(PageItem* b)
 	double rr = fabs(b->RadRect);
 	if (b->RadRect > 0)
 	{
-		b->PoLine.addPoint(rr, 0);
-		b->PoLine.addPoint(rr, 0);
-		b->PoLine.addPoint(b->Width-rr, 0);
-		b->PoLine.addPoint(b->Width-rr, 0);
-		b->PoLine.addPoint(b->Width-rr, 0);
-		b->PoLine.addPoint(b->Width-rr+rr*0.552284749, 0);
-		b->PoLine.addPoint(b->Width, rr);
-		b->PoLine.addPoint(b->Width, rr*0.552284749);
-		b->PoLine.addPoint(b->Width, rr);
-		b->PoLine.addPoint(b->Width, rr);
-		b->PoLine.addPoint(b->Width, b->Height-rr);
-		b->PoLine.addPoint(b->Width, b->Height-rr);
-		b->PoLine.addPoint(b->Width, b->Height-rr);
-		b->PoLine.addPoint(b->Width, b->Height-rr+rr*0.552284749);
-		b->PoLine.addPoint(b->Width-rr, b->Height);
-		b->PoLine.addPoint(b->Width-rr+rr*0.552284749, b->Height);
-		b->PoLine.addPoint(b->Width-rr, b->Height);
-		b->PoLine.addPoint(b->Width-rr, b->Height);
-		b->PoLine.addPoint(rr, b->Height);
-		b->PoLine.addPoint(rr, b->Height);
-		b->PoLine.addPoint(rr, b->Height);
-		b->PoLine.addPoint(rr*0.552284749, b->Height);
-		b->PoLine.addPoint(0, b->Height-rr);
-		b->PoLine.addPoint(0, b->Height-rr+rr*0.552284749);
-		b->PoLine.addPoint(0, b->Height-rr);
-		b->PoLine.addPoint(0, b->Height-rr);
-		b->PoLine.addPoint(0, rr);
-		b->PoLine.addPoint(0, rr);
-		b->PoLine.addPoint(0, rr);
-		b->PoLine.addPoint(0, rr*0.552284749);
-		b->PoLine.addPoint(rr, 0);
-		b->PoLine.addPoint(rr*0.552284749, 0);
+		b->PoLine.addQuadPoint(rr, 0, rr, 0, b->Width-rr, 0, b->Width-rr, 0);
+		b->PoLine.addQuadPoint(b->Width-rr, 0, b->Width-rr+rr*0.552284749, 0, b->Width, rr, b->Width, rr*0.552284749);
+		b->PoLine.addQuadPoint(b->Width, rr, b->Width, rr, b->Width, b->Height-rr, b->Width, b->Height-rr);
+		b->PoLine.addQuadPoint(b->Width, b->Height-rr, b->Width, b->Height-rr+rr*0.552284749, b->Width-rr, b->Height, b->Width-rr+rr*0.552284749, b->Height);
+		b->PoLine.addQuadPoint(b->Width-rr, b->Height, b->Width-rr, b->Height, rr, b->Height, rr, b->Height);
+		b->PoLine.addQuadPoint(rr, b->Height, rr*0.552284749, b->Height, 0, b->Height-rr, 0, b->Height-rr+rr*0.552284749);
+		b->PoLine.addQuadPoint(0, b->Height-rr, 0, b->Height-rr, 0, rr, 0, rr);
+		b->PoLine.addQuadPoint(0, rr, 0, rr*0.552284749, rr, 0, rr*0.552284749, 0);
 	}
 	else
 	{
-		b->PoLine.addPoint(rr, 0);
-		b->PoLine.addPoint(rr, 0);
-		b->PoLine.addPoint(b->Width-rr, 0);
-		b->PoLine.addPoint(b->Width-rr, 0);
-		b->PoLine.addPoint(b->Width-rr, 0);
-		b->PoLine.addPoint(b->Width-rr, rr*0.552284749);
-		b->PoLine.addPoint(b->Width, rr);
-		b->PoLine.addPoint(b->Width-rr*0.552284749, rr);
-		b->PoLine.addPoint(b->Width, rr);
-		b->PoLine.addPoint(b->Width, rr);
-		b->PoLine.addPoint(b->Width, b->Height-rr);
-		b->PoLine.addPoint(b->Width, b->Height-rr);
-		b->PoLine.addPoint(b->Width, b->Height-rr);
-		b->PoLine.addPoint(b->Width-rr*0.552284749, b->Height-rr);
-		b->PoLine.addPoint(b->Width-rr, b->Height);
-		b->PoLine.addPoint(b->Width-rr, b->Height-rr*0.552284749);
-		b->PoLine.addPoint(b->Width-rr, b->Height);
-		b->PoLine.addPoint(b->Width-rr, b->Height);
-		b->PoLine.addPoint(rr, b->Height);
-		b->PoLine.addPoint(rr, b->Height);
-		b->PoLine.addPoint(rr, b->Height);
-		b->PoLine.addPoint(rr, b->Height-rr*0.552284749);
-		b->PoLine.addPoint(0, b->Height-rr);
-		b->PoLine.addPoint(rr*0.552284749, b->Height-rr);
-		b->PoLine.addPoint(0, b->Height-rr);
-		b->PoLine.addPoint(0, b->Height-rr);
-		b->PoLine.addPoint(0, rr);
-		b->PoLine.addPoint(0, rr);
-		b->PoLine.addPoint(0, rr);
-		b->PoLine.addPoint(rr*0.552284749, rr);
-		b->PoLine.addPoint(rr, 0);
-		b->PoLine.addPoint(rr, rr*0.552284749);
+		b->PoLine.addQuadPoint(rr, 0, rr, 0, b->Width-rr, 0, b->Width-rr, 0);
+		b->PoLine.addQuadPoint(b->Width-rr, 0, b->Width-rr, rr*0.552284749, b->Width, rr, b->Width-rr*0.552284749, rr);
+		b->PoLine.addQuadPoint(b->Width, rr, b->Width, rr, b->Width, b->Height-rr, b->Width, b->Height-rr);
+		b->PoLine.addQuadPoint(b->Width, b->Height-rr, b->Width-rr*0.552284749, b->Height-rr, b->Width-rr, b->Height, b->Width-rr, b->Height-rr*0.552284749);
+		b->PoLine.addQuadPoint(b->Width-rr, b->Height, b->Width-rr, b->Height, rr, b->Height, rr, b->Height);
+		b->PoLine.addQuadPoint(rr, b->Height, rr, b->Height-rr*0.552284749, 0, b->Height-rr, rr*0.552284749, b->Height-rr);
+		b->PoLine.addQuadPoint(0, b->Height-rr, 0, b->Height-rr, 0, rr, 0, rr);
+		b->PoLine.addQuadPoint(0, rr, rr*0.552284749, rr, rr, 0, rr, rr*0.552284749);
 	}
 	b->Clip = FlattenPath(b->PoLine, b->Segments);
 	b->ClipEdited = false;

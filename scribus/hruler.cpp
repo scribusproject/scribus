@@ -422,6 +422,15 @@ void Hruler::paintEvent(QPaintEvent *)
 				iter2 = 12.0;
 			}
 			break;
+		default:
+			/* PFJ - 29.02.04 - Altered so the if isn't executed twice. Repeated */
+			if (sc > 1 && sc <= 4)
+				cor = 2;
+			if (sc > 4)
+				cor = 10;
+			iter = 10.0 / cor;
+	  		iter2 = iter * 10.0;
+			break;
 	}
 	QPainter p;
 	p.begin(this);

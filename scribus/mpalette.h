@@ -33,6 +33,7 @@ class StyleSelect;
 #include "shadebutton.h"
 #include "cpalette.h"
 class Autoforms;
+class ArrowChooser;
 extern bool CMSavail;
 
 class LabelButton : public QLabel
@@ -99,6 +100,8 @@ public:
 	LinkButton* Kette;
 	LinkButton* Kette2;
 	LineCombo* LStyle;
+	ArrowChooser* startArrow;
+	ArrowChooser* endArrow;
 	ShadeButton *PM1;
 	ShadeButton *PM2;
 	PageItem *CurItem;
@@ -209,6 +212,8 @@ public:
 	QLabel* TextCms2;
 	QLabel* edgesLabel;
 	QLabel* ScaleTxt;
+	QLabel* startArrowText;
+	QLabel* endArrowText;
 
 	QListBox* StyledLine;
 
@@ -348,6 +353,8 @@ private slots:
 	void NewName();
 	void NewLanguage();
 	void HandleTLines();
+	void setStartArrow(int id);
+	void setEndArrow(int id);
 
 protected slots:
 	virtual void reject();

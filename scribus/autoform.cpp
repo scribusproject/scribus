@@ -7,7 +7,6 @@
 Autoforms::Autoforms( QWidget* parent ) : QToolButton( parent, "auto" )
 {
 	buttonGroup1 = new QButtonGroup();
-	/* PFJ - 28/02/04 - altered from true to true */
 	buttonGroup1->setExclusive( true );
 	buttonGroup1->setColumnLayout(0, Qt::Vertical );
 	buttonGroup1->layout()->setSpacing( 0 );
@@ -15,17 +14,14 @@ Autoforms::Autoforms( QWidget* parent ) : QToolButton( parent, "auto" )
 	buttonGroup1Layout = new QGridLayout( buttonGroup1->layout() );
 	buttonGroup1Layout->setAlignment( Qt::AlignTop );
 	toolButton1 = new QToolButton( buttonGroup1, "toolButton1" );
-	/* PFJ - 28/02/04 - altered from true to true */
 	toolButton1->setToggleButton( true );
 	toolButton1->setPixmap(getIconPixmap(0));
 	buttonGroup1Layout->addWidget( toolButton1, 0, 0 );
 	toolButton2 = new QToolButton( buttonGroup1, "toolButton2" );
-	/* PFJ - 28/02/04 - altered from true to true */	
 	toolButton2->setToggleButton( true );
 	toolButton2->setPixmap(getIconPixmap(1));
 	buttonGroup1Layout->addWidget( toolButton2, 0, 1 );
 	toolButton3 = new QToolButton( buttonGroup1, "toolButton3" );
-	/* PFJ - 28/02/04 - altered from true to true */
 	toolButton3->setToggleButton( true );
 	toolButton3->setPixmap(getIconPixmap(2));
 	buttonGroup1Layout->addWidget( toolButton3, 0, 2 );
@@ -35,75 +31,61 @@ Autoforms::Autoforms( QWidget* parent ) : QToolButton( parent, "auto" )
 	buttonGroup1Layout->addWidget( toolButton4, 0, 3 );
 
 	toolButton5 = new QToolButton( buttonGroup1, "toolButton3" );
-	/* PFJ - 28/02/04 - altered from true to true */
 	toolButton5->setToggleButton( true );
 	toolButton5->setPixmap(getIconPixmap(4));
 	buttonGroup1Layout->addWidget( toolButton5, 1, 0 );
 	toolButton6 = new QToolButton( buttonGroup1, "toolButton4" );
-	/* PFJ - 28/02/04 - altered from true to true */
 	toolButton6->setToggleButton( true );
 	toolButton6->setPixmap(getIconPixmap(5));
 	buttonGroup1Layout->addWidget( toolButton6, 1, 1 );
 	toolButton7 = new QToolButton( buttonGroup1, "toolButton3" );
-	/* PFJ - 28/02/04 - altered from true to true */
 	toolButton7->setToggleButton( true );
 	toolButton7->setPixmap(getIconPixmap(6));
 	buttonGroup1Layout->addWidget( toolButton7, 1, 2 );
 	toolButton8 = new QToolButton( buttonGroup1, "toolButton4" );
-	/* PFJ - 28/02/04 - altered from true to true */
 	toolButton8->setToggleButton( true );
 	toolButton8->setPixmap(getIconPixmap(7));
 	buttonGroup1Layout->addWidget( toolButton8, 1, 3 );
 
 	toolButton9 = new QToolButton( buttonGroup1, "toolButton4" );
-	/* PFJ - 28/02/04 - altered from true to true */	
 	toolButton9->setToggleButton( true );
 	toolButton9->setPixmap(getIconPixmap(8));
 	buttonGroup1Layout->addWidget( toolButton9, 2, 0 );
 	toolButton10 = new QToolButton( buttonGroup1, "toolButton4" );
-	/* PFJ - 28/02/04 - altered from true to true */
 	toolButton10->setToggleButton( true );
 	toolButton10->setPixmap(getIconPixmap(9));
 	buttonGroup1Layout->addWidget( toolButton10, 2, 1 );
 	toolButton11 = new QToolButton( buttonGroup1, "toolButton4" );
-	/* PFJ - 28/02/04 - altered from true to true */
 	toolButton11->setToggleButton( true );
 	toolButton11->setPixmap(getIconPixmap(10));
 	buttonGroup1Layout->addWidget( toolButton11, 2, 2 );
 	toolButton12 = new QToolButton( buttonGroup1, "toolButton4" );
-	/* PFJ - 28/02/04 - altered from true to true */
 	toolButton12->setToggleButton( true );
 	toolButton12->setPixmap(getIconPixmap(11));
 	buttonGroup1Layout->addWidget( toolButton12, 2, 3 );
 
 	toolButton13 = new QToolButton( buttonGroup1, "toolButton4" );
-	/* PFJ - 28/02/04 - altered from true to true */
 	toolButton13->setToggleButton( true );
 	toolButton13->setPixmap(getIconPixmap(12));
 	buttonGroup1Layout->addWidget( toolButton13, 3, 0 );
 	toolButton14 = new QToolButton( buttonGroup1, "toolButton4" );
-	/* PFJ - 28/02/04 - altered from true to true */
 	toolButton14->setToggleButton( true );
 	toolButton14->setPixmap(getIconPixmap(13));
 	buttonGroup1Layout->addWidget( toolButton14, 3, 1 );
-	/* PFJ - 28/02/04 - altered from true to true */
 	toolButton15 = new QToolButton( buttonGroup1, "toolButton4" );
 	toolButton15->setToggleButton( true );
 	toolButton15->setPixmap(getIconPixmap(14));
 	buttonGroup1Layout->addWidget( toolButton15, 3, 2 );
 	toolButton16 = new QToolButton( buttonGroup1, "toolButton4" );
-	/* PFJ - 28/02/04 - altered from true to true */
 	toolButton16->setToggleButton( true );
 	toolButton16->setPixmap(getIconPixmap(15));
 	buttonGroup1Layout->addWidget( toolButton16, 3, 3 );
 
 	toolButton17 = new QToolButton( buttonGroup1, "toolButton4" );
-	/* PFJ - 28/02/04 - altered from true to true */
 	toolButton17->setToggleButton( true );
 	toolButton17->setPixmap(getIconPixmap(16));
 	buttonGroup1Layout->addWidget( toolButton17, 4, 0 );
 	toolButton18 = new QToolButton( buttonGroup1, "toolButton4" );
-	/* PFJ - 28/02/04 - altered from true to true */
 	toolButton18->setToggleButton( true );
 	toolButton18->setPixmap(getIconPixmap(17));
 	buttonGroup1Layout->addWidget( toolButton18, 4, 1 );
@@ -329,6 +311,5 @@ QPixmap Autoforms::getIconPixmap(int nr)
 		}
     }
 	Ico.convertFromImage(image);
-//	Ico.setMask( Ico.createHeuristicMask() );
 	return Ico;
 }

@@ -55,6 +55,7 @@ extern char *toHex( uchar u );
 extern QString String2Hex(QString *in, bool lang = true);
 extern double Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2 = " ");
 extern FPoint GetMaxClipF(FPointArray Clip);
+extern FPoint GetMinClipF(FPointArray Clip);
 #ifdef HAVE_CMS
 extern bool CMSuse;
 #endif
@@ -571,7 +572,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 					fon += "h f*\n";
 					StartObj(ObjCounter);
 					ObjCounter++;
-					np = view->GetMinClipF(gly);
+					np = GetMinClipF(gly);
 					np1 = GetMaxClipF(gly);
 					PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1\n");
 					PutDoc("/BBox [ "+FToStr(np.x())+" "+FToStr(-np.y())+" "+FToStr(np1.x())+

@@ -271,6 +271,12 @@ PageItem::PageItem(ScribusDoc *pa, int art, double x, double y, double w, double
 	Dirty = false;
 	ChangedMasterItem = false;
 	OnMasterPage = Doc->ActPage->PageNam;
+	haveStartArrow = false;
+	haveEndArrow = false;
+	startArrowIndex = 1;
+	endArrowIndex = 1;
+	startArrow = Doc->arrowStyles[startArrowIndex].copy();
+	endArrow = Doc->arrowStyles[endArrowIndex].copy();
 }
 
 /** Zeichnet das Item */
@@ -454,6 +460,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 		case 5:
 			if (Doc->RePos)
 				break;
+			doStroke = false;
 			if (NamedLStyle == "")
 				p->drawLine(FPoint(0, 0), FPoint(Width, 0));
 			else
@@ -468,7 +475,33 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 									 static_cast<PenJoinStyle>(ml[it].LineJoin));
 					p->drawLine(FPoint(0, 0), FPoint(Width, 0));
 				}
-				doStroke = false;
+			}
+			if (haveStartArrow)
+			{
+				QWMatrix arrowTrans;
+				FPointArray arrow = startArrow.copy();
+				arrowTrans.translate(0, 0);
+				arrowTrans.scale(Pwidth, Pwidth);
+				arrowTrans.scale(-1,1);
+				arrow.map(arrowTrans);
+				p->setBrush(p->pen());
+				p->setLineWidth(0);
+				p->setFillMode(ScPainter::Solid);
+				p->setupPolygon(&arrow);
+				p->drawPolygon();
+			}
+			if (haveEndArrow)
+			{
+				QWMatrix arrowTrans;
+				FPointArray arrow = endArrow.copy();
+				arrowTrans.translate(Width, 0);
+				arrowTrans.scale(Pwidth, Pwidth);
+				arrow.map(arrowTrans);
+				p->setBrush(p->pen());
+				p->setLineWidth(0);
+				p->setFillMode(ScPainter::Solid);
+				p->setupPolygon(&arrow);
+				p->drawPolygon();
 			}
 			break;
 		case 1:
@@ -539,7 +572,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					p->drawPolyLine();
 					}
 				}
-/*				if (haveStartArrow)
+				if (haveStartArrow)
 				{
 					FPoint Start = PoLine.point(0);
 					for (uint xx = 1; xx < PoLine.size(); xx += 2)
@@ -547,31 +580,15 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						FPoint Vector = PoLine.point(xx);
 						if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
 						{
-							double r = atan2(Vector.y()-Start.y(),Vector.x()-Start.x())*(180.0/3.1415927);
-							FPointArray arrow;
-							arrow.addPoint(0, -2);
-							arrow.addPoint(0, -2);
-							arrow.addPoint(0, -2);
-							arrow.addPoint(0, -2);
-							arrow.addPoint(2, 0);
-							arrow.addPoint(2, 0);
-							arrow.addPoint(2, 0);
-							arrow.addPoint(2, 0);
-							arrow.addPoint(0, 2);
-							arrow.addPoint(0, 2);
-							arrow.addPoint(0, 2);
-							arrow.addPoint(0, 2);
-							arrow.addPoint(0, -2);
-							arrow.addPoint(0, -2);
-							arrow.addPoint(0, -2);
-							arrow.addPoint(0, -2);
+							double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/3.1415927);
 							QWMatrix arrowTrans;
+							FPointArray arrow = startArrow.copy();
 							arrowTrans.translate(Start.x(), Start.y());
 							arrowTrans.rotate(r);
 							arrowTrans.scale(Pwidth, Pwidth);
 							arrow.map(arrowTrans);
-							SetFarbe(&tmp, Pcolor2, Shade2);
-							p->setBrush(tmp);
+							p->setBrush(p->pen());
+							p->setLineWidth(0);
 							p->setFillMode(ScPainter::Solid);
 							p->setupPolygon(&arrow);
 							p->drawPolygon();
@@ -587,40 +604,22 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						FPoint Vector = PoLine.point(xx);
 						if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
 						{
-							double r = atan2(Vector.y()-End.y(),Vector.x()-End.x())*(180.0/3.1415927);
-							FPointArray arrow;
-							arrow.addPoint(0, -2);
-							arrow.addPoint(0, -2);
-							arrow.addPoint(0, -2);
-							arrow.addPoint(0, -2);
-							arrow.addPoint(2, 0);
-							arrow.addPoint(2, 0);
-							arrow.addPoint(2, 0);
-							arrow.addPoint(2, 0);
-							arrow.addPoint(0, 2);
-							arrow.addPoint(0, 2);
-							arrow.addPoint(0, 2);
-							arrow.addPoint(0, 2);
-							arrow.addPoint(0, -2);
-							arrow.addPoint(0, -2);
-							arrow.addPoint(0, -2);
-							arrow.addPoint(0, -2);
+							double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/3.1415927);
 							QWMatrix arrowTrans;
-							QWMatrix arrowTransRev;
-							arrowTransRev.scale(-1, 1);
+							FPointArray arrow = endArrow.copy();
 							arrowTrans.translate(End.x(), End.y());
 							arrowTrans.rotate(r);
 							arrowTrans.scale(Pwidth, Pwidth);
-							arrow.map(arrowTransRev * arrowTrans);
-							SetFarbe(&tmp, Pcolor2, Shade2);
-							p->setBrush(tmp);
+							arrow.map(arrowTrans);
+							p->setBrush(p->pen());
+							p->setLineWidth(0);
 							p->setFillMode(ScPainter::Solid);
 							p->setupPolygon(&arrow);
 							p->drawPolygon();
 							break;
 						}
 					}
-				} */
+				}
 			break;
 		case 4:
 			p->save();

@@ -98,6 +98,7 @@ void CopyPageItem(struct CLBuf *Buffer, PageItem *b);
 bool overwrite(QWidget *parent, QString filename);
 FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y, bool &err);
 FPoint GetMaxClipF(FPointArray Clip);
+FPoint GetMinClipF(FPointArray Clip);
 QPixmap FontSample(QString da, int s, QString ts, QColor back);
 QPixmap fontSamples(QString da, int s, QString ts, QColor back);
 QString Path2Relative(QString Path);
@@ -695,14 +696,16 @@ QImage LoadPictCol(QString fn, QString Prof, bool UseEmbedded, bool *realCMYK)
 							{
 								case icSigRgbData:
 										*realCMYK = false;
-										xform = cmsCreateTransform(inputProf, TYPE_RGBA_8, CMSprinterProf,
-																	 TYPE_RGBA_8, IntentPrinter, 0);
+										xform = cmsCreateTransform(inputProf, TYPE_RGBA_8, CMSprinterProf, TYPE_RGBA_8, IntentPrinter, 0);
 										break;
 								case icSigCmykData:
 										*realCMYK = true;
-										xform = cmsCreateTransform(inputProf, TYPE_RGBA_8, CMSprinterProf,
-																	 TYPE_CMYK_8, IntentPrinter, 0);
+										xform = cmsCreateTransform(inputProf, TYPE_RGBA_8, CMSprinterProf, TYPE_CMYK_8, IntentPrinter, 0);
 									break;
+								default:
+										*realCMYK = false;
+										xform = cmsCreateTransform(inputProf, TYPE_RGBA_8, CMSprinterProf, TYPE_RGBA_8, IntentPrinter, 0);
+										break;
 							}
 							for (int i=0; i < Bild.height(); ++i)
 							{
@@ -718,13 +721,15 @@ QImage LoadPictCol(QString fn, QString Prof, bool UseEmbedded, bool *realCMYK)
 						{
 							case icSigRgbData:
 										*realCMYK = false;
-										xform = cmsCreateTransform(inputProf, TYPE_RGBA_8, CMSprinterProf,
-																	 TYPE_RGBA_8, IntentPrinter, 0);
+										xform = cmsCreateTransform(inputProf, TYPE_RGBA_8, CMSprinterProf, TYPE_RGBA_8, IntentPrinter, 0);
 										break;
 							case icSigCmykData:
 										*realCMYK = true;
-										xform = cmsCreateTransform(inputProf, TYPE_RGBA_8, CMSprinterProf,
-																	 TYPE_CMYK_8, IntentPrinter, 0);
+										xform = cmsCreateTransform(inputProf, TYPE_RGBA_8, CMSprinterProf, TYPE_CMYK_8, IntentPrinter, 0);
+										break;
+							default:
+										*realCMYK = false;
+										xform = cmsCreateTransform(inputProf, TYPE_RGBA_8, CMSprinterProf, TYPE_RGBA_8, IntentPrinter, 0);
 										break;
 						}
 						for (int i=0; i < Bild.height(); ++i)
@@ -1552,6 +1557,25 @@ FPoint GetMaxClipF(FPointArray Clip)
 		if (np.x() > mx)
 			mx = np.x();
 		if (np.y() > my)
+			my = np.y();
+	}
+	rp = FPoint(mx, my);
+	return rp;
+}
+
+FPoint GetMinClipF(FPointArray Clip)
+{
+	FPoint np, rp;
+	double mx = 99999;
+	double my = 99999;
+	for (uint c = 0; c < Clip.size(); ++c)
+	{
+		np = Clip.point(c);
+		if (np.x() > 900000)
+			continue;
+		if (np.x() < mx)
+			mx = np.x();
+		if (np.y() < my)
 			my = np.y();
 	}
 	rp = FPoint(mx, my);

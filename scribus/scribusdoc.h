@@ -720,6 +720,7 @@ public: // Public attributes
 	FT_Library   library;
 	QMap<QString,FT_Face> FFonts;
 	QMap<QString,multiLine> MLineStyles;
+	QMap<int, FPointArray> arrowStyles;
 	QWidget* WinHan;
 	bool DoDrawing;
 	QValueList<int> OpenNodes;

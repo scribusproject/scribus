@@ -316,7 +316,7 @@ void WerkToolBP::setPDFtool(int id)
 	emit NewMode(14+PDFwerkz);
 }
 
-void WerkToolBP::Docken(QDockWindow::Place p)
+void WerkToolBP::Docken(QDockWindow::Place )
 {
 	setOrientation(Horizontal);
 }

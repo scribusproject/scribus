@@ -4,6 +4,8 @@
 #include "cmdutil.h"
 #include "cmdvar.h"
 
+extern FPoint GetMinClipF(FPointArray Clip);
+
 PyObject *scribus_newrect(PyObject *self, PyObject* args)
 {
 	double x, y, b, h;
@@ -129,7 +131,7 @@ PyObject *scribus_newline(PyObject *self, PyObject* args)
 	it->PoLine.setPoint(1, 0, 0);
 	it->PoLine.setPoint(2, b-x, h-y);
 	it->PoLine.setPoint(3, b-x, h-y);
-	FPoint np2 = Carrier->view->GetMinClipF(it->PoLine);
+	FPoint np2 = GetMinClipF(it->PoLine);
 	if (np2.x() < 0)
 	{
 		it->PoLine.translate(-np2.x(), 0);
@@ -204,7 +206,7 @@ PyObject *scribus_polyline(PyObject *self, PyObject* args)
 	it->PoLine.resize(pp);
 	it->PoLine.setPoint(pp-2, b-x, h-y);
 	it->PoLine.setPoint(pp-1, b-x, h-y);
-	FPoint np2 = Carrier->view->GetMinClipF(it->PoLine);
+	FPoint np2 = GetMinClipF(it->PoLine);
 	if (np2.x() < 0)
 	{
 		it->PoLine.translate(-np2.x(), 0);
@@ -286,7 +288,7 @@ PyObject *scribus_polygon(PyObject *self, PyObject* args)
 	it->PoLine.resize(pp);
 	it->PoLine.setPoint(pp-2, 0, 0);
 	it->PoLine.setPoint(pp-1, 0, 0);
-	FPoint np2 = Carrier->view->GetMinClipF(it->PoLine);
+	FPoint np2 = GetMinClipF(it->PoLine);
 	if (np2.x() < 0)
 	{
 		it->PoLine.translate(-np2.x(), 0);
@@ -374,7 +376,7 @@ PyObject *scribus_bezierline(PyObject *self, PyObject* args)
 	it->PoLine.resize(pp);
 	it->PoLine.setPoint(pp-2, b-x, h-y);
 	it->PoLine.setPoint(pp-1, kx-x, ky-y);
-	FPoint np2 = Carrier->view->GetMinClipF(it->PoLine);
+	FPoint np2 = GetMinClipF(it->PoLine);
 	if (np2.x() < 0)
 	{
 		it->PoLine.translate(-np2.x(), 0);

@@ -166,7 +166,6 @@ public:
 	void scaleGroup(double scx, double scy);
 	void RotateItem(double win, int ite);
 	void AdjustItemSize(PageItem *b);
-	FPoint GetMinClipF(FPointArray Clip);
 	void AdvanceSel(PageItem *b, int oldPos, int len, int dir, int expandSel, int state);
 	void setNewPos(PageItem *b, int oldPos, int len, int dir);
 	void ExpandSel(PageItem *b, int dir, int oldPos);

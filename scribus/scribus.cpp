@@ -70,6 +70,7 @@
 #include "measurements.h"
 #include "gtgettext.h"
 #include "fileloader.h"
+#include "arrowchooser.h"
 
 #ifdef _MSC_VER
  #if (_MSC_VER >= 1200)
@@ -2583,6 +2584,8 @@ void ScribusApp::SwitchWin()
 	Sepal->SetView(view);
 	Mpal->Spal->setFormats(doc);
 	Mpal->SetLineFormats(doc);
+	Mpal->startArrow->rebuildList(doc);
+	Mpal->endArrow->rebuildList(doc);
 	Lpal->setLayers(&doc->Layers, &doc->ActiveLayer);
 	view->LaMenu();
 	view->setLayMenTxt(doc->ActiveLayer);
@@ -2711,6 +2714,8 @@ void ScribusApp::HaveNewDoc()
 	Sepal->SetView(view);
 	Mpal->Spal->setFormats(doc);
 	Mpal->SetLineFormats(doc);
+	Mpal->startArrow->rebuildList(doc);
+	Mpal->endArrow->rebuildList(doc);
 	Lpal->setLayers(&doc->Layers, &doc->ActiveLayer);
 	view->LaMenu();
 	view->setLayMenTxt(doc->ActiveLayer);
@@ -3383,6 +3388,8 @@ bool ScribusApp::LadeSeite(QString fileName, int Nr, bool Mpa)
 		Mpal->updateCList();
 		Mpal->Spal->setFormats(doc);
 		Mpal->SetLineFormats(doc);
+		Mpal->startArrow->rebuildList(doc);
+		Mpal->endArrow->rebuildList(doc);
 		if (!Mpa)
 		{
 			Tpal->BuildTree(view);
@@ -5398,6 +5405,8 @@ void ScribusApp::setAppMode(int mode)
 				view->Deselect(true);
 			view->FirstPoly = true;
 		}
+		if (mode == 25)
+			Mpal->Cpal->gradEditButton->setOn(true);
 		if (mode == 24)
 		{
 			MaPal->show();
@@ -5435,6 +5444,7 @@ void ScribusApp::setAppMode(int mode)
 			WerkToolsP->PDFTool->setOn(false);
 			WerkToolsP->PDFaTool->setOn(false);
 			WerkTools->Measure->setOn(false);
+			Mpal->Cpal->gradEditButton->setOn(false);
 		}
 		if ((mode == 10) || (mode == 11))
 			view->updateContents();
