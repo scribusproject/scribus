@@ -165,17 +165,21 @@ LIBTIFF=""
 hastif=
 dnl Check if we have libtiff
 AC_CHECK_LIB(tiff, TIFFOpen, [LIBTIFF="-ltiff";hastif=yes],[LIBTIFF="";hastif=no],[-lm])
-dnl Check for tiffvers.h
-AC_CHECK_HEADER(tiffvers.h, [], [LIBTIFF="";hastif=no])
-dnl Now attempt to check if libtiff is new enough
-AC_MSG_CHECKING(libtiff version > 3.6.0)
-AC_TRY_COMPILE([
-#include "tiffvers.h"
-#if TIFFLIB_VERSION < 20031007
-#error libtiff is too old, need libtiff 3.6.0 or newer.
-#endif
-], [], [], [LIBTIFF="";hastif=pre36])
-AC_MSG_RESULT($hastif)
+if test $hastif = yes; then
+	dnl Check for tiffvers.h
+	AC_CHECK_HEADER(tiffvers.h, [], [LIBTIFF="";hastif=no])
+	if test $hastif = yes; then
+		dnl Now attempt to check if libtiff is new enough
+		AC_MSG_CHECKING(libtiff version > 3.6.0)
+		AC_TRY_COMPILE([
+		#include "tiffvers.h"
+		#if TIFFLIB_VERSION < 20031007
+		#error libtiff is too old, need libtiff 3.6.0 or newer.
+		#endif
+		], [], [], [LIBTIFF="";hastif=pre36])
+		AC_MSG_RESULT($hastif)
+	fi
+fi
 AC_SUBST(LIBTIFF)
 if test $hastif = yes; then
  AC_DEFINE_UNQUOTED(HAVE_TIFF, 1, [Tifflib])
