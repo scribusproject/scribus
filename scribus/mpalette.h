@@ -29,6 +29,8 @@
 #include "cpalette.h"
 #include "spalette.h"
 #include "fontcombo.h"
+
+class Autoforms;
 extern bool CMSavail;
 
 class NameWidget : public QLineEdit
@@ -108,9 +110,8 @@ public:
     QToolButton* Locked;
     QToolButton* NoPrint;
     QButtonGroup* ShapeGroup;
-    QToolButton* SRect;
-    QToolButton* SOval;
-    QToolButton* SCustom;
+    QLabel* SRect;
+    Autoforms* SCustom;
     QLabel* Text4;
     QSpinBox* RoundRect;
     QCheckBox* Textflow;
@@ -263,9 +264,7 @@ private slots:
 		void NewRotMode(int m);
 		void DoFlow();
 		void DoFlow2();
-		void MakeRect();
-		void MakeOval();
-		void MakeIrre();
+		void MakeIrre(int f);
 		void EditSh();
 		void NewTDist();
 		void DoRevert();

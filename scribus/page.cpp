@@ -1929,7 +1929,6 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 				{
 				pmen->insertItem( tr("Get Text..."), this, SIGNAL(LoadPic()));
 				pmen->insertItem( tr("Edit Text..."), this, SIGNAL(EditText()));
-				pmen->insertItem( tr("Convert to Outlines"), this, SLOT(TextToPath()));
 				if (PageNam == "")
 					{
 					int pxb = pmen->insertItem( tr("Is PDF-Bookmark"), this, SLOT(ToggleBookmark()));
@@ -1979,6 +1978,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 					{
 					pmen2->insertItem( tr("Picture Frame"), this, SLOT(ToPicFrame()));
 					pmen2->insertItem( tr("Polygon"), this, SLOT(ToPolyFrame()));
+					pmen2->insertItem( tr("Outlines"), this, SLOT(TextToPath()));
 					}
 				if (b->PType == 2)
 					{
@@ -4863,6 +4863,28 @@ void Page::ToPathText()
 		}
 }
 
+void Page::SetFrameShape(PageItem *b, int count, double *vals)
+{
+	ClRe = -1;
+	b->PoLine.resize(0);
+	for (int a = 0; a < count-3; a += 4)
+		{
+		if (vals[a] < 0)
+			{
+			b->PoLine.setMarker();
+			continue;
+			}
+		double x1 = b->Width * vals[a] / 100.0;
+		double y1 = b->Height * vals[a+1] / 100.0;
+		double x2 = b->Width * vals[a+2] / 100.0;
+		double y2 = b->Height * vals[a+3] / 100.0;
+		b->PoLine.addPoint(x1, y1);
+		b->PoLine.addPoint(x2, y2);
+		}
+	b->Clip = FlattenPath(b->PoLine, b->Segments);
+	b->ClipEdited = true;
+}
+
 void Page::SetFrameRect()
 {
 	PageItem *b;
@@ -4875,17 +4897,15 @@ void Page::SetFrameRect()
 
 void Page::SetRectFrame(PageItem *b)
 {
-	ClRe = -1;
-	b->PoLine.resize(16);
-	b->PoLine.putPoints(0, 16, 0.0, 0.0, 0.0, 0.0,
-												b->Width, 0.0, b->Width, 0.0,
-												b->Width, 0.0, b->Width, 0.0,
-												b->Width, b->Height, b->Width, b->Height,
-												b->Width, b->Height, b->Width, b->Height,
-												0.0, b->Height, 0.0, b->Height,
-												0.0, b->Height, 0.0, b->Height,
-												0.0, 0.0, 0.0, 0.0);
-	b->Clip = FlattenPath(b->PoLine, b->Segments);
+	double rect[] = {   0.0,   0.0,   0.0,   0.0,
+										100.0,   0.0, 100.0,   0.0,
+										100.0,   0.0, 100.0,   0.0,
+										100.0, 100.0, 100.0, 100.0,
+										100.0, 100.0, 100.0, 100.0,
+										  0.0, 100.0,   0.0, 100.0,
+										  0.0, 100.0,   0.0, 100.0,
+										  0.0,   0.0,   0.0,   0.0};
+	SetFrameShape(b, 32, rect);
 	b->ClipEdited = false;
 	b->FrameType = 0;
 }
@@ -4999,27 +5019,17 @@ void Page::SetFrameOval()
 
 void Page::SetOvalFrame(PageItem *b)
 {
-	ClRe = -1;
-	b->PoLine.resize(0);
-	b->PoLine.addPoint(b->Width, b->Height/2);
-	b->PoLine.addPoint(b->Width, b->Height/2+b->Height/2*0.552284749);
-	b->PoLine.addPoint(b->Width/2, b->Height);
-	b->PoLine.addPoint(b->Width/2+b->Width/2*0.552284749, b->Height);
-	b->PoLine.addPoint(b->Width/2, b->Height);
-	b->PoLine.addPoint(b->Width/2-b->Width/2*0.552284749, b->Height);
-	b->PoLine.addPoint(0, b->Height/2);
-	b->PoLine.addPoint(0, b->Height/2+b->Height/2*0.552284749);
-	b->PoLine.addPoint(0, b->Height/2);
-	b->PoLine.addPoint(0, b->Height/2-b->Height/2*0.552284749);
-	b->PoLine.addPoint(b->Width/2, 0);
-	b->PoLine.addPoint(b->Width/2-b->Width/2*0.552284749, 0);
-	b->PoLine.addPoint(b->Width/2, 0);
-	b->PoLine.addPoint(b->Width/2+b->Width/2*0.552284749, 0);
-	b->PoLine.addPoint(b->Width, b->Height/2);
-	b->PoLine.addPoint(b->Width, b->Height/2-b->Height/2*0.552284749);
-	b->ClipEdited = false;
-  b->Clip = FlattenPath(b->PoLine, b->Segments);
+	double rect[] = { 100.0,  50.0, 100.0,       77.615235,
+										 50.0, 100.0,  77.615235, 100.0,
+										 50.0, 100.0,  22.385765, 100.0,
+										  0.0,  50.0,   0.0,       77.615235,
+										  0.0,  50.0,   0.0,       22.385765,
+										 50.0,   0.0,  22.385765,   0.0,
+										 50.0,   0.0,  77.615235,   0.0,
+										100.0,  50.0, 100.0,       22.385765};
+	SetFrameShape(b, 32, rect);
 	b->FrameType = 1;
+	b->ClipEdited = false;
 }
 
 void Page::ChLineWidth(double w)

@@ -89,6 +89,7 @@ public:
 	void SetPolyClip(PageItem *b, int up, int down);
 	void UpdatePolyClip(PageItem *b);
 	void ConvertClip(PageItem *b);
+	void SetFrameShape(PageItem *b, int count, double *vals);
 	void SetFrameRound(PageItem *b);
 	void SetRectFrame(PageItem *b);
 	void SetOvalFrame(PageItem *b);

@@ -2313,6 +2313,8 @@ bool ScribusApp::LadeDoc(QString fileName)
   	QDir::setCurrent(fi.dirPath(true));
 		doc=new ScribusDoc();
 		doc->AllFonts = &Prefs.AvailFonts;
+		doc->AddFont(Prefs.DefFont, Prefs.AvailFonts[Prefs.DefFont]->Font);
+		doc->Dfont = Prefs.DefFont;
 		doc->Dsize = Prefs.DefSize;
 		doc->GrabRad = Prefs.GrabRad;
 		doc->GuideRad = Prefs.GuideRad;

@@ -6,6 +6,7 @@
 #include <qmessagebox.h>
 #include "query.h"
 #include "scribusview.h"
+#include "autoform.h"
 extern QPixmap loadIcon(QString nam);
 extern double UmReFaktor;
 extern ProfilesL InputProfiles;
@@ -296,18 +297,13 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     ShapeGroup->layout()->setMargin( 0 );
     ShapeGroupLayout = new QHBoxLayout( ShapeGroup->layout() );
     ShapeGroupLayout->setAlignment( Qt::AlignTop );
-    SRect = new QToolButton( ShapeGroup, "SRect" );
-    SRect->setMaximumSize( QSize( 22, 22 ) );
-    SRect->setPixmap(loadIcon("rect.png"));
+    SRect = new QLabel(ShapeGroup, "Text4a" );
+    SRect->setText( tr( "Shape:" ) );
     ShapeGroupLayout->addWidget( SRect );
-    SOval = new QToolButton( ShapeGroup, "SOval" );
-    SOval->setMaximumSize( QSize( 22, 22 ) );
-    SOval->setPixmap(loadIcon("oval.png"));
-    ShapeGroupLayout->addWidget( SOval );
-    SCustom = new QToolButton( ShapeGroup, "SCustom" );
-    SCustom->setMaximumSize( QSize( 22, 22 ) );
-    SCustom->setPixmap(loadIcon("irreg.png"));
+    SCustom = new Autoforms( ShapeGroup );
     ShapeGroupLayout->addWidget( SCustom );
+//    QSpacerItem* spacer2L = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
+ //   layoutLang->addItem( spacer2L );
     pageLayout_2->addWidget( ShapeGroup );
 
     EditShape = new QToolButton( page_2, "EditShape" );
@@ -666,8 +662,6 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     LangCombo = new QComboBox( true, page_3, "Lang" );
 		LangCombo->setEditable(false);
     layoutLang->addWidget( LangCombo );
-//    QSpacerItem* spacer2L = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
- //   layoutLang->addItem( spacer2L );
 		pageLayout_3->addLayout(layoutLang);
 
     QSpacerItem* spacer8 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
@@ -879,9 +873,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     connect(RotationGroup, SIGNAL(clicked(int)), this, SLOT(NewRotMode(int)));
     connect(Textflow, SIGNAL(clicked()), this, SLOT(DoFlow()));
     connect(Textflow2, SIGNAL(clicked()), this, SLOT(DoFlow2()));
-    connect(SRect, SIGNAL(clicked()), this, SLOT(MakeRect()));
-    connect(SOval, SIGNAL(clicked()), this, SLOT(MakeOval()));
-    connect(SCustom, SIGNAL(clicked()), this, SLOT(MakeIrre()));
+    connect(SCustom, SIGNAL(FormSel(int)), this, SLOT(MakeIrre(int)));
     connect(EditShape, SIGNAL(clicked()), this, SLOT(EditSh()));
     connect(DTop, SIGNAL(valueChanged(int)), this, SLOT(NewTDist()));
     connect(DLeft, SIGNAL(valueChanged(int)), this, SLOT(NewTDist()));
@@ -2162,50 +2154,145 @@ void Mpalette::DoFlow2()
 		}
 }
 
-void Mpalette::MakeRect()
+void Mpalette::MakeIrre(int f)
 {
 	if ((HaveDoc) && (HaveItem))
 		{
 		if ((CurItem->PType == 7) || (CurItem->PType == 8))
 			return;
-		doc->ActPage->SetRectFrame(CurItem);
-		doc->ActPage->RefreshItem(CurItem);
-		emit DocChanged();
-		if ((CurItem->PType == 2) || (CurItem->PType == 4))
-			return;
-		CurItem->PType = 6;
-		NewSel(3);
-		TabStack->raiseWidget(1);
-		}
-}
-
-void Mpalette::MakeOval()
-{
-	if ((HaveDoc) && (HaveItem))
-		{
-		if ((CurItem->PType == 7) || (CurItem->PType == 8))
-			return;
-		doc->ActPage->SetOvalFrame(CurItem);
+		switch (f)
+			{
+			case 0:
+				doc->ActPage->SetRectFrame(CurItem);
+				break;
+			case 1:
+				doc->ActPage->SetOvalFrame(CurItem);
+				break;
+			case 2:
+				{
+				double rect[] = {   0.0,    0.0,   0.0,   0.0,
+													100.0,  100.0, 100.0, 100.0,
+													100.0,  100.0, 100.0, 100.0,
+													  0.0,  100.0,   0.0, 100.0,
+													  0.0,  100.0,   0.0, 100.0,
+										  			0.0,    0.0,   0.0,   0.0};
+				doc->ActPage->SetFrameShape(CurItem, 24, rect);
+				break;
+				}
+			case 3:
+				{
+				double rect[] = {   0.0,   25.0,   0.0,  25.0,
+													 25.0,   25.0,  25.0,  25.0,
+													 25.0,   25.0,  25.0,  25.0,
+													 25.0,    0.0,  25.0,   0.0,
+													 25.0,    0.0,  25.0,   0.0,
+													 75.0,    0.0,  75.0,   0.0,
+													 75.0,    0.0,  75.0,   0.0,
+													 75.0,   25.0,  75.0,  25.0,
+													 75.0,   25.0,  75.0,  25.0,
+													100.0,   25.0, 100.0,  25.0,
+													100.0,   25.0, 100.0,  25.0,
+													100.0,   75.0, 100.0,  75.0,
+													100.0,   75.0, 100.0,  75.0,
+													 75.0,   75.0,  75.0,  75.0,
+													 75.0,   75.0,  75.0,  75.0,
+													 75.0,  100.0,  75.0, 100.0,
+													 75.0,  100.0,  75.0, 100.0,
+													 25.0,  100.0,  25.0, 100.0,
+													 25.0,  100.0,  25.0, 100.0,
+													 25.0,   75.0,  25.0,  75.0,
+													 25.0,   75.0,  25.0,  75.0,
+													  0.0,   75.0,   0.0,  75.0,
+													  0.0,   75.0,   0.0,  75.0,
+										  			0.0,   25.0,   0.0,  25.0};
+				doc->ActPage->SetFrameShape(CurItem, 96, rect);
+				break;
+				}
+			case 4:
+				{
+				double rect[] = {   0.0,   50.0,   0.0,  50.0,
+													 50.0,    0.0,  50.0,   0.0,
+													 50.0,    0.0,  50.0,   0.0,
+													 50.0,   25.0,  50.0,  25.0,
+													 50.0,   25.0,  50.0,  25.0,
+													100.0,   25.0, 100.0,  25.0,
+													100.0,   25.0, 100.0,  25.0,
+													100.0,   75.0, 100.0,  75.0,
+													100.0,   75.0, 100.0,  75.0,
+													 50.0,   75.0,  50.0,  75.0,
+													 50.0,   75.0,  50.0,  75.0,
+													 50.0,  100.0,  50.0, 100.0,
+													 50.0,  100.0,  50.0, 100.0,
+										  			0.0,   50.0,   0.0,  50.0};
+				doc->ActPage->SetFrameShape(CurItem, 56, rect);
+				break;
+				}
+			case 5:
+				{
+				double rect[] = {   0.0,   25.0,   0.0,  25.0,
+													 50.0,   25.0,  50.0,  25.0,
+													 50.0,   25.0,  50.0,  25.0,
+													 50.0,    0.0,  50.0,   0.0,
+													 50.0,    0.0,  50.0,   0.0,
+													100.0,   50.0, 100.0,  50.0,
+													100.0,   50.0, 100.0,  50.0,
+													 50.0,  100.0,  50.0, 100.0,
+													 50.0,  100.0,  50.0, 100.0,
+													 50.0,   75.0,  50.0,  75.0,
+													 50.0,   75.0,  50.0,  75.0,
+													  0.0,   75.0,   0.0,  75.0,
+													  0.0,   75.0,   0.0,  75.0,
+										  			0.0,   25.0,   0.0,  25.0};
+				doc->ActPage->SetFrameShape(CurItem, 56, rect);
+				break;
+				}
+			case 6:
+				{
+				double rect[] = {   0.0,   50.0,   0.0,  50.0,
+													 50.0,    0.0,  50.0,   0.0,
+													 50.0,    0.0,  50.0,   0.0,
+													100.0,   50.0, 100.0,  50.0,
+													100.0,   50.0, 100.0,  50.0,
+													 75.0,   50.0,  75.0,  50.0,
+													 75.0,   50.0,  75.0,  50.0,
+													 75.0,  100.0,  75.0, 100.0,
+													 75.0,  100.0,  75.0, 100.0,
+													 25.0,  100.0,  25.0, 100.0,
+													 25.0,  100.0,  25.0, 100.0,
+													 25.0,   50.0,  25.0,  50.0,
+													 25.0,   50.0,  25.0,  50.0,
+										  			0.0,   50.0,   0.0,  50.0};
+				doc->ActPage->SetFrameShape(CurItem, 56, rect);
+				break;
+				}
+			case 7:
+				{
+				double rect[] = {   0.0,   50.0,   0.0,  50.0,
+													 25.0,   50.0,  25.0,  50.0,
+													 25.0,   50.0,  25.0,  50.0,
+													 25.0,    0.0,  25.0,   0.0,
+													 25.0,    0.0,  25.0,   0.0,
+													 75.0,    0.0,  75.0,   0.0,
+													 75.0,    0.0,  75.0,   0.0,
+													 75.0,   50.0,  75.0,  50.0,
+													 75.0,   50.0,  75.0,  50.0,
+													100.0,   50.0, 100.0,  50.0,
+													100.0,   50.0, 100.0,  50.0,
+													 50.0,  100.0,  50.0, 100.0,
+													 50.0,  100.0,  50.0, 100.0,
+										  			0.0,   50.0,   0.0,  50.0};
+				doc->ActPage->SetFrameShape(CurItem, 56, rect);
+				break;
+				}
+			default:
+				break;
+			}
 		doc->ActPage->RefreshItem(CurItem);
 		emit DocChanged();
 		if ((CurItem->PType == 2) || (CurItem->PType == 4))
 			return;
 		CurItem->PType = 6;
 		NewSel(6);
-		TabStack->raiseWidget(1);
-		}
-}
-
-void Mpalette::MakeIrre()
-{
-	if ((HaveDoc) && (HaveItem))
-		{
-		if ((CurItem->PType == 2) || (CurItem->PType == 4) || (CurItem->PType == 7) || (CurItem->PType == 8))
-			return;
-		doc->ActPage->ToPolyFrame();
-		NewSel(6);
-		doc->ActPage->RefreshItem(CurItem);
-		emit DocChanged();
 		TabStack->raiseWidget(1);
 		}
 }
@@ -2215,7 +2302,7 @@ void Mpalette::EditSh()
 	if ((HaveDoc) && (HaveItem))
 		{
 		if ((CurItem->PType == 1) || (CurItem->PType == 3))
-			MakeIrre();
+			MakeIrre(0);
 		emit EditCL();
 		emit DocChanged();
 		}

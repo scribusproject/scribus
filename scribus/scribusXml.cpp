@@ -334,7 +334,7 @@ struct ScribusDoc::BookMa bok;
 struct Linked Link;
 PageItem *Neu;
 LFrames.clear();
-QString tmV, tmp, tmpf, tmp2, tmp3, tmp4, PgNam, f, Defont;
+QString tmV, tmp, tmpf, tmp2, tmp3, tmp4, PgNam, f, Defont, tmf;
 QFont fo;
 QMap<QString,QString> DoFonts;
 QMap<uint,QString> DoVorl;
@@ -346,6 +346,7 @@ bool fou;
 bool VorLFound = false;
 DoVorl.clear();
 DoFonts.clear();
+DoFonts[doc->Dfont] = doc->Dfont;
 DoVorl[0] = "0";
 DoVorl[1] = "1";
 DoVorl[2] = "2";
@@ -372,7 +373,6 @@ while(!DOC.isNull())
 	/*
 	* Attribute von DOCUMENT auslesen
 	*/
-	DoFonts.clear();
 	QDomNode PAGE=DOC.firstChild();
 	while(!PAGE.isNull())
 		{
@@ -713,7 +713,10 @@ while(!DOC.isNull())
 				OB.PoShow = QStoInt(obj.attribute("PTLSHOW","0"));
 				OB.BaseOffs = QStodouble(obj.attribute("BASEOF","0"));
 				OB.Ausrich = QStoInt(obj.attribute("ALIGN","0"));
-				OB.IFont = DoFonts[obj.attribute("IFONT", doc->Dfont)];
+				tmf = obj.attribute("IFONT", doc->Dfont);
+				if (tmf == "")
+					tmf = doc->Dfont;
+				OB.IFont = DoFonts[tmf];
 				OB.ISize = qRound(QStodouble(obj.attribute("ISIZE","12")) * 10.0);
 				OB.Pfile=obj.attribute("PFILE");
 				OB.Pfile2=obj.attribute("PFILE2","");
@@ -784,7 +787,10 @@ while(!DOC.isNull())
 						tmp2 = it.attribute("CH");
 						tmp2.replace(QRegExp("\r"), QChar(5));
 						tmp2.replace(QRegExp("\n"), QChar(5));
-						tmp3 = "\t" + DoFonts[it.attribute("CFONT")] + "\t";
+						tmf = it.attribute("CFONT", doc->Dfont);
+						if (tmf == "")
+							tmf = doc->Dfont;
+						tmp3 = "\t" + DoFonts[tmf] + "\t";
 						tmp3 += it.attribute("CSIZE") + "\t";
 						tmp3 += it.attribute("CCOLOR") + "\t";
 						tmp3 += it.attribute("CEXTRA") + "\t";
@@ -876,7 +882,7 @@ int counter, Pgc;
 bool AtFl;
 bool newVersion = false;
 struct Linked Link;
-QString tmp, tmpf, tmp2, tmp3, tmp4, PgNam, Defont;
+QString tmp, tmpf, tmp2, tmp3, tmp4, PgNam, Defont, tmf;
 QFont fo;
 QMap<QString,QString> DoFonts;
 int x, y, a;
@@ -924,7 +930,13 @@ while(!DOC.isNull())
 	doc->PageSp=QStoInt(dc.attribute("AUTOSPALTEN"));
 	doc->PageSpa=QStodouble(dc.attribute("ABSTSPALTEN"));
 	doc->Einheit = QStoInt(dc.attribute("UNITS","0"));
+	DoFonts.clear();
 	Defont=dc.attribute("DFONT");
+	if (Defont == "")
+		{
+		Defont = view->Prefs->DefFont;
+		DoFonts[Defont] = Defont;
+		}
 	doc->Dsize=qRound(QStodouble(dc.attribute("DSIZE")) * 10);
 	doc->DocAutor=dc.attribute("AUTHOR");
 	doc->DocComments=dc.attribute("COMMENTS");
@@ -954,7 +966,6 @@ while(!DOC.isNull())
 	doc->Automatic = static_cast<bool>(QStoInt(dc.attribute("AUTOMATIC", "1")));
 	doc->AutoCheck = static_cast<bool>(QStoInt(dc.attribute("AUTOCHECK", "0")));
 	doc->GuideLock = static_cast<bool>(QStoInt(dc.attribute("GUIDELOCK", "0")));
-	DoFonts.clear();
 	QDomNode PAGE=DOC.firstChild();
 	while(!PAGE.isNull())
 	{
@@ -1295,7 +1306,10 @@ while(!DOC.isNull())
 				OB.PoShow = QStoInt(obj.attribute("PTLSHOW","0"));
 				OB.BaseOffs = QStodouble(obj.attribute("BASEOF","0"));
 				OB.Ausrich = QStoInt(obj.attribute("ALIGN","0"));
-				OB.IFont = DoFonts[obj.attribute("IFONT", doc->Dfont)];
+				tmf = obj.attribute("IFONT", doc->Dfont);
+				if (tmf == "")
+					tmf = doc->Dfont;
+				OB.IFont = DoFonts[tmf];
 				OB.ISize = qRound(QStodouble(obj.attribute("ISIZE","12")) * 10);
 				OB.Pfile=obj.attribute("PFILE");
 				OB.Pfile2=obj.attribute("PFILE2","");
@@ -1366,7 +1380,10 @@ while(!DOC.isNull())
 						tmp2 = it.attribute("CH");
 						tmp2.replace(QRegExp("\r"), QChar(5));
 						tmp2.replace(QRegExp("\n"), QChar(5));
-						tmp3 = "\t" + DoFonts[it.attribute("CFONT")] + "\t";
+						tmf = it.attribute("CFONT", doc->Dfont);
+						if (tmf == "")
+							tmf = doc->Dfont;
+						tmp3 = "\t" + DoFonts[tmf] + "\t";
 						tmp3 += it.attribute("CSIZE") + "\t";
 						tmp3 += it.attribute("CCOLOR") + "\t";
 						tmp3 += it.attribute("CEXTRA") + "\t";
@@ -1512,7 +1529,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 {
 	struct CLBuf OB;
 	struct StVorL vg;
-	QString tmp, tmpf, tmp2, tmp3, tmp4, f, tmV;
+	QString tmp, tmpf, tmp2, tmp3, tmp4, f, tmV, tmf;
 	QFont fo;
 	QMap<QString,QString> DoFonts;
 	QMap<uint,QString> DoVorl;
@@ -1565,6 +1582,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 		newVersion = true;
 	QDomNode DOC=elem.firstChild();
 	DoFonts.clear();
+	DoFonts[doc->Dfont] = doc->Dfont;
 	DoVorl.clear();
 	DoVorl[0] = "0";
 	DoVorl[1] = "1";
@@ -1790,7 +1808,10 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			OB.PoShow = QStoInt(pg.attribute("PTLSHOW","0"));
 			OB.BaseOffs = QStodouble(pg.attribute("BASEOF","0"));
 			OB.Ausrich = QStoInt(pg.attribute("ALIGN","0"));
-			OB.IFont = DoFonts[pg.attribute("IFONT")];
+			tmf = pg.attribute("IFONT", doc->Dfont);
+			if (tmf == "")
+				tmf = doc->Dfont;
+			OB.IFont = DoFonts[tmf];
 			OB.ISize = qRound(QStodouble(pg.attribute("ISIZE","12")) * 10);
 			OB.Pfile = pg.attribute("PFILE");
 			OB.Pfile2 = pg.attribute("PFILE2","");
@@ -1862,7 +1883,10 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 						tmp2 = it.attribute("CH");
 						tmp2.replace(QRegExp("\r"), QChar(5));
 						tmp2.replace(QRegExp("\n"), QChar(5));
-						tmp3 = "\t" + DoFonts[it.attribute("CFONT")] + "\t";
+						tmf = it.attribute("CFONT", doc->Dfont);
+						if (tmf == "")
+							tmf = doc->Dfont;
+						tmp3 = "\t" + DoFonts[tmf] + "\t";
 						tmp3 += it.attribute("CSIZE") + "\t";
 						tmp3 += it.attribute("CCOLOR") + "\t";
 						tmp3 += it.attribute("CEXTRA") + "\t";
