@@ -287,6 +287,12 @@ void ScribusApp::initFonts()
 		mess += "\n" + tr("Exiting now");
 		QMessageBox::critical(this, tr("Fatal Error"), mess, 1, 0, 0);
 	}
+	else
+	if (splashScreen!=NULL) 
+	{
+		splashScreen->setStatus( tr("Font System Initialized"));
+		qApp->processEvents();
+	}
 }
 
 void ScribusApp::initDefaultPrefs()
