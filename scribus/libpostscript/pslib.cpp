@@ -38,6 +38,7 @@
 #include <cmath>
 
 extern void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
+extern uint getDouble(QString in, bool raw);
 extern double Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2 = " ");
 extern bool loadText(QString nam, QString *Buffer);
 extern QImage LoadPict(QString fn, bool *gray = 0);
@@ -664,10 +665,17 @@ void PSLib::PS_ImageData(bool inver, QString fn, QString Name, QString Prof, boo
 		if (loadText(fn, &tmp))
 		{
 			PutSeite("currentfile 1 (%ENDEPSDATA) /SubFileDecode filter /ReusableStreamDecode filter\n");
-      			PutSeite("%%BeginDocument: " + fi.fileName() + "\n");
-      			PutSeite(tmp+"\n");
-      			PutSeite("%ENDEPSDATA\n");
-      			PutSeite("%%EndDocument\n");
+			PutSeite("%%BeginDocument: " + fi.fileName() + "\n");
+			if (getDouble(tmp.mid(0, 4), true) == 0xC5D0D3C6)
+			{
+				uint startPos = getDouble(tmp.mid(4, 4), false);
+				uint length = getDouble(tmp.mid(8, 4), false);
+				PutSeite(tmp.mid(startPos, length)+"\n");
+			}
+			else
+				PutSeite(tmp+"\n");
+			PutSeite("%ENDEPSDATA\n");
+			PutSeite("%%EndDocument\n");
 			PutSeite("/"+PSEncode(Name)+"Bild exch def\n");
 		}
 		return;
@@ -753,8 +761,15 @@ void PSLib::PS_image(bool inver, double x, double y, QString fn, double scalex, 
 			else
 			{
       				PutSeite("%%BeginDocument: " + fi.fileName() + "\n");
-      				PutSeite(tmp+"\n");
-      				PutSeite("%%EndDocument\n");
+					if (getDouble(tmp.mid(0, 4), true) == 0xC5D0D3C6)
+					{
+						uint startPos = getDouble(tmp.mid(4, 4), false);
+						uint length = getDouble(tmp.mid(8, 4), false);
+						PutSeite(tmp.mid(startPos, length)+"\n");
+					}
+					else
+						PutSeite(tmp+"\n");
+					PutSeite("%%EndDocument\n");
 			}
 			PutSeite("eEPS\n");
 		}

@@ -6313,7 +6313,7 @@ void ScribusView::slotDoCurs(bool draw)
 	PageItem *b;
 	if (GetItem(&b))
 	{
-		if (b->PType != 4) //  || (b->itemText.count() == 0)) { return; }
+		if (b->PType != 4)
 			return;
 		QPainter p;
 		QString chx;
@@ -6370,7 +6370,7 @@ void ScribusView::slotDoCurs(bool draw)
 				if (b->itemText.at(offs)->yp != b->itemText.at(offs+1)->yp)
 				{
 					offs++;
-					if (b->itemText.at(offs)->ch == QChar(13))
+					if ((b->itemText.at(offs)->ch == QChar(13)) || (b->itemText.at(offs)->ch == QChar(28)))
 					{
 						offs--;
 						xp = static_cast<int>(b->itemText.at(offs)->xp);
