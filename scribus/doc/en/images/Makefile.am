@@ -83,7 +83,7 @@ install-data-local:
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/images/
 	$(INSTALL_DATA) $(srcdir)/prefspanel2.png $(prefix)/share/scribus/doc/en/images/prefspanel2.png
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/images/
-	$(INSTALL_DATA) $(srcdir)/prefspanel2.png $(prefix)/share/scribus/doc/en/images/prefspanel3.png
+	$(INSTALL_DATA) $(srcdir)/prefspanel3.png $(prefix)/share/scribus/doc/en/images/prefspanel3.png
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/images/	
 	$(INSTALL_DATA) $(srcdir)/prefspanel4.png $(prefix)/share/scribus/doc/en/images/prefspanel4.png
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/images/
