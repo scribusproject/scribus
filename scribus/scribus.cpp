@@ -4187,7 +4187,10 @@ void ScribusApp::slotEditPaste()
 				Serializer *ss = new Serializer("");
 				ss->Objekt = Buffer2;
 				int st = doc->CurrentABStil;
-				ss->GetText(b, st, doc->Vorlagen[st].Font, doc->Vorlagen[st].FontSize, true);
+				if (st > 5)
+					ss->GetText(b, st, doc->Vorlagen[st].Font, doc->Vorlagen[st].FontSize);
+				else
+					ss->GetText(b, st, b->IFont, b->ISize);
 				delete ss;
 				if (doc->Trenner->AutoCheck)
 					doc->Trenner->slotHyphenate(b);
