@@ -293,7 +293,7 @@ PyObject *scribus_setalign(PyObject *self, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if ((alignment > 3) || (alignment < 0))
+	if ((alignment > 4) || (alignment < 0))
 	{
 		PyErr_SetString(PyExc_ValueError, QString("Alignment out of range. Use one of the scribus.ALIGN* constants."));
 		return NULL;
