@@ -274,15 +274,11 @@ void UndoPalette::removeRedoItems()
 void UndoPalette::undoClicked()
 {
 	emit undo(1);
-	--currentSelection;
-	updateList();
 }
 
 void UndoPalette::redoClicked()
 {
 	emit redo(1);
-	++currentSelection;
-	updateList();
 }
 
 void UndoPalette::undoListClicked(int i)
