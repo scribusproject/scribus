@@ -1187,17 +1187,18 @@ void ScribusApp::initStyleMenuActions()
 	
 	
 	//Alignment actions
-	scrActionGroups.insert("alignment", new QActionGroup(this, "alignment", true));
 	scrActions.insert("alignLeft", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Left"), QKeySequence(), scrActionGroups["alignment"], "alignLeft", 0));
 	scrActions.insert("alignCenter", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Center"), QKeySequence(), scrActionGroups["alignment"], "alignCenter", 1));
 	scrActions.insert("alignRight", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Right"), QKeySequence(), scrActionGroups["alignment"], "alignRight", 2));
 	scrActions.insert("alignBlock", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Block"), QKeySequence(), scrActionGroups["alignment"], "alignBlock", 3));
 	scrActions.insert("alignForced", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Forced"), QKeySequence(), scrActionGroups["alignment"], "alignForced", 4));
+	
 	scrActions["alignLeft"]->setToggleAction(true);
 	scrActions["alignCenter"]->setToggleAction(true);
 	scrActions["alignRight"]->setToggleAction(true);
 	scrActions["alignBlock"]->setToggleAction(true);
 	scrActions["alignForced"]->setToggleAction(true);
+	
 	connect(scrActions["alignLeft"], SIGNAL(activatedData(int)), this, SLOT(setNewAbStyle(int)));
 	connect(scrActions["alignCenter"], SIGNAL(activatedData(int)), this, SLOT(setNewAbStyle(int)));
 	connect(scrActions["alignRight"], SIGNAL(activatedData(int)), this, SLOT(setNewAbStyle(int)));
@@ -1655,8 +1656,12 @@ void ScribusApp::initMenuBar()
 	
 	//Alignment menu
 	scrMenuMgr->createMenu("Alignment", tr("&Alignment"));
-	scrActionGroups["alignment"]->addTo(scrMenuMgr->getLocalPopupMenu("Alignment"));
-
+	scrMenuMgr->addMenuItem(scrActions["alignLeft"], "Alignment");
+	scrMenuMgr->addMenuItem(scrActions["alignCenter"], "Alignment");
+	scrMenuMgr->addMenuItem(scrActions["alignRight"], "Alignment");
+	scrMenuMgr->addMenuItem(scrActions["alignBlock"], "Alignment");
+	scrMenuMgr->addMenuItem(scrActions["alignForced"], "Alignment");
+	
 	//Color menu
 	scrMenuMgr->createMenu("ItemShapes", tr("&Shape"), "Item");
 	// CB TODO
@@ -7259,14 +7264,12 @@ void ScribusApp::setAbsValue(int a)
 {
 	doc->currentParaStyle = a;
 	Mpal->setAli(a);
-	if (a<0 || a>4)
-		qDebug(QString("Alignment value incorrect %1").arg(a));
-	else
+	QString alignment[] = {"Left", "Center", "Right", "Block", "Forced"};
+	for (int b=0; b<5; ++b)
 	{
-		QString alignment[] = {"Left", "Center", "Right", "Block", "Forced"};
-		QString actionName="align"+alignment[a];
+		QString actionName="align"+alignment[b];
 		if (scrActions[actionName])
-			scrActions[actionName]->setOn(true);
+			scrActions[actionName]->setOn(a==b);
 	}
 }
 
