@@ -1,4 +1,4 @@
-EXTRA_DIST = acropass.png acroinfo.png acrosec.png acro1.png acro3.png cmsmodify1.png colormgmtscreen.png cups1.png docheader1.png docheader2.png fonts2.png fontpref2.png fontpref3.png fontpref1.png gammagrayscale.png gsadv1.png gsadv2.png gsadv3.png hyphen1.png hyphen2.png hyphen3.png inkscape.png kfontinstaller.png ksnapshot.png monprof1.png monprof2.png monprof3.png pdfxcolor.png pdfxintent.png pstoedit1.png pdfx3-1.png svg1.png gimpoptions1.png prefsguides.png printpreview.png  RDF.png batik1.png  gimpoptions2.png  prefspanel1.png  scribus2.png cmspanel.png  gimpoptions3.png  prefspanel2.png scribustru4.png colormanager2.png  hyphen1.png prefspanel3.png  Scripter_error_string.png fontprev.png hyphen2.png  prefspanel4.png Scripter.png fonts.png  hyphen3.png printer3.png xnview.png spinbox1.png scribuscms1.png
+EXTRA_DIST = acropass.png acroinfo.png acrosec.png acro1.png acro3.png cmsmodify1.png colormgmtscreen.png cups1.png cups2.png docheader1.png docheader2.png fonts2.png fontpref2.png fontpref3.png fontpref1.png gammagrayscale.png gsadv1.png gsadv2.png gsadv3.png hyphen1.png hyphen2.png hyphen3.png inkscape.png kfontinstaller.png ksnapshot.png monprof1.png monprof2.png monprof3.png pdfxcolor.png pdfxintent.png pstoedit1.png pdfx3-1.png svg1.png gimpoptions1.png prefsguides.png printpreview.png  RDF.png batik1.png  gimpoptions2.png  prefspanel1.png  scribus2.png cmspanel.png  gimpoptions3.png  prefspanel2.png scribustru4.png colormanager2.png  hyphen1.png prefspanel3.png  Scripter_error_string.png fontprev.png hyphen2.png  prefspanel4.png Scripter.png fonts.png  hyphen3.png printer3.png xnview.png spinbox1.png scribuscms1.png
 
 install-data-local:
 
@@ -72,6 +72,7 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/doc/en/images/colormanager2.png
 	-rm -f $(prefix)/share/scribus/doc/en/images/colormgmtscreen.png
 	-rm -f $(prefix)/share/scribus/doc/en/images/cups1.png
+	-rm -f $(prefix)/share/scribus/doc/en/images/cups2.png
 	-rm -f $(prefix)/share/scribus/doc/en/images/cmspanel.png
 	-rm -f $(prefix)/share/scribus/doc/en/images/colormanager2.png
 	-rm -f $(prefix)/share/scribus/doc/en/images/docheader1.png
