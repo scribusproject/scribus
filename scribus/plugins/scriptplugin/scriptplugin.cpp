@@ -312,6 +312,10 @@ void MenuTest::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 		QString cm = QString("from __future__ import division\n");
 		cm        += QString("import sys\n");
 		cm        += QString("import cStringIO\n");
+		/* Implementation of the help() in pydoc.py reads some OS variables
+		 * for output settings. I use ugly hack to stop freezing calling help()
+		 * in script. pv. */
+		cm += QString("import os\nos.environ['PAGER'] = '/bin/false'\n"); // HACK
 		cm        += QString("sys.path[0] = \"%1\"\n").arg(fi.dirPath(true));
 		// Replace sys.stdin with a dummy StringIO that always returns
 		// "" for read
