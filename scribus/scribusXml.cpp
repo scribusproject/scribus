@@ -1539,10 +1539,26 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 		}
 	else
 		{
-		elem.setAttribute("XP", item->Xpos);
-		elem.setAttribute("YP", item->Ypos);
-		elem.setAttribute("W", item->Width);
-		elem.setAttribute("H", item->Height);
+		if (item->Rot == 0)
+			{
+			elem.setAttribute("XP", item->Xpos);
+			elem.setAttribute("YP", item->Ypos);
+			elem.setAttribute("W", item->Width);
+			elem.setAttribute("H", item->Height);
+			}
+		else
+			{
+			QPainter p;
+			p.begin(doc->ActPage);
+			p.translate(static_cast<int>(item->Xpos), static_cast<int>(item->Ypos));
+			p.rotate(item->Rot);
+			QRect apr = QRegion(p.xForm(QRect(0, 0, static_cast<int>(item->Width), static_cast<int>(QMAX(item->Height, 1))))).boundingRect();
+			p.end();
+			elem.setAttribute("XP", apr.x());
+			elem.setAttribute("YP", apr.y());
+			elem.setAttribute("W", apr.width());
+			elem.setAttribute("H", apr.height());
+			}
 		}
 	elem.setAttribute("COUNT", Selitems->count());	
 	for (uint co=0; co<Selitems->count(); ++co)

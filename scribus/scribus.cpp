@@ -286,7 +286,7 @@ ScribusApp::ScribusApp(SplashScreen *splash)
 		Mpal->Cpal->SetColors(Prefs.DColors);
 		Npal = new NodePalette(this);
 		Lpal = new LayerPalette(this);
-		ScBook = new Biblio(this, Prefs.AvailFonts, &Prefs);
+		ScBook = new Biblio(this, &Prefs);
 		Sepal = new SeitenPal(this);
 		BookPal = new BookPalette(this);
 		CMSavail = false;

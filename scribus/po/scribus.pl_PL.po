@@ -1,19 +1,19 @@
+# translation of scribus.pl_PL.po to Polish
 # This is a Qt message file in .po format.  Each msgid starts with
 # a scope.  This scope should *NOT* be translated - eg. "Foo::Bar"
 # would be translated to "Pub", not "Foo::Pub".
+# Maciej Hanski <m.hanski@gmx.at>, 2003
 msgid ""
 msgstr ""
-"Project-Id-Version: Scribus 0.9.4\n"
+"Project-Id-Version: Scribus 0.9.11\n"
 "POT-Creation-Date: 2002-11-24 15:38+0200\n"
-"PO-Revision-Date: 2003-02-28 12:03+0100\n"
-"Last-Translator: Maciej Hañski <m.hanski@gmx.at>\n"
+"PO-Revision-Date: 2003-06-13 11:46+0200\n"
+"Last-Translator: Maciej Hanski <m.hanski@gmx.at>\n"
 "Content-Type: text/plain; charset=ISO-8859-2\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Polish <pl@li.org>\n"
-"X-Generator: KBabel 0.9.6\n"
+"X-Generator: KBabel 1.0.1\n"
 
-#Many improvements contributed by Janusz Marcin Szafran <jm_sz@poczta.onet.pl>
-#Thanks! M.H.
 msgid "File"
 msgstr "Plik"
 
@@ -102,10 +102,10 @@ msgid "Show Guides"
 msgstr "Wy¶wietlaj linie pomocnicze"
 
 msgid "Show Measurements"
-msgstr "Wy¶wietlaj jednostki miar"
+msgstr "Wy¶wietlaj paletê miar"
 
 msgid "Hide Measurements"
-msgstr "Ukryj jednostki miar"
+msgstr "Ukryj paletê miar"
 
 msgid "Help"
 msgstr "Pomoc"
@@ -1409,9 +1409,9 @@ msgstr "Priorytet renderowania:"
 msgid "Perceptual"
 msgstr "Percepcja"
 
-#Nieznany kontekst
+#Edycja/Zarzadzanie kolorami
 msgid "Relative Colorimetric"
-msgstr "Wzglêdna kolorometryczna"
+msgstr "Wzglêdnie kolorometryczne"
 
 msgid "Saturation"
 msgstr "Nasycenie "
@@ -1775,8 +1775,9 @@ msgstr "W³a¶ciwo¶ci..."
 msgid "Lithuanian:"
 msgstr "Litewski:"
 
+#By³o "Jednostki miar"
 msgid "Measurements"
-msgstr "Jednostki miar"
+msgstr "Miary"
 
 msgid "Insert Polygons"
 msgstr "Wstaw wielok±ty"
@@ -2714,7 +2715,7 @@ msgid "N-Up Printing"
 msgstr "Zgrupowanie stron"
 
 msgid "Page per Sheet"
-msgstr "Strona na kartkê"
+msgstr "strona na kartkê"
 
 msgid "Pages per Sheet"
 msgstr "Stron na kartkê"
@@ -2796,4 +2797,238 @@ msgstr "Duñski"
 
 msgid "Danish:"
 msgstr "Duñski:"
+
+#Messages added between 0.9.7 and 0.9.9
+msgid "Lock Guides"
+msgstr "Zabezpiecz linie pomocnicze"
+
+msgid "Mirror Page(s) horizontal"
+msgstr "Odwróæ strony w poziomie"
+
+msgid "Mirror Page(s) vertical"
+msgstr "Odwróæ strony w pionie"
+
+msgid "Rotation"
+msgstr "Obrót"
+
+msgid "by:"
+msgstr "o:"
+
+msgid "Edit Shape..."
+msgstr "Edycja ramki..."
+
+msgid "Round\nCorners:"
+msgstr "Zaokr±glone-\nrogi:"
+
+msgid "Distance of Text"
+msgstr "Odstêp tekstu"
+
+msgid "Custom Spacing"
+msgstr "Odstêpy"
+
+msgid "Character:"
+msgstr "Znak:"
+
+msgid "Line:"
+msgstr "Linia:"
+
+msgid "Level"
+msgstr "Warstwa"
+
+msgid "Geometry"
+msgstr "Geometria"
+
+msgid "Document:"
+msgstr "Dokument:"
+
+msgid "has been changed since the last save."
+msgstr "zosta³ zmieniony od ostatniego zapisu."
+
+msgid "Insert Page..."
+msgstr "Wstaw stronê..."
+
+msgid "Import a Page"
+msgstr "Importuj stronê"
+
+msgid "Document to load:"
+msgstr "Z dokumentu:"
+
+msgid "Document contains: 0 Page(s)"
+msgstr "Dokument zawiera: 0 stron"
+
+msgid "Import Page Nr:"
+msgstr "Importuj stronê nr:"
+
+msgid "Import"
+msgstr "Importuj"
+
+msgid "Document contains: %1 Page(s)"
+msgstr "Dokument zawiera: %1 stron"
+
+msgid "Advanced Options..."
+msgstr "Zaawansowane opcje..."
+
+msgid "Advanced Options"
+msgstr "Zaawansowane opcje"
+
+msgid "Apply ICC-Profiles"
+msgstr "Zastosuj profile ICC"
+
+msgid "Mark Colors out of Gamut"
+msgstr "Zaznacz kolory spoza zakresu kolorów"
+
+msgid "Documents (*.sla *.sla.gz *.scd *scd.gz);; All Files (*)"
+msgstr "Dokumenty (*.sla *.sla.gz *.scd *scd.gz);; Wszystkie pliki (*)"
+
+msgid "Grid Layout"
+msgstr "Uk³ad linii pomocniczych"
+
+msgid "Grid Colors"
+msgstr "Kolor linii pomocniczych"
+
+msgid "Placing"
+msgstr "Pozycja"
+
+msgid "page(s)"
+msgstr "stron"
+
+msgid "at End"
+msgstr "na koñcu dokumentu"
+
+msgid "Template:"
+msgstr "Szablon:"
+
+msgid "Move one Level up"
+msgstr "Przesuñ o warstwê wy¿ej"
+
+msgid "Move one Level down"
+msgstr "Przesuñ o warstwê ni¿ej"
+
+msgid "Move to Front"
+msgstr "Przesuñ na wierzch"
+
+msgid "Move to Back"
+msgstr "Przesuñ na spód"
+
+#Opcja tekstu w palecie miar
+msgid "Reverse Writing"
+msgstr "Pisanie wstecz"
+
+msgid "Scale to Frame Size"
+msgstr "Skaluj do rozmiaru ramki"
+
+msgid "Icon Placement"
+msgstr "Rozmieszczenie ikon"
+
+msgid "Scale:"
+msgstr "Skaluj:"
+
+msgid "Icon"
+msgstr "Ikona"
+
+msgid "Images (*.tif *.png *.jpg *.xpm);;All Files (*)"
+msgstr "Obrazki (*.tif *.png *.jpg *.xpm);;Wszystkie pliki (*)"
+
+msgid "&Add to Custom Colors"
+msgstr "&Dodaj do kolorów u¿ytkownika"
+
+#Przycinanie strony przy eksporcie do PDF/X-3
+msgid "Trim Box"
+msgstr "Przycinanie"
+
+msgid "EPS-Files (*.eps);;All Files (*)"
+msgstr "Pliki EPS (*.eps);;Wszystkie pliki (*)"
+
+msgid "Directory:"
+msgstr "Katalog:"
+
+msgid "Profile:"
+msgstr "Profil:"
+
+#Teksty,ktore doszly w wersji 0.9.10
+msgid "Bulgarian:"
+msgstr "Bu³garski:"
+
+msgid "Galician:"
+msgstr "Galicyjski:"
+
+msgid "Turkish:"
+msgstr "Turecki:"
+
+msgid "Autosave"
+msgstr "Automatyczny zapis"
+
+msgid "Enabled"
+msgstr "W³±czony"
+
+msgid "Intervall:"
+msgstr "Interwa³:"
+
+msgid "Adjust Display Size"
+msgstr "Dopasuj wielko¶æ widoku"
+
+msgid "To adjust the Display drag the Ruler below with the Slider."
+msgstr "Aby dopasowaæ wielko¶æ widoku, u¿yj suwaka znajduj±cego siê poni¿ej."
+
+msgid "Textdistance:"
+msgstr "Odstêp tekstu:"
+
+msgid "Combine Polygons"
+msgstr "Po³±cz wielok±ty"
+
+msgid "Split Polygon"
+msgstr "Podziel wielok±t"
+
+msgid "Convert to Polygons"
+msgstr "Zamieñ na wielok±ty"
+
+#Teksty, które doszly w wersji 0.9.11
+msgid "Encoding:"
+msgstr "Kodowanie:"
+
+msgid "Save Page as SVG..."
+msgstr "Zapisz stronê jako SVG..."
+
+msgid "Line Styles"
+msgstr "Style wierszy"
+
+msgid "Edit Line Styles"
+msgstr "Edytuj style wierszy"
+
+msgid "use Bounding Box"
+msgstr "Zastosuj ramkê ograniczaj±c±"
+
+msgid "Print Preview"
+msgstr "Podgl±d wydruku"
+
+msgid "Antialias Text"
+msgstr "Antialiasing tekstu"
+
+msgid "Antialias Graphics"
+msgstr "Antialiasing grafiki"
+
+msgid "Websave RGB"
+msgstr "RGB dla internetu"
+
+msgid "Show PDF-Tools"
+msgstr "Wy¶wietal narzêdzia PDF"
+
+msgid "Hide PDF-Tools"
+msgstr "Ukryj narzêdzia PDF"
+
+msgid "Shears the Path horizotal to the right"
+msgstr "Przemieszczenie w poziomie w prawo"
+
+msgid "Shears the Path horizotal to the left"
+msgstr "Przemieszczenie w poziomie w lewo"
+
+msgid "Shears the Path vertical up"
+msgstr "Przemieszczenie w pionie do góry"
+
+msgid "Shears the Path vertical down"
+msgstr "Przemieszczeniu w pionie na dó³"
+
+msgid "Norwegian:"
+msgstr "Norweski:"
+
 
