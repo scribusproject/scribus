@@ -137,14 +137,36 @@ PageItem* GetUniqueItem(QString name)
 	if (name.length()==0)
 		if (Carrier->view->SelItem.count() != 0)
 			return Carrier->view->SelItem.at(0);
-	if (name.length()==0) // in the case of no selection and ""
-		return NULL;
+		else
+		{
+			PyErr_SetString(ScribusException, QString("Can't use empty string for object name when there is no selection"));
+			return NULL;
+		}
 	for (uint j = 0; j<Carrier->doc->Items.count(); j++)
 	{
 		if (name==Carrier->doc->Items.at(j)->AnName)
 			return Carrier->doc->Items.at(j);
 	} // for items
+	PyErr_SetString(ScribusException, QString("Object not found"));
 	return NULL;
+}
+
+
+/*!
+ * Checks to see if a pageItem named 'name' exists and return true
+ * if it does exist. Returns false if there is no such object, or
+ * if the empty string ("") is passed.
+ */
+bool ItemExists(QString name)
+{
+	if (name.length() == 0)
+		return false;
+	for (uint j = 0; j<Carrier->doc->Items.count(); j++)
+	{
+		if (name==Carrier->doc->Items.at(j)->AnName)
+			return true;
+	} // for items
+	return false;
 }
 
 /*!
@@ -158,6 +180,8 @@ bool checkHaveDocument()
 {
     if (Carrier->HaveDoc)
         return true;
-    PyErr_SetString(NoDocOpenError, "Command does not make sense without an open document");
+    // Caller is required to check for false return from this function
+    // and return NULL.
+    PyErr_SetString(NoDocOpenError, QString("Command does not make sense without an open document"));
     return false;
 }

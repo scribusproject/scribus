@@ -15,12 +15,17 @@ PyObject *scribus_newrect(PyObject *self, PyObject* args)
 	}
 	if(!checkHaveDocument())
 		return NULL;
+	if (ItemExists(QString(Name)))
+	{
+		PyErr_SetString(ScribusException, QString("An object with the requested name already exists"));
+		return NULL;
+	}
 	int i = Carrier->view->PaintRect(ValueToPoint(x), ValueToPoint(y),
 															ValueToPoint(b), ValueToPoint(h),
 															Carrier->doc->Dwidth, Carrier->doc->Dbrush, Carrier->doc->Dpen);
 	Carrier->view->SetRectFrame(Carrier->doc->Items.at(i));
-	if (GetUniqueItem(QString(Name)) == NULL)
-		(Name != "") ? Carrier->doc->Items.at(i)->AnName = QString(Name) : NULL;
+	if (Name != "")
+		Carrier->doc->Items.at(i)->AnName = QString(Name);
 	return PyString_FromString(Carrier->doc->Items.at(i)->AnName);
 }
 
@@ -37,10 +42,14 @@ PyObject *scribus_newellipse(PyObject *self, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	int i = Carrier->view->PaintEllipse(ValueToPoint(x), ValueToPoint(y), ValueToPoint(b), ValueToPoint(h), Carrier->doc->Dwidth, Carrier->doc->Dbrush, Carrier->doc->Dpen);
+	if (ItemExists(QString(Name)))
+	{
+		PyErr_SetString(ScribusException, QString("An object with the requested name already exists"));
+		return NULL;
+	}
 	Carrier->view->SetOvalFrame(Carrier->doc->Items.at(i));
-	if (GetUniqueItem(QString(Name)) == NULL)
-		if (Name != "")
-			Carrier->doc->Items.at(i)->AnName = QString(Name);
+	if (Name != "")
+		Carrier->doc->Items.at(i)->AnName = QString(Name);
 	return PyString_FromString(Carrier->doc->Items.at(i)->AnName);
 }
 
@@ -57,10 +66,14 @@ PyObject *scribus_newimage(PyObject *self, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	int i = Carrier->view->PaintPict(ValueToPoint(x), ValueToPoint(y), ValueToPoint(b), ValueToPoint(h));
+	if (ItemExists(QString(Name)))
+	{
+		PyErr_SetString(ScribusException, QString("An object with the requested name already exists"));
+		return NULL;
+	}
 	Carrier->view->SetRectFrame(Carrier->doc->Items.at(i));
-	if (GetUniqueItem(QString(Name)) == NULL)
-		if (Name != "")
-			Carrier->doc->Items.at(i)->AnName = QString(Name);
+	if (Name != "")
+		Carrier->doc->Items.at(i)->AnName = QString(Name);
 	return PyString_FromString(Carrier->doc->Items.at(i)->AnName);
 }
 
@@ -77,12 +90,14 @@ PyObject *scribus_newtext(PyObject *self, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	int i = Carrier->view->PaintText(ValueToPoint(x), ValueToPoint(y), ValueToPoint(b), ValueToPoint(h), Carrier->doc->Dwidth, Carrier->doc->DpenText);
-	Carrier->view->SetRectFrame(Carrier->doc->Items.at(i));
-	if (GetUniqueItem(QString(Name)) == NULL)
+	if (ItemExists(QString(Name)))
 	{
-		if (Name != "")
-			Carrier->doc->Items.at(i)->AnName = QString(Name);
+		PyErr_SetString(ScribusException, QString("An object with the requested name already exists"));
+		return NULL;
 	}
+	Carrier->view->SetRectFrame(Carrier->doc->Items.at(i));
+	if (Name != "")
+		Carrier->doc->Items.at(i)->AnName = QString(Name);
 	return PyString_FromString(Carrier->doc->Items.at(i)->AnName);
 }
 
@@ -101,6 +116,11 @@ PyObject *scribus_newline(PyObject *self, PyObject* args)
 	x =	ValueToPoint(x);
 	y = ValueToPoint(y);
 	b = ValueToPoint(b);
+	if (ItemExists(QString(Name)))
+	{
+		PyErr_SetString(ScribusException, QString("An object with the requested name already exists"));
+		return NULL;
+	}
 	h = ValueToPoint(h);
 	int i = Carrier->view->PaintPolyLine(x, y, 1, 1,	Carrier->doc->Dwidth, Carrier->doc->Dbrush, Carrier->doc->Dpen);
 	PageItem *it = Carrier->doc->Items.at(i);
@@ -122,9 +142,8 @@ PyObject *scribus_newline(PyObject *self, PyObject* args)
 	}
 	Carrier->view->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), i, false, false);
 	Carrier->view->AdjustItemSize(it);
-	if (GetUniqueItem(QString(Name)) == NULL)
-		if (Name != "")
-			it->AnName = QString(Name);
+	if (Name != "")
+		it->AnName = QString(Name);
 	return PyString_FromString(it->AnName);
 }
 
@@ -141,8 +160,21 @@ PyObject *scribus_polyline(PyObject *self, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	int len = PyList_Size(il);
-	if ((len < 4) || ((len % 2) != 0))
-		return PyString_FromString("");
+	if (len < 4)
+	{
+		PyErr_SetString(PyExc_ValueError, QString("Point list must contain at least two points (four values)"));
+		return NULL;
+	}
+	if ((len % 2) != 0)
+	{
+		PyErr_SetString(PyExc_ValueError, QString("Point list must contain an even number of values"));
+		return NULL;
+	}
+	if (ItemExists(QString(Name)))
+	{
+		PyErr_SetString(ScribusException, QString("An object with the requested name already exists"));
+		return NULL;
+	}
 	double x, y, b, h;
 	int i = 0;
 	x = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
@@ -185,9 +217,10 @@ PyObject *scribus_polyline(PyObject *self, PyObject* args)
 	}
 	Carrier->view->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false);
 	Carrier->view->AdjustItemSize(it);
-	if (GetUniqueItem(QString(Name)) == NULL)
-		if (Name != "")
-			it->AnName = QString(Name);
+	if (Name != "")
+	{
+		it->AnName = QString(Name);
+	}
 	return PyString_FromString(it->AnName);
 }
 
@@ -204,8 +237,21 @@ PyObject *scribus_polygon(PyObject *self, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	int len = PyList_Size(il);
-	if ((len < 6) || ((len % 2) != 0))
-		return PyString_FromString("");
+	if (len < 6)
+	{
+		PyErr_SetString(PyExc_ValueError, QString("Point list must contain at least three points (six values)"));
+		return NULL;
+	}
+	if ((len % 2) != 0)
+	{
+		PyErr_SetString(PyExc_ValueError, QString("Point list must contain an even number of values"));
+		return NULL;
+	}
+	if (ItemExists(QString(Name)))
+	{
+		PyErr_SetString(ScribusException, QString("An object with the requested name already exists"));
+		return NULL;
+	}
 	double x, y, b, h;
 	int i = 0;
 	x = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
@@ -253,9 +299,8 @@ PyObject *scribus_polygon(PyObject *self, PyObject* args)
 	}
 	Carrier->view->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false);
 	Carrier->view->AdjustItemSize(it);
-	if (GetUniqueItem(QString(Name)) == NULL)
-		if (Name != "")
-			it->AnName = QString(Name);
+	if (Name != "")
+		it->AnName = QString(Name);
 	return PyString_FromString(it->AnName);
 }
 
@@ -271,8 +316,21 @@ PyObject *scribus_bezierline(PyObject *self, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	int len = PyList_Size(il);
-	if ((len < 8) || ((len % 6) != 0))
-		return PyString_FromString("");
+	if (len < 8)
+	{
+		PyErr_SetString(PyExc_ValueError, QString("Point list must contain at least four points (eight values)"));
+		return NULL;
+	}
+	if ((len % 6) != 0)
+	{
+		PyErr_SetString(PyExc_ValueError, QString("Point list must have a multiple of six values"));
+		return NULL;
+	}
+	if (ItemExists(QString(Name)))
+	{
+		PyErr_SetString(ScribusException, QString("An object with the requested name already exists"));
+		return NULL;
+	}
 	double x, y, b, h, kx, ky, kx2, ky2;
 	int i = 0;
 	x = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
@@ -329,9 +387,8 @@ PyObject *scribus_bezierline(PyObject *self, PyObject* args)
 	}
 	Carrier->view->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false);
 	Carrier->view->AdjustItemSize(it);
-	if (GetUniqueItem(QString(Name)) == NULL)
-		if (Name != "")
-			it->AnName = QString(Name);
+	if (Name != "")
+		it->AnName = QString(Name);
 	return PyString_FromString(it->AnName);
 }
 
@@ -351,12 +408,18 @@ PyObject *scribus_pathtext(PyObject *self, PyObject* args)
 	}
 	if(!checkHaveDocument())
 		return NULL;
+	if (ItemExists(QString(Name)))
+	{
+		PyErr_SetString(ScribusException, QString("An object with the requested name already exists"));
+		return NULL;
+	}
+	//FIXME: Why use GetItem not GetUniqueItem? Maybe use GetUniqueItem and use the exceptions
+	// its sets for us?
 	int i = GetItem(QString(TextB));
 	int ii = GetItem(QString(PolyB));
 	if ((i == -1) || (ii == -1))
 	{
-		PyErr_SetString(PyExc_Exception,
-			QObject::tr("Oook! You're calling an object doesn't exist!"));
+		PyErr_SetString(ScribusException, QString("You're calling an object doesn't exist!"));
 		return NULL;
 	}
 	Carrier->view->SelItem.clear();
@@ -365,9 +428,8 @@ PyObject *scribus_pathtext(PyObject *self, PyObject* args)
 	PageItem *it = Carrier->doc->Items.at(i);
 	Carrier->view->ToPathText();
 	Carrier->view->MoveItem(ValueToPoint(x) - it->Xpos, ValueToPoint(y) - it->Ypos, it);
-	if (GetUniqueItem(QString(Name)) == NULL)
-		if (Name != "")
-			it->AnName = QString(Name);
+	if (Name != "")
+		it->AnName = QString(Name);
 	return PyString_FromString(it->AnName);
 }
 
@@ -385,17 +447,11 @@ PyObject *scribus_deleteobj(PyObject *self, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *i = GetUniqueItem(QString(Name));
-	if (Name != NULL)
-	{
-		Carrier->view->SelItem.clear();
-		Carrier->view->SelItem.append(i);
-		Carrier->view->DeleteItem();
-	}
-	else
-	{
-		PyErr_SetString(PyExc_Exception, QObject::tr("Oook! You're trying to erase an object doesn't exist!"));
+	if (i == NULL)
 		return NULL;
-	}
+	Carrier->view->SelItem.clear();
+	Carrier->view->SelItem.append(i);
+	Carrier->view->DeleteItem();
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -417,11 +473,7 @@ PyObject *scribus_textflow(PyObject *self, PyObject* args)
 		return NULL;
 	PageItem *i = GetUniqueItem(QString(name));
 	if (i == NULL)
-	{
-		PyErr_SetString(PyExc_Exception, QObject::tr("Oook! An object you're trying to textflow doesn't exist!"));
-		Py_DECREF(Py_None);
 		return NULL;
-	}
 	if (state == -1)
 		i->Textflow = !i->Textflow;
 	else
@@ -443,9 +495,9 @@ PyObject *scribus_objectexists(PyObject *self, PyObject* args)
 	}
 	if(!checkHaveDocument())
 		return NULL;
-	if (GetUniqueItem(QString(name))==NULL)
-		return PyInt_FromLong(static_cast<long>(false));
-	return PyInt_FromLong(static_cast<long>(true));
+	if (ItemExists(QString(name)))
+		return PyBool_FromLong(static_cast<long>(true));
+	return PyBool_FromLong(static_cast<long>(false));
 }
 
 /*
@@ -465,7 +517,9 @@ PyObject *scribus_setstyle(PyObject *self, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *item = GetUniqueItem(QString(name));
-	if ((item != NULL) && (item->PType == 4))
+	if (item == NULL)
+		return NULL;
+	if (item->PType == 4)
 	{
 		/*
 		 * First, find the style number associated with the requested style
@@ -486,7 +540,7 @@ PyObject *scribus_setstyle(PyObject *self, PyObject* args)
 		}
 		if (!found) {
 			// whoops, the user specified an invalid style, complain loudly.
-			PyErr_SetString(PyExc_Exception, ERRPARAM + QString("Style not found"));
+			PyErr_SetString(PyExc_Exception, QString("Style not found"));
 			return NULL;
 		}
 		// quick hack to always apply on the right frame - pv
@@ -494,6 +548,11 @@ PyObject *scribus_setstyle(PyObject *self, PyObject* args)
 		Carrier->view->SelectItemNr(item->ItemNr);
 		// Now apply the style.
 		Carrier->setNewAbStyle(styleid);
+	}
+	else
+	{
+		PyErr_SetString(ScribusException, QString("Can't set style on a non-text frame"));
+		return NULL;
 	}
 	Py_INCREF(Py_None);
 	return Py_None;

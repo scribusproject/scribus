@@ -33,19 +33,6 @@ PyObject *scribus_filedia(PyObject *self, PyObject* args)
 	return PyString_FromString(fName.utf8());
 }
 
-/* duplication
-PyObject *scribus_mess(PyObject *self, PyObject* args)
-{
-	char *caption;
-	if (!PyArg_ParseTuple(args, "s", &caption))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("statusMessage(text)"));
-		return NULL;
-	}
-	Carrier->FMess->setText(caption);
-	return Py_None;
-}*/
-
 PyObject *scribus_messdia(PyObject *self, PyObject* args)
 {
 	char *caption = "";

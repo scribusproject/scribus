@@ -30,6 +30,7 @@ PyObject *scribus_savepageeps(PyObject *self, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	bool ret = Carrier->DoSaveAsEps(QString(Name));
+	//FIXME: Should we really be returning a bool here? -- cr
 	return PyInt_FromLong(static_cast<long>(ret));
 }
 
@@ -46,7 +47,7 @@ PyObject *scribus_deletepage(PyObject *self, PyObject* args)
 	e--;
 	if ((e < 0) || (e > static_cast<int>(Carrier->doc->Pages.count())-1))
 	{
-		PyErr_SetString(PyExc_IndexError, "Page number out of range");
+		PyErr_SetString(PyExc_IndexError, QString("Page number out of range"));
 		return NULL;
 	}
 	Carrier->DeletePage2(e);
@@ -67,7 +68,7 @@ PyObject *scribus_gotopage(PyObject *self, PyObject* args)
 	e--;
 	if ((e < 0) || (e > static_cast<int>(Carrier->doc->Pages.count())-1))
 	{
-		PyErr_SetString(PyExc_IndexError, "Page number out of range");
+		PyErr_SetString(PyExc_IndexError, QString("Page number out of range"));
 		return NULL;
 	}
 	Carrier->view->GotoPage(e);
@@ -93,7 +94,7 @@ PyObject *scribus_newpage(PyObject *self, PyObject* args)
 		e--;
 		if ((e < 0) || (e > static_cast<int>(Carrier->doc->Pages.count())-1))
 		{
-			PyErr_SetString(PyExc_IndexError, "Page number out of range");
+			PyErr_SetString(PyExc_IndexError, QString("Page number out of range"));
 			return NULL;
 		}
 		Carrier->slotNewPageP(e, QString(name));
@@ -148,10 +149,7 @@ PyObject *scribus_getHguides(PyObject *self)
 		return NULL;
 	int n = Carrier->doc->ActPage->YGuides.count();
 	if (n == 0)
-	{
-		Py_INCREF(Py_None);
-		return Py_None;
-	}
+		return Py_BuildValue((char*)"[]");
 	int i;
 	double tmp;
 	PyObject *l, *guide;
@@ -188,7 +186,7 @@ PyObject *scribus_setHguides(PyObject *self, PyObject* args)
 	{
 		if (!PyArg_Parse(PyList_GetItem(l, i), "d", &guide))
 		{
-			PyErr_SetString(PyExc_TypeError, QString("argument contains no-numeric values: must be list of float values"));
+			PyErr_SetString(PyExc_TypeError, QString("argument contains non-numeric values: must be list of float values"));
 			return NULL;
 		}
 		Carrier->doc->ActPage->YGuides += ValueToPoint(guide);
@@ -203,10 +201,7 @@ PyObject *scribus_getVguides(PyObject *self)
 		return NULL;
 	int n = Carrier->doc->ActPage->XGuides.count();
 	if (n == 0)
-	{
-		Py_INCREF(Py_None);
-		return Py_None;
-	}
+		return Py_BuildValue((char*)"[]");
 	int i;
 	double tmp;
 	PyObject *l, *guide;
@@ -259,11 +254,5 @@ PyObject *scribus_getpagemargins(PyObject *self)
 		return NULL;
 	margins = Py_BuildValue("ffff", Carrier->doc->PageM.Top, Carrier->doc->PageM.Left,
 							 Carrier->doc->PageM.Right, Carrier->doc->PageM.Bottom);
-	if (margins == NULL)
-	{
-		PyErr_SetString(PyExc_Exception, "Building margin tuple failed!");
-		return NULL;
-	}
-	Py_INCREF(margins);
 	return margins;
 }

@@ -135,7 +135,10 @@ PyObject *scribus_setunit(PyObject *self, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	if ((e < 0) || (e > 3))
-		return Py_None; // TODO: exception! Invalidvalue?
+	{
+		PyErr_SetString(PyExc_ValueError, QString("Unit out of range. Use one of the scribus.UNIT_* constants."));
+		return NULL;
+	}
 	Carrier->slotChangeUnit(e);
 	Py_INCREF(Py_None);
 	return Py_None;
