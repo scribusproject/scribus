@@ -4,6 +4,7 @@
 #include <qvariant.h>
 #include <qdialog.h>
 #include <qradiobutton.h>
+#include <prefscontext.h>
 
 class QVBoxLayout;
 class QHBoxLayout;
@@ -59,6 +60,7 @@ protected:
     QVBoxLayout* ButtonGroup1Layout;
     QHBoxLayout* layout2;
     QHBoxLayout* layout4;
+    PrefsContext* prefs;
 
 protected slots:
     virtual void languageChange();

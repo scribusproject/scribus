@@ -60,6 +60,7 @@
 #include "seiten.h"
 #include "bookpalette.h"
 #include "splash.h"
+#include "prefscontext.h"
 class Autoforms;
 class FontCombo;
 class StilFormate;
@@ -132,8 +133,9 @@ public:
 	void closePSDriver();
 	bool getPDFDriver(QString fn, QString nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs);
 	bool DoSaveAsEps(QString fn);
-	QString CFileDialog(QString caption = "", QString filter = "", QString defNa = "", bool Pre = false, 
-						bool mod = true, bool comp = false, bool cod = false, bool onlyDirs = false, bool *docom = 0, bool *doFont = 0);
+	QString CFileDialog(QString wDir = ".", QString caption = "", QString filter = "", QString defNa = "",
+	                    bool Pre = false, bool mod = true, bool comp = false, bool cod = false,
+	                    bool onlyDirs = false, bool *docom = 0, bool *doFont = 0);
 	void GetCMSProfiles();
 	void GetCMSProfilesDir(QString pfad);
 	void RecalcColors(QProgressBar *dia = 0);
@@ -158,6 +160,7 @@ public:
 	double DispY;
 	bool NoFonts;
 	int HaveDoc;
+	PrefsContext* dirs;
 	struct preV Prefs;
 	/** view is the main widget which represents your working area. The View
 	 * class should handle all events of the view widget.  It is kept empty so

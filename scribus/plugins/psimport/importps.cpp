@@ -9,6 +9,7 @@
 
 #include "customfdialog.h"
 #include "mpalette.h"
+#include "prefsfile.h"
 #include "scribusXml.h"
 #include <qfile.h>
 #include <qtextstream.h>
@@ -19,6 +20,7 @@
 extern QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
 extern QPixmap loadIcon(QString nam);
 extern FPoint GetMaxClipF(FPointArray Clip);
+extern PrefsFile* prefsFile;
 
 /*!
  \fn QString Name()
@@ -58,11 +60,16 @@ int Type()
 void Run(QWidget *d, ScribusApp *plug)
 {
 	QString fileName;
+	PrefsContext* prefs = prefsFile->getPluginContext("importps");
+	QString wdir = prefs->get("wdir", ".");
 	QString formats = QObject::tr("All Supported Formats (*.eps *.EPS *.ps *.PS);;");
 	formats += "EPS (*.eps *.EPS);;PS (*.ps *.PS);;" + QObject::tr("All Files (*)");
-	CustomFDialog diaf(d, QObject::tr("Open"), formats);
+	CustomFDialog diaf(d, wdir, QObject::tr("Open"), formats);
 	if (diaf.exec())
+	{
 		fileName = diaf.selectedFile();
+		prefs->set("wdir", fileName.left(fileName.findRev("/")));
+	}
 	else
 		return;
 	EPSPlug *dia = new EPSPlug(d, plug, fileName);

@@ -29,6 +29,7 @@
 #include "pageitem.h"
 #include "navigator.h"
 #include "scribusview.h"
+#include <prefscontext.h>
 
 class Annot : public QDialog
 { 
@@ -307,6 +308,7 @@ protected:
     QGridLayout* Layout14;
     QGridLayout* Layout15;
     QGridLayout* Layout16;
+	PrefsContext* dirs;
 };
 
 #endif // ANNOT_H

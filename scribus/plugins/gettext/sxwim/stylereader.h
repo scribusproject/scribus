@@ -25,7 +25,11 @@
 
 #ifdef HAVE_XML
 
-#include <libxml/HTMLparser.h>
+#ifdef HAVE_XML26
+ #include <libxml/SAX2.h>
+#else
+ #include <libxml/SAX.h>
+#endif
 #include <qmap.h>
 #include <qxml.h>
 #include <gtstyle.h>
@@ -41,6 +45,7 @@ private:
 	static StyleReader *sreader;
 	gtWriter *writer;
 	bool importTextOnly;
+	bool usePrefix;
 	bool readProperties;
 	QString docname;
 	StyleMap styles;
@@ -59,7 +64,7 @@ private:
 	void StyleReader::tabStop(const QXmlAttributes& attrs);
 	void setupFrameStyle();
 public:
-	StyleReader(QString documentName, gtWriter *wr, bool textOnly);
+	StyleReader(QString documentName, gtWriter *wr, bool textOnly, bool prefix);
 	~StyleReader();
 	bool updateStyle(gtStyle* style, gtStyle* parent2Style, const QString& key, const QString& value);
 	static void startElement(void *user_data, const xmlChar * fullname, const xmlChar ** atts);

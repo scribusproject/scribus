@@ -150,9 +150,10 @@ void MenuTest::slotTest()
 {
 	QString fileName;
 	QString CurDirP = QDir::currentDirPath();
-	if (Carrier->Prefs.ScriptDir != "")
-		QDir::setCurrent(Carrier->Prefs.ScriptDir);
-	CustomFDialog diaf((QWidget*)parent(), QObject::tr("Open"), QObject::tr("Python Scripts (*.py);; All Files (*)"));
+	QString scriptDir = Carrier->Prefs.ScriptDir;
+	if (scriptDir == "")
+		scriptDir = CurDirP;
+	CustomFDialog diaf((QWidget*)parent(), scriptDir, QObject::tr("Open"), QObject::tr("Python Scripts (*.py);; All Files (*)"));
 	if (diaf.exec())
 	{
 		fileName = diaf.selectedFile();

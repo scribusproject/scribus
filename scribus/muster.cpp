@@ -85,7 +85,7 @@ void MusterSeiten::DelTemp()
 		return;
 	int exit=QMessageBox::warning(this,
 	                              tr("Warning"),
-	                              tr("Do you really want do delete this Template?"),
+	                              tr("Do you really want to delete this Template?"),
 	                              tr("&No"),
 	                              tr("&Yes"),
 	                              0, QMessageBox::No, QMessageBox::Yes);

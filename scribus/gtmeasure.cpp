@@ -30,7 +30,7 @@ void gtMeasure::init(Unit u)
 		ratio = 1.0;
 		break;
 	case MM:
-		ratio = 0.3527777;
+		ratio = 25.4/72;
 		break;
 	case IN:
 		ratio = 1.0 / 72.0;
@@ -61,7 +61,7 @@ double gtMeasure::convert2(int value)
 	return value * ratio;
 }
 
-double gtMeasure::parse(QString value)
+double gtMeasure::parse(const QString& value)
 {
 	QString lowerValue = value.lower();
 	QString dbl = "0.0";
@@ -119,7 +119,7 @@ double gtMeasure::i2d(int value, Unit from, Unit to)
 	return convert2(tmp);
 }
 
-double gtMeasure::qs2d(QString value, Unit to)
+double gtMeasure::qs2d(const QString& value, Unit to)
 {
 	double tmp = convert(parse(value));
 	init(to);

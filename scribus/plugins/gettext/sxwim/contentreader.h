@@ -27,7 +27,11 @@
 
 #include <utility>
 #include <vector>
-#include <libxml/SAX2.h>
+#ifdef HAVE_XML26
+ #include <libxml/SAX2.h>
+#else
+ #include <libxml/SAX.h>
+#endif
 #include <qxml.h>
 #include <qmap.h>
 #include <gtstyle.h>

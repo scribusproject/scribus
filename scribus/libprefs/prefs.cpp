@@ -1217,7 +1217,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	T6_Layout8_2->addWidget( T6_Slider2 );
 	T6_Layout9_2->addLayout( T6_Layout8_2 );
 	T6_Layout10->addLayout( T6_Layout9_2 );
-	T6_Konvex = new QCheckBox( tr( "Conve&x Polygon" ), ToolFrame6, "Konvex" );
+	T6_Konvex = new QCheckBox( tr( "Apply &Factor" ), ToolFrame6, "Konvex" );
 	T6_Konvex->setChecked(Vor->PolyS);
 	T6_Layout10->addWidget( T6_Konvex );
 	T6_Layout9 = new QHBoxLayout( 0, 0, 5, "Layout9");
@@ -1594,10 +1594,10 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	QToolTip::add( T6_Ecken, tr( "Number of corners for polygons" ) );
 	QToolTip::add( T6_Faktor2, tr( "Degrees of rotation for polygons" ) );
 	QToolTip::add( T6_Slider2, tr( "Degrees of rotation for polygons" ) );
-	QToolTip::add( T6_Konvex, tr( "Polygons will be convex rather than concave" ) );
+	QToolTip::add( T6_Konvex, tr( "Apply Convex/Concave Factor to change shape of Polygons" ) );
 	QToolTip::add( T6_Preview, tr( "Sample Polygon" ) );
-	QToolTip::add( T6_Faktor, tr( "Change the angles at which lines of the polygon join" ) );
-	QToolTip::add( T6_Slider1, tr( "Change the angles at which lines of the polygon join" ) );
+	QToolTip::add( T6_Faktor, tr( "A negative value will make the polygon concave (or star shaped),\n a positive value will make it convex" ) );
+	QToolTip::add( T6_Slider1, tr( "A negative value will make the polygon concave (or star shaped),\n a positive value will make it convex" ) );
 
 	QToolTip::add( PreviewSize, tr( "Choose the size of the preview in the scrapbook palette" ) );
 	QToolTip::add( SaveAtQuit, tr( "Save the scrapbook contents everytime after a change" ) );
@@ -1615,6 +1615,12 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	QToolTip::add( GimpName, tr( "Filesystem location for graphics editor" ) );
 
 	QToolTip::add( ClipMarg, tr( "Do not show objects outside the margins on the printed page or exported file" ) );
+	QToolTip::add( DoGCR, tr( "A way of switching off some of the gray shades which are composed\n"
+							"of cyan, yellow and magenta and using black instead.\n"
+							"UCR most affects parts of images which are neutral and/or dark tones\n"
+							"which are close to the gray. Use of this may improve printing some images\n"
+							"and some experimentation and testing is need on a case by case basis.\n"
+							"UCR reduces the possibility of over saturation with CMY inks." ) );
 
 	// signals and slots connections
 	connect( minColor, SIGNAL( clicked() ), this, SLOT( changeMicolor() ) );

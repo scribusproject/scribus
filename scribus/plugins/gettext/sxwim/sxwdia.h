@@ -19,12 +19,14 @@ class SxwDialog : public QDialog
 	Q_OBJECT
 
 public:
-	SxwDialog(bool update);
+	SxwDialog(bool update, bool prefix);
 	~SxwDialog();
 	bool shouldUpdate();
+	bool usePrefix();
 	bool askAgain();
 private:
 	QCheckBox* updateCheck;
+	QCheckBox* prefixCheck;
 	QCheckBox* doNotAskCheck;
 	QPushButton* okButton;
 };

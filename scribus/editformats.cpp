@@ -3,8 +3,10 @@
 #include "edit1format.h"
 #include <qmessagebox.h>
 #include "customfdialog.h"
+#include "prefsfile.h"
 
 extern QPixmap loadIcon(QString nam);
+extern PrefsFile* prefsFile;
 
 StilFormate::StilFormate( QWidget* parent, ScribusDoc *doc, preV *avail)
 		: QDialog( parent, "Formate", true, 0)
@@ -182,7 +184,7 @@ void StilFormate::deleteFormat()
 {
 	int exit=QMessageBox::warning(this,
 	                              tr("Warning"),
-	                              tr("Do you really want do delete this Style?"),
+	                              tr("Do you really want to delete this Style?"),
 	                              tr("No"),
 	                              tr("Yes"),
 	                              0, 0, 0);
@@ -198,14 +200,18 @@ void StilFormate::deleteFormat()
 
 void StilFormate::loadStyles()
 {
+	PrefsContext* dirs = prefsFile->getContext("dirs");
+	QString wdir = dirs->get("editformats", ".");
 #ifdef HAVE_LIBZ
-	CustomFDialog dia(this, tr("Open"), tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"));
+	CustomFDialog dia(this, wdir, tr("Open"), tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"));
 #else
-	CustomFDialog dia(this, tr("Open"), tr("Documents (*.sla *.scd);;All Files (*)"));
+	CustomFDialog dia(this, wdir, tr("Open"), tr("Documents (*.sla *.scd);;All Files (*)"));
 #endif
 	if (dia.exec() == QDialog::Accepted)
 	{
-		Docu->loadStylesFromFile(dia.selectedFile(), &TempVorl);
+		QString selectedFile = dia.selectedFile();
+		dirs->set("editformats", selectedFile.left(selectedFile.findRev("/")));
+		Docu->loadStylesFromFile(selectedFile, &TempVorl);
 		UpdateFList();
 	}
 	else

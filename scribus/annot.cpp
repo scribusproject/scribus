@@ -17,9 +17,11 @@
 #include <qdatetime.h>
 #include <qimage.h>
 #include <qpixmap.h>
+#include "prefsfile.h"
 
 extern QImage LoadPict(QString fn, bool *gray = 0);
 extern QPixmap loadIcon(QString nam);
+extern PrefsFile* prefsFile;
 
 Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farben, ScribusView* vie)
 		: QDialog( parent, "AN", true, 0 )
@@ -34,6 +36,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
 	view = vie;
 	MaxSeite = Seite;
 	QStringList tl;
+	dirs = prefsFile->getContext("dirs");
 	if ((item->AnActType == 2) || (item->AnActType == 7))
 	{
 		QString tm = item->AnAction;
@@ -1197,7 +1200,8 @@ void Annot::IconsEin()
 void Annot::GetNIcon()
 {
 	QString fileName;
-	CustomFDialog dia(this, tr("Open"),
+	QString wdir = dirs->get("icon", ".");
+	CustomFDialog dia(this, wdir, tr("Open"),
 	                  tr("Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)"), "", true);
 	if (dia.exec() == QDialog::Accepted)
 		fileName = dia.selectedFile();
@@ -1205,6 +1209,7 @@ void Annot::GetNIcon()
 		return;
 	if (!fileName.isEmpty())
 	{
+		dirs->set("icon", fileName.left(fileName.findRev("/")));
 		QPixmap pmI1;
 		QImage im;
 		im = LoadPict(fileName);
@@ -1229,7 +1234,8 @@ void Annot::GetNIcon()
 void Annot::GetPIcon()
 {
 	QString fileName;
-	CustomFDialog dia(this, tr("Open"),
+	QString wdir = dirs->get("icon", ".");
+	CustomFDialog dia(this, wdir, tr("Open"),
 	                  tr("Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)"), "", true);
 	if (dia.exec() == QDialog::Accepted)
 		fileName = dia.selectedFile();
@@ -1237,6 +1243,7 @@ void Annot::GetPIcon()
 		return;
 	if (!fileName.isEmpty())
 	{
+		dirs->set("icon", fileName.left(fileName.findRev("/")));
 		QPixmap pmI1;
 		QImage im;
 		im = LoadPict(fileName);
@@ -1250,7 +1257,8 @@ void Annot::GetPIcon()
 void Annot::GetRIcon()
 {
 	QString fileName;
-	CustomFDialog dia(this, tr("Open"),
+	QString wdir = dirs->get("icon", ".");
+	CustomFDialog dia(this, wdir, tr("Open"),
 	                  tr("Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)"), "", true);
 	if (dia.exec() == QDialog::Accepted)
 		fileName = dia.selectedFile();
@@ -1258,6 +1266,7 @@ void Annot::GetRIcon()
 		return;
 	if (!fileName.isEmpty())
 	{
+		dirs->set("icon", fileName.left(fileName.findRev("/")));
 		QPixmap pmI1;
 		QImage im;
 		im = LoadPict(fileName);
@@ -2143,7 +2152,8 @@ void Annot::SetActScript(int it)
 void Annot::GetFile()
 {
 	QString fn;
-	CustomFDialog dia(this, tr("Open"), tr("PDF Files (*.pdf);;All Files (*)"));
+	QString wdir = dirs->get("annot_getfile", ".");
+	CustomFDialog dia(this, wdir, tr("Open"), tr("PDF Files (*.pdf);;All Files (*)"));
 	if (Destfile->text() != "")
 		dia.setSelection(Destfile->text());
 	if (dia.exec() == QDialog::Accepted)
@@ -2151,6 +2161,7 @@ void Annot::GetFile()
 		fn = dia.selectedFile();
 		if (!fn.isEmpty())
 		{
+			dirs->set("annot_getfile", fn.left(fn.findRev("/")));
 			Destfile->setText(fn);
 			SpinBox11->setValue(1);
 			SpinBox11->setMaxValue(1000);

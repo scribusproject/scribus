@@ -28,6 +28,7 @@
 #include <qframe.h>
 #include <qtoolbutton.h>
 #include <qcombobox.h>
+#include <qstring.h>
 /**
   *@author Franz Schmid
   */
@@ -40,7 +41,6 @@ class ImIconProvider : public QFileIconProvider
     QPixmap pspm;
     QPixmap pdfpm;
     QPixmap txtpm;
-
 public:
     ImIconProvider(QWidget *pa);
     ~ImIconProvider() {};
@@ -63,8 +63,9 @@ class CustomFDialog : public QFileDialog
 {
     Q_OBJECT
 public: 
-	CustomFDialog(QWidget *pa, QString cap = "", QString filter = "", bool Pre = false, bool mod = true, 
-					bool comp = false, bool cod = false, bool dirOnly = false);
+	CustomFDialog(QWidget *pa, QString wDir, QString cap = "", QString filter = "", 
+	              bool Pre = false, bool mod = true, bool comp = false, bool cod = false,
+	              bool dirOnly = false);
 	~CustomFDialog();
 	QDir cDir;
 	QCheckBox* SaveZip;

@@ -20,6 +20,7 @@
 #include <qlineedit.h>
 #include <qtextedit.h>
 #include <qwidget.h>
+#include <prefscontext.h>
 
 typedef std::pair<QString*,QString*> Pair;
 
@@ -28,6 +29,7 @@ class satdialog : public QDialog
 	Q_OBJECT
 
 private:
+	PrefsContext* prefs;
 	QLabel* nameLabel;
 	QLabel* psizeLabel;
 	QLabel* colorsLabel;

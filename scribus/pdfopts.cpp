@@ -1,6 +1,7 @@
 #include "pdfopts.h"
 #include "pdfopts.moc"
 #include "customfdialog.h"
+#include "prefsfile.h"
 
 #if (_MSC_VER >= 1200)
  #include "win-config.h"
@@ -16,6 +17,7 @@ extern ProfilesL InputProfiles;
 extern bool CMSuse;
 #endif
 extern bool CMSavail;
+extern PrefsFile* prefsFile;
 
 PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFonts, ScribusView *vie, PDFOpt *Optionen, QValueList<PreSet> Eff, ProfilesL *PDFXProfiles, SCFonts &AllFonts)
 		: QDialog( parent, "pdf", true, 0 )
@@ -42,8 +44,12 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 		Datei->setText(Optionen->Datei);
 	else
 	{
+		PrefsContext* dirs = prefsFile->getContext("dirs");
 		QFileInfo fi = QFileInfo(Fname);
-		Datei->setText(fi.dirPath()+"/"+fi.baseName()+".pdf");
+		QString pdfdir = dirs->get("pdf", fi.dirPath());
+		if (pdfdir.right(1) != "/")
+			pdfdir += "/";
+		Datei->setText(pdfdir+fi.baseName()+".pdf");
 	}
 	Name->setBuddy(Datei);
 	Layout5->addWidget( Datei );
@@ -1216,11 +1222,16 @@ void PDF_Opts::EmbedAll()
 void PDF_Opts::ChangeFile()
 {
 	QString fn;
-	CustomFDialog dia(this, tr("Save as"), tr("PDF Files (*.pdf);;All Files (*)"), false, false);
+	PrefsContext* dirs = prefsFile->getContext("dirs");
+	QString wdir = dirs->get("pdf", ".");
+	CustomFDialog dia(this, wdir, tr("Save as"), tr("PDF Files (*.pdf);;All Files (*)"), false, false);
 	if (Datei->text() != "")
 		dia.setSelection(Datei->text());
 	if (dia.exec() == QDialog::Accepted)
+	{
 		fn = dia.selectedFile();
+		dirs->set("pdf", fn.left(fn.findRev("/")));
+	}
 	else
 		return;
 	Datei->setText(fn);

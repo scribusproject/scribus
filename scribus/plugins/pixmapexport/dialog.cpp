@@ -14,6 +14,9 @@
 #include <qimage.h>
 #include <qdir.h>
 #include <qfiledialog.h>
+#include <prefsfile.h>
+
+extern PrefsFile* prefsFile;
 
 /*
  *  Constructs a ExportForm as a child of 'parent', with the
@@ -25,12 +28,13 @@
 ExportForm::ExportForm(QWidget* parent, int size, int quality, QString type)
 	: QDialog(parent, "ExportForm", true, 0)
 {
+	prefs = prefsFile->getPluginContext("pixmapexport");
 	ExportFormLayout = new QVBoxLayout( this, 10, 5, "ExportFormLayout"); 
 	layout1 = new QHBoxLayout( 0, 0, 5, "layout1"); 
 	TextLabel1 = new QLabel( this, "TextLabel1" );
 	layout1->addWidget( TextLabel1 );
 	OutputDirectory = new QLineEdit( this, "OutputDirectory" );
-	OutputDirectory->setText(QDir::currentDirPath());
+	OutputDirectory->setText(prefs->get("wdir", QDir::currentDirPath()));
 	layout1->addWidget( OutputDirectory );
 	OutputDirectoryButton = new QPushButton( this, "OutputDirectoryButton" );
 	OutputDirectoryButton->setDefault( TRUE );
@@ -116,9 +120,13 @@ ExportForm::ExportForm(QWidget* parent, int size, int quality, QString type)
 
 void ExportForm::OutputDirectoryButton_pressed()
 {
-	QString d = QFileDialog::getExistingDirectory(QDir::currentDirPath(), this, "d", tr("Choose a Export Directory"), true);
+	QString lastDir = prefs->get("wdir", ".");
+	QString d = QFileDialog::getExistingDirectory(lastDir, this, "d", tr("Choose a Export Directory"), true);
 	if (d.length()>0)
+	{
 		OutputDirectory->setText(d);
+		prefs->set("wdir", d);
+	}
 }
 
 void ExportForm::OkButton_pressed()
@@ -187,53 +195,23 @@ void ExportForm::languageChange()
 
 void ExportForm::readConfig()
 {
-	QString fname = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/scribus-pixmap-export2.rc");
-	QString value;
-	QFile f(fname);
-	if (f.open(IO_ReadOnly))
-	{
-		// cfg exists
-		QTextStream of(&f);
-		of >> value;
-		if (value && value.length()>0)
-			SizeBox->setValue(value.toUInt());
-		of >> value;
-		if (value && value.length()>0)
-			QualityBox->setValue(value.toUInt());
-		of >> value;
-		if (value && value.length()>0)
-		{
-			ButtonGroup1->setButton(value.toInt());
-			if (value.toInt()==2)
-				RangeVal->setEnabled(TRUE);
-			else
-				RangeVal->setEnabled(false);
-		}
-		of >> value;
-		if (value && value.length()>0)
-			BitmapType->setCurrentItem(value.toUInt());
-		value = of.read().stripWhiteSpace();
-		if (value && value.length()>0)
-			RangeVal->setText(value);
-		f.close();
-	}
+	SizeBox->setValue(prefs->getUInt("SizeBox", 72));
+	QualityBox->setValue(prefs->getUInt("QualityBox", 100));
+	ButtonGroup1->setButton(prefs->getUInt("ButtonGroup1", 0));
+	if (prefs->getInt("ButtonGroup1")==2)
+		RangeVal->setEnabled(TRUE);
+	else
+		RangeVal->setEnabled(false);
+	BitmapType->setCurrentItem(prefs->getInt("BitmapType", 4));
+	RangeVal->setText(prefs->get("RangeVal", ""));
 }
 
 void ExportForm::writeConfig()
 {
-	QString fname = QDir::convertSeparators(
-		QDir::homeDirPath()+"/.scribus/scribus-pixmap-export2.rc");
-	QString value;
-	QFile f(fname);
-	if (f.open(IO_WriteOnly))
-	{
-		// cfg exists
-		QTextStream of(&f);
-		of << SizeBox->value() << endl;
-		of << QualityBox->value() << endl;
-		of << ButtonGroup1->id(ButtonGroup1->selected()) << endl;
-		of << BitmapType->currentItem() << endl;
-		of << RangeVal->text() << endl;
-		f.close();
-	}
+	prefs->set("SizeBox", SizeBox->value());
+	prefs->set("QualityBox", QualityBox->value());
+	prefs->set("ButtonGroup1", ButtonGroup1->id(ButtonGroup1->selected()));
+	prefs->set("BitmapType",BitmapType->currentItem());
+	prefs->set("RangeVal", RangeVal->text());
+
 }

@@ -1,5 +1,12 @@
 Changes since 1.2 
 
+25.09.2004
+	* bug     # 971: Improvement in the Hyphenation Settings menus
+
+24.09.2004
+	* bug     #1002: Many dialog boxes don't remember last settings
+	* feature #1145: Polish Translation Update
+
 22.09.2004
 	* bug     #1019: When fonts are auto removed because of errors, they should be reported in the console
 	* bug     #1103: Scribus exits with a Signal 11 when adding a new page to a document

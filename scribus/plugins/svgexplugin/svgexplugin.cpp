@@ -29,9 +29,12 @@
 #ifdef HAVE_LIBZ
 #include <zlib.h>
 #endif
+#include <prefsfile.h>
+#include <prefscontext.h>
 extern void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
 extern QString Path2Relative(QString Path);
 extern QImage LoadPict(QString fn, bool *gray = 0);
+extern PrefsFile* prefsFile;
 
 /*!
  \fn QString Name()
@@ -72,13 +75,16 @@ void Run(QWidget *d, ScribusApp *plug)
 {
 	if (plug->HaveDoc)
 		{
+		PrefsContext* prefs = prefsFile->getPluginContext("svgex");
+		QString wdir = prefs->get("wdir", ".");
 #ifdef HAVE_LIBZ
-		QString fileName = plug->CFileDialog(QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg *.svgz);;All Files (*)"),"", false, false, true);
+		QString fileName = plug->CFileDialog(wdir, QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg *.svgz);;All Files (*)"),"", false, false, true);
 #else
-		QString fileName = plug->CFileDialog(QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg);;All Files (*)"),"", false, false);
+		QString fileName = plug->CFileDialog(wdir, QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg);;All Files (*)"),"", false, false);
 #endif
 		if (!fileName.isEmpty())
 			{
+		prefs->set("wdir", fileName.left(fileName.findRev("/")));
   		QFile f(fileName);
   		if (f.exists())
   			{

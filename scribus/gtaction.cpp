@@ -19,6 +19,7 @@
  ***************************************************************************/
 
 #include "gtaction.h"
+#include <qcursor.h>
 
 extern ScribusApp* ScApp;
 
@@ -53,7 +54,6 @@ void gtAction::setProgressInfo()
 	ScApp->FMess->setText(QObject::tr("Importing text"));
 	ScApp->FProg->reset();
 	ScApp->FProg->setTotalSteps(0);
-	ScApp->FProg->setProgress(0,0);
 }
 
 void gtAction::setProgressInfoDone()

@@ -64,7 +64,7 @@ PolygonProps::PolygonProps(QWidget* parent) : QDialog( parent, "poly", true, 0 )
 	Layout10->addLayout( Layout9_2 );
 
 	Konvex = new QCheckBox( this, "Konvex" );
-	Konvex->setText( tr( "Conve&x Polygon" ) );
+	Konvex->setText( tr( "Apply &Factor" ) );
 	Konvex->setChecked(PolyS);
 	Layout10->addWidget( Konvex );
 	Layout9 = new QHBoxLayout( 0, 0, 5, "Layout9");
@@ -119,10 +119,10 @@ PolygonProps::PolygonProps(QWidget* parent) : QDialog( parent, "poly", true, 0 )
 	QToolTip::add( Ecken, tr( "Number of corners for polygons" ) );
 	QToolTip::add( Faktor2, tr( "Degrees of rotation for polygons" ) );
 	QToolTip::add( Slider2, tr( "Degrees of rotation for polygons" ) );
-	QToolTip::add( Konvex, tr( "Polygons will be convex rather than concave" ) );
+	QToolTip::add( Konvex, tr( "Apply Convex/Concave Factor to change shape of Polygons" ) );
 	QToolTip::add( Preview, tr( "Sample Polygon" ) );
-	QToolTip::add( Faktor, tr( "Change the angles at which lines of the polygon join" ) );
-	QToolTip::add( Slider1, tr( "Change the angles at which lines of the polygon join" ) );
+	QToolTip::add( Faktor, tr( "A negative value will make the polygon concave (or star shaped),\n a positive value will make it convex" ) );
+	QToolTip::add( Slider1, tr( "A negative value will make the polygon concave (or star shaped),\n a positive value will make it convex" ) );
 	// signals and slots connections
 	connect(PushButton1, SIGNAL(clicked()), this, SLOT(accept()));
 	connect(PushButton2, SIGNAL(clicked()), this, SLOT(reject()));

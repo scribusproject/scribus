@@ -5399,7 +5399,7 @@ void Page::mousePressEvent(QMouseEvent *m)
 		{
 			Mpressed = true;
 			Dxp = Mxp;
-			Dyp = Mxp;
+			Dyp = Myp;
 		}
 		break;
 	case 2:

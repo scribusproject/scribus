@@ -18,39 +18,46 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef GTMEASURE_H
-#define GTMEASURE_H
+#ifndef PREFSTABLE_H
+#define PREFSTABLE_H
 
+#include <string>
+#include <vector>
+#include <qmap.h>
 #include <qstring.h>
+#include <qstringlist.h>
 
-enum Unit {
-	POINTS      = 0,
-	PT          = 0,
-	MILLIMETERS = 1,
-	MM          = 1,
-	INCHES      = 2,
-	IN          = 2,
-	PICAS       = 3,
-	P           = 3
-};
+typedef std::vector<QStringList*> Table;
 
-class gtMeasure
+class PrefsTable
 {
 private:
-	gtMeasure();
-	static double ratio;
-	static void   init(Unit u);
-	static double convert(double value);
-	static double convert(int value);
-	static double convert2(double value);
-	static double convert2(int value);
-	static double parse(const QString& value);
+	QString name;
+	Table table;
+	int rowCount;
+	int colCount;
+	void checkSize(int rowIndex, int colIndex, QString defValue = "");
+	void checkHeight(int rowIndex);
+	void checkWidth(int rowIndex, int colIndex, QString defValue = "");
 public:
-	static double convert(double value, Unit from, Unit to = PT);
-	static double convert(int value, Unit from, Unit to = PT);
-	static double d2d(double value, Unit from, Unit to = PT);
-	static double i2d(int value, Unit from, Unit to = PT);
-	static double qs2d(const QString& value, Unit to = PT);
+	PrefsTable(QString tableName);
+	~PrefsTable();
+	QString getName();
+	int     height();
+	int     getRowCount();
+	int     width();
+	int     getColCount();
+	QString get(int row, int col, const QString& defValue = "");
+	void    set(int row, int col, const char* value);
+	void    set(int row, int col, const std::string& value);
+	void    set(int row, int col, const QString& value);
+	int     getInt(int row, int col, int defValue = -1);
+	void    set(int row, int col, int value);
+	uint    getUInt(int row, int col, uint defValue = 0);
+	double  getDouble(int row, int col, double defValue = -1.0);
+	void    set(int row, int col, double value);
+	bool    getBool(int row, int col, bool defValue = false);
+	void    set(int row, int col, bool value);
 };
 
-#endif // GTMEASURE_H
+#endif

@@ -25,6 +25,7 @@
 #include <qcombobox.h>
 #include <qptrlist.h>
 #include <qmap.h>
+#include "prefscontext.h"
 
 /**
   *@author Franz Schmid
@@ -36,7 +37,7 @@ class CupsOptions : public QDialog
 
 public: 
 	CupsOptions(QWidget* parent, QString Geraet);
-	~CupsOptions() {};
+	~CupsOptions();
 	QPushButton* PushButton1;
 	QPushButton* PushButton2;
 	QHeader *Header;
@@ -52,6 +53,7 @@ public:
 protected:
 	QVBoxLayout* CupsOptionsLayout;
 	QHBoxLayout* Layout2;
+	PrefsContext* prefs;
 };
 
 #endif

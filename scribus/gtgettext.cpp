@@ -20,6 +20,7 @@
 
 #include "gtgettext.h"
 
+extern QPixmap loadIcon(QString nam);
 extern ScribusApp* ScApp;
 
 gtGetText::gtGetText()

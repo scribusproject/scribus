@@ -9,6 +9,7 @@
 #include <qpopupmenu.h>
 #include <qmenubar.h>
 #include "scribusview.h"
+#include "prefscontext.h"
 
 class Editor : public QDialog
 { 
@@ -30,6 +31,7 @@ private slots:
 
 protected:
     QVBoxLayout* EditorLayout;
+	PrefsContext* dirs;
 };
 
 #endif // EDITOR_H

@@ -164,12 +164,13 @@ void FDialogPreview::previewUrl( const QUrl &url )
 		GenPreview(url.path());
 }
 
-CustomFDialog::CustomFDialog(QWidget *pa, QString cap, QString filter, bool Pre, bool mod, bool comp, bool cod, bool dirOnly)
-						 : QFileDialog(QString::null, filter, pa, 0, true)
+CustomFDialog::CustomFDialog(QWidget *pa, QString wDir, QString cap, QString filter, 
+                             bool Pre, bool mod, bool comp, bool cod, bool dirOnly)
+                             : QFileDialog(QString::null, filter, pa, 0, true)
 {
  	setIcon(loadIcon("AppIcon.png"));
  	setCaption(cap);
-	cDir = QDir();
+	cDir = QDir(wDir);
 	setDir(cDir);
 	setIconProvider(new ImIconProvider(this));
 	FDialogPreview *pw;

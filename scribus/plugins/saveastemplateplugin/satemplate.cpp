@@ -3,7 +3,9 @@
  ***************************************************************************/
 #include "satemplate.h"
 #include "satemplate.moc"
+#include <prefsfile.h>
 
+extern PrefsFile* prefsFile;
 ScribusApp* Carrier;
 QWidget* par;
 
@@ -54,16 +56,22 @@ void MenuSAT::RunSATPlug()
 	bool hasName = Carrier->doc->hasName;
 	bool isModified = Carrier->doc->isModified();
 	QString userTemplatesDir = Carrier->Prefs.TemplateDir;
+	PrefsContext* dirs = prefsFile->getContext("dirs");
+	QString oldCollect = dirs->get("collect", ".");
+	QString templatesDir = ".";
 	if (userTemplatesDir == "")
-		QDir::setCurrent(QDir::homeDirPath() + "/.scribus/templates");
+		templatesDir = QDir::homeDirPath() + "/.scribus/templates";
 	else
 	{
 		if (userTemplatesDir.right(1) == "/")
 			userTemplatesDir = userTemplatesDir.left(userTemplatesDir.length() - 1);
-		QDir::setCurrent(userTemplatesDir);
+		templatesDir = userTemplatesDir;
 	}
+	dirs->set("collect", templatesDir);
 	if (Carrier->Collect() == "")
 		return;
+	if (oldCollect != ".")
+		dirs->set("collect", oldCollect);
 	QString docPath = Carrier->doc->DocName;
 	QString docDir = docPath.left(docPath.findRev('/'));
 	QString docName = docPath.right(docPath.length() - docPath.findRev('/') - 1);

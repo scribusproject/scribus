@@ -4,6 +4,8 @@
 #include <qfile.h>
 #include <qfileinfo.h>
 #include <qfiledialog.h>
+#include "prefscontext.h"
+#include "prefsfile.h"
 
 #if (_MSC_VER >= 1200)
  #include "win-config.h"
@@ -12,6 +14,7 @@
 #endif
 
 extern QPixmap loadIcon(QString nam);
+extern PrefsFile* prefsFile;
 
 FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, preV *prefs, QString PPath )
 		: QDialog( parent, "fpre", true, 0 )
@@ -274,9 +277,12 @@ void FontPrefs::SelectPath(QListBoxItem *c)
 
 void FontPrefs::AddPath()
 {
+	PrefsContext* dirs = prefsFile->getContext("dirs");
+	CurrentPath = dirs->get("fontprefs", ".");
 	QString s = QFileDialog::getExistingDirectory(CurrentPath, this, "d", tr("Choose a Directory"), true);
 	if (s != "")
 	{
+		dirs->set("fontprefs", s.left(s.findRev("/", -2)));
 		s = s.left(s.length()-1);
 		if (PathList->findItem(s))
 			return;

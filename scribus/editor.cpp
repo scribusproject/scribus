@@ -1,11 +1,13 @@
 #include "editor.h"
 #include "editor.moc"
 #include "selfield.h"
+#include "prefsfile.h"
 #include <qfile.h>
 #include <qtextstream.h>
 #include <qfiledialog.h>
 
 extern QPixmap loadIcon(QString nam);
+extern PrefsFile* prefsFile;
 
 Editor::Editor( QWidget* parent, QString daten, ScribusView* vie)
 								: QDialog( parent, "editor", true, 0 )
@@ -13,9 +15,10 @@ Editor::Editor( QWidget* parent, QString daten, ScribusView* vie)
     setCaption( tr( "Editor" ) );
   	setIcon(loadIcon("AppIcon.png"));
 	view = vie;
-    EditorLayout = new QVBoxLayout( this, 0, 0, "EditorLayout");
+	dirs = prefsFile->getContext("dirs");
+	EditorLayout = new QVBoxLayout( this, 0, 0, "EditorLayout");
     EditTex = new QTextEdit( this, "EditTex" );
-
+	
   	fmenu = new QPopupMenu();
   	fmenu->insertItem(loadIcon("DateiNeu16.png"), tr("&New"), EditTex, SLOT(clear()), CTRL+Key_N);
   	fmenu->insertItem(loadIcon("DateiOpen16.png"), tr("&Open..."), this, SLOT(OpenScript()));
@@ -56,9 +59,11 @@ void Editor::GetFieldN()
 
 void Editor::OpenScript()
 {
-	QString fileName = QFileDialog::getOpenFileName(0, tr("Javascripts (*.js);;All Files (*)"),this);
+	QString fileName = QFileDialog::getOpenFileName(dirs->get("editor_open", "."), 
+	                                                tr("Javascripts (*.js);;All Files (*)"),this);
 	if (!fileName.isEmpty())
 	{
+		dirs->set("editor_open", fileName.left(fileName.findRev("/")));
 		QFile file( fileName );
 		if ( file.open( IO_ReadOnly ) )
 		{
@@ -71,9 +76,10 @@ void Editor::OpenScript()
 
 void Editor::SaveAs()
 {
-	QString fn = QFileDialog::getSaveFileName(0, tr("Javascripts (*.js);;All Files (*)"), this);
+	QString fn = QFileDialog::getSaveFileName(dirs->get("editor_save", "."), tr("Javascripts (*.js);;All Files (*)"), this);
 	if (!fn.isEmpty())
   	{
+		dirs->set("editor_save", fn.left(fn.findRev("/")));
 		QFile file( fn );
 		if ( file.open( IO_WriteOnly ) )
 		{

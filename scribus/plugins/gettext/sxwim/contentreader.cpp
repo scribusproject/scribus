@@ -315,4 +315,3 @@ ContentReader::~ContentReader()
 }
 
 #endif // HAVE_XML
-

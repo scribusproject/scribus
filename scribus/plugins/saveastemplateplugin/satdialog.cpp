@@ -3,8 +3,10 @@
  ***************************************************************************/
 #include "satdialog.h"
 #include "satdialog.moc"
+#include <prefsfile.h>
 
 extern QPixmap loadIcon(QString nam);
+extern PrefsFile* prefsFile;
 
 satdialog::satdialog(QWidget* parent, QString tmplName, int pageW, int pageH) : QDialog(parent, "satdialog", TRUE)
 {
@@ -187,63 +189,17 @@ void satdialog::minimumDetail()
 
 void satdialog::readPrefs() 
 {
-	author = "";
-	email = "";
-	isFullDetail = false;
-	QFile rc(QDir::convertSeparators(QDir::homeDirPath() + "/.scribus/sat.rc"));
-	if (rc.exists()) {
-		if (rc.open(IO_ReadOnly))
-		{
-			QTextStream stream(&rc);
-			QString line = stream.readLine();
-			QString attribute;
-			QString value;
-			while (line != NULL)
-			{
-				line = line.stripWhiteSpace();
-				attribute = line.left(line.find("="));
-				value = line.right(line.length() - line.find("=") - 1);
-				if ((line.left(1) != "#") && 
-				    (line.find("=") != -1) && 
-					(line.right(1) != "="))
-				{ // If not a comment and '='can be found and is not the last charcter on the line
-					if (attribute == "author")
-					{
-						author = value;
-					} 
-					else if (attribute == "email")
-					{
-						email = value;
-					}
-					else if (attribute = "max_detail")
-					{
-						if (value == "1")
-							isFullDetail = true;
-						else
-							isFullDetail = false;
-					}
-				}
-				line = stream.readLine();
-			}
-			rc.close();
-		}
-	}
+	prefs = prefsFile->getPluginContext("satemplate");
+	author = prefs->get("author", "");
+	email = prefs->get("email", "");
+	isFullDetail = prefs->getBool("isFullDetail", false);
 }
 
 void satdialog::writePrefs()
 {
-	QString text = "author=" + authorEdit->text();
-	text += "\nemail=" + emailEdit->text();
-	text += QString("\nmax_detail=%1").arg(isFullDetail);
-	
-	QFile rc(QDir::convertSeparators(QDir::homeDirPath() + "/.scribus/sat.rc"));
-	if ( rc.open( IO_WriteOnly ) )
-	{
-		QTextStream stream(&rc);
-		stream.setEncoding(QTextStream::UnicodeUTF8);
-		stream << text;
-		rc.close();
-	}
+	prefs->set("author", authorEdit->text());
+	prefs->set("email", emailEdit->text());
+	prefs->set("isFullDetail", isFullDetail);
 }
 
 void satdialog::setupCategories() 

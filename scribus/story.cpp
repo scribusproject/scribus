@@ -29,9 +29,12 @@
 #include "customfdialog.h"
 #include "search.h"
 #include "scribus.h"
-extern ScribusApp* ScApp;
+#include "prefscontext.h"
+#include "prefsfile.h"
 
+extern PrefsFile* prefsFile;
 extern QPixmap loadIcon(QString nam);
+extern ScribusApp* ScApp;
 
 SideBar::SideBar(QWidget *pa) : QLabel(pa)
 {
@@ -2447,13 +2450,16 @@ void StoryEditor::LoadTextFile()
 		EditorBar->setRepaint(false);
 		QString LoadEnc = "";
 		QString fileName = "";
-		CustomFDialog dia(this, tr("Open"), tr("Text Files (*.txt);;All Files(*)"), false, true, false, true);
+		PrefsContext* dirs = prefsFile->getContext("dirs");
+		QString wdir = dirs->get("story_load", ScApp->Prefs.DocDir);
+		CustomFDialog dia(this, wdir, tr("Open"), tr("Text Files (*.txt);;All Files(*)"), false, true, false, true);
 		if (dia.exec() != QDialog::Accepted)
 			return;
 		LoadEnc = dia.TxCodeM->currentText();
 		fileName =  dia.selectedFile();
 		if (!fileName.isEmpty())
 		{
+			dirs->set("story_load", fileName.left(fileName.findRev("/")));
 			Serializer *ss = new Serializer(fileName);
 			if (ss->Read(LoadEnc))
 			{
@@ -2477,13 +2483,16 @@ void StoryEditor::SaveTextFile()
 {
 	QString LoadEnc = "";
 	QString fileName = "";
-	CustomFDialog dia(this, tr("Save as"), tr("Text Files (*.txt);;All Files(*)"), false, false, false, true);
+	PrefsContext* dirs = prefsFile->getContext("dirs");
+	QString wdir = dirs->get("story_save", ScApp->Prefs.DocDir);
+	CustomFDialog dia(this, wdir, tr("Save as"), tr("Text Files (*.txt);;All Files(*)"), false, false, false, true);
 	if (dia.exec() != QDialog::Accepted)
 		return;
 	LoadEnc = dia.TxCodeM->currentText();
 	fileName =  dia.selectedFile();
 	if (!fileName.isEmpty())
 	{
+		dirs->set("story_save", fileName.left(fileName.findRev("/")));
 		Serializer *ss = new Serializer(fileName);
 		ss->Objekt = Editor->text();
 		ss->Write(LoadEnc);

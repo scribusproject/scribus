@@ -100,7 +100,7 @@ void JavaDocs::slotDelete()
 {
 	int exit=QMessageBox::warning(this,
 	                              tr("Warning"),
-	                              tr("Do you really want do delete this Script?"),
+	                              tr("Do you really want to delete this Script?"),
 	                              tr("&No"),
 	                              tr("&Yes"),
 	                              0, 0, 0);

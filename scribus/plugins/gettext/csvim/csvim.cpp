@@ -160,7 +160,7 @@ void CsvIm::parseLine(const QString& line, bool isHeader)
 			data += "\t" + tmp.stripWhiteSpace();
 			++colIndex;
 		}
-		else if (end == line.length() - 1)
+		else if (end == static_cast<int>(line.length()) - 1)
 		{
 			QString tmp = line.mid(start, end - 1);
 			if (isHeader)

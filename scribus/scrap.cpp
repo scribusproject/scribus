@@ -16,9 +16,11 @@
 #include <qcursor.h>
 #include "query.h"
 #include "scpreview.h"
+#include "prefsfile.h"
 extern QPixmap loadIcon(QString nam);
 extern bool loadText(QString nam, QString *Buffer);
 extern QString GetAttr(QDomElement *el, QString at, QString def="0");
+extern PrefsFile* prefsFile;
 
 /* The Scrapbook View Class
  * inherited from QIconView */
@@ -233,9 +235,12 @@ void Biblio::Save()
 
 void Biblio::SaveAs()
 {
-	QString fn = QFileDialog::getSaveFileName(0, tr("Scrapbooks (*.scs);;All Files (*)"), this);
+	PrefsContext* dirs = prefsFile->getContext("dirs");
+	QString fn = QFileDialog::getSaveFileName(dirs->get("scrap_saveas", "."),
+	                                          tr("Scrapbooks (*.scs);;All Files (*)"), this);
 	if (!fn.isEmpty())
 	{
+		dirs->set("scrap_saveas", fn.left(fn.findRev("/")));
 		BibWin->SaveContents(fn);
 		ScFilename = fn;
 		setCaption(fn);
@@ -247,9 +252,12 @@ void Biblio::SaveAs()
 void Biblio::Load()
 {
 	Save();
-	QString fileName = QFileDialog::getOpenFileName(0, tr("Scrapbooks (*.scs);;All Files (*)"),this);
+	PrefsContext* dirs = prefsFile->getContext("dirs");
+	QString fileName = QFileDialog::getOpenFileName(dirs->get("scrap_load", "."),
+	                                                tr("Scrapbooks (*.scs);;All Files (*)"),this);
 	if (!fileName.isEmpty())
 	{
+		dirs->set("scrap_load", fileName.left(fileName.findRev("/")));
 		BibWin->ReadContents(fileName);
 		ScFilename = fileName;
 		setCaption(fileName);

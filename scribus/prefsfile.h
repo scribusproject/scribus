@@ -18,39 +18,33 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef GTMEASURE_H
-#define GTMEASURE_H
+#ifndef PREFSFILE_H
+#define PREFSFILE_H
 
-#include <qstring.h>
+#include <qmap.h>
+#include <qtextstream.h>
+#include "prefscontext.h"
 
-enum Unit {
-	POINTS      = 0,
-	PT          = 0,
-	MILLIMETERS = 1,
-	MM          = 1,
-	INCHES      = 2,
-	IN          = 2,
-	PICAS       = 3,
-	P           = 3
-};
+typedef QMap<QString, PrefsContext*> ContextMap;
 
-class gtMeasure
+class PrefsFile
 {
 private:
-	gtMeasure();
-	static double ratio;
-	static void   init(Unit u);
-	static double convert(double value);
-	static double convert(int value);
-	static double convert2(double value);
-	static double convert2(int value);
-	static double parse(const QString& value);
+	QString prefsFilePath;
+	ContextMap contexts;
+	ContextMap pluginContexts;
+	bool ioEnabled;
+	void load();
+	QString replaceIllegalChars(const QString& text);
+	void writeContexts(ContextMap* contextMap, QTextStream& stream);
 public:
-	static double convert(double value, Unit from, Unit to = PT);
-	static double convert(int value, Unit from, Unit to = PT);
-	static double d2d(double value, Unit from, Unit to = PT);
-	static double i2d(int value, Unit from, Unit to = PT);
-	static double qs2d(const QString& value, Unit to = PT);
+	PrefsFile();
+	PrefsFile(const QString& pFilePath);
+	~PrefsFile();
+	bool contextExists();
+	PrefsContext* getContext(const QString& contextName, bool persistent = true);
+	PrefsContext* getPluginContext(const QString& contextName, bool persistent = true);
+	void write();
 };
 
-#endif // GTMEASURE_H
+#endif // PREFSFILE_H

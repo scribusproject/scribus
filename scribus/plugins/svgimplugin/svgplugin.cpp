@@ -11,6 +11,7 @@
 #include "color.h"
 #include "scribusXml.h"
 #include "mpalette.h"
+#include "prefsfile.h"
 #include <qfile.h>
 #include <qtextstream.h>
 #include <qregexp.h>
@@ -25,6 +26,7 @@ extern bool loadText(QString nam, QString *Buffer);
 extern QPixmap loadIcon(QString nam);
 extern double RealCWidth(ScribusDoc *doc, QString name, QString ch, int Siz);
 extern FPoint GetMaxClipF(FPointArray Clip);
+extern PrefsFile* prefsFile;
 
 /*!
  \fn QString Name()
@@ -64,13 +66,18 @@ int Type()
 void Run(QWidget *d, ScribusApp *plug)
 {
 	QString fileName;
+	PrefsContext* prefs = prefsFile->getPluginContext("SVGPlugin");
+	QString wdir = prefs->get("wdir", ".");
 #ifdef HAVE_LIBZ
-	CustomFDialog diaf(d, QObject::tr("Open"), QObject::tr("SVG-Images (*.svg *.svgz);;All Files (*)"));
+	CustomFDialog diaf(d, wdir, QObject::tr("Open"), QObject::tr("SVG-Images (*.svg *.svgz);;All Files (*)"));
 #else
-	CustomFDialog diaf(d, QObject::tr("Open"), QObject::tr("SVG-Images (*.svg);;All Files (*)"));
+	CustomFDialog diaf(d, wdir, QObject::tr("Open"), QObject::tr("SVG-Images (*.svg);;All Files (*)"));
 #endif
 	if (diaf.exec())
+	{
 		fileName = diaf.selectedFile();
+		prefs->set("wdir", fileName.left(fileName.findRev("/")));
+	}
 	else
 		return;
 	SVGPlug *dia = new SVGPlug(d, plug, fileName);

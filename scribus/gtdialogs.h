@@ -31,11 +31,13 @@
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qobject.h>
+#include <qpushbutton.h>
 #include <qstring.h>
 #include <qstringlist.h>
 #include <qtextcodec.h>
 #include <qtoolbutton.h>
 #include <qtooltip.h>
+#include "prefscontext.h"
 
 class gtFileDialog : public QFileDialog
 {
@@ -49,13 +51,27 @@ private:
 	QToolButton* HomeB;
 	void createWidgets(const QStringList& importers);
 public:
-	gtFileDialog(const QString& filters, const QStringList& importers);
+	gtFileDialog(const QString& filters, const QStringList& importers, const QString& wdir);
 	~gtFileDialog();
 	QCheckBox* textOnlyCheckBox;
 	QComboBox* importerCombo;
 	QComboBox* encodingCombo;
 private slots:
 	void slotHome();
+};
+
+class gtImporterDialog : public QDialog
+{
+	Q_OBJECT
+private:
+	QComboBox*   importerCombo;
+	QCheckBox*   rememberCheck;
+	QPushButton* okButton;
+public:
+	gtImporterDialog(const QStringList& importers, int currentSelection);
+	~gtImporterDialog();
+	bool shouldRemember();
+	QString getImporter();
 };
 
 class gtDialogs
@@ -65,6 +81,8 @@ private:
 	QString fileName;
 	QString encoding;
 	int importer;
+	PrefsContext* prefs;
+	QString pwd;
 public:
 	gtDialogs();
 	~gtDialogs();

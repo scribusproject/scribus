@@ -96,7 +96,7 @@
 #include "tabmanager.h"
 #include "search.h"
 #include "fontcombo.h"
-
+#include "prefsfile.h"
 
 extern QPixmap loadIcon(QString nam);
 extern bool overwrite(QWidget *parent, QString filename);
@@ -130,6 +130,7 @@ double PolyR;
 double UmReFaktor;
 QString DocDir;
 ScribusApp* ScApp;
+PrefsFile* prefsFile;
 
 ScribusApp::ScribusApp()
 {} // ScribusApp::ScribusApp()
@@ -203,6 +204,8 @@ void ScribusApp::initScribus()
 		if (OldPi3.exists())
 			moveFile(OldPR3, Pff+"/scrap.scs");
 	}
+	prefsFile = new PrefsFile(QDir::convertSeparators(PrefsPfad + "/prefs.xml"));
+	dirs = prefsFile->getContext("dirs");
 	/** Erstelle Fontliste */
 	NoFonts = false;
 	BuFromApp = false;
@@ -1932,6 +1935,8 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 			}
 		}
 		SavePrefs();
+		prefsFile->write();
+		delete prefsFile;
 		if ((Prefs.SaveAtQ) && (ScBook->Changed == true))
 		{
 			if (ScBook->ScFilename.isEmpty())
@@ -1947,6 +1952,8 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 	else
 	{
 		SavePrefs();
+		prefsFile->write();
+		delete prefsFile;
 		if ((Prefs.SaveAtQ) && (ScBook->Changed == true))
 		{
 			if (ScBook->ScFilename.isEmpty())
@@ -2981,11 +2988,18 @@ void ScribusApp::LoadRecent(int id)
 bool ScribusApp::slotDocOpen()
 {
 	bool ret = false;
+	PrefsContext* docContext = prefsFile->getContext("docdirs", false);
+	QString docDir = ".";
+	if (Prefs.DocDir != "")
+		docDir = docContext->get("docsopen", Prefs.DocDir);
+	else
+		docDir = docContext->get("docsopen", ".");
 #ifdef HAVE_LIBZ
-	QString fileName = CFileDialog( tr("Open"), tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"));
+	QString fileName = CFileDialog( docDir, tr("Open"), tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"));
 #else
-	QString fileName = CFileDialog( tr("Open"), tr("Documents (*.sla *.scd);;All Files (*)"));
+	QString fileName = CFileDialog( docDir, tr("Open"), tr("Documents (*.sla *.scd);;All Files (*)"));
 #endif
+	docContext->set("docsopen", fileName.left(fileName.findRev("/")));
 	qApp->setOverrideCursor(QCursor(waitCursor), true);
 	ret = LadeDoc(fileName);
 	qApp->setOverrideCursor(QCursor(arrowCursor), true);
@@ -3493,9 +3507,15 @@ void ScribusApp::slotFileOpen()
 			formats += "EPS (*.eps *.EPS);;PDF (*.pdf *.PDF);;" + tr("All Files (*)");
 			formatD += " *.eps *.EPS *.pdf *.PDF";
 			formatD += ");;"+formats;
-			QString fileName = CFileDialog( tr("Open"), formatD, "", true);
+			QString docDir = ".";
+			if (Prefs.DocDir != "")
+				docDir = dirs->get("images", Prefs.DocDir);
+			else
+				docDir = dirs->get("images", ".");
+			QString fileName = CFileDialog( docDir, tr("Open"), formatD, "", true);
 			if (!fileName.isEmpty())
 			{
+				dirs->set("images", fileName.left(fileName.findRev("/")));
 				b->EmProfile = "";
 				b->UseEmbedded = true;
 				b->IProfile = doc->CMSSettings.DefaultInputProfile;
@@ -3628,23 +3648,34 @@ bool ScribusApp::slotFileSaveAs()
 {
 	bool ret = false;
 	QString fna;
+	PrefsContext* docContext = prefsFile->getContext("docdirs", false);
+	QString wdir = ".";
 	if (doc->hasName)
 	{
 		QFileInfo fi(doc->DocName);
+		wdir = fi.dirPath();
 		fna = fi.dirPath()+"/"+fi.baseName()+".sla";
 	}
 	else
 	{
-		QDir di = QDir();
-		fna = di.currentDirPath()+"/"+doc->DocName+".sla";
+		if (Prefs.DocDir != "")
+			wdir = docContext->get("save_as", Prefs.DocDir);
+		else
+			wdir = docContext->get("save_as", ".");
+		if (wdir.right(1) != "/")
+			fna = wdir + "/";
+		else
+			fna = wdir;
+		fna += doc->DocName + ".sla";
 	}
 #ifdef HAVE_LIBZ
-	QString fn = CFileDialog( tr("Save as"), tr("Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)"), fna, false, false, true);
+	QString fn = CFileDialog( wdir, tr("Save as"), tr("Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)"), fna, false, false, true);
 #else
-	QString fn = CFileDialog( tr("Save as"), tr("Documents (*.sla *.scd);;All Files (*)"), fna, false, false, false);
+	QString fn = CFileDialog( wdir, tr("Save as"), tr("Documents (*.sla *.scd);;All Files (*)"), fna, false, false, false);
 #endif
 	if (!fn.isEmpty())
 	{
+		docContext->set("save_as", fn.left(fn.findRev("/")));
 		if ((fn.endsWith(".sla")) || (fn.endsWith(".sla.gz")))
 			fna = fn;
 		else
@@ -4391,9 +4422,15 @@ void ScribusApp::ToggleTips()
 void ScribusApp::SaveText()
 {
 	LoadEnc = "";
-	QString fn = CFileDialog( tr("Save as"), tr("Text Files (*.txt);;All Files(*)"), "", false, false, false, true);
+	QString wdir = ".";
+	if (Prefs.DocDir != "")
+		wdir = dirs->get("save_text", Prefs.DocDir);
+	else
+		wdir = dirs->get("save_text", ".");
+	QString fn = CFileDialog( wdir, tr("Save as"), tr("Text Files (*.txt);;All Files(*)"), "", false, false, false, true);
 	if (!fn.isEmpty())
 	{
+		dirs->set("save_text", fn.left(fn.findRev("/")));
 		Serializer *se = new Serializer(fn);
 		se->PutText(doc->ActPage->SelItem.at(0));
 		se->Write(LoadEnc);
@@ -7079,9 +7116,15 @@ void ScribusApp::SaveAsEps()
 		QDir di = QDir();
 		fna = di.currentDirPath()+"/"+doc->DocName+".eps";
 	}
-	QString fn = CFileDialog( tr("Save as"), tr("EPS-Files (*.eps);;All Files (*)"), "", false, false);
+	QString wdir = ".";
+	if (Prefs.DocDir != "")
+		wdir = dirs->get("eps", Prefs.DocDir);
+	else
+		wdir = dirs->get("eps", ".");
+	QString fn = CFileDialog( wdir, tr("Save as"), tr("EPS-Files (*.eps);;All Files (*)"), "", false, false);
 	if (!fn.isEmpty())
 	{
+		dirs->set("eps", fn.left(fn.findRev("/")));
 		if (overwrite(this, fn))
 		{
 			if (!DoSaveAsEps(fn))
@@ -7651,10 +7694,12 @@ void ScribusApp::StatusPic()
 	}
 }
 
-QString ScribusApp::CFileDialog(QString caption, QString filter, QString defNa, bool Pre, bool mod, bool comp, bool cod, bool onlyDirs, bool *docom, bool *doFont)
+QString ScribusApp::CFileDialog(QString wDir, QString caption, QString filter, QString defNa, 
+                                bool Pre, bool mod, bool comp, bool cod, bool onlyDirs, 
+                                bool *docom, bool *doFont)
 {
 	QString retval = "";
-	CustomFDialog *dia = new CustomFDialog(this, caption, filter, Pre, mod, comp, cod, onlyDirs);
+	CustomFDialog *dia = new CustomFDialog(this, wDir, caption, filter, Pre, mod, comp, cod, onlyDirs);
 	if (defNa != "")
 		dia->setSelection(defNa);
 	if (onlyDirs)
@@ -8737,11 +8782,18 @@ QString ScribusApp::Collect(bool compress, bool withFonts)
 	QString CurDirP = QDir::currentDirPath();
 	bool compressR = compress;
 	bool withFontsR = withFonts;
-	QString s = CFileDialog( tr("Choose a Directory"), "", "", false, false, false, false, true, &compressR, &withFontsR);
+	QString wdir = ".";
+	if (Prefs.DocDir != "")
+		wdir = dirs->get("collect", Prefs.DocDir);
+	else
+		wdir = dirs->get("collect", ".");
+	QString s = CFileDialog(wdir, tr("Choose a Directory"), "", "", false, false, 
+	                        false, false, true, &compressR, &withFontsR);
 	if (s != "")
 	{
 		if(s.right(1) != "/")
 			s += "/";
+		dirs->set("collect", s.left(s.findRev("/",-2)));
 		QFileInfo fi = QFileInfo(s);
 		if (fi.exists())
 		{

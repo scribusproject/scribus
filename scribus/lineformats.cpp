@@ -4,7 +4,9 @@
 #include <qmessagebox.h>
 #include "customfdialog.h"
 #include "scribusXml.h"
+#include "prefsfile.h"
 extern QPixmap loadIcon(QString nam);
+extern PrefsFile* prefsFile;
 
 LineFormate::LineFormate( QWidget* parent, ScribusDoc *doc)
 		: QDialog( parent, "Formate", true, 0)
@@ -154,7 +156,7 @@ void LineFormate::deleteFormat()
 {
 	int exit=QMessageBox::warning(this,
 	                              tr("Warning"),
-	                              tr("Do you really want do delete this Style?"),
+	                              tr("Do you really want to delete this Style?"),
 	                              tr("&No"),
 	                              tr("&Yes"),
 	                              0, 0, 0);
@@ -171,10 +173,12 @@ void LineFormate::deleteFormat()
 void LineFormate::loadLStyles()
 {
 	QString fileName;
+	PrefsContext* dirs = prefsFile->getContext("dirs");
+	QString wdir = dirs->get("lineformats", ".");
 #ifdef HAVE_LIBZ
-	CustomFDialog dia(this, tr("Open"), tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"));
+	CustomFDialog dia(this, wdir, tr("Open"), tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"));
 #else
-	CustomFDialog dia(this, tr("Open"), tr("Documents (*.sla *.scd);;All Files (*)"));
+	CustomFDialog dia(this, wdir, tr("Open"), tr("Documents (*.sla *.scd);;All Files (*)"));
 #endif
 	if (dia.exec() == QDialog::Accepted)
 		fileName = dia.selectedFile();
@@ -182,6 +186,7 @@ void LineFormate::loadLStyles()
 		return;
 	if (!fileName.isEmpty())
 	{
+		dirs->set("lineformats", fileName.left(fileName.findRev("/")));
 		ScriXmlDoc *ss = new ScriXmlDoc();
 		if (ss->ReadLStyles(fileName, &TempStyles))
 			UpdateFList();

@@ -13,10 +13,10 @@ HySettings::HySettings( QWidget* parent, QMap<QString,QString>* langs )
 	setIcon(loadIcon("AppIcon.png"));
 	HySettingsLayout = new QVBoxLayout( this, 11, 6, "HySettingsLayout");
 	Layout3 = new QGridLayout( 0, 1, 1, 0, 6, "Layout3");
-	Verbose = new QCheckBox(tr("&Fully Automatic"), this, "Verbose");
+	Verbose = new QCheckBox(tr("&Hyphenation Suggestion"), this, "Verbose");
 	Layout3->addMultiCellWidget(Verbose, 0, 0, 0, 1);
 	
-	Input = new QCheckBox(tr("Check &During Typing"), this, "inp");
+	Input = new QCheckBox(tr("Hyphenate Text Automatically &During Typing"), this, "inp");
 	Layout3->addMultiCellWidget(Input, 1, 1, 0, 1);
 	
 	Language = new QComboBox( true, this, "Language" );
@@ -38,7 +38,7 @@ HySettings::HySettings( QWidget* parent, QMap<QString,QString>* langs )
 	
 	MaxCount = new QSpinBox( this, "MaxCount" );
 	MaxCount->setMinValue( 0 );
-	Text3 = new QLabel(MaxCount, tr("&Number of Hypenations allowed:"), this, "Text3");
+	Text3 = new QLabel(MaxCount, tr("Consecutive Hypenations &Allowed:"), this, "Text3");
 	Layout3->addWidget( Text3, 4, 0 );
 	Layout3->addWidget( MaxCount, 4, 1);
 	
@@ -53,8 +53,8 @@ HySettings::HySettings( QWidget* parent, QMap<QString,QString>* langs )
 	Layout1->addWidget( Cancel );
 	HySettingsLayout->addLayout( Layout1 );
 	
-	QToolTip::add( Verbose, tr( "If you uncheck this you will get a dialog\neverytime a possible Hyphenation is found." ) );
-	QToolTip::add(Input, tr("Enables automatic checking of your text while typing."));
+	QToolTip::add( Verbose, tr( "A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option." ) );
+	QToolTip::add( Input, tr("Enables automatic hyphenation of your text while typing."));
 	QToolTip::add( WordLen, tr( "Length of the smallest word to be hyphenated." ) );
 	QToolTip::add( MaxCount, tr( "Maximum number of Hyphenations following each other.\nA value of 0 means unlimited hyphenations." ) );
 	connect(OK, SIGNAL(clicked()), this, SLOT(accept()));

@@ -23,13 +23,15 @@
 
 #ifdef HAVE_XML
 
-// #include <prefscontext.h>
+#include <prefsfile.h>
+#include <prefscontext.h>
+#include <prefstable.h>
 #include "sxwunzip.h"
 #include "stylereader.h"
 #include "contentreader.h"
 #include "sxwdia.h"
 
-extern ScribusApp* ScApp;
+extern PrefsFile* prefsFile;
 
 QString FileFormatName()
 {
@@ -51,21 +53,23 @@ void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer
 
 SxwIm::SxwIm(QString fileName, gtWriter* w, bool textOnly)
 {
-	bool update = true;
+	PrefsContext* prefs = prefsFile->getPluginContext("SxwIm");
+	bool update = prefs->getBool("update", true);
+	bool prefix = prefs->getBool("prefix", true);
+	bool ask = prefs->getBool("askAgain", true);
 	if (!textOnly)
 	{
-// 		PrefsContext* prefs = ScApp->prefs->getPluginContext("SxwIm");
-// 		update = prefs->getBool("update", false);
-// 		bool ask = prefs->getBool("askAgain", true);
-// 		if (ask)
-// 		{
-			SxwDialog* sxwdia = new SxwDialog(update);
+		if (ask)
+		{
+			SxwDialog* sxwdia = new SxwDialog(update, prefix);
 			sxwdia->exec();
 			update = sxwdia->shouldUpdate();
-// 			prefs->set("update", update);
-// 			prefs->set("askAgain", sxwdia->askAgain());
+			prefix = sxwdia->usePrefix();
+			prefs->set("update", update);
+			prefs->set("prefix", sxwdia->usePrefix());
+			prefs->set("askAgain", sxwdia->askAgain());
 			delete sxwdia;
-// 		}
+		}
 	}
 	filename = fileName;
 	writer = w;
@@ -78,7 +82,7 @@ SxwIm::SxwIm(QString fileName, gtWriter* w, bool textOnly)
 	{
 		QString docname = filename.right(filename.length() - filename.findRev("/") - 1);
 		docname = docname.left(docname.findRev("."));
-		StyleReader *sreader = new StyleReader(docname, writer, textOnly);
+		StyleReader *sreader = new StyleReader(docname, writer, textOnly, prefix);
 		sreader->parse(stylePath);
 		ContentReader *creader = new ContentReader(docname, sreader, writer, textOnly);
 		creader->parse(contentPath);

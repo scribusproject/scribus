@@ -18,39 +18,47 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef GTMEASURE_H
-#define GTMEASURE_H
+#ifndef PREFSCONTEXT_H
+#define PREFSCONTEXT_H
 
+#include <string>
+#include <qmap.h>
 #include <qstring.h>
+#include "prefstable.h"
 
-enum Unit {
-	POINTS      = 0,
-	PT          = 0,
-	MILLIMETERS = 1,
-	MM          = 1,
-	INCHES      = 2,
-	IN          = 2,
-	PICAS       = 3,
-	P           = 3
-};
+typedef QMap<QString, QString> AttributeMap;
+typedef QMap<QString, PrefsTable*> TableMap;
 
-class gtMeasure
+class PrefsContext
 {
 private:
-	gtMeasure();
-	static double ratio;
-	static void   init(Unit u);
-	static double convert(double value);
-	static double convert(int value);
-	static double convert2(double value);
-	static double convert2(int value);
-	static double parse(const QString& value);
+	QString name;
+	bool isplugin;
+	bool ispersistent;
 public:
-	static double convert(double value, Unit from, Unit to = PT);
-	static double convert(int value, Unit from, Unit to = PT);
-	static double d2d(double value, Unit from, Unit to = PT);
-	static double i2d(int value, Unit from, Unit to = PT);
-	static double qs2d(const QString& value, Unit to = PT);
+	AttributeMap values;
+	TableMap tables;
+	PrefsContext();
+	PrefsContext(QString contextName, bool persistent = true, bool plugin = false);
+	~PrefsContext();
+	QString getName();
+	bool    isPersistent();
+	bool    isPlugin();
+	bool    isEmpty();
+	bool    contains(const QString& key);
+	bool    containsTable(const QString& key);
+	QString get(const QString& key, const QString& defValue = "");
+	void    set(const QString& key, const char* value);
+	void    set(const QString& key, const std::string& value);
+	void    set(const QString& key, const QString& value);
+	int     getInt(const QString& key, int defValue = -1);
+	void    set(const QString& key, int value);
+	uint    getUInt(const QString& key, uint defValue = 0);
+	double  getDouble(const QString& key, double defValue = -1.0);
+	void    set(const QString& key, double value);
+	bool    getBool(const QString& key, bool defValue = false);
+	void    set(const QString& key, bool value);
+	PrefsTable* getTable(const QString& name);
 };
 
-#endif // GTMEASURE_H
+#endif // PREFSCONTEXTS_H

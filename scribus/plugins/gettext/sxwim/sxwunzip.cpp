@@ -83,6 +83,7 @@ SxwUnzip::~SxwUnzip()
 
 int do_extract_onefile(unzFile uf, const char* filename, int opt_extract_without_path, int opt_overwrite, const char* password)
 {
+//    int err = UNZ_OK;
     if (unzLocateFile(uf,filename,CASESENSITIVITY)!=UNZ_OK)
         return 2;
 

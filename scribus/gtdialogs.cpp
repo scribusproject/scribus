@@ -20,18 +20,21 @@
 
 #include "gtdialogs.h"
 #include "gtdialogs.moc"
+#include "prefsfile.h"
+#include <qlabel.h>
 
 extern QPixmap loadIcon(QString nam);
 extern QString DocDir;
+extern PrefsFile* prefsFile;
 
 /********* Class gtFileDialog ************************************************************************/
 
-gtFileDialog::gtFileDialog(const QString& filters, const QStringList& importers) : 
+gtFileDialog::gtFileDialog(const QString& filters, const QStringList& importers, const QString& wdir) : 
                QFileDialog(QString::null, filters, 0, 0, true)
 {
 // 	setIcon(loadIcon("AppIcon.png"));
 	setCaption("Open");
-	dir = QDir();
+	dir = QDir(wdir);
 	setDir(dir);
 	setMode(QFileDialog::ExistingFile);
 	createWidgets(importers);
@@ -115,6 +118,67 @@ gtFileDialog::~gtFileDialog()
 
 }
 
+/********* Class gtImporterDialog*******************************************************************/
+
+gtImporterDialog::gtImporterDialog(const QStringList& importers, int currentSelection)
+{
+	setCaption(tr("Choose the importer to use"));
+	setIcon(loadIcon("AppIcon.png"));
+
+	QBoxLayout* layout = new QVBoxLayout(this);
+
+	QBoxLayout* llayout = new QHBoxLayout(0, 5, 5, "llayout");
+	QLabel* label = new QLabel(tr(""), this, "label");
+	label->setText(tr("Choose the importer to use"));
+	llayout->addWidget(label);
+	layout->addLayout(llayout);
+
+	QBoxLayout* ilayout = new QHBoxLayout(0, 5, 5, "dlayout2");
+	importerCombo = new QComboBox(0, this, "importerCombo2");
+	importerCombo->setMinimumSize(QSize(150, 0));
+	QToolTip::add(importerCombo, tr("Choose the importer to use"));
+	importerCombo->insertStringList(importers);
+	if (static_cast<int>(importers.count()) > currentSelection)
+		importerCombo->setCurrentItem(currentSelection);
+	else
+		importerCombo->setCurrentItem(0);
+	ilayout->addWidget(importerCombo);
+	layout->addLayout(ilayout);
+
+	QBoxLayout* dlayout = new QHBoxLayout(0, 5, 5, "dlayout2");
+	rememberCheck = new QCheckBox(tr("Remember association"), this, "rememberCheck");
+	rememberCheck->setChecked(false);
+	QToolTip::add(rememberCheck, tr("Remember the file extension - importer association\n"
+                                    "and do not ask again to select an importer for\n"
+                                    "files of this type."));
+	dlayout->addStretch(10);
+	dlayout->addWidget(rememberCheck);
+	layout->addLayout(dlayout);
+
+	QBoxLayout* blayout = new QHBoxLayout(0, 5, 5, "blayout2");
+	blayout->addStretch(10);
+	okButton = new QPushButton(tr("OK"), this, "okButton2");
+	blayout->addWidget(okButton);
+	layout->addLayout(blayout);
+
+	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
+}
+
+bool gtImporterDialog::shouldRemember()
+{
+	return rememberCheck->isChecked();
+}
+
+QString gtImporterDialog::getImporter()
+{
+	return importerCombo->currentText();
+}
+
+gtImporterDialog::~gtImporterDialog()
+{
+
+}
+
 /********* Class gtDialogs *************************************************************************/
 
 gtDialogs::gtDialogs()
@@ -123,12 +187,17 @@ gtDialogs::gtDialogs()
 	fileName = "";
 	encoding = "";
 	importer = -1;
+	prefs = prefsFile->getContext("gtDialogs");
+	pwd = QDir::currentDirPath();
 }
 
 bool gtDialogs::runFileDialog(const QString& filters, const QStringList& importers)
 {
 	bool accepted = false;
-	fdia = new gtFileDialog(filters, importers);
+	PrefsContext* dirs = prefsFile->getContext("dirs");
+	QString dir = dirs->get("get_text", ".");
+	fdia = new gtFileDialog(filters, importers, dir);
+	
 	if (fdia->exec() == QDialog::Accepted)
 	{
 		fileName = fdia->selectedFile();
@@ -136,23 +205,71 @@ bool gtDialogs::runFileDialog(const QString& filters, const QStringList& importe
 			accepted = true;
 		encoding = fdia->encodingCombo->currentText();
 		importer = fdia->importerCombo->currentItem() - 1;
+		dirs->set("get_text", fileName.left(fileName.findRev("/")));
 	}
+	QDir::setCurrent(pwd);
 	return accepted;
 }
 
 bool gtDialogs::runImporterDialog(const QStringList& importers)
 {
-	bool ok;
-	QString res = QInputDialog::getItem(QObject::tr("Importer"), 
-	                                    QObject::tr("Choose the importer to use"), 
-	                                    importers, 0, false, &ok);
+	int curSel = prefs->getInt("curSel", 0);
+	QString extension = "";
+	QString shortName = fileName.right(fileName.length() - fileName.findRev("/") - 1);
+	if (shortName.find(".") == -1)
+		extension = ".no_extension";
+	else
+		extension = fileName.right(fileName.length() - fileName.findRev("."));
+	int extensionSel = prefs->getInt(extension, -1);
+	QString imp = prefs->get("remember"+extension, QString("false"));
+	QString res = "";
+	bool shouldRemember = false;
+	bool ok = false;
+	if (imp != "false")
+	{
+		res = imp;
+		if (importers.contains(res) > 0)
+			ok = true;
+	}
+	
+	if (!ok)
+	{
+		if ((extensionSel > -1) && (extensionSel < static_cast<int>(importers.count())))
+			curSel = extensionSel;
+		else
+			curSel = 0;
+		gtImporterDialog* idia = new gtImporterDialog(importers, curSel);
+		if (idia->exec())
+		{
+			res = idia->getImporter();
+			shouldRemember = idia->shouldRemember();
+			delete idia;
+			ok = true;
+		}
+	}
+
 	if (ok)
 	{
+		QString fileExtension = "";
 		for (uint i = 0; i < importers.count(); ++i)
 		{
 			if (importers[i] == res)
 			{
 				importer = i;
+				prefs->set("curSel", static_cast<int>(i));
+				if (fileName.find(".") != -1)
+				{
+					if (shortName.find(".") == -1)
+						fileExtension = ".no_extension";
+					else
+						fileExtension = fileName.right(fileName.length() - fileName.findRev("."));
+					if (fileExtension != "")
+					{
+						prefs->set(fileExtension, static_cast<int>(i));
+						if (shouldRemember)
+							prefs->set("remember"+fileExtension, res);
+					}
+				}
 				break;
 			}
 		}

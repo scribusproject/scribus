@@ -11,6 +11,7 @@
 #include "mergedoc.moc"
 #include "customfdialog.h"
 #include "scribusXml.h"
+#include "prefsfile.h"
 
 #if (_MSC_VER >= 1200)
  #include "win-config.h"
@@ -21,6 +22,7 @@
 #include <qcursor.h>
 
 extern QPixmap loadIcon(QString nam);
+extern PrefsFile* prefsFile;
 
 MergeDoc::MergeDoc( QWidget* parent, bool Mpages, int targetDocPageCount, int activePage ) : 
     QDialog( parent, "merge", true, 0 )
@@ -126,10 +128,12 @@ void MergeDoc::ChangeFile()
 	int dummy;
 	bool ret = false;
 	Count = 0;
+	PrefsContext* dirs = prefsFile->getContext("dirs");
+	QString wdir = dirs->get("merge", ".");
 #ifdef HAVE_LIBZ
-	CustomFDialog dia(this, tr("Open"), tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"));
+	CustomFDialog dia(this, wdir, tr("Open"), tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"));
 #else
-	CustomFDialog dia(this, tr("Open"), tr("Documents (*.sla *.scd);;All Files (*)"));
+	CustomFDialog dia(this, wdir, tr("Open"), tr("Documents (*.sla *.scd);;All Files (*)"));
 #endif
 	if (Filename->text() != "")
 		dia.setSelection(Filename->text());
@@ -138,6 +142,7 @@ void MergeDoc::ChangeFile()
 		fn = dia.selectedFile();
 		if (!fn.isEmpty())
 		{
+			dirs->set("merge", fn.left(fn.findRev("/")));
 			qApp->setOverrideCursor(QCursor(waitCursor), true);
 			ScriXmlDoc *ss = new ScriXmlDoc();
 			if (Mpa)

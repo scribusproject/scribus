@@ -17,6 +17,7 @@
 
 #include "cupsoptions.h"
 #include "cupsoptions.moc"
+#include "prefsfile.h"
 
 #if (_MSC_VER >= 1200)
  #include "win-config.h"
@@ -30,12 +31,14 @@
 #endif
 #include <qtooltip.h>
 extern QPixmap loadIcon(QString nam);
+extern PrefsFile* prefsFile;
 
 CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "prin", true, 0 )
 {
 	FlagsOpt.clear();
 	setCaption( tr( "Printer Options" ) );
- 	setIcon(loadIcon("AppIcon.png"));
+	setIcon(loadIcon("AppIcon.png"));
+	prefs = prefsFile->getContext("cups_options");
 	setSizeGripEnabled(true);
 	CupsOptionsLayout = new QVBoxLayout( this );
 	CupsOptionsLayout->setSpacing( 5 );
@@ -95,7 +98,10 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "pr
 				Daten.KeyW = QString(option->keyword);
 				KeyToText[QString(option->text)] = Daten;
 				item->insertStringList(opts);
-				item->setCurrentText(Marked);
+				int lastSelected = prefs->getInt(QString(option->text), 0);
+				if (lastSelected >= static_cast<int>(opts.count()))
+					lastSelected = 0;
+				item->setCurrentItem(lastSelected);
 				KeyToDefault[QString(option->text)] = Marked;
     			Table->setCellWidget(Table->numRows()-1, 1, item);
 			}
@@ -116,7 +122,10 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "pr
 	item4->insertItem( tr("All Pages"));
 	item4->insertItem( tr("Even Pages only"));
 	item4->insertItem( tr("Odd Pages only"));
-	item4->setCurrentItem(0);
+	int lastSelected = prefs->getInt(tr("Page Set"), 0);
+	if (lastSelected >= 3)
+		lastSelected = 0;
+	item4->setCurrentItem(lastSelected);
 	KeyToDefault["Page Set"] = tr("All Pages");
 	Table->setCellWidget(Table->numRows()-1, 1, item4);
 	Table->setNumRows(Table->numRows()+1);
@@ -130,6 +139,10 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "pr
 	item2->insertItem( tr("No"));
 	item2->insertItem( tr("Yes"));
 	item2->setCurrentItem(0);
+	lastSelected = prefs->getInt(tr("Mirror"), 0);
+	if (lastSelected >= 2)
+		lastSelected = 0;
+	item2->setCurrentItem(lastSelected);
 	KeyToDefault["Mirror"] = tr("No");
 	Table->setCellWidget(Table->numRows()-1, 1, item2);
 	Table->setNumRows(Table->numRows()+1);
@@ -143,6 +156,10 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "pr
 	item5->insertItem( tr("Portrait"));
 	item5->insertItem( tr("Landscape"));
 	item5->setCurrentItem(0);
+	lastSelected = prefs->getInt(tr("Orientation"), 0);
+	if (lastSelected >= 2)
+		lastSelected = 0;
+	item5->setCurrentItem(lastSelected);
 	KeyToDefault["Orientation"] = tr("Portrait");
 	Table->setCellWidget(Table->numRows()-1, 1, item5);
 	Table->setNumRows(Table->numRows()+1);
@@ -159,7 +176,10 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "pr
 	item3->insertItem("6 "+ tr("Pages per Sheet"));
 	item3->insertItem("9 "+ tr("Pages per Sheet"));
 	item3->insertItem("16 "+ tr("Pages per Sheet"));
-	item3->setCurrentItem(0);
+	lastSelected = prefs->getInt(tr("N-Up Printing"), 0);
+	if (lastSelected >= 6)
+		lastSelected = 0;
+	item3->setCurrentItem(lastSelected);
 	KeyToDefault["N-Up Printing"] = "1 "+ tr("Page per Sheet");
 	Table->setCellWidget(Table->numRows()-1, 1, item3);
 #endif
@@ -195,3 +215,12 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "pr
 	connect( PushButton1, SIGNAL( clicked() ), this, SLOT( accept() ) );
 }
 
+CupsOptions::~CupsOptions()
+{
+	for (int i = 0; i < Table->numRows(); ++i)
+	{
+		QComboBox* combo = dynamic_cast<QComboBox*>(Table->cellWidget(i, 1));
+		if (combo)
+			prefs->set(Table->text(i, 0), combo->currentItem());
+	}
+}

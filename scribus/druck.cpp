@@ -15,6 +15,7 @@
  #include "config.h"
 #endif
 
+#include "prefsfile.h"
 #include "customfdialog.h"
 #include "cupsoptions.h"
 #include <qtextstream.h>
@@ -31,6 +32,7 @@ extern bool CMSuse;
 
 extern bool loadText(QString nam, QString *Buffer);
 extern QPixmap loadIcon(QString nam);
+extern PrefsFile* prefsFile;
 
 AdvOptions::AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic, int ps, bool DoGcr) : QDialog( parent, "prin", true, 0 )
 {
@@ -562,11 +564,17 @@ void Druck::SelMode(bool e)
 
 void Druck::SelFile()
 {
-	CustomFDialog dia(this, tr("Save as"), tr("Postscript-Files (*.ps);;All Files (*)"), false, false);
+	PrefsContext* dirs = prefsFile->getContext("dirs");
+	QString wdir = dirs->get("druck", ".");
+	CustomFDialog dia(this, wdir, tr("Save as"), tr("Postscript-Files (*.ps);;All Files (*)"), false, false);
 	if (LineEdit1->text() != "")
 		dia.setSelection(LineEdit1->text());
 	if (dia.exec() == QDialog::Accepted)
-		LineEdit1->setText(dia.selectedFile());
+	{
+		QString selectedFile = dia.selectedFile();
+		dirs->set("druck", selectedFile.left(selectedFile.findRev("/")));
+		LineEdit1->setText(selectedFile);
+	}
 }
 
 void Druck::setMinMax(int min, int max, int cur)

@@ -19,6 +19,7 @@
 #include "cmykfw.h"
 #include "query.h"
 #include "scribus.h"
+#include "prefsfile.h"
 
 #if (_MSC_VER >= 1200)
  #include "win-config.h"
@@ -28,6 +29,7 @@
 
 extern QPixmap loadIcon(QString nam);
 extern ScribusApp* ScApp;
+extern PrefsFile* prefsFile;
 
 Farbmanager::Farbmanager( QWidget* parent, CListe doco, bool HDoc, QString DcolSet, QStringList Cust )
 		: QDialog( parent, "dd", true, 0 )
@@ -292,10 +294,12 @@ void Farbmanager::loadDefaults(int id)
 void Farbmanager::loadFarben()
 {
 	QString fileName;
+	PrefsContext* dirs = prefsFile->getContext("dirs");
+	QString wdir = dirs->get("colors", ".");
 #ifdef HAVE_LIBZ
-	CustomFDialog dia(this, tr("Open"), tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"));
+	CustomFDialog dia(this, wdir, tr("Open"), tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"));
 #else
-	CustomFDialog dia(this, tr("Open"), tr("Documents (*.sla *.scd);;All Files (*)"));
+	CustomFDialog dia(this, wdir, tr("Open"), tr("Documents (*.sla *.scd);;All Files (*)"));
 #endif
 	if (dia.exec() == QDialog::Accepted)
 		fileName = dia.selectedFile();
@@ -303,6 +307,7 @@ void Farbmanager::loadFarben()
 		return;
 	if (!fileName.isEmpty())
 	{
+		dirs->set("colors", fileName.left(fileName.findRev("/")));
 		ScriXmlDoc *ss = new ScriXmlDoc();
 		if (ss->ReadColors(fileName))
 		{

@@ -25,11 +25,11 @@
     </message>
     <message>
         <source>Programming:</source>
-        <translation>Programowanie:</translation>
+        <translation type="obsolete">Programowanie:</translation>
     </message>
     <message>
         <source>Contributions from:</source>
-        <translation>Podziękowania:</translation>
+        <translation>Wkład w rozwój programu:</translation>
     </message>
     <message>
         <source>Windows port:</source>
@@ -37,7 +37,7 @@
     </message>
     <message>
         <source>Documentation:</source>
-        <translation>Dokumentacja:</translation>
+        <translation type="obsolete">Dokumentacja:</translation>
     </message>
     <message>
         <source>Authors</source>
@@ -105,7 +105,7 @@
     </message>
     <message>
         <source>English:</source>
-        <translation>Angielski:</translation>
+        <translation type="obsolete">Angielski:</translation>
     </message>
     <message>
         <source>Welsh:</source>
@@ -137,15 +137,15 @@
     </message>
     <message>
         <source>Homepage and online reference</source>
-        <translation>Strona domowa i dokumentacja</translation>
+        <translation type="obsolete">Strona domowa i dokumentacja</translation>
     </message>
     <message>
         <source>Mailing list</source>
-        <translation>Lista dyskusyjna</translation>
+        <translation type="obsolete">Lista dyskusyjna</translation>
     </message>
     <message>
         <source>Bugs and feature requests</source>
-        <translation>Błędy i życzenia zmian</translation>
+        <translation type="obsolete">Błędy i życzenia zmian</translation>
     </message>
     <message>
         <source>Online</source>
@@ -192,6 +192,38 @@ O braku obsługi dla danej biblioteki informuje symbol *</translation>
     <message>
         <source>Swedish:</source>
         <translation>Szwedzki:</translation>
+    </message>
+    <message>
+        <source>Development Team:</source>
+        <translation>Zespół tworzący program:</translation>
+    </message>
+    <message>
+        <source>Official Documentation:</source>
+        <translation>Oficjalna dokumentacja:</translation>
+    </message>
+    <message>
+        <source>Other Documentation:</source>
+        <translation>Inna dokumentacja:</translation>
+    </message>
+    <message>
+        <source>English (British):</source>
+        <translation>Angielski (Brytyjski):</translation>
+    </message>
+    <message>
+        <source>Homepage</source>
+        <translation>Strona domowa</translation>
+    </message>
+    <message>
+        <source>Online Reference</source>
+        <translation>Dokumentacja online</translation>
+    </message>
+    <message>
+        <source>Bugs and Feature Requests</source>
+        <translation>Błędy i propozycje zmian</translation>
+    </message>
+    <message>
+        <source>Mailing List</source>
+        <translation>Lista dyskusyjna</translation>
     </message>
 </context>
 <context>
@@ -9401,6 +9433,18 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
         <source>Apply &amp;Under Color Removal</source>
         <translation>Zastosuj &amp;UCR (usuwanie koloru neutralnego)</translation>
     </message>
+    <message>
+        <source>T&amp;emplates:</source>
+        <translation>Sza&amp;blony:</translation>
+    </message>
+    <message>
+        <source>Cha&amp;nge...</source>
+        <translation>Zmień&amp;...</translation>
+    </message>
+    <message>
+        <source>Additional Directory for Document Templates</source>
+        <translation>Dodatkowy katalog na szablony dokumentów</translation>
+    </message>
 </context>
 <context>
     <name>QColorDialog</name>
@@ -10243,6 +10287,14 @@ External Links
         <translation>
 Zewnętrzne dowiązania
 </translation>
+    </message>
+    <message>
+        <source>Font %1 is broken, discarding it</source>
+        <translation>Czcionka %1 jest wadliwa i zostaje wyłączona</translation>
+    </message>
+    <message>
+        <source>OO.o Writer Documents</source>
+        <translation>Dokumenty w formacie programu OO.o Writer</translation>
     </message>
 </context>
 <context>
@@ -12989,6 +13041,29 @@ przeciągnij szablon na widok strony na dole.</translation>
     <message>
         <source>Strike Out</source>
         <translation>Przekreślenie</translation>
+    </message>
+</context>
+<context>
+    <name>SxwDialog</name>
+    <message>
+        <source>OO.o Writer Importer Options</source>
+        <translation>Ustawienia importu z OO.o Writera</translation>
+    </message>
+    <message>
+        <source>Update paragraph styles</source>
+        <translation>Aktualizuj style akapitów</translation>
+    </message>
+    <message>
+        <source>If there already exists a paragraph style with the same
+name than current OO.o document&apos;s paragraph should the style
+in Scribus be edited to match the one being imported
+or left untouched</source>
+        <translation>Zmień właściwości istniejącego stylu akapitu w Scribusie, 
+jeśli w dokumencie OO.o Writera pojawi się styl o tej samej nazwie</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
     </message>
 </context>
 <context>

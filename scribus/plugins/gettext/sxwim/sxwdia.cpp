@@ -7,7 +7,7 @@
 
 extern QPixmap loadIcon(QString nam);
 
-SxwDialog::SxwDialog(bool update) : QDialog(0, "sxwdia", true, 0)
+SxwDialog::SxwDialog(bool update, bool prefix) : QDialog(0, "sxwdia", true, 0)
 {
 	setCaption(tr("OO.o Writer Importer Options"));
 	setIcon(loadIcon("AppIcon.png"));
@@ -24,15 +24,23 @@ SxwDialog::SxwDialog(bool update) : QDialog(0, "sxwdia", true, 0)
 	hlayout->addWidget(updateCheck);
 	layout->addLayout(hlayout);
 
-// 	QBoxLayout* dlayout = new QHBoxLayout(0, 5, 5, "dlayout");
-// 	doNotAskCheck = new QCheckBox(tr("Do not ask again"), this, "doNotAskCheck");
-// 	doNotAskCheck->setChecked(false);
-// 	QToolTip::add(doNotAskCheck, tr("Should the importer always use currently\n"
-// 	                                "set value when importing OO.o document and\n"
-// 	                                "never ask your confirmation again"));
-// 	dlayout->addStretch(10);
-// 	dlayout->addWidget(doNotAskCheck);
-// 	layout->addLayout(dlayout);
+	QBoxLayout* playout = new QHBoxLayout(0, 5, 5, "playout");
+	prefixCheck = new QCheckBox(tr("Use document name as a prefix for paragraph styles"), this, "prefixCheck");
+	prefixCheck->setChecked(prefix);
+	QToolTip::add(prefixCheck, tr("Should importer add the name of the document\n"
+	                              "on front of the paragraph style name in Scirubs"));
+	playout->addWidget(prefixCheck);
+	layout->addLayout(playout);
+
+	QBoxLayout* dlayout = new QHBoxLayout(0, 5, 5, "dlayout");
+	doNotAskCheck = new QCheckBox(tr("Do not ask again"), this, "doNotAskCheck");
+	doNotAskCheck->setChecked(false);
+	QToolTip::add(doNotAskCheck, tr("Should the importer always use currently\n"
+	                                "set value when importing OO.o document and\n"
+	                                "never ask your confirmation again"));
+	dlayout->addStretch(10);
+	dlayout->addWidget(doNotAskCheck);
+	layout->addLayout(dlayout);
 
 	QBoxLayout* blayout = new QHBoxLayout(0, 5, 5, "blayout");
 	blayout->addStretch(10);
@@ -46,6 +54,11 @@ SxwDialog::SxwDialog(bool update) : QDialog(0, "sxwdia", true, 0)
 bool SxwDialog::shouldUpdate()
 {
 	return updateCheck->isChecked();
+}
+
+bool SxwDialog::usePrefix()
+{
+	return prefixCheck->isChecked();
 }
 
 bool SxwDialog::askAgain()
