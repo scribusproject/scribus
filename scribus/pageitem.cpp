@@ -209,7 +209,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 	QRegion cm;
 	uint a, nrc, nrc2, zae;
 	int desc, asce, absa, aSpa, chs;
-	uint BuPos, LastSP, BuPos2;
+	uint BuPos, LastSP, BuPos2, MaxText;
 	double oldCurY, LastXp, EndX, OFs, OFs2, wide, rota, wid, lineCorr;
 	double sc = Doc->Scale;
 	QString chx, chx2, chx3;
@@ -567,7 +567,8 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 				OFs2 = 0;
 				aSpa = 0;
 				absa = 0;
-				for (a = 0; a < Ptext.count(); ++a)
+				MaxText = Ptext.count();
+				for (a = 0; a < MaxText; ++a)
 					{
 					hl = Ptext.at(a);
 					chx = hl->ch;
@@ -625,7 +626,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						chx2 = " ";
 					else
 						chx2 = chx;
-					if (a < Ptext.count()-1)
+					if (a < MaxText-1)
 						{
 						if (Ptext.at(a+1)->ch == QChar(29))
 							chx3 = " ";
@@ -704,7 +705,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						{
 						if (outs)
 							{
-							if (LastSP != 0)            // Hier können auch andere Trennungen eingebaut werden
+							if (LastSP != 0)            // Hier koenen auch andere Trennungen eingebaut werden
 								{
 								a -= BuPos - LastSP;
 								a++;
@@ -764,7 +765,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 										for (uint yof = 0; yof < LiList.count(); ++yof)
 											{
 											LiList.at(yof)->xco += OFs;
-											Ptext.at(BuPos2)->xp += OFs;
+											Ptext.at(QMIN(BuPos2, MaxText-1))->xp += OFs;
 											BuPos2++;
 											if (LiList.at(yof)->Zeich == QChar(32))
 												OFs += OFs2;
@@ -775,7 +776,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 										for (uint xof = 0; xof<LiList.count(); ++xof)
 											{
 											LiList.at(xof)->xco += OFs;
-											Ptext.at(BuPos2)->xp += OFs;
+											Ptext.at(QMIN(BuPos2, MaxText-1))->xp += OFs;
 											BuPos2++;
 											}
 										}
@@ -823,7 +824,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 									for (uint yof = 0; yof < LiList.count(); ++yof)
 										{
 										LiList.at(yof)->xco += OFs;
-										Ptext.at(BuPos2)->xp += OFs;
+										Ptext.at(QMIN(BuPos2, MaxText-1))->xp += OFs;
 										BuPos2++;
 										if (LiList.at(yof)->Zeich == QChar(32))
 											OFs += OFs2;
@@ -834,7 +835,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 									for (uint xof = 0; xof<LiList.count(); ++xof)
 										{
 										LiList.at(xof)->xco += OFs;
-										Ptext.at(BuPos2)->xp += OFs;
+										Ptext.at(QMIN(BuPos2, MaxText-1))->xp += OFs;
 										BuPos2++;
 										}
 									}
@@ -928,7 +929,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						for (uint yof = 0; yof < LiList.count(); ++yof)
 							{
 							LiList.at(yof)->xco += OFs;
-							Ptext.at(BuPos2)->xp += OFs;
+							Ptext.at(QMIN(BuPos2, MaxText-1))->xp += OFs;
 							BuPos2++;
 							if (LiList.at(yof)->Zeich == QChar(32))
 								OFs += OFs2;
@@ -939,7 +940,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						for (uint xof = 0; xof<LiList.count(); ++xof)
 							{
 							LiList.at(xof)->xco += OFs;
-							Ptext.at(BuPos2)->xp += OFs;
+							Ptext.at(QMIN(BuPos2, MaxText-1))->xp += OFs;
 							BuPos2++;
 							}
 						}

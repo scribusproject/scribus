@@ -159,6 +159,7 @@ void PPreview::ToSeite(int num)
 {
 	if (num == APage)
 		return;
+	APage = num;
 	Anz->setPixmap(CreatePreview(num, 72));
 }
 

@@ -185,7 +185,7 @@ if (elem.hasAttribute("Version"))
 	newVersion = true;
 QDomNode DOC=elem.firstChild();
 while(!DOC.isNull())
-{
+	{
 	QDomElement dc=DOC.toElement();
 	/*
 	* Attribute von DOCUMENT auslesen
@@ -193,10 +193,10 @@ while(!DOC.isNull())
 	DoFonts.clear();
 	QDomNode PAGE=DOC.firstChild();
 	while(!PAGE.isNull())
-	{
+		{
 		QDomElement pg=PAGE.toElement();
 		if(pg.tagName()=="FONT")
-		{
+			{
 			/*
 			* Attribute von FONT auslesen
 			*/
@@ -220,7 +220,7 @@ while(!DOC.isNull())
 			fo.setPointSize(qRound(doc->Dsize / 10.0));
 			doc->AddFont(tmpf, fo);
 			DoFonts[pg.attribute("NAME")] = tmpf;
-		}
+			}
 		if(pg.tagName()=="COLOR")
 			{
 			if (pg.hasAttribute("CMYK"))
@@ -330,7 +330,7 @@ while(!DOC.isNull())
 			doc->MLineStyles.insert(pg.attribute("Name"), ml);
 			}
 		if ((pg.tagName()=="PAGE") && (QStoInt(pg.attribute("NUM")) == PageToLoad))
-		{
+			{
 			/*
 			* Attribute von PAGE auslesen
 			*/
@@ -368,7 +368,7 @@ while(!DOC.isNull())
 			QDomNode OBJ=PAGE.firstChild();
 			counter = 0;
 			while(!OBJ.isNull())
-			{
+				{
 				QDomElement obj=OBJ.toElement();
 				/*
 				* Attribute von OBJECT auslesen
@@ -554,7 +554,7 @@ while(!DOC.isNull())
 					OB.Groups.clear();
 				QDomNode IT=OBJ.firstChild();
 				while(!IT.isNull())
-				{
+					{
 					QDomElement it=IT.toElement();
 					if (it.tagName()=="ITEXT")
 						{
@@ -585,7 +585,7 @@ while(!DOC.isNull())
 							}
 						}
 					IT=IT.nextSibling();
-				}
+					}
 				OB.Ptext = tmp;
 				if ((OB.PType == 5) && (OB.Height != 0))
 					{
@@ -599,10 +599,11 @@ while(!DOC.isNull())
 				if (QStoInt(obj.attribute("NEXTPAGE")) == PageToLoad)
 					{
 					Neu->NextIt = QStoInt(obj.attribute("NEXTITEM"));
-					Neu->NextPg = QStoInt(obj.attribute("NEXTPAGE"));
+					Neu->NextPg = a; // QStoInt(obj.attribute("NEXTPAGE"));
 					}
+				counter++;
 				OBJ=OBJ.nextSibling();
-			}
+				}
 			if (LFrames.count() != 0)
 				{
 				PageItem *Its;
@@ -614,28 +615,28 @@ while(!DOC.isNull())
 					Its = view->Pages.at((*lc).StPag)->Items.at((*lc).Start);
 					Itr = Its;
 					Its->BackBox = 0;
-				while (Its->NextIt != -1)
-					{
-					if (Its->NextPg == PageToLoad)
+					while (Its->NextIt != -1)
 						{
-						Itn = view->Pages.at(Its->NextPg)->Items.at(Its->NextIt);
-						Its->NextBox = Itn;
-						Itn->BackBox = Its;
-						Its = Itn;
+						if (Its->NextPg == a)
+							{
+							Itn = view->Pages.at(Its->NextPg)->Items.at(Its->NextIt);
+							Its->NextBox = Itn;
+							Itn->BackBox = Its;
+							Its = Itn;
+							}
+						else
+							break;
 						}
-					else
-						break;
+					Its->NextBox = 0;
+					Itr->Dirty = true;
+//					Itr->paintObj();
 					}
-				Its->NextBox = 0;
-				Itr->Dirty = true;
-				Itr->paintObj();
 				}
-			}
 			view->reformPages();
 			return true;
-		}
+			}
 		PAGE=PAGE.nextSibling();
-	}
+		}	
 	DOC=DOC.nextSibling();
 }
 return false;
@@ -885,7 +886,7 @@ while(!DOC.isNull())
 			doc->MLineStyles.insert(pg.attribute("Name"), ml);
 			}
 		if(pg.tagName()=="PAGE")
-		{
+			{
 			/*
 			* Attribute von PAGE auslesen
 			*/
@@ -1178,7 +1179,7 @@ while(!DOC.isNull())
 				Neu->NextPg = QStoInt(obj.attribute("NEXTPAGE"));
 				counter++;
 				OBJ=OBJ.nextSibling();
-			}
+				}
 			if (PgNam == "")
 				{
 				view->DocPages = view->Pages;
@@ -1235,7 +1236,7 @@ if (LFrames.count() != 0)
 			}
 		Its->NextBox = 0;
 		Itr->Dirty = true;
-		Itr->paintObj();
+//		Itr->paintObj();
 		}
 	}
 if (doc->Einheit == 0)
