@@ -996,20 +996,260 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 		p->PS_begin_doc(Doc->PageOri, 0.0, 0.0, Doc->PageB, Doc->PageH, pageNs.size());
 	for (uint ap = 0; ap < MasterPages.count(); ++ap)
 	{
+		int Lnr = 0;
+		struct Layer ll;
+		ll.Drucken = false;
+		ll.LNr = 0;
 		if (MasterPages.at(ap)->Items.count() != 0)
 		{
-			if ((!sep) && (farb))
+			for (uint lam = 0; lam < Doc->Layers.count(); ++lam)
 			{
-				for (uint api = 0; api < MasterPages.at(ap)->Items.count(); ++api)
+				Level2Layer(Doc, &ll, Lnr);
+				if (ll.Drucken)
 				{
-					PageItem *it = MasterPages.at(ap)->Items.at(api);
-					if ((it->PType == 2) && (it->PicAvail) && (it->Pfile != "") && (it->isPrintable))
-						p->PS_ImageData(it->InvPict, it->Pfile, it->AnName, it->IProfile, it->UseEmbedded, Ic);
+					for (uint api = 0; api < MasterPages.at(ap)->Items.count(); ++api)
+					{
+						int h, s, v, k, tsz;
+						double wideR;
+						struct Pti *hl;
+						QString tmps, chx;
+						PageItem *c = MasterPages.at(ap)->Items.at(api);
+						if (c->LayerNr != ll.LNr)
+							continue;
+						if ((c->PType == 2) && (c->PicAvail) && (c->Pfile != "") && (c->isPrintable) && (!sep) && (farb))
+							p->PS_ImageData(c->InvPict, c->Pfile, c->AnName, c->IProfile, c->UseEmbedded, Ic);
+						p->PS_TemplateStart(MasterPages.at(ap)->PageNam + tmps.setNum(c->ItemNr), Doc->PageB, Doc->PageH);
+						if (c->isPrintable)
+						{
+							p->PS_save();
+							if (c->Pcolor != "None")
+							{
+								SetFarbe(c->Pcolor, c->Shade, &h, &s, &v, &k, gcr);
+								p->PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+							}
+							if (c->Pcolor2 != "None")
+							{
+								SetFarbe(c->Pcolor2, c->Shade2, &h, &s, &v, &k, gcr);
+								p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+							}
+							p->PS_setlinewidth(c->Pwidth);
+							p->PS_setcapjoin(c->PLineEnd, c->PLineJoin);
+							p->PS_setdash(c->PLineArt, c->DashOffset, c->DashValues);
+							p->PS_translate(c->Xpos, Doc->PageH - c->Ypos);
+							if (c->Rot != 0)
+								p->PS_rotate(-c->Rot);
+							switch (c->PType)
+							{
+							case 2:
+								break;
+							case 4:
+								break;
+							case 5:
+								if ((c->NamedLStyle == "") && (c->Pwidth != 0.0))
+								{
+									p->PS_moveto(0, 0);
+									p->PS_lineto(c->Width, -c->Height);
+									p->PS_stroke();
+								}
+								else
+								{
+									multiLine ml = Doc->MLineStyles[c->NamedLStyle];
+									for (int it = ml.size()-1; it > -1; it--)
+									{
+										SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
+										p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+										p->PS_setlinewidth(ml[it].Width);
+										p->PS_setcapjoin(static_cast<PenCapStyle>(ml[it].LineEnd), static_cast<PenJoinStyle>(ml[it].LineJoin));
+										p->PS_setdash(static_cast<PenStyle>(ml[it].Dash), 0, dum);
+										p->PS_moveto(0, 0);
+										p->PS_lineto(c->Width, -c->Height);
+										p->PS_stroke();
+									}
+								}
+								break;
+							case 1:
+							case 3:
+							case 6:
+								if ((c->Pcolor != "None") || (c->GrType != 0))
+								{
+									SetClipPath(p, &c->PoLine);
+									p->PS_closepath();
+									if (c->GrType != 0)
+										HandleGradient(p, c, c->Width, c->Height, gcr);
+									else
+										p->PS_fill();
+								}
+								if ((c->Pcolor2 != "None") || (c->NamedLStyle != ""))
+								{
+									if ((c->NamedLStyle == "") && (c->Pwidth != 0.0))
+									{
+										SetClipPath(p, &c->PoLine);
+										p->PS_closepath();
+										p->PS_stroke();
+									}
+									else
+									{
+										multiLine ml = Doc->MLineStyles[c->NamedLStyle];
+										for (int it = ml.size()-1; it > -1; it--)
+										{
+											SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
+											p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+											p->PS_setlinewidth(ml[it].Width);
+											p->PS_setcapjoin(static_cast<PenCapStyle>(ml[it].LineEnd), static_cast<PenJoinStyle>(ml[it].LineJoin));
+											p->PS_setdash(static_cast<PenStyle>(ml[it].Dash), 0, dum);
+											SetClipPath(p, &c->PoLine);
+											p->PS_closepath();
+											p->PS_stroke();
+										}
+									}
+								}
+								break;
+							case 7:
+								if ((c->Pcolor != "None") || (c->GrType != 0))
+								{
+									SetClipPath(p, &c->PoLine);
+									p->PS_closepath();
+									if (c->GrType != 0)
+										HandleGradient(p, c, c->Width, c->Height, gcr);
+									else
+										p->PS_fill();
+									p->PS_newpath();
+								}
+								if ((c->NamedLStyle == "") && (c->Pwidth != 0.0))
+								{
+									SetClipPath(p, &c->PoLine, false);
+									p->PS_stroke();
+								}
+								else
+								{
+									multiLine ml = Doc->MLineStyles[c->NamedLStyle];
+									for (int it = ml.size()-1; it > -1; it--)
+									{
+										SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
+										p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+										p->PS_setlinewidth(ml[it].Width);
+										p->PS_setcapjoin(static_cast<PenCapStyle>(ml[it].LineEnd), static_cast<PenJoinStyle>(ml[it].LineJoin));
+										p->PS_setdash(static_cast<PenStyle>(ml[it].Dash), 0, dum);
+										SetClipPath(p, &c->PoLine, false);
+										p->PS_stroke();
+									}
+								}
+								break;
+							case 8:
+								if (c->PoShow)
+								{
+									if (c->PoLine.size() > 3)
+									{
+										p->PS_save();
+										if ((c->NamedLStyle == "") && (c->Pwidth != 0.0))
+										{
+											SetClipPath(p, &c->PoLine, false);
+											p->PS_stroke();
+										}
+										else
+										{
+											multiLine ml = Doc->MLineStyles[c->NamedLStyle];
+											for (int it = ml.size()-1; it > -1; it--)
+											{
+												SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
+												p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+												p->PS_setlinewidth(ml[it].Width);
+												p->PS_setcapjoin(static_cast<PenCapStyle>(ml[it].LineEnd), static_cast<PenJoinStyle>(ml[it].LineJoin));
+												p->PS_setdash(static_cast<PenStyle>(ml[it].Dash), 0, dum);
+												SetClipPath(p, &c->PoLine, false);
+												p->PS_stroke();
+											}
+										}
+										p->PS_restore();
+									}
+								}
+								for (uint d = 0; d < c->MaxChars; ++d)
+								{
+									hl = c->Ptext.at(d);
+									if ((hl->ch == QChar(13)) || (hl->ch == QChar(30)) || (hl->ch == QChar(9)) || (hl->ch == QChar(28)))
+										continue;
+									tsz = hl->csize;
+									chx = hl->ch;
+									if (hl->ch == QChar(29))
+										chx = " ";
+									if (hl->ch == QChar(0xA0))
+										chx = " ";
+									if (hl->cstyle & 64)
+									{
+										if (chx.upper() != chx)
+										{
+											tsz = hl->csize * Doc->VKapit / 100;
+											chx = chx.upper();
+										}
+									}
+									if (hl->cstyle & 1)
+										tsz = hl->csize * Doc->VHochSc / 100;
+									if (hl->cstyle & 2)
+										tsz = hl->csize * Doc->VHochSc / 100;
+									if (hl->ccolor != "None")
+									{
+										SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
+										p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+									}
+									/* Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed */
+									QFileInfo fd = QFileInfo((*Doc->AllFonts)[hl->cfont]->Datei);
+									QString fext = fd.extension(false).lower();
+									if ((fext == "ttf") || ((*Doc->AllFonts)[hl->cfont]->isOTF) || ((*Doc->AllFonts)[hl->cfont]->Subset))
+									{
+										uint chr = chx[0].unicode();
+										if (((*Doc->AllFonts)[hl->cfont]->CharWidth.contains(chr)) && (chr != 32))
+										{
+											p->PS_save();
+											p->PS_translate(hl->PtransX, -hl->PtransY);
+											p->PS_rotate(-hl->PRot);
+											if (c->Reverse)
+											{
+												p->PS_translate(hl->xp, (hl->yp - (tsz / 10.0)) * -1);
+												p->PS_scale(-1, 1);
+												if (d < c->MaxChars-1)
+												{
+													QString ctx = c->Ptext.at(d+1)->ch;
+													if (ctx == QChar(29))
+														ctx = " ";
+													if (ctx == QChar(0xA0))
+														ctx = " ";
+													wideR = -Cwidth(Doc, hl->cfont, chx, tsz, ctx) * (hl->cscale / 100.0);
+												}
+												else
+													wideR = -Cwidth(Doc, hl->cfont, chx, tsz) * (hl->cscale / 100.0);
+												p->PS_translate(wideR, 0);
+											}
+											else
+												p->PS_translate(hl->xp, (hl->yp - (tsz / 10.0)) * -1);
+											if (hl->cscale != 100)
+												p->PS_scale(hl->cscale / 100.0, 1);
+											if (hl->ccolor != "None")
+											{
+												SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
+												p->PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+												p->PS_showSub(chr, (*Doc->AllFonts)[hl->cfont]->RealName(), tsz / 10.0, false);
+											}
+											p->PS_restore();
+										}
+									}
+									else
+									{
+										p->PS_selectfont(hl->cfont, tsz / 10.0);
+										p->PS_save();
+										p->PS_translate(hl->PtransX, -hl->PtransY);
+										p->PS_rotate(-hl->PRot);
+										p->PS_show_xyG(hl->cfont, chx, hl->xp, -hl->yp);
+										p->PS_restore();
+									}
+								}
+								break;
+							}
+							p->PS_restore();
+						}
+						p->PS_TemplateEnd();
+					}
 				}
 			}
-			p->PS_TemplateStart(MasterPages.at(ap)->PageNam, Doc->PageB, Doc->PageH);
-			ProcessPage(p, MasterPages.at(ap), ap+1, sep, farb, Ic, gcr);
-			p->PS_TemplateEnd();
 		}
 	}
 	sepac = 0;
@@ -1064,7 +1304,6 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 			Page* mPage = MasterPages.at(MasterNames[Pages.at(a)->MPageNam]);
 			if (mPage->Items.count() != 0)
 			{
-				p->PS_UseTemplate(Pages.at(a)->MPageNam);
 				for (uint lam = 0; lam < Doc->Layers.count(); ++lam)
 				{
 					Level2Layer(Doc, &ll, Lnr);
@@ -1072,10 +1311,13 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 					{
 						for (uint am = 0; am < mPage->Items.count(); ++am)
 						{
+							QString tmps;
 							PageItem *ite = mPage->Items.at(am);
 							if ((ite->LayerNr != ll.LNr) || (!ite->isPrintable))
 								continue;
-							if ((ite->PType == 2) && ((sep) || (!farb)))
+							if ((ite->PType != 4) && (ite->PType != 2))
+								p->PS_UseTemplate(Pages.at(a)->MPageNam + tmps.setNum(ite->ItemNr));
+							else if (ite->PType == 2)
 							{
 								p->PS_save();
 								p->PS_translate(ite->Xpos, Doc->PageH - ite->Ypos);
@@ -1108,7 +1350,10 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 								if ((ite->PicAvail) && (ite->Pfile != ""))
 								{
 									p->PS_translate(0, -ite->BBoxH*ite->LocalScY);
-									p->PS_image(ite->InvPict, -ite->BBoxX+ite->LocalX, -ite->LocalY, ite->Pfile, ite->LocalScX, ite->LocalScY, ite->IProfile, ite->UseEmbedded, Ic, ite->AnName);
+									if ((!sep) && (farb))
+										p->PS_image(ite->InvPict, -ite->BBoxX+ite->LocalX, -ite->LocalY, ite->Pfile, ite->LocalScX, ite->LocalScY, ite->IProfile, ite->UseEmbedded, Ic, ite->AnName);
+									else
+										p->PS_image(ite->InvPict, -ite->BBoxX+ite->LocalX, -ite->LocalY, ite->Pfile, ite->LocalScX, ite->LocalScY, ite->IProfile, ite->UseEmbedded, Ic);
 								}
 								p->PS_restore();
 								if (((ite->Pcolor2 != "None") || (ite->NamedLStyle != "")) && (!ite->isTableItem))
@@ -1142,7 +1387,7 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 								}
 								p->PS_restore();
 							}
-							if (ite->PType == 4)
+							else if (ite->PType == 4)
 							{
 								QWidget* Opa;
 								Page* Opa2;
@@ -1199,6 +1444,8 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 									tsz = hl->csize;
 									chx = hl->ch;
 									if (hl->ch == QChar(29))
+										chx = " ";
+									if (hl->ch == QChar(0xA0))
 										chx = " ";
 									if (hl->ch == QChar(30))
 									{
@@ -1259,6 +1506,8 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 													QString ctx = ite->Ptext.at(d+1)->ch;
 													if (ctx == QChar(29))
 														ctx = " ";
+													if (ctx == QChar(0xA0))
+														ctx = " ";
 													wideR = -Cwidth(Doc, hl->cfont, chx, tsz, ctx) * (hl->cscale / 100.0);
 												}
 												else
@@ -1297,6 +1546,8 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 											{
 												QString ctx = ite->Ptext.at(d+1)->ch;
 												if (ctx == QChar(29))
+													ctx = " ";
+												if (ctx == QChar(0xA0))
 													ctx = " ";
 												wideR = -Cwidth(Doc, hl->cfont, chx, chs, ctx) * (hl->cscale / 100.0);
 												p->PS_translate(wideR, 0);
@@ -1453,24 +1704,24 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 					for (uint am = 0; am < mPage->Items.count(); ++am)
 					{
 						PageItem *ite = mPage->Items.at(am);
-						if ((ite->PType == 2) && ((sep) || (!farb)))
+						if ((ite->LayerNr != ll.LNr) || (!ll.Drucken))
 							continue;
 						if (ite->isPrintable)
 						{
-							p->PS_save();
-							if (ite->Pcolor2 != "None")
-							{
-								SetFarbe(ite->Pcolor2, ite->Shade2, &h, &s, &v, &k, gcr);
-								p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-							}
-							p->PS_setlinewidth(ite->Pwidth);
-							p->PS_setcapjoin(ite->PLineEnd, ite->PLineJoin);
-							p->PS_setdash(ite->PLineArt, ite->DashOffset, ite->DashValues);
-							p->PS_translate(ite->Xpos, Doc->PageH - ite->Ypos);
-							if (ite->Rot != 0)
-								p->PS_rotate(-ite->Rot);
 							if (ite->isTableItem)
 							{
+								p->PS_save();
+								if (ite->Pcolor2 != "None")
+								{
+									SetFarbe(ite->Pcolor2, ite->Shade2, &h, &s, &v, &k, gcr);
+									p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+								}
+								p->PS_setlinewidth(ite->Pwidth);
+								p->PS_setcapjoin(ite->PLineEnd, ite->PLineJoin);
+								p->PS_setdash(ite->PLineArt, ite->DashOffset, ite->DashValues);
+								p->PS_translate(ite->Xpos, Doc->PageH - ite->Ypos);
+								if (ite->Rot != 0)
+								p->PS_rotate(-ite->Rot);
 								if ((ite->TopLine) || (ite->RightLine) || (ite->BottomLine) || (ite->LeftLine))
 								{
 									if (ite->TopLine)
@@ -1495,8 +1746,8 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 									}
 									p->PS_stroke();
 								}
+								p->PS_restore();
 							}
-							p->PS_restore();
 						}
 					}
 					Lnr++;
@@ -1698,6 +1949,8 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 							chx = hl->ch;
 							if (hl->ch == QChar(29))
 								chx = " ";
+							if (hl->ch == QChar(0xA0))
+								chx = " ";
 							if (hl->ch == QChar(30))
 							{
 								if (Doc->MasterP)
@@ -1757,6 +2010,8 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 											QString ctx = c->Ptext.at(d+1)->ch;
 											if (ctx == QChar(29))
 												ctx = " ";
+											if (ctx == QChar(0xA0))
+												ctx = " ";
 											wideR = -Cwidth(Doc, hl->cfont, chx, tsz, ctx) * (hl->cscale / 100.0);
 										}
 										else
@@ -1795,6 +2050,8 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 									{
 										QString ctx = c->Ptext.at(d+1)->ch;
 										if (ctx == QChar(29))
+											ctx = " ";
+										if (ctx == QChar(0xA0))
 											ctx = " ";
 										wideR = -Cwidth(Doc, hl->cfont, chx, chs, ctx) * (hl->cscale / 100.0);
 										p->PS_translate(wideR, 0);
@@ -2073,6 +2330,8 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 							chx = hl->ch;
 							if (hl->ch == QChar(29))
 								chx = " ";
+							if (hl->ch == QChar(0xA0))
+								chx = " ";
 							if (hl->cstyle & 64)
 							{
 								if (chx.upper() != chx)
@@ -2109,6 +2368,8 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 										{
 											QString ctx = c->Ptext.at(d+1)->ch;
 											if (ctx == QChar(29))
+												ctx = " ";
+											if (ctx == QChar(0xA0))
 												ctx = " ";
 											wideR = -Cwidth(Doc, hl->cfont, chx, tsz, ctx) * (hl->cscale / 100.0);
 										}
@@ -2148,7 +2409,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 		for (b = 0; b < a->Items.count(); ++b)
 		{
 			c = a->Items.at(b);
-			if (c->LayerNr != ll.LNr)
+			if ((c->LayerNr != ll.LNr) || (!ll.Drucken))
 				continue;
 			if ((a->PageNam != "") && (c->PType == 4))
 				continue;
@@ -2156,20 +2417,20 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 				continue;
 			if (c->isPrintable)
 			{
-				p->PS_save();
-				if (c->Pcolor2 != "None")
-				{
-					SetFarbe(c->Pcolor2, c->Shade2, &h, &s, &v, &k, gcr);
-					p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-				}
-				p->PS_setlinewidth(c->Pwidth);
-				p->PS_setcapjoin(c->PLineEnd, c->PLineJoin);
-				p->PS_setdash(c->PLineArt, c->DashOffset, c->DashValues);
-				p->PS_translate(c->Xpos, Doc->PageH - c->Ypos);
-				if (c->Rot != 0)
-					p->PS_rotate(-c->Rot);
 				if (c->isTableItem)
 				{
+					p->PS_save();
+					if (c->Pcolor2 != "None")
+					{
+						SetFarbe(c->Pcolor2, c->Shade2, &h, &s, &v, &k, gcr);
+						p->PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+					}
+					p->PS_setlinewidth(c->Pwidth);
+					p->PS_setcapjoin(c->PLineEnd, c->PLineJoin);
+					p->PS_setdash(c->PLineArt, c->DashOffset, c->DashValues);
+					p->PS_translate(c->Xpos, Doc->PageH - c->Ypos);
+					if (c->Rot != 0)
+						p->PS_rotate(-c->Rot);
 					if ((c->TopLine) || (c->RightLine) || (c->BottomLine) || (c->LeftLine))
 					{
 						if (c->TopLine)
@@ -2194,8 +2455,8 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 						}
 						p->PS_stroke();
 					}
+					p->PS_restore();
 				}
-				p->PS_restore();
 			}
 		}
 		Lnr++;

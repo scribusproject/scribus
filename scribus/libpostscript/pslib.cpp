@@ -319,22 +319,17 @@ QString PSLib::PSEncode(QString in)
 
 void PSLib::PS_TemplateStart(QString Name, double breite, double hoehe)
 {
-	PutDoc("/"+PSEncode(Name)+"\n<<\n");
-	PutDoc("/FormType 1\n");
-	PutDoc("/BBox [0 0 "+ToStr(breite)+" "+ToStr(hoehe)+"]\n");
-	PutDoc("/Matrix [1 0 0 1 0 0]\n");
-	PutDoc("/PaintProc\n{\n");
+	PutDoc("/"+PSEncode(Name)+"\n{\n");
 }
 
 void PSLib::PS_UseTemplate(QString Name)
 {
-	PutDoc(PSEncode(Name)+" execform\n");
+	PutDoc(PSEncode(Name)+"\n");
 }
 
 void PSLib::PS_TemplateEnd()
 {
-	PutDoc("pop } bind\n");
-	PutDoc(">> def\n");
+	PutDoc("} bind def\n");
 }
 
 void PSLib::PS_begin_page(double breite, double hoehe, struct Margs* Ma, bool Clipping)
