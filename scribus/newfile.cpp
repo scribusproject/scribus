@@ -1,6 +1,7 @@
 #include "newfile.h"
 #include "newfile.moc"
 #include <qtooltip.h>
+#include "units.h"
 
 // definitions for clear reading the code - pv
 #define PORTRAIT    0
@@ -12,16 +13,10 @@ extern QPixmap loadIcon(QString nam);
 NewDoc::NewDoc( QWidget* parent, preV *Vor )
 		: QDialog( parent, "newDoc", true, 0 )
 {
-	QString units[] = { tr(" pt"), tr(" mm"), tr(" in"), tr(" p")};
-	int decimals;
-	// pv - removed switch hell
-	double umr[] = {1.0, 0.3527777, (1.0 / 72.0), (1.0 / 12.0)};
-	int dec[] = {2, 3, 4, 2};
-
-	einheit = Vor->Einheit;
-	ein = units[einheit];
-	Umrech = umr[einheit];
-	decimals = dec[einheit];
+	unitIndex = Vor->Einheit;
+	unitSuffix = unitGetSuffixFromIndex(unitIndex);
+	unitRatio = unitGetRatioFromIndex(unitIndex);
+	int precision = unitGetPrecisionFromIndex(unitIndex);
 	Orient = 0;
 	setCaption( tr( "New Document" ) );
 	setIcon(loadIcon("AppIcon.png"));
@@ -62,18 +57,18 @@ NewDoc::NewDoc( QWidget* parent, preV *Vor )
 	Layout5 = new QHBoxLayout( 0, 0, 6, "Layout5");
 	TextLabel1_2 = new QLabel( tr( "&Width:" ), ButtonGroup1_2, "TextLabel1_2" );
 	Layout5->addWidget( TextLabel1_2 );
-	Breite = new MSpinBox( 1, 10000, ButtonGroup1_2, decimals );
+	Breite = new MSpinBox( 1, 10000, ButtonGroup1_2, precision );
 	Breite->setEnabled( false );
 	Breite->setMinimumSize( QSize( 70, 20 ) );
-	Breite->setSuffix(ein);
+	Breite->setSuffix(unitSuffix);
 	TextLabel1_2->setBuddy(Breite);
 	Layout5->addWidget( Breite );
 	TextLabel2_2 = new QLabel( tr( "&Height:" ), ButtonGroup1_2, "TextLabel2_2" );
 	Layout5->addWidget( TextLabel2_2 );
-	Hoehe = new MSpinBox( 1, 10000, ButtonGroup1_2, decimals );
+	Hoehe = new MSpinBox( 1, 10000, ButtonGroup1_2, precision );
 	Hoehe->setEnabled( false );
 	Hoehe->setMinimumSize( QSize( 70, 20 ) );
-	Hoehe->setSuffix(ein);
+	Hoehe->setSuffix(unitSuffix);
 	TextLabel2_2->setBuddy(Hoehe);
 	Layout5->addWidget( Hoehe );
 	ButtonGroup1_2Layout->addLayout( Layout5 );
@@ -107,45 +102,45 @@ NewDoc::NewDoc( QWidget* parent, preV *Vor )
 	Layout3->addWidget( TextLabel5, 0, 0 );
 	TextLabel7 = new QLabel( tr( "&Bottom:" ), GroupBox7, "TextLabel7" );
 	Layout3->addWidget( TextLabel7, 1, 0 );
-	TopR = new MSpinBox( 0, 1000, GroupBox7, decimals );
+	TopR = new MSpinBox( 0, 1000, GroupBox7, precision );
 	TopR->setMinimumSize( QSize( 70, 20 ) );
-	TopR->setSuffix( ein );
-	TopR->setValue(Vor->RandOben * Umrech);
+	TopR->setSuffix( unitSuffix );
+	TopR->setValue(Vor->RandOben * unitRatio);
 	Top = Vor->RandOben;
 	TextLabel5->setBuddy(TopR);
 	Layout3->addWidget( TopR, 0, 1 );
-	BottomR = new MSpinBox( 0, 1000, GroupBox7, decimals );
+	BottomR = new MSpinBox( 0, 1000, GroupBox7, precision );
 	BottomR->setMinimumSize( QSize( 70, 20 ) );
-	BottomR->setSuffix( ein );
-	BottomR->setValue(Vor->RandUnten * Umrech);
+	BottomR->setSuffix( unitSuffix );
+	BottomR->setValue(Vor->RandUnten * unitRatio);
 	Bottom = Vor->RandUnten;
 	TextLabel7->setBuddy(BottomR);
 	Layout3->addWidget( BottomR, 1, 1 );
-	LeftR = new MSpinBox( 0, 1000, GroupBox7, decimals );
+	LeftR = new MSpinBox( 0, 1000, GroupBox7, precision );
 	LeftR->setMinimumSize( QSize( 70, 20 ) );
-	LeftR->setSuffix( ein );
-	LeftR->setValue(Vor->RandLinks * Umrech);
+	LeftR->setSuffix( unitSuffix );
+	LeftR->setValue(Vor->RandLinks * unitRatio);
 	Left = Vor->RandLinks;
 	TextLabel6->setBuddy(LeftR);
 	Layout3->addWidget( LeftR, 0, 3 );
-	RightR = new MSpinBox( 0, 1000, GroupBox7, decimals );
+	RightR = new MSpinBox( 0, 1000, GroupBox7, precision );
 	RightR->setMinimumSize( QSize( 70, 20 ) );
-	RightR->setSuffix( ein );
-	RightR->setValue(Vor->RandRechts * Umrech);
+	RightR->setSuffix( unitSuffix );
+	RightR->setValue(Vor->RandRechts * unitRatio);
 	Right = Vor->RandRechts;
 	TextLabel8->setBuddy(RightR);
 	Layout3->addWidget( RightR, 1, 3 );
 	GroupBox7Layout->addLayout( Layout3 );
 	Layout9->addWidget( GroupBox7 );
 	NewDocLayout->addLayout( Layout9 );
-	Breite->setValue(Vor->PageBreite * Umrech);
-	Hoehe->setValue(Vor->PageHoehe * Umrech);
+	Breite->setValue(Vor->PageBreite * unitRatio);
+	Hoehe->setValue(Vor->PageHoehe * unitRatio);
 	ComboBox1->setCurrentItem(Vor->PageFormat);
 	setDS();
 	setSize(Vor->PageFormat);
 	setOrien(Vor->Ausrichtung);
-	Breite->setValue(Vor->PageBreite * Umrech);
-	Hoehe->setValue(Vor->PageHoehe * Umrech);
+	Breite->setValue(Vor->PageBreite * unitRatio);
+	Hoehe->setValue(Vor->PageHoehe * unitRatio);
 
 	Layout10 = new QVBoxLayout( 0, 0, 6, "Layout10");
 
@@ -166,11 +161,11 @@ NewDoc::NewDoc( QWidget* parent, preV *Vor )
 	TextLabel2_3 = new QLabel( tr( "&Default Unit:" ), GroupBox3, "TextLabel2_3" );
 	GroupBox3Layout->addWidget( TextLabel2_3, 1, 0 );
 	ComboBox3 = new QComboBox( true, GroupBox3, "ComboBox3" );
-	ComboBox3->insertItem( tr( "Points (pts)" ) );
+	ComboBox3->insertItem( tr( "Points (pt)" ) );
 	ComboBox3->insertItem( tr( "Millimetres (mm)" ) );
 	ComboBox3->insertItem( tr( "Inches (in)" ) );
 	ComboBox3->insertItem( tr( "Picas (p)" ) );
-	ComboBox3->setCurrentItem(einheit);
+	ComboBox3->setCurrentItem(unitIndex);
 	ComboBox3->setEditable(false);
 	TextLabel2_3->setBuddy(ComboBox3);
 	GroupBox3Layout->addMultiCellWidget( ComboBox3, 1, 1, 1, 2 );
@@ -195,9 +190,9 @@ NewDoc::NewDoc( QWidget* parent, preV *Vor )
 	Layout2->addWidget( TextLabel4, 1, 0 );
 	TextLabel3 = new QLabel( tr( "Colu&mns:" ), GroupBox4, "TextLabel3" );
 	Layout2->addWidget( TextLabel3, 0, 0 );
-	Distance = new MSpinBox( 0, 1000, GroupBox4, decimals );
-	Distance->setSuffix( ein );
-	Distance->setValue(11 * Umrech);
+	Distance = new MSpinBox( 0, 1000, GroupBox4, precision );
+	Distance->setSuffix( unitSuffix );
+	Distance->setValue(11 * unitRatio);
 	Dist = 11;
 	TextLabel4->setBuddy(Distance);
 	Layout2->addWidget( Distance, 1, 1, Qt::AlignLeft );
@@ -295,55 +290,55 @@ void NewDoc::code_repeat(int m)
 
 void NewDoc::setBreite(int)
 {
-	Pagebr = Breite->value() / Umrech;
+	Pagebr = Breite->value() / unitRatio;
 	code_repeat(0);
 }
 
 void NewDoc::setHoehe(int)
 {
-	Pageho = Hoehe->value() / Umrech;
+	Pageho = Hoehe->value() / unitRatio;
 	code_repeat(0);
 }
 
 void NewDoc::setTop(int)
 {
-	Top = TopR->value() / Umrech;
+	Top = TopR->value() / unitRatio;
 	code_repeat(1);
 }
 
 void NewDoc::setBottom(int)
 {
-	Bottom = BottomR->value() / Umrech;
+	Bottom = BottomR->value() / unitRatio;
 	code_repeat(2);
 }
 
 void NewDoc::setLeft(int)
 {
-	Left = LeftR->value() / Umrech;
+	Left = LeftR->value() / unitRatio;
 	code_repeat(3);
 }
 
 void NewDoc::setRight(int)
 {
-	Right = RightR->value() / Umrech;
+	Right = RightR->value() / unitRatio;
 	code_repeat(4);
 }
 
 void NewDoc::setDist(int)
 {
-	Dist = Distance->value() / Umrech;
+	Dist = Distance->value() / unitRatio;
 }
 
-void NewDoc::setUnit(int u)
+void NewDoc::setUnit(int newUnitIndex)
 {
-	QString units[] = { tr(" pt"), tr(" mm"), tr(" in"), tr(" p")};
-	ein = units[u];
-	int decimals;
-	double AltUmrech = Umrech;
+	unitSuffix = unitGetSuffixFromIndex(newUnitIndex);
+	int precision = unitGetPrecisionFromIndex(unitIndex);
+
+	double oldUnitRatio = unitRatio;
+	unitRatio = unitGetRatioFromIndex(newUnitIndex);
+	int decimals = unitGetDecimalsFromIndex(newUnitIndex);
+
 	double val, oldB, oldBM, oldH, oldHM;
-	// pv - removed switch hell
-	double umr[] = {1.0, 0.3527777, (1.0 / 72.0), (1.0 / 12.0)};
-	int dec[] = {100, 1000, 10000, 100};
 
 	disconnect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
 	disconnect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
@@ -352,37 +347,35 @@ void NewDoc::setUnit(int u)
 	disconnect(LeftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft(int)));
 	disconnect(RightR, SIGNAL(valueChanged(int)), this, SLOT(setRight(int)));
 	Breite->getValues(&oldB, &oldBM, &decimals, &val);
-	oldB /= AltUmrech;
-	oldBM /= AltUmrech;
+	oldB /= oldUnitRatio;
+	oldBM /= oldUnitRatio;
 	Hoehe->getValues(&oldH, &oldHM, &decimals, &val);
-	oldH /= AltUmrech;
-	oldHM /= AltUmrech;
+	oldH /= oldUnitRatio;
+	oldHM /= oldUnitRatio;
 
-	Umrech = umr[u];
-	decimals = dec[u];
-	einheit = u;
+	unitIndex = newUnitIndex;
 	if (ComboBox2->currentItem() == PORTRAIT)
 	{
-		Breite->setValues(oldB * Umrech, oldBM * Umrech, decimals, Pagebr * Umrech);
-		Hoehe->setValues(oldH * Umrech, oldHM * Umrech, decimals, Pageho * Umrech);
+		Breite->setValues(oldB * unitRatio, oldBM * unitRatio, decimals, Pagebr * unitRatio);
+		Hoehe->setValues(oldH * unitRatio, oldHM * unitRatio, decimals, Pageho * unitRatio);
 	}
 	else
 	{
-		Breite->setValues(oldB * Umrech, oldBM * Umrech, decimals, Pageho * Umrech);
-		Hoehe->setValues(oldH * Umrech, oldHM * Umrech, decimals, Pagebr * Umrech);
+		Breite->setValues(oldB * unitRatio, oldBM * unitRatio, decimals, Pageho * unitRatio);
+		Hoehe->setValues(oldH * unitRatio, oldHM * unitRatio, decimals, Pagebr * unitRatio);
 	}
-	RightR->setValues(0, Breite->value() - Left * Umrech, decimals, Right * Umrech);
-	LeftR->setValues(0, Breite->value() - Right * Umrech, decimals, Left * Umrech);
-	TopR->setValues(0, Hoehe->value() - Bottom * Umrech, decimals, Top * Umrech);
-	BottomR->setValues(0, Hoehe->value() - Top * Umrech, decimals, Bottom * Umrech);
-	Distance->setValue(Dist * Umrech);
-	TopR->setSuffix(ein);
-	BottomR->setSuffix(ein);
-	LeftR->setSuffix(ein);
-	RightR->setSuffix(ein);
-	Breite->setSuffix(ein);
-	Hoehe->setSuffix(ein);
-	Distance->setSuffix( ein );
+	RightR->setValues(0, Breite->value() - Left * unitRatio, decimals, Right * unitRatio);
+	LeftR->setValues(0, Breite->value() - Right * unitRatio, decimals, Left * unitRatio);
+	TopR->setValues(0, Hoehe->value() - Bottom * unitRatio, decimals, Top * unitRatio);
+	BottomR->setValues(0, Hoehe->value() - Top * unitRatio, decimals, Bottom * unitRatio);
+	Distance->setValue(Dist * unitRatio);
+	TopR->setSuffix(unitSuffix);
+	BottomR->setSuffix(unitSuffix);
+	LeftR->setSuffix(unitSuffix);
+	RightR->setSuffix(unitSuffix);
+	Breite->setSuffix(unitSuffix);
+	Hoehe->setSuffix(unitSuffix);
+	Distance->setSuffix( unitSuffix );
 	connect(TopR, SIGNAL(valueChanged(int)), this, SLOT(setTop(int)));
 	connect(BottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom(int)));
 	connect(LeftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft(int)));
@@ -394,8 +387,8 @@ void NewDoc::setUnit(int u)
 
 void NewDoc::ExitOK()
 {
-		Pagebr = Breite->value() / Umrech;
-		Pageho = Hoehe->value() / Umrech;
+		Pagebr = Breite->value() / unitRatio;
+		Pageho = Hoehe->value() / unitRatio;
 		accept();
 }
 
@@ -435,8 +428,8 @@ void NewDoc::setPGsize()
 
 void NewDoc::setSize(int gr)
 {
-	Pagebr = Breite->value() / Umrech;
-	Pageho = Hoehe->value() / Umrech;
+	Pagebr = Breite->value() / unitRatio;
+	Pageho = Hoehe->value() / unitRatio;
 	disconnect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
 	disconnect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
 	Breite->setEnabled(false);
@@ -462,8 +455,8 @@ void NewDoc::setSize(int gr)
 			Pageho = page_x[gr];
 		}
 	}
-	Breite->setValue(Pagebr * Umrech);
-	Hoehe->setValue(Pageho * Umrech);
+	Breite->setValue(Pagebr * unitRatio);
+	Hoehe->setValue(Pageho * unitRatio);
 	RightR->setMaxValue(Breite->value() - LeftR->value());
 	LeftR->setMaxValue(Breite->value() - RightR->value());
 	TopR->setMaxValue(Hoehe->value() - BottomR->value());

@@ -1,6 +1,7 @@
 #include "edit1format.h"
 #include "edit1format.moc"
 #include "tabruler.h"
+#include "units.h"
 extern QPixmap loadIcon(QString nam);
 extern double UmReFaktor;
 #include <qmessagebox.h>
@@ -217,8 +218,7 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
 	AboveV->setDecimals(10);
 	BelowV->setDecimals(10);
 	/* PFJ - 29.02.04 - Altered switch so only case 2 is tested */
-	QString ein, measure[] = { tr(" pt"), tr(" mm"), tr(" in"), tr(" p")};
-	ein = measure[dEin];
+	QString ein = unitGetSuffixFromIndex(dEin);
 	if (dEin == 2)
 	{
 		AboveV->setDecimals(10000);

@@ -96,6 +96,7 @@
 #include "prefsfile.h"
 #include "polygonwidget.h"
 #include "werktoolb.h"
+#include "units.h"
 
 extern QPixmap loadIcon(QString nam);
 extern bool overwrite(QWidget *parent, QString filename);
@@ -183,7 +184,6 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 
 		if (splashScreen != NULL)
 			splashScreen->setStatus( tr("Getting ICC Profiles"));
-		CMSavail = false;
 		GetCMSProfiles();
 		initCMS();
 		if (splashScreen != NULL)
@@ -514,6 +514,7 @@ void ScribusApp::initDefaultValues()
 	GuidesStat[0] = false;
 	HaveGS = system(Prefs.gs_exe+" -h > /dev/null 2>&1");
 	HavePngAlpha = system(Prefs.gs_exe+" -sDEVICE=pngalpha -c quit > /dev/null 2>&1");
+	CMSavail = false;
 
 	connect(ClipB, SIGNAL(dataChanged()), this, SLOT(ClipChange()));
 }
@@ -1099,44 +1100,13 @@ void ScribusApp::initStatusBar()
 
 void ScribusApp::ReportMP(double xp, double yp)
 {
-	QString tmp, tmp2;
-	int multiplier, precision;
-	double divisor;
-	switch (doc->Einheit)
-	{
-	case 0:
-		tmp2 = tr(" pt");
-		multiplier = 100;
-		divisor = 100.0;
-		precision = 2;
-		break;
-	case 1:
-		tmp2 = tr(" mm");
-		multiplier = 1000;
-		divisor = 1000.0;
-		precision = 3;
-		break;
-	case 2:
-		tmp2 = tr(" in");
-		multiplier = 10000;
-		divisor = 10000.0;
-		precision = 4;
-		break;
-	case 3:
-		tmp2 = tr(" p");
-		multiplier = 100;
-		divisor = 100.0;
-		precision = 2;
-		break;
-	default:  // jjsa 21-03-2004 added default (complains for lint)
-		tmp2 = tr(" pt");
-		multiplier = 100;
-		divisor = 100.0;
-		precision = 2;
-		break;
-	}
-	XDat->setText(tmp.setNum(qRound(xp*UmReFaktor * multiplier) / divisor, 'f', precision)+tmp2);
-	YDat->setText(tmp.setNum(qRound(yp*UmReFaktor * multiplier) / divisor, 'f', precision)+tmp2);
+	QString tmp, suffix;
+	suffix=unitGetSuffixFromIndex(doc->Einheit);
+	int multiplier=unitGetDecimalsFromIndex(doc->Einheit);
+	double divisor = static_cast<double>(multiplier);
+	int precision=precision = unitGetPrecisionFromIndex(doc->Einheit);
+	XDat->setText(tmp.setNum(qRound(xp*UmReFaktor * multiplier) / divisor, 'f', precision) + suffix);
+	YDat->setText(tmp.setNum(qRound(yp*UmReFaktor * multiplier) / divisor, 'f', precision) + suffix);
 }
 
 void ScribusApp::SetKeyEntry(int Nr, QString text, int Men, int KeyC)
@@ -2122,15 +2092,6 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 /////////////////////////////////////////////////////////////////////
 // SLOT IMPLEMENTATION
 /////////////////////////////////////////////////////////////////////
-double ScribusApp::mm2pts(int mm)
-{
-	return mm / 25.4 * 72;
-}
-
-double ScribusApp::pts2mm(double pts)
-{
-	return pts / 72 * 25.4;
-}
 
 void ScribusApp::parsePagesString(QString pages, std::vector<int>* pageNs, int sourcePageCount)
 {
@@ -7771,25 +7732,8 @@ void ScribusApp::slotElemRead(QString Name, int x, int y, bool art, bool loca, S
 void ScribusApp::slotChangeUnit(int art, bool draw)
 {
 	doc->Einheit = art;
-	switch (art)
-	{
-	case 0:
-		UmReFaktor = 1.0;
-		view->UN->setText( tr("pt"));
-		break;
-	case 1:
-		UmReFaktor = 0.3527777;
-		view->UN->setText( tr("mm"));
-		break;
-	case 2:
-		UmReFaktor = 1.0 / 72.0;
-		view->UN->setText( tr("in"));
-		break;
-	case 3:
-		UmReFaktor = 1.0 / 12.0;
-		view->UN->setText( tr("p"));
-		break;
-	}
+	UmReFaktor = unitGetRatioFromIndex( doc->Einheit );
+	view->UN->setText( unitGetStrFromIndex( doc->Einheit) );
 	Mpal->UnitChange();
 	if (draw)
 		view->DrawNew();

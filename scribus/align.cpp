@@ -1,6 +1,7 @@
 #include "align.h"
 #include "align.moc"
 #include "page.h"
+#include "units.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "pageitem.h"
@@ -94,9 +95,7 @@ Align::Align( QWidget* parent, int anz, int ein, ScribusDoc* docc, ScribusView* 
 	AVert->setEnabled(false);
 	TextLabelD2->setBuddy(AVert);
 
-	QString tmp = (ein == 0) ? tr(" pt") :
-				(ein == 1) ? tr(" mm") :
-				(ein == 2) ? tr(" in") : tr(" p");
+	QString tmp = unitGetSuffixFromIndex(ein);
 	AHor->setSuffix(tmp);
 	AVert->setSuffix(tmp);
 
@@ -136,7 +135,7 @@ Align::Align( QWidget* parent, int anz, int ein, ScribusDoc* docc, ScribusView* 
 	// signals and slots connections
 	connect( OKbutton, SIGNAL( clicked() ), this, SLOT( accept() ) );
 	connect( CancelB, SIGNAL( clicked() ), this, SLOT( cancel() ) );
-	connect(ButtonApply, SIGNAL(clicked()), this, SLOT( slotApplyDiag()));
+	connect( ButtonApply, SIGNAL(clicked()), this, SLOT( slotApplyDiag()));
 	connect( ButtonGroup1, SIGNAL( clicked(int) ), this, SLOT( DistHoriz() ) );
 	connect( ButtonGroup1_2, SIGNAL( clicked(int) ), this, SLOT( DistVert() ) );
 }

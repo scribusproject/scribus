@@ -7,6 +7,8 @@
 #include <qlayout.h>
 #include <qvariant.h>
 #include <qtooltip.h>
+#include "units.h"
+
 extern QPixmap loadIcon(QString nam);
 extern double UmReFaktor;
 
@@ -32,9 +34,9 @@ Mdup::Mdup( QWidget* parent, double Dx, double Dy, int Ein )
 	ShiftV = new MSpinBox( -1000, 1000, this, 2 );
 	ShiftV->setValue(Dy);
 	Layout4->addWidget( ShiftV, 2, 1 );
-	QString Suffix[] = { tr(" pt"), tr(" mm"), tr(" in"), tr(" p")};
-	ShiftH->setSuffix(Suffix[Ein]);
-	ShiftV->setSuffix(Suffix[Ein]);
+	QString Suffix = unitGetSuffixFromIndex(Ein);
+	ShiftH->setSuffix(Suffix);
+	ShiftV->setSuffix(Suffix);
 	TextLabel1 = new QLabel( Ncopies, tr( "&Number of Copies:" ), this, "TextLabel1" );
 	Layout4->addWidget( TextLabel1, 0, 0 );
 	TextLabel1_2 = new QLabel( ShiftH, tr( "&Horizontal Shift:" ), this, "TextLabel1_2" );

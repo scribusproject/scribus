@@ -599,8 +599,6 @@ private:
 	QPopupMenu *importMenu;
 	QPopupMenu *exportMenu;
 	QPopupMenu *toolbarMenu;
-	double mm2pts(int mm);
-	double pts2mm(double pts);
 	void addNewPages(int wo, int where, int numPages, QString based1 = tr("Normal"), QString based2 = tr("Normal"));
 	QMap<int,QString> FontID;
 	int HaveGS;

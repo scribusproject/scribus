@@ -35,9 +35,12 @@ enum Unit {
 };
 */
 const double unitGetRatioFromIndex(const int index);
+const QString unitGetStrFromIndex(const int index);
 const QString unitGetSuffixFromIndex(const int index);
 const int unitGetDecimalsFromIndex(const int index);
 const int unitGetPrecisionFromIndex(const int index);
+const double mm2pts(int mm);
+const double pts2mm(double pts);
 
 
 #endif // UNITS_H

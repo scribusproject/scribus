@@ -25,23 +25,9 @@
 
 const double unitGetRatioFromIndex(const int index)
 {
-	double ratio;
-	switch (index)
-	{
-	case 0://PT
-		ratio = 1.0;
-		break;
-	case 1://MM
-		ratio = 25.4/72;
-		break;
-	case 2://IN
-		ratio = 1.0 / 72.0;
-		break;
-	case 3://P
-		ratio = 1.0 / 12.0;
-		break;
-	}
-	return ratio;
+	//PT, MM, IN, P
+	double ratio[] = { 1.0, 25.4/72.0, 1.0/72.0, 1.0/12.0 };
+	return ratio[index];
 }
 
 const double unitValueFromString(const QString& value)
@@ -77,6 +63,12 @@ const QString unitGetSuffixFromIndex(const int index)
 	return suffix[index];
 }
 
+const QString unitGetStrFromIndex(const int index)
+{
+	QString suffix[] = { QObject::tr("pt"), QObject::tr("mm"), QObject::tr("in"), QObject::tr("p")};
+	return suffix[index];
+}
+
 const int unitGetDecimalsFromIndex(const int index)
 {
 	int decimalPoints[] = {100, 1000, 10000, 100};
@@ -87,5 +79,15 @@ const int unitGetPrecisionFromIndex(const int index)
 {
 	int precision[] = {2, 3, 4, 2};
 	return precision[index];
+}
+
+const double mm2pts(int mm)
+{
+	return mm * 72.0 / 25.4;
+}
+
+const double pts2mm(double pts)
+{
+	return pts / 72.0 * 25.4;
 }
 

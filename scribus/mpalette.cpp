@@ -12,6 +12,7 @@
 #include "styleselect.h"
 #include "spalette.h"
 #include "arrowchooser.h"
+#include "units.h"
 
 using namespace std;
 
@@ -89,6 +90,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	HaveItem = false;
 	RoVal = 0;
 	Umrech = UmReFaktor;
+	QString ptSuffix = tr( " pt" );
 	setIcon( loadIcon("AppIcon.png") );
 	setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, 0, 0, sizePolicy().hasHeightForWidth() ) );
 
@@ -170,16 +172,16 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	GeoGroupLayout->setAlignment( Qt::AlignTop );
 
 	Xpos = new MSpinBox( -3000, 3000, GeoGroup, 2 );
-	Xpos->setSuffix( tr( " pt" ) );
+	Xpos->setSuffix( ptSuffix );
 	GeoGroupLayout->addWidget( Xpos, 0, 1 );
 	Ypos = new MSpinBox( -3000, 3000, GeoGroup, 2 );
-	Ypos->setSuffix( tr( " pt" ) );
+	Ypos->setSuffix( ptSuffix );
 	GeoGroupLayout->addWidget( Ypos, 1, 1 );
 	Width = new MSpinBox( GeoGroup, 2 );
-	Width->setSuffix( tr( " pt" ) );
+	Width->setSuffix( ptSuffix );
 	GeoGroupLayout->addWidget( Width, 2, 1 );
 	Height = new MSpinBox( GeoGroup, 2 );
-	Height->setSuffix( tr( " pt" ) );
+	Height->setSuffix( ptSuffix );
 	GeoGroupLayout->addWidget( Height, 3, 1 );
 
 	xposLabel = new QLabel( Xpos, tr( "&X-Pos:" ), GeoGroup, "xposLabel" );
@@ -359,7 +361,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	Layout13 = new QHBoxLayout( 0, 0, 2, "Layout13");
 
 	RoundRect = new MSpinBox( page_2, 1 );
-	RoundRect->setSuffix( tr( " pt" ) );
+	RoundRect->setSuffix( ptSuffix );
 	rndcornersLabel = new QLabel( RoundRect, tr( "R&ound\nCorners:" ), page_2, "rndcornersLabel" );
 	Layout13->addWidget( rndcornersLabel );
 	Layout13->addWidget( RoundRect );
@@ -385,32 +387,32 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	DistanceLayout->addWidget( DCol, 0, 1 );
 
 	DGap = new MSpinBox( 0, 300, Distance, 1 );
-	DGap->setSuffix( tr( " pt" ) );
+	DGap->setSuffix( ptSuffix );
 	colgapLabel = new LabelButton( Distance, tr("&Gap:"), tr("&Width:"));
 	colgapLabel->setBuddy(DGap);
 	DistanceLayout->addWidget( colgapLabel, 1, 0 );
 	DistanceLayout->addWidget( DGap, 1, 1 );
 
 	DTop = new MSpinBox( 0, 300, Distance, 1 );
-	DTop->setSuffix( tr( " pt" ) );
+	DTop->setSuffix( ptSuffix );
 	topLabel = new QLabel( DTop, tr( "To&p:" ), Distance, "topLabel" );
 	DistanceLayout->addWidget( topLabel, 2, 0 );
 	DistanceLayout->addWidget( DTop, 2, 1 );
 
 	DBottom = new MSpinBox( 0, 300, Distance, 1 );
-	DBottom->setSuffix( tr( " pt" ) );
+	DBottom->setSuffix( ptSuffix );
 	bottomLabel = new QLabel( DBottom, tr( "&Bottom:" ), Distance, "bottomLabel" );
 	DistanceLayout->addWidget( bottomLabel, 3, 0 );
 	DistanceLayout->addWidget( DBottom, 3, 1 );
 
 	DLeft = new MSpinBox( 0, 300, Distance, 1 );
-	DLeft->setSuffix( tr( " pt" ) );
+	DLeft->setSuffix( ptSuffix );
 	leftLabel = new QLabel( DLeft, tr( "&Left:" ), Distance, "leftLabel" );
 	DistanceLayout->addWidget( leftLabel, 4, 0 );
 	DistanceLayout->addWidget( DLeft, 4, 1 );
 
 	DRight = new MSpinBox( 0, 300, Distance, 1 );
-	DRight->setSuffix( tr( " pt" ) );
+	DRight->setSuffix( ptSuffix );
 	rightLabel = new QLabel( DRight, tr( "&Right:" ), Distance, "rightLabel" );
 	DistanceLayout->addWidget( rightLabel, 5, 0 );
 	DistanceLayout->addWidget( DRight, 5, 1 );
@@ -436,14 +438,14 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	startoffsetLabel = new QLabel( tr( "Start Offset:" ), Distance2, "startoffsetLabel" );
 	DistanceLayout2->addWidget( startoffsetLabel, 1, 0);
 	Dist = new MSpinBox( 0, 30000, Distance2, 1 );
-	Dist->setSuffix( tr( " pt" ) );
+	Dist->setSuffix( ptSuffix );
 	Dist->setLineStep(10);
 	DistanceLayout2->addWidget( Dist, 1, 1);
 
 	distfromcurveLabel = new QLabel( tr( "Distance from Curve:" ), Distance2, "distfromcurveLabel" );
 	DistanceLayout2->addWidget( distfromcurveLabel, 2, 0);
 	LineW = new MSpinBox( -300, 300, Distance2, 1 );
-	LineW->setSuffix( tr( " pt" ) );
+	LineW->setSuffix( ptSuffix );
 	LineW->setLineStep(10);
 	DistanceLayout2->addWidget( LineW, 2, 1);
 	pageLayout_2b->addWidget(Distance2);
@@ -480,7 +482,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 
 	Size = new MSpinBox( 1, 1024, page_3, 1 );
 	Size->setPrefix( "" );
-	Size->setSuffix( tr( " pt" ) );
+	Size->setSuffix( ptSuffix );
 	fontsizeLabel = new QLabel( Size, tr("&Font Size:"), page_3, "fontsizeLabel" );
 	layout41->addWidget( fontsizeLabel, 1, 0 );
 	layout41->addWidget( Size, 1, 1 );
@@ -554,11 +556,11 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	GroupBox3Layout->setAlignment( Qt::AlignTop );
 
 	LineSp = new MSpinBox( GroupBox3, 1 );
-	LineSp->setSuffix( tr( " pt" ) );
+	LineSp->setSuffix( ptSuffix );
 	GroupBox3Layout->addWidget( LineSp, 1, 1 );
 
 	Extra = new MSpinBox( GroupBox3, 1 );
-	Extra->setSuffix( tr( " pt" ) );
+	Extra->setSuffix( ptSuffix );
 	GroupBox3Layout->addWidget( Extra, 0, 1 );
 
 	kerningLabel = new QLabel( Extra, tr( "&Kerning:" ), GroupBox3, "kerningLabel" );
@@ -594,12 +596,12 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 
 	layout43 = new QGridLayout( 0, 1, 1, 0, 5, "layout43");
 	LXpos = new MSpinBox( page_4, 2 );
-	LXpos->setSuffix( tr( " pt" ) );
+	LXpos->setSuffix( ptSuffix );
 	xposImgLabel = new QLabel( LXpos, tr( "&X-Pos:" ), page_4, "xposImgLabel" );
 	layout43->addWidget( xposImgLabel, 0, 0 );
 	layout43->addWidget( LXpos, 0, 1 );
 	LYpos = new MSpinBox( page_4, 2 );
-	LYpos->setSuffix( tr( " pt" ) );
+	LYpos->setSuffix( ptSuffix );
 	yposImgLabel = new QLabel( LYpos, tr( "&Y-Pos:" ), page_4, "yposImgLabel" );
 	layout43->addWidget( yposImgLabel, 1, 0 );
 	layout43->addWidget( LYpos, 1, 1 );
@@ -702,7 +704,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	endArrowText = new QLabel( endArrow, tr( "End Arrow:" ), page_5, "endArrowText" );
 	Layout12_2->addWidget( endArrowText, 2, 1 );
 	LSize = new MSpinBox( page_5, 1 );
-	LSize->setSuffix( tr( " pt" ) );
+	LSize->setSuffix( ptSuffix );
 	linewidthLabel = new QLabel(LSize, tr( "Line &Width:" ), page_5, "linewidthLabel" );
 	Layout12_2->addMultiCellWidget( linewidthLabel, 4, 4, 0, 1 );
 	Layout12_2->addMultiCellWidget( LSize, 5, 5, 0, 1 );
@@ -1466,10 +1468,9 @@ void Mpalette::UnitChange()
 	double newRR = RoundRect->value() / old * UmReFaktor;
 	double newRM = RoundRect->maxValue() / old * UmReFaktor;
 
-	QString point[] = { tr(" pt"), tr(" mm"), tr(" in"), tr(" p")};
 	if (doc->Einheit > 3)
 		doc->Einheit = 0;
-	QString ein = point[doc->Einheit];
+	QString ein = unitGetSuffixFromIndex(doc->Einheit);
 
 	Xpos->setSuffix( ein );
 	Ypos->setSuffix( ein );
@@ -1484,10 +1485,9 @@ void Mpalette::UnitChange()
 	DRight->setSuffix( ein );
 	RoundRect->setSuffix( ein );
 
-    int dp[] = {100, 1000, 10000, 100};
-    int xywhdecimals = dp[doc->Einheit];
-    int dp2[] = {10, 1000, 10000, 10};
-    int distdecimals = dp2[doc->Einheit];
+	int xywhdecimals = unitGetDecimalsFromIndex(doc->Einheit);
+	int dp2[] = {10, 1000, 10000, 10};
+	int distdecimals = dp2[doc->Einheit];
 
 	Xpos->setValues( minXYVal, maxXYWHVal, xywhdecimals, newX );
 	Ypos->setValues( minXYVal, maxXYWHVal, xywhdecimals, newY );

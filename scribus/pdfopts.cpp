@@ -10,6 +10,7 @@
 #include "pdfopts.moc"
 #include "customfdialog.h"
 #include "prefsfile.h"
+#include "units.h"
 
 #ifdef _MSC_VER
  #if (_MSC_VER >= 1200)
@@ -739,8 +740,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	BleedGroupLayout->addItem( spacerPX2, 1, 4 );
 	tabPDFXLayout->addWidget( BleedGroup );
 	Options->insertTab( tabPDFX, tr( "PDF/X-&3" ) );
-	QString size[] = { tr(" pt"), tr(" mm"), tr(" in"), tr(" p")};
-	QString EinTxt = size[Einheit];
+	QString EinTxt = unitGetSuffixFromIndex(Einheit);
 
 	BleedTop->setSuffix( EinTxt );
 	BleedTop->setMinValue(0);

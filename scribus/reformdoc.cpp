@@ -8,6 +8,7 @@
 #include "tabtypography.h"
 #include "hysettings.h"
 #include "cmsprefs.h"
+#include "units.h"
 
 extern QPixmap loadIcon(QString nam);
 extern QPixmap fontSamples(QString da, int s, QString ts, QColor back);
@@ -22,10 +23,8 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : Pref
 	ap = (ScribusApp*)parent;
 	fon = &prefsData->AvailFonts;
 	Umrech = UmReFaktor;
-	QString units[] = { tr(" pt"), tr(" mm"), tr(" in"), tr(" p")};
-	QString ein = units[doc->Einheit];
-	int dp[] = {100, 1000, 10000, 100};
-	decimals = dp[doc->Einheit];
+	QString ein = unitGetSuffixFromIndex(doc->Einheit);
+	decimals = unitGetDecimalsFromIndex(doc->Einheit);
 	int i=-1;
 	pageWidth = doc->PageB * UmReFaktor;
 	pageHeight = doc->PageH * UmReFaktor;

@@ -56,7 +56,7 @@ public:
     MSpinBox* Hoehe;
     QPushButton* OKButton;
     QPushButton* CancelB;
-    double Umrech;
+    double unitRatio;
 	int Orient;
 	double Pagebr;
 	double Pageho;
@@ -65,8 +65,8 @@ public:
 	double Left;
 	double Right;
 	double Dist;
-    QString ein;
-	int einheit;
+    QString unitSuffix;
+	int unitIndex;
     void setSize(int gr);
     void code_repeat(int);
 
