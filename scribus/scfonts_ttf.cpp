@@ -77,9 +77,17 @@ bool Foi_ttf::ReadMetrics()
 	StdVW = "1";
 	FontBBox = tmp.setNum(face->bbox.xMin * 1000 / uniEM)+" "+tmp2.setNum(face->bbox.yMin * 1000 / uniEM)+" "+tmp3.setNum(face->bbox.xMax * 1000 / uniEM)+" "+tmp4.setNum(face->bbox.yMax * 1000 / uniEM);
 	IsFixedPitch = face->face_flags & 4;
-	gindex = 0;
-	charcode = FT_Get_First_Char( face, &gindex );
-	if (face->num_glyphs < 257)
+	bool foundEncoding = false;
+	for(int u = 0; u < face->num_charmaps; u++)
+	{
+		if (face->charmaps[u]->encoding == FT_ENCODING_UNICODE)
+		{
+			FT_Set_Charmap(face,face->charmaps[u]);
+			foundEncoding = true;
+			break;
+		}
+	}
+	if (!foundEncoding)
 	{
 		for(int u = 0; u < face->num_charmaps; u++)
 		{
@@ -90,6 +98,8 @@ bool Foi_ttf::ReadMetrics()
 			}
 		}
 	}
+	gindex = 0;
+	charcode = FT_Get_First_Char( face, &gindex );
 	while ( gindex != 0 )
 	{
 		error = FT_Load_Glyph( face, gindex, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );

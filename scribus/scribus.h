@@ -486,9 +486,6 @@ private:
 	QPopupMenu *pageMenu;
 	/** viewMenu contains all items of the menubar entry "View" */
 	QPopupMenu *viewMenu;
-	/** settingsMenu contains all items of the menubar entry "Settings" */
-	int SetMen;
-	QPopupMenu *settingsMenu;
 	/** ColorMenu enthaelt die Farben des Dokuments */
 	int ViMen;
 	QPopupMenu *ColorMenu;

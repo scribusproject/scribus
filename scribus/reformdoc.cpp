@@ -82,13 +82,22 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : Pref
 	dsLayout4->addWidget( widthQLabel, 1, 0 );
 	dsLayout4->addWidget( widthMSpinBox, 1, 1 );
 	heightMSpinBox = new MSpinBox( 1, 10000, dsGroupBox7, 2 );
-	heightQLabel = new QLabel( tr( "&Height:" ), dsGroupBox7, "heightLabel" );
 	heightMSpinBox->setEnabled( false );
 	heightMSpinBox->setSuffix(ein);
 	heightMSpinBox->setValue(pageHeight);
-	heightQLabel->setBuddy(heightMSpinBox);
+	heightQLabel = new QLabel(heightMSpinBox,  tr( "&Height:" ), dsGroupBox7, "heightLabel" );
 	dsLayout4->addWidget( heightQLabel, 1, 2 );
 	dsLayout4->addWidget( heightMSpinBox, 1, 3 );
+	unitCombo = new QComboBox( true, dsGroupBox7, "unitCombo" );
+	unitCombo->insertItem( tr( "Points (pt)" ) );
+	unitCombo->insertItem( tr( "Millimetres (mm)" ) );
+	unitCombo->insertItem( tr( "Inches (in)" ) );
+	unitCombo->insertItem( tr( "Picas (p)" ) );
+	unitCombo->setEditable(false);
+	unitCombo->setCurrentItem(doc->Einheit);
+	unitQLabel = new QLabel(unitCombo, tr( "&Unit:" ), dsGroupBox7, "unitQLabel" );
+	dsLayout4->addWidget( unitQLabel, 2, 0 );
+	dsLayout4->addWidget( unitCombo, 2, 1 );
 	dsGroupBox7Layout->addLayout( dsLayout4 );
 	reformDocLayout->addWidget( dsGroupBox7 );
 	groupBox7 = new QGroupBox( tabPage, "GroupBox7" );
@@ -172,7 +181,25 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : Pref
 	TextLabel1_3->setBuddy(pageNumber);
 	groupBox7aLayout->addLayout( layout4a );
 	reformDocLayout->addWidget( groupBox7a );
-	addItem( tr("Page"), loadIcon("page.png"), tabPage);
+	groupAutoSave = new QGroupBox( tabPage, "groupAutoSave" );
+	groupAutoSave->setTitle( tr( "Autosave" ) );
+	groupAutoSave->setCheckable( true );
+	groupAutoSave->setChecked( doc->AutoSave );
+	groupAutoSave->setColumnLayout(0, Qt::Vertical );
+	groupAutoSave->layout()->setSpacing( 6 );
+	groupAutoSave->layout()->setMargin( 11 );
+	groupAutoSaveLayout = new QHBoxLayout( groupAutoSave->layout() );
+	groupAutoSaveLayout->setAlignment( Qt::AlignTop );
+	autoSaveTime = new QSpinBox( groupAutoSave, "autoSaveTime" );
+	autoSaveTime->setMinValue( 1 );
+	autoSaveTime->setMaxValue( 60 );
+	autoSaveTime->setSuffix( " " + tr("min") );
+	autoSaveTime->setValue(doc->AutoSaveTime / 1000 / 60);
+	groupAutoSaveLayout->addWidget( autoSaveTime );
+	textLabel1m = new QLabel(autoSaveTime, tr( "&Interval:" ), groupAutoSave, "textLabel1m" );
+	groupAutoSaveLayout->addWidget( textLabel1m );
+	reformDocLayout->addWidget( groupAutoSave );
+	addItem( tr("Document"), loadIcon("page.png"), tabPage);
 
 	tabGuides = new QWidget( prefsWidgets, "tabView" );
 	tabGuidesLayout = new QVBoxLayout( tabGuides, 10, 5, "tabViewLayout");
@@ -856,50 +883,13 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : Pref
 	tabHyphenator->wordLen->setValue(doc->Trenner->MinWordLen);
 	tabHyphenator->maxCount->setValue(doc->Trenner->HyCount);
 	addItem( tr("Hyphenator"), loadIcon("hyphenate.png"), tabHyphenator);
-
+	
+	int cmsTab = 0;
 	if (CMSavail)
 	{
 		tabColorManagement = new CMSPrefs(prefsWidgets, &doc->CMSSettings, &InputProfiles, &ap->PrinterProfiles, &ap->MonitorProfiles);
-		addItem( tr("Color Management"), loadIcon("blend.png"), tabColorManagement);
+		cmsTab = addItem( tr("Color Management"), loadIcon("blend.png"), tabColorManagement);
 	}
-
-	tabMisc = new QWidget( prefsWidgets, "tabMisc" );
-	tabMiscLayout = new QVBoxLayout( tabMisc, 11, 6, "tabMiscLayout");
-	groupAutoSave = new QGroupBox( tabMisc, "groupAutoSave" );
-	groupAutoSave->setTitle( tr( "Autosave" ) );
-	groupAutoSave->setCheckable( true );
-	groupAutoSave->setChecked( doc->AutoSave );
-	groupAutoSave->setColumnLayout(0, Qt::Vertical );
-	groupAutoSave->layout()->setSpacing( 6 );
-	groupAutoSave->layout()->setMargin( 11 );
-	groupAutoSaveLayout = new QHBoxLayout( groupAutoSave->layout() );
-	groupAutoSaveLayout->setAlignment( Qt::AlignTop );
-	autoSaveTime = new QSpinBox( groupAutoSave, "autoSaveTime" );
-	autoSaveTime->setMinValue( 1 );
-	autoSaveTime->setMaxValue( 60 );
-	autoSaveTime->setSuffix( " " + tr("min") );
-	autoSaveTime->setValue(doc->AutoSaveTime / 1000 / 60);
-	groupAutoSaveLayout->addWidget( autoSaveTime );
-	textLabel1m = new QLabel(autoSaveTime, tr( "&Interval:" ), groupAutoSave, "textLabel1m" );
-	groupAutoSaveLayout->addWidget( textLabel1m );
-	tabMiscLayout->addWidget( groupAutoSave );
-	groupUnit = new QGroupBox( tabMisc, "groupUnit" );
-	groupUnit->setTitle( tr( "Units" ) );
-	groupUnit->setColumnLayout(0, Qt::Vertical );
-	groupUnit->layout()->setSpacing( 6 );
-	groupUnit->layout()->setMargin( 11 );
-	groupUnitLayout = new QHBoxLayout( groupUnit->layout() );
-	groupUnitLayout->setAlignment( Qt::AlignTop );
-	unitCombo = new QComboBox( true, groupUnit, "unitCombo" );
-	unitCombo->insertItem( tr( "Points (pt)" ) );
-	unitCombo->insertItem( tr( "Millimetres (mm)" ) );
-	unitCombo->insertItem( tr( "Inches (in)" ) );
-	unitCombo->insertItem( tr( "Picas (p)" ) );
-	unitCombo->setEditable(false);
-	unitCombo->setCurrentItem(doc->Einheit);
-	groupUnitLayout->addWidget( unitCombo );
-	tabMiscLayout->addWidget( groupUnit );
-	addItem(  tr("Misc."), loadIcon("misc.png"), tabMisc);
 
 	rightR->setMaxValue(pageWidth - leftR->value());
 	leftR->setMaxValue(pageWidth - rightR->value());
@@ -993,10 +983,12 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : Pref
 	connect(scalingVertical, SIGNAL(valueChanged(int)), this, SLOT(vChange()));
 	connect(unitCombo, SIGNAL(activated(int)), this, SLOT(unitChange()));
 
-	prefsWidgets->raiseWidget(0);
-	resize( minimumSizeHint() );
+	if (CMSavail)
+		prefsWidgets->raiseWidget(cmsTab);
 	arrangeIcons();
+	resize( minimumSizeHint() );
 	clearWState( WState_Polished );
+	prefsWidgets->raiseWidget(0);
 }
 
 void ReformDoc::unitChange()

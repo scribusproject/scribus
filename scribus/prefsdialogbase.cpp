@@ -45,12 +45,13 @@ PrefsDialogBase::PrefsDialogBase( QWidget* parent ) : QDialog( parent, "PrefsDia
 	connect( buttonCancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
 }
 
-void PrefsDialogBase::addItem(QString name, QPixmap icon, QWidget *tab)
+int PrefsDialogBase::addItem(QString name, QPixmap icon, QWidget *tab)
 {
 	QIconViewItem* icx = new QIconViewItem(prefsSelection, name, icon);
 	prefsWidgets->addWidget(tab, counter);
 	itemMap.insert(icx, counter);
 	counter++;
+	return counter-1;
 }
 
 void PrefsDialogBase::arrangeIcons()

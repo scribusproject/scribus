@@ -850,6 +850,9 @@ void ScribusApp::initMenuBar()
 	tman = editMenu->insertItem( tr("&Templates..."), this, SLOT(ManageTemp()));
 	SetKeyEntry(16, tr("Templates..."), tman, 0);
 	jman = editMenu->insertItem( tr("&Javascripts..."), this, SLOT(ManageJava()));
+	MenID = editMenu->insertItem( tr("P&references..."), this , SLOT(slotPrefsOrg()));
+	MenID = editMenu->insertItem( tr("&Fonts..."), this , SLOT(slotFontOrg()));
+	SetKeyEntry(17, tr("Fonts..."), MenID, 0);
 	editMenu->setItemEnabled(edUndo, 0);
 	editMenu->setItemEnabled(edid1, 0);
 	editMenu->setItemEnabled(edid2, 0);
@@ -970,25 +973,16 @@ void ScribusApp::initMenuBar()
 	viewLpal = toolMenu->insertItem( tr("&Layers"), this, SLOT(ToggleLpal()));
 	viewSepal = toolMenu->insertItem( tr("P&age Palette"), this, SLOT(ToggleSepal()));
 	viewBopal = toolMenu->insertItem( tr("&Bookmarks"), this, SLOT(ToggleBookpal()));
+	toolbarMenuTools = toolMenu->insertItem( tr("&Tools"), this, SLOT(ToggleTools()));
+	toolbarMenuPDFTools = toolMenu->insertItem( tr("P&DF Tools"), this, SLOT(TogglePDFTools()));
+	SetKeyEntry(45, tr("Tools"), toolbarMenuTools, 0);
+	SetKeyEntry(55, tr("Tooltips"), tip, 0);
 	extraMenu=new QPopupMenu();
 	MenID = extraMenu->insertItem( tr("&Manage Pictures"), this, SLOT(StatusPic()));
 	SetKeyEntry(51, tr("Manage Pictures"), MenID, 0);
 	hyph = extraMenu->insertItem( tr("&Hyphenate Text"), this, SLOT(doHyphenate()));
 	extraMenu->setItemEnabled(hyph, 0);
 	SetKeyEntry(50, tr("Hyphenate Text"), hyph, 0);
-
-	settingsMenu = new QPopupMenu();
-	tip = settingsMenu->insertItem( tr("Toolti&ps"), this, SLOT(ToggleTips()));
-	toolbarMenuTools = settingsMenu->insertItem( tr("&Tools"), this, SLOT(ToggleTools()));
-	toolbarMenuPDFTools = settingsMenu->insertItem( tr("P&DF Tools"), this, SLOT(TogglePDFTools()));
-	SetKeyEntry(45, tr("Tools"), toolbarMenuTools, 0);
-	SetKeyEntry(55, tr("Tooltips"), tip, 0);
-	tipsOn = true;
-	settingsMenu->setItemChecked(tip, tipsOn);
-	settingsMenu->insertSeparator();
-	MenID = settingsMenu->insertItem( tr("P&references..."), this , SLOT(slotPrefsOrg()));
-	MenID = settingsMenu->insertItem( tr("&Fonts..."), this , SLOT(slotFontOrg()));
-	SetKeyEntry(17, tr("Fonts..."), MenID, 0);
 
 	windowsMenu = new QPopupMenu();
 	windowsMenu->setCheckable( true );
@@ -999,6 +993,9 @@ void ScribusApp::initMenuBar()
 	MenID = helpMenu->insertItem( tr("About &Qt"), this, SLOT(slotHelpAboutQt()));
 	SetKeyEntry(53, tr("About Qt"), MenID, 0);
 	helpMenu->insertSeparator();
+	tip = helpMenu->insertItem( tr("Toolti&ps"), this, SLOT(ToggleTips()));
+	tipsOn = true;
+	helpMenu->setItemChecked(tip, tipsOn);
 	MenID = helpMenu->insertItem( tr("Scribus &Manual..."), this, SLOT(slotOnlineHelp()));
 	SetKeyEntry(54, tr("Online-Help..."), MenID, 0);
 
@@ -1018,7 +1015,6 @@ void ScribusApp::initMenuBar()
 	menuBar()->insertItem( tr("&Tools"), toolMenu);
 	exmn = menuBar()->insertItem( tr("E&xtras"), extraMenu);
 	menuBar()->setItemEnabled(exmn, 0);
-	SetMen = menuBar()->insertItem( tr("&Settings"), settingsMenu );
 	WinMen = menuBar()->insertItem( tr("&Windows"), windowsMenu );
 	menuBar()->setItemEnabled(WinMen, 0);
 	menuBar()->insertSeparator();
@@ -4866,7 +4862,7 @@ void ScribusApp::slotOnlineHelp()
 void ScribusApp::ToggleTips()
 {
 	tipsOn = !tipsOn;
-	settingsMenu->setItemChecked(tip, tipsOn);
+	helpMenu->setItemChecked(tip, tipsOn);
 	QToolTip::setEnabled(tipsOn);
 }
 
@@ -5284,7 +5280,7 @@ void ScribusApp::setTools(bool visible)
 		WerkTools->hide();
 		WerkTools->Sichtbar = false;
 	}
-	settingsMenu->setItemChecked(toolbarMenuTools, visible);
+	toolMenu->setItemChecked(toolbarMenuTools, visible);
 }
 
 void ScribusApp::ToggleTools()
@@ -5304,7 +5300,7 @@ void ScribusApp::setPDFTools(bool visible)
 		WerkToolsP->hide();
 		WerkToolsP->Sichtbar = false;
 	}
-	settingsMenu->setItemChecked(toolbarMenuPDFTools, visible);
+	toolMenu->setItemChecked(toolbarMenuPDFTools, visible);
 }
 
 void ScribusApp::TogglePDFTools()

@@ -6906,9 +6906,6 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 
 void ScribusView::HandleSizer(QPainter *p, PageItem *b, QRect mpo, QMouseEvent *m)
 {
-	QWMatrix ma = p->worldMatrix();
-	ma.setTransformationMode ( QWMatrix::Areas );
-	p->setWorldMatrix(ma);
 	b->OldB = b->Width;
 	b->OldH = b->Height;
 	b->OldB2 = b->Width;
@@ -6918,53 +6915,47 @@ void ScribusView::HandleSizer(QPainter *p, PageItem *b, QRect mpo, QMouseEvent *
 		return;
 	QRect ne = QRect();
 	PaintSizeRect(p, ne);
+	FPoint n1;
+	double d1;
 	QMap<double,int> distance;
-	double d1 = sqrt(pow(((b->Xpos+b->Width) * Scale) - m->x(),2)+pow(((b->Ypos+b->Height) * Scale) - m->y(),2));
+	n1 = transformPoint( FPoint(b->Width, b->Height), b->Xpos, b->Ypos, b->Rot, 1, 1);
+	d1 = sqrt(pow(n1.x() * Scale - m->x(),2)+pow(n1.y() * Scale - m->y(),2));
 	if (d1 < Doc->GrabRad)
 		distance.insert(d1, 1);
-	double d2 = sqrt(pow((b->Xpos * Scale) - m->x(),2)+pow((b->Ypos * Scale) - m->y(),2));
-	if (d2 < Doc->GrabRad)
-		distance.insert(d2, 2);
-	double d3 = sqrt(pow(((b->Xpos+b->Width) * Scale) - m->x(),2)+pow((b->Ypos * Scale) - m->y(),2));
-	if (d3 < Doc->GrabRad)
-		distance.insert(d3, 3);
-	double d4 = sqrt(pow((b->Xpos * Scale) - m->x(),2)+pow(((b->Ypos+b->Height) * Scale) - m->y(),2));
-	if (d4 < Doc->GrabRad)
-		distance.insert(d4, 4);
-	double d5 = sqrt(pow(((b->Xpos+b->Width/2) * Scale) - m->x(),2)+pow(((b->Ypos+b->Height) * Scale) - m->y(),2));
-	if (d5 < Doc->GrabRad)
-		distance.insert(d5, 5);
-	double d6 = sqrt(pow(((b->Xpos+b->Width) * Scale) - m->x(),2)+pow(((b->Ypos+b->Height/2) * Scale) - m->y(),2));
-	if (d6 < Doc->GrabRad)
-		distance.insert(d6, 6);
-	double d7 = sqrt(pow((b->Xpos * Scale) - m->x(),2)+pow(((b->Ypos+b->Height/2) * Scale) - m->y(),2));
-	if (d7 < Doc->GrabRad)
-		distance.insert(d7, 7);
-	double d8 = sqrt(pow(((b->Xpos+b->Width/2) * Scale) - m->x(),2)+pow((b->Ypos * Scale) - m->y(),2));
-	if (d8 < Doc->GrabRad)
-		distance.insert(d8, 8);
+	n1 = transformPoint( FPoint(0, 0), b->Xpos, b->Ypos, b->Rot, 1, 1);
+	d1 = sqrt(pow(n1.x() * Scale - m->x(),2)+pow(n1.y() * Scale - m->y(),2));
+	if (d1 < Doc->GrabRad)
+		distance.insert(d1, 2);
+	if (b->PType != 5)
+	{
+		n1 = transformPoint( FPoint(b->Width, 0), b->Xpos, b->Ypos, b->Rot, 1, 1);
+		d1 = sqrt(pow(n1.x() * Scale - m->x(),2)+pow(n1.y() * Scale - m->y(),2));
+		if (d1 < Doc->GrabRad)
+			distance.insert(d1, 3);
+		n1 = transformPoint( FPoint(0, b->Height), b->Xpos, b->Ypos, b->Rot, 1, 1);
+		d1 = sqrt(pow(n1.x() * Scale - m->x(),2)+pow(n1.y() * Scale - m->y(),2));
+		if (d1 < Doc->GrabRad)
+			distance.insert(d1, 4);
+		n1 = transformPoint( FPoint(b->Width/2, b->Height), b->Xpos, b->Ypos, b->Rot, 1, 1);
+		d1 = sqrt(pow(n1.x() * Scale - m->x(),2)+pow(n1.y() * Scale - m->y(),2));
+		if (d1 < Doc->GrabRad)
+			distance.insert(d1, 5);
+		n1 = transformPoint( FPoint(b->Width, b->Height/2), b->Xpos, b->Ypos, b->Rot, 1, 1);
+		d1 = sqrt(pow(n1.x() * Scale - m->x(),2)+pow(n1.y() * Scale - m->y(),2));
+		if (d1 < Doc->GrabRad)
+			distance.insert(d1, 6);
+		n1 = transformPoint( FPoint(0, b->Height/2), b->Xpos, b->Ypos, b->Rot, 1, 1);
+		d1 = sqrt(pow(n1.x() * Scale - m->x(),2)+pow(n1.y() * Scale - m->y(),2));
+		if (d1 < Doc->GrabRad)
+			distance.insert(d1, 7);
+		n1 = transformPoint( FPoint(b->Width/2, 0), b->Xpos, b->Ypos, b->Rot, 1, 1);
+		d1 = sqrt(pow(n1.x() * Scale - m->x(),2)+pow(n1.y() * Scale - m->y(),2));
+		if (d1 < Doc->GrabRad)
+			distance.insert(d1, 8);
+	}
 	QValueList<int> result = distance.values();
 	if (result.count() != 0)
 		HowTo = result[0];
-/*	if (mpo.contains(p->xForm(QPoint(static_cast<int>(b->Width), static_cast<int>(b->Height)))))
-		HowTo = 1;
-	if (b->PType != 5)
-	{
-		if (mpo.contains(p->xForm(QPoint(0, 0))))
-			HowTo = 2;
-		if (mpo.contains(p->xForm(QPoint(static_cast<int>(b->Width/2), 0))))
-			HowTo = 8;
-		if (mpo.contains(p->xForm(QPoint(0, static_cast<int>(b->Height)/2))))
-			HowTo = 7;
-		if (mpo.contains(p->xForm(QPoint(static_cast<int>(b->Width), static_cast<int>(b->Height)/2))))
-			HowTo = 6;
-		if (mpo.contains(p->xForm(QPoint(static_cast<int>(b->Width)/2, static_cast<int>(b->Height)))))
-			HowTo = 5;
-		if (mpo.contains(p->xForm(QPoint(0, static_cast<int>(b->Height)))))
-			HowTo = 4;
-		if (mpo.contains(p->xForm(QPoint(static_cast<int>(b->Width), 0))))
-			HowTo = 3;
-	} */
 	HandleCurs(p, b, mpo);
 	storeUndoInf(b);
 	if (HowTo != 0)

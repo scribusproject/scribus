@@ -62,6 +62,7 @@ public:
 	QLabel* Rechtss;
 	QLabel*	widthQLabel;
 	QLabel*	heightQLabel;
+	QLabel*	unitQLabel;
 	QLabel*	sizeQLabel;
 	QLabel*	orientationQLabel;
 	QComboBox*	sizeQComboBox;
@@ -73,7 +74,6 @@ public:
 	QWidget* tabTools;
 	HySettings* tabHyphenator;
 	CMSPrefs* tabColorManagement;
-	QWidget* tabMisc;
 	QLabel* textLabel1;
 	QLabel* textLabel2;
 	QLabel* textLabel3;
@@ -178,7 +178,6 @@ public:
 	QGroupBox* groupAutoSave;
 	QLabel* textLabel1m;
 	QSpinBox* autoSaveTime;
-	QGroupBox* groupUnit;
 	QComboBox* unitCombo;
 	ArrowChooser* startArrow;
 	ArrowChooser* endArrow;
@@ -237,9 +236,7 @@ protected:
 	QHBoxLayout* buttonGroup5Layout;
 	QHBoxLayout* subTabPolygonLayout;
 	QGridLayout* subTabZoomLayout;
-	QVBoxLayout* tabMiscLayout;
 	QHBoxLayout* groupAutoSaveLayout;
-	QHBoxLayout* groupUnitLayout;
 
 protected slots:
 	virtual void unitChange();

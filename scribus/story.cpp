@@ -1051,7 +1051,7 @@ void SEditor::updateSel(int code, struct PtiSmall *hg)
 void SEditor::deleteSel()
 {
 	int PStart, PEnd, SelStart, SelEnd, start, end;
-	ChList *chars;
+	ChList *chars = NULL;
 	getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
 	if (PStart == PEnd)
 	{
