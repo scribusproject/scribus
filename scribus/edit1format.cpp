@@ -2,16 +2,21 @@
 #include "edit1format.moc"
 #include "tabruler.h"
 #include "units.h"
-extern QPixmap loadIcon(QString nam);
-extern double UmReFaktor;
+
 #include <qmessagebox.h>
 #include <qtooltip.h>
 #include "scribusdoc.h"
 #include "styleselect.h"
 
+extern QPixmap loadIcon(QString nam);
+extern double UmReFaktor;
+extern QPixmap fontSamples(QString da, int s, QString ts, QColor back);
+
+
 EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v, bool neu, preV *Prefs, double au, int dEin, ScribusDoc *doc)
 		: QDialog( parent, "EditST", true, 0)
 {
+	parentDoc = doc;
 	setCaption( tr( "Edit Style" ) );
 	setIcon(loadIcon("AppIcon.png"));
 	AutoVal = au;
@@ -123,7 +128,7 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
 	PM1->setValue(vor->SShade);
 
 	EditStyleLayout->addWidget( GroupFont, 2, 0 );
-	
+
 	AbstandV = new QGroupBox( tr("Vertical Spaces"), this, "AbstandV" );
 	AbstandV->setColumnLayout(0, Qt::Vertical );
 	AbstandV->layout()->setSpacing( 0 );
@@ -184,10 +189,19 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
 
 	EditStyleLayout->addMultiCellWidget( GroupBox10, 3, 3, 0, 1 );
 
+	// Label for holding "style preview" bitmap 12/30/2004 petr vanek
+	previewText = new QLabel(this, "previewText");
+	previewText->setMaximumSize(width(), 52);
+	previewText->setMinimumSize(width(), 52);
+	previewText->setAlignment( static_cast<int>( QLabel::AlignVCenter | QLabel::AlignLeft ) );
+	previewText->setFrameShape(QFrame::Box);
+	previewText->setPaletteBackgroundColor(paletteBackgroundColor());
+
 	Layout17 = new QHBoxLayout;
 	Layout17->setSpacing( 6 );
 	Layout17->setMargin( 0 );
 	QSpacerItem* spacer2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	Layout17->addWidget(previewText);
 	Layout17->addItem( spacer2 );
 	OkButton = new QPushButton( tr( "&OK" ), this, "OkButton" );
 	Layout17->addWidget( OkButton );
@@ -209,6 +223,7 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
 	QToolTip::add( AboveV, tr( "Spacing above the paragraph" ) );
 	QToolTip::add( BelowV, tr( "Spacing below the paragraph" ) );
 	QToolTip::add( LineSpVal, tr( "Line Spacing" ) );
+	QToolTip::add( previewText, tr( "Sample text of this paragraph style" ) );
 
 	// signals and slots connections
 	connect( Cancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
@@ -216,6 +231,7 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
 	connect( DropCaps, SIGNAL( clicked() ), this, SLOT( ManageDrops() ) );
 	connect(SizeC, SIGNAL(valueChanged(int)), this, SLOT(FontChange()));
 	connect(EffeS, SIGNAL(State(int)), this, SLOT(ColorChange()));
+	connect(FontC, SIGNAL(activated(const QString &)), this, SLOT(FontC_activated(const QString &)));
 	AboveV->setDecimals(10);
 	BelowV->setDecimals(10);
 	/* PFJ - 29.02.04 - Altered switch so only case 2 is tested */
@@ -230,6 +246,7 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
 	BelowV->setValue(vor->Anach * UmReFaktor);
 	AboveV->setValue(vor->Avor * UmReFaktor);
 	ColorChange();
+	updatePreview();
 }
 
 void EditStyle::ColorChange()
@@ -239,6 +256,7 @@ void EditStyle::ColorChange()
 	StrokeIcon->setEnabled(enabled);
 	PM1->setEnabled(enabled);
 	TxStroke->setEnabled(enabled);
+	updatePreview();
 }
 
 void EditStyle::ManageDrops()
@@ -246,12 +264,14 @@ void EditStyle::ManageDrops()
 	bool enabled = DropCaps->isChecked() ? true : false;
 	DropLines->setEnabled(enabled);
 	CapLabel->setEnabled(enabled);
+	updatePreview();
 }
 
 void EditStyle::FontChange()
 {
 	double val = SizeC->value();
 	LineSpVal->setValue((val  * AutoVal / 100) + val);
+	updatePreview();
 }
 
 void EditStyle::Verlassen()
@@ -306,4 +326,18 @@ void EditStyle::Verlassen()
 	werte->BaseAdj = BaseGrid->isChecked();
 	werte->TabValues = TabList->getTabVals();
 	accept();
+}
+
+void EditStyle::updatePreview()
+{
+	/* TODO: We need new functionality for "full featured" preview (Outlines etc.) */
+	previewText->setPixmap(fontSamples((*parentDoc->AllFonts)[FontC->currentText()]->Datei,
+						   qRound(SizeC->value()), //qRound(SizeC->value() * 10.0),
+						   tr( "Woven silk pyjamas exchanged\nfor blue quartz"),
+						   paletteBackgroundColor()));
+}
+
+void EditStyle::FontC_activated(const QString &)
+{
+	updatePreview();
 }

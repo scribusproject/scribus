@@ -68,12 +68,23 @@ public:
 	bool IsNew;
 	double AutoVal;
 	int DocsEin;
+	//! Label for holding "style preview" bitmap 12/30/2004 petr vanek
+	QLabel *previewText;
+	//! Reference to the own ScribusDoc (preferences etc.) 12/30/2004 petr vanek
+	ScribusDoc *parentDoc;
 
 private slots:
 	void Verlassen();
 	void FontChange();
 	void ManageDrops();
 	void ColorChange();
+	//! Refresh slot for "style preview" bitmap fonts 12/30/2004 petr vanek
+	void FontC_activated(const QString &);
+
+private:
+	/*! Refresh label for holding "style preview" bitmap.
+	12/30/2004 petr vanek */
+	void updatePreview();
 
 protected:
 	QHBoxLayout* Layout17;
