@@ -6568,7 +6568,7 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 			break;
 		case 8:
 		case 4:
-			z = PaintText(x, y, w, h, 1, Buffer->Pcolor);
+			z = PaintText(x, y, w, h, pw, Buffer->Pcolor);
 			if ((Buffer->isAnnotation) && (Buffer->AnUseIcons))
 				{
 				Items.at(z)->LocalScX = Buffer->LocalScX;
@@ -7245,6 +7245,7 @@ void Page::LoadPict(QString fn, int ItNr)
 	double x, y, b, h, c, m, k;
 	bool found = false;
 	int ret = -1;
+  QString tmpFile = QString(getenv("HOME"))+"/.scribus/sc.png";
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())
 		{
@@ -7256,14 +7257,14 @@ void Page::LoadPict(QString fn, int ItNr)
 	QString ext = fi.extension(false).lower();
 	if (ext == "pdf")
 		{
-		cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r72 -sOutputFile=/tmp/sc.png -dFirstPage=1 -dLastPage=1 ";
+		cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r72 -sOutputFile="+tmpFile+" -dFirstPage=1 -dLastPage=1 ";
 		cmd2 = " -c showpage -c quit";
 		ret = system(cmd1 + "\"" + fn + "\"" + cmd2);
 		if (ret == 0)
 			{
 			QImage im4;
 			QImage image;
-			image.load("/tmp/sc.png");
+			image.load(tmpFile);
   		image = image.convertDepth(32);
 			im4 = ProofPict(&image, Items.at(ItNr)->IProfile, Items.at(ItNr)->IRender);
 			Items.at(ItNr)->pixm = im4;
@@ -7279,7 +7280,7 @@ void Page::LoadPict(QString fn, int ItNr)
 			Items.at(ItNr)->LocalViewY = Items.at(ItNr)->LocalScY;
 			Items.at(ItNr)->dpiX = 72.0;
 			Items.at(ItNr)->dpiY = 72.0;
-			system("rm -f /tmp/sc.png");
+			system("rm -f "+tmpFile);
 			}
 		else
 			{
@@ -7350,18 +7351,18 @@ void Page::LoadPict(QString fn, int ItNr)
 				{
 				QTextStream ts2(&BBox, IO_ReadOnly);
 				ts2 >> dummy >> x >> y >> b >> h;
-				cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r72 -sOutputFile=/tmp/sc.png -g";
+				cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r72 -sOutputFile="+tmpFile+" -g";
 				cmd2 = " -c showpage -c quit";
 				ret = system(cmd1 + tmp.setNum(qRound(b)) + "x" + tmp2.setNum(qRound(h)) + " \"" + fn + "\"" + cmd2);
 				if (ret == 0)
 					{
 					QImage im4;
 					QImage image;
-					image.load("/tmp/sc.png");
+					image.load(tmpFile);
   				image = image.convertDepth(32);
 					int wi = image.width();
 					int hi = image.height();
-					QBitmap bm("/tmp/sc.png");
+					QBitmap bm(tmpFile);
 					bm.fill(Qt::color1);
     			QPainter pp;
     			pp.begin(&bm);
@@ -7412,7 +7413,7 @@ void Page::LoadPict(QString fn, int ItNr)
 					Items.at(ItNr)->LocalViewY = Items.at(ItNr)->LocalScY;
 					Items.at(ItNr)->dpiX = 72.0;
 					Items.at(ItNr)->dpiY = 72.0;
-					system("rm -f /tmp/sc.png");
+					system("rm -f "+tmpFile);
 					}
 				else
 					{

@@ -212,17 +212,18 @@ QImage ProofImage(QImage *Im)
 QPixmap LoadPDF(QString fn, int Seite, int Size, int *w, int *h)
 {
 	QString tmp, cmd1, cmd2;
+  QString tmpFile = QString(getenv("HOME"))+"/.scribus/sc.png";
 	QPixmap pm;
 	int ret = -1;
 	tmp.setNum(Seite);
-	cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r72 -sOutputFile=/tmp/sc.png -dFirstPage="+tmp+" -dLastPage="+tmp+" ";
+	cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r72 -sOutputFile="+tmpFile+" -dFirstPage="+tmp+" -dLastPage="+tmp+" ";
 	cmd2 = " -c showpage -c quit";
 	ret = system(cmd1 + "\"" + fn + "\"" + cmd2);
 	if (ret == 0)
 		{
 		QImage image;
-		image.load("/tmp/sc.png");
-		system("rm -f /tmp/sc.png");
+		image.load(tmpFile);
+		system("rm -f "+tmpFile);
   	QImage im2;
 		*h = image.height();
 		*w = image.width();
@@ -252,19 +253,20 @@ QImage LoadPict(QString fn)
 	double x, y, b, h;
 	bool found = false;
 	int ret = -1;
+  QString tmpFile = QString(getenv("HOME"))+"/.scribus/sc.png";
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.extension(false).lower();
 	if (ext == "pdf")
 		{
-		cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r72 -sOutputFile=/tmp/sc.png -dFirstPage=1 -dLastPage=1 ";
+		cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r72 -sOutputFile="+tmpFile+" -dFirstPage=1 -dLastPage=1 ";
 		cmd2 = " -c showpage -c quit";
 		ret = system(cmd1 + "\"" + fn + "\"" + cmd2);
 		if (ret == 0)
 			{
 			QImage image;
-			image.load("/tmp/sc.png");
+			image.load(tmpFile);
   		Bild = image.convertDepth(32);
-			system("rm -f /tmp/sc.png");
+			system("rm -f "+tmpFile);
 			}
 		}
 	if ((ext == "eps") || (ext == "ps"))
@@ -296,18 +298,18 @@ QImage LoadPict(QString fn)
 				{
 				QTextStream ts2(&BBox, IO_ReadOnly);
 				ts2 >> dummy >> x >> y >> b >> h;
-				cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r72 -sOutputFile=/tmp/sc.png -g";
+				cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r72 -sOutputFile="+tmpFile+" -g";
 				cmd2 = " -c showpage -c quit";
 				ret = system(cmd1 + tmp.setNum(qRound(b)) + "x" + tmp2.setNum(qRound(h)) + " \"" + fn + "\"" + cmd2);
 				if (ret == 0)
 					{
 					QImage im4;
 					QImage image;
-					image.load("/tmp/sc.png");
+					image.load(tmpFile);
   				image = image.convertDepth(32);
 					int wi = image.width();
 					int hi = image.height();
-					QBitmap bm("/tmp/sc.png");
+					QBitmap bm(tmpFile);
 					bm.fill(Qt::color1);
     			QPainter pp;
     			pp.begin(&bm);
@@ -344,7 +346,7 @@ QImage LoadPict(QString fn)
 					im4.setAlphaBuffer(true);
 					im4 = pm.convertToImage();
 					Bild = im4.copy(static_cast<int>(x), 0, static_cast<int>(b-x), static_cast<int>(h-y));
-					system("rm -f /tmp/sc.png");
+					system("rm -f "+tmpFile);
 					}
 				}
 			}
@@ -412,19 +414,20 @@ QImage LoadPictCol(QString fn, QString Prof, bool UseEmbedded, bool *realCMYK)
 	double x, y, b, h;
 	bool found = false;
 	int ret = -1;
+  QString tmpFile = QString(getenv("HOME"))+"/.scribus/sc.png";
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.extension(false).lower();
 	if (ext == "pdf")
 		{
-		cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r72 -sOutputFile=/tmp/sc.png -dFirstPage=1 -dLastPage=1 ";
+		cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r72 -sOutputFile="+tmpFile+" -dFirstPage=1 -dLastPage=1 ";
 		cmd2 = " -c showpage -c quit";
 		ret = system(cmd1 + "\"" + fn + "\"" + cmd2);
 		if (ret == 0)
 			{
 			QImage image;
-			image.load("/tmp/sc.png");
+			image.load(tmpFile);
   		Bild = image.convertDepth(32);
-			system("rm -f /tmp/sc.png");
+			system("rm -f "+tmpFile);
 			*realCMYK = false;
 			}
 		}
@@ -457,18 +460,18 @@ QImage LoadPictCol(QString fn, QString Prof, bool UseEmbedded, bool *realCMYK)
 				{
 				QTextStream ts2(&BBox, IO_ReadOnly);
 				ts2 >> dummy >> x >> y >> b >> h;
-				cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r72 -sOutputFile=/tmp/sc.png -g";
+				cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r72 -sOutputFile="+tmpFile+" -g";
 				cmd2 = " -c showpage -c quit";
 				ret = system(cmd1 + tmp.setNum(qRound(b)) + "x" + tmp2.setNum(qRound(h)) + " \"" + fn + "\"" + cmd2);
 				if (ret == 0)
 					{
 					QImage im4;
 					QImage image;
-					image.load("/tmp/sc.png");
+					image.load(tmpFile);
   				image = image.convertDepth(32);
 					int wi = image.width();
 					int hi = image.height();
-					QBitmap bm("/tmp/sc.png");
+					QBitmap bm(tmpFile);
 					bm.fill(Qt::color1);
     			QPainter pp;
     			pp.begin(&bm);
@@ -505,7 +508,7 @@ QImage LoadPictCol(QString fn, QString Prof, bool UseEmbedded, bool *realCMYK)
 					im4.setAlphaBuffer(true);
 					im4 = pm.convertToImage();
 					Bild = im4.copy(static_cast<int>(x), 0, static_cast<int>(b-x), static_cast<int>(h-y));
-					system("rm -f /tmp/sc.png");
+					system("rm -f "+tmpFile);
 					*realCMYK = false;
 					}
 				}

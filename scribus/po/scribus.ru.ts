@@ -119,6 +119,14 @@
         <source>Russian:</source>
         <translation>На русский:</translation>
     </message>
+    <message>
+        <source>Windows port:</source>
+        <translation>Портирование под Windows:</translation>
+    </message>
+    <message>
+        <source>Brazilian:</source>
+        <translation>На бразильский:</translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
@@ -454,7 +462,7 @@
     </message>
     <message>
         <source>Roll Over</source>
-        <translation type="unfinished"></translation>
+        <translation>Roll Over</translation>
     </message>
     <message>
         <source>Icon Placement...</source>
@@ -905,7 +913,7 @@
     </message>
     <message>
         <source>Apply to Actual Page</source>
-        <translation>Применить к текущей странице</translation>
+        <translation type="obsolete">Применить к текущей странице</translation>
     </message>
     <message>
         <source>Apply from Page:</source>
@@ -922,6 +930,10 @@
     <message>
         <source>Cancel</source>
         <translation>Отменить</translation>
+    </message>
+    <message>
+        <source>Apply to Current Page</source>
+        <translation>Применить к текущей странице</translation>
     </message>
 </context>
 <context>
@@ -1706,6 +1718,18 @@ This can be set in the Preferences.</source>
         <source>Name of the Style is not unique</source>
         <translation>Стиль с таким именем уже существует</translation>
     </message>
+    <message>
+        <source>Drop Caps</source>
+        <translation>Буквица</translation>
+    </message>
+    <message>
+        <source>Lines:</source>
+        <translation>Строк:</translation>
+    </message>
+    <message>
+        <source>Tabulators...</source>
+        <translation>Табуляторы...</translation>
+    </message>
 </context>
 <context>
     <name>Editor</name>
@@ -1850,6 +1874,18 @@ This can be set in the Preferences.</source>
     <message>
         <source>Copy of %1</source>
         <translation>Копия %1</translation>
+    </message>
+    <message>
+        <source>Color Sets</source>
+        <translation>Наборы цветов</translation>
+    </message>
+    <message>
+        <source>Current Color Set:</source>
+        <translation>Текущий набор цветов:</translation>
+    </message>
+    <message>
+        <source>Save Color Set</source>
+        <translation>Сохранить набор цветов</translation>
     </message>
 </context>
 <context>
@@ -2322,6 +2358,25 @@ everytime a possible Hyphenation is found.</source>
     </message>
 </context>
 <context>
+    <name>MSpinBox</name>
+    <message>
+        <source> pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
+    </message>
+</context>
+<context>
     <name>Mdup</name>
     <message>
         <source>Multiple Duplicate</source>
@@ -2533,11 +2588,11 @@ everytime a possible Hyphenation is found.</source>
     </message>
     <message>
         <source>Rotation</source>
-        <translation>Поворот</translation>
+        <translation type="obsolete">Поворот</translation>
     </message>
     <message>
         <source>by:</source>
-        <translation>на:</translation>
+        <translation type="obsolete">на:</translation>
     </message>
     <message>
         <source>Edit Shape...</source>
@@ -2563,7 +2618,7 @@ Corners:</source>
     </message>
     <message>
         <source> pts</source>
-        <translation>pts</translation>
+        <translation type="obsolete">pts</translation>
     </message>
     <message>
         <source>Distance from Curve:</source>
@@ -2850,6 +2905,26 @@ Please choose another.</source>
     <message>
         <source>Shape:</source>
         <translation>Очертание:</translation>
+    </message>
+    <message>
+        <source>Rotation:</source>
+        <translation type="unfinished">Поворот:</translation>
+    </message>
+    <message>
+        <source>Basepoint:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Columns:</source>
+        <translation type="unfinished">Количество столбцов:</translation>
+    </message>
+    <message>
+        <source>Gap:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tabulators...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3256,6 +3331,22 @@ otherwise Coordinates are relative to the Object.</source>
         <source> p</source>
         <translation>p</translation>
     </message>
+    <message>
+        <source>Rotates the Path counter-clockwise</source>
+        <translation>Вращать контур против часовой стрелки</translation>
+    </message>
+    <message>
+        <source>Rotates the Path clockwise</source>
+        <translation>Вращать контур по часовой стрелке</translation>
+    </message>
+    <message>
+        <source>Reduce the Size of the Path by 10%</source>
+        <translation>Уменьшить контур на 10%</translation>
+    </message>
+    <message>
+        <source>Enlarges the Size of the Path by 10%</source>
+        <translation>Увеличить контур на 10%</translation>
+    </message>
 </context>
 <context>
     <name>PConsole</name>
@@ -3540,11 +3631,11 @@ otherwise Coordinates are relative to the Object.</source>
     </message>
     <message>
         <source>Screen</source>
-        <translation>Экрана</translation>
+        <translation type="obsolete">Экрана</translation>
     </message>
     <message>
         <source>Printer</source>
-        <translation>Принтера</translation>
+        <translation>Вывода на печать</translation>
     </message>
     <message>
         <source>Solid Colors:</source>
@@ -3641,6 +3732,10 @@ otherwise Coordinates are relative to the Object.</source>
     <message>
         <source>PDF-Files (*.pdf);;All Files (*)</source>
         <translation>PDF-документы (*.pdf);;Все файлы (*)</translation>
+    </message>
+    <message>
+        <source>Screen / Web</source>
+        <translation>Просмотра с монитора / Web</translation>
     </message>
 </context>
 <context>
@@ -3810,7 +3905,7 @@ otherwise Coordinates are relative to the Object.</source>
     </message>
     <message>
         <source>Text Chain</source>
-        <translation>Текстовая цепочка</translation>
+        <translation type="obsolete">Текстовая цепочка</translation>
     </message>
     <message>
         <source>Text on a Path</source>
@@ -3831,6 +3926,74 @@ otherwise Coordinates are relative to the Object.</source>
     <message>
         <source>Info</source>
         <translation>Информация</translation>
+    </message>
+    <message>
+        <source>Paste</source>
+        <translation>Вставить</translation>
+    </message>
+    <message>
+        <source>Hide Margins</source>
+        <translation>Спрятать поля</translation>
+    </message>
+    <message>
+        <source>Show Margins</source>
+        <translation>Показать поля</translation>
+    </message>
+    <message>
+        <source>Hide Frames</source>
+        <translation>Спрятать обрамление</translation>
+    </message>
+    <message>
+        <source>Show Frames</source>
+        <translation>Показывать обрамление</translation>
+    </message>
+    <message>
+        <source>Hide Images</source>
+        <translation>Спрятать изображения</translation>
+    </message>
+    <message>
+        <source>Show Images</source>
+        <translation>Показывать изображения</translation>
+    </message>
+    <message>
+        <source>Hide Grid</source>
+        <translation>Спрятать сетку</translation>
+    </message>
+    <message>
+        <source>Show Grid</source>
+        <translation>Показать сетку</translation>
+    </message>
+    <message>
+        <source>Hide Guides</source>
+        <translation>Спрятать направляющие</translation>
+    </message>
+    <message>
+        <source>Show Guides</source>
+        <translation>Показать направляющие</translation>
+    </message>
+    <message>
+        <source>Snap to Grid</source>
+        <translation>Привязать к сетке</translation>
+    </message>
+    <message>
+        <source>Snap to Guides</source>
+        <translation>Привязать к направляющим</translation>
+    </message>
+    <message>
+        <source>Linked Text</source>
+        <translation>Связанный текст</translation>
+    </message>
+    <message>
+        <source>Show Properties...</source>
+        <translation>Показать Свойства...</translation>
+    </message>
+    <message>
+        <source>Hide Properties...</source>
+        <translation>Спрятать Свойства...</translation>
+    </message>
+    <message>
+        <source>Clear Contents</source>
+        <translation>Удалить содержимое</translation>
     </message>
 </context>
 <context>
@@ -3998,7 +4161,7 @@ otherwise Coordinates are relative to the Object.</source>
     </message>
     <message>
         <source>Millimeters (mm)</source>
-        <translation>Миллиметры (мм)</translation>
+        <translation type="obsolete">Миллиметры (мм)</translation>
     </message>
     <message>
         <source>Inches (in)</source>
@@ -4391,6 +4554,18 @@ otherwise Coordinates are relative to the Object.</source>
     <message>
         <source> p</source>
         <translation>p</translation>
+    </message>
+    <message>
+        <source>Millimetres (mm)</source>
+        <translation>Миллиметры (mm)</translation>
+    </message>
+    <message>
+        <source>Columns:</source>
+        <translation>Столбцов:</translation>
+    </message>
+    <message>
+        <source>Gap:</source>
+        <translation>Интервал:</translation>
     </message>
 </context>
 <context>
@@ -5399,6 +5574,10 @@ otherwise Coordinates are relative to the Object.</source>
         <source>Scribus crashes due to Signal #%1</source>
         <translation>Scribus обрушился по причине #%1</translation>
     </message>
+    <message>
+        <source>Tabulators...</source>
+        <translation>Табуляторы...</translation>
+    </message>
 </context>
 <context>
     <name>ScribusDoc</name>
@@ -5455,6 +5634,10 @@ otherwise Coordinates are relative to the Object.</source>
     <message>
         <source>Leave Anyway</source>
         <translation>Выйти без сохранения</translation>
+    </message>
+    <message>
+        <source>Close Anyway</source>
+        <translation type="unfinished">Всё равно закрыть</translation>
     </message>
 </context>
 <context>
@@ -5743,6 +5926,61 @@ drag a Template to the Pageview below.</source>
     </message>
 </context>
 <context>
+    <name>TabManager</name>
+    <message>
+        <source>Manage Tabulators</source>
+        <translation>Настройка табуляторов</translation>
+    </message>
+    <message>
+        <source>Position:</source>
+        <translation>Положение:</translation>
+    </message>
+    <message>
+        <source>Alignment:</source>
+        <translation>Выравнивание:</translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <translation>Влево</translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation>Вправо</translation>
+    </message>
+    <message>
+        <source>Full Stop</source>
+        <translation>По точке</translation>
+    </message>
+    <message>
+        <source>Comma</source>
+        <translation>По запятой</translation>
+    </message>
+    <message>
+        <source>Center</source>
+        <translation>По центру</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>ОК</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Отменить</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Удалить</translation>
+    </message>
+    <message>
+        <source>Add</source>
+        <translation>Добавить</translation>
+    </message>
+</context>
+<context>
     <name>Tree</name>
     <message>
         <source>Outline</source>
@@ -5857,11 +6095,11 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Create Text Chains</source>
-        <translation>Создать текстовые цепочки</translation>
+        <translation type="obsolete">Создать текстовые цепочки</translation>
     </message>
     <message>
         <source>Break Text Chains</source>
-        <translation>Разомкнуть текстовые цепочки</translation>
+        <translation type="obsolete">Разомкнуть текстовые цепочки</translation>
     </message>
     <message>
         <source>Draws various Shapes</source>
@@ -5870,6 +6108,18 @@ drag a Template to the Pageview below.</source>
     <message>
         <source>Edit the Text with the Story Editor</source>
         <translation>Изменить текст в редакторе</translation>
+    </message>
+    <message>
+        <source>Insert Freehand Line</source>
+        <translation>Вставить линию от руки</translation>
+    </message>
+    <message>
+        <source>Link Text Frames</source>
+        <translation>Связать текстовые рамки</translation>
+    </message>
+    <message>
+        <source>Unlink Text Frames</source>
+        <translation>Разъединить тестовые рамки</translation>
     </message>
 </context>
 <context>

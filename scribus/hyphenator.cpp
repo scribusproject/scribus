@@ -31,6 +31,16 @@
 #include <string>
 #include "scribus.h"
 
+/*!
+ \fn Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok, ScribusApp* app)
+ \brief Constructor reads user configuration and sets hyphenator properties.
+ \date
+ \author Franz Schmid
+ \param parent unused
+ \param dok ScribusDoc reference. It's used for preferences accessing.
+ \param app ScribusApp reference. It's used for preferences accessing.
+ \retval None
+*/
 Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok, ScribusApp* app) : QObject( parent, "bu")
 {
   char *filename = NULL;
@@ -72,11 +82,27 @@ Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok, ScribusApp* app) : QObj
 		useAble = true;
 }
 
+/*!
+ \fn Hyphenator::~Hyphenator()
+ \brief Safely cleans hyphen. 
+ \date
+ \author Franz Schmid
+ \param None
+ \retval None
+ */
 Hyphenator::~Hyphenator()
 {
 	hnj_hyphen_free(hdict);
 }
 
+/*!
+ \fn void Hyphenator::slotNewDict(QString name)
+ \brief Loads dictionary and fills parameters like \a useAble, \a codec, \a hdict.
+ \date
+ \author Franz Schmid
+ \param name is the name of specified language - filename.
+ \retval None
+ */
 void Hyphenator::slotNewDict(QString name)
 {
   char *filename = NULL;
@@ -112,6 +138,16 @@ void Hyphenator::slotNewDict(QString name)
 		useAble = true;
 }
 
+/*!
+ \fn void Hyphenator::slotNewSettings(int Wordlen, bool Autom, bool ACheck)
+ \brief Writes actual hyphen configuration into \a doc object.
+ \date
+ \author Franz Schmid
+ \param WordLen lenght of the word.
+ \param Autom is automatic flag.
+ \param ACheck AutoCheck flag.
+ \retval None
+ */
 void Hyphenator::slotNewSettings(int Wordlen, bool Autom, bool ACheck)
 {
 	MinWordLen = Wordlen;
@@ -122,6 +158,16 @@ void Hyphenator::slotNewSettings(int Wordlen, bool Autom, bool ACheck)
 	doc->AutoCheck = AutoCheck;
 }
 
+/*! 
+ \fn void Hyphenator::slotHyphenateWord(PageItem* it, QString text, int firstC)
+ \brief Make hyphenation when user edits text in text frame manually.
+ \detail If is everything set correctly and textframe selected language fits the
+    dictionary language. At first removes any old hyphens then sets new one.
+ \param it references \see PageItem - text frame.
+ \param text is a word to hyphenate.
+ \param firstC is the first character of the word in \a it item.
+ \retval None
+ */
 void Hyphenator::slotHyphenateWord(PageItem* it, QString text, int firstC)
 {
 	const char *word;
@@ -159,6 +205,14 @@ void Hyphenator::slotHyphenateWord(PageItem* it, QString text, int firstC)
 		}
 }
 
+/*! 
+ \fn void Hyphenator::slotHyphenate(PageItem* it)
+ \brief Make hyphenation as described in \see slotHyphenateWord for the whole text frame.
+ \date
+ \author Franz Schmid
+ \param it references \see PageItem - text frame.
+ \retval None
+ */
 void Hyphenator::slotHyphenate(PageItem* it)
 {
 	const char *word;

@@ -2903,6 +2903,7 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 #endif
 	if ((ext == "eps") || (ext == "pdf"))
 		{
+  	QString tmpFile = QString(getenv("HOME"))+"/.scribus/sc.png";
 		if (Options->RecalcPic)
 			{
 			afl = QMIN(Options->PicRes, Options->Resolution);
@@ -2912,15 +2913,15 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 			afl = Options->Resolution;
 		if (ext == "pdf")
 			{
-			cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r"+IToStr(afl)+" -sOutputFile=/tmp/sc.png -dFirstPage=1 -dLastPage=1 ";
+			cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r"+IToStr(afl)+" -sOutputFile="+tmpFile+" -dFirstPage=1 -dLastPage=1 ";
 			cmd2 = " -c showpage -c quit";
 			ret = system(cmd1 + "\"" + fn + "\"" + cmd2);
 			if (ret == 0)
 				{
 				QImage image;
-				image.load("/tmp/sc.png");
+				image.load(tmpFile);
   			img = image.convertDepth(32);
-				system("rm -f /tmp/sc.png");
+				system("rm -f "+tmpFile);
 				}
 			}
 		else
@@ -2956,16 +2957,16 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 					y2 = y2 * aufl;
 					b = b * aufl;
 					h = h * aufl;
-					cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r"+IToStr(afl)+" -sOutputFile=/tmp/sc.png -g";
+					cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r"+IToStr(afl)+" -sOutputFile="+tmpFile+" -g";
 					cmd2 = " -c showpage -c quit";
 					ret = system(cmd1 + tmp.setNum(qRound(b)) + "x" + tmpy.setNum(qRound(h)) + " \"" + fn + "\"" + cmd2);
 					if (ret == 0)
 						{
 						QImage image;
-						image.load("/tmp/sc.png");
+						image.load(tmpFile);
   					image = image.convertDepth(32);
 						img = image.copy(static_cast<int>(x2), 0, static_cast<int>(b-x2), static_cast<int>(h-y2));
-						system("rm -f /tmp/sc.png");
+						system("rm -f "+tmpFile);
 						}
 					}
 				}

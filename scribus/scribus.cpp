@@ -601,7 +601,7 @@ void ScribusApp::initMenuBar()
 	editMenu->insertSeparator();
 	MenID = editMenu->insertItem( tr("Colors..."), this , SLOT(slotEditColors()));
 	SetKeyEntry(14, tr("Colors..."), MenID, 0);
-	edid6 = editMenu->insertItem( tr("Styles..."), this , SLOT(slotEditStyles()));
+	edid6 = editMenu->insertItem( tr("Paragraph Styles..."), this , SLOT(slotEditStyles()));
 	edid6a = editMenu->insertItem( tr("Line Styles..."), this , SLOT(slotEditLineStyles()));
 	SetKeyEntry(15, tr("Styles..."), edid6, 0);
 	tman = editMenu->insertItem( tr("Templates..."), this, SLOT(ManageTemp()));

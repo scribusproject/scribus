@@ -1,4 +1,7 @@
 Changes since Version 1.1.4
+14.01.2004	Fixed Textframe Issues.
+		Removed Hardcoded Paths from the Source.
+
 13.01.2004	Fixed Cursor Placement Issues.
 
 12.01.2004	Fixed Bug with Sub/Superscript.
