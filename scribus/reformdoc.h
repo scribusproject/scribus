@@ -10,17 +10,21 @@
 #include <qlabel.h>
 #include <qlineedit.h>
 #include <qpushbutton.h>
+#include <qtoolbutton.h>
 #include <qcolor.h>
+#include "linkbutton.h"
 #include "mspinbox.h"
 #include "prefsdialogbase.h"
-class ScribusDoc;
+#include "scfonts.h"
+#include "scribusdoc.h"
+class FontCombo;
 
 class ReformDoc : public PrefsDialogBase
 {
 	Q_OBJECT
 
 public:
-	ReformDoc( QWidget* parent, ScribusDoc* doc );
+	ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData );
 	~ReformDoc() {};
 	QWidget* tabPage;
 	QGroupBox* GroupBox7;
@@ -28,15 +32,15 @@ public:
 	QLabel* TextLabel5;
 	QLabel* TextLabel7;
 	QLabel* TextLabel1_3;
-	QSpinBox* PgNr;
-	MSpinBox* TopR;
-	MSpinBox* BottomR;
-	MSpinBox* LeftR;
-	MSpinBox* RightR;
+	QSpinBox* pageNumber;
+	MSpinBox* topR;
+	MSpinBox* bottomR;
+	MSpinBox* leftR;
+	MSpinBox* rightR;
 	MSpinBox* widthMSpinBox;
 	MSpinBox* heightMSpinBox;
-	QCheckBox* Doppelseiten;
-	QCheckBox* ErsteSeite;
+	QCheckBox* facingPages;
+	QCheckBox* firstPage;
 	QLabel* Links;
 	QLabel* Rechts;
 	QLabel*	widthQLabel;
@@ -49,6 +53,7 @@ public:
 	QWidget* tabGuides;
 	QWidget* tabView;
 	QWidget* tabTypo;
+	QWidget* tabTools;
 	QLabel* textLabel1;
 	QLabel* textLabel2;
 	QLabel* textLabel3;
@@ -102,9 +107,77 @@ public:
 	MSpinBox* baseOffset;
 	QLabel* textLabel8a;
 
+
+	QButtonGroup* buttonGroupTools;
+	QToolButton* toolShape;
+	QToolButton* toolPoly;
+	QToolButton* toolImage;
+	QToolButton* toolText;
+	QToolButton* toolLine;
+	QToolButton* toolZoom;
+	QWidgetStack* subStackTools;
+	QWidget* subTabText;
+	QLabel* textLabel3b;
+	QLabel* textLabel1b;
+	QLabel* textLabel2b;
+	QLabel* textLabel4b;
+	QSpinBox* columnsText;
+	QLabel* previewText;
+	FontCombo* fontComboText;
+	QComboBox* sizeComboText;
+	QComboBox* colorComboText;
+	QLabel* textLabel5b;
+	MSpinBox* gapText;
+	QWidget* subTabShape;
+	QLabel* textLabel9b;
+	QLabel* textLabel10b;
+	QSpinBox* lineWidthShape;
+	QLabel* textLabel12b;
+	QLabel* textLabel11b;
+	QComboBox* comboStyleShape;
+	QSpinBox* shadingFillShape;
+	QComboBox* comboFillShape;
+	QSpinBox* shadingLineShape;
+	QLabel* textLabel7b;
+	QComboBox* colorComboLineShape;
+	QLabel* textLabel8b;
+	QWidget* subTabLine;
+	QSpinBox* lineWidthLine;
+	QSpinBox* shadingLine;
+	QComboBox* colorComboLine;
+	QLabel* textLabel13b;
+	QLabel* textLabel14b;
+	QLabel* textLabel15b;
+	QLabel* textLabel16b;
+	QComboBox* comboStyleLine;
+	QWidget* subTabImage;
+	QComboBox* comboFillImage;
+	QLabel* textLabel19b;
+	QSpinBox* shadingFillImage;
+	QLabel* textLabel20b;
+	QButtonGroup* buttonGroupImage;
+	QButtonGroup* buttonGroup3;
+	QLabel* textLabel17b;
+	QLabel* textLabel18b;
+	QSpinBox* scalingHorizontal;
+	QSpinBox* scalingVertical;
+	LinkButton* chainButton;
+	QButtonGroup* buttonGroup5;
+	QCheckBox* checkRatioImage;
+	QWidget* subTabPolygon;
+	QLabel* textLabel16du;
+	QWidget* subTabZoom;
+	QLabel* textLabel21b;
+	QSpinBox* minimumZoom;
+	QLabel* textLabel22b;
+	QLabel* textLabel23b;
+	QSpinBox* maximumZoom;
+	QSpinBox* zoomStep;
+
+	SCFonts *fon;
 	int einheit;
-	double Breite;
-	double Hoehe;
+	double pageWidth;
+	double pageHeight;
 	QColor colorMajorGrid;
 	QColor colorMinorGrid;
 	QColor colorBaselineGrid;
@@ -139,8 +212,21 @@ protected:
 	QGridLayout* groupBox2aLayout;
 	QGridLayout* groupBox3aLayout;
 	QGridLayout* groupBox4aLayout;
+	QHBoxLayout* tabToolsLayout;
+	QVBoxLayout* buttonGroupToolsLayout;
+	QGridLayout* subTabTextLayout;
+	QGridLayout* subTabShapeLayout;
+	QGridLayout* subTabLineLayout;
+	QGridLayout* subTabImageLayout;
+	QVBoxLayout* buttonGroupImageLayout;
+	QGridLayout* buttonGroup3Layout;
+	QHBoxLayout* buttonGroup5Layout;
+	QHBoxLayout* subTabPolygonLayout;
+	QGridLayout* subTabZoomLayout;
 
 protected slots:
+	virtual void SetSample();
+	virtual void SetTool();
 	virtual void changeMajorColor();
 	virtual void changeMinorColor();
 	virtual void changePaperColor();

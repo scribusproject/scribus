@@ -2402,17 +2402,17 @@ bool ScribusApp::SetupDoc()
 	bool fp = doc->PageFP;
 	double tpr2, lr2, rr2, br2;
 	bool ret = false;
-	ReformDoc* dia = new ReformDoc(this, doc);
+	ReformDoc* dia = new ReformDoc(this, doc, &Prefs);
 	if (dia->exec())
 	{
-		tpr2 = dia->TopR->value() / UmReFaktor;
-		lr2 = dia->LeftR->value() / UmReFaktor;
-		rr2 = dia->RightR->value() / UmReFaktor;
-		br2 = dia->BottomR->value() / UmReFaktor;
-		fp = dia->Doppelseiten->isChecked();
+		tpr2 = dia->topR->value() / UmReFaktor;
+		lr2 = dia->leftR->value() / UmReFaktor;
+		rr2 = dia->rightR->value() / UmReFaktor;
+		br2 = dia->bottomR->value() / UmReFaktor;
+		fp = dia->facingPages->isChecked();
 		if (fp)
-			doc->FirstPageLeft = dia->ErsteSeite->isChecked();
-		doc->FirstPnum = dia->PgNr->value();
+			doc->FirstPageLeft = dia->firstPage->isChecked();
+		doc->FirstPnum = dia->pageNumber->value();
 		doc->resetPage(tpr2, lr2, rr2, br2, fp);
 		view->reformPages();
 		doc->MarginsShown = dia->checkMargin->isChecked();
@@ -2441,6 +2441,13 @@ bool ScribusApp::SetupDoc()
 		doc->AutoLine = dia->autoLine->value();
 		doc->BaseGrid = dia->baseGrid->value() / UmReFaktor;
 		doc->BaseOffs = dia->baseOffset->value() / UmReFaktor;
+		doc->Dfont = dia->fontComboText->currentText();
+		doc->Dsize = dia->sizeComboText->currentText().left(2).toInt() * 10;
+		doc->DpenText = dia->colorComboText->currentText();
+		if (doc->DpenText == tr("None"))
+			doc->DpenText = "None";
+		doc->DCols = dia->columnsText->value();
+		doc->DGap = dia->gapText->value() / UmReFaktor;
 		viewMenu->setItemChecked(Markers, doc->MarginsShown);
 		viewMenu->setItemChecked(FrameDr, doc->FramesShown);
 		viewMenu->setItemChecked(Ras, doc->GridShown);

@@ -763,26 +763,12 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	Layout15a->setMargin( 0 );
 
 	FontComb = new FontCombo(ToolFrame, Vor);
-	if (ap->HaveDoc)
+	for (int fc=0; fc<FontComb->count(); ++fc)
 	{
-		for (int fc=0; fc<FontComb->count(); ++fc)
+		if (FontComb->text(fc) == Vor->DefFont)
 		{
-			if (FontComb->text(fc) == ap->doc->Dfont)
-			{
-				FontComb->setCurrentItem(fc);
-				break;
-			}
-		}
-	}
-	else
-	{
-		for (int fc=0; fc<FontComb->count(); ++fc)
-		{
-			if (FontComb->text(fc) == Vor->DefFont)
-			{
-				FontComb->setCurrentItem(fc);
-				break;
-			}
+			FontComb->setCurrentItem(fc);
+			break;
 		}
 	}
 	TextLabel1_3 = new QLabel( FontComb, tr( "Default &Font:" ), ToolFrame, "TextLabel1_3" );
@@ -797,21 +783,10 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	for (uint s = 0; s < f_size; ++s)
 		SizeCombo->insertItem(ar_sizes[s] + tr(" pt"));
 	int a;
-	if (ap->HaveDoc)
+	for (a = 0; a < SizeCombo->count(); ++a)
 	{
-		for (a = 0; a < SizeCombo->count(); ++a)
-		{
-			if (SizeCombo->text(a).left(2).toInt() == ap->doc->Dsize / 10)
-				SizeCombo->setCurrentItem(a);
-		}
-	}
-	else
-	{
-		for (a = 0; a < SizeCombo->count(); ++a)
-		{
-			if (SizeCombo->text(a).left(2).toInt() == Vor->DefSize / 10)
-				SizeCombo->setCurrentItem(a);
-		}
+		if (SizeCombo->text(a).left(2).toInt() == Vor->DefSize / 10)
+			SizeCombo->setCurrentItem(a);
 	}
 	TextLabel2_2 = new QLabel( SizeCombo, tr( "Default &Size:" ), ToolFrame, "TextLabel2_2" );
 	TextLabel2_2->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
@@ -840,14 +815,14 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	TextColVal = new QSpinBox( ToolFrame, "TextColVal" );
 	TextColVal->setMaxValue( 100 );
 	TextColVal->setMinValue( 1 );
-	TextColVal->setValue(ap->HaveDoc ? ap->doc->DCols : Vor->DCols );
+	TextColVal->setValue(Vor->DCols );
 	TextCol = new QLabel(TextColVal, tr("Colu&mns:"), ToolFrame, "TextCol");
 	Layout15a->addWidget( TextCol, 3, 0 );
 	Layout15a->addWidget( TextColVal, 3, 1 );
 	
 	TextGapVal = new MSpinBox( 0, 200, ToolFrame, decimals );
 	TextGapVal->setSuffix( tr( " pt" ) );
-	TextGapVal->setValue(ap->HaveDoc ? ap->doc->DGap : Vor->DGap);
+	TextGapVal->setValue(Vor->DGap);
 	TextGap = new QLabel(TextGapVal, tr("&Gap:"), ToolFrame, "TextCol");
 	Layout15a->addWidget( TextGap, 4, 0 );
 	Layout15a->addWidget( TextGapVal, 4, 1 );
