@@ -633,41 +633,48 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 
 	// plugin manager. pv.
 	pluginManagerWidget = new QWidget(prefsWidgets, "pluginManagerWidget");
-	pluginManagerLayout = new QVBoxLayout( pluginManagerWidget, 10, 5, "MiscLayout");
-	pluginManagerLayout->setAlignment( Qt::AlignTop );
-	groupPluginManager = new QGroupBox(tr("Plugin Manager"), pluginManagerWidget, "groupPluginManager");
-	groupPluginManager->setColumnLayout(0, Qt::Vertical );
-	groupPluginManager->layout()->setSpacing(5);
-	groupPluginManager->layout()->setMargin(10);
-	groupPluginManagerLayout = new QGridLayout(groupPluginManager->layout());
-	groupPluginManagerLayout->setAlignment( Qt::AlignTop );
-	pluginsList = new QListView(groupPluginManager, "pluginsList");
-	pluginsList->addColumn(tr("Plugin"));
-	pluginsList->addColumn(tr("How to run"));
-	pluginsList->addColumn(tr("Type"));
-	pluginsList->addColumn(tr("Load it?"));
+	pluginMainLayout = new QVBoxLayout( pluginManagerWidget, 10, 5, "pluginMainLayout");
+	pluginMainLayout->setAlignment( Qt::AlignTop );
+	plugGroupBox = new QGroupBox(tr("Plugin Manager"), pluginManagerWidget, "plugGroupBox");
+	plugGroupBox->setColumnLayout(0, Qt::Vertical);
+	plugGroupBox->layout()->setSpacing(6);
+	plugGroupBox->layout()->setMargin(11);
+	plugGroupBoxLayout = new QGridLayout( plugGroupBox->layout() );
+	plugGroupBoxLayout->setAlignment(Qt::AlignTop);
+	plugLayout1 = new QVBoxLayout( 0, 0, 6, "plugLayout1");
+	pluginsList = new QListView(plugGroupBox, "pluginsList");
 	pluginsList->setAllColumnsShowFocus(true);
 	pluginsList->setShowSortIndicator(true);
-	pluginsList->setColumnAlignment(3, Qt::AlignCenter);
-	// TODO: plugin handling should be better done with some separate class... IN PROGRESS
+	pluginsList->addColumn(tr("Plugin"));
+	pluginsList->setColumnWidthMode(0, QListView::Maximum);
+	pluginsList->addColumn(tr("How to run"));
+	pluginsList->setColumnWidthMode(1, QListView::Maximum);
+	pluginsList->addColumn(tr("Type"));
+	pluginsList->setColumnWidthMode(2, QListView::Maximum);
+	pluginsList->addColumn(tr("Load it?"));
+	pluginsList->setColumnWidthMode(3, QListView::Maximum);
+	pluginsList->addColumn(tr("Plugin ID"));
+	pluginsList->setColumnWidthMode(4, QListView::Maximum);
+	pluginsList->addColumn(tr("File"));
+	pluginsList->setColumnWidthMode(5, QListView::Maximum);
 	for (QMap<int,PluginManager::PluginData>::Iterator it = ap->pluginManager->pluginMap.begin(); it != ap->pluginManager->pluginMap.end(); ++it)
 	{
-		QListViewItem *plugItem = new QListViewItem(pluginsList,
-				(*it).name.replace('&', "").replace("...", ""),
-				QString("%1 %2").arg((*it).actMenu).arg((*it).actMenuAfterName),
-				ap->pluginManager->getPluginType((*it).type));
+		QListViewItem *plugItem = new QListViewItem(pluginsList);
+		plugItem->setText(0, (*it).name.replace('&', "").replace("...", "")); // name
+		plugItem->setText(1, QString("%1 %2").arg((*it).actMenu).arg((*it).actMenuAfterName)); // menu path
+		plugItem->setText(2, ap->pluginManager->getPluginType((*it).type)); // type
+		// load at start?
 		plugItem->setPixmap(3, (*it).loadPlugin ? loadIcon("ok.png") : loadIcon("DateiClos16.png"));
+		plugItem->setText(3, (*it).loadPlugin ? tr("Yes") : tr("No"));
+		plugItem->setText(4, QString("%1").arg(it.key())); // id for developers
+		plugItem->setText(5, (*it).pluginFile); // file for developers
 	}
-	groupPluginManagerLayout->addWidget(pluginsList, 0, 0);
-	/*groupPluginLayout2 = new QHBoxLayout(0, 0, 5, "groupPluginLayout2");
-	pluginSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-	groupPluginLayout2->addItem(pluginSpacer);
-	pluginRefreshButton = new QPushButton(tr("&Refresh"), groupPluginManager, "pluginRefreshButton");
-	groupPluginLayout2->addWidget(pluginRefreshButton);
-	pluginUpdateButton = new QPushButton(tr("&Update"), groupPluginManager, "pluginUpdateButton");
-	groupPluginLayout2->addWidget(pluginUpdateButton);
-	groupPluginManagerLayout->addLayout(groupPluginLayout2, 1, 0); */
-	pluginManagerLayout->addWidget(groupPluginManager);
+	plugLayout1->addWidget(pluginsList);
+	pluginWarning = new QLabel(plugGroupBox);
+	pluginWarning->setText("<qt>" + tr("You need to restart the application to promote the changes.") + "</qt>");
+	plugLayout1->addWidget(pluginWarning);
+	plugGroupBoxLayout->addLayout(plugLayout1, 0, 0);
+	pluginMainLayout->addWidget(plugGroupBox);
 	addItem(tr("Plugins"), loadIcon("plugins.png"), pluginManagerWidget);
 
 	setDS();
@@ -759,6 +766,8 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	connect(FileC4, SIGNAL(clicked()), this, SLOT(changeTemplates()));
 	connect(CaliSlider, SIGNAL(valueChanged(int)), this, SLOT(setDisScale()));
 	connect(buttonOk, SIGNAL(clicked()), this, SLOT(setActionHistoryLength()));
+	connect(pluginsList, SIGNAL(clicked(QListViewItem *, const QPoint &, int)),
+			this, SLOT(changePluginLoad(QListViewItem *, const QPoint &, int)));
 	if (CMSavail)
 		connect(tabColorManagement, SIGNAL(cmsOn(bool )), this, SLOT(switchCMS(bool )));
 
@@ -1258,4 +1267,23 @@ void Preferences::setActionHistoryLength()
 void Preferences::switchCMS(bool enable)
 {
 	tabPDF->enableCMS(enable);
+}
+
+/*! Set selected item(=plugin) un/loadable (petr vanek) */
+void Preferences::changePluginLoad(QListViewItem *item, const QPoint &, int column)
+{
+	if (column != 3)
+		return;
+	if (item->text(3) == tr("Yes"))
+	{
+		item->setPixmap(3, loadIcon("DateiClos16.png"));
+		item->setText(3, tr("No"));
+		ap->pluginManager->pluginMap[item->text(4).toInt()].loadPlugin = false;
+	}
+	else
+	{
+		item->setPixmap(3, loadIcon("ok.png"));
+		item->setText(3, tr("Yes"));
+		ap->pluginManager->pluginMap[item->text(4).toInt()].loadPlugin = true;
+	}
 }

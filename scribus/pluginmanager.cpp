@@ -25,12 +25,17 @@ PluginManager::~PluginManager()
 {
 }
 
+void PluginManager::savePreferences()
+{
+	// write configuration
+	for (QMap<int, PluginData>::Iterator it = pluginMap.begin(); it != pluginMap.end(); ++it)
+		prefs->set(it.data().pluginFile, it.data().loadPlugin);
+}
+
 void PluginManager::initPlugs()
 {
 	QString name = "";
 	int id = 0;
-//	int type = 0;
-//	int menuid = 0;
 	struct PluginData pda;
 #if defined(__hpux)
 	QDir dirList(PLUGINDIR, "*.sl*", QDir::Name, QDir::Files | QDir::Executable | QDir::NoSymLinks);
@@ -44,14 +49,14 @@ void PluginManager::initPlugs()
 		{
 			pda.index = 0;
 			pda.pluginFile = "";
-			//pda.name = "";
-			//pda.type = 0;
 			pda.menuID = 0;
 			pda.pluginFile = dirList[dc];
 			pda.loadPlugin = prefs->getBool(dirList[dc], true);
 
 			if (DLLname(dirList[dc], &pda.name, &pda.type, &pda.index, &id, &pda.actName, &pda.actKeySequence, &pda.actMenu, &pda.actMenuAfterName, &pda.actEnabledOnStartup, pda.loadPlugin))
 			{
+				if (ScApp->splashScreen != NULL)
+					ScApp->splashScreen->setStatus(tr(QString("Loading: %1").arg(pda.name), "plugin manager"));
 				if (pda.loadPlugin)
 				{
 					if (pda.type == Persistent || pda.type == Standard || pda.type == Import)
@@ -74,10 +79,11 @@ void PluginManager::initPlugs()
 					}
 					else
 						qDebug(tr(QString("Old type plugins are not supported anymore")), "plugin manager");
+					pda.loaded = true;
 				} // load
+				else
+					pda.loaded = false;
 				pluginMap.insert(id, pda);
-				if (ScApp->splashScreen != NULL)
-					ScApp->splashScreen->setStatus(tr(QString("Loading: %1").arg(pda.name), "plugin manager"));
 			}
 		}
 	}
@@ -179,6 +185,7 @@ bool PluginManager::DLLname(QString name, QString *pluginName, PluginType *type,
 	sdemID plugID;
 	QString plugName = PLUGINDIR;
 	plugName += name;
+
 	mo = dlopen(plugName, RTLD_LAZY | RTLD_GLOBAL);
 	if (!mo)
 	{
@@ -264,19 +271,18 @@ bool PluginManager::DLLname(QString name, QString *pluginName, PluginType *type,
 		dlclose(mo);
 	else
 	{
-		dlerror();
-		demo2 = (sdem2)dlsym(mo, "initPlug");
-		if ((error = dlerror()) != NULL)
+		if (loadPlugin)
 		{
-			dlclose(mo);
-			return false;
+			dlerror();
+			demo2 = (sdem2)dlsym(mo, "initPlug");
+			if ((error = dlerror()) != NULL)
+			{
+				dlclose(mo);
+				return false;
+			}
+			(*demo2)(ScApp, ScApp);
 		}
-		(*demo2)(ScApp, ScApp);
-		// FIXME: how is the menu organized? (*demo2)(ScApp->scrActions[pluginMap[idNr]], ScApp);
 	}
-
-	if (!loadPlugin || loadPlugin != 1)
-		finalizePlug((int)plugID);
 
 	return true;
 }
@@ -284,7 +290,8 @@ bool PluginManager::DLLname(QString name, QString *pluginName, PluginType *type,
 void PluginManager::finalizePlugs()
 {
 	for (QMap<int, PluginData>::Iterator it = pluginMap.begin(); it != pluginMap.end(); ++it)
-		finalizePlug(it.key());
+		if (it.data().loaded == true)
+			finalizePlug(it.key());
 }
 
 void PluginManager::finalizePlug(int pluginID)

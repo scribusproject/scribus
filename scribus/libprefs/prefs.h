@@ -167,10 +167,9 @@ public:
 	QCheckBox* AskForSubs;
 	// plugin manager
 	QWidget* pluginManagerWidget;
-	QGroupBox* groupPluginManager;
+	QGroupBox* plugGroupBox;
 	QListView* pluginsList;
-	//QPushButton* pluginRefreshButton;
-	//QPushButton* pluginUpdateButton;
+	QLabel* pluginWarning;
 
 	double Umrech;
 	double PFactor;
@@ -238,14 +237,14 @@ protected:
 	QHBoxLayout* groupScratchLayout;
 	QGridLayout* Layout4s;
 	// plugin manager
-	QSpacerItem* pluginSpacer;
-	QVBoxLayout* pluginManagerLayout;
-	QGridLayout* groupPluginManagerLayout;
-	//QHBoxLayout* groupPluginLayout2;
+	QVBoxLayout* plugLayout1;
+	QVBoxLayout* pluginMainLayout;
+	QGridLayout* plugGroupBoxLayout;
 
 private slots:
 	void setSelectedGUILang( const QString &newLang );
 	void setActionHistoryLength();
+	void changePluginLoad(QListViewItem *, const QPoint &, int);
 
 private:
 	LanguageManager langMgr;

@@ -238,7 +238,7 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 			splashScreen->setStatus( tr("Initializing Plugins"));
 		qApp->processEvents();
 		pluginManager->initPlugs();
-		
+
 		initKeyboardShortcuts();
 
 		if (splashScreen != NULL)
@@ -1340,14 +1340,14 @@ void ScribusApp::initSpecialActions()
 	connect( scrActions["specialSmartHyphen"], SIGNAL(activatedData(QString)) , this, SLOT(specialActionKeyEvent(QString)) );
 	connect( scrActions["specialNonBreakingSpace"], SIGNAL(activatedData(QString)) , this, SLOT(specialActionKeyEvent(QString)) );
 	connect( scrActions["specialPageNumber"], SIGNAL(activatedData(QString)) , this, SLOT(specialActionKeyEvent(QString)) );
-	
+
 	//GUI
 	//scrActions.insert("specialToggleEditMode", new ScrAction(ScrAction::DataInt, QIconSet(), tr("Toggle Edit Mode"), Key_F9, this, "specialToggleEditMode",EditMode));
 	scrActions.insert("specialToggleAllPalettes", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Toggle Palettes"), Key_F10, this, "specialToggleAllPalettes",0,0.0,"specialToggleAllPalettes"));
 	scrActions.insert("specialToggleAllGuides", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Toggle Guides"), Key_F11, this, "specialToggleAllGuides",0,0.0,"specialToggleAllGuides"));
 
 	//scrActions["specialToggleEditMode"]->setToggleAction(true);
-	
+
 	//connect( scrActions["specialToggleEditMode"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
 	connect( scrActions["specialToggleAllPalettes"], SIGNAL(activated()) , this, SLOT(ToggleAllPalettes()) );
 	connect( scrActions["specialToggleAllGuides"], SIGNAL(activated()) , this, SLOT(ToggleAllGuides()) );
@@ -1882,7 +1882,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 		KeyMod = 0;
 		break;
 	}
-	
+
 	if ((kk == Key_Escape) && (HaveDoc))
 	{
 		keyrep = false;
@@ -2012,7 +2012,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 					setAppMode(EditMode);
 				return;
 			}
-			
+
 			switch (doc->appMode)
 			{
 			case NormalMode:
@@ -5313,6 +5313,7 @@ bool ScribusApp::doPrint(PrintOptions *options)
 void ScribusApp::slotFileQuit()
 {
 	propertiesPalette->UnsetDoc();
+	pluginManager->savePreferences();
 	close();
 }
 

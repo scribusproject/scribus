@@ -42,6 +42,7 @@ public:
 	 * \param actMenuAfterName 2nd level menu
 	 * \param actEnabledOnStartup run it at start FIXME
 	 * \param loadPlugin enable or disable plugin for user
+	 * \param loaded is the plug really loaded?
 	 */
 	struct PluginData
 	{
@@ -56,6 +57,7 @@ public:
 		QString actMenuAfterName;
 		bool actEnabledOnStartup;
 		bool loadPlugin;
+		bool loaded;
 	};
 
 	PluginManager();
@@ -80,6 +82,8 @@ public:
 	void finalizePlug(int pluginID);
 	/** \brief Returns human readable plugin type */
 	QString getPluginType(PluginType aType);
+	/** \brief Saves plugin preferences */
+	void savePreferences();
 
 	/*! \brief Input variable to the plug. */
 	QString dllInput;
