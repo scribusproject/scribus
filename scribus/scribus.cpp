@@ -29,6 +29,7 @@
 #include <qvbox.h>
 #include <cstdio>
 #include <cstdlib>
+#include <cmath>
 #include <dlfcn.h>
 #include <unistd.h>
 #include <iostream>
@@ -6164,7 +6165,6 @@ void ScribusApp::slotEditColors()
 
 void ScribusApp::setPenFarbe(QString farbe)
 {
-	setActiveWindow();
 	if (HaveDoc)
 	{
 		doc->ActPage->ItemPen(farbe);
@@ -6184,7 +6184,6 @@ void ScribusApp::setPenShade(int sh)
 
 void ScribusApp::setBrushFarbe(QString farbe)
 {
-	setActiveWindow();
 	if (HaveDoc)
 	{
 		doc->ActPage->ItemBrush(farbe);

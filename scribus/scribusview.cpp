@@ -562,14 +562,20 @@ void ScribusView::SetCPo(int x, int y)
 void ScribusView::LaMenu()
 {
 	uint a;
+	int Lnr;
+	struct Layer ll;
+	ll.LNr = 0;
 	Laymen->clear();
 	if (Doc->Layers.count() != 0)
 	{
+		Lnr = 0;
 		for (a=0; a < Doc->Layers.count(); a++)
 		{
-			Laymen->insertItem(Doc->Layers[a].Name);
-			if (Doc->ActiveLayer == static_cast<int>(a))
+			Level2Layer(Doc, &ll, Lnr);
+			Laymen->insertItem(Doc->Layers[ll.LNr].Name);
+			if (Doc->ActiveLayer == static_cast<int>(ll.LNr))
 				Laymen->setItemChecked(Laymen->idAt(a), true);
+			Lnr++;
 		}
 	}
 }
@@ -577,9 +583,12 @@ void ScribusView::LaMenu()
 void ScribusView::GotoLa(int l)
 {
 	int d = Laymen->indexOf(l);
-	Doc->ActiveLayer = d;
-	LY->setText(Doc->Layers[d].Name);
-	emit changeLA(d);
+	struct Layer ll;
+	ll.LNr = 0;
+	Level2Layer(Doc, &ll, d);
+	Doc->ActiveLayer = ll.LNr;
+	LY->setText(Doc->Layers[ll.LNr].Name);
+	emit changeLA(ll.LNr);
 }
 
 void ScribusView::GotoPa(int Seite)

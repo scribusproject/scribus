@@ -12221,7 +12221,7 @@ a jiné.</translation>
     </message>
     <message>
         <source>Misc.</source>
-        <translation>Různé.</translation>
+        <translation>Různé</translation>
     </message>
     <message>
         <source>Displacement:</source>

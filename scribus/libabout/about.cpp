@@ -56,7 +56,7 @@ About::About( QWidget* parent )
 	tabLayout1->addWidget( PixmapLabel1 );
 	BuildID = new QLabel( tab, "BB" );
 	BuildID->setAlignment(Qt::AlignCenter);
-	QString bu = tr("%1. %2 %3 ").arg("22").arg("August").arg("2004");
+	QString bu = tr("%1. %2 %3 ").arg("23").arg("August").arg("2004");
 #ifdef HAVE_CMS
 	bu += "C";
 #else
@@ -127,7 +127,7 @@ About::About( QWidget* parent )
 	                                      "<tr><td>Josep Febrer</td><td>josep@linuxmail.org</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +
 	                                      "<tr><td><b>" + tr("Italian:").utf8()  + "</b></td><td> </td></tr>" +
-	                                      "<tr><td>Giovanni Biczó</td><td>gbiczo@freestart.hu</td></tr>" +
+	                                      "<tr><td>Pier Luigi Cinquantini</td><td>plcinquantini@katamail.com</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +
 	                                      "<tr><td><b>" + tr("Hungarian:").utf8()  + "</b></td><td> </td></tr>" +
 	                                      "<tr><td>Giovanni Biczó</td><td>gbiczo@freestart.hu</td></tr>" +

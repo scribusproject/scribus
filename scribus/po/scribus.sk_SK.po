@@ -1,113 +1,103 @@
+# Slovak translation of 
+# Slovak translation of
 # translation of scribus to Slovak
 # This is a Qt message file in .po format.  Each msgid starts with
 # a scope.  This scope should *NOT* be translated - eg. "Foo::Bar"
 # would be translated to "Pub", not "Foo::Pub".
-# Zdenko Podobnı <zdpo@mailbox.sk>, 2003
+# Zdenko PodobnÃ½ <zdpo@mailbox.sk>, 2003, 2004.
 #
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: scribus.sk_SK\n"
-"POT-Creation-Date: 2004-08-16 00:03+0200\n"
-"PO-Revision-Date: 2003-07-12 11:59+0100\n"
-"Last-Translator: Zdenko Podobnı <zdpo@mailbox.sk>\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2004-08-06 23:39+0200\n"
+"PO-Revision-Date: 22.08.2004 20:02\n"
+"Last-Translator: Zdenko PodobnÃ½ <zdpo@mailbox.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: (null)\n"
-"Content-Type: text/plain; charset=ISO-8859-2\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Report-Msgid-Bugs-To: (null)\n"
-"X-Generator: KBabel 1.2\n"
+"X-Generator: KBabel 1.3\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 msgid "Distribute/Align"
-msgstr "Umiestni»/zarovna»"
+msgstr "UmiestniÅ¥/ZarovnaÅ¥"
 
 msgid "Align"
-msgstr "Zarovna»"
+msgstr "ZarovnaÅ¥"
 
 msgid "Horizontal"
 msgstr "Vodorovne"
 
 msgid "Left Sides"
-msgstr "¥avé strany"
+msgstr "Ä½avÃ© strany"
 
 msgid "Middles"
 msgstr "Na stred"
 
 msgid "Right Sides"
-msgstr "Pravé strany"
+msgstr "PravÃ© strany"
 
-#, fuzzy
 msgid "&Between:"
-msgstr "medzi:"
+msgstr "&Medzi:"
 
-#, fuzzy
 msgid "&Do Not Change"
-msgstr "Nemeni»"
+msgstr "&NemeniÅ¥"
 
-#, fuzzy
 msgid "A&lign"
-msgstr "Zarovna»"
+msgstr "Z&arovnaÅ¥"
 
-#, fuzzy
 msgid "Di&splacement"
-msgstr "Posunutie"
+msgstr "Po&sunutie"
 
-#, fuzzy
 msgid "Distribute &Evenly"
-msgstr "Umiestni» rovnako"
+msgstr "Umi&estniÅ¥ rovnomerne"
 
 msgid "Vertical"
 msgstr "Zvisle"
 
 msgid "Top Sides"
-msgstr "Horné strany"
+msgstr "HornÃ© strany"
 
 msgid "Bottom Sides"
-msgstr "Spodné strany"
+msgstr "SpodnÃ© strany"
 
-#, fuzzy
 msgid "Bet&ween:"
-msgstr "medzi:"
+msgstr "Me&dzi:"
 
-#, fuzzy
 msgid "Do &Not Change"
-msgstr "Nemeni»"
+msgstr "&NemeniÅ¥"
 
-#, fuzzy
 msgid "Al&ign"
-msgstr "Zarovna»"
+msgstr "Z&arovnaÅ¥"
 
-#, fuzzy
 msgid "Dis&placement"
-msgstr "Posunutie"
+msgstr "&Posunutie"
 
 msgid " pt"
-msgstr ""
+msgstr " pt"
 
 msgid " mm"
-msgstr ""
+msgstr " mm"
 
 msgid " in"
-msgstr ""
+msgstr " in"
 
 msgid " p"
-msgstr ""
+msgstr " p"
 
-#, fuzzy
 msgid "Distribute E&venly"
-msgstr "Umiestni» rovnako"
+msgstr "UmiestniÅ¥ ro&vnomerne"
 
-#, fuzzy
 msgid "&OK"
-msgstr "OK"
+msgstr "&OK"
 
-#, fuzzy
 msgid "&Apply"
-msgstr "Pou¾i»"
+msgstr "&PouÅ¾iÅ¥"
 
-#, fuzzy
 msgid "&Cancel"
-msgstr "Zru¹i»"
+msgstr "&ZruÅ¡iÅ¥"
 
 msgid "Field Properties"
 msgstr "Vlastnosti pola"
@@ -116,16 +106,16 @@ msgid "Type:"
 msgstr "Typ:"
 
 msgid "Button"
-msgstr "Tlaèítko"
+msgstr "TlaÄÃ­tko"
 
 msgid "Text Field"
-msgstr "Textové pole"
+msgstr "TextovÃ© pole"
 
 msgid "Check Box"
-msgstr "Políèko k za¹krtnutiu"
+msgstr "PolÃ­Äko k zaÅ¡krtnutiu"
 
 msgid "Combo Box"
-msgstr "Vıber"
+msgstr "VÃ½ber"
 
 msgid "List Box"
 msgstr "Zoznam"
@@ -134,127 +124,124 @@ msgid "Properties"
 msgstr "Vlastnosti"
 
 msgid "Name:"
-msgstr "Názov:"
+msgstr "NÃ¡zov:"
 
 msgid "Tool-Tip:"
-msgstr "Tipy pre nástroje:"
+msgstr "Tipy pre nÃ¡stroje:"
 
 msgid "Text"
 msgstr "Text"
 
-#, fuzzy
 msgid "Font for use with PDF 1.3:"
-msgstr "Písmo pou¾ité pre PDF-1.3:"
+msgstr "PÃ­smo pre pouÅ¾itie s PDF-1.3:"
 
 msgid "Border"
-msgstr "Ohranièenie"
+msgstr "OhraniÄenie"
 
 msgid "Color:"
 msgstr "Farba:"
 
 msgid "None"
-msgstr "®iadne"
+msgstr "Å½iadne"
 
 msgid "Width:"
-msgstr "©írka:"
+msgstr "Å Ã­rka:"
 
 msgid "Thin"
-msgstr "Tenkı"
+msgstr "TenkÃ¡"
 
 msgid "Normal"
-msgstr "Normálna"
+msgstr "NormÃ¡lna"
 
 msgid "Wide"
-msgstr "©iroké"
+msgstr "Å irokÃ¡"
 
-#, fuzzy
 msgid "Style:"
-msgstr "©tıl"
+msgstr "Å tÃ½l:"
 
 msgid "Solid"
-msgstr "Bez preru¹enia"
+msgstr "Bez preruÅ¡enia"
 
 msgid "Dashed"
-msgstr "Preru¹ovanı"
+msgstr "PreruÅ¡ovanÃ½"
 
 msgid "Underline"
-msgstr "Podèiarknuté"
+msgstr "PodÄiarknutÃ©"
 
 msgid "Beveled"
-msgstr "Skosené"
+msgstr "SkosenÃ©"
 
 msgid "Inset"
-msgstr "Príloha"
+msgstr "PrÃ­loha"
 
 msgid "Other"
-msgstr "Iné"
+msgstr "InÃ©"
 
 msgid "Read Only"
-msgstr "Iba na èítanie"
+msgstr "Iba na ÄÃ­tanie"
 
 msgid "Required"
-msgstr "Po¾adované"
+msgstr "PoÅ¾adovanÃ©"
 
 msgid "Don't Export Value"
-msgstr "Neexportova» hodnotu"
+msgstr "NeexportovaÅ¥ hodnotu"
 
 msgid "Visibility:"
-msgstr "Viditeµnos»:"
+msgstr "ViditeÄ¾nosÅ¥:"
 
 msgid "Visible"
-msgstr "Viditeµné"
+msgstr "ViditeÄ¾nÃ©"
 
 msgid "Hidden"
-msgstr "Skryté"
+msgstr "SkrytÃ©"
 
 msgid "No Print"
-msgstr "Bez tlaèe"
+msgstr "Bez tlaÄe"
 
 msgid "No View"
-msgstr "Bez náhµadu"
+msgstr "Bez nÃ¡hÄ¾adu"
 
 msgid "Appearance"
-msgstr "Vzhµad"
+msgstr "VzhÄ¾ad"
 
 msgid "Text for Button Down"
-msgstr "Text pre tlaèítko Dole"
+msgstr "Text pre tlaÄÃ­tko dole"
 
 msgid "Text for Roll Over"
-msgstr "Text pre pretoèenie"
+msgstr "Text pre pretoÄenie"
 
-#, fuzzy
 msgid "Icons"
-msgstr "Pou¾i» ikony"
+msgstr "Ikony"
 
 msgid "Use Icons"
-msgstr "Pou¾i» ikony"
+msgstr "PouÅ¾iÅ¥ ikony"
 
 msgid "Remove"
-msgstr "Odstráni»"
+msgstr "OdstrÃ¡niÅ¥"
 
 msgid "Pressed"
-msgstr "Stlaèené"
+msgstr "StlaÄenÃ©"
 
 msgid "Roll Over"
-msgstr "Pretoèi»"
+msgstr "PretoÄiÅ¥"
 
 msgid "Icon Placement..."
 msgstr "Umiestnenie ikon..."
 
 msgid "Highlight"
-msgstr "Zvıraznenie"
+msgstr "ZvÃ½raznenie"
 
 msgid "Invert"
-msgstr "Invertova»"
+msgstr "InvertovaÅ¥"
 
 msgid "Outlined"
-msgstr "Obkreslené"
+msgstr "ObkreslenÃ©"
 
 msgid "Push"
-msgstr "Stlaèi»"
+msgstr "StlaÄiÅ¥"
 
 msgid "Multi-Line"
-msgstr "Viacriadkovı"
+msgstr "ViacriadkovÃ½"
 
 msgid "Password"
 msgstr "Heslo"
@@ -266,19 +253,19 @@ msgid "Characters"
 msgstr "Znaky"
 
 msgid "Do Not Scroll"
-msgstr "Neposúva»"
+msgstr "NeposÃºvaÅ¥"
 
 msgid "Do Not Spell Check"
-msgstr "Nekontrolova» pravopis"
+msgstr "NekontrolovaÅ¥ pravopis"
 
 msgid "Check Style:"
-msgstr "Overi» ¹tıl:"
+msgstr "OveriÅ¥ Å¡tÃ½l:"
 
 msgid "Check"
-msgstr "Kontrolova»"
+msgstr "KontrolovaÅ¥"
 
 msgid "Cross"
-msgstr "Krí¾"
+msgstr "KrÃ­Å¾"
 
 msgid "Diamond"
 msgstr "Diamant"
@@ -290,77 +277,76 @@ msgid "Star"
 msgstr "Hviezda"
 
 msgid "Square"
-msgstr "©tvorec"
+msgstr "Å tvorec"
 
 msgid "Default is Checked"
-msgstr "©tandardne je oznaèené"
+msgstr "Å tandardne je oznaÄenÃ©"
 
 msgid "Editable"
-msgstr "Upraviteµné"
+msgstr "UpraviteÄ¾nÃ©"
 
 msgid "Options"
-msgstr "Mo¾nosti"
+msgstr "MoÅ¾nosti"
 
 msgid "Java Script"
 msgstr "Java skript"
 
 msgid "Go To"
-msgstr "Ís» na"
+msgstr "ÃsÅ¥ na"
 
 msgid "Submit Form"
-msgstr "Potvrdi» formulár"
+msgstr "PotvrdiÅ¥ formulÃ¡r"
 
 msgid "Reset Form"
-msgstr "Vynulova» formulár"
+msgstr "VynulovaÅ¥ formulÃ¡r"
 
 msgid "Import Data"
-msgstr "Importova» dáta ..."
+msgstr "ImportovaÅ¥ dÃ¡ta"
 
 msgid "Event:"
-msgstr "Udalos»:"
+msgstr "UdalosÅ¥:"
 
 msgid "Mouse Up"
-msgstr "Stlaèenie tlaèítka my¹i"
+msgstr ""
 
 msgid "Mouse Down"
-msgstr "Uvoµnenie tlaèítka my¹i"
+msgstr ""
 
 msgid "Mouse Enter"
-msgstr "Nabehnutie my¹ou"
+msgstr ""
 
 msgid "Mouse Exit"
-msgstr "Opustenie my¹i"
+msgstr ""
 
 msgid "On Focus"
-msgstr "Po prepnutí"
+msgstr "Po prepnutÃ­"
 
 msgid "On Blur"
-msgstr "Pri rozmazaní"
+msgstr "Pri rozmazanÃ­"
 
 msgid "Script:"
 msgstr "Skript:"
 
 msgid "Edit..."
-msgstr "Upravi»..."
+msgstr "UpraviÅ¥..."
 
 msgid "Submit to URL:"
-msgstr "Odosla» na URL:"
+msgstr "OdoslaÅ¥ na URL:"
 
 msgid "Submit Data as HTML"
-msgstr "Odosla» údaje ako HTML"
+msgstr "OdoslaÅ¥ Ãºdaje ako HTML"
 
 msgid "Import Data from:"
-msgstr "Importova» dáta z:"
+msgstr "ImportovaÅ¥ dÃ¡ta z:"
 
 msgid "Destination"
-msgstr "Cieµ"
+msgstr "CieÄ¾"
 
-#, fuzzy
 msgid "To File:"
-msgstr "Súbor:"
+msgstr "Do sÃºboru:"
 
 msgid "Change..."
-msgstr "Zmeni»..."
+msgstr "ZmeniÅ¥..."
 
 msgid "Page:"
 msgstr "Strana:"
@@ -375,79 +361,79 @@ msgid "Action"
 msgstr "Akcia"
 
 msgid "Field is formatted as:"
-msgstr "Pole je naformátované ako:"
+msgstr "Pole je naformÃ¡tovanÃ© ako:"
 
 msgid "Plain"
-msgstr "Obyèajnı"
+msgstr "ObyÄajnÃ½"
 
 msgid "Number"
-msgstr "Èíslo"
+msgstr "ÄŒÃ­slo"
 
 msgid "Percentage"
 msgstr "Percento"
 
 msgid "Date"
-msgstr "Dátum"
+msgstr "DÃ¡tum"
 
 msgid "Time"
-msgstr "Èas"
+msgstr "ÄŒas"
 
 msgid "Custom"
-msgstr "Vlastné"
+msgstr "VlastnÃ©"
 
 msgid "Number Format"
-msgstr "Formát èísla"
+msgstr "FormÃ¡t ÄÃ­sla"
 
 msgid "Decimals:"
-msgstr "Desatinné:"
+msgstr "DesatinnÃ©:"
 
 msgid "Use Currency Symbol"
-msgstr "Pou¾i» symbol meny"
+msgstr "PouÅ¾iÅ¥ symbol meny"
 
 msgid "Prepend Currency Symbol"
 msgstr "Symbol meny vpredu"
 
 msgid "Formatting"
-msgstr "Formátovanie"
+msgstr "FormÃ¡tovanie"
 
 msgid "Percent Format"
-msgstr "Formát percent"
+msgstr "FormÃ¡t percent"
 
 msgid "Date Format"
-msgstr "Formát dátumu"
+msgstr "FormÃ¡t dÃ¡tumu"
 
 msgid "Time Format"
-msgstr "Formát èasu"
+msgstr "FormÃ¡t Äasu"
 
 msgid "Custom Scripts"
-msgstr "Vlastné skripty"
+msgstr "VlastnÃ© skripty"
 
 msgid "Format:"
-msgstr "Formát:"
+msgstr "FormÃ¡t:"
 
 msgid "Keystroke:"
-msgstr "Stlaèenie klávesy:"
+msgstr "StlaÄenie klÃ¡vesy:"
 
 msgid "Format"
-msgstr "Formát"
+msgstr "FormÃ¡t"
 
 msgid "Value is not validated"
-msgstr "Hodnota nie je potvrdená"
+msgstr "Hodnota nie je potvrdenÃ¡"
 
 msgid "Value must be greater than or equal to:"
-msgstr "Hodnota musí by» väè¹ia alebo rovná:"
+msgstr "Hodnota musÃ­ byÅ¥ vÃ¤ÄÅ¡ia alebo rovnÃ¡:"
 
 msgid "and less or equal to:"
-msgstr "a men¹ia alebo rovná:"
+msgstr "a menÅ¡ia alebo rovnÃ¡:"
 
 msgid "Custom validate script:"
-msgstr "Vlastné hodnotenie skriptu:"
+msgstr "VlastnÃ© hodnotenie skriptu:"
 
 msgid "Validate"
-msgstr "Vyhodnoti»"
+msgstr "VyhodnotiÅ¥"
 
 msgid "Value is not calculated"
-msgstr "Hodnota nie je vypoèítaná"
+msgstr "Hodnota nie je vypoÄÃ­tanÃ¡"
 
 msgid "Value is the"
 msgstr "Hodnota je"
@@ -456,7 +442,7 @@ msgid "sum"
 msgstr "suma"
 
 msgid "product"
-msgstr "súèin"
+msgstr "sÃºÄin"
 
 msgid "average"
 msgstr "priemer"
@@ -468,109 +454,97 @@ msgid "maximum"
 msgstr "maximum"
 
 msgid "of the following fields:"
-msgstr "nasledujúcich polí:"
+msgstr "nasledujÃºcich polÃ­:"
 
 msgid "Pick..."
-msgstr "Vybra»..."
+msgstr "VybraÅ¥..."
 
 msgid "Custom calculation script:"
-msgstr "Vlastnı poèítací skript:"
+msgstr "VlastnÃ½ poÄÃ­tacÃ­ skript:"
 
 msgid "Calculate"
-msgstr "Vypoèíta»"
+msgstr "VypoÄÃ­taÅ¥"
 
 msgid "OK"
 msgstr "OK"
 
 msgid "Cancel"
-msgstr "Zru¹i»"
+msgstr "ZruÅ¡iÅ¥"
 
-#, fuzzy
 msgid "Flag is ignored for PDF 1.3"
-msgstr "Indikátor je ignorovanı v PDF-1.3"
+msgstr "IndikÃ¡tor je v PDF-1.3 ignorovanÃ½"
 
-#, fuzzy
 msgid "Enter a comma separated list of fields here"
-msgstr "Vlo¾te sem èiarkou oddelenı zoznam polí"
+msgstr "Sem vloÅ¾te Äiarkou oddelenÃ½ zoznam polÃ­"
 
 msgid "You need at least the Icon for Normal to use Icons for Buttons"
-msgstr ""
-"Potrebujete najmenej ikonu pre Normal, aby stemohli pou¾i» ikony pre tlaèítka"
+msgstr "Potrebujete najmenej ikonu pre Normal, aby ste mohli pouÅ¾iÅ¥ ikony pre tlaÄÃ­tka"
 
 msgid "Open"
-msgstr "Otvori»"
+msgstr "OtvoriÅ¥"
 
 msgid "Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)"
-msgstr ""
+msgstr "ObrÃ¡zky (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;VÅ¡etky sÃºbory (*)"
 
 msgid "Example:"
-msgstr "Príklad:"
+msgstr "PrÃ­klad:"
 
 msgid "Selection Change"
-msgstr "Zmena vıberu"
+msgstr "Zmena vÃ½beru"
 
-#, fuzzy
 msgid "PDF Files (*.pdf);;All Files (*)"
-msgstr "Textové súbory (*.txt);;V¹etky súbory (*)"
+msgstr "PDF sÃºbory (*.pdf);;VÅ¡etky sÃºbory (*)"
 
 msgid "Annotation Properties"
-msgstr "Vlastnosti poznámky"
+msgstr "Vlastnosti anotÃ¡cie"
 
 msgid "Link"
-msgstr "Spojenie"
+msgstr "Odkaz"
 
 msgid "External Link"
-msgstr ""
+msgstr "ExternÃ½ odkaz"
 
 msgid "External Web-Link"
-msgstr ""
+msgstr "ExternÃ½ odkaz na web"
 
-#, fuzzy
 msgid "PDF-Documents (*.pdf);;All Files (*)"
-msgstr "Dokumenty (*.sla *.scd);; V¹etky súbory (*)"
+msgstr "PDF-Dokumenty (*.pdf);; VÅ¡etky sÃºbory (*)"
 
 msgid "Apply Template"
-msgstr "Pou¾i» ¹ablónu"
+msgstr "PouÅ¾iÅ¥ Å¡ablÃ³nu"
 
-#, fuzzy
 msgid "&Template:"
-msgstr "©ablóna:"
+msgstr "Å a&blÃ³na:"
 
-#, fuzzy
 msgid "Apply to &Current Page"
-msgstr "Pou¾i» efekt na v¹etky strany"
+msgstr "PouÅ¾iÅ¥ na a&ktuÃ¡lnu stranu"
 
-#, fuzzy
 msgid "Apply to all &even Pages"
-msgstr "Pou¾i» efekt na v¹etky strany"
+msgstr "PouÅ¾iÅ¥ na pÃ¡rn&e strany"
 
-#, fuzzy
 msgid "Apply to all &odd Pages"
-msgstr "Pou¾i» efekt na v¹etky strany"
+msgstr "P&ouÅ¾iÅ¥ na nepÃ¡rne strany"
 
-#, fuzzy
 msgid "Apply from &Page:"
-msgstr "Pou¾i» efekt na v¹etky strany"
+msgstr "PouÅ¾iÅ¥ od &strany:"
 
-#, fuzzy
 msgid "To:"
-msgstr "Hornı:"
+msgstr "Do:"
 
 msgid "Bookmarks"
-msgstr "Zálo¾ky"
+msgstr "ZÃ¡loÅ¾ky"
 
 msgid "Move Bookmark"
-msgstr "Presunú» zálo¾ku"
+msgstr "PresunÃºÅ¥ zÃ¡loÅ¾ku"
 
 msgid "Insert Bookmark"
-msgstr "Vlo¾i» zálo¾ku"
+msgstr "VloÅ¾iÅ¥ zÃ¡loÅ¾ku"
 
-#, fuzzy
 msgid "Icon Placement"
-msgstr "Umiestnenie ikon..."
+msgstr "Umiestnenie ikony"
 
 msgid "Layout:"
-msgstr "Rozlo¾enie:"
+msgstr "RozloÅ¾enie:"
 
 msgid "Caption only"
 msgstr "Iba popisky"
@@ -588,125 +562,121 @@ msgid "Caption right to Icon"
 msgstr "Popisky vpravo od ikon"
 
 msgid "Caption left to Icon"
-msgstr "Popisky vµavo od ikon"
+msgstr "Popisky vÄ¾avo od ikon"
 
 msgid "Caption overlays Icon"
-msgstr "Popisky prekrıvajú ikony"
+msgstr "Popisky prekrÃ½vajÃº ikony"
 
 msgid "Scale:"
 msgstr "Mierka:"
 
 msgid "Always"
-msgstr "V¾dy"
+msgstr "VÅ¾dy"
 
 msgid "When Icon is too small"
-msgstr "keï ikony sú príli¹ malé"
+msgstr "KeÄ ikony sÃº prÃ­liÅ¡ malÃ©"
 
 msgid "When Icon is too big"
-msgstr "Keï ikony sú príli¹ veµké"
+msgstr "KeÄ ikony sÃº prÃ­liÅ¡ veÄ¾kÃ©"
 
 msgid "Never"
 msgstr "Nikdy"
 
 msgid "Scale How:"
-msgstr "Ako zmeni» "
+msgstr "Ako zmeniÅ¥:"
 
 msgid "Proportional"
-msgstr "Proporcionálne"
+msgstr "ProporcionÃ¡lne"
 
 msgid "Non Proportional"
-msgstr "Neproporcionálny"
+msgstr "NeproporcionÃ¡lny"
 
-#, fuzzy
 msgid "Icon"
-msgstr "Pou¾i» ikony"
+msgstr "Ikona"
 
 msgid "Reset"
-msgstr "Vynulova»"
+msgstr "VynulovaÅ¥"
 
 msgid "Color Management Settings"
-msgstr "Nastavenie mana¾mentu farieb"
+msgstr "Nastavenie manaÅ¾mentu farieb"
 
-#, fuzzy
 msgid "&Activate Color Management"
-msgstr "Aktívny mana¾ment farieb"
+msgstr "&AktÃ­vny manaÅ¾ment farieb"
 
 msgid "System Profiles"
-msgstr "Systémové profily"
+msgstr "SystÃ©movÃ© profily"
 
-#, fuzzy
 msgid "&Pictures:"
-msgstr "Obrázky:"
+msgstr "&ObrÃ¡zky:"
 
-#, fuzzy
 msgid "&Solid Colors:"
-msgstr "Plné farby (Solid colors):"
+msgstr "PlnÃ© farby (&Solid colors):"
 
-#, fuzzy
 msgid "&Monitor:"
-msgstr "Monitor:"
+msgstr "&Monitor:"
 
-#, fuzzy
 msgid "P&rinter:"
-msgstr "Tlaèiareò:"
+msgstr "&TlaÄiareÅˆ:"
 
 msgid "Rendering Intents"
-msgstr "Úèel generovania"
+msgstr "ÃšÄel generovania"
 
 msgid "Perceptual"
-msgstr "Vnímateµné (Perceptual)"
+msgstr "VnÃ­mateÄ¾nÃ© (Perceptual)"
 
 msgid "Relative Colorimetric"
-msgstr "Relatívna kolorimetria"
+msgstr "RelatÃ­vna kolorimetria"
 
 msgid "Saturation"
-msgstr "Sıtos»"
+msgstr "SÃ½tosÅ¥"
 
 msgid "Absolute Colorimetric"
-msgstr "Absolútna kolorimetria"
+msgstr "AbsolÃºtna kolorimetria"
 
-#, fuzzy
 msgid "M&onitor:"
-msgstr "Monitor:"
+msgstr "M&onitor:"
 
-#, fuzzy
 msgid "Pr&inter:"
-msgstr "Tlaèiareò:"
+msgstr "TlaÄ&iareÅˆ:"
 
-#, fuzzy
 msgid "Sim&ulate Printer on the Screen"
-msgstr "Simulácia tlaèiarne na obrazovke"
+msgstr "Sim&ulÃ¡cia tlaÄiarne na obrazovke"
 
-#, fuzzy
 msgid "Mark Colors out of &Gamut"
-msgstr "Oznaè netlaèiteµné farby (gamut)"
+msgstr "OznaÄ netlaÄiteÄ¾nÃ© farby (&gamut)"
 
 msgid "Use &Blackpoint Compensation"
-msgstr ""
+msgstr "P&ouÅ¾iÅ¥ mapovanie Äiernej z dvoch profilov"
 
 msgid "Default color profile for imported images"
-msgstr ""
+msgstr "Å tandardnÃ½ farebnÃ½ profil pre importovanÃ© obrÃ¡zky"
 
 msgid "Default color profile for solid colors on the page"
-msgstr ""
+msgstr "Å tandardnÃ½ farebnÃ½ profil na plnÃ© farby na strane"
 
 msgid ""
 "Color profile that you have generated or received from the manufacturer.\n"
 "This profile should be specific to your monitor and not a generic profile (i."
 "e. sRGB)."
 msgstr ""
+"FarebnÃ½ profil, ktorÃ½ mÃ¡te vygenerovanÃ½ alebo dodanÃ½ od vÃ½robcu  zariadenia.\n"
+"Tento profil by mal byÅ¥ nastavenÃ½ na vÃ¡Å¡ monitor a nie vÅ¡eobecnÃ½ profil (napr. s RGB)."
 
 msgid ""
 "Color profile for your printer model from the manufacturer.\n"
 "This profile should be specific to your printer and not a generic profile (i."
 "e. sRGB)."
 msgstr ""
+"FarebnÃ½ profil pre vÃ¡Å¡ model tlaÄiarne od vÃ½robcu.\n"
+"Tento profil by mal byÅ¥ nastavenÃ½ pre vaÅ¡u tlaÄiareÅˆ a nie vÅ¡eobecnÃ½ profil (napr. s RGB)."
 
 msgid ""
 "Default rendering intent for your monitor. Unless you know why to change "
 "it,\n"
 "Relative Colorimetric or Perceptual should be chosen."
 msgstr ""
+"Å tandardnÃ½ ÃºÄel generovania pre vÃ¡Å¡ monitor. PokiaÄ¾ viete, preÄo ho meniÅ¥,\n"
+"zvoÄ¾te relatÃ­vnu kolorimetrickÃº transformÃ¡ciu alebo perceptuÃ¡lanu (fotografickÃº) transformÃ¡ciu."
 
 msgid ""
 "Default rendering intent for your printer. Unless you know why to change "
@@ -730,237 +700,211 @@ msgid ""
 msgstr ""
 
 msgid "Edit Color"
-msgstr "Upravi» farby"
+msgstr "UpraviÅ¥ farby"
 
-#, fuzzy
 msgid "&Name:"
-msgstr "Názov:"
+msgstr "&NÃ¡zov:"
 
-#, fuzzy
 msgid "Color &Model"
-msgstr "Farebnı model"
+msgstr "FarebnÃ½ &model"
 
 msgid "CMYK"
-msgstr ""
+msgstr "CMYK"
 
 msgid "RGB"
-msgstr ""
+msgstr "RGB"
 
-#, fuzzy
 msgid "Web Safe RGB"
-msgstr "Ulo¾i» pre web RGB"
+msgstr "UloÅ¾iÅ¥ pre web RGB"
 
 msgid "New"
-msgstr "Novı"
+msgstr "NovÃ½"
 
 msgid "Old"
-msgstr "Starı"
+msgstr "StarÃ½"
 
 msgid "HSV-Colormap"
-msgstr ""
+msgstr "HSV- farebnÃ¡ mapa"
 
 msgid "C:"
-msgstr ""
+msgstr "C:"
 
 msgid " %"
-msgstr ""
+msgstr " %"
 
 msgid "M:"
-msgstr ""
+msgstr "M:"
 
 msgid "Y:"
-msgstr ""
+msgstr "Y:"
 
 msgid "K:"
-msgstr ""
+msgstr "K:"
 
 msgid "Dynamic Color Bars"
-msgstr "Mrie¾ky so dynamickımi farbami"
+msgstr "MrieÅ¾ky so dynamickÃ½mi farbami"
 
 msgid "Static Color Bars"
-msgstr "Mrie¾ky so statickımi farbami"
+msgstr "MrieÅ¾ky so statickÃ½mi farbami"
 
 msgid "R:"
-msgstr ""
+msgstr "R:"
 
 msgid "G:"
-msgstr ""
+msgstr "G:"
 
 msgid "B:"
-msgstr ""
+msgstr "B:"
 
 msgid "Warning"
 msgstr "Varovanie"
 
-#, fuzzy
 msgid "Name of the Color is not unique"
-msgstr "Názov ¹tılu nie je jedineènı"
+msgstr "NÃ¡zov farby nie je jedineÄnÃ½"
 
 msgid "Colors"
 msgstr "Farby"
 
-#, fuzzy
 msgid "&Append"
-msgstr "Pripoji»"
+msgstr "Prid&aÅ¥"
 
-#, fuzzy
 msgid "&New"
-msgstr "Novı"
+msgstr "&NovÃ½"
 
-#, fuzzy
 msgid "&Edit"
-msgstr "Upravi»"
+msgstr "&UpraviÅ¥"
 
-#, fuzzy
 msgid "D&uplicate"
-msgstr "Duplikova»"
+msgstr "D&uplikovaÅ¥"
 
-#, fuzzy
 msgid "&Delete"
-msgstr "Zmaza»"
+msgstr "&OdstrÃ¡niÅ¥"
 
-#, fuzzy
 msgid "&Remove Unused"
-msgstr "Odstráni»"
+msgstr "Odst&rÃ¡niÅ¥ nepouÅ¾itÃ©"
 
-#, fuzzy
 msgid "Color Sets"
-msgstr "Farby"
+msgstr "Sada farieb"
 
-#, fuzzy
 msgid "Current Color Set:"
-msgstr "Farbu textu:"
+msgstr "AktuÃ¡lna sada farieb:"
 
-#, fuzzy
 msgid "&Save Color Set"
-msgstr "Relatívna kolorimetria"
+msgstr "UloÅ¾iÅ¥ farebnÃº &sadu"
 
 msgid "Choose a color set to load"
-msgstr ""
+msgstr "NahraÅ¥ sadu farieb"
 
-#, fuzzy
 msgid "Save the current color set"
-msgstr "Ulo¾í aktuálny dokument"
+msgstr "UloÅ¾Ã­ aktuÃ¡lny sadu farieb"
 
 msgid "Remove unused colors from current document's color set"
-msgstr ""
+msgstr "OdstrÃ¡niÅ¥ nepouÅ¾itÃ© farby z aktuÃ¡lnej sady dokumentu"
 
 msgid "Append colors to the current set from an existing document"
-msgstr ""
+msgstr "PripojiÅ¥ farby k aktuÃ¡lnej sade z existujÃºceho dokumentu"
 
-#, fuzzy
 msgid "Create a new color within the current set"
-msgstr "Vytvorí novı dokument"
+msgstr "VytvorÃ­ novÃº farbu v aktuÃ¡lnej sade"
 
 msgid "Edit the currently selected color"
-msgstr ""
+msgstr "UpraviÅ¥ aktuÃ¡lne zvolenÃº farbu"
 
 msgid "Make a copy of the currently selected color"
-msgstr ""
+msgstr "VytvoriÅ¥ kÃ³piu aktuÃ¡lne zvolenej farby"
 
 msgid "Delete the currently selected color"
-msgstr ""
+msgstr "OdstrÃ¡niÅ¥ aktuÃ¡lne zvolenÃº farbu"
 
 msgid "Make the current colorset the default color set"
-msgstr ""
+msgstr "NastaviÅ¥ aktuÃ¡lnu farebnÃº sadu za Å¡tandardnÃº"
 
-#, fuzzy
 msgid "Choose a Name"
-msgstr "Vybra» prieèinok"
+msgstr "VybraÅ¥ nÃ¡zov"
 
-#, fuzzy
 msgid "Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"
-msgstr "Dokumenty (*.scd *scd.gz *.scd *scd.gz);; V¹etky súbory (*)"
+msgstr "Dokumenty (*.sla *sla.gz *.scd *scd.gz);; VÅ¡etky sÃºbory (*)"
 
-#, fuzzy
 msgid "Documents (*.sla *.scd);;All Files (*)"
-msgstr "Dokumenty (*.sla *.scd);; V¹etky súbory (*)"
+msgstr "Dokumenty (*.sla *.scd);; VÅ¡etky sÃºbory (*)"
 
-#, fuzzy
 msgid "Copy of %1"
-msgstr "Kópia z "
+msgstr "KÃ³pia %1"
 
 msgid "New Color"
-msgstr "Nová farba"
+msgstr "NovÃ¡ farba"
 
 msgid "Shade:"
-msgstr "Tieò:"
+msgstr "TieÅˆ:"
 
 msgid "Opacity:"
 msgstr "Krytie:"
 
 msgid "Horizontal Gradient"
-msgstr "Horizontálny prechod"
+msgstr "HorizontÃ¡lny prechod"
 
 msgid "Vertical Gradient"
-msgstr "Vertikálny prechod"
+msgstr "VertikÃ¡lny prechod"
 
 msgid "Diagonal Gradient"
-msgstr "Diagonálny prechod"
+msgstr "DiagonÃ¡lny prechod"
 
-#, fuzzy
 msgid "Cross Diagonal Gradient"
-msgstr "Krí¾ovodiagonálny prechod"
+msgstr "KrÃ­Å¾ovodiagonÃ¡lny prechod"
 
 msgid "Radial Gradient"
-msgstr "Radiálny prechod"
+msgstr "RadiÃ¡lny prechod"
 
-#, fuzzy
 msgid "Free linear Gradient"
-msgstr "Horizontálny prechod"
+msgstr "VoÄ¾nÃ½ lineÃ¡rny prechod"
 
-#, fuzzy
 msgid "Free radial Gradient"
-msgstr "Radiálny prechod"
+msgstr "VoÄ¾nÃ½ radiÃ¡lny prechod"
 
 msgid "X1:"
-msgstr ""
+msgstr "X1:"
 
 msgid "Y1:"
-msgstr ""
+msgstr "Y1:"
 
 msgid "X2:"
-msgstr ""
+msgstr "X2:"
 
 msgid "Y2:"
-msgstr ""
+msgstr "Y2:"
 
-#, fuzzy
 msgid "Edit Line Color Properties"
-msgstr "Vlastnosti pola"
+msgstr "UpraviÅ¥ vlastnosti farby Äiary"
 
-#, fuzzy
 msgid "Edit Fill Color Properties"
-msgstr "Vlastnosti pola"
+msgstr "UpraviÅ¥ vlastnosti farby vÃ½plne"
 
-#, fuzzy
 msgid "Saturation of color"
-msgstr "Sıtos»"
+msgstr "SÃ½tosÅ¥ farby"
 
 msgid "Normal or gradient fill method"
-msgstr ""
+msgstr "BeÅ¾nÃ¡ metÃ³da vyplnenia alebo prechod"
 
 msgid "Set the transparency for the color selected"
-msgstr ""
+msgstr "NastaviÅ¥ priesvitnosÅ¥ pre zvolenÃº farbu"
 
-#, fuzzy
 msgid "Color of selected object"
-msgstr "Spä» zmazanie objektu"
+msgstr "Farba zvolenÃ©ho objektu"
 
 msgid "Printer Options"
-msgstr "Mo¾nosti tlaèiarne"
+msgstr "MoÅ¾nosti tlaÄiarne"
 
 msgid "Page Set"
 msgstr "Nastavenie strany"
 
 msgid "All Pages"
-msgstr "V¹etky strany"
+msgstr "VÅ¡etky strany"
 
 msgid "Even Pages only"
-msgstr "Iba párne strany"
+msgstr "Iba pÃ¡rne strany"
 
 msgid "Odd Pages only"
-msgstr "Iba nepárne strany"
+msgstr "Iba nepÃ¡rne strany"
 
 msgid "Mirror"
 msgstr "Zrkadlo"
@@ -969,29 +913,28 @@ msgid "No"
 msgstr "Nie"
 
 msgid "Yes"
-msgstr "Áno"
+msgstr "Ãno"
 
-#, fuzzy
 msgid "Orientation"
-msgstr "Orientácia:"
+msgstr "OrientÃ¡cia"
 
 msgid "Portrait"
-msgstr "Na vı¹ku"
+msgstr "Na vÃ½Å¡ku"
 
 msgid "Landscape"
-msgstr "Na ¹írku"
+msgstr "Na Å¡Ã­rku"
 
 msgid "N-Up Printing"
-msgstr "N-Up tlaè"
+msgstr "N-Up tlaÄ"
 
 msgid "Page per Sheet"
 msgstr "Strana na list"
 
 msgid "Pages per Sheet"
-msgstr "Stránok na liste"
+msgstr "Strany na liste"
 
 msgid "Option"
-msgstr "Voµba"
+msgstr "VoÄ¾ba"
 
 msgid "Value"
 msgstr "Hodnota"
@@ -1004,137 +947,120 @@ msgid ""
 "support.\n"
 "Missing library support is indicated by a *"
 msgstr ""
+"Tento panel zobrazuje rÃ´zne CUPS nastavenÃ¡ poÄas tlaÄe.\n"
+"DostupnosÅ¥ jednotlivÃ½ch parametrov zÃ¡visÃ­ na ovlÃ¡daÄi vaÅ¡ej tlaÄiarne.\n"
+"Podpory CUPS zistÃ­te v ponuke PomocnÃ­k > O Scribuse.\n"
+"Text: C-C-T znamenÃ¡ podporu C-CUPS, C-littlecms a T-Tiff.\n"
+"ChÃ½bajÃºce kniÅ¾nice sÃº zobrazenÃ© ako *"
 
 msgid "Size:"
-msgstr "Veµkos»:"
+msgstr "VeÄ¾kosÅ¥:"
 
 msgid "Title:"
-msgstr "Názov:"
+msgstr "NÃ¡zov:"
 
 msgid "No Title"
-msgstr "Bez názvu"
+msgstr "Bez nÃ¡zvu"
 
 msgid "Author:"
 msgstr "Autor:"
 
 msgid "Unknown"
-msgstr "Neznámy"
+msgstr "NeznÃ¡my"
 
-#, fuzzy
 msgid "Scribus Document"
-msgstr "Scribus-Dokument"
+msgstr "Scribus dokument"
 
-#, fuzzy
 msgid "&Compress File"
-msgstr "Komprimovanı súbor"
+msgstr "&KomprimovanÃ½ sÃºbor"
 
-#, fuzzy
 msgid "&Include Fonts"
-msgstr "Vrátanie zálo¾iek"
+msgstr "&VrÃ¡tanie pÃ­sma"
 
-#, fuzzy
 msgid "Encoding:"
-msgstr "Ukonèenia:"
+msgstr "KÃ³dovanie:"
 
 msgid ""
 "Moves to your Document Directory.\n"
 "This can be set in the Preferences."
 msgstr ""
-"Presunutie vá¹ho prieèinku s dokumentmi.\n"
-"V nastaveniach je toto mo¾né urèi»."
+"Presunutie vÃ¡Å¡ho prieÄinku s dokumentmi.\n"
+"V nastaveniach je toto moÅ¾nÃ© urÄiÅ¥."
 
 msgid "Delete Color"
-msgstr "Zmaza» farbu"
+msgstr "OdstrÃ¡niÅ¥ farbu"
 
-#, fuzzy
 msgid "Delete color:"
-msgstr "Zmaza» farbu"
+msgstr "OdstrÃ¡niÅ¥ farbu:"
 
 msgid "?"
-msgstr ""
+msgstr "?"
 
 msgid "Replace it with:"
-msgstr "Nahradi» s:"
+msgstr "NahradiÅ¥ s:"
 
 msgid "Delete Pages"
-msgstr "Zmaza» strany"
+msgstr "OdstrÃ¡niÅ¥ strany"
 
 msgid "Delete from:"
-msgstr "Zmaza» od:"
+msgstr "OdstrÃ¡niÅ¥ od:"
 
 msgid "to:"
 msgstr "po:"
 
-#, fuzzy
 msgid "Document Information"
-msgstr "Informácie o dokumente"
+msgstr "InformÃ¡cie o dokumente"
 
-#, fuzzy
 msgid "&Title:"
-msgstr "Názov:"
+msgstr "&NÃ¡zov:"
 
-#, fuzzy
 msgid "&Author:"
-msgstr "Autor:"
+msgstr "&Autor:"
 
 msgid "&Keywords:"
-msgstr ""
+msgstr "&KÄ¾ÃºÄovÃ© slovÃ¡:"
 
-#, fuzzy
 msgid "Descri&ption:"
-msgstr "Popis:"
+msgstr "&Popis:"
 
-#, fuzzy
 msgid "P&ublisher:"
-msgstr "Poµsky:"
+msgstr "&VydavateÄ¾:"
 
-#, fuzzy
 msgid "&Contributors:"
-msgstr "Príspevky od:"
+msgstr "Prispieva&telia:"
 
-#, fuzzy
 msgid "Dat&e:"
-msgstr "Dátum"
+msgstr "&DÃ¡tum:"
 
-#, fuzzy
 msgid "T&ype:"
-msgstr "Typ:"
+msgstr "T&yp:"
 
-#, fuzzy
 msgid "F&ormat:"
-msgstr "Formát:"
+msgstr "F&ormÃ¡t:"
 
-#, fuzzy
 msgid "Identi&fier:"
-msgstr "¥avé odsadenie"
+msgstr "Identi&fikÃ¡tor:"
 
-#, fuzzy
 msgid "&Source:"
-msgstr "Vynútené"
+msgstr "&Zdroj:"
 
-#, fuzzy
 msgid "&Language:"
-msgstr "Jazyk:"
+msgstr "&Jazyk:"
 
-#, fuzzy
 msgid "&Relation:"
-msgstr "Rozlí¹enie:"
+msgstr "V&zÅ¥ah:"
 
-#, fuzzy
 msgid "Co&verage:"
-msgstr "priemer"
+msgstr "&Pokrytie:"
 
-#, fuzzy
 msgid "Ri&ghts:"
-msgstr "Pravı:"
+msgstr "P&rÃ¡va:"
 
-#, fuzzy
 msgid "&Document"
-msgstr "Dokument"
+msgstr "&Dokument"
 
-#, fuzzy
 msgid "Further &Information"
-msgstr "Formátovanie"
+msgstr "ÄalÅ¡ie &informÃ¡cie"
 
 msgid ""
 "The person or organisation primarily responsible for making the content of "
@@ -1142,58 +1068,77 @@ msgid ""
 "This field can be embedded in the Scribus document for reference, as well as "
 "in the metadata of a PDF"
 msgstr ""
+"Osoba alebo organizÃ¡cia primÃ¡rne zodpovednÃ¡ za vytvorenie obsahu dokumentu.\n"
+"Toto pole mÃ´Å¾e byÅ¥ zabudovanÃ© do Scribus dokumentu ako referencia, ako aj "
+"v metadÃ¡tach PDF"
 
 msgid ""
 "A name given to the document.\n"
 "This field can be embedded in the Scribus document for reference, as well as "
 "in the metadata of a PDF"
 msgstr ""
+"DanÃ½ nÃ¡zov dokumentu.\n"
+"Toto pole mÃ´Å¾e byÅ¥ zabudovanÃ© do Scribus dokumentu ako referencia, ako aj "
+"v metadÃ¡tach PDF"
 
 msgid ""
 "An account of the content of the document.\n"
 "This field is for a brief description or abstract of the document. It is "
 "embedded in the PDF on export"
 msgstr ""
+"SprÃ¡va o obsahu dokumentu.\n"
+"Toto pole obsahuje krÃ¡tky popis alebo obsah dokumentu. Pri exporte "
+"je zabudovanÃ© do PDF"
 
 msgid ""
 "The topic of the content of the document.\n"
 "This field is for document keywords you wish to embed in a PDF, to assist "
 "searches and indexing of PDF files"
 msgstr ""
+"TÃ©ma dokumentu.\n"
+"ÃšÄelom tohoto pola je poskytnÃºÅ¥ priestor pre kÄ¾ÃºÄovÃ© slovÃ¡ zabudovanÃ© "
+"do PDF, ktorÃ© asistujÃº pri vyhÄ¾adÃ¡vanÃ­ a indexÃ¡ciÃ­ PDF sÃºborov"
 
 msgid "A person or organisation responsible for making the document available"
-msgstr ""
+msgstr "Osoba alebo organizÃ¡cia zodpovednÃ¡ za sprÃ­stupnenie dokumentu"
 
 msgid ""
 "A person or organisation responsible for making contributions to the content "
 "of the document"
-msgstr ""
+msgstr "Osoba alebo organizÃ¡cia zodpovednÃ¡ za tvorbu prÃ­spevkov pre obsah dokumentu"
 
 msgid ""
 "A date associated with an event in the life cycle of the document, in YYYY-"
 "MM-DD format, as per ISO 8601"
 msgstr ""
+"DÃ¡tum sÃºvisiaci s udalosÅ¥ou Å¾ivotnÃ©ho cyklu dokumentu vo formÃ¡te RRRR-MM-DD"
+"ako aj ISO 8601"
 
 msgid ""
 "The nature or genre of the content of the document, eg. categories, "
 "functions, genres, etc"
-msgstr ""
+msgstr "Charakter, Å¾Ã¡ner obsahu dokumentu, napr. kategÃ³rie, funkcie, Å¾Ã¡nre atÄ."
 
 msgid ""
 "The physical or digital manifestation of the document. Media type and "
 "dimensions would be worth noting.\n"
 "RFC2045,RFC2046 for MIME types are also useful here"
 msgstr ""
+"FyzickÃ½ alebo digitÃ¡lny prejav dokumentu. Typ mÃ©dia a rozmery sÃº vhodnÃ©"
+"zaznamenania.\n"
+"RFC2045,RFC2046 pre MIME typy je tieÅ¾ vhodnÃ© tu uviesÅ¥"
 
 msgid ""
 "An unambiguous reference to the document within a given context such as ISBN "
 "or URI"
-msgstr ""
+msgstr "JednoznaÄnÃ½ odkaz na dokument v danom kontexte ako je ISBN alebo URI"
 
 msgid ""
 "A reference to a document from which the present document is derived, eg. "
 "ISBN or URI"
 msgstr ""
+"Odkaz na dokument, z ktorÃ©ho je aktuÃ¡lny dokument odvodenÃ½, napr. ISBN alebo "
+"URI"
 
 msgid ""
 "The language in which the content of the document is written, usually a ISO-"
@@ -1201,64 +1146,68 @@ msgid ""
 "optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-"
 "CH"
 msgstr ""
+"Jazyk, v ktorom je dokument napÃ­sanÃ½ - zvyÄajne je to ISO-639 kÃ³d jazyka\n"
+"prÃ­padne je doplnenÃ½ spojovnÃ­kom a ISO-3166 kÃ³dom krajiny napr. en-GB, fr-CH"
 
 msgid ""
 "A reference to a related document, possibly using a formal identifier such "
 "as a ISBN or URI"
 msgstr ""
+"Odkaz na prÃ­buznÃ½ dokument, s pouÅ¾itÃ­m formÃ¡lnej identifikÃ¡cie ako je ISBN "
+"alebo URI"
 
 msgid ""
 "The extent or scope of the content of the document, possibly including "
 "location, time and jurisdiction ranges"
-msgstr ""
+msgstr "Rozsah dokumentu, eventuÃ¡lne vrÃ¡tane umiestnenia, Äasu a jurisdikcie"
 
 msgid ""
 "Information about rights held in and over the document, eg. copyright, "
 "patent or trademark"
 msgstr ""
+"InformÃ¡cie o prÃ¡vach drÅ¾by dokumentu, napr. copyright, patent alebo "
+"obchodnÃ¡ znaÄka"
 
 msgid "Advanced Options"
-msgstr "Pokroèilé nastavenia"
+msgstr "PokroÄilÃ© nastavenia"
 
-#, fuzzy
 msgid "Mirror Page(s) &Horizontal"
-msgstr "Horizontálne zrkadlenie strán"
+msgstr "&HorizontÃ¡lne zrkadlenie strÃ¡n"
 
-#, fuzzy
 msgid "Mirror Page(s) &Vertical"
-msgstr "Vertikálne zrkadlenie strán"
+msgstr "&VertikÃ¡lne zrkadlenie strÃ¡n"
 
 msgid "Apply Under Color &Removal"
 msgstr ""
 
-#, fuzzy
 msgid "Apply &ICC Profiles"
-msgstr "Pou¾i» ICC-profily"
+msgstr "PouÅ¾iÅ¥ &ICC-profily"
 
-#, fuzzy
 msgid "PostScript Level &1"
-msgstr "Na vı¹ku"
+msgstr "PostScript Level &1"
 
-#, fuzzy
 msgid "PostScript Level &2"
-msgstr "Na vı¹ku"
+msgstr "PostScript Level &2"
 
-#, fuzzy
 msgid "PostScript Level &3"
-msgstr "Na vı¹ku"
+msgstr "PostScript Level &3"
 
 msgid "Creates PostScript Level 3"
-msgstr ""
+msgstr "VytvorÃ­ PostScript Level 3"
 
 msgid ""
 "Creates PostScript Level 2 only, beware,\n"
 "this can create huge files"
 msgstr ""
+"VytvorÃ­ iba  PostScript Level 2.\n"
+"Pozor! MÃ´Å¾e vytvoriÅ¥ veÄ¾kÃ© sÃºbory"
 
 msgid ""
 "Creates PostScript Level 1 only, beware,\n"
 "this can create huge files"
 msgstr ""
+"VytvorÃ­ iba  PostScript Level 1.\n"
+"Pozor! MÃ´Å¾e vytvoriÅ¥ veÄ¾kÃ© sÃºbory"
 
 msgid ""
 "A way of switching off some of the gray shades which are composed\n"
@@ -1268,556 +1217,483 @@ msgid ""
 "and some experimentation and testing is need on a case by case basis.\n"
 "UCR reduces the possibility of over saturation with CMY inks."
 msgstr ""
+"SpÃ´sob prepÃ­nania niektorÃ½ch Å¡edÃ½ch tieÅˆov, ktorÃ© sÃº zloÅ¾enÃ©\n"
+"z azÃºrovej, fialovej a Å¾ltej farby namiesto pouÅ¾itia Äiernej.\n"
+"UCR naviac ovplyvÅˆuje Äasti obrÃ¡zkov, ktorÃ© sÃº neutrÃ¡lne a/alebo\n"
+"v tmavÃ½ch tÃ³noch, ktorÃ© sÃº blÃ­zko Å¡edej. PouÅ¾itie tohoto postupu mÃ´Å¾e zlepÅ¡iÅ¥\n"
+"tlaÄ niektorÃ½ch obrÃ¡zkov - je vÅ¡ak potrebnÃ© testovaÅ¥ jednotlivÃ© prÃ­pady.\n"
+"UCR zniÅ¾uje moÅ¾nosÅ¥ presÃ½tenosti s CMY atramentmi."
 
 msgid "Setup Printer"
-msgstr "Nastavi» tlaèiareò"
+msgstr "NastaviÅ¥ tlaÄiareÅˆ"
 
-#, fuzzy
 msgid "Print Destination"
-msgstr "Tlaè do"
+msgstr "CieÄ¾ tlaÄe"
 
 msgid "File"
-msgstr "Súbor"
+msgstr "SÃºbor"
 
-#, fuzzy
 msgid "&Options..."
-msgstr "Mo¾nosti..."
+msgstr "M&oÅ¾nosti..."
 
-#, fuzzy
 msgid "&File:"
-msgstr "Súbor:"
+msgstr "&SÃºbor:"
 
-#, fuzzy
 msgid "C&hange..."
-msgstr "Zmeni»..."
+msgstr "&ZmeniÅ¥..."
 
-#, fuzzy
 msgid "A&lternative Printer Command"
-msgstr "Tlaèi» pomocou iného Príkazu"
+msgstr "A&lternatÃ­vny prÃ­kaz tlaÄe"
 
 msgid ""
 "Use an alternative print manager, such as kprinter or gtklp,\n"
 "to utilize additional printing options"
 msgstr ""
+"PouÅ¾iÅ¥ alternatÃ­vneho sprÃ¡vcu tlaÄe ako je kprinter alebo gtklp,\n"
+"na spracovanie prÃ­davnÃ½ch nastavenÃ­ tlaÄe"
 
-#, fuzzy
 msgid "Co&mmand:"
-msgstr "Príkaz:"
+msgstr "&PrÃ­kaz:"
 
-#, fuzzy
 msgid "Range"
-msgstr "Rozsah:"
+msgstr "Rozsah"
 
-#, fuzzy
 msgid "Print &All"
-msgstr "Tlaèi» v¹etko"
+msgstr "Tl&aÄiÅ¥ vÅ¡etko"
 
-#, fuzzy
 msgid "Print Current Pa&ge"
-msgstr "Tlaèi» rozsah"
+msgstr "TlaÄiÅ¥ akt&uÃ¡lnu stranu"
 
-#, fuzzy
 msgid "Print &Range"
-msgstr "Tlaèi» rozsah"
+msgstr "TlaÄiÅ¥ &rozsah"
 
 msgid ""
 "Insert a comma separated list of tokens where\n"
 "a token can be * for all the pages, 1-5 for\n"
 "a range of pages or a single page number."
 msgstr ""
+"VloÅ¾iÅ¥ Äiarkou oddelenÃ½ zoznam prvkov,\n"
+"kde prvok mÃ´Å¾e byÅ¥ * pre vÅ¡etky strany,\n"
+"1-5 pre rozsah strÃ¡n alebo jedno ÄÃ­slo strany."
 
-#, fuzzy
 msgid "N&umber of Copies:"
-msgstr "Poèet kópií:"
+msgstr "P&oÄet kÃ³piÃ­:"
 
-#, fuzzy
 msgid "Print &Normal"
-msgstr "Normálna tlaè"
+msgstr "&NormÃ¡lna tlaÄ"
 
-#, fuzzy
 msgid "Print &Separations"
-msgstr "Oddelená tlaè farebnıch zlo¾iek"
+msgstr "OddelenÃ¡ tlaÄ &farebnÃ½ch zloÅ¾iek"
 
 msgid "All"
-msgstr "V¹etky"
+msgstr "VÅ¡etky"
 
 msgid "Cyan"
-msgstr ""
+msgstr "AzÃºrovÃ¡"
 
 msgid "Magenta"
-msgstr ""
+msgstr "PurpurovÃ¡"
 
-#, fuzzy
 msgid "Yellow"
-msgstr "Pod:"
+msgstr "Å½ltÃ¡"
 
-#, fuzzy
 msgid "Black"
-msgstr "Do bloku"
+msgstr "ÄŒierna"
 
-#, fuzzy
 msgid "Pr&int In Color If Available"
-msgstr "Tlaèi» farebne, ak je to mo¾né"
+msgstr "TlaÄ&iÅ¥ farebne, ak je to moÅ¾nÃ©"
 
-#, fuzzy
 msgid "Print In Gra&yscale"
-msgstr "Tlaèi» v odtieòoch ¹edej"
+msgstr "T&laÄiÅ¥ v odtieÅˆoch Å¡edej"
 
-#, fuzzy
 msgid "Ad&vanced Options..."
-msgstr "Pokroèilé nastavenia..."
+msgstr "&PokroÄilÃ© moÅ¾nosti..."
 
-#, fuzzy
 msgid "&Print"
-msgstr "Tlaè"
+msgstr "&TlaÄ"
 
 msgid "Save as"
-msgstr "Ulo¾i» ako"
+msgstr "UloÅ¾iÅ¥ ako"
 
-#, fuzzy
 msgid "Postscript-Files (*.ps);;All Files (*)"
-msgstr "Java skripty (*.js);;V¹etky súbory (*)"
+msgstr "Postscript sÃºbory(*.ps);;VÅ¡etky sÃºbory (*)"
 
 msgid "Edit Style"
-msgstr "Upravi» ¹tıl"
+msgstr "UpraviÅ¥ Å¡tÃ½l"
 
 msgid "Character"
 msgstr "Znak"
 
-#, fuzzy
 msgid "&Font:"
-msgstr "&Písmo"
+msgstr "&PÃ­smo:"
 
-#, fuzzy
 msgid "Si&ze:"
-msgstr "Veµkos»:"
+msgstr "&VeÄ¾kosÅ¥:"
 
-#, fuzzy
 msgid "Effect:"
-msgstr "Efekty"
+msgstr "Efekt:"
 
-#, fuzzy
 msgid "&Alignment:"
-msgstr "Zarovnanie"
+msgstr "Z&arovnanie:"
 
 msgid "&Drop Caps"
-msgstr ""
+msgstr "&IniciÃ¡ly"
 
-#, fuzzy
 msgid "&Lines:"
-msgstr "Èiara:"
+msgstr "ÄŒ&iary:"
 
-#, fuzzy
 msgid "F&ill Color:"
-msgstr "Farba vıplne:"
+msgstr "&Farba vÃ½plne:"
 
-#, fuzzy
 msgid "St&roke Color:"
-msgstr "Novı Farba:"
+msgstr "Fa&rba obrysu:"
 
 msgid "Vertical Spaces"
-msgstr "Vertikálne medzery"
+msgstr "VertikÃ¡lne medzery"
 
-#, fuzzy
 msgid "Adjust to Baseline &Grid"
-msgstr "Skry» mrie¾ku"
+msgstr "ZarovnaÅ¥ k pomocnej &mrieÅ¾ke"
 
-#, fuzzy
 msgid "Line &Spacing:"
-msgstr "Riadkovanie:"
+msgstr "&Riadkovanie:"
 
-#, fuzzy
 msgid "Abo&ve:"
-msgstr "Nad:"
+msgstr "&Nad:"
 
-#, fuzzy
 msgid "&Below:"
-msgstr "Pod:"
+msgstr "&Pod:"
 
 msgid "Tabulators and Indentation"
-msgstr ""
+msgstr "TabulÃ¡tory a odsadenie"
 
 msgid "Name of your paragraph style"
-msgstr ""
+msgstr "NÃ¡zov Å¡tÃ½lu odstavca"
 
 msgid "Font of selected text or object"
-msgstr ""
+msgstr "PÃ­smo pre zvolenÃ½ text alebo objekt"
 
 msgid "Font Size"
-msgstr "Veµkos» písma"
+msgstr "VeÄ¾kosÅ¥ pÃ­sma"
 
-#, fuzzy
 msgid "Color of text fill"
-msgstr "Farebnı model"
+msgstr "Farba vÃ½plne pÃ­sma"
 
 msgid "Color of text stroke"
-msgstr ""
+msgstr "Farba obrysu pÃ­sma"
 
-msgid ""
-"Provides an oversized first letter for a paragraph. Used for stylistic effect"
-msgstr ""
+msgid "Provides an oversized first letter for a paragraph. Used for stylistic effect"
+msgstr "NastavÃ­ oveÄ¾a vyÅ¡Å¡ie prvÃ© pÃ­smeno odstavca. Å tylistickÃ½ efekt"
 
 msgid "Determines the overall height, in line numbers, of the Drop Caps"
-msgstr ""
+msgstr "UrÄuje celkovÃº vÃ½Å¡ku iniciÃ¡ly v zÃ¡vislosti od poÄtu riadkov"
 
-#, fuzzy
 msgid "Align text to baseline grid"
-msgstr "Zarovna» text na stred"
+msgstr "ZarovnaÅ¥ text k pomocnej mrieÅ¾ke"
 
 msgid "Spacing above the paragraph"
-msgstr ""
+msgstr "Medzera nad odsekom"
 
 msgid "Spacing below the paragraph"
-msgstr ""
+msgstr "Medzere pod odsekom"
 
-#, fuzzy
 msgid "Line Spacing"
 msgstr "Riadkovanie"
 
 msgid "Name of the Style is not unique"
-msgstr "Názov ¹tılu nie je jedineènı"
+msgstr "NÃ¡zov Å¡tÃ½lu nie je jedineÄnÃ½"
 
 msgid "Edit Styles"
-msgstr "Upravi» ¹tıly"
+msgstr "UpraviÅ¥ Å¡tÃ½ly"
 
-#, fuzzy
 msgid "&Save"
-msgstr "Ulo¾i»"
+msgstr "&UloÅ¾iÅ¥"
 
 msgid "New Style"
-msgstr "Novı ¹tıl"
+msgstr "NovÃ½ Å¡tÃ½l"
 
 msgid "Do you really want do delete this Style?"
-msgstr "Skutoène chcete zmaza» tento ¹tıl?"
+msgstr "SkutoÄne chcete odstrÃ¡niÅ¥ tento Å¡tÃ½l?"
 
-#, fuzzy
 msgid "Editor"
-msgstr "Upravi»"
+msgstr "Editor"
 
-#, fuzzy
 msgid "&Open..."
-msgstr "Otvori»..."
+msgstr "&OtvoriÅ¥..."
 
-#, fuzzy
 msgid "Save &As..."
-msgstr "Ulo¾i» ako..."
+msgstr "UloÅ¾iÅ¥ &ako..."
 
-#, fuzzy
 msgid "&Save and Exit"
-msgstr "Ulo¾i» a ukonèi»"
+msgstr "&UloÅ¾iÅ¥ a ukonÄiÅ¥"
 
-#, fuzzy
 msgid "&Exit without Saving"
-msgstr "Ukonèi» bez ulo¾enia"
+msgstr "U&konÄiÅ¥ bez uloÅ¾enia"
 
-#, fuzzy
 msgid "&Undo"
-msgstr "Spä»"
+msgstr "V&rÃ¡tiÅ¥ spÃ¤Å¥"
 
-#, fuzzy
 msgid "&Redo"
-msgstr "Opakova»:"
+msgstr "&OpakovaÅ¥ vrÃ¡tenÃ©"
 
-#, fuzzy
 msgid "Cu&t"
-msgstr "Vystrihnú»"
+msgstr "Vys&trihnÃºÅ¥"
 
-#, fuzzy
 msgid "&Copy"
-msgstr "Kopírova»"
+msgstr "&KopÃ­rovaÅ¥"
 
-#, fuzzy
 msgid "&Paste"
-msgstr "Vlo¾i»"
+msgstr "V&loÅ¾iÅ¥"
 
-#, fuzzy
 msgid "C&lear"
-msgstr "Vymaza»"
+msgstr "&ZmazaÅ¥"
 
-#, fuzzy
 msgid "&Get Field Names"
-msgstr "Získa» názvy polí"
+msgstr "&ZÃ­skaÅ¥ nÃ¡zvy polÃ­"
 
-#, fuzzy
 msgid "&File"
-msgstr "Súbor"
+msgstr "&SÃºbor"
 
-#, fuzzy
 msgid "Javascripts (*.js);;All Files (*)"
-msgstr "Java skripty (*.js);;V¹etky súbory (*)"
+msgstr "Java skripty (*.js);;VÅ¡etky sÃºbory (*)"
 
-#, fuzzy
 msgid "Global Font Settings"
-msgstr "Globálne nastavenia písma"
+msgstr "GlobÃ¡lne nastavenia pÃ­sma"
 
 msgid "Available Fonts"
-msgstr "Dostupné písma"
+msgstr "DostupnÃ© pÃ­sma"
 
 msgid "Font Substitutions"
-msgstr "Substitúcia písem"
+msgstr "SubstitÃºcia pÃ­sem"
 
 msgid "Additional Paths"
-msgstr "Dodatoèné cesty"
+msgstr "DodatoÄnÃ© cesty"
 
-#, fuzzy
 msgid "Postscript"
-msgstr "Na vı¹ku"
+msgstr "Postscript"
 
 msgid "Font Name"
-msgstr "Názov písma"
+msgstr "NÃ¡zov pÃ­sma"
 
 msgid "Use Font"
-msgstr "Pou¾i» písmo"
+msgstr "PouÅ¾iÅ¥ pÃ­smo"
 
 msgid "Embed in:"
-msgstr "Obsiahnutı v:"
+msgstr "VloÅ¾iÅ¥ do:"
 
-#, fuzzy
 msgid "Subset"
-msgstr "Dolnı index"
+msgstr "PodmnoÅ¾ina"
 
 msgid "Type"
 msgstr "Typ"
 
-#, fuzzy
 msgid "Path to Font File"
-msgstr "Cesta k súborom písma"
+msgstr "Cesta k sÃºborom pÃ­sma"
 
-#, fuzzy
 msgid "&Available Fonts"
-msgstr "Dostupné písma"
+msgstr "DostupnÃ© pÃ­sm&a"
 
 msgid "Replacement"
-msgstr "Náhrada"
+msgstr "NÃ¡hrada"
 
-#, fuzzy
 msgid "Font &Substitutions"
-msgstr "Substitúcia písem"
+msgstr "&SubstitÃºcia pÃ­sem"
 
-#, fuzzy
 msgid "A&dd..."
-msgstr "Prida»..."
+msgstr "&PridaÅ¥..."
 
-#, fuzzy
 msgid "&Remove"
-msgstr "Odstráni»"
+msgstr "&OdstrÃ¡niÅ¥"
 
-#, fuzzy
 msgid "Additional &Paths"
-msgstr "Dodatoèné cesty"
+msgstr "&DodatoÄnÃ© cesty"
 
 msgid "Choose a Directory"
-msgstr "Vybra» prieèinok"
+msgstr "VybraÅ¥ prieÄinok"
 
 msgid "Nodes"
 msgstr "Uzly"
 
-#, fuzzy
 msgid "&Absolute Coordinates"
-msgstr "Absolútna kolorimetria"
+msgstr "&AbsolÃºtne sÃºradnice"
 
-#, fuzzy
 msgid "&X-Pos:"
-msgstr "X poz.:"
+msgstr "&X-Poz:"
 
-#, fuzzy
 msgid "&Y-Pos:"
-msgstr "Y poz.:"
+msgstr "&Y-Poz:"
 
-#, fuzzy
 msgid "Edit &Contour Line"
-msgstr "Upravi» farby"
+msgstr "UpraviÅ¥ vrstevni&cu"
 
-#, fuzzy
 msgid "&Reset Contour Line"
-msgstr "Bodko-èiarkovaná èiara"
+msgstr "VynulovaÅ¥ v&rstevnicu"
 
-#, fuzzy
 msgid "&End Editing"
-msgstr "Koniec úprav"
+msgstr "&Koniec Ãºprav"
 
 msgid "Move Nodes"
-msgstr "Presunú» uzly"
+msgstr "PresunÃºÅ¥ uzly"
 
 msgid "Move Control Points"
-msgstr "Presunú» riadiace body"
+msgstr "PresunÃºÅ¥ riadiace body"
 
 msgid "Add Nodes"
-msgstr "Prida» uzly"
+msgstr "PridaÅ¥ uzly"
 
 msgid "Delete Nodes"
-msgstr "Zmaza» uzly"
+msgstr "OdstrÃ¡niÅ¥ uzly"
 
-#, fuzzy
 msgid "Move Control Points Independently"
-msgstr "Nezávisle presúva» riadiace body"
+msgstr "PresÃºvaÅ¥ riadiace body nezÃ¡vislo"
 
-#, fuzzy
 msgid "Move Control Points Symmetrical"
-msgstr "Symetricky presúva» riadiace body"
+msgstr "PresÃºvaÅ¥ riadiace body symetricky"
 
 msgid "Reset Control Points"
-msgstr "Vynulova» riadiace body"
+msgstr "VynulovaÅ¥ riadiace body"
 
-#, fuzzy
 msgid "Reset this Control Point"
-msgstr "Vynulovanie riadiacich bodov "
+msgstr "VynulovaÅ¥ tento riadiaci bod"
 
-#, fuzzy
 msgid "Open a Polygon or Cuts a Bezier Curve"
-msgstr "Otvorí polygón alebo ore¾e Bézierovú krivku"
+msgstr "OtvorÃ­ polygÃ³n alebo oreÅ¾e BÃ©zierovÃº krivku"
 
-#, fuzzy
 msgid "Close this Bezier Curve"
-msgstr "Uzavrie túto Bézierovú krivku"
+msgstr "Uzavrie tÃºto BÃ©zierovÃº krivku"
 
-#, fuzzy
 msgid "Mirror the Path Horizontally"
-msgstr "Horizontálne zrkadlenie strán"
+msgstr "HorizontÃ¡lne zrkadliÅ¥ cestu"
 
-#, fuzzy
 msgid "Mirror the Path Vertically"
-msgstr "Uvoµni» horizontálu hore"
+msgstr "VertikÃ¡lne zrkadliÅ¥ cestu"
 
-#, fuzzy
 msgid "Shear the Path Horizontally to the Right"
-msgstr "Uvoµni» horizontálu vpravo"
+msgstr "UvoÄ¾niÅ¥ horizontÃ¡lu doprava"
 
-#, fuzzy
 msgid "Shear the Path Horizontally to the Left"
-msgstr "Uvoµni» horizontálu vµavo"
+msgstr "UvoÄ¾niÅ¥ horizontÃ¡lu doÄ¾ava"
 
-#, fuzzy
 msgid "Shear the Path Vertically Up"
-msgstr "Uvoµni» horizontálu hore"
+msgstr "UvoÄ¾niÅ¥ vertikÃ¡lu hore"
 
-#, fuzzy
 msgid "Shear the Path Vertically Down"
-msgstr "Uvoµni» horizontálu dole"
+msgstr "UvoÄ¾niÅ¥ vertikÃ¡lu dole"
 
 msgid "Rotate the Path Counter-Clockwise"
-msgstr ""
+msgstr "RotÃ¡cia v smere hodinovÃ½ch ruÄiÄiek"
 
 msgid "Rotate the Path Clockwise"
-msgstr ""
+msgstr "RotÃ¡cia proti smeru hodinovÃ½ch ruÄiÄiek"
 
 msgid "Reduce the Size of the Path by shown %"
-msgstr ""
+msgstr "ZmenÅ¡iÅ¥ o zobrazenÃ© %"
 
 msgid "Enlarge the Size of the Path by shown %"
-msgstr ""
+msgstr "ZvÃ¤ÄÅ¡iÅ¥ o zobrazenÃ© %"
 
-#, fuzzy
 msgid "Angle of Rotation"
-msgstr "Otáèanie"
+msgstr "Uhol otoÄenia"
 
 #, c-format
 msgid "% to Enlarge or Reduce By"
-msgstr ""
+msgstr "% zvÃ¤ÄÅ¡enia alebo zmenÅ¡enia"
 
 msgid "Activate Contour Line Editing Mode"
-msgstr ""
+msgstr "Aktivuje reÅ¾im Ãºprav vrstevnice"
 
 msgid "Reset the Contour Line to the Original Shape of the Frame"
-msgstr ""
+msgstr "VrÃ¡tiÅ¥ vrstevnicu do pÃ´vodnÃ©ho tvaru rÃ¡mu"
 
 msgid ""
 "When checked use Coordinates relative to the Page,\n"
 "otherwise Coordinates are relative to the Object."
 msgstr ""
+"KeÄ je oznaÄenÃ©, sÃºradnice sÃº relatÃ­vne vzhÄ¾adom k strane,\n"
+"v opaÄnom prÃ­pade sÃº relatÃ­vne k objektu."
 
 msgid "Manage Guides"
-msgstr "Ovládanie vodítok"
+msgstr "OvlÃ¡danie vodÃ­tok"
 
 msgid "Horizontal Guides"
-msgstr "Vodorovné vodítka"
+msgstr "VodorovnÃ© vodÃ­tka"
 
-#, fuzzy
 msgid "&Add"
-msgstr "Prida»"
+msgstr "&PridaÅ¥"
 
-#, fuzzy
 msgid "D&elete"
-msgstr "Zmaza»"
+msgstr "O&dstrÃ¡niÅ¥"
 
 msgid "Vertical Guides"
-msgstr "Zvislé vodítka"
+msgstr "ZvislÃ© vodÃ­tka"
 
-#, fuzzy
 msgid "A&dd"
-msgstr "Prida»"
+msgstr "&PridaÅ¥"
 
-#, fuzzy
 msgid "De&lete"
-msgstr "Zmaza»"
+msgstr "&OdstrÃ¡niÅ¥"
 
-#, fuzzy
 msgid "&Lock Guides"
-msgstr "Uzamknú» vodítka"
+msgstr "&UzamknÃºÅ¥ vodÃ­tka"
 
 msgid ""
 "Sorry, no manual available! Please see: http://scribus.net for updated docs "
 "and downloads."
 msgstr ""
+"Ä½utujem, ale manuÃ¡l nie je dostupnÃ½! AktualizovanÃº dokumentÃ¡ciu si mÃ´Å¾ete "
+"stiahnuÅ¥ na http://scribus.net"
 
 msgid "Possible Hyphenation"
-msgstr "Prijateµné delenie slov"
+msgstr "MoÅ¾nÃ© delenie slov"
 
 msgid "Accept"
-msgstr "Akceptova»"
+msgstr "AkceptovaÅ¥"
 
 msgid "Skip"
-msgstr "Preskoèi»"
+msgstr "PreskoÄiÅ¥"
 
 msgid "Hyphenator Settings"
 msgstr "Nastavenie delenia slov"
 
-#, fuzzy
 msgid "&Fully Automatic"
-msgstr "Plnoautomaticky"
+msgstr "&Plnoautomaticky"
 
-#, fuzzy
 msgid "Check &During Typing"
-msgstr "Kontrolova» poèas písania"
+msgstr "&KontrolovaÅ¥ poÄas pÃ­sania"
 
-#, fuzzy
 msgid "&Smallest Word:"
-msgstr "Najmen¹ie slovo:"
+msgstr "&NajmenÅ¡ie slovo:"
 
 msgid "&Number of Hypenations allowed:"
-msgstr ""
+msgstr "&PoÄet povolenÃ½ch delenÃ­ slov:"
 
-#, fuzzy
 msgid ""
 "If you uncheck this you will get a dialog\n"
 "everytime a possible Hyphenation is found."
 msgstr ""
-"Ak toto odznaèíte, potom v¾dy keï bude\n"
-"nájdené mo¾né rozdelenie slova, zobrazí sa vám dialóg."
+"Ak toto odznaÄÃ­te, potom vÅ¾dy, keÄ bude\n"
+"nÃ¡jdenÃ© moÅ¾nÃ© rozdelenie slova, zobrazÃ­ sa vÃ¡m dialÃ³g."
 
-#, fuzzy
 msgid "Enables automatic checking of your text while typing."
-msgstr "Povolí automatickú kontrolu vá¹ho textu poèas písania."
+msgstr "PovolÃ­ automatickÃº kontrolu vÃ¡Å¡ho textu poÄas pÃ­sania."
 
-#, fuzzy
 msgid "Length of the smallest word to be hyphenated."
-msgstr "Toto je då¾ka najmen¹ieho slova, ktoré sa bude deli»."
+msgstr "Toto je dÄºÅ¾ka najmenÅ¡ieho slova, ktorÃ© sa bude deliÅ¥."
 
 msgid ""
 "Maximum number of Hyphenations following each other.\n"
 "A value of 0 means unlimited hyphenations."
 msgstr ""
+"MaximÃ¡lny poÄet delenÃ­ slov za sebou.\n"
+"Hodnota 0 znamenÃ¡ neobmedzenÃ© delenie slov."
 
 msgid "Insert Page"
-msgstr "Vlo¾i» obrázok"
+msgstr "VloÅ¾iÅ¥ stranu"
 
-#, fuzzy
 msgid "&Inserting"
-msgstr "Vkladanie"
+msgstr "&Vkladanie"
 
-#, fuzzy
 msgid "Page(s)"
-msgstr "strán"
+msgstr "strana"
 
 msgid "before Page"
 msgstr "pred stranu"
@@ -1831,102 +1707,89 @@ msgstr "na koniec"
 msgid "Inserting"
 msgstr "Vkladanie"
 
-#, fuzzy
 msgid "&Template (Left Page):"
-msgstr "©ablóna (µavá strana):"
+msgstr "Å a&blÃ³na (Ä¾avÃ¡ strana):"
 
 msgid "Template (Right Page):"
-msgstr "©ablóna (Pravá strana):"
+msgstr "Å ablÃ³na (PravÃ¡ strana):"
 
-#, fuzzy
 msgid "Edit JavaScripts"
-msgstr "Java skript"
+msgstr "UpraviÅ¥ Java skripty"
 
-#, fuzzy
 msgid "&Edit..."
-msgstr "Upravi»..."
+msgstr "&UpraviÅ¥..."
 
-#, fuzzy
 msgid "&Add..."
-msgstr "Prida»..."
+msgstr "&PridaÅ¥..."
 
 msgid "&Close"
-msgstr "&Zavrie»"
+msgstr "&ZavrieÅ¥"
 
-#, fuzzy
 msgid "&New Script:"
-msgstr "Novı skript:"
+msgstr "&NovÃ½ skript:"
 
 msgid "New Script"
-msgstr "Novı skript"
+msgstr "NovÃ½ skript"
 
-#, fuzzy
 msgid "Do you really want do delete this Script?"
-msgstr "Skutoène chcete zmaza» tento ¹tıl?"
+msgstr "SkutoÄne chcete odstrÃ¡niÅ¥ tento skript?"
 
-#, fuzzy
 msgid "&No"
-msgstr "Nie"
+msgstr "&Nie"
 
-#, fuzzy
 msgid "&Yes"
-msgstr "Áno"
+msgstr "&Ãno"
 
 msgid "Manage Keyboard Shortcuts"
-msgstr "Správa klávesovıch skratiek"
+msgstr "SprÃ¡va klÃ¡vesovÃ½ch skratiek"
 
 msgid "Current Key"
-msgstr "Aktuálny kláves"
+msgstr "AktuÃ¡lny klÃ¡ves"
 
 msgid "Select a Key for this Action"
-msgstr "Zvoµte kláves pre túto akciu"
+msgstr "ZvoÄ¾te klÃ¡ves pre tÃºto akciu"
 
-#, fuzzy
 msgid "&No Key"
-msgstr "Bez klávesu"
+msgstr "Å½iad&ny klÃ¡ves"
 
-#, fuzzy
 msgid "&User Defined Key"
-msgstr "Pou¾ívateµom definovanı kláves"
+msgstr "Po&uÅ¾Ã­vateÄ¾om definovanÃ½ klÃ¡ves"
 
 msgid "ALT+SHIFT+T"
-msgstr ""
+msgstr "ALT+SHIFT+T"
 
-#, fuzzy
 msgid "Set &Key"
-msgstr "Nastavi» kláves"
+msgstr "NastaviÅ¥ &klÃ¡ves"
 
-#, fuzzy
 msgid "Alt"
-msgstr "V¹etky"
+msgstr "Alt"
 
 msgid "Ctrl"
-msgstr ""
+msgstr "Ctrl"
 
 msgid "Shift"
-msgstr ""
+msgstr "Shift"
 
 msgid "Shift+"
-msgstr ""
+msgstr "Shift+"
 
 msgid "Alt+"
-msgstr ""
+msgstr "Alt+"
 
 msgid "Ctrl+"
-msgstr ""
+msgstr "Ctrl+"
 
-#, fuzzy
 msgid "This Key Sequence is already in use"
-msgstr "Táto klávesová sekvencia sa u¾ pou¾íva"
+msgstr "TÃ¡to klÃ¡vesovÃ¡ sekvencia sa uÅ¾ pouÅ¾Ã­va"
 
 msgid "Layers"
 msgstr "Vrstvy"
 
 msgid "Add a new Layer"
-msgstr "Prida» novú vrstvu"
+msgstr "PridaÅ¥ novÃº vrstvu"
 
 msgid "Delete Layer"
-msgstr "Zmaza» vrstvu"
+msgstr "OdstrÃ¡niÅ¥ vrstvu"
 
 msgid "Raise Layer"
 msgstr "Vrstvu dopredu"
@@ -1935,642 +1798,555 @@ msgid "Lower Layer"
 msgstr "Vrstvu dozadu"
 
 msgid "New Layer"
-msgstr "Nová vrstva"
+msgstr "NovÃ¡ vrstva"
 
-#, fuzzy
 msgid "Do you want to delete all Objects on this Layer too?"
-msgstr "Skutoène chcete zmaza» tento ¹tıl?"
+msgstr "SkutoÄne chcete odstrÃ¡niÅ¥ vÅ¡etky objekty v tejto vrstve?"
 
-#, fuzzy
 msgid "Edit Line Styles"
-msgstr "Upravi» ¹tıly"
+msgstr "UpraviÅ¥ Å¡tÃ½ly Äiary"
 
 msgid "Multiple Duplicate"
-msgstr "Viacnásobné duplikovanie"
+msgstr "ViacnÃ¡sobnÃ© duplikovanie"
 
-#, fuzzy
 msgid "&Number of Copies:"
-msgstr "Poèet kópií:"
+msgstr "&PoÄet kÃ³piÃ­:"
 
-#, fuzzy
 msgid "&Horizontal Shift:"
-msgstr "Vodorovné posunutie:"
+msgstr "&VodorovnÃ© posunutie:"
 
-#, fuzzy
 msgid "&Vertical Shift:"
-msgstr "Zvislé posunutie:"
+msgstr "&ZvislÃ© posunutie:"
 
-#, fuzzy
 msgid "Import Template"
-msgstr "Importova» dáta ..."
+msgstr "ImportovaÅ¥ Å¡ablÃ³nu"
 
-#, fuzzy
 msgid "Import Page(s)"
-msgstr "Importova» stranu"
+msgstr "ImportovaÅ¥ stranu"
 
-#, fuzzy
 msgid "From Document:"
-msgstr "Bez dokumentu"
+msgstr "Z dokumentu:"
 
-#, fuzzy
 msgid "Import Page(s):"
-msgstr "Importova» stranu è.:"
+msgstr "ImportovaÅ¥ stranu:"
 
 msgid " from 0"
-msgstr ""
+msgstr " z 0"
 
-#, fuzzy
 msgid "Create Page(s)"
-msgstr "Zmaza» strany"
+msgstr "VytvoriÅ¥ stranu"
 
 msgid "Import"
 msgstr "Import"
 
 msgid " from %1"
-msgstr ""
+msgstr " z %1"
 
 msgid "Missing Font"
-msgstr "Chıbajúce písmo"
+msgstr "ChÃ½bajÃºce pÃ­smo"
 
 msgid "The Font %1 is not installed."
-msgstr "Písmo %1 nie je nain¹talované."
+msgstr "PÃ­smo %1 nie je nainÅ¡talovanÃ©."
 
 msgid "Use"
-msgstr "Pou¾i»"
+msgstr "PouÅ¾iÅ¥"
 
 msgid "instead"
 msgstr "namiesto"
 
 msgid "Move Pages"
-msgstr "Presunú» strany"
+msgstr "PresunÃºÅ¥ strany"
 
 msgid "Copy Page"
-msgstr "Kopírova» stránku"
+msgstr "KopÃ­rovaÅ¥ strÃ¡nku"
 
 msgid "Move Page(s):"
-msgstr "Presun strán:"
+msgstr "Presun strÃ¡n:"
 
 msgid "X, Y, &Z"
-msgstr ""
+msgstr "X, Y, &Z"
 
-#, fuzzy
 msgid "&Shape"
-msgstr "Tvar"
+msgstr "&Tvar"
 
-#, fuzzy
 msgid "&Text"
-msgstr "Text"
+msgstr "&Text"
 
-#, fuzzy
 msgid "&Image"
-msgstr "Obrázok"
+msgstr "&ObrÃ¡zok"
 
-#, fuzzy
 msgid "&Line"
-msgstr "Èiara"
+msgstr "&ÄŒiara"
 
-#, fuzzy
 msgid "&Colors"
-msgstr "Farby"
+msgstr "&Farby"
 
-#, fuzzy
 msgid "Name"
-msgstr "Názov:"
+msgstr "NÃ¡zov"
 
 msgid "Geometry"
 msgstr "Geometria"
 
-#, fuzzy
 msgid "&Width:"
-msgstr "©írka:"
+msgstr "Å Ã­r&ka:"
 
-#, fuzzy
 msgid "&Height:"
-msgstr "Vı¹ka:"
+msgstr "&VÃ½Å¡ka:"
 
-#, fuzzy
 msgid "&Rotation:"
-msgstr "Otoèenie: "
+msgstr "&OtoÄenie:"
 
-#, fuzzy
 msgid "Basepoint:"
-msgstr "Zalo¾ená na:"
+msgstr "ZÃ¡kladnÃ½ bod:"
 
 msgid "Level"
-msgstr "Úroveò"
+msgstr "ÃšroveÅˆ"
 
-#, fuzzy
 msgid "Shape:"
-msgstr "Tvar"
+msgstr "Tvar:"
 
-#, fuzzy
 msgid "&Edit Shape..."
-msgstr "Upravi» obrys..."
+msgstr "&UpraviÅ¥ tvar..."
 
-#, fuzzy
 msgid ""
 "R&ound\n"
 "Corners:"
 msgstr ""
-"Zaguµati»\n"
+"Za&obliÅ¥\n"
 "Rohy:"
 
 msgid "Distance of Text"
-msgstr "Vzdialenos» textu"
+msgstr "VzdialenosÅ¥ textu"
 
-#, fuzzy
 msgid "Colu&mns:"
-msgstr "Ståpce:"
+msgstr "&StÄºpce:"
 
 msgid "&Gap:"
-msgstr ""
+msgstr "&Odstup:"
 
-#, fuzzy
 msgid "To&p:"
-msgstr "Hornı:"
+msgstr "&HornÃ½:"
 
-#, fuzzy
 msgid "&Bottom:"
-msgstr "Dolnı:"
+msgstr "&DolnÃ½:"
 
-#, fuzzy
 msgid "&Left:"
-msgstr "¥avı:"
+msgstr "&Ä½avÃ½:"
 
-#, fuzzy
 msgid "&Right:"
-msgstr "Pravı:"
+msgstr "P&ravÃ½:"
 
-#, fuzzy
 msgid "T&abulators..."
-msgstr "©ablóny..."
+msgstr "T&abulÃ¡tory..."
 
-#, fuzzy
 msgid "Path Text Properties"
-msgstr "Vlastnosti"
+msgstr "Vlastnosti textu na krivky"
 
 msgid "Show Curve"
-msgstr "Zobrazi» krivku"
+msgstr "ZobraziÅ¥ krivku"
 
-#, fuzzy
 msgid "Start Offset:"
-msgstr "Poèiatoènı posun:"
+msgstr "PoÄiatoÄnÃ½ posun:"
 
 msgid "Distance from Curve:"
-msgstr "Vzdialenos» od krivky:"
+msgstr "VzdialenosÅ¥ od krivky:"
 
-#, fuzzy
 msgid "Text &Flows Around Frame"
-msgstr "Text obteká okolo"
+msgstr "Text o&btekÃ¡ okolo rÃ¡mu"
 
-#, fuzzy
 msgid "Use &Bounding Box"
-msgstr "pou¾i» celostránkovı rámec"
+msgstr "PouÅ¾iÅ¥ &viazanÃ© pole"
 
-#, fuzzy
 msgid "&Use Contour Line"
-msgstr "Bodko-èiarkovaná èiara"
+msgstr "Po&uÅ¾iÅ¥ vrstevnicu"
 
-#, fuzzy
 msgid "&Font Size:"
-msgstr "Veµkos» písma:"
+msgstr "V&eÄ¾kosÅ¥ pÃ­sma:"
 
 msgid "Custom Spacing"
-msgstr "Vlastné medzery"
+msgstr "VlastnÃ© medzery"
 
-#, fuzzy
 msgid "&Kerning:"
-msgstr "Varovanie"
+msgstr "VyrovnÃ¡vanie zna&kov (kerning):"
 
-#, fuzzy
 msgid "L&ine Spacing:"
-msgstr "Riadkovanie:"
+msgstr "R&iadkovanie:"
 
-#, fuzzy
 msgid "St&yle:"
-msgstr "©tıl"
+msgstr "Å &tÃ½l:"
 
-#, fuzzy
 msgid "Lan&guage:"
-msgstr "Jazyk:"
+msgstr "&Jazyk:"
 
-#, fuzzy
 msgid "&Free Scaling"
-msgstr "Voµná zmena veµkosti"
+msgstr "VoÄ¾&nÃ¡ zmena veÄ¾kosti"
 
-#, fuzzy
 msgid "X-Sc&ale:"
-msgstr "Mierka:"
+msgstr "X-Mierk&a:"
 
-#, fuzzy
 msgid "Y-Scal&e:"
-msgstr "Mierka:"
+msgstr "Y-Mi&erka:"
 
-#, fuzzy
 msgid "Scale &To Frame Size"
-msgstr "Zmeni» veµkos» na rozmer rámu"
+msgstr "ZmeniÅ¥ veÄ¾&kosÅ¥ na rozmer rÃ¡mu"
 
-#, fuzzy
 msgid "P&roportional"
-msgstr "Proporcionálne"
+msgstr "P&roporcionÃ¡lne"
 
 msgid "Input Profile:"
-msgstr "Vlo¾i» profil:"
+msgstr "VloÅ¾iÅ¥ profil:"
 
 msgid "Rendering Intent:"
-msgstr "Úèel generovania:"
+msgstr "ÃšÄel generovania:"
 
 msgid "Left Point"
-msgstr "¥avı bod"
+msgstr "Ä½avÃ½ bod"
 
-#, fuzzy
 msgid "End Points"
-msgstr "Koncové body"
+msgstr "KoncovÃ© body"
 
-#, fuzzy
 msgid "&Basepoint:"
-msgstr "Zalo¾ená na:"
+msgstr "ZÃ¡kladnÃ½ &bod:"
 
-#, fuzzy
 msgid "T&ype of Line:"
-msgstr "Systémové profily"
+msgstr "T&yp Äiary:"
 
-#, fuzzy
 msgid "Line &Width:"
-msgstr "©írka èiary:"
+msgstr "Å Ã­&rka Äiary:"
 
-#, fuzzy
 msgid "Miter Join"
-msgstr "Kolmı spoj"
+msgstr "KolmÃ½ spoj"
 
-#, fuzzy
 msgid "Bevel Join"
-msgstr "Skosenı spoj"
+msgstr "SkosenÃ½ spoj"
 
-#, fuzzy
 msgid "Round Join"
-msgstr "Oblı spoj"
+msgstr "OblÃ½ spoj"
 
-#, fuzzy
 msgid "Ed&ges:"
-msgstr "Hrany:"
+msgstr "&Hrany:"
 
-#, fuzzy
 msgid "Flat Cap"
-msgstr "Ostrá hlavièka"
+msgstr "RovnÃ¡ hlaviÄka"
 
-#, fuzzy
 msgid "Square Cap"
-msgstr "©tvorcová hlavièka"
+msgstr "Å tvorcovÃ¡ hlaviÄka"
 
-#, fuzzy
 msgid "Round Cap"
-msgstr "Oblá hlavièka"
+msgstr "OblÃ¡ hlaviÄka"
 
-#, fuzzy
 msgid "&Endings:"
-msgstr "Ukonèenia:"
+msgstr "UkonÄ&enia:"
 
 msgid "No Style"
-msgstr "Bez ¹tılu"
+msgstr "Bez Å¡tÃ½lu"
 
-#, fuzzy
 msgid "Cell Lines"
-msgstr "Vlo¾i» èiary"
+msgstr "ÄŒiary bunky"
 
-#, fuzzy
 msgid "Line at Top"
-msgstr "Vyrovna»"
+msgstr "HornÃ¡ Äiara"
 
-#, fuzzy
 msgid "Line at the Left"
-msgstr "Sprava doµava"
+msgstr "Ä½avÃ¡ Äiara"
 
-#, fuzzy
 msgid "Line at the Right "
-msgstr "Zµava doprava"
+msgstr "PravÃ¡ Äiara"
 
-#, fuzzy
 msgid "Line at Bottom"
-msgstr "Zhora dole"
+msgstr "DolnÃ¡ Äiara"
 
-#, fuzzy
 msgid "Name of selected object"
-msgstr "Spä» zmazanie objektu"
+msgstr "NÃ¡zov zvolenÃ©ho objektu"
 
 msgid "Horizontal position of current basepoint"
-msgstr ""
+msgstr "VodorovnÃ¡ pozÃ­cia aktuÃ¡lneho zÃ¡kladnÃ©ho bodu"
 
 msgid "Vertical position of current basepoint"
-msgstr ""
+msgstr "ZvislÃ¡ pozÃ­cia aktuÃ¡lneho zÃ¡kladnÃ©ho bodu"
 
-#, fuzzy
 msgid "Width"
-msgstr "©írka:"
+msgstr "Å Ã­rka"
 
-#, fuzzy
 msgid "Height"
-msgstr "Vı¹ka:"
+msgstr "VÃ½Å¡ka"
 
 msgid "Rotation of object at current basepoint"
-msgstr ""
+msgstr "OtoÄenie objektu v aktuÃ¡lnom zÃ¡kladnom bode"
 
 msgid "Point from which measurements or rotation angles are referenced"
-msgstr ""
+msgstr "Bod, od ktorÃ©ho sÃº odvodenÃ© vzdialenosti alebo uhly rotÃ¡cie"
 
 msgid "Select top left for basepoint"
-msgstr ""
+msgstr "ZvoliÅ¥ Ä¾avÃ½ hornÃ½ roh za zÃ¡kladnÃ½ bod"
 
 msgid "Select top right for basepoint"
-msgstr ""
+msgstr "ZvoliÅ¥ pravÃ½ hornÃ½ roh za zÃ¡kladnÃ½ bod"
 
 msgid "Select bottom left for basepoint"
-msgstr ""
+msgstr "ZvoliÅ¥ Ä¾avÃ½ dolnÃ½ roh za zÃ¡kladnÃ½ bod"
 
 msgid "Select bottom right for basepoint"
-msgstr ""
+msgstr "ZvoliÅ¥ pravÃ½ dolnÃ½ roh za zÃ¡kladnÃ½ bod"
 
-#, fuzzy
 msgid "Select center for basepoint"
-msgstr "Vybra» nové písmo:"
+msgstr "ZvoliÅ¥ stred za zÃ¡kladnÃ½ bod"
 
-#, fuzzy
 msgid "Flip Horizontal"
-msgstr "Vodorovne preklopi»"
+msgstr "Vodorovne zameniÅ¥"
 
-#, fuzzy
 msgid "Flip Vertical"
-msgstr "Zvisle preklopi»"
+msgstr "Zvislo zameniÅ¥"
 
 msgid "Move one level up"
-msgstr ""
+msgstr "PresunÃºÅ¥ o jednu ÃºroveÅˆ vyÅ¡Å¡ie"
 
 msgid "Move one level down"
-msgstr ""
+msgstr "PresunÃºÅ¥ o jednu ÃºroveÅˆ niÅ¾Å¡ie"
 
-#, fuzzy
 msgid "Move to front"
-msgstr "Presunú» riadiace body"
+msgstr "PresunÃºÅ¥ dopredu"
 
-#, fuzzy
 msgid "Move to back"
-msgstr "Prenies» do pozadia"
+msgstr "PresunÃºÅ¥ dozadu"
 
-msgid ""
-"Indicates the level the object is on, 0 means the object is at the bottom"
+msgid "Indicates the level the object is on, 0 means the object is at the bottom"
 msgstr ""
+"Ukazuje hladinu zvolenÃ©ho objektu. 0 znamenÃ¡, Å¾e objekt je na najniÅ¾Å¡ej "
+"Ãºrovni"
 
 msgid "Lock or unlock the object"
-msgstr ""
+msgstr "UzamknÃºÅ¥ alebo odomknÃºÅ¥ objekt"
 
 msgid "Lock or unlock the size of the object"
-msgstr ""
+msgstr "UzamknÃºÅ¥ alebo odomknÃºÅ¥ veÄ¾kosÅ¥ objekt"
 
 msgid "Enable or disable printing of the object"
-msgstr ""
+msgstr "PovoliÅ¥ alebo zakÃ¡zaÅ¥ tlaÄ objektu"
 
 msgid "Make text in lower frames flow around the object shape"
-msgstr ""
+msgstr "PovoliÅ¥ obtekanie textu v niÅ¾Å¡Ã­ch rÃ¡moch okolo zvolenÃ©ho objektu"
 
 msgid "Use a surrounding box instead of the frame's shape for text flow"
-msgstr ""
+msgstr "PouÅ¾iÅ¥ obklopujÃºce pole namiesto tvaru rÃ¡mu pre tok textu"
 
 msgid "Use a second line originally based on the frame's shape for text flow"
-msgstr ""
+msgstr "PouÅ¾iÅ¥ druhÃº Äiaru pÃ´vodne zaloÅ¾enÃº na tvare rÃ¡mu pre tok textu"
 
 msgid "Scaling width of characters"
-msgstr ""
+msgstr "Zmena Å¡Ã­rky znakov"
 
 msgid "Saturation of color of text stroke"
-msgstr ""
+msgstr "SÃ½tosÅ¥ farby obrysu pÃ­sma"
 
 msgid "Saturation of color of text fill"
-msgstr ""
+msgstr "SÃ½tosÅ¥ farby vÃ½plne textu"
 
 msgid "Reverse Writing"
-msgstr ""
+msgstr "PÃ­saÅ¥ sprava doÄ¾ava"
 
 msgid "Manual Kerning"
-msgstr "Ruèné párovanie znakov (Kerning)"
+msgstr "RuÄnÃ© pÃ¡rovanie znakov (Kerning)"
 
 msgid "Style of current paragraph"
-msgstr ""
+msgstr "Å tÃ½l aktuÃ¡lneho odseku"
 
 msgid "Hyphenation language of frame"
-msgstr ""
+msgstr "Jazyk rÃ¡mu pre delenie slov"
 
 msgid "Change settings for left or end points"
-msgstr ""
+msgstr "Zmena nastavenia bodov Äiary"
 
 msgid "Pattern of line"
-msgstr ""
+msgstr "Å tÃ½l Äiary"
 
 msgid "Thickness of line"
-msgstr ""
+msgstr "HrÃºbka Äiary"
 
 msgid "Type of line joins"
-msgstr ""
+msgstr "Typ spojenia Äiar"
 
 msgid "Type of line end"
-msgstr ""
+msgstr "ZakonÄenie Äiar"
 
-#, fuzzy
 msgid "Line style of current object"
-msgstr "Vytlaèí aktuálny dokument"
+msgstr "Å tÃ½l Äiary aktuÃ¡lneho objektu"
 
 msgid "Choose the shape of frame..."
-msgstr ""
+msgstr "Vyberte tvar rÃ¡mu..."
 
-#, fuzzy
 msgid "Edit shape of the frame..."
-msgstr "Upravi» obrys..."
+msgstr "UpraviÅ¥ tvar rÃ¡mu..."
 
 msgid "Set radius of corner rounding"
-msgstr ""
+msgstr "NastavÃ­ polomer zaoblenia rohov"
 
 msgid "Number of columns in text frame"
-msgstr ""
+msgstr "PoÄet stÄºpcov v textovom rÃ¡me"
 
 msgid "Switches between Gap or Column width"
-msgstr ""
+msgstr "PrepÃ­na medzi medzerou alebo Å¡Ã­rkou stÄºpca"
 
 msgid "Distance between columns"
-msgstr ""
+msgstr "vzdialenosÅ¥ medzi stÄºpcami"
 
 msgid "Distance of text from top of frame"
-msgstr ""
+msgstr "VzdialenosÅ¥ textu od hornÃ©ho okraja rÃ¡mu"
 
 msgid "Distance of text from bottom of frame"
-msgstr ""
+msgstr "VzdialenosÅ¥ textu od dolnÃ©ho okraja rÃ¡mu"
 
 msgid "Distance of text from left of frame"
-msgstr ""
+msgstr "VzdialenosÅ¥ textu od Ä¾avÃ©ho okraja rÃ¡mu"
 
 msgid "Distance of text from right of frame"
-msgstr ""
+msgstr "VzdialenosÅ¥ textu od pravÃ©ho okraja rÃ¡mu"
 
-#, fuzzy
 msgid "Edit tab settings of text frame..."
-msgstr "Upravi» obsah rámu"
+msgstr "Ãšprava nastavenÃ­ tabulÃ¡torov textovÃ©ho rÃ¡mu..."
 
 msgid "Allow the image to be a different size to the frame"
-msgstr ""
+msgstr "PovolÃ­ nastavenie inÃ½ch rozmerov obrÃ¡zku ako mÃ¡ rÃ¡m"
 
 msgid "Horizontal offset of image within frame"
-msgstr ""
+msgstr "VodorovnÃ½ posun obrÃ¡zku v rÃ¡me"
 
 msgid "Vertical offset of image within frame"
-msgstr ""
+msgstr "ZvislÃ½ posun obrÃ¡zku v rÃ¡me"
 
 msgid "Resize the image horizontally"
-msgstr ""
+msgstr "Zmena Å¡Ã­rky obrÃ¡zku"
 
-#, fuzzy
 msgid "Resize the image vertically"
-msgstr "Uvoµni» horizontálu hore"
+msgstr "ZmeniÅ¥ vÃ½Å¡ku obrÃ¡zku"
 
 msgid "Keep the X and Y scaling the same"
-msgstr ""
+msgstr "PouÅ¾ije sa rovnakÃ¡ zmena veÄ¾kosti pre oba rozmery (X a Y)"
 
-#, fuzzy
 msgid "Keep the aspect ratio"
-msgstr "Zachova» pomer strán"
+msgstr "ZachovaÅ¥ pomer strÃ¡n"
 
 msgid "Make the image fit within the size of the frame"
-msgstr ""
+msgstr "ObrÃ¡zok zmenÃ­ veÄ¾kosÅ¥ podÄ¾a rozmeru rÃ¡mu"
 
 msgid "Use image proportions rather than those of the frame"
-msgstr ""
+msgstr "ObrÃ¡zok si zachovÃ¡ svoje proporcie"
 
 msgid "Source profile of the image"
-msgstr ""
+msgstr "ZdrojovÃ½ profil obrÃ¡zku"
 
-#, fuzzy
 msgid "Rendering intent for the image"
-msgstr "Úèel generovania"
+msgstr "ÃšÄel generovania obrÃ¡zka"
 
 msgid "&X1:"
-msgstr ""
+msgstr "&X1:"
 
 msgid "X&2:"
-msgstr ""
+msgstr "X&2:"
 
 msgid "Y&1:"
-msgstr ""
+msgstr "Y&1:"
 
-#, fuzzy
 msgid "&Y2:"
-msgstr "Áno"
+msgstr "&Y2:"
 
-#, fuzzy
 msgid "Column width"
-msgstr "Vodítka ståpcov"
+msgstr "Å Ã­rka stÄºpca"
 
 msgid ""
 "Name \"%1\" isn't unique.\n"
 "Please choose another."
 msgstr ""
-"Názov \"%1\" nie je jedineènı.\n"
-"Vyberte si, prosím, inı."
+"NÃ¡zov \"%1\" nie je jedineÄnÃ½.\n"
+"Vyberte si, prosÃ­m, inÃ½."
 
 msgid "pt"
-msgstr ""
+msgstr "pt"
 
 msgid "mm"
-msgstr ""
+msgstr "mm"
 
-#, fuzzy
 msgid "in"
-msgstr "Èiara"
+msgstr "in"
 
 msgid "p"
-msgstr ""
+msgstr "p"
 
 msgid "Line Width:"
-msgstr "©írka èiary:"
+msgstr "Å Ã­rka Äiary:"
 
 msgid " pt "
-msgstr ""
+msgstr " pt "
 
 msgid "Solid Line"
-msgstr "Plná èiara"
+msgstr "PlnÃ¡ Äiara"
 
 msgid "Dashed Line"
-msgstr "Èiarkovaná èiara"
+msgstr "ÄŒiarkovanÃ¡ Äiara"
 
 msgid "Dotted Line"
-msgstr "Bodkovaná èiara"
+msgstr "BodkovanÃ¡ Äiara"
 
 msgid "Dash Dot Line"
-msgstr "Bodko-èiarkovaná èiara"
+msgstr "Bodko-ÄiarkovanÃ¡ Äiara"
 
 msgid "Dash Dot Dot Line"
-msgstr "Èiarka-bodko-bodkovaná èiara"
+msgstr "ÄŒiarka-bodko-bodkovanÃ¡ Äiara"
 
 msgid "Edit Templates"
-msgstr "Upravi» ¹ablóny"
+msgstr "UpraviÅ¥ Å¡ablÃ³ny"
 
 msgid "Do you really want do delete this Template?"
-msgstr "Skutoène chcete zmaza» túto ¹ablónu?"
+msgstr "SkutoÄne chcete odstrÃ¡niÅ¥ tÃºto Å¡ablÃ³nu?"
 
 msgid "New Template"
-msgstr "Nová ¹ablóna"
+msgstr "NovÃ¡ Å¡ablÃ³na"
 
-#, fuzzy
 msgid "Copy #%1 of "
-msgstr "Kópia z "
+msgstr "KÃ³pia  #%1 z "
 
 msgid "New Document"
-msgstr "Novı dokument"
+msgstr "NovÃ½ dokument"
 
 msgid "Page Size"
-msgstr "Veµkos» strany"
+msgstr "VeÄ¾kosÅ¥ strany"
 
-#, fuzzy
 msgid "&Size:"
-msgstr "Veµkos»:"
+msgstr "&VeÄ¾kosÅ¥:"
 
 msgid "Legal"
-msgstr ""
+msgstr "Legal"
 
-#, fuzzy
 msgid "Letter"
-msgstr "Na stred"
+msgstr "Letter"
 
 msgid "Tabloid"
 msgstr "Tabloid"
 
-#, fuzzy
 msgid "Orie&ntation:"
-msgstr "Orientácia:"
+msgstr "Orie&ntÃ¡cia:"
 
-#, fuzzy
 msgid "&Facing Pages"
-msgstr "Dvojstrany"
+msgstr "&ProtiÄ¾ahlÃ© strany"
 
-#, fuzzy
 msgid "Left &Page First"
-msgstr "Prvá strana vµavo"
+msgstr "&PrvÃ¡ strana vÄ¾avo"
 
 msgid "Margin Guides"
-msgstr "Vodítka okrajov"
+msgstr "VodÃ­tka okrajov"
 
-#, fuzzy
 msgid "&Top:"
-msgstr "Hornı:"
+msgstr "&Hore:"
 
-#, fuzzy
 msgid "F&irst Page Number:"
-msgstr "Prvé èíslo strany:"
+msgstr "ÄŒ&Ã­slo prvej strany:"
 
-#, fuzzy
 msgid "&Default Unit:"
-msgstr "©tandardná jednotka:"
+msgstr "Å tan&dardnÃ¡ jednotka:"
 
 msgid "Points (pts)"
 msgstr "Body (pts)"
 
-#, fuzzy
 msgid "Millimetres (mm)"
 msgstr "Milimetre (mm)"
 
@@ -2578,23 +2354,21 @@ msgid "Inches (in)"
 msgstr "Palce (in)"
 
 msgid "Picas (p)"
-msgstr "Piká (p)"
+msgstr "PikÃ¡ (p)"
 
-#, fuzzy
 msgid "&Automatic Text Frames"
-msgstr "Autom. textové rámy"
+msgstr "&Autom. textovÃ© rÃ¡my"
 
 msgid "Column Guides"
-msgstr "Vodítka ståpcov"
+msgstr "VodÃ­tka stÄºpcov"
 
 msgid "Document page size, either a standard size or a custom size"
-msgstr ""
+msgstr "veÄ¾kosÅ¥ strany dokumentu, Äi uÅ¾ Å¡tandardnÃ¡ alebo vlastnÃ¡"
 
 msgid "Orientation of the document's pages"
-msgstr ""
+msgstr "OrientÃ¡cia strÃ¡n dokumentu"
 
-msgid ""
-"Width of the document's pages, editable if you have chosen a custom page size"
+msgid "Width of the document's pages, editable if you have chosen a custom page size"
 msgstr ""
 
 msgid ""
@@ -2641,461 +2415,371 @@ msgstr ""
 msgid "Distance between automatically created columns"
 msgstr ""
 
-#, fuzzy
 msgid "&Inside:"
-msgstr "Vnútornı:"
+msgstr "&VnÃºtornÃ½:"
 
-#, fuzzy
 msgid "O&utside:"
-msgstr "Vonkaj¹í:"
+msgstr "V&onkajÅ¡Ã­:"
 
 msgid "Left Page"
-msgstr "¥avá strana"
+msgstr "Ä½avÃ¡ strana"
 
 msgid "Right Page"
-msgstr "Pravá strana"
+msgstr "PravÃ¡ strana"
 
 msgid "Copy Here"
-msgstr "Kopírova» sem"
+msgstr "KopÃ­rovaÅ¥ sem"
 
 msgid "Move Here"
-msgstr "Sem presunú»"
+msgstr "Sem presunÃºÅ¥"
 
-#, fuzzy
 msgid "Show &Margins"
-msgstr "Zobrazi» okraje"
+msgstr "ZobraziÅ¥ o&kraje"
 
-#, fuzzy
 msgid "Show &Frames"
-msgstr "Zobrazi» rámy"
+msgstr "ZobraziÅ¥ &rÃ¡my"
 
-#, fuzzy
 msgid "Show &Images"
-msgstr "Zobrazi» obrázky"
+msgstr "UkÃ¡zaÅ¥ &obrÃ¡zky"
 
-#, fuzzy
 msgid "Show &Grid"
-msgstr "Ukáza» mrie¾ku"
+msgstr "ZobraziÅ¥ m&rieÅ¾ku"
 
-#, fuzzy
 msgid "Show G&uides"
-msgstr "Zobrazi» vodítka"
+msgstr "ZobraziÅ¥ &vodÃ­tka"
 
-#, fuzzy
 msgid "Show &Baseline Grid"
-msgstr "Ukáza» mrie¾ku"
+msgstr "Zo&braziÅ¥ pomocnÃº mrieÅ¾ku"
 
-#, fuzzy
 msgid "Sn&ap to Grid"
-msgstr "Pritiahnu» k mrie¾ke"
+msgstr "Priti&ahnuÅ¥ k mrieÅ¾ke"
 
-#, fuzzy
 msgid "Sna&p to Guides"
-msgstr "Pritiahnu» k vodítka"
+msgstr "&PritiahnuÅ¥ k vodÃ­tkam"
 
-#, fuzzy
 msgid "Picture"
-msgstr "Obrázok"
+msgstr "ObrÃ¡zok"
 
-#, fuzzy
 msgid "File: "
-msgstr "Súbor "
+msgstr "SÃºbor: "
 
 msgid "Original PPI: "
-msgstr ""
+msgstr "PÃ´vodnÃ© PPI"
 
-#, fuzzy
 msgid "Actual PPI: "
-msgstr "Aktuálna veµkos»"
+msgstr "AktuÃ¡lne PPI: "
 
 msgid "Linked Text"
-msgstr ""
+msgstr "PrepojenÃ½ text"
 
 msgid "Text Frame"
-msgstr "Textovı rám"
+msgstr "TextovÃ½ rÃ¡m"
 
-#, fuzzy
 msgid "Text on a Path"
-msgstr "Pripoji» text k ceste"
+msgstr "Text na cestu"
 
 msgid "Paragraphs: "
-msgstr ""
+msgstr "Odseky"
 
 msgid "Words: "
-msgstr ""
+msgstr "SlovÃ¡:"
 
 msgid "Chars: "
-msgstr ""
+msgstr "Znaky"
 
-#, fuzzy
 msgid "Print: "
-msgstr "Tlaè"
+msgstr "TlaÄiÅ¥: "
 
 msgid "Enabled"
-msgstr "Povolené"
+msgstr "PovolenÃ©"
 
-#, fuzzy
 msgid "Disabled"
-msgstr "Viditeµné"
+msgstr "ZakÃ¡zanÃ©"
 
 msgid "In&fo"
-msgstr ""
+msgstr "In&fo"
 
-#, fuzzy
 msgid "&Get Picture..."
-msgstr "Vlo¾i» obrázok..."
+msgstr "V&loÅ¾iÅ¥ obrÃ¡zok..."
 
-#, fuzzy
 msgid "I&mage Visible"
-msgstr "Viditeµnı obrázok"
+msgstr "&ViditeÄ¾nÃ½ obrÃ¡zok"
 
-#, fuzzy
 msgid "&Update Picture"
-msgstr "Správa obrázkov"
+msgstr "Ak&tualizovaÅ¥ obrÃ¡zok"
 
-#, fuzzy
 msgid "&Edit Picture"
-msgstr "Obrázok"
+msgstr "&UpraviÅ¥ obrÃ¡zok"
 
 msgid "&Adjust Frame to Picture"
-msgstr ""
+msgstr "&PrispÃ´sobiÅ¥ rÃ¡m podÄ¾a obrÃ¡zku"
 
-#, fuzzy
 msgid "&Get Text..."
-msgstr "Vlo¾i» text..."
+msgstr "V&loÅ¾iÅ¥ text..."
 
-#, fuzzy
 msgid "&Append Text..."
-msgstr "Vlo¾i» text..."
+msgstr "Pr&ipojiÅ¥ text..."
 
-#, fuzzy
 msgid "&Edit Text..."
-msgstr "Vlo¾i» text..."
+msgstr "&UpraviÅ¥ text..."
 
-#, fuzzy
 msgid "Is PDF &Bookmark"
-msgstr "Je PDF zálo¾kou"
+msgstr "Je PDF &zÃ¡loÅ¾kou"
 
-#, fuzzy
 msgid "Is PDF A&nnotation"
-msgstr "Je PDF anotáciou"
+msgstr "Je PDF a&notÃ¡ciou"
 
-#, fuzzy
 msgid "Annotation P&roperties"
-msgstr "Vlastnosti poznámky"
+msgstr "V&lastnosti anotÃ¡cie"
 
-#, fuzzy
 msgid "Field P&roperties"
-msgstr "Vlastnosti pola"
+msgstr "Vlas&tnosti pola"
 
-#, fuzzy
 msgid "&PDF Options"
-msgstr "Nastavenia PDF"
+msgstr "Nastavenia &PDF"
 
-#, fuzzy
 msgid "Edit Text..."
-msgstr "Vlo¾i» text..."
+msgstr "UpraviÅ¥ text..."
 
-#, fuzzy
 msgid "&Lock"
-msgstr "Zamknú»"
+msgstr "&ZamknÃºÅ¥"
 
-#, fuzzy
 msgid "Un&lock"
-msgstr "Odblokova»"
+msgstr "Odo&mknÃºÅ¥"
 
-#, fuzzy
 msgid "Lock Object &Size"
-msgstr "Vráti» spä» presun objektu"
+msgstr "UzamknÃºÅ¥ veÄ¾ko&sÅ¥ objektu"
 
-#, fuzzy
 msgid "Unlock Object &Size"
-msgstr "Vráti» spä» presun objektu"
+msgstr "OdomknÃºÅ¥ veÄ¾ko&sÅ¥ objektu"
 
-#, fuzzy
 msgid "Send to S&crapbook"
-msgstr "Posla» do zápisníka"
+msgstr "PoslaÅ¥ do z&Ã¡pisnÃ­ka"
 
-#, fuzzy
 msgid "Send to La&yer"
-msgstr "Posla» do vrstvy "
+msgstr "PoslaÅ¥ do vrstv&y"
 
-#, fuzzy
 msgid "&Insert Sample Text"
-msgstr "Textová vzorka"
+msgstr "VloÅ¾&iÅ¥ ukÃ¡Å¾kovÃ½ text"
 
-#, fuzzy
 msgid "&Group"
-msgstr "Zoskupi»"
+msgstr "Zos&kupiÅ¥"
 
-#, fuzzy
 msgid "Un&group"
-msgstr "Zru¹i» zoskupenie"
+msgstr "Z&ruÅ¡iÅ¥ zoskupenie"
 
-#, fuzzy
 msgid "Le&vel"
-msgstr "Úroveò"
+msgstr "Ãšro&veÅˆ"
 
-#, fuzzy
 msgid "Send to &Back"
-msgstr "Prenies» do pozadia"
+msgstr "PresunÃºÅ¥ &dozadu"
 
-#, fuzzy
 msgid "Bring to &Front"
-msgstr "Prenies» do popredia"
+msgstr "PresunÃºÅ¥ do&predu"
 
-#, fuzzy
 msgid "&Lower"
-msgstr "Dozadu"
+msgstr "Z&nÃ­Å¾iÅ¥"
 
-#, fuzzy
 msgid "&Raise"
-msgstr "Dopredu"
+msgstr "Z&vÃ½Å¡iÅ¥"
 
-#, fuzzy
 msgid "&Picture Frame"
-msgstr "Rám obrázka"
+msgstr "&RÃ¡m obrÃ¡zka"
 
-#, fuzzy
 msgid "Pol&ygon"
-msgstr "Mnohouholník"
+msgstr "&MnohouholnÃ­k"
 
-#, fuzzy
 msgid "&Outlines"
-msgstr "Prehµad"
+msgstr "&Obrysy"
 
-#, fuzzy
 msgid "&Text Frame"
-msgstr "Textovı rám"
+msgstr "&TextovÃ½ rÃ¡m"
 
-#, fuzzy
 msgid "&Bezier Curve"
-msgstr "Bézierová krivka"
+msgstr "&BÃ©zierovÃ¡ krivka"
 
-#, fuzzy
 msgid "Conve&rt to"
-msgstr "Konverzia na"
+msgstr "Konve&rzia na"
 
-#, fuzzy
 msgid "C&lear Contents"
-msgstr "Kontext"
+msgstr "V&ymazaÅ¥ obsah"
 
-#, fuzzy
 msgid "Show P&roperties..."
-msgstr "Vlastnosti..."
+msgstr "Zob&raziÅ¥ vlastnosti..."
 
-#, fuzzy
 msgid "Hide P&roperties..."
-msgstr "Vlastnosti..."
+msgstr "Sk&ryÅ¥ vlastnosti..."
 
-#, fuzzy
 msgid "Do you really want to clear all your Text?"
-msgstr "Skutoène chcete zmaza» tento ¹tıl?"
+msgstr "SkutoÄne chcete odstrÃ¡niÅ¥ celÃ½ text?"
 
-#, fuzzy
 msgid "The Program"
-msgstr "Programovanie:"
+msgstr "Program"
 
-#, fuzzy
 msgid "is missing!"
-msgstr "Chıba"
+msgstr "chÃ½ba!"
 
-#, fuzzy
 msgid "Copy of"
-msgstr "Kópia z "
+msgstr "KÃ³pia z "
 
 msgid "Image"
-msgstr "Obrázok"
+msgstr "ObrÃ¡zok"
 
 msgid "Line"
-msgstr "Èiara"
+msgstr "ÄŒiara"
 
 msgid "Polygon"
-msgstr "Mnohouholník"
+msgstr "MnohouholnÃ­k"
 
-#, fuzzy
 msgid "Polyline"
-msgstr "Mnohouholník"
+msgstr "LomenÃ¡ Äiara"
 
-#, fuzzy
 msgid "PathText"
-msgstr "Cesta"
+msgstr "Text na cestu"
 
-#, fuzzy
 msgid "Create PDF File"
-msgstr "Vytvori» PDF-súbor"
+msgstr "VytvoriÅ¥ PDF-sÃºbor"
 
-#, fuzzy
 msgid "O&utput to File:"
-msgstr "Vıstup do súboru:"
+msgstr "VÃ½st&up do sÃºboru:"
 
-#, fuzzy
 msgid "Cha&nge..."
-msgstr "Zmeni»..."
+msgstr "&ZmeniÅ¥..."
 
 msgid "Export Range"
-msgstr "Exportova» rozsah"
+msgstr "ExportovaÅ¥ rozsah"
 
-#, fuzzy
 msgid "&All Pages"
-msgstr "V¹etky strany"
+msgstr "VÅ¡etky str&any"
 
-#, fuzzy
 msgid "C&hoose Pages"
-msgstr "Presunú» strany"
+msgstr "Zvo&liÅ¥ strany"
 
 msgid "File Options"
-msgstr "Súborové nastavenia"
+msgstr "SÃºborovÃ© nastavenia"
 
-#, fuzzy
 msgid "Compatibilit&y:"
-msgstr "Kompatibilita:"
+msgstr "Kompatibili&ta:"
 
-#, fuzzy
 msgid "&Binding:"
-msgstr "Viazanie:"
+msgstr "&Viazanie:"
 
 msgid "Left Margin"
-msgstr "¥avı okraj"
+msgstr "Ä½avÃ½ okraj"
 
 msgid "Right Margin"
-msgstr "Pravı okraj"
+msgstr "PravÃ½ okraj"
 
-#, fuzzy
 msgid "Generate &Thumbnails"
-msgstr "Vytvori» náhµady"
+msgstr "Vy&tvoriÅ¥ nÃ¡hÄ¾ady"
 
-#, fuzzy
 msgid "Save &Linked Text Frames as PDF Articles"
-msgstr "Ulo¾i» prepojené textové rámy ako PDF-èlánky"
+msgstr "U&loÅ¾iÅ¥ prepojenÃ© textovÃ© rÃ¡my ako PDF ÄlÃ¡nky"
 
-#, fuzzy
 msgid "&Include Bookmarks"
-msgstr "Vrátanie zálo¾iek"
+msgstr "VrÃ¡tane zÃ¡loÅ¾&iek"
 
 msgid " dpi"
-msgstr ""
+msgstr " dpi"
 
-#, fuzzy
 msgid "&Resolution:"
-msgstr "Rozlí¹enie:"
+msgstr "&RozlÃ­Å¡enie:"
 
-#, fuzzy
 msgid "Com&press Text and Vector Graphics"
-msgstr "Komprimova» text a vektorovú grafiku"
+msgstr "Kom&primovaÅ¥ text a vektorovÃº grafiku"
 
-#, fuzzy
 msgid "Image Settings"
-msgstr "Nastavenia"
+msgstr "Nastavenie obrÃ¡zku"
 
-#, fuzzy
 msgid "Automatic"
-msgstr "Plnoautomaticky"
+msgstr "AutomatickÃ©"
 
 msgid "JPEG"
-msgstr ""
+msgstr "JPEG"
 
 msgid "Zip"
-msgstr ""
+msgstr "Zip"
 
-#, fuzzy
 msgid "&Method:"
-msgstr "Èe&rvená:"
+msgstr "&MetÃ³da:"
 
-#, fuzzy
 msgid "&Quality:"
-msgstr "Koniec"
+msgstr "&Kvalita:"
 
-#, fuzzy
 msgid "Maximum"
-msgstr "maximum"
+msgstr "Maximum"
 
-#, fuzzy
 msgid "High"
-msgstr "Vı¹ka:"
+msgstr "VysokÃ¡"
 
 msgid "Medium"
-msgstr "Stredná"
+msgstr "StrednÃ¡"
 
-#, fuzzy
 msgid "Low"
-msgstr "Dozadu"
+msgstr "NÃ­zka"
 
-#, fuzzy
 msgid "Minimum"
-msgstr "minimum"
+msgstr "Minimum"
 
-#, fuzzy
 msgid "&Downsample Images to:"
-msgstr "Zní¾enie kvality obrázkov na:"
+msgstr "Z&nÃ­Å¾enie kvality obrÃ¡zkov na:"
 
-#, fuzzy
 msgid "&General"
-msgstr "V¹eobecné"
+msgstr "&VÅ¡eobecnÃ©"
 
-#, fuzzy
 msgid "&Embed all Fonts"
-msgstr "Vlo¾i» v¹etky písma"
+msgstr "VloÅ¾iÅ¥ vÅ¡&etky pÃ­sma"
 
 msgid "Embedding"
 msgstr "Vkladanie"
 
 msgid "Available Fonts:"
-msgstr "Dostupné písma:"
+msgstr "DostupnÃ© pÃ­sma:"
 
 msgid "&>>"
-msgstr ""
+msgstr "&>>"
 
 msgid "&<<"
-msgstr ""
+msgstr "&<<"
 
 msgid "Fonts to embed:"
-msgstr "Písma na vlo¾enie:"
+msgstr "PÃ­sma na vloÅ¾enie:"
 
-#, fuzzy
 msgid "&Fonts"
-msgstr "&Písmo"
+msgstr "&PÃ­sma"
 
-#, fuzzy
 msgid "Enable &Presentation Effects"
-msgstr "Povoli» prezentaèné efekty"
+msgstr "&PovoliÅ¥ prezentaÄnÃ© efekty"
 
 msgid "Page"
 msgstr "Strana"
 
-#, fuzzy
 msgid "Show Page Pre&views"
-msgstr "Zobrazi» náhµady pre strany"
+msgstr "Zo&braziÅ¥ nÃ¡hÄ¾ady pre strany"
 
 msgid "Effects"
 msgstr "Efekty"
 
-#, fuzzy
 msgid "&Display Duration:"
-msgstr "Doba zobrazenia:"
+msgstr "&Doba zobrazenia:"
 
-#, fuzzy
 msgid "Effec&t Duration:"
-msgstr "Trvanie efektu:"
+msgstr "&Trvanie efektu:"
 
-#, fuzzy
 msgid "Effect T&ype:"
-msgstr "Typ efektu:"
+msgstr "T&yp efektu:"
 
-#, fuzzy
 msgid "&Moving Lines:"
-msgstr "Presúvanie riadkov:"
+msgstr "Pres&Ãºvanie riadkov:"
 
-#, fuzzy
 msgid "F&rom the:"
-msgstr "Z:"
+msgstr "&Z:"
 
-#, fuzzy
 msgid "D&irection:"
-msgstr "Smer:"
+msgstr "S&mer:"
 
 msgid " sec"
-msgstr ""
+msgstr " sek"
 
 msgid "No Effect"
 msgstr "Bez efektu"
@@ -3104,7 +2788,7 @@ msgid "Blinds"
 msgstr "Pruhy"
 
 msgid "Box"
-msgstr "Rám"
+msgstr "RÃ¡m"
 
 msgid "Dissolve"
 msgstr "Rozpustenie"
@@ -3113,19 +2797,19 @@ msgid "Glitter"
 msgstr "Lesk"
 
 msgid "Split"
-msgstr "Rozdeli»"
+msgstr "RozdeliÅ¥"
 
 msgid "Wipe"
-msgstr "Zotrie»"
+msgstr "ZotrieÅ¥"
 
 msgid "Inside"
-msgstr "Vnútornı"
+msgstr "VnÃºtornÃ½"
 
 msgid "Outside"
-msgstr "Vonkaj¹í"
+msgstr "VonkajÅ¡Ã­"
 
 msgid "Left to Right"
-msgstr "Zµava doprava"
+msgstr "ZÄ¾ava doprava"
 
 msgid "Top to Bottom"
 msgstr "Zhora dole"
@@ -3134,149 +2818,124 @@ msgid "Bottom to Top"
 msgstr "Zdola hore"
 
 msgid "Right to Left"
-msgstr "Sprava doµava"
+msgstr "Sprava doÄ¾ava"
 
-#, fuzzy
 msgid "Top-left to Bottom-Right"
-msgstr "Zµava hore doprava dole"
+msgstr "ZÄ¾ava hore doprava dole"
 
-#, fuzzy
 msgid "&Apply Effect on all Pages"
-msgstr "Pou¾i» efekt na v¹etky strany"
+msgstr "PouÅ¾iÅ¥ efekt n&a vÅ¡etky strany"
 
-#, fuzzy
 msgid "E&xtras"
-msgstr "Extra"
+msgstr "E&xtra"
 
-#, fuzzy
 msgid "&Use Encryption"
-msgstr "Pou¾i» ¹ifrovanie"
+msgstr "Po&uÅ¾iÅ¥ Å¡ifrovanie"
 
 msgid "Passwords"
-msgstr "Heslá"
+msgstr "HeslÃ¡"
 
-#, fuzzy
 msgid "&User:"
-msgstr "Pou¾ívateµ:"
+msgstr "&PouÅ¾Ã­vateÄ¾:"
 
-#, fuzzy
 msgid "&Owner:"
-msgstr "Vlastník:"
+msgstr "V&lastnÃ­k:"
 
 msgid "Settings"
 msgstr "Nastavenia"
 
-#, fuzzy
 msgid "Allow &Printing the Document"
-msgstr "Povoli» tlaè dokumentu"
+msgstr "&PovoliÅ¥ tlaÄ dokumentu"
 
-#, fuzzy
 msgid "Allow &Changing the Document"
-msgstr "Povoli» zmeny dokumentu "
+msgstr "P&ovoliÅ¥ zmeny dokumentu"
 
-#, fuzzy
 msgid "Allow Cop&ying Text and Graphics"
-msgstr "Kopírovanie textu a grafiky je povolené"
+msgstr "PovoliÅ¥ kopÃ­rovanie textu a grafik&y"
 
-#, fuzzy
 msgid "Allow Adding &Annotations and Fields"
-msgstr "Pridávanie polí a poznámok je povolené"
+msgstr "PovoliÅ¥ pridÃ¡vanie &anotÃ¡ciÃ­ a polÃ­"
 
-#, fuzzy
 msgid "S&ecurity"
-msgstr "Bezpeènos»"
+msgstr "Be&zpeÄnosÅ¥"
 
 msgid "General"
-msgstr "V¹eobecné"
+msgstr "VÅ¡eobecnÃ©"
 
-#, fuzzy
 msgid "Output &Intended For:"
-msgstr "Plánovanı vıstup pre:"
+msgstr "PlÃ¡novanÃ½ &vÃ½stup pre:"
 
-#, fuzzy
 msgid "Screen / Web"
-msgstr "Obrazovka"
+msgstr "Obrazovka/Web"
 
 msgid "Printer"
-msgstr "Tlaèiareò"
+msgstr "TlaÄiareÅˆ"
 
 msgid "&Use Custom Rendering Settings"
-msgstr ""
+msgstr "Po&uÅ¾iÅ¥ vlastnÃ© nastavenia generovania"
 
-#, fuzzy
 msgid "Rendering Settings"
-msgstr "Úèel generovania"
+msgstr "Nastavenie generovania"
 
-#, fuzzy
 msgid "Fre&quency:"
-msgstr "Francúzsky:"
+msgstr "Fre&kvencia:"
 
-#, fuzzy
 msgid "&Angle:"
-msgstr "Uhol:"
+msgstr "&Uhol:"
 
 msgid "S&pot Function:"
 msgstr ""
 
-#, fuzzy
 msgid "Simple Dot"
-msgstr "Príklad"
+msgstr "Bodka"
 
-#, fuzzy
 msgid "Round"
-msgstr "Oblá hlavièka"
+msgstr "Kruh"
 
 msgid "Ellipse"
-msgstr ""
+msgstr "Elipsa"
 
 msgid "Solid Colors:"
-msgstr "Plné farby (Solid colors):"
+msgstr "PlnÃ© farby (Solid colors):"
 
-#, fuzzy
 msgid "Use ICC Profile"
-msgstr "Pou¾i» ICC-profil"
+msgstr "PouÅ¾iÅ¥ ICC-profil"
 
-#, fuzzy
 msgid "Profile:"
-msgstr "Profily"
+msgstr "Profil:"
 
 msgid "Rendering-Intent:"
-msgstr "Úèel generovania:"
+msgstr "ÃšÄel generovania:"
 
 msgid "Images:"
-msgstr "Obrázky:"
+msgstr "ObrÃ¡zky:"
 
-#, fuzzy
 msgid "Don't use embedded ICC profiles"
-msgstr "Nepou¾íva» vlo¾ené profily"
+msgstr "NepouÅ¾Ã­vaÅ¥ vloÅ¾enÃ© ICC profily"
 
-#, fuzzy
 msgid "C&olor"
-msgstr "Farba"
+msgstr "&Farba"
 
 msgid "PDF/X-3 Output Intent"
-msgstr "Vıstup do PDF/X-3"
+msgstr "VÃ½stup do PDF/X-3"
 
-#, fuzzy
 msgid "&Info String:"
-msgstr "Informaènı re»azec:"
+msgstr "&InformaÄnÃ½ reÅ¥azec:"
 
-#, fuzzy
 msgid "Output &Profile:"
-msgstr "Vıstupnı profil"
+msgstr "VÃ½stupnÃ½ &profil:"
 
-#, fuzzy
 msgid "Trim Box"
-msgstr "Zoznam"
+msgstr "Orezanie"
 
 msgid "PDF/X-&3"
-msgstr ""
+msgstr "PDF/X-&3"
 
 msgid "Export all pages to PDF"
-msgstr ""
+msgstr "ExportovaÅ¥ vÅ¡etky strany do PDF"
 
 msgid "Export a range of pages to PDF"
-msgstr ""
+msgstr "ExportovaÅ¥ rozsah strÃ¡n do PDF"
 
 msgid ""
 "Determines the PDF compatibility. The default is Acrobat 4.0 which gives the "
@@ -3345,8 +3004,7 @@ msgid ""
 "will preserve the layout and appearance of your document."
 msgstr ""
 
-msgid ""
-"Enables presentation effects when using Acrobat Reader in full screen mode."
+msgid "Enables presentation effects when using Acrobat Reader in full screen mode."
 msgstr ""
 
 msgid "Show page previews of each page listed above."
@@ -3365,8 +3023,7 @@ msgstr ""
 msgid "Type of the display effect."
 msgstr ""
 
-msgid ""
-"Direction of the effect of moving lines for the split and blind effects."
+msgid "Direction of the effect of moving lines for the split and blind effects."
 msgstr ""
 
 msgid "Starting position for the box and split effects."
@@ -3375,9 +3032,8 @@ msgstr ""
 msgid "Direction of the glitter or wipe effects."
 msgstr ""
 
-#, fuzzy
 msgid "Apply the selected effect to all pages."
-msgstr "Pou¾i» efekt na v¹etky strany"
+msgstr "PouÅ¾iÅ¥ zvolenÃ½ efekt na vÅ¡etky strany."
 
 msgid ""
 "Enable the security features in your exported PDF.\n"
@@ -3400,8 +3056,7 @@ msgstr ""
 msgid "Allow printing of the PDF. If un-checked, printing is prevented. "
 msgstr ""
 
-msgid ""
-"Allow modifying of the PDF. If un-checked, modifying the PDF is prevented."
+msgid "Allow modifying of the PDF. If un-checked, modifying the PDF is prevented."
 msgstr ""
 
 msgid ""
@@ -3436,9 +3091,8 @@ msgstr ""
 msgid "Color profile for solid colors"
 msgstr ""
 
-#, fuzzy
 msgid "Rendering intent for solid colors"
-msgstr "Úèel generovania"
+msgstr "ÃšÄel generovania pre plnÃ½ch farieb"
 
 msgid "Embed a color profile for images"
 msgstr ""
@@ -3449,9 +3103,8 @@ msgstr ""
 msgid "Color profile for images"
 msgstr ""
 
-#, fuzzy
 msgid "Rendering intent for images"
-msgstr "Úèel generovania"
+msgstr "ÃšÄel generovania pre obrÃ¡zky"
 
 msgid ""
 "Output profile for printing. If possible, get some guidance from your "
@@ -3476,384 +3129,334 @@ msgid "Distance for bleed from the right of the physical page"
 msgstr ""
 
 msgid "Result"
-msgstr "Vısledok"
+msgstr "VÃ½sledok"
 
 msgid "Search Results for: "
-msgstr "Hµada» vısledok pre:"
+msgstr "HÄ¾adaÅ¥ vÃ½sledok pre:"
 
 msgid "Preview"
-msgstr "Náhµad"
+msgstr "NÃ¡hÄ¾ad"
 
 msgid "Select"
-msgstr "Vıber"
+msgstr "VÃ½ber"
 
 msgid "Pictures"
-msgstr "Obrázky"
+msgstr "ObrÃ¡zky"
 
 msgid "Path"
 msgstr "Cesta"
 
 msgid "Print"
-msgstr "Tlaè"
+msgstr "TlaÄ"
 
 msgid "Status"
 msgstr "Stav"
 
 msgid "Goto"
-msgstr "Ís» na"
+msgstr "ÃsÅ¥ na"
 
 msgid "Missing"
-msgstr "Chıba"
+msgstr "ChÃ½ba"
 
 msgid "Search"
-msgstr "Hµada»"
+msgstr "HÄ¾adaÅ¥"
 
 msgid "Polygon Properties"
-msgstr "Vlastnosti mnohouholníkov"
+msgstr "Vlastnosti mnohouholnÃ­kov"
 
-#, fuzzy
 msgid "Corn&ers:"
-msgstr "Rohy:"
+msgstr "R&ohy:"
 
-#, fuzzy
 msgid "Conve&x Polygon"
-msgstr "Konvexnı mnohouholník"
+msgstr "Konve&xnÃ½ mnohouholnÃ­k"
 
-#, fuzzy
 msgid "&Factor:"
-msgstr "Faktor:"
+msgstr "&Faktor:"
 
 msgid "Number of corners for polygons"
-msgstr ""
+msgstr "PoÄet uhlov pre mnohouholnÃ­k"
 
 msgid "Degrees of rotation for polygons"
-msgstr ""
+msgstr "Stupne otoÄenia pre mnohouholnÃ­ky"
 
 msgid "Polygons will be convex rather than concave"
-msgstr ""
+msgstr "MnohouholnÃ­ky budÃº radÅ¡ej konvexnÃ© neÅ¾ konkÃ¡vne"
 
-#, fuzzy
 msgid "Sample Polygon"
-msgstr "Rozdeli» mnohouholníky"
+msgstr "UkÃ¡Å¾ka mnohouholnÃ­ka"
 
 msgid "Change the angles at which lines of the polygon join"
-msgstr ""
+msgstr "ZmenÃ­ uhly, v ktorÃ½ch sa spÃ¡jajÃº Äiary mnohouholnÃ­ka"
 
 msgid "Document Setup"
 msgstr "Nastavenie dokumentu"
 
-#, fuzzy
 msgid "&Outside:"
-msgstr "Vonkaj¹í:"
+msgstr "V&onkajÅ¡Ã­:"
 
 msgid "Scrapbook"
-msgstr "Zápisník"
+msgstr "ZÃ¡pisnÃ­k"
 
-#, fuzzy
 msgid "&Load..."
-msgstr "Naèíta»..."
+msgstr "NaÄÃ­&taÅ¥..."
 
-#, fuzzy
 msgid "&Small"
-msgstr "Malá"
+msgstr "&MalÃ©"
 
-#, fuzzy
 msgid "&Medium"
-msgstr "Stredná"
+msgstr "&StrednÃ©"
 
-#, fuzzy
 msgid "&Large"
-msgstr "Strana"
+msgstr "&VeÄ¾kÃ©"
 
-#, fuzzy
 msgid "&Preview"
-msgstr "Náhµad"
+msgstr "&NÃ¡hÄ¾ad"
 
-#, fuzzy
 msgid "Scrapbooks (*.scs);;All Files (*)"
-msgstr "Zápisník (*.scs);;V¹etky súbory (*)"
+msgstr "ZÃ¡pisnÃ­k (*.scs);;VÅ¡etky sÃºbory (*)"
 
-#, fuzzy
 msgid "Rename"
-msgstr "Odstráni»"
+msgstr "PremenovaÅ¥"
 
 msgid "Delete"
-msgstr "Zmaza»"
+msgstr "OdstrÃ¡niÅ¥"
 
 msgid "Object"
 msgstr "Objekt"
 
 msgid "New Entry"
-msgstr "Nová polo¾ka"
+msgstr "NovÃ¡ poloÅ¾ka"
 
-#, fuzzy
 msgid "Initializing..."
-msgstr "Inicializácia zásuvnıch modulov"
+msgstr "InicializÃ¡cia..."
 
-#, fuzzy
 msgid "Scribus "
-msgstr "Scribus manuál"
+msgstr "Scribus "
 
-#, fuzzy
 msgid "Create a new Document"
-msgstr "Vytvorí novı dokument"
+msgstr "VytvorÃ­ novÃ½ dokument"
 
-#, fuzzy
 msgid "Open a Document"
-msgstr "Otvorí dokument"
+msgstr "OtvorÃ­ dokument"
 
-#, fuzzy
 msgid "Save the current Document"
-msgstr "Ulo¾í aktuálny dokument"
+msgstr "UloÅ¾Ã­ aktuÃ¡lny dokument"
 
-#, fuzzy
 msgid "Close the current Document"
-msgstr "Zavrie aktuálny dokument"
+msgstr "Zavrie aktuÃ¡lny dokument"
 
-#, fuzzy
 msgid "Print the current Document"
-msgstr "Vytlaèí aktuálny dokument"
+msgstr "VytlaÄÃ­ aktuÃ¡lny dokument"
 
-#, fuzzy
 msgid "Save the current Document as PDF"
-msgstr "Ulo¾i» aktuálny dokument ako PDF"
+msgstr "UloÅ¾iÅ¥ aktuÃ¡lny dokument ako PDF"
 
 msgid "Searching for Fonts"
-msgstr "Hµadanie písiem"
+msgstr "HÄ¾adanie pÃ­sem"
 
 msgid "There are no Postscript-Fonts on your System"
-msgstr "Vo va¹om systéme nie sú postscriptové písma"
+msgstr "Vo vaÅ¡om systÃ©me nie sÃº postscriptovÃ© pÃ­sma"
 
 msgid "Exiting now"
-msgstr "Konèím"
+msgstr "KonÄÃ­m"
 
 msgid "Fatal Error"
-msgstr "Kritická chyba"
+msgstr "KritickÃ¡ chyba"
 
 msgid "Smart Hyphen"
-msgstr "Inteligentnı spojovník"
+msgstr "InteligentnÃ½ spojovnÃ­k"
 
 msgid "Align Left"
-msgstr "Zarovna» vµavo"
+msgstr "ZarovnaÅ¥ vÄ¾avo"
 
 msgid "Align Right"
-msgstr "Zarovna» vpravo"
+msgstr "ZarovnaÅ¥ vpravo"
 
 msgid "Align Center"
-msgstr "Zarovna» do stredu"
+msgstr "ZarovnaÅ¥ do stredu"
 
-#, fuzzy
 msgid "Insert Page Number"
-msgstr "Vlo¾i» èíslovanie strán"
+msgstr "VloÅ¾enie ÄÃ­sla strany"
 
 msgid "Attach Text to Path"
-msgstr "Pripoji» text k ceste"
+msgstr "PripojiÅ¥ text k ceste"
 
 msgid "Show Layers"
-msgstr "Zobrazi» vrstvy"
+msgstr "ZobraziÅ¥ vrstvy"
 
-#, fuzzy
 msgid "Javascripts..."
-msgstr "Java skript"
+msgstr "Java skript..."
 
 msgid "Undo"
-msgstr "Spä»"
+msgstr "SpÃ¤Å¥"
 
 msgid "Show Page Palette"
-msgstr "Zobrazi» paletu strany"
+msgstr "ZobraziÅ¥ paletu strany"
 
-#, fuzzy
 msgid "Lock/Unlock"
-msgstr "Odblokova»"
+msgstr "Uzamknutie/Odomknutie"
 
 msgid "Non Breaking Space"
-msgstr ""
+msgstr "NedeliteÄ¾nÃ¡ medzera"
 
 msgid "Reading Preferences"
-msgstr "Naèítavanie nastavení"
+msgstr "NaÄÃ­tavanie nastavenÃ­"
 
-#, fuzzy
 msgid "Getting ICC Profiles"
-msgstr "Získavanie ICC-profilov"
+msgstr "ZÃ­skavanie ICC profilov"
 
 msgid "Init Hyphenator"
-msgstr "Inicializácia delenia slov"
+msgstr "InicializÃ¡cia delenia slov"
 
 msgid "Setting up Shortcuts"
-msgstr "Nastavovanie klávesov"
+msgstr "Nastavovanie klÃ¡vesov"
 
-#, fuzzy
 msgid "&Color Management..."
-msgstr "Správafarieb..."
+msgstr "SprÃ¡va &farieb..."
 
 msgid "Reading Scrapbook"
-msgstr "Naèítavanie zápisníka"
+msgstr "NaÄÃ­tavanie zÃ¡pisnÃ­ka"
 
 msgid "Initializing Plugins"
-msgstr "Inicializácia zásuvnıch modulov"
+msgstr "InicializÃ¡cia zÃ¡suvnÃ½ch modulov"
 
-#, fuzzy
 msgid "Open &Recent"
-msgstr "Otvorí dokument"
+msgstr "OtvoriÅ¥ n&edÃ¡vne"
 
 msgid "Open..."
-msgstr "Otvori»..."
+msgstr "OtvoriÅ¥..."
 
 msgid "Close"
-msgstr "Zavrie»"
+msgstr "ZavrieÅ¥"
 
 msgid "Save"
-msgstr "Ulo¾i»"
+msgstr "UloÅ¾iÅ¥"
 
 msgid "Save as..."
-msgstr "Ulo¾i» ako..."
+msgstr "UloÅ¾iÅ¥ ako..."
 
-#, fuzzy
 msgid "Re&vert to Saved"
-msgstr "Vráti» sa k ulo¾enému"
+msgstr "&VrÃ¡tiÅ¥ sa k uloÅ¾enÃ©mu"
 
-#, fuzzy
 msgid "Collect for O&utput..."
-msgstr "Prieèinok pre vıstup..."
+msgstr "PrieÄinok pre vÃ½st&up..."
 
-#, fuzzy
 msgid "&Get Text/Picture..."
-msgstr "Vlo¾i» text/obrázok..."
+msgstr "V&loÅ¾iÅ¥ text/obrÃ¡zok..."
 
-#, fuzzy
 msgid "Append &Text..."
-msgstr "Vlo¾i» text..."
+msgstr "PripojiÅ¥ &text..."
 
-#, fuzzy
 msgid "Import &Page(s)..."
-msgstr "Vlo¾i» stranu..."
+msgstr "Im&portovaÅ¥ stranu..."
 
-#, fuzzy
 msgid "&Import"
-msgstr "Import"
+msgstr "&Import"
 
-#, fuzzy
 msgid "Save &Text..."
-msgstr "Ulo¾i» text..."
+msgstr "UloÅ¾iÅ¥ &text..."
 
-#, fuzzy
 msgid "Save Page as &EPS..."
-msgstr "Ulo¾i» stranu ako EPS..."
+msgstr "UloÅ¾iÅ¥ stranu ako &EPS..."
 
-#, fuzzy
 msgid "Save as P&DF..."
-msgstr "Ulo¾i» ako PDF..."
+msgstr "UloÅ¾iÅ¥ ako P&DF..."
 
-#, fuzzy
 msgid "&Export"
-msgstr "Export..."
+msgstr "&Export"
 
-#, fuzzy
 msgid "Document &Information..."
-msgstr "Informácie o dokumente"
+msgstr "&InformÃ¡cie o dokumente"
 
 msgid "Document Info..."
-msgstr "Informácie o dokumente..."
+msgstr "InformÃ¡cie o dokumente..."
 
-#, fuzzy
 msgid "Document &Setup..."
-msgstr "Nastavenie dokumentu..."
+msgstr "Na&stavenie dokumentu..."
 
 msgid "Document Setup..."
 msgstr "Nastavenie dokumentu..."
 
-#, fuzzy
 msgid "&Print..."
-msgstr "Tlaè..."
+msgstr "&TlaÄiÅ¥..."
 
 msgid "Print..."
-msgstr "Tlaè..."
+msgstr "TlaÄ..."
 
-#, fuzzy
 msgid "&Quit"
-msgstr "Koniec"
+msgstr "&Koniec"
 
 msgid "Quit"
 msgstr "Koniec"
 
-#, fuzzy
 msgid "Select &All"
-msgstr "Vybra» v¹etko"
+msgstr "VybraÅ¥ &vÅ¡etko"
 
 msgid "Cut"
-msgstr "Vystrihnú»"
+msgstr "VystrihnÃºÅ¥"
 
 msgid "Copy"
-msgstr "Kopírova»"
+msgstr "KopÃ­rovaÅ¥"
 
 msgid "Paste"
-msgstr "Vlo¾i»"
+msgstr "VloÅ¾iÅ¥"
 
 msgid "Clear"
-msgstr "Vymaza»"
+msgstr "VymazaÅ¥"
 
 msgid "Select all"
-msgstr "Vybra» v¹etko"
+msgstr "VybraÅ¥ vÅ¡etko"
 
 msgid "&Search/Replace..."
-msgstr ""
+msgstr "&HÄ¾adaÅ¥/NahradiÅ¥..."
 
-#, fuzzy
 msgid "C&olors..."
-msgstr "Farby..."
+msgstr "&Farby..."
 
 msgid "Colors..."
 msgstr "Farby..."
 
-#, fuzzy
 msgid "&Paragraph Styles..."
-msgstr "©tıly..."
+msgstr "Å tÃ½ly o&dstavca..."
 
-#, fuzzy
 msgid "&Line Styles..."
-msgstr "©tıly èiar..."
+msgstr "Å tÃ½&ly Äiar..."
 
 msgid "Styles..."
-msgstr "©tıly..."
+msgstr "Å tÃ½ly..."
 
-#, fuzzy
 msgid "&Templates..."
-msgstr "©ablóny..."
+msgstr "Å a&blÃ³ny..."
 
 msgid "Templates..."
-msgstr "©ablóny..."
+msgstr "Å ablÃ³ny..."
 
-#, fuzzy
 msgid "&Javascripts..."
-msgstr "Java skript"
+msgstr "&Java skript"
 
-#, fuzzy
 msgid "Select New Font"
-msgstr "Vybra» nové písmo:"
+msgstr "VybraÅ¥ novÃ© pÃ­smo:"
 
 msgid "Duplicate"
-msgstr "Duplikova»"
+msgstr "DuplikovaÅ¥"
 
-#, fuzzy
 msgid "&Multiple Duplicate"
-msgstr "Viacnásobné duplikovanie"
+msgstr "&ViacnÃ¡sobnÃ© duplikovanie"
 
 msgid "Group"
-msgstr "Zoskupi»"
+msgstr "ZoskupiÅ¥"
 
-#, fuzzy
 msgid "&Ungroup"
-msgstr "Zru¹i» zoskupenie"
+msgstr "Z&ruÅ¡iÅ¥ zoskupenie"
 
-#, fuzzy
 msgid "Un-group"
-msgstr "Zru¹i» zoskupenie"
+msgstr "ZruÅ¡iÅ¥ zoskupenie"
 
 msgid "Send to Back"
-msgstr "Prenies» do pozadia"
+msgstr "PreniesÅ¥ do pozadia"
 
 msgid "Bring to Front"
-msgstr "Prenies» do popredia"
+msgstr "PreniesÅ¥ do popredia"
 
 msgid "Lower"
 msgstr "Dozadu"
@@ -3861,348 +3464,293 @@ msgstr "Dozadu"
 msgid "Raise"
 msgstr "Dopredu"
 
-#, fuzzy
 msgid "Distribute/&Align..."
-msgstr "Umiestni»/zarovna»..."
+msgstr "UmiestniÅ¥/zarovnaÅ¥..."
 
 msgid "Distribute/Align..."
-msgstr "Umiestni»/zarovna»..."
+msgstr "UmiestniÅ¥/zarovnaÅ¥..."
 
-#, fuzzy
-msgid "&Edit Shape"
-msgstr "Upravi» obrys..."
+msgid "&Edit Frame"
+msgstr "&UpraviÅ¥ rÃ¡m"
 
-#, fuzzy
 msgid "&Attach Text to Path"
-msgstr "Pripoji» text k ceste"
+msgstr "&PripojiÅ¥ text k ceste"
 
-#, fuzzy
 msgid "&Detach Text from Path"
-msgstr "Pripoji» text k ceste"
+msgstr "O&dpojiÅ¥ text z ceste"
 
-#, fuzzy
 msgid "&Combine Polygons"
-msgstr "Spoji» mnohouholníky"
+msgstr "&SpojiÅ¥ mnohouholnÃ­ky"
 
-#, fuzzy
 msgid "Split &Polygons"
-msgstr "Rozdeli» mnohouholníky"
+msgstr "Ro&zdeliÅ¥ mnohouholnÃ­ky"
 
-#, fuzzy
 msgid "C&onvert to Outlines"
-msgstr "Konvertova» mnohouholníky"
+msgstr "K&onvertovaÅ¥ na obrysy"
 
-#, fuzzy
 msgid "&Insert..."
-msgstr "Vlo¾i»..."
+msgstr "&VloÅ¾iÅ¥..."
 
 msgid "Insert..."
-msgstr "Vlo¾i»..."
+msgstr "VloÅ¾iÅ¥..."
 
-#, fuzzy
 msgid "&Delete..."
-msgstr "Zmaza»..."
+msgstr "&OdstrÃ¡niÅ¥..."
 
 msgid "Delete..."
-msgstr "Zmaza»..."
+msgstr "OdstrÃ¡niÅ¥..."
 
-#, fuzzy
 msgid "&Move..."
-msgstr "Presunú»..."
+msgstr "&PresunÃºÅ¥..."
 
 msgid "Move..."
-msgstr "Presunú»..."
+msgstr "PresunÃºÅ¥..."
 
-#, fuzzy
 msgid "&Apply Template..."
-msgstr "Pou¾i» ¹ablónu..."
+msgstr "PouÅ¾iÅ¥ Å¡&ablÃ³nu..."
 
 msgid "Apply Template..."
-msgstr "Pou¾i» ¹ablónu..."
+msgstr "PouÅ¾iÅ¥ Å¡ablÃ³nu..."
 
-#, fuzzy
 msgid "Manage &Guides..."
-msgstr "Ovládanie vodítok..."
+msgstr "O&vlÃ¡danie vodÃ­tok..."
 
 msgid "Manage Guides..."
-msgstr "Ovládanie vodítok..."
+msgstr "OvlÃ¡danie vodÃ­tok..."
 
-#, fuzzy
 msgid "&Fit in Window"
-msgstr "Prispôsobi» oknu"
+msgstr "Pr&ispÃ´sobiÅ¥ oknu"
 
 msgid "Fit in Window"
-msgstr "Prispôsobi» oknu"
+msgstr "PrispÃ´sobiÅ¥ oknu"
 
 msgid "50%"
-msgstr ""
+msgstr "50%"
 
 msgid "75%"
-msgstr ""
+msgstr "75%"
 
 msgid "&100%"
-msgstr ""
+msgstr "&100%"
 
 msgid "100%"
-msgstr ""
+msgstr "100%"
 
 msgid "200%"
-msgstr ""
+msgstr "200%"
 
-#, fuzzy
 msgid "&Thumbnails"
-msgstr "Miniatúry"
+msgstr "Minia&tÃºry"
 
 msgid "Thumbnails"
-msgstr "Miniatúry"
+msgstr "MiniatÃºry"
 
 msgid "Hide Margins"
-msgstr "Skry» okraje"
+msgstr "SkryÅ¥ okraje"
 
 msgid "Hide Frames"
-msgstr "Skry» rámy"
+msgstr "SkryÅ¥ rÃ¡my"
 
 msgid "Hide Images"
-msgstr "Skry» obrázky"
+msgstr "SkryÅ¥ obrÃ¡zky"
 
 msgid "Show Grid"
-msgstr "Ukáza» mrie¾ku"
+msgstr "UkÃ¡zaÅ¥ mrieÅ¾ku"
 
 msgid "Snap to Grid"
-msgstr "Pritiahnu» k mrie¾ke"
+msgstr "PritiahnuÅ¥ k mrieÅ¾ke"
 
-#, fuzzy
 msgid "&Properties"
-msgstr "Vlastnosti"
+msgstr "&Vlastnosti"
 
-#, fuzzy
 msgid "&Outline"
-msgstr "Prehµad"
+msgstr "&PrehÄ¾ad"
 
 msgid "Outline"
-msgstr "Prehµad"
+msgstr "PrehÄ¾ad"
 
-#, fuzzy
 msgid "&Scrapbook"
-msgstr "Zápisník"
+msgstr "&ZÃ¡pisnÃ­k"
 
-#, fuzzy
 msgid "&Layers"
-msgstr "Vrstvy"
+msgstr "V&rstvy"
 
-#, fuzzy
 msgid "P&age Palette"
-msgstr "Skry» paletu strany"
+msgstr "P&aleta strany"
 
-#, fuzzy
 msgid "&Bookmarks"
-msgstr "Zálo¾ky"
+msgstr "ZÃ¡&loÅ¾ky"
 
-#, fuzzy
 msgid "&Manage Pictures"
-msgstr "Správa obrázkov"
+msgstr "&SprÃ¡va obrÃ¡zkov"
 
 msgid "Manage Pictures"
-msgstr "Správa obrázkov"
+msgstr "SprÃ¡va obrÃ¡zkov"
 
-#, fuzzy
 msgid "&Hyphenate Text"
-msgstr "Delenie slov v texte"
+msgstr "&Delenie slov v texte"
 
 msgid "Hyphenate Text"
 msgstr "Delenie slov v texte"
 
-#, fuzzy
 msgid "Toolti&ps"
-msgstr "Nástroje"
+msgstr "Ti&py pre nÃ¡stroje"
 
-#, fuzzy
 msgid "&Tools"
-msgstr "Nástroje"
+msgstr "&NÃ¡stroje"
 
-#, fuzzy
 msgid "P&DF Tools"
-msgstr "Nástroje"
+msgstr "P&DF nÃ¡stroje"
 
 msgid "Tools"
-msgstr "Nástroje"
+msgstr "NÃ¡stroje"
 
-#, fuzzy
 msgid "Tooltips"
-msgstr "Nástroje"
+msgstr "Ti&py pre nÃ¡stroje"
 
-#, fuzzy
 msgid "P&references..."
-msgstr "Nastavenia..."
+msgstr "Nas&tavenia..."
 
-#, fuzzy
 msgid "&Fonts..."
-msgstr "Písmo..."
+msgstr "PÃ­smo..."
 
 msgid "Fonts..."
-msgstr "Písmo..."
+msgstr "PÃ­smo..."
 
-#, fuzzy
 msgid "&Hyphenator..."
-msgstr "Delenie slov..."
+msgstr "&Delenie slov..."
 
-#, fuzzy
 msgid "&Keyboard Shortcuts..."
-msgstr "Klávesové skratky..."
+msgstr "&KlÃ¡vesovÃ© skratky..."
 
-#, fuzzy
 msgid "&About Scribus"
-msgstr "O Scribuse"
+msgstr "&O Scribuse"
 
 msgid "About Scribus"
 msgstr "O Scribuse"
 
-#, fuzzy
 msgid "About &Qt"
-msgstr "O Qt"
+msgstr "InformÃ¡cie o &Qt"
 
 msgid "About Qt"
 msgstr "O Qt"
 
-#, fuzzy
 msgid "Scribus &Manual..."
-msgstr "Scribus manuál"
+msgstr "Scribus &manuÃ¡l"
 
 msgid "Online-Help..."
-msgstr "Online Pomocník..."
+msgstr "Online PomocnÃ­k..."
 
-#, fuzzy
 msgid "St&yle"
-msgstr "©tıl"
+msgstr "Å &tÃ½l"
 
-#, fuzzy
 msgid "&Item"
 msgstr "Objekt"
 
-#, fuzzy
 msgid "&Page"
-msgstr "Strana"
+msgstr "&Strana"
 
-#, fuzzy
 msgid "&View"
-msgstr "Náhµad"
+msgstr "&ZobraziÅ¥"
 
-#, fuzzy
 msgid "&Settings"
-msgstr "Nastavenia"
+msgstr "Nas&tavenia"
 
-#, fuzzy
 msgid "&Windows"
-msgstr "Okná"
+msgstr "&OknÃ¡"
 
-#, fuzzy
 msgid "&Help"
-msgstr "Pomocník"
+msgstr "&PomocnÃ­k"
 
-#, fuzzy
 msgid "&Left"
-msgstr "Vµavo"
+msgstr "&VÄ¾avo"
 
-#, fuzzy
 msgid "&Center"
-msgstr "Na stred"
+msgstr "Do &stredu"
 
-#, fuzzy
 msgid "&Right"
-msgstr "Vpravo"
+msgstr "V&pravo"
 
-#, fuzzy
 msgid "&Block"
-msgstr "Do bloku"
+msgstr "Do &bloku"
 
-#, fuzzy
 msgid "&Forced"
-msgstr "Vynútené"
+msgstr "&VynÃºtenÃ©"
 
-#, fuzzy
 msgid "&Other..."
-msgstr "Inı..."
+msgstr "&InÃ©..."
 
 msgid "Strikethru"
-msgstr "Preèiarknuté vy¹¹ie"
+msgstr "PreÄiarknutÃ© vyÅ¡Å¡ie"
 
 msgid "Small Caps"
-msgstr "Kapitálky"
+msgstr "KapitÃ¡lky"
 
 msgid "Superscript"
-msgstr "Hornı index"
+msgstr "HornÃ½ index"
 
 msgid "Subscript"
-msgstr "Dolnı index"
+msgstr "DolnÃ½ index"
 
 msgid "Ready"
-msgstr "Pripravenı"
+msgstr "PripravenÃ½"
 
-#, fuzzy
 msgid "&Cascade"
-msgstr "Kaskáda"
+msgstr "&KaskÃ¡da"
 
-#, fuzzy
 msgid "&Tile"
-msgstr "Dla¾dica"
+msgstr "&DlÃ¡Å¾denie"
 
 msgid "Get Text/Picture..."
-msgstr "Vlo¾i» text/obrázok..."
+msgstr "VloÅ¾iÅ¥ text/obrÃ¡zok..."
 
 msgid "Get Picture..."
-msgstr "Vlo¾i» obrázok..."
+msgstr "VloÅ¾iÅ¥ obrÃ¡zok..."
 
-#, fuzzy
 msgid "&Color"
-msgstr "Farba"
+msgstr "&Farba"
 
-#, fuzzy
 msgid "&Invert"
-msgstr "Invertova»"
+msgstr "&InvertovaÅ¥"
 
 msgid "&Font"
-msgstr "&Písmo"
+msgstr "&PÃ­smo"
 
 msgid "&Size"
-msgstr "&Veµkos»"
+msgstr "&VeÄ¾kosÅ¥"
 
-#, fuzzy
 msgid "&Effects"
-msgstr "Efekty"
+msgstr "&Efekty"
 
-#, fuzzy
 msgid "&Alignment"
-msgstr "Zarovnanie"
+msgstr "&Zarovnanie"
 
-#, fuzzy
 msgid "&Shade"
-msgstr "Tieò"
+msgstr "&TieÅˆ"
 
-#, fuzzy
 msgid "&Tabulators..."
-msgstr "©ablóny..."
+msgstr "&TabulÃ¡tory..."
 
 msgid "Get Text..."
-msgstr "Vlo¾i» text..."
+msgstr "VloÅ¾iÅ¥ text..."
 
 msgid "Font"
-msgstr "Písmo"
+msgstr "PÃ­smo"
 
 msgid "Size"
-msgstr "Veµkos»"
+msgstr "VeÄ¾kosÅ¥"
 
 msgid "Style"
-msgstr "©tıl"
+msgstr "Å tÃ½l"
 
 msgid "Color"
 msgstr "Farba"
 
 msgid "Shade"
-msgstr "Tieò"
+msgstr "TieÅˆ"
 
-#, fuzzy
 msgid "Importing Pages..."
-msgstr "Importova» stranu"
+msgstr "Importovanie strÃ¡n..."
 
 msgid ""
 "<p>You are trying to import more pages than there are available in the "
@@ -4211,229 +3759,201 @@ msgid ""
 "pages until the last page</li><li><b>Cancel</b></li></ul><br>"
 msgstr ""
 
-#, fuzzy
 msgid "Create"
-msgstr "Znak"
+msgstr "VytvoriÅ¥"
 
-#, fuzzy
 msgid "Import done"
-msgstr "Import"
+msgstr "Import je dokonÄenÃ½"
 
 msgid "Found nothing to import"
-msgstr ""
+msgstr "Nebolo nÃ¡jdenÃ© niÄ na importovanie"
 
 msgid "Loading..."
-msgstr "Naèítavam..."
+msgstr "NaÄÃ­tavam..."
 
 msgid "All Supported Formats"
-msgstr ""
+msgstr "VÅ¡etky podporovanÃ© formÃ¡ty"
 
 msgid "All Files (*)"
-msgstr ""
+msgstr "VÅ¡etky sÃºbory (*)"
+
+msgid "Text Files (*.txt);;All Files(*)"
+msgstr "TextovÃ© sÃºbory (*.txt);;VÅ¡etky sÃºbory (*)"
 
 msgid ""
 "Can't write the File: \n"
 "%1"
 msgstr ""
-"Nie je mo¾né zapísa» súbor: \n"
+"Nie je moÅ¾nÃ© zapÃ­saÅ¥ sÃºbor: \n"
 "%1"
 
-#, fuzzy
 msgid "Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)"
-msgstr "Dokumenty (*.scd *scd.gz *.scd *scd.gz);; V¹etky súbory (*)"
+msgstr "Dokumenty (*.sla *.sla.gz *.scd *scd.gz);;VÅ¡etky sÃºbory (*)"
 
-#, fuzzy
 msgid "Saving..."
-msgstr "Naèítavam..."
+msgstr "UkladÃ¡m..."
 
 msgid "Printing..."
-msgstr "Tlaèím..."
+msgstr "TlaÄÃ­m..."
 
 msgid "Document"
 msgstr "Dokument"
 
 msgid "Printing failed!"
-msgstr "Tlaè sa nepodarila!"
+msgstr "TlaÄ sa nepodarila!"
 
 msgid "Scribus Manual"
-msgstr "Scribus manuál"
+msgstr "Scribus manuÃ¡l"
 
-#, fuzzy
-msgid "Text Files (*.txt);;All Files(*)"
-msgstr "Textové súbory (*.txt);;V¹etky súbory (*)"
-
-#, fuzzy
 msgid "&Shade:"
-msgstr "Tieò:"
+msgstr "&TieÅˆ:"
 
-#, fuzzy
 msgid "Hide Baseline Grid"
-msgstr "Skry» mrie¾ku"
+msgstr "SkryÅ¥ mrieÅ¾ku zÃ¡kladnÃ½ch Äiar"
 
-#, fuzzy
 msgid "Show Baseline Grid"
-msgstr "Ukáza» mrie¾ku"
+msgstr "ZobraziÅ¥ mrieÅ¾ku zÃ¡kladnÃ½ch Äiar"
 
 msgid "The following Programs are missing:"
-msgstr "Tieto programy chıbajú:"
+msgstr "Tieto programy chÃ½bajÃº:"
 
-#, fuzzy
 msgid "Ghostscript : You cannot use EPS Images"
-msgstr "Ghostscript : Nemô¾ete pou¾íva» eps-obrázky"
+msgstr "Ghostscript : NemÃ´Å¾ete pouÅ¾Ã­vaÅ¥ EPS obrÃ¡zky"
 
-#, fuzzy
 msgid "EPS-Files (*.eps);;All Files (*)"
-msgstr "SVG obrázky (*.svg);; V¹etky súbory (*)"
+msgstr "EPS obrÃ¡zky (*.eps);;VÅ¡etky sÃºbory (*)"
 
 msgid "Some Objects are locked."
-msgstr ""
+msgstr "NiektorÃ© objekty sÃº uzamknutÃ©."
 
-#, fuzzy
 msgid "Lock all"
-msgstr "Zamknú»"
+msgstr "UzamknÃºÅ¥ vÅ¡etko"
 
-#, fuzzy
 msgid "Unlock all"
-msgstr "Odblokova»"
+msgstr "OdomknÃºÅ¥ vÅ¡etko"
 
 msgid "Unlock"
-msgstr "Odblokova»"
+msgstr "OdomknÃºÅ¥"
 
 msgid "Lock"
-msgstr "Zamknú»"
+msgstr "UzamknÃºÅ¥"
 
 msgid "Loading:"
-msgstr "Naèítavanie:"
+msgstr "NaÄÃ­tavanie:"
 
 msgid "Adjusting Colors"
-msgstr "Prispôsobenie farieb"
+msgstr "PrispÃ´sobenie farieb"
 
-#, fuzzy
 msgid "&Undo Delete Object"
-msgstr "Spä» zmazanie objektu"
+msgstr "S&pÃ¤Å¥ zmazanie objektu"
 
-#, fuzzy
 msgid "&Undo Object Move"
-msgstr "Vráti» spä» presun objektu"
+msgstr "VrÃ¡tiÅ¥ s&pÃ¤Å¥ presun objektu"
 
-#, fuzzy
 msgid "&Undo Object Change"
-msgstr "Vráti» spä» zmenu objektu"
+msgstr "VrÃ¡tiÅ¥ s&pÃ¤Å¥ zmenu objektu"
 
 msgid "English"
-msgstr "Anglicky"
+msgstr "AnglickÃ½"
 
 msgid "German"
-msgstr "Nemecky"
+msgstr "NemeckÃ½"
 
 msgid "Spanish"
-msgstr "©panielsky"
+msgstr "Å panielsky"
 
 msgid "Italian"
 msgstr "Taliansky"
 
 msgid "French"
-msgstr "Francúzsky"
+msgstr "FrancÃºzsky"
 
 msgid "Russian"
-msgstr "Rusky"
+msgstr "RuskÃ½"
 
 msgid "Danish"
-msgstr "Dánsky"
+msgstr "DÃ¡nsky"
 
 msgid "Slovak"
-msgstr "Slovensky"
+msgstr "SlovenskÃ½"
 
 msgid "Hungarian"
-msgstr ""
+msgstr "MaÄarskÃ½"
 
-#, fuzzy
 msgid "Czech"
-msgstr "Èesky:"
+msgstr "ÄŒeskÃ½"
 
 msgid "Dutch"
-msgstr ""
+msgstr "HolandskÃ½"
 
 msgid "Portuguese"
-msgstr ""
+msgstr "PortugalskÃ½"
 
-#, fuzzy
 msgid "Ukrainian"
-msgstr "Ukrajinsky:"
+msgstr "UkrajinskÃ½"
 
-#, fuzzy
 msgid "Polish"
-msgstr "Poµsky:"
+msgstr "PoÄ¾skÃ½"
 
-#, fuzzy
 msgid "Greek"
-msgstr "Ze&lená:"
+msgstr "GrÃ©cky"
 
-#, fuzzy
 msgid "Catalan"
-msgstr "Taliansky"
+msgstr "KatalÃ¡nsky"
 
-#, fuzzy
 msgid "Finnish"
-msgstr "Dánsky"
+msgstr "FÃ­nsky"
 
 msgid "Irish"
-msgstr ""
+msgstr "Ãrsky"
 
-#, fuzzy
 msgid "Lithuanian"
-msgstr "Litovsky:"
+msgstr "LitovskÃ½"
 
 msgid "Swedish"
-msgstr ""
+msgstr "Å vÃ©dsky"
 
-#, fuzzy
 msgid "Slovenian"
-msgstr "Slovensky"
+msgstr "SlovinskÃ½"
 
-#, fuzzy
 msgid "Scribus Crash"
-msgstr "Scribus manuál"
+msgstr "PÃ¡d Scribusu"
 
 msgid "Scribus crashes due to Signal #%1"
-msgstr ""
+msgstr "Scribus spadol kvÃ´li signÃ¡lu #%1"
 
 msgid "Background"
 msgstr "Pozadie"
 
-#, fuzzy
 msgid "Layer"
-msgstr "Vrstvy"
+msgstr "Vrstva"
 
-#, fuzzy
 msgid "&Leave Anyway"
-msgstr "Zahodi»"
+msgstr "Zaho&diÅ¥"
 
-#, fuzzy
 msgid "C&lose Anyway"
-msgstr "Zahodi»"
+msgstr "&ZavrieÅ¥"
 
 msgid "Document:"
 msgstr "Dokument:"
 
 msgid "has been changed since the last save."
-msgstr "od posledného ulo¾enia bol zmenenı."
+msgstr "bol od poslednÃ©ho uloÅ¾enia zmenenÃ½."
 
-#, fuzzy
 msgid "&Save Now"
-msgstr "Teraz ulo¾i»"
+msgstr "&UloÅ¾iÅ¥"
 
 msgid "Show Page Previews"
-msgstr "Zobrazi» náhµady pre strany"
+msgstr "ZobraziÅ¥ nÃ¡hÄ¾ady pre strany"
 
 msgid "Show Template Names"
-msgstr "Zobrazi» názvy ¹ablón"
+msgstr "ZobraziÅ¥ nÃ¡zvy Å¡ablÃ³n"
 
 msgid "Arrange Pages"
-msgstr "Usporiada» strany"
+msgstr "UsporiadaÅ¥ strany"
 
 msgid "Available Templates:"
-msgstr "Dostupné ¹ablóny:"
+msgstr "DostupnÃ© Å¡ablÃ³ny:"
 
 msgid "Document Pages:"
 msgstr "Strany dokumentu:"
@@ -4442,290 +3962,240 @@ msgid "Facing Pages"
 msgstr "Dvojstrany"
 
 msgid "Left Page first"
-msgstr "Prvá strana vµavo"
+msgstr "PrvÃ¡ strana vÄ¾avo"
 
 msgid "Drag Pages or Template Pages onto the Trashbin to delete them."
-msgstr "Strany alebo ¹ablóny zma¾ete potiahnutím do odpadkového ko¹a."
+msgstr "Strany alebo Å¡ablÃ³ny zmaÅ¾ete potiahnutÃ­m do odpadkovÃ©ho koÅ¡a."
 
-#, fuzzy
 msgid "Previews all the pages of your document."
-msgstr "Tu mô¾ete vidie» v¹etky strany vá¹ho dokumentu."
+msgstr "NÃ¡hÄ¾ady na vÅ¡etky strany vÃ¡Å¡ho dokumentu."
 
 msgid ""
 "Here are all your Templates, to create a new Page\n"
 "drag a Template to the Pageview below."
 msgstr ""
-"Tu sú v¹etky va¹e ¹ablóny; na vytvorenie novej strany\n"
-"potiahnite ¹ablónu do náhµadu strany."
+"Tu sÃº vÅ¡etky vaÅ¡e Å¡ablÃ³ny; na vytvorenie novej strany\n"
+"potiahnite Å¡ablÃ³nu do nÃ¡hÄ¾adu strany."
 
 msgid "Select Fields"
-msgstr "Zvoli» polia"
+msgstr "ZvoliÅ¥ polia"
 
 msgid "Available Fields"
-msgstr "Dostupné polia:"
+msgstr "DostupnÃ© polia:"
 
 msgid "Selected Fields"
-msgstr "Zvolené polia"
+msgstr "ZvolenÃ© polia"
 
 msgid "Element"
 msgstr "Prvok"
 
-#, fuzzy
 msgid "Information"
-msgstr "Formátovanie"
+msgstr "InformÃ¡cie"
 
 msgid "X:"
-msgstr ""
+msgstr "X:"
 
-#, fuzzy
 msgid "Font:"
-msgstr "Písmo"
+msgstr "PÃ­smo:"
 
-#, fuzzy
 msgid "Group "
-msgstr "Zoskupi»"
+msgstr "ZoskupiÅ¥ "
 
 msgid ""
 "Do you really want to overwrite the File:\n"
 "%1 ?"
 msgstr ""
-"Skutoène chcete prepísa» súbor:\n"
+"SkutoÄne chcete prepÃ­saÅ¥ sÃºbor:\n"
 "%1 ?"
 
 msgid "Select Items"
-msgstr "Vybra» objekty"
+msgstr "VybraÅ¥ poloÅ¾ky"
 
-#, fuzzy
 msgid "Insert Text Frame"
-msgstr "Textovı rám"
+msgstr "VloÅ¾iÅ¥ textovÃ½ rÃ¡m"
 
 msgid "Insert Picture"
-msgstr "Vlo¾i» obrázok"
+msgstr "VloÅ¾iÅ¥ obrÃ¡zok"
 
-#, fuzzy
 msgid "Insert Table"
-msgstr "Vlo¾i» obrázok"
+msgstr "VloÅ¾iÅ¥ tabuÄ¾ku"
 
 msgid "Properties..."
 msgstr "Vlastnosti..."
 
 msgid "Insert Polygons"
-msgstr "Vlo¾i» mnohouholníky"
+msgstr "VloÅ¾iÅ¥ mnohouholnÃ­ky"
 
 msgid "Insert Lines"
-msgstr "Vlo¾i» èiary"
+msgstr "VloÅ¾iÅ¥ Äiary"
 
 msgid "Insert Bezier Curves"
-msgstr "Vlo¾i» bézierové krivky"
+msgstr "VloÅ¾iÅ¥ bÃ©zierovÃ© krivky"
 
-#, fuzzy
 msgid "Insert Freehand Line"
-msgstr "Vlo¾i» èiary"
+msgstr "VloÅ¾iÅ¥ rukou kreslenÃº Äiaru"
 
 msgid "Rotate Item"
-msgstr "Otoèi» objekt"
+msgstr "OtoÄiÅ¥ objekt"
 
-#, fuzzy
 msgid "Zoom in or out"
-msgstr "Zväè¹i» alebo zmen¹i»"
+msgstr "ZvÃ¤ÄÅ¡iÅ¥ alebo zmenÅ¡iÅ¥"
 
 msgid "Edit Contents of Frame"
-msgstr "Upravi» obsah rámu"
+msgstr "UpraviÅ¥ obsah rÃ¡mu"
 
 msgid "Edit the text with the Story Editor"
-msgstr ""
+msgstr "UpraviÅ¥ text v Story editore"
 
-#, fuzzy
 msgid "Link Text Frames"
-msgstr "Textovı rám"
+msgstr "PrepojiÅ¥ textovÃ© rÃ¡my"
 
-#, fuzzy
 msgid "Unlink Text Frames"
-msgstr "Textovı rám"
+msgstr "ZruÅ¡iÅ¥ prepojenie textovÃ½ch rÃ¡mom"
 
-#, fuzzy
 msgid "Do measurements"
-msgstr "Jednotky"
+msgstr "MeraÅ¥"
 
 msgid "Draw various Shapes"
-msgstr ""
+msgstr "Kreslenie rÃ´znych tvarov"
 
-#, fuzzy
 msgid "PDF Tools"
-msgstr "Nástroje"
+msgstr "PDF nÃ¡stroje"
 
-#, fuzzy
 msgid "Insert PDF Fields"
-msgstr "Vlo¾i» PDF polia"
+msgstr "VloÅ¾iÅ¥ PDF polia"
 
-#, fuzzy
 msgid "Insert PDF Annotations"
-msgstr "Vlo¾i» PDF poznámky"
+msgstr "VloÅ¾iÅ¥ PDF anotÃ¡ciu"
 
-#, fuzzy
 msgid "Manage Tabulators"
-msgstr "Správa obrázkov"
+msgstr "SprÃ¡va tabulÃ¡torov"
 
-#, fuzzy
 msgid "Fill Color Settings"
-msgstr "Farba vıplne:"
+msgstr "Nastavenia farby vÃ½plne:"
 
-#, fuzzy
 msgid "Stroke Color Settings"
-msgstr "Zobrazi» farby"
+msgstr "Nastavenia farby obrysu"
 
-#, fuzzy
 msgid "Character Settings"
 msgstr "Nastavenia znakov"
 
-#, fuzzy
 msgid "Kerning:"
-msgstr "Varovanie"
+msgstr "PÃ¡rovanie (kerning):"
 
-#, fuzzy
 msgid "Style Settings"
-msgstr "Nastavenia"
+msgstr "Nastavenie Å¡tÃ½lu"
 
-#, fuzzy
 msgid "Font Settings"
-msgstr "Nastavenia"
+msgstr "Nastavenie pÃ­sma"
 
-#, fuzzy
 msgid "Font of selected text"
-msgstr "Spä» zmazanie objektu"
+msgstr "PÃ­smo oznaÄenÃ©ho textu"
 
 msgid "Story Editor"
-msgstr ""
+msgstr "Story Editor"
 
-#, fuzzy
 msgid "&Reload Text from Frame"
-msgstr "Pripoji» text k ceste"
+msgstr "&Znova naÄÃ­taÅ¥ text z rÃ¡mu"
 
-#, fuzzy
 msgid "&Save to File..."
-msgstr "Ulo¾i» ako PDF..."
+msgstr "UloÅ¾iÅ¥ do sÃºboru..."
 
-#, fuzzy
 msgid "&Load from File..."
-msgstr "Ulo¾i» ako PDF..."
+msgstr "NaÄÃ­taÅ¥ zo sÃºboru..."
 
-#, fuzzy
 msgid "Save &Document"
-msgstr "Novı dokument"
+msgstr "UloÅ¾iÅ¥ &dokument"
 
-#, fuzzy
 msgid "&Update Text Frame and Exit"
-msgstr "Textovı rám"
+msgstr "&AktualizovaÅ¥ textovÃ½ rÃ¡m a ukonÄiÅ¥"
 
-#, fuzzy
 msgid "&Exit Without Updating Text Frame"
-msgstr "Ukonèi» bez ulo¾enia"
+msgstr "UkonÄiÅ¥ b&ez aktualizÃ¡cie textovÃ©ho rÃ¡mu"
 
-#, fuzzy
 msgid "&Insert Special..."
-msgstr "Vlo¾i» ¹peciálne"
+msgstr "VloÅ¾&iÅ¥ Å¡peciÃ¡lne..."
 
-#, fuzzy
 msgid "&Edit Styles..."
-msgstr "Upravi» ¹tıly"
+msgstr "&UpraviÅ¥ Å¡tÃ½ly"
 
-#, fuzzy
 msgid "&Fonts Preview..."
-msgstr "Uká¾ka pred tlaèou"
+msgstr "NÃ¡hÄ¾ad na pÃ­smo..."
 
-#, fuzzy
 msgid "&Update Text Frame"
-msgstr "Textovı rám"
+msgstr "&AktualizovaÅ¥ textovÃ½ rÃ¡m"
 
-#, fuzzy
 msgid "&Background..."
-msgstr "Pozadie:"
+msgstr "&Pozadie..."
 
-#, fuzzy
 msgid "&Display Font..."
-msgstr "Doba zobrazenia:"
+msgstr "PÃ­sm&o zobrazenia..."
 
-#, fuzzy
 msgid "Clear all Text"
-msgstr "Textová vzorka"
+msgstr "OdstrÃ¡niÅ¥ celÃ½ text"
 
-#, fuzzy
 msgid "Load Text from File"
-msgstr "Pripoji» text k ceste"
+msgstr "NaÄÃ­taÅ¥ text zo sÃºboru"
 
-#, fuzzy
 msgid "Save Text to File"
-msgstr "Ulo¾i» ako PDF..."
+msgstr "UloÅ¾iÅ¥ text do sÃºboru..."
 
-#, fuzzy
 msgid "Update Text Frame and Exit"
-msgstr "Textovı rám"
+msgstr "AktualizovaÅ¥ textovÃ½ rÃ¡m a ukonÄiÅ¥"
 
-#, fuzzy
 msgid "Exit Without Updating Text Frame"
-msgstr "Ukonèi» bez ulo¾enia"
+msgstr "UkonÄiÅ¥ bez aktualizÃ¡cie textovÃ©ho rÃ¡mu"
 
-#, fuzzy
 msgid "Reload Text from Frame"
-msgstr "Pripoji» text k ceste"
+msgstr "Znovu naÄÃ­taÅ¥ text z rÃ¡mu"
 
-#, fuzzy
 msgid "Update Text Frame"
-msgstr "Textovı rám"
+msgstr "AktualizovaÅ¥ textovÃ½ rÃ¡m"
 
 msgid "Search/Replace"
-msgstr ""
+msgstr "NÃ¡jsÅ¥/NahradiÅ¥"
 
 msgid "Current Paragraph:"
-msgstr ""
+msgstr "AktuÃ¡lny odsek:"
 
-#, fuzzy
 msgid "Totals:"
-msgstr "Nástroje"
+msgstr "Celkom:"
 
 msgid "Do you want to save your changes?"
-msgstr ""
+msgstr "Chcete uloÅ¾iÅ¥ zmeny?"
 
-#, fuzzy
 msgid "&Insert Special"
-msgstr "Vlo¾i» ¹peciálne"
+msgstr "VloÅ¾&iÅ¥ Å¡peciÃ¡lne"
 
-#, fuzzy
 msgid "&Fonts Preview"
-msgstr "Uká¾ka pred tlaèou"
+msgstr "NÃ¡hÄ¾ad na &pÃ­sma"
 
-#, fuzzy
 msgid "Do you really want to lose all your Changes?"
-msgstr "Skutoène chcete zmaza» tento ¹tıl?"
+msgstr "SkutoÄne chcete stratiÅ¥ vÅ¡etky zmeny?"
 
-#, fuzzy
 msgid "Search for:"
-msgstr "Hµada» vısledok pre:"
+msgstr "HÄ¾adaÅ¥:"
 
 msgid "Paragraph Style"
-msgstr ""
+msgstr "Å tÃ½l odstavca"
 
-#, fuzzy
 msgid "Font Effects"
-msgstr "Bez efektu"
+msgstr "Efekty pÃ­sma"
 
-#, fuzzy
 msgid "Fill Color"
-msgstr "Farba vıplne:"
+msgstr "Farba vÃ½plne"
 
-#, fuzzy
 msgid "Fill Shade"
-msgstr "Tieò"
+msgstr "TieÅˆ vÃ½plne"
 
-#, fuzzy
 msgid "Stroke Color"
-msgstr "Zobrazi» farby"
+msgstr "Farba obrysu"
 
 msgid "Stroke Shade"
-msgstr ""
+msgstr "TieÅˆ obrysu"
 
 msgid "Left"
-msgstr "Vµavo"
+msgstr "VÄ¾avo"
 
 msgid "Center"
 msgstr "Na stred"
@@ -4737,94 +4207,79 @@ msgid "Block"
 msgstr "Do bloku"
 
 msgid "Forced"
-msgstr "Vynútené"
+msgstr "VynÃºtenÃ©"
 
-#, fuzzy
 msgid "Replace with:"
-msgstr "Nahradi» s:"
+msgstr "NahradiÅ¥ s:"
 
-#, fuzzy
 msgid "&Whole Word"
-msgstr "Najmen¹ie slovo:"
+msgstr "&CelÃ© slovo:"
 
 msgid "&Ignore Case"
-msgstr ""
+msgstr "&IgnorovaÅ¥ veÄ¾kosÅ¥ pÃ­sma"
 
-#, fuzzy
 msgid "&Search"
-msgstr "Hµada»"
+msgstr "&HÄ¾adaÅ¥"
 
-#, fuzzy
 msgid "&Replace"
-msgstr "Náhrada"
+msgstr "&NahradiÅ¥"
 
-#, fuzzy
 msgid "Replace &All"
-msgstr "Náhrada"
+msgstr "NahradiÅ¥ &vÅ¡etko"
 
 msgid "Search finished"
-msgstr ""
+msgstr "VyhÄ¾adÃ¡vanie ukonÄenÃ©"
 
-#, fuzzy
 msgid "Strike Out"
-msgstr "Preèiarknuté"
+msgstr "PreÄiarknutÃ©"
 
-#, fuzzy
 msgid "Outline Text"
-msgstr "Prehµad"
+msgstr "Obrys textu"
 
 msgid "Align Text Left"
-msgstr "Zarovna» text doµava"
+msgstr "ZarovnaÅ¥ text doÄ¾ava"
 
 msgid "Align Text Right"
-msgstr "Zarovna» text doprava"
+msgstr "ZarovnaÅ¥ text doprava"
 
 msgid "Align Text Center"
-msgstr "Zarovna» text na stred"
+msgstr "ZarovnaÅ¥ text na stred"
 
-#, fuzzy
 msgid "Align Text Justified"
-msgstr "Zarovna» text na stred"
+msgstr "ZarovnaÅ¥ text do bloku"
 
-#, fuzzy
 msgid "Align Text Forced Justified"
-msgstr "Zarovna» text na stred"
+msgstr "ZarovnaÅ¥ podÄ¾a okrajov"
 
 msgid "Other..."
-msgstr "Inı..."
+msgstr "InÃ½..."
 
 msgid "Full Stop"
-msgstr ""
+msgstr "Bodka"
 
-#, fuzzy
 msgid "Comma"
-msgstr "Príkaz:"
+msgstr "ÄŒiarka"
 
-#, fuzzy
 msgid "&Position:"
-msgstr "Pozícia:"
+msgstr "&PozÃ­cia:"
 
-#, fuzzy
 msgid "First &Line:"
-msgstr "Prvı riadok:"
+msgstr "PrvÃ½ r&iadok:"
 
-#, fuzzy
 msgid "Ind&ent:"
-msgstr "¥avé odsadenie"
+msgstr "Odsad&enie"
 
-#, fuzzy
 msgid "Delete All"
-msgstr "Zmaza»"
+msgstr "OdstrÃ¡niÅ¥ vÅ¡etko"
 
 msgid "Indentation for first line of the paragraph"
-msgstr ""
+msgstr "Odsadenie pre prvÃ½ riadok odseku"
 
 msgid "Indentation from the left for the whole paragraph"
-msgstr ""
+msgstr "Odsadenie zÄ¾ava pre celÃ½ odsek"
 
-#, fuzzy
 msgid "Delete all Tabulators"
-msgstr "Zmaza» farbu"
+msgstr "OdstrÃ¡niÅ¥ vÅ¡etky tabulÃ¡tory"
 
 msgid ""
 "<h3>About Qt</h3><p>This program uses Qt version %1.</p><p>Qt is a C++ "
@@ -4834,486 +4289,419 @@ msgid ""
 "for embedded devices.</p><p>Qt is a Trolltech product. See <tt>http://www."
 "trolltech.com/qt/</tt> for more information.</p>"
 msgstr ""
+"<h3>O Qt</h3>"
+"<p>Tento program pouÅ¾Ã­va Qt verzie %1.</p>"
+"<p>Qt je C++ kniÅ¾nica pre multiplatformovÃ½ &amp; vÃ½voj GUI"
+"aplikÃ¡cii.</p>"
+"<p>Poskytuje portabilitu jednotnÃ©ho kÃ³du na MS&nbsp;Windows, "
+"Mac&nbsp;OS&nbsp;X, Linux, a vÅ¡etky hlavnÃ© komerÄnÃ© varianty Unixu."
+"<br>Qt je dostupnÃ© aj pre malÃ© zariadenia.</p>"
+"<p>Qt je produkt firmy TrollTech. ÄalÅ¡ie informÃ¡cie nÃ¡jdete na "
+"<tt>http://www.trolltech.com/qt/</tt>.</p>"
 
-#, fuzzy
 msgid "Copy or Move a File"
-msgstr "Komprimovanı súbor"
+msgstr "KopÃ­rovaÅ¥ alebo presunÃºÅ¥ sÃºbor"
 
-#, fuzzy
 msgid "Read: %1"
-msgstr "Pripravenı"
+msgstr "ÄŒÃ­taÅ¥: %1"
 
 msgid "Write: %1"
-msgstr ""
+msgstr "ZapÃ­saÅ¥: %1"
 
 msgid "File &name:"
-msgstr "Meno súboru:"
+msgstr "&NÃ¡zov sÃºboru:"
 
 msgid "File &type:"
-msgstr "&Typ súboru:"
+msgstr "&Typ sÃºboru:"
 
 msgid "One directory up"
-msgstr "O prieèinok vy¹¹ie"
+msgstr "O prieÄinok vyÅ¡Å¡ie"
 
-#, fuzzy
 msgid "Attributes"
-msgstr "O Scribuse"
+msgstr "AtribÃºty"
 
 msgid "Look &in:"
-msgstr "Pozrie» &do:"
+msgstr "PozrieÅ¥ &do:"
 
-#, fuzzy
 msgid "Back"
-msgstr "Do bloku"
+msgstr "Dozadu"
 
 msgid "Create New Folder"
-msgstr "Vytvori» novı prieèinok"
+msgstr "VytvoriÅ¥ novÃ½ prieÄinok"
 
 msgid "List View"
-msgstr "Pohµad zoznam"
+msgstr "PohÄ¾ad zoznam"
 
 msgid "Detail View"
-msgstr "Podrobnı pohµad"
+msgstr "PodrobnÃ½ pohÄ¾ad"
 
-#, fuzzy
 msgid "Preview File Info"
-msgstr "Prezrie» obsah súboru"
+msgstr "InformÃ¡cie o sÃºbore"
 
 msgid "Preview File Contents"
-msgstr "Prezrie» obsah súboru"
+msgstr "UkÃ¡zaÅ¥ obsah sÃºboru"
 
 msgid "Read-write"
-msgstr ""
+msgstr "ÄŒÃ­tanie-ZÃ¡pis"
 
-#, fuzzy
 msgid "Read-only"
-msgstr "Iba na èítanie"
+msgstr "Iba pre ÄÃ­tanie"
 
 msgid "Write-only"
-msgstr ""
+msgstr "Iba zÃ¡pis"
 
-#, fuzzy
 msgid "Inaccessible"
-msgstr "Viditeµnı obrázok"
+msgstr "NedostupnÃ©"
 
-#, fuzzy
 msgid "Symlink to File"
-msgstr "Tlaè do súboru:"
+msgstr "SymbolickÃ½ odkaz na sÃºbor"
 
 msgid "Symlink to Directory"
-msgstr ""
+msgstr "SymbolickÃ½ odkaz na prieÄinok"
 
-#, fuzzy
 msgid "Symlink to Special"
-msgstr "Vlo¾i» ¹peciálne"
+msgstr "SymbolickÃ½ odkaz na Å¡peciÃ¡lne"
 
 msgid "Dir"
-msgstr ""
+msgstr "PrieÄinok"
 
-#, fuzzy
 msgid "Special"
-msgstr "Vlo¾i» ¹peciálne"
+msgstr "Å peciÃ¡lne"
 
-#, fuzzy
 msgid "Save As"
-msgstr "Ulo¾i» ako"
+msgstr "UloÅ¾iÅ¥ ako"
 
-#, fuzzy
 msgid "&Open"
-msgstr "Otvori»"
+msgstr "&OtvoriÅ¥"
 
-#, fuzzy
 msgid "&Rename"
-msgstr "Odstráni»"
+msgstr "&PremenovaÅ¥"
 
-#, fuzzy
 msgid "R&eload"
-msgstr "Pripravenı"
+msgstr "N&aÄÃ­taÅ¥ znovu"
 
-#, fuzzy
 msgid "Sort by &Name"
-msgstr "Názov písma"
+msgstr "ZoradiÅ¥ podÄ¾a &mena"
 
-#, fuzzy
 msgid "Sort by &Size"
-msgstr "Veµkos» písma"
+msgstr "ZoradiÅ¥ podÄ¾a &veÄ¾kosti"
 
 msgid "Sort by &Date"
-msgstr ""
+msgstr "ZoradiÅ¥ podÄ¾a &dÃ¡tumu"
 
-#, fuzzy
 msgid "&Unsorted"
-msgstr "namiesto"
+msgstr "&NezoradenÃ©"
 
 msgid "Sort"
-msgstr ""
+msgstr "ZoradiÅ¥"
 
-#, fuzzy
 msgid "Show &hidden files"
-msgstr "Zobrazi» vodítka"
+msgstr "ZobraziÅ¥ &skrytÃ© sÃºbory"
 
-#, fuzzy
 msgid "the file"
-msgstr "Systémové profily"
+msgstr "sÃºbor"
 
-#, fuzzy
 msgid "the directory"
-msgstr "O prieèinok vy¹¹ie"
+msgstr "prieÄinok"
 
 msgid "the symlink"
-msgstr ""
+msgstr "symbolickÃ½ odkaz"
 
-#, fuzzy
 msgid "Delete %1"
-msgstr "Zmaza»"
+msgstr "OdstrÃ¡niÅ¥ %1"
 
 msgid "<qt>Are you sure you wish to delete %1 \"%2\"?</qt>"
-msgstr ""
+msgstr "<qt>Ste si istÃ½, Å¾e chcete odstrÃ¡niÅ¥ %1 \"%2\"?</qt>"
 
-#, fuzzy
 msgid "New Folder 1"
-msgstr "Vytvori» novı prieèinok"
+msgstr "NovÃ½ prieÄinok 1"
 
-#, fuzzy
 msgid "New Folder"
-msgstr "Vytvori» novı prieèinok"
+msgstr "NovÃ½ prieÄinok"
 
-#, fuzzy
 msgid "New Folder %1"
-msgstr "Vytvori» novı prieèinok"
+msgstr "NovÃ½ prieÄinok %1"
 
-#, fuzzy
 msgid "Find Directory"
-msgstr "O prieèinok vy¹¹ie"
+msgstr "NÃ¡jsÅ¥ prieÄinok"
 
-#, fuzzy
 msgid "Directories"
-msgstr "Smer:"
+msgstr "PrieÄinky"
 
-#, fuzzy
 msgid "Error"
-msgstr "Zrkadlo"
+msgstr "Chyba"
 
 msgid ""
 "%1\n"
 "File not found.\n"
 "Check path and filename."
 msgstr ""
+"%1\n"
+"SÃºbor nenÃ¡jdenÃ½.\n"
+"Overte, cestu a nÃ¡zov sÃºboru."
 
 msgid "All Files (*.*)"
-msgstr ""
+msgstr "VÅ¡etky sÃºbory (*.*)"
 
-#, fuzzy
 msgid "Select a Directory"
-msgstr "Vybra» prieèinok"
+msgstr "Vyberte prieÄinok"
 
-#, fuzzy
 msgid "Directory:"
-msgstr "Smer:"
+msgstr "PrieÄinok:"
 
-#, fuzzy
 msgid "Select All"
-msgstr "Vybra» v¹etko"
+msgstr "VybraÅ¥ vÅ¡etko"
 
 msgid "Line up"
-msgstr "Vyrovna»"
+msgstr "ZoradiÅ¥"
 
-#, fuzzy
 msgid "Customize..."
-msgstr "Vlastné"
+msgstr "PrispÃ´sobiÅ¥..."
 
 msgid "System Menu"
-msgstr "Systémová ponuka"
+msgstr "SystÃ©movÃ¡ ponuka"
 
-#, fuzzy
 msgid "Unshade"
-msgstr "Tieò"
+msgstr "ZobraziÅ¥"
 
-#, fuzzy
 msgid "Normalize"
-msgstr "Normálna"
+msgstr "NormalizovaÅ¥"
 
 msgid "Minimize"
-msgstr "Minimalizova»"
+msgstr "MinimalizovaÅ¥"
 
 msgid "Maximize"
-msgstr "Maximalizova»"
+msgstr "MaximalizovaÅ¥"
 
 msgid "&Restore"
-msgstr "&Obnovi»"
+msgstr "&ObnoviÅ¥"
 
 msgid "&Move"
-msgstr "&Presunú»"
+msgstr "&PresunÃºÅ¥"
 
 msgid "Mi&nimize"
-msgstr "Mi&nimalizova»"
+msgstr "Mi&nimalizovaÅ¥"
 
 msgid "Ma&ximize"
-msgstr "Ma&ximalizova»"
+msgstr "Ma&ximalizovaÅ¥"
 
 msgid "Stay on &Top"
-msgstr ""
+msgstr "NechaÅ¥ navr&chu"
 
 msgid "Restore Down"
-msgstr "Obnovi» dole"
+msgstr "ObnoviÅ¥ pÃ´vodnÃ©"
 
-#, fuzzy
 msgid "Sh&ade"
-msgstr "Tieò"
+msgstr "S&kryÅ¥"
 
 msgid "%1 - [%2]"
-msgstr ""
+msgstr "%1 - [%2]"
 
-#, fuzzy
 msgid "&Unshade"
-msgstr "Tieò"
+msgstr "&ZobraziÅ¥"
 
 msgid "Hu&e:"
-msgstr ""
+msgstr "Od&tieÅˆ:"
 
 msgid "&Sat:"
-msgstr ""
+msgstr "&SÃ½tosÅ¥:"
 
 msgid "&Val:"
-msgstr ""
+msgstr "&Hodnota:"
 
 msgid "&Red:"
-msgstr "Èe&rvená:"
+msgstr "ÄŒe&rvenÃ¡:"
 
 msgid "&Green:"
-msgstr "Ze&lená:"
+msgstr "Ze&lenÃ¡:"
 
 msgid "Bl&ue:"
-msgstr "Mo&drá:"
+msgstr "Mo&drÃ¡:"
 
 msgid "A&lpha channel:"
-msgstr ""
+msgstr "A&lfa kanÃ¡l:"
 
 msgid "&Basic colors"
-msgstr "&Základné farby"
+msgstr "&ZÃ¡kladnÃ© farby"
 
 msgid "&Custom colors"
-msgstr "&Vlastné farby"
+msgstr "&VlastnÃ© farby"
 
 msgid "&Define Custom Colors >>"
-msgstr "&Definova» vlastné farby>>"
+msgstr "&DefinovaÅ¥ vlastnÃ© farby>>"
 
-#, fuzzy
 msgid "&Add to Custom Colors"
-msgstr "&Prida» k vlastnım farbám"
+msgstr "PridaÅ¥ k &vlastnÃ½m farbÃ¡m"
 
 msgid "Select color"
-msgstr "Vıber farby"
+msgstr "VÃ½ber farby"
 
-msgid "Font st&yle"
-msgstr "©&tıl písma"
-
-msgid "Stri&keout"
-msgstr "Preèia&rknuté"
-
-msgid "&Underline"
-msgstr "Po&dèiarknuté"
-
-#, fuzzy
-msgid "Sample"
-msgstr "Tvar"
-
-#, fuzzy
-msgid "Scr&ipt"
-msgstr "Skript:"
-
-#, fuzzy
-msgid "Apply"
-msgstr "Pou¾i»"
-
-msgid "Select Font"
-msgstr "Vybra» písmo"
-
-#, fuzzy
 msgid "Page "
-msgstr "Strana"
+msgstr "Strana "
 
 msgid " of %1"
-msgstr ""
+msgstr " z %1"
 
-#, fuzzy
 msgid "Number of Rows:"
-msgstr "Poèet kópií:"
+msgstr "PoÄet riadkov:"
 
-#, fuzzy
 msgid "Number of Columns:"
-msgstr "Poèet kópií:"
+msgstr "PoÄet stÄºpcov:"
 
-#, fuzzy
 msgid "Importing text"
-msgstr "Importova» stranu"
+msgstr "Importovanie textu"
 
 msgid "Distances"
 msgstr "Vzdialenosti"
 
 msgid "DX:"
-msgstr ""
+msgstr "DX:"
 
 msgid "DY:"
-msgstr ""
+msgstr "DY:"
 
 msgid "Angle:"
 msgstr "Uhol:"
 
 msgid "Length:"
-msgstr "Då¾ka:"
+msgstr "DÄºÅ¾ka:"
 
 msgid "Position:"
-msgstr "Pozícia:"
+msgstr "PozÃ­cia:"
 
 msgid "Here you can add, change or remove Color-Stops."
-msgstr ""
+msgstr "Tu mÃ´Å¾ete pridaÅ¥ zmeniÅ¥ alebo odstrÃ¡niÅ¥ PoÅ¾adovanÃ© farby (Stop-colors)."
 
 msgid "Choose the importer to use"
-msgstr ""
+msgstr "Vyberte import, ktorÃ½ sa mÃ¡ pouÅ¾iÅ¥"
 
 msgid "Get text only"
-msgstr ""
+msgstr "Iba text"
 
 msgid "Import text without any formatting"
-msgstr ""
+msgstr "ImportovaÅ¥ text bez formÃ¡tovania"
 
-#, fuzzy
 msgid "Importer:"
-msgstr "Import"
+msgstr "ImportÃ©r:"
 
-#, fuzzy
 msgid "Importer"
-msgstr "Import"
+msgstr "ImportÃ©r"
 
-#, fuzzy, c-format
+#, c-format
 msgid "About Scribus%1%2"
-msgstr "O Scribuse"
+msgstr "O Scribuse %1%2"
 
 msgid "%1. %2 %3 "
-msgstr ""
+msgstr "%1. %2 %3 "
 
 msgid ""
 "Scribus Version %1\n"
 "%2 %3"
 msgstr ""
+"Scribus verzia %1\n"
+"%2 %3"
 
 msgid "Build-ID:"
-msgstr ""
+msgstr "Build-ID:"
 
-#, fuzzy
 msgid "&About"
-msgstr "O"
+msgstr "&InformÃ¡cie"
 
 msgid "Programming:"
 msgstr "Programovanie:"
 
 msgid "Contributions from:"
-msgstr "Príspevky od:"
+msgstr "PrÃ­spevky od:"
 
-#, fuzzy
 msgid "Windows port:"
-msgstr "Okná"
+msgstr "Windows verzia"
 
 msgid "Documentation:"
-msgstr "Dokumentácia:"
+msgstr "DokumentÃ¡cia:"
 
-#, fuzzy
 msgid "A&uthors"
-msgstr "Autori"
+msgstr "A&utori"
 
 msgid "German:"
-msgstr "Nemecky:"
+msgstr "NemeckÃ½:"
 
 msgid "French:"
-msgstr "Francúzsky:"
+msgstr "FrancÃºzsky:"
 
 msgid "Spanish and Catalan:"
-msgstr "©panielsky a Katalánsky:"
+msgstr "Å panielsky a KatalÃ¡nsky:"
 
-#, fuzzy
 msgid "Italian:"
-msgstr "Taliansky"
+msgstr "Taliansky:"
 
-#, fuzzy
 msgid "Hungarian:"
-msgstr "Maïarsky a Taliansky:"
+msgstr "MaÄarskÃ½:"
 
 msgid "Ukrainian:"
-msgstr "Ukrajinsky:"
+msgstr "UkrajinskÃ½:"
 
 msgid "Bulgarian:"
-msgstr ""
+msgstr "BulharskÃ½:"
 
-#, fuzzy
 msgid "Galician:"
-msgstr "Ukrajinsky:"
+msgstr "GalÃ­cky:"
 
 msgid "Turkish:"
-msgstr ""
+msgstr "TureckÃ½:"
 
 msgid "Lithuanian:"
-msgstr "Litovsky:"
+msgstr "LitovskÃ½:"
 
 msgid "Polish:"
-msgstr "Poµsky:"
+msgstr "PoÄ¾skÃ½:"
 
 msgid "Czech:"
-msgstr "Èesky:"
+msgstr "ÄŒeskÃ½:"
 
 msgid "Slovak:"
-msgstr "Slovensky"
+msgstr "SlovenskÃ½"
 
 msgid "Danish:"
-msgstr "Dánsky:"
+msgstr "DÃ¡nsky:"
 
 msgid "Norwegian:"
-msgstr "Nórsky:"
+msgstr "NÃ³rsky:"
 
-#, fuzzy
 msgid "English:"
-msgstr "Anglicky"
+msgstr "AnglickÃ½"
 
-#, fuzzy
 msgid "Welsh:"
-msgstr "Poµsky:"
+msgstr "WelskÃ½:"
 
 msgid "Russian:"
-msgstr "Rusky:"
+msgstr "RuskÃ½:"
 
-#, fuzzy
 msgid "Brazilian:"
-msgstr "Ukrajinsky:"
+msgstr "BrazÃ­lsky:"
 
-#, fuzzy
 msgid "Finnish:"
-msgstr "Dánsky:"
+msgstr "FÃ­nsky:"
 
-#, fuzzy
 msgid "Slovenian:"
-msgstr "Slovensky"
+msgstr "SlovinskÃ½:"
 
-#, fuzzy
 msgid "Basque:"
-msgstr "Zalo¾ená na:"
+msgstr "BaskitskÃ½:"
 
-#, fuzzy
 msgid "&Translations"
-msgstr "Preklady"
+msgstr "Pre&klady"
 
-#, fuzzy
 msgid "Homepage and online reference"
-msgstr "Naèítavanie nastavení"
+msgstr "DomovskÃ¡ strÃ¡nka a online referencie"
 
 msgid "Mailing list"
-msgstr ""
+msgstr "E-mailovÃ¡ konferencia"
 
 msgid "Bugs and feature requests"
-msgstr ""
+msgstr "Chyba a poÅ¾iadavky na vlastnosti"
 
-#, fuzzy
 msgid "&Online"
-msgstr "Prehµad"
+msgstr "&On-line"
 
 msgid ""
 "This panel shows the version, build date and\n"
@@ -5321,32 +4709,34 @@ msgid ""
 "The C-C-T equates to C=CUPS C=littlecms T=TIFF support.\n"
 "Missing library support is indicated by a *"
 msgstr ""
+"Tento panel zobrazuje verziu, dÃ¡tum kompilÃ¡cie\n"
+"a podporu kniÅ¾nÃ­c v Scribuse.\n"
+"C-C-T vyjadruje podporu C=CUPS C=littlecms T=TIFF.\n"
+"ChÃ½bajÃºca podpora kniÅ¾nice je indikovanÃ¡ znakom *"
 
 msgid "Preferences"
 msgstr "Nastavenia"
 
 msgid "Guides"
-msgstr "Vodítka"
+msgstr "VodÃ­tka"
 
-#, fuzzy
 msgid "Typography"
 msgstr "Typografia"
 
 msgid "Display"
-msgstr "Zobrazi»"
+msgstr "ZobraziÅ¥"
 
 msgid "External Tools"
-msgstr ""
+msgstr "ExternÃ© nÃ¡stroje"
 
 msgid "Misc."
-msgstr ""
+msgstr "RÃ´zne"
 
 msgid "GUI"
 msgstr "GUI"
 
-#, fuzzy
 msgid "&Theme:"
-msgstr "Téma"
+msgstr "&TÃ©ma:"
 
 msgid "Units"
 msgstr "Jednotky"
@@ -5354,292 +4744,230 @@ msgstr "Jednotky"
 msgid "Points (pt)"
 msgstr "Body (pt)"
 
-#, fuzzy
 msgid "Mouse Settings"
-msgstr "Nastavenie my¹i"
+msgstr "Nastavenie myÅ¡i"
 
-#, fuzzy
 msgid "&Wheel Jump:"
-msgstr "Krok kolieska"
+msgstr "&Krok kolieska"
 
 msgid " px"
-msgstr ""
+msgstr " px"
 
-#, fuzzy
 msgid "&Grab Radius:"
-msgstr "Chyti» polomer"
+msgstr "&ZachytiÅ¥ polomer"
 
-#, fuzzy
 msgid "Menus"
 msgstr "Ponuky"
 
-#, fuzzy
 msgid "&Recent Documents:"
-msgstr "Nedávne dokumenty:"
+msgstr "&NedÃ¡vne dokumenty:"
 
 msgid "Paths"
 msgstr "Cesty"
 
-#, fuzzy
 msgid "&Documents:"
-msgstr "Dokumenty:"
+msgstr "&Dokumenty:"
 
-#, fuzzy
 msgid "&Change..."
-msgstr "Zmeni»..."
+msgstr "&ZmeniÅ¥..."
 
-#, fuzzy
 msgid "&ICC Profiles:"
-msgstr "Pou¾i» ICC-profil"
+msgstr "&ICC profily:"
 
-#, fuzzy
 msgid "&Scripts:"
-msgstr "Skript:"
+msgstr "&Skripty:"
 
-#, fuzzy
 msgid "Ch&ange..."
-msgstr "Zmeni»..."
+msgstr "Z&meniÅ¥..."
 
 msgid "Autosave"
-msgstr "Automatické ukladanie"
+msgstr "AutomatickÃ© ukladanie"
 
-#, fuzzy
 msgid "&Enabled"
-msgstr "Povolené"
+msgstr "&PovolenÃ©"
 
 msgid "min"
-msgstr ""
+msgstr "min"
 
-#, fuzzy
 msgid "&Interval:"
-msgstr "Vlo¾i» ovály"
+msgstr "&Interval:"
 
 msgid "Grid Layout"
-msgstr "rozlo¾enie mrie¾ky:"
+msgstr "RozloÅ¾enie mrieÅ¾ky:"
 
-#, fuzzy
 msgid "M&inor Grid Spacing:"
-msgstr "Vedµaj¹ia vzdialenos» mrie¾ky:"
+msgstr "VedÄ¾ajÅ¡ia vzdialenosÅ¥ mrieÅ¾ky:"
 
-#, fuzzy
 msgid "Ma&jor Grid Spacing:"
-msgstr "Hlavná vzdialenos» mrie¾ky:"
+msgstr "HlavnÃ¡ vzdialenosÅ¥ mrieÅ¾ky:"
 
-#, fuzzy
 msgid "Guide &Snap Distance:"
-msgstr "Vzdialenos» medzi vodítkami:"
+msgstr "V&zdialenosÅ¥ medzi vodÃ­tkami:"
 
 msgid "Grid Colors"
-msgstr "Farby mrie¾ky"
+msgstr "Farby mrieÅ¾ky"
 
-#, fuzzy
 msgid "Min&or Grid Color:"
-msgstr "Vedµaj¹ia farba mrie¾ky:"
+msgstr "Farba vedÄ¾ajÅ¡ej mrieÅ¾ky:"
 
-#, fuzzy
 msgid "Majo&r Grid Color:"
-msgstr "Hlavná farba mrie¾ky:"
+msgstr "Farba hlavnej mrieÅ¾ky:"
 
-#, fuzzy
 msgid "&User Guides Color:"
-msgstr "Vlastná farba vodítok:"
+msgstr "&VlastnÃ¡ farba vodÃ­tok:"
 
-#, fuzzy
 msgid "Base&line Grid Color:"
-msgstr "Skry» mrie¾ku"
+msgstr "Farba mrieÅ¾ky zÃ¡kladnÃ½ch Äiar:"
 
 msgid "Placing"
 msgstr "Umiestnenie"
 
-#, fuzzy
 msgid "In the &Background"
-msgstr "Vzadu"
+msgstr "V pozadÃ­"
 
-#, fuzzy
 msgid "In the Fore&ground"
-msgstr "Vpredu"
+msgstr "V popredÃ­"
 
-#, fuzzy
 msgid "Baseline Grid"
-msgstr "Skry» mrie¾ku"
+msgstr "MrieÅ¾ka zÃ¡kladnÃ½ch Äiar"
 
-#, fuzzy
 msgid "O&n"
-msgstr "Otvori»"
+msgstr "Zap&nutÃ©"
 
 msgid "O&ff"
-msgstr ""
+msgstr "&VypnutÃ©"
 
-#, fuzzy
 msgid "&Displacement:"
-msgstr "Posunutie"
+msgstr "&Posunutie:"
 
-#, fuzzy
 msgid "&Scaling:"
-msgstr "Zmena veµkosti:"
+msgstr "&Zmena veÄ¾kosti:"
 
-#, fuzzy
 msgid "D&isplacement:"
-msgstr "Posunutie"
+msgstr "P&osunutie:"
 
-#, fuzzy
 msgid "S&caling:"
-msgstr "Zmena veµkosti:"
+msgstr "Z&mena veÄ¾kosti:"
 
-#, fuzzy
 msgid "Sc&aling:"
-msgstr "Zmena veµkosti:"
+msgstr "Zmen&a veÄ¾kosti:"
 
-#, fuzzy
 msgid "Baseline &Grid:"
-msgstr "Skry» mrie¾ku"
+msgstr "MrieÅ¾ka zÃ¡&kladnÃ½ch Äiar:"
 
-#, fuzzy
 msgid "Baseline &Offset:"
-msgstr "Skry» mrie¾ku"
+msgstr "P&osun zÃ¡kladnÃ½ch Äiar:"
 
-#, fuzzy
 msgid "Automatic &Line Spacing:"
-msgstr "Automatické riadkovanie:"
+msgstr "Automa&tickÃ© riadkovanie:"
 
-#, fuzzy
 msgid "Default &Font:"
-msgstr "©tandardné písmo:"
+msgstr "Å tandardnÃ© &pÃ­smo:"
 
-#, fuzzy
 msgid "Default &Size:"
-msgstr "©tandardná veµkos»"
+msgstr "Å tandardnÃ¡ &veÄ¾kosÅ¥"
 
-#, fuzzy
 msgid "&Text Color:"
-msgstr "Farbu textu:"
+msgstr "Farbu &textu:"
 
 msgid "Woven silk pyjamas exchanged for blue quartz"
-msgstr "Príli¹ ¾ltuèkı kôò spieval diabolské Ódy"
+msgstr "PrÃ­liÅ¡ Å¾ltuÄkÃ½ kÃ´Åˆ spieval diabolskÃ© Ã³dy"
 
-#, fuzzy
 msgid "&Line Color:"
-msgstr "Farba èiary:"
+msgstr "Farba Äia&ry:"
 
-#, fuzzy
 msgid "&Shading:"
-msgstr "Tieòovanie:"
+msgstr "&TieÅˆovanie:"
 
-#, fuzzy
 msgid "&Fill Color:"
-msgstr "Farba vıplne:"
+msgstr "&Farba vÃ½plne:"
 
-#, fuzzy
 msgid "S&hading:"
-msgstr "Tieòovanie:"
+msgstr "Tie&Åˆovanie:"
 
-#, fuzzy
 msgid "&Type of Line:"
-msgstr "Systémové profily"
+msgstr "&Typ Äiary:"
 
-#, fuzzy
 msgid "Mi&nimum:"
-msgstr "minimum"
+msgstr "Mi&nimum"
 
-#, fuzzy
 msgid "Ma&ximum:"
-msgstr "maximum"
+msgstr "Ma&ximum"
 
-#, fuzzy
 msgid "&Stepping:"
-msgstr "Krokovanie:"
+msgstr "&Krokovanie:"
 
-#, fuzzy
 msgid "&Horizontal Scaling:"
-msgstr "Vodorovné zväè¹enie"
+msgstr "&VodorovnÃ© zvÃ¤ÄÅ¡enie"
 
-#, fuzzy
 msgid "&Vertical Scaling:"
-msgstr "Zvislé zväè¹enie"
+msgstr "&ZvislÃ© zvÃ¤ÄÅ¡enie"
 
-#, fuzzy
 msgid "&Scale Picture to Frame Size"
-msgstr "Zmeni» veµkos» obrázka na rozmer rámu"
+msgstr "Z&meniÅ¥ veÄ¾kosÅ¥ obrÃ¡zka na rozmer rÃ¡mu"
 
-#, fuzzy
 msgid "Keep Aspect &Ratio"
-msgstr "Zachova» pomer strán"
+msgstr "ZachovaÅ¥ pome&r strÃ¡n"
 
 msgid "Other Options"
-msgstr "Ostatné nastavenia"
+msgstr "OstatnÃ© nastavenia"
 
-#, fuzzy
 msgid "Sa&ve Contents on Changes"
-msgstr "Ulo¾i» kontext pri ukonèení"
+msgstr "Pri zmene u&loÅ¾iÅ¥ obsah"
 
 msgid "Small"
-msgstr "Malá"
+msgstr "MalÃ¡"
 
-#, fuzzy
 msgid "Large"
-msgstr "priemer"
+msgstr "VeÄ¾kÃ¡"
 
-#, fuzzy
 msgid "Display Pages &Side by Side"
-msgstr "Zobrazova» stranu za stranou"
+msgstr "ZobrazovaÅ¥ stranu za stranou"
 
-#, fuzzy
 msgid "Page Colors"
-msgstr "Farba strany"
+msgstr "Farby strany"
 
-#, fuzzy
 msgid "&Background:"
-msgstr "Pozadie:"
+msgstr "&Pozadie:"
 
-#, fuzzy
 msgid "&Margins:"
-msgstr "Okraje:"
+msgstr "Okra&je:"
 
-#, fuzzy
 msgid "Display &Unprintable Area in Margin Color"
-msgstr "Zobrazi» netlaèiteµnú oblas» vo farbe okrajov"
+msgstr "ZobraziÅ¥ &netlaÄiteÄ¾nÃº oblasÅ¥ vo farbe okrajov"
 
-#, fuzzy
 msgid "Use PDF 1.4 &Transparency Features"
-msgstr "Po¾i» vlastnosti priesvitnosti PDF-1.4"
+msgstr "PoÅ¾iÅ¥ vlastnosti priesvitnosti PDF-1.4"
 
-#, fuzzy
 msgid "&Adjust Display Size"
-msgstr "Prispôsobenie veµkosti obrazovky"
+msgstr "P&rispÃ´sobiÅ¥ veÄ¾kosti obrazovky"
 
-#, fuzzy
 msgid "To adjust the display drag the ruler below with the Slider."
-msgstr "Obrazovku si prispôsobíte pomocou jazdca na dolnom pravítku."
+msgstr "Obrazovku si prispÃ´sobÃ­te pomocou jazdca na dolnom pravÃ­tku."
 
 msgid "Postscript Interpreter"
-msgstr ""
+msgstr "Interpret postscriptu"
 
-#, fuzzy
 msgid "&Name of Executable:"
-msgstr "Spä» zmazanie objektu"
+msgstr "&PrÃ­kaz pre spustenie programu:"
 
-#, fuzzy
 msgid "Antialias &Text"
-msgstr "Vyhladi» text"
+msgstr "VyhladiÅ¥ &text"
 
-#, fuzzy
 msgid "Antialias &Graphics"
-msgstr "Vyhladi» grafiku"
+msgstr "VyhladiÅ¥ grafiku"
 
 msgid "Image Processing Tool"
-msgstr ""
+msgstr "NÃ¡stroj na Ãºpravu obrÃ¡zkov"
 
-#, fuzzy
 msgid "Name of &Executable:"
-msgstr "Spä» zmazanie objektu"
+msgstr "P&rÃ­kaz pre spustenie programu:"
 
-#, fuzzy
 msgid "Printing"
-msgstr "Tlaèím..."
+msgstr "TlaÄ"
 
-#, fuzzy
 msgid "Clip to Page &Margins"
-msgstr "Skry» okraje"
+msgstr "PripnÃºÅ¥ k okrajo&m strany"
 
 msgid "Apply &Under Color Removal"
 msgstr ""
@@ -5648,306 +4976,290 @@ msgid ""
 "Choose the default window decoration and looks.\n"
 "Scribus inherits any available KDE or Qt themes"
 msgstr ""
+"Vyberte Å¡tandardnÃº dekorÃ¡ciu okien a vzhÄ¾adu.\n"
+"Scribus dedÃ­ dostupnÃ© KDE a QT tÃ©my."
 
 msgid "Default font size for the menus and windows"
-msgstr ""
+msgstr "Å tandardnÃ¡ veÄ¾kosÅ¥ pÃ­sma pre ponuky a oknÃ¡"
 
 msgid "Number of lines Scribus will scroll for each move of the mouse wheel"
-msgstr ""
+msgstr "PoÄet riadkov, ktorÃ© posunie Scribus pri kaÅ¾dom pohybe kolieska na myÅ¡i"
 
-msgid ""
-"Radius of the area where Scribus will allow you to grab an objects handles"
-msgstr ""
+msgid "Radius of the area where Scribus will allow you to grab an objects handles"
+msgstr "Polomer oblasti, ktorÃº Scribus povaÅ¾uje za oblasÅ¥ danÃ©ho objektu "
 
 msgid "Number of recently edited documents to show in the File menu"
-msgstr ""
+msgstr "PoÄet nedÃ¡vno upravovanÃ½ch dokumentov, ktorÃ© sa zobrazia v ponuke SÃºbor"
 
 msgid "Default documents directory"
-msgstr ""
+msgstr "Å tandardnÃ½ prieÄinok pre dokumenty"
 
 msgid "Default ICC profiles directory"
-msgstr ""
+msgstr "Å tandardnÃ½ prieÄinok pre ICC profily"
 
 msgid "Default Scripter scripts directory"
-msgstr ""
+msgstr "Å tandardnÃ½ prieÄinok Scriptera pre skripty"
 
 msgid "Default page size, either a standard size or a custom size"
-msgstr ""
+msgstr "Å tandardnÃ¡ veÄ¾kosÅ¥ papiera, Äi uÅ¾ vlastnÃ© alebo Å¡tandardnÃ© rozmery"
 
 msgid "Default orientation of document pages"
-msgstr ""
+msgstr "Å tandardnÃ¡ orientÃ¡cia strÃ¡n dokumentu"
 
 msgid "Width of document pages, editable if you have chosen a custom page size"
-msgstr ""
+msgstr "Å Ã­rka strÃ¡n dokumentu, upraviteÄ¾nÃ¡, ak ste si zvolili vlastnÃº veÄ¾kosÅ¥ strÃ¡n"
 
-msgid ""
-"Height of document pages, editable if you have chosen a custom page size"
-msgstr ""
+msgid "Height of document pages, editable if you have chosen a custom page size"
+msgstr "VÃ½Å¡ka strÃ¡n dokumentu, upraviteÄ¾nÃ¡, ak ste si zvolili vlastnÃº veÄ¾kosÅ¥ strÃ¡n"
 
 msgid "Make the first page the left page of a document"
-msgstr ""
+msgstr "PrvÃ¡ strana je Ä¾avÃ¡ strana dokumentu"
 
 msgid ""
 "When enabled, Scribus saves a backup copy of your file with the .bak "
 "extension\n"
 "each time the time period elapses"
 msgstr ""
+"KeÄ je povolenÃ©, Scribus uloÅ¾Ã­ zÃ¡loÅ¾nÃº kÃ³piu s prÃ­ponou .bak\n"
+"vÅ¾dy, keÄ vyprÅ¡Ã­ ÄasovÃ¡ lehota"
 
 msgid "Time period between saving automatically"
-msgstr ""
+msgstr "ÄŒasovÃ½ interval medzi automatickÃ½mi uloÅ¾eniami"
 
 msgid "Distance between the minor grid lines"
-msgstr ""
+msgstr "VzdialenosÅ¥ medzi Äiarami vedÄ¾ajÅ¡ej mrieÅ¾ky"
 
 msgid "Distance between the major grid lines"
-msgstr ""
+msgstr "VzdialenosÅ¥ medzi Äiarami hlavnej mrieÅ¾ky"
 
 msgid "Distance within which an object will snap to your placed guides"
-msgstr ""
+msgstr "VzdialenosÅ¥, v ktorej sa Äiara mrieÅ¾ky chovÃ¡ voÄi objektu ako magnet"
 
 msgid "Color of the minor grid lines"
-msgstr ""
+msgstr "Farba vedÄ¾ajÅ¡Ã­ch Äiar mrieÅ¾ky"
 
 msgid "Color of the major grid lines"
-msgstr ""
+msgstr "Farba hlavnÃ½ch Äiar mrieÅ¾ky"
 
 msgid "Color of the guide lines you insert"
-msgstr ""
+msgstr "Farba vodÃ­tok, ktorÃ© vkladÃ¡te manuÃ¡lne"
 
 msgid "Place the grid behind your page objects"
-msgstr ""
+msgstr "UmiestniÅ¥ mrieÅ¾ku za objekty"
 
 msgid "Place the grid in front of your page objects"
-msgstr ""
+msgstr "UmiestniÅ¥ mrieÅ¾ku pred objekty"
 
 msgid "Turns on the basegrid"
-msgstr ""
+msgstr "ZapnÃºÅ¥ zÃ¡kladnÃº mrieÅ¾ku"
 
 msgid "Turns off the basegrid"
-msgstr ""
+msgstr "VypnÃºÅ¥ zÃ¡kladnÃº mrieÅ¾ku"
 
 msgid "Displacement above the baseline of the font on a line"
-msgstr ""
+msgstr "Posunutie nad zÃ¡kladnÃº Äiaru"
 
 msgid "Relative size of the superscript compared to the normal font"
-msgstr ""
+msgstr "RelatÃ­vna veÄ¾kosÅ¥ hornÃ©ho indexu v porovnanÃ­ s beÅ¾nou veÄ¾kosÅ¥ou pÃ­sma"
 
 msgid "Displacement below the baseline of the normal font on a line"
-msgstr ""
+msgstr "Posunutie pod zÃ¡kladnÃº Äiaru"
 
 msgid "Relative size of the subscript compared to the normal font"
-msgstr ""
+msgstr "RelatÃ­vna veÄ¾kosÅ¥ dolnÃ©ho indexu v porovnanÃ­ s beÅ¾nou veÄ¾kosÅ¥ou pÃ­sma"
 
 msgid "Relative size of the small caps font compared to the normal font"
-msgstr ""
+msgstr "RelatÃ­vna veÄ¾kosÅ¥ kapitÃ¡lok v porovnanÃ­ s beÅ¾nou veÄ¾kosÅ¥ou pÃ­sma"
 
 msgid "Percentage increase over the font size for the line spacing"
-msgstr ""
+msgstr "PercentuÃ¡lny nÃ¡rast riadkovania podÄ¾a veÄ¾kosti pÃ­sma"
 
-#, fuzzy
 msgid "Text Frame Properties"
-msgstr "Vlastnosti pola"
+msgstr "Vlastnosti textovÃ©ho pola"
 
-#, fuzzy
 msgid "Picture Frame Properties"
-msgstr "Rám obrázka"
+msgstr "Vlastnosti rÃ¡mu obrÃ¡zka"
 
-#, fuzzy
 msgid "Shape Drawing Properties"
-msgstr "Vlastnosti poznámky"
+msgstr "Vlastnosti kreslenia obrysov"
 
 msgid "Magnification Level Defaults"
-msgstr ""
+msgstr "Vlastnosti Ãºrovne zvÃ¤ÄÅ¡enia"
 
-#, fuzzy
 msgid "Line Drawing Properties"
-msgstr "Vlastnosti poznámky"
+msgstr "Vlastnosti kreslenia Äiar"
 
-#, fuzzy
 msgid "Polygon Drawing Properties"
-msgstr "Vlastnosti mnohouholníkov"
+msgstr "Vlastnosti kreslenia mnohouholnÃ­kov"
 
 msgid "Font for new text frames"
-msgstr ""
+msgstr "PÃ­smo pre novÃ½ textovÃ½ rÃ¡m"
 
 msgid "Size of font for new text frames"
-msgstr ""
+msgstr "VeÄ¾kosÅ¥ pÃ­sma pre novÃ½ textovÃ½ rÃ¡m"
 
 msgid "Color of font"
-msgstr ""
+msgstr "Farba pÃ­sma"
 
 msgid "Number of columns in a text frame"
-msgstr ""
+msgstr "PoÄet stÄºpcov v textovom rÃ¡me"
 
 msgid "Gap between text frame columns"
-msgstr ""
+msgstr "Medzery medzi stÄºpcami textu"
 
 msgid "Sample of your font"
-msgstr ""
+msgstr "UkÃ¡Å¾ka pÃ­sma"
 
 msgid "Picture frames allow pictures to scale to any size"
-msgstr ""
+msgstr "RÃ¡my obrÃ¡zkov umoÅ¾ÅˆujÃº zmenu na Ä¾ubovoÄ¾nÃº veÄ¾kosti"
 
-#, fuzzy
 msgid "Horizontal scaling of images"
-msgstr "Vodorovné zväè¹enie"
+msgstr "VodorovnÃ© zvÃ¤ÄÅ¡enie obrÃ¡zkov"
 
-#, fuzzy
 msgid "Vertical scaling of images"
-msgstr "Zvislé zväè¹enie"
+msgstr "ZvislÃ© zvÃ¤ÄÅ¡enie obrÃ¡zkov"
 
 msgid "Keep horizontal and vertical scaling the same"
-msgstr ""
+msgstr "DodrÅ¾aÅ¥ rovnakÃº vodorovnÃ© aj zvislÃº zmenu veÄ¾kosti"
 
 msgid "Pictures in picture frames are scaled to the size of the frame"
-msgstr ""
+msgstr "ObrÃ¡zky v obrÃ¡zkovÃ½ch rÃ¡moch budÃº menenÃ© podÄ¾a rozmerov rÃ¡mu"
 
 msgid "Automatically scaled pictures keep their original proportions"
-msgstr ""
+msgstr "Automaticky nastavovanÃ¡ veÄ¾kosÅ¥ obrÃ¡zkov dodrÅ¾uje originÃ¡lne proporcie"
 
 msgid "Fill color of picture frames"
-msgstr ""
+msgstr "Farba vÃ½plne obrÃ¡zkovÃ½ch rÃ¡mov"
 
 msgid "Saturation of color of fill"
-msgstr ""
+msgstr "SÃ½tosÅ¥ farby vÃ½plne"
 
 msgid "Line color of shapes"
-msgstr ""
+msgstr "Farba Äiar obrysov"
 
 msgid "Saturation of color of lines"
-msgstr ""
+msgstr "SÃ½tosÅ¥ farby Äiary"
 
 msgid "Fill color of shapes"
-msgstr ""
+msgstr "Farba vÃ½plne tvarov"
 
 msgid "Line style of shapes"
-msgstr ""
+msgstr "Å tÃ½l Äiary"
 
 msgid "Line width of shapes"
-msgstr ""
+msgstr "Å Ã­rka Äiar tvarov"
 
 msgid "Minimum magnification allowed"
-msgstr ""
+msgstr "MinimÃ¡lne povolenÃ© zvÃ¤ÄÅ¡enie"
 
 msgid "Maximum magnification allowed"
-msgstr ""
+msgstr "MaximÃ¡lne povolenÃ© zvÃ¤ÄÅ¡enie"
 
 msgid "Change in magnification for each zoom operation"
-msgstr ""
+msgstr "Zmena zvÃ¤ÄÅ¡enia pre kaÅ¾dÃ½ krok lupy"
 
-#, fuzzy
 msgid "Color of lines"
-msgstr "Farebnı model"
+msgstr "Farba Äiar"
 
-#, fuzzy
 msgid "Style of lines"
-msgstr "Systémové profily"
+msgstr "Å tÃ½l Äiar"
 
 msgid "Width of lines"
-msgstr ""
+msgstr "Å Ã­rka Äiar"
 
 msgid "Choose the size of the preview in the scrapbook palette"
-msgstr ""
+msgstr "Vyberte veÄ¾kosÅ¥ nÃ¡hÄ¾adu v zÃ¡pisnÃ­ku"
 
 msgid "Save the scrapbook contents everytime after a change"
-msgstr ""
+msgstr "UloÅ¾iÅ¥ obsah zÃ¡pisnÃ­ku pri kaÅ¾dej zmene"
 
 msgid "When using facing pages, show the two pages side by side"
-msgstr ""
+msgstr "zobrazovaÅ¥ strany vedÄ¾a seba, ak sÃº nastavenÃ© protiÄ¾ahlÃ© strany"
 
-#, fuzzy
 msgid "Color for paper"
-msgstr "Farebnı model"
+msgstr "Farba pre papier"
 
 msgid "Color for the margin lines"
-msgstr ""
+msgstr "Farba pre Äiary okrajov"
 
 msgid "Mask the area outside the margins in the margin color"
-msgstr ""
+msgstr "VyplniÅ¥ plochu za hranicami strany farbou okrajov"
 
 msgid "Enable transparency features within PDF 1.4 export"
-msgstr ""
+msgstr "PovoliÅ¥ vlastnosti priesvitnosÅ¥ pri exporte do PDF 1.4"
 
 msgid "Set the default zoom level"
-msgstr ""
+msgstr "Nastavenie Å¡tandardnej Ãºrovne zvÃ¤ÄÅ¡enie"
 
 msgid "Filesystem location for the Ghostscript interpreter"
-msgstr ""
+msgstr "Umiestnenie Ghostscript interpreta v sÃºborovom systÃ©me"
 
 msgid "Antialias text for EPS and PDF onscreen rendering"
-msgstr ""
+msgstr "Vyhladenie textu pre EPS a PDF pri generovanÃ­ na monitore"
 
 msgid "Antialias graphics for EPS and PDF onscreen rendering"
-msgstr ""
+msgstr "Vyhladenie grafiky pre EPS a PDF pri generovanÃ­ na monitore"
 
 msgid "Filesystem location for graphics editor"
-msgstr ""
+msgstr "Umiestnenie editora grafiky v sÃºborovom systÃ©me"
 
-msgid ""
-"Do not show objects outside the margins on the printed page or exported file"
-msgstr ""
+msgid "Do not show objects outside the margins on the printed page or exported file"
+msgstr "NeukazovaÅ¥ objekty mimo hranÃ­c tlaÄiteÄ¾nej strany alebo exportovanÃ©ho sÃºboru"
 
-#, fuzzy
 msgid "Select Character:"
-msgstr "Vybera» znak"
+msgstr "VybraÅ¥ znak:"
 
-#, fuzzy
 msgid "&Insert"
-msgstr "Vlo¾i»"
+msgstr "&VloÅ¾iÅ¥"
 
 msgid "Insert the characters at the cursor in the text"
-msgstr ""
+msgstr "VloÅ¾iÅ¥ znak na pozÃ­ciu kurzora"
 
 msgid "Delete the current selection(s)."
-msgstr ""
+msgstr "OdstrÃ¡niÅ¥ oznaÄenÃ©."
 
 msgid "Close this dialog and return to text editing."
-msgstr ""
+msgstr "ZatvorÃ­ tento dialÃ³g a vrÃ¡ti sa do Ãºprav textu."
 
 msgid "Print Preview"
-msgstr "Uká¾ka pred tlaèou"
+msgstr "UkÃ¡Å¾ka pred tlaÄou"
 
-#, fuzzy
 msgid "Print Previe&w"
-msgstr "Uká¾ka pred tlaèou"
+msgstr "&UkÃ¡Å¾ka pred tlaÄou"
 
-#, fuzzy
 msgid "Anti-alias &Text"
-msgstr "Vyhladi» text"
+msgstr "VyhladiÅ¥ &text"
 
-#, fuzzy
 msgid "Anti-alias &Graphics"
-msgstr "Vyhladi» grafiku"
+msgstr "VyhladiÅ¥ &grafiku"
 
-#, fuzzy
 msgid "Display Trans&parency"
-msgstr "Zobrazi» rámy"
+msgstr "ZobraziÅ¥ priesvitnosÅ¥"
 
 msgid "&Under Color Removal"
 msgstr ""
 
-#, fuzzy
 msgid "&Display CMYK"
-msgstr "Zobrazi»"
+msgstr "ZobraziÅ¥ CMYK"
 
 msgid "&C"
-msgstr ""
+msgstr "&C"
 
 msgid "&M"
-msgstr ""
+msgstr "&M"
 
-#, fuzzy
 msgid "&Y"
-msgstr "Áno"
+msgstr "&Y"
 
-#, fuzzy
 msgid "&K"
-msgstr "OK"
+msgstr "&K"
 
 msgid ""
 "Provides a more pleasant view of text items in the viewer, at the expense\n"
 "of a slight slowdown in previewing. This only affects Type 1 fonts"
 msgstr ""
+"Poskytuje krajÅ¡Ã­ pohÄ¾ad na textovÃ© poloÅ¾ky v prehliadaÄi, za Äo zaplatÃ­te\n"
+"miernym spomalenÃ­m prezerania. Toto sa tÃ½ka iba Type 1 pÃ­sma"
 
 msgid ""
 "Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF "
@@ -5955,28 +5267,32 @@ msgid ""
 "vector graphics in the preview, at the expense of a slight slowdown in "
 "previewing"
 msgstr ""
+"Poskytuje krajÅ¡Ã­ pohÄ¾ad na pÃ­sma True Type, Open Type, EPS, PDF\n"
+"a vektorovej grafiky, za Äo zaplatÃ­te miernym spomalenÃ­m prezerania"
 
 msgid ""
 "Shows transparency and transparent items in your document. Requires "
 "Ghostscript 7.07 or later"
 msgstr ""
+"Zobrazuje transparentnosÅ¥ a transparentnÃ© poloÅ¾ky vo vaÅ¡om dokumente."
+"VyÅ¾aduje Ghostscript 7.07 alebo vyÅ¡Å¡Ã­"
 
 msgid ""
 "Gives a print preview using simulations of generic CMYK inks, instead of RGB "
 "colors"
-msgstr ""
+msgstr "VytvorÃ­ nÃ¡hÄ¾ad tlaÄe simulÃ¡ciou CMYK atramentov namiesto RGB farieb"
 
 msgid "Enable/disable the C (Cyan) ink plate"
-msgstr ""
+msgstr "PovolÃ­/zakÃ¡Å¾e C (azÃºrovÃº) zloÅ¾ku"
 
 msgid "Enable/disable the M (Magenta) ink plate"
-msgstr ""
+msgstr "PovolÃ­/zakÃ¡Å¾e M (fialovÃº) zloÅ¾ku"
 
 msgid "Enable/disable the Y (Yellow) ink plate"
-msgstr ""
+msgstr "PovolÃ­/zakÃ¡Å¾e Y (Å¾ltÃº) zloÅ¾ku"
 
 msgid "Enable/disable the K (Black) ink plate"
-msgstr ""
+msgstr "PovolÃ­/zakÃ¡Å¾e K (Äiernu) zloÅ¾ku"
 
 msgid ""
 "A way of switching some of the gray shades which are composed\n"
@@ -5986,302 +5302,261 @@ msgid ""
 "and some experimentation and testing is need on a case by case basis.\n"
 "UCR reduces the possibility of over saturation with CMY inks."
 msgstr ""
+"SpÃ´sob prepÃ­nania niektorÃ½ch Å¡edÃ½ch tieÅˆov, ktorÃ© sÃº zloÅ¾enÃ©\n"
+"z azÃºrovej, fialovej a Å¾ltej farby namiesto pouÅ¾itia Äiernej.\n"
+"UCR naviac ovplyvÅˆuje Äasti obrÃ¡zkov, ktorÃ© sÃº neutrÃ¡lne a/alebo\n"
+"v tmavÃ½ch tÃ³noch, ktorÃ© sÃº blÃ­zko Å¡edej. PouÅ¾itie tohoto postupu mÃ´Å¾e zlepÅ¡iÅ¥\n"
+"tlaÄ niektorÃ½ch obrÃ¡zkov - je vÅ¡ak potrebnÃ© testovaÅ¥ jednotlivÃ© prÃ­pady.\n"
+"UCR zniÅ¾uje moÅ¾nosÅ¥ presÃ½tenosti s CMY atramentom."
 
-#, fuzzy
 msgid "Save Page as &SVG..."
-msgstr "Ulo¾i» stránku ako SVG..."
+msgstr "UloÅ¾iÅ¥ stranu ako &SVG..."
 
-#, fuzzy
 msgid "SVG-Images (*.svg *.svgz);;All Files (*)"
-msgstr "SVG obrázky (*.svg);; V¹etky súbory (*)"
+msgstr "SVG obrÃ¡zky (*.svg *.svgz);; VÅ¡etky sÃºbory (*)"
 
-#, fuzzy
 msgid "SVG-Images (*.svg);;All Files (*)"
-msgstr "SVG obrázky (*.svg);; V¹etky súbory (*)"
+msgstr "SVG obrÃ¡zky (*.svg);; VÅ¡etky sÃºbory (*)"
 
-#, fuzzy
 msgid "Import &SVG..."
-msgstr "Import..."
+msgstr "Import &SVG..."
 
-#, fuzzy
 msgid "S&cripter Manual..."
-msgstr "Scribus manuál"
+msgstr "S&cripter manuÃ¡l..."
 
-#, fuzzy
 msgid "&Scribus Scripts"
-msgstr "Vlastné skripty"
+msgstr "&Scribus skripty"
 
 msgid "&Execute Script..."
-msgstr ""
+msgstr "&SpustiÅ¥ skript..."
 
-#, fuzzy
 msgid "&Recent Scripts"
-msgstr "Nedávne dokumenty"
+msgstr "&PoslednÃ© skripty"
 
-#, fuzzy
 msgid "Show &Console"
-msgstr "Zobrazi» nástroje"
+msgstr "UkÃ¡zaÅ¥ &konzolu"
 
-#, fuzzy
 msgid "S&cript"
 msgstr "Skr&ipt"
 
-#, fuzzy
 msgid "Online Reference"
-msgstr "Naèítavanie nastavení"
+msgstr "Online referencie"
 
-#, fuzzy
 msgid "Python Scripts (*.py);; All Files (*)"
-msgstr "Java skripty (*.js);;V¹etky súbory (*)"
+msgstr "Python skripty (*.py);;VÅ¡etky sÃºbory (*)"
 
-#, fuzzy
 msgid "Script error"
-msgstr "Skr&ipt"
+msgstr "Chyba skriptu"
 
 msgid ""
 "If you are running an official script report it at <a href=\"http://bugs."
 "scribus.net\">bugs.scribus.net</a> please."
 msgstr ""
+"Ak ste spustili oficiÃ¡lny skript, tak nahlÃ¡ste toto na <a href=\"http://bugs."
+"scribus.net\">bugs.scribus.net</a>."
 
 msgid ""
 "This message is in your clipboard too. Use Ctrl+V to paste it into bug "
 "tracker."
 msgstr ""
+"TÃ¡to sprÃ¡va je tieÅ¾ vo vaÅ¡ej schrÃ¡nke (clipboard). PouÅ¾ite Ctrl+V a vloÅ¾te ju "
+"do stopovaÄa chÃ½b (bug tracker)."
 
-#, fuzzy
 msgid "Hide &Console"
-msgstr "Skry» nástroje"
+msgstr "SkryÅ¥ &konzolu"
 
 msgid "Script Console"
-msgstr ""
+msgstr "Konzola skriptu"
 
 msgid "Oook! Wrong arguments! Call: "
-msgstr ""
+msgstr "Ups! ZlÃ© argumenty! Volajte: "
 
 msgid "Oook! You're calling an object doesn't exist!"
-msgstr ""
+msgstr "Ups! VolÃ¡te objekt, ktorÃ½ neexistuje!"
 
 msgid "Oook! You're trying to erase an object doesn't exist!"
-msgstr ""
+msgstr "Ups! PokÃºÅ¡ate sa odstrÃ¡niÅ¥ objekt, ktorÃ½ neexistuje!"
 
 msgid "Oook! An object you're trying to textflow doesn't exist!"
-msgstr ""
+msgstr "Ups! Objekt, ktorÃ½ sa snaÅ¾Ã­te zreÅ¥aziÅ¥ neexistuje!"
 
 msgid ""
 "Oook! You're trying to load image into an object doesn't exist or isn't "
 "selected!"
 msgstr ""
+"Ups! SnaÅ¾Ã­te sa naÄÃ­taÅ¥ obrÃ¡zok do objektu, ktorÃ½ neexistuje, alebo nie je "
+"oznaÄenÃ½!"
 
-msgid ""
-"Oook! You're trying to (un)lock an object doesn't exist! None selected too."
+msgid "Oook! You're trying to (un)lock an object doesn't exist! None selected too."
 msgstr ""
+"Ups! SnaÅ¾Ã­te sa uzamknÃºÅ¥/odomknÃºÅ¥ objekt, ktorÃ½ neexistuje! Alebo niÄ "
+"nie je oznaÄenÃ©."
 
-msgid ""
-"Oook! You're trying to query an object doesn't exist! None selected too."
+msgid "Oook! You're trying to query an object doesn't exist! None selected too."
 msgstr ""
+"Ups! SnaÅ¾Ã­te sa daÅ¥ poÅ¾iadavku na objekt, ktorÃ½ neexistuje! Alebo niÄ "
+"nie je oznaÄenÃ©."
 
-#, fuzzy
 msgid "Choose a Export Directory"
-msgstr "Vybra» prieèinok"
+msgstr "VybraÅ¥ prieÄinok pre export"
 
-#, fuzzy
 msgid "Export as Image(s)"
-msgstr "Exportova» rozsah"
+msgstr "ExportovaÅ¥ ako obrÃ¡zok"
 
-#, fuzzy
 msgid "&Export to Directory:"
-msgstr "Vybra» prieèinok"
+msgstr "&ExportovaÅ¥ do prieÄinka:"
 
-#, fuzzy
 msgid "Image &Type:"
-msgstr "Obrázky:"
+msgstr "&Typ obrÃ¡zka:"
 
-#, fuzzy
 msgid "&Current page"
-msgstr "Aktuálny kláves"
+msgstr "AktuÃ¡lna strana"
 
-#, fuzzy
 msgid "&All pages"
-msgstr "V¹etky strany"
+msgstr "VÅ¡etky str&any"
 
-#, fuzzy
 msgid "&Range"
-msgstr "Rozsah:"
+msgstr "&Rozsah"
 
 msgid "C"
-msgstr ""
+msgstr "C"
 
-#, fuzzy
 msgid "Export a range of pages"
-msgstr "Exportova» rozsah"
+msgstr "ExportovaÅ¥ rozsah strÃ¡n"
 
-#, fuzzy
 msgid "Export all pages"
-msgstr "Exportova» rozsah"
+msgstr "ExportovaÅ¥ vÅ¡etky strany"
 
 msgid "Export only the current page"
-msgstr ""
+msgstr "ExportovaÅ¥ iba aktuÃ¡lnu stranu"
 
 msgid ""
 "Resolution of the Images\n"
 "Use 72 dpi for Images intended for the Screen"
 msgstr ""
+"RozlÃ­Å¡enie obrÃ¡zkov\n"
+"PouÅ¾ite 72 dpi pre obrÃ¡zky, ktorÃ© chcete zobrazovaÅ¥"
 
 #, c-format
 msgid "The quality of your images - 100% is the best, 1% the lowest quality"
-msgstr ""
+msgstr "Kvalita vaÅ¡ich obrÃ¡zkov - 100% je najlepÅ¡ia, 1% najhorÅ¡ia"
 
-#, fuzzy
 msgid "Available export formats"
-msgstr "Dostupné ¹ablóny:"
+msgstr "DostupnÃ© formÃ¡ty pre export:"
 
 msgid ""
 "The output directory - the place to store your images.\n"
 "Name of the export file will be 'documentname-pagenumber.filetype'"
 msgstr ""
+"VÃ½stupnÃ½ prieÄinok - miesto pre odkladanie vaÅ¡ich obrÃ¡zkov.\n"
+"NÃ¡zov exportovanÃ©ho sÃºboru bude 'nÃ¡zovdokumentu-ÄÃ­slostrany.typsÃºboru'"
 
 msgid "Change the output directory"
-msgstr ""
+msgstr "ZmeniÅ¥ vÃ½stupnÃ½ prieÄinok"
 
-#, fuzzy
 msgid "Save as &Image..."
-msgstr "Ulo¾i» ako..."
+msgstr "UloÅ¾iÅ¥ ako &obrÃ¡zok..."
 
-#, fuzzy
 msgid "Save as Image"
-msgstr "Ulo¾i» ako"
+msgstr "UloÅ¾iÅ¥ ako obrÃ¡zok"
 
 msgid "Error writting the output file(s)."
-msgstr ""
+msgstr "Chyba pri zapisovanÃ­ vÃ½stupnÃ©ho sÃºboru."
 
 msgid "Error writing the output file(s)."
-msgstr ""
+msgstr "Chyba pri zapisovanÃ­ vÃ½stupnÃ©ho sÃºboru."
 
 msgid "Export successful."
-msgstr ""
+msgstr "Export bol ÃºspeÅ¡nÃ½"
 
 msgid "File exists. Overwrite?"
-msgstr ""
+msgstr "SÃºbor existuje. PrepÃ­saÅ¥?"
 
 msgid "exists already. Overwrite?"
-msgstr ""
+msgstr "uÅ¾ existuje. PrepÃ­saÅ¥?"
 
-#, fuzzy
 msgid "Yes all"
-msgstr "V¹etko odznaèi»"
+msgstr "Ãno vÅ¡etko"
 
-#, fuzzy
 msgid "HTML Files"
-msgstr "Súbor:"
+msgstr "HTML sÃºbory"
 
 msgid "html"
-msgstr ""
+msgstr "html"
 
-#, fuzzy
 msgid "Text Files"
-msgstr "Textové pole"
+msgstr "TextovÃ© sÃºbory"
 
-#, fuzzy
-msgid "CSV Importer Options"
-msgstr "Mo¾nosti tlaèiarne"
-
-msgid "Field delimiter:"
-msgstr ""
-
-msgid "(TAB)"
-msgstr ""
-
-#, fuzzy
-msgid "Value delimiter:"
-msgstr "Hodnota je"
-
-msgid "First row is a header"
-msgstr ""
-
-msgid "Comma Separated Value Files"
-msgstr ""
-
-msgid "CSV_data"
-msgstr ""
-
-#, fuzzy
-msgid "CSV_header"
-msgstr "Tieò"
-
-#, fuzzy
 msgid "Fonts Preview"
-msgstr "Uká¾ka pred tlaèou"
+msgstr "NÃ¡hÄ¾ad na sÃºbory"
 
 msgid "Alt+O"
-msgstr ""
+msgstr "Alt+O"
 
 msgid "Alt+C"
-msgstr ""
+msgstr "Alt+C"
 
-#, fuzzy
 msgid "Import &EPS/PS..."
-msgstr "Import..."
+msgstr "Import &EPS/PS..."
 
 msgid "All Supported Formats (*.eps *.EPS *.ps *.PS);;"
-msgstr ""
+msgstr "VÅ¡etky podporovanÃ© formÃ¡ty (*.eps *.EPS *.ps *.PS);;"
 
-#, fuzzy
 msgid ""
 "Importing File:\n"
 "%1\n"
 "failed!"
-msgstr "Tlaè sa nepodarila!"
+msgstr ""
+"Importovanie sÃºboru:\n"
+"%1\n"
+"zlyhalo!"
 
-#, fuzzy
 msgid "New &from Template..."
-msgstr "Nová ¹ablóna"
+msgstr "NovÃ½ p&odÄ¾a Å¡ablÃ³ny..."
 
-#, fuzzy
 msgid "New From Template"
-msgstr "Nová ¹ablóna"
+msgstr "NovÃ½ podÄ¾a Å¡ablÃ³ny"
 
-#, fuzzy
 msgid "Description"
-msgstr "Popis:"
+msgstr "Popis"
 
-#, fuzzy
 msgid "Usage"
-msgstr "Pou¾i»"
+msgstr "PouÅ¾itie"
 
-#, fuzzy
 msgid "Created with"
-msgstr "Vytvori» re»azenie textu"
+msgstr "VytvorenÃ© v"
 
-#, fuzzy
 msgid "Author"
-msgstr "Autor:"
+msgstr "Autor"
 
-#, fuzzy
 msgid "Downloading Templates"
-msgstr "Nová ¹ablóna"
+msgstr "Stiahnutie Å¡ablÃ³n"
 
 msgid ""
 "Document templates can be found at http://www.scribus.net/ in the Downloads "
 "section."
-msgstr ""
+msgstr "Å ablÃ³ny dokumentov mÃ´Å¾ete nÃ¡jsÅ¥ na http://www.scribus.net/ v Äasti Stiahnutie (Downloads)."
 
-#, fuzzy
 msgid "Installing Templates"
-msgstr "Nová ¹ablóna"
+msgstr "InÅ¡talÃ¡cia Å¡ablÃ³n"
 
 msgid ""
 "Extract the package to the template directory ~/.scribus/templates for the "
 "current user or PREFIX/share/scribus/templates for all users in the system."
 msgstr ""
+"Extrahujte balÃ­k to prieÄinka Å¡ablÃ³n ~/.scribus/templates pre aktuÃ¡lneho "
+"pouÅ¾Ã­vateÄ¾a alebo do PREFIX/share/scribus/templates pre vÅ¡etkÃ½ch pouÅ¾Ã­vateÄ¾ov."
 
-#, fuzzy
 msgid "Preparing a template"
-msgstr "Nová ¹ablóna"
+msgstr "PrÃ­prava Å¡ablÃ³ny"
 
 msgid ""
 "Make sure images and fonts you use can be used freely. If fonts cannot be "
 "shared do not collect them when saving as a template."
 msgstr ""
+"Uistite sa, Å¾e pÃ­sma a obrÃ¡zky, ktorÃ© ste pouÅ¾ili je moÅ¾nÃ© voÄ¾ne pouÅ¾Ã­vaÅ¥. "
+"Ak pÃ­sma nie je moÅ¾nÃ© zdieÄ¾aÅ¥ s inÃ½mi, tak ich nevyberte pri ukladanÃ­ "
+"Å¡ablÃ³ny."
 
 msgid ""
 "The template creator should also make sure that the Installing Templates "
@@ -6290,9 +5565,8 @@ msgid ""
 "template directory and start using them."
 msgstr ""
 
-#, fuzzy
 msgid "Removing a template"
-msgstr "Nová ¹ablóna"
+msgstr "OdstrÃ¡nenie Å¡ablÃ³ny"
 
 msgid ""
 "Removing a template from the New From Template dialog will only remove the "
@@ -6302,7 +5576,7 @@ msgid ""
 msgstr ""
 
 msgid "Translating template.xml"
-msgstr ""
+msgstr "PreloÅ¾enie template.xml"
 
 msgid ""
 "Copy an existing template.xml to a file called template.lang_COUNTRY.xml "
@@ -6311,217 +5585,189 @@ msgid ""
 "be located in the same directory as the original template.xml so Scribus can "
 "load it."
 msgstr ""
+"SkopÃ­rujte existujÃºci sÃºbor template.xmldo sÃºbora s nazov template.jazyk_KRAJINA.xml "
+"(pouÅ¾ite rovnakÃ½ kÃ³d jazyka, ako ten, ktorÃ½ je pouÅ¾itÃ½ pre qm sÃºbor vÃ¡Å¡ho jazyka), "
+"naprÃ­klad  template.fi.xml pre fÃ­nsky preklad template.xml. KÃ³pia musÃ­ byÅ¥ umiestnenÃ¡ v rovnakom prieÄinku ako pÃ´vodnÃ½ template.xml, aby ho Scribus mohol naÄÃ­taÅ¥."
 
-#, fuzzy
 msgid "Newsletters"
-msgstr "Vybra» objekty"
+msgstr "LetÃ¡ky s novinkami"
 
 msgid "Brochures"
-msgstr ""
+msgstr "BroÅ¾Ãºry"
 
-#, fuzzy
 msgid "Catalogs"
-msgstr "Zavrie»"
+msgstr "KatalÃ³gy"
 
-#, fuzzy
 msgid "Flyers"
-msgstr "Vrstvy"
+msgstr "LetÃ¡ky"
 
-#, fuzzy
 msgid "Signs"
-msgstr "Nastavenia"
+msgstr "OznaÄenia"
 
 msgid "Cards"
-msgstr ""
+msgstr "Karty"
 
 msgid "Letterheads"
-msgstr ""
+msgstr "HlaviÄkovÃ© papiere"
 
 msgid "Envelopes"
-msgstr ""
+msgstr "ObÃ¡lky"
 
 msgid "Business Cards"
-msgstr ""
+msgstr "Vizitky"
 
-#, fuzzy
 msgid "Calendars"
-msgstr "Vymaza»"
+msgstr "KalendÃ¡re"
 
-#, fuzzy
 msgid "Advertisements"
-msgstr "Jednotky"
+msgstr "Reklamy"
 
-#, fuzzy
 msgid "Labels"
-msgstr "Vrstvy"
+msgstr "Popisy"
 
-#, fuzzy
 msgid "Programs"
-msgstr "Programovanie:"
+msgstr "Programy"
 
 msgid "PDF Forms"
+msgstr "PDF formulÃ¡re"
+
+msgid "PDF Presentations"
+msgstr "PDF prezentÃ¡cie"
+
+msgid "Magazines"
+msgstr "ÄŒasopisy"
+
+msgid "Posters"
+msgstr "PlagÃ¡ty"
+
+msgid "Announcements"
+msgstr "OznÃ¡menia"
+
+msgid "Text Documents"
+msgstr "TextovÃ© dokumenty"
+
+msgid "Folds"
 msgstr ""
 
-#, fuzzy
-msgid "PDF Presentations"
-msgstr "Cieµ"
-
-#, fuzzy
-msgid "Magazines"
-msgstr "Okraje:"
-
-#, fuzzy
-msgid "Posters"
-msgstr "Vlo¾i»"
-
-#, fuzzy
-msgid "Announcements"
-msgstr "Dokumenty:"
-
-#, fuzzy
-msgid "Text Documents"
-msgstr "Nedávne dokumenty"
-
-#, fuzzy
-msgid "Folds"
-msgstr "Tuèné"
-
-#, fuzzy
 msgid "Own Templates"
-msgstr "Nová ¹ablóna"
+msgstr "VlastnÃ© Å¡ablÃ³ny"
 
-#, fuzzy
 msgid "Save as Template"
-msgstr "Nová ¹ablóna"
+msgstr "UloÅ¾iÅ¥ ako Å¡ablÃ³nu"
 
 msgid "Category"
-msgstr ""
+msgstr "KategÃ³ria"
 
 msgid "Email"
-msgstr ""
+msgstr "E-mail"
 
 msgid "More Details"
-msgstr ""
+msgstr "Viac detailov"
 
 msgid "Less Details"
-msgstr ""
+msgstr "Menej detailov"
 
-#, fuzzy
 msgid "landscape"
-msgstr "Na ¹írku"
+msgstr "na Å¡Ã­rku"
 
-#, fuzzy
 msgid "portrait"
-msgstr "Na vı¹ku"
+msgstr "na vÃ½Å¡ku"
 
-#, fuzzy
 msgid "custom"
-msgstr "Vlastné"
+msgstr "vlastnÃ©"
 
-#, fuzzy
 msgid "Save as &Template..."
-msgstr "Ulo¾i» text..."
+msgstr "UloÅ¾iÅ¥ ako Å¡a&blÃ³nu..."
 
-#, fuzzy
-#~ msgid "&Edit Frame"
-#~ msgstr "Upravi» rám"
-
-#, fuzzy
 #~ msgid "PDF Documents (*.pdf);;All Files (*)"
-#~ msgstr "Dokumenty (*.sla *.scd);; V¹etky súbory (*)"
+#~ msgstr "PDF Dokumenty (*.pdf);;VÅ¡etky sÃºbory (*)"
 
 #~ msgid "Corners:"
 #~ msgstr "Rohy:"
 
 #~ msgid "Rotation:"
-#~ msgstr "Otoèenie: "
+#~ msgstr "OtoÄenie: "
 
 #~ msgid "Convex Polygon"
-#~ msgstr "Konvexnı mnohouholník"
+#~ msgstr "KonvexnÃ½ mnohouholnÃ­k"
 
 #~ msgid "Factor:"
 #~ msgstr "Faktor:"
 
-#, fuzzy
 #~ msgid "Document &Info..."
-#~ msgstr "Informácie o dokumente..."
+#~ msgstr "&InformÃ¡cie o dokumente..."
 
-#, fuzzy
 #~ msgid "Export "
 #~ msgstr "Export..."
 
-#, fuzzy
 #~ msgid "Font Preview"
-#~ msgstr "Uká¾ka pred tlaèou"
+#~ msgstr "NÃ¡hÄ¾ad na pÃ­sma"
 
 #~ msgid "Number of copies:"
-#~ msgstr "Poèet kópií:"
+#~ msgstr "PoÄet kÃ³piÃ­:"
 
 #~ msgid "Face:"
 #~ msgstr "Rez:"
 
 #~ msgid "Fill Color:"
-#~ msgstr "Farba vıplne:"
+#~ msgstr "Farba vÃ½plne:"
 
 #~ msgid "Load..."
-#~ msgstr "Naèíta»..."
+#~ msgstr "NaÄÃ­taÅ¥..."
 
 #~ msgid "Redo"
-#~ msgstr "Opakova»:"
+#~ msgstr "OpakovaÅ¥:"
 
 #~ msgid "Edit"
-#~ msgstr "Upravi»"
+#~ msgstr "UpraviÅ¥"
 
 #~ msgid "Template:"
-#~ msgstr "©ablóna:"
+#~ msgstr "Å ablÃ³na:"
+
+#~ msgid "Shape"
+#~ msgstr "Tvar"
 
 #~ msgid "Height:"
-#~ msgstr "Vı¹ka:"
+#~ msgstr "VÃ½Å¡ka:"
 
 #~ msgid "Columns:"
-#~ msgstr "Ståpce:"
+#~ msgstr "StÄºpce:"
 
 #~ msgid "Bottom:"
-#~ msgstr "Dolnı:"
+#~ msgstr "DolnÃ½:"
 
 #~ msgid "Left:"
-#~ msgstr "¥avı:"
+#~ msgstr "Ä½avÃ½:"
 
 #~ msgid "Right:"
-#~ msgstr "Pravı:"
+#~ msgstr "PravÃ½:"
 
 #~ msgid "Font Size:"
-#~ msgstr "Veµkos» písma:"
+#~ msgstr "VeÄ¾kosÅ¥ pÃ­sma:"
 
 #~ msgid "Free Scaling"
-#~ msgstr "Voµná zmena veµkosti"
+#~ msgstr "VoÄ¾nÃ¡ zmena veÄ¾kosti"
 
-#, fuzzy
 #~ msgid "X-Pos.:"
 #~ msgstr "X poz.:"
 
-#, fuzzy
 #~ msgid "Y-Pos.:"
 #~ msgstr "Y poz.:"
 
 #~ msgid "Use ICC-Profile"
-#~ msgstr "Pou¾i» ICC-profil"
+#~ msgstr "PouÅ¾iÅ¥ ICC-profil"
 
-#, fuzzy
 #~ msgid "&Manage Guides..."
-#~ msgstr "Ovládanie vodítok..."
+#~ msgstr "&OvlÃ¡danie vodÃ­tok..."
 
-#, fuzzy
 #~ msgid "PDF-Tools"
-#~ msgstr "Zobrazi» PDF nástroje"
+#~ msgstr "PDF nÃ¡stroje"
 
-#, fuzzy
 #~ msgid "Leave"
-#~ msgstr "Úroveò"
+#~ msgstr "OdÃ­sÅ¥"
 
-#, fuzzy
 #~ msgid "Quality :"
-#~ msgstr "Koniec"
+#~ msgstr "Kvalita :"
 
 #~ msgid "From page:"
 #~ msgstr "Od strany:"
@@ -6530,180 +5776,184 @@ msgstr "Ulo¾i» text..."
 #~ msgstr "Po stranu:"
 
 #~ msgid "Print last page first"
-#~ msgstr "Tlaèi» poslednú stranu ako prvú"
+#~ msgstr "TlaÄiÅ¥ poslednÃº stranu ako prvÃº"
 
 #~ msgid "Print first page first"
-#~ msgstr "Tlaèi» prvú stranu ako prvú"
+#~ msgstr "TlaÄiÅ¥ prvÃº stranu ako prvÃº"
 
 #~ msgid "Document to load:"
-#~ msgstr "Naèíta» dokument:"
+#~ msgstr "NaÄÃ­taÅ¥ dokument:"
 
 #~ msgid "Document contains: 0 Page(s)"
-#~ msgstr "Dokument obsahuje: 0 strán"
+#~ msgstr "Dokument obsahuje: 0 strÃ¡n"
 
 #~ msgid "Document contains: %1 Page(s)"
-#~ msgstr "Dokument obsahuje: %1 strán"
+#~ msgstr "Dokument obsahuje: %1 strÃ¡n"
 
 #~ msgid "Show Margins"
-#~ msgstr "Zobrazi» okraje"
+#~ msgstr "ZobraziÅ¥ okraje"
 
 #~ msgid "Show Frames"
-#~ msgstr "Zobrazi» rámy"
+#~ msgstr "ZobraziÅ¥ rÃ¡my"
 
 #~ msgid "Show Images"
-#~ msgstr "Zobrazi» obrázky"
+#~ msgstr "ZobraziÅ¥ obrÃ¡zky"
 
 #~ msgid "Hide Grid"
-#~ msgstr "Skry» mrie¾ku"
+#~ msgstr "SkryÅ¥ mrieÅ¾ku"
 
 #~ msgid "Hide Guides"
-#~ msgstr "Skry» vodítka"
+#~ msgstr "SkryÅ¥ vodÃ­tka"
 
 #~ msgid "Show Guides"
-#~ msgstr "Zobrazi» vodítka"
+#~ msgstr "ZobraziÅ¥ vodÃ­tka"
 
 #~ msgid "Snap to Guides"
-#~ msgstr "Pritiahnu» k vodítka"
+#~ msgstr "PritiahnuÅ¥ k vodÃ­tka"
 
 #~ msgid "From:"
 #~ msgstr "Od:"
 
 #~ msgid "Big"
-#~ msgstr "Veµká"
+#~ msgstr "VeÄ¾kÃ¡"
 
 #~ msgid "Actual Size"
-#~ msgstr "Aktuálna veµkos»"
+#~ msgstr "AktuÃ¡lna veÄ¾kosÅ¥"
 
-#, fuzzy
 #~ msgid "Hide &Margins"
-#~ msgstr "Skry» okraje"
+#~ msgstr "SkryÅ¥ o&kraje"
 
-#, fuzzy
 #~ msgid "Hide &Frames"
-#~ msgstr "Skry» rámy"
+#~ msgstr "SkryÅ¥ &rÃ¡my"
 
-#, fuzzy
 #~ msgid "Hide &Images"
-#~ msgstr "Skry» obrázky"
+#~ msgstr "SkryÅ¥ &obrÃ¡zky"
 
-#, fuzzy
 #~ msgid "Snap to &Grid"
-#~ msgstr "Pritiahnu» k mrie¾ke"
+#~ msgstr "PritiahnuÅ¥ k &mrieÅ¾ke"
 
-#, fuzzy
 #~ msgid "Hide G&uides"
-#~ msgstr "Skry» vodítka"
+#~ msgstr "&SkryÅ¥ vodÃ­tka"
 
-#, fuzzy
 #~ msgid "Hide &Grid"
-#~ msgstr "Skry» mrie¾ku"
+#~ msgstr "S&kryÅ¥ mrieÅ¾ku"
 
-#, fuzzy
 #~ msgid "Hide &Baseline Grid"
-#~ msgstr "Skry» mrie¾ku"
+#~ msgstr "SkryÅ¥ mrieÅ¾ku zÃ¡kladnÃ½ch Äiar"
 
-#, fuzzy
 #~ msgid "K"
-#~ msgstr "OK"
+#~ msgstr "K"
 
 #~ msgid "Insert Special"
-#~ msgstr "Vlo¾i» ¹peciálne"
+#~ msgstr "VloÅ¾iÅ¥ Å¡peciÃ¡lne"
 
 #~ msgid "Show Measurements"
-#~ msgstr "Zobrazi» rozmery"
+#~ msgstr "ZobraziÅ¥ rozmery"
 
 #~ msgid "Hide Measurements"
-#~ msgstr "Skry» rozmery"
+#~ msgstr "SkryÅ¥ rozmery"
 
 #~ msgid "Scaled to "
-#~ msgstr "Zmeni» na "
+#~ msgstr "ZmeniÅ¥ na "
 
 #~ msgid "Gutter Width:"
-#~ msgstr "©írka medzery:"
+#~ msgstr "Å Ã­rka medzery:"
 
 #~ msgid "W:"
-#~ msgstr "©:"
+#~ msgstr "Å :"
 
 #~ msgid "Document "
 #~ msgstr "Dokument "
 
 #~ msgid "Images"
-#~ msgstr "Obrázky"
+#~ msgstr "ObrÃ¡zky"
 
 #~ msgid ");;Vectorimages (*.eps *.pdf);;All Files (*)"
-#~ msgstr ");;Vektorová grafika (*.eps *.pdf);;V¹etky súbory (*)"
+#~ msgstr ");;VektorovÃ¡ grafika (*.eps *.pdf);;VÅ¡etky sÃºbory (*)"
 
 #~ msgid "Resolution for EPS-Images:"
-#~ msgstr "Rozlí¹enie pre EPS obrázky:"
+#~ msgstr "RozlÃ­Å¡enie pre EPS obrÃ¡zky:"
 
 #~ msgid "OK to delete Color:"
 #~ msgstr "OK pre zmazanie farby:"
 
 #~ msgid "Edit Colors"
-#~ msgstr "Zmeni» farby"
+#~ msgstr "ZmeniÅ¥ farby"
 
 #~ msgid "Show Outline"
-#~ msgstr "Zobrazi» prehµad"
+#~ msgstr "ZobraziÅ¥ prehÄ¾ad"
 
 #~ msgid "Hide Outline"
-#~ msgstr "Skry» prehµad"
+#~ msgstr "SkryÅ¥ prehÄ¾ad"
 
 #~ msgid "Rectangle"
-#~ msgstr "Obdå¾nik"
+#~ msgstr "ObdÄºÅ¾nik"
 
 #~ msgid "Delete Page:"
-#~ msgstr "Zmaza» stranu:"
+#~ msgstr "OdstrÃ¡niÅ¥ stranu:"
 
 #~ msgid "Delete Page"
-#~ msgstr "Zmaza» stranu"
+#~ msgstr "OdstrÃ¡niÅ¥ stranu"
 
 #~ msgid "Line Width"
-#~ msgstr "©írka èiary"
+#~ msgstr "Å Ã­rka Äiary"
 
 #~ msgid "Print to printer:"
-#~ msgstr "Tlaè na tlaèiareò:"
+#~ msgstr "TlaÄ na tlaÄiareÅˆ:"
 
 #~ msgid "Comment"
-#~ msgstr "Komentár"
+#~ msgstr "KomentÃ¡r"
 
 #~ msgid "Browse..."
-#~ msgstr "Prechádza»..."
+#~ msgstr "PrechÃ¡dzaÅ¥..."
 
 #~ msgid "Printer settings"
-#~ msgstr "Nastavenie tlaèiarne"
+#~ msgstr "Nastavenie tlaÄiarne"
 
 #~ msgid "Paper format"
-#~ msgstr "Formát papiera"
+#~ msgstr "FormÃ¡t papiera"
+
+#~ msgid "Select Font"
+#~ msgstr "VybraÅ¥ pÃ­smo"
+
+#~ msgid "Font st&yle"
+#~ msgstr "Å &tÃ½l pÃ­sma"
+
+#~ msgid "Stri&keout"
+#~ msgstr "PreÄia&rknutÃ©"
+
+#~ msgid "&Underline"
+#~ msgstr "Po&dÄiarknutÃ©"
 
 #~ msgid "Printing-Error"
-#~ msgstr "Chyba pri tlaèi"
+#~ msgstr "Chyba pri tlaÄi"
 
 #~ msgid "Printing completed"
-#~ msgstr "Tlaè je dokonèená"
+#~ msgstr "TlaÄ je dokonÄenÃ¡"
 
 #~ msgid "Printing aborted"
-#~ msgstr "Tlaè je preru¹ená"
+#~ msgstr "TlaÄ je preruÅ¡enÃ¡"
 
 #~ msgid "Saving aborted"
-#~ msgstr "Ukladanie bolo preru¹ené"
+#~ msgstr "Ukladanie bolo preruÅ¡enÃ©"
 
 #~ msgid "Loading aborted"
-#~ msgstr "Naèítavanie preru¹ené"
+#~ msgstr "NaÄÃ­tavanie preruÅ¡enÃ©"
 
 #~ msgid "Fonts"
-#~ msgstr "Písma"
+#~ msgstr "PÃ­sma"
 
 #~ msgid " loaded"
-#~ msgstr " naèítané"
+#~ msgstr " naÄÃ­tanÃ©"
 
 #~ msgid " saved"
-#~ msgstr " ulo¾ené"
+#~ msgstr " uloÅ¾enÃ©"
 
 #~ msgid "Unable to create PDF-File."
-#~ msgstr "Nie je mo¾né vytvori» PDF súbor."
+#~ msgstr "Nie je moÅ¾nÃ© vytvoriÅ¥ PDF sÃºbor."
 
 #~ msgid "Error creating PDF-File.."
-#~ msgstr "Chyba pri vytváraní PDF súboru."
+#~ msgstr "Chyba pri vytvÃ¡ranÃ­ PDF sÃºboru."
 
 #~ msgid "Error during EPS-Export"
 #~ msgstr "Chyba pri EPS exporte"
@@ -6712,34 +5962,34 @@ msgstr "Ulo¾i» text..."
 #~ msgstr "Na koniec"
 
 #~ msgid "Insert Textbox"
-#~ msgstr "Vlo¾i» textovı rám"
+#~ msgstr "VloÅ¾iÅ¥ textovÃ½ rÃ¡m"
 
 #~ msgid "Insert Rectangles"
-#~ msgstr "Vlo¾i» obdå¾niky"
+#~ msgstr "VloÅ¾iÅ¥ obdÄºÅ¾niky"
 
 #~ msgid "Modify..."
-#~ msgstr "Modifikova»..."
+#~ msgstr "ModifikovaÅ¥..."
 
 #~ msgid "Modify Textframe"
-#~ msgstr "Modifikova» textovı rám"
+#~ msgstr "ModifikovaÅ¥ textovÃ½ rÃ¡m"
 
 #~ msgid "Modify Frame"
-#~ msgstr "Modifikova» rám"
+#~ msgstr "ModifikovaÅ¥ rÃ¡m"
 
 #~ msgid "Other:"
-#~ msgstr "Inı:"
+#~ msgstr "InÃ½:"
 
 #~ msgid "Don't print"
-#~ msgstr "Netlaèi»"
+#~ msgstr "NetlaÄiÅ¥"
 
 #~ msgid "Properties:"
 #~ msgstr "Vlastnosti:"
 
 #~ msgid "Ordinary Text"
-#~ msgstr "Be¾nı text"
+#~ msgstr "BeÅ¾nÃ½ text"
 
 #~ msgid "Textdistance"
-#~ msgstr "Vzdialenos» textu"
+#~ msgstr "VzdialenosÅ¥ textu"
 
 #~ msgid "Face"
 #~ msgstr "Rez"
@@ -6748,82 +5998,82 @@ msgstr "Ulo¾i» text..."
 #~ msgstr "Posun:"
 
 #~ msgid "Italic"
-#~ msgstr "Kurzíva"
+#~ msgstr "KurzÃ­va"
 
 #~ msgid "No Fill"
-#~ msgstr "Bez vıplne"
+#~ msgstr "Bez vÃ½plne"
 
 #~ msgid "Background Color:"
 #~ msgstr "Farba pozadia:"
 
 #~ msgid "Vertical flipped"
-#~ msgstr "Zvisle preklopené"
+#~ msgstr "Zvisle preklopenÃ©"
 
 #~ msgid "Horizontal flipped"
-#~ msgstr "Vodorovne preklopené"
+#~ msgstr "Vodorovne preklopenÃ©"
 
 #~ msgid "Local X-Pos:"
-#~ msgstr "Lokálna X-poz:"
+#~ msgstr "LokÃ¡lna X-poz:"
 
 #~ msgid "Local Y-Pos:"
-#~ msgstr "Lokálna Y-poz:"
+#~ msgstr "LokÃ¡lna Y-poz:"
 
 #~ msgid "Modify Pictureframe"
-#~ msgstr "Modifikova» rám obrázku"
+#~ msgstr "ModifikovaÅ¥ rÃ¡m obrÃ¡zku"
 
 #~ msgid "Linestyle:"
-#~ msgstr "©tıl èiary:"
+#~ msgstr "Å tÃ½l Äiary:"
 
 #~ msgid "Linewidth:"
-#~ msgstr "©írka èiary:"
+#~ msgstr "Å Ã­rka Äiary:"
 
 #~ msgid "Scaling X:"
-#~ msgstr "Zväè¹enie X:"
+#~ msgstr "ZvÃ¤ÄÅ¡enie X:"
 
 #~ msgid "Scaling Y:"
-#~ msgstr "Zväè¹enie Y:"
+#~ msgstr "ZvÃ¤ÄÅ¡enie Y:"
 
 #~ msgid "Frame"
-#~ msgstr "Rám"
+#~ msgstr "RÃ¡m"
 
 #~ msgid "Break Textchains"
-#~ msgstr "Preru¹i» re»azenie textu"
+#~ msgstr "PreruÅ¡iÅ¥ reÅ¥azenie textu"
 
 #~ msgid "Is Spot-Color"
 #~ msgstr "Priama farba"
 
 #~ msgid "New Style:"
-#~ msgstr "Novı ©tıl:"
+#~ msgstr "NovÃ½ Å tÃ½l:"
 
 #~ msgid "Show Styles"
-#~ msgstr "Zobrazi» ¹tıly"
+#~ msgstr "ZobraziÅ¥ Å¡tÃ½ly"
 
 #~ msgid "Hide Styles"
-#~ msgstr "Skry» ¹tıly"
+#~ msgstr "SkryÅ¥ Å¡tÃ½ly"
 
 #~ msgid "Styles"
-#~ msgstr "©tıly"
+#~ msgstr "Å tÃ½ly"
 
 #~ msgid "Indentation"
 #~ msgstr "Odsadenie"
 
 #~ msgid "AFM-File available"
-#~ msgstr "Dostupnı AFM súbor"
+#~ msgstr "DostupnÃ½ AFM sÃºbor"
 
 #~ msgid "Show Scrapbook"
-#~ msgstr "Zobrazi» zápisník"
+#~ msgstr "ZobraziÅ¥ zÃ¡pisnÃ­k"
 
 #~ msgid "Hide Scrapbook"
-#~ msgstr "Skry» zápisník"
+#~ msgstr "SkryÅ¥ zÃ¡pisnÃ­k"
 
 #~ msgid "Exit"
 #~ msgstr "Koniec"
 
 #~ msgid "Template for this Page:"
-#~ msgstr "©ablóna pre túto stranu:"
+#~ msgstr "Å ablÃ³na pre tÃºto stranu:"
 
 #~ msgid "Sorry, no Manual available!"
-#~ msgstr "¥utujem, ale manuál nie je dostupnı!"
+#~ msgstr "Ä½utujem, ale manuÃ¡l nie je dostupnÃ½!"
 
 #~ msgid "Compression"
 #~ msgstr "Kompresia"
@@ -6832,40 +6082,40 @@ msgstr "Ulo¾i» text..."
 #~ msgstr "Polomer rohu:"
 
 #~ msgid "Rounded Rectangle"
-#~ msgstr "Oblı pravouholník"
+#~ msgstr "OblÃ½ pravouholnÃ­k"
 
 #~ msgid "Align Text Block"
-#~ msgstr "Zarovna» text do bloku"
+#~ msgstr "ZarovnaÅ¥ text do bloku"
 
 #~ msgid "To the End"
 #~ msgstr "Do konca"
 
 #~ msgid "Fontsize"
-#~ msgstr "Veµkos» písma"
+#~ msgstr "VeÄ¾kosÅ¥ pÃ­sma"
 
 #~ msgid "Scaling"
-#~ msgstr "Zväè¹ovanie"
+#~ msgstr "ZvÃ¤ÄÅ¡ovanie"
 
 #~ msgid "Edit Polygon"
-#~ msgstr "Upravi» mnohouholník"
+#~ msgstr "UpraviÅ¥ mnohouholnÃ­k"
 
 #~ msgid "Modify Pathtext"
-#~ msgstr "Upravi» cestu pre text"
+#~ msgstr "UpraviÅ¥ cestu pre text"
 
 #~ msgid "Closes this Dialog"
-#~ msgstr "Zavrie» tento dialóg"
+#~ msgstr "ZavrieÅ¥ tento dialÃ³g"
 
 #~ msgid "Hide Layers"
-#~ msgstr "Skry» vrstvy"
+#~ msgstr "SkryÅ¥ vrstvy"
 
 #~ msgid "Global JavaScripts"
-#~ msgstr "Globálne Java skripty"
+#~ msgstr "GlobÃ¡lne Java skripty"
 
 #~ msgid "General..."
-#~ msgstr "V¹eobecné..."
+#~ msgstr "VÅ¡eobecnÃ©..."
 
 #~ msgid "Printing Mode"
-#~ msgstr "Mód tlaèe"
+#~ msgstr "MÃ³d tlaÄe"
 
 #~ msgid "X-Pos+:"
 #~ msgstr "X-Poz+:"
@@ -6880,10 +6130,10 @@ msgstr "Ulo¾i» text..."
 #~ msgstr "Vert. mierka:"
 
 #~ msgid "Show Bookmarks"
-#~ msgstr "Zobrazi» zálo¾ky"
+#~ msgstr "ZobraziÅ¥ zÃ¡loÅ¾ky"
 
 #~ msgid "Hide Bookmarks"
-#~ msgstr "Skry» zálo¾ky"
+#~ msgstr "SkryÅ¥ zÃ¡loÅ¾ky"
 
 #~ msgid "by:"
 #~ msgstr "o"
@@ -6892,19 +6142,19 @@ msgstr "Ulo¾i» text..."
 #~ msgstr "Znak:"
 
 #~ msgid "Hide PDF-Tools"
-#~ msgstr "Skry» pdf nástroje"
+#~ msgstr "SkryÅ¥ pdf nÃ¡stroje"
 
 #~ msgid "Hide Colors"
-#~ msgstr "Skry» farby"
+#~ msgstr "SkryÅ¥ farby"
 
 #~ msgid "locally connected"
-#~ msgstr "lokálne pripojená"
+#~ msgstr "lokÃ¡lne pripojenÃ¡"
 
 #~ msgid "Left Page based on:"
-#~ msgstr "¥avá strana zalo¾ená na:"
+#~ msgstr "Ä½avÃ¡ strana zaloÅ¾enÃ¡ na:"
 
 #~ msgid "Right Page based on:"
-#~ msgstr "Pravá strana zalo¾ená na:"
+#~ msgstr "PravÃ¡ strana zaloÅ¾enÃ¡ na:"
 
 #~ msgid "X-Coor.:"
 #~ msgstr "X-koor.:"
@@ -6913,4 +6163,5 @@ msgstr "Ulo¾i» text..."
 #~ msgstr "Y-koor.:"
 
 #~ msgid "Scale When:"
-#~ msgstr "Zmena veµkosti, ak:"
+#~ msgstr "Zmena veÄ¾kosti, ak:"
+

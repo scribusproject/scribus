@@ -167,25 +167,25 @@ class Foi_postscript : public Foi
 			isStroked = false;
 			error = FT_Init_FreeType( &library );
 			if (error)
-				{
+			{
 				UseFont = false;
 				return false;
-				}
+			}
 			error = FT_New_Face( library, Datei, 0, &face );
 			if (error)
-				{
+			{
 				UseFont = false;
 				return false;
-				}
+			}
 			uniEM = static_cast<double>(face->units_per_EM);
 			QString afnm = Datei.left(Datei.length()-3);
 			QFile afm(afnm+"afm");
 			if(!(afm.exists()))
-				{
+			{
 				afm.setName(afnm+"Afm");
 				if(!(afm.exists()))
 					afm.setName(afnm+"AFM");
-				}
+			}
 			if (afm.exists())
 				error = FT_Attach_File(face, afm.name());
 			HasKern = FT_HAS_KERNING(face);
@@ -201,31 +201,39 @@ class Foi_postscript : public Foi
 			StdVW = "1";
 			FontBBox = tmp.setNum(face->bbox.xMin)+" "+tmp2.setNum(face->bbox.yMin)+" "+tmp3.setNum(face->bbox.xMax)+" "+tmp4.setNum(face->bbox.yMax);
 			IsFixedPitch = face->face_flags & 4;
+			for(int u = 0; u < face->num_charmaps; u++)
+			{
+				if (face->charmaps[u]->encoding == FT_ENCODING_ADOBE_CUSTOM)
+				{
+					FT_Set_Charmap(face,face->charmaps[u]);
+					break;
+				}
+			}
 			gindex = 0;
 			charcode = FT_Get_First_Char( face, &gindex );
 			while ( gindex != 0 )
-				{
+			{
 				error = FT_Load_Glyph( face, gindex, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
 				if (error)
-					{
+				{
 					UseFont = false;
 					break;
-					}
+				}
 				double ww = face->glyph->metrics.horiAdvance / uniEM;
 				if (face->glyph->format == FT_GLYPH_FORMAT_PLOTTER)
 					isStroked = true;
 				error = false;
 				outlines = traceChar(face, charcode, 10, &x, &y, &error);
 				if (!error)
-					{
+				{
 					CharWidth.insert(charcode, ww);
 					GRec.Outlines = outlines.copy();
 					GRec.x = x;
 					GRec.y = y;
 					GlyphArray.insert(charcode, GRec);
-					}
-				charcode = FT_Get_Next_Char( face, charcode, &gindex );
 				}
+				charcode = FT_Get_Next_Char( face, charcode, &gindex );
+			}
 			FT_Done_FreeType( library );
 			HasMetrics=UseFont;
 			metricsread=UseFont;

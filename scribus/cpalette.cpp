@@ -141,6 +141,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	connect(Inhalt, SIGNAL(clicked()), this, SLOT(InhaltButton()));
 	connect(Innen, SIGNAL(clicked()), this, SLOT(InnenButton()));
 	connect(ListBox1, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selFarbe(QListBoxItem*)));
+	connect(ListBox1, SIGNAL(selected(QListBoxItem*)), this, SLOT(selFarbe(QListBoxItem*)));
 	connect(PM1, SIGNAL(valueChanged(int)), this, SLOT(setActShade()));
 	connect(GradCombo, SIGNAL(activated(int)), this, SLOT(slotGrad(int)));
 	connect(TransSpin, SIGNAL(valueChanged(int)), this, SLOT(slotTrans(int)));
@@ -218,6 +219,7 @@ void Cpalette::SetColors(CListe farben)
 void Cpalette::updateCList()
 {
 	disconnect(ListBox1, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selFarbe(QListBoxItem*)));
+	disconnect(ListBox1, SIGNAL(selected(QListBoxItem*)), this, SLOT(selFarbe(QListBoxItem*)));
 	ListBox1->clear();
 	CListe::Iterator it;
 	QPixmap pm = QPixmap(30, 15);
@@ -230,6 +232,7 @@ void Cpalette::updateCList()
 	}
 	ListBox1->setSelected(ListBox1->currentItem(), false);
 	connect(ListBox1, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selFarbe(QListBoxItem*)));
+	connect(ListBox1, SIGNAL(selected(QListBoxItem*)), this, SLOT(selFarbe(QListBoxItem*)));
 }
 
 void Cpalette::selFarbe(QListBoxItem *c)
@@ -280,6 +283,7 @@ QColor Cpalette::SetFarbe(QString farbe, int shad)
 void Cpalette::updateBoxS(QString Farbe)
 {
 	disconnect(ListBox1, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selFarbe(QListBoxItem*)));
+	disconnect(ListBox1, SIGNAL(selected(QListBoxItem*)), this, SLOT(selFarbe(QListBoxItem*)));
 	CListe::Iterator it;
 	int c = 0;
 	if ((Farbe != "None") && (Farbe != ""))
@@ -295,6 +299,7 @@ void Cpalette::updateBoxS(QString Farbe)
 	}
 	ListBox1->setCurrentItem(c);
 	connect(ListBox1, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selFarbe(QListBoxItem*)));
+	connect(ListBox1, SIGNAL(selected(QListBoxItem*)), this, SLOT(selFarbe(QListBoxItem*)));
 }
 
 void Cpalette::setActFarben(QString p, QString b, int shp, int shb)

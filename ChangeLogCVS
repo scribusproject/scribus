@@ -1,5 +1,14 @@
 Changes since 1.2RC1 
 
+23.08.2004
+	* bug     #804: Color tab for fill/line color doesn't jump to the specific color when entering the beginning character
+	* bug     #960: Python scripting only accepts text in Latin1
+	* bug     #985: Dingbat font did not work
+	* bug     #991: layer selector doesnt reflect the order of the layers
+	* bug     #992: French translation for Scribus 1.2
+	* feature #988: Italian Translation Update for 1.2
+	* feature #989: Russian Translation Update for 1.2
+
 22.08.2004
 	* bug     #728: "Hanging Conjunctions"
 	* feature #953: small improvement to the layer selector at the bottom

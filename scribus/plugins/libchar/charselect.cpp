@@ -157,6 +157,14 @@ ZAuswahl::ZAuswahl( QWidget* parent, preV *Vor, PageItem *item, ScribusApp *pl)
 	FT_ULong  charcode;
 	FT_UInt   gindex;
 	face = pl->doc->FFonts[font];
+	for(int u = 0; u < face->num_charmaps; u++)
+	{
+		if (face->charmaps[u]->encoding == FT_ENCODING_ADOBE_CUSTOM)
+		{
+		 	 FT_Set_Charmap(face,face->charmaps[u]);
+	 		break;
+		}
+	}
 	charcode = FT_Get_First_Char(face, &gindex );
 	while (gindex != 0)
 	{

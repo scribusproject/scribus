@@ -201,16 +201,17 @@ PyObject *scribus_setboxtext(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	char *Text;
-	if (!PyArg_ParseTuple(args, "s|s", &Text, &Name))
+	if (!PyArg_ParseTuple(args, "es|s", "utf-8", &Text, &Name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("SetTExt(text [, objectname])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("SetText(unicodetext [, objectname])"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
 	if (!Carrier->HaveDoc)
 		return Py_None;
 	PageItem *it = GetUniqueItem(QString(Name));
-	QString Daten = QString(Text);
+	QString Daten = QString::fromUtf8(Text);
+	PyMem_Free(Text);
 	if (it != NULL)
 	{
 		if (it->NextBox != 0)
@@ -258,16 +259,17 @@ PyObject *scribus_inserttext(PyObject *self, PyObject* args)
 	char *Name = "";
 	char *Text;
 	int pos;
-	if (!PyArg_ParseTuple(args, "si|s", &Text, &pos, &Name))
+	if (!PyArg_ParseTuple(args, "esi|s", "utf-8", &Text, &pos, &Name))
 	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("InsertText(text, position [, objectname])"));
+		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("InsertText(unicodetext, position [, objectname])"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
 	if (!Carrier->HaveDoc)
 		return Py_None;
 	PageItem *it = GetUniqueItem(QString(Name));
-	QString Daten = QString(Text);
+	QString Daten = QString::fromUtf8(Text);
+	PyMem_Free(Text);
 	if (it != NULL)
 	{
 		if ((pos < 0) && (pos > static_cast<int>(it->Ptext.count())))
