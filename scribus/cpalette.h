@@ -31,6 +31,7 @@
 #include <qlabel.h>
 #include <qspinbox.h>
 #include "scribusdoc.h"
+#include "shadebutton.h"
 
 /**
   *@author Franz Schmid
@@ -45,8 +46,7 @@ public:
 	QListBox *ListBox1;
 	QToolButton *Inhalt;
 	QToolButton *Innen;
-	QToolButton *PM1;
-	QPopupMenu *ShaMenu;
+	ShadeButton *PM1;
 	QComboBox* GradCombo;
 	QButtonGroup* GradGroup;
 	QRadioButton* GrColor1;
@@ -65,6 +65,7 @@ public:
 	QString Color3;
 	int Shade3;
 	bool UseTransFeature;
+	bool GradientMode;
 	
 public slots:
 	void InhaltButton();
@@ -80,18 +81,19 @@ public slots:
 	void setActFarben(QString p, QString b, int shp, int shb);
 	void setActGradient(QString p, QString b, int shp, int shb, int typ);
 	int SetMen(int c);
-	void setActShade(int);
-	void setActTrans(float);
+	void setActShade();
+	void setActTrans(double, double);
 	void slotTrans(int val);
 	void UseTrans(bool b);
-	
+
 signals:
 	void NewPen(QString);
 	void NewBrush(QString);
 	void NewPenShade(int);
 	void NewBrushShade(int);
 	void NewGradient(int, QString, int, QString, int);
-	void NewTrans(float);
+	void NewTrans(double);
+	void NewTransS(double);
 	void QueryItem();
 	
 protected:

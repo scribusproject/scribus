@@ -19,11 +19,7 @@
 #define HRULER_H
 
 #include <qwidget.h>
-#include <qfont.h>
 #include <qpainter.h>
-#include <qcolor.h>
-#include <qrect.h>
-#include <qpointarray.h>
 #include <qscrollview.h>
 #include "scribusdoc.h"
 
@@ -31,8 +27,10 @@
   *@author Franz Schmid
   */
 
-class Hruler : public QWidget  {
-Q_OBJECT
+class Hruler : public QWidget  
+{
+	Q_OBJECT
+
 public:
 	Hruler(QScrollView *pa, ScribusDoc *doc);
 	~Hruler() {};
@@ -44,10 +42,11 @@ public:
 	int Markp;
 	bool repX;
 	bool Mpressed;
+
 private: // Private attributes
   /** Zeichensatz des Lineals */
-  QFont rfont;
   ScribusDoc *doku;
+
 public slots: // Public slots
   /** Zeichnet den Pfeil */
   void Draw(int wo);

@@ -13,7 +13,7 @@
 #include <qlayout.h>
 #include <qlabel.h>
 #include <qpushbutton.h>
-#include <qpopupmenu.h>
+#include <qcombobox.h>
 #include "scribusdoc.h"
 
 class DelColor : public QDialog
@@ -21,9 +21,10 @@ class DelColor : public QDialog
     Q_OBJECT
 
 public:
-    DelColor(QWidget* parent, CListe farben, QString Fnam );
+    DelColor(QWidget* parent, CListe farben, QString Fnam, bool HDoc );
     ~DelColor() {};
     QString EFarbe;
+
 private:
     QLabel* TextLabel1;
     QPushButton* PushButton2;
@@ -31,8 +32,7 @@ private:
     QPushButton* PushButton3;
     QLabel* TextLabel4;
     QLabel* DColor;
-    QPushButton* Ersatz;
-    QPopupMenu *Fausw;
+    QComboBox* Ersatz;
 
 protected:
     QVBoxLayout* DLayout;
@@ -41,7 +41,6 @@ protected:
 
 private slots:
     virtual void ReplaceColor(int);
-
 };
 
 #endif // DELCOLOR_H

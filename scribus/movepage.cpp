@@ -20,12 +20,9 @@ extern QPixmap loadIcon(QString nam);
 MovePages::MovePages( QWidget* parent, int act, int max, bool art )
     : QDialog( parent, "MovePages", true, 0 )
 {
-		Wie = art;
-		if (art)
-    	setCaption( tr( "Move Pages" ) );
-    else
-    	setCaption( tr( "Copy Page" ) );
-  	setIcon(loadIcon("AppIcon.xpm"));
+	Wie = art;
+	setCaption (art ? tr("Move Pages") : tr("Copy Page"));
+  	setIcon(loadIcon("AppIcon.png"));
     DLayout = new QVBoxLayout( this );
     DLayout->setSpacing( 5 );
     DLayout->setMargin( 10 );
@@ -33,10 +30,7 @@ MovePages::MovePages( QWidget* parent, int act, int max, bool art )
     Layout4->setSpacing( 6 );
     Layout4->setMargin( 5 );
     TextLabel1 = new QLabel( this, "TextLabel1" );
-    if (art)
-    	TextLabel1->setText( tr( "Move Page(s):" ) );
-    else
-    	TextLabel1->setText( tr("Copy Page")+":" );
+	TextLabel1->setText(art ? tr("Move Page(s):") : tr("Copy Page") + ":");
     Layout4->addWidget( TextLabel1, 0, 0);
     FromPage = new QSpinBox( this, "FromPage" );
     FromPage->setMinValue( 1 );
@@ -44,7 +38,7 @@ MovePages::MovePages( QWidget* parent, int act, int max, bool art )
     FromPage->setMaxValue( max );
     Layout4->addWidget( FromPage, 0, 1);
     if (art)
-    	{
+    {
     	TextLabel2 = new QLabel( this, "TextLabel2" );
     	TextLabel2->setText( tr( "to:" ) );
     	Layout4->addWidget( TextLabel2, 0, 2);
@@ -53,20 +47,20 @@ MovePages::MovePages( QWidget* parent, int act, int max, bool art )
     	ToPage->setValue( act );
     	ToPage->setMaxValue( max );
     	Layout4->addWidget( ToPage, 0, 3);
-    	}
+    }
     Where = new QComboBox( true, this, "Where" );
-    Where->insertItem(tr("before Page"));
-    Where->insertItem(tr("after Page"));
-    Where->insertItem(tr("To End"));
+    Where->insertItem( tr("before Page"));
+    Where->insertItem( tr("after Page"));
+    Where->insertItem( tr("at End"));
     Where->setEditable(false);
     Where->setCurrentItem(2);
-		Layout4->addMultiCellWidget( Where, 1, 1, 0, 1 );
+	Layout4->addMultiCellWidget( Where, 1, 1, 0, 1 );
     ActualPage = new QSpinBox( this, "ActualPage" );
     ActualPage->setMinValue( 1 );
     ActualPage->setValue( act );
     ActualPage->setMaxValue( max );
-		Layout4->addWidget( ActualPage, 1, 3 );
-		Layout4->addColSpacing(0, TextLabel1->fontMetrics().width(tr( "Move Page(s):" )));
+	Layout4->addWidget( ActualPage, 1, 3 );
+	Layout4->addColSpacing(0, TextLabel1->fontMetrics().width( tr( "Move Page(s):" )));
     DLayout->addLayout( Layout4 );
     Layout3 = new QHBoxLayout;
     Layout3->setSpacing( 6 );
@@ -94,11 +88,11 @@ MovePages::MovePages( QWidget* parent, int act, int max, bool art )
 void MovePages::FromChanged(int nr)
 {
 	if (Wie)
-		{
-    if (nr > ToPage->value())
-    	ToPage->setValue(nr);
-    if ((nr == 1) && (ToPage->value() == ToPage->maxValue()))
-    	ToPage->setValue(ToPage->maxValue()-1);
+	{
+    	if (nr > ToPage->value())
+    		ToPage->setValue(nr);
+    	if ((nr == 1) && (ToPage->value() == ToPage->maxValue()))
+    		ToPage->setValue(ToPage->maxValue()-1);
     }
 }
 

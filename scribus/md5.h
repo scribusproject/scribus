@@ -40,7 +40,7 @@ extern "C" {
 
 #ifdef _LIBC
 # include <sys/types.h>
-typedef u_int32_t md5_uint32;
+typedef uint32_t md5_uint32;
 #else
 # if defined __STDC__ && __STDC__
 #  define UINT_MAX_32_BITS 4294967295U

@@ -16,7 +16,6 @@
 #include <qmenubar.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qimage.h>
 #include <qpixmap.h>
 #include <qdragobject.h>
 #include "scribusdoc.h"
@@ -26,19 +25,17 @@ class BibView : public QIconView
     Q_OBJECT
 
 public:
-    BibView( QWidget* parent, SCFonts &avail, preV *prefs);
+    BibView( QWidget* parent, preV *prefs);
     ~BibView() {};
     void AddObj(QString name, QString daten, QPixmap Bild);
     void SaveContents(QString name);
     void ReadContents(QString name);
     void RebuildView();
-    QPixmap createPreview(QString data);
-
-    struct Elem {QString Data;
-    						 QPixmap Preview;
-    						};
+    struct Elem {
+					QString Data;
+    				QPixmap Preview;
+    			};
     QMap<QString,Elem> Objekte;
-    SCFonts EFonts;
   	preV *Prefs;
 
 protected:
@@ -50,11 +47,11 @@ class Biblio : public QDialog
     Q_OBJECT
 
 public:
-    Biblio( QWidget* parent, SCFonts &avail, preV *prefs);
+    Biblio( QWidget* parent, preV *prefs);
     ~Biblio() {};
     void closeEvent(QCloseEvent *ce);
     void AdjustMenu();
-		void ObjFromMenu(QString text);
+	void ObjFromMenu(QString text);
 
     QPopupMenu* pmenu;
     QPopupMenu* fmenu;
@@ -68,13 +65,14 @@ public:
     int vS;
     int vM;
     int vB;
+	bool Changed;
 
 public slots:
     void Save();
 
 private slots:
-		void HandleMouse(QIconViewItem *ite);
-		void DeleteObj(QString name, QIconViewItem *ite);
+	void HandleMouse(QIconViewItem *ite);
+	void DeleteObj(QString name, QIconViewItem *ite);
     void DropOn(QDropEvent *e);
     void SaveAs();
     void Load();

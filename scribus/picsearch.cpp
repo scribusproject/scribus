@@ -5,13 +5,24 @@
 extern QImage LoadPict(QString fn);
 extern QPixmap loadIcon(QString nam);
 
+/*!
+ \fn PicSearch::PicSearch(QWidget* parent, QString name, QStringList alt)
+ \author Franz Schmid
+ \date
+ \brief Constructor for PicSearch.[dox?]. Used in Extras / Manage Pictures / Search function
+ \param parent QWidget pointer to parent window
+ \param name QString name of image
+ \param alt QStringList List of Paths where an Image with the given Name is present
+ \retval None
+ */
 PicSearch::PicSearch(QWidget* parent, QString name, QStringList alt)
     : QDialog( parent, "pi2", true, 0 )
 {
     setCaption( tr( "Result" ) );
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
   	Bild = "";
-    setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, sizePolicy().hasHeightForWidth() ) );
+    setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1,
+								sizePolicy().hasHeightForWidth() ) );
     PicSearchLayout = new QVBoxLayout( this ); 
     PicSearchLayout->setSpacing( 6 );
     PicSearchLayout->setMargin( 11 );
@@ -73,7 +84,7 @@ PicSearch::PicSearch(QWidget* parent, QString name, QStringList alt)
     PixmapLabel1->setFrameShape( QLabel::WinPanel );
     PixmapLabel1->setFrameShadow( QLabel::Sunken );
     Layout3->addWidget( PixmapLabel1 );
-		PixmapLabel1->hide();
+	PixmapLabel1->hide();
     PicSearchLayout->addLayout( Layout3 );
     minS = minimumSize();
     // signals and slots connections
@@ -83,22 +94,38 @@ PicSearch::PicSearch(QWidget* parent, QString name, QStringList alt)
   	connect(ListBox1, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selBild(QListBoxItem*)));
 }
 
+/*!
+ \fn void PicSearch::ShowPrev()
+ \author Franz Schmid
+ \date
+ \brief If preview is desired (checked) then the image preview is shown and generated, otherwise hidden.
+ \param None
+ \retval None
+ */
 void PicSearch::ShowPrev()
 {
 	if (Preview->isChecked())
-		{
+	{
 		PixmapLabel1->show();
 		if (Bild != "")
 			GenPreview();
-		}
+	}
 	else
-		{
+	{
 		PixmapLabel1->hide();
 		setMinimumSize(minS);
 		resize(minS);
-		}
+	}
 }
 
+/*!
+ \fn void PicSearch::selBild(QListBoxItem *c)
+ \author Franz Schmid
+ \date
+ \brief When image is selected from the ListBox then the image preview may be shown and the Use button is enabled.
+ \param c QListBoxItem
+ \retval None
+ */
 void PicSearch::selBild(QListBoxItem *c)
 {
 	if (c == NULL)
@@ -109,22 +136,29 @@ void PicSearch::selBild(QListBoxItem *c)
 	UseB->setEnabled(true);
 }
 
+/*!
+ \fn void PicSearch::GenPreview()
+ \author Franz Schmid
+ \date
+ \brief Generates image preview for the found Picture
+ \param None
+ \retval None
+ */
 void PicSearch::GenPreview()
 {
 	QPixmap pm;
 	QImage im = LoadPict(Bild);
 	if ((im.width() > 200) || (im.height() > 200))
-		{
+	{
 		QImage im2;
-		float sx = im.width() / 200.0;
-		float sy = im.height() / 200.0;
-		if (sy < sx)
-			im2 = im.smoothScale(qRound(im.width() / sx), qRound(im.height() / sx));
-		else
+		double sx = im.width() / 200.0;
+		double sy = im.height() / 200.0;
+		im2 = sy < sx ?
+			im2 = im.smoothScale(qRound(im.width() / sx), qRound(im.height() / sx)) :
 			im2 = im.smoothScale(qRound(im.width() / sy), qRound(im.height() / sy));
 		im = im2;
 		im2.detach();
-		}
+	}
 	pm.convertFromImage(im);
 	PixmapLabel1->setPixmap(pm);
 }	

@@ -1,191 +1,182 @@
-# This is a Qt message file in .po format. Â Each msgid starts with
-# a scope. Â This scope should *NOT* be translated - eg. "Foo::Bar"
-# would be translated to "Pub", not "Foo::Pub".
 msgid ""
 msgstr ""
-"Project-Id-Version: Scribus 0.3\n"
-"POT-Creation-Date: 1999-02-23 15:38+0200\n"
-"PO-Revision-Date: 2002-04-17 17:25GMT\n"
-"Last-Translator: Giovanni BiczÃ³ <gbiczo@freestart.hu>\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Language-Team: Hungarian <kde-lista@sophia.jpte.hu>\n"
-"X-Generator: KBabel 0.9.5\n"
+"PO-Revision-Date: 2003-07-16\n"
+"Last-Translator: NAGY Bence <gimb@freemail.hu>\n"
+"Content-Type: text/plain; charset=iso-8859-2\n"
 
-#: mywidget.cpp:30
 msgid "File"
-msgstr "FÃ¡jl"
+msgstr "Fájl"
 
 msgid "New"
-msgstr "Ãšj"
+msgstr "Új..."
 
 msgid "Open..."
-msgstr "MegnyitÃ¡s..."
+msgstr "Megnyitás..."
 
 msgid "Open"
-msgstr "MegnyitÃ¡s"
+msgstr "Megnyitás"
 
 msgid "Close"
-msgstr "BezÃ¡rÃ¡s"
+msgstr "Bezárás"
 
 msgid "Save"
-msgstr "MentÃ©s"
+msgstr "Mentés"
 
 msgid "Save as..."
-msgstr "MentÃ©s mint..."
+msgstr "Mentés más néven..."
 
 msgid "Save as"
-msgstr "MentÃ©s mint"
+msgstr "Mentés más néven"
 
 msgid "Revert to Saved"
-msgstr "VisszaÃ¡llÃ­tÃ¡s"
+msgstr "Visszatérés a mentetthez"
 
 msgid "Save Text..."
-msgstr "SzÃ¶veg mentÃ©se..."
+msgstr "Szöveg mentése..."
 
 msgid "Save Page as EPS..."
-msgstr "Oldal EPS-be mentÃ©se"
+msgstr "Oldal mentése EPS-ként..."
 
 msgid "Save as PDF..."
-msgstr "MentÃ©s PDF-be..."
+msgstr "Mentés PDF-ként..."
 
 msgid "Document Setup..."
-msgstr "Dokumentum beÃ¡llÃ­tÃ¡sai..."
+msgstr "Dokumentumbeállítások..."
 
 msgid "Document Setup"
-msgstr "Dokumentum beÃ¡llÃ­tÃ¡sai"
+msgstr "Dokumentumbeállítások"
 
 msgid "Document Info..."
-msgstr "InformÃ¡ciÃ³..."
+msgstr "Dokumentuminformáció..."
 
 msgid "Print..."
-msgstr "NyomtatÃ¡s..."
+msgstr "Nyomtatás..."
 
 msgid "Quit"
-msgstr "KilÃ©pÃ©s"
+msgstr "Kilépés"
 
 msgid "View"
-msgstr "NÃ©zet"
+msgstr "Nézet"
 
 msgid "Fit in Window"
 msgstr "Teljes oldal"
 
 msgid "Actual Size"
-msgstr "AktuÃ¡lis mÃ©ret"
+msgstr "Aktuális méret"
 
 msgid "Thumbnails"
-msgstr "GyorsnÃ©zeti kÃ©p"
+msgstr "Gyorsnézeti kép"
 
 msgid "Show Tools"
-msgstr "EszkÃ¶ztÃ¡r mutatÃ¡sa"
+msgstr "Eszköztár mutatása"
 
 msgid "Hide Tools"
-msgstr "EszkÃ¶ztÃ¡r elrejtÃ©se"
+msgstr "Eszköztár elrejtése"
 
 msgid "Hide Margins"
-msgstr "MargÃ³k elrejtÃ©se"
+msgstr "Margók elrejtése"
 
 msgid "Show Margins"
-msgstr "MargÃ³k mutatÃ¡sa"
+msgstr "Margók mutatása"
 
 msgid "Hide Guides"
-msgstr "SegÃ©dvonalak elrejtÃ©se"
+msgstr "Segédvonalak elrejtése"
 
 msgid "Hide Images"
-msgstr "KÃ©pek elrejtÃ©se"
+msgstr "Képek elrejtése"
 
 msgid "Show Images"
-msgstr "KÃ©pek mutatÃ¡sa"
+msgstr "Képek mutatása"
 
 msgid "Show Guides"
-msgstr "SegÃ©dvonalak mutatÃ¡sa"
+msgstr "Segédvonalak mutatása"
 
 msgid "Show Measurements"
-msgstr "MÃ©retek mutatÃ¡sa"
+msgstr "Méretek mutatása"
 
 msgid "Hide Measurements"
-msgstr "MÃ©retek elrejtÃ©se"
+msgstr "Méretek elrejtése"
 
 msgid "Help"
-msgstr "SÃºgÃ³"
+msgstr "Segítség"
 
 msgid "About Scribus"
-msgstr "NÃ©vjegy"
+msgstr "A Scribus névjegye"
 
 msgid "About Qt"
-msgstr "A QT-rÃ³l"
+msgstr "A Qt névjegye"
 
 msgid "Ready"
-msgstr "KÃ©sz"
+msgstr "Kész"
 
 msgid "Scaled to "
-msgstr "NagyÃ­tÃ¡s: "
+msgstr "Nagyítás"
 
 msgid "Get Picture..."
-msgstr "KÃ©p betÃ¶ltÃ©se..."
+msgstr "Kép betöltése..."
 
 msgid "Get Text/Picture..."
-msgstr "KÃ©p/SzÃ¶veg betÃ¶ltÃ©se..."
+msgstr "Szöveg/kép betöltése..."
 
 msgid "Get Text..."
-msgstr "SzÃ¶veg betÃ¶ltÃ©se..."
+msgstr "Szöveg betöltése..."
 
 msgid "New Document"
-msgstr "Ãšj dokumentum"
+msgstr "Új dokumentum"
 
 msgid "Page Size"
-msgstr "PapÃ­rmÃ©ret"
+msgstr "Papírméret"
 
 msgid "Margin Guides"
-msgstr "MargÃ³k segÃ©dvonalai"
+msgstr "Margók"
 
 msgid "Column Guides"
-msgstr "HasÃ¡bok segÃ©dvonalai"
+msgstr "Hasábok"
 
 msgid "Columns:"
-msgstr "HasÃ¡bok:"
+msgstr "Hasábok:"
 
 msgid "Gutter Width:"
-msgstr "HasÃ¡bkÃ¶z:"
+msgstr "Hasábköz:"
 
 msgid "Width:"
-msgstr "SzÃ©lessÃ©g:"
+msgstr "Szélesség:"
 
 msgid "Height:"
-msgstr "MagassÃ¡g:"
+msgstr "Magasság:"
 
 msgid "Top:"
-msgstr "FelÃ¼l:"
+msgstr "Fent:"
 
 msgid "Left:"
-msgstr "BalrÃ³l:"
+msgstr "Baloldalt:"
 
 msgid "Inside:"
-msgstr "BelÃ¼l:"
+msgstr "Belül:"
 
 msgid "Right:"
-msgstr "JobbrÃ³l:"
+msgstr "Jobboldalt:"
 
 msgid "Outside:"
-msgstr "KÃ­vÃ¼l:"
+msgstr "Kívül:"
 
 msgid "Bottom:"
 msgstr "Alul:"
 
 msgid "Other"
-msgstr "EgyÃ©b"
+msgstr "Másik"
 
 msgid "Facing Pages"
-msgstr "Szemben lÃ©vÅ‘ oldalak"
+msgstr "Szembenézõ oldalak"
 
 msgid "OK"
-msgstr "OK"
+msgstr "Rendben"
 
 msgid "Cancel"
-msgstr "MÃ©gsem"
+msgstr "Mégsem"
 
-msgid "Automatic Text Box"
-msgstr "Automatikus szÃ¶vegdoboz"
+msgid "Autom. Textframes"
+msgstr "Automatikus szövegdobozok"
 
 msgid "W:"
 msgstr "Sz:"
@@ -193,8 +184,11 @@ msgstr "Sz:"
 msgid "Tabloid"
 msgstr "Tabloid"
 
-msgid "Documents (*.scd);; All Files (*)"
-msgstr "Dokumentumok (*.scd);; Minden fÃ¡jl (*)"
+msgid "Documents (*.sla *.sla.gz *.scd *scd.gz);; All Files (*)"
+msgstr "Dokumentumok (*.sla *sla.gz *.scd *.scd.gz);; Minden fájl (*)"
+
+msgid "Documents (*.sla *.scd);; All Files (*)"
+msgstr "Dokumentumok (*.sla *.scd);; Minden fájl (*)"
 
 msgid "Document "
 msgstr "Dokumentum "
@@ -203,79 +197,79 @@ msgid "No Document"
 msgstr "Nincs dokumentum"
 
 msgid "Warning"
-msgstr "FigyelmeztetÃ©s"
-
-msgid "The document has been changed since the last save."
-msgstr "A dokumentum megvÃ¡ltozott az utolsÃ³ mentÃ©s Ã³ta."
+msgstr "Figyelmeztetés"
 
 msgid "Save Now"
-msgstr "MentÃ©s"
+msgstr "Mentés"
 
 msgid "Leave Anyway"
-msgstr "KilÃ©pÃ©s"
+msgstr "Kilépés"
 
 msgid "Textfiles (*.txt);;All Files (*)"
-msgstr "SzÃ¶vegfÃ¡jlok (*.txt);;Minden fÃ¡jl (*)"
+msgstr "Szövegfájlok (*.txt);;Minden fájl (*)"
 
-msgid "Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)"
-msgstr "Bitmapek (*.tif *.png *.jpg *.xpm);;EPS-grafikÃ¡k (*.eps);;Minden fÃ¡jl (*)"
+msgid "Images"
+msgstr "Képek"
+
+msgid ");;Vectorimages (*.eps *.pdf);;All Files (*)"
+msgstr ");;Vektorképek (*.eps *.pdf);;Minden fájl (*)"
 
 msgid "Look &in:"
-msgstr "ElÃ©rÃ©s&i Ãºt:"
+msgstr "Megtek&intés:"
 
 msgid "File &type:"
-msgstr "FÃ¡jl&tÃ­pus:"
+msgstr "Fájl&típus:"
 
 msgid "File &name:"
-msgstr "FÃ¡jl&nÃ©v:"
+msgstr "Fájl&név:"
 
 msgid "PDF-Options"
-msgstr "PDF beÃ¡llÃ­tÃ¡sok"
+msgstr "PDF-beállítások"
 
 msgid "Compatibility:"
-msgstr "FÃ¡jlformÃ¡tum:"
+msgstr "Kompatibilitás:"
 
 msgid "Images:"
-msgstr "KÃ©pek:"
+msgstr "Képek:"
 
 msgid "Resolution for EPS-Images:"
-msgstr "EPS kÃ©pek felbontÃ¡sa:"
+msgstr "EPS-képek felbontása"
 
 msgid "Document Info"
-msgstr "DokumentumjellemzÅ‘k"
+msgstr "Dokumentuminformáció"
 
 msgid "Description:"
-msgstr "LeÃ­rÃ¡s:"
+msgstr "Leírás:"
 
 msgid "Author:"
-msgstr "SzerzÅ‘:"
+msgstr "Szerzõ:"
 
 msgid "Edit"
-msgstr "SzerkesztÃ©s"
+msgstr "Szerkesztés"
 
 msgid "Cut"
-msgstr "KivÃ¡gÃ¡s"
+msgstr "Kivágás"
 
 msgid "Copy"
-msgstr "MÃ¡solÃ¡s"
+msgstr "Másolás"
 
 msgid "Paste"
-msgstr "BeillesztÃ©s"
+msgstr "Beillesztés"
 
 msgid "Clear"
-msgstr "TÃ¶rlÃ©s"
+msgstr "Törlés"
 
 msgid "Select all"
-msgstr "Mindent kijelÃ¶l"
+msgstr "Mindent kijelöl"
 
 msgid "Deselect all"
-msgstr "KijelÃ¶lÃ©s megszÃ¼ntetÃ©se"
+msgstr "Kijelölés törlése"
 
-msgid "Style"
-msgstr "StÃ­lus"
+msgid "Theme"
+msgstr "Téma"
 
 msgid "Other..."
-msgstr "EgyÃ©b..."
+msgstr "Egyéb..."
 
 msgid "Item"
 msgstr "Elem"
@@ -284,862 +278,841 @@ msgid "Page"
 msgstr "Oldal"
 
 msgid "Insert..."
-msgstr "BeszÃºrÃ¡s..."
+msgstr "Beszúrás..."
 
 msgid "Delete..."
-msgstr "TÃ¶rlÃ©s..."
+msgstr "Törlés..."
 
 msgid "Delete"
-msgstr "TÃ¶rlÃ©s"
+msgstr "Törlés"
 
 msgid "Font"
-msgstr "BetÅ±tÃ­pus"
+msgstr "Betûtípus"
 
 msgid "Size"
-msgstr "MÃ©ret"
+msgstr "Méret"
 
 msgid "Font Size"
-msgstr "BetÅ±mÃ©ret"
+msgstr "Betûméret"
 
 msgid "Font Size:"
-msgstr "BetÅ±mÃ©ret:"
+msgstr "Betûméret:"
 
 msgid "Shade:"
-msgstr "TÃ³nus:"
+msgstr "Árnyalat:"
 
 msgid "Shade"
-msgstr "TÃ³nus"
+msgstr "Árnyalat"
 
 msgid "Color"
-msgstr "SzÃ­n"
+msgstr "Szín"
 
 msgid "Colors..."
-msgstr "SzÃ­nek..."
+msgstr "Színek..."
 
 msgid "Duplicate"
-msgstr "DuplikÃ¡lÃ¡s"
+msgstr "Duplikálás"
 
 msgid "New Color:"
-msgstr "Ãšj szÃ­n:"
+msgstr "Új szín:"
 
 msgid "New Color"
-msgstr "Ãšj szÃ­n"
+msgstr "Új szín"
 
 msgid "OK to delete Color:"
-msgstr "TÃ¶rÃ¶lni kÃ­vÃ¡nja a kÃ¶vetkezÅ‘ szÃ­nt:"
+msgstr "Törölni kívánja a következõ színt?"
 
 msgid "Replace it with:"
-msgstr "HelyettesÃ­tÃ©s:"
+msgstr "Helyettesítés:"
 
 msgid "Delete Color"
-msgstr "SzÃ­n tÃ¶rlÃ©se"
+msgstr "Szín törlése"
 
 msgid "Colors"
-msgstr "SzÃ­nek"
+msgstr "Színek"
 
 msgid "Edit Colors"
-msgstr "SzÃ­nek szerkesztÃ©se"
-
-msgid "Hide Colors"
-msgstr "SzÃ­nek elrejtÃ©se"
-
-msgid "Show Colors"
-msgstr "SzÃ­nek mutatÃ¡sa"
+msgstr "Színek szerkesztése"
 
 msgid "Show Outline"
-msgstr "Szerkezet mutatÃ¡sa"
+msgstr "Szerkezet mutatása"
 
 msgid "Hide Outline"
-msgstr "Szerkezet elrejtÃ©se"
+msgstr "Szerkezet elrejtése"
 
 msgid "Outline"
 msgstr "Szerkezet"
 
 msgid "Rectangle"
-msgstr "TÃ©glalap"
+msgstr "Téglalap"
 
 msgid "Shape"
 msgstr "Alak"
 
 msgid "Edit Frame"
-msgstr "Keret mÃ³dosÃ­tÃ¡sa"
+msgstr "Keret módosítása"
 
 msgid "Image"
-msgstr "KÃ©p"
+msgstr "Kép"
 
 msgid "Type"
-msgstr "TÃ­pus"
+msgstr "Típus"
 
 msgid "Send to Back"
-msgstr "LeghÃ¡tra"
+msgstr "Hátra"
 
 msgid "Bring to Front"
-msgstr "ElÅ‘re"
+msgstr "Elõre"
 
 msgid "Lower"
-msgstr "HÃ¡trÃ©bb"
+msgstr "Hátrébb"
 
 msgid "Raise"
-msgstr "ElÅ‘rÃ©bb"
+msgstr "Elõrébb"
 
 msgid "Delete Page:"
-msgstr "Oldal tÃ¶rlÃ©se:"
+msgstr "Oldal törlése:"
 
 msgid "Delete Page"
-msgstr "Oldal tÃ¶rlÃ©se"
+msgstr "Oldalak törlése"
 
 msgid "Line"
 msgstr "Vonal"
 
 msgid "Line Width"
-msgstr "VonalszÃ©lessÃ©g"
+msgstr "Vonalvastagság"
 
 msgid "Line Width:"
-msgstr "VonalszÃ©lessÃ©g:"
+msgstr "Vonalvastagság:"
 
 msgid "Print destination"
-msgstr "A nyomtatÃ¡s cÃ©lja:"
+msgstr "Nyomtatás célja:"
 
 msgid "Print to printer:"
-msgstr "NyomtatÃ³:"
+msgstr "Nyomtatás nyomtatóra"
 
 msgid "Printer"
-msgstr "NyomtatÃ³"
-
-msgid "locally connected"
-msgstr "Helyi"
+msgstr "Nyomtató"
 
 msgid "Comment"
-msgstr "MegjegyzÃ©s"
+msgstr "Megjegyzés"
 
 msgid "Print to file:"
-msgstr "FÃ¡jlba:"
+msgstr "Nyomtatás fájlba:"
 
 msgid "Browse..."
-msgstr "TallÃ³zÃ¡s..."
+msgstr "Böngészés..."
 
 msgid "Printer settings"
-msgstr "NyomtatÃ³beÃ¡llÃ­tÃ¡sok"
+msgstr "Nyomtatóbeállítások"
 
 msgid "Print in color if available"
-msgstr "SzÃ­nes nyomtatÃ¡s, ha lehetsÃ©ges"
+msgstr "Színes nyomtatás, ha lehetséges"
 
 msgid "Print in grayscale"
-msgstr "SzÃ¼rkeÃ¡rnyalatok nyomtatÃ¡sa"
+msgstr "Szürkeárnyalatok nyomtatása"
 
 msgid "Paper format"
-msgstr "PapÃ­rformÃ¡tum"
+msgstr "Papírformátum"
 
 msgid "Portrait"
-msgstr "ÃllÃ³"
+msgstr "Álló"
 
 msgid "Landscape"
-msgstr "FekvÅ‘"
+msgstr "Fekvõ"
 
 msgid "Options"
-msgstr "BeÃ¡llÃ­tÃ¡sok"
+msgstr "Beállítások"
 
 msgid "Print all"
 msgstr "Mind"
 
 msgid "Print range"
-msgstr "TartomÃ¡ny"
+msgstr "Tartomány"
 
 msgid "From page:"
-msgstr "KezdÅ‘oldal:"
+msgstr "Kezdõoldal:"
 
 msgid "To page:"
-msgstr "ZÃ¡rÃ³oldal:"
+msgstr "Záróoldal:"
 
 msgid "Print first page first"
-msgstr "ElsÅ‘ oldaltÃ³l"
+msgstr "Elsõ oldalt elõször"
 
 msgid "Print last page first"
-msgstr "UtolsÃ³ oldaltÃ³l"
+msgstr "Utolsó oldalt elõször"
 
 msgid "Number of copies:"
-msgstr "PÃ©ldÃ¡nyszÃ¡m"
+msgstr "Példányszám"
 
 msgid "Select color"
-msgstr "SzÃ­nvÃ¡lasztÃ¡s"
+msgstr "Szín kiválasztása"
 
 msgid "&Basic colors"
-msgstr "A&lapszÃ­nek"
+msgstr "Alapszínek"
 
 msgid "&Custom colors"
-msgstr "&EgyÃ©ni szÃ­nek"
+msgstr "Saját színek"
 
 msgid "&Add To Custom Colors"
-msgstr "HozzÃ¡adÃ¡s az e&gyÃ©ni szÃ­nekhez"
+msgstr "Hozzáadás a saját színekhez"
 
 msgid "&Define Custom Colors >>"
-msgstr "EgyÃ©ni szÃ­nek mega&dÃ¡sa >>"
+msgstr "Saját színek definiálása >>"
 
 msgid "&Red:"
-msgstr "&Piros:"
+msgstr "&Vörös:"
 
 msgid "&Green:"
-msgstr "&ZÃ¶ld:"
+msgstr "&Zöld:"
 
 msgid "Bl&ue:"
-msgstr "&KÃ©k:"
+msgstr "&Kék:"
 
 msgid "Select Font"
-msgstr "BetÅ±tÃ­pus vÃ¡lasztÃ¡s"
+msgstr "Betûtípus választása"
 
 msgid "&Font"
-msgstr "&BetÅ±tÃ­pus"
+msgstr "Betûtípus"
 
 msgid "Font st&yle"
-msgstr "BetÅ±stÃ­lus"
+msgstr "Betûstílus"
 
 msgid "&Size"
-msgstr "BetÅ±&mÃ©ret"
+msgstr "&Méret"
 
 msgid "Effects"
-msgstr "Effektusok"
+msgstr "Hatások"
 
 msgid "Stri&keout"
-msgstr "Ã&thÃºzÃ¡s"
+msgstr "Áthúzott"
 
 msgid "&Underline"
-msgstr "AlÃ¡&hÃºzÃ¡s"
+msgstr "Aláhúzott"
 
 msgid "Sample"
-msgstr "MintaszÃ¶veg"
+msgstr "Minta"
 
 msgid "Scr&ipt"
-msgstr "Szkr&ipt"
+msgstr "Szkript"
 
 msgid "Preferences..."
-msgstr "BeÃ¡llÃ­tÃ¡sok..."
+msgstr "Alapbeállítások..."
 
 msgid "Preferences"
-msgstr "BeÃ¡llÃ­tÃ¡sok"
+msgstr "Alapbeállítások"
 
 msgid "General"
-msgstr "ÃltalÃ¡nos"
+msgstr "Általános"
 
 msgid "Guides"
-msgstr "SegÃ©dvonalak"
+msgstr "Segédvonalak"
 
 msgid "Major Grid Spacing:"
-msgstr "FÅ‘ rÃ¡cs sÅ±rÅ±sÃ©ge:"
+msgstr "Fõrács sûrûsége:"
 
 msgid "Minor Grid Spacing:"
-msgstr "Kisebb rÃ¡cs sÅ±rÅ±sÃ©ge:"
+msgstr "Segédrács sûrûsége:"
 
 msgid "Major Grid Color:"
-msgstr "FÅ‘ rÃ¡cs szÃ­ne:"
+msgstr "Fõrács színe:"
 
 msgid "Minor Grid Color:"
-msgstr "Kisebb rÃ¡cs szÃ­ne:"
+msgstr "Segédrács színe:"
 
-msgid "Grid Colors:"
-msgstr "RÃ¡cs szÃ­ne:"
+msgid "Grid Colors"
+msgstr "Rácsszínek"
 
-msgid "Grid Layout:"
-msgstr "RÃ¡cs elrendezÃ©se:"
+msgid "Grid Layout"
+msgstr "Rácsnézet"
 
 msgid "Image visible"
-msgstr "KÃ©p mutatÃ¡sa"
+msgstr "Kép mutatása"
 
 msgid "Is PDF-Bookmark"
-msgstr "PDF-kÃ¶nyvjelzÅ‘"
+msgstr "PDF-könyvjelzõ"
 
 msgid "Snap to Guides"
-msgstr "IgazÃ­tÃ¡s a segÃ©dvonalakhoz"
+msgstr "Igazítás a segédvonalakhoz"
 
 msgid "Apply"
-msgstr "Alkalmaz"
+msgstr "Alkalmazás"
 
 msgid "Snap to Grid"
-msgstr "IgazÃ­tÃ¡s a rÃ¡cshoz"
+msgstr "Igazítás a rácshoz"
 
 msgid "Mouse-Settings"
-msgstr "EgÃ©rbeÃ¡llÃ­tÃ¡sok"
+msgstr "Egérbeállítások"
 
 msgid "Wheel-Jump"
-msgstr "GÃ¶rgÅ‘ lÃ©pÃ©skÃ¶ze"
+msgstr "Görgõ lépésköze"
 
 msgid "Grab-Radius"
-msgstr "KijelÃ¶lÃ©s sugara"
+msgstr "Kijelölés sugara"
 
 msgid "Printing-Error"
-msgstr "NyomtatÃ¡si hiba"
+msgstr "Nyomtatási hiba"
 
 msgid "Printing completed"
-msgstr "A nyomtatÃ¡s befejezÅ‘dÃ¶tt"
+msgstr "Nyomtatás kész"
 
 msgid "Printing aborted"
-msgstr "A nyomtatÃ¡s megszakadt"
+msgstr "Nyomtatás leállítva"
 
 msgid "Printing..."
-msgstr "NyomtatÃ¡s..."
+msgstr "Nyomtatás..."
 
 msgid "Saving aborted"
-msgstr "A mentÃ©s megszakadt"
+msgstr "Mentés sikertelen"
 
 msgid "Loading aborted"
-msgstr "A betÃ¶ltÃ©s megszakadt"
+msgstr "Betöltés sikertelen"
 
 msgid "Global Fontsettings"
-msgstr "GlobÃ¡lis betÅ±tÃ­pus-beÃ¡llÃ­tÃ¡sok"
+msgstr "Általános betûtípus-beállítások"
 
 msgid "Path to Fontfile"
-msgstr "BetÅ±tÃ­pusfÃ¡jl elÃ©rÃ©si Ãºtja"
+msgstr "Betûtípusok elérési útja"
 
 msgid "Embed in:"
-msgstr "BeÃ¡gyazÃ¡s:"
+msgstr "Beágyazás:"
 
 msgid "Default Size:"
-msgstr "AlapÃ©rtelmezett mÃ©ret:"
+msgstr "Alapértelmezett méret:"
 
 msgid "Default Font:"
-msgstr "AlapÃ©rtelmezett betÅ±tÃ­pus"
+msgstr "Alapértelmezett betûtípus:"
 
-msgid "Sample Text"
-msgstr "MintaszÃ¶veg"
+msgid "Woven silk pyjamas exchanged for blue quartz"
+msgstr "Betûtípusnézõ próbamondatszörny."
 
 msgid "Fonts"
-msgstr "BetÅ±tÃ­pusok"
+msgstr "Betûtípusok"
 
 msgid "Missing Font"
-msgstr "HiÃ¡nyzÃ³ betÅ±tÃ­pus"
+msgstr "Hiányzó betûtípus"
 
 msgid "Missing"
-msgstr "HiÃ¡nyzik"
+msgstr "Hiányzik"
 
 msgid "The Font %1 is not installed."
-msgstr "A(z) %1 betÅ±tÃ­pus nincs telepÃ­tve"
+msgstr "A(z) %1 betûtípus nincs telepítve."
 
 msgid "Use"
-msgstr "HasznÃ¡lja a(z)"
+msgstr "Használd"
 
 msgid "instead"
 msgstr "-t helyette"
 
 msgid "Fonts..."
-msgstr "BetÅ±tÃ­pusok..."
+msgstr "Hozzáadás..."
 
 msgid " loaded"
-msgstr " betÃ¶ltve"
+msgstr " betöltve"
 
 msgid "Picture "
-msgstr "KÃ©p "
+msgstr "Kép "
 
 msgid "File "
-msgstr "FÃ¡jl "
+msgstr "Fájl "
 
 msgid " saved"
-msgstr " elmentve"
+msgstr " mentve"
 
 msgid "Unable to create PDF-File."
-msgstr "Nem sikerÃ¼lt lÃ©trehozni a PDF-fÃ¡jlt."
+msgstr "Nem lehet a PDF-fájlt elõállítani."
 
 msgid "Error creating PDF-File.."
-msgstr "Hiba a PDF-fÃ¡jl lÃ©trehozÃ¡sa kÃ¶zben..."
+msgstr "Hiba a PDF-fájl elõállítása közben."
 
 msgid "Error during EPS-Export"
-msgstr "Hiba az EPS-fÃ¡jl exportÃ¡lÃ¡sa kÃ¶zben"
+msgstr "Hiba az EPS-exportálás közben"
 
 msgid "The following Programs are missing:"
-msgstr "A kÃ¶vetkezÅ‘ programok hiÃ¡nyoznak:"
+msgstr "A következõ programok hiányoznak:"
 
 msgid "Ghostscript : You cannot use EPS-Images"
-msgstr "Ghostscript : Nem hasznÃ¡lhat EPS-kÃ©peket"
+msgstr "Ghostscript : Nem használhat EPS-képeket"
 
 msgid "Multiple Duplicate"
-msgstr "TÃ¶bbszÃ¶rÃ¶s duplikÃ¡lÃ¡s"
+msgstr "Többszörös duplikálás"
 
 msgid "Number of Copies:"
-msgstr "MÃ¡solatok szÃ¡ma:"
+msgstr "Másolatok száma:"
 
 msgid "Horizontal Shift:"
-msgstr "VÃ­zszintes eltolÃ¡s:"
+msgstr "Vízszintes eltolás:"
 
 msgid "Vertical Shift:"
-msgstr "FÃ¼gg. eltolÃ¡s:"
+msgstr "Függõleges eltolás:"
 
 msgid "Distribute/Align"
-msgstr "ElosztÃ¡s/IgazÃ­tÃ¡s"
+msgstr "Elosztás/Igazítás"
 
 msgid "Distribute/Align..."
-msgstr "ElrendezÃ©s/IgazÃ­tÃ¡s..."
+msgstr "Elosztás/Igazítás"
 
 msgid "Don't change"
-msgstr "Nincs vÃ¡ltoztatÃ¡s"
+msgstr "Nincs változtatás"
 
 msgid "Align"
-msgstr "IgazÃ­tÃ¡s"
+msgstr "Igazítás"
 
 msgid "Displacement"
-msgstr "ElmozdÃ­tÃ¡s"
+msgstr "Elmozdítás"
 
 msgid "Distribute evenly"
-msgstr "Egyenletes elrendezÃ©Ã©s"
+msgstr "Egyenletes elrendezéés"
 
 msgid "between:"
-msgstr "Mi mentÃ©n:"
+msgstr "között:"
 
 msgid "Left Sides"
 msgstr "Bal oldalak"
 
 msgid "Middles"
-msgstr "KÃ¶zepek"
+msgstr "Közepek"
 
 msgid "Right Sides"
 msgstr "Jobb oldalak"
 
 msgid "Top Sides"
-msgstr "FelsÅ‘ szÃ©lek"
+msgstr "Felsõ szélek"
 
 msgid "Bottom Sides"
-msgstr "AlsÃ³ szÃ©lek"
+msgstr "Alsó szélek"
 
 msgid "Vertical"
-msgstr "FÃ¼ggÅ‘leges"
+msgstr "Függõleges"
 
 msgid "Horizontal"
-msgstr "VÃ­zszintes"
-
-msgid "Downsample Color-Images to:"
-msgstr "SzÃ­nes kÃ©pek felbontÃ¡sa:"
-
-msgid "Downsample Grayscale-Images to:"
-msgstr "SzÃ¼rkeÃ¡rnyalatos kÃ©pek felbontÃ¡sa:"
-
-msgid "Downsample Mono-Images to:"
-msgstr "MonokrÃ³m kÃ©pek felbontÃ¡sa:"
-
-msgid "Compatibility"
-msgstr "FÃ¡jlformÃ¡tum"
-
-msgid "Device Settings"
-msgstr "EszkÃ¶zbeÃ¡llÃ­tÃ¡sok"
+msgstr "Vízszintes"
 
 msgid "Fatal Error"
-msgstr "VÃ©gzetes hiba"
+msgstr "Végzetes hiba"
 
 msgid "There are no Postscript-Fonts on your System"
-msgstr "Nincsenek PostScript betÅ±tÃ­pusok telepÃ­tve"
+msgstr "Nincsenek PostScript-betûtípusok telepítve"
 
 msgid "Exiting now"
-msgstr "Program bezÃ¡rÃ¡sa"
+msgstr "Program bezárása"
 
 msgid "Insert Page"
-msgstr "Oldal beszÃºrÃ¡sa"
+msgstr "Oldal beszúrása"
 
 msgid "Inserting"
-msgstr "SzÃºrjon be"
+msgstr "Szúrjon be"
 
 msgid "before Page"
-msgstr "Mely oldal elÃ©:"
+msgstr "Oldal elé:"
 
 msgid "after Page"
-msgstr "Mely oldal utÃ¡n:"
+msgstr "Oldal után:"
 
-msgid "At End"
-msgstr "A dokumentum vÃ©gÃ©re"
+msgid "at End"
+msgstr "A végére"
 
-msgid "Page(s)"
-msgstr "Oldalt"
+msgid "page(s)"
+msgstr "oldalt"
 
 msgid "To End"
-msgstr "A dokumentum vÃ©gÃ©re"
+msgstr "A végére"
 
 msgid "Delete Pages"
-msgstr "Oldalak tÃ¶rlÃ©se"
+msgstr "Oldalak törlése"
 
 msgid "Delete from:"
-msgstr "MettÅ‘l:"
+msgstr "Ettõl:"
 
 msgid "Move Page(s):"
-msgstr "Oldal(ak) mozgatÃ¡sa"
+msgstr "Oldal(ak) mozgatása:"
 
 msgid "Move Pages"
-msgstr "Oldalak mozgatÃ¡sa"
+msgstr "Oldalak mozgatása"
 
 msgid "Move..."
-msgstr "MozgatÃ¡s..."
+msgstr "Mozgatás..."
 
 msgid "to:"
-msgstr "Meddig:"
+msgstr "oldalig:"
 
 msgid "Select Items"
-msgstr "Elemek kijelÃ¶lÃ©se"
+msgstr "Elemek kijelölése"
 
 msgid "Edit Contents of Frame"
-msgstr "Keret tartalmÃ¡nak szerkesztÃ©se"
+msgstr "Keret tartalmának szerkesztése"
 
 msgid "Zooms in or out"
-msgstr "NagyÃ­t/KicsinyÃ­t"
+msgstr "Nagyítás/kicsinyítés"
 
 msgid "Insert Textbox"
-msgstr "SzÃ¶vegdoboz beszÃºrÃ¡sa"
+msgstr "Szövegdoboz beszúrása"
 
 msgid "Insert Picture"
-msgstr "KÃ©p beszÃºrÃ¡sa"
+msgstr "Kép beszúrása"
 
 msgid "Insert Lines"
-msgstr "Vonalak beszÃºrÃ¡sa"
+msgstr "Vonal beszúrása"
 
 msgid "Insert Ovals"
-msgstr "Ellipszisek beszÃºrÃ¡sa"
+msgstr "Ellipszis beszúrása"
 
 msgid "Insert Rectangles"
-msgstr "TÃ©glalapok beszÃºrÃ¡sa"
+msgstr "Téglalap beszúrása"
 
 msgid "Rotate Item"
-msgstr "Elem forgatÃ¡sa"
+msgstr "Elem forgatása"
 
 msgid "Modify..."
-msgstr "MÃ³dosÃ­tÃ¡s..."
+msgstr "Módosítás..."
 
 msgid "Modify Textframe"
-msgstr "SzÃ¶vegdoboz mÃ³dosÃ­tÃ¡sa"
+msgstr "Szövegdoboz módosítása"
 
 msgid "Modify Frame"
-msgstr "Keret mÃ³dosÃ­tÃ¡sa"
+msgstr "Keret módosítása"
 
 msgid "Other:"
-msgstr "EgyÃ©b:"
+msgstr "Egyéb:"
 
 msgid "Don't print"
-msgstr "Nem nyomtathatÃ³"
+msgstr "Nem nyomtatható"
 
 msgid "Properties:"
-msgstr "TulajdonsÃ¡gok:"
+msgstr "Tulajdonságok:"
 
 msgid "Ordinary Text"
-msgstr "KÃ¶zÃ¶nsÃ©ges szÃ¶veg"
+msgstr "Közönséges szöveg"
 
 msgid "Is PDF-Annotation"
-msgstr "PDF-megjegyzÃ©s"
+msgstr "PDF-megjegyzés"
 
 msgid "Angle:"
-msgstr "ElforgatÃ¡s:"
+msgstr "Forgatás:"
 
-msgid "Textdistance"
-msgstr "TÃ¡volsÃ¡g a kerettÅ‘l"
+msgid "Textdistance:"
+msgstr "Szövegtávolság:"
 
 msgid "Face"
-msgstr "BetÅ±csalÃ¡d"
+msgstr ""
 
 msgid "Superscript"
-msgstr "FelsÅ‘ index"
+msgstr "Felsõ index"
 
 msgid "Subscript"
-msgstr "AlsÃ³ index"
+msgstr "Alsó index"
 
 msgid "Flip horizontal"
-msgstr "VÃ­zszintes tÃ¼krÃ¶zÃ©s"
+msgstr "Vízszintes tükrözés"
 
 msgid "Flip vertical"
-msgstr "FÃ¼ggÅ‘leges tÃ¼krÃ¶zÃ©s"
+msgstr "Függõleges tükrözés"
 
 msgid "Scaling:"
-msgstr "MÃ©retezÃ©s:"
+msgstr "Méretezés"
 
 msgid "Disp.:"
-msgstr "ElmozdÃ­tÃ¡s:"
+msgstr "Eltolás"
 
 msgid "Small Caps"
-msgstr "Kis kapitÃ¡lis"
+msgstr "Kiskapitális"
 
 msgid "Typographics"
-msgstr "TipogrÃ¡fia"
+msgstr "Tipográfia"
 
 msgid "Italic"
-msgstr "KurzÃ­v"
-
-msgid "Shift+Click to add Point; Ctrl+Click to delete Point"
-msgstr "Shift+kattintÃ¡s: Pont hozzÃ¡adÃ¡sa; Ctrl+kattintÃ¡s: pont tÃ¶rlÃ©se"
+msgstr "Kurzív"
 
 msgid "No Fill"
-msgstr "ÃtlÃ¡tszÃ³"
+msgstr "Nincs kitöltés"
 
 msgid "Underline"
-msgstr "AlÃ¡hÃºzott"
+msgstr "Aláhúzott"
 
 msgid "Strikethru"
-msgstr "ÃthÃºzott"
+msgstr "Áthúzott"
 
 msgid "Strikeout"
-msgstr "ÃthÃºzott"
+msgstr "Áthúzott"
 
 msgid "Append"
-msgstr "HozzÃ¡fÅ±zÃ©s"
+msgstr "Hozzáadás"
 
 msgid "Bold"
-msgstr "KÃ¶vÃ©r"
+msgstr "Félkövér"
 
 msgid "Shading:"
-msgstr "TÃ³nus:"
+msgstr "Tónus:"
 
 msgid "Background Color:"
-msgstr "HÃ¡ttÃ©rszÃ­n:"
+msgstr "Háttérszín:"
 
 msgid "Vertical flipped"
-msgstr "FÃ¼ggÅ‘legesen tÃ¼krÃ¶zÃ¶tt"
+msgstr "Függõlegesen tükrözött"
 
 msgid "Horizontal flipped"
-msgstr "VÃ­zszintesen tÃ¼krÃ¶zÃ¶tt"
+msgstr "Vízszintesen tükrözött"
 
 msgid "Text flows around Box"
-msgstr "A keret kÃ¶rÃ¼lfolyÃ¡sa"
+msgstr "A keret körülfolyása"
 
 msgid "Online-Help..."
-msgstr "SÃºgÃ³..."
+msgstr "Kézikönyv..."
 
 msgid "Scribus Manual"
-msgstr "Scribus kÃ©zikÃ¶nyv"
+msgstr "Scribus kézikönyv"
 
 msgid "Local X-Pos:"
-msgstr "VÃ­zsz. elhelyezkedÃ©s:"
+msgstr "Vízszintes elhelyezkedés:"
 
 msgid "Local Y-Pos:"
-msgstr "FÃ¼gg. elhelyezkedÃ©s:"
+msgstr "Függõleges elhelyezkedés:"
 
 msgid "Horizontal Scaling"
-msgstr "VÃ­zszintes mÃ©retezÃ©s"
+msgstr "Vízszintes méretezés"
 
 msgid "Vertical Scaling"
-msgstr "FÃ¼gg. mÃ©retezÃ©s"
+msgstr "Függõleges méretezés"
 
 msgid "Modify Pictureframe"
-msgstr "KÃ©pkeret mÃ³dosÃ­tÃ¡sa"
+msgstr "Képkeret módosítása"
 
 msgid "Line Color:"
-msgstr "Vonal szÃ­ne:"
+msgstr "Vonal színe:"
 
 msgid "Fill Color:"
-msgstr "KitÃ¶ltÃ©s szÃ­ne:"
+msgstr "Kitöltés színe:"
 
 msgid "Linestyle:"
-msgstr "VonalstÃ­lus:"
+msgstr "Vonalstílus:"
 
 msgid "Linewidth:"
-msgstr "VonalvastagsÃ¡g:"
+msgstr "Vonalvastagság:"
 
 msgid "Scaling X:"
-msgstr "X mÃ©retezÃ©s:"
+msgstr "Vízszintes nagyítás:"
 
 msgid "Scaling Y:"
-msgstr "Y mÃ©retezÃ©s:"
+msgstr "Függõleges nagyítás:"
 
 msgid "Manual Kerning"
-msgstr "BetÅ±kÃ¶z"
+msgstr "Betûköz"
 
 msgid "Linespacing"
-msgstr "SorkÃ¶z"
+msgstr "Sorköz:"
 
 msgid "Frame"
 msgstr "Keret"
 
 msgid "Contents"
-msgstr "Tartalom"
+msgstr "Tartalmak"
 
 msgid "Tools"
-msgstr "EszkÃ¶zÃ¶k"
+msgstr "Eszközök"
 
 msgid "Create Textchains"
-msgstr "SzÃ¶veglÃ¡ncok lÃ©trehozÃ¡sa"
+msgstr "Szövegláncok létrehozása"
 
 msgid "Break Textchains"
-msgstr "SzÃ¶veglÃ¡ncok megszakÃ­tÃ¡sa"
+msgstr "Szövegláncok megszakítása"
 
 msgid "Stepping:"
-msgstr "LÃ©pÃ©skÃ¶z:"
+msgstr ""
 
-msgid "Placing:"
-msgstr "ElhelyezÃ©s:"
+msgid "Placing"
+msgstr "Elhelyezés"
 
 msgid "In the Background"
-msgstr "HÃ¡ttÃ©rbe"
+msgstr "Háttérbe"
 
 msgid "In the Foreground"
-msgstr "ElÅ‘tÃ©rbe"
+msgstr "Elõtérbe"
 
 msgid "Text Color:"
-msgstr "SzÃ¶veg szÃ­ne:"
+msgstr "Szövegszín:"
 
 msgid "Units"
-msgstr "MÃ©rtÃ©kegysÃ©gek"
+msgstr "Mértékegység"
+
+msgid "Points (pts)"
+msgstr "Pont (pt)"
 
 msgid "Points (pt)"
 msgstr "Pont (pt)"
 
 msgid "Millimeters (mm)"
-msgstr "MillimÃ©ter (mm)"
+msgstr "Milliméter (mm)"
 
 msgid "Creates a new Document"
-msgstr "Ãšj dokumentumot hoz lÃ©tre"
+msgstr "Dokumentum létrehozása"
 
 msgid "Opens a Document"
-msgstr "Megnyit egy dokumentumot"
+msgstr "Dokumentum megnyitása"
 
 msgid "Saves the current Document"
-msgstr "Elmenti az aktuÃ¡lis dokumentumot"
+msgstr "Aktuális dokumentum mentése"
 
 msgid "Prints the current Document"
-msgstr "Kinyomtatja az aktuÃ¡lis dokumentumot"
+msgstr "Aktuális dokumentum nyomtatása"
 
 msgid "Copy Here"
-msgstr "MÃ¡solÃ¡s ide"
+msgstr "Másolás ide"
 
 msgid "Move Here"
-msgstr "MozgatÃ¡s ide"
+msgstr "Mozgatás ide"
 
 msgid "About"
-msgstr "NÃ©vjegy"
+msgstr "Névjegy"
 
 msgid "Authors"
-msgstr "A szerzÅ‘k"
+msgstr "Szerzõk"
 
 msgid "Translations"
-msgstr "FordÃ­tÃ¡sok"
+msgstr "Fordítások"
 
 msgid "Programming:"
-msgstr "ProgramozÃ¡s:"
+msgstr "Programozás:"
 
 msgid "Contributions from:"
-msgstr "TovÃ¡bbi segÃ­tÅ‘k:"
+msgstr "Közremûködõk:"
 
 msgid "Documentation:"
-msgstr "DokumentÃ¡ciÃ³:"
+msgstr "Dokumentáció:"
 
 msgid "German:"
-msgstr "NÃ©met:"
+msgstr "Német:"
 
 msgid "French:"
 msgstr "Francia:"
 
 msgid "Spanish and Catalan:"
-msgstr "Spanyol Ã©s katalÃ¡n:"
+msgstr "Spanyol és katalán:"
 
 msgid "Hungarian and Italian:"
-msgstr "Magyar Ã©s olasz:"
+msgstr "Magyar és olasz:"
 
 msgid "Slovak:"
-msgstr "SzlovÃ¡k:"
+msgstr "Szlovák:"
+
+msgid "Slovak"
+msgstr "Szlovák"
 
 msgid "Ukrainian:"
-msgstr "UkrÃ¡n:"
+msgstr "Ukrán:"
 
 msgid "None"
 msgstr "Nincs"
 
 msgid "Closes the current Document"
-msgstr "Az aktuÃ¡lis dokumentum bezÃ¡rÃ¡sa"
+msgstr "Aktuális dokumentum bezárása"
 
 msgid "Range:"
-msgstr "TartomÃ¡ny:"
+msgstr "Tartomány:"
 
 msgid "File:"
-msgstr "FÃ¡jl:"
+msgstr "Fájl:"
 
 msgid "Print Normal"
-msgstr "NormÃ¡l nyomtatÃ¡s"
+msgstr "Normál nyomtatás"
 
 msgid "Print Separations"
-msgstr "SzÃ­nrebontÃ¡s"
+msgstr "Színbontás"
 
 msgid "All"
-msgstr "Mind"
+msgstr "Minden"
 
 msgid "Setup Printer"
-msgstr "NyomtatÃ¡s"
+msgstr "Nyomtatás"
 
 msgid "Old"
-msgstr "RÃ©gi"
+msgstr "Régi"
 
-msgid "Colormodel"
-msgstr "SzÃ­nmodell"
+msgid "Color Model"
+msgstr "Színmodell:"
 
 msgid "Is Spot-Color"
-msgstr "Direkt szÃ­n"
+msgstr "direktszín"
 
 msgid "Edit Color"
-msgstr "SzÃ­n szerkesztÃ©se"
+msgstr "Szín szerkesztése"
 
 msgid "Alignment"
-msgstr "ElrendezÃ©s"
+msgstr "Igazítás"
 
 msgid "Left"
 msgstr "Balra"
 
 msgid "Center"
-msgstr "KÃ¶zÃ©pre"
+msgstr "Középre"
 
 msgid "Right"
 msgstr "Jobbra"
 
 msgid "Edit Styles"
-msgstr "StÃ­lusok szerkesztÃ©se"
+msgstr "Stílusok szerkesztése"
 
 msgid "Edit Style"
-msgstr "StÃ­lus szerkesztÃ©se"
+msgstr "Stílus szerkesztése"
 
 msgid "New Style"
-msgstr "Ãšj stÃ­lus"
+msgstr "Új stílus"
 
 msgid "New Style:"
-msgstr "Ãšj StÃ­lus:"
+msgstr "Új stílus:"
 
 msgid "Show Styles"
-msgstr "StÃ­lusok mutatÃ¡sa"
+msgstr "Stílusok mutatása"
 
 msgid "Hide Styles"
-msgstr "StÃ­lusok elrejtÃ©se"
+msgstr "Stílusok elrejtése"
 
 msgid "Styles..."
-msgstr "StÃ­lusok..."
+msgstr "Stílusok..."
 
 msgid "Styles"
-msgstr "StÃ­lusok"
+msgstr "Stílusok"
 
 msgid "No Style"
-msgstr "Nincs stÃ­lus"
+msgstr "Nincs stílus megadva"
 
 msgid "Block"
-msgstr "SorkizÃ¡rt"
+msgstr "Sorkizárva"
 
 msgid "Forced"
-msgstr "ErÅ‘ltetett sorkizÃ¡rÃ¡s"
+msgstr "Kihajtva"
 
 msgid "Indentation"
-msgstr "BehÃºzÃ¡s"
+msgstr "Behúzás"
 
 msgid "Page-Colors"
-msgstr "Oldalak szÃ­ne"
+msgstr "Oldalak színe"
 
 msgid "Background:"
-msgstr "HÃ¡ttÃ©r"
+msgstr "Háttér"
 
 msgid "Left Indent:"
-msgstr "BalrÃ³l:"
+msgstr "Balról:"
 
 msgid "First Line:"
-msgstr "ElsÅ‘ sor:"
+msgstr "Elsõ sor:"
 
 msgid "Character"
-msgstr "Karakter"
+msgstr "Betû"
 
 msgid "Face:"
-msgstr "BetÅ±tÃ­pus:"
+msgstr "Típus:"
 
 msgid "Size:"
-msgstr "MÃ©ret:"
+msgstr "Méret:"
 
 msgid "Color:"
-msgstr "SzÃ­n:"
+msgstr "Szín:"
 
 msgid "Name of the Style is not unique"
-msgstr "A megadott stÃ­lusnÃ©v mÃ¡r lÃ©tezik"
+msgstr "A megadott stílusnév már létezik"
 
 msgid "Do you really want do delete this Style?"
-msgstr "ValÃ³ban tÃ¶rÃ¶lni kÃ­vÃ¡nja ezt a stÃ­lust?"
+msgstr "Tényleg törölni akarja ezt a stílust?"
 
 msgid "No"
 msgstr "Nem"
@@ -1148,106 +1121,118 @@ msgid "Yes"
 msgstr "Igen"
 
 msgid "Vertical Spaces"
-msgstr "FÃ¼ggÅ‘leges tÃ©rkÃ¶zÃ¶k"
+msgstr "Függõleges térközök"
 
 msgid "Above:"
-msgstr "BekezdÃ©s elÅ‘tt:"
+msgstr "Fent:"
 
 msgid "Below:"
-msgstr "BekezdÃ©s utÃ¡n:"
+msgstr "Lent:"
 
 msgid "AFM-File available"
-msgstr "AFM-fÃ¡jl elÃ©rhetÅ‘"
+msgstr "AFM-fájl elérhetõ"
 
 msgid "Nodes"
-msgstr "CsomÃ³pontok"
+msgstr "Csomópontok"
 
-msgid "End Editing Frame"
-msgstr "KeretszerkesztÃ©s vÃ©ge"
+msgid "End Editing"
+msgstr "Szerkesztés vége"
 
-msgid "Add Node"
-msgstr "CsomÃ³pont hozÃ¡adÃ¡sa"
+msgid "Add Nodes"
+msgstr "Csomópontok hozzáadása"
 
-msgid "Delete Node"
-msgstr "CsomÃ³pont tÃ¶rlÃ©se"
+msgid "Delete Nodes"
+msgstr "Csomópontok törlése"
 
-msgid "Move Node"
-msgstr "CsomÃ³pont mozgatÃ¡sa"
+msgid "Move Nodes"
+msgstr "Csomópontok mozgatása"
+
+msgid "Move Control Points"
+msgstr "Kontrollpontok mozgatása"
+
+msgid "Move Control Points independently"
+msgstr "Független kontrollpontok"
+
+msgid "Move Control Points symmetrical"
+msgstr "Szimmetrikus kontrollpontok"
+
+msgid "Insert Bezier Curves"
+msgstr "Bezier-görbe beszúrása"
 
 msgid "New Entry"
-msgstr "Ãšj bejegyzÃ©s"
+msgstr "Új bejegyzés"
 
 msgid "Scrapbooks (*.scs);; All Files (*)"
-msgstr "KÃ¶nyvtÃ¡rak (*.scs);; Minden fÃ¡jl (*)"
+msgstr "Könyvtárak (*.scs);; Minden fájl (*)"
 
 msgid "Scrapbook"
-msgstr "KÃ¶nyvtÃ¡r"
+msgstr "Könyvtár"
 
 msgid "Load..."
-msgstr "BetÃ¶ltÃ©s..."
+msgstr "Betöltés..."
 
 msgid "Object"
-msgstr "Objektum"
+msgstr "Nem"
 
 msgid "Show Scrapbook"
-msgstr "KÃ¶nyvtÃ¡r mutatÃ¡sa"
+msgstr "Könyvtár mutatása"
 
 msgid "Hide Scrapbook"
-msgstr "KÃ¶nyvtÃ¡r elrejtÃ©se"
+msgstr "Könyvtár elrejtése"
 
 msgid "Other Options"
-msgstr "EgyÃ©b opciÃ³k"
+msgstr "Egyéb opciók"
 
 msgid "Save Contents on Exit"
-msgstr "Tartalom mentÃ©se kilÃ©pÃ©skor"
+msgstr "Tartalom mentése kilépéskor"
 
 msgid "Preview"
-msgstr "ElÅ‘nÃ©zet"
+msgstr "Elõnézet"
 
 msgid "Small"
 msgstr "Kicsi"
 
 msgid "Medium"
-msgstr "KÃ¶zepes"
+msgstr "Közepes"
 
 msgid "Big"
 msgstr "Nagy"
 
 msgid "Edit Templates"
-msgstr "Mesteroldalak szerkesztÃ©se"
+msgstr "Mesteroldalak szerkesztése"
 
 msgid "Apply Template..."
-msgstr "Mesteroldal alkalmazÃ¡sa..."
+msgstr "Mesteroldal alkalmazása..."
 
 msgid "Exit"
-msgstr "KilÃ©pÃ©s"
+msgstr "Kilépés"
 
 msgid "Copy of "
-msgstr "MÃ¡solat: "
+msgstr "Másolat "
 
 msgid "Name:"
-msgstr "NÃ©v:"
+msgstr "Név:"
 
 msgid "New Template"
-msgstr "Ãšj mesteroldal"
+msgstr "Új mesteroldal"
 
 msgid "Normal"
-msgstr "NormÃ¡l"
+msgstr "Normál"
 
 msgid "Templates..."
 msgstr "Mesteroldalak..."
 
-msgid "Based on:"
+msgid "Template:"
 msgstr "Mesteroldal:"
 
 msgid "Apply Template"
-msgstr "Mesteroldal alkalmazÃ¡sa"
+msgstr "Mesteroldal alkalmazása"
 
 msgid "Template for this Page:"
 msgstr "Mesteroldal:"
 
-msgid "Remove Items from previous Template"
-msgstr "Elemek tÃ¶rlÃ©se az elÅ‘zÅ‘ mesteroldalrÃ³l"
+msgid "Do you really want do delete this Template?"
+msgstr "Tényleg törölni akarja ezt a mesteroldalt?"
 
 msgid "Left Page"
 msgstr "Bal oldal"
@@ -1256,127 +1241,131 @@ msgid "Right Page"
 msgstr "Jobb oldal"
 
 msgid "Display Frames"
-msgstr "Keretek mutatÃ¡sa"
+msgstr "Keretek mutatása"
 
 msgid "Display Pages Side by Side"
-msgstr "Oldalak egymÃ¡s mellett"
+msgstr "Oldalak egymás mellett"
 
 msgid "Display"
-msgstr "LÃ¡tvÃ¡ny"
+msgstr "Kijelzõ"
 
 msgid "Left Page first"
-msgstr "Bal kezdÅ‘oldal"
+msgstr "Bal kezdõoldal"
 
 msgid "Group"
-msgstr "CsoportosÃ­tÃ¡s"
+msgstr "Csoportosítás"
 
 msgid "Ungroup"
-msgstr "Csoport felbontÃ¡sa"
+msgstr "Feloszlatás"
 
-msgid "Do you really want to overwrite the File:\n%1 ?"
-msgstr "ValÃ³ban felÃ¼l akarja Ã­rni a(z) \n%1 fÃ¡jlt?"
+msgid ""
+"Do you really want to overwrite the File:\n"
+"%1 ?"
+msgstr ""
+"Tényleg felül akarja írni a(z)\n"
+"%1 fájlt?"
 
 msgid "Show Frames"
-msgstr "Keretek mutatÃ¡sa"
+msgstr "Keretek mutatása"
 
 msgid "Hide Frames"
-msgstr "Keretek elrejtÃ©se"
+msgstr "Keretek elrejtése"
 
-msgid "Left Page based on:"
-msgstr "Bal oldal mesteroldala:"
+msgid "Template (Left Page):"
+msgstr "Mesteroldal (bal):"
 
-msgid "Right Page based on:"
-msgstr "Jobb oldal mesteroldala:"
+msgid "Template (Right Page):"
+msgstr "Mesteroldal (jobb):"
 
 msgid "Manage Pictures"
-msgstr "KÃ©pek kezelÃ©se"
+msgstr "Képek kezelése"
 
 msgid "Pictures"
-msgstr "KÃ©pek"
+msgstr "Képek"
 
 msgid "Goto"
-msgstr "UgrÃ¡s:"
+msgstr "Ugrás"
 
 msgid "Search"
-msgstr "KeresÃ©s"
+msgstr "Keresés"
 
 msgid "Path"
-msgstr "Ãštvonal"
+msgstr "Útvonal"
 
 msgid "Print"
-msgstr "NyomtatÃ¡s"
+msgstr "Nyomtatás"
 
 msgid "Status"
-msgstr "Ãllapot"
+msgstr "Státusz"
 
 msgid "Margins:"
-msgstr "MargÃ³k:"
+msgstr "Margók:"
 
 msgid "Recent Documents:"
-msgstr "LegutÃ³bbi dokumentumok:"
+msgstr "Legutóbbi dokumentumok:"
 
 msgid "Recent Documents"
-msgstr "LegutÃ³bbi dokumentumok"
+msgstr "Legutóbbi dokumentumok"
 
 msgid "Display unprintable Area in Margin Color"
-msgstr "Nem nyomtathatÃ³ terÃ¼let mutatÃ¡sa a margÃ³ szÃ­nÃ©vel"
+msgstr "Nem nyomtatható terület mutatása a margó színével"
 
 msgid "Automatic Linespaceing:"
-msgstr "Automatikus sorkÃ¶z:"
+msgstr "Automatikus sorköz:"
 
 msgid "Distances"
-msgstr "TÃ¡volsÃ¡gok"
+msgstr "Távolságok"
 
 msgid "Menues"
-msgstr "MenÃ¼k"
+msgstr "Menük"
 
 msgid "Result"
-msgstr "KeresÃ©s eredmÃ©nye"
+msgstr "Eredmény"
 
 msgid "Search Results for: "
-msgstr "A keresÃ©s eredmÃ©nye: "
+msgstr "A keresés eredménye: "
 
 msgid "Select"
-msgstr "KivÃ¡lasztÃ¡s"
+msgstr "Kijelölés"
 
 msgid "Import..."
-msgstr "ImportÃ¡lÃ¡s..."
+msgstr "Importálás..."
 
 msgid "Export..."
-msgstr "ExportÃ¡lÃ¡s..."
+msgstr "Exportálás..."
 
 msgid "Dynamic Color Bars"
-msgstr "Dinamikus szÃ­ncsÃºszkÃ¡k"
+msgstr "Dinamikus színcsúszkák"
 
 msgid "Static Color Bars"
-msgstr "Statikus szÃ­ncsÃºszkÃ¡k"
+msgstr "Statikus színcsúszkák"
 
-msgid "Colormanagement Settings"
-msgstr "SzÃ­nkezelÃ©s beÃ¡llÃ­tÃ¡sok"
+msgid "Color Management Settings"
+msgstr "Színkezelés beállítások"
 
-msgid "Activate Colormanagement"
-msgstr "SzÃ­nkezelÃ©s aktivÃ¡lÃ¡sa"
+msgid "Activate Color Management"
+msgstr "Színkezelés aktiválása"
 
 msgid "System Profiles"
 msgstr "Rendszerprofilok"
 
 msgid "Pictures:"
-msgstr "KÃ©pek:"
+msgstr "Képek:"
 
 msgid "Solid Colors:"
-msgstr "SzÃ­nek:"
+msgstr "Színek:"
 
 msgid "Monitor:"
 msgstr "Monitor:"
 
 msgid "Printer:"
-msgstr "NyomtatÃ³:"
+msgstr "Nyomtató:"
 
 msgid "Rendering Intents"
-msgstr "MegjelenÃ­tÃ©si prioritÃ¡sok"
+msgstr "Megjelenítési prioritások"
 
 msgid "Rendering Intent:"
-msgstr "MegjelenÃ­tÃ©si prioritÃ¡sok:"
+msgstr "Megjelenítési prioritások:"
 
 msgid "Perceptual"
 msgstr "Perceptual"
@@ -1385,476 +1374,472 @@ msgid "Relative Colorimetric"
 msgstr "Relative Colorimetric"
 
 msgid "Saturation"
-msgstr "TelÃ­tettsÃ©g"
+msgstr "Telítettség"
 
 msgid "Absolute Colorimetric"
 msgstr "Absolute Colorimetric"
 
 msgid "Simulate Printer on the Screen"
-msgstr "NyomtatÃ³ szimulÃ¡lÃ¡sa a kÃ©pernyÅ‘n"
+msgstr "Nyomtató szimulálása a képernyõn"
 
-msgid "Colormanagement..."
-msgstr "SzÃ­nkezelÃ©s..."
+msgid "Color Management..."
+msgstr "Színkezelés"
 
-msgid "Inputprofil:"
+msgid "Input Profile:"
 msgstr "Bemeneti profil:"
 
 msgid "No Title"
-msgstr "HiÃ¡nyzÃ³ cÃ­m"
+msgstr "Nincs cím"
 
 msgid "Unknown"
 msgstr "Ismeretlen"
 
 msgid "Adjusting Colors"
-msgstr "A szÃ­nek mÃ³dosÃ­tÃ¡sa"
+msgstr "A színek módosítása"
 
 msgid "Scribus-Document"
-msgstr "Scribus dokumentum"
+msgstr "Dokumentum:"
 
 msgid "Title:"
-msgstr "CÃ­m:"
+msgstr "Cím:"
 
 msgid "Sorry, no Manual available!"
-msgstr "Sajnos a sÃºgÃ³ nem elÃ©rhetÅ‘!"
+msgstr "Sajnos a Kézikönyv nem elérhetõ!"
 
 msgid "Embed all Fonts"
-msgstr "Az Ã¶sszes font beÃ¡gyazÃ¡sa"
+msgstr "Összes font beágyazása"
 
 msgid "Embedding"
-msgstr "BeÃ¡gyazÃ¡s"
+msgstr "Beágyazás"
 
 msgid "Available Fonts:"
-msgstr "RendelkezÃ©sre Ã¡llÃ³ betÅ±tÃ­pusok:"
+msgstr "Rendelkezésre álló betûtípusok:"
 
 msgid "Fonts to embed:"
-msgstr "BeÃ¡gyazandÃ³ betÅ±tÃ­pusok:"
+msgstr "Beágyazandó betûtípusok:"
 
 msgid "Output to File:"
-msgstr "Kimenet fÃ¡jlba:"
+msgstr "Kimenet fájlba:"
 
 msgid "Change..."
-msgstr "MÃ³dosÃ­tÃ¡s..."
+msgstr "Módosítás..."
 
 msgid "Compression"
-msgstr "TÃ¶mÃ¶rÃ­tÃ©s"
+msgstr "Tömörítés"
 
 msgid "Downsample Images to:"
-msgstr "KÃ©pek felbontÃ¡sa:"
+msgstr "Képek felbontása:"
 
-msgid "Compress Text and Vectorgraphics"
-msgstr "SzÃ¶veg Ã©s vektorgrafikÃ¡k tÃ¶mÃ¶rÃ­tÃ©se"
+msgid "Compress Text and Vector Graphics"
+msgstr "Szöveg és vektorgrafikák tömörítése"
 
 msgid "File Options"
-msgstr "FÃ¡jl beÃ¡llÃ­tÃ¡sok"
+msgstr "Fájl beállítások"
 
 msgid "Generate Thumbnails"
-msgstr "ElÅ‘kÃ©pek lÃ©trehozÃ¡sa"
+msgstr "Elõképek létrehozása"
 
 msgid "Resolution:"
-msgstr "FelbontÃ¡s:"
+msgstr "Felbontás:"
 
 msgid "Create PDF-File"
-msgstr "PDF fÃ¡jl lÃ©trehozÃ¡sa"
+msgstr "PDF fájl létrehozása"
 
-msgid "X-Coor.:"
-msgstr "X koor.:"
+msgid "X-Pos:"
+msgstr "X:"
 
-msgid "Y-Coor.:"
-msgstr "Y koor:"
+msgid "Y-Pos:"
+msgstr "Y:"
 
 msgid "Page:"
 msgstr "Oldal:"
 
 msgid "Destination"
-msgstr "CÃ©l"
+msgstr "Cél"
 
 msgid "Type:"
-msgstr "TÃ­pus:"
+msgstr "Típus:"
 
 msgid "Annotation Properties"
-msgstr "MegjegyzÃ©s tulajdonsÃ¡gai"
+msgstr "Megjegyzés tulajdonságai"
 
 msgid "Bookmarks"
-msgstr "KÃ¶nyvjelzÅ‘k"
+msgstr "Könyvjelzõk"
 
 msgid "Include Bookmarks"
-msgstr "MentÃ©s kÃ¶nyvjelzÅ‘kkel"
+msgstr "Mentés könyvjelzõkkel"
 
 msgid "Manage Keyboard Shortcuts"
-msgstr "GyorsbillentyÅ±k beÃ¡llÃ­tÃ¡sa"
+msgstr "Gyorsbillentyûk beállítása"
 
 msgid "Action"
-msgstr "MÅ±velet"
+msgstr "Mûvelet"
 
 msgid "Current Key"
-msgstr "Jelenlegi billentyÅ±parancs"
+msgstr "Jelenlegi billentyûparancs"
 
 msgid "Select a Key for this Action"
-msgstr "BillentyÅ± kivÃ¡lasztÃ¡sa a mÅ±velethez"
+msgstr "Billentyû kiválasztása a mûvelethez"
 
 msgid "No Key"
-msgstr "Nincs"
+msgstr "Nincs billentyûparancs"
 
 msgid "User Defined Key"
-msgstr "EgyÃ©nileg definiÃ¡lt"
+msgstr "Egyénileg definiált"
 
 msgid "Set Key"
-msgstr "BillentyÅ± beÃ¡llÃ­tÃ¡sa"
+msgstr "Billentyûkombináció beállítása"
 
 msgid "This Key-Sequence is already in use"
-msgstr "Ez a billentyÅ±kombinÃ¡ciÃ³ mÃ¡r hasznÃ¡latban van"
+msgstr "Ez a billentyûkombináció már használatban van"
 
 msgid "Keyboard Shortcuts..."
-msgstr "GyorsbillentyÅ±k..."
+msgstr "Gyorsbillentyûk..."
 
 msgid "Smart Hyphen"
-msgstr "Intelligens elvÃ¡lasztÃ¡s"
+msgstr "Intelligens elválasztás"
 
 msgid "Align Left"
-msgstr "Balra igazÃ­tÃ¡s"
+msgstr "Balra igazítás"
 
 msgid "Align Right"
-msgstr "Jobbra igazÃ­tÃ¡s"
+msgstr "Jobbra igazítás"
 
 msgid "Align Center"
-msgstr "KÃ¶zÃ©pre igazÃ­tÃ¡s"
+msgstr "Középre igazítás"
 
 msgid "Insert Pagenumber"
-msgstr "OldalszÃ¡m beszÃºrÃ¡sa"
+msgstr "Oldalszám beszúrása"
 
 msgid "Binding:"
-msgstr "BillentyÅ±parancsok"
+msgstr "Kötés:"
 
 msgid "Left Margin"
-msgstr "Bal margÃ³"
+msgstr "Bal margó"
 
 msgid "Right Margin"
-msgstr "Jobb margÃ³"
+msgstr "Jobb margó"
 
 msgid "Corner Radius:"
-msgstr "LekerekÃ­tÃ©s sugara:"
+msgstr "Lekerekítés sugara:"
 
-msgid "Save linked Textframes as PDF-Articles"
-msgstr "A csatolt szÃ¶vegkeretek mentÃ©se PDF cikkÃ©nt"
+msgid "Save linked Text Frames as PDF-Articles"
+msgstr "Láncolt szövegdobozok mentése PDF-cikként"
 
 msgid "Enable Presentation Effects"
-msgstr "PrezentÃ¡ciÃ³-effektek engedÃ©lyezÃ©se"
+msgstr "Prezentáció-effektusok engedélyezése"
 
 msgid "Show Page Previews"
-msgstr "GyorsnÃ©zet mutatÃ¡sa"
+msgstr "Gyorsnézet mutatása"
 
 msgid "Display Duration:"
-msgstr "MegjelenÃ­tÃ©s idÅ‘tartama:"
+msgstr "Megjelenítés idõtartama:"
 
 msgid "Effect Duration:"
-msgstr "Effekt idÅ‘tartama:"
+msgstr "Effektus idõtartama:"
 
 msgid "Effect Type:"
-msgstr "Effekt tÃ­pusa:"
+msgstr "Effektus típusa:"
 
 msgid "Moving Lines:"
-msgstr "MozgÃ³ vonalak:"
+msgstr "Mozgó vonalak:"
 
 msgid "from the:"
 msgstr "Honnan:"
 
 msgid "Direction:"
-msgstr "IrÃ¡ny:"
+msgstr "Irány:"
 
 msgid "No Effect"
-msgstr "Nincs effekt"
+msgstr "Nincs effektus"
 
 msgid "Blinds"
-msgstr "RolÃ³"
+msgstr "Redõny"
 
 msgid "Box"
-msgstr "ÃttÅ±nÃ©s"
+msgstr "Doboz"
 
 msgid "Dissolve"
-msgstr "EltÅ±nÃ©s"
+msgstr "Eltûnés"
 
 msgid "Glitter"
-msgstr "SakktÃ¡bla"
+msgstr "Csillogás"
 
 msgid "Split"
-msgstr "Split"
+msgstr "Felosztás"
 
 msgid "Wipe"
-msgstr "Wipe"
+msgstr "Fehér"
 
 msgid "Inside"
-msgstr "BelÃ¼lrÅ‘l"
+msgstr "Belül"
 
 msgid "Outside"
-msgstr "KÃ­vÃ¼lrÅ‘l"
+msgstr "Kívül"
 
 msgid "Left to Right"
-msgstr "BalrÃ³l jobbra:"
+msgstr "Balról jobbra:"
 
 msgid "Top to Bottom"
-msgstr "FÃ¼ggÅ‘legesen, lefelÃ©:"
+msgstr "Függõlegesen, lefelé:"
 
 msgid "Bottom to Top"
-msgstr "FÃ¼ggÅ‘legesen, fÃ¶lfelÃ©:"
+msgstr "Függõlegesen, fölfelé:"
 
 msgid "Right to Left"
-msgstr "JobbrÃ³l balra:"
+msgstr "Jobbról balra:"
 
 msgid "Top-Left to Bottom-Right"
-msgstr "Bal felsÅ‘ -> jobb alsÃ³ sarok"
+msgstr "Bal felsõ -> jobb alsó sarok"
 
 msgid "Extras"
-msgstr "ExtrÃ¡k"
+msgstr "Extrák"
 
 msgid "Saves the current Document as PDF"
-msgstr "Az aktuÃ¡lis dokumentumot PDF-be menti"
+msgstr "Aktuális dokumentum mentése PDF-ként"
 
 msgid "Rounded Rectangle"
-msgstr "LekerekÃ­tett sarkÃº tÃ©glalap"
+msgstr "Lekerekített sarkú téglalap"
 
 msgid "Align Text Left"
-msgstr "SzÃ¶veg balra igazÃ­tÃ¡sa"
+msgstr "Szöveg balra igazítása"
 
 msgid "Align Text Right"
-msgstr "SzÃ¶veg jobbra igazÃ­tÃ¡sa "
+msgstr "Szöveg jobbra igazítása "
 
 msgid "Align Text Center"
-msgstr "SzÃ¶veg kÃ¶zÃ©pre igazÃ­tÃ¡sa"
+msgstr "Szöveg középre igazítása"
 
 msgid "Align Text Block"
-msgstr "SorkizÃ¡rt szÃ¶veg"
+msgstr "Sorkizárt szöveg"
 
 msgid "Endings:"
-msgstr "VonalvÃ©gek:"
+msgstr "Vonalvégek:"
 
 msgid "Edges:"
-msgstr "Sarkok"
+msgstr "Sarkok:"
 
 msgid "MiterJoin"
 msgstr "Hegyes"
 
 msgid "BevelJoin"
-msgstr "LesarkÃ­tott"
+msgstr "Csapott"
 
 msgid "RoundJoin"
-msgstr "LekerekÃ­tett"
+msgstr "Kerekített"
 
 msgid "FlatCap"
-msgstr "Lapos"
+msgstr "Sima"
 
 msgid "SquareCap"
-msgstr "NÃ©gyszÃ¶gletÅ±"
+msgstr "Négyszögletû"
 
 msgid "RoundCap"
-msgstr "GÃ¶mbÃ¶lyÅ±"
+msgstr "Gömbölyû"
 
 msgid "Move Bookmark"
-msgstr "KÃ¶nyvjelzÅ‘ mozgatÃ¡sa"
+msgstr "Könyvjelzõ mozgatása"
 
 msgid "Insert Bookmark"
-msgstr "KÃ¶nyvjelzÅ‘ beszÃºrÃ¡sa"
+msgstr "Könyvjelzõ beszúrása"
 
 msgid "Copy Page"
-msgstr "Oldal mÃ¡solÃ¡sa"
+msgstr "Oldal másolása"
 
 msgid "To the End"
-msgstr "A vÃ©gÃ©re"
+msgstr "A végéig"
 
 msgid "GUI"
-msgstr "FelÃ¼let"
+msgstr "Grafikus felhasználói felület"
 
 msgid "Fontsize"
-msgstr "BetÅ±nagysÃ¡g"
+msgstr "Betûméret"
 
-# New in Version 0.8
+msgid "Fontsize:"
+msgstr "Betûméret:"
+
 msgid "Apply Effect on all Pages"
-msgstr ""
+msgstr "Effektus alkalmazása minden oldalon"
 
 msgid "Print via other Command"
-msgstr ""
+msgstr "Nyomtatás parancson keresztül"
 
 msgid "Command:"
-msgstr ""
+msgstr "Parancs:"
 
 msgid "Orientation:"
-msgstr ""
+msgstr "Irány:"
 
 msgid "First Pagenumber:"
-msgstr ""
+msgstr "Elsõ oldalszám:"
 
 msgid "Default Unit:"
-msgstr ""
+msgstr "Alapértelmezett mértékegység:"
 
 msgid "Send to Scrapbook"
-msgstr ""
+msgstr "Küldés vágólapra"
 
 msgid "Left Point"
-msgstr ""
+msgstr "Bal pont"
 
 msgid "Endpoints"
-msgstr ""
+msgstr "Végpontok"
 
 msgid "Scaling"
-msgstr ""
-
-msgid "X-Dir:"
-msgstr ""
-
-msgid "Y-Dir:"
-msgstr ""
+msgstr "Méretezés"
 
 msgid "Linespacing:"
-msgstr ""
+msgstr "Sorköz:"
 
 msgid "Character Settings"
-msgstr ""
+msgstr "Karakter beállítások"
 
 msgid "Length:"
-msgstr ""
+msgstr "Hosszúság:"
 
 msgid "Polygon Properties"
-msgstr ""
+msgstr "Sokszög tulajdonságai"
 
 msgid "Corners:"
-msgstr ""
+msgstr "Sarkok:"
 
 msgid "Convex Polygon"
-msgstr ""
+msgstr "Konvex sokszög"
 
 msgid "Factor:"
-msgstr ""
+msgstr "Faktor:"
 
 msgid "Edit Polygon"
-msgstr ""
+msgstr "Sokszög szerkesztése"
 
 msgid "Properties..."
-msgstr ""
+msgstr "Jellemzõk..."
 
 msgid "Lithuanian:"
-msgstr ""
+msgstr "Litván:"
 
 msgid "Measurements"
-msgstr ""
+msgstr "Méretek"
 
 msgid "Insert Polygons"
-msgstr ""
+msgstr "Sokszögek beszúrása"
 
 msgid "Rotation:"
-msgstr ""
+msgstr "Forgatás:"
 
 msgid "Loading..."
-msgstr ""
+msgstr "Betöltés..."
 
 msgid "Convert to"
-msgstr ""
+msgstr "Konvertálás"
 
 msgid "Text Frame"
-msgstr ""
+msgstr "Szövegdoboz"
 
 msgid "Picture Frame"
-msgstr ""
+msgstr "Képdoboz"
 
 msgid "Polygon"
-msgstr ""
+msgstr "Sokszög"
 
 msgid "Bezier Curve"
-msgstr ""
+msgstr "Bezier-görbe"
 
 msgid "Style"
-msgstr ""
+msgstr "Stílus"
 
 msgid "Modify Pathtext"
 msgstr ""
 
 msgid "Show Curve"
-msgstr ""
+msgstr "Görbe mutatása"
 
 msgid "Startoffset:"
 msgstr ""
 
 msgid "Distance from Curve:"
-msgstr ""
+msgstr "Távolság a görbétõl:"
 
 msgid "Attach Text to Path"
-msgstr ""
+msgstr "Szöveg illesztése útvonalhoz"
 
 msgid "Layers"
-msgstr ""
+msgstr "Rétegek"
 
 msgid "Add a new Layer"
-msgstr ""
+msgstr "Réteg hozzáadása"
 
 msgid "Delete Layer"
-msgstr ""
+msgstr "Réteg törlése"
 
 msgid "Raise Layer"
-msgstr ""
+msgstr "Réteg feljebbrakása"
 
 msgid "Lower Layer"
-msgstr ""
+msgstr "Réteg lejjebbrakása"
 
 msgid "Closes this Dialog"
-msgstr ""
+msgstr "Bezárás"
 
 msgid "New Layer"
-msgstr ""
+msgstr "Új réteg"
 
 msgid "Background"
-msgstr ""
+msgstr "Háttér"
 
 msgid "Reset Control Points"
-msgstr ""
+msgstr "Kontrollpontok mozgatása"
 
 msgid "Reset this Control Points"
-msgstr ""
+msgstr "Kontrollpontok mozgatása"
 
 msgid "Opens a Polygon or cuts a Bezier Curve"
-msgstr ""
+msgstr "Sokszög megnyitása vagy Bezier-görbe vágása"
 
 msgid "Closes this Bezier Curve"
-msgstr ""
+msgstr "Bezier-görbe bezárása"
 
 msgid "Show Layers"
-msgstr ""
+msgstr "Rétegek mutatása"
 
 msgid "Hide Layers"
-msgstr ""
+msgstr "Rétegek elrejtése"
 
 msgid "Sent to Layer"
-msgstr ""
+msgstr "Küldés a rétegre"
 
 msgid "Link"
-msgstr ""
+msgstr "Link"
 
 msgid "Text Field"
-msgstr ""
+msgstr "Szövegmezõ"
 
 msgid "Button"
-msgstr ""
+msgstr "Gomb"
 
 msgid "Check Box"
 msgstr ""
 
 msgid "Properties"
-msgstr ""
+msgstr "Jellemzõk"
 
 msgid "Tool-Tip:"
-msgstr ""
+msgstr "Buboréksúgó:"
 
 msgid "Read Only"
-msgstr ""
+msgstr "Csak olvasható"
 
 msgid "Visibility:"
-msgstr ""
+msgstr "Láthatóság:"
 
 msgid "Border"
-msgstr ""
+msgstr "Keret"
 
 msgid "Thin"
-msgstr ""
+msgstr "Vékony"
 
 msgid "Wide"
-msgstr ""
+msgstr "Széles"
 
 msgid "Solid"
 msgstr ""
@@ -1869,22 +1854,22 @@ msgid "Inset"
 msgstr ""
 
 msgid "Visible"
-msgstr ""
+msgstr "Látható"
 
 msgid "Hidden"
-msgstr ""
+msgstr "Láthatatlan"
 
 msgid "No Print"
-msgstr ""
+msgstr "Nincs nyomtatás"
 
 msgid "No View"
-msgstr ""
+msgstr "Nincs nézet"
 
 msgid "Appearance"
-msgstr ""
+msgstr "Megjelenés"
 
 msgid "Text"
-msgstr ""
+msgstr "Szöveg"
 
 msgid "Text for Button Down"
 msgstr ""
@@ -1896,31 +1881,31 @@ msgid "Highlight"
 msgstr ""
 
 msgid "Invert"
-msgstr ""
+msgstr "Invertálás"
 
 msgid "Outlined"
-msgstr ""
+msgstr "Szerkezet"
 
 msgid "Push"
 msgstr ""
 
 msgid "Multi-Line"
-msgstr ""
+msgstr "Többsoros"
 
 msgid "Password"
-msgstr ""
+msgstr "Jelszó"
 
 msgid "Limit of"
 msgstr ""
 
 msgid "Characters"
-msgstr ""
+msgstr "Karakterek"
 
 msgid "Do Not Scroll"
-msgstr ""
+msgstr "Nem görget"
 
 msgid "Do Not Spell Check"
-msgstr ""
+msgstr "Nem ellenõrzi a helyesírást"
 
 msgid "Check Style:"
 msgstr ""
@@ -1929,34 +1914,34 @@ msgid "Check"
 msgstr ""
 
 msgid "Cross"
-msgstr ""
+msgstr "Kereszt"
 
 msgid "Diamond"
-msgstr ""
+msgstr "Gyémánt"
 
 msgid "Circle"
-msgstr ""
+msgstr "Kör"
 
 msgid "Star"
-msgstr ""
+msgstr "Csillag"
 
 msgid "Square"
-msgstr ""
+msgstr "Négyzet"
 
 msgid "Default is Checked"
-msgstr ""
+msgstr "Alapértelmezett: kijelölve"
 
 msgid "Java Script"
-msgstr ""
+msgstr "JavaScript"
 
 msgid "Go To"
 msgstr ""
 
 msgid "Submit Form"
-msgstr ""
+msgstr "Ûrlap elküldése"
 
 msgid "Reset Form"
-msgstr ""
+msgstr "Ûrlap törlése"
 
 msgid "Flag is ignored for PDF-1.3"
 msgstr ""
@@ -1965,34 +1950,34 @@ msgid "Font for use with PDF-1.3:"
 msgstr ""
 
 msgid "Required"
-msgstr ""
+msgstr "Szükséges"
 
 msgid "Don't Export Value"
 msgstr ""
 
 msgid "Event:"
-msgstr ""
+msgstr "Esemény:"
 
 msgid "Mouse Up"
-msgstr ""
+msgstr "Egér fel"
 
 msgid "Mouse Down"
-msgstr ""
+msgstr "Egér le"
 
 msgid "Mouse Enter"
-msgstr ""
+msgstr "Egér belépés"
 
 msgid "Mouse Exit"
-msgstr ""
+msgstr "Egér kilépés"
 
 msgid "On Focus"
-msgstr ""
+msgstr "Fókusz"
 
 msgid "On Blur"
 msgstr ""
 
 msgid "Script:"
-msgstr ""
+msgstr "Szkript:"
 
 msgid "Field is formatted as:"
 msgstr ""
@@ -2001,52 +1986,52 @@ msgid "Plain"
 msgstr ""
 
 msgid "Number"
-msgstr ""
+msgstr "Szám"
 
 msgid "Percentage"
-msgstr ""
+msgstr "Százalék"
 
 msgid "Date"
-msgstr ""
+msgstr "Dátum"
 
 msgid "Time"
-msgstr ""
+msgstr "Idõ"
 
 msgid "Custom"
-msgstr ""
+msgstr "Saját"
 
 msgid "Number Format"
-msgstr ""
+msgstr "Számformátum"
 
 msgid "Decimals:"
-msgstr ""
+msgstr "Tizedesjegyek:"
 
 msgid "Use Currency Symbol"
-msgstr ""
+msgstr "Pénzügyi szimbólum használata"
 
 msgid "Prepend Currency Symbol"
 msgstr ""
 
 msgid "Formatting"
-msgstr ""
+msgstr "Formázás"
 
 msgid "Percent Format"
-msgstr ""
+msgstr "Százalékformátum"
 
 msgid "Date Format"
-msgstr ""
+msgstr "Dátumformátum"
 
 msgid "Time Format"
-msgstr ""
+msgstr "Idõformátum"
 
 msgid "Custom Scripts"
-msgstr ""
+msgstr "Saját szkriptek"
 
 msgid "Format:"
-msgstr ""
+msgstr "Formátum:"
 
 msgid "Edit..."
-msgstr ""
+msgstr "Szerkesztés..."
 
 msgid "Combo Box"
 msgstr ""
@@ -2058,16 +2043,16 @@ msgid "Keystroke:"
 msgstr ""
 
 msgid "Format"
-msgstr ""
+msgstr "Formátum"
 
 msgid "Value is not validated"
-msgstr ""
+msgstr "Az érték nincs jóváhagyva"
 
 msgid "Value must be greater than or equal to:"
-msgstr ""
+msgstr "Az értéknek nagyobbnak vagy egyenlõnek kell lenni, mint"
 
 msgid "and less or equal to:"
-msgstr ""
+msgstr "és kisebbnek vagy egyenlõnek, mint"
 
 msgid "Custom validate script:"
 msgstr ""
@@ -2079,19 +2064,19 @@ msgid "Value is the"
 msgstr ""
 
 msgid "sum"
-msgstr ""
+msgstr "összeg"
 
 msgid "product"
-msgstr ""
+msgstr "szorzat"
 
 msgid "average"
-msgstr ""
+msgstr "átlagos"
 
 msgid "minimum"
-msgstr ""
+msgstr "minimum"
 
 msgid "maximum"
-msgstr ""
+msgstr "maximum"
 
 msgid "of the following fields:"
 msgstr ""
@@ -2100,25 +2085,25 @@ msgid "Custom calculation script:"
 msgstr ""
 
 msgid "Calculate"
-msgstr ""
+msgstr "Kiszámítás"
 
 msgid "Validate"
-msgstr ""
+msgstr "Érvényesít"
 
 msgid "Enter a comma separated list of Fields here"
 msgstr ""
 
 msgid "Example:"
-msgstr ""
+msgstr "Példa:"
 
 msgid "Selection Change"
-msgstr ""
+msgstr "Mégsem"
 
 msgid "Use Icons"
-msgstr ""
+msgstr "Ikonok használata"
 
 msgid "Remove"
-msgstr ""
+msgstr "Törlés"
 
 msgid "Pressed"
 msgstr ""
@@ -2127,189 +2112,811 @@ msgid "Roll Over"
 msgstr ""
 
 msgid "Icon Placement..."
-msgstr ""
+msgstr "Ikon elhelyezése"
 
 msgid "Editable"
-msgstr ""
+msgstr "Szerkeszthetõ"
 
 msgid "Submit to URL:"
-msgstr ""
+msgstr "Küldés URL-re:"
 
 msgid "Submit Data as HTML"
-msgstr ""
+msgstr "Adat küldése HTML-ként"
 
 msgid "Layout:"
-msgstr ""
+msgstr "Kinézet:"
 
 msgid "Caption only"
-msgstr ""
+msgstr "Csak szöveg"
 
 msgid "Icon only"
-msgstr ""
+msgstr "Csak ikon"
 
 msgid "Caption below Icon"
-msgstr ""
+msgstr "Szöveg az ikon alatt"
 
 msgid "Caption above Icon"
-msgstr ""
+msgstr "Szöveg az ikon felett"
 
 msgid "Caption right to Icon"
-msgstr ""
+msgstr "Szöveg az ikontól jobbra"
 
 msgid "Caption left to Icon"
-msgstr ""
+msgstr "Szöveg az ikontól balra"
 
 msgid "Caption overlays Icon"
-msgstr ""
+msgstr "Szöveg az ikonon"
 
-msgid "Scale When:"
-msgstr ""
+msgid "Scale:"
+msgstr "Méretezés:"
 
 msgid "Always"
-msgstr ""
+msgstr "Mindig"
 
 msgid "When Icon is too small"
-msgstr ""
+msgstr "Ha az ikon túl kicsi"
 
 msgid "When Icon is too big"
-msgstr ""
+msgstr "Ha az ikon túl nagy"
 
 msgid "Never"
-msgstr ""
+msgstr "Soha"
 
 msgid "Scale How:"
-msgstr ""
+msgstr "Méretezés módja:"
 
 msgid "Proportional"
-msgstr ""
+msgstr "Proporcionális"
 
 msgid "Non Proportional"
-msgstr ""
+msgstr "Nem proporcionális"
 
 msgid "Reset"
-msgstr ""
+msgstr "Visszaállítás"
 
 msgid "You need at least the Icon for Normal to use Icons for Buttons"
 msgstr ""
 
 msgid "Save and Exit"
-msgstr ""
+msgstr "Mentés és kilépés"
 
 msgid "Exit without Saving"
-msgstr ""
+msgstr "Kilépés mentés nélkül"
 
 msgid "Get Field Names"
-msgstr ""
+msgstr "Mezõnevek megadása"
 
 msgid "JavaScripts (*.js);; All Files (*)"
-msgstr ""
+msgstr "JavaScript-ek (*.js);; Minden fájl (*)"
 
 msgid "Pick..."
 msgstr ""
 
 msgid "Export Range"
-msgstr ""
+msgstr "Exportálás hatóköre"
 
 msgid "All Pages"
-msgstr ""
+msgstr "Minden oldal"
 
 msgid "From:"
-msgstr ""
+msgstr "Oldaltól:"
 
 msgid "Insert PDF-Fields"
-msgstr ""
+msgstr "PDF-mezõk beszúrása"
 
 msgid "Undo"
-msgstr ""
+msgstr "Visszavonás"
 
 msgid "Redo"
-msgstr ""
+msgstr "Újra"
 
 msgid "Select Fields"
-msgstr ""
+msgstr "Mezõk kijelölése"
 
 msgid "Available Fields"
-msgstr ""
+msgstr "Felhasználóható mezõk"
 
 msgid "Selected Fields"
-msgstr ""
+msgstr "Mezõk kijelölése"
 
 msgid "Field Properties"
-msgstr ""
+msgstr "Mezõjellemzõk"
 
 msgid "Global JavaScripts"
-msgstr ""
+msgstr "Általános JavaScript-ek"
 
 msgid "Add..."
-msgstr ""
+msgstr "Hozzáadás..."
 
 msgid "New Script:"
-msgstr ""
+msgstr "Új szkript:"
 
 msgid "New Script"
-msgstr ""
+msgstr "Új szkript"
 
 msgid "Insert PDF-Annotations"
-msgstr ""
+msgstr "PDF-megjegyzések beszúrása"
 
 msgid "Import Data"
-msgstr ""
+msgstr "Adat importálása"
 
 msgid "Import Data from:"
-msgstr ""
+msgstr "Adat importálása"
 
 msgid "Undo Object Change"
-msgstr ""
+msgstr "Változtatás visszavonása"
 
 msgid "Undo Object Move"
-msgstr ""
+msgstr "Mozgatás visszavonása"
 
 msgid "Undo Delete Object"
-msgstr ""
+msgstr "Törlés visszavonása"
 
 msgid "Compress File"
-msgstr ""
+msgstr "Fájl tömörítése"
 
 msgid "Inches (in)"
-msgstr ""
+msgstr "Hüvelyk (in)"
 
 msgid "Picas (p)"
-msgstr ""
+msgstr "Picák (p)"
 
 msgid "Show Template Names"
-msgstr ""
+msgstr "Sablonnevek mutatása"
 
 msgid "Arrange Pages"
-msgstr ""
+msgstr "Oldalak elrendezése"
 
 msgid "Available Templates:"
-msgstr ""
+msgstr "Mesteroldalak:"
 
 msgid "Document Pages:"
-msgstr ""
+msgstr "Oldalak:"
 
 msgid "Hide Page Palette"
-msgstr ""
+msgstr "Oldalpaletta elrejtése"
 
 msgid "Show Page Palette"
-msgstr ""
+msgstr "Oldalpaletta mutatása"
 
 msgid "Drag Pages or Template Pages onto the Trashbin to delete them."
-msgstr ""
+msgstr "Törléshez húzd a (mester)oldalakat a kukába."
 
 msgid "Here are all your Templates, to create a new Page\ndrag a Template to the Pageview below."
-msgstr ""
+msgstr "Itt találhatóak a mesteroldalak, új oldal beszúrásához\negy mesteroldalt kell az oldalak közé húzni."
 
 msgid "Here you can see all Pages of your Document."
-msgstr ""
+msgstr "Itt láthatóak a dokumentum oldalai."
 
 msgid "Free Scaling"
+msgstr "Szabad méretezés"
+
+msgid "Scale to Frame Size"
+msgstr "Kép méretezése a kerethez"
+
+msgid "Hyphenate Text"
+msgstr "Szöveg elválasztása"
+
+msgid "Hyphenator..."
+msgstr "Szóelválasztó..."
+
+msgid "General..."
+msgstr "Általános..."
+
+msgid "English"
+msgstr "Angol"
+
+msgid "German"
+msgstr "Német"
+
+msgid "French"
+msgstr "Francia"
+
+msgid "Italian"
+msgstr "Olasz"
+
+msgid "Spanish"
+msgstr "Spanyol"
+
+msgid "Possible Hyphenation"
+msgstr "Lehetséges elválasztás"
+
+msgid "Accept"
+msgstr "Elfogadás"
+
+msgid "Skip"
+msgstr "Kihagyás"
+
+msgid "Hyphenator Settings"
+msgstr "Szóelválasztó beállításai"
+
+msgid "Check during Typing"
+msgstr "Ellenõrzés gépelés közben"
+
+msgid "Enables automatic checking of your Text during Typing."
+msgstr "Gépelés közben engedélyezi az elválasztást."
+
+msgid "Fully Automatic"
+msgstr "Teljesen automatikus"
+
+msgid "Language:"
+msgstr "Nyelv:"
+
+msgid "Smallest Word:"
+msgstr "Legrövidebb szó:"
+
+msgid "This is the length of the smallest word to be hyphenated."
+msgstr "Ez a legrövidebb elválasztható szó hosszúsága."
+
+msgid ""
+"If you uncheck this you will get an Dialog\n"
+"everytime a possible Hyphenation is found."
 msgstr ""
+"Ha törli a kijelölést, minden egyes\n"
+"elválasztási lehetõségnél egy beállítóablak jelenik meg."
+
+msgid "Windows"
+msgstr "Ablakok"
+
+msgid "Cascade"
+msgstr "Elhelyezés lépcsõzetesen"
+
+msgid "Tile"
+msgstr "Elhelyezés csempeszerûen"
+
+msgid "&Restore"
+msgstr "Hely&reállítás"
+
+msgid "&Move"
+msgstr "&Mozgatás"
+
+msgid "Mi&nimize"
+msgstr "Mi&nimalizálás"
+
+msgid "Minimize"
+msgstr "Minimalizálás"
+
+msgid "Ma&ximize"
+msgstr "Ma&ximalizálás"
+
+msgid "Maximize"
+msgstr "Maximalizálás"
+
+msgid "System Menu"
+msgstr "Rendszermenü"
+
+msgid "&Close"
+msgstr "Be&csukás"
+
+msgid "Line up"
+msgstr "Felgörgetés"
+
+msgid "Restore Down"
+msgstr "Legörgetés"
+
+msgid "Document"
+msgstr "Dokumentum"
+
+msgid "Name \"%1\" isn't unique.\nPlease choose another."
+msgstr "A \"%1\" fájl már létezik.\nVálasszon másikat."
+
+msgid "Can't write the File: \n%1"
+msgstr "A(z) %1\nfájl nem írható!"
+
+msgid "Russian"
+msgstr "Orosz"
+
+msgid "Printing failed!"
+msgstr "Sikertelen nyomtatás!"
+
+msgid "Lock"
+msgstr "Rögzítés"
+
+msgid "Unlock"
+msgstr "Feloldás"
+
+msgid "Moves to your Document Directory.\nThis can be set in the Preferences."
+msgstr ""
+
+msgid "Choose a Directory"
+msgstr "Könyvtárválasztás"
+
+msgid "Paths"
+msgstr "Útvonalak"
+
+msgid "Documents:"
+msgstr "Dokumentumok:"
+
+msgid "One directory up"
+msgstr "Egy könyvtárral feljebb"
+
+msgid "Create New Folder"
+msgstr "Könyvtár létrehozása"
+
+msgid "List View"
+msgstr "Listanézet"
+
+msgid "Detail View"
+msgstr "Részletes nézet"
+
+msgid "Preview File Contents"
+msgstr "Fájl tartalmának mutatása"
+
+msgid "Hide Grid"
+msgstr "Rács elrejtése"
+
+msgid "Show Grid"
+msgstr "Rács mutatása"
+
+msgid "Manage Guides..."
+msgstr "Segédvonalak kezelése"
+
+msgid "Manage Guides"
+msgstr "Segédvonalak kezelése"
+
+msgid "Vertical Guides"
+msgstr "Függõleges segédvonalak"
+
+msgid "Horizontal Guides"
+msgstr "Vízszintes segédvonalak"
+
+msgid "Add"
+msgstr "Hozzáadás"
+
+msgid "Horizontal Gradient"
+msgstr "Vízszintes átmenet"
+
+msgid "Vertical Gradient"
+msgstr "Függõleges átmenet"
+
+msgid "Diagonal Gradient"
+msgstr "Átlós átmenet balról"
+
+msgid "CrossDiagonal Gradient"
+msgstr "Átlós átmenet jobbról"
+
+msgid "Radial Gradient"
+msgstr "Sugaras átmenet"
+
+msgid "Polish:"
+msgstr "Lengyel:"
+
+msgid "User Guides Color:"
+msgstr "Felhasználói segédvonalak színe:"
+
+msgid "Guide Snap Distance:"
+msgstr "Segédvonalak vonzási távolsága:"
+
+msgid "Use PDF-1.4 Transparency Features"
+msgstr "PDF-1.4 átlátszósági jellemzõk használata"
+
+msgid "Opacity:"
+msgstr "Opacitás:"
+
+msgid "Font Name"
+msgstr "Betûtípus neve"
+
+msgid "Use Font"
+msgstr "Betûtípus használata"
+
+msgid "Available Fonts"
+msgstr "Rendelkezésre álló betûtípusok:"
+
+msgid "Replacement"
+msgstr "Helyettesítés"
+
+msgid "Font Substitutions"
+msgstr "Betûtípus-helyettesítés"
+
+msgid "Additional Paths"
+msgstr "További útvonalak"
+
+msgid "Screen"
+msgstr "Képernyõ"
+
+msgid "Output intended for:"
+msgstr "Kimenet igazítása:"
+
+msgid "Use ICC-Profile"
+msgstr "ICC-színprofil használata"
+
+msgid "Profiles"
+msgstr "Profilok"
+
+msgid "Rendering-Intent:"
+msgstr "Megjelenítési prioritások:"
+
+msgid "Don't use embedded Profiles"
+msgstr "Ne használjon beágyazott profilokat."
+
+msgid "Options..."
+msgstr "Beállítások..."
+
+msgid "Option"
+msgstr "Beállítások"
+
+msgid "Value"
+msgstr "Érték"
+
+msgid "Printing Mode"
+msgstr "Nyomtatási mód"
+
+msgid "Page Set"
+msgstr "Törlés"
+
+msgid "Mirror"
+msgstr "Tükrözés"
+
+msgid "N-Up Printing"
+msgstr "n-Up nyomtatás"
+
+msgid "Page per Sheet"
+msgstr "Oldal/ív"
+
+msgid "Pages per Sheet"
+msgstr "Oldalak/ív"
+
+msgid "Even Pages only"
+msgstr "Csak páros oldalak"
+
+msgid "Odd Pages only"
+msgstr "Csak páratlan oldalak"
+
+msgid "PDF/X-3 Output Intent"
+msgstr ""
+
+msgid "Info String:"
+msgstr ""
+
+msgid "Output Profile:"
+msgstr "Bemeneti profil:"
+
+msgid "Use Encryption"
+msgstr "Titkosítás használata"
+
+msgid "Passwords"
+msgstr "Jelszavak"
+
+msgid "User:"
+msgstr "Felhasználó:"
+
+msgid "Owner:"
+msgstr "Tulajdonos:"
+
+msgid "Settings"
+msgstr "Beállítások"
+
+msgid "Allow Printing the Document"
+msgstr "Nyomtatás engedélyezése"
+
+msgid "Allow Changing the Document"
+msgstr "Változtatás engedélyezése"
+
+msgid "Copying Text and Graphics is allowed"
+msgstr "Szöveg és grafika másolása engedélyezett"
+
+msgid "Adding Annotations and Fields is allowed"
+msgstr "Megjegyzések és mezõk hozzáadása engefélyezett"
+
+msgid "Security"
+msgstr "Biztonság"
+
+msgid "Printer Options"
+msgstr "Nyomtató opciók"
+
+msgid "Element"
+msgstr "Elem"
+
+msgid "X-Pos+:"
+msgstr "X+:"
+
+msgid "Y-Pos+:"
+msgstr "Y+:"
+
+msgid "Horiz. Scale:"
+msgstr "Vízszintes méretezés:"
+
+msgid "Vert. Scale:"
+msgstr "Függõleges méretezés:"
+
+msgid "Show Bookmarks"
+msgstr "Könyvjelzõk mutatása"
+
+msgid "Hide Bookmarks"
+msgstr "Könyvjelzõk elrejtése"
+
+msgid "Collect for Output..."
+msgstr "Fájlok összegyûjtése..."
+
+msgid "Danish"
+msgstr "Dán"
+
+msgid "Danish:"
+msgstr "Dán:"
+
+msgid "Lock Guides"
+msgstr "Segédvonalak rögzítése"
+
+msgid "Mirror Page(s) horizontal"
+msgstr "Oldalak tükrözése vízszintesen"
+
+msgid "Mirror Page(s) vertical"
+msgstr "Oldalak tükrözése függõlegesen"
+
+msgid "Rotation"
+msgstr "Forgatás"
+
+msgid "by:"
+msgstr ""
+
+msgid "Edit Shape..."
+msgstr "Alakzat szerkesztése..."
+
+msgid "Round\nCorners:"
+msgstr "Kerek\nsarkok:"
+
+msgid "Distance of Text"
+msgstr "Szöveg távolsága"
+
+msgid "Custom Spacing"
+msgstr "Térközök"
+
+msgid "Character:"
+msgstr "Karakter"
+
+msgid "Line:"
+msgstr "Vonal:"
+
+msgid "Level"
+msgstr "Szint"
+
+msgid "Geometry"
+msgstr "Elhelyezkedés"
+
+msgid "Document:"
+msgstr "Dokumentum:"
+
+msgid "has been changed since the last save."
+msgstr "megváltozott a legutóbbi mentés óta."
+
+msgid "Insert Page..."
+msgstr "Oldal beszúrása..."
+
+msgid "Import a Page"
+msgstr "Oldal importálása"
+
+msgid "Document to load:"
+msgstr "Betöltendõ dokumentum:"
+
+msgid "Document contains: 0 Page(s)"
+msgstr "A dokumentumban nincsenek oldalak."
+
+msgid "Import Page Nr:"
+msgstr "A következõ oldal importálása:"
+
+msgid "Import"
+msgstr "Importálás"
+
+msgid "Document contains: %1 Page(s)"
+msgstr "A dokumentum %1 oldalt tartalmaz."
+
+msgid "Advanced Options..."
+msgstr "Haladó opciók..."
+
+msgid "Advanced Options"
+msgstr "Haladó opciók"
+
+msgid "Apply ICC-Profiles"
+msgstr "ICC-profilok alkalmazása"
+
+msgid "Mark Colors out of Gamut"
+msgstr "Nem nyomtatható színek jelölése"
 
 msgid "Scale Picture to Frame Size"
+msgstr "Kép méretezése a kerethez"
+
+msgid "Combine Polygons"
+msgstr "Sokszögek egyesítése"
+
+msgid "Split Polygons"
+msgstr "Sokszögek felosztása"
+
+msgid "Convert to Polygons"
+msgstr "Sokszögekké alakítás"
+
+msgid "Convert to Outlines"
+msgstr "Körvonalakká alakítás"
+
+msgid "Websave RGB"
+msgstr "Webes RGB"
+
+msgid "Adjust Display Size"
+msgstr "Megjelenítés méretének szabályozása"
+
+msgid "To adjust the Display drag the Ruler below with the Slider."
+msgstr "A képernyõ beállítását a csúszka mozgatásával végezheti el."
+
+msgid "Show PDF-Tools"
+msgstr "PDF-eszközök mutatása"
+
+msgid "Hide PDF-Tools"
+msgstr "PDF-eszközök elrejtése"
+
+msgid "Shears the Path horizontal to the right"
 msgstr ""
 
-msgid "Keep Aspect Ratio"
+msgid "Shears the Path horizontal to the left"
 msgstr ""
 
+msgid "Shears the Path vertical up"
+msgstr ""
 
+msgid "Shears the Path vertical down"
+msgstr ""
+
+msgid "Line Styles..."
+msgstr "Vonalstílusok..."
+
+msgid "Initializing Plugins"
+msgstr "Beépülõ modulok indítása"
+
+msgid "Reading Scrapbook"
+msgstr "Vágólap olvasása"
+
+msgid "Setting up Shortcuts"
+msgstr "Gyorsgombok beállítása"
+
+msgid "Reading Preferences"
+msgstr "Alapbeállítások beolvasása"
+
+msgid "Init Hyphenator"
+msgstr "Szóelválasztó betöltése"
+
+msgid "Getting ICC-Profiles"
+msgstr "ICC-profilok betöltése"
+
+msgid "Searching for Fonts"
+msgstr "Betûtípusok keresése..."
+
+msgid "Print Preview"
+msgstr "Nyomtatási nézet"
+
+msgid "Antialias Text"
+msgstr "Szöveg élsimítása"
+
+msgid "Antialias Graphics"
+msgstr "Grafikák élsimítása"
+
+msgid "Russian:"
+msgstr "Orosz:"
+
+msgid "Loading:"
+msgstr "Betöltés:"
+
+msgid "Autosave"
+msgstr "Automatikus mentés"
+
+msgid "Enabled"
+msgstr "Engedélyezve"
+
+msgid "Use Bounding Box"
+msgstr "Befoglaló doboz használata"
+
+msgid "Czech:"
+msgstr "Cseh:"
+
+msgid "Norwegian:"
+msgstr "Norvég:"
+
+msgid "Select new Font:"
+msgstr "Betûtípus:"
+
+msgid "Insert Special"
+msgstr "Speciális karakterek"
+
+msgid "Select Character"
+msgstr "Karakter kiválasztása"
+
+msgid "Insert"
+msgstr "Beszúrás"
+
+msgid "Save Page as SVG..."
+msgstr "Oldal mentése SVG-ként..."
+
+msgid "SVG-Images (*.svg);; All Files (*)"
+msgstr "EPS-fájlok (*.eps);; Minden fájl (*)"
+
+msgid "Solid Line"
+msgstr "Folytonos vonal"
+
+msgid "Dashed Line"
+msgstr "Szaggatott vonal"
+
+msgid "Dotted Line"
+msgstr "Pontozott vonal"
+
+msgid "Dash Dot Line"
+msgstr "Tá-ti vonal"
+
+msgid "Dash Dot Dot Line"
+msgstr "Tá-ti-ti vonal"
+
+# saját definíciók
+
+msgid "X, Y, Z"
+msgstr "Pozíció"
+
+msgid "Tool-Tips"
+msgstr "Buboréksúgó"
+
+msgid "JavaScripts..."
+msgstr "JavaScript-ek..."
+
+msgid "Kerning:"
+msgstr "Betûköz:"
+
+msgid "Hungarian"
+msgstr "Magyar"
+
+msgid "Hungarian:"
+msgstr "Magyar:"
+
+msgid "Italian:"
+msgstr "Olasz:"
+
+msgid "Turkish:"
+msgstr "Török:"
+
+msgid "English:"
+msgstr "Angol:"
+
+msgid "Bulgarian:"
+msgstr "Bolgár:"
+
+msgid "Galician:"
+msgstr "Galíciai:"
+
+msgid "Czech"
+msgstr "Cseh"
+
+msgid "Information"
+msgstr "Információ"
+
+msgid "Font:"
+msgstr "Betûtípus:"
+
+msgid "min"
+msgstr "perc"
+
+msgid "Directory:"
+msgstr "Könyvtár:"
+
+msgid "Intervall:"
+msgstr "Idõköz:"
+
+msgid "Oval"
+msgstr "Ovális"
+
+msgid "Position"
+msgstr "Elhelyezkedés"
+
+msgid "Position:"
+msgstr "Elhelyezkedés:"
+
+msgid "Polish"
+msgstr "Lengyel"
+
+msgid "Dutch"
+msgstr "Holland"
+
+msgid "Ukrainian"
+msgstr "Ukrán"
+
+msgid "Portuguese"
+msgstr "Portugál"
+
+msgid "Greek"
+msgstr "Görög"
+
+msgid "Keywords:"
+msgstr "Kulcsszavak:"

@@ -42,6 +42,7 @@ public:
 	int Xp;
 	int Yp;
 	QPixmap pmx;
+
 signals:
 	void ColorVal(int h, int s, bool ende);
 };

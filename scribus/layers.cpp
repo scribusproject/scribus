@@ -8,31 +8,34 @@
 ****************************************************************************/
 #include "layers.h"
 #include "layers.moc"
+#include "scribus.h"
 
 extern QPixmap loadIcon(QString nam);
+extern ScribusApp* ScApp;
 
 LayerPalette::LayerPalette(QWidget* parent)
     : QDialog( parent, "Layers", false, 0 )
 {
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
     setCaption( tr( "Layers" ) );
     LayerPaletteLayout = new QVBoxLayout( this, 10, 5, "LayerPaletteLayout");
 
     Table = new QTable( this, "Table" );
+    Table->setNumRows( 0 );
     Table->setNumCols( 3 );
     Table->setTopMargin(0);
     Table->horizontalHeader()->hide();
-		Table->setRowMovingEnabled(false);
-		Table->setSorting(false);
+	Table->setRowMovingEnabled(false);
+	Table->setSorting(false);
     Table->setSelectionMode( QTable::SingleRow );
     Table->setFocusStyle( QTable::FollowStyle );
-		Table->setColumnReadOnly(1, true);
-		Table->setColumnReadOnly(2, true);
-		Table->setColumnWidth(1, 55);
-		Table->setColumnWidth(2, 55);
-		Header = Table->verticalHeader();
-		Header->setMovingEnabled(false);
-		Header->setResizeEnabled(false);
+	Table->setColumnReadOnly(1, true);
+	Table->setColumnReadOnly(2, true);
+	Table->setColumnWidth(1, 55);
+	Table->setColumnWidth(2, 55);
+	Header = Table->verticalHeader();
+	Header->setMovingEnabled(false);
+	Header->setResizeEnabled(false);
     LayerPaletteLayout->addWidget( Table );
 
     Layout1 = new QHBoxLayout( 0, 0, 0, "Layout1"); 
@@ -79,12 +82,12 @@ LayerPalette::LayerPalette(QWidget* parent)
     QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
     Layout1->addItem( spacer );
     LayerPaletteLayout->addLayout( Layout1 );
-		connect(NewLayer, SIGNAL(clicked()), this, SLOT(addLayer()));
-		connect(DeleteLayer, SIGNAL(clicked()), this, SLOT(removeLayer()));
-		connect(RaiseLayer, SIGNAL(clicked()), this, SLOT(upLayer()));
-		connect(LowerLayer, SIGNAL(clicked()), this, SLOT(downLayer()));
-		connect(Table, SIGNAL(valueChanged(int, int)), this, SLOT(changeName(int, int)));
-		connect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
+	ClearInhalt();
+	connect(NewLayer, SIGNAL(clicked()), this, SLOT(addLayer()));
+	connect(DeleteLayer, SIGNAL(clicked()), this, SLOT(removeLayer()));
+	connect(RaiseLayer, SIGNAL(clicked()), this, SLOT(upLayer()));
+	connect(LowerLayer, SIGNAL(clicked()), this, SLOT(downLayer()));
+	connect(Table, SIGNAL(valueChanged(int, int)), this, SLOT(changeName(int, int)));
     connect(CloseB, SIGNAL(clicked()), this, SLOT(Verlassen()));
 }
 
@@ -103,15 +106,16 @@ void LayerPalette::ClearInhalt()
 {
 	disconnect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
 	int b = Table->numRows()-1;
-	for (int a = b; a > 0; a--)
-		{
-		Table->removeRow(a);
-		}
-	Table->clearCell(0, 0);
-	Table->clearCellWidget(0, 1);
-	Table->clearCellWidget(0, 2);
-  FlagsPrint.clear();
-  FlagsSicht.clear();
+	if (b > 0)
+	{
+		for (int a = b; a > 0; a--)
+			Table->removeRow(a);
+		Table->clearCell(0, 0);
+		Table->clearCellWidget(0, 1);
+		Table->clearCellWidget(0, 2);
+	}
+	FlagsPrint.clear();
+	FlagsSicht.clear();
 	NewLayer->setEnabled(false);
 	DeleteLayer->setEnabled(false);
 	RaiseLayer->setEnabled(false);
@@ -123,6 +127,7 @@ void LayerPalette::setLayers(QValueList<Layer> *layin, int *act)
 	layers = layin;
 	Activ = act;
 	rebuildList();
+	disconnect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
 	MarkActiveLayer(*Activ);
 	NewLayer->setEnabled(true);
 	DeleteLayer->setEnabled(true);
@@ -134,31 +139,30 @@ void LayerPalette::setLayers(QValueList<Layer> *layin, int *act)
 void LayerPalette::rebuildList()
 {
 	disconnect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
-  FlagsPrint.clear();
-  FlagsSicht.clear();
+	FlagsPrint.clear();
+	FlagsSicht.clear();
 	QString tmp;
 	QValueList<Layer>::iterator it;
 	Table->setNumRows(layers->count());
-	for (uint l = 0; l < layers->count(); ++l)
-		{
-		it = layers->at(l);
+	for (it = layers->begin(); it != layers->end(); ++it)
+	{
 		Table->setText(layers->count()-(*it).Level-1, 0, (*it).Name);
 		QCheckBox *cp = new QCheckBox(this, tmp.setNum((*it).Level));
-    cp->setPixmap(loadIcon("DateiPrint16.png"));
-    cp->setChecked((*it).Drucken);
-    Table->setCellWidget(layers->count()-(*it).Level-1, 1, cp);
-    FlagsPrint.append(cp);
-    connect(cp, SIGNAL(clicked()), this, SLOT(printLayer()));
+    	cp->setPixmap(loadIcon("DateiPrint16.png"));
+    	cp->setChecked((*it).Drucken);
+    	Table->setCellWidget(layers->count()-(*it).Level-1, 1, cp);
+    	FlagsPrint.append(cp);
+    	connect(cp, SIGNAL(clicked()), this, SLOT(printLayer()));
 		QCheckBox *cp2 = new QCheckBox(this, tmp.setNum((*it).Level));
-    cp2->setPixmap(loadIcon("Layervisible.xpm"));
-    cp2->setChecked((*it).Sichtbar);
-    FlagsSicht.append(cp2);
-    connect(cp2, SIGNAL(clicked()), this, SLOT(visibleLayer()));
-    Table->setCellWidget(layers->count()-(*it).Level-1, 2, cp2);
+    	cp2->setPixmap(loadIcon("Layervisible.xpm"));
+    	cp2->setChecked((*it).Sichtbar);
+    	FlagsSicht.append(cp2);
+    	connect(cp2, SIGNAL(clicked()), this, SLOT(visibleLayer()));
+    	Table->setCellWidget(layers->count()-(*it).Level-1, 2, cp2);
 		Header->setLabel(layers->count()-(*it).Level-1, tmp.setNum((*it).Level));
-		}
+	}
 	Table->setColumnStretchable(0, true);
-  Table->adjustColumn(0);
+	Table->adjustColumn(0);
 	connect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
 }
 
@@ -166,9 +170,11 @@ void LayerPalette::addLayer()
 {
 	QString tmp;
 	struct Layer ll;
-	ll.LNr = layers->count();
+ 	ll.LNr = layers->last().LNr + 1;
+//	ll.LNr = layers->count();
 	ll.Level = layers->count();
-	ll.Name = tr("New Layer")+" "+tmp.setNum(ll.Level);
+ 	ll.Name = tr("New Layer")+" "+tmp.setNum(ll.LNr);
+//	ll.Name = tr("New Layer")+" "+tmp.setNum(layers->last().LNr + 1);
 	ll.Sichtbar = true;
 	ll.Drucken = true;
 	layers->append(ll);
@@ -176,6 +182,7 @@ void LayerPalette::addLayer()
 	*Activ = ll.LNr;
 	MarkActiveLayer(*Activ);
 	emit LayerActivated(*Activ);
+	ScApp->slotDocCh();
 }
 
 void LayerPalette::removeLayer()
@@ -184,142 +191,146 @@ void LayerPalette::removeLayer()
 		return;
 	int num = layers->count()-1-Table->currentRow();
 	QValueList<Layer>::iterator it2;
-	for (uint l = 0; l < layers->count(); ++l)
-		{
-		it2 = layers->at(l);
+	for (it2 = layers->begin(); it2 != layers->end(); ++it2)
+	{
 		if ((*it2).Level == num)
 			break;
-		}
+	}
 	int num2 = (*it2).LNr;
+	if (!num2)
+		return;
 	layers->remove(it2);
 	QValueList<Layer>::iterator it;
-	for (uint l = 0; l < layers->count(); ++l)
-		{
-		it = layers->at(l);
+	for (it = layers->begin(); it != layers->end(); ++it)
+	{
 		if ((*it).Level > num)
 			(*it).Level -= 1;
-		if ((*it).LNr > num2)
-			(*it).LNr -= 1;
-		}
+	}
 	rebuildList();
-	emit LayerRemoved(num);
+	emit LayerRemoved(num2);
 	*Activ = 0;
 	MarkActiveLayer(*Activ);
 	emit LayerActivated(*Activ);
+	ScApp->slotDocCh();
 }
 
 void LayerPalette::upLayer()
 {
-	if (layers->count() < 2)
-		return;
-	if (Table->currentRow() == 0)
+	if ((layers->count() < 2) || (Table->currentRow() == 0))
 		return;
 	int num = layers->count()-1-Table->currentRow();
 	QValueList<Layer>::iterator it;
-	for (uint l = 0; l < layers->count(); ++l)
-		{
-		it = layers->at(l);
+	for (it = layers->begin(); it != layers->end(); ++it)
+	{
 		if ((*it).Level == num+1)
 			break;
-		}
+	}
 	QValueList<Layer>::iterator it2;
-	for (uint l = 0; l < layers->count(); ++l)
-		{
-		it2 = layers->at(l);
+	for (it2 = layers->begin(); it2 != layers->end(); ++it2)
+	{
 		if ((*it2).Level == num)
 			break;
-		}
+	}
 	(*it2).Level += 1;
 	(*it).Level -= 1;
 	rebuildList();
 	emit LayerChanged();
 	MarkActiveLayer(*Activ);
+	ScApp->slotDocCh();
 }
 
 void LayerPalette::downLayer()
 {
-	if (layers->count() < 2)
-		return;
-	if (Table->currentRow() == static_cast<int>(layers->count())-1)
+	if ((layers->count() < 2) || (Table->currentRow() == static_cast<int>(layers->count()) - 1))
 		return;
 	int num = layers->count()-1-Table->currentRow();
 	QValueList<Layer>::iterator it;
-	for (uint l = 0; l < layers->count(); ++l)
-		{
-		it = layers->at(l);
+	for (it = layers->begin(); it != layers->end(); ++it)
+	{
 		if ((*it).Level == num-1)
 			break;
-		}
+	}
 	QValueList<Layer>::iterator it2;
-	for (uint l = 0; l < layers->count(); ++l)
-		{
-		it2 = layers->at(l);
+	for (it2 = layers->begin(); it2 != layers->end(); ++it2)
+	{
 		if ((*it2).Level == num)
 			break;
-		}
+	}
 	(*it2).Level -= 1;
 	(*it).Level += 1;
 	rebuildList();
 	emit LayerChanged();
 	MarkActiveLayer(*Activ);
+	ScApp->slotDocCh();
 }
 
 void LayerPalette::changeName(int row, int col)
 {
 	if (col == 0)
-		(*layers->at(layers->count()-row-1)).Name = Table->text(row, col);
+	{
+		int num = layers->count()-1-row;
+		QValueList<Layer>::iterator it;
+		for (it = layers->begin(); it != layers->end(); ++it)
+		{
+			if ((*it).Level == num)
+			{
+				(*it).Name = Table->text(row, col);
+				ScApp->slotDocCh();
+			}
+		}
+	}
 }
 
 void LayerPalette::visibleLayer()
 {
 	int num = QString(sender()->name()).toInt();
 	QValueList<Layer>::iterator it;
-	for (uint l = 0; l < layers->count(); ++l)
-		{
-		it = layers->at(l);
+	QPtrListIterator<QCheckBox> it2(FlagsSicht);
+	for (it = layers->begin(); it != layers->end(); ++it, ++it2)
+	{
 		if ((*it).Level == num)
-			{
-			(*it).Sichtbar = FlagsSicht.at(l)->isChecked();
+		{
+			(*it).Sichtbar = it2.current()->isChecked();
 			emit LayerChanged();
-			}
+			ScApp->slotDocCh();
 		}
+	}
 }
 
 void LayerPalette::printLayer()
 {
 	int num = QString(sender()->name()).toInt();
 	QValueList<Layer>::iterator it;
-	for (uint l = 0; l < layers->count(); ++l)
-		{
-		it = layers->at(l);
+	QPtrListIterator<QCheckBox> it2(FlagsPrint);
+	for (it = layers->begin(); it != layers->end(); ++it, ++it2)
+	{
 		if ((*it).Level == num)
-			{
-			(*it).Drucken = FlagsPrint.at(l)->isChecked();
-			}
+		{
+			(*it).Drucken = it2.current()->isChecked();
+			ScApp->slotDocCh();
 		}
+	}
 }
 
 void LayerPalette::MarkActiveLayer(int l)
 {
 	QValueList<Layer>::iterator it;
-	for (uint la = 0; la < layers->count(); ++la)
-		{
-		it = layers->at(la);
+	for (it = layers->begin(); it != layers->end(); ++it)
+	{
 		if ((*it).LNr == l)
 			break;
-		}
+	}
 	Table->setCurrentCell(layers->count()-1-(*it).Level, 0);
 }
 
 void LayerPalette::setActiveLayer(int row)
 {
 	QValueList<Layer>::iterator it;
-	for (uint la = 0; la < layers->count(); ++la)
-		{
-		it = layers->at(la);
+	for (it = layers->begin(); it != layers->end(); ++it)
+	{
 		if ((*it).Level == static_cast<int>(layers->count())-1-row)
 			break;
-		}
+	}
 	*Activ = (*it).LNr;
 	emit LayerActivated(*Activ);
 }

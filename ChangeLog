@@ -1,4 +1,261 @@
+Changes since Version 1.1.3
+18.12.2003	Groups can now rotated with the Properties Palette.
+
+17.12.2003	Updated the German and Russian Translation.
+
+16.12.2003	Added new Brazilian Translation.
+			Updated the Russian Translation.
+
+15.12.2003	Added infomation about Pictures to the Info Entry in the context Menue.
+
+14.12.2003	Added an Info Entry to the right mouse click context Menue.
+		Fixed redraw Issues.
+		Fixed Grid drawing Issues when the Zoom Factor is != 100 %.
+
+12.12.2003	Added a Toolbar Button for the Story Editor.
+		Added a Statusbar to the Story Editor.
+
+10.12.2003	Fixed Preferences Issues.
+		Combined the Toolbar Buttons for Rectangles and Circles into one Button
+		containing all Autoforms.
+
+09.12.2003	Added some new Shapes to the Autoforms Menue.
+		Fixed the disabled Keyboard Bug.
+
+07.12.2003	Added various Shapes to the Shape Tab in the Properties Palette.
+		Fixed misbehaviour with some corrupted Docs.
+
+06.12.2003	Added Convert to Outlines to right mouse click context Menue.
+		The resolution setting is now used for all Pictures if they provide one.
+
+05.12.2003	Fixed incorrect hyphens in the PDF-Export with Russian Text.
+
+04.12.2003	Fixed Crash with SVG-Import.
+
+03.12.2003	Updated the Danish Traslation.
+		Added a Crash Handler.
+
+01.12.2003	Fixed crash when holding down a key whilst editing a Textframe.
+		Improved import of Template Pages, Line Styles and Styles.
+		Fixed PDF-Export Issues.
+
+30.11.2003	Template Pages and Line Styles can now imported too.
+
+29.11.2003	Added Button for importing Styles for other Documents to the Style Editor.
+		You can now switch Blackpoint Compensation on or off in the CMS Preferences.
+
+Changes since Version 1.1.2
+28.11.2003	Fixed Bug that prevented proper recognition of User Defined ICC-Profile Directorys.
+
+27.11.2003	Fixed Bug that caused Scribus to hang when importing the same Page twice.
+
+26.11.2003	Fixed Crash when loading Documents.
+
+24.11.2003	Fixed duplication of Styles when importing Pages or Objects.
+
+23.11.2003	Added a "Revert to Saved" Option to the File Menu.
+
+22.11.2003	Added Group/Ungroup Items to Right Mouse Click Context Menu.
+		The Fontsize is now a float, you can have now Fontsize like 12.3 pt
+		Managed Guides is now available for Template Pages too.
+		
+21.11.2003	The Linewith of a Textframe is now honoured in the Distances of the
+		Text to the Frameborders when the Borderline is visible.
+
+20.11.2003	Fixed Bug in the PDF and Postscript Export with linked Frames.
+		Increased the maximum Linewidth to 36 pts.
+		Fixed Segfault when deleting more than one Page at once.
+
+19.11.2003	Fixed Bug in the Story Editor with linked Textframes.
+		You can now edit Texts on a Path with the Story Editor too.
+
+15.11.2003	Added first version of the Story Editor.
+
+12.11.2003	Fixed Bug with TIFF-Images.
+
+10.11.2003	Added Web-Links to the PDF-Export.
+		Fixed compilation issues with Python 2.3
+
+09.11.2003	Fixed compilation issues with the Scripter-Plugin.
+		Fixed wrong colors for Gradients in PDF.
+
+08.11.2003	You can now insert Pictures by simply dragging them to a Page.
+		Added an absolute coordinate Mode to the Node-Palette.
+
+06.11.2003	Added a --without-python option to ./configure for
+		those who don't have a use for the Scripter-Plugin.
+
+05.11.2003	Improved the Preview in the charselect plugin.
+
+04.11.2003	When you resize a Textframe with the Mouse and press
+		CTRL+SHIFT the Text is scaled accordingly.
+
+02.11.2003	Reenabled the Fontpreview in the Preferences.
+		
+Changes since Version 1.1.1
+28.10.2003	The Contents of the Outline Palette doesn't collapse anymore
+		when you are editing Objects or adding or removing Pages.
+
+26.10.2003	Added patch for acinclude.m4 to recognize Python 2.3
+		Fixed issue with certain Hebrew fonts.
+
+25.10.2003	Scribus can now handle Filenames with Spaces correctly.
+		Included Patch for BigEndian Systems.
+
+23.10.2003	Using Symlinks for Fonts works now.
+		Fixed missing Lines around Textbox in PDF-Output.
+
+21.10.2003	Included the new Icons contributed by Sven Powalla.
+
+20.10.2003	Included the Scripter Plugin into the main Package.
+		Fixed the ./configure script that libtiff is recognized
+		on a stock RH9 installation.
+
+17.10.2003	The AutoSave Option is now working again.
+
+11.10.2003	Fixed Bug when converting Text to Outlines.
+
+05.10.2003	Improved History in the Helpbrowser.
+
+Changes since Version 1.1.0
+03.10.2003	Improved rendering of linked Textframes.
+		Added a new .pot file for Scribus-1.1.1
+
+02.10.2003	Removed some small Bugs reported after reopening the CVS 
+		to the public.
+
+30.09.2003	Every Textbox can have now it's own Language for
+		Hyphenation.
+
+29.09.2003	Added a Catalan Hyphenation Dictionary.
+
+28.09.2003	Subsetting Fonts and OpenType Fonts works now in PDF and Postscript.
+		Updated the CharSelect Plugin.
+		Added a User defineable Directory for ICC-Profiles in the Preferences.
+
+27.09.2003	Replaced the LineEdit for the Zoom-Factor in the lower left Corner of
+		the Working Window by a SpinBox.
+		Updated the Welsh Translation.
+
+21.09.2003	Removed the "Modify Object" Dialog since all of it's functionality
+		in now in the former "Measurement" Palette, which is now called
+		"Properties" Palette.
+
+19.09.2003	Scaling Glyphs in the X-Direction works now in PS and PDF.
+
+18.09.2003	Now you can scale Glyphs in the X-Direction.
+
+16.09.2003	Improved Redraw of linked Textframes.
+		The PS-Exporter does now support Text with Fill & Stroke.
+		Removed all Font Encoding Stuff from the PS-Exporter, all
+		Text Rendering is now done with "glyphshow".
+
+15.09.2003	Text with Fill & Stroke can now exported to PDF and SVG.
+		Fixed Crash when deleting Pages containing linked Textframes.
+		Fixed Crash after Drag-Copying Elements.
+
+14.09.2003	Added the possibility to set the fill and stroke of Glyphs.
+
+Changes since Version 1.0.1
+06.09.2003	Unterlining doesn't cut the decents of the Glyphs anymore.
+
+04.09.2003	Added new Type Style Outlined.
+
+02.09.2003	Fixed Segfault when cutting Text when there is no Text.
+
+31.08.2003	Added a Zoom for Characters, if you click the Right Mouse Button
+		over a Character a Zoom Window pops up.
+		Added the possibility to have different Transparencys for Strokes
+		and Fills.
+
+22.08.2003	Made first Steps to replace the old rendering Engine
+		with libart.
+
+13.08.2003	Added Greek Hyphenation. 
+
+12.08.2003	Changed behaviour of the Save-Button in the Toolbar.
+
+11.08.2003	Added an SVG-Import Plugin.
+
+10.08.2003	Added PDF-Keywords.
+		Enabled the Black Point Compensation in the Color-
+		Management when lcms-1.11 is used.
+		
+09.08.2003	Added a History Function to the Help Viewer.
+
+08.08.2003	Templates are now reapplied to the Pages when 
+		they where changed.
+		Templates can now applied to more than one Page.
+		
+Changes since Version 1.0
+07.08.2003	Added Indonesian Translation.
+
+25.07.2003	Fixed Bug with the Picture Preview.
+		Added Dutch, Ukrainian and Portuguese Hyphenation.
+
+18.07.2003	Fixed Bug which caused Pictures to disappear when the actual
+		Application Directory isn't the users Home Directory.
+
+Changes since Version 0.9.11.1
+21.06.2003	Fixed the Radial Gradients in the SVG-Export.
+		Fixed Bug with rounded Rectangles.
+
+20.06.2003	Limited the Values for the Margins to fit the Page.
+
+19.06.2003	Disabled Color "None" for Gradients.
+
+18.06.2003	Implemented a new Fontselection Dialog.
+
+Changes since Version 0.9.10
+13.06.2003	Moved the Preview generation to a seperate Class.
+		Updated Polish translation.
+
+11.06.2003	Improved and updated the Creation of the Previews
+
+10.06.2003	Added Support for Named Linestyles, allowing to have
+		Paths stroked with multiple Lines.
+
+07.06.2003	Improved Image Support for SVG, Images are now saved as PNG-Images in the
+		same Folder as the SVG File.
+		Added New Plugin for Print Preview, needs Ghostscript to work.
+
+01.06.2003	Moved the SVG-Export Plugin to the Main Package
+		and added Support for Gradients and combined Polygons.
+
+30.05.2003	Added Support for Links to external PDF-Documents.
+		Added Encoding Support for writing Textfiles.
+
+27.05.2003	Added a Splash Screen.
+		Updated Danish Translation.
+
+25.05.2003	The first Page of a PDF can now placed like a EPS-File.
+		The Postscript-Exporter embeds now only really used Fonts.
+
+24.05.2003	Improved the Clipboard once more, works now with Nedit, OpenOffice
+		and Mozilla too.
+		Improved importing of Text, you can now choose an Encoding in
+		the Fileselect Dialog.
+
+22.05.2003	Added shearing of Polygons.
+		Included Patches for HP-UX contributed by Martin Gansser.
+
+19.05.2003	Added Norwegian Translation contributed by Johannes Wilm.
+
 Changes since Version 0.9.9
+16.05.2003	Added the possiblity to adjust the Display for true WYSIWYG.
+		e.g 1 Inch displayed on the Rulers is now really an Inch on the
+		Screen.
+
+14.05.2003	Picture Frames can now have a Borderline too.
+
+11.05.2003	Added Support for Automatic Kerning Values from .afm Files.
+		
+09.05.2003	Added Color Model "Websave RGB".
+		Solved the Problem that the last Hyphen in linked Textframes wasn't printed.
+		Fixed crash with PDF-Previes enabled.
+
+06.05.2003	Added a Command to split combined Polygons.
+
 05.05.2003	When you edit a Path, you can select now more than one Point for moving,
 		either by pressing the Shift Key or using the selection Rectangle.
 		Fonts are now scanned for their Chararcter width only when they are used.
@@ -132,7 +389,7 @@ Changes since Version 0.9.3
 
 08.12.2002	Added User defined Guidelines, which can be dragged out of the Rulers.
 
-05.12.2002	Added Polish Translation contributed by Maciej Hañski <m.hanski@gmx.at>
+05.12.2002	Added Polish Translation contributed by Maciej Haski <m.hanski@gmx.at>
 
 03.12.2002	PDF-Export Options are now saved with the Document.
 
@@ -460,7 +717,7 @@ Changes since Version 0.5.5:
 10.11.2001	Objectgroups are now fully working.
 
 09.11.2001	Fixed a bug which causes Scribus to crash when loading Documents
-		which contain the character è. This crash happens only in the
+		which contain the character ï¿½ This crash happens only in the
 		locale fr.
 
 07.11.2001	Objects can now be grouped together
@@ -717,7 +974,7 @@ Changes since Version 0.5.5:
                 Now Version 0.3.2
 
 15.06.2001      No more use of xset -q to get the Font-Path.
-                Thank to Christian Töpp, who pointed out a
+                Thank to Christian Tpp, who pointed out a
                 way to get the Font-Path without xset.
 
 14.06.2001      Insert Page now works

@@ -37,10 +37,10 @@ public:
 class SeItem : public QTableItem
 {
 public:
-		SeItem(QTable* parent, QString text, QPixmap Pix, bool ss);
+	SeItem(QTable* parent, QString text, QPixmap Pix, bool ss);
     ~SeItem() {};
-		virtual void paint(QPainter *p, const QColorGroup &cg, const QRect &cr, bool selected);
-		bool Side;
+	virtual void paint(QPainter *p, const QColorGroup &cg, const QRect &cr, bool selected);
+	bool Side;
 };
 
 class SeList : public QListBox
@@ -51,9 +51,9 @@ public:
     SeList(QWidget* parent);
     ~SeList() {};
     QPoint Mpos;
-		QListBoxItem *CurItem;
+	QListBoxItem *CurItem;
     bool Mpressed;
-		bool Thumb;
+	bool Thumb;
 
 private slots:
 	void ToggleTh();
@@ -74,33 +74,33 @@ class SeView : public QTable
 public:
     SeView(QWidget* parent);
     ~SeView() {};
-		void ClearPix();
-		int GetPage(int r, int c);
+	void ClearPix();
+	int GetPage(int r, int c);
     QPoint Mpos;
     bool Mpressed;
-		bool Doppel;
-		bool Links;
-		bool Namen;
-		int MaxC;
-		QPixmap pix;
+	bool Doppel;
+	bool Links;
+	bool Namen;
+	int MaxC;
+	QPixmap pix;
 
 public slots:
 	void ToggleNam();
 
 signals:
-		void UseTemp(QString, int);
-		void NewPage(int, QString);
-		void MovePage(int, int);
-		void Click(int, int, int);
+	void UseTemp(QString, int);
+	void NewPage(int, QString);
+	void MovePage(int, int);
+	void Click(int, int, int);
 
 protected:
-		virtual void contentsDropEvent(QDropEvent * e);
-		virtual void contentsDragEnterEvent(QDragEnterEvent *e);
-		virtual void contentsDragLeaveEvent(QDragLeaveEvent *e);
-		virtual void contentsDragMoveEvent(QDragMoveEvent *e);
-		virtual void contentsMouseReleaseEvent(QMouseEvent *m);
-		virtual void contentsMousePressEvent(QMouseEvent* e);
-		virtual void contentsMouseMoveEvent(QMouseEvent* e);
+	virtual void contentsDropEvent(QDropEvent * e);
+	virtual void contentsDragEnterEvent(QDragEnterEvent *e);
+	virtual void contentsDragLeaveEvent(QDragLeaveEvent *e);
+	virtual void contentsDragMoveEvent(QDragMoveEvent *e);
+	virtual void contentsMouseReleaseEvent(QMouseEvent *m);
+	virtual void contentsMousePressEvent(QMouseEvent* e);
+	virtual void contentsMouseMoveEvent(QMouseEvent* e);
 };
 
 class TrashBin : public QLabel
@@ -108,17 +108,17 @@ class TrashBin : public QLabel
     Q_OBJECT
 
 public:
-		TrashBin( QWidget * parent );
-		~TrashBin() {};
-		QPixmap Normal;
-		QPixmap Offen;
-		void dragEnterEvent( QDragEnterEvent *e );
-		void dragLeaveEvent( QDragLeaveEvent * );
-		void dropEvent( QDropEvent * e );
+	TrashBin( QWidget * parent );
+	~TrashBin() {};
+	QPixmap Normal;
+	QPixmap Offen;
+	void dragEnterEvent( QDragEnterEvent *e );
+	void dragLeaveEvent( QDragLeaveEvent * );
+	void dropEvent( QDropEvent * e );
 
 signals:
-		void DelPage(int);
-		void DelMaster(QString);
+	void DelPage(int);
+	void DelMaster(QString);
 };
 
 class SeitenPal : public QDialog
@@ -132,34 +132,34 @@ public:
 
     QSplitter* Splitter1;
     TrashBin* Trash;
-		QLabel* TextLabel1;
-		QLabel* TextLabel2;
+	QLabel* TextLabel1;
+	QLabel* TextLabel2;
     SeList* TemplList;
     SeView* PageView;
-		QCheckBox* DS;
-		QCheckBox* LP;
-		ScribusView *Vie;
-		QPixmap pix;
+	QCheckBox* DS;
+	QCheckBox* LP;
+	ScribusView *Vie;
+	QPixmap pix;
 
 public slots:
-		void SetView(ScribusView *view);
-		void DelMPage(QString tmp);
-		void MPage(int r, int c);
-		void GotoPage(int r, int c, int b);
-		void DisablePal();
-		void EnablePal();
-		void HandleDS();
-		void HandleLP();
-		void RebuildTemp();
-		void RebuildPage();
-		void Rebuild();
-		void selTemplate();
-		QPixmap CreateIcon(int nr, QPixmap ret);
+	void SetView(ScribusView *view);
+	void DelMPage(QString tmp);
+	void MPage(int r, int c);
+	void GotoPage(int r, int c, int b);
+	void DisablePal();
+	void EnablePal();
+	void HandleDS();
+	void HandleLP();
+	void RebuildTemp();
+	void RebuildPage();
+	void Rebuild();
+	void selTemplate();
+	QPixmap CreateIcon(int nr, QPixmap ret);
 
 signals:
-		void EditTemp(QString);
-		void GotoSeite(int);
-		void Schliessen();
+	void EditTemp(QString);
+	void GotoSeite(int);
+	void Schliessen();
 
 protected:
     QVBoxLayout* SeitenPalLayout;

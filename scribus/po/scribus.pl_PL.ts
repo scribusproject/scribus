@@ -1,0 +1,6762 @@
+<!DOCTYPE TS><TS>
+<context>
+    <name>About</name>
+    <message>
+        <source>About Scribus%1%2</source>
+        <translation>O Scribusie%1%2</translation>
+    </message>
+    <message>
+        <source>%1. %2 %3 </source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Scribus Version %1
+%2 %3</source>
+        <translation>Scribus - wersja %1
+%2 %3</translation>
+    </message>
+    <message>
+        <source>Build-ID:</source>
+        <translation>Build-ID:</translation>
+    </message>
+    <message>
+        <source>About</source>
+        <translation>O programie</translation>
+    </message>
+    <message>
+        <source>Programming:</source>
+        <translation>Programowanie:</translation>
+    </message>
+    <message>
+        <source>Contributions from:</source>
+        <translation>Podziękowania:</translation>
+    </message>
+    <message>
+        <source>Windows port:</source>
+        <translation>Windows port:</translation>
+    </message>
+    <message>
+        <source>Documentation:</source>
+        <translation>Dokumentacja:</translation>
+    </message>
+    <message>
+        <source>Authors</source>
+        <translation>Autorzy</translation>
+    </message>
+    <message>
+        <source>German:</source>
+        <translation>Niemiecki:</translation>
+    </message>
+    <message>
+        <source>French:</source>
+        <translation>Francuski:</translation>
+    </message>
+    <message>
+        <source>Spanish and Catalan:</source>
+        <translation>Hiszpański i kataloński:</translation>
+    </message>
+    <message>
+        <source>Italian:</source>
+        <translation>Włoski:</translation>
+    </message>
+    <message>
+        <source>Hungarian:</source>
+        <translation>Węgierski:</translation>
+    </message>
+    <message>
+        <source>Ukrainian:</source>
+        <translation>Ukraiński:</translation>
+    </message>
+    <message>
+        <source>Bulgarian:</source>
+        <translation>Bułgarski:</translation>
+    </message>
+    <message>
+        <source>Galician:</source>
+        <translation>Galicyjski:</translation>
+    </message>
+    <message>
+        <source>Turkish:</source>
+        <translation>Turecki:</translation>
+    </message>
+    <message>
+        <source>Lithuanian:</source>
+        <translation>Litewski:</translation>
+    </message>
+    <message>
+        <source>Polish:</source>
+        <translation>Polski:</translation>
+    </message>
+    <message>
+        <source>Czech:</source>
+        <translation>Czeski:</translation>
+    </message>
+    <message>
+        <source>Slovak:</source>
+        <translation>Słowacki:</translation>
+    </message>
+    <message>
+        <source>Danish:</source>
+        <translation>Duński:</translation>
+    </message>
+    <message>
+        <source>Norwegian:</source>
+        <translation>Norweski:</translation>
+    </message>
+    <message>
+        <source>English:</source>
+        <translation>Angielski:</translation>
+    </message>
+    <message>
+        <source>Welsh:</source>
+        <translation>Walijski:</translation>
+    </message>
+    <message>
+        <source>Russian:</source>
+        <translation>Rosyjski:</translation>
+    </message>
+    <message>
+        <source>Brazilian:</source>
+        <translation>Brazylijski:</translation>
+    </message>
+    <message>
+        <source>Translations</source>
+        <translation>Tłumaczenia</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Zamknij</translation>
+    </message>
+    <message>
+        <source>Finnish:</source>
+        <translation>Fiński:</translation>
+    </message>
+</context>
+<context>
+    <name>AdvOptions</name>
+    <message>
+        <source>Advanced Options</source>
+        <translation>Zaawansowane opcje</translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) horizontal</source>
+        <translation>Odwróć strony w poziomie</translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) vertical</source>
+        <translation>Odwróć strony w pionie</translation>
+    </message>
+    <message>
+        <source>Apply ICC-Profiles</source>
+        <translation>Zastosuj profile ICC</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+</context>
+<context>
+    <name>Align</name>
+    <message>
+        <source>Distribute/Align</source>
+        <translation>Odstęp/Wyrównanie</translation>
+    </message>
+    <message>
+        <source>Align</source>
+        <translation>Wyrównaj</translation>
+    </message>
+    <message>
+        <source>Horizontal</source>
+        <translation>Poziomo</translation>
+    </message>
+    <message>
+        <source>between:</source>
+        <translation>między:</translation>
+    </message>
+    <message>
+        <source>Left Sides</source>
+        <translation>Lewe brzegi</translation>
+    </message>
+    <message>
+        <source>Middles</source>
+        <translation>Środki</translation>
+    </message>
+    <message>
+        <source>Right Sides</source>
+        <translation>Prawe brzegi</translation>
+    </message>
+    <message>
+        <source>Don&apos;t change</source>
+        <translation>Nie zmieniaj</translation>
+    </message>
+    <message>
+        <source>Displacement</source>
+        <translation>Przesunięcie</translation>
+    </message>
+    <message>
+        <source>Distribute evenly</source>
+        <translation>Rozmieść równomiernie</translation>
+    </message>
+    <message>
+        <source>Vertical</source>
+        <translation>Pionowo</translation>
+    </message>
+    <message>
+        <source>Top Sides</source>
+        <translation>Górne brzegi</translation>
+    </message>
+    <message>
+        <source>Bottom Sides</source>
+        <translation>Dolne brzegi</translation>
+    </message>
+    <message>
+        <source> pts</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Apply</source>
+        <translation>Zastosuj</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+</context>
+<context>
+    <name>AlignSelect</name>
+    <message>
+        <source>Align Text Left</source>
+        <translation>Wyrównaj tekst do lewej</translation>
+    </message>
+    <message>
+        <source>Align Text Right</source>
+        <translation>Wyrównaj tekst do prawej</translation>
+    </message>
+    <message>
+        <source>Align Text Block</source>
+        <translation>Justuj tekst</translation>
+    </message>
+    <message>
+        <source>Align Text Center</source>
+        <translation>Wyśrodkuj tekst</translation>
+    </message>
+</context>
+<context>
+    <name>Annot</name>
+    <message>
+        <source>Field Properties</source>
+        <translation>Właściwości pola</translation>
+    </message>
+    <message>
+        <source>Type:</source>
+        <translation>Typ:</translation>
+    </message>
+    <message>
+        <source>Button</source>
+        <translation>Przycisk</translation>
+    </message>
+    <message>
+        <source>Text Field</source>
+        <translation>Pole tekstowe</translation>
+    </message>
+    <message>
+        <source>Check Box</source>
+        <translation>Pole wyboru</translation>
+    </message>
+    <message>
+        <source>Combo Box</source>
+        <translation>Lista rozwijana</translation>
+    </message>
+    <message>
+        <source>List Box</source>
+        <translation>Lista</translation>
+    </message>
+    <message>
+        <source>Properties</source>
+        <translation>Właściwości</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>Nazwa:</translation>
+    </message>
+    <message>
+        <source>Tool-Tip:</source>
+        <translation>Podpowiedź:</translation>
+    </message>
+    <message>
+        <source>Text</source>
+        <translation>Tekst</translation>
+    </message>
+    <message>
+        <source>Font for use with PDF-1.3:</source>
+        <translation>Czcionka dla PDF-1.3:</translation>
+    </message>
+    <message>
+        <source>Border</source>
+        <translation>Brzeg</translation>
+    </message>
+    <message>
+        <source>Color:</source>
+        <translation>Kolor:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Brak</translation>
+    </message>
+    <message>
+        <source>Width:</source>
+        <translation>Szerokość:</translation>
+    </message>
+    <message>
+        <source>Thin</source>
+        <translation>Cienki</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation>Normalny</translation>
+    </message>
+    <message>
+        <source>Wide</source>
+        <translation>Szeroki</translation>
+    </message>
+    <message>
+        <source>Style:</source>
+        <translation>Styl:</translation>
+    </message>
+    <message>
+        <source>Solid</source>
+        <translation>Jednolity</translation>
+    </message>
+    <message>
+        <source>Dashed</source>
+        <translation>Kreskowany</translation>
+    </message>
+    <message>
+        <source>Underline</source>
+        <translation>Podkreślenie</translation>
+    </message>
+    <message>
+        <source>Beveled</source>
+        <translation>Wytłoczony</translation>
+    </message>
+    <message>
+        <source>Inset</source>
+        <translation>Wstawka</translation>
+    </message>
+    <message>
+        <source>Other</source>
+        <translation>Inne</translation>
+    </message>
+    <message>
+        <source>Read Only</source>
+        <translation>Tylko do odczytu</translation>
+    </message>
+    <message>
+        <source>Required</source>
+        <translation>Wymagane</translation>
+    </message>
+    <message>
+        <source>Don&apos;t Export Value</source>
+        <translation>Nie wysyłaj wartości</translation>
+    </message>
+    <message>
+        <source>Visibility:</source>
+        <translation>Widoczność:</translation>
+    </message>
+    <message>
+        <source>Visible</source>
+        <translation>Widoczny</translation>
+    </message>
+    <message>
+        <source>Hidden</source>
+        <translation>Ukryty</translation>
+    </message>
+    <message>
+        <source>No Print</source>
+        <translation>Nie drukuj</translation>
+    </message>
+    <message>
+        <source>No View</source>
+        <translation>Nie wyświetlaj</translation>
+    </message>
+    <message>
+        <source>Appearance</source>
+        <translation>Wygląd</translation>
+    </message>
+    <message>
+        <source>Text for Button Down</source>
+        <translation>Tekst dla Button Down</translation>
+    </message>
+    <message>
+        <source>Text for Roll Over</source>
+        <translation>Text dla Roll Over</translation>
+    </message>
+    <message>
+        <source>Icons</source>
+        <translation>Ikony</translation>
+    </message>
+    <message>
+        <source>Use Icons</source>
+        <translation>Użyj ikon</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Usuń</translation>
+    </message>
+    <message>
+        <source>Pressed</source>
+        <translation>Wciśnięty</translation>
+    </message>
+    <message>
+        <source>Roll Over</source>
+        <translation>Roll Over</translation>
+    </message>
+    <message>
+        <source>Icon Placement...</source>
+        <translation>Rozmieszczenie ikon...</translation>
+    </message>
+    <message>
+        <source>Highlight</source>
+        <translation>Wyróżnienie</translation>
+    </message>
+    <message>
+        <source>Invert</source>
+        <translation>Negatyw</translation>
+    </message>
+    <message>
+        <source>Outlined</source>
+        <translation>Obramowanie</translation>
+    </message>
+    <message>
+        <source>Push</source>
+        <translation>Wciśnięty</translation>
+    </message>
+    <message>
+        <source>Multi-Line</source>
+        <translation>Wielowierszowe</translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation>Hasło</translation>
+    </message>
+    <message>
+        <source>Limit of</source>
+        <translation>Maksymalnie</translation>
+    </message>
+    <message>
+        <source>Characters</source>
+        <translation>znaków</translation>
+    </message>
+    <message>
+        <source>Do Not Scroll</source>
+        <translation>Nie przewijaj</translation>
+    </message>
+    <message>
+        <source>Do Not Spell Check</source>
+        <translation>Nie sprawdzaj pisowni</translation>
+    </message>
+    <message>
+        <source>Check Style:</source>
+        <translation>Sposób zaznaczenia:</translation>
+    </message>
+    <message>
+        <source>Check</source>
+        <translation>Haczyk</translation>
+    </message>
+    <message>
+        <source>Cross</source>
+        <translation>Krzyżyk</translation>
+    </message>
+    <message>
+        <source>Diamond</source>
+        <translation>Romb</translation>
+    </message>
+    <message>
+        <source>Circle</source>
+        <translation>Kółko</translation>
+    </message>
+    <message>
+        <source>Star</source>
+        <translation>Gwiazdka</translation>
+    </message>
+    <message>
+        <source>Square</source>
+        <translation>Kwadrat</translation>
+    </message>
+    <message>
+        <source>Default is Checked</source>
+        <translation>Domyślnie zaznaczone</translation>
+    </message>
+    <message>
+        <source>Editable</source>
+        <translation>Edycja dozwolona</translation>
+    </message>
+    <message>
+        <source>Options</source>
+        <translation>Opcje</translation>
+    </message>
+    <message>
+        <source>Java Script</source>
+        <translation>Java Script</translation>
+    </message>
+    <message>
+        <source>Go To</source>
+        <translation>Idź do</translation>
+    </message>
+    <message>
+        <source>Submit Form</source>
+        <translation>Wyślij formularz</translation>
+    </message>
+    <message>
+        <source>Reset Form</source>
+        <translation>Wyzeruj formularz</translation>
+    </message>
+    <message>
+        <source>Import Data</source>
+        <translation>Importuj dane</translation>
+    </message>
+    <message>
+        <source>Event:</source>
+        <translation>Zdarzenie:</translation>
+    </message>
+    <message>
+        <source>Mouse Up</source>
+        <translation>Klawisz myszy puszczony</translation>
+    </message>
+    <message>
+        <source>Mouse Down</source>
+        <translation>Klawisz myszy przyciśnięty</translation>
+    </message>
+    <message>
+        <source>Mouse Enter</source>
+        <translation>Kursor myszy wchodzi w pole</translation>
+    </message>
+    <message>
+        <source>Mouse Exit</source>
+        <translation>Kursor myszy opuszcza pole</translation>
+    </message>
+    <message>
+        <source>On Focus</source>
+        <translation>Wejście w pole</translation>
+    </message>
+    <message>
+        <source>On Blur</source>
+        <translation>Opuszczenie pola</translation>
+    </message>
+    <message>
+        <source>Script:</source>
+        <translation>Skrypt:</translation>
+    </message>
+    <message>
+        <source>Edit...</source>
+        <translation>Edytuj...</translation>
+    </message>
+    <message>
+        <source>Submit to URL:</source>
+        <translation>Wyślij do URL:</translation>
+    </message>
+    <message>
+        <source>Submit Data as HTML</source>
+        <translation>Wyślij dane jako HTML</translation>
+    </message>
+    <message>
+        <source>Import Data from:</source>
+        <translation>Importuj dane z:</translation>
+    </message>
+    <message>
+        <source>Destination</source>
+        <translation>Cel</translation>
+    </message>
+    <message>
+        <source>To File:</source>
+        <translation>Do pliku:</translation>
+    </message>
+    <message>
+        <source>Change...</source>
+        <translation>Zmień...</translation>
+    </message>
+    <message>
+        <source>Page:</source>
+        <translation>Strona:</translation>
+    </message>
+    <message>
+        <source>X-Pos:</source>
+        <translation>Wsp. X:</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Y-Pos:</source>
+        <translation>Wsp. Y:</translation>
+    </message>
+    <message>
+        <source>Action</source>
+        <translation>Akcja</translation>
+    </message>
+    <message>
+        <source>Field is formatted as:</source>
+        <translation>Pole jest sformatowane jako:</translation>
+    </message>
+    <message>
+        <source>Plain</source>
+        <translation>Bez formatowania</translation>
+    </message>
+    <message>
+        <source>Number</source>
+        <translation>Liczba</translation>
+    </message>
+    <message>
+        <source>Percentage</source>
+        <translation>Procent</translation>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation>Data</translation>
+    </message>
+    <message>
+        <source>Time</source>
+        <translation>Czas</translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <translation>Definicja użytkownika</translation>
+    </message>
+    <message>
+        <source>Number Format</source>
+        <translation>Format liczby</translation>
+    </message>
+    <message>
+        <source>Decimals:</source>
+        <translation>Miejsca po przecinku:</translation>
+    </message>
+    <message>
+        <source>Use Currency Symbol</source>
+        <translation>Użyj symbolu waluty</translation>
+    </message>
+    <message>
+        <source>Prepend Currency Symbol</source>
+        <translation>Poprzedź symbolem waluty</translation>
+    </message>
+    <message>
+        <source>Formatting</source>
+        <translation>Format</translation>
+    </message>
+    <message>
+        <source>Percent Format</source>
+        <translation>Format procentu</translation>
+    </message>
+    <message>
+        <source>Date Format</source>
+        <translation>Format daty</translation>
+    </message>
+    <message>
+        <source>Time Format</source>
+        <translation>Format czasu</translation>
+    </message>
+    <message>
+        <source>Custom Scripts</source>
+        <translation>Skrypty użytkownika</translation>
+    </message>
+    <message>
+        <source>Format:</source>
+        <translation>Format:</translation>
+    </message>
+    <message>
+        <source>Keystroke:</source>
+        <translation>Wciśnięty klawisz:</translation>
+    </message>
+    <message>
+        <source>Format</source>
+        <translation>Format</translation>
+    </message>
+    <message>
+        <source>Value is not validated</source>
+        <translation>Nie sprawdzaj wartości</translation>
+    </message>
+    <message>
+        <source>Value must be greater than or equal to:</source>
+        <translation>Wartość musi być równa lub większa:</translation>
+    </message>
+    <message>
+        <source>and less or equal to:</source>
+        <translation>i równa lub mniejsza:</translation>
+    </message>
+    <message>
+        <source>Custom validate script:</source>
+        <translation>Własny skrypt sprawdzający wartość:</translation>
+    </message>
+    <message>
+        <source>Validate</source>
+        <translation>Sprawdź</translation>
+    </message>
+    <message>
+        <source>Value is not calculated</source>
+        <translation>Wartość nie jest obliczana</translation>
+    </message>
+    <message>
+        <source>Value is the</source>
+        <translation>Wartość jest</translation>
+    </message>
+    <message>
+        <source>sum</source>
+        <translation>sumą</translation>
+    </message>
+    <message>
+        <source>product</source>
+        <translation>iloczynem</translation>
+    </message>
+    <message>
+        <source>average</source>
+        <translation>średnią</translation>
+    </message>
+    <message>
+        <source>minimum</source>
+        <translation>minimum</translation>
+    </message>
+    <message>
+        <source>maximum</source>
+        <translation>maksimum</translation>
+    </message>
+    <message>
+        <source>of the following fields:</source>
+        <translation>następujących pól:</translation>
+    </message>
+    <message>
+        <source>Pick...</source>
+        <translation>Wybierz...</translation>
+    </message>
+    <message>
+        <source>Custom calculation script:</source>
+        <translation>Własny skrypt obliczeniowy:</translation>
+    </message>
+    <message>
+        <source>Calculate</source>
+        <translation>Oblicz</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+    <message>
+        <source>Flag is ignored for PDF-1.3</source>
+        <translation>W PDF-1.3 ignorowane</translation>
+    </message>
+    <message>
+        <source>Enter a comma separated list of fields here</source>
+        <translation>Tutaj podaj listę pól rozdzielonych przecinkami</translation>
+    </message>
+    <message>
+        <source>You need at least the Icon for Normal to use Icons for Buttons</source>
+        <translation>Aby używać ikon, konieczna jest przynajmniej ikona dla pozycji normalnej</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation>Otwórz</translation>
+    </message>
+    <message>
+        <source>Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)</source>
+        <translation>Obrazki (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Wszystkie pliki (*)</translation>
+    </message>
+    <message>
+        <source>Example:</source>
+        <translation>Przykład:</translation>
+    </message>
+    <message>
+        <source>Selection Change</source>
+        <translation>Zmiana wyboru</translation>
+    </message>
+    <message>
+        <source>PDF-Documents (*.pdf);;All Files (*)</source>
+        <translation>Dokumenty PDF (*.pdf);;Wszystkie pliki (*)</translation>
+    </message>
+</context>
+<context>
+    <name>Annota</name>
+    <message>
+        <source>Annotation Properties</source>
+        <translation>Właściwości adnotacji</translation>
+    </message>
+    <message>
+        <source>Type:</source>
+        <translation>Typ:</translation>
+    </message>
+    <message>
+        <source>Text</source>
+        <translation>Tekst</translation>
+    </message>
+    <message>
+        <source>Link</source>
+        <translation>Dowiązanie</translation>
+    </message>
+    <message>
+        <source>External Link</source>
+        <translation>Zewnętrzne dowiązanie</translation>
+    </message>
+    <message>
+        <source>External Web-Link</source>
+        <translation>Zewnętrzny web link</translation>
+    </message>
+    <message>
+        <source>Destination</source>
+        <translation>Cel</translation>
+    </message>
+    <message>
+        <source>Change...</source>
+        <translation>Zmień...</translation>
+    </message>
+    <message>
+        <source>Page:</source>
+        <translation>Strona:</translation>
+    </message>
+    <message>
+        <source>X-Pos:</source>
+        <translation>Wsp. X:</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Y-Pos:</source>
+        <translation>Wsp. Y:</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation>Otwórz</translation>
+    </message>
+    <message>
+        <source>PDF-Documents (*.pdf);;All Files (*)</source>
+        <translation>Dokumenty PDF (*.pdf);;Wszystkie pliki (*)</translation>
+    </message>
+</context>
+<context>
+    <name>ApplyT</name>
+    <message>
+        <source>Apply Template</source>
+        <translation>Zastosuj szablon</translation>
+    </message>
+    <message>
+        <source>Template:</source>
+        <translation>Szablon:</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation>Normalny</translation>
+    </message>
+    <message>
+        <source>Apply to Current Page</source>
+        <translation>Zastosuj do aktualnej strony</translation>
+    </message>
+    <message>
+        <source>Apply from Page:</source>
+        <translation>Zastosuj ze strony:</translation>
+    </message>
+    <message>
+        <source>to:</source>
+        <translation>do:</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+</context>
+<context>
+    <name>Biblio</name>
+    <message>
+        <source>Scrapbook</source>
+        <translation>Biblioteka</translation>
+    </message>
+    <message>
+        <source>New</source>
+        <translation>Nowy</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Zapisz</translation>
+    </message>
+    <message>
+        <source>Save as...</source>
+        <translation>Zapisz jako...</translation>
+    </message>
+    <message>
+        <source>Load...</source>
+        <translation>Pobierz...</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Zamknij</translation>
+    </message>
+    <message>
+        <source>Small</source>
+        <translation>Mały</translation>
+    </message>
+    <message>
+        <source>Medium</source>
+        <translation>Średni</translation>
+    </message>
+    <message>
+        <source>Big</source>
+        <translation>Duży</translation>
+    </message>
+    <message>
+        <source>File</source>
+        <translation>Plik</translation>
+    </message>
+    <message>
+        <source>Preview</source>
+        <translation>Podgląd</translation>
+    </message>
+    <message>
+        <source>Scrapbooks (*.scs);;All Files (*)</source>
+        <translation>Biblioteki (*.scs);;Wszystkie pliki (*)</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Usuń</translation>
+    </message>
+    <message>
+        <source>Object</source>
+        <translation>Obiekt</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>Nazwa:</translation>
+    </message>
+    <message>
+        <source>New Entry</source>
+        <translation>Nowy wpis</translation>
+    </message>
+</context>
+<context>
+    <name>BookMView</name>
+    <message>
+        <source>Bookmarks</source>
+        <translation>Zakładki</translation>
+    </message>
+    <message>
+        <source>Move Bookmark</source>
+        <translation>Przesuń zakładkę</translation>
+    </message>
+    <message>
+        <source>Insert Bookmark</source>
+        <translation>Wstaw zakładkę</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+</context>
+<context>
+    <name>BookPalette</name>
+    <message>
+        <source>Bookmarks</source>
+        <translation>Zakładki</translation>
+    </message>
+</context>
+<context>
+    <name>ButtonIcon</name>
+    <message>
+        <source>Icon Placement</source>
+        <translation>Rozmieszczenie ikon</translation>
+    </message>
+    <message>
+        <source>Layout:</source>
+        <translation>Układ:</translation>
+    </message>
+    <message>
+        <source>Caption only</source>
+        <translation>Tylko tekst</translation>
+    </message>
+    <message>
+        <source>Icon only</source>
+        <translation>Tylko ikona</translation>
+    </message>
+    <message>
+        <source>Caption below Icon</source>
+        <translation>Tekst pod ikoną</translation>
+    </message>
+    <message>
+        <source>Caption above Icon</source>
+        <translation>Tekst nad ikoną</translation>
+    </message>
+    <message>
+        <source>Caption right to Icon</source>
+        <translation>Tekst na prawo od ikony</translation>
+    </message>
+    <message>
+        <source>Caption left to Icon</source>
+        <translation>Tekst na lewo od ikony</translation>
+    </message>
+    <message>
+        <source>Caption overlays Icon</source>
+        <translation>Tekst na ikonie</translation>
+    </message>
+    <message>
+        <source>Scale:</source>
+        <translation>Skaluj:</translation>
+    </message>
+    <message>
+        <source>Always</source>
+        <translation>zawsze</translation>
+    </message>
+    <message>
+        <source>When Icon is too small</source>
+        <translation>kiedy ikona jest za mała</translation>
+    </message>
+    <message>
+        <source>When Icon is too big</source>
+        <translation>kiedy ikona jest za duża</translation>
+    </message>
+    <message>
+        <source>Never</source>
+        <translation>nigdy</translation>
+    </message>
+    <message>
+        <source>Scale How:</source>
+        <translation>Jak skalować:</translation>
+    </message>
+    <message>
+        <source>Proportional</source>
+        <translation>proporcjonalnie</translation>
+    </message>
+    <message>
+        <source>Non Proportional</source>
+        <translation>nieproporcjonalnie</translation>
+    </message>
+    <message>
+        <source>Icon</source>
+        <translation>Ikona</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+    <message>
+        <source>Reset</source>
+        <translation>Wyzeruj</translation>
+    </message>
+</context>
+<context>
+    <name>CMSPrefs</name>
+    <message>
+        <source>Color Management Settings</source>
+        <translation>Konfiguracja zarządzania kolorami</translation>
+    </message>
+    <message>
+        <source>Activate Color Management</source>
+        <translation>Włącz zarządzanie kolorami</translation>
+    </message>
+    <message>
+        <source>System Profiles</source>
+        <translation>Profile systemowe</translation>
+    </message>
+    <message>
+        <source>Pictures:</source>
+        <translation>Obrazki:</translation>
+    </message>
+    <message>
+        <source>Solid Colors:</source>
+        <translation>Jednolite kolory:</translation>
+    </message>
+    <message>
+        <source>Monitor:</source>
+        <translation>Monitor:</translation>
+    </message>
+    <message>
+        <source>Printer:</source>
+        <translation>Drukarka:</translation>
+    </message>
+    <message>
+        <source>Rendering Intents</source>
+        <translation>Metody konwersji</translation>
+    </message>
+    <message>
+        <source>Perceptual</source>
+        <translation>Percepcja</translation>
+    </message>
+    <message>
+        <source>Relative Colorimetric</source>
+        <translation>Względnie kolorometryczna</translation>
+    </message>
+    <message>
+        <source>Saturation</source>
+        <translation>Nasycenie </translation>
+    </message>
+    <message>
+        <source>Absolute Colorimetric</source>
+        <translation>Absolutnie kolorometryczna</translation>
+    </message>
+    <message>
+        <source>Simulate Printer on the Screen</source>
+        <translation>Symuluj drukarkę na ekranie</translation>
+    </message>
+    <message>
+        <source>Mark Colors out of Gamut</source>
+        <translation>Zaznacz kolory spoza przestrzeni barw</translation>
+    </message>
+    <message>
+        <source>Use Blackpoint Compensation</source>
+        <translation>Zastosuj kompensację poziomu czerni</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+</context>
+<context>
+    <name>CMYKChoose</name>
+    <message>
+        <source>Edit Color</source>
+        <translation>Edytuj kolor</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>Nazwa:</translation>
+    </message>
+    <message>
+        <source>Color Model</source>
+        <translation>Model kolorów</translation>
+    </message>
+    <message>
+        <source>CMYK</source>
+        <translation>CMYK</translation>
+    </message>
+    <message>
+        <source>RGB</source>
+        <translation>RGB</translation>
+    </message>
+    <message>
+        <source>Web Safe RGB</source>
+        <translation>RGB dla internetu</translation>
+    </message>
+    <message>
+        <source>New</source>
+        <translation>Nowy</translation>
+    </message>
+    <message>
+        <source>Old</source>
+        <translation>Stary</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+    <message>
+        <source>C:</source>
+        <translation>C:</translation>
+    </message>
+    <message>
+        <source>M:</source>
+        <translation>M:</translation>
+    </message>
+    <message>
+        <source>Y:</source>
+        <translation>Y:</translation>
+    </message>
+    <message>
+        <source>K:</source>
+        <translation>K:</translation>
+    </message>
+    <message>
+        <source>Dynamic Color Bars</source>
+        <translation>Dynamiczne paski kolorów</translation>
+    </message>
+    <message>
+        <source>Static Color Bars</source>
+        <translation>Statyczne paski kolorów</translation>
+    </message>
+    <message>
+        <source>R:</source>
+        <translation>R:</translation>
+    </message>
+    <message>
+        <source>G:</source>
+        <translation>G:</translation>
+    </message>
+    <message>
+        <source>B:</source>
+        <translation>B:</translation>
+    </message>
+    <message>
+        <source>Websave RGB</source>
+        <translation>RGB dla internetu</translation>
+    </message>
+</context>
+<context>
+    <name>Cpalette</name>
+    <message>
+        <source>Other...</source>
+        <translation>Inne...</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation>Normalny</translation>
+    </message>
+    <message>
+        <source>Horizontal Gradient</source>
+        <translation>Gradient w poziomie</translation>
+    </message>
+    <message>
+        <source>Vertical Gradient</source>
+        <translation>Gradient w pionie</translation>
+    </message>
+    <message>
+        <source>Diagonal Gradient</source>
+        <translation>Gradient wzdłuż przekątnej</translation>
+    </message>
+    <message>
+        <source>Cross Diagonal Gradient</source>
+        <translation>Gradient wzdłuż skrzyżowanych przekątnych</translation>
+    </message>
+    <message>
+        <source>Radial Gradient</source>
+        <translation>Gradient promieniowy</translation>
+    </message>
+    <message>
+        <source>Opacity:</source>
+        <translation>Nieprzezroczystość:</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation>%</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Brak</translation>
+    </message>
+</context>
+<context>
+    <name>CupsOptions</name>
+    <message>
+        <source>Printer Options</source>
+        <translation>Ustawienia drukarki (CUPS)</translation>
+    </message>
+    <message>
+        <source>Option</source>
+        <translation>Opcja</translation>
+    </message>
+    <message>
+        <source>Value</source>
+        <translation>Wartość</translation>
+    </message>
+    <message>
+        <source>Page Set</source>
+        <translation>Zestaw stron</translation>
+    </message>
+    <message>
+        <source>All Pages</source>
+        <translation>Wszystkie strony</translation>
+    </message>
+    <message>
+        <source>Even Pages only</source>
+        <translation>Tylko strony parzyste</translation>
+    </message>
+    <message>
+        <source>Odd Pages only</source>
+        <translation>Tylko strony nieparzyste</translation>
+    </message>
+    <message>
+        <source>Mirror</source>
+        <translation>Odwrócone</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation>Nie</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation>Tak</translation>
+    </message>
+    <message>
+        <source>Orientation</source>
+        <translation>Orientacja</translation>
+    </message>
+    <message>
+        <source>Portrait</source>
+        <translation>Portret</translation>
+    </message>
+    <message>
+        <source>Landscape</source>
+        <translation>Pejzaż</translation>
+    </message>
+    <message>
+        <source>N-Up Printing</source>
+        <translation>Zgrupowanie stron</translation>
+    </message>
+    <message>
+        <source>Page per Sheet</source>
+        <translation>strona na kartkę</translation>
+    </message>
+    <message>
+        <source>Pages per Sheet</source>
+        <translation>Stron na kartkę</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+</context>
+<context>
+    <name>CustomFDialog</name>
+    <message>
+        <source>Compress File</source>
+        <translation>Kompresja pliku</translation>
+    </message>
+    <message>
+        <source>Encoding:</source>
+        <translation>Kodowanie:</translation>
+    </message>
+    <message>
+        <source>Moves to your Document Directory.
+This can be set in the Preferences.</source>
+        <translation>Otwiera katalog dokumentów.
+Ścieżkę tego katalogu można zmienić w &quot;Ustawieniach&quot;.</translation>
+    </message>
+</context>
+<context>
+    <name>DelColor</name>
+    <message>
+        <source>Delete Color</source>
+        <translation>Usuń kolor</translation>
+    </message>
+    <message>
+        <source>OK to delete Color:</source>
+        <translation>Potwierdź usunięcie koloru:</translation>
+    </message>
+    <message>
+        <source>?</source>
+        <translation>?</translation>
+    </message>
+    <message>
+        <source>Replace it with:</source>
+        <translation>Zastąp przez:</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+</context>
+<context>
+    <name>DelPages</name>
+    <message>
+        <source>Delete Pages</source>
+        <translation>Usuń strony</translation>
+    </message>
+    <message>
+        <source>Delete from:</source>
+        <translation>Usuń od:</translation>
+    </message>
+    <message>
+        <source>to:</source>
+        <translation>do:</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+</context>
+<context>
+    <name>DmF</name>
+    <message>
+        <source>Missing Font</source>
+        <translation>Brakująca czcionka</translation>
+    </message>
+    <message>
+        <source>Select Font</source>
+        <translation>Wybierz czcionkę</translation>
+    </message>
+    <message>
+        <source>The Font %1 is not installed.</source>
+        <translation>Czcionka %1 nie jest zainstalowana.</translation>
+    </message>
+    <message>
+        <source>Select New Font:</source>
+        <translation>Wybierz nową czcionkę:</translation>
+    </message>
+    <message>
+        <source>Use</source>
+        <translation>Użyj</translation>
+    </message>
+    <message>
+        <source>instead</source>
+        <translation>zamiast</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+</context>
+<context>
+    <name>DocInfos</name>
+    <message>
+        <source>Document Info</source>
+        <translation>Informacja o dokumencie</translation>
+    </message>
+    <message>
+        <source>Author:</source>
+        <translation>Autor:</translation>
+    </message>
+    <message>
+        <source>Title:</source>
+        <translation>Tytuł:</translation>
+    </message>
+    <message>
+        <source>Description:</source>
+        <translation>Opis:</translation>
+    </message>
+    <message>
+        <source>Keywords:</source>
+        <translation>Słowa kluczowe:</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+</context>
+<context>
+    <name>Druck</name>
+    <message>
+        <source>Setup Printer</source>
+        <translation>Ustawienia drukarki</translation>
+    </message>
+    <message>
+        <source>Print destination</source>
+        <translation>Nazwa</translation>
+    </message>
+    <message>
+        <source>File</source>
+        <translation>Plik</translation>
+    </message>
+    <message>
+        <source>Options...</source>
+        <translation>Opcje...</translation>
+    </message>
+    <message>
+        <source>File:</source>
+        <translation>Plik:</translation>
+    </message>
+    <message>
+        <source>Change...</source>
+        <translation>Zmień...</translation>
+    </message>
+    <message>
+        <source>Alternative Printer Command</source>
+        <translation>Alternatywne polecenie drukarki</translation>
+    </message>
+    <message>
+        <source>Command:</source>
+        <translation>Polecenie:</translation>
+    </message>
+    <message>
+        <source>Range:</source>
+        <translation>Zakres:</translation>
+    </message>
+    <message>
+        <source>To page:</source>
+        <translation>Do strony:</translation>
+    </message>
+    <message>
+        <source>From page:</source>
+        <translation>Od strony:</translation>
+    </message>
+    <message>
+        <source>Print range</source>
+        <translation>Drukuj zakres</translation>
+    </message>
+    <message>
+        <source>Print all</source>
+        <translation>Drukuj wszystko</translation>
+    </message>
+    <message>
+        <source>Print last page first</source>
+        <translation>Zacznij druk od ostatniej strony</translation>
+    </message>
+    <message>
+        <source>Print first page first</source>
+        <translation>Zacznij druk od pierwszej strony</translation>
+    </message>
+    <message>
+        <source>Number of copies:</source>
+        <translation>Ilość kopii:</translation>
+    </message>
+    <message>
+        <source>Options</source>
+        <translation>Opcje</translation>
+    </message>
+    <message>
+        <source>Print Normal</source>
+        <translation>Drukuj normalnie</translation>
+    </message>
+    <message>
+        <source>Print Separations</source>
+        <translation>Drukuj barwne wyciągi</translation>
+    </message>
+    <message>
+        <source>All</source>
+        <translation>Wszystkie</translation>
+    </message>
+    <message>
+        <source>Print in color if available</source>
+        <translation>Drukuj w kolorze, jeśli to możliwe</translation>
+    </message>
+    <message>
+        <source>Print in grayscale</source>
+        <translation>Drukuj w odcieniach szarości</translation>
+    </message>
+    <message>
+        <source>Advanced Options...</source>
+        <translation>Zaawansowane opcje...</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+    <message>
+        <source>Save as</source>
+        <translation>Zapisz jako</translation>
+    </message>
+    <message>
+        <source>Postscript-Files (*.ps);;All Files (*)</source>
+        <translation>Postscript (*.ps);;Wszystkie pliki (*)</translation>
+    </message>
+</context>
+<context>
+    <name>EditStyle</name>
+    <message>
+        <source>Edit Style</source>
+        <translation>Edytuj style</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>Nazwa:</translation>
+    </message>
+    <message>
+        <source>Character</source>
+        <translation>Znak</translation>
+    </message>
+    <message>
+        <source>Face:</source>
+        <translation>Rodzaj czcionki:</translation>
+    </message>
+    <message>
+        <source>Size:</source>
+        <translation>Rozmiar:</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Drop Caps</source>
+        <translation>Inicjały wypuszczone</translation>
+    </message>
+    <message>
+        <source>Lines:</source>
+        <translation>Wierszy:</translation>
+    </message>
+    <message>
+        <source>Indentation</source>
+        <translation>Wcięcie</translation>
+    </message>
+    <message>
+        <source>Left Indent:</source>
+        <translation>Wcięcie z lewej:</translation>
+    </message>
+    <message>
+        <source>First Line:</source>
+        <translation>Pierwsza linia:</translation>
+    </message>
+    <message>
+        <source>Tabulators...</source>
+        <translation>Tabulatory...</translation>
+    </message>
+    <message>
+        <source>Alignment</source>
+        <translation>Wyrównanie</translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <translation>Do lewej</translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation>Do prawej</translation>
+    </message>
+    <message>
+        <source>Center</source>
+        <translation>Wyśrodkowane</translation>
+    </message>
+    <message>
+        <source>Block</source>
+        <translation>Justowany</translation>
+    </message>
+    <message>
+        <source>Forced</source>
+        <translation>Justowany (z ostatnią linią)</translation>
+    </message>
+    <message>
+        <source>Vertical Spaces</source>
+        <translation>Odstępy w pionie</translation>
+    </message>
+    <message>
+        <source>Line Spacing</source>
+        <translation>Interlinia</translation>
+    </message>
+    <message>
+        <source>Above:</source>
+        <translation>Nad:</translation>
+    </message>
+    <message>
+        <source>Below:</source>
+        <translation>Pod:</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Ostrzeżenie</translation>
+    </message>
+    <message>
+        <source>Name of the Style is not unique</source>
+        <translation>Nazwa stylu nie jest jednoznaczna</translation>
+    </message>
+    <message>
+        <source>Effect:</source>
+        <translation>Atrybut:</translation>
+    </message>
+    <message>
+        <source>Alignment:</source>
+        <translation>Wyrównanie:</translation>
+    </message>
+    <message>
+        <source>Fill Color:</source>
+        <translation>Kolor wypełnienia:</translation>
+    </message>
+    <message>
+        <source>Stroke Color:</source>
+        <translation>Kolor obrysu:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Brak</translation>
+    </message>
+</context>
+<context>
+    <name>Editor</name>
+    <message>
+        <source>Editor</source>
+        <translation>Edytor</translation>
+    </message>
+    <message>
+        <source>New</source>
+        <translation>Nowy</translation>
+    </message>
+    <message>
+        <source>Save as...</source>
+        <translation>Zapisz jako...</translation>
+    </message>
+    <message>
+        <source>Load...</source>
+        <translation>Pobierz...</translation>
+    </message>
+    <message>
+        <source>Save and Exit</source>
+        <translation>Zapisz i zakończ</translation>
+    </message>
+    <message>
+        <source>Exit without Saving</source>
+        <translation>Zakończ bez zapisywania</translation>
+    </message>
+    <message>
+        <source>Undo</source>
+        <translation>Cofnij</translation>
+    </message>
+    <message>
+        <source>Redo</source>
+        <translation>Przywróć</translation>
+    </message>
+    <message>
+        <source>Cut</source>
+        <translation>Wytnij</translation>
+    </message>
+    <message>
+        <source>Copy</source>
+        <translation>Kopiuj</translation>
+    </message>
+    <message>
+        <source>Paste</source>
+        <translation>Wklej</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>Usuń</translation>
+    </message>
+    <message>
+        <source>Get Field Names</source>
+        <translation>Wybierz nazwy pól</translation>
+    </message>
+    <message>
+        <source>File</source>
+        <translation>Plik</translation>
+    </message>
+    <message>
+        <source>Edit</source>
+        <translation>Edycja</translation>
+    </message>
+    <message>
+        <source>Javascripts (*.js);;All Files (*)</source>
+        <translation>Skrypty Javascript (*.js);;Wszystkie pliki(*)</translation>
+    </message>
+</context>
+<context>
+    <name>FDialogPreview</name>
+    <message>
+        <source>Size:</source>
+        <translation>Rozmiar:</translation>
+    </message>
+    <message>
+        <source>Title:</source>
+        <translation>Tytuł:</translation>
+    </message>
+    <message>
+        <source>No Title</source>
+        <translation>Bez tytułu</translation>
+    </message>
+    <message>
+        <source>Author:</source>
+        <translation>Autor:</translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation>Nieznany</translation>
+    </message>
+    <message>
+        <source>Scribus-Document</source>
+        <translation>Dokument Scribusa</translation>
+    </message>
+</context>
+<context>
+    <name>Farbmanager</name>
+    <message>
+        <source>Colors</source>
+        <translation>Kolory</translation>
+    </message>
+    <message>
+        <source>Append</source>
+        <translation>Dołącz</translation>
+    </message>
+    <message>
+        <source>New</source>
+        <translation>Nowy</translation>
+    </message>
+    <message>
+        <source>Edit</source>
+        <translation>Edycja</translation>
+    </message>
+    <message>
+        <source>Duplicate</source>
+        <translation>Klonuj</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Usuń</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Zapisz</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+    <message>
+        <source>Color Sets</source>
+        <translation>Zestawy kolorów</translation>
+    </message>
+    <message>
+        <source>Current Color Set:</source>
+        <translation>Aktualny zestaw kolorów:</translation>
+    </message>
+    <message>
+        <source>Save Color Set</source>
+        <translation>Zapisz zestaw kolorów</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation>Otwórz</translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
+        <translation>Dokumenty (*.sla *.sla.gz *.scd *.scd.gz);;Wszystkie pliki (*)</translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.scd);;All Files (*)</source>
+        <translation>Dokumenty (*.sla *.scd);;Wszystkie pliki (*)</translation>
+    </message>
+    <message>
+        <source>Copy of %1</source>
+        <translation>Kopia %1</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>Nazwa:</translation>
+    </message>
+    <message>
+        <source>Choose a Name</source>
+        <translation>Wybierz nazwę</translation>
+    </message>
+    <message>
+        <source>New Color:</source>
+        <translation>Nowy kolor:</translation>
+    </message>
+    <message>
+        <source>New Color</source>
+        <translation>Nowy kolor</translation>
+    </message>
+    <message>
+        <source>Remove Unused</source>
+        <translation>Usuń nieużywane</translation>
+    </message>
+</context>
+<context>
+    <name>FontPrefs</name>
+    <message>
+        <source>Global Font Settings</source>
+        <translation>Globalne ustawienia czcionek</translation>
+    </message>
+    <message>
+        <source>Available Fonts</source>
+        <translation>Dostępne czcionki</translation>
+    </message>
+    <message>
+        <source>Font Substitutions</source>
+        <translation>Czcionki zastępcze</translation>
+    </message>
+    <message>
+        <source>Additional Paths</source>
+        <translation>Dodatkowe ścieżki</translation>
+    </message>
+    <message>
+        <source>Postscript</source>
+        <translation>Postscript</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation>Tak</translation>
+    </message>
+    <message>
+        <source>Font Name</source>
+        <translation>Nazwa czcionki</translation>
+    </message>
+    <message>
+        <source>Use Font</source>
+        <translation>Użyj czcionkę</translation>
+    </message>
+    <message>
+        <source>Embed in:</source>
+        <translation>Zagnieźdź w:</translation>
+    </message>
+    <message>
+        <source>Subset</source>
+        <translation>Podzbiór</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>Typ</translation>
+    </message>
+    <message>
+        <source>Path to Font File</source>
+        <translation>Ścieżka do pliku czcionki</translation>
+    </message>
+    <message>
+        <source>Replacement</source>
+        <translation>Czcionka zastępcza</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Usuń</translation>
+    </message>
+    <message>
+        <source>Change...</source>
+        <translation>Zmień...</translation>
+    </message>
+    <message>
+        <source>Add...</source>
+        <translation>Dodaj...</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Usuń</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+    <message>
+        <source>Choose a Directory</source>
+        <translation>Wybierz katalog</translation>
+    </message>
+</context>
+<context>
+    <name>GuideManager</name>
+    <message>
+        <source>Manage Guides</source>
+        <translation>Zarządzaj liniami pomocniczymi</translation>
+    </message>
+    <message>
+        <source>Horizontal Guides</source>
+        <translation>Poziome</translation>
+    </message>
+    <message>
+        <source>Y-Pos:</source>
+        <translation>Wsp. Y:</translation>
+    </message>
+    <message>
+        <source>Add</source>
+        <translation>Dodaj</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Usuń</translation>
+    </message>
+    <message>
+        <source>Vertical Guides</source>
+        <translation>Pionowe</translation>
+    </message>
+    <message>
+        <source>X-Pos:</source>
+        <translation>Wsp. X:</translation>
+    </message>
+    <message>
+        <source>Lock Guides</source>
+        <translation>Zabezpiecz linie pomocnicze</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+</context>
+<context>
+    <name>HelpBrowser</name>
+    <message>
+        <source>Sorry, no manual available!</source>
+        <translation>Niestety brak podręcznika!</translation>
+    </message>
+</context>
+<context>
+    <name>HyAsk</name>
+    <message>
+        <source>Possible Hyphenation</source>
+        <translation>Propozycja podziału</translation>
+    </message>
+    <message>
+        <source>Accept</source>
+        <translation>Zastosuj</translation>
+    </message>
+    <message>
+        <source>Skip</source>
+        <translation>Pomiń</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+</context>
+<context>
+    <name>HySettings</name>
+    <message>
+        <source>Hyphenator Settings</source>
+        <translation>Ustawienia</translation>
+    </message>
+    <message>
+        <source>Fully Automatic</source>
+        <translation>W pełni automatyczne</translation>
+    </message>
+    <message>
+        <source>If you uncheck this you will get a dialog
+everytime a possible Hyphenation is found.</source>
+        <translation>Jeśli nie zaznaczysz tej opcji, za każdym razem, gdy znaleziona zostanie propozycja podziału, ukaże się okienko dialogowe.</translation>
+    </message>
+    <message>
+        <source>Check during Typing</source>
+        <translation>Sprawdzaj w trakcie pisania</translation>
+    </message>
+    <message>
+        <source>Enables automatic checking of your text while typing.</source>
+        <translation>Umożliwia automatyczne sprawdzanie tekstu w trakcie pisania.</translation>
+    </message>
+    <message>
+        <source>Language:</source>
+        <translation>Język:</translation>
+    </message>
+    <message>
+        <source>Smallest Word:</source>
+        <translation>Najkrótsze słowo:</translation>
+    </message>
+    <message>
+        <source>This is the length of the smallest word to be hyphenated.</source>
+        <translation>To jest długość najkrótszego słowa podlegającego podziałowi.</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+</context>
+<context>
+    <name>InsPage</name>
+    <message>
+        <source>Insert Page</source>
+        <translation>Wklej stronę</translation>
+    </message>
+    <message>
+        <source>Inserting</source>
+        <translation>Wstaw</translation>
+    </message>
+    <message>
+        <source>page(s)</source>
+        <translation>stron</translation>
+    </message>
+    <message>
+        <source>before Page</source>
+        <translation>przed stroną</translation>
+    </message>
+    <message>
+        <source>after Page</source>
+        <translation>po stronie</translation>
+    </message>
+    <message>
+        <source>at End</source>
+        <translation>na końcu dokumentu</translation>
+    </message>
+    <message>
+        <source>Template (Left Page):</source>
+        <translation>Szablon (lewa strona):</translation>
+    </message>
+    <message>
+        <source>Template:</source>
+        <translation>Szablon:</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation>Normalny</translation>
+    </message>
+    <message>
+        <source>Template (Right Page):</source>
+        <translation>Szablon (prawa strona):</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+</context>
+<context>
+    <name>JavaDocs</name>
+    <message>
+        <source>Global JavaScripts</source>
+        <translation>Globalne skrypty JavaScript</translation>
+    </message>
+    <message>
+        <source>Edit...</source>
+        <translation>Edytuj...</translation>
+    </message>
+    <message>
+        <source>Add...</source>
+        <translation>Dodaj...</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Usuń</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Zamknij</translation>
+    </message>
+    <message>
+        <source>New Script</source>
+        <translation>Nowy skrypt</translation>
+    </message>
+    <message>
+        <source>New Script:</source>
+        <translation>Nowy skrypt:</translation>
+    </message>
+</context>
+<context>
+    <name>KeyManager</name>
+    <message>
+        <source>Manage Keyboard Shortcuts</source>
+        <translation>Konfiguracja skrótów</translation>
+    </message>
+    <message>
+        <source>Action</source>
+        <translation>Akcja</translation>
+    </message>
+    <message>
+        <source>Current Key</source>
+        <translation>Aktualny skrót</translation>
+    </message>
+    <message>
+        <source>Select a Key for this Action</source>
+        <translation>Wybierz kombinację klawiszy dla tej akcji</translation>
+    </message>
+    <message>
+        <source>No Key</source>
+        <translation>Bez skrótu</translation>
+    </message>
+    <message>
+        <source>User Defined Key</source>
+        <translation>Skrót przyporządkowany przez użytkownika</translation>
+    </message>
+    <message>
+        <source>ALT+SHIFT+T</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Set Key</source>
+        <translation>Przyporządkuj skrót</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+    <message>
+        <source>Alt</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Ctrl</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Shift</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Shift+</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Alt+</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Ctrl+</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Ostrzeżenie</translation>
+    </message>
+    <message>
+        <source>This Key-Sequence is already in use</source>
+        <translation>Ta kombinacja klawiszy jest już używana</translation>
+    </message>
+</context>
+<context>
+    <name>LayerPalette</name>
+    <message>
+        <source>Layers</source>
+        <translation>Warstwy</translation>
+    </message>
+    <message>
+        <source>Add a new Layer</source>
+        <translation>Dodaj nową wartwę</translation>
+    </message>
+    <message>
+        <source>Delete Layer</source>
+        <translation>Usuń warstwę</translation>
+    </message>
+    <message>
+        <source>Raise Layer</source>
+        <translation>Przesuń wartwę do przodu</translation>
+    </message>
+    <message>
+        <source>Lower Layer</source>
+        <translation>Przesuń warstwę do tyłu</translation>
+    </message>
+    <message>
+        <source>Closes this Dialog</source>
+        <translation>Zamyka to okienko dialogowe</translation>
+    </message>
+    <message>
+        <source>New Layer</source>
+        <translation>Nowa warstwa</translation>
+    </message>
+</context>
+<context>
+    <name>LineFormate</name>
+    <message>
+        <source>Edit Line Styles</source>
+        <translation>Edytuj style linii</translation>
+    </message>
+    <message>
+        <source>Append</source>
+        <translation>Dołącz</translation>
+    </message>
+    <message>
+        <source>New</source>
+        <translation>Nowy</translation>
+    </message>
+    <message>
+        <source>Edit</source>
+        <translation>Edycja</translation>
+    </message>
+    <message>
+        <source>Duplicate</source>
+        <translation>Klonuj</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Usuń</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Zapisz</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+    <message>
+        <source>Copy of %1</source>
+        <translation>Kopia %1</translation>
+    </message>
+    <message>
+        <source>New Style</source>
+        <translation>Nowy styl</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Ostrzeżenie</translation>
+    </message>
+    <message>
+        <source>Do you really want do delete this Style?</source>
+        <translation>Naprawdę usunąć ten styl?</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation>Nie</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation>Tak</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation>Otwórz</translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
+        <translation>Dokumenty (*.sla *.sla.gz *.scd *.scd.gz);;Wszystkie pliki (*)</translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.scd);;All Files (*)</source>
+        <translation>Dokumenty (*.sla *.scd);;Wszystkie pliki (*)</translation>
+    </message>
+</context>
+<context>
+    <name>Mdup</name>
+    <message>
+        <source>Multiple Duplicate</source>
+        <translation>Wielokrotne klonowanie</translation>
+    </message>
+    <message>
+        <source>Number of Copies:</source>
+        <translation>Ilość kopii:</translation>
+    </message>
+    <message>
+        <source>Horizontal Shift:</source>
+        <translation>Przesunięcie poziome:</translation>
+    </message>
+    <message>
+        <source>Vertical Shift:</source>
+        <translation>Przesunięcie pionowe:</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+</context>
+<context>
+    <name>MenuTest</name>
+    <message>
+        <source>Show Console</source>
+        <translation>Wyświetlaj konsolę</translation>
+    </message>
+    <message>
+        <source>Hide Console</source>
+        <translation>Ukryj konsolę</translation>
+    </message>
+</context>
+<context>
+    <name>MergeDoc</name>
+    <message>
+        <source>Import a Page</source>
+        <translation>Importuj stronę</translation>
+    </message>
+    <message>
+        <source>Document to load:</source>
+        <translation>Z dokumentu:</translation>
+    </message>
+    <message>
+        <source>Change...</source>
+        <translation>Zmień...</translation>
+    </message>
+    <message>
+        <source>Document contains: 0 Page(s)</source>
+        <translation>Dokument zawiera: 0 stron</translation>
+    </message>
+    <message>
+        <source>Import Page Nr:</source>
+        <translation>Importuj stronę nr:</translation>
+    </message>
+    <message>
+        <source>Import</source>
+        <translation>Importuj</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation>Otwórz</translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
+        <translation>Dokumenty (*.sla *.sla.gz *.scd *.scd.gz);;Wszystkie pliki (*)</translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.scd);;All Files (*)</source>
+        <translation>Dokumenty (*.sla *.scd);;Wszystkie pliki (*)</translation>
+    </message>
+    <message>
+        <source>Document contains: %1 Page(s)</source>
+        <translation>Dokument zawiera: %1 stron</translation>
+    </message>
+</context>
+<context>
+    <name>MovePages</name>
+    <message>
+        <source>Move Pages</source>
+        <translation>Przesuń strony</translation>
+    </message>
+    <message>
+        <source>Copy Page</source>
+        <translation>Kopiuj stronę</translation>
+    </message>
+    <message>
+        <source>Move Page(s):</source>
+        <translation>Przesuń strony:</translation>
+    </message>
+    <message>
+        <source>to:</source>
+        <translation>do:</translation>
+    </message>
+    <message>
+        <source>before Page</source>
+        <translation>przed stroną</translation>
+    </message>
+    <message>
+        <source>after Page</source>
+        <translation>po stronie</translation>
+    </message>
+    <message>
+        <source>at End</source>
+        <translation>na końcu dokumentu</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+</context>
+<context>
+    <name>Mpalette</name>
+    <message>
+        <source>Properties</source>
+        <translation>Właściwości</translation>
+    </message>
+    <message>
+        <source>X, Y, Z</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Shape</source>
+        <translation>Kształt ramki</translation>
+    </message>
+    <message>
+        <source>Text</source>
+        <translation>Tekst</translation>
+    </message>
+    <message>
+        <source>Image</source>
+        <translation>Obrazek</translation>
+    </message>
+    <message>
+        <source>Line</source>
+        <translation>Linia</translation>
+    </message>
+    <message>
+        <source>Colors</source>
+        <translation>Kolory</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Nazwa</translation>
+    </message>
+    <message>
+        <source>Geometry</source>
+        <translation>Geometria</translation>
+    </message>
+    <message>
+        <source>X-Pos:</source>
+        <translation>Wsp. X:</translation>
+    </message>
+    <message>
+        <source>Y-Pos:</source>
+        <translation>Wsp. Y:</translation>
+    </message>
+    <message>
+        <source>Width:</source>
+        <translation>Szerokość:</translation>
+    </message>
+    <message>
+        <source>Height:</source>
+        <translation>Wysokość:</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Rotation:</source>
+        <translation>Obrót:</translation>
+    </message>
+    <message>
+        <source>Basepoint:</source>
+        <translation>Środek obrotu:</translation>
+    </message>
+    <message>
+        <source>Level</source>
+        <translation>Warstwa</translation>
+    </message>
+    <message>
+        <source>Text flows around Box</source>
+        <translation>Tekst opływa ramkę</translation>
+    </message>
+    <message>
+        <source>Use Bounding Box</source>
+        <translation>Zastosuj ramkę ograniczającą</translation>
+    </message>
+    <message>
+        <source>Shape:</source>
+        <translation>Kształt:</translation>
+    </message>
+    <message>
+        <source>Edit Shape...</source>
+        <translation>Edycja ramki...</translation>
+    </message>
+    <message>
+        <source>Round
+Corners:</source>
+        <translation>Zaokrąglone
+rogi:</translation>
+    </message>
+    <message>
+        <source>Distance of Text</source>
+        <translation>Odstęp tekstu</translation>
+    </message>
+    <message>
+        <source>Columns:</source>
+        <translation>Szpalty:</translation>
+    </message>
+    <message>
+        <source>Gap:</source>
+        <translation>Między szpaltami:</translation>
+    </message>
+    <message>
+        <source>Top:</source>
+        <translation>Na górze:</translation>
+    </message>
+    <message>
+        <source>Bottom:</source>
+        <translation>Na dole:</translation>
+    </message>
+    <message>
+        <source>Left:</source>
+        <translation>Po lewej:</translation>
+    </message>
+    <message>
+        <source>Right:</source>
+        <translation>Po prawej:</translation>
+    </message>
+    <message>
+        <source>Tabulators...</source>
+        <translation>Tabulatory...</translation>
+    </message>
+    <message>
+        <source>Path Text Properites</source>
+        <translation>Właściwości tekstu na ścieżce</translation>
+    </message>
+    <message>
+        <source>Show Curve</source>
+        <translation>Wyświetlaj krzywą</translation>
+    </message>
+    <message>
+        <source>Start Offset:</source>
+        <translation>Początkowe przesunięcie:</translation>
+    </message>
+    <message>
+        <source>Distance from Curve:</source>
+        <translation>Odstęp od krzywej:</translation>
+    </message>
+    <message>
+        <source>Size:</source>
+        <translation>Rozmiar:</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Other...</source>
+        <translation>Inne...</translation>
+    </message>
+    <message>
+        <source>Custom Spacing</source>
+        <translation>Odstępy</translation>
+    </message>
+    <message>
+        <source>Kerning:</source>
+        <translation>Podcięcie:</translation>
+    </message>
+    <message>
+        <source>Line Spacing:</source>
+        <translation>Interlinia:</translation>
+    </message>
+    <message>
+        <source>Styles</source>
+        <translation>Style</translation>
+    </message>
+    <message>
+        <source>Lang.:</source>
+        <translation>Język:</translation>
+    </message>
+    <message>
+        <source>Free Scaling</source>
+        <translation>Skalowanie ręczne</translation>
+    </message>
+    <message>
+        <source>Position:</source>
+        <translation>Pozycja:</translation>
+    </message>
+    <message>
+        <source>Horiz. Scale:</source>
+        <translation>Poziomo:</translation>
+    </message>
+    <message>
+        <source>Vert. Scale:</source>
+        <translation>Pionowo:</translation>
+    </message>
+    <message>
+        <source>Scale to Frame Size</source>
+        <translation>Skaluj do rozmiaru ramki</translation>
+    </message>
+    <message>
+        <source>Keep Aspect Ratio</source>
+        <translation>Zachowaj proporcje</translation>
+    </message>
+    <message>
+        <source>Proportional</source>
+        <translation>proporcjonalnie</translation>
+    </message>
+    <message>
+        <source>Input Profile:</source>
+        <translation>Profil wejściowy:</translation>
+    </message>
+    <message>
+        <source>Rendering Intent:</source>
+        <translation>Metoda konwersji:</translation>
+    </message>
+    <message>
+        <source>Perceptual</source>
+        <translation>Percepcja</translation>
+    </message>
+    <message>
+        <source>Relative Colorimetric</source>
+        <translation>Względnie kolorometryczna</translation>
+    </message>
+    <message>
+        <source>Saturation</source>
+        <translation>Nasycenie </translation>
+    </message>
+    <message>
+        <source>Absolute Colorimetric</source>
+        <translation>Absolutnie kolorometryczna</translation>
+    </message>
+    <message>
+        <source>Left Point</source>
+        <translation>Lewy punkt</translation>
+    </message>
+    <message>
+        <source>End Points</source>
+        <translation>Punkty końcowe</translation>
+    </message>
+    <message>
+        <source>Line Style:</source>
+        <translation>Styl linii:</translation>
+    </message>
+    <message>
+        <source>Line Width:</source>
+        <translation>Grubość linii:</translation>
+    </message>
+    <message>
+        <source>Edges:</source>
+        <translation>Rogi:</translation>
+    </message>
+    <message>
+        <source>Miter Join</source>
+        <translation>Szpic</translation>
+    </message>
+    <message>
+        <source>Bevel Join</source>
+        <translation>Skośny</translation>
+    </message>
+    <message>
+        <source>Round Join</source>
+        <translation>Okrągły</translation>
+    </message>
+    <message>
+        <source>Endings:</source>
+        <translation>Zakończenia:</translation>
+    </message>
+    <message>
+        <source>Flat Cap</source>
+        <translation>Płaski</translation>
+    </message>
+    <message>
+        <source>Square Cap</source>
+        <translation>Kwadratowy</translation>
+    </message>
+    <message>
+        <source>Round Cap</source>
+        <translation>Zaokrąglony</translation>
+    </message>
+    <message>
+        <source>No Style</source>
+        <translation>Bez stylu</translation>
+    </message>
+    <message>
+        <source>Font Size</source>
+        <translation>Rozmiar czcionki</translation>
+    </message>
+    <message>
+        <source>Line Spacing</source>
+        <translation>Interlinia</translation>
+    </message>
+    <message>
+        <source>Manual Kerning</source>
+        <translation>Manualne podcinanie</translation>
+    </message>
+    <message>
+        <source>Reverse Writing</source>
+        <translation>Pisanie wstecz</translation>
+    </message>
+    <message>
+        <source>Underline</source>
+        <translation>Podkreślenie</translation>
+    </message>
+    <message>
+        <source>Small Caps</source>
+        <translation>Kapitaliki</translation>
+    </message>
+    <message>
+        <source>Subscript</source>
+        <translation>Indeks dolny</translation>
+    </message>
+    <message>
+        <source>Superscript</source>
+        <translation>Indeks górny</translation>
+    </message>
+    <message>
+        <source>Strikeout</source>
+        <translation>Przekreślenie</translation>
+    </message>
+    <message>
+        <source>Outline Text</source>
+        <translation>Obramowanie tekstu</translation>
+    </message>
+    <message>
+        <source>Align Text Left</source>
+        <translation>Wyrównaj tekst do lewej</translation>
+    </message>
+    <message>
+        <source>Align Text Right</source>
+        <translation>Wyrównaj tekst do prawej</translation>
+    </message>
+    <message>
+        <source>Align Text Block</source>
+        <translation>Justuj tekst</translation>
+    </message>
+    <message>
+        <source>Align Text Center</source>
+        <translation>Wyśrodkuj tekst</translation>
+    </message>
+    <message>
+        <source>Flip horizontal</source>
+        <translation>Odbicie lustrzane w poziomie</translation>
+    </message>
+    <message>
+        <source>Flip vertical</source>
+        <translation>Odbicie lustrzane w pionie</translation>
+    </message>
+    <message>
+        <source>Move one Level up</source>
+        <translation>Przesuń o warstwę wyżej</translation>
+    </message>
+    <message>
+        <source>Move one Level down</source>
+        <translation>Przesuń o warstwę niżej</translation>
+    </message>
+    <message>
+        <source>Move to Front</source>
+        <translation>Przesuń na wierzch</translation>
+    </message>
+    <message>
+        <source>Move to Back</source>
+        <translation>Przesuń na spód</translation>
+    </message>
+    <message>
+        <source>Locks or unlocks the Object</source>
+        <translation>Zabezpiecza lub odbezpiecza obiekt</translation>
+    </message>
+    <message>
+        <source>Enables or disables printing of the Object</source>
+        <translation>Włącza lub wyłącza drukowanie obiektu</translation>
+    </message>
+    <message>
+        <source>X1:</source>
+        <translation>X1:</translation>
+    </message>
+    <message>
+        <source>X2:</source>
+        <translation>X2:</translation>
+    </message>
+    <message>
+        <source>Y1:</source>
+        <translation>Y1:</translation>
+    </message>
+    <message>
+        <source>Y2:</source>
+        <translation>Y2:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Brak</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Ostrzeżenie</translation>
+    </message>
+    <message>
+        <source>Name &quot;%1&quot; isn&apos;t unique.
+Please choose another.</source>
+        <translation>Nazwa &quot;%1&quot; już istnieje.
+Proszę wybrać inną.</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>X-Pos.:</source>
+        <translation>Wsp. X:</translation>
+    </message>
+    <message>
+        <source>Y-Pos.:</source>
+        <translation>Wsp. Y:</translation>
+    </message>
+    <message>
+        <source>X-Scale:</source>
+        <translation>Skalowanie X:</translation>
+    </message>
+    <message>
+        <source>Y-Scale:</source>
+        <translation>Skalowanie Y:</translation>
+    </message>
+</context>
+<context>
+    <name>MultiLine</name>
+    <message>
+        <source>Edit Style</source>
+        <translation>Edytuj style</translation>
+    </message>
+    <message>
+        <source>Flat Cap</source>
+        <translation>Płaski</translation>
+    </message>
+    <message>
+        <source>Square Cap</source>
+        <translation>Kwadratowy</translation>
+    </message>
+    <message>
+        <source>Round Cap</source>
+        <translation>Zaokrąglony</translation>
+    </message>
+    <message>
+        <source>Miter Join</source>
+        <translation>Szpic</translation>
+    </message>
+    <message>
+        <source>Bevel Join</source>
+        <translation>Skośny</translation>
+    </message>
+    <message>
+        <source>Round Join</source>
+        <translation>Okrągły</translation>
+    </message>
+    <message>
+        <source>Line Width:</source>
+        <translation>Grubość linii:</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+    <message>
+        <source> pt </source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Solid Line</source>
+        <translation>Linia ciągła</translation>
+    </message>
+    <message>
+        <source>Dashed Line</source>
+        <translation>Linia przerywana</translation>
+    </message>
+    <message>
+        <source>Dotted Line</source>
+        <translation>Linia punktowana</translation>
+    </message>
+    <message>
+        <source>Dash Dot Line</source>
+        <translation>Linia kreskowo-punktowa</translation>
+    </message>
+    <message>
+        <source>Dash Dot Dot Line</source>
+        <translation>Linia punkt punkt kreska</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Ostrzeżenie</translation>
+    </message>
+    <message>
+        <source>Name &quot;%1&quot; isn&apos;t unique.
+Please choose another.</source>
+        <translation>Nazwa &quot;%1&quot; już istnieje.
+Proszę wybrać inną.</translation>
+    </message>
+</context>
+<context>
+    <name>MusterSeiten</name>
+    <message>
+        <source>Edit Templates</source>
+        <translation>Edytuj szablony</translation>
+    </message>
+    <message>
+        <source>Append</source>
+        <translation>Dołącz</translation>
+    </message>
+    <message>
+        <source>New</source>
+        <translation>Nowy</translation>
+    </message>
+    <message>
+        <source>Duplicate</source>
+        <translation>Klonuj</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Usuń</translation>
+    </message>
+    <message>
+        <source>Exit</source>
+        <translation>Zakończ</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Ostrzeżenie</translation>
+    </message>
+    <message>
+        <source>Do you really want do delete this Template?</source>
+        <translation>Naprawdę usunąć ten szablon?</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation>Nie</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation>Tak</translation>
+    </message>
+    <message>
+        <source>Copy of %1</source>
+        <translation>Kopia %1</translation>
+    </message>
+    <message>
+        <source>New Template</source>
+        <translation>Nowy szablon</translation>
+    </message>
+    <message>
+        <source>Copy #%1 of </source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation>Normalny</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>Nazwa:</translation>
+    </message>
+</context>
+<context>
+    <name>NewDoc</name>
+    <message>
+        <source>New Document</source>
+        <translation>Nowy dokument</translation>
+    </message>
+    <message>
+        <source>Page Size</source>
+        <translation>Format strony</translation>
+    </message>
+    <message>
+        <source>Size:</source>
+        <translation>Rozmiar:</translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <translation>Definicja użytkownika</translation>
+    </message>
+    <message>
+        <source>Orientation:</source>
+        <translation>Orientacja:</translation>
+    </message>
+    <message>
+        <source>Portrait</source>
+        <translation>Portret</translation>
+    </message>
+    <message>
+        <source>Landscape</source>
+        <translation>Pejzaż</translation>
+    </message>
+    <message>
+        <source>Width:</source>
+        <translation>Szerokość:</translation>
+    </message>
+    <message>
+        <source>Height:</source>
+        <translation>Wysokość:</translation>
+    </message>
+    <message>
+        <source>Facing Pages</source>
+        <translation>Strony widzące się</translation>
+    </message>
+    <message>
+        <source>Left Page first</source>
+        <translation>Lewa strona najpierw</translation>
+    </message>
+    <message>
+        <source>Margin Guides</source>
+        <translation>Marginesy</translation>
+    </message>
+    <message>
+        <source>Left:</source>
+        <translation>Po lewej:</translation>
+    </message>
+    <message>
+        <source>Right:</source>
+        <translation>Po prawej:</translation>
+    </message>
+    <message>
+        <source>Top:</source>
+        <translation>Na górze:</translation>
+    </message>
+    <message>
+        <source>Bottom:</source>
+        <translation>Na dole:</translation>
+    </message>
+    <message>
+        <source>Options</source>
+        <translation>Opcje</translation>
+    </message>
+    <message>
+        <source>First Page Number:</source>
+        <translation>Pierwszy numer strony:</translation>
+    </message>
+    <message>
+        <source>Default Unit:</source>
+        <translation>Jednostka:</translation>
+    </message>
+    <message>
+        <source>Points (pts)</source>
+        <translation>Punkty (pt)</translation>
+    </message>
+    <message>
+        <source>Millimeters (mm)</source>
+        <translation>Milimetry (mm)</translation>
+    </message>
+    <message>
+        <source>Inches (in)</source>
+        <translation>Cale (in)</translation>
+    </message>
+    <message>
+        <source>Picas (p)</source>
+        <translation>Pica (p)</translation>
+    </message>
+    <message>
+        <source>Autom. Text Frames</source>
+        <translation>Autom. obramowanie tekstu</translation>
+    </message>
+    <message>
+        <source>Column Guides</source>
+        <translation>Szpalty</translation>
+    </message>
+    <message>
+        <source>Gutter Width:</source>
+        <translation>Odstęp szpalt:</translation>
+    </message>
+    <message>
+        <source>Columns:</source>
+        <translation>Szpalty:</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+    <message>
+        <source>Inside:</source>
+        <translation>Wewnątrz:</translation>
+    </message>
+    <message>
+        <source>Outside:</source>
+        <translation>Na zewnątrz:</translation>
+    </message>
+    <message>
+        <source>Millimetres (mm)</source>
+        <translation>Milimetry (mm)</translation>
+    </message>
+</context>
+<context>
+    <name>NewTm</name>
+    <message>
+        <source>Left Page</source>
+        <translation>Lewa strona</translation>
+    </message>
+    <message>
+        <source>Right Page</source>
+        <translation>Prawa strona</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+</context>
+<context>
+    <name>NodePalette</name>
+    <message>
+        <source>Nodes</source>
+        <translation>Węzły</translation>
+    </message>
+    <message>
+        <source>Absolute Coordinates</source>
+        <translation>Współrzędne bezwzględne</translation>
+    </message>
+    <message>
+        <source>X-Pos:</source>
+        <translation>Wsp. X:</translation>
+    </message>
+    <message>
+        <source>Y-Pos:</source>
+        <translation>Wsp. Y:</translation>
+    </message>
+    <message>
+        <source>End Editing</source>
+        <translation>Zakończ edycję</translation>
+    </message>
+    <message>
+        <source>Move Nodes</source>
+        <translation>Przesuń węzły</translation>
+    </message>
+    <message>
+        <source>Move Control Points</source>
+        <translation>Przesuń punkty kontrolne</translation>
+    </message>
+    <message>
+        <source>Add Nodes</source>
+        <translation>Dodaj węzły</translation>
+    </message>
+    <message>
+        <source>Delete Nodes</source>
+        <translation>Usuń węzły</translation>
+    </message>
+    <message>
+        <source>Move Control Points independently</source>
+        <translation>Przesuń punkty kontrolne niezależnie od siebie</translation>
+    </message>
+    <message>
+        <source>Move Control Points symmetrical</source>
+        <translation>Przesuń punkty kontrolne symetrycznie</translation>
+    </message>
+    <message>
+        <source>Reset Control Points</source>
+        <translation>Wyzeruj punkty kontrolne</translation>
+    </message>
+    <message>
+        <source>Reset this Control Point</source>
+        <translation>Wyzeruj ten punkt kontrolny</translation>
+    </message>
+    <message>
+        <source>Opens a Polygon or cuts a Bezier Curve</source>
+        <translation>Otwiera wielokąt lub przecina krzywą Beziera</translation>
+    </message>
+    <message>
+        <source>Closes this Bezier Curve</source>
+        <translation>Zamyka tę krzywą Beziera</translation>
+    </message>
+    <message>
+        <source>Mirrors the Path Horizontally</source>
+        <translation>Odwróć ścieżkę w poziomie</translation>
+    </message>
+    <message>
+        <source>Mirrors the Path Vertically</source>
+        <translation>Odwróć ścieżkę w pionie</translation>
+    </message>
+    <message>
+        <source>Shears the Path horizontal to the right</source>
+        <translation>Przemieszczenie w poziomie w prawo</translation>
+    </message>
+    <message>
+        <source>Shears the Path horizontal to the left</source>
+        <translation>Przemieszczenie w poziomie w lewo</translation>
+    </message>
+    <message>
+        <source>Shears the Path vertical up</source>
+        <translation>Przemieszczenie w pionie do góry</translation>
+    </message>
+    <message>
+        <source>Shears the Path vertical down</source>
+        <translation>Przemieszczeniu w pionie na dół</translation>
+    </message>
+    <message>
+        <source>Rotates the Path counter-clockwise</source>
+        <translation>Obraca ścieżkę odwrotnie do ruchu wskazówek zegara</translation>
+    </message>
+    <message>
+        <source>Rotates the Path clockwise</source>
+        <translation>Obraca ścieżkę zgodnie z ruchem wskazówek zegara</translation>
+    </message>
+    <message>
+        <source>Reduce the Size of the Path by 10%</source>
+        <translation>Zmniejsza rozmiar ścieżki o 10%</translation>
+    </message>
+    <message>
+        <source>Enlarges the Size of the Path by 10%</source>
+        <translation>Zwiększa rozmiar ścieżki o 10%</translation>
+    </message>
+    <message>
+        <source>When checked use Coordinates relative to the Page,
+otherwise Coordinates are relative to the Object.</source>
+        <translation>W przypadku zakreślenia, współrzędne odnoszą się do strony,
+w innym przypadku do obiektu.</translation>
+    </message>
+</context>
+<context>
+    <name>PConsole</name>
+    <message>
+        <source>Script Console</source>
+        <translation>Konsola skryptowa</translation>
+    </message>
+</context>
+<context>
+    <name>PDF_Opts</name>
+    <message>
+        <source>Create PDF-File</source>
+        <translation>Utwórz plik PDF</translation>
+    </message>
+    <message>
+        <source>Output to File:</source>
+        <translation>Plik wyjściowy:</translation>
+    </message>
+    <message>
+        <source>Change...</source>
+        <translation>Zmień...</translation>
+    </message>
+    <message>
+        <source>Export Range</source>
+        <translation>Zakres eksportu</translation>
+    </message>
+    <message>
+        <source>All Pages</source>
+        <translation>Wszystkie strony</translation>
+    </message>
+    <message>
+        <source>From:</source>
+        <translation>Od:</translation>
+    </message>
+    <message>
+        <source>to:</source>
+        <translation>do:</translation>
+    </message>
+    <message>
+        <source>File Options</source>
+        <translation>Opcje pliku</translation>
+    </message>
+    <message>
+        <source>Compatibility:</source>
+        <translation>Format pliku:</translation>
+    </message>
+    <message>
+        <source>Binding:</source>
+        <translation>Odstęp dla zszycia:</translation>
+    </message>
+    <message>
+        <source>Left Margin</source>
+        <translation>Lewy margines</translation>
+    </message>
+    <message>
+        <source>Right Margin</source>
+        <translation>Prawy margines</translation>
+    </message>
+    <message>
+        <source>Generate Thumbnails</source>
+        <translation>Generuj miniatury</translation>
+    </message>
+    <message>
+        <source>Save linked Text Frames as PDF-Articles</source>
+        <translation>Zapisz połączone ramki tekstowe jako artykuły PDF</translation>
+    </message>
+    <message>
+        <source>Include Bookmarks</source>
+        <translation>Dołącz zakładki</translation>
+    </message>
+    <message>
+        <source>Resolution:</source>
+        <translation>Rozdzielczość:</translation>
+    </message>
+    <message>
+        <source> dpi</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Compression</source>
+        <translation>Kompresja</translation>
+    </message>
+    <message>
+        <source>Downsample Images to:</source>
+        <translation>Rozdzielczość obrazków:</translation>
+    </message>
+    <message>
+        <source>Compress Text and Vector Graphics</source>
+        <translation>Kompresja tekstu i grafiki wektorowej</translation>
+    </message>
+    <message>
+        <source>General</source>
+        <translation>Ogólne</translation>
+    </message>
+    <message>
+        <source>Embed all Fonts</source>
+        <translation>Zagnieźdź wszystkie czcionki</translation>
+    </message>
+    <message>
+        <source>Embedding</source>
+        <translation>Zagnieżdżanie</translation>
+    </message>
+    <message>
+        <source>Available Fonts:</source>
+        <translation>Dostępne czcionki:</translation>
+    </message>
+    <message>
+        <source>&gt;&gt;</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>&lt;&lt;</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Fonts to embed:</source>
+        <translation>Czcionki do zagnieżdżenia:</translation>
+    </message>
+    <message>
+        <source>Fonts</source>
+        <translation>Czcionki</translation>
+    </message>
+    <message>
+        <source>Enable Presentation Effects</source>
+        <translation>Uaktywnij efekty prezentacyjne</translation>
+    </message>
+    <message>
+        <source>Page</source>
+        <translation>Strona</translation>
+    </message>
+    <message>
+        <source>Show Page Previews</source>
+        <translation>Wyświetlaj podgląd strony</translation>
+    </message>
+    <message>
+        <source>Effects</source>
+        <translation>Efekty</translation>
+    </message>
+    <message>
+        <source>Display Duration:</source>
+        <translation>Czas wyświetlania:</translation>
+    </message>
+    <message>
+        <source>Effect Duration:</source>
+        <translation>Trwanie efektu:</translation>
+    </message>
+    <message>
+        <source>Effect Type:</source>
+        <translation>Typ efektu:</translation>
+    </message>
+    <message>
+        <source>Moving Lines:</source>
+        <translation>Ruchome linie:</translation>
+    </message>
+    <message>
+        <source>from the:</source>
+        <translation>Od:</translation>
+    </message>
+    <message>
+        <source>Direction:</source>
+        <translation>Kierunek:</translation>
+    </message>
+    <message>
+        <source> sec</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>No Effect</source>
+        <translation>Brak efektu</translation>
+    </message>
+    <message>
+        <source>Blinds</source>
+        <translation>Żaluzje</translation>
+    </message>
+    <message>
+        <source>Box</source>
+        <translation>Ramka</translation>
+    </message>
+    <message>
+        <source>Dissolve</source>
+        <translation>Znikanie</translation>
+    </message>
+    <message>
+        <source>Glitter</source>
+        <translation>Szachownica</translation>
+    </message>
+    <message>
+        <source>Split</source>
+        <translation>Dzielenie</translation>
+    </message>
+    <message>
+        <source>Wipe</source>
+        <translation>Zacieranie</translation>
+    </message>
+    <message>
+        <source>Horizontal</source>
+        <translation>Poziomo</translation>
+    </message>
+    <message>
+        <source>Vertical</source>
+        <translation>Pionowo</translation>
+    </message>
+    <message>
+        <source>Inside</source>
+        <translation>Wewnątrz</translation>
+    </message>
+    <message>
+        <source>Outside</source>
+        <translation>Zewnątrz</translation>
+    </message>
+    <message>
+        <source>Left to Right</source>
+        <translation>Od lewej do prawej</translation>
+    </message>
+    <message>
+        <source>Top to Bottom</source>
+        <translation>Od góry do dołu</translation>
+    </message>
+    <message>
+        <source>Bottom to Top</source>
+        <translation>Od dołu do góry</translation>
+    </message>
+    <message>
+        <source>Right to Left</source>
+        <translation>Od prawej do lewej</translation>
+    </message>
+    <message>
+        <source>Top-Left to Bottom-Right</source>
+        <translation>Od góry po lewej do dołu po prawej</translation>
+    </message>
+    <message>
+        <source>Apply Effect on all Pages</source>
+        <translation>Zastosuj efekt do wszystkich stron</translation>
+    </message>
+    <message>
+        <source>Extras</source>
+        <translation>Dodatki</translation>
+    </message>
+    <message>
+        <source>Use Encryption</source>
+        <translation>Zastosuj szyfrowanie</translation>
+    </message>
+    <message>
+        <source>Passwords</source>
+        <translation>Hasła</translation>
+    </message>
+    <message>
+        <source>User:</source>
+        <translation>Użytkownik:</translation>
+    </message>
+    <message>
+        <source>Owner:</source>
+        <translation>Właściciel:</translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation>Uprawnienia</translation>
+    </message>
+    <message>
+        <source>Allow Printing the Document</source>
+        <translation>Dozwolone drukowanie dokumentu</translation>
+    </message>
+    <message>
+        <source>Allow Changing the Document</source>
+        <translation>Dozwolona zmiana dokumentu</translation>
+    </message>
+    <message>
+        <source>Copying Text and Graphics is allowed</source>
+        <translation>Dozwolone kopiowanie tekstu i grafiki</translation>
+    </message>
+    <message>
+        <source>Adding Annotations and Fields is allowed</source>
+        <translation>Dozwolone dodawanie adnotacji i pól</translation>
+    </message>
+    <message>
+        <source>Security</source>
+        <translation>Bezpieczeństwo</translation>
+    </message>
+    <message>
+        <source>Output intended for:</source>
+        <translation>Plik wyjściowy przeznaczony dla:</translation>
+    </message>
+    <message>
+        <source>Screen / Web</source>
+        <translation>Monitor / Web</translation>
+    </message>
+    <message>
+        <source>Printer</source>
+        <translation>Drukarka</translation>
+    </message>
+    <message>
+        <source>Solid Colors:</source>
+        <translation>Jednolite kolory:</translation>
+    </message>
+    <message>
+        <source>Use ICC-Profile</source>
+        <translation>Zastosuj profil ICC</translation>
+    </message>
+    <message>
+        <source>Profile:</source>
+        <translation>Profil:</translation>
+    </message>
+    <message>
+        <source>Rendering-Intent:</source>
+        <translation>Metoda konwersji::</translation>
+    </message>
+    <message>
+        <source>Perceptual</source>
+        <translation>Percepcja</translation>
+    </message>
+    <message>
+        <source>Relative Colorimetric</source>
+        <translation>Względnie kolorometryczna</translation>
+    </message>
+    <message>
+        <source>Saturation</source>
+        <translation>Nasycenie </translation>
+    </message>
+    <message>
+        <source>Absolute Colorimetric</source>
+        <translation>Absolutnie kolorometryczna</translation>
+    </message>
+    <message>
+        <source>Images:</source>
+        <translation>Obrazki:</translation>
+    </message>
+    <message>
+        <source>Don&apos;t use embedded ICC profiles</source>
+        <translation>Nie używaj zagnieżdżonych profili ICC</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>Kolor</translation>
+    </message>
+    <message>
+        <source>PDF/X-3 Output Intent</source>
+        <translation>Ustawienia dla pliku wyjściowego PDF/X-3</translation>
+    </message>
+    <message>
+        <source>Info String:</source>
+        <translation>Komentarz:</translation>
+    </message>
+    <message>
+        <source>Output Profile:</source>
+        <translation>Profil wyjściowy:</translation>
+    </message>
+    <message>
+        <source>Trim Box</source>
+        <translation>Przycinanie</translation>
+    </message>
+    <message>
+        <source>PDF/X-3</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+    <message>
+        <source>Save as</source>
+        <translation>Zapisz jako</translation>
+    </message>
+    <message>
+        <source>PDF-Files (*.pdf);;All Files (*)</source>
+        <translation>Pliki PDF (*.pdf);;Wszystkie pliki (*)</translation>
+    </message>
+    <message>
+        <source>Top-left to Bottom-Right</source>
+        <translation>Od góry po lewej do dołu po prawej</translation>
+    </message>
+</context>
+<context>
+    <name>PPreview</name>
+    <message>
+        <source>Print Preview</source>
+        <translation>Podgląd wydruku</translation>
+    </message>
+    <message>
+        <source>Page:</source>
+        <translation>Strona:</translation>
+    </message>
+    <message>
+        <source>Anti-alias Text</source>
+        <translation>Wygładzanie tekstu</translation>
+    </message>
+    <message>
+        <source>Anti-alias Graphics</source>
+        <translation>Wygładzanie grafiki</translation>
+    </message>
+    <message>
+        <source>All</source>
+        <translation>Wszystkie</translation>
+    </message>
+    <message>
+        <source>Display Transparency</source>
+        <translation>Wyświetlaj przezroczystość</translation>
+    </message>
+</context>
+<context>
+    <name>Page</name>
+    <message>
+        <source>Copy Here</source>
+        <translation>Kopiuj tutaj</translation>
+    </message>
+    <message>
+        <source>Move Here</source>
+        <translation>Przesuń tutaj</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+    <message>
+        <source>Paste</source>
+        <translation>Wklej</translation>
+    </message>
+    <message>
+        <source>Hide Margins</source>
+        <translation>Ukryj marginesy</translation>
+    </message>
+    <message>
+        <source>Show Margins</source>
+        <translation>Wyświetlaj marginesy</translation>
+    </message>
+    <message>
+        <source>Hide Frames</source>
+        <translation>Ukryj ramki</translation>
+    </message>
+    <message>
+        <source>Show Frames</source>
+        <translation>Wyświetlaj ramki</translation>
+    </message>
+    <message>
+        <source>Hide Images</source>
+        <translation>Ukryj obrazki</translation>
+    </message>
+    <message>
+        <source>Show Images</source>
+        <translation>Wyświetlaj obrazki</translation>
+    </message>
+    <message>
+        <source>Hide Grid</source>
+        <translation>Ukryj siatkę</translation>
+    </message>
+    <message>
+        <source>Show Grid</source>
+        <translation>Wyświetlaj siatkę</translation>
+    </message>
+    <message>
+        <source>Hide Guides</source>
+        <translation>Wyświetlaj linie pomocnicze</translation>
+    </message>
+    <message>
+        <source>Show Guides</source>
+        <translation>Wyświetlaj linie pomocnicze</translation>
+    </message>
+    <message>
+        <source>Snap to Grid</source>
+        <translation>Wyrównaj do siatki</translation>
+    </message>
+    <message>
+        <source>Snap to Guides</source>
+        <translation>Wyrównaj do linii pomocniczych</translation>
+    </message>
+    <message>
+        <source>Picture</source>
+        <translation>Obrazek</translation>
+    </message>
+    <message>
+        <source>File: </source>
+        <translation>Plik: </translation>
+    </message>
+    <message>
+        <source>Original ppi: </source>
+        <translation>Oryginalne DPI: </translation>
+    </message>
+    <message>
+        <source>Actual ppi: </source>
+        <translation>Rzeczywiste DPI: </translation>
+    </message>
+    <message>
+        <source>Linked Text</source>
+        <translation>Dowiązany tekst</translation>
+    </message>
+    <message>
+        <source>Text Frame</source>
+        <translation>Ramka tekstowa</translation>
+    </message>
+    <message>
+        <source>Text on a Path</source>
+        <translation>Tekst na ścieżce</translation>
+    </message>
+    <message>
+        <source>Paragraphs: </source>
+        <translation>Akapitów: </translation>
+    </message>
+    <message>
+        <source>Words: </source>
+        <translation>Słów: </translation>
+    </message>
+    <message>
+        <source>Chars: </source>
+        <translation>Znaków: </translation>
+    </message>
+    <message>
+        <source>Info</source>
+        <translation>Informacja</translation>
+    </message>
+    <message>
+        <source>Get Picture...</source>
+        <translation>Pobierz obrazek...</translation>
+    </message>
+    <message>
+        <source>Image Visible</source>
+        <translation>Obrazek widoczny</translation>
+    </message>
+    <message>
+        <source>Get Text...</source>
+        <translation>Pobierz tekst...</translation>
+    </message>
+    <message>
+        <source>Edit Text...</source>
+        <translation>Edytuj tekst...</translation>
+    </message>
+    <message>
+        <source>Is PDF-Bookmark</source>
+        <translation>Jest zakładką PDF</translation>
+    </message>
+    <message>
+        <source>Is PDF-Annotation</source>
+        <translation>Jest adnotacją PDF</translation>
+    </message>
+    <message>
+        <source>Annotation Properties</source>
+        <translation>Właściwości adnotacji</translation>
+    </message>
+    <message>
+        <source>Field Properties</source>
+        <translation>Właściwości pola</translation>
+    </message>
+    <message>
+        <source>Group</source>
+        <translation>Grupuj</translation>
+    </message>
+    <message>
+        <source>Un-group</source>
+        <translation>Rozgrupuj</translation>
+    </message>
+    <message>
+        <source>Lock</source>
+        <translation>Zabezpiecz</translation>
+    </message>
+    <message>
+        <source>Send to Back</source>
+        <translation>Przesuń na spód</translation>
+    </message>
+    <message>
+        <source>Bring to Front</source>
+        <translation>Przesuń na wierzch</translation>
+    </message>
+    <message>
+        <source>Lower</source>
+        <translation>O warstwę niżej</translation>
+    </message>
+    <message>
+        <source>Raise</source>
+        <translation>O warstwę wyżej</translation>
+    </message>
+    <message>
+        <source>Unlock</source>
+        <translation>Odbezpiecz</translation>
+    </message>
+    <message>
+        <source>Send to Scrapbook</source>
+        <translation>Przesuń do biblioteki</translation>
+    </message>
+    <message>
+        <source>Send to Layer</source>
+        <translation>Przesuń do warstwy</translation>
+    </message>
+    <message>
+        <source>Picture Frame</source>
+        <translation>Ramka graficzna</translation>
+    </message>
+    <message>
+        <source>Polygon</source>
+        <translation>Wielokąt</translation>
+    </message>
+    <message>
+        <source>Outlines</source>
+        <translation>Ścieżki</translation>
+    </message>
+    <message>
+        <source>Bezier Curve</source>
+        <translation>Krzywa Beziera</translation>
+    </message>
+    <message>
+        <source>Convert to</source>
+        <translation>Zamień na</translation>
+    </message>
+    <message>
+        <source>Show Properties...</source>
+        <translation>Wyświetlaj właściwości...</translation>
+    </message>
+    <message>
+        <source>Hide Properties...</source>
+        <translation>Ukryj właściwości...</translation>
+    </message>
+    <message>
+        <source>Cut</source>
+        <translation>Wytnij</translation>
+    </message>
+    <message>
+        <source>Copy</source>
+        <translation>Kopiuj</translation>
+    </message>
+    <message>
+        <source>Clear Contents</source>
+        <translation>Wyczyść zawartość</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Usuń</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Brak</translation>
+    </message>
+    <message>
+        <source>Print: </source>
+        <translation>Drukuj:</translation>
+    </message>
+    <message>
+        <source>Enabled</source>
+        <translation>Włączony</translation>
+    </message>
+    <message>
+        <source>Disabled</source>
+        <translation>Wyłączony</translation>
+    </message>
+</context>
+<context>
+    <name>PicSearch</name>
+    <message>
+        <source>Result</source>
+        <translation>Wynik</translation>
+    </message>
+    <message>
+        <source>Search Results for: </source>
+        <translation>Wynik szukania dla: </translation>
+    </message>
+    <message>
+        <source>Preview</source>
+        <translation>Podgląd</translation>
+    </message>
+    <message>
+        <source>Select</source>
+        <translation>Wybierz</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+</context>
+<context>
+    <name>PicStatus</name>
+    <message>
+        <source>Pictures</source>
+        <translation>Obrazki</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Nazwa</translation>
+    </message>
+    <message>
+        <source>Path</source>
+        <translation>Ścieżka</translation>
+    </message>
+    <message>
+        <source>Page</source>
+        <translation>Strona</translation>
+    </message>
+    <message>
+        <source>Print</source>
+        <translation>Drukuj</translation>
+    </message>
+    <message>
+        <source>Status</source>
+        <translation>Stan</translation>
+    </message>
+    <message>
+        <source>Goto</source>
+        <translation>Idź do</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation>Tak</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Missing</source>
+        <translation>Brakująca</translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <translation>Szukaj</translation>
+    </message>
+</context>
+<context>
+    <name>PolygonProps</name>
+    <message>
+        <source>Polygon Properties</source>
+        <translation>Właściwości wielokąta</translation>
+    </message>
+    <message>
+        <source>Corners:</source>
+        <translation>Rogi:</translation>
+    </message>
+    <message>
+        <source>Rotation:</source>
+        <translation>Obrót:</translation>
+    </message>
+    <message>
+        <source>Convex Polygon</source>
+        <translation>Wypukły wielokąt</translation>
+    </message>
+    <message>
+        <source>Factor:</source>
+        <translation>Współczynnik:</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+</context>
+<context>
+    <name>Preferences</name>
+    <message>
+        <source>Preferences</source>
+        <translation>Ustawienia</translation>
+    </message>
+    <message>
+        <source>General</source>
+        <translation>Ogólne</translation>
+    </message>
+    <message>
+        <source>Document</source>
+        <translation>Dokument</translation>
+    </message>
+    <message>
+        <source>Guides</source>
+        <translation>Linie pomocnicze</translation>
+    </message>
+    <message>
+        <source>Typography</source>
+        <translation>Typografia</translation>
+    </message>
+    <message>
+        <source>Tools</source>
+        <translation>Narzędzia</translation>
+    </message>
+    <message>
+        <source>Scrapbook</source>
+        <translation>Biblioteka</translation>
+    </message>
+    <message>
+        <source>Display</source>
+        <translation>Widok</translation>
+    </message>
+    <message>
+        <source>GUI</source>
+        <translation>Graficzny interfejs użytkownika</translation>
+    </message>
+    <message>
+        <source>Theme</source>
+        <translation>Styl</translation>
+    </message>
+    <message>
+        <source>Font Size:</source>
+        <translation>Rozmiar czcionki:</translation>
+    </message>
+    <message>
+        <source> pts</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Units</source>
+        <translation>Jednostki</translation>
+    </message>
+    <message>
+        <source>Points (pt)</source>
+        <translation>Punkty (pt)</translation>
+    </message>
+    <message>
+        <source>Millimetres (mm)</source>
+        <translation>Milimetry (mm)</translation>
+    </message>
+    <message>
+        <source>Inches (in)</source>
+        <translation>Cale (in)</translation>
+    </message>
+    <message>
+        <source>Picas (p)</source>
+        <translation>Pica (p)</translation>
+    </message>
+    <message>
+        <source>Mouse-Settings</source>
+        <translation>Konfiguracja myszy</translation>
+    </message>
+    <message>
+        <source>Wheel-Jump</source>
+        <translation>Skok kółka</translation>
+    </message>
+    <message>
+        <source>Grab-Radius</source>
+        <translation>Zasięg chwytania</translation>
+    </message>
+    <message>
+        <source>Menus</source>
+        <translation>Menu</translation>
+    </message>
+    <message>
+        <source>Recent Documents:</source>
+        <translation>Otwórz poprzedni:</translation>
+    </message>
+    <message>
+        <source>Keyboard Shortcuts...</source>
+        <translation>Skróty klawiszowe...</translation>
+    </message>
+    <message>
+        <source>Paths</source>
+        <translation>Ścieżki</translation>
+    </message>
+    <message>
+        <source>Documents:</source>
+        <translation>Dokumenty:</translation>
+    </message>
+    <message>
+        <source>Change...</source>
+        <translation>Zmień...</translation>
+    </message>
+    <message>
+        <source>ICC-Profiles:</source>
+        <translation>Profile ICC:</translation>
+    </message>
+    <message>
+        <source>Scripts:</source>
+        <translation>Skrypty:</translation>
+    </message>
+    <message>
+        <source>Page Size</source>
+        <translation>Format strony</translation>
+    </message>
+    <message>
+        <source>Orientation:</source>
+        <translation>Orientacja:</translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <translation>Definicja użytkownika</translation>
+    </message>
+    <message>
+        <source>Portrait</source>
+        <translation>Portret</translation>
+    </message>
+    <message>
+        <source>Landscape</source>
+        <translation>Pejzaż</translation>
+    </message>
+    <message>
+        <source>Size:</source>
+        <translation>Rozmiar:</translation>
+    </message>
+    <message>
+        <source>Width:</source>
+        <translation>Szerokość:</translation>
+    </message>
+    <message>
+        <source>Height:</source>
+        <translation>Wysokość:</translation>
+    </message>
+    <message>
+        <source>Facing Pages</source>
+        <translation>Strony widzące się</translation>
+    </message>
+    <message>
+        <source>Left Page First</source>
+        <translation>Lewa strona najpierw</translation>
+    </message>
+    <message>
+        <source>Margin Guides</source>
+        <translation>Marginesy</translation>
+    </message>
+    <message>
+        <source>Bottom:</source>
+        <translation>Na dole:</translation>
+    </message>
+    <message>
+        <source>Top:</source>
+        <translation>Na górze:</translation>
+    </message>
+    <message>
+        <source>Right:</source>
+        <translation>Po prawej:</translation>
+    </message>
+    <message>
+        <source>Left:</source>
+        <translation>Po lewej:</translation>
+    </message>
+    <message>
+        <source>Autosave</source>
+        <translation>Automatyczny zapis</translation>
+    </message>
+    <message>
+        <source>Enabled</source>
+        <translation>Włączony</translation>
+    </message>
+    <message>
+        <source>Interval:</source>
+        <translation>Interwał:</translation>
+    </message>
+    <message>
+        <source>min</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Grid Layout</source>
+        <translation>Układ linii pomocniczych</translation>
+    </message>
+    <message>
+        <source>Minor Grid Spacing:</source>
+        <translation>Odstęp linii dodatkowej siatki:</translation>
+    </message>
+    <message>
+        <source>Major Grid Spacing:</source>
+        <translation>Odstęp linii głównej siatki:</translation>
+    </message>
+    <message>
+        <source>Guide Snap Distance:</source>
+        <translation>Zasięg chwytu linii pomocniczej:</translation>
+    </message>
+    <message>
+        <source>Grid Colors</source>
+        <translation>Kolor linii pomocniczych</translation>
+    </message>
+    <message>
+        <source>Minor Grid Color:</source>
+        <translation>Kolor linii dodatkowej siatki:</translation>
+    </message>
+    <message>
+        <source>Major Grid Color:</source>
+        <translation>Kolor linii głównej siatki:</translation>
+    </message>
+    <message>
+        <source>User Guides Color:</source>
+        <translation>Kolor linii pomocniczych:</translation>
+    </message>
+    <message>
+        <source>Placing</source>
+        <translation>Pozycja</translation>
+    </message>
+    <message>
+        <source>In the Background</source>
+        <translation>W tle</translation>
+    </message>
+    <message>
+        <source>In the Foreground</source>
+        <translation>Z przodu</translation>
+    </message>
+    <message>
+        <source>Subscript</source>
+        <translation>Indeks dolny</translation>
+    </message>
+    <message>
+        <source>Scaling:</source>
+        <translation>Rozmiar:</translation>
+    </message>
+    <message>
+        <source>Disp.:</source>
+        <translation>Przesunięcie:</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Superscript</source>
+        <translation>Indeks górny</translation>
+    </message>
+    <message>
+        <source>Small Caps</source>
+        <translation>Kapitaliki</translation>
+    </message>
+    <message>
+        <source>Other</source>
+        <translation>Inne</translation>
+    </message>
+    <message>
+        <source>Automatic Line Spacing:</source>
+        <translation>Automatyczna interlinia:</translation>
+    </message>
+    <message>
+        <source>Default Size:</source>
+        <translation>Domyślny rozmiar:</translation>
+    </message>
+    <message>
+        <source>Default Font:</source>
+        <translation>Domyślna czcionka:</translation>
+    </message>
+    <message>
+        <source>Text Color:</source>
+        <translation>Kolor tekstu:</translation>
+    </message>
+    <message>
+        <source>Columns:</source>
+        <translation>Szpalty:</translation>
+    </message>
+    <message>
+        <source>Gap:</source>
+        <translation>Odstęp między szpaltami:</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Woven silk pyjamas exchanged for blue quartz</source>
+        <translation>Zażółć Gęślą Jaźń AaBbCc1!2@3#</translation>
+    </message>
+    <message>
+        <source>Line Color:</source>
+        <translation>Kolor linii:</translation>
+    </message>
+    <message>
+        <source>Shading:</source>
+        <translation>Cieniowanie:</translation>
+    </message>
+    <message>
+        <source>Fill Color:</source>
+        <translation>Kolor wypełnienia:</translation>
+    </message>
+    <message>
+        <source>Linestyle:</source>
+        <translation>Styl linii:</translation>
+    </message>
+    <message>
+        <source>Line Width:</source>
+        <translation>Grubość linii:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Brak</translation>
+    </message>
+    <message>
+        <source>Line Style:</source>
+        <translation>Styl linii:</translation>
+    </message>
+    <message>
+        <source>Minimum:</source>
+        <translation>Minimum:</translation>
+    </message>
+    <message>
+        <source>Maximum:</source>
+        <translation>Maksimum:</translation>
+    </message>
+    <message>
+        <source>Stepping:</source>
+        <translation>Skok:</translation>
+    </message>
+    <message>
+        <source>Free Scaling</source>
+        <translation>Skalowanie ręczne</translation>
+    </message>
+    <message>
+        <source>Horizontal Scaling</source>
+        <translation>Skalowanie w poziomie</translation>
+    </message>
+    <message>
+        <source>Vertical Scaling</source>
+        <translation>Skalowanie w pionie</translation>
+    </message>
+    <message>
+        <source>Scale Picture to Frame Size</source>
+        <translation>Dopasuj obrazek do rozmiaru ramki</translation>
+    </message>
+    <message>
+        <source>Keep Aspect Ratio</source>
+        <translation>Zachowaj proporcje</translation>
+    </message>
+    <message>
+        <source>Corners:</source>
+        <translation>Rogi:</translation>
+    </message>
+    <message>
+        <source>Rotation:</source>
+        <translation>Obrót:</translation>
+    </message>
+    <message>
+        <source>Convex Polygon</source>
+        <translation>Wypukły wielokąt</translation>
+    </message>
+    <message>
+        <source>Factor:</source>
+        <translation>Współczynnik:</translation>
+    </message>
+    <message>
+        <source>Other Options</source>
+        <translation>Inne opcje</translation>
+    </message>
+    <message>
+        <source>Save Contents on Exit</source>
+        <translation>Zapisz zawartość przed zakończeniem programu</translation>
+    </message>
+    <message>
+        <source>Preview</source>
+        <translation>Podgląd</translation>
+    </message>
+    <message>
+        <source>Small</source>
+        <translation>Mały</translation>
+    </message>
+    <message>
+        <source>Medium</source>
+        <translation>Średni</translation>
+    </message>
+    <message>
+        <source>Big</source>
+        <translation>Duży</translation>
+    </message>
+    <message>
+        <source>Display Frames</source>
+        <translation>Wyświetlaj ramki</translation>
+    </message>
+    <message>
+        <source>Display Pages Side by Side</source>
+        <translation>Wyświetlaj strony obok siebie</translation>
+    </message>
+    <message>
+        <source>Page-Colors</source>
+        <translation>Kolory strony</translation>
+    </message>
+    <message>
+        <source>Background:</source>
+        <translation>Tło:</translation>
+    </message>
+    <message>
+        <source>Margins:</source>
+        <translation>Marginesy:</translation>
+    </message>
+    <message>
+        <source>Display Unprintable Area in Margin Color</source>
+        <translation>Wyświetlaj obszar niedrukowalny w kolorze marginesu</translation>
+    </message>
+    <message>
+        <source>Use PDF-1.4 Transparency Features</source>
+        <translation>Zastosuj przezroczystość z PDF-1.4</translation>
+    </message>
+    <message>
+        <source>Adjust Display Size</source>
+        <translation>Dopasuj wielkość widoku</translation>
+    </message>
+    <message>
+        <source>To adjust the display drag the ruler below with the Slider.</source>
+        <translation>Aby dopasować wielkość widoku, użyj suwaka znajdującego się poniżej.</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+    <message>
+        <source>Choose a Directory</source>
+        <translation>Wybierz katalog</translation>
+    </message>
+    <message>
+        <source>Inside:</source>
+        <translation>Wewnątrz:</translation>
+    </message>
+    <message>
+        <source>Outside:</source>
+        <translation>Na zewnątrz:</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation></translation>
+    </message>
+</context>
+<context>
+    <name>QColorDialog</name>
+    <message>
+        <source>Hu&amp;e:</source>
+        <translation>&amp;H:</translation>
+    </message>
+    <message>
+        <source>&amp;Sat:</source>
+        <translation>&amp;S:</translation>
+    </message>
+    <message>
+        <source>&amp;Val:</source>
+        <translation>&amp;V:</translation>
+    </message>
+    <message>
+        <source>&amp;Red:</source>
+        <translation>&amp;R:</translation>
+    </message>
+    <message>
+        <source>&amp;Green:</source>
+        <translation>&amp;G:</translation>
+    </message>
+    <message>
+        <source>Bl&amp;ue:</source>
+        <translation>&amp;B:</translation>
+    </message>
+    <message>
+        <source>A&amp;lpha channel:</source>
+        <translation>K&amp;anał alfa:</translation>
+    </message>
+    <message>
+        <source>&amp;Basic colors</source>
+        <translation>&amp;Podstawowe kolory</translation>
+    </message>
+    <message>
+        <source>&amp;Custom colors</source>
+        <translation>&amp;Kolory użytkownika</translation>
+    </message>
+    <message>
+        <source>&amp;Define Custom Colors &gt;&gt;</source>
+        <translation>&amp;Definiuj kolory użytkownika &gt;&gt;</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+    <message>
+        <source>&amp;Add to Custom Colors</source>
+        <translation>D&amp;odaj do kolorów użytkownika</translation>
+    </message>
+    <message>
+        <source>Select color</source>
+        <translation>Wybierz kolor</translation>
+    </message>
+</context>
+<context>
+    <name>QFileDialog</name>
+    <message>
+        <source>Copy or Move a File</source>
+        <translation>Kopiuj albo przesuń plik</translation>
+    </message>
+    <message>
+        <source>Read: %1</source>
+        <translation>Odczyt: %1</translation>
+    </message>
+    <message>
+        <source>Write: %1</source>
+        <translation>Zapis: %1</translation>
+    </message>
+    <message>
+        <source>File &amp;name:</source>
+        <translation>&amp;Nazwa pliku:</translation>
+    </message>
+    <message>
+        <source>File &amp;type:</source>
+        <translation>&amp;Typ pliku:</translation>
+    </message>
+    <message>
+        <source>One directory up</source>
+        <translation>Katalog wyżej</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+    <message>
+        <source>All Files (*)</source>
+        <translation>Wszystkie pliki (*)</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Nazwa</translation>
+    </message>
+    <message>
+        <source>Size</source>
+        <translation>Rozmiar</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>Typ</translation>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation>Data</translation>
+    </message>
+    <message>
+        <source>Attributes</source>
+        <translation>Atrybuty</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Look &amp;in:</source>
+        <translation>Szukaj &amp;w:</translation>
+    </message>
+    <message>
+        <source>Back</source>
+        <translation>Cofnij</translation>
+    </message>
+    <message>
+        <source>Create New Folder</source>
+        <translation>Nowy katalog</translation>
+    </message>
+    <message>
+        <source>List View</source>
+        <translation>Widok listy</translation>
+    </message>
+    <message>
+        <source>Detail View</source>
+        <translation>Widok szczegółowy</translation>
+    </message>
+    <message>
+        <source>Preview File Info</source>
+        <translation>Podgląd informacji o pliku</translation>
+    </message>
+    <message>
+        <source>Preview File Contents</source>
+        <translation>Podgląd zawartości pliku</translation>
+    </message>
+    <message>
+        <source>Read-write</source>
+        <translation>Odczyt-zapis</translation>
+    </message>
+    <message>
+        <source>Read-only</source>
+        <translation>Tylko odczyt</translation>
+    </message>
+    <message>
+        <source>Write-only</source>
+        <translation>Tylko zapis</translation>
+    </message>
+    <message>
+        <source>Inaccessible</source>
+        <translation>Niedostępny</translation>
+    </message>
+    <message>
+        <source>Symlink to File</source>
+        <translation>Symboliczne dowiązanie do pliku</translation>
+    </message>
+    <message>
+        <source>Symlink to Directory</source>
+        <translation>Symboliczne dowiązanie do katalogu</translation>
+    </message>
+    <message>
+        <source>Symlink to Special</source>
+        <translation>Symboliczne dowiązanie do specjalnego pliku</translation>
+    </message>
+    <message>
+        <source>File</source>
+        <translation>Plik</translation>
+    </message>
+    <message>
+        <source>Dir</source>
+        <translation>Katalog</translation>
+    </message>
+    <message>
+        <source>Special</source>
+        <translation>Plik specjalny</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation>Otwórz</translation>
+    </message>
+    <message>
+        <source>Save As</source>
+        <translation>Zapisz jako</translation>
+    </message>
+    <message>
+        <source>&amp;Open</source>
+        <translation>&amp;Otwórz</translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation>&amp;Zapisz</translation>
+    </message>
+    <message>
+        <source>&amp;Rename</source>
+        <translation>Z&amp;mień nazwę</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation>&amp;Usuń</translation>
+    </message>
+    <message>
+        <source>R&amp;eload</source>
+        <translation>&amp;Aktualizuj</translation>
+    </message>
+    <message>
+        <source>Sort by &amp;Name</source>
+        <translation>&amp;Sortuj według nazwy</translation>
+    </message>
+    <message>
+        <source>Sort by &amp;Size</source>
+        <translation>Sortuj według &amp;wielkości</translation>
+    </message>
+    <message>
+        <source>Sort by &amp;Date</source>
+        <translation>Sortuj według &amp;daty</translation>
+    </message>
+    <message>
+        <source>&amp;Unsorted</source>
+        <translation>&amp;Bez sortowania</translation>
+    </message>
+    <message>
+        <source>Sort</source>
+        <translation>Sortuj</translation>
+    </message>
+    <message>
+        <source>Show &amp;hidden files</source>
+        <translation>Pokaż ukryt&amp;e pliki</translation>
+    </message>
+    <message>
+        <source>the file</source>
+        <translation>plik</translation>
+    </message>
+    <message>
+        <source>the directory</source>
+        <translation>katalog</translation>
+    </message>
+    <message>
+        <source>the symlink</source>
+        <translation>symboliczne dowiązanie</translation>
+    </message>
+    <message>
+        <source>Delete %1</source>
+        <translation>Usuń %1</translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;Are you sure you wish to delete %1 &quot;%2&quot;?&lt;/qt&gt;</source>
+        <translation>&lt;qt&gt;Czy na pewno usunąć %1 &quot;%2&quot;?&lt;/qt&gt;</translation>
+    </message>
+    <message>
+        <source>&amp;Yes</source>
+        <translation>&amp;Tak</translation>
+    </message>
+    <message>
+        <source>&amp;No</source>
+        <translation>&amp;Nie</translation>
+    </message>
+    <message>
+        <source>New Folder 1</source>
+        <translation>Nowy katalog 1</translation>
+    </message>
+    <message>
+        <source>New Folder</source>
+        <translation>Nowy katalog</translation>
+    </message>
+    <message>
+        <source>New Folder %1</source>
+        <translation>Nowy katalog %1</translation>
+    </message>
+    <message>
+        <source>Find Directory</source>
+        <translation>Znajdź katalog</translation>
+    </message>
+    <message>
+        <source>Directories</source>
+        <translation>Katalogi</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Zapisz</translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation>Błąd</translation>
+    </message>
+    <message>
+        <source>%1
+File not found.
+Check path and filename.</source>
+        <translation>%1
+Nie znaleziono pliku.
+Sprawdź katalog i nazwę pliku.</translation>
+    </message>
+    <message>
+        <source>All Files (*.*)</source>
+        <translation>Wszystkie pliki (*)</translation>
+    </message>
+    <message>
+        <source>Select a Directory</source>
+        <translation>Wybierz katalog</translation>
+    </message>
+    <message>
+        <source>Directory:</source>
+        <translation>Katalog:</translation>
+    </message>
+</context>
+<context>
+    <name>QLineEdit</name>
+    <message>
+        <source>Clear</source>
+        <translation>Usuń</translation>
+    </message>
+    <message>
+        <source>Select All</source>
+        <translation>Zaznacz wszystko</translation>
+    </message>
+    <message>
+        <source>&amp;Undo</source>
+        <translation>&amp;Cofnij</translation>
+    </message>
+    <message>
+        <source>&amp;Redo</source>
+        <translation>&amp;Przywróć</translation>
+    </message>
+    <message>
+        <source>Cu&amp;t</source>
+        <translation>Wytni&amp;j</translation>
+    </message>
+    <message>
+        <source>&amp;Copy</source>
+        <translation>&amp;Kopiuj</translation>
+    </message>
+    <message>
+        <source>&amp;Paste</source>
+        <translation>&amp;Wklej</translation>
+    </message>
+</context>
+<context>
+    <name>QMainWindow</name>
+    <message>
+        <source>Line up</source>
+        <translation>Wyrównaj</translation>
+    </message>
+    <message>
+        <source>Customize...</source>
+        <translation>Dopasuj...</translation>
+    </message>
+</context>
+<context>
+    <name>QMessageBox</name>
+    <message>
+        <source>&lt;h3&gt;About Qt&lt;/h3&gt;&lt;p&gt;This program uses Qt version %1.&lt;/p&gt;&lt;p&gt;Qt is a C++ toolkit for multiplatform GUI &amp;amp; application development.&lt;/p&gt;&lt;p&gt;Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants.&lt;br&gt;Qt is also available for embedded devices.&lt;/p&gt;&lt;p&gt;Qt is a Trolltech product. See &lt;tt&gt;http://www.trolltech.com/qt/&lt;/tt&gt; for more information.&lt;/p&gt;</source>
+        <translation>&lt;h3&gt;O Qt&lt;/h3&gt;&lt;p&gt;Niniejszy  program używa Qt w wersji %1.&lt;/p&gt;&lt;p&gt;Qt to zestaw narzędzi C++ do programowania aplikacji i graficznych interfejsow użytkownika dla wielu platform.&lt;/p&gt;&lt;p&gt;Qt zapewnia przenośność kodu źródłowego pomiędzy systemami MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux oraz wszystkimi głównymi komercyjnymi wariantami systemu Unix.&lt;br&gt;Qt dostępne jest również dla urządzeń osadzonych.&lt;/p&gt;&lt;p&gt;Qt jest produktem firmy Trolltech. Więcej informacji dostępnych jest na stronie &lt;tt&gt;http://www.trolltech.com/qt/&lt;/tt&gt;.&lt;/p&gt;</translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <source>Warning</source>
+        <translation>Ostrzeżenie</translation>
+    </message>
+    <message>
+        <source>Do you really want to overwrite the File:
+%1 ?</source>
+        <translation>Naprawdę zastąpić plik:
+%1?</translation>
+    </message>
+    <message>
+        <source>Scripter Manual...</source>
+        <translation>Podręcznik wtyczki skryptowej...</translation>
+    </message>
+    <message>
+        <source>Execute Script...</source>
+        <translation>Wykonaj skrypt...</translation>
+    </message>
+    <message>
+        <source>Recent Scripts</source>
+        <translation>Otwórz poprzedni skrypt</translation>
+    </message>
+    <message>
+        <source>Show Console</source>
+        <translation>Wyświetlaj konsolę</translation>
+    </message>
+    <message>
+        <source>Script</source>
+        <translation>Skrypt</translation>
+    </message>
+    <message>
+        <source>Online Reference</source>
+        <translation>Podręcznik wtyczki skryptowej</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation>Otwórz</translation>
+    </message>
+    <message>
+        <source>Python Scripts (*.py);; All Files (*)</source>
+        <translation>Skrypty w Pythonie (*.py);; Wszystkie pliki (*)</translation>
+    </message>
+    <message>
+        <source>Save as</source>
+        <translation>Zapisz jako</translation>
+    </message>
+    <message>
+        <source>SVG-Images (*.svg *.svgz);;All Files (*)</source>
+        <translation>Grafiki SVG (*.svg *.svgz);;Wszystkie pliki (*)</translation>
+    </message>
+    <message>
+        <source>SVG-Images (*.svg);;All Files (*)</source>
+        <translation>Grafiki SVG (*.svg);;Wszystkie pliki (*)</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation>Tak</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation>Nie</translation>
+    </message>
+    <message>
+        <source>Insert Special</source>
+        <translation>Dodaj znak specjalny</translation>
+    </message>
+    <message>
+        <source>Print Preview</source>
+        <translation>Podgląd wydruku</translation>
+    </message>
+    <message>
+        <source>Save Page as SVG...</source>
+        <translation>Zapisz stronę jako SVG...</translation>
+    </message>
+    <message>
+        <source>Import SVG-Image</source>
+        <translation>Importuj grafikę SVG</translation>
+    </message>
+    <message>
+        <source>Initializing...</source>
+        <translation>Inicjalizacja...</translation>
+    </message>
+    <message>
+        <source>Document</source>
+        <translation>Dokument</translation>
+    </message>
+    <message>
+        <source>Background</source>
+        <translation>Tło</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation></translation>
+    </message>
+</context>
+<context>
+    <name>QTextEdit</name>
+    <message>
+        <source>Clear</source>
+        <translation>Usuń</translation>
+    </message>
+    <message>
+        <source>Select All</source>
+        <translation>Zaznacz wszystko</translation>
+    </message>
+    <message>
+        <source>&amp;Undo</source>
+        <translation>&amp;Cofnij</translation>
+    </message>
+    <message>
+        <source>&amp;Redo</source>
+        <translation>&amp;Przywróć</translation>
+    </message>
+    <message>
+        <source>Cu&amp;t</source>
+        <translation>Wytni&amp;j</translation>
+    </message>
+    <message>
+        <source>&amp;Copy</source>
+        <translation>&amp;Kopiuj</translation>
+    </message>
+    <message>
+        <source>&amp;Paste</source>
+        <translation>&amp;Wklej</translation>
+    </message>
+</context>
+<context>
+    <name>QWorkspace</name>
+    <message>
+        <source>&amp;Restore</source>
+        <translation>&amp;Przywróć</translation>
+    </message>
+    <message>
+        <source>&amp;Move</source>
+        <translation>Prz&amp;esuń</translation>
+    </message>
+    <message>
+        <source>&amp;Size</source>
+        <translation>&amp;Rozmiar</translation>
+    </message>
+    <message>
+        <source>Mi&amp;nimize</source>
+        <translation>Mi&amp;nimalizuj</translation>
+    </message>
+    <message>
+        <source>Ma&amp;ximize</source>
+        <translation>Maks&amp;ymalizuj</translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation>&amp;Zamknij</translation>
+    </message>
+    <message>
+        <source>Stay on &amp;Top</source>
+        <translation>Zawsze na &amp;wierzchu</translation>
+    </message>
+    <message>
+        <source>Minimize</source>
+        <translation>Minimalizuj</translation>
+    </message>
+    <message>
+        <source>Restore Down</source>
+        <translation>Przywróć</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Zamknij</translation>
+    </message>
+    <message>
+        <source>Sh&amp;ade</source>
+        <translation>C&amp;ieniowanie</translation>
+    </message>
+    <message>
+        <source>%1 - [%2]</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>&amp;Unshade</source>
+        <translation>&amp;Bez cieniowania</translation>
+    </message>
+</context>
+<context>
+    <name>Query</name>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+</context>
+<context>
+    <name>ReformDoc</name>
+    <message>
+        <source>Document Setup</source>
+        <translation>Ustawienia dokumentu</translation>
+    </message>
+    <message>
+        <source>Margin Guides</source>
+        <translation>Marginesy</translation>
+    </message>
+    <message>
+        <source>Top:</source>
+        <translation>Na górze:</translation>
+    </message>
+    <message>
+        <source>Left:</source>
+        <translation>Po lewej:</translation>
+    </message>
+    <message>
+        <source>Bottom:</source>
+        <translation>Na dole:</translation>
+    </message>
+    <message>
+        <source>Right:</source>
+        <translation>Po prawej:</translation>
+    </message>
+    <message>
+        <source>Facing Pages</source>
+        <translation>Strony widzące się</translation>
+    </message>
+    <message>
+        <source>Left Page first</source>
+        <translation>Lewa strona najpierw</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+    <message>
+        <source>Inside:</source>
+        <translation>Wewnątrz:</translation>
+    </message>
+    <message>
+        <source>Outside:</source>
+        <translation>Na zewnątrz:</translation>
+    </message>
+</context>
+<context>
+    <name>ScriXmlDoc</name>
+    <message>
+        <source>Copy #%1 of </source>
+        <translation>Kopia %1</translation>
+    </message>
+    <message>
+        <source>Background</source>
+        <translation>Tło</translation>
+    </message>
+</context>
+<context>
+    <name>ScribusApp</name>
+    <message>
+        <source>File</source>
+        <translation>Plik</translation>
+    </message>
+    <message>
+        <source>Creates a new Document</source>
+        <translation>Tworzy nowy dokument</translation>
+    </message>
+    <message>
+        <source>Opens a Document</source>
+        <translation>Otwiera dokument</translation>
+    </message>
+    <message>
+        <source>Saves the Current Document</source>
+        <translation>Zapisuje aktualny dokument</translation>
+    </message>
+    <message>
+        <source>Closes the Current Document</source>
+        <translation>Zamyka aktualny dokument</translation>
+    </message>
+    <message>
+        <source>Prints the Current Document</source>
+        <translation>Drukuje aktualny dokument</translation>
+    </message>
+    <message>
+        <source>Saves the Current Document as PDF</source>
+        <translation>Zapisuje aktualny dokument jako PDF</translation>
+    </message>
+    <message>
+        <source>Searching for Fonts</source>
+        <translation>Szukanie czcionek</translation>
+    </message>
+    <message>
+        <source>There are no Postscript-Fonts on your System</source>
+        <translation>Czcionki Postscript nie są zainstalowane</translation>
+    </message>
+    <message>
+        <source>Exiting now</source>
+        <translation>Zakończ teraz</translation>
+    </message>
+    <message>
+        <source>Fatal Error</source>
+        <translation>Krytyczny błąd</translation>
+    </message>
+    <message>
+        <source>Smart Hyphen</source>
+        <translation>Inteligentne dzielenie wyrazów</translation>
+    </message>
+    <message>
+        <source>Align Left</source>
+        <translation>Wyrównaj do lewej</translation>
+    </message>
+    <message>
+        <source>Align Right</source>
+        <translation>Wyrównaj do prawej</translation>
+    </message>
+    <message>
+        <source>Align Center</source>
+        <translation>Wyśrodkuj</translation>
+    </message>
+    <message>
+        <source>Insert Page Number</source>
+        <translation>Wstaw numer strony</translation>
+    </message>
+    <message>
+        <source>Attach Text to Path</source>
+        <translation>Dołącz tekst do ścieżki</translation>
+    </message>
+    <message>
+        <source>Show Layers</source>
+        <translation>Wyświetlaj paletę warstw</translation>
+    </message>
+    <message>
+        <source>Javascripts...</source>
+        <translation>Skrypty w Javascript...</translation>
+    </message>
+    <message>
+        <source>Undo</source>
+        <translation>Cofnij</translation>
+    </message>
+    <message>
+        <source>Show Page Palette</source>
+        <translation>Wyświetlaj paletę stron</translation>
+    </message>
+    <message>
+        <source>Lock/Unlock</source>
+        <translation>Zabezpiecz/Odbezpiecz</translation>
+    </message>
+    <message>
+        <source>Non Breaking Space</source>
+        <translation>Twarda spacja</translation>
+    </message>
+    <message>
+        <source>Reading Preferences</source>
+        <translation>Wczytywanie ustawień</translation>
+    </message>
+    <message>
+        <source>Getting ICC-Profiles</source>
+        <translation>Wczytywanie profili ICC</translation>
+    </message>
+    <message>
+        <source>Init Hyphenator</source>
+        <translation>Inicjalizacja dzielenia wyrazów</translation>
+    </message>
+    <message>
+        <source>Setting up Shortcuts</source>
+        <translation>Konfiguracja skrótów</translation>
+    </message>
+    <message>
+        <source>Color Management...</source>
+        <translation>Zarządzanie kolorami...</translation>
+    </message>
+    <message>
+        <source>Reading Scrapbook</source>
+        <translation>Wczytywanie biblioteki</translation>
+    </message>
+    <message>
+        <source>Initializing Plugins</source>
+        <translation>Inicjalizacja wtyczek</translation>
+    </message>
+    <message>
+        <source>New</source>
+        <translation>Nowy</translation>
+    </message>
+    <message>
+        <source>Open...</source>
+        <translation>Otwórz...</translation>
+    </message>
+    <message>
+        <source>Recent Documents</source>
+        <translation>Otwórz poprzedni</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Zamknij</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Zapisz</translation>
+    </message>
+    <message>
+        <source>Save as...</source>
+        <translation>Zapisz jako...</translation>
+    </message>
+    <message>
+        <source>Revert to Saved</source>
+        <translation>Poprzednia wersja</translation>
+    </message>
+    <message>
+        <source>Collect for Output...</source>
+        <translation>Zbieraj dla pliku wyjściowego...</translation>
+    </message>
+    <message>
+        <source>Get Text/Picture...</source>
+        <translation>Pobierz tekst/obrazek...</translation>
+    </message>
+    <message>
+        <source>Insert Page...</source>
+        <translation>Wstaw stronę...</translation>
+    </message>
+    <message>
+        <source>Import...</source>
+        <translation>Importuj...</translation>
+    </message>
+    <message>
+        <source>Save Text...</source>
+        <translation>Zapisz tekst...</translation>
+    </message>
+    <message>
+        <source>Save Page as EPS...</source>
+        <translation>Zapisz stronę jako EPS...</translation>
+    </message>
+    <message>
+        <source>Save as PDF...</source>
+        <translation>Zapisz jako PDF...</translation>
+    </message>
+    <message>
+        <source>Export...</source>
+        <translation>Eksportuj...</translation>
+    </message>
+    <message>
+        <source>Document Info...</source>
+        <translation>Informacja o dokumencie...</translation>
+    </message>
+    <message>
+        <source>Document Setup...</source>
+        <translation>Ustawienia dokumentu...</translation>
+    </message>
+    <message>
+        <source>Print...</source>
+        <translation>Drukuj...</translation>
+    </message>
+    <message>
+        <source>Quit</source>
+        <translation>Zakończ</translation>
+    </message>
+    <message>
+        <source>Cut</source>
+        <translation>Wytnij</translation>
+    </message>
+    <message>
+        <source>Copy</source>
+        <translation>Kopiuj</translation>
+    </message>
+    <message>
+        <source>Paste</source>
+        <translation>Wklej</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>Usuń</translation>
+    </message>
+    <message>
+        <source>Select all</source>
+        <translation>Zaznacz wszystko</translation>
+    </message>
+    <message>
+        <source>Colors...</source>
+        <translation>Kolory...</translation>
+    </message>
+    <message>
+        <source>Paragraph Styles...</source>
+        <translation>Style akapitów...</translation>
+    </message>
+    <message>
+        <source>Line Styles...</source>
+        <translation>Style linii...</translation>
+    </message>
+    <message>
+        <source>Styles...</source>
+        <translation>Style...</translation>
+    </message>
+    <message>
+        <source>Templates...</source>
+        <translation>Szablony...</translation>
+    </message>
+    <message>
+        <source>General...</source>
+        <translation>Ogólne...</translation>
+    </message>
+    <message>
+        <source>Preferences...</source>
+        <translation>Ustawienia...</translation>
+    </message>
+    <message>
+        <source>Fonts...</source>
+        <translation>Czcionki...</translation>
+    </message>
+    <message>
+        <source>Hyphenator...</source>
+        <translation>Dzielenie wyrazów...</translation>
+    </message>
+    <message>
+        <source>Preferences</source>
+        <translation>Ustawienia</translation>
+    </message>
+    <message>
+        <source>Select New Font</source>
+        <translation>Wybierz nową czcionkę</translation>
+    </message>
+    <message>
+        <source>Duplicate</source>
+        <translation>Klonuj</translation>
+    </message>
+    <message>
+        <source>Multiple Duplicate</source>
+        <translation>Wielokrotne klonowanie</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Usuń</translation>
+    </message>
+    <message>
+        <source>Group</source>
+        <translation>Grupuj</translation>
+    </message>
+    <message>
+        <source>Un-group</source>
+        <translation>Rozgrupuj</translation>
+    </message>
+    <message>
+        <source>Lock</source>
+        <translation>Zabezpiecz</translation>
+    </message>
+    <message>
+        <source>Send to Back</source>
+        <translation>Przesuń na spód</translation>
+    </message>
+    <message>
+        <source>Bring to Front</source>
+        <translation>Przesuń na wierzch</translation>
+    </message>
+    <message>
+        <source>Lower</source>
+        <translation>O warstwę niżej</translation>
+    </message>
+    <message>
+        <source>Raise</source>
+        <translation>O warstwę wyżej</translation>
+    </message>
+    <message>
+        <source>Distribute/Align...</source>
+        <translation>Odstęp/Wyrównanie...</translation>
+    </message>
+    <message>
+        <source>Rectangle</source>
+        <translation>Prostokąt</translation>
+    </message>
+    <message>
+        <source>Rounded Rectangle</source>
+        <translation>Zaokrąglony prostokąt</translation>
+    </message>
+    <message>
+        <source>Oval</source>
+        <translation>Elipsa</translation>
+    </message>
+    <message>
+        <source>Edit Frame</source>
+        <translation>Edycja ramki</translation>
+    </message>
+    <message>
+        <source>Shape</source>
+        <translation>Kształt ramki</translation>
+    </message>
+    <message>
+        <source>Detach Text from Path</source>
+        <translation>Odłącz tekst od ścieżki</translation>
+    </message>
+    <message>
+        <source>Combine Polygons</source>
+        <translation>Połącz wielokąty</translation>
+    </message>
+    <message>
+        <source>Split Polygons</source>
+        <translation>Podziel wielokąt</translation>
+    </message>
+    <message>
+        <source>Convert to Outlines</source>
+        <translation>Zamień na wielokąty</translation>
+    </message>
+    <message>
+        <source>Insert...</source>
+        <translation>Wklej...</translation>
+    </message>
+    <message>
+        <source>Delete...</source>
+        <translation>Usuń...</translation>
+    </message>
+    <message>
+        <source>Move...</source>
+        <translation>Przesuń...</translation>
+    </message>
+    <message>
+        <source>Apply Template...</source>
+        <translation>Zastosuj szablon...</translation>
+    </message>
+    <message>
+        <source>Manage Guides...</source>
+        <translation>Zarządzaj liniami pomocniczymi...</translation>
+    </message>
+    <message>
+        <source>Fit in Window</source>
+        <translation>Dopasuj do okna</translation>
+    </message>
+    <message>
+        <source>50%</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>75%</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Actual Size</source>
+        <translation>Oryginalna wielkość</translation>
+    </message>
+    <message>
+        <source>200%</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Thumbnails</source>
+        <translation>Miniatury</translation>
+    </message>
+    <message>
+        <source>Hide Margins</source>
+        <translation>Ukryj marginesy</translation>
+    </message>
+    <message>
+        <source>Hide Frames</source>
+        <translation>Ukryj ramki</translation>
+    </message>
+    <message>
+        <source>Hide Images</source>
+        <translation>Ukryj obrazki</translation>
+    </message>
+    <message>
+        <source>Show Grid</source>
+        <translation>Wyświetlaj siatkę</translation>
+    </message>
+    <message>
+        <source>Snap to Grid</source>
+        <translation>Wyrównaj do siatki</translation>
+    </message>
+    <message>
+        <source>Hide Guides</source>
+        <translation>Wyświetlaj linie pomocnicze</translation>
+    </message>
+    <message>
+        <source>Snap to Guides</source>
+        <translation>Wyrównaj do linii pomocniczych</translation>
+    </message>
+    <message>
+        <source>Tools</source>
+        <translation>Narzędzia</translation>
+    </message>
+    <message>
+        <source>PDF-Tools</source>
+        <translation>Narzędzia PDF</translation>
+    </message>
+    <message>
+        <source>Properties</source>
+        <translation>Właściwości</translation>
+    </message>
+    <message>
+        <source>Outline</source>
+        <translation>Struktura</translation>
+    </message>
+    <message>
+        <source>Scrapbook</source>
+        <translation>Biblioteka</translation>
+    </message>
+    <message>
+        <source>Layers</source>
+        <translation>Warstwy</translation>
+    </message>
+    <message>
+        <source>Page Palette</source>
+        <translation>Paleta stron</translation>
+    </message>
+    <message>
+        <source>Bookmarks</source>
+        <translation>Zakładki</translation>
+    </message>
+    <message>
+        <source>Manage Pictures</source>
+        <translation>Zarządzanie obrazkami</translation>
+    </message>
+    <message>
+        <source>Hyphenate Text</source>
+        <translation>Dziel wyrazy</translation>
+    </message>
+    <message>
+        <source>About Scribus</source>
+        <translation>O Scribusie</translation>
+    </message>
+    <message>
+        <source>About Qt</source>
+        <translation>O Qt</translation>
+    </message>
+    <message>
+        <source>Online-Help...</source>
+        <translation>Podręcznik Scribusa...</translation>
+    </message>
+    <message>
+        <source>Tool-Tips</source>
+        <translation>Podpowiedzi</translation>
+    </message>
+    <message>
+        <source>Edit</source>
+        <translation>Edycja</translation>
+    </message>
+    <message>
+        <source>Style</source>
+        <translation>Styl</translation>
+    </message>
+    <message>
+        <source>Item</source>
+        <translation>Obiekt</translation>
+    </message>
+    <message>
+        <source>Page</source>
+        <translation>Strona</translation>
+    </message>
+    <message>
+        <source>View</source>
+        <translation>Widok</translation>
+    </message>
+    <message>
+        <source>Extras</source>
+        <translation>Dodatki</translation>
+    </message>
+    <message>
+        <source>Windows</source>
+        <translation>Okna</translation>
+    </message>
+    <message>
+        <source>Help</source>
+        <translation>Pomoc</translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <translation>Do lewej</translation>
+    </message>
+    <message>
+        <source>Center</source>
+        <translation>Wyśrodkowane</translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation>Do prawej</translation>
+    </message>
+    <message>
+        <source>Block</source>
+        <translation>Justowany</translation>
+    </message>
+    <message>
+        <source>Forced</source>
+        <translation>Justowany (z ostatnią linią)</translation>
+    </message>
+    <message>
+        <source>Other...</source>
+        <translation>Inne...</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation>Normalny</translation>
+    </message>
+    <message>
+        <source>Underline</source>
+        <translation>Podkreślenie</translation>
+    </message>
+    <message>
+        <source>Strikethru</source>
+        <translation>Przekreślenie</translation>
+    </message>
+    <message>
+        <source>Small Caps</source>
+        <translation>Kapitaliki</translation>
+    </message>
+    <message>
+        <source>Superscript</source>
+        <translation>Indeks górny</translation>
+    </message>
+    <message>
+        <source>Subscript</source>
+        <translation>Indeks dolny</translation>
+    </message>
+    <message>
+        <source>Outlined</source>
+        <translation>Obramowanie</translation>
+    </message>
+    <message>
+        <source>X-Pos:</source>
+        <translation>Wsp. X:</translation>
+    </message>
+    <message>
+        <source>Y-Pos:</source>
+        <translation>Wsp. Y:</translation>
+    </message>
+    <message>
+        <source>Ready</source>
+        <translation>Gotowy</translation>
+    </message>
+    <message>
+        <source>Cascade</source>
+        <translation>Kaskada</translation>
+    </message>
+    <message>
+        <source>Tile</source>
+        <translation>Sąsiadujące</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Brak</translation>
+    </message>
+    <message>
+        <source>Show Frames</source>
+        <translation>Wyświetlaj ramki</translation>
+    </message>
+    <message>
+        <source>Get Picture...</source>
+        <translation>Pobierz obrazek...</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>Kolor</translation>
+    </message>
+    <message>
+        <source>Invert</source>
+        <translation>Negatyw</translation>
+    </message>
+    <message>
+        <source>Get Text...</source>
+        <translation>Pobierz tekst...</translation>
+    </message>
+    <message>
+        <source>Font</source>
+        <translation>Czcionka</translation>
+    </message>
+    <message>
+        <source>Size</source>
+        <translation>Rozmiar</translation>
+    </message>
+    <message>
+        <source>Effects</source>
+        <translation>Atrybuty</translation>
+    </message>
+    <message>
+        <source>Tabulators...</source>
+        <translation>Tabulatory...</translation>
+    </message>
+    <message>
+        <source>Alignment</source>
+        <translation>Wyrównanie</translation>
+    </message>
+    <message>
+        <source>Shade</source>
+        <translation>Cieniowanie</translation>
+    </message>
+    <message>
+        <source>Unlock</source>
+        <translation>Odbezpiecz</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation>Otwórz</translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
+        <translation>Dokumenty (*.sla *.sla.gz *.scd *.scd.gz);;Wszystkie pliki (*)</translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.scd);;All Files (*)</source>
+        <translation>Dokumenty (*.sla *.scd);;Wszystkie pliki (*)</translation>
+    </message>
+    <message>
+        <source>Loading...</source>
+        <translation>Pobieranie...</translation>
+    </message>
+    <message>
+        <source>All Files (*)</source>
+        <translation>Wszystkie pliki (*)</translation>
+    </message>
+    <message>
+        <source>Text Files (*.txt);;All Files(*)</source>
+        <translation>Pliki tekstowe (*.txt);;Wszystkie pliki(*)</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Ostrzeżenie</translation>
+    </message>
+    <message>
+        <source>Can&apos;t write the File: 
+%1</source>
+        <translation>Niemożliwy zapis pliku:
+%1</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Save as</source>
+        <translation>Zapisz jako</translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)</source>
+        <translation>Dokumenty (*.sla *.sla.gz *.scd *.scd.gz);;Wszystkie pliki (*)</translation>
+    </message>
+    <message>
+        <source>Saving...</source>
+        <translation>Zapisywanie...</translation>
+    </message>
+    <message>
+        <source>Printing...</source>
+        <translation>Drukowanie...</translation>
+    </message>
+    <message>
+        <source>Document</source>
+        <translation>Dokument</translation>
+    </message>
+    <message>
+        <source>Printing failed!</source>
+        <translation>Wydruk nie został ukończony!</translation>
+    </message>
+    <message>
+        <source>Scribus Manual</source>
+        <translation>Podręcznik Scribusa</translation>
+    </message>
+    <message>
+        <source>Show Margins</source>
+        <translation>Wyświetlaj marginesy</translation>
+    </message>
+    <message>
+        <source>Show Images</source>
+        <translation>Wyświetlaj obrazki</translation>
+    </message>
+    <message>
+        <source>Hide Grid</source>
+        <translation>Ukryj siatkę</translation>
+    </message>
+    <message>
+        <source>Show Guides</source>
+        <translation>Wyświetlaj linie pomocnicze</translation>
+    </message>
+    <message>
+        <source>The following Programs are missing:</source>
+        <translation>Brak następujących programów:</translation>
+    </message>
+    <message>
+        <source>Ghostscript : You cannot use EPS-Images</source>
+        <translation>Ghostscript : Użycie obrazków EPS niemożliwe</translation>
+    </message>
+    <message>
+        <source>All</source>
+        <translation>Wszystkie</translation>
+    </message>
+    <message>
+        <source>EPS-Files (*.eps);;All Files (*)</source>
+        <translation>Pliki EPS (*.eps);;Wszystkie pliki (*)</translation>
+    </message>
+    <message>
+        <source>Loading:</source>
+        <translation>Pobieranie:</translation>
+    </message>
+    <message>
+        <source>Adjusting Colors</source>
+        <translation>Dopasuj kolory</translation>
+    </message>
+    <message>
+        <source>Undo Delete Object</source>
+        <translation>Cofnij usuwanie obiektu</translation>
+    </message>
+    <message>
+        <source>Undo Object Move</source>
+        <translation>Cofnij przesunięcie obiektu</translation>
+    </message>
+    <message>
+        <source>Undo Object Change</source>
+        <translation>Cofnij zmianę obiektu</translation>
+    </message>
+    <message>
+        <source>English</source>
+        <translation>Angielski</translation>
+    </message>
+    <message>
+        <source>German</source>
+        <translation>Niemiecki</translation>
+    </message>
+    <message>
+        <source>Spanish</source>
+        <translation>Hiszpański</translation>
+    </message>
+    <message>
+        <source>Italian</source>
+        <translation>Włoski</translation>
+    </message>
+    <message>
+        <source>French</source>
+        <translation>Francuski</translation>
+    </message>
+    <message>
+        <source>Russian</source>
+        <translation>Rosyjski</translation>
+    </message>
+    <message>
+        <source>Danish</source>
+        <translation>Duński</translation>
+    </message>
+    <message>
+        <source>Slovak</source>
+        <translation>Słowacki</translation>
+    </message>
+    <message>
+        <source>Hungarian</source>
+        <translation>Węgierski</translation>
+    </message>
+    <message>
+        <source>Czech</source>
+        <translation>Czeski</translation>
+    </message>
+    <message>
+        <source>Dutch</source>
+        <translation>Holenderski</translation>
+    </message>
+    <message>
+        <source>Portuguese</source>
+        <translation>Portugalski</translation>
+    </message>
+    <message>
+        <source>Ukrainian</source>
+        <translation>Ukraiński</translation>
+    </message>
+    <message>
+        <source>Polish</source>
+        <translation>Polski</translation>
+    </message>
+    <message>
+        <source>Greek</source>
+        <translation>Grecki</translation>
+    </message>
+    <message>
+        <source>Catalan</source>
+        <translation>Kataloński</translation>
+    </message>
+    <message>
+        <source>Choose a Directory</source>
+        <translation>Wybierz katalog</translation>
+    </message>
+    <message>
+        <source>Scribus Crash</source>
+        <translation>Scribus zakonczył działanie</translation>
+    </message>
+    <message>
+        <source>Scribus crashes due to Signal #%1</source>
+        <translation>Scribus przestał działać z powodu sygnału #%1</translation>
+    </message>
+    <message>
+        <source>Search/Replace...</source>
+        <translation>Znajdź/Zastąp...</translation>
+    </message>
+    <message>
+        <source>Size:</source>
+        <translation>Rozmiar:</translation>
+    </message>
+    <message>
+        <source>Shade:</source>
+        <translation>Cieniowanie:</translation>
+    </message>
+    <message>
+        <source>Finnish</source>
+        <translation>Fiński</translation>
+    </message>
+    <message>
+        <source>All Supported Formats</source>
+        <translation>Wszystkie obsługiwane formaty</translation>
+    </message>
+    <message>
+        <source>Irish</source>
+        <translation>Irlandzki</translation>
+    </message>
+</context>
+<context>
+    <name>ScribusDoc</name>
+    <message>
+        <source>Document</source>
+        <translation>Dokument</translation>
+    </message>
+    <message>
+        <source>Background</source>
+        <translation>Tło</translation>
+    </message>
+</context>
+<context>
+    <name>ScribusView</name>
+    <message>
+        <source> %</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Page </source>
+        <translation>Strona </translation>
+    </message>
+    <message>
+        <source>Layer</source>
+        <translation>Warstwa</translation>
+    </message>
+    <message>
+        <source>All</source>
+        <translation>Wszystkie</translation>
+    </message>
+    <message>
+        <source> of %1</source>
+        <translation> z %1</translation>
+    </message>
+</context>
+<context>
+    <name>ScribusWin</name>
+    <message>
+        <source>Leave Anyway</source>
+        <translation>Zakończ</translation>
+    </message>
+    <message>
+        <source>Close Anyway</source>
+        <translation>Zamknij</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Ostrzeżenie</translation>
+    </message>
+    <message>
+        <source>Document:</source>
+        <translation>Dokument:</translation>
+    </message>
+    <message>
+        <source>has been changed since the last save.</source>
+        <translation>został zmieniony od ostatniego zapisu.</translation>
+    </message>
+    <message>
+        <source>Save Now</source>
+        <translation>Zapisz teraz</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+</context>
+<context>
+    <name>SeList</name>
+    <message>
+        <source>Show Page Previews</source>
+        <translation>Wyświetlaj podgląd strony</translation>
+    </message>
+</context>
+<context>
+    <name>SeView</name>
+    <message>
+        <source>Show Template Names</source>
+        <translation>Wyświetlaj nazwy szablonów</translation>
+    </message>
+</context>
+<context>
+    <name>SearchReplace</name>
+    <message>
+        <source>Search/Replace</source>
+        <translation>Znajdź/Zastąp</translation>
+    </message>
+    <message>
+        <source>Search for:</source>
+        <translation>Znajdź:</translation>
+    </message>
+    <message>
+        <source>Text</source>
+        <translation>Tekst</translation>
+    </message>
+    <message>
+        <source>Paragraph Style</source>
+        <translation>Styl akapitu</translation>
+    </message>
+    <message>
+        <source>Font</source>
+        <translation>Czcionka</translation>
+    </message>
+    <message>
+        <source>Font Size</source>
+        <translation>Rozmiar czcionki</translation>
+    </message>
+    <message>
+        <source>Fill Color</source>
+        <translation>Kolor wypełnienia</translation>
+    </message>
+    <message>
+        <source>Stroke Color</source>
+        <translation>Kolor obrysu</translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <translation>Do lewej</translation>
+    </message>
+    <message>
+        <source>Center</source>
+        <translation>Wyśrodkowane</translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation>Do prawej</translation>
+    </message>
+    <message>
+        <source>Block</source>
+        <translation>Justowany</translation>
+    </message>
+    <message>
+        <source>Forced</source>
+        <translation>Justowany (z ostatnią linią)</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Brak</translation>
+    </message>
+    <message>
+        <source>Replace with:</source>
+        <translation>Zastąp przez:</translation>
+    </message>
+    <message>
+        <source>Whole Word</source>
+        <translation>Całe słowo</translation>
+    </message>
+    <message>
+        <source>Ignore Case</source>
+        <translation>Ignoruj wielkość liter</translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <translation>Szukaj</translation>
+    </message>
+    <message>
+        <source>Replace</source>
+        <translation>Zastąp</translation>
+    </message>
+    <message>
+        <source>Replace All</source>
+        <translation>Zastąp wszystko</translation>
+    </message>
+    <message>
+        <source>Leave</source>
+        <translation>Zakończ</translation>
+    </message>
+    <message>
+        <source>Search finished</source>
+        <translation>Przeszukiwanie zostało ukończone</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Font Effects</source>
+        <translation>Atrybuty czcionki</translation>
+    </message>
+    <message>
+        <source>Fill Shade</source>
+        <translation>Cieniowanie wypełnienia</translation>
+    </message>
+    <message>
+        <source>Stroke Shade</source>
+        <translation>Cieniowanie obrysu</translation>
+    </message>
+</context>
+<context>
+    <name>SeitenPal</name>
+    <message>
+        <source>Arrange Pages</source>
+        <translation>Rozmieść strony</translation>
+    </message>
+    <message>
+        <source>Available Templates:</source>
+        <translation>Dostępne szablony:</translation>
+    </message>
+    <message>
+        <source>Document Pages:</source>
+        <translation>Strony dokumentu:</translation>
+    </message>
+    <message>
+        <source>Facing Pages</source>
+        <translation>Strony widzące się</translation>
+    </message>
+    <message>
+        <source>Left Page first</source>
+        <translation>Lewa strona najpierw</translation>
+    </message>
+    <message>
+        <source>Drag Pages or Template Pages onto the Trashbin to delete them.</source>
+        <translation>Przeciągnij strony lub szablony do śmietnika, aby je usunąć.</translation>
+    </message>
+    <message>
+        <source>This previews all the pages of your Document.</source>
+        <translation>Podgląd wszystkich stron dokumentu.</translation>
+    </message>
+    <message>
+        <source>Here are all your Templates, to create a new Page
+drag a Template to the Pageview below.</source>
+        <translation>Tutaj są twoje szablony. Aby stworzyć nową stronę, 
+przeciągnij szablon na widok strony na dole.</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation>Normalny</translation>
+    </message>
+</context>
+<context>
+    <name>SelectFields</name>
+    <message>
+        <source>Select Fields</source>
+        <translation>Wybierz pola</translation>
+    </message>
+    <message>
+        <source>Available Fields</source>
+        <translation>Dostępne pola</translation>
+    </message>
+    <message>
+        <source>&gt;&gt;</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>&lt;&lt;</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Selected Fields</source>
+        <translation>Wybrane pola</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+</context>
+<context>
+    <name>ShadeButton</name>
+    <message>
+        <source>Other...</source>
+        <translation>Inne...</translation>
+    </message>
+    <message>
+        <source>Shade:</source>
+        <translation>Cieniowanie:</translation>
+    </message>
+    <message>
+        <source>Shade</source>
+        <translation>Cieniowanie</translation>
+    </message>
+</context>
+<context>
+    <name>Spalette</name>
+    <message>
+        <source>No Style</source>
+        <translation>Bez stylu</translation>
+    </message>
+</context>
+<context>
+    <name>StilFormate</name>
+    <message>
+        <source>Edit Styles</source>
+        <translation>Edytuj style</translation>
+    </message>
+    <message>
+        <source>Append</source>
+        <translation>Dołącz</translation>
+    </message>
+    <message>
+        <source>New</source>
+        <translation>Nowy</translation>
+    </message>
+    <message>
+        <source>Edit</source>
+        <translation>Edycja</translation>
+    </message>
+    <message>
+        <source>Duplicate</source>
+        <translation>Klonuj</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Usuń</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Zapisz</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+    <message>
+        <source>Copy of %1</source>
+        <translation>Kopia %1</translation>
+    </message>
+    <message>
+        <source>New Style</source>
+        <translation>Nowy styl</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Ostrzeżenie</translation>
+    </message>
+    <message>
+        <source>Do you really want do delete this Style?</source>
+        <translation>Naprawdę usunąć ten styl?</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation>Nie</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation>Tak</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation>Otwórz</translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
+        <translation>Dokumenty (*.sla *.sla.gz *.scd *.scd.gz);;Wszystkie pliki (*)</translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.scd);;All Files (*)</source>
+        <translation>Dokumenty (*.sla *.scd);;Wszystkie pliki (*)</translation>
+    </message>
+</context>
+<context>
+    <name>StoryEditor</name>
+    <message>
+        <source>Story Editor</source>
+        <translation>Edytor artykułów</translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <translation>Do lewej</translation>
+    </message>
+    <message>
+        <source>Center</source>
+        <translation>Wyśrodkowane</translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation>Do prawej</translation>
+    </message>
+    <message>
+        <source>Block</source>
+        <translation>Justowany</translation>
+    </message>
+    <message>
+        <source>Forced</source>
+        <translation>Justowany (z ostatnią linią)</translation>
+    </message>
+    <message>
+        <source>New</source>
+        <translation>Nowy</translation>
+    </message>
+    <message>
+        <source>Save to File...</source>
+        <translation>Zapisz do pliku...</translation>
+    </message>
+    <message>
+        <source>Load from File...</source>
+        <translation>Pobierz z pliku...</translation>
+    </message>
+    <message>
+        <source>Save and Exit</source>
+        <translation>Zapisz i zakończ</translation>
+    </message>
+    <message>
+        <source>Exit without Saving</source>
+        <translation>Zakończ bez zapisywania</translation>
+    </message>
+    <message>
+        <source>Undo</source>
+        <translation>Cofnij</translation>
+    </message>
+    <message>
+        <source>Redo</source>
+        <translation>Przywróć</translation>
+    </message>
+    <message>
+        <source>Cut</source>
+        <translation>Wytnij</translation>
+    </message>
+    <message>
+        <source>Copy</source>
+        <translation>Kopiuj</translation>
+    </message>
+    <message>
+        <source>Paste</source>
+        <translation>Wklej</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>Usuń</translation>
+    </message>
+    <message>
+        <source>Edit Styles...</source>
+        <translation>Edytuj style...</translation>
+    </message>
+    <message>
+        <source>Update Textframe</source>
+        <translation>Aktualizuj ramkę tekstową</translation>
+    </message>
+    <message>
+        <source>File</source>
+        <translation>Plik</translation>
+    </message>
+    <message>
+        <source>Edit</source>
+        <translation>Edycja</translation>
+    </message>
+    <message>
+        <source>Style</source>
+        <translation>Styl</translation>
+    </message>
+    <message>
+        <source>Text</source>
+        <translation>Tekst</translation>
+    </message>
+    <message>
+        <source>Current Paragraph:</source>
+        <translation>Aktualny akapit:</translation>
+    </message>
+    <message>
+        <source>Words: </source>
+        <translation>Słów: </translation>
+    </message>
+    <message>
+        <source>Chars: </source>
+        <translation>Znaków: </translation>
+    </message>
+    <message>
+        <source>Totals:</source>
+        <translation>Ogólnie:</translation>
+    </message>
+    <message>
+        <source>Paragraphs: </source>
+        <translation>Akapitów: </translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Ostrzeżenie</translation>
+    </message>
+    <message>
+        <source>Do you really want to lose all your Changes?</source>
+        <translation>Naprawdę anulować wszystkie zmiany?</translation>
+    </message>
+    <message>
+        <source>Do you really want to clear all your Text?</source>
+        <translation>Naprawdę usunąć cały tekst?</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation>Otwórz</translation>
+    </message>
+    <message>
+        <source>Text Files (*.txt);;All Files(*)</source>
+        <translation>Pliki tekstowe (*.txt);;Wszystkie pliki(*)</translation>
+    </message>
+    <message>
+        <source>Save as</source>
+        <translation>Zapisz jako</translation>
+    </message>
+    <message>
+        <source>Update Text Frame</source>
+        <translation>Aktualizuj ramkę tekstową</translation>
+    </message>
+    <message>
+        <source>Search/Replace...</source>
+        <translation>Znajdź/Zastąp...</translation>
+    </message>
+</context>
+<context>
+    <name>StyleSelect</name>
+    <message>
+        <source>Underline</source>
+        <translation>Podkreślenie</translation>
+    </message>
+    <message>
+        <source>Small Caps</source>
+        <translation>Kapitaliki</translation>
+    </message>
+    <message>
+        <source>Subscript</source>
+        <translation>Indeks dolny</translation>
+    </message>
+    <message>
+        <source>Superscript</source>
+        <translation>Indeks górny</translation>
+    </message>
+    <message>
+        <source>Strikeout</source>
+        <translation>Przekreślenie</translation>
+    </message>
+    <message>
+        <source>Outline Text</source>
+        <translation>Obramowanie tekstu</translation>
+    </message>
+</context>
+<context>
+    <name>TabManager</name>
+    <message>
+        <source>Manage Tabulators</source>
+        <translation>Konfiguracja tabulatorów</translation>
+    </message>
+    <message>
+        <source>Position:</source>
+        <translation>Pozycja:</translation>
+    </message>
+    <message>
+        <source>Alignment:</source>
+        <translation>Wyrównanie:</translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <translation>Do lewej</translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation>Do prawej</translation>
+    </message>
+    <message>
+        <source>Full Stop</source>
+        <translation>Kropka</translation>
+    </message>
+    <message>
+        <source>Comma</source>
+        <translation>Przecinek</translation>
+    </message>
+    <message>
+        <source>Center</source>
+        <translation>Wyśrodkowane</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Usuń</translation>
+    </message>
+    <message>
+        <source>Add</source>
+        <translation>Dodaj</translation>
+    </message>
+</context>
+<context>
+    <name>Tree</name>
+    <message>
+        <source>Outline</source>
+        <translation>Struktura</translation>
+    </message>
+    <message>
+        <source>Element</source>
+        <translation>Element</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>Typ</translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <translation>Informacja</translation>
+    </message>
+    <message>
+        <source>X:</source>
+        <translation>X:</translation>
+    </message>
+    <message>
+        <source>Y:</source>
+        <translation>Y:</translation>
+    </message>
+    <message>
+        <source>Font:</source>
+        <translation>Czcionka:</translation>
+    </message>
+    <message>
+        <source>Image</source>
+        <translation>Obrazek</translation>
+    </message>
+    <message>
+        <source>Text</source>
+        <translation>Tekst</translation>
+    </message>
+    <message>
+        <source>Line</source>
+        <translation>Linia</translation>
+    </message>
+    <message>
+        <source>Polygon</source>
+        <translation>Wielokąt</translation>
+    </message>
+    <message>
+        <source>Polyline</source>
+        <translation>Linia łamana</translation>
+    </message>
+    <message>
+        <source>PathText</source>
+        <translation>Tekst na ścieżce</translation>
+    </message>
+    <message>
+        <source>Page</source>
+        <translation>Strona</translation>
+    </message>
+</context>
+<context>
+    <name>WerkToolB</name>
+    <message>
+        <source>Tools</source>
+        <translation>Narzędzia</translation>
+    </message>
+    <message>
+        <source>Select Items</source>
+        <translation>Wybiera elementy</translation>
+    </message>
+    <message>
+        <source>Insert Text Frame</source>
+        <translation>Wstawia ramkę tekstową</translation>
+    </message>
+    <message>
+        <source>Insert Picture</source>
+        <translation>Wstawia ramkę graficzną</translation>
+    </message>
+    <message>
+        <source>Properties...</source>
+        <translation>Właściwości...</translation>
+    </message>
+    <message>
+        <source>Insert Polygons</source>
+        <translation>Wstawia wielokąty</translation>
+    </message>
+    <message>
+        <source>Insert Lines</source>
+        <translation>Wstawia linie</translation>
+    </message>
+    <message>
+        <source>Insert Bezier Curves</source>
+        <translation>Wstawia krzywe Beziera</translation>
+    </message>
+    <message>
+        <source>Insert Freehand Line</source>
+        <translation>Wstawia odręczną linię</translation>
+    </message>
+    <message>
+        <source>Rotate Item</source>
+        <translation>Obraca element</translation>
+    </message>
+    <message>
+        <source>Zooms in or out</source>
+        <translation>Powiększa/Pomniejsza widok</translation>
+    </message>
+    <message>
+        <source>Edit Contents of Frame</source>
+        <translation>Edytuje zawartość ramki</translation>
+    </message>
+    <message>
+        <source>Edit the Text with the Story Editor</source>
+        <translation>Edytuje tekst w edytorze artykułów</translation>
+    </message>
+    <message>
+        <source>Link Text Frames</source>
+        <translation>Łączy ramki tekstowe</translation>
+    </message>
+    <message>
+        <source>Unlink Text Frames</source>
+        <translation>Rozłącza ramki tekstowe</translation>
+    </message>
+    <message>
+        <source>Draws various Shapes</source>
+        <translation>Rysuje różne formy</translation>
+    </message>
+</context>
+<context>
+    <name>WerkToolBP</name>
+    <message>
+        <source>PDF-Tools</source>
+        <translation>Narzędzia PDF</translation>
+    </message>
+    <message>
+        <source>Button</source>
+        <translation>Przycisk</translation>
+    </message>
+    <message>
+        <source>Text Field</source>
+        <translation>Pole tekstowe</translation>
+    </message>
+    <message>
+        <source>Check Box</source>
+        <translation>Pole wyboru</translation>
+    </message>
+    <message>
+        <source>Combo Box</source>
+        <translation>Lista rozwijana</translation>
+    </message>
+    <message>
+        <source>List Box</source>
+        <translation>Lista</translation>
+    </message>
+    <message>
+        <source>Insert PDF-Fields</source>
+        <translation>Wstawia pola PDF</translation>
+    </message>
+    <message>
+        <source>Text</source>
+        <translation>Tekst</translation>
+    </message>
+    <message>
+        <source>Link</source>
+        <translation>Dowiązanie</translation>
+    </message>
+    <message>
+        <source>Insert PDF-Annotations</source>
+        <translation>Wstawia adnotacje PDF</translation>
+    </message>
+</context>
+<context>
+    <name>ZAuswahl</name>
+    <message>
+        <source>Select Character:</source>
+        <translation>Wybierz znak:</translation>
+    </message>
+    <message>
+        <source>Insert</source>
+        <translation>Wklej</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>Usuń</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Zamknij</translation>
+    </message>
+</context>
+</TS>

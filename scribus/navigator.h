@@ -26,26 +26,28 @@
   *@author Franz Schmid
   */
 
-class Navigator : public QLabel  {
-
-Q_OBJECT
+class Navigator : public QLabel  
+{
+	Q_OBJECT
 
 public: 
-	Navigator(QWidget *parent, int Size, int Seite, ScribusView* vie);
+	Navigator(QWidget *parent, int Size, int Seite, ScribusView* vie, QString fn = "");
 	~Navigator() {};
 	void mouseMoveEvent(QMouseEvent *m);
 	void mousePressEvent(QMouseEvent *m);
 	void mouseReleaseEvent(QMouseEvent *m);
 	void paintEvent(QPaintEvent *e);
 	void drawMark(int x, int y);
-	void SetSeite(int Seite, int Size);
+	bool SetSeite(int Seite, int Size, QString fn = "");
 	int Xp;
 	int Yp;
+	int Breite;
+	int Hoehe;
 	ScribusView* view;
 	QPixmap pmx;
 	
 signals:
-	void Coords(float x, float y);
+	void Coords(double x, double y);
 };
 
 #endif

@@ -26,8 +26,10 @@
   *@author Franz Schmid
   */
 
-class Spalette : public QListBox  {
-Q_OBJECT
+class Spalette : public QListBox  
+{
+	Q_OBJECT
+
 public: 
 	Spalette(QWidget* parent);
 	~Spalette() {};
@@ -36,6 +38,7 @@ public:
 	
 public slots:
 	void SetFormats(ScribusDoc *dd);
+	void setFormat(int e);
 	void updateFList();
 	void selFormat(QListBoxItem *c);
 	

@@ -8,7 +8,13 @@
 ****************************************************************************/
 #include "druck.h"
 #include "druck.moc"
-#include "config.h"
+
+#if (_MSC_VER >= 1200)
+ #include "win-config.h"
+#else
+ #include "config.h"
+#endif
+
 #include "customfdialog.h"
 #include "cupsoptions.h"
 #include <qtextstream.h>
@@ -29,26 +35,26 @@ extern QPixmap loadIcon(QString nam);
 AdvOptions::AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic) : QDialog( parent, "prin", true, 0 )
 {
 	setCaption( tr( "Advanced Options" ) );
- 	setIcon(loadIcon("AppIcon.xpm"));
+ 	setIcon(loadIcon("AppIcon.png"));
 	AdvOptionsLayout = new QVBoxLayout( this );
 	AdvOptionsLayout->setSpacing( 5 );
 	AdvOptionsLayout->setMargin( 10 );
 	MirrorH = new QCheckBox(this, "MirrorH");
-	MirrorH->setText(tr("Mirror Page(s) horizontal"));
+	MirrorH->setText( tr("Mirror Page(s) horizontal"));
 	MirrorH->setChecked(Hm);
 	AdvOptionsLayout->addWidget( MirrorH );
 	MirrorV = new QCheckBox(this, "MirrorV");
-	MirrorV->setText(tr("Mirror Page(s) vertical"));
+	MirrorV->setText( tr("Mirror Page(s) vertical"));
 	MirrorV->setChecked(Vm);
 	AdvOptionsLayout->addWidget( MirrorV );
 #ifdef HAVE_CMS
 	if (CMSuse)
-		{
+	{
 		UseICC = new QCheckBox(this, "ICC");
-		UseICC->setText(tr("Apply ICC-Profiles"));
+		UseICC->setText( tr("Apply ICC-Profiles"));
 		UseICC->setChecked(Ic);
 		AdvOptionsLayout->addWidget( UseICC );
-		}
+	}
 #endif
 
 	Layout2 = new QHBoxLayout;
@@ -63,7 +69,7 @@ AdvOptions::AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic) : QDialog( pa
 	Layout2->addItem( spacer2 );
 	PushButton2 = new QPushButton( this, "PushButton1_2" );
 	PushButton2->setText( tr( "Cancel" ) );
-	PushButton2->setDefault( TRUE );
+	PushButton2->setDefault( true );
 	PushButton2->setFocus();
 	Layout2->addWidget( PushButton2 );
 	QSpacerItem* spacer3 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -77,9 +83,9 @@ AdvOptions::AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic) : QDialog( pa
 Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
     : QDialog( parent, "Dr", true, 0)
 {
-		PrinterOpts = "";
+	PrinterOpts = "";
     setCaption( tr( "Setup Printer" ) );
- 		setIcon(loadIcon("AppIcon.xpm"));
+ 	setIcon(loadIcon("AppIcon.png"));
     DruckLayout = new QVBoxLayout( this ); 
     DruckLayout->setSpacing( 6 );
     DruckLayout->setMargin( 10 );
@@ -105,53 +111,49 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
     QString tmp;
     QStringList wt;
 #ifdef HAVE_CUPS
-		cups_dest_t *dests;
-		int num_dests;
-		num_dests = cupsGetDests(&dests);
-		for (int pr = 0; pr < num_dests; pr++)
-			{
-			tmp = QString(dests[pr].name);
+	cups_dest_t *dests;
+	int num_dests = cupsGetDests(&dests);
+	for (int pr = 0; pr < num_dests; ++pr)
+	{
+		tmp = QString(dests[pr].name);
     	PrintDest->insertItem(tmp);
     	if (tmp == PDev)
-    		{
+    	{
     		PrintDest->setCurrentItem(PrintDest->count()-1);
     		ToFile = false;
-    		}
-			}
-		cupsFreeDests(num_dests, dests);
+    	}
+	}
+	cupsFreeDests(num_dests, dests);
 #else
     if (loadText("/etc/printcap", &Pcap))
-    	{
+    {
     	QTextStream ts(&Pcap, IO_ReadOnly);
     	while(!ts.atEnd())
-    		{
+    	{
     		tmp = ts.readLine();
     		if (tmp.isEmpty())
     			continue;
-        if ((tmp[0] != '#') && (tmp[0] != ' ') && (tmp[0] != '\n') && (tmp[0] != '\t'))
-    			{
+    	    if ((tmp[0] != '#') && (tmp[0] != ' ') && (tmp[0] != '\n') && (tmp[0] != '\t'))
+    		{
     			tmp = tmp.stripWhiteSpace();
-					if (tmp.right(2) == ":\\")
-    				tmp = tmp.left(tmp.length()-2);
-					else
-    				tmp = tmp.left(tmp.length()-1);
-					wt = QStringList::split("|", tmp);
+				tmp = tmp.left(tmp.length() - (tmp.right(2) == ":\\" ? 2 : 1));  
+				wt = QStringList::split("|", tmp);
     			PrintDest->insertItem(wt[0]);
     			if (wt[0] == PDev)
-    				{
+    			{
     				PrintDest->setCurrentItem(PrintDest->count()-1);
     				ToFile = false;
-    				}
     			}
     		}
     	}
+    }
 #endif
-    PrintDest->insertItem(tr("File"));
+    PrintDest->insertItem( tr("File"));
     if (PDev == "")
-    	{
+    {
     	Geraet = PrintDest->text(0);
     	ToFile = false;
-    	}
+    }
     else
     	Geraet = PDev;
     Layout1x->addWidget( PrintDest );
@@ -185,7 +187,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
 
     OtherCom = new QCheckBox(Drucker, "Dc");
     OtherCom->setChecked(false);
-    OtherCom->setText(tr("Print via other Command"));
+    OtherCom->setText( tr("Alternative Printer Command"));
     DruckerLayout->addWidget( OtherCom, 2, 0, Qt::AlignLeft);
     LayoutCC = new QHBoxLayout;
     LayoutCC->setSpacing( 6 );
@@ -337,10 +339,10 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
 
     SepArt = new QComboBox( true, ButtonGroup3, "SepArt" );
     SepArt->insertItem( tr( "All" ) );
-    SepArt->insertItem("Cyan");
-    SepArt->insertItem("Magenta");
-    SepArt->insertItem("Yellow");
-    SepArt->insertItem("Black");
+    SepArt->insertItem( tr("Cyan"));
+    SepArt->insertItem( tr("Magenta"));
+    SepArt->insertItem( tr("Yellow"));
+    SepArt->insertItem( tr("Black"));
     SepArt->setEnabled( false );
     SepArt->setEditable( false );
     ButtonGroup3Layout->addWidget( SepArt );
@@ -348,7 +350,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
 
     ButtonGroup3_2 = new QButtonGroup( Optionen, "ButtonGroup3_2" );
     ButtonGroup3_2->setFrameShape( QButtonGroup::NoFrame );
-    ButtonGroup3_2->setTitle( tr( "" ) );
+    ButtonGroup3_2->setTitle( "" );
     ButtonGroup3_2->setColumnLayout(0, Qt::Vertical );
     ButtonGroup3_2->layout()->setSpacing( 0 );
     ButtonGroup3_2->layout()->setMargin( 0 );
@@ -369,7 +371,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
     MirrorV = false,
     ICCinUse = false;
     AdvOptButton = new QPushButton(ButtonGroup3_2, "Adv");
-    AdvOptButton->setText(tr("Advanced Options..."));
+    AdvOptButton->setText( tr("Advanced Options..."));
     ButtonGroup3_2Layout->addWidget( AdvOptButton );
     
     OptionenLayout->addWidget( ButtonGroup3_2, 0, 1 );
@@ -391,14 +393,14 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
     Layout2->addWidget( OKButton_2 );
 
     DruckLayout->addLayout( Layout2 );
-    if ((PDev==tr("File")) || (PrintDest->count() == 1))
-    	{
+    if ((PDev== tr("File")) || (PrintDest->count() == 1))
+    {
     	PrintDest->setCurrentItem(PrintDest->count()-1);
     	DateiT->setEnabled(true);
     	LineEdit1->setEnabled(true);
     	ToolButton1->setEnabled(true);
     	ToFile = true;
-    	}
+    }
     setMaximumSize(sizeHint());
 
     // signals and slots connections
@@ -419,14 +421,14 @@ void Druck::SetAdvOptions()
 {
 	AdvOptions* dia = new AdvOptions(this, MirrorH, MirrorV, ICCinUse);
 	if (dia->exec())
-		{
-    MirrorH = dia->MirrorH->isChecked();
-    MirrorV = dia->MirrorV->isChecked();
+	{
+    	MirrorH = dia->MirrorH->isChecked();
+    	MirrorV = dia->MirrorV->isChecked();
 #ifdef HAVE_CMS
 		if (CMSuse)
 			ICCinUse = dia->UseICC->isChecked();
 #endif
-		}
+	}
 	delete dia;
 }
 
@@ -435,32 +437,32 @@ void Druck::SetOptions()
 	PrinterOpts = "";
 	CupsOptions* dia = new CupsOptions(this, Geraet);
 	if (dia->exec())
-		{
+	{
 		struct CupsOptions::OpData daten;
 		QMap<QString,CupsOptions::OpData>::Iterator it;
 		for (it = dia->KeyToText.begin(); it != dia->KeyToText.end(); ++it)
-			{
+		{
 			if (dia->KeyToDefault[it.key()] != dia->FlagsOpt.at(it.data().Cnum)->currentText())
-				{
+			{
 				if (it.data().KeyW == "mirror")
 					PrinterOpts += " -o mirror";
 				else
-					{
+				{
 					if (it.data().KeyW == "page-set")
-						{
+					{
 						PrinterOpts += " -o "+it.data().KeyW+"=";
 						if (dia->FlagsOpt.at(it.data().Cnum)->currentItem() == 1)
 							PrinterOpts += "even";
 						else
 							PrinterOpts += "odd";
-						}
+					}
 					else
-						{
+					{
 						if (it.data().KeyW == "number-up")
-							{
+						{
 							PrinterOpts += " -o "+it.data().KeyW+"=";
 							switch (dia->FlagsOpt.at(it.data().Cnum)->currentItem())
-								{
+							{
 								case 1:
 									PrinterOpts += "2";
 									break;
@@ -476,35 +478,41 @@ void Druck::SetOptions()
 								case 5:
 									PrinterOpts += "16";
 									break;
-								}
 							}
+						}
 						else
-							PrinterOpts += " -o "+it.data().KeyW+"="+dia->FlagsOpt.at(it.data().Cnum)->currentText();
+						{
+							if (it.data().KeyW == "orientation")
+								PrinterOpts += " -o landscape";
+							else
+								PrinterOpts += " -o " + 
+							it.data().KeyW+"="+dia->FlagsOpt.at(it.data().Cnum)->currentText();
 						}
 					}
 				}
-			}		
-		}
+			}
+		}		
+	}
 	delete dia;
 }
 
 void Druck::SelComm()
 {
 	if (OtherCom->isChecked())
-		{
+	{
 		OthText->setEnabled(true);
 		Command->setEnabled(true);
-    DateiT->setEnabled(false);
-    LineEdit1->setEnabled(false);
-    ToolButton1->setEnabled(false);
+    	DateiT->setEnabled(false);
+    	LineEdit1->setEnabled(false);
+    	ToolButton1->setEnabled(false);
 		PrintDest->setEnabled(false);
-    ToFile = false;
+    	ToFile = false;
 #ifdef HAVE_CUPS
 		OptButton->setEnabled(false);
 #endif
   	}
 	else
-		{
+	{
 		OthText->setEnabled(false);
 		Command->setEnabled(false);
 		PrintDest->setEnabled(true);
@@ -513,73 +521,43 @@ void Druck::SelComm()
 		if (Geraet != tr("File"))
 			OptButton->setEnabled(true);
 #endif
-		}
+	}
 }
 
 void Druck::SelPrinter(const QString& prn)
 {
-	if (prn == tr("File"))
-		{
-    DateiT->setEnabled(true);
-    LineEdit1->setEnabled(true);
-    ToolButton1->setEnabled(true);
-    ToFile = true;
+	bool setter = prn == tr("File") ? true : false;
+	DateiT->setEnabled(setter);
+	LineEdit1->setEnabled(setter);
+	ToolButton1->setEnabled(setter);
+	ToFile = setter;
 #ifdef HAVE_CUPS
-		OptButton->setEnabled(false);
+	OptButton->setEnabled(!setter);
 #endif
-		}
-	else
-		{
-    DateiT->setEnabled(false);
-    LineEdit1->setEnabled(false);
-    ToolButton1->setEnabled(false);
-    ToFile = false;
-#ifdef HAVE_CUPS
-		OptButton->setEnabled(true);
-#endif
-		}
 	Geraet = prn;
 }
 
 void Druck::SelRange(bool e)
 {
-	if (e)
-		{
-    TextLabel2_2->setEnabled( false );
-    TextLabel2->setEnabled( false );
-    To->setEnabled( false );
-   	From->setEnabled( false );
-		}
-	else
-		{
-    TextLabel2_2->setEnabled( true );
-    TextLabel2->setEnabled( true );
-    To->setEnabled( true );
-   	From->setEnabled( true );
-		}
+	TextLabel2_2->setEnabled( !e );
+	TextLabel2->setEnabled( !e );
+	To->setEnabled( !e );
+	From->setEnabled( !e );
 }
 
 void Druck::SelMode(bool e)
 {
-	if (e)
-		{
-    SepArt->setEnabled( false );
-    ToSeparation = false;
-    }
-	else
-		{
-    SepArt->setEnabled( true );
-    ToSeparation = true;
-    }
+	SepArt->setEnabled( !e );
+	ToSeparation = !e;
 }
 
 void Druck::SelFile()
 {
-	CustomFDialog dia(this, tr("Save as"), tr("Postscript-Files (*.ps);; All Files (*)"), false, false);
+	CustomFDialog dia(this, tr("Save as"), tr("Postscript-Files (*.ps);;All Files (*)"), false, false);
 	if (LineEdit1->text() != "")
 		dia.setSelection(LineEdit1->text());
 	if (dia.exec() == QDialog::Accepted)
-  	LineEdit1->setText(dia.selectedFile());
+  		LineEdit1->setText(dia.selectedFile());
 }
 
 void Druck::setMinMax(int min, int max)
@@ -628,10 +606,7 @@ int Druck::numCopies()
 
 int Druck::pageOrder()
 {
-	if (FirstPfirst->isChecked())
-		return 0;
-	else
-		return 1;
+	return FirstPfirst->isChecked() ? 0 : 1;
 }
 
 bool Druck::outputSeparations()

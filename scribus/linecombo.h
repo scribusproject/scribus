@@ -25,7 +25,8 @@
   *@author Franz Schmid
   */
 
-class LineCombo : public QComboBox  {
+class LineCombo : public QComboBox  
+{
 public: 
 	LineCombo(QWidget* pa);
 	~LineCombo() {};

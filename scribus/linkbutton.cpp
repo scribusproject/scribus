@@ -18,6 +18,16 @@
 #include "linkbutton.h"
 #include "icons6.h"
 #include <qiconset.h>
+
+/*!
+ \fn LinkButton::LinkButton(QWidget *pa)
+ \author Franz Schmid
+ \date
+ \brief Constructor for Link buttons
+ \param pa Parent Window
+ \retval None
+ */
+
 LinkButton::LinkButton(QWidget *pa) : QToolButton(pa)
 {
 	setBackgroundMode(PaletteBackground);
@@ -27,10 +37,28 @@ LinkButton::LinkButton(QWidget *pa) : QToolButton(pa)
 	setIconSet(a);
 }
 
+/*!
+ \fn QSize LinkButton::sizeHint()
+ \author Franz Schmid
+ \date
+ \brief Returns size of QPixmap, see the Qt-Documentation for further explaining of that.
+ \param None
+ \retval QSize size
+ */
+
 QSize LinkButton::sizeHint()
 {
 	return QSize(QPixmap(ChainC).width(),QPixmap(ChainC).height());
 }
+
+/*!
+ \fn QSize LinkButton::minimumSizeHint()
+ \author Franz Schmid
+ \date
+ \brief Returns minimum size of QPixmap, see the Qt-Documentation for further explaining of that.
+ \param None
+ \retval QSize size
+ */
 
 QSize LinkButton::minimumSizeHint()
 {

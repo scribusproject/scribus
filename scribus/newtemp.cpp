@@ -7,6 +7,7 @@
 ** WARNING! All changes made in this file will be lost!
 ****************************************************************************/
 #include "newtemp.h"
+#include "newtemp.moc"
 extern QPixmap loadIcon(QString nam);
 
 #include <qtooltip.h>
@@ -15,7 +16,7 @@ NewTm::NewTm( QWidget* parent, QString text, QString titel, ScribusDoc *doc)
     : QDialog( parent, "newt", true, 0 )
 {
     setCaption( tr( titel ) );
-  	setIcon(loadIcon("AppIcon.xpm"));
+  	setIcon(loadIcon("AppIcon.png"));
     QueryLayout = new QVBoxLayout( this );
     QueryLayout->setSpacing( 6 );
     QueryLayout->setMargin( 11 );
@@ -32,17 +33,17 @@ NewTm::NewTm( QWidget* parent, QString text, QString titel, ScribusDoc *doc)
     Layout2->addWidget( Answer );
     QueryLayout->addLayout( Layout2 );
     if (doc->PageFP)
-    	{
+   	{
     	Layout3 = new QHBoxLayout;
     	Layout3->setSpacing( 6 );
     	Layout3->setMargin( 0 );
     	Links = new QComboBox( true, this, "links" );
-    	Links->insertItem(tr("Left Page"));
-    	Links->insertItem(tr("Right Page"));
+    	Links->insertItem( tr("Left Page"));
+    	Links->insertItem( tr("Right Page"));
     	Links->setEditable(false);
     	Layout3->addWidget( Links );
     	QueryLayout->addLayout( Layout3 );
-    	}
+   	}
     Layout1 = new QHBoxLayout;
     Layout1->setSpacing( 6 );
     Layout1->setMargin( 0 );

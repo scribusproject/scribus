@@ -24,15 +24,22 @@
   *@author Franz Schmid
   */
 
-class MSpinBox : public QSpinBox  {
+class MSpinBox : public QSpinBox  
+{
 public: 
 	MSpinBox(QWidget *pa, int s);
 	~MSpinBox() {};
+	void setMaxValue(double val);
+	void setMinValue(double val);
+	void setValue(double val);
+	double value();
 	QString mapValueToText(int value);
 	int mapTextToValue(bool *ok);
 	int Decimals;
 	int Width;
+	QLineEdit *ed;
 	void setDecimals( int deci );
+
 protected:
 	bool eventFilter( QObject* ob, QEvent* ev );
 };

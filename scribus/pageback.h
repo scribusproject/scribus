@@ -21,11 +21,13 @@
 #include <qwidget.h>
 #include <qpainter.h>
 
-/**Seitenhintergrund
-  *@author Franz Schmid
-  */
+/*!
+ * \brief Page background
+ * \author Franz Schmid
+ */
 
-class PageBack : public QWidget  {
+class PageBack : public QWidget  
+{
 public: 
 	PageBack(QWidget *pa);
 	~PageBack() {};

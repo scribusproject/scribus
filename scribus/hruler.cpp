@@ -19,12 +19,14 @@
 #include "hruler.moc"
 #include "page.h"
 #include <qcursor.h>
+#include <qcolor.h>
+#include <qrect.h>
+#include <qpointarray.h>
+
 Hruler::Hruler(QScrollView *pa, ScribusDoc *doc) : QWidget(pa)
 {
 	setEraseColor(QColor(255,255,255));
 	doku = doc;
-	rfont = font();
-	rfont.setPointSize(9);
 	offs = -10;
 	Markp = 0;
 	repX = false;
@@ -54,33 +56,64 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 void Hruler::paintEvent(QPaintEvent *)
 {
 	int pc, xx;
-	float of, xl, iter, iter2;
-	float sc = doku->Scale;
+	double of, xl, iter, iter2;
+	double sc = doku->Scale;
+	int cor = 1;
 	switch (doku->Einheit)
-		{
+	{
 		case 0:
-			iter = 10.0;
-  		iter2 = iter * 10.0;
+			if (sc > 1)
+				cor = 2;
+			if (sc > 4)
+				cor = 10;
+			iter = 10.0 / cor;
+	  		iter2 = iter * 10.0;
 			break;
 		case 1:
-			iter = (10.0 / 25.4) * 72.0;
-  		iter2 = iter * 10.0;
+			if (sc > 1)
+				cor = 10;
+			iter = ((10.0 / 25.4) * 72.0) / cor;
+  			iter2 = iter * 10.0;
 			break;
 		case 2:
 			iter = 18.0;
 			iter2 = 72.0;
+			if (sc > 1)
+				{
+				cor = 2;
+				iter = 9.0;
+				iter2 = 36.0;
+				}
+			if (sc > 4)
+				{
+				iter = 9.0;
+				iter2 = 18.0;
+				cor = 4;
+				}
 			break;
 		case 3:
 			iter = 12.0;
 			iter2 = 120.0;
+			if (sc > 1)
+				{
+				cor = 1;
+				iter = 12.0;
+				iter2 = 60.0;
+				}
+			if (sc > 4)
+				{
+				cor = 2;
+				iter = 6.0;
+				iter2 = 12.0;
+				}
 			break;
-		}
+	}
 	QPainter p;
 	p.begin(this);
 	p.drawLine(0, 24, width(), 24);
 	p.translate(-offs, 0);
 	if (repX)
-		{
+	{
 		p.setPen(red);
 		p.setBrush(red);
 		QPointArray cr;
@@ -89,41 +122,35 @@ void Hruler::paintEvent(QPaintEvent *)
 		p.end();
 		repX = false;
 		return;
-		}
+	}
 	p.setBrush(black);
 	p.setPen(black);
-	p.setFont(rfont);
-	p.scale(sc, 1.0);
+	p.setFont(font());
 	((doku->PageFP) && (doku->PagesSbS)) ? pc = 2 : pc = 1;
 	if (doku->MasterP)
 		pc = 1;
 	for (xx = 0; xx < pc; ++xx)
-		{
+	{
 		of = xx * (doku->PageB+30.0);
 		for (xl = 0; xl < doku->PageB; xl += iter)
-			{
-			p.drawLine(static_cast<int>(xl+of), 18, static_cast<int>(xl+of), 24);
-			}
+			p.drawLine(qRound((xl+of)*sc), 18, qRound((xl+of)*sc), 24);
 		for (xl = 0; xl < doku->PageB+(iter2/2); xl += iter2)
-			{
-			p.drawLine(static_cast<int>(xl+of), 11, static_cast<int>(xl+of), 24);
-			p.save();
-			p.scale(1.0 / sc, 1.0);
+		{
+			p.drawLine(qRound((xl+of)*sc), 11, qRound((xl+of)*sc), 24);
 			switch (doku->Einheit)
-				{
+			{
 				case 2:
-					p.drawText(static_cast<int>((xl+of+qRound(2/sc)) * sc), 17, QString::number(xl / iter2));
+					p.drawText(qRound((xl+of+2/sc) * sc), 17, QString::number(xl / iter2 / cor));
 					break;
 				case 3:
-					p.drawText(static_cast<int>((xl+of+qRound(2/sc)) * sc), 17, QString::number(xl / iter));
+					p.drawText(qRound((xl+of+2/sc) * sc), 17, QString::number(xl / iter / cor));
 					break;
 				default:
-					p.drawText(static_cast<int>((xl+of+qRound(2/sc)) * sc), 17, QString::number(xl / iter * 10));
+					p.drawText(qRound((xl+of+2/sc) * sc), 17, QString::number(xl / iter * 10 / cor));
 					break;
-				}
-			p.restore();
 			}
 		}
+	}
 }
 
 /** Zeichnet den Pfeil */

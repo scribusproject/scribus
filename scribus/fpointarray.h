@@ -32,21 +32,22 @@ class FPointArray : public QMemArray<FPoint>
 public: 
 	FPointArray() {};
 	FPointArray(int size) : QMemArray<FPoint>(size) {};
-	void setPoint(uint i, float x, float y);
+	void setPoint(uint i, double x, double y);
 	void setPoint(uint i, FPoint p);
 	bool setPoints( int nPoints, double firstx, double firsty, ... );
 	bool putPoints( int index, int nPoints, double firstx, double firsty,  ... );
 	bool putPoints( int index, int nPoints, const FPointArray & from, int fromIndex = 0 );
-	void point(uint i, float *x, float *y);
+	void point(uint i, double *x, double *y);
 	FPoint point(uint i);
 	QPoint pointQ(uint i);
-	void translate( float dx, float dy );
+	void translate( double dx, double dy );
 	FPoint WidthHeight();
 	void map(QWMatrix m);
-	FPointArray	 &operator=( const FPointArray &a )
-	{ return (FPointArray&)assign( a ); }
-	FPointArray copy() const
-	{ FPointArray tmp; return *((FPointArray*)&tmp.duplicate(*this)); }
+	FPointArray &operator=( const FPointArray &a ) { return (FPointArray&)assign( a ); }
+	FPointArray copy() const { FPointArray tmp; return *((FPointArray*)&tmp.duplicate(*this)); }
+	void setMarker();
+	void addPoint(double x, double y);
+	void addPoint(FPoint p);
 	~FPointArray() {};
 };
 

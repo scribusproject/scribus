@@ -1,0 +1,11 @@
+SUBDIRS = doc samples
+pluginsdir = $(prefix)/lib/scribus/plugins
+AM_CPPFLAGS = -I$(top_builddir)/scribus $(PYTHONINC)
+plugins_LTLIBRARIES = libscriptplugin.la
+INCLUDES = $(LIBFREETYPE_CFLAGS) $(all_includes)
+libscriptplugin_la_LDFLAGS = -version-info 0:0:0
+libscriptplugin_la_METASOURCES = AUTO
+libscriptplugin_la_SOURCES = cmdutil.cpp cmddialog.cpp cmddoc.cpp cmdpage.cpp cmdobj.cpp cmdgetprop.cpp cmdsetprop.cpp cmdtext.cpp cmdmani.cpp cmdcolor.cpp cmdmisc.cpp conswin.cpp pconsole.cpp scriptplugin.cpp 
+EXTRA_DIST = cmdvar.h cmdutil.cpp cmdutil.h cmddialog.cpp cmddialog.h cmddoc.cpp cmddoc.h cmdpage.cpp cmdpage.h cmdobj.cpp cmdobj.h cmdgetprop.cpp cmdgetprop.h cmdsetprop.cpp cmdsetprop.h cmdtext.cpp cmdtext.h cmdmani.cpp cmdmani.h cmdcolor.cpp cmdcolor.h cmdmisc.cpp cmdmisc.h scriptplugin.cpp scriptplugin.h pconsole.cpp pconsole.h conswin.cpp conswin.h 
+KDE_OPTIONS = qtonly
+AM_LDFLAGS =	-Xlinker -s $(PYTHONLIB) $(LIBPYTHON)

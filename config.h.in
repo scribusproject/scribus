@@ -1,5 +1,8 @@
 /* config.h.in.  Generated from configure.in by autoheader.  */
 
+/* ColorManagementInclude */
+#undef CMS_INC
+
 /* Debug Messages */
 #undef DEBUG
 
@@ -17,6 +20,9 @@
 
 /* Define to 1 if you have the <inttypes.h> header file. */
 #undef HAVE_INTTYPES_H
+
+/* Defines if your system has the libart library */
+#undef HAVE_LIBART
 
 /* Define if you have libjpeg */
 #undef HAVE_LIBJPEG
@@ -36,6 +42,12 @@
 /* Define to 1 if you have the <pthread/linuxthreads/pthread.h> header file.
    */
 #undef HAVE_PTHREAD_LINUXTHREADS_PTHREAD_H
+
+/* Define if you have the development files for python */
+#undef HAVE_PYTHON
+
+/* Python */
+#undef HAVE_PYTHON_23
 
 /* Define if you have the res_init function */
 #undef HAVE_RES_INIT
@@ -108,6 +120,10 @@
 
 /* Version number of package */
 #undef VERSION
+
+/* Define to 1 if your processor stores words with the most significant byte
+   first (like Motorola and SPARC, unlike Intel and VAX). */
+#undef WORDS_BIGENDIAN
 
 /* Compatibility define */
 #undef ksize_t

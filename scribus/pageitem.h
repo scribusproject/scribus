@@ -24,10 +24,10 @@
 #include <qptrlist.h>
 #include <qimage.h>
 #include <qpixmap.h>
-#include <qfont.h>
 #include <qvaluestack.h>
 #include <qvaluelist.h>
 #include "scribusdoc.h"
+#include "scpainter.h"
 /**
   *@author Franz Schmid
   */
@@ -35,143 +35,159 @@
 class PageItem : public QObject  {
 
 public: 
-	PageItem(Page* pa, int art, float x, float y, float w, float h, float w2, QString fill, QString outline, ScribusDoc *doc);
+	PageItem(Page* pa, int art, double x, double y, double w, double h, double w2, QString fill, 
+				QString outline, ScribusDoc *doc);
 	~PageItem() {};
-	struct ZZ { QString Zeich;
-					 QColor Farb;
-					 QFont Zsatz;
-					 QString ZFo;
-					 float xco;
-					 float yco;
-					 bool Sele;
-					 int Siz;
-					 float wide;
-				  };
+	struct ZZ { 
+				QString Zeich;
+				QString Farb;
+				QString Farb2;
+				int shade;
+				int shade2;
+				QString ZFo;
+				double xco;
+				double yco;
+				bool Sele;
+				int Siz;
+				int Style;
+				double wide;
+				double kern;
+				int scale;
+			  };
   /** Zeichnet das Item */
-  void paintObj(QRect e=QRect(), QPixmap *ppX = 0);
-  void CopyIt(struct CLBuf *Buffer);
-	void SetZeichAttr(QPainter *p, QFont *ffo, struct Pti *hl, int *chs, QString *chx);
+	void paintObj(QRect e=QRect(), QPixmap *ppX = 0);
+	void DrawObj(ScPainter *p, QRect e);
+	double SetZeichAttr(struct Pti *hl, int *chs, QString *chx);
 	void SetFarbe(QColor *tmp, QString farbe, int shad);
-	void DrawZeichen(QPainter *p, struct Pti *hl);
-	void DrawZeichen(QPainter *p, struct ZZ *hl);
+	void DrawZeichenS(ScPainter *p, struct ZZ *hl);
 	void DrawPoly(QPainter *p, QPointArray pts, QColor BackF, bool bitm = false);
 	void DrawPolyL(QPainter *p, QPointArray pts);
 	QString ExpandToken(uint base);
 	bool Locked;
 	bool Reverse;
   /** X-Position auf der Seite */
-  float Xpos;
+	double Xpos;
   /** Y-Position auf der Seite */
-  float Ypos;
+	double Ypos;
   /** Breite des Elements */
-  float Width;
+	double Width;
   /** Hoehe des Elements */
-  float Height;
+	double Height;
   /** Eckrundung von Rechtecken */
-  float RadRect;
+	double RadRect;
   /** Art des Items */
-  int PType;
+	int PType;
   /** Winkel um den das Item gedreht wird */
-  float Rot;
+	double Rot;
   /** Enthaelt das uebergeordnete Objekt */
-  QWidget *Parent;
+	QWidget *Parent;
   /** Enthaelt das Dokument */
-  ScribusDoc *Doc;
+	ScribusDoc *Doc;
 	QString GrColor;
 	QString GrColor2;
 	int GrShade;
 	int GrShade2;
 	int GrType;
   /** Fuellfarbe */
-  QString Pcolor;
-  /** Abstufung fuer Füllfarbe */
-  int Shade;
+	QString Pcolor;
+  /** Abstufung fuer Fllfarbe */
+	int Shade;
   /** Zeichenfarbe fuer Elemente */
-  QString Pcolor2;
+	QString Pcolor2;
   /** Abstufung fuer Zeichenfarbe */
-  int Shade2;
+	int Shade2;
+	QString TxtStroke;
+	QString TxtFill;
+	int ShTxtStroke;
+	int ShTxtFill;
+	int TxtScale;
+	int TxTStyle;
+	int Cols;
+	double ColGap;
   /** Strichstaerke */
-  float Pwidth;
+	double Pwidth;
   /** Linienart */
-  PenStyle PLineArt;
-  PenCapStyle PLineEnd;
-  PenJoinStyle PLineJoin;
+	PenStyle PLineArt;
+	PenCapStyle PLineEnd;
+	PenJoinStyle PLineJoin;
+	QString NamedLStyle;
   /** Element selektiert Ja/Nein */
-  bool Select;
+	bool Select;
   /** Definiert die Clipping-Region des Elements; */
-  QPointArray Clip;
+	QPointArray Clip;
 	FPointArray PoLine;
 	QValueList<uint> Segments;
 	bool PoShow;
-	float BaseOffs;
-  bool ClipEdited;
-  int FrameType;
+	double BaseOffs;
+	bool ClipEdited;
+	int FrameType;
   /** Interne Item-Nummer */
-  uint ItemNr;
+	uint ItemNr;
   /** Hat Element Rahmen? */
-  bool Frame;
+	bool Frame;
   /** Seite zu der das Element gehoert */
-  Page *OwnPage;
+	Page *OwnPage;
   /** Darzustellendes Bild */
-  QImage pixm;
-//  QPixmap pixm;
+	QImage pixm;
   /** Dateiname des Bildes */
-  QString Pfile;
-  QString Pfile2;
-  QString Pfile3;
-  QString IProfile;
-  bool UseEmbedded;
-  QString EmProfile;
-  int IRender;
+	QString Pfile;
+	QString Pfile2;
+	QString Pfile3;
+	QString IProfile;
+	bool UseEmbedded;
+	QString EmProfile;
+	int IRender;
   /** Darstellungsart Bild/Titel */
-  bool PicArt;
+	bool PicArt;
   /** Bild verfuegbar */
-  bool PicAvail;
+	bool PicAvail;
   /** Lokales Scaling x*/
-  float LocalScX;
-	float LocalViewX;
+	double LocalScX;
+	double LocalViewX;
   /** Lokales Scaling y*/
-  float LocalScY;
-	float LocalViewY;
+	double LocalScY;
+	double LocalViewY;
   /** Lokales X */
-  float LocalX;
+	double LocalX;
   /** Lokales Y */
-  float LocalY;
+	double LocalY;
 	int OrigW;
 	int OrigH;
+	double dpiX;
+	double dpiY;
   /** Anzahl horizontaler Spiegelungen */
-  int flippedH;
+	int flippedH;
   /** Anzahl vertikaler Spiegelungen */
-  int flippedV;
+	int flippedV;
   /** BoundigBox-X */
-  float BBoxX;
+	double BBoxX;
   /** BoundingBox-H */
-  float BBoxH;
+	double BBoxH;
   /** Extra Abstand vom Rand */
-  float Extra;
-  float TExtra;
-  float BExtra;
-  float RExtra;
+	double Extra;
+	double TExtra;
+	double BExtra;
+	double RExtra;
   /** Linespacing */
-  float LineSp;
+	double LineSp;
   /** Zeichen X-Position */
-  float CurX;
+	double CurX;
   /** Zeichen Y-Position */
-  float CurY;
+	double CurY;
   /** Cursorposition */
-  int CPos;
+	int CPos;
   /** Text des Elements */
-  QPtrList<Pti> Ptext;
+	QPtrList<Pti> Ptext;
   /** Flag ob Element gedruckt wird */
-  bool isPrintable;
+	bool isPrintable;
   /** Flag fuer PDF-Bookmark */
-  bool isBookmark;
-  int BMnr;
+	bool isBookmark;
+	int BMnr;
   /** Flag fuer PDF-Annotation */
-  bool isAnnotation;
-  int AnType;
+	bool isAnnotation;
+	int AnType;
 	int AnActType;
-  QString AnAction;
+	QString AnAction;
 	QString An_E_act;
 	QString An_X_act;
 	QString An_D_act;
@@ -182,14 +198,16 @@ public:
 	QString An_V_act;
 	QString An_C_act;
 	QString AnName;
+	bool AutoName;
 	QString AnToolTip;
 	QString AnRollOver;
 	QString AnDown;
 	QString AnBColor;
+	QString An_Extern;
 	int AnBsty;
 	int AnBwid;
 	int AnFeed;
-  int AnZiel;
+	int AnZiel;
 	int AnFlag;
 	int AnMaxChar;
 	int AnVis;
@@ -203,41 +221,46 @@ public:
 	int AnScaleW;
 	int AnFormat;
   /** Flag fuer neuzeichnen im EditMode */
-  bool Dirty;
+	bool Dirty;
   /** Item Font */
-  QString IFont;
+	QString IFont;
   /** Item Fontgroesse */
-  int ISize;
+	int ISize;
   /** Flag fuer Auswahl */
-  bool HasSel;
+	bool HasSel;
   /** Flag fuer Textfluss */
-  bool Textflow;
-  bool FrameOnly;
-  PageItem *BackBox;
-  PageItem *NextBox;
-  int NextIt;
-  int NextPg;
-  bool Tinput;
-  bool isAutoText;
-  int Ausrich;
-  uint MaxChars;
-  bool Redrawn;
-  float ExtraV;
-  bool isRaster;
-  float OldB;
-  float OldH;
-  float OldB2;
-  float OldH2;
-  bool Sizing;
-  bool toPixmap;
-  float DevRes;
-  int DevResX;
-  int DevResY;
+	bool Textflow;
+	bool Textflow2;
+	bool FrameOnly;
+	PageItem *BackBox;
+	PageItem *NextBox;
+	int NextIt;
+	int NextPg;
+	bool Tinput;
+	bool isAutoText;
+	int Ausrich;
+	uint MaxChars;
+	bool Redrawn;
+	double ExtraV;
+	bool isRaster;
+	double OldB;
+	double OldH;
+	double OldB2;
+	double OldH2;
+	bool Sizing;
+	bool toPixmap;
 	int LayerNr;
 	bool ScaleType;
 	bool AspectRatio;
-	float Transparency;
-  QValueStack<int> Groups;
+	double Transparency;
+	double TranspStroke;
+	QValueStack<int> Groups;
+	bool InvPict;
+	QValueList<double> DashValues;
+	QValueList<double> TabValues;
+	double DashOffset;
+	VGradient fill_gradient;
+	QString Language;
 };
 
 #endif

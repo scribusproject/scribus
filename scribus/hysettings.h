@@ -26,7 +26,6 @@ public:
     QPushButton* OK;
     QPushButton* Cancel;
 
-
 protected:
     QVBoxLayout* HySettingsLayout;
     QGridLayout* Layout3;

@@ -42,7 +42,6 @@ protected:
 public slots:
     virtual void FromChanged(int);
     virtual void ToChanged(int);
-
 };
 
 #endif // MOVEPAGES_H

@@ -35,7 +35,8 @@ class PDF_Opts : public QDialog
     Q_OBJECT
 
 public:
-    PDF_Opts( QWidget* parent, QString Fname, QMap<QString,QFont> DocFonts, ScribusView *vie, PDFOpt *Optionen, QValueList<PreSet> Eff, ProfilesL *PDFXProfiles, SCFonts &AllFonts );
+    PDF_Opts( QWidget* parent, QString Fname, QMap<QString,QFont> DocFonts, ScribusView *vie, PDFOpt *Optionen,
+				 QValueList<PreSet> Eff, ProfilesL *PDFXProfiles, SCFonts &AllFonts );
     ~PDF_Opts();
 
     QLabel* Name;
@@ -51,7 +52,7 @@ public:
     QPushButton* OK;
     QPushButton* Cancel;
     QLineEdit* Datei;
-		BookMView *BView;
+	BookMView *BView;
     QGroupBox* GroupBox1;
     QGroupBox* GroupBox2;
     QLabel* TextLabel2;
@@ -139,18 +140,18 @@ public:
     ScribusView *view;
     QValueList<PreSet> EffVal;
     int PgSel;
-		int Einheit;
+	int Einheit;
 
 public slots:
-		void ToggleEncr();
-		void BleedChanged();
-		void EnablePDFX(int a);
-		void DoDownsample();
-		void RemoveEmbed();
-		void PutToEmbed();
-		void SelAFont(QListBoxItem*);
-		void SelEFont(QListBoxItem*);
-		void EmbedAll();
+	void ToggleEncr();
+	void BleedChanged();
+	void EnablePDFX(int a);
+	void DoDownsample();
+	void RemoveEmbed();
+	void PutToEmbed();
+	void SelAFont(QListBoxItem*);
+	void SelEFont(QListBoxItem*);
+	void EmbedAll();
     void ChangeFile();
     void PagePr();
     void SetPgEff(int nr);
@@ -158,13 +159,13 @@ public slots:
     void ValidDI(int nr);
     void DoEffects();
     void EffectOnAll();
-		void SelRange(bool e);
-		void ChFrom();
-		void ChTo();
-		void EnablePr(int a);
-		void EnablePG();
-		void EnablePGI();
-		void EnablePGI2();
+	void SelRange(bool e);
+	void ChFrom();
+	void ChTo();
+	void EnablePr(int a);
+	void EnablePG();
+	void EnablePGI();
+	void EnablePGI2();
 
 protected:
     QVBoxLayout* PDFOptsLayout;
@@ -195,7 +196,6 @@ protected:
     QVBoxLayout* tabsecLayout;
     QGridLayout* GroupPassLayout;
     QVBoxLayout* GroupSecSetLayout;
-
 };
 
 #endif // PDF_OPTS_H

@@ -13,10 +13,11 @@ class StilFormate : public QDialog
     Q_OBJECT
 
 public:
-    StilFormate( QWidget* parent, ScribusDoc *doc, SCFonts *avail);
+    StilFormate( QWidget* parent, ScribusDoc *doc, preV *avail);
     ~StilFormate() {};
 
     QListBox* ListBox1;
+    QPushButton* LoadS;
     QPushButton* NewB;
     QPushButton* EditB;
     QPushButton* DublicateB;
@@ -25,16 +26,17 @@ public:
     QPushButton* CancelB;
     int sFnumber;
   	QValueList<StVorL> TempVorl;
-    SCFonts *fon;
-		ScribusDoc *Docu;
+    preV *fon;
+	ScribusDoc *Docu;
   	void UpdateFList();
 
 public slots:
-		void selFormat(QListBoxItem *c);
-		void editFormat();
-		void neuesFormat();
-		void dupFormat();
-		void deleteFormat();
+	void selFormat(QListBoxItem *c);
+	void editFormat();
+	void neuesFormat();
+	void dupFormat();
+	void deleteFormat();
+	void loadStyles();
 
 protected:
     QHBoxLayout* StilFormateLayout;

@@ -12,8 +12,8 @@
 class Foi_ttf : public Foi
 {
 	public:
-		Foi_ttf(QString scname, QString path, bool embedps, SCFonts_Encoding &encoding) :
-		Foi(scname,path,embedps,encoding), metricsread(false)
+		Foi_ttf(QString scname, QString path, bool embedps) :
+		Foi(scname,path,embedps), metricsread(false)
 		{
 			HasMetrics=true;
 		}
@@ -21,7 +21,6 @@ class Foi_ttf : public Foi
 		bool ReadMetrics();
 		virtual bool EmbedFont(QString &str);
 	private:
-		QString cached_RealName;
 		bool metricsread;
 };
 

@@ -48,18 +48,18 @@
 #include "scribusview.h"
 #include "scribusdoc.h"
 #include "scribuswin.h"
-#include "colorm.h"
 #include "tree.h"
-#include "modify.h"
 #include "mpalette.h"
 #include "frameedit.h"
 #include "scrap.h"
 #include "layers.h"
 #include "libpostscript/pslib.h"
-#include "libpdf/pdflib.h"
 #include "werktoolb.h"
 #include "seiten.h"
 #include "bookpalette.h"
+#include "splash.h"
+class Autoforms;
+class FontCombo;
 
 /**
   * This Class is the base class for your application. It sets up the main
@@ -69,186 +69,201 @@
   */
 class ScribusApp : public QMainWindow
 {
-  Q_OBJECT
+	Q_OBJECT
   
-  public:
-    /** construtor */
-    ScribusApp();
-    /** destructor */
-    ~ScribusApp() {};
-    /** initMenuBar creates the menu_bar and inserts the menuitems */
-    void initMenuBar();
-    /** setup the statusbar */
-    void initStatusBar();
-    void SetShortCut();
-    void SetKeyEntry(int Nr, QString text, int Men, int KeyC);
-		bool doFileNew(float b, float h, float tpr, float lr, float rr, float br, float ab, float sp,
+public:
+	/** constructor */
+	ScribusApp();
+	/** destructor */
+	~ScribusApp() {};
+    /** init methods */
+	void initGui();
+	/** initMenuBar creates the menu_bar and inserts the menuitems */
+	void initMenuBar();
+	/** setup the statusbar */
+	void initStatusBar();
+	void SetShortCut();
+	void SetKeyEntry(int Nr, QString text, int Men, int KeyC);
+	bool doFileNew(double b, double h, double tpr, double lr, double rr, double br, double ab, double sp,
 									 bool atf, bool fp, int einh, bool firstleft, int Ori, int SNr);
-		bool DoFileSave(QString fn);
-    void closeEvent(QCloseEvent *ce);
-    void keyPressEvent(QKeyEvent *k);
-    void wheelEvent(QWheelEvent *w);
-    void DeleteSel(PageItem *b);
-    void setTBvals(PageItem *b);
-    void SavePrefs();
-    void ShowSubs();
-    void applyNewMaster(QString name);
-    void UpdateRecent(QString fn);
-    void InitPlugs();
-		void InitHyphenator();
-		void FinalizePlugs();
-    bool DLLName(QString name, QString *PName, int *typ, void **Zeig);
-    void CallDLL(QString name);
-    PSLib* getPSDriver(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, CListe DocColors, bool pdf);
-    void closePSDriver();
-    PDFlib* getPDFDriver();
-    void closePDFDriver();
-		bool DoSaveAsEps(QString fn);
-    QString CFileDialog(QString caption = "", QString filter = "", QString defNa = "", bool Pre = false, bool mod = true, bool comp = false);
-    void GetCMSProfiles();
-    void RecalcColors(QProgressBar *dia = 0);
-		void SwitchWin();
-		void RestoreBookMarks();
-		void AdjustBM();
-    struct CLBuf Buffer;
-    QString Buffer2;
-    QString Buffer3;
-		bool BuFromApp;
-    ProfilesL MonitorProfiles;
-    ProfilesL PrinterProfiles;
-    ProfilesL PDFXProfiles;
-    float DispX;
-    float DispY;
-    QTimer *CurTimer;
-    bool NoFonts;
-    int HaveDoc;
-    struct preV Prefs;
-    /** view is the main widget which represents your working area. The View
-     * class should handle all events of the view widget.  It is kept empty so
-     * you can create your view according to your application's needs by
-     * changing the view class.
-     */
-    ScribusView *view;
-    /** doc represents your actual document and is created only once. It keeps
-     * information such as filename and does the serialization of your files.
-     */
-    ScribusDoc *doc;
-		QLabel* FMess;
-		QProgressBar* FProg;
-		QLabel* XMess;
-		QLabel* XDat;
-		QLabel* YMess;
-		QLabel* YDat;
-    Mpalette *Mpal;
-    NodePalette *Npal;
-    Tree *Tpal;
-    Biblio *ScBook;
-		LayerPalette* Lpal;
-		SeitenPal *Sepal;
-		BookPalette *BookPal;
-		QMap<QString,QString> Sprachen;
-		QWorkspace *wsp;
-		QPopupMenu* windowsMenu;
-		ScribusWin* ActWin;
-		QString PrefsPfad;
-		QClipboard *ClipB;
+	bool DoFileSave(QString fn);
+	void closeEvent(QCloseEvent *ce);
+	void keyPressEvent(QKeyEvent *k);
+	void wheelEvent(QWheelEvent *w);
+	void DeleteSel(PageItem *b);
+	void setTBvals(PageItem *b);
+	void SavePrefs();
+	void ShowSubs();
+	void applyNewMaster(QString name);
+	void UpdateRecent(QString fn);
+	void InitPlugs(SplashScreen *spl);
+	void InitHyphenator();
+	void FinalizePlugs();
+	bool DLLName(QString name, QString *PName, int *typ, void **Zeig);
+	void CallDLL(QString name);
+	PSLib* getPSDriver(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, CListe DocColors, bool pdf);
+	void closePSDriver();
+	bool getPDFDriver(QString fn, QString nam, int Components, int frPa, int toPa, QMap<int,QPixmap> thumbs);
+	bool DoSaveAsEps(QString fn);
+	QString CFileDialog(QString caption = "", QString filter = "", QString defNa = "", bool Pre = false, 
+						bool mod = true, bool comp = false, bool cod = false);
+	void GetCMSProfiles();
+	void GetCMSProfilesDir(QString pfad);
+	void RecalcColors(QProgressBar *dia = 0);
+	void SwitchWin();
+	void RestoreBookMarks();
+	void AdjustBM();
+	void ReorgFonts();
+	void GetUsedFonts(QMap<QString,QFont> *Really);
+	static void defaultCrashHandler (int sig);
+	void emergencySave();
+	struct CLBuf Buffer;
+	QString Buffer2;
+	QString Buffer3;
+	bool BuFromApp;
+	ProfilesL MonitorProfiles;
+	ProfilesL PrinterProfiles;
+	ProfilesL PDFXProfiles;
+	double DispX;
+	double DispY;
+	bool NoFonts;
+	int HaveDoc;
+	struct preV Prefs;
+	/** view is the main widget which represents your working area. The View
+	 * class should handle all events of the view widget.  It is kept empty so
+	 * you can create your view according to your application's needs by
+	 * changing the view class.
+	 */
+	ScribusView *view;
+	/** doc represents your actual document and is created only once. It keeps
+	 * information such as filename and does the serialization of your files.
+	 */
+	ScribusDoc *doc;
+	QLabel* FMess;
+	QProgressBar* FProg;
+	QLabel* XMess;
+	QLabel* XDat;
+	QLabel* YMess;
+	QLabel* YDat;
+	Mpalette *Mpal;
+	NodePalette *Npal;
+	Tree *Tpal;
+	Biblio *ScBook;
+	LayerPalette* Lpal;
+	SeitenPal *Sepal;
+	BookPalette *BookPal;
+	QMap<QString,QString> Sprachen;
+	QWorkspace *wsp;
+	QPopupMenu* windowsMenu;
+	ScribusWin* ActWin;
+	QString PrefsPfad;
+	QClipboard *ClipB;
+	QString LoadEnc;
+	bool singleClose;
+	bool ScriptRunning;
+	Autoforms* SCustom;
+	WerkToolB* WerkTools;
 
-  public slots:
-		void Collect();
-		void ChBookmarks(int s, int e, int n);
-		void AddBookMark(PageItem *ite);
-		void DelBookMark(PageItem *ite);
-		void BookMarkTxT(PageItem *ite);
-		void StoreBookmarks();
-    void ReadPrefs();
-		void ManageGuides();
-		void SetTranspar(float t);
-		void ReportMP(float xp, float yp);
-		bool DoFileClose();
-		void DoSaveClose();
-		void windowsMenuAboutToShow();
-		void newActWin(QWidget *w);
-		void windowsMenuActivated(int id);
-		void ToggleObjLock();
-		void UnDoAction();
-		void CanUndo();
-		void configHyphenator();
-		void doHyphenate();
-    void slotTest();
-    void slotTest2();
-		void PutScrap(QString t);
-		void Pfadtext();
-		void UniteOb();
-		void SplitUniteOb();
-		void TraceText();
-		void changeLayer(int l);
-		void showLayer();
-		void LayerRemove(int l);
-    void SetCMSPrefs();
-		void ManageJava();
-    void ManageTemp(QString temp = "");
-    void ManTempEnd();
-    /** generate a new document in the actual view */
-    bool slotFileNew();
-    bool slotDocMerge();
-    bool LadeSeite(QString fileName, int Nr);
-    /** open a document */
-    void slotFileOpen();
-    /** open a document */
-    void LoadRecent(int id);
-    bool slotDocOpen();
-    bool LadeDoc(QString fileName);
-    void slotAutoSave();
-    /** save a document */
-    void slotFileSave();
-    /** save a document under a different filename*/
-    void slotFileSaveAs();
-    /** Sichert den Text eines Elements */
-    void SaveText();
-    /** close the actual file */
-    bool slotFileClose();
-    /** print the actual file */
-    void slotFilePrint();
-    /** exits the application */
-    void slotFileQuit();
-    /** put the marked text/object into the clipboard and remove
-     * it from the document */
-    void slotEditCut();
-    /** put the marked text/object into the clipboard*/
-    void slotEditCopy();
-    /** paste the clipboard into the document*/
-    void slotEditPaste();
-    void EnableTxEdit();
-    void DisableTxEdit();
-    void SelectAll();
-    void ClipChange();
-    void DeleteText();
-
-    /** shows an about dlg*/
-    void slotHelpAbout();
+public slots:
+	void slotStoryEditor();
+	void InvertPict();
+	void Collect();
+	void ChBookmarks(int s, int e, int n);
+	void AddBookMark(PageItem *ite);
+	void DelBookMark(PageItem *ite);
+	void BookMarkTxT(PageItem *ite);
+	void StoreBookmarks();
+	void ReadPrefs();
+	void ManageGuides();
+	void SetTranspar(double t);
+	void SetTransparS(double t);
+	void ReportMP(double xp, double yp);
+	bool DoFileClose();
+	void DoSaveClose();
+	void windowsMenuAboutToShow();
+	void newActWin(QWidget *w);
+	void windowsMenuActivated(int id);
+	void ToggleObjLock();
+	void UnDoAction();
+	void CanUndo();
+	void configHyphenator();
+	void doHyphenate();
+	void slotTest();
+	void slotTest2();
+	void PutScrap(QString t);
+	void Pfadtext();
+	void noPfadtext();
+	void UniteOb();
+	void SplitUniteOb();
+	void TraceText();
+	void changeLayer(int l);
+	void showLayer();
+	void LayerRemove(int l);
+	void SetCMSPrefs();
+	void ManageJava();
+	void ManageTemp(QString temp = "");
+	void ManTempEnd();
+	/** generate a new document in the actual view */
+	bool slotFileNew();
+	bool slotDocMerge();
+	bool LadeSeite(QString fileName, int Nr, bool Mpa);
+	/** open a document */
+	void slotFileOpen();
+	/** open a document */
+	void LoadRecent(int id);
+	bool slotDocOpen();
+	bool LadeDoc(QString fileName);
+	void slotAutoSaved();
+	/** save a document */
+	void slotFileSave();
+	/** save a document under a different filename*/
+	void slotFileSaveAs();
+	void slotFileRevert();
+	/** Sichert den Text eines Elements */
+	void SaveText();
+	/** close the actual file */
+	bool slotFileClose();
+	/** print the actual file */
+	void slotFilePrint();
+	/** exits the application */
+	void slotFileQuit();
+	/** put the marked text/object into the clipboard and remove
+	 * it from the document */
+	void slotEditCut();
+	/** put the marked text/object into the clipboard*/
+	void slotEditCopy();
+	/** paste the clipboard into the document*/
+	void slotEditPaste();
+	void EnableTxEdit();
+	void DisableTxEdit();
+	void SelectAll();
+	void ClipChange();
+	void DeleteText();
+	/** shows an about dlg*/
+	void slotHelpAbout();
     void slotHelpAboutQt();
-    void slotOnlineHelp();
-    void ToggleTips();
-  /** Erzeugt eine neue Seite */
+	void slotOnlineHelp();
+	void ToggleTips();
+	/** Erzeugt eine neue Seite */
 	void slotNewPageP(int wo, QString templ);
-  void slotNewPageM();
+	void slotNewPageM();
 	void slotNewPageT(int w);
-  void slotNewPage(int w);
-  /** Loescht die aktuelle Seite */
-  void DeletePage();
+	void slotNewPage(int w);
+	/** Loescht die aktuelle Seite */
+	void DeletePage();
 	void DeletePage2(int pg);
-  /** Verschiebt Seiten */
-  void MovePage();
-  void CopyPage();
-  /** Ansicht absolut zoomen */
-	void slotZoomAbs(float z);
+	/** Verschiebt Seiten */
+	void MovePage();
+	void CopyPage();
+	/** Ansicht absolut zoomen */
+	void slotZoomAbs(double z);
 	/** Ansicht ganzes Blatt) */
 	void slotZoomFit();
-  /** Ansicht 20 % */
+	/** Ansicht 20 % */
 	void slotZoom20();
-  /** Ansicht 50 % */
+	/** Ansicht 50 % */
 	void slotZoom50();
-  /** Ansicht 75 % */
+	/** Ansicht 75 % */
 	void slotZoom75();
 	/** Ansicht 100 % */
 	void slotZoom100();
@@ -258,15 +273,24 @@ class ScribusApp : public QMainWindow
 	void ToggleMarks();
 	void ToggleFrames();
 	/** Schaltet Werkzeuge ein/aus */
+ 	void setTools(bool visible);
 	void ToggleTools();
+ 	void setPDFTools(bool visible);
+	void TogglePDFTools();
 	/** Schaltet Masspalette ein/aus */
+ 	void setMpal(bool visible);
 	void ToggleMpal();
 	/** Schaltet Uebersichtspalette ein/aus*/
 	void ToggleTpal();
+ 	void setTpal(bool visible);
 	void ToggleBpal();
+	void setBpal(bool visible);
 	void ToggleLpal();
+	void setLpal(bool visible);
 	void ToggleSepal();
+	void setSepal(bool visible);
 	void ToggleBookpal();
+	void setBookpal(bool visible);
 	/** Schaltet Bilder ein/aus */
 	void TogglePics();
 	/** Schaltet Raster ein/aus */
@@ -291,6 +315,7 @@ class ScribusApp : public QMainWindow
 	void setItemShade(int id);
 	/** Setzt den Font */
 	void setItemFont(int id);
+	void setItemFont2(int id);
 	/** Korrigiert das FontMenu */
 	void AdjustFontMenu(QString nf);
 	void SetNewFont(QString nf);
@@ -311,11 +336,8 @@ class ScribusApp : public QMainWindow
 	void setCSMenu(QString f, QString l, int fs, int ls);
 	/** Fragt nach den Farben */
 	void GetBrushPen();
-	/** Erzeugt einen rechteckigen Rahmen */
-	void RectFrame();
-	/** Erzeugt einen ovalen Rahmen */
-	void OvalFrame();
-	void RoundedFrame();
+	/** Erzeugt einen Rahmen */
+	void MakeFrame(int f, int c, double *vals);
 	/** Loescht ein Element */
 	void DeleteObjekt();
 	/** Setzt das Element in den Hintergrund */
@@ -336,29 +358,29 @@ class ScribusApp : public QMainWindow
 	bool SetupDoc();
 	/** Richtet Objekte aus */
 	void ObjektAlign();
-	void DoAlign(bool xa, bool ya, bool Vth, bool Vtv, float xdp, float ydp, int xart, int yart);
+	void DoAlign(bool xa, bool ya, bool Vth, bool Vtv, double xdp, double ydp, int xart, int yart);
 	void GetAllFonts();
 	void BuildFontMenu();
 	void slotFontOrg();
 	void slotPrefsOrg();
 	void slotEditStyles();
+	void slotEditLineStyles();
 	void setNewAbStyle(int a);
 	void setAbsValue(int a);
 	void SelectFromOutl(int Page, int Item);
 	void SelectFromOutlS(int Page);
 	void SaveAsEps();
 	void SaveAsPDF();
-	void ModifyObject();
 	void Aktiv();
 	void setItemHoch(int h);
 	void setStilvalue(int s);
 	void setItemTypeStyle(int id);
 	void slotElemRead(QString Name, int x, int y, bool art, bool loca, ScribusDoc* docc);
-	void slotChangeUnit(int art);
+	void slotChangeUnit(int art, bool draw = true);
 	void NoFrameEdit();
 	void setItemTextAli(int id);
 	void ApplyTemp();
-	void Apply_Temp(QString in, int Snr);
+	void Apply_Temp(QString in, int Snr, bool reb = true);
 	void GroupObj();
 	void UnGroupObj();
 	void StatusPic();
@@ -369,140 +391,154 @@ class ScribusApp : public QMainWindow
 	void ModifyAnnot();
 	void ToggleGuides();
 	void ToggleUGuides();
+	void HaveRaster(bool art);
+	void EditTabs();
+	void SearchText();
 
 signals:
 	void TextISize(int);
 	void TextIFont(QString);
-	void TextUSval(float);
+	void TextUSval(double);
 	void TextStil(int);
 	void TextFarben(QString, QString, int, int);
-	
-private:
+	void TextScale(int);
 
-    /** file_menu contains all items of the menubar entry "File" */
-    QPopupMenu *fileMenu;
-    /** edit_menu contains all items of the menubar entry "Edit" */
-    QPopupMenu *editMenu;
-    /** StilMenu enthaelt das Stilemenue */
-    QPopupMenu *StilMenu;
-    /** ObjMenu enthaelt das Objektemenue */
-    QPopupMenu *ObjMenu;
-    /** pageMenu enthaelt das Seitenmenue */
-    QPopupMenu *pageMenu;
-    /** view_menu contains all items of the menubar entry "View" */
-    QPopupMenu *viewMenu;
-    /** ColorMenu enthaelt die Farben des Dokuments */
-    QPopupMenu *ColorMenu;
-    /** SizeTMenu enthaelt die Schriftgroessen */
-    QPopupMenu *SizeTMenu;
-    /** ShadeMenu enthaelt die Tonwerte */
-    QPopupMenu *ShadeMenu;
-    /** ShapeMenu enthaelt die Rahmenformen */
-    QPopupMenu *ShapeMenu;
-    /** FontMenu enthaelt die Fonts */
-    QPopupMenu *FontMenu;
-    QPopupMenu *FStyleMenu;
-    QPopupMenu *TypeStyleMenu;
-    QPopupMenu *AliMenu;
-    QPopupMenu *recentMenu;
-    QPopupMenu *hymen;
-    QToolBar *WerkTools2;
-    WerkToolB* WerkTools;
-    QToolButton* DatOpe;
-    QToolButton* DatSav;
-    QToolButton* DatClo;
-    QToolButton* DatPri;
-    QToolButton* DatPDF;
-    QToolButton* DatNeu;
-    int KeyMod;
-    int ShapeEdit;
-    int ShapeM;
-    int DistM;
-		int PfadT;
-		int PfadS;
-		int PfadV;
-		int PfadTP;
-    int pgmd;
-    int pgmm;
-    int pgmv;
-    int Stm;
-    int Obm;
-    int Markers;
-    int FrameDr;
-    int Bilder;
-    int Ras;
-    int uRas;
-		int Guide;
-		int uGuide;
-    int viewTools;
-    int viewMpal;
-    int viewTpal;
-    int viewNpal;
-    int viewBpal;
-		int viewLpal;
-		int viewSepal;
-		int viewBopal;
-    int fid1;
-    int fid2;
-    int fid2a;
-    int fid3;
-    int fid4;
-    int fid5;
-    int fid51;
-    int fid6;
-    int fid7;
-    int fid8;
-    int fid9;
-    int fid10;
-    int fid11;
-    int fid12;
-    int fid13;
-    int fid14;
-		int edUndo;
-    int edid1;
-    int edid2;
-    int edid3;
-    int edid4;
-    int edid5;
-    int edid6;
-    int Loesch;
-    int tman;
-    int jman;
-    int tip;
-    int Gr;
-    int UnGr;
-		int LockOb;
-    int exmn;
-		int hyph;
-		int ORaise;
-		int OLower;
-		int OBack;
-		int OFront;
-    bool tipsOn;
-    QPopupMenu *helpMenu;
-    QPopupMenu *toolMenu;
-    QPopupMenu *extraMenu;
-    QPopupMenu *importMenu;
-    QPopupMenu *exportMenu;
-    float mm2pts(int mm);
-    float pts2mm(float pts);
-    QIntDict<QString> FontID;
-    int HaveGS;
-    bool PDFavailable;
-    void *PSDriver;
-    void *PDFDriver;
-    int DocNr;
-    QStringList RecentDocs;
-		struct PlugData { QString Datei;
-								 			void *Zeiger;
-											int Typ;
-							 			} ;
-    QMap<QString, PlugData> PluginMap;
-    bool PrinterUsed;
-    struct PDe { QString Pname;
-    						 QString Dname;
-								 QString Command;
-    						} PDef ;
+private:
+    /** the splash screen */
+	SplashScreen * splash;
+    /** init methods */
+	void initScribus();
+
+	/** file_menu contains all items of the menubar entry "File" */
+	QPopupMenu *fileMenu;
+	/** edit_menu contains all items of the menubar entry "Edit" */
+	QPopupMenu *editMenu;
+	/** StilMenu enthaelt das Stilemenue */
+	QPopupMenu *StilMenu;
+	/** ObjMenu enthaelt das Objektemenue */
+	QPopupMenu *ObjMenu;
+	/** pageMenu enthaelt das Seitenmenue */
+	QPopupMenu *pageMenu;
+	/** view_menu contains all items of the menubar entry "View" */
+	QPopupMenu *viewMenu;
+	/** ColorMenu enthaelt die Farben des Dokuments */
+	QPopupMenu *ColorMenu;
+	QComboBox *ColorMenC;
+	/** SizeTMenu enthaelt die Schriftgroessen */
+	QPopupMenu *SizeTMenu;
+	/** ShadeMenu enthaelt die Tonwerte */
+	QPopupMenu *ShadeMenu;
+	/** ShapeMenu enthaelt die Rahmenformen */
+	QPopupMenu *ShapeMenu;
+	/** FontMenu enthaelt die Fonts */
+	QPopupMenu *FontMenu;
+    FontCombo* FontSub;
+	QPopupMenu *TypeStyleMenu;
+	QPopupMenu *AliMenu;
+	QPopupMenu *recentMenu;
+	QPopupMenu *hymen;
+	QToolBar *WerkTools2;
+	WerkToolBP* WerkToolsP;
+	QToolButton* DatOpe;
+	QToolButton* DatSav;
+	QToolButton* DatClo;
+	QToolButton* DatPri;
+	QToolButton* DatPDF;
+	QToolButton* DatNeu;
+	int KeyMod;
+	int ShapeEdit;
+	int ShapeM;
+	int DistM;
+	int PfadT;
+	int PfadDT;
+	int PfadS;
+	int PfadV;
+	int PfadTP;
+	int pgmd;
+	int pgmm;
+	int pgmv;
+	int Stm;
+	int Obm;
+	int Markers;
+	int FrameDr;
+	int Bilder;
+	int Ras;
+	int uRas;
+	int Guide;
+	int uGuide;
+	int viewTools;
+	int viewToolsP;
+	int viewMpal;
+	int viewTpal;
+	int viewNpal;
+	int viewBpal;
+	int viewLpal;
+	int viewSepal;
+	int viewBopal;
+	int fid1;
+	int fid2;
+	int fid2a;
+	int fid3;
+	int fid4;
+	int fid5;
+	int fid51;
+	int fid52;
+	int fid6;
+	int fid7;
+	int fid8;
+	int fid9;
+	int fid10;
+	int fid11;
+	int fid12;
+	int fid13;
+	int fid14;
+	int edUndo;
+	int edid1;
+	int edid2;
+	int edid3;
+	int edid4;
+	int edid5;
+	int edid6;
+	int edid6a;
+	int Sear;
+	int Loesch;
+	int tman;
+	int jman;
+	int tip;
+	int Gr;
+	int UnGr;
+	int LockOb;
+	int exmn;
+	int hyph;
+	int ORaise;
+	int OLower;
+	int OBack;
+	int OFront;
+	bool tipsOn;
+	bool keyrep;
+	QPopupMenu *helpMenu;
+	QPopupMenu *toolMenu;
+	QPopupMenu *extraMenu;
+	QPopupMenu *importMenu;
+	QPopupMenu *exportMenu;
+	double mm2pts(int mm);
+	double pts2mm(double pts);
+	QMap<int,QString> FontID;
+	int HaveGS;
+	void *PSDriver;
+	int DocNr;
+	QStringList RecentDocs;
+	struct PlugData { 
+						QString Datei;
+					  	void *Zeiger;
+					  	int Typ;
+					} ;
+	QMap<QString, PlugData> PluginMap;
+	bool PrinterUsed;
+	struct PDe { 
+					QString Pname;
+    			 	QString Dname;
+				 	QString Command;
+    			} PDef ;
 };
 #endif 
-
