@@ -216,6 +216,9 @@ void ScribusApp::initScribus()
 	}
 	else
 	{
+        splash->setStatus( tr("Font System Initialized") );
+        qApp->processEvents();
+
 		HaveDoc = 0;
 		singleClose = false;
 		ScriptRunning = false;
