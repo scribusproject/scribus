@@ -84,11 +84,8 @@ UndoWidget::UndoWidget(QWidget* parent, const char* name)
 	ScApp->scrMenuMgr->addMenuToWidgetOfAction("redoButtonMenu", ScApp->scrActions["editRedoAction"]);
 	QToolButton *undoButton = dynamic_cast<QToolButton*>(ScApp->scrActions["editUndoAction"]->getWidgetAddedTo());
 	QToolButton *redoButton = dynamic_cast<QToolButton*>(ScApp->scrActions["editRedoAction"]->getWidgetAddedTo());
-	if (undoButton && redoButton)
-	{
-		undoButton->setPopupDelay(0);
-		redoButton->setPopupDelay(0);
-	}
+	undoButton->setPopupDelay(0);
+	redoButton->setPopupDelay(0);
 	
 	ScApp->scrActions["editCut"]->addTo(parent);
 	ScApp->scrActions["editCopy"]->addTo(parent);
@@ -142,16 +139,18 @@ void UndoWidget::redoMenuClicked(int id)
 	emit redo(steps);
 }
 
-void UndoWidget::insertUndoItem(UndoObject*, UndoState* state)
+void UndoWidget::insertUndoItem(UndoObject* target, UndoState* state)
 {
-	undoItems.insert(undoItems.begin(), state->getName());
+	undoItems.insert(undoItems.begin(), QString(tr("%1: %2", "undo target: action (f.e. Text frame: Resize)"))
+                                        .arg(target->getUName()).arg(state->getName()));
 	clearRedoMenu();
 	updateUndoMenu();
 }
 
-void UndoWidget::insertRedoItem(UndoObject*, UndoState* state)
+void UndoWidget::insertRedoItem(UndoObject* target, UndoState* state)
 {
-	redoItems.push_back(state->getName());
+	redoItems.push_back(QString(tr("%1: %2", "undo target: action (f.e. Text frame: Resize)"))
+                        .arg(target->getUName()).arg(state->getName()));
 	updateRedoMenu();
 }
 
