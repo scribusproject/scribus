@@ -873,7 +873,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	Shade2->setSuffix( tr( " %" ) );
 	Shade2->setMaxValue( 100 );
 	Shade2->setMinValue( 0 );
-	Shade2->setValue(ap->HaveDoc ? ap->doc->Dshade2 : Vor->Dshade2 );
+	Shade2->setValue(Vor->Dshade2 );
 	TextLabelT22 = new QLabel( Shade2, tr( "&Shading:" ), ToolFrame2, "TextLabel2_2" );
 	TextLabelT22->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                                        TextLabelT22->sizePolicy().hasHeightForWidth() ) );
@@ -902,7 +902,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	Shade->setSuffix( tr( " %" ) );
 	Shade->setMaxValue( 100 );
 	Shade->setMinValue( 0 );
-	Shade->setValue(ap->HaveDoc ? ap->doc->Dshade : Vor->Dshade );
+	Shade->setValue(Vor->Dshade );
 	TextLabelT24 = new QLabel( Shade, tr( "S&hading:" ), ToolFrame2, "TextLabel2_2_2" );
 	TextLabelT24->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                                        TextLabelT24->sizePolicy().hasHeightForWidth() ) );
@@ -911,8 +911,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	
 	Linestyle = new LineCombo(ToolFrame2);
 	Linestyle->setEditable(false);
-	int dla = ap->HaveDoc ? ap->doc->DLineArt : Vor->DLineArt;
-	switch (dla)
+	switch (Vor->DLineArt)
 	{
 	case SolidLine:
 		Linestyle->setCurrentItem(0);
@@ -941,7 +940,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	
 	LineW = new MSpinBox( 0, 36, ToolFrame2, 1 );
 	LineW->setSuffix( tr( " pt" ) );
-	LineW->setValue(ap->HaveDoc ? ap->doc->Dwidth : Vor->Dwidth);
+	LineW->setValue(Vor->Dwidth);
 	TextLabelT26 = new QLabel( LineW, tr( "Line &Width:" ), ToolFrame2, "TextLabel2_3_4" );
 	TextLabelT26->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                                        TextLabelT26->sizePolicy().hasHeightForWidth() ) );
@@ -995,7 +994,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	Layout15c->addWidget(Shade22, 1, 1);
 	Linestyle2 = new LineCombo(ToolFrame3);
 	Linestyle2->setEditable(false);
-	dla = ap->HaveDoc ? ap->doc->DLstyleLine : Vor->DLstyleLine;
+	int dla = ap->HaveDoc ? ap->doc->DLstyleLine : Vor->DLstyleLine;
 	switch (dla)
 	{
 	case SolidLine:
@@ -1053,7 +1052,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	MinMag->setMaxValue( 800 );
 	MinMag->setMinValue( 10 );
 	MinMag->setLineStep( 10 );
-	MinMag->setValue(ap->HaveDoc ? ap->doc->MagMin : Vor->MagMin );
+	MinMag->setValue(Vor->MagMin );
 	TextLabelT42 = new QLabel( MinMag, tr( "Mi&nimum:" ), ToolFrame4, "TextLabel2_2" );
 	TextLabelT42->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                                        TextLabelT42->sizePolicy().hasHeightForWidth() ) );
@@ -1065,7 +1064,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	MaxMag->setMaxValue( 800 );
 	MaxMag->setMinValue( 10 );
 	MaxMag->setLineStep( 10 );
-	MaxMag->setValue(ap->HaveDoc ? ap->doc->MagMax : Vor->MagMax );
+	MaxMag->setValue(Vor->MagMax );
 	TextLabelT43 = new QLabel( MaxMag, tr( "Ma&ximum:" ), ToolFrame4, "TextLabel2_2_3" );
 	TextLabelT43->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                                        TextLabelT43->sizePolicy().hasHeightForWidth() ) );
@@ -1077,7 +1076,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	StepMag->setMaxValue( 200 );
 	StepMag->setMinValue( 1 );
 	StepMag->setLineStep( 25 );
-	StepMag->setValue(ap->HaveDoc ? ap->doc->MagStep : Vor->MagStep );
+	StepMag->setValue(Vor->MagStep );
 	TextLabelT44 = new QLabel( StepMag, tr( "&Stepping:" ), ToolFrame4, "TextLabel2_3_4" );
 	TextLabelT44->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                                        TextLabelT44->sizePolicy().hasHeightForWidth() ) );

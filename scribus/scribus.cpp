@@ -2448,6 +2448,36 @@ bool ScribusApp::SetupDoc()
 			doc->DpenText = "None";
 		doc->DCols = dia->columnsText->value();
 		doc->DGap = dia->gapText->value() / UmReFaktor;
+		doc->Dpen = dia->colorComboLineShape->currentText();
+		if (doc->Dpen == tr("None"))
+			doc->Dpen = "None";
+		doc->Dbrush = dia->comboFillShape->currentText();
+		if (doc->Dbrush == tr("None"))
+			doc->Dbrush = "None";
+		doc->Dshade = dia->shadingFillShape->value();
+		doc->Dshade2 = dia->shadingLineShape->value();
+		switch (dia->comboStyleShape->currentItem())
+		{
+		case 0:
+			doc->DLineArt = SolidLine;
+			break;
+		case 1:
+			doc->DLineArt = DashLine;
+			break;
+		case 2:
+			doc->DLineArt = DotLine;
+			break;
+		case 3:
+			doc->DLineArt = DashDotLine;
+			break;
+		case 4:
+			doc->DLineArt = DashDotDotLine;
+			break;
+		}
+		doc->Dwidth = dia->lineWidthShape->value();
+		doc->MagMin = dia->minimumZoom->value();
+		doc->MagMax = dia->maximumZoom->value();
+		doc->MagStep = dia->zoomStep->value();
 		viewMenu->setItemChecked(Markers, doc->MarginsShown);
 		viewMenu->setItemChecked(FrameDr, doc->FramesShown);
 		viewMenu->setItemChecked(Ras, doc->GridShown);

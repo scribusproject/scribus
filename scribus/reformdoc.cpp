@@ -546,6 +546,8 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : Pref
 	QPixmap pmT2;
 	pmT2 = QPixmap(15, 15);
 	CListe::Iterator itc;
+	if (doc->DpenText == "None")
+		colorComboText->setCurrentItem(colorComboText->count()-1);
 	for (itc = doc->PageColors.begin(); itc != doc->PageColors.end(); ++itc)
 	{
 		pmT2.fill(doc->PageColors[itc.key()].getRGBColor());
@@ -564,43 +566,87 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : Pref
 
     subTabShape = new QWidget( subStackTools, "subTabShape" );
     subTabShapeLayout = new QGridLayout( subTabShape, 1, 1, 11, 6, "subTabShapeLayout"); 
-    textLabel9b = new QLabel( subTabShape, "textLabel9b" );
-    textLabel9b->setText( tr( "Fill Color:" ) );
-    subTabShapeLayout->addWidget( textLabel9b, 2, 0 );
-    textLabel10b = new QLabel( subTabShape, "textLabel10b" );
-    textLabel10b->setText( tr( "Shading:" ) );
-    subTabShapeLayout->addWidget( textLabel10b, 3, 0 );
-    lineWidthShape = new QSpinBox( subTabShape, "lineWidthShape" );
-    lineWidthShape->setMaxValue( 36 );
-    lineWidthShape->setSuffix( tr( " pt" ) );
-    subTabShapeLayout->addWidget( lineWidthShape, 5, 1 );
-    textLabel12b = new QLabel( subTabShape, "textLabel12b" );
-    textLabel12b->setText( tr( "Line Width:" ) );
-    subTabShapeLayout->addWidget( textLabel12b, 5, 0 );
-    textLabel11b = new QLabel( subTabShape, "textLabel11b" );
-    textLabel11b->setText( tr( "Line Style:" ) );
-    subTabShapeLayout->addWidget( textLabel11b, 4, 0 );
-    comboStyleShape = new QComboBox( FALSE, subTabShape, "comboStyleShape" );
-    subTabShapeLayout->addWidget( comboStyleShape, 4, 1 );
-    shadingFillShape = new QSpinBox( subTabShape, "shadingFillShape" );
-    shadingFillShape->setMaxValue( 100 );
-    shadingFillShape->setSuffix( tr( " %" ) );
-    subTabShapeLayout->addWidget( shadingFillShape, 3, 1 );
-    comboFillShape = new QComboBox( FALSE, subTabShape, "comboFillShape" );
-    subTabShapeLayout->addWidget( comboFillShape, 2, 1 );
+	colorComboLineShape = new QComboBox( true, subTabShape, "colorComboLineShape" );
+	colorComboLineShape->setEditable(false);
+	colorComboLineShape->insertItem( tr("None"));
+	if (doc->Dpen == "None")
+		colorComboLineShape->setCurrentItem(colorComboLineShape->count()-1);
+	QPixmap pm2S = QPixmap(15, 15);
+	for (itc = doc->PageColors.begin(); itc != doc->PageColors.end(); ++itc)
+	{
+		pm2S.fill(doc->PageColors[itc.key()].getRGBColor());
+		colorComboLineShape->insertItem(pm2S, itc.key());
+		if (itc.key() == doc->Dpen)
+			colorComboLineShape->setCurrentItem(colorComboLineShape->count()-1);
+	}
+    subTabShapeLayout->addWidget( colorComboLineShape, 0, 1 );
+	textLabel7b = new QLabel( colorComboLineShape, tr( "&Line Color:" ), subTabShape, "textLabel7b" );
+    subTabShapeLayout->addWidget( textLabel7b, 0, 0 );
     shadingLineShape = new QSpinBox( subTabShape, "shadingLineShape" );
     shadingLineShape->setMaxValue( 100 );
     shadingLineShape->setSuffix( tr( " %" ) );
-    subTabShapeLayout->addWidget( shadingLineShape, 1, 1 );
-    textLabel7b = new QLabel( subTabShape, "textLabel7b" );
-    textLabel7b->setText( tr( "Line Color:" ) );
-    subTabShapeLayout->addWidget( textLabel7b, 0, 0 );
-    colorComboLineShape = new QComboBox( FALSE, subTabShape, "colorComboLineShape" );
-    subTabShapeLayout->addWidget( colorComboLineShape, 0, 1 );
-    textLabel8b = new QLabel( subTabShape, "textLabel8b" );
-    textLabel8b->setText( tr( "Shading:" ) );
+	shadingLineShape->setMinValue( 0 );
+	shadingLineShape->setValue(doc->Dshade2);
+    subTabShapeLayout->addWidget( shadingLineShape, 1, 1, Qt::AlignLeft );
+	textLabel8b = new QLabel( shadingLineShape, tr( "&Shading:" ), subTabShape, "textLabel8b" );
     subTabShapeLayout->addWidget( textLabel8b, 1, 0 );
+	comboFillShape = new QComboBox( true, subTabShape, "comboFillShape" );
+	comboFillShape->setEditable(false);
+	comboFillShape->insertItem( tr("None"));
+	if (doc->Dbrush == "None")
+		comboFillShape->setCurrentItem(comboFillShape->count()-1);
+	for (itc = doc->PageColors.begin(); itc != doc->PageColors.end(); ++itc)
+	{
+		pm2S.fill(doc->PageColors[itc.key()].getRGBColor());
+		comboFillShape->insertItem(pm2S, itc.key());
+		if (itc.key() == doc->Dbrush)
+			comboFillShape->setCurrentItem(comboFillShape->count()-1);
+	}
+    subTabShapeLayout->addWidget( comboFillShape, 2, 1 );
+	textLabel9b = new QLabel( comboFillShape, tr( "&Fill Color:" ), subTabShape, "textLabel9b" );
+    subTabShapeLayout->addWidget( textLabel9b, 2, 0 );
+    shadingFillShape = new QSpinBox( subTabShape, "shadingFillShape" );
+    shadingFillShape->setMaxValue( 100 );
+    shadingFillShape->setSuffix( tr( " %" ) );
+	shadingFillShape->setMinValue( 0 );
+	shadingFillShape->setValue(doc->Dshade);
+    subTabShapeLayout->addWidget( shadingFillShape, 3, 1, Qt::AlignLeft );
+	textLabel10b = new QLabel( shadingFillShape, tr( "S&hading:" ), subTabShape, "textLabel10b" );
+    subTabShapeLayout->addWidget( textLabel10b, 3, 0 );
+	comboStyleShape = new LineCombo(subTabShape);
+	comboStyleShape->setEditable(false);
+	switch (doc->DLineArt)
+	{
+	case SolidLine:
+		comboStyleShape->setCurrentItem(0);
+		break;
+	case DashLine:
+		comboStyleShape->setCurrentItem(1);
+		break;
+	case DotLine:
+		comboStyleShape->setCurrentItem(2);
+		break;
+	case DashDotLine:
+		comboStyleShape->setCurrentItem(3);
+		break;
+	case DashDotDotLine:
+		comboStyleShape->setCurrentItem(4);
+		break;
+	default:
+		comboStyleShape->setCurrentItem(0);
+		break;
+	}
+    subTabShapeLayout->addWidget( comboStyleShape, 4, 1 );
+	textLabel11b = new QLabel( comboStyleShape, tr( "Line Style:" ), subTabShape, "textLabel11b" );
+    subTabShapeLayout->addWidget( textLabel11b, 4, 0 );
+	lineWidthShape = new MSpinBox( 0, 36, subTabShape, 1 );
+	lineWidthShape->setSuffix( tr( " pt" ) );
+	lineWidthShape->setValue(doc->Dwidth);
+    subTabShapeLayout->addWidget( lineWidthShape, 5, 1, Qt::AlignLeft );
+	textLabel12b = new QLabel( lineWidthShape, tr( "Line &Width:" ), subTabShape, "TextLabel2_3_4" );
+    subTabShapeLayout->addWidget( textLabel12b, 5, 0 );
     subStackTools->addWidget( subTabShape, 1 );
+
     subTabLine = new QWidget( subStackTools, "subTabLine" );
     subTabLineLayout = new QGridLayout( subTabLine, 1, 1, 11, 6, "subTabLineLayout"); 
     lineWidthLine = new QSpinBox( subTabLine, "lineWidthLine" );
@@ -628,31 +674,22 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : Pref
     comboStyleLine = new QComboBox( FALSE, subTabLine, "comboStyleLine" );
     subTabLineLayout->addWidget( comboStyleLine, 2, 1 );
     subStackTools->addWidget( subTabLine, 2 );
+
     subTabImage = new QWidget( subStackTools, "subTabImage" );
     subTabImageLayout = new QGridLayout( subTabImage, 1, 1, 11, 6, "subTabImageLayout"); 
     comboFillImage = new QComboBox( FALSE, subTabImage, "comboFillImage" );
-    subTabImageLayout->addWidget( comboFillImage, 1, 1 );
+    subTabImageLayout->addWidget( comboFillImage, 2, 1 );
     textLabel19b = new QLabel( subTabImage, "textLabel19b" );
     textLabel19b->setText( tr( "Fill Color:" ) );
-    subTabImageLayout->addWidget( textLabel19b, 1, 0 );
+    subTabImageLayout->addWidget( textLabel19b, 2, 0 );
     shadingFillImage = new QSpinBox( subTabImage, "shadingFillImage" );
     shadingFillImage->setMaxValue( 100 );
     shadingFillImage->setSuffix( tr( " %" ) );
-    subTabImageLayout->addWidget( shadingFillImage, 2, 1 );
+    subTabImageLayout->addWidget( shadingFillImage, 3, 1 );
     textLabel20b = new QLabel( subTabImage, "textLabel20b" );
     textLabel20b->setText( tr( "Shading:" ) );
-    subTabImageLayout->addWidget( textLabel20b, 2, 0 );
-    buttonGroupImage = new QButtonGroup( subTabImage, "buttonGroupImage" );
-    buttonGroupImage->setFrameShape( QButtonGroup::NoFrame );
-    buttonGroupImage->setFrameShadow( QButtonGroup::Plain );
-    buttonGroupImage->setExclusive( TRUE );
-    buttonGroupImage->setColumnLayout(0, Qt::Vertical );
-    buttonGroupImage->layout()->setSpacing( 6 );
-    buttonGroupImage->layout()->setMargin( 0 );
-    buttonGroupImage->setTitle( QString::null );
-    buttonGroupImageLayout = new QVBoxLayout( buttonGroupImage->layout() );
-    buttonGroupImageLayout->setAlignment( Qt::AlignTop );
-    buttonGroup3 = new QButtonGroup( buttonGroupImage, "buttonGroup3" );
+    subTabImageLayout->addWidget( textLabel20b, 3, 0 );
+    buttonGroup3 = new QButtonGroup( subTabImage, "buttonGroup3" );
     buttonGroup3->setCheckable( TRUE );
     buttonGroup3->setColumnLayout(0, Qt::Vertical );
     buttonGroup3->layout()->setSpacing( 6 );
@@ -679,9 +716,9 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : Pref
 	chainButton = new LinkButton( buttonGroup3 );
 	chainButton->setToggleButton( true );
 	chainButton->setAutoRaise(true);
-    buttonGroup3Layout->addMultiCellWidget( chainButton, 0, 1, 2, 2 );
-    buttonGroupImageLayout->addWidget( buttonGroup3 );
-    buttonGroup5 = new QButtonGroup( buttonGroupImage, "buttonGroup5" );
+    buttonGroup3Layout->addMultiCellWidget( chainButton, 0, 1, 2, 2, Qt::AlignLeft );
+    subTabImageLayout->addMultiCellWidget( buttonGroup3, 0, 0, 0, 1 );
+    buttonGroup5 = new QButtonGroup( subTabImage, "buttonGroup5" );
     buttonGroup5->setCheckable( TRUE );
     buttonGroup5->setChecked( FALSE );
     buttonGroup5->setColumnLayout(0, Qt::Vertical );
@@ -693,43 +730,45 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : Pref
     checkRatioImage = new QCheckBox( buttonGroup5, "checkRatioImage" );
     checkRatioImage->setText( tr( "Keep Aspect Ratio" ) );
     buttonGroup5Layout->addWidget( checkRatioImage );
-    buttonGroupImageLayout->addWidget( buttonGroup5 );
-    subTabImageLayout->addMultiCellWidget( buttonGroupImage, 0, 0, 0, 1 );
+    subTabImageLayout->addMultiCellWidget( buttonGroup5, 1, 1, 0, 1 );
     subStackTools->addWidget( subTabImage, 3 );
+
     subTabPolygon = new QWidget( subStackTools, "subTabPolygon" );
     subTabPolygonLayout = new QHBoxLayout( subTabPolygon, 11, 6, "subTabPolygonLayout"); 
     textLabel16du = new QLabel( subTabPolygon, "textLabel16" );
     textLabel16du->setText( tr( "<p align=\"center\">Dummy</p>" ) );
     subTabPolygonLayout->addWidget( textLabel16du );
     subStackTools->addWidget( subTabPolygon, 4 );
+
     subTabZoom = new QWidget( subStackTools, "subTabZoom" );
     subTabZoomLayout = new QGridLayout( subTabZoom, 1, 1, 11, 6, "subTabZoomLayout"); 
-    textLabel21b = new QLabel( subTabZoom, "textLabel21b" );
-    textLabel21b->setText( tr( "Minimum:" ) );
-    subTabZoomLayout->addWidget( textLabel21b, 0, 0 );
     minimumZoom = new QSpinBox( subTabZoom, "minimumZoom" );
     minimumZoom->setMaxValue( 3200 );
     minimumZoom->setMinValue( 10 );
+	minimumZoom->setValue(doc->MagMin);
     minimumZoom->setSuffix( tr( " %" ) );
     subTabZoomLayout->addWidget( minimumZoom, 0, 1 );
-    textLabel22b = new QLabel( subTabZoom, "textLabel22b" );
-    textLabel22b->setText( tr( "Maximum:" ) );
-    subTabZoomLayout->addWidget( textLabel22b, 1, 0 );
-    textLabel23b = new QLabel( subTabZoom, "textLabel23b" );
-    textLabel23b->setText( tr( "Stepping:" ) );
-    subTabZoomLayout->addWidget( textLabel23b, 2, 0 );
+    textLabel21b = new QLabel( subTabZoom, "textLabel21b" );
+	textLabel21b = new QLabel( minimumZoom, tr( "Mi&nimum:" ), subTabZoom, "textLabel21b" );
+    subTabZoomLayout->addWidget( textLabel21b, 0, 0, Qt::AlignLeft );
     maximumZoom = new QSpinBox( subTabZoom, "maximumZoom" );
     maximumZoom->setMaxValue( 3200 );
     maximumZoom->setMinValue( 10 );
+	maximumZoom->setValue(doc->MagMax);
     maximumZoom->setSuffix( tr( " %" ) );
     subTabZoomLayout->addWidget( maximumZoom, 1, 1 );
+	textLabel22b = new QLabel( maximumZoom, tr( "Ma&ximum:" ), subTabZoom, "textLabel22b" );
+    subTabZoomLayout->addWidget( textLabel22b, 1, 0, Qt::AlignLeft );
     zoomStep = new QSpinBox( subTabZoom, "zoomStep" );
     zoomStep->setMaxValue( 200 );
     zoomStep->setMinValue( 1 );
     zoomStep->setLineStep( 25 );
-    zoomStep->setValue( 25 );
+    zoomStep->setValue( doc->MagStep );
     zoomStep->setSuffix( tr( " %" ) );
     subTabZoomLayout->addWidget( zoomStep, 2, 1 );
+    textLabel23b = new QLabel( subTabZoom, "textLabel23b" );
+	textLabel23b = new QLabel( zoomStep, tr( "&Stepping:" ), subTabZoom, "textLabel23b" );
+    subTabZoomLayout->addWidget( textLabel23b, 2, 0, Qt::AlignLeft );
     subStackTools->addWidget( subTabZoom, 5 );
     tabToolsLayout->addWidget( subStackTools );
     // buddies
@@ -758,7 +797,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : Pref
 	topR->setMaxValue(pageHeight - bottomR->value());
 	bottomR->setMaxValue(pageHeight - topR->value());
 	toolText->setOn(true);
-	SetSample();
+	setSample();
 	//tooltips
 	QToolTip::add( facingPages, tr( "Enable single or spread based layout" ) );
 	QToolTip::add( firstPage, tr( "Make the first page the left page of the document" ) );
@@ -781,17 +820,36 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : Pref
 	connect(guideColor, SIGNAL(clicked()), this, SLOT(changeGuideColor()));
 	connect(marginColor, SIGNAL(clicked()), this, SLOT(changeMarginColor()));
 	connect(backColor, SIGNAL(clicked()), this, SLOT(changePaperColor()));
-	connect(toolShape, SIGNAL(clicked()), this, SLOT(SetTool()));
-	connect(toolPoly, SIGNAL(clicked()), this, SLOT(SetTool()));
-	connect(toolImage, SIGNAL(clicked()), this, SLOT(SetTool()));
-	connect(toolText, SIGNAL(clicked()), this, SLOT(SetTool()));
-	connect(toolLine, SIGNAL(clicked()), this, SLOT(SetTool()));
-	connect(toolZoom, SIGNAL(clicked()), this, SLOT(SetTool()));
-	connect(fontComboText, SIGNAL(activated(int)), this, SLOT(SetSample()));
-	connect(sizeComboText, SIGNAL(activated(int)), this, SLOT(SetSample()));
+	connect(toolShape, SIGNAL(clicked()), this, SLOT(setTool()));
+	connect(toolPoly, SIGNAL(clicked()), this, SLOT(setTool()));
+	connect(toolImage, SIGNAL(clicked()), this, SLOT(setTool()));
+	connect(toolText, SIGNAL(clicked()), this, SLOT(setTool()));
+	connect(toolLine, SIGNAL(clicked()), this, SLOT(setTool()));
+	connect(toolZoom, SIGNAL(clicked()), this, SLOT(setTool()));
+	connect(fontComboText, SIGNAL(activated(int)), this, SLOT(setSample()));
+	connect(sizeComboText, SIGNAL(activated(int)), this, SLOT(setSample()));
+	connect(buttonGroup3, SIGNAL(clicked(int)), this, SLOT(changeImageScalingFree(int)));
+	connect(buttonGroup5, SIGNAL(clicked(int)), this, SLOT(changeImageScalingRatio(int)));
+	
 	prefsWidgets->raiseWidget(0);
 	resize( minimumSizeHint() );
 	clearWState( WState_Polished );
+}
+
+void ReformDoc::changeImageScalingFree(int)
+{
+	if (buttonGroup3->isChecked())
+		buttonGroup5->setChecked(false);
+	else
+		buttonGroup5->setChecked(true);
+}
+
+void ReformDoc::changeImageScalingRatio(int)
+{
+	if (buttonGroup5->isChecked())
+		buttonGroup3->setChecked(false);
+	else
+		buttonGroup3->setChecked(true);
 }
 
 /*!
@@ -802,7 +860,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc, preV *prefsData ) : Pref
  \param None
  \retval None 
  */
-void ReformDoc::SetSample()
+void ReformDoc::setSample()
 {
 	QString ts = tr( "Woven silk pyjamas exchanged for blue quartz" );
 	QString da = (*fon)[fontComboText->currentText()]->Datei;
@@ -819,7 +877,7 @@ void ReformDoc::SetSample()
  \param None
  \retval None 
  */
-void ReformDoc::SetTool()
+void ReformDoc::setTool()
 {
 	if (toolText == sender())
 		subStackTools->raiseWidget(0);

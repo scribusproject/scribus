@@ -13,6 +13,7 @@
 #include <qtoolbutton.h>
 #include <qcolor.h>
 #include "linkbutton.h"
+#include "linecombo.h"
 #include "mspinbox.h"
 #include "prefsdialogbase.h"
 #include "scfonts.h"
@@ -131,10 +132,10 @@ public:
 	QWidget* subTabShape;
 	QLabel* textLabel9b;
 	QLabel* textLabel10b;
-	QSpinBox* lineWidthShape;
+	MSpinBox* lineWidthShape;
 	QLabel* textLabel12b;
 	QLabel* textLabel11b;
-	QComboBox* comboStyleShape;
+	LineCombo* comboStyleShape;
 	QSpinBox* shadingFillShape;
 	QComboBox* comboFillShape;
 	QSpinBox* shadingLineShape;
@@ -155,7 +156,6 @@ public:
 	QLabel* textLabel19b;
 	QSpinBox* shadingFillImage;
 	QLabel* textLabel20b;
-	QButtonGroup* buttonGroupImage;
 	QButtonGroup* buttonGroup3;
 	QLabel* textLabel17b;
 	QLabel* textLabel18b;
@@ -218,15 +218,16 @@ protected:
 	QGridLayout* subTabShapeLayout;
 	QGridLayout* subTabLineLayout;
 	QGridLayout* subTabImageLayout;
-	QVBoxLayout* buttonGroupImageLayout;
 	QGridLayout* buttonGroup3Layout;
 	QHBoxLayout* buttonGroup5Layout;
 	QHBoxLayout* subTabPolygonLayout;
 	QGridLayout* subTabZoomLayout;
 
 protected slots:
-	virtual void SetSample();
-	virtual void SetTool();
+	virtual void changeImageScalingFree(int);
+	virtual void changeImageScalingRatio(int);
+	virtual void setSample();
+	virtual void setTool();
 	virtual void changeMajorColor();
 	virtual void changeMinorColor();
 	virtual void changePaperColor();
