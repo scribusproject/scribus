@@ -1,6 +1,1427 @@
 <!DOCTYPE TS><TS>
 <context>
+    <name></name>
+    <message>
+        <source>getColorNames() -&gt; list
+
+Returns a list containing the names of all defined colors in the document.
+If no document is open, returns a list of the default document colors.
+</source>
+        <translation>getColorNames() -&gt; list
+
+Возвращает список имён цветов, определённых для этого документа.
+Если ни один документ не открыт, возвращается список стандартных цветов документа.
+</translation>
+    </message>
+    <message>
+        <source>newDocDialog() -&gt; bool
+
+Displays the &quot;New Document&quot; dialog box. Creates a new document if the user
+accepts the settings. Does not create a document if the user presses cancel.
+Returns true if a new document was created.
+</source>
+        <translation>newDocDialog() -&gt; bool
+
+Показавает диалог &quot;Новый документ&quot;. Создаёт новый документ, если пользователь
+примет установки. Не создаёт документ, если пользователь нажимает &quot;Отменить&quot;.
+Возвращает значение true, если документ создан.
+</translation>
+    </message>
+    <message>
+        <source>newDoc(size, margins, orientation, firstPageNumber,
+                   unit, facingPages, firstSideLeft) -&gt; bool
+
+Creates a new document and returns true if successful. The parameters have the
+following meaning:
+
+    size = A tuple (width, height) describing the size of the document. You can
+    use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
+
+    margins = A tuple (left, right, top, bottom) describing the document
+    margins
+
+    orientation = the page orientation - constants PORTRAIT, LANDSCAPE
+
+    firstPageNumber = is the number of the first page in the document used for
+    pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
+    numbers if you&apos;re creating a document in several parts.
+
+    unit: this value sets the measurement units used by the document. Use a
+    predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+    UNIT_PICAS, UNIT_POINTS.
+
+    facingPages = FACINGPAGES, NOFACINGPAGES
+
+    firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
+
+The values for width, height and the margins are expressed in the given unit
+for the document. PAPER_* constants are expressed in points. If your document
+is not in points, make sure to account for this.
+
+example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
+                FACINGPAGES, FIRSTPAGERIGHT)
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getFillColor([&quot;name&quot;]) -&gt; string
+
+Returns the name of the fill color of the object &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation>getFillColor([&quot;name&quot;]) -&gt; string
+
+Возвращает имя цвета заливки объекта &quot;name&quot;. Если &quot;name&quot; 
+не задан, используется текущий выбранный объект.
+</translation>
+    </message>
+    <message>
+        <source>moveObject(dx, dy [, &quot;name&quot;])
+
+Moves the object &quot;name&quot; by dx and dy relative to its current position. The
+distances are expressed in the current measurement unit of the document (see
+UNIT constants). If &quot;name&quot; is not given the currently selected item is used.
+If the object &quot;name&quot; belongs to a group, the whole group is moved.
+</source>
+        <translation>moveObject(dx, dy [, &quot;name&quot;])
+
+Смещает обект &quot;name&quot; на dx и dy по отношению к текущей позиции.
+Расстояния выражаются в текущей единице измерения документа 
+(см. константы UNIT). Если &quot;name&quot; не задано, используется выбранный
+в данный момент объект. Если объект &quot;name&quot; принадлежит группе, 
+перемещается вся группа.
+</translation>
+    </message>
+    <message>
+        <source>setRedraw(bool)
+
+Disables page redraw when bool = False, otherwise redrawing is enabled.
+This change will persist even after the script exits, so make sure to call
+setRedraw(True) in a finally: clause at the top level of your script.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>createRect(x, y, width, height, [&quot;name&quot;]) -&gt; string
+
+Creates a new rectangle on the current page and returns its name. The
+coordinates are given in the current measurement units of the document
+(see UNIT constants). &quot;name&quot; should be a unique identifier for the object
+because you need this name to reference that object in future. If &quot;name&quot;
+is not given Scribus will create one for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>newPage(where [,&quot;template&quot;])
+
+Creates a new page. If &quot;where&quot; is -1 the new Page is appended to the
+document, otherwise the new page is inserted before &quot;where&quot;. Page numbers are
+counted from 1 upwards, no matter what the displayed first page number of your
+document is. The optional parameter &quot;template&quot; specifies the name of the
+template page for the new page.
+
+May raise IndexError if the page number is out of range
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setGradientFill(type, &quot;color1&quot;, shade1, &quot;color2&quot;, shade2, [&quot;name&quot;])
+
+Sets the gradient fill of the object &quot;name&quot; to type. Color descriptions are
+the same as for setFillColor() and setFillShade(). See the constants for
+available types (FILL_&lt;type&gt;).
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getFontSize([&quot;name&quot;]) -&gt; float
+
+Returns the font size in points for the text frame &quot;name&quot;. If this text
+frame has some text selected the value assigned to the first character of
+the selection is returned.
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>messagebarText(&quot;string&quot;)
+
+Writes the &quot;string&quot; into the Scribus message bar (status line). The text
+must be UTF8 encoded or &apos;unicode&apos; string(recommended).
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>@default</name>
+    <message>
+        <source>getColor(&quot;name&quot;) -&gt; tuple
+
+Returns a tuple (C, M, Y, K) containing the four color components of the
+color &quot;name&quot; from the current document. If no document is open, returns
+the value of the named color from the default document colors.
+
+May raise NotFoundError if the named color wasn&apos;t found.
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>changeColor(&quot;name&quot;, c, m, y, k)
+
+Changes the color &quot;name&quot; to the specified CMYK value. The color value is
+defined via four components c = Cyan, m = Magenta, y = Yellow and k = Black.
+Color components should be in the range from 0 to 255.
+
+May raise NotFoundError if the named color wasn&apos;t found.
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>defineColor(&quot;name&quot;, c, m, y, k)
+
+Defines a new color &quot;name&quot;. The color Value is defined via four components:
+c = Cyan, m = Magenta, y = Yellow and k = Black. Color components should be in
+the range from 0 to 255.
+
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>deleteColor(&quot;name&quot;, &quot;replace&quot;)
+
+Deletes the color &quot;name&quot;. Every occurence of that color is replaced by the
+color &quot;replace&quot;. If not specified, &quot;replace&quot; defaults to the color
+&quot;None&quot; - transparent.
+
+deleteColor works on the default document colors if there is no document open.
+In that case, &quot;replace&quot;, if specified, has no effect.
+
+May raise NotFoundError if a named color wasn&apos;t found.
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>replaceColor(&quot;name&quot;, &quot;replace&quot;)
+
+Every occurence of the color &quot;name&quot; is replaced by the color &quot;replace&quot;.
+
+May raise NotFoundError if a named color wasn&apos;t found.
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>fileDialog(&quot;caption&quot;, [&quot;filter&quot;, &quot;defaultname&quot; ,haspreview, issave]) -&gt; string with filename
+
+Shows a File Open dialog box with the caption &quot;caption&quot;. Files are filtered
+with the filter string &quot;filter&quot;. A default filename or file path can also
+supplied, leave this string empty when you don&apos;t want to use it.  A value of
+True for haspreview enables a small preview widget in the FileSelect box.  When
+the issave parameter is set to True the dialog acts like a &quot;Save As&quot; dialog
+otherwise it acts like a &quot;File Open Dialog&quot;. The default for both of the
+opional parameters is False.
+
+The filter, if specified, takes the form &apos;comment (*.type *.type2 ...)&apos;.
+For example &apos;Images (*.png *.xpm *.jpg)&apos;.
+
+Refer to the Qt-Documentation for QFileDialog for details on filters.
+
+Example: fileDialog(&apos;Open input&apos;, &apos;CSV files (*.csv)&apos;)
+Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;, issave=True)
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>messageBox(&quot;caption&quot;, &quot;message&quot;,
+    icon=ICON_NONE, button1=BUTTON_OK|BUTTONOPT_DEFAULT,
+    button2=BUTTON_NONE, button3=BUTTON_NONE) -&gt; integer
+
+Displays a message box with the title &quot;caption&quot;, the message &quot;message&quot;, and
+an icon &quot;icon&quot; and up to 3 buttons. By default no icon is used and a single
+button, OK, is displayed. Only the caption and message arguments are required,
+though setting an icon and appropriate button(s) is strongly
+recommended. The message text may contain simple HTML-like markup.
+
+Returns the number of the button the user pressed. Button numbers start
+at 1.
+
+For the icon and the button parameters there are predefined constants available
+with the same names as in the Qt Documentation. These are the BUTTON_* and
+ICON_* constants defined in the module. There are also two extra constants that
+can be binary-ORed with button constants:
+    BUTTONOPT_DEFAULT   Pressing enter presses this button.
+    BUTTONOPT_ESCAPE    Pressing escape presses this button.
+
+Usage examples:
+result = messageBox(&apos;Script failed&apos;,
+                    &apos;This script only works when you have a text frame selected.&apos;,
+                    ICON_ERROR)
+result = messageBox(&apos;Monkeys!&apos;, &apos;Something went ook! &lt;i&gt;Was it a monkey?&lt;/i&gt;&apos;,
+                    ICON_WARNING, BUTTON_YES|BUTTONOPT_DEFAULT,
+                    BUTTON_NO, BUTTON_IGNORE|BUTTONOPT_ESCAPE)
+
+Defined button and icon constants:
+BUTTON_NONE, BUTTON_ABORT, BUTTON_CANCEL, BUTTON_IGNORE, BUTTON_NO,
+BUTTON_NOALL, BUTTON_OK, BUTTON_RETRY, BUTTON_YES, BUTTON_YESALL,
+ICON_NONE, ICON_INFORMATION, ICON_WARNING, ICON_CRITICAL.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>valueDialog(caption, message [,defaultvalue]) -&gt; string
+
+Shows the common &apos;Ask for string&apos; dialog and returns its value as a string
+Parameters: window title, text in the window and optional &apos;default&apos; value.
+
+Example: valueDialog(&apos;title&apos;, &apos;text in the window&apos;, &apos;optional&apos;)
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>closeDoc()
+
+Closes the current document without prompting to save.
+
+May throw NoDocOpenError if there is no document to close
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>haveDoc() -&gt; bool
+
+Returns true if there is a document open.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>openDoc(&quot;name&quot;)
+
+Opens the document &quot;name&quot;.
+
+May raise ScribusError if the document could not be opened.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>saveDoc()
+
+Saves the current document with its current name, returns true if successful.
+If the document has not already been saved, this may bring up an interactive
+save file dialog.
+
+If the save fails, there is currently no way to tell.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>saveDocAs(&quot;name&quot;)
+
+Saves the current document under the new name &quot;name&quot; (which may be a full or
+relative path).
+
+May raise ScribusError if the save fails.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>saveDocAs(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
+
+Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
+strings.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setMargins(lr, rr, tr, br)
+
+Sets the margins of the document, Left(lr), Right(rr), Top(tr) and Bottom(br)
+margins are given in the measurement units of the document - see UNIT_&lt;type&gt;
+constants.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setUnit(type)
+
+Changes the measurement unit of the document. Possible values for &quot;unit&quot; are
+defined as constants UNIT_&lt;type&gt;.
+
+May raise ValueError if an invalid unit is passed.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getUnit() -&gt; integer (Scribus unit constant)
+
+Returns the measurement units of the document. The returned value will be one
+of the UNIT_* constants:
+UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>loadStylesFromFile(&quot;filename&quot;)
+
+Loads paragraph styles from the Scribus document at &quot;filename&quot; into the
+current document.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setDocType(facingPages, firstPageLeft)
+
+Sets the document type. To get facing pages set the first parameter to
+FACINGPAGES, to switch facingPages off use NOFACINGPAGES instead.  If you want
+to be the first page a left side set the second parameter to FIRSTPAGELEFT, for
+a right page use FIRSTPAGERIGHT.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLineColor([&quot;name&quot;]) -&gt; string
+
+Returns the name of the line color of the object &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLineWidth([&quot;name&quot;]) -&gt; integer
+
+Returns the line width of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLineShade([&quot;name&quot;]) -&gt; integer
+
+Returns the shading value of the line color of the object &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLineJoin([&quot;name&quot;]) -&gt; integer (see contants)
+
+Returns the line join style of the object &quot;name&quot;. If &quot;name&quot; is not given
+the currently selected item is used.  The join types are:
+JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLineEnd([&quot;name&quot;]) -&gt; integer (see constants)
+
+Returns the line cap style of the object &quot;name&quot;. If &quot;name&quot; is not given the
+currently selected item is used. The cap types are:
+CAP_FLAT, CAP_ROUND, CAP_SQUARE
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLineStyle([&quot;name&quot;]) -&gt; integer (see constants)
+
+Returns the line style of the object &quot;name&quot;. If &quot;name&quot; is not given the
+currently selected item is used. Line style constants are:
+LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getFillShade([&quot;name&quot;]) -&gt; integer
+
+Returns the shading value of the fill color of the object &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getCornerRadius([&quot;name&quot;]) -&gt; integer
+
+Returns the corner radius of the object &quot;name&quot;. The radius is
+expressed in points. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getImageScale([&quot;name&quot;]) -&gt; (x,y)
+
+Returns a (x, y) tuple containing the scaling values of the image frame
+&quot;name&quot;.  If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getImageName([&quot;name&quot;]) -&gt; string
+
+Returns the filename for the image in the image frame. If &quot;name&quot; is not
+given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getPosition([&quot;name&quot;]) -&gt; (x,y)
+
+Returns a (x, y) tuple with the position of the object &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+The position is expressed in the actual measurement unit of the document
+- see UNIT_&lt;type&gt; for reference.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getSize([&quot;name&quot;]) -&gt; (width,height)
+
+Returns a (width, height) tuple with the size of the object &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used. The size is
+expressed in the current measurement unit of the document - see UNIT_&lt;type&gt;
+for reference.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getRotation([&quot;name&quot;]) -&gt; integer
+
+Returns the rotation of the object &quot;name&quot;. The value is expressed in degrees,
+and clockwise is positive. If &quot;name&quot; is not given the currently selected item
+is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getAllObjects() -&gt; list
+
+Returns a list containing the names of all objects on the current page.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>moveObjectAbs(x, y [, &quot;name&quot;])
+
+Moves the object &quot;name&quot; to a new location. The coordinates are expressed in
+the current measurement unit of the document (see UNIT constants).  If &quot;name&quot;
+is not given the currently selected item is used.  If the object &quot;name&quot;
+belongs to a group, the whole group is moved.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>rotateObject(rot [, &quot;name&quot;])
+
+Rotates the object &quot;name&quot; by &quot;rot&quot; degrees relatively. The object is
+rotated by the vertex that is currently selected as the rotation point - by
+default, the top left vertext at zero rotation. Positive values mean counter
+clockwise rotation when the default rotation point is used. If &quot;name&quot; is not
+given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>rotateObjectAbs(rot [, &quot;name&quot;])
+
+Sets the rotation of the object &quot;name&quot; to &quot;rot&quot;. Positive values
+mean counter clockwise rotation. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sizeObject(width, height [, &quot;name&quot;])
+
+Resizes the object &quot;name&quot; to the given width and height. If &quot;name&quot;
+is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getSelectedObject([nr]) -&gt; string
+
+Returns the name of the selected object. &quot;nr&quot; if given indicates the number
+of the selected object, e.g. 0 means the first selected object, 1 means the
+second selected Object and so on.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>selectionCount() -&gt; integer
+
+Returns the number of selected objects.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>selectObject(&quot;name&quot;)
+
+Selects the object with the given &quot;name&quot;.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>deselectAll()
+
+Deselects all objects in the whole document.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>groupObjects(list)
+
+Groups the objects named in &quot;list&quot; together. &quot;list&quot; must contain the names
+of the objects to be grouped. If &quot;list&quot; is not given the currently selected
+items are used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>unGroupObjects(&quot;name&quot;)
+
+Destructs the group the object &quot;name&quot; belongs to.If &quot;name&quot; is not given the currently selected item is used.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>scaleGroup(factor [,&quot;name&quot;])
+
+Scales the group the object &quot;name&quot; belongs to. Values greater than 1 enlarge
+the group, values smaller than 1 make the group smaller e.g a value of 0.5
+scales the group to 50 % of its original size, a value of 1.5 scales the group
+to 150 % of its original size.  The value for &quot;factor&quot; must be greater than
+0. If &quot;name&quot; is not given the currently selected item is used.
+
+May raise ValueError if an invalid scale factor is passed.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>loadImage(&quot;filename&quot; [, &quot;name&quot;])
+
+Loads the picture &quot;picture&quot; into the image frame &quot;name&quot;. If &quot;name&quot; is
+not given the currently selected item is used.
+
+May raise WrongFrameTypeError if the target frame is not an image frame
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>scaleImage(x, y [, &quot;name&quot;])
+
+Sets the scaling factors of the picture in the image frame &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used. A number of 1
+means 100 %.
+
+May raise WrongFrameTypeError if the target frame is not an image frame
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>lockObject([&quot;name&quot;]) -&gt; bool
+
+Locks the object &quot;name&quot; if it&apos;s unlocked or unlock it if it&apos;s locked.
+If &quot;name&quot; is not given the currently selected item is used. Returns true
+if locked.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>isLocked([&quot;name&quot;]) -&gt; bool
+
+Returns true if is the object &quot;name&quot; locked.  If &quot;name&quot; is not given the
+currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getFontNames() -&gt; list
+
+Returns a list with the names of all available fonts.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getXFontNames() -&gt; list of tuples
+
+Returns a larger font info. It&apos;s a list of the tuples with:
+[ (Scribus name, Family, Real name, subset (1|0), embed PS (1|0), font file), (...), ... ]
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>rendeFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size) -&gt; bool
+
+Creates an image preview of font &quot;name&quot; with given text &quot;sample&quot; and size.
+Image is saved into &quot;filename&quot;. Returns true when success.
+
+May raise NotFoundError if the specified font can&apos;t be found.
+May raise ValueError if an empty sample or filename is passed.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLayers() -&gt; list
+
+Returns a list with the names of all defined layers.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setActiveLayer(&quot;name&quot;)
+
+Sets the active layer to the layer named &quot;name&quot;.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getActiveLayer() -&gt; string
+
+Returns the name of the current active layer.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sentToLayer(&quot;layer&quot; [, &quot;name&quot;])
+
+Sends the object &quot;name&quot; to the layer &quot;layer&quot;. The layer must exist.
+If &quot;name&quot; is not given the currently selected item is used.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLayerVisible(&quot;layer&quot;, visible)
+
+Sets the layer &quot;layer&quot; to be visible or not. If is the visible set to false
+the layer is invisible.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLayerPrintable(&quot;layer&quot;, printable)
+
+Sets the layer &quot;layer&quot; to be printable or not. If is the printable set to
+false the layer won&apos;t be printed.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+
+Returns wether the Layer &quot;layer&quot; is visible or not, a value of True means
+that the layer &quot;layer&quot; is visible, a value of False means that the layer
+&quot;layer&quot; is invisible.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+
+Returns wether the layer &quot;layer&quot; is printable or not, a value of True means
+that the layer &quot;layer&quot; can be printed, a value of False means that printing
+the layer &quot;layer&quot; is disabled.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>deleteLayer(&quot;layer&quot;)
+
+Deletes the layer with the name &quot;layer&quot;. Nothing happens if the layer doesn&apos;t
+exists or if it&apos;s the only layer in the document.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>createLayer(layer)
+
+Creates a new layer with the name &quot;name&quot;.
+
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getGuiLanguage() -&gt; string
+
+Returns a string with the -lang value.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>createEllipse(x, y, width, height, [&quot;name&quot;]) -&gt; string
+
+Creates a new ellipse on the current page and returns its name.
+The coordinates are given in the current measurement units of the document
+(see UNIT constants). &quot;name&quot; should be a unique identifier for the object
+because you need this name for further referencing of that object. If &quot;name&quot;
+is not given Scribus will create one for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>createImage(x, y, width, height, [&quot;name&quot;]) -&gt; string
+
+Creates a new picture frame on the current page and returns its name. The
+coordinates are given in the current measurement units of the document.
+&quot;name&quot; should be a unique identifier for the object because you need this
+name for further access to that object. If &quot;name&quot; is not given Scribus will
+create one for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>createText(x, y, width, height, [&quot;name&quot;]) -&gt; string
+
+Creates a new text frame on the actual page and returns its name.
+The coordinates are given in the actual measurement unit of the document (see
+UNIT constants). &quot;name&quot; should be a unique identifier for the object because
+you need this name for further referencing of that object. If &quot;name&quot; is not
+given Scribus will create one for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>createLine(x1, y1, x2, y2, [&quot;name&quot;]) -&gt; string
+
+Creates a new line from the point(x1, y1) to the point(x2, y2) and returns
+its name. The coordinates are given in the current measurement unit of the
+document (see UNIT constants). &quot;name&quot; should be a unique identifier for the
+object because you need this name for further access to that object. If
+&quot;name&quot; is not given Scribus will create one for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>createPolyLine(list, [&quot;name&quot;]) -&gt; string
+
+Creates a new polyline and returns its name. The points for the polyline are
+stored in the list &quot;list&quot; in the following order: [x1, y1, x2, y2...xn. yn].
+The coordinates are given in the current measurement units of the document (see
+UNIT constants). &quot;name&quot; should be a unique identifier for the object because
+you need this name for further access to that object. If &quot;name&quot; is not given
+Scribus will create one for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+May raise ValueError if an insufficient number of points is passed or if
+the number of values passed don&apos;t group into points without leftovers.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>createPolygon(list, [&quot;name&quot;]) -&gt; string
+
+Creates a new polygon and returns its name. The points for the polygon are
+stored in the list &quot;list&quot; in the following order: [x1, y1, x2, y2...xn. yn].
+At least three points are required. There is no need to repeat the first point
+to close the polygon. The polygon is automatically closed by connecting the
+first and the last point.  The coordinates are given in the current measurement
+units of the document (see UNIT constants).  &quot;name&quot; should be a unique
+identifier for the object because you need this name for further access to that
+object. If &quot;name&quot; is not given Scribus will create one for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+May raise ValueError if an insufficient number of points is passed or if
+the number of values passed don&apos;t group into points without leftovers.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>createBezierLine(list, [&quot;name&quot;]) -&gt; string
+
+Creates a new bezier curve and returns its name. The points for the bezier
+curve are stored in the list &quot;list&quot; in the following order:
+[x1, y1, kx1, ky1, x2, y2, kx2, ky2...xn. yn, kxn. kyn]
+In the points list, x and y mean the x and y coordinates of the point and kx
+and ky meaning the control point for the curve.  The coordinates are given in
+the current measurement units of the document (see UNIT constants). &quot;name&quot;
+should be a unique identifier for the object because you need this name for
+further access to that object. If &quot;name&quot; is not given Scribus will create one
+for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+May raise ValueError if an insufficient number of points is passed or if
+the number of values passed don&apos;t group into points without leftovers.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>createPathText(x, y, &quot;textbox&quot;, &quot;beziercurve&quot;, [&quot;name&quot;]) -&gt; string
+
+Creates a new pathText by merging the two objects &quot;textbox&quot; and
+&quot;beziercurve&quot; and returns its name. The coordinates are given in the current
+measurement unit of the document (see UNIT constants). &quot;name&quot; should be a
+unique identifier for the object because you need this name for further access
+to that object. If &quot;name&quot; is not given Scribus will create one for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+May raise NotFoundError if one or both of the named base object don&apos;t exist.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>deleteObject([&quot;name&quot;])
+
+Deletes the item with the name &quot;name&quot;. If &quot;name&quot; is not given the currently
+selected item is deleted.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>textFlowsAroundFrame(&quot;name&quot; [, state])
+
+Enables/disables &quot;Text Flows Around Frame&quot; feature for object &quot;name&quot;.
+Called with parameters string name and optional boolean &quot;state&quot;. If &quot;state&quot;
+is not passed, text flow is toggled.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>objectExists([&quot;name&quot;]) -&gt; bool
+
+Test if an object with specified name really exists in the document.
+The optional parameter is the object name. When no object name is given,
+returns True if there is something selected.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setStyle(&quot;style&quot; [, &quot;name&quot;])
+
+Apply the named &quot;style&quot; to the object named &quot;name&quot;. If is no object name
+given, it&apos;s applied on the selected object.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getAllStyles() -&gt; list
+
+Return a list of the names of all paragraph styles in the current document.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>currentPage() -&gt; integer
+
+Returns the number of the current working page. Page numbers are counted from 1
+upwards, no matter what the displayed first page number of your document is.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>redrawAll()
+
+Redraws all pages.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>savePageAsEPS(&quot;name&quot;)
+
+Saves the current page as an EPS to the file &quot;name&quot;.
+
+May raise ScribusError if the save failed.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>deletePage(nr)
+
+Deletes the given page. Does nothing if the document contains only one page.
+Page numbers are counted from 1 upwards, no matter what the displayed first
+page number is.
+
+May raise IndexError if the page number is out of range
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>gotoPage(nr)
+
+Moves to the page &quot;nr&quot; (that is, makes the current page &quot;nr&quot;). Note that
+gotoPage doesn&apos;t (curently) change the page the user&apos;s view is displaying, it
+just sets the page that script commands will operates on.
+
+May raise IndexError if the page number is out of range.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>pageCount() -&gt; integer
+
+Returns the number of pages in the document.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getHGuides() -&gt; list
+
+Returns a list containing positions of the horizontal guides. Values are in the
+document&apos;s current units - see UNIT_&lt;type&gt; constants.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setHGuides(list)
+
+Sets horizontal guides. Input parameter must be a list of guide positions
+measured in the current document units - see UNIT_&lt;type&gt; constants.
+
+Example: setHGuides(getHGuides() + [200.0, 210.0] # add new guides without any lost
+         setHGuides([90,250]) # replace current guides entirely
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getVGuides()
+
+See getHGuides.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setVGuides()
+
+See setHGuides.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getPageSize() -&gt; tuple
+
+Returns a tuple with page dimensions measured in the document&apos;s current units.
+See UNIT_&lt;type&gt; constants and getPageMargins()
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getPageItems() -&gt; list
+
+Returns a list of tuples with items on the current page. The tuple is:
+(name, objectType, order) E.g. [(&apos;Text1&apos;, 4, 0), (&apos;Image1&apos;, 2, 1)]
+means that object named &apos;Text1&apos; is a text frame (type 4) and is the first at
+the page...
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getPageMargins()
+
+Returns the page margins as a (left, right, top, bottom) tuple in the current
+units. See UNIT_&lt;type&gt; constants and getPageSize().
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setFillColor(&quot;color&quot;, [&quot;name&quot;])
+
+Sets the fill color of the object &quot;name&quot; to the color &quot;color&quot;. &quot;color&quot;
+is the name of one of the defined colors. If &quot;name&quot; is not given the
+currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineColor(&quot;color&quot;, [&quot;name&quot;])
+
+Sets the line color of the object &quot;name&quot; to the color &quot;color&quot;. If &quot;name&quot;
+is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineWidth(width, [&quot;name&quot;])
+
+Sets line width of the object &quot;name&quot; to &quot;width&quot;. &quot;width&quot; must be in the
+range from 0.0 to 12.0 inclusive, and is measured in points. If &quot;name&quot; is not
+given the currently selected item is used.
+
+May raise ValueError if the line width is out of bounds.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineShade(shade, [&quot;name&quot;])
+
+Sets the shading of the line color of the object &quot;name&quot; to &quot;shade&quot;.
+&quot;shade&quot; must be an integer value in the range from 0 (lightest) to 100
+(full color intensity). If &quot;name&quot; is not given the currently selected item
+is used.
+
+May raise ValueError if the line shade is out of bounds.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineJoin(join, [&quot;name&quot;])
+
+Sets the line join style of the object &quot;name&quot; to the style &quot;join&quot;.
+If &quot;name&quot; is not given the currently selected item is used. There are
+predefined constants for join - JOIN_&lt;type&gt;.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineEnd(endtype, [&quot;name&quot;])
+
+Sets the line cap style of the object &quot;name&quot; to the style &quot;cap&quot;.
+If &quot;name&quot; is not given the currently selected item is used. There are
+predefined constants for &quot;cap&quot; - CAP_&lt;type&gt;.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineStyle(style, [&quot;name&quot;])
+
+Sets the line style of the object &quot;name&quot; to the style &quot;style&quot;. If &quot;name&quot;
+is not given the currently selected item is used. There are predefined
+constants for &quot;style&quot; - LINE_&lt;style&gt;.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setFillShade(shade, [&quot;name&quot;])
+
+Sets the shading of the fill color of the object &quot;name&quot; to &quot;shade&quot;.
+&quot;shade&quot; must be an integer value in the range from 0 (lightest) to 100
+(full Color intensity). If &quot;name&quot; is not given the currently selected
+Item is used.
+
+May raise ValueError if the fill shade is out of bounds.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setCornerRadius(radius, [&quot;name&quot;])
+
+Sets the corner radius of the object &quot;name&quot;. The radius is expressed
+in points. If &quot;name&quot; is not given the currently selected item is used.
+
+May raise ValueError if the corner radius is negative.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setMultiLine(&quot;namedStyle&quot;, [&quot;name&quot;])
+
+Sets the line style of the object &quot;name&quot; to the named style &quot;namedStyle&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+
+May raise NotFoundError if the line style doesn&apos;t exist.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getFont([&quot;name&quot;]) -&gt; string
+
+Returns the font name for the text frame &quot;name&quot;. If this text frame
+has some text selected the value assigned to the first character
+of the selection is returned. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getTextLength([&quot;name&quot;]) -&gt; integer
+
+Returns the length of the text in the text frame &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getText([&quot;name&quot;]) -&gt; string
+
+Returns the text of the text frame &quot;name&quot;. If this text frame has some text
+selected, the selected text is returned. All text in the frame, not just
+currently visible text, is returned. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getAllText([&quot;name&quot;]) -&gt; string
+
+Returns the text of the text frame &quot;name&quot; and of all text frames which are
+linked with this frame. If this textframe has some text selected, the selected
+text is returned. If &quot;name&quot; is not given the currently selected item is
+used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLineSpacing([&quot;name&quot;]) -&gt; float
+
+Returns the line spacing (&quot;leading&quot;) of the text frame &quot;name&quot; expressed in
+points. If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getColumnGap([&quot;name&quot;]) -&gt; float
+
+Returns the column gap size of the text frame &quot;name&quot; expressed in points. If
+&quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getColumns([&quot;name&quot;]) -&gt; integer
+
+Gets the number of columns of the text frame &quot;name&quot;. If &quot;name&quot; is not
+given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setText(&quot;text&quot;, [&quot;name&quot;])
+
+Sets the text of the text frame &quot;name&quot; to the text of the string &quot;text&quot;.
+Text must be UTF8 encoded - use e.g. unicode(text, &apos;iso-8859-2&apos;). See the FAQ
+for more details. If &quot;name&quot; is not given the currently selected item is
+used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
+
+Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame. Text
+must be UTF encoded (see setText() as reference) The first character has an
+index of 0. &quot;name&quot; If &quot;name&quot; is not given the currently selected Item is
+used.
+
+May throw IndexError for an insertion out of bounds.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setFont(&quot;font&quot;, [&quot;name&quot;])
+
+Sets the font of the text frame &quot;name&quot; to &quot;font&quot;. If there is some text
+selected only the selected text is changed.  If &quot;name&quot; is not given the
+currently selected item is used.
+
+May throw ValueError if the font cannot be found.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setFontSize(size, [&quot;name&quot;])
+
+Sets the font size of the text frame &quot;name&quot; to &quot;size&quot;. &quot;size&quot; is treated
+as a value in points. If there is some text selected only the selected text is
+changed. &quot;size&quot; must be in the range 1 to 512. If &quot;name&quot; is not given the
+currently selected item is used.
+
+May throw ValueError for a font size that&apos;s out of bounds.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineSpacing(size, [&quot;name&quot;])
+
+Sets the line spacing (&quot;leading&quot;) of the text frame &quot;name&quot; to &quot;size&quot;.
+&quot;size&quot; is a value in points. If &quot;name&quot; is not given the currently selected
+item is used.
+
+May throw ValueError if the line spacing is out of bounds.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setColumnGap(size, [&quot;name&quot;])
+
+Sets the column gap of the text frame &quot;name&quot; to the value &quot;size&quot;. If
+&quot;name&quot; is not given the currently selected item is used.
+
+May throw ValueError if the column gap is out of bounds (must be positive).
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setColumns(nr, [&quot;name&quot;])
+
+Sets the number of columns of the text frame &quot;name&quot; to the integer &quot;nr&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+
+May throw ValueError if number of columns is not at least one.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setTextAlignment(align, [&quot;name&quot;])
+
+Sets the text alignment of the text frame &quot;name&quot; to the specified alignment.
+If &quot;name&quot; is not given the currently selected item is used. &quot;align&quot; should
+be one of the ALIGN_ constants defined in this module - see dir(scribus).
+
+May throw ValueError for an invalid alignment constant.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>selectText(start, count, [&quot;name&quot;])
+
+Selects &quot;count&quot; characters of text in the text frame &quot;name&quot; starting from the
+character &quot;start&quot;. Character counting starts at 0. If &quot;count&quot; is zero, any
+text selection will be cleared.  If &quot;name&quot; is not given the currently
+selected item is used.
+
+May throw IndexError if the selection is outside the bounds of the text.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>deleteText([&quot;name&quot;])
+
+Deletes any text in the text frame &quot;name&quot;. If there is some text selected,
+only the selected text will be deleted. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setTextColor(&quot;color&quot;, [&quot;name&quot;])
+
+Sets the text color of the text frame &quot;name&quot; to the color &quot;color&quot;. If there
+is some text selected only the selected text is changed. If &quot;name&quot; is not
+given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setTextStroke(&quot;color&quot;, [&quot;name&quot;])
+
+Set &quot;color&quot; of the text stroke. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setTextShade(shade, [&quot;name&quot;])
+
+Sets the shading of the text color of the object &quot;name&quot; to &quot;shade&quot;. If
+there is some text selected only the selected text is changed. &quot;shade&quot; must
+be an integer value in the range from 0 (lightest) to 100 (full color
+intensity). If &quot;name&quot; is not given the currently selected item is
+used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>linkTextFrames(&quot;fromname&quot;, &quot;toname&quot;)
+
+Link two text frames. The frame named &quot;fromname&quot; is linked to the
+frame named &quot;toname&quot;. The target frame must be an empty text frame
+and must not link to or be linked from any other frames already.
+
+May throw ScribusException if linking rules are violated.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>unlinkTextFrames(&quot;name&quot;)
+
+Remove the specified (named) object from the text frame flow/linkage. If the
+frame was in the middle of a chain, the previous and next frames will be
+connected, eg &apos;a-&gt;b-&gt;c&apos; becomes &apos;a-&gt;c&apos; when you unlinkTextFrames(b)&apos;
+
+May throw ScribusException if linking rules are violated.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>traceText([&quot;name&quot;])
+
+Convert the text frame &quot;name&quot; to outlines. If &quot;name&quot; is not given the
+currently selected item is used.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>progressReset()
+
+Cleans up the Scribus progress bar previous settings. It is called before the
+new progress bar use. See progressSet.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>progressTotal(max)
+
+Sets the progress bar&apos;s maximum steps value to the specified number.
+See progressSet.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>progressSet(nr)
+
+Set the progress bar position to &quot;nr&quot;, a value relative to the previously set
+progressTotal. The progress bar uses the concept of steps; you give it the
+total number of steps and the number of steps completed so far and it will
+display the percentage of steps that have been completed. You can specify the
+total number of steps with progressTotal(). The current number of steps is set
+with progressSet(). The progress bar can be rewound to the beginning with
+progressReset(). [based on info taken from Trolltech&apos;s Qt docs]
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setCursor()
+
+[UNSUPPORTED!] This might break things, so steer clear for now.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>docChanged(bool)
+
+Enable/disable save icon in the Scribus icon bar and the Save menu item. It&apos;s
+useful to call this procedure when you&apos;re changing the document, because Scribus
+won&apos;t automatically notice when you change the document using a script.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>About</name>
+    <message>
+        <source>About Scribus%1%2</source>
+        <translation type="obsolete">О Scribus%1%2</translation>
+    </message>
     <message>
         <source>%1. %2 %3 </source>
         <translation>%1. %2 %3 </translation>
@@ -104,6 +1525,17 @@
         <translation>На баскский:</translation>
     </message>
     <message>
+        <source>This panel shows the version, build date and
+ compiled in library support in Scribus
+The C-C-T equates to C=CUPS C=littlecms T=TIFF support.
+Missing library support is indicated by a *</source>
+        <translation>Здесь отображается версия, дата сборки и 
+статус поддержки различных библиотек в Scribus.
+&quot;C-C-T&quot; расшифровывается так: 
+C=CUPS C=littlecms T=TIFF
+Отсутствующая библиотека помечается символом *</translation>
+    </message>
+    <message>
         <source>&amp;About</source>
         <translation>О &amp;программе</translation>
     </message>
@@ -189,14 +1621,7 @@
     </message>
     <message>
         <source>About Scribus %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This panel shows the version, build date and
- compiled in library support in Scribus
-The C-C-T-F equates to C=CUPS C=littlecms T=TIFF support F=Fontconfig support.
-Missing library support is indicated by a *</source>
-        <translation type="unfinished"></translation>
+        <translation>О Scribus %1</translation>
     </message>
 </context>
 <context>
@@ -1052,13 +2477,6 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
 </context>
 <context>
-    <name>ArrowChooser</name>
-    <message>
-        <source>None</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>Biblio</name>
     <message>
         <source>Scrapbook</source>
@@ -1600,13 +3018,16 @@ It&apos;s a reserved name for transparent color</source>
         <translation>Y2:</translation>
     </message>
     <message>
-        <source>Move Vector</source>
-        <translation type="unfinished"></translation>
+        <source> mm</source>
+        <translation>mm</translation>
     </message>
     <message>
-        <source>Move the start of the Gradient Vector with the left Mouse Button pressed and
-nove the end of the Gradient Vector with the right Mouse Button pressed</source>
-        <translation type="unfinished"></translation>
+        <source> in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
     </message>
 </context>
 <context>
@@ -1761,24 +3182,36 @@ This can be set in the Preferences.</source>
         <translation>Удаление цвета</translation>
     </message>
     <message>
+        <source>?</source>
+        <translation>?</translation>
+    </message>
+    <message>
+        <source>Replace it with:</source>
+        <translation>Заменить на:</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="obsolete">ОК</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="obsolete">Отменить</translation>
+    </message>
+    <message>
+        <source>Delete color:</source>
+        <translation>Удалить цвет:</translation>
+    </message>
+    <message>
         <source>None</source>
         <translation>Ничего</translation>
     </message>
     <message>
-        <source>Delete Color:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Replace With:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;ОК</translation>
+        <translation>&amp;ОК</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">О&amp;тменить</translation>
+        <translation>О&amp;тменить</translation>
     </message>
 </context>
 <context>
@@ -1786,6 +3219,10 @@ This can be set in the Preferences.</source>
     <message>
         <source>Delete Pages</source>
         <translation>Удаление страниц</translation>
+    </message>
+    <message>
+        <source>Delete from:</source>
+        <translation>Удалить от:</translation>
     </message>
     <message>
         <source>to:</source>
@@ -1799,9 +3236,28 @@ This can be set in the Preferences.</source>
         <source>&amp;Cancel</source>
         <translation>О&amp;тменить</translation>
     </message>
+</context>
+<context>
+    <name>DmF</name>
     <message>
-        <source>Delete From:</source>
-        <translation type="unfinished"></translation>
+        <source>Missing Font</source>
+        <translation>Шрифт отсутствует</translation>
+    </message>
+    <message>
+        <source>The Font %1 is not installed.</source>
+        <translation>Шрифт %1 не установлен.</translation>
+    </message>
+    <message>
+        <source>Use</source>
+        <translation>Использовать</translation>
+    </message>
+    <message>
+        <source>instead</source>
+        <translation>вместо</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>ОК</translation>
     </message>
 </context>
 <context>
@@ -2464,11 +3920,11 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>&amp;Size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Раз&amp;мер:</translation>
     </message>
     <message>
         <source>Size of the images. 100% for no changes, 200% for two times larger etc.</source>
-        <translation type="unfinished"></translation>
+        <translation>Размер изображений. 100% - без изменений, 200% - в 2  раза больше и т.д.</translation>
     </message>
 </context>
 <context>
@@ -2741,7 +4197,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Append selected font into Style, Font menu</source>
-        <translation type="unfinished"></translation>
+        <translation>Добавить выбранный шрифт в Стиль (меню &quot;Шрифт&quot;)</translation>
     </message>
     <message>
         <source>Leave preview</source>
@@ -2841,15 +4297,15 @@ and www.scribus.net for downloads.</source>
     </message>
     <message>
         <source>Contents</source>
-        <translation type="unfinished"></translation>
+        <translation>Содержание</translation>
     </message>
     <message>
         <source>Link</source>
-        <translation type="unfinished"></translation>
+        <translation>Ссылка</translation>
     </message>
     <message>
         <source>Scribus Online Help</source>
-        <translation type="unfinished"></translation>
+        <translation>Электронная справка по Scribus</translation>
     </message>
 </context>
 <context>
@@ -2932,6 +4388,10 @@ A value of 0 means unlimited hyphenations.</source>
         <translation>Вставка страницы</translation>
     </message>
     <message>
+        <source>Inserting</source>
+        <translation>Вставляется</translation>
+    </message>
+    <message>
         <source>before Page</source>
         <translation>перед страницей</translation>
     </message>
@@ -2948,8 +4408,20 @@ A value of 0 means unlimited hyphenations.</source>
         <translation>Normal</translation>
     </message>
     <message>
+        <source>Template (Right Page):</source>
+        <translation>Шаблон (Правая страница):</translation>
+    </message>
+    <message>
+        <source>&amp;Inserting</source>
+        <translation>&amp;Вставка</translation>
+    </message>
+    <message>
         <source>Page(s)</source>
         <translation>Страниц(а)</translation>
+    </message>
+    <message>
+        <source>&amp;Template (Left Page):</source>
+        <translation>Шаблон (&amp;Левая страница):</translation>
     </message>
     <message>
         <source>&amp;Template:</source>
@@ -2962,18 +4434,6 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <source>&amp;Cancel</source>
         <translation>О&amp;тменить</translation>
-    </message>
-    <message>
-        <source>&amp;Insert</source>
-        <translation type="unfinished">В&amp;ставить</translation>
-    </message>
-    <message>
-        <source>Template (&amp;Left Page):</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Template (&amp;Right Page):</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3344,8 +4804,20 @@ A value of 0 means unlimited hyphenations.</source>
         <translation>Длина:</translation>
     </message>
     <message>
-        <source>pt</source>
-        <translation type="unfinished">pt</translation>
+        <source> pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
     </message>
 </context>
 <context>
@@ -3376,6 +4848,18 @@ A value of 0 means unlimited hyphenations.</source>
 <context>
     <name>MergeDoc</name>
     <message>
+        <source>Change...</source>
+        <translation>Изменить...</translation>
+    </message>
+    <message>
+        <source>Import</source>
+        <translation>Импортировать</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Отменить</translation>
+    </message>
+    <message>
         <source>Open</source>
         <translation>Открыть</translation>
     </message>
@@ -3396,6 +4880,23 @@ A value of 0 means unlimited hyphenations.</source>
         <translation>Импортировать страницы</translation>
     </message>
     <message>
+        <source>From Document:</source>
+        <translation>Из документа:</translation>
+    </message>
+    <message>
+        <source>Import Page(s):</source>
+        <translation>Импортировать страницы:</translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where
+a token can be * for all the pages, 1-5 for
+a range of pages or a single page number.</source>
+        <translation>Вставить сюда разделённый запятыми список 
+маркёров, где каждый маркёр может быть * для 
+всех страниц, 1-5 для диапазона страниц или 
+номером одиночной страницы.</translation>
+    </message>
+    <message>
         <source> from 0</source>
         <translation>из 0</translation>
     </message>
@@ -3404,73 +4905,20 @@ A value of 0 means unlimited hyphenations.</source>
         <translation>Создать страницы</translation>
     </message>
     <message>
+        <source>before Page</source>
+        <translation>перед страницей</translation>
+    </message>
+    <message>
+        <source>after Page</source>
+        <translation>после страницы</translation>
+    </message>
+    <message>
+        <source>at End</source>
+        <translation>в конец</translation>
+    </message>
+    <message>
         <source> from %1</source>
         <translation>из %1</translation>
-    </message>
-    <message>
-        <source>&amp;From Document:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Chan&amp;ge...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Import Page(s):</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Import Template</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Insert a comma separated list of tokens importWhereData
-a token can be * for all the pages, 1-5 for
-a range of pages or a single page number.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Before Page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>After Page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>At End</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Import</source>
-        <translation type="unfinished">И&amp;мпортировать</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="unfinished">О&amp;тменить</translation>
-    </message>
-</context>
-<context>
-    <name>MissingFont</name>
-    <message>
-        <source>Missing Font</source>
-        <translation type="unfinished">Шрифт отсутствует</translation>
-    </message>
-    <message>
-        <source>The Font %1 is not installed.</source>
-        <translation type="unfinished">Шрифт %1 не установлен.</translation>
-    </message>
-    <message>
-        <source>Use</source>
-        <translation type="unfinished">Использовать</translation>
-    </message>
-    <message>
-        <source>instead</source>
-        <translation type="unfinished">вместо</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="unfinished">&amp;ОК</translation>
     </message>
 </context>
 <context>
@@ -3492,28 +4940,24 @@ a range of pages or a single page number.</source>
         <translation>до:</translation>
     </message>
     <message>
+        <source>before Page</source>
+        <translation>перед страницей</translation>
+    </message>
+    <message>
+        <source>after Page</source>
+        <translation>после страницы</translation>
+    </message>
+    <message>
+        <source>at End</source>
+        <translation>в конец</translation>
+    </message>
+    <message>
         <source>&amp;OK</source>
         <translation>&amp;ОК</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
         <translation>О&amp;тменить</translation>
-    </message>
-    <message>
-        <source>Move Page(s)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Before Page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>After Page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>At End</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4127,14 +5571,6 @@ Corners:</source>
         <source>Right to Left Writing</source>
         <translation>Написание справа налево</translation>
     </message>
-    <message>
-        <source>Start Arrow:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>End Arrow:</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>MultiLine</name>
@@ -4439,7 +5875,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Tabloid</source>
-        <translation>Таблоид</translation>
+        <translation>Tabloid</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
@@ -4516,6 +5952,18 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>O&amp;utside:</source>
         <translation>Снару&amp;жи:</translation>
+    </message>
+    <message>
+        <source>Executive</source>
+        <translation>Executive</translation>
+    </message>
+    <message>
+        <source>Folio</source>
+        <translation>Folio</translation>
+    </message>
+    <message>
+        <source>Ledger</source>
+        <translation>Ledger</translation>
     </message>
 </context>
 <context>
@@ -5410,6 +6858,18 @@ Otherwise, your exported PDF may not print properly and is truly not portable ac
         <translation>PDF-документы (*.pdf);;Все файлы (*)</translation>
     </message>
     <message>
+        <source>Compress Text and &amp;Vector Graphics</source>
+        <translation>Сжать текст и ве&amp;кторную графику</translation>
+    </message>
+    <message>
+        <source>En&amp;able Presentation Effects</source>
+        <translation>Включить п&amp;резентационные эффекты</translation>
+    </message>
+    <message>
+        <source>&amp;Presentation</source>
+        <translation>&amp;Презентация</translation>
+    </message>
+    <message>
         <source>&amp;Rotation:</source>
         <translation>&amp;Поворот:</translation>
     </message>
@@ -5428,18 +6888,6 @@ Otherwise, your exported PDF may not print properly and is truly not portable ac
     <message>
         <source>Mirror Page(s) vertically</source>
         <translation>Зеркально отразить по вертикали</translation>
-    </message>
-    <message>
-        <source>Com&amp;press Text and Vector Graphics</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enable &amp;Presentation Effects</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>E&amp;xtras</source>
-        <translation type="unfinished">&amp;Расш.</translation>
     </message>
 </context>
 <context>
@@ -5461,7 +6909,7 @@ of a slight slowdown in previewing. This only affects Type 1 fonts</source>
     <message>
         <source>Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF and
 vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation>Включить более качественное отображение шрифтов TrueType, Open Type Fonts, 
+        <translation type="obsolete">Включить более качественное отображение шрифтов TrueType, Open Type Fonts, 
 EPS, PDF и векторной графики при просмотре ценой замедления прорисовки.</translation>
     </message>
     <message>
@@ -5526,13 +6974,333 @@ EPS, PDF и векторной графики при просмотре цено
         <translation>&amp;K</translation>
     </message>
     <message>
+        <source>A way of switching some of the gray shades which are composed
+of cyan, yellow and magenta and using black instead.
+UCR most affects parts of images which are neutral and/or dark tones
+which are close to the gray. Use of this may improve printing some images
+and some experimentation and testing is need on a case by case basis.
+UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="obsolete">Способ удаления некоторых серых (ахроматических) тонов, 
+составленных из голубой, желтой и пурпурной красок, 
+и замены их на черный. UCR главным образом воздействует на 
+нейтральные по цвету части изображения. Использование этого 
+метода способно улучшить печать некоторых изображений, но 
+каждый отдельный случай требует особого рассмотрения. 
+При использовании этого способа также снижается 
+вероятность избыточной яркости изображения. </translation>
+    </message>
+    <message>
         <source>A way of switching off some of the gray shades which are composed
 of cyan, yellow and magenta and using black instead.
 UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished"></translation>
+        <translation>Способ удаления некоторых серых (ахроматических) тонов, 
+составленных из голубой, желтой и пурпурной красок, 
+и замены их на черный. UCR главным образом воздействует на 
+нейтральные по цвету части изображения. Использование этого 
+метода способно улучшить печать некоторых изображений, но 
+каждый отдельный случай требует особого рассмотрения. 
+При использовании этого способа также снижается 
+вероятность избыточной яркости изображения.</translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and
+vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
+        <translation>Включить более качественное отображение шрифтов TrueType, Open Type Fonts,
+EPS, PDF и векторной графики при просмотре ценой замедления прорисовки</translation>
+    </message>
+</context>
+<context>
+    <name>Page</name>
+    <message>
+        <source>Copy Here</source>
+        <translation>Скопировать сюда</translation>
+    </message>
+    <message>
+        <source>Move Here</source>
+        <translation>Переместить сюда</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Отменить</translation>
+    </message>
+    <message>
+        <source>Edit Text...</source>
+        <translation>Изменить текст...</translation>
+    </message>
+    <message>
+        <source>Text Frame</source>
+        <translation>Текстовая рамка</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Ничего</translation>
+    </message>
+    <message>
+        <source>Picture</source>
+        <translation>Изображение</translation>
+    </message>
+    <message>
+        <source>File: </source>
+        <translation>Файл:</translation>
+    </message>
+    <message>
+        <source>Text on a Path</source>
+        <translation>Текст по контуру</translation>
+    </message>
+    <message>
+        <source>Paragraphs: </source>
+        <translation>Абзацев:</translation>
+    </message>
+    <message>
+        <source>Words: </source>
+        <translation>Слов:</translation>
+    </message>
+    <message>
+        <source>Chars: </source>
+        <translation>Символов:</translation>
+    </message>
+    <message>
+        <source>Linked Text</source>
+        <translation>Связанный текст</translation>
+    </message>
+    <message>
+        <source>Print: </source>
+        <translation>Печать:</translation>
+    </message>
+    <message>
+        <source>Enabled</source>
+        <translation>Включено</translation>
+    </message>
+    <message>
+        <source>Disabled</source>
+        <translation>Выключено</translation>
+    </message>
+    <message>
+        <source>The Program</source>
+        <translation>Программа</translation>
+    </message>
+    <message>
+        <source>is missing!</source>
+        <translation>отсутствует!</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Предупреждение</translation>
+    </message>
+    <message>
+        <source>Copy of</source>
+        <translation>Копия</translation>
+    </message>
+    <message>
+        <source>&amp;Paste</source>
+        <translation>Вст&amp;авить</translation>
+    </message>
+    <message>
+        <source>Show &amp;Margins</source>
+        <translation>Показать &amp;поля</translation>
+    </message>
+    <message>
+        <source>Show &amp;Frames</source>
+        <translation>Показывать &amp;обрамление</translation>
+    </message>
+    <message>
+        <source>Show &amp;Images</source>
+        <translation>Показывать &amp;изображения</translation>
+    </message>
+    <message>
+        <source>Show &amp;Grid</source>
+        <translation>Показать &amp;сетку</translation>
+    </message>
+    <message>
+        <source>Show G&amp;uides</source>
+        <translation>Показать &amp;направляющие</translation>
+    </message>
+    <message>
+        <source>Show &amp;Baseline Grid</source>
+        <translation>Показать опорную &amp;сетку</translation>
+    </message>
+    <message>
+        <source>Sn&amp;ap to Grid</source>
+        <translation>Привязать к &amp;сетке</translation>
+    </message>
+    <message>
+        <source>Sna&amp;p to Guides</source>
+        <translation>Привязать к н&amp;аправляющим</translation>
+    </message>
+    <message>
+        <source>Original PPI: </source>
+        <translation>Исходный PPI:</translation>
+    </message>
+    <message>
+        <source>Actual PPI: </source>
+        <translation>Текущий PPI:</translation>
+    </message>
+    <message>
+        <source>In&amp;fo</source>
+        <translation>&amp;Инфо</translation>
+    </message>
+    <message>
+        <source>&amp;Get Picture...</source>
+        <translation>Получить &amp;изображение...</translation>
+    </message>
+    <message>
+        <source>I&amp;mage Visible</source>
+        <translation>Изображение &amp;видимо</translation>
+    </message>
+    <message>
+        <source>&amp;Update Picture</source>
+        <translation>&amp;Обновить изображение</translation>
+    </message>
+    <message>
+        <source>&amp;Edit Picture</source>
+        <translation>&amp;Изменить изображение</translation>
+    </message>
+    <message>
+        <source>&amp;Adjust Frame to Picture</source>
+        <translation>&amp;Подстроить рамку до изображения</translation>
+    </message>
+    <message>
+        <source>&amp;Get Text...</source>
+        <translation>Получить &amp;текст...</translation>
+    </message>
+    <message>
+        <source>&amp;Append Text...</source>
+        <translation>Добавить &amp;текст из файла...</translation>
+    </message>
+    <message>
+        <source>&amp;Edit Text...</source>
+        <translation>Изменить те&amp;кст...</translation>
+    </message>
+    <message>
+        <source>Is PDF &amp;Bookmark</source>
+        <translation>Является PDF-&amp;закладкой</translation>
+    </message>
+    <message>
+        <source>Is PDF A&amp;nnotation</source>
+        <translation>Является PDF-&amp;аннотацией</translation>
+    </message>
+    <message>
+        <source>Annotation P&amp;roperties</source>
+        <translation>Свойства а&amp;ннотации</translation>
+    </message>
+    <message>
+        <source>Field P&amp;roperties</source>
+        <translation>Свойства по&amp;ля</translation>
+    </message>
+    <message>
+        <source>&amp;PDF Options</source>
+        <translation>Пара&amp;метры PDF</translation>
+    </message>
+    <message>
+        <source>&amp;Lock</source>
+        <translation>Заб&amp;локировать</translation>
+    </message>
+    <message>
+        <source>Un&amp;lock</source>
+        <translation>&amp;Разблокировать</translation>
+    </message>
+    <message>
+        <source>Lock Object &amp;Size</source>
+        <translation>За&amp;блокировать размер объекта</translation>
+    </message>
+    <message>
+        <source>Unlock Object &amp;Size</source>
+        <translation>Разблокиро&amp;вать размер объекта</translation>
+    </message>
+    <message>
+        <source>Send to S&amp;crapbook</source>
+        <translation>Передать в запа&amp;сник</translation>
+    </message>
+    <message>
+        <source>Send to La&amp;yer</source>
+        <translation>Переложить в сло&amp;й</translation>
+    </message>
+    <message>
+        <source>&amp;Insert Sample Text</source>
+        <translation>Встав&amp;ить lorem ipsum</translation>
+    </message>
+    <message>
+        <source>&amp;Group</source>
+        <translation>С&amp;группировать</translation>
+    </message>
+    <message>
+        <source>Un&amp;group</source>
+        <translation>Разгру&amp;ппировать</translation>
+    </message>
+    <message>
+        <source>Le&amp;vel</source>
+        <translation>Уро&amp;вень</translation>
+    </message>
+    <message>
+        <source>Send to &amp;Back</source>
+        <translation>Отправить на самый &amp;низкий уровень</translation>
+    </message>
+    <message>
+        <source>Bring to &amp;Front</source>
+        <translation>Отправить на самый &amp;высокий уровень</translation>
+    </message>
+    <message>
+        <source>&amp;Lower</source>
+        <translation>Сделать уровнем н&amp;иже</translation>
+    </message>
+    <message>
+        <source>&amp;Raise</source>
+        <translation>Сделать уровнем в&amp;ыше</translation>
+    </message>
+    <message>
+        <source>&amp;Picture Frame</source>
+        <translation>Рамку изобра&amp;жения</translation>
+    </message>
+    <message>
+        <source>Pol&amp;ygon</source>
+        <translation>Многоу&amp;гольник</translation>
+    </message>
+    <message>
+        <source>&amp;Outlines</source>
+        <translation>&amp;Контур</translation>
+    </message>
+    <message>
+        <source>&amp;Text Frame</source>
+        <translation>&amp;Текстовую рамку</translation>
+    </message>
+    <message>
+        <source>&amp;Bezier Curve</source>
+        <translation>Кривая &amp;Безье</translation>
+    </message>
+    <message>
+        <source>Conve&amp;rt to</source>
+        <translation>&amp;Преобразовать в</translation>
+    </message>
+    <message>
+        <source>Cu&amp;t</source>
+        <translation>&amp;Вырезать</translation>
+    </message>
+    <message>
+        <source>&amp;Copy</source>
+        <translation>&amp;Скопировать</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation>У&amp;далить</translation>
+    </message>
+    <message>
+        <source>C&amp;lear Contents</source>
+        <translation>&amp;Очистить содержимое</translation>
+    </message>
+    <message>
+        <source>Show P&amp;roperties...</source>
+        <translation>Показать &amp;свойства...</translation>
+    </message>
+    <message>
+        <source>Hide P&amp;roperties...</source>
+        <translation>Скрыть &amp;свойства...</translation>
+    </message>
+    <message>
+        <source>Do you really want to clear all your Text?</source>
+        <translation>Вы действительно хотите удалить весь текст?</translation>
     </message>
 </context>
 <context>
@@ -5654,6 +7422,22 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation>Свойства многоугольника</translation>
     </message>
     <message>
+        <source> %</source>
+        <translation>%</translation>
+    </message>
+    <message>
+        <source>Corn&amp;ers:</source>
+        <translation>&amp;Углы:</translation>
+    </message>
+    <message>
+        <source>&amp;Rotation:</source>
+        <translation>&amp;Поворот:</translation>
+    </message>
+    <message>
+        <source>&amp;Factor:</source>
+        <translation>&amp;Коэфф.:</translation>
+    </message>
+    <message>
         <source>&amp;OK</source>
         <translation>&amp;ОК</translation>
     </message>
@@ -5661,50 +7445,31 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
         <source>&amp;Cancel</source>
         <translation>О&amp;тменить</translation>
     </message>
-</context>
-<context>
-    <name>PolygonWidget</name>
-    <message>
-        <source>Corn&amp;ers:</source>
-        <translation type="unfinished">&amp;Углы:</translation>
-    </message>
-    <message>
-        <source>&amp;Rotation:</source>
-        <translation type="unfinished">&amp;Поворот:</translation>
-    </message>
-    <message>
-        <source>Apply &amp;Factor</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> %</source>
-        <translation type="unfinished">%</translation>
-    </message>
-    <message>
-        <source>&amp;Factor:</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Number of corners for polygons</source>
-        <translation type="unfinished">Количество углов в многоугольнике</translation>
+        <translation>Количество углов в многоугольнике</translation>
     </message>
     <message>
         <source>Degrees of rotation for polygons</source>
-        <translation type="unfinished">Градусы вращения многоугольников</translation>
-    </message>
-    <message>
-        <source>Apply Convex/Concave Factor to change shape of Polygons</source>
-        <translation type="unfinished">Использовать коэффициент для создания многоугольника 
-с выпуклыми или вогнутыми сторонами</translation>
+        <translation>Градусы вращения многоугольников</translation>
     </message>
     <message>
         <source>Sample Polygon</source>
-        <translation type="unfinished">Пример многоугольника</translation>
+        <translation>Пример многоугольника</translation>
+    </message>
+    <message>
+        <source>Apply &amp;Factor</source>
+        <translation>Использовать к&amp;эфф.</translation>
+    </message>
+    <message>
+        <source>Apply Convex/Concave Factor to change shape of Polygons</source>
+        <translation>Использовать коэффициент для создания многоугольника 
+с выпуклыми или вогнутыми сторонами</translation>
     </message>
     <message>
         <source>A negative value will make the polygon concave (or star shaped),
  a positive value will make it convex</source>
-        <translation type="unfinished">Отрицательное значение сделает многоугольник вогнутым 
+        <translation>Отрицательное значение сделает многоугольник вогнутым 
 (в форме звезды), а положительное - выпуклым</translation>
     </message>
 </context>
@@ -5763,6 +7528,10 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation>Пики (p)</translation>
     </message>
     <message>
+        <source>Menus</source>
+        <translation>Меню</translation>
+    </message>
+    <message>
         <source>Paths</source>
         <translation>Пути</translation>
     </message>
@@ -5793,6 +7562,18 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     <message>
         <source>min</source>
         <translation>мин</translation>
+    </message>
+    <message>
+        <source>Grid Layout</source>
+        <translation>Внешний вид сетки</translation>
+    </message>
+    <message>
+        <source>Grid Colors</source>
+        <translation>Цвета сетки</translation>
+    </message>
+    <message>
+        <source>Placing</source>
+        <translation>Расположение</translation>
     </message>
     <message>
         <source>Subscript</source>
@@ -5865,6 +7646,10 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     <message>
         <source>Millimetres (mm)</source>
         <translation>Миллиметры (mm)</translation>
+    </message>
+    <message>
+        <source>External Tools</source>
+        <translation>Внешние инструменты</translation>
     </message>
     <message>
         <source>Misc.</source>
@@ -6157,8 +7942,25 @@ each time the time period elapses</source>
         <translation>Толщина линий</translation>
     </message>
     <message>
+        <source>Number of corners for polygons</source>
+        <translation>Количество углов в многоугольнике</translation>
+    </message>
+    <message>
+        <source>Degrees of rotation for polygons</source>
+        <translation>Градусы вращения многоугольников</translation>
+    </message>
+    <message>
+        <source>Sample Polygon</source>
+        <translation>Пример многоугольника</translation>
+    </message>
+    <message>
         <source>Choose the size of the preview in the scrapbook palette</source>
         <translation>Изменить размер миниатюры в запаснике</translation>
+    </message>
+    <message>
+        <source>When using facing pages, show the two pages side by side</source>
+        <translation>Если страницы указаны как парные, разбрасывать 
+их отображение по соответствующим сторонам</translation>
     </message>
     <message>
         <source>Color for paper</source>
@@ -6171,6 +7973,10 @@ each time the time period elapses</source>
     <message>
         <source>Mask the area outside the margins in the margin color</source>
         <translation>Пометить пространство за полями цветом полей</translation>
+    </message>
+    <message>
+        <source>Enable transparency features within PDF 1.4 export</source>
+        <translation>Включить полупрозрачность при экспорте в PDF 1.4</translation>
     </message>
     <message>
         <source>Set the default zoom level</source>
@@ -6209,6 +8015,18 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Путь к графическому редактору</translation>
     </message>
     <message>
+        <source>Baseline Grid</source>
+        <translation>Сетка линии шрифта</translation>
+    </message>
+    <message>
+        <source>Turns on the basegrid</source>
+        <translation>Включить опорную сетку</translation>
+    </message>
+    <message>
+        <source>Turns off the basegrid</source>
+        <translation>Выключить опорную сетку</translation>
+    </message>
+    <message>
         <source> px</source>
         <translation>px</translation>
     </message>
@@ -6219,6 +8037,10 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>&amp;Font Size:</source>
         <translation>Размер &amp;шрифта:</translation>
+    </message>
+    <message>
+        <source>Mouse Settings</source>
+        <translation>Настройки мыши</translation>
     </message>
     <message>
         <source>&amp;Wheel Jump:</source>
@@ -6305,6 +8127,51 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>&amp;Interval:</source>
         <translation>&amp;Интервал:</translation>
+    </message>
+    <message>
+        <source>M&amp;inor Grid Spacing:</source>
+        <translation>Ширина маленьких ячеек</translation>
+    </message>
+    <message>
+        <source>Ma&amp;jor Grid Spacing:</source>
+        <translation>Ширина большиих ячеек</translation>
+    </message>
+    <message>
+        <source>Guide &amp;Snap Distance:</source>
+        <translation>Расстояние для привязки:</translation>
+    </message>
+    <message>
+        <source>Min&amp;or Grid Color:</source>
+        <translation>Цвет маленьких ячеек:</translation>
+    </message>
+    <message>
+        <source>Majo&amp;r Grid Color:</source>
+        <translation>Цвет больших ячеек:</translation>
+    </message>
+    <message>
+        <source>&amp;User Guides Color:</source>
+        <translation>Цвет &amp;собственных 
+направляющих:</translation>
+    </message>
+    <message>
+        <source>Base&amp;line Grid Color:</source>
+        <translation>Цвет &amp;опорной сетки:</translation>
+    </message>
+    <message>
+        <source>In the &amp;Background</source>
+        <translation>На &amp;заднем плане</translation>
+    </message>
+    <message>
+        <source>In the Fore&amp;ground</source>
+        <translation>На &amp;переднем плане</translation>
+    </message>
+    <message>
+        <source>O&amp;n</source>
+        <translation>В&amp;кл</translation>
+    </message>
+    <message>
+        <source>O&amp;ff</source>
+        <translation>В&amp;ыкл</translation>
     </message>
     <message>
         <source>&amp;Displacement:</source>
@@ -6422,6 +8289,18 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Цвет &amp;заливки:</translation>
     </message>
     <message>
+        <source>Corn&amp;ers:</source>
+        <translation>&amp;Углы:</translation>
+    </message>
+    <message>
+        <source>&amp;Rotation:</source>
+        <translation>&amp;Поворот:</translation>
+    </message>
+    <message>
+        <source>&amp;Factor:</source>
+        <translation>К&amp;оэфф:</translation>
+    </message>
+    <message>
         <source>Sa&amp;ve Contents on Changes</source>
         <translation>Сохранять содержимое
 при &amp;изменениях</translation>
@@ -6431,8 +8310,28 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Большой</translation>
     </message>
     <message>
+        <source>Display Pages &amp;Side by Side</source>
+        <translation>Показывать страницы р&amp;ядом друг с другом</translation>
+    </message>
+    <message>
+        <source>Page Colors</source>
+        <translation>Цвета на странице</translation>
+    </message>
+    <message>
+        <source>&amp;Background:</source>
+        <translation>Задний &amp;план:</translation>
+    </message>
+    <message>
+        <source>&amp;Margins:</source>
+        <translation>По&amp;ля:</translation>
+    </message>
+    <message>
         <source>Display &amp;Unprintable Area in Margin Color</source>
         <translation>Показывать &amp;непечатаемую область цветом полей</translation>
+    </message>
+    <message>
+        <source>Use PDF 1.4 &amp;Transparency Features</source>
+        <translation>Использовать возможности &amp;полупрозрачности PDF 1.4</translation>
     </message>
     <message>
         <source>&amp;Adjust Display Size</source>
@@ -6463,6 +8362,14 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Применить вычитание из-под &amp;чёрного</translation>
     </message>
     <message>
+        <source>&amp;OK</source>
+        <translation>&amp;ОК</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>О&amp;тменить</translation>
+    </message>
+    <message>
         <source>&amp;Inside:</source>
         <translation>&amp;Изнутри:</translation>
     </message>
@@ -6483,6 +8390,21 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Дополнительный каталог для шаблонов макетов</translation>
     </message>
     <message>
+        <source>Apply &amp;Factor</source>
+        <translation>Использовать &amp;коэфф.</translation>
+    </message>
+    <message>
+        <source>Apply Convex/Concave Factor to change shape of Polygons</source>
+        <translation>Использовать коэффициент для создания многоугольника 
+с выпуклыми или вогнутыми сторонами</translation>
+    </message>
+    <message>
+        <source>A negative value will make the polygon concave (or star shaped),
+ a positive value will make it convex</source>
+        <translation>Отрицательное значение сделает многоугольник вогнутым 
+(в форме звезды), а положительное - выпуклым</translation>
+    </message>
+    <message>
         <source>A way of switching off some of the gray shades which are composed
 of cyan, yellow and magenta and using black instead.
 UCR most affects parts of images which are neutral and/or dark tones
@@ -6499,137 +8421,28 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
 вероятность избыточной насыщенности изображения. </translation>
     </message>
     <message>
-        <source>&amp;Language:</source>
-        <translation type="unfinished">Я&amp;зык:</translation>
+        <source>Executive</source>
+        <translation>Executive</translation>
     </message>
     <message>
-        <source>Select your default language for Scribus to run with.
-Leave this blank to choose based on environment variables.
-You can still override this by passing a command line option when starting Scribus</source>
-        <translation type="unfinished"></translation>
+        <source>Folio</source>
+        <translation>Folio</translation>
     </message>
     <message>
-        <source>Other Settings</source>
-        <translation type="unfinished"></translation>
+        <source>Ledger</source>
+        <translation>Ledger</translation>
     </message>
     <message>
-        <source>Show Grid</source>
-        <translation type="unfinished">Показать сетку</translation>
+        <source>Legal</source>
+        <translation>Legal</translation>
     </message>
     <message>
-        <source>Major Grid</source>
-        <translation type="unfinished"></translation>
+        <source>Letter</source>
+        <translation>Letter</translation>
     </message>
     <message>
-        <source>Color:</source>
-        <translation type="unfinished">Цвет:</translation>
-    </message>
-    <message>
-        <source>Spacing:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Minor Grid</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Guide Snap Distance:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show Margins</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show Guides</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show Baseline Grid</source>
-        <translation type="unfinished">Показать опорную сетку</translation>
-    </message>
-    <message>
-        <source>Show Text Chains</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show Frames</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show Pictures</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Page Background</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Alt+U</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Scratch Space</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Placing of Guides</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>In the Background</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>In the Foreground</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>External Tools.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Color for the basegrid lines</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the basegrid on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the gridlines on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the guides on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the margins on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the of linked frames on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the display of frames on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the display of pictures on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>PrefsDialogBase</name>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="unfinished">&amp;ОК</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="unfinished">О&amp;тменить</translation>
+        <source>Tabloid</source>
+        <translation>Tabloid</translation>
     </message>
 </context>
 <context>
@@ -7119,6 +8932,19 @@ Check path and filename.</source>
         <translation>С&amp;ценарии</translation>
     </message>
     <message>
+        <source>Oook! You&apos;re calling an object doesn&apos;t exist!</source>
+        <translation type="obsolete">Хм, вы пытаетесь добраться до несуществующего объекта!</translation>
+    </message>
+    <message>
+        <source>Oook! You&apos;re trying to erase an object doesn&apos;t exist!</source>
+        <translation type="obsolete">Хм, вы пытаетесь удалить несуществующий объект!</translation>
+    </message>
+    <message>
+        <source>Oook! An object you&apos;re trying to textflow doesn&apos;t exist!</source>
+        <translation type="obsolete">Хм, вы пытаетесь подключиться к текстовому 
+потоку из несуществующего объекта!</translation>
+    </message>
+    <message>
         <source>Error writing the output file(s).</source>
         <translation>Ошибка при записи файла (-ов).</translation>
     </message>
@@ -7153,6 +8979,10 @@ Check path and filename.</source>
     <message>
         <source>New &amp;from Template...</source>
         <translation>Созд&amp;ать из шаблона...</translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation type="obsolete">&amp;Создать</translation>
     </message>
     <message>
         <source>Newsletters</source>
@@ -7247,6 +9077,10 @@ Check path and filename.</source>
         <translation>Сохранить как &amp;шаблон...</translation>
     </message>
     <message>
+        <source>Save &amp;As...</source>
+        <translation type="obsolete">Сохранить &amp;как</translation>
+    </message>
+    <message>
         <source>&amp;Insert Special</source>
         <translation>&amp;Вставить символ...</translation>
     </message>
@@ -7261,6 +9095,10 @@ Check path and filename.</source>
     <message>
         <source>Print Previe&amp;w</source>
         <translation>Просмотреть &amp;печать</translation>
+    </message>
+    <message>
+        <source>&amp;Print...</source>
+        <translation type="obsolete">На&amp;печатать...</translation>
     </message>
     <message>
         <source>S&amp;cripter Manual...</source>
@@ -7300,7 +9138,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Oook! Wrong arguments! Call: </source>
-        <translation>Неправильные аргументы! Вызов:</translation>
+        <translation type="obsolete">Неправильные аргументы! Вызов:</translation>
     </message>
     <message>
         <source>Importing text</source>
@@ -7309,6 +9147,21 @@ Check path and filename.</source>
     <message>
         <source>All Supported Formats</source>
         <translation>Все поддерживаемые форматы</translation>
+    </message>
+    <message>
+        <source>Oook! You&apos;re trying to load image into an object doesn&apos;t exist or isn&apos;t selected!</source>
+        <translation type="obsolete">Вы пытаетесь загрузить изображение в объект, 
+который не существует или не был выбран.</translation>
+    </message>
+    <message>
+        <source>Oook! You&apos;re trying to (un)lock an object doesn&apos;t exist! None selected too.</source>
+        <translation type="obsolete">Вы пытаетесь (раз)блокировать объект, 
+который не существует или не был выбран.</translation>
+    </message>
+    <message>
+        <source>Oook! You&apos;re trying to query an object doesn&apos;t exist! None selected too.</source>
+        <translation type="obsolete">Вы пытаетесь работаь с объектом, 
+который не существует или не был выбран!</translation>
     </message>
     <message>
         <source>HTML Files</source>
@@ -7352,7 +9205,7 @@ External Links
     </message>
     <message>
         <source>OO.o Writer Documents</source>
-        <translation>Документы OO.o Writer</translation>
+        <translation type="obsolete">Документы OO.o Writer</translation>
     </message>
     <message>
         <source>Text Filters</source>
@@ -7363,96 +9216,64 @@ External Links
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>pt</source>
-        <translation type="unfinished">pt</translation>
-    </message>
-    <message>
-        <source>mm</source>
-        <translation type="unfinished">mm</translation>
-    </message>
-    <message>
-        <source>in</source>
-        <translation type="unfinished">in</translation>
-    </message>
-    <message>
-        <source>p</source>
-        <translation type="unfinished">p</translation>
-    </message>
-    <message>
-        <source> pt</source>
-        <translation type="unfinished">pt</translation>
-    </message>
-    <message>
-        <source> mm</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> in</source>
-        <translation type="unfinished">in</translation>
-    </message>
-    <message>
-        <source> p</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Albanian</source>
-        <translation type="unfinished"></translation>
+        <translation>Албанский</translation>
     </message>
     <message>
         <source>Basque</source>
-        <translation type="unfinished"></translation>
+        <translation>Баскский</translation>
     </message>
     <message>
         <source>Bulgarian</source>
-        <translation type="unfinished"></translation>
+        <translation>Болгарский</translation>
     </message>
     <message>
         <source>Brazilian</source>
-        <translation type="unfinished"></translation>
+        <translation>Португальский (Бразилия)</translation>
     </message>
     <message>
         <source>Catalan</source>
-        <translation type="unfinished">Каталонский</translation>
+        <translation>Каталонский</translation>
     </message>
     <message>
         <source>Chinese</source>
-        <translation type="unfinished"></translation>
+        <translation>Китайский</translation>
     </message>
     <message>
         <source>Czech</source>
-        <translation type="unfinished">Чешский</translation>
+        <translation>Чешский</translation>
     </message>
     <message>
         <source>Danish</source>
-        <translation type="unfinished">Датский</translation>
+        <translation>Датский</translation>
     </message>
     <message>
         <source>Dutch</source>
-        <translation type="unfinished">Датский</translation>
+        <translation>Голландский</translation>
     </message>
     <message>
         <source>English</source>
-        <translation type="unfinished">Английский</translation>
+        <translation>Английский</translation>
     </message>
     <message>
         <source>English (British)</source>
-        <translation type="unfinished"></translation>
+        <translation>Английский (Англия)</translation>
     </message>
     <message>
         <source>Esperanto</source>
-        <translation type="unfinished"></translation>
+        <translation>Эсперанто</translation>
     </message>
     <message>
         <source>German</source>
-        <translation type="unfinished">Немецкий</translation>
+        <translation>Немецкий</translation>
     </message>
     <message>
         <source>Finnish</source>
-        <translation type="unfinished">Финский</translation>
+        <translation>Финский</translation>
     </message>
     <message>
         <source>French</source>
-        <translation type="unfinished">Французский</translation>
+        <translation>Французский</translation>
     </message>
     <message>
         <source>Galician</source>
@@ -7460,115 +9281,502 @@ External Links
     </message>
     <message>
         <source>Greek</source>
-        <translation type="unfinished">Греческий</translation>
+        <translation>Греческий</translation>
     </message>
     <message>
         <source>Hungarian</source>
-        <translation type="unfinished">Венгерский</translation>
+        <translation>Венгерский</translation>
     </message>
     <message>
         <source>Indonesian</source>
-        <translation type="unfinished"></translation>
+        <translation>Индонезийский</translation>
     </message>
     <message>
         <source>Italian</source>
-        <translation type="unfinished">Итальянский</translation>
+        <translation>Итальянский</translation>
     </message>
     <message>
         <source>Korean</source>
-        <translation type="unfinished"></translation>
+        <translation>Корейский</translation>
     </message>
     <message>
         <source>Lithuanian</source>
-        <translation type="unfinished">Литовский</translation>
+        <translation>Литовский</translation>
     </message>
     <message>
         <source>Norwegian (Bokmaal)</source>
-        <translation type="unfinished"></translation>
+        <translation>Норвежский (Бокмол)</translation>
     </message>
     <message>
         <source>Norwegian (Nnyorsk)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Норвежский</translation>
     </message>
     <message>
         <source>Norwegian</source>
-        <translation type="unfinished"></translation>
+        <translation>Норвежский</translation>
     </message>
     <message>
         <source>Polish</source>
-        <translation type="unfinished">Польский</translation>
+        <translation>Польский</translation>
     </message>
     <message>
         <source>Russian</source>
-        <translation type="unfinished">Русский</translation>
+        <translation>Русский</translation>
     </message>
     <message>
         <source>Swedish</source>
-        <translation type="unfinished">Шведский</translation>
+        <translation>Шведский</translation>
     </message>
     <message>
         <source>Spanish</source>
-        <translation type="unfinished">Испанский</translation>
+        <translation>Испанский</translation>
     </message>
     <message>
         <source>Spanish (Latin)</source>
-        <translation type="unfinished"></translation>
+        <translation>Испанский (Латинская Америка)</translation>
     </message>
     <message>
         <source>Slovak</source>
-        <translation type="unfinished">Словацкий</translation>
+        <translation>Словацкий</translation>
     </message>
     <message>
         <source>Slovenian</source>
-        <translation type="unfinished">Словенский</translation>
+        <translation>Словенский</translation>
     </message>
     <message>
         <source>Serbian</source>
-        <translation type="unfinished"></translation>
+        <translation>Сербский</translation>
     </message>
     <message>
-        <source>Turkish</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ukranian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Welsh</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Failed to load a font - freetype couldn&apos;t find the font file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>All</source>
-        <translation type="unfinished">Все</translation>
-    </message>
-    <message>
-        <source>Specified item not an image frame</source>
+        <source>Tried to set progress &gt; maximum progress</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&amp;About Script...</source>
-        <translation type="unfinished"></translation>
+        <translation>О сц&amp;енарии...</translation>
     </message>
     <message>
         <source>About Script</source>
-        <translation type="unfinished"></translation>
+        <translation>О сценарии</translation>
     </message>
     <message>
         <source>Import &amp;Open Office Draw...</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Импортировать ф&amp;айл &amp;Open Office Draw...</translation>
     </message>
     <message>
         <source>Open Office Draw (*.sxd);;All Files (*)</source>
+        <translation type="obsolete">Open Office Draw (*.sxd);;Все файлы (*)</translation>
+    </message>
+    <message>
+        <source>Cannot get a color with an empty name.</source>
+        <comment>python error</comment>
+        <translation>Невозможно получить цвет с пустым именем.</translation>
+    </message>
+    <message>
+        <source>Color not found</source>
+        <comment>python error</comment>
+        <translation>Цвет не найден</translation>
+    </message>
+    <message>
+        <source>Cannot change a color with an empty name.</source>
+        <comment>python error</comment>
+        <translation>Невозможно изменить цвет с пустым именем.</translation>
+    </message>
+    <message>
+        <source>Color not found in document</source>
+        <comment>python error</comment>
+        <translation>Цвет не найден в документе</translation>
+    </message>
+    <message>
+        <source>Color not found in default colors</source>
+        <comment>python error</comment>
+        <translation>Цвет не найден среди стандартных цветов</translation>
+    </message>
+    <message>
+        <source>Cannot create a color with an empty name.</source>
+        <comment>python error</comment>
+        <translation>Невозможно создать цвет с пустым именем.</translation>
+    </message>
+    <message>
+        <source>Cannot delete a color with an empty name.</source>
+        <comment>python error</comment>
+        <translation>Невозможно удалить цвет с пустым именем.</translation>
+    </message>
+    <message>
+        <source>Cannot replace a color with an empty name.</source>
+        <comment>python error</comment>
+        <translation>Невозможно заменить цвет с пустым именем.</translation>
+    </message>
+    <message>
+        <source>Failed to open document</source>
+        <comment>python error</comment>
+        <translation>Не удалось открыть документ</translation>
+    </message>
+    <message>
+        <source>Failed to save document</source>
+        <comment>python error</comment>
+        <translation>Не удалось сохранить документ</translation>
+    </message>
+    <message>
+        <source>Unit out of range. Use one of the scribus.UNIT_* constants.</source>
+        <comment>python error</comment>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target is not an image frame.</source>
+        <comment>python error</comment>
+        <translation>Цель не является рамкой изображения.</translation>
+    </message>
+    <message>
+        <source>Can&apos;t scale by 0%</source>
+        <comment>python error</comment>
+        <translation>Масштабирование на 0% невозможно</translation>
+    </message>
+    <message>
+        <source>Font not found</source>
+        <comment>python error</comment>
+        <translation>Шрифт не найден</translation>
+    </message>
+    <message>
+        <source>Can&apos;t render an empty sample</source>
+        <comment>python error</comment>
+        <translation>Невозможно обработать пустой пример</translation>
+    </message>
+    <message>
+        <source>Can&apos;t save to a blank filename</source>
+        <comment>python error</comment>
+        <translation>Невозможно сохранить в файл с пустым именем</translation>
+    </message>
+    <message>
+        <source>Can&apos;t have an empty layer name</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Layer not found</source>
+        <comment>python error</comment>
+        <translation>Слой не найден</translation>
+    </message>
+    <message>
+        <source>Can&apos;t remove the last layer</source>
+        <comment>python error</comment>
+        <translation>Невозможно удалить последний слой</translation>
+    </message>
+    <message>
+        <source>Can&apos;t create layer without a name</source>
+        <comment>python error</comment>
+        <translation>Невозможно создать слой без имени</translation>
+    </message>
+    <message>
+        <source>An object with the requested name already exists</source>
+        <comment>python error</comment>
+        <translation>Объект с запрошенным именем уже существует</translation>
+    </message>
+    <message>
+        <source>Point list must contain at least two points (four values)</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Point list must contain an even number of values</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Point list must contain at least three points (six values)</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Point list must contain at least four points (eight values)</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Point list must have a multiple of six values</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Object not found</source>
+        <comment>python error</comment>
+        <translation>Объект не найден</translation>
+    </message>
+    <message>
+        <source>Style not found</source>
+        <comment>python error</comment>
+        <translation>Стиль не найден</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set style on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Невозможно назначить стиль нетекстовой рамке</translation>
+    </message>
+    <message>
+        <source>Failed to save EPS</source>
+        <comment>python error</comment>
+        <translation>Не удалось сохранить EPS-файл</translation>
+    </message>
+    <message>
+        <source>Page number out of range</source>
+        <comment>python error</comment>
+        <translation>Количество страниц вне допустимого диапазона</translation>
+    </message>
+    <message>
+        <source>argument is not list: must be list of float values</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>argument contains non-numeric values: must be list of float values</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line width out of bounds, must be 0 &lt;= line_width &lt;= 12</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line shade out of bounds, must be 0 &lt;= shade &lt;= 100</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill shade out of bounds, must be 0 &lt;= shade &lt;= 100</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Corner radius must be a positive number.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line style not found</source>
+        <comment>python error</comment>
+        <translation>Стиль линии не найден</translation>
+    </message>
+    <message>
+        <source>Cannot get font size of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Невозможно получить кегль шрифта из нетекстовой рамки.</translation>
+    </message>
+    <message>
+        <source>Cannot get font of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Невозможно шрифт из нетекстовой рамки.</translation>
+    </message>
+    <message>
+        <source>Cannot get text size of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Невозможно получить текстовый кегль из нетекстовой рамки.</translation>
+    </message>
+    <message>
+        <source>Cannot get column count of non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot get line space of non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot get column gap of non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot get text of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Невозможно получить текст из нетекстовой рамки.</translation>
+    </message>
+    <message>
+        <source>Cannot set text of non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot insert text into non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Невозможно вставить текст в нетекстовую рамку.</translation>
+    </message>
+    <message>
+        <source>Insert index out of bounds</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alignment out of range. Use one of the scribus.ALIGN* constants.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t set text alignment on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Невозможно установить выключку текста для нетекстовой рамки</translation>
+    </message>
+    <message>
+        <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t set font size on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Невозможно установить кегль для нетекстовой рамки</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set font on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Невозможно установить шрифт для нетекстовой рамки</translation>
+    </message>
+    <message>
+        <source>Line space out of bounds, must be &gt;= 0.1</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t line spacing on a non-text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Column gap out of bounds, must be positive</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t column gap on a non-text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Column count out of bounds, must be &gt; 1</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t number of columns on a non-text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Selection index out of bounds</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t select text in a non-text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t delete text from a non-text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t set text fill on a non-text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t set text stroke on a non-text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t set text shade on a non-text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can only link text frames</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target frame must be empty</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target frame links to another frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target frame is linked to by another frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Source and target are the same object</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t unlink a non-text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Object is not a linked text frame, can&apos;t unlink.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Object the last frame in a series, can&apos;t unlink. Unlink the previous frame instead.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can&apos;t convert a non-text frame to outlines</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus Python interface module
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>This module is the Python interface for Scribus. It provides functions
+<byte value="x9"/><byte value="x9"/>to control scribus and to manipulate objects on the canvas. Each
+<byte value="x9"/><byte value="x9"/>function is documented individually below.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>A few things are common across most of the interface.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>Most functions operate on frames. Frames are identified by their name,
+<byte value="x9"/><byte value="x9"/>a string - they are not real Python objects. Many functions take an
+<byte value="x9"/><byte value="x9"/>optional (non-keyword) parameter, a frame name.
+<byte value="x9"/><byte value="x9"/>Many exceptions are also common across most functions. These are
+<byte value="x9"/><byte value="x9"/>not currently documented in the docstring for each function.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Many functions will raise a NoDocOpenError if you try to use them
+<byte value="x9"/><byte value="x9"/>      without a document to operate on.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - If you do not pass a frame name to a function that requires one,
+<byte value="x9"/><byte value="x9"/>      the function will use the currently selected frame, if any, or
+<byte value="x9"/><byte value="x9"/>      raise a NoValidObjectError if it can&apos;t find anything to operate
+<byte value="x9"/><byte value="x9"/>      on.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Many functions will raise WrongFrameTypeError if you try to use them
+<byte value="x9"/><byte value="x9"/>      on a frame type that they do not make sense with. For example, setting
+<byte value="x9"/><byte value="x9"/>      the text colour on a graphics frame doesn&apos;t make sense, and will result
+<byte value="x9"/><byte value="x9"/>      in this exception being raised.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Errors resulting from calls to the underlying Python API will be
+<byte value="x9"/><byte value="x9"/>      passed through unaltered. As such, the list of exceptions thrown by
+<byte value="x9"/><byte value="x9"/>      any function as provided here and in its docstring is incomplete.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>Details of what exceptions each function may throw are provided on the
+<byte value="x9"/><byte value="x9"/>function&apos;s documentation.
+<byte value="x9"/><byte value="x9"/></source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import &amp;OpenOffice.org Draw...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
+        <translation>OpenOffice.org Draw (*.sxd);;Все файлы (*)</translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Writer Documents</source>
+        <translation>Документы OpenOffice.org Writer</translation>
     </message>
 </context>
 <context>
@@ -7780,6 +9988,14 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>&amp;Левая страница первой</translation>
     </message>
     <message>
+        <source>&amp;OK</source>
+        <translation>&amp;ОК</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>О&amp;тменить</translation>
+    </message>
+    <message>
         <source>&amp;Inside:</source>
         <translation>&amp;Изнутри:</translation>
     </message>
@@ -7800,6 +10016,10 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Собственный</translation>
     </message>
     <message>
+        <source>Orientation:</source>
+        <translation>Ориентация:</translation>
+    </message>
+    <message>
         <source>Portrait</source>
         <translation>Портрет</translation>
     </message>
@@ -7808,411 +10028,16 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Альбом</translation>
     </message>
     <message>
+        <source>Width:</source>
+        <translation>Ширина:</translation>
+    </message>
+    <message>
+        <source>Height:</source>
+        <translation>Высота:</translation>
+    </message>
+    <message>
         <source>F&amp;irst Page Number:</source>
         <translation>&amp;Номер первой страницы:</translation>
-    </message>
-    <message>
-        <source>&amp;Size:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Legal</source>
-        <translation type="unfinished">Legal</translation>
-    </message>
-    <message>
-        <source>Letter</source>
-        <translation type="unfinished">Letter</translation>
-    </message>
-    <message>
-        <source>Tabloid</source>
-        <translation type="unfinished">Таблоид</translation>
-    </message>
-    <message>
-        <source>Orie&amp;ntation:</source>
-        <translation type="unfinished">Ор&amp;иентация:</translation>
-    </message>
-    <message>
-        <source>&amp;Width:</source>
-        <translation type="unfinished">&amp;Ширина:</translation>
-    </message>
-    <message>
-        <source>&amp;Height:</source>
-        <translation type="unfinished">&amp;Высота:</translation>
-    </message>
-    <message>
-        <source>Layout</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Major Grid</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Color:</source>
-        <translation type="unfinished">Цвет:</translation>
-    </message>
-    <message>
-        <source>Spacing:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Minor Grid</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Guide Snap Distance:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show Margins</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show Guides</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show Baseline Grid</source>
-        <translation type="unfinished">Показать опорную сетку</translation>
-    </message>
-    <message>
-        <source>Show Text Chains</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show Frames</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show Pictures</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Guides</source>
-        <translation type="unfinished">Направляющие</translation>
-    </message>
-    <message>
-        <source>Page Background</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Display &amp;Unprintable Area in Margin Color</source>
-        <translation type="unfinished">Показывать &amp;непечатаемую область цветом полей</translation>
-    </message>
-    <message>
-        <source>Alt+U</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Scratch Space</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Placing of Guides</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>In the Background</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>In the Foreground</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Display</source>
-        <translation type="unfinished">Отображение</translation>
-    </message>
-    <message>
-        <source>Subscript</source>
-        <translation type="unfinished">Нижний индекс</translation>
-    </message>
-    <message>
-        <source> %</source>
-        <translation type="unfinished">%</translation>
-    </message>
-    <message>
-        <source>&amp;Displacement:</source>
-        <translation type="unfinished">&amp;Смещение:</translation>
-    </message>
-    <message>
-        <source>&amp;Scaling:</source>
-        <translation type="unfinished">&amp;Масштабирование:</translation>
-    </message>
-    <message>
-        <source>Superscript</source>
-        <translation type="unfinished">Верхний индекс</translation>
-    </message>
-    <message>
-        <source>D&amp;isplacement:</source>
-        <translation type="unfinished">Смеще&amp;ние:</translation>
-    </message>
-    <message>
-        <source>S&amp;caling:</source>
-        <translation type="unfinished">&amp;Масштабирование:</translation>
-    </message>
-    <message>
-        <source>Small Caps</source>
-        <translation type="unfinished">Капитель</translation>
-    </message>
-    <message>
-        <source>Sc&amp;aling:</source>
-        <translation type="unfinished">Ма&amp;сштабирование:</translation>
-    </message>
-    <message>
-        <source>Other</source>
-        <translation type="unfinished">Другое</translation>
-    </message>
-    <message>
-        <source>Baseline &amp;Grid:</source>
-        <translation type="unfinished">&amp;Сетка линии шрифта:</translation>
-    </message>
-    <message>
-        <source>Baseline &amp;Offset:</source>
-        <translation type="unfinished">С&amp;мещение сетки линии шрифта:</translation>
-    </message>
-    <message>
-        <source>Automatic &amp;Line Spacing:</source>
-        <translation type="unfinished">Автомат. межстрочное
-расстоя&amp;ние:</translation>
-    </message>
-    <message>
-        <source>Typography</source>
-        <translation type="unfinished">Типографика</translation>
-    </message>
-    <message>
-        <source>Font:</source>
-        <translation type="unfinished">Шрифт:</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Fill Color:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Stroke Color:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Colu&amp;mns:</source>
-        <translation type="unfinished">С&amp;толбцов:</translation>
-    </message>
-    <message>
-        <source>&amp;Gap:</source>
-        <translation type="unfinished">&amp;Интервал:</translation>
-    </message>
-    <message>
-        <source>Woven silk pyjamas exchanged for blue quartz</source>
-        <translation type="unfinished">А ещё неплохо бы на зависть другим уметь красиво читать и писать</translation>
-    </message>
-    <message>
-        <source>&amp;Line Color:</source>
-        <translation type="unfinished">&amp;Цвет линии:</translation>
-    </message>
-    <message>
-        <source>&amp;Shading:</source>
-        <translation type="unfinished">&amp;Затенение:</translation>
-    </message>
-    <message>
-        <source>&amp;Fill Color:</source>
-        <translation type="unfinished">Цвет за&amp;ливки:</translation>
-    </message>
-    <message>
-        <source>S&amp;hading:</source>
-        <translation type="unfinished">За&amp;тенение:</translation>
-    </message>
-    <message>
-        <source>Line Style:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Line &amp;Width:</source>
-        <translation type="unfinished">То&amp;лщина линии:</translation>
-    </message>
-    <message>
-        <source>Line S&amp;tyle:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Arrows:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Start:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>End:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Free Scaling</source>
-        <translation type="unfinished">&amp;Свободное масштабирование</translation>
-    </message>
-    <message>
-        <source>&amp;Horizontal Scaling:</source>
-        <translation type="unfinished">Масштабирование 
-по &amp;горизонтали:</translation>
-    </message>
-    <message>
-        <source>&amp;Vertical Scaling:</source>
-        <translation type="unfinished">Масштабирование 
-по &amp;вертикали:</translation>
-    </message>
-    <message>
-        <source>&amp;Scale Picture to Frame Size</source>
-        <translation type="unfinished">Масштабировать &amp;изображение до рамки</translation>
-    </message>
-    <message>
-        <source>Keep Aspect &amp;Ratio</source>
-        <translation type="unfinished">Сохранять &amp;соотношение сторон</translation>
-    </message>
-    <message>
-        <source>F&amp;ill Color:</source>
-        <translation type="unfinished">Цвет &amp;заливки:</translation>
-    </message>
-    <message>
-        <source>Mi&amp;nimum:</source>
-        <translation type="unfinished">&amp;Минимум:</translation>
-    </message>
-    <message>
-        <source>Ma&amp;ximum:</source>
-        <translation type="unfinished">Ма&amp;ксимум:</translation>
-    </message>
-    <message>
-        <source>&amp;Stepping:</source>
-        <translation type="unfinished">&amp;Шаг:</translation>
-    </message>
-    <message>
-        <source>Tools</source>
-        <translation type="unfinished">Инструменты</translation>
-    </message>
-    <message>
-        <source>Autosave</source>
-        <translation type="unfinished">Автосохранение</translation>
-    </message>
-    <message>
-        <source>min</source>
-        <translation type="unfinished">мин</translation>
-    </message>
-    <message>
-        <source>&amp;Interval:</source>
-        <translation type="unfinished">&amp;Интервал:</translation>
-    </message>
-    <message>
-        <source>Units</source>
-        <translation type="unfinished">Единицы измерения</translation>
-    </message>
-    <message>
-        <source>Points (pt)</source>
-        <translation type="unfinished">Точки (pt)</translation>
-    </message>
-    <message>
-        <source>Millimetres (mm)</source>
-        <translation type="unfinished">Миллиметры (mm)</translation>
-    </message>
-    <message>
-        <source>Inches (in)</source>
-        <translation type="unfinished">Дюймы (in)</translation>
-    </message>
-    <message>
-        <source>Picas (p)</source>
-        <translation type="unfinished">Пики (p)</translation>
-    </message>
-    <message>
-        <source>Misc.</source>
-        <translation type="unfinished">Разное</translation>
-    </message>
-    <message>
-        <source>Show Grid</source>
-        <translation type="unfinished">Показать сетку</translation>
-    </message>
-    <message>
-        <source>Grab Radius:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> px</source>
-        <translation type="unfinished">px</translation>
-    </message>
-    <message>
-        <source>Color for paper</source>
-        <translation type="unfinished">Цвет бумаги</translation>
-    </message>
-    <message>
-        <source>Mask the area outside the margins in the margin color</source>
-        <translation type="unfinished">Пометить пространство за полями цветом полей</translation>
-    </message>
-    <message>
-        <source>Distance between the minor grid lines</source>
-        <translation type="unfinished">Расстояние между малыми ячейками сетки</translation>
-    </message>
-    <message>
-        <source>Distance between the major grid lines</source>
-        <translation type="unfinished">Расстояние между большими ячейками сетки</translation>
-    </message>
-    <message>
-        <source>Distance within which an object will snap to your placed guides</source>
-        <translation type="unfinished">Расстояние, начиная с которого объект начнёт &quot;прилипать&quot; к направляющим линиям</translation>
-    </message>
-    <message>
-        <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
-        <translation type="unfinished">Радиус области, внутри которой можно захватывать точки контроля над объектом</translation>
-    </message>
-    <message>
-        <source>Color of the minor grid lines</source>
-        <translation type="unfinished">Цвет малых ячеек сетки</translation>
-    </message>
-    <message>
-        <source>Color of the major grid lines</source>
-        <translation type="unfinished">Цвет больших ячеек сетки</translation>
-    </message>
-    <message>
-        <source>Color of the guide lines you insert</source>
-        <translation type="unfinished">Цвет направляющих линий</translation>
-    </message>
-    <message>
-        <source>Color for the margin lines</source>
-        <translation type="unfinished">Цвет линий полей</translation>
-    </message>
-    <message>
-        <source>Color for the basegrid lines</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the basegrid on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the gridlines on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the guides on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the margins on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the of linked frames on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the display of frames on or off</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turns the display of pictures on or off</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8330,6 +10155,10 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Searching for Fonts</source>
         <translation>Идёт поиск шрифтов</translation>
+    </message>
+    <message>
+        <source>There are no Postscript-Fonts on your System</source>
+        <translation>В вашей системе нет PostScript-шрифтов</translation>
     </message>
     <message>
         <source>Exiting now</source>
@@ -8700,6 +10529,10 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Открыть</translation>
     </message>
     <message>
+        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
+        <translation>Документы (*.sla *.sla.gz *.scd *.scd.gz);;Все файлы (*)</translation>
+    </message>
+    <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
         <translation>Документы (*.sla *.scd);;Все файлы (*)</translation>
     </message>
@@ -8936,6 +10769,14 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>&amp;Help</source>
         <translation>Спр&amp;авка</translation>
+    </message>
+    <message>
+        <source>Show Baseline Grid</source>
+        <translation>Показать опорную сетку</translation>
+    </message>
+    <message>
+        <source>Hide Baseline Grid</source>
+        <translation>Скрыть опорную сетку</translation>
     </message>
     <message>
         <source>Some Objects are locked.</source>
@@ -9239,7 +11080,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>&amp;Outline</source>
-        <translation>С&amp;хема</translation>
+        <translation>С&amp;труктура</translation>
     </message>
     <message>
         <source>&amp;Scrapbook</source>
@@ -9478,49 +11319,16 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Изменить &amp;очертания</translation>
     </message>
     <message>
+        <source>File %1 is not in Scribus format</source>
+        <translation>Файл %1 не имеет формат Scribus</translation>
+    </message>
+    <message>
         <source>Afrikaans</source>
         <translation>Африкаанс</translation>
     </message>
     <message>
-        <source>There are no Postscript fonts on your system</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show &amp;Text Chain</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Documents (*.sla *.scd);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Postscript-Files (*.eps *.EPS *.ps *.PS);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SVG-Images (*.svg *.svgz);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SVG-Images (*.svg);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Open Office Draw (*.sxd);;All Files (*)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>File %1 
-is not in an acceptable format</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>(converted)</source>
-        <translation type="unfinished"></translation>
+        <source>Font System Initialized</source>
+        <translation>Шрифтовая подсистема инициализирована</translation>
     </message>
 </context>
 <context>
@@ -9532,6 +11340,10 @@ is not in an acceptable format</source>
     <message>
         <source>Layer</source>
         <translation>Слой</translation>
+    </message>
+    <message>
+        <source>All</source>
+        <translation>Все</translation>
     </message>
     <message>
         <source>pt</source>
@@ -9548,294 +11360,6 @@ is not in an acceptable format</source>
     <message>
         <source>p</source>
         <translation>p</translation>
-    </message>
-    <message>
-        <source>Copy Here</source>
-        <translation type="unfinished">Скопировать сюда</translation>
-    </message>
-    <message>
-        <source>Move Here</source>
-        <translation type="unfinished">Переместить сюда</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Paste</source>
-        <translation type="unfinished">Вст&amp;авить</translation>
-    </message>
-    <message>
-        <source>Show &amp;Margins</source>
-        <translation type="unfinished">Показать &amp;поля</translation>
-    </message>
-    <message>
-        <source>Show &amp;Frames</source>
-        <translation type="unfinished">Показывать &amp;обрамление</translation>
-    </message>
-    <message>
-        <source>Show &amp;Images</source>
-        <translation type="unfinished">Показывать &amp;изображения</translation>
-    </message>
-    <message>
-        <source>Show &amp;Grid</source>
-        <translation type="unfinished">Показать &amp;сетку</translation>
-    </message>
-    <message>
-        <source>Show G&amp;uides</source>
-        <translation type="unfinished">Показать &amp;направляющие</translation>
-    </message>
-    <message>
-        <source>Show &amp;Baseline Grid</source>
-        <translation type="unfinished">Показать опорную &amp;сетку</translation>
-    </message>
-    <message>
-        <source>Sn&amp;ap to Grid</source>
-        <translation type="unfinished">Привязать к &amp;сетке</translation>
-    </message>
-    <message>
-        <source>Sna&amp;p to Guides</source>
-        <translation type="unfinished">Привязать к н&amp;аправляющим</translation>
-    </message>
-    <message>
-        <source>Picture</source>
-        <translation type="unfinished">Изображение</translation>
-    </message>
-    <message>
-        <source>File: </source>
-        <translation type="unfinished">Файл:</translation>
-    </message>
-    <message>
-        <source>Original PPI: </source>
-        <translation type="unfinished">Исходный PPI:</translation>
-    </message>
-    <message>
-        <source>Actual PPI: </source>
-        <translation type="unfinished">Текущий PPI:</translation>
-    </message>
-    <message>
-        <source>Linked Text</source>
-        <translation type="unfinished">Связанный текст</translation>
-    </message>
-    <message>
-        <source>Text Frame</source>
-        <translation type="unfinished">Текстовая рамка</translation>
-    </message>
-    <message>
-        <source>Text on a Path</source>
-        <translation type="unfinished">Текст по контуру</translation>
-    </message>
-    <message>
-        <source>Paragraphs: </source>
-        <translation type="unfinished">Абзацев:</translation>
-    </message>
-    <message>
-        <source>Words: </source>
-        <translation type="unfinished">Слов:</translation>
-    </message>
-    <message>
-        <source>Chars: </source>
-        <translation type="unfinished">Символов:</translation>
-    </message>
-    <message>
-        <source>Print: </source>
-        <translation type="unfinished">Печать:</translation>
-    </message>
-    <message>
-        <source>Enabled</source>
-        <translation type="unfinished">Включено</translation>
-    </message>
-    <message>
-        <source>Disabled</source>
-        <translation type="unfinished">Выключено</translation>
-    </message>
-    <message>
-        <source>In&amp;fo</source>
-        <translation type="unfinished">&amp;Инфо</translation>
-    </message>
-    <message>
-        <source>&amp;Get Picture...</source>
-        <translation type="unfinished">Получить &amp;изображение...</translation>
-    </message>
-    <message>
-        <source>I&amp;mage Visible</source>
-        <translation type="unfinished">Изображение &amp;видимо</translation>
-    </message>
-    <message>
-        <source>&amp;Update Picture</source>
-        <translation type="unfinished">&amp;Обновить изображение</translation>
-    </message>
-    <message>
-        <source>&amp;Edit Picture</source>
-        <translation type="unfinished">&amp;Изменить изображение</translation>
-    </message>
-    <message>
-        <source>&amp;Adjust Frame to Picture</source>
-        <translation type="unfinished">&amp;Подстроить рамку до изображения</translation>
-    </message>
-    <message>
-        <source>&amp;Get Text...</source>
-        <translation type="unfinished">Получить &amp;текст...</translation>
-    </message>
-    <message>
-        <source>&amp;Append Text...</source>
-        <translation type="unfinished">Добавить &amp;текст из файла...</translation>
-    </message>
-    <message>
-        <source>&amp;Edit Text...</source>
-        <translation type="unfinished">Изменить те&amp;кст...</translation>
-    </message>
-    <message>
-        <source>Is PDF &amp;Bookmark</source>
-        <translation type="unfinished">Является PDF-&amp;закладкой</translation>
-    </message>
-    <message>
-        <source>Is PDF A&amp;nnotation</source>
-        <translation type="unfinished">Является PDF-&amp;аннотацией</translation>
-    </message>
-    <message>
-        <source>Annotation P&amp;roperties</source>
-        <translation type="unfinished">Свойства а&amp;ннотации</translation>
-    </message>
-    <message>
-        <source>Field P&amp;roperties</source>
-        <translation type="unfinished">Свойства по&amp;ля</translation>
-    </message>
-    <message>
-        <source>&amp;PDF Options</source>
-        <translation type="unfinished">Пара&amp;метры PDF</translation>
-    </message>
-    <message>
-        <source>Edit Text...</source>
-        <translation type="unfinished">Изменить текст...</translation>
-    </message>
-    <message>
-        <source>&amp;Lock</source>
-        <translation type="unfinished">Заб&amp;локировать</translation>
-    </message>
-    <message>
-        <source>Un&amp;lock</source>
-        <translation type="unfinished">&amp;Разблокировать</translation>
-    </message>
-    <message>
-        <source>Lock Object &amp;Size</source>
-        <translation type="unfinished">За&amp;блокировать размер объекта</translation>
-    </message>
-    <message>
-        <source>Unlock Object &amp;Size</source>
-        <translation type="unfinished">Разблокиро&amp;вать размер объекта</translation>
-    </message>
-    <message>
-        <source>Send to S&amp;crapbook</source>
-        <translation type="unfinished">Передать в запа&amp;сник</translation>
-    </message>
-    <message>
-        <source>Send to La&amp;yer</source>
-        <translation type="unfinished">Переложить в сло&amp;й</translation>
-    </message>
-    <message>
-        <source>&amp;Insert Sample Text</source>
-        <translation type="unfinished">Встав&amp;ить lorem ipsum</translation>
-    </message>
-    <message>
-        <source>&amp;Group</source>
-        <translation type="unfinished">С&amp;группировать</translation>
-    </message>
-    <message>
-        <source>Un&amp;group</source>
-        <translation type="unfinished">Разгру&amp;ппировать</translation>
-    </message>
-    <message>
-        <source>Le&amp;vel</source>
-        <translation type="unfinished">Уро&amp;вень</translation>
-    </message>
-    <message>
-        <source>Send to &amp;Back</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Bring to &amp;Front</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Lower</source>
-        <translation type="unfinished">Сделать уровнем н&amp;иже</translation>
-    </message>
-    <message>
-        <source>&amp;Raise</source>
-        <translation type="unfinished">Сделать уровнем в&amp;ыше</translation>
-    </message>
-    <message>
-        <source>&amp;Picture Frame</source>
-        <translation type="unfinished">Рамку изобра&amp;жения</translation>
-    </message>
-    <message>
-        <source>Pol&amp;ygon</source>
-        <translation type="unfinished">Многоу&amp;гольник</translation>
-    </message>
-    <message>
-        <source>&amp;Outlines</source>
-        <translation type="unfinished">&amp;Контур</translation>
-    </message>
-    <message>
-        <source>&amp;Text Frame</source>
-        <translation type="unfinished">&amp;Текстовую рамку</translation>
-    </message>
-    <message>
-        <source>&amp;Bezier Curve</source>
-        <translation type="unfinished">Кривая &amp;Безье</translation>
-    </message>
-    <message>
-        <source>Conve&amp;rt to</source>
-        <translation type="unfinished">&amp;Преобразовать в</translation>
-    </message>
-    <message>
-        <source>Cu&amp;t</source>
-        <translation type="unfinished">&amp;Вырезать</translation>
-    </message>
-    <message>
-        <source>&amp;Copy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Delete</source>
-        <translation type="unfinished">У&amp;далить</translation>
-    </message>
-    <message>
-        <source>C&amp;lear Contents</source>
-        <translation type="unfinished">&amp;Очистить содержимое</translation>
-    </message>
-    <message>
-        <source>Show P&amp;roperties...</source>
-        <translation type="unfinished">Показать &amp;свойства...</translation>
-    </message>
-    <message>
-        <source>Hide P&amp;roperties...</source>
-        <translation type="unfinished">Скрыть &amp;свойства...</translation>
-    </message>
-    <message>
-        <source>The Program</source>
-        <translation type="unfinished">Программа</translation>
-    </message>
-    <message>
-        <source>is missing!</source>
-        <translation type="unfinished">отсутствует!</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation type="unfinished">Предупреждение</translation>
-    </message>
-    <message>
-        <source>Do you really want to clear all your Text?</source>
-        <translation type="unfinished">Вы действительно хотите удалить весь текст?</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Copy of</source>
-        <translation type="unfinished">Копия</translation>
     </message>
 </context>
 <context>
@@ -9992,6 +11516,10 @@ is not in an acceptable format</source>
     <message>
         <source>&amp;Close</source>
         <translation>&amp;Закрыть</translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation>О&amp;чистить</translation>
     </message>
 </context>
 <context>
@@ -10243,6 +11771,10 @@ drag a Template to the Pageview below.</source>
         <translation>Выйти без обновления текстовой рамки</translation>
     </message>
     <message>
+        <source>&amp;Insert Special</source>
+        <translation type="obsolete">&amp;Вставить символ...</translation>
+    </message>
+    <message>
         <source>&amp;New</source>
         <translation>&amp;Новый</translation>
     </message>
@@ -10351,6 +11883,10 @@ drag a Template to the Pageview below.</source>
         <translation>Найти/Заменить</translation>
     </message>
     <message>
+        <source>&amp;Fonts Preview</source>
+        <translation type="obsolete">Просмотреть &amp;шрифты</translation>
+    </message>
+    <message>
         <source>&amp;Smart text selection</source>
         <translation>&amp;Умное выделение текста</translation>
     </message>
@@ -10378,15 +11914,15 @@ drag a Template to the Pageview below.</source>
         <translation>Вычеркнутый текст</translation>
     </message>
     <message>
-        <source>Outline</source>
-        <translation type="unfinished"></translation>
+        <source>Outline Text</source>
+        <translation>Контурный текст</translation>
     </message>
 </context>
 <context>
     <name>SxwDialog</name>
     <message>
         <source>OO.o Writer Importer Options</source>
-        <translation>Параметры импорта OO.o Writer</translation>
+        <translation type="obsolete">Параметры импорта OO.o Writer</translation>
     </message>
     <message>
         <source>Update paragraph styles</source>
@@ -10404,7 +11940,7 @@ drag a Template to the Pageview below.</source>
         <source>Should the importer always use currently
 set value when importing OO.o document and
 never ask your confirmation again</source>
-        <translation>Использовать ли эти настройки в дальнейшем 
+        <translation type="obsolete">Использовать ли эти настройки в дальнейшем 
 и больше не запрашивать подтверждение при
 импорте документов OO.o Writer</translation>
     </message>
@@ -10427,6 +11963,18 @@ edited to match the one being imported, or left untouched</source>
 сопадает со стилем импортируемого документа OO.o Writer, 
 то этот стиль может быть обновлён до совпадения с 
 одноимённым стилем из импортируемого документа</translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Writer Importer Options</source>
+        <translation>Параметры импорта из OpenOffice.org Writer</translation>
+    </message>
+    <message>
+        <source>Should the importer always use currently
+set value when importing OpenOffice.org document and
+never ask your confirmation again</source>
+        <translation>Использовать ли эти настройки в дальнейшем
+и больше не запрашивать подтверждение при
+импорте документов OO.o Writer</translation>
     </message>
 </context>
 <context>
@@ -10508,7 +12056,11 @@ edited to match the one being imported, or left untouched</source>
     </message>
     <message>
         <source>Ind&amp;ent:</source>
-        <translation>О&amp;тступ:</translation>
+        <translation type="obsolete">О&amp;тступ:</translation>
+    </message>
+    <message>
+        <source>Left Ind&amp;ent:</source>
+        <translation>Отступ с&amp;лева:</translation>
     </message>
 </context>
 <context>
@@ -10530,8 +12082,62 @@ edited to match the one being imported, or left untouched</source>
         <translation>Информация</translation>
     </message>
     <message>
+        <source>X:</source>
+        <translation>X:</translation>
+    </message>
+    <message>
+        <source>Y:</source>
+        <translation>Y:</translation>
+    </message>
+    <message>
+        <source>Font:</source>
+        <translation>Шрифт:</translation>
+    </message>
+    <message>
+        <source>Image</source>
+        <translation>Изображение</translation>
+    </message>
+    <message>
+        <source>Text</source>
+        <translation>Текст</translation>
+    </message>
+    <message>
+        <source>Line</source>
+        <translation>Линия</translation>
+    </message>
+    <message>
+        <source>Polygon</source>
+        <translation>Многоугольник</translation>
+    </message>
+    <message>
+        <source>Polyline</source>
+        <translation>Ломаная линия</translation>
+    </message>
+    <message>
+        <source>PathText</source>
+        <translation>Контурный текст</translation>
+    </message>
+    <message>
         <source>Page</source>
         <translation>Страница</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Предупреждение</translation>
+    </message>
+    <message>
+        <source>Name &quot;%1&quot; isn&apos;t unique.
+Please choose another.</source>
+        <translation>Имя &quot;%1&quot; уже использовано.
+Выберите другое.</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>ОК</translation>
+    </message>
+    <message>
+        <source>Group </source>
+        <translation>Группа</translation>
     </message>
 </context>
 <context>
