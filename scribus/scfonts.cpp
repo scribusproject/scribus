@@ -399,7 +399,9 @@ void SCFonts::AddScalableFonts(const QString &path, QString DocName)
 			else
 				pathfile = path+d[dc];
 			QFileInfo fi2(pathfile);
-			QString ext = fi2.extension(false).lower();
+			QString ext = fi.extension(false).lower();
+			QString ext2 = fi2.extension(false).lower();
+			if ((ext != ext2) && (ext == "")) ext = ext2;
 			if ((ext == "pfa") || (ext == "pfb") || (ext == "ttf") || (ext == "otf"))
 			{
 				error = AddScalableFont(pathfile,library, DocName);

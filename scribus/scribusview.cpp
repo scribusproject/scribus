@@ -63,6 +63,8 @@
 	#include CMS_INC
 #endif
 
+using namespace std;
+
 extern void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
 extern double Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2 = " ");
 extern ScribusApp* ScApp;
@@ -1631,7 +1633,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			p.end();
 			np = ApplyGrid(np);
 			b->Rot = xy2Deg(np.x(), np.y());
-			b->Width = sqrt(pow(np.x(),2)+pow(np.y(),2));
+			b->Width = sqrt(pow(np.x(),2.0)+pow(np.y(),2.0));
 			b->Height = 0;
 			b->Sizing = false;
 			UpdateClip(b);

@@ -37,6 +37,9 @@
 
 #include <ft2build.h>
 #include FT_GLYPH_H
+
+using namespace std;
+
 extern double Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2 = " ");
 extern double RealCWidth(ScribusDoc *doc, QString name, QString ch, int Siz);
 extern QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
@@ -1565,7 +1568,7 @@ NoRoom: pf2.end();
 			if (Ptext.count() != 0)
 				CurX += Ptext.at(0)->cextra;
 			zae = 0;
-			wid = sqrt(pow(cl.point(zae+1).x()-cl.point(zae).x(),2)+pow(cl.point(zae+1).y()-cl.point(zae).y(),2));
+			wid = sqrt(pow(cl.point(zae+1).x()-cl.point(zae).x(),2.0)+pow(cl.point(zae+1).y()-cl.point(zae).y(),2.0));
 			while (wid < 1)
 			{
 				zae++;
@@ -1574,7 +1577,7 @@ NoRoom: pf2.end();
 					MaxChars = Ptext.count();
 					break;
 				}
-				wid = sqrt(pow(cl.point(zae+1).x()-cl.point(zae).x(),2) + pow(cl.point(zae+1).y()-cl.point(zae).y(),2));
+				wid = sqrt(pow(cl.point(zae+1).x()-cl.point(zae).x(),2.0) + pow(cl.point(zae+1).y()-cl.point(zae).y(),2.0));
 			}
 			rota = xy2Deg(cl.point(zae+1).x()-cl.point(zae).x(),cl.point(zae+1).y()-cl.point(zae).y());
 			for (a = 0; a < Ptext.count(); ++a)
@@ -1618,10 +1621,8 @@ NoRoom: pf2.end();
 									MaxChars = a+1;
 									break;
 								}
-								wid = sqrt(pow(cl.point(zae+1).x()-cl.point(zae).x(),2)+
-											pow(cl.point(zae+1).y()-cl.point(zae).y(),2));
-								rota = xy2Deg(cl.point(zae+1).x()-cl.point(zae).x(),
-												cl.point(zae+1).y()-cl.point(zae).y());
+								wid = sqrt(pow(cl.point(zae+1).x()-cl.point(zae).x(),2.0)+pow(cl.point(zae+1).y()-cl.point(zae).y(),2.0));
+								rota = xy2Deg(cl.point(zae+1).x()-cl.point(zae).x(),cl.point(zae+1).y()-cl.point(zae).y());
 							}
 							while (wid == 0);
 							EndX -= wid;

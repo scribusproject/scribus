@@ -9,6 +9,9 @@
 #include "autoform.h"
 #include "tabmanager.h"
 #include "scribus.h"
+
+using namespace std;
+
 extern QPixmap loadIcon(QString nam);
 // 10/07/2004 pv - utils.cpp - provides locale sorted list
 extern QStringList sortQStringList(QStringList aList);

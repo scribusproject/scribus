@@ -232,7 +232,7 @@ xlib_rgb_make_colorcube (unsigned long *pixels, int nr, int ng, int nb)
   unsigned char rt[16], gt[16], bt[16];
   int i;
 
-  colorcube = malloc(sizeof(unsigned char) * 4096);
+  colorcube = (unsigned char *) malloc(sizeof(unsigned char) * 4096);
   memset(colorcube, 0, (sizeof(unsigned char) * 4096));
   for (i = 0; i < 16; i++)
     {
@@ -257,7 +257,7 @@ xlib_rgb_make_colorcube_d (unsigned long *pixels, int nr, int ng, int nb)
   int r, g, b;
   int i;
 
-  colorcube_d = malloc(sizeof(unsigned char) * 512);
+  colorcube_d = (unsigned char *) malloc(sizeof(unsigned char) * 512);
   memset(colorcube_d, 0, (sizeof(unsigned char) * 512));
   for (i = 0; i < 512; i++)
     {
@@ -309,7 +309,7 @@ xlib_rgb_try_colormap (int nr, int ng, int nb)
 #ifndef GAMMA
   if (!xlib_rgb_install_cmap) {
     /* go out and get the colors for this colormap. */
-    colors = malloc(sizeof(XColor) * visual->colormap_size);
+    colors = (XColor *) malloc(sizeof(XColor) * visual->colormap_size);
     for (i=0; i < visual->colormap_size; i++){
       colors[i].pixel = i;
     }
@@ -449,7 +449,7 @@ xlib_rgb_colorcube_222 (void)
   else
     cmap = image_info->default_colormap;
 
-  colorcube_d = malloc(sizeof(unsigned char) * 512);
+  colorcube_d = (unsigned char *) malloc(sizeof(unsigned char) * 512);
 
   for (i = 0; i < 8; i++)
     {
@@ -623,7 +623,7 @@ xlib_rgb_choose_visual (void)
     }
   /* make a copy of the visual so that we can free
      the allocated visual list above. */
-  final_visual = malloc(sizeof(XVisualInfo));
+  final_visual = (XVisualInfo *) malloc(sizeof(XVisualInfo));
   memcpy(final_visual, best_visual, sizeof(XVisualInfo));
   image_info->x_visual_info = final_visual;
   XFree(visuals);
@@ -676,7 +676,7 @@ xlib_rgb_choose_visual_for_xprint (int aDepth)
    }
   /* make a copy of the visual so that we can free
      the allocated visual list above. */
-  final_visual = malloc(sizeof(XVisualInfo));
+  final_visual = (XVisualInfo *) malloc(sizeof(XVisualInfo));
   memcpy(final_visual, best_visual, sizeof(XVisualInfo));
   image_info->x_visual_info = final_visual;
   XFree(visuals);
@@ -721,7 +721,7 @@ xlib_rgb_set_gray_cmap (Colormap cmap)
   /* Now, we make fake colorcubes - we ultimately just use the pseudocolor
      methods. */
 
-  colorcube = malloc(sizeof(unsigned char) * 4096);
+  colorcube = (unsigned char *) malloc(sizeof(unsigned char) * 4096);
 
   for (i = 0; i < 4096; i++)
     {
@@ -794,7 +794,7 @@ xlib_rgb_init_with_depth (Display *display, Screen *screen, int prefDepth)
 
   if (image_info == NULL)
     {
-      image_info = malloc(sizeof(XlibRgbInfo));
+      image_info = (XlibRgbInfo *) malloc(sizeof(XlibRgbInfo));
       memset(image_info, 0, sizeof(XlibRgbInfo));
 
       image_info->display = display;
@@ -911,7 +911,7 @@ xlib_rgb_init_with_depth (Display *display, Screen *screen, int prefDepth)
 					 0, 0, IMAGE_WIDTH, IMAGE_HEIGHT,
 					 8,
 					 0);
-	  static_image[i]->data = malloc(IMAGE_WIDTH * IMAGE_HEIGHT >> 3);
+	  static_image[i]->data = (char *) malloc(IMAGE_WIDTH * IMAGE_HEIGHT >> 3);
 	  static_image[i]->bitmap_bit_order = MSBFirst;
 	  static_image[i]->byte_order = MSBFirst;
 	}
@@ -925,7 +925,7 @@ xlib_rgb_init_with_depth (Display *display, Screen *screen, int prefDepth)
 					 IMAGE_HEIGHT,
 					 32, 0);
 	  /* remove this when we are using shared memory.. */
-	  static_image[i]->data = malloc((size_t)IMAGE_WIDTH * IMAGE_HEIGHT * image_info->x_visual_info->depth);
+	  static_image[i]->data = (char *) malloc((size_t)IMAGE_WIDTH * IMAGE_HEIGHT * image_info->x_visual_info->depth);
 	  static_image[i]->bitmap_bit_order = MSBFirst;
 	  static_image[i]->byte_order = MSBFirst;
 	}
@@ -1338,7 +1338,7 @@ xlib_rgb_preprocess_dm_565 (void)
 
   if (DM_565 == NULL)
     {
-      DM_565 = malloc(sizeof(unsigned int) * DM_WIDTH * DM_HEIGHT);
+      DM_565 = (unsigned int *) malloc(sizeof(unsigned int) * DM_WIDTH * DM_HEIGHT);
       for (i = 0; i < DM_WIDTH * DM_HEIGHT; i++)
 	{
 	  dith = DM[0][i] >> 3;
@@ -2780,7 +2780,7 @@ static unsigned char *
 xlib_rgb_ensure_stage (void)
 {
   if (image_info->stage_buf == NULL)
-    image_info->stage_buf = malloc (IMAGE_HEIGHT * STAGE_ROWSTRIDE);
+    image_info->stage_buf = (unsigned char *) malloc (IMAGE_HEIGHT * STAGE_ROWSTRIDE);
   return image_info->stage_buf;
 }
 
@@ -3537,7 +3537,7 @@ xlib_rgb_cmap_new (unsigned int *colors, int n_colors)
     return NULL;
   if (n_colors > 256)
     return NULL;
-  cmap = malloc(sizeof(XlibRgbCmap));
+  cmap = (XlibRgbCmap *) malloc(sizeof(XlibRgbCmap));
   memcpy (cmap->colors, colors, n_colors * sizeof(unsigned int));
   if (image_info->bpp == 1 &&
       (image_info->x_visual_info->class == PseudoColor ||

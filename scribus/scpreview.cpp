@@ -13,6 +13,9 @@
 #include <cstdlib>
 #include "missing.h"
 #include "scribus.h"
+
+using namespace std;
+
 extern double QStodouble(QString in);
 extern int QStoInt(QString in);
 extern QString GetAttr(QDomElement *el, QString at, QString def="0");
@@ -628,13 +631,13 @@ QPixmap ScPreview::createPreview(QString data)
 				if (Ptexti.count() != 0)
 					CurX += Ptexti.at(0)->cextra;
 				zae = 0;
-				wid = sqrt(pow(cl.point(zae+1).x()-cl.point(zae).x(),2)+pow(cl.point(zae+1).y()-cl.point(zae).y(),2));
+				wid = sqrt(pow(cl.point(zae+1).x()-cl.point(zae).x(),2.0)+pow(cl.point(zae+1).y()-cl.point(zae).y(),2.0));
 				while (wid < 1)
 				{
 					zae++;
 					if (zae == cl.size()-1)
 						goto PfadEnd;
-					wid = sqrt(pow(cl.point(zae+1).x()-cl.point(zae).x(),2)+pow(cl.point(zae+1).y()-cl.point(zae).y(),2));
+					wid = sqrt(pow(cl.point(zae+1).x()-cl.point(zae).x(),2.0)+pow(cl.point(zae+1).y()-cl.point(zae).y(),2.0));
 				}
 				rota = xy2Deg(cl.point(zae+1).x()-cl.point(zae).x(),cl.point(zae+1).y()-cl.point(zae).y());
 				for (a = 0; a < Ptexti.count(); a++)
@@ -688,7 +691,7 @@ QPixmap ScPreview::createPreview(QString data)
 									zae++;
 									if (zae == cl.size()-1)
 										goto PfadEnd;
-									wid = sqrt(pow(cl.point(zae+1).x()-cl.point(zae).x(),2)+pow(cl.point(zae+1).y()-cl.point(zae).y(),2));
+									wid = sqrt(pow(cl.point(zae+1).x()-cl.point(zae).x(),2.0)+pow(cl.point(zae+1).y()-cl.point(zae).y(),2.0));
 									rota = xy2Deg(cl.point(zae+1).x()-cl.point(zae).x(),cl.point(zae+1).y()-cl.point(zae).y());
 								}
 								while (wid == 0);

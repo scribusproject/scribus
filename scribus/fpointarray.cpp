@@ -18,6 +18,8 @@
 #include "fpointarray.h"
 #include <cstdarg>
 
+using namespace std;
+
 void FPointArray::setPoint(uint i, double x, double y)
 {
 	QMemArray<FPoint>::at( i ) = FPoint( x, y );
