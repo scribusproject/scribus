@@ -46,7 +46,7 @@ PyObject *scribus_getfont(PyObject */*self*/, PyObject* args)
 	{
 		for (uint b = 0; b < it->itemText.count(); b++)
 			if (it->itemText.at(b)->cselect)
-				return PyString_FromString(it->itemText.at(b)->cfont.utf8());
+				return PyString_FromString(it->itemText.at(b)->cfont->SCName.utf8());
 		return NULL;
 	}
 	else
@@ -268,7 +268,7 @@ PyObject *scribus_setboxtext(PyObject */*self*/, PyObject* args)
 		hg->ch = Daten.at(a);
 		if (hg->ch == QChar(10))
 			hg->ch = QChar(13);
-		hg->cfont = it->IFont;
+		hg->cfont = (*Carrier->doc->AllFonts)[it->IFont];
 		hg->csize = it->ISize;
 		hg->ccolor = it->TxtFill;
 		hg->cshade = it->ShTxtFill;
@@ -320,7 +320,7 @@ PyObject *scribus_inserttext(PyObject */*self*/, PyObject* args)
 		hg->ch = Daten.at(Daten.length()-1-a);
 		if (hg->ch == QChar(10))
 			hg->ch = QChar(13);
-		hg->cfont = it->IFont;
+		hg->cfont = (*Carrier->doc->AllFonts)[it->IFont];
 		hg->csize = it->ISize;
 		hg->ccolor = it->TxtFill;
 		hg->cshade = it->ShTxtFill;

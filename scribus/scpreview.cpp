@@ -354,7 +354,7 @@ QPixmap ScPreview::createPreview(QString data)
 					if (hg->ch == QChar(5))
 						hg->ch = QChar(13);
 					it++;
-					hg->cfont = *it;
+					hg->cfont = Prefs->AvailFonts[*it];
 					it++;
 					hg->csize = qRound((*it).toDouble() * 10.0);
 					it++;
@@ -598,7 +598,7 @@ QPixmap ScPreview::createPreview(QString data)
 							pS->setPen(tmpfa, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 							mode += 1;
 						}
-						DrawZeichenS(pS, hl->xp, hl->yp, chx, hl->cfont, OB.Reverse, hl->cstyle, mode, chs);
+						DrawZeichenS(pS, hl->xp, hl->yp, chx, hl->cfont->SCName, OB.Reverse, hl->cstyle, mode, chs);
 					}
 					pS->restore();
 				}
@@ -756,7 +756,7 @@ QPixmap ScPreview::createPreview(QString data)
 						pS->setPen(tmpfa);
 					}
 					chs = hl->csize;
-					asce = Prefs->AvailFonts[hl->cfont]->numAscent * (hl->csize / 10.0);
+					asce = Prefs->AvailFonts[hl->cfont->SCName]->numAscent * (hl->csize / 10.0);
 					int chst = hl->cstyle & 127;
 					if (chst != 0)
 					{
@@ -779,7 +779,7 @@ QPixmap ScPreview::createPreview(QString data)
 							}
 						}
 					}
-					wide = Prefs->AvailFonts[hl->cfont]->CharWidth[chx[0].unicode()]*(chs / 10.0);
+					wide = Prefs->AvailFonts[hl->cfont->SCName]->CharWidth[chx[0].unicode()]*(chs / 10.0);
 					if ((CurX+(wide+hl->cextra)/2) >= wid)
 					{
 						if (zae < cl.size()-1)
@@ -809,7 +809,7 @@ QPixmap ScPreview::createPreview(QString data)
 					pS->save();
 					pS->translate(cl.point(zae).x(), cl.point(zae).y());
 					pS->rotate(rota);
-					DrawZeichenS(pS, CurX+hl->cextra, CurY+OB.BaseOffs, chx, hl->cfont, OB.Reverse, hl->cstyle, 2, chs);
+					DrawZeichenS(pS, CurX+hl->cextra, CurY+OB.BaseOffs, chx, hl->cfont->SCName, OB.Reverse, hl->cstyle, 2, chs);
 					pS->restore();
 					CurX += wide+hl->cextra;
 				}

@@ -32,6 +32,7 @@
 class ScribusDoc;
 class UndoManager;
 class UndoState;
+class Foi;
 /**
   *@author Franz Schmid
   */
@@ -165,7 +166,7 @@ public:
 				QString Zeich;
 				QString Farb;
 				QString Farb2;
-				QString ZFo;
+				Foi* ZFo;
 			  };
 
 	ObjAttrVector* getObjectAttributes();

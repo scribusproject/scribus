@@ -39,7 +39,7 @@
 
 extern void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
 extern uint getDouble(QString in, bool raw);
-extern double Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2 = " ");
+extern double Cwidth(ScribusDoc *doc, Foi* name, QString ch, int Siz, QString ch2 = " ");
 extern bool loadText(QString nam, QString *Buffer);
 extern QString CompressStr(QString *in);
 extern QString ImageToCMYK_PS(QImage *im, int pl, bool pre);
@@ -1244,12 +1244,12 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 									if (hl->cstyle & 2)
 										tsz = hl->csize * Doc->typographicSetttings.scalingSuperScript / 100;
 									/* Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed */
-									QFileInfo fd = QFileInfo((*Doc->AllFonts)[hl->cfont]->Datei);
+									QFileInfo fd = QFileInfo(hl->cfont->Datei);
 									QString fext = fd.extension(false).lower();
-									if ((fext == "ttf") || ((*Doc->AllFonts)[hl->cfont]->isOTF) || ((*Doc->AllFonts)[hl->cfont]->Subset))
+									if ((fext == "ttf") || (hl->cfont->isOTF) || (hl->cfont->Subset))
 									{
 										uint chr = chx[0].unicode();
-										if (((*Doc->AllFonts)[hl->cfont]->CharWidth.contains(chr)) && (chr != 32))
+										if ((hl->cfont->CharWidth.contains(chr)) && (chr != 32))
 										{
 											PS_save();
 											if (ite->Reverse)
@@ -1277,14 +1277,14 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 											{
 												SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
 												PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-												PS_showSub(chr, (*Doc->AllFonts)[hl->cfont]->RealName().simplifyWhiteSpace().replace( QRegExp("\\s"), "" ), tsz / 10.0, false);
+												PS_showSub(chr, hl->cfont->RealName().simplifyWhiteSpace().replace( QRegExp("\\s"), "" ), tsz / 10.0, false);
 											}
 											PS_restore();
 										}
 									}
 									else
 									{
-										PS_selectfont(hl->cfont, tsz / 10.0);
+										PS_selectfont(hl->cfont->SCName, tsz / 10.0);
 										if (hl->ccolor != "None")
 										{
 											SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
@@ -1314,23 +1314,23 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 											}
 											if (hl->cscale != 100)
 												PS_scale(hl->cscale / 100.0, 1);
-											PS_show_xyG(hl->cfont, chx, 0, 0);
+											PS_show_xyG(hl->cfont->SCName, chx, 0, 0);
 										}
 										else
 										{
 											PS_translate(hl->xp, -hl->yp);
 											if (hl->cscale != 100)
 												PS_scale(hl->cscale / 100.0, 1);
-											PS_show_xyG(hl->cfont, chx, 0, 0);
+											PS_show_xyG(hl->cfont->SCName, chx, 0, 0);
 										}
 										PS_restore();
 									}
 									if ((hl->cstyle & 4) && (chx != QChar(13)))
 									{
 										uint chr = chx[0].unicode();
-										if ((*Doc->AllFonts)[hl->cfont]->CharWidth.contains(chr))
+										if (hl->cfont->CharWidth.contains(chr))
 										{
-											FPointArray gly = (*Doc->AllFonts)[hl->cfont]->GlyphArray[chr].Outlines.copy();
+											FPointArray gly = hl->cfont->GlyphArray[chr].Outlines.copy();
 											QWMatrix chma;
 											chma.scale(tsz / 100.0, tsz / 100.0);
 											gly.map(chma);
@@ -1347,7 +1347,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 											if (hl->cstroke != "None")
 											{
 												PS_save();
-												PS_setlinewidth(QMAX((*Doc->AllFonts)[hl->cfont]->strokeWidth / 2 * (tsz / 10.0), 1));
+												PS_setlinewidth(QMAX(hl->cfont->strokeWidth / 2 * (tsz / 10.0), 1));
 												PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
 												PS_setdash(Qt::SolidLine, 0, dum);
 												PS_translate(hl->xp, (hl->yp - tsz) * -1);
@@ -1363,7 +1363,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 									if ((hl->cstyle & 16) && (chx != QChar(13)))
 									{
 										double Ulen = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
-										double Upos = (*Doc->AllFonts)[hl->cfont]->strikeout_pos * (tsz / 10.0);
+										double Upos = hl->cfont->strikeout_pos * (tsz / 10.0);
 										if (hl->ccolor != "None")
 										{
 											PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
@@ -1371,7 +1371,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 											SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
 											PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 										}
-										PS_setlinewidth((*Doc->AllFonts)[hl->cfont]->strokeWidth * (tsz / 10.0));
+										PS_setlinewidth(hl->cfont->strokeWidth * (tsz / 10.0));
 										PS_moveto(hl->xp, -hl->yp+Upos);
 										PS_lineto(hl->xp+Ulen, -hl->yp+Upos);
 										PS_stroke();
@@ -1379,7 +1379,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 									if ((hl->cstyle & 8) && (chx != QChar(13)))
 									{
 										double Ulen = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
-										double Upos = (*Doc->AllFonts)[hl->cfont]->underline_pos * (tsz / 10.0);
+										double Upos = hl->cfont->underline_pos * (tsz / 10.0);
 										if (hl->ccolor != "None")
 										{
 											PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
@@ -1387,7 +1387,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 											SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
 											PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 										}
-										PS_setlinewidth((*Doc->AllFonts)[hl->cfont]->strokeWidth * (tsz / 10.0));
+										PS_setlinewidth(hl->cfont->strokeWidth * (tsz / 10.0));
 										PS_moveto(hl->xp, -hl->yp+Upos);
 										PS_lineto(hl->xp+Ulen, -hl->yp+Upos);
 										PS_stroke();
@@ -1399,9 +1399,9 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 										double wide = Cwidth(Doc, hl->cfont, chx, chs);
 										chx = "-";
 										uint chr = chx[0].unicode();
-										if ((*Doc->AllFonts)[hl->cfont]->CharWidth.contains(chr))
+										if (hl->cfont->CharWidth.contains(chr))
 										{
-											FPointArray gly = (*Doc->AllFonts)[hl->cfont]->GlyphArray[chr].Outlines.copy();
+											FPointArray gly = hl->cfont->GlyphArray[chr].Outlines.copy();
 											QWMatrix chma;
 											chma.scale(tsz / 100.0, tsz / 100.0);
 											gly.map(chma);
@@ -1727,12 +1727,12 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				if (hl->cstyle & 2)
 					tsz = hl->csize * Doc->typographicSetttings.scalingSuperScript / 100;
 				/* Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed */
-				QFileInfo fd = QFileInfo((*Doc->AllFonts)[hl->cfont]->Datei);
+				QFileInfo fd = QFileInfo(hl->cfont->Datei);
 				QString fext = fd.extension(false).lower();
-				if ((fext == "ttf") || ((*Doc->AllFonts)[hl->cfont]->isOTF) || ((*Doc->AllFonts)[hl->cfont]->Subset))
+				if ((fext == "ttf") || (hl->cfont->isOTF) || (hl->cfont->Subset))
 				{
 					uint chr = chx[0].unicode();
-					if (((*Doc->AllFonts)[hl->cfont]->CharWidth.contains(chr)) && (chr != 32))
+					if ((hl->cfont->CharWidth.contains(chr)) && (chr != 32))
 					{
 						PS_save();
 						if (c->Reverse)
@@ -1760,14 +1760,14 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 						{
 							SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
 							PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-							PS_showSub(chr, (*Doc->AllFonts)[hl->cfont]->RealName().simplifyWhiteSpace().replace( QRegExp("\\s"), "" ), tsz / 10.0, false);
+							PS_showSub(chr, hl->cfont->RealName().simplifyWhiteSpace().replace( QRegExp("\\s"), "" ), tsz / 10.0, false);
 						}
 						PS_restore();
 					}
 				}
 				else
 				{
-					PS_selectfont(hl->cfont, tsz / 10.0);
+					PS_selectfont(hl->cfont->SCName, tsz / 10.0);
 					if (hl->ccolor != "None")
 					{
 						SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
@@ -1797,23 +1797,23 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 						}
 						if (hl->cscale != 100)
 							PS_scale(hl->cscale / 100.0, 1);
-						PS_show_xyG(hl->cfont, chx, 0, 0);
+						PS_show_xyG(hl->cfont->SCName, chx, 0, 0);
 					}
 					else
 					{
 						PS_translate(hl->xp, -hl->yp);
 						if (hl->cscale != 100)
 							PS_scale(hl->cscale / 100.0, 1);
-						PS_show_xyG(hl->cfont, chx, 0, 0);
+						PS_show_xyG(hl->cfont->SCName, chx, 0, 0);
 					}
 					PS_restore();
 				}
 				if ((hl->cstyle & 4) && (chx != QChar(13)))
 				{
 					uint chr = chx[0].unicode();
-					if ((*Doc->AllFonts)[hl->cfont]->CharWidth.contains(chr))
+					if (hl->cfont->CharWidth.contains(chr))
 					{
-						FPointArray gly = (*Doc->AllFonts)[hl->cfont]->GlyphArray[chr].Outlines.copy();
+						FPointArray gly = hl->cfont->GlyphArray[chr].Outlines.copy();
 						QWMatrix chma;
 						chma.scale(tsz / 100.0, tsz / 100.0);
 						gly.map(chma);
@@ -1830,7 +1830,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 						if (hl->cstroke != "None")
 						{
 							PS_save();
-							PS_setlinewidth(QMAX((*Doc->AllFonts)[hl->cfont]->strokeWidth / 2 * (tsz / 10.0), 1));
+							PS_setlinewidth(QMAX(hl->cfont->strokeWidth / 2 * (tsz / 10.0), 1));
 							PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
 							PS_setdash(Qt::SolidLine, 0, dum);
 							PS_translate(hl->xp, (hl->yp - (tsz / 10.0)) * -1);
@@ -1846,7 +1846,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				if ((hl->cstyle & 16) && (chx != QChar(13)))
 				{
 					double Ulen = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
-					double Upos = (*Doc->AllFonts)[hl->cfont]->strikeout_pos * (tsz / 10.0);
+					double Upos = hl->cfont->strikeout_pos * (tsz / 10.0);
 					if (hl->ccolor != "None")
 					{
 						PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
@@ -1854,7 +1854,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 						SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
 						PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 					}
-					PS_setlinewidth((*Doc->AllFonts)[hl->cfont]->strokeWidth * (tsz / 10.0));
+					PS_setlinewidth(hl->cfont->strokeWidth * (tsz / 10.0));
 					PS_moveto(hl->xp, -hl->yp+Upos);
 					PS_lineto(hl->xp+Ulen, -hl->yp+Upos);
 					PS_stroke();
@@ -1862,7 +1862,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				if ((hl->cstyle & 8) && (chx != QChar(13)))
 				{
 					double Ulen = Cwidth(Doc, hl->cfont, chx, hl->csize) * (hl->cscale / 100.0);
-					double Upos = (*Doc->AllFonts)[hl->cfont]->underline_pos * (tsz / 10.0);
+					double Upos = hl->cfont->underline_pos * (tsz / 10.0);
 					if (hl->ccolor != "None")
 					{
 						PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
@@ -1870,7 +1870,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 						SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
 						PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 					}
-					PS_setlinewidth((*Doc->AllFonts)[hl->cfont]->strokeWidth * (tsz / 10.0));
+					PS_setlinewidth(hl->cfont->strokeWidth * (tsz / 10.0));
 					PS_moveto(hl->xp, -hl->yp+Upos);
 					PS_lineto(hl->xp+Ulen, -hl->yp+Upos);
 					PS_stroke();
@@ -1882,9 +1882,9 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					double wide = Cwidth(Doc, hl->cfont, chx, chs);
 					chx = "-";
 					uint chr = chx[0].unicode();
-					if ((*Doc->AllFonts)[hl->cfont]->CharWidth.contains(chr))
+					if (hl->cfont->CharWidth.contains(chr))
 					{
-						FPointArray gly = (*Doc->AllFonts)[hl->cfont]->GlyphArray[chr].Outlines.copy();
+						FPointArray gly = hl->cfont->GlyphArray[chr].Outlines.copy();
 						QWMatrix chma;
 						chma.scale(tsz / 100.0, tsz / 100.0);
 						gly.map(chma);
@@ -2167,12 +2167,12 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 				}
 				/* Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed */
-				QFileInfo fd = QFileInfo((*Doc->AllFonts)[hl->cfont]->Datei);
+				QFileInfo fd = QFileInfo(hl->cfont->Datei);
 				QString fext = fd.extension(false).lower();
-				if ((fext == "ttf") || ((*Doc->AllFonts)[hl->cfont]->isOTF) || ((*Doc->AllFonts)[hl->cfont]->Subset))
+				if ((fext == "ttf") || (hl->cfont->isOTF) || (hl->cfont->Subset))
 				{
 					uint chr = chx[0].unicode();
-					if (((*Doc->AllFonts)[hl->cfont]->CharWidth.contains(chr)) && (chr != 32))
+					if ((hl->cfont->CharWidth.contains(chr)) && (chr != 32))
 					{
 						PS_save();
 /*						PS_translate(hl->PtransX, -hl->PtransY);
@@ -2208,21 +2208,21 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 							PS_translate(0, (tsz / 10.0));
 							if (c->BaseOffs != 0)
 								PS_translate(0, -c->BaseOffs);
-							PS_showSub(chr, (*Doc->AllFonts)[hl->cfont]->RealName().simplifyWhiteSpace().replace( QRegExp("\\s"), "" ), tsz / 10.0, false);
+							PS_showSub(chr, hl->cfont->RealName().simplifyWhiteSpace().replace( QRegExp("\\s"), "" ), tsz / 10.0, false);
 						}
 						PS_restore();
 					}
 				}
 				else
 				{
-					PS_selectfont(hl->cfont, tsz / 10.0);
+					PS_selectfont(hl->cfont->SCName, tsz / 10.0);
 					PS_save();
 					PutSeite("["+ToStr(1) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(-1) + " " + ToStr(-hl->PRot) + " " + ToStr(0) + "]\n");
 					PutSeite("["+ToStr(hl->PtransX) + " " + ToStr(-hl->PtransY) + " " + ToStr(-hl->PtransY) + " " + ToStr(-hl->PtransX) + " " + ToStr(hl->xp) + " " + ToStr(-hl->yp) + "]\n");
 					PutSeite("["+ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + "] concatmatrix\nconcat\n");
 					if (c->BaseOffs != 0)
 						PS_translate(0, -c->BaseOffs);
-					PS_show_xyG(hl->cfont, chx, 0, 0);
+					PS_show_xyG(hl->cfont->SCName, chx, 0, 0);
 					PS_restore();
 				}
 			}

@@ -526,6 +526,8 @@ void ScribusDoc::resetPage(double t, double l, double r, double bo, bool fp)
 
 bool ScribusDoc::AddFont(QString name, QFont fo)
 {
+	if (UsedFonts.contains(name))
+		return true;
 	bool ret = false;
 	bool error;
 	FT_Face      face;

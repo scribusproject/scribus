@@ -83,7 +83,7 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 			hg->ch = QChar(13);
 		if (doku->docParagraphStyles[Absatz].Font != "")
 		{
-			hg->cfont = doku->docParagraphStyles[Absatz].Font;
+			hg->cfont = (*doku->AllFonts)[doku->docParagraphStyles[Absatz].Font];
 			hg->csize = doku->docParagraphStyles[Absatz].FontSize;
 			hg->cstyle = doku->docParagraphStyles[Absatz].FontEffect;
 			hg->ccolor = doku->docParagraphStyles[Absatz].FColor;
@@ -93,7 +93,7 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 		}
 		else
 		{
-			hg->cfont = font;
+			hg->cfont = (*doku->AllFonts)[font];
 			hg->ccolor = it->TxtFill;
 			hg->cshade = it->ShTxtFill;
 			hg->cstroke = it->TxtStroke;

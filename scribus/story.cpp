@@ -14,6 +14,7 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
+#include "scfonts.h"
 #include "story.h"
 #include "story.moc"
 #include <qtooltip.h>
@@ -617,7 +618,7 @@ void SEditor::saveItemText(PageItem* b)
 			chars = StyledText.at(p-1);
 			if (chars->count() != 0)
 			{
-				hg->cfont = chars->at(c)->cfont;
+				hg->cfont = (*doc->AllFonts)[chars->at(c)->cfont];
 				hg->csize = chars->at(c)->csize;
 				hg->ccolor = chars->at(c)->ccolor;
 				hg->cshade = chars->at(c)->cshade;
@@ -633,14 +634,14 @@ void SEditor::saveItemText(PageItem* b)
 				hg->cshade = CurrTextFillSh;
 				hg->cstroke = CurrTextStroke;
 				hg->cshade2 = CurrTextStrokeSh;
-				hg->cfont = CurrFont;
+				hg->cfont = (*doc->AllFonts)[CurrFont];
 				hg->csize = CurrFontSize;
 				hg->cstyle = CurrentStyle;
 				hg->cextra = CurrTextKern;
 				hg->cscale = CurrTextScale;
 				if (doc->docParagraphStyles[ParagStyles[p-1]].Font != "")
 				{
-					hg->cfont = doc->docParagraphStyles[ParagStyles[p-1]].Font;
+					hg->cfont = (*doc->AllFonts)[doc->docParagraphStyles[ParagStyles[p-1]].Font];
 					hg->csize = doc->docParagraphStyles[ParagStyles[p-1]].FontSize;
 				}
 			}
@@ -659,7 +660,7 @@ void SEditor::saveItemText(PageItem* b)
 			struct ScText *hg;
 			hg = new ScText;
 			hg->ch = chars->at(c)->ch;
-			hg->cfont = chars->at(c)->cfont;
+			hg->cfont = (*doc->AllFonts)[chars->at(c)->cfont];
 			hg->csize = chars->at(c)->csize;
 			hg->ccolor = chars->at(c)->ccolor;
 			hg->cshade = chars->at(c)->cshade;
@@ -767,7 +768,7 @@ void SEditor::loadItemText(PageItem* b)
 			{
 				hg = new PtiSmall;
 				hg->ch = nb->itemText.at(a)->ch;
-				hg->cfont = nb->itemText.at(a)->cfont;
+				hg->cfont = nb->itemText.at(a)->cfont->SCName;
 				hg->csize = nb->itemText.at(a)->csize;
 				hg->ccolor = nb->itemText.at(a)->ccolor;
 				hg->cshade = nb->itemText.at(a)->cshade;

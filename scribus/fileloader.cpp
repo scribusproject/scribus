@@ -224,8 +224,8 @@ bool FileLoader::LoadFile(ScribusApp* app)
 			{
 				for (uint e = 0; e < it->itemText.count(); ++e)
 				{
-				if (!app->doc->UsedFonts.contains(it->itemText.at(e)->cfont))
-					it->itemText.at(e)->cfont = ReplacedFonts[it->itemText.at(e)->cfont];
+				if (!app->doc->UsedFonts.contains(it->itemText.at(e)->cfont->SCName))
+					it->itemText.at(e)->cfont = (*app->doc->AllFonts)[ReplacedFonts[it->itemText.at(e)->cfont->SCName]];
 				}
 			}
 		}
@@ -238,8 +238,8 @@ bool FileLoader::LoadFile(ScribusApp* app)
 			{
 				for (uint e = 0; e < it->itemText.count(); ++e)
 				{
-				if (!app->doc->UsedFonts.contains(it->itemText.at(e)->cfont))
-					it->itemText.at(e)->cfont = ReplacedFonts[it->itemText.at(e)->cfont];
+				if (!app->doc->UsedFonts.contains(it->itemText.at(e)->cfont->SCName))
+					it->itemText.at(e)->cfont = (*app->doc->AllFonts)[ReplacedFonts[it->itemText.at(e)->cfont->SCName]];
 				}
 			}
 		}
@@ -270,9 +270,12 @@ bool FileLoader::LoadFile(ScribusApp* app)
 		QMap<QString,QString>::Iterator itfsu;
 		for (itfsu = ReplacedFonts.begin(); itfsu != ReplacedFonts.end(); ++itfsu)
 		{
-			QFont fo = app->Prefs.AvailFonts[itfsu.data()]->Font;
-			fo.setPointSize(qRound(app->doc->toolSettings.defSize / 10.0));
-			app->doc->AddFont(itfsu.data(), fo);
+			if (!app->doc->UsedFonts.contains(itfsu.data()))
+			{
+				QFont fo = app->Prefs.AvailFonts[itfsu.data()]->Font;
+				fo.setPointSize(qRound(app->doc->toolSettings.defSize / 10.0));
+				app->doc->AddFont(itfsu.data(), fo);
+			}
 			if (dia->stickyReplacements->isChecked())
 				app->Prefs.GFontSub[itfsu.key()] = itfsu.data();
 		}
@@ -533,9 +536,12 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 				}
 				else
 				{
-					QFont fo = avail[tmpf]->Font;
-					fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
-					doc->AddFont(tmpf, fo);
+					if (!doc->UsedFonts.contains(tmpf))
+					{
+						QFont fo = avail[tmpf]->Font;
+						fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
+						doc->AddFont(tmpf, fo);
+					}
 				}
 				vg.Font = tmpf;
 				vg.FontSize = qRound(QStodouble(pg.attribute("FONTSIZE","12")) * 10.0);
@@ -849,7 +855,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 						doc->Pages = doc->MasterPages;
 						doc->MasterP = true;
 					}
-					if (pg.attribute("OnMasterPage") != "")
+					if ((pg.attribute("OnMasterPage") != "") && (pg.tagName()=="MASTEROBJECT"))
 						doc->currentPage = doc->MasterPages.at(doc->MasterNames[pg.attribute("OnMasterPage")]);
 					if ((QStoInt(pg.attribute("NEXTITEM")) != -1) || (static_cast<bool>(QStoInt(pg.attribute("AUTOTEXT")))))
 					{
@@ -859,6 +865,8 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 					int docGc = doc->GroupCounter;
 					doc->GroupCounter = 0;
 					Neu = PasteItem(&pg, doc, view);
+					if (pg.tagName()=="PAGEOBJECT")
+						Neu->OnMasterPage = "";
 					doc->GroupCounter = docGc;
 					tmpf = pg.attribute("IFONT", doc->toolSettings.defFont);
 					if ((!avail.find(tmpf)) || (!avail[tmpf]->UseFont))
@@ -873,9 +881,12 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 					}
 					else
 					{
-						QFont fo = avail[tmpf]->Font;
-						fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
-						doc->AddFont(tmpf, fo);
+						if (!doc->UsedFonts.contains(tmpf))
+						{
+							QFont fo = avail[tmpf]->Font;
+							fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
+							doc->AddFont(tmpf, fo);
+						}
 					}
 					Neu->IFont = tmpf;
 					QDomNode IT=pg.firstChild();
@@ -1040,9 +1051,12 @@ void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPrefs 
 	}
 	else
 	{
-		QFont fo = Prefs->AvailFonts[tmpf]->Font;
-		fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
-		doc->AddFont(tmpf, fo);
+		if (!doc->UsedFonts.contains(tmpf))
+		{
+			QFont fo = Prefs->AvailFonts[tmpf]->Font;
+			fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
+			doc->AddFont(tmpf, fo);
+		}
 	}
 	int size = qRound(QStodouble(it->attribute("CSIZE")) * 10);
 	QString fcolor = it->attribute("CCOLOR");
@@ -1061,7 +1075,7 @@ void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, ApplicationPrefs 
 			hg->ch = QChar(13);
 		if (hg->ch == QChar(4))
 			hg->ch = QChar(9);
-		hg->cfont = tmpf;
+		hg->cfont = (*doc->AllFonts)[tmpf];
 		hg->csize = size;
 		hg->ccolor = fcolor;
 		hg->cextra = extra;
@@ -1191,7 +1205,6 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, ScribusView *
 	b->setImageFlippedH(QStoInt(obj->attribute("FLIPPEDH")));
 	b->setImageFlippedV(QStoInt(obj->attribute("FLIPPEDV")));
 	b->RadRect = QStodouble(obj->attribute("RADRECT","0"));
-	b->FrameType = pt;
 	b->ClipEdited = QStoInt(obj->attribute("CLIPEDIT", "0"));
 	b->setFillColor(Pcolor);
 	b->setLineColor(Pcolor2);
