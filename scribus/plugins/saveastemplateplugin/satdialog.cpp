@@ -135,60 +135,44 @@ void satdialog::fullDetail()
 	usageEdit->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred));
 	authorEdit->setHidden(false);
 	authorEdit->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred));
-//	emailEdit->setHidden(false);
-	emailEdit->show();
+	emailEdit->setHidden(false);
 	emailEdit->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred));
 	layout()->activate();
-//	resize(minimumSizeHint());
-	setFixedSize(minimumSizeHint());
+	adjustSize();
 }
 
 void satdialog::minimumDetail()
 {
-//	catsLabel->setHidden(true);
-	catsLabel->hide();
+	catsLabel->setHidden(true);
 	catsLabel->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-//	psizeLabel->setHidden(true);
-	psizeLabel->hide();
+	psizeLabel->setHidden(true);
 	psizeLabel->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-//	colorsLabel->setHidden(true);
-	colorsLabel->hide();
+	colorsLabel->setHidden(true);
 	colorsLabel->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-//	descrLabel->setHidden(true);
-	descrLabel->hide();
+	descrLabel->setHidden(true);
 	descrLabel->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-//	usageLabel->setHidden(true);
-	usageLabel->hide();
+	usageLabel->setHidden(true);
 	usageLabel->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-//	authorLabel->setHidden(true);
-	authorLabel->hide();
+	authorLabel->setHidden(true);
 	authorLabel->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-//	emailLabel->setHidden(true);
-	emailLabel->hide();
+	emailLabel->setHidden(true);
 	emailLabel->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-//	catsCombo->setHidden(true);
-	catsCombo->hide();
+	catsCombo->setHidden(true);
 	catsCombo->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-//	psizeEdit->setHidden(true);
-	psizeEdit->hide();
+	psizeEdit->setHidden(true);
 	psizeEdit->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-//	colorsEdit->setHidden(true);
-	colorsEdit->hide();
+	colorsEdit->setHidden(true);
 	colorsEdit->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-//	descrEdit->setHidden(true);
-	descrEdit->hide();
+	descrEdit->setHidden(true);
 	descrEdit->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-//	usageEdit->setHidden(true);
-	usageEdit->hide();
+	usageEdit->setHidden(true);
 	usageEdit->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-//	authorEdit->setHidden(true);
-	authorEdit->hide();
+	authorEdit->setHidden(true);
 	authorEdit->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-//	emailEdit->setHidden(true);
-	emailEdit->hide();
+	emailEdit->setHidden(true);
 	emailEdit->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 	layout()->activate();
-	setFixedSize(minimumSizeHint());
+	adjustSize();
 }
 
 void satdialog::setupCategories() 

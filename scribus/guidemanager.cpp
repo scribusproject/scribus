@@ -33,6 +33,12 @@
  *  i change this? Should the precision depend on the unit used? Why are
  *  all the methods and properties public? Only LocHor and LocVer should
  *  be public! 
+ * - bug 356:
+ *   a: ok
+ *   d: ok
+ *   e: ok
+ *   f: press tab to make it update! (no focus in/out signal for qspinbox)
+ * - added the esc key
  ***************************************************************************/
 
 #include "guidemanager.h"
@@ -185,6 +191,7 @@ GuideManager::GuideManager(
 	
 	Cancel = new QPushButton(this, "Cancel");
 	Cancel->setText( tr("Cancel"));
+	Cancel->setAccel(QKeySequence("Esc"));
 	Layout5->addWidget(Cancel);
 	
 	QSpacerItem* spacer_3 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -239,6 +246,10 @@ void GuideManager::DelHorVal()
 	it = LocHor.at(selHor);
 	it = LocHor.remove(it);
 	selHor = LocHor.isEmpty() ? -1 : static_cast<int>(LocHor.count() - 1);
+	if (LocHor.isEmpty())
+		selHor = -1;
+	else if (selHor > static_cast<int>(LocHor.count()-1))
+		selHor--;
 	if (selHor == -1)
 		HorDel->setEnabled(false);
 	UpdateHorList();
@@ -250,6 +261,10 @@ void GuideManager::DelVerVal()
 	it = LocVer.at(selVer);
 	it = LocVer.remove(it);
 	selVer = LocVer.isEmpty() ? -1 : static_cast<int>(LocVer.count() - 1);
+	if (LocVer.isEmpty())
+		selVer = -1;
+	else if (selVer > static_cast<int>(LocVer.count()-1))
+		selVer--;
 	if (selVer == -1)
 		VerDel->setEnabled(false);
 	UpdateVerList();
@@ -257,6 +272,10 @@ void GuideManager::DelVerVal()
 	
 void GuideManager::AddHorVal()
 {
+	if (HorSpin->hasFocus())
+	HorSpin->clearFocus();
+	if (VerSpin->hasFocus())
+	VerSpin->clearFocus();
 	LocHor.prepend(0);
 	selHor = 0;
 	
@@ -266,12 +285,18 @@ void GuideManager::AddHorVal()
 	
 	HorDel->setEnabled(true);
 	UpdateHorList();
+	HorList->setCurrentItem(0);
+	HorList->setSelected(0,true);
 	HorSpin->setFocus();
 	HorSpin->selectAll();
 }
 	
 void GuideManager::AddVerVal()
 {
+	if (HorSpin->hasFocus())
+		HorSpin->clearFocus();
+	if (VerSpin->hasFocus())
+		VerSpin->clearFocus();
 	LocVer.prepend(0);
 	selVer = 0;
 	
@@ -281,6 +306,8 @@ void GuideManager::AddVerVal()
 	
 	VerDel->setEnabled(true);
 	UpdateVerList();
+	VerList->setCurrentItem(0);
+	VerList->setSelected(0,true);
 	VerSpin->setFocus();
 	VerSpin->selectAll();
 }

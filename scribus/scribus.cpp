@@ -3592,7 +3592,7 @@ void ScribusApp::slotFilePrint()
 	}
 	scmd = PDef.Command;
 	Druck *printer = new Druck(this, fna, prn, scmd);
-	printer->setMinMax(1, view->Pages.count());
+	printer->setMinMax(1, view->Pages.count(), doc->ActPage->PageNr+1);
 	printer->setFromTo(1, view->Pages.count());
 	if (printer->exec())
 	{
@@ -3601,8 +3601,16 @@ void ScribusApp::slotFilePrint()
 		prn = printer->printerName();
 		fna = printer->outputFileName();
 		fil = printer->outputToFile();
-		Anf = printer->fromPage();
-		Ende = printer->toPage();
+		if (printer->CurrentPage->isChecked())
+		{
+			Anf = doc->ActPage->PageNr;
+			Ende = doc->ActPage->PageNr+1;
+		}
+		else
+		{
+			Anf = printer->fromPage();
+			Ende = printer->toPage();
+		}
 		Nr = printer->numCopies();
 		sep = printer->outputSeparations();
 		SepNam = printer->separationName();
@@ -3624,18 +3632,29 @@ void ScribusApp::slotFilePrint()
 			if (fil)
 				PSfile = dd->PS_set_file(fna);
 			else
+			{
 				PSfile = dd->PS_set_file(PrefsPfad+"/tmp.ps");
+				fna = PrefsPfad+"/tmp.ps";
+			}
 			if (PSfile)
 			{
 				if (printer->pageOrder() == 0)
 					view->CreatePS(dd, Anf-1, Ende, 1, sep, SepNam, farbe, mirrorH, mirrorV, useICC);
 				else
 					view->CreatePS(dd, Ende-1, Anf-2, -1, sep, SepNam, farbe, mirrorH, mirrorV, useICC);
+				if (printer->PSLevel != 3)
+				{
+					if (printer->PSLevel == 1)
+						system("ps2ps -dLanguageLevel=1 \""+fna+"\" \""+fna+".tmp\"");
+					else
+						system("ps2ps \""+fna+"\" \""+fna+".tmp\"");
+					system("mv \""+fna+".tmp\" \""+fna+"\"");
+				}
 				if (!fil)
 				{
 					if (printer->OtherCom->isChecked())
 					{
-						cmd = printer->Command->text()+ " "+PrefsPfad+"/tmp.ps";
+						cmd = printer->Command->text()+ " "+fna;
 						system(cmd);
 					}
 					else
@@ -3646,10 +3665,10 @@ void ScribusApp::slotFilePrint()
 #ifdef HAVE_CUPS
 						cmd += printer->PrinterOpts;
 #endif
-						cmd += " "+PrefsPfad+"/tmp.ps";
+						cmd += " "+fna;
 						system(cmd);
 					}
-					unlink(PrefsPfad+"/tmp.ps");
+					unlink(fna);
 				}
 			}
 			else
@@ -6183,6 +6202,9 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.gs_antiText = dia->GSantiText->isChecked();
 		Prefs.gs_exe = dia->GSName->text();
 		Prefs.ClipMargin = dia->ClipMarg->isChecked();
+		Prefs.Before = dia->RadioButton6->isChecked();
+		Prefs.PagesSbS = dia->SidebySide->isChecked();
+		Prefs.RandFarbig = dia->RandFarb->isChecked();
 		if (Prefs.DisScale != dia->DisScale)
 		{
 			Prefs.DisScale = dia->DisScale;
@@ -6281,9 +6303,6 @@ void ScribusApp::slotPrefsOrg()
 			doc->ScaleY = static_cast<double>(dia->YScale->value()) / 100.0;
 			doc->ScaleType = dia->FreeScale->isChecked();
 			doc->AspectRatio = dia->Aspect->isChecked();
-			doc->Before = dia->RadioButton6->isChecked();
-			doc->PagesSbS = dia->SidebySide->isChecked();
-			doc->RandFarbig = dia->RandFarb->isChecked();
 			doc->AutoLine = dia->AutoLineV->value();
 			doc->AutoSave = dia->ASon->isChecked();
 			doc->BaseGrid = dia->BaseGrid->value();
@@ -6396,9 +6415,6 @@ void ScribusApp::slotPrefsOrg()
 			Prefs.ScaleY = static_cast<double>(dia->YScale->value()) / 100.0;
 			Prefs.ScaleType = dia->FreeScale->isChecked();
 			Prefs.AspectRatio = dia->Aspect->isChecked();
-			Prefs.Before = dia->RadioButton6->isChecked();
-			Prefs.PagesSbS = dia->SidebySide->isChecked();
-			Prefs.RandFarbig = dia->RandFarb->isChecked();
 			Prefs.AutoLine = dia->AutoLineV->value();
 			Prefs.AutoSave = dia->ASon->isChecked();
 			Prefs.AutoSaveTime = dia->ASTime->value() * 60 * 1000;
@@ -6406,6 +6422,15 @@ void ScribusApp::slotPrefsOrg()
 			Prefs.BaseOffs = dia->BaseOffs->value();
 		}
 		SavePrefs();
+		QWidgetList windows = wsp->windowList();
+		for ( int i = 0; i < static_cast<int>(windows.count()); ++i )
+		{
+			QWidget* w = wsp->windowList().at( i );
+			ScribusWin* swin = (ScribusWin*)w;
+			swin->doc->Before = Prefs.Before;
+			swin->doc->PagesSbS = Prefs.PagesSbS;
+			swin->doc->RandFarbig = Prefs.RandFarbig;
+		}
 	}
 	delete dia;
 	dlclose(mo);

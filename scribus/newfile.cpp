@@ -101,9 +101,6 @@ NewDoc::NewDoc( QWidget* parent, preV *Vor )
 	Layout8->addWidget( ErsteSeite );
 	ButtonGroup1_2Layout->addLayout( Layout8 );
 	Layout9->addWidget( ButtonGroup1_2 );
-	ComboBox1->setCurrentItem(Vor->PageFormat);
-	Breite->setValue(Vor->PageBreite * Umrech);
-	Hoehe->setValue(Vor->PageHoehe * Umrech);
 
 	GroupBox7 = new QGroupBox( this, "GroupBox7" );
 	GroupBox7->setTitle( tr( "Margin Guides" ) );
@@ -168,9 +165,14 @@ NewDoc::NewDoc( QWidget* parent, preV *Vor )
 	GroupBox7Layout->addLayout( Layout3 );
 	Layout9->addWidget( GroupBox7 );
 	NewDocLayout->addLayout( Layout9 );
+	Breite->setValue(Vor->PageBreite * Umrech);
+	Hoehe->setValue(Vor->PageHoehe * Umrech);
+	ComboBox1->setCurrentItem(Vor->PageFormat);
 	setDS();
 	setSize(Vor->PageFormat);
 	setOrien(Vor->Ausrichtung);
+	Breite->setValue(Vor->PageBreite * Umrech);
+	Hoehe->setValue(Vor->PageHoehe * Umrech);
 
 	Layout10 = new QVBoxLayout( 0, 0, 6, "Layout10");
 

@@ -25,34 +25,40 @@
 
 class AdvOptions : public QDialog
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-	AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic);
+	AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic, int ps);
 	~AdvOptions() {};
 	QCheckBox* MirrorH;
 	QCheckBox* MirrorV;
 	QCheckBox* UseICC;
+	QButtonGroup* ButtonGroupP;
+	QRadioButton* PS3;
+	QRadioButton* PS2;
+	QRadioButton* PS1;
 	QPushButton* PushButton1;
 	QPushButton* PushButton2;
 
 protected:
 	QVBoxLayout* AdvOptionsLayout;
+	QVBoxLayout* ButtonGroupPLayout;
 	QHBoxLayout* Layout2;
 };
 
 class Druck : public QDialog
-{ 
-    Q_OBJECT
+{
+	Q_OBJECT
 
 public:
-    Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom );
-    ~Druck() {};
+	Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom );
+	~Druck() {};
 	QString printerName();
 	QString outputFileName();
-    QCheckBox* OtherCom;
-    QLabel* OthText;
-    QLineEdit* Command;
+	QCheckBox* OtherCom;
+	QLabel* OthText;
+	QLineEdit* Command;
+	QRadioButton* CurrentPage;
 	bool outputToFile();
 	int fromPage();
 	int toPage();
@@ -62,27 +68,28 @@ public:
 	QString separationName();
 	QString PrinterOpts;
 	bool color();
-    bool MirrorH;
-    bool MirrorV;
-    bool ICCinUse;
+	bool MirrorH;
+	bool MirrorV;
+	bool ICCinUse;
+	int PSLevel;
 
 public slots:
-	void setMinMax(int min, int max);
+	void setMinMax(int min, int max, int cur);
 	void setFromTo(int min, int max);
-	
+
 protected:
-    QVBoxLayout* DruckLayout;
-    QGridLayout* DruckerLayout;
-    QHBoxLayout* Layout1x;
-    QHBoxLayout* Layout1;
-    QHBoxLayout* UmfangLayout;
-    QGridLayout* ButtonGroup5Layout;
-    QGridLayout* ButtonGroup4Layout;
-    QVBoxLayout* ButtonGroup3Layout;
-    QVBoxLayout* ButtonGroup3_2Layout;
-    QGridLayout* OptionenLayout;
-    QHBoxLayout* Layout2;
-    QHBoxLayout* LayoutCC;
+	QVBoxLayout* DruckLayout;
+	QGridLayout* DruckerLayout;
+	QHBoxLayout* Layout1x;
+	QHBoxLayout* Layout1;
+	QHBoxLayout* UmfangLayout;
+	QGridLayout* ButtonGroup5Layout;
+	QGridLayout* ButtonGroup4Layout;
+	QVBoxLayout* ButtonGroup3Layout;
+	QVBoxLayout* ButtonGroup3_2Layout;
+	QGridLayout* OptionenLayout;
+	QHBoxLayout* Layout2;
+	QHBoxLayout* LayoutCC;
 
 private slots:
 	void SetAdvOptions();
@@ -94,41 +101,41 @@ private slots:
 	void SelComm();
 	void ChFrom();
 	void ChTo();
-	
+
 private:
-    QGroupBox* Drucker;
-    QComboBox* PrintDest;
-    QLabel* DateiT;
-    QLineEdit* LineEdit1;
-    QToolButton* ToolButton1;
-    QButtonGroup* Umfang;
-    QButtonGroup* ButtonGroup5;
-    QLabel* TextLabel2_2;
-    QSpinBox* To;
-    QSpinBox* From;
-    QLabel* TextLabel2;
-    QRadioButton* RadioButton2;
-    QRadioButton* RadioButton1;
-    QButtonGroup* ButtonGroup4;
-    QRadioButton* FirstPlast;
-    QRadioButton* FirstPfirst;
-    QLabel* TextLabel3;
-    QSpinBox* Copies;
-    QButtonGroup* Optionen;
-    QButtonGroup* ButtonGroup3;
-    QButtonGroup* ButtonGroup3_2;
-    QRadioButton* NormalP;
-    QRadioButton* PrintSep;
-    QRadioButton* PrintGray;
-    QRadioButton* PrintGray2;
-    QComboBox* SepArt;
-    QPushButton* OKButton_2;
-    QPushButton* OKButton;
+	QGroupBox* Drucker;
+	QComboBox* PrintDest;
+	QLabel* DateiT;
+	QLineEdit* LineEdit1;
+	QToolButton* ToolButton1;
+	QButtonGroup* Umfang;
+	QButtonGroup* ButtonGroup5;
+	QLabel* TextLabel2_2;
+	QSpinBox* To;
+	QSpinBox* From;
+	QLabel* TextLabel2;
+	QRadioButton* RadioButton2;
+	QRadioButton* RadioButton1;
+	QButtonGroup* ButtonGroup4;
+	QRadioButton* FirstPlast;
+	QRadioButton* FirstPfirst;
+	QLabel* TextLabel3;
+	QSpinBox* Copies;
+	QButtonGroup* Optionen;
+	QButtonGroup* ButtonGroup3;
+	QButtonGroup* ButtonGroup3_2;
+	QRadioButton* NormalP;
+	QRadioButton* PrintSep;
+	QRadioButton* PrintGray;
+	QRadioButton* PrintGray2;
+	QComboBox* SepArt;
+	QPushButton* OKButton_2;
+	QPushButton* OKButton;
 	QPushButton* OptButton;
 	QPushButton* AdvOptButton;
-    QString Geraet;
-    bool ToFile;
-    bool ToSeparation;
+	QString Geraet;
+	bool ToFile;
+	bool ToSeparation;
 };
 
 #endif // DRUCK_H

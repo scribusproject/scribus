@@ -34,6 +34,7 @@
 #include <qimage.h>
 #include <qcstring.h>
 #include <qfileinfo.h>
+#include <cmath>
 #include "scribus.h"
 
 extern void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);

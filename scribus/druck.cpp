@@ -32,7 +32,7 @@ extern bool CMSuse;
 extern bool loadText(QString nam, QString *Buffer);
 extern QPixmap loadIcon(QString nam);
 
-AdvOptions::AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic) : QDialog( parent, "prin", true, 0 )
+AdvOptions::AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic, int ps) : QDialog( parent, "prin", true, 0 )
 {
 	setCaption( tr( "Advanced Options" ) );
 	setIcon(loadIcon("AppIcon.png"));
@@ -56,6 +56,33 @@ AdvOptions::AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic) : QDialog( pa
 		AdvOptionsLayout->addWidget( UseICC );
 	}
 #endif
+	ButtonGroupP = new QButtonGroup( this, "ButtonGroup5" );
+	ButtonGroupP->setFrameShape( QButtonGroup::NoFrame );
+	ButtonGroupP->setTitle( "" );
+	ButtonGroupP->setColumnLayout(0, Qt::Vertical );
+	ButtonGroupP->layout()->setSpacing( 0 );
+	ButtonGroupP->layout()->setMargin( 0 );
+	ButtonGroupPLayout = new QVBoxLayout( ButtonGroupP->layout() );
+	ButtonGroupPLayout->setSpacing( 6 );
+	ButtonGroupPLayout->setMargin( 0 );
+	PS3 = new QRadioButton( ButtonGroupP, "RadioButton1" );
+	PS3->setText( tr( "PostScript Level 3" ) );
+	PS3->setChecked( true );
+	ButtonGroupPLayout->addWidget( PS3 );
+	PS2 = new QRadioButton( ButtonGroupP, "RadioButton1" );
+	PS2->setText( tr( "PostScript Level 2" ) );
+	ButtonGroupPLayout->addWidget( PS2 );
+	PS1 = new QRadioButton( ButtonGroupP, "RadioButton1" );
+	PS1->setText( tr( "PostScript Level 1" ) );
+	if (ps == 3)
+		PS3->setChecked( true );
+	if (ps == 2)
+		PS2->setChecked( true );
+	if (ps == 1)
+		PS1->setChecked( true );
+	ButtonGroupPLayout->addWidget( PS1 );
+	
+	AdvOptionsLayout->addWidget( ButtonGroupP );
 
 	Layout2 = new QHBoxLayout;
 	Layout2->setSpacing( 30 );
@@ -76,6 +103,9 @@ AdvOptions::AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic) : QDialog( pa
 	Layout2->addItem( spacer3 );
 	AdvOptionsLayout->addLayout( Layout2 );
 	setMinimumSize( sizeHint() );
+	QToolTip::add( PS3, tr( "Creates PostScript Level 3" ) );
+	QToolTip::add( PS2, tr( "Creates PostScript Level 2 only, beware,\nthis can create huge files" ) );
+	QToolTip::add( PS1, tr( "Creates PostScript Level 1 only, beware,\nthis can create huge files" ) );
 	connect( PushButton2, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect( PushButton1, SIGNAL( clicked() ), this, SLOT( accept() ) );
 }
@@ -226,46 +256,38 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
 	ButtonGroup5Layout->setAlignment( Qt::AlignTop );
 	ButtonGroup5Layout->setSpacing( 6 );
 	ButtonGroup5Layout->setMargin( 5 );
-
-	TextLabel2_2 = new QLabel( ButtonGroup5, "TextLabel2_2" );
-	TextLabel2_2->setEnabled( false );
-	TextLabel2_2->setText( tr( "To page:" ) );
-
-	ButtonGroup5Layout->addWidget( TextLabel2_2, 3, 0 );
-
-	To = new QSpinBox( ButtonGroup5, "To" );
-	To->setEnabled( false );
-	To->setMinimumSize( QSize( 70, 22 ) );
-	To->setMinValue(1);
-	To->setMaxValue(1000);
-	To->setValue(1);
-	ButtonGroup5Layout->addWidget( To, 3, 1 );
-
+	RadioButton1 = new QRadioButton( ButtonGroup5, "RadioButton1" );
+	RadioButton1->setText( tr( "Print all" ) );
+	RadioButton1->setChecked( true );
+	ButtonGroup5Layout->addMultiCellWidget( RadioButton1, 0, 0, 0, 1 );
+	CurrentPage = new QRadioButton( ButtonGroup5, "RadioButton2" );
+	CurrentPage->setText( tr( "Print current page" ) );
+	ButtonGroup5Layout->addMultiCellWidget( CurrentPage, 1, 1, 0, 1 );
+	RadioButton2 = new QRadioButton( ButtonGroup5, "RadioButton2" );
+	RadioButton2->setText( tr( "Print range" ) );
+	ButtonGroup5Layout->addMultiCellWidget( RadioButton2, 2, 2, 0, 1 );
+	TextLabel2 = new QLabel( ButtonGroup5, "TextLabel2" );
+	TextLabel2->setEnabled( false );
+	TextLabel2->setText( tr( "From page:" ) );
+	ButtonGroup5Layout->addWidget( TextLabel2, 3, 0 );
 	From = new QSpinBox( ButtonGroup5, "From" );
 	From->setEnabled( false );
 	From->setMinimumSize( QSize( 70, 22 ) );
 	From->setMinValue(1);
 	From->setMaxValue(1000);
 	From->setValue(1);
-
-	ButtonGroup5Layout->addWidget( From, 2, 1 );
-
-	TextLabel2 = new QLabel( ButtonGroup5, "TextLabel2" );
-	TextLabel2->setEnabled( false );
-	TextLabel2->setText( tr( "From page:" ) );
-
-	ButtonGroup5Layout->addWidget( TextLabel2, 2, 0 );
-
-	RadioButton2 = new QRadioButton( ButtonGroup5, "RadioButton2" );
-	RadioButton2->setText( tr( "Print range" ) );
-
-	ButtonGroup5Layout->addMultiCellWidget( RadioButton2, 1, 1, 0, 1 );
-
-	RadioButton1 = new QRadioButton( ButtonGroup5, "RadioButton1" );
-	RadioButton1->setText( tr( "Print all" ) );
-	RadioButton1->setChecked( true );
-
-	ButtonGroup5Layout->addWidget( RadioButton1, 0, 0 );
+	ButtonGroup5Layout->addWidget( From, 3, 1 );
+	TextLabel2_2 = new QLabel( ButtonGroup5, "TextLabel2_2" );
+	TextLabel2_2->setEnabled( false );
+	TextLabel2_2->setText( tr( "To page:" ) );
+	ButtonGroup5Layout->addWidget( TextLabel2_2, 4, 0 );
+	To = new QSpinBox( ButtonGroup5, "To" );
+	To->setEnabled( false );
+	To->setMinimumSize( QSize( 70, 22 ) );
+	To->setMinValue(1);
+	To->setMaxValue(1000);
+	To->setValue(1);
+	ButtonGroup5Layout->addWidget( To, 4, 1 );
 	UmfangLayout->addWidget( ButtonGroup5 );
 
 	ButtonGroup4 = new QButtonGroup( Umfang, "ButtonGroup4" );
@@ -379,6 +401,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
 	MirrorH = false;
 	MirrorV = false,
 	ICCinUse = false;
+	PSLevel = 3;
 	AdvOptButton = new QPushButton(ButtonGroup3_2, "Adv");
 	AdvOptButton->setText( tr("Advanced Options..."));
 	ButtonGroup3_2Layout->addWidget( AdvOptButton );
@@ -422,7 +445,8 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
 	setTabOrder( ToolButton1,OtherCom);
 	setTabOrder( OtherCom, Command );
 	setTabOrder( Command, RadioButton1 );
-	setTabOrder( RadioButton1, RadioButton2 );
+	setTabOrder( RadioButton1, CurrentPage );
+	setTabOrder( CurrentPage, RadioButton2 );
 	setTabOrder( RadioButton2, From );
 	setTabOrder( From, To );
 	setTabOrder( To, FirstPfirst );
@@ -443,6 +467,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
 	connect( OKButton_2, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect( PrintDest, SIGNAL(activated(const QString&)), this, SLOT(SelPrinter(const QString&)));
 	connect( RadioButton1, SIGNAL(toggled(bool)), this, SLOT(SelRange(bool)));
+	connect( CurrentPage, SIGNAL(toggled(bool)), this, SLOT(SelRange(bool)));
 	connect( NormalP, SIGNAL(toggled(bool)), this, SLOT(SelMode(bool)));
 	connect( ToolButton1, SIGNAL(clicked()), this, SLOT(SelFile()));
 	connect( OtherCom, SIGNAL(clicked()), this, SLOT(SelComm()));
@@ -460,6 +485,16 @@ void Druck::ChFrom()
 	if (From->value() > To->value())
 		To->setValue(From->value());
 	connect(To, SIGNAL(valueChanged(int)), this, SLOT(ChTo()));
+	if ((From->value() - To->value()) == 0)
+	{
+		FirstPlast->setEnabled(false);
+		FirstPfirst->setEnabled(false);
+	}
+	else
+	{
+		FirstPlast->setEnabled(true);
+		FirstPfirst->setEnabled(true);
+	}
 }
 
 void Druck::ChTo()
@@ -468,11 +503,21 @@ void Druck::ChTo()
 	if (To->value() < From->value())
 		From->setValue(To->value());
 	connect(From, SIGNAL(valueChanged(int)), this, SLOT(ChFrom()));
+	if ((From->value() - To->value()) == 0)
+	{
+		FirstPlast->setEnabled(false);
+		FirstPfirst->setEnabled(false);
+	}
+	else
+	{
+		FirstPlast->setEnabled(true);
+		FirstPfirst->setEnabled(true);
+	}
 }
 
 void Druck::SetAdvOptions()
 {
-	AdvOptions* dia = new AdvOptions(this, MirrorH, MirrorV, ICCinUse);
+	AdvOptions* dia = new AdvOptions(this, MirrorH, MirrorV, ICCinUse, PSLevel);
 	if (dia->exec())
 	{
 		MirrorH = dia->MirrorH->isChecked();
@@ -481,7 +526,12 @@ void Druck::SetAdvOptions()
 		if (CMSuse)
 			ICCinUse = dia->UseICC->isChecked();
 #endif
-
+		if (dia->PS1->isChecked())
+			PSLevel = 1;
+		if (dia->PS2->isChecked())
+			PSLevel = 2;
+		if (dia->PS3->isChecked())
+			PSLevel = 3;
 	}
 	delete dia;
 }
@@ -615,18 +665,30 @@ void Druck::SelFile()
 		LineEdit1->setText(dia.selectedFile());
 }
 
-void Druck::setMinMax(int min, int max)
+void Druck::setMinMax(int min, int max, int cur)
 {
+	QString tmp;
 	To->setMinValue(min);
 	To->setMaxValue(max);
 	From->setMinValue(min);
 	From->setMaxValue(max);
+	CurrentPage->setText(tr( "Print current page" )+" ("+tmp.setNum(cur)+")");
 }
 
 void Druck::setFromTo(int min, int max)
 {
 	To->setValue(max);
 	From->setValue(min);
+	if ((max - min) == 0)
+	{
+		FirstPlast->setEnabled(false);
+		FirstPfirst->setEnabled(false);
+	}
+	else
+	{
+		FirstPlast->setEnabled(true);
+		FirstPfirst->setEnabled(true);
+	}
 }
 
 QString Druck::printerName()

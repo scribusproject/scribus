@@ -1,5 +1,14 @@
 Changes since Version 1.1.7
 
+08.06.2004
+	* bug     #356: Margin Dialog not intuituve enough
+	* bug     #721: add "current page" to print dialog
+	* bug     #750: Placing guides in the foreground not saved on document save
+	* bug     #751: Text box border magically reappears on reopening previously saved document
+	* bug     #756: Scribus does not honor settings for custom page sizes
+	* bug     #758: v1.1.7 (Alyssa) compile stops with an error at file scribusview.cpp
+	* feature #759: Ability to create PostScript Level 2 or Level 1 only files.
+
 06.06.2004
 	* feature #745: Tracker for 1.1.7
 	* feature #754: Inclusion of Tsoots "New from Template" Plugin

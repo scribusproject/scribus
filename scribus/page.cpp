@@ -8899,8 +8899,6 @@ int Page::PaintPolyLine(double x, double y, double b, double h, double w, QStrin
 /** Zeichnet einen Textrahmen */
 int Page::PaintText(double x, double y, double b, double h, double w, QString outline)
 {
-	if (w == 0)
-		w = 1;
 	PageItem* ite = new PageItem(this, 4, x, y, b, h, w, "None", outline, doku);
 	Items.append(ite);
 	ite->ItemNr = Items.count()-1;
