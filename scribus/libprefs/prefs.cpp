@@ -1041,7 +1041,7 @@ void Preferences::setOrien(int ori)
 }
 
 /*!
- \fn void Preferences::changePapColor()
+ \fn void Preferences::changePaperColor()
  \author Franz Schmid
  \date
  \brief Preferences ([dox?], [dox?]), Sets Paper color [dox?]

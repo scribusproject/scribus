@@ -191,8 +191,6 @@ public slots:
 	void changeProfs();
 	void changeScripts();
 	void changeTemplates();
-	void changeScaling();
-	void changeGrid();
 	void setDS();
 	void setPageWidth(int v);
 	void setPageHeight(int v);
@@ -202,7 +200,6 @@ public slots:
 	void setRight(int v);
 	void setSize(const QString &);
 	void setOrien(int ori);
-	void changePapColor();
 	void unitChange();
 	void setDisScale();
 	void switchCMS(bool enable);
