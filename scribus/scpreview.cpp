@@ -60,7 +60,7 @@ QPixmap ScPreview::createPreview(QString data)
 	QString chx;
 	uint a, zae;
 	double CurY, EndX, CurX, wide, rota, wid;
-	QValueList<FPointArray> arrowStyles;
+	QValueList<arrowDesc> arrowStyles;
 	QDomDocument docu("scridoc");
 	docu.setContent(data);
 	QDomElement elem=docu.documentElement();
@@ -85,15 +85,16 @@ QPixmap ScPreview::createPreview(QString data)
 		QDomElement pg=DOC.toElement();
 		if(pg.tagName()=="Arrows")
 		{
-			FPointArray arrow;
+			struct arrowDesc arrow;
 			double xa, ya;
+			arrow.name = pg.attribute("Name");
 			QString tmp = pg.attribute("Points");
 			QTextStream fp(&tmp, IO_ReadOnly);
 			for (uint cx = 0; cx < pg.attribute("NumPoints").toUInt(); ++cx)
 			{
 				fp >> xa;
 				fp >> ya;
-				arrow.addPoint(xa, ya);
+				arrow.points.addPoint(xa, ya);
 			}
 			arrowStyles.append(arrow);
 			arrowID.insert(QStoInt(pg.attribute("Index")), arrowStyles.count());
@@ -618,7 +619,7 @@ QPixmap ScPreview::createPreview(QString data)
 				if (OB.startArrowIndex != 0)
 				{
 					QWMatrix arrowTrans;
-					FPointArray arrow = (*arrowStyles.at(OB.startArrowIndex-1)).copy();
+					FPointArray arrow = (*arrowStyles.at(OB.startArrowIndex-1)).points.copy();
 					arrowTrans.translate(0, 0);
 					arrowTrans.scale(OB.Pwidth, OB.Pwidth);
 					arrowTrans.scale(-1,1);
@@ -632,7 +633,7 @@ QPixmap ScPreview::createPreview(QString data)
 				if (OB.endArrowIndex != 0)
 				{
 					QWMatrix arrowTrans;
-					FPointArray arrow = (*arrowStyles.at(OB.endArrowIndex-1)).copy();
+					FPointArray arrow = (*arrowStyles.at(OB.endArrowIndex-1)).points.copy();
 					arrowTrans.translate(OB.Width, 0);
 					arrowTrans.scale(OB.Pwidth, OB.Pwidth);
 					arrow.map(arrowTrans);
@@ -677,7 +678,7 @@ QPixmap ScPreview::createPreview(QString data)
 						{
 							double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/3.1415927);
 							QWMatrix arrowTrans;
-							FPointArray arrow = (*arrowStyles.at(OB.startArrowIndex-1)).copy();
+							FPointArray arrow = (*arrowStyles.at(OB.startArrowIndex-1)).points.copy();
 							arrowTrans.translate(Start.x(), Start.y());
 							arrowTrans.rotate(r);
 							arrowTrans.scale(OB.Pwidth, OB.Pwidth);
@@ -701,7 +702,7 @@ QPixmap ScPreview::createPreview(QString data)
 						{
 							double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/3.1415927);
 							QWMatrix arrowTrans;
-							FPointArray arrow = (*arrowStyles.at(OB.endArrowIndex-1)).copy();
+							FPointArray arrow = (*arrowStyles.at(OB.endArrowIndex-1)).points.copy();
 							arrowTrans.translate(End.x(), End.y());
 							arrowTrans.rotate(r);
 							arrowTrans.scale(OB.Pwidth, OB.Pwidth);

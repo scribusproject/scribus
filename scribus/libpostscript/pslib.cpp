@@ -2030,7 +2030,7 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 						if (c->startArrowIndex != 0)
 						{
 							QWMatrix arrowTrans;
-							FPointArray arrow = (*Doc->arrowStyles.at(c->startArrowIndex-1)).copy();
+							FPointArray arrow = (*Doc->arrowStyles.at(c->startArrowIndex-1)).points.copy();
 							arrowTrans.translate(0, 0);
 							arrowTrans.scale(c->Pwidth, c->Pwidth);
 							arrowTrans.scale(-1,1);
@@ -2045,7 +2045,7 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 						if (c->endArrowIndex != 0)
 						{
 							QWMatrix arrowTrans;
-							FPointArray arrow = (*Doc->arrowStyles.at(c->endArrowIndex-1)).copy();
+							FPointArray arrow = (*Doc->arrowStyles.at(c->endArrowIndex-1)).points.copy();
 							arrowTrans.translate(c->Width, 0);
 							arrowTrans.scale(c->Pwidth, c->Pwidth);
 							arrow.map(arrowTrans);
@@ -2134,7 +2134,7 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 								{
 									double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/3.1415927);
 									QWMatrix arrowTrans;
-									FPointArray arrow = (*Doc->arrowStyles.at(c->startArrowIndex-1)).copy();
+									FPointArray arrow = (*Doc->arrowStyles.at(c->startArrowIndex-1)).points.copy();
 									arrowTrans.translate(Start.x(), Start.y());
 									arrowTrans.rotate(r);
 									arrowTrans.scale(c->Pwidth, c->Pwidth);
@@ -2159,7 +2159,7 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 								{
 									double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/3.1415927);
 									QWMatrix arrowTrans;
-									FPointArray arrow = (*Doc->arrowStyles.at(c->endArrowIndex-1)).copy();
+									FPointArray arrow = (*Doc->arrowStyles.at(c->endArrowIndex-1)).points.copy();
 									arrowTrans.translate(End.x(), End.y());
 									arrowTrans.rotate(r);
 									arrowTrans.scale(c->Pwidth, c->Pwidth);

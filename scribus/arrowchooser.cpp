@@ -29,7 +29,7 @@ void ArrowChooser::rebuildList(ScribusDoc *currentDoc)
 		painter->setFillMode(1);
 		painter->translate(3.0, 3.0);
 		Path.resize(0);
-		Path = currentDoc->arrowStyles[a].copy();
+		Path = currentDoc->arrowStyles[a].points.copy();
 		FPoint min = GetMinClipF(Path);
 		Path.translate(-min.x(), -min.y());
 		FPoint max = Path.WidthHeight();
@@ -65,6 +65,6 @@ void ArrowChooser::rebuildList(ScribusDoc *currentDoc)
 			}
     	}
 		Ico.convertFromImage(image);
-		insertItem(Ico);
+		insertItem(Ico, currentDoc->arrowStyles[a].name);
 	}
 }

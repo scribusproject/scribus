@@ -1423,8 +1423,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 				if ((pag->PageNam != "") && (ite->OwnPage != static_cast<int>(pag->PageNr)) && (ite->OwnPage != -1))
 					continue;
 				PutPage("q\n");
-				if (((ite->Transparency != 0) || (ite->TranspStroke != 0)) && 
-					(Options->Version == 14))
+				if (((ite->Transparency != 0) || (ite->TranspStroke != 0)) && (Options->Version == 14))
 					PDF_Transparenz(ite);
 				if ((ite->isBookmark) && (Options->Bookmarks))
 					PDF_Bookmark(ite->BMnr, doc->PageH - ite->Ypos);
@@ -1654,11 +1653,24 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 						if (ite->startArrowIndex != 0)
 						{
 							QWMatrix arrowTrans;
-							FPointArray arrow = (*doc->arrowStyles.at(ite->startArrowIndex-1)).copy();
+							FPointArray arrow = (*doc->arrowStyles.at(ite->startArrowIndex-1)).points.copy();
 							arrowTrans.translate(0, 0);
 							arrowTrans.scale(ite->Pwidth, ite->Pwidth);
 							arrowTrans.scale(-1,1);
 							arrow.map(arrowTrans);
+							if ((ite->TranspStroke != 0) && (Options->Version == 14))
+							{
+								StartObj(ObjCounter);
+								QString ShName = ResNam+IToStr(ResCount);
+								Transpar[ShName] = ObjCounter;
+								ResCount++;
+								ObjCounter++;
+								PutDoc("<< /Type /ExtGState\n");
+								PutDoc("/CA "+FToStr(1.0 - ite->TranspStroke)+"\n");
+								PutDoc("/ca "+FToStr(1.0 - ite->TranspStroke)+"\n");
+								PutDoc("/BM /Normal\n>>\nendobj\n");
+								PutPage("/"+ShName+" gs\n");
+							}
 							if (Options->UseRGB)
 								PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" rg\n");
 							else
@@ -1686,10 +1698,23 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 						if (ite->endArrowIndex != 0)
 						{
 							QWMatrix arrowTrans;
-							FPointArray arrow = (*doc->arrowStyles.at(ite->endArrowIndex-1)).copy();
+							FPointArray arrow = (*doc->arrowStyles.at(ite->endArrowIndex-1)).points.copy();
 							arrowTrans.translate(ite->Width, 0);
 							arrowTrans.scale(ite->Pwidth, ite->Pwidth);
 							arrow.map(arrowTrans);
+							if ((ite->TranspStroke != 0) && (Options->Version == 14))
+							{
+								StartObj(ObjCounter);
+								QString ShName = ResNam+IToStr(ResCount);
+								Transpar[ShName] = ObjCounter;
+								ResCount++;
+								ObjCounter++;
+								PutDoc("<< /Type /ExtGState\n");
+								PutDoc("/CA "+FToStr(1.0 - ite->TranspStroke)+"\n");
+								PutDoc("/ca "+FToStr(1.0 - ite->TranspStroke)+"\n");
+								PutDoc("/BM /Normal\n>>\nendobj\n");
+								PutPage("/"+ShName+" gs\n");
+							}
 							if (Options->UseRGB)
 								PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" rg\n");
 							else
@@ -1789,11 +1814,24 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 								{
 									double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/3.1415927);
 									QWMatrix arrowTrans;
-									FPointArray arrow = (*doc->arrowStyles.at(ite->startArrowIndex-1)).copy();
+									FPointArray arrow = (*doc->arrowStyles.at(ite->startArrowIndex-1)).points.copy();
 									arrowTrans.translate(Start.x(), Start.y());
 									arrowTrans.rotate(r);
 									arrowTrans.scale(ite->Pwidth, ite->Pwidth);
 									arrow.map(arrowTrans);
+									if ((ite->TranspStroke != 0) && (Options->Version == 14))
+									{
+										StartObj(ObjCounter);
+										QString ShName = ResNam+IToStr(ResCount);
+										Transpar[ShName] = ObjCounter;
+										ResCount++;
+										ObjCounter++;
+										PutDoc("<< /Type /ExtGState\n");
+										PutDoc("/CA "+FToStr(1.0 - ite->TranspStroke)+"\n");
+										PutDoc("/ca "+FToStr(1.0 - ite->TranspStroke)+"\n");
+										PutDoc("/BM /Normal\n>>\nendobj\n");
+										PutPage("/"+ShName+" gs\n");
+									}
 									if (Options->UseRGB)
 										PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" rg\n");
 									else
@@ -1831,11 +1869,24 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 								{
 									double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/3.1415927);
 									QWMatrix arrowTrans;
-									FPointArray arrow = (*doc->arrowStyles.at(ite->endArrowIndex-1)).copy();
+									FPointArray arrow = (*doc->arrowStyles.at(ite->endArrowIndex-1)).points.copy();
 									arrowTrans.translate(End.x(), End.y());
 									arrowTrans.rotate(r);
 									arrowTrans.scale(ite->Pwidth, ite->Pwidth);
 									arrow.map(arrowTrans);
+									if ((ite->TranspStroke != 0) && (Options->Version == 14))
+									{
+										StartObj(ObjCounter);
+										QString ShName = ResNam+IToStr(ResCount);
+										Transpar[ShName] = ObjCounter;
+										ResCount++;
+										ObjCounter++;
+										PutDoc("<< /Type /ExtGState\n");
+										PutDoc("/CA "+FToStr(1.0 - ite->TranspStroke)+"\n");
+										PutDoc("/ca "+FToStr(1.0 - ite->TranspStroke)+"\n");
+										PutDoc("/BM /Normal\n>>\nendobj\n");
+										PutPage("/"+ShName+" gs\n");
+									}
 									if (Options->UseRGB)
 										PutPage(SetFarbe(ite->Pcolor2, ite->Shade2)+" rg\n");
 									else

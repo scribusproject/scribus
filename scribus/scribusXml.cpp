@@ -1689,15 +1689,16 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 		{
 			if (QStoInt(pg.attribute("Index")) > startNumArrows)
 			{
-				FPointArray arrow;
+				struct arrowDesc arrow;
 				double xa, ya;
+				arrow.name = pg.attribute("Name");
 				QString tmp = pg.attribute("Points");
 				QTextStream fp(&tmp, IO_ReadOnly);
 				for (uint cx = 0; cx < pg.attribute("NumPoints").toUInt(); ++cx)
 				{
 					fp >> xa;
 					fp >> ya;
-					arrow.addPoint(xa, ya);
+					arrow.points.addPoint(xa, ya);
 				}
 				doc->arrowStyles.append(arrow);
 				arrowID.insert(QStoInt(pg.attribute("Index")), doc->arrowStyles.count());
@@ -2034,20 +2035,23 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 		}
 		elem.appendChild(MuL);
 	}
-	QMap<int, FPointArray> usedArrows;
-	QMap<int, FPointArray>::Iterator itar;
+	QMap<int, arrowDesc> usedArrows;
+	QMap<int, arrowDesc>::Iterator itar;
+	struct arrowDesc arrow;
 	for (uint co=0; co<Selitems->count(); ++co)
 	{
 		item = doc->Items.at(ELL[co]);
 		if (item->startArrowIndex != 0)
 		{
-			FPointArray arrow = (*doc->arrowStyles.at(item->startArrowIndex-1)).copy();
-			usedArrows.insert(item->startArrowIndex, arrow.copy());
+			arrow.points = (*doc->arrowStyles.at(item->startArrowIndex-1)).points.copy();
+			arrow.name = (*doc->arrowStyles.at(item->startArrowIndex-1)).name;
+			usedArrows.insert(item->startArrowIndex, arrow);
 		}
 		if (item->endArrowIndex != 0)
 		{
-			FPointArray arrow = (*doc->arrowStyles.at(item->endArrowIndex-1)).copy();
-			usedArrows.insert(item->endArrowIndex, arrow.copy());
+			arrow.points = (*doc->arrowStyles.at(item->endArrowIndex-1)).points.copy();
+			arrow.name = (*doc->arrowStyles.at(item->endArrowIndex-1)).name;
+			usedArrows.insert(item->endArrowIndex, arrow);
 		}
 	}
 	if (usedArrows.count() != 0)
@@ -2055,15 +2059,16 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 		for (itar = usedArrows.begin(); itar != usedArrows.end(); ++itar)
 		{
 			QDomElement ar=docu.createElement("Arrows");
-			ar.setAttribute("NumPoints", itar.data().size());
+			ar.setAttribute("NumPoints", itar.data().points.size());
 			QString arp = "";
 			double xa, ya;
-			for (uint nxx = 0; nxx < itar.data().size(); ++nxx)
+			for (uint nxx = 0; nxx < itar.data().points.size(); ++nxx)
 			{
-				itar.data().point(nxx, &xa, &ya);
+				itar.data().points.point(nxx, &xa, &ya);
 				arp += tmp.setNum(xa) + " " + tmpy.setNum(ya) + " ";
 			}
 			ar.setAttribute("Points", arp);
+			ar.setAttribute("Name", itar.data().name);
 			ar.setAttribute("Index", itar.key());
 			elem.appendChild(ar);
 		}
@@ -2565,20 +2570,21 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 		}
 		dc.appendChild(MuL);
 	}
-	QValueList<FPointArray>::Iterator itar;
+	QValueList<arrowDesc>::Iterator itar;
 	for (itar = doc->arrowStyles.begin(); itar != doc->arrowStyles.end(); ++itar)
 	{
 		QDomElement ar=docu.createElement("Arrows");
-		ar.setAttribute("NumPoints", (*itar).size());
+		ar.setAttribute("NumPoints", (*itar).points.size());
 		QString arp = "";
 		QString tmp, tmpy;
 		double xa, ya;
-		for (uint nxx = 0; nxx < (*itar).size(); ++nxx)
+		for (uint nxx = 0; nxx < (*itar).points.size(); ++nxx)
 		{
-			(*itar).point(nxx, &xa, &ya);
+			(*itar).points.point(nxx, &xa, &ya);
 			arp += tmp.setNum(xa) + " " + tmpy.setNum(ya) + " ";
 		}
 		ar.setAttribute("Points", arp);
+		ar.setAttribute("Name", (*itar).name);
 		dc.appendChild(ar);
 	}
 	QMap<QString,QString>::Iterator itja;

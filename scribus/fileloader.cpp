@@ -495,7 +495,8 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 			}
 			if(pg.tagName()=="Arrows")
 			{
-				FPointArray arrow;
+				struct arrowDesc arrow;
+				arrow.name = pg.attribute("Name");
 				double xa, ya;
 				QString tmp = pg.attribute("Points");
 				QTextStream fp(&tmp, IO_ReadOnly);
@@ -503,7 +504,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 				{
 					fp >> xa;
 					fp >> ya;
-					arrow.addPoint(xa, ya);
+					arrow.points.addPoint(xa, ya);
 				}
 				doc->arrowStyles.append(arrow);
 			}

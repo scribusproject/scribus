@@ -280,6 +280,11 @@ struct singleLine {
 					
 typedef QValueVector<singleLine> multiLine;
 
+struct arrowDesc {
+									QString name;
+									FPointArray points;
+								 };
+
 struct Layer { 
 				int LNr;
 				int Level;
@@ -728,7 +733,7 @@ public: // Public attributes
 	FT_Library   library;
 	QMap<QString,FT_Face> FFonts;
 	QMap<QString,multiLine> MLineStyles;
-	QValueList<FPointArray> arrowStyles;
+	QValueList<arrowDesc> arrowStyles;
 	QWidget* WinHan;
 	bool DoDrawing;
 	QValueList<int> OpenNodes;
