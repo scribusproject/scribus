@@ -1642,12 +1642,12 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 								}
 							}
 						}
-						if (b->CPos == static_cast<int>(b->Ptext.count()))
+						if ((b->CPos > 0) && (b->CPos == static_cast<int>(b->Ptext.count())))
 						{
 							if (b->Ptext.at(b->CPos-1)->cstyle & 256)
 							{
 								b->CPos -= 1;
-								while (b->Ptext.at(b->CPos)->cstyle & 256)
+								while ((b->CPos > 0) && (b->Ptext.at(b->CPos)->cstyle & 256))
 								{
 									b->CPos--;
 									if (b->CPos == 0)
@@ -1657,7 +1657,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						}
 						else
 						{
-							while ((b->Ptext.at(b->CPos)->cstyle & 256) && (b->CPos > 0))
+							while ((b->CPos > 0) && (b->Ptext.at(b->CPos)->cstyle & 256))
 							{
 								b->CPos--;
 								if (b->CPos == 0)

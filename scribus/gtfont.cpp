@@ -661,18 +661,12 @@ void gtFont::parseFamily()
 int gtFont::find(const QString& where, const QString& what)
 {
 	QString realWhat = " " + what;
-	int index = where.find(realWhat); // f.e. Demi Bold
+	int index = where.findRev(realWhat); // f.e. Demi Bold
 	if (index != -1)
 	{
 		if (index + realWhat.length() != where.length())
 			if (where[index + realWhat.length() + 1] != " ")
-			{
-				int secIndex = where.find(" ", index + 1);
-				if (secIndex == -1)
-					index = -1;
-				else
-					index = find(where.right(where.length() - secIndex), what);
-			}
+				index = -1;
 	}
 	return index;
 }

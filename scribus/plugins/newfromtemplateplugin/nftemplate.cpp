@@ -56,7 +56,7 @@ void MenuNFT::RunNFTPlug()
 		Carrier->LadeDoc(nftdia->currentTemplate->file);
 		Carrier->doc->hasName = false;
 		Carrier->doc->DocName = nftdia->currentTemplate->name;
-		Carrier->ActWin->setCaption("Template: " + nftdia->currentTemplate->name);
+		Carrier->ActWin->setCaption(QObject::tr("Template: ") + nftdia->currentTemplate->name);
 		QDir::setCurrent(Carrier->Prefs.DocDir);
 		Carrier->RemoveRecent(nftdia->currentTemplate->file);
 		qApp->restoreOverrideCursor();

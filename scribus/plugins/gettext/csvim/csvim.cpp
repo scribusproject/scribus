@@ -124,13 +124,11 @@ void CsvIm::parseLine(const QString& line, bool isHeader)
 {
 	if (line == NULL)
 		return;
-
 	int start = 0, end = line.length();
 	int fdindex = line.find(fieldDelimiter);
 	int vdindex = -1;
 	if (useVDelim)
 		vdindex = line.find(valueDelimiter);
-		
 	if ((vdindex == -1) && (fdindex != -1))
 	{
 		QStringList l = QStringList::split(fieldDelimiter, line);
@@ -162,6 +160,15 @@ void CsvIm::parseLine(const QString& line, bool isHeader)
 			data += "\t" + tmp.stripWhiteSpace();
 			++colIndex;
 		}
+		else if (end == line.length() - 1)
+		{
+			QString tmp = line.mid(start, end - 1);
+			if (isHeader)
+				header += "\t" + tmp;
+			else
+				data += "\t" + tmp;
+			++colIndex;
+		}
 		else
 		{
 			QString tmp = line.mid(start, end - start);
@@ -171,7 +178,7 @@ void CsvIm::parseLine(const QString& line, bool isHeader)
 				data += "\t" + tmp;
 			++colIndex;
 			QString next = line;
-			next = next.remove(0, line.find(fieldDelimiter, end) + 1);
+			next = next.right(next.length() - end);
 			parseLine(next, isHeader);
 		}
 	}
