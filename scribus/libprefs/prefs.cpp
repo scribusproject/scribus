@@ -229,6 +229,17 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	GroupBox200Layout->addWidget( ScriptPfad, 2, 1 );
 	GroupBox200Layout->addWidget( FileC3, 2, 2 );
 
+	TemplateDir = new QLineEdit( GroupBox200, "Datei1" );
+	TemplateDir->setMinimumSize( QSize( 268, 22 ) );
+	TemplateDir->setText(Vor->TemplateDir);
+	PfadText4 = new QLabel( TemplateDir, tr("T&emplates:"), GroupBox200, "Pfadtext1" );
+	FileC4 = new QToolButton( GroupBox200, "FileC4" );
+	FileC4->setMinimumSize( QSize( 88, 24 ) );
+	FileC4->setText( tr( "Cha&nge..." ) );
+	GroupBox200Layout->addWidget( PfadText4, 3, 0 );
+	GroupBox200Layout->addWidget( TemplateDir, 3, 1 );
+	GroupBox200Layout->addWidget( FileC4, 3, 2 );
+
 	tabLayout->addMultiCellWidget( GroupBox200, 2, 2, 0, 1 );
 
 	TabWidget3->addWidget( tab, 0 );
@@ -1487,6 +1498,8 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	QWidget::setTabOrder( ProPfad, FileC2  );
 	QWidget::setTabOrder( FileC2, ScriptPfad );
 	QWidget::setTabOrder( ScriptPfad, FileC3 );
+	QWidget::setTabOrder( FileC3, TemplateDir );
+	QWidget::setTabOrder( TemplateDir, FileC4 );
 
 
 	QWidget::setTabOrder( TopR, BottomR );
@@ -1504,6 +1517,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	QToolTip::add( Docs, tr( "Default documents directory" ) );
 	QToolTip::add( ProPfad, tr( "Default ICC profiles directory" ) );
 	QToolTip::add( ScriptPfad, tr( "Default Scripter scripts directory" ) );
+	QToolTip::add( TemplateDir, tr( "Additional Directory for Document Templates" ) );
 
 	QToolTip::add( GZComboF, tr( "Default page size, either a standard size or a custom size" ) );
 	QToolTip::add( GZComboO, tr( "Default orientation of document pages" ) );
@@ -1646,6 +1660,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	connect(FileC, SIGNAL(clicked()), this, SLOT(ChangeDocs()));
 	connect(FileC2, SIGNAL(clicked()), this, SLOT(ChangeProfs()));
 	connect(FileC3, SIGNAL(clicked()), this, SLOT(ChangeScripts()));
+	connect(FileC4, SIGNAL(clicked()), this, SLOT(ChangeTemplates()));
 	connect(CaliSlider, SIGNAL(valueChanged(int)), this, SLOT(SetDisScale()));
 	connect(TabListe, SIGNAL(highlighted(int)), TabWidget3, SLOT(raiseWidget(int)));
 	setSize(Vor->PageFormat);
@@ -1712,6 +1727,21 @@ void Preferences::ChangeScripts()
 	QString s = QFileDialog::getExistingDirectory(Docs->text(), this, "d", tr("Choose a Directory"), true);
 	if (s != "")
 		ScriptPfad->setText(s);
+}
+
+/*!
+ \fn void Preferences::ChangeTemplates()
+ \author Riku Leino 
+ \date  
+ \brief Runs QFileDialog to get Preferences (General) Path to Templates directory
+ \param None
+ \retval None 
+ */
+void Preferences::ChangeTemplates()
+{
+	QString s = QFileDialog::getExistingDirectory(Docs->text(), this, "d", tr("Choose a Directory"), true);
+	if (s != "")
+		TemplateDir->setText(s);
 }
 
 /*!

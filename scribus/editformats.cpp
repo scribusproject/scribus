@@ -3,7 +3,7 @@
 #include "edit1format.h"
 #include <qmessagebox.h>
 #include "customfdialog.h"
-#include "scribusXml.h"
+
 extern QPixmap loadIcon(QString nam);
 
 StilFormate::StilFormate( QWidget* parent, ScribusDoc *doc, preV *avail)
@@ -198,63 +198,18 @@ void StilFormate::deleteFormat()
 
 void StilFormate::loadStyles()
 {
-	QString fileName;
 #ifdef HAVE_LIBZ
 	CustomFDialog dia(this, tr("Open"), tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"));
 #else
 	CustomFDialog dia(this, tr("Open"), tr("Documents (*.sla *.scd);;All Files (*)"));
 #endif
 	if (dia.exec() == QDialog::Accepted)
-		loadStylesFromFile(dia.selectedFile());
+	{
+		Docu->loadStylesFromFile(dia.selectedFile(), &TempVorl);
+		UpdateFList();
+	}
 	else
 		return;
-}
-
-/*
- * Taken from loadStyles so that styles can be imported
- * non-interactively via plugin/script -- Craig Ringer, 2004-09-10
- */
-void StilFormate::loadStylesFromFile(QString fileName)
-{
-	if (!fileName.isEmpty())
-	{
-		ScriXmlDoc *ss = new ScriXmlDoc();
-		ss->Vorlagen.clear();
-		for (uint x = 5; x < TempVorl.count(); ++x)
-			ss->Vorlagen.append(TempVorl[x]);
-		uint old = TempVorl.count()-5;
-		if (ss->ReadStyles(fileName, Docu, fon))
-		{
-			if (ss->Vorlagen.count() > old)
-			{
-				for (uint xx=old; xx<ss->Vorlagen.count(); ++xx)
-				{
-					struct StVorL sty;
-					sty.Vname = ss->Vorlagen[xx].Vname;
-					sty.LineSpa = ss->Vorlagen[xx].LineSpa;
-					sty.Ausri = ss->Vorlagen[xx].Ausri;
-					sty.Indent = ss->Vorlagen[xx].Indent;
-					sty.First = ss->Vorlagen[xx].First;
-					sty.Avor = ss->Vorlagen[xx].Avor;
-					sty.Anach = ss->Vorlagen[xx].Anach;
-					sty.Font = ss->Vorlagen[xx].Font;
-					sty.FontSize = ss->Vorlagen[xx].FontSize;
-					sty.TabValues = ss->Vorlagen[xx].TabValues;
-					sty.Drop = ss->Vorlagen[xx].Drop;
-					sty.DropLin = ss->Vorlagen[xx].DropLin;
-					sty.FontEffect = ss->Vorlagen[xx].FontEffect;
-					sty.FColor = ss->Vorlagen[xx].FColor;
-					sty.FShade = ss->Vorlagen[xx].FShade;
-					sty.SColor = ss->Vorlagen[xx].SColor;
-					sty.SShade = ss->Vorlagen[xx].SShade;
-					sty.BaseAdj = ss->Vorlagen[xx].BaseAdj;
-					TempVorl.append(sty);
-				}
-			}
-			UpdateFList();
-		}
-		delete ss;
-	}
 }
 
 void StilFormate::UpdateFList()

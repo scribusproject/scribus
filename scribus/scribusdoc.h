@@ -511,6 +511,8 @@ public:
 	void setPage(double b, double h, double t, double l, double r, double bo, double sp, double ab, bool atf, bool fp);
 	void resetPage(double t, double l, double r, double bo, bool fp);
 	bool AddFont(QString name, QFont fo);
+	void loadStylesFromFile(QString fileName, QValueList<StVorL> *tempStyles = NULL);
+
 
 protected:
     bool modified;

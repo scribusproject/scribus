@@ -68,6 +68,9 @@ public:
 	QLabel* PfadText3;
 	QLineEdit* ScriptPfad;
 	QToolButton* FileC3;
+	QLabel* PfadText4;
+	QLineEdit* TemplateDir;
+	QToolButton* FileC4;
 	QButtonGroup* ButtonGroup2;
 	QButtonGroup* ButtonGroup5;
 	QButtonGroup* ButtonGroup6;
@@ -274,6 +277,7 @@ public slots:
 	void ChangeDocs();
 	void ChangeProfs();
 	void ChangeScripts();
+	void ChangeTemplates();
 	void ChangeScaling();
 	void ChangeGrid();
 	void setDS();

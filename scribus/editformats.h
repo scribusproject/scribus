@@ -30,7 +30,6 @@ public:
 	preV *fon;
 	ScribusDoc *Docu;
 	void UpdateFList();
-	void loadStylesFromFile(QString fileName);
 
 public slots:
 	void saveIt();
