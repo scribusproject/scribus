@@ -1,4 +1,6 @@
 Changes since Version 1.1.5
+18.03.2004	Fixes for rotated Tables and Borderlines.
+
 17.03.2004	Printing and Exporting to PDF for Tables is now working too.
 
 16.03.2004	Loading and Saving of Tables is working, including Drag&Drop.

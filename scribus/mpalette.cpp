@@ -1425,7 +1425,7 @@ void Mpalette::UnitChange()
 	DRight->setDecimals(10);
 	RoundRect->setDecimals(10);
 	/* PFJ - 29.02.04 - Rejigged for speed */
-	char *point[] = {" pt", " mm", " in", " p"};
+	QString point[] = { tr(" pt"), tr(" mm"), tr(" in"), tr(" p")};
 	if (doc->Einheit > 3)
 		doc->Einheit = 0;
 	ein = point[doc->Einheit];
@@ -1948,6 +1948,8 @@ void Mpalette::NewW()
 			{
 				if (CurItem->isTableItem)
 				{
+					int rmo = doc->RotMode;
+					doc->RotMode = 0;
 					double dist = w - CurItem->Width;
 					PageItem* bb2;
 					PageItem* bb = CurItem;
@@ -1960,19 +1962,20 @@ void Mpalette::NewW()
 						bb2 = bb;
 						while (bb2->RightLink != 0)
 						{
-							doc->ActPage->MoveItem(dist, 0, bb2->RightLink, true);
+							doc->ActPage->MoveRotated(bb2->RightLink, FPoint(dist, 0), true);
 							bb2 = bb2->RightLink;
 						}
-						doc->ActPage->SizeItem(w, bb->Height, bb->ItemNr, true);
+						doc->ActPage->MoveSizeItem(FPoint(0, 0), FPoint(-dist, 0), bb->ItemNr, true);
 						bb = bb->BottomLink;
 					}
 					bb2 = bb;
 					while (bb2->RightLink != 0)
 					{
-						doc->ActPage->MoveItem(dist, 0, bb2->RightLink, true);
+						doc->ActPage->MoveRotated(bb2->RightLink, FPoint(dist, 0), true);
 						bb2 = bb2->RightLink;
 					}
-					doc->ActPage->SizeItem(w, bb->Height, bb->ItemNr, true);
+					doc->ActPage->MoveSizeItem(FPoint(0, 0), FPoint(-dist, 0), bb->ItemNr, true);
+					doc->RotMode = rmo;
 				}
 				else
 					doc->ActPage->SizeItem(w, CurItem->Height, CurItem->ItemNr, true);
@@ -2018,6 +2021,8 @@ void Mpalette::NewH()
 			{
 				if (CurItem->isTableItem)
 				{
+					int rmo = doc->RotMode;
+					doc->RotMode = 0;
 					double dist = h - CurItem->Height;
 					PageItem* bb2;
 					PageItem* bb = CurItem;
@@ -2030,19 +2035,20 @@ void Mpalette::NewH()
 						bb2 = bb;
 						while (bb2->BottomLink != 0)
 						{
-							doc->ActPage->MoveItem(0, dist, bb2->BottomLink, true);
+							doc->ActPage->MoveRotated(bb2->BottomLink, FPoint(0, dist), true);
 							bb2 = bb2->BottomLink;
 						}
-						doc->ActPage->SizeItem(bb->Width, h, bb->ItemNr, true);
+						doc->ActPage->MoveSizeItem(FPoint(0, 0), FPoint(0, -dist), bb->ItemNr, true);
 						bb = bb->RightLink;
 					}
 					bb2 = bb;
 					while (bb2->BottomLink != 0)
 					{
-						doc->ActPage->MoveItem(0, dist, bb2->BottomLink, true);
+						doc->ActPage->MoveRotated(bb2->BottomLink, FPoint(0, dist), true);
 						bb2 = bb2->BottomLink;
 					}
-					doc->ActPage->SizeItem(bb->Width, h, bb->ItemNr, true);
+					doc->ActPage->MoveSizeItem(FPoint(0, 0), FPoint(0, -dist), bb->ItemNr, true);
+					doc->RotMode = rmo;
 				}
 				else
 					doc->ActPage->SizeItem(CurItem->Width, h, CurItem->ItemNr, true);

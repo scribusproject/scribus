@@ -592,7 +592,76 @@ void Page::DrawPageItems(ScPainter *painter, QRect rd)
 						Opa2 = b->OwnPage;
 						b->Parent = this;
 						b->OwnPage = this;
-						b->DrawObj(painter, rd);
+						QPainter p;
+						p.begin(this);
+						Transform(b, &p);
+						QRegion apr = QRegion(p.xForm(b->Clip));
+						QRegion apr2 = QRegion(p.xForm(QRect(-1, -1, static_cast<int>(b->Width),
+															static_cast<int>(b->Height))));
+						p.end();
+						if ((rd.intersects(apr.boundingRect())) || (rd.intersects(apr2.boundingRect())))
+							b->DrawObj(painter, rd);
+						b->Parent = Opa;
+						b->OwnPage = Opa2;
+					}
+					for (a = 0; a < Mp->Items.count(); ++a)
+					{
+						b = Mp->Items.at(a);
+						if (b->LayerNr != ll.LNr)
+							continue;
+						if (!b->isTableItem)
+							continue;
+						Opa = b->Parent;
+						Opa2 = b->OwnPage;
+						b->Parent = this;
+						b->OwnPage = this;
+						QPainter p;
+						p.begin(this);
+						Transform(b, &p);
+						QRegion apr = QRegion(p.xForm(b->Clip));
+						QRegion apr2 = QRegion(p.xForm(QRect(-1, -1, static_cast<int>(b->Width),
+															static_cast<int>(b->Height))));
+						p.end();
+						if ((rd.intersects(apr.boundingRect())) || (rd.intersects(apr2.boundingRect())))
+						{
+							painter->setZoomFactor(doku->Scale);
+							painter->save();
+							painter->translate(-rd.x(), -rd.y());
+							painter->translate(b->Xpos*doku->Scale, b->Ypos*doku->Scale);
+							painter->rotate(b->Rot);
+							if (b->Pcolor2 != "None")
+							{
+								QColor tmp;
+								b->SetFarbe(&tmp, b->Pcolor2, b->Shade2);
+								if ((b->TopLine) || (b->RightLine) || (b->BottomLine) || (b->LeftLine))
+								{
+									painter->setPen(tmp, b->Pwidth, b->PLineArt, Qt::SquareCap, b->PLineJoin);
+									painter->newPath();
+									if (b->TopLine)
+									{
+										painter->moveTo(0.0, 0.0);
+										painter->lineTo(b->Width, 0.0);
+									}
+									if (b->RightLine)
+									{
+										painter->moveTo(b->Width, 0.0);
+										painter->lineTo(b->Width, b->Height);
+									}
+									if (b->BottomLine)
+									{
+										painter->moveTo(0.0, b->Height);
+										painter->lineTo(b->Width, b->Height);
+									}
+									if (b->LeftLine)
+									{
+										painter->moveTo(0.0, 0.0);
+										painter->lineTo(0.0, b->Height);
+									}
+									painter->drawPolyLine();
+								}
+							}
+							painter->restore();
+						}
 						b->Parent = Opa;
 						b->OwnPage = Opa2;
 					}
@@ -627,6 +696,61 @@ void Page::DrawPageItems(ScPainter *painter, QRect rd)
 						b->Redrawn = true;
 						if ((doku->AppMode == 7) && (b->Select))
 							slotDoCurs(true);
+					}
+				}
+				for (a = 0; a < Items.count(); ++a)
+				{
+					b = Items.at(a);
+					if (b->LayerNr != ll.LNr)
+						continue;
+					if (!b->isTableItem)
+						continue;
+					QPainter p;
+					p.begin(this);
+					Transform(b, &p);
+					QRegion apr = QRegion(p.xForm(b->Clip));
+					QRegion apr2 = QRegion(p.xForm(QRect(-1, -1, static_cast<int>(b->Width),
+					                                     static_cast<int>(b->Height))));
+					p.end();
+					if ((rd.intersects(apr.boundingRect())) || (rd.intersects(apr2.boundingRect())))
+					{
+						painter->setZoomFactor(doku->Scale);
+						painter->save();
+						painter->translate(-rd.x(), -rd.y());
+						painter->translate(b->Xpos*doku->Scale, b->Ypos*doku->Scale);
+						painter->rotate(b->Rot);
+						if (b->Pcolor2 != "None")
+						{
+							QColor tmp;
+							b->SetFarbe(&tmp, b->Pcolor2, b->Shade2);
+							if ((b->TopLine) || (b->RightLine) || (b->BottomLine) || (b->LeftLine))
+							{
+								painter->setPen(tmp, b->Pwidth, b->PLineArt, Qt::SquareCap, b->PLineJoin);
+								painter->newPath();
+								if (b->TopLine)
+								{
+									painter->moveTo(0.0, 0.0);
+									painter->lineTo(b->Width, 0.0);
+								}
+								if (b->RightLine)
+								{
+									painter->moveTo(b->Width, 0.0);
+									painter->lineTo(b->Width, b->Height);
+								}
+								if (b->BottomLine)
+								{
+									painter->moveTo(0.0, b->Height);
+									painter->lineTo(b->Width, b->Height);
+								}
+								if (b->LeftLine)
+								{
+									painter->moveTo(0.0, 0.0);
+									painter->lineTo(0.0, b->Height);
+								}
+								painter->drawPolyLine();
+							}
+						}
+						painter->restore();
 					}
 				}
 			}
@@ -1035,7 +1159,7 @@ void Page::AdjustPictScale(PageItem *b, bool reload)
 	emit SetLocalValues(b->LocalScX, b->LocalScY, b->LocalX, b->LocalY );
 }
 
-bool Page::MoveSizeItem(FPoint newX, FPoint newY, int ite)
+bool Page::MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP)
 {
 	QRegion alt;
 	QPainter p;
@@ -1051,7 +1175,7 @@ bool Page::MoveSizeItem(FPoint newX, FPoint newY, int ite)
 		ma.rotate(b->Rot);
 		double mx = ma.m11() * b->Width + ma.m21() * b->Height + ma.dx();
 		double my = ma.m22() * b->Height + ma.m12() * b->Width + ma.dy();
-		MoveItem(newX.x(), newX.y(), b);
+		MoveItem(newX.x(), newX.y(), b, fromMP);
 		b->Rot = xy2Deg(mx - b->Xpos, my - b->Ypos);
 		b->Width = sqrt(pow(mx - b->Xpos,2)+pow(my - b->Ypos,2));
 		b->Height = 0;
@@ -1063,6 +1187,8 @@ bool Page::MoveSizeItem(FPoint newX, FPoint newY, int ite)
 	}
 	else
 	{
+		b->OldB2 = b->Width;
+		b->OldH2 = b->Height;
 		if (b->Rot != 0)
 		{
 			FPoint npv = FPoint(newX.x(), newX.y());
@@ -1071,13 +1197,13 @@ bool Page::MoveSizeItem(FPoint newX, FPoint newY, int ite)
 			ma3.rotate(b->Rot);
 			double mxc3 = b->Xpos - (ma3.m11() * npv.x() + ma3.m21() * npv.y() + ma3.dx());
 			double myc3 = b->Ypos - (ma3.m22() * npv.y() + ma3.m12() * npv.x() + ma3.dy());
-			SizeItem(b->Width - newY.x(), b->Height - newY.y(), ite);
-			MoveItem(-mxc3, -myc3, b);
+			SizeItem(b->Width - newY.x(), b->Height - newY.y(), ite, fromMP);
+			MoveItem(-mxc3, -myc3, b, fromMP);
 		}
 		else
 		{
-			SizeItem(b->Width - newY.x(), b->Height - newY.y(), ite);
-			MoveItem(newX.x(), newX.y(), b);
+			SizeItem(b->Width - newY.x(), b->Height - newY.y(), ite, fromMP);
+			MoveItem(newX.x(), newX.y(), b, fromMP);
 		}
 	}
 	return true;
@@ -1538,14 +1664,14 @@ bool Page::PointOnLine(QPoint Start, QPoint Ende, QRect MArea)
 	return false;
 }
 
-void Page::MoveRotated(PageItem *b, FPoint npv)
+void Page::MoveRotated(PageItem *b, FPoint npv, bool fromMP)
 {
 	QWMatrix ma;
 	ma.translate(b->Xpos, b->Ypos);
 	ma.rotate(b->Rot);
 	double mxc = b->Xpos - (ma.m11() * npv.x() + ma.m21() * npv.y() + ma.dx());
 	double myc = b->Ypos - (ma.m22() * npv.y() + ma.m12() * npv.x() + ma.dy());
-	MoveItem(-mxc, -myc, b);
+	MoveItem(-mxc, -myc, b, fromMP);
 }
 
 void Page::AdjustItemSize(PageItem *b)
@@ -2676,19 +2802,21 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 									bb2 = bb;
 									while (bb2->BottomLink != 0)
 									{
-										MoveItem(0, dist, bb2->BottomLink, false);
+										MoveRotated(bb2->BottomLink, FPoint(0, dist));
 										bb2 = bb2->BottomLink;
 									}
-									SizeItem(bb->Width, npx.y(), bb->ItemNr);
+									if (bb != b)
+										MoveSizeItem(FPoint(0, 0), FPoint(0, -dist), bb->ItemNr);
 									bb = bb->RightLink;
 								}
 								bb2 = bb;
 								while (bb2->BottomLink != 0)
 								{
-									MoveItem(0, dist, bb2->BottomLink, false);
+									MoveRotated(bb2->BottomLink, FPoint(0, dist));
 									bb2 = bb2->BottomLink;
 								}
-								SizeItem(bb->Width, npx.y(), bb->ItemNr);
+								if (bb != b)
+									MoveSizeItem(FPoint(0, 0), FPoint(0, -dist), bb->ItemNr);
 								bb = b;
 								if (b->TopLink != 0)
 									dist = npx.x() - b->TopLink->Width;
@@ -2705,19 +2833,21 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 									bb2 = bb;
 									while (bb2->RightLink != 0)
 									{
-										MoveItem(dist, 0, bb2->RightLink, false);
+										MoveRotated(bb2->RightLink, FPoint(dist, 0));
 										bb2 = bb2->RightLink;
 									}
-									SizeItem(npx.x(), bb->Height, bb->ItemNr);
+									if (bb != b)
+										MoveSizeItem(FPoint(0, 0), FPoint(-dist, 0), bb->ItemNr);
 									bb = bb->BottomLink;
 								}
 								bb2 = bb;
 								while (bb2->RightLink != 0)
 								{
-									MoveItem(dist, 0, bb2->RightLink, false);
+									MoveRotated(bb2->RightLink, FPoint(dist, 0));
 									bb2 = bb2->RightLink;
 								}
-								SizeItem(npx.x(), bb->Height, bb->ItemNr);
+								if (bb != b)
+									MoveSizeItem(FPoint(0, 0), FPoint(-dist, 0), bb->ItemNr);
 							}
 							if (b->flippedH % 2 != 0)
 								MoveItemI(-(b->Width - b->OldB2)/b->LocalScX, 0, b->ItemNr);
@@ -2763,7 +2893,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 									bb2 = bb;
 									while (bb2->LeftLink != 0)
 									{
-										MoveItem(npx.x(), 0, bb2->LeftLink, false);
+										MoveRotated(bb2->LeftLink, FPoint(npx.x(), 0));
 										bb2 = bb2->LeftLink;
 									}
 									MoveSizeItem(FPoint(npx.x(), 0), FPoint(npx.x(), 0), bb->ItemNr);
@@ -2772,7 +2902,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 								bb2 = bb;
 								while (bb2->LeftLink != 0)
 								{
-									MoveItem(npx.x(), 0, bb2->LeftLink, false);
+									MoveRotated(bb2->LeftLink, FPoint(npx.x(), 0));
 									bb2 = bb2->LeftLink;
 								}
 								MoveSizeItem(FPoint(npx.x(), 0), FPoint(npx.x(), 0), bb->ItemNr);
@@ -2786,7 +2916,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 									bb2 = bb;
 									while (bb2->TopLink != 0)
 									{
-										MoveItem(0, npx.y(), bb2->TopLink, false);
+										MoveRotated(bb2->TopLink, FPoint(0, npx.y()));
 										bb2 = bb2->TopLink;
 									}
 									MoveSizeItem(FPoint(0, npx.y()), FPoint(0, npx.y()), bb->ItemNr);
@@ -2795,7 +2925,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 								bb2 = bb;
 								while (bb2->TopLink != 0)
 								{
-									MoveItem(0, npx.y(), bb2->TopLink, false);
+									MoveRotated(bb2->TopLink, FPoint(0, npx.y()));
 									bb2 = bb2->TopLink;
 								}
 								MoveSizeItem(FPoint(0, npx.y()), FPoint(0, npx.y()), bb->ItemNr);
@@ -2852,19 +2982,19 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 								bb2 = bb;
 								while (bb2->RightLink != 0)
 								{
-									MoveItem(dist, 0, bb2->RightLink, false);
+									MoveRotated(bb2->RightLink, FPoint(dist, 0));
 									bb2 = bb2->RightLink;
 								}
-								SizeItem(npx.x(), bb->Height, bb->ItemNr);
+								MoveSizeItem(FPoint(0, 0), FPoint(-dist, 0), bb->ItemNr);
 								bb = bb->BottomLink;
 							}
 							bb2 = bb;
 							while (bb2->RightLink != 0)
 							{
-								MoveItem(dist, 0, bb2->RightLink, false);
+								MoveRotated(bb2->RightLink, FPoint(dist, 0));
 								bb2 = bb2->RightLink;
 							}
-							SizeItem(npx.x(), bb->Height, bb->ItemNr);
+							MoveSizeItem(FPoint(0, 0), FPoint(-dist, 0), bb->ItemNr);
 							bb = b;
 							while (bb->LeftLink != 0)
 							{
@@ -2875,7 +3005,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 								bb2 = bb;
 								while (bb2->TopLink != 0)
 								{
-									MoveItem(0, npx.y(), bb2->TopLink, false);
+									MoveRotated(bb2->TopLink, FPoint(0, npx.y()));
 									bb2 = bb2->TopLink;
 								}
 								MoveSizeItem(FPoint(0, npx.y()), FPoint(0, npx.y()), bb->ItemNr);
@@ -2884,7 +3014,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 							bb2 = bb;
 							while (bb2->TopLink != 0)
 							{
-								MoveItem(0, npx.y(), bb2->TopLink, false);
+								MoveRotated(bb2->TopLink, FPoint(0, npx.y()));
 								bb2 = bb2->TopLink;
 							}
 							MoveSizeItem(FPoint(0, npx.y()), FPoint(0, npx.y()), bb->ItemNr);
@@ -2912,19 +3042,19 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 								bb2 = bb;
 								while (bb2->BottomLink != 0)
 								{
-									MoveItem(0, dist, bb2->BottomLink, false);
+									MoveRotated(bb2->BottomLink, FPoint(0, dist));
 									bb2 = bb2->BottomLink;
 								}
-								SizeItem(bb->Width, npx.y(), bb->ItemNr);
+								MoveSizeItem(FPoint(0, 0), FPoint(0, -dist), bb->ItemNr);
 								bb = bb->RightLink;
 							}
 							bb2 = bb;
 							while (bb2->BottomLink != 0)
 							{
-								MoveItem(0, dist, bb2->BottomLink, false);
+								MoveRotated(bb2->BottomLink, FPoint(0, dist));
 								bb2 = bb2->BottomLink;
 							}
-							SizeItem(bb->Width, npx.y(), bb->ItemNr);
+							MoveSizeItem(FPoint(0, 0), FPoint(0, -dist), bb->ItemNr);
 							bb = b;
 							while (bb->TopLink != 0)
 							{
@@ -2935,7 +3065,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 								bb2 = bb;
 								while (bb2->LeftLink != 0)
 								{
-									MoveItem(npx.x(), 0, bb2->LeftLink, false);
+									MoveRotated(bb2->LeftLink, FPoint(npx.x(), 0));
 									bb2 = bb2->LeftLink;
 								}
 								MoveSizeItem(FPoint(npx.x(), 0), FPoint(npx.x(), 0), bb->ItemNr);
@@ -2944,7 +3074,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 							bb2 = bb;
 							while (bb2->LeftLink != 0)
 							{
-								MoveItem(npx.x(), 0, bb2->LeftLink, false);
+								MoveRotated(bb2->LeftLink, FPoint(npx.x(), 0));
 								bb2 = bb2->LeftLink;
 							}
 							MoveSizeItem(FPoint(npx.x(), 0), FPoint(npx.x(), 0), bb->ItemNr);
@@ -2958,6 +3088,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 							MoveItemI(0, -(b->Height - b->OldH2)/b->LocalScY, b->ItemNr);
 						break;
 					case 5:
+						b->Sizing = false;
 						if (b->isTableItem)
 						{
 							double dist = npx.y() - b->Height;
@@ -2972,23 +3103,22 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 								bb2 = bb;
 								while (bb2->BottomLink != 0)
 								{
-									MoveItem(0, dist, bb2->BottomLink, false);
+									MoveRotated(bb2->BottomLink, FPoint(0, dist));
 									bb2 = bb2->BottomLink;
 								}
-								SizeItem(bb->Width, npx.y(), bb->ItemNr);
+								MoveSizeItem(FPoint(0, 0), FPoint(0, -dist), bb->ItemNr);
 								bb = bb->RightLink;
 							}
 							bb2 = bb;
 							while (bb2->BottomLink != 0)
 							{
-								MoveItem(0, dist, bb2->BottomLink, false);
+								MoveRotated(bb2->BottomLink, FPoint(0, dist));
 								bb2 = bb2->BottomLink;
 							}
-							SizeItem(bb->Width, npx.y(), bb->ItemNr);
+							MoveSizeItem(FPoint(0, 0), FPoint(0, -dist), bb->ItemNr);
 						}
 						else
 							MoveSizeItem(FPoint(0, 0), FPoint(0, b->Height - npx.y()), b->ItemNr);
-						b->Sizing = false;
 						if (b->flippedV % 2 != 0)
 							MoveItemI(0, -(b->Height - b->OldH2)/b->LocalScY, b->ItemNr);
 						break;
@@ -3008,19 +3138,19 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 								bb2 = bb;
 								while (bb2->RightLink != 0)
 								{
-									MoveItem(dist, 0, bb2->RightLink, false);
+									MoveRotated(bb2->RightLink, FPoint(dist, 0));
 									bb2 = bb2->RightLink;
 								}
-								SizeItem(npx.x(), bb->Height, bb->ItemNr);
+								MoveSizeItem(FPoint(0, 0), FPoint(-dist, 0), bb->ItemNr);
 								bb = bb->BottomLink;
 							}
 							bb2 = bb;
 							while (bb2->RightLink != 0)
 							{
-								MoveItem(dist, 0, bb2->RightLink, false);
+								MoveRotated(bb2->RightLink, FPoint(dist, 0));
 								bb2 = bb2->RightLink;
 							}
-							SizeItem(npx.x(), bb->Height, bb->ItemNr);
+							MoveSizeItem(FPoint(0, 0), FPoint(-dist, 0), bb->ItemNr);
 						}
 						else
 							MoveSizeItem(FPoint(0, 0), FPoint(b->Width - npx.x(), 0), b->ItemNr);
@@ -3041,7 +3171,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 								bb2 = bb;
 								while (bb2->LeftLink != 0)
 								{
-									MoveItem(npx.x(), 0, bb2->LeftLink, false);
+									MoveRotated(bb2->LeftLink, FPoint(npx.x(), 0));
 									bb2 = bb2->LeftLink;
 								}
 								MoveSizeItem(FPoint(npx.x(), 0), FPoint(npx.x(), 0), bb->ItemNr);
@@ -3050,7 +3180,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 							bb2 = bb;
 							while (bb2->LeftLink != 0)
 							{
-								MoveItem(npx.x(), 0, bb2->LeftLink, false);
+								MoveRotated(bb2->LeftLink, FPoint(npx.x(), 0));
 								bb2 = bb2->LeftLink;
 							}
 							MoveSizeItem(FPoint(npx.x(), 0), FPoint(npx.x(), 0), bb->ItemNr);
@@ -3077,7 +3207,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 								bb2 = bb;
 								while (bb2->TopLink != 0)
 								{
-									MoveItem(0, npx.y(), bb2->TopLink, false);
+									MoveRotated(bb2->TopLink, FPoint(0, npx.y()));
 									bb2 = bb2->TopLink;
 								}
 								MoveSizeItem(FPoint(0, npx.y()), FPoint(0, npx.y()), bb->ItemNr);
@@ -3086,7 +3216,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 							bb2 = bb;
 							while (bb2->TopLink != 0)
 							{
-								MoveItem(0, npx.y(), bb2->TopLink, false);
+								MoveRotated(bb2->TopLink, FPoint(0, npx.y()));
 								bb2 = bb2->TopLink;
 							}
 							MoveSizeItem(FPoint(0, npx.y()), FPoint(0, npx.y()), bb->ItemNr);

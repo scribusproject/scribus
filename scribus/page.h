@@ -103,10 +103,10 @@ public:
 	void ResetControl();
 	void AdjustItemSize(PageItem *b);
 	bool GetItem(PageItem **b, int nr = -1);
-	void MoveRotated(PageItem *b, FPoint npv);
+	void MoveRotated(PageItem *b, FPoint npv, bool fromMP = false);
 	void AdjustPictScale(PageItem *b, bool reload = true);
 	bool SizeItem(double newX, double newY, int ite, bool fromMP = false, bool DoUpdateClip = true);
-	bool MoveSizeItem(FPoint newX, FPoint newY, int ite);
+	bool MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP = false);
 	void RotateGroup(double win);
 	void RotateItem(double win, int ite);
 	void MarkClip(PageItem *b);

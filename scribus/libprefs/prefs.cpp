@@ -1548,7 +1548,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	QToolTip::add( TopR, tr( "Distance between the top margin guide and the edge of the page" ) );
 	QToolTip::add( BottomR, tr( "Distance between the bottom margin guide and the edge of the page" ) );
 	QToolTip::add( LeftR, tr( "Distance between the left margin guide and the edge of the page.\nIf Facing Pages is selected, this margin space can be used to achieve the correct margins for binding" ) );
-	QToolTip::add( RightR, tr( "Distance between the left margin guide and the edge of the page.\nIf Facing Pages is selected, this margin space can be used to achieve the correct margins for binding" ) );
+	QToolTip::add( RightR, tr( "Distance between the right margin guide and the edge of the page.\nIf Facing Pages is selected, this margin space can be used to achieve the correct margins for binding" ) );
 	QToolTip::add( ASon, tr( "When enabled, Scribus saves a backup copy of your file with the .bak extension\neach time the time period elapses" ) );
 	QToolTip::add( ASTime, tr( "Time period between saving automatically" ) );
 

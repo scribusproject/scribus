@@ -1542,44 +1542,13 @@ NoRoom: pf2.end();
 		if (Pcolor2 != "None")
 		{
 			SetFarbe(&tmp, Pcolor2, Shade2);
-			if ((isTableItem) && ((TopLine) || (RightLine) || (BottomLine) || (LeftLine)))
-				p->setPen(tmp, Pwidth, PLineArt, Qt::SquareCap, PLineJoin);
-			else
-				p->setPen(tmp, Pwidth, PLineArt, PLineEnd, PLineJoin);
+			p->setPen(tmp, Pwidth, PLineArt, PLineEnd, PLineJoin);
 			if (DashValues.count() != 0)
 				p->setDash(DashValues, DashOffset);
 		}
 		else
 			p->setLineWidth(0);
-		if (isTableItem)
-		{
-			if ((TopLine) || (RightLine) || (BottomLine) || (LeftLine))
-			{
-				p->newPath();
-				if (TopLine)
-				{
-					p->moveTo(0.0, 0.0);
-					p->lineTo(Width, 0.0);
-				}
-				if (RightLine)
-				{
-					p->moveTo(Width, 0.0);
-					p->lineTo(Width, Height);
-				}
-				if (BottomLine)
-				{
-					p->moveTo(0.0, Height);
-					p->lineTo(Width, Height);
-				}
-				if (LeftLine)
-				{
-					p->moveTo(0.0, 0.0);
-					p->lineTo(0.0, Height);
-				}
-				p->drawPolyLine();
-			}
-		}
-		else
+		if (!isTableItem)
 		{
 			p->setupPolygon(&PoLine);
 			if (NamedLStyle == "")
