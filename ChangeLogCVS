@@ -1,4 +1,14 @@
 Changes since Version 1.1.4
+28.12.2003	Text flows now around both Sides of Objects.
+		You can use now Units like pt or mm in Floating Point Spinboxes where applicable.
+		Added some new Commands to the Scripter:
+			- MessageBox
+			- StatusMessage
+			- GetColums
+			- GetColumnGap
+			- SetColums
+			- SetColumnGap
+
 27.12.2003	All Floating Point Spinboxes can now evaluate Expressions like
 		(1 + 3) * 5, there is now a full calculator available. (Code borrowed from QCad)
 

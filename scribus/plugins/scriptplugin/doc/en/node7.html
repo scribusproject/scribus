@@ -1,53 +1,55 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
 
-<!--Converted with LaTeX2HTML 2002-1 (1.69)
+<!--Converted with jLaTeX2HTML 2002 (1.62) JA patch-1.4
+patched version by:  Kenshi Muto, Debian Project.
+LaTeX2HTML 2002 (1.62),
 original version by:  Nikos Drakos, CBLU, University of Leeds
 * revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
 * with significant contributions from:
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
-<html>
-<head>
-<title>Creating and Destructing Objects</title>
-<meta name="description" content="Creating and Destructing Objects">
-<meta name="keywords" content="Manual">
-<meta name="resource-type" content="document">
-<meta name="distribution" content="global">
+<HTML>
+<HEAD>
+<TITLE>3.3.1 Creating and Destructing Objects</TITLE>
+<META NAME="description" CONTENT="3.3.1 Creating and Destructing Objects">
+<META NAME="keywords" CONTENT="Manual">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
 
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<meta name="Generator" content="LaTeX2HTML v2002-1">
-<meta http-equiv="Content-Style-Type" content="text/css">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002 JA patch-1.4">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
-<link rel="STYLESHEET" href="Manual.css">
+<LINK REL="STYLESHEET" HREF="Manual.css">
 
-<link rel="next" href="node8.html">
-<link rel="previous" href="node6.html">
-<link rel="up" href="node6.html">
-<link rel="next" href="node8.html">
-</head>
+<LINK REL="next" HREF="node8.html">
+<LINK REL="previous" HREF="node6.html">
+<LINK REL="up" HREF="node6.html">
+<LINK REL="next" HREF="node8.html">
+</HEAD>
 
-<body >
+<BODY >
 <!--Navigation Panel-->
 
-<b> Next:</b> <a name="tex2html128"
-  href="node8.html">Selecting Objects</a>
-<b> Up:</b> <a name="tex2html124"
-  href="node6.html">Object related Commands</a>
-<b> Previous:</b> <a name="tex2html118"
-  href="node6.html">Object related Commands</a>
- &nbsp; <b>  <a name="tex2html126"
-  href="node19.html">Index</a></b> 
-<br>
-<br>
+<B> Next:</B> <A NAME="tex2html128"
+  HREF="node8.html">3.3.2 Selecting Objects</A>
+<B> Up:</B> <A NAME="tex2html124"
+  HREF="node6.html">3.3 Object related Commands</A>
+<B> Previous:</B> <A NAME="tex2html118"
+  HREF="node6.html">3.3 Object related Commands</A>
+ &nbsp <B>  <A NAME="tex2html126"
+  HREF="node19.html">Index</A></B> 
+<BR>
+<BR>
 <!--End of Navigation Panel-->
 
-<h2><a name="SECTION00331000000000000000">
-Creating and Destructing Objects</a>
-</h2>
+<H2><A NAME="SECTION00331000000000000000">
+3.3.1 Creating and Destructing Objects</A>
+</H2>
 
-<p>
-<dl>
-<dt><strong>CreateBezierLine<a name="106"></a>(<i>list</i>,&nbsp;[''name''])</strong></dt>
-<dd>Creates
+<P>
+<DL>
+<DT><STRONG>CreateBezierLine<A NAME="106"></A>(<I>list</I>,&nbsp;[''name''])</STRONG></DT>
+<DD>Creates
 a new Bezier Curve and returns its Name. The Points for the Bezier
 Curve are stored in the List ``list'' in the following Order:
 x1, y1, kx1, ky1, x2, y2, kx2, ky2...xn. yn, kxn. kyn. Where x and
@@ -57,41 +59,41 @@ measurement Unit of the Document. ``name'' should be a unique
 Identifier for the Object because you need this Name for further referencing
 of that Object. If ``name is not given Scribus will create one
 for you.
-</dd>
-<dt><strong>CreateEllipse<a name="113"></a>(x,&nbsp;y,&nbsp;width,&nbsp;height,&nbsp;[''name''])</strong></dt>
-<dd>Creates
+</DD>
+<DT><STRONG>CreateEllipse<A NAME="113"></A>(x,&nbsp;y,&nbsp;width,&nbsp;height,&nbsp;[''name''])</STRONG></DT>
+<DD>Creates
 a new Ellipse on the actual Page and returns its Name. The Coordinates
 are given in the actual measurement Unit of the Document. ``name''
 should be a unique Identifier for the Object because you need this
 Name for further referencing of that Object. If ``name is not given
 Scribus will create one for you.
-</dd>
-<dt><strong>CreateImage<a name="118"></a>(x,&nbsp;y,&nbsp;width,&nbsp;height,&nbsp;[''name''])</strong></dt>
-<dd>Creates
+</DD>
+<DT><STRONG>CreateImage<A NAME="118"></A>(x,&nbsp;y,&nbsp;width,&nbsp;height,&nbsp;[''name''])</STRONG></DT>
+<DD>Creates
 a new Picture on the actual Page and returns its Name. The Coordinates
 are given in the actual measurement Unit of the Document. ``name''
 should be a unique Identifier for the Object because you need this
 Name for further referencing of that Object. If ``name is not given
 Scribus will create one for you.
-</dd>
-<dt><strong>CreateLine<a name="123"></a>(x1,&nbsp;y1,&nbsp;x2,&nbsp;y2,&nbsp;[''name''])</strong></dt>
-<dd>Creates
+</DD>
+<DT><STRONG>CreateLine<A NAME="123"></A>(x1,&nbsp;y1,&nbsp;x2,&nbsp;y2,&nbsp;[''name''])</STRONG></DT>
+<DD>Creates
 a new Line from the Point(x1, y1) to the Point(x2, y2) and returns
 its Name. The Coordinates are given in the actual measurement Unit
 of the Document. ``name'' should be a unique Identifier for the
 Object because you need this Name for further referencing of that
 Object. If ``name is not given Scribus will create one for you.
-</dd>
-<dt><strong>CreatePathText(x,&nbsp;y,&nbsp;``textbox'',&nbsp;''beziercurve'',&nbsp;[''name''])</strong></dt>
-<dd>Creates
+</DD>
+<DT><STRONG>CreatePathText(x,&nbsp;y,&nbsp;``textbox'',&nbsp;''beziercurve'',&nbsp;[''name''])</STRONG></DT>
+<DD>Creates
 a nex PathText by merging the 2 Objects ``textbox'' and ``beziercurve''
 and returns its Name. The Coordinates are given in the actual measurement
 Unit of the Document ``name'' should be a unique Identifier for
 the Object because you need this Name for further referencing of that
 Object. If ``name is not given Scribus will create one for you.
-</dd>
-<dt><strong>CreatePolygon<a name="135"></a>(<i>list</i>,&nbsp;[''name''])</strong></dt>
-<dd>Creates
+</DD>
+<DT><STRONG>CreatePolygon<A NAME="135"></A>(<I>list</I>,&nbsp;[''name''])</STRONG></DT>
+<DD>Creates
 a new Polygon and returns its Name. The Points for the Polygon are
 stored in the List ``list'' in the following Order: x1, y1, x2,
 y2...xn. yn. At least three Points are required. There is no need
@@ -101,52 +103,49 @@ are given in the actual measurement Unit of the Document. ``name''
 should be a unique Identifier for the Object because you need this
 Name for further referencing of that Object. If ``name is not given
 Scribus will create one for you.
-</dd>
-<dt><strong>CreatePolyLine<a name="142"></a>(<i>list</i>,&nbsp;[''name''])</strong></dt>
-<dd>Creates
+</DD>
+<DT><STRONG>CreatePolyLine<A NAME="142"></A>(<I>list</I>,&nbsp;[''name''])</STRONG></DT>
+<DD>Creates
 a new Polyline and returns its Name. The Points for the Polyline are
 stored in the List ``list'' in the following Order: x1, y1, x2,
 y2...xn. yn. The Coordinates are given in the actual measurement Unit
 of the Document. ``name'' should be a unique Identifier for the
 Object because you need this Name for further referencing of that
 Object. If ``name is not given Scribus will create one for you.
-</dd>
-<dt><strong>CreateRect<a name="149"></a>(x,&nbsp;y,&nbsp;width,&nbsp;height,&nbsp;[''name''])</strong></dt>
-<dd>Creates
+</DD>
+<DT><STRONG>CreateRect<A NAME="149"></A>(x,&nbsp;y,&nbsp;width,&nbsp;height,&nbsp;[''name''])</STRONG></DT>
+<DD>Creates
 a new Rectangle on the actual Page and returns its Name. The Coordinates
 are given in the actual measurement Unit of the Document. ``name''
 should be a unique Identifier for the Object because you need this
 Name for further referencing of that Object. If ``name is not given
 Scribus will create one for you.
-</dd>
-<dt><strong>CreateText<a name="154"></a>(x,&nbsp;y,&nbsp;width,&nbsp;height,&nbsp;[''name''])</strong></dt>
-<dd>Creates
+</DD>
+<DT><STRONG>CreateText<A NAME="154"></A>(x,&nbsp;y,&nbsp;width,&nbsp;height,&nbsp;[''name''])</STRONG></DT>
+<DD>Creates
 a new Rectangle on the actual Page and returns its Name. The Coordinates
 are given in the actual measurement Unit of the Document. ``name''
 should be a unique Identifier for the Object because you need this
 Name for further referencing of that Object. If ``name is not given
 Scribus will create one for you.
-</dd>
-<dt><strong>DeleteObject<a name="159"></a>([``name''])</strong></dt>
-<dd>Deletes the
+</DD>
+<DT><STRONG>DeleteObject<A NAME="159"></A>([``name''])</STRONG></DT>
+<DD>Deletes the
 Item with the Name ``name''. If ``name'' is not given the
 currently selected Item is deleted.
-</dd>
-</dl>
+</DD>
+</DL>
 
-<p>
-<hr>
-<!--Navigation Panel-->
+<P>
 
-<b> Next:</b> <a name="tex2html128"
-  href="node8.html">Selecting Objects</a>
-<b> Up:</b> <a name="tex2html124"
-  href="node6.html">Object related Commands</a>
-<b> Previous:</b> <a name="tex2html118"
-  href="node6.html">Object related Commands</a>
- &nbsp; <b>  <a name="tex2html126"
-  href="node19.html">Index</a></b> 
-<!--End of Navigation Panel-->
+<B> Next:</B> <A NAME="tex2html128"
+  HREF="node8.html">3.3.2 Selecting Objects</A>
+<B> Up:</B> <A NAME="tex2html124"
+  HREF="node6.html">3.3 Object related Commands</A>
+<B> Previous:</B> <A NAME="tex2html118"
+  HREF="node6.html">3.3 Object related Commands</A>
+ &nbsp <B>  <A NAME="tex2html126"
+  HREF="node19.html">Index</A></B> 
 
-</body>
-</html>
+</BODY>
+</HTML>

@@ -1,183 +1,208 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
 
-<!--Converted with LaTeX2HTML 2002-1 (1.69)
+<!--Converted with jLaTeX2HTML 2002 (1.62) JA patch-1.4
+patched version by:  Kenshi Muto, Debian Project.
+LaTeX2HTML 2002 (1.62),
 original version by:  Nikos Drakos, CBLU, University of Leeds
 * revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
 * with significant contributions from:
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
-<html>
-<head>
-<title>Handling Text Frames</title>
-<meta name="description" content="Handling text Frames">
-<meta name="keywords" content="Manual">
-<meta name="resource-type" content="document">
-<meta name="distribution" content="global">
+<HTML>
+<HEAD>
+<TITLE>3.3.6 Handling Text Frames</TITLE>
+<META NAME="description" CONTENT="3.3.6 Handling Text Frames">
+<META NAME="keywords" CONTENT="Manual">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
 
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<meta name="Generator" content="LaTeX2HTML v2002-1">
-<meta http-equiv="Content-Style-Type" content="text/css">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002 JA patch-1.4">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
-<link rel="STYLESHEET" href="Manual.css">
+<LINK REL="STYLESHEET" HREF="Manual.css">
 
-<link rel="previous" href="node11.html">
-<link rel="up" href="node6.html">
-<link rel="next" href="node13.html">
-</head>
+<LINK REL="previous" HREF="node11.html">
+<LINK REL="up" HREF="node6.html">
+<LINK REL="next" HREF="node13.html">
+</HEAD>
 
-<body >
-<!--Navigation Panel-->
+<BODY >
 
-<b> Next:</b> <a name="tex2html186"
-  href="node13.html">Other Commands</a>
-<b> Up:</b> <a name="tex2html182"
-  href="node6.html">Object related Commands</a>
-<b> Previous:</b> <a name="tex2html178"
-  href="node11.html">Manipulating Objects</a>
- &nbsp; <b>  <a name="tex2html184"
-  href="node19.html">Index</a></b> 
-<br>
-<br>
+<B> Next:</B> <A NAME="tex2html186"
+  HREF="node13.html">3.4 Other Commands</A>
+<B> Up:</B> <A NAME="tex2html182"
+  HREF="node6.html">3.3 Object related Commands</A>
+<B> Previous:</B> <A NAME="tex2html178"
+  HREF="node11.html">3.3.5 Manipulating Objects</A>
+ &nbsp <B>  <A NAME="tex2html184"
+  HREF="node19.html">Index</A></B> 
+<BR>
+<BR>
 <!--End of Navigation Panel-->
 
-<h2><a name="SECTION00336000000000000000">
-Handling Text Frames</a>
-</h2>
+<H2><A NAME="SECTION00336000000000000000">
+3.3.6 Handling Text Frames</A>
+</H2>
 
-<p>
-<dl>
-<dt><strong>DeleteText<a name="426"></a>([``name''])</strong></dt>
-<dd>Deletes the Text
+<P>
+<DL>
+<DT><STRONG>DeleteText<A NAME="426"></A>([``name''])</STRONG></DT>
+<DD>Deletes the Text
 of the Textframe ``name''. If there is some Text selected, this
 Text will be deleted. If ``name'' is not given the currently selected
 Item is used.
-</dd>
-<dt><strong>GetLineSpacing<a name="432"></a>([``name''])</strong></dt>
-<dd>Gets the
-Linespacing of the Text Frame ``name'' expressed in Points. If
-``name'' is not given the currently selected Item is used.
-</dd>
-<dt><strong>GetFont<a name="438"></a>([``name''])</strong></dt>
-<dd>Returns the Font for
+</DD>
+<DT><STRONG>GetAllText<A NAME="432"></A>([``name''])</STRONG></DT>
+<DD>Returns the Text
+of the Textframe ``name'' and of all Textframes which are linked
+with this Frame. If this Textframe has some Text selected, this Text
+is returned. If ``name'' is not given the currently selected Item
+is used.
+</DD>
+<DT><STRONG>GetColumnGap<A NAME="438"></A>([``name''])</STRONG></DT>
+<DD>Gets the Column
+Gap of the Text Frame ``name'' expressed in Points. If ``name''
+is not given the currently selected Item is used.
+</DD>
+<DT><STRONG>GetColumns<A NAME="444"></A>([``name''])</STRONG></DT>
+<DD>Gets the number
+of Columns of the Text Frame ``name''. If ``name'' is not
+given the currently selected Item is used.
+</DD>
+<DT><STRONG>GetFont<A NAME="450"></A>([``name''])</STRONG></DT>
+<DD>Returns the Font for
 the Textframe ``name''. If this Textframe has some Text selected
 the Value assigned to the first Character of the Selection is returned.
 If ``name'' is not given the currently selected Item is used.
-</dd>
-<dt><strong>GetFontSize<a name="444"></a>([``name''])</strong></dt>
-<dd>Returns the
+</DD>
+<DT><STRONG>GetFontSize<A NAME="456"></A>([``name''])</STRONG></DT>
+<DD>Returns the
 Fontsize for the Textframe ``name''. If this Textframe has some
 Text selected the Value assigned to the first Character of the Selection
 is returned. If ``name'' is not given the currently selected Item
 is used.
-</dd>
-<dt><strong>GetText<a name="450"></a>([``name''])</strong></dt>
-<dd>Returns the Text of
+</DD>
+<DT><STRONG>GetLineSpacing<A NAME="462"></A>([``name''])</STRONG></DT>
+<DD>Gets the
+Linespacing of the Text Frame ``name'' expressed in Points. If
+``name'' is not given the currently selected Item is used.
+</DD>
+<DT><STRONG>GetText<A NAME="468"></A>([``name''])</STRONG></DT>
+<DD>Returns the Text of
 the Textframe ``name''. If this Textframe has some Text selected,
 this Text is returned. If ``name'' is not given the currently
 selected Item is used.
-</dd>
-<dt><strong>GetTextColor<a name="456"></a>([``name''])</strong></dt>
-<dd>Returns the
+</DD>
+<DT><STRONG>GetTextColor<A NAME="474"></A>([``name''])</STRONG></DT>
+<DD>Returns the
 name of the Text Color of the Object ``name''. If this Textframe
 has some Text selected the Value assigned to the first Character of
 the Selection is returned. If ``name'' is not given the currently
 selected Item is used.
-</dd>
-<dt><strong>GetTextLength<a name="462"></a>([``name''])</strong></dt>
-<dd>Returns
+</DD>
+<DT><STRONG>GetTextLength<A NAME="480"></A>([``name''])</STRONG></DT>
+<DD>Returns
 the Length of the Text in the Textframe ``name''. If ``name''
 is not given the currently selected Item is used.
-</dd>
-<dt><strong>GetTextShade<a name="468"></a>([``name''])</strong></dt>
-<dd>Returns the
+</DD>
+<DT><STRONG>GetTextShade<A NAME="486"></A>([``name''])</STRONG></DT>
+<DD>Returns the
 shading Value of the Text Color of the Object ``name''. If this
 Textframe has some Text selected the Value assigned to the first Character
 of the Selection is returned. If ``name'' is not given the currently
 selected Item is used.
-</dd>
-<dt><strong>InsertText<a name="474"></a>(``text'',&nbsp;pos,&nbsp;[``name''])</strong></dt>
-<dd>Inserts
+</DD>
+<DT><STRONG>InsertText<A NAME="492"></A>(``text'',&nbsp;pos,&nbsp;[``name''])</STRONG></DT>
+<DD>Inserts
 the Text ``text'' at the Position ``pos'' into the Textframe
 The first Character has an Index of 0. ``name'' If ``name''
 is not given the currently selected Item is used.
-</dd>
-<dt><strong>SetTextAlignment<a name="483"></a>(align,&nbsp;[``name''])</strong></dt>
-<dd>Sets
-the Textalignment of the Text Frame ``name'' to the specified
-Alignment. If ``name'' is not given the currently selected Item
-is used. ``align'' can have the following values:
-</dd>
-</dl>
-<blockquote>
-<div align="LEFT">
-0 = Left Aligned
-<br>
-1 = Centered
-<br>
-2 = Right Aligned
-<br>
-3 = Forced
-</div>
-</blockquote>
-<dl>
-<dt><strong>SelectText<a name="496"></a>(start,&nbsp;count,&nbsp;[``name''])</strong></dt>
-<dd>Selects
+</DD>
+<DT><STRONG>SelectText<A NAME="501"></A>(start,&nbsp;count,&nbsp;[``name''])</STRONG></DT>
+<DD>Selects
 ``count'' Characters Text of the Textframe ``name'' starting
 from the Character ``start''. Character Counting starts at 0.
 If ``count'' is zero, any Text Selection will be cleared. If ``name''
 is not given the currently selected Item is used.
-</dd>
-<dt><strong>SetLineSpacing<a name="505"></a>(size,&nbsp;[``name''])</strong></dt>
-<dd>Sets
-the Linespacing of the Text Frame ``name'' to the Pointsize ``size''.
+</DD>
+<DT><STRONG>SetColumns<A NAME="510"></A>(nr,&nbsp;[``name''])</STRONG></DT>
+<DD>Sets the
+number of Columns of the Text Frame ``name'' to the Value ``nr''.
+If ``name'' is not given the currently selected Item is used. 
+</DD>
+<DT><STRONG>SetColumnGap<A NAME="517"></A>(size,&nbsp;[``name''])</STRONG></DT>
+<DD>Sets
+the Column Gap of the Text Frame ``name'' to the Value ``size''.
 If ``name'' is not given the currently selected Item is used.
-</dd>
-<dt><strong>SetFont<a name="512"></a>(''font'',&nbsp;[``name''])</strong></dt>
-<dd>Sets the
+</DD>
+<DT><STRONG>SetFont<A NAME="524"></A>(''font'',&nbsp;[``name''])</STRONG></DT>
+<DD>Sets the
 Font of the Text Frame ``name'' to ``font'', if there is some
 Text selected only the selected Text is changed. If ``name'' is
 not given the currently selected Item is used.
-</dd>
-<dt><strong>SetFontSize<a name="519"></a>(size,&nbsp;[``name''])</strong></dt>
-<dd>Sets
+</DD>
+<DT><STRONG>SetFontSize<A NAME="531"></A>(size,&nbsp;[``name''])</STRONG></DT>
+<DD>Sets
 the Fontsize of the Text Frame ``name'' to the Pointsize ``size'',
 if there is some Text selected only the selected Text is changed.
 ``size'' must be in the Range 1 to 512. If ``name'' is not
 given the currently selected Item is used.
-</dd>
-<dt><strong>SetText<a name="527"></a>(''text'',&nbsp;[``name''])</strong></dt>
-<dd>Sets the
+</DD>
+<DT><STRONG>SetLineSpacing<A NAME="539"></A>(size,&nbsp;[``name''])</STRONG></DT>
+<DD>Sets
+the Linespacing of the Text Frame ``name'' to the Pointsize ``size''.
+If ``name'' is not given the currently selected Item is used.
+</DD>
+<DT><STRONG>SetText<A NAME="546"></A>(''text'',&nbsp;[``name''])</STRONG></DT>
+<DD>Sets the
 Text of the Text Frame ``name'' to the Text of the String ``text''.
 If ``name'' is not given the currently selected Item is used.
-</dd>
-<dt><strong>SetTextColor<a name="534"></a>(''color'',&nbsp;[``name''])</strong></dt>
-<dd>Sets
+</DD>
+<DT><STRONG>SetTextAlignment<A NAME="553"></A>(align,&nbsp;[``name''])</STRONG></DT>
+<DD>Sets
+the Textalignment of the Text Frame ``name'' to the specified
+Alignment. If ``name'' is not given the currently selected Item
+is used. ``align'' can have the following values:
+</DD>
+</DL>
+<BLOCKQUOTE>
+<DIV ALIGN="LEFT">
+0 = Left Aligned
+<BR>
+1 = Centered
+<BR>
+2 = Right Aligned
+<BR>
+3 = Forced
+</DIV>
+</BLOCKQUOTE>
+<DL>
+<DT><STRONG>SetTextColor<A NAME="566"></A>(''color'',&nbsp;[``name''])</STRONG></DT>
+<DD>Sets
 the Text Color of the Object ``name'' to the Color ``color'',
 if there is some Text selected only the selected Text is changed.
 If ``name'' is not given the currently selected Item is used.
-</dd>
-<dt><strong>SetTextShade<a name="541"></a>(shade,&nbsp;[``name''])</strong></dt>
-<dd>Sets
+</DD>
+<DT><STRONG>SetTextShade<A NAME="573"></A>(shade,&nbsp;[``name''])</STRONG></DT>
+<DD>Sets
 the shading of the Text Color of the Object ``name'' to ``shade'',
 if there is some Text selected only the selected Text is changed.
 ``shade'' must be an Integer Value in the range from 0 (lightest)
 to 100 (full Color intensity). If ``name'' is not given the currently
 selected Item is used.
-</dd>
-</dl>
+</DD>
+</DL>
 
-<p>
-<hr>
-<!--Navigation Panel-->
+<P>
 
-<b> Next:</b> <a name="tex2html186"
-  href="node13.html">Other Commands</a>
-<b> Up:</b> <a name="tex2html182"
-  href="node6.html">Object related Commands</a>
-<b> Previous:</b> <a name="tex2html178"
-  href="node11.html">Manipulating Objects</a>
- &nbsp; <b>  <a name="tex2html184"
-  href="node19.html">Index</a></b> 
-<!--End of Navigation Panel-->
+<B> Next:</B> <A NAME="tex2html186"
+  HREF="node13.html">3.4 Other Commands</A>
+<B> Up:</B> <A NAME="tex2html182"
+  HREF="node6.html">3.3 Object related Commands</A>
+<B> Previous:</B> <A NAME="tex2html178"
+  HREF="node11.html">3.3.5 Manipulating Objects</A>
+ &nbsp <B>  <A NAME="tex2html184"
+  HREF="node19.html">Index</A></B> 
 
-</body>
-</html>
+</BODY>
+</HTML>

@@ -23,6 +23,10 @@ MSpinBox::MSpinBox(QWidget *pa, int s):QSpinBox(pa)
 {
 	switch (s)
 		{
+		case 0:
+			Decimals = 1;
+			Width = 0;
+			break;
 		case 1:
 			Decimals = 10;
 			Width = 1;
@@ -47,7 +51,7 @@ bool MSpinBox::eventFilter( QObject* ob, QEvent* ev )
 		QKeyEvent* k = (QKeyEvent*)ev;
 		if (k->key() == Key_Shift)
 			{
-			setLineStep(Decimals / 10);
+			setLineStep(QMAX(Decimals / 10, 1));
 			retval = true;
 	    qApp->sendEvent( this, ev );
 			return retval;
@@ -77,7 +81,42 @@ int MSpinBox::mapTextToValue(bool *)
 {
 	double dez = Width == 1 ? 10.0 : 100.0;
   FunctionParser fp;
-  int ret = fp.Parse(cleanText().latin1(), "", true);
+	QString ts = text();
+	QString su = suffix();
+	ts.replace(",", ".");
+	if (su == tr( " pt" ))
+		{
+		ts.replace("pt", "");
+		ts.replace("mm", "/25.4*72");
+		ts.replace("in", "*72");
+		ts.replace("p", "*12");
+		}
+	else if (su == tr( " mm" ))
+		{
+		ts.replace("pt", "/72*25.4");
+		ts.replace("mm", "");
+		ts.replace("in", "*25.4");
+		ts.replace("p", "/12*25.4");
+		}
+	else if (su == tr( " in" ))
+		{
+		ts.replace("pt", "/72");
+		ts.replace("mm", "/25.4");
+		ts.replace("in", "");
+		ts.replace("p", "/6");
+		}
+	else if (su == tr( " p" ))
+		{
+		ts.replace("pt", "/12");
+		ts.replace("mm", "/25.4*6");
+		ts.replace("in", "*6");
+		ts.replace("p", "");
+		}
+	else if (su != "")
+		{
+		ts.replace(su, " ");
+		}
+  int ret = fp.Parse(ts.latin1(), "", true);
 	if (ret >= 0)
 		return 0;
   double erg = fp.Eval(NULL);
@@ -88,6 +127,8 @@ void MSpinBox::setDecimals(int deci)
 {
 	Decimals = deci;
 	setLineStep(Decimals);
+	if (deci < 10)
+		Width = 0;
 	if (deci > 9 && deci < 100)
 		Width = 1;
 	if (deci > 99)

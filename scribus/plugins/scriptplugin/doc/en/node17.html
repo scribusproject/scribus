@@ -1,59 +1,92 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
 
-<!--Converted with LaTeX2HTML 2002-1 (1.69)
+<!--Converted with jLaTeX2HTML 2002 (1.62) JA patch-1.4
+patched version by:  Kenshi Muto, Debian Project.
+LaTeX2HTML 2002 (1.62),
 original version by:  Nikos Drakos, CBLU, University of Leeds
 * revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
 * with significant contributions from:
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
-<html>
-<head>
-<title>Using Dialogs from Scribus</title>
-<meta name="description" content="Using dialogs from Scribus">
-<meta name="keywords" content="Manual">
-<meta name="resource-type" content="document">
-<meta name="distribution" content="global">
+<HTML>
+<HEAD>
+<TITLE>3.5 Using Dialogs from Scribus</TITLE>
+<META NAME="description" CONTENT="3.5 Using Dialogs from Scribus">
+<META NAME="keywords" CONTENT="Manual">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
 
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<meta name="Generator" content="LaTeX2HTML v2002-1">
-<meta http-equiv="Content-Style-Type" content="text/css">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002 JA patch-1.4">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
-<link rel="STYLESHEET" href="Manual.css">
+<LINK REL="STYLESHEET" HREF="Manual.css">
 
-<link rel="next" href="node18.html">
-<link rel="previous" href="node13.html">
-<link rel="up" href="node3.html">
-<link rel="next" href="node18.html">
-</head>
+<LINK REL="next" HREF="node18.html">
+<LINK REL="previous" HREF="node13.html">
+<LINK REL="up" HREF="node3.html">
+<LINK REL="next" HREF="node18.html">
+</HEAD>
 
-<body >
-<!--Navigation Panel-->
+<BODY >
 
-<b> Next:</b> <a name="tex2html247"
-  href="node18.html">Predefined Constants</a>
-<b> Up:</b> <a name="tex2html243"
-  href="node3.html">The available Commands</a>
-<b> Previous:</b> <a name="tex2html237"
-  href="node16.html">Layer related Commands</a>
- &nbsp; <b>  <a name="tex2html245"
-  href="node19.html">Index</a></b> 
-<br>
-<br>
+<B> Next:</B> <A NAME="tex2html247"
+  HREF="node18.html">3.6 Predefined Constants</A>
+<B> Up:</B> <A NAME="tex2html243"
+  HREF="node3.html">3. The available Commands</A>
+<B> Previous:</B> <A NAME="tex2html237"
+  HREF="node16.html">3.4.3 Layer related Commands</A>
+ &nbsp <B>  <A NAME="tex2html245"
+  HREF="node19.html">Index</A></B> 
+<BR>
+<BR>
 <!--End of Navigation Panel-->
 
-<h1><a name="SECTION00350000000000000000">
-Using Dialogs from Scribus</a>
-</h1>
+<H1><A NAME="SECTION00350000000000000000">
+3.5 Using Dialogs from Scribus</A>
+</H1>
 
-<p>
-<dl>
-<dt><strong>NewDocDialog<a name="621"></a>()</strong></dt>
-<dd>Shows the ``New Document''
+<P>
+<DL>
+<DT><STRONG>FileDialog<A NAME="653"></A>(``caption'',&nbsp;``filter''&nbsp;``defaultName''&nbsp;[preview,&nbsp;mode])</STRONG></DT>
+<DD>Shows
+a FileSelect Box with the Caption ``caption''. Files are filtered
+with the Filter String ``filter'', refer to the Qt-Documentation
+for it's use. A default Filename can also supplied, leave this string
+empty when you don't want to use it. A Value of 1 for preview enables
+a small Preview Widget in the FileSelect Box.
+<BR>
+When the mode parameter is set to 1 the Dialog acts like a ``Save
+As'' Dialog otherwise it acts like a ``File Open Dialog''. The
+default for both of the opional Parameters is 0.
+</DD>
+<DT><STRONG>MessageBox<A NAME="663"></A>(``caption'',&nbsp;``message'',&nbsp;icon,&nbsp;Button1&nbsp;[Button2,&nbsp;Button3]</STRONG></DT>
+<DD>Shows
+a Message Box with the Title ``caption'', the Message ``message'',
+and an Icon icon and up to 3 Buttons. Button1 is always needed. For
+the icon and the Button Parameters there are predefined Constants
+available with the same Names as in the Qt Documentation. Returns
+the number of the selected Button.
+</DD>
+<DT><STRONG>NewDocDialog<A NAME="670"></A>()</STRONG></DT>
+<DD>Shows the ``New Document''
 Dialog Box. Returns true if a new Document was created.
-</dd>
-</dl>
+</DD>
+<DT><STRONG>StatusMessage<A NAME="672"></A>(``string'')</STRONG></DT>
+<DD>Displays the
+Message ``string'' in the StatusBar.
+</DD>
+</DL>
 
-<p>
-<br><hr>
+<P>
 
-</body>
-</html>
+<B> Next:</B> <A NAME="tex2html247"
+  HREF="node18.html">3.6 Predefined Constants</A>
+<B> Up:</B> <A NAME="tex2html243"
+  HREF="node3.html">3. The available Commands</A>
+<B> Previous:</B> <A NAME="tex2html237"
+  HREF="node16.html">3.4.3 Layer related Commands</A>
+ &nbsp <B>  <A NAME="tex2html245"
+  HREF="node19.html">Index</A></B> 
+
+</BODY>
+</HTML>

@@ -1,117 +1,115 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
 
-<!--Converted with LaTeX2HTML 2002-1 (1.69)
+<!--Converted with jLaTeX2HTML 2002 (1.62) JA patch-1.4
+patched version by:  Kenshi Muto, Debian Project.
+LaTeX2HTML 2002 (1.62),
 original version by:  Nikos Drakos, CBLU, University of Leeds
 * revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
 * with significant contributions from:
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
-<html>
-<head>
-<title>Manipulating Objects</title>
-<meta name="description" content="Manipulating Objects">
-<meta name="keywords" content="Manual">
-<meta name="resource-type" content="document">
-<meta name="distribution" content="global">
+<HTML>
+<HEAD>
+<TITLE>3.3.5 Manipulating Objects</TITLE>
+<META NAME="description" CONTENT="3.3.5 Manipulating Objects">
+<META NAME="keywords" CONTENT="Manual">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
 
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<meta name="Generator" content="LaTeX2HTML v2002-1">
-<meta http-equiv="Content-Style-Type" content="text/css">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002 JA patch-1.4">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
-<link rel="STYLESHEET" href="Manual.css">
+<LINK REL="STYLESHEET" HREF="Manual.css">
 
-<link rel="next" href="node12.html">
-<link rel="previous" href="node10.html">
-<link rel="up" href="node6.html">
-<link rel="next" href="node12.html">
-</head>
+<LINK REL="next" HREF="node12.html">
+<LINK REL="previous" HREF="node10.html">
+<LINK REL="up" HREF="node6.html">
+<LINK REL="next" HREF="node12.html">
+</HEAD>
 
-<body >
-<!--Navigation Panel-->
+<BODY >
 
-<b> Next:</b> <a name="tex2html176"
-  href="node12.html">Handling Text Frames</a>
-<b> Up:</b> <a name="tex2html172"
-  href="node6.html">Object related Commands</a>
-<b> Previous:</b> <a name="tex2html166"
-  href="node10.html">Getting Object Properties</a>
- &nbsp; <b>  <a name="tex2html174"
-  href="node19.html">Index</a></b> 
-<br>
-<br>
+<B> Next:</B> <A NAME="tex2html176"
+  HREF="node12.html">3.3.6 Handling Text Frames</A>
+<B> Up:</B> <A NAME="tex2html172"
+  HREF="node6.html">3.3 Object related Commands</A>
+<B> Previous:</B> <A NAME="tex2html166"
+  HREF="node10.html">3.3.4 Getting Object Properties</A>
+ &nbsp <B>  <A NAME="tex2html174"
+  HREF="node19.html">Index</A></B> 
+<BR>
+<BR>
 <!--End of Navigation Panel-->
 
-<h2><a name="SECTION00335000000000000000">
-Manipulating Objects</a>
-</h2>
+<H2><A NAME="SECTION00335000000000000000">
+3.3.5 Manipulating Objects</A>
+</H2>
 
-<p>
-<dl>
-<dt><strong>GroupObjects<a name="365"></a>([<i>list</i>])</strong></dt>
-<dd>Groups the
-Objects in ``<i>list</i>'' together. ``<i>list</i>'' must
-contain the Names of the Objects to be grouped. If ``<i>list</i>''
+<P>
+<DL>
+<DT><STRONG>GroupObjects<A NAME="365"></A>([<I>list</I>])</STRONG></DT>
+<DD>Groups the
+Objects in ``<I>list</I>'' together. ``<I>list</I>'' must
+contain the Names of the Objects to be grouped. If ``<I>list</I>''
 is not given the currently selected Items are used.
-</dd>
-<dt><strong>MoveObject<a name="375"></a>(dx,&nbsp;dy,&nbsp;[``name''])</strong></dt>
-<dd>Moves
+</DD>
+<DT><STRONG>MoveObject<A NAME="375"></A>(dx,&nbsp;dy,&nbsp;[``name''])</STRONG></DT>
+<DD>Moves
 the Object ``name'' by dx and dy relative to its origin. The Distances
 are expressed in the actual Measurement Unit of the Document. If ``name''
 is not given the currently selected Item is used. If the Object ``name''
 belongs to a Group, the whole Group is moved.
-</dd>
-<dt><strong>MoveObjectAbs<a name="382"></a>(x,&nbsp;y,&nbsp;[``name''])</strong></dt>
-<dd>Moves
+</DD>
+<DT><STRONG>MoveObjectAbs<A NAME="382"></A>(x,&nbsp;y,&nbsp;[``name''])</STRONG></DT>
+<DD>Moves
 the Object ``name'' to a new Location. The Coordinates are expressed
 in the actual Measurement Unit of the Document. If ``name'' is
 not given the currently selected Item is used. If the Object &#34;name&#34;
 belongs to a Group, the whole Group is moved.
-</dd>
-<dt><strong>RotateObject<a name="390"></a>(rot,&nbsp;[``name''])</strong></dt>
-<dd>Rotates
+</DD>
+<DT><STRONG>RotateObject<A NAME="390"></A>(rot,&nbsp;[``name''])</STRONG></DT>
+<DD>Rotates
 the Object ``name'' by ``rot'' Degrees. Positve Values mean
 counter clockwise Rotation. If ``name'' is not given the currently
 selected Item is used.
-</dd>
-<dt><strong>RotateObjectAbs<a name="397"></a>(rot,&nbsp;[``name''])</strong></dt>
-<dd>Sets
+</DD>
+<DT><STRONG>RotateObjectAbs<A NAME="397"></A>(rot,&nbsp;[``name''])</STRONG></DT>
+<DD>Sets
 the Rotation of the Object ``name'' to ``rot''. Positve Values
 mean counter clockwise Rotation. If ``name'' is not given the
 currently selected Item is used.
-</dd>
-<dt><strong>ScaleGroup<a name="404"></a>(factor,&nbsp;[``name''])</strong></dt>
-<dd>Scales
+</DD>
+<DT><STRONG>ScaleGroup<A NAME="404"></A>(factor,&nbsp;[``name''])</STRONG></DT>
+<DD>Scales
 the Group the Object ``name'' belongs to. Values greater than
 1 enlarge the Group, Values smaller than 1 make the Group smaller
 e.g a Value of 0.5 scales the Group to 50 % of is original Size,
 a Value of 1.5 scales the Group to 150 % of its original Size. The
 Value for ``factor'' must be greater than 0. If ``name'' is
 not given the currently selected Item is used.
-</dd>
-<dt><strong>SizeObject<a name="411"></a>(width,&nbsp;height,&nbsp;[``name''])</strong></dt>
-<dd>Resizes
+</DD>
+<DT><STRONG>SizeObject<A NAME="411"></A>(width,&nbsp;height,&nbsp;[``name''])</STRONG></DT>
+<DD>Resizes
 the Object ``name'' to the given Width and Height. If ``name''
 is not given the currently selected Item is used.
-</dd>
-<dt><strong>UnGroupObject<a name="417"></a>([``name''])</strong></dt>
-<dd>Destructs
+</DD>
+<DT><STRONG>UnGroupObject<A NAME="417"></A>([``name''])</STRONG></DT>
+<DD>Destructs
 the Group the Object ``name'' belongs to. If ``name'' is not
 given the currently selected Item is used.
-</dd>
-</dl>
+</DD>
+</DL>
 
-<p>
-<hr>
-<!--Navigation Panel-->
+<P>
 
-<b> Next:</b> <a name="tex2html176"
-  href="node12.html">Handling Text Frames</a>
-<b> Up:</b> <a name="tex2html172"
-  href="node6.html">Object related Commands</a>
-<b> Previous:</b> <a name="tex2html166"
-  href="node10.html">Getting Object Properties</a>
- &nbsp; <b>  <a name="tex2html174"
-  href="node19.html">Index</a></b> 
-<!--End of Navigation Panel-->
+<B> Next:</B> <A NAME="tex2html176"
+  HREF="node12.html">3.3.6 Handling Text Frames</A>
+<B> Up:</B> <A NAME="tex2html172"
+  HREF="node6.html">3.3 Object related Commands</A>
+<B> Previous:</B> <A NAME="tex2html166"
+  HREF="node10.html">3.3.4 Getting Object Properties</A>
+ &nbsp <B>  <A NAME="tex2html174"
+  HREF="node19.html">Index</A></B> 
 
-</body>
-</html>
+</BODY>
+</HTML>

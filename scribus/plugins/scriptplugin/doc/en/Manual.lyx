@@ -32,7 +32,7 @@ Scripting Scribus with Python
 Franz Schmid
 \layout Date
 
-04.11.2003
+28.12.2003
 \layout Abstract
 
 This is the description how to use the Scripting Plugin for Scribus.
@@ -2598,8 +2598,8 @@ name
  is not given the currently selected Item is used.
 \layout Description
 
-GetLineSpacing
-\begin_inset LatexCommand \index{GetLineSpacing}
+GetAllText
+\begin_inset LatexCommand \index{GetText}
 
 \end_inset 
 
@@ -2611,7 +2611,41 @@ name
 \begin_inset Quotes erd
 \end_inset 
 
-]) Gets the Linespacing of the Text Frame 
+]) Returns the Text of the Textframe 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ and of all Textframes which are linked with this Frame.
+ If this Textframe has some Text selected, this Text is returned.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
+GetColumnGap
+\begin_inset LatexCommand \index{GetColumnGap}
+
+\end_inset 
+
+([
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Gets the Column Gap of the Text Frame 
 \begin_inset Quotes eld
 \end_inset 
 
@@ -2620,6 +2654,39 @@ name
 \end_inset 
 
  expressed in Points.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
+GetColumns
+\begin_inset LatexCommand \index{GetColumns}
+
+\end_inset 
+
+([
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Gets the number of Columns of the Text Frame 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+.
  If 
 \begin_inset Quotes eld
 \end_inset 
@@ -2701,8 +2768,8 @@ name
  is not given the currently selected Item is used.
 \layout Description
 
-GetAllText
-\begin_inset LatexCommand \index{GetText}
+GetLineSpacing
+\begin_inset LatexCommand \index{GetLineSpacing}
 
 \end_inset 
 
@@ -2714,7 +2781,7 @@ name
 \begin_inset Quotes erd
 \end_inset 
 
-]) Returns the Text of the Textframe 
+]) Gets the Linespacing of the Text Frame 
 \begin_inset Quotes eld
 \end_inset 
 
@@ -2722,8 +2789,7 @@ name
 \begin_inset Quotes erd
 \end_inset 
 
- and of all Textframes which are linked with this Frame.
- If this Textframe has some Text selected, this Text is returned.
+ expressed in Points.
  If 
 \begin_inset Quotes eld
 \end_inset 
@@ -2931,58 +2997,6 @@ name
  is not given the currently selected Item is used.
 \layout Description
 
-SetTextAlignment
-\begin_inset LatexCommand \index{SetTextAlignment}
-
-\end_inset 
-
-(align,\SpecialChar ~
-[
-\begin_inset Quotes eld
-\end_inset 
-
-name
-\begin_inset Quotes erd
-\end_inset 
-
-]) Sets the Textalignment of the Text Frame 
-\begin_inset Quotes eld
-\end_inset 
-
-name
-\begin_inset Quotes erd
-\end_inset 
-
- to the specified Alignment.
- If 
-\begin_inset Quotes eld
-\end_inset 
-
-name
-\begin_inset Quotes erd
-\end_inset 
-
- is not given the currently selected Item is used.
- 
-\begin_inset Quotes eld
-\end_inset 
-
-align
-\begin_inset Quotes erd
-\end_inset 
-
- can have the following values:
-\layout Quotation
-\noindent \align left 
-0 = Left Aligned
-\newline 
-1 = Centered
-\newline 
-2 = Right Aligned
-\newline 
-3 = Forced
-\layout Description
-
 SelectText
 \begin_inset LatexCommand \index{SelectText}
 
@@ -3044,8 +3058,51 @@ name
  is not given the currently selected Item is used.
 \layout Description
 
-SetLineSpacing
-\begin_inset LatexCommand \index{SetLineSpacing}
+SetColumns
+\begin_inset LatexCommand \index{SetColumns}
+
+\end_inset 
+
+(nr,\SpecialChar ~
+[
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Sets the number of Columns of the Text Frame 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ to the Value 
+\begin_inset Quotes eld
+\end_inset 
+
+nr
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+ 
+\layout Description
+
+SetColumnGap
+\begin_inset LatexCommand \index{SetColumnGap}
 
 \end_inset 
 
@@ -3058,7 +3115,7 @@ name
 \begin_inset Quotes erd
 \end_inset 
 
-]) Sets the Linespacing of the Text Frame 
+]) Sets the Column Gap of the Text Frame 
 \begin_inset Quotes eld
 \end_inset 
 
@@ -3066,7 +3123,7 @@ name
 \begin_inset Quotes erd
 \end_inset 
 
- to the Pointsize 
+ to the Value 
 \begin_inset Quotes eld
 \end_inset 
 
@@ -3187,6 +3244,48 @@ name
  is not given the currently selected Item is used.
 \layout Description
 
+SetLineSpacing
+\begin_inset LatexCommand \index{SetLineSpacing}
+
+\end_inset 
+
+(size,\SpecialChar ~
+[
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Sets the Linespacing of the Text Frame 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ to the Pointsize 
+\begin_inset Quotes eld
+\end_inset 
+
+size
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
 SetText
 \begin_inset LatexCommand \index{SetText}
 
@@ -3235,6 +3334,58 @@ name
 \end_inset 
 
  is not given the currently selected Item is used.
+\layout Description
+
+SetTextAlignment
+\begin_inset LatexCommand \index{SetTextAlignment}
+
+\end_inset 
+
+(align,\SpecialChar ~
+[
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Sets the Textalignment of the Text Frame 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ to the specified Alignment.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+ 
+\begin_inset Quotes eld
+\end_inset 
+
+align
+\begin_inset Quotes erd
+\end_inset 
+
+ can have the following values:
+\layout Quotation
+\noindent \align left 
+0 = Left Aligned
+\newline 
+1 = Centered
+\newline 
+2 = Right Aligned
+\newline 
+3 = Forced
 \layout Description
 
 SetTextColor
@@ -3927,6 +4078,55 @@ File Open Dialog
  The default for both of the opional Parameters is 0.
 \layout Description
 
+MessageBox
+\begin_inset LatexCommand \index{MessageBox}
+
+\end_inset 
+
+(
+\begin_inset Quotes eld
+\end_inset 
+
+caption
+\begin_inset Quotes erd
+\end_inset 
+
+,\SpecialChar ~
+
+\begin_inset Quotes eld
+\end_inset 
+
+message
+\begin_inset Quotes erd
+\end_inset 
+
+,\SpecialChar ~
+icon,\SpecialChar ~
+Button1\SpecialChar ~
+[Button2,\SpecialChar ~
+Button3] Shows a Message Box with the Title 
+\begin_inset Quotes eld
+\end_inset 
+
+caption
+\begin_inset Quotes erd
+\end_inset 
+
+, the Message 
+\begin_inset Quotes eld
+\end_inset 
+
+message
+\begin_inset Quotes erd
+\end_inset 
+
+, and an Icon icon and up to 3 Buttons.
+ Button1 is always needed.
+ For the icon and the Button Parameters there are predefined Constants available
+ with the same Names as in the Qt Documentation.
+ Returns the number of the selected Button.
+\layout Description
+
 NewDocDialog
 \begin_inset LatexCommand \index{NewDocDialog}
 
@@ -3942,6 +4142,30 @@ New Document
 
  Dialog Box.
  Returns true if a new Document was created.
+\layout Description
+
+StatusMessage
+\begin_inset LatexCommand \index{StatusMessage}
+
+\end_inset 
+
+(
+\begin_inset Quotes eld
+\end_inset 
+
+string
+\begin_inset Quotes erd
+\end_inset 
+
+) Displays the Message 
+\begin_inset Quotes eld
+\end_inset 
+
+string
+\begin_inset Quotes erd
+\end_inset 
+
+ in the StatusBar.
 \layout Section
 
 Predefined Constants

@@ -68,6 +68,19 @@ PyObject *scribus_gettextsize(PyObject *self, PyObject* args)
 	  PyInt_FromLong(0L);
 }
 
+PyObject *scribus_getcolumns(PyObject *self, PyObject* args)
+{
+	char *Name = "";
+	if (!PyArg_ParseTuple(args, "|s", &Name))
+		return NULL;
+	if (!Carrier->HaveDoc)
+		return PyInt_FromLong(0L);
+	int i = GetItem(QString(Name));
+	return i != -1 ?
+		PyInt_FromLong(static_cast<long>(doc->ActPage->Items.at(i)->Cols)) :
+	  PyInt_FromLong(0L);
+}
+
 PyObject *scribus_getlinespace(PyObject *self, PyObject* args)
 {
 	char *Name = "";
@@ -78,6 +91,19 @@ PyObject *scribus_getlinespace(PyObject *self, PyObject* args)
 	int i = GetItem(QString(Name));
 	return i != -1 ?
 		PyFloat_FromDouble(static_cast<double>(doc->ActPage->Items.at(i)->LineSp)) :
+		PyFloat_FromDouble(0.0);
+}
+
+PyObject *scribus_getcolumngap(PyObject *self, PyObject* args)
+{
+	char *Name = "";
+	if (!PyArg_ParseTuple(args, "|s", &Name))
+		return NULL;
+	if (!Carrier->HaveDoc)
+		return PyFloat_FromDouble(0.0);
+	int i = GetItem(QString(Name));
+	return i != -1 ?
+		PyFloat_FromDouble(static_cast<double>(doc->ActPage->Items.at(i)->ColGap)) :
 		PyFloat_FromDouble(0.0);
 }
 
@@ -361,6 +387,36 @@ PyObject *scribus_setlinespace(PyObject *self, PyObject* args)
 	int i = GetItem(QString(Name));
 	if (i != -1)
 		doc->ActPage->Items.at(i)->LineSp = w;
+	return Py_None;
+}
+
+PyObject *scribus_setcolumngap(PyObject *self, PyObject* args)
+{
+	char *Name = "";
+	double w;
+	if (!PyArg_ParseTuple(args, "d|s", &w, &Name))
+		return NULL;
+	Py_INCREF(Py_None);
+	if ((!Carrier->HaveDoc) || (w < 0.0))
+		return Py_None;
+	int i = GetItem(QString(Name));
+	if (i != -1)
+		doc->ActPage->Items.at(i)->ColGap = w;
+	return Py_None;
+}
+
+PyObject *scribus_setcolumns(PyObject *self, PyObject* args)
+{
+	char *Name = "";
+	int w;
+	if (!PyArg_ParseTuple(args, "i|s", &w, &Name))
+		return NULL;
+	Py_INCREF(Py_None);
+	if ((!Carrier->HaveDoc) || (w < 1))
+		return Py_None;
+	int i = GetItem(QString(Name));
+	if (i != -1)
+		doc->ActPage->Items.at(i)->Cols = w;
 	return Py_None;
 }
 

@@ -311,6 +311,8 @@ static PyObject *scribus_getval(PyObject *self, PyObject* args)
 static PyMethodDef scribus_methods[] = {
 	{"NewDocDialog",			scribus_newdocdia,			METH_VARARGS},
 	{"FileDialog",				scribus_filedia,				METH_VARARGS},
+	{"StatusMessage",			scribus_mess,						METH_VARARGS},
+	{"MessageBox",				scribus_messdia,				METH_VARARGS},
 	{"NewDoc",						scribus_newdoc,					METH_VARARGS},
 	{"CloseDoc",					scribus_closedoc,				METH_VARARGS},
 	{"HaveDoc",						scribus_havedoc,				METH_VARARGS},
@@ -358,6 +360,8 @@ static PyMethodDef scribus_methods[] = {
 	{"GetTextLength",			scribus_gettextsize,		METH_VARARGS},
 	{"GetTextColor",			scribus_getlinecolor,		METH_VARARGS},
 	{"GetTextShade",			scribus_getlineshade,		METH_VARARGS},
+	{"GetColumns",				scribus_getcolumns,			METH_VARARGS},
+	{"GetColumnGap",			scribus_getcolumngap,		METH_VARARGS},
 	{"GetLineSpacing",		scribus_getlinespace,		METH_VARARGS},
 	{"GetText",						scribus_getframetext,		METH_VARARGS},
 	{"GetAllText",				scribus_gettext,				METH_VARARGS},
@@ -384,6 +388,8 @@ static PyMethodDef scribus_methods[] = {
 	{"SetTextColor",			scribus_settextfill,		METH_VARARGS},
 	{"SetTextStroke",			scribus_settextstroke,	METH_VARARGS},
 	{"SetTextShade",			scribus_settextshade,		METH_VARARGS},
+	{"SetColumns",				scribus_setcolumns,			METH_VARARGS},
+	{"SetColumnGap",			scribus_setcolumngap,		METH_VARARGS},
 	{"SetLineSpacing",		scribus_setlinespace,		METH_VARARGS},
 	{"SetTextAlignment",	scribus_setalign,				METH_VARARGS},
 	{"MoveObject",				scribus_moveobjrel,			METH_VARARGS},
@@ -457,6 +463,18 @@ void initscribus(ScribusApp *pl)
 	PyDict_SetItemString(d, "FlatCap",			 					Py_BuildValue("i", Qt::FlatCap));
 	PyDict_SetItemString(d, "SquareCap",		 					Py_BuildValue("i", Qt::SquareCap));
 	PyDict_SetItemString(d, "RoundCap",			 					Py_BuildValue("i", Qt::RoundCap));
+	PyDict_SetItemString(d, "NoButton",			 					Py_BuildValue("i", QMessageBox::NoButton));
+	PyDict_SetItemString(d, "Ok",			 								Py_BuildValue("i", QMessageBox::Ok));
+	PyDict_SetItemString(d, "Cancel",			 						Py_BuildValue("i", QMessageBox::Cancel));
+	PyDict_SetItemString(d, "Yes",			 							Py_BuildValue("i", QMessageBox::Yes));
+	PyDict_SetItemString(d, "No",			 								Py_BuildValue("i", QMessageBox::No));
+	PyDict_SetItemString(d, "Abort",			 						Py_BuildValue("i", QMessageBox::Abort));
+	PyDict_SetItemString(d, "Retry",			 						Py_BuildValue("i", QMessageBox::Retry));
+	PyDict_SetItemString(d, "Ignore",			 						Py_BuildValue("i", QMessageBox::Ignore));
+	PyDict_SetItemString(d, "NoIcon",			 						Py_BuildValue("i", QMessageBox::NoIcon));
+	PyDict_SetItemString(d, "Information",	 					Py_BuildValue("i", QMessageBox::Information));
+	PyDict_SetItemString(d, "Warning",			 					Py_BuildValue("i", QMessageBox::Warning));
+	PyDict_SetItemString(d, "Critical",			 					Py_BuildValue("i", QMessageBox::Critical));
 	PyDict_SetItemString(d, "Paper_A0", 							Py_BuildValue("(ff)", 2380.0, 3368.0));
 	PyDict_SetItemString(d, "Paper_A1", 							Py_BuildValue("(ff)", 1684.0, 2380.0));
 	PyDict_SetItemString(d, "Paper_A2", 							Py_BuildValue("(ff)", 1190.0, 1684.0));
