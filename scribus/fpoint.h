@@ -38,10 +38,30 @@ public:
 	bool operator!=(const FPoint &rhs);
 	FPoint &operator+=( const FPoint &p );
 	FPoint &operator-=( const FPoint &p );
+	friend inline const FPoint operator+( const FPoint &, const FPoint & );
+	friend inline const FPoint operator-( const FPoint &, const FPoint & );
+	friend inline const FPoint operator*( const FPoint &, const double & );
+	friend inline const FPoint operator*( const double &, const FPoint & );
+	friend inline const double  operator*( const FPoint &a, const FPoint &b );
 
 private:
 	double xp;
 	double yp;
 };
+
+inline const FPoint operator+( const FPoint &p1, const FPoint &p2 )
+{ return FPoint(p1.xp+p2.xp, p1.yp+p2.yp); }
+
+inline const FPoint operator-( const FPoint &p1, const FPoint &p2 )
+{ return FPoint(p1.xp-p2.xp, p1.yp-p2.yp); }
+
+inline const FPoint operator*( const FPoint &p, const double &c )
+{ return FPoint(p.xp*c, p.yp*c); }
+
+inline const FPoint operator*( const double &c, const FPoint &p )
+{ return FPoint(p.xp*c, p.yp*c); }
+
+inline const double operator*( const FPoint &a, const FPoint &b )
+{ return a.xp * b.xp + a.yp * b.yp; }
 
 #endif

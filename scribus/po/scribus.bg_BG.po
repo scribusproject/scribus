@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-08 13:01+0100\n"
+"POT-Creation-Date: 2005-02-22 10:41+0100\n"
 "PO-Revision-Date: 2001-12-14 01:18+0200\n"
 "Last-Translator: Vasko Tomanov <vasko@web.bg>\n"
 "Content-Type: text/plain; charset=cp1251\n"
@@ -5295,6 +5295,10 @@ msgstr ""
 msgid "Polish:"
 msgstr ""
 
+#, fuzzy
+msgid "Portugese (Brazilian):"
+msgstr "Украйнски:"
+
 msgid "Russian:"
 msgstr ""
 
@@ -6622,11 +6626,12 @@ msgid ""
 "edit macro dialog box.</qt>"
 msgstr ""
 
-msgid "Close this dialog."
-msgstr ""
+#, fuzzy
+msgid "Close this dialog"
+msgstr "Вмъкване на илюстрация"
 
 #, fuzzy
-msgid "Return to Scribus."
+msgid "Return to Scribus"
 msgstr "За Scribus"
 
 msgid ""
@@ -6674,7 +6679,7 @@ msgid ""
 "macro manager does not have the source code for the macro you have selected "
 "(in which case <tt>No</tt> will be shown in the <tt>Edit </tt>column of the "
 "macro).</p>\n"
-"<p>If scribus doesn't have the source, the macro was probably created by a "
+"<p>If Scribus doesn't have the source, the macro was probably created by a "
 "script.</p>"
 msgstr ""
 
@@ -6756,6 +6761,55 @@ msgstr ""
 #, fuzzy
 msgid "S&cripter Manual..."
 msgstr "Документация"
+
+msgid ""
+"Scribus Python interface module\n"
+"\n"
+"This module is the Python interface for Scribus. It provides functions\n"
+"to control scribus and to manipulate objects on the canvas. Each\n"
+"function is documented individually below.\n"
+"\n"
+"A few things are common across most of the interface.\n"
+"\n"
+"Most functions operate on frames. Frames are identified by their name,\n"
+"a string - they are not real Python objects. Many functions take an\n"
+"optional (non-keyword) parameter, a frame name.\n"
+"Many exceptions are also common across most functions. These are\n"
+"not currently documented in the docstring for each function.\n"
+"- Many functions will raise a NoDocOpenError if you try to use themwithout a "
+"document to operate on.\n"
+"- If you do not pass a frame name to a function that requires one,the "
+"function will use the currently selected frame, if any, orraise a "
+"NoValidObjectError if it can't find anything to operateon.\n"
+"- Many functions will raise WrongFrameTypeError if you try to use them\n"
+"on a frame type that they do not make sense with. For example, setting\n"
+"the text colour on a graphics frame doesn't make sense, and will result\n"
+"in this exception being raised.\n"
+"- Errors resulting from calls to the underlying Python API will be\n"
+"passed through unaltered. As such, the list of exceptions thrown by\n"
+"any function as provided here and in its docstring is incomplete.\n"
+"\n"
+"Details of what exceptions each function may throw are provided on the\n"
+"function's documentation."
+msgstr ""
+
+msgid "Script Console"
+msgstr ""
+
+msgid "Tried to set progress > maximum progress"
+msgstr ""
+
+msgid "Failed to save EPS"
+msgstr ""
+
+msgid "Page number out of range"
+msgstr ""
+
+msgid "argument is not list: must be list of float values"
+msgstr ""
+
+msgid "argument contains non-numeric values: must be list of float values"
+msgstr ""
 
 #, fuzzy
 msgid "&Scribus Scripts"
@@ -6843,55 +6897,6 @@ msgstr "Скрий инструментите"
 msgid "About Script"
 msgstr "За Scribus"
 
-msgid ""
-"Scribus Python interface module\n"
-"\n"
-"This module is the Python interface for Scribus. It provides functions\n"
-"to control scribus and to manipulate objects on the canvas. Each\n"
-"function is documented individually below.\n"
-"\n"
-"A few things are common across most of the interface.\n"
-"\n"
-"Most functions operate on frames. Frames are identified by their name,\n"
-"a string - they are not real Python objects. Many functions take an\n"
-"optional (non-keyword) parameter, a frame name.\n"
-"Many exceptions are also common across most functions. These are\n"
-"not currently documented in the docstring for each function.\n"
-"- Many functions will raise a NoDocOpenError if you try to use themwithout a "
-"document to operate on.\n"
-"- If you do not pass a frame name to a function that requires one,the "
-"function will use the currently selected frame, if any, orraise a "
-"NoValidObjectError if it can't find anything to operateon.\n"
-"- Many functions will raise WrongFrameTypeError if you try to use them\n"
-"on a frame type that they do not make sense with. For example, setting\n"
-"the text colour on a graphics frame doesn't make sense, and will result\n"
-"in this exception being raised.\n"
-"- Errors resulting from calls to the underlying Python API will be\n"
-"passed through unaltered. As such, the list of exceptions thrown by\n"
-"any function as provided here and in its docstring is incomplete.\n"
-"\n"
-"Details of what exceptions each function may throw are provided on the\n"
-"function's documentation."
-msgstr ""
-
-msgid "Script Console"
-msgstr ""
-
-msgid "Tried to set progress > maximum progress"
-msgstr ""
-
-msgid "Failed to save EPS"
-msgstr ""
-
-msgid "Page number out of range"
-msgstr ""
-
-msgid "argument is not list: must be list of float values"
-msgstr ""
-
-msgid "argument contains non-numeric values: must be list of float values"
-msgstr ""
-
 msgid "Editing Macro: <b>"
 msgstr ""
 
@@ -6968,10 +6973,10 @@ msgstr "Отпечатване на текущ документ"
 msgid "Target is not an image frame."
 msgstr ""
 
-msgid "Can't scale by 0%"
+msgid "Cannot scale by 0%."
 msgstr ""
 
-msgid "Specified item not an image frame"
+msgid "Specified item not an image frame."
 msgstr ""
 
 msgid "Cannot get font size of non-text frame."
@@ -7004,92 +7009,106 @@ msgstr "Редактиране на промените на рамката"
 msgid "Cannot insert text into non-text frame."
 msgstr ""
 
-msgid "Insert index out of bounds"
+msgid "Insert index out of bounds."
 msgstr ""
 
 msgid "Alignment out of range. Use one of the scribus.ALIGN* constants."
 msgstr ""
 
-msgid "Can't set text alignment on a non-text frame"
+#, fuzzy
+msgid "Cannot set text alignment on a non-text frame."
+msgstr "Редактиране на промените на рамката"
+
+msgid "Font size out of bounds - must be 1 <= size <= 512."
 msgstr ""
 
-msgid "Font size out of bounds - must be 1 <= size <= 512"
+#, fuzzy
+msgid "Cannot set font size on a non-text frame."
+msgstr "Редактиране на промените на рамката"
+
+#, fuzzy
+msgid "Cannot set font on a non-text frame."
+msgstr "Редактиране на промените на рамката"
+
+#, fuzzy
+msgid "Font not found."
+msgstr "Отпечатване на текущ документ"
+
+msgid "Line space out of bounds, must be >= 0.1."
 msgstr ""
 
-msgid "Can't set font size on a non-text frame"
+#, fuzzy
+msgid "Cannot set line spacing on a non-text frame."
+msgstr "Редактиране на промените на рамката"
+
+msgid "Column gap out of bounds, must be positive."
 msgstr ""
 
-msgid "Can't set font on a non-text frame"
+#, fuzzy
+msgid "Cannot set column gap on a non-text frame."
+msgstr "Редактиране на промените на рамката"
+
+msgid "Column count out of bounds, must be > 1."
 msgstr ""
 
-msgid "Font not found"
-msgstr ""
-
-msgid "Line space out of bounds, must be >= 0.1"
-msgstr ""
-
-msgid "Can't line spacing on a non-text frame"
-msgstr ""
-
-msgid "Column gap out of bounds, must be positive"
-msgstr ""
-
-msgid "Can't column gap on a non-text frame"
-msgstr ""
-
-msgid "Column count out of bounds, must be > 1"
-msgstr ""
-
-msgid "Can't number of columns on a non-text frame"
-msgstr ""
+#, fuzzy
+msgid "Cannot set number of columns on a non-text frame."
+msgstr "Редактиране на промените на рамката"
 
 msgid "Selection index out of bounds"
 msgstr ""
 
-msgid "Can't select text in a non-text frame"
+#, fuzzy
+msgid "Cannot select text in a non-text frame"
+msgstr "Редактиране на промените на рамката"
+
+#, fuzzy
+msgid "Cannot delete text from a non-text frame."
+msgstr "Редактиране на промените на рамката"
+
+#, fuzzy
+msgid "Cannot set text fill on a non-text frame."
+msgstr "Редактиране на промените на рамката"
+
+#, fuzzy
+msgid "Cannot set text stroke on a non-text frame."
+msgstr "Редактиране на промените на рамката"
+
+#, fuzzy
+msgid "Cannot set text shade on a non-text frame."
+msgstr "Редактиране на промените на рамката"
+
+#, fuzzy
+msgid "Can only link text frames."
+msgstr "Скрий рамките"
+
+msgid "Target frame must be empty."
 msgstr ""
 
-msgid "Can't delete text from a non-text frame"
+msgid "Target frame links to another frame."
 msgstr ""
 
-msgid "Can't set text fill on a non-text frame"
+msgid "Target frame is linked to by another frame."
 msgstr ""
 
-msgid "Can't set text stroke on a non-text frame"
-msgstr ""
-
-msgid "Can't set text shade on a non-text frame"
+msgid "Source and target are the same object."
 msgstr ""
 
 #, fuzzy
-msgid "Can only link text frames"
-msgstr "Скрий рамките"
+msgid "Cannot unlink a non-text frame."
+msgstr "Редактиране на промените на рамката"
 
-msgid "Target frame must be empty"
-msgstr ""
-
-msgid "Target frame links to another frame"
-msgstr ""
-
-msgid "Target frame is linked to by another frame"
-msgstr ""
-
-msgid "Source and target are the same object"
-msgstr ""
-
-msgid "Can't unlink a non-text frame"
-msgstr ""
-
-msgid "Object is not a linked text frame, can't unlink."
+msgid "Object is not a linked text frame, cannot unlink."
 msgstr ""
 
 msgid ""
-"Object the last frame in a series, can't unlink. Unlink the previous frame "
+"Object the last frame in a series, cannot unlink. Unlink the previous frame "
 "instead."
 msgstr ""
 
-msgid "Can't convert a non-text frame to outlines"
-msgstr ""
+#, fuzzy
+msgid "Cannot convert a non-text frame to outlines."
+msgstr "Редактиране на промените на рамката"
 
 #, fuzzy
 msgid "Insert value"
@@ -7225,23 +7244,28 @@ msgid ""
 "some other input mechanism, but this option is here just in case.</p></qt>"
 msgstr ""
 
-msgid "Can't render an empty sample"
+#, fuzzy
+msgid "Cannot render an empty sample."
+msgstr "Създаване на нов документ"
+
+#, fuzzy
+msgid "Cannot save to a blank filename."
+msgstr "Редактиране на промените на рамката"
+
+#, fuzzy
+msgid "Cannot have an empty layer name."
+msgstr "Редактиране на промените на рамката"
+
+#, fuzzy
+msgid "Layer not found."
+msgstr "Отпечатване на текущ документ"
+
+msgid "Cannot remove the last layer."
 msgstr ""
 
-msgid "Can't save to a blank filename"
-msgstr ""
-
-msgid "Can't have an empty layer name"
-msgstr ""
-
-msgid "Layer not found"
-msgstr ""
-
-msgid "Can't remove the last layer"
-msgstr ""
-
-msgid "Can't create layer without a name"
-msgstr ""
+#, fuzzy
+msgid "Cannot create layer without a name."
+msgstr "Създаване на нов документ"
 
 #, fuzzy
 msgid "Color not found - python error"
@@ -7252,7 +7276,7 @@ msgid "Cannot get a color with an empty name."
 msgstr "Редактиране на промените на рамката"
 
 #, fuzzy
-msgid "Color not found"
+msgid "Color not found."
 msgstr "Отпечатване на текущ документ"
 
 #, fuzzy
@@ -7260,11 +7284,12 @@ msgid "Cannot change a color with an empty name."
 msgstr "Редактиране на промените на рамката"
 
 #, fuzzy
-msgid "Color not found in document"
+msgid "Color not found in document."
 msgstr "Затвори текущия документ"
 
-msgid "Color not found in default colors"
-msgstr ""
+#, fuzzy
+msgid "Color not found in default colors."
+msgstr "Затвори текущия документ"
 
 #, fuzzy
 msgid "Cannot create a color with an empty name."

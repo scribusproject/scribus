@@ -128,7 +128,7 @@ PyObject *scribus_layerprint(PyObject */*self*/, PyObject* args);
 PyDoc_STRVAR(scribus_glayervisib__doc__,
 QT_TR_NOOP("isLayerPrintable(\"layer\") -> bool\n\
 \n\
-Returns wether the Layer \"layer\" is visible or not, a value of True means\n\
+Returns whether the layer \"layer\" is visible or not, a value of True means\n\
 that the layer \"layer\" is visible, a value of False means that the layer\n\
 \"layer\" is invisible.\n\
 \n\
@@ -142,7 +142,7 @@ PyObject *scribus_glayervisib(PyObject */*self*/, PyObject* args);
 PyDoc_STRVAR(scribus_glayerprint__doc__,
 QT_TR_NOOP("isLayerPrintable(\"layer\") -> bool\n\
 \n\
-Returns wether the layer \"layer\" is printable or not, a value of True means\n\
+Returns whether the layer \"layer\" is printable or not, a value of True means\n\
 that the layer \"layer\" can be printed, a value of False means that printing\n\
 the layer \"layer\" is disabled.\n\
 \n\

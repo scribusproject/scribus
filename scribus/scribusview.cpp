@@ -1204,7 +1204,7 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 										if (((*Doc->AllFonts)[hl->cfont]->CharWidth.contains(chr)) && (chr != 32))
 										{
 											p->PS_save();
-											p->PS_translate(hl->PtransX, -hl->PtransY);
+/*											p->PS_translate(hl->PtransX, -hl->PtransY);
 											p->PS_rotate(-hl->PRot);
 											if (c->Reverse)
 											{
@@ -1224,13 +1224,19 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 												p->PS_translate(wideR, 0);
 											}
 											else
-												p->PS_translate(hl->xp, (hl->yp - (tsz / 10.0)) * -1);
+												p->PS_translate(hl->xp, (hl->yp - (tsz / 10.0)) * -1); */
 											if (hl->cscale != 100)
 												p->PS_scale(hl->cscale / 100.0, 1);
 											if (hl->ccolor != "None")
 											{
 												SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
 												p->PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+												p->PutSeite("[ 1 0 0 -1 " + p->ToStr(-hl->PRot) + " 0 ]\n");
+												p->PutSeite("["+p->ToStr(hl->PtransX) + " " + p->ToStr(-hl->PtransY) + " " + p->ToStr(-hl->PtransY) + " " + p->ToStr(-hl->PtransX) + " " + p->ToStr(hl->xp) + " " + p->ToStr(-hl->yp) + "]\n");
+												p->PutSeite("[ 0 0 0 0 0 0 ] concatmatrix\nconcat\n");
+												p->PS_translate(0, (tsz / 10.0));
+												if (c->BaseOffs != 0)
+													p->PS_translate(0, -c->BaseOffs);
 												p->PS_showSub(chr, (*Doc->AllFonts)[hl->cfont]->RealName().simplifyWhiteSpace().replace( QRegExp("\\s"), "" ), tsz / 10.0, false);
 											}
 											p->PS_restore();
@@ -1240,9 +1246,12 @@ void ScribusView::CreatePS(PSLib *p, std::vector<int> &pageNs, bool sep, QString
 									{
 										p->PS_selectfont(hl->cfont, tsz / 10.0);
 										p->PS_save();
-										p->PS_translate(hl->PtransX, -hl->PtransY);
-										p->PS_rotate(-hl->PRot);
-										p->PS_show_xyG(hl->cfont, chx, hl->xp, -hl->yp);
+										p->PutSeite("[ 1 0 0 -1 " + p->ToStr(-hl->PRot) + " 0 ]\n");
+										p->PutSeite("["+p->ToStr(hl->PtransX) + " " + p->ToStr(-hl->PtransY) + " " + p->ToStr(-hl->PtransY) + " " + p->ToStr(-hl->PtransX) + " " + p->ToStr(hl->xp) + " " + p->ToStr(-hl->yp) + "]\n");
+										p->PutSeite("[ 0 0 0 0 0 0 ] concatmatrix\nconcat\n");
+										if (c->BaseOffs != 0)
+											p->PS_translate(0, -c->BaseOffs);
+										p->PS_show_xyG(hl->cfont, chx, 0, 0);
 										p->PS_restore();
 									}
 								}
@@ -2363,7 +2372,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 								if (((*Doc->AllFonts)[hl->cfont]->CharWidth.contains(chr)) && (chr != 32))
 								{
 									p->PS_save();
-									p->PS_translate(hl->PtransX, -hl->PtransY);
+/*									p->PS_translate(hl->PtransX, -hl->PtransY);
 									p->PS_rotate(-hl->PRot);
 									if (c->Reverse)
 									{
@@ -2383,13 +2392,19 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 										p->PS_translate(wideR, 0);
 									}
 									else
-										p->PS_translate(hl->xp, (hl->yp - (tsz / 10.0)) * -1);
+										p->PS_translate(hl->xp, (hl->yp - (tsz / 10.0)) * -1); */
 									if (hl->cscale != 100)
 										p->PS_scale(hl->cscale / 100.0, 1);
 									if (hl->ccolor != "None")
 									{
 										SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
 										p->PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+										p->PutSeite("[ 1 0 0 -1 " + p->ToStr(-hl->PRot) + " 0 ]\n");
+										p->PutSeite("["+p->ToStr(hl->PtransX) + " " + p->ToStr(-hl->PtransY) + " " + p->ToStr(-hl->PtransY) + " " + p->ToStr(-hl->PtransX) + " " + p->ToStr(hl->xp) + " " + p->ToStr(-hl->yp) + "]\n");
+										p->PutSeite("[ 0 0 0 0 0 0 ] concatmatrix\nconcat\n");
+										p->PS_translate(0, (tsz / 10.0));
+										if (c->BaseOffs != 0)
+											p->PS_translate(0, -c->BaseOffs);
 										p->PS_showSub(chr, (*Doc->AllFonts)[hl->cfont]->RealName().simplifyWhiteSpace().replace( QRegExp("\\s"), "" ), tsz / 10.0, false);
 									}
 									p->PS_restore();
@@ -2399,9 +2414,14 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 							{
 								p->PS_selectfont(hl->cfont, tsz / 10.0);
 								p->PS_save();
-								p->PS_translate(hl->PtransX, -hl->PtransY);
-								p->PS_rotate(-hl->PRot);
-								p->PS_show_xyG(hl->cfont, chx, hl->xp, -hl->yp);
+/*								p->PS_translate(hl->PtransX, -hl->PtransY);
+								p->PS_rotate(-hl->PRot); */
+								p->PutSeite("[ 1 0 0 -1 " + p->ToStr(-hl->PRot) + " 0 ]\n");
+								p->PutSeite("["+p->ToStr(hl->PtransX) + " " + p->ToStr(-hl->PtransY) + " " + p->ToStr(-hl->PtransY) + " " + p->ToStr(-hl->PtransX) + " " + p->ToStr(hl->xp) + " " + p->ToStr(-hl->yp) + "]\n");
+								p->PutSeite("[ 0 0 0 0 0 0 ] concatmatrix\nconcat\n");
+								if (c->BaseOffs != 0)
+									p->PS_translate(0, -c->BaseOffs);
+								p->PS_show_xyG(hl->cfont, chx, 0, 0);
 								p->PS_restore();
 							}
 						}

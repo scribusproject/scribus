@@ -62,8 +62,8 @@ struct Pti {
 		    int cshade2;
 		    int cstyle;
 		    int cab;
-		    int PtransX;
-			int PtransY;
+		    double PtransX;
+			double PtransY;
 			int cscale;
 			double PRot;
 		   };

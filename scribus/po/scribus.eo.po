@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-08 13:01+0100\n"
+"POT-Creation-Date: 2005-02-22 10:41+0100\n"
 "PO-Revision-Date: 2005-01-08 17:40+0100\n"
 "Last-Translator: Pier Luigi Cinquantini <plcinquantini@katamail.com>\n"
 "Language-Team: esperanto <eo@li.org>\n"
@@ -4932,6 +4932,10 @@ msgstr "Norvega:"
 msgid "Polish:"
 msgstr "Pola:"
 
+#, fuzzy
+msgid "Portugese (Brazilian):"
+msgstr "Brazila"
+
 msgid "Russian:"
 msgstr "Rusa:"
 
@@ -6187,11 +6191,12 @@ msgid ""
 "edit macro dialog box.</qt>"
 msgstr ""
 
-msgid "Close this dialog."
-msgstr ""
+#, fuzzy
+msgid "Close this dialog"
+msgstr "Fermu ĉi tiun Bezier-kurbon"
 
 #, fuzzy
-msgid "Return to Scribus."
+msgid "Return to Scribus"
 msgstr "Pri Scribus"
 
 msgid ""
@@ -6241,7 +6246,7 @@ msgid ""
 "macro manager does not have the source code for the macro you have selected "
 "(in which case <tt>No</tt> will be shown in the <tt>Edit </tt>column of the "
 "macro).</p>\n"
-"<p>If scribus doesn't have the source, the macro was probably created by a "
+"<p>If Scribus doesn't have the source, the macro was probably created by a "
 "script.</p>"
 msgstr ""
 
@@ -6325,87 +6330,6 @@ msgstr ""
 
 msgid "S&cripter Manual..."
 msgstr "S&kriptilo-manlibro..."
-
-msgid "&Scribus Scripts"
-msgstr "&Scribus-skriptoj"
-
-msgid "&Execute Script..."
-msgstr "&Plenumu skripton..."
-
-msgid "Run a Python script from a file."
-msgstr ""
-
-#, fuzzy
-msgid "&Load Extension Script..."
-msgstr "&Plenumu skripton..."
-
-msgid ""
-"Load a Python script as an extension. Used for loading macros and for "
-"advanced Python scripts that extend the Scribus user interface."
-msgstr ""
-
-msgid "&Recent Scripts"
-msgstr "&Lastaj skriptoj"
-
-msgid "Show &Console"
-msgstr "Montru &konzolon"
-
-msgid ""
-"Display an interactive Python console where you can write and run Python "
-"programs that use the Scripter tools."
-msgstr ""
-
-msgid "&About Script..."
-msgstr "Pri &Skriptoj..."
-
-msgid "S&cript"
-msgstr "S&kriptoj"
-
-#, fuzzy
-msgid "Scripter &Settings"
-msgstr "Stil-agordaro"
-
-msgid "Python Scripts (*.py);; All Files (*)"
-msgstr "Pitonskriptoj (*.py);; Ĉiaj dosieroj (*)"
-
-msgid "Script error"
-msgstr "Skriptoeraro"
-
-msgid ""
-"If you are running an official script report it at <a href=\"http://bugs."
-"scribus.net\">bugs.scribus.net</a> please."
-msgstr ""
-"Se nun temas pri oficiala skripto bonvolu raporti ĝin al <a href=\"http://"
-"bugs.scribus.net\">bugs.scribus.net</a>."
-
-msgid ""
-"This message is in your clipboard too. Use Ctrl+V to paste it into bug "
-"tracker."
-msgstr ""
-"Ĉi tiu mesaĝo estas ankaŭ en via poŝo. Uzu Stir+V por elpoŝigi ĝin en la "
-"erarospurilon."
-
-#, fuzzy
-msgid "Scribus - Script Plugin"
-msgstr "&Scribus-skriptoj"
-
-msgid ""
-"The 'Load Script' function of the script plugin is currently disabled.\n"
-"If you just want to run a normal script, you probably want to use\n"
-"'Execute Script...' instead.\n"
-"\n"
-"If you do actually want to load a Python extension script or macro, you\n"
-"need to go into the Scripter Settings in the Script menu and enable\n"
-"scripter extensions there.\n"
-"\n"
-"Please read the documentation on extension scripts first.\n"
-msgstr ""
-
-msgid "Hide &Console"
-msgstr "Kaŝu &konzolon"
-
-msgid "About Script"
-msgstr "Pri Scriptoj"
 
 #, fuzzy
 msgid ""
@@ -6503,6 +6427,87 @@ msgstr ""
 "la argumento entenas ne-numerajn valorojn: ĝi devas estis listo de decimalaj "
 "valoroj"
 
+msgid "&Scribus Scripts"
+msgstr "&Scribus-skriptoj"
+
+msgid "&Execute Script..."
+msgstr "&Plenumu skripton..."
+
+msgid "Run a Python script from a file."
+msgstr ""
+
+#, fuzzy
+msgid "&Load Extension Script..."
+msgstr "&Plenumu skripton..."
+
+msgid ""
+"Load a Python script as an extension. Used for loading macros and for "
+"advanced Python scripts that extend the Scribus user interface."
+msgstr ""
+
+msgid "&Recent Scripts"
+msgstr "&Lastaj skriptoj"
+
+msgid "Show &Console"
+msgstr "Montru &konzolon"
+
+msgid ""
+"Display an interactive Python console where you can write and run Python "
+"programs that use the Scripter tools."
+msgstr ""
+
+msgid "&About Script..."
+msgstr "Pri &Skriptoj..."
+
+msgid "S&cript"
+msgstr "S&kriptoj"
+
+#, fuzzy
+msgid "Scripter &Settings"
+msgstr "Stil-agordaro"
+
+msgid "Python Scripts (*.py);; All Files (*)"
+msgstr "Pitonskriptoj (*.py);; Ĉiaj dosieroj (*)"
+
+msgid "Script error"
+msgstr "Skriptoeraro"
+
+msgid ""
+"If you are running an official script report it at <a href=\"http://bugs."
+"scribus.net\">bugs.scribus.net</a> please."
+msgstr ""
+"Se nun temas pri oficiala skripto bonvolu raporti ĝin al <a href=\"http://"
+"bugs.scribus.net\">bugs.scribus.net</a>."
+
+msgid ""
+"This message is in your clipboard too. Use Ctrl+V to paste it into bug "
+"tracker."
+msgstr ""
+"Ĉi tiu mesaĝo estas ankaŭ en via poŝo. Uzu Stir+V por elpoŝigi ĝin en la "
+"erarospurilon."
+
+#, fuzzy
+msgid "Scribus - Script Plugin"
+msgstr "&Scribus-skriptoj"
+
+msgid ""
+"The 'Load Script' function of the script plugin is currently disabled.\n"
+"If you just want to run a normal script, you probably want to use\n"
+"'Execute Script...' instead.\n"
+"\n"
+"If you do actually want to load a Python extension script or macro, you\n"
+"need to go into the Scripter Settings in the Script menu and enable\n"
+"scripter extensions there.\n"
+"\n"
+"Please read the documentation on extension scripts first.\n"
+msgstr ""
+
+msgid "Hide &Console"
+msgstr "Kaŝu &konzolon"
+
+msgid "About Script"
+msgstr "Pri Scriptoj"
+
 msgid "Editing Macro: <b>"
 msgstr ""
 
@@ -6577,11 +6582,12 @@ msgstr "Linistilo ne trovita"
 msgid "Target is not an image frame."
 msgstr "La celitaĵo ne estas bildokadro."
 
-msgid "Can't scale by 0%"
+#, fuzzy
+msgid "Cannot scale by 0%."
 msgstr "Ne eblas skali je 0%"
 
 #, fuzzy
-msgid "Specified item not an image frame"
+msgid "Specified item not an image frame."
 msgstr "La celitaĵo ne estas bildokadro."
 
 msgid "Cannot get font size of non-text frame."
@@ -6611,93 +6617,119 @@ msgstr "Ne eblas agordi tekston en ne-teksta kadro."
 msgid "Cannot insert text into non-text frame."
 msgstr "Ne eblas enmeti tekston en ne-tekstan kadron."
 
-msgid "Insert index out of bounds"
+#, fuzzy
+msgid "Insert index out of bounds."
 msgstr "Enmeta indekso eksterlima"
 
 msgid "Alignment out of range. Use one of the scribus.ALIGN* constants."
 msgstr ""
 "Alĝustigo eksterintervala. Utiligu unu el la konstantoj de scribus.ALIGN*."
 
-msgid "Can't set text alignment on a non-text frame"
+#, fuzzy
+msgid "Cannot set text alignment on a non-text frame."
 msgstr "Ne eblas agordi tekstoalĝustigon en ne-teksta kadro"
 
-msgid "Font size out of bounds - must be 1 <= size <= 512"
+#, fuzzy
+msgid "Font size out of bounds - must be 1 <= size <= 512."
 msgstr "Tipargrando eksterlima -  ĝi devas esti 1 <= size <= 512"
 
-msgid "Can't set font size on a non-text frame"
+#, fuzzy
+msgid "Cannot set font size on a non-text frame."
 msgstr "Ne eblas agordi tipargrandon en ne-teksta kadro"
 
-msgid "Can't set font on a non-text frame"
+#, fuzzy
+msgid "Cannot set font on a non-text frame."
 msgstr "Ne eblas agordi tiparon en ne-teksta kadro"
 
-msgid "Font not found"
+#, fuzzy
+msgid "Font not found."
 msgstr "Tiparo ne trovita"
 
-msgid "Line space out of bounds, must be >= 0.1"
+#, fuzzy
+msgid "Line space out of bounds, must be >= 0.1."
 msgstr "Lini-distanco eksterlima, ĝi devas esti >= 0.1"
 
-msgid "Can't line spacing on a non-text frame"
+#, fuzzy
+msgid "Cannot set line spacing on a non-text frame."
 msgstr "Ne eblas agordi lini-distancon en ne-teksta kadro"
 
-msgid "Column gap out of bounds, must be positive"
+#, fuzzy
+msgid "Column gap out of bounds, must be positive."
 msgstr "Kolumnodistanco eksterlima, ĝi devas esti pozitiva"
 
-msgid "Can't column gap on a non-text frame"
-msgstr "Ne eblas agordi kolumnodistancon en ne-teksta kadro"
+#, fuzzy
+msgid "Cannot set column gap on a non-text frame."
+msgstr "Ne eblas akiri kolumnodistancon el ne-teksta kadro."
 
-msgid "Column count out of bounds, must be > 1"
+#, fuzzy
+msgid "Column count out of bounds, must be > 1."
 msgstr "Kolumnonombro eksterlima, ĝi devas esti > 1"
 
-msgid "Can't number of columns on a non-text frame"
+#, fuzzy
+msgid "Cannot set number of columns on a non-text frame."
 msgstr "Ne eblas agordi la kolumnonombron en ne-teksta kadro"
 
 msgid "Selection index out of bounds"
 msgstr "Elektoindekso eksterlima"
 
-msgid "Can't select text in a non-text frame"
+#, fuzzy
+msgid "Cannot select text in a non-text frame"
 msgstr "Ne eblas elekti tekston en ne-teksta kadro"
 
-msgid "Can't delete text from a non-text frame"
+#, fuzzy
+msgid "Cannot delete text from a non-text frame."
 msgstr "Ne eblas forigi tekston el ne-teksta kadro"
 
-msgid "Can't set text fill on a non-text frame"
+#, fuzzy
+msgid "Cannot set text fill on a non-text frame."
 msgstr "Ne eblas agordi tekstoplenigon en ne-teksta kadro"
 
-msgid "Can't set text stroke on a non-text frame"
+#, fuzzy
+msgid "Cannot set text stroke on a non-text frame."
 msgstr "Ne eblas agordi tekstokonturon en ne-teksta kadro"
 
-msgid "Can't set text shade on a non-text frame"
+#, fuzzy
+msgid "Cannot set text shade on a non-text frame."
 msgstr "Ne eblas agordi tekstoplenigan intenson en ne-teksta kadro"
 
-msgid "Can only link text frames"
+#, fuzzy
+msgid "Can only link text frames."
 msgstr "Eblas nur ligi tekstokadrojn"
 
-msgid "Target frame must be empty"
+#, fuzzy
+msgid "Target frame must be empty."
 msgstr "La celita kadro devas esti malplena"
 
-msgid "Target frame links to another frame"
+#, fuzzy
+msgid "Target frame links to another frame."
 msgstr "La celita kadro estas ligita al alia kadro"
 
-msgid "Target frame is linked to by another frame"
+#, fuzzy
+msgid "Target frame is linked to by another frame."
 msgstr "Al la celita kadro estas ligita alia kadro"
 
-msgid "Source and target are the same object"
+#, fuzzy
+msgid "Source and target are the same object."
 msgstr "La origino kaj la celo estas la sama objekto"
 
-msgid "Can't unlink a non-text frame"
+#, fuzzy
+msgid "Cannot unlink a non-text frame."
 msgstr "Ne eblas malligi ne-tekstan kadron"
 
-msgid "Object is not a linked text frame, can't unlink."
+#, fuzzy
+msgid "Object is not a linked text frame, cannot unlink."
 msgstr "La objekto ne estas ligita tekstokadro, ne eblas ĝin malligi."
 
+#, fuzzy
 msgid ""
-"Object the last frame in a series, can't unlink. Unlink the previous frame "
+"Object the last frame in a series, cannot unlink. Unlink the previous frame "
 "instead."
 msgstr ""
 "La objekto estas la lasta kadro en serio, ne eblas ĝin malligi. Malligu unue "
 "la antaŭan kadron."
 
-msgid "Can't convert a non-text frame to outlines"
+#, fuzzy
+msgid "Cannot convert a non-text frame to outlines."
 msgstr "Ne eblas konverti ne-tekstan kadron al konturoj"
 
 msgid "Insert value"
@@ -6834,22 +6866,28 @@ msgid ""
 "some other input mechanism, but this option is here just in case.</p></qt>"
 msgstr ""
 
-msgid "Can't render an empty sample"
+#, fuzzy
+msgid "Cannot render an empty sample."
 msgstr "Ne eblas montri malplenan ekzemplon"
 
-msgid "Can't save to a blank filename"
+#, fuzzy
+msgid "Cannot save to a blank filename."
 msgstr "Ne eblas konservi ne enmetante dosiernomon"
 
-msgid "Can't have an empty layer name"
+#, fuzzy
+msgid "Cannot have an empty layer name."
 msgstr "Ne eblas havi sennoman nivelon"
 
-msgid "Layer not found"
+#, fuzzy
+msgid "Layer not found."
 msgstr "Nivelo ne trovita"
 
-msgid "Can't remove the last layer"
+#, fuzzy
+msgid "Cannot remove the last layer."
 msgstr "Ne eblas forigi la lastan nivelon"
 
-msgid "Can't create layer without a name"
+#, fuzzy
+msgid "Cannot create layer without a name."
 msgstr "Ne eblas krei nivelon sen nomo"
 
 #, fuzzy
@@ -6859,16 +6897,19 @@ msgstr "Koloro ne trovita en la aprioraj koloroj"
 msgid "Cannot get a color with an empty name."
 msgstr "Ne eblas akiri koloron ne enmetante nomon."
 
-msgid "Color not found"
+#, fuzzy
+msgid "Color not found."
 msgstr "Koloro ne trovita"
 
 msgid "Cannot change a color with an empty name."
 msgstr "Ne eblas ŝanĝi koloron sennoman."
 
-msgid "Color not found in document"
+#, fuzzy
+msgid "Color not found in document."
 msgstr "Koloro ne trovita en ĉi tiu dokumento"
 
-msgid "Color not found in default colors"
+#, fuzzy
+msgid "Color not found in default colors."
 msgstr "Koloro ne trovita en la aprioraj koloroj"
 
 msgid "Cannot create a color with an empty name."
@@ -7056,6 +7097,9 @@ msgstr ""
 "La importo de la dosiero:\n"
 "%1\n"
 "malsukcesis!"
+
+#~ msgid "Can't column gap on a non-text frame"
+#~ msgstr "Ne eblas agordi kolumnodistancon en ne-teksta kadro"
 
 #, fuzzy
 #~ msgid "Brazilian Portuguese"

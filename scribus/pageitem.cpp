@@ -279,10 +279,10 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 	QPoint pt1, pt2;
 	FPoint gv, ColBound;
 	QRegion cm;
-	uint a, nrc, nrc2, zae, startLin;
+	uint a, nrc, nrc2, startLin;
 	int desc, asce, absa, aSpa, chs, chsd, CurrCol;
 	uint BuPos, LastSP, MaxText;
-	double oldCurY, LastXp, EndX, OFs, OFs2, wide, rota, wid, lineCorr, ColWidth, kernVal, RTabX;
+	double oldCurY, LastXp, EndX, OFs, OFs2, wide, lineCorr, ColWidth, kernVal, RTabX;
 	double sc = Doc->Scale;
 	QString chx, chx2, chx3;
 	struct Pti *hl;
@@ -1613,26 +1613,27 @@ NoRoom: pf2.end();
 				p->restore();
 				break;
 		case 8:
+			{
 			if (!PoShow)
 				doStroke = false;
-			cl = FlattenPath(PoLine, Segments);
+			double dx;
+			double sp = 0;
+			double oldSp = 0;
+			double oCurX = 0;
+			FPoint point = FPoint(0, 0);
+			FPoint normal = FPoint(0, 0);
+			FPoint tangent = FPoint(0, 0);
+			FPoint extPoint = FPoint(0, 0);
+			bool ext = false;
+			bool first = true;
+			double fsx = 0;
+			uint seg = 0;
+			double segLen = 0;
+			double distCurX;
 			CurX = Extra;
 			if (Ptext.count() != 0)
 				CurX += Ptext.at(0)->cextra;
-			zae = 0;
-			wid = sqrt(pow(cl.point(zae+1).x()-cl.point(zae).x(),2.0)+pow(cl.point(zae+1).y()-cl.point(zae).y(),2.0));
-			while (wid < 1)
-			{
-				zae++;
-				if (zae > cl.size()-2)
-				{
-					MaxChars = Ptext.count();
-					break;
-				}
-				wid = sqrt(pow(cl.point(zae+1).x()-cl.point(zae).x(),2.0) + 
-							pow(cl.point(zae+1).y()-cl.point(zae).y(),2.0));
-			}
-			rota = xy2Deg(cl.point(zae+1).x()-cl.point(zae).x(),cl.point(zae+1).y()-cl.point(zae).y());
+			segLen = PoLine.lenPathSeg(seg);
 			for (a = 0; a < Ptext.count(); ++a)
 			{
 				CurY = 0;
@@ -1657,55 +1658,68 @@ NoRoom: pf2.end();
 				else
 					wide = Cwidth(Doc, hl->cfont, chx2, chs);
 				wide = wide * (hl->cscale / 100.0);
-				if ((CurX+(wide+hl->cextra)/2) >= wid)
+				dx = wide / 2.0;
+				CurX += dx;
+				ext = false;
+				while ( (seg < PoLine.count()-4) && (CurX > fsx + segLen))
 				{
-					if (zae < cl.size()-1)
+					fsx += segLen;
+					seg += 4;
+					segLen = PoLine.lenPathSeg(seg);
+					ext = true;
+				}
+				if ( (seg == PoLine.count()-4) && (CurX > fsx + segLen))
+					break;
+				QString db;
+				if (ext)
+				{
+					sp = 0;
+					distCurX = PoLine.lenPathDist(seg, 0, sp);
+					while (distCurX <= ((CurX - oCurX) - (fsx - oCurX)))
 					{
-						CurX = CurX - wid;
-						wid = 0;
-						EndX = CurX;
-						do
+						sp += 0.001;
+						distCurX = PoLine.lenPathDist(seg, 0, sp);
+					}
+					PoLine.pointTangentNormalAt(seg, sp, &point, &tangent, &normal );
+					CurX = (CurX - (CurX - fsx)) + distCurX;
+					oldSp = sp;
+					ext = false;
+				}
+				else
+				{
+					if( seg < PoLine.count() )
+					{
+						distCurX = PoLine.lenPathDist(seg, oldSp, sp);
+						while (distCurX <= (CurX - oCurX))
 						{
-							do
+							sp += 0.001;
+							if (sp >= 1.0)
 							{
-								zae++;
-								if (zae > cl.size()-2)
-								{
-									MaxChars = a+1;
-									break;
-								}
-								wid = sqrt(pow(cl.point(zae+1).x()-cl.point(zae).x(),2.0)+
-											pow(cl.point(zae+1).y()-cl.point(zae).y(),2.0));
-								rota = xy2Deg(cl.point(zae+1).x()-cl.point(zae).x(),
-												cl.point(zae+1).y()-cl.point(zae).y());
-							}
-							while (wid == 0);
-							EndX -= wid;
-							if (zae > cl.size()-2)
-							{
-								MaxChars = a+1;
+								sp = 0.9999;
 								break;
 							}
+							distCurX = PoLine.lenPathDist(seg, oldSp, sp);
 						}
-						while (wid < EndX);
-						CurX = EndX + wid;
+						PoLine.pointTangentNormalAt(seg, sp, &point, &tangent, &normal );
+						CurX = oCurX + distCurX;
+						oldSp = sp;
 					}
 					else
-					{
-						MaxChars = a+1;
 						break;
-					}
 				}
-				if (zae > cl.size()-2)
-					break;
+				hl->xp = point.x();
+				hl->yp = point.y();
+				hl->PtransX = tangent.x();
+				hl->PtransY = tangent.y();
+				hl->PRot = dx;
+
+				QWMatrix trafo = QWMatrix( 1, 0, 0, -1, -dx*sc, 0 );
+				trafo *= QWMatrix( tangent.x(), tangent.y(), tangent.y(), -tangent.x(), point.x()*sc, point.y()*sc );
+				QWMatrix sca = p->worldMatrix();
+				trafo *= sca;
 				p->save();
-				p->translate(cl.point(zae).x()*sc, cl.point(zae).y()*sc);
-				p->rotate(rota);
-				hl->xp = CurX+hl->cextra;
-				hl->yp = CurY+BaseOffs;
-				hl->PtransX = cl.point(zae).x();
-				hl->PtransY = cl.point(zae).y();
-				hl->PRot = rota;
+				QWMatrix savWM = p->worldMatrix();
+				p->setWorldMatrix(trafo);
 				Zli = new ZZ;
 				Zli->Zeich = chx;
 				if (hl->ccolor != "None")
@@ -1722,8 +1736,8 @@ NoRoom: pf2.end();
 				Zli->Farb2 = hl->cstroke;
 				Zli->shade = hl->cshade;
 				Zli->shade2 = hl->cshade2;
-				Zli->xco = hl->xp;
-				Zli->yco = hl->yp;
+				Zli->xco = 0;
+				Zli->yco = BaseOffs;
 				Zli->Sele = hl->cselect;
 				Zli->Siz = chs;
 				Zli->Style = hl->cstyle;
@@ -1734,11 +1748,16 @@ NoRoom: pf2.end();
 				if (!Doc->RePos)
 					DrawZeichenS(p, Zli);
 				delete Zli;
+				p->setWorldMatrix(savWM);
 				p->restore();
 				p->setZoomFactor(sc);
 				MaxChars = a+1;
+				oCurX = CurX;
+				CurX -= dx;
 				CurX += wide+hl->cextra;
+				first = false;
 			}
+		}
 		default:
 			break;
 	}

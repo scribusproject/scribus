@@ -33,7 +33,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 1.2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-08 13:01+0100\n"
+"POT-Creation-Date: 2005-02-22 10:41+0100\n"
 "PO-Revision-Date: 2004-12-13 16:06+0100\n"
 "Last-Translator: Nicolas Boos <nicolas.boos@wanadoo.fr>\n"
 "Language-Team: French <traduc@traduc.org>\n"
@@ -4950,6 +4950,10 @@ msgstr "Norvégien :"
 msgid "Polish:"
 msgstr "Polonais :"
 
+#, fuzzy
+msgid "Portugese (Brazilian):"
+msgstr "Brésilien"
+
 msgid "Russian:"
 msgstr "Russe :"
 
@@ -6220,11 +6224,12 @@ msgid ""
 "edit macro dialog box.</qt>"
 msgstr ""
 
-msgid "Close this dialog."
-msgstr ""
+#, fuzzy
+msgid "Close this dialog"
+msgstr "Ferme cette courbe de Bézier"
 
 #, fuzzy
-msgid "Return to Scribus."
+msgid "Return to Scribus"
 msgstr "À propos de Scribus"
 
 msgid ""
@@ -6274,7 +6279,7 @@ msgid ""
 "macro manager does not have the source code for the macro you have selected "
 "(in which case <tt>No</tt> will be shown in the <tt>Edit </tt>column of the "
 "macro).</p>\n"
-"<p>If scribus doesn't have the source, the macro was probably created by a "
+"<p>If Scribus doesn't have the source, the macro was probably created by a "
 "script.</p>"
 msgstr ""
 
@@ -6358,87 +6363,6 @@ msgstr ""
 
 msgid "S&cripter Manual..."
 msgstr "Manuel des &scripts pour Scribus..."
-
-msgid "&Scribus Scripts"
-msgstr "&Scripts Scribus"
-
-msgid "&Execute Script..."
-msgstr "&Démarrer un script..."
-
-msgid "Run a Python script from a file."
-msgstr ""
-
-#, fuzzy
-msgid "&Load Extension Script..."
-msgstr "&Démarrer un script..."
-
-msgid ""
-"Load a Python script as an extension. Used for loading macros and for "
-"advanced Python scripts that extend the Scribus user interface."
-msgstr ""
-
-msgid "&Recent Scripts"
-msgstr "Scripts &récents"
-
-msgid "Show &Console"
-msgstr "Afficher la &console"
-
-msgid ""
-"Display an interactive Python console where you can write and run Python "
-"programs that use the Scripter tools."
-msgstr ""
-
-msgid "&About Script..."
-msgstr "À &propos du script..."
-
-msgid "S&cript"
-msgstr "&Script"
-
-#, fuzzy
-msgid "Scripter &Settings"
-msgstr "Paramètres de paragraphe"
-
-msgid "Python Scripts (*.py);; All Files (*)"
-msgstr "Scripts Python (*.py);;Tous les fichiers (*)"
-
-msgid "Script error"
-msgstr "Erreur d'exécution du script"
-
-msgid ""
-"If you are running an official script report it at <a href=\"http://bugs."
-"scribus.net\">bugs.scribus.net</a> please."
-msgstr ""
-"Si vous utilisez un script officiel, merci de le signaler à <a href=\"http://"
-"bugs.scribus.net\">bugs.scribus.net</a>."
-
-msgid ""
-"This message is in your clipboard too. Use Ctrl+V to paste it into bug "
-"tracker."
-msgstr ""
-"Ce message est présent dans le presse-papiers. Utiliser Ctrl+V pour le "
-"copier dans l'outil de suivi de bogues."
-
-#, fuzzy
-msgid "Scribus - Script Plugin"
-msgstr "&Scripts Scribus"
-
-msgid ""
-"The 'Load Script' function of the script plugin is currently disabled.\n"
-"If you just want to run a normal script, you probably want to use\n"
-"'Execute Script...' instead.\n"
-"\n"
-"If you do actually want to load a Python extension script or macro, you\n"
-"need to go into the Scripter Settings in the Script menu and enable\n"
-"scripter extensions there.\n"
-"\n"
-"Please read the documentation on extension scripts first.\n"
-msgstr ""
-
-msgid "Hide &Console"
-msgstr "Masquer la &console"
-
-msgid "About Script"
-msgstr "À propos du script"
 
 #, fuzzy
 msgid ""
@@ -6541,6 +6465,87 @@ msgstr ""
 "L'argument contient des valeurs non-numériques : il doit être une liste de "
 "nombres décimaux"
 
+msgid "&Scribus Scripts"
+msgstr "&Scripts Scribus"
+
+msgid "&Execute Script..."
+msgstr "&Démarrer un script..."
+
+msgid "Run a Python script from a file."
+msgstr ""
+
+#, fuzzy
+msgid "&Load Extension Script..."
+msgstr "&Démarrer un script..."
+
+msgid ""
+"Load a Python script as an extension. Used for loading macros and for "
+"advanced Python scripts that extend the Scribus user interface."
+msgstr ""
+
+msgid "&Recent Scripts"
+msgstr "Scripts &récents"
+
+msgid "Show &Console"
+msgstr "Afficher la &console"
+
+msgid ""
+"Display an interactive Python console where you can write and run Python "
+"programs that use the Scripter tools."
+msgstr ""
+
+msgid "&About Script..."
+msgstr "À &propos du script..."
+
+msgid "S&cript"
+msgstr "&Script"
+
+#, fuzzy
+msgid "Scripter &Settings"
+msgstr "Paramètres de paragraphe"
+
+msgid "Python Scripts (*.py);; All Files (*)"
+msgstr "Scripts Python (*.py);;Tous les fichiers (*)"
+
+msgid "Script error"
+msgstr "Erreur d'exécution du script"
+
+msgid ""
+"If you are running an official script report it at <a href=\"http://bugs."
+"scribus.net\">bugs.scribus.net</a> please."
+msgstr ""
+"Si vous utilisez un script officiel, merci de le signaler à <a href=\"http://"
+"bugs.scribus.net\">bugs.scribus.net</a>."
+
+msgid ""
+"This message is in your clipboard too. Use Ctrl+V to paste it into bug "
+"tracker."
+msgstr ""
+"Ce message est présent dans le presse-papiers. Utiliser Ctrl+V pour le "
+"copier dans l'outil de suivi de bogues."
+
+#, fuzzy
+msgid "Scribus - Script Plugin"
+msgstr "&Scripts Scribus"
+
+msgid ""
+"The 'Load Script' function of the script plugin is currently disabled.\n"
+"If you just want to run a normal script, you probably want to use\n"
+"'Execute Script...' instead.\n"
+"\n"
+"If you do actually want to load a Python extension script or macro, you\n"
+"need to go into the Scripter Settings in the Script menu and enable\n"
+"scripter extensions there.\n"
+"\n"
+"Please read the documentation on extension scripts first.\n"
+msgstr ""
+
+msgid "Hide &Console"
+msgstr "Masquer la &console"
+
+msgid "About Script"
+msgstr "À propos du script"
+
 msgid "Editing Macro: <b>"
 msgstr ""
 
@@ -6621,11 +6626,12 @@ msgstr "Style de filet introuvable"
 msgid "Target is not an image frame."
 msgstr "La cible n'est pas un cadre d'image."
 
-msgid "Can't scale by 0%"
+#, fuzzy
+msgid "Cannot scale by 0%."
 msgstr "Impossible de redimensionner de 0%"
 
 #, fuzzy
-msgid "Specified item not an image frame"
+msgid "Specified item not an image frame."
 msgstr "La cible n'est pas un cadre d'image."
 
 msgid "Cannot get font size of non-text frame."
@@ -6655,97 +6661,122 @@ msgstr "Un texte ne peut être défini que dans un cadre de texte."
 msgid "Cannot insert text into non-text frame."
 msgstr "Un texte ne peut être inséré que dans un cadre de texte."
 
-msgid "Insert index out of bounds"
+#, fuzzy
+msgid "Insert index out of bounds."
 msgstr "Insertion d'index hors limites"
 
 msgid "Alignment out of range. Use one of the scribus.ALIGN* constants."
 msgstr "Alignement hors plage. Utiliser une des constantes scribus.ALIGN*."
 
-msgid "Can't set text alignment on a non-text frame"
+#, fuzzy
+msgid "Cannot set text alignment on a non-text frame."
 msgstr ""
 "L'alignement d'un texte ne peut être effectué que dans un cadre de texte"
 
-msgid "Font size out of bounds - must be 1 <= size <= 512"
+#, fuzzy
+msgid "Font size out of bounds - must be 1 <= size <= 512."
 msgstr ""
 "Corps de police hors limites. La valeur doit être comprise entre 1 et 512 "
 "inclus"
 
-msgid "Can't set font size on a non-text frame"
+#, fuzzy
+msgid "Cannot set font size on a non-text frame."
 msgstr "Un corps de police ne peut être affecté qu'à un cadre de texte"
 
-msgid "Can't set font on a non-text frame"
+#, fuzzy
+msgid "Cannot set font on a non-text frame."
 msgstr "Une police ne peut être affectée qu'à un cadre de texte"
 
-msgid "Font not found"
+#, fuzzy
+msgid "Font not found."
 msgstr "Police introuvable"
 
-msgid "Line space out of bounds, must be >= 0.1"
+#, fuzzy
+msgid "Line space out of bounds, must be >= 0.1."
 msgstr ""
 "Interlignage hors limites. La valeur doit être supérieure ou égale à 0.1"
 
-msgid "Can't line spacing on a non-text frame"
+#, fuzzy
+msgid "Cannot set line spacing on a non-text frame."
 msgstr "Un interlignage ne peut être défini que dans un cadre de texte"
 
-msgid "Column gap out of bounds, must be positive"
+#, fuzzy
+msgid "Column gap out of bounds, must be positive."
 msgstr "Espacement de colonnes hors limites. La valeur doit être positive"
 
-msgid "Can't column gap on a non-text frame"
-msgstr ""
-"Un espacement de colonnes ne peut être défini que dans un cadre de texte"
+#, fuzzy
+msgid "Cannot set column gap on a non-text frame."
+msgstr "Un espacement de colonnes ne peut être obtenu que d'un cadre de texte."
 
-msgid "Column count out of bounds, must be > 1"
+#, fuzzy
+msgid "Column count out of bounds, must be > 1."
 msgstr "Nombre de colonnes hors limites. La valeur doit être supérieure à 1"
 
-msgid "Can't number of columns on a non-text frame"
+#, fuzzy
+msgid "Cannot set number of columns on a non-text frame."
 msgstr "Un nombre de colonnes ne peut être défini que dans un cadre de texte"
 
 msgid "Selection index out of bounds"
 msgstr "Index de la sélection hors limites"
 
-msgid "Can't select text in a non-text frame"
+#, fuzzy
+msgid "Cannot select text in a non-text frame"
 msgstr "Un texte peut être sélectionné seulement dans un cadre de texte"
 
-msgid "Can't delete text from a non-text frame"
+#, fuzzy
+msgid "Cannot delete text from a non-text frame."
 msgstr "Un texte peut être effacé seulement dans un cadre de texte"
 
-msgid "Can't set text fill on a non-text frame"
+#, fuzzy
+msgid "Cannot set text fill on a non-text frame."
 msgstr "Une couleur de fond peut être affecté seulement à un cadre de texte"
 
-msgid "Can't set text stroke on a non-text frame"
+#, fuzzy
+msgid "Cannot set text stroke on a non-text frame."
 msgstr "Une couleur de contour peut être affecté seulement à un cadre de texte"
 
-msgid "Can't set text shade on a non-text frame"
+#, fuzzy
+msgid "Cannot set text shade on a non-text frame."
 msgstr "Une teinte de texte peut être affecté seulement à un cadre de texte"
 
-msgid "Can only link text frames"
+#, fuzzy
+msgid "Can only link text frames."
 msgstr "Seul les cadres de texte peuvent être liés"
 
-msgid "Target frame must be empty"
+#, fuzzy
+msgid "Target frame must be empty."
 msgstr "Le cadre ciblé doit être vide"
 
-msgid "Target frame links to another frame"
+#, fuzzy
+msgid "Target frame links to another frame."
 msgstr "Le cadre ciblé est lié à un autre cadre"
 
-msgid "Target frame is linked to by another frame"
+#, fuzzy
+msgid "Target frame is linked to by another frame."
 msgstr "Le cadre ciblé est lié par un autre cadre"
 
-msgid "Source and target are the same object"
+#, fuzzy
+msgid "Source and target are the same object."
 msgstr "Source et cible sont les mêmes"
 
-msgid "Can't unlink a non-text frame"
+#, fuzzy
+msgid "Cannot unlink a non-text frame."
 msgstr "Seul un cadre de texte peut être délié"
 
-msgid "Object is not a linked text frame, can't unlink."
+#, fuzzy
+msgid "Object is not a linked text frame, cannot unlink."
 msgstr "L'objet n'est pas un cadre de texte lié, impossible de le délier."
 
+#, fuzzy
 msgid ""
-"Object the last frame in a series, can't unlink. Unlink the previous frame "
+"Object the last frame in a series, cannot unlink. Unlink the previous frame "
 "instead."
 msgstr ""
 "L'objet est le dernier d'une série de cadres liés, impossible de le délier. "
 "Déliez plutôt le cadre précédent."
 
-msgid "Can't convert a non-text frame to outlines"
+#, fuzzy
+msgid "Cannot convert a non-text frame to outlines."
 msgstr "Seul un cadre de texte peut être converti en contours"
 
 msgid "Insert value"
@@ -6882,22 +6913,28 @@ msgid ""
 "some other input mechanism, but this option is here just in case.</p></qt>"
 msgstr ""
 
-msgid "Can't render an empty sample"
+#, fuzzy
+msgid "Cannot render an empty sample."
 msgstr "Impossible d'afficher le rendu d'un échantillon vide"
 
-msgid "Can't save to a blank filename"
+#, fuzzy
+msgid "Cannot save to a blank filename."
 msgstr "Impossible d'enregistrer sans nom de fichier"
 
-msgid "Can't have an empty layer name"
+#, fuzzy
+msgid "Cannot have an empty layer name."
 msgstr "Impossible d'avoir un calque sans nom"
 
-msgid "Layer not found"
+#, fuzzy
+msgid "Layer not found."
 msgstr "Calque introuvable"
 
-msgid "Can't remove the last layer"
+#, fuzzy
+msgid "Cannot remove the last layer."
 msgstr "Impossible d'effacer le dernier calque"
 
-msgid "Can't create layer without a name"
+#, fuzzy
+msgid "Cannot create layer without a name."
 msgstr "Impossible de créer un calque sans nom"
 
 #, fuzzy
@@ -6907,16 +6944,19 @@ msgstr "Couleur introuvable dans les couleurs d'origine"
 msgid "Cannot get a color with an empty name."
 msgstr "Impossible d'obtenir une couleur sans son nom."
 
-msgid "Color not found"
+#, fuzzy
+msgid "Color not found."
 msgstr "Couleur introuvable"
 
 msgid "Cannot change a color with an empty name."
 msgstr "Impossible de modifier une couleur sans nom."
 
-msgid "Color not found in document"
+#, fuzzy
+msgid "Color not found in document."
 msgstr "Couleur introuvable dans le document"
 
-msgid "Color not found in default colors"
+#, fuzzy
+msgid "Color not found in default colors."
 msgstr "Couleur introuvable dans les couleurs d'origine"
 
 msgid "Cannot create a color with an empty name."
@@ -7103,6 +7143,10 @@ msgid ""
 msgstr ""
 "Impossible d'importer le fichier suivant :\n"
 "%1"
+
+#~ msgid "Can't column gap on a non-text frame"
+#~ msgstr ""
+#~ "Un espacement de colonnes ne peut être défini que dans un cadre de texte"
 
 #, fuzzy
 #~ msgid "Brazilian Portuguese"

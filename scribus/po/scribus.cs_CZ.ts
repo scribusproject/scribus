@@ -1310,7 +1310,7 @@ that the layer &quot;layer&quot; is visible, a value of False means that the lay
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+        <translation type="obsolete">isLayerPrintable(&quot;layer&quot;) -&gt; bool
 
 Vrátí příznak, zda jde vrstva &quot;layer&quot; viditelná nebo není. true znamená
 viditelná.
@@ -1328,7 +1328,7 @@ the layer &quot;layer&quot; is disabled.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+        <translation type="obsolete">isLayerPrintable(&quot;layer&quot;) -&gt; bool
 
 Vrátí příznak, zda jde vrstva &quot;layer&quot; tisknutelná nebo není. true znamená
 tisknutelná.
@@ -2056,6 +2056,30 @@ for the macro.
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+
+Returns whether the layer &quot;layer&quot; is visible or not, a value of True means
+that the layer &quot;layer&quot; is visible, a value of False means that the layer
+&quot;layer&quot; is invisible.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+
+Returns whether the layer &quot;layer&quot; is printable or not, a value of True means
+that the layer &quot;layer&quot; can be printed, a value of False means that printing
+the layer &quot;layer&quot; is disabled.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -2258,6 +2282,10 @@ Missing library support is indicated by a *</source>
 a knihovny v něm použité.
 Symboly C-C-T znamenají C-littlecms C-CUPS T-TIFF podporu.
 Chybějící knihovny jsou zobrazeny jako *</translation>
+    </message>
+    <message>
+        <source>Portugese (Brazilian):</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5545,14 +5573,6 @@ The table in the center of the dialog lists what macros are currently loaded and
         <translation type="unfinished">Alt+O</translation>
     </message>
     <message>
-        <source>Close this dialog.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Return to Scribus.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Macro</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5603,12 +5623,6 @@ The table in the center of the dialog lists what macros are currently loaded and
     </message>
     <message>
         <source>&lt;qt&gt;Edit the source of the selected macro, if the source is availible.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;Edit the selected macro. &lt;/p&gt;
-&lt;p&gt;If this button is greyed out, either there is no selected macro or the macro manager does not have the source code for the macro you have selected (in which case &lt;tt&gt;No&lt;/tt&gt; will be shown in the &lt;tt&gt;Edit &lt;/tt&gt;column of the macro).&lt;/p&gt;
-&lt;p&gt;If scribus doesn&apos;t have the source, the macro was probably created by a script.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5690,6 +5704,20 @@ The table in the center of the dialog lists what macros are currently loaded and
     </message>
     <message>
         <source>&lt;p&gt;Loads macros from an external file.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close this dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Return to Scribus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Edit the selected macro. &lt;/p&gt;
+&lt;p&gt;If this button is greyed out, either there is no selected macro or the macro manager does not have the source code for the macro you have selected (in which case &lt;tt&gt;No&lt;/tt&gt; will be shown in the &lt;tt&gt;Edit &lt;/tt&gt;column of the macro).&lt;/p&gt;
+&lt;p&gt;If Scribus doesn&apos;t have the source, the macro was probably created by a script.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5795,41 +5823,24 @@ The table in the center of the dialog lists what macros are currently loaded and
     <name>MenuTest</name>
     <message>
         <source>Script error</source>
-        <translation>Chyba ve skriptu</translation>
+        <translation type="obsolete">Chyba ve skriptu</translation>
     </message>
     <message>
         <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
-        <translation>Jestliže běžel skript distribuovaný s programem, informujte nás o chybě na &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; - děkujeme vám.</translation>
+        <translation type="obsolete">Jestliže běžel skript distribuovaný s programem, informujte nás o chybě na &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; - děkujeme vám.</translation>
     </message>
     <message>
         <source>Show &amp;Console</source>
-        <translation>Ukázat &amp;konzoli</translation>
+        <translation type="obsolete">Ukázat &amp;konzoli</translation>
     </message>
     <message>
         <source>Hide &amp;Console</source>
-        <translation>Skrýt &amp;konzoli</translation>
+        <translation type="obsolete">Skrýt &amp;konzoli</translation>
     </message>
     <message>
         <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
-        <translation>Tato chybová zpráva je ve vaší systémové schránce. Použijte Ctrl+V, tím ji
+        <translation type="obsolete">Tato chybová zpráva je ve vaší systémové schránce. Použijte Ctrl+V, tím ji
 můžete zkopírovat do chybového hlášení.</translation>
-    </message>
-    <message>
-        <source>Scribus - Script Plugin</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The &apos;Load Script&apos; function of the script plugin is currently disabled.
-If you just want to run a normal script, you probably want to use
-&apos;Execute Script...&apos; instead.
-
-If you do actually want to load a Python extension script or macro, you
-need to go into the Scripter Settings in the Script menu and enable
-scripter extensions there.
-
-Please read the documentation on extension scripts first.
-</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9788,7 +9799,7 @@ Zkontrolujte cestu a název souboru.</translation>
     </message>
     <message>
         <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation>Python skripty (*.py);; All Files (*)</translation>
+        <translation type="obsolete">Python skripty (*.py);; All Files (*)</translation>
     </message>
     <message>
         <source>Save as</source>
@@ -9812,7 +9823,7 @@ Zkontrolujte cestu a název souboru.</translation>
     </message>
     <message>
         <source>S&amp;cript</source>
-        <translation>S&amp;kript</translation>
+        <translation type="obsolete">S&amp;kript</translation>
     </message>
     <message>
         <source>Save as Image</source>
@@ -9972,19 +9983,19 @@ Zkontrolujte cestu a název souboru.</translation>
     </message>
     <message>
         <source>&amp;Scribus Scripts</source>
-        <translation>&amp;Scribus skripty</translation>
+        <translation type="obsolete">&amp;Scribus skripty</translation>
     </message>
     <message>
         <source>&amp;Execute Script...</source>
-        <translation>&amp;Vykonat skript...</translation>
+        <translation type="obsolete">&amp;Vykonat skript...</translation>
     </message>
     <message>
         <source>&amp;Recent Scripts</source>
-        <translation>&amp;Použité skripty</translation>
+        <translation type="obsolete">&amp;Použité skripty</translation>
     </message>
     <message>
         <source>Show &amp;Console</source>
-        <translation>Ukázat &amp;konzoli</translation>
+        <translation type="obsolete">Ukázat &amp;konzoli</translation>
     </message>
     <message>
         <source>Save Page as &amp;SVG...</source>
@@ -10188,11 +10199,11 @@ Odkazy ven
     </message>
     <message>
         <source>&amp;About Script...</source>
-        <translation>&amp;O skriptu...</translation>
+        <translation type="obsolete">&amp;O skriptu...</translation>
     </message>
     <message>
         <source>About Script</source>
-        <translation>O skriptu</translation>
+        <translation type="obsolete">O skriptu</translation>
     </message>
     <message>
         <source>Cannot get font size of non-text frame.</source>
@@ -10242,7 +10253,7 @@ Odkazy ven
     <message>
         <source>Insert index out of bounds</source>
         <comment>python error</comment>
-        <translation>Pozice je mimo povolené hranice</translation>
+        <translation type="obsolete">Pozice je mimo povolené hranice</translation>
     </message>
     <message>
         <source>Alignment out of range. Use one of the scribus.ALIGN* constants.</source>
@@ -10252,57 +10263,57 @@ Odkazy ven
     <message>
         <source>Can&apos;t set text alignment on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Nelze nastavit typ zarovnání netextového rámce</translation>
+        <translation type="obsolete">Nelze nastavit typ zarovnání netextového rámce</translation>
     </message>
     <message>
         <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512</source>
         <comment>python error</comment>
-        <translation>Velikost písma mimo povolený rozsah. Musí být mezi 1 a 512</translation>
+        <translation type="obsolete">Velikost písma mimo povolený rozsah. Musí být mezi 1 a 512</translation>
     </message>
     <message>
         <source>Can&apos;t set font size on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Nelze nasatvit velikost písma netextového rámu</translation>
+        <translation type="obsolete">Nelze nasatvit velikost písma netextového rámu</translation>
     </message>
     <message>
         <source>Can&apos;t set font on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Nelze nastavit písmo netextového rámu</translation>
+        <translation type="obsolete">Nelze nastavit písmo netextového rámu</translation>
     </message>
     <message>
         <source>Font not found</source>
         <comment>python error</comment>
-        <translation>Písmo nenalezeno</translation>
+        <translation type="obsolete">Písmo nenalezeno</translation>
     </message>
     <message>
         <source>Line space out of bounds, must be &gt;= 0.1</source>
         <comment>python error</comment>
-        <translation>Velikost řádkování je mimo povolený rozsah. Musí být větší než 0</translation>
+        <translation type="obsolete">Velikost řádkování je mimo povolený rozsah. Musí být větší než 0</translation>
     </message>
     <message>
         <source>Can&apos;t line spacing on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Nelze nastavit řádkovéní netextového rámce</translation>
+        <translation type="obsolete">Nelze nastavit řádkovéní netextového rámce</translation>
     </message>
     <message>
         <source>Column gap out of bounds, must be positive</source>
         <comment>python error</comment>
-        <translation>Mezisloupcová mezera nesmí být negativní</translation>
+        <translation type="obsolete">Mezisloupcová mezera nesmí být negativní</translation>
     </message>
     <message>
         <source>Can&apos;t column gap on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Nelze nastavit mezisloupcovou mezeru netextového rámu</translation>
+        <translation type="obsolete">Nelze nastavit mezisloupcovou mezeru netextového rámu</translation>
     </message>
     <message>
         <source>Column count out of bounds, must be &gt; 1</source>
         <comment>python error</comment>
-        <translation>Počet slupců je mimo povolený rozsah. Musí být větší než 1</translation>
+        <translation type="obsolete">Počet slupců je mimo povolený rozsah. Musí být větší než 1</translation>
     </message>
     <message>
         <source>Can&apos;t number of columns on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Nelze nastavit počet sloupců netextového rámce</translation>
+        <translation type="obsolete">Nelze nastavit počet sloupců netextového rámce</translation>
     </message>
     <message>
         <source>Selection index out of bounds</source>
@@ -10312,72 +10323,72 @@ Odkazy ven
     <message>
         <source>Can&apos;t select text in a non-text frame</source>
         <comment>python error</comment>
-        <translation>Nelze vybrat text v netextovém rámce</translation>
+        <translation type="obsolete">Nelze vybrat text v netextovém rámce</translation>
     </message>
     <message>
         <source>Can&apos;t delete text from a non-text frame</source>
         <comment>python error</comment>
-        <translation>Nelze smazat text z netextového rámce</translation>
+        <translation type="obsolete">Nelze smazat text z netextového rámce</translation>
     </message>
     <message>
         <source>Can&apos;t set text fill on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Nelze nastavit výplň textu netextového rámce</translation>
+        <translation type="obsolete">Nelze nastavit výplň textu netextového rámce</translation>
     </message>
     <message>
         <source>Can&apos;t set text stroke on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Nelze nastavit obrys netextového rámce</translation>
+        <translation type="obsolete">Nelze nastavit obrys netextového rámce</translation>
     </message>
     <message>
         <source>Can&apos;t set text shade on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Nelze nastavit stín netextového rámce</translation>
+        <translation type="obsolete">Nelze nastavit stín netextového rámce</translation>
     </message>
     <message>
         <source>Can only link text frames</source>
         <comment>python error</comment>
-        <translation>Pouze textové rámce se mohou zřetězit</translation>
+        <translation type="obsolete">Pouze textové rámce se mohou zřetězit</translation>
     </message>
     <message>
         <source>Target frame must be empty</source>
         <comment>python error</comment>
-        <translation>Cílový rámec musí být prázdný</translation>
+        <translation type="obsolete">Cílový rámec musí být prázdný</translation>
     </message>
     <message>
         <source>Target frame links to another frame</source>
         <comment>python error</comment>
-        <translation>Text cilového rámce už poračuje v rámci jiném</translation>
+        <translation type="obsolete">Text cilového rámce už poračuje v rámci jiném</translation>
     </message>
     <message>
         <source>Target frame is linked to by another frame</source>
         <comment>python error</comment>
-        <translation>Cílový rámec už je zřetězený</translation>
+        <translation type="obsolete">Cílový rámec už je zřetězený</translation>
     </message>
     <message>
         <source>Source and target are the same object</source>
         <comment>python error</comment>
-        <translation>Oba rámce jsou stejný objekt</translation>
+        <translation type="obsolete">Oba rámce jsou stejný objekt</translation>
     </message>
     <message>
         <source>Can&apos;t unlink a non-text frame</source>
         <comment>python error</comment>
-        <translation>Nelze zrušit zřetězení netextového rámce</translation>
+        <translation type="obsolete">Nelze zrušit zřetězení netextového rámce</translation>
     </message>
     <message>
         <source>Object is not a linked text frame, can&apos;t unlink.</source>
         <comment>python error</comment>
-        <translation>Objekt není zřetězený textový rámec, proto nelze řetězeí zrušit.</translation>
+        <translation type="obsolete">Objekt není zřetězený textový rámec, proto nelze řetězeí zrušit.</translation>
     </message>
     <message>
         <source>Object the last frame in a series, can&apos;t unlink. Unlink the previous frame instead.</source>
         <comment>python error</comment>
-        <translation>Objektu na posledním místě nelze zrušit zřetězení. Použijte místo něj předchozí rámec.</translation>
+        <translation type="obsolete">Objektu na posledním místě nelze zrušit zřetězení. Použijte místo něj předchozí rámec.</translation>
     </message>
     <message>
         <source>Can&apos;t convert a non-text frame to outlines</source>
         <comment>python error</comment>
-        <translation>Nelze převést netextový rámec na křivky</translation>
+        <translation type="obsolete">Nelze převést netextový rámec na křivky</translation>
     </message>
     <message>
         <source>Failed to open document</source>
@@ -10402,37 +10413,37 @@ Odkazy ven
     <message>
         <source>Can&apos;t scale by 0%</source>
         <comment>python error</comment>
-        <translation>Nelze měnit velikost pomocí 0%</translation>
+        <translation type="obsolete">Nelze měnit velikost pomocí 0%</translation>
     </message>
     <message>
         <source>Can&apos;t render an empty sample</source>
         <comment>python error</comment>
-        <translation>Nelze vytvořit prázdný náhled</translation>
+        <translation type="obsolete">Nelze vytvořit prázdný náhled</translation>
     </message>
     <message>
         <source>Can&apos;t save to a blank filename</source>
         <comment>python error</comment>
-        <translation>Nelze ukládat bez názvu souboru</translation>
+        <translation type="obsolete">Nelze ukládat bez názvu souboru</translation>
     </message>
     <message>
         <source>Can&apos;t have an empty layer name</source>
         <comment>python error</comment>
-        <translation>Nelze vytvořit vrstvu s prázdným jménem</translation>
+        <translation type="obsolete">Nelze vytvořit vrstvu s prázdným jménem</translation>
     </message>
     <message>
         <source>Layer not found</source>
         <comment>python error</comment>
-        <translation>Vrstva nenalezena</translation>
+        <translation type="obsolete">Vrstva nenalezena</translation>
     </message>
     <message>
         <source>Can&apos;t remove the last layer</source>
         <comment>python error</comment>
-        <translation>Nelze odstranit poslední vrstvu</translation>
+        <translation type="obsolete">Nelze odstranit poslední vrstvu</translation>
     </message>
     <message>
         <source>Can&apos;t create layer without a name</source>
         <comment>python error</comment>
-        <translation>Nelze vytvořit vrstvu beze jména</translation>
+        <translation type="obsolete">Nelze vytvořit vrstvu beze jména</translation>
     </message>
     <message>
         <source>An object with the requested name already exists</source>
@@ -10532,7 +10543,7 @@ Odkazy ven
     <message>
         <source>Color not found</source>
         <comment>python error</comment>
-        <translation>Barva nenalezena</translation>
+        <translation type="obsolete">Barva nenalezena</translation>
     </message>
     <message>
         <source>Cannot change a color with an empty name.</source>
@@ -10542,12 +10553,12 @@ Odkazy ven
     <message>
         <source>Color not found in document</source>
         <comment>python error</comment>
-        <translation>Barva není v dokumentu nalezena</translation>
+        <translation type="obsolete">Barva není v dokumentu nalezena</translation>
     </message>
     <message>
         <source>Color not found in default colors</source>
         <comment>python error</comment>
-        <translation>Barva není nalezena v implicitních barvách</translation>
+        <translation type="obsolete">Barva není nalezena v implicitních barvách</translation>
     </message>
     <message>
         <source>Cannot create a color with an empty name.</source>
@@ -10714,11 +10725,6 @@ Detaily a výjimky Scripteru jsou popsány v dokumentaci jednotlivých funkcí.<
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Specified item not an image frame</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>The filename must be a string.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
@@ -10744,27 +10750,188 @@ Detaily a výjimky Scripteru jsou popsány v dokumentaci jednotlivých funkcí.<
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Run a Python script from a file.</source>
-        <comment>scripter</comment>
+        <source>Color not found.</source>
+        <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Load Extension Script...</source>
+        <source>Color not found in document.</source>
+        <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Load a Python script as an extension. Used for loading macros and for advanced Python scripts that extend the Scribus user interface.</source>
-        <comment>scripter</comment>
+        <source>Color not found in default colors.</source>
+        <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Display an interactive Python console where you can write and run Python programs that use the Scripter tools.</source>
-        <comment>scripter</comment>
+        <source>Cannot scale by 0%.</source>
+        <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Scripter &amp;Settings</source>
-        <comment>script menu</comment>
+        <source>Specified item not an image frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font not found.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot render an empty sample.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot save to a blank filename.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot have an empty layer name.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Layer not found.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot remove the last layer.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot create layer without a name.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert index out of bounds.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set text alignment on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set font size on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set font on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line space out of bounds, must be &gt;= 0.1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set line spacing on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Column gap out of bounds, must be positive.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set column gap on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Column count out of bounds, must be &gt; 1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set number of columns on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot select text in a non-text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot delete text from a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set text fill on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set text stroke on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set text shade on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can only link text frames.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target frame must be empty.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target frame links to another frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target frame is linked to by another frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Source and target are the same object.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot unlink a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Object is not a linked text frame, cannot unlink.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Object the last frame in a series, cannot unlink. Unlink the previous frame instead.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot convert a non-text frame to outlines.</source>
+        <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -12382,6 +12549,103 @@ Jestliže jsou použity protilehlé strany, může tento okraj očetřit vazbu</
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Zrušit</translation>
+    </message>
+</context>
+<context>
+    <name>ScripterCore</name>
+    <message>
+        <source>&amp;Scribus Scripts</source>
+        <translation type="unfinished">&amp;Scribus skripty</translation>
+    </message>
+    <message>
+        <source>&amp;Execute Script...</source>
+        <translation type="unfinished">&amp;Vykonat skript...</translation>
+    </message>
+    <message>
+        <source>Run a Python script from a file.</source>
+        <comment>scripter</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Load Extension Script...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load a Python script as an extension. Used for loading macros and for advanced Python scripts that extend the Scribus user interface.</source>
+        <comment>scripter</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Recent Scripts</source>
+        <translation type="unfinished">&amp;Použité skripty</translation>
+    </message>
+    <message>
+        <source>Show &amp;Console</source>
+        <translation type="unfinished">Ukázat &amp;konzoli</translation>
+    </message>
+    <message>
+        <source>Display an interactive Python console where you can write and run Python programs that use the Scripter tools.</source>
+        <comment>scripter</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;About Script...</source>
+        <translation type="unfinished">&amp;O skriptu...</translation>
+    </message>
+    <message>
+        <source>S&amp;cript</source>
+        <translation type="unfinished">S&amp;kript</translation>
+    </message>
+    <message>
+        <source>Scripter &amp;Settings</source>
+        <comment>script menu</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished">Otevřít</translation>
+    </message>
+    <message>
+        <source>Python Scripts (*.py);; All Files (*)</source>
+        <translation type="unfinished">Python skripty (*.py);; All Files (*)</translation>
+    </message>
+    <message>
+        <source>Script error</source>
+        <translation type="unfinished">Chyba ve skriptu</translation>
+    </message>
+    <message>
+        <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
+        <translation type="unfinished">Jestliže běžel skript distribuovaný s programem, informujte nás o chybě na &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; - děkujeme vám.</translation>
+    </message>
+    <message>
+        <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
+        <translation type="unfinished">Tato chybová zpráva je ve vaší systémové schránce. Použijte Ctrl+V, tím ji
+můžete zkopírovat do chybového hlášení.</translation>
+    </message>
+    <message>
+        <source>Scribus - Script Plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The &apos;Load Script&apos; function of the script plugin is currently disabled.
+If you just want to run a normal script, you probably want to use
+&apos;Execute Script...&apos; instead.
+
+If you do actually want to load a Python extension script or macro, you
+need to go into the Scripter Settings in the Script menu and enable
+scripter extensions there.
+
+Please read the documentation on extension scripts first.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide &amp;Console</source>
+        <translation type="unfinished">Skrýt &amp;konzoli</translation>
+    </message>
+    <message>
+        <source>About Script</source>
+        <translation type="unfinished">O skriptu</translation>
     </message>
 </context>
 <context>

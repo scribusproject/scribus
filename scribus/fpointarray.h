@@ -48,6 +48,10 @@ public:
 	void setMarker();
 	void addPoint(double x, double y);
 	void addPoint(FPoint p);
+	double lenPathSeg(int seg);
+	double lenPathDist(int seg, double t1, double t2);
+	void pointTangentNormalAt( int seg, double t, FPoint* p, FPoint* tn, FPoint* n );
+	void pointDerivativesAt( int seg, double t, FPoint* p, FPoint* d1, FPoint* d2 );
 	~FPointArray() {};
 };
 

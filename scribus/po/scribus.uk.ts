@@ -1470,7 +1470,7 @@ that the layer &quot;layer&quot; is visible, a value of False means that the lay
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+        <translation type="obsolete">isLayerPrintable(&quot;layer&quot;) -&gt; bool
 
 Повертає стан видимості плану &quot;layer&quot; - значення &quot;True&quot; означає, що
 план &quot;layer&quot; видимий, а значення &quot;False&quot; означає, що план &quot;layer&quot; 
@@ -1490,7 +1490,7 @@ the layer &quot;layer&quot; is disabled.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+        <translation type="obsolete">isLayerPrintable(&quot;layer&quot;) -&gt; bool
 
 Повертає стан доступності для друку плану &quot;layer&quot;. При значенні &quot;True&quot;
 план &quot;layer&quot; може бути надрукований, а при значенні &quot;False&quot; - ні.
@@ -2324,6 +2324,30 @@ for the macro.
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+
+Returns whether the layer &quot;layer&quot; is visible or not, a value of True means
+that the layer &quot;layer&quot; is visible, a value of False means that the layer
+&quot;layer&quot; is invisible.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+
+Returns whether the layer &quot;layer&quot; is printable or not, a value of True means
+that the layer &quot;layer&quot; can be printed, a value of False means that printing
+the layer &quot;layer&quot; is disabled.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -2548,6 +2572,10 @@ littlecms = бібліотека профілювання кольорів
 CUPS = бібліотека підтримки системи друку
 TIFF = бібліотека підтримки графічного формату
 tiff</translation>
+    </message>
+    <message>
+        <source>Portugese (Brazilian):</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5856,14 +5884,6 @@ The table in the center of the dialog lists what macros are currently loaded and
         <translation type="unfinished">Alt+O</translation>
     </message>
     <message>
-        <source>Close this dialog.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Return to Scribus.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Macro</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5914,12 +5934,6 @@ The table in the center of the dialog lists what macros are currently loaded and
     </message>
     <message>
         <source>&lt;qt&gt;Edit the source of the selected macro, if the source is availible.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;Edit the selected macro. &lt;/p&gt;
-&lt;p&gt;If this button is greyed out, either there is no selected macro or the macro manager does not have the source code for the macro you have selected (in which case &lt;tt&gt;No&lt;/tt&gt; will be shown in the &lt;tt&gt;Edit &lt;/tt&gt;column of the macro).&lt;/p&gt;
-&lt;p&gt;If scribus doesn&apos;t have the source, the macro was probably created by a script.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6001,6 +6015,20 @@ The table in the center of the dialog lists what macros are currently loaded and
     </message>
     <message>
         <source>&lt;p&gt;Loads macros from an external file.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close this dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Return to Scribus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Edit the selected macro. &lt;/p&gt;
+&lt;p&gt;If this button is greyed out, either there is no selected macro or the macro manager does not have the source code for the macro you have selected (in which case &lt;tt&gt;No&lt;/tt&gt; will be shown in the &lt;tt&gt;Edit &lt;/tt&gt;column of the macro).&lt;/p&gt;
+&lt;p&gt;If Scribus doesn&apos;t have the source, the macro was probably created by a script.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6106,41 +6134,24 @@ The table in the center of the dialog lists what macros are currently loaded and
     <name>MenuTest</name>
     <message>
         <source>Script error</source>
-        <translation>Помилка сценарія</translation>
+        <translation type="obsolete">Помилка сценарія</translation>
     </message>
     <message>
         <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
-        <translation>Якщо ви використовуєте офіційний сценарій то, будь-ласка, повідомляйте про помилки на &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
+        <translation type="obsolete">Якщо ви використовуєте офіційний сценарій то, будь-ласка, повідомляйте про помилки на &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
     </message>
     <message>
         <source>Show &amp;Console</source>
-        <translation>Показати &amp;Консоль</translation>
+        <translation type="obsolete">Показати &amp;Консоль</translation>
     </message>
     <message>
         <source>Hide &amp;Console</source>
-        <translation>Сховати &amp;Консоль</translation>
+        <translation type="obsolete">Сховати &amp;Консоль</translation>
     </message>
     <message>
         <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
-        <translation>Це повідомлення також розміщене в блоці копіювання. Використайте 
+        <translation type="obsolete">Це повідомлення також розміщене в блоці копіювання. Використайте 
 Ctrl-V для вставки його в систему обробітку програмних помилок.</translation>
-    </message>
-    <message>
-        <source>Scribus - Script Plugin</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The &apos;Load Script&apos; function of the script plugin is currently disabled.
-If you just want to run a normal script, you probably want to use
-&apos;Execute Script...&apos; instead.
-
-If you do actually want to load a Python extension script or macro, you
-need to go into the Scripter Settings in the Script menu and enable
-scripter extensions there.
-
-Please read the documentation on extension scripts first.
-</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10131,7 +10142,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation>Сценарії на Пітоні (*.py);; Всі файли (*)</translation>
+        <translation type="obsolete">Сценарії на Пітоні (*.py);; Всі файли (*)</translation>
     </message>
     <message>
         <source>Save as</source>
@@ -10163,7 +10174,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>S&amp;cript</source>
-        <translation>С&amp;ценарії</translation>
+        <translation type="obsolete">С&amp;ценарії</translation>
     </message>
     <message>
         <source>Oook! You&apos;re calling an object doesn&apos;t exist!</source>
@@ -10335,19 +10346,19 @@ Check path and filename.</source>
     </message>
     <message>
         <source>&amp;Scribus Scripts</source>
-        <translation>С&amp;ценарії Scribus</translation>
+        <translation type="obsolete">С&amp;ценарії Scribus</translation>
     </message>
     <message>
         <source>&amp;Execute Script...</source>
-        <translation>&amp;Виконати сценарій...</translation>
+        <translation type="obsolete">&amp;Виконати сценарій...</translation>
     </message>
     <message>
         <source>&amp;Recent Scripts</source>
-        <translation>&amp;Недавно виконані сценарії</translation>
+        <translation type="obsolete">&amp;Недавно виконані сценарії</translation>
     </message>
     <message>
         <source>Show &amp;Console</source>
-        <translation>Покзати ко&amp;нсоль</translation>
+        <translation type="obsolete">Покзати ко&amp;нсоль</translation>
     </message>
     <message>
         <source>Save Page as &amp;SVG...</source>
@@ -10570,11 +10581,11 @@ External Links
     </message>
     <message>
         <source>&amp;About Script...</source>
-        <translation>&amp;Про скрипт...</translation>
+        <translation type="obsolete">&amp;Про скрипт...</translation>
     </message>
     <message>
         <source>About Script</source>
-        <translation>Про скрипт</translation>
+        <translation type="obsolete">Про скрипт</translation>
     </message>
     <message>
         <source>Cannot get font size of non-text frame.</source>
@@ -10625,7 +10636,7 @@ External Links
     <message>
         <source>Insert index out of bounds</source>
         <comment>python error</comment>
-        <translation>Індекс вставки виходить за доступний діапазон</translation>
+        <translation type="obsolete">Індекс вставки виходить за доступний діапазон</translation>
     </message>
     <message>
         <source>Alignment out of range. Use one of the scribus.ALIGN* constants.</source>
@@ -10636,57 +10647,57 @@ External Links
     <message>
         <source>Can&apos;t set text alignment on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Неможливо установити вирівнювання тексту в нетекстовій рамці</translation>
+        <translation type="obsolete">Неможливо установити вирівнювання тексту в нетекстовій рамці</translation>
     </message>
     <message>
         <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512</source>
         <comment>python error</comment>
-        <translation>Розмір шрифта виходить за доступний діапазон - має бути 1 &lt;= розмір &lt;= 512</translation>
+        <translation type="obsolete">Розмір шрифта виходить за доступний діапазон - має бути 1 &lt;= розмір &lt;= 512</translation>
     </message>
     <message>
         <source>Can&apos;t set font size on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Неможливо установити розмір шрифта в нетекстовій рамці</translation>
+        <translation type="obsolete">Неможливо установити розмір шрифта в нетекстовій рамці</translation>
     </message>
     <message>
         <source>Can&apos;t set font on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Неможливо установити текст в нетекстовій рамці</translation>
+        <translation type="obsolete">Неможливо установити текст в нетекстовій рамці</translation>
     </message>
     <message>
         <source>Font not found</source>
         <comment>python error</comment>
-        <translation>Шрифт не знайдено</translation>
+        <translation type="obsolete">Шрифт не знайдено</translation>
     </message>
     <message>
         <source>Line space out of bounds, must be &gt;= 0.1</source>
         <comment>python error</comment>
-        <translation>Міжрядковий інтервал виходить за доступний діапазон, має бути &gt;= 0.1</translation>
+        <translation type="obsolete">Міжрядковий інтервал виходить за доступний діапазон, має бути &gt;= 0.1</translation>
     </message>
     <message>
         <source>Can&apos;t line spacing on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Неможливо визначити міжрядковий інтервал в нетекстовій рамці</translation>
+        <translation type="obsolete">Неможливо визначити міжрядковий інтервал в нетекстовій рамці</translation>
     </message>
     <message>
         <source>Column gap out of bounds, must be positive</source>
         <comment>python error</comment>
-        <translation>Дистанція між колонками тексту виходить за доступний діапазон, має бути позитивною</translation>
+        <translation type="obsolete">Дистанція між колонками тексту виходить за доступний діапазон, має бути позитивною</translation>
     </message>
     <message>
         <source>Can&apos;t column gap on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Неможливо установити число колонок тексту в нетекстовій рамці</translation>
+        <translation type="obsolete">Неможливо установити число колонок тексту в нетекстовій рамці</translation>
     </message>
     <message>
         <source>Column count out of bounds, must be &gt; 1</source>
         <comment>python error</comment>
-        <translation>Число колонок тексту виходить за доступний діапазон, має бути &gt; 1</translation>
+        <translation type="obsolete">Число колонок тексту виходить за доступний діапазон, має бути &gt; 1</translation>
     </message>
     <message>
         <source>Can&apos;t number of columns on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Неможливо установити число колонок тексту в нетекстовій рамці</translation>
+        <translation type="obsolete">Неможливо установити число колонок тексту в нетекстовій рамці</translation>
     </message>
     <message>
         <source>Selection index out of bounds</source>
@@ -10696,72 +10707,72 @@ External Links
     <message>
         <source>Can&apos;t select text in a non-text frame</source>
         <comment>python error</comment>
-        <translation>Неможливо вибрати текст в нетекстовій рамці</translation>
+        <translation type="obsolete">Неможливо вибрати текст в нетекстовій рамці</translation>
     </message>
     <message>
         <source>Can&apos;t delete text from a non-text frame</source>
         <comment>python error</comment>
-        <translation>Неможливо видалити текст з нетекстової рамки</translation>
+        <translation type="obsolete">Неможливо видалити текст з нетекстової рамки</translation>
     </message>
     <message>
         <source>Can&apos;t set text fill on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Неможливо установити заповнення тексту в нетекстовій рамці</translation>
+        <translation type="obsolete">Неможливо установити заповнення тексту в нетекстовій рамці</translation>
     </message>
     <message>
         <source>Can&apos;t set text stroke on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Неможливо установити виділення контурів знаків в нетекстовій рамці</translation>
+        <translation type="obsolete">Неможливо установити виділення контурів знаків в нетекстовій рамці</translation>
     </message>
     <message>
         <source>Can&apos;t set text shade on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Неможливо установити тінь тексту в нетекстовій рамці</translation>
+        <translation type="obsolete">Неможливо установити тінь тексту в нетекстовій рамці</translation>
     </message>
     <message>
         <source>Can only link text frames</source>
         <comment>python error</comment>
-        <translation>Лише текстові рамки можуть бути з&apos;єднані в ланцюжок</translation>
+        <translation type="obsolete">Лише текстові рамки можуть бути з&apos;єднані в ланцюжок</translation>
     </message>
     <message>
         <source>Target frame must be empty</source>
         <comment>python error</comment>
-        <translation>Рамка призначення має бути пуста</translation>
+        <translation type="obsolete">Рамка призначення має бути пуста</translation>
     </message>
     <message>
         <source>Target frame links to another frame</source>
         <comment>python error</comment>
-        <translation>Рамка призначення зв&apos;язана з іншою рамкою</translation>
+        <translation type="obsolete">Рамка призначення зв&apos;язана з іншою рамкою</translation>
     </message>
     <message>
         <source>Target frame is linked to by another frame</source>
         <comment>python error</comment>
-        <translation>Інша рамка зв&apos;язана з рамкою призначення</translation>
+        <translation type="obsolete">Інша рамка зв&apos;язана з рамкою призначення</translation>
     </message>
     <message>
         <source>Source and target are the same object</source>
         <comment>python error</comment>
-        <translation>Вихідна рамка і рамка призначення являються одним і тим самим об&apos;єктом</translation>
+        <translation type="obsolete">Вихідна рамка і рамка призначення являються одним і тим самим об&apos;єктом</translation>
     </message>
     <message>
         <source>Can&apos;t unlink a non-text frame</source>
         <comment>python error</comment>
-        <translation>Неможливо від&apos;єднати нетекстову рамку</translation>
+        <translation type="obsolete">Неможливо від&apos;єднати нетекстову рамку</translation>
     </message>
     <message>
         <source>Object is not a linked text frame, can&apos;t unlink.</source>
         <comment>python error</comment>
-        <translation>Об&apos;єкт не являється зв&apos;язаною текстовою рамкою, неможливо розімкнути.</translation>
+        <translation type="obsolete">Об&apos;єкт не являється зв&apos;язаною текстовою рамкою, неможливо розімкнути.</translation>
     </message>
     <message>
         <source>Object the last frame in a series, can&apos;t unlink. Unlink the previous frame instead.</source>
         <comment>python error</comment>
-        <translation>Об&apos;єкт являється останньою рамкою в серії, неможливо роз&apos;єднати. Роз&apos;єднайте попередню рамку натомість.</translation>
+        <translation type="obsolete">Об&apos;єкт являється останньою рамкою в серії, неможливо роз&apos;єднати. Роз&apos;єднайте попередню рамку натомість.</translation>
     </message>
     <message>
         <source>Can&apos;t convert a non-text frame to outlines</source>
         <comment>python error</comment>
-        <translation>Неможливо конвертувати нетекстову рамку в контурні лінії</translation>
+        <translation type="obsolete">Неможливо конвертувати нетекстову рамку в контурні лінії</translation>
     </message>
     <message>
         <source>Failed to open document</source>
@@ -10787,37 +10798,37 @@ scribus.UNIT_* констант.</translation>
     <message>
         <source>Can&apos;t scale by 0%</source>
         <comment>python error</comment>
-        <translation>Неможливо змінити масштаб на 0%</translation>
+        <translation type="obsolete">Неможливо змінити масштаб на 0%</translation>
     </message>
     <message>
         <source>Can&apos;t render an empty sample</source>
         <comment>python error</comment>
-        <translation>Неможливо прорисувати пустий зразок</translation>
+        <translation type="obsolete">Неможливо прорисувати пустий зразок</translation>
     </message>
     <message>
         <source>Can&apos;t save to a blank filename</source>
         <comment>python error</comment>
-        <translation>Неможливо записати файл з пустим ім&apos;ям</translation>
+        <translation type="obsolete">Неможливо записати файл з пустим ім&apos;ям</translation>
     </message>
     <message>
         <source>Can&apos;t have an empty layer name</source>
         <comment>python error</comment>
-        <translation>Не допускається пусте ім&apos;я плану</translation>
+        <translation type="obsolete">Не допускається пусте ім&apos;я плану</translation>
     </message>
     <message>
         <source>Layer not found</source>
         <comment>python error</comment>
-        <translation>План не знайдено</translation>
+        <translation type="obsolete">План не знайдено</translation>
     </message>
     <message>
         <source>Can&apos;t remove the last layer</source>
         <comment>python error</comment>
-        <translation>Неможливо видалити останній існуючий план</translation>
+        <translation type="obsolete">Неможливо видалити останній існуючий план</translation>
     </message>
     <message>
         <source>Can&apos;t create layer without a name</source>
         <comment>python error</comment>
-        <translation>Неможливо створити план без імені</translation>
+        <translation type="obsolete">Неможливо створити план без імені</translation>
     </message>
     <message>
         <source>An object with the requested name already exists</source>
@@ -10917,7 +10928,7 @@ scribus.UNIT_* констант.</translation>
     <message>
         <source>Color not found</source>
         <comment>python error</comment>
-        <translation>Колір не знайдено</translation>
+        <translation type="obsolete">Колір не знайдено</translation>
     </message>
     <message>
         <source>Cannot change a color with an empty name.</source>
@@ -10927,12 +10938,12 @@ scribus.UNIT_* констант.</translation>
     <message>
         <source>Color not found in document</source>
         <comment>python error</comment>
-        <translation>Колір не знайдено в документі</translation>
+        <translation type="obsolete">Колір не знайдено в документі</translation>
     </message>
     <message>
         <source>Color not found in default colors</source>
         <comment>python error</comment>
-        <translation>Колір не знайдено в стандартних кольорах</translation>
+        <translation type="obsolete">Колір не знайдено в стандартних кольорах</translation>
     </message>
     <message>
         <source>Cannot create a color with an empty name.</source>
@@ -11088,11 +11099,6 @@ function&apos;s documentation.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Specified item not an image frame</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>The filename must be a string.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
@@ -11118,27 +11124,188 @@ function&apos;s documentation.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Run a Python script from a file.</source>
-        <comment>scripter</comment>
+        <source>Color not found.</source>
+        <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Load Extension Script...</source>
+        <source>Color not found in document.</source>
+        <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Load a Python script as an extension. Used for loading macros and for advanced Python scripts that extend the Scribus user interface.</source>
-        <comment>scripter</comment>
+        <source>Color not found in default colors.</source>
+        <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Display an interactive Python console where you can write and run Python programs that use the Scripter tools.</source>
-        <comment>scripter</comment>
+        <source>Cannot scale by 0%.</source>
+        <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Scripter &amp;Settings</source>
-        <comment>script menu</comment>
+        <source>Specified item not an image frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font not found.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot render an empty sample.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot save to a blank filename.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot have an empty layer name.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Layer not found.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot remove the last layer.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot create layer without a name.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert index out of bounds.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set text alignment on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set font size on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set font on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line space out of bounds, must be &gt;= 0.1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set line spacing on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Column gap out of bounds, must be positive.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set column gap on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Column count out of bounds, must be &gt; 1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set number of columns on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot select text in a non-text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot delete text from a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set text fill on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set text stroke on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set text shade on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can only link text frames.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target frame must be empty.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target frame links to another frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target frame is linked to by another frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Source and target are the same object.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot unlink a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Object is not a linked text frame, cannot unlink.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Object the last frame in a series, cannot unlink. Unlink the previous frame instead.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot convert a non-text frame to outlines.</source>
+        <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -12758,6 +12925,103 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>&amp;Cancel</source>
         <translation>В&amp;ихід</translation>
+    </message>
+</context>
+<context>
+    <name>ScripterCore</name>
+    <message>
+        <source>&amp;Scribus Scripts</source>
+        <translation type="unfinished">С&amp;ценарії Scribus</translation>
+    </message>
+    <message>
+        <source>&amp;Execute Script...</source>
+        <translation type="unfinished">&amp;Виконати сценарій...</translation>
+    </message>
+    <message>
+        <source>Run a Python script from a file.</source>
+        <comment>scripter</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Load Extension Script...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load a Python script as an extension. Used for loading macros and for advanced Python scripts that extend the Scribus user interface.</source>
+        <comment>scripter</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Recent Scripts</source>
+        <translation type="unfinished">&amp;Недавно виконані сценарії</translation>
+    </message>
+    <message>
+        <source>Show &amp;Console</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display an interactive Python console where you can write and run Python programs that use the Scripter tools.</source>
+        <comment>scripter</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;About Script...</source>
+        <translation type="unfinished">&amp;Про скрипт...</translation>
+    </message>
+    <message>
+        <source>S&amp;cript</source>
+        <translation type="unfinished">С&amp;ценарії</translation>
+    </message>
+    <message>
+        <source>Scripter &amp;Settings</source>
+        <comment>script menu</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished">Відчинити</translation>
+    </message>
+    <message>
+        <source>Python Scripts (*.py);; All Files (*)</source>
+        <translation type="unfinished">Сценарії на Пітоні (*.py);; Всі файли (*)</translation>
+    </message>
+    <message>
+        <source>Script error</source>
+        <translation type="unfinished">Помилка сценарія</translation>
+    </message>
+    <message>
+        <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
+        <translation type="unfinished">Якщо ви використовуєте офіційний сценарій то, будь-ласка, повідомляйте про помилки на &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
+    </message>
+    <message>
+        <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
+        <translation type="unfinished">Це повідомлення також розміщене в блоці копіювання. Використайте 
+Ctrl-V для вставки його в систему обробітку програмних помилок.</translation>
+    </message>
+    <message>
+        <source>Scribus - Script Plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The &apos;Load Script&apos; function of the script plugin is currently disabled.
+If you just want to run a normal script, you probably want to use
+&apos;Execute Script...&apos; instead.
+
+If you do actually want to load a Python extension script or macro, you
+need to go into the Scripter Settings in the Script menu and enable
+scripter extensions there.
+
+Please read the documentation on extension scripts first.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide &amp;Console</source>
+        <translation type="unfinished">Сховати &amp;Консоль</translation>
+    </message>
+    <message>
+        <source>About Script</source>
+        <translation type="unfinished">Про скрипт</translation>
     </message>
 </context>
 <context>

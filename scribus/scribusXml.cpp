@@ -211,7 +211,7 @@ void ScriXmlDoc::GetItemProps(bool newVersion, QDomElement *obj, struct CLBuf *O
 	OB->TExtra=QStodouble(obj->attribute("TEXTRA", "1"));
 	OB->BExtra=QStodouble(obj->attribute("BEXTRA", "1"));
 	OB->RExtra=QStodouble(obj->attribute("REXTRA", "1"));
-	OB->PoShow = QStoInt(obj->attribute("PTLSHOW","0"));
+	OB->PoShow = QStoInt(obj->attribute("PLTSHOW","0"));
 	OB->BaseOffs = QStodouble(obj->attribute("BASEOF","0"));
 	OB->ISize = qRound(QStodouble(obj->attribute("ISIZE","12")) * 10);
 	OB->Pfile=obj->attribute("PFILE");

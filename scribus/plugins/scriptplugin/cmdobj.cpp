@@ -489,7 +489,7 @@ PyObject *scribus_setstyle(PyObject */*self*/, PyObject* args)
 		/*
 		 * First, find the style number associated with the requested style
 		 * by scanning through the styles looking for the name. If
-		 * we can't find it, raise PyExc_Exception.
+		 * we cannot find it, raise PyExc_Exception.
 		 * FIXME: Should use a more specific exception.
 		 */
 		bool found = false;

@@ -33,7 +33,7 @@ PyObject *scribus_getcolor(PyObject */*self*/, PyObject* args)
 	QString col = QString::fromUtf8(Name);
 	if (!edc.contains(col))
 	{
-		PyErr_SetString(NotFoundError, QObject::tr("Color not found","python error"));
+		PyErr_SetString(NotFoundError, QObject::tr("Color not found.","python error"));
 		return NULL;
 	}
 	edc[col].getCMYK(&c, &m, &y, &k);
@@ -78,7 +78,7 @@ PyObject *scribus_setcolor(PyObject */*self*/, PyObject* args)
 	{
 		if (!Carrier->doc->PageColors.contains(col))
 		{
-			PyErr_SetString(NotFoundError, QObject::tr("Color not found in document","python error"));
+			PyErr_SetString(NotFoundError, QObject::tr("Color not found in document.","python error"));
 			return NULL;
 		}
 		Carrier->doc->PageColors[col].setColor(c, m, y, k);
@@ -87,7 +87,7 @@ PyObject *scribus_setcolor(PyObject */*self*/, PyObject* args)
 	{
 		if (!Carrier->Prefs.DColors.contains(col))
 		{
-			PyErr_SetString(NotFoundError, QObject::tr("Color not found in default colors","python error"));
+			PyErr_SetString(NotFoundError, QObject::tr("Color not found in default colors.","python error"));
 			return NULL;
 		}
 		Carrier->Prefs.DColors[col].setColor(c, m, y, k);
@@ -152,7 +152,7 @@ PyObject *scribus_delcolor(PyObject */*self*/, PyObject* args)
 			}
 		else
 		{
-			PyErr_SetString(NotFoundError, QObject::tr("Color not found in document","python error"));
+			PyErr_SetString(NotFoundError, QObject::tr("Color not found in document.","python error"));
 			return NULL;
 		}
 	}
@@ -162,7 +162,7 @@ PyObject *scribus_delcolor(PyObject */*self*/, PyObject* args)
 			Carrier->Prefs.DColors.remove(col);
 		else
 		{
-			PyErr_SetString(NotFoundError, QObject::tr("Color not found in default colors","python error"));
+			PyErr_SetString(NotFoundError, QObject::tr("Color not found in default colors.","python error"));
 			return NULL;
 		}
 	}
@@ -190,7 +190,7 @@ PyObject *scribus_replcolor(PyObject */*self*/, PyObject* args)
 		ReplaceColor(col, rep);
 	else
 	{
-		PyErr_SetString(NotFoundError, QObject::tr("Color not found","python error"));
+		PyErr_SetString(NotFoundError, QObject::tr("Color not found.","python error"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);

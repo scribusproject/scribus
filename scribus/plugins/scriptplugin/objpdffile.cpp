@@ -1139,7 +1139,7 @@ static PyObject *PDFfile_save(PDFfile *self)
         }
         ReOrderText(Carrier->doc, Carrier->view);
         if (!Carrier->getPDFDriver(fn, nam, Components, pageNs, thumbs)) {
-                fn = "Can't write the File: " + fn;
+                fn = "Cannot write the File: " + fn;
                 PyErr_SetString(PyExc_SystemError, fn.ascii());
                 return NULL;
         }

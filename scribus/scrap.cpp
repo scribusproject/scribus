@@ -240,10 +240,15 @@ void Biblio::SaveAs()
 	                                          tr("Scrapbooks (*.scs);;All Files (*)"), this);
 	if (!fn.isEmpty())
 	{
-		dirs->set("scrap_saveas", fn.left(fn.findRev("/")));
-		BibWin->SaveContents(fn);
-		ScFilename = fn;
-		setCaption(fn);
+		QString saveFileName;
+		if (fn.endsWith(".scs"))
+			saveFileName = fn;
+		else
+			saveFileName = fn+".scs";
+		dirs->set("scrap_saveas", saveFileName.left(saveFileName.findRev("/")));
+		BibWin->SaveContents(saveFileName);
+		ScFilename = saveFileName;
+		setCaption(saveFileName);
 		fmenu->setItemEnabled(fSave, 1);
 		Changed = false;
 	}

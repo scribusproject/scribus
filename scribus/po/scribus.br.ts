@@ -1254,7 +1254,7 @@ that the layer &quot;layer&quot; is visible, a value of False means that the lay
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation>isLayerPrintable(&quot;layer&quot;) -&gt; bool 
+        <translation type="obsolete">isLayerPrintable(&quot;layer&quot;) -&gt; bool 
 
 Retorna se a camada está ou não visível, um valor verdadeiro indica que a camada está visível, um valor falso indica que ela está invisível.
 
@@ -1271,7 +1271,7 @@ the layer &quot;layer&quot; is disabled.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+        <translation type="obsolete">isLayerPrintable(&quot;layer&quot;) -&gt; bool
 
 
  Retorna se a camada &quot;layer&quot; é imprimível ou não, um valor verdadeiro indica que a camada &quot;layer&quot; pode ser impressa, uma valor falso indica que a camada &quot;layer&quot; não pode ser impressa.
@@ -1966,6 +1966,30 @@ for the macro.
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+
+Returns whether the layer &quot;layer&quot; is visible or not, a value of True means
+that the layer &quot;layer&quot; is visible, a value of False means that the layer
+&quot;layer&quot; is invisible.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+
+Returns whether the layer &quot;layer&quot; is printable or not, a value of True means
+that the layer &quot;layer&quot; can be printed, a value of False means that printing
+the layer &quot;layer&quot; is disabled.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -2176,6 +2200,10 @@ Bibliotecas não suportadas são indicadas por a *</translation>
  compiled in library support in Scribus
 The C-C-T equates to C=littlecms C=CUPS T=TIFF support.
 Missing library support is indicated by a *</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Portugese (Brazilian):</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5504,14 +5532,6 @@ The table in the center of the dialog lists what macros are currently loaded and
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Close this dialog.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Return to Scribus.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Macro</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5562,12 +5582,6 @@ The table in the center of the dialog lists what macros are currently loaded and
     </message>
     <message>
         <source>&lt;qt&gt;Edit the source of the selected macro, if the source is availible.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;Edit the selected macro. &lt;/p&gt;
-&lt;p&gt;If this button is greyed out, either there is no selected macro or the macro manager does not have the source code for the macro you have selected (in which case &lt;tt&gt;No&lt;/tt&gt; will be shown in the &lt;tt&gt;Edit &lt;/tt&gt;column of the macro).&lt;/p&gt;
-&lt;p&gt;If scribus doesn&apos;t have the source, the macro was probably created by a script.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5649,6 +5663,20 @@ The table in the center of the dialog lists what macros are currently loaded and
     </message>
     <message>
         <source>&lt;p&gt;Loads macros from an external file.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close this dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Return to Scribus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Edit the selected macro. &lt;/p&gt;
+&lt;p&gt;If this button is greyed out, either there is no selected macro or the macro manager does not have the source code for the macro you have selected (in which case &lt;tt&gt;No&lt;/tt&gt; will be shown in the &lt;tt&gt;Edit &lt;/tt&gt;column of the macro).&lt;/p&gt;
+&lt;p&gt;If Scribus doesn&apos;t have the source, the macro was probably created by a script.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5754,41 +5782,24 @@ The table in the center of the dialog lists what macros are currently loaded and
     <name>MenuTest</name>
     <message>
         <source>Script error</source>
-        <translation>Erro de Script</translation>
+        <translation type="obsolete">Erro de Script</translation>
     </message>
     <message>
         <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
-        <translation>Se você estiver rodando um script oficial, transpásse-o para &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; por favor.</translation>
+        <translation type="obsolete">Se você estiver rodando um script oficial, transpásse-o para &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; por favor.</translation>
     </message>
     <message>
         <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
-        <translation>Essa mensagem está em sua área de transferência também. 
+        <translation type="obsolete">Essa mensagem está em sua área de transferência também. 
 Use Ctrl+V para cola-la dentro do rastreador de Bug.</translation>
     </message>
     <message>
         <source>Show &amp;Console</source>
-        <translation>Mostrar &amp;Terminal</translation>
+        <translation type="obsolete">Mostrar &amp;Terminal</translation>
     </message>
     <message>
         <source>Hide &amp;Console</source>
-        <translation>Ocultar &amp;Terminal</translation>
-    </message>
-    <message>
-        <source>Scribus - Script Plugin</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The &apos;Load Script&apos; function of the script plugin is currently disabled.
-If you just want to run a normal script, you probably want to use
-&apos;Execute Script...&apos; instead.
-
-If you do actually want to load a Python extension script or macro, you
-need to go into the Scripter Settings in the Script menu and enable
-scripter extensions there.
-
-Please read the documentation on extension scripts first.
-</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Ocultar &amp;Terminal</translation>
     </message>
 </context>
 <context>
@@ -9837,11 +9848,11 @@ Cheque o caminho e o nome do arquivo.</translation>
     </message>
     <message>
         <source>S&amp;cript</source>
-        <translation>S&amp;cript</translation>
+        <translation type="obsolete">S&amp;cript</translation>
     </message>
     <message>
         <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation>Python Scripts (*.py);; Todos os Arquivos (*)</translation>
+        <translation type="obsolete">Python Scripts (*.py);; Todos os Arquivos (*)</translation>
     </message>
     <message>
         <source>SVG-Images (*.svg *.svgz);;All Files (*)</source>
@@ -10009,19 +10020,19 @@ Cheque o caminho e o nome do arquivo.</translation>
     </message>
     <message>
         <source>&amp;Scribus Scripts</source>
-        <translation>Scripts do &amp;Scribus</translation>
+        <translation type="obsolete">Scripts do &amp;Scribus</translation>
     </message>
     <message>
         <source>&amp;Execute Script...</source>
-        <translation>&amp;Executar Script...</translation>
+        <translation type="obsolete">&amp;Executar Script...</translation>
     </message>
     <message>
         <source>&amp;Recent Scripts</source>
-        <translation>Scripts &amp;Recentes</translation>
+        <translation type="obsolete">Scripts &amp;Recentes</translation>
     </message>
     <message>
         <source>Show &amp;Console</source>
-        <translation>Mostrar &amp;Terminal</translation>
+        <translation type="obsolete">Mostrar &amp;Terminal</translation>
     </message>
     <message>
         <source>Save Page as &amp;SVG...</source>
@@ -10224,11 +10235,11 @@ Ligações Externas</translation>
     </message>
     <message>
         <source>&amp;About Script...</source>
-        <translation>Sobre o Script...</translation>
+        <translation type="obsolete">Sobre o Script...</translation>
     </message>
     <message>
         <source>About Script</source>
-        <translation>Sobre o Script</translation>
+        <translation type="obsolete">Sobre o Script</translation>
     </message>
     <message>
         <source>Cannot get font size of non-text frame.</source>
@@ -10287,7 +10298,7 @@ que não seja de texto.</translation>
     <message>
         <source>Insert index out of bounds</source>
         <comment>python error</comment>
-        <translation>Inserção de índice fora do limite</translation>
+        <translation type="obsolete">Inserção de índice fora do limite</translation>
     </message>
     <message>
         <source>Alignment out of range. Use one of the scribus.ALIGN* constants.</source>
@@ -10298,63 +10309,63 @@ valores de alinhamento do Scribus.</translation>
     <message>
         <source>Can&apos;t set text alignment on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Não é possível definir o alinhamento de texto em um 
+        <translation type="obsolete">Não é possível definir o alinhamento de texto em um 
 quadro que não seja de texto</translation>
     </message>
     <message>
         <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512</source>
         <comment>python error</comment>
-        <translation>Tamanho da fonte fora do limite, deve estar 
+        <translation type="obsolete">Tamanho da fonte fora do limite, deve estar 
 entre 1 &lt; = Tamanho &lt;= 512</translation>
     </message>
     <message>
         <source>Can&apos;t set font size on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Não é possível definir o tamanho da fonte em um 
+        <translation type="obsolete">Não é possível definir o tamanho da fonte em um 
 quadro que não seja de texto</translation>
     </message>
     <message>
         <source>Can&apos;t set font on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Não é possível definir uma fonte em um quadro 
+        <translation type="obsolete">Não é possível definir uma fonte em um quadro 
 que não seja de texto</translation>
     </message>
     <message>
         <source>Font not found</source>
         <comment>python error</comment>
-        <translation>Fonte não encontrada</translation>
+        <translation type="obsolete">Fonte não encontrada</translation>
     </message>
     <message>
         <source>Line space out of bounds, must be &gt;= 0.1</source>
         <comment>python error</comment>
-        <translation>Entrelinhas fora do limite, deve ser &gt; = 0.1</translation>
+        <translation type="obsolete">Entrelinhas fora do limite, deve ser &gt; = 0.1</translation>
     </message>
     <message>
         <source>Can&apos;t line spacing on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Não é possível espaçar um linha em um quadro 
+        <translation type="obsolete">Não é possível espaçar um linha em um quadro 
 que não seja de texto</translation>
     </message>
     <message>
         <source>Column gap out of bounds, must be positive</source>
         <comment>python error</comment>
-        <translation>Lacuna de coluna fora do limite, deve ser positivo</translation>
+        <translation type="obsolete">Lacuna de coluna fora do limite, deve ser positivo</translation>
     </message>
     <message>
         <source>Can&apos;t column gap on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Não é possível definir uma lacuna de coluna em 
+        <translation type="obsolete">Não é possível definir uma lacuna de coluna em 
 um quadro que não seja de texto</translation>
     </message>
     <message>
         <source>Column count out of bounds, must be &gt; 1</source>
         <comment>python error</comment>
-        <translation>Contagem de colunas fora do limite, deve ser &gt; 1</translation>
+        <translation type="obsolete">Contagem de colunas fora do limite, deve ser &gt; 1</translation>
     </message>
     <message>
         <source>Can&apos;t number of columns on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Não é possível numerar uma coluna em um quadro 
+        <translation type="obsolete">Não é possível numerar uma coluna em um quadro 
 que não seja de texto</translation>
     </message>
     <message>
@@ -10365,79 +10376,79 @@ que não seja de texto</translation>
     <message>
         <source>Can&apos;t select text in a non-text frame</source>
         <comment>python error</comment>
-        <translation>Não é possível selecionar um texto em um quadro 
+        <translation type="obsolete">Não é possível selecionar um texto em um quadro 
 que não seja de texto</translation>
     </message>
     <message>
         <source>Can&apos;t delete text from a non-text frame</source>
         <comment>python error</comment>
-        <translation>Não é possível apagar um texto em um quadro 
+        <translation type="obsolete">Não é possível apagar um texto em um quadro 
 que não seja de texto</translation>
     </message>
     <message>
         <source>Can&apos;t set text fill on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Não é possível definir o preenchimento de texto 
+        <translation type="obsolete">Não é possível definir o preenchimento de texto 
 em um quadro que não seja de texto</translation>
     </message>
     <message>
         <source>Can&apos;t set text stroke on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Não é possível definir uma linha em um quadro 
+        <translation type="obsolete">Não é possível definir uma linha em um quadro 
 que não seja de texto</translation>
     </message>
     <message>
         <source>Can&apos;t set text shade on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Não é possível definir sombra de texto em um 
+        <translation type="obsolete">Não é possível definir sombra de texto em um 
 quadro que não seja de texto</translation>
     </message>
     <message>
         <source>Can only link text frames</source>
         <comment>python error</comment>
-        <translation>Só é possível ligar quadros de texto</translation>
+        <translation type="obsolete">Só é possível ligar quadros de texto</translation>
     </message>
     <message>
         <source>Target frame must be empty</source>
         <comment>python error</comment>
-        <translation>O quadro alvo deve estar vazio</translation>
+        <translation type="obsolete">O quadro alvo deve estar vazio</translation>
     </message>
     <message>
         <source>Target frame links to another frame</source>
         <comment>python error</comment>
-        <translation>O quadro alvo liga a outro quadro</translation>
+        <translation type="obsolete">O quadro alvo liga a outro quadro</translation>
     </message>
     <message>
         <source>Target frame is linked to by another frame</source>
         <comment>python error</comment>
-        <translation>O quadro alvo está ligado a outro quadro</translation>
+        <translation type="obsolete">O quadro alvo está ligado a outro quadro</translation>
     </message>
     <message>
         <source>Source and target are the same object</source>
         <comment>python error</comment>
-        <translation>Fonte e alvo são os mesmos objetos</translation>
+        <translation type="obsolete">Fonte e alvo são os mesmos objetos</translation>
     </message>
     <message>
         <source>Can&apos;t unlink a non-text frame</source>
         <comment>python error</comment>
-        <translation>Não é possível desligar um quadro que não seja de texto</translation>
+        <translation type="obsolete">Não é possível desligar um quadro que não seja de texto</translation>
     </message>
     <message>
         <source>Object is not a linked text frame, can&apos;t unlink.</source>
         <comment>python error</comment>
-        <translation>O objeto não está ligado ao quadro de texto, não 
+        <translation type="obsolete">O objeto não está ligado ao quadro de texto, não 
 é possível desligar.</translation>
     </message>
     <message>
         <source>Object the last frame in a series, can&apos;t unlink. Unlink the previous frame instead.</source>
         <comment>python error</comment>
-        <translation>Objeto do último quadro em uma série não pode 
+        <translation type="obsolete">Objeto do último quadro em uma série não pode 
 ser desligado. Desligue o quadro anterior no lugar.</translation>
     </message>
     <message>
         <source>Can&apos;t convert a non-text frame to outlines</source>
         <comment>python error</comment>
-        <translation>Não é possível converter um quadro que não seja 
+        <translation type="obsolete">Não é possível converter um quadro que não seja 
 de texto para contornos</translation>
     </message>
     <message>
@@ -10463,37 +10474,37 @@ de texto para contornos</translation>
     <message>
         <source>Can&apos;t scale by 0%</source>
         <comment>python error</comment>
-        <translation>Não é possível proporçãor em 0%</translation>
+        <translation type="obsolete">Não é possível proporçãor em 0%</translation>
     </message>
     <message>
         <source>Can&apos;t render an empty sample</source>
         <comment>python error</comment>
-        <translation>Não é possível renderizar um exemplo vazio</translation>
+        <translation type="obsolete">Não é possível renderizar um exemplo vazio</translation>
     </message>
     <message>
         <source>Can&apos;t save to a blank filename</source>
         <comment>python error</comment>
-        <translation>Não é possível salvar comum nome em branco</translation>
+        <translation type="obsolete">Não é possível salvar comum nome em branco</translation>
     </message>
     <message>
         <source>Can&apos;t have an empty layer name</source>
         <comment>python error</comment>
-        <translation>Não é possível haver camadas sem nome</translation>
+        <translation type="obsolete">Não é possível haver camadas sem nome</translation>
     </message>
     <message>
         <source>Layer not found</source>
         <comment>python error</comment>
-        <translation>Camada não encontrada</translation>
+        <translation type="obsolete">Camada não encontrada</translation>
     </message>
     <message>
         <source>Can&apos;t remove the last layer</source>
         <comment>python error</comment>
-        <translation>Não é possível remover a última camada</translation>
+        <translation type="obsolete">Não é possível remover a última camada</translation>
     </message>
     <message>
         <source>Can&apos;t create layer without a name</source>
         <comment>python error</comment>
-        <translation>Não é possível criar uma camada sem um nome</translation>
+        <translation type="obsolete">Não é possível criar uma camada sem um nome</translation>
     </message>
     <message>
         <source>An object with the requested name already exists</source>
@@ -10603,7 +10614,7 @@ entre 0 &lt; = Sombra &lt;= 100</translation>
     <message>
         <source>Color not found</source>
         <comment>python error</comment>
-        <translation>Cor não encontrada</translation>
+        <translation type="obsolete">Cor não encontrada</translation>
     </message>
     <message>
         <source>Cannot change a color with an empty name.</source>
@@ -10613,12 +10624,12 @@ entre 0 &lt; = Sombra &lt;= 100</translation>
     <message>
         <source>Color not found in document</source>
         <comment>python error</comment>
-        <translation>Cor não encontrada no documento</translation>
+        <translation type="obsolete">Cor não encontrada no documento</translation>
     </message>
     <message>
         <source>Color not found in default colors</source>
         <comment>python error</comment>
-        <translation>Cor não encontrada em cores padrões</translation>
+        <translation type="obsolete">Cor não encontrada em cores padrões</translation>
     </message>
     <message>
         <source>Cannot create a color with an empty name.</source>
@@ -10712,11 +10723,6 @@ Detalhes de quais excessões  de cada função podem aparecer ou são providas n
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Specified item not an image frame</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>The filename must be a string.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
@@ -10739,30 +10745,6 @@ Detalhes de quais excessões  de cada função podem aparecer ou são providas n
     <message>
         <source>Failed to export image</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Run a Python script from a file.</source>
-        <comment>scripter</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Load Extension Script...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Load a Python script as an extension. Used for loading macros and for advanced Python scripts that extend the Scribus user interface.</source>
-        <comment>scripter</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Display an interactive Python console where you can write and run Python programs that use the Scripter tools.</source>
-        <comment>scripter</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Scripter &amp;Settings</source>
-        <comment>script menu</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -10816,6 +10798,191 @@ function&apos;s documentation.</source>
     <message>
         <source>Short Words processing. Done.</source>
         <comment>short words plugin</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color not found.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color not found in document.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color not found in default colors.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot scale by 0%.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Specified item not an image frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font not found.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot render an empty sample.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot save to a blank filename.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot have an empty layer name.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Layer not found.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot remove the last layer.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot create layer without a name.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert index out of bounds.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set text alignment on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set font size on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set font on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line space out of bounds, must be &gt;= 0.1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set line spacing on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Column gap out of bounds, must be positive.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set column gap on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Column count out of bounds, must be &gt; 1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set number of columns on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot select text in a non-text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot delete text from a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set text fill on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set text stroke on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set text shade on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can only link text frames.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target frame must be empty.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target frame links to another frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target frame is linked to by another frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Source and target are the same object.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot unlink a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Object is not a linked text frame, cannot unlink.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Object the last frame in a series, cannot unlink. Unlink the previous frame instead.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot convert a non-text frame to outlines.</source>
+        <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -12434,6 +12601,103 @@ página ativa.&lt;/p&gt; scolha um dos seguintes:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Cancelar</translation>
+    </message>
+</context>
+<context>
+    <name>ScripterCore</name>
+    <message>
+        <source>&amp;Scribus Scripts</source>
+        <translation type="unfinished">Scripts do &amp;Scribus</translation>
+    </message>
+    <message>
+        <source>&amp;Execute Script...</source>
+        <translation type="unfinished">&amp;Executar Script...</translation>
+    </message>
+    <message>
+        <source>Run a Python script from a file.</source>
+        <comment>scripter</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Load Extension Script...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load a Python script as an extension. Used for loading macros and for advanced Python scripts that extend the Scribus user interface.</source>
+        <comment>scripter</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Recent Scripts</source>
+        <translation type="unfinished">Scripts &amp;Recentes</translation>
+    </message>
+    <message>
+        <source>Show &amp;Console</source>
+        <translation type="unfinished">Mostrar &amp;Terminal</translation>
+    </message>
+    <message>
+        <source>Display an interactive Python console where you can write and run Python programs that use the Scripter tools.</source>
+        <comment>scripter</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;About Script...</source>
+        <translation type="unfinished">Sobre o Script...</translation>
+    </message>
+    <message>
+        <source>S&amp;cript</source>
+        <translation type="unfinished">S&amp;cript</translation>
+    </message>
+    <message>
+        <source>Scripter &amp;Settings</source>
+        <comment>script menu</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished">Abrir</translation>
+    </message>
+    <message>
+        <source>Python Scripts (*.py);; All Files (*)</source>
+        <translation type="unfinished">Python Scripts (*.py);; Todos os Arquivos (*)</translation>
+    </message>
+    <message>
+        <source>Script error</source>
+        <translation type="unfinished">Erro de Script</translation>
+    </message>
+    <message>
+        <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
+        <translation type="unfinished">Se você estiver rodando um script oficial, transpásse-o para &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; por favor.</translation>
+    </message>
+    <message>
+        <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
+        <translation type="unfinished">Essa mensagem está em sua área de transferência também. 
+Use Ctrl+V para cola-la dentro do rastreador de Bug.</translation>
+    </message>
+    <message>
+        <source>Scribus - Script Plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The &apos;Load Script&apos; function of the script plugin is currently disabled.
+If you just want to run a normal script, you probably want to use
+&apos;Execute Script...&apos; instead.
+
+If you do actually want to load a Python extension script or macro, you
+need to go into the Scripter Settings in the Script menu and enable
+scripter extensions there.
+
+Please read the documentation on extension scripts first.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide &amp;Console</source>
+        <translation type="unfinished">Ocultar &amp;Terminal</translation>
+    </message>
+    <message>
+        <source>About Script</source>
+        <translation type="unfinished">Sobre o Script</translation>
     </message>
 </context>
 <context>

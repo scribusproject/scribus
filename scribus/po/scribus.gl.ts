@@ -225,7 +225,32 @@ __call__ method with no arguments. There is no problem with registering
 a callable more than once, nor with registering multiple bound methods
 of a single instance.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Módulo da interface de Python para Scribus
+
+Este módulo e&apos;a interface de Python para Scribus. Fornece funcións para
+controlar Scribus e para manipular obxectos da tela. Cada función documéntase
+individualmente máis abaixo.
+
+Certas cousas son comúns a toda a interface.
+
+A maioría das funcións operan sobre molduras. As molduras identifícanse polo seu nome,
+unha cadea - non son obxectos reais de Python. Moitas funcións levan un
+parámetro opcional (non palabra-chave), o nome da moldura.
+Moitas excepcións son así mesmo comuns para a maioría das funcións. Estas
+non se documentan actualmente no docstring para cada función.
+- Moitas funcións provocarán un NoDocOpenError se tenta usalas sen un documento sobre
+o que operaren.
+- Se non lle pasa o nome dunha moldura a unha función que o requira, a función usará a moldura
+seleccionada nese momento, de habela, ou provocará un NoValidObjectError se non dá atopado
+nada sobre o que operar.
+- Moitas funcións provocarán un WrongFrameTypeError se tenta usalas nun tipo de moldura no que
+non teñan sentido. Por exemplo, asignar a cor do texto nunha moldura de imaxes non ten sentido
+e provocará esta excepción.
+- Os erros que proveñan de chamadas á API de Python subxacente pasaranse sen alteracións.
+Como tais, a lista de excepcións fornecida aquí e no seu docstring é incompleta.
+
+Os detalles sobre as excepcións que pode provocar cada función fornécense na
+documentación de cada función.</translation>
     </message>
 </context>
 <context>
@@ -979,7 +1004,7 @@ Image is saved into &quot;filename&quot;. Returns true when success.
 May raise NotFoundError if the specified font can&apos;t be found.
 May raise ValueError if an empty sample or filename is passed.
 </source>
-        <translation>rendeFont(&quot;nome&quot;,&quot;nomedoficheiro&quot;, &quot;mostra&quot;, tamaño) -&gt; bool
+        <translation type="unfinished">rendeFont(&quot;nome&quot;,&quot;nomedoficheiro&quot;, &quot;mostra&quot;, tamaño) -&gt; bool
 
 Crea unha ante-visión da fonte &quot;nome&quot; co texto dado &quot;mostra&quot; e o tamaño.
 A imaxe sálvase en &quot;nomedeficheiro&quot;. Devolve verdadeiro se se garda.
@@ -1081,7 +1106,7 @@ that the layer &quot;layer&quot; is visible, a value of False means that the lay
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation>isLayerVisible(&quot;capa&quot;) -&gt; bool
+        <translation type="obsolete">isLayerVisible(&quot;capa&quot;) -&gt; bool
 
 Devolve se a Capa &quot;capa&quot; é visíbel ou non; un valor True significa
 que a capa &quot;capa&quot; é visíbel, un valor False significa que a capa
@@ -1100,7 +1125,7 @@ the layer &quot;layer&quot; is disabled.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation>isLayerPrintable(&quot;capa&quot;) -&gt; bool
+        <translation type="obsolete">isLayerPrintable(&quot;capa&quot;) -&gt; bool
 
 Devolve se a Capa &quot;capa&quot; é imprimíbel ou non; un valor True significa
 que a capa &quot;capa&quot; é imprimíbel un valor False significa que non se permite imprimir
@@ -2124,7 +2149,13 @@ Both `scaletoframe&apos; and `proportional&apos; are boolean.
 
 May raise WrongFrameTypeError.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setScaleImageToFrame(escalaamoldura, proporcional=None, nome=&lt;selección&gt;)
+
+Indica que a escala á moldura na imaxe seleccionada ou especificada será &quot;escalaamoldura&quot;.
+De especificarse &quot;proporcional&quot;, a ampliación de aspecto fixo será &quot;proporcional&quot;.
+Tanto &quot;escalaamoldura&quot; como &quot;proporcional&quot; son booleanas.
+
+Pode provocar un erro WrongFrameTypeError.</translation>
     </message>
     <message>
         <source>selectText(start, count, [&quot;name&quot;])
@@ -2136,7 +2167,15 @@ be selected. If &quot;name&quot; is not given the currently selected item is use
 
 May throw IndexError if the selection is outside the bounds of the text.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>selectText(inicio, conta, [&quot;nome&quot;])
+
+Selecciona &quot;conta&quot; caracteres de texto na moldura de texto &quot;nome&quot; a partir
+do carácter &quot;inicio&quot;. A conta de caracteres comeza por 0. Se a &quot;conta&quot; é cero,
+eliminarase toda selección de texto. Se a &quot;conta&quot; é -1 seleccionarase todo o
+texto da moldura. Se non se dá un &quot;nome&quot;, usarase o elemento seleccionado
+nese momento.
+
+Pode provocar un IndexError se a selección está fora dos limites do texto.</translation>
     </message>
     <message>
         <source>register_macro_code(name, sourcetext, accel=&apos;&apos;)
@@ -2145,6 +2184,58 @@ Create a macro named &quot;name&quot; by evaluating the the source code &quot;so
 &quot;sourcetext&quot; must follow the same rules as macros created in the GUI.
 If provided, the string &quot;accel&quot; will be used to set a keyboard shortcut
 for the macro.
+</source>
+        <translation>register_macro_code(nome, textofonte, acelerador=&apos;&apos;)
+
+Crear unha macro chamada &quot;nome&quot; mediante a evaluación do código fonte &quot;textofonte&quot;.
+&quot;textofonte&quot; debe seguir as mesmas regras que as macros creadas na GUI.
+Se se fornece, a cadea &quot;acelerador&quot; usarase para contar cun atallo
+de teclado para a macro.</translation>
+    </message>
+    <message>
+        <source>renderFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size, format=&quot;PPM&quot;) -&gt; bool
+
+Creates an image preview of font &quot;name&quot; with given text &quot;sample&quot; and size.
+If &quot;filename&quot; is not &quot;&quot;, image is saved into &quot;filename&quot;. Otherwise
+image data is returned as a string. The optional &quot;format&quot; argument
+specifies the image format to generate, and supports any format allowed
+by QPixmap.save(). Common formats are PPM, JPEG, PNG and XPM.
+
+May raise NotFoundError if the specified font can&apos;t be found.
+May raise ValueError if an empty sample or filename is passed.
+</source>
+        <translation type="obsolete">renderFont(&quot;nome&quot;, &quot;nomedeficheiro&quot;, &quot;exemplo&quot;, tamaño, formato=&quot;PPM&quot;) -&gt; booleano
+
+Crea unha vista previa gráfica da fonte &quot;nome&quot; co texto &quot;exemplo&quot; e o tamaño.
+Se o &quot;nomedeficheiro&quot; non é &quot;&quot;, a imaxe sálvase en &quot;nomedeficheiro&quot;. Do contrario,
+os datos de imaxe devólvense como unha cadea. O argumento opcional
+&quot;formato&quot; especifica o formato de imaxe que se xerará e permite calquer formato
+permitido por QPixmap.save(). Formatos habituais son PPM, JPEG, PNG e XPM.
+
+Pode provocar un NotFoundError se non se atopa a fonte especificada.
+Pode provocar un ValueError se se lle pasar un exemplo ou nome de ficheiro vacíos.</translation>
+    </message>
+    <message>
+        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+
+Returns whether the layer &quot;layer&quot; is visible or not, a value of True means
+that the layer &quot;layer&quot; is visible, a value of False means that the layer
+&quot;layer&quot; is invisible.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+
+Returns whether the layer &quot;layer&quot; is printable or not, a value of True means
+that the layer &quot;layer&quot; can be printed, a value of False means that printing
+the layer &quot;layer&quot; is disabled.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -2393,6 +2484,10 @@ soporte de librarías compilado en Scribus.
 C-C-T significa apoio a C=littlecms C=CUPS T=TIFF.
 A ausencia de apoio a librarías indícase cun *</translation>
     </message>
+    <message>
+        <source>Portugese (Brazilian):</source>
+        <translation>Portugués (Brasileiro):</translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
@@ -2601,7 +2696,7 @@ O UCR reduce a posibilidade dun exceso de saturación coas tintas CMY.</translat
     <name>Annot</name>
     <message>
         <source>Field Properties</source>
-        <translation>Propiedades do Campo</translation>
+        <translation>Propriedades do Campo</translation>
     </message>
     <message>
         <source>Type:</source>
@@ -2629,7 +2724,7 @@ O UCR reduce a posibilidade dun exceso de saturación coas tintas CMY.</translat
     </message>
     <message>
         <source>Properties</source>
-        <translation>Propiedades</translation>
+        <translation>Propriedades</translation>
     </message>
     <message>
         <source>Name:</source>
@@ -3136,7 +3231,7 @@ O UCR reduce a posibilidade dun exceso de saturación coas tintas CMY.</translat
     <name>Annota</name>
     <message>
         <source>Annotation Properties</source>
-        <translation>Propiedades das Anotacións</translation>
+        <translation>Propriedades das Anotacións</translation>
     </message>
     <message>
         <source>Type:</source>
@@ -3750,11 +3845,11 @@ It&apos;s a reserved name for transparent color</source>
     </message>
     <message>
         <source>Edit Line Color Properties</source>
-        <translation>Mudar as Propiedades de Cor da Liña</translation>
+        <translation>Mudar as Propriedades de Cor da Liña</translation>
     </message>
     <message>
         <source>Edit Fill Color Properties</source>
-        <translation>Mudar as Propiedades de Cor do Recheo</translation>
+        <translation>Mudar as Propriedades de Cor do Recheo</translation>
     </message>
     <message>
         <source>Saturation of color</source>
@@ -4260,7 +4355,7 @@ un rango de páxinas ou un único número de páxina.</translation>
     </message>
     <message>
         <source>C&amp;hange...</source>
-        <translation>&amp;Modificar...</translation>
+        <translation>&amp;Mudar...</translation>
     </message>
     <message>
         <source>A&amp;lternative Printer Command</source>
@@ -4344,129 +4439,136 @@ fallou!</translation>
     <name>EditMacroDialog</name>
     <message>
         <source>Editing Macro: &lt;b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>A editar a Macro: &lt;b&gt;</translation>
     </message>
     <message>
         <source>Scribus - Macro Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Xestor de Macros</translation>
     </message>
     <message>
         <source>The file &apos;%1&apos; already exists.
 Are you sure you want to overwrite it?
 </source>
-        <translation type="unfinished"></translation>
+        <translation>O ficheiro &apos;%1&apos; xa existe.
+Ten a certeza de querer escreber por riba?</translation>
     </message>
     <message>
         <source>You have already edited this macro.
 Are you sure you want to discard all your changes?
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Xa modificou esta macro.
+Ten a certeza de querer prescindir das modificacións?</translation>
     </message>
     <message>
         <source>A full traceback follows:
 
 %1
 </source>
-        <translation type="unfinished"></translation>
+        <translation>A continuación, un rexistro completo:
+
+%1</translation>
     </message>
     <message>
         <source>Compilation of the macro failed, so it can not 
 be saved in its current form. The error was:
 %1
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Fallou a compilación da macro, de maneira
+que non se pode salvar na súa forma actual.
+O erro foi:
+%1</translation>
     </message>
     <message>
         <source>Scribus - New Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Macro Nova</translation>
     </message>
     <message>
         <source>&lt;qt&gt;This is the Edit Macro / New Macro dialog box. Here you can change the source code to macros. Edit the source code to the macro in the text editing area below the &quot;Source Code&quot; label and click OK to save your changes to the macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Este é o diálogo de Modificación de Macro / Macro Nova. Aqui pode modificar o código fonte das macros. Modifíqueo na área de edición de texto baixo a equiqueta &quot;Código Fonte&quot; e prema sobre Aceptar as modificacións para gardar as mudanzas feitas na macro.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Source Code:</source>
-        <translation type="unfinished"></translation>
+        <translation>Código Fonte:</translation>
     </message>
     <message>
         <source>Editing Macro:</source>
-        <translation type="unfinished"></translation>
+        <translation>Modificación da Macro:</translation>
     </message>
     <message>
         <source>The name of the macro being edited.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome da macro que se está a modificar.</translation>
     </message>
     <message>
         <source>&lt;/qt&gt;This item displays the name of the macro you are currently editing.&lt;qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;/qt&gt;Este elemento mostra o nome da macro que se está a editar neste momento.&lt;qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancelar</translation>
+        <translation>&amp;Cancelar</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Discard all changes and exit.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Rexeitar as mudanzas feitas e sair.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Exit the editing dialog, discarding all changes you have made. If you want to exit without saving the macro but don&apos;t want to lose your changes, save your changes with &quot;Save Source As...&quot;.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Sair do diálogo de modificación, rexeitando todas as modificacións feitas. Se quer sair sen salvar a macro mais non quer perder as mudanzas, garde as modificacións con &quot;Salvar a Fonte Como...&quot;.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Aceptar as modificacións</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Save changes and exit.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Salvar as modificacións e sair.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Save changes to the macro and exit. If there is a problem with the macro, a message will be displayed and the editing dialog will not close.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Salvar as mudanzas feitas na macro e sair. De haber algún problema coa macro, mostrarase unha mensaxe e o diálogo de modificación non se fechará.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;This text area contains the source code of the macro. If you&apos;re creating a new macro there won&apos;t be anything in it, and if you&apos;re editing an existing macro the source code the macro was defined with will be shown here.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Esta área de texto contén o código fonte da macro. Se está a crear unha macro nova non haberá nada nel, mais se está a modificar unha macro xa existente, o código fonte co que se definiu a macro aparecerá aquí.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Load Source ...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Carregar a Fonte...</translation>
     </message>
     <message>
         <source>Alt+L</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Replace the current source code with code from a file.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Substituir o código fonte actual con código dun ficheiro.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Load new source code into the editing area from &quot;file&quot;. Any source code in the editing area is replaced. The loaded source must be a Scribus macro function. If you load any other script, you&apos;ll need to edit it so that it&apos;ll work as a scripter macro before saving it.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Carregar código fonte novo na área de edición desde o &quot;ficheiro&quot;. Calquer código fonte existente na área de modificación será substituído. A fonte carregada debe ser unha función de macro de Scribus. Se carrega calquer outro tipo de guión precisará modificalo para que funcione como unha macro de guión antes de salvalo.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Save Source As...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Salvar a Fonte Como...</translation>
     </message>
     <message>
         <source>Alt+S</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+S</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Save the source code being edited to a file.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Salvar nun ficheiro o código fonte que se está a modificar.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Save the source code - the text - of the macro to a file. You can edit the saved source and load it again with &quot;Load Source...&quot;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Modificar o código fonte - o texto - da macro nun ficheiro. Pode modificar a fonte gardada e carregala de novo mediante &quot;Carregar Fonte...&quot;.</translation>
     </message>
 </context>
 <context>
@@ -5646,46 +5748,48 @@ O valor 0 significa que non se contabilizan.</translation>
     <message>
         <source>Passed object is not callable</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>O obxecto que se pasou non é chamábel
+
+erro de python</translation>
     </message>
 </context>
 <context>
     <name>MacroManager</name>
     <message>
         <source>Manage Macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Xerir as Macros</translation>
     </message>
     <message>
         <source>Brings up a graphical window for creating, deleting, editing, saving and loading macros.</source>
-        <translation type="unfinished"></translation>
+        <translation>Presenta unha xanela gráfica para crear, eliminar, modificar, salvar e carregar macros.</translation>
     </message>
     <message>
         <source>Create, edit and delete macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Crear, modificar e eliminar macros</translation>
     </message>
     <message>
         <source>&amp;Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Macro</translation>
     </message>
     <message>
         <source>Scribus - Macro Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Xestor de Macros</translation>
     </message>
     <message>
         <source>Unable to open the requested file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Foi imposíbel abrir o ficheiro que se pedía: %1</translation>
     </message>
     <message>
         <source>Scribus - Edit Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Modificar Macro</translation>
     </message>
     <message>
         <source>&lt;qt&gt;The macro name you requested is already taken  by another macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;O nome de macro que pediu xa está collido  por outra macro.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Macro creation failed. The macro manager was unable to set up the macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Fallou a creación de Macro. O xestor de macros foi incapaz de preparar a macro.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>The macro &apos;%1&apos; has reported a minor error.
@@ -5694,7 +5798,11 @@ A full traceback follows:
 
 %3
 </source>
-        <translation type="unfinished"></translation>
+        <translation>A macro &apos;%1&apos; informa dun erro menor.
+O erro é: %2
+A seguir, o rexistro completo:
+
+%3</translation>
     </message>
     <message>
         <source>The macro &apos;%1&apos; failed to execute correctly.
@@ -5703,76 +5811,73 @@ A full traceback follows:
 
 %3
 </source>
-        <translation type="unfinished"></translation>
+        <translation>A macro &apos;%1&apos; non se executou correctamente.
+O erro é: %2
+A seguir, o rexistro completo:
+
+%3</translation>
     </message>
 </context>
 <context>
     <name>ManageMacrosDialog</name>
     <message>
         <source>Scribus - Macro Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Xestor de Macros</translation>
     </message>
     <message>
         <source>Renaming the macro failed because the name is already in use.</source>
-        <translation type="unfinished"></translation>
+        <translation>A mudanza de nome da macro fallou debido a que o nome xa existía.</translation>
     </message>
     <message>
         <source>Scribus - Manage Macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Xerir Macros</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;This window is the Scribus Macro Manager. Here you can create macros, edit macros, etc. All changes are made using the buttons on the right hand side of the window.&lt;/p&gt;
 &lt;p&gt;All changes made in this dialog take effect instantly - you cannot cancel the actions you make here.
 The table in the center of the dialog lists what macros are currently loaded and some information about them. Use &quot;What&apos;s this&quot; on the table for more information.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;Esta xanela é o Xestor de Macros de Scribus. Aquí pode crear macros, modificar macros, etc. Todas as modificacións fanse mediante os botóns da parte superior direita da xanela.&lt;/p&gt;
+&lt;p&gt;Todas as modificacións feitas neste diálogo son efectivas inmediatametne - non pode cancelar as accións realizadas aquí. A tabela do centro do diálogo lista as macros que están carregadas actualmente e algunha información relativa a elas. Utilice &quot;Que é isto&quot; na tabela para máis información.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nova</translation>
     </message>
     <message>
         <source>Alt+N</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+N</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Create a new macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Crar unha macro nova&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Create a new macro by prompting for the macro name then bringing up the edit macro dialog box.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Crear unha macro nova pedindo primeiro o nome da macro e presentando logo o diálogo de edición de macros.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Dacordo</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
-    </message>
-    <message>
-        <source>Close this dialog.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Return to Scribus.</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
         <source>Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Macro</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Editor</translation>
     </message>
     <message>
         <source>Accel</source>
-        <translation type="unfinished"></translation>
+        <translation>Atallo</translation>
     </message>
     <message>
         <source>Description</source>
-        <translation type="unfinished">Descrición</translation>
+        <translation>Descrición</translation>
     </message>
     <message>
         <source>&lt;p&gt;This table lists the macros that are currently defined.&lt;/p&gt;
@@ -5781,122 +5886,138 @@ The table in the center of the dialog lists what macros are currently loaded and
 &lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt; If the macro can be edited, &quot;Yes&quot; appears in this column. Usually if a macro cannot be edited it was created using the register_macro command in a script.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Accel:&lt;/b&gt; The menu shortcut key sequence, if any, associated with the macro. For example, CTRL-F8 means that you can press Control-F8 when in Scribus to run the macro.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Description:&lt;/b&gt; If the macro contains a &quot;docstring&quot;, a special string at the start of its definition that describes it, that is shown here. If the docstring is long, only the beginning is shown - use &quot;What&apos;s This&quot; on the macro&apos;s entry in the Macro menu to see the full description.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Esta tabela lista as macros definidas actualmente.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Nome:&lt;/b&gt; O nome da macro, tal e como se mostra na barra de menú e noutros lugares do Scribus.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Modificar:&lt;/b&gt; Se a macro se pode modificar, &quot;Si&quot; aparece nesta columna. Normalmente, se unha macro non se pode modificar foi porque se creou usando o comando registere_macro nun guión.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Atallo:&lt;/b&gt; A secuencia de teclas que constitúen o atallo do menú, de existir, asociada coa macro. Por exemplo, CTRL-F8 significa que pode premer Control-F8 desde dentro de Scribus para executar a macro.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Descrición:&lt;/b&gt; Se a macro contén un &quot;docstring&quot;, unha secuencia especial no comezo da súa definición que a define, que se mostra aquí. Se o docstring é longo, só se mostra o principio - use &quot;Que é Isto&quot; na entrada da macro no menú Macro para ver a descrición completa.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Rena&amp;me</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Mudar o nome</translation>
     </message>
     <message>
         <source>Alt+M</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+M</translation>
     </message>
     <message>
         <source>Rename the selected macro.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mudarlle o nome á macro seleccionada.</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Rename the selected macro. You will be prompted for the new name.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Mudarlle o nome á macro seleccionada. Pediráselle o novo nome.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Edit...</source>
-        <translation type="unfinished">&amp;Modificar...</translation>
+        <translation>&amp;Modificar...</translation>
     </message>
     <message>
         <source>Alt+E</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+M</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Edit the source of the selected macro, if the source is availible.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;Edit the selected macro. &lt;/p&gt;
-&lt;p&gt;If this button is greyed out, either there is no selected macro or the macro manager does not have the source code for the macro you have selected (in which case &lt;tt&gt;No&lt;/tt&gt; will be shown in the &lt;tt&gt;Edit &lt;/tt&gt;column of the macro).&lt;/p&gt;
-&lt;p&gt;If scribus doesn&apos;t have the source, the macro was probably created by a script.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Modificar a fonte da macro seleccionada, de estar disponíbel.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Eliminar</translation>
+        <translation>&amp;Eliminar</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+E</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Delete the currently selected macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Borrar a macro seleccionada neste momento.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;p&gt;Delete the selected macro. This is instant, and there is no way to recover the macro once deleted. If the macro is created by a start-up script, it will reappear next time you load Scribus.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Eliminar a macro seleccionada. Isto é instantáneo e non hai xeito de recuperar a macro unha vez que foi eliminada. Se a macro foi creada mediante un guión de inicio, reaparecerá a próxima vez que abra o Scribus&lt;/p&gt;</translation>
     </message>
     <message>
         <source>&amp;Set Accel</source>
-        <translation type="unfinished"></translation>
+        <translation>A&amp;signar un Atallo</translation>
     </message>
     <message>
         <source>Alt+S</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+S</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Set the keyboard shortcut for the selected macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Asignar o atallo de teclado para a macro seleccionada.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;p&gt;Set the keyboard shortcut (accelerator) key of the selected macro. You will be prompted for the new shortcut in a dialog box.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Asignar a tecla do atallo de teclado para a macro seleccionada. Pediráselle o atallo novo mediante un diálogo.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>E&amp;xport</source>
-        <translation type="unfinished"></translation>
+        <translation>E&amp;xportar</translation>
     </message>
     <message>
         <source>Alt+X</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+X</translation>
     </message>
     <message>
         <source>Export macros to a file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportar as macros a un ficheiro.</translation>
     </message>
     <message>
         <source>&lt;p&gt;Export macros to an external file. The file will be a Python script containing the scripter commands to re-create the macros. It can be run using &lt;tt&gt;Load extension script&lt;/tt&gt; from the &lt;tt&gt;Script&lt;/tt&gt; menu, or the import button in the macro manager.&lt;/p&gt;
 &lt;p&gt;If you want a nice, human readable version of your macros, select the macro you want, press the &lt;tt&gt;Edit&lt;/tt&gt;  button, and use the &lt;tt&gt;Save source&lt;/tt&gt; button in the &lt;tt&gt;Edit Macro&lt;/tt&gt; dialog. You won&apos;t be able to load that version with &lt;tt&gt;Load extension script&lt;/tt&gt; - instead, create a new macro with the&lt;tt&gt; New&lt;/tt&gt; button and use &lt;tt&gt;Load source&lt;/tt&gt;.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Exportar as macros a un ficheiro externo. O ficheiro será un guión en Python que conteña os comandos de guión para recrear as macros. Pódese executar utilizando &lt;tt&gt;Carregar o guión de extensións&lt;/tt&gt; do menú &lt;tt&gt;Guións&lt;/tt&gt; ou o botón de importacións no xestor de macros.&lt;/p&gt;
+&lt;p&gt;Se prefire unha versión agradábel, lexíbel directamente, das súas macros, escolla a macro que quer, prema no botón &lt;tt&gt;Modificar&lt;/tt&gt; e use o botón &lt;tt&gt;Salvar a fonte&lt;/tt&gt; no diálogo &lt;tt&gt;Modificar Macro&lt;/tt&gt;. Non poderá carregar esa versión mediante &lt;tt&gt;Carregar guión de extensións&lt;/tt&gt; - en vez diso, cre unha macro nova co botón &lt;tt&gt;Nova&lt;/tt&gt; e use &lt;tt&gt;Carregar fonte&lt;/tt&gt;.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Delete &amp;All</source>
-        <translation type="unfinished"></translation>
+        <translation>Eliminalas Tod&amp;as</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <source>Delete all macros.</source>
-        <translation type="unfinished"></translation>
+        <translation>Limpar todas as macros.</translation>
     </message>
     <message>
         <source>&lt;p&gt;Delete all registered macros. This is instant, and there is no way to recover the deleted macros. Any macros created by your start-up script will reappear next time you load Scribus.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Eliminar todas as macros rexistradas. Isto é inmediato e non hai xeito de recuperar as macros borradas. Calquer macro creada mediante o seu guión de inicio reaparecerá a próxima vez que abra Scribus&lt;/p&gt;</translation>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation type="unfinished">&amp;Importar</translation>
+        <translation>&amp;Importar</translation>
     </message>
     <message>
         <source>Alt+I</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+I</translation>
     </message>
     <message>
         <source>Import macros from a file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importar macros desde un ficheiro.</translation>
     </message>
     <message>
         <source>&lt;p&gt;Loads macros from an external file.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Carregar macros desde un ficheiro externo.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <source>Close this dialog</source>
+        <translation>Fechar este diálogo</translation>
+    </message>
+    <message>
+        <source>Return to Scribus</source>
+        <translation>Voltar para o Scribus</translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Edit the selected macro. &lt;/p&gt;
+&lt;p&gt;If this button is greyed out, either there is no selected macro or the macro manager does not have the source code for the macro you have selected (in which case &lt;tt&gt;No&lt;/tt&gt; will be shown in the &lt;tt&gt;Edit &lt;/tt&gt;column of the macro).&lt;/p&gt;
+&lt;p&gt;If Scribus doesn&apos;t have the source, the macro was probably created by a script.&lt;/p&gt;</source>
+        <translation>&lt;p&gt;Modificar a macro seleccionada.&lt;/p&gt;
+&lt;p&gt;Se este botón está apagado, ora non hai unha macro seleccionada ou o xestor de macros non dispón do código fonte da macro que escolleu (en cuxo caso verá &lt;tt&gt;Non&lt;/tt&gt; na columna &lt;tt&gt;Modificar&lt;/tt&gt; da macro).&lt;/p&gt;
+&lt;p&gt;Se Scribus non dispón da fonte, a macro creouna moi posibelmente un guión.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -6001,40 +6122,23 @@ The table in the center of the dialog lists what macros are currently loaded and
     <name>MenuTest</name>
     <message>
         <source>Script error</source>
-        <translation>Erro de Guión</translation>
+        <translation type="obsolete">Erro de Guión</translation>
     </message>
     <message>
         <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
-        <translation>Se se trataba dun guión oficial, teña a bondade de informar en &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
+        <translation type="obsolete">Se se trataba dun guión oficial, teña a bondade de informar en &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
     </message>
     <message>
         <source>Show &amp;Console</source>
-        <translation>Mostrar a &amp;Consola</translation>
+        <translation type="obsolete">Mostrar a &amp;Consola</translation>
     </message>
     <message>
         <source>Hide &amp;Console</source>
-        <translation>Agochar a &amp;Consola</translation>
+        <translation type="obsolete">Agochar a &amp;Consola</translation>
     </message>
     <message>
         <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
-        <translation>Esta mensaxe enviouse tamén para a área de transferencia. Empregue Ctrl+V para pegala no xestor de erros.</translation>
-    </message>
-    <message>
-        <source>Scribus - Script Plugin</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The &apos;Load Script&apos; function of the script plugin is currently disabled.
-If you just want to run a normal script, you probably want to use
-&apos;Execute Script...&apos; instead.
-
-If you do actually want to load a Python extension script or macro, you
-need to go into the Scripter Settings in the Script menu and enable
-scripter extensions there.
-
-Please read the documentation on extension scripts first.
-</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Esta mensaxe enviouse tamén para a área de transferencia. Empregue Ctrl+V para pegala no xestor de erros.</translation>
     </message>
 </context>
 <context>
@@ -6155,7 +6259,7 @@ un rango de páxinas ou unha única páxina.</translation>
     <name>Mpalette</name>
     <message>
         <source>Properties</source>
-        <translation>Propiedades</translation>
+        <translation>Propriedades</translation>
     </message>
     <message>
         <source>Name</source>
@@ -6239,7 +6343,7 @@ un rango de páxinas ou unha única páxina.</translation>
     </message>
     <message>
         <source>Miter Join</source>
-        <translation>Xunta a inglete</translation>
+        <translation>Xunta en inglete</translation>
     </message>
     <message>
         <source>Bevel Join</source>
@@ -6557,7 +6661,7 @@ Escolla outro.</translation>
     </message>
     <message>
         <source>Path Text Properties</source>
-        <translation>Propiedades do Trazado do Texto</translation>
+        <translation>Propriedades do Trazado do Texto</translation>
     </message>
     <message>
         <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
@@ -6782,7 +6886,7 @@ R&amp;edondeadas:</translation>
     </message>
     <message>
         <source>Miter Join</source>
-        <translation>Xunta a inglete</translation>
+        <translation>Xunta en inglete</translation>
     </message>
     <message>
         <source>Bevel Join</source>
@@ -8565,7 +8669,7 @@ O UCR reduce a posibilidade dun exceso de saturación coas tintas CMY.</translat
     <name>PolygonProps</name>
     <message>
         <source>Polygon Properties</source>
-        <translation>Propiedades do Polígono</translation>
+        <translation>Propriedades do Polígono</translation>
     </message>
     <message>
         <source> %</source>
@@ -8974,15 +9078,15 @@ cada vez que transcorre o período de tempo</translation>
     </message>
     <message>
         <source>Text Frame Properties</source>
-        <translation>Propiedades das Molduras de Texto</translation>
+        <translation>Propriedades das Molduras de Texto</translation>
     </message>
     <message>
         <source>Picture Frame Properties</source>
-        <translation>Propiedades das Molduras de Imaxe</translation>
+        <translation>Propriedades das Molduras de Imaxe</translation>
     </message>
     <message>
         <source>Shape Drawing Properties</source>
-        <translation>Propiedades do Deseño de Figuras</translation>
+        <translation>Propriedades do Deseño de Figuras</translation>
     </message>
     <message>
         <source>Magnification Level Defaults</source>
@@ -8990,11 +9094,11 @@ cada vez que transcorre o período de tempo</translation>
     </message>
     <message>
         <source>Line Drawing Properties</source>
-        <translation>Propiedades do Deseño de Liñas</translation>
+        <translation>Propriedades do Deseño de Liñas</translation>
     </message>
     <message>
         <source>Polygon Drawing Properties</source>
-        <translation>Propiedades do Deseño de Polígonos</translation>
+        <translation>Propriedades do Deseño de Polígonos</translation>
     </message>
     <message>
         <source>Font for new text frames</source>
@@ -9218,7 +9322,7 @@ cada vez que transcorre o período de tempo</translation>
     </message>
     <message>
         <source>&amp;Change...</source>
-        <translation>&amp;Modificar...</translation>
+        <translation>&amp;Mudar...</translation>
     </message>
     <message>
         <source>&amp;ICC Profiles:</source>
@@ -9226,7 +9330,7 @@ cada vez que transcorre o período de tempo</translation>
     </message>
     <message>
         <source>C&amp;hange...</source>
-        <translation>M&amp;odificar...</translation>
+        <translation>M&amp;udar...</translation>
     </message>
     <message>
         <source>&amp;Scripts:</source>
@@ -9234,7 +9338,7 @@ cada vez que transcorre o período de tempo</translation>
     </message>
     <message>
         <source>Ch&amp;ange...</source>
-        <translation>Mo&amp;dificar...</translation>
+        <translation>Mu&amp;dar...</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
@@ -9538,7 +9642,7 @@ cada vez que transcorre o período de tempo</translation>
     </message>
     <message>
         <source>Cha&amp;nge...</source>
-        <translation>&amp;Mudar...</translation>
+        <translation>Mud&amp;ar...</translation>
     </message>
     <message>
         <source>Executive</source>
@@ -10053,7 +10157,7 @@ Comprobe o camiño e o nome do ficheiro.</translation>
     </message>
     <message>
         <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation>Guións en Python (*.py);; Todo (*)</translation>
+        <translation type="obsolete">Guións en Python (*.py);; Todo (*)</translation>
     </message>
     <message>
         <source>Save as</source>
@@ -10077,7 +10181,7 @@ Comprobe o camiño e o nome do ficheiro.</translation>
     </message>
     <message>
         <source>S&amp;cript</source>
-        <translation>&amp;Guión</translation>
+        <translation type="obsolete">&amp;Guión</translation>
     </message>
     <message>
         <source>Oook! You&apos;re calling an object doesn&apos;t exist!</source>
@@ -10261,19 +10365,19 @@ Comprobe o camiño e o nome do ficheiro.</translation>
     </message>
     <message>
         <source>&amp;Scribus Scripts</source>
-        <translation>Guións do &amp;Scribus</translation>
+        <translation type="obsolete">Guións do &amp;Scribus</translation>
     </message>
     <message>
         <source>&amp;Execute Script...</source>
-        <translation>&amp;Executar Guión...</translation>
+        <translation type="obsolete">&amp;Executar Guión...</translation>
     </message>
     <message>
         <source>&amp;Recent Scripts</source>
-        <translation>Guións &amp;Recentes</translation>
+        <translation type="obsolete">Guións &amp;Recentes</translation>
     </message>
     <message>
         <source>Show &amp;Console</source>
-        <translation>Mostrar a &amp;Consola</translation>
+        <translation type="obsolete">Mostrar a &amp;Consola</translation>
     </message>
     <message>
         <source>Save Page as &amp;SVG...</source>
@@ -10497,7 +10601,7 @@ erro de python.</translation>
     <message>
         <source>Color not found</source>
         <comment>python error</comment>
-        <translation>Non se atopou a cor</translation>
+        <translation type="obsolete">Non se atopou a cor</translation>
     </message>
     <message>
         <source>Cannot change a color with an empty name.</source>
@@ -10507,12 +10611,12 @@ erro de python.</translation>
     <message>
         <source>Color not found in document</source>
         <comment>python error</comment>
-        <translation>Non se atopou a cor no documento</translation>
+        <translation type="obsolete">Non se atopou a cor no documento</translation>
     </message>
     <message>
         <source>Color not found in default colors</source>
         <comment>python error</comment>
-        <translation>Non se atopou esta cor entre as cores por omisión</translation>
+        <translation type="obsolete">Non se atopou esta cor entre as cores por omisión</translation>
     </message>
     <message>
         <source>Cannot create a color with an empty name.</source>
@@ -10562,44 +10666,44 @@ erro de python</translation>
     <message>
         <source>Can&apos;t scale by 0%</source>
         <comment>python error</comment>
-        <translation>Non se pode modificar nun 0%
+        <translation type="obsolete">Non se pode modificar nun 0%
 
 erro de python</translation>
     </message>
     <message>
         <source>Font not found</source>
         <comment>python error</comment>
-        <translation>Non se atopou a Fonte</translation>
+        <translation type="obsolete">Non se atopou a Fonte</translation>
     </message>
     <message>
         <source>Can&apos;t render an empty sample</source>
         <comment>python error</comment>
-        <translation>Non se pode exibir unha mostra baleira</translation>
+        <translation type="obsolete">Non se pode exibir unha mostra baleira</translation>
     </message>
     <message>
         <source>Can&apos;t save to a blank filename</source>
         <comment>python error</comment>
-        <translation>Non se pode salvar nun nome de ficheiro en branco</translation>
+        <translation type="obsolete">Non se pode salvar nun nome de ficheiro en branco</translation>
     </message>
     <message>
         <source>Can&apos;t have an empty layer name</source>
         <comment>python error</comment>
-        <translation>Non se pode ter un nome de capa baleiro</translation>
+        <translation type="obsolete">Non se pode ter un nome de capa baleiro</translation>
     </message>
     <message>
         <source>Layer not found</source>
         <comment>python error</comment>
-        <translation>Non se atopou a capa</translation>
+        <translation type="obsolete">Non se atopou a capa</translation>
     </message>
     <message>
         <source>Can&apos;t remove the last layer</source>
         <comment>python error</comment>
-        <translation>Non se puido eliminar a última capa</translation>
+        <translation type="obsolete">Non se puido eliminar a última capa</translation>
     </message>
     <message>
         <source>Can&apos;t create layer without a name</source>
         <comment>python error</comment>
-        <translation>Non se pode crear unha capa sen nome</translation>
+        <translation type="obsolete">Non se pode crear unha capa sen nome</translation>
     </message>
     <message>
         <source>An object with the requested name already exists</source>
@@ -10783,7 +10887,7 @@ erro de python.</translation>
     <message>
         <source>Insert index out of bounds</source>
         <comment>python error</comment>
-        <translation>Índice de inserción fora de limites
+        <translation type="obsolete">Índice de inserción fora de limites
 
 erro de python</translation>
     </message>
@@ -10797,68 +10901,68 @@ erro de python.</translation>
     <message>
         <source>Can&apos;t set text alignment on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Non se pode asignar un aliñamento a unha moldura que non sexa de texto
+        <translation type="obsolete">Non se pode asignar un aliñamento a unha moldura que non sexa de texto
 
 erro de python</translation>
     </message>
     <message>
         <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512</source>
         <comment>python error</comment>
-        <translation>Tamaño da fonte fora de limites - debe ser 1&lt;= tamaño &lt;= 512
+        <translation type="obsolete">Tamaño da fonte fora de limites - debe ser 1&lt;= tamaño &lt;= 512
 
 erro de python</translation>
     </message>
     <message>
         <source>Can&apos;t set font size on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Non se pode asignar un tamaño de fonte a unha moldura que non sexa de texto
+        <translation type="obsolete">Non se pode asignar un tamaño de fonte a unha moldura que non sexa de texto
 
 erro de python</translation>
     </message>
     <message>
         <source>Can&apos;t set font on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Non se pode asignar unha fonte a unha moldura que non sexa de texto
+        <translation type="obsolete">Non se pode asignar unha fonte a unha moldura que non sexa de texto
 
 erro de python</translation>
     </message>
     <message>
         <source>Line space out of bounds, must be &gt;= 0.1</source>
         <comment>python error</comment>
-        <translation>Espaciamento de liña fora de limites - debe ser &gt;= 0.1
+        <translation type="obsolete">Espaciamento de liña fora de limites - debe ser &gt;= 0.1
 
 erro de python</translation>
     </message>
     <message>
         <source>Can&apos;t line spacing on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Non pode haber espaciamento entre liñas nunha moldura que non sexa de texto</translation>
+        <translation type="obsolete">Non pode haber espaciamento entre liñas nunha moldura que non sexa de texto</translation>
     </message>
     <message>
         <source>Column gap out of bounds, must be positive</source>
         <comment>python error</comment>
-        <translation>Distancia entre columnas fora de limites - debe ser positiva
+        <translation type="obsolete">Distancia entre columnas fora de limites - debe ser positiva
 
 erro de python</translation>
     </message>
     <message>
         <source>Can&apos;t column gap on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Non pode haber distancia entre columnas nunha moldura que non sexa de texto
+        <translation type="obsolete">Non pode haber distancia entre columnas nunha moldura que non sexa de texto
 
 erro de python</translation>
     </message>
     <message>
         <source>Column count out of bounds, must be &gt; 1</source>
         <comment>python error</comment>
-        <translation>Número de columnas fora de limites - debe ser &gt; 1
+        <translation type="obsolete">Número de columnas fora de limites - debe ser &gt; 1
 
 erro de python</translation>
     </message>
     <message>
         <source>Can&apos;t number of columns on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Non se poden numerar columnas nunha moldura que non sexa de texto
+        <translation type="obsolete">Non se poden numerar columnas nunha moldura que non sexa de texto
 
 erro de python</translation>
     </message>
@@ -10872,89 +10976,89 @@ erro de python</translation>
     <message>
         <source>Can&apos;t select text in a non-text frame</source>
         <comment>python error</comment>
-        <translation>Non se pode seleccionar texto dunha moldura que non sexa de texto
+        <translation type="obsolete">Non se pode seleccionar texto dunha moldura que non sexa de texto
 
 erro de python</translation>
     </message>
     <message>
         <source>Can&apos;t delete text from a non-text frame</source>
         <comment>python error</comment>
-        <translation>Non se pode limpar o texto dunha moldura que non sexa de texto
+        <translation type="obsolete">Non se pode limpar o texto dunha moldura que non sexa de texto
 
 erro de python</translation>
     </message>
     <message>
         <source>Can&apos;t set text fill on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Non se pode asignar un enchido a unha moldura que non sexa de texto
+        <translation type="obsolete">Non se pode asignar un enchido a unha moldura que non sexa de texto
 
 erro de python</translation>
     </message>
     <message>
         <source>Can&apos;t set text stroke on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Non se pode asignar un trazo de texto a unha moldura que non sexa de texto
+        <translation type="obsolete">Non se pode asignar un trazo de texto a unha moldura que non sexa de texto
 
 erro de python</translation>
     </message>
     <message>
         <source>Can&apos;t set text shade on a non-text frame</source>
         <comment>python error</comment>
-        <translation>Non se pode asignar unha saturación de texto a unha moldura que non sexa de texto
+        <translation type="obsolete">Non se pode asignar unha saturación de texto a unha moldura que non sexa de texto
 
 erro de python</translation>
     </message>
     <message>
         <source>Can only link text frames</source>
         <comment>python error</comment>
-        <translation>Só se poden vincular molduras de texto
+        <translation type="obsolete">Só se poden vincular molduras de texto
 
 erro de python</translation>
     </message>
     <message>
         <source>Target frame must be empty</source>
         <comment>python error</comment>
-        <translation>A moldura de destino debe estar baleira
+        <translation type="obsolete">A moldura de destino debe estar baleira
 
 erro de python</translation>
     </message>
     <message>
         <source>Target frame links to another frame</source>
         <comment>python error</comment>
-        <translation>A moldura de destino está vinculada a outra moldura 
+        <translation type="obsolete">A moldura de destino está vinculada a outra moldura 
 
 erro de python</translation>
     </message>
     <message>
         <source>Target frame is linked to by another frame</source>
         <comment>python error</comment>
-        <translation>A moldura de destino ten vinculación desde outra moldura
+        <translation type="obsolete">A moldura de destino ten vinculación desde outra moldura
 
 erro de python</translation>
     </message>
     <message>
         <source>Source and target are the same object</source>
         <comment>python error</comment>
-        <translation>A fonte e o destino son o mesmo obxecto
+        <translation type="obsolete">A fonte e o destino son o mesmo obxecto
 
 erro de python</translation>
     </message>
     <message>
         <source>Can&apos;t unlink a non-text frame</source>
         <comment>python error</comment>
-        <translation>Non se pode desvincular unha moldura que non sexa de texto.
+        <translation type="obsolete">Non se pode desvincular unha moldura que non sexa de texto.
 
 erro de python</translation>
     </message>
     <message>
         <source>Object is not a linked text frame, can&apos;t unlink.</source>
         <comment>python error</comment>
-        <translation>Este obxecto non é unha moldura de texto vinculada, non se pode desvincular.</translation>
+        <translation type="obsolete">Este obxecto non é unha moldura de texto vinculada, non se pode desvincular.</translation>
     </message>
     <message>
         <source>Object the last frame in a series, can&apos;t unlink. Unlink the previous frame instead.</source>
         <comment>python error</comment>
-        <translation>Este obxecto é a última moldura dunha serie, non se pode desvincular.
+        <translation type="obsolete">Este obxecto é a última moldura dunha serie, non se pode desvincular.
 Desvincule no seu lugar a moldura anterior.
 
 erro de python.</translation>
@@ -10962,7 +11066,7 @@ erro de python.</translation>
     <message>
         <source>Can&apos;t convert a non-text frame to outlines</source>
         <comment>python error</comment>
-        <translation>Non se pode converter unha moldura que non sexa de texto en siluetas
+        <translation type="obsolete">Non se pode converter unha moldura que non sexa de texto en siluetas
 
 erro de python</translation>
     </message>
@@ -10972,11 +11076,11 @@ erro de python</translation>
     </message>
     <message>
         <source>&amp;About Script...</source>
-        <translation>&amp;Acerca de Script...</translation>
+        <translation type="obsolete">&amp;Acerca de Script...</translation>
     </message>
     <message>
         <source>About Script</source>
-        <translation>Acerca de Script</translation>
+        <translation type="obsolete">Acerca de Script</translation>
     </message>
     <message>
         <source>Import &amp;OpenOffice.org Draw...</source>
@@ -11055,7 +11159,9 @@ External Links
     <message>
         <source>Color not found - python error</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Non se atopou a cor - erro de python
+
+erro de python</translation>
     </message>
     <message>
         <source>Scribus Python interface module
@@ -11083,105 +11189,314 @@ any function as provided here and in its docstring is incomplete.
 
 Details of what exceptions each function may throw are provided on the
 function&apos;s documentation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Módulo da interface de Python para Scribus
+
+Este módulo e&apos;a interface de Python para Scribus. Fornece funcións para
+controlar Scribus e para manipular obxectos da tela. Cada función documéntase
+individualmente máis abaixo.
+
+Certas cousas son comúns a toda a interface.
+
+A maioría das funcións operan sobre molduras. As molduras identifícanse polo seu noome,
+unha secuencia - non son obxectos reais de Python. Moitas funcións levan un
+parámetro opcional (non palabra-chave), o nome da moldura.
+Moitas excepcións son así mesmo comuns para a maioría das funcións. Estas
+non se documentan actualmente no docstring para cada función.
+- Moitas funcións provocarán un NoDocOpenError se tenta usalas sen un documento sobre
+o que operaren.
+- Se non lle pasa o nome dunha moldura a unha función que o requira, a función usará a moldura
+seleccionada nese momento, de habela, ou provocará un NoValidObjectError se non dá atopado
+nada sobre o que operar.
+- Moitas funcións provocarán un WrongFrameTypeError se tenta usalas nun tipo de moldura no que
+non teñan sentido. Por exemplo, asignar a cor do texto nunha moldura de imaxes non ten sentido
+e provocará esta excepción.
+- Os erros que proveñan de chamadas á API de Python subxacente pasaranse sen alteracións.
+Como tais, a lista de excepcións fornecida aquí e no seu docstring é incompleta.
+
+Os detalles sobre as excepcións que pode provocar cada función fornécense na
+documentación de cada función.</translation>
     </message>
     <message>
         <source>Custom (optional) configuration: </source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Configuración personalizada (opcional): 
+
+extensión de abreviacións:</translation>
     </message>
     <message>
         <source>Standard configuration: </source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Configuración padrón:
+
+extensión de abreviacións:</translation>
     </message>
     <message>
         <source>Short &amp;Words...</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Abre&amp;viacións...</translation>
     </message>
     <message>
         <source>Short Words processing. Wait please...</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>A procesar as Abreviacións. Agarde un bocado...</translation>
     </message>
     <message>
         <source>Short Words processing. Done.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Procesamento das Abreviacións. Feito.</translation>
     </message>
     <message>
         <source>Afrikaans</source>
-        <translation type="unfinished">Afrikaans</translation>
+        <translation>Afrikaans</translation>
     </message>
     <message>
         <source>Portugese (Brazilian)</source>
-        <translation type="unfinished"></translation>
+        <translation>Portugués (Brasileiro)</translation>
     </message>
     <message>
         <source>Turkish</source>
-        <translation type="unfinished"></translation>
+        <translation>Turco</translation>
     </message>
     <message>
         <source>Ukranian</source>
-        <translation type="unfinished"></translation>
+        <translation>Ucraíno</translation>
     </message>
     <message>
         <source>Welsh</source>
-        <translation type="unfinished"></translation>
+        <translation>Galés</translation>
     </message>
     <message>
         <source>Specified item not an image frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">O elemento indicado non é unha moldura de imaxe
+
+erro de python</translation>
     </message>
     <message>
         <source>The filename must be a string.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>O nome de ficheiro debe ser unha cadea.
+
+erro de python.</translation>
     </message>
     <message>
         <source>Cannot delete image type settings.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Non se pode eliminar a configuración de tipo de imaxe.
+
+erro de python.</translation>
     </message>
     <message>
         <source>The image type must be a string.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>O tipo de imaxe debe ser unha cadea.
+
+erro de python.</translation>
     </message>
     <message>
         <source>&apos;allTypes&apos; attribute is READ-ONLY</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>O atributo &apos;allTypes&apos; é de SÓ-LECTURA
+
+erro de python</translation>
     </message>
     <message>
         <source>Failed to export image</source>
         <comment>python error</comment>
+        <translation>Fallou a exportación da imaxe
+
+erro de python</translation>
+    </message>
+    <message>
+        <source>Unable to save pixmap</source>
+        <comment>scripter error</comment>
+        <translation type="obsolete">Imposíbel salvar o pixmap
+
+erro do guión</translation>
+    </message>
+    <message>
+        <source>Color not found.</source>
+        <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Run a Python script from a file.</source>
-        <comment>scripter</comment>
+        <source>Color not found in document.</source>
+        <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Load Extension Script...</source>
+        <source>Color not found in default colors.</source>
+        <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Load a Python script as an extension. Used for loading macros and for advanced Python scripts that extend the Scribus user interface.</source>
-        <comment>scripter</comment>
+        <source>Cannot scale by 0%.</source>
+        <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Display an interactive Python console where you can write and run Python programs that use the Scripter tools.</source>
-        <comment>scripter</comment>
+        <source>Specified item not an image frame.</source>
+        <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Scripter &amp;Settings</source>
-        <comment>script menu</comment>
+        <source>Font not found.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot render an empty sample.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot save to a blank filename.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot have an empty layer name.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Layer not found.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot remove the last layer.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot create layer without a name.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert index out of bounds.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set text alignment on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set font size on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set font on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line space out of bounds, must be &gt;= 0.1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set line spacing on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Column gap out of bounds, must be positive.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set column gap on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Column count out of bounds, must be &gt; 1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set number of columns on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot select text in a non-text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot delete text from a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set text fill on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set text stroke on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set text shade on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can only link text frames.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target frame must be empty.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target frame links to another frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target frame is linked to by another frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Source and target are the same object.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot unlink a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Object is not a linked text frame, cannot unlink.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Object the last frame in a series, cannot unlink. Unlink the previous frame instead.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot convert a non-text frame to outlines.</source>
+        <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11830,7 +12145,7 @@ Se se seleccionan Páxinas Enfrentadas, pódese usar este espazo de marxe para a
     </message>
     <message>
         <source>Properties</source>
-        <translation>Propiedades</translation>
+        <translation>Propriedades</translation>
     </message>
     <message>
         <source>Outline</source>
@@ -12480,7 +12795,7 @@ Se se seleccionan Páxinas Enfrentadas, pódese usar este espazo de marxe para a
     </message>
     <message>
         <source>&amp;Properties</source>
-        <translation>&amp;Propiedades</translation>
+        <translation>&amp;Propriedades</translation>
     </message>
     <message>
         <source>&amp;Outline</source>
@@ -12736,7 +13051,7 @@ Se se seleccionan Páxinas Enfrentadas, pódese usar este espazo de marxe para a
     </message>
     <message>
         <source>Portuguese (BR)</source>
-        <translation type="unfinished"></translation>
+        <translation>Portugués (BR)</translation>
     </message>
 </context>
 <context>
@@ -12802,128 +13117,234 @@ Se se seleccionan Páxinas Enfrentadas, pódese usar este espazo de marxe para a
     </message>
 </context>
 <context>
+    <name>ScripterCore</name>
+    <message>
+        <source>&amp;Scribus Scripts</source>
+        <translation type="unfinished">Guións do &amp;Scribus</translation>
+    </message>
+    <message>
+        <source>&amp;Execute Script...</source>
+        <translation type="unfinished">&amp;Executar Guión...</translation>
+    </message>
+    <message>
+        <source>Run a Python script from a file.</source>
+        <comment>scripter</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Load Extension Script...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load a Python script as an extension. Used for loading macros and for advanced Python scripts that extend the Scribus user interface.</source>
+        <comment>scripter</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Recent Scripts</source>
+        <translation type="unfinished">Guións &amp;Recentes</translation>
+    </message>
+    <message>
+        <source>Show &amp;Console</source>
+        <translation type="unfinished">Mostrar a &amp;Consola</translation>
+    </message>
+    <message>
+        <source>Display an interactive Python console where you can write and run Python programs that use the Scripter tools.</source>
+        <comment>scripter</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;About Script...</source>
+        <translation type="unfinished">&amp;Acerca de Script...</translation>
+    </message>
+    <message>
+        <source>S&amp;cript</source>
+        <translation type="unfinished">&amp;Guión</translation>
+    </message>
+    <message>
+        <source>Scripter &amp;Settings</source>
+        <comment>script menu</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished">Abrir</translation>
+    </message>
+    <message>
+        <source>Python Scripts (*.py);; All Files (*)</source>
+        <translation type="unfinished">Guións en Python (*.py);; Todo (*)</translation>
+    </message>
+    <message>
+        <source>Script error</source>
+        <translation type="unfinished">Erro de Guión</translation>
+    </message>
+    <message>
+        <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
+        <translation type="unfinished">Se se trataba dun guión oficial, teña a bondade de informar en &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
+    </message>
+    <message>
+        <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
+        <translation type="unfinished">Esta mensaxe enviouse tamén para a área de transferencia. Empregue Ctrl+V para pegala no xestor de erros.</translation>
+    </message>
+    <message>
+        <source>Scribus - Script Plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The &apos;Load Script&apos; function of the script plugin is currently disabled.
+If you just want to run a normal script, you probably want to use
+&apos;Execute Script...&apos; instead.
+
+If you do actually want to load a Python extension script or macro, you
+need to go into the Scripter Settings in the Script menu and enable
+scripter extensions there.
+
+Please read the documentation on extension scripts first.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide &amp;Console</source>
+        <translation type="unfinished">Agochar a &amp;Consola</translation>
+    </message>
+    <message>
+        <source>About Script</source>
+        <translation type="unfinished">Acerca de Script</translation>
+    </message>
+</context>
+<context>
     <name>ScripterPreferences</name>
     <message>
         <source>Scribus - Scripter Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Preferencias do Guionista</translation>
     </message>
     <message>
         <source>Enable Scripter Extensions</source>
-        <translation type="unfinished"></translation>
+        <translation>Habilitar as Extensións do Guionista</translation>
     </message>
     <message>
         <source>Turn on extension scripts and macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Activar os guións de extensión e as macros</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;Enabling scripter extensions turns on additional scripter functionality including Python macros and the option of loading a Python script at start-up. Turning on this option unlocks the &lt;tt&gt;Load Extension Script&lt;/tt&gt; item in the Script menu.&lt;/p&gt;
 &lt;p&gt;
 Only scripts written to be run as extension scripts should be used with &lt;tt&gt;Load Extension Script&lt;/tt&gt; or as start-up scripts. See the scripter documentation for more details.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;Habilitar as extensións do guionista activa a funcionalidade adicional do guionista, que inclué macros en Python e a opción de carregar un guión en Python ao inicio. Activar esta opción desbloquea o elemento &lt;tt&gt;Carregar Guión de Extensión&lt;/tt&gt; do menú Guión.&lt;/p&gt;
+&lt;p&gt;
+Só se deben usar con &lt;tt&gt;Carregar un Guión de Extensión&lt;/tt&gt; ou como guións de inicio os guións escritos para ser executados como guións de extensión. Consulte a documentación do guionista para máis información.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Use a Startup Script</source>
-        <translation type="unfinished"></translation>
+        <translation>Usar un Guión de Inicio</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;If &lt;tt&gt;Use a Startup Script&lt;/tt&gt; is checked, Scribus will load the script file specified here as an extension script at start-up. It is important that the script be written as an extension script, as if not written carefully it can potentially cause problems.&lt;/p&gt;
 &lt;p&gt;&lt;tt&gt;Use a Startup Script&lt;/tt&gt; will be disabled if scripter extensions are off, as extension scripts cannot be loaded without scripter extensions enabled.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;Se selecciona &lt;tt&gt;Usar un Guión de Inicio&lt;/tt&gt;, Scribus carregará o ficheiro de guión especificado aquí como guión de extensión no inicio. É importante que o guión estexa escrito como guión de extensión, xa que de non estar escrito con coidado podería causar problemas.&lt;/p&gt;
+&lt;p&gt;&lt;tt&gt;Desactivarase &lt;tt&gt;Usar un Guión de Inicio&lt;/tt&gt; se están desactivadas as extensións do guionista, xa que os guións de extensión non se poden carregar sen ter activadas as extensións do guionista.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Browse...</source>
-        <translation type="unfinished"></translation>
+        <translation>Procurar...</translation>
     </message>
     <message>
         <source>Browse for a new script file</source>
-        <translation type="unfinished"></translation>
+        <translation>Procurar un ficheiro de guión novo</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Browse for a new script file&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Procurar un ficheiro de guión novo&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>What script file to load at start-up</source>
-        <translation type="unfinished"></translation>
+        <translation>Que ficheiro de guión carregar no inicio</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;The file containing the Python script to run as an extension script at start-up.&lt;/p&gt;
 &lt;p&gt;Note that when this script is run, Scribus has not completely started up and the workspace does not yet exist.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;O ficheiro que contén o guión en Python que se executará como guión de extensión no inicio.&lt;/p&gt;
+&lt;p&gt;Observe que cando se executa este guión, Scribus ainda non se iniciou de todo e a área de traballo ainda non existe.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Script File:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ficheiro do Guión:</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancelar</translation>
+        <translation>&amp;Cancelar</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <source>Close without saving changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Fechar sen salvar as modificacións</translation>
     </message>
     <message>
         <source>&amp;Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Dacordo</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
         <source>Save changes and close</source>
-        <translation type="unfinished"></translation>
+        <translation>Salvar as modificacións e fechar</translation>
     </message>
     <message>
         <source>Advanced Options</source>
-        <translation type="unfinished">Opcións avanzadas</translation>
+        <translation>Opcións avanzadas</translation>
     </message>
     <message>
         <source>Import All Names at Startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Importar Todos os Nomes no Inicio</translation>
     </message>
     <message>
         <source>Run &apos;from scribus import *&apos; in the script console at start-up</source>
-        <translation type="unfinished"></translation>
+        <translation>Executar &apos;do importador de Scribus *&apos; na consola de guións no inicio</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Import All Names at Startup&lt;/tt&gt; is an advanced option. You should probably leave it checked unless you have read the documentation and know what you are doing.&lt;/p&gt;
 &lt;p&gt;Unchecking this option will prevent the scripter from running its usual &lt;tt&gt;from scribus import *&lt;/tt&gt; command when it initializes the main interpreter (used for the script console and extension scripts) at start-up.&lt;/p&gt;
 &lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Importar Todos os Nomes no Inicio&lt;/tt&gt; é unha opción avanzada. O máis seguro é que deba deixala marcada, a non ser que xa lese a documentación e saiba o que anda a facer.&lt;/p&gt;
+&lt;p&gt;Des-seleccionar esta opción evitará que o guionista corra o seu comando normal &lt;tt&gt;do importador de Scribus *&lt;/tt&gt; ao inicializar o interpretador principal (usado pola consola de guións e os guións de extensión) no inicio.&lt;/p&gt;
+&lt;p&gt;Esta opción non é efectiva até que se reinicie o Scribusf.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Enable Legacy Name Aliases</source>
-        <translation type="unfinished"></translation>
+        <translation>Permitir Alias de Nome anticuados</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Enable the use of OldStyle function names&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Permitir o nome de nomes de función OldStyle&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Enable Legacy Aliases&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
 &lt;p&gt;If checked, this option will cause the scripter to create a large number of function and constant name aliases for 1.2.0 script compatibility. It defaults to checked.&lt;/p&gt;
 &lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Permitir Alias anticuados&lt;/tt&gt; é unha opción avanzada. O máis probábel é que a deba deixar tal e como está.&lt;/p&gt;
+&lt;p&gt;Se a selecciona, esta opción fará que o guionista cre un grande número de alias de nome de funcións e constantes para compatibilidade cos guións da versión 1.2.0. Por omisión, está seleccionada.&lt;/p&gt;
+&lt;p&gt;Esta opción non é efectiva até que se reinicie o Scribus.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Use Fake Stdin</source>
-        <translation type="unfinished"></translation>
+        <translation>Usar Stdin Falso</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Replace sys.stdin with a fake file to prevent Scribus hanging when a script tries to read from stdin.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Substitúa sys.stdin cun ficheiro falso para evitar que Scribus se colgue cando un guión tenta ler do stdin.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Use Fake Stdin&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
 &lt;p&gt;Normally, scribus will provide Python with a fake file object for &lt;tt&gt;sys.stdin&lt;/tt&gt;, so that reads from stdin always return an empty string. If the real &lt;tt&gt;sys.stdin&lt;/tt&gt; is left in place, scripts that try to read from it will block - and in turn block scribus&apos;s execution, making the app appear to hang - until input arrives on stdin. It&apos;s unusual for GUI apps to expect anything on stdin, so mostly users will think scribus has crashed.&lt;/p&gt;
 &lt;p&gt;You can disable this option if you want to accept input on stdin. Generally you should use &lt;tt&gt;os.popen&lt;/tt&gt; to make a pipe instead, or use some other input mechanism, but this option is here just in case.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Usar Stdin Falso&lt;/tt&gt; é unha opción avanzada. O máis probábel é que a deba deixar como está.&lt;/p&gt;
+&lt;p&gt;Normalmente, Scribus fornecerá a Python un obxecto de ficheiro falso para &lt;tt&gt;sys.stdin&lt;/tt&gt; para que as lecturas desde stdin devolvan sempre unha cadea vacía. Se se deixa o verdadeiro &lt;tt&gt;sys.stdin&lt;/tt&gt; no seu sitio, os guiósn que tenten ler del bloquearan-se - e bloquearán á súa vez Scribus, facendo que a aplicación pareza colgar-se - até que chegue entrada a stdin. Non é normal que as aplicacións GUI esperen algo do stdin, de maneira que a maioría dos usuarios pensarán que Scribus caeu.
+&lt;p&gt;Pode desabilitar esta opción se quer aceptar entrada desde stdin. Normalmente debería utilizar &lt;tt&gt;os.popen&lt;/tt&gt; para facer unha tubaria ou usar outro mecanismo de entrada, pero esta opción está aquí por se as moscas.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
 </context>
 <context>
@@ -13499,14 +13920,17 @@ e non pedir máis a súa configuración</translation>
     </message>
     <message>
         <source>Pack paragraph styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Empacar os estilos de parágrafo</translation>
     </message>
     <message>
         <source>Group paragraph styles by attributes.
 Less paragraph styles but controlling them may be hard.
 Should be used if it is known that text must not be edited
 after importing.</source>
-        <translation type="unfinished"></translation>
+        <translation>Agrupar os estilos de parágrafo polos seus atributos.
+Menos estilos de parágrafo, mais controlalos pode resultar máis difícil.
+Deberíase utilizar se se sabe que o texto non vai ser modificado
+após importalo.</translation>
     </message>
 </context>
 <context>
@@ -13704,48 +14128,63 @@ Póñalle outro.</translation>
     <message>
         <source>Short Words</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Abreviacións
+
+extensión de abreviacións</translation>
     </message>
     <message>
         <source>Apply unbreakable space on:</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Aplicar espazo que non se pode romper a:
+
+extensión de abreviacións:</translation>
     </message>
     <message>
         <source>&amp;Selected frames</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Molduras &amp;Seleccionadas
+
+extensión de abreviacións</translation>
     </message>
     <message>
         <source>Active &amp;page</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Páxina activa
+
+extensión de abreviacións</translation>
     </message>
     <message>
         <source>&amp;All items</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Todos os elementos
+
+extensión de abreviacións</translation>
     </message>
     <message>
         <source>&amp;OK</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished">&amp;Dacordo</translation>
+        <translation>&amp;Dacordo</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished">&amp;Cancelar</translation>
+        <translation>&amp;Cancelar</translation>
     </message>
     <message>
         <source>&amp;Info and
 Languages</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Información e
+Idiomas
+
+extensión de abreviacións</translation>
     </message>
     <message>
         <source>Replace defaults by user config</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Substituir o predefinido pola configuración do usuario
+
+extensión de abreviacións</translation>
     </message>
     <message>
         <source>When the user config file exists 
@@ -13756,37 +14195,53 @@ to the global configuration by unchecked button.
 You can replace predefined values by yours
 with checked button too.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Cando o ficheiro deconfiguración do usuario existe
+(%1)
+pode escoller se prefire adicionar a súa configuración
+á configuración global retirándolle a selección ao botón.
+
+Pode substituir os valores predefinidos polos seus
+seleccionando o botón tamén.
+extensión de abreviacións.</translation>
     </message>
     <message>
         <source>Only selected frames processed.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Só se procesaron as molduras seleccionadas.
+
+extensión de abreviacións.
+</translation>
     </message>
     <message>
         <source>Only actual page processed.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Só se procesou a páxina actual.
+
+extensión de abreviacións.</translation>
     </message>
     <message>
         <source>All items in document processed.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Procesáronse todos os elementos do documento.
+
+extensión de abreviacións.</translation>
     </message>
     <message>
         <source>Short Words for Scribus</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Abreviacións para Scribus</translation>
     </message>
     <message>
         <source>Available in the following languages</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Disponíbel nos idiomas seguintes
+
+extensión de abreviacións</translation>
     </message>
     <message>
         <source>About Short Words</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Sobre Abreviacións</translation>
     </message>
 </context>
 <context>
@@ -13809,7 +14264,7 @@ with checked button too.</source>
     </message>
     <message>
         <source>Properties...</source>
-        <translation>Propiedades...</translation>
+        <translation>Propriedades...</translation>
     </message>
     <message>
         <source>Insert Polygons</source>

@@ -1471,7 +1471,7 @@ that the layer &quot;layer&quot; is visible, a value of False means that the lay
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation>isLayerVisible(&quot;capa&quot;) -&gt; bool
+        <translation type="obsolete">isLayerVisible(&quot;capa&quot;) -&gt; bool
 
 Ens retorna si la capa &quot;capa&quot; és visible o no, un valor de Cert significa
 que la capa és visible, un valor de Fals significa que la capa
@@ -1490,7 +1490,7 @@ the layer &quot;layer&quot; is disabled.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation>isLayerPrintable(&quot;capa&quot;) -&gt; bool
+        <translation type="obsolete">isLayerPrintable(&quot;capa&quot;) -&gt; bool
 
 Ens retorna si la capa &quot;capa&quot; és printable o no, un valor de Cert significa
 que la capa pot ser imprimible, un valor de Fals significa que la capa
@@ -2302,6 +2302,30 @@ for the macro.
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+
+Returns whether the layer &quot;layer&quot; is visible or not, a value of True means
+that the layer &quot;layer&quot; is visible, a value of False means that the layer
+&quot;layer&quot; is invisible.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+
+Returns whether the layer &quot;layer&quot; is printable or not, a value of True means
+that the layer &quot;layer&quot; can be printed, a value of False means that printing
+the layer &quot;layer&quot; is disabled.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -2515,6 +2539,10 @@ La falta de llibreries està indicat per un *
  compiled in library support in Scribus
 The C-C-T equates to C=littlecms C=CUPS T=TIFF support.
 Missing library support is indicated by a *</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Portugese (Brazilian):</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5814,14 +5842,6 @@ The table in the center of the dialog lists what macros are currently loaded and
         <translation type="unfinished">Alt+O</translation>
     </message>
     <message>
-        <source>Close this dialog.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Return to Scribus.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Macro</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5872,12 +5892,6 @@ The table in the center of the dialog lists what macros are currently loaded and
     </message>
     <message>
         <source>&lt;qt&gt;Edit the source of the selected macro, if the source is availible.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;Edit the selected macro. &lt;/p&gt;
-&lt;p&gt;If this button is greyed out, either there is no selected macro or the macro manager does not have the source code for the macro you have selected (in which case &lt;tt&gt;No&lt;/tt&gt; will be shown in the &lt;tt&gt;Edit &lt;/tt&gt;column of the macro).&lt;/p&gt;
-&lt;p&gt;If scribus doesn&apos;t have the source, the macro was probably created by a script.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5959,6 +5973,20 @@ The table in the center of the dialog lists what macros are currently loaded and
     </message>
     <message>
         <source>&lt;p&gt;Loads macros from an external file.&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close this dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Return to Scribus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;Edit the selected macro. &lt;/p&gt;
+&lt;p&gt;If this button is greyed out, either there is no selected macro or the macro manager does not have the source code for the macro you have selected (in which case &lt;tt&gt;No&lt;/tt&gt; will be shown in the &lt;tt&gt;Edit &lt;/tt&gt;column of the macro).&lt;/p&gt;
+&lt;p&gt;If Scribus doesn&apos;t have the source, the macro was probably created by a script.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6064,40 +6092,23 @@ The table in the center of the dialog lists what macros are currently loaded and
     <name>MenuTest</name>
     <message>
         <source>Script error</source>
-        <translation>Error en Seqüència</translation>
+        <translation type="obsolete">Error en Seqüència</translation>
     </message>
     <message>
         <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
-        <translation>Si executes una seqüència oficial, si us plau avisa a &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
+        <translation type="obsolete">Si executes una seqüència oficial, si us plau avisa a &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
     </message>
     <message>
         <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
-        <translation>Aquest missatge també és al portapapers. Usa Ctrl+V per enganxar-lo al bug tracker.</translation>
+        <translation type="obsolete">Aquest missatge també és al portapapers. Usa Ctrl+V per enganxar-lo al bug tracker.</translation>
     </message>
     <message>
         <source>Show &amp;Console</source>
-        <translation>Mostra &amp;Consola</translation>
+        <translation type="obsolete">Mostra &amp;Consola</translation>
     </message>
     <message>
         <source>Hide &amp;Console</source>
-        <translation>Amaga &amp;Consola</translation>
-    </message>
-    <message>
-        <source>Scribus - Script Plugin</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The &apos;Load Script&apos; function of the script plugin is currently disabled.
-If you just want to run a normal script, you probably want to use
-&apos;Execute Script...&apos; instead.
-
-If you do actually want to load a Python extension script or macro, you
-need to go into the Scripter Settings in the Script menu and enable
-scripter extensions there.
-
-Please read the documentation on extension scripts first.
-</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Amaga &amp;Consola</translation>
     </message>
 </context>
 <context>
@@ -10282,23 +10293,23 @@ Comprova el nom i el camí.</translation>
     </message>
     <message>
         <source>&amp;Scribus Scripts</source>
-        <translation>Seqüències &amp;Scribus</translation>
+        <translation type="obsolete">Seqüències &amp;Scribus</translation>
     </message>
     <message>
         <source>&amp;Execute Script...</source>
-        <translation>&amp;Executa Seqüència...</translation>
+        <translation type="obsolete">&amp;Executa Seqüència...</translation>
     </message>
     <message>
         <source>&amp;Recent Scripts</source>
-        <translation>Seqüències &amp;Recents</translation>
+        <translation type="obsolete">Seqüències &amp;Recents</translation>
     </message>
     <message>
         <source>Show &amp;Console</source>
-        <translation>Mostra &amp;Cònsola</translation>
+        <translation type="obsolete">Mostra &amp;Cònsola</translation>
     </message>
     <message>
         <source>S&amp;cript</source>
-        <translation>Seqüèn&amp;cia</translation>
+        <translation type="obsolete">Seqüèn&amp;cia</translation>
     </message>
     <message>
         <source>Online Reference</source>
@@ -10306,7 +10317,7 @@ Comprova el nom i el camí.</translation>
     </message>
     <message>
         <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation>Seqüències Python (*.py);;Tots els fitxers (*)</translation>
+        <translation type="obsolete">Seqüències Python (*.py);;Tots els fitxers (*)</translation>
     </message>
     <message>
         <source>Save Page as &amp;SVG...</source>
@@ -10511,11 +10522,11 @@ Enllaços Externs
     </message>
     <message>
         <source>&amp;About Script...</source>
-        <translation>Quant &amp;a Sequència...</translation>
+        <translation type="obsolete">Quant &amp;a Sequència...</translation>
     </message>
     <message>
         <source>About Script</source>
-        <translation>Quant a Sequència</translation>
+        <translation type="obsolete">Quant a Sequència</translation>
     </message>
     <message>
         <source>Cannot get font size of non-text frame.</source>
@@ -10565,7 +10576,7 @@ Enllaços Externs
     <message>
         <source>Insert index out of bounds</source>
         <comment>python error</comment>
-        <translation>Índex fora d&apos;ordre</translation>
+        <translation type="obsolete">Índex fora d&apos;ordre</translation>
     </message>
     <message>
         <source>Alignment out of range. Use one of the scribus.ALIGN* constants.</source>
@@ -10575,57 +10586,57 @@ Enllaços Externs
     <message>
         <source>Can&apos;t set text alignment on a non-text frame</source>
         <comment>python error</comment>
-        <translation>No puc posar alineació de text si no és un quadre de text</translation>
+        <translation type="obsolete">No puc posar alineació de text si no és un quadre de text</translation>
     </message>
     <message>
         <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512</source>
         <comment>python error</comment>
-        <translation>Mida de font errònia - ha de ser 1&lt;= mida &lt;= 512</translation>
+        <translation type="obsolete">Mida de font errònia - ha de ser 1&lt;= mida &lt;= 512</translation>
     </message>
     <message>
         <source>Can&apos;t set font size on a non-text frame</source>
         <comment>python error</comment>
-        <translation>No puc posar mida de font si no és un quadre de text</translation>
+        <translation type="obsolete">No puc posar mida de font si no és un quadre de text</translation>
     </message>
     <message>
         <source>Can&apos;t set font on a non-text frame</source>
         <comment>python error</comment>
-        <translation>No puc tipus de font si no és un quadre de text</translation>
+        <translation type="obsolete">No puc tipus de font si no és un quadre de text</translation>
     </message>
     <message>
         <source>Font not found</source>
         <comment>python error</comment>
-        <translation>Font no trobada</translation>
+        <translation type="obsolete">Font no trobada</translation>
     </message>
     <message>
         <source>Line space out of bounds, must be &gt;= 0.1</source>
         <comment>python error</comment>
-        <translation>Espaiat de línia erroni, ha de ser &gt;=0.1</translation>
+        <translation type="obsolete">Espaiat de línia erroni, ha de ser &gt;=0.1</translation>
     </message>
     <message>
         <source>Can&apos;t line spacing on a non-text frame</source>
         <comment>python error</comment>
-        <translation>No puc posar espaiat de línia si no és un quadre de text</translation>
+        <translation type="obsolete">No puc posar espaiat de línia si no és un quadre de text</translation>
     </message>
     <message>
         <source>Column gap out of bounds, must be positive</source>
         <comment>python error</comment>
-        <translation>Espai entre columnes fora de marge, ha de ser positiu</translation>
+        <translation type="obsolete">Espai entre columnes fora de marge, ha de ser positiu</translation>
     </message>
     <message>
         <source>Can&apos;t column gap on a non-text frame</source>
         <comment>python error</comment>
-        <translation>No puc posar espai entre columnes si no és un quadre de text</translation>
+        <translation type="obsolete">No puc posar espai entre columnes si no és un quadre de text</translation>
     </message>
     <message>
         <source>Column count out of bounds, must be &gt; 1</source>
         <comment>python error</comment>
-        <translation>Número de columnes erroni, ha de ser &gt;1</translation>
+        <translation type="obsolete">Número de columnes erroni, ha de ser &gt;1</translation>
     </message>
     <message>
         <source>Can&apos;t number of columns on a non-text frame</source>
         <comment>python error</comment>
-        <translation>No puc numerar columnes si no és un quadre de text</translation>
+        <translation type="obsolete">No puc numerar columnes si no és un quadre de text</translation>
     </message>
     <message>
         <source>Selection index out of bounds</source>
@@ -10635,72 +10646,72 @@ Enllaços Externs
     <message>
         <source>Can&apos;t select text in a non-text frame</source>
         <comment>python error</comment>
-        <translation>No puc seleccionar text si no és un quadre de text</translation>
+        <translation type="obsolete">No puc seleccionar text si no és un quadre de text</translation>
     </message>
     <message>
         <source>Can&apos;t delete text from a non-text frame</source>
         <comment>python error</comment>
-        <translation>No puc esborrar text si no és un quadre de text</translation>
+        <translation type="obsolete">No puc esborrar text si no és un quadre de text</translation>
     </message>
     <message>
         <source>Can&apos;t set text fill on a non-text frame</source>
         <comment>python error</comment>
-        <translation>No puc emplenar el text amb color si no és un quadre de text</translation>
+        <translation type="obsolete">No puc emplenar el text amb color si no és un quadre de text</translation>
     </message>
     <message>
         <source>Can&apos;t set text stroke on a non-text frame</source>
         <comment>python error</comment>
-        <translation>No puc posar separació de text si no és un quadre de text</translation>
+        <translation type="obsolete">No puc posar separació de text si no és un quadre de text</translation>
     </message>
     <message>
         <source>Can&apos;t set text shade on a non-text frame</source>
         <comment>python error</comment>
-        <translation>No puc posar intensitat de text si no és un quadre de text</translation>
+        <translation type="obsolete">No puc posar intensitat de text si no és un quadre de text</translation>
     </message>
     <message>
         <source>Can only link text frames</source>
         <comment>python error</comment>
-        <translation>Només s&apos;enllacen els quadres de text</translation>
+        <translation type="obsolete">Només s&apos;enllacen els quadres de text</translation>
     </message>
     <message>
         <source>Target frame must be empty</source>
         <comment>python error</comment>
-        <translation>El quadre destí ha d&apos;estar buit</translation>
+        <translation type="obsolete">El quadre destí ha d&apos;estar buit</translation>
     </message>
     <message>
         <source>Target frame links to another frame</source>
         <comment>python error</comment>
-        <translation>El quadre de destí ja enllaça a un altre</translation>
+        <translation type="obsolete">El quadre de destí ja enllaça a un altre</translation>
     </message>
     <message>
         <source>Target frame is linked to by another frame</source>
         <comment>python error</comment>
-        <translation>El quadre de destí està enllaçat a un altre</translation>
+        <translation type="obsolete">El quadre de destí està enllaçat a un altre</translation>
     </message>
     <message>
         <source>Source and target are the same object</source>
         <comment>python error</comment>
-        <translation>Origent i destí són el mateix objecte</translation>
+        <translation type="obsolete">Origent i destí són el mateix objecte</translation>
     </message>
     <message>
         <source>Can&apos;t unlink a non-text frame</source>
         <comment>python error</comment>
-        <translation>No put desenllaçar si no és un quadre de text</translation>
+        <translation type="obsolete">No put desenllaçar si no és un quadre de text</translation>
     </message>
     <message>
         <source>Object is not a linked text frame, can&apos;t unlink.</source>
         <comment>python error</comment>
-        <translation>L&apos;objecte no és un quadre de text, no es desenllaça.</translation>
+        <translation type="obsolete">L&apos;objecte no és un quadre de text, no es desenllaça.</translation>
     </message>
     <message>
         <source>Object the last frame in a series, can&apos;t unlink. Unlink the previous frame instead.</source>
         <comment>python error</comment>
-        <translation>L&apos;Objecte és el darrer d&apos;una sèrie. No puc desenllaçar-lo. Desenllaça l&apos;anterior.</translation>
+        <translation type="obsolete">L&apos;Objecte és el darrer d&apos;una sèrie. No puc desenllaçar-lo. Desenllaça l&apos;anterior.</translation>
     </message>
     <message>
         <source>Can&apos;t convert a non-text frame to outlines</source>
         <comment>python error</comment>
-        <translation>No puc convertir a esquemes si no és un quadre de text</translation>
+        <translation type="obsolete">No puc convertir a esquemes si no és un quadre de text</translation>
     </message>
     <message>
         <source>Failed to open document</source>
@@ -10725,37 +10736,37 @@ Enllaços Externs
     <message>
         <source>Can&apos;t scale by 0%</source>
         <comment>python error</comment>
-        <translation>No es pot escalar un 0%</translation>
+        <translation type="obsolete">No es pot escalar un 0%</translation>
     </message>
     <message>
         <source>Can&apos;t render an empty sample</source>
         <comment>python error</comment>
-        <translation>No es pot representar si és buit</translation>
+        <translation type="obsolete">No es pot representar si és buit</translation>
     </message>
     <message>
         <source>Can&apos;t save to a blank filename</source>
         <comment>python error</comment>
-        <translation>No es pot guardar sense nom</translation>
+        <translation type="obsolete">No es pot guardar sense nom</translation>
     </message>
     <message>
         <source>Can&apos;t have an empty layer name</source>
         <comment>python error</comment>
-        <translation>No se pot tenir capes sense nom</translation>
+        <translation type="obsolete">No se pot tenir capes sense nom</translation>
     </message>
     <message>
         <source>Layer not found</source>
         <comment>python error</comment>
-        <translation>Capa no trobada</translation>
+        <translation type="obsolete">Capa no trobada</translation>
     </message>
     <message>
         <source>Can&apos;t remove the last layer</source>
         <comment>python error</comment>
-        <translation>No es pot esborrar la última capa</translation>
+        <translation type="obsolete">No es pot esborrar la última capa</translation>
     </message>
     <message>
         <source>Can&apos;t create layer without a name</source>
         <comment>python error</comment>
-        <translation>No es pot crear una capa sense nom</translation>
+        <translation type="obsolete">No es pot crear una capa sense nom</translation>
     </message>
     <message>
         <source>An object with the requested name already exists</source>
@@ -10855,7 +10866,7 @@ Enllaços Externs
     <message>
         <source>Color not found</source>
         <comment>python error</comment>
-        <translation>Color no trobat</translation>
+        <translation type="obsolete">Color no trobat</translation>
     </message>
     <message>
         <source>Cannot change a color with an empty name.</source>
@@ -10865,12 +10876,12 @@ Enllaços Externs
     <message>
         <source>Color not found in document</source>
         <comment>python error</comment>
-        <translation>Color no trobat en el document</translation>
+        <translation type="obsolete">Color no trobat en el document</translation>
     </message>
     <message>
         <source>Color not found in default colors</source>
         <comment>python error</comment>
-        <translation>Color no trobat en els colors per defecte</translation>
+        <translation type="obsolete">Color no trobat en els colors per defecte</translation>
     </message>
     <message>
         <source>Cannot create a color with an empty name.</source>
@@ -10978,11 +10989,6 @@ function&apos;s documentation.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Specified item not an image frame</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>The filename must be a string.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
@@ -11008,27 +11014,188 @@ function&apos;s documentation.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Run a Python script from a file.</source>
-        <comment>scripter</comment>
+        <source>Color not found.</source>
+        <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Load Extension Script...</source>
+        <source>Color not found in document.</source>
+        <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Load a Python script as an extension. Used for loading macros and for advanced Python scripts that extend the Scribus user interface.</source>
-        <comment>scripter</comment>
+        <source>Color not found in default colors.</source>
+        <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Display an interactive Python console where you can write and run Python programs that use the Scripter tools.</source>
-        <comment>scripter</comment>
+        <source>Cannot scale by 0%.</source>
+        <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Scripter &amp;Settings</source>
-        <comment>script menu</comment>
+        <source>Specified item not an image frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font not found.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot render an empty sample.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot save to a blank filename.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot have an empty layer name.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Layer not found.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot remove the last layer.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot create layer without a name.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert index out of bounds.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set text alignment on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set font size on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set font on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line space out of bounds, must be &gt;= 0.1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set line spacing on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Column gap out of bounds, must be positive.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set column gap on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Column count out of bounds, must be &gt; 1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set number of columns on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot select text in a non-text frame</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot delete text from a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set text fill on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set text stroke on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot set text shade on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can only link text frames.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target frame must be empty.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target frame links to another frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target frame is linked to by another frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Source and target are the same object.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot unlink a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Object is not a linked text frame, cannot unlink.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Object the last frame in a series, cannot unlink. Unlink the previous frame instead.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot convert a non-text frame to outlines.</source>
+        <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -12646,6 +12813,102 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Cancel.la</translation>
+    </message>
+</context>
+<context>
+    <name>ScripterCore</name>
+    <message>
+        <source>&amp;Scribus Scripts</source>
+        <translation type="unfinished">Seqüències &amp;Scribus</translation>
+    </message>
+    <message>
+        <source>&amp;Execute Script...</source>
+        <translation type="unfinished">&amp;Executa Seqüència...</translation>
+    </message>
+    <message>
+        <source>Run a Python script from a file.</source>
+        <comment>scripter</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Load Extension Script...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load a Python script as an extension. Used for loading macros and for advanced Python scripts that extend the Scribus user interface.</source>
+        <comment>scripter</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Recent Scripts</source>
+        <translation type="unfinished">Seqüències &amp;Recents</translation>
+    </message>
+    <message>
+        <source>Show &amp;Console</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display an interactive Python console where you can write and run Python programs that use the Scripter tools.</source>
+        <comment>scripter</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;About Script...</source>
+        <translation type="unfinished">Quant &amp;a Sequència...</translation>
+    </message>
+    <message>
+        <source>S&amp;cript</source>
+        <translation type="unfinished">Seqüèn&amp;cia</translation>
+    </message>
+    <message>
+        <source>Scripter &amp;Settings</source>
+        <comment>script menu</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished">Obre</translation>
+    </message>
+    <message>
+        <source>Python Scripts (*.py);; All Files (*)</source>
+        <translation type="unfinished">Seqüències Python (*.py);;Tots els fitxers (*)</translation>
+    </message>
+    <message>
+        <source>Script error</source>
+        <translation type="unfinished">Error en Seqüència</translation>
+    </message>
+    <message>
+        <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
+        <translation type="unfinished">Si executes una seqüència oficial, si us plau avisa a &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
+    </message>
+    <message>
+        <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
+        <translation type="unfinished">Aquest missatge també és al portapapers. Usa Ctrl+V per enganxar-lo al bug tracker.</translation>
+    </message>
+    <message>
+        <source>Scribus - Script Plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The &apos;Load Script&apos; function of the script plugin is currently disabled.
+If you just want to run a normal script, you probably want to use
+&apos;Execute Script...&apos; instead.
+
+If you do actually want to load a Python extension script or macro, you
+need to go into the Scripter Settings in the Script menu and enable
+scripter extensions there.
+
+Please read the documentation on extension scripts first.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide &amp;Console</source>
+        <translation type="unfinished">Amaga &amp;Consola</translation>
+    </message>
+    <message>
+        <source>About Script</source>
+        <translation type="unfinished">Quant a Sequència</translation>
     </message>
 </context>
 <context>

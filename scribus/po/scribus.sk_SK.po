@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus.sk_SK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-08 13:01+0100\n"
+"POT-Creation-Date: 2005-02-22 10:41+0100\n"
 "PO-Revision-Date: 2004-12-19 22:54+0100\n"
 "Last-Translator: Zdenko Podobný <zdpo@mailbox.sk>\n"
 "Language-Team: Slovak <<sk-i18n@lists.linux.sk>>\n"
@@ -4921,6 +4921,10 @@ msgstr "Nórsky:"
 msgid "Polish:"
 msgstr "Poľský:"
 
+#, fuzzy
+msgid "Portugese (Brazilian):"
+msgstr "Brazílsky"
+
 msgid "Russian:"
 msgstr "Ruský:"
 
@@ -6176,11 +6180,12 @@ msgid ""
 "edit macro dialog box.</qt>"
 msgstr ""
 
-msgid "Close this dialog."
-msgstr ""
+#, fuzzy
+msgid "Close this dialog"
+msgstr "Uzavrie túto Bézierovú krivku"
 
 #, fuzzy
-msgid "Return to Scribus."
+msgid "Return to Scribus"
 msgstr "O Scribuse"
 
 msgid ""
@@ -6230,7 +6235,7 @@ msgid ""
 "macro manager does not have the source code for the macro you have selected "
 "(in which case <tt>No</tt> will be shown in the <tt>Edit </tt>column of the "
 "macro).</p>\n"
-"<p>If scribus doesn't have the source, the macro was probably created by a "
+"<p>If Scribus doesn't have the source, the macro was probably created by a "
 "script.</p>"
 msgstr ""
 
@@ -6315,6 +6320,56 @@ msgstr ""
 msgid "S&cripter Manual..."
 msgstr "S&cripter manuál..."
 
+msgid ""
+"Scribus Python interface module\n"
+"\n"
+"This module is the Python interface for Scribus. It provides functions\n"
+"to control scribus and to manipulate objects on the canvas. Each\n"
+"function is documented individually below.\n"
+"\n"
+"A few things are common across most of the interface.\n"
+"\n"
+"Most functions operate on frames. Frames are identified by their name,\n"
+"a string - they are not real Python objects. Many functions take an\n"
+"optional (non-keyword) parameter, a frame name.\n"
+"Many exceptions are also common across most functions. These are\n"
+"not currently documented in the docstring for each function.\n"
+"- Many functions will raise a NoDocOpenError if you try to use themwithout a "
+"document to operate on.\n"
+"- If you do not pass a frame name to a function that requires one,the "
+"function will use the currently selected frame, if any, orraise a "
+"NoValidObjectError if it can't find anything to operateon.\n"
+"- Many functions will raise WrongFrameTypeError if you try to use them\n"
+"on a frame type that they do not make sense with. For example, setting\n"
+"the text colour on a graphics frame doesn't make sense, and will result\n"
+"in this exception being raised.\n"
+"- Errors resulting from calls to the underlying Python API will be\n"
+"passed through unaltered. As such, the list of exceptions thrown by\n"
+"any function as provided here and in its docstring is incomplete.\n"
+"\n"
+"Details of what exceptions each function may throw are provided on the\n"
+"function's documentation."
+msgstr ""
+
+msgid "Script Console"
+msgstr "Konzola skriptu"
+
+msgid "Tried to set progress > maximum progress"
+msgstr ""
+
+msgid "Failed to save EPS"
+msgstr "Nepodarilo sa uložiť EPS"
+
+msgid "Page number out of range"
+msgstr "Počet strán je mimo rozsah"
+
+msgid "argument is not list: must be list of float values"
+msgstr "argument nie je zoznam: musí byť zoznamom plávajúcich hodnôt"
+
+msgid "argument contains non-numeric values: must be list of float values"
+msgstr ""
+"argument obsahuje nenumerické hodnoty: musí to byť zoznam plávajúcich hodnôt"
+
 msgid "&Scribus Scripts"
 msgstr "&Scribus skripty"
 
@@ -6396,56 +6451,6 @@ msgstr "Skryť &konzolu"
 msgid "About Script"
 msgstr "O skripte"
 
-msgid ""
-"Scribus Python interface module\n"
-"\n"
-"This module is the Python interface for Scribus. It provides functions\n"
-"to control scribus and to manipulate objects on the canvas. Each\n"
-"function is documented individually below.\n"
-"\n"
-"A few things are common across most of the interface.\n"
-"\n"
-"Most functions operate on frames. Frames are identified by their name,\n"
-"a string - they are not real Python objects. Many functions take an\n"
-"optional (non-keyword) parameter, a frame name.\n"
-"Many exceptions are also common across most functions. These are\n"
-"not currently documented in the docstring for each function.\n"
-"- Many functions will raise a NoDocOpenError if you try to use themwithout a "
-"document to operate on.\n"
-"- If you do not pass a frame name to a function that requires one,the "
-"function will use the currently selected frame, if any, orraise a "
-"NoValidObjectError if it can't find anything to operateon.\n"
-"- Many functions will raise WrongFrameTypeError if you try to use them\n"
-"on a frame type that they do not make sense with. For example, setting\n"
-"the text colour on a graphics frame doesn't make sense, and will result\n"
-"in this exception being raised.\n"
-"- Errors resulting from calls to the underlying Python API will be\n"
-"passed through unaltered. As such, the list of exceptions thrown by\n"
-"any function as provided here and in its docstring is incomplete.\n"
-"\n"
-"Details of what exceptions each function may throw are provided on the\n"
-"function's documentation."
-msgstr ""
-
-msgid "Script Console"
-msgstr "Konzola skriptu"
-
-msgid "Tried to set progress > maximum progress"
-msgstr ""
-
-msgid "Failed to save EPS"
-msgstr "Nepodarilo sa uložiť EPS"
-
-msgid "Page number out of range"
-msgstr "Počet strán je mimo rozsah"
-
-msgid "argument is not list: must be list of float values"
-msgstr "argument nie je zoznam: musí byť zoznamom plávajúcich hodnôt"
-
-msgid "argument contains non-numeric values: must be list of float values"
-msgstr ""
-"argument obsahuje nenumerické hodnoty: musí to byť zoznam plávajúcich hodnôt"
-
 msgid "Editing Macro: <b>"
 msgstr ""
 
@@ -6520,11 +6525,12 @@ msgstr "Štýl čiary nebol nájdený"
 msgid "Target is not an image frame."
 msgstr "Cieľ nie je obrázkový rám."
 
-msgid "Can't scale by 0%"
+#, fuzzy
+msgid "Cannot scale by 0%."
 msgstr "Nie je možné zmeniť mierku o 0%"
 
 #, fuzzy
-msgid "Specified item not an image frame"
+msgid "Specified item not an image frame."
 msgstr "Cieľ nie je obrázkový rám."
 
 msgid "Cannot get font size of non-text frame."
@@ -6556,101 +6562,118 @@ msgstr "Nie je možné nastaviť text netextového rámu."
 msgid "Cannot insert text into non-text frame."
 msgstr "Nie je možné získať písmo netextového rámu."
 
-msgid "Insert index out of bounds"
+#, fuzzy
+msgid "Insert index out of bounds."
 msgstr "Vkladanie indexu mimo hraníc"
 
 msgid "Alignment out of range. Use one of the scribus.ALIGN* constants."
 msgstr "Zarovnanie je mimo rozsahu. Použiť jednu zo scribus.ALIGN* konštánt."
 
 #, fuzzy
-msgid "Can't set text alignment on a non-text frame"
+msgid "Cannot set text alignment on a non-text frame."
 msgstr "Nie je možné použiť štýl na netextový rám"
 
-msgid "Font size out of bounds - must be 1 <= size <= 512"
+#, fuzzy
+msgid "Font size out of bounds - must be 1 <= size <= 512."
 msgstr "Veľkosť písma je mimo hraníc - musí byť 1 <= veľkosť <= 512"
 
-msgid "Can't set font size on a non-text frame"
+#, fuzzy
+msgid "Cannot set font size on a non-text frame."
 msgstr "Nie je možné nastaviť veľkosť písma pre netextový rám."
 
-msgid "Can't set font on a non-text frame"
+#, fuzzy
+msgid "Cannot set font on a non-text frame."
 msgstr "Nie je možné nastaviť písmo v netextovom ráme."
 
-msgid "Font not found"
+#, fuzzy
+msgid "Font not found."
 msgstr "Písmo nebolo nájdené"
 
 #, fuzzy
-msgid "Line space out of bounds, must be >= 0.1"
+msgid "Line space out of bounds, must be >= 0.1."
 msgstr "Šírka čiara je mimo hraníc, musí byť 0 <= šírka_čiary <= 12"
 
 #, fuzzy
-msgid "Can't line spacing on a non-text frame"
+msgid "Cannot set line spacing on a non-text frame."
 msgstr "Nie je možné použiť štýl na netextový rám"
 
-msgid "Column gap out of bounds, must be positive"
+#, fuzzy
+msgid "Column gap out of bounds, must be positive."
 msgstr "Vzdialenosť medzi stĺpcami je mimo hraníc, musí byť kladná"
 
-msgid "Can't column gap on a non-text frame"
+#, fuzzy
+msgid "Cannot set column gap on a non-text frame."
 msgstr "Nie je možné nastaviť stĺpce v netextovom ráme"
 
 #, fuzzy
-msgid "Column count out of bounds, must be > 1"
+msgid "Column count out of bounds, must be > 1."
 msgstr "Šírka čiara je mimo hraníc, musí byť 0 <= šírka_čiary <= 12"
 
-msgid "Can't number of columns on a non-text frame"
+#, fuzzy
+msgid "Cannot set number of columns on a non-text frame."
 msgstr "Nie je možné číslovať stĺpce v netextovom ráme"
 
 msgid "Selection index out of bounds"
 msgstr "Index výberu je mimo hraníc"
 
 #, fuzzy
-msgid "Can't select text in a non-text frame"
-msgstr "Nie je možné odstrániť text z netextového rámu"
-
-msgid "Can't delete text from a non-text frame"
+msgid "Cannot select text in a non-text frame"
 msgstr "Nie je možné odstrániť text z netextového rámu"
 
 #, fuzzy
-msgid "Can't set text fill on a non-text frame"
+msgid "Cannot delete text from a non-text frame."
+msgstr "Nie je možné odstrániť text z netextového rámu"
+
+#, fuzzy
+msgid "Cannot set text fill on a non-text frame."
 msgstr "Nie je možné použiť štýl na netextový rám"
 
 #, fuzzy
-msgid "Can't set text stroke on a non-text frame"
+msgid "Cannot set text stroke on a non-text frame."
 msgstr "Nie je možné použiť štýl na netextový rám"
 
 #, fuzzy
-msgid "Can't set text shade on a non-text frame"
+msgid "Cannot set text shade on a non-text frame."
 msgstr "Nie je možné použiť štýl na netextový rám"
 
-msgid "Can only link text frames"
+#, fuzzy
+msgid "Can only link text frames."
 msgstr "Prepojiť je možné len textové rámce"
 
-msgid "Target frame must be empty"
+#, fuzzy
+msgid "Target frame must be empty."
 msgstr "Cieľový rám musí byť prázdny"
 
-msgid "Target frame links to another frame"
+#, fuzzy
+msgid "Target frame links to another frame."
 msgstr "Cieľový rám je prepojený na iný rám"
 
-msgid "Target frame is linked to by another frame"
+#, fuzzy
+msgid "Target frame is linked to by another frame."
 msgstr "Cieľový rám je prepojený na iný rám"
 
-msgid "Source and target are the same object"
+#, fuzzy
+msgid "Source and target are the same object."
 msgstr "Zdroj a cieľ je rovnaký objekt."
 
 #, fuzzy
-msgid "Can't unlink a non-text frame"
+msgid "Cannot unlink a non-text frame."
 msgstr "Nie je možné odstrániť text z netextového rámu"
 
-msgid "Object is not a linked text frame, can't unlink."
+#, fuzzy
+msgid "Object is not a linked text frame, cannot unlink."
 msgstr "Objekt nie je pripojený textový rám - nie je možné ho odpojiť"
 
+#, fuzzy
 msgid ""
-"Object the last frame in a series, can't unlink. Unlink the previous frame "
+"Object the last frame in a series, cannot unlink. Unlink the previous frame "
 "instead."
 msgstr ""
 "Objekt je posledný rám v sérií, nie je možné ho odpojiť. Odpojte namiesto "
 "neho predchádzajúci rám."
 
-msgid "Can't convert a non-text frame to outlines"
+#, fuzzy
+msgid "Cannot convert a non-text frame to outlines."
 msgstr "Nie je možné konvertovať netextový rám na obrysy"
 
 msgid "Insert value"
@@ -6787,22 +6810,28 @@ msgid ""
 "some other input mechanism, but this option is here just in case.</p></qt>"
 msgstr ""
 
-msgid "Can't render an empty sample"
+#, fuzzy
+msgid "Cannot render an empty sample."
 msgstr "Nie je možné vygenerovať prázdnu vzorku"
 
-msgid "Can't save to a blank filename"
+#, fuzzy
+msgid "Cannot save to a blank filename."
 msgstr "Nie je možné uložiť súbor bez názvu"
 
-msgid "Can't have an empty layer name"
+#, fuzzy
+msgid "Cannot have an empty layer name."
 msgstr "Nie je možné mať vrstvu bez názvu"
 
-msgid "Layer not found"
+#, fuzzy
+msgid "Layer not found."
 msgstr "Vrstva nebola nájdená"
 
-msgid "Can't remove the last layer"
+#, fuzzy
+msgid "Cannot remove the last layer."
 msgstr "Nie je možné odstrániť poslednú vrstvu"
 
-msgid "Can't create layer without a name"
+#, fuzzy
+msgid "Cannot create layer without a name."
 msgstr "Nie je možné vytvoriť vrstvu bez názvu"
 
 #, fuzzy
@@ -6812,16 +6841,19 @@ msgstr "Farba nebol nájdená medzi štandardnými farbami"
 msgid "Cannot get a color with an empty name."
 msgstr "Nie je možné získať farbu bez názvu."
 
-msgid "Color not found"
+#, fuzzy
+msgid "Color not found."
 msgstr "Farba nebola nájdená"
 
 msgid "Cannot change a color with an empty name."
 msgstr "Nie je možné zmeniť farbu bez názvu."
 
-msgid "Color not found in document"
+#, fuzzy
+msgid "Color not found in document."
 msgstr "Farba nebol nájdená v dokumente"
 
-msgid "Color not found in default colors"
+#, fuzzy
+msgid "Color not found in default colors."
 msgstr "Farba nebol nájdená medzi štandardnými farbami"
 
 msgid "Cannot create a color with an empty name."
@@ -7008,6 +7040,9 @@ msgstr ""
 "Importovanie súboru:\n"
 "%1\n"
 "zlyhalo!"
+
+#~ msgid "Can't column gap on a non-text frame"
+#~ msgstr "Nie je možné nastaviť stĺpce v netextovom ráme"
 
 #, fuzzy
 #~ msgid "Brazilian Portuguese"

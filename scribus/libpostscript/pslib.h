@@ -74,11 +74,11 @@ public:
 	virtual void PS_TemplateEnd();
 	virtual void PS_UseTemplate(QString Name);
 	virtual void PS_ImageData(bool inver, QString fn, QString Name, QString Prof, bool UseEmbedded, bool UseProf);
+	virtual void PutSeite(QString c);
+	virtual QString ToStr(double c);
 	bool Art;
 private:
-	void PutSeite(QString c);
 	void PutDoc(QString c);
-	QString ToStr(double c);
 	QString IToStr(int c);
 	QString PSEncode(QString in);
 	QString Prolog;
