@@ -503,7 +503,7 @@ void ScribusApp::initScribus()
 		connect(Mpal, SIGNAL(EditLSt()), this, SLOT(slotEditLineStyles()));
 		connect(Npal, SIGNAL(Schliessen()), this, SLOT(NoFrameEdit()));
 		connect(Lpal, SIGNAL(LayerActivated(int)), this, SLOT(changeLayer(int)));
-		connect(Lpal, SIGNAL(LayerRemoved(int)), this, SLOT(LayerRemove(int)));
+		connect(Lpal, SIGNAL(LayerRemoved(int, bool)), this, SLOT(LayerRemove(int, bool)));
 		connect(Lpal, SIGNAL(LayerChanged()), this, SLOT(showLayer()));
 		connect(Lpal, SIGNAL(Schliessen()), this, SLOT(ToggleLpal()));
 		connect(Sepal, SIGNAL(Schliessen()), this, SLOT(ToggleSepal()));
@@ -4796,15 +4796,17 @@ void ScribusApp::slotEditStyles()
 							int cabneu = ers[cabori];
 							if (cabori > 4)
 							{
-								ite->Ptext.at(e)->cstyle &= ~127;
 								if (cabneu > 0)
 								{
 									if (ite->Ptext.at(e)->cfont == doc->Vorlagen[cabori].Font)
 										ite->Ptext.at(e)->cfont = dia->TempVorl[cabneu].Font;
 									if (ite->Ptext.at(e)->csize == doc->Vorlagen[cabori].FontSize)
 										ite->Ptext.at(e)->csize = dia->TempVorl[cabneu].FontSize;
-									if (ite->Ptext.at(e)->cstyle == doc->Vorlagen[cabori].FontEffect)
+									if ((ite->Ptext.at(e)->cstyle & 127 ) == doc->Vorlagen[cabori].FontEffect)
+									{
+										ite->Ptext.at(e)->cstyle &= ~127;
 										ite->Ptext.at(e)->cstyle |= dia->TempVorl[cabneu].FontEffect;
+									}
 									if (ite->Ptext.at(e)->ccolor == doc->Vorlagen[cabori].FColor)
 										ite->Ptext.at(e)->ccolor = dia->TempVorl[cabneu].FColor;
 									if (ite->Ptext.at(e)->cshade == doc->Vorlagen[cabori].FShade)
@@ -4821,6 +4823,7 @@ void ScribusApp::slotEditStyles()
 									ite->Ptext.at(e)->cstroke = ite->TxtStroke;
 									ite->Ptext.at(e)->cshade2 = ite->ShTxtStroke;
 									ite->Ptext.at(e)->csize = ite->ISize;
+									ite->Ptext.at(e)->cstyle &= ~127;
 									ite->Ptext.at(e)->cstyle |= ite->TxTStyle;
 								}
 								ite->Ptext.at(e)->cab = cabneu;
@@ -4842,15 +4845,17 @@ void ScribusApp::slotEditStyles()
 							int cabneu = ers[cabori];
 							if (cabori > 4)
 							{
-								ite->Ptext.at(e)->cstyle &= ~127;
 								if (cabneu > 0)
 								{
 									if (ite->Ptext.at(e)->cfont == doc->Vorlagen[cabori].Font)
 										ite->Ptext.at(e)->cfont = dia->TempVorl[cabneu].Font;
 									if (ite->Ptext.at(e)->csize == doc->Vorlagen[cabori].FontSize)
 										ite->Ptext.at(e)->csize = dia->TempVorl[cabneu].FontSize;
-									if (ite->Ptext.at(e)->cstyle == doc->Vorlagen[cabori].FontEffect)
+									if ((ite->Ptext.at(e)->cstyle & 127 ) == doc->Vorlagen[cabori].FontEffect)
+									{
+										ite->Ptext.at(e)->cstyle &= ~127;
 										ite->Ptext.at(e)->cstyle |= dia->TempVorl[cabneu].FontEffect;
+									}
 									if (ite->Ptext.at(e)->ccolor == doc->Vorlagen[cabori].FColor)
 										ite->Ptext.at(e)->ccolor = dia->TempVorl[cabneu].FColor;
 									if (ite->Ptext.at(e)->cshade == doc->Vorlagen[cabori].FShade)
@@ -4867,6 +4872,7 @@ void ScribusApp::slotEditStyles()
 									ite->Ptext.at(e)->cstroke = ite->TxtStroke;
 									ite->Ptext.at(e)->cshade2 = ite->ShTxtStroke;
 									ite->Ptext.at(e)->csize = ite->ISize;
+									ite->Ptext.at(e)->cstyle &= ~127;
 									ite->Ptext.at(e)->cstyle |= ite->TxTStyle;
 								}
 								ite->Ptext.at(e)->cab = cabneu;
@@ -6857,24 +6863,40 @@ void ScribusApp::showLayer()
 	view->DrawNew();
 }
 
-void ScribusApp::LayerRemove(int l)
+void ScribusApp::LayerRemove(int l, bool dl)
 {
 	for (uint a = 0; a < view->MasterPages.count(); ++a)
-		{
+	{
 		for (uint b = 0; b < view->MasterPages.at(a)->Items.count(); ++b)
-			{
-			if (view->MasterPages.at(a)->Items.at(b)->LayerNr == l)
-				view->MasterPages.at(a)->Items.at(b)->LayerNr = 0;
-			}
-		}
-	for (uint a = 0; a < view->DocPages.count(); ++a)
 		{
-		for (uint b = 0; b < view->DocPages.at(a)->Items.count(); ++b)
+			view->MasterPages.at(a)->SelItem.clear();
+			if (view->MasterPages.at(a)->Items.at(b)->LayerNr == l)
 			{
+				if (dl)
+					view->MasterPages.at(a)->SelItem.append(view->MasterPages.at(a)->Items.at(b));
+				else
+					view->MasterPages.at(a)->Items.at(b)->LayerNr = 0;
+			}
+		if (view->MasterPages.at(a)->SelItem.count() != 0)
+			view->MasterPages.at(a)->DeleteItem();
+		}
+	}
+	for (uint a = 0; a < view->DocPages.count(); ++a)
+	{
+		view->DocPages.at(a)->SelItem.clear();
+		for (uint b = 0; b < view->DocPages.at(a)->Items.count(); ++b)
+		{
 			if (view->DocPages.at(a)->Items.at(b)->LayerNr == l)
-				view->DocPages.at(a)->Items.at(b)->LayerNr = 0;
+			{
+				if (dl)
+					view->DocPages.at(a)->SelItem.append(view->DocPages.at(a)->Items.at(b));
+				else
+					view->DocPages.at(a)->Items.at(b)->LayerNr = 0;
 			}
 		}
+		if (view->DocPages.at(a)->SelItem.count() != 0)
+			view->DocPages.at(a)->DeleteItem();
+	}
 	view->LaMenu();
 }
 

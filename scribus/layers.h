@@ -50,7 +50,7 @@ public slots:
 	void Verlassen();
 
 signals:
-	void LayerRemoved(int);
+	void LayerRemoved(int, bool);
 	void LayerChanged();
 	void LayerActivated(int);
 	void Schliessen();

@@ -117,3 +117,22 @@ PyObject *scribus_pagedimension(PyObject *self, PyObject *args)
 	return t;
 }
 
+PyObject *scribus_getpageitems(PyObject *self, PyObject* args)
+{
+	if (!PyArg_ParseTuple(args, ""))
+		return NULL;
+	if ((!Carrier->HaveDoc) || (Carrier->doc->ActPage->Items.count() == 0))
+		return Py_BuildValue((char*)"[]");
+	PyObject *l = PyList_New(Carrier->doc->ActPage->Items.count());
+	PyObject *row;
+	for (uint i = 0; i<Carrier->doc->ActPage->Items.count(); ++i)
+	{
+		row = Py_BuildValue((char*)"(sii)",
+				Carrier->doc->ActPage->Items.at(i)->AnName.ascii(),
+				Carrier->doc->ActPage->Items.at(i)->PType,
+				Carrier->doc->ActPage->Items.at(i)->ItemNr
+		);
+		PyList_SetItem(l, i, row);
+	} // for
+	return l;
+}

@@ -199,7 +199,7 @@ public slots:
 	void TraceText();
 	void changeLayer(int l);
 	void showLayer();
-	void LayerRemove(int l);
+	void LayerRemove(int l, bool dl = false);
 	void SetCMSPrefs();
 	void ManageJava();
 	void ManageTemp(QString temp = "");

@@ -5998,6 +5998,8 @@ void Page::chTyStyle(int s)
 						b->Ptext.at(a)->cstyle &= ~127;
 						b->Ptext.at(a)->cstyle |= s;
 					}
+					b->TxTStyle &= ~127;
+					b->TxTStyle |= s;
 				}
 				b->Dirty = true;
 				RefreshItem(b);

@@ -1,4 +1,10 @@
 Changes since Version 1.1.5
+02.03.2004	Added the Option to delete all Objects on a Layer, when deleting this Layer.
+		Changed the readout of the Color Values to Percent in the ColorChooser.
+		Added a new Command to the Scripter.
+		Updated a couple of Tooltips and added more.
+		Updated the Czech Translation.
+
 01.03.2004	Improved the SVG-Importer, Text should be now better, but still not perfect.
 		Added a new Colorset: SVG-Colors.
 		Updated the Finnish Translation.

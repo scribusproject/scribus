@@ -46,8 +46,9 @@ AlignSelect::AlignSelect(QWidget* parent) : QButtonGroup(parent, "AlignSelect")
     GroupAlignLayout->addWidget( TextF, 0, 4 );
     QToolTip::add( TextL, tr( "Align Text Left" ) );
     QToolTip::add( TextR, tr( "Align Text Right" ) );
-    QToolTip::add( TextB, tr( "Align Text Block" ) );
     QToolTip::add( TextC, tr( "Align Text Center" ) );
+    QToolTip::add( TextB, tr( "Align Text Justified" ) );
+    QToolTip::add( TextF, tr( "Align Text Forced Justified" ) );
     resize(minimumSizeHint());
     connect(this, SIGNAL(clicked(int)), this, SLOT(setTypeStyle(int)));
 }

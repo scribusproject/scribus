@@ -16,6 +16,12 @@ e.g. when is the doc in picas returns picas ;)
 (Petr Vanek 02/17/04) 
 */
 PyObject *scribus_pagedimension(PyObject *self, PyObject* args);
+/**
+returns a list of tuples with items on the actual page
+TODO: solve utf/iso chars in object names
+(Petr Vanek 03/02/2004)
+*/
+PyObject *scribus_getpageitems(PyObject *self, PyObject* args);
 
 #endif
 

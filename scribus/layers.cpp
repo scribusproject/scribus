@@ -6,6 +6,7 @@
 **
 **
 ****************************************************************************/
+#include <qmessagebox.h>
 #include "layers.h"
 #include "layers.moc"
 #include "scribus.h"
@@ -171,10 +172,8 @@ void LayerPalette::addLayer()
 	QString tmp;
 	struct Layer ll;
  	ll.LNr = layers->last().LNr + 1;
-//	ll.LNr = layers->count();
 	ll.Level = layers->count();
  	ll.Name = tr("New Layer")+" "+tmp.setNum(ll.LNr);
-//	ll.Name = tr("New Layer")+" "+tmp.setNum(layers->last().LNr + 1);
 	ll.Sichtbar = true;
 	ll.Drucken = true;
 	layers->append(ll);
@@ -189,6 +188,14 @@ void LayerPalette::removeLayer()
 {
 	if (layers->count() < 2)
 		return;
+	bool delToo = false;
+	int t = QMessageBox::warning(this, tr("Delete Layer"),
+												tr("Do you want to delete all Objects on this Layer too?"),
+												QMessageBox::No | QMessageBox::Default | QMessageBox::Escape, 
+												QMessageBox::Yes, 
+												QMessageBox::NoButton);
+	if (t == QMessageBox::Yes)
+		delToo = true;
 	int num = layers->count()-1-Table->currentRow();
 	QValueList<Layer>::iterator it2;
 	for (it2 = layers->begin(); it2 != layers->end(); ++it2)
@@ -207,7 +214,7 @@ void LayerPalette::removeLayer()
 			(*it).Level -= 1;
 	}
 	rebuildList();
-	emit LayerRemoved(num2);
+	emit LayerRemoved(num2, delToo);
 	*Activ = 0;
 	MarkActiveLayer(*Activ);
 	emit LayerActivated(*Activ);

@@ -17,6 +17,7 @@
 
 #include "cpalette.h"
 #include "cpalette.moc"
+#include <qtooltip.h>
 extern QPixmap loadIcon(QString nam);
 
 Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
@@ -115,6 +116,14 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	Form1Layout->addWidget(ListBox1);
 	setActGradient("", "", 100, 100, 0);
 	GradientMode = false;
+	QToolTip::add( Inhalt, tr( "Edit Line Color Properties" ) );
+	QToolTip::add( Innen, tr( "Edit Fill Color Properties" ) );
+	QToolTip::add( PM1, tr( "Saturation of color" ) );
+	QToolTip::add( GradCombo, tr( "Normal or gradient fill method" ) );
+	QToolTip::add( GrColor1, tr( "Edit the first color of object" ) );
+	QToolTip::add( GrColor2, tr( "Edit the second color of object" ) );
+	QToolTip::add( TransSpin, tr( "Set the transparency for the color selected" ) );
+	QToolTip::add( ListBox1, tr( "Color of selected object" ) );
 	connect(Inhalt, SIGNAL(clicked()), this, SLOT(InhaltButton()));
 	connect(Innen, SIGNAL(clicked()), this, SLOT(InnenButton()));
 	connect(ListBox1, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selFarbe(QListBoxItem*)));

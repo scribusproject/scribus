@@ -62,7 +62,7 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent, "StyleSelect")
     QToolTip::add( Kapital, tr( "Small Caps" ) );
     QToolTip::add( Subs, tr( "Subscript" ) );
     QToolTip::add( Supers, tr( "Superscript" ) );
-    QToolTip::add( Strike, tr( "Strikeout" ) );
+    QToolTip::add( Strike, tr( "Strike Out" ) );
     QToolTip::add( Outlined, tr( "Outline Text" ) );
     connect(Kapital, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
     connect(Underline, SIGNAL(clicked()), this, SLOT(setTypeStyle()));
