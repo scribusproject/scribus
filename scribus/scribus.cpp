@@ -8518,32 +8518,38 @@ void ScribusApp::LayerRemove(int l, bool dl)
 		doc->MasterPages = doc->Pages;
 	else
 		doc->DocPages = doc->Pages;
+	view->Deselect();
 	for (uint b = 0; b < doc->MasterItems.count(); ++b)
 	{
-		view->SelItem.clear();
 		if (doc->MasterItems.at(b)->LayerNr == l)
 		{
 			if (dl)
+			{
 				view->SelItem.append(doc->MasterItems.at(b));
+				doc->DocItems.at(b)->Locked = false;
+			}
 			else
 				doc->MasterItems.at(b)->LayerNr = 0;
 		}
-//			if (view->SelItem.count() != 0)
-//				view->DeleteItem();
 	}
+	if (view->SelItem.count() != 0)
+		view->DeleteItem();
 	view->SelItem.clear();
 	for (uint b = 0; b < doc->DocItems.count(); ++b)
 	{
 		if (doc->DocItems.at(b)->LayerNr == l)
 		{
 			if (dl)
+			{
 				view->SelItem.append(doc->DocItems.at(b));
+				doc->DocItems.at(b)->Locked = false;
+			}
 			else
 				doc->DocItems.at(b)->LayerNr = 0;
 		}
-//		if (view->SelItem.count() != 0)
-//			view->DeleteItem();
 	}
+	if (view->SelItem.count() != 0)
+		view->DeleteItem();
 	view->LaMenu();
 }
 
