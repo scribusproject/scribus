@@ -56,13 +56,13 @@ DelColor::DelColor( QWidget* parent, CListe farben, QString Fnam, bool HDoc)
     Layout3 = new QHBoxLayout;
     Layout3->setSpacing( 6 );
     Layout3->setMargin( 0 );
-    PushButton2 = new QPushButton( this, "PushButton12" );
-    PushButton2->setText( tr( "OK" ) );
-    Layout3->addWidget( PushButton2 );
     QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
     Layout3->addItem( spacer );
+    PushButton2 = new QPushButton( this, "PushButton12" );
+    PushButton2->setText( tr( "&OK" ) );
+    Layout3->addWidget( PushButton2 );
     PushButton3 = new QPushButton( this, "PushButton13" );
-    PushButton3->setText( tr( "Cancel" ) );
+    PushButton3->setText( tr( "&Cancel" ) );
     PushButton3->setDefault( TRUE );
     Layout3->addWidget( PushButton3 );
     DLayout->addLayout( Layout3 );
@@ -77,4 +77,5 @@ void DelColor::ReplaceColor(int id)
 {
     EFarbe = Ersatz->text(id);
 }
+
 
