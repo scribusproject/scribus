@@ -88,6 +88,7 @@ private:
 
 protected:
 	QHBoxLayout* Layout17;
+	QVBoxLayout* layoutPreview;
 	QGridLayout* EditStyleLayout;
 	QVBoxLayout* GroupBox10Layout;
 	QGridLayout* AbstandVLayout;

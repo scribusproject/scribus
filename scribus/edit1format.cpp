@@ -190,25 +190,29 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	EditStyleLayout->addMultiCellWidget( GroupBox10, 3, 3, 0, 1 );
 
 	// Label for holding "style preview" bitmap 12/30/2004 petr vanek
+	layoutPreview = new QVBoxLayout;
+	layoutPreview->setSpacing(6);
+	layoutPreview->setMargin(0);
 	previewText = new QLabel(this, "previewText");
-	previewText->setMaximumSize(width(), 52);
-	previewText->setMinimumSize(width(), 52);
+	previewText->setMaximumHeight(62);
+	previewText->setMinimumHeight(62);
 	previewText->setAlignment( static_cast<int>( QLabel::AlignVCenter | QLabel::AlignLeft ) );
 	previewText->setFrameShape(QFrame::Box);
 	previewText->setPaletteBackgroundColor(paletteBackgroundColor());
+	layoutPreview->addWidget(previewText);
 
 	Layout17 = new QHBoxLayout;
 	Layout17->setSpacing( 6 );
 	Layout17->setMargin( 0 );
 	QSpacerItem* spacer2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout17->addWidget(previewText);
 	Layout17->addItem( spacer2 );
 	OkButton = new QPushButton( tr( "&OK" ), this, "OkButton" );
 	Layout17->addWidget( OkButton );
 	Cancel = new QPushButton( tr( "&Cancel" ), this, "Cancel" );
 	OkButton->setDefault( true );
 	Layout17->addWidget( Cancel );
-	EditStyleLayout->addMultiCellLayout( Layout17, 4, 4, 0, 1 );
+	layoutPreview->addLayout(Layout17);
+	EditStyleLayout->addMultiCellLayout( layoutPreview, 4, 4, 0, 1 );
 	werte = vor;
 	allV = v;
 	// tooltips
