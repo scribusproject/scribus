@@ -4198,7 +4198,7 @@ void ScribusApp::setCSMenu(QString k, QString l, int lk , int ls)
 		b = doc->ActPage->SelItem.at(0);
 		if ((b->PType == 4) || (b->PType == 8))
 			{
-			if (doc->AppMode == 7)
+			if ((doc->AppMode == 7) && (b->Ptext.count() != 0))
 				{
 				la = b->Ptext.at(QMIN(b->CPos, static_cast<int>(b->Ptext.count()-1)))->ccolor;
 				lb = b->Ptext.at(QMIN(b->CPos, static_cast<int>(b->Ptext.count()-1)))->cshade;
