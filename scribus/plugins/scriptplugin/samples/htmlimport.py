@@ -19,13 +19,13 @@ NEWLINE = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6',
 class HTMLParser(SGMLParser):
 
 	def __init__(self, textbox):
-		self.encoding = ValueDialog(TITLE, 'Set encoding of the imported file', ENCODING)
+		self.encoding = valueDialog(TITLE, 'Set encoding of the imported file', ENCODING)
 		SGMLParser.__init__(self)
 		self.in_body = 0
 		self.textbox = textbox
 
 	def append(self, text):
-		InsertText(unicode(text, self.encoding), GetTextLength(self.textbox), self.textbox)
+		insertText(unicode(text, self.encoding), getTextLength(self.textbox), self.textbox)
 
 	def start_body(self, attrs):
 		self.in_body = 1
@@ -55,15 +55,15 @@ class HTMLParser(SGMLParser):
 		self.handle_data(entitydefs.get(entity, ''))
 
 
-if HaveDoc():
-	filename = FileDialog(TITLE, "*.htm*", "", 0, 1)
+if haveDoc():
+	filename = fileDialog(TITLE, "*.htm*", "", 0, 1)
 	if filename:
-		unit = GetUnit()
-		SetUnit(Millimeters)
-		textbox = CreateText(20, 20, 70, 250)
+		unit = getUnit()
+		setUnit(UNIT_MILLIMETERS)
+		textbox = createText(20, 20, 70, 250)
 		parser = HTMLParser(textbox)
 		parser.feed(open(filename).read())
-		SetUnit(unit)
+		setUnit(unit)
 else:
 	MessageBox(TITLE, "No document open", ICON_WARNING, BUTTON_OK)
 

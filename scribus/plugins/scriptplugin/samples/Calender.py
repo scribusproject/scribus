@@ -3,8 +3,9 @@
 import calendar
 import time
 from scribus import *
-if HaveDoc():
-	SetRedraw(0)
+
+if haveDoc():
+	setRedraw(0)
 	Month = time.localtime()[1]
 	Year = time.localtime()[0]
 	Objects = []
@@ -14,26 +15,26 @@ if HaveDoc():
 	Ycoor = 30
 	DayC = 0
 	Calend = calendar.monthcalendar(Year, Month)
-	ob = CreateText(10, 10, 245, 20)
+	ob = createText(10, 10, 245, 20)
 	Title = MonthList[Month-1] + " " + str(Year)
-	SetText(Title, ob)
+	setText(Title, ob)
 	Objects.append(ob)
 	for lx in range(45, 245, 35):
-		ob = CreateLine(lx, 30, lx, 20*len(Calend)+50)
+		ob = createLine(lx, 30, lx, 20*len(Calend)+50)
 		Objects.append(ob)
 	for ly in range(50, 20*len(Calend)+50, 20):
-		ob = CreateLine(10, ly, 255, ly)
+		ob = createLine(10, ly, 255, ly)
 		Objects.append(ob)
-	ob = CreateRect(10, 30, 245, 20*len(Calend)+20)
-	SetFillColor("None", ob)
+	ob = createRect(10, 30, 245, 20*len(Calend)+20)
+	setFillColor("None", ob)
 	Objects.append(ob)
 	for day in range(7):
-		ob = CreateText(Xcoor, Ycoor, 35, 20)
-		SetTextAlignment(Centered, ob)
-		SetFontSize(12, ob)
+		ob = createText(Xcoor, Ycoor, 35, 20)
+		setTextAlignment(Centered, ob)
+		setFontSize(12, ob)
 		if day == 6:
-			SetTextColor("Red", ob)
-		SetText(DaysList[day], ob)
+			setTextColor("Red", ob)
+		setText(DaysList[day], ob)
 		Objects.append(ob)
 		Xcoor = Xcoor + 35
 	Ycoor = Ycoor + 20
@@ -42,15 +43,15 @@ if HaveDoc():
 		DayC = 0
 		for rows in lines:
 			if rows != 0:
-				ob = CreateText(Xcoor, Ycoor, 35, 20)
-				SetTextAlignment(Centered, ob)
+				ob = createText(Xcoor, Ycoor, 35, 20)
+				setTextAlignment(Centered, ob)
 				if DayC == 6:
-					SetTextColor("Red", ob)
-				SetText(str(rows), ob)
+					setTextColor("Red", ob)
+				setText(str(rows), ob)
 				Objects.append(ob)
 			Xcoor = Xcoor + 35
 			DayC = DayC + 1
 		Ycoor = Ycoor + 20
-	GroupObjects(Objects)
-	SetRedraw(1)
-	RedrawAll
+	groupObjects(Objects)
+	setRedraw(1)
+	redrawAll
