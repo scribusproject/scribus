@@ -203,7 +203,7 @@ void ScripterCore::RecentScript(QString fn)
 	FinishScriptRun();
 }
 
-void ScripterCore::slotRunScriptFile(QString fileName)
+void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 {
 	Carrier->ScriptRunning = true;
 	qApp->setOverrideCursor(QCursor(waitCursor), false);
@@ -367,6 +367,10 @@ void ScripterCore::ReadPlugPrefs()
 	// Load recent scripts from the prefs
 	for (int i = 0; i < prefRecentScripts->getRowCount(); i++)
 		SavedRecentScripts.append(prefRecentScripts->get(i,0));
+	// then get more general preferences
+	enableExtPython = prefs->getBool("extensionscripts",false);
+	importAllNames = prefs->getBool("importall",true);
+	startupScript = prefs->get("startupscript", QString::null);
 }
 
 void ScripterCore::SavePlugPrefs()
@@ -385,6 +389,10 @@ void ScripterCore::SavePlugPrefs()
 	}
 	for (uint i = 0; i < RecentScripts.count(); i++)
 		prefRecentScripts->set(i, 0, RecentScripts[i]);
+	// then save more general preferences
+	prefs->set("extensionscripts", enableExtPython);
+	prefs->set("importall", importAllNames);
+	prefs->set("startupscript", startupScript);
 }
 
 /* 11/1/2004 pv - Show docstring of the script to the user.
@@ -422,3 +430,24 @@ void ScripterCore::aboutScript()
 	HelpBrowser *dia = new HelpBrowser(0, QObject::tr("About Script") + " " + fi.fileName(), "en", "", html);
 	dia->show();
 }
+
+void ScripterCore::initExtensionScripts()
+{
+	// Nothing to do currently
+}
+
+void ScripterCore::runStartupScript()
+{
+	if ((enableExtPython) && (startupScript))
+	{
+		if (QFile::exists(this->startupScript))
+		{
+			// run the script in the main interpreter. The user will be informed
+			// with a dialog if something has gone wrong.
+			this->slotRunScriptFile(this->startupScript, true);
+		}
+		else
+			qDebug("Startup script enabled, but couln't find script %s.", startupScript.ascii());
+	}
+}
+

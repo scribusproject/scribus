@@ -25,11 +25,15 @@ public slots:
 	void slotTest();
 	void StdScript(QString filebasename);
 	void RecentScript(QString fn);
-	void slotRunScriptFile(QString fileName);
+	void slotRunScriptFile(QString fileName, bool inMainInterpreter = false);
 	QString slotRunScript(QString Script);
 	void slotInteractiveScript(bool);
 	void slotExecute();
 	void aboutScript();
+	/*** Sets up the plugin for extension scripts, if enabled */
+	void initExtensionScripts();
+	/*** Runs the startup script, if enabled */
+	void runStartupScript();
 
 protected:
 	// Private helper functions
@@ -50,6 +54,14 @@ protected:
 	MenuManager *menuMgr;
 	QMap<QString, QGuardedPtr<ScrAction> > scrScripterActions;
 	QMap<QString, QGuardedPtr<ScrAction> > scrRecentScriptActions;
+
+	// Preferences
+	/*** pref: Enable access to main interpreter and 'extension scripts' */
+	bool enableExtPython;
+	/*** pref: Run 'from scribus import *' at scripter startup */
+	bool importAllNames;
+	/*** pref: Load this script on startup */
+	QString startupScript;
 };
 
 #endif
