@@ -421,7 +421,12 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		doc->AutoSave = static_cast<bool>(QStoInt(dc.attribute("AutoSave","0")));
 		doc->AutoSaveTime = QStoInt(dc.attribute("AutoSaveTime","600000"));
 		doc->ScratchBottom = QStodouble(dc.attribute("ScratchBottom", "20"));
-		doc->ScratchLeft = QStodouble(dc.attribute("ScatchLeft", "100"));
+		// FIXME A typo in early 1.3cvs (MAR 05) means we must support loading of
+		// FIXME 'ScatchLeft' for a while too. This can be removed in a few months.
+		if (dc.hasAttribute("ScatchLeft"))
+			doc->ScratchLeft = QStodouble(dc.attribute("ScatchLeft", "100"));
+		else
+			doc->ScratchLeft = QStodouble(dc.attribute("ScratchLeft", "100"));
 		doc->ScratchRight = QStodouble(dc.attribute("ScratchRight", "100"));
 		doc->ScratchTop = QStodouble(dc.attribute("ScratchTop", "20"));
 		doc->toolSettings.dStartArrow = QStoInt(dc.attribute("StartArrow", "0"));

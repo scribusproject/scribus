@@ -2603,7 +2603,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	dc.setAttribute("AutoSave", static_cast<int>(doc->AutoSave));
 	dc.setAttribute("AutoSaveTime", doc->AutoSaveTime);
 	dc.setAttribute("ScratchBottom", doc->ScratchBottom);
-	dc.setAttribute("ScatchLeft", doc->ScratchLeft);
+	dc.setAttribute("ScratchLeft", doc->ScratchLeft);
 	dc.setAttribute("ScratchRight", doc->ScratchRight);
 	dc.setAttribute("ScratchTop", doc->ScratchTop);
 	dc.setAttribute("StartArrow", doc->toolSettings.dStartArrow);
@@ -2940,7 +2940,7 @@ void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 	dc.setAttribute("SHOWLINK", static_cast<int>(Vor->guidesSettings.linkShown));
 	dc.setAttribute("SHOWPICT", static_cast<int>(Vor->guidesSettings.showPic));
 	dc.setAttribute("ScratchBottom", Vor->ScratchBottom);
-	dc.setAttribute("ScatchLeft", Vor->ScratchLeft);
+	dc.setAttribute("ScratchLeft", Vor->ScratchLeft);
 	dc.setAttribute("ScratchRight", Vor->ScratchRight);
 	dc.setAttribute("ScratchTop", Vor->ScratchTop);
 	dc.setAttribute("STECOLOR", Vor->STEcolor.name());
@@ -3273,7 +3273,12 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 			Vorein->guidesSettings.linkShown = static_cast<bool>(QStoInt(dc.attribute("SHOWLINK","0")));
 			Vorein->guidesSettings.showPic = static_cast<bool>(QStoInt(dc.attribute("SHOWPICT","1")));
 			Vorein->ScratchBottom = QStodouble(dc.attribute("ScratchBottom", "20"));
-			Vorein->ScratchLeft = QStodouble(dc.attribute("ScatchLeft", "100"));
+			// FIXME A typo in early 1.3cvs (MAR 05) means we must support loading of
+			// FIXME 'ScatchLeft' for a while too. This can be removed in a few months.
+			if (dc.hasAttribute("ScatchLeft"))
+				Vorein->ScratchLeft = QStodouble(dc.attribute("ScatchLeft", "100"));
+			else
+				Vorein->ScratchLeft = QStodouble(dc.attribute("ScratchLeft", "100"));
 			Vorein->ScratchRight = QStodouble(dc.attribute("ScratchRight", "100"));
 			Vorein->ScratchTop = QStodouble(dc.attribute("ScratchTop", "20"));
 			if (dc.hasAttribute("STECOLOR"))
