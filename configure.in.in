@@ -48,6 +48,7 @@ AC_SUBST(LIBART_LIBS)
 AC_SUBST(LIBART_CFLAGS)
 AC_C_BIGENDIAN
 
+dnl Check for freetype, which Scribus *requires* to build
 LIBFREETYPE_LIBS=""
 LIBFREETYPE_CFLAGS=""
 
@@ -55,16 +56,37 @@ FREETYPE_CONFIG=""
 AC_PATH_PROG(FREETYPE_CONFIG, freetype-config, [AC_MSG_ERROR([Could not find libfreetype anywhere, check http://www.freetype.org/])], [$PATH ${prefix}/bin ${exec_prefix}/bin /usr/local/bin /opt/local/bin /usr/bin /usr/nekoware/bin /usr/X11/bin])
 
 hafree=no
+hafree_post213=
 if test -n "$FREETYPE_CONFIG"; then
 	LIBFREETYPE_LIBS="`$FREETYPE_CONFIG --libs`"
-  LIBFREETYPE_CFLAGS="`$FREETYPE_CONFIG --cflags`"
+	LIBFREETYPE_CFLAGS="`$FREETYPE_CONFIG --cflags`"
 	AC_CHECK_LIB(freetype, FT_Get_First_Char, [hafree=yes],[hafree=no], "$LIBFREETYPE_LIBS")
 	AC_CHECK_LIB(freetype, FT_Get_Next_Char, [hafree=yes],[hafree=no], "$LIBFREETYPE_LIBS")
 	if test $hafree = yes; then
 		AC_DEFINE_UNQUOTED(HAVE_FREETYPE, 1, [Defines if your system has the libfreetype library])
 	else
-  	AC_MSG_ERROR([You need at least freetype 2.1.0])
+		AC_MSG_ERROR([You need at least freetype 2.1.0])
 	fi
+
+	dnl Warn the user if they have less than freetype 2.1.3
+	AC_MSG_CHECKING(freetype version > 2.1.3)
+	SAVE_CFLAGS="${CFLAGS}"
+	CFLAGS=" ${LIBFREETYPE_CFLAGS} "
+	AC_TRY_COMPILE([
+	#include <ft2build.h>
+	#include FT_FREETYPE_H
+	],[
+	#if FREETYPE_MAJOR == 2 && FREETYPE_MINOR == 1 && FREETYPE_PATCH < 3
+	#error freetype 2.1 older than 2.1.3
+	#endif
+	], [hafree_post213=yes], [hafree_post213=no])
+	CFLAGS="${SAVE_CFLAGS}"
+	AC_MSG_RESULT($hafree_post213)
+	if test hafree_post213 = no; then
+		AC_MSG_WARN([Freetype is older than 2.1.3])
+	fi
+
+	dnl Export the includes and lib path settings required to build with freetype.
 	AC_SUBST(LIBFREETYPE_LIBS)
 	AC_SUBST(LIBFREETYPE_CFLAGS)
 else
@@ -105,6 +127,7 @@ XML_CFLAGS=""
 XML_CONFIG=""
 AC_PATH_PROG(XML_CONFIG, xml2-config, [AC_MSG_ERROR([Could not find libxml2 anywhere, check http://www.xmlsoft.org/])], [${PATH} ${prefix}/bin ${exec_prefix}/bin /usr/local/bin /opt/local/bin /usr/bin /usr/nekoware/bin /usr/X11/bin])
 
+dnl check for LibXML2
 haxml=no
 if test -n "$XML_CONFIG"; then
 	XML_LIBS="`$XML_CONFIG --libs`"
@@ -122,6 +145,7 @@ if test -n "$XML_CONFIG"; then
 	fi
 fi
 
+dnl check for -lsocket
 AC_CHECK_LIB(socket,socket,
 if test "$uname" != "IRIX"; then
 	LIBS="-lsocket $LIBS"
@@ -170,10 +194,11 @@ if test $hacms = yes; then
 	AC_MSG_CHECKING(liblcms version > 1.1.2)
 	AC_TRY_COMPILE([
 	#include "$lcms_h"
+	],[
 	#if LCMS_VERSION < 112
 	#error liblcms is too old, need LittleCMS 1.1.2 or newer
 	#endif
-	], [], [], [hacms=pre112])
+	], [], [hacms=pre112])
 	AC_MSG_RESULT($hacms)
 fi
 
@@ -195,10 +220,11 @@ if test $hastif = yes; then
 		AC_MSG_CHECKING(libtiff version > 3.6.0)
 		AC_TRY_COMPILE([
 		#include "tiffvers.h"
+		],[
 		#if TIFFLIB_VERSION < 20031007
 		#error libtiff is too old, need libtiff 3.6.0 or newer.
 		#endif
-		], [], [], [LIBTIFF="";hastif=pre36])
+		], [], [LIBTIFF="";hastif=pre36])
 		AC_MSG_RESULT($hastif)
 	fi
 fi

@@ -1,7 +1,11 @@
 echo "Configuration Summary:"
 echo ""
 if test $hafree = yes; then
-	echo "FreeType2 installed: Yes"
+	if test $hafree_post213 = yes; then
+		echo "FreeType2 installed: Yes"
+	else
+		echo "FreeType2 installed: Yes (OLD); Version 2.1.3 or newer recommended."
+	fi
 else
 	echo "FreeType2 installed: No"
 fi
