@@ -16,6 +16,7 @@
  ***************************************************************************/
 
 #include "pdflib.h"
+#include "pdflib.moc"
 #include "config.h"
 #include <qregexp.h>
 #include <qdatetime.h>
@@ -46,12 +47,38 @@ extern bool CMSuse;
 #endif
 extern ProfilesL InputProfiles;
 
-extern "C" void* Run();
+extern "C" bool Run(ScribusApp *plug, QString fn, QString nam, int Components, int frPa, int toPa, QMap<int,QPixmap> thumbs);
 
-void* Run()
+bool Run(ScribusApp *plug, QString fn, QString nam, int Components, int frPa, int toPa, QMap<int,QPixmap> thumbs)
 {
+	QPixmap pm;
+	QString pfad = PREL;
+	pfad += "/lib/scribus/profiles/";
+	bool ret = false;
 	PDFlib *dia = new PDFlib();
-	return dia;
+	if (dia->PDF_Begin_Doc(fn, plug->doc, plug->view, &plug->doc->PDF_Optionen, plug->Prefs.AvailFonts, plug->doc->UsedFonts, plug->BookPal->BView))
+		{
+		for (uint ap = 0; ap < plug->view->MasterPages.count(); ++ap)
+			{
+			if (plug->view->MasterPages.at(ap)->Items.count() != 0)
+				dia->PDF_TemplatePage(plug->view->MasterPages.at(ap));
+			}
+		for (int a = frPa; a < toPa; ++a)
+			{
+			if (plug->doc->PDF_Optionen.Thumbnails)
+				pm = thumbs[a];
+			dia->PDF_Begin_Page(plug->view->Pages.at(a), pm);
+			dia->PDF_ProcessPage(plug->view->Pages.at(a), a);
+			dia->PDF_End_Page();
+			}
+		if (plug->doc->PDF_Optionen.Version == 12)
+			dia->PDF_End_Doc(pfad+plug->PrinterProfiles[plug->doc->PDF_Optionen.PrintProf], nam, Components);
+		else
+			dia->PDF_End_Doc();
+		ret = true;
+		}
+	delete dia;
+	return ret;
 }
 
 PDFlib::PDFlib()
@@ -577,7 +604,6 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 	QMap<QString,QFont>::Iterator it;
 	a = 0;
 	for (it = ReallyUsed.begin(); it != ReallyUsed.end(); ++it)
-//	for (it = DocFonts.begin(); it != DocFonts.end(); ++it)
 		{
 		fd = QFileInfo(AllFonts[it.key()]->Datei);
 		UsedFontsP.insert(it.key(), "/Fo"+IToStr(a));
@@ -1550,10 +1576,11 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 		if (ite->Reverse)
 			{
 			QPainter ph;
-			QFont ffo;
+			QFont tff(RealFonts[hl->cfont]);
+			tff.setPointSize(hl->csize);
 			ph.begin(doc->ActPage);
+			ph.setFont(tff);
 			int chs = hl->csize;
-			ite->SetZeichAttr(&ph, &ffo, hl, &chs, &chx);
 			float wtr;
 			if (d < ite->MaxChars-1)
 				wtr = Cwidth(doc, &ph, hl->cfont, chx, chs, ite->Ptext.at(d+1)->ch);
@@ -1602,10 +1629,11 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 		if ((hl->cstyle & 128) && ((ite->Ptext.at(QMIN(d+1, ite->Ptext.count()-1))->yp != hl->yp) && (ite->Ptext.at(QMIN(d+1, ite->Ptext.count()-1))->ch != QChar(13)) ||  ((ite->NextBox != 0) && (d == ite->Ptext.count()-1))))
 			{
 			QPainter ph;
-			QFont ffo;
+			QFont tff(RealFonts[hl->cfont]);
+			tff.setPointSize(hl->csize);
 			ph.begin(doc->ActPage);
+			ph.setFont(tff);
 			int chs = hl->csize;
-			ite->SetZeichAttr(&ph, &ffo, hl, &chs, &chx);
 			float wtr = Cwidth(doc, &ph, hl->cfont, chx, chs);
 			ph.end();
 			tmp += "1 0 0 1 "+FToStr(hl->xp+wtr)+" "+FToStr(-hl->yp)+" Tm\n";
@@ -3196,5 +3224,13 @@ void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 	PutDoc(">>\nstartxref\n");
 	PutDoc(IToStr(StX)+"\n%%EOF\n");
 	Spool.close();
+	Seite.XObjects.clear();
+	Seite.FObjects.clear();
+	Seite.AObjects.clear();
+	Seite.FormObjects.clear();
+	CalcFields.clear();
+	Shadings.clear();
+	Transpar.clear();
+	ICCProfiles.clear();
 }
 

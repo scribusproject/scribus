@@ -2985,15 +2985,18 @@ void ScribusApp::ClipChange()
 		{
 		BuFromApp = false;
 		Buffer2 = cc;
-		if (cc.startsWith("<SCRIBUSELEM"))
+		if (HaveDoc)
 			{
-			if (doc->AppMode != 7)
-				editMenu->setItemEnabled(edid3, 1);
-			}
-		else
-			{
-			if (doc->AppMode == 7)
-				editMenu->setItemEnabled(edid3, 1);
+			if (cc.startsWith("<SCRIBUSELEM"))
+				{
+				if (doc->AppMode != 7)
+					editMenu->setItemEnabled(edid3, 1);
+				}
+			else
+				{
+				if (doc->AppMode == 7)
+					editMenu->setItemEnabled(edid3, 1);
+				}
 			}		
 		}
 }
@@ -4547,9 +4550,7 @@ void ScribusApp::BuildFontMenu()
 		FStyleMenu->insertItem(family, pm);
 		}
 	a = FontMenu->insertItem(tr("Face"), FStyleMenu);
-//	FontID.insert(long(a), &b);
 	a = FontMenu->insertSeparator();
-//	FontID.insert(long(a), &b);
 	if (!HaveDoc)
 		{
 		it.toFirst();
@@ -5101,10 +5102,12 @@ void ScribusApp::closePSDriver()
 	dlclose(PSDriver);
 }
 
-PDFlib* ScribusApp::getPDFDriver()
+bool ScribusApp::getPDFDriver(QString fn, QString nam, int Components, int frPa, int toPa, QMap<int,QPixmap> thumbs)
 {
+	bool ret = false;
 	char *error;
-	typedef PDFlib* (*sdem)();
+	void *PDFDriver;
+	typedef bool (*sdem)(ScribusApp *plug, QString fn, QString nam, int Components, int frPa, int toPa, QMap<int,QPixmap> thumbs);
 	sdem demo;
 	QString pfad = PREL;
 #if defined(__hpux)
@@ -5116,7 +5119,7 @@ PDFlib* ScribusApp::getPDFDriver()
 	if (!PDFDriver)
 		{
 		std::cout << "Can't find Plugin" << endl;
-		return NULL;
+		return false;
 		}
 	dlerror();
 	demo = (sdem)dlsym(PDFDriver, "Run");
@@ -5124,15 +5127,11 @@ PDFlib* ScribusApp::getPDFDriver()
 		{
 		std::cout << "Can't find Symbol" << endl;
 		dlclose(PDFDriver);
-		return NULL;
+		return false;
 		}
-	PDFlib *dia = (*demo)();
-	return dia;
-}
-
-void ScribusApp::closePDFDriver()
-{
+	ret = (*demo)(this, fn, nam, Components, frPa, toPa, thumbs);
 	dlclose(PDFDriver);
+	return ret;
 }
 
 bool ScribusApp::DoSaveAsEps(QString fn)
@@ -5298,30 +5297,9 @@ void ScribusApp::SaveAsPDF()
 				pm = view->PageToPixmap(ap, 100);
 			thumbs.insert(ap, pm);
 			}
-		PDFlib *pd = getPDFDriver();
-		if (pd->PDF_Begin_Doc(fn, doc, view, &doc->PDF_Optionen, Prefs.AvailFonts, doc->UsedFonts, BookPal->BView))
-			{
-			for (uint ap = 0; ap < view->MasterPages.count(); ++ap)
-				{
-				if (view->MasterPages.at(ap)->Items.count() != 0)
-					pd->PDF_TemplatePage(view->MasterPages.at(ap));
-				}
-			for (uint a = frPa; a < toPa; ++a)
-				{
-				pd->PDF_Begin_Page(view->Pages.at(a), thumbs[a]);
-				pd->PDF_ProcessPage(view->Pages.at(a), a);
-				pd->PDF_End_Page();
-				}
-			if (doc->PDF_Optionen.Version == 12)
-				pd->PDF_End_Doc(pfad+PrinterProfiles[doc->PDF_Optionen.PrintProf], nam, Components);
-			else
-				pd->PDF_End_Doc();
-			}
-		else
+		if (!getPDFDriver(fn, nam, Components, frPa, toPa, thumbs))
 			QMessageBox::warning(this, tr("Warning"), tr("Can't write the File: \n%1").arg(fn), tr("OK"));
-		delete pd;
-		closePDFDriver();
-		BuildFontMenu();
+//		BuildFontMenu();
  		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 		}
   delete dia;

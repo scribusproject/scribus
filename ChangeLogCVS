@@ -1,4 +1,7 @@
 Changes since Version 0.9.10
+07.06.2003	pdflib.cpp
+		scribus.cpp		Fixed grave Bug with the PDF-Exporter.
+
 05.06.2003	annot.cpp		Fixed Bug with external PDF-Links.
 		pdfopts.cpp		Fixed Bug with PDF-Page Effects.
 		scribus.cpp		Fixed Bug when exporting Documents to PDF.

@@ -24,23 +24,26 @@
 #include "pageitem.h"
 #include "scribusview.h"
 #include "bookmwin.h"
+#include "scribus.h"
 #include <qfile.h>
 
 /**
   *@author Franz Schmid
   */
 
-class PDFlib {
+class PDFlib : public QObject
+{
+    Q_OBJECT
 
-public: 
+public:
 	PDFlib();
-	virtual ~PDFlib();
-	virtual bool PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOpt *opts, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, BookMView* vi);
-	virtual void PDF_Begin_Page(Page* pag, QPixmap pm);
-	virtual void PDF_End_Page();
-	virtual void PDF_TemplatePage(Page* pag);
-	virtual void PDF_ProcessPage(Page* pag, uint PNr);
-	virtual void PDF_End_Doc(QString PrintPr = "", QString Name = "", int Components = 0);
+	~PDFlib();
+	bool PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOpt *opts, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, BookMView* vi);
+	void PDF_Begin_Page(Page* pag, QPixmap pm = 0);
+	void PDF_End_Page();
+	void PDF_TemplatePage(Page* pag);
+	void PDF_ProcessPage(Page* pag, uint PNr);
+	void PDF_End_Doc(QString PrintPr = "", QString Name = "", int Components = 0);
 	struct GlNamInd { uint Code;
 										QString Name;
 									};
@@ -48,29 +51,29 @@ public:
 	QMap<QString, GListeInd> GlyphsIdxOfFont;
 	
 private:
-	virtual QString EncStream(QString *in, int ObjNum);
-	virtual QString EncString(QString in, int ObjNum);
-	virtual void CalcOwnerKey(QString Owner, QString User);
-	virtual void CalcUserKey(QString User, int Permission);
-	virtual QString FitKey(QString pass);
-	virtual QString FToStr(float c);
-	virtual QString IToStr(int c);
-	virtual QString SetClipPath(PageItem *ite);
-	virtual QString SetFarbe(QString farbe, int Shade);
-	virtual QString setTextSt(PageItem *ite, uint PNr);
-	virtual void PutDoc(QString in);
-	virtual void PutPage(QString in);
-	virtual void StartObj(int nr);
-	virtual void WritePDFStream(QString *cc);
-	virtual QString PDFEncode(QString in);
-	virtual QByteArray ComputeMD5(QString in);
-	virtual void PDF_Bookmark(int nr, float ypos);
-	virtual void PDF_Gradient(PageItem *b);
-	virtual void PDF_Transparenz(PageItem *b);
-	virtual void PDF_Annotation(PageItem *ite, uint PNr);
-	virtual void PDF_Form(QString im);
-  virtual void PDF_xForm(float w, float h, QString im);
-	virtual void PDF_Image(bool inver, QString fn, float sx, float sy, float x, float y, bool fromAN = false, QString Profil = "", bool Embedded = false, int Intent = 1);
+	QString EncStream(QString *in, int ObjNum);
+	QString EncString(QString in, int ObjNum);
+	void CalcOwnerKey(QString Owner, QString User);
+	void CalcUserKey(QString User, int Permission);
+	QString FitKey(QString pass);
+	QString FToStr(float c);
+	QString IToStr(int c);
+	QString SetClipPath(PageItem *ite);
+	QString SetFarbe(QString farbe, int Shade);
+	QString setTextSt(PageItem *ite, uint PNr);
+	void PutDoc(QString in);
+	void PutPage(QString in);
+	void StartObj(int nr);
+	void WritePDFStream(QString *cc);
+	QString PDFEncode(QString in);
+	QByteArray ComputeMD5(QString in);
+	void PDF_Bookmark(int nr, float ypos);
+	void PDF_Gradient(PageItem *b);
+	void PDF_Transparenz(PageItem *b);
+	void PDF_Annotation(PageItem *ite, uint PNr);
+	void PDF_Form(QString im);
+  void PDF_xForm(float w, float h, QString im);
+	void PDF_Image(bool inver, QString fn, float sx, float sy, float x, float y, bool fromAN = false, QString Profil = "", bool Embedded = false, int Intent = 1);
 	QString Inhalt;
   ScribusDoc* doc;
   ScribusView* view;

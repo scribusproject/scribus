@@ -56,7 +56,6 @@
 #include "scrap.h"
 #include "layers.h"
 #include "libpostscript/pslib.h"
-#include "libpdf/pdflib.h"
 #include "werktoolb.h"
 #include "seiten.h"
 #include "bookpalette.h"
@@ -102,8 +101,7 @@ class ScribusApp : public QMainWindow
     void CallDLL(QString name);
     PSLib* getPSDriver(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, CListe DocColors, bool pdf);
     void closePSDriver();
-    PDFlib* getPDFDriver();
-    void closePDFDriver();
+    bool getPDFDriver(QString fn, QString nam, int Components, int frPa, int toPa, QMap<int,QPixmap> thumbs);
 		bool DoSaveAsEps(QString fn);
     QString CFileDialog(QString caption = "", QString filter = "", QString defNa = "", bool Pre = false, bool mod = true, bool comp = false, bool cod = false);
     void GetCMSProfiles();
@@ -497,7 +495,6 @@ private:
     int HaveGS;
     bool PDFavailable;
     void *PSDriver;
-    void *PDFDriver;
     int DocNr;
     QStringList RecentDocs;
 		struct PlugData { QString Datei;
