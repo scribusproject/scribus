@@ -8725,6 +8725,14 @@ void Page::DeleteItem()
 							b->BackBox->Ptext.append(b->Ptext.take(0));
 					}
 				}
+				else
+				{
+					if (b->isAutoText)
+					{
+						doku->LastAuto = 0;
+						doku->FirstAuto = 0;
+					}
+				}
 			}
 			if (delItems.at(0)->isBookmark)
 				emit DelBM(SelItem.at(0));

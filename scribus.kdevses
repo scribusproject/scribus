@@ -8,7 +8,10 @@
    <valgrind path="" params="" />
   </kdevvalgrind>
   <kdevdebugger>
-   <breakpointList/>
+   <breakpointList>
+    <breakpoint0 location="/home/franz/Entwicklung/AnonCVS/Scribus2/Scribus/scribus/scribus.cpp:5487" type="1" condition="" enabled="1" />
+    <breakpoint1 location="/home/franz/Entwicklung/AnonCVS/Scribus2/Scribus/scribus/scribus.cpp:4616" type="1" condition="" enabled="1" />
+   </breakpointList>
   </kdevdebugger>
   <kdevbookmarks>
    <bookmarks>
