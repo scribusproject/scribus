@@ -129,9 +129,7 @@ void InitPlug(QWidget *d, ScribusApp *plug)
 	Tes = new MenuTest(d);
 	Tes->menuMgr=Carrier->scrMenuMgr;
 	Tes->scrScripterActions.clear();
-	Tes->scrScripterActions.setAutoDelete(true);
 	Tes->scrRecentScriptActions.clear();
-	Tes->scrRecentScriptActions.setAutoDelete(true);
 
 	Tes->scrScripterActions.insert("scripterExecuteScript", new ScrAction(QObject::tr("&Execute Script..."), QKeySequence(), Tes, "scripterExecuteScript"));
 	Tes->scrScripterActions.insert("scripterShowConsole", new ScrAction(QObject::tr("Show &Console"), QKeySequence(), Tes, "scripterShowConsole"));
@@ -200,6 +198,9 @@ void MenuTest::buildScribusScriptsMenu()
 
 void MenuTest::rebuildRecentScriptsMenu()
 {
+	for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = scrRecentScriptActions.begin(); it!=scrRecentScriptActions.end(); ++it )
+		menuMgr->removeMenuItem((*it), "RecentScripts");
+
 	scrRecentScriptActions.clear();
 	uint max = QMIN(Carrier->Prefs.RecentDCount, RecentScripts.count());
 	for (uint m = 0; m < max; ++m)

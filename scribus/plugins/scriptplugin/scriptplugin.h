@@ -1,6 +1,9 @@
 #ifndef SCRIPTPLUG_H
 #define SCRIPTPLUG_H
 
+#include <qmap.h>
+#include <qguardedptr.h>
+
 #include "scribus.h"
 #include "pconsole.h"
 
@@ -60,8 +63,8 @@ public:
 		QStringList SavedRecentScripts;
 		QStringList RecentScripts;
 		MenuManager *menuMgr;
-		QDict<ScrAction> scrScripterActions;
-		QDict<ScrAction> scrRecentScriptActions;
+		QMap<QString, QGuardedPtr<ScrAction> > scrScripterActions;
+		QMap<QString, QGuardedPtr<ScrAction> > scrRecentScriptActions;
 		void rebuildRecentScriptsMenu();
 		void buildScribusScriptsMenu();
 		void buildRecentScriptsMenu();
