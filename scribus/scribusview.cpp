@@ -1561,6 +1561,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 								HandleGradient(p, c, c->Width, c->Height);
 							else
 								p->PS_fill();
+							p->PS_newpath();
 						}
 						p->PS_save();
 						SetClipPath(p, &c->PoLine);
