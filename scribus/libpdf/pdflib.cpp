@@ -431,15 +431,29 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 	Options = opts;
 	BookMinUse = false;
 	UsedFontsP.clear();
-	ObjCounter = Options->Articles ? 9 : 8;
-	ObjCounter = 10;
-  	PutDoc(Options->Version <= 13 ? "%PDF-1.3\n" : "%PDF-1.4\n");
+	if ((Options->Version == 15) && (Options->useLayers))
+		ObjCounter = 10;
+	else
+		ObjCounter = 9;
+	switch (Options->Version)
+	{
+		case 12:
+		case 13:
+  			PutDoc("%PDF-1.3\n");
+			break;
+		case 14:
+			PutDoc("%PDF-1.4\n");
+			break;
+		case 15:
+			PutDoc("%PDF-1.5\n");
+			break;
+	}
  	if (Options->Version == 12)
 		ObjCounter++;
 	PutDoc("%"+QString(QChar(199))+QString(QChar(236))+QString(QChar(143))+QString(QChar(162))+"\n");
 	StartObj(1);
 	PutDoc("<<\n/Type /Catalog\n/Outlines 3 0 R\n/Pages 4 0 R\n/Dests 5 0 R\n/AcroForm 6 0 R\n/Names 7 0 R\n/Threads 8 0 R\n");
-//	if (doc->Layers.count() > 1)
+	if ((Options->Version == 15) && (Options->useLayers))
 		PutDoc("/OCProperties 9 0 R\n");
 	if (Options->Version == 12)
 		PutDoc("/OutputIntents [ "+IToStr(ObjCounter-1)+" 0 R ]\n");
@@ -502,7 +516,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 	PutDoc("/Trapped /False\n>>\nendobj\n");
   	for (int t = 0; t < 6; ++t)
 		XRef.append(Dokument);
-//	if (Options->Articles)
+	if (Options->useLayers)
 		XRef.append(Dokument);
 	if (Options->Version == 12)
 		XRef.append(Dokument);
@@ -883,26 +897,30 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 		ObjCounter++;
 	}
 #endif
-	struct Layer ll;
-	struct OCGInfo ocg;
-	ll.isPrintable = false;
-	ll.LNr = 0;
-	int Lnr = 0;
-	QString ocgNam = "oc";
-	for (uint la = 0; la < doc->Layers.count(); ++la)
+	if ((Options->Version == 15) && (Options->useLayers))
 	{
-		QString tmp = "";
-		Level2Layer(doc, &ll, Lnr);
-		ocg.Name = ocgNam+tmp.setNum(ll.LNr);
-		ocg.ObjNum = ObjCounter;
-		OCGEntries.insert(ll.Name, ocg);
-		StartObj(ObjCounter);
-		ObjCounter++;
-		PutDoc("<<\n");
-		PutDoc("/Type /OCG\n");
-		PutDoc("/Name ("+ll.Name+")\n");
-		PutDoc(">>\nendobj\n");
-		Lnr++;
+		struct Layer ll;
+		struct OCGInfo ocg;
+		ll.isPrintable = false;
+		ll.LNr = 0;
+		int Lnr = 0;
+		QString ocgNam = "oc";
+		for (uint la = 0; la < doc->Layers.count(); ++la)
+		{
+			QString tmp = "";
+			Level2Layer(doc, &ll, Lnr);
+			ocg.Name = ocgNam+tmp.setNum(ll.LNr);
+			ocg.ObjNum = ObjCounter;
+			ocg.visible = ll.isViewable;
+			OCGEntries.insert(ll.Name, ocg);
+			StartObj(ObjCounter);
+			ObjCounter++;
+			PutDoc("<<\n");
+			PutDoc("/Type /OCG\n");
+			PutDoc("/Name ("+ll.Name+")\n");
+			PutDoc(">>\nendobj\n");
+			Lnr++;
+		}
 	}
 	return true;
 }
@@ -925,6 +943,8 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 		PItems = doc->MasterItems;
 		if (ll.isPrintable)
 		{
+			if ((Options->Version == 15) && (Options->useLayers))
+				PutPage("/OC /"+OCGEntries[ll.Name].Name+" BDC\n");
 			for (uint a = 0; a < PItems.count(); ++a)
 			{
 				Inhalt = "";
@@ -1060,7 +1080,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 						if (ite->imageFlippedV())
 							PutPage("1 0 0 -1 0 "+FToStr(-ite->Height)+" cm\n");
 						if ((ite->PicAvail) && (ite->Pfile != ""))
-							PDF_Image(ite->InvPict, ite->Pfile, ite->LocalScX,
+							PDF_Image(ite, ite->InvPict, ite->Pfile, ite->LocalScX,
 									 ite->LocalScY, ite->LocalX, -ite->LocalY,
 									 false, ite->IProfile, ite->UseEmbedded,
 									  ite->IRender);
@@ -1376,6 +1396,8 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 				QString name = pag->PageNam.simplifyWhiteSpace().replace( QRegExp("\\s"), "" ) + IToStr(ite->ItemNr);
 				Seite.XObjects[name] = ObjCounter-1;
 				}
+				if ((Options->Version == 15) && (Options->useLayers))
+					PutPage("EMC\n");
 			}
 		Lnr++;
 	}
@@ -1543,6 +1565,8 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 				Lnr++;
 				if (ll.isPrintable)
 				{
+					if ((Options->Version == 15) && (Options->useLayers))
+						PutPage("/OC /"+OCGEntries[ll.Name].Name+" BDC\n");
 					for (uint am = 0; am < pag->FromMaster.count(); ++am)
 					{
 						ite = pag->FromMaster.at(am);
@@ -1810,6 +1834,8 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 						}
 						PutPage("Q\n");
 					}
+					if ((Options->Version == 15) && (Options->useLayers))
+						PutPage("EMC\n");
 				}
 			}
 		}
@@ -1826,7 +1852,8 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 			PItems = doc->Items;
 		if (ll.isPrintable)
 		{
-			PutPage("/OC /"+OCGEntries[ll.Name].Name+" BDC\n");
+			if ((Options->Version == 15) && (Options->useLayers))
+				PutPage("/OC /"+OCGEntries[ll.Name].Name+" BDC\n");
 			for (uint a = 0; a < PItems.count(); ++a)
 			{
 				ite =PItems.at(a);
@@ -1961,7 +1988,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 						if (ite->imageFlippedV())
 							PutPage("1 0 0 -1 0 "+FToStr(-ite->Height)+" cm\n");
 						if ((ite->PicAvail) && (ite->Pfile != ""))
-							PDF_Image(ite->InvPict, ite->Pfile, ite->LocalScX,
+							PDF_Image(ite, ite->InvPict, ite->Pfile, ite->LocalScX,
 									 ite->LocalScY, ite->LocalX, -ite->LocalY,
 									 false, ite->IProfile, ite->UseEmbedded,
 									  ite->IRender);
@@ -2351,7 +2378,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 							PutPage("0 j\n");
 							break;
 					}
-					PutPage("1 0 0 1 "+FToStr(ite->Xpos)+" "+FToStr(doc->PageH - ite->Ypos)+" cm\n");
+					PutPage("1 0 0 1 "+FToStr(ite->Xpos - pag->Xoffset)+" "+FToStr(doc->PageH - (ite->Ypos  - pag->Yoffset))+" cm\n");
 					if (ite->Rot != 0)
 					{
 						double sr = sin(-ite->Rot* 3.1415927 / 180.0);
@@ -2391,7 +2418,8 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 					}
 					PutPage("Q\n");
 				}
-			PutPage("EMC\n");
+				if ((Options->Version == 15) && (Options->useLayers))
+					PutPage("EMC\n");
 			}
 		Lnr++;
 	}
@@ -3227,10 +3255,10 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 	size_t ar = sizeof(tmp) / sizeof(*tmp);
 	for (uint a = 0; a < ar; ++a)
 		ind2PDFabr[a] = tmp[a];
-	double x = ite->Xpos;
-	double y = doc->PageH - ite->Ypos;
-	double x2 = ite->Xpos+ite->Width;
-	double y2 = doc->PageH-ite->Ypos-ite->Height;
+	double x = ite->Xpos - ActPageP->Xoffset;
+	double y = doc->PageH - (ite->Ypos  - ActPageP->Yoffset);
+	double x2 = x+ite->Width;
+	double y2 = y-ite->Height;
 	for (uint d = 0; d < ite->itemText.count(); ++d)
 	{
 		cc = ite->itemText.at(d)->ch;
@@ -3517,22 +3545,22 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		case 0:
 			break;
 		case 90:
-			x = ite->Xpos;
-			y2 = doc->PageH - ite->Ypos;
-			x2 = ite->Xpos + ite->Height;
+			x = ite->Xpos - ActPageP->Xoffset;
+			y2 = doc->PageH - (ite->Ypos  - ActPageP->Yoffset);
+			x2 = x + ite->Height;
 			y = y2 + ite->Width;
 			break;
 		case 180:
-			x = ite->Xpos - ite->Width;
-			y2 = doc->PageH - ite->Ypos;
-			x2 = ite->Xpos;
+			x = ite->Xpos - ActPageP->Xoffset - ite->Width;
+			y2 = doc->PageH - (ite->Ypos  - ActPageP->Yoffset);
+			x2 = ite->Xpos - ActPageP->Xoffset;
 			y = y2 + ite->Height;
 			break;
 		case 270:
-			x = ite->Xpos - ite->Height;
-			y2 = doc->PageH - ite->Ypos - ite->Width;
-			x2 = ite->Xpos;
-			y = doc->PageH - ite->Ypos;
+			x = ite->Xpos - ActPageP->Xoffset - ite->Height;
+			y2 = doc->PageH - (ite->Ypos  - ActPageP->Yoffset) - ite->Width;
+			x2 = ite->Xpos - ActPageP->Xoffset;
+			y = doc->PageH - (ite->Ypos  - ActPageP->Yoffset);
 			break;
 	}
 	PutDoc("/Rect [ "+FToStr(x)+" "+FToStr(y2)+" "+FToStr(x2)+" "+FToStr(y)+" ]\n");
@@ -3541,7 +3569,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 	{
 		if (ite->Pfile != "")
 		{
-			PDF_Image(ite->InvPict, ite->Pfile, ite->LocalScX, ite->LocalScY, ite->LocalX,
+			PDF_Image(ite, ite->InvPict, ite->Pfile, ite->LocalScX, ite->LocalScY, ite->LocalX,
 					 -ite->LocalY, true);
 			cc = IToStr(ite->pixm.width())+" 0 0 "+IToStr(ite->pixm.height())+" 0 0 cm\n";
 			cc += "/"+ResNam+IToStr(ResCount-1)+" Do";
@@ -3549,7 +3577,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		}
 		if (ite->Pfile2 != "")
 		{
-			PDF_Image(ite->InvPict, ite->Pfile2, ite->LocalScX, ite->LocalScY, ite->LocalX,
+			PDF_Image(ite, ite->InvPict, ite->Pfile2, ite->LocalScX, ite->LocalScY, ite->LocalX,
 				 -ite->LocalY, true);
 			cc = IToStr(img.width())+" 0 0 "+IToStr(img.height())+" 0 0 cm\n";
 			cc += "/"+ResNam+IToStr(ResCount-1)+" Do";
@@ -3557,7 +3585,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		}
 		if (ite->Pfile3 != "")
 		{
-			PDF_Image(ite->InvPict, ite->Pfile3, ite->LocalScX, ite->LocalScY, ite->LocalX,
+			PDF_Image(ite, ite->InvPict, ite->Pfile3, ite->LocalScX, ite->LocalScY, ite->LocalX,
 				 -ite->LocalY, true);
 			cc = IToStr(img2.width())+" 0 0 "+IToStr(img2.height())+" 0 0 cm\n";
 			cc += "/"+ResNam+IToStr(ResCount-1)+" Do";
@@ -3770,7 +3798,7 @@ void PDFlib::PDF_Bookmark(int nr, double ypos)
 	BookMinUse = true;
 }
 
-void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, double y, bool fromAN, QString Profil, bool Embedded, int Intent)
+void PDFlib::PDF_Image(PageItem* c, bool inver, QString fn, double sx, double sy, double x, double y, bool fromAN, QString Profil, bool Embedded, int Intent)
 {
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.extension(false).lower();
@@ -3871,10 +3899,12 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 						img = LoadPicture(fn, Profil, Embedded, Intent, true, 1, afl);
 					else
 					{
+#endif
 						if (Options->isGrayscale)
 							img = LoadPicture(fn, Profil, Embedded, Intent, true, 1, afl);
 						else
 							img = LoadPicture(fn, Profil, Embedded, Intent, true, 0, afl);
+#ifdef HAVE_CMS
 					}
 #endif
 				}
@@ -3923,10 +3953,12 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 								img = LoadPicture(fn, Profil, Embedded, Intent, true, 1, afl);
 							else
 							{
+#endif
 								if (Options->isGrayscale)
 									img = LoadPicture(fn, Profil, Embedded, Intent, true, 1, afl);
 								else
 									img = LoadPicture(fn, Profil, Embedded, Intent, true, 0, afl);
+#ifdef HAVE_CMS
 							}
 #endif
 						}
@@ -3941,19 +3973,25 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 		}
 		else
 		{
+			c->imgInfo.valid = false;
+			c->imgInfo.clipPath = "";
+			c->imgInfo.PDSpathData.clear();
+			c->imgInfo.layerInfo.clear();
 			if (Options->UseRGB)
-				img = LoadPicture(fn, Profil, Embedded, Intent, true, 2, 72, &realCMYK);
+				img = LoadPicture(fn, Profil, Embedded, Intent, true, 2, 72, &realCMYK, &c->imgInfo);
 			else
 			{
-#ifdef CMSuse
+#ifdef HAVE_CMS
 				if ((CMSuse) && (Options->UseProfiles2))
-					img = LoadPicture(fn, Profil, Embedded, Intent, true, 1, 72, &realCMYK);
+					img = LoadPicture(fn, Profil, Embedded, Intent, true, 1, 72, &realCMYK, &c->imgInfo);
 				else
 				{
+#endif
 					if (Options->isGrayscale)
-						img = LoadPicture(fn, Profil, Embedded, Intent, true, 1, 72, &realCMYK);
+						img = LoadPicture(fn, Profil, Embedded, Intent, true, 1, 72, &realCMYK, &c->imgInfo);
 					else
-						img = LoadPicture(fn, Profil, Embedded, Intent, true, 0, 72, &realCMYK);
+						img = LoadPicture(fn, Profil, Embedded, Intent, true, 0, 72, &realCMYK, &c->imgInfo);
+#ifdef HAVE_CMS
 				}
 #endif
 			}
@@ -3972,7 +4010,7 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 			aufl = 1;
 		}
 		QString im2 = "";
-		if (Options->Version == 14)
+		if (Options->Version >= 14)
 			im2 = getAlpha(fn, true, true);
 		else
 			im2 = getAlpha(fn, true, false);
@@ -3990,7 +4028,7 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 			StartObj(ObjCounter);
 			ObjCounter++;
 			PutDoc("<<\n/Type /XObject\n/Subtype /Image\n");
-			if (Options->Version == 14)
+			if (Options->Version >= 14)
 			{
 				if ((Options->CompressMethod != 3) && (CompAvail))
 					im2 = CompressStr(&im2);
@@ -4120,7 +4158,7 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 		}
 		if (alphaM)
 		{
-			if (Options->Version == 14)
+			if (Options->Version >= 14)
 				PutDoc("/SMask "+IToStr(ObjCounter-2)+" 0 R\n");
 			else
 				PutDoc("/Mask "+IToStr(ObjCounter-2)+" 0 R\n");
@@ -4271,18 +4309,21 @@ void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 			PutDoc("/"+it3c.data().ResName+" "+IToStr(it3c.data().ResNum)+" 0 R\n");
 		PutDoc(">>\n");
 	}
-	PutDoc("/Properties <<\n");
-	struct Layer ll;
-	ll.isPrintable = false;
-	ll.LNr = 0;
-	int Lnr = 0;
-	for (uint la = 0; la < doc->Layers.count(); ++la)
+	if ((Options->Version == 15) && (Options->useLayers))
 	{
-		Level2Layer(doc, &ll, la);
-		PutDoc("/"+OCGEntries[ll.Name].Name+" "+IToStr(OCGEntries[ll.Name].ObjNum)+" 0 R\n");
-		Lnr++;
+		PutDoc("/Properties <<\n");
+		struct Layer ll;
+		ll.isPrintable = false;
+		ll.LNr = 0;
+		int Lnr = 0;
+		for (uint la = 0; la < doc->Layers.count(); ++la)
+		{
+			Level2Layer(doc, &ll, la);
+			PutDoc("/"+OCGEntries[ll.Name].Name+" "+IToStr(OCGEntries[ll.Name].ObjNum)+" 0 R\n");
+			Lnr++;
+		}
+		PutDoc(">>\n");
 	}
-	PutDoc(">>\n");
 	PutDoc(">>\nendobj\n");
 	ObjCounter++;
 	XRef[2] = Dokument;
@@ -4437,19 +4478,35 @@ void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 	for (uint th = 0; th < Threads.count(); ++th)
 		PutDoc(IToStr(Threads[th])+" 0 R ");
 	PutDoc("]\nendobj\n");
-	XRef[8] = Dokument;
-	PutDoc("9 0 obj\n<<\n/D << /BaseState /ON /Order [ ");
-	QMap<QString, OCGInfo>::Iterator itoc;
-	for (itoc = OCGEntries.begin(); itoc != OCGEntries.end(); ++itoc)
+	if ((Options->Version == 15) && (Options->useLayers))
 	{
-		PutDoc(IToStr(itoc.data().ObjNum)+" 0 R ");
+		XRef[8] = Dokument;
+		QStringList lay;
+		PutDoc("9 0 obj\n<<\n");
+		PutDoc("/D << /BaseState /ON /Order [ ");
+		QMap<QString, OCGInfo>::Iterator itoc;
+		for (itoc = OCGEntries.begin(); itoc != OCGEntries.end(); ++itoc)
+		{
+			lay.prepend(IToStr(itoc.data().ObjNum)+" 0 R ");
+		}
+		for (uint layc = 0; layc < lay.count(); ++layc)
+		{
+			PutDoc(lay[layc]);
+		}
+		PutDoc("]\n/OFF [ ");
+		for (itoc = OCGEntries.begin(); itoc != OCGEntries.end(); ++itoc)
+		{
+			if (!itoc.data().visible)
+				PutDoc(IToStr(itoc.data().ObjNum)+" 0 R ");
+		}
+		PutDoc("] >>\n/OCGs [ ");
+		for (itoc = OCGEntries.begin(); itoc != OCGEntries.end(); ++itoc)
+		{
+			PutDoc(IToStr(itoc.data().ObjNum)+" 0 R ");
+		}
+		PutDoc("]\n");
+		PutDoc(">>\nendobj\n");
 	}
-	PutDoc("] >>\n/OCGs [ ");
-	for (itoc = OCGEntries.begin(); itoc != OCGEntries.end(); ++itoc)
-	{
-		PutDoc(IToStr(itoc.data().ObjNum)+" 0 R ");
-	}
-	PutDoc("]\n>>\nendobj\n");
 	if (Options->Version == 12)
 	{
 		StartObj(ObjCounter);
@@ -4465,10 +4522,8 @@ void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 		PutDoc("/Length "+IToStr(dataP.length()+1)+"\n");
 		PutDoc("/N "+IToStr(Components)+"\n");
 		PutDoc(">>\nstream\n"+dataP+"\nendstream\nendobj\n");
-		int p = Options->Articles ? 8 : 7;
-		QString m = Options->Articles ? "9" : "8";
-		XRef[p] = Dokument;
-		PutDoc(m + " 0 obj\n");
+		XRef[8] = Dokument;
+		PutDoc("9 0 obj\n");
 		PutDoc("<<\n/Type /OutputIntent\n/S /GTS_PDFX\n");
 		PutDoc("/DestOutputProfile "+IToStr(ObjCounter-1)+" 0 R\n");
 		PutDoc("/OutputConditionIdentifier (Custom)\n");

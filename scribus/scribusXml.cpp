@@ -1545,6 +1545,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				doc->PDF_Options.PassUser = pg.attribute("PassUser", "");
 				doc->PDF_Options.Permissions = QStoInt(pg.attribute("Permissions","-4"));
 				doc->PDF_Options.Encrypt = static_cast<bool>(QStoInt(pg.attribute("Encrypt","0")));
+				doc->PDF_Options.useLayers = static_cast<bool>(QStoInt(pg.attribute("UseLayers","0")));
 				doc->PDF_Options.UseLPI = static_cast<bool>(QStoInt(pg.attribute("UseLpi","0")));
 				QDomNode PFO = PAGE.firstChild();
 				while(!PFO.isNull())
@@ -2808,6 +2809,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	pdf.setAttribute("PassUser", doc->PDF_Options.PassUser);
 	pdf.setAttribute("Permissions", doc->PDF_Options.Permissions);
 	pdf.setAttribute("Encrypt", static_cast<int>(doc->PDF_Options.Encrypt));
+	pdf.setAttribute("UseLayers", static_cast<int>(doc->PDF_Options.useLayers));
 	pdf.setAttribute("UseLpi", static_cast<int>(doc->PDF_Options.UseLPI));
 	for (uint pdoF = 0; pdoF < doc->PDF_Options.EmbedList.count(); ++pdoF)
 	{
@@ -3187,6 +3189,7 @@ void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 	pdf.setAttribute("PassUser", Vor->PDF_Options.PassUser);
 	pdf.setAttribute("Permissions", Vor->PDF_Options.Permissions);
 	pdf.setAttribute("Encrypt", static_cast<int>(Vor->PDF_Options.Encrypt));
+	pdf.setAttribute("UseLayers", static_cast<int>(Vor->PDF_Options.useLayers));
 	pdf.setAttribute("UseLpi", static_cast<int>(Vor->PDF_Options.UseLPI));
 	QMap<QString,LPIData>::Iterator itlp;
 	for (itlp = Vor->PDF_Options.LPISettings.begin(); itlp != Vor->PDF_Options.LPISettings.end(); ++itlp)
@@ -3542,6 +3545,7 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 			Vorein->PDF_Options.PassUser = dc.attribute("PassUser", "");
 			Vorein->PDF_Options.Permissions = QStoInt(dc.attribute("Permissions","-4"));
 			Vorein->PDF_Options.Encrypt = static_cast<bool>(QStoInt(dc.attribute("Encrypt","0")));
+			Vorein->PDF_Options.useLayers = static_cast<bool>(QStoInt(dc.attribute("UseLayers","0")));
 			Vorein->PDF_Options.UseLPI = static_cast<bool>(QStoInt(dc.attribute("UseLpi","0")));
 			QDomNode PFO = DOC.firstChild();
 			while(!PFO.isNull())

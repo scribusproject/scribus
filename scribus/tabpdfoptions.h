@@ -49,6 +49,7 @@ public:
 	QLabel* TextLabel1;
 	QSpinBox* Resolution;
 	QCheckBox* Article;
+	QCheckBox* useLayers;
 	QCheckBox* Compression;
 	QCheckBox* DSColor;
 	QSpinBox* ValC;

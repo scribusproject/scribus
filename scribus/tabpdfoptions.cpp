@@ -111,6 +111,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent,
 	ComboBox1 = new QComboBox( true, GroupBox1, "ComboBox1" );
 	ComboBox1->insertItem("Acrobat 4.0");
 	ComboBox1->insertItem("Acrobat 5.0");
+	ComboBox1->insertItem("Acrobat 6.0");
 #ifdef HAVE_CMS
 	if ((CMSuse) && (CMSavail) && (!PDFXProfiles->isEmpty()))
 		ComboBox1->insertItem("PDF/X-3");
@@ -121,7 +122,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent,
 	if ((CMSuse) && (CMSavail))
 	{
 		if (Optionen->Version == 12)
-			ComboBox1->setCurrentItem(2);
+			ComboBox1->setCurrentItem(3);
 	}
 	else
 		ComboBox1->setCurrentItem(0);
@@ -133,6 +134,8 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent,
 		ComboBox1->setCurrentItem(0);
 	if (Optionen->Version == 14)
 		ComboBox1->setCurrentItem(1);
+	if (Optionen->Version == 15)
+		ComboBox1->setCurrentItem(2);
 	GroupBox1Layout->addMultiCellWidget( ComboBox1, 0, 0, 1, 2, AlignLeft );
 	TextLabel1x = new QLabel( tr( "&Binding:" ), GroupBox1, "TextLabel1" );
 	TextLabel1x->setAlignment( static_cast<int>( QLabel::AlignVCenter | QLabel::AlignLeft ) );
@@ -153,6 +156,13 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent,
 	CheckBM = new QCheckBox( tr( "&Include Bookmarks" ), GroupBox1, "E" );
 	CheckBM->setChecked(Optionen->Bookmarks);
 	GroupBox1Layout->addMultiCellWidget( CheckBM, 4, 4, 0, 2 );
+	useLayers = new QCheckBox( tr( "Include Layers" ), GroupBox1, "LI" );
+	useLayers->setChecked(Optionen->useLayers);
+	GroupBox1Layout->addMultiCellWidget( useLayers, 5, 5, 0, 2 );
+	if (Optionen->Version == 15)
+		useLayers->setEnabled(true);
+	else
+		useLayers->setEnabled(false);
 	Resolution = new QSpinBox( GroupBox1, "Resolution" );
 	Resolution->setMaxValue( 4000 );
 	Resolution->setMinValue( 35 );
@@ -160,8 +170,8 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent,
 	Resolution->setSuffix( tr( " dpi" ) );
 	TextLabel2 = new QLabel( Resolution, tr( "&Resolution:" ), GroupBox1, "TextLabel2" );
 	TextLabel2->setAlignment( static_cast<int>( QLabel::AlignVCenter | QLabel::AlignLeft ) );
-	GroupBox1Layout->addWidget( TextLabel2, 5, 0 );
-	GroupBox1Layout->addWidget( Resolution, 5, 1, AlignLeft );
+	GroupBox1Layout->addWidget( TextLabel2, 6, 0 );
+	GroupBox1Layout->addWidget( Resolution, 6, 1, AlignLeft );
 	Layout13->addWidget( GroupBox1 );
 	tabLayout->addLayout( Layout13 );
 	Compression = new QCheckBox( tr( "Com&press Text and Vector Graphics" ), tabGeneral, "Compression" );
@@ -769,7 +779,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent,
 	if ((!CMSuse) || (!CMSavail))
 		setTabEnabled(tabPDFX, false);
 	if ((CMSuse) && (CMSavail) && (Optionen->Version == 12) && (!PDFXProfiles->isEmpty()))
-		EnablePDFX(2);
+		EnablePDFX(3);
 	else
 		setTabEnabled(tabPDFX, false);
 #else
@@ -849,6 +859,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent,
 	QToolTip::add( ComboBind, tr( "Determines the binding of pages in the PDF. Unless you know\nyou need to change it leave the default choice - Left." ) );
 	QToolTip::add( CheckBox1, tr( "Generates thumbnails of each page in the PDF.\nSome viewers can use the thumbnails for navigation." ) );
 	QToolTip::add( Article, tr( "Generate PDF Articles, which is useful for navigating linked articles in a PDF." ) );
+	QToolTip::add( useLayers, tr( "Layers in your document are exported to the PDF\nOnly available if Acrobat 6.0 is choosen." ) );
 	QToolTip::add( CheckBM, tr( "Embed the bookmarks you created in your document.\nThese are useful for navigating long PDF documents." ) );
 	QToolTip::add( Resolution, tr( "Export resolution of text and vector graphics.\nThis does not affect the resolution of bitmap images like photos." ) );
 	QToolTip::add( Compression, tr( "Compression of text and graphics.\nUnless you have a reason, leave this checked. This reduces PDF size." ) );
@@ -919,6 +930,7 @@ void TabPDFOptions::enableCMS(bool enable)
 	ComboBox1->clear();
 	ComboBox1->insertItem("Acrobat 4.0");
 	ComboBox1->insertItem("Acrobat 5.0");
+	ComboBox1->insertItem("Acrobat 6.0");
 	if (enable)
 	{
 		cms = true;
@@ -927,7 +939,7 @@ void TabPDFOptions::enableCMS(bool enable)
 	else
 	{
 		cms = false;
-		a = QMIN(a, 2);
+		a = QMIN(a, 3);
 	}
 	ComboBox1->setCurrentItem(a);
 	EnablePr(1);
@@ -936,7 +948,11 @@ void TabPDFOptions::enableCMS(bool enable)
 
 void TabPDFOptions::EnablePDFX(int a)
 {
-	if (a != 2)
+	if (a == 2)
+		useLayers->setEnabled(true);
+	else
+		useLayers->setEnabled(false);
+	if (a != 3)
 	{
 		setTabEnabled(tabPDFX, false);
 		setTabEnabled(tabSecurity, true);

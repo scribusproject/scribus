@@ -3434,6 +3434,7 @@ bool ScribusApp::SetupDoc()
 		doc->PDF_Options.Articles = dia->tabPDF->Article->isChecked();
 		doc->PDF_Options.Encrypt = dia->tabPDF->Encry->isChecked();
 		doc->PDF_Options.UseLPI = dia->tabPDF->UseLPI->isChecked();
+		doc->PDF_Options.useLayers = dia->tabPDF->useLayers->isChecked();
 		doc->PDF_Options.BleedBottom = dia->tabPDF->BleedBottom->value() / UmReFaktor;
 		doc->PDF_Options.BleedTop = dia->tabPDF->BleedTop->value() / UmReFaktor;
 		doc->PDF_Options.BleedLeft = dia->tabPDF->BleedLeft->value() / UmReFaktor;
@@ -3460,6 +3461,8 @@ bool ScribusApp::SetupDoc()
 		if (dia->tabPDF->ComboBox1->currentItem() == 1)
 			doc->PDF_Options.Version = 14;
 		if (dia->tabPDF->ComboBox1->currentItem() == 2)
+			doc->PDF_Options.Version = 15;
+		if (dia->tabPDF->ComboBox1->currentItem() == 3)
 			doc->PDF_Options.Version = 12;
 		if (dia->tabPDF->OutCombo->currentItem() == 0)
 		{
@@ -3470,7 +3473,7 @@ bool ScribusApp::SetupDoc()
 		}
 		else
 		{
-			if (dia->tabPDF->OutCombo->currentItem() == 2)
+			if (dia->tabPDF->OutCombo->currentItem() == 3)
 			{
 				doc->PDF_Options.isGrayscale = true;
 				doc->PDF_Options.UseRGB = false;
@@ -7985,6 +7988,8 @@ void ScribusApp::slotPrefsOrg()
 		if (dia->tabPDF->ComboBox1->currentItem() == 1)
 			Prefs.PDF_Options.Version = 14;
 		if (dia->tabPDF->ComboBox1->currentItem() == 2)
+			Prefs.PDF_Options.Version = 15;
+		if (dia->tabPDF->ComboBox1->currentItem() == 3)
 			Prefs.PDF_Options.Version = 12;
 		if (dia->tabPDF->OutCombo->currentItem() == 0)
 		{
@@ -8387,6 +8392,7 @@ void ScribusApp::SaveAsPDF()
 		doc->PDF_Options.Articles = dia->Options->Article->isChecked();
 		doc->PDF_Options.Encrypt = dia->Options->Encry->isChecked();
 		doc->PDF_Options.UseLPI = dia->Options->UseLPI->isChecked();
+		doc->PDF_Options.useLayers = dia->Options->useLayers->isChecked();
 		if (dia->Options->Encry->isChecked())
 		{
 			int Perm = -64;
@@ -8409,6 +8415,8 @@ void ScribusApp::SaveAsPDF()
 		if (dia->Options->ComboBox1->currentItem() == 1)
 			doc->PDF_Options.Version = 14;
 		if (dia->Options->ComboBox1->currentItem() == 2)
+			doc->PDF_Options.Version = 15;
+		if (dia->Options->ComboBox1->currentItem() == 3)
 			doc->PDF_Options.Version = 12;
 		if (dia->Options->OutCombo->currentItem() == 0)
 		{

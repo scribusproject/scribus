@@ -671,6 +671,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 				doc->PDF_Options.PassUser = pg.attribute("PassUser", "");
 				doc->PDF_Options.Permissions = QStoInt(pg.attribute("Permissions","-4"));
 				doc->PDF_Options.Encrypt = static_cast<bool>(QStoInt(pg.attribute("Encrypt","0")));
+				doc->PDF_Options.useLayers = static_cast<bool>(QStoInt(pg.attribute("UseLayers","0")));
 				doc->PDF_Options.UseLPI = static_cast<bool>(QStoInt(pg.attribute("UseLpi","0")));
 				QDomNode PFO = PAGE.firstChild();
 				while(!PFO.isNull())

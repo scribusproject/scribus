@@ -275,6 +275,7 @@ struct PDFOptions
 {
 	bool Thumbnails;
 	bool Articles;
+	bool useLayers;
 	bool Compress;
 	int CompressMethod;
 	int Quality;

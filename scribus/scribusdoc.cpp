@@ -239,6 +239,7 @@ ScribusDoc::ScribusDoc(struct ApplicationPrefs *prefsData)
 	PDF_Options.Permissions = prefsData->PDF_Options.Permissions;
 	PDF_Options.UseLPI = prefsData->PDF_Options.UseLPI;
 	PDF_Options.LPISettings = prefsData->PDF_Options.LPISettings;
+	PDF_Options.useLayers = prefsData->PDF_Options.useLayers;
 	
 	docItemAttributes = prefsData->defaultItemAttributes;
 	docToCSetups = prefsData->defaultToCSetups;
