@@ -9,6 +9,7 @@
 	version, at your discretion.
 */
 
+#include <qglobal.h>
 #include <qapplication.h>
 #include <qfile.h>
 #include <qfileinfo.h>
@@ -19,9 +20,12 @@
 #include <qdict.h>
 #include <qmap.h>
 #include <qdir.h>
+#include <qregexp.h>
+
+#ifdef Q_WS_X11
 #include <X11/X.h>
 #include <X11/Xlib.h>
-#include <qregexp.h>
+#endif
 
 #include <cstdlib>
 #include "scfonts.h"

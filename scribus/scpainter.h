@@ -23,6 +23,7 @@
 
 // libart wrapper
 
+#include <qglobal.h>
 #include <qwmatrix.h>
 #include <qvaluelist.h>
 #include <qvaluestack.h>
@@ -31,6 +32,13 @@
 #include "fpoint.h"
 #include "fpointarray.h"
 #include "vgradient.h"
+
+// If defined, use gdk-pixbuf for ScPainter::end() on X11 (ignored on other
+// platforms). Otherwise use portable ScPainter::end() and omit X11-specific
+// code and pixbuf support.
+#ifndef SC_USE_PIXBUF
+#define SC_USE_PIXBUF
+#endif
 
 class QPainter;
 struct _ArtVpath;
@@ -156,7 +164,9 @@ private:
 	double m_zoomFactor;
 	struct _ArtSVP *m_clipPath;
 
+#if defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
 	GC gc;
+#endif
 };
 
 #endif

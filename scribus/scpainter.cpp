@@ -53,8 +53,10 @@
 #include "art_rgb_svp.h"
 #include "art_render_pattern.h"
 
+#if defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
 #include <X11/Xlib.h>
 #include <gdk-pixbuf-xlibrgb.h>
+#endif
 
 #include <math.h>
 #include "art_kmisc.h"
@@ -91,9 +93,11 @@ ScPainter::ScPainter( QPaintDevice *target, unsigned int w, unsigned int h, unsi
 	PLineJoin = Qt::RoundJoin;
 	fill_gradient = VGradient(VGradient::linear);
 	stroke_gradient = VGradient(VGradient::linear);
+	m_zoomFactor = 1;
+#if defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
 	xlib_rgb_init_with_depth( target->x11Display(), XScreenOfDisplay( target->x11Display(), target->x11Screen() ), target->x11Depth() );
 	gc = XCreateGC( target->x11Display(), target->handle(), 0, 0 );
-	m_zoomFactor = 1;
+#endif
 }
 
 ScPainter::~ScPainter()
@@ -104,8 +108,10 @@ ScPainter::~ScPainter()
 		art_free( m_buffer );
 	if( m_path )
 		art_free( m_path );
+#if defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
 	if( gc )
 		XFreeGC( m_target->x11Display(), gc );
+#endif
 }
 
 void ScPainter::resize( unsigned int w, unsigned int h )
@@ -129,8 +135,25 @@ void ScPainter::begin()
 
 void ScPainter::end()
 {
+#if defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
+	// Use the original gdk-pixbuf based bitblit on X11
 	xlib_draw_rgb_32_image( m_target->handle(), gc, m_x, m_y, m_width, m_height, XLIB_RGB_DITHER_NONE, m_buffer, m_width * 4 );
-//	xlib_draw_rgb_32_image( m_target->handle(), gc, 0, 0, m_width, m_height, XLIB_RGB_DITHER_NONE, m_buffer, m_width * 4 );
+#else
+	// But use a portable version by Andreas Vox on other platforms
+	// FIXME: possible big-endian assumption
+	QImage qimg(m_width, m_height, 32, QImage::BigEndian);
+	QRgb * bits = (QRgb *) qimg.bits();
+	int words = qimg.numBytes() / 4;
+	art_u8 * p = m_buffer;;
+	for (int i=0; i < words; ++i) {
+		art_u8 r = *p++;
+		art_u8 g = *p++;
+		art_u8 b = *p++;
+		art_u8 a = *p++;
+		*bits++ = qRgba(r,g,b,a);
+	}
+	bitBlt(m_target, 0, 0, &qimg);
+#endif
 }
 
 void ScPainter::clear()
