@@ -531,7 +531,7 @@ void ScribusApp::initMenuBar()
 	PfadV = ObjMenu->insertItem(tr("Combine Polygons"), this, SLOT(UniteOb()));
 	PfadS = ObjMenu->insertItem(tr("Split Polygon"), this, SLOT(SplitUniteOb()));
 #ifdef HAVE_FREETYPE
-	PfadTP = ObjMenu->insertItem(tr("Convert to Polygon"), this, SLOT(TraceText()));
+	PfadTP = ObjMenu->insertItem(tr("Convert to Polygons"), this, SLOT(TraceText()));
 #endif
 	ObjMenu->setItemEnabled(ShapeM, 0);
 	ObjMenu->setItemEnabled(DistM, 0);
@@ -2871,8 +2871,8 @@ void ScribusApp::slotEditPaste()
 			PageItem *b = doc->ActPage->SelItem.at(0);
 			if (Buffer2.startsWith("<SCRIBUSTEXT>"))
 				{
-				Buffer2.remove(0, 13);
-				QTextStream t(&Buffer2, IO_ReadOnly);
+				QString Buf = Buffer2.mid(13);
+				QTextStream t(&Buf, IO_ReadOnly);
 				QString cc;
 				while (!t.atEnd())
 					{

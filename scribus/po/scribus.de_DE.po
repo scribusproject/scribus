@@ -2712,8 +2712,20 @@ msgid "Apply ICC-Profiles"
 msgstr "ICC-Profile anwenden"
 
 msgid "Mark Colors out of Gamut"
-msgstr "Farben auaﬂerhalbe des Farbbereichs markieren"
+msgstr "Farben auﬂerhalb des Farbbereichs markieren"
 
 msgid "Scale Picture to Frame Size"
 msgstr "Bild an Rahmen anpassen"
+
+msgid "Combine Polygons"
+msgstr "Polygone vereinen"
+
+msgid "Split Polygon"
+msgstr "Polygone teilen"
+
+msgid "Convert to Polygons"
+msgstr "In Polygone verwandeln"
+
+msgid "Websave RGB"
+msgstr "Websicheres RGB"
 
