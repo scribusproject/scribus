@@ -59,7 +59,6 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString caption, QString guiLanguage,
 	mHistory.clear();
 	struct histd his;
 	language = guiLanguage=="" ? "en" : guiLanguage.left(2);
-	//qDebug(language);
 	helpBrowsermainLayout = new QVBoxLayout( this); 
 	buttonLayout = new QHBoxLayout;
 	buttonLayout->setSpacing( 6 );
@@ -226,21 +225,25 @@ void HelpBrowser::loadHelp(QString filename)
 	QString toLoad;
 	QFileInfo fi;
 	fi = QFileInfo(filename);
-	if (fi.exists())
-		toLoad=filename;
-	else 
+	if (fi.fileName().length()>0)
 	{
-		QString pfad = DOCDIR;
-
-		toLoad = pfad + "en/index.html";
-		language="en";
-		fi = QFileInfo(toLoad);
-		if (!fi.exists())
+		if (fi.exists())
+			toLoad=filename;
+		else 
 		{
-			textBrowser->setText("<h2>"+ tr("Sorry, no manual available! Please see: http://docs.scribus.net for updated docs\nand www.scribus.net for downloads.")+"</h2>");
-			Avail = false;
+			QString pfad = DOCDIR;
+			toLoad = pfad + "en/index.html";
+			language="en";
+			fi = QFileInfo(toLoad);
+			if (!fi.exists())
+			{
+				textBrowser->setText("<h2>"+ tr("Sorry, no manual available! Please see: http://docs.scribus.net for updated docs\nand www.scribus.net for downloads.")+"</h2>");
+				Avail = false;
+			}
 		}
 	}
+	else 
+		Avail=false;
 	if (Avail) 
 	{
 		textBrowser->setSource(toLoad);
@@ -257,7 +260,6 @@ void HelpBrowser::loadMenu()
 	QString pfad = DOCDIR;
 	QString toLoad;
 	QString pfad2 = pfad + language + "/menu.xml";
-	//qDebug (pfad2);
 	QFileInfo fi = QFileInfo(pfad2);
 
 	if (fi.exists())
@@ -458,8 +460,6 @@ void HelpBrowser::itemSelected(QListViewItem *item)
 	if (item->text(1)!=QString::null)
 	{
 		QString pfad = DOCDIR;
-		//QString filetoload="filetoload:" + pfad + language + "/" + item->text(1);
-		//qDebug(filetoload);
 		loadHelp(pfad + language + "/" + item->text(1));
 	}
 }
