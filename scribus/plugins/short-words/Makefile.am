@@ -1,22 +1,7 @@
 pluginsdir = $(libdir)/scribus/plugins
 
-AM_CPPFLAGS = \
-    -I$(top_builddir)/scribus \
-    -DDOCDIR=\"$(datadir)/scribus/doc/\" \
-    -DICONDIR=\"$(datadir)/scribus/icons/\" \
-    -DSAMPLESDIR=\"$(datadir)/scribus/samples/\" \
-    -DSCRIPTSDIR=\"$(datadir)/scribus/scripts/\" \
-    -DTEMPLATEDIR=\"$(datadir)/scribus/templates/\" \
-    -DLIBDIR=\"$(libdir)/scribus/\" \
-    -DPLUGINDIR=\"$(libdir)/scribus/plugins/\"
-
 plugins_LTLIBRARIES = libscribusshortwords.la
 
-if COMPILE_DEBUG
- linkflag = 
-else
- linkflag = -s
-endif
 INCLUDES = $(LIBFREETYPE_CFLAGS) $(all_includes)
 
 libscribusshortwords_la_LDFLAGS = -version-info 0:0:0
@@ -35,12 +20,14 @@ endif
 AM_LDFLAGS = $(linkflag) $(LIBFREETYPE_LIBS)
 
 AM_CPPFLAGS = \
-        -I$(top_builddir)/scribus \
-        -DDOCDIR=\"$(datadir)/scribus/doc/\" \
-        -DICONDIR=\"$(datadir)/scribus/icons/\" \
-        -DTEMPLATEDIR=\"$(datadir)/scribus/templates/\" \
-        -DLIBDIR=\"$(libdir)/scribus/\" \
-        -DPLUGINDIR=\"$(libdir)/scribus/plugins/\"
+    -I$(top_builddir)/scribus \
+    -DDOCDIR=\"$(datadir)/scribus/doc/\" \
+    -DICONDIR=\"$(datadir)/scribus/icons/\" \
+    -DSAMPLESDIR=\"$(datadir)/scribus/samples/\" \
+    -DSCRIPTSDIR=\"$(datadir)/scribus/scripts/\" \
+    -DTEMPLATEDIR=\"$(datadir)/scribus/templates/\" \
+    -DLIBDIR=\"$(libdir)/scribus/\" \
+    -DPLUGINDIR=\"$(libdir)/scribus/plugins/\"
 
 install-data-local:
 	$(mkinstalldirs) $(libdir)/scribus/plugins/
