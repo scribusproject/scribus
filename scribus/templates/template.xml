@@ -6,9 +6,9 @@
     	<tnail>nl1/nl1tn.png</tnail>
     	<img>nl1/nl1.png</img>
     	<psize>A4</psize>
-    	<color>b/w</color>
-    	<descr>Simple newsletter template in b/w</descr>
-    	<usage>Right click on text frames and replace texts with your own</usage>
+    	<color>2 colors, green and orange</color>
+    	<descr>Simple newsletter template</descr>
+    	<usage>Right click on text and image frames and replace what's inside with your own. Images are free to be used in your documents as well.</usage>
     	<author>RL</author>
     	<email>tsoots@welho.com</email>
 	</template>
@@ -18,9 +18,9 @@
     	<tnail>nl2/nl2tn.png</tnail>
     	<img>nl2/nl2.png</img>
     	<psize>A4</psize>
-    	<color>red and blue</color>
-    	<descr>Simple newsletter template with red and blue colors</descr>
-    	<usage>Right click on text frames and replace texts with your own</usage>
+    	<color>b/w</color>
+    	<descr>Simple newsletter template</descr>
+    	<usage>Right click on text and image frames and replace what's inside with your own. Images are free to be used in your documents as well.</usage>
     	<author>RL</author>
     	<email>tsoots@welho.com</email>
   	</template>
@@ -31,8 +31,8 @@
     	<img>br1/br1.png</img>
     	<psize>A4</psize>
     	<color>color</color>
-    	<descr>Simple brochure with colorful theme.</descr>
-    	<usage>Right click on text frames and replace texts with your own.</usage>
+    	<descr>Simple brochure with colorful fruity theme.</descr>
+    	<usage>Right click on text replace what's inside with your own.</usage>
     	<author>RL</author>
     	<email>tsoots@welho.com</email>
 	</template>
