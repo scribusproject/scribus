@@ -406,6 +406,16 @@ public:
 	 * @param newStyle name of the custom style
 	 */
 	void setCustomLineStyle(const QString& newStyle);
+	/**
+	 * @brief Set start arrow index
+	 * @param newIndex index for start arrow
+	 */
+	void setStartArrowIndex(int newIndex);
+	/**
+	 * @brief Set end arrow index
+	 * @param newIndex index for end arrow
+	 */
+	void setEndArrowIndex(int newIndex);
 	/** @brief Flip an image horizontally. */
 	void flipImageH();
 	/** @brief Flip an image vertically */
@@ -467,6 +477,7 @@ protected:
 	void restoreLineJoin(SimpleState *state, bool isUndo);
 	void restoreLineWidth(SimpleState *state, bool isUndo);
 	void restoreCustomLineStyle(SimpleState *state, bool isUndo);
+	void restoreArrow(SimpleState *state, bool isUndo, bool isStart);
 	/*@}*/
 
 	/**

@@ -2462,6 +2462,32 @@ void PageItem::setCustomLineStyle(const QString& newStyle)
 	NamedLStyle = newStyle;
 }
 
+void PageItem::setStartArrowIndex(int newIndex)
+{
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::StartArrow,"",Um::IArrow);
+		ss->set("START_ARROW", "startarrow");
+		ss->set("OLD_INDEX", startArrowIndex);
+		ss->set("NEW_INDEX", newIndex);
+		undoManager->action(this, ss);
+	}
+	startArrowIndex = newIndex;
+}
+
+void PageItem::setEndArrowIndex(int newIndex)
+{
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::EndArrow,"",Um::IArrow);
+		ss->set("END_ARROW", "endarrow");
+		ss->set("OLD_INDEX", endArrowIndex);
+		ss->set("NEW_INDEX", newIndex);
+		undoManager->action(this, ss);
+	}
+	endArrowIndex = newIndex;
+}
+
 void PageItem::flipImageH()
 {
 	if (UndoManager::undoEnabled())
@@ -2700,6 +2726,11 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreLineWidth(ss, isUndo);
 		else if (ss->contains("CUSTOM_LINE_STYLE"))
 			restoreCustomLineStyle(ss, isUndo);
+		else if (ss->contains("START_ARROW"))
+			restoreArrow(ss, isUndo, true);
+		else if (ss->contains("END_ARROW"))
+			restoreArrow(ss, isUndo, false);
+		
 	}
 }
 
@@ -2901,6 +2932,17 @@ void PageItem::restoreName(SimpleState *state, bool isUndo)
 		setItemName(oldName);
 	else
 		setItemName(newName);
+}
+
+void PageItem::restoreArrow(SimpleState *state, bool isUndo, bool isStart)
+{
+	int i = state->getInt("OLD_INDEX");
+	if (!isUndo)
+		i = state->getInt("NEW_INDEX");
+	if (isStart)
+		setStartArrowIndex(i);
+	else
+		setEndArrowIndex(i);
 }
 
 void PageItem::select()

@@ -2379,7 +2379,7 @@ void Mpalette::setStartArrow(int id)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		CurItem->startArrowIndex = id;
+		CurItem->setStartArrowIndex(id);
 		ScApp->view->RefreshItem(CurItem);
 		emit DocChanged();
 	}
@@ -2391,7 +2391,7 @@ void Mpalette::setEndArrow(int id)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		CurItem->endArrowIndex = id;
+		CurItem->setEndArrowIndex(id);
 		ScApp->view->RefreshItem(CurItem);
 		emit DocChanged();
 	}

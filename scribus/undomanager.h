@@ -441,6 +441,8 @@ public:
 	static const QString NoStyle;
 	static const QString CustomLineStyle;
 	static const QString NoLineStyle;
+	static const QString StartArrow;
+	static const QString EndArrow;
 	/*@}*/
 
 	/**
@@ -475,6 +477,7 @@ public:
 	static QPixmap *ICut;
 	static QPixmap *ITransparency;
 	static QPixmap *ILineStyle;
+	static QPixmap *IArrow;
 	/*@}*/
 
 protected:
