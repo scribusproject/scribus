@@ -24,14 +24,14 @@ or
 <p>Those lines MUST be the first two lines of your script. The coding MUST match the actual encoding of the file.</p>
 
 <p>To find out what the text encoding is in vim, type
-<pre>    :set fileencoding?<enter></pre>
+<code>    :set fileencoding?<enter></code>
 It will depend for other editors, it may match your locale.</p>
 
 <p>You can convert files between encodings with the 'iconv' utility, but you will rarely need to given that Python can handle almost any text encoding if told what it is in the coding line.</p>
 
 <p>A few scripter functions require strict ASCII text, and cannot accept unicode or latin-1 text. If you call one of those with non-ASCII text, you'll get an error like:
-<pre>    UnicodeDecodeError: 'ASCII' codec can't decode byte 0xc3
-    in position 1: ordinal not in range(128)</pre>
+<code>    UnicodeDecodeError: 'ASCII' codec can't decode byte 0xc3
+    in position 1: ordinal not in range(128)</code>
 which is admittedly less than helpful.</p>
 
 <p>There currently seems to be a bug with the u'' modifier for string literals in the script console. This problem has also been identified in the Python interactive interpreter on the command line. It does not affect script files. Until this is solved, use the unicode("mystring") constructor or just use plain strings (which can contain unicode text) from the script console.</p>
