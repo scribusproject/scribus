@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <shortcutset name="Scribus 1.3" >
-    <function shortcut="" name="ExportAsImage" />
+    <function shortcut="Ctrl+Shift+E" name="ExportAsImage" />
     <function shortcut="" name="ExportAsSVG" />
     <function shortcut="" name="FontsPreview" />
     <function shortcut="" name="ImportOpenOfficeDraw" />
@@ -27,10 +27,11 @@
     <function shortcut="Ctrl+V" name="editPaste" />
     <function shortcut="" name="editPreferences" />
     <function shortcut="Ctrl+Shift+Z" name="editRedoAction" />
-    <function shortcut="" name="editSearchReplace" />
+    <function shortcut="Ctrl+F" name="editSearchReplace" />
     <function shortcut="Ctrl+A" name="editSelectAll" />
     <function shortcut="" name="editTemplates" />
     <function shortcut="Ctrl+Z" name="editUndoAction" />
+    <function shortcut="" name="extrasGenerateTableOfContents" />
     <function shortcut="" name="extrasHyphenateText" />
     <function shortcut="" name="extrasInsertSpecial" />
     <function shortcut="" name="extrasManagePictures" />
@@ -71,6 +72,7 @@
     <function shortcut="" name="helpTooltips" />
     <function shortcut="" name="itemAlignDist" />
     <function shortcut="" name="itemAttachTextToPath" />
+    <function shortcut="" name="itemAttributes" />
     <function shortcut="" name="itemBringToFront" />
     <function shortcut="" name="itemCombinePolygons" />
     <function shortcut="" name="itemConvertToOutlines" />
@@ -78,7 +80,7 @@
     <function shortcut="" name="itemDetachTextFromPath" />
     <function shortcut="Ctrl+D" name="itemDuplicate" />
     <function shortcut="Ctrl+G" name="itemGroup" />
-    <function shortcut="Ctrl+F" name="itemLock" />
+    <function shortcut="Ctrl+L" name="itemLock" />
     <function shortcut="" name="itemLower" />
     <function shortcut="" name="itemMulDuplicate" />
     <function shortcut="" name="itemRaise" />
@@ -105,7 +107,7 @@
     <function shortcut="" name="shade90" />
     <function shortcut="" name="shadeOther" />
     <function shortcut="Ctrl+Space" name="specialNonBreakingSpace" />
-    <function shortcut="Ctrl+#" name="specialPageNumber" />
+    <function shortcut="Ctrl+Alt+Shift+P" name="specialPageNumber" />
     <function shortcut="Ctrl+-" name="specialSmartHyphen" />
     <function shortcut="F11" name="specialToggleAllGuides" />
     <function shortcut="F10" name="specialToggleAllPalettes" />
@@ -113,15 +115,30 @@
     <function shortcut="" name="styleTabulators" />
     <function shortcut="" name="toolsActionHistory" />
     <function shortcut="" name="toolsBookmarks" />
-    <function shortcut="" name="toolsLayers" />
+    <function shortcut="E" name="toolsEditContents" />
+    <function shortcut="Ctrl+Y" name="toolsEditWithStoryEditor" />
+    <function shortcut="B" name="toolsInsertBezier" />
+    <function shortcut="F" name="toolsInsertFreehandLine" />
+    <function shortcut="I" name="toolsInsertImageFrame" />
+    <function shortcut="L" name="toolsInsertLine" />
+    <function shortcut="P" name="toolsInsertPolygon" />
+    <function shortcut="S" name="toolsInsertShape" />
+    <function shortcut="A" name="toolsInsertTableFrame" />
+    <function shortcut="T" name="toolsInsertTextFrame" />
+    <function shortcut="F6" name="toolsLayers" />
+    <function shortcut="N" name="toolsLinkTextFrame" />
     <function shortcut="" name="toolsMeasurements" />
     <function shortcut="" name="toolsOutline" />
     <function shortcut="" name="toolsPages" />
     <function shortcut="" name="toolsPreflightVerifier" />
     <function shortcut="" name="toolsProperties" />
+    <function shortcut="R" name="toolsRotate" />
     <function shortcut="" name="toolsScrapbook" />
+    <function shortcut="C" name="toolsSelect" />
     <function shortcut="" name="toolsToolbarPDF" />
     <function shortcut="" name="toolsToolbarTools" />
+    <function shortcut="U" name="toolsUnlinkTextFrame" />
+    <function shortcut="Z" name="toolsZoom" />
     <function shortcut="" name="typeEffectNormal" />
     <function shortcut="" name="typeEffectOutline" />
     <function shortcut="" name="typeEffectSmallCaps" />
