@@ -1121,6 +1121,8 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		doc->BaseOffs = QStodouble(dc.attribute("BASEO", "0"));
 		doc->minorGrid = QStodouble(dc.attribute("MINGRID", tmp.setNum(view->Prefs->DminGrid)));
 		doc->majorGrid = QStodouble(dc.attribute("MAJGRID", tmp.setNum(view->Prefs->DmajGrid)));
+		doc->DstartArrow = 0;
+		doc->DendArrow = 0;
 		QDomNode PAGE=DOC.firstChild();
 		counter = 0;
 		while(!PAGE.isNull())
@@ -1316,6 +1318,8 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 						doc->OldBM = true;
 					OB.BMnr = QStoInt(obj.attribute("BookNr","0"));
 					OB.Ausrich = QStoInt(obj.attribute("ALIGN","0"));
+					OB.startArrowIndex =  0;
+					OB.endArrowIndex =  0;
 					tmpf = obj.attribute("IFONT", doc->Dfont);
 					if (tmpf == "")
 						tmpf = doc->Dfont;
@@ -2496,6 +2500,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	dc.setAttribute("SHOWBASE", static_cast<int>(doc->BaseShown));
 	dc.setAttribute("SHOWPICT", static_cast<int>(doc->ShowPic));
 	dc.setAttribute("SHOWLINK", static_cast<int>(doc->linkShown));
+	dc.setAttribute("GuideRad", doc->GuideRad);
 	dc.setAttribute("POLYC", doc->PolyC);
 	dc.setAttribute("POLYF", doc->PolyF);
 	dc.setAttribute("POLYR", doc->PolyR);
@@ -2507,6 +2512,39 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	dc.setAttribute("ScatchLeft", doc->ScratchLeft);
 	dc.setAttribute("ScratchRight", doc->ScratchRight);
 	dc.setAttribute("ScratchTop", doc->ScratchTop);
+	dc.setAttribute("StartArrow", doc->DstartArrow);
+	dc.setAttribute("EndArrow", doc->DendArrow);
+	dc.setAttribute("PEN",doc->Dpen);
+	dc.setAttribute("BRUSH",doc->Dbrush);
+	dc.setAttribute("PENLINE",doc->DpenLine);
+	dc.setAttribute("PENTEXT",doc->DpenText);
+	dc.setAttribute("StrokeText",doc->DstrokeText);
+	dc.setAttribute("STIL",doc->DLineArt);
+	dc.setAttribute("STILLINE",doc->DLstyleLine);
+	dc.setAttribute("WIDTH",doc->Dwidth);
+	dc.setAttribute("WIDTHLINE",doc->DwidthLine);
+	dc.setAttribute("PENSHADE",doc->Dshade2);
+	dc.setAttribute("LINESHADE",doc->DshadeLine);
+	dc.setAttribute("BRUSHSHADE",doc->Dshade);
+	dc.setAttribute("MAGMIN",doc->MagMin);
+	dc.setAttribute("MAGMAX",doc->MagMax);
+	dc.setAttribute("MAGSTEP",doc->MagStep);
+	dc.setAttribute("CPICT",doc->DbrushPict);
+	dc.setAttribute("PICTSHADE",doc->ShadePict);
+	dc.setAttribute("PICTSCX",doc->ScaleX);
+	dc.setAttribute("PICTSCY",doc->ScaleY);
+	dc.setAttribute("PSCALE", static_cast<int>(doc->ScaleType));
+	dc.setAttribute("PASPECT", static_cast<int>(doc->AspectRatio));
+	dc.setAttribute("AUTOL", doc->AutoLine);
+	dc.setAttribute("MINORC",doc->minorColor.name());
+	dc.setAttribute("MAJORC",doc->majorColor.name());
+	dc.setAttribute("GuideC", doc->guideColor.name());
+	dc.setAttribute("BaseC", doc->baseColor.name());
+	dc.setAttribute("GuideZ", doc->GuideRad);
+	dc.setAttribute("BACKG", static_cast<int>(doc->Before));
+	dc.setAttribute("PAGEC",doc->papColor.name());
+	dc.setAttribute("MARGC",doc->margColor.name());
+	dc.setAttribute("RANDF", static_cast<int>(doc->RandFarbig));
 	QMap<QString,multiLine>::Iterator itMU;
 	for (itMU = doc->MLineStyles.begin(); itMU != doc->MLineStyles.end(); ++itMU)
 	{
@@ -2799,6 +2837,7 @@ void ScriXmlDoc::WritePref(preV *Vor, QString ho)
 	dc9.setAttribute("BRUSH",Vor->Dbrush);
 	dc9.setAttribute("PENLINE",Vor->DpenLine);
 	dc9.setAttribute("PENTEXT",Vor->DpenText);
+	dc9.setAttribute("StrokeText",Vor->DstrokeText);
 	dc9.setAttribute("TEXTCOL",Vor->DCols);
 	dc9.setAttribute("TEXTGAP",Vor->DGap);
 	dc9.setAttribute("STIL",Vor->DLineArt);
@@ -2822,6 +2861,8 @@ void ScriXmlDoc::WritePref(preV *Vor, QString ho)
 	dc9.setAttribute("POLYS", static_cast<int>(Vor->PolyS));
 	dc9.setAttribute("PSCALE", static_cast<int>(Vor->ScaleType));
 	dc9.setAttribute("PASPECT", static_cast<int>(Vor->AspectRatio));
+	dc9.setAttribute("StartArrow", Vor->DstartArrow);
+	dc9.setAttribute("EndArrow", Vor->DendArrow);
 	elem.appendChild(dc9);
 	QDomElement dc4=docu.createElement("MAINWINDOW");
 	dc4.setAttribute("XPOS",Vor->MainX);
@@ -3076,6 +3117,7 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 			Vorein->Dbrush = dc.attribute("BRUSH");
 			Vorein->DpenLine = dc.attribute("PENLINE");
 			Vorein->DpenText = dc.attribute("PENTEXT");
+			Vorein->DstrokeText = dc.attribute("StrokeText");
 			Vorein->DCols = QStoInt(dc.attribute("TEXTCOL", "1"));
 			Vorein->DGap = QStodouble(dc.attribute("TEXTGAP", "0.0"));
 			Vorein->DLineArt = QStoInt(dc.attribute("STIL"));
@@ -3099,6 +3141,8 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 			Vorein->PolyR = QStodouble(dc.attribute("POLYR", "0"));
 			Vorein->PolyFd = QStoInt(dc.attribute("POLYFD", "0"));
 			Vorein->PolyS = static_cast<bool>(QStoInt(dc.attribute("POLYS", "0")));
+			Vorein->DstartArrow = QStoInt(dc.attribute("StartArrow", "0"));
+			Vorein->DendArrow = QStoInt(dc.attribute("EndArrow", "0"));
 		}
 		if (dc.tagName()=="MAINWINDOW")
 		{

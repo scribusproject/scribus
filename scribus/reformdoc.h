@@ -20,6 +20,7 @@
 #include "scribusdoc.h"
 class FontCombo;
 class PolygonWidget;
+class ArrowChooser;
 
 class ReformDoc : public PrefsDialogBase
 {
@@ -131,6 +132,7 @@ public:
 	QWidgetStack* subStackTools;
 	QWidget* subTabText;
 	QLabel* textLabel3b;
+	QLabel* textLabel3b2;
 	QLabel* textLabel1b;
 	QLabel* textLabel2b;
 	QLabel* textLabel4b;
@@ -139,6 +141,7 @@ public:
 	FontCombo* fontComboText;
 	QComboBox* sizeComboText;
 	QComboBox* colorComboText;
+	QComboBox* colorComboStrokeText;
 	QLabel* textLabel5b;
 	MSpinBox* gapText;
 	QWidget* subTabShape;
@@ -190,6 +193,11 @@ public:
 	QSpinBox* autoSaveTime;
 	QGroupBox* groupUnit;
 	QComboBox* unitCombo;
+	ArrowChooser* startArrow;
+	ArrowChooser* endArrow;
+	QLabel* startArrowText;
+	QLabel* endArrowText;
+	QLabel* arrowText;
 
 	ScribusDoc* docc;
 	SCFonts *fon;

@@ -74,7 +74,7 @@ PageItem::PageItem(ScribusDoc *pa, int art, double x, double y, double w, double
 	Pcolor = fill;
 	Pcolor2 = PType == 4 ? fill : outline;
 	TxtFill = Doc->DpenText;
-	TxtStroke = TxtFill;
+	TxtStroke = Doc->DstrokeText;
 	ShTxtStroke = 100;
 	ShTxtFill = 100;
 	TxtScale = 100;
@@ -271,8 +271,8 @@ PageItem::PageItem(ScribusDoc *pa, int art, double x, double y, double w, double
 	Dirty = false;
 	ChangedMasterItem = false;
 	OnMasterPage = Doc->ActPage->PageNam;
-	startArrowIndex = 0;
-	endArrowIndex = 0;
+	startArrowIndex = Doc->DstartArrow;
+	endArrowIndex = Doc->DendArrow;
 }
 
 /** Zeichnet das Item */
@@ -402,7 +402,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 			if ((Pcolor != "None") || (GrType != 0))
 			{
 				p->setupPolygon(&PoLine);
-				p->drawPolygon();
+				p->fillPath();
 			}
 			if (Pfile == "")
 			{
@@ -484,7 +484,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 				p->setLineWidth(0);
 				p->setFillMode(ScPainter::Solid);
 				p->setupPolygon(&arrow);
-				p->drawPolygon();
+				p->fillPath();
 			}
 			if (endArrowIndex != 0)
 			{
@@ -497,7 +497,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 				p->setLineWidth(0);
 				p->setFillMode(ScPainter::Solid);
 				p->setupPolygon(&arrow);
-				p->drawPolygon();
+				p->fillPath();
 			}
 			break;
 		case 1:
@@ -506,7 +506,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 			if (Doc->RePos)
 				break;
 			p->setupPolygon(&PoLine);
-			p->drawPolygon();
+			p->fillPath();
 			break;
 		case 7:
 			doStroke = false;
@@ -550,11 +550,11 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					cli.addPoint(Start);
 				}
 				p->setupPolygon(&cli);
-				p->drawPolygon();
+				p->fillPath();
 			}
 			p->setupPolygon(&PoLine, false);
 			if (NamedLStyle == "")
-				p->drawPolyLine();
+				p->strokePath();
 			else
 				{
 				multiLine ml = Doc->MLineStyles[NamedLStyle];
@@ -565,7 +565,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 									 static_cast<PenStyle>(ml[it].Dash),
 									 static_cast<PenCapStyle>(ml[it].LineEnd),
 									 static_cast<PenJoinStyle>(ml[it].LineJoin));
-					p->drawPolyLine();
+					p->strokePath();
 					}
 				}
 				if (startArrowIndex != 0)
@@ -587,7 +587,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 							p->setLineWidth(0);
 							p->setFillMode(ScPainter::Solid);
 							p->setupPolygon(&arrow);
-							p->drawPolygon();
+							p->fillPath();
 							break;
 						}
 					}
@@ -611,7 +611,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 							p->setLineWidth(0);
 							p->setFillMode(ScPainter::Solid);
 							p->setupPolygon(&arrow);
-							p->drawPolygon();
+							p->fillPath();
 							break;
 						}
 					}
@@ -625,7 +625,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 			if ((Pcolor != "None") || (GrType != 0))
 				{
 				p->setupPolygon(&PoLine);
-				p->drawPolygon();
+				p->fillPath();
 				}
 			if (Pcolor2 != "None")
 				lineCorr = Pwidth / 2.0;
@@ -1795,7 +1795,7 @@ NoRoom: pf2.end();
 		{
 			p->setupPolygon(&PoLine);
 			if (NamedLStyle == "")
-				p->drawPolyLine();
+				p->strokePath();
 			else
 			{
 				multiLine ml = Doc->MLineStyles[NamedLStyle];
@@ -1806,7 +1806,7 @@ NoRoom: pf2.end();
 									 static_cast<PenStyle>(ml[it].Dash),
 									 static_cast<PenCapStyle>(ml[it].LineEnd),
 									 static_cast<PenJoinStyle>(ml[it].LineJoin));
-					p->drawPolyLine();
+					p->strokePath();
 				}
 			}
 		}
@@ -1825,13 +1825,13 @@ NoRoom: pf2.end();
 				p->setPen(darkRed, 1 / scp, SolidLine, FlatCap, MiterJoin);
 			p->setFillMode(0);
 			p->setupPolygon(&PoLine);
-			p->drawPolyLine();
+			p->strokePath();
 		}
 		if ((Doc->FramesShown) && (UseContour) && (ContourLine.size() != 0))
 		{
 			p->setPen(lightGray, 1 / scp, DotLine, FlatCap, MiterJoin);
 			p->setupPolygon(&ContourLine);
-			p->drawPolyLine();
+			p->strokePath();
 		}
 	}
 	Tinput = false;

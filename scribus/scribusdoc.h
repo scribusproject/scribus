@@ -383,9 +383,12 @@ struct preV  {
 				double Dwidth;
 				QString DpenLine;
 				QString DpenText;
+				QString DstrokeText;
 				int DshadeLine;
 				double DwidthLine;
 				int DLstyleLine;
+				int DstartArrow;
+				int DendArrow;
 				int MagMin;
 				int MagMax;
 				int MagStep;
@@ -609,6 +612,9 @@ public: // Public attributes
 	PenStyle DLineArt;
 	QString DpenLine;
 	QString DpenText;
+	QString DstrokeText;
+	int DstartArrow;
+	int DendArrow;
 	int DCols;
 	double DGap;
 	int DshadeLine;

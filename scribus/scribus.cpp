@@ -286,11 +286,14 @@ void ScribusApp::initScribus()
 		Prefs.Dwidth = 1;
 		Prefs.DpenLine = "Black";
 		Prefs.DpenText = "Black";
+		Prefs.DstrokeText = "Black";
 		Prefs.DCols = 1;
 		Prefs.DGap = 0.0;
 		Prefs.DshadeLine = 100;
 		Prefs.DLstyleLine = SolidLine;
 		Prefs.DwidthLine = 1;
+		Prefs.DstartArrow = 0;
+		Prefs.DendArrow = 0;
 		Prefs.MagMin = 10;
 		Prefs.MagMax = 800;
 		Prefs.MagStep = 25;
@@ -2132,6 +2135,7 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	doc->VKapit = Prefs.DVKapit;
 	doc->Dpen = Prefs.Dpen;
 	doc->DpenText = Prefs.DpenText;
+	doc->DstrokeText = Prefs.DstrokeText;
 	doc->Dbrush = Prefs.Dbrush;
 	doc->Dshade = Prefs.Dshade;
 	doc->Dshade2 = Prefs.Dshade2;
@@ -2143,6 +2147,8 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	doc->DshadeLine = Prefs.DshadeLine;
 	doc->DLstyleLine = PenStyle(Prefs.DLstyleLine);
 	doc->DwidthLine = Prefs.DwidthLine;
+	doc->DstartArrow = Prefs.DstartArrow;
+	doc->DendArrow = Prefs.DendArrow;
 	doc->MagMin = Prefs.MagMin;
 	doc->MagMax = Prefs.MagMax;
 	doc->MagStep = Prefs.MagStep;
@@ -2440,6 +2446,9 @@ bool ScribusApp::SetupDoc()
 		doc->BaseOffs = dia->baseOffset->value() / UmReFaktor;
 		doc->Dfont = dia->fontComboText->currentText();
 		doc->Dsize = dia->sizeComboText->currentText().left(2).toInt() * 10;
+		doc->DstrokeText = dia->colorComboStrokeText->currentText();
+		if (doc->DstrokeText == tr("None"))
+			doc->DstrokeText = "None";
 		doc->DpenText = dia->colorComboText->currentText();
 		if (doc->DpenText == tr("None"))
 			doc->DpenText = "None";
@@ -2472,6 +2481,8 @@ bool ScribusApp::SetupDoc()
 			break;
 		}
 		doc->Dwidth = dia->lineWidthShape->value();
+		doc->DstartArrow = dia->startArrow->currentItem();
+		doc->DendArrow = dia->endArrow->currentItem();
 		doc->MagMin = dia->minimumZoom->value();
 		doc->MagMax = dia->maximumZoom->value();
 		doc->MagStep = dia->zoomStep->value();
@@ -3465,6 +3476,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 		doc->baseColor = Prefs.baseColor;
 		doc->Dpen = Prefs.Dpen;
 		doc->DpenText = Prefs.DpenText;
+		doc->DstrokeText = Prefs.DstrokeText;
 		doc->Dbrush = Prefs.Dbrush;
 		doc->Dshade = Prefs.Dshade;
 		doc->Dshade2 = Prefs.Dshade2;
@@ -3476,6 +3488,8 @@ bool ScribusApp::LadeDoc(QString fileName)
 		doc->DshadeLine = Prefs.DshadeLine;
 		doc->DLstyleLine = PenStyle(Prefs.DLstyleLine);
 		doc->DwidthLine = Prefs.DwidthLine;
+		doc->DstartArrow = Prefs.DstartArrow;
+		doc->DendArrow = Prefs.DendArrow;
 		doc->MagMin = Prefs.MagMin;
 		doc->MagMax = Prefs.MagMax;
 		doc->MagStep = Prefs.MagStep;
@@ -4091,7 +4105,7 @@ void ScribusApp::slotFilePrint()
 			else
 				parsePagesString(printer->PageNr->text(), &options.pageNumbers, doc->PageC);
 		}
-		options.copies = printer->numCopies();
+		options.copies = 1;
 		options.outputSeparations = printer->outputSeparations();
 		options.separationName = printer->separationName();
 		options.useColor = printer->color();
@@ -7014,6 +7028,8 @@ void ScribusApp::SavePrefs()
 	Prefs.PrinterName = PDef.Pname;
 	Prefs.PrinterFile = PDef.Dname;
 	Prefs.PrinterCommand = PDef.Command;
+/* Only until Preferences Dialog get updated */
+	Prefs.DstrokeText = Prefs.DpenText;
 	ScriXmlDoc *ss = new ScriXmlDoc();
 	ss->WritePref(&Prefs, PrefsPfad+"/scribus.rc");
 	delete ss;

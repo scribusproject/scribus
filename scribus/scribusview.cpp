@@ -221,6 +221,10 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 					painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
 					painter->setBrush(QColor(128,128,128));
 					painter->drawRect(x+5, y+5, w, h);
+					if (a == Doc->ActPage->PageNr)
+						painter->setPen(red, 2, SolidLine, FlatCap, MiterJoin);
+					else
+						painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
 					painter->setBrush(Doc->papColor);
 					painter->drawRect(x, y, w, h);
 					if (Doc->Before)
@@ -1240,7 +1244,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		Doc->AppMode = 1;
 		if (RecordP.size() > 1)
 		{
-			uint z = PaintPolyLine(0, 0, 1, 1, Doc->Dwidth, "None", Doc->Dpen);
+			uint z = PaintPolyLine(0, 0, 1, 1, Doc->Dwidth, "None", Doc->DpenLine);
 			b = Doc->Items.at(z);
 			b->PoLine.resize(0);
 			b->PoLine.addPoint(RecordP.point(0));
@@ -4116,7 +4120,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			{
 				SeleItem(m);
 				Deselect(false);
-				z = PaintPolyLine(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->Dwidth, "None", Doc->Dpen);
+				z = PaintPolyLine(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->Dwidth, "None", Doc->DpenLine);
 				b = Doc->Items.at(z);
 				SelItem.clear();
 				SelItem.append(b);
@@ -6479,8 +6483,12 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 			int h = static_cast<int>(Doc->Pages.at(a)->Height * Scale);
 			if (QRect(x, y, w, h).intersects(mpo))
 			{
-				Doc->ActPage = Doc->Pages.at(a);
-				setMenTxt(a);
+				if (Doc->ActPage->PageNr != a)
+				{
+					Doc->ActPage = Doc->Pages.at(a);
+					setMenTxt(a);
+					DrawNew();
+				}
 				break;
 			}
 		}

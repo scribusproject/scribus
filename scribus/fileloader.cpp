@@ -340,10 +340,55 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		doc->PolyS = static_cast<bool>(QStoInt(dc.attribute("POLYS", "0")));
 		doc->AutoSave = static_cast<bool>(QStoInt(dc.attribute("AutoSave","0")));
 		doc->AutoSaveTime = QStoInt(dc.attribute("AutoSaveTime","600000"));
-		doc->ScratchBottom = QStodouble(dc.attribute("ScratchBottom"));
-		doc->ScratchLeft = QStodouble(dc.attribute("ScatchLeft"));
-		doc->ScratchRight = QStodouble(dc.attribute("ScratchRight"));
-		doc->ScratchTop = QStodouble(dc.attribute("ScratchTop"));
+		doc->ScratchBottom = QStodouble(dc.attribute("ScratchBottom", "20"));
+		doc->ScratchLeft = QStodouble(dc.attribute("ScatchLeft", "100"));
+		doc->ScratchRight = QStodouble(dc.attribute("ScratchRight", "100"));
+		doc->ScratchTop = QStodouble(dc.attribute("ScratchTop", "20"));
+		doc->DstartArrow = QStoInt(dc.attribute("StartArrow", "0"));
+		doc->DendArrow = QStoInt(dc.attribute("EndArrow", "0"));
+		doc->ScaleX = QStodouble(dc.attribute("PICTSCX","1"));
+		doc->ScaleY = QStodouble(dc.attribute("PICTSCY","1"));
+		doc->ScaleType = static_cast<bool>(QStoInt(dc.attribute("PSCALE", "1")));
+		doc->AspectRatio = static_cast<bool>(QStoInt(dc.attribute("PASPECT", "0")));
+		if (dc.hasAttribute("PEN"))
+			doc->Dpen = dc.attribute("PEN");
+		if (dc.hasAttribute("BRUSH"))
+			doc->Dbrush = dc.attribute("BRUSH");
+		if (dc.hasAttribute("PENLINE"))
+			doc->DpenLine = dc.attribute("PENLINE");
+		if (dc.hasAttribute("PENTEXT"))
+			doc->DpenText = dc.attribute("PENTEXT");
+		if (dc.hasAttribute("StrokeText"))
+			doc->DstrokeText = dc.attribute("StrokeText");
+		doc->DLineArt = static_cast<Qt::PenStyle>(QStoInt(dc.attribute("STIL")));
+		doc->DLstyleLine = static_cast<Qt::PenStyle>(QStoInt(dc.attribute("STILLINE")));
+		doc->Dwidth = QStodouble(dc.attribute("WIDTH", "1"));
+		doc->DwidthLine = QStodouble(dc.attribute("WIDTHLINE", "1"));
+		doc->Dshade2 = QStoInt(dc.attribute("PENSHADE", "100"));
+		doc->DshadeLine = QStoInt(dc.attribute("LINESHADE", "100"));
+		doc->Dshade = QStoInt(dc.attribute("BRUSHSHADE", "100"));
+		doc->MagMin = QStoInt(dc.attribute("MAGMIN","10"));
+		doc->MagMax = QStoInt(dc.attribute("MAGMAX","800"));
+		doc->MagStep = QStoInt(dc.attribute("MAGSTEP","25"));
+		if (dc.hasAttribute("CPICT"))
+			doc->DbrushPict = dc.attribute("CPICT");
+		doc->ShadePict = QStoInt(dc.attribute("PICTSHADE","100"));
+		doc->AutoLine = QStoInt(dc.attribute("AUTOL","20"));
+		if (dc.hasAttribute("PAGEC"))
+			doc->papColor = QColor(dc.attribute("PAGEC"));
+		if (dc.hasAttribute("MARGC"))
+			doc->margColor = QColor(dc.attribute("MARGC"));
+		if (dc.hasAttribute("MINORC"))
+			doc->minorColor = QColor(dc.attribute("MINORC"));
+		if (dc.hasAttribute("MAJORC"))
+			doc->majorColor = QColor(dc.attribute("MAJORC"));
+		if (dc.hasAttribute("GuideC"))
+			doc->guideColor = QColor(dc.attribute("GuideC"));
+		if (dc.hasAttribute("BaseC"))
+			doc->baseColor = QColor(dc.attribute("BaseC"));
+		doc->RandFarbig = static_cast<bool>(QStoInt(dc.attribute("RANDF","0")));
+		doc->Before = static_cast<bool>(QStoInt(dc.attribute("BACKG","1")));
+		doc->GuideRad = QStoInt(dc.attribute("GuideRad","10"));
 		QDomNode PAGE=DOC.firstChild();
 		counter = 0;
 		while(!PAGE.isNull())
