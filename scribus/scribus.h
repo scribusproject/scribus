@@ -102,7 +102,7 @@ public:
 	void SetShortCut();
 	void SetKeyEntry(int Nr, QString text, int Men, int KeyC, QString actName = "");
 	bool doFileNew(double b, double h, double tpr, double lr, double rr, double br, double ab, double sp,
-									 bool atf, bool fp, int einh, bool firstleft, int Ori, int SNr, QString pagesize);
+									bool atf, bool fp, int einh, bool firstleft, int Ori, int SNr, QString pagesize);
 	bool DoFileSave(QString fn);
 	void closeEvent(QCloseEvent *ce);
 	void keyPressEvent(QKeyEvent *k);
@@ -126,8 +126,8 @@ public:
 	bool getPDFDriver(QString fn, QString nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs);
 	bool DoSaveAsEps(QString fn);
 	QString CFileDialog(QString wDir = ".", QString caption = "", QString filter = "", QString defNa = "",
-	                    bool Pre = false, bool mod = true, bool comp = false, bool cod = false,
-	                    bool onlyDirs = false, bool *docom = 0, bool *doFont = 0);
+						bool Pre = false, bool mod = true, bool comp = false, bool cod = false,
+						bool onlyDirs = false, bool *docom = 0, bool *doFont = 0);
 	void GetCMSProfiles();
 	void GetCMSProfilesDir(QString pfad);
 	void RecalcColors(QProgressBar *dia = 0);
@@ -193,8 +193,6 @@ public:
 	StoryEditor* CurrStED;
 	QMap<QString,QString> Sprachen;
 	QWorkspace *wsp;
-	//QPopupMenu* windowsMenu;
-	//int WinMen;
 	ScribusWin* ActWin;
 	QString PrefsPfad;
 	QClipboard *ClipB;
@@ -218,6 +216,7 @@ public:
 	QDict<ScrAction> scrActions;
 	QDict<ScrAction> scrRecentFileActions;
 	QDict<ScrAction> scrWindowsActions;
+	QDict<QActionGroup> scrActionGroups;
 	MenuManager* scrMenuMgr;
 
 public slots:
@@ -449,7 +448,6 @@ public slots:
 	void slotElemRead(QString Name, int x, int y, bool art, bool loca, ScribusDoc* docc, ScribusView* vie);
 	void slotChangeUnit(int art, bool draw = true);
 	void NoFrameEdit();
-	void setItemTextAli(int id);
 	void ApplyTemp();
 	void Apply_Temp(QString in, int Snr, bool reb = true);
 	void GroupObj(bool showLockDia = true);
@@ -513,32 +511,12 @@ private:
 
 	QString getPreferencesLocation(); //Find preferences location
 	void convertToXMLPreferences(const QString prefsLocation); //convert 1.2 style rc prefs to .xml style
-	/** edit_menu contains all items of the menubar entry "Edit" */
-	//QPopupMenu *editMenu;
-	/** StilMenu enthaelt das Stilemenue */
-	QPopupMenu *StilMenu;
-	/** itemMenu enthaelt das Objektemenue */
-	//QPopupMenu *itemMenu;
-	/** pageMenu enthaelt das Seitenmenue */
-	//QPopupMenu *pageMenu;
-	/** viewMenu contains all items of the menubar entry "View" */
-	//QPopupMenu *viewMenu;
-	/** ColorMenu enthaelt die Farben des Dokuments */
-	//int ViMen;
-	QPopupMenu *ColorMenu;
 	QComboBox *ColorMenC;
-	/** SizeTMenu enthaelt die Schriftgroessen */
-	QPopupMenu *SizeTMenu;
-	/** ShadeMenu enthaelt die Tonwerte */
-	QPopupMenu *ShadeMenu;
 	/** ShapeMenu enthaelt die Rahmenformen */
 	QPopupMenu *ShapeMenu;
 	/** FontMenu enthaelt die Fonts */
 	QPopupMenu *FontMenu;
 	FontCombo* FontSub;
-	QPopupMenu *TypeStyleMenu;
-	QPopupMenu *alignMenu;
-	//QPopupMenu *recentMenu;
 	QToolBar *WerkTools2;
 	QToolBar *editToolBar;
 	WerkToolBP* WerkToolsP;
@@ -549,38 +527,6 @@ private:
 	QToolButton* DatPDF;
 	QToolButton* DatNeu;
 	int KeyMod;
-	
-	//int M_ItemShapeEdit;
-	//int M_ItemShapeMenu;
-	//int M_ItemAlignDist;
-	//int M_ItemAttachTextToPath;
-	//int M_ItemDetachTextFromPath;
-	//int M_ItemSplitPolygons;
-	//int M_ItemCombinePolygons;
-	//int M_ItemConvertToOutlines;
-	//int M_ItemDelete;
-	//int M_ItemGroup;
-	//int M_ItemUngroup;
-	//int M_ItemLock;
-	//int M_ItemRaise;
-	//int M_ItemLower;
-	//int M_ItemSendToBack;
-	//int M_ItemBringToFront;
-	//int M_ItemDuplicate;
-	//int M_ItemMultiDuplicate;
-	//int M_PageDelete;
-	//int M_PageMove;
-	//int pgmm;
-	int Stm;
-	//int M_ViewShowMargins;
-	//int M_ViewDrawFrames;
-	//int M_ViewShowImages;
-	//int M_ViewShowGrid;
-	//int M_ViewSnapToGrid;
-	//int M_ViewShowGuides;
-	//int M_ViewSnapToGuides;
-	//int M_ViewShowBaseline;
-	//int M_ViewShowTextChain;
 	int toolbarMenuTools;
 	int toolbarMenuPDFTools;
 	int viewToolbars;
@@ -592,54 +538,14 @@ private:
 	int viewSepal;
 	int viewBopal;
 	int viewUndoPalette;
-	//int M_FileNew;
-	//int M_FilePrint;
-	//int M_FileSaveAs;
-	//int M_FileQuit;
-	//int M_FileClose;
-	//int M_FileImportGetText;
-	//int M_FileImportPages;
-	//int M_FileImportAppendText;
-	//int M_FileExportSaveText;
-	//int M_FileSave;
-	//int M_FileCollect;
-	//int M_FileRevert;
-	//int M_FileDocInfo;
-	//int M_FileDocSetup;
-	//int M_FileExportSavePageAsEPS;
-	//int M_FileExportSaveAsPDF;
-	//int M_FileExport;
-	//int M_FileOpen;
-	//int M_OpenRecentFile;
-	//int M_EditUndo;
-	//int M_EditRedo;
-	//int M_EditCut;
-	//int M_EditCopy;
-	//int M_EditPaste;
-	//int M_EditDelete;
-	//int M_EditSelectAll;
-	//int M_EditParaStyles;
-	//int M_EditLineStyles;
-	//int M_EditSearchReplace;
-	//int M_EditTemplates;
-	//int M_EditJavascripts;
-	//int tip;
-	//int exmn;
-	//int hyph;
-	//int M_ExtraCharSelect;
-	//int M_ToolsCheckDoc;
+
 	bool PalettesStat[10];
 	bool GuidesStat[7];
-	//bool tipsOn;
+
 	bool keyrep;
 	/** @brief Tells if an arrow key is pressed down */
 	bool _arrowKeyDown;
-	//QPopupMenu *helpMenu;
-	//QPopupMenu *toolMenu;
-	QPopupMenu *extraMenu;
-	//QPopupMenu *importMenu;
-	//QPopupMenu *exportMenu;
-	QPopupMenu *toolbarMenu;
+
 	void addNewPages(int wo, int where, int numPages, QString based1 = tr("Normal"), QString based2 = tr("Normal"));
 	QMap<int,QString> FontID;
 	int HaveGS;
@@ -650,10 +556,9 @@ private:
 	struct PlugData { 
 						QString Datei;
 						QString Name;
-					  	void *Zeiger;
-					  	int Typ;
+						void *Zeiger;
+						int Typ;
 						int MenuID;
-						//CB
 						QString actName;
 						QString actKeySequence;
 						QString actMenu;
@@ -664,9 +569,9 @@ private:
 	bool PrinterUsed;
 	struct PDe { 
 					QString Pname;
-    			 	QString Dname;
-				 	QString Command;
-    			} PDef ;
+					QString Dname;
+					QString Command;
+				} PDef ;
 };
 #endif 
 

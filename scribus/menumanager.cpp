@@ -39,8 +39,23 @@ bool MenuManager::createMenu(const QString menuName, const QString menuText, con
 	if (newMenu)
 	{
 		menuList.insert(menuName, newMenu);
-		if (menuList[parent])
+		if (parent!=QString::null && menuList[parent])
 			retVal=menuList[parent]->insertSubMenu(newMenu);
+	}
+	else
+		retVal=false;	
+	
+	return retVal;
+}
+
+bool MenuManager::addMenuToMenu(const QString child, const QString parent)
+{
+	bool retVal=false;
+		
+	if (menuList[child] && menuList[parent])
+	{
+		menuList.insert(child, menuList[child]);
+		retVal=menuList[parent]->insertSubMenu(menuList[child]);
 	}
 	else
 		retVal=false;	

@@ -34,6 +34,7 @@ public:
 	enum MenuType {Normal, DLL};
 		
 	bool createMenu(const QString menuName, const QString menuText, const QString parent = QString::null);
+	bool addMenuToMenu(const QString child, const QString parent);
 	bool deleteMenu(const QString menuName, const QString parent = QString::null);
 	bool clearMenu(const QString menuName);
 	QPopupMenu *getLocalPopupMenu(const QString menuName);

@@ -165,6 +165,8 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 	setCaption( tr("Scribus " VERSION));
 	setKeyCompression(false);
 	setIcon(loadIcon("AppIcon.png"));
+	scrActionGroups.clear();
+	scrActionGroups.setAutoDelete(true);
 	scrActions.clear();
 	scrActions.setAutoDelete(true);
 	scrRecentFileActions.clear();
@@ -1168,6 +1170,83 @@ void ScribusApp::initEditMenuActions()
 
 void ScribusApp::initStyleMenuActions()
 {
+	//Text Size actions
+	scrActionGroups.insert("fontSize", new QActionGroup(this, "fontSize", true));
+	scrActions.insert("fontSizeOther", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Other..."), QKeySequence(), scrActionGroups["fontSize"], "fontSizeOther", -1));
+	connect(scrActions["fontSizeOther"], SIGNAL(activatedData(int)), this, SLOT(setItemFSize(int)));
+		
+	int font_sizes[] = {7, 9, 10, 11, 12, 14, 18, 24, 36, 48, 60, 72};
+	size_t f_size = sizeof(font_sizes) / sizeof(*font_sizes);
+	for (uint s = 0; s < f_size; ++s)
+	{
+		QString fontSizeName=QString("fontSize%1").arg(font_sizes[s]);
+		scrActions.insert(fontSizeName, new ScrAction(ScrAction::DataInt, QIconSet(), tr("%1 pt").arg(font_sizes[s]), QKeySequence(), scrActionGroups["fontSize"], fontSizeName, font_sizes[s]));
+		scrActions[fontSizeName]->setToggleAction(true);
+		connect(scrActions[fontSizeName], SIGNAL(activatedData(int)), this, SLOT(setItemFSize(int)));
+	}
+	
+	
+	//Alignment actions
+	scrActionGroups.insert("alignment", new QActionGroup(this, "alignment", true));
+	scrActions.insert("alignLeft", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Left"), QKeySequence(), scrActionGroups["alignment"], "alignLeft", 0));
+	scrActions.insert("alignCenter", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Center"), QKeySequence(), scrActionGroups["alignment"], "alignCenter", 1));
+	scrActions.insert("alignRight", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Right"), QKeySequence(), scrActionGroups["alignment"], "alignRight", 2));
+	scrActions.insert("alignBlock", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Block"), QKeySequence(), scrActionGroups["alignment"], "alignBlock", 3));
+	scrActions.insert("alignForced", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Forced"), QKeySequence(), scrActionGroups["alignment"], "alignForced", 4));
+	scrActions["alignLeft"]->setToggleAction(true);
+	scrActions["alignCenter"]->setToggleAction(true);
+	scrActions["alignRight"]->setToggleAction(true);
+	scrActions["alignBlock"]->setToggleAction(true);
+	scrActions["alignForced"]->setToggleAction(true);
+	connect(scrActions["alignLeft"], SIGNAL(activatedData(int)), this, SLOT(setNewAbStyle(int)));
+	connect(scrActions["alignCenter"], SIGNAL(activatedData(int)), this, SLOT(setNewAbStyle(int)));
+	connect(scrActions["alignRight"], SIGNAL(activatedData(int)), this, SLOT(setNewAbStyle(int)));
+	connect(scrActions["alignBlock"], SIGNAL(activatedData(int)), this, SLOT(setNewAbStyle(int)));
+	connect(scrActions["alignForced"], SIGNAL(activatedData(int)), this, SLOT(setNewAbStyle(int)));
+	
+	
+	//Shade actions
+	scrActionGroups.insert("shade", new QActionGroup(this, "shade", true));
+	scrActions.insert("shadeOther", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Other..."), QKeySequence(), scrActionGroups["shade"], "shadeOther", -1));
+	connect(scrActions["shadeOther"], SIGNAL(activatedData(int)), this, SLOT(setItemShade(int)));
+	for (uint i=0; i<=100 ; i+=10)
+	{
+		QString shadeName=QString("shade%1").arg(i);
+		scrActions.insert(shadeName, new ScrAction(ScrAction::DataInt, QIconSet(), tr("&%1 %").arg(i), QKeySequence(), scrActionGroups["shade"], shadeName, i));
+		scrActions[shadeName]->setToggleAction(true);
+		connect(scrActions[shadeName], SIGNAL(activatedData(int)), this, SLOT(setItemShade(int)));
+	}
+	
+	//Type Effects actions
+	scrActionGroups.insert("typeEffects", new QActionGroup(this, "typeEffects", false));
+	scrActions.insert("typeEffectNormal", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Normal"), QKeySequence(), scrActionGroups["typeEffects"], "typeEffectNormal", 0));
+	scrActions.insert("typeEffectUnderline", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Underline"), QKeySequence(), scrActionGroups["typeEffects"], "typeEffectUnderline", 1));
+	scrActions.insert("typeEffectStrikeThrough", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Strike Through"), QKeySequence(), scrActionGroups["typeEffects"], "typeEffectStrikeThrough", 2));
+	scrActions.insert("typeEffectSmallCaps", new ScrAction(ScrAction::DataInt, QIconSet(), tr("Small &Caps"), QKeySequence(), scrActionGroups["typeEffects"], "typeEffectSmallCaps", 3));
+	scrActions.insert("typeEffectSuperscript", new ScrAction(ScrAction::DataInt, QIconSet(), tr("Su&perscript"), QKeySequence(), scrActionGroups["typeEffects"], "typeEffectSuperscript", 4));
+	scrActions.insert("typeEffectSubscript", new ScrAction(ScrAction::DataInt, QIconSet(), tr("Sub&script"), QKeySequence(), scrActionGroups["typeEffects"], "typeEffectSubscript", 5));
+	scrActions.insert("typeEffectOutline", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Outlined"), QKeySequence(), scrActionGroups["typeEffects"], "typeEffectOutline", 6));
+	scrActions["typeEffectNormal"]->setToggleAction(true);
+	scrActions["typeEffectUnderline"]->setToggleAction(true);
+	scrActions["typeEffectStrikeThrough"]->setToggleAction(true);
+	scrActions["typeEffectSmallCaps"]->setToggleAction(true);
+	scrActions["typeEffectSuperscript"]->setToggleAction(true);
+	scrActions["typeEffectSubscript"]->setToggleAction(true);
+	scrActions["typeEffectOutline"]->setToggleAction(true);
+	connect(scrActions["typeEffectNormal"], SIGNAL(activatedData(int)), this, SLOT(setItemTypeStyle(int)));
+	connect(scrActions["typeEffectUnderline"], SIGNAL(activatedData(int)), this, SLOT(setItemTypeStyle(int)));
+	connect(scrActions["typeEffectStrikeThrough"], SIGNAL(activatedData(int)), this, SLOT(setItemTypeStyle(int)));
+	connect(scrActions["typeEffectSmallCaps"], SIGNAL(activatedData(int)), this, SLOT(setItemTypeStyle(int)));
+	connect(scrActions["typeEffectSuperscript"], SIGNAL(activatedData(int)), this, SLOT(setItemTypeStyle(int)));
+	connect(scrActions["typeEffectSubscript"], SIGNAL(activatedData(int)), this, SLOT(setItemTypeStyle(int)));
+	connect(scrActions["typeEffectOutline"], SIGNAL(activatedData(int)), this, SLOT(setItemTypeStyle(int)));
+	
+	//Other Style menu items that get added in various places
+	scrActions.insert("styleInvertPict", new ScrAction(tr("&Invert"), QKeySequence(), this, "styleInvertPict"));
+	scrActions.insert("styleTabulators", new ScrAction(tr("&Tabulators..."), QKeySequence(), this, "styleTabulators"));
+	connect(scrActions["styleInvertPict"], SIGNAL(activated()), this, SLOT(InvertPict()));
+	connect(scrActions["styleTabulators"], SIGNAL(activated()), this, SLOT(EditTabs()));
+
 }
 
 void ScribusApp::initItemMenuActions()
@@ -1443,7 +1522,7 @@ void ScribusApp::initMenuBar()
 	scrActions["editJavascripts"]->setEnabled(false);
 
 	//Style Menu
-	StilMenu = new QPopupMenu();
+	scrMenuMgr->createMenu("Style", tr("St&yle"));
 	
 	//Item Menu
 	scrMenuMgr->createMenu("Item", tr("&Item"));
@@ -1552,15 +1631,10 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["helpTooltips"], "Help");
 	scrMenuMgr->addMenuItem(scrActions["helpManual"], "Help");
 	
-/*
-	editMenu->insertItem( tr("Test"), this, SLOT(slotTest()));
-	editMenu->insertItem( tr("Test2"), this, SLOT(slotTest2()));
-*/
-	
 	scrMenuMgr->addMenuToMenuBar("File");
 	scrMenuMgr->addMenuToMenuBar("Edit");
-	Stm = menuBar()->insertItem( tr("St&yle"), StilMenu);
-	menuBar()->setItemEnabled(Stm, 0);
+	scrMenuMgr->addMenuToMenuBar("Style");
+	scrMenuMgr->setMenuEnabled("Style", false);
 	scrMenuMgr->addMenuToMenuBar("Item");
 	scrMenuMgr->addMenuToMenuBar("Page");
 	scrMenuMgr->setMenuEnabled("Item", false);
@@ -1577,68 +1651,38 @@ void ScribusApp::initMenuBar()
 
 	
 	//Alignment menu
-	alignMenu = new QPopupMenu();
-	alignMenu->insertItem( tr("&Left"));
-	alignMenu->insertItem( tr("&Center"));
-	alignMenu->insertItem( tr("&Right"));
-	alignMenu->insertItem( tr("&Block"));
-	alignMenu->insertItem( tr("&Forced"));
-	
+	scrMenuMgr->createMenu("Alignment", tr("&Alignment"));
+	scrActionGroups["alignment"]->addTo(scrMenuMgr->getLocalPopupMenu("Alignment"));
+
 	//Color menu
-	ColorMenu = new QPopupMenu();
+	scrMenuMgr->createMenu("ItemShapes", tr("&Shape"), "Item");
+	// CB TODO
+	scrMenuMgr->createMenu("Color", tr("&Color"));
 	ColorMenC = new QComboBox(false);
 	ColorMenC->setEditable(false);
-	ColorMenu->insertItem(ColorMenC);
+	scrMenuMgr->addMenuItem(ColorMenC, "Color");
 	
 	//Text size menu
-	SizeTMenu = new QPopupMenu();
-	SizeTMenu->insertItem( tr("&Other..."));
-	QString ar_sizes[] = {" 7", " 9", "10", "11", "12", "14", "18", "24", "36", "48", "60", "72"};
-	size_t f_size = sizeof(ar_sizes) / sizeof(*ar_sizes);
-	for (uint s = 0; s < f_size; ++s)
-		SizeTMenu->insertItem(ar_sizes[s] + tr(" pt"));
-	
+	scrMenuMgr->createMenu("FontSize", tr("&Size"));
+	scrActionGroups["fontSize"]->addTo(scrMenuMgr->getLocalPopupMenu("FontSize"));
+		
 	//Shade menu
-	ShadeMenu = new QPopupMenu();
-	ShadeMenu->insertItem( tr("&Other..."));
-	ShadeMenu->insertItem("0 %");
-	ShadeMenu->insertItem("10 %");
-	ShadeMenu->insertItem("20 %");
-	ShadeMenu->insertItem("30 %");
-	ShadeMenu->insertItem("40 %");
-	ShadeMenu->insertItem("50 %");
-	ShadeMenu->insertItem("60 %");
-	ShadeMenu->insertItem("70 %");
-	ShadeMenu->insertItem("80 %");
-	ShadeMenu->insertItem("90 %");
-	ShadeMenu->insertItem("100 %");
+	scrMenuMgr->createMenu("Shade", tr("&Shade"));
+	scrActionGroups["shade"]->addTo(scrMenuMgr->getLocalPopupMenu("Shade"));
 	
 	//Font menu
-	FontMenu = new QPopupMenu();
+	scrMenuMgr->createMenu("Font", tr("&Font"));
+	FontMenu = scrMenuMgr->getLocalPopupMenu("Font");
 	
 	//Type style menu
-	TypeStyleMenu = new QPopupMenu();
-	TypeStyleMenu->insertItem( tr("Normal"));
-	tmp = qApp->font();
-	tmp.setUnderline(true);
-	TypeStyleMenu->insertItem(new FmItem( tr("Underline"), tmp));
-	tmp = qApp->font();
-	tmp.setStrikeOut(true);
-	TypeStyleMenu->insertItem(new FmItem( tr("Strikethru"), tmp));
-	TypeStyleMenu->insertItem( tr("Small Caps"));
-	TypeStyleMenu->insertItem( tr("Superscript"));
-	TypeStyleMenu->insertItem( tr("Subscript"));
-	TypeStyleMenu->insertItem( tr("Outlined"));
-
+	scrMenuMgr->createMenu("TypeEffects", tr("&Effects"));
+	scrActionGroups["typeEffects"]->addTo(scrMenuMgr->getLocalPopupMenu("TypeEffects"));
+	
 	connect(undoManager, SIGNAL(newAction(UndoObject*, UndoState*)),
 	        this, SLOT(refreshUndoRedoItems()));
 	connect(undoManager, SIGNAL(undoRedoDone()), this, SLOT(refreshUndoRedoItems()));
 	connect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
-	connect(ShadeMenu, SIGNAL(activated(int)), this, SLOT(setItemShade(int)));
 	connect(FontMenu, SIGNAL(activated(int)), this, SLOT(setItemFont(int)));
-	connect(SizeTMenu, SIGNAL(activated(int)), this, SLOT(setItemFSize(int)));
-	connect(TypeStyleMenu, SIGNAL(activated(int)), this, SLOT(setItemTypeStyle(int)));
-	connect(alignMenu, SIGNAL(activated(int)), this, SLOT(setItemTextAli(int)));
 }
 
 void ScribusApp::initStatusBar()
@@ -3457,7 +3501,8 @@ void ScribusApp::SwitchWin()
 	Mpal->Cpal->SetColors(doc->PageColors);
 	Mpal->Cpal->ChooseGrad(0);
 	ActWin->setCaption(doc->DocName);
-	ShadeMenu->setItemChecked(ShadeMenu->idAt(11), true);
+	scrActions["shade100"]->setOn(true);
+	//ShadeMenu->setItemChecked(ShadeMenu->idAt(11), true);
 	Mpal->SetDoc(doc);
 	Mpal->updateCList();
 	Sepal->SetView(view);
@@ -3583,7 +3628,8 @@ void ScribusApp::HaveNewDoc()
 	Mpal->Cpal->SetColors(doc->PageColors);
 	Mpal->Cpal->ChooseGrad(0);
 	ActWin->setCaption(doc->DocName);
-	ShadeMenu->setItemChecked(ShadeMenu->idAt(11), true);
+	scrActions["shade100"]->setOn(true);
+	//ShadeMenu->setItemChecked(ShadeMenu->idAt(11), true);
 	Mpal->SetDoc(doc);
 	Mpal->updateCList();
 	Sepal->SetView(view);
@@ -3689,7 +3735,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["fileImportImage"]->setEnabled(false);
 		scrActions["fileImportAppendText"]->setEnabled(false);
 		scrActions["fileExportText"]->setEnabled(false);
-		menuBar()->setItemEnabled(Stm, 0);
+		scrMenuMgr->setMenuEnabled("Style", false);
 		scrMenuMgr->setMenuEnabled("Item", false);
 		scrMenuMgr->setMenuEnabled("ItemShapes", false);
 		scrActions["itemConvertToOutlines"]->setEnabled(false);
@@ -3700,7 +3746,8 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["editSearchReplace"]->setEnabled(false);
 		
 		scrActions["extrasHyphenateText"]->setEnabled(false);
-		StilMenu->clear();
+		scrMenuMgr->clearMenu("Style");
+		
 		WerkTools->KetteAus->setEnabled(false);
 		WerkTools->KetteEin->setEnabled(false);
 		WerkTools->Textedit->setEnabled(false);
@@ -3718,14 +3765,14 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["editClear"]->setEnabled(false);
 		scrActions["editSearchReplace"]->setEnabled(false);
 		scrActions["extrasHyphenateText"]->setEnabled(false);
-		menuBar()->setItemEnabled(Stm, 1);
+		scrMenuMgr->setMenuEnabled("Style", true);
 		scrMenuMgr->setMenuEnabled("Item", true);
 		scrMenuMgr->setMenuEnabled("ItemShapes", !((b->isTableItem) && (b->isSingleSel)));
 		scrActions["itemConvertToOutlines"]->setEnabled(false);
-		StilMenu->clear();
-		StilMenu->insertItem( tr("&Color"), ColorMenu);
+		scrMenuMgr->clearMenu("Style");
+		scrMenuMgr->addMenuToMenu("Color","Style");
 		if (b->isRaster)
-			StilMenu->insertItem( tr("&Invert"), this, SLOT(InvertPict()));
+			scrMenuMgr->addMenuItem(scrActions["styleInvertPict"], "Style");
 		WerkTools->KetteAus->setEnabled(false);
 		WerkTools->KetteEin->setEnabled(false);
 		WerkTools->Textedit->setEnabled(b->ScaleType);
@@ -3742,18 +3789,19 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["editClear"]->setEnabled(false);
 		scrActions["editSearchReplace"]->setEnabled(b->itemText.count() != 0);
 		scrActions["extrasHyphenateText"]->setEnabled(true);
-		menuBar()->setItemEnabled(Stm, 1);
+		scrMenuMgr->setMenuEnabled("Style", true);
 		scrMenuMgr->setMenuEnabled("Item", true);
 		scrMenuMgr->setMenuEnabled("ItemShapes", !((b->isTableItem) && (b->isSingleSel)));
 		scrActions["itemConvertToOutlines"]->setEnabled(true);
-		StilMenu->clear();
-		StilMenu->insertItem( tr("&Font"), FontMenu);
-		StilMenu->insertItem( tr("&Size"), SizeTMenu);
-		StilMenu->insertItem( tr("&Effects"), TypeStyleMenu);
-		StilMenu->insertItem( tr("&Alignment"), alignMenu);
-		StilMenu->insertItem( tr("&Color"), ColorMenu);
-		StilMenu->insertItem( tr("&Shade"), ShadeMenu);
-		StilMenu->insertItem( tr("&Tabulators..."), this, SLOT(EditTabs()));
+		scrMenuMgr->clearMenu("Style");
+		scrMenuMgr->addMenuToMenu("Font","Style");
+		scrMenuMgr->addMenuToMenu("FontSize","Style");
+		scrMenuMgr->addMenuToMenu("TypeEffects","Style");
+		scrMenuMgr->addMenuToMenu("Alignment","Style");
+		scrMenuMgr->addMenuToMenu("Color","Style");
+		scrMenuMgr->addMenuToMenu("Shade","Style");
+		scrMenuMgr->addMenuItem(scrActions["styleTabulators"], "Style");
+		
 		WerkTools->Rotiere->setEnabled(true);
 		WerkTools->Textedit2->setEnabled(true);
 		if ((b->NextBox != 0) || (b->BackBox != 0))
@@ -3827,17 +3875,17 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["editClear"]->setEnabled(false);
 		scrActions["editSearchReplace"]->setEnabled(false);
 		scrActions["extrasHyphenateText"]->setEnabled(false);
-		menuBar()->setItemEnabled(Stm, 1);
+		scrMenuMgr->setMenuEnabled("Style", true);
 		scrMenuMgr->setMenuEnabled("Item", true);
 		scrMenuMgr->setMenuEnabled("ItemShapes", false);
 		scrActions["itemDetachTextFromPath"]->setEnabled(true);
 		scrActions["itemConvertToOutlines"]->setEnabled(false);
-		StilMenu->clear();
-		StilMenu->insertItem( tr("Font"), FontMenu);
-		StilMenu->insertItem( tr("Size"), SizeTMenu);
-		StilMenu->insertItem( tr("Style"), TypeStyleMenu);
-		StilMenu->insertItem( tr("Color"), ColorMenu);
-		StilMenu->insertItem( tr("Shade"), ShadeMenu);
+		scrMenuMgr->clearMenu("Style");
+		scrMenuMgr->addMenuToMenu("Font","Style");
+		scrMenuMgr->addMenuToMenu("FontSize","Style");
+		scrMenuMgr->addMenuToMenu("Style","Style");
+		scrMenuMgr->addMenuToMenu("Color","Style");
+		scrMenuMgr->addMenuToMenu("Shade","Style");
 		WerkTools->Rotiere->setEnabled(true);
 		WerkTools->Textedit->setEnabled(false);
 		WerkTools->Textedit2->setEnabled(true);
@@ -3872,11 +3920,11 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["editSearchReplace"]->setEnabled(false);
 
 		scrActions["extrasHyphenateText"]->setEnabled(false);
-		menuBar()->setItemEnabled(Stm, 1);
+		scrMenuMgr->setMenuEnabled("Style", true);
 		scrMenuMgr->setMenuEnabled("Item", true);
-		StilMenu->clear();
-		StilMenu->insertItem( tr("&Color"), ColorMenu);
-		StilMenu->insertItem( tr("&Shade"), ShadeMenu);
+		scrMenuMgr->clearMenu("Style");
+		scrMenuMgr->addMenuToMenu("Color","Style");
+		scrMenuMgr->addMenuToMenu("Shade","Style");
 		if (Nr == 6)
 			scrMenuMgr->setMenuEnabled("ItemShapes", true);
 		WerkTools->KetteAus->setEnabled(false);
@@ -4939,7 +4987,7 @@ bool ScribusApp::DoFileClose()
 
 		scrMenuMgr->setMenuEnabled("Page", false);
 		scrMenuMgr->setMenuEnabled("Extras", false);
-		menuBar()->setItemEnabled(Stm, 0);
+		scrMenuMgr->setMenuEnabled("Style", false);
 		scrMenuMgr->setMenuEnabled("Item", false);
 		WerkTools->setEnabled(false);
 		WerkToolsP->setEnabled(false);
@@ -5883,7 +5931,7 @@ void ScribusApp::setMapal(bool visible)
 
 void ScribusApp::setUndoPalette(bool visible)
 {
-	visible ? undoPalette->show() : undoPalette->hide();
+	undoPalette->setShown(visible);
 	scrActions["toolsActionHistory"]->setOn(visible);
 }
 
@@ -6034,16 +6082,8 @@ void ScribusApp::ToggleUndoPalette()
 
 void ScribusApp::setTools(bool visible)
 {
-	if (visible)
-	{
-		WerkTools->show();
-		WerkTools->Sichtbar = true;
-	}
-	else
-	{
-		WerkTools->hide();
-		WerkTools->Sichtbar = false;
-	}
+	WerkTools->setShown(visible);
+	WerkTools->Sichtbar = visible;
 	scrActions["toolsToolbarTools"]->setOn(visible);
 }
 
@@ -6327,7 +6367,7 @@ void ScribusApp::setAppMode(int mode)
 			if (b != 0)
 			{
 				view->RefreshItem(b);
-				menuBar()->setItemEnabled(Stm, 1);
+				scrMenuMgr->setMenuEnabled("Style", true);
 				scrMenuMgr->setMenuEnabled("Item", true);
 			}
 			view->HR->ItemPosValid = false;
@@ -6363,7 +6403,7 @@ void ScribusApp::setAppMode(int mode)
 			WerkTools->Textedit2->setOn(false);
 			view->slotDoCurs(true);
 			scrMenuMgr->setMenuEnabled("Item", false);
-			menuBar()->setItemEnabled(Stm, 0);
+			scrMenuMgr->setMenuEnabled("Style", false);
 			doc->CurTimer = new QTimer(view);
 			connect(doc->CurTimer, SIGNAL(timeout()), view, SLOT(BlinkCurs()));
 			doc->CurTimer->start(500);
@@ -6437,33 +6477,37 @@ void ScribusApp::Aktiv()
 void ScribusApp::setItemTypeStyle(int id)
 {
 	int b = 0;
-	int a = TypeStyleMenu->indexOf(id);
-	TypeStyleMenu->setItemChecked(id, !TypeStyleMenu->isItemChecked(id));
-	if (a > 0)
+	
+	if (id == 0)
 	{
-		if (a == 4)
-		{
-			if (TypeStyleMenu->isItemChecked(TypeStyleMenu->idAt(4)))
-				TypeStyleMenu->setItemChecked(TypeStyleMenu->idAt(5), false);
-		}
-		if (a == 5)
-		{
-			if (TypeStyleMenu->isItemChecked(TypeStyleMenu->idAt(5)))
-				TypeStyleMenu->setItemChecked(TypeStyleMenu->idAt(4), false);
-		}
-		if (TypeStyleMenu->isItemChecked(TypeStyleMenu->idAt(0)))
-			b = 0;
-		if (TypeStyleMenu->isItemChecked(TypeStyleMenu->idAt(1)))
+		qDebug("Setting normal");
+		scrActions["typeEffectNormal"]->setOn(true);
+		scrActions["typeEffectUnderline"]->setOn(false);
+		scrActions["typeEffectStrikeThrough"]->setOn(false);
+		scrActions["typeEffectSmallCaps"]->setOn(false);
+		scrActions["typeEffectSuperscript"]->setOn(false);
+		scrActions["typeEffectSubscript"]->setOn(false);
+		scrActions["typeEffectOutline"]->setOn(false);
+	}
+	else
+	{
+		scrActions["typeEffectNormal"]->setOn(false);
+		if (id == 4)
+			scrActions["typeEffectSubscript"]->setOn(false);
+		if (id == 5)
+			scrActions["typeEffectSuperscript"]->setOn(false);
+		
+		if (scrActions["typeEffectUnderline"]->isOn())
 			b |= 8;
-		if (TypeStyleMenu->isItemChecked(TypeStyleMenu->idAt(2)))
+		if (scrActions["typeEffectStrikeThrough"]->isOn())
 			b |= 16;
-		if (TypeStyleMenu->isItemChecked(TypeStyleMenu->idAt(3)))
+		if (scrActions["typeEffectSmallCaps"]->isOn())
 			b |= 64;
-		if (TypeStyleMenu->isItemChecked(TypeStyleMenu->idAt(4)))
+		if (scrActions["typeEffectSuperscript"]->isOn())
 			b |= 1;
-		if (TypeStyleMenu->isItemChecked(TypeStyleMenu->idAt(5)))
+		if (scrActions["typeEffectSubscript"]->isOn())
 			b |= 2;
-		if (TypeStyleMenu->isItemChecked(TypeStyleMenu->idAt(6)))
+		if (scrActions["typeEffectOutline"]->isOn())
 			b |= 4;
 	}
 	setItemHoch(b);
@@ -6474,24 +6518,14 @@ void ScribusApp::setStilvalue(int s)
 	uint a;
 	int c = s & 127;
 	doc->CurrentStyle = c;
-	for (a = 0; a < TypeStyleMenu->count(); ++a)
-	{
-		TypeStyleMenu->setItemChecked(TypeStyleMenu->idAt(a), false);
-	}
-	if (c == 0)
-		TypeStyleMenu->setItemChecked(TypeStyleMenu->idAt(0), true);
-	if (c & 8)
-		TypeStyleMenu->setItemChecked(TypeStyleMenu->idAt(1), true);
-	if (c & 16)
-		TypeStyleMenu->setItemChecked(TypeStyleMenu->idAt(2), true);
-	if (c & 64)
-		TypeStyleMenu->setItemChecked(TypeStyleMenu->idAt(3), true);
-	if (c & 1)
-		TypeStyleMenu->setItemChecked(TypeStyleMenu->idAt(4), true);
-	if (c & 2)
-		TypeStyleMenu->setItemChecked(TypeStyleMenu->idAt(5), true);
-	if (c & 4)
-		TypeStyleMenu->setItemChecked(TypeStyleMenu->idAt(6), true);
+	scrActions["typeEffectNormal"]->setOn(c==0);
+	scrActions["typeEffectUnderline"]->setOn(c & 8);
+	scrActions["typeEffectStrikeThrough"]->setOn(c & 16);
+	scrActions["typeEffectSmallCaps"]->setOn(c & 64);
+	scrActions["typeEffectSuperscript"]->setOn(c & 1);
+	scrActions["typeEffectSubscript"]->setOn(c & 2);
+	scrActions["typeEffectOutline"]->setOn(c & 4);
+	
 	emit TextStil(s);
 }
 
@@ -6784,47 +6818,35 @@ void ScribusApp::AdjustFontMenu(QString nf)
 	for (uint a = 2; a < FontMenu->count(); ++a)
 	{
 		df = FontID[FontMenu->idAt(a)];
-		if (df == nf)
-			FontMenu->setItemChecked(FontMenu->idAt(a), true);
-		else
-			FontMenu->setItemChecked(FontMenu->idAt(a), false);
+		FontMenu->setItemChecked(FontMenu->idAt(a), (df == nf));
 	}
 }
 
 void ScribusApp::setItemFSize(int id)
 {
-	int c = SizeTMenu->indexOf(id);
-	bool ok = false;
-	if (c > 0)
-	{
-		c = SizeTMenu->text(id).left(2).toInt() * 10;
-		view->chFSize(c);
-	}
+	int c = id;
+	if (c != -1)
+		view->chFSize(c*10);
 	else
 	{
+		bool ok = false;
 		Query* dia = new Query(this, "New", 1, 0, tr("&Size:"), tr("Size"));
 		if (dia->exec())
 		{
-			c = qRound(dia->getEditText().toDouble(&ok) * 10);
-			if ((ok) && (c < 10250) && (c > 0))
-				view->chFSize(c);
+			c = qRound(dia->getEditText().toDouble(&ok));
+			if ((ok) && (c < 1025) && (c > 0))
+				view->chFSize(c*10);
 			delete dia;
 		}
 	}
-	Mpal->setSize(c);
+	Mpal->setSize(c*10);
 	slotDocCh();
 }
 
 void ScribusApp::setFSizeMenu(int size)
 {
-	for (uint a = 0; a < SizeTMenu->count(); ++a)
-	{
-		SizeTMenu->setItemChecked(SizeTMenu->idAt(a), false);
-		if (SizeTMenu->text(SizeTMenu->idAt(a)).left(2).toInt() == size / 10)
-		{
-			SizeTMenu->setItemChecked(SizeTMenu->idAt(a), true);
-		}
-	}
+	if (scrActions[QString("fontSize%1").arg(size/10)])
+		scrActions[QString("fontSize%1").arg(size/10)]->setOn(true);
 }
 
 void ScribusApp::setItemFarbe(int id)
@@ -6837,29 +6859,26 @@ void ScribusApp::setItemFarbe(int id)
 		else
 			view->ItemBrush(ColorMenC->text(id));
 	}
-	ColorMenu->activateItemAt(0);
+	scrMenuMgr->getLocalPopupMenu("Color")->activateItemAt(0);
 	slotDocCh();
 }
 
 void ScribusApp::setItemShade(int id)
 {
-	int c = ShadeMenu->indexOf(id);
+	int c = id;
+	
 	uint a;
 	bool ok = false;
-	for (a = 0; a < ShadeMenu->count(); ++a)
-	{
-		ShadeMenu->setItemChecked(ShadeMenu->idAt(a), false);
-	}
-	ShadeMenu->setItemChecked(id, true);
+
 	if (view->SelItem.count() != 0)
 	{
 		PageItem *b = view->SelItem.at(0);
-		if (c > 0)
+		if (c != -1)
 		{
 			if ((b->PType == 4) || (b->PType == 8))
-				view->ItemTextBrushS((c-1) * 10);
+				view->ItemTextBrushS(c);
 			else
-				view->ItemBrushShade((c-1) * 10);
+				view->ItemBrushShade(c);
 		}
 		else
 		{
@@ -6921,11 +6940,13 @@ void ScribusApp::setCSMenu(QString , QString l, int  , int ls)
 		if (ColorMenC->text(a) == la)
 			ColorMenC->setCurrentItem(a);
 	}
-	for (a = 0; a < ShadeMenu->count(); ++a)
-	{
-		ShadeMenu->setItemChecked(ShadeMenu->idAt(a), false);
-	}
-	ShadeMenu->setItemChecked(ShadeMenu->idAt(lb/10+1), true);
+	//for (a = 0; a < ShadeMenu->count(); ++a)
+	//{
+	//	ShadeMenu->setItemChecked(ShadeMenu->idAt(a), false);
+	//}
+	//ShadeMenu->setItemChecked(ShadeMenu->idAt(lb/10+1), true);
+	if (scrActions[QString("shade%1").arg(lb)])
+		scrActions[QString("shade%1").arg(lb)]->setOn(true);
 }
 
 void ScribusApp::slotEditLineStyles()
@@ -7222,12 +7243,6 @@ void ScribusApp::saveStyles(StilFormate *dia)
 	slotDocCh();
 }
 
-void ScribusApp::setItemTextAli(int id)
-{
-	int a = alignMenu->indexOf(id);
-	setNewAbStyle(a);
-}
-
 void ScribusApp::setNewAbStyle(int a)
 {
 	setActiveWindow();
@@ -7246,9 +7261,14 @@ void ScribusApp::setAbsValue(int a)
 {
 	doc->currentParaStyle = a;
 	Mpal->setAli(a);
-	for (int b = 0; b < 5; ++b)
+	if (a<0 || a>4)
+		qDebug(QString("Alignment value incorrect %1").arg(a));
+	else
 	{
-		alignMenu->setItemChecked(alignMenu->idAt(b), false);
+		QString alignment[] = {"Left", "Center", "Right", "Block", "Forced"};
+		QString actionName="align"+alignment[a];
+		if (scrActions[actionName])
+			scrActions[actionName]->setOn(true);
 	}
 }
 
@@ -9022,10 +9042,8 @@ QString ScribusApp::CFileDialog(QString wDir, QString caption, QString filter, Q
 	return retval;
 }
 
-void ScribusApp::RunPlug(int id)
+void ScribusApp::RunPlug(int)
 {
-	if (extraMenu->indexOf(id) > 3)
-		CallDLLbyMenu(id);
 }
 
 void ScribusApp::RunImportPlug(int )
@@ -10486,9 +10504,9 @@ void ScribusApp::HaveRaster(bool art)
 		PageItem *b = view->SelItem.at(0);
 		if (b->PType == 2)
 		{
-			StilMenu->clear();
-			StilMenu->insertItem( tr("Color"), ColorMenu);
-			StilMenu->insertItem( tr("Invert"), this, SLOT(InvertPict()));
+			scrMenuMgr->clearMenu("Style");
+			scrMenuMgr->addMenuToMenu("Color","Style");
+			scrMenuMgr->addMenuItem(scrActions["styleInvertPict"], "Style");
 		}
 	}
 }
