@@ -82,13 +82,13 @@ PyObject *scribus_moveobjabs(PyObject */*self*/, PyObject* args)
 		{
 			double x2, y2, w, h;
 			Carrier->view->getGroupRect(&x2, &y2, &w, &h);
-			Carrier->view->moveGroup(ValueToPoint(x) - x2, ValueToPoint(y) - y2);
+			Carrier->view->moveGroup(pageUnitXToDocX(x) - x2, pageUnitYToDocY(y) - y2);
 		}
 		else
-			Carrier->view->MoveItem(ValueToPoint(x) - item->Xpos, ValueToPoint(y) - item->Ypos, item);
+			Carrier->view->MoveItem(pageUnitXToDocX(x) - item->Xpos, pageUnitYToDocY(y) - item->Ypos, item);
 	}
 	else
-		Carrier->view->MoveItem(ValueToPoint(x) - item->Xpos, ValueToPoint(y) - item->Ypos, item);
+		Carrier->view->MoveItem(pageUnitXToDocX(x) - item->Xpos, pageUnitYToDocY(y) - item->Ypos, item);
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -136,7 +136,7 @@ PyObject *scribus_sizeobjabs(PyObject */*self*/, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == NULL)
 		return NULL;
-	Carrier->view->SizeItem(ValueToPoint(x) - item->Xpos, ValueToPoint(y) - item->Ypos, item->ItemNr);
+	Carrier->view->SizeItem(pageUnitXToDocX(x) - item->Xpos, pageUnitYToDocY(y) - item->Ypos, item->ItemNr);
 	Py_INCREF(Py_None);
 	return Py_None;
 }

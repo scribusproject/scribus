@@ -16,9 +16,10 @@ PyObject *scribus_newrect(PyObject */*self*/, PyObject* args)
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists","python error"));
 		return NULL;
 	}
-	int i = Carrier->view->PaintRect(ValueToPoint(x), ValueToPoint(y),
-															ValueToPoint(b), ValueToPoint(h),
-															Carrier->doc->toolSettings.dWidth, Carrier->doc->toolSettings.dBrush, Carrier->doc->toolSettings.dPen);
+	int i = Carrier->view->PaintRect(pageUnitXToDocX(x), pageUnitYToDocY(y),
+									 pageUnitXToDocX(b), pageUnitYToDocY(h),
+									 Carrier->doc->toolSettings.dWidth, Carrier->doc->toolSettings.dBrush,
+									 Carrier->doc->toolSettings.dPen);
 	Carrier->view->SetRectFrame(Carrier->doc->Items.at(i));
 	if (Name != "")
 		Carrier->doc->Items.at(i)->setName(QString::fromUtf8(Name));
@@ -34,7 +35,10 @@ PyObject *scribus_newellipse(PyObject */*self*/, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	int i = Carrier->view->PaintEllipse(ValueToPoint(x), ValueToPoint(y), ValueToPoint(b), ValueToPoint(h), Carrier->doc->toolSettings.dWidth, Carrier->doc->toolSettings.dBrush, Carrier->doc->toolSettings.dPen);
+	int i = Carrier->view->PaintEllipse(pageUnitXToDocX(x), pageUnitYToDocY(y),
+										pageUnitXToDocX(b), pageUnitYToDocY(h),
+										Carrier->doc->toolSettings.dWidth, Carrier->doc->toolSettings.dBrush,
+										Carrier->doc->toolSettings.dPen);
 	if (ItemExists(QString::fromUtf8(Name)))
 	{
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists","python error"));
@@ -55,7 +59,8 @@ PyObject *scribus_newimage(PyObject */*self*/, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	int i = Carrier->view->PaintPict(ValueToPoint(x), ValueToPoint(y), ValueToPoint(b), ValueToPoint(h));
+	int i = Carrier->view->PaintPict(pageUnitXToDocX(x), pageUnitYToDocY(y),
+									 pageUnitXToDocX(b), pageUnitYToDocY(h));
 	if (ItemExists(QString::fromUtf8(Name)))
 	{
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists","python error"));
@@ -76,7 +81,9 @@ PyObject *scribus_newtext(PyObject */*self*/, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	int i = Carrier->view->PaintText(ValueToPoint(x), ValueToPoint(y), ValueToPoint(b), ValueToPoint(h), Carrier->doc->toolSettings.dWidth, Carrier->doc->toolSettings.dPenText);
+	int i = Carrier->view->PaintText(pageUnitXToDocX(x), pageUnitYToDocY(y),
+									 pageUnitXToDocX(b), pageUnitYToDocY(h),
+									 Carrier->doc->toolSettings.dWidth, Carrier->doc->toolSettings.dPenText);
 	if (ItemExists(QString::fromUtf8(Name)))
 	{
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists","python error"));
@@ -97,15 +104,15 @@ PyObject *scribus_newline(PyObject */*self*/, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	x =	ValueToPoint(x);
-	y = ValueToPoint(y);
-	b = ValueToPoint(b);
+	x =	pageUnitXToDocX(x);
+	y = pageUnitYToDocY(y);
+	b = pageUnitXToDocX(b);
+	h = pageUnitYToDocY(h);
 	if (ItemExists(QString::fromUtf8(Name)))
 	{
 		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists","python error"));
 		return NULL;
 	}
-	h = ValueToPoint(h);
 	int i = Carrier->view->PaintPolyLine(x, y, 1, 1,	Carrier->doc->toolSettings.dWidth, Carrier->doc->toolSettings.dBrush, Carrier->doc->toolSettings.dPen);
 	PageItem *it = Carrier->doc->Items.at(i);
 	it->PoLine.resize(4);
@@ -159,9 +166,9 @@ PyObject *scribus_polyline(PyObject */*self*/, PyObject* args)
 	}
 	double x, y, b, h;
 	int i = 0;
-	x = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
+	x = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 	i++;
-	y = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
+	y = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 	i++;
 	int ic = Carrier->view->PaintPolyLine(x, y, 1, 1,	Carrier->doc->toolSettings.dWidth, Carrier->doc->toolSettings.dBrush, Carrier->doc->toolSettings.dPen);
 	PageItem *it = Carrier->doc->Items.at(ic);
@@ -171,8 +178,8 @@ PyObject *scribus_polyline(PyObject */*self*/, PyObject* args)
 	int pp = 6;
 	for (i = 2; i < len - 2; i += 2)
 	{
-		b = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
-		h = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i+1))));
+		b = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
+		h = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i+1))));
 		it->PoLine.resize(pp);
 		it->PoLine.setPoint(pp-4, b-x, h-y);
 		it->PoLine.setPoint(pp-3, b-x, h-y);
@@ -181,8 +188,8 @@ PyObject *scribus_polyline(PyObject */*self*/, PyObject* args)
 		pp += 4;
 	}
 	pp -= 2;
-	b = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, len-2))));
-	h = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, len-1))));
+	b = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, len-2))));
+	h = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, len-1))));
 	it->PoLine.resize(pp);
 	it->PoLine.setPoint(pp-2, b-x, h-y);
 	it->PoLine.setPoint(pp-1, b-x, h-y);
@@ -234,9 +241,9 @@ PyObject *scribus_polygon(PyObject */*self*/, PyObject* args)
 	}
 	double x, y, b, h;
 	int i = 0;
-	x = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
+	x = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 	i++;
-	y = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
+	y = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 	i++;
 	int ic = Carrier->view->PaintPoly(x, y, 1, 1,	Carrier->doc->toolSettings.dWidth, Carrier->doc->toolSettings.dBrush, Carrier->doc->toolSettings.dPen);
 	PageItem *it = Carrier->doc->Items.at(ic);
@@ -246,8 +253,8 @@ PyObject *scribus_polygon(PyObject */*self*/, PyObject* args)
 	int pp = 6;
 	for (i = 2; i < len - 2; i += 2)
 	{
-		b = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
-		h = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i+1))));
+		b = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
+		h = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i+1))));
 		it->PoLine.resize(pp);
 		it->PoLine.setPoint(pp-4, b-x, h-y);
 		it->PoLine.setPoint(pp-3, b-x, h-y);
@@ -255,8 +262,8 @@ PyObject *scribus_polygon(PyObject */*self*/, PyObject* args)
 		it->PoLine.setPoint(pp-1, b-x, h-y);
 		pp += 4;
 	}
-	b = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, len-2))));
-	h = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, len-1))));
+	b = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, len-2))));
+	h = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, len-1))));
 	it->PoLine.resize(pp);
 	it->PoLine.setPoint(pp-4, b-x, h-y);
 	it->PoLine.setPoint(pp-3, b-x, h-y);
@@ -311,17 +318,17 @@ PyObject *scribus_bezierline(PyObject */*self*/, PyObject* args)
 	}
 	double x, y, b, h, kx, ky, kx2, ky2;
 	int i = 0;
-	x = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
+	x = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 	i++;
-	y = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
+	y = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 	i++;
-	kx = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
+	kx = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 	i++;
-	ky = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
+	ky = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 	i++;
-	kx2 = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
+	kx2 = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 	i++;
-	ky2 = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
+	ky2 = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
 	i++;
 	int ic = Carrier->view->PaintPolyLine(x, y, 1, 1,	Carrier->doc->toolSettings.dWidth, Carrier->doc->toolSettings.dBrush, Carrier->doc->toolSettings.dPen);
 	PageItem *it = Carrier->doc->Items.at(ic);
@@ -331,12 +338,12 @@ PyObject *scribus_bezierline(PyObject */*self*/, PyObject* args)
 	int pp = 6;
 	for (i = 6; i < len - 6; i += 6)
 	{
-		b = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
-		h = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i+1))));
-		kx = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i+2))));
-		ky = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i+3))));
-		kx2 = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i+4))));
-		ky2 = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i+5))));
+		b = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
+		h = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i+1))));
+		kx = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i+2))));
+		ky = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i+3))));
+		kx2 = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i+4))));
+		ky2 = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i+5))));
 		it->PoLine.resize(pp);
 		it->PoLine.setPoint(pp-4, b-x, h-y);
 		it->PoLine.setPoint(pp-3, kx-x, ky-y);
@@ -345,10 +352,10 @@ PyObject *scribus_bezierline(PyObject */*self*/, PyObject* args)
 		pp += 4;
 	}
 	pp -= 2;
-	b = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, len-6))));
-	h = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, len-5))));
-	kx = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, len-4))));
-	ky = ValueToPoint(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, len-3))));
+	b = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, len-6))));
+	h = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, len-5))));
+	kx = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, len-4))));
+	ky = pageUnitYToDocY(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, len-3))));
 	it->PoLine.resize(pp);
 	it->PoLine.setPoint(pp-2, b-x, h-y);
 	it->PoLine.setPoint(pp-1, kx-x, ky-y);
@@ -402,7 +409,7 @@ PyObject *scribus_pathtext(PyObject */*self*/, PyObject* args)
 	Carrier->view->SelItem.append(Carrier->doc->Items.at(ii));
 	PageItem *it = Carrier->doc->Items.at(i);
 	Carrier->view->ToPathText();
-	Carrier->view->MoveItem(ValueToPoint(x) - it->Xpos, ValueToPoint(y) - it->Ypos, it);
+	Carrier->view->MoveItem(pageUnitXToDocX(x) - it->Xpos, pageUnitYToDocY(y) - it->Ypos, it);
 	if (Name != "")
 		it->setName(QString::fromUtf8(Name));
 	return PyString_FromString(it->AnName.utf8());
