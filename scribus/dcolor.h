@@ -13,7 +13,7 @@
 #include <qlayout.h>
 #include <qlabel.h>
 #include <qpushbutton.h>
-#include <qpopupmenu.h>
+#include <qcombobox.h>
 #include "scribusdoc.h"
 
 class DelColor : public QDialog
@@ -31,8 +31,7 @@ private:
     QPushButton* PushButton3;
     QLabel* TextLabel4;
     QLabel* DColor;
-    QPushButton* Ersatz;
-    QPopupMenu *Fausw;
+    QComboBox* Ersatz;
 
 protected:
     QVBoxLayout* DLayout;
