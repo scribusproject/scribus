@@ -28,7 +28,7 @@ SxwDialog::SxwDialog(bool update, bool prefix) : QDialog(0, "sxwdia", true, 0)
 	prefixCheck = new QCheckBox(tr("Use document name as a prefix for paragraph styles"), this, "prefixCheck");
 	prefixCheck->setChecked(prefix);
 	QToolTip::add(prefixCheck, tr("Should importer add the name of the document\n"
-	                              "on front of the paragraph style name in Scirubs"));
+	                              "on front of the paragraph style name in Scribus"));
 	playout->addWidget(prefixCheck);
 	layout->addLayout(playout);
 
