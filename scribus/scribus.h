@@ -74,6 +74,7 @@ class WerkToolB;
 class WerkToolBP;
 class UndoPalette;
 class FileWatcher;
+class UndoManager;
 class ScrAction;
 class MenuManager;
 class CheckDocument;
@@ -640,6 +641,7 @@ private:
 	void *PSDriver;
 	int DocNr;
 	QStringList RecentDocs;
+	UndoManager *undoManager;
 	struct PlugData { 
 						QString Datei;
 						QString Name;

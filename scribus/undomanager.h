@@ -375,6 +375,9 @@ public:
 	static const QString Group;
 	static const QString Create;
 	static const QString CreateTo;
+	static const QString AlignDistribute;
+	static const QString ItemsInvolved;
+	static const QString Cancel;
 	/*@}*/
 
 	/**
@@ -402,6 +405,7 @@ public:
 	static QPixmap *IRotatePolygon;
 	static QPixmap *IRotatePolyline;
 	static QPixmap *IRotatePathText;
+	static QPixmap *IAlignDistribute;
 	/*@}*/
 
 protected:

@@ -378,7 +378,7 @@ void UndoManager::doRedo(int steps)
 			UndoObject* tmpUndoObject = aPair.first;
 			tmpUndoState = aPair.second;
 			TransactionState *ts = dynamic_cast<TransactionState*>(tmpUndoState);
-			if (tmpUndoState && !ts)
+			if (tmpUndoObject && tmpUndoState && !ts)
 				tmpUndoObject->restore(tmpUndoState, false);
 			else if (tmpUndoState && ts)
 				doTransactionRedo(ts);
@@ -422,8 +422,6 @@ void UndoManager::showObject(int uid)
 
 void UndoManager::replace(ulong uid, UndoObject *newUndoObject)
 {
-	if (!newUndoObject)
-		return;
 	disconnectGuis();
 	for (uint i = 0; i < stacks[currentDoc].second.size(); ++i)
 	{
@@ -579,44 +577,50 @@ void UndoManager::initIcons()
 	UndoManager::IRotatePolygon  = new QPixmap(iconDir + "u_rotate_polygon.png");
 	UndoManager::IRotatePolyline = new QPixmap(iconDir + "u_rotate_polyline.png");
 // 	UndoManager::IRotatePathText = new QPixmap(iconDir + "u_rotate_pathtext.png");
+
+	UndoManager::IAlignDistribute = new QPixmap(iconDir + "u_align.png");
 }
 
-const QString UndoManager::AddVGuide    = tr("Add vertical guide");
-const QString UndoManager::AddHGuide    = tr("Add horizontal guide");
-const QString UndoManager::DelVGuide    = tr("Remove vertical guide");
-const QString UndoManager::DelHGuide    = tr("Remove horizontal guide");
-const QString UndoManager::MoveVGuide   = tr("Move vertical guide");
-const QString UndoManager::MoveHGuide   = tr("Move horizontal guide");
-const QString UndoManager::LockGuides   = tr("Lock guides");
-const QString UndoManager::UnlockGuides = tr("Unlock guides");
-const QString UndoManager::Move         = tr("Move");
-const QString UndoManager::Resize       = tr("Resize");
-const QString UndoManager::Rotate       = tr("Rotate");
-const QString UndoManager::MoveFromTo   = tr("X1: %1, Y1: %2, Page %3\nX2: %4, Y2: %5, Page %6");
-const QString UndoManager::ResizeFromTo = tr("W1: %1, H1: %2\nW2: %3, H2: %4");
-const QString UndoManager::RotateFromTo = tr("From %1 to %2");
-const QString UndoManager::Selection    = tr("Selection");
-const QString UndoManager::Group        = tr("Group");
-const QString UndoManager::Create       = tr("Create");
-const QString UndoManager::CreateTo     = tr("X: %1, Y: %2\nW: %3, H: %4");
+const QString UndoManager::AddVGuide         = tr("Add vertical guide");
+const QString UndoManager::AddHGuide         = tr("Add horizontal guide");
+const QString UndoManager::DelVGuide         = tr("Remove vertical guide");
+const QString UndoManager::DelHGuide         = tr("Remove horizontal guide");
+const QString UndoManager::MoveVGuide        = tr("Move vertical guide");
+const QString UndoManager::MoveHGuide        = tr("Move horizontal guide");
+const QString UndoManager::LockGuides        = tr("Lock guides");
+const QString UndoManager::UnlockGuides      = tr("Unlock guides");
+const QString UndoManager::Move              = tr("Move");
+const QString UndoManager::Resize            = tr("Resize");
+const QString UndoManager::Rotate            = tr("Rotate");
+const QString UndoManager::MoveFromTo        = tr("X1: %1, Y1: %2, Page %3\nX2: %4, Y2: %5, Page %6");
+const QString UndoManager::ResizeFromTo      = tr("W1: %1, H1: %2\nW2: %3, H2: %4");
+const QString UndoManager::RotateFromTo      = tr("From %1 to %2");
+const QString UndoManager::Selection         = tr("Selection");
+const QString UndoManager::Group             = tr("Group");
+const QString UndoManager::Create            = tr("Create");
+const QString UndoManager::CreateTo          = tr("X: %1, Y: %2\nW: %3, H: %4");
+const QString UndoManager::AlignDistribute   = tr("Align/Distribute");
+const QString UndoManager::ItemsInvolved     = tr("Items involved");
+const QString UndoManager::Cancel            = tr("Cancel");
 
-QPixmap *UndoManager::IGuides         = NULL;
-QPixmap *UndoManager::ILockGuides     = NULL;
-QPixmap *UndoManager::IMoveText       = NULL;
-QPixmap *UndoManager::IMoveImage      = NULL;
-QPixmap *UndoManager::IMoveLine       = NULL;
-QPixmap *UndoManager::IMovePolygon    = NULL;
-QPixmap *UndoManager::IMovePolyline   = NULL;
-QPixmap *UndoManager::IMovePathText   = NULL;
-QPixmap *UndoManager::IResizeText     = NULL;
-QPixmap *UndoManager::IResizeImage    = NULL;
-QPixmap *UndoManager::IResizeLine     = NULL;
-QPixmap *UndoManager::IResizePolygon  = NULL;
-QPixmap *UndoManager::IResizePolyline = NULL;
-QPixmap *UndoManager::IResizePathText = NULL;
-QPixmap *UndoManager::IRotateText     = NULL;
-QPixmap *UndoManager::IRotateImage    = NULL;
-QPixmap *UndoManager::IRotateLine     = NULL;
-QPixmap *UndoManager::IRotatePolygon  = NULL;
-QPixmap *UndoManager::IRotatePolyline = NULL;
-QPixmap *UndoManager::IRotatePathText = NULL;
+QPixmap *UndoManager::IGuides          = NULL;
+QPixmap *UndoManager::ILockGuides      = NULL;
+QPixmap *UndoManager::IMoveText        = NULL;
+QPixmap *UndoManager::IMoveImage       = NULL;
+QPixmap *UndoManager::IMoveLine        = NULL;
+QPixmap *UndoManager::IMovePolygon     = NULL;
+QPixmap *UndoManager::IMovePolyline    = NULL;
+QPixmap *UndoManager::IMovePathText    = NULL;
+QPixmap *UndoManager::IResizeText      = NULL;
+QPixmap *UndoManager::IResizeImage     = NULL;
+QPixmap *UndoManager::IResizeLine      = NULL;
+QPixmap *UndoManager::IResizePolygon   = NULL;
+QPixmap *UndoManager::IResizePolyline  = NULL;
+QPixmap *UndoManager::IResizePathText  = NULL;
+QPixmap *UndoManager::IRotateText      = NULL;
+QPixmap *UndoManager::IRotateImage     = NULL;
+QPixmap *UndoManager::IRotateLine      = NULL;
+QPixmap *UndoManager::IRotatePolygon   = NULL;
+QPixmap *UndoManager::IRotatePolyline  = NULL;
+QPixmap *UndoManager::IRotatePathText  = NULL;
+QPixmap *UndoManager::IAlignDistribute = NULL;

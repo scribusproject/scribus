@@ -174,6 +174,8 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 	prefsFile = new PrefsFile(QDir::convertSeparators(PrefsPfad + "/prefs13.xml"));
 	convertToXMLPreferences(PrefsPfad);
 
+	undoManager = UndoManager::instance();
+
 	initMenuBar();
 	initStatusBar();
 	initToolBars();
@@ -290,7 +292,7 @@ void ScribusApp::initToolBars()
 
 	editToolBar = new QToolBar(tr("Edit"), this);
 	UndoWidget* uWidget = new UndoWidget(editToolBar, "uWidget");
-	UndoManager::instance()->registerGui(uWidget);
+	undoManager->registerGui(uWidget);
 	
 	WerkTools = new WerkToolB(this);
 	setDockEnabled(WerkTools, DockLeft, false);
@@ -764,7 +766,7 @@ void ScribusApp::initPalettes()
 	docChecker->hide();
 
 	undoPalette = new UndoPalette(this, "undoPalette");
-	UndoManager::instance()->registerGui(undoPalette);
+	undoManager->registerGui(undoPalette);
 
 	connect(MaPal, SIGNAL(Schliessen(bool)), this, SLOT(setMapal(bool)));
 	connect(Mpal, SIGNAL(DocChanged()), this, SLOT(slotDocCh()));
@@ -1504,9 +1506,9 @@ void ScribusApp::initMenuBar()
 	TypeStyleMenu->insertItem( tr("Subscript"));
 	TypeStyleMenu->insertItem( tr("Outlined"));
 
-	connect(UndoManager::instance(), SIGNAL(newAction(UndoObject*, UndoState*)),
+	connect(undoManager, SIGNAL(newAction(UndoObject*, UndoState*)),
 	        this, SLOT(refreshUndoRedoItems()));
-	connect(UndoManager::instance(), SIGNAL(undoRedoDone()), this, SLOT(refreshUndoRedoItems()));
+	connect(undoManager, SIGNAL(undoRedoDone()), this, SLOT(refreshUndoRedoItems()));
 	connect(toolMenu, SIGNAL(aboutToShow()), this, SLOT(refreshUndoRedoItems()));
 	
 	connect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
@@ -2738,7 +2740,7 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	ActWin = w;
 	doc->WinHan = w;
 	w->setCentralWidget(view);
-	connect(UndoManager::instance(), SIGNAL(undoRedoDone()), view, SLOT(DrawNew()));
+	connect(undoManager, SIGNAL(undoRedoDone()), view, SLOT(DrawNew()));
 	connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
 	//	connect(w, SIGNAL(SaveAndClose()), this, SLOT(DoSaveClose()));
 	if (CMSavail)
@@ -2819,7 +2821,7 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 		doc->ASaveTimer->start(Prefs.AutoSaveTime);
 	scrActions["fileSave"]->setEnabled(false);
 
-	UndoManager::instance()->switchStack(doc->DocName);
+	undoManager->switchStack(doc->DocName);
 
 	return true;
 }
@@ -2871,7 +2873,7 @@ void ScribusApp::newActWin(QWidget *w)
 	if (ActWin && ActWin->doc)
 		newDocName = ActWin->doc->DocName;
 	if (oldDocName != newDocName)
-		UndoManager::instance()->switchStack(newDocName);
+		undoManager->switchStack(newDocName);
 
 	doc = ActWin->doc;
 	view = ActWin->view;
@@ -4358,7 +4360,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 		connect(w, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
 		connect(fileWatcher, SIGNAL(fileChanged(QString )), view, SLOT(updatePict(QString)));
 		connect(fileWatcher, SIGNAL(fileDeleted(QString )), view, SLOT(removePict(QString)));
-		connect(UndoManager::instance(), SIGNAL(undoRedoDone()), view, SLOT(DrawNew()));
+		connect(undoManager, SIGNAL(undoRedoDone()), view, SLOT(DrawNew()));
 		if (doc->AutoSave)
 			doc->ASaveTimer->start(doc->AutoSaveTime);
 		scrActions["fileSave"]->setEnabled(false);
@@ -4367,7 +4369,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 	{
 		Sepal->Vie = 0;
 	}
-	UndoManager::instance()->switchStack(doc->DocName);
+	undoManager->switchStack(doc->DocName);
 //	Sepal->Rebuild();
 	return ret;
 }
@@ -4575,7 +4577,7 @@ bool ScribusApp::DoFileSave(QString fn)
 		doc->setUnModified();
 		ActWin->setCaption(fn);
 		doc->setName(fn);
-		UndoManager::instance()->rename(fn);
+		undoManager->rename(fn);
 		scrActions["fileSave"]->setEnabled(false);
 		scrActions["fileRevert"]->setEnabled(false);
 		updateRecent(fn);
@@ -4600,7 +4602,7 @@ bool ScribusApp::slotFileClose()
 
 bool ScribusApp::DoFileClose()
 {
-	UndoManager::instance()->remove(doc->DocName);
+	undoManager->remove(doc->DocName);
 	if(doc->TemplateMode)
 	{
 		ActWin->muster->close();
@@ -7340,6 +7342,16 @@ void ScribusApp::ObjektAlign()
 	Align *dia = new Align(this, view->AObjects.count(), ein, doc, view);
 	connect(dia, SIGNAL(ApplyDist(bool, bool, bool, bool, double, double, int, int)),
 	        this, SLOT(DoAlign(bool, bool, bool, bool, double, double, int, int)));
+
+	// Tooltip string for the Action History will have the names of the involved items
+	QString targetTooltip = Um::ItemsInvolved + "\n";
+	for (uint i = 0; i < view->SelItem.count(); ++i)
+		targetTooltip += "\t" + view->SelItem.at(i)->getUName() + "\n";
+
+	// Make the align action a single action in Action History
+	undoManager->beginTransaction(Um::Selection, Um::AlignDistribute,
+								  targetTooltip, Um::IAlignDistribute);
+
 	if (dia->exec())
 	{
 		xdp = dia->AHor->value() / UmReFaktor;
@@ -7353,7 +7365,19 @@ void ScribusApp::ObjektAlign()
 		view->AlignObj(xa, ya, Vth, Vtv, xdp, ydp, xart, yart);
 		slotDocCh();
 		HaveNewSel(view->SelItem.at(0)->PType);
+		for (uint i = 0; i < view->SelItem.count(); ++i)
+			view->SelItem.at(i)->checkChanges(true); // force aligned items to check their changes
+		undoManager->commit(); // commit and send the action to the UndoManager
 	}
+	else
+	{
+		for (uint i = 0; i < view->SelItem.count(); ++i)
+			view->SelItem.at(i)->checkChanges(true); // force aligned items to check their changes
+			                                         // before canceling the transaction so that these
+			                                         // "cancel moves" won't get recorded
+		undoManager->cancelTransaction();
+	}
+
 	delete dia;
 }
 
@@ -7361,6 +7385,7 @@ void ScribusApp::DoAlign(bool xa, bool ya, bool Vth, bool Vtv, double xdp, doubl
 {
 	view->AlignObj(xa, ya, Vth, Vtv, xdp, ydp, xart, yart);
 	slotDocCh();
+
 }
 
 void ScribusApp::buildFontMenu()
@@ -9207,19 +9232,19 @@ void ScribusApp::LayerRemove(int l, bool dl)
 
 void ScribusApp::UnDoAction()
 {
-	UndoManager::instance()->undo(1);
+	undoManager->undo(1);
 }
 
 void ScribusApp::RedoAction()
 {
-	UndoManager::instance()->redo(1);
+	undoManager->redo(1);
 }
 
 void ScribusApp::refreshUndoRedoItems()
 {
 	toolMenu->setItemChecked(viewUndoPalette, undoPalette->isVisible());
-	scrActions["editUndoAction"]->setEnabled(UndoManager::instance()->hasUndoActions());
-	scrActions["editRedoAction"]->setEnabled(UndoManager::instance()->hasRedoActions());
+	scrActions["editUndoAction"]->setEnabled(undoManager->hasUndoActions());
+	scrActions["editRedoAction"]->setEnabled(undoManager->hasRedoActions());
 }
 
 void ScribusApp::initHyphenator()
