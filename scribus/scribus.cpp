@@ -10449,27 +10449,41 @@ void ScribusApp::generateTableOfContents()
 				uint pageCounter[doc->PageC];
 				for (int i=0;i<=doc->PageC;++i)
 					pageCounter[i]=0;
-			
+				int maxDataWidth=0;
 				for (uint d = 0; d < doc->DocItems.count(); ++d)
 				{
 					currentDocItem = doc->DocItems.at(d);
 					if (currentDocItem!=NULL)
 					{
-					//Item not on a page, continue
+						//Item not on a page, continue
 						if (currentDocItem->OwnPage==-1)
 							continue;
 						ObjectAttribute objattr=currentDocItem->getObjectAttribute((*tocSetupIt).itemAttrName);
 						if (objattr.name!=QString::null)
 						{
-							QString key=QString("page%1_item%2").arg(currentDocItem->OwnPage).arg(pageCounter[currentDocItem->OwnPage]++);
+							//TODO Handle docs with non consecutive page numbers when that is possible
+							QString key=QString("%1,%2").arg(currentDocItem->OwnPage + doc->FirstPnum).arg(pageCounter[currentDocItem->OwnPage]++);
 							tocMap.insert(key, objattr.value);
+							if (objattr.value.length()>maxDataWidth)
+								maxDataWidth=objattr.value.length();
 						}				
 					}
 				}
 				gtWriter* writer = new gtWriter(false, tocFrame);
+				QString oldTocPage=QString::null;
 				for (QMap<QString, QString>::Iterator tocIt=tocMap.begin();tocIt!=tocMap.end();++tocIt)
 				{
-					QString tocLine = tocIt.key() + "....." + tocIt.data() + "\n";
+					QString tocPage = tocIt.key().section( ',', 0, 0 ); 
+					QString tocLine = tocIt.data();
+					//QString tocPageItemNo = tocIt.key().section( ',', 1, 1 ); 
+					if (oldTocPage!=tocPage)
+					{
+						oldTocPage=tocPage;
+						tocLine = tocLine.leftJustify(maxDataWidth+5, '.');
+						tocLine = tocLine + tocPage + "\n";
+					}
+					else
+						tocLine += "\n";
 					writer->append(tocLine);
 				}
 				if (writer!=NULL)
