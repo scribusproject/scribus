@@ -242,6 +242,10 @@ public slots:
 		void setDS();
 		void setBreite(int v);
 		void setHoehe(int v);
+		void setTop(int v);
+		void setBottom(int v);
+		void setLeft(int v);
+		void setRight(int v);
 		void setSize(int gr);
 		void setOrien(int ori);
     void changePapColor();
