@@ -310,7 +310,7 @@ void ScribusApp::initScribus()
 		Prefs.DLstyleLine = SolidLine;
 		Prefs.DwidthLine = 1;
 		Prefs.MagMin = 10;
-		Prefs.MagMax = 800;
+		Prefs.MagMax = 3200;
 		Prefs.MagStep = 25;
 		Prefs.DbrushPict = "White";
 		Prefs.ShadePict = 100;

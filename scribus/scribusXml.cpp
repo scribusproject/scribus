@@ -1342,7 +1342,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		doc->DshadeLine = QStoInt(dc.attribute("LINESHADE", "100"));
 		doc->Dshade = QStoInt(dc.attribute("BRUSHSHADE", "100"));
 		doc->MagMin = QStoInt(dc.attribute("MAGMIN","10"));
-		doc->MagMax = QStoInt(dc.attribute("MAGMAX","800"));
+		doc->MagMax = QStoInt(dc.attribute("MAGMAX","3200"));
 		doc->MagStep = QStoInt(dc.attribute("MAGSTEP","25"));
 		if (dc.hasAttribute("CPICT"))
 			doc->DbrushPict = dc.attribute("CPICT");
@@ -3250,7 +3250,7 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 			Vorein->DshadeLine = QStoInt(dc.attribute("LINESHADE"));
 			Vorein->Dshade = QStoInt(dc.attribute("BRUSHSHADE"));
 			Vorein->MagMin = QStoInt(dc.attribute("MAGMIN","10"));
-			Vorein->MagMax = QStoInt(dc.attribute("MAGMAX","800"));
+			Vorein->MagMax = QStoInt(dc.attribute("MAGMAX","3200"));
 			Vorein->MagStep = QStoInt(dc.attribute("MAGSTEP","25"));
 			Vorein->DbrushPict = dc.attribute("CPICT");
 			Vorein->ShadePict = QStoInt(dc.attribute("PICTSHADE","100"));

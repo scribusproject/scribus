@@ -1059,7 +1059,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 
 	MinMag = new QSpinBox( ToolFrame4, "Shade2" );
 	MinMag->setSuffix( tr( " %" ) );
-	MinMag->setMaxValue( 800 );
+	MinMag->setMaxValue( 3200 );
 	MinMag->setMinValue( 10 );
 	MinMag->setLineStep( 10 );
 	MinMag->setValue(ap->HaveDoc ? ap->doc->MagMin : Vor->MagMin );
@@ -1071,7 +1071,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 
 	MaxMag = new QSpinBox( ToolFrame4, "Shade" );
 	MaxMag->setSuffix( tr( " %" ) );
-	MaxMag->setMaxValue( 800 );
+	MaxMag->setMaxValue( 3200 );
 	MaxMag->setMinValue( 10 );
 	MaxMag->setLineStep( 10 );
 	MaxMag->setValue(ap->HaveDoc ? ap->doc->MagMax : Vor->MagMax );
