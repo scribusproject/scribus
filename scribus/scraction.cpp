@@ -38,33 +38,28 @@ ScrAction::ScrAction( MenuType mType, const QIconSet & icon, const QString & men
 	menuIndex=-1;
 	widgetAddedTo=NULL;
 	menuType=mType;
+	if (menuType!=Normal)
+		connect (this, SIGNAL(activated()), this, SLOT(activatedToActivatedData()));
 	switch (mType)
 	{
 		case DataInt:
 			_dataInt=extraInt;
-			connect (this, SIGNAL(activated()), this, SLOT(activatedToActivatedData()));
 			break;
 		case DataDouble:
 			_dataDouble=extraDouble;
-			connect (this, SIGNAL(activated()), this, SLOT(activatedToActivatedData()));
 			break;
 		case DataQString:
 			_dataQString=extraQString;
-			connect (this, SIGNAL(activated()), this, SLOT(activatedToActivatedData()));
 			break;
 		case RecentFile:
-			connect (this, SIGNAL(activated()), this, SLOT(activatedToActivatedData()));
 			break;
 		case DLL:
 			pluginID=extraInt;
-			connect (this, SIGNAL(activated()), this, SLOT(activatedToActivatedData()));
 			break;
 		case Window:
 			windowID=extraInt;
-			connect (this, SIGNAL(activated()), this, SLOT(activatedToActivatedData()));
 			break;
 		case RecentScript:
-			connect (this, SIGNAL(activated()), this, SLOT(activatedToActivatedData()));
 			break;			
 		case Normal:
 		default:
@@ -112,24 +107,24 @@ void ScrAction::activatedToActivatedData()
 		emit activatedData(menuText());
 }
 
-void ScrAction::toggledToToggledData()
+void ScrAction::toggledToToggledData(bool ison)
 {
 	if (isToggleAction())
 	{
 		if (menuType==ScrAction::DataInt)
-			emit toggledData(isOn(), _dataInt);
+			emit toggledData(ison, _dataInt);
 		if (menuType==ScrAction::DataDouble)
-			emit toggledData(isOn(), _dataDouble);
+			emit toggledData(ison, _dataDouble);
 		if (menuType==ScrAction::DataQString)
-			emit toggledData(isOn(), _dataQString);
+			emit toggledData(ison, _dataQString);
 		if (menuType==ScrAction::DLL)
-			emit toggledData(isOn(), pluginID);
+			emit toggledData(ison, pluginID);
 		if (menuType==ScrAction::Window)
-			emit toggledData(isOn(), windowID);
+			emit toggledData(ison, windowID);
 		if (menuType==ScrAction::RecentFile)
-			emit toggledData(isOn(), menuText());
+			emit toggledData(ison, menuText());
 		if (menuType==ScrAction::RecentScript)
-			emit toggledData(isOn(), menuText());
+			emit toggledData(ison, menuText());
 	}
 }
 
@@ -185,4 +180,14 @@ const int ScrAction::dllID()
 	return -1;
 }
 
-
+void ScrAction::setToggleAction(bool isToggle)
+{
+	if (menuType!=Normal)
+	{
+		if(isToggle)
+			connect (this, SIGNAL(toggled(bool)), this, SLOT(toggledToToggledData(bool)));
+		else
+			disconnect (this, SIGNAL(toggled(bool)), this, SLOT(toggledToToggledData(bool)));
+	}
+	QAction::setToggleAction(isToggle);
+}

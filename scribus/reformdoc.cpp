@@ -91,10 +91,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	dsLayout4->addWidget( heightQLabel, 1, 2 );
 	dsLayout4->addWidget( heightMSpinBox, 1, 3 );
 	unitCombo = new QComboBox( true, dsGroupBox7, "unitCombo" );
-	unitCombo->insertItem( tr( "Points (pt)" ) );
-	unitCombo->insertItem( tr( "Millimetres (mm)" ) );
-	unitCombo->insertItem( tr( "Inches (in)" ) );
-	unitCombo->insertItem( tr( "Picas (p)" ) );
+	unitCombo->insertStringList(unitGetTextUnitList());
 	unitCombo->setEditable(false);
 	unitCombo->setCurrentItem(doc->docUnitIndex);
 	unitQLabel = new QLabel(unitCombo, tr( "&Unit:" ), dsGroupBox7, "unitQLabel" );
@@ -320,17 +317,9 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	tabDocChecker = new TabCheckDoc(  prefsWidgets, doc->checkerProfiles, doc->curCheckProfile);
 	addItem( tr("Doc-Checker"), loadIcon("checkdoc.png"), tabDocChecker);
 	
-	tabPDF = new TabPDFOptions( prefsWidgets,
-																&doc->PDF_Optionen,
-																ap->Prefs.AvailFonts,
-																&ap->PDFXProfiles,
-																doc->UsedFonts,
-																doc->PDF_Optionen.PresentVals,
-																UmReFaktor,
-																ein,
-																doc->PageH,
-																doc->PageB,
-																0 );
+	tabPDF = new TabPDFOptions( prefsWidgets, &doc->PDF_Optionen, ap->Prefs.AvailFonts,
+								&ap->PDFXProfiles, doc->UsedFonts, doc->PDF_Optionen.PresentVals,
+								UmReFaktor, ein, doc->PageH, doc->PageB, 0 );
 	addItem( tr("PDF Export"), loadIcon("acroread.png"), tabPDF);
 
 	int cmsTab = 0;
@@ -388,29 +377,9 @@ void ReformDoc::unitChange()
 	double oldMin, oldMax, val;
 	QString einh;
 	einheit = unitCombo->currentItem();
-	switch (unitCombo->currentItem())
-	{
-	case 0:
-		Umrech = 1.0;
-		decimals = 100;
-		einh = tr( " pt" );
-		break;
-	case 1:
-		Umrech = 0.3527777;
-		decimals = 1000;
-		einh = tr( " mm" );
-		break;
-	case 2:
-		Umrech = 1.0 / 72.0;
-		decimals = 10000;
-		einh = tr( " in" );
-		break;
-	case 3:
-		Umrech = 1.0 / 12.0;
-		decimals = 100;
-		einh = tr( " p" );
-		break;
-	}
+	Umrech=unitGetRatioFromIndex(einheit);
+	decimals=unitGetDecimalsFromIndex(einheit);
+	einh=unitGetSuffixFromIndex(einheit);
 
 	widthMSpinBox->setSuffix(einh);
 	heightMSpinBox->setSuffix(einh);

@@ -53,7 +53,11 @@ bool MenuManager::createMenu(const QString &menuName, const QString &menuText, c
 bool MenuManager::addMenuToMenu(const QString &child, const QString &parent)
 {
 	bool retVal=false;
-		
+	if (child==parent)
+	{
+		qDebug(QString("Cant add %1 menu to %2 menu (itself)").arg(child, parent));
+		return false;	
+	}
 	if (menuList[child] && menuList[parent])
 	{
 		menuList.insert(child, menuList[child]);

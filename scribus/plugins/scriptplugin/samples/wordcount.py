@@ -16,7 +16,7 @@ import re
 TITLE = "Word count"
 
 def wordsplit(text):
-    word_pattern = "([A-Za-zäöüÄÖÜß]+)"
+    word_pattern = "([A-Za-zï¿½ï¿½ï¿½]+)"
     words = []
     for x in re.split(word_pattern, text):
         if re.match(word_pattern, x):
@@ -36,7 +36,7 @@ def main():
             except WrongFrameTypeError:
                 if sel_count == 1:
                     # If there's only one object selected, display a message
-                    messageBox(TITLE, "Can't count words in a non-text frame", ICON_INFORMATION);
+                    messageBox(TITLE, "Cannot count words in a non-text frame", ICON_INFORMATION);
                     sys.exit(1)
                 else:
                     # otherwise ignore

@@ -15,9 +15,8 @@ using namespace std;
 extern QPixmap loadIcon(QString nam);
 extern double UmReFaktor;
 
-Measurements::Measurements( QWidget* parent ) : QDialog( parent, "M", false, 0 )
+Measurements::Measurements( QWidget* parent ) : ScrPaletteBase( parent, "MeasurementsPalette", false, 0 )
 {
-	const QString widthString="10000.00 " + tr( "pt" );
 	setCaption( tr( "Distances" ) );
 	setIcon( loadIcon("AppIcon.png") );
 
@@ -47,15 +46,17 @@ Measurements::Measurements( QWidget* parent ) : QDialog( parent, "M", false, 0 )
 	dYData = new QLabel( "", this, "dyData" );
 	angleData = new QLabel( "", this, "angleData" );
 	lengthData = new QLabel( "", this, "lengthData" );
-
-	x1Data->setMinimumSize(fontMetrics().width(widthString), 12);
-	y1Data->setMinimumSize(fontMetrics().width(widthString), 12);
-	x2Data->setMinimumSize(fontMetrics().width(widthString), 12);
-	y2Data->setMinimumSize(fontMetrics().width(widthString), 12);
-	dXData->setMinimumSize(fontMetrics().width(widthString), 12);
-	dYData->setMinimumSize(fontMetrics().width(widthString), 12);
-	angleData->setMinimumSize(fontMetrics().width(widthString), 12);
-	lengthData->setMinimumSize(fontMetrics().width(widthString), 12);
+	
+	const QString widthString="10000.00 " + tr( "pt" );
+	int textWidth=fontMetrics().width(widthString);
+	x1Data->setMinimumSize(textWidth, 12);
+	y1Data->setMinimumSize(textWidth, 12);
+	x2Data->setMinimumSize(textWidth, 12);
+	y2Data->setMinimumSize(textWidth, 12);
+	dXData->setMinimumSize(textWidth, 12);
+	dYData->setMinimumSize(textWidth, 12);
+	angleData->setMinimumSize(textWidth, 12);
+	lengthData->setMinimumSize(textWidth, 12);
 
 	x1Data->setAlignment( int( QLabel::AlignVCenter | QLabel::AlignRight ) );
 	y1Data->setAlignment( int( QLabel::AlignVCenter | QLabel::AlignRight ) );
@@ -78,13 +79,13 @@ Measurements::Measurements( QWidget* parent ) : QDialog( parent, "M", false, 0 )
 	changeLanguage();
 
 }
-
+/*
 void Measurements::closeEvent(QCloseEvent *ce)
 {
 	emit Schliessen(false);
 	ce->accept();
 }
-
+*/
 void Measurements::setValues(double x1, double y1, double x2, double y2, double angle, double len, int unitIndex)
 {
 	QString tmp;

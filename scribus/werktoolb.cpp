@@ -82,8 +82,8 @@ WerkToolB::WerkToolB(QMainWindow* parent) : QToolBar( tr("Tools"), parent)
 	KetteAus = new QToolButton(loadIcon("Unlock.xpm"), tr("Unlink Text Frames"), QString::null, this, SLOT(ModeFromTB()), this);
 	KetteAus->setToggleButton( true );
 	KetteAus->setEnabled(false);
-	Measure = new QToolButton(loadIcon("dist.png"), tr("Do measurements"), QString::null, this, SLOT(ModeFromTB()), this);
-	Measure->setToggleButton( true );
+	//Measure = new QToolButton(loadIcon("dist.png"), tr("Do measurements"), QString::null, this, SLOT(ModeFromTB()), this);
+	//Measure->setToggleButton( true );
 	setCloseMode(QDockWindow::Undocked);
 	connect(this, SIGNAL(placeChanged(QDockWindow::Place)), this, SLOT(Docken(QDockWindow::Place)));
 	connect(this, SIGNAL(visibilityChanged(bool)), this, SLOT(Verbergen(bool)));
@@ -126,7 +126,7 @@ void WerkToolB::SelShape(int s, int c, double *vals)
 	KetteEin->setOn(false);
 	KetteAus->setOn(false);
 	Polygon->setOn(false);
-	Measure->setOn(false);
+	//Measure->setOn(false);
 	Rechteck->setOn(true);
 	SubMode = s;
 	ValCount = c;
@@ -148,7 +148,7 @@ void WerkToolB::SelShape2()
 	KetteEin->setOn(false);
 	KetteAus->setOn(false);
 	Polygon->setOn(false);
-	Measure->setOn(false);
+	//Measure->setOn(false);
 	Rechteck->setOn(true);
 	emit NewMode(DrawShapes);
 }
@@ -168,7 +168,7 @@ void WerkToolB::ModeFromTB()
 	KetteEin->setOn(false);
 	KetteAus->setOn(false);
 	Polygon->setOn(false);
-	Measure->setOn(false);
+	//Measure->setOn(false);
 	if (Select == sender())
 	{
 		Select->setOn(true);
@@ -229,11 +229,13 @@ void WerkToolB::ModeFromTB()
 		Polygon->setOn(true);
 		emit NewMode(DrawRegularPolygon);
 	}
+	/*
 	if (Measure == sender())
 	{
 		Measure->setOn(true);
 		emit NewMode(MeasurementTool);
 	}
+	*/
 }
 
 void WerkToolB::setLinMode(int id)
@@ -251,7 +253,7 @@ void WerkToolB::setLinMode(int id)
 	KetteEin->setOn(false);
 	KetteAus->setOn(false);
 	Polygon->setOn(false);
-	Measure->setOn(false);
+	//Measure->setOn(false);
 	int c = LinM->indexOf(id);
 	QString icn[] = {"Stift.xpm", "beziertool.png", "Stiftalt.xpm"};
 	int lm[] = {DrawLine, DrawBezierLine, DrawFreehandLine};

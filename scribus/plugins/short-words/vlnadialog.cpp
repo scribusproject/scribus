@@ -27,6 +27,8 @@ or documentation
 #include <qmessagebox.h>
 #include <qdir.h>
 #include <qstringlist.h>
+#include <qlayout.h>
+#include <qcheckbox.h>
 
 extern ScribusApp *ScApp;
 extern ShortWords *shortWords;

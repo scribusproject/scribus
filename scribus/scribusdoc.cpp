@@ -323,7 +323,7 @@ void ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo)
 		dcmsFlags |= cmsFLAGS_BLACKPOINTCOMPENSATION;
 	}
 #endif
-	// set Gamut alarm colour to #00ff00
+	// set Gamut alarm color to #00ff00
 	cmsSetAlarmCodes(0, 255, 0);
 	stdProof = cmsCreateProofingTransform(DocInputProf, TYPE_RGB_16,
 	                                      DocOutputProf, TYPE_RGB_16,

@@ -76,6 +76,16 @@ const int unitGetPrecisionFromIndex(const int index)
 	return precision[index];
 }
 
+const QStringList unitGetTextUnitList()
+{
+	QStringList suffixList;
+	suffixList.append( QObject::tr( "Points (pt)" ) );
+	suffixList.append( QObject::tr( "Millimetres (mm)" ) );
+	suffixList.append( QObject::tr( "Inches (in)" ) );
+	suffixList.append( QObject::tr( "Picas (p)" ) );
+	return QStringList(suffixList);
+}
+
 const double mm2pts(int mm)
 {
 	return mm * 72.0 / 25.4;

@@ -134,7 +134,7 @@ void gtGetText::CallDLL(const ImporterData& idata, const QString& filePath,
 	demo = (sdem)dlsym(mo, "GetText");
 	if ((error = dlerror()) != NULL)
 	{
-		std::cout << "Can't find Symbol" << "\n";
+		std::cout << "Cannot find Symbol" << "\n";
 		dlclose(mo);
 		return;
 	}

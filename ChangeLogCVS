@@ -348,7 +348,7 @@ Changes since 1.2
 	* bug     #1014: Bad pangram display in Font Preview
 	* bug     #1081: Insert Special... crash scribus
 	* bug     #1122: Icon change in main toolbar + story editor
-	* bug     #1131: *Blank page* icon has two different meanings wether in Main Tools bar or in Story Editor
+	* bug     #1131: *Blank page* icon has two different meanings whether in Main Tools bar or in Story Editor
 	* feature # 113: OOo importer
 	* feature #1121: Danish Translation
 

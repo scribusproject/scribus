@@ -22,6 +22,7 @@
 #include <qdragobject.h>
 #include <qevent.h>
 #include <qsplitter.h>
+#include "scrpalettebase.h"
 #include "scribusview.h"
 
 class SeDrag : public QStoredDrag
@@ -121,15 +122,15 @@ signals:
 	void DelMaster(QString);
 };
 
-class SeitenPal : public QDialog
+class SeitenPal : public ScrPaletteBase
 { 
     Q_OBJECT
 
 public:
     SeitenPal(QWidget* parent);
     ~SeitenPal() {};
-	void keyPressEvent(QKeyEvent *k);
-    void closeEvent(QCloseEvent *ce);
+	//void keyPressEvent(QKeyEvent *k);
+    //void closeEvent(QCloseEvent *ce);
 
     QSplitter* Splitter1;
     TrashBin* Trash;
@@ -158,10 +159,10 @@ public slots:
 	QPixmap CreateIcon(int nr, QPixmap ret);
 
 signals:
-	void ToggleAllPalettes();
+	//void ToggleAllPalettes();
 	void EditTemp(QString);
 	void GotoSeite(int);
-	void Schliessen();
+	//void Schliessen();
 
 protected:
     QVBoxLayout* SeitenPalLayout;
@@ -171,7 +172,7 @@ protected:
     QVBoxLayout* Layout4;
 
 protected slots:
-	virtual void reject();
+	//virtual void reject();
 };
 
 #endif // SEITENPAL_H

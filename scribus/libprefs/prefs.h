@@ -20,6 +20,8 @@
 #include <qlineedit.h>
 #include <qfiledialog.h>
 
+class QListView;
+
 #include "scribusstructs.h"
 
 #include "mspinbox.h"

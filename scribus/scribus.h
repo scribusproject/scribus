@@ -54,11 +54,13 @@
 #include "scribusview.h"
 #include "scribusdoc.h"
 #include "scribuswin.h"
-#include "frameedit.h"
-#include "layers.h"
-#include "seiten.h"
-#include "bookpalette.h"
-#include "splash.h"
+
+class NodePalette;
+class LayerPalette;
+class SeitenPal;
+class BookPalette;
+class SplashScreen;
+
 #include "prefscontext.h"
 #include "scribusstructs.h"
 
@@ -100,7 +102,7 @@ public:
 	~ScribusApp() {};
 	int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage);
 	const QString getGuiLanguage();
-
+	bool warningVersion(QWidget *parent);
 	void SetShortCut();
 	void SetKeyEntry(QString actName, QString cleanMenuText, QString keyseq, int rowNumber);
 	bool doFileNew(double b, double h, double tpr, double lr, double rr, double br, double ab, double sp,
@@ -138,7 +140,6 @@ public:
 	void AdjustBM();
 	void ReorgFonts();
 	void GetUsedFonts(QMap<QString,QFont> *Really);
-	void ToggleAllGuides();
 	void initCrashHandler();
 	static void defaultCrashHandler (int sig);
 	void emergencySave();
@@ -232,6 +233,7 @@ public slots:
 	void specialActionKeyEvent(QString actionName);
 	void newView();
 	void callDLLBySlot(int pluginID);
+	void ToggleAllGuides();
 	void ToggleAllPalettes();
 	void slotStoryEditor();
 	void slotCharSelect();
@@ -339,23 +341,23 @@ public slots:
  	void setPDFTools(bool visible);
 	void TogglePDFTools();
 	/** Schaltet Masspalette ein/aus */
- 	void setMpal(bool visible);
-	void setMapal(bool visible);
+ 	//void setMpal(bool visible);
+	//void setMapal(bool visible);
 	void ToggleMpal();
 	/** Schaltet Uebersichtspalette ein/aus*/
 	void ToggleTpal();
- 	void setTpal(bool visible);
+ 	//void setTpal(bool visible);
 	void ToggleBpal();
-	void setBpal(bool visible);
+	//void setBpal(bool visible);
 	void ToggleLpal();
-	void setLpal(bool visible);
+	//void setLpal(bool visible);
 	void ToggleSepal();
 	void setSepal(bool visible);
 	void ToggleBookpal();
-	void setBookpal(bool visible);
+	//void setBookpal(bool visible);
 	void ToggleUndoPalette();
 	void setUndoPalette(bool visible);
-	void setCheckPal(bool visible);
+	//void setCheckPal(bool visible);
 	void toggleCheckPal();
 	/** Schaltet M_ViewShowImages ein/aus */
 	void TogglePics();
@@ -369,6 +371,7 @@ public slots:
 	void ModeFromTB(int);
 	/** Switch appMode */
 	void setAppMode(int mode);
+	void setAppModeByToggle(bool isOn, int newMode);
 	/** Neues Dokument erzeugt */
 	void HaveNewDoc();
 	/** Element ausgewaehlt */

@@ -477,7 +477,7 @@ void TrashBin::dropEvent(QDropEvent * e)
 
 
 SeitenPal::SeitenPal(QWidget* parent)
-		: QDialog( parent, "SP", false, 0)
+		: ScrPaletteBase( parent, "SP", false, 0)
 		//    : QDialog( parent, "SP", false, Qt::WStyle_Customize | Qt::WStyle_Title | Qt::WStyle_Tool)
 {
 	setCaption( tr( "Arrange Pages" ) );
@@ -553,7 +553,7 @@ SeitenPal::SeitenPal(QWidget* parent)
 	QToolTip::add( TemplList,
 		               tr( "Here are all your Templates, to create a new Page\ndrag a Template to the Pageview below." ) );
 }
-
+/*
 void SeitenPal::keyPressEvent(QKeyEvent *k)
 {
 	QDialog::keyPressEvent(k);
@@ -570,7 +570,7 @@ void SeitenPal::reject()
 	emit Schliessen();
 	QDialog::reject();
 }
-
+*/
 void SeitenPal::DelMPage(QString tmp)
 {
 	if (tmp == tr("Normal"))

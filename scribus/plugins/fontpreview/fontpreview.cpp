@@ -1,6 +1,7 @@
 #include "fontpreview.h"
 #include "ui.h"
 #include <qcursor.h>
+#include <qlistview.h>
 
 QString Name()
 {

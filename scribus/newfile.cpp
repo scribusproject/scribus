@@ -161,10 +161,7 @@ NewDoc::NewDoc( QWidget* parent, ApplicationPrefs *Vor )
 	TextLabel2_3 = new QLabel( tr( "&Default Unit:" ), GroupBox3, "TextLabel2_3" );
 	GroupBox3Layout->addWidget( TextLabel2_3, 1, 0 );
 	ComboBox3 = new QComboBox( true, GroupBox3, "ComboBox3" );
-	ComboBox3->insertItem( tr( "Points (pt)" ) );
-	ComboBox3->insertItem( tr( "Millimetres (mm)" ) );
-	ComboBox3->insertItem( tr( "Inches (in)" ) );
-	ComboBox3->insertItem( tr( "Picas (p)" ) );
+	ComboBox3->insertStringList(unitGetTextUnitList());
 	ComboBox3->setCurrentItem(unitIndex);
 	ComboBox3->setEditable(false);
 	TextLabel2_3->setBuddy(ComboBox3);

@@ -1,7 +1,6 @@
 #ifndef NODEPALETTE_H
 #define NODEPALETTE_H
 
-#include <qdialog.h>
 #include <qbuttongroup.h>
 #include <qpushbutton.h>
 #include <qtoolbutton.h>
@@ -10,11 +9,14 @@
 #include <qtooltip.h>
 #include <qcheckbox.h>
 #include <qspinbox.h>
+
+#include "scrpalettebase.h"
 #include "mspinbox.h"
+
 class ScribusDoc;
 class ScribusView;
 
-class NodePalette : public QDialog
+class NodePalette : public ScrPaletteBase
 {
 	Q_OBJECT
 

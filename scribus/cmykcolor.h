@@ -27,7 +27,7 @@ class QString;
   * its API is based on the API of QColor
   */
 
-/** Scribus colour models */
+/** Scribus color models */
 enum colorModel
 {
 	colorModelRGB,

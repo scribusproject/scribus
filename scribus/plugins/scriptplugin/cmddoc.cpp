@@ -1,3 +1,4 @@
+
 #include "cmddoc.h"
 #include "cmdutil.h"
 
@@ -70,7 +71,7 @@ PyObject *scribus_opendoc(PyObject */*self*/, PyObject* args)
 	bool ret = Carrier->LadeDoc(QString::fromUtf8(Name));
 	if (!ret)
 	{
-		PyErr_SetString(ScribusException, QObject::tr("Failed to open document","python error"));
+		PyErr_SetString(ScribusException, QObject::tr("Failed to open document.","python error"));
 		return NULL;
 	}
 	Py_INCREF(Py_True); // compatibility: return true, not none, on success
@@ -96,7 +97,7 @@ PyObject *scribus_savedocas(PyObject */*self*/, PyObject* args)
 	bool ret = Carrier->DoFileSave(QString::fromUtf8(Name));
 	if (!ret)
 	{
-		PyErr_SetString(ScribusException, QObject::tr("Failed to save document","python error"));
+		PyErr_SetString(ScribusException, QObject::tr("Failed to save document.","python error"));
 		return NULL;
 	}
 	Py_INCREF(Py_True); // compatibility: return true, not none, on success
@@ -170,7 +171,7 @@ PyObject *scribus_setdoctype(PyObject */*self*/, PyObject* args)
 	Carrier->view->reformPages();
 	Carrier->view->GotoPage(Carrier->doc->currentPage->PageNr); // is this needed?
 	Carrier->view->DrawNew();   // is this needed?
-	Carrier->Sepal->RebuildPage(); // is this needed?
+	//CB TODO Carrier->Sepal->RebuildPage(); // is this needed?
 	Carrier->slotDocCh();
 	Py_INCREF(Py_None);
 	return Py_None;

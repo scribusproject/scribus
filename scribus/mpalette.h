@@ -1,7 +1,6 @@
 #ifndef MPALETTE_H
 #define MPALETTE_H
 
-#include <qdialog.h>
 #include <qbuttongroup.h>
 #include <qcheckbox.h>
 #include <qcombobox.h>
@@ -21,6 +20,8 @@
 #include <qlistbox.h>
 #include <qlineedit.h>
 #include <qtimer.h>
+
+#include "scrpalettebase.h"
 #include "mspinbox.h"
 #include "pageitem.h"
 #include "page.h"
@@ -78,15 +79,17 @@ protected:
 	virtual void focusOutEvent(QFocusEvent *);
 };
 
-class Mpalette : public QDialog
+class Mpalette : public ScrPaletteBase
 {
 	Q_OBJECT
 
 public:
 	Mpalette(QWidget* parent, ApplicationPrefs *Prefs);
 	~Mpalette() {};
+	/*
 	void keyPressEvent(QKeyEvent *k);
 	void closeEvent(QCloseEvent *ce);
+	*/
 	void ToggleFlow();
 	void updateCList();
 	void updateCmsList();
@@ -364,15 +367,15 @@ private slots:
 	void setEndArrow(int id);
 
 protected slots:
-	virtual void reject();
+	//virtual void reject();
 	void mspinboxStartUserAction();
 	void mspinboxFinishUserAction();
 
 signals:
 	void ToggleAllPalettes();
-	void Schliessen();
-	void CloseBpal();
-	void CloseTpal();
+	//void Schliessen();
+	//void CloseBpal();
+	//void CloseTpal();
 	void DocChanged();
 	void NewAbStyle(int);
 	void BackHome();

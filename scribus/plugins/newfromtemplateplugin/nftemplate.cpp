@@ -37,7 +37,7 @@ QString actionName()
 
 QString actionKeySequence()
 {
-	return "Ctrl+Shift+N";
+	return "Ctrl+Alt+N";
 }
 
 QString actionMenu()

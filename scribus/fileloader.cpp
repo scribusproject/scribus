@@ -1,3 +1,5 @@
+#include <qdom.h>
+#include <qprogressbar.h>
 #include <qfile.h>
 #include <qfileinfo.h>
 #include <qtl.h>
@@ -5,6 +7,7 @@
 #include <qregexp.h>
 #include <qdir.h>
 #include <qtextcodec.h>
+#include <qcheckbox.h>
 #include <cstdlib>
 #include <cmath>
 #include <qtextstream.h>
@@ -13,6 +16,7 @@
 #include "scribusXml.h"
 #include "missing.h"
 #include "fontreplacedialog.h"
+#include "units.h"
 #ifdef _MSC_VER
  #if (_MSC_VER >= 1200)
   #include "win-config.h"
@@ -971,21 +975,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 			Its->NextBox = 0;
 		}
 	}
-	switch (doc->docUnitIndex)
-	{
-	case 0:
-		view->UN->setText( QObject::tr("pt"));
-		break;
-	case 1:
-		view->UN->setText( QObject::tr("mm"));
-		break;
-	case 2:
-		view->UN->setText( QObject::tr("in"));
-		break;
-	case 3:
-		view->UN->setText( QObject::tr("p"));
-		break;
-	}
+	view->UN->setText(unitGetStrFromIndex(doc->docUnitIndex));
 	dia2->setProgress(DOC.childNodes().count());
 	return true;
 }

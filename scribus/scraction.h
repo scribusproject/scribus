@@ -150,6 +150,16 @@ public:
 	 */
 	const int dllID();
 	
+	/*!
+		\fn ScrAction::setToggleAction(bool)
+		\author Craig Bradney
+		\date Feb 2005
+		\brief Connect the internal toggle connections
+		\param None
+		\retval None
+	 */		
+	void setToggleAction(bool);
+	
 signals:
 	void activatedData(int);
 	void activatedData(double);
@@ -220,7 +230,7 @@ private slots:
 		\param None
 		\retval None
 	 */
-	void toggledToToggledData();
+	void toggledToToggledData(bool);
 };
 
 #endif

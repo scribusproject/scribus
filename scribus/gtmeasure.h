@@ -51,9 +51,7 @@ public:
 	static double d2d(double value, Unit from, Unit to = PT);
 	static double i2d(int value, Unit from, Unit to = PT);
 	static double qs2d(const QString& value, Unit to = PT);
-	static QString getSuffixFromIndex(int index);
-	static int getDecimalsFromIndex(int index);
-	static int getPrecisionFromIndex(int index);
+
 };
 
 #endif // GTMEASURE_H

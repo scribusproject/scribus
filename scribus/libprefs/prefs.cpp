@@ -26,6 +26,7 @@
 #include "tabcheckdoc.h"
 #include "tabpdfoptions.h"
 #include "fontprefs.h"
+#include "units.h"
 
 using namespace std;
 
@@ -66,11 +67,8 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	ap = (ScribusApp*)parent;
 	Umrech = 1.0;
 	docUnitIndex = prefsData->docUnitIndex;
-	int f[] = {2, 3, 4};
-	if (docUnitIndex == 3)
-		decimals = f[0];
-	else
-		decimals = f[docUnitIndex];
+	decimals = unitGetPrecisionFromIndex(docUnitIndex);
+	
 	DisScale = prefsData->DisScale;
 	setCaption( tr( "Preferences" ) );
 
@@ -229,10 +227,7 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	Layout6->addWidget( GZText2, 1, 0 );
 	Layout6->addWidget( GZComboO, 1, 1 );
 	UnitCombo = new QComboBox( true, GroupSize, "UnitCombo" );
-	UnitCombo->insertItem( tr( "Points (pt)" ) );
-	UnitCombo->insertItem( tr( "Millimetres (mm)" ) );
-	UnitCombo->insertItem( tr( "Inches (in)" ) );
-	UnitCombo->insertItem( tr( "Picas (p)" ) );
+	UnitCombo->insertStringList(unitGetTextUnitList());
 	UnitCombo->setEditable(false);
 	UnitCombo->setCurrentItem(prefsData->docUnitIndex);
 	unitComboText = new QLabel( UnitCombo, tr( "Units:" ), GroupSize, "unitComboText" );
@@ -386,16 +381,16 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	QMap<QString,QFont> DocFonts;
 	DocFonts.clear();
 	tabPDF = new TabPDFOptions( prefsWidgets,
-																&prefsData->PDF_Optionen,
-																ap->Prefs.AvailFonts,
-																&ap->PDFXProfiles,
-																DocFonts,
-																prefsData->PDF_Optionen.PresentVals,
-																Umrech,
-																unitGetSuffixFromIndex(prefsData->docUnitIndex),
-																prefsData->PageHoehe,
-																prefsData->PageBreite,
-																0 );
+								&prefsData->PDF_Optionen,
+								ap->Prefs.AvailFonts,
+								&ap->PDFXProfiles,
+								DocFonts,
+								prefsData->PDF_Optionen.PresentVals,
+								Umrech,
+								unitGetSuffixFromIndex(prefsData->docUnitIndex),
+								prefsData->PageHoehe,
+								prefsData->PageBreite,
+								0 );
 	addItem( tr("PDF Export"), loadIcon("acroread.png"), tabPDF);
 
 	tabKeys = new KeyManager(prefsWidgets, prefsData->KeyActions);
@@ -1022,7 +1017,7 @@ void Preferences::setOrien(int ori)
  \fn void Preferences::changePapColor()
  \author Franz Schmid
  \date
- \brief Preferences ([dox?], [dox?]), Sets Paper colour [dox?]
+ \brief Preferences ([dox?], [dox?]), Sets Paper color [dox?]
  \param None
  \retval None
  */
@@ -1066,29 +1061,10 @@ void Preferences::unitChange()
 	oldHM /= AltUmrech;
 	QString einh;
 	docUnitIndex = UnitCombo->currentItem();
-	switch (UnitCombo->currentItem())
-	{
-	case 0:
-		Umrech = 1.0;
-		decimals = 100;
-		einh = tr( " pt" );
-		break;
-	case 1:
-		Umrech = 0.3527777;
-		decimals = 1000;
-		einh = tr( " mm" );
-		break;
-	case 2:
-		Umrech = 1.0 / 72.0;
-		decimals = 10000;
-		einh = tr( " in" );
-		break;
-	case 3:
-		Umrech = 1.0 / 12.0;
-		decimals = 100;
-		einh = tr( " p" );
-		break;
-	}
+	Umrech = unitGetRatioFromIndex(docUnitIndex);
+	decimals = unitGetDecimalsFromIndex(docUnitIndex);
+	einh = unitGetSuffixFromIndex(docUnitIndex);
+	
 	pageWidth->setSuffix(einh);
 	pageHeight->setSuffix(einh);
 	TopR->setSuffix(einh);
@@ -1209,6 +1185,7 @@ void Preferences::drawRuler()
 		maxi = 200.0;
 		break;
 	}
+	
 	QPixmap pm(static_cast<int>(maxi*DisScale+30), 21);
 	pm.fill();
 	QPainter p;

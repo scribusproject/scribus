@@ -3,12 +3,14 @@
 
 #include <qvariant.h>
 #include <qdialog.h>
+
 #include "scribus.h"
 
 class QVBoxLayout;
 class QHBoxLayout;
 class QGridLayout;
 class QListView;
+class QListViewItem;
 class QListBoxItem;
 class QPushButton;
 class QLabel;

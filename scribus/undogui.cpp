@@ -319,6 +319,7 @@ void UndoPalette::keyPressEvent(QKeyEvent* e)
 	QWidget::keyPressEvent(e);
 }
 
+
 void UndoPalette::keyReleaseEvent(QKeyEvent* e)
 {
 	//TODO Do we need to check more meta keys, CTRL, SHIFT, META, UNICODE_ACCEL ? Could just grab the meta keys used

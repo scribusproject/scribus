@@ -325,6 +325,7 @@ protected:
 
 	/** @brief Hide the window when ESC is pressed */
 	void keyPressEvent(QKeyEvent* e);
+
 	void keyReleaseEvent(QKeyEvent* e);
 
 public:

@@ -85,7 +85,7 @@ void NameWidget::focusOutEvent(QFocusEvent *e)
 	QLineEdit::focusOutEvent(e);
 }
 
-Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : QDialog( parent, "Mdouble", false, 0)
+Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : ScrPaletteBase( parent, "Mdouble", false, 0)
 {
 	setCaption( tr( "Properties" ) );
 	HaveDoc = false;
@@ -939,6 +939,7 @@ Mpalette::Mpalette( QWidget* parent, ApplicationPrefs *Prefs) : QDialog( parent,
 	PM1->setEnabled(false);
 }
 
+/*
 void Mpalette::keyPressEvent(QKeyEvent *k)
 {
 	QDialog::keyPressEvent(k);
@@ -955,7 +956,7 @@ void Mpalette::reject()
 	emit Schliessen();
 	QDialog::reject();
 }
-
+*/
 void Mpalette::SelTab(int t)
 {
 	if (ScApp->ScriptRunning)

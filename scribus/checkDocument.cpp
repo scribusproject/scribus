@@ -12,9 +12,11 @@
 #include <qmap.h>
 #include <qlabel.h>
 #include <qcombobox.h>
+
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "page.h"
+
 extern QPixmap loadIcon(QString nam);
 extern ScribusApp* ScApp;
 
@@ -109,7 +111,7 @@ static const unsigned char image2_data[] =
         0x42, 0x60, 0x82
     };
 
-CheckDocument::CheckDocument( QWidget* parent, bool modal )  : QDialog( parent, "checkDocument", modal, 0 )
+CheckDocument::CheckDocument( QWidget* parent, bool modal )  : ScrPaletteBase( parent, "checkDocument", modal, 0 )
 {
 	QImage img;
 	img.loadFromData( image0_data, sizeof( image0_data ), "PNG" );
@@ -147,7 +149,7 @@ CheckDocument::CheckDocument( QWidget* parent, bool modal )  : QDialog( parent, 
 	clearWState( WState_Polished );
 	connect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(newScan(const QString&)));
 }
-
+/*
 void CheckDocument::closeEvent(QCloseEvent *ce)
 {
 	emit closePal(false);
@@ -158,7 +160,7 @@ void CheckDocument::keyPressEvent(QKeyEvent *ke)
 {
 	QDialog::keyPressEvent(ke);
 }
-
+*/
 void CheckDocument::slotSelect(QListViewItem* ite)
 {
 	if (itemMap.contains(ite))

@@ -17,6 +17,7 @@
 
 #include "fpointarray.h"
 #include <cstdarg>
+#include <math.h>
 
 using namespace std;
 
@@ -217,4 +218,130 @@ void FPointArray::addQuadPoint(FPoint p1, FPoint p2, FPoint p3, FPoint p4)
 	setPoint(size()-1, p3.x(), p3.y());
 	resize(size()+1);
 	setPoint(size()-1, p4.x(), p4.y());
+}
+
+double FPointArray::lenPathSeg(int seg)
+{
+	FPoint p1 = point(seg);
+	FPoint k1 = point(seg+1);
+	FPoint p2 = point(seg+2);
+	FPoint k2 = point(seg+3);
+	FPoint newP, oldP;
+	double newLen = 1;
+	double oldLen = 0;
+	double ts = 0.5;
+	double t = 0.5;
+	int iter = 2;
+	while (true)
+	{
+		oldP = p1;
+		newLen = 0;
+		for (int dx = 0; dx < iter; ++dx)
+		{
+			double tm = 1.0 - t;
+			newP = ((tm * tm * tm) * p1) + (3 * t * (tm * tm) * k1) + (3 * t * t * tm * k2 + t * t * t * p2);
+			newLen += sqrt(pow(newP.x()-oldP.x(),2.0)+pow(newP.y()-oldP.y(),2.0));
+			oldP = newP;
+			t += ts;
+		}
+		if (fabs(newLen - oldLen) < 0.01)
+			break;
+		oldLen = newLen;
+		ts /= 2.0;
+		iter *= 2;
+		t = ts;
+	}
+	return newLen;
+}
+
+double FPointArray::lenPathDist(int seg, double t1, double t2)
+{
+	FPoint p1 = point(seg);
+	FPoint k1 = point(seg+1);
+	FPoint p2 = point(seg+2);
+	FPoint k2 = point(seg+3);
+	FPoint newP, oldP;
+	double newLen = 0;
+	double ts, t, tm;
+	tm = 1.0 - t1;
+	oldP = ((tm * tm * tm) * p1) + (3 * t1 * (tm * tm) * k1) + (3 * t1 * t1 * tm * k2 + t1 * t1 * t1 * p2);
+	ts = (t2 - t1) / 100;
+	t = t1 + ts;
+	for (int dx = 0; dx < 99; ++dx)
+	{
+		tm = 1.0 - t;
+		newP = ((tm * tm * tm) * p1) + (3 * t * (tm * tm) * k1) + (3 * t * t * tm * k2 + t * t * t * p2);
+		newLen += sqrt(pow(newP.x()-oldP.x(),2.0)+pow(newP.y()-oldP.y(),2.0));
+		oldP = newP;
+		t += ts;
+	}
+	return newLen;
+}
+
+void FPointArray::pointTangentNormalAt( int seg, double t, FPoint* p, FPoint* tn, FPoint* n )
+{
+	// Calculate derivative if necessary.
+	FPoint d;
+	if( tn || n )
+		pointDerivativesAt( seg, t, p, &d, 0L );
+	else
+		pointDerivativesAt( seg, t, p, 0L, 0L );
+	// Normalize derivative.
+	if( tn || n )
+	{
+		const double norm = sqrt( d.x() * d.x() + d.y() * d.y() );
+		d = norm ? d * ( 1.0 / norm ) : FPoint( 0.0, 0.0 );
+	}
+	// Assign tangent vector.
+	if( tn )
+		*tn = d;
+	// Calculate normal vector.
+	if( n )
+	{
+		// Calculate vector product of "binormal" x tangent
+		// (0,0,1) x (dx,dy,0), which is simply (dy,-dx,0).
+		n->setX( d.y() );
+		n->setY( -d.x() );
+	}
+	FPoint p1 = point(seg);
+	FPoint k1 = point(seg+1);
+	FPoint p2 = point(seg+2);
+	FPoint k2 = point(seg+3);
+	double tm = 1.0 - t;
+	*p = ((tm * tm * tm) * p1) + (3 * t * (tm * tm) * k1) + (3 * (t * t) * tm * k2 + (t * t * t) * p2);
+}
+
+void FPointArray::pointDerivativesAt( int seg, double t, FPoint* p, FPoint* d1, FPoint* d2 )
+{
+	// Copy points.
+	FPoint* q = new FPoint[ 4 ];
+	q[ 0 ] = point(seg);
+	q[ 1 ] = point(seg+1);
+	q[ 3 ] = point(seg+2);
+	q[ 2 ] = point(seg+3);
+	// The De Casteljau algorithm.
+	for( unsigned short j = 1; j <= 3; j++ )
+	{
+		for( unsigned short i = 0; i <= 3 - j; i++ )
+		{
+			q[ i ] = ( 1.0 - t ) * q[ i ] + t * q[ i + 1 ];
+		}
+		// Save second derivative now that we have it.
+		if( j == 1 )
+		{
+			if( d2 )
+				*d2 = 6 * ( q[ 2 ] - 2 * q[ 1 ] + q[ 0 ] );
+		}
+		// Save first derivative now that we have it.
+		else if( j == 2 )
+		{
+			if( d1 )
+				*d1 = 3 * ( q[ 1 ] - q[ 0 ] );
+		}
+	}
+	// Save point.
+	if( p )
+		*p = q[ 0 ];
+	delete[]( q );
+	return;
 }

@@ -137,7 +137,7 @@ void BibView::RebuildView()
 
 /* This is the main Dialog-Class for the Scrapbook */
 Biblio::Biblio( QWidget* parent, ApplicationPrefs *prefs)
-		: QDialog( parent, "Sclib", false, 0 )
+		: ScrPaletteBase( parent, "Sclib", false, 0 )
 {
 	resize( 230, 190 );
 	setCaption( tr( "Scrapbook" ) );
@@ -153,7 +153,7 @@ Biblio::Biblio( QWidget* parent, ApplicationPrefs *prefs)
 	fmenu->insertItem(loadIcon("DateiOpen16.png"), tr("&Load..."), this, SLOT(Load()), CTRL+Key_O);
 	fSave = fmenu->insertItem(loadIcon("DateiSave16.png"), tr("&Save"), this, SLOT(Save()), CTRL+Key_S);
 	fmenu->insertItem( tr("Save &As..."), this, SLOT(SaveAs()));
-	fmenu->insertItem(loadIcon("DateiClos16.png"), tr("&Close"), this, SLOT(CloseWin()));
+	fmenu->insertItem(loadIcon("DateiClos16.png"), tr("&Close"), this, SLOT(close()));
 	vmenu = new QPopupMenu();
 	vS = vmenu->insertItem( tr( "&Small" ) );
 	vM = vmenu->insertItem( tr( "&Medium" ) );
@@ -193,7 +193,7 @@ Biblio::Biblio( QWidget* parent, ApplicationPrefs *prefs)
 	connect(BibWin, SIGNAL(itemRenamed(QIconViewItem*)), this, SLOT(ItemRenamed(QIconViewItem*)));
 	connect(vmenu, SIGNAL(activated(int)), this, SLOT(SetPreview(int)));
 }
-
+/*
 void Biblio::closeEvent(QCloseEvent *ce)
 {
 	emit Schliessen();
@@ -210,7 +210,7 @@ void Biblio::reject()
 	emit Schliessen();
 	QDialog::reject();
 }
-
+*/
 void Biblio::Save()
 {
 	if ((!ScFilename.isEmpty()) && (BibWin->Objekte.count() != 0))
@@ -227,10 +227,15 @@ void Biblio::SaveAs()
 	                                          tr("Scrapbooks (*.scs);;All Files (*)"), this);
 	if (!fn.isEmpty())
 	{
-		dirs->set("scrap_saveas", fn.left(fn.findRev("/")));
-		BibWin->SaveContents(fn);
-		ScFilename = fn;
-		setCaption(fn);
+		QString saveFileName;
+		if (fn.endsWith(".scs"))
+			saveFileName = fn;
+		else
+			saveFileName = fn+".scs";
+		dirs->set("scrap_saveas", saveFileName.left(saveFileName.findRev("/")));
+		BibWin->SaveContents(saveFileName);
+		ScFilename = saveFileName;
+		setCaption(saveFileName);
 		fmenu->setItemEnabled(fSave, 1);
 		Changed = false;
 	}

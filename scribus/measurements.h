@@ -1,7 +1,7 @@
 #ifndef MEASUREMENTS_H
 #define MEASUREMENTS_H
 
-#include <qdialog.h>
+#include "scrpalettebase.h"
 
 class QVBoxLayout;
 class QHBoxLayout;
@@ -9,15 +9,24 @@ class QGridLayout;
 class QLabel;
 class QVariant;
 
-class Measurements : public QDialog
+class Measurements : public ScrPaletteBase
 {
 	Q_OBJECT
 
 public:
 	Measurements( QWidget* parent );
 	~Measurements() {};
-	void closeEvent(QCloseEvent *ce);
+	//void closeEvent(QCloseEvent *ce);
 
+signals:
+	//void Schliessen(bool);
+
+public slots:
+	void setValues(double x1, double y1, double x2, double y2, double angle, double length, int unitIndex);
+	void changeLanguage();
+
+protected:
+	QGridLayout* measurementsLayout;
 	QLabel* x1Label;
 	QLabel* y1Label;
 	QLabel* x2Label;
@@ -34,16 +43,6 @@ public:
 	QLabel* dYData;
 	QLabel* lengthData;
 	QLabel* angleData;
-
-signals:
-	void Schliessen(bool);
-
-public slots:
-	void setValues(double x1, double y1, double x2, double y2, double angle, double length, int unitIndex);
-	void changeLanguage();
-
-protected:
-	QGridLayout* measurementsLayout;
 };
 
 #endif // MEASUREMENTS_H

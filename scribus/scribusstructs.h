@@ -32,8 +32,8 @@ struct ScText
 	double cextra;
 	double xp;
 	double yp;
-	int PtransX;
-	int PtransY;
+	double PtransX;
+	double PtransY;
 	double PRot;
 	QString cfont;
 	QString ccolor;
@@ -443,16 +443,8 @@ struct ApplicationPrefs
 	int docUnitIndex;
 	windowPrefs mainToolBarSettings;
 	windowPrefs pdfToolBarSettings;
-	windowPrefs mPaletteSettings;
-	windowPrefs measurePalSettings;
-	windowPrefs treePalSettings;
-	windowPrefs nodePalSettings;
 	windowPrefs mainWinSettings;
-	windowPrefs scrapPalSettings;
-	windowPrefs layerPalSettings;
-	windowPrefs pagePalSettings;
-	windowPrefs bookmPalSettings;
-	windowPrefs checkPalSettings;
+	
 	PDFOptions PDF_Optionen;
 	bool SepalT;
 	bool SepalN;

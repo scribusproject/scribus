@@ -5,6 +5,8 @@
 #include <qpixmap.h>
 #include <qdialog.h>
 
+#include "scrpalettebase.h"
+
 class QVBoxLayout;
 class QHBoxLayout;
 class QGridLayout;
@@ -15,7 +17,7 @@ class QComboBox;
 class QLabel;
 class ScribusDoc;
 
-class CheckDocument : public QDialog
+class CheckDocument : public ScrPaletteBase
 {
 	Q_OBJECT
 
@@ -24,9 +26,10 @@ public:
 	~CheckDocument() {};
 	void clearErrorList();
 	void buildErrorList(ScribusDoc *doc);
+	/*
 	void closeEvent(QCloseEvent *ce);
 	void keyPressEvent(QKeyEvent *ke);
-
+	*/
 	QComboBox* curCheckProfile;
 	QLabel* textLabel1;
 	QListView* reportDisplay;
@@ -41,7 +44,7 @@ public slots:
 
 signals:
 	void rescan();
-	void closePal(bool);
+	//void closePal(bool);
 	void selectElement(int, int);
 	void selectPage(int);
 	void selectTemplatePage(QString);

@@ -35,7 +35,7 @@ PyObject *scribus_scaleimage(PyObject */*self*/, PyObject* args)
 		return NULL;
 	if (item->itemType() != PageItem::ImageFrame)
 	{
-		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame","python error"));
+		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error"));
 		return NULL;
 	}
 	item->LocalScX = x;
@@ -226,7 +226,7 @@ PyObject *scribus_scalegroup(PyObject */*self*/, PyObject* args)
 		return NULL;
 	if (sc == 0.0)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Can't scale by 0%","python error"));
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot scale by 0%.","python error"));
 		return NULL;
 	}
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
@@ -335,7 +335,7 @@ PyObject *scribus_setscaleimagetoframe(PyObject */*self*/, PyObject* args, PyObj
 		return NULL;
 	if (item->itemType() != PageItem::ImageFrame)
 	{
-		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame","python error"));
+		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error"));
 		return NULL;
 	}
 	// Set the item to scale if appropriate. ScaleType 1 is free

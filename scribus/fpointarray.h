@@ -50,6 +50,10 @@ public:
 	void addPoint(FPoint p);
 	void addQuadPoint(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4);
 	void addQuadPoint(FPoint p1, FPoint p2, FPoint p3, FPoint p4);
+	double lenPathSeg(int seg);
+	double lenPathDist(int seg, double t1, double t2);
+	void pointTangentNormalAt( int seg, double t, FPoint* p, FPoint* tn, FPoint* n );
+	void pointDerivativesAt( int seg, double t, FPoint* p, FPoint* d1, FPoint* d2 );
 	~FPointArray() {};
 };
 

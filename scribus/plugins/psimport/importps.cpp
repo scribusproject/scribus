@@ -14,6 +14,7 @@
 #include <qfile.h>
 #include <qtextstream.h>
 #include <qcursor.h>
+#include <qdragobject.h>
 #include <cmath>
 #include <cstdlib>
 #include "undomanager.h"

@@ -2165,7 +2165,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					if (((*Doc->AllFonts)[hl->cfont]->CharWidth.contains(chr)) && (chr != 32))
 					{
 						PS_save();
-						PS_translate(hl->PtransX, -hl->PtransY);
+/*						PS_translate(hl->PtransX, -hl->PtransY);
 						PS_rotate(-hl->PRot);
 						if (c->Reverse)
 						{
@@ -2185,13 +2185,19 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 							PS_translate(wideR, 0);
 						}
 						else
-							PS_translate(hl->xp, (hl->yp - (tsz / 10.0)) * -1);
+							PS_translate(hl->xp, (hl->yp - (tsz / 10.0)) * -1); */
 						if (hl->cscale != 100)
 							PS_scale(hl->cscale / 100.0, 1);
 						if (hl->ccolor != "None")
 						{
 							SetFarbe(Doc, hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
 							PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+							PutSeite("["+ToStr(1) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(-1) + " " + ToStr(-hl->PRot) + " " + ToStr(0) + "]\n");
+							PutSeite("["+ToStr(hl->PtransX) + " " + ToStr(-hl->PtransY) + " " + ToStr(-hl->PtransY) + " " + ToStr(-hl->PtransX) + " " + ToStr(hl->xp) + " " + ToStr(-hl->yp) + "]\n");
+							PutSeite("["+ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + "] concatmatrix\nconcat\n");
+							PS_translate(0, (tsz / 10.0));
+							if (c->BaseOffs != 0)
+								PS_translate(0, -c->BaseOffs);
 							PS_showSub(chr, (*Doc->AllFonts)[hl->cfont]->RealName().simplifyWhiteSpace().replace( QRegExp("\\s"), "" ), tsz / 10.0, false);
 						}
 						PS_restore();
@@ -2201,9 +2207,12 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				{
 					PS_selectfont(hl->cfont, tsz / 10.0);
 					PS_save();
-					PS_translate(hl->PtransX, -hl->PtransY);
-					PS_rotate(-hl->PRot);
-					PS_show_xyG(hl->cfont, chx, hl->xp, -hl->yp);
+					PutSeite("["+ToStr(1) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(-1) + " " + ToStr(-hl->PRot) + " " + ToStr(0) + "]\n");
+					PutSeite("["+ToStr(hl->PtransX) + " " + ToStr(-hl->PtransY) + " " + ToStr(-hl->PtransY) + " " + ToStr(-hl->PtransX) + " " + ToStr(hl->xp) + " " + ToStr(-hl->yp) + "]\n");
+					PutSeite("["+ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + "] concatmatrix\nconcat\n");
+					if (c->BaseOffs != 0)
+						PS_translate(0, -c->BaseOffs);
+					PS_show_xyG(hl->cfont, chx, 0, 0);
 					PS_restore();
 				}
 			}

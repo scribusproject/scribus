@@ -17,15 +17,15 @@ TITLE = "Text quoting"
 
 # These need to be declared as unicode strings until some
 # charset issues in the scripter are worked out.
-QUOTE_START = u"»"
-QUOTE_END = u"«"
+QUOTE_START = u""
+QUOTE_END = u""
 
 def quote(textobj):
     quoted_re = re.compile('"[^"]*"')
     try:
         text = getText(textobj)
     except WrongFrameTypeError:
-        messageBox("quote.py", "Can't quote text in a non-text frame", ICON_INFORMATION);
+        messageBox("quote.py", "Cannot quote text in a non-text frame", ICON_INFORMATION);
         sys.exit(1)
     if len(text) == 0:
         return 0    # We can't very well change anything in an empty frame

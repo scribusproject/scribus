@@ -9,11 +9,12 @@
 #include <qpixmap.h>
 #include <qmessagebox.h>
 
+
 #include "scribus.h"
 
 extern QPixmap loadIcon(QString nam);
 
-Tree::Tree( QWidget* parent, ScribusApp* scApp ) : QDialog( parent, "Tree", false, 0 )
+Tree::Tree( QWidget* parent, ScribusApp* scApp ) : ScrPaletteBase( parent, "Tree", false, 0 )
 {
 	ScApp = scApp;
 	resize( 220, 240 );
@@ -66,11 +67,11 @@ Tree::Tree( QWidget* parent, ScribusApp* scApp ) : QDialog( parent, "Tree", fals
 //	connect(reportDisplay, SIGNAL(rightButtonClicked(QListViewItem *, const QPoint &, int)), this, SLOT(slotRightClick(QListViewItem*, const QPoint &, int)));
 }
 
-void Tree::keyPressEvent(QKeyEvent *k)
+/*void Tree::keyPressEvent(QKeyEvent *k)
 {
 	QDialog::keyPressEvent(k);
 }
-
+*/
 void Tree::slotRightClick(QListViewItem* ite, const QPoint &, int)
 {
 /*	if (ite == NULL)
@@ -509,6 +510,7 @@ void Tree::slotSelect(QListViewItem* ite)
 	selectionTriggered = false;
 }
 
+/*
 void Tree::closeEvent(QCloseEvent *ce)
 {
 	emit Schliessen();
@@ -520,7 +522,7 @@ void Tree::reject()
 	emit Schliessen();
 	QDialog::reject();
 }
-
+*/
 void Tree::resizeEvent(QResizeEvent *r)
 {
 	reportDisplay->resize(r->size());

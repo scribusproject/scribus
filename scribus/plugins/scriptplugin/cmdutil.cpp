@@ -153,7 +153,7 @@ PageItem* GetUniqueItem(QString name)
 			return Carrier->view->SelItem.at(0);
 		else
 		{
-			PyErr_SetString(NoValidObjectError, QString("Can't use empty string for object name when there is no selection"));
+			PyErr_SetString(NoValidObjectError, QString("Cannot use empty string for object name when there is no selection"));
 			return NULL;
 		}
 	else

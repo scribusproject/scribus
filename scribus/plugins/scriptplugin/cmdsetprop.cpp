@@ -71,7 +71,7 @@ PyObject *scribus_setlinewidth(PyObject */*self*/, PyObject* args)
 		return NULL;
 	if ((w < 0.0) || (w > 12.0))
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Line width out of bounds, must be 0 <= line_width <= 12","python error"));
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Line width out of bounds, must be 0 <= line_width <= 12.","python error"));
 		return NULL;
 	}
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
@@ -92,7 +92,7 @@ PyObject *scribus_setlineshade(PyObject */*self*/, PyObject* args)
 		return NULL;
 	if ((w < 0) || (w > 100))
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Line shade out of bounds, must be 0 <= shade <= 100","python error"));
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Line shade out of bounds, must be 0 <= shade <= 100.","python error"));
 		return NULL;
 	}
 	PageItem *it = GetUniqueItem(QString::fromUtf8(Name));
@@ -113,7 +113,7 @@ PyObject *scribus_setfillshade(PyObject */*self*/, PyObject* args)
 		return NULL;
 	if ((w < 0) || (w > 100))
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Fill shade out of bounds, must be 0 <= shade <= 100","python error"));
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Fill shade out of bounds, must be 0 <= shade <= 100.","python error"));
 		return NULL;
 	}
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
@@ -214,7 +214,7 @@ PyObject *scribus_setmultiline(PyObject */*self*/, PyObject* args)
 		return NULL;
 	if (!Carrier->doc->MLineStyles.contains(QString::fromUtf8(Style)))
 	{
-		PyErr_SetString(NotFoundError, QObject::tr("Line style not found","python error"));
+		PyErr_SetString(NotFoundError, QObject::tr("Line style not found.","python error"));
 		return NULL;
 	}
 	b->NamedLStyle = QString::fromUtf8(Style);

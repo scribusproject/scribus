@@ -3,13 +3,14 @@
 #include "page.h"
 #include "pageitem.h"
 #include "scribusview.h"
+#include "units.h"
 #include "undomanager.h"
 #include "undostate.h"
 
 extern QPixmap loadIcon(QString nam);
 extern double UmReFaktor;
 
-NodePalette::NodePalette( QWidget* parent) : QDialog( parent, "Npal", false, 0)
+NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "Npal", false, 0)
 {
 	setCaption( tr( "Nodes" ) );
 	setIcon(loadIcon("AppIcon.png"));
@@ -246,9 +247,8 @@ void NodePalette::setDoc(ScribusDoc *dc, ScribusView *vi)
 	view = vi;
 	disconnect(EditCont, SIGNAL(clicked()), this, SLOT(ToggleConMode()));
 	disconnect(AbsMode, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));
-	QString tmp_abs[]={" pt", " mm", " in", "p"};
-	YSpin->setSuffix(tr(tmp_abs[doc->docUnitIndex]));
-	XSpin->setSuffix(tr(tmp_abs[doc->docUnitIndex]));
+	YSpin->setSuffix(unitGetSuffixFromIndex(doc->docUnitIndex));
+	XSpin->setSuffix(unitGetSuffixFromIndex(doc->docUnitIndex));
 	AbsMode->setChecked(false);
 	EditCont->setChecked(false);
 	connect(AbsMode, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));
@@ -536,7 +536,7 @@ void NodePalette::DelN()
 	Res1Node->setEnabled(false);
 }
 
-void NodePalette::closeEvent(QCloseEvent *)
+void NodePalette::closeEvent(QCloseEvent *ce)
 {
 	if (doc != 0)
 	{
@@ -545,7 +545,7 @@ void NodePalette::closeEvent(QCloseEvent *)
 	}
 	PolySplit->setEnabled( false );
 	BezierClose->setEnabled( false );
-	emit Schliessen();
+	ScrPaletteBase::closeEvent(ce);
 }
 
 void NodePalette::EndEdit()

@@ -21,6 +21,7 @@ or documentation
 #include <qprogressdialog.h>
 #include <qfile.h>
 #include <qdir.h>
+#include <qcheckbox.h>
 
 ShortWords* shortWords;
 extern ScribusApp *ScApp;

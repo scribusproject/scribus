@@ -9,10 +9,12 @@
 #ifndef TREE_H
 #define TREE_H
 
-#include <qdialog.h>
 #include <qptrlist.h>
 #include <qvaluelist.h>
 #include <qpixmap.h>
+
+#include "scrpalettebase.h"
+
 class QVBoxLayout;
 class QHBoxLayout;
 class QGridLayout;
@@ -22,14 +24,14 @@ class ScribusApp;
 class ScribusDoc;
 class PageItem;
 
-class Tree : public QDialog
+class Tree : public ScrPaletteBase
 {
 	Q_OBJECT
 
 public:
 	Tree( QWidget* parent, ScribusApp* scApp );
-	void keyPressEvent(QKeyEvent *k);
-	void closeEvent(QCloseEvent *ce);
+	//void keyPressEvent(QKeyEvent *k);
+	//void closeEvent(QCloseEvent *ce);
 	void resizeEvent(QResizeEvent *r);
 	void rebuildPageD();
 	void reopenTree(QValueList<int> op);
@@ -79,16 +81,16 @@ public slots:
 
 signals:
 	void ToggleAllPalettes();
-	void Schliessen();
-	void CloseMpal();
-	void CloseSpal();
+	//void Schliessen();
+	//void CloseMpal();
+	//void CloseSpal();
 	void selectElement(int, int, bool);
 	void selectPage(int);
 	void selectTemplatePage(QString);
 	void selectTemplateElement(QString, int);
 
 protected slots:
-	virtual void reject();
+	//virtual void reject();
 };
 
 #endif // TREE_H

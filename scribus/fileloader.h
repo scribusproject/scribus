@@ -3,9 +3,10 @@
 #include <qstring.h>
 #include <qvaluelist.h>
 #include <qmap.h>
-#include <qdom.h>
-#include <qprogressbar.h>
 #include "scribusstructs.h"
+
+class QDomElement;
+class QProgressBar;
 class ScribusDoc;
 class ScribusView;
 class ScribusApp;

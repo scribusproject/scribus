@@ -1,10 +1,11 @@
 #ifndef LAYERPALETTE_H
 #define LAYERPALETTE_H
 
-#include <qdialog.h>
 #include <qtable.h>
 #include <qptrlist.h>
 #include <qvaluelist.h>
+
+#include "scrpalettebase.h"
 
 class QPushButton;
 class QLayout;
@@ -20,18 +21,18 @@ class LayerTable : public QTable
 public:
 	LayerTable(QWidget* parent);
 	~LayerTable() {};
-	void keyPressEvent(QKeyEvent *k);
+	//void keyPressEvent(QKeyEvent *k);
 
 protected:
 	virtual void endEdit ( int row, int col, bool accept, bool replace );
 
 signals:
-	void ToggleAllPalettes();
-	void Schliessen();
+	//void ToggleAllPalettes();
+	//void Schliessen();
 	void updtName(int);
 };
 
-class LayerPalette : public QDialog
+class LayerPalette : public ScrPaletteBase
 {
 	Q_OBJECT
 
@@ -46,7 +47,7 @@ public:
 	QPushButton* RaiseLayer;
 	QPushButton* LowerLayer;
 	QValueList<Layer> *layers;
-	void closeEvent(QCloseEvent *ce);
+	//void closeEvent(QCloseEvent *ce);
 	void setLayers(QValueList<Layer> *layin, int *act);
 	void rebuildList();
 	QPtrList<QCheckBox> FlagsPrint;
@@ -70,14 +71,14 @@ signals:
 	void LayerRemoved(int, bool);
 	void LayerChanged();
 	void LayerActivated(int);
-	void Schliessen();
+	//void Schliessen();
 
 protected:
 	QVBoxLayout* LayerPaletteLayout;
 	QHBoxLayout* Layout1;
 
 protected slots:
-	virtual void reject();
+	//virtual void reject();
 };
 
 #endif // LAYERPALETTE_H

@@ -35,7 +35,7 @@ PyDoc_STRVAR(scribus_getcolorasrgb__doc__,
 QT_TR_NOOP("getColorAsRGB(\"name\") -> tuple\n\
 \n\
 Returns a tuple (R,G,B) containing the three color components of the\n\
-color \"name\" from the current document, converted to the RGB colour\n\
+color \"name\" from the current document, converted to the RGB color\n\
 space. If no document is open, returns the value of the named color\n\
 from the default document colors.\n\
 \n\

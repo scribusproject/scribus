@@ -28,7 +28,7 @@ extern QPixmap loadIcon(QString nam);
  \retval None
  */
 
-BookPalette::BookPalette(QWidget* parent) : QDialog( parent, "Books", false, 0 )
+BookPalette::BookPalette(QWidget* parent) : ScrPaletteBase( parent, "Books", false, 0 )
 {
 	setIcon(loadIcon("AppIcon.png"));
 	setCaption( tr( "Bookmarks" ) );
@@ -45,8 +45,8 @@ BookPalette::BookPalette(QWidget* parent) : QDialog( parent, "Books", false, 0 )
  \brief Emits the Signal Schliessen and accepts close event. The Signal is used in ScribusApp to adjust the Menues.
  \param ce Close Event
  \retval None
- */
-
+			  */
+			 /*
 void BookPalette::keyPressEvent(QKeyEvent *k)
 {
 	QDialog::keyPressEvent(k);
@@ -63,3 +63,4 @@ void BookPalette::reject()
 	emit Schliessen();
 	QDialog::reject();
 }
+*/

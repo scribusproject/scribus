@@ -22,6 +22,7 @@
 #include "missing.h"
 #include "pageitem.h"
 #include "splash.h"
+#include "units.h"
 
 #ifdef _MSC_VER
  #if (_MSC_VER >= 1200)
@@ -1632,7 +1633,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 			Its->NextBox = 0;
 		}
 	}
-	view->UN->setText(doc->docUnitIndex == 0 ? "pt" : "mm");
+	view->UN->setText(unitGetStrFromIndex(doc->docUnitIndex));
 	dia2->setProgress(DOC.childNodes().count());
 	return true;
 }
@@ -2973,33 +2974,11 @@ void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 	dc5.setAttribute("VISIBLE", static_cast<int>(Vor->mainToolBarSettings.visible));
 	dc5.setAttribute("PDFVISIBLE", static_cast<int>(Vor->pdfToolBarSettings.visible));
 	elem.appendChild(dc5);
-	QDomElement dc7=docu.createElement("TREEPALETTE");
-	dc7.setAttribute("VISIBLE", static_cast<int>(Vor->treePalSettings.visible));
-	dc7.setAttribute("XPOS",Vor->treePalSettings.xPosition);
-	dc7.setAttribute("YPOS",Vor->treePalSettings.yPosition);
-	elem.appendChild(dc7);
-	QDomElement dc72=docu.createElement("NODEPALETTE");
-	dc72.setAttribute("XPOS",Vor->nodePalSettings.xPosition);
-	dc72.setAttribute("YPOS",Vor->nodePalSettings.yPosition);
-	elem.appendChild(dc72);
 	QDomElement dc73=docu.createElement("SCRAPBOOK");
-	dc73.setAttribute("VISIBLE", static_cast<int>(Vor->scrapPalSettings.visible));
-	dc73.setAttribute("XPOS",Vor->scrapPalSettings.xPosition);
-	dc73.setAttribute("YPOS",Vor->scrapPalSettings.yPosition);
-	dc73.setAttribute("WIDTH",Vor->scrapPalSettings.width);
-	dc73.setAttribute("HEIGHT",Vor->scrapPalSettings.height);
 	dc73.setAttribute("PREVIEW",Vor->PSize);
 	dc73.setAttribute("SAVE", static_cast<int>(Vor->SaveAtQ));
 	elem.appendChild(dc73);
-	QDomElement dc74=docu.createElement("LAYERPALETTE");
-	dc74.setAttribute("VISIBLE", static_cast<int>(Vor->layerPalSettings.visible));
-	dc74.setAttribute("XPOS",Vor->layerPalSettings.xPosition);
-	dc74.setAttribute("YPOS",Vor->layerPalSettings.yPosition);
-	elem.appendChild(dc74);
 	QDomElement dc75=docu.createElement("PAGEPALETTE");
-	dc75.setAttribute("VISIBLE", static_cast<int>(Vor->pagePalSettings.visible));
-	dc75.setAttribute("XPOS",Vor->pagePalSettings.xPosition);
-	dc75.setAttribute("YPOS",Vor->pagePalSettings.yPosition);
 	dc75.setAttribute("THUMBS", static_cast<int>(Vor->SepalT));
 	dc75.setAttribute("NAMES", static_cast<int>(Vor->SepalN));
 	elem.appendChild(dc75);
@@ -3017,22 +2996,6 @@ void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 	dc76.setAttribute("AutoSave", static_cast<int>(Vor->AutoSave));
 	dc76.setAttribute("AutoSaveTime", Vor->AutoSaveTime);
 	elem.appendChild(dc76);
-	QDomElement dc77=docu.createElement("BOOKPALETTE");
-	dc77.setAttribute("VISIBLE", static_cast<int>(Vor->bookmPalSettings.visible));
-	dc77.setAttribute("XPOS",Vor->bookmPalSettings.xPosition);
-	dc77.setAttribute("YPOS",Vor->bookmPalSettings.yPosition);
-	elem.appendChild(dc77);
-	QDomElement dc78=docu.createElement("DISTS");
-	dc78.setAttribute("VISIBLE", static_cast<int>(Vor->measurePalSettings.visible));
-	dc78.setAttribute("XPOS",Vor->measurePalSettings.xPosition);
-	dc78.setAttribute("YPOS",Vor->measurePalSettings.yPosition);
-	elem.appendChild(dc78);
-	QDomElement dc79=docu.createElement("Checker");
-	dc79.setAttribute("VISIBLE", static_cast<int>(Vor->checkPalSettings.visible));
-	dc79.setAttribute("XPOS",Vor->checkPalSettings.xPosition);
-	dc79.setAttribute("YPOS",Vor->checkPalSettings.yPosition);
-	dc79.setAttribute("currentProfile", Vor->curCheckProfile);
-	elem.appendChild(dc79);
 	QMap<QString, checkerPrefs>::Iterator itcp;
 	for (itcp = Vor->checkerProfiles.begin(); itcp != Vor->checkerProfiles.end(); ++itcp)
 	{
@@ -3051,11 +3014,6 @@ void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 		dc79a.setAttribute("minResolution",itcp.data().minResolution);
 		elem.appendChild(dc79a);
 	}
-	QDomElement dc8=docu.createElement("MEASUREMENTS");
-	dc8.setAttribute("VISIBLE", static_cast<int>(Vor->mPaletteSettings.visible));
-	dc8.setAttribute("XPOS",Vor->mPaletteSettings.xPosition);
-	dc8.setAttribute("YPOS",Vor->mPaletteSettings.yPosition);
-	elem.appendChild(dc8);
 	QDomElement dc81=docu.createElement("CMS");
 	dc81.setAttribute("DPSo", static_cast<int>(Vor->DCMSset.SoftProofOn));
 	dc81.setAttribute("DPuse", static_cast<int>(Vor->DCMSset.CMSinUse));
@@ -3324,44 +3282,13 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 			Vorein->mainWinSettings.width = QStoInt(dc.attribute("WIDTH"));
 			Vorein->mainWinSettings.height = QStoInt(dc.attribute("HEIGHT"));
 		}
-		if (dc.tagName()=="TOOLPALETTE")
-		{
-			Vorein->mainToolBarSettings.visible = static_cast<bool>(QStoInt(dc.attribute("VISIBLE","1")));
-			Vorein->pdfToolBarSettings.visible = static_cast<bool>(QStoInt(dc.attribute("PDFVISIBLE","1")));
-		}
-		if (dc.tagName()=="TREEPALETTE")
-		{
-			Vorein->treePalSettings.visible = static_cast<bool>(QStoInt(dc.attribute("VISIBLE")));
-			Vorein->treePalSettings.xPosition = QStoInt(dc.attribute("XPOS"));
-			Vorein->treePalSettings.yPosition = QStoInt(dc.attribute("YPOS"));
-		}
-		if (dc.tagName()=="LAYERPALETTE")
-		{
-			Vorein->layerPalSettings.visible = static_cast<bool>(QStoInt(dc.attribute("VISIBLE")));
-			Vorein->layerPalSettings.xPosition = QStoInt(dc.attribute("XPOS"));
-			Vorein->layerPalSettings.yPosition = QStoInt(dc.attribute("YPOS"));
-		}
-		if (dc.tagName()=="BOOKPALETTE")
-		{
-			Vorein->bookmPalSettings.visible = static_cast<bool>(QStoInt(dc.attribute("VISIBLE")));
-			Vorein->bookmPalSettings.xPosition = QStoInt(dc.attribute("XPOS"));
-			Vorein->bookmPalSettings.yPosition = QStoInt(dc.attribute("YPOS"));
-		}
 		if (dc.tagName()=="PAGEPALETTE")
 		{
-			Vorein->pagePalSettings.visible = static_cast<bool>(QStoInt(dc.attribute("VISIBLE")));
-			Vorein->pagePalSettings.xPosition = QStoInt(dc.attribute("XPOS"));
-			Vorein->pagePalSettings.yPosition = QStoInt(dc.attribute("YPOS"));
 			Vorein->SepalT = static_cast<bool>(QStoInt(dc.attribute("THUMBS")));
 			Vorein->SepalN = static_cast<bool>(QStoInt(dc.attribute("NAMES")));
 		}
 		if (dc.tagName()=="SCRAPBOOK")
 		{
-			Vorein->scrapPalSettings.visible = static_cast<bool>(QStoInt(dc.attribute("VISIBLE")));
-			Vorein->scrapPalSettings.xPosition = QStoInt(dc.attribute("XPOS"));
-			Vorein->scrapPalSettings.yPosition = QStoInt(dc.attribute("YPOS"));
-			Vorein->scrapPalSettings.width = QStoInt(dc.attribute("WIDTH"));
-			Vorein->scrapPalSettings.height = QStoInt(dc.attribute("HEIGHT"));
 			Vorein->PSize = QStoInt(dc.attribute("PREVIEW"));
 			Vorein->SaveAtQ = static_cast<bool>(QStoInt(dc.attribute("SAVE")));
 		}
@@ -3394,11 +3321,6 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 			Vorein->DCMSset.DefaultIntentMonitor = QStoInt(dc.attribute("DIMo","3"));
 			Vorein->DCMSset.DefaultIntentMonitor2 = QStoInt(dc.attribute("DIMo2","3"));
 		}
-		if (dc.tagName()=="NODEPALETTE")
-		{
-			Vorein->nodePalSettings.xPosition = QStoInt(dc.attribute("XPOS"));
-			Vorein->nodePalSettings.yPosition = QStoInt(dc.attribute("YPOS"));
-		}
 		if (!import12 && dc.tagName()=="SHORTCUT")
 		{			
 				Vorein->KeyActions[dc.attribute("ACTION")].actionName = dc.attribute("ACTION");
@@ -3406,25 +3328,11 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 		}
 		if (dc.tagName()=="RECENT")
 			Vorein->RecentDocs.append(dc.attribute("NAME"));
-		if (dc.tagName()=="DISTS")
-		{
-			Vorein->measurePalSettings.visible = static_cast<bool>(QStoInt(dc.attribute("VISIBLE", "1")));
-			Vorein->measurePalSettings.xPosition = QStoInt(dc.attribute("XPOS", "0"));
-			Vorein->measurePalSettings.yPosition = QStoInt(dc.attribute("YPOS", "0"));
-		}
-		if (dc.tagName()=="MEASUREMENTS")
-		{
-			Vorein->mPaletteSettings.visible = static_cast<bool>(QStoInt(dc.attribute("VISIBLE", "1")));
-			Vorein->mPaletteSettings.xPosition = QStoInt(dc.attribute("XPOS"));
-			Vorein->mPaletteSettings.yPosition = QStoInt(dc.attribute("YPOS"));
-		}
 		if (dc.tagName()=="Checker")
 		{
-			Vorein->checkPalSettings.visible = static_cast<bool>(QStoInt(dc.attribute("VISIBLE", "1")));
-			Vorein->checkPalSettings.xPosition = QStoInt(dc.attribute("XPOS"));
-			Vorein->checkPalSettings.yPosition = QStoInt(dc.attribute("YPOS"));
 			Vorein->curCheckProfile = dc.attribute("currentProfile", tr("Postscript"));
 		}
+		
 		if (dc.tagName()=="CheckProfile")
 		{
 			struct checkerPrefs checkerSettings;

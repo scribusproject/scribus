@@ -14,6 +14,7 @@
 #include "prefsfile.h"
 #include <qfile.h>
 #include <qtextstream.h>
+#include <qdragobject.h>
 #include <qregexp.h>
 #include <qcursor.h>
 #include <cmath>

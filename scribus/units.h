@@ -17,6 +17,7 @@
 #define UNITS_H
 
 #include <qstring.h>
+#include <qstringlist.h>
 /*
 enum Unit {
 	POINTS      = 0,
@@ -34,6 +35,7 @@ const QString unitGetStrFromIndex(const int index);
 const QString unitGetSuffixFromIndex(const int index);
 const int unitGetDecimalsFromIndex(const int index);
 const int unitGetPrecisionFromIndex(const int index);
+const QStringList unitGetTextUnitList();
 const double mm2pts(int mm);
 const double pts2mm(double pts);
 

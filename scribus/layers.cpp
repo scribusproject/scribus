@@ -28,10 +28,12 @@ LayerTable::LayerTable(QWidget* parent) : QTable(parent)
 {
 }
 
+/*
 void LayerTable::keyPressEvent(QKeyEvent *k)
 {
 	QTable::keyPressEvent(k);
 }
+*/
 
 void LayerTable::endEdit ( int row, int col, bool accept, bool replace )
 {
@@ -42,7 +44,7 @@ void LayerTable::endEdit ( int row, int col, bool accept, bool replace )
 }
 
 LayerPalette::LayerPalette(QWidget* parent)
-		: QDialog( parent, "Layers", false, 0 )
+		: ScrPaletteBase( parent, "Layers", false, 0 )
 {
 	setIcon(loadIcon("AppIcon.png"));
 	setCaption( tr( "Layers" ) );
@@ -113,7 +115,7 @@ LayerPalette::LayerPalette(QWidget* parent)
 	connect(Table, SIGNAL(valueChanged(int, int)), this, SLOT(changeName(int, int)));
 	connect(Table, SIGNAL(updtName(int)), this, SLOT(updateName(int)));
 }
-
+/*
 void LayerPalette::closeEvent(QCloseEvent *ce)
 {
 	emit Schliessen();
@@ -125,7 +127,7 @@ void LayerPalette::reject()
 	emit Schliessen();
 	QDialog::reject();
 }
-
+*/
 void LayerPalette::updateName(int r)
 {
 	changeName(r, 0);

@@ -74,6 +74,11 @@
 #include "javadocs.h"
 #include "colorm.h"
 #include "mpalette.h"
+#include "bookpalette.h"
+#include "seiten.h"
+#include "layers.h"
+#include "frameedit.h"
+#include "splash.h"
 #include "measurements.h"
 #include "gtgettext.h"
 #include "fileloader.h"
@@ -322,6 +327,7 @@ void ScribusApp::initToolBars()
 	setDockEnabled(WerkTools, DockRight, false);
 	WerkTools->Sichtbar = true;
 	WerkTools->setEnabled(false);
+	scrActions["toolsMeasurements"]->addTo(WerkTools);
 	WerkToolsP = new WerkToolBP(this);
 	setDockEnabled(WerkToolsP, DockLeft, false);
 	setDockEnabled(WerkToolsP, DockRight, false);
@@ -464,30 +470,8 @@ void ScribusApp::initDefaultPrefs()
 	Prefs.toolSettings.polyS = false;
 	Prefs.toolSettings.polyFd = 0;
 	Prefs.toolSettings.polyR = 0;
-	Prefs.checkPalSettings.visible = false;
 	Prefs.mainToolBarSettings.visible = true;
 	Prefs.pdfToolBarSettings.visible = true;
-	Prefs.mPaletteSettings.visible = false;
-	Prefs.measurePalSettings.visible = false;
-	Prefs.treePalSettings.visible = false;
-	Prefs.scrapPalSettings.visible = false;
-	Prefs.layerPalSettings.visible = false;
-	Prefs.bookmPalSettings.visible = false;
-	Prefs.pagePalSettings.visible = false;
-	Prefs.measurePalSettings.xPosition = 0;
-	Prefs.measurePalSettings.yPosition = 0;
-	Prefs.treePalSettings.xPosition = 0;
-	Prefs.treePalSettings.yPosition = 0;
-	Prefs.scrapPalSettings.xPosition = 0;
-	Prefs.scrapPalSettings.yPosition = 0;
-	Prefs.scrapPalSettings.width = 100;
-	Prefs.scrapPalSettings.height = 200;
-	Prefs.pagePalSettings.xPosition = 0;
-	Prefs.pagePalSettings.yPosition = 0;
-	Prefs.bookmPalSettings.xPosition = 0;
-	Prefs.bookmPalSettings.yPosition = 0;
-	Prefs.layerPalSettings.xPosition = 0;
-	Prefs.layerPalSettings.yPosition = 0;
 	Prefs.PSize = 40;
 	Prefs.SaveAtQ = true;
 	Prefs.ClipMargin = true;
@@ -651,7 +635,10 @@ void ScribusApp::initDefaultValues()
 void ScribusApp::initKeyboardShortcuts()
 {
 	for( QMap<QString, QGuardedPtr<ScrAction> >::Iterator it = scrActions.begin(); it!=scrActions.end(); ++it )
+	{
 		SetKeyEntry(it.key(), it.data()->cleanMenuText(), QString(it.data()->accel()),0);
+		//qDebug(QString("|-\n|%1||%2||%3").arg(it.key()).arg(it.data()->cleanMenuText()).arg(QString(it.data()->accel())));
+	}
 }
 
 void ScribusApp::initArrowStyles()
@@ -733,27 +720,56 @@ void ScribusApp::initPalettes()
 	//CB TODO hide the publicly available members of some palettes
 	// these must be filtered too as they take control of the palettes events
 	Tpal = new Tree(this, this);
+	connect( scrActions["toolsOutline"], SIGNAL(toggled(bool)) , Tpal, SLOT(setPaletteShown(bool)) );
+	connect( Tpal, SIGNAL(paletteShown(bool)), scrActions["toolsOutline"], SLOT(setOn(bool)));
+	Tpal->setPrefsContext("OutlinePalette");
 	Tpal->reportDisplay->installEventFilter(this);
 	Mpal = new Mpalette(this, &Prefs);
+	connect( scrActions["toolsProperties"], SIGNAL(toggled(bool)) , Mpal, SLOT(setPaletteShown(bool)) );
+	connect( Mpal, SIGNAL(paletteShown(bool)), scrActions["toolsProperties"], SLOT(setOn(bool)));
+	Mpal->setPrefsContext("PropertiesPalette");
 	Mpal->Cpal->SetColors(Prefs.DColors);
 	Mpal->Cpal->UseTrans(true);
 	Mpal->Fonts->RebuildList(&Prefs, 0);
 	Mpal->installEventFilter(this);
 	Npal = new NodePalette(this);
+	Npal->setPrefsContext("NodePalette");
+	Npal->installEventFilter(this);
+		
 	Lpal = new LayerPalette(this);
+	connect( scrActions["toolsLayers"], SIGNAL(toggled(bool)) , Lpal, SLOT(setPaletteShown(bool)) );
+	connect( Lpal, SIGNAL(paletteShown(bool)), scrActions["toolsLayers"], SLOT(setOn(bool)));
+	Lpal->setPrefsContext("LayerPalette");
 	Lpal->installEventFilter(this);
 	Lpal->Table->installEventFilter(this);
 	ScBook = new Biblio(this, &Prefs);
+	connect( scrActions["toolsScrapbook"], SIGNAL(toggled(bool)) , ScBook, SLOT(setPaletteShown(bool)) );
+	connect( ScBook, SIGNAL(paletteShown(bool)), scrActions["toolsScrapbook"], SLOT(setOn(bool)));
+	ScBook->setPrefsContext("ScrapbookPalette");
 	ScBook->installEventFilter(this);
 	ScBook->BibWin->installEventFilter(this);
 	Sepal = new SeitenPal(this);
+	connect( scrActions["toolsPages"], SIGNAL(toggled(bool)) , Sepal, SLOT(setPaletteShown(bool)) );
+	connect( scrActions["toolsPages"], SIGNAL(toggled(bool)) , this, SLOT(setSepal(bool)) );
+	connect( Sepal, SIGNAL(paletteShown(bool)), scrActions["toolsPages"], SLOT(setOn(bool)));
+	Sepal->setPrefsContext("PagePalette");
 	Sepal->installEventFilter(this);
 	BookPal = new BookPalette(this);
+	connect( scrActions["toolsBookmarks"], SIGNAL(toggled(bool)) , BookPal, SLOT(setPaletteShown(bool)) );
+	connect( BookPal, SIGNAL(paletteShown(bool)), scrActions["toolsBookmarks"], SLOT(setOn(bool)));
+	BookPal->setPrefsContext("BookmarkPalette");
 	BookPal->installEventFilter(this);
 	MaPal = new Measurements(this);
+	connect( scrActions["toolsMeasurements"], SIGNAL(toggled(bool)) , MaPal, SLOT(setPaletteShown(bool)) );
+	connect( scrActions["toolsMeasurements"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
+	connect( MaPal, SIGNAL(paletteShown(bool)), scrActions["toolsMeasurements"], SLOT(setOn(bool)));
+	MaPal->setPrefsContext("MeasurementPalette");
 	MaPal->installEventFilter(this);
 	MaPal->hide();
 	docChecker = new CheckDocument(this, false);
+	connect( scrActions["toolsPreflightVerifier"], SIGNAL(toggled(bool)) , docChecker, SLOT(setPaletteShown(bool)) );
+	connect( docChecker, SIGNAL(paletteShown(bool)), scrActions["toolsPreflightVerifier"], SLOT(setOn(bool)));
+	docChecker->setPrefsContext("DocCheckerPalette");
 	docChecker->installEventFilter(this);
 	docChecker->hide();
 
@@ -763,12 +779,10 @@ void ScribusApp::initPalettes()
 	connect(undoPalette, SIGNAL(paletteShown(bool)), this, SLOT(setUndoPalette(bool)));
 	connect(undoPalette, SIGNAL(objectMode(bool)), this, SLOT(setUndoMode(bool)));
 
-	connect(MaPal, SIGNAL(Schliessen(bool)), this, SLOT(setMapal(bool)));
 	connect(Mpal, SIGNAL(DocChanged()), this, SLOT(slotDocCh()));
 	connect(Mpal, SIGNAL(NewAbStyle(int)), this, SLOT(setNewAbStyle(int)));
 	connect(Mpal, SIGNAL(BackHome()), this, SLOT(Aktiv()));
 	connect(Mpal, SIGNAL(Stellung(int)), this, SLOT(setItemHoch(int)));
-	connect(Mpal, SIGNAL(Schliessen()), this, SLOT(ToggleMpal()));
 	connect(Mpal, SIGNAL(EditCL()), this, SLOT(ToggleFrameEdit()));
 	connect(Mpal, SIGNAL(NewTF(QString)), this, SLOT(SetNewFont(QString)));
 	connect(Mpal, SIGNAL(UpdtGui(int)), this, SLOT(HaveNewSel(int)));
@@ -782,42 +796,27 @@ void ScribusApp::initPalettes()
 	connect(Mpal->Cpal->gradEdit->Preview, SIGNAL(gradientChanged()), this, SLOT(updtGradFill()));
 	connect(Mpal->Cpal, SIGNAL(gradientChanged()), this, SLOT(updtGradFill()));
 	connect(Mpal->Cpal, SIGNAL(QueryItem()), this, SLOT(GetBrushPen()));
-	connect(docChecker, SIGNAL(closePal(bool)), this, SLOT(setCheckPal(bool)));
 	connect(docChecker, SIGNAL(rescan()), this, SLOT(slotCheckDoc()));
 	connect(docChecker, SIGNAL(selectElement(int, int)), this, SLOT(SelectFromOutl(int, int)));
 	connect(docChecker, SIGNAL(selectPage(int)), this, SLOT(SelectFromOutlS(int)));
 	connect(docChecker, SIGNAL(selectTemplatePage(QString)), this, SLOT(ManageTemp(QString)));
-	connect(Tpal, SIGNAL(Schliessen()), this, SLOT(ToggleTpal()));
-	//connect(Tpal, SIGNAL(CloseMpal()), this, SLOT(ToggleMpal()));
-	//connect(Tpal, SIGNAL(CloseSpal()), this, SLOT(ToggleBpal()));
 	connect(Tpal, SIGNAL(selectElement(int, int, bool)), this, SLOT(SelectFromOutl(int, int, bool)));
 	connect(Tpal, SIGNAL(selectPage(int)), this, SLOT(SelectFromOutlS(int)));
 	connect(Tpal, SIGNAL(selectTemplatePage(QString)), this, SLOT(ManageTemp(QString)));
-	//connect(Tpal, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
 	connect(Mpal->Spal, SIGNAL(newStyle(int)), this, SLOT(setNewAbStyle(int)));
 	connect(Mpal, SIGNAL(EditLSt()), this, SLOT(slotEditLineStyles()));
-	//connect(Mpal, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
-	//connect(Mpal, SIGNAL(CloseTpal()), this, SLOT(ToggleTpal()));
-	//connect(Mpal, SIGNAL(CloseBpal()), this, SLOT(ToggleBpal()));
 	connect(Npal, SIGNAL(Schliessen()), this, SLOT(NoFrameEdit()));
 	connect(Lpal, SIGNAL(LayerActivated(int)), this, SLOT(changeLayer(int)));
 	connect(Lpal, SIGNAL(LayerRemoved(int, bool)), this, SLOT(LayerRemove(int, bool)));
 	connect(Lpal, SIGNAL(LayerChanged()), this, SLOT(showLayer()));
-	connect(Lpal, SIGNAL(Schliessen()), this, SLOT(ToggleLpal()));
-	connect(Lpal->Table, SIGNAL(Schliessen()), this, SLOT(ToggleLpal()));
-	//connect(Lpal->Table, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
-	connect(Sepal, SIGNAL(Schliessen()), this, SLOT(ToggleSepal()));
 	connect(Sepal, SIGNAL(EditTemp(QString)), this, SLOT(ManageTemp(QString)));
 	connect(Sepal->PageView, SIGNAL(UseTemp(QString, int)), this, SLOT(Apply_Temp(QString, int)));
 	connect(Sepal->PageView, SIGNAL(NewPage(int, QString)), this, SLOT(slotNewPageP(int, QString)));
 	connect(Sepal->Trash, SIGNAL(DelPage(int)), this, SLOT(DeletePage2(int)));
 	connect(Sepal, SIGNAL(GotoSeite(int)), this, SLOT(SelectFromOutlS(int)));
-	//connect(Sepal, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
 	connect(BookPal->BView, SIGNAL(MarkMoved()), this, SLOT(StoreBookmarks()));
 	connect(BookPal->BView, SIGNAL(ChangeBMNr(int, int, int)), this, SLOT(ChBookmarks(int, int, int)));
 	connect(BookPal->BView, SIGNAL(SelectElement(int, int)), this, SLOT(SelectFromOutl(int, int)));
-	connect(BookPal, SIGNAL(Schliessen()), this, SLOT(ToggleBookpal()));
-	//connect(BookPal, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
 }
 
 void ScribusApp::initScrapbook()
@@ -828,11 +827,6 @@ void ScribusApp::initScrapbook()
 		ScBook->BibWin->ReadContents(scrapbookFile);
 	ScBook->ScFilename = scrapbookFile;
 	ScBook->AdjustMenu();
-	connect(ScBook, SIGNAL(Schliessen()), this, SLOT(ToggleBpal()));
-	//connect(ScBook->BibWin, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
-	connect(ScBook->BibWin, SIGNAL(Schliessen()), this, SLOT(ToggleBpal()));
-	//connect(ScBook->BibWin, SIGNAL(CloseTpal()), this, SLOT(ToggleTpal()));
-	//connect(ScBook->BibWin, SIGNAL(CloseMpal()), this, SLOT(ToggleMpal()));
 }
 
 void ScribusApp::initCrashHandler()
@@ -866,6 +860,17 @@ void ScribusApp::initCrashHandler()
 const QString ScribusApp::getGuiLanguage()
 {
 	return guiLanguage;
+}
+
+bool ScribusApp::warningVersion(QWidget *parent)
+{
+	bool retval = false;
+	int t = QMessageBox::warning(parent, QObject::tr("Scribus Development Version"),
+								 QObject::tr("You are running a development version of Scribus 1.3.x.\nThe process of  saving will make files originating from versions of\nScribus of 1.2.x or lower unusable again in those versions.\nAre you sure you wish to proceed with this operation?"),
+								 QObject::tr("&Cancel"), QObject::tr("&Proceed"), "", 1, 0);
+	if (t == 1)
+		retval = true;
+	return retval;
 }
 
 /*!
@@ -983,7 +988,7 @@ void ScribusApp::initFileMenuActions()
 	scrActions.insert("fileOpen", new ScrAction(QIconSet(loadIcon("DateiOpen16.png"), loadIcon("DateiOpen.xpm")), tr("&Open..."), CTRL+Key_O, this, "fileOpen"));
 	scrActions.insert("fileClose", new ScrAction(QIconSet(loadIcon("DateiClos16.png"), loadIcon("DateiClose.png")), tr("&Close"), CTRL+Key_W, this, "fileClose"));
 	scrActions.insert("fileSave", new ScrAction(QIconSet(loadIcon("DateiSave16.png"), loadIcon("DateiSave2.png")), tr("&Save"), CTRL+Key_S, this, "fileSave"));
-	scrActions.insert("fileSaveAs", new ScrAction(QPixmap(loadIcon("filesaveas.png")), tr("Save &As..."), QKeySequence(), this, "fileSaveAs"));
+	scrActions.insert("fileSaveAs", new ScrAction(QPixmap(loadIcon("filesaveas.png")), tr("Save &As..."), CTRL+SHIFT+Key_S, this, "fileSaveAs"));
 	scrActions.insert("fileRevert", new ScrAction(QPixmap(loadIcon("revert.png")), tr("Re&vert to Saved"), QKeySequence(), this, "fileRevert"));
 	scrActions.insert("fileCollect", new ScrAction(tr("Collect for O&utput..."), QKeySequence(), this, "fileCollect"));
 	//File Import Menu
@@ -1017,7 +1022,6 @@ void ScribusApp::initFileMenuActions()
 	connect( scrActions["fileOpen"], SIGNAL(activated()) , this, SLOT(slotDocOpen()) );
 	connect( scrActions["fileClose"], SIGNAL(activated()) , this, SLOT(slotFileClose()) );
 	connect( scrActions["filePrint"], SIGNAL(activated()) , this, SLOT(slotFilePrint()) );
-	connect( scrActions["fileSave"], SIGNAL(activated()) , this, SLOT(slotFileSave()) );
 	connect( scrActions["fileSave"], SIGNAL(activated()) , this, SLOT(slotFileSave()) );
 	connect( scrActions["fileSaveAs"], SIGNAL(activated()) , this, SLOT(slotFileSaveAs()) );
 	connect( scrActions["fileDocInfo"], SIGNAL(activated()) , this, SLOT(InfoDoc()) );
@@ -1280,6 +1284,7 @@ void ScribusApp::initToolsMenuActions()
 	scrActions.insert("toolsLayers", new ScrAction(tr("&Layers"), QKeySequence(), this, "toolsLayers"));
 	scrActions.insert("toolsPages", new ScrAction(tr("P&age Palette"), QKeySequence(), this, "toolsPages"));
 	scrActions.insert("toolsBookmarks", new ScrAction(tr("&Bookmarks"), QKeySequence(), this, "toolsBookmarks"));
+	scrActions.insert("toolsMeasurements", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("dist.png"), loadIcon("dist.png")), tr("&Measurements"), QKeySequence(), this, "toolsMeasurements", MeasurementTool));
 	scrActions.insert("toolsActionHistory", new ScrAction(tr("Action &History"), QKeySequence(), this, "toolsActionHistory"));
 	scrActions.insert("toolsPreflightVerifier", new ScrAction(QIconSet(loadIcon("launch16.png"), loadIcon("launch.png")),tr("Preflight &Verifier"), QKeySequence(), this, "toolsPreflightVerifier"));
 	scrActions.insert("toolsToolbarTools", new ScrAction(tr("&Tools"), QKeySequence(), this, "toolsToolbarTools"));
@@ -1291,19 +1296,13 @@ void ScribusApp::initToolsMenuActions()
 	scrActions["toolsLayers"]->setToggleAction(true);
 	scrActions["toolsPages"]->setToggleAction(true);
 	scrActions["toolsBookmarks"]->setToggleAction(true);
+	scrActions["toolsMeasurements"]->setToggleAction(true);
 	scrActions["toolsActionHistory"]->setToggleAction(true);
 	scrActions["toolsPreflightVerifier"]->setToggleAction(true);
 	scrActions["toolsToolbarTools"]->setToggleAction(true);
 	scrActions["toolsToolbarPDF"]->setToggleAction(true);
-
-	connect( scrActions["toolsProperties"], SIGNAL(toggled(bool)) , this, SLOT(setMpal(bool)) );
-	connect( scrActions["toolsOutline"], SIGNAL(toggled(bool)) , this, SLOT(setTpal(bool)) );
-	connect( scrActions["toolsScrapbook"], SIGNAL(toggled(bool)) , this, SLOT(setBpal(bool)) );
-	connect( scrActions["toolsLayers"], SIGNAL(toggled(bool)) , this, SLOT(setLpal(bool)) );
-	connect( scrActions["toolsPages"], SIGNAL(toggled(bool)) , this, SLOT(setSepal(bool)) );
-	connect( scrActions["toolsBookmarks"], SIGNAL(toggled(bool)) , this, SLOT(setBookpal(bool)) );
+	
 	connect( scrActions["toolsActionHistory"], SIGNAL(toggled(bool)) , this, SLOT(setUndoPalette(bool)) );
-	connect( scrActions["toolsPreflightVerifier"], SIGNAL(toggled(bool)) , this, SLOT(setCheckPal(bool)) );
 	connect( scrActions["toolsToolbarTools"], SIGNAL(toggled(bool)) , this, SLOT(setTools(bool)) );
 	connect( scrActions["toolsToolbarPDF"], SIGNAL(toggled(bool)) , this, SLOT(setPDFTools(bool)) );
 }
@@ -1354,11 +1353,12 @@ void ScribusApp::initSpecialActions()
 	
 	//GUI
 	scrActions.insert("specialToggleAllPalettes", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Toggle Palettes"), Key_F10, this, "specialToggleAllPalettes",0,0.0,"specialToggleAllPalettes"));
-
+	scrActions.insert("specialToggleAllGuides", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Toggle Guides"), Key_F11, this, "specialToggleAllGuides",0,0.0,"specialToggleAllGuides"));
 	connect( scrActions["specialSmartHyphen"], SIGNAL(activatedData(QString)) , this, SLOT(specialActionKeyEvent(QString)) );
 	connect( scrActions["specialNonBreakingSpace"], SIGNAL(activatedData(QString)) , this, SLOT(specialActionKeyEvent(QString)) );
 	connect( scrActions["specialPageNumber"], SIGNAL(activatedData(QString)) , this, SLOT(specialActionKeyEvent(QString)) );
 	connect( scrActions["specialToggleAllPalettes"], SIGNAL(activated()) , this, SLOT(ToggleAllPalettes()) );
+	connect( scrActions["specialToggleAllGuides"], SIGNAL(activated()) , this, SLOT(ToggleAllGuides()) );
 }
 
 void ScribusApp::initMenuBar()
@@ -1550,6 +1550,7 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["toolsLayers"], "Tools");
 	scrMenuMgr->addMenuItem(scrActions["toolsPages"], "Tools");
 	scrMenuMgr->addMenuItem(scrActions["toolsBookmarks"], "Tools");
+	scrMenuMgr->addMenuItem(scrActions["toolsMeasurements"], "Tools");
 	scrMenuMgr->addMenuItem(scrActions["toolsActionHistory"], "Tools");
 	scrMenuMgr->addMenuItem(scrActions["toolsPreflightVerifier"], "Tools");
 	scrMenuMgr->addMenuSeparator("Tools");
@@ -1799,9 +1800,9 @@ void ScribusApp::specialActionKeyEvent(QString actionName)
 /*!
   \brief Receive key events from palettes such as palette hiding events. Possibly eaier way but this is cleaner than before. No need to modify all those palettes and each new one in future.
  */
-bool ScribusApp::eventFilter( QObject *o, QEvent *e )
+bool ScribusApp::eventFilter( QObject */*o*/, QEvent *e )
 {
-	bool retVal=false;
+	bool retVal;
 	if ( e->type() == QEvent::KeyPress ) {
 		QKeyEvent *k = (QKeyEvent *)e;
 		int keyMod;
@@ -1822,62 +1823,39 @@ bool ScribusApp::eventFilter( QObject *o, QEvent *e )
 		}
 		
 		QKeySequence currKeySeq = QKeySequence(k->key() | keyMod);
-		
+		retVal=true;
 		if (currKeySeq == scrActions["specialToggleAllPalettes"]->accel())
-		{
-			retVal=true;
 			scrActions["specialToggleAllPalettes"]->activate();
-		}
 		else
 		if (currKeySeq == scrActions["toolsProperties"]->accel())
-		{
-			retVal=true;
 			scrActions["toolsProperties"]->toggle();
-		}
 		else
 		if (currKeySeq == scrActions["toolsOutline"]->accel())
-		{
-			retVal=true;
 			scrActions["toolsOutline"]->toggle();
-		}
 		else
 		if (currKeySeq == scrActions["toolsScrapbook"]->accel())
-		{
-			retVal=true;
 			scrActions["toolsScrapbook"]->toggle();
-		}
 		else
 		if (currKeySeq == scrActions["toolsLayers"]->accel())
-		{
-			retVal=true;
 			scrActions["toolsLayers"]->toggle();
-		}
 		else
 		if (currKeySeq == scrActions["toolsPages"]->accel())
-		{
-			retVal=true;
 			scrActions["toolsPages"]->toggle();
-		}
 		else
 		if (currKeySeq == scrActions["toolsBookmarks"]->accel())
-		{
-			retVal=true;
 			scrActions["toolsBookmarks"]->toggle();
-		}
 		else
 		if (currKeySeq == scrActions["toolsActionHistory"]->accel())
-		{
-			retVal=true;
 			scrActions["toolsActionHistory"]->toggle();
-		}
 		else
 		if (currKeySeq == scrActions["toolsPreflightVerifier"]->accel())
-		{
-			retVal=true;
 			scrActions["toolsPreflightVerifier"]->toggle();
-		}
+		else
+			retVal=false;
 		
 	}
+	else
+		retVal=false;
 	//Return false to pass event to object
 	return retVal;
 }
@@ -1913,19 +1891,13 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 		break;
 	}
 	/*
-	if (kk == Key_F10)
-	{
-		keyrep = false;
-		ToggleAllPalettes();
-		return;
-	}
-	*/
 	if ((kk == Key_F11) && (HaveDoc))
 	{
 		keyrep = false;
 		ToggleAllGuides();
 		return;
 	}
+	 */
 	if ((kk == Key_Escape) && (HaveDoc))
 	{
 		keyrep = false;
@@ -2788,6 +2760,14 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 				return;
 			}
 		}
+		Mpal->hide();
+		Tpal->hide();
+		ScBook->hide();
+		BookPal->hide();
+		Lpal->hide();
+		Sepal->hide();
+		MaPal->hide();
+		docChecker->hide();
 		SavePrefs();
 		delete prefsFile;
 		UndoManager::deleteInstance();
@@ -2805,6 +2785,14 @@ void ScribusApp::closeEvent(QCloseEvent *ce)
 	}
 	else
 	{
+		Mpal->hide();
+		Tpal->hide();
+		ScBook->hide();
+		BookPal->hide();
+		Lpal->hide();
+		Sepal->hide();
+		MaPal->hide();
+		docChecker->hide();
 		SavePrefs();
 		delete prefsFile;
 		UndoManager::deleteInstance();
@@ -3948,17 +3936,19 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["editClear"]->setEnabled(false);
 		scrActions["editSearchReplace"]->setEnabled(false);
 		scrActions["extrasHyphenateText"]->setEnabled(false);
-		scrMenuMgr->setMenuEnabled("Style", true);
 		scrMenuMgr->setMenuEnabled("Item", true);
 		scrMenuMgr->setMenuEnabled("ItemShapes", false);
 		scrActions["itemDetachTextFromPath"]->setEnabled(true);
 		scrActions["itemConvertToOutlines"]->setEnabled(false);
+		
 		scrMenuMgr->clearMenu("Style");
+		scrMenuMgr->setMenuEnabled("Style", true);
 		scrMenuMgr->addMenuToMenu("Font","Style");
 		scrMenuMgr->addMenuToMenu("FontSize","Style");
-		scrMenuMgr->addMenuToMenu("Style","Style");
+		scrMenuMgr->addMenuToMenu("TypeEffects","Style");
 		scrMenuMgr->addMenuToMenu("Color","Style");
 		scrMenuMgr->addMenuToMenu("Shade","Style");
+		
 		WerkTools->Rotiere->setEnabled(true);
 		WerkTools->Textedit->setEnabled(false);
 		WerkTools->Textedit2->setEnabled(true);
@@ -4396,6 +4386,11 @@ bool ScribusApp::LadeSeite(QString fileName, int Nr, bool Mpa)
 
 bool ScribusApp::LadeDoc(QString fileName)
 {
+	//Scribus 1.3.x warning, remove at a later stage
+	if (!warningVersion(this))
+		return false;
+	//
+	
 	undoManager->setUndoEnabled(false);
 	qApp->setOverrideCursor(QCursor(waitCursor), true);
 	QFileInfo fi(fileName);
@@ -4881,13 +4876,17 @@ void ScribusApp::slotAutoSaved()
 
 bool ScribusApp::slotFileSave()
 {
+	//Scribus 1.3.x warning, remove at a later stage
+	if (!warningVersion(this))
+		return false;
+	//
 	bool ret = false;
 	if (doc->hasName)
 	{
 		QString fn = doc->DocName;
 		ret = DoFileSave(fn);
 		if (!ret)
-			QMessageBox::warning(this, tr("Warning"), tr("Can't write the File: \n%1").arg(fn), tr("OK"));
+			QMessageBox::warning(this, tr("Warning"), tr("Cannot write the File: \n%1").arg(fn), tr("OK"));
 	}
 	else
 		ret = slotFileSaveAs();
@@ -4896,6 +4895,10 @@ bool ScribusApp::slotFileSave()
 
 bool ScribusApp::slotFileSaveAs()
 {
+	//Scribus 1.3.x warning, remove at a later stage
+	if (!warningVersion(this))
+		return false;
+	//
 	bool ret = false;
 	QString fna;
 	PrefsContext* docContext = prefsFile->getContext("docdirs", false);
@@ -4934,7 +4937,7 @@ bool ScribusApp::slotFileSaveAs()
 		{
 			ret = DoFileSave(fna);
 			if (!ret)
-				QMessageBox::warning(this, tr("Warning"), tr("Can't write the File: \n%1").arg(fn), tr("OK"));
+				QMessageBox::warning(this, tr("Warning"), tr("Cannot write the File: \n%1").arg(fn), tr("OK"));
 			else
 				doc->PDF_Optionen.Datei = ""; // #1482 reset the pdf file name
 		}
@@ -5716,14 +5719,14 @@ void ScribusApp::slotHelpAbout()
 	mo = dlopen(pfad, RTLD_LAZY);
 	if (!mo)
 	{
-		std::cout << "Can't find Plug-in" << endl;
+		std::cout << "Cannot find Plug-in" << endl;
 		return;
 	}
 	dlerror();
 	demo = (sdem)dlsym(mo, "Run");
 	if ((error = dlerror()) != NULL)
 	{
-		std::cout << "Can't find Symbol" << endl;
+		std::cout << "Cannot find Symbol" << endl;
 		dlclose(mo);
 		return;
 	}
@@ -5940,15 +5943,16 @@ void ScribusApp::ToggleAllPalettes()
 	if (PalettesStat[0])
 	{
 		PalettesStat[0] = false;
-		setMpal(PalettesStat[1]);
-		setTpal(PalettesStat[2]);
-		setBpal(PalettesStat[3]);
-		setLpal(PalettesStat[4]);
+		Mpal->show();
+		Tpal->show();
+		ScBook->show();
+		BookPal->show();
+		Sepal->show();
+		Lpal->show();
+		MaPal->show();
+		docChecker->show();
 		setSepal(PalettesStat[5]);
-		setBookpal(PalettesStat[6]);
-		setMapal(PalettesStat[7]);
 		setUndoPalette(PalettesStat[8]);
-		setCheckPal(PalettesStat[9]);
 	}
 	else
 	{
@@ -5961,63 +5965,23 @@ void ScribusApp::ToggleAllPalettes()
 		PalettesStat[7] = MaPal->isVisible();
 		PalettesStat[8] = undoPalette->isVisible();
 		PalettesStat[9] = docChecker->isVisible();
-		setMapal(false);
-		setMpal(false);
-		setTpal(false);
-		setBpal(false);
-		setLpal(false);
+		Mpal->hide();
+		Tpal->hide();
+		ScBook->hide();
+		BookPal->hide();
+		Sepal->hide();
+		Lpal->hide();
+		MaPal->hide();
+		docChecker->hide();
 		setSepal(false);
-		setBookpal(false);
 		setUndoPalette(false);
-		setCheckPal(false);
 		PalettesStat[0] = true;
 	}
 }
 
-void ScribusApp::setCheckPal(bool visible)
-{
-	if (visible)
-	{
-		if (HaveDoc)
-			slotCheckDoc();
-		if (!docChecker->isShown())
-		{
-			docChecker->show();
-			docChecker->move(Prefs.checkPalSettings.xPosition, Prefs.checkPalSettings.yPosition);
-		}
-	}
-	else
-	{
-		if (docChecker->isShown())
-		{
-			Prefs.checkPalSettings.xPosition = docChecker->pos().x();
-			Prefs.checkPalSettings.yPosition = docChecker->pos().y();
-			docChecker->hide();
-		}
-	}
-	scrActions["toolsPreflightVerifier"]->setOn(visible);
-	//PalettesStat[9] = visible;
-}
-
 void ScribusApp::toggleCheckPal()
 {
-	setCheckPal(!docChecker->isVisible());
-	PalettesStat[0] = false;
-}
-
-void ScribusApp::setMapal(bool visible)
-{
-	if (visible)
-	{
-		MaPal->show();
-		MaPal->move(Prefs.measurePalSettings.xPosition, Prefs.measurePalSettings.yPosition);
-	}
-	else
-	{
-		Prefs.measurePalSettings.xPosition = MaPal->pos().x();
-		Prefs.measurePalSettings.yPosition = MaPal->pos().y();
-		MaPal->hide();
-	}
+PalettesStat[0] = false;
 }
 
 void ScribusApp::setUndoPalette(bool visible)
@@ -6026,115 +5990,34 @@ void ScribusApp::setUndoPalette(bool visible)
 	scrActions["toolsActionHistory"]->setOn(visible);
 }
 
-void ScribusApp::setMpal(bool visible)
-{
-	if (visible)
-	{
-		Mpal->show();
-		Mpal->move(Prefs.mPaletteSettings.xPosition, Prefs.mPaletteSettings.yPosition);
-	}
-	else
-	{
-		Prefs.mPaletteSettings.xPosition = Mpal->pos().x();
-		Prefs.mPaletteSettings.yPosition = Mpal->pos().y();
-		Mpal->hide();
-	}
-	scrActions["toolsProperties"]->setOn(visible);
-}
-
 void ScribusApp::ToggleMpal()
 {
-	setMpal(!Mpal->isVisible());
 	PalettesStat[0] = false;
-}
-
-void ScribusApp::setTpal(bool visible)
-{
-	if (visible)
-	{
-		Tpal->show();
-		Tpal->move(Prefs.treePalSettings.xPosition, Prefs.treePalSettings.yPosition);
-	}
-	else
-	{
-		Prefs.treePalSettings.xPosition = Tpal->pos().x();
-		Prefs.treePalSettings.yPosition = Tpal->pos().y();
-		Tpal->hide();
-	}
-	scrActions["toolsOutline"]->setOn(visible);
 }
 
 void ScribusApp::ToggleTpal()
 {
-	setTpal(!Tpal->isVisible());
 	PalettesStat[0] = false;
-}
-
-void ScribusApp::setBpal(bool visible)
-{
-	if (visible)
-	{
-		ScBook->show();
-		ScBook->move(Prefs.scrapPalSettings.xPosition, Prefs.scrapPalSettings.yPosition);
-		ScBook->resize(Prefs.scrapPalSettings.width, Prefs.scrapPalSettings.height);
-	}
-	else
-	{
-		Prefs.scrapPalSettings.xPosition = ScBook->pos().x();
-		Prefs.scrapPalSettings.yPosition = ScBook->pos().y();
-		Prefs.scrapPalSettings.width = ScBook->size().width();
-		Prefs.scrapPalSettings.height = ScBook->size().height();
-		ScBook->hide();
-	}
-	scrActions["toolsScrapbook"]->setOn(visible);
 }
 
 void ScribusApp::ToggleBpal()
 {
-	setBpal(!ScBook->isVisible());
 	PalettesStat[0] = false;
-}
-
-void ScribusApp::setLpal(bool visible)
-{
-	if (visible)
-	{
-		if (HaveDoc)
-			Lpal->setLayers(&doc->Layers, &doc->ActiveLayer);
-		Lpal->show();
-		Lpal->move(Prefs.layerPalSettings.xPosition, Prefs.layerPalSettings.yPosition);
-	}
-	else
-	{
-		Prefs.layerPalSettings.xPosition = Lpal->pos().x();
-		Prefs.layerPalSettings.yPosition = Lpal->pos().y();
-		Lpal->hide();
-	}
-	scrActions["toolsLayers"]->setOn(visible);
 }
 
 void ScribusApp::ToggleLpal()
 {
-	setLpal(!Lpal->isVisible());
 	PalettesStat[0] = false;
 }
 
 void ScribusApp::setSepal(bool visible)
 {
-	if (visible)
+	
+	if (!visible)
 	{
-		Sepal->show();
-		Sepal->move(Prefs.pagePalSettings.xPosition, Prefs.pagePalSettings.yPosition);
-	}
-	else
-	{
-		Prefs.pagePalSettings.xPosition = Sepal->pos().x();
-		Prefs.pagePalSettings.yPosition = Sepal->pos().y();
 		Prefs.SepalT = Sepal->TemplList->Thumb;
 		Prefs.SepalN = Sepal->PageView->Namen;
-		Sepal->hide();
 	}
-	scrActions["toolsPages"]->setOn(visible);
 }
 
 void ScribusApp::ToggleSepal()
@@ -6143,25 +6026,8 @@ void ScribusApp::ToggleSepal()
 	PalettesStat[0] = false;
 }
 
-void ScribusApp::setBookpal(bool visible)
-{
-	if (visible)
-	{
-		BookPal->show();
-		BookPal->move(Prefs.bookmPalSettings.xPosition, Prefs.bookmPalSettings.yPosition);
-	}
-	else
-	{
-		Prefs.bookmPalSettings.xPosition = BookPal->pos().x();
-		Prefs.bookmPalSettings.yPosition = BookPal->pos().y();
-		BookPal->hide();
-	}
-	scrActions["toolsBookmarks"]->setOn(visible);
-}
-
 void ScribusApp::ToggleBookpal()
 {
-	setBookpal(!BookPal->isVisible());
 	PalettesStat[0] = false;
 }
 
@@ -6323,7 +6189,6 @@ void ScribusApp::ToggleFrameEdit()
 		Npal->HaveNode(false, false);
 		Npal->MoveNode->setOn(true);
 		Npal->show();
-		Npal->move(Prefs.nodePalSettings.xPosition, Prefs.nodePalSettings.yPosition);
 		doc->EditClipMode = 0;
 		doc->EditClip = true;
 		WerkTools->Select->setEnabled(false);
@@ -6339,7 +6204,7 @@ void ScribusApp::ToggleFrameEdit()
 		WerkTools->Polygon->setEnabled(false);
 		WerkTools->KetteEin->setEnabled(false);
 		WerkTools->KetteAus->setEnabled(false);
-		WerkTools->Measure->setEnabled(false);
+		scrActions["toolsMeasurements"]->setEnabled(false);
 		WerkToolsP->PDFTool->setEnabled(false);
 		WerkToolsP->PDFaTool->setEnabled(false);
 		scrActions["itemDelete"]->setEnabled(false);
@@ -6347,10 +6212,7 @@ void ScribusApp::ToggleFrameEdit()
 		{
 			PageItem* b = view->SelItem.at(0);
 			view->MarkClip(b);
-			if (b->ContourLine.size() == 0)
-				Npal->EditCont->setEnabled(false);
-			else
-				Npal->EditCont->setEnabled(true);
+			Npal->EditCont->setEnabled(b->ContourLine.size() != 0);
 			Npal->ResetCont->setEnabled(false);
 			Npal->PolyStatus(b->itemType(), b->PoLine.size());
 		}
@@ -6360,8 +6222,6 @@ void ScribusApp::ToggleFrameEdit()
 
 void ScribusApp::NoFrameEdit()
 {
-	Prefs.nodePalSettings.xPosition = Npal->pos().x();
-	Prefs.nodePalSettings.yPosition = Npal->pos().y();
 	Npal->hide();
 	WerkTools->Select->setEnabled(true);
 	WerkTools->Select->setOn(true);
@@ -6376,9 +6236,8 @@ void ScribusApp::NoFrameEdit()
 	WerkToolsP->PDFaTool->setEnabled(true);
 	WerkTools->Textedit->setOn(false);
 	WerkTools->Textedit2->setOn(false);
-	WerkTools->Measure->setEnabled(true);
+	scrActions["toolsMeasurements"]->setEnabled(true);
 	scrActions["itemDelete"]->setEnabled(true);
-
 	scrActions["itemShapeEdit"]->setOn(false);
 	if (HaveDoc)
 	{
@@ -6411,7 +6270,7 @@ void ScribusApp::slotSelect()
 	WerkTools->KetteAus->setOn(false);
 	WerkToolsP->PDFTool->setOn(false);
 	WerkToolsP->PDFaTool->setOn(false);
-	WerkTools->Measure->setOn(false);
+	scrActions["toolsMeasurements"]->setOn(false);
 	setAppMode(NormalMode);
 }
 
@@ -6428,6 +6287,12 @@ void ScribusApp::ModeFromTB(int m)
 	if (doc->appMode == DrawBezierLine)
 		return;
 	setAppMode(m);
+}
+
+void ScribusApp::setAppModeByToggle(bool isOn, int newMode)
+{
+	if (isOn)
+		setAppMode(newMode);
 }
 
 void ScribusApp::setAppMode(int mode)
@@ -6571,7 +6436,8 @@ void ScribusApp::setAppMode(int mode)
 			WerkTools->KetteAus->setOn(false);
 			WerkToolsP->PDFTool->setOn(false);
 			WerkToolsP->PDFaTool->setOn(false);
-			WerkTools->Measure->setOn(false);
+			scrActions["toolsMeasurements"]->setOn(false);
+			//CBWerkTools->Measure->setOn(false);
 			Mpal->Cpal->gradEditButton->setOn(false);
 		}
 		if ((mode == LinkFrames) || (mode == UnlinkFrames))
@@ -7839,14 +7705,14 @@ void ScribusApp::slotPrefsOrg()
 	mo = dlopen(pfad, RTLD_LAZY);
 	if (!mo)
 	{
-		std::cout << "Can't find Plug-in" << endl;
+		std::cout << "Cannot find Plug-in" << endl;
 		return;
 	}
 	dlerror();
 	demo = (sdem)dlsym(mo, "Run");
 	if ((error = dlerror()) != NULL)
 	{
-		std::cout << "Can't find Symbol" << endl;
+		std::cout << "Cannot find Symbol" << endl;
 		dlclose(mo);
 		return;
 	}
@@ -8162,59 +8028,7 @@ void ScribusApp::SavePrefs()
 	Prefs.mainWinSettings.height = size().height();
 	Prefs.mainToolBarSettings.visible = WerkTools->isVisible();
 	Prefs.pdfToolBarSettings.visible = WerkToolsP->isVisible();
-	Prefs.mPaletteSettings.visible = Mpal->isVisible();
-	Prefs.treePalSettings.visible = Tpal->isVisible();
-	Prefs.scrapPalSettings.visible = ScBook->isVisible();
-	Prefs.layerPalSettings.visible = Lpal->isVisible();
-	Prefs.pagePalSettings.visible = Sepal->isVisible();
-	Prefs.bookmPalSettings.visible = BookPal->isVisible();
-	Prefs.checkPalSettings.visible = docChecker->isVisible();
-	if (docChecker->isVisible())
-	{
-		Prefs.checkPalSettings.xPosition = abs(docChecker->pos().x());
-		Prefs.checkPalSettings.yPosition = abs(docChecker->pos().y());
-	}
-	if ((Prefs.nodePalSettings.xPosition > QApplication::desktop()->width()-100) || (Prefs.nodePalSettings.xPosition < 0))
-		Prefs.nodePalSettings.xPosition = 0;
-	if ((Prefs.nodePalSettings.yPosition > QApplication::desktop()->height()-100) || (Prefs.nodePalSettings.yPosition < 0))
-		Prefs.nodePalSettings.yPosition = 0;
-	if (MaPal->isVisible())
-	{
-		Prefs.measurePalSettings.xPosition = abs(MaPal->pos().x());
-		Prefs.measurePalSettings.yPosition = abs(MaPal->pos().y());
-	}
-	if (Mpal->isVisible())
-	{
-		Prefs.mPaletteSettings.xPosition = abs(Mpal->pos().x());
-		Prefs.mPaletteSettings.yPosition = abs(Mpal->pos().y());
-	}
-	if (Tpal->isVisible())
-	{
-		Prefs.treePalSettings.xPosition = abs(Tpal->pos().x());
-		Prefs.treePalSettings.yPosition = abs(Tpal->pos().y());
-	}
-	if (ScBook->isVisible())
-	{
-		Prefs.scrapPalSettings.xPosition = abs(ScBook->pos().x());
-		Prefs.scrapPalSettings.yPosition = abs(ScBook->pos().y());
-		Prefs.scrapPalSettings.width = abs(ScBook->size().width());
-		Prefs.scrapPalSettings.height = abs(ScBook->size().height());
-	}
-	if (Sepal->isVisible())
-	{
-		Prefs.pagePalSettings.xPosition = abs(Sepal->pos().x());
-		Prefs.pagePalSettings.yPosition = abs(Sepal->pos().y());
-	}
-	if (BookPal->isVisible())
-	{
-		Prefs.bookmPalSettings.xPosition = abs(BookPal->pos().x());
-		Prefs.bookmPalSettings.yPosition = abs(BookPal->pos().y());
-	}
-	if (Lpal->isVisible())
-	{
-		Prefs.layerPalSettings.xPosition = abs(Lpal->pos().x());
-		Prefs.layerPalSettings.yPosition = abs(Lpal->pos().y());
-	}
+
 	Prefs.RecentDocs.clear();
 	uint max = QMIN(Prefs.RecentDCount, RecentDocs.count());
 	for (uint m = 0; m < max; ++m)
@@ -8266,16 +8080,6 @@ void ScribusApp::ReadPrefs(bool import12)
 		}
 	}
 	rebuildRecentFileMenu();
-	MaPal->move(Prefs.measurePalSettings.xPosition, Prefs.measurePalSettings.yPosition);
-	Mpal->move(Prefs.mPaletteSettings.xPosition, Prefs.mPaletteSettings.yPosition);
-	Tpal->move(Prefs.treePalSettings.xPosition, Prefs.treePalSettings.yPosition);
-	Lpal->move(Prefs.layerPalSettings.xPosition, Prefs.layerPalSettings.yPosition);
-	Sepal->move(Prefs.pagePalSettings.xPosition, Prefs.pagePalSettings.yPosition);
-	BookPal->move(Prefs.bookmPalSettings.xPosition, Prefs.bookmPalSettings.yPosition);
-	ScBook->move(Prefs.scrapPalSettings.xPosition, Prefs.scrapPalSettings.yPosition);
-	ScBook->resize(Prefs.scrapPalSettings.width, Prefs.scrapPalSettings.height);
-	Npal->move(Prefs.nodePalSettings.xPosition, Prefs.nodePalSettings.yPosition);
-	docChecker->move(Prefs.checkPalSettings.xPosition, Prefs.checkPalSettings.yPosition);
 	move(Prefs.mainWinSettings.xPosition, Prefs.mainWinSettings.yPosition);
 	resize(Prefs.mainWinSettings.width, Prefs.mainWinSettings.height);
 	ReadPrefsXML();
@@ -8327,16 +8131,18 @@ void ScribusApp::ShowSubs()
 			mess += tr("Ghostscript : You cannot use EPS Images")+"\n\n";
 		QMessageBox::warning(this, tr("Warning"), mess, 1, 0, 0);
 	}
+	
+	Mpal->startup();
+	Tpal->startup();
+	ScBook->startup();
+	BookPal->startup();
+	Sepal->startup();
+	Lpal->startup();
+	MaPal->startup();
+	docChecker->startup();
+	
 	setTools(Prefs.mainToolBarSettings.visible);
 	setPDFTools(Prefs.pdfToolBarSettings.visible);
-	setMapal(Prefs.measurePalSettings.visible);
-	setMpal(Prefs.mPaletteSettings.visible);
-	setTpal(Prefs.treePalSettings.visible);
-	setBpal(Prefs.scrapPalSettings.visible);
-	setLpal(Prefs.layerPalSettings.visible);
-	setSepal(Prefs.pagePalSettings.visible);
-	setBookpal(Prefs.bookmPalSettings.visible);
-	setCheckPal(Prefs.checkPalSettings.visible);
 	setActiveWindow();
 	raise();
 }
@@ -8355,14 +8161,14 @@ PSLib* ScribusApp::getPSDriver(bool psart, SCFonts &AllFonts, QMap<QString,QFont
 	PSDriver = dlopen(pfad, RTLD_LAZY);
 	if (!PSDriver)
 	{
-		std::cout << "Can't find Plugin" << endl;
+		std::cout << "Cannot find Plugin" << endl;
 		return NULL;
 	}
 	dlerror();
 	demo = (sdem)dlsym(PSDriver, "Run");
 	if ((error = dlerror()) != NULL)
 	{
-		std::cout << "Can't find Symbol" << endl;
+		std::cout << "Cannot find Symbol" << endl;
 		dlclose(PSDriver);
 		return NULL;
 	}
@@ -8449,7 +8255,7 @@ void ScribusApp::SaveAsEps()
 		if (overwrite(this, fn))
 		{
 			if (!DoSaveAsEps(fn))
-				QMessageBox::warning(this, tr("Warning"), tr("Can't write the file: \n%1").arg(fn), tr("OK"));
+				QMessageBox::warning(this, tr("Warning"), tr("Cannot write the file: \n%1").arg(fn), tr("OK"));
 		}
 	}
 }
@@ -8470,14 +8276,14 @@ bool ScribusApp::getPDFDriver(QString fn, QString nam, int Components, std::vect
 	PDFDriver = dlopen(pfad, RTLD_NOW);
 	if (!PDFDriver)
 	{
-		std::cout << "Can't find Plugin" << endl;
+		std::cout << "Cannot find Plugin" << endl;
 		return false;
 	}
 	dlerror();
 	demo = (sdem)dlsym(PDFDriver, "Run");
 	if ((error = dlerror()) != NULL)
 	{
-		std::cout << "Can't find Symbol" << endl;
+		std::cout << "Cannot find Symbol" << endl;
 		dlclose(PDFDriver);
 		return false;
 	}
@@ -8675,7 +8481,7 @@ void ScribusApp::SaveAsPDF()
 		}
 		ReOrderText(doc, view);
 		if (!getPDFDriver(fn, nam, Components, pageNs, thumbs))
-			QMessageBox::warning(this, tr("Warning"), tr("Can't write the File: \n%1").arg(fn), tr("OK"));
+			QMessageBox::warning(this, tr("Warning"), tr("Cannot write the File: \n%1").arg(fn), tr("OK"));
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	}
 	delete dia;
@@ -8699,7 +8505,7 @@ void ScribusApp::BookMarkTxT(PageItem *ite)
 	StoreBookmarks();
 }
 
-void ScribusApp::ChBookmarks(int s, int e, int n)
+void ScribusApp::ChBookmarks(int /*s*/, int /*e*/, int /*n*/)
 {
 //	view->Pages.at(s)->Items.at(e)->BMnr = n;
 }
@@ -9318,7 +9124,7 @@ void ScribusApp::CallDLL(int ident)
 		mo = dlopen(pfad, RTLD_LAZY | RTLD_GLOBAL);
 		if (!mo)
 		{
-			std::cout << "Can't find Plug-in" << endl;
+			std::cout << "Cannot find Plug-in" << endl;
 			return;
 		}
 	}
@@ -9328,7 +9134,7 @@ void ScribusApp::CallDLL(int ident)
 	demo = (sdem)dlsym(mo, "Run");
 	if ((error = dlerror()) != NULL)
 	{
-		std::cout << "Can't find Symbol" << endl;
+		std::cout << "Cannot find Symbol" << endl;
 		dlclose(mo);
 		return;
 	}
@@ -10269,7 +10075,7 @@ QString ScribusApp::Collect(bool compress, bool withFonts)
 				}
 				if (!DoFileSave(fn))
 				{
-					QMessageBox::warning(this, tr("Warning"), tr("Can't write the File: \n%1").arg(fn), tr("OK"));
+					QMessageBox::warning(this, tr("Warning"), tr("Cannot write the File: \n%1").arg(fn), tr("OK"));
 					retVal = "";
 				}
 				if (withFontsR)

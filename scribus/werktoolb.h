@@ -51,7 +51,7 @@ public:
 	QPopupMenu* LinM;
 	QToolButton* KetteEin;
 	QToolButton* KetteAus;
-	QToolButton* Measure;
+	//QToolButton* Measure;
 	bool Sichtbar;
 	int SubMode;
 	int ValCount;

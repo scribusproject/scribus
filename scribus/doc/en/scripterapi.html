@@ -8,7 +8,7 @@
 <ul>
 	<li>Many functions will raise a NoDocOpenError if you try to use them without a document to operate on.</li>
 	<li>If you do not pass a frame name to a function that requires one, the function will use the currently selected frame, if any, or raise a NoValidObjectError if it can't find anything to operate on.</li>
-	<li>Many functions will raise WrongFrameTypeError if you try to use them on a frame type that they do not make sense with. For example, setting the text colour on a graphics frame doesn't make sense, and will result in this exception being raised.</li>
+	<li>Many functions will raise WrongFrameTypeError if you try to use them on a frame type that they do not make sense with. For example, setting the text color on a graphics frame doesn't make sense, and will result in this exception being raised.</li>
 	<li>Errors resulting from calls to the underlying Python API will be passed through unaltered. As such, the list of exceptions thrown by any function as provided here and in its docstring is incomplete.</li>
 </ul>
 <p>Details of what exceptions each function may throw are provided on the function's documentation.</p>

@@ -32,6 +32,7 @@
 #include <qpixmap.h>
 #include <qpointarray.h>
 #include <qstringlist.h>
+#include <qdragobject.h>
 #include <qimage.h>
 #include <qcstring.h>
 #include <qfileinfo.h>
@@ -61,6 +62,7 @@
 #include "vruler.h"
 #include "filewatcher.h"
 #include "undomanager.h"
+#include "units.h"
 #ifdef HAVE_TIFF
 	#include <tiffio.h>
 #endif
@@ -130,28 +132,13 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc, ApplicationPrefs *pre
 	VR = new Vruler(this, Doc);
 	UN = new QToolButton(this);
 	Unitmen = new QPopupMenu(this);
-	Unitmen->insertItem(tr("pt"));
-	Unitmen->insertItem(tr("mm"));
-	Unitmen->insertItem(tr("in"));
-	Unitmen->insertItem(tr("p"));
+	//CB TODO Convert to actions later
+	for (uint i=0;i<4;++i)
+		Unitmen->insertItem(unitGetStrFromIndex(i));
 	UN->setPopup(Unitmen);
 	UN->setFocusPolicy(QWidget::NoFocus);
 	UN->setPopupDelay(10);
-	switch (doc->docUnitIndex)
-	{
-	case 0:
-		UN->setText( tr("pt"));
-		break;
-	case 1:
-		UN->setText( tr("mm"));
-		break;
-	case 2:
-		UN->setText( tr("in"));
-		break;
-	case 3:
-		UN->setText( tr("p"));
-		break;
-	}
+	UN->setText(unitGetStrFromIndex(doc->docUnitIndex));
 	Ready = true;
 	viewport()->setMouseTracking(true);
 	setAcceptDrops(true);
@@ -1241,7 +1228,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		p.drawLine(Dxp, Dyp, Mxp, Myp);
 		p.end();
 		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-		emit PaintingDone();
+		//emit PaintingDone();
 		return;
 	}
 	if (Doc->appMode == PanningMode)
@@ -1752,10 +1739,13 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			if ((b->itemType() == PageItem::ImageFrame) || (b->itemType() == PageItem::TextFrame))
 				pmen->insertItem( tr("C&lear Contents"), this, SLOT(ClearItem()));
 			pmen->insertSeparator();
+			ScApp->scrActions["toolsProperties"]->addTo(pmen);
+			/*
 			if (!ScApp->Mpal->isVisible())
 				pmen->insertItem( tr("Show P&roperties..."), ScApp, SLOT(ToggleMpal()));
 			else
 				pmen->insertItem( tr("Hide P&roperties..."), ScApp, SLOT(ToggleMpal()));
+			*/
 			pmen->exec(QCursor::pos());
 			setGlobalUndoMode();
 			delete pmen;

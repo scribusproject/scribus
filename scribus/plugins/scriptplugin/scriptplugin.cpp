@@ -39,6 +39,8 @@
 #include "customfdialog.h"
 #include "helpbrowser.h"
 #include "mpalette.h"
+#include "seiten.h"
+#include "layers.h"
 #include "tree.h"
 #include "menumanager.h"
 #include "scraction.h"
@@ -1008,7 +1010,7 @@ raise a NoValidObjectError if it can't find anything to operate\
 on.\n\
 - Many functions will raise WrongFrameTypeError if you try to use them\n\
 on a frame type that they do not make sense with. For example, setting\n\
-the text colour on a graphics frame doesn't make sense, and will result\n\
+the text color on a graphics frame doesn't make sense, and will result\n\
 in this exception being raised.\n\
 - Errors resulting from calls to the underlying Python API will be\n\
 passed through unaltered. As such, the list of exceptions thrown by\n\

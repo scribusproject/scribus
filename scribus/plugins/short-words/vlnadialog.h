@@ -14,7 +14,6 @@ or documentation
 
 #include "shortwords.h"
 
-#include <qvariant.h>
 #include <qdialog.h>
 
 class QVBoxLayout;
