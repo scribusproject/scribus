@@ -13,6 +13,10 @@
 #include <qlayout.h>
 #include <qlistbox.h>
 #include <qpushbutton.h>
+#include <qgroupbox.h>
+#include <qtoolbutton.h>
+#include <qlabel.h>
+#include <qpopupmenu.h>
 #include <qcolor.h>
 #include "scribusdoc.h"
 #include "query.h"
@@ -22,27 +26,34 @@ class Farbmanager : public QDialog
     Q_OBJECT
 
 public:
-    Farbmanager( QWidget* parent, CListe doco, bool HDoc );
+    Farbmanager( QWidget* parent, CListe doco, bool HDoc, QString DcolSet, QStringList Cust );
     ~Farbmanager() {};
   	CListe EditColors;
   	QMap<QString,QString> Ersatzliste;
+    QToolButton* LoadColSet;
+		QStringList CColSet;
 private:
     QListBox* ListBox1;
+    QGroupBox* ColorsGroup;
+    QGroupBox* ColsSetGroup;
     QPushButton* LoadF;
     QPushButton* NewF;
     QPushButton* EditF;
     QPushButton* DupF;
     QPushButton* DelF;
-		QPushButton* Rest;
     QPushButton* SaveF;
     QPushButton* CancF;
+    QLabel* textLabel1;
+    QPushButton* SaveColSet;
+		QPopupMenu* CSets;
     QString sFarbe;
     QColor tmpFarbe;
 		QStringList DontChange;
 		bool HaveDoc;
 
 private slots:
-		void loadDefaults();
+		void saveDefaults();
+		void loadDefaults(int id);
 		void loadFarben();
     void delFarbe();
     void duplFarbe();
@@ -52,7 +63,11 @@ private slots:
     void updateCList();
 
 protected:
-    QHBoxLayout* Layout2;
+    QVBoxLayout* Layout2;
+    QHBoxLayout* layout5;
+    QHBoxLayout* layout4;
+    QVBoxLayout* layout3;
+    QVBoxLayout* ColsSetGroupLayout;
     QVBoxLayout* Layout1;
 };
 
