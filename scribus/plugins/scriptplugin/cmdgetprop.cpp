@@ -17,8 +17,7 @@ PyObject *scribus_getlinecolor(PyObject */*self*/, PyObject* args)
 	char *Name = const_cast<char*>("");
 	PageItem *it;
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
-		return NULL;PyErr_SetString(ScribusException, QObject::tr("Failed to open document","python error"));
-	return NULL;
+		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
 	it = GetUniqueItem(QString::fromUtf8(Name));
@@ -34,8 +33,7 @@ PyObject *scribus_getlinecolor(PyObject */*self*/, PyObject* args)
 	}
 	else
 		return PyString_FromString(it->Pcolor2.utf8());
-	// FIXME: apply QObject::tr after string unfreezing....
-	PyErr_SetString(NotFoundError, "Color not found - python error");
+	PyErr_SetString(NotFoundError, QObject::tr("Color not found - python error", "python error"));
 	return NULL;
 }
 
