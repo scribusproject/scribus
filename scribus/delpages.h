@@ -9,35 +9,38 @@
 #ifndef DELPAGES_H
 #define DELPAGES_H
 
-#include <qdialog.h>
-#include <qlabel.h>
-#include <qlayout.h>
-#include <qpushbutton.h>
-#include <qspinbox.h>
+class QDialog;
+class QLabel;
+class QLayout;
+class QPushbutton;
+class QSpinbox;
 
 class DelPages : public QDialog
 { 
     Q_OBJECT
 
 public:
-    DelPages( QWidget* parent, int act, int max );
+    DelPages( QWidget* parent, int currentPage, int maxPage );
     ~DelPages() {};
 
-    QPushButton* Cancel;
-    QPushButton* OK;
-    QLabel* TextLabel2;
-    QSpinBox* ToPage;
-    QLabel* TextLabel1;
-    QSpinBox* FromPage;
+	const int getFromPage();
+	const int getToPage();
 
-protected:
-    QVBoxLayout* DLayout;
-    QHBoxLayout* Layout4;
-    QHBoxLayout* Layout3;
+private:
+    QVBoxLayout* dialogLayout;
+    QHBoxLayout* fromToLayout;
+    QHBoxLayout* okCancelLayout;
 
-public slots:
-    virtual void FromChanged(int nr);
-    virtual void ToChanged(int nr);
+    QPushButton* cancelQPButton;
+    QPushButton* okQPButton;
+    QLabel* fromQLabel;
+    QLabel* toQLabel;
+    QSpinBox* toPageQSBox;
+    QSpinBox* fromPageQSBox;
+
+private slots:
+    virtual void fromChanged(int pageNumber);
+    virtual void toChanged(int pageNumber);
 };
 
 #endif // DELPAGES_H

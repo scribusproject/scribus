@@ -26,8 +26,7 @@ MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool movin
 	fromToLayout = new QGridLayout;
 	fromToLayout->setSpacing( 6 );
 	fromToLayout->setMargin( 5 );
-	moveQLabel = new QLabel( this, "moveQLabel" );
-	moveQLabel->setText(move ? tr("Move Page(s):") : tr("Copy Page") + ":");
+	moveQLabel = new QLabel( (move ? tr("Move Page(s)") : tr("Copy Page")) + ":", this, "moveQLabel" );
 	fromToLayout->addWidget( moveQLabel, 0, 0);
 
 	fromPageQSBox = new QSpinBox( 1, maxPages, 1, this, "fromPageQSBox" );

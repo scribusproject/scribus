@@ -62,8 +62,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
 		templQCBox->insertItem(it.key() == "Normal" ? tr("Normal") : it.key());
 
-	templQLabel = new QLabel(templQCBox, "", this, "text");
-	templQLabel->setText( facingPages ? tr("Template (&Left Page):") : tr("&Template:"));
+	templQLabel = new QLabel(templQCBox, (facingPages ? tr("Template (&Left Page):") : tr("&Template:")), this, "text");
 	QSpacerItem* spacer3 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	templLayout->addWidget( templQLabel );
 	templLayout->addItem( spacer3 );
