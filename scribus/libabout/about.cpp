@@ -130,6 +130,9 @@ About::About( QWidget* parent )
 	tabLayout_2->setMargin( 10 );
 	TextView2 = new QTextView( tab_3, "TextView1_2" );
 	TextView2->setText(QString::fromUtf8( "<table><tr><td><b><i>" + tr("Official Translations and Translators:").utf8() + "</i></b></td><td></td></tr>" +
+									      "<tr><td><b>" + tr("Catalan:").utf8()  + "</b></td><td> </td></tr>" +
+									      "<tr><td>Xavier Sala Pujolar</td><td>utrescu@xaviersala.net</td></tr>" +
+	                                      "<tr><td> </td><td> </td></tr>" +
 	                                      "<tr><td><b>" + tr("Czech:").utf8()  + "</b></td><td></td></tr>" +
 	                                      "<tr><td>Petr Vaněk</td><td>petr@yarpen.cz</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +
@@ -173,8 +176,11 @@ About::About( QWidget* parent )
 	                                      "<tr><td>Bojan Božovi&#263;</td><td>bole89@infosky.net</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +
 	                                      "<tr><td><b>" + tr("Slovak:").utf8()  + "</b></td><td></td></tr>" +
-	                                      "<tr><td>Zdenko Podobn&yacute;ý</td><td>zdpo@mailbox.sk</td></tr>" +
+	                                      "<tr><td>Zdenko Podobn&yacute;</td><td>zdpo@mailbox.sk</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +
+	                                      "<tr><td><b>" + tr("Slovenian:").utf8()  + "</b></td><td></td></tr>" +
+	                                      "<tr><td>Boštjan Špetič</td><td>igzebedze@kiberpipa.org</td></tr>" +
+	                                      "<tr><td> </td><td> </td></tr>" +  
 	                                      "<tr><td><b>" + tr("Spanish:").utf8()  + "</b></td><td> </td></tr>" +
 	                                      "<tr><td>Josep Febrer</td><td>josep@linuxmail.org</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +  
@@ -200,9 +206,6 @@ About::About( QWidget* parent )
 	                                      "<tr><td><b>" + tr("Bulgarian:").utf8()  + "</b></td><td> </td></tr>" +
 	                                      "<tr><td>Vasko Tomanov</td><td>vasko@web.bg</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +
-									      "<tr><td><b>" + tr("Catalan:").utf8()  + "</b></td><td> </td></tr>" +
-									      "<tr><td>Xavier Sala Pujolar</td><td>utrescu@xaviersala.net</td></tr>" +
-	                                      "<tr><td> </td><td> </td></tr>" +
 	                                      "<tr><td><b>" + tr("English (British):").utf8()  + "</b></td><td></td></tr>" +
 	                                      "<tr><td>Paul F. Johnson</td><td>paul@all-the-johnsons.co.uk</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +                                        
@@ -225,9 +228,6 @@ About::About( QWidget* parent )
 	                                      "<tr><td>Axel Bojer</td><td>axelb@skolelinux.no</td></tr>" +
 	                                      "<tr><td>Johannes Wilm</td><td>j@indymedia.no</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +
-	                                      "<tr><td><b>" + tr("Slovenian:").utf8()  + "</b></td><td></td></tr>" +
-	                                      "<tr><td>Boštjan Špetič</td><td>igzebedze@kiberpipa.org</td></tr>" +
-	                                      "<tr><td> </td><td> </td></tr>" +  
 	                                      "<tr><td><b>" + tr("Turkish:").utf8()  + "</b></td><td> </td></tr>" +
 	                                      "<tr><td>Erkan Kaplan</td><td>Selamsana@uni.de</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +  
