@@ -123,7 +123,6 @@ NewDoc::NewDoc( QWidget* parent, preV *Vor )
 		ComboBox1->setCurrentItem(Vor->PageFormat);
     Breite->setValue(qRound(Vor->PageBreite * Umrech) * 100);
     Hoehe->setValue(qRound(Vor->PageHoehe * Umrech) * 100);
-		setSize(Vor->PageFormat);
     Breite->setLineStep(100);
     Hoehe->setLineStep(100);
 
@@ -191,6 +190,7 @@ NewDoc::NewDoc( QWidget* parent, preV *Vor )
     LeftR->setDecimals(100);
     RightR->setDecimals(100);
    	BottomR->setDecimals(100);
+		setSize(Vor->PageFormat);
 
     Layout10 = new QVBoxLayout( 0, 0, 6, "Layout10");
 
@@ -293,24 +293,46 @@ NewDoc::NewDoc( QWidget* parent, preV *Vor )
 		connect(Distance, SIGNAL(valueChanged(int)), this, SLOT(setDist(int)));
 }
 
+void NewDoc::setBreite(int v)
+{
+	Pagebr = v / Umrech / 100.0;
+	RightR->setMaxValue(Breite->value() - LeftR->value());
+	LeftR->setMaxValue(Breite->value() - RightR->value());
+	TopR->setMaxValue(Hoehe->value() - BottomR->value());
+	BottomR->setMaxValue(Hoehe->value() - TopR->value());
+}
+
+void NewDoc::setHoehe(int v)
+{
+	Pageho = v / Umrech / 100.0;
+	RightR->setMaxValue(Breite->value() - LeftR->value());
+	LeftR->setMaxValue(Breite->value() - RightR->value());
+	TopR->setMaxValue(Hoehe->value() - BottomR->value());
+	BottomR->setMaxValue(Hoehe->value() - TopR->value());
+}
+
 void NewDoc::setTop(int v)
 {
 	Top = v / Umrech / 100.0;
+	BottomR->setMaxValue(Hoehe->value() - TopR->value());
 }
 
 void NewDoc::setBottom(int v)
 {
 	Bottom = v / Umrech / 100.0;
+	TopR->setMaxValue(Hoehe->value() - BottomR->value());
 }
 
 void NewDoc::setLeft(int v)
 {
 	Left = v / Umrech / 100.0;
+	RightR->setMaxValue(Breite->value() - LeftR->value());
 }
 
 void NewDoc::setRight(int v)
 {
 	Right = v / Umrech / 100.0;
+	LeftR->setMaxValue(Breite->value() - RightR->value());
 }
 
 void NewDoc::setDist(int v)
@@ -392,6 +414,10 @@ void NewDoc::setOrien(int ori)
 		Breite->setValue(Hoehe->value());
 		Hoehe->setValue(br);
 		}
+	RightR->setMaxValue(Breite->value() - LeftR->value());
+	LeftR->setMaxValue(Breite->value() - RightR->value());
+	TopR->setMaxValue(Hoehe->value() - BottomR->value());
+	BottomR->setMaxValue(Hoehe->value() - TopR->value());
 }
 
 void NewDoc::setPGsize()
@@ -406,6 +432,8 @@ void NewDoc::setSize(int gr)
 {
 	Pagebr = Breite->value() / 100.0;
 	Pageho = Hoehe->value() / 100.0;
+	disconnect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
+	disconnect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
 	Breite->setEnabled(false);
 	Hoehe->setEnabled(false);
 	switch (gr)
@@ -537,6 +565,12 @@ void NewDoc::setSize(int gr)
 		}
 	Breite->setValue(qRound(Pagebr * Umrech * 100));
 	Hoehe->setValue(qRound(Pageho * Umrech * 100));
+	RightR->setMaxValue(Breite->value() - LeftR->value());
+	LeftR->setMaxValue(Breite->value() - RightR->value());
+	TopR->setMaxValue(Hoehe->value() - BottomR->value());
+	BottomR->setMaxValue(Hoehe->value() - TopR->value());
+	connect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
+	connect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
 }
 
 void NewDoc::setAT()

@@ -22,7 +22,7 @@ class ReformDoc : public QDialog
     Q_OBJECT
 
 public:
-    ReformDoc( QWidget* parent, float t, float l, float r, float b, bool fp, bool fpe, int Einh );
+    ReformDoc( QWidget* parent, float t, float l, float r, float b, float Pagebr, float Pageho, bool fp, bool fpe, int Einh );
     ~ReformDoc() {};
 
     QGroupBox* GroupBox7;
@@ -39,6 +39,8 @@ public:
     QPushButton* OKButton;
     QPushButton* CancelB;
 		int einheit;
+		int Breite;
+		int Hoehe;
 
 protected:
     QVBoxLayout* ReformDocLayout;
@@ -48,6 +50,10 @@ protected:
 
 protected slots:
     virtual void setDS();
+		virtual void setTop(int v);
+		virtual void setBottom(int v);
+		virtual void setLeft(int v);
+		virtual void setRight(int v);
 
 };
 

@@ -1624,7 +1624,7 @@ bool ScribusApp::SetupDoc()
 	bool fpe = doc->FirstPageLeft;
 	float tpr2, lr2, rr2, br2;
 	bool ret = false;
-	ReformDoc* dia = new ReformDoc(this, tpr, lr, rr, br, fp, fpe, doc->Einheit);
+	ReformDoc* dia = new ReformDoc(this, tpr, lr, rr, br, doc->PageB, doc->PageH, fp, fpe, doc->Einheit);
 	if (dia->exec())
 		{
 		tpr2 = dia->TopR->value() / UmReFaktor / 100.0;

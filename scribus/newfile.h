@@ -70,6 +70,8 @@ public:
     void setSize(int gr);
 
 public slots:
+		void setHoehe(int v);
+		void setBreite(int v);
 		void setTop(int v);
 		void setBottom(int v);
 		void setLeft(int v);

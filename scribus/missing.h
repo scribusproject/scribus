@@ -13,10 +13,11 @@ class DmF : public QDialog
     Q_OBJECT
 
 public:
-    DmF( QWidget* parent, QString fon, preV *Prefs );
+    DmF( QWidget* parent, QString fon, preV *Prefs, bool miss = true );
     ~DmF() {};
 
     QPushButton* PushButton1;
+    QPushButton* PushButton2;
     QLabel* TextLabel6;
     QLabel* PixmapLabel1;
     FontCombo* Replace;

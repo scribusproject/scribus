@@ -3,7 +3,7 @@
 extern QPixmap loadIcon(QString nam);
 extern float UmReFaktor;
 
-ReformDoc::ReformDoc( QWidget* parent, float t, float l, float r, float b, bool fp, bool fpe, int Einh)
+ReformDoc::ReformDoc( QWidget* parent, float t, float l, float r, float b, float Pagebr, float Pageho, bool fp, bool fpe, int Einh)
     : QDialog( parent, "r", true, 0 )
 {
     QString ein;
@@ -23,6 +23,8 @@ ReformDoc::ReformDoc( QWidget* parent, float t, float l, float r, float b, bool 
     		ein = " p";
 				break;
 			}
+		Breite = qRound(Pagebr * UmReFaktor * 100);
+		Hoehe = qRound(Pageho * UmReFaktor * 100);
     setCaption( tr( "Document Setup" ) );
   	setIcon(loadIcon("AppIcon.xpm"));
     ReformDocLayout = new QVBoxLayout( this );
@@ -45,7 +47,7 @@ ReformDoc::ReformDoc( QWidget* parent, float t, float l, float r, float b, bool 
     Layout4->addWidget( TextLabel5, 0, 0 );
 		TopR = new MSpinBox( GroupBox7, 2 );
     TopR->setSuffix( ein );
-    TopR->setMaxValue( 100000 );
+		TopR->setMaxValue(Hoehe);
     TopR->setValue( qRound(t * UmReFaktor * 100) );
     Layout4->addWidget( TopR, 0, 1 );
     Links = new QLabel( GroupBox7, "Links" );
@@ -53,7 +55,7 @@ ReformDoc::ReformDoc( QWidget* parent, float t, float l, float r, float b, bool 
     Layout4->addWidget( Links, 0, 2 );
 		LeftR = new MSpinBox( GroupBox7, 2 );
     LeftR->setSuffix( ein );
-    LeftR->setMaxValue( 100000 );
+		LeftR->setMaxValue(Breite);
     LeftR->setValue( qRound(l * UmReFaktor * 100) );
     Layout4->addWidget( LeftR, 0, 3 );
     TextLabel7 = new QLabel( GroupBox7, "TextLabel7" );
@@ -61,7 +63,7 @@ ReformDoc::ReformDoc( QWidget* parent, float t, float l, float r, float b, bool 
     Layout4->addWidget( TextLabel7, 1, 0 );
 		BottomR = new MSpinBox( GroupBox7, 2 );
     BottomR->setSuffix( ein );
-    BottomR->setMaxValue( 100000 );
+		BottomR->setMaxValue(Hoehe);
     BottomR->setValue( qRound(b * UmReFaktor * 100) );
     Layout4->addWidget( BottomR, 1, 1 );
     Rechts = new QLabel( GroupBox7, "Rechts" );
@@ -69,7 +71,7 @@ ReformDoc::ReformDoc( QWidget* parent, float t, float l, float r, float b, bool 
     Layout4->addWidget( Rechts, 1, 2 );
 		RightR = new MSpinBox( GroupBox7, 2 );
     RightR->setSuffix( ein );
-    RightR->setMaxValue( 100000 );
+		RightR->setMaxValue(Breite);
     RightR->setValue( qRound(r * UmReFaktor * 100) );
     Layout4->addWidget( RightR, 1, 3 );
     Doppelseiten = new QCheckBox( GroupBox7, "Doppelseiten" );
@@ -103,13 +105,40 @@ ReformDoc::ReformDoc( QWidget* parent, float t, float l, float r, float b, bool 
     LeftR->setDecimals(100);
     RightR->setDecimals(100);
    	BottomR->setDecimals(100);
+		RightR->setMaxValue(Breite - LeftR->value());
+		LeftR->setMaxValue(Breite - RightR->value());
+		TopR->setMaxValue(Hoehe - BottomR->value());
+		BottomR->setMaxValue(Hoehe - TopR->value());
 
     // signals and slots connections
     connect( Doppelseiten, SIGNAL( clicked() ), this, SLOT( setDS() ) );
     connect( OKButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
     connect( CancelB, SIGNAL( clicked() ), this, SLOT( reject() ) );
+		connect(TopR, SIGNAL(valueChanged(int)), this, SLOT(setTop(int)));
+		connect(BottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom(int)));
+		connect(LeftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft(int)));
+		connect(RightR, SIGNAL(valueChanged(int)), this, SLOT(setRight(int)));
 }
 
+void ReformDoc::setTop(int v)
+{
+	BottomR->setMaxValue(Hoehe - TopR->value());
+}
+
+void ReformDoc::setBottom(int v)
+{
+	TopR->setMaxValue(Hoehe - BottomR->value());
+}
+
+void ReformDoc::setLeft(int v)
+{
+	RightR->setMaxValue(Breite - LeftR->value());
+}
+
+void ReformDoc::setRight(int v)
+{
+	LeftR->setMaxValue(Breite - RightR->value());
+}
 
 void ReformDoc::setDS()
 {

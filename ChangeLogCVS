@@ -1,4 +1,9 @@
 Changes since Version 0.9.11.1
+20.06.2003	newfile.cpp		
+		preferences.cpp
+		reformdoc.cpp		Limited the Values for the Margins to fit the Page.
+
+
 19.06.2003	cpalette.cpp		Disabled Color "None" for Gradients.
 
 18.06.2003	scribus.cpp		Implemented a new Fontselection Dialog.

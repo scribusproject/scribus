@@ -1581,6 +1581,10 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 		connect(T6_Konvex, SIGNAL(clicked()), this, SLOT(UpdatePreView()));
 		connect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
 		connect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
+		connect(TopR, SIGNAL(valueChanged(int)), this, SLOT(setTop(int)));
+		connect(BottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom(int)));
+		connect(LeftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft(int)));
+		connect(RightR, SIGNAL(valueChanged(int)), this, SLOT(setRight(int)));
 		connect(GZComboO, SIGNAL(activated(int)), this, SLOT(setOrien(int)));
 		connect(GZComboF, SIGNAL(activated(int)), this, SLOT(setSize(int)));
     connect(Doppelseiten, SIGNAL(clicked()), this, SLOT(setDS()));
@@ -1648,11 +1652,39 @@ void Preferences::setDS()
 void Preferences::setBreite(int v)
 {
 	Pagebr = v / Umrech / 100.0;
+	RightR->setMaxValue(Breite->value() - LeftR->value());
+	LeftR->setMaxValue(Breite->value() - RightR->value());
+	TopR->setMaxValue(Hoehe->value() - BottomR->value());
+	BottomR->setMaxValue(Hoehe->value() - TopR->value());
 }
 
 void Preferences::setHoehe(int v)
 {
 	Pageho = v / Umrech / 100.0;
+	RightR->setMaxValue(Breite->value() - LeftR->value());
+	LeftR->setMaxValue(Breite->value() - RightR->value());
+	TopR->setMaxValue(Hoehe->value() - BottomR->value());
+	BottomR->setMaxValue(Hoehe->value() - TopR->value());
+}
+
+void Preferences::setTop(int v)
+{
+	BottomR->setMaxValue(Hoehe->value() - TopR->value());
+}
+
+void Preferences::setBottom(int v)
+{
+	TopR->setMaxValue(Hoehe->value() - BottomR->value());
+}
+
+void Preferences::setLeft(int v)
+{
+	RightR->setMaxValue(Breite->value() - LeftR->value());
+}
+
+void Preferences::setRight(int v)
+{
+	LeftR->setMaxValue(Breite->value() - RightR->value());
 }
 
 void Preferences::setSize(int gr)
@@ -1792,6 +1824,10 @@ void Preferences::setSize(int gr)
 	disconnect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
 	Breite->setValue(qRound(Pagebr * Umrech * 100));
 	Hoehe->setValue(qRound(Pageho * Umrech * 100));
+	RightR->setMaxValue(Breite->value() - LeftR->value());
+	LeftR->setMaxValue(Breite->value() - RightR->value());
+	TopR->setMaxValue(Hoehe->value() - BottomR->value());
+	BottomR->setMaxValue(Hoehe->value() - TopR->value());
 	connect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
 	connect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
 }
