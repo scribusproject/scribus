@@ -26,6 +26,10 @@
  #include "config.h"
 #endif
 
+#include <qstring.h>
+#include <qrect.h>
+#include <qimage.h>
+#include <qfile.h>
 #include <qregexp.h>
 #include <qdatetime.h>
 #include <qfileinfo.h>
@@ -35,6 +39,11 @@
 #include <cmath>
 #include <unistd.h>
 #include "rc4.h"
+
+#include "pageitem.h"
+#include "scribusview.h"
+#include "bookmwin.h"
+#include "scribus.h"
 
 using namespace std;
 

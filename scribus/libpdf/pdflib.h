@@ -17,15 +17,18 @@
 
 #ifndef PDFLIB_H
 #define PDFLIB_H
-#include <qstring.h>
-#include <qrect.h>
-#include <qvaluelist.h>
-#include <qimage.h>
-#include "pageitem.h"
-#include "scribusview.h"
-#include "bookmwin.h"
+
+#include "qvaluelist.h"
+
+class QString;
+class QRect;
+class QImage;
+class QFile;
+class PageItem;
+class ScribusView;
+class BookMItem;
+class BookMView;
 #include "scribus.h"
-#include <qfile.h>
 
 /**
   *@author Franz Schmid
@@ -178,3 +181,4 @@ private:
 };
 
 #endif
+
