@@ -91,7 +91,7 @@ void Farbmanager::loadFarben()
 {
 	QString fileName;
 #ifdef HAVE_LIBZ
-	CustomFDialog dia(this, tr("Open"),tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"));
+	CustomFDialog dia(this, tr("Open"), tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"));
 #else
 	CustomFDialog dia(this, tr("Open"), tr("Documents (*.sla *.scd);;All Files (*)"));
 #endif
@@ -137,7 +137,7 @@ void Farbmanager::duplFarbe()
 {
     QString nam;
     Query *dia = new Query(this, "tt", 1, 0, "New Color:", "New Color");
-    dia->Answer->setText(tr("Copy of ")+sFarbe);
+    dia->Answer->setText( tr("Copy of ")+sFarbe);
     if (dia->exec())
     	{
     	nam = dia->Answer->text();

@@ -148,7 +148,7 @@ void FDialogPreview::GenPreview(QString name)
 				if (au2 == "")
 					au2 = tr("Unknown");
 				Aut += au2;
-				setText(tr("Scribus-Document")+"\n\n"+Tit+Aut);
+				setText( tr("Scribus-Document")+"\n\n"+Tit+Aut);
 				}
 			else
 				setText(Buffer.left(200));
@@ -180,7 +180,7 @@ CustomFDialog::CustomFDialog(QWidget *pa, QString cap, QString filter, bool Pre,
 		Layout1->setSpacing( 6 );
 		Layout1->setMargin( 0 );
 		SaveZip = new QCheckBox(Layout, "test");
-		SaveZip->setText(tr("Compress File"));
+		SaveZip->setText( tr("Compress File"));
 		Layout1->addWidget(SaveZip);
 		QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
   	Layout1->addItem( spacer );
@@ -200,7 +200,7 @@ CustomFDialog::CustomFDialog(QWidget *pa, QString cap, QString filter, bool Pre,
 		Layout1C->setSpacing( 0 );
 		Layout1C->setMargin( 4 );
 		TxCodeT = new QLabel(this);
-		TxCodeT->setText(tr("Encoding:"));
+		TxCodeT->setText( tr("Encoding:"));
 		TxCodeM = new QComboBox(true, LayoutC, "Cod");
 		TxCodeM->setEditable(false);
 		TxCodeM->insertItem("ISO 8859-1");
@@ -255,7 +255,7 @@ CustomFDialog::CustomFDialog(QWidget *pa, QString cap, QString filter, bool Pre,
 		connect(SaveZip, SIGNAL(clicked()), this, SLOT(HandleComp()));
 	HomeB = new QToolButton(this);
 	HomeB->setIconSet(loadIcon("gohome.png"));
-	HomeB->setTextLabel(tr("Moves to your Document Directory.\nThis can be set in the Preferences."));
+	HomeB->setTextLabel( tr("Moves to your Document Directory.\nThis can be set in the Preferences."));
 	connect(HomeB, SIGNAL(clicked()), this, SLOT(slotHome()));
 	addToolButton(HomeB);
 }

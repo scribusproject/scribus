@@ -55,9 +55,9 @@ MovePages::MovePages( QWidget* parent, int act, int max, bool art )
     	Layout4->addWidget( ToPage, 0, 3);
     	}
     Where = new QComboBox( true, this, "Where" );
-    Where->insertItem(tr("before Page"));
-    Where->insertItem(tr("after Page"));
-    Where->insertItem(tr("at End"));
+    Where->insertItem( tr("before Page"));
+    Where->insertItem( tr("after Page"));
+    Where->insertItem( tr("at End"));
     Where->setEditable(false);
     Where->setCurrentItem(2);
 		Layout4->addMultiCellWidget( Where, 1, 1, 0, 1 );
@@ -66,7 +66,7 @@ MovePages::MovePages( QWidget* parent, int act, int max, bool art )
     ActualPage->setValue( act );
     ActualPage->setMaxValue( max );
 		Layout4->addWidget( ActualPage, 1, 3 );
-		Layout4->addColSpacing(0, TextLabel1->fontMetrics().width(tr( "Move Page(s):" )));
+		Layout4->addColSpacing(0, TextLabel1->fontMetrics().width( tr( "Move Page(s):" )));
     DLayout->addLayout( Layout4 );
     Layout3 = new QHBoxLayout;
     Layout3->setSpacing( 6 );

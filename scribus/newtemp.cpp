@@ -37,8 +37,8 @@ NewTm::NewTm( QWidget* parent, QString text, QString titel, ScribusDoc *doc)
     	Layout3->setSpacing( 6 );
     	Layout3->setMargin( 0 );
     	Links = new QComboBox( true, this, "links" );
-    	Links->insertItem(tr("Left Page"));
-    	Links->insertItem(tr("Right Page"));
+    	Links->insertItem( tr("Left Page"));
+    	Links->insertItem( tr("Right Page"));
     	Links->setEditable(false);
     	Layout3->addWidget( Links );
     	QueryLayout->addLayout( Layout3 );

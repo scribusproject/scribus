@@ -78,7 +78,7 @@ void SeList::mouseReleaseEvent(QMouseEvent *m)
 		{
 		QPopupMenu *pmen = new QPopupMenu();
 		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-		int px = pmen->insertItem(tr("Show Page Previews"), this, SLOT(ToggleTh()));
+		int px = pmen->insertItem( tr("Show Page Previews"), this, SLOT(ToggleTh()));
 		if (Thumb)
 			pmen->setItemChecked(px, true);
 		pmen->exec(QCursor::pos());
@@ -151,7 +151,7 @@ void SeView::contentsMouseReleaseEvent(QMouseEvent* e)
 		{
 		QPopupMenu *pmen = new QPopupMenu();
 		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-		int px = pmen->insertItem(tr("Show Template Names"), this, SLOT(ToggleNam()));
+		int px = pmen->insertItem( tr("Show Template Names"), this, SLOT(ToggleNam()));
 		if (Namen)
 			pmen->setItemChecked(px, true);
 		pmen->exec(QCursor::pos());
@@ -725,7 +725,7 @@ void SeitenPal::RebuildTemp()
 		else
 			{
 			if (it.key() == "Normal")
-				TemplList->insertItem(tr("Normal"));
+				TemplList->insertItem( tr("Normal"));
 			else
 				TemplList->insertItem(it.key());
 			}

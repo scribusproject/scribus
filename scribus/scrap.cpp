@@ -131,7 +131,7 @@ Biblio::Biblio( QWidget* parent, preV *prefs)
   	fmenu = new QPopupMenu();
   	fmenu->insertItem(loadIcon("DateiNeu16.png"), tr("New"), this, SLOT(NewLib()), CTRL+Key_N);
   	fSave = fmenu->insertItem(loadIcon("DateiSave16.png"), tr("Save"), this, SLOT(Save()), CTRL+Key_S);
-  	fmenu->insertItem(tr("Save as..."), this, SLOT(SaveAs()));
+  	fmenu->insertItem( tr("Save as..."), this, SLOT(SaveAs()));
   	fmenu->insertItem(loadIcon("DateiOpen16.png"), tr("Load..."), this, SLOT(Load()), CTRL+Key_O);
   	fmenu->insertItem(loadIcon("DateiClos16.png"), tr("Close"), this, SLOT(CloseWin()));
   	vmenu = new QPopupMenu();
@@ -151,8 +151,8 @@ Biblio::Biblio( QWidget* parent, preV *prefs)
     		break;
     	}
   	menuBar = new QMenuBar(this);
-		menuBar->insertItem(tr("File"), fmenu);
-		menuBar->insertItem(tr("Preview"), vmenu);
+		menuBar->insertItem( tr("File"), fmenu);
+		menuBar->insertItem( tr("Preview"), vmenu);
     BiblioLayout->setMenuBar( menuBar );
 
     Frame3 = new QFrame( this, "Frame3" );
@@ -211,7 +211,7 @@ void Biblio::SaveAs()
 void Biblio::Load()
 {
 	Save();
-	QString fileName = QFileDialog::getOpenFileName(0,tr("Scrapbooks (*.scs);;All Files (*)"),this);
+	QString fileName = QFileDialog::getOpenFileName(0, tr("Scrapbooks (*.scs);;All Files (*)"),this);
 	if (!fileName.isEmpty())
 		{
 		BibWin->ReadContents(fileName);
@@ -266,7 +266,7 @@ void Biblio::HandleMouse(QIconViewItem *ite)
 		{
 		QPopupMenu *pmenu = new QPopupMenu();
 		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-		del = pmenu->insertItem(tr("Delete"));
+		del = pmenu->insertItem( tr("Delete"));
 		mret = pmenu->exec(QCursor::pos());
 		if (mret == del)
 				DeleteObj(ite->text(), ite);
@@ -280,7 +280,7 @@ void Biblio::NewLib()
 	BibWin->Objekte.clear();
 	BibWin->clear();
 	ScFilename = "";
-  setCaption(tr("Scrapbook"));
+  setCaption( tr("Scrapbook"));
   fmenu->setItemEnabled(fSave, 0);
 }
 

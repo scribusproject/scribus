@@ -146,7 +146,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
     BorderC = new QComboBox( true, GroupBox20, "BorderC" );
 		CListe::Iterator cit;
 		QPixmap pm;
-    BorderC->insertItem(tr("None"));
+    BorderC->insertItem( tr("None"));
     if (item->AnBColor == "None")
     	BorderC->setCurrentItem(BorderC->count()-1);
     pm = QPixmap(15, 15);
@@ -265,7 +265,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
     OptIconsLayout = new QVBoxLayout( OptIcons->layout() );
     OptIconsLayout->setAlignment( Qt::AlignTop );
 		UseIcons = new QCheckBox(OptIcons, "UIc");
-		UseIcons->setText(tr("Use Icons"));
+		UseIcons->setText( tr("Use Icons"));
 		UseIcons->setChecked(item->AnUseIcons);
 		OptIconsLayout->addWidget(UseIcons);
     Layout17 = new QHBoxLayout( 0, 0, 6, "Layout17");
@@ -598,14 +598,14 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
     GroupBox11Layout->setSpacing( 6 );
     GroupBox11Layout->setMargin( 11 );
 		LExtern = new QCheckBox(GroupBox11, "Extern");
-		LExtern->setText(tr("To File:"));
+		LExtern->setText( tr("To File:"));
     GroupBox11Layout->addWidget( LExtern, 0, 0 );
     Destfile = new QLineEdit(GroupBox11, "File");
 		Destfile->setText(item->An_Extern);
 		Destfile->setReadOnly(true);
     GroupBox11Layout->addWidget( Destfile, 0, 1 );
 		ChFile = new QPushButton(GroupBox11, "Change");
-		ChFile->setText(tr("Change..."));
+		ChFile->setText( tr("Change..."));
     GroupBox11Layout->addWidget( ChFile, 0, 2 );
     TextLabel31 = new QLabel( GroupBox11, "TextLabel3" );
     TextLabel31->setText( tr( "Page:" ) );
@@ -1185,7 +1185,7 @@ void Annot::IconsEin()
 void Annot::GetNIcon()
 {
 	QString fileName;
-	CustomFDialog dia(this, tr("Open"),tr("Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)"), "", true);
+	CustomFDialog dia(this, tr("Open"), tr("Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)"), "", true);
 	if (dia.exec() == QDialog::Accepted)
 		fileName = dia.selectedFile();
 	else
@@ -1216,7 +1216,7 @@ void Annot::GetNIcon()
 void Annot::GetPIcon()
 {
 	QString fileName;
-	CustomFDialog dia(this, tr("Open"),tr("Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)"), "", true);
+	CustomFDialog dia(this, tr("Open"), tr("Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)"), "", true);
 	if (dia.exec() == QDialog::Accepted)
 		fileName = dia.selectedFile();
 	else
@@ -1235,7 +1235,7 @@ void Annot::GetPIcon()
 void Annot::GetRIcon()
 {
 	QString fileName;
-	CustomFDialog dia(this, tr("Open"),tr("Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)"), "", true);
+	CustomFDialog dia(this, tr("Open"), tr("Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)"), "", true);
 	if (dia.exec() == QDialog::Accepted)
 		fileName = dia.selectedFile();
 	else
@@ -1343,7 +1343,7 @@ void Annot::setDateSample(const QString& ds)
 		tmp = "M/d/yy h:mm ap";
 	if (ds == "m/d/yy HH:MM")
 		tmp = "M/d/yy hh:mm";
-	TextDa1->setText(tr("Example:")+" "+dt.toString(tmp));
+	TextDa1->setText( tr("Example:")+" "+dt.toString(tmp));
 }
 
 void Annot::DecodeVali()
@@ -2111,7 +2111,7 @@ void Annot::SetActScript(int it)
 void Annot::GetFile()
 {
 	QString fn;
-	CustomFDialog dia(this, tr("Open"),tr("PDF-Documents (*.pdf);;All Files (*)"));
+	CustomFDialog dia(this, tr("Open"), tr("PDF-Documents (*.pdf);;All Files (*)"));
 	if (Destfile->text() != "")
 		dia.setSelection(Destfile->text());
 	if (dia.exec() == QDialog::Accepted)

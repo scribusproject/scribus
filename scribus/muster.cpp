@@ -128,7 +128,7 @@ void MusterSeiten::DuplTemp()
     bool atf;
     struct CLBuf Buffer;
     NewTm *dia = new NewTm(this, "Name:", "New Template", Doc);
-    dia->Answer->setText(tr("Copy of ")+sMuster);
+    dia->Answer->setText( tr("Copy of ")+sMuster);
     dia->Answer->selectAll();
     if (dia->exec())
     	{
@@ -178,7 +178,7 @@ void MusterSeiten::NewTemp()
     int nr;
     bool atf;
     NewTm *dia = new NewTm(this, "Name:", "New Template", Doc);
-    dia->Answer->setText(tr("New Template"));
+    dia->Answer->setText( tr("New Template"));
     dia->Answer->selectAll();
     if (dia->exec())
     	{
@@ -238,7 +238,7 @@ void MusterSeiten::updateMList(QString nam)
 	for (it = View->MasterNames.begin(); it != View->MasterNames.end(); ++it)
 		{
 		if (it.key() == "Normal")
-			ListBox1->insertItem(tr("Normal"));
+			ListBox1->insertItem( tr("Normal"));
 		else
 			ListBox1->insertItem(it.key());
 		}

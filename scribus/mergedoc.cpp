@@ -108,7 +108,7 @@ void MergeDoc::ChangeFile()
 				PageNr->setEnabled(true);
 				PageNr->setValue(1);
 				PageNr->setMaxValue(Count);
-				Inform->setText(tr("Document contains: %1 Page(s)").arg(Count));
+				Inform->setText( tr("Document contains: %1 Page(s)").arg(Count));
 				}
 			delete ss;
 			}
@@ -121,7 +121,7 @@ void MergeDoc::ChangeFile()
 		PageNr->setEnabled(false);
 		PageNr->setValue(0);
 		PageNr->setMaxValue(Count);
-		Inform->setText(tr("Document contains: %1 Page(s)").arg(Count));
+		Inform->setText( tr("Document contains: %1 Page(s)").arg(Count));
 		}
 }
 

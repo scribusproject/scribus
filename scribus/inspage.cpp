@@ -32,9 +32,9 @@ InsPage::InsPage( QWidget* parent, ScribusView* view, int act, int max, bool ds)
     TextLabel2->setText( tr( "page(s)" ) );
     Layout4->addWidget( TextLabel2, 0, 2 );
     Where = new QComboBox( true, this, "Where" );
-    Where->insertItem(tr("before Page"));
-    Where->insertItem(tr("after Page"));
-    Where->insertItem(tr("at End"));
+    Where->insertItem( tr("before Page"));
+    Where->insertItem( tr("after Page"));
+    Where->insertItem( tr("at End"));
     Where->setEditable(false);
     Where->setCurrentItem(2);
 		Layout4->addMultiCellWidget( Where, 1, 1, 0, 1 );
@@ -43,16 +43,16 @@ InsPage::InsPage( QWidget* parent, ScribusView* view, int act, int max, bool ds)
     ActualPage->setValue( act+1 );
     ActualPage->setMaxValue(max);
 		Layout4->addWidget( ActualPage, 1, 2 );
-		Layout4->addColSpacing(0, TextLabel1->fontMetrics().width(tr( "Inserting" )));
+		Layout4->addColSpacing(0, TextLabel1->fontMetrics().width( tr( "Inserting" )));
     DLayout->addLayout( Layout4 );
     Layout4a = new QHBoxLayout;
     Layout4a->setSpacing( 6 );
     Layout4a->setMargin( 0 );
 		TextLabel3 = new QLabel(this, "text");
 		if (ds)
-			TextLabel3->setText(tr("Template (Left Page):"));
+			TextLabel3->setText( tr("Template (Left Page):"));
 		else
-			TextLabel3->setText(tr("Template:"));
+			TextLabel3->setText( tr("Template:"));
 		Layout4a->addWidget( TextLabel3 );
     QSpacerItem* spacer3 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
     Layout4a->addItem( spacer3 );
@@ -62,7 +62,7 @@ InsPage::InsPage( QWidget* parent, ScribusView* view, int act, int max, bool ds)
 		for (it = view->MasterNames.begin(); it != view->MasterNames.end(); ++it)
 			{
 			if (it.key() == "Normal")
-				Based->insertItem(tr("Normal"));
+				Based->insertItem( tr("Normal"));
 			else
 				Based->insertItem(it.key());
 			}
@@ -74,7 +74,7 @@ InsPage::InsPage( QWidget* parent, ScribusView* view, int act, int max, bool ds)
     	Layout4b->setSpacing( 6 );
     	Layout4b->setMargin( 0 );
 			TextLabel3a = new QLabel(this, "texta");
-			TextLabel3a->setText(tr("Template (Right Page):"));
+			TextLabel3a->setText( tr("Template (Right Page):"));
 			Layout4b->addWidget( TextLabel3a );
     	QSpacerItem* spacer2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
     	Layout4b->addItem( spacer2 );
@@ -84,7 +84,7 @@ InsPage::InsPage( QWidget* parent, ScribusView* view, int act, int max, bool ds)
 			for (it2 = view->MasterNames.begin(); it2 != view->MasterNames.end(); ++it2)
 				{
 				if (it2.key() == "Normal")
-					Based2->insertItem(tr("Normal"));
+					Based2->insertItem( tr("Normal"));
 				else
 					Based2->insertItem(it2.key());
 				}

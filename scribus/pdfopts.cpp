@@ -127,8 +127,8 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     TextLabel1x->setAlignment( static_cast<int>( QLabel::AlignVCenter | QLabel::AlignLeft ) );
     GroupBox1Layout->addWidget( TextLabel1x, 1, 0 );
     ComboBind = new QComboBox( true, GroupBox1, "ComboBind" );
-    ComboBind->insertItem(tr("Left Margin"));
-    ComboBind->insertItem(tr("Right Margin"));
+    ComboBind->insertItem( tr("Left Margin"));
+    ComboBind->insertItem( tr("Right Margin"));
     ComboBind->setEditable(false);
 		ComboBind->setCurrentItem(Optionen->Binding);
     GroupBox1Layout->addMultiCellWidget( ComboBind, 1, 1, 1, 2, AlignLeft );
@@ -274,7 +274,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 			{
     	for (uint pg2 = 0; pg2 < vie->Pages.count(); ++pg2)
     		{
-    		Pages->insertItem(tr("Page")+" "+tmp.setNum(pg2+1));
+    		Pages->insertItem( tr("Page")+" "+tmp.setNum(pg2+1));
 				if (EffVal.count()-1 < pg2)
 					{
     			ef.EffektLen = 1;
@@ -291,7 +291,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 			{
     	for (uint pg = 0; pg < vie->Pages.count(); ++pg)
     		{
-    		Pages->insertItem(tr("Page")+" "+tmp.setNum(pg+1));
+    		Pages->insertItem( tr("Page")+" "+tmp.setNum(pg+1));
     		ef.EffektLen = 1;
     		ef.AnzeigeLen = 1;
     		ef.Effekt = 0;
@@ -1013,7 +1013,7 @@ void PDF_Opts::PagePr()
   	{
   	for (uint pg = 0; pg < view->Pages.count(); pg++)
   		{
-   		Pages->changeItem(tr("Page")+" "+tmp.setNum(pg+1), pg);
+   		Pages->changeItem( tr("Page")+" "+tmp.setNum(pg+1), pg);
     	}
   	}
   if (ci != -1)

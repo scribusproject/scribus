@@ -203,7 +203,7 @@ void MultiLine::updateSList()
 	QString tmp, tmp2;
 	QPixmap pm = QPixmap(30, 15);
 	pm.fill(calcFarbe(TempVorl[CurLin].Color, TempVorl[CurLin].Shade));
-	tmp2 = " "+tmp.setNum(TempVorl[CurLin].Width)+tr(" pt ");
+	tmp2 = " "+tmp.setNum(TempVorl[CurLin].Width)+ tr(" pt ");
 	switch (static_cast<PenStyle>(TempVorl[CurLin].Dash))
 		{
 		case SolidLine:
@@ -283,7 +283,7 @@ void MultiLine::RebuildList()
 	for (multiLine::iterator it = TempVorl.begin(); it != TempVorl.end(); ++it)
 		{
 		pm2.fill(calcFarbe((*it).Color, (*it).Shade));
-		tmp2 = " "+tmp.setNum((*it).Width)+tr(" pt ");
+		tmp2 = " "+tmp.setNum((*it).Width)+ tr(" pt ");
 		switch (static_cast<PenStyle>((*it).Dash))
 			{
 			case SolidLine:

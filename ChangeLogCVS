@@ -1,4 +1,8 @@
 Changes since Version 1.1.2
+23.11.2003	Added a "Revert to Saved" Option to the File Menu.
+		Changed Behaviour of the Home and End Key in the Story Editor.
+		Fixed Item Name issues.
+
 22.11.2003	Added Group/Ungroup Items to Right Mouse Click Context Menu.
 		The Fontsize is now a float, you can have now Fontsize like 12.3 pt
 		Managed Guides is now available for Template Pages too.

@@ -207,6 +207,7 @@ class ScribusApp : public QMainWindow
     void slotFileSave();
     /** save a document under a different filename*/
     void slotFileSaveAs();
+		void slotFileRevert();
     /** Sichert den Text eines Elements */
     void SaveText();
     /** close the actual file */
@@ -457,6 +458,7 @@ private:
     int fid4;
     int fid5;
     int fid51;
+    int fid52;
     int fid6;
     int fid7;
     int fid8;

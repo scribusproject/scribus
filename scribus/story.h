@@ -56,6 +56,8 @@ public:
 	~STable() {};
 	void keyPressEvent(QKeyEvent *k);
 	void adjHeight(int r);
+	int HomeK;
+	int EndK;
 };
 
 class StoryEditor : public QDialog
@@ -90,6 +92,7 @@ public slots:
 	void Do_cut();
 	void Do_del();
 	void updateTextFrame();
+	void slotEditStyles();
 	void styleChange(int st);
 	void modifiedText();
 	void WrapHandler();
@@ -100,6 +103,7 @@ public slots:
 
 signals:
 	void DocChanged();
+	void EditSt();
 
 protected:
 	QHBoxLayout* Form1Layout;

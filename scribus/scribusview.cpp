@@ -64,14 +64,14 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc, preV *prefs)
 	LA->setFont(fo);
 	Seitmen = new QPopupMenu(this);
 	Seitmen->setFont(fo);
-	LA->setText(tr("Page")+" 1");
+	LA->setText( tr("Page")+" 1");
 	LA->setPopup(Seitmen);
 	LA->setFocusPolicy(QWidget::NoFocus);
 	LY = new QPushButton(this);
 	LY->setFont(fo);
 	Laymen = new QPopupMenu(this);
 	Laymen->setFont(fo);
-	LY->setText(tr("Layer")+" 0");
+	LY->setText( tr("Layer")+" 0");
 	LY->setPopup(Laymen);
 	LY->setFocusPolicy(QWidget::NoFocus);
 	HR = new Hruler(this, Doc);
@@ -234,7 +234,7 @@ Page* ScribusView::addPage(int nr)
 			}
 		Doc->FirstAuto->Dirty = true;
 		}
-	LA->setText(tr("Page")+" "+QString::number(nr+1));
+	LA->setText( tr("Page")+" "+QString::number(nr+1));
 	fe->setMouseTracking(true);
 	connect(fe, SIGNAL(Hrule(int)), HR, SLOT(Draw(int)));
 	connect(fe, SIGNAL(Vrule(int)), VR, SLOT(Draw(int)));
@@ -260,7 +260,7 @@ void ScribusView::delPage(int Nr)
 	Doc->UnDoValid = false;
 	Doc->PageC -= 1;
 	Doc->ActPage = Pages.at(0);
-	LA->setText(tr("Page")+" 1");
+	LA->setText( tr("Page")+" 1");
 }
 
 void ScribusView::movePage(int from, int to, int ziel, int art)
@@ -418,7 +418,7 @@ void ScribusView::reformPages()
 
 void ScribusView::setMenTxt(int Seite)
 {
-	LA->setText(tr("Page")+" "+QString::number(Seite+1));
+	LA->setText( tr("Page")+" "+QString::number(Seite+1));
 }
 
 void ScribusView::setLayMenTxt(int l)
@@ -519,7 +519,7 @@ void ScribusView::PaMenu()
 		{
 		for (a=0; a < Pages.count(); a++)
 			{
-			Seitmen->insertItem(tr("Page")+" "+QString::number(a+1));
+			Seitmen->insertItem( tr("Page")+" "+QString::number(a+1));
 			}
 		}
 }
@@ -561,7 +561,7 @@ void ScribusView::GotoPage(int Seite)
 {
 	Doc->ActPage = Pages.at(Seite);
 	setContentsPos(static_cast<int>(childX(Doc->ActPage->parentWidget())-10*Doc->Scale), static_cast<int>(childY(Doc->ActPage->parentWidget())-10*Doc->Scale));
-	LA->setText(tr("Page")+" "+QString::number(Seite+1));
+	LA->setText( tr("Page")+" "+QString::number(Seite+1));
 }
 
 /** Vergrößert die Ansicht */

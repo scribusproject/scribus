@@ -44,7 +44,7 @@ void Run(QWidget *d, ScribusApp *plug)
 PPreview::PPreview( QWidget* parent, ScribusApp *pl) : QDialog( parent, "Preview", true, 0 )
 {
 	QString tmp;
-	setCaption(tr("Print Preview"));
+	setCaption( tr("Print Preview"));
 	app = pl;
 	APage = 0;
 	MPage = app->doc->PageC;
@@ -55,16 +55,16 @@ PPreview::PPreview( QWidget* parent, ScribusApp *pl) : QDialog( parent, "Preview
 	Layout1->setMargin(0);
 	First = new QToolButton(this, "First");
 	First->setMaximumSize(QSize(24,24));
-	First->setText(tr(""));
+	First->setText("");
 	First->setPixmap(loadIcon("start.png"));
 	Layout1->addWidget(First);
 	Back = new QToolButton(this, "Back");
 	Back->setMaximumSize(QSize(24,24));
-	Back->setText(tr(""));
+	Back->setText("");
 	Back->setPixmap(loadIcon("back.png"));
 	Layout1->addWidget(Back);
 	Text1 = new QLabel(this);
-	Text1->setText(tr("Page:"));
+	Text1->setText( tr("Page:"));
 	Layout1->addWidget(Text1);
 	SeitenAusw = new QComboBox( true, this, "SeitenAusw" );
 	SeitenAusw->setEditable(false);
@@ -75,12 +75,12 @@ PPreview::PPreview( QWidget* parent, ScribusApp *pl) : QDialog( parent, "Preview
 	Layout1->addWidget(SeitenAusw);
 	Forward = new QToolButton(this, "Forward");
 	Forward->setMaximumSize(QSize(24,24));
-	Forward->setText(tr(""));
+	Forward->setText("");
 	Forward->setPixmap(loadIcon("forward.png"));
 	Layout1->addWidget(Forward);
 	Last = new QToolButton(this, "Last");
 	Last->setMaximumSize(QSize(24,24));
-	Last->setText(tr(""));
+	Last->setText("");
 	Last->setPixmap(loadIcon("finish.png"));
 	Layout1->addWidget(Last);
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -89,11 +89,11 @@ PPreview::PPreview( QWidget* parent, ScribusApp *pl) : QDialog( parent, "Preview
 	Layout2->setSpacing(1);
 	Layout2->setMargin(0);
 	AliasText = new QCheckBox(this, "TextAntiAlias");
-	AliasText->setText(tr("Anti-alias Text"));
+	AliasText->setText( tr("Anti-alias Text"));
 	AliasText->setChecked(true);
 	Layout2->addWidget(AliasText);
 	AliasGr = new QCheckBox(this, "GraphicsAntiAlias");
-	AliasGr->setText(tr("Anti-alias Graphics"));
+	AliasGr->setText( tr("Anti-alias Graphics"));
 	AliasGr->setChecked(true);
 	Layout2->addWidget(AliasGr);
 	Layout1->addLayout(Layout2);

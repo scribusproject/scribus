@@ -70,7 +70,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     ButtonGroup1Layout->setSpacing( 6 );
     ButtonGroup1Layout->setMargin( 10 );
     TextGstil = new QLabel(ButtonGroup1, "dd");
-    TextGstil->setText(tr("Theme"));
+    TextGstil->setText( tr("Theme"));
     ButtonGroup1Layout->addWidget( TextGstil, 0, 0 );
     GUICombo = new QComboBox( true, ButtonGroup1, "GUICombo" );
 		QStringList STtest;
@@ -83,7 +83,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     GUICombo->setCurrentText(Vor->GUI);
     ButtonGroup1Layout->addWidget( GUICombo, 0, 1, Qt::AlignRight );
     TextGstil2 = new QLabel(ButtonGroup1, "dd");
-    TextGstil2->setText(tr("Font Size:"));
+    TextGstil2->setText( tr("Font Size:"));
     ButtonGroup1Layout->addWidget( TextGstil2, 1, 0 );
     GFsize = new QSpinBox(ButtonGroup1, "gfs" );
     GFsize->setSuffix( tr( " pts" ) );
@@ -164,7 +164,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     Recen->setValue( Vor->RecentDCount );
     GroupBox20bLayout->addWidget( Recen, 0, 1 );
     Shorty = new QPushButton(GroupBox20b, "SH");
-    Shorty->setText(tr("Keyboard Shortcuts..."));
+    Shorty->setText( tr("Keyboard Shortcuts..."));
     GroupBox20bLayout->addMultiCellWidget( Shorty, 1, 1, 0, 1 );
     tabLayout->addWidget( GroupBox20b, 1, 1 );
 
@@ -178,7 +178,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     GroupBox200Layout->setSpacing( 0 );
     GroupBox200Layout->setMargin( 5 );
 		PfadText = new QLabel( GroupBox200, "Pfadtext" );
-		PfadText->setText(tr("Documents:"));
+		PfadText->setText( tr("Documents:"));
     GroupBox200Layout->addWidget( PfadText, 0, 0 );
     Docs = new QLineEdit( GroupBox200, "Datei" );
     Docs->setMinimumSize( QSize( 268, 22 ) );
@@ -189,7 +189,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     FileC->setText( tr( "Change..." ) );
     GroupBox200Layout->addWidget( FileC, 0, 2 );
 		PfadText2 = new QLabel( GroupBox200, "Pfadtext1" );
-		PfadText2->setText(tr("ICC-Profiles:"));
+		PfadText2->setText( tr("ICC-Profiles:"));
     GroupBox200Layout->addWidget( PfadText2, 1, 0 );
     ProPfad = new QLineEdit( GroupBox200, "Datei1" );
     ProPfad->setMinimumSize( QSize( 268, 22 ) );
@@ -201,7 +201,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     GroupBox200Layout->addWidget( FileC2, 1, 2 );
 
 		PfadText3 = new QLabel( GroupBox200, "Pfadtext1" );
-		PfadText3->setText(tr("Scripts:"));
+		PfadText3->setText( tr("Scripts:"));
     GroupBox200Layout->addWidget( PfadText3, 2, 0 );
     ScriptPfad = new QLineEdit( GroupBox200, "Datei1" );
     ScriptPfad->setMinimumSize( QSize( 268, 22 ) );
@@ -402,7 +402,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     ASTime = new QSpinBox( GroupAS, "Time" );
     ASTime->setMaxValue( 60 );
     ASTime->setMinValue( 1 );
-    ASTime->setSuffix( " "+tr("min") );
+    ASTime->setSuffix( " " + tr("min") );
 		ASTime->setValue(Vor->AutoSaveTime / 1000 / 60);
     GroupASLayout->addWidget( ASTime, 1, 1 );
     Layout21b->addWidget( GroupAS );
@@ -898,7 +898,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     Layout15b->addWidget(TextLabelT26, 5, 0);
     Foreground = new QComboBox( true, ToolFrame2, "Foreground" );
     Foreground->setEditable(false);
- 		Foreground->insertItem(tr("None"));
+ 		Foreground->insertItem( tr("None"));
  		if (Vor->Dpen == "None")
  			Foreground->setCurrentItem(Foreground->count()-1);
     pm2 = QPixmap(15, 15);
@@ -920,7 +920,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     Layout15b->addWidget(Shade2, 1, 1);
     Background = new QComboBox( true, ToolFrame2, "Background" );
     Background->setEditable(false);
- 		Background->insertItem(tr("None"));
+ 		Background->insertItem( tr("None"));
  		if (Vor->Dbrush == "None")
  			Background->setCurrentItem(Background->count()-1);
 		for (itc = Vor->DColors.begin(); itc != Vor->DColors.end(); ++itc)
@@ -1173,7 +1173,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     Layout15->addWidget( ShadeP, 6, 1 );
     BackgroundP = new QComboBox( true, ToolFrame5, "BackgroundP" );
     BackgroundP->setEditable(false);
-    BackgroundP->insertItem(tr("None"));
+    BackgroundP->insertItem( tr("None"));
    	if (Vor->DbrushPict == "None")
    		BackgroundP->setCurrentItem(BackgroundP->count()-1);
 		for (itc = Vor->DColors.begin(); itc != Vor->DColors.end(); ++itc)

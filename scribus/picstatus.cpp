@@ -90,14 +90,14 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi)
 					PicTable->setText(Zeilen2, 1, fi.dirPath());
 					PicTable->setText(Zeilen2, 2, tmp.setNum(p+1));
 					QToolButton *tb2 = new QToolButton(this, tmp.setNum(Zeilen2));
-    			tb2->setText(tr("Goto"));
+    			tb2->setText( tr("Goto"));
     			tb2->setEraseColor(white);
 					tb2->setEnabled(false);
-					PicTable->setColumnWidth(3, tb2->fontMetrics().width(tr("Goto"))+10);
+					PicTable->setColumnWidth(3, tb2->fontMetrics().width( tr("Goto"))+10);
     			PicTable->setCellWidget(Zeilen2, 3, tb2);
     			connect(tb2, SIGNAL(clicked()), this, SLOT(GotoPic()));
 					QCheckBox *cp2 = new QCheckBox(this, tmp.setNum(Zeilen2));
-    			cp2->setText(tr("Yes"));
+    			cp2->setText( tr("Yes"));
     			cp2->setChecked(view->MasterPages.at(p)->Items.at(i)->isPrintable);
     			cp2->setEraseColor(white);
     			FlagsPic.append(cp2);
@@ -108,8 +108,8 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi)
 					else
 						PicTable->setText(Zeilen2, 5, tr("Missing"));
 					QToolButton *tb = new QToolButton(this, tmp.setNum(Zeilen2));
-    			tb->setText(tr("Search"));
-					PicTable->setColumnWidth(6, tb2->fontMetrics().width(tr("Search"))+10);
+    			tb->setText( tr("Search"));
+					PicTable->setColumnWidth(6, tb2->fontMetrics().width( tr("Search"))+10);
     			tb->setEraseColor(white);
     			PicTable->setCellWidget(Zeilen2, 6, tb);
     			connect(tb, SIGNAL(clicked()), this, SLOT(SearchPic()));
@@ -128,13 +128,13 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi)
 					PicTable->setText(Zeilen2, 1, fi.dirPath());
 					PicTable->setText(Zeilen2, 2, tmp.setNum(p+1));
 					QToolButton *tb2 = new QToolButton(this, tmp.setNum(Zeilen2));
-    			tb2->setText(tr("Goto"));
+    			tb2->setText( tr("Goto"));
     			tb2->setEraseColor(white);
-					PicTable->setColumnWidth(3, tb2->fontMetrics().width(tr("Goto"))+10);
+					PicTable->setColumnWidth(3, tb2->fontMetrics().width( tr("Goto"))+10);
     			PicTable->setCellWidget(Zeilen2, 3, tb2);
     			connect(tb2, SIGNAL(clicked()), this, SLOT(GotoPic()));
 					QCheckBox *cp2 = new QCheckBox(this, tmp.setNum(Zeilen2));
-    			cp2->setText(tr("Yes"));
+    			cp2->setText( tr("Yes"));
     			cp2->setChecked(view->Pages.at(p)->Items.at(i)->isPrintable);
     			cp2->setEraseColor(white);
     			FlagsPic.append(cp2);
@@ -145,8 +145,8 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi)
 					else
 						PicTable->setText(Zeilen2, 5, tr("Missing"));
 					QToolButton *tb = new QToolButton(this, tmp.setNum(Zeilen2));
-    			tb->setText(tr("Search"));
-					PicTable->setColumnWidth(6, tb2->fontMetrics().width(tr("Search"))+10);
+    			tb->setText( tr("Search"));
+					PicTable->setColumnWidth(6, tb2->fontMetrics().width( tr("Search"))+10);
     			tb->setEraseColor(white);
     			PicTable->setCellWidget(Zeilen2, 6, tb);
     			connect(tb, SIGNAL(clicked()), this, SLOT(SearchPic()));

@@ -425,10 +425,10 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     layout41->addMultiCellWidget( Fonts, 0, 0, 0, 1 );
 
     Text20 = new QLabel( page_3, "Text20" );
-    Text20->setText(tr("Size:"));
+    Text20->setText( tr("Size:"));
     layout41->addWidget( Text20, 1, 0 );
     Size = new MSpinBox( page_3, 1 );
-    Size->setPrefix( tr( "" ) );
+    Size->setPrefix( "" );
     Size->setSuffix( tr( " pt" ) );
     Size->setMaxValue( 3000 );
     Size->setMinValue( -3000 );
@@ -437,7 +437,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 
     layout22 = new QHBoxLayout( 0, 0, 5, "layout22");
     ScaleTxt = new QLabel( page_3, "ScaleTxt" );
-		ScaleTxt->setText(tr("Width:"));
+		ScaleTxt->setText( tr("Width:"));
     layout22->addWidget( ScaleTxt );
     ChScale = new QSpinBox( page_3, "ChScale" );
     ChScale->setMaxValue( 400 );
@@ -449,7 +449,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 
     layout23 = new QHBoxLayout( 0, 0, 5, "layout23");
     StrokeIcon = new QLabel( page_3, "StrokeIcon" );
-    StrokeIcon->setText( tr( "" ) );
+    StrokeIcon->setText("");
     StrokeIcon->setPixmap(loadIcon("Stiftalt.xpm"));
     StrokeIcon->setScaledContents( FALSE );
     layout23->addWidget( StrokeIcon );
@@ -457,7 +457,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 		TxStroke->setEditable(false);
     layout23->addWidget( TxStroke );
   	TxStrokeSh = new QPopupMenu();
-		TxStrokeSh->insertItem(tr("Other..."));
+		TxStrokeSh->insertItem( tr("Other..."));
 		TxStrokeSh->insertItem("0 %");
 		TxStrokeSh->insertItem("10 %");
 		TxStrokeSh->insertItem("20 %");
@@ -481,7 +481,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     layout46->addLayout( layout23 );
     layout24 = new QHBoxLayout( 0, 0, 5, "layout24");
     FillIcon = new QLabel( page_3, "FillIcon" );
-		FillIcon->setText(tr(""));
+		FillIcon->setText("");
     FillIcon->setPixmap(loadIcon("fill.png"));
     FillIcon->setScaledContents( FALSE );
     layout24->addWidget( FillIcon );
@@ -489,7 +489,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 		TxFill->setEditable(false);
     layout24->addWidget( TxFill );
   	TxFillSh = new QPopupMenu();
-		TxFillSh->insertItem(tr("Other..."));
+		TxFillSh->insertItem( tr("Other..."));
 		TxFillSh->insertItem("0 %");
 		TxFillSh->insertItem("10 %");
 		TxFillSh->insertItem("20 %");
@@ -516,14 +516,14 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 
     Underline = new QToolButton( page_3, "Underline" );
     Underline->setMaximumSize( QSize( 22, 22 ) );
-    Underline->setText( tr( "" ) );
+    Underline->setText("");
     Underline->setPixmap(loadIcon("Unter.xpm"));
     Underline->setToggleButton( true );
     Layout1->addWidget( Underline );
 
     ButtonGroup1 = new QButtonGroup( page_3, "ButtonGroup1" );
     ButtonGroup1->setFrameShape( QButtonGroup::NoFrame );
-    ButtonGroup1->setTitle( tr( "" ) );
+    ButtonGroup1->setTitle("");
     ButtonGroup1->setExclusive( true );
     ButtonGroup1->setRadioButtonExclusive( false );
     ButtonGroup1->setColumnLayout(0, Qt::Vertical );
@@ -534,14 +534,14 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 
     Subs = new QToolButton( ButtonGroup1, "Subs" );
     Subs->setMaximumSize( QSize( 22, 22 ) );
-    Subs->setText( tr( "" ) );
+    Subs->setText("");
     Subs->setPixmap(loadIcon("Tief.xpm"));
     Subs->setToggleButton( true );
     ButtonGroup1Layout->addWidget( Subs );
 
     Supers = new QToolButton( ButtonGroup1, "Supers" );
     Supers->setMaximumSize( QSize( 22, 22 ) );
-    Supers->setText( tr( "" ) );
+    Supers->setText("");
     Supers->setPixmap(loadIcon("Hoch.xpm"));
     Supers->setToggleButton( true );
     ButtonGroup1Layout->addWidget( Supers );
@@ -549,28 +549,28 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 
     Kapital = new QToolButton( page_3, "Kapital" );
     Kapital->setMaximumSize( QSize( 22, 22 ) );
-    Kapital->setText( tr( "" ) );
+    Kapital->setText("");
     Kapital->setPixmap(loadIcon("Kapital.xpm"));
     Kapital->setToggleButton( true );
     Layout1->addWidget( Kapital );
 
     Strike = new QToolButton( page_3, "Strike" );
     Strike->setMaximumSize( QSize( 22, 22 ) );
-    Strike->setText( tr( "" ) );
+    Strike->setText("");
     Strike->setPixmap(loadIcon("Strike.xpm"));
     Strike->setToggleButton( true );
     Layout1->addWidget( Strike );
 
     Outlined = new QToolButton( page_3, "Outlined" );
     Outlined->setMaximumSize( QSize( 22, 22 ) );
-    Outlined->setText( tr( "" ) );
+    Outlined->setText("");
     Outlined->setPixmap(loadIcon("outlined.png"));
     Outlined->setToggleButton( true );
     Layout1->addWidget( Outlined );
 
     Revert = new QToolButton( page_3, "Bold" );
     Revert->setMaximumSize( QSize( 22, 22 ) );
-    Revert->setText( tr( "" ) );
+    Revert->setText("");
     Revert->setPixmap(loadIcon("Revers.png"));
     Revert->setToggleButton( true );
     Layout1->addWidget( Revert );
@@ -582,7 +582,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 
     GroupAlign = new QButtonGroup( page_3, "GroupAlign" );
     GroupAlign->setFrameShape( QButtonGroup::NoFrame );
-    GroupAlign->setTitle( tr( "" ) );
+    GroupAlign->setTitle("");
     GroupAlign->setExclusive( true );
     GroupAlign->setColumnLayout(0, Qt::Vertical );
     GroupAlign->layout()->setSpacing( 0 );
@@ -661,7 +661,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 
     layoutLang = new QHBoxLayout( 0, 0, 5, "layout24");
     SprachT = new QLabel( page_3, "Sprache" );
-		SprachT->setText(tr("Lang.:"));
+		SprachT->setText( tr("Lang.:"));
     layoutLang->addWidget( SprachT );
     LangCombo = new QComboBox( true, page_3, "Lang" );
 		LangCombo->setEditable(false);
@@ -809,7 +809,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     pageLayout_5->addLayout( Layout12_2 );
 
 		StyledLine = new QListBox(page_5, "StyledL");
-		StyledLine->insertItem(tr("No Style"));
+		StyledLine->insertItem( tr("No Style"));
 		pageLayout_5->addWidget(StyledLine);
 
     QSpacerItem* spacer11 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -2265,7 +2265,7 @@ void Mpalette::SetLineFormats(ScribusDoc *dd)
 	StyledLine->clear();
 	if (dd != 0)
 		{
-		StyledLine->insertItem(tr("No Style"));
+		StyledLine->insertItem( tr("No Style"));
 		QMap<QString,multiLine>::Iterator it;
 		for (it = doc->MLineStyles.begin(); it != doc->MLineStyles.end(); ++it)
 			{
@@ -2301,8 +2301,8 @@ void Mpalette::updateCList()
 	TxStroke->clear();
 	CListe::Iterator it;
 	QPixmap pm = QPixmap(15, 15);
-	TxFill->insertItem(tr("None"));
-	TxStroke->insertItem(tr("None"));
+	TxFill->insertItem( tr("None"));
+	TxStroke->insertItem( tr("None"));
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 		{
 		pm.fill(doc->PageColors[it.key()].getRGBColor());
@@ -2617,9 +2617,12 @@ void Mpalette::NewName()
 		}
 	else
 		{
-		CurItem->AnName = NameEdit->text();
-		CurItem->AutoName = false;
-		emit DocChanged();
+		if (CurItem->AnName != NameEdit->text())
+			{
+			CurItem->AnName = NameEdit->text();
+			CurItem->AutoName = false;
+			emit DocChanged();
+			}
 		}
 }
 

@@ -32,9 +32,9 @@ Tree::Tree( QWidget* parent, WFlags fl )
     ListView1->setGeometry( QRect( 0, 0, 220, 240 ) );
     ListView1->setMinimumSize( QSize( 220, 240 ) );
     ListView1->setRootIsDecorated( TRUE );
-    ListView1->addColumn(tr("Element"));
-    ListView1->addColumn(tr("Type"));
-    ListView1->addColumn(tr("Information"));
+    ListView1->addColumn( tr("Element"));
+    ListView1->addColumn( tr("Type"));
+    ListView1->addColumn( tr("Information"));
 		ListView1->setSelectionMode(QListView::Single);
     ListView1->setSorting(0,1);
 

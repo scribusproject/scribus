@@ -26,7 +26,7 @@ extern bool PolyS;
 extern double PolyR;
 extern QPixmap loadIcon(QString nam);
 
-WerkToolB::WerkToolB(QMainWindow* parent) : QToolBar(tr("Tools"), parent)
+WerkToolB::WerkToolB(QMainWindow* parent) : QToolBar( tr("Tools"), parent)
 {
 	Select = new QToolButton(loadIcon("Kreuz.xpm"), tr("Select Items"), QString::null, this, SLOT(ModeFromTB()), this);
 	Select->setToggleButton(true);
@@ -34,33 +34,33 @@ WerkToolB::WerkToolB(QMainWindow* parent) : QToolBar(tr("Tools"), parent)
 	Rotiere = new QToolButton(loadIcon("Rotieren.xpm"), tr("Rotate Item"), QString::null, this, SLOT(ModeFromTB()), this);
 	Rotiere->setToggleButton( true );
 	Rotiere->setEnabled(false);
-	Textedit = new QToolButton(loadIcon("Editm.xpm"),tr("Edit Contents of Frame"), QString::null, this, SLOT(ModeFromTB()), this);
+	Textedit = new QToolButton(loadIcon("Editm.xpm"), tr("Edit Contents of Frame"), QString::null, this, SLOT(ModeFromTB()), this);
 	Textedit->setToggleButton( true );
 	Textedit->setEnabled( FALSE );
-	Zoom = new QToolButton(loadIcon("Lupe.xpm"),tr("Zooms in or out"), QString::null, this, SLOT(ModeFromTB()), this);
+	Zoom = new QToolButton(loadIcon("Lupe.xpm"), tr("Zooms in or out"), QString::null, this, SLOT(ModeFromTB()), this);
 	Zoom->setToggleButton( true );
-	Texte = new QToolButton(loadIcon("Text.xpm"),tr("Insert Text Frame"), QString::null, this, SLOT(ModeFromTB()), this);
+	Texte = new QToolButton(loadIcon("Text.xpm"), tr("Insert Text Frame"), QString::null, this, SLOT(ModeFromTB()), this);
 	Texte->setToggleButton( true );
-	BildB = new QToolButton(loadIcon("Bild.xpm"),tr("Insert Picture"), QString::null, this, SLOT(ModeFromTB()), this);
+	BildB = new QToolButton(loadIcon("Bild.xpm"), tr("Insert Picture"), QString::null, this, SLOT(ModeFromTB()), this);
 	BildB->setToggleButton( true );
-	Rechteck = new QToolButton(loadIcon("Rechtecke.xpm"),tr("Insert Rectangles"), QString::null, this, SLOT(ModeFromTB()), this);
+	Rechteck = new QToolButton(loadIcon("Rechtecke.xpm"), tr("Insert Rectangles"), QString::null, this, SLOT(ModeFromTB()), this);
 	Rechteck->setToggleButton( true );
-	Kreis = new QToolButton(loadIcon("Kreise.xpm"),tr("Insert Ovals"), QString::null, this, SLOT(ModeFromTB()), this);
+	Kreis = new QToolButton(loadIcon("Kreise.xpm"), tr("Insert Ovals"), QString::null, this, SLOT(ModeFromTB()), this);
 	Kreis->setToggleButton( true );
 	PolyM = new QPopupMenu();
-	PolyM->insertItem(tr("Properties..."), this, SLOT(GetPolyProps()));
-	Polygon = new QToolButton(loadIcon("spline.png"),tr("Insert Polygons"), QString::null, this, SLOT(ModeFromTB()), this);
+	PolyM->insertItem( tr("Properties..."), this, SLOT(GetPolyProps()));
+	Polygon = new QToolButton(loadIcon("spline.png"), tr("Insert Polygons"), QString::null, this, SLOT(ModeFromTB()), this);
 	Polygon->setToggleButton( true );
 	Polygon->setPopup(PolyM);
 	Polygon->setPopupDelay(0);
-	Linien = new QToolButton(loadIcon("Stift.xpm"),tr("Insert Lines"), QString::null, this, SLOT(ModeFromTB()), this);
+	Linien = new QToolButton(loadIcon("Stift.xpm"), tr("Insert Lines"), QString::null, this, SLOT(ModeFromTB()), this);
 	Linien->setToggleButton( true );
-	PolyLin = new QToolButton(loadIcon("beziertool.png"),tr("Insert Bezier Curves"), QString::null, this, SLOT(ModeFromTB()), this);
+	PolyLin = new QToolButton(loadIcon("beziertool.png"), tr("Insert Bezier Curves"), QString::null, this, SLOT(ModeFromTB()), this);
 	PolyLin->setToggleButton( true );
-	KetteEin = new QToolButton(loadIcon("Lock.xpm"),tr("Create Text Chains"), QString::null, this, SLOT(ModeFromTB()), this);
+	KetteEin = new QToolButton(loadIcon("Lock.xpm"), tr("Create Text Chains"), QString::null, this, SLOT(ModeFromTB()), this);
 	KetteEin->setToggleButton( true );
 	KetteEin->setEnabled(false);
-	KetteAus = new QToolButton(loadIcon("Unlock.xpm"),tr("Break Text Chains"), QString::null, this, SLOT(ModeFromTB()), this);
+	KetteAus = new QToolButton(loadIcon("Unlock.xpm"), tr("Break Text Chains"), QString::null, this, SLOT(ModeFromTB()), this);
 	KetteAus->setToggleButton( true );
 	KetteAus->setEnabled(false);
 	setCloseMode(QDockWindow::Undocked);
@@ -178,7 +178,7 @@ void WerkToolB::ModeFromTB()
 		}
 }
 
-WerkToolBP::WerkToolBP(QMainWindow* parent) : QToolBar(tr("PDF-Tools"), parent)
+WerkToolBP::WerkToolBP(QMainWindow* parent) : QToolBar( tr("PDF-Tools"), parent)
 {
 	PDFM = new QPopupMenu();
 	PDFM->insertItem(loadIcon("pushbutton.png"), tr("Button"));
@@ -186,7 +186,7 @@ WerkToolBP::WerkToolBP(QMainWindow* parent) : QToolBar(tr("PDF-Tools"), parent)
 	PDFM->insertItem(loadIcon("checkbox.png"), tr("Check Box"));
 	PDFM->insertItem(loadIcon("combobox.png"), tr("Combo Box"));
 	PDFM->insertItem(loadIcon("listbox.png"), tr("List Box"));
-	PDFTool = new QToolButton(loadIcon("pushbutton.png"),tr("Insert PDF-Fields"), QString::null, this, SLOT(ModeFromTB()), this);
+	PDFTool = new QToolButton(loadIcon("pushbutton.png"), tr("Insert PDF-Fields"), QString::null, this, SLOT(ModeFromTB()), this);
 	PDFTool->setToggleButton(true);
 	PDFTool->setPopup(PDFM);
 	PDFTool->setPopupDelay(0);
@@ -194,7 +194,7 @@ WerkToolBP::WerkToolBP(QMainWindow* parent) : QToolBar(tr("PDF-Tools"), parent)
 	PDFA = new QPopupMenu();
 	PDFA->insertItem(loadIcon("charset.png"), tr("Text"));
 	PDFA->insertItem(loadIcon("goto.png"), tr("Link"));
-	PDFaTool = new QToolButton(loadIcon("charset.png"),tr("Insert PDF-Annotations"), QString::null, this, SLOT(ModeFromTB()), this);
+	PDFaTool = new QToolButton(loadIcon("charset.png"), tr("Insert PDF-Annotations"), QString::null, this, SLOT(ModeFromTB()), this);
 	PDFaTool->setToggleButton(true);
 	PDFaTool->setPopup(PDFA);
 	PDFaTool->setPopupDelay(0);

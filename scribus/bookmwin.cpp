@@ -105,7 +105,7 @@ BookMView::BookMView(QWidget* parent) : QListView(parent)
 	setAcceptDrops(true);
 	viewport()->setAcceptDrops(true);
 	setRootIsDecorated(true);
-	addColumn(tr("Bookmarks"));
+	addColumn( tr("Bookmarks"));
 	setResizeMode(QListView::AllColumns);
 	setSelectionMode(QListView::NoSelection);
 	setSorting(-1,1);
@@ -192,9 +192,9 @@ void BookMView::contentsDropEvent(QDropEvent *e)
   			pp = pp->parent();
   			}
 			QPopupMenu *pmenu = new QPopupMenu();
-			mov = pmenu->insertItem(tr("Move Bookmark"));
-			ins = pmenu->insertItem(tr("Insert Bookmark"));
-			pmenu->insertItem(tr("Cancel"));
+			mov = pmenu->insertItem( tr("Move Bookmark"));
+			ins = pmenu->insertItem( tr("Insert Bookmark"));
+			pmenu->insertItem( tr("Cancel"));
 			mret = pmenu->exec(QCursor::pos());
 			if (mret == ins)
 				{

@@ -50,7 +50,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	Layout1->addItem( spacer );
   Mode = 2;
   ShaMenu = new QPopupMenu();
-	ShaMenu->insertItem(tr("Other..."));
+	ShaMenu->insertItem( tr("Other..."));
 	ShaMenu->insertItem("0 %");
 	ShaMenu->insertItem("10 %");
 	ShaMenu->insertItem("20 %");
@@ -77,12 +77,12 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	GradCombo = new QComboBox( true, this, "GradCombo" );
 	GradCombo->setEditable(false);
 	GradCombo->setFont(fo);
-	GradCombo->insertItem(tr("Normal"));
-	GradCombo->insertItem(tr("Horizontal Gradient"));
-	GradCombo->insertItem(tr("Vertical Gradient"));
-	GradCombo->insertItem(tr("Diagonal Gradient"));
-	GradCombo->insertItem(tr("Cross Diagonal Gradient"));
-	GradCombo->insertItem(tr("Radial Gradient"));
+	GradCombo->insertItem( tr("Normal"));
+	GradCombo->insertItem( tr("Horizontal Gradient"));
+	GradCombo->insertItem( tr("Vertical Gradient"));
+	GradCombo->insertItem( tr("Diagonal Gradient"));
+	GradCombo->insertItem( tr("Cross Diagonal Gradient"));
+	GradCombo->insertItem( tr("Radial Gradient"));
 	GradCombo->setCurrentItem(0);
 	GradLayout->addWidget( GradCombo );
 	GradGroup = new QButtonGroup( this, "GradGroup" );
@@ -106,7 +106,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	TransGroup = new QButtonGroup( this, "GradGroup" );
 	TransGroup->setFrameShape( QButtonGroup::NoFrame );
 	TransGroup->setFrameShadow( QButtonGroup::Plain );
-	TransGroup->setTitle( tr( "" ) );
+	TransGroup->setTitle("");
 	TransGroup->setColumnLayout(0, Qt::Vertical );
 	TransGroup->layout()->setSpacing( 5 );
 	TransGroup->layout()->setMargin( 0 );
@@ -119,7 +119,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	TransSpin->setMinValue(0);
 	TransSpin->setMaxValue(100);
 	TransSpin->setLineStep(10);
-	TransSpin->setSuffix(tr(" %"));
+	TransSpin->setSuffix( tr(" %"));
 	TransSpin->setValue(100);
 	TransGroupLayout->addWidget( TransSpin );
 	GradLayout->addWidget( TransGroup );
@@ -190,7 +190,7 @@ void Cpalette::updateCList()
 	CListe::Iterator it;
 	QPixmap pm = QPixmap(30, 15);
 	if ((!GradientMode) || (Mode == 1))
-		ListBox1->insertItem(tr("None"));
+		ListBox1->insertItem( tr("None"));
 	for (it = Farbliste.begin(); it != Farbliste.end(); ++it)
 		{
 		pm.fill(Farbliste[it.key()].getRGBColor());

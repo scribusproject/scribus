@@ -85,7 +85,7 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString Capt, QString Datei )
   		fi = QFileInfo(pfad2);
   		if (!fi.exists())
   			{
-  			Anzeige->setText("<h2>"+tr("Sorry, no manual available!")+"</h2>");
+  			Anzeige->setText("<h2>"+ tr("Sorry, no manual available!")+"</h2>");
   			Avail = false;
   			}
   		}

@@ -312,9 +312,9 @@ void Page::dropEvent(QDropEvent *e)
 					{
 					QPopupMenu *pmen = new QPopupMenu();
 					qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-					pmen->insertItem(tr("Copy Here"));
-					pmen->insertItem(tr("Move Here"));
-					pmen->insertItem(tr("Cancel"));
+					pmen->insertItem( tr("Copy Here"));
+					pmen->insertItem( tr("Move Here"));
+					pmen->insertItem( tr("Cancel"));
 					re = pmen->indexOf(pmen->exec(QCursor::pos()));
 					delete pmen;
 					if (re == 1)
@@ -410,10 +410,6 @@ void Page::DrawPageMarks(ScPainter *p, QRect rd)
 		}
 	if (doku->Raster)
 		{
-/*		double stx = rd.x()/doku->Scale;
-		double endx = rd.x()/doku->Scale+e->rect().width()/doku->Scale;
-		double sty = rd.y()/doku->Scale;
-		double endy = rd.y()/doku->Scale+e->rect().height()/doku->Scale; */
 		double stx = rd.x()/doku->Scale;
 		double endx = rd.x()/doku->Scale+rd.width()/doku->Scale;
 		double sty = rd.y()/doku->Scale;
@@ -1925,46 +1921,46 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 			if (b->PType == 2)
 				{
-				pmen->insertItem(tr("Get Picture..."), this, SIGNAL(LoadPic()));
-				int px = pmen->insertItem(tr("Image Visible"), this, SLOT(TogglePic()));
+				pmen->insertItem( tr("Get Picture..."), this, SIGNAL(LoadPic()));
+				int px = pmen->insertItem( tr("Image Visible"), this, SLOT(TogglePic()));
 				pmen->setItemChecked(px, b->PicArt);
 				}
 			if (b->PType == 4)
 				{
-				pmen->insertItem(tr("Get Text..."), this, SIGNAL(LoadPic()));
-				pmen->insertItem(tr("Edit Text..."), this, SIGNAL(EditText()));
+				pmen->insertItem( tr("Get Text..."), this, SIGNAL(LoadPic()));
+				pmen->insertItem( tr("Edit Text..."), this, SIGNAL(EditText()));
 				if (PageNam == "")
 					{
-					int pxb = pmen->insertItem(tr("Is PDF-Bookmark"), this, SLOT(ToggleBookmark()));
+					int pxb = pmen->insertItem( tr("Is PDF-Bookmark"), this, SLOT(ToggleBookmark()));
 					pmen->setItemChecked(pxb, b->isBookmark);
-					pxb = pmen->insertItem(tr("Is PDF-Annotation"), this, SLOT(ToggleAnnotation()));
+					pxb = pmen->insertItem( tr("Is PDF-Annotation"), this, SLOT(ToggleAnnotation()));
 					pmen->setItemChecked(pxb, b->isAnnotation);
 					if (b->isAnnotation)
 						{
 						if ((b->AnType == 0) || (b->AnType == 1) || (b->AnType > 9))
-							pmen->insertItem(tr("Annotation Properties"), this, SIGNAL(AnnotProps()));
+							pmen->insertItem( tr("Annotation Properties"), this, SIGNAL(AnnotProps()));
 						else
-							pmen->insertItem(tr("Field Properties"), this, SIGNAL(AnnotProps()));
+							pmen->insertItem( tr("Field Properties"), this, SIGNAL(AnnotProps()));
 						}
 					}
 				}
 			if (b->PType == 8)
-				pmen->insertItem(tr("Edit Text..."), this, SIGNAL(EditText()));
+				pmen->insertItem( tr("Edit Text..."), this, SIGNAL(EditText()));
 			if (!b->Locked)
 				{
 				if (SelItem.count() > 1)
-					pmen->insertItem(tr("Group"), this, SIGNAL(DoGroup()));
+					pmen->insertItem( tr("Group"), this, SIGNAL(DoGroup()));
 				if (b->Groups.count() != 0)
-					pmen->insertItem(tr("Un-group"), this, SIGNAL(DoUnGroup()));
-				pmen->insertItem(tr("Lock"), this, SLOT(ToggleLock()));
-				pmen->insertItem(tr("Send to Back"), this, SLOT(ToBack()));
-				pmen->insertItem(tr("Bring to Front"), this, SLOT(ToFront()));
-				pmen->insertItem(tr("Lower"), this, SLOT(LowerItem()));
-				pmen->insertItem(tr("Raise"), this, SLOT(RaiseItem()));
+					pmen->insertItem( tr("Un-group"), this, SIGNAL(DoUnGroup()));
+				pmen->insertItem( tr("Lock"), this, SLOT(ToggleLock()));
+				pmen->insertItem( tr("Send to Back"), this, SLOT(ToBack()));
+				pmen->insertItem( tr("Bring to Front"), this, SLOT(ToFront()));
+				pmen->insertItem( tr("Lower"), this, SLOT(LowerItem()));
+				pmen->insertItem( tr("Raise"), this, SLOT(RaiseItem()));
 				}
 			else
-				pmen->insertItem(tr("Unlock"), this, SLOT(ToggleLock()));
-			pmen->insertItem(tr("Send to Scrapbook"), this, SLOT(sentToScrap()));
+				pmen->insertItem( tr("Unlock"), this, SLOT(ToggleLock()));
+			pmen->insertItem( tr("Send to Scrapbook"), this, SLOT(sentToScrap()));
 			if (doku->Layers.count() > 1)
 				{
 				for (uint lam=0; lam < doku->Layers.count(); ++lam)
@@ -1973,35 +1969,35 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 					if (static_cast<int>(lam) == doku->ActiveLayer)
 						pmen3->setItemEnabled(lai, 0);
 					}
-				pmen->insertItem(tr("Send to Layer"), pmen3);
+				pmen->insertItem( tr("Send to Layer"), pmen3);
 				}
 			connect(pmen3, SIGNAL(activated(int)), this, SLOT(sentToLayer(int)));
 			if ((b->PType == 4) || (b->PType == 2) || (b->PType == 6))
 				{
 				if (b->PType == 4)
 					{
-					pmen2->insertItem(tr("Picture Frame"), this, SLOT(ToPicFrame()));
-					pmen2->insertItem(tr("Polygon"), this, SLOT(ToPolyFrame()));
+					pmen2->insertItem( tr("Picture Frame"), this, SLOT(ToPicFrame()));
+					pmen2->insertItem( tr("Polygon"), this, SLOT(ToPolyFrame()));
 					}
 				if (b->PType == 2)
 					{
-					pmen2->insertItem(tr("Text Frame"), this, SLOT(ToTextFrame()));
-					pmen2->insertItem(tr("Polygon"), this, SLOT(ToPolyFrame()));
+					pmen2->insertItem( tr("Text Frame"), this, SLOT(ToTextFrame()));
+					pmen2->insertItem( tr("Polygon"), this, SLOT(ToPolyFrame()));
 					}
 				if (b->PType == 6)
 					{
-					pmen2->insertItem(tr("Text Frame"), this, SLOT(ToTextFrame()));
-					pmen2->insertItem(tr("Picture Frame"), this, SLOT(ToPicFrame()));
-					pmen2->insertItem(tr("Bezier Curve"), this, SLOT(ToBezierFrame()));
+					pmen2->insertItem( tr("Text Frame"), this, SLOT(ToTextFrame()));
+					pmen2->insertItem( tr("Picture Frame"), this, SLOT(ToPicFrame()));
+					pmen2->insertItem( tr("Bezier Curve"), this, SLOT(ToBezierFrame()));
 					}
-				pmen->insertItem(tr("Convert to"), pmen2);
+				pmen->insertItem( tr("Convert to"), pmen2);
 				}
 			pmen->insertSeparator();
 			if (!b->Locked)
-				pmen->insertItem(tr("Cut"), this, SIGNAL(CutItem()));
-			pmen->insertItem(tr("Copy"), this, SIGNAL(CopyItem()));
+				pmen->insertItem( tr("Cut"), this, SIGNAL(CutItem()));
+			pmen->insertItem( tr("Copy"), this, SIGNAL(CopyItem()));
 			if ((!b->Locked) && (doku->AppMode != 7))
-				pmen->insertItem(tr("Delete"), this, SLOT(DeleteItem()));
+				pmen->insertItem( tr("Delete"), this, SLOT(DeleteItem()));
 			pmen->exec(QCursor::pos());
 			delete pmen;
 			delete pmen2;
@@ -6220,8 +6216,13 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 	b->AnActType = Buffer->AnActType;
 	if ((Buffer->AnName != "") && (!drag))
 		{
-		b->AnName = Buffer->AnName;
-		b->AutoName = false;
+		if (b->AnName == Buffer->AnName)
+			b->AutoName = true;
+		else
+			{
+			b->AnName = Buffer->AnName;
+			b->AutoName = false;
+			}
 		}
 	b->AnToolTip = Buffer->AnToolTip;
 	b->AnBwid = Buffer->AnBwid;

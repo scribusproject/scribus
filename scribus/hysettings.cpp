@@ -14,11 +14,11 @@ HySettings::HySettings( QWidget* parent, QMap<QString,QString>* langs )
 
     Layout3 = new QGridLayout( 0, 1, 1, 0, 6, "Layout3"); 
     Verbose = new QCheckBox(this, "Verbose");
-		Verbose->setText(tr("Fully Automatic"));
+		Verbose->setText( tr("Fully Automatic"));
 		Layout3->addMultiCellWidget(Verbose, 0, 0, 0, 1);
     QToolTip::add( Verbose, tr( "If you uncheck this you will get a dialog\neverytime a possible Hyphenation is found." ) );
     Input = new QCheckBox(this, "inp");
-		Input->setText(tr("Check during Typing"));
+		Input->setText( tr("Check during Typing"));
 		Layout3->addMultiCellWidget(Input, 1, 1, 0, 1);
     QToolTip::add(Input, tr("Enables automatic checking of your text while typing."));
     Language = new QComboBox( true, this, "Language" );

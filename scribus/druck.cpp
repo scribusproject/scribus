@@ -34,18 +34,18 @@ AdvOptions::AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic) : QDialog( pa
 	AdvOptionsLayout->setSpacing( 5 );
 	AdvOptionsLayout->setMargin( 10 );
 	MirrorH = new QCheckBox(this, "MirrorH");
-	MirrorH->setText(tr("Mirror Page(s) horizontal"));
+	MirrorH->setText( tr("Mirror Page(s) horizontal"));
 	MirrorH->setChecked(Hm);
 	AdvOptionsLayout->addWidget( MirrorH );
 	MirrorV = new QCheckBox(this, "MirrorV");
-	MirrorV->setText(tr("Mirror Page(s) vertical"));
+	MirrorV->setText( tr("Mirror Page(s) vertical"));
 	MirrorV->setChecked(Vm);
 	AdvOptionsLayout->addWidget( MirrorV );
 #ifdef HAVE_CMS
 	if (CMSuse)
 		{
 		UseICC = new QCheckBox(this, "ICC");
-		UseICC->setText(tr("Apply ICC-Profiles"));
+		UseICC->setText( tr("Apply ICC-Profiles"));
 		UseICC->setChecked(Ic);
 		AdvOptionsLayout->addWidget( UseICC );
 		}
@@ -146,7 +146,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
     		}
     	}
 #endif
-    PrintDest->insertItem(tr("File"));
+    PrintDest->insertItem( tr("File"));
     if (PDev == "")
     	{
     	Geraet = PrintDest->text(0);
@@ -185,7 +185,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
 
     OtherCom = new QCheckBox(Drucker, "Dc");
     OtherCom->setChecked(false);
-    OtherCom->setText(tr("Alternative Printer Command"));
+    OtherCom->setText( tr("Alternative Printer Command"));
     DruckerLayout->addWidget( OtherCom, 2, 0, Qt::AlignLeft);
     LayoutCC = new QHBoxLayout;
     LayoutCC->setSpacing( 6 );
@@ -348,7 +348,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
 
     ButtonGroup3_2 = new QButtonGroup( Optionen, "ButtonGroup3_2" );
     ButtonGroup3_2->setFrameShape( QButtonGroup::NoFrame );
-    ButtonGroup3_2->setTitle( tr( "" ) );
+    ButtonGroup3_2->setTitle( "" );
     ButtonGroup3_2->setColumnLayout(0, Qt::Vertical );
     ButtonGroup3_2->layout()->setSpacing( 0 );
     ButtonGroup3_2->layout()->setMargin( 0 );
@@ -369,7 +369,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
     MirrorV = false,
     ICCinUse = false;
     AdvOptButton = new QPushButton(ButtonGroup3_2, "Adv");
-    AdvOptButton->setText(tr("Advanced Options..."));
+    AdvOptButton->setText( tr("Advanced Options..."));
     ButtonGroup3_2Layout->addWidget( AdvOptButton );
     
     OptionenLayout->addWidget( ButtonGroup3_2, 0, 1 );
@@ -391,7 +391,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
     Layout2->addWidget( OKButton_2 );
 
     DruckLayout->addLayout( Layout2 );
-    if ((PDev==tr("File")) || (PrintDest->count() == 1))
+    if ((PDev== tr("File")) || (PrintDest->count() == 1))
     	{
     	PrintDest->setCurrentItem(PrintDest->count()-1);
     	DateiT->setEnabled(true);

@@ -80,7 +80,7 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Fa
 		Destfile->setReadOnly(true);
     GroupBox1Layout->addMultiCellWidget( Destfile, 0, 0, 0, 1 );
 		ChFile = new QPushButton(GroupBox1, "Change");
-		ChFile->setText(tr("Change..."));
+		ChFile->setText( tr("Change..."));
     GroupBox1Layout->addWidget( ChFile, 0, 2 );
 		if ((item->AnActType != 7) && (item->AnActType != 8))
 			{
@@ -321,7 +321,7 @@ void Annota::SetZiel(int it)
 void Annota::GetFile()
 {
 	QString fn;
-	CustomFDialog dia(this, tr("Open"),tr("PDF-Documents (*.pdf);;All Files (*)"));
+	CustomFDialog dia(this, tr("Open"), tr("PDF-Documents (*.pdf);;All Files (*)"));
 	if (Destfile->text() != "")
 		dia.setSelection(Destfile->text());
 	if (dia.exec() == QDialog::Accepted)

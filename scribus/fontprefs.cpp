@@ -23,7 +23,7 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, preV *prefs, 
     FontPrefsLayout->setSpacing( 5 );
     FontPrefsLayout->setMargin( 10 );
     TabWidget = new QTabWidget( this, "TabWidget" );
-		TabWidget->setMinimumSize(fontMetrics().width(tr( "Available Fonts" )+tr( "Font Substitutions" )+tr( "Additional Paths" ))+80, 200);
+		TabWidget->setMinimumSize(fontMetrics().width( tr( "Available Fonts" )+ tr( "Font Substitutions" )+ tr( "Additional Paths" ))+80, 200);
 
     tab1 = new QWidget( TabWidget, "tab1" );
     tab1Layout = new QVBoxLayout( tab1, 11, 6, "tab1Layout");
@@ -37,7 +37,7 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, preV *prefs, 
     	{
 			Table1->setText(a, 0, it.currentKey());
 			QCheckBox *cp = new QCheckBox(this, "use");
-    	cp->setText(tr(" "));
+    	cp->setText(" ");
     	cp->setChecked(it.current()->UseFont);
 			if (it.current()->UseFont)
 				UsedFonts.append(it.currentKey());
@@ -48,7 +48,7 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, preV *prefs, 
     	FlagsUse.append(cp);
     	Table1->setCellWidget(a, 1, cp);
 			QCheckBox *cp2 = new QCheckBox(this, "ps");
-    	cp2->setText(tr("Postscript"));
+    	cp2->setText( tr("Postscript"));
     	cp2->setChecked(it.current()->EmbedPS);
     	cp2->setEraseColor(white);
     	FlagsPS.append(cp2);
@@ -56,7 +56,7 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, preV *prefs, 
 			QFileInfo fi = QFileInfo(it.current()->Datei);
 			QString ext = fi.extension(false).lower();
 			QCheckBox *cp3 = new QCheckBox(this, "su");
-    	cp3->setText(tr("Yes"));
+    	cp3->setText( tr("Yes"));
 			if (ext == "otf")
 				{
     		cp3->setChecked(true); 			// Open Type Fonts are always Subsetted
@@ -367,7 +367,7 @@ void FontPrefs::RebuildDialog()
     	{
 			Table1->setText(a, 0, it.currentKey());
 			QCheckBox *cp = new QCheckBox(this, "use");
-    	cp->setText(tr(" "));
+    	cp->setText(" ");
     	cp->setChecked(it.current()->UseFont);
 			if (it.current()->UseFont)
 				UsedFonts.append(it.currentKey());
@@ -378,7 +378,7 @@ void FontPrefs::RebuildDialog()
     	FlagsUse.append(cp);
     	Table1->setCellWidget(a, 1, cp);
 			QCheckBox *cp2 = new QCheckBox(this, "ps");
-    	cp2->setText(tr("Postscript"));
+    	cp2->setText( tr("Postscript"));
     	cp2->setChecked(it.current()->EmbedPS);
     	cp2->setEraseColor(white);
     	FlagsPS.append(cp2);
@@ -386,7 +386,7 @@ void FontPrefs::RebuildDialog()
 			QFileInfo fi = QFileInfo(it.current()->Datei);
 			QString ext = fi.extension(false).lower();
 			QCheckBox *cp3 = new QCheckBox(this, "su");
-    	cp3->setText(tr("Yes"));
+    	cp3->setText( tr("Yes"));
 			if (ext == "otf")
 				{
     		cp3->setChecked(true); 			// Open Type Fonts are always Subsetted

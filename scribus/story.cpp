@@ -57,6 +57,8 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 STable::STable(QWidget* parent) : QTable(parent)
 {
 	setShowGrid(false);
+	HomeK = 0;
+	EndK = 0;
 }
 
 void STable::keyPressEvent(QKeyEvent *k)
@@ -71,7 +73,11 @@ void STable::keyPressEvent(QKeyEvent *k)
 		{
 		tt = (SEditor*)cellWidget(r, 1);
 		if ((k->key() == Key_Prior) || (k->key() == Key_Next))
+			{
+			HomeK = 0;
+			EndK = 0;
 			return;
+			}
 		if ((k->key() == Key_Left)
 				|| (k->key() == Key_Right)
 				|| (k->key() == Key_Down)
@@ -84,14 +90,42 @@ void STable::keyPressEvent(QKeyEvent *k)
 			switch (k->key())
 				{
 				case Key_Home:
-					tt = (SEditor*)cellWidget(0, 1);
-					setCurrentCell(0, 1);
-					move = QTextEdit::MoveLineStart;
+					EndK = 0;
+					HomeK++;
+					switch (HomeK)
+						{
+						case 1:
+							move = QTextEdit::MoveLineStart;
+							break;
+						case 2:
+							move = QTextEdit::MoveHome;
+							break;
+						case 3:
+							tt = (SEditor*)cellWidget(0, 1);
+							setCurrentCell(0, 1);
+							move = QTextEdit::MoveHome;
+							HomeK = 0;
+							break;
+						}
 					break;
 				case Key_End:
-					tt = (SEditor*)cellWidget(n-1, 1);
-					setCurrentCell(n-1, 1);
-					move = QTextEdit::MoveEnd;
+					HomeK = 0;
+					EndK++;
+					switch (EndK)
+						{
+						case 1:
+							move = QTextEdit::MoveLineEnd;
+							break;
+						case 2:
+							move = QTextEdit::MoveEnd;
+							break;
+						case 3:
+							tt = (SEditor*)cellWidget(n-1, 1);
+							setCurrentCell(n-1, 1);
+							move = QTextEdit::MoveEnd;
+							EndK = 0;
+							break;
+						}
 					break;
 				case Key_Left:
 					if ((i == 0) && (r > 0))
@@ -136,12 +170,18 @@ void STable::keyPressEvent(QKeyEvent *k)
 						move = QTextEdit::MoveDown;
 					break;
 				}
+			if (k->key() != Key_Home)
+				HomeK = 0;
+			if (k->key() != Key_End)
+				EndK = 0;
 			tt->moveCursor(move, false);
 			tt->setFocus();
 			updateHeaderStates(); 
 			return;
 			}
 		}
+	HomeK = 0;
+	EndK = 0;
 	QTable::keyPressEvent(k);
 }
 
@@ -166,11 +206,11 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite) : QDi
 	Form1Layout = new QHBoxLayout( this, 5, 5, "Form1Layout"); 
 	edList.clear();
 	stList.clear();
-	style.append(tr("Left"));
-	style.append(tr("Center"));
-	style.append(tr("Right"));
-	style.append(tr("Block"));
-	style.append(tr("Forced"));
+	style.append( tr("Left"));
+	style.append( tr("Center"));
+	style.append( tr("Right"));
+	style.append( tr("Block"));
+	style.append( tr("Forced"));
 	if (doc->Vorlagen.count() > 5)
 		{
 		for (uint a = 5; a < doc->Vorlagen.count(); ++a)
@@ -182,24 +222,25 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite) : QDi
 
  	fmenu = new QPopupMenu();
  	fmenu->insertItem(loadIcon("DateiNeu16.png"), tr("New"), this, SLOT(Do_new()), CTRL+Key_N);
-/*  	fmenu->insertItem(tr("Save as..."), this, SLOT(SaveAs()));
+/*  	fmenu->insertItem( tr("Save as..."), this, SLOT(SaveAs()));
   	fmenu->insertItem(loadIcon("DateiOpen16.png"), tr("Load..."), this, SLOT(LoadScript()));
 		fmenu->insertSeparator();      */
-	fmenu->insertItem(tr("Save and Exit"), this, SLOT(accept()));
-	fmenu->insertItem(tr("Exit without Saving"), this, SLOT(Do_leave()));
+	fmenu->insertItem( tr("Save and Exit"), this, SLOT(accept()));
+	fmenu->insertItem( tr("Exit without Saving"), this, SLOT(Do_leave()));
  	emenu = new QPopupMenu();
- 	emenu->insertItem(tr("Undo"), this, SLOT(Do_undo()), CTRL+Key_Z);
- 	emenu->insertItem(tr("Redo"), this, SLOT(Do_redo()));
+ 	emenu->insertItem( tr("Undo"), this, SLOT(Do_undo()), CTRL+Key_Z);
+ 	emenu->insertItem( tr("Redo"), this, SLOT(Do_redo()));
 	emenu->insertSeparator();
 	emenu->insertItem(loadIcon("editcut.png"), tr("Cut"), this, SLOT(Do_cut()), CTRL+Key_X);
 	emenu->insertItem(loadIcon("editcopy.png"), tr("Copy"), this, SLOT(Do_copy()), CTRL+Key_C);
 	emenu->insertItem(loadIcon("editpaste.png"), tr("Paste"), this, SLOT(Do_paste()), CTRL+Key_V);
 	emenu->insertItem(loadIcon("editdelete.png"), tr("Clear"), this, SLOT(Do_del()), CTRL+Key_V);
 	emenu->insertSeparator();
-	emenu->insertItem(tr("Update Textframe"), this, SLOT(updateTextFrame()));
+	emenu->insertItem( tr("Edit Styles..."), this , SLOT(slotEditStyles()));
+	emenu->insertItem( tr("Update Textframe"), this, SLOT(updateTextFrame()));
  	menuBar = new QMenuBar(this);
-	menuBar->insertItem(tr("File"), fmenu);
-	menuBar->insertItem(tr("Edit"), emenu);
+	menuBar->insertItem( tr("File"), fmenu);
+	menuBar->insertItem( tr("Edit"), emenu);
 	Form1Layout->setMenuBar( menuBar );
 	table1 = new STable( this );
 	table1->setNumCols( 2 );
@@ -367,6 +408,40 @@ void StoryEditor::updateTextFrame()
 	emit DocChanged();
 }
 
+void StoryEditor::slotEditStyles()
+{
+	int sty;
+	QComboBox *ct;
+	emit EditSt();
+	style.clear();
+	style.append( tr("Left"));
+	style.append( tr("Center"));
+	style.append( tr("Right"));
+	style.append( tr("Block"));
+	style.append( tr("Forced"));
+	if (doc->Vorlagen.count() > 5)
+		{
+		for (uint a = 5; a < doc->Vorlagen.count(); ++a)
+			{
+			style.append(doc->Vorlagen[a].Vname);
+			}
+		}
+	for (uint b = 0; b < stList.count(); ++b)
+		{
+		ct = stList.at(b);
+		sty = ct->currentItem();
+		if (sty > static_cast<int>(doc->Vorlagen.count()-1))
+			sty = 0;
+		disconnect(ct, SIGNAL(activated(int)), this, SLOT(styleChange(int)));
+		ct->clear();
+		ct->insertStringList(style);
+		connect(ct, SIGNAL(highlighted(int)), this, SLOT(styleChange(int)));
+		ct->setCurrentItem(sty);
+		disconnect(ct, SIGNAL(highlighted(int)), this, SLOT(styleChange(int)));
+		connect(ct, SIGNAL(activated(int)), this, SLOT(styleChange(int)));
+		}
+}
+
 void StoryEditor::styleChange(int st)
 {
 	int r = stList.findRef((QComboBox*)sender());
@@ -437,6 +512,8 @@ void StoryEditor::addPar(int where, QString text, int sty)
 void StoryEditor::modifiedText()
 {
 	TextChanged = true;
+	table1->HomeK = 0;
+	table1->EndK = 0;
 }
 
 void StoryEditor::WrapHandler()

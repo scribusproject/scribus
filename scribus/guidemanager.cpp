@@ -83,7 +83,7 @@ GuideManager::GuideManager( QWidget* parent, Page* page, int Einh)
     Layout6->addWidget( HorGroup );
     GuideManagerLayout->addLayout( Layout6 );
     Lock = new QCheckBox(this, "Lock");
-    Lock->setText(tr("Lock Guides"));
+    Lock->setText( tr("Lock Guides"));
     Lock->setChecked(page->doku->GuideLock);
     GuideManagerLayout->addWidget(Lock);
     Layout5 = new QHBoxLayout( 0, 0, 6, "Layout5"); 

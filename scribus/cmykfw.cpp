@@ -150,7 +150,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name )
     Cyan->setMargin( 0 );
 
     CyanT = new QLabel( Frame4, "Cyant" );
-    CyanT->setText(tr("C:"));
+    CyanT->setText( tr("C:"));
     Cyan->addWidget(CyanT);
 
     Layout1_2 = new QVBoxLayout;
@@ -184,7 +184,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name )
     Magenta->setMargin( 0 );
 
     MagentaT = new QLabel( Frame4, "Cyant" );
-    MagentaT->setText(tr("M:"));
+    MagentaT->setText( tr("M:"));
     Magenta->addWidget(MagentaT);
 
     Layout1_2_2 = new QVBoxLayout;
@@ -218,7 +218,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name )
     Yellow->setMargin( 0 );
 
     YellowT = new QLabel( Frame4, "Cyant" );
-    YellowT->setText(tr("Y:"));
+    YellowT->setText( tr("Y:"));
     Yellow->addWidget(YellowT);
 
     Layout1_2_3 = new QVBoxLayout;
@@ -252,7 +252,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name )
     Black->setMargin( 0 );
 
    	BlackT = new QLabel( Frame4, "Cyant" );
-    BlackT->setText(tr("K:"));
+    BlackT->setText( tr("K:"));
     Black->addWidget(BlackT);
 
     Layout1_2_4 = new QVBoxLayout;
@@ -312,8 +312,8 @@ void CMYKChoose::mouseReleaseEvent(QMouseEvent *m)
 		{
 		QPopupMenu *pmen = new QPopupMenu();
 		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-		int px = pmen->insertItem(tr("Dynamic Color Bars"), this, SLOT(ToggleSL()));
-		int py = pmen->insertItem(tr("Static Color Bars"), this, SLOT(ToggleSL()));
+		int px = pmen->insertItem( tr("Dynamic Color Bars"), this, SLOT(ToggleSL()));
+		int py = pmen->insertItem( tr("Static Color Bars"), this, SLOT(ToggleSL()));
 		pmen->setItemChecked((dynamic ? px : py) , true);
 		/*if (dynamic)
 			pmen->setItemChecked(px, true);
@@ -449,9 +449,9 @@ void CMYKChoose::SelModel(const QString& mod)
 		{
 		CMYKmode = true;
 		Wsave = false;
-		CyanT->setText(tr("C:"));
-		MagentaT->setText(tr("M:"));
-		YellowT->setText(tr("Y:"));
+		CyanT->setText( tr("C:"));
+		MagentaT->setText( tr("M:"));
+		YellowT->setText( tr("Y:"));
     CyanP->setPixmap(SliderPix(180));
     MagentaP->setPixmap(SliderPix(300));
     YellowP->setPixmap(SliderPix(60));
@@ -467,9 +467,9 @@ void CMYKChoose::SelModel(const QString& mod)
 		{
 		CMYKmode = false;
 		Wsave = false;
-		CyanT->setText(tr("R:"));
-		MagentaT->setText(tr("G:"));
-		YellowT->setText(tr("B:"));
+		CyanT->setText( tr("R:"));
+		MagentaT->setText( tr("G:"));
+		YellowT->setText( tr("B:"));
     CyanP->setPixmap(SliderPix(0));
     MagentaP->setPixmap(SliderPix(120));
     YellowP->setPixmap(SliderPix(240));

@@ -32,7 +32,7 @@ NewDoc::NewDoc( QWidget* parent, preV *Vor )
     Layout9 = new QVBoxLayout(0, 0, 5, "Layout9");
 
     ButtonGroup1_2 = new QButtonGroup(this, "ButtonGroup1_2" );
-    ButtonGroup1_2->setTitle(tr( "Page Size" ));
+    ButtonGroup1_2->setTitle( tr( "Page Size" ));
     ButtonGroup1_2->setColumnLayout(0, Qt::Vertical);
     ButtonGroup1_2->layout()->setSpacing(6);
     ButtonGroup1_2->layout()->setMargin(10);
@@ -40,7 +40,7 @@ NewDoc::NewDoc( QWidget* parent, preV *Vor )
     ButtonGroup1_2Layout->setAlignment(Qt::AlignTop);
     Layout6 = new QGridLayout(0, 1, 1, 0, 6, "Layout6");
     TextLabel1 = new QLabel( ButtonGroup1_2, "TextLabel1" );
-    TextLabel1->setText(tr( "Size:" ));
+    TextLabel1->setText( tr( "Size:" ));
     Layout6->addWidget( TextLabel1, 0, 0 );
     ComboBox1 = new QComboBox( true, ButtonGroup1_2, "ComboBox1" );
     ComboBox1->insertItem("A0");
@@ -77,7 +77,7 @@ NewDoc::NewDoc( QWidget* parent, preV *Vor )
 		ComboBox1->setEditable(false);
     Layout6->addWidget(ComboBox1, 0, 1 );
     TextLabel2 = new QLabel( ButtonGroup1_2, "TextLabel2" );
-    TextLabel2->setText(tr( "Orientation:" ));
+    TextLabel2->setText( tr( "Orientation:" ));
     Layout6->addWidget( TextLabel2, 1, 0 );
 		ComboBox2 = new QComboBox( true, ButtonGroup1_2, "ComboBox2" );
     ComboBox2->insertItem( tr( "Portrait" ) );

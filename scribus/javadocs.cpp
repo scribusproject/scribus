@@ -60,7 +60,7 @@ void JavaDocs::slotAdd()
 {
 	QString nam;
 	Query *dia = new Query(this, "tt", 1, 0, "New Script:", "New Script");
-	dia->Answer->setText(tr("New Script"));
+	dia->Answer->setText( tr("New Script"));
 	if (dia->exec())
 		{
 		nam = dia->Answer->text();

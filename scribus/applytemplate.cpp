@@ -18,7 +18,7 @@ ApplyT::ApplyT( QWidget* parent, ScribusView *view)
 		QMap<QString,int>::Iterator it;
 		for (it = view->MasterNames.begin(); it != view->MasterNames.end(); ++it)
 			{
-			it.key() == "Normal" ? Templ->insertItem(tr("Normal")) : Templ->insertItem(it.key());
+			it.key() == "Normal" ? Templ->insertItem( tr("Normal")) : Templ->insertItem(it.key());
 			}
     layout3->addWidget( Templ );
     ApplyTLayout->addLayout( layout3 );
