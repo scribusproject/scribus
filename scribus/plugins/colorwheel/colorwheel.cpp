@@ -7,7 +7,7 @@
 
 QString name()
 {
-	return QObject::tr("&Color Wheel");
+	return QObject::tr("&Color Wheel...");
 }
 
 PluginManager::PluginType type()

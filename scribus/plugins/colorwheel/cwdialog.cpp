@@ -14,6 +14,7 @@
 #include <qpainter.h>
 
 #include <prefsfile.h>
+#include <mpalette.h>
 
 extern PrefsFile *prefsFile;
 extern ScribusApp *ScApp;
@@ -68,6 +69,8 @@ ColorWheelDialog::ColorWheelDialog(QWidget* parent, const char* name, bool modal
 	buttonLayout = new QHBoxLayout(0, 0, 6, "buttonLayout");
 	addButton = new QPushButton(this, "addButton");
 	buttonLayout->addWidget(addButton);
+	replaceButton = new QPushButton(this, "replaceButton");
+	buttonLayout->addWidget(replaceButton);
 	cancelButton = new QPushButton(this, "cancelButton");
 	buttonLayout->addWidget(cancelButton);
 
@@ -93,8 +96,8 @@ ColorWheelDialog::ColorWheelDialog(QWidget* parent, const char* name, bool modal
 	angleSpin->setValue(prefs->getInt("cw_angle", 15));
 	colorWheel->angle = angleSpin->value();
 	QValueVector<QPoint> vp;
-	int x = prefs->getInt("cw_x", 0);
-	int y = prefs->getInt("cw_y", 0);
+	int x = prefs->getInt("cw_x", colorWheel->width()/2 + 1);
+	int y = prefs->getInt("cw_y", colorWheel->height()/2);
 	vp.append(QPoint(x, y));
 	colorWheel->actualPoint = QPoint(x, y);
 	colorWheel->actualRgb = QColor(prefs->getInt("cw_r", 0), prefs->getInt("cw_g", 0), prefs->getInt("cw_b", 0)).rgb();
@@ -108,6 +111,7 @@ ColorWheelDialog::ColorWheelDialog(QWidget* parent, const char* name, bool modal
 	colorWheel_clicked(0, QPoint(0, 0));
 	connect(angleSpin, SIGNAL(valueChanged(int)), this, SLOT(angleSpin_valueChanged(int)));
 	connect(addButton, SIGNAL(clicked()), this, SLOT(addButton_clicked()));
+	connect(replaceButton, SIGNAL(clicked()), this, SLOT(replaceButton_clicked()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(cancelButton_clicked()));
 }
 
@@ -143,10 +147,12 @@ void ColorWheelDialog::languageChange()
 	colorList->setSorting(1);
 	typeLabel->setText(tr("Select Method:"));
 	angleLabel->setText(tr("Angle (0 - 365 degrees):"));
-	addButton->setText(tr("&Add Colors"));
+	addButton->setText(tr("&Merge Colors"));
+	replaceButton->setText(tr("&Replace Colors"));
 	cancelButton->setText(tr("&Cancel"));
 	// tips
-	QToolTip::add(addButton, "<qt>" + tr("Appends created colors into socument colors") + "</qt>");
+	QToolTip::add(addButton, "<qt>" + tr("Merge created colors into the document colors") + "</qt>");
+	QToolTip::add(addButton, "<qt>" + tr("Replace created colors in the document colors") + "</qt>");
 	QToolTip::add(cancelButton, "<qt>" + tr("Leave colors untouched") + "</qt>");
 	QToolTip::add(angleSpin, "<qt>" + tr("Difference between selected value and counted ones. See documentation for more info") + "</qt>");
 	QToolTip::add(colorWheel, "<qt>" + tr("Click the wheel to get base color") + "</qt>");
@@ -229,21 +235,42 @@ void ColorWheelDialog::angleSpin_valueChanged(int value)
 void ColorWheelDialog::addButton_clicked()
 {
 	QString status("<qt><h2>" + tr("Merging colors") + "</h2><p>");
+	bool err = false;
 	for (ColorList::iterator it = colorWheel->colorList.begin(); it != colorWheel->colorList.end(); ++it)
 	{
 		if (ScApp->doc->PageColors.contains(it.key()))
+		{
 			status += "<b>" + tr("Error: ") + "</b>" + tr(QString("Color %1 exists already!").arg(it.key())) + "<br/>";
+			err = true;
+		}
 		else
 		{
 			status += tr(QString("Color %1 appended.").arg(it.key())) + "<br/>";
 			ScApp->doc->PageColors[it.key()] = it.data();
 		}
 	}
-	status += "<p>" + tr("Use <i>Edit/Colors...</i> for more color management.") + "</p></qt>";
-	QMessageBox::information(this, tr("Color Merging"), status);
+	status += "<p>" + tr("Now opening the color manager.") + "</p></qt>";
+	if (err)
+	{
+		QMessageBox::information(this, tr("Color Merging"), status);
+		ScApp->slotEditColors();
+		return;
+	}
+	ScApp->propertiesPalette->Cpal->SetColors(ScApp->doc->PageColors);
+	ScApp->propertiesPalette->updateCList();
 	accept();
 }
 
+void ColorWheelDialog::replaceButton_clicked()
+{
+	for (ColorList::iterator it = colorWheel->colorList.begin(); it != colorWheel->colorList.end(); ++it)
+	{
+		ScApp->doc->PageColors[it.key()] = it.data();
+	}
+	ScApp->propertiesPalette->Cpal->SetColors(ScApp->doc->PageColors);
+	ScApp->propertiesPalette->updateCList();
+	accept();
+}
 
 void ColorWheelDialog::cancelButton_clicked()
 {

@@ -38,6 +38,7 @@ class ColorWheelDialog : public QDialog
 		QLabel* angleLabel;
 		QSpinBox* angleSpin;
 		QPushButton* addButton;
+		QPushButton* replaceButton;
 		QPushButton* cancelButton;
 
 	protected:
@@ -60,6 +61,7 @@ class ColorWheelDialog : public QDialog
 		virtual void typeCombo_activated(int);
 		virtual void colorWheel_clicked(int, const QPoint &);
 		virtual void addButton_clicked();
+		virtual void replaceButton_clicked();
 		virtual void cancelButton_clicked();
 		virtual void angleSpin_valueChanged(int);
 

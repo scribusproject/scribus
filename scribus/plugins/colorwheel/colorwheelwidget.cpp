@@ -128,16 +128,15 @@ double ColorWheel::pointAngle(QPoint p)
 void ColorWheel::sampleByAngle(double angle, QString name)
 {
 	double radang = M_PI * angle/180;
-	//cout << "angle: " << radang << endl;
 	int x = actualPoint.x() - width()/2;
 	int y = actualPoint.y() - height()/2;
-	//cout << " xy: " << actualPoint.x() << " " << actualPoint.y() << endl;
-	//cout << "oxy: " << x << " " << y << endl;
+	//qDebug(QString("ap: %1 %2").arg(actualPoint.x()).arg(actualPoint.y()));
+	//qDebug(QString("ap: x=%1 y=%2").arg(x).arg(y));
 	int dx = (int) round(x * cos(radang) - y * sin(radang));
 	int dy = (int) round(y * cos(radang) + x * sin(radang));
-	//cout << "dxy: " << dx << " " << dy << endl;
+	//qDebug(QString("sdebug: dx=%1 dw=%2 dy=%3 dh=%4").arg(dx).arg(width()/2).arg(dy).arg(height()/2));
+	//qDebug(QString("sdebug: x=%1 y=%2").arg(dx + width()/2).arg(dy + height()/2));
 	QRgb rgb = getPointColor(QPoint(dx + width()/2, dy + height()/2));
-	//cout << "nxy: " << dx + xsize/2 << " " << dy + ysize/2 << endl;
 	// create color
 	colorList[name] = cmykColor(rgb);
 }

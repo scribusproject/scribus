@@ -60,6 +60,11 @@ class ColorWheel : public QLabel
 		/** Draws a sample square filled with specified color. */
 		QPixmap sample(QColor);
 
+		/** Finds the color of the point in this widget
+		\param QPoint Coordinates of the point.
+		\return QRgb value with color of the point. */
+		QRgb getPointColor(QPoint);
+
 		/** \brief Counts the monochromatic colors.
 		The monochromatic color scheme uses variations in lightness
 		and saturation of a single color. It's clean and elegant color
@@ -100,11 +105,6 @@ class ColorWheel : public QLabel
 		See \see clicked() for more info.
 		\param QMouseEvent Mouse properties. */
 		void mouseReleaseEvent(QMouseEvent *);
-
-		/** Finds the color of the point in this widget
-		\param QPoint Coordinates of the point.
-		\return QRgb value with color of the point. */
-		QRgb getPointColor(QPoint);
 
 		/** \brief Appends a color into \see colorList.
 		\param double an angle for transformation counting.
