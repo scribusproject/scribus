@@ -18,8 +18,8 @@
 #include FT_GLYPH_H
 
 extern QPixmap loadIcon(QString nam);
-extern QPixmap fontSamples(QString da, int s, QString ts, QColor back);
-extern void setBestEncoding(FT_Face face);
+extern QPixmap FontSample(QString da, int s, QString ts, QColor back, bool force = false);
+extern int setBestEncoding(FT_Face face);
 
 QString Name()
 {
@@ -266,7 +266,7 @@ void ZAuswahl::NeuesZeichen(int r, int c) // , int b, const QPoint &pp)
 	{
 		ChToIns += QChar(Zeich[r*32+c]);
 		QString da = (*ap->doc->AllFonts)[font]->Datei;
-		Zeichen->setPixmap(fontSamples(da, 28, ChToIns, paletteBackgroundColor()));
+		Zeichen->setPixmap(FontSample(da, 28, ChToIns, paletteBackgroundColor(), true));
 		Einf->setEnabled(true);
 	}
 }

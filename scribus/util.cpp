@@ -92,10 +92,10 @@ void ReOrderText(ScribusDoc *doc, ScribusView *view);
 void WordAndPara(PageItem* b, int *w, int *p, int *c, int *wN, int *pN, int *cN);
 void CopyPageItem(struct CLBuf *Buffer, PageItem *b);
 bool overwrite(QWidget *parent, QString filename);
-void setBestEncoding(FT_Face face);
+int setBestEncoding(FT_Face face);
 FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y, bool &err);
 FPoint GetMaxClipF(FPointArray Clip);
-QPixmap FontSample(QString da, int s, QString ts, QColor back);
+QPixmap FontSample(QString da, int s, QString ts, QColor back, bool force = false);
 QPixmap fontSamples(QString da, int s, QString ts, QColor back);
 QString Path2Relative(QString Path);
 QPixmap LoadPDF(QString fn, int Seite, int Size, int *w, int *h);
@@ -1316,7 +1316,7 @@ QString Path2Relative(QString Path)
 	return Ndir;
 }
 
-void setBestEncoding(FT_Face face)
+int setBestEncoding(FT_Face face)
 {
 	FT_ULong  charcode;
 	FT_UInt   gindex;
@@ -1324,6 +1324,7 @@ void setBestEncoding(FT_Face face)
 	int countUniCode = 0;
 	int chmapUniCode = 0;
 	int chmapCustom = 0;
+	int retVal = 0;
 	FT_CharMap defaultEncoding = face->charmap;
 	for(int u = 0; u < face->num_charmaps; u++)
 	{
@@ -1343,19 +1344,30 @@ void setBestEncoding(FT_Face face)
 		{
 			chmapCustom = u;
 			foundEncoding = true;
+			retVal = 1;
+			break;
 		}
 		else if (face->charmaps[u]->encoding == FT_ENCODING_MS_SYMBOL)
 		{
 			chmapCustom = u;
 			foundEncoding = true;
+			retVal = 2;
+			break;
 		}
 	}
 	if (countUniCode > 255)
+	{
 		FT_Set_Charmap(face, face->charmaps[chmapUniCode]);
+		retVal = 0;
+	}
 	else if (foundEncoding)
 		FT_Set_Charmap(face, face->charmaps[chmapCustom]);
 	else
+	{
 		FT_Set_Charmap(face, defaultEncoding);
+		retVal = 0;
+	}
+	return retVal;
 }
 
 bool GlyNames(QMap<uint, QString> *GList, QString Dat)
@@ -1587,7 +1599,7 @@ FPoint GetMaxClipF(FPointArray Clip)
 	return rp;
 }
 
-QPixmap FontSample(QString da, int s, QString ts, QColor back)
+QPixmap FontSample(QString da, int s, QString ts, QColor back, bool force)
 {
 	FT_Face face;
 	FT_Library library;
@@ -1597,7 +1609,7 @@ QPixmap FontSample(QString da, int s, QString ts, QColor back)
 	FPoint gp;
 	error = FT_Init_FreeType( &library );
 	error = FT_New_Face( library, da, 0, &face );
-	setBestEncoding(face);
+	int encode = setBestEncoding(face);
 	double uniEM = static_cast<double>(face->units_per_EM);
 	int h = qRound(face->height / uniEM) * s + 1;
 	double a = static_cast<double>(face->descender) / uniEM * s + 1;
@@ -1612,22 +1624,54 @@ QPixmap FontSample(QString da, int s, QString ts, QColor back)
 	p->setBrush(back);
 	p->drawRect(0.0, 0.0, static_cast<double>(w), static_cast<double>(h));
 	p->setBrush(Qt::black);
-	for (uint n = 0; n < ts.length(); ++n)
+	FPointArray gly;
+	uint dv;
+	dv = ts[0].unicode();
+	error = false;
+	gly = traceChar(face, dv, s, &x, &y, &error);
+	if (((encode != 0) || (error)) && (!force))
 	{
-		uint dv = ts[n].unicode();
 		error = false;
-		FPointArray gly = traceChar(face, dv, s, &x, &y, &error);
-		if (error)
-			break;
-		if (gly.size() > 3)
+		FT_ULong  charcode;
+		FT_UInt gindex;
+		gindex = 0;
+		charcode = FT_Get_First_Char(face, &gindex );
+		for (uint n = 0; n < ts.length(); ++n)
 		{
-			gly.translate(static_cast<double>(pen_x) / 64.0, a);
-			gp = GetMaxClipF(gly);
-			ymax = QMAX(ymax, gp.y());
-			p->setupPolygon(&gly);
-			p->fillPath();
+			gly = traceChar(face, charcode, s, &x, &y, &error);
+			if (error)
+				break;
+			if (gly.size() > 3)
+			{
+				gly.translate(static_cast<double>(pen_x) / 64.0, a);
+				gp = GetMaxClipF(gly);
+				ymax = QMAX(ymax, gp.y());
+				p->setupPolygon(&gly);
+				p->fillPath();
+			}
+			pen_x += face->glyph->advance.x;
+			charcode = FT_Get_Next_Char(face, charcode, &gindex );
+			if (gindex == 0)
+				break;
 		}
-		pen_x += face->glyph->advance.x;
+	}
+	else
+	{
+		for (uint n = 0; n < ts.length(); ++n)
+		{
+			dv = ts[n].unicode();
+			error = false;
+			gly = traceChar(face, dv, s, &x, &y, &error);
+			if (gly.size() > 3)
+			{
+				gly.translate(static_cast<double>(pen_x) / 64.0, a);
+				gp = GetMaxClipF(gly);
+				ymax = QMAX(ymax, gp.y());
+				p->setupPolygon(&gly);
+				p->fillPath();
+			}
+			pen_x += face->glyph->advance.x;
+		}
 	}
 	p->end();
 	pm.resize(QMIN(qRound(gp.x()), w), QMIN(qRound(ymax), h));
@@ -1650,16 +1694,20 @@ QPixmap fontSamples(QString da, int s, QString ts, QColor back)
 	ret.fill(back);
 	for ( QStringList::Iterator it = lines.begin(); it != lines.end(); ++it ) {
 		sample = FontSample(da, s, *it, back);
-		painter->drawPixmap(0, y, sample, 0, 0);
+		if (!sample.isNull())
+			painter->drawPixmap(0, y, sample, 0, 0);
 		y = y + sample.height();
 		if (x < sample.width())
 			x = sample.width();
 	} // for
 	delete(painter);
 	QPixmap final(x, y);
-	QPainter *fpainter = new QPainter(&final);
-	fpainter->drawPixmap(0, 0, ret, 0, 0, x, y);
-	delete(fpainter);
+	if ((x != 0) && (y != 0))
+	{
+		QPainter *fpainter = new QPainter(&final);
+		fpainter->drawPixmap(0, 0, ret, 0, 0, x, y);
+		delete(fpainter);
+	}
 	return final;
 }
 
