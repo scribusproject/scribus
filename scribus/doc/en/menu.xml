@@ -74,21 +74,6 @@
 		</submenuitem>
 	</area>
 	<area text="Tutorials" file="tutorials.html" section="tutorials">
-<!--
-		<submenuitem text="Get Started With Scribus" file="tutorials/freedomyug/scribustutorial1.html">
-			<submenuitem text="Page 2" file="tutorials/freedomyug/scribustutorial2.html"/>
-			<submenuitem text="Page 3" file="tutorials/freedomyug/scribustutorial3.html"/>
-			<submenuitem text="Page 4" file="tutorials/freedomyug/scribustutorial4.html"/>
-			<submenuitem text="Page 5" file="tutorials/freedomyug/scribustutorial5.html"/>
-			<submenuitem text="Page 6" file="tutorials/freedomyug/scribustutorial6.html"/>
-			<submenuitem text="Page 7" file="tutorials/freedomyug/scribustutorial7.html"/>
-			<submenuitem text="Page 8" file="tutorials/freedomyug/scribustutorial8.html"/>
-			<submenuitem text="Page 9" file="tutorials/freedomyug/scribustutorial9.html"/>
-			<submenuitem text="Page 10" file="tutorials/freedomyug/scribustutorial10.html"/>
-			<submenuitem text="Page 11" file="tutorials/freedomyug/scribustutorial11.html"/>
-			<submenuitem text="Page 12" file="tutorials/freedomyug/scribustutorial12.html"/>
-		</submenuitem>
--->
 	</area>
 	<area text="For Developers" file="developers.html">
 		<submenuitem text="Scribus Document Format" file="scribusfileformat.html"/>
