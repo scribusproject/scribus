@@ -144,7 +144,6 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite) : QDi
 	int pstyle;
 	doc = docc;
   QString Dat = "";
-	QPtrList<Pti> y = ite->Ptext;
 	setCaption( tr( "Story Editor" ) );
 	setIcon(loadIcon("AppIcon.png"));
 	Form1Layout = new QHBoxLayout( this, 5, 5, "Form1Layout"); 
@@ -195,21 +194,35 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite) : QDi
 	Form1Layout->addWidget( table1 );
 	resize( QSize(509, 326).expandedTo(minimumSizeHint()) );
 	show();
-  for (a = 0; a < y.count(); ++a)
-  	{
-		QString b = y.at(a)->ch;
-		pstyle = y.at(a)->cab;
-		if (b == QChar(13))
-			{
-			addPar(para, Dat, pstyle);
-			Dat = "";
-			para++;
-			}
+	QPtrList<Pti> y;
+	PageItem *nb = ite;
+	while (nb != 0)
+		{
+		if (nb->BackBox != 0)
+			nb = nb->BackBox;
 		else
-    	Dat += b;
-    }
-	if (Dat != "")
-		addPar(para, Dat, pstyle);
+			break;
+		}
+	while (nb != 0)
+		{
+		y = nb->Ptext;
+  	for (a = 0; a < y.count(); ++a)
+  		{
+			QString b = y.at(a)->ch;
+			pstyle = y.at(a)->cab;
+			if (b == QChar(13))
+				{
+				addPar(para, Dat, pstyle);
+				Dat = "";
+				para++;
+				}
+			else
+    		Dat += b;
+    	}
+		nb = nb->NextBox;
+		}
+		if (Dat != "")
+			addPar(para, Dat, pstyle);
 	if (table1->numRows() == 0)
 		addPar(0, "", doc->CurrentABStil);
 	TextChanged = false;
@@ -311,9 +324,26 @@ void StoryEditor::updateTextFrame()
 		delete ss;
 		first = true;
 		}
-	if (doc->Trenner->AutoCheck)
-		doc->Trenner->slotHyphenate(CurrItem);
-	doc->ActPage->RefreshItem(CurrItem);
+	PageItem *nb = CurrItem;
+	while (nb != 0)
+		{
+		if (nb->BackBox != 0)
+			nb = nb->BackBox;
+		else
+			break;
+		}
+	while (nb != 0)
+		{
+		if (doc->Trenner->AutoCheck)
+			{
+			if (doc->Trenner->Language != nb->Language)
+				doc->Trenner->slotNewDict(nb->Language);
+			doc->Trenner->slotHyphenate(nb);
+			}
+		else
+			doc->ActPage->RefreshItem(nb);
+		nb = nb->NextBox;
+		}
 	TextChanged = false;
 }
 

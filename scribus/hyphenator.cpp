@@ -27,7 +27,7 @@
 
 Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok, ScribusApp* app) : QObject( parent, "bu")
 {
-  std::string filename;
+  char *filename = NULL;
 	doc = dok;
 	Sap = app;
 	MinWordLen = doc->MinWordLen;
@@ -44,7 +44,11 @@ Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok, ScribusApp* app) : QObj
 	pfad += "/lib/scribus/dicts/" + Sap->Sprachen[Language];
 	QCString fn = pfad.latin1();
 	filename = fn.data();
-	hdict = hnj_hyphen_load(filename.c_str());
+	hdict = hnj_hyphen_load(filename);
+	if (hdict == NULL)
+		useAble = false;
+	else
+		useAble = true;
 }
 
 Hyphenator::~Hyphenator()
@@ -54,7 +58,7 @@ Hyphenator::~Hyphenator()
 
 void Hyphenator::slotNewDict(QString name)
 {
-  std::string filename;
+  char *filename = NULL;
 	if (!Sap->Sprachen.contains(name))
 		return;
 	if (hdict != NULL)
@@ -65,7 +69,11 @@ void Hyphenator::slotNewDict(QString name)
 	pfad += "/lib/scribus/dicts/" + Sap->Sprachen[Language];
 	QCString fn = pfad.latin1();
 	filename = fn.data();
-	hdict = hnj_hyphen_load(filename.c_str());
+	hdict = hnj_hyphen_load(filename);
+	if (hdict == NULL)
+		useAble = false;
+	else
+		useAble = true;
 }
 
 void Hyphenator::slotNewSettings(int Wordlen, bool Autom, bool ACheck)
@@ -84,6 +92,10 @@ void Hyphenator::slotHyphenateWord(PageItem* it, QString text, int firstC)
   char *buffer;
   const int BORDER = 2;
 	QCString te;
+	if (!useAble)
+		return;
+	if (!Sap->Sprachen.contains(it->Language))
+		return;
 	QString found = text;
 	if (static_cast<int>(found.length()) > MinWordLen)
 		{
@@ -118,6 +130,8 @@ void Hyphenator::slotHyphenate(PageItem* it)
 	QString text = "";
 	QString buf;
 	QCString te;
+	if (!useAble)
+		return;
 	if (it->PType != 4)
 		return;
 	if (it->Ptext.count() == 0)

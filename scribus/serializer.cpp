@@ -50,31 +50,35 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 {
 	struct Pti *hg;
 	PageItem *nb;
+	PageItem *it = Item;
 	uint a;
 	if (!Append)
 		{
-		if (Item->NextBox != 0)
+		nb = Item;
+		while (nb != 0)
 			{
-			nb = Item->NextBox;
-			while (nb != 0)
-				{
-				nb->Ptext.clear();
-				nb->CPos = 0;
-				nb->Dirty = true;
-				nb = nb->NextBox;
-				}
+			if (nb->BackBox != 0)
+				nb = nb->BackBox;
+			else
+				break;
 			}
-		Item->Ptext.clear();
-		Item->CPos = 0;
+		it = nb;
+		while (nb != 0)
+			{
+			nb->Ptext.clear();
+			nb->CPos = 0;
+			nb->Dirty = true;
+			nb = nb->NextBox;
+			}
 		}
 	for (a=0; a<Objekt.length(); ++a)
 		{
-			if ((Objekt.at(a) == QChar(0)) || (Objekt.at(a) == QChar(13)))
-				continue;
-			hg = new Pti;
-			hg->ch = Objekt.at(a);
-			if ((hg->ch == QChar(10)) || (hg->ch == QChar(5)))
-				hg->ch = QChar(13);
+		if ((Objekt.at(a) == QChar(0)) || (Objekt.at(a) == QChar(13)))
+			continue;
+		hg = new Pti;
+		hg->ch = Objekt.at(a);
+		if ((hg->ch == QChar(10)) || (hg->ch == QChar(5)))
+			hg->ch = QChar(13);
 		if (hg->ch == QChar(9)) { hg->ch = " "; }
 		if (font != "")
 			{
@@ -83,14 +87,14 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 			}
 		else
 			{
-			hg->cfont = Item->IFont;
-			hg->csize = Item->ISize;
+			hg->cfont = it->IFont;
+			hg->csize = it->ISize;
 			}
-		hg->ccolor = Item->TxtFill;
-		hg->cshade = Item->ShTxtFill;
-		hg->cstroke = Item->TxtStroke;
-		hg->cshade2 = Item->ShTxtStroke;
-		hg->cscale = Item->TxtScale;
+		hg->ccolor = it->TxtFill;
+		hg->cshade = it->ShTxtFill;
+		hg->cstroke = it->TxtStroke;
+		hg->cshade2 = it->ShTxtStroke;
+		hg->cscale = it->TxtScale;
 		hg->cextra = 0;
 		hg->cselect = false;
 		hg->cstyle = 0;
@@ -101,10 +105,10 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 		hg->PtransX = 0;
 		hg->PtransY = 0;
 		if (Append)
- 			Item->Ptext.insert(Item->CPos, hg);
+ 			it->Ptext.insert(it->CPos, hg);
 		else
-			Item->Ptext.append(hg);
- 		Item->CPos += 1;
+			it->Ptext.append(hg);
+ 		it->CPos += 1;
 		}
 }
 

@@ -21,6 +21,7 @@ public:
 		HyphenDict *hdict;
 		ScribusDoc *doc;
 		ScribusApp *Sap;
+		bool useAble;
 
 public slots:
 		void slotNewDict(QString name);

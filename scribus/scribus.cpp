@@ -3369,11 +3369,14 @@ void ScribusApp::slotNewPage(int w)
 	connect(doc->ActPage, SIGNAL(ChBMText(PageItem *)), this, SLOT(BookMarkTxT(PageItem *)));
 	connect(doc->ActPage, SIGNAL(NewBMNr(int, int)), BookPal->BView, SLOT(ChangeItem(int, int)));
 	connect(doc->ActPage, SIGNAL(RasterPic(bool)), this, SLOT(HaveRaster(bool)));
-	connect(doc->ActPage, SIGNAL(DelObj(uint, uint)), Tpal, SLOT(slotRemoveElement(uint, uint)));
-	connect(doc->ActPage, SIGNAL(AddObj(uint, uint)), Tpal, SLOT(slotAddElement(uint, uint)));
-	connect(doc->ActPage, SIGNAL(UpdtObj(uint, uint)), Tpal, SLOT(slotUpdateElement(uint, uint)));
-	connect(doc->ActPage, SIGNAL(MoveObj(uint, uint, uint)), Tpal, SLOT(slotMoveElement(uint, uint, uint)));
 	connect(doc->ActPage, SIGNAL(EditText()), this, SLOT(slotStoryEditor()));
+	if (!doc->TemplateMode)
+		{
+		connect(doc->ActPage, SIGNAL(DelObj(uint, uint)), Tpal, SLOT(slotRemoveElement(uint, uint)));
+		connect(doc->ActPage, SIGNAL(AddObj(uint, uint)), Tpal, SLOT(slotAddElement(uint, uint)));
+		connect(doc->ActPage, SIGNAL(UpdtObj(uint, uint)), Tpal, SLOT(slotUpdateElement(uint, uint)));
+		connect(doc->ActPage, SIGNAL(MoveObj(uint, uint, uint)), Tpal, SLOT(slotMoveElement(uint, uint, uint)));
+		}
 	slotDocCh(!doc->loading);
 }
 
@@ -5709,7 +5712,6 @@ void ScribusApp::ManageTemp(QString temp)
 void ScribusApp::ManTempEnd()
 {
 	view->HideTemplate();
-	doc->TemplateMode = false;
 	menuBar()->setItemEnabled(pgmm, 1);
 	editMenu->setItemEnabled(tman, 1);
 	DatNeu->setEnabled(true);
@@ -5726,6 +5728,7 @@ void ScribusApp::ManTempEnd()
 		{
 		Apply_Temp(view->Pages.at(c)->MPageNam, c, false);
 		}
+	doc->TemplateMode = false;
 	Sepal->EnablePal();
 	Sepal->RebuildTemp();
 	ActWin->muster = NULL;

@@ -1,4 +1,7 @@
 Changes since Version 1.1.2
+17.11.2003	Fixed Segfault when creating Template Pages.
+		The Story Editor can handle now linked Textframes correctly.
+
 16.11.2003	Improved the Story Editor.
 		Fixed some issues with Copy and Paste.
 

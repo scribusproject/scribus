@@ -44,6 +44,8 @@ Tree::Tree( QWidget* parent, WFlags fl )
 
 void Tree::slotShowSelect(uint SNr, int Nr)
 {
+	if (vie->Doc->TemplateMode)
+		return;
 	disconnect(ListView1, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
 	ListView1->clearSelection();
 	if (Nr != -1)
