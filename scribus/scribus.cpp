@@ -72,6 +72,7 @@
 #include "fileloader.h"
 #include "arrowchooser.h"
 #include "tabtypography.h"
+#include "tabguides.h"
 
 #ifdef _MSC_VER
  #if (_MSC_VER >= 1200)
@@ -353,16 +354,22 @@ void ScribusApp::initDefaultPrefs()
 	}
 
 	Prefs.Wheelval = 40;
-	Prefs.GrabRad = 4;
-	Prefs.GuideRad = 10;
-	Prefs.DminGrid = 20;
-	Prefs.DmajGrid = 100;
-	Prefs.DminColor = QColor(green);
-	Prefs.DmajColor = QColor(green);
-	Prefs.DpapColor = QColor(white);
-	Prefs.DmargColor = QColor(blue);
-	Prefs.guideColor = QColor(darkBlue);
-	Prefs.baseColor = QColor(lightGray);
+	Prefs.guidesSettings.marginsShown = true;
+	Prefs.guidesSettings.framesShown = true;
+	Prefs.guidesSettings.gridShown = false;
+	Prefs.guidesSettings.guidesShown = false;
+	Prefs.guidesSettings.baseShown = false;
+	Prefs.guidesSettings.showPic = true;
+	Prefs.guidesSettings.linkShown = false;
+	Prefs.guidesSettings.grabRad = 4;
+	Prefs.guidesSettings.guideRad = 10;
+	Prefs.guidesSettings.minorGrid = 20;
+	Prefs.guidesSettings.majorGrid = 100;
+	Prefs.guidesSettings.minorColor = QColor(green);
+	Prefs.guidesSettings.majorColor = QColor(green);
+	Prefs.guidesSettings.margColor = QColor(blue);
+	Prefs.guidesSettings.guideColor = QColor(darkBlue);
+	Prefs.guidesSettings.baseColor = QColor(lightGray);
 	Prefs.typographicSetttings.valueSuperScript = 33;
 	Prefs.typographicSetttings.scalingSuperScript = 100;
 	Prefs.typographicSetttings.valueSubScript = 33;
@@ -427,13 +434,6 @@ void ScribusApp::initDefaultPrefs()
 	Prefs.layerPalSettings.yPosition = 0;
 	Prefs.PSize = 40;
 	Prefs.SaveAtQ = true;
-	Prefs.FramesShown = true;
-	Prefs.GridShown = false;
-	Prefs.MarginsShown = true;
-	Prefs.GuidesShown = true;
-	Prefs.BaseShown = false;
-	Prefs.linkShown = false;
-	Prefs.ShowPic = true;
 	Prefs.ClipMargin = true;
 	Prefs.GCRMode = true;
 	Prefs.RecentDocs.clear();
@@ -2437,13 +2437,13 @@ void ScribusApp::newActWin(QWidget *w)
 		wsp->setScrollBarsEnabled(false);
 	else
 		wsp->setScrollBarsEnabled(true);
-	viewMenu->setItemChecked(Markers, doc->MarginsShown);
-	viewMenu->setItemChecked(FrameDr, doc->FramesShown);
-	viewMenu->setItemChecked(Ras, doc->GridShown);
-	viewMenu->setItemChecked(Guide, doc->GuidesShown);
-	viewMenu->setItemChecked(Base, doc->BaseShown);
-	viewMenu->setItemChecked(Bilder, doc->ShowPic);
-	viewMenu->setItemChecked(textLinks, doc->linkShown);
+	viewMenu->setItemChecked(Markers, doc->guidesSettings.marginsShown);
+	viewMenu->setItemChecked(FrameDr, doc->guidesSettings.framesShown);
+	viewMenu->setItemChecked(Ras, doc->guidesSettings.gridShown);
+	viewMenu->setItemChecked(Guide, doc->guidesSettings.guidesShown);
+	viewMenu->setItemChecked(Base, doc->guidesSettings.baseShown);
+	viewMenu->setItemChecked(Bilder, doc->guidesSettings.showPic);
+	viewMenu->setItemChecked(textLinks, doc->guidesSettings.linkShown);
 //	if (!doc->TemplateMode)
 //		Sepal->Rebuild();
 //	Tpal->BuildTree(view);
@@ -2492,25 +2492,25 @@ bool ScribusApp::SetupDoc()
 			doc->FirstPageLeft = dia->firstPage->isChecked();
 		doc->FirstPnum = dia->pageNumber->value();
 		doc->resetPage(tpr2, lr2, rr2, br2, fp);
-		doc->MarginsShown = dia->checkMargin->isChecked();
-		doc->FramesShown = dia->checkFrame->isChecked();
-		doc->GridShown = dia->checkGrid->isChecked();
-		doc->GuidesShown = dia->checkGuides->isChecked();
-		doc->BaseShown = dia->checkBaseline->isChecked();
-		doc->ShowPic = dia->checkPictures->isChecked();
-		doc->linkShown = dia->checkLink->isChecked();
 		doc->Before = dia->inBackground->isChecked();
 		doc->RandFarbig = dia->checkUnprintable->isChecked();
-		doc->GrabRad = dia->grabDistance->value();
-		doc->GuideRad = dia->snapDistance->value() / UmReFaktor;
-		doc->minorGrid = dia->minorSpace->value() / UmReFaktor;
-		doc->majorGrid = dia->majorSpace->value() / UmReFaktor;
-		doc->minorColor = dia->colorMinorGrid;
-		doc->majorColor = dia->colorMajorGrid;
 		doc->papColor = dia->colorPaper;
-		doc->margColor = dia->colorMargin;
-		doc->guideColor = dia->colorGuides;
-		doc->baseColor = dia->colorBaselineGrid;
+		doc->guidesSettings.marginsShown = dia->tabGuides->checkMargin->isChecked();
+		doc->guidesSettings.framesShown = dia->tabGuides->checkFrame->isChecked();
+		doc->guidesSettings.gridShown = dia->tabGuides->checkGrid->isChecked();
+		doc->guidesSettings.guidesShown = dia->tabGuides->checkGuides->isChecked();
+		doc->guidesSettings.baseShown = dia->tabGuides->checkBaseline->isChecked();
+		doc->guidesSettings.showPic = dia->tabGuides->checkPictures->isChecked();
+		doc->guidesSettings.linkShown = dia->tabGuides->checkLink->isChecked();
+		doc->guidesSettings.grabRad = dia->tabGuides->grabDistance->value();
+		doc->guidesSettings.guideRad = dia->tabGuides->snapDistance->value() / UmReFaktor;
+		doc->guidesSettings.minorGrid = dia->tabGuides->minorSpace->value() / UmReFaktor;
+		doc->guidesSettings.majorGrid = dia->tabGuides->majorSpace->value() / UmReFaktor;
+		doc->guidesSettings.minorColor = dia->tabGuides->colorMinorGrid;
+		doc->guidesSettings.majorColor = dia->tabGuides->colorMajorGrid;
+		doc->guidesSettings.margColor = dia->tabGuides->colorMargin;
+		doc->guidesSettings.guideColor = dia->tabGuides->colorGuides;
+		doc->guidesSettings.baseColor = dia->tabGuides->colorBaselineGrid;
 		doc->typographicSetttings.valueSuperScript = dia->tabTypo->superDisplacement->value();
 		doc->typographicSetttings.scalingSuperScript = dia->tabTypo->superScaling->value();
 		doc->typographicSetttings.valueSubScript = dia->tabTypo->subDisplacement->value();
@@ -2665,17 +2665,17 @@ bool ScribusApp::SetupDoc()
 				FProg->reset();
 			}
 		}
-		viewMenu->setItemChecked(Markers, doc->MarginsShown);
-		viewMenu->setItemChecked(FrameDr, doc->FramesShown);
-		viewMenu->setItemChecked(Ras, doc->GridShown);
-		viewMenu->setItemChecked(Guide, doc->GuidesShown);
-		viewMenu->setItemChecked(Base, doc->BaseShown);
-		viewMenu->setItemChecked(Bilder, doc->ShowPic);
-		viewMenu->setItemChecked(textLinks, doc->linkShown);
+		viewMenu->setItemChecked(Markers, doc->guidesSettings.marginsShown);
+		viewMenu->setItemChecked(FrameDr, doc->guidesSettings.framesShown);
+		viewMenu->setItemChecked(Ras, doc->guidesSettings.gridShown);
+		viewMenu->setItemChecked(Guide, doc->guidesSettings.guidesShown);
+		viewMenu->setItemChecked(Base, doc->guidesSettings.baseShown);
+		viewMenu->setItemChecked(Bilder, doc->guidesSettings.showPic);
+		viewMenu->setItemChecked(textLinks, doc->guidesSettings.linkShown);
 		for (uint b=0; b<doc->Items.count(); ++b)
 		{
 			if (doc->Items.at(b)->PType == 2)
-				doc->Items.at(b)->PicArt = doc->ShowPic;
+				doc->Items.at(b)->PicArt = doc->guidesSettings.showPic;
 		}
 		view->reformPages();
 		view->GotoPage(doc->ActPage->PageNr);
@@ -5229,12 +5229,12 @@ void ScribusApp::TogglePDFTools()
 
 void ScribusApp::TogglePics()
 {
-	doc->ShowPic = !doc->ShowPic;
-	viewMenu->setItemChecked(Bilder, doc->ShowPic);
+	doc->guidesSettings.showPic = !doc->guidesSettings.showPic;
+	viewMenu->setItemChecked(Bilder, doc->guidesSettings.showPic);
 	for (uint b=0; b<doc->Items.count(); ++b)
 	{
 		if (doc->Items.at(b)->PType == 2)
-			doc->Items.at(b)->PicArt = doc->ShowPic;
+			doc->Items.at(b)->PicArt = doc->guidesSettings.showPic;
 	}
 	view->DrawNew();
 }
@@ -5244,12 +5244,12 @@ void ScribusApp::ToggleAllGuides()
 	if (GuidesStat[0])
 	{
 		GuidesStat[0] = false;
-		doc->MarginsShown = GuidesStat[1];
-		doc->FramesShown = GuidesStat[2];
-		doc->GridShown = GuidesStat[3];
-		doc->GuidesShown = GuidesStat[4];
-		doc->BaseShown = GuidesStat[5];
-		doc->linkShown = GuidesStat[6];
+		doc->guidesSettings.marginsShown = GuidesStat[1];
+		doc->guidesSettings.framesShown = GuidesStat[2];
+		doc->guidesSettings.gridShown = GuidesStat[3];
+		doc->guidesSettings.guidesShown = GuidesStat[4];
+		doc->guidesSettings.baseShown = GuidesStat[5];
+		doc->guidesSettings.linkShown = GuidesStat[6];
 		ToggleMarks();
 		ToggleFrames();
 		ToggleRaster();
@@ -5260,24 +5260,24 @@ void ScribusApp::ToggleAllGuides()
 	else
 	{
 		GuidesStat[0] = true;
-		GuidesStat[1] = !doc->MarginsShown;
-		GuidesStat[2] = !doc->FramesShown;
-		GuidesStat[3] = !doc->GridShown;
-		GuidesStat[4] = !doc->GuidesShown;
-		GuidesStat[5] = !doc->BaseShown;
-		GuidesStat[6] = !doc->linkShown;
-		doc->MarginsShown = false;
-		doc->FramesShown = false;
-		doc->GridShown = false;
-		doc->GuidesShown = false;
-		doc->BaseShown = false;
-		doc->linkShown = false;
-		viewMenu->setItemChecked(Markers, doc->MarginsShown);
-		viewMenu->setItemChecked(FrameDr, doc->FramesShown);
-		viewMenu->setItemChecked(Ras, doc->GridShown);
-		viewMenu->setItemChecked(Guide, doc->GuidesShown);
-		viewMenu->setItemChecked(Base, doc->BaseShown);
-		viewMenu->setItemChecked(textLinks, doc->linkShown);
+		GuidesStat[1] = !doc->guidesSettings.marginsShown;
+		GuidesStat[2] = !doc->guidesSettings.framesShown;
+		GuidesStat[3] = !doc->guidesSettings.gridShown;
+		GuidesStat[4] = !doc->guidesSettings.guidesShown;
+		GuidesStat[5] = !doc->guidesSettings.baseShown;
+		GuidesStat[6] = !doc->guidesSettings.linkShown;
+		doc->guidesSettings.marginsShown = false;
+		doc->guidesSettings.framesShown = false;
+		doc->guidesSettings.gridShown = false;
+		doc->guidesSettings.guidesShown = false;
+		doc->guidesSettings.baseShown = false;
+		doc->guidesSettings.linkShown = false;
+		viewMenu->setItemChecked(Markers, doc->guidesSettings.marginsShown);
+		viewMenu->setItemChecked(FrameDr, doc->guidesSettings.framesShown);
+		viewMenu->setItemChecked(Ras, doc->guidesSettings.gridShown);
+		viewMenu->setItemChecked(Guide, doc->guidesSettings.guidesShown);
+		viewMenu->setItemChecked(Base, doc->guidesSettings.baseShown);
+		viewMenu->setItemChecked(textLinks, doc->guidesSettings.linkShown);
 	}
 	view->DrawNew();
 }
@@ -5285,48 +5285,48 @@ void ScribusApp::ToggleAllGuides()
 void ScribusApp::ToggleMarks()
 {
 	GuidesStat[0] = false;
-	doc->MarginsShown = !doc->MarginsShown;
-	viewMenu->setItemChecked(Markers, doc->MarginsShown);
+	doc->guidesSettings.marginsShown = !doc->guidesSettings.marginsShown;
+	viewMenu->setItemChecked(Markers, doc->guidesSettings.marginsShown);
 	view->DrawNew();
 }
 
 void ScribusApp::ToggleFrames()
 {
 	GuidesStat[0] = false;
-	doc->FramesShown = !doc->FramesShown;
-	viewMenu->setItemChecked(FrameDr, doc->FramesShown);
+	doc->guidesSettings.framesShown = !doc->guidesSettings.framesShown;
+	viewMenu->setItemChecked(FrameDr, doc->guidesSettings.framesShown);
 	view->DrawNew();
 }
 
 void ScribusApp::ToggleRaster()
 {
 	GuidesStat[0] = false;
-	doc->GridShown = !doc->GridShown;
-	viewMenu->setItemChecked(Ras, doc->GridShown);
+	doc->guidesSettings.gridShown = !doc->guidesSettings.gridShown;
+	viewMenu->setItemChecked(Ras, doc->guidesSettings.gridShown);
 	view->DrawNew();
 }
 
 void ScribusApp::ToggleGuides()
 {
 	GuidesStat[0] = false;
-	doc->GuidesShown = !doc->GuidesShown;
-	viewMenu->setItemChecked(Guide, doc->GuidesShown);
+	doc->guidesSettings.guidesShown = !doc->guidesSettings.guidesShown;
+	viewMenu->setItemChecked(Guide, doc->guidesSettings.guidesShown);
 	view->DrawNew();
 }
 
 void ScribusApp::ToggleBase()
 {
 	GuidesStat[0] = false;
-	doc->BaseShown = !doc->BaseShown;
-	viewMenu->setItemChecked(Base, doc->BaseShown);
+	doc->guidesSettings.baseShown = !doc->guidesSettings.baseShown;
+	viewMenu->setItemChecked(Base, doc->guidesSettings.baseShown);
 	view->DrawNew();
 }
 
 void ScribusApp::ToggleTextLinks()
 {
 	GuidesStat[0] = false;
-	doc->linkShown = !doc->linkShown;
-	viewMenu->setItemChecked(textLinks, doc->linkShown);
+	doc->guidesSettings.linkShown = !doc->guidesSettings.linkShown;
+	viewMenu->setItemChecked(textLinks, doc->guidesSettings.linkShown);
 	view->DrawNew();
 }
 
@@ -6995,25 +6995,25 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.ScratchLeft = dia->leftScratch->value() / UmReFaktor;
 		Prefs.ScratchRight = dia->rightScratch->value() / UmReFaktor;
 		Prefs.ScratchTop = dia->topScratch->value() / UmReFaktor;
-		Prefs.GrabRad = dia->grabDistance->value();
-		Prefs.GuideRad = dia->snapDistance->value() / UmReFaktor;
+		Prefs.DpapColor = dia->colorPaper;
 		Prefs.DefFont = dia->fontComboText->currentText();
 		Prefs.DefSize = dia->sizeComboText->currentText().left(2).toInt() * 10;
-		Prefs.DminGrid = dia->minorSpace->value() / UmReFaktor;
-		Prefs.DmajGrid = dia->majorSpace->value() / UmReFaktor;
-		Prefs.DminColor = dia->colorMinorGrid;
-		Prefs.DmajColor = dia->colorMajorGrid;
-		Prefs.DpapColor = dia->colorPaper;
-		Prefs.DmargColor = dia->colorMargin;
-		Prefs.guideColor = dia->colorGuides;
-		Prefs.baseColor = dia->colorBaselineGrid;
-		Prefs.linkShown = dia->checkLink->isChecked();
-		Prefs.GuidesShown = dia->checkGuides->isChecked();
-		Prefs.MarginsShown = dia->checkMargin->isChecked();
-		Prefs.BaseShown = dia->checkBaseline->isChecked();
-		Prefs.GridShown = dia->checkGrid->isChecked();
-		Prefs.FramesShown = dia->checkFrame->isChecked();
-		Prefs.ShowPic = dia->checkPictures->isChecked();
+		Prefs.guidesSettings.marginsShown = dia->tabGuides->checkMargin->isChecked();
+		Prefs.guidesSettings.framesShown = dia->tabGuides->checkFrame->isChecked();
+		Prefs.guidesSettings.gridShown = dia->tabGuides->checkGrid->isChecked();
+		Prefs.guidesSettings.guidesShown = dia->tabGuides->checkGuides->isChecked();
+		Prefs.guidesSettings.baseShown = dia->tabGuides->checkBaseline->isChecked();
+		Prefs.guidesSettings.showPic = dia->tabGuides->checkPictures->isChecked();
+		Prefs.guidesSettings.linkShown = dia->tabGuides->checkLink->isChecked();
+		Prefs.guidesSettings.grabRad = dia->tabGuides->grabDistance->value();
+		Prefs.guidesSettings.guideRad = dia->tabGuides->snapDistance->value() / UmReFaktor;
+		Prefs.guidesSettings.minorGrid = dia->tabGuides->minorSpace->value() / UmReFaktor;
+		Prefs.guidesSettings.majorGrid = dia->tabGuides->majorSpace->value() / UmReFaktor;
+		Prefs.guidesSettings.minorColor = dia->tabGuides->colorMinorGrid;
+		Prefs.guidesSettings.majorColor = dia->tabGuides->colorMajorGrid;
+		Prefs.guidesSettings.margColor = dia->tabGuides->colorMargin;
+		Prefs.guidesSettings.guideColor = dia->tabGuides->colorGuides;
+		Prefs.guidesSettings.baseColor = dia->tabGuides->colorBaselineGrid;
 		Prefs.typographicSetttings.valueSuperScript = dia->tabTypo->superDisplacement->value();
 		Prefs.typographicSetttings.scalingSuperScript = dia->tabTypo->superScaling->value();
 		Prefs.typographicSetttings.valueSubScript = dia->tabTypo->subDisplacement->value();

@@ -1196,6 +1196,61 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 #ifdef HAVE_CMS
 							}
 #endif
+							Inhalt += FToStr(fabs(ite->Pwidth))+" w\n";
+							if (ite->DashValues.count() != 0)
+							{
+								PutPage("[ ");
+								QValueList<double>::iterator it;
+								for ( it = ite->DashValues.begin(); it != ite->DashValues.end(); ++it )
+								{
+									int da = static_cast<int>(*it);
+									if (da != 0)
+										PutPage(IToStr(da)+" ");
+									PutPage(IToStr(static_cast<int>(*it))+" ");
+								}
+							}
+							else
+							{
+								QString Dt = FToStr(QMAX(2*fabs(ite->Pwidth), 1));
+								QString Da = FToStr(QMAX(6*fabs(ite->Pwidth), 1));
+								switch (ite->PLineArt)
+								{
+									case Qt::SolidLine:
+										PutPage("[] 0 d\n");
+										break;
+									case Qt::DashLine:
+										PutPage("["+Da+" "+Dt+"] 0 d\n");
+										break;
+									case Qt::DotLine:
+										PutPage("["+Dt+"] 0 d\n");
+										break;
+									case Qt::DashDotLine:
+										PutPage("["+Da+" "+Dt+" "+Dt+" "+Dt+"] 0 d\n");
+										break;
+									case Qt::DashDotDotLine:
+										PutPage("["+Da+" "+Dt+" "+Dt+" "+Dt+" "+Dt+" "+Dt+"] 0 d\n");
+										break;
+									default:
+										PutPage("[] 0 d\n");
+										break;
+								}
+							}
+							PutPage("2 J\n");
+							switch (ite->PLineJoin)
+							{
+								case Qt::MiterJoin:
+									PutPage("0 j\n");
+									break;
+								case Qt::BevelJoin:
+									PutPage("2 j\n");
+									break;
+								case Qt::RoundJoin:
+									PutPage("1 j\n");
+									break;
+								default:
+									PutPage("0 j\n");
+									break;
+							}
 							PutPage("1 0 0 1 "+FToStr(ite->Xpos - mPage->Xoffset)+" "+FToStr(doc->PageH - (ite->Ypos  - mPage->Yoffset))+" cm\n");
 							if (ite->Rot != 0)
 							{
@@ -1217,11 +1272,31 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 									PutPage("h\nf*\n");
 								}
 							}
+							PutPage("q\n");
 							if ((ite->flippedH % 2) != 0)
 								PutPage("-1 0 0 1 "+FToStr(ite->Width)+" 0 cm\n");
 							if ((ite->flippedV % 2) != 0)
 								PutPage("1 0 0 -1 0 "+FToStr(-ite->Height)+" cm\n");
 							PutPage(setTextSt(ite, PNr));
+							PutPage("Q\n");
+							if (((ite->Pcolor2 != "None") || (ite->NamedLStyle != "")) && (!ite->isTableItem))
+							{
+								if ((ite->NamedLStyle == "") && (ite->Pwidth != 0.0))
+								{
+									PutPage(SetClipPath(ite));
+									PutPage("h\nS\n");
+								}
+								else
+								{
+									multiLine ml = doc->MLineStyles[ite->NamedLStyle];
+									for (int it = ml.size()-1; it > -1; it--)
+									{
+										PutPage(setStrokeMulti(&ml[it]));
+										PutPage(SetClipPath(ite));
+										PutPage("h\nS\n");
+									}
+								}
+							}
 							PutPage("Q\n");
 						}
 					}
@@ -2294,8 +2369,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 			{
 				if ((hl->cstroke != "None") && (hl->cstyle & 4))
 				{
-					tmp2 += FToStr((*doc->AllFonts)[hl->cfont]->strokeWidth * tsz / 200.0)+
-								" w\n[] 0 d\n0 J\n0 j\n";
+					tmp2 += FToStr(QMAX((*doc->AllFonts)[hl->cfont]->strokeWidth * tsz / 20.0, 10) / tsz)+" w\n[] 0 d\n0 J\n0 j\n";
 					tmp2 += StrokeColor;
 				}
 				if (hl->ccolor != "None")

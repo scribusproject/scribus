@@ -1050,13 +1050,13 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		doc->PageSp=QStoInt(dc.attribute("AUTOSPALTEN"));
 		doc->PageSpa=QStodouble(dc.attribute("ABSTSPALTEN"));
 		doc->Einheit = QStoInt(dc.attribute("UNITS","0"));
-		doc->GridShown = view->Prefs->GridShown;
-		doc->GuidesShown = view->Prefs->GuidesShown;
-		doc->FramesShown = view->Prefs->FramesShown;
-		doc->MarginsShown = view->Prefs->MarginsShown;
-		doc->BaseShown = view->Prefs->BaseShown;
-		doc->linkShown = view->Prefs->linkShown;
-		doc->ShowPic = true;
+		doc->guidesSettings.gridShown = view->Prefs->guidesSettings.gridShown;
+		doc->guidesSettings.guidesShown = view->Prefs->guidesSettings.guidesShown;
+		doc->guidesSettings.framesShown = view->Prefs->guidesSettings.framesShown;
+		doc->guidesSettings.marginsShown = view->Prefs->guidesSettings.marginsShown;
+		doc->guidesSettings.baseShown = view->Prefs->guidesSettings.baseShown;
+		doc->guidesSettings.linkShown = view->Prefs->guidesSettings.linkShown;
+		doc->guidesSettings.showPic = true;
 		DoFonts.clear();
 		doc->Dsize=qRound(QStodouble(dc.attribute("DSIZE")) * 10);
 		Defont=dc.attribute("DFONT");
@@ -1120,8 +1120,8 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		doc->Automatic = static_cast<bool>(QStoInt(dc.attribute("AUTOMATIC", "1")));
 		doc->AutoCheck = static_cast<bool>(QStoInt(dc.attribute("AUTOCHECK", "0")));
 		doc->GuideLock = static_cast<bool>(QStoInt(dc.attribute("GUIDELOCK", "0")));
-		doc->minorGrid = QStodouble(dc.attribute("MINGRID", tmp.setNum(view->Prefs->DminGrid)));
-		doc->majorGrid = QStodouble(dc.attribute("MAJGRID", tmp.setNum(view->Prefs->DmajGrid)));
+		doc->guidesSettings.minorGrid = QStodouble(dc.attribute("MINGRID", tmp.setNum(view->Prefs->guidesSettings.minorGrid)));
+		doc->guidesSettings.majorGrid = QStodouble(dc.attribute("MAJGRID", tmp.setNum(view->Prefs->guidesSettings.majorGrid)));
 		doc->DstartArrow = 0;
 		doc->DendArrow = 0;
 		QDomNode PAGE=DOC.firstChild();
@@ -2502,17 +2502,17 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	dc.setAttribute("AUTOMATIC", static_cast<int>(doc->Automatic));
 	dc.setAttribute("AUTOCHECK", static_cast<int>(doc->AutoCheck));
 	dc.setAttribute("GUIDELOCK", static_cast<int>(doc->GuideLock));
-	dc.setAttribute("MINGRID", doc->minorGrid);
-	dc.setAttribute("MAJGRID", doc->majorGrid);
-	dc.setAttribute("SHOWGRID", static_cast<int>(doc->GridShown));
-	dc.setAttribute("SHOWGUIDES", static_cast<int>(doc->GuidesShown));
-	dc.setAttribute("SHOWFRAME", static_cast<int>(doc->FramesShown));
-	dc.setAttribute("SHOWMARGIN", static_cast<int>(doc->MarginsShown));
-	dc.setAttribute("SHOWBASE", static_cast<int>(doc->BaseShown));
-	dc.setAttribute("SHOWPICT", static_cast<int>(doc->ShowPic));
-	dc.setAttribute("SHOWLINK", static_cast<int>(doc->linkShown));
-	dc.setAttribute("GuideRad", doc->GuideRad);
-	dc.setAttribute("GRAB",doc->GrabRad);
+	dc.setAttribute("MINGRID", doc->guidesSettings.minorGrid);
+	dc.setAttribute("MAJGRID", doc->guidesSettings.majorGrid);
+	dc.setAttribute("SHOWGRID", static_cast<int>(doc->guidesSettings.gridShown));
+	dc.setAttribute("SHOWGUIDES", static_cast<int>(doc->guidesSettings.guidesShown));
+	dc.setAttribute("SHOWFRAME", static_cast<int>(doc->guidesSettings.framesShown));
+	dc.setAttribute("SHOWMARGIN", static_cast<int>(doc->guidesSettings.marginsShown));
+	dc.setAttribute("SHOWBASE", static_cast<int>(doc->guidesSettings.baseShown));
+	dc.setAttribute("SHOWPICT", static_cast<int>(doc->guidesSettings.showPic));
+	dc.setAttribute("SHOWLINK", static_cast<int>(doc->guidesSettings.linkShown));
+	dc.setAttribute("GuideRad", doc->guidesSettings.guideRad);
+	dc.setAttribute("GRAB",doc->guidesSettings.grabRad);
 	dc.setAttribute("POLYC", doc->PolyC);
 	dc.setAttribute("POLYF", doc->PolyF);
 	dc.setAttribute("POLYR", doc->PolyR);
@@ -2547,14 +2547,14 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	dc.setAttribute("PICTSCY",doc->ScaleY);
 	dc.setAttribute("PSCALE", static_cast<int>(doc->ScaleType));
 	dc.setAttribute("PASPECT", static_cast<int>(doc->AspectRatio));
-	dc.setAttribute("MINORC",doc->minorColor.name());
-	dc.setAttribute("MAJORC",doc->majorColor.name());
-	dc.setAttribute("GuideC", doc->guideColor.name());
-	dc.setAttribute("BaseC", doc->baseColor.name());
-	dc.setAttribute("GuideZ", doc->GuideRad);
+	dc.setAttribute("MINORC",doc->guidesSettings.minorColor.name());
+	dc.setAttribute("MAJORC",doc->guidesSettings.majorColor.name());
+	dc.setAttribute("GuideC", doc->guidesSettings.guideColor.name());
+	dc.setAttribute("BaseC", doc->guidesSettings.baseColor.name());
+	dc.setAttribute("GuideZ", doc->guidesSettings.guideRad);
 	dc.setAttribute("BACKG", static_cast<int>(doc->Before));
 	dc.setAttribute("PAGEC",doc->papColor.name());
-	dc.setAttribute("MARGC",doc->margColor.name());
+	dc.setAttribute("MARGC",doc->guidesSettings.margColor.name());
 	dc.setAttribute("RANDF", static_cast<int>(doc->RandFarbig));
 	QMap<QString,multiLine>::Iterator itMU;
 	for (itMU = doc->MLineStyles.begin(); itMU != doc->MLineStyles.end(); ++itMU)
@@ -2799,19 +2799,19 @@ void ScriXmlDoc::WritePref(preV *Vor, QString ho)
 	dc.setAttribute("STILT",Vor->GUI);
 	dc.setAttribute("RAD",Vor->Wheelval);
 	dc.setAttribute("APF",Vor->AppFontSize);
-	dc.setAttribute("GRAB",Vor->GrabRad);
+	dc.setAttribute("GRAB",Vor->guidesSettings.grabRad);
 	dc.setAttribute("UNIT",Vor->Einheit);
 	dc.setAttribute("RCD", Vor->RecentDCount);
 	dc.setAttribute("DOC", Vor->DocDir);
 	dc.setAttribute("PROFILES", Vor->ProfileDir);
 	dc.setAttribute("SCRIPTS", Vor->ScriptDir);
 	dc.setAttribute("TEMPLATES", Vor->TemplateDir);
-	dc.setAttribute("SHOWGUIDES", static_cast<int>(Vor->GuidesShown));
-	dc.setAttribute("FRV", static_cast<int>(Vor->FramesShown));
-	dc.setAttribute("SHOWMARGIN", static_cast<int>(Vor->MarginsShown));
-	dc.setAttribute("SHOWBASE", static_cast<int>(Vor->BaseShown));
-	dc.setAttribute("SHOWLINK", static_cast<int>(Vor->linkShown));
-	dc.setAttribute("SHOWPICT", static_cast<int>(Vor->ShowPic));
+	dc.setAttribute("SHOWGUIDES", static_cast<int>(Vor->guidesSettings.guidesShown));
+	dc.setAttribute("FRV", static_cast<int>(Vor->guidesSettings.framesShown));
+	dc.setAttribute("SHOWMARGIN", static_cast<int>(Vor->guidesSettings.marginsShown));
+	dc.setAttribute("SHOWBASE", static_cast<int>(Vor->guidesSettings.baseShown));
+	dc.setAttribute("SHOWLINK", static_cast<int>(Vor->guidesSettings.linkShown));
+	dc.setAttribute("SHOWPICT", static_cast<int>(Vor->guidesSettings.showPic));
 	dc.setAttribute("ScratchBottom", Vor->ScratchBottom);
 	dc.setAttribute("ScatchLeft", Vor->ScratchLeft);
 	dc.setAttribute("ScratchRight", Vor->ScratchRight);
@@ -2820,19 +2820,19 @@ void ScriXmlDoc::WritePref(preV *Vor, QString ho)
 	dc.setAttribute("STEFONT", Vor->STEfont);
 	elem.appendChild(dc);
 	QDomElement dc1=docu.createElement("GRID");
-	dc1.setAttribute("MINOR",Vor->DminGrid);
-	dc1.setAttribute("MAJOR",Vor->DmajGrid);
-	dc1.setAttribute("MINORC",Vor->DminColor.name());
-	dc1.setAttribute("MAJORC",Vor->DmajColor.name());
-	dc1.setAttribute("GuideC", Vor->guideColor.name());
-	dc1.setAttribute("BaseC", Vor->baseColor.name());
-	dc1.setAttribute("GuideZ", Vor->GuideRad);
+	dc1.setAttribute("MINOR",Vor->guidesSettings.minorGrid);
+	dc1.setAttribute("MAJOR",Vor->guidesSettings.majorGrid);
+	dc1.setAttribute("MINORC",Vor->guidesSettings.minorColor.name());
+	dc1.setAttribute("MAJORC",Vor->guidesSettings.majorColor.name());
+	dc1.setAttribute("GuideC", Vor->guidesSettings.guideColor.name());
+	dc1.setAttribute("BaseC", Vor->guidesSettings.baseColor.name());
+	dc1.setAttribute("GuideZ", Vor->guidesSettings.guideRad);
 	dc1.setAttribute("BACKG", static_cast<int>(Vor->Before));
-	dc1.setAttribute("SHOW", static_cast<int>(Vor->GridShown));
+	dc1.setAttribute("SHOW", static_cast<int>(Vor->guidesSettings.gridShown));
 	elem.appendChild(dc1);
 	QDomElement dc1a=docu.createElement("PAGE");
 	dc1a.setAttribute("PAGEC",Vor->DpapColor.name());
-	dc1a.setAttribute("MARGC",Vor->DmargColor.name());
+	dc1a.setAttribute("MARGC",Vor->guidesSettings.margColor.name());
 	dc1a.setAttribute("RANDF", static_cast<int>(Vor->RandFarbig));
 	dc1a.setAttribute("DScale",Vor->DisScale);
 	elem.appendChild(dc1a);
@@ -3076,7 +3076,7 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 		{
 			Vorein->GUI = dc.attribute("STILT","Default");
 			Vorein->Wheelval = QStoInt(dc.attribute("RAD"));
-			Vorein->GrabRad = QStoInt(dc.attribute("GRAB","4"));
+			Vorein->guidesSettings.grabRad = QStoInt(dc.attribute("GRAB","4"));
 			Vorein->Einheit = QStoInt(dc.attribute("UNIT","0"));
 			Vorein->AppFontSize = QStoInt(dc.attribute("APF","12"));
 			Vorein->RecentDCount = dc.attribute("RCD","5").toUInt();
@@ -3084,12 +3084,12 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 			Vorein->ProfileDir = dc.attribute("PROFILES","");
 			Vorein->ScriptDir = dc.attribute("SCRIPTS","");
 			Vorein->TemplateDir = dc.attribute("TEMPLATES","");
-			Vorein->GuidesShown = static_cast<bool>(QStoInt(dc.attribute("SHOWGUIDES","1")));
-			Vorein->FramesShown = static_cast<bool>(QStoInt(dc.attribute("FRV","1")));
-			Vorein->MarginsShown = static_cast<bool>(QStoInt(dc.attribute("SHOWMARGIN","1")));
-			Vorein->BaseShown = static_cast<bool>(QStoInt(dc.attribute("SHOWBASE","1")));
-			Vorein->linkShown = static_cast<bool>(QStoInt(dc.attribute("SHOWLINK","0")));
-			Vorein->ShowPic = static_cast<bool>(QStoInt(dc.attribute("SHOWPICT","1")));
+			Vorein->guidesSettings.guidesShown = static_cast<bool>(QStoInt(dc.attribute("SHOWGUIDES","1")));
+			Vorein->guidesSettings.framesShown = static_cast<bool>(QStoInt(dc.attribute("FRV","1")));
+			Vorein->guidesSettings.marginsShown = static_cast<bool>(QStoInt(dc.attribute("SHOWMARGIN","1")));
+			Vorein->guidesSettings.baseShown = static_cast<bool>(QStoInt(dc.attribute("SHOWBASE","1")));
+			Vorein->guidesSettings.linkShown = static_cast<bool>(QStoInt(dc.attribute("SHOWLINK","0")));
+			Vorein->guidesSettings.showPic = static_cast<bool>(QStoInt(dc.attribute("SHOWPICT","1")));
 			Vorein->ScratchBottom = QStodouble(dc.attribute("ScratchBottom", "20"));
 			Vorein->ScratchLeft = QStodouble(dc.attribute("ScatchLeft", "100"));
 			Vorein->ScratchRight = QStodouble(dc.attribute("ScratchRight", "100"));
@@ -3101,23 +3101,23 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 		}
 		if (dc.tagName()=="GRID")
 		{
-			Vorein->DminGrid = QStodouble(dc.attribute("MINOR"));
-			Vorein->DmajGrid = QStodouble(dc.attribute("MAJOR"));
-			Vorein->DminColor = QColor(dc.attribute("MINORC"));
-			Vorein->DmajColor = QColor(dc.attribute("MAJORC"));
+			Vorein->guidesSettings.minorGrid = QStodouble(dc.attribute("MINOR"));
+			Vorein->guidesSettings.majorGrid = QStodouble(dc.attribute("MAJOR"));
+			Vorein->guidesSettings.minorColor = QColor(dc.attribute("MINORC"));
+			Vorein->guidesSettings.majorColor = QColor(dc.attribute("MAJORC"));
 			Vorein->Before = static_cast<bool>(QStoInt(dc.attribute("BACKG","1")));
-			Vorein->GridShown = static_cast<bool>(QStoInt(dc.attribute("SHOW","0")));
+			Vorein->guidesSettings.gridShown = static_cast<bool>(QStoInt(dc.attribute("SHOW","0")));
 			if (dc.hasAttribute("GuideC"))
-				Vorein->guideColor = QColor(dc.attribute("GuideC"));
+				Vorein->guidesSettings.guideColor = QColor(dc.attribute("GuideC"));
 			if (dc.hasAttribute("GuideZ"))
-				Vorein->GuideRad = QStodouble(dc.attribute("GuideZ"));
+				Vorein->guidesSettings.guideRad = QStodouble(dc.attribute("GuideZ"));
 			if (dc.hasAttribute("BaseC"))
-				Vorein->baseColor = QColor(dc.attribute("BaseC"));
+				Vorein->guidesSettings.baseColor = QColor(dc.attribute("BaseC"));
 		}
 		if (dc.tagName()=="PAGE")
 		{
 			Vorein->DpapColor = QColor(dc.attribute("PAGEC"));
-			Vorein->DmargColor = QColor(dc.attribute("MARGC","#0000ff"));
+			Vorein->guidesSettings.margColor = QColor(dc.attribute("MARGC","#0000ff"));
 			Vorein->RandFarbig = static_cast<bool>(QStoInt(dc.attribute("RANDF","0")));
 			Vorein->DisScale = QStodouble(dc.attribute("DScale","1"));
 		}

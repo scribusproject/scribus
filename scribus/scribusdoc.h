@@ -68,7 +68,6 @@ protected:
 
 public: // Public attributes
 	bool SnapGuides;
-	double GuideRad;
 	bool GuideLock;
 	bool loading;
 	/** Scratch space around Pages */
@@ -111,14 +110,6 @@ public: // Public attributes
 	int FirstPnum;
   /** Flag fuer Rasterbenutzung */
 	bool useRaster;
-  /** Flag fuer Bilder */
-	bool ShowPic;
-	bool FramesShown;
-	bool GuidesShown;
-	bool MarginsShown;
-	bool GridShown;
-	bool BaseShown;
-	bool linkShown;
   /** Im Dokument benutzte Farben */
 	CListe PageColors;
 	Page* ActPage;
@@ -164,14 +155,7 @@ public: // Public attributes
 	SCFonts *AllFonts;
 	preV *prefsValues;
 	int Dsize;
-	QColor minorColor;
-	QColor majorColor;
 	QColor papColor;
-	QColor margColor;
-	QColor guideColor;
-	QColor baseColor;
-	double minorGrid;
-	double majorGrid;
 	int CurrentSel;
 	int CurrentStyle;
 	int CurrentABStil;
@@ -185,6 +169,7 @@ public: // Public attributes
 	bool EditClip;
 	int EditClipMode;
 	typoStruct typographicSetttings;
+	guidesStruct guidesSettings;
   /** Letztes Element fuer AutoTextrahmen */
 	PageItem *LastAuto;
   /** Erstes Element fuer AutoTextrahmen */
@@ -192,7 +177,6 @@ public: // Public attributes
 	int MagMin;
 	int MagMax;
 	int MagStep;
-	int GrabRad;
 	QString DbrushPict;
 	int ShadePict;
 	double ScaleX;

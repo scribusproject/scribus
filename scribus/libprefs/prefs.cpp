@@ -18,6 +18,7 @@
 #include "polygonwidget.h"
 #include "arrowchooser.h"
 #include "tabtypography.h"
+#include "tabguides.h"
 #include "hysettings.h"
 #include "cmsprefs.h"
 #include "keymanager.h"
@@ -331,169 +332,8 @@ Preferences::Preferences( QWidget* parent, preV *prefsData) : PrefsDialogBase( p
 	tabLayout_7->addLayout( Layout21 );
 	addItem( tr("Document"), loadIcon("page.png"), tab_7);
 
-	tabGuides = new QWidget( prefsWidgets, "tabView" );
-	tabGuidesLayout = new QVBoxLayout( tabGuides, 10, 5, "tabViewLayout");
-	tabGuidesLayout->setAlignment( Qt::AlignTop );
-	checkGrid = new QGroupBox( tabGuides, "checkGrid" );
-	checkGrid->setTitle( tr( "Show Grid" ) );
-	checkGrid->setCheckable( true );
-	checkGrid->setChecked(prefsData->GridShown);
-	checkGrid->setColumnLayout(0, Qt::Vertical );
-	checkGrid->layout()->setSpacing( 5 );
-	checkGrid->layout()->setMargin( 10 );
-	checkGridLayout = new QGridLayout( checkGrid->layout() );
-	checkGridLayout->setAlignment( Qt::AlignTop );
-	groupBox1 = new QGroupBox( checkGrid, "groupBox1" );
-	groupBox1->setColumnLayout(0, Qt::Vertical );
-	groupBox1->layout()->setSpacing( 5 );
-	groupBox1->layout()->setMargin( 10 );
-	groupBox1->setTitle( tr( "Major Grid" ) );
-	groupBox1Layout = new QGridLayout( groupBox1->layout() );
-	groupBox1Layout->setAlignment( Qt::AlignTop );
-	majorGridColor = new QPushButton( groupBox1, "majorGridColor" );
-	majorGridColor->setMinimumSize( QSize( 60, 20 ) );
-	majorGridColor->setMaximumSize( QSize( 60, 20 ) );
-	majorGridColor->setFlat( false );
-	majorGridColor->setAutoDefault( false );
-	QPixmap pm1 = QPixmap(54, 14);
-	pm1.fill(prefsData->DmajColor);
-	colorMajorGrid = prefsData->DmajColor;
-	majorGridColor->setPixmap(pm1);
-	majorGridColor->setText( QString::null );
-	groupBox1Layout->addWidget( majorGridColor, 1, 1 );
-	textLabel4 = new QLabel( groupBox1, "textLabel4" );
-	textLabel4->setText( tr( "Color:" ) );
-	groupBox1Layout->addWidget( textLabel4, 1, 0 );
-	textLabel6 = new QLabel( groupBox1, "textLabel6" );
-	textLabel6->setText( tr( "Spacing:" ) );
-	groupBox1Layout->addWidget( textLabel6, 0, 0 );
-	majorSpace = new MSpinBox( 10 * Umrech, 1000 * Umrech, groupBox1, decimals );
-	majorSpace->setValue( prefsData->DmajGrid * Umrech );
-	groupBox1Layout->addWidget( majorSpace, 0, 1 );
-	checkGridLayout->addWidget( groupBox1, 0, 0 );
-	groupBox2 = new QGroupBox( checkGrid, "groupBox2" );
-	groupBox2->setColumnLayout(0, Qt::Vertical );
-	groupBox2->layout()->setSpacing( 5 );
-	groupBox2->layout()->setMargin( 10 );
-	groupBox2->setTitle( tr( "Minor Grid" ) );
-	groupBox2Layout = new QGridLayout( groupBox2->layout() );
-	groupBox2Layout->setAlignment( Qt::AlignTop );
-	textLabel5 = new QLabel( groupBox2, "textLabel5" );
-	textLabel5->setText( tr( "Color:" ) );
-	groupBox2Layout->addWidget( textLabel5, 1, 0 );
-	minorGridColor = new QPushButton( groupBox2, "minorGridColor" );
-	minorGridColor->setMinimumSize( QSize( 60, 20 ) );
-	minorGridColor->setMaximumSize( QSize( 60, 20 ) );
-	minorGridColor->setFlat( false );
-	minorGridColor->setAutoDefault( false );
-	QPixmap pm = QPixmap(54, 14);
-	pm.fill(prefsData->DminColor);
-	colorMinorGrid = prefsData->DminColor;
-	minorGridColor->setPixmap(pm);
-	minorGridColor->setText( QString::null );
-	groupBox2Layout->addWidget( minorGridColor, 1, 1 );
-	textLabel7 = new QLabel( groupBox2, "textLabel7" );
-	textLabel7->setText( tr( "Spacing:" ) );
-	groupBox2Layout->addWidget( textLabel7, 0, 0 );
-	minorSpace = new MSpinBox(Umrech, 1000 * Umrech, groupBox2, decimals);
-	minorSpace->setValue(prefsData->DminGrid * Umrech);
-	groupBox2Layout->addWidget( minorSpace, 0, 1 );
-	checkGridLayout->addWidget( groupBox2, 0, 1 );
-	tabGuidesLayout->addWidget( checkGrid );
-	layout11 = new QGridLayout( 0, 1, 1, 0, 5, "layout11");
-	textLabel8 = new QLabel( tabGuides, "textLabel8" );
-	textLabel8->setText( tr( "Guide Snap Distance:" ) );
-	layout11->addWidget( textLabel8, 0, 0 );
-	snapDistance = new MSpinBox( Umrech, 1000 * Umrech, tabGuides, decimals );
-	snapDistance->setValue( prefsData->GuideRad * Umrech );
-	layout11->addWidget( snapDistance, 0, 1, Qt::AlignLeft );
-	textLabel82 = new QLabel( tabGuides, "textLabel8" );
-	textLabel82->setText( tr( "&Grab Radius:" ) );
-	layout11->addWidget( textLabel82, 1, 0 );
-	grabDistance = new QSpinBox( tabGuides, "grabDistance" );
-	grabDistance->setMaxValue( 1000 );
-	grabDistance->setMinValue( 1 );
-	grabDistance->setLineStep( 1 );
-	grabDistance->setValue(prefsData->GrabRad );
-	grabDistance->setSuffix( tr( " px" ) );
-	layout11->addWidget( grabDistance, 1, 1, Qt::AlignLeft );
-	checkMargin = new QCheckBox( tabGuides, "checkMargin" );
-	checkMargin->setText( tr( "Show Margins" ) );
-	checkMargin->setChecked(prefsData->MarginsShown);
-	layout11->addWidget( checkMargin, 2, 0 );
-	checkGuides = new QCheckBox( tabGuides, "checkGuides" );
-	checkGuides->setText( tr( "Show Guides" ) );
-	checkGuides->setChecked(prefsData->GuidesShown);
-	layout11->addWidget( checkGuides, 3, 0 );
-	checkBaseline = new QCheckBox( tabGuides, "checkBaseline" );
-	checkBaseline->setText( tr( "Show Baseline Grid" ) );
-	checkBaseline->setChecked(prefsData->BaseShown);
-	layout11->addWidget( checkBaseline, 4, 0 );
-	layout2 = new QHBoxLayout( 0, 0, 5, "layout2");
-	textLabel2 = new QLabel( tabGuides, "textLabel2" );
-	textLabel2->setText( tr( "Color:" ) );
-	layout2->addWidget( textLabel2 );
-	baselineColor = new QPushButton( tabGuides, "baselineColor" );
-	baselineColor->setMinimumSize( QSize( 60, 20 ) );
-	baselineColor->setMaximumSize( QSize( 60, 20 ) );
-	baselineColor->setFlat( false );
-	baselineColor->setAutoDefault( false );
-	QPixmap pm4 = QPixmap(54, 14);
-	pm4.fill(prefsData->baseColor);
-	colorBaselineGrid = prefsData->baseColor;
-	baselineColor->setPixmap(pm4);
-	baselineColor->setText( QString::null );
-	layout2->addWidget( baselineColor );
-	layout11->addLayout( layout2, 4, 1 );
-	layout3 = new QHBoxLayout( 0, 0, 5, "layout3");
-	textLabel3 = new QLabel( tabGuides, "textLabel3" );
-	textLabel3->setText( tr( "Color:" ) );
-	layout3->addWidget( textLabel3 );
-	guideColor = new QPushButton( tabGuides, "guideColor" );
-	guideColor->setMinimumSize( QSize( 60, 20 ) );
-	guideColor->setMaximumSize( QSize( 60, 20 ) );
-	guideColor->setFlat( false );
-	guideColor->setAutoDefault( false );
-	QPixmap pm3 = QPixmap(54, 14);
-	pm3.fill(prefsData->guideColor);
-	colorGuides = prefsData->guideColor;
-	guideColor->setPixmap(pm3);
-	guideColor->setText( QString::null );
-	layout3->addWidget( guideColor );
-	layout11->addLayout( layout3, 3, 1 );
-	layout9 = new QHBoxLayout( 0, 0, 5, "layout9");
-	textLabel1 = new QLabel( tabGuides, "textLabel1" );
-	textLabel1->setText( tr( "Color:" ) );
-	layout9->addWidget( textLabel1 );
-	marginColor = new QPushButton( tabGuides, "marginColor" );
-	marginColor->setMinimumSize( QSize( 60, 20 ) );
-	marginColor->setMaximumSize( QSize( 60, 20 ) );
-	marginColor->setAutoDefault( false );
-	QPixmap pm6 = QPixmap(54, 14);
-	pm6.fill(prefsData->DmargColor);
-	colorMargin = prefsData->DmargColor;
-	marginColor->setPixmap(pm6);
-	marginColor->setFlat( false );
-	marginColor->setText( QString::null );
-	layout9->addWidget( marginColor );
-	layout11->addLayout( layout9, 2, 1 );
-	tabGuidesLayout->addLayout( layout11 );
-	layout12 = new QGridLayout( 0, 1, 1, 0, 5, "layout12");
-	checkLink = new QCheckBox( tabGuides, "checkLink" );
-	checkLink->setText( tr( "Show Text Chains" ) );
-	checkLink->setChecked(prefsData->linkShown);
-	layout12->addWidget( checkLink, 1, 0 );
-	checkFrame = new QCheckBox( tabGuides, "checkFrame" );
-	checkFrame->setText( tr( "Show Frames" ) );
-	checkFrame->setChecked(prefsData->FramesShown);
-	layout12->addWidget( checkFrame, 0, 0 );
-	checkPictures = new QCheckBox( tabGuides, "checkPictures" );
-	checkPictures->setText( tr( "Show Pictures" ) );
-	layout12->addWidget( checkPictures, 0, 1 );
-	checkPictures->setChecked(prefsData->ShowPic);
-	tabGuidesLayout->addLayout( layout12 );
+	tabGuides = new TabGuides(prefsWidgets, &prefsData->guidesSettings, Umrech, "");
 	addItem( tr("Guides"), loadIcon("guides.png"), tabGuides);
-
 	tabTypo = new TabTypograpy(  prefsWidgets, &prefsData->typographicSetttings, Umrech, "");
 	addItem( tr("Typography"), loadIcon("font.png"), tabTypo);
 
@@ -1175,25 +1015,6 @@ Preferences::Preferences( QWidget* parent, preV *prefsData) : PrefsDialogBase( p
 	QToolTip::add( ASon, tr( "When enabled, Scribus saves a backup copy of your file with the .bak extension\neach time the time period elapses" ) );
 	QToolTip::add( ASTime, tr( "Time period between saving automatically" ) );
 
-	QToolTip::add( minorSpace, tr( "Distance between the minor grid lines" ) );
-	QToolTip::add( majorSpace, tr( "Distance between the major grid lines" ) );
-	QToolTip::add( snapDistance, tr( "Distance within which an object will snap to your placed guides" ) );
-	QToolTip::add( grabDistance, tr( "Radius of the area where Scribus will allow you to grab an objects handles" ) );
-	QToolTip::add( minorGridColor, tr( "Color of the minor grid lines" ) );
-	QToolTip::add( majorGridColor, tr( "Color of the major grid lines" ) );
-	QToolTip::add( guideColor, tr( "Color of the guide lines you insert" ) );
-	QToolTip::add( marginColor, tr( "Color for the margin lines" ) );
-	QToolTip::add( baselineColor, tr( "Color for the basegrid lines" ) );
-	QToolTip::add( checkBaseline, tr("Turns the basegrid on or off"));
-	QToolTip::add( checkGrid, tr("Turns the gridlines on or off"));
-	QToolTip::add( checkGuides, tr("Turns the guides on or off"));
-	QToolTip::add( checkMargin, tr("Turns the margins on or off"));
-	QToolTip::add( checkLink, tr("Turns the of linked frames on or off"));
-	QToolTip::add( checkFrame, tr("Turns the display of frames on or off"));
-	QToolTip::add( checkPictures, tr("Turns the display of pictures on or off"));
-	QToolTip::add( inBackground, tr( "Place the grid behind your page objects" ) );
-	QToolTip::add( inForeground, tr( "Place the grid in front of your page objects" ) );
-
 	QToolTip::add( toolText, tr( "Text Frame Properties" ) );
 	QToolTip::add( toolImage, tr( "Picture Frame Properties" ) );
 	QToolTip::add( toolShape, tr( "Shape Drawing Properties" ) );
@@ -1250,11 +1071,6 @@ Preferences::Preferences( QWidget* parent, preV *prefsData) : PrefsDialogBase( p
 
 	// signals and slots connections
 	connect( guiLangCombo, SIGNAL( activated( const QString & ) ), this, SLOT( setSelectedGUILang( const QString & ) ) );
-	connect(majorGridColor, SIGNAL(clicked()), this, SLOT(changeMajorColor()));
-	connect(minorGridColor, SIGNAL(clicked()), this, SLOT(changeMinorColor()));
-	connect(baselineColor, SIGNAL(clicked()), this, SLOT(changeBaselineColor()));
-	connect(guideColor, SIGNAL(clicked()), this, SLOT(changeGuideColor()));
-	connect(marginColor, SIGNAL(clicked()), this, SLOT(changeMarginColor()));
 	connect(backColor, SIGNAL(clicked()), this, SLOT(changePaperColor()));
 	connect(UnitCombo, SIGNAL(activated(int)), this, SLOT(unitChange()));
 	connect(toolShape, SIGNAL(clicked()), this, SLOT(setTool()));
@@ -1652,50 +1468,6 @@ void Preferences::setOrien(int ori)
 }
 
 /*!
- \fn void Preferences::changeMaColor()
- \author Franz Schmid 
- \date  
- \brief Preferences ([dox?], [dox?]), Sets Maximum colour [dox?]
- \param None
- \retval None 
- */
-
-void Preferences::changeMajorColor()
-{
-	QColor neu = QColor();
-	neu = QColorDialog::getColor(colorMajorGrid, this);
-	if (neu.isValid())
-	{
-		QPixmap pm = QPixmap(54, 14);
-		pm.fill(neu);
-		colorMajorGrid = neu;
-		majorGridColor->setPixmap(pm);
-	}
-}
-
-/*!
- \fn void Preferences::changeMicolor()
- \author Franz Schmid 
- \date  
- \brief Preferences ([dox?], [dox?]), Sets Minimum colour [dox?]
- \param None
- \retval None 
- */
-
-void Preferences::changeMinorColor()
-{
-	QColor neu = QColor();
-	neu = QColorDialog::getColor(colorMinorGrid, this);
-	if (neu.isValid())
-	{
-		QPixmap pm = QPixmap(54, 14);
-		pm.fill(neu);
-		colorMinorGrid = neu;
-		minorGridColor->setPixmap(pm);
-	}
-}
-
-/*!
  \fn void Preferences::changePapColor()
  \author Franz Schmid 
  \date  
@@ -1713,61 +1485,6 @@ void Preferences::changePaperColor()
 		pm.fill(neu);
 		colorPaper = neu;
 		backColor->setPixmap(pm);
-	}
-}
-
-/*!
- \fn void Preferences::changeRandColor()
- \author Franz Schmid 
- \date  
- \brief Preferences ([dox?], [dox?]), Sets Rand colour [dox?]
- \param None
- \retval None 
- */
-void Preferences::changeMarginColor()
-{
-	QColor neu = QColor();
-	neu = QColorDialog::getColor(colorMargin, this);
-	if (neu.isValid())
-	{
-		QPixmap pm = QPixmap(54, 14);
-		pm.fill(neu);
-		colorMargin = neu;
-		marginColor->setPixmap(pm);
-	}
-}
-
-/*!
- \fn void Preferences::changeGuideColor()
- \author Franz Schmid 
- \date  
- \brief Preferences ([dox?], [dox?]), Sets Guide colour [dox?]
- \param None
- \retval None 
- */
-void Preferences::changeGuideColor()
-{
-	QColor neu = QColor();
-	neu = QColorDialog::getColor(colorGuides, this);
-	if (neu.isValid())
-	{
-		QPixmap pm = QPixmap(54, 14);
-		pm.fill(neu);
-		colorGuides = neu;
-		guideColor->setPixmap(pm);
-	}
-}
-
-void Preferences::changeBaselineColor()
-{
-	QColor neu = QColor();
-	neu = QColorDialog::getColor(colorBaselineGrid, this);
-	if (neu.isValid())
-	{
-		QPixmap pm = QPixmap(54, 14);
-		pm.fill(neu);
-		colorBaselineGrid = neu;
-		baselineColor->setPixmap(pm);
 	}
 }
 
@@ -1827,9 +1544,9 @@ void Preferences::unitChange()
 	BottomR->setSuffix(einh);
 	LeftR->setSuffix(einh);
 	RightR->setSuffix(einh);
-	minorSpace->setSuffix(einh);
-	majorSpace->setSuffix(einh);
-	snapDistance->setSuffix(einh);
+	tabGuides->minorSpace->setSuffix(einh);
+	tabGuides->majorSpace->setSuffix(einh);
+	tabGuides->snapDistance->setSuffix(einh);
 	tabTypo->baseGrid->setSuffix(einh);
 	tabTypo->baseOffset->setSuffix(einh);
 	gapText->setSuffix(einh);
@@ -1845,12 +1562,12 @@ void Preferences::unitChange()
 	RightR->setValues(0, pageWidth->value() - RandL * Umrech, decimals, RandR * Umrech);
 	int decimalsOld;
 	double invUnitConversion = 1.0 / AltUmrech * Umrech;
-	minorSpace->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	minorSpace->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	majorSpace->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	majorSpace->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	snapDistance->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	snapDistance->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
+	tabGuides->minorSpace->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	tabGuides->minorSpace->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
+	tabGuides->majorSpace->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	tabGuides->majorSpace->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
+	tabGuides->snapDistance->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	tabGuides->snapDistance->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	tabTypo->baseGrid->getValues(&oldMin, &oldMax, &decimalsOld, &val);
 	tabTypo->baseGrid->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	tabTypo->baseOffset->getValues(&oldMin, &oldMax, &decimalsOld, &val);

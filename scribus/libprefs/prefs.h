@@ -35,6 +35,7 @@ class TabTypograpy;
 class HySettings;
 class CMSPrefs;
 class KeyManager;
+class TabGuides;
 
 #include "langmgr.h"
 
@@ -77,34 +78,7 @@ public:
 	QLineEdit* TemplateDir;
 	QToolButton* FileC4;
 
-	QWidget* tabGuides;
-	QGroupBox* checkGrid;
-	QGroupBox* groupBox1;
-	QPushButton* majorGridColor;
-	QLabel* textLabel4;
-	QLabel* textLabel6;
-	MSpinBox* majorSpace;
-	QGroupBox* groupBox2;
-	QLabel* textLabel5;
-	QPushButton* minorGridColor;
-	QLabel* textLabel7;
-	MSpinBox* minorSpace;
-	QLabel* textLabel8;
-	QLabel* textLabel82;
-	MSpinBox* snapDistance;
-	QSpinBox* grabDistance;
-	QCheckBox* checkMargin;
-	QCheckBox* checkGuides;
-	QCheckBox* checkBaseline;
-	QLabel* textLabel2;
-	QPushButton* baselineColor;
-	QLabel* textLabel3;
-	QPushButton* guideColor;
-	QLabel* textLabel1;
-	QPushButton* marginColor;
-	QCheckBox* checkLink;
-	QCheckBox* checkFrame;
-	QCheckBox* checkPictures;
+	TabGuides* tabGuides;
 	
 	QLabel* TextLabel4c;
 
@@ -267,21 +241,11 @@ public:
 	int Einheit;
 	double DisScale;
 	ScribusApp *ap;
-	QColor colorMajorGrid;
-	QColor colorMinorGrid;
-	QColor colorBaselineGrid;
 	QColor colorPaper;
-	QColor colorGuides;
-	QColor colorMargin;
 
 
 public slots:
-	virtual void changeMajorColor();
-	virtual void changeMinorColor();
 	virtual void changePaperColor();
-	virtual void changeBaselineColor();
-	virtual void changeGuideColor();
-	virtual void changeMarginColor();
 	virtual void toggleChain();
 	virtual void hChange();
 	virtual void vChange();
@@ -332,15 +296,6 @@ protected:
 	QHBoxLayout* groupGimpLayout;
 	QVBoxLayout* MiscLayout;
 	QVBoxLayout* groupPrintLayout;
-	QVBoxLayout* tabGuidesLayout;
-	QGridLayout* checkGridLayout;
-	QGridLayout* groupBox1Layout;
-	QGridLayout* groupBox2Layout;
-	QGridLayout* layout11;
-	QHBoxLayout* layout2;
-	QHBoxLayout* layout3;
-	QHBoxLayout* layout9;
-	QGridLayout* layout12;
 	QVBoxLayout* tabViewLayout;
 	QHBoxLayout* pageBackgroundLayout;
 	QHBoxLayout* groupScratchLayout;

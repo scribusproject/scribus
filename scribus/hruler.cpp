@@ -57,10 +57,10 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 		RulerCode = 0;
 		Markp = -1;
 		double Pos = (ItemPos+Extra+lineCorr+Offset)*Scaling-offs;
-		if ((static_cast<int>(Pos) < (m->x()+doku->GrabRad)) && (static_cast<int>(Pos) > (m->x()-doku->GrabRad)))
+		if ((static_cast<int>(Pos) < (m->x()+doku->guidesSettings.grabRad)) && (static_cast<int>(Pos) > (m->x()-doku->guidesSettings.grabRad)))
 			RulerCode = 1;
 		Pos = (ItemEndPos-RExtra-lineCorr+Offset)*Scaling-offs;
-		if ((static_cast<int>(Pos) < (m->x()+doku->GrabRad)) && (static_cast<int>(Pos) > (m->x()-doku->GrabRad)))
+		if ((static_cast<int>(Pos) < (m->x()+doku->guidesSettings.grabRad)) && (static_cast<int>(Pos) > (m->x()-doku->guidesSettings.grabRad)))
 			RulerCode = 2;
 		double ColWidth = (ItemEndPos - ItemPos - (ColGap * (Cols - 1)) - Extra - RExtra - 2*lineCorr) / Cols;
 		QRect fpo;
@@ -126,7 +126,7 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 	}
 	else
 	{
-		if (ScApp->Prefs.GuidesShown)
+		if (ScApp->Prefs.guidesSettings.guidesShown)
 		{
 			QPoint py = view->viewport()->mapFromGlobal(m->globalPos());
 			view->DrHY = py.y();
@@ -306,10 +306,10 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 		{
 			qApp->setOverrideCursor(QCursor(loadIcon("tab.png"), 3), true);
 			double Pos = (ItemPos+Extra+lineCorr+Offset)*Scaling-offs;
-			if ((static_cast<int>(Pos) < (m->x()+doku->GrabRad)) && (static_cast<int>(Pos) > (m->x()-doku->GrabRad)))
+			if ((static_cast<int>(Pos) < (m->x()+doku->guidesSettings.grabRad)) && (static_cast<int>(Pos) > (m->x()-doku->guidesSettings.grabRad)))
 				qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
 			Pos = (ItemEndPos-RExtra-lineCorr+Offset)*Scaling-offs;
-			if ((static_cast<int>(Pos) < (m->x()+doku->GrabRad)) && (static_cast<int>(Pos) > (m->x()-doku->GrabRad)))
+			if ((static_cast<int>(Pos) < (m->x()+doku->guidesSettings.grabRad)) && (static_cast<int>(Pos) > (m->x()-doku->guidesSettings.grabRad)))
 				qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
 			QRect fpo;
 			double ColWidth = (ItemEndPos - ItemPos - (ColGap * (Cols - 1)) - Extra - RExtra - 2*lineCorr) / Cols;

@@ -309,7 +309,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	SubsetList = new QListBox( GroupFont, "SubsetList" );
 	SubsetList->setMinimumSize(QSize(150, 40));
 	Layout6->addWidget( SubsetList );
-	if (Optionen->EmbedList.count() == 0)
+	if ((Optionen->EmbedList.count() == 0) && (Optionen->SubsetList.count() == 0))
 	{
 		EmbedFonts->setChecked(true);
 		EmbedAll();

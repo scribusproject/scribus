@@ -47,7 +47,7 @@ Vruler::Vruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa)
 void Vruler::mousePressEvent(QMouseEvent *m)
 {
 	Mpressed = true;
-	if (ScApp->Prefs.GuidesShown)
+	if (ScApp->Prefs.guidesSettings.guidesShown)
 	{
 		QPoint py = view->viewport()->mapFromGlobal(m->globalPos());
 		view->DrVX = py.x();

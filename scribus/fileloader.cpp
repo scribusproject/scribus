@@ -152,12 +152,12 @@ QString FileLoader::ReadDatei(QString fileName)
 bool FileLoader::LoadFile(ScribusApp* app)
 {
 	bool ret = false;
-	app->doc->MarginsShown = app->Prefs.MarginsShown;
-	app->doc->FramesShown = app->Prefs.FramesShown;
-	app->doc->GridShown = app->Prefs.GridShown;
-	app->doc->GuidesShown = app->Prefs.GuidesShown;
-	app->doc->BaseShown = app->Prefs.BaseShown;
-	app->doc->linkShown = app->Prefs.linkShown;
+	app->doc->guidesSettings.marginsShown = app->Prefs.guidesSettings.marginsShown;
+	app->doc->guidesSettings.framesShown = app->Prefs.guidesSettings.framesShown;
+	app->doc->guidesSettings.gridShown = app->Prefs.guidesSettings.gridShown;
+	app->doc->guidesSettings.guidesShown = app->Prefs.guidesSettings.guidesShown;
+	app->doc->guidesSettings.baseShown = app->Prefs.guidesSettings.baseShown;
+	app->doc->guidesSettings.linkShown = app->Prefs.guidesSettings.linkShown;
 	app->doc->PolyC = app->Prefs.PolyC;
 	app->doc->PolyF = app->Prefs.PolyF;
 	app->doc->PolyR = app->Prefs.PolyR;
@@ -324,15 +324,15 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		doc->Automatic = static_cast<bool>(QStoInt(dc.attribute("AUTOMATIC", "1")));
 		doc->AutoCheck = static_cast<bool>(QStoInt(dc.attribute("AUTOCHECK", "0")));
 		doc->GuideLock = static_cast<bool>(QStoInt(dc.attribute("GUIDELOCK", "0")));
-		doc->minorGrid = QStodouble(dc.attribute("MINGRID", tmp.setNum(view->Prefs->DminGrid)));
-		doc->majorGrid = QStodouble(dc.attribute("MAJGRID", tmp.setNum(view->Prefs->DmajGrid)));
-		doc->GridShown = static_cast<bool>(QStoInt(dc.attribute("SHOWGRID", "0")));
-		doc->GuidesShown = static_cast<bool>(QStoInt(dc.attribute("SHOWGUIDES", "1")));
-		doc->FramesShown = static_cast<bool>(QStoInt(dc.attribute("SHOWFRAME", "1")));
-		doc->MarginsShown = static_cast<bool>(QStoInt(dc.attribute("SHOWMARGIN", "1")));
-		doc->BaseShown = static_cast<bool>(QStoInt(dc.attribute("SHOWBASE", "0")));
-		doc->ShowPic = static_cast<bool>(QStoInt(dc.attribute("SHOWPICT", "1")));
-		doc->linkShown = static_cast<bool>(QStoInt(dc.attribute("SHOWLINK", "0")));
+		doc->guidesSettings.minorGrid = QStodouble(dc.attribute("MINGRID", tmp.setNum(view->Prefs->guidesSettings.minorGrid)));
+		doc->guidesSettings.majorGrid = QStodouble(dc.attribute("MAJGRID", tmp.setNum(view->Prefs->guidesSettings.majorGrid)));
+		doc->guidesSettings.gridShown = static_cast<bool>(QStoInt(dc.attribute("SHOWGRID", "0")));
+		doc->guidesSettings.guidesShown = static_cast<bool>(QStoInt(dc.attribute("SHOWGUIDES", "1")));
+		doc->guidesSettings.framesShown = static_cast<bool>(QStoInt(dc.attribute("SHOWFRAME", "1")));
+		doc->guidesSettings.marginsShown = static_cast<bool>(QStoInt(dc.attribute("SHOWMARGIN", "1")));
+		doc->guidesSettings.baseShown = static_cast<bool>(QStoInt(dc.attribute("SHOWBASE", "0")));
+		doc->guidesSettings.showPic = static_cast<bool>(QStoInt(dc.attribute("SHOWPICT", "1")));
+		doc->guidesSettings.linkShown = static_cast<bool>(QStoInt(dc.attribute("SHOWLINK", "0")));
 		doc->PolyC = QStoInt(dc.attribute("POLYC", "4"));
 		doc->PolyF = QStodouble(dc.attribute("POLYF", "0.5"));
 		doc->PolyR = QStodouble(dc.attribute("POLYR", "0"));
@@ -376,19 +376,19 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 		if (dc.hasAttribute("PAGEC"))
 			doc->papColor = QColor(dc.attribute("PAGEC"));
 		if (dc.hasAttribute("MARGC"))
-			doc->margColor = QColor(dc.attribute("MARGC"));
+			doc->guidesSettings.margColor = QColor(dc.attribute("MARGC"));
 		if (dc.hasAttribute("MINORC"))
-			doc->minorColor = QColor(dc.attribute("MINORC"));
+			doc->guidesSettings.minorColor = QColor(dc.attribute("MINORC"));
 		if (dc.hasAttribute("MAJORC"))
-			doc->majorColor = QColor(dc.attribute("MAJORC"));
+			doc->guidesSettings.majorColor = QColor(dc.attribute("MAJORC"));
 		if (dc.hasAttribute("GuideC"))
-			doc->guideColor = QColor(dc.attribute("GuideC"));
+			doc->guidesSettings.guideColor = QColor(dc.attribute("GuideC"));
 		if (dc.hasAttribute("BaseC"))
-			doc->baseColor = QColor(dc.attribute("BaseC"));
+			doc->guidesSettings.baseColor = QColor(dc.attribute("BaseC"));
 		doc->RandFarbig = static_cast<bool>(QStoInt(dc.attribute("RANDF","0")));
 		doc->Before = static_cast<bool>(QStoInt(dc.attribute("BACKG","1")));
-		doc->GuideRad = QStoInt(dc.attribute("GuideRad","10"));
-		doc->GrabRad = QStoInt(dc.attribute("GRAB","4"));
+		doc->guidesSettings.guideRad = QStoInt(dc.attribute("GuideRad","10"));
+		doc->guidesSettings.grabRad = QStoInt(dc.attribute("GRAB","4"));
 		QDomNode PAGE=DOC.firstChild();
 		counter = 0;
 		while(!PAGE.isNull())

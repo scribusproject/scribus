@@ -361,6 +361,26 @@ struct windowStruct
 	bool docked;
 };
 
+struct guidesStruct
+{
+	bool gridShown;
+	QColor majorColor;
+	double majorGrid;
+	double minorGrid;
+	QColor minorColor;
+	double guideRad;
+	int grabRad;
+	bool framesShown;
+	bool guidesShown;
+	bool marginsShown;
+	bool baseShown;
+	bool linkShown;
+	bool showPic;
+	QColor guideColor;
+	QColor baseColor;
+	QColor margColor;
+};
+
 struct preV
 { 
 	SCFonts AvailFonts;
@@ -370,17 +390,9 @@ struct preV
 	CListe DColors;
 	int Wheelval;
 	int AppFontSize;
-	int GrabRad;
-	double GuideRad;
-	double DminGrid;
-	double DmajGrid;
-	QColor DminColor;
-	QColor DmajColor;
 	QColor DpapColor;
-	QColor DmargColor;
-	QColor guideColor;
-	QColor baseColor;
 	QString GUI;
+	guidesStruct guidesSettings;
 	typoStruct typographicSetttings;
 	QString Dpen;
 	QString Dbrush;
@@ -476,13 +488,6 @@ struct preV
 	bool gs_antiText;
 	bool gs_antiGraph;
 	QString gimp_exe;
-	bool FramesShown;
-	bool GuidesShown;
-	bool MarginsShown;
-	bool GridShown;
-	bool BaseShown;
-	bool linkShown;
-	bool ShowPic;
 	bool ClipMargin;
 	bool GCRMode;
 	QColor STEcolor;
