@@ -229,7 +229,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  			currentStyle->getFont()->setWeight(BOLD);
  		else if ((attrs.localName(i) == "fo:font-style") && (attrs.value(i) == "italic"))
  			currentStyle->getFont()->setSlant(ITALIC);
- 		else if ((attrs.localName(i) == "style:text-underline") && (attrs.value(i) != "none"))
+ 		else if ((attrs.localName(i) == "style:text-underline-style") && (attrs.value(i) != "none"))
  			currentStyle->getFont()->toggleEffect(UNDERLINE);
  		else if ((attrs.localName(i) == "style:text-crossing-out") && (attrs.value(i) != "none"))
  			currentStyle->getFont()->toggleEffect(STRIKETHROUGH);
@@ -576,7 +576,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  		style->getFont()->setWeight(BOLD);
  	else if ((key == "fo:font-style") && (value == "italic"))
  		style->getFont()->setSlant(ITALIC);
- 	else if ((key == "style:text-underline") && (value != "none"))
+ 	else if ((key == "style:text-underline-style") && (value != "none"))
  		style->getFont()->toggleEffect(UNDERLINE);
  	else if ((key == "style:text-crossing-out") && (value != "none"))
  		style->getFont()->toggleEffect(STRIKETHROUGH);
