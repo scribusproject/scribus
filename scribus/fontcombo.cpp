@@ -20,8 +20,6 @@
 #include <qfont.h>
 #include <qpainter.h>
 #include "scribusdoc.h"
-
-
 #include "fontcombo.h"
 
 FontListItem::FontListItem(QComboBox* parent, QString f, QFont fo) : QListBoxItem(parent->listBox())
@@ -77,14 +75,18 @@ void FontCombo::RebuildList(preV *Prefs, ScribusDoc *currentDoc)
 	rlist.clear();
 	SCFontsIterator it(Prefs->AvailFonts);
 	for ( ; it.current(); ++it)
+	{
 		if (it.current()->UseFont)
 		{
 			if (currentDoc != NULL)
+			{
 				if ((currentDoc->DocName == it.current()->PrivateFont) || (it.current()->PrivateFont == ""))
 					rlist.append(it.currentKey());
+			}
 			else
 				rlist.append(it.currentKey());
-		}
+			}
+	}
 	rlist.sort();
 	for (QStringList::ConstIterator it2 = rlist.begin(); it2 != rlist.end(); ++it2)
 		insertItem(*it2);

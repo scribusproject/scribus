@@ -53,7 +53,7 @@ public:
 	FontCombo(QWidget* pa, preV *Prefs);
 	~FontCombo() {};
 
-	void RebuildList(preV *Prefs, ScribusDoc *doc);
+	void RebuildList(preV *Prefs, ScribusDoc *currentDoc);
 };
 
 #endif
