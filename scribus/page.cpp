@@ -255,6 +255,8 @@ void Page::restore(UndoState* state, bool isUndo)
 			restorePageItemCreation(dynamic_cast<ItemState*>(ss), isUndo);
 		else if (ss->contains("DELETE_ITEM"))
 			restorePageItemDeletion(dynamic_cast<ItemState*>(ss), isUndo);
+		else if (ss->contains("OLD_TEMPLATE"))
+			restoreTemplateApplying(ss, isUndo);
 	}
 }
 
@@ -300,4 +302,15 @@ void Page::restorePageItemDeletion(ItemState *state, bool isUndo)
 		ScApp->view->SelectItem(ite, false);
 		ScApp->view->DeleteItem();
 	}
+}
+
+void Page::restoreTemplateApplying(SimpleState *state, bool isUndo)
+{
+	int pageNumber = state->getInt("PAGE_NUMBER");
+	QString oldName = state->get("OLD_TEMPLATE");
+	QString newName = state->get("NEW_TEMPLATE");
+	if (isUndo)
+		ScApp->Apply_Temp(oldName, pageNumber, false);
+	else
+		ScApp->Apply_Temp(newName, pageNumber, false);
 }
