@@ -19,6 +19,7 @@
  ***************************************************************************/
 
 #include "gtwriter.h"
+#include "pageitem.h"
 
 gtWriter::gtWriter(bool append)
 {
@@ -32,6 +33,16 @@ gtWriter::gtWriter(bool append)
 // 		action->clearFrame();
 // 	else
 // 		this->append("\n");
+}
+
+gtWriter::gtWriter(bool append, PageItem *pageitem)
+{
+	action = new gtAction(append, pageitem);
+	errorSet = false;
+	action->setProgressInfo();
+	setDefaultStyle();
+	unsetCharacterStyle();
+	unsetParagraphStyle();
 }
 
 gtFrameStyle* gtWriter::getDefaultStyle()

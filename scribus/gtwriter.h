@@ -27,6 +27,8 @@
 #include "gtparagraphstyle.h"
 #include "gtstyle.h"
 
+class PageItem;
+
 /*
 	gtWriter handles the writing to the scribus text frame.
 */
@@ -34,6 +36,7 @@ class gtWriter
 {
 public:
 	gtWriter(bool append);
+	gtWriter(bool append, PageItem *pageitem);
 	~gtWriter();
 	gtFrameStyle* getDefaultStyle();
 	void setFrameStyle(gtFrameStyle *fStyle);

@@ -42,6 +42,20 @@ gtAction::gtAction(bool append)
 	overridePStyleFont = true;
 }
 
+gtAction::gtAction(bool append, PageItem* pageitem)
+{
+	textFrame = pageitem;
+	it = textFrame;
+	lastParagraphStyle = -1;
+	inPara = false;
+	isFirstWrite = true;
+	lastCharWasLineChange = false;
+	currentFrameStyle = "";
+	doAppend = append;
+	updateParagraphStyles = false;
+	overridePStyleFont = true;
+}
+
 void gtAction::setProgressInfo()
 {
 	ScApp->FMess->setText(QObject::tr("Importing text"));

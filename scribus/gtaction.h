@@ -62,6 +62,7 @@ private:
 	void finalize();
 public:
 	gtAction(bool append);
+	gtAction(bool append, PageItem *pageitem);
 	~gtAction();
 	void setTextFrame(PageItem* frame);
 	void setProgressInfo();

@@ -130,6 +130,10 @@
 #include "pluginmanager.h"
 #include "scpaths.h"
 
+//CB TODO include for toc testing for now
+#include "gtwriter.h"
+//CB
+
 extern QPixmap loadIcon(QString nam);
 extern bool overwrite(QWidget *parent, QString filename);
 extern void CopyPageItem(struct CopyPasteBuffer *Buffer, PageItem *b);
@@ -10412,40 +10416,55 @@ void ScribusApp::objectAttributes()
 
 void ScribusApp::generateTableOfContents()
 {
-	/*
-	if ((HaveDoc) && (view->SelItem.count() == 1))
+	if (HaveDoc)
 	{
-		PageItem *tocFrame=view->SelItem.at(0);
-		if (tocFrame!=NULL)
+		for(ToCSetupVector::Iterator tocSetupIt = doc->docToCSetups.begin() ; tocSetupIt != doc->docToCSetups.end(); ++tocSetupIt )
 		{
-			PageItem *currentDocItem;
-			QMap<QString, QString> tocMap;
-			tocMap.clear();
-			uint pageCounter[doc->PageC];
-			for (int i=0;i<=doc->PageC;++i)
-				pageCounter[i]=0;
-			
-			for (uint d = 0; d < doc->DocItems.count(); ++d)
+			bool found=false;
+			uint d;
+			PageItem* tocFrame;
+			for (d = 0; d < doc->DocItems.count(), found==false; ++d)
 			{
-				currentDocItem = doc->DocItems.at(d);
-				if (currentDocItem!=NULL)
+				if (doc->DocItems.at(d)->itemType()==PageItem::TextFrame && doc->DocItems.at(d)->itemName()==(*tocSetupIt).frameName)
 				{
-					//Item not on a page, continue
-					if (currentDocItem->OwnPage==-1)
-						continue;
-					ObjectAttribute objattr=currentDocItem->getObjectAttribute("ToC");
-					if (objattr.name!=QString::null)
-					{
-						QString key=QString("page%1_item%2").arg(currentDocItem->OwnPage).arg(pageCounter[currentDocItem->OwnPage]++);
-						tocMap.insert(key, objattr.value);
-					}				
+					found=true;
+					tocFrame=doc->DocItems.at(d);
 				}
 			}
-			//echo to console our ToC
-			for (QMap<QString, QString>::Iterator tocIt=tocMap.begin();tocIt!=tocMap.end();++tocIt)
+			if (found && tocFrame!=NULL)
 			{
-				qDebug(QString("Toc Entry: %1 : Entry Text : %2").arg(tocIt.key(), tocIt.data()));
+				PageItem *currentDocItem;
+				QMap<QString, QString> tocMap;
+				tocMap.clear();
+				uint pageCounter[doc->PageC];
+				for (int i=0;i<=doc->PageC;++i)
+					pageCounter[i]=0;
+			
+				for (uint d = 0; d < doc->DocItems.count(); ++d)
+				{
+					currentDocItem = doc->DocItems.at(d);
+					if (currentDocItem!=NULL)
+					{
+					//Item not on a page, continue
+						if (currentDocItem->OwnPage==-1)
+							continue;
+						ObjectAttribute objattr=currentDocItem->getObjectAttribute((*tocSetupIt).itemAttrName);
+						if (objattr.name!=QString::null)
+						{
+							QString key=QString("page%1_item%2").arg(currentDocItem->OwnPage).arg(pageCounter[currentDocItem->OwnPage]++);
+							tocMap.insert(key, objattr.value);
+						}				
+					}
+				}
+				gtWriter* writer = new gtWriter(false, tocFrame);
+				for (QMap<QString, QString>::Iterator tocIt=tocMap.begin();tocIt!=tocMap.end();++tocIt)
+				{
+					QString tocLine = tocIt.key() + "....." + tocIt.data() + "\n";
+					writer->append(tocLine);
+				}
+				if (writer!=NULL)
+					delete writer;
 			}
 		}
-	}*/
+	}
 }
