@@ -430,6 +430,8 @@ public:
 	static const QString Rename;
 	static const QString FromTo;
 	static const QString ApplyTemplate;
+	static const QString Paste;
+	static const QString Cut;
 	/*@}*/
 
 	/**
@@ -460,6 +462,8 @@ public:
 	static QPixmap *IUnLock;
 	static QPixmap *IDelete;
 	static QPixmap *ICreate;
+	static QPixmap *IPaste;
+	static QPixmap *ICut;
 	/*@}*/
 
 protected:

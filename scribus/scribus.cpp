@@ -5247,6 +5247,14 @@ void ScribusApp::slotEditCut()
 	QString BufferI = "";
 	if ((HaveDoc) && (view->SelItem.count() != 0))
 	{
+		if (UndoManager::undoEnabled())
+		{
+			if (view->SelItem.count() > 1)
+				undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Cut,"",Um::ICut);
+			else
+				undoManager->beginTransaction(view->SelItem.at(0)->getUName(),
+											  view->SelItem.at(0)->getUPixmap(), Um::Cut, "", Um::ICut);
+		}
 		Buffer2 = "<SCRIBUSTEXT>";
 		PageItem *b = view->SelItem.at(0);
 		if (doc->appMode == EditMode)
@@ -5313,6 +5321,8 @@ void ScribusApp::slotEditCut()
 		BuFromApp = true;
 		ClipB->setText(BufferI);
 		scrActions["editPaste"]->setEnabled(true);
+		if (UndoManager::undoEnabled())
+			undoManager->commit();
 	}
 }
 

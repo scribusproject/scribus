@@ -611,6 +611,8 @@ void UndoManager::initIcons()
 	UndoManager::IUnLock          = new QPixmap(iconDir + "u_unlock.png");
 	UndoManager::IDelete          = new QPixmap(iconDir + "u_delete.png");
 	UndoManager::ICreate          = new QPixmap(iconDir + "u_create.png");
+	UndoManager::IPaste           = new QPixmap(iconDir + "editpaste.png");
+	UndoManager::ICut             = new QPixmap(iconDir + "u_cut.png");
 }
 
 const QString UndoManager::AddVGuide         = tr("Add vertical guide");
@@ -652,6 +654,8 @@ const QString UndoManager::Delete            = tr("Delete");
 const QString UndoManager::Rename            = tr("Rename");
 const QString UndoManager::FromTo            = tr("From %1 to %2");
 const QString UndoManager::ApplyTemplate     = tr("Apply template");
+const QString UndoManager::Paste             = tr("Paste");
+const QString UndoManager::Cut               = tr("Cut");
 
 /*** Icons for UndoObjects *******************************************/
 QPixmap *UndoManager::IImageFrame      = NULL;
@@ -676,3 +680,5 @@ QPixmap *UndoManager::ILock            = NULL;
 QPixmap *UndoManager::IUnLock          = NULL;
 QPixmap *UndoManager::IDelete          = NULL;
 QPixmap *UndoManager::ICreate          = NULL;
+QPixmap *UndoManager::IPaste           = NULL;
+QPixmap *UndoManager::ICut             = NULL;

@@ -8029,10 +8029,14 @@ void ScribusView::DeleteItem()
 
 void ScribusView::PasteToPage()
 {
+	if (UndoManager::undoEnabled())
+		undoManager->beginTransaction(Doc->currentPage->getUName(), 0, Um::Paste, "", Um::IPaste);
 	emit LoadElem(ScApp->Buffer2, qRound(Mxp/Scale), qRound(Myp/Scale), false, false, Doc, this);
 	Doc->DraggedElem = 0;
 	Doc->DragElements.clear();
 	updateContents();
+	if (UndoManager::undoEnabled())
+		undoManager->commit();
 }
 
 /** Waagrechter Scrollbalken */
