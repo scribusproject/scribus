@@ -602,7 +602,7 @@ UndoObject* UndoManager::replaceObject(ulong uid, UndoObject *newUndoObject)
 		}
 	}
 	if (transaction) // replace also in the currently open transaction
-		transaction->replace(uid, newUndoObject);
+		tmp = transaction->replace(uid, newUndoObject);
 	return tmp;
 }
 
@@ -793,7 +793,7 @@ void UndoManager::initIcons()
 	UndoManager::IEPS             = new QPixmap(iconDir + "u_eps.png");
 	UndoManager::IImageScaling    = new QPixmap(iconDir + "u_scale_image.png");
 	UndoManager::IBorder          = new QPixmap(iconDir + "u_shape.png");
-// 	UndoManager::IDocument        = new QPixmap(iconDir + "u_document.png");
+	UndoManager::IDocument        = new QPixmap(iconDir + "DateiNeu.xpm");
 }
 
 const QString UndoManager::AddVGuide          = tr("Add vertical guide");
