@@ -26,9 +26,9 @@ package-messages:
 
 
 install-data-local:
-	$(mkinstalldirs) $(prefix)/man
-	$(mkinstalldirs) $(prefix)/man/man1
-	$(INSTALL_DATA) $(srcdir)/scribus.1 $(prefix)/man/man1/scribus.1
+	$(mkinstalldirs) $(prefix)/share/man
+	$(mkinstalldirs) $(prefix)/share/man/man1
+	$(INSTALL_DATA) $(srcdir)/scribus.1 $(prefix)/share/man/man1/scribus.1
 	
 dist-hook:
 	cd $(top_distdir) && perl admin/am_edit -padmin
