@@ -901,7 +901,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 				}
 				else
 					Apage->XGuides.clear();
-				}
+			}
 			if ((pg.tagName()=="PAGEOBJECT") || (pg.tagName()=="MASTEROBJECT"))
 			{
 					if (pg.tagName()=="PAGEOBJECT")
@@ -991,6 +991,8 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 						}
 						IT=IT.nextSibling();
 					}
+					/* CB #1817 Remove this as its only a fix for old docs that will be loaded via the scribusXml.cpp loaded anyway
+					//Leaving in here for the moment
 					if ((Neu->itemType() == 5) && (Neu->Height != 0))
 					{
 						Neu->Rot += atan2(Neu->Height,Neu->Width)*(180.0/M_PI);
@@ -999,6 +1001,7 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 						Neu->Clip.setPoints(4, -1,-1, static_cast<int>(Neu->Width+1),-1, static_cast<int>(Neu->Width+1),
 											 static_cast<int>(Neu->Height+1), -1, static_cast<int>(Neu->Height+1));
 					}
+					*/
 					Neu->Language = app->GetLang(pg.attribute("LANGUAGE", doc->Language));
 					Neu->isAutoText=static_cast<bool>(QStoInt(pg.attribute("AUTOTEXT")));
 					if (Neu->isAutoText)
