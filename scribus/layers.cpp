@@ -8,8 +8,10 @@
 ****************************************************************************/
 #include "layers.h"
 #include "layers.moc"
+#include "scribus.h"
 
 extern QPixmap loadIcon(QString nam);
+extern ScribusApp* ScApp;
 
 LayerPalette::LayerPalette(QWidget* parent)
     : QDialog( parent, "Layers", false, 0 )
@@ -181,6 +183,7 @@ void LayerPalette::addLayer()
 	*Activ = ll.LNr;
 	MarkActiveLayer(*Activ);
 	emit LayerActivated(*Activ);
+	ScApp->slotDocCh();
 }
 
 void LayerPalette::removeLayer()
@@ -211,6 +214,7 @@ void LayerPalette::removeLayer()
 	*Activ = 0;
 	MarkActiveLayer(*Activ);
 	emit LayerActivated(*Activ);
+	ScApp->slotDocCh();
 }
 
 void LayerPalette::upLayer()
@@ -239,6 +243,7 @@ void LayerPalette::upLayer()
 	rebuildList();
 	emit LayerChanged();
 	MarkActiveLayer(*Activ);
+	ScApp->slotDocCh();
 }
 
 void LayerPalette::downLayer()
@@ -267,12 +272,16 @@ void LayerPalette::downLayer()
 	rebuildList();
 	emit LayerChanged();
 	MarkActiveLayer(*Activ);
+	ScApp->slotDocCh();
 }
 
 void LayerPalette::changeName(int row, int col)
 {
 	if (col == 0)
+		{
 		(*layers->at(layers->count()-row-1)).Name = Table->text(row, col);
+		ScApp->slotDocCh();
+		}
 }
 
 void LayerPalette::visibleLayer()
@@ -286,6 +295,7 @@ void LayerPalette::visibleLayer()
 			{
 			(*it).Sichtbar = FlagsSicht.at(l)->isChecked();
 			emit LayerChanged();
+			ScApp->slotDocCh();
 			}
 		}
 }
@@ -300,6 +310,7 @@ void LayerPalette::printLayer()
 		if ((*it).Level == num)
 			{
 			(*it).Drucken = FlagsPrint.at(l)->isChecked();
+			ScApp->slotDocCh();
 			}
 		}
 }

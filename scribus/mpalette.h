@@ -196,17 +196,13 @@ public:
     QLabel* SprachT;
     QComboBox* LangCombo;
     QGroupBox* GroupBoxCM;
-    QWidgetStack* TabStackR;
-    QWidget* pageRG;
-    QWidget* pageRS;
-    QToolButton* RotCW;
-    QToolButton* RotCCW;
     PageItem *CurItem;
     bool HaveDoc;
     bool HaveItem;
     ScribusDoc *doc;
     double Umrech;
     bool LMode;
+		int RoVal;
 
 public slots:
 		void SetDoc(ScribusDoc *d);
@@ -244,8 +240,6 @@ private slots:
 		void NewY();
 		void NewW();
 		void NewH();
-		void NewRcw();
-		void NewRccw();
 		void NewR();
 		void NewRR();
 		void NewLsp();
@@ -338,7 +332,6 @@ protected:
     QHBoxLayout* layout23;
     QHBoxLayout* layout24;
     QHBoxLayout* layoutLang;
-    QHBoxLayout* Layout1RG;
 };
 
 #endif

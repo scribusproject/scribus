@@ -1,4 +1,4 @@
-This is Scribus Version 1.1.3, the fourth Developers Relase after Scribus 1.0.1
+This is Scribus Version 1.1.4, the fivth Developers Relase after Scribus 1.0.1
 
 This Version introduces a complete rewrite of the rendering Engine. All rendering
 is now done via libart and freetype2. This requires that libart and freetype2 are
@@ -26,4 +26,4 @@ xdevel.rpm, qtdevel.rpm and tiffdevel.rpm. In the Standard-Install they
 were not installed.
 
 Franz Schmid
-in November 2003
+in December 2003

@@ -25,6 +25,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     setCaption( tr( "Properties" ) );
     HaveDoc = false;
     HaveItem = false;
+		RoVal = 0;
 		Umrech = UmReFaktor;
     setIcon( loadIcon("AppIcon.png") );
     setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, 0, 0, sizePolicy().hasHeightForWidth() ) );
@@ -268,36 +269,15 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     Layout12->addWidget( BottomRight, 2, 2, Qt::AlignCenter );
     RotationGroupLayout->addLayout( Layout12 );
 
-    TabStackR = new QWidgetStack( RotationGroup, "TabStackR" );
-    TabStackR->setFrameShape( QWidgetStack::NoFrame );
-
-    pageRS = new QWidget( TabStackR, "pageRS" );
-    Layout15_2 = new QVBoxLayout( pageRS, 3, 0, "Layout15_2");
-    Text3 = new QLabel( pageRS, "Text3" );
+    Layout15_2 = new QVBoxLayout( 0, 3, 0, "Layout15_2");
+    Text3 = new QLabel( RotationGroup, "Text3" );
     Text3->setText( tr( "by:" ) );
     Layout15_2->addWidget( Text3 );
-    Rot = new MSpinBox( pageRS, 2);
+    Rot = new MSpinBox( RotationGroup, 2);
     Rot->setSuffix(" °");
     Rot->setWrapping( true );
     Layout15_2->addWidget( Rot );
-    TabStackR->addWidget( pageRS, 0 );
-
-    pageRG = new QWidget( TabStackR, "pageRG" );
-    Layout1RG = new QHBoxLayout( pageRG, 0, 0, "Layout1RG");
-    RotCW = new QToolButton( pageRG, "RotCW" );
-    RotCW->setMaximumSize( QSize( 24, 24 ) );
-		RotCW->setAutoRepeat(true);
-    RotCW->setText("");
-    RotCW->setPixmap(loadIcon("rotate_cw.png"));
-    Layout1RG->addWidget( RotCW );
-    RotCCW = new QToolButton( pageRG, "RotCCW" );
-    RotCCW->setMaximumSize( QSize( 24, 24 ) );
-		RotCCW->setAutoRepeat(true);
-    RotCCW->setText("");
-    RotCCW->setPixmap(loadIcon("rotate_ccw.png"));
-    Layout1RG->addWidget( RotCCW );
-    TabStackR->addWidget( pageRG, 1 );
-    RotationGroupLayout->addWidget( TabStackR );
+    RotationGroupLayout->addLayout(Layout15_2);
 
     layout60a->addWidget(RotationGroup);
     QSpacerItem* spacer12 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -866,9 +846,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     QToolTip::add( ZTop, tr( "Move to Front" ) );
     QToolTip::add( ZBottom, tr( "Move to Back" ) );
     QToolTip::add( Locked, tr( "Locks or unlocks the Object" ) );
-    QToolTip::add( NoPrint, tr( "Enables or disables printing of the Object" ) );
-    QToolTip::add( RotCW, tr( "Rotates Group clockwise by 1°" ) );
-    QToolTip::add( RotCCW, tr( "Rotates Group counter-clockwise by 1°" ) );
+    QToolTip::add( NoPrint, tr( "Enables or disables printing of the Object" ) );;
     connect(Xpos, SIGNAL(valueChanged(int)), this, SLOT(NewX()));
     connect(Ypos, SIGNAL(valueChanged(int)), this, SLOT(NewY()));
     connect(Width, SIGNAL(valueChanged(int)), this, SLOT(NewW()));
@@ -932,8 +910,6 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     connect(MonitorI, SIGNAL(activated(int)), this, SLOT(ChIntent()));
 		connect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
     connect(LangCombo, SIGNAL(activated(int)), this, SLOT(NewLanguage()));
-    connect(RotCW, SIGNAL(clicked()), this, SLOT(NewRcw()));
-    connect(RotCCW, SIGNAL(clicked()), this, SLOT(NewRccw()));
 		HaveItem = false;
 		Xpos->setValue(0);
 		Ypos->setValue(0);
@@ -941,7 +917,6 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 		Height->setValue(0);
 		Rot->setValue(0);
 		RoundRect->setValue(0);
-		TabStackR->raiseWidget(0);
 		TabStack->raiseWidget(0);
 		TabStack->widget(0)->setEnabled(false);
 		TabStack2->raiseWidget(0);
@@ -1160,7 +1135,7 @@ void Mpalette::NewSel(int nr)
 	int visID;
 	if (doc->ActPage->GroupSel)
 		{
-		TabStackR->raiseWidget(1);
+		RoVal = 0;
 		double gx, gy, gh, gw;
 		doc->ActPage->getGroupRect(&gx, &gy, &gw, &gh);
     if (TopLeft->isChecked())
@@ -1196,7 +1171,6 @@ void Mpalette::NewSel(int nr)
 		}
 	else
 		{
-		TabStackR->raiseWidget(0);
 		NameEdit->setEnabled(true);
 		FlipH->setEnabled(false);
 		FlipV->setEnabled(false);
@@ -1850,27 +1824,16 @@ void Mpalette::NewH()
 		}
 }
 
-void Mpalette::NewRcw()
-{
-	if ((HaveDoc) && (HaveItem))
-		doc->ActPage->RotateGroup(1.0);
-}
-
-void Mpalette::NewRccw()
-{
-	if ((HaveDoc) && (HaveItem))
-		doc->ActPage->RotateGroup(-1.0);
-}
-
 void Mpalette::NewR()
 {
 	if ((HaveDoc) && (HaveItem))
 		{
 		if (doc->ActPage->GroupSel)
-			doc->ActPage->RotateGroup(-1);
+			doc->ActPage->RotateGroup(static_cast<double>(Rot->value() - RoVal)/100.0*(-1));
 		else
 			doc->ActPage->RotateItem(static_cast<double>(Rot->value())/100.0*(-1), CurItem->ItemNr);
 		emit DocChanged();
+		RoVal = Rot->value();
 		}
 }
 
