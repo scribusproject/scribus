@@ -1841,6 +1841,9 @@ bool ScribusApp::eventFilter( QObject */*o*/, QEvent *e )
 		if (currKeySeq == scrActions["toolsPreflightVerifier"]->accel())
 			scrActions["toolsPreflightVerifier"]->toggle();
 		else
+		if (currKeySeq == scrActions["fileQuit"]->accel())
+			scrActions["fileQuit"]->activate();
+		else			
 			retVal=false;
 	}
 	else
