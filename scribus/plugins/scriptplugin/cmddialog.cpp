@@ -1,10 +1,10 @@
-#include <Python.h>
 #include "cmddialog.h"
-#include "cmdvar.h"
 #include "cmdutil.h"
 #include "valuedialog.h"
+
 #include <qmessagebox.h>
 #include <qcursor.h>
+
 PyObject *scribus_newdocdia(PyObject *self)
 {
 	QApplication::setOverrideCursor(QCursor(Qt::ArrowCursor));

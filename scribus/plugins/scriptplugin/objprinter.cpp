@@ -1,10 +1,8 @@
-#include <Python.h>
+#include "objprinter.h"
+#include "cmdutil.h"
+
 #include <structmember.h>
 #include <qfileinfo.h>
-
-#include "cmdvar.h"
-#include "cmdutil.h"
-#include "objprinter.h"
 #include <vector>
 
 #ifdef HAVE_CUPS

@@ -1,7 +1,5 @@
-#include <Python.h>
 #include "cmdgetprop.h"
 #include "cmdutil.h"
-#include "cmdvar.h"
 
 PyObject *scribus_getfillcolor(PyObject *self, PyObject* args)
 {
@@ -88,10 +86,7 @@ PyObject *scribus_getlineend(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	if (!PyArg_ParseTuple(args, "|s", &Name))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getLineEnd([objectname])"));
 		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *i = GetUniqueItem(QString(Name));

@@ -1,7 +1,5 @@
-#include <Python.h>
 #include "cmdmisc.h"
 #include "cmdutil.h"
-#include "cmdvar.h"
 
 extern QPixmap FontSample(QString da, int s, QString ts, QColor back);
 

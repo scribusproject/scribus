@@ -1,13 +1,8 @@
 #ifndef CMDSETPROP_H
 #define CMDSETPROP_H
 
-// docstrings
-#ifndef PyDoc_STR
-#define PyDoc_VAR(name)         static char name[]
-#define PyDoc_STR(str)          (str)
-#define PyDoc_STRVAR(name, str) PyDoc_VAR(name) = PyDoc_STR(str)
-#endif
-
+// Pulls in <Python.h> first
+#include "cmdvar.h"
 
 /** Setting Object Properties */
 

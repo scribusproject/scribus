@@ -14,7 +14,10 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-#include "Python.h"
+
+// include cmdvar.h first, as it pulls in <Python.h>
+#include "cmdvar.h"
+
 #include "cmddialog.h"
 #include "cmddoc.h"
 #include "cmdpage.h"
@@ -28,7 +31,6 @@
 #include "scriptplugin.h"
 #include "scriptplugin.moc"
 #include "cmdutil.h"
-#include "cmdvar.h"
 #include "objprinter.h"
 #include "objpdffile.h"
 #include "guiapp.h"

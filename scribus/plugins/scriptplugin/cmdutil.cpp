@@ -1,5 +1,3 @@
-#include <Python.h>
-#include "cmdvar.h"
 #include "cmdutil.h"
 
 ScribusApp* Carrier;

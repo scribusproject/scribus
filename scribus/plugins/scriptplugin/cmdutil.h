@@ -1,7 +1,8 @@
 #ifndef CMDUTIL_H
 #define CMDUTIL_H
 
-#include "scribus.h"
+// Pulls in <Python.h> first
+#include "cmdvar.h"
 
 double PointToValue(double Val);
 double ValToPts(double Val, int ein);
