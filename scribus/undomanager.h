@@ -524,6 +524,11 @@ public:
 	static const QString NoBoundingBox;
 	static const QString NoContourLine;
 	static const QString PageNmbr;
+	static const QString ImageScaling;
+	static const QString FrameSize;
+	static const QString FreeScaling;
+	static const QString KeepRatio;
+	static const QString BreakRatio;
 	/*@}*/
 
 	/**
@@ -564,6 +569,7 @@ public:
 	static QPixmap *ISVG;
 	static QPixmap *IEPS;
 	static QPixmap *IImportOOoDraw;
+	static QPixmap *IImageScaling;
 	/*@}*/
 
 protected:

@@ -1763,11 +1763,7 @@ void Mpalette::ChangeScaling()
 	}
 	if ((HaveDoc) && (HaveItem))
 	{
-		CurItem->ScaleType = FreeScale->isChecked();
-		CurItem->AspectRatio = Aspect->isChecked();
-		ScApp->view->AdjustPictScale(CurItem);
-		ScApp->view->AdjustPreview(CurItem, false);
-		ScApp->view->RefreshItem(CurItem);
+		CurItem->setImageScalingMode(FreeScale->isChecked(), Aspect->isChecked());
 		emit UpdtGui(2);
 		emit DocChanged();
 		setFocus();

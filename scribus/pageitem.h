@@ -499,6 +499,13 @@ public:
 	/** @brief Flip an image vertically */
 	void flipImageV();
 
+	/**
+	 * @brief Set the image scaling mode.
+	 * @param freeScale is the scaling free (not forced to frame size)
+	 * @param keepRatio should the image's aspect ratio be respected
+	 */
+	void setImageScalingMode(bool freeScale, bool keepRatio);
+
 	/** @brief Lock or unlock this pageitem. */
 	void toggleLock();
 	/** @brief is the item locked ? */
@@ -706,6 +713,7 @@ protected:
 	void restoreFontEffect(SimpleState *state, bool isUndo);
 	void restoreType(SimpleState *state, bool isUndo);
 	void restoreTextFlowing(SimpleState *state, bool isUndo);
+	void restoreImageScaling(SimpleState *state, bool isUndo);
 	/*@}*/
 
 	/**

@@ -2584,6 +2584,33 @@ void PageItem::flipImageV()
 	imageIsFlippedV = !imageIsFlippedV;
 }
 
+void PageItem::setImageScalingMode(bool freeScale, bool keepRatio)
+{
+	if (ScaleType == freeScale && AspectRatio == keepRatio)
+		return;
+	if (UndoManager::undoEnabled())
+	{
+		QString from = ScaleType ? Um::FreeScaling : Um::FrameSize;
+		from += ", ";
+		from += AspectRatio ? Um::KeepRatio : Um::BreakRatio;
+		QString to = freeScale ? Um::FreeScaling : Um::FrameSize;
+		to += ", ";
+		to += keepRatio ? Um::KeepRatio : Um::BreakRatio;
+		SimpleState *ss = new SimpleState(Um::ImageScaling, QString(Um::FromTo).arg(from).arg(to),
+		                                  Um::IImageScaling);
+		if (freeScale != ScaleType)
+			ss->set("SCALE_TYPE", freeScale);
+		if (keepRatio != AspectRatio)
+			ss->set("ASPECT_RATIO", keepRatio);
+		undoManager->action(this, ss);
+	}
+	ScaleType = freeScale;
+	AspectRatio = keepRatio;
+	ScApp->view->AdjustPictScale(this);
+	ScApp->view->AdjustPreview(this, false);
+	ScApp->view->RefreshItem(this);
+}
+
 void PageItem::toggleLock()
 {
 	if (UndoManager::undoEnabled())
@@ -3180,6 +3207,10 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreType(ss, isUndo);
 		else if (ss->contains("TEXT_FLOW"))
 			restoreTextFlowing(ss, isUndo);
+		else if (ss->contains("SCALE_TYPE"))
+			restoreImageScaling(ss, isUndo);
+		else if (ss->contains("ASPECT_RATIO"))
+			restoreImageScaling(ss, isUndo);
 	}
 }
 
@@ -3538,6 +3569,31 @@ void PageItem::restoreTextFlowing(SimpleState *state, bool isUndo)
 		else
 			Textflow = state->getBool("TEXT_FLOW");
 	}
+}
+
+void PageItem::restoreImageScaling(SimpleState *state, bool isUndo)
+{
+	bool type, ratio;
+	if (state->contains("SCALE_TYPE"))
+	{
+		if (isUndo)
+			type = !state->getBool("SCALE_TYPE");
+		else
+			type = state->getBool("SCALE_TYPE");
+	}
+	else
+		type = ScaleType;
+	if (state->contains("ASPECT_RATIO"))
+	{
+		if (isUndo)
+			ratio = !state->getBool("ASPECT_RATIO");
+		else
+			ratio = state->getBool("ASPECT_RATIO");
+	}
+	else
+		ratio = AspectRatio;
+
+	setImageScalingMode(type, ratio);
 }
 
 void PageItem::select()
