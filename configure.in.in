@@ -13,7 +13,7 @@ AC_CANONICAL_SYSTEM
 AC_ARG_PROGRAM
 
 dnl Automake doc recommends to do this only here. (Janos)
-AM_INIT_AUTOMAKE(scribus,1.2.2cvs)
+AM_INIT_AUTOMAKE(scribus,1.3.0cvs)
 
 dnl KDE_SET_PREFIX
 
@@ -22,6 +22,11 @@ if test "x$prefix" = "xNONE"; then
   prefix=$ac_default_prefix
   ac_configure_args="$ac_configure_args --prefix $prefix"
 fi
+
+dnl Look for pkg-config, which we use to find fontconfig and
+dnl will probably need for other things in future.
+PKG_CONFIG=""
+AC_PATH_PROG(PKG_CONFIG, pkg-config, no)
 
 LIBART_LIBS=""
 LIBART_CFLAGS=""
@@ -43,6 +48,7 @@ AC_SUBST(LIBART_LIBS)
 AC_SUBST(LIBART_CFLAGS)
 AC_C_BIGENDIAN
 
+dnl Check for freetype, which Scribus *requires* to build
 LIBFREETYPE_LIBS=""
 LIBFREETYPE_CFLAGS=""
 
@@ -50,33 +56,92 @@ FREETYPE_CONFIG=""
 AC_PATH_PROG(FREETYPE_CONFIG, freetype-config, [AC_MSG_ERROR([Could not find libfreetype anywhere, check http://www.freetype.org/])], [$PATH ${prefix}/bin ${exec_prefix}/bin /usr/local/bin /opt/local/bin /usr/bin /usr/nekoware/bin /usr/X11/bin])
 
 hafree=no
+hafree_post213=
 if test -n "$FREETYPE_CONFIG"; then
 	LIBFREETYPE_LIBS="`$FREETYPE_CONFIG --libs`"
-  LIBFREETYPE_CFLAGS="`$FREETYPE_CONFIG --cflags`"
+	LIBFREETYPE_CFLAGS="`$FREETYPE_CONFIG --cflags`"
 	AC_CHECK_LIB(freetype, FT_Get_First_Char, [hafree=yes],[hafree=no], "$LIBFREETYPE_LIBS")
 	AC_CHECK_LIB(freetype, FT_Get_Next_Char, [hafree=yes],[hafree=no], "$LIBFREETYPE_LIBS")
 	if test $hafree = yes; then
 		AC_DEFINE_UNQUOTED(HAVE_FREETYPE, 1, [Defines if your system has the libfreetype library])
 	else
-  	AC_MSG_ERROR([You need at least freetype 2.1.0])
+		AC_MSG_ERROR([You need at least freetype 2.1.0])
 	fi
+
+	dnl Warn the user if they have less than freetype 2.1.3
+	AC_MSG_CHECKING(freetype version > 2.1.3)
+	SAVE_CFLAGS="${CFLAGS}"
+	CFLAGS=" ${LIBFREETYPE_CFLAGS} "
+	AC_TRY_COMPILE([
+	#include <ft2build.h>
+	#include FT_FREETYPE_H
+	],[
+	#if FREETYPE_MAJOR == 2 && FREETYPE_MINOR == 1 && FREETYPE_PATCH < 3
+	#error freetype 2.1 older than 2.1.3
+	#endif
+	], [hafree_post213=yes], [hafree_post213=no])
+	CFLAGS="${SAVE_CFLAGS}"
+	AC_MSG_RESULT($hafree_post213)
+	if test hafree_post213 = no; then
+		AC_MSG_WARN([Freetype is older than 2.1.3])
+	fi
+
+	dnl Export the includes and lib path settings required to build with freetype.
 	AC_SUBST(LIBFREETYPE_LIBS)
 	AC_SUBST(LIBFREETYPE_CFLAGS)
 else
   AC_MSG_ERROR([You need at least freetype 2.1.0])
 fi
+
+dnl Try to find fontconfig using fontconfig-config or pkg-config.
+LIBFONTCONFIG_LIBS=""
+LIBFONTCONFIG_CFLAGS=""
+FONTCONFIG_CONFIG=""
+AC_PATH_PROG(FONTCONFIG_CONFIG, fontconfig-config, [], [$PATH ${prefix}/bin ${exec_prefix}/bin /usr/local/bin /opt/local/bin /usr/bin /usr/nekoware/bin /usr/X11/bin])
+
+hafontconfig=no
+if test -n "$FONTCONFIG_CONFIG"; then
+	dnl found fontconfig-config, use it's results
+	LIBFONTCONFIG_LIBS="`$FONTCONFIG_CONFIG --libs`"
+	LIBFONTCONFIG_CFLAGS="`$FONTCONFIG_CONFIG --cflags`"
+elif test -n "$PKG_CONFIG"; then
+	dnl Try to find fontconfig with pkg-config
+	LIBFONTCONFIG_LIBS="`$PKG_CONFIG fontconfig --libs`"
+	LIBFONTCONFIG_CFLAGS="`$PKG_CONFIG fontconfig --cflags`"
+else
+	AC_MSG_WARN([Couldn't find fontconfig-config or pkg-config])
+fi
+
+dnl Check to see if we can compile fontconfig
+SAVE_CFLAGS="${CFLAGS}"
+SAVE_LDFLAGS="${LDFLAGS}"
+CFLAGS="${CFLAGS} ${LIBFONTCONFIG_CFLAGS}"
+LDFLAGS="${LDFLAGS} ${LIBFONTCONFIG_LIBS}"
+AC_CHECK_LIB(fontconfig, FcPatternBuild, [hafontconfig=yes],[hafontconfig=no])
+CFLAGS="${SAVE_CFLAGS}"
+LDFLAGS="${SAVE_LDFLAGS}"
+if test $hafontconfig = yes; then
+	AC_DEFINE_UNQUOTED(HAVE_FONTCONFIG, 1, [Defines if your system has the libfontconfig library])
+else
+	AC_MSG_WARN([Couldn't find a usable libfontconfig])
+fi
+AC_SUBST(LIBFONTCONFIG_LIBS)
+AC_SUBST(LIBFONTCONFIG_CFLAGS)
+
+
 XML_LIBS=""
 XML_CFLAGS=""
 
 XML_CONFIG=""
-AC_PATH_PROG(XML_CONFIG, xml2-config, [AC_MSG_ERROR([Could not find libxml2 anywhere, check http://www.xmlsoft.org/])], [$PATH ${prefix}/bin ${exec_prefix}/bin /usr/local/bin /opt/local/bin /usr/bin /usr/nekoware/bin /usr/X11/bin])
+AC_PATH_PROG(XML_CONFIG, xml2-config, [AC_MSG_ERROR([Could not find libxml2 anywhere, check http://www.xmlsoft.org/])], [${PATH} ${prefix}/bin ${exec_prefix}/bin /usr/local/bin /opt/local/bin /usr/bin /usr/nekoware/bin /usr/X11/bin])
 
+dnl check for LibXML2
 haxml=no
 if test -n "$XML_CONFIG"; then
 	XML_LIBS="`$XML_CONFIG --libs`"
 	XML_CFLAGS="`$XML_CONFIG --cflags`"
 	AC_CHECK_LIB(xml2, attribute, [haxml=yes],[haxml=no])
-	if test $hafree = yes; then
+	if test $haxml = yes; then
 		AC_DEFINE_UNQUOTED(HAVE_XML, 1, [Defines if your system has the libxml2 library])
 		AC_SUBST(XML_LIBS)
 		AC_SUBST(XML_CFLAGS)
@@ -88,6 +153,7 @@ if test -n "$XML_CONFIG"; then
 	fi
 fi
 
+dnl check for -lsocket
 AC_CHECK_LIB(socket,socket,
 if test "$uname" != "IRIX"; then
 	LIBS="-lsocket $LIBS"
@@ -109,30 +175,72 @@ then
 	AC_SUBST(LIBCUPS)
 fi
 
+dnl Check for lcms
+dnl TODO look for lcms using pkg-config too
 LIBLCMS=""
 hacms=
 AC_CHECK_LIB(lcms, _cmsChannelsOf, [LIBLCMS="-llcms";hacms=yes],[LIBLCMS="";hacms=no],[-lm])
 hacmsh=
+lcms_h=
 AC_CHECK_HEADER(lcms.h, [hacmsh=yes],[hacmsh=no])
 if test $hacmsh = no; then
 	AC_CHECK_HEADER(lcms/lcms.h, [hacmsh=yes],[hacmsh=no])
 	if test $hacmsh = yes; then
- 		AC_DEFINE_UNQUOTED(CMS_INC, "lcms/lcms.h", [ColorManagementInclude])
+		AC_DEFINE_UNQUOTED(CMS_INC, "lcms/lcms.h", [ColorManagementInclude])
+		lcms_h="lcms/lcms.h"
 	fi
 else
- AC_DEFINE_UNQUOTED(CMS_INC, "lcms.h", [ColorManagementInclude])
+	AC_DEFINE_UNQUOTED(CMS_INC, "lcms.h", [ColorManagementInclude])
+	lcms_h="lcms.h"
 fi
+if test $hacmsh = no; then
+	dnl There's not much point finding -llcms if we can't find the header file...
+	hacms=no
+fi
+dnl Attempt to check that lcms is new enough
+if test $hacms = yes; then
+	AC_MSG_CHECKING(liblcms version > 1.1.2)
+	AC_TRY_COMPILE([
+	#include "$lcms_h"
+	],[
+	#if LCMS_VERSION < 112
+	#error liblcms is too old, need LittleCMS 1.1.2 or newer
+	#endif
+	], [], [hacms=pre112])
+	AC_MSG_RESULT($hacms)
+fi
+
 AC_SUBST(LIBLCMS)
 if test $hacms = yes && test $hacmsh = yes; then
  AC_DEFINE_UNQUOTED(HAVE_CMS, 1, [ColorManagement])
 fi
+
+dnl Checks for libtiff - library exists, tiffvers.h can be found, and new enough.
 LIBTIFF=""
 hastif=
+dnl Check if we have libtiff
 AC_CHECK_LIB(tiff, TIFFOpen, [LIBTIFF="-ltiff";hastif=yes],[LIBTIFF="";hastif=no],[-lm])
+if test $hastif = yes; then
+	dnl Check for tiffvers.h
+	AC_CHECK_HEADER(tiffvers.h, [], [LIBTIFF="";hastif=no])
+	if test $hastif = yes; then
+		dnl Now attempt to check if libtiff is new enough
+		AC_MSG_CHECKING(libtiff version > 3.6.0)
+		AC_TRY_COMPILE([
+		#include "tiffvers.h"
+		],[
+		#if TIFFLIB_VERSION < 20031007
+		#error libtiff is too old, need libtiff 3.6.0 or newer.
+		#endif
+		], [], [LIBTIFF="";hastif=pre36])
+		AC_MSG_RESULT($hastif)
+	fi
+fi
 AC_SUBST(LIBTIFF)
 if test $hastif = yes; then
  AC_DEFINE_UNQUOTED(HAVE_TIFF, 1, [Tifflib])
 fi
+
 LIBDL2=""
 AC_CHECK_LIB(c, dlopen, [LIBDL2="-lc"],[LIBDL2=""])
 AC_SUBST(LIBDL2)
@@ -169,13 +277,12 @@ fi
 
 COMPILE_DEBUG=no
 AC_ARG_ENABLE(debug, [  --enable-debug     Enables Debug-Code],
-[if test "x$enable_debug" = "xyes"; then
-    COMPILE_DEBUG=yes
+[if test "x$enable_debug" = "xyes" || test "x$enable_debug" = "xfull"; then
+	COMPILE_DEBUG=yes
     CXXFLAGS="$CXXFLAGS -g3 -fno-inline -O0 "
-    CFLAGS="$CFLAGS -g3 -fno-inline  -O0 "
+    CFLAGS="$CFLAGS -g3 -fno-inline -O0 "
 fi])
 AM_CONDITIONAL(COMPILE_DEBUG, test x$COMPILE_DEBUG = xyes)
-
 
 all_libraries="$all_libraries $USER_LDFLAGS"
 all_includes="$all_includes $USER_INCLUDES"
