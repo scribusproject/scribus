@@ -33,6 +33,8 @@
 #include <qpixmap.h>
 #include <qpopupmenu.h>
 
+class PrefsContext;
+
 /**
  * @brief UndoGui is a virtual superclass for undo/redo widgets.
  *
@@ -238,6 +240,7 @@ private:
 	QListBox* undoList;
 	QPushButton* undoButton;
 	QPushButton* redoButton;
+	PrefsContext* undoPrefs;
 	void updateList();
 	void removeRedoItems();
 	
@@ -296,6 +299,9 @@ protected:
 	 */
 	void closeEvent(QCloseEvent* e);
 
+	/** @brief Stores the geometry of the window when hiding. */
+	void hideEvent(QHideEvent*);
+
 public:
 	/** 
 	 * @brief Creates a new UndoPalette instance.
@@ -352,6 +358,9 @@ public slots:
 
 	/** @brief Remove the last (oldest) item from the undo stack representation. */
 	void popBack();
+
+	/** @brief Restore the size and position of the window when shown. */
+	void show();
 
 signals:
 	/** 

@@ -20,6 +20,8 @@
 
 #include "undogui.h"
 #include "undogui.moc"
+#include "prefsfile.h"
+#include "prefscontext.h"
 #include <qlayout.h>
 #include <qpixmap.h>
 #include <qpushbutton.h>
@@ -29,6 +31,7 @@
 #include <qcheckbox.h>
 
 extern QPixmap loadIcon(QString nam);
+extern PrefsFile* prefsFile;
 
 UndoGui::UndoGui(QWidget* parent, const char* name, WFlags f) : QWidget(parent, name, f)
 {
@@ -199,6 +202,8 @@ UndoPalette::UndoPalette(QWidget* parent, const char* name)
 	buttonLayout->addWidget(redoButton);
 	layout->addLayout(buttonLayout);
 
+	undoPrefs = prefsFile->getContext("undo");
+
 	connect(undoButton, SIGNAL(clicked()), this, SLOT(undoClicked()));
 	connect(redoButton, SIGNAL(clicked()), this, SLOT(redoClicked()));
 	connect(undoList, SIGNAL(highlighted(int)), this, SLOT(undoListClicked(int)));
@@ -216,6 +221,33 @@ void UndoPalette::closeEvent(QCloseEvent* e)
 {
 	e->ignore();
 	hide();
+}
+
+void UndoPalette::show()
+{
+	QWidget::show();
+	if (undoPrefs->contains("up_left"))
+	{
+		int left   = undoPrefs->getInt("up_left", 100);
+		int top    = undoPrefs->getInt("up_top", 100);
+		int width  = undoPrefs->getInt("up_width", 200);
+		int height = undoPrefs->getInt("up_height", 350);
+		QRect r(left, top, width, height);
+		setGeometry(r);
+	}
+}
+
+void UndoPalette::hideEvent(QHideEvent*)
+{
+	QRect r    = frameGeometry();
+	int left   = r.left();
+	int top    = r.top();
+	int width  = r.width();
+	int height = r.height();
+	undoPrefs->set("up_left", left);
+	undoPrefs->set("up_top", top);
+	undoPrefs->set("up_width", width);
+	undoPrefs->set("up_height", height);
 }
 
 void UndoPalette::insertUndoItem(UndoObject* target, UndoState* state)
@@ -332,7 +364,7 @@ UndoPalette::UndoItem::UndoItem(const QString &targetName, const QString &action
 
 void UndoPalette::UndoItem::paint(QPainter *painter)
 {
-    // Draw the itme here
+    // Draw the item here
 }
 
 int UndoPalette::UndoItem::height(const QListBox*) const
