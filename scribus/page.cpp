@@ -4392,20 +4392,23 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 					b->Ptext.at(a)->cselect = false;
 				b->HasSel = false;
 				slotSetCurs(m->x(), m->y());
-				if (b->CPos < oldCp)
+				if (b->Ptext.count() > 0)
 				{
-					for (c = b->CPos; c < oldCp; ++c)
+					if (b->CPos < oldCp)
 					{
-						b->Ptext.at(c)->cselect = true;
-						b->HasSel = true;
+						for (c = b->CPos; c < oldCp; ++c)
+						{
+							b->Ptext.at(c)->cselect = true;
+							b->HasSel = true;
+						}
 					}
-				}
-				if (b->CPos > oldCp)
-				{
-					for (c = oldCp; c < b->CPos; ++c)
+					if (b->CPos > oldCp)
 					{
-						b->Ptext.at(c)->cselect = true;
-						b->HasSel = true;
+						for (c = oldCp; c < b->CPos; ++c)
+						{
+							b->Ptext.at(c)->cselect = true;
+							b->HasSel = true;
+						}
 					}
 				}
 				RefreshItem(b);
