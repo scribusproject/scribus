@@ -28,6 +28,7 @@ extern bool loadText(QString nam, QString *Buffer);
 extern QPixmap loadIcon(QString nam);
 extern double RealCWidth(ScribusDoc *doc, QString name, QString ch, int Siz);
 extern FPoint GetMaxClipF(FPointArray Clip);
+extern FPoint GetMinClipF(FPointArray Clip);
 extern PrefsFile* prefsFile;
 
 /*!
@@ -191,6 +192,21 @@ void SVGPlug::convert()
 	if (!Doku->PageColors.contains("Black"))
 		Doku->PageColors.insert("Black", CMYKColor(0, 0, 0, 255));
 	m_gc.push( gc );
+	viewTransformX = 0;
+	viewTransformY = 0;
+	viewScaleX = 1;
+	viewScaleY = 1;
+	haveViewBox = false;
+	if( !docElem.attribute( "viewBox" ).isEmpty() )
+	{
+		QString viewbox( docElem.attribute( "viewBox" ) );
+		QStringList points = QStringList::split( ' ', viewbox.replace( QRegExp(","), " ").simplifyWhiteSpace() );
+		viewTransformX = points[0].toDouble();
+		viewTransformY = points[1].toDouble();
+		viewScaleX = width / (points[2].toDouble() * 0.8);
+		viewScaleY = height / (points[3].toDouble() * 0.8);
+		haveViewBox = true;
+	}
 	parseGroup( docElem );
 	if (Elements.count() > 1)
 	{
@@ -529,6 +545,21 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 					ite->FrameType = 3;
 					QWMatrix mm = gc->matrix;
 					ite->PoLine.map(mm);
+					if (haveViewBox)
+					{
+						QWMatrix mv;
+						mv.translate(viewTransformX, viewTransformY);
+						mv.scale(viewScaleX, viewScaleY);
+						ite->PoLine.map(mv);
+						QWMatrix mv1;
+						FPoint tp, tp2;
+						tp2 = GetMinClipF(ite->PoLine);
+						tp = GetMaxClipF(ite->PoLine);
+						ite->PoLine.translate(-(tp.x() + tp2.x()) / 2.0, -(tp.y() + tp2.y()) / 2.0);
+						mv1.scale(0.8, 0.8);
+						ite->PoLine.map(mv1);
+						ite->PoLine.translate((tp.x() + tp2.x()) / 2.0, (tp.y() + tp2.y()) / 2.0);
+					}
 					ite->Pwidth = ite->Pwidth * ((mm.m11() + mm.m22()) / 2.0);
 					FPoint wh = GetMaxClipF(ite->PoLine);
 					ite->Width = wh.x();
