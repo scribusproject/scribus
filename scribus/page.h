@@ -34,8 +34,6 @@ class UndoState;
   */
 class Page : public UndoObject
 {
-private:
-	UndoManager* undoManager;
 public:
 	Page(double x, double y, double b, double h);
 	~Page() {};
@@ -66,6 +64,10 @@ public:
 	void moveYGuide(int fromIndex, double to);
 	void setPageName(const QString& newName);
 	void restore(UndoState* state, bool isUndo);
+
+private:
+	UndoManager* undoManager;
+	void restorePageItemCreation(SimpleState *state, bool isUndo);
 };
 
 #endif

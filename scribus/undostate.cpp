@@ -94,6 +94,16 @@ int SimpleState::getInt(const QString& key, int def)
 	return ret;
 }
 
+uint SimpleState::getUInt(const QString& key, uint def)
+{
+	bool ok = false;
+	QString retString = get(key, QString("%1").arg(def));
+	uint ret = retString.toUInt(&ok);
+	if (!ok)
+		ret = def;
+	return ret;
+}
+
 double SimpleState::getDouble(const QString& key, double def)
 {
 	bool ok = false;
@@ -120,6 +130,11 @@ void SimpleState::set(const QString& key, const QString& value)
 }
 
 void SimpleState::set(const QString& key, int value)
+{
+	values[key] = QString("%1").arg(value);
+}
+
+void SimpleState::set(const QString& key, uint value)
 {
 	values[key] = QString("%1").arg(value);
 }

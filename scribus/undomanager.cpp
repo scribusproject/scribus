@@ -72,15 +72,15 @@ void UndoManager::beginTransaction(const QString &targetName,
                                    const QString &description,
                                    QPixmap *pixmap)
 {
-	// TODO What if there already is a transaction? -rl
-	if (transaction)
-		commit(); // Now we're commiting. Is this the best solution?
+	if (transaction) // begin a transaction inside transaction
+		transactions.push_back(
+			std::pair<TransactionObject*, TransactionState*>(transactionTarget, transaction));
 	transaction = new TransactionState();
 	transactionTarget = new TransactionObject();
 	transactionTarget->setUName(targetName); // Name which will be in action history
 	if (name.length() > 0)          // if left to 0 length action will be fetched from the
 		transaction->setName(name); // last added UndoState in this transaction
-	if (description.length() > 0) 
+	if (description.length() > 0)
 		transaction->setDescription(description); // tool tip for action history
 	if (pixmap)
 		transaction->setPixmap(pixmap); // for action history
@@ -92,6 +92,14 @@ void UndoManager::cancelTransaction()
 	transaction = NULL;
 	delete transactionTarget;
 	transactionTarget = NULL;
+	if (!transactions.empty())
+	{
+		// fetch the next transaction from the vector
+		transactionTarget = transactions[transactions.size() - 1].first;
+		transaction = transactions[transactions.size() - 1].second;
+// 		delete transactions[transactions.size() - 1];
+		transactions.erase(transactions.end() - 1);
+	}
 }
 
 void UndoManager::commit(const QString &targetName,
@@ -115,14 +123,27 @@ void UndoManager::commit(const QString &targetName,
 
 	UndoObject *tmpu = transactionTarget;
 	TransactionState *tmps = transaction;
-	transaction = NULL;
-	transactionTarget = NULL;
-	if (tmps->sizet() > 0)
+
+	if (!transactions.empty())
+	{
+		// fetch the next transaction to be an active transaction
+		transactionTarget = transactions[transactions.size() - 1].first;
+		transaction = transactions[transactions.size() - 1].second;
+// 		delete transactions[transactions.size() - 1]
+		transactions.erase(transactions.end() - 1);
+	}
+	else
+	{
+		transaction = NULL;
+		transactionTarget = NULL;
+	}
+
+	if (tmps->sizet() > 0) // are there any actions inside the commited transaction
 	{
 		if (tmps->getName() == "")
 			tmps->useActionName();
 		action(tmpu, tmps);
-	}
+	} // if not just delete objects
 	else
 	{
 		delete tmpu;
@@ -399,6 +420,23 @@ void UndoManager::showObject(int uid)
 
 }
 
+void UndoManager::replace(ulong uid, UndoObject *newUndoObject)
+{
+	if (!newUndoObject)
+		return;
+	disconnectGuis();
+	for (uint i = 0; i < stacks[currentDoc].second.size(); ++i)
+	{
+		ActionPair &apair = stacks[currentDoc].second[i];
+		TransactionState *ts = dynamic_cast<TransactionState*>(apair.second);
+		if (ts)
+			ts->replace(uid, newUndoObject);
+		else if (apair.first->getUId() == uid)
+			apair.first = newUndoObject;
+	}
+	switchStack(currentDoc);
+}
+
 void UndoManager::setHistoryLength(int steps)
 {
 	if (steps >= 0)
@@ -492,6 +530,13 @@ void UndoManager::TransactionState::useActionName()
 	}
 }
 
+void UndoManager::TransactionState::replace(ulong uid, UndoObject *newUndoObject)
+{
+	for (uint i = 0; i < states.size(); ++i)
+		if (states[i]->first->getUId() == uid)
+			states[i]->first = newUndoObject;
+}
+
 UndoManager::TransactionState::~TransactionState()
 {
 	for (uint i = 0; i < states.size(); ++i)
@@ -552,6 +597,8 @@ const QString UndoManager::ResizeFromTo = tr("W1: %1, H1: %2\nW2: %3, H2: %4");
 const QString UndoManager::RotateFromTo = tr("From %1 to %2");
 const QString UndoManager::Selection    = tr("Selection");
 const QString UndoManager::Group        = tr("Group");
+const QString UndoManager::Create       = tr("Create");
+const QString UndoManager::CreateTo     = tr("X: %1, Y: %2\nW: %3, H: %4");
 
 QPixmap *UndoManager::IGuides         = NULL;
 QPixmap *UndoManager::ILockGuides     = NULL;

@@ -100,6 +100,12 @@ private:
 		 * if <code>index</code> is out of scope.
 		 */
 		ActionPair* at(int index);
+		/**
+		 * @brief Replace object with id uid with new UndoObject newUndoObject.
+		 * @param uid id of the object that is wanted to be replaced
+		 * @param newUndoObject object that is used for replacing
+		 */
+		void replace(ulong uid, UndoObject *newUndoObject);
 	};
 
 /*** UndoManager::TransactionObject ***************************************************/
@@ -141,6 +147,12 @@ private:
 	 * @brief or -1 if global undo is used.
 	 */
 	int currentUndoObjectId;
+
+	/**
+	 * @brief Stores the transactions which are currently started but not
+	 * @brief canceled or commited.
+	 */
+	std::vector<std::pair<TransactionObject*, TransactionState*> > transactions;
 
 	/**
 	 * @brief If in transaction mode this is the container for incoming <code>UndoState</code>
@@ -328,6 +340,13 @@ public:
 	void showObject(int uid);
 
 	/**
+	 * @brief Replace an UndoObject with the id uid with a new UndoObject new.
+	 * @param uid Id for the UndoObject that is wanted to be replaced.
+	 * @param newUndoObject UndoObject which will replace an old UndoObject in the stack.
+	 */
+	void replace(ulong uid, UndoObject *newUndoObject);
+
+	/**
 	 * @brief Returns the maximum length of the undostack.
 	 * @return the maximum length of the undostack
 	 */
@@ -354,6 +373,8 @@ public:
 	static const QString RotateFromTo;
 	static const QString Selection;
 	static const QString Group;
+	static const QString Create;
+	static const QString CreateTo;
 	/*@}*/
 
 	/**

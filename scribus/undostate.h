@@ -165,6 +165,23 @@ public:
 	int getInt(const QString& key, int def = 0);
 
 	/**
+	 * @brief Returns the uint value attached to the key.
+	 *
+	 * Values are stored as <code>QString</code>s in the map and when queried
+	 * with this method value attached to the key is converted to an int. If
+	 * the conversion fails value of the parameter <code>def</code> will be returned.
+	 * If key is not found from the map it will be added there with the
+	 * value given as a parameter <code>def</code>. In such case <code>def</code>
+	 * will also be returned.
+	 * @param key Key that is searched from the map
+	 * @param def Default value to be used if key is not found from the map
+	 * @return <code>uint</code> value attached to the key in the map. If the key is not found
+	 * from the map it will be added with the value described in the param
+	 * <code>def</code> which is then returned.
+	 */
+	uint getUInt(const QString& key, uint def = 0);
+
+	/**
 	 * @brief Returns the double value attached to the key.
 	 *
 	 * Values are stored as <code>QString</code>s in the map and when queried
@@ -209,6 +226,13 @@ public:
 	 * @param value Value attached to the key.
 	 */
 	void set(const QString& key, int value);
+
+	/**
+	 * @brief Set a value for the key.
+	 * @param key Key that can be later used to query the value.
+	 * @param value Value attached to the key.
+	 */
+	void set(const QString& key, uint value);
 
 	/**
 	 * @brief Set a value for the key.

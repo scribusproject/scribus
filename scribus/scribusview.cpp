@@ -8034,7 +8034,7 @@ void ScribusView::mouseReleaseEvent(QMouseEvent *e)
 {
 	_mousePressed = false;
 	for (uint i = 0; i < SelItem.count(); ++i)
-		SelItem.at(i)->checkChanges(true);
+		SelItem.at(i)->checkChanges();
 	QScrollView::mouseReleaseEvent(e);
 }
 
@@ -9134,6 +9134,30 @@ int ScribusView::PaintLine(double x, double y, double b, double h, double w, QSt
 //		emit AddObj(PageNr, ite->ItemNr);
 	}
 	return ite->ItemNr;
+}
+
+void ScribusView::creationUndoAction(PageItem *pi)
+{
+	if (undoManager->undoEnabled() && !Doc->loading)
+	{
+		SimpleState *ss = new SimpleState(Um::Create,
+			QString(Um::CreateTo).arg(pi->Xpos).arg(pi->Ypos).arg(pi->Width).arg(pi->Height),
+										  NULL);
+		ss->set("CREATE_PAGEITEM", "cpi");
+		ss->set("art", pi->PType);
+		ss->set("x", pi->Xpos);
+		ss->set("y", pi->Ypos);
+		ss->set("w", pi->Width);
+		ss->set("h", pi->Height);
+		ss->set("w2", pi->Pwidth);
+		ss->set("fill", pi->Pcolor);
+		ss->set("outline", pi->Pcolor2);
+		ss->set("ClipEdited", pi->ClipEdited);
+		ss->set("ItemNr", pi->ItemNr);
+
+		undoManager->action(Doc->currentPage, ss);
+		pi->checkChanges(true);
+	}
 }
 
 void ScribusView::insertColor(QString nam, double c, double m, double y, double k)

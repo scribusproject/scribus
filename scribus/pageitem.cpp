@@ -2270,22 +2270,25 @@ void PageItem::DrawPolyL(QPainter *p, QPointArray pts)
 void PageItem::setName(const QString& newName)
 {
 	AnName = newName;
-	setUName(newName);
+	setUName(newName); // set the name for the UndoObject too
 }
 
 void PageItem::checkChanges(bool force)
 {
 	// has the item been rotated
-	if ((force) || ((oldRot != Rot) && (!ScApp->view->mousePressed()) && (!ScApp->arrowKeyDown())))
+	if ((force) || ((oldRot != Rot) && (shouldCheck())))
 		rotateUndoAction();
 	// has the item been resized
-	if ((force) || ((oldWidth != Width || oldHeight != Height) && 
-			(!ScApp->view->mousePressed()) && (!ScApp->arrowKeyDown())))
+	if ((force) || ((oldWidth != Width || oldHeight != Height) && (shouldCheck())))
 		resizeUndoAction();
 	// has the item been moved
-	if ((force) || ((oldXpos != Xpos || oldYpos != Ypos) && 
-			(!ScApp->view->mousePressed()) && (!ScApp->arrowKeyDown())))
+	if ((force) || ((oldXpos != Xpos || oldYpos != Ypos) && (shouldCheck())))
 		moveUndoAction();
+}
+
+bool PageItem::shouldCheck()
+{
+	return (!ScApp->view->mousePressed()) && (!ScApp->arrowKeyDown());
 }
 
 void PageItem::moveUndoAction()

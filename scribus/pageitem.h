@@ -346,6 +346,17 @@ private:
 	void restoreResize(SimpleState *state, bool isUndo);
 	void restoreRotate(SimpleState *state, bool isUndo);
 	/*@}*/
+
+	/**
+	 * @brief Returns true if the actions should be sent to the UndoManager.
+	 *
+	 * Checks the state of the arrow keys and mouse buttons. If a key or a
+	 * mouse button is down PageItem is under some action which should only be
+	 * stored after the action has been finished (to get a single undo action).
+	 * @return true if the actions should be sent to the UndoManager based on the
+	 * state of arrow keys and mouse buttons else returns false.
+	 */
+	bool shouldCheck();
 };
 
 #endif

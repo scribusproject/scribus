@@ -322,6 +322,7 @@ private: // Private attributes
 	int    oldY;
 	bool _mousePressed;
 	UndoManager *undoManager;
+	void creationUndoAction(PageItem *pi);
 
 private slots:
 	void Zval();
