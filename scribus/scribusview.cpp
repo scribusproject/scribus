@@ -11535,6 +11535,7 @@ void ScribusView::setObjectUndoMode()
 	_isGlobalMode = undoManager->isGlobalMode();
 	if (ScApp->HaveDoc)
 	{
+		ScApp->scrActions["editActionMode"]->setOn(true);
 		if (SelItem.count() == 1)
 			undoManager->showObject(SelItem.at(0)->getUId());
 		else if (SelItem.count() > 1)
@@ -11548,6 +11549,7 @@ void ScribusView::setGlobalUndoMode()
 {
 	if (ScApp->HaveDoc)
 	{
+		ScApp->scrActions["editActionMode"]->setOn(!_isGlobalMode);
 		if (_isGlobalMode)
 			undoManager->showObject(-1);
 		else
