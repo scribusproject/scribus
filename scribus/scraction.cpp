@@ -17,6 +17,7 @@
 #include "scraction.h"
 #include "scraction.moc"
 
+
 ScrAction::ScrAction( QObject * parent, const char * name ) : QAction( parent, name )
 {
 	menuType=ScrAction::Normal;
@@ -57,6 +58,7 @@ ScrAction::ScrAction( const int dllID, const QString & menuText, QKeySequence ac
 	connect (this, SIGNAL(activated()), this, SLOT(activatedToActivatedDLL()));
 }
 
+
 ScrAction::ScrAction( const int dllID, const QIconSet & icon, const QString & menuText, QKeySequence accel, QObject * parent, const char * name ) : QAction( icon, menuText, accel, parent, name )
 {
 	pluginID=dllID;
@@ -64,6 +66,7 @@ ScrAction::ScrAction( const int dllID, const QIconSet & icon, const QString & me
 	setIconSizes();
 	connect (this, SIGNAL(activated()), this, SLOT(activatedToActivatedDLL()));
 }
+
 
 ScrAction::~ScrAction()
 {
@@ -97,11 +100,13 @@ void ScrAction::addedTo ( int index, QPopupMenu * menu )
 	popupMenuAddedTo=menu;
 }
 
+
 void ScrAction::addedTo( QWidget * actionWidget, QWidget * container )
 {
 	widgetAddedTo = actionWidget;
 	containerWidgetAddedTo = container;
 }
+
 
 QWidget* ScrAction::getWidgetAddedTo()
 {

@@ -857,7 +857,7 @@ void ScribusApp::convertToXMLPreferences(const QString prefsLocation)
 
 }
 
-void ScribusApp::initActions()
+void ScribusApp::initFileMenuActions()
 {
 	//File Menu
 	scrActions.insert("fileNew", new ScrAction(QIconSet(loadIcon("DateiNeu16.png"), loadIcon("DateiNeu.xpm")), tr("&New"), CTRL+Key_N, this, "fileNew"));
@@ -889,6 +889,15 @@ void ScribusApp::initActions()
 	scrActions.insert("filePrint", new ScrAction(QIconSet(loadIcon("DateiPrint16.png"), loadIcon("DateiPrint.xpm")), tr("&Print..."), CTRL+Key_P, this, "filePrint"));
 	scrActions.insert("fileQuit", new ScrAction(QPixmap(loadIcon("exit.png")), tr("&Quit"), CTRL+Key_Q, this, "fileQuit"));
 	
+	//Set some tooltips, unsure yet whether to use these, probably not as they arent flexible like normal actions ones can be
+	/*
+	scrActions["fileNew"]->setToolTip(tr("Create a new document"));
+	scrActions["fileOpen"]->setToolTip(tr("Open a document"));
+	scrActions["fileSave"]->setToolTip(tr("Save the current document"));
+	scrActions["fileClose"]->setToolTip(tr("Close the current document"));
+	scrActions["filePrint"]->setToolTip(tr("Print the current document"));
+	scrActions["fileExportAsPDF"]->setToolTip(tr("Save the current document as PDF"));
+	*/
 	//Connect our signals and slots
 	//File Menu
 	connect( scrActions["fileNew"], SIGNAL(activated()) , this, SLOT(slotFileNew()) );
@@ -915,13 +924,56 @@ void ScribusApp::initActions()
 	//The rest are plugins
 }
 
+void ScribusApp::initEditMenuActions()
+{
+	//Edit Menu
+	scrActions.insert("editUndoAction", new ScrAction(QIconSet(loadIcon("u_undo16.png"), loadIcon("u_undo.png")), tr("&Undo"), CTRL+Key_Z, this, "editUndo"));
+	scrActions.insert("editRedoAction", new ScrAction(QIconSet(loadIcon("u_redo16.png"), loadIcon("u_redo.png")), tr("&Redo"), CTRL+SHIFT+Key_Z, this, "editRedo"));
+	scrActions.insert("editActionMode", new ScrAction(tr("&Item Action Mode"), QKeySequence(), this, "editActionMode"));
+	scrActions.insert("editCut", new ScrAction(QIconSet(loadIcon("editcut.png"), loadIcon("editcut.png")), tr("Cu&t"), CTRL+Key_X, this, "editCut"));
+	scrActions.insert("editCopy", new ScrAction(QIconSet(loadIcon("editcopy.png"), loadIcon("editcopy.png")), tr("&Copy"), CTRL+Key_C, this, "editCopy"));
+	scrActions.insert("editPaste", new ScrAction(QIconSet(loadIcon("editpaste.png"), loadIcon("editpaste.png")), tr("&Paste"), CTRL+Key_V, this, "editPaste"));
+	scrActions.insert("editClear", new ScrAction(QIconSet(loadIcon("editClear.png"), loadIcon("editClear.png")), tr("C&lear"), QKeySequence(), this, "editClear"));
+	scrActions.insert("editSelectAll", new ScrAction(tr("Select &All"), CTRL+Key_A, this, "editSelectall"));
+	scrActions.insert("editSearchReplace", new ScrAction(QIconSet(loadIcon("find16.png"), loadIcon("find16.png")),  tr("&Search/Replace..."), QKeySequence(), this, "editSearchReplace"));
+	
+	scrActions.insert("editColors", new ScrAction(tr("C&olors..."), QKeySequence(), this, "editColors"));
+	scrActions.insert("editParaStyles", new ScrAction(tr("&Paragraph Styles..."), QKeySequence(), this, "editParaStyles"));
+	scrActions.insert("editLineStyles", new ScrAction(tr("&Line Styles..."), QKeySequence(), this, "editLineStyles"));
+	scrActions.insert("editTemplates", new ScrAction(tr("&Templates..."), QKeySequence(), this, "editTemplates"));
+	scrActions.insert("editJavascripts", new ScrAction(tr("&Javascripts..."), QKeySequence(), this, "editJavascripts"));
+	scrActions.insert("editPreferences", new ScrAction(tr("P&references..."), QKeySequence(), this, "editPreferences"));
+	scrActions.insert("editFonts", new ScrAction(tr("&Fonts..."), QKeySequence(), this, "editFonts"));
+	
+	//TODO Extra tooltips
+	//
+		
+	connect( scrActions["editUndoAction"], SIGNAL(activated()) , this, SLOT(UnDoAction()) );
+	connect( scrActions["editRedoAction"], SIGNAL(activated()) , this, SLOT(RedoAction()) );
+	//TODO connect( scrActions["editActionMode"], SIGNAL(activated()) , this, SLOT(RedoAction()) );
+	connect( scrActions["editCut"], SIGNAL(activated()) , this, SLOT(slotEditCut()) );
+	connect( scrActions["editCopy"], SIGNAL(activated()) , this, SLOT(slotEditCopy()) );
+	connect( scrActions["editPaste"], SIGNAL(activated()) , this, SLOT(slotEditPaste()) );
+	connect( scrActions["editClear"], SIGNAL(activated()) , this, SLOT(DeleteText()) );
+	connect( scrActions["editSelectAll"], SIGNAL(activated()) , this, SLOT(SelectAll()) );
+	connect( scrActions["editSearchReplace"], SIGNAL(activated()), this, SLOT(SearchText()) );
+	connect( scrActions["editColors"], SIGNAL(activated()) , this, SLOT(slotEditColors()) );
+	connect( scrActions["editParaStyles"], SIGNAL(activated()) , this, SLOT(slotEditStyles()) );
+	connect( scrActions["editLineStyles"], SIGNAL(activated()) , this, SLOT(slotEditLineStyles()) );
+	connect( scrActions["editTemplates"], SIGNAL(activated()) , this, SLOT(ManageTemp()) );
+	connect( scrActions["editJavascripts"], SIGNAL(activated()) , this, SLOT(ManageJava()) );
+	connect( scrActions["editPreferences"], SIGNAL(activated()) , this, SLOT(slotPrefsOrg()) );
+	connect( scrActions["editFonts"], SIGNAL(activated()) , this, SLOT(slotFontOrg()) );
+}
+
 void ScribusApp::initMenuBar()
 {
 	int MenID;
 	QFont tmp;
 	RecentDocs.clear();
 
-	initActions();
+	initFileMenuActions();
+	initEditMenuActions();
 	
 	scrMenuMgr->createMenu("File", tr("&File"));
 	scrMenuMgr->addMenuItem(scrActions["fileNew"], "File");
@@ -977,46 +1029,55 @@ void ScribusApp::initMenuBar()
 	scrActions["fileDocSetup"]->setEnabled(false);
 	scrActions["filePrint"]->setEnabled(false);
 	
-	editMenu = new QPopupMenu();
-	edUndo = editMenu->insertItem( tr("&Undo"), this, SLOT(UnDoAction()), CTRL+Key_Z);
-	edRedo = editMenu->insertItem(tr("&Redo"), this, SLOT(RedoAction()), CTRL+SHIFT+Key_Z);
-	editMenu->insertSeparator();
-	M_EditCut = editMenu->insertItem(loadIcon("editcut.png"), tr("Cu&t"), this , SLOT(slotEditCut()), CTRL+Key_X);
-	M_EditCopy = editMenu->insertItem(loadIcon("editcopy.png"), tr("&Copy"), this , SLOT(slotEditCopy()), CTRL+Key_C);
-	M_EditPaste = editMenu->insertItem(loadIcon("editpaste.png"), tr("&Paste"), this , SLOT(slotEditPaste()), CTRL+Key_V);
-	M_EditDelete = editMenu->insertItem(loadIcon("editdelete.png"), tr("C&lear"), this, SLOT(DeleteText()));
-	M_EditSelectAll = editMenu->insertItem( tr("Select &All"), this, SLOT(SelectAll()), CTRL+Key_A);
+	scrMenuMgr->createMenu("Edit", tr("&Edit"));
+	scrMenuMgr->addMenuItem(scrActions["editUndoAction"], "Edit");
+	scrMenuMgr->addMenuItem(scrActions["editRedoAction"], "Edit");
+	scrMenuMgr->addMenuItem(scrActions["editActionMode"], "Edit");
+	scrMenuMgr->addMenuSeparator("Edit");
+	scrMenuMgr->addMenuItem(scrActions["editCut"], "Edit");
+	scrMenuMgr->addMenuItem(scrActions["editCopy"], "Edit");
+	scrMenuMgr->addMenuItem(scrActions["editPaste"], "Edit");
+	scrMenuMgr->addMenuItem(scrActions["editClear"], "Edit");
+	scrMenuMgr->addMenuItem(scrActions["editSelectAll"], "Edit");
+	scrMenuMgr->addMenuSeparator("Edit");
+	scrMenuMgr->addMenuItem(scrActions["editSearchReplace"], "Edit");
+	scrMenuMgr->addMenuSeparator("Edit");
+	scrMenuMgr->addMenuItem(scrActions["editColors"], "Edit");
+	scrMenuMgr->addMenuItem(scrActions["editParaStyles"], "Edit");
+	scrMenuMgr->addMenuItem(scrActions["editLineStyles"], "Edit");
+	scrMenuMgr->addMenuItem(scrActions["editTemplates"], "Edit");
+	scrMenuMgr->addMenuItem(scrActions["editJavascripts"], "Edit");
+	scrMenuMgr->addMenuSeparator("Edit");
+	scrMenuMgr->addMenuItem(scrActions["editPreferences"], "Edit");
+	scrMenuMgr->addMenuItem(scrActions["editFonts"], "Edit");
+
+	scrActions["editUndoAction"]->setEnabled(false);
+	scrActions["editRedoAction"]->setEnabled(false);
+	scrActions["editActionMode"]->setEnabled(false);
+	scrActions["editCut"]->setEnabled(false);
+	scrActions["editCopy"]->setEnabled(false);
+	scrActions["editPaste"]->setEnabled(false);
+	scrActions["editClear"]->setEnabled(false);
+	scrActions["editSelectAll"]->setEnabled(false);
+	scrActions["editSearchReplace"]->setEnabled(false);
+	scrActions["editParaStyles"]->setEnabled(false);
+	scrActions["editLineStyles"]->setEnabled(false);
+	scrActions["editTemplates"]->setEnabled(false);
+	scrActions["editJavascripts"]->setEnabled(false);
+
+	/* CB TODO
 	SetKeyEntry(9, tr("Cut"), M_EditCut, CTRL+Key_X);
 	SetKeyEntry(10, tr("Copy"), M_EditCopy, CTRL+Key_C);
 	SetKeyEntry(11, tr("Paste"), M_EditPaste, CTRL+Key_V);
-	SetKeyEntry(12, tr("Clear"), M_EditDelete, 0);
+	SetKeyEntry(12, tr("Clear"), M_editClear, 0);
 	SetKeyEntry(13, tr("Select all"), M_EditSelectAll, CTRL+Key_A);
-	editMenu->insertSeparator();
-	M_EditSearchReplace = editMenu->insertItem(loadIcon("find16.png"),  tr("&Search/Replace..."), this, SLOT(SearchText()));
-	editMenu->insertSeparator();
-	MenID = editMenu->insertItem( tr("C&olors..."), this , SLOT(slotEditColors()));
 	SetKeyEntry(14, tr("Colors..."), MenID, 0);
-	M_EditParaStyles = editMenu->insertItem( tr("&Paragraph Styles..."), this , SLOT(slotEditStyles()));
-	M_EditLineStyles = editMenu->insertItem( tr("&Line Styles..."), this , SLOT(slotEditLineStyles()));
 	SetKeyEntry(15, tr("Styles..."), M_EditParaStyles, 0);
-	M_EditTemplates = editMenu->insertItem( tr("&Templates..."), this, SLOT(ManageTemp()));
 	SetKeyEntry(16, tr("Templates..."), M_EditTemplates, 0);
-	M_EditJavascripts = editMenu->insertItem( tr("&Javascripts..."), this, SLOT(ManageJava()));
-	MenID = editMenu->insertItem( tr("P&references..."), this , SLOT(slotPrefsOrg()));
-	MenID = editMenu->insertItem( tr("&Fonts..."), this , SLOT(slotFontOrg()));
 	SetKeyEntry(17, tr("Fonts..."), MenID, 0);
-	editMenu->setItemEnabled(edUndo, 0);
-	editMenu->setItemEnabled(edRedo, 0);
-	editMenu->setItemEnabled(M_EditCut, 0);
-	editMenu->setItemEnabled(M_EditCopy, 0);
-	editMenu->setItemEnabled(M_EditPaste, 0);
-	editMenu->setItemEnabled(M_EditDelete, 0);
-	editMenu->setItemEnabled(M_EditSelectAll, 0);
-	editMenu->setItemEnabled(M_EditParaStyles, 0);
-	editMenu->setItemEnabled(M_EditLineStyles, 0);
-	editMenu->setItemEnabled(M_EditSearchReplace, 0);
-	editMenu->setItemEnabled(M_EditTemplates, 0);
-	editMenu->setItemEnabled(M_EditJavascripts, 0);
+	*/
+	
+	//Style Menu
 	StilMenu = new QPopupMenu();
 	itemMenu = new QPopupMenu();
 	SetKeyEntry(19, tr("Select New Font"), 0, 0);
@@ -1155,12 +1216,13 @@ void ScribusApp::initMenuBar()
 	MenID = helpMenu->insertItem( tr("Scribus &Manual..."), this, SLOT(slotOnlineHelp()));
 	SetKeyEntry(54, tr("Online-Help..."), MenID, 0);
 
-/*	editMenu->insertItem( tr("Test"), this, SLOT(slotTest()));
+/*
+	editMenu->insertItem( tr("Test"), this, SLOT(slotTest()));
 	editMenu->insertItem( tr("Test2"), this, SLOT(slotTest2()));
 */
 	
 	scrMenuMgr->addMenuToMenuBar("File");
-	menuBar()->insertItem( tr("&Edit"), editMenu);
+	scrMenuMgr->addMenuToMenuBar("Edit");
 	Stm = menuBar()->insertItem( tr("St&yle"), StilMenu);
 	Obm = menuBar()->insertItem( tr("&Item"), itemMenu);
 	pgmm = menuBar()->insertItem( tr("&Page"), pageMenu);
@@ -1221,13 +1283,15 @@ void ScribusApp::initMenuBar()
 
 	SetKeyEntry(61, tr("Attach Text to Path"), PfadT, 0);
 	SetKeyEntry(62, tr("Show Layers"), viewLpal, 0);
+	/*CB TODO
 	SetKeyEntry(63, tr("Javascripts..."), M_EditJavascripts, 0);
-	SetKeyEntry(64, tr("Undo"), edUndo, CTRL+Key_Z);
-	SetKeyEntry(65, tr("Redo"), edRedo, CTRL+SHIFT+Key_Z);
+	SetKeyEntry(64, tr("Undo"), M_EditUndo, CTRL+Key_Z);
+	SetKeyEntry(65, tr("Redo"), M_EditRedo, CTRL+SHIFT+Key_Z);
+	*/
+			
 	SetKeyEntry(66, tr("Show Page Palette"), viewSepal, 0);
 	SetKeyEntry(67, tr("Lock/Unlock"), M_ItemLock, CTRL+Key_F);
 
-	connect(editMenu, SIGNAL(aboutToShow()), this, SLOT(refreshUndoRedoItems()));
 	connect(UndoManager::instance(), SIGNAL(newAction(UndoObject*, UndoState*)),
 	        this, SLOT(refreshUndoRedoItems()));
 	connect(UndoManager::instance(), SIGNAL(undoRedoDone()), this, SLOT(refreshUndoRedoItems()));
@@ -2923,7 +2987,7 @@ void ScribusApp::SwitchWin()
 		{
 			pageMenu->setItemEnabled(pageMenu->idAt(a), 0);
 		}
-		editMenu->setItemEnabled(M_EditTemplates, 0);
+		scrActions["editTemplates"]->setEnabled(false);
 		scrActions["fileNew"]->setEnabled(false);
 		scrActions["fileSave"]->setEnabled(doc->isModified());
 		scrActions["fileOpen"]->setEnabled(false);
@@ -2935,7 +2999,7 @@ void ScribusApp::SwitchWin()
 	else
 	{
 		menuBar()->setItemEnabled(pgmm, 1);
-		editMenu->setItemEnabled(M_EditTemplates, 1);
+		scrActions["editTemplates"]->setEnabled(true);
 		scrActions["fileNew"]->setEnabled(true);
 		scrActions["fileOpen"]->setEnabled(true);
 		scrActions["fileClose"]->setEnabled(true);
@@ -2984,15 +3048,13 @@ void ScribusApp::HaveNewDoc()
 	if (scrDLLActions["SaveAsTemplate"])
 		scrDLLActions["SaveAsTemplate"]->setEnabled(true);
 	
-	editMenu->setItemEnabled(M_EditCut, 0);
-	editMenu->setItemEnabled(M_EditCopy, 0);
-	if (Buffer2 != "")
-		editMenu->setItemEnabled(M_EditPaste, 1);
-	else
-		editMenu->setItemEnabled(M_EditPaste, 0);
-	editMenu->setItemEnabled(M_EditSelectAll, 1);
-	editMenu->setItemEnabled(M_EditParaStyles, 1);
-	editMenu->setItemEnabled(M_EditLineStyles, 1);
+	scrActions["editCut"]->setEnabled(false);
+	scrActions["editCopy"]->setEnabled(false);
+	scrActions["editPaste"]->setEnabled(Buffer2 != "");
+	scrActions["editSelectAll"]->setEnabled(true);
+	scrActions["editParaStyles"]->setEnabled(true);
+	scrActions["editLineStyles"]->setEnabled(true);
+	
 	menuBar()->setItemEnabled(ViMen, 1);
 	menuBar()->setItemEnabled(WinMen, 1);
 	viewMenu->setItemChecked(M_ViewSnapToGuides, doc->SnapGuides);
@@ -3006,8 +3068,10 @@ void ScribusApp::HaveNewDoc()
 		setter = 1;
 	pageMenu->setItemEnabled(pgmd, setter);
 	pageMenu->setItemEnabled(pgmv, setter);
-	editMenu->setItemEnabled(M_EditTemplates, 1);
-	editMenu->setItemEnabled(M_EditJavascripts, 1);
+	
+	scrActions["editTemplates"]->setEnabled(true);
+	scrActions["editJavascripts"]->setEnabled(true);
+		
 	ColorList::Iterator it;
 	QPixmap pm = QPixmap(15, 15);
 	a = 0;
@@ -3135,10 +3199,11 @@ void ScribusApp::HaveNewSel(int Nr)
 		itemMenu->setItemEnabled(ShapeM, 0);
 		itemMenu->setItemEnabled(PfadTP, 0);
 		itemMenu->setItemEnabled(M_ItemLock, 0);
-		editMenu->setItemEnabled(M_EditCut, 0);
-		editMenu->setItemEnabled(M_EditCopy, 0);
-		editMenu->setItemEnabled(M_EditDelete, 0);
-		editMenu->setItemEnabled(M_EditSearchReplace, 0);
+		scrActions["editCut"]->setEnabled(false);
+		scrActions["editCopy"]->setEnabled(false);
+		scrActions["editClear"]->setEnabled(false);
+		scrActions["editSearchReplace"]->setEnabled(false);
+		
 		extraMenu->setItemEnabled(hyph, 0);
 		StilMenu->clear();
 		WerkTools->KetteAus->setEnabled(false);
@@ -3153,10 +3218,12 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["fileImportAppendText"]->setEnabled(false);
 		scrActions["fileImportText"]->setEnabled(false);
 		scrActions["fileImportImage"]->setEnabled(true);
-		editMenu->setItemEnabled(M_EditCut, 1);
-		editMenu->setItemEnabled(M_EditCopy, 1);
-		editMenu->setItemEnabled(M_EditDelete, 0);
-		editMenu->setItemEnabled(M_EditSearchReplace, 0);
+		
+		scrActions["editCut"]->setEnabled(true);
+		scrActions["editCopy"]->setEnabled(true);
+		scrActions["editClear"]->setEnabled(false);
+		scrActions["editSearchReplace"]->setEnabled(false);
+		
 		extraMenu->setItemEnabled(hyph, 0);
 		menuBar()->setItemEnabled(Stm, 1);
 		menuBar()->setItemEnabled(Obm, 1);
@@ -3180,13 +3247,12 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["fileImportImage"]->setEnabled(false);
 		scrActions["fileImportAppendText"]->setEnabled(true);
 		scrActions["fileExportText"]->setEnabled(true);
-		editMenu->setItemEnabled(M_EditCut, 1);
-		editMenu->setItemEnabled(M_EditCopy, 1);
-		editMenu->setItemEnabled(M_EditDelete, 0);
-		if (b->itemText.count() == 0)
-			editMenu->setItemEnabled(M_EditSearchReplace, 0);
-		else
-			editMenu->setItemEnabled(M_EditSearchReplace, 1);
+		
+		scrActions["editCut"]->setEnabled(true);
+		scrActions["editCopy"]->setEnabled(true);
+		scrActions["editClear"]->setEnabled(false);
+		scrActions["editSearchReplace"]->setEnabled(b->itemText.count() != 0);
+
 		extraMenu->setItemEnabled(hyph, 1);
 		menuBar()->setItemEnabled(Stm, 1);
 		menuBar()->setItemEnabled(Obm, 1);
@@ -3222,7 +3288,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		if (doc->appMode == EditMode)
 		{
 			setTBvals(b);
-			editMenu->setItemEnabled(M_EditSelectAll, 1);
+			scrActions["editSelectAll"]->setEnabled(true);
 			extraMenu->setItemEnabled(M_ExtraCharSelect, 1);
 			view->HR->ItemPos = b->Xpos;
 			view->HR->ItemEndPos = b->Xpos+b->Width;
@@ -3271,10 +3337,12 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["fileImportImage"]->setEnabled(false);
 		scrActions["fileImportAppendText"]->setEnabled(true);
 		scrActions["fileExportText"]->setEnabled(true);
-		editMenu->setItemEnabled(M_EditCut, 1);
-		editMenu->setItemEnabled(M_EditCopy, 1);
-		editMenu->setItemEnabled(M_EditDelete, 0);
-		editMenu->setItemEnabled(M_EditSearchReplace, 0);
+		
+		scrActions["editCut"]->setEnabled(true);
+		scrActions["editCopy"]->setEnabled(true);
+		scrActions["editClear"]->setEnabled(false);
+		scrActions["editSearchReplace"]->setEnabled(false);
+
 		extraMenu->setItemEnabled(hyph, 0);
 		menuBar()->setItemEnabled(Stm, 1);
 		menuBar()->setItemEnabled(Obm, 1);
@@ -3315,10 +3383,11 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["fileImportImage"]->setEnabled(false);
 		scrActions["fileImportAppendText"]->setEnabled(false);
 		scrActions["fileExportText"]->setEnabled(false);
-		editMenu->setItemEnabled(M_EditCut, 1);
-		editMenu->setItemEnabled(M_EditCopy, 1);
-		editMenu->setItemEnabled(M_EditDelete, 0);
-		editMenu->setItemEnabled(M_EditSearchReplace, 0);
+		scrActions["editCut"]->setEnabled(true);
+		scrActions["editCopy"]->setEnabled(true);
+		scrActions["editClear"]->setEnabled(false);
+		scrActions["editSearchReplace"]->setEnabled(false);
+
 		extraMenu->setItemEnabled(hyph, 0);
 		menuBar()->setItemEnabled(Stm, 1);
 		menuBar()->setItemEnabled(Obm, 1);
@@ -3341,7 +3410,8 @@ void ScribusApp::HaveNewSel(int Nr)
 	{
 		itemMenu->setItemEnabled(M_ItemAlignDist, 1);
 		itemMenu->setItemEnabled(PfadTP, 0);
-		editMenu->setItemEnabled(M_EditSearchReplace, 0);
+		scrActions["editSearchReplace"]->setEnabled(false);
+
 		bool hPoly = true;
 		bool isGroup = true;
 		int firstElem = -1;
@@ -3406,8 +3476,8 @@ void ScribusApp::HaveNewSel(int Nr)
 			itemMenu->setItemEnabled(M_ItemBringToFront, 0);
 			itemMenu->setItemEnabled(M_ItemRaise, 0);
 			itemMenu->setItemEnabled(M_ItemLower, 0);
-			editMenu->setItemEnabled(M_EditCut, 0);
-			editMenu->setItemEnabled(M_EditDelete, 0);
+			scrActions["editCut"]->setEnabled(false);
+			scrActions["editClear"]->setEnabled(false);
 			WerkTools->Rotiere->setEnabled(false);
 			itemMenu->changeItem(M_ItemLock, tr("Un&lock"));
 		}
@@ -4348,23 +4418,25 @@ bool ScribusApp::DoFileClose()
 		scrActions["fileImportAppendText"]->setEnabled(false);
 		scrActions["fileImportPage"]->setEnabled(false);
 
-		editMenu->setItemEnabled(edUndo, 0);
-		editMenu->setItemEnabled(edRedo, 0);
-		editMenu->setItemEnabled(M_EditCut, 0);
-		editMenu->setItemEnabled(M_EditCopy, 0);
-		editMenu->setItemEnabled(M_EditPaste, 0);
-		editMenu->setItemEnabled(M_EditDelete, 0);
-		editMenu->setItemEnabled(M_EditSelectAll, 0);
-		editMenu->setItemEnabled(M_EditParaStyles, 0);
-		editMenu->setItemEnabled(M_EditLineStyles, 0);
-		editMenu->setItemEnabled(M_EditSearchReplace, 0);
+		scrActions["editUndoAction"]->setEnabled(false);
+		scrActions["editRedoAction"]->setEnabled(false);
+		scrActions["editCut"]->setEnabled(false);
+		scrActions["editCopy"]->setEnabled(false);
+		scrActions["editPaste"]->setEnabled(false);
+		scrActions["editClear"]->setEnabled(false);
+		scrActions["editSelectAll"]->setEnabled(false);
+		scrActions["editParaStyles"]->setEnabled(false);
+		scrActions["editLineStyles"]->setEnabled(false);
+		scrActions["editSearchReplace"]->setEnabled(false);
+		scrActions["editTemplates"]->setEnabled(false);
+		scrActions["editJavascripts"]->setEnabled(false);
+		
 		extraMenu->setItemEnabled(hyph, 0);
 		menuBar()->setItemEnabled(ViMen, 0);
 		menuBar()->setItemEnabled(WinMen, 0);
 		viewMenu->setItemChecked(M_ViewSnapToGuides, false);
 		viewMenu->setItemChecked(M_ViewSnapToGrid, false);
-		editMenu->setItemEnabled(M_EditTemplates, 0);
-		editMenu->setItemEnabled(M_EditJavascripts, 0);
+
 		menuBar()->setItemEnabled(pgmm, 0);
 		menuBar()->setItemEnabled(exmn, 0);
 		menuBar()->setItemEnabled(Stm, 0);
@@ -4640,7 +4712,7 @@ void ScribusApp::slotEditCut()
 		slotDocCh();
 		BuFromApp = true;
 		ClipB->setText(BufferI);
-		editMenu->setItemEnabled(M_EditPaste, 1);
+		scrActions["editPaste"]->setEnabled(true);
 	}
 }
 
@@ -4712,7 +4784,7 @@ void ScribusApp::slotEditCopy()
 		}
 		BuFromApp = true;
 		ClipB->setText(BufferI);
-		editMenu->setItemEnabled(M_EditPaste, 1);
+		scrActions["editPaste"]->setEnabled(true);
 	}
 }
 
@@ -4887,7 +4959,8 @@ void ScribusApp::ClipChange()
 #else
 	cc = ClipB->text();
 #endif
-	editMenu->setItemEnabled(M_EditPaste, 0);
+
+	scrActions["editPaste"]->setEnabled(false);
 	if (!cc.isNull())
 	{
 		if (!BuFromApp)
@@ -4898,12 +4971,12 @@ void ScribusApp::ClipChange()
 			if (cc.startsWith("<SCRIBUSELEM"))
 			{
 				if (doc->appMode != EditMode)
-					editMenu->setItemEnabled(M_EditPaste, 1);
+					scrActions["editPaste"]->setEnabled(true);
 			}
 			else
 			{
 				if (doc->appMode == EditMode)
-					editMenu->setItemEnabled(M_EditPaste, 1);
+					scrActions["editPaste"]->setEnabled(true);
 			}
 		}
 	}
@@ -4935,16 +5008,16 @@ void ScribusApp::DeleteText()
 
 void ScribusApp::EnableTxEdit()
 {
-	editMenu->setItemEnabled(M_EditCut, 1);
-	editMenu->setItemEnabled(M_EditCopy, 1);
-	editMenu->setItemEnabled(M_EditDelete, 1);
+	scrActions["editCut"]->setEnabled(true);
+	scrActions["editCopy"]->setEnabled(true);
+	scrActions["editClear"]->setEnabled(true);
 }
 
 void ScribusApp::DisableTxEdit()
 {
-	editMenu->setItemEnabled(M_EditCut, 0);
-	editMenu->setItemEnabled(M_EditCopy, 0);
-	editMenu->setItemEnabled(M_EditDelete, 0);
+	scrActions["editCut"]->setEnabled(false);
+	scrActions["editCopy"]->setEnabled(false);
+	scrActions["editClear"]->setEnabled(false);
 }
 
 void ScribusApp::slotHelpAbout()
@@ -5704,7 +5777,7 @@ void ScribusApp::setAppMode(int mode)
 			view->PGS->PageCombo->setFocusPolicy(QWidget::ClickFocus);
 			delete doc->CurTimer;
 			doc->CurTimer = 0;
-			editMenu->setItemEnabled(M_EditDelete, 0);
+			scrActions["editClear"]->setEnabled(false);
 			extraMenu->setItemEnabled(M_ExtraCharSelect, 0);
 			view->slotDoCurs(false);
 			if (b != 0)
@@ -5731,14 +5804,14 @@ void ScribusApp::setAppMode(int mode)
 				}
 				setTBvals(b);
 			}
-			editMenu->setItemEnabled(M_EditPaste, 0);
+			scrActions["editPaste"]->setEnabled(false);
 			extraMenu->setItemEnabled(M_ExtraCharSelect, 1);
 			if (!Buffer2.isNull())
 			{
 				if (!Buffer2.startsWith("<SCRIBUSELEM"))
 				{
 					BuFromApp = false;
-					editMenu->setItemEnabled(M_EditPaste, 1);
+					scrActions["editPaste"]->setEnabled(true);
 				}
 			}
 			WerkTools->Select->setOn(false);
@@ -5752,19 +5825,10 @@ void ScribusApp::setAppMode(int mode)
 			doc->CurTimer->start(500);
 			if (b != 0)
 			{
-				if (b->HasSel)
-				{
-					editMenu->setItemEnabled(M_EditCut, 1);
-					editMenu->setItemEnabled(M_EditCopy, 1);
-					editMenu->setItemEnabled(M_EditDelete, 1);
-				}
-				else
-				{
-					editMenu->setItemEnabled(M_EditCut, 0);
-					editMenu->setItemEnabled(M_EditCopy, 0);
-					editMenu->setItemEnabled(M_EditDelete, 0);
-				}
-				editMenu->setItemEnabled(M_EditSearchReplace, 1);
+				scrActions["editCut"]->setEnabled(b->HasSel);
+				scrActions["editCopy"]->setEnabled(b->HasSel);
+				scrActions["editClear"]->setEnabled(b->HasSel);
+				scrActions["editSearchReplace"]->setEnabled(true);
 				view->RefreshItem(b);
 			}
 		}
@@ -7938,7 +8002,7 @@ void ScribusApp::ManageTemp(QString temp)
 	{
 		pageMenu->setItemEnabled(pageMenu->idAt(a), 0);
 	}
-	editMenu->setItemEnabled(M_EditTemplates, 0);
+	scrActions["editTemplates"]->setEnabled(false);
 	ActWin->MenuStat[0] = scrActions["fileSave"]->isEnabled();
 	ActWin->MenuStat[1] = scrActions["fileRevert"]->isEnabled();
 	ActWin->MenuStat[2] = scrActions["fileSave"]->isEnabled();
@@ -7960,7 +8024,7 @@ void ScribusApp::ManageTemp(QString temp)
 void ScribusApp::ManTempEnd()
 {
 	view->HideTemplate();
-	editMenu->setItemEnabled(M_EditTemplates, 1);
+	scrActions["editTemplates"]->setEnabled(true);
 	pageMenu->setItemEnabled(pageMenu->idAt(0), 1);
 	pageMenu->setItemEnabled(pageMenu->idAt(2), 1);
 	pageMenu->setItemEnabled(pageMenu->idAt(4), 1);
@@ -8683,17 +8747,17 @@ void ScribusApp::ModifyAnnot()
 void ScribusApp::SetShortCut()
 {
 	uint a;
-	/*
+	/* CB TODO
 	for (a = 0; a < 9; ++a)
 	{
 		fileMenu->setAccel(Prefs.KeyActions[a].KeyID, Prefs.KeyActions[a].MenuID);
 	}
-	*/
 	for (a = 9; a < 17; ++a)
 	{
 		editMenu->setAccel(Prefs.KeyActions[a].KeyID, Prefs.KeyActions[a].MenuID);
 	}
 	editMenu->setAccel(Prefs.KeyActions[19].KeyID, Prefs.KeyActions[19].MenuID);
+	*/
 	for (a = 20; a < 30; ++a)
 	{
 		itemMenu->setAccel(Prefs.KeyActions[a].KeyID, Prefs.KeyActions[a].MenuID);
@@ -8720,9 +8784,9 @@ void ScribusApp::SetShortCut()
 	}
 	itemMenu->setAccel(Prefs.KeyActions[61].KeyID, Prefs.KeyActions[61].MenuID);
 	toolMenu->setAccel(Prefs.KeyActions[62].KeyID, Prefs.KeyActions[62].MenuID);
-	editMenu->setAccel(Prefs.KeyActions[63].KeyID, Prefs.KeyActions[63].MenuID);
-	editMenu->setAccel(Prefs.KeyActions[64].KeyID, Prefs.KeyActions[64].MenuID);
-	editMenu->setAccel(Prefs.KeyActions[65].KeyID, Prefs.KeyActions[65].MenuID);
+//CB TODO	editMenu->setAccel(Prefs.KeyActions[63].KeyID, Prefs.KeyActions[63].MenuID);
+//CB TODO	editMenu->setAccel(Prefs.KeyActions[64].KeyID, Prefs.KeyActions[64].MenuID);
+//CB TODO	editMenu->setAccel(Prefs.KeyActions[65].KeyID, Prefs.KeyActions[65].MenuID);
 	toolMenu->setAccel(Prefs.KeyActions[66].KeyID, Prefs.KeyActions[66].MenuID);
 	itemMenu->setAccel(Prefs.KeyActions[67].KeyID, Prefs.KeyActions[67].MenuID);
 	itemMenu->setAccel(Prefs.KeyActions[68].KeyID, Prefs.KeyActions[68].MenuID);
@@ -8827,8 +8891,8 @@ void ScribusApp::RedoAction()
 void ScribusApp::refreshUndoRedoItems()
 {
 	toolMenu->setItemChecked(viewUndoPalette, undoPalette->isVisible());
-	editMenu->setItemEnabled(edUndo, UndoManager::instance()->hasUndoActions());
-	editMenu->setItemEnabled(edRedo, UndoManager::instance()->hasRedoActions());
+	scrActions["editUndoAction"]->setEnabled(UndoManager::instance()->hasUndoActions());
+	scrActions["editRedoAction"]->setEnabled(UndoManager::instance()->hasRedoActions());
 }
 
 void ScribusApp::initHyphenator()

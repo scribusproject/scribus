@@ -29,7 +29,7 @@ extern int QStoInt(QString in);
 extern QColor SetColor(ScribusDoc *currentDoc, QString color, int shad);
 
 /*!
- \fn FileLoader::FileLoader(QString fileName)
+ \fn FileLoader::FileLoader(QString fileName, ScribusApp* app)
  \author Franz Schmid
  \date
  \brief Constructor, sets the variable "FileName" to the input parameter fileName

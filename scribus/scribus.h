@@ -488,7 +488,8 @@ private:
 	void initScrapbook();
 	void initCrashHandler();
 	void initCMS();
-	void initActions();
+	void initFileMenuActions();
+	void initEditMenuActions();
 
 	QString guiLanguage;
 	QString recentFileMenuName;
@@ -496,7 +497,7 @@ private:
 	QString getPreferencesLocation(); //Find preferences location
 	void convertToXMLPreferences(const QString prefsLocation); //convert 1.2 style rc prefs to .xml style
 	/** edit_menu contains all items of the menubar entry "Edit" */
-	QPopupMenu *editMenu;
+	//QPopupMenu *editMenu;
 	/** StilMenu enthaelt das Stilemenue */
 	QPopupMenu *StilMenu;
 	/** itemMenu enthaelt das Objektemenue */
@@ -579,20 +580,20 @@ private:
 	//int M_FileExport;
 	//int M_FileOpen;
 	//int M_OpenRecentFile;
-	int edUndo;
-	int edRedo;
-	int M_EditCut;
-	int M_EditCopy;
-	int M_EditPaste;
-	int M_EditDelete;
-	int M_EditSelectAll;
-	int M_EditParaStyles;
-	int M_EditLineStyles;
-	int M_EditSearchReplace;
-	int M_ItemDelete;
-	int M_EditTemplates;
-	int M_EditJavascripts;
+	//int M_EditUndo;
+	//int M_EditRedo;
+	//int M_EditCut;
+	//int M_EditCopy;
+	//int M_EditPaste;
+	//int M_EditDelete;
+	//int M_EditSelectAll;
+	//int M_EditParaStyles;
+	//int M_EditLineStyles;
+	//int M_EditSearchReplace;
+	//int M_EditTemplates;
+	//int M_EditJavascripts;
 	int tip;
+	int M_ItemDelete;
 	int M_ItemGroup;
 	int M_ItemUngroup;
 	int M_ItemLock;

@@ -58,9 +58,14 @@ QPopupMenu *ScrPopupMenu::getLocalPopupMenu()
 
 bool ScrPopupMenu::insertSubMenu(ScrPopupMenu* newSubMenu)
 {
-	menuItemList.append(newSubMenu);
-	localPopupMenu->insertItem(newSubMenu->getMenuText(), newSubMenu->getLocalPopupMenu());
-	return true;
+	if (newSubMenu)
+	{
+		menuItemList.append(newSubMenu);
+		localPopupMenu->insertItem(newSubMenu->getMenuText(), newSubMenu->getLocalPopupMenu());
+		return true;
+	}
+	else
+		return false;
 }
 
 bool ScrPopupMenu::hasSubMenu(const ScrPopupMenu* subMenu)
@@ -80,9 +85,14 @@ bool ScrPopupMenu::removeSubMenu(ScrPopupMenu* subMenu)
 
 bool ScrPopupMenu::insertMenuItem(ScrAction *newMenuAction)
 {
-	menuItemList.append(newMenuAction);
-	newMenuAction->addTo(localPopupMenu);
-	return true;
+	if (newMenuAction)
+	{
+		menuItemList.append(newMenuAction);
+		newMenuAction->addTo(localPopupMenu);
+		return true;
+	}
+	else 
+		return false;
 }
 
 bool ScrPopupMenu::insertMenuItemAfter(ScrAction *newMenuAction, ScrAction *afterMenuAction)

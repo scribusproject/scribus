@@ -101,18 +101,21 @@ bool MenuManager::removeMenuFromMenuBar(const QString menuName)
 
 bool MenuManager::addMenuToWidgetOfAction(const QString menuName, ScrAction *action)
 {
-	bool retVal;
+	bool retVal=false;
 	if (menuList[menuName] && action!=NULL)
 	{
 		QWidget *w=action->getWidgetAddedTo();
-		QString menuItemListClassName=w->className();
-		if (menuItemListClassName=="QToolButton")
+		if (w)
 		{
-			qDebug(QString("blah %1 %2").arg(menuName));
-			dynamic_cast<QToolButton *>(w)->setPopup(menuList[menuName]->getLocalPopupMenu());
+			QString menuItemListClassName=w->className();
+			if (menuItemListClassName=="QToolButton")
+			{
+				QToolButton *toolButton=dynamic_cast<QToolButton *>(w);
+				if (toolButton!=NULL)
+					toolButton->setPopup(menuList[menuName]->getLocalPopupMenu());
+				retVal=true;
+			}
 		}
-		else
-			qDebug(QString("blah2 %1 %2").arg(menuName));
 	}
 }
 
@@ -171,6 +174,8 @@ void MenuManager::runMenuAtPos(const QString menuName, const QPoint position)
 {
 	if (menuList[menuName])
 	{	
-		menuList[menuName]->getLocalPopupMenu()->exec(position);
+		QPopupMenu *popupmenu=menuList[menuName]->getLocalPopupMenu();
+		if (popupmenu)
+			popupmenu->exec(position);
 	}
 }

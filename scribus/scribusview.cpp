@@ -1724,11 +1724,11 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			}
 			pmen->insertSeparator();
 			if ((!b->Locked) && (!((b->isTableItem) && (b->isSingleSel))))
-				pmen->insertItem( tr("Cu&t"), this, SIGNAL(CutItem()));
+				ScApp->scrActions["editCut"]->addTo(pmen);
 			if (!((b->isTableItem) && (b->isSingleSel)))
-				pmen->insertItem( tr("&Copy"), this, SIGNAL(CopyItem()));
+				ScApp->scrActions["editCopy"]->addTo(pmen);
 			if ((Doc->appMode == EditMode) && (ScApp->Buffer2.startsWith("<SCRIBUSTEXT")) && (b->PType == 4))
-				pmen->insertItem( tr("&Paste"), ScApp, SLOT(slotEditPaste()));
+				ScApp->scrActions["editPaste"]->addTo(pmen);
 			if ((!b->Locked) && (Doc->appMode != 7) && (!((b->isTableItem) && (b->isSingleSel))))
 				pmen->insertItem( tr("&Delete"), this, SLOT(DeleteItem()));
 			if ((b->PType == 2) || (b->PType == 4))

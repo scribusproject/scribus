@@ -1236,7 +1236,7 @@ void SVGPlug::calculateArc(FPointArray *ite, bool relative, double &curx, double
 }
 
 /*!
- \fn void SVGPlug::svgMoveTo(FPointArray *i, double x1, double y1)
+ \fn void SVGPlug::svgMoveTo(double x1, double y1)
  \author Franz Schmid
  \date
  \brief
