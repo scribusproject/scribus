@@ -1463,7 +1463,7 @@ void CopyPageItem(struct CLBuf *Buffer, PageItem *b)
 			{
 			if( (b->Ptext.at(a)->ch == "\n") || (b->Ptext.at(a)->ch == "\r"))
 				Text += QString(QChar(5))+"\t";
-			if(b->Ptext.at(a)->ch == "\t")
+			else if(b->Ptext.at(a)->ch == "\t")
 				Text += QString(QChar(4))+"\t";
 			else
 				Text += b->Ptext.at(a)->ch+"\t";

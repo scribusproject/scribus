@@ -2072,16 +2072,41 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 		}
 	if ((!GetItem(&b)) && (m->button() == RightButton) && (!doku->DragP) && (doku->AppMode == 1))
 		{
+		QPopupMenu *pmen = new QPopupMenu();
 		if (ScApp->Buffer2.startsWith("<SCRIBUSELEM"))
 			{
 			Mxp = m->x();
 			Myp = m->y();
-			QPopupMenu *pmen = new QPopupMenu();
 			pmen->insertItem( tr("Paste") , this, SLOT(PasteToPage()));
-			pmen->exec(QCursor::pos());
-			delete pmen;
-			return;
+			pmen->insertSeparator();
 			}
+		if (doku->Marks)
+			pmen->insertItem( tr("Hide Margins"), ScApp, SLOT(ToggleMarks()));
+		else
+			pmen->insertItem( tr("Show Margins"), ScApp, SLOT(ToggleMarks()));
+		if (doku->ShFrames)
+			pmen->insertItem( tr("Hide Frames"), ScApp, SLOT(ToggleFrames()));
+		else
+			pmen->insertItem( tr("Show Frames"), ScApp, SLOT(ToggleFrames()));
+		if (doku->ShowPic)
+			pmen->insertItem( tr("Hide Images"), ScApp, SLOT(TogglePics()));
+		else
+			pmen->insertItem( tr("Show Images"), ScApp, SLOT(TogglePics()));
+		if (doku->Raster)
+			pmen->insertItem( tr("Hide Grid"), ScApp, SLOT(ToggleRaster()));
+		else
+			pmen->insertItem( tr("Show Grid"), ScApp, SLOT(ToggleRaster()));
+		if (doku->Guides)
+			pmen->insertItem( tr("Hide Guides"), ScApp, SLOT(ToggleGuides()));
+		else
+			pmen->insertItem( tr("Show Guides"), ScApp, SLOT(ToggleGuides()));
+		int uRas = pmen->insertItem( tr("Snap to Grid"), ScApp, SLOT(ToggleURaster()));
+		pmen->setItemChecked(uRas, doku->useRaster);
+		int uGuide = pmen->insertItem( tr("Snap to Guides"), ScApp, SLOT(ToggleUGuides()));
+		pmen->setItemChecked(uGuide, doku->SnapGuides);
+		pmen->exec(QCursor::pos());
+		delete pmen;
+		return;
 		}
 	if ((doku->AppMode != 6) /* && (doku->AppMode != 7) */ && (!doku->EditClip) && (doku->AppMode != 13))
 		{
@@ -2144,7 +2169,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 					if (b->PType == 4)
 						{ 
 						if ((b->NextBox != 0) || (b->BackBox != 0))
-							InfoT->setText( tr("Text Chain"));
+							InfoT->setText( tr("Linked Text"));
 						else
 							InfoT->setText( tr("Text Frame"));
 						}

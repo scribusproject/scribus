@@ -677,7 +677,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 								}
 							}
 						}
-					oldCurY = CurY;
+//					oldCurY = CurY;
 					if (DropCmode)
 						{
 						chs = qRound((Doc->Vorlagen[absa].LineSpa * DropLines) * 10);
@@ -685,7 +685,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						}
 					else
 						chs = hl->csize;
-					SetZeichAttr(hl, &chs, &chx);
+					oldCurY = SetZeichAttr(hl, &chs, &chx);
 					if (chx == QChar(29))
 						chx2 = " ";
 					else
@@ -730,7 +730,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 										CurY = Doc->Vorlagen[0].LineSpa+TExtra+lineCorr;
 										CurX = ColBound.x();
 										ColBound = FPoint(ColBound.x(), ColBound.y()+RExtra+lineCorr);
-										oldCurY = CurY;
+//										oldCurY = CurY;
 										if ((a > 0) && (Ptext.at(a-1)->ch == QChar(13)))
 											{
 											CurX += Doc->Vorlagen[hl->cab].First;
@@ -758,7 +758,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 							pt1 = QPoint(static_cast<int>(CurX), static_cast<int>(CurY+desc));
 							pt2 = QPoint(static_cast<int>(CurX), static_cast<int>(CurY-asce));
 							}
-						oldCurY = CurY;
+//						oldCurY = CurY;
 						if (fBorder)
 							CurX += Extra+lineCorr;
 						fBorder = false;
@@ -820,7 +820,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 							StartRT2 = a;
 							}
 						}
-					hl->yp = CurY;
+					hl->yp = CurY + oldCurY;
 					if (!RTab)
 						{
 						hl->xp = CurX+hl->cextra;
@@ -894,8 +894,8 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						cm = QRegion(pf.xForm(QRect(qRound(hl->xp), qRound(hl->yp-DropLines*Doc->Vorlagen[absa].LineSpa), qRound(wide), qRound(DropLines*Doc->Vorlagen[absa].LineSpa))));
 						cl = cl.subtract(cm);
 						}
-					else
-						CurY = oldCurY;
+//					else
+//						CurY = oldCurY;
 					if ((hl->ch == QChar(13)) || (outs))
 						{
 						RTab = false;
@@ -1609,20 +1609,21 @@ void PageItem::SetFarbe(QColor *tmp, QString farbe, int shad)
 		}
 }
 
-void PageItem::SetZeichAttr(struct Pti *hl, int *chs, QString *chx)
+double PageItem::SetZeichAttr(struct Pti *hl, int *chs, QString *chx)
 {
+	double retval = 0.0;
 	int	asce = static_cast<int>((*Doc->AllFonts)[hl->cfont]->numAscent * (hl->csize / 10.0));
 	int chst = hl->cstyle & 127;
 	if (chst != 0)
 		{
 		if (chst & 1)
 			{
-			CurY -= asce * Doc->VHoch / 100;
+			retval -= asce * Doc->VHoch / 100;
 			*chs = QMAX(static_cast<int>(hl->csize * Doc->VHochSc / 100), 1);
 			}
 		if (chst & 2)
 			{
-			CurY += asce * Doc->VTief / 100;
+			retval += asce * Doc->VTief / 100;
 			*chs = QMAX(static_cast<int>(hl->csize * Doc->VTiefSc / 100), 1);
 			}
 		if (chst & 64)
@@ -1634,6 +1635,7 @@ void PageItem::SetZeichAttr(struct Pti *hl, int *chs, QString *chx)
 				}
 			}
 		}
+	return retval;
 }
 
 void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
