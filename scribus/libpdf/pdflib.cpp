@@ -1246,21 +1246,23 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 #ifdef HAVE_CMS
 				}
 #endif
-						Inhalt += FToStr(ite->Pwidth)+" w\n";
+						Inhalt += FToStr(fabs(ite->Pwidth))+" w\n";
 						if (ite->DashValues.count() != 0)
 						{
 							PutPage("[ ");
 							QValueList<double>::iterator it;
 							for ( it = ite->DashValues.begin(); it != ite->DashValues.end(); ++it )
 							{
-								PutPage(IToStr(static_cast<int>(*it))+" ");
+								int da = static_cast<int>(*it);
+								if (da != 0)
+									PutPage(IToStr(da)+" ");
 							}
 							PutPage("] "+IToStr(static_cast<int>(ite->DashOffset))+" d\n");
 						}
 						else
 						{
-							QString Dt = FToStr(QMAX(2*ite->Pwidth, 1));
-							QString Da = FToStr(QMAX(6*ite->Pwidth, 1));
+							QString Dt = FToStr(QMAX(2*fabs(ite->Pwidth), 1));
+							QString Da = FToStr(QMAX(6*fabs(ite->Pwidth), 1));
 							switch (ite->PLineArt)
 							{
 								case Qt::SolidLine:
@@ -1399,21 +1401,23 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 #ifdef HAVE_CMS
 				}
 #endif
-				Inhalt += FToStr(ite->Pwidth)+" w\n";
+				Inhalt += FToStr(fabs(ite->Pwidth))+" w\n";
 				if (ite->DashValues.count() != 0)
 				{
 					PutPage("[ ");
 					QValueList<double>::iterator it;
 					for ( it = ite->DashValues.begin(); it != ite->DashValues.end(); ++it )
 					{
-						PutPage(IToStr(static_cast<int>(*it))+" ");
+						int da = static_cast<int>(*it);
+						if (da != 0)
+							PutPage(IToStr(da)+" ");
 					}
 					PutPage("] "+IToStr(static_cast<int>(ite->DashOffset))+" d\n");
 				}
 				else
 				{
-					QString Dt = FToStr(QMAX(2*ite->Pwidth, 1));
-					QString Da = FToStr(QMAX(6*ite->Pwidth, 1));
+					QString Dt = FToStr(QMAX(2*fabs(ite->Pwidth), 1));
+					QString Da = FToStr(QMAX(6*fabs(ite->Pwidth), 1));
 					switch (ite->PLineArt)
 					{
 						case Qt::SolidLine:
@@ -1730,21 +1734,23 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 #ifdef HAVE_CMS
 				}
 #endif
-					Inhalt += FToStr(ite->Pwidth)+" w\n";
+					Inhalt += FToStr(fabs(ite->Pwidth))+" w\n";
 					if (ite->DashValues.count() != 0)
 					{
 						PutPage("[ ");
 						QValueList<double>::iterator it;
 						for ( it = ite->DashValues.begin(); it != ite->DashValues.end(); ++it )
 						{
-							PutPage(IToStr(static_cast<int>(*it))+" ");
+							int da = static_cast<int>(*it);
+							if (da != 0)
+								PutPage(IToStr(da)+" ");
 						}
 						PutPage("] "+IToStr(static_cast<int>(ite->DashOffset))+" d\n");
 					}
 					else
 					{
-						QString Dt = FToStr(QMAX(2*ite->Pwidth, 1));
-						QString Da = FToStr(QMAX(6*ite->Pwidth, 1));
+						QString Dt = FToStr(QMAX(2*fabs(ite->Pwidth), 1));
+						QString Da = FToStr(QMAX(6*fabs(ite->Pwidth), 1));
 						switch (ite->PLineArt)
 						{
 							case Qt::SolidLine:

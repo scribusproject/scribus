@@ -1,5 +1,16 @@
 Changes since 1.2 
 
+22.10.2004
+	* bug     #1238: acroread reports dash errors in pdf
+
+21.10.2004
+	* bug     #1239: Splashscreen doesnt hide when clicking on it
+
+20.10.2004
+	* bug     #1231: Error in one of the OO.o Writer importer UI strings
+	* bug     #1233: Ukrainian translation update
+	* feature #1217: Help>About>Translations: please mark active translators
+
 19.10.2004
 	* bug     #1221: Partly outside the page images not cropped on PDF export
 	* bug     #1226: Update of russian translation
