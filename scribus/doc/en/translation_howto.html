@@ -6,7 +6,7 @@
 
 <h3>Requirements</h3>
 <ul>
-	<li>The Scribus source from CVS. Please see the <a href="<?php echo "{$_SERVER['PHP_SELF']}&#063;lang=$lang&#038;sm=install&#038;page=install";?>">Installation</a> section for details on how to checkout CVS if you aren't up with that yet. Its not too hard so don't be dismayed. By working with the CVS source, you know you will be working with the latest Scribus source and therefore will get the most up-to-date set of files to translate.</li>
+	<li>The Scribus source from CVS. Please see the <a href="install.html">Installation</a> section for details on how to checkout CVS if you aren't up with that yet. Its not too hard so don't be dismayed. By working with the CVS source, you know you will be working with the latest Scribus source and therefore will get the most up-to-date set of files to translate.</li>
 	<li>KBabel or Qt Linguist. Both of these are available in their respective development packages. The choice of which one to use is more a user preference, the result is the same.</li>
 	<li>You will need to make sure you have the <code>lupdate</code> and <code>lrelease</code> programs which are a part of Qt, or perhaps a part of a Qt development package, depending on your distribution.</li>
 </ul>
@@ -16,7 +16,11 @@
 	<li>Check out CVS as per instructions on this page.</li>
 	<li>Move into the <code>Scribus</code> directory.</li>
 	<li>Run <code>qmake -project</code>.</li>
-	<li>Edit the <code>Scribus.pro</code> file to have the language listed at the bottom that you wish to translate for. For example, <pre>TRANSLATIONS += scribus/po/scribus.en_GB.ts</pre>Of course, replace the <code>en_GB</code> in this example with the language code you are working with.</li>
+	<li>Edit the <code>Scribus.pro</code> file to have the language listed at the bottom that you wish to translate for. For example, 
+	<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+		<pre>TRANSLATIONS += scribus/po/scribus.en_GB.ts</pre>
+	</small></td></tr></table></blockquote>
+	Of course, replace the <code>en_GB</code> in this example with the language code you are working with.</li>
 	<li>Run <code>lupdate Scribus.pro</code>.</li>
 	<li>Start KBabel or QT Linguist and load the <code>scribus/po/scribus.en_GB.ts</code> file.</li>
 	<li>Perform the translations.</li>

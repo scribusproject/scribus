@@ -31,7 +31,11 @@ LDFLAGS=&quot;-lm&quot;, just before compiling or littlecms may not link correct
 to Scribus. This issue has been fixed in littlecms 1.10 and in Scribus 1.2</p>
 <p>Testing suggests setting the correct &#034;-march=&#034; CXXFLAGS has a very
 benefitial effect on Scribus performance. For example, if you have a Duron or Athlon processor, using <code>export
-CXXFLAGS=&#034;-march=athlon&#034;</code> would be of benefit. Check if your distribution sets these for you and how they are set, and for further information see:<pre>man gcc</pre> for detailed options</p>
+CXXFLAGS=&#034;-march=athlon&#034;</code> would be of benefit. Check if your distribution sets these for you and how they are set, and for further information see:
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
+<pre>man gcc</pre>
+</small></td></tr></table></blockquote>
+for detailed options</p>
 <h3>Optionally:</h3>
 <ul>
 <li>CUPS development librairies - Scribus now directly supports printing

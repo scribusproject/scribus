@@ -8,14 +8,14 @@
 
 <ol>
 	<li>Learn a little bit about color management concepts and terminology. See below for links.</li>
-	<li>Get the profiles setup properly. Below is a listing of color tools available for Linux. The most important is getting a good accurate monitor profile. The littlecms profilers do an excellent job at creating monitor profiles. <a href="<?php echo "{$_SERVER['PHP_SELF']}&#063;lang=$lang&#038;sm=colormanagement&#038;page=moncal"; ?>">Here</a> is a how to for creating icc profiles for your monitor with the littlecms profile constructor set.</li>
+	<li>Get the profiles setup properly. Below is a listing of color tools available for Linux. The most important is getting a good accurate monitor profile. The littlecms profilers do an excellent job at creating monitor profiles. <a href="moncal.html">Here</a> is a how to for creating icc profiles for your monitor with the littlecms profile constructor set.</li>
 	<li>Embed the image profiles properly where possible. See the instructions for tifficc included with littlecms. (howto coming soon) Corel Photopaint also has profile embedding features.</li>
-	<li><a href="<?php echo "{$_SERVER['PHP_SELF']}&#063;lang=$lang&#038;sm=colormanagement&#038;page=corelphoto"; ?>">See these notes about</a> using Corel Photopaint 9 for images.</li>
+	<li><a href="corelphoto.html">See these notes about</a> using Corel Photopaint 9 for images.</li>
 </ol>
 
 <p>The color management system within Scribus is designed first for enabling color managed "soft proofs" of the images within the document. Scribus can also show "out of gamut" warnings for colors which might not be accurately reproduced by printing. (Most printers, have a narrower range of colors which can be printed, when compared to most monitors.) It does not embed or alter the profiles within your images, nor does it apply a transformation when printing. Some image files, png and Tiff, helpfully, can have an embedded icm or icc profile within the file header - also known as <strong><em>tagged</em></strong>, with a color profile. Later on, we will describe how and when it might be appropriate to use littlecms or Photopaint to apply a <strong>tag</strong> or embed a profile. If a file is <strong>tagged</strong>, Scribus will work with littlecms to read that profile within the image and use that profile to more accurately display the colors within an image. If an image does not have a tag but you know the device profile which should be assigned to the image, you can still use the CMS settings to preview with the profile temporarily assigned within the document. Caution is advised not to assign the wrong profile unless you are absolutely sure of the image source.</p>
 
-<p>The <strong>littlecms</strong> package is really remarkable considering the amount of development work done by large companies such as Kodak, Adobe, Agfa and other and the, so far, limited user acceptance. On the littlecms.com site there are some very useful tools which can be built with QT3: The littlecms profile constructor set. All have an easy to use GUI. The defaults of these programs should work fine for Scribus. <a href="<?php echo "{$_SERVER['PHP_SELF']}&#063;lang=$lang&#038;sm=colormanagement&#038;page=moncal"; ?>">See these hints on creating an icc profile for your monitor.</a></p>
+<p>The <strong>littlecms</strong> package is really remarkable considering the amount of development work done by large companies such as Kodak, Adobe, Agfa and other and the, so far, limited user acceptance. On the littlecms.com site there are some very useful tools which can be built with QT3: The littlecms profile constructor set. All have an easy to use GUI. The defaults of these programs should work fine for Scribus. <a href="moncal.html">See these hints on creating an icc profile for your monitor.</a></p>
 
 <p><strong>What are color or device profiles?</strong></p>
 
@@ -25,7 +25,7 @@
 
 <div style="text-align: center;"><img src="<?php echo $scr_shots_root; ?>cmsmodify1.png" title="Modify Color Management Dialog" alt="Modify Color Management Dialog"></div>
 
-<p>Why "soft proofing" ? With the proper setup of device profiles, littlecms can adjust the colors of your monitor to more accurately represent how your document will actually look when finally printed., This can be doubly helpful if you are sending it to be printed commercially or for service bureau output. Moreover, each image can be individually modified by Scribus to assign profiles in an image, ( Select image &gt; right click &gt; Modify ) so that it can be properly color managed in document production, such as preparing film, a PDF/X-3 or direct to plate technologies. This does not however, alter the image file internally. Preview profiles <strong>assigned</strong> to an image are part of the setting retained in a Scribus document or in the creation of a PDF. <a href="<?php echo "{$_SERVER['PHP_SELF']}&#063;lang=$lang&#038;sm=colormanagement&#038;page=corelphoto"; ?>">This article</a> explains how to convert color spaces or embed icc profiles using Corel Photopaint 9. There is also a command line tool in littlecms to embed profiles with <strong>tifficc</strong> and <strong>jpegicc</strong>.</p>
+<p>Why "soft proofing" ? With the proper setup of device profiles, littlecms can adjust the colors of your monitor to more accurately represent how your document will actually look when finally printed., This can be doubly helpful if you are sending it to be printed commercially or for service bureau output. Moreover, each image can be individually modified by Scribus to assign profiles in an image, ( Select image &gt; right click &gt; Modify ) so that it can be properly color managed in document production, such as preparing film, a PDF/X-3 or direct to plate technologies. This does not however, alter the image file internally. Preview profiles <strong>assigned</strong> to an image are part of the setting retained in a Scribus document or in the creation of a PDF. <a href="corelphoto.html">This article</a> explains how to convert color spaces or embed icc profiles using Corel Photopaint 9. There is also a command line tool in littlecms to embed profiles with <strong>tifficc</strong> and <strong>jpegicc</strong>.</p>
 
 <p><strong>Getting good previews from color management depends on these steps from the user:</strong></p>
 
@@ -47,7 +47,7 @@
 
 <p><strong>Monitor Gamma</strong> - Gamma simply put is a number which represents the brightness of neutrals or grays. Having Gamma accurately setup is an important first step in getting good color balance before trying to creating an accurate profile. The monitor profiler from littlecms is well designed to help you set this correctly.</p>
 
-<p>The next step is in accuracy is a custom generated profile created with profiling software, like the ones in the the littlecms profile constructor set. <a href="<?php echo "{$_SERVER['PHP_SELF']}&#063;lang=$lang&#038;sm=colormanagement&#038;page=moncal"; ?>">See the instructions for profiling your monitor for details.</a> It was interesting to see how similar the profile was to one created with professional pre-press color calibration software and a hardware tool under Windows 2000.</p>
+<p>The next step is in accuracy is a custom generated profile created with profiling software, like the ones in the the littlecms profile constructor set. <a href="moncal.html">See the instructions for profiling your monitor for details.</a> It was interesting to see how similar the profile was to one created with professional pre-press color calibration software and a hardware tool under Windows 2000.</p>
 
 <p>The most precise way to profile a monitor is with a electronic profiling device, basically a very special type of camera which measures color. The software sends known reference colors to the monitor which then read the output to the profiling device and creates a profile. Linux drivers for common "<strong>spiders</strong>" or colorimeters are not yet available, but the profiler can use hardware when device drivers are written. Users who have created custom profiles with a "spider" under Windows, might have try using this same profile if the monitor is set up exactly as in Windows AND if the Linux video driver does not make any radical adjustments to the color values of your display. It is worth trying at least! My "spider" created monitor profile works very well with Scribus. With color management activated, the colors within Scribus are just about exactly the same in Photoshop 6.0. Quite an achievement by both Scribus and littlecms!</p>
 
@@ -90,7 +90,7 @@ intent is measured in highly controlled lighting conditions with a D50 light box
 
 <p>Postscript Output - This would require having your images tagged before being placed in Scribus files when outputting a Scribus document either: as pure postscript or as individual EPS files. Scribus uses a combination of level 2 and level 3 postscript, depending on the images within the document. Level 2 and Level 3 postscript can read and use icc profiles within an image. Most color postscript devices will read the embedded profiles and use them to render color within the postscript.</p>
 
-<p>Scribus includes the seventh and much improved version of its own internal PDF export filter explained in the <a href="<?php echo "{$_SERVER['PHP_SELF']}&#063;lang=$lang&#038;sm=exportingtopdf&#038;page=pdfexport1"; ?>">PDF Export</a> options. This new PDF exporter can create fully ISO PDF/X-3 compliant PDF's with icc profiles correctly embedded in the PDF, along with the document rendering intents.</p>
+<p>Scribus includes the seventh and much improved version of its own internal PDF export filter explained in the <a href="pdfexport1.html">PDF Export</a> options. This new PDF exporter can create fully ISO PDF/X-3 compliant PDF's with icc profiles correctly embedded in the PDF, along with the document rendering intents.</p>
 
 <p><strong>Real World Experiences</strong></p>
 
@@ -108,7 +108,7 @@ intent is measured in highly controlled lighting conditions with a D50 light box
 
 <p><strong>Have Patience</strong> - color management is a new and improving part of DTP. It takes quite a bit of time to understand the theory, which then brings practical results. </p>
 
-<p>Coming soon... using color managment to optimize PDF/X-3 compliant PDF's from Scribus</p>
+<p>Coming soon... using color managment to optimize PDF/X-3 compliant PDFs from Scribus</p>
 
 <p>Acknowledgments:</p>
 

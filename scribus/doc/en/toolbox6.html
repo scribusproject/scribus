@@ -2,7 +2,10 @@
 <p><em>Parts of this section are thanks to Russell Lang, author and maintainer of GSview, epstool and Ghostscript for his hints and patiently answering my questions about GSview and Ghostscript. It has helped the Scribus Team to use some of the more advanced features of Ghostscript to improve certain features of Scribus.</em> </p> 
 <p>Although Acrobat Reader® is in my experience sometimes a better pure viewer for PDF, I also consider GSview one of the most essential tools to have when using Scribus. GSview has a handful of extremely useful functions. For those unfamiliar, it provides an easy to use "front end" to Ghostscript, as well as pstoedit for converting bitmaps into vector files. For those coming from the Windows/Mac world, it also has the functionality of Distiller with a graphical front end for those applications which do not export PDF natively.</p>
 <p>First, make sure you have the latest version 4.6+. (GSview migrated from the Windows world, where it has been excellent since the 4.x versions.) Note: GSview uses the libgs.so shared library to access Ghostscript. Red Hat and Fedora Core-1 users are encouraged to get the Ghostscript source RPM from rawhide and enable the shared gs by switching the flag:</p>
-<pre>%define build_libgs 0</pre>
+<blockquote>
+<table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<small><pre>%define build_libgs 0</pre></small></td></tr></table>
+</blockquote>
 <p>to 1 in the rpm spec file</p>
 <p>For use with Scribus, GSview has the following features:</p>
 <ul><li>With the help of pstoedit, you can convert bitmap images or PDF content back into SVG and other scalable vector file formats. </li>

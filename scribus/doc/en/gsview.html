@@ -3,9 +3,11 @@
 <p>Although Acrobat Reader&#174; is in my experience sometimes a better pure viewer for PDF, I also consider GSview one of the most essential tools to have when using Scribus. GSview has a handful of extremely useful functions. For those unfamiliar, it provides an easy to use &quot;front end&quot; to
 Ghostscript, as well as <code>pstoedit</code> for converting bitmaps into vector files. For those coming from the Windows/Mac world, it also has the functionality of Distiller with a graphical front end for those applications which do not export PDF natively.</p>
 <p>First, make sure you have the latest version 4.6+. (GSview migrated from the Windows world, where it has been excellent since the 4.x versions.) Note: GSview uses the <code>libgs.so</code> shared library to access Ghostscript. Redhat and Fedora Core-1 users are encouraged to get the Ghostscript source RPM from rawhide and enable the shared gs by switching the flag:</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
 <pre>
 %define build_libgs 0
 </pre>
+</small></td></tr></table></blockquote>
 <p>to 1 in the rpm spec file</p>
 <p>For use with Scribus, GSview has the following features:</p>
 <ul>
@@ -19,4 +21,4 @@ Ghostscript, as well as <code>pstoedit</code> for converting bitmaps into vector
 <p>So, if you find difficulty with an EPS or PDF you wish to use in Scribus, open the EPS in GSview. Then, use the key command <strong>M</strong> to display messages from Ghostscript. The messages can indicate problems which cause display or printing errors. You can also use the <strong>epswrite</strong> &quot;device&quot; to re-save the EPS, which can help to strip out or fix issues with an EPS.</p>
 <p>You can also <em>rasterize</em> an EPS image like this, by converting to PNG or TIFF and then resize, adjust colors etc with an image program like GIMP or Corel Photoshop. I did this with a troublesome EPS and converted it to a 600dpi PNG, which would then display and print perfectly from Scribus. Sometimes when working with images and DTP there are several different ways to accomplish the same task - in my example, it was getting a complex EPS file from Illustrator to display and print properly from Scribus. The fact that there problem displaying the EPS, was not a bug in Scribus, but some non-standard postscript info in the file, which by using Ghostscript as a back end to GSview I could strip out and then display properly in Scribus.</p>
 <p>GSview since about 4.3, has been, in my experience, the most reliable and versatile PDF viewer along with Acrobat Reader on Linux. For DTP with Scribus, I consider it essential.</p>
-<p>Now, for advanced hints with GSview and Ghostscript, see: <a href="<?php echo $site_content_root; ?>gsadv.php<?php echo "&#063;sm=otherapps" ?>">Advanced Ghostscript and GSview Hints</a></p>
+<p>Now, for advanced hints with GSview and Ghostscript, see: <a href="toolbox7.html">Advanced Ghostscript and GSview Hints</a></p>

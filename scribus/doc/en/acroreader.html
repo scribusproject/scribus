@@ -6,10 +6,12 @@
 <p>Note: There is a bug in Acrobat Reader 5.0.8, which will not display form fields properly, unless the user environment is set to lang=en. In addition, it will not even launch under newer distros which have a UTF-8 locale (RH8+ for example), unless the locale variable is set to lang=en. Otherwise you will get an error message: Warning: charset &#034;UTF-8&#034; not supported, using &#034;ISO8859-1&#034;. &#062; Aborted</p>
 
 <p>One other tip for some systems is to add this to the acroread launching script:</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
 <pre>
 MALLOC_CHECK_=0
 export MALLOC_CHECK_
 </pre>
+</small></td></tr></table></blockquote>
 
 <p>First, make sure you have the latest version 5.0.8 for Linux. This version is <em>vastly</em> better than 4.0.5, even with above mentioned bugs - more stable, faster loading, better printing, and more accurate color. If you are running Redhat 8.0+, the easiest way to install Acro Reader is to get the RPMS from <a href="http://www.gurulabs.com/downloads.html">Guru Labs</a>. The place to get Acrobat Reader, if your distro does not offer an rpm, deb or other package is from <a href="http://www.adobe.com/products/acrobat/alternate.html">Adobe</a>.</p>
 <p>Next, once you get it installed and working, open Acrobat Reader, click through the usual license stuff and select: <strong>Edit &#062; Preferences &#062; General</strong> and you will have a dialog like the one below:</p>
@@ -36,12 +38,14 @@ export MALLOC_CHECK_
 <p><strong>Annotations</strong> are non-printing notes, which Scribus can optionally embed within a PDF. This is really simple. Create a text frame. Then add your notes and right click and check &#034;is PDF annotation&#034;.</p>
 <p>For other &#034;hidden&#034; features, read through the on line help, which is actually a PDF. Beginning with page 10, there are a number of less well known features, including the console command line options. The command line options are specific to Linux/Unix and include some neat options to export PDF into Postscript. There also hints on settings specific to Acrobat Reader in <code>~/Xdefaults</code>.</p>
 <p><strong>Advanced Settings</strong> - Unfortunately, Adobe did not enable a graphical UI choice for enabling/disabling local fonts. What this means Acrobat will use locally installed fonts which are named in the PDF, if it can find them in your font path. In your home directory is a <strong>.acrobat/prefs</strong> file. Make a backup copy then open this file in a text editor. Almost at the end you are looking for this line:</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
 <pre>
 /avpUseLocalFonts [/b true]
 </pre>
+</small></td></tr></table></blockquote>
 <p>I recommend you set this to <strong>false</strong> for use with Scribus. Why? As is often the case PDFs you create in Scribus will be sent to other users who are not running on Linux. What you will want in this case is realistic view without your fonts. Thus, the only reliable way of ensuring your doc will view properly anywhere is to embed the fonts. You can subset them in the font preferences panel to save file size. This particularly important when using the Ghostscript fonts, like the Nimbus family. Acrobat Reader does a poor job of simulating them with its own built-in multi-master fonts.</p>
 
 <h3>Other PDF Viewers:</h3>
-<p>Another useful PDF viewer to use with Scribus is <a href="http://www.cs.wisc.edu/~ghost/gsview/">GSView</a> which is a graphical viewer/front end to Ghostscript. The latest version (4.6) with Ghostscript 7.07+ work very nicely together allow you to convert PS to PDF, as well as view and convert EPS, PS and PDF files among other tools. Version 4.3 is the first version to really work well under Linux (it was originally developed on Windows). More details are in <a href="<?php echo $site_content_root; ?>gsview.php<?php echo "&#063;sm=otherapps"; ?>">GSView and Scribus</a>.</p>
+<p>Another useful PDF viewer to use with Scribus is <a href="http://www.cs.wisc.edu/~ghost/gsview/">GSView</a> which is a graphical viewer/front end to Ghostscript. The latest version (4.6) with Ghostscript 7.07+ work very nicely together allow you to convert PS to PDF, as well as view and convert EPS, PS and PDF files among other tools. Version 4.3 is the first version to really work well under Linux (it was originally developed on Windows). More details are in <a href="gsview.html">GSView and Scribus</a>.</p>
 <p><strong>Xpdf</strong> 3.00+ versions of Xpdf from <a href="http://foolabs.com">Foolabs</a> will do a fine job of displaying and printing Scribus PDFs, including support for PDF 1.5. Xpdf also has command line tools for converting PDFs to PS. To get embedded fonts in all PDFs, not just Scribus, you should read the Xpdf man page about setting up the fonts paths correctly via the xpdfrc file. Otherwise, embedded fonts may nto display properly.</p>
 <p>For a taste of <em>some</em> of the cool PDF tricks Scribus can do, make sure you read through the sample docs located in the samples subdirectory of where the Scribus files are located. Maximize Acrobat Reader, open the file and follow the instructions. Consider it the first &#034;Easter Egg&#034; in Scribus.;)</p>
