@@ -3,36 +3,55 @@
 <h2>Manipulating Objects</h2>
 
 <dl>
-	<dt>GroupObjects([list])</dt>
-	<dd>Groups the Objects in "list" together. "list" must contain the Names of the Objects to be grouped. If "list" is not given the currently selected Items are used.</dd>
+
+<dt><a name="-groupObjects"><strong>groupObjects</strong></a>(...)</dt>
+<dd><code><a href="#-groupObjects">groupObjects</a>(list)</code>
+<p>Groups the objects named in "list" together. "list" must contain the names of the objects to be grouped. If "list" is not given the currently selected items are used.</p></dd>
+
+<dt><a name="-isLocked"><strong>isLocked</strong></a>(...)</dt>
+<dd><code><a href="#-isLocked">isLocked</a>(["name"]) -&gt; bool</code>
+<p>Returns true if is the object "name" locked.  If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-lockObject"><strong>lockObject</strong></a>(...)</dt>
+<dd><code><a href="#-lockObject">lockObject</a>(["name"]) -&gt; bool</code>
+<p>Locks the object "name" if it's unlocked or unlock it if it's locked. If "name" is not given the currently selected item is used. Returns true if locked.</p></dd>
 	
-	<dt>MoveObject(dx, dy, ["name"])</dt>
-	<dd>Moves the Object "name" by dx and dy relative to its origin. The Distances are expressed in the actual Measurement Unit of the Document. If "name" is not given the currently selected Item is used. If the Object "name" belongs to a Group, the whole Group is moved.</dd>
+<dt><a name="-moveObject"><strong>moveObject</strong></a>(...)</dt>
+<dd><code><a href="#-moveObject">moveObject</a>(dx, dy [, "name"])</code>
+<p>Moves the object "name" by dx and dy relative to its current position. The distances are expressed in the current measurement unit of the document (see UNIT constants). If "name" is not given the currently selected item is used. If the object "name" belongs to a group, the whole group is moved.</p></dd>
+
+<dt><a name="-moveObjectAbs"><strong>moveObjectAbs</strong></a>(...)</dt>
+<dd><code><a href="#-moveObjectAbs">moveObjectAbs</a>(x, y [, "name"])</code>
+<p>Moves the object "name" to a new location. The coordinates are expressed in the current measurement unit of the document (see UNIT constants).  If "name" is not given the currently selected item is used.  If the object "name" belongs to a group, the whole group is moved.</p></dd>
+
+<dt><a name="-rotateObject"><strong>rotateObject</strong></a>(...)</dt>
+<dd><code><a href="#-rotateObject">rotateObject</a>(rot [, "name"])</code>
+<p>Rotates the object "name" by "rot" degrees relatively. The object is rotated by the vertex that is currently selected as the rotation point - by default, the top left vertext at zero rotation. Positive values mean counter clockwise rotation when the default rotation point is used. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-rotateObjectAbs"><strong>rotateObjectAbs</strong></a>(...)</dt>
+<dd><code><a href="#-rotateObjectAbs">rotateObjectAbs</a>(rot [, "name"])</code>
+<p>Sets the rotation of the object "name" to "rot". Positive values mean counter clockwise rotation. If "name" is not given the currently selected item is used.</p></dd>
 	
-	<dt>MoveObjectAbs(x, y, ["name"])</dt>
-	<dd>Moves the Object "name" to a new Location. The Coordinates are expressed in the actual Measurement Unit of the Document. If "name" is not given the currently selected Item is used. If the Object "name" belongs to a Group, the whole Group is moved.</dd>
+<dt><a name="-scaleGroup"><strong>scaleGroup</strong></a>(...)</dt>
+<dd><code><a href="#-scaleGroup">scaleGroup</a>(factor [,"name"])</code>
+<p>Scales the group the object "name" belongs to. Values greater than 1 enlarge the group, values smaller than 1 make the group smaller e.g a value of 0.5 scales the group to 50 % of its original size, a value of 1.5 scales the group to 150 % of its original size.  The value for "factor" must be greater than 0. If "name" is not given the currently selected item is used.</p>
+<p>May raise ValueError if an invalid scale factor is passed.</p></dd>
+
+<dt><a name="-setStyle"><strong>setStyle</strong></a>(...)</dt>
+<dd><code><a href="#-setStyle">setStyle</a>("style" [, "name"])</code>
+<p>Apply the named "style" to the object named "name". If is no object name given, it's applied on the selected object.</p></dd>
 	
-	<dt>RotateObject(rot, ["name"])</dt>
-	<dd>Rotates the Object "name" by "rot" Degrees. Positve Values mean counter clockwise Rotation. If "name" is not given the currently selected Item is used.</dd>
+<dt><a name="-sizeObject"><strong>sizeObject</strong></a>(...)</dt>
+<dd><code><a href="#-sizeObject">sizeObject</a>(width, height [, "name"])</code>
+<p>Resizes the object "name" to the given width and height. If "name" is not given the currently selected item is used.</p></dd>
 	
-	<dt>RotateObjectAbs(rot, ["name"])</dt>
-	<dd>Sets the Rotation of the Object "name" to "rot". Positve Values mean counter clockwise Rotation. If "name" is not given the currently selected Item is used.</dd>
-	
-	<dt>ScaleGroup(factor, ["name"])</dt>
-	<dd>Scales the Group the Object "name" belongs to. Values greater than 1 enlarge the Group, Values smaller than 1 make the Group smaller e.g a Value of 0.5 scales the Group to 50 % of is original Size, a Value of 1.5 scales the Group to 150 % of its original Size. The Value for "factor" must be greater than 0. If "name" is not given the currently selected Item is used.</dd>
-	
-	<dt>SizeObject(width, height, ["name"])</dt>
-	<dd>Resizes the Object "name" to the given Width and Height. If "name" is not given the currently selected Item is used.</dd>
-	
-	<dt>UnGroupObject(["name"])</dt>
-	<dd>Destructs the Group the Object "name" belongs to. If "name" is not given the currently selected Item is used.</dd>
-	<dt>TextFlowsAroundFrame('objectname' [,state])</dt>
-	<dd>Enables/disables "Text Flows Around Box" feature for object. Called with params string objectName and voluntary 1|0. When 1 set flowing to true (0 to false). When the second parameter is empty flowing is reverted. For example:
-		<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
-		<pre>
-        objnamme = GetSelectedObject()
-        TextFlowsAroundFrame(objname, 1) # causes the text flows around the object</pre>
-		</small></td></tr></table></blockquote>
-	</dd>
+<dt><a name="-unGroupObject"><strong>unGroupObject</strong></a>(...)</dt>
+<dd><code>unGroupObjects("name")</code>
+<p>Destructs the group the object "name" belongs to.If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-textFlowsAroundFrame"><strong>textFlowsAroundFrame</strong></a>(...)</dt>
+<dd><code><a href="#-textFlowsAroundFrame">textFlowsAroundFrame</a>("name" [, state])</code>
+<p>Enables/disables "Text Flows Around Frame" feature for object "name". Called with parameters string name and optional boolean "state". If "state" is not passed, text flow is toggled.</p></dd>
+
 </dl>
 </qt>

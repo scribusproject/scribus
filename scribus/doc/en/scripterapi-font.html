@@ -3,13 +3,19 @@
 <h2>Font Related Commands</h2>
 
 <dl>
-	<dt>GetFontNames()</dt>
-	<dd>Returns a List with the Names of all available Fonts.</dd>
+
+<dt><a name="-getFontNames"><strong>getFontNames</strong></a>(...)</dt>
+<dd><code><a href="#-getFontNames">getFontNames</a>() -&gt; list</code>
+<p>Returns a list with the names of all available fonts.</p></dd>
 	
-	<dt>GetXFontNames() </dt>
-	<dd>Returns a list of the tuples with: [ (Scribus name, Family, Real name, subset (1|0), embed PS (1|0), font file), (...), ... ] </dd>
+<dt><a name="-getXFontNames"><strong>getXFontNames</strong></a>(...)</dt>
+<dd><code><a href="#-getXFontNames">getXFontNames</a>() -&gt; list of tuples</code>
+<p>Returns a larger font info. It's a list of the tuples with: [ (Scribus name, Family, Real name, subset (1|0), embed PS (1|0), font file), (...), ... ]</p></dd></dl>
 	
-	<dt>RenderFont()</dt>
-	<dd>Creates an image preview of font with given text </dd>
+<dt><a name="-renderFont"><strong>renderFont</strong></a>(...)</dt>
+<dd><code>rendeFont("name", "filename", "sample", size) -&gt; bool</code>
+<p>Creates an image preview of font "name" with given text "sample" and size. Image is saved into "filename". Returns true when success.</p>
+<p>May raise <a href="scripterapi.html#NotFoundError">NotFoundError</a> if the specified font can't be found. May raise ValueError if an empty sample or filename is passed.</p></dd></dl>
+
 </dl>
 </qt>

@@ -3,40 +3,81 @@
 <h2>Page related Commands</h2>
 
 <dl>
-	<dt>CurrentPage()</dt>
-	<dd>Returns the Number of the current working Page. Pagenumbers are counted from 1 upwards.</dd>
-	
-	<dt>DeletePage(nr)</dt>
-	<dd>Deletes the given Page, does nothing if the Document contains only one Page. Pagenumbers are counted from 1 upwards.</dd>
 
-	<dt>GetAllObjects()</dt>
-	<dd>Returns a List containing the Names of all Objects on the actual Page.</dd>
+<dt><a name="-currentPage"><strong>currentPage</strong></a>(...)</dt>
+<dd><code><a href="#-currentPage">currentPage</a>() -&gt; integer</code>
+<p>Returns the number of the current working page. Page numbers are counted from 1 upwards, no matter what the displayed first page number of your document is.</p></dd>
 	
-	<dt>GotoPage(nr)</dt>
-	<dd>Moves to the Page "nr". If "nr" is outside the current rage of Pages nothing happens.</dd>
-	
-	<dt>NewPage(where,&nbsp;["template"])</dt>
-	<dd>Creates a new Page If "where" is -1 the new Page is appended to the Document, otherwise the new Page is inserted at "where". The Pagenumbers are counted from 1 upwards. The optional Parameter "template" specifies the Name of the Template Page for the new Page.</dd>
-	
-	<dt>PageCount()</dt>
-	<dd>Returns the Number of Pages in the Document.</dd>
-	
-	<dt>PageDimensions()</dt>
-	<dd>Returns a tuple with page domensions in used system e.g. when the document's page is in picas - picas are returned</dd>
-	
-	<dt>RedrawAll()</dt>
-	<dd>Redraws all Pages.</dd>
-	
-	<dt>SetRedraw(bool)</dt>
-	<dd>Disables Page Redraw when bool = 0, otherwise redrawing is enabled.</dd>
-	
-	<dt>SavePageAsEPS("name")</dt> 
-	<dd>Saves the actual Page as an EPS, returns true if successful.</dd>
-	
-	<dt>GetPageItems()</dt>
-	<dd>Returns a list of tuples with items on the actual page. (name, objectType, order) E.g. [('Text1', 4, 0), ('Image1', 2, 1)] means that object named 'Text1' is a text frame (type 4) and is the first at the page...</dd>
+<dt><a name="-deletePage"><strong>deletePage</strong></a>(...)</dt>
+<dd><code><a href="#-deletePage">deletePage</a>(nr)</code>
+<p>Deletes the given page. Does nothing if the document contains only one page. Page numbers are counted from 1 upwards, no matter what the displayed first page number is.</p>
+<p>May raise IndexError if the page number is out of range</p></dd>
 
-	<dt>PageDimension()</dt>
-	<dd>Returns a tupple with page dimensions in chosen measurements type (see e.g. GetUnit())</dd>
+<dt><a name="-getAllObjects"><strong>getAllObjects</strong></a>(...)</dt>
+<dd><code><a href="#-getAllObjects">getAllObjects</a>() -&gt; list</code>
+<p>Returns a list containing the names of all objects on the current page.</p></dd>
+
+<dt><a name="-getHGuides"><strong>getHGuides</strong></a>(...)</dt>
+<dd><code><a href="#-getHGuides">getHGuides</a>() -&gt; list</code>
+<p>Returns a list containing positions of the horizontal guides. Values are in the
+document's current units - see UNIT_&lt;type&gt; constants.</p></dd>
+
+<dt><a name="-getVGuides"><strong>getVGuides</strong></a>(...)</dt>
+<dd><code><a href="#-getVGuides">getVGuides</a>()</code>
+<p>See <a href="#-getHGuides">getHGuides</a>.</p></dd>
+
+<dt><a name="-getPageItems"><strong>getPageItems</strong></a>(...)</dt>
+<dd><code><a href="#-getPageItems">getPageItems</a>() -&gt; list</code>
+<p>Returns a list of tuples with items on the current page. The tuple is: (name, objectType, order) E.g. [('Text1', 4, 0), ('Image1', 2, 1)] means that object named 'Text1' is a text frame (type 4) and is the first at the page...</p></dd>
+
+<dt><a name="-getPageMargins"><strong>getPageMargins</strong></a>(...)</dt>
+<dd><code><a href="#-getPageMargins">getPageMargins</a>()</code>
+<p>Returns the page margins as a (left, right, top, bottom) tuple in the current units. See UNIT_&lt;type&gt; constants and <a href="#-getPageSize">getPageSize</a>().</p></dd>
+
+<dt><a name="-getPageSize"><strong>getPageSize</strong></a>(...)</dt>
+<dd><code><a href="#-getPageSize">getPageSize</a>() -&gt; tuple</code>
+<p>Returns a tuple with page dimensions measured in the document's current units. See UNIT_&lt;type&gt; constants and <a href="#-getPageMargins">getPageMargins</a>()</p></dd>
+
+<dt><a name="-gotoPage"><strong>gotoPage</strong></a>(...)</dt>
+<dd><code><a href="#-gotoPage">gotoPage</a>(nr)</code>
+<p>Moves to the page "nr" (that is, makes the current page "nr"). Note that gotoPage doesn't (curently) change the page the user's view is displaying, it just sets the page that script commands will operates on.</p>
+<p>May raise IndexError if the page number is out of range.</p></dd>
+	
+<dt><a name="-newPage"><strong>newPage</strong></a>(...)</dt>
+<dd><code><a href="#-newPage">newPage</a>(where [,"template"])</code>
+<p>Creates a new page. If "where" is -1 the new Page is appended to the document, otherwise the new page is inserted before "where". Page numbers are counted from 1 upwards, no matter what the displayed first page number of your document is. The optional parameter "template" specifies the name of the template page for the new page.</p>
+<p>May raise IndexError if the page number is out of range</p></dd>
+	
+<dt><a name="-pageCount"><strong>pageCount</strong></a>(...)</dt>
+<dd><code><a href="#-pageCount">pageCount</a>() -&gt; integer</code>
+<p>Returns the number of pages in the document.</p></dd>
+
+<dt><a name="-pageDimension"><strong>pageDimension</strong></a>(...)</dt>
+<dd><code><a href="#-getPageSize">getPageSize</a>() -&gt; tuple</code>
+<p>Alias. Returns a tuple with page dimensions measured in the document's current units. See UNIT_&lt;type&gt; constants and <a href="#-getPageMargins">getPageMargins</a>()</p></dd>
+	
+<dt><a name="-redrawAll"><strong>redrawAll</strong></a>(...)</dt>
+<dd><code><a href="#-redrawAll">redrawAll</a>()</code>
+<p>Redraws all pages.</p></dd>
+
+<dt><a name="-savePageAsEPS"><strong>savePageAsEPS</strong></a>(...)</dt>
+<dd><code><a href="#-savePageAsEPS">savePageAsEPS</a>("name")</code>
+<p>Saves the current page as an EPS to the file "name".</p>
+<p>May raise ScribusError if the save failed.</p></dd>
+
+<dt><a name="-setHGuides"><strong>setHGuides</strong></a>(...)</dt>
+<dd><code><a href="#-setHGuides">setHGuides</a>(list)</code>
+<p>Sets horizontal guides. Input parameter must be a list of guide positions measured in the current document units - see UNIT_&lt;type&gt; constants.</p>
+<p>Example: <a href="#-setHGuides">setHGuides</a>(<a href="#-getHGuides">getHGuides</a>() + [200.0, 210.0] # add new guides without any lost<br>
+<a href="#-setHGuides">setHGuides</a>([90,250]) # replace current guides entirely</p></dd>
+         
+<dt><a name="-setRedraw"><strong>setRedraw</strong></a>(...)</dt>
+<dd><code><a href="#-setRedraw">setRedraw</a>(bool)</code>
+<p>Disables page redraw when bool = False, otherwise redrawing is enabled. This change will persist even after the script exits, so make sure to call <a href="#-setRedraw">setRedraw</a>(True) in a finally: clause at the top level of your script.</p></dd>
+
+<dt><a name="-setVGuides"><strong>setVGuides</strong></a>(...)</dt>
+<dd><code><a href="#-setVGuides">setVGuides</a>()</code>
+<p>See <a href="#-setHGuides">setHGuides</a>.</p></dd>
+
 </dl>
 </qt>
