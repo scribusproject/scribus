@@ -894,7 +894,7 @@ void ScribusApp::initPalettes()
 	connect(Tpal, SIGNAL(Schliessen()), this, SLOT(ToggleTpal()));
 	connect(Tpal, SIGNAL(CloseMpal()), this, SLOT(ToggleMpal()));
 	connect(Tpal, SIGNAL(CloseSpal()), this, SLOT(ToggleBpal()));
-	connect(Tpal, SIGNAL(selectElement(int, int)), this, SLOT(SelectFromOutl(int, int)));
+	connect(Tpal, SIGNAL(selectElement(int, int, bool)), this, SLOT(SelectFromOutl(int, int, bool)));
 	connect(Tpal, SIGNAL(selectPage(int)), this, SLOT(SelectFromOutlS(int)));
 	connect(Tpal, SIGNAL(selectTemplatePage(QString)), this, SLOT(ManageTemp(QString)));
 	connect(Tpal, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
@@ -3755,6 +3755,7 @@ void ScribusApp::HaveNewDoc()
 	connect(view, SIGNAL(EndNodeEdit()), this, SLOT(ToggleFrameEdit()));
 	connect(view, SIGNAL(LevelChanged(uint )), Mpal, SLOT(setLevel(uint)));
 	connect(view, SIGNAL(callGimp()), this, SLOT(CallGimp()));
+	connect(view, SIGNAL(UpdtObj(uint, uint)), Tpal, SLOT(slotUpdateElement(uint, uint)));
 /*	if (!doc->TemplateMode)
 	{
 		connect(doc->currentPage, SIGNAL(DelObj(uint, uint)), Tpal, SLOT(slotRemoveElement(uint, uint)));
@@ -3814,7 +3815,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		WerkTools->Textedit2->setEnabled(false);
 		WerkTools->Rotiere->setEnabled(false);
 		Mpal->Cpal->gradientQCombo->setCurrentItem(0);
-//		Tpal->slotShowSelect(doc->currentPage->PageNr, -1);
+		Tpal->slotShowSelect(doc->currentPage->PageNr, -1);
 		break;
 	case 2:
 		scrActions["fileImportAppendText"]->setEnabled(false);
@@ -4089,7 +4090,7 @@ void ScribusApp::HaveNewSel(int Nr)
 	if (Nr != -1)
 	{
 		Mpal->SetCurItem(b);
-//		Tpal->slotShowSelect(b->OwnPage->PageNr, b->ItemNr);
+		Tpal->slotShowSelect(b->OwnPage, b->ItemNr);
 		if (b->FrameType == 0)
 			SCustom->setPixmap(SCustom->getIconPixmap(0));
 		if (b->FrameType == 1)
@@ -7613,14 +7614,14 @@ void ScribusApp::ObjektDupM()
 	delete dia;
 }
 
-void ScribusApp::SelectFromOutl(int Page, int Item)
+void ScribusApp::SelectFromOutl(int Page, int Item, bool single)
 {
 	NoFrameEdit();
 	setActiveWindow();
 	view->Deselect(true);
 	if ((Page != -1) && (Page != static_cast<int>(doc->currentPage->PageNr)))
 		view->GotoPage(Page);
-	view->SelectItemNr(Item);
+	view->SelectItemNr(Item, true, single);
 	if (view->SelItem.count() != 0)
 	{
 		PageItem *b = view->SelItem.at(0);
@@ -8986,6 +8987,7 @@ void ScribusApp::GroupObj(bool showLockDia)
 		doc->GroupCounter++;
 		view->getGroupRect(&x, &y, &w, &h);
 		view->updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
+		Tpal->BuildTree(doc);
 		slotDocCh();
 		scrActions["itemAttachTextToPath"]->setEnabled(false);
 		scrActions["itemGroup"]->setEnabled(false);
@@ -9015,6 +9017,7 @@ void ScribusApp::UnGroupObj()
 			ss->set(QString("item%1").arg(a), b->ItemNr);
 			tooltip += "\t" + b->getUName() + "\n";
 		}
+		Tpal->BuildTree(doc);
 		slotDocCh();
 		view->Deselect(true);
 

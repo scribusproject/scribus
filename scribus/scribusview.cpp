@@ -52,6 +52,7 @@
 	#define SPLITHC SplitHCursor
 #endif
 #include "scribus.h"
+#include "tree.h"
 #include "mpalette.h"
 #include "scribusXml.h"
 #include "serializer.h"
@@ -4768,8 +4769,8 @@ bool ScribusView::MoveItem(double newX, double newY, PageItem* b, bool fromMP)
 		else
 			emit ItemPos(b->Xpos, b->Ypos);
 	}
-	if (!Doc->loading)
-		emit UpdtObj(Doc->currentPage->PageNr, b->ItemNr);
+/*	if (!Doc->loading)
+		emit UpdtObj(Doc->currentPage->PageNr, b->ItemNr); */
 	QRect oldR = getRedrawBounding(b);
 	setRedrawBounding(b);
 	QRect newR = getRedrawBounding(b);
@@ -6652,49 +6653,60 @@ void ScribusView::GroupOnPage(PageItem* b)
 	}
 }
 
-void ScribusView::SelectItemNr(int nr, bool draw)
+void ScribusView::SelectItemNr(int nr, bool draw, bool single)
 {
-	SelectItem(Doc->Items.at(nr), draw);
+	SelectItem(Doc->Items.at(nr), draw, single);
 }
 
-void ScribusView::SelectItem(PageItem *pi, bool draw)
+void ScribusView::SelectItem(PageItem *pi, bool draw, bool single)
 {
 	PageItem *b = pi;
 	if (!b->Select)
 	{
-		if (b->Groups.count() != 0)
-		{
-			if (SelItem.count() != 0)
-			{
-				if (SelItem.find(b) == -1)
-					SelItem.append(b);
-			}
-			else
-				SelItem.append(b);
-			for (uint ga=0; ga<Doc->Items.count(); ++ga)
-			{
-				if (Doc->Items.at(ga)->Groups.count() != 0)
-				{
-					if (Doc->Items.at(ga)->Groups.top() == b->Groups.top())
-					{
-						if (Doc->Items.at(ga)->ItemNr != b->ItemNr)
-						{
-							if (SelItem.find(Doc->Items.at(ga)) == -1)
-								SelItem.append(Doc->Items.at(ga));
-						}
-						Doc->Items.at(ga)->Select = true;
-						Doc->Items.at(ga)->FrameOnly = true;
-						Doc->Items.at(ga)->paintObj();
-					}
-				}
-			}
-		}
-		else
+		if (single)
 		{
 			SelItem.append(b);
 			b->Select = true;
+			b->isSingleSel = true;
 			b->FrameOnly = true;
 			b->paintObj();
+		}
+		else
+		{
+			if (b->Groups.count() != 0)
+			{
+				if (SelItem.count() != 0)
+				{
+					if (SelItem.find(b) == -1)
+						SelItem.append(b);
+				}
+				else
+					SelItem.append(b);
+				for (uint ga=0; ga<Doc->Items.count(); ++ga)
+				{
+					if (Doc->Items.at(ga)->Groups.count() != 0)
+					{
+						if (Doc->Items.at(ga)->Groups.top() == b->Groups.top())
+						{
+							if (Doc->Items.at(ga)->ItemNr != b->ItemNr)
+							{
+								if (SelItem.find(Doc->Items.at(ga)) == -1)
+									SelItem.append(Doc->Items.at(ga));
+							}
+							Doc->Items.at(ga)->Select = true;
+							Doc->Items.at(ga)->FrameOnly = true;
+							Doc->Items.at(ga)->paintObj();
+						}
+					}
+				}
+			}
+			else
+			{
+				SelItem.append(b);
+				b->Select = true;
+				b->FrameOnly = true;
+				b->paintObj();
+			}
 		}
 	}
 	else
@@ -7184,8 +7196,8 @@ void ScribusView::Deselect(bool prop)
 				emit ChBMText(b);
 			if (b->PType == 2)
 				AdjustPreview(b, !Doc->DragP);
-			if (b->Select)
-				b->Select = false;
+			b->Select = false;
+			b->isSingleSel = false;
 		}
 		if (GroupSel)
 		{
@@ -7360,8 +7372,8 @@ void ScribusView::removePict(QString name)
 			b->PicAvail = false;
 			b->pixm = QImage();
 			b->pixmOrg = QImage();
-			if (b->PType == 2)
-				emit UpdtObj(Doc->currentPage->PageNr, b->ItemNr);
+/*			if (b->PType == 2)
+				emit UpdtObj(Doc->currentPage->PageNr, b->ItemNr); */
 		}
 	}
 	for (uint a = 0; a < Doc->MasterItems.count(); ++a)
@@ -7605,7 +7617,7 @@ void ScribusView::ToBack()
 			if (Doc->Items.at(a)->isBookmark)
 				emit NewBMNr(Doc->Items.at(a)->BMnr, a);
 		}
-//		ScApp->Tpal->BuildTree(ScApp->view);
+		ScApp->Tpal->BuildTree(Doc);
 		emit LevelChanged(0);
 		emit DocChanged();
 		updateContents();
@@ -7639,7 +7651,7 @@ void ScribusView::ToFront()
 			if (Doc->Items.at(a)->isBookmark)
 				emit NewBMNr(Doc->Items.at(a)->BMnr, a);
 		}
-//		ScApp->Tpal->BuildTree(ScApp->view);
+		ScApp->Tpal->BuildTree(Doc);
 		emit LevelChanged(SelItem.at(0)->ItemNr);
 		emit DocChanged();
 		updateContents();
@@ -7692,7 +7704,7 @@ void ScribusView::LowerItem()
 			if (Doc->Items.at(a)->Select)
 				SelItem.append(Doc->Items.at(a));
 		}
-//		ScApp->Tpal->BuildTree(ScApp->view);
+		ScApp->Tpal->BuildTree(Doc);
 		emit LevelChanged(SelItem.at(0)->ItemNr);
 		emit DocChanged();
 		updateContents();
@@ -7745,7 +7757,7 @@ void ScribusView::RaiseItem()
 			if (Doc->Items.at(a)->Select)
 				SelItem.append(Doc->Items.at(a));
 		}
-//		ScApp->Tpal->BuildTree(ScApp->view);
+		ScApp->Tpal->BuildTree(Doc);
 		emit LevelChanged(SelItem.at(0)->ItemNr);
 		emit DocChanged();
 		updateContents();
@@ -7895,7 +7907,7 @@ void ScribusView::ClearItem()
 				b->setFillTransparency(0.0);
 				b->setLineTransparency(0.0);
 				b->InvPict = false;
-				emit UpdtObj(Doc->currentPage->PageNr, b->ItemNr);
+/*				emit UpdtObj(Doc->currentPage->PageNr, b->ItemNr); */
 			}
 			updateContents();
 			emit DocChanged();
@@ -8023,6 +8035,7 @@ void ScribusView::DeleteItem()
 			Doc->MasterItems = Doc->Items;
 		else
 			Doc->DocItems = Doc->Items;
+		ScApp->Tpal->BuildTree(Doc);
 		if (SelItem.count() == 0)
 			emit HaveSel(-1);
 		else
@@ -9499,8 +9512,8 @@ void ScribusView::ItemFont(QString fon)
 						UpdatePolyClip(b);
 						AdjustItemSize(b);
 					}
-					if (!Doc->loading)
-						emit UpdtObj(Doc->currentPage->PageNr, b->ItemNr);
+/*					if (!Doc->loading)
+						emit UpdtObj(Doc->currentPage->PageNr, b->ItemNr); */
 					RefreshItem(b);
 				}
 			}
@@ -10506,7 +10519,7 @@ void ScribusView::LoadPict(QString fn, int ItNr, bool reload)
 	if (!Doc->loading)
 	{
 		emit RasterPic(Item->isRaster);
-		emit UpdtObj(Doc->currentPage->PageNr, ItNr);
+/*		emit UpdtObj(Doc->currentPage->PageNr, ItNr); */
 	}
 	emit DocChanged();
 }
@@ -11223,8 +11236,8 @@ void ScribusView::ToPathText()
 		b->PLineArt = bb->PLineArt;
 		b->PLineEnd = bb->PLineEnd;
 		b->PLineJoin = bb->PLineJoin;
-		if (!Doc->loading)
-			emit UpdtObj(Doc->currentPage->PageNr, b->ItemNr);
+/*		if (!Doc->loading)
+			emit UpdtObj(Doc->currentPage->PageNr, b->ItemNr); */
 		UpdatePolyClip(b);
 		AdjustItemSize(b);
 		double dx = bb->Xpos - b->Xpos;

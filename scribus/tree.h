@@ -12,6 +12,7 @@
 #include <qdialog.h>
 #include <qptrlist.h>
 #include <qvaluelist.h>
+#include <qpixmap.h>
 class QVBoxLayout;
 class QHBoxLayout;
 class QGridLayout;
@@ -33,6 +34,8 @@ public:
 	void resizeEvent(QResizeEvent *r);
 	void rebuildPageD();
 	void reopenTree(QValueList<int> op);
+	QListViewItem* getListItem(uint SNr, int Nr);
+	void setItemIcon(QListViewItem *item, int typ);
 	void parseSubGroup(int level, QListViewItem* object, QPtrList<PageItem> *subGroupList, bool onTemplate);
 	QValueList<int> buildReopenVals();
 
@@ -43,8 +46,22 @@ public:
 	QMap<QListViewItem*, int> templateItemMap;
 	QMap<QListViewItem*, int> templateGroupMap;
 	QMap<QListViewItem*, QString> templatePageMap;
+/* Reverse mapping for selecting Listview Items */
+	QMap<int, QListViewItem*> itemMapRev;
+	QMap<int, QListViewItem*> groupMapRev;
+	QMap<int, QListViewItem*> pageMapRev;
+	QMap<int, QListViewItem*> templateItemMapRev;
+	QMap<int, QListViewItem*> templateGroupMapRev;
+	QMap<QString, QListViewItem*> templatePageMapRev;
 	ScribusDoc* document;
 	ScribusApp* ScApp;
+	QPixmap imageIcon;
+	QPixmap textIcon;
+	QPixmap lineIcon;
+	QPixmap polygonIcon;
+	QPixmap polylineIcon;
+	QPixmap groupIcon;
+	bool selectionTriggered;
 
 public slots:
 	void slotRightClick(QListViewItem* ite, const QPoint &, int);
@@ -64,7 +81,7 @@ signals:
 	void Schliessen();
 	void CloseMpal();
 	void CloseSpal();
-	void selectElement(int, int);
+	void selectElement(int, int, bool);
 	void selectPage(int);
 	void selectTemplatePage(QString);
 	void selectTemplateElement(QString, int);

@@ -28,24 +28,38 @@ Tree::Tree( QWidget* parent, ScribusApp* scApp ) : QDialog( parent, "Tree", fals
 	reportDisplay->addColumn( tr("Element"));
 	reportDisplay->header()->setClickEnabled( false, reportDisplay->header()->count() - 1 );
 	reportDisplay->header()->setResizeEnabled( false, reportDisplay->header()->count() - 1 );
-	reportDisplay->addColumn( tr("Type"));
+/*	reportDisplay->addColumn( tr("Type"));
 	reportDisplay->header()->setClickEnabled( false, reportDisplay->header()->count() - 1 );
 	reportDisplay->header()->setResizeEnabled( false, reportDisplay->header()->count() - 1 );
 	reportDisplay->addColumn( tr("Information"));
 	reportDisplay->header()->setClickEnabled( false, reportDisplay->header()->count() - 1 );
 	reportDisplay->header()->setResizeEnabled( false, reportDisplay->header()->count() - 1 );
 	reportDisplay->setSorting(-1);
-	reportDisplay->setSelectionMode(QListView::Single);
+	reportDisplay->setSelectionMode(QListView::Single); */
 //	reportDisplay->setDefaultRenameAction(QListView::Accept);
 	itemMap.clear();
 	pageMap.clear();
+	groupMap.clear();
+	templateGroupMap.clear();
 	templatePageMap.clear();
 	templateItemMap.clear();
-
+	itemMapRev.clear();
+	pageMapRev.clear();
+	groupMapRev.clear();
+	templateGroupMapRev.clear();
+	templatePageMapRev.clear();
+	templateItemMapRev.clear();
+	imageIcon = loadIcon("Bild.xpm");
+	lineIcon = loadIcon("Stift.xpm");
+	textIcon = loadIcon("Text.xpm");
+	polylineIcon = loadIcon("beziertool.png");
+	polygonIcon = loadIcon("spline.png");
+	groupIcon = loadIcon("u_group.png");
+	selectionTriggered = false;
 	// signals and slots connections
 	connect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
-	connect(reportDisplay, SIGNAL(itemRenamed(QListViewItem*, int)), this, SLOT(slotDoRename(QListViewItem*, int)));
-	connect(reportDisplay, SIGNAL(rightButtonClicked(QListViewItem *, const QPoint &, int)), this, SLOT(slotRightClick(QListViewItem*, const QPoint &, int)));
+//	connect(reportDisplay, SIGNAL(itemRenamed(QListViewItem*, int)), this, SLOT(slotDoRename(QListViewItem*, int)));
+//	connect(reportDisplay, SIGNAL(rightButtonClicked(QListViewItem *, const QPoint &, int)), this, SLOT(slotRightClick(QListViewItem*, const QPoint &, int)));
 }
 
 void Tree::keyPressEvent(QKeyEvent *k)
@@ -161,19 +175,58 @@ void Tree::slotDoRename(QListViewItem* ite, int col)
 	connect(ListView1, SIGNAL(itemRenamed(QListViewItem*, int)), this, SLOT(slotDoRename(QListViewItem*, int))); */
 }
 
+QListViewItem* Tree::getListItem(uint SNr, int Nr)
+{
+	QListViewItem *retVal = 0;
+	if (document->TemplateMode)
+	{
+		if (Nr == -1)
+			retVal = templatePageMapRev[document->MasterPages.at(SNr)->PageNam];
+		else
+		{
+			if (document->MasterItems.at(Nr)->Groups.count() == 0)
+				retVal = templateItemMapRev[Nr];
+			else
+			{
+				if (document->MasterItems.at(Nr)->isSingleSel)
+					retVal = templateItemMapRev[Nr];
+				else
+					retVal = templateGroupMapRev[Nr];
+			}
+		}
+	}
+	else
+	{
+		if (Nr == -1)
+			retVal = pageMapRev[SNr];
+		else
+		{
+			if (document->DocItems.at(Nr)->Groups.count() == 0)
+				retVal = itemMapRev[Nr];
+			else
+			{
+				if (document->DocItems.at(Nr)->isSingleSel)
+					retVal = itemMapRev[Nr];
+				else
+					retVal = groupMapRev[Nr];
+			}
+		}
+	}
+	return retVal;
+}
+
 void Tree::slotShowSelect(uint SNr, int Nr)
 {
-/*	if (ScApp->ScriptRunning)
+	if (ScApp->ScriptRunning)
 		return;
-	if ((vie->Doc->TemplateMode) || (vie->Doc->loading))
+	if (document->loading)
 		return;
-	disconnect(ListView1, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
-	ListView1->clearSelection();
-	if (Nr != -1)
-		ListView1->setSelected(PageObj.at(SNr)->Elemente.at(Nr), true);
-	else
-		ListView1->setSelected(Seiten.at(SNr), true);
-	connect(ListView1, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*))); */
+	if (selectionTriggered)
+		return;
+	disconnect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
+	reportDisplay->clearSelection();
+	reportDisplay->setSelected(getListItem(SNr, Nr), true);
+	connect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
 }
 
 void Tree::slotRemoveElement(uint SNr, uint Nr)
@@ -194,9 +247,19 @@ void Tree::slotRemoveElement(uint SNr, uint Nr)
 
 void Tree::slotUpdateElement(uint SNr, uint Nr)
 {
-/*	if (ScApp->ScriptRunning)
+	if (ScApp->ScriptRunning)
 		return;
-	QString cc, xp, yp, fon, GroupTxt;
+	QListViewItem *item = getListItem(SNr, Nr);
+	PageItem* pgItem;
+	int itemType;
+	if (document->TemplateMode)
+		pgItem = document->MasterItems.at(Nr);
+	else
+		pgItem = document->DocItems.at(Nr);
+	if ((pgItem->Groups.count() != 0) && (!pgItem->isSingleSel))
+		return;
+	setItemIcon(item, pgItem->PType);
+/*	QString cc, xp, yp, fon, GroupTxt;
 	if ((vie->Doc->TemplateMode) || (vie->Doc->loading))
 		return;
 	if (SNr > Seiten.count()-1)
@@ -243,6 +306,33 @@ void Tree::slotUpdateElement(uint SNr, uint Nr)
 	}
 	connect(ListView1, SIGNAL(itemRenamed(QListViewItem*, int)), this, SLOT(slotDoRename(QListViewItem*, int)));
 	connect(ListView1, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*))); */
+}
+
+void Tree::setItemIcon(QListViewItem *item, int typ)
+{
+	switch (typ)
+	{
+	case 2:
+		item->setPixmap( 0, imageIcon );
+		break;
+	case 4:
+		item->setPixmap( 0, textIcon );
+		break;
+	case 5:
+		item->setPixmap( 0, lineIcon );
+		break;
+	case 6:
+		item->setPixmap( 0, polygonIcon );
+		break;
+	case 7:
+		item->setPixmap( 0, polylineIcon );
+		break;
+	case 8:
+		item->setPixmap( 0, textIcon );
+		break;
+	default:
+		break;
+	}
 }
 
 void Tree::slotAddElement(uint SNr, uint Nr)
@@ -347,18 +437,24 @@ void Tree::slotSelect(QListViewItem* ite)
 {
 	if (ScApp->ScriptRunning)
 		return;
+	selectionTriggered = true;
 	if (itemMap.contains(ite))
 	{
 		if (document->TemplateMode)
 			ScApp->ActWin->muster->close();
-		emit selectElement(document->DocItems.at(itemMap[ite])->OwnPage, itemMap[ite]);
+		if (document->DocItems.at(itemMap[ite])->Groups.count() == 0)
+			emit selectElement(document->DocItems.at(itemMap[ite])->OwnPage, itemMap[ite], false);
+		else
+			emit selectElement(document->DocItems.at(itemMap[ite])->OwnPage, itemMap[ite], true);
+		selectionTriggered = false;
 		return;
 	}
 	if (groupMap.contains(ite))
 	{
 		if (document->TemplateMode)
 			ScApp->ActWin->muster->close();
-		emit selectElement(document->DocItems.at(groupMap[ite])->OwnPage, groupMap[ite]);
+		emit selectElement(document->DocItems.at(groupMap[ite])->OwnPage, groupMap[ite], false);
+		selectionTriggered = false;
 		return;
 	}
 	if (pageMap.contains(ite))
@@ -366,27 +462,35 @@ void Tree::slotSelect(QListViewItem* ite)
 		if (document->TemplateMode)
 			ScApp->ActWin->muster->close();
 		emit selectPage(pageMap[ite]);
+		selectionTriggered = false;
 		return;
 	}
 	if (templatePageMap.contains(ite))
 	{
 		emit selectTemplatePage(templatePageMap[ite]);
+		selectionTriggered = false;
 		return;
 	}
 	if (templateItemMap.contains(ite))
 	{
 		if (!document->TemplateMode)
 			emit selectTemplatePage(document->MasterItems.at(templateItemMap[ite])->OnMasterPage);
-		emit selectElement(-1, templateItemMap[ite]);
+		if (document->MasterItems.at(templateItemMap[ite])->Groups.count() == 0)
+			emit selectElement(-1, templateItemMap[ite], false);
+		else
+			emit selectElement(-1, templateItemMap[ite], true);
+		selectionTriggered = false;
 		return;
 	}
 	if (templateGroupMap.contains(ite))
 	{
 		if (!document->TemplateMode)
 			emit selectTemplatePage(document->MasterItems.at(templateGroupMap[ite])->OnMasterPage);
-		emit selectElement(-1, templateGroupMap[ite]);
+		emit selectElement(-1, templateGroupMap[ite], false);
+		selectionTriggered = false;
 		return;
 	}
+	selectionTriggered = false;
 }
 
 void Tree::closeEvent(QCloseEvent *ce)
@@ -419,9 +523,15 @@ void Tree::BuildTree(ScribusDoc *doc)
 	templateGroupMap.clear();
 	templatePageMap.clear();
 	templateItemMap.clear();
+	itemMapRev.clear();
+	pageMapRev.clear();
+	groupMapRev.clear();
+	templateGroupMapRev.clear();
+	templatePageMapRev.clear();
+	templateItemMapRev.clear();
 	QPtrList<PageItem> subGroupList;
 	QListViewItem * item = new QListViewItem( reportDisplay, 0 );
-	item->setText( 0, doc->DocName );
+	item->setText( 0, doc->DocName.section( '/', -1 ) );
 	QListViewItem * pagep = 0;
 	PageItem* pgItem;
 	QString tmp;
@@ -434,6 +544,7 @@ void Tree::BuildTree(ScribusDoc *doc)
 		QListViewItem * page = new QListViewItem( item, pagep );
 		QString pageNam = doc->MasterPages.at(a)->PageNam;
 		templatePageMap.insert(page, pageNam);
+		templatePageMapRev.insert(pageNam, page);
 		pagep = page;
 		for (uint b = 0; b < doc->MasterItems.count(); ++b)
 		{
@@ -444,21 +555,26 @@ void Tree::BuildTree(ScribusDoc *doc)
 				{
 					QListViewItem * object = new QListViewItem( page, 0 );
 					templateItemMap.insert(object, pgItem->ItemNr);
+					templateItemMapRev.insert(pgItem->ItemNr, object);
 					object->setText(0, pgItem->itemName());
+					setItemIcon(object, pgItem->PType);
+					pgItem->Dirty = true;
 				}
 				else
 				{
-						QListViewItem * object = new QListViewItem( page, 0 );
-						object->setText(0, tr("Group ")+tmp.setNum(pgItem->Groups.top()));
-						subGroupList.clear();
-						for (uint ga = 0; ga < doc->MasterItems.count(); ++ga)
-						{
-							PageItem* pgItem2 = doc->MasterItems.at(ga);
-							if ((pgItem2->Groups.count() != 0) && (pgItem2->Groups.top() == pgItem->Groups.top()))
-								subGroupList.append(pgItem2);
-						}
-						parseSubGroup(1, object, &subGroupList, true);
-						templateGroupMap.insert(object, pgItem->ItemNr);
+					QListViewItem * object = new QListViewItem( page, 0 );
+					object->setText(0, tr("Group ")+tmp.setNum(pgItem->Groups.top()));
+					object->setPixmap( 0, groupIcon );
+					subGroupList.clear();
+					for (uint ga = 0; ga < doc->MasterItems.count(); ++ga)
+					{
+						PageItem* pgItem2 = doc->MasterItems.at(ga);
+						if ((pgItem2->Groups.count() != 0) && (pgItem2->Groups.top() == pgItem->Groups.top()))
+							subGroupList.append(pgItem2);
+					}
+					parseSubGroup(1, object, &subGroupList, true);
+					templateGroupMap.insert(object, pgItem->ItemNr);
+					templateGroupMapRev.insert(pgItem->ItemNr, object);
 				}
 			}
 		}
@@ -472,6 +588,7 @@ void Tree::BuildTree(ScribusDoc *doc)
 	{
 		QListViewItem * page = new QListViewItem( item, pagep );
 		pageMap.insert(page, a);
+		pageMapRev.insert(a, page);
 		pagep = page;
 		for (uint b = 0; b < doc->DocItems.count(); ++b)
 		{
@@ -480,24 +597,28 @@ void Tree::BuildTree(ScribusDoc *doc)
 			{
 				if (pgItem->Groups.count() == 0)
 				{
-						QListViewItem * object = new QListViewItem( page, 0 );
-						object->setText(0, pgItem->itemName());
-						itemMap.insert(object, pgItem->ItemNr);
-						pgItem->Dirty = true;
+					QListViewItem * object = new QListViewItem( page, 0 );
+					object->setText(0, pgItem->itemName());
+					setItemIcon(object, pgItem->PType);
+					itemMap.insert(object, pgItem->ItemNr);
+					itemMapRev.insert(pgItem->ItemNr, object);
+					pgItem->Dirty = true;
 				}
 				else
 				{
-						QListViewItem * object = new QListViewItem( page, 0 );
-						object->setText(0, tr("Group ")+tmp.setNum(pgItem->Groups.top()));
-						subGroupList.clear();
-						for (uint ga = 0; ga < doc->DocItems.count(); ++ga)
-						{
-							PageItem* pgItem2 = doc->DocItems.at(ga);
-							if ((pgItem2->Groups.count() != 0) && (pgItem2->Groups.top() == pgItem->Groups.top()))
-								subGroupList.append(pgItem2);
-						}
-						parseSubGroup(1, object, &subGroupList, false);
-						groupMap.insert(object, pgItem->ItemNr);
+					QListViewItem * object = new QListViewItem( page, 0 );
+					object->setText(0, tr("Group ")+tmp.setNum(pgItem->Groups.top()));
+					object->setPixmap( 0, groupIcon );
+					subGroupList.clear();
+					for (uint ga = 0; ga < doc->DocItems.count(); ++ga)
+					{
+						PageItem* pgItem2 = doc->DocItems.at(ga);
+						if ((pgItem2->Groups.count() != 0) && (pgItem2->Groups.top() == pgItem->Groups.top()))
+							subGroupList.append(pgItem2);
+					}
+					parseSubGroup(1, object, &subGroupList, false);
+					groupMap.insert(object, pgItem->ItemNr);
+					groupMapRev.insert(pgItem->ItemNr, object);
 				}
 			}
 		}
@@ -525,21 +646,26 @@ void Tree::BuildTree(ScribusDoc *doc)
 				{
 					QListViewItem * object = new QListViewItem( page, 0 );
 					object->setText(0, pgItem->itemName());
+					setItemIcon(object, pgItem->PType);
+					pgItem->Dirty = true;
 					itemMap.insert(object, pgItem->ItemNr);
+					itemMapRev.insert(pgItem->ItemNr, object);
 				}
 				else
 				{
-						QListViewItem * object = new QListViewItem( page, 0 );
-						object->setText(0, tr("Group ")+tmp.setNum(pgItem->Groups.top()));
-						subGroupList.clear();
-						for (uint ga = 0; ga < doc->DocItems.count(); ++ga)
-						{
-							PageItem* pgItem2 = doc->DocItems.at(ga);
-							if ((pgItem2->Groups.count() != 0) && (pgItem2->Groups.top() == pgItem->Groups.top()))
-								subGroupList.append(pgItem2);
-						}
-						parseSubGroup(1, object, &subGroupList, false);
-						groupMap.insert(object, pgItem->ItemNr);
+					QListViewItem * object = new QListViewItem( page, 0 );
+					object->setText(0, tr("Group ")+tmp.setNum(pgItem->Groups.top()));
+					object->setPixmap( 0, groupIcon );
+					subGroupList.clear();
+					for (uint ga = 0; ga < doc->DocItems.count(); ++ga)
+					{
+						PageItem* pgItem2 = doc->DocItems.at(ga);
+						if ((pgItem2->Groups.count() != 0) && (pgItem2->Groups.top() == pgItem->Groups.top()))
+							subGroupList.append(pgItem2);
+					}
+					parseSubGroup(1, object, &subGroupList, false);
+					groupMap.insert(object, pgItem->ItemNr);
+					groupMapRev.insert(pgItem->ItemNr, object);
 				}
 			}
 		}
@@ -568,33 +694,47 @@ void Tree::parseSubGroup(int level, QListViewItem* object, QPtrList<PageItem> *s
 		{
 			if (static_cast<int>(pgItem->Groups.count()) <= level)
 			{
-					QListViewItem *grp = new QListViewItem( object, 0 );
-					grp->setText(0, pgItem->itemName());
-					if (onTemplate)
-						templateItemMap.insert(grp, pgItem->ItemNr);
-					else
-						itemMap.insert(grp, pgItem->ItemNr);
-					pgItem->Dirty = true;
+				QListViewItem *grp = new QListViewItem( object, 0 );
+				grp->setText(0, pgItem->itemName());
+				setItemIcon(grp, pgItem->PType);
+				if (onTemplate)
+				{
+					templateItemMap.insert(grp, pgItem->ItemNr);
+					templateItemMapRev.insert(pgItem->ItemNr, grp);
+				}
+				else
+				{
+					itemMap.insert(grp, pgItem->ItemNr);
+					itemMapRev.insert(pgItem->ItemNr, grp);
+				}
+				pgItem->Dirty = true;
 			}
 			else
 			{
-					QListViewItem *grp = new QListViewItem( object, 0 );
-					grp->setText(0, tr("Group ")+tmp.setNum(*pgItem->Groups.at(pgItem->Groups.count()-level-1)));
-					subGroup = new QPtrList<PageItem>;
-					subGroup->clear();
-					for (uint ga = 0; ga < subGroupList->count(); ++ga)
-					{
-						PageItem* pgItem2 = subGroupList->at(ga);
-						if ((static_cast<int>(pgItem2->Groups.count()) > level) && 
-							(*(pgItem2->Groups.at(pgItem2->Groups.count()-level-1)) == (*pgItem->Groups.at(pgItem->Groups.count()-level-1))))
-							subGroup->append(pgItem2);
-					}
-					parseSubGroup(level+1, grp, subGroup, onTemplate);
-					delete subGroup;
-					if (onTemplate)
-						templateGroupMap.insert(grp, pgItem->ItemNr);
-					else
-						groupMap.insert(grp, pgItem->ItemNr);
+				QListViewItem *grp = new QListViewItem( object, 0 );
+				grp->setText(0, tr("Group ")+tmp.setNum(*pgItem->Groups.at(pgItem->Groups.count()-level-1)));
+				grp->setPixmap( 0, groupIcon );
+				subGroup = new QPtrList<PageItem>;
+				subGroup->clear();
+				for (uint ga = 0; ga < subGroupList->count(); ++ga)
+				{
+					PageItem* pgItem2 = subGroupList->at(ga);
+					if ((static_cast<int>(pgItem2->Groups.count()) > level) && 
+						(*(pgItem2->Groups.at(pgItem2->Groups.count()-level-1)) == (*pgItem->Groups.at(pgItem->Groups.count()-level-1))))
+						subGroup->append(pgItem2);
+				}
+				parseSubGroup(level+1, grp, subGroup, onTemplate);
+				delete subGroup;
+				if (onTemplate)
+				{
+					templateGroupMap.insert(grp, pgItem->ItemNr);
+					templateGroupMapRev.insert(pgItem->ItemNr, grp);
+				}
+				else
+				{
+					groupMap.insert(grp, pgItem->ItemNr);
+					groupMapRev.insert(pgItem->ItemNr, grp);
+				}
 			}
 		}
 	}

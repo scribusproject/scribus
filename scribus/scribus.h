@@ -426,7 +426,7 @@ public slots:
 	void saveLStyles(LineFormate *dia);
 	void setNewAbStyle(int a);
 	void setAbsValue(int a);
-	void SelectFromOutl(int Page, int Item);
+	void SelectFromOutl(int Page, int Item, bool single = false);
 	void SelectFromOutlS(int Page);
 	void SaveAsEps();
 	void SaveAsPDF();
