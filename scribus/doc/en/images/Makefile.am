@@ -14,6 +14,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/colormgmtscreen.png $(prefix)/share/scribus/doc/en/images/colormgmtscreen.png
 	$(INSTALL_DATA) $(srcdir)/colormanager2.png $(prefix)/share/scribus/doc/en/images/colormanager2.png
 	$(INSTALL_DATA) $(srcdir)/cups1.png $(prefix)/share/scribus/doc/en/images/cups1.png
+	$(INSTALL_DATA) $(srcdir)/cups2.png $(prefix)/share/scribus/doc/en/images/cups2.png
 	$(INSTALL_DATA) $(srcdir)/docheader1.png $(prefix)/share/scribus/doc/en/images/docheader1.png
 	$(INSTALL_DATA) $(srcdir)/docheader2.png $(prefix)/share/scribus/doc/en/images/docheader2.png
 	$(INSTALL_DATA) $(srcdir)/fontpref1.png $(prefix)/share/scribus/doc/en/images/fontpref1.png
@@ -21,6 +22,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/fontpref3.png $(prefix)/share/scribus/doc/en/images/fontpref3.png
 	$(INSTALL_DATA) $(srcdir)/fonts.png  $(prefix)/share/scribus/doc/en/images/fonts.png 
 	$(INSTALL_DATA) $(srcdir)/fontprev.png $(prefix)/share/scribus/doc/en/images/fontprev.png
+	$(INSTALL_DATA) $(srcdir)/gammagrayscale.png $(prefix)/share/scribus/doc/en/images/gammagrayscale.png
 	$(INSTALL_DATA) $(srcdir)/gimpoptions1.png  $(prefix)/share/scribus/doc/en/images/gimpoptions1.png 
 	$(INSTALL_DATA) $(srcdir)/gimpoptions2.png $(prefix)/share/scribus/doc/en/images/gimpoptions2.png
 	$(INSTALL_DATA) $(srcdir)/gimpoptions3.png $(prefix)/share/scribus/doc/en/images/gimpoptions3.png
