@@ -87,11 +87,12 @@ void Run(QWidget *d, ScribusApp *plug)
 
 OODPlug::OODPlug( ScribusApp *plug, QString fileName )
 {
-	QString f, f2;
+	QString f, f2, f3;
 	m_styles.setAutoDelete( true );
 	SxwUnzip* sun = new SxwUnzip(fileName);
 	stylePath   = sun->getFile("styles.xml");
 	contentPath = sun->getFile("content.xml");
+	metaPath = sun->getFile("meta.xml");
 	delete sun;
 	if ((stylePath != NULL) && (contentPath != NULL))
 	{
@@ -107,6 +108,17 @@ OODPlug::OODPlug( ScribusApp *plug, QString fileName )
 		f1.remove();
 		QFile f2(contentPath);
 		f2.remove();
+		if (metaPath != NULL)
+		{
+			HaveMeta = true;
+			loadText(metaPath, &f3);
+			if(!inpMeta.setContent(f3))
+				HaveMeta = false;
+			QFile f3(metaPath);
+			f3.remove();
+		}
+		else
+			HaveMeta = false;
 	}
 	else if ((stylePath == NULL) && (contentPath != NULL))
 	{
@@ -151,6 +163,46 @@ void OODPlug::convert()
 		{
 			Prog->doFileNew(width, height, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom");
 			ret = true;
+		}
+	}
+	if ((ret) || (Prog->DLLinput != ""))
+	{
+		if (width > height)
+			Prog->doc->PageOri = 1;
+		else
+			Prog->doc->PageOri = 0;
+		Prog->doc->PageSize = "Custom";
+		QDomNode mpg;
+		QDomElement metaElem = inpMeta.documentElement();
+		QDomElement mp = metaElem.namedItem( "office:meta" ).toElement();
+		mpg = mp.namedItem( "dc:title" );
+		if (!mpg.isNull())
+			Prog->doc->DocTitel = QString::fromUtf8(mpg.toElement().text());
+		mpg = mp.namedItem( "meta:initial-creator" );
+		if (!mpg.isNull())
+			Prog->doc->DocAutor = QString::fromUtf8(mpg.toElement().text());
+		mpg = mp.namedItem( "dc:description" );
+		if (!mpg.isNull())
+			Prog->doc->DocComments = QString::fromUtf8(mpg.toElement().text());
+		mpg = mp.namedItem( "dc:language" );
+		if (!mpg.isNull())
+			Prog->doc->DocLangInfo = QString::fromUtf8(mpg.toElement().text());
+		mpg = mp.namedItem( "meta:creation-date" );
+		if (!mpg.isNull())
+			Prog->doc->DocDate = QString::fromUtf8(mpg.toElement().text());
+		mpg = mp.namedItem( "dc:creator" );
+		if (!mpg.isNull())
+			Prog->doc->DocContrib = QString::fromUtf8(mpg.toElement().text());
+		mpg = mp.namedItem( "meta:keywords" );
+		if (!mpg.isNull())
+		{
+			QString Keys = "";
+			for( QDomNode n = mpg.firstChild(); !n.isNull(); n = n.nextSibling() )
+			{
+				Keys += QString::fromUtf8(n.toElement().text())+", ";
+			}
+			if (Keys.length() > 2)
+				Prog->doc->DocKeyWords = Keys.left(Keys.length()-2);
 		}
 	}
 	Doku = Prog->doc;
@@ -267,10 +319,6 @@ void OODPlug::parseGroup(const QDomElement &e)
 				if( m_styleStack.attribute( "draw:stroke" ) == "dash" )
 				{
 					QString style = m_styleStack.attribute( "draw:stroke-dash" );
-/*					QDomElement* draw = m_draws[style];
-					if( draw )
-					{
-					} */
 					if( style == "Ultrafine Dashed")
 						dashes << 1.4 << 1.4;
 					else if( style == "Fine Dashed" )
@@ -392,6 +440,8 @@ void OODPlug::parseGroup(const QDomElement &e)
 			FPoint wh = GetMaxClipF(ite->PoLine);
 			ite->Width = wh.x();
 			ite->Height = wh.y();
+			ite->ClipEdited = true;
+			ite->FrameType = 3;
 			if (!b.hasAttribute("draw:transform"))
 			{
 				ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
@@ -407,6 +457,8 @@ void OODPlug::parseGroup(const QDomElement &e)
 			FPoint wh = GetMaxClipF(ite->PoLine);
 			ite->Width = wh.x();
 			ite->Height = wh.y();
+			ite->ClipEdited = true;
+			ite->FrameType = 3;
 			if (!b.hasAttribute("draw:transform"))
 			{
 				ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
@@ -422,6 +474,8 @@ void OODPlug::parseGroup(const QDomElement &e)
 			FPoint wh = GetMaxClipF(ite->PoLine);
 			ite->Width = wh.x();
 			ite->Height = wh.y();
+			ite->ClipEdited = true;
+			ite->FrameType = 3;
 			if (!b.hasAttribute("draw:transform"))
 			{
 				ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
@@ -459,6 +513,8 @@ void OODPlug::parseGroup(const QDomElement &e)
 				FPoint wh = GetMaxClipF(ite->PoLine);
 				ite->Width = wh.x();
 				ite->Height = wh.y();
+				ite->ClipEdited = true;
+				ite->FrameType = 3;
 				if (!b.hasAttribute("draw:transform"))
 				{
 					ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
@@ -472,7 +528,7 @@ void OODPlug::parseGroup(const QDomElement &e)
 			y = parseUnit(b.attribute("svg:y")) ;
 			w = parseUnit(b.attribute("svg:width"));
 			h = parseUnit(b.attribute("svg:height"));
-			z = Prog->view->PaintText(BaseX+x, BaseY+y, w, h, lwidth, StrokeColor);
+			z = Prog->view->PaintText(BaseX+x, BaseY+y, w, h+(h*0.1), lwidth, StrokeColor);
 			PageItem* ite = Doku->Items.at(z);
 			ite->Extra = 0;
 			ite->TExtra = 0;

@@ -20,16 +20,8 @@
         <translation>ID сборки:</translation>
     </message>
     <message>
-        <source>Programming:</source>
-        <translation type="obsolete">Основная команда разработчиков:</translation>
-    </message>
-    <message>
         <source>Contributions from:</source>
         <translation>Свой вклад в разработку внесли:</translation>
-    </message>
-    <message>
-        <source>Documentation:</source>
-        <translation type="obsolete">Авторы документации:</translation>
     </message>
     <message>
         <source>German:</source>
@@ -38,10 +30,6 @@
     <message>
         <source>French:</source>
         <translation>На французский:</translation>
-    </message>
-    <message>
-        <source>Spanish and Catalan:</source>
-        <translation type="obsolete">На испанский и каталонский:</translation>
     </message>
     <message>
         <source>Italian:</source>
@@ -92,10 +80,6 @@
         <translation>На норвежский:</translation>
     </message>
     <message>
-        <source>English:</source>
-        <translation type="obsolete">На английский:</translation>
-    </message>
-    <message>
         <source>Welsh:</source>
         <translation>На уэльский:</translation>
     </message>
@@ -114,18 +98,6 @@
     <message>
         <source>Finnish:</source>
         <translation>На финский:</translation>
-    </message>
-    <message>
-        <source>Homepage and online reference</source>
-        <translation type="obsolete">Веб-сайт и электронное руководство</translation>
-    </message>
-    <message>
-        <source>Mailing list</source>
-        <translation type="obsolete">Список рассылки</translation>
-    </message>
-    <message>
-        <source>Bugs and feature requests</source>
-        <translation type="obsolete">Сообщения об ошибках и запрос новых функций</translation>
     </message>
     <message>
         <source>Slovenian:</source>
@@ -165,26 +137,6 @@ C=CUPS C=littlecms T=TIFF
     <message>
         <source>&amp;Close</source>
         <translation>&amp;Закрыть</translation>
-    </message>
-    <message>
-        <source>About</source>
-        <translation type="obsolete">О программе</translation>
-    </message>
-    <message>
-        <source>Authors</source>
-        <translation type="obsolete">Авторы</translation>
-    </message>
-    <message>
-        <source>Translations</source>
-        <translation type="obsolete">Переводы</translation>
-    </message>
-    <message>
-        <source>Close</source>
-        <translation type="obsolete">Закрыть</translation>
-    </message>
-    <message>
-        <source>Online</source>
-        <translation type="obsolete">Веб-сайт</translation>
     </message>
     <message>
         <source>Development Team:</source>
@@ -244,11 +196,11 @@ C=CUPS C=littlecms T=TIFF
     </message>
     <message>
         <source>Official Translations and Translators:</source>
-        <translation type="unfinished"></translation>
+        <translation>Официальные переводы и переводчики:</translation>
     </message>
     <message>
         <source>Previous Translation Contributors:</source>
-        <translation type="unfinished"></translation>
+        <translation>Предыдущие авторы переводов:</translation>
     </message>
 </context>
 <context>
@@ -325,39 +277,6 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
 При использовании этого способа также снижается 
 вероятность избыточной яркости изображения. </translation>
     </message>
-    <message>
-        <source>Mirror Page(s) horizontal</source>
-        <translation type="obsolete">Зеркалировать по горизонтали</translation>
-    </message>
-    <message>
-        <source>Mirror Page(s) vertical</source>
-        <translation type="obsolete">Зеркалировать по вертикали</translation>
-    </message>
-    <message>
-        <source>Apply ICC-Profiles</source>
-        <translation type="obsolete">Применить ICC-профили</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">ОК</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Отменить</translation>
-    </message>
-    <message>
-        <source>PostScript Level 3</source>
-        <translation type="obsolete">PostScript Level 3</translation>
-    </message>
-    <message>
-        <source>PostScript Level 2</source>
-        <translation type="obsolete">PostScript Level 2</translation>
-    </message>
-    <message>
-        <source>PostScript Level 1</source>
-        <translation type="obsolete">Человек или организация, в первую очередь ответственнык за создание содержимого этого документа.
-Это поле может быть встроено в документ Scribus для справки, равно как и в виде метаданных для PDF.</translation>
-    </message>
 </context>
 <context>
     <name>Align</name>
@@ -367,7 +286,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Align</source>
-        <translation>Выровнять</translation>
+        <translation>Выравнивание</translation>
     </message>
     <message>
         <source>Horizontal</source>
@@ -465,60 +384,28 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
         <source>&amp;Cancel</source>
         <translation>О&amp;тменить</translation>
     </message>
-    <message>
-        <source>between:</source>
-        <translation type="obsolete">между:</translation>
-    </message>
-    <message>
-        <source>Don&apos;t change</source>
-        <translation type="obsolete">Не изменять</translation>
-    </message>
-    <message>
-        <source>Displacement</source>
-        <translation type="obsolete">Смещение</translation>
-    </message>
-    <message>
-        <source>Distribute evenly</source>
-        <translation type="obsolete">Распределить равномерно</translation>
-    </message>
-    <message>
-        <source> pts</source>
-        <translation type="obsolete">pts</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">ОК</translation>
-    </message>
-    <message>
-        <source>Apply</source>
-        <translation type="obsolete">Применить</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Отменить</translation>
-    </message>
 </context>
 <context>
     <name>AlignSelect</name>
     <message>
         <source>Align Text Left</source>
-        <translation>Выровнять по левой стороне</translation>
+        <translation>Выключка по левой стороне</translation>
     </message>
     <message>
         <source>Align Text Right</source>
-        <translation>Выровнять по правой стороне</translation>
+        <translation>Выключка по правой стороне</translation>
     </message>
     <message>
         <source>Align Text Center</source>
-        <translation>Выровнять по центру</translation>
+        <translation>Выключка по центру</translation>
     </message>
     <message>
         <source>Align Text Justified</source>
-        <translation>Выровнять по ширине</translation>
+        <translation>Выключка по ширине</translation>
     </message>
     <message>
         <source>Align Text Forced Justified</source>
-        <translation>Принудительно выровнять по ширине</translation>
+        <translation>Принудительная выключка по ширине</translation>
     </message>
 </context>
 <context>
@@ -1057,28 +944,12 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>PDF-документы (*.pdf);;Все файлы (*)</translation>
     </message>
-    <message>
-        <source>Font for use with PDF-1.3:</source>
-        <translation type="obsolete">Шрифт для PDF-1.3:</translation>
-    </message>
-    <message>
-        <source>Flag is ignored for PDF-1.3</source>
-        <translation type="obsolete">Флажок игнорируется в PDF-1.3</translation>
-    </message>
-    <message>
-        <source>PDF-Documents (*.pdf);;All Files (*)</source>
-        <translation type="obsolete">PDF-документы (*.pdf);;Все файлы (*)</translation>
-    </message>
 </context>
 <context>
     <name>Annota</name>
     <message>
         <source>Annotation Properties</source>
         <translation>Свойства аннотации</translation>
-    </message>
-    <message>
-        <source>Type:</source>
-        <translation type="obsolete">Тип:</translation>
     </message>
     <message>
         <source>Text</source>
@@ -1101,32 +972,8 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation>Цель</translation>
     </message>
     <message>
-        <source>Change...</source>
-        <translation type="obsolete">Изменить...</translation>
-    </message>
-    <message>
-        <source>Page:</source>
-        <translation type="obsolete">Стр.:</translation>
-    </message>
-    <message>
-        <source>X-Pos:</source>
-        <translation type="obsolete">X-Поз:</translation>
-    </message>
-    <message>
         <source> pt</source>
         <translation>pt</translation>
-    </message>
-    <message>
-        <source>Y-Pos:</source>
-        <translation type="obsolete">Y-Поз:</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">ОК</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Отменить</translation>
     </message>
     <message>
         <source>Open</source>
@@ -1158,11 +1005,11 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;ОК</translation>
+        <translation>&amp;ОК</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">О&amp;тменить</translation>
+        <translation>О&amp;тменить</translation>
     </message>
 </context>
 <context>
@@ -1206,30 +1053,6 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     <message>
         <source>&amp;Cancel</source>
         <translation>О&amp;тменить</translation>
-    </message>
-    <message>
-        <source>Template:</source>
-        <translation type="obsolete">Шаблон:</translation>
-    </message>
-    <message>
-        <source>Apply from Page:</source>
-        <translation type="obsolete">Применить от страницы:</translation>
-    </message>
-    <message>
-        <source>to:</source>
-        <translation type="obsolete">до:</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">ОК</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Отменить</translation>
-    </message>
-    <message>
-        <source>Apply to Current Page</source>
-        <translation type="obsolete">Применить к текущей странице</translation>
     </message>
 </context>
 <context>
@@ -1316,50 +1139,6 @@ Please choose another.</source>
     <message>
         <source>&amp;Name:</source>
         <translation>&amp;Имя:</translation>
-    </message>
-    <message>
-        <source>New</source>
-        <translation type="obsolete">Новый</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation type="obsolete">Сохранить</translation>
-    </message>
-    <message>
-        <source>Save as...</source>
-        <translation type="obsolete">Сохранить как...</translation>
-    </message>
-    <message>
-        <source>Load...</source>
-        <translation type="obsolete">Загрузить...</translation>
-    </message>
-    <message>
-        <source>Close</source>
-        <translation type="obsolete">Закрыть</translation>
-    </message>
-    <message>
-        <source>Small</source>
-        <translation type="obsolete">Небольшой</translation>
-    </message>
-    <message>
-        <source>Medium</source>
-        <translation type="obsolete">Средний</translation>
-    </message>
-    <message>
-        <source>Big</source>
-        <translation type="obsolete">Большой</translation>
-    </message>
-    <message>
-        <source>File</source>
-        <translation type="obsolete">Файл</translation>
-    </message>
-    <message>
-        <source>Preview</source>
-        <translation type="obsolete">Просмотр</translation>
-    </message>
-    <message>
-        <source>Name:</source>
-        <translation type="obsolete">Имя:</translation>
     </message>
 </context>
 <context>
@@ -1613,46 +1392,6 @@ This requires very accurate profiles and serves only as a warning.</source>
         <source>&amp;Cancel</source>
         <translation>О&amp;тменить</translation>
     </message>
-    <message>
-        <source>Activate Color Management</source>
-        <translation type="obsolete">Задействовать управление цветом</translation>
-    </message>
-    <message>
-        <source>Pictures:</source>
-        <translation type="obsolete">Изображения:</translation>
-    </message>
-    <message>
-        <source>Solid Colors:</source>
-        <translation type="obsolete">Чистые цвета:</translation>
-    </message>
-    <message>
-        <source>Monitor:</source>
-        <translation type="obsolete">Монитор:</translation>
-    </message>
-    <message>
-        <source>Printer:</source>
-        <translation type="obsolete">Принтер:</translation>
-    </message>
-    <message>
-        <source>Simulate Printer on the Screen</source>
-        <translation type="obsolete">Эмулировать принтер на экране</translation>
-    </message>
-    <message>
-        <source>Mark Colors out of Gamut</source>
-        <translation type="obsolete">Пометить цвета вне гаммы</translation>
-    </message>
-    <message>
-        <source>Use Blackpoint Compensation</source>
-        <translation type="obsolete">Использовать компенсацию чёрной точки</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">ОК</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Чистые цвета</translation>
-    </message>
 </context>
 <context>
     <name>CMYKChoose</name>
@@ -1753,25 +1492,14 @@ This requires very accurate profiles and serves only as a warning.</source>
         <translation>О&amp;тменить</translation>
     </message>
     <message>
-        <source>Name:</source>
-        <translation type="obsolete">Имя:</translation>
-    </message>
-    <message>
-        <source>Color Model</source>
-        <translation type="obsolete">Цветовая модель</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Отменить</translation>
-    </message>
-    <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Ничего</translation>
     </message>
     <message>
         <source>You cannot create a color named &quot;%1&quot;.
 It&apos;s a reserved name for transparent color</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы не можете создать цвет с именем &quot;%1&quot;.
+Это имя зарезервировано для прозрачного цвета</translation>
     </message>
 </context>
 <context>
@@ -1879,14 +1607,6 @@ It&apos;s a reserved name for transparent color</source>
     <message>
         <source> p</source>
         <translation>p</translation>
-    </message>
-    <message>
-        <source>Edit the first color of object</source>
-        <translation type="obsolete">Изменить первый цвет объекта</translation>
-    </message>
-    <message>
-        <source>Edit the second color of object</source>
-        <translation type="obsolete">Изменить второй цвет объекта</translation>
     </message>
 </context>
 <context>
@@ -2012,14 +1732,6 @@ C=CUPS C=littlecms T=TIFF
         <source>&amp;Cancel</source>
         <translation>О&amp;тменить</translation>
     </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">ОК</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Отменить</translation>
-    </message>
 </context>
 <context>
     <name>CustomFDialog</name>
@@ -2040,14 +1752,6 @@ This can be set in the Preferences.</source>
     <message>
         <source>&amp;Include Fonts</source>
         <translation>&amp;Включить шрифты</translation>
-    </message>
-    <message>
-        <source>Compress File</source>
-        <translation type="obsolete">Сжать файл</translation>
-    </message>
-    <message>
-        <source>Include Fonts</source>
-        <translation type="obsolete">Включить шрифты</translation>
     </message>
 </context>
 <context>
@@ -2078,7 +1782,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Ничего</translation>
     </message>
 </context>
 <context>
@@ -2102,14 +1806,6 @@ This can be set in the Preferences.</source>
     <message>
         <source>&amp;Cancel</source>
         <translation>О&amp;тменить</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">ОК</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Отменить</translation>
     </message>
 </context>
 <context>
@@ -2307,46 +2003,6 @@ optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH<
         <source>&amp;Cancel</source>
         <translation>О&amp;тменить</translation>
     </message>
-    <message>
-        <source>Document Info</source>
-        <translation type="obsolete">О документе</translation>
-    </message>
-    <message>
-        <source>Author:</source>
-        <translation type="obsolete">Автор:</translation>
-    </message>
-    <message>
-        <source>Title:</source>
-        <translation type="obsolete">Название:</translation>
-    </message>
-    <message>
-        <source>Description:</source>
-        <translation type="obsolete">Описание:</translation>
-    </message>
-    <message>
-        <source>Keywords:</source>
-        <translation type="obsolete">Ключевые слова:</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">ОК</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Отменить</translation>
-    </message>
-    <message>
-        <source>This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation type="obsolete">Это поле может быть встроено как в документ Scribus для справки, так и в виде матеданных в PDF</translation>
-    </message>
-    <message>
-        <source>This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
-        <translation type="obsolete">Это поле хранит короткое описание документа. Оно также встраивается в экспортируемый PDF-файл.</translation>
-    </message>
-    <message>
-        <source>This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
-        <translation type="obsolete">Это поле хранит ключевые слова, которые затем включаются в PDF-файл, что помогает при поиске и индексировании PDF-файлов.</translation>
-    </message>
 </context>
 <context>
     <name>Druck</name>
@@ -2477,94 +2133,6 @@ to utilize additional printing options</source>
     <message>
         <source>&amp;Cancel</source>
         <translation>О&amp;тменить</translation>
-    </message>
-    <message>
-        <source>Print destination</source>
-        <translation type="obsolete">Куда печатать</translation>
-    </message>
-    <message>
-        <source>Options...</source>
-        <translation type="obsolete">Параметры...</translation>
-    </message>
-    <message>
-        <source>File:</source>
-        <translation type="obsolete">Файл:</translation>
-    </message>
-    <message>
-        <source>Change...</source>
-        <translation type="obsolete">Изменить...</translation>
-    </message>
-    <message>
-        <source>Alternative Printer Command</source>
-        <translation type="obsolete">Альтернативная команда для принтера</translation>
-    </message>
-    <message>
-        <source>Command:</source>
-        <translation type="obsolete">Команда:</translation>
-    </message>
-    <message>
-        <source>Range:</source>
-        <translation type="obsolete">Диапазон:</translation>
-    </message>
-    <message>
-        <source>To page:</source>
-        <translation type="obsolete">До страницы:</translation>
-    </message>
-    <message>
-        <source>From page:</source>
-        <translation type="obsolete">От страницы:</translation>
-    </message>
-    <message>
-        <source>Print range</source>
-        <translation type="obsolete">Диапазон печати</translation>
-    </message>
-    <message>
-        <source>Print all</source>
-        <translation type="obsolete">Напечатать все</translation>
-    </message>
-    <message>
-        <source>Print last page first</source>
-        <translation type="obsolete">Напечатать последнюю страницу первой</translation>
-    </message>
-    <message>
-        <source>Print first page first</source>
-        <translation type="obsolete">Напечатать первую страницу первой</translation>
-    </message>
-    <message>
-        <source>Number of copies:</source>
-        <translation type="obsolete">Количество копий:</translation>
-    </message>
-    <message>
-        <source>Print Normal</source>
-        <translation type="obsolete">Печатать обычным образом</translation>
-    </message>
-    <message>
-        <source>Print Separations</source>
-        <translation type="obsolete">Напечатать цветоделения</translation>
-    </message>
-    <message>
-        <source>Print in color if available</source>
-        <translation type="obsolete">В цвете, если возможно</translation>
-    </message>
-    <message>
-        <source>Print in grayscale</source>
-        <translation type="obsolete">В оттенках серого</translation>
-    </message>
-    <message>
-        <source>Advanced Options...</source>
-        <translation type="obsolete">Дополнительные параметры</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Отменить</translation>
-    </message>
-    <message>
-        <source>Print</source>
-        <translation type="obsolete">Печать</translation>
-    </message>
-    <message>
-        <source>Print current page</source>
-        <translation type="obsolete">Напечатать текущую страницу</translation>
     </message>
 </context>
 <context>
@@ -2736,58 +2304,6 @@ failed!</source>
         <source>&amp;Cancel</source>
         <translation>О&amp;тменить</translation>
     </message>
-    <message>
-        <source>Name:</source>
-        <translation type="obsolete">Имя:</translation>
-    </message>
-    <message>
-        <source>Face:</source>
-        <translation type="obsolete">Вид:</translation>
-    </message>
-    <message>
-        <source>Size:</source>
-        <translation type="obsolete">Кегль:</translation>
-    </message>
-    <message>
-        <source>Above:</source>
-        <translation type="obsolete">Над:</translation>
-    </message>
-    <message>
-        <source>Below:</source>
-        <translation type="obsolete">Под:</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Отменить</translation>
-    </message>
-    <message>
-        <source>Drop Caps</source>
-        <translation type="obsolete">Буквица</translation>
-    </message>
-    <message>
-        <source>Lines:</source>
-        <translation type="obsolete">Строк:</translation>
-    </message>
-    <message>
-        <source>Alignment:</source>
-        <translation type="obsolete">Выравнивание:</translation>
-    </message>
-    <message>
-        <source>Fill Color:</source>
-        <translation type="obsolete">Цвет заливки:</translation>
-    </message>
-    <message>
-        <source>Stroke Color:</source>
-        <translation type="obsolete">Цвет штриха:</translation>
-    </message>
-    <message>
-        <source>Adjust to Baseline Grid</source>
-        <translation type="obsolete">Подстроить под опорную сетку</translation>
-    </message>
-    <message>
-        <source>Line Spacing:</source>
-        <translation type="obsolete">Между строками:</translation>
-    </message>
 </context>
 <context>
     <name>Editor</name>
@@ -2854,62 +2370,6 @@ failed!</source>
     <message>
         <source>&amp;Edit</source>
         <translation>&amp;Правка</translation>
-    </message>
-    <message>
-        <source>New</source>
-        <translation type="obsolete">Новый</translation>
-    </message>
-    <message>
-        <source>Save as...</source>
-        <translation type="obsolete">Сохранить как...</translation>
-    </message>
-    <message>
-        <source>Load...</source>
-        <translation type="obsolete">Загрузить...</translation>
-    </message>
-    <message>
-        <source>Save and Exit</source>
-        <translation type="obsolete">Сохранить и выйти</translation>
-    </message>
-    <message>
-        <source>Exit without Saving</source>
-        <translation type="obsolete">Выйти без сохранения</translation>
-    </message>
-    <message>
-        <source>Undo</source>
-        <translation type="obsolete">Отменить</translation>
-    </message>
-    <message>
-        <source>Redo</source>
-        <translation type="obsolete">Возвратить</translation>
-    </message>
-    <message>
-        <source>Cut</source>
-        <translation type="obsolete">Вырезать</translation>
-    </message>
-    <message>
-        <source>Copy</source>
-        <translation type="obsolete">Скопировать</translation>
-    </message>
-    <message>
-        <source>Paste</source>
-        <translation type="obsolete">Вставить</translation>
-    </message>
-    <message>
-        <source>Clear</source>
-        <translation type="obsolete">Очистить</translation>
-    </message>
-    <message>
-        <source>Get Field Names</source>
-        <translation type="obsolete">Получить имена полей</translation>
-    </message>
-    <message>
-        <source>File</source>
-        <translation type="obsolete">Файл</translation>
-    </message>
-    <message>
-        <source>Edit</source>
-        <translation type="obsolete">Правка</translation>
     </message>
 </context>
 <context>
@@ -3029,90 +2489,6 @@ Use 72 dpi for Images intended for the Screen</source>
         <translation>Качество изображений - 100% является 
 наилучшим, 1% - наихудшим</translation>
     </message>
-    <message>
-        <source>Export as Image</source>
-        <translation type="obsolete">Экспортировать как изображение</translation>
-    </message>
-    <message>
-        <source>Export to directory:</source>
-        <translation type="obsolete">Экспортировать в каталог:</translation>
-    </message>
-    <message>
-        <source>&amp;Change...</source>
-        <translation type="obsolete">&amp;Изменить...</translation>
-    </message>
-    <message>
-        <source>Alt+C</source>
-        <translation type="obsolete">Alt+C</translation>
-    </message>
-    <message>
-        <source>Image type:</source>
-        <translation type="obsolete">Тип изображения:</translation>
-    </message>
-    <message>
-        <source>Quality :</source>
-        <translation type="obsolete">Качество :</translation>
-    </message>
-    <message>
-        <source>%</source>
-        <translation type="obsolete">%</translation>
-    </message>
-    <message>
-        <source>Size:</source>
-        <translation type="obsolete">Размер:</translation>
-    </message>
-    <message>
-        <source>Export </source>
-        <translation type="obsolete">Экспортировать</translation>
-    </message>
-    <message>
-        <source>&amp;One page</source>
-        <translation type="obsolete">&amp;Одну страницу</translation>
-    </message>
-    <message>
-        <source>Alt+O</source>
-        <translation type="obsolete">Alt+O</translation>
-    </message>
-    <message>
-        <source>Alt+A</source>
-        <translation type="obsolete">Alt+A</translation>
-    </message>
-    <message>
-        <source>&amp;Interval from:</source>
-        <translation type="obsolete">&amp;Диапазон от:</translation>
-    </message>
-    <message>
-        <source>Alt+I</source>
-        <translation type="obsolete">Alt+I</translation>
-    </message>
-    <message>
-        <source>to:</source>
-        <translation type="obsolete">до:</translation>
-    </message>
-    <message>
-        <source>Export all pages to images</source>
-        <translation type="obsolete">Все страницы в изображения</translation>
-    </message>
-    <message>
-        <source>Export a range of pages to images</source>
-        <translation type="obsolete">Часть страниц в изображения</translation>
-    </message>
-    <message>
-        <source>First page to export when exporting a range</source>
-        <translation type="obsolete">Первая страница в диапазоне экспортируемых</translation>
-    </message>
-    <message>
-        <source>Last page to export when exporting a range</source>
-        <translation type="obsolete">Последняя страница в диапазоне экспортируемых</translation>
-    </message>
-    <message>
-        <source>The height of the output images in pixels</source>
-        <translation type="obsolete">Высота экспортируемых ихображений в пикселях</translation>
-    </message>
-    <message>
-        <source>The quality of your images - 100% is the best, 1% the highest compression</source>
-        <translation type="obsolete">Качество изображений: 100% - наилучшее качество, 1% - наилучшее сжатие</translation>
-    </message>
 </context>
 <context>
     <name>FDialogPreview</name>
@@ -3139,10 +2515,6 @@ Use 72 dpi for Images intended for the Screen</source>
     <message>
         <source>Scribus Document</source>
         <translation>Документ Scribus</translation>
-    </message>
-    <message>
-        <source>Scribus-Document</source>
-        <translation type="obsolete">Документ Scribus</translation>
     </message>
 </context>
 <context>
@@ -3261,48 +2633,8 @@ Use 72 dpi for Images intended for the Screen</source>
         <translation>&amp;Имя:</translation>
     </message>
     <message>
-        <source>Append</source>
-        <translation type="obsolete">Из файла</translation>
-    </message>
-    <message>
-        <source>New</source>
-        <translation type="obsolete">Новый</translation>
-    </message>
-    <message>
-        <source>Edit</source>
-        <translation type="obsolete">Правка</translation>
-    </message>
-    <message>
-        <source>Duplicate</source>
-        <translation type="obsolete">Дублировать</translation>
-    </message>
-    <message>
-        <source>Delete</source>
-        <translation type="obsolete">Удалить</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Отменить</translation>
-    </message>
-    <message>
-        <source>Save Color Set</source>
-        <translation type="obsolete">Сохранить набор цветов</translation>
-    </message>
-    <message>
-        <source>Remove Unused</source>
-        <translation type="obsolete">Удалить неиспользуемые</translation>
-    </message>
-    <message>
-        <source>Name:</source>
-        <translation type="obsolete">Имя:</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">ОК</translation>
-    </message>
-    <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Ничего</translation>
     </message>
 </context>
 <context>
@@ -3399,30 +2731,6 @@ Use 72 dpi for Images intended for the Screen</source>
         <source>&amp;Cancel</source>
         <translation>О&amp;тменить</translation>
     </message>
-    <message>
-        <source>Delete</source>
-        <translation type="obsolete">Удалить</translation>
-    </message>
-    <message>
-        <source>Change...</source>
-        <translation type="obsolete">Изменить...</translation>
-    </message>
-    <message>
-        <source>Add...</source>
-        <translation type="obsolete">Добавить...</translation>
-    </message>
-    <message>
-        <source>Remove</source>
-        <translation type="obsolete">Удалить</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">ОК</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Отменить</translation>
-    </message>
 </context>
 <context>
     <name>FontPreview</name>
@@ -3449,10 +2757,6 @@ Use 72 dpi for Images intended for the Screen</source>
     <message>
         <source>Fonts Preview</source>
         <translation>Просмотр шрифтов</translation>
-    </message>
-    <message>
-        <source>Font Preview</source>
-        <translation type="obsolete">Просмотр шрифтов</translation>
     </message>
 </context>
 <context>
@@ -3536,41 +2840,9 @@ Use 72 dpi for Images intended for the Screen</source>
         <source>&amp;Cancel</source>
         <translation>О&amp;тменить</translation>
     </message>
-    <message>
-        <source>Y-Pos:</source>
-        <translation type="obsolete">Y-Поз:</translation>
-    </message>
-    <message>
-        <source>Add</source>
-        <translation type="obsolete">Добавить</translation>
-    </message>
-    <message>
-        <source>Delete</source>
-        <translation type="obsolete">Удалить</translation>
-    </message>
-    <message>
-        <source>X-Pos:</source>
-        <translation type="obsolete">X-Поз:</translation>
-    </message>
-    <message>
-        <source>Lock Guides</source>
-        <translation type="obsolete">Блокировать направляющие</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">ОК</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Отменить</translation>
-    </message>
 </context>
 <context>
     <name>HelpBrowser</name>
-    <message>
-        <source>Sorry, no manual available! Please see: http://scribus.net for updated docs and downloads.</source>
-        <translation type="obsolete">Извините, но руководство недоступно! Посетите сайт www.scribus.net для получения актуальной документации.</translation>
-    </message>
     <message>
         <source>Sorry, no manual available! Please see: http://docs.scribus.net for updated docs
 and www.scribus.net for downloads.</source>
@@ -3605,17 +2877,6 @@ and www.scribus.net for downloads.</source>
         <translation>Настройки модуля переносов</translation>
     </message>
     <message>
-        <source>If you uncheck this you will get a dialog
-everytime a possible Hyphenation is found.</source>
-        <translation type="obsolete">Если этот флажок сброшен, диалоговое окно 
-открывается для каждого переноса.</translation>
-    </message>
-    <message>
-        <source>Enables automatic checking of your text while typing.</source>
-        <translation type="obsolete">Проверять возможности вставки 
-переносов при вводе текста.</translation>
-    </message>
-    <message>
         <source>Length of the smallest word to be hyphenated.</source>
         <translation>Размер наименьшего переносимого слова.</translation>
     </message>
@@ -3626,24 +2887,12 @@ A value of 0 means unlimited hyphenations.</source>
 Значение &quot;0&quot; аналогично бесконечному количеству переносов.</translation>
     </message>
     <message>
-        <source>&amp;Fully Automatic</source>
-        <translation type="obsolete">&amp;Автоматически вставлять переносы</translation>
-    </message>
-    <message>
-        <source>Check &amp;During Typing</source>
-        <translation type="obsolete">Вставлять по мере &amp;набора текста</translation>
-    </message>
-    <message>
         <source>&amp;Language:</source>
         <translation>Я&amp;зык:</translation>
     </message>
     <message>
         <source>&amp;Smallest Word:</source>
         <translation>На&amp;именьшее слово:</translation>
-    </message>
-    <message>
-        <source>&amp;Number of Hypenations allowed:</source>
-        <translation type="obsolete">Максимум &amp;переносов подряд:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -3654,44 +2903,12 @@ A value of 0 means unlimited hyphenations.</source>
         <translation>О&amp;тменить</translation>
     </message>
     <message>
-        <source>Fully Automatic</source>
-        <translation type="obsolete">Автоматическая вставлять переносы</translation>
-    </message>
-    <message>
-        <source>Check during Typing</source>
-        <translation type="obsolete">Вставлять по мере набора текста</translation>
-    </message>
-    <message>
-        <source>Language:</source>
-        <translation type="obsolete">Язык:</translation>
-    </message>
-    <message>
-        <source>Smallest Word:</source>
-        <translation type="obsolete">Наименьшее слово:</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">ОК</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Отменить</translation>
-    </message>
-    <message>
-        <source>Number of Hypenations allowed:</source>
-        <translation type="obsolete">Кол-во разрешённых переносов:</translation>
-    </message>
-    <message>
         <source>&amp;Hyphenation Suggestions</source>
         <translation>Предлагать &amp;варианты переноса</translation>
     </message>
     <message>
         <source>Hyphenate Text Automatically &amp;During Typing</source>
         <translation>Автоматически вставлять по мере &amp;набора текста</translation>
-    </message>
-    <message>
-        <source>Consecutive Hypenations &amp;Allowed:</source>
-        <translation type="obsolete">Макс. количество переносов &amp;подряд:</translation>
     </message>
     <message>
         <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
@@ -3761,26 +2978,6 @@ A value of 0 means unlimited hyphenations.</source>
         <source>&amp;Cancel</source>
         <translation>О&amp;тменить</translation>
     </message>
-    <message>
-        <source>page(s)</source>
-        <translation type="obsolete">страниц(а)</translation>
-    </message>
-    <message>
-        <source>Template (Left Page):</source>
-        <translation type="obsolete">Шаблон (Левая страница):</translation>
-    </message>
-    <message>
-        <source>Template:</source>
-        <translation type="obsolete">Шаблон:</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">ОК</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Отменить</translation>
-    </message>
 </context>
 <context>
     <name>InsertTable</name>
@@ -3820,10 +3017,6 @@ A value of 0 means unlimited hyphenations.</source>
         <translation>Предупреждение</translation>
     </message>
     <message>
-        <source>Do you really want do delete this Script?</source>
-        <translation type="obsolete">Вы действительно хотите удалить сценарий?</translation>
-    </message>
-    <message>
         <source>&amp;Edit...</source>
         <translation>&amp;Изменить...</translation>
     </message>
@@ -3850,34 +3043,6 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <source>&amp;Yes</source>
         <translation>&amp;Да</translation>
-    </message>
-    <message>
-        <source>Edit...</source>
-        <translation type="obsolete">Изменить...</translation>
-    </message>
-    <message>
-        <source>Add...</source>
-        <translation type="obsolete">Добавить...</translation>
-    </message>
-    <message>
-        <source>Delete</source>
-        <translation type="obsolete">Удалить</translation>
-    </message>
-    <message>
-        <source>Close</source>
-        <translation type="obsolete">Закрыть</translation>
-    </message>
-    <message>
-        <source>New Script:</source>
-        <translation type="obsolete">Новый сценарий:</translation>
-    </message>
-    <message>
-        <source>No</source>
-        <translation type="obsolete">Нет</translation>
-    </message>
-    <message>
-        <source>Yes</source>
-        <translation type="obsolete">Да</translation>
     </message>
     <message>
         <source>Do you really want to delete this Script?</source>
@@ -3958,30 +3123,6 @@ A value of 0 means unlimited hyphenations.</source>
         <source>This Key Sequence is already in use</source>
         <translation>Эта комбинация уже использована</translation>
     </message>
-    <message>
-        <source>No Key</source>
-        <translation type="obsolete">Без горячих клавиш</translation>
-    </message>
-    <message>
-        <source>User Defined Key</source>
-        <translation type="obsolete">Собственная комбинация</translation>
-    </message>
-    <message>
-        <source>Set Key</source>
-        <translation type="obsolete">Установить</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">ОК</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Отменить</translation>
-    </message>
-    <message>
-        <source>This Key-Sequence is already in use</source>
-        <translation type="obsolete">Эта комбинация уже использована</translation>
-    </message>
 </context>
 <context>
     <name>LayerPalette</name>
@@ -4031,10 +3172,6 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <source>Warning</source>
         <translation>Предупреждение</translation>
-    </message>
-    <message>
-        <source>Do you really want do delete this Style?</source>
-        <translation type="obsolete">Вы действительно хотите удалить этот стиль?</translation>
     </message>
     <message>
         <source>Open</source>
@@ -4087,46 +3224,6 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <source>&amp;Yes</source>
         <translation>&amp;Да</translation>
-    </message>
-    <message>
-        <source>Append</source>
-        <translation type="obsolete">Из файла</translation>
-    </message>
-    <message>
-        <source>New</source>
-        <translation type="obsolete">Новый</translation>
-    </message>
-    <message>
-        <source>Edit</source>
-        <translation type="obsolete">Изменить</translation>
-    </message>
-    <message>
-        <source>Duplicate</source>
-        <translation type="obsolete">Дублировать</translation>
-    </message>
-    <message>
-        <source>Delete</source>
-        <translation type="obsolete">Удалить</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation type="obsolete">Сохранить</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Отменить</translation>
-    </message>
-    <message>
-        <source>No</source>
-        <translation type="obsolete">Нет</translation>
-    </message>
-    <message>
-        <source>Yes</source>
-        <translation type="obsolete">Да</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">ОК</translation>
     </message>
     <message>
         <source>Do you really want to delete this Style?</source>
@@ -4210,26 +3307,6 @@ A value of 0 means unlimited hyphenations.</source>
         <source>&amp;Cancel</source>
         <translation>О&amp;тменить</translation>
     </message>
-    <message>
-        <source>Number of Copies:</source>
-        <translation type="obsolete">Количество копий:</translation>
-    </message>
-    <message>
-        <source>Horizontal Shift:</source>
-        <translation type="obsolete">Смещение по горизонтали:</translation>
-    </message>
-    <message>
-        <source>Vertical Shift:</source>
-        <translation type="obsolete">Смещение по вертикали:</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">ОК</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Отменить</translation>
-    </message>
 </context>
 <context>
     <name>Measurements</name>
@@ -4310,14 +3387,6 @@ A value of 0 means unlimited hyphenations.</source>
         <translation>Это сообщение скопировано в буфер обмена.
 Нажмите Ctrl+V, чтобы вставить его в жалобную книгу.</translation>
     </message>
-    <message>
-        <source>Show Console</source>
-        <translation type="obsolete">Показать консоль</translation>
-    </message>
-    <message>
-        <source>Hide Console</source>
-        <translation type="obsolete">Спрятать консоль</translation>
-    </message>
 </context>
 <context>
     <name>MergeDoc</name>
@@ -4394,26 +3463,6 @@ a range of pages or a single page number.</source>
         <source> from %1</source>
         <translation>из %1</translation>
     </message>
-    <message>
-        <source>Import a Page</source>
-        <translation type="obsolete">Импорт страницы</translation>
-    </message>
-    <message>
-        <source>Document to load:</source>
-        <translation type="obsolete">Загружаемый документ:</translation>
-    </message>
-    <message>
-        <source>Document contains: 0 Page(s)</source>
-        <translation type="obsolete">Страниц в документе: 0</translation>
-    </message>
-    <message>
-        <source>Import Page Nr:</source>
-        <translation type="obsolete">Импортировать стр.№:</translation>
-    </message>
-    <message>
-        <source>Document contains: %1 Page(s)</source>
-        <translation type="obsolete">Страниц в документе: %1</translation>
-    </message>
 </context>
 <context>
     <name>MovePages</name>
@@ -4452,10 +3501,6 @@ a range of pages or a single page number.</source>
     <message>
         <source>&amp;Cancel</source>
         <translation>О&amp;тменить</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">ОК</translation>
     </message>
 </context>
 <context>
@@ -4575,10 +3620,6 @@ a range of pages or a single page number.</source>
     <message>
         <source>Manual Kerning</source>
         <translation>Задаваемый кернинг</translation>
-    </message>
-    <message>
-        <source>Reverse Writing</source>
-        <translation type="obsolete">Зеркальное написание</translation>
     </message>
     <message>
         <source>None</source>
@@ -4972,7 +4013,7 @@ Corners:</source>
     </message>
     <message>
         <source>Use &amp;Bounding Box</source>
-        <translation>Ограничивающий &amp;прямоугольник</translation>
+        <translation>Использовать &amp;площадку</translation>
     </message>
     <message>
         <source>&amp;Use Contour Line</source>
@@ -5041,8 +4082,7 @@ Corners:</source>
     <message>
         <source>Use a surrounding box instead of the frame&apos;s shape for text flow</source>
         <translation>Использовать для расчёта обтекания 
-текста ограничивающий прямоугольник 
-вместо контура рамки</translation>
+текста площадку вместо контура рамки</translation>
     </message>
     <message>
         <source>Use a second line originally based on the frame&apos;s shape for text flow</source>
@@ -5069,186 +4109,6 @@ Corners:</source>
     <message>
         <source>&amp;Y2:</source>
         <translation>&amp;Y2:</translation>
-    </message>
-    <message>
-        <source>X, Y, Z</source>
-        <translation type="obsolete">X, Y, Z</translation>
-    </message>
-    <message>
-        <source>Shape</source>
-        <translation type="obsolete">Очертания</translation>
-    </message>
-    <message>
-        <source>Text</source>
-        <translation type="obsolete">Текст</translation>
-    </message>
-    <message>
-        <source>Image</source>
-        <translation type="obsolete">Изображение</translation>
-    </message>
-    <message>
-        <source>Line</source>
-        <translation type="obsolete">Линия</translation>
-    </message>
-    <message>
-        <source>Colors</source>
-        <translation type="obsolete">Цвета</translation>
-    </message>
-    <message>
-        <source>X-Pos:</source>
-        <translation type="obsolete">X-Поз:</translation>
-    </message>
-    <message>
-        <source>Y-Pos:</source>
-        <translation type="obsolete">Y-Поз:</translation>
-    </message>
-    <message>
-        <source>Width:</source>
-        <translation type="obsolete">Ширина:</translation>
-    </message>
-    <message>
-        <source>Height:</source>
-        <translation type="obsolete">Высота:</translation>
-    </message>
-    <message>
-        <source>Use Bounding Box</source>
-        <translation type="obsolete">Ограничивающий прямоугольник</translation>
-    </message>
-    <message>
-        <source>Edit Shape...</source>
-        <translation type="obsolete">Изменить очертания...</translation>
-    </message>
-    <message>
-        <source>RoundCorners:</source>
-        <translation type="obsolete">Закруглённыеуглы:</translation>
-    </message>
-    <message>
-        <source>Top:</source>
-        <translation type="obsolete">Сверху:</translation>
-    </message>
-    <message>
-        <source>Bottom:</source>
-        <translation type="obsolete">Снизу:</translation>
-    </message>
-    <message>
-        <source>Left:</source>
-        <translation type="obsolete">Слева:</translation>
-    </message>
-    <message>
-        <source>Right:</source>
-        <translation type="obsolete">Справа:</translation>
-    </message>
-    <message>
-        <source>Kerning:</source>
-        <translation type="obsolete">Кернинг:</translation>
-    </message>
-    <message>
-        <source>Line Spacing:</source>
-        <translation type="obsolete">Между строками:</translation>
-    </message>
-    <message>
-        <source>Free Scaling</source>
-        <translation type="obsolete">Свободное масштабирование</translation>
-    </message>
-    <message>
-        <source>Scale to Frame Size</source>
-        <translation type="obsolete">Масштабировать до размера рамки</translation>
-    </message>
-    <message>
-        <source>Proportional</source>
-        <translation type="obsolete">Пропорционально</translation>
-    </message>
-    <message>
-        <source>Line Style:</source>
-        <translation type="obsolete">Стиль линии:</translation>
-    </message>
-    <message>
-        <source>Line Width:</source>
-        <translation type="obsolete">Толщина линии:</translation>
-    </message>
-    <message>
-        <source>Edges:</source>
-        <translation type="obsolete">Края:</translation>
-    </message>
-    <message>
-        <source>Endings:</source>
-        <translation type="obsolete">Окончания:</translation>
-    </message>
-    <message>
-        <source>X1:</source>
-        <translation type="obsolete">X1:</translation>
-    </message>
-    <message>
-        <source>X2:</source>
-        <translation type="obsolete">X2:</translation>
-    </message>
-    <message>
-        <source>Y1:</source>
-        <translation type="obsolete">Y1:</translation>
-    </message>
-    <message>
-        <source>Y2:</source>
-        <translation type="obsolete">Y2:</translation>
-    </message>
-    <message>
-        <source>Rotation:</source>
-        <translation type="obsolete">Поворот:</translation>
-    </message>
-    <message>
-        <source>Columns:</source>
-        <translation type="obsolete">Столбцов:</translation>
-    </message>
-    <message>
-        <source>Gap:</source>
-        <translation type="obsolete">Интервал:</translation>
-    </message>
-    <message>
-        <source>Tabulators...</source>
-        <translation type="obsolete">Табуляторы...</translation>
-    </message>
-    <message>
-        <source>Text flows around frame</source>
-        <translation type="obsolete">Текст обтекает рамку</translation>
-    </message>
-    <message>
-        <source>Language:</source>
-        <translation type="obsolete">Язык:</translation>
-    </message>
-    <message>
-        <source>X-Pos.:</source>
-        <translation type="obsolete">X-Поз:</translation>
-    </message>
-    <message>
-        <source>Y-Pos.:</source>
-        <translation type="obsolete">Y-Поз:</translation>
-    </message>
-    <message>
-        <source>X-Scale:</source>
-        <translation type="obsolete">X-Масшт.:</translation>
-    </message>
-    <message>
-        <source>Y-Scale:</source>
-        <translation type="obsolete">Y-Масшт.:</translation>
-    </message>
-    <message>
-        <source>Language of object</source>
-        <translation type="obsolete">Язык объекта</translation>
-    </message>
-    <message>
-        <source>Style:</source>
-        <translation type="obsolete">Стиль:</translation>
-    </message>
-    <message>
-        <source>Use the frame shape instead of the object one</source>
-        <translation type="obsolete">Использовать очертания рамки вместо очертаний объекта</translation>
-    </message>
-    <message>
-        <source>Font Size:</source>
-        <translation type="obsolete">Кегль шрифта:</translation>
-    </message>
-    <message>
-        <source>Type of Line:</source>
-        <translation type="obsolete">Тип линии:</translation>
     </message>
     <message>
         <source>Right to Left Writing</source>
@@ -5343,10 +4203,6 @@ Please choose another.</source>
         <source>&amp;Cancel</source>
         <translation>О&amp;тменить</translation>
     </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Отменить</translation>
-    </message>
 </context>
 <context>
     <name>MusterSeiten</name>
@@ -5357,10 +4213,6 @@ Please choose another.</source>
     <message>
         <source>Warning</source>
         <translation>Предупреждение</translation>
-    </message>
-    <message>
-        <source>Do you really want do delete this Template?</source>
-        <translation type="obsolete">Вы действительно хотите удалить этот шаблон?</translation>
     </message>
     <message>
         <source>Copy of %1</source>
@@ -5413,34 +4265,6 @@ Please choose another.</source>
     <message>
         <source>&amp;Name:</source>
         <translation>&amp;Имя:</translation>
-    </message>
-    <message>
-        <source>Append</source>
-        <translation type="obsolete">Из файла</translation>
-    </message>
-    <message>
-        <source>New</source>
-        <translation type="obsolete">Новый</translation>
-    </message>
-    <message>
-        <source>Duplicate</source>
-        <translation type="obsolete">Дублировать</translation>
-    </message>
-    <message>
-        <source>Delete</source>
-        <translation type="obsolete">Удалить</translation>
-    </message>
-    <message>
-        <source>No</source>
-        <translation type="obsolete">Нет</translation>
-    </message>
-    <message>
-        <source>Yes</source>
-        <translation type="obsolete">Да</translation>
-    </message>
-    <message>
-        <source>Close</source>
-        <translation type="obsolete">Закрыть</translation>
     </message>
     <message>
         <source>Do you really want to delete this Template?</source>
@@ -5672,82 +4496,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <source>O&amp;utside:</source>
         <translation>Снару&amp;жи:</translation>
     </message>
-    <message>
-        <source>Size:</source>
-        <translation type="obsolete">Формат:</translation>
-    </message>
-    <message>
-        <source>Orientation:</source>
-        <translation type="obsolete">Ориентация:</translation>
-    </message>
-    <message>
-        <source>Width:</source>
-        <translation type="obsolete">Ширина:</translation>
-    </message>
-    <message>
-        <source>Height:</source>
-        <translation type="obsolete">Высота:</translation>
-    </message>
-    <message>
-        <source>Facing Pages</source>
-        <translation type="obsolete">Парные страницы</translation>
-    </message>
-    <message>
-        <source>Left Page first</source>
-        <translation type="obsolete">Левая страница первой</translation>
-    </message>
-    <message>
-        <source>Left:</source>
-        <translation type="obsolete">Слева:</translation>
-    </message>
-    <message>
-        <source>Right:</source>
-        <translation type="obsolete">Справа:</translation>
-    </message>
-    <message>
-        <source>Top:</source>
-        <translation type="obsolete">Сверху:</translation>
-    </message>
-    <message>
-        <source>Bottom:</source>
-        <translation type="obsolete">Снизу:</translation>
-    </message>
-    <message>
-        <source>First Page Number:</source>
-        <translation type="obsolete">Номер первой страницы:</translation>
-    </message>
-    <message>
-        <source>Default Unit:</source>
-        <translation type="obsolete">Единица измерения:</translation>
-    </message>
-    <message>
-        <source>Columns:</source>
-        <translation type="obsolete">Количество столбцов:</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">ОК</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Отменить</translation>
-    </message>
-    <message>
-        <source>Inside:</source>
-        <translation type="obsolete">Внутри:</translation>
-    </message>
-    <message>
-        <source>Outside:</source>
-        <translation type="obsolete">Снаружи:</translation>
-    </message>
-    <message>
-        <source>Automatic Text Frames</source>
-        <translation type="obsolete">Автосоздание текстовых рамок</translation>
-    </message>
-    <message>
-        <source>Gap:</source>
-        <translation type="obsolete">Интервал:</translation>
-    </message>
 </context>
 <context>
     <name>NewTm</name>
@@ -5766,14 +4514,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>&amp;Cancel</source>
         <translation>О&amp;тменить</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">ОК</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Отменить</translation>
     </message>
 </context>
 <context>
@@ -5917,78 +4657,6 @@ otherwise Coordinates are relative to the Object.</source>
     <message>
         <source>Reset the Contour Line to the Original Shape of the Frame</source>
         <translation>Восстановить исходную контурную линию</translation>
-    </message>
-    <message>
-        <source>Absolute Coordinates</source>
-        <translation type="obsolete">Абсолют. координаты</translation>
-    </message>
-    <message>
-        <source>X-Pos:</source>
-        <translation type="obsolete">X-Поз:</translation>
-    </message>
-    <message>
-        <source>Y-Pos:</source>
-        <translation type="obsolete">Y-Поз:</translation>
-    </message>
-    <message>
-        <source>End Editing</source>
-        <translation type="obsolete">Завершить</translation>
-    </message>
-    <message>
-        <source>Move Control Points independently</source>
-        <translation type="obsolete">Переместить контрольные точки независимо</translation>
-    </message>
-    <message>
-        <source>Move Control Points symmetrical</source>
-        <translation type="obsolete">Переместить контрольные точки симметрично</translation>
-    </message>
-    <message>
-        <source>Opens a Polygon or cuts a Bezier Curve</source>
-        <translation type="obsolete">Разомкнуть многоугольник или кривую Безье</translation>
-    </message>
-    <message>
-        <source>Closes this Bezier Curve</source>
-        <translation type="obsolete">Замкнуть эту кривую Безье</translation>
-    </message>
-    <message>
-        <source>Mirrors the Path Horizontally</source>
-        <translation type="obsolete">Зеркально отразить этот контур по горизонтали</translation>
-    </message>
-    <message>
-        <source>Mirrors the Path Vertically</source>
-        <translation type="obsolete">Зеркально отразить этот контур по вертикали</translation>
-    </message>
-    <message>
-        <source>Shears the Path horizontal to the right</source>
-        <translation type="obsolete">Разрезать контур по горизонтали направо</translation>
-    </message>
-    <message>
-        <source>Shears the Path horizontal to the left</source>
-        <translation type="obsolete">Разрезать контур по горизонтали налево</translation>
-    </message>
-    <message>
-        <source>Shears the Path vertical up</source>
-        <translation type="obsolete">Разрезать контур по вертикали вверх</translation>
-    </message>
-    <message>
-        <source>Shears the Path vertical down</source>
-        <translation type="obsolete">Разрезать контур по вертикали вниз</translation>
-    </message>
-    <message>
-        <source>Rotates the Path counter-clockwise</source>
-        <translation type="obsolete">Вращать контур против часовой стрелки</translation>
-    </message>
-    <message>
-        <source>Rotates the Path clockwise</source>
-        <translation type="obsolete">Вращать контур по часовой стрелке</translation>
-    </message>
-    <message>
-        <source>Reduce the Size of the Path by 10%</source>
-        <translation type="obsolete">Уменьшить контур на 10%</translation>
-    </message>
-    <message>
-        <source>Enlarges the Size of the Path by 10%</source>
-        <translation type="obsolete">Увеличить контур на 10%</translation>
     </message>
 </context>
 <context>
@@ -6298,10 +4966,6 @@ security features in your exported PDF</source>
         <translation>&amp;Шрифты</translation>
     </message>
     <message>
-        <source>E&amp;xtras</source>
-        <translation type="unfinished">&amp;Дополнительно</translation>
-    </message>
-    <message>
         <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
 Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
 PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management.</source>
@@ -6380,8 +5044,8 @@ Leaving this unchecked will render them at their native resolution.</source>
     <message>
         <source>Embed fonts into the PDF. Embedding the fonts
 will preserve the layout and appearance of your document.</source>
-        <translation>Встраивать шрифты в документы PDF. 
-Встраивание шрифтов позволит сохранить вид 
+        <translation>Встраивать шрифтовые файлы в документы PDF. 
+Встраивание этих файлов позволит сохранить вид 
 документа при чтении с любого компьютера.</translation>
     </message>
     <message>
@@ -6550,10 +5214,6 @@ a range of pages or a single page number.</source>
         <translation>&amp;Разрешение:</translation>
     </message>
     <message>
-        <source>Com&amp;press Text and Vector Graphics</source>
-        <translation type="unfinished">С&amp;жать текст и векторную графику</translation>
-    </message>
-    <message>
         <source>&amp;Method:</source>
         <translation>&amp;Метод:</translation>
     </message>
@@ -6568,7 +5228,7 @@ a range of pages or a single page number.</source>
     </message>
     <message>
         <source>&amp;Embed all Fonts</source>
-        <translation>Встроить &amp;все шрифты</translation>
+        <translation>Встроить &amp;все шрифтовые файлы</translation>
     </message>
     <message>
         <source>&amp;&gt;&gt;</source>
@@ -6577,10 +5237,6 @@ a range of pages or a single page number.</source>
     <message>
         <source>&amp;&lt;&lt;</source>
         <translation>&amp;&lt;&lt;</translation>
-    </message>
-    <message>
-        <source>Enable &amp;Presentation Effects</source>
-        <translation type="unfinished">Включить &amp;презентационные эффекты</translation>
     </message>
     <message>
         <source>Show Page Pre&amp;views</source>
@@ -6733,240 +5389,36 @@ Otherwise, your exported PDF may not print properly and is truly not portable ac
         <translation>PDF-документы (*.pdf);;Все файлы (*)</translation>
     </message>
     <message>
-        <source>Create PDF-File</source>
-        <translation type="obsolete">Создание PDF-файла</translation>
-    </message>
-    <message>
-        <source>Output to File:</source>
-        <translation type="obsolete">Конечный файл:</translation>
-    </message>
-    <message>
-        <source>Change...</source>
-        <translation type="obsolete">Изменить...</translation>
-    </message>
-    <message>
-        <source>All Pages</source>
-        <translation type="obsolete">Все страницы</translation>
-    </message>
-    <message>
-        <source>From:</source>
-        <translation type="obsolete">От:</translation>
-    </message>
-    <message>
-        <source>to:</source>
-        <translation type="obsolete">до:</translation>
-    </message>
-    <message>
-        <source>Compatibility:</source>
-        <translation type="obsolete">Совместимость с:</translation>
-    </message>
-    <message>
-        <source>Binding:</source>
-        <translation type="obsolete">Связывание:</translation>
-    </message>
-    <message>
-        <source>Generate Thumbnails</source>
-        <translation type="obsolete">Создать миниатюры</translation>
-    </message>
-    <message>
-        <source>Save linked Text Frames as PDF-Articles</source>
-        <translation type="obsolete">Сохранить связанные текст. рамки как PDF-Articles</translation>
-    </message>
-    <message>
-        <source>Include Bookmarks</source>
-        <translation type="obsolete">Включить закладки</translation>
-    </message>
-    <message>
-        <source>Resolution:</source>
-        <translation type="obsolete">Разрешение:</translation>
-    </message>
-    <message>
-        <source>Downsample Images to:</source>
-        <translation type="obsolete">Понизить разрешение изображений до:</translation>
-    </message>
-    <message>
-        <source>Compress Text and Vector Graphics</source>
-        <translation type="obsolete">Сжать текст и векторную графику</translation>
-    </message>
-    <message>
-        <source>Embed all Fonts</source>
-        <translation type="obsolete">Внедрить все шрифты</translation>
-    </message>
-    <message>
-        <source>&gt;&gt;</source>
-        <translation type="obsolete">&gt;&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;&lt;</source>
-        <translation type="obsolete">&lt;&lt;</translation>
-    </message>
-    <message>
-        <source>Enable Presentation Effects</source>
-        <translation type="obsolete">Разрешить спецэффекты</translation>
-    </message>
-    <message>
-        <source>Show Page Previews</source>
-        <translation type="obsolete">Просмотр  страниц</translation>
-    </message>
-    <message>
-        <source>Display Duration:</source>
-        <translation type="obsolete">Длительность отображения:</translation>
-    </message>
-    <message>
-        <source>Effect Duration:</source>
-        <translation type="obsolete">Длительность эффекта:</translation>
-    </message>
-    <message>
-        <source>Effect Type:</source>
-        <translation type="obsolete">Тип эффекта:</translation>
-    </message>
-    <message>
-        <source>Moving Lines:</source>
-        <translation type="obsolete">Движущиеся линии</translation>
-    </message>
-    <message>
-        <source>Direction:</source>
-        <translation type="obsolete">Направление:</translation>
-    </message>
-    <message>
-        <source>Apply Effect on all Pages</source>
-        <translation type="obsolete">Применить эффект ко всем страницам</translation>
-    </message>
-    <message>
-        <source>Use Encryption</source>
-        <translation type="obsolete">Использовать шифрование</translation>
-    </message>
-    <message>
-        <source>User:</source>
-        <translation type="obsolete">Пользователь:</translation>
-    </message>
-    <message>
-        <source>Owner:</source>
-        <translation type="obsolete">Владелец:</translation>
-    </message>
-    <message>
-        <source>Allow Printing the Document</source>
-        <translation type="obsolete">Разрешить печать документа</translation>
-    </message>
-    <message>
-        <source>Allow Changing the Document</source>
-        <translation type="obsolete">Разрешить изменение документа</translation>
-    </message>
-    <message>
-        <source>Output intended for:</source>
-        <translation type="obsolete">Вывод предназначен для:</translation>
-    </message>
-    <message>
-        <source>Use ICC-Profile</source>
-        <translation type="obsolete">Использовать ICC-профиль</translation>
-    </message>
-    <message>
-        <source>Info String:</source>
-        <translation type="obsolete">Информация:</translation>
-    </message>
-    <message>
-        <source>Output Profile:</source>
-        <translation type="obsolete">Выходной профиль:</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Отменить</translation>
-    </message>
-    <message>
-        <source>PDF-Files (*.pdf);;All Files (*)</source>
-        <translation type="obsolete">PDF-документы (*.pdf);;Все файлы (*)</translation>
-    </message>
-    <message>
-        <source>Method:</source>
-        <translation type="obsolete">Метод:</translation>
-    </message>
-    <message>
-        <source>Quality:</source>
-        <translation type="obsolete">Качество:</translation>
-    </message>
-    <message>
-        <source>From the:</source>
-        <translation type="obsolete">Из:</translation>
-    </message>
-    <message>
-        <source>First page to export when exporting a range</source>
-        <translation type="obsolete">Первая страница в диапазоне экспортируемых</translation>
-    </message>
-    <message>
-        <source>Last page to export when exporting a range</source>
-        <translation type="obsolete">Последняя страница в диапазоне экспортируемых</translation>
-    </message>
-    <message>
-        <source>&amp;Security</source>
-        <translation type="obsolete">&amp;Безопасность</translation>
-    </message>
-    <message>
-        <source>&amp;Color</source>
-        <translation type="obsolete">&amp;Цвет</translation>
-    </message>
-    <message>
-        <source>&amp;PDF/X-3</source>
-        <translation type="obsolete">&amp;PDF/X-3</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation type="obsolete">Сохранить</translation>
-    </message>
-    <message>
-        <source>Allow Copying Text and Graphics</source>
-        <translation type="obsolete">Разрешить копирование текста и графики</translation>
-    </message>
-    <message>
-        <source>Allow Adding Annotations and Fields</source>
-        <translation type="obsolete">Разрешить добавление аннотаций и полей</translation>
-    </message>
-    <message>
-        <source>Choose Pages</source>
-        <translation type="obsolete">Выберите страницы</translation>
-    </message>
-    <message>
-        <source>Mirror Page(s) &amp;Horizontal</source>
-        <translation type="obsolete">Зеркально отразить по &amp;горизонтали</translation>
-    </message>
-    <message>
         <source>Compress Text and &amp;Vector Graphics</source>
-        <translation type="obsolete">Сжать текст и ве&amp;кторную графику</translation>
+        <translation>Сжать текст и ве&amp;кторную графику</translation>
     </message>
     <message>
         <source>En&amp;able Presentation Effects</source>
-        <translation type="obsolete">Включить п&amp;резентационные эффекты</translation>
+        <translation>Включить п&amp;резентационные эффекты</translation>
     </message>
     <message>
         <source>&amp;Presentation</source>
-        <translation type="obsolete">&amp;Презентация</translation>
-    </message>
-    <message>
-        <source>Mirror Page(s) &amp;Horizontally</source>
-        <translation type="obsolete">Зеркально отразить по &amp;горизонтали</translation>
+        <translation>&amp;Презентация</translation>
     </message>
     <message>
         <source>&amp;Rotation:</source>
         <translation>&amp;Поворот:</translation>
     </message>
     <message>
-        <source>&amp;Options</source>
-        <translation type="obsolete">&amp;Дополнительно</translation>
-    </message>
-    <message>
         <source>&amp;Subset all Fonts</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Вычесть неиспользуемые знаки из всех шрифтовых файлов</translation>
     </message>
     <message>
         <source>Fonts to subset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Из каких шрифтовых файлов вычесть знаки:</translation>
     </message>
     <message>
         <source>Mirror Page(s) horizontally</source>
-        <translation type="unfinished"></translation>
+        <translation>Зеркально отразить по горизонтали</translation>
     </message>
     <message>
         <source>Mirror Page(s) vertically</source>
-        <translation type="unfinished"></translation>
+        <translation>Зеркально отразить по вертикали</translation>
     </message>
 </context>
 <context>
@@ -7068,548 +5520,296 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
 При использовании этого способа также снижается 
 вероятность избыточной яркости изображения. </translation>
     </message>
-    <message>
-        <source>Anti-alias Text</source>
-        <translation type="obsolete">Сгладить текст</translation>
-    </message>
-    <message>
-        <source>Anti-alias Graphics</source>
-        <translation type="obsolete">Сгладить графику</translation>
-    </message>
-    <message>
-        <source>Display Transparency</source>
-        <translation type="obsolete">Отображать прозрачность</translation>
-    </message>
-    <message>
-        <source>Display CMYK</source>
-        <translation type="obsolete">Отображать CMYK</translation>
-    </message>
-    <message>
-        <source>C</source>
-        <translation type="obsolete">C</translation>
-    </message>
-    <message>
-        <source>M</source>
-        <translation type="obsolete">M</translation>
-    </message>
-    <message>
-        <source>Y</source>
-        <translation type="obsolete">Y</translation>
-    </message>
-    <message>
-        <source>K</source>
-        <translation type="obsolete">K</translation>
-    </message>
 </context>
 <context>
     <name>Page</name>
     <message>
         <source>Copy Here</source>
-        <translation type="obsolete">Скопировать сюда</translation>
+        <translation>Скопировать сюда</translation>
     </message>
     <message>
         <source>Move Here</source>
-        <translation type="obsolete">Переместить сюда</translation>
+        <translation>Переместить сюда</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="obsolete">Отменить</translation>
+        <translation>Отменить</translation>
     </message>
     <message>
         <source>Edit Text...</source>
-        <translation type="obsolete">Изменить текст...</translation>
+        <translation>Изменить текст...</translation>
     </message>
     <message>
         <source>Text Frame</source>
-        <translation type="obsolete">Текстовая рамка</translation>
+        <translation>Текстовая рамка</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="obsolete">Ничего</translation>
+        <translation>Ничего</translation>
     </message>
     <message>
         <source>Picture</source>
-        <translation type="obsolete">Изображение</translation>
+        <translation>Изображение</translation>
     </message>
     <message>
         <source>File: </source>
-        <translation type="obsolete">Файл:</translation>
+        <translation>Файл:</translation>
     </message>
     <message>
         <source>Text on a Path</source>
-        <translation type="obsolete">Текст по контуру</translation>
+        <translation>Текст по контуру</translation>
     </message>
     <message>
         <source>Paragraphs: </source>
-        <translation type="obsolete">Абзацев:</translation>
+        <translation>Абзацев:</translation>
     </message>
     <message>
         <source>Words: </source>
-        <translation type="obsolete">Слов:</translation>
+        <translation>Слов:</translation>
     </message>
     <message>
         <source>Chars: </source>
-        <translation type="obsolete">Символов:</translation>
+        <translation>Символов:</translation>
     </message>
     <message>
         <source>Linked Text</source>
-        <translation type="obsolete">Связанный текст</translation>
+        <translation>Связанный текст</translation>
     </message>
     <message>
         <source>Print: </source>
-        <translation type="obsolete">Печать:</translation>
+        <translation>Печать:</translation>
     </message>
     <message>
         <source>Enabled</source>
-        <translation type="obsolete">Включено</translation>
+        <translation>Включено</translation>
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="obsolete">Выключено</translation>
+        <translation>Выключено</translation>
     </message>
     <message>
         <source>The Program</source>
-        <translation type="obsolete">Программа</translation>
+        <translation>Программа</translation>
     </message>
     <message>
         <source>is missing!</source>
-        <translation type="obsolete">отсутствует!</translation>
+        <translation>отсутствует!</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation type="obsolete">Предупреждение</translation>
+        <translation>Предупреждение</translation>
     </message>
     <message>
         <source>Copy of</source>
-        <translation type="obsolete">Копия</translation>
+        <translation>Копия</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
-        <translation type="obsolete">Вст&amp;авить</translation>
+        <translation>Вст&amp;авить</translation>
     </message>
     <message>
         <source>Show &amp;Margins</source>
-        <translation type="obsolete">Показать &amp;поля</translation>
+        <translation>Показать &amp;поля</translation>
     </message>
     <message>
         <source>Show &amp;Frames</source>
-        <translation type="obsolete">Показывать &amp;обрамление</translation>
+        <translation>Показывать &amp;обрамление</translation>
     </message>
     <message>
         <source>Show &amp;Images</source>
-        <translation type="obsolete">Показывать &amp;изображения</translation>
+        <translation>Показывать &amp;изображения</translation>
     </message>
     <message>
         <source>Show &amp;Grid</source>
-        <translation type="obsolete">Показать &amp;сетку</translation>
+        <translation>Показать &amp;сетку</translation>
     </message>
     <message>
         <source>Show G&amp;uides</source>
-        <translation type="obsolete">Показать &amp;направляющие</translation>
+        <translation>Показать &amp;направляющие</translation>
     </message>
     <message>
         <source>Show &amp;Baseline Grid</source>
-        <translation type="obsolete">Показать &amp;опорную сетку</translation>
+        <translation>Показать опорную &amp;сетку</translation>
     </message>
     <message>
         <source>Sn&amp;ap to Grid</source>
-        <translation type="obsolete">Привязать к &amp;сетке</translation>
+        <translation>Привязать к &amp;сетке</translation>
     </message>
     <message>
         <source>Sna&amp;p to Guides</source>
-        <translation type="obsolete">Привязать к н&amp;аправляющим</translation>
+        <translation>Привязать к н&amp;аправляющим</translation>
     </message>
     <message>
         <source>Original PPI: </source>
-        <translation type="obsolete">Исходный PPI:</translation>
+        <translation>Исходный PPI:</translation>
     </message>
     <message>
         <source>Actual PPI: </source>
-        <translation type="obsolete">Текущий PPI:</translation>
+        <translation>Текущий PPI:</translation>
     </message>
     <message>
         <source>In&amp;fo</source>
-        <translation type="obsolete">&amp;Инфо</translation>
+        <translation>&amp;Инфо</translation>
     </message>
     <message>
         <source>&amp;Get Picture...</source>
-        <translation type="obsolete">Получить &amp;изображение...</translation>
+        <translation>Получить &amp;изображение...</translation>
     </message>
     <message>
         <source>I&amp;mage Visible</source>
-        <translation type="obsolete">Изображение &amp;видимо</translation>
+        <translation>Изображение &amp;видимо</translation>
     </message>
     <message>
         <source>&amp;Update Picture</source>
-        <translation type="obsolete">&amp;Обновить изображение</translation>
+        <translation>&amp;Обновить изображение</translation>
     </message>
     <message>
         <source>&amp;Edit Picture</source>
-        <translation type="obsolete">&amp;Изменить изображение</translation>
+        <translation>&amp;Изменить изображение</translation>
     </message>
     <message>
         <source>&amp;Adjust Frame to Picture</source>
-        <translation type="obsolete">&amp;Подстроить рамку до изображения</translation>
+        <translation>&amp;Подстроить рамку до изображения</translation>
     </message>
     <message>
         <source>&amp;Get Text...</source>
-        <translation type="obsolete">Получить &amp;текст...</translation>
+        <translation>Получить &amp;текст...</translation>
     </message>
     <message>
         <source>&amp;Append Text...</source>
-        <translation type="obsolete">Добавить &amp;текст из файла...</translation>
+        <translation>Добавить &amp;текст из файла...</translation>
     </message>
     <message>
         <source>&amp;Edit Text...</source>
-        <translation type="obsolete">Изменить те&amp;кст...</translation>
+        <translation>Изменить те&amp;кст...</translation>
     </message>
     <message>
         <source>Is PDF &amp;Bookmark</source>
-        <translation type="obsolete">Является PDF-&amp;закладкой</translation>
+        <translation>Является PDF-&amp;закладкой</translation>
     </message>
     <message>
         <source>Is PDF A&amp;nnotation</source>
-        <translation type="obsolete">Является PDF-&amp;анотацией</translation>
+        <translation>Является PDF-&amp;аннотацией</translation>
     </message>
     <message>
         <source>Annotation P&amp;roperties</source>
-        <translation type="obsolete">Свойства а&amp;ннотации</translation>
+        <translation>Свойства а&amp;ннотации</translation>
     </message>
     <message>
         <source>Field P&amp;roperties</source>
-        <translation type="obsolete">Свойства по&amp;ля</translation>
+        <translation>Свойства по&amp;ля</translation>
     </message>
     <message>
         <source>&amp;PDF Options</source>
-        <translation type="obsolete">Пара&amp;метры PDF</translation>
+        <translation>Пара&amp;метры PDF</translation>
     </message>
     <message>
         <source>&amp;Lock</source>
-        <translation type="obsolete">Заб&amp;локировать</translation>
+        <translation>Заб&amp;локировать</translation>
     </message>
     <message>
         <source>Un&amp;lock</source>
-        <translation type="obsolete">&amp;Разблокировать</translation>
+        <translation>&amp;Разблокировать</translation>
     </message>
     <message>
         <source>Lock Object &amp;Size</source>
-        <translation type="obsolete">За&amp;блокировать размер объекта</translation>
+        <translation>За&amp;блокировать размер объекта</translation>
     </message>
     <message>
         <source>Unlock Object &amp;Size</source>
-        <translation type="obsolete">Разблокиро&amp;вать размер объекта</translation>
+        <translation>Разблокиро&amp;вать размер объекта</translation>
     </message>
     <message>
         <source>Send to S&amp;crapbook</source>
-        <translation type="obsolete">Передать в запа&amp;сник</translation>
+        <translation>Передать в запа&amp;сник</translation>
     </message>
     <message>
         <source>Send to La&amp;yer</source>
-        <translation type="obsolete">Переложить в сло&amp;й</translation>
+        <translation>Переложить в сло&amp;й</translation>
     </message>
     <message>
         <source>&amp;Insert Sample Text</source>
-        <translation type="obsolete">Встав&amp;ить lorem ipsum</translation>
+        <translation>Встав&amp;ить lorem ipsum</translation>
     </message>
     <message>
         <source>&amp;Group</source>
-        <translation type="obsolete">С&amp;группировать</translation>
+        <translation>С&amp;группировать</translation>
     </message>
     <message>
         <source>Un&amp;group</source>
-        <translation type="obsolete">Разгру&amp;ппировать</translation>
+        <translation>Разгру&amp;ппировать</translation>
     </message>
     <message>
         <source>Le&amp;vel</source>
-        <translation type="obsolete">Уро&amp;вень</translation>
+        <translation>Уро&amp;вень</translation>
     </message>
     <message>
         <source>Send to &amp;Back</source>
-        <translation type="obsolete">Отправить на самый &amp;низкий уровень</translation>
+        <translation>Отправить на самый &amp;низкий уровень</translation>
     </message>
     <message>
         <source>Bring to &amp;Front</source>
-        <translation type="obsolete">Отправить на самый &amp;высокий уровень</translation>
+        <translation>Отправить на самый &amp;высокий уровень</translation>
     </message>
     <message>
         <source>&amp;Lower</source>
-        <translation type="obsolete">Сделать уровнем н&amp;иже</translation>
+        <translation>Сделать уровнем н&amp;иже</translation>
     </message>
     <message>
         <source>&amp;Raise</source>
-        <translation type="obsolete">Сделать уровнем в&amp;ыше</translation>
+        <translation>Сделать уровнем в&amp;ыше</translation>
     </message>
     <message>
         <source>&amp;Picture Frame</source>
-        <translation type="obsolete">Рамку изобра&amp;жения</translation>
+        <translation>Рамку изобра&amp;жения</translation>
     </message>
     <message>
         <source>Pol&amp;ygon</source>
-        <translation type="obsolete">Многоу&amp;гольник</translation>
+        <translation>Многоу&amp;гольник</translation>
     </message>
     <message>
         <source>&amp;Outlines</source>
-        <translation type="obsolete">&amp;Контур</translation>
+        <translation>&amp;Контур</translation>
     </message>
     <message>
         <source>&amp;Text Frame</source>
-        <translation type="obsolete">&amp;Текстовую рамку</translation>
+        <translation>&amp;Текстовую рамку</translation>
     </message>
     <message>
         <source>&amp;Bezier Curve</source>
-        <translation type="obsolete">Кривая &amp;Безье</translation>
+        <translation>Кривая &amp;Безье</translation>
     </message>
     <message>
         <source>Conve&amp;rt to</source>
-        <translation type="obsolete">&amp;Преобразовать в</translation>
+        <translation>&amp;Преобразовать в</translation>
     </message>
     <message>
         <source>Cu&amp;t</source>
-        <translation type="obsolete">&amp;Вырезать</translation>
+        <translation>&amp;Вырезать</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation type="obsolete">&amp;Скопировать</translation>
+        <translation>&amp;Скопировать</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="obsolete">У&amp;далить</translation>
+        <translation>У&amp;далить</translation>
     </message>
     <message>
         <source>C&amp;lear Contents</source>
-        <translation type="obsolete">&amp;Очистить содержимое</translation>
+        <translation>&amp;Очистить содержимое</translation>
     </message>
     <message>
         <source>Show P&amp;roperties...</source>
-        <translation type="obsolete">Показать &amp;свойства...</translation>
+        <translation>Показать &amp;свойства...</translation>
     </message>
     <message>
         <source>Hide P&amp;roperties...</source>
-        <translation type="obsolete">Скрыть &amp;свойства...</translation>
+        <translation>Скрыть &amp;свойства...</translation>
     </message>
     <message>
         <source>Do you really want to clear all your Text?</source>
-        <translation type="obsolete">Вы действительно хотите удалить весь текст?</translation>
-    </message>
-    <message>
-        <source>Get Picture...</source>
-        <translation type="obsolete">Получить изображение...</translation>
-    </message>
-    <message>
-        <source>Image Visible</source>
-        <translation type="obsolete">Изображение видно</translation>
-    </message>
-    <message>
-        <source>Get Text...</source>
-        <translation type="obsolete">Получить текст...</translation>
-    </message>
-    <message>
-        <source>Is PDF-Bookmark</source>
-        <translation type="obsolete">Является PDF-закладкой</translation>
-    </message>
-    <message>
-        <source>Is PDF-Annotation</source>
-        <translation type="obsolete">Является PDF-аннотацией</translation>
-    </message>
-    <message>
-        <source>Annotation Properties</source>
-        <translation type="obsolete">Свойства аннотации</translation>
-    </message>
-    <message>
-        <source>Field Properties</source>
-        <translation type="obsolete">Свойства поля</translation>
-    </message>
-    <message>
-        <source>Group</source>
-        <translation type="obsolete">Группировать</translation>
-    </message>
-    <message>
-        <source>Un-group</source>
-        <translation type="obsolete">Разгруппировать</translation>
-    </message>
-    <message>
-        <source>Lock</source>
-        <translation type="obsolete">Блокировать</translation>
-    </message>
-    <message>
-        <source>Send to Back</source>
-        <translation type="obsolete">Послать на самый низкий уровень</translation>
-    </message>
-    <message>
-        <source>Bring to Front</source>
-        <translation type="obsolete">Послать на самый высокий уровень</translation>
-    </message>
-    <message>
-        <source>Lower</source>
-        <translation type="obsolete">Сделать уровнем ниже</translation>
-    </message>
-    <message>
-        <source>Raise</source>
-        <translation type="obsolete">Сделать уровнем выше</translation>
-    </message>
-    <message>
-        <source>Unlock</source>
-        <translation type="obsolete">Разблокировать</translation>
-    </message>
-    <message>
-        <source>Send to Scrapbook</source>
-        <translation type="obsolete">Отправить в Запасник</translation>
-    </message>
-    <message>
-        <source>Send to Layer</source>
-        <translation type="obsolete">Отправить в слой</translation>
-    </message>
-    <message>
-        <source>Picture Frame</source>
-        <translation type="obsolete">Рамку изображения</translation>
-    </message>
-    <message>
-        <source>Polygon</source>
-        <translation type="obsolete">Многоугольник</translation>
-    </message>
-    <message>
-        <source>Bezier Curve</source>
-        <translation type="obsolete">Кривую Безье</translation>
-    </message>
-    <message>
-        <source>Convert to</source>
-        <translation type="obsolete">Преобразовать в</translation>
-    </message>
-    <message>
-        <source>Cut</source>
-        <translation type="obsolete">Вырезать</translation>
-    </message>
-    <message>
-        <source>Copy</source>
-        <translation type="obsolete">Скопировать</translation>
-    </message>
-    <message>
-        <source>Delete</source>
-        <translation type="obsolete">Удалить</translation>
-    </message>
-    <message>
-        <source>Outlines</source>
-        <translation type="obsolete">Контур</translation>
-    </message>
-    <message>
-        <source>Original ppi: </source>
-        <translation type="obsolete">Оригинальное ppi:</translation>
-    </message>
-    <message>
-        <source>Actual ppi: </source>
-        <translation type="obsolete">Текущее ppi:</translation>
-    </message>
-    <message>
-        <source>Info</source>
-        <translation type="obsolete">Информация</translation>
-    </message>
-    <message>
-        <source>Paste</source>
-        <translation type="obsolete">Вставить</translation>
-    </message>
-    <message>
-        <source>Hide Margins</source>
-        <translation type="obsolete">Спрятать поля</translation>
-    </message>
-    <message>
-        <source>Show Margins</source>
-        <translation type="obsolete">Показать поля</translation>
-    </message>
-    <message>
-        <source>Hide Frames</source>
-        <translation type="obsolete">Спрятать обрамление</translation>
-    </message>
-    <message>
-        <source>Show Frames</source>
-        <translation type="obsolete">Показывать обрамление</translation>
-    </message>
-    <message>
-        <source>Hide Images</source>
-        <translation type="obsolete">Спрятать изображения</translation>
-    </message>
-    <message>
-        <source>Show Images</source>
-        <translation type="obsolete">Показывать изображения</translation>
-    </message>
-    <message>
-        <source>Hide Grid</source>
-        <translation type="obsolete">Спрятать сетку</translation>
-    </message>
-    <message>
-        <source>Show Grid</source>
-        <translation type="obsolete">Показать сетку</translation>
-    </message>
-    <message>
-        <source>Hide Guides</source>
-        <translation type="obsolete">Спрятать направляющие</translation>
-    </message>
-    <message>
-        <source>Show Guides</source>
-        <translation type="obsolete">Показать направляющие</translation>
-    </message>
-    <message>
-        <source>Snap to Grid</source>
-        <translation type="obsolete">Привязать к сетке</translation>
-    </message>
-    <message>
-        <source>Snap to Guides</source>
-        <translation type="obsolete">Привязать к направляющим</translation>
-    </message>
-    <message>
-        <source>Show Properties...</source>
-        <translation type="obsolete">Показать Свойства...</translation>
-    </message>
-    <message>
-        <source>Hide Properties...</source>
-        <translation type="obsolete">Спрятать Свойства...</translation>
-    </message>
-    <message>
-        <source>Clear Contents</source>
-        <translation type="obsolete">Удалить содержимое</translation>
-    </message>
-    <message>
-        <source>Update Picture</source>
-        <translation type="obsolete">Обновить изображение</translation>
-    </message>
-    <message>
-        <source>Edit Picture</source>
-        <translation type="obsolete">Изменить изображение</translation>
-    </message>
-    <message>
-        <source>Append Text...</source>
-        <translation type="obsolete">Добавить текст...</translation>
-    </message>
-    <message>
-        <source>Hide Baseline Grid</source>
-        <translation type="obsolete">Спрятать опорную сетку</translation>
-    </message>
-    <message>
-        <source>Show Baseline Grid</source>
-        <translation type="obsolete">Показать опорную сетку</translation>
-    </message>
-    <message>
-        <source>Adjust Frame to Picture</source>
-        <translation type="obsolete">Подстроить рамку под изображение</translation>
-    </message>
-    <message>
-        <source>Lock object size</source>
-        <translation type="obsolete">Блокировать размер объекта</translation>
-    </message>
-    <message>
-        <source>Unlock object size</source>
-        <translation type="obsolete">Разблокировать размер объекта</translation>
-    </message>
-    <message>
-        <source>Insert Sample Text</source>
-        <translation type="obsolete">Вставить пробный текст</translation>
-    </message>
-    <message>
-        <source>Level</source>
-        <translation type="obsolete">Уровень</translation>
-    </message>
-    <message>
-        <source>PDF-Options</source>
-        <translation type="obsolete">Параметры PDF</translation>
+        <translation>Вы действительно хотите удалить весь текст?</translation>
     </message>
 </context>
 <context>
@@ -7743,10 +5943,6 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation>&amp;Поворот:</translation>
     </message>
     <message>
-        <source>Conve&amp;x Polygon</source>
-        <translation type="obsolete">&amp;Выпуклость</translation>
-    </message>
-    <message>
         <source>&amp;Factor:</source>
         <translation>&amp;Коэфф.:</translation>
     </message>
@@ -7767,42 +5963,8 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation>Градусы вращения многоугольников</translation>
     </message>
     <message>
-        <source>Polygons will be convex rather than concave</source>
-        <translation type="obsolete">Многоугольники будут скорее 
-выпуклыми, чем вогнутыми</translation>
-    </message>
-    <message>
         <source>Sample Polygon</source>
         <translation>Пример многоугольника</translation>
-    </message>
-    <message>
-        <source>Change the angles at which lines of the polygon join</source>
-        <translation type="obsolete">Изменить угол, под которым линии 
-соединяются в многоугольник</translation>
-    </message>
-    <message>
-        <source>Corners:</source>
-        <translation type="obsolete">Углы:</translation>
-    </message>
-    <message>
-        <source>Rotation:</source>
-        <translation type="obsolete">Поворот:</translation>
-    </message>
-    <message>
-        <source>Convex Polygon</source>
-        <translation type="obsolete">Выпуклость</translation>
-    </message>
-    <message>
-        <source>Factor:</source>
-        <translation type="obsolete">Фактор:</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">ОК</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Отменить</translation>
     </message>
     <message>
         <source>Apply &amp;Factor</source>
@@ -8137,7 +6299,7 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>Displacement above the baseline of the font on a line</source>
-        <translation>Смещение шрифта вверх относительно базовой линии</translation>
+        <translation>Смещение выше линии опорной сетки</translation>
     </message>
     <message>
         <source>Relative size of the superscript compared to the normal font</source>
@@ -8145,7 +6307,7 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>Displacement below the baseline of the normal font on a line</source>
-        <translation>Смещение шрифта вниз относительно базовой линии</translation>
+        <translation>Смещение ниже линии опорной сетки обычного шрифта</translation>
     </message>
     <message>
         <source>Relative size of the subscript compared to the normal font</source>
@@ -8297,17 +6459,8 @@ each time the time period elapses</source>
         <translation>Градусы вращения многоугольников</translation>
     </message>
     <message>
-        <source>Polygons will be convex rather than concave</source>
-        <translation type="obsolete">Многоугольники будут скорее выпуклыми, чем вогнутыми</translation>
-    </message>
-    <message>
         <source>Sample Polygon</source>
         <translation>Пример многоугольника</translation>
-    </message>
-    <message>
-        <source>Change the angles at which lines of the polygon join</source>
-        <translation type="obsolete">Изменить угол, под которым линии 
-соединяются в многоугольник</translation>
     </message>
     <message>
         <source>Choose the size of the preview in the scrapbook palette</source>
@@ -8372,7 +6525,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Baseline Grid</source>
-        <translation>Опорная сетка</translation>
+        <translation>Сетка линии шрифта</translation>
     </message>
     <message>
         <source>Turns on the basegrid</source>
@@ -8551,11 +6704,11 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Baseline &amp;Grid:</source>
-        <translation>Опорная &amp;сетка:</translation>
+        <translation>&amp;Сетка линии шрифта:</translation>
     </message>
     <message>
         <source>Baseline &amp;Offset:</source>
-        <translation>С&amp;мещение опорной сетки:</translation>
+        <translation>С&amp;мещение сетки линии шрифта:</translation>
     </message>
     <message>
         <source>Automatic &amp;Line Spacing:</source>
@@ -8653,12 +6806,8 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>&amp;Поворот:</translation>
     </message>
     <message>
-        <source>Conve&amp;x Polygon</source>
-        <translation type="obsolete">&amp;Выпуклость</translation>
-    </message>
-    <message>
         <source>&amp;Factor:</source>
-        <translation>&amp;Фактор:</translation>
+        <translation>К&amp;оэфф:</translation>
     </message>
     <message>
         <source>Sa&amp;ve Contents on Changes</source>
@@ -8736,318 +6885,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>O&amp;utside:</source>
         <translation>Снару&amp;жи:</translation>
-    </message>
-    <message>
-        <source>Font Size:</source>
-        <translation type="obsolete">Размер шрифта:</translation>
-    </message>
-    <message>
-        <source> pts</source>
-        <translation type="obsolete">pts</translation>
-    </message>
-    <message>
-        <source>Mouse-Settings</source>
-        <translation type="obsolete">Настройки мыши</translation>
-    </message>
-    <message>
-        <source>Recent Documents:</source>
-        <translation type="obsolete">Недавних документов:</translation>
-    </message>
-    <message>
-        <source>Documents:</source>
-        <translation type="obsolete">Документы:</translation>
-    </message>
-    <message>
-        <source>Change...</source>
-        <translation type="obsolete">Изменить...</translation>
-    </message>
-    <message>
-        <source>ICC-Profiles:</source>
-        <translation type="obsolete">ICC-профили:</translation>
-    </message>
-    <message>
-        <source>Scripts:</source>
-        <translation type="obsolete">Сценарии:</translation>
-    </message>
-    <message>
-        <source>Orientation:</source>
-        <translation type="obsolete">Ориентация:</translation>
-    </message>
-    <message>
-        <source>Size:</source>
-        <translation type="obsolete">Формат:</translation>
-    </message>
-    <message>
-        <source>Width:</source>
-        <translation type="obsolete">Ширина:</translation>
-    </message>
-    <message>
-        <source>Height:</source>
-        <translation type="obsolete">Высота:</translation>
-    </message>
-    <message>
-        <source>Facing Pages</source>
-        <translation type="obsolete">Парные страницы</translation>
-    </message>
-    <message>
-        <source>Left Page First</source>
-        <translation type="obsolete">Начать с левой стр.</translation>
-    </message>
-    <message>
-        <source>Bottom:</source>
-        <translation type="obsolete">Снизу:</translation>
-    </message>
-    <message>
-        <source>Top:</source>
-        <translation type="obsolete">Сверху:</translation>
-    </message>
-    <message>
-        <source>Right:</source>
-        <translation type="obsolete">Справа:</translation>
-    </message>
-    <message>
-        <source>Left:</source>
-        <translation type="obsolete">Слева:</translation>
-    </message>
-    <message>
-        <source>Enabled</source>
-        <translation type="obsolete">Включено</translation>
-    </message>
-    <message>
-        <source>Interval:</source>
-        <translation type="obsolete">Интервал:</translation>
-    </message>
-    <message>
-        <source>Minor Grid Spacing:</source>
-        <translation type="obsolete">Ширина маленьких ячеек:</translation>
-    </message>
-    <message>
-        <source>Major Grid Spacing:</source>
-        <translation type="obsolete">Ширина больших ячеек:</translation>
-    </message>
-    <message>
-        <source>Guide Snap Distance:</source>
-        <translation type="obsolete">Расстояние для привязки:</translation>
-    </message>
-    <message>
-        <source>Minor Grid Color:</source>
-        <translation type="obsolete">Цвет маленьких ячеек:</translation>
-    </message>
-    <message>
-        <source>Major Grid Color:</source>
-        <translation type="obsolete">Цвет больших ячеек:</translation>
-    </message>
-    <message>
-        <source>User Guides Color:</source>
-        <translation type="obsolete">Цвет собственных направляющих:</translation>
-    </message>
-    <message>
-        <source>In the Background</source>
-        <translation type="obsolete">На заднем плане</translation>
-    </message>
-    <message>
-        <source>In the Foreground</source>
-        <translation type="obsolete">На переднем плане</translation>
-    </message>
-    <message>
-        <source>Scaling:</source>
-        <translation type="obsolete">Масштабирование:</translation>
-    </message>
-    <message>
-        <source>Automatic Line Spacing:</source>
-        <translation type="obsolete">Межстрочное расстояние:</translation>
-    </message>
-    <message>
-        <source>Default Size:</source>
-        <translation type="obsolete">Стандартный кегль:</translation>
-    </message>
-    <message>
-        <source>Default Font:</source>
-        <translation type="obsolete">Стандартный шрифт:</translation>
-    </message>
-    <message>
-        <source>Text Color:</source>
-        <translation type="obsolete">Цвет текста:</translation>
-    </message>
-    <message>
-        <source>Line Color:</source>
-        <translation type="obsolete">Цвет линии:</translation>
-    </message>
-    <message>
-        <source>Shading:</source>
-        <translation type="obsolete">Тень:</translation>
-    </message>
-    <message>
-        <source>Fill Color:</source>
-        <translation type="obsolete">Цвет заливки:</translation>
-    </message>
-    <message>
-        <source>Line Width:</source>
-        <translation type="obsolete">Толщина линии:</translation>
-    </message>
-    <message>
-        <source>Line Style:</source>
-        <translation type="obsolete">Стиль линии:</translation>
-    </message>
-    <message>
-        <source>Minimum:</source>
-        <translation type="obsolete">Минимум:</translation>
-    </message>
-    <message>
-        <source>Maximum:</source>
-        <translation type="obsolete">Максимум:</translation>
-    </message>
-    <message>
-        <source>Stepping:</source>
-        <translation type="obsolete">Шаг:</translation>
-    </message>
-    <message>
-        <source>Free Scaling</source>
-        <translation type="obsolete">Свободное масштабирование</translation>
-    </message>
-    <message>
-        <source>Scale Picture to Frame Size</source>
-        <translation type="obsolete">Масштабировать до размера рамки</translation>
-    </message>
-    <message>
-        <source>Keep Aspect Ratio</source>
-        <translation type="obsolete">Сохранять соотношение сторон</translation>
-    </message>
-    <message>
-        <source>Corners:</source>
-        <translation type="obsolete">Углов:</translation>
-    </message>
-    <message>
-        <source>Rotation:</source>
-        <translation type="obsolete">Поворот:</translation>
-    </message>
-    <message>
-        <source>Convex Polygon</source>
-        <translation type="obsolete">Выпуклость</translation>
-    </message>
-    <message>
-        <source>Factor:</source>
-        <translation type="obsolete">Коэфф.:</translation>
-    </message>
-    <message>
-        <source>Big</source>
-        <translation type="obsolete">Большой</translation>
-    </message>
-    <message>
-        <source>Display Pages Side by Side</source>
-        <translation type="obsolete">Отображать страницы рядом</translation>
-    </message>
-    <message>
-        <source>Page-Colors</source>
-        <translation type="obsolete">Цвета страницы</translation>
-    </message>
-    <message>
-        <source>Background:</source>
-        <translation type="obsolete">Фон:</translation>
-    </message>
-    <message>
-        <source>Margins:</source>
-        <translation type="obsolete">Поля:</translation>
-    </message>
-    <message>
-        <source>Display Unprintable Area in Margin Color</source>
-        <translation type="obsolete">Показывать непечатаемую область цветом поля</translation>
-    </message>
-    <message>
-        <source>Use PDF-1.4 Transparency Features</source>
-        <translation type="obsolete">Использовать возможности прозрачности PDF 1.4</translation>
-    </message>
-    <message>
-        <source>Adjust Display Size</source>
-        <translation type="obsolete">Подстройка отображения листа</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">ОК</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Отменить</translation>
-    </message>
-    <message>
-        <source>Inside:</source>
-        <translation type="obsolete">Внутри:</translation>
-    </message>
-    <message>
-        <source>Outside:</source>
-        <translation type="obsolete">Снаружи:</translation>
-    </message>
-    <message>
-        <source>Columns:</source>
-        <translation type="obsolete">Столбцов:</translation>
-    </message>
-    <message>
-        <source>Gap:</source>
-        <translation type="obsolete">Интервал:</translation>
-    </message>
-    <message>
-        <source>Displacement:</source>
-        <translation type="obsolete">Смещение:</translation>
-    </message>
-    <message>
-        <source>Name of executable:</source>
-        <translation type="obsolete">Имя исполняемого файла:</translation>
-    </message>
-    <message>
-        <source>Antialias Text</source>
-        <translation type="obsolete">Сглаживать текст</translation>
-    </message>
-    <message>
-        <source>Antialias Graphics</source>
-        <translation type="obsolete">Сглаживать графику</translation>
-    </message>
-    <message>
-        <source>Clip to Page Margins</source>
-        <translation type="obsolete">Обрезать до полей страницы</translation>
-    </message>
-    <message>
-        <source>Baseline Grid:</source>
-        <translation type="obsolete">Опорная сетка:</translation>
-    </message>
-    <message>
-        <source>Baseline Offset:</source>
-        <translation type="obsolete">Смещение опорных линий:</translation>
-    </message>
-    <message>
-        <source>Save Contents on Changes</source>
-        <translation type="obsolete">Сохранять содержимое при изменении</translation>
-    </message>
-    <message>
-        <source>Theme:</source>
-        <translation type="obsolete">Тема:</translation>
-    </message>
-    <message>
-        <source>Wheel-Jump:</source>
-        <translation type="obsolete">Смещение по колесу мыши:</translation>
-    </message>
-    <message>
-        <source>Grab-Radius:</source>
-        <translation type="obsolete">Радиус захвата:</translation>
-    </message>
-    <message>
-        <source>On</source>
-        <translation type="obsolete">Вкл</translation>
-    </message>
-    <message>
-        <source>Off</source>
-        <translation type="obsolete">Выкл</translation>
-    </message>
-    <message>
-        <source>Horizontal Scaling:</source>
-        <translation type="obsolete">Горизонтальноемасштабирование</translation>
-    </message>
-    <message>
-        <source>Vertical Scaling:</source>
-        <translation type="obsolete">Вертикальноемасштабирование</translation>
-    </message>
-    <message>
-        <source>Type of Line:</source>
-        <translation type="obsolete">Тип линии:</translation>
     </message>
     <message>
         <source>T&amp;emplates:</source>
@@ -9626,7 +7463,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>New &amp;from Template...</source>
-        <translation>Создать из &amp;шаблона...</translation>
+        <translation>Созд&amp;ать из шаблона...</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -9793,14 +7630,6 @@ Check path and filename.</source>
         <translation>Импортируется текст</translation>
     </message>
     <message>
-        <source>Importer</source>
-        <translation type="obsolete">Фильтр импорта</translation>
-    </message>
-    <message>
-        <source>Choose the importer to use</source>
-        <translation type="obsolete">Выберите используемый фильтр импорта</translation>
-    </message>
-    <message>
         <source>All Supported Formats</source>
         <translation>Все поддерживаемые форматы</translation>
     </message>
@@ -9844,42 +7673,6 @@ Check path and filename.</source>
         <translation>CSV_header</translation>
     </message>
     <message>
-        <source>Scripter Manual...</source>
-        <translation type="obsolete">Руководство по сценариям...</translation>
-    </message>
-    <message>
-        <source>Execute Script...</source>
-        <translation type="obsolete">Выполнить сценарий...</translation>
-    </message>
-    <message>
-        <source>Recent Scripts</source>
-        <translation type="obsolete">Недавние сценарии</translation>
-    </message>
-    <message>
-        <source>Show Console</source>
-        <translation type="obsolete">Показать консоль</translation>
-    </message>
-    <message>
-        <source>Insert Special</source>
-        <translation type="obsolete">Вставить символ...</translation>
-    </message>
-    <message>
-        <source>Scribus Scripts</source>
-        <translation type="obsolete">Сценарии для Scribus</translation>
-    </message>
-    <message>
-        <source>Save Page as SVG...</source>
-        <translation type="obsolete">Сохранить страницу в  SVG...</translation>
-    </message>
-    <message>
-        <source>Import SVG-Image...</source>
-        <translation type="obsolete">Импортировать SVG-изображение...</translation>
-    </message>
-    <message>
-        <source>Save as Image...</source>
-        <translation type="obsolete">Сохранить как изображение...</translation>
-    </message>
-    <message>
         <source>Font %1 is broken, discarding it</source>
         <translation>Шрифт %1 повреждён и не будет использован</translation>
     </message>
@@ -9902,18 +7695,6 @@ External Links
     <message>
         <source>Text Filters</source>
         <translation>Текстовые фильтры</translation>
-    </message>
-    <message>
-        <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Failed to load a font - freetype couldn&apos;t find the font file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>All</source>
-        <translation type="unfinished">Все</translation>
     </message>
     <message>
         <source>Media Cases</source>
@@ -10047,14 +7828,6 @@ External Links
         <source>&amp;Cancel</source>
         <translation>О&amp;тменить</translation>
     </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">ОК</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Отменить</translation>
-    </message>
 </context>
 <context>
     <name>ReformDoc</name>
@@ -10153,88 +7926,40 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Снару&amp;жи:</translation>
     </message>
     <message>
-        <source>Top:</source>
-        <translation type="obsolete">Сверху:</translation>
-    </message>
-    <message>
-        <source>Left:</source>
-        <translation type="obsolete">Слева:</translation>
-    </message>
-    <message>
-        <source>Bottom:</source>
-        <translation type="obsolete">Снизу:</translation>
-    </message>
-    <message>
-        <source>Right:</source>
-        <translation type="obsolete">Справа:</translation>
-    </message>
-    <message>
-        <source>Facing Pages</source>
-        <translation type="obsolete">Парные страницы</translation>
-    </message>
-    <message>
-        <source>Left Page first</source>
-        <translation type="obsolete">Левая страница первой</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">ОК</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Отменить</translation>
-    </message>
-    <message>
-        <source>Inside:</source>
-        <translation type="obsolete">Внутри:</translation>
-    </message>
-    <message>
-        <source>Outside:</source>
-        <translation type="obsolete">Снаружи:</translation>
-    </message>
-    <message>
         <source>Page Size</source>
-        <translation type="unfinished">Размер страницы</translation>
+        <translation>Размер страницы</translation>
     </message>
     <message>
-        <source>&amp;Size:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Legal</source>
-        <translation type="unfinished">Legal</translation>
-    </message>
-    <message>
-        <source>Letter</source>
-        <translation type="unfinished">Letter</translation>
-    </message>
-    <message>
-        <source>Tabloid</source>
-        <translation type="unfinished">Таблоид</translation>
+        <source>Size:</source>
+        <translation>Размер:</translation>
     </message>
     <message>
         <source>Custom</source>
-        <translation type="unfinished"></translation>
+        <translation>Собственный</translation>
     </message>
     <message>
-        <source>Orie&amp;ntation:</source>
-        <translation type="unfinished">Ор&amp;иентация:</translation>
+        <source>Orientation:</source>
+        <translation>Ориентация:</translation>
     </message>
     <message>
         <source>Portrait</source>
-        <translation type="unfinished"></translation>
+        <translation>Портрет</translation>
     </message>
     <message>
         <source>Landscape</source>
-        <translation type="unfinished"></translation>
+        <translation>Альбом</translation>
     </message>
     <message>
-        <source>&amp;Width:</source>
-        <translation type="unfinished">&amp;Ширина:</translation>
+        <source>Width:</source>
+        <translation>Ширина:</translation>
     </message>
     <message>
-        <source>&amp;Height:</source>
-        <translation type="unfinished">&amp;Высота:</translation>
+        <source>Height:</source>
+        <translation>Высота:</translation>
+    </message>
+    <message>
+        <source>F&amp;irst Page Number:</source>
+        <translation>&amp;Номер первой страницы:</translation>
     </message>
 </context>
 <context>
@@ -10371,15 +8096,15 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Align Left</source>
-        <translation>Выровнять по левой стороне</translation>
+        <translation>Выключка по левой стороне</translation>
     </message>
     <message>
         <source>Align Right</source>
-        <translation>Выровнять по правой стороне</translation>
+        <translation>Выключка по правой стороне</translation>
     </message>
     <message>
         <source>Align Center</source>
-        <translation>Выровнять по центру</translation>
+        <translation>Выключка по центру</translation>
     </message>
     <message>
         <source>Insert Page Number</source>
@@ -10727,7 +8452,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-        <translation type="obsolete">Документы (*.sla *.sla.gz *.scd *.scd.gz);;Все файлы (*)</translation>
+        <translation>Документы (*.sla *.sla.gz *.scd *.scd.gz);;Все файлы (*)</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
@@ -11269,7 +8994,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Show &amp;Baseline Grid</source>
-        <translation>Показать &amp;опорную сетку</translation>
+        <translation>Показать опорную &amp;сетку</translation>
     </message>
     <message>
         <source>&amp;Properties</source>
@@ -11516,309 +9241,12 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Изменить &amp;очертания</translation>
     </message>
     <message>
-        <source>Getting ICC-Profiles</source>
-        <translation type="obsolete">Получение ICC-профилей</translation>
-    </message>
-    <message>
-        <source>Color Management...</source>
-        <translation type="obsolete">Управление цветом...</translation>
-    </message>
-    <message>
-        <source>Recent Documents</source>
-        <translation type="obsolete">Недавние документы</translation>
-    </message>
-    <message>
-        <source>Revert to Saved</source>
-        <translation type="obsolete">Вернуться к сохранённому</translation>
-    </message>
-    <message>
-        <source>Collect for Output...</source>
-        <translation type="obsolete">Собрать для вывода...</translation>
-    </message>
-    <message>
-        <source>Insert Page...</source>
-        <translation type="obsolete">Вставить страницу...</translation>
-    </message>
-    <message>
-        <source>Import...</source>
-        <translation type="obsolete">Импортировать...</translation>
-    </message>
-    <message>
-        <source>Save Text...</source>
-        <translation type="obsolete">Сохранить текст...</translation>
-    </message>
-    <message>
-        <source>Save Page as EPS...</source>
-        <translation type="obsolete">Сохранить страницу в EPS...</translation>
-    </message>
-    <message>
-        <source>Save as PDF...</source>
-        <translation type="obsolete">Сохранить страницу в PDF...</translation>
-    </message>
-    <message>
-        <source>Export...</source>
-        <translation type="obsolete">Экспортировать...</translation>
-    </message>
-    <message>
-        <source>Line Styles...</source>
-        <translation type="obsolete">Стили линий...</translation>
-    </message>
-    <message>
-        <source>Preferences...</source>
-        <translation type="obsolete">Настройки...</translation>
-    </message>
-    <message>
-        <source>Hyphenator...</source>
-        <translation type="obsolete">Переносы...</translation>
-    </message>
-    <message>
-        <source>Edit Frame</source>
-        <translation type="obsolete">Изменить рамку</translation>
-    </message>
-    <message>
-        <source>Shape</source>
-        <translation type="obsolete">Очертания</translation>
-    </message>
-    <message>
-        <source>Combine Polygons</source>
-        <translation type="obsolete">Объединить многоугольники</translation>
-    </message>
-    <message>
-        <source>Split Polygons</source>
-        <translation type="obsolete">Разделить многоугольники</translation>
-    </message>
-    <message>
-        <source>Convert to Outlines</source>
-        <translation type="obsolete">Преобразовать в контур</translation>
-    </message>
-    <message>
-        <source>Actual Size</source>
-        <translation type="obsolete">Реальный размер</translation>
-    </message>
-    <message>
-        <source>Hide Guides</source>
-        <translation type="obsolete">Спрятать направляющие</translation>
-    </message>
-    <message>
-        <source>Snap to Guides</source>
-        <translation type="obsolete">Привязать к направляющим</translation>
-    </message>
-    <message>
-        <source>Tool-Tips</source>
-        <translation type="obsolete">Подсказки</translation>
-    </message>
-    <message>
-        <source>Left</source>
-        <translation type="obsolete">Влево</translation>
-    </message>
-    <message>
-        <source>Center</source>
-        <translation type="obsolete">По центру</translation>
-    </message>
-    <message>
-        <source>Right</source>
-        <translation type="obsolete">Вправо</translation>
-    </message>
-    <message>
-        <source>Block</source>
-        <translation type="obsolete">По ширине</translation>
-    </message>
-    <message>
-        <source>Forced</source>
-        <translation type="obsolete">Принудительно</translation>
-    </message>
-    <message>
-        <source>Other...</source>
-        <translation type="obsolete">Другое...</translation>
-    </message>
-    <message>
-        <source>Cascade</source>
-        <translation type="obsolete">Каскадом</translation>
-    </message>
-    <message>
-        <source>Tile</source>
-        <translation type="obsolete">Мозаикой</translation>
-    </message>
-    <message>
-        <source>Show Frames</source>
-        <translation type="obsolete">Показывать обрамление</translation>
-    </message>
-    <message>
-        <source>Alignment</source>
-        <translation type="obsolete">Выравнивание</translation>
-    </message>
-    <message>
-        <source>Show Margins</source>
-        <translation type="obsolete">Показать поля</translation>
-    </message>
-    <message>
-        <source>Show Images</source>
-        <translation type="obsolete">Показывать изображения</translation>
-    </message>
-    <message>
-        <source>Hide Grid</source>
-        <translation type="obsolete">Спрятать сетку</translation>
-    </message>
-    <message>
-        <source>Show Guides</source>
-        <translation type="obsolete">Показать направляющие</translation>
-    </message>
-    <message>
-        <source>Ghostscript : You cannot use EPS-Images</source>
-        <translation type="obsolete">Ghostscript : Вы не можете использовать EPS-изображения</translation>
-    </message>
-    <message>
-        <source>Undo Delete Object</source>
-        <translation type="obsolete">Отменить удаление объекта</translation>
-    </message>
-    <message>
-        <source>Undo Object Move</source>
-        <translation type="obsolete">Отменить перемещение объекта</translation>
-    </message>
-    <message>
-        <source>Undo Object Change</source>
-        <translation type="obsolete">Отменить изменение объекта</translation>
-    </message>
-    <message>
-        <source>PDF-Tools</source>
-        <translation type="obsolete">PDF-инструменты</translation>
-    </message>
-    <message>
-        <source>Layers</source>
-        <translation type="obsolete">Слои</translation>
-    </message>
-    <message>
-        <source>Page Palette</source>
-        <translation type="obsolete">Палитра страниц</translation>
-    </message>
-    <message>
-        <source>Bookmarks</source>
-        <translation type="obsolete">Закладки</translation>
-    </message>
-    <message>
-        <source>Tabulators...</source>
-        <translation type="obsolete">Табуляторы...</translation>
-    </message>
-    <message>
-        <source>Append Text...</source>
-        <translation type="obsolete">Добавить текст...</translation>
-    </message>
-    <message>
-        <source>Search/Replace...</source>
-        <translation type="obsolete">Найти/Заменить...</translation>
-    </message>
-    <message>
-        <source>Paragraph Styles...</source>
-        <translation type="obsolete">Стили параграфов...</translation>
-    </message>
-    <message>
-        <source>Detach Text from Path</source>
-        <translation type="obsolete">Убрать текст с контура</translation>
-    </message>
-    <message>
-        <source>Effects</source>
-        <translation type="obsolete">Эффекты</translation>
-    </message>
-    <message>
-        <source>Size:</source>
-        <translation type="obsolete">Размер:</translation>
-    </message>
-    <message>
-        <source>Shade:</source>
-        <translation type="obsolete">Тень:</translation>
-    </message>
-    <message>
-        <source>&amp;Style</source>
-        <translation type="obsolete">&amp;Стиль</translation>
-    </message>
-    <message>
-        <source>Keyboard Shortcuts...</source>
-        <translation type="obsolete">Горячие клавиши...</translation>
-    </message>
-    <message>
-        <source>Scribus Manual...</source>
-        <translation type="obsolete">Руководство по Scribus...</translation>
-    </message>
-    <message>
-        <source>Insert &amp;Page...</source>
-        <translation type="obsolete">Вставить &amp;страницу...</translation>
-    </message>
-    <message>
-        <source>Document &amp;Info...</source>
-        <translation type="obsolete">О документ&amp;е...</translation>
-    </message>
-    <message>
-        <source>&amp;Edit Frame</source>
-        <translation type="obsolete">Изм&amp;енить текстовую рамку</translation>
-    </message>
-    <message>
-        <source>&amp;Manage Guides...</source>
-        <translation type="obsolete">Настроить &amp;направляющие...</translation>
-    </message>
-    <message>
-        <source>Hide &amp;Margins</source>
-        <translation type="obsolete">Спрятать &amp;поля</translation>
-    </message>
-    <message>
-        <source>Hide &amp;Frames</source>
-        <translation type="obsolete">Спрятать &amp;обрамление</translation>
-    </message>
-    <message>
-        <source>Hide &amp;Images</source>
-        <translation type="obsolete">Спрятать &amp;изображения</translation>
-    </message>
-    <message>
-        <source>Snap to &amp;Grid</source>
-        <translation type="obsolete">Привязать к с&amp;етке</translation>
-    </message>
-    <message>
-        <source>Hide G&amp;uides</source>
-        <translation type="obsolete">Спрятать &amp;направляющие</translation>
-    </message>
-    <message>
-        <source>&amp;Preferences...</source>
-        <translation type="obsolete">&amp;Настроить...</translation>
-    </message>
-    <message>
-        <source>Hide &amp;Grid</source>
-        <translation type="obsolete">Спрятать &amp;сетку</translation>
-    </message>
-    <message>
-        <source>Hide &amp;Baseline Grid</source>
-        <translation type="obsolete">Спрятать &amp;опорную сетку</translation>
-    </message>
-    <message>
         <source>File %1 is not in Scribus format</source>
-        <translation type="obsolete">Файл %1 не имеет формат Scribus</translation>
+        <translation>Файл %1 не имеет формат Scribus</translation>
     </message>
     <message>
         <source>Afrikaans</source>
         <translation>Африкаанс</translation>
-    </message>
-    <message>
-        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Documents (*.sla *.scd);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Postscript-Files (*.eps *.EPS *.ps *.PS);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SVG-Images (*.svg *.svgz);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SVG-Images (*.svg);;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>File %1 
-is not in an acceptable format</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11833,7 +9261,7 @@ is not in an acceptable format</source>
     </message>
     <message>
         <source>All</source>
-        <translation type="obsolete">Все</translation>
+        <translation>Все</translation>
     </message>
     <message>
         <source>pt</source>
@@ -11850,294 +9278,6 @@ is not in an acceptable format</source>
     <message>
         <source>p</source>
         <translation>p</translation>
-    </message>
-    <message>
-        <source>Copy Here</source>
-        <translation type="unfinished">Скопировать сюда</translation>
-    </message>
-    <message>
-        <source>Move Here</source>
-        <translation type="unfinished">Переместить сюда</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Paste</source>
-        <translation type="unfinished">Вст&amp;авить</translation>
-    </message>
-    <message>
-        <source>Show &amp;Margins</source>
-        <translation type="unfinished">Показать &amp;поля</translation>
-    </message>
-    <message>
-        <source>Show &amp;Frames</source>
-        <translation type="unfinished">Показывать &amp;обрамление</translation>
-    </message>
-    <message>
-        <source>Show &amp;Images</source>
-        <translation type="unfinished">Показывать &amp;изображения</translation>
-    </message>
-    <message>
-        <source>Show &amp;Grid</source>
-        <translation type="unfinished">Показать &amp;сетку</translation>
-    </message>
-    <message>
-        <source>Show G&amp;uides</source>
-        <translation type="unfinished">Показать &amp;направляющие</translation>
-    </message>
-    <message>
-        <source>Show &amp;Baseline Grid</source>
-        <translation type="unfinished">Показать &amp;опорную сетку</translation>
-    </message>
-    <message>
-        <source>Sn&amp;ap to Grid</source>
-        <translation type="unfinished">Привязать к &amp;сетке</translation>
-    </message>
-    <message>
-        <source>Sna&amp;p to Guides</source>
-        <translation type="unfinished">Привязать к н&amp;аправляющим</translation>
-    </message>
-    <message>
-        <source>Picture</source>
-        <translation type="unfinished">Изображение</translation>
-    </message>
-    <message>
-        <source>File: </source>
-        <translation type="unfinished">Файл:</translation>
-    </message>
-    <message>
-        <source>Original PPI: </source>
-        <translation type="unfinished">Исходный PPI:</translation>
-    </message>
-    <message>
-        <source>Actual PPI: </source>
-        <translation type="unfinished">Текущий PPI:</translation>
-    </message>
-    <message>
-        <source>Linked Text</source>
-        <translation type="unfinished">Связанный текст</translation>
-    </message>
-    <message>
-        <source>Text Frame</source>
-        <translation type="unfinished">Текстовая рамка</translation>
-    </message>
-    <message>
-        <source>Text on a Path</source>
-        <translation type="unfinished">Текст по контуру</translation>
-    </message>
-    <message>
-        <source>Paragraphs: </source>
-        <translation type="unfinished">Абзацев:</translation>
-    </message>
-    <message>
-        <source>Words: </source>
-        <translation type="unfinished">Слов:</translation>
-    </message>
-    <message>
-        <source>Chars: </source>
-        <translation type="unfinished">Символов:</translation>
-    </message>
-    <message>
-        <source>Print: </source>
-        <translation type="unfinished">Печать:</translation>
-    </message>
-    <message>
-        <source>Enabled</source>
-        <translation type="unfinished">Включено</translation>
-    </message>
-    <message>
-        <source>Disabled</source>
-        <translation type="unfinished">Выключено</translation>
-    </message>
-    <message>
-        <source>In&amp;fo</source>
-        <translation type="unfinished">&amp;Инфо</translation>
-    </message>
-    <message>
-        <source>&amp;Get Picture...</source>
-        <translation type="unfinished">Получить &amp;изображение...</translation>
-    </message>
-    <message>
-        <source>I&amp;mage Visible</source>
-        <translation type="unfinished">Изображение &amp;видимо</translation>
-    </message>
-    <message>
-        <source>&amp;Update Picture</source>
-        <translation type="unfinished">&amp;Обновить изображение</translation>
-    </message>
-    <message>
-        <source>&amp;Edit Picture</source>
-        <translation type="unfinished">&amp;Изменить изображение</translation>
-    </message>
-    <message>
-        <source>&amp;Adjust Frame to Picture</source>
-        <translation type="unfinished">&amp;Подстроить рамку до изображения</translation>
-    </message>
-    <message>
-        <source>&amp;Get Text...</source>
-        <translation type="unfinished">Получить &amp;текст...</translation>
-    </message>
-    <message>
-        <source>&amp;Append Text...</source>
-        <translation type="unfinished">Добавить &amp;текст из файла...</translation>
-    </message>
-    <message>
-        <source>&amp;Edit Text...</source>
-        <translation type="unfinished">Изменить те&amp;кст...</translation>
-    </message>
-    <message>
-        <source>Is PDF &amp;Bookmark</source>
-        <translation type="unfinished">Является PDF-&amp;закладкой</translation>
-    </message>
-    <message>
-        <source>Is PDF A&amp;nnotation</source>
-        <translation type="unfinished">Является PDF-&amp;анотацией</translation>
-    </message>
-    <message>
-        <source>Annotation P&amp;roperties</source>
-        <translation type="unfinished">Свойства а&amp;ннотации</translation>
-    </message>
-    <message>
-        <source>Field P&amp;roperties</source>
-        <translation type="unfinished">Свойства по&amp;ля</translation>
-    </message>
-    <message>
-        <source>&amp;PDF Options</source>
-        <translation type="unfinished">Пара&amp;метры PDF</translation>
-    </message>
-    <message>
-        <source>Edit Text...</source>
-        <translation type="unfinished">Изменить текст...</translation>
-    </message>
-    <message>
-        <source>&amp;Lock</source>
-        <translation type="unfinished">Заб&amp;локировать</translation>
-    </message>
-    <message>
-        <source>Un&amp;lock</source>
-        <translation type="unfinished">&amp;Разблокировать</translation>
-    </message>
-    <message>
-        <source>Lock Object &amp;Size</source>
-        <translation type="unfinished">За&amp;блокировать размер объекта</translation>
-    </message>
-    <message>
-        <source>Unlock Object &amp;Size</source>
-        <translation type="unfinished">Разблокиро&amp;вать размер объекта</translation>
-    </message>
-    <message>
-        <source>Send to S&amp;crapbook</source>
-        <translation type="unfinished">Передать в запа&amp;сник</translation>
-    </message>
-    <message>
-        <source>Send to La&amp;yer</source>
-        <translation type="unfinished">Переложить в сло&amp;й</translation>
-    </message>
-    <message>
-        <source>&amp;Insert Sample Text</source>
-        <translation type="unfinished">Встав&amp;ить lorem ipsum</translation>
-    </message>
-    <message>
-        <source>&amp;Group</source>
-        <translation type="unfinished">С&amp;группировать</translation>
-    </message>
-    <message>
-        <source>Un&amp;group</source>
-        <translation type="unfinished">Разгру&amp;ппировать</translation>
-    </message>
-    <message>
-        <source>Le&amp;vel</source>
-        <translation type="unfinished">Уро&amp;вень</translation>
-    </message>
-    <message>
-        <source>Send to &amp;Back</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Bring to &amp;Front</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Lower</source>
-        <translation type="unfinished">Сделать уровнем н&amp;иже</translation>
-    </message>
-    <message>
-        <source>&amp;Raise</source>
-        <translation type="unfinished">Сделать уровнем в&amp;ыше</translation>
-    </message>
-    <message>
-        <source>&amp;Picture Frame</source>
-        <translation type="unfinished">Рамку изобра&amp;жения</translation>
-    </message>
-    <message>
-        <source>Pol&amp;ygon</source>
-        <translation type="unfinished">Многоу&amp;гольник</translation>
-    </message>
-    <message>
-        <source>&amp;Outlines</source>
-        <translation type="unfinished">&amp;Контур</translation>
-    </message>
-    <message>
-        <source>&amp;Text Frame</source>
-        <translation type="unfinished">&amp;Текстовую рамку</translation>
-    </message>
-    <message>
-        <source>&amp;Bezier Curve</source>
-        <translation type="unfinished">Кривая &amp;Безье</translation>
-    </message>
-    <message>
-        <source>Conve&amp;rt to</source>
-        <translation type="unfinished">&amp;Преобразовать в</translation>
-    </message>
-    <message>
-        <source>Cu&amp;t</source>
-        <translation type="unfinished">&amp;Вырезать</translation>
-    </message>
-    <message>
-        <source>&amp;Copy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Delete</source>
-        <translation type="unfinished">У&amp;далить</translation>
-    </message>
-    <message>
-        <source>C&amp;lear Contents</source>
-        <translation type="unfinished">&amp;Очистить содержимое</translation>
-    </message>
-    <message>
-        <source>Show P&amp;roperties...</source>
-        <translation type="unfinished">Показать &amp;свойства...</translation>
-    </message>
-    <message>
-        <source>Hide P&amp;roperties...</source>
-        <translation type="unfinished">Скрыть &amp;свойства...</translation>
-    </message>
-    <message>
-        <source>The Program</source>
-        <translation type="unfinished">Программа</translation>
-    </message>
-    <message>
-        <source>is missing!</source>
-        <translation type="unfinished">отсутствует!</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation type="unfinished">Предупреждение</translation>
-    </message>
-    <message>
-        <source>Do you really want to clear all your Text?</source>
-        <translation type="unfinished">Вы действительно хотите удалить весь текст?</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Copy of</source>
-        <translation type="unfinished">Копия</translation>
     </message>
 </context>
 <context>
@@ -12169,22 +9309,6 @@ is not in an acceptable format</source>
     <message>
         <source>&amp;Cancel</source>
         <translation>О&amp;тменить</translation>
-    </message>
-    <message>
-        <source>Save Now</source>
-        <translation type="obsolete">Сохранить</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Отказаться</translation>
-    </message>
-    <message>
-        <source>Leave Anyway</source>
-        <translation type="obsolete">Выйти без сохранения</translation>
-    </message>
-    <message>
-        <source>Close Anyway</source>
-        <translation type="obsolete">Всё равно закрыть</translation>
     </message>
 </context>
 <context>
@@ -12311,30 +9435,6 @@ is not in an acceptable format</source>
         <source>&amp;Close</source>
         <translation>&amp;Закрыть</translation>
     </message>
-    <message>
-        <source>Whole Word</source>
-        <translation type="obsolete">Целое слово</translation>
-    </message>
-    <message>
-        <source>Ignore Case</source>
-        <translation type="obsolete">Не учитывать регистр</translation>
-    </message>
-    <message>
-        <source>Search</source>
-        <translation type="obsolete">Найти</translation>
-    </message>
-    <message>
-        <source>Replace</source>
-        <translation type="obsolete">Заменить</translation>
-    </message>
-    <message>
-        <source>Replace All</source>
-        <translation type="obsolete">Заменить все</translation>
-    </message>
-    <message>
-        <source>Leave</source>
-        <translation type="obsolete">Оставить</translation>
-    </message>
 </context>
 <context>
     <name>SeitenPal</name>
@@ -12409,22 +9509,6 @@ drag a Template to the Pageview below.</source>
         <source>&amp;Cancel</source>
         <translation>О&amp;тменить</translation>
     </message>
-    <message>
-        <source>&gt;&gt;</source>
-        <translation type="obsolete">&gt;&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;&lt;</source>
-        <translation type="obsolete">&lt;&lt;</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">ОК</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Отменить</translation>
-    </message>
 </context>
 <context>
     <name>ShadeButton</name>
@@ -12439,10 +9523,6 @@ drag a Template to the Pageview below.</source>
     <message>
         <source>&amp;Shade:</source>
         <translation>&amp;Тень:</translation>
-    </message>
-    <message>
-        <source>Shade:</source>
-        <translation type="obsolete">Тень:</translation>
     </message>
 </context>
 <context>
@@ -12476,10 +9556,6 @@ drag a Template to the Pageview below.</source>
     <message>
         <source>Warning</source>
         <translation>Предупреждение</translation>
-    </message>
-    <message>
-        <source>Do you really want do delete this Style?</source>
-        <translation type="obsolete">Вы действительно хотите удалить этот стиль?</translation>
     </message>
     <message>
         <source>No</source>
@@ -12532,38 +9608,6 @@ drag a Template to the Pageview below.</source>
     <message>
         <source>&amp;Cancel</source>
         <translation>О&amp;тменить</translation>
-    </message>
-    <message>
-        <source>Append</source>
-        <translation type="obsolete">Из файла</translation>
-    </message>
-    <message>
-        <source>New</source>
-        <translation type="obsolete">Новый</translation>
-    </message>
-    <message>
-        <source>Edit</source>
-        <translation type="obsolete">Изменить</translation>
-    </message>
-    <message>
-        <source>Duplicate</source>
-        <translation type="obsolete">Дублировать</translation>
-    </message>
-    <message>
-        <source>Delete</source>
-        <translation type="obsolete">Удалить</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation type="obsolete">Сохранить</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Отменить</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">ОК</translation>
     </message>
     <message>
         <source>Do you really want to delete this Style?</source>
@@ -12634,7 +9678,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Update Text Frame and Exit</source>
-        <translation>Обновиь текстовую рамку и выйти</translation>
+        <translation>Обновить текстовую рамку и выйти</translation>
     </message>
     <message>
         <source>Exit Without Updating Text Frame</source>
@@ -12642,7 +9686,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>&amp;Insert Special</source>
-        <translation type="obsolete">&amp;Вставить символ...</translation>
+        <translation>&amp;Вставить символ...</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -12754,103 +9798,11 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>&amp;Fonts Preview</source>
-        <translation type="obsolete">Просмотреть &amp;шрифты</translation>
-    </message>
-    <message>
-        <source>Left</source>
-        <translation type="obsolete">Влево</translation>
-    </message>
-    <message>
-        <source>Center</source>
-        <translation type="obsolete">По центру</translation>
-    </message>
-    <message>
-        <source>Right</source>
-        <translation type="obsolete">Вправо</translation>
-    </message>
-    <message>
-        <source>Block</source>
-        <translation type="obsolete">По ширине</translation>
-    </message>
-    <message>
-        <source>Forced</source>
-        <translation type="obsolete">Принудительно</translation>
-    </message>
-    <message>
-        <source>New</source>
-        <translation type="obsolete">Новый</translation>
-    </message>
-    <message>
-        <source>Save and Exit</source>
-        <translation type="obsolete">Сохранить и выйти</translation>
-    </message>
-    <message>
-        <source>Exit without Saving</source>
-        <translation type="obsolete">Выйти без сохранения</translation>
-    </message>
-    <message>
-        <source>Undo</source>
-        <translation type="obsolete">Отменить</translation>
-    </message>
-    <message>
-        <source>Redo</source>
-        <translation type="obsolete">Возвратить</translation>
-    </message>
-    <message>
-        <source>Cut</source>
-        <translation type="obsolete">Вырезать</translation>
-    </message>
-    <message>
-        <source>Copy</source>
-        <translation type="obsolete">Скопировать</translation>
-    </message>
-    <message>
-        <source>Paste</source>
-        <translation type="obsolete">Вставить</translation>
-    </message>
-    <message>
-        <source>Clear</source>
-        <translation type="obsolete">Очистить</translation>
-    </message>
-    <message>
-        <source>Edit Styles...</source>
-        <translation type="obsolete">Изменить стили...</translation>
-    </message>
-    <message>
-        <source>Edit</source>
-        <translation type="obsolete">Правка</translation>
-    </message>
-    <message>
-        <source>Style</source>
-        <translation type="obsolete">Стиль</translation>
-    </message>
-    <message>
-        <source>Text</source>
-        <translation type="obsolete">Текст</translation>
-    </message>
-    <message>
-        <source>Save to File...</source>
-        <translation type="obsolete">Сохранить в файл...</translation>
-    </message>
-    <message>
-        <source>Load from File...</source>
-        <translation type="obsolete">Загрузить из файла...</translation>
-    </message>
-    <message>
-        <source>Insert Special...</source>
-        <translation type="obsolete">Вставить символ...</translation>
-    </message>
-    <message>
-        <source>Insert Special</source>
-        <translation type="obsolete">Вставка символа</translation>
-    </message>
-    <message>
-        <source>Save Document</source>
-        <translation type="obsolete">Сохранить документ</translation>
+        <translation>Просмотреть &amp;шрифты</translation>
     </message>
     <message>
         <source>&amp;Smart text selection</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Умное выделение текста</translation>
     </message>
 </context>
 <context>
@@ -12891,16 +9843,6 @@ drag a Template to the Pageview below.</source>
         <translation>Обновить абзацные стили</translation>
     </message>
     <message>
-        <source>If there already exists a paragraph style with the same
-name than current OO.o document&apos;s paragraph should the style
-in Scribus be edited to match the one being imported
-or left untouched</source>
-        <translation type="obsolete">Если в документе Scribus существует стиль, имя которого 
-сопадает со стилем импортируемого документа OO.o Writer, 
-то этот стиль может быть обновлён до совпадения с 
-одноимённым стилем из импортируемого документа</translation>
-    </message>
-    <message>
         <source>Use document name as a prefix for paragraph styles</source>
         <translation>Добавить название документа в начало абзацного стиля</translation>
     </message>
@@ -12931,7 +9873,10 @@ on front of the paragraph style name in Scribus</source>
         <source>If a paragraph style already exists with the same name as the current
 OpenOffice.org document&apos;s paragraph, should the style in Scribus be
 edited to match the one being imported, or left untouched</source>
-        <translation type="unfinished"></translation>
+        <translation>Если в документе Scribus существует стиль, имя которого 
+сопадает со стилем импортируемого документа OO.o Writer, 
+то этот стиль может быть обновлён до совпадения с 
+одноимённым стилем из импортируемого документа</translation>
     </message>
 </context>
 <context>
@@ -12947,14 +9892,6 @@ edited to match the one being imported, or left untouched</source>
     <message>
         <source>&amp;Cancel</source>
         <translation>О&amp;тменить</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">ОК</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Отменить</translation>
     </message>
 </context>
 <context>
@@ -13023,18 +9960,6 @@ edited to match the one being imported, or left untouched</source>
         <source>Ind&amp;ent:</source>
         <translation>О&amp;тступ:</translation>
     </message>
-    <message>
-        <source>Position:</source>
-        <translation type="obsolete">Положение:</translation>
-    </message>
-    <message>
-        <source>First Line:</source>
-        <translation type="obsolete">Красная строка:</translation>
-    </message>
-    <message>
-        <source>Indent:</source>
-        <translation type="obsolete">Отступ:</translation>
-    </message>
 </context>
 <context>
     <name>Tree</name>
@@ -13056,39 +9981,39 @@ edited to match the one being imported, or left untouched</source>
     </message>
     <message>
         <source>X:</source>
-        <translation type="obsolete">X:</translation>
+        <translation>X:</translation>
     </message>
     <message>
         <source>Y:</source>
-        <translation type="obsolete">Y:</translation>
+        <translation>Y:</translation>
     </message>
     <message>
         <source>Font:</source>
-        <translation type="obsolete">Шрифт:</translation>
+        <translation>Шрифт:</translation>
     </message>
     <message>
         <source>Image</source>
-        <translation type="obsolete">Изображение</translation>
+        <translation>Изображение</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation type="obsolete">Текст</translation>
+        <translation>Текст</translation>
     </message>
     <message>
         <source>Line</source>
-        <translation type="obsolete">Линия</translation>
+        <translation>Линия</translation>
     </message>
     <message>
         <source>Polygon</source>
-        <translation type="obsolete">Многоугольник</translation>
+        <translation>Многоугольник</translation>
     </message>
     <message>
         <source>Polyline</source>
-        <translation type="obsolete">Ломаная линия</translation>
+        <translation>Ломаная линия</translation>
     </message>
     <message>
         <source>PathText</source>
-        <translation type="obsolete">Контурный текст</translation>
+        <translation>Контурный текст</translation>
     </message>
     <message>
         <source>Page</source>
@@ -13096,21 +10021,21 @@ edited to match the one being imported, or left untouched</source>
     </message>
     <message>
         <source>Warning</source>
-        <translation type="obsolete">Предупреждение</translation>
+        <translation>Предупреждение</translation>
     </message>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.
 Please choose another.</source>
-        <translation type="obsolete">Имя &quot;%1&quot; уже использовано.
+        <translation>Имя &quot;%1&quot; уже использовано.
 Выберите другое.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="obsolete">ОК</translation>
+        <translation>ОК</translation>
     </message>
     <message>
         <source>Group </source>
-        <translation type="obsolete">Группа</translation>
+        <translation>Группа</translation>
     </message>
 </context>
 <context>
@@ -13257,18 +10182,6 @@ Please choose another.</source>
         <source>Insert PDF Annotations</source>
         <translation>Вставить PDF-аннотации</translation>
     </message>
-    <message>
-        <source>PDF-Tools</source>
-        <translation type="obsolete">PDF-инструменты</translation>
-    </message>
-    <message>
-        <source>Insert PDF-Fields</source>
-        <translation type="obsolete">Вставить PDF-поля</translation>
-    </message>
-    <message>
-        <source>Insert PDF-Annotations</source>
-        <translation type="obsolete">Вставить PDF-аннотации</translation>
-    </message>
 </context>
 <context>
     <name>ZAuswahl</name>
@@ -13299,18 +10212,6 @@ Please choose another.</source>
     <message>
         <source>&amp;Close</source>
         <translation>&amp;Закрыть</translation>
-    </message>
-    <message>
-        <source>Insert</source>
-        <translation type="obsolete">Вставить</translation>
-    </message>
-    <message>
-        <source>Clear</source>
-        <translation type="obsolete">Очистить</translation>
-    </message>
-    <message>
-        <source>Close</source>
-        <translation type="obsolete">Закрыть</translation>
     </message>
 </context>
 <context>
@@ -13465,38 +10366,6 @@ files of this type.</source>
     <message>
         <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>
         <translation>Скопируйте существующий template.xml в файл с именем вида template.lang_COUNTRY.xml (используйте тот же код страны, что и в qm-файле для вашего языка), например template.fi.xml для template.xml на финском языке. Копия должна находиться в том же каталоге, что и исходный template.xml, так чтобы Scribus мог загрузить этот файл.</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">ОК</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Отменить</translation>
-    </message>
-    <message>
-        <source>Remove</source>
-        <translation type="obsolete">Удалить</translation>
-    </message>
-    <message>
-        <source>Document templates can be found in http://www.scribus.net/ Downloads section.</source>
-        <translation type="obsolete">Шаблоны документов могут быть найдены на сайте http://www.scribus.net/ в разделе Downloads.</translation>
-    </message>
-    <message>
-        <source>Make sure images you use can be used anywhere. Fonts must be checked for this as well. If fonts cannot be shared do not collect them when saving as a template.</source>
-        <translation type="obsolete">Убедитесь в том, что используемые изображения доступны с любого другого компьютера. То же самое касается шрифтов: если они не доступны отовсюду, не собирайте их при сохранении шаблона.</translation>
-    </message>
-    <message>
-        <source>Template creator should also make sure that the Installing Templates applies to her/his templates as well. Which means a user should download a template package and be able to extract them to the template directory and start using them.</source>
-        <translation type="obsolete">Создатель шаблонов должен убедиться в том, что Установка Шаблонов относится и к его/её шаблонам. Это означает, что пользователь должен скачать архив с шаблонами и иметь возможность распаковать их в каталог шаблонов, а затем использовать их.</translation>
-    </message>
-    <message>
-        <source>Removing a template from the NFT dialog will only remove the entry from the template.xml. It will not delete the document files. Popup menu with remove is only shown if you have write access to the template.xml file.</source>
-        <translation type="obsolete">Удаление шаблона ищ диалога NFT приведёт лишь к стиранию записи в template.xml, а удаления файлов документов не последует. Всплывающее меню с пунктом &quot;удалить&quot; появляется только при наличии прав на запись в файл template.xml.</translation>
-    </message>
-    <message>
-        <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that&apos;s present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. Copy must locate in the same directory than the original template.xml for NFT being able to load it.</source>
-        <translation type="obsolete">Скопируйте существующий файл template.xml в новый файл с именем template.lang_COUNTRY.xml (используйте тот же код страны, что и в QM-файле перевода для вашего языка), например, template.fi.xml для template.xml на финнском языке. Эта копия должна находится в том же каталоге, что и исходный template.xml, так чтобы NFT смог загрузить его.</translation>
     </message>
 </context>
 <context>

@@ -3795,41 +3795,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			{
 				Deselect(true);
 				slotDoCurs(true);
-				if (!SeleItem(m))
-				{
-					emit Amode(1);
-					return;
-				}
-				else
-				{
-					b = SelItem.at(0);
-					if ((m->button() == MidButton) && (b->PType == 4))
-					{
-						Mpressed = false;
-						MidButt = false;
-						QString cc;
-						cc = QApplication::clipboard()->text(QClipboard::Selection);
-						if (cc.isNull())
-							cc = QApplication::clipboard()->text(QClipboard::Clipboard);
-						if (!cc.isNull())
-						{
-							Serializer *ss = new Serializer("");
-							ss->Objekt = cc;
-							int st = Doc->CurrentABStil;
-							ss->GetText(b, st, Doc->Vorlagen[st].Font, Doc->Vorlagen[st].FontSize, true);
-							delete ss;
-							if (Doc->Trenner->AutoCheck)
-								Doc->Trenner->slotHyphenate(b);
-						}
-						else
-						{
-							if (ScApp->Buffer2.startsWith("<SCRIBUSTEXT"))
-								ScApp->slotEditPaste();
-						}
-						RefreshItem(b);
-					}
-					return;
-				}
+				emit Amode(1);
+				return;
 			}
 			b = SelItem.at(0);
 			oldCp = b->CPos;
@@ -8515,6 +8482,7 @@ void ScribusView::SetFrameShape(PageItem *b, int count, double *vals)
 	}
 	b->Clip = FlattenPath(b->PoLine, b->Segments);
 	b->ClipEdited = true;
+	setRedrawBounding(b);
 }
 
 void ScribusView::SetRectFrame(PageItem *b)
@@ -8626,6 +8594,7 @@ void ScribusView::SetFrameRound(PageItem* b)
 	b->Clip = FlattenPath(b->PoLine, b->Segments);
 	b->ClipEdited = false;
 	b->FrameType = 2;
+	setRedrawBounding(b);
 	emit ItemRadius(b->RadRect);
 }
 

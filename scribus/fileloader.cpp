@@ -58,13 +58,13 @@ int FileLoader::TestFile()
 	if (!fi.exists())
 		ret = -1;
 	QString ext = fi.extension(true).lower();
-	if ((ext == "sla.gz") || (ext == "sla") || (ext == "scd.gz") || (ext == "scd"))
+	if ((ext.endsWith("sla.gz")) || (ext.endsWith("sla")) || (ext.endsWith("scd.gz")) || (ext.endsWith("scd")))
 		ret = CheckScribus();
-	if (((ext == "ps") || (ext == "eps")) && (havePS))
+	else if (((ext.endsWith("ps")) || (ext.endsWith("eps"))) && (havePS))
 		ret = 2;
-	if (((ext == "svg") || (ext == "svgz")) && (haveSVG))
+	else if (((ext.endsWith("svg")) || (ext.endsWith("svgz"))) && (haveSVG))
 		ret = 3;
-	if ((ext == "sxd") && (haveSXD))
+	else if ((ext.endsWith("sxd")) && (haveSXD))
 		ret = 5;
 /*	if (ext == "pdf")
 		ret = 4; */

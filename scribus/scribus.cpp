@@ -3368,7 +3368,6 @@ bool ScribusApp::LadeDoc(QString fileName)
 				newActWin(ActWinOld);
 			return false;
 		}
-		delete fl;
 		ScApp->ScriptRunning = false;
 		FMess->setText("");
 		FProg->reset();
@@ -3461,7 +3460,14 @@ bool ScribusApp::LadeDoc(QString fileName)
 		}
 		Mpal->Cpal->SetColors(doc->PageColors);
 		Mpal->Cpal->ChooseGrad(0);
-		doc->DocName = FName;
+		if (fl->FileType > 1)
+		{
+			doc->DocName = FName+tr("(converted)");
+			QFileInfo fi(doc->DocName);
+			doc->DocName = fi.fileName();
+		}
+		else
+			doc->DocName = FName;
 		doc->MasterP = false;
 		doc->Language = GetLang(doc->Language);
 		HaveNewDoc();
@@ -3529,6 +3535,12 @@ bool ScribusApp::LadeDoc(QString fileName)
 		{
 			Apply_Temp(doc->Pages.at(p)->MPageNam, p, false);
 		}
+		if (fl->FileType > 1)
+		{
+			doc->hasName = false;
+			slotFileSaveAs();
+		}
+		delete fl;
 		if ((wsp->windowList().isEmpty()) || (wsp->windowList().count() == 1))
 			w->showMaximized();
 		else

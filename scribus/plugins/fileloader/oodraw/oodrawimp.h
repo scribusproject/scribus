@@ -52,14 +52,16 @@ public:
 	ScribusApp* Prog;
 	QDomDocument inpContents;
 	QDomDocument inpStyles;
+	QDomDocument inpMeta;
 	QDict<QDomElement> m_styles, m_draws;
 	StyleStack m_styleStack;
 	QString stylePath;
 	QString contentPath;
+	QString metaPath;
 	double CurrX, CurrY, StartX, StartY;
 	int PathLen;
 	QPtrList<PageItem> Elements;
-	bool FirstM, WasM, PathClosed;
+	bool FirstM, WasM, PathClosed, HaveMeta;
 };
 
 #endif

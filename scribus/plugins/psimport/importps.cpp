@@ -202,6 +202,14 @@ EPSPlug::EPSPlug( ScribusApp *plug, QString fName )
 			ret = true;
 		}
 	}
+	if ((ret) || (Prog->DLLinput != ""))
+	{
+		if (b-x > h-y)
+			Prog->doc->PageOri = 1;
+		else
+			Prog->doc->PageOri = 0;
+		Prog->doc->PageSize = "Custom";
+	}
 	Doku = plug->doc;
 	CListe::Iterator it;
 	for (it = CustColors.begin(); it != CustColors.end(); ++it)

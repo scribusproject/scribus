@@ -167,6 +167,14 @@ void SVGPlug::convert()
 			ret = true;
 		}
 	}
+	if ((ret) || (Prog->DLLinput != ""))
+	{
+		if (width > height)
+			Prog->doc->PageOri = 1;
+		else
+			Prog->doc->PageOri = 0;
+		Prog->doc->PageSize = "Custom";
+	}
 	Doku = Prog->doc;
 	Prog->view->Deselect();
 	Elements.clear();
