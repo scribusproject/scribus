@@ -50,8 +50,15 @@ bool MenuManager::createMenu(const QString menuName, const QString menuText, con
 
 bool MenuManager::clearMenu(const QString menuName)
 {
-	menuList[menuName]->clear();
-	return true;
+	bool retVal;
+	if (menuList[menuName])
+	{
+		menuList[menuName]->clear();
+		retVal=true;
+	}
+	else
+		retVal=false;
+	return retVal;
 }
 
 bool MenuManager::deleteMenu(const QString menuName, const QString parent)
@@ -68,7 +75,12 @@ bool MenuManager::deleteMenu(const QString menuName, const QString parent)
 void MenuManager::setMenuEnabled(const QString menuName, const bool enabled)
 {
 	if (menuList[menuName])
+	{
 		menuList[menuName]->setEnabled(enabled);
+		int mainID=menuList[menuName]->getMenuBarID();
+		if (mainID!=-1)
+			scribusMenuBar->setItemEnabled(mainID, enabled);
+	}
 }
 
 bool MenuManager::addMenuToMenuBar(const QString menuName)
@@ -113,8 +125,10 @@ bool MenuManager::addMenuToWidgetOfAction(const QString menuName, ScrAction *act
 			{
 				QToolButton *toolButton=dynamic_cast<QToolButton *>(w);
 				if (toolButton!=NULL)
+				{
 					toolButton->setPopup(menuList[menuName]->getLocalPopupMenu());
-				retVal=true;
+					retVal=true;
+				}
 			}
 		}
 	}
@@ -126,6 +140,16 @@ bool MenuManager::addMenuItem(ScrAction *menuAction, const QString parent)
 	bool retVal;
 	if (menuList[parent])
 		retVal=menuList[parent]->insertMenuItem(menuAction);
+	else
+		retVal=false;
+	return retVal;
+}
+
+bool MenuManager::addMenuItem(QWidget *widget, const QString parent)
+{
+	bool retVal;
+	if (menuList[parent])
+		retVal=menuList[parent]->insertMenuItem(widget);
 	else
 		retVal=false;
 	return retVal;
@@ -170,6 +194,16 @@ bool MenuManager::addMenuSeparator(const QString parent)
 		retVal=false;
 	return retVal;
 	
+}
+
+bool MenuManager::removeMenuItem(ScrAction *menuAction, const QString parent)
+{
+	bool retVal;
+	if (menuList[parent])
+		retVal=menuList[parent]->removeMenuItem(menuAction);
+	else
+		retVal=false;
+	return retVal;
 }
 
 void MenuManager::runMenuAtPos(const QString menuName, const QPoint position)

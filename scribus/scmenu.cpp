@@ -95,6 +95,19 @@ bool ScrPopupMenu::insertMenuItem(ScrAction *newMenuAction)
 		return false;
 }
 
+bool ScrPopupMenu::insertMenuItem(QWidget *widget)
+{
+	if (widget)
+	{
+		ScrAction *widgetAction = new ScrAction( NULL, "widget_action" );
+		menuItemList.append(widgetAction);
+		localPopupMenu->insertItem(widget);
+		return true;
+	}
+	else 
+		return false;
+}
+
 bool ScrPopupMenu::insertMenuItemAfter(ScrAction *newMenuAction, ScrAction *afterMenuAction)
 {
 	//Allow duplicate menu items ???
@@ -162,6 +175,8 @@ bool ScrPopupMenu::insertMenuItemAfter(ScrAction *newMenuAction, const QString a
 	return repopulateLocalMenu();
 }
 */
+
+//CB TODO Does NOT handle rebuilding with widgets
 bool ScrPopupMenu::repopulateLocalMenu()
 {
 	localPopupMenu->clear();

@@ -594,9 +594,6 @@ void ScribusApp::initKeyboardShortcuts()
 	//SetKeyEntry(, scrActions["fileExportAsPDF"]->cleanMenuText(), 0, scrActions["fileExportAsPDF"]->accel(), "fileExportAsPDF");
 	
 	//EDIT MENU
-	//SetKeyEntry(, scrActions["editUndoAction"]->cleanMenuText(), 0, scrActions["editUndoAction]->accel(), "editUndoAction");
-	//SetKeyEntry(, scrActions["editRedoAction"]->cleanMenuText(), 0, scrActions["editRedoAction"]->accel(), "editRedoAction");
-
 	SetKeyEntry(9, scrActions["editCut"]->cleanMenuText(), 0, scrActions["editCut"]->accel(), "editCut");
 	SetKeyEntry(10, scrActions["editCopy"]->cleanMenuText(), 0, scrActions["editCopy"]->accel(), "editCopy");
 	SetKeyEntry(11, scrActions["editPaste"]->cleanMenuText(), 0, scrActions["editPaste"]->accel(), "editPaste");
@@ -609,17 +606,49 @@ void ScribusApp::initKeyboardShortcuts()
 	
 	//SetKeyEntry(, scrActions["editSearchReplace"]->cleanMenuText(), 0, scrActions["editSearchReplace"]->accel(), "editSearchReplace");
 	//SetKeyEntry(, scrActions["editLineStyles"]->cleanMenuText(), 0, scrActions["editLineStyles"]->accel(), "editLineStyles");
-	//SetKeyEntry(, scrActions["editJavascripts"]->cleanMenuText(), 0, scrActions["editJavascripts"]->accel(), "editJavascripts");
-	//SetKeyEntry(, scrActions["editFonts"]->cleanMenuText(), 0, scrActions["editFonts"]->accel(), "editFonts");
-
 	
+	//SetKeyEntry(, scrActions["editFonts"]->cleanMenuText(), 0, scrActions["editFonts"]->accel(), "editFonts");
+	SetKeyEntry(19, tr("Select New Font"), 0, 0);
+	/* //CB 
+	SetKeyEntry(20, tr("Duplicate"), M_ItemDuplicate, CTRL+Key_D);
+	SetKeyEntry(21, tr("Multiple Duplicate"), M_ItemMultiDuplicate, 0);
+	SetKeyEntry(22, tr("Delete"), M_ItemDelete, CTRL+Key_K);
+	SetKeyEntry(23, tr("Group"), M_ItemGroup, CTRL+Key_G);
+	SetKeyEntry(24, tr("Ungroup"), M_ItemUngroup, CTRL+Key_U);	
+	SetKeyEntry(25, tr("Send to Back"), M_ItemSendToBack, 0);
+	SetKeyEntry(26, tr("Bring to Front"), M_ItemBringToFront, 0);
+	SetKeyEntry(27, tr("Lower"), M_ItemLower, 0);
+	SetKeyEntry(28, tr("Raise"), M_ItemRaise, 0);
+	SetKeyEntry(29, tr("Distribute/Align..."), M_ItemAlignDist, 0);
+	*/
+	/*
+		//Pagemenu
+	SetKeyEntry(30, tr("Insert..."), MenID, 0);
+	SetKeyEntry(31, tr("Delete..."), M_PageDelete, 0);
+	SetKeyEntry(61, tr("Copy..."), MenID, 0);
+	SetKeyEntry(32, tr("Move..."), M_PageMove, 0);
+	SetKeyEntry(33, tr("Apply Template..."), MenID, 0);
+	SetKeyEntry(49, tr("Manage Guides..."), MenID, 0);
+	*/
 	//EXTRAS
 	SetKeyEntry(56, tr("Smart Hyphen"), 0, CTRL+Key_Minus);
 	SetKeyEntry(57, tr("Align Left"), 0, CTRL+Key_L);
 	SetKeyEntry(58, tr("Align Right"), 0, CTRL+Key_R);
 	SetKeyEntry(59, tr("Align Center"), 0, CTRL+Key_E);
 	SetKeyEntry(60, tr("Insert Page Number"), 0, CTRL+Key_NumberSign);
+	
+	//CBSetKeyEntry(61, tr("Attach Text to Path"), M_ItemAttachTextToPath, 0);
+	SetKeyEntry(62, tr("Show Layers"), viewLpal, 0);
+	
+	SetKeyEntry(63, scrActions["editJavascripts"]->cleanMenuText(), 0, scrActions["editJavascripts"]->accel(), "editJavascripts");
+	SetKeyEntry(64, scrActions["editUndoAction"]->cleanMenuText(), 0, scrActions["editUndoAction"]->accel(), "editUndoAction");
+	SetKeyEntry(65, scrActions["editRedoAction"]->cleanMenuText(), 0, scrActions["editRedoAction"]->accel(), "editRedoAction");
+
+	SetKeyEntry(66, tr("Show Page Palette"), viewSepal, 0);
+	//CBSetKeyEntry(67, tr("Lock/Unlock"), M_ItemLock, CTRL+Key_F);
+
 	SetKeyEntry(68, tr("Non Breaking Space"), 0, CTRL+Key_Space);
+	
 }
 
 void ScribusApp::initArrowStyles()
@@ -1025,6 +1054,95 @@ void ScribusApp::initEditMenuActions()
 	connect( scrActions["editFonts"], SIGNAL(activated()) , this, SLOT(slotFontOrg()) );
 }
 
+void ScribusApp::initStyleMenuActions()
+{
+}
+
+void ScribusApp::initItemMenuActions()
+{
+	//Item Menu
+	scrActions.insert("itemDuplicate", new ScrAction(tr("D&uplicate"), CTRL+Key_D, this, "itemDuplicate"));
+	scrActions.insert("itemMulDuplicate", new ScrAction(tr("&Multiple Duplicate"), QKeySequence(), this, "itemMulDuplicate"));
+	scrActions.insert("itemDelete", new ScrAction(tr("&Delete"), CTRL+Key_K, this, "itemDelete"));
+	scrActions.insert("itemGroup", new ScrAction(tr("&Group"), CTRL+Key_G, this, "itemGroup"));
+	scrActions.insert("itemUngroup", new ScrAction(tr("&Ungroup"), CTRL+Key_U, this, "itemUngroup"));
+	scrActions.insert("itemLock", new ScrAction(tr("Is &Locked"), CTRL+Key_F, this, "itemLock"));
+	scrActions["itemLock"]->setToggleAction(true);
+	scrActions.insert("itemSendToBack", new ScrAction(tr("Send to &Back"), QKeySequence(), this, "itemSendToBack"));
+	scrActions.insert("itemBringToFront", new ScrAction(tr("Bring to &Front"), QKeySequence(), this, "itemBringToFront"));
+	scrActions.insert("itemLower", new ScrAction(tr("&Lower"), QKeySequence(), this, "itemLower"));
+	scrActions.insert("itemRaise", new ScrAction(tr("&Raise"), QKeySequence(), this, "itemRaise"));
+	scrActions.insert("itemAlignDist", new ScrAction(tr("Distribute/&Align..."), QKeySequence(), this, "itemAlignDist"));
+	
+	scrActions.insert("itemShapeEdit", new ScrAction(tr("&Edit Shape..."), QKeySequence(), this, "itemShapeEdit"));
+	scrActions["itemShapeEdit"]->setToggleAction(true);
+	scrActions.insert("itemAttachTextToPath", new ScrAction(tr("&Attach Text to Path"), QKeySequence(), this, "itemAttachTextToPath"));
+	scrActions.insert("itemDetachTextFromPath", new ScrAction(tr("&Detach Text from Path"), QKeySequence(), this, "itemDetachTextFromPath"));
+	scrActions.insert("itemCombinePolygons", new ScrAction(tr("&Combine Polygons"), QKeySequence(), this, "itemCombinePolygons"));
+	scrActions.insert("itemSplitPolygons", new ScrAction(tr("Split &Polygons"), QKeySequence(), this, "itemSplitPolygons"));
+	scrActions.insert("itemConvertToOutlines", new ScrAction(tr("C&onvert to Outlines"), QKeySequence(), this, "itemConvertToOutlines"));
+		
+	connect( scrActions["itemDuplicate"], SIGNAL(activated()) , this, SLOT(ObjektDup()) );
+	connect( scrActions["itemMulDuplicate"], SIGNAL(activated()) , this, SLOT(ObjektDupM()) );
+	connect( scrActions["itemDelete"], SIGNAL(activated()) , this, SLOT(DeleteObjekt()) );
+	connect( scrActions["itemGroup"], SIGNAL(activated()) , this, SLOT(GroupObj()) );
+	connect( scrActions["itemUngroup"], SIGNAL(activated()) , this, SLOT(UnGroupObj()) );
+	connect( scrActions["itemLock"], SIGNAL(activated()) , this, SLOT(ToggleObjLock()) );
+	connect( scrActions["itemSendToBack"], SIGNAL(activated()) , this, SLOT(Objekt2Back()) );
+	connect( scrActions["itemBringToFront"], SIGNAL(activated()) , this, SLOT(Objekt2Front()) );
+	connect( scrActions["itemLower"], SIGNAL(activated()) , this, SLOT(ObjektLower()) );
+	connect( scrActions["itemRaise"], SIGNAL(activated()) , this, SLOT(ObjektRaise()) );
+	connect( scrActions["itemAlignDist"], SIGNAL(activated()) , this, SLOT(ObjektAlign()) );
+	connect( scrActions["itemShapeEdit"], SIGNAL(activated()) , this, SLOT(ToggleFrameEdit()) );
+	connect( scrActions["itemAttachTextToPath"], SIGNAL(activated()) , this, SLOT(Pfadtext()) );
+	connect( scrActions["itemDetachTextFromPath"], SIGNAL(activated()) , this, SLOT(noPfadtext()) );
+	connect( scrActions["itemCombinePolygons"], SIGNAL(activated()) , this, SLOT(UniteOb()) );
+	connect( scrActions["itemSplitPolygons"], SIGNAL(activated()) , this, SLOT(SplitUniteOb()) );
+	connect( scrActions["itemConvertToOutlines"], SIGNAL(activated()) , this, SLOT(TraceText()) );
+}
+
+void ScribusApp::initPageMenuActions()
+{
+	//Page menu
+	scrActions.insert("pageInsert", new ScrAction(tr("&Insert..."), QKeySequence(), this, "PageInsert"));
+	scrActions.insert("pageDelete", new ScrAction(tr("&Delete..."), QKeySequence(), this, "pageDelete"));
+	scrActions.insert("pageCopy", new ScrAction(tr("&Copy..."), QKeySequence(), this, "pageCopy"));
+	scrActions.insert("pageMove", new ScrAction(tr("&Move..."), QKeySequence(), this, "pageMove"));
+	scrActions.insert("pageApplyTemplate", new ScrAction(tr("&Apply Template..."), QKeySequence(), this, "pageApplyTemplate"));
+	scrActions.insert("pageManageGuides", new ScrAction(tr("Manage &Guides..."), QKeySequence(), this, "pageManageGuides"));
+	
+	connect( scrActions["pageInsert"], SIGNAL(activated()) , this, SLOT(slotNewPageM()) );
+	connect( scrActions["pageDelete"], SIGNAL(activated()) , this, SLOT(DeletePage()) );
+	connect( scrActions["pageCopy"], SIGNAL(activated()) , this, SLOT(CopyPage()) );
+	connect( scrActions["pageMove"], SIGNAL(activated()) , this, SLOT(MovePage()) );
+	connect( scrActions["pageApplyTemplate"], SIGNAL(activated()) , this, SLOT(ApplyTemp()) );
+	connect( scrActions["pageManageGuides"], SIGNAL(activated()) , this, SLOT(ManageGuides()) );
+}
+
+void ScribusApp::initViewMenuActions()
+{
+}
+
+void ScribusApp::initToolsMenuActions()
+{
+}
+
+void ScribusApp::initExtrasMenuActions()
+{
+}
+
+void ScribusApp::initWindowsMenuActions()
+{
+}
+
+void ScribusApp::initScriptMenuActions()
+{
+}
+
+void ScribusApp::initHelpMenuActions()
+{
+}
+
 void ScribusApp::initMenuBar()
 {
 	int MenID;
@@ -1033,6 +1151,15 @@ void ScribusApp::initMenuBar()
 
 	initFileMenuActions();
 	initEditMenuActions();
+	initStyleMenuActions();
+	initItemMenuActions();
+	initPageMenuActions();
+	initViewMenuActions();
+	initToolsMenuActions();
+	initExtrasMenuActions();
+	initWindowsMenuActions();
+	initScriptMenuActions();
+	initHelpMenuActions();
 	
 	scrMenuMgr->createMenu("File", tr("&File"));
 	scrMenuMgr->addMenuItem(scrActions["fileNew"], "File");
@@ -1118,68 +1245,60 @@ void ScribusApp::initMenuBar()
 
 	//Style Menu
 	StilMenu = new QPopupMenu();
-	itemMenu = new QPopupMenu();
-	SetKeyEntry(19, tr("Select New Font"), 0, 0);
-	M_ItemDuplicate = itemMenu->insertItem( tr("D&uplicate"), this, SLOT(ObjektDup()), CTRL+Key_D);
-	SetKeyEntry(20, tr("Duplicate"), M_ItemDuplicate, CTRL+Key_D);
-	M_ItemMultiDuplicate = itemMenu->insertItem( tr("&Multiple Duplicate"), this, SLOT(ObjektDupM()));
-	SetKeyEntry(21, tr("Multiple Duplicate"), M_ItemMultiDuplicate, 0);
-	M_ItemDelete = itemMenu->insertItem( tr("&Delete"), this, SLOT(DeleteObjekt()), CTRL+Key_K);
-	SetKeyEntry(22, tr("Delete"), M_ItemDelete, CTRL+Key_K);
-	itemMenu->insertSeparator();
-	M_ItemGroup = itemMenu->insertItem( tr("&Group"), this, SLOT(GroupObj()), CTRL+Key_G);
-	SetKeyEntry(23, tr("Group"), M_ItemGroup, CTRL+Key_G);
-	M_ItemUngroup = itemMenu->insertItem( tr("&Ungroup"), this, SLOT(UnGroupObj()),CTRL+Key_U);
-	SetKeyEntry(24, tr("Ungroup"), M_ItemUngroup, CTRL+Key_U);
-	M_ItemLock = itemMenu->insertItem( tr("&Lock"), this, SLOT(ToggleObjLock()), CTRL+Key_F);
-	itemMenu->insertSeparator();
-	M_ItemSendToBack = itemMenu->insertItem( tr("Send to &Back"), this, SLOT(Objekt2Back()));
-	SetKeyEntry(25, tr("Send to Back"), M_ItemSendToBack, 0);
-	M_ItemBringToFront = itemMenu->insertItem( tr("Bring to &Front"), this, SLOT(Objekt2Front()));
-	SetKeyEntry(26, tr("Bring to Front"), M_ItemBringToFront, 0);
-	M_ItemLower = itemMenu->insertItem( tr("&Lower"), this, SLOT(ObjektLower()));
-	SetKeyEntry(27, tr("Lower"), M_ItemLower, 0);
-	M_ItemRaise = itemMenu->insertItem( tr("&Raise"), this, SLOT(ObjektRaise()));
-	SetKeyEntry(28, tr("Raise"), M_ItemRaise, 0);
-	M_ItemAlignDist = itemMenu->insertItem( tr("Distribute/&Align..."), this, SLOT(ObjektAlign()));
-	SetKeyEntry(29, tr("Distribute/Align..."), M_ItemAlignDist, 0);
-	itemMenu->insertSeparator();
-	ShapeMenu = new QPopupMenu();
+	
+	//Item Menu
+	scrMenuMgr->createMenu("Item", tr("&Item"));
+	scrMenuMgr->addMenuItem(scrActions["itemDuplicate"], "Item");
+	scrMenuMgr->addMenuItem(scrActions["itemMulDuplicate"], "Item");
+	scrMenuMgr->addMenuItem(scrActions["itemDelete"], "Item");
+	scrMenuMgr->addMenuSeparator("Item");
+	scrMenuMgr->addMenuItem(scrActions["itemGroup"], "Item");
+	scrMenuMgr->addMenuItem(scrActions["itemUngroup"], "Item");
+	scrMenuMgr->addMenuItem(scrActions["itemLock"], "Item");
+	scrMenuMgr->addMenuSeparator("Item");
+	scrMenuMgr->addMenuItem(scrActions["itemSendToBack"], "Item");
+	scrMenuMgr->addMenuItem(scrActions["itemBringToFront"], "Item");
+	scrMenuMgr->addMenuItem(scrActions["itemLower"], "Item");
+	scrMenuMgr->addMenuItem(scrActions["itemRaise"], "Item");
+	scrMenuMgr->addMenuItem(scrActions["itemAlignDist"], "Item");
+	scrMenuMgr->addMenuSeparator("Item");
+	scrMenuMgr->createMenu("ItemShapes", tr("&Shape"), "Item");
+	// CB TODO
+	//Shape menu
 	SCustom = new Autoforms(0);
-	ShapeMenu->insertItem(SCustom);
+	scrMenuMgr->addMenuItem(SCustom, "ItemShapes");
 	connect(SCustom, SIGNAL(FormSel(int, int, double *)), this, SLOT(MakeFrame(int, int, double *)));
-	ShapeEdit = ShapeMenu->insertItem( tr("&Edit Shape"), this, SLOT(ToggleFrameEdit()));
-	ShapeM = itemMenu->insertItem( tr("&Shape"), ShapeMenu);
-	PfadT = itemMenu->insertItem( tr("&Attach Text to Path"), this, SLOT(Pfadtext()));
-	PfadDT = itemMenu->insertItem( tr("&Detach Text from Path"), this, SLOT(noPfadtext()));
-	PfadV = itemMenu->insertItem( tr("&Combine Polygons"), this, SLOT(UniteOb()));
-	PfadS = itemMenu->insertItem( tr("Split &Polygons"), this, SLOT(SplitUniteOb()));
-	PfadTP = itemMenu->insertItem( tr("C&onvert to Outlines"), this, SLOT(TraceText()));
-	itemMenu->setItemEnabled(ShapeM, 0);
-	itemMenu->setItemEnabled(M_ItemAlignDist, 0);
-	itemMenu->setItemEnabled(M_ItemGroup, 0);
-	itemMenu->setItemEnabled(M_ItemUngroup, 0);
-	itemMenu->setItemEnabled(PfadT, 0);
-	itemMenu->setItemEnabled(PfadDT, 0);
-	itemMenu->setItemEnabled(PfadV, 0);
-	itemMenu->setItemEnabled(PfadS, 0);
-	itemMenu->setItemEnabled(M_ItemLock, 0);
-	itemMenu->setItemEnabled(PfadTP, 0);
-	pageMenu = new QPopupMenu();
-	MenID = pageMenu->insertItem( tr("&Insert..."), this, SLOT(slotNewPageM()));
-	SetKeyEntry(30, tr("Insert..."), MenID, 0);
-	pgmd = pageMenu->insertItem( tr("&Delete..."), this, SLOT(DeletePage()));
-	SetKeyEntry(31, tr("Delete..."), pgmd, 0);
-	MenID = pageMenu->insertItem( tr("&Copy")+"...", this, SLOT(CopyPage()));
-	SetKeyEntry(61, tr("Copy")+"...", MenID, 0);
-	pgmv = pageMenu->insertItem( tr("&Move..."), this, SLOT(MovePage()));
-	SetKeyEntry(32, tr("Move..."), pgmv, 0);
-	MenID = pageMenu->insertItem( tr("&Apply Template..."), this, SLOT(ApplyTemp()));
-	SetKeyEntry(33, tr("Apply Template..."), MenID, 0);
-	MenID = pageMenu->insertItem( tr("Manage &Guides..."), this, SLOT(ManageGuides()));
-	SetKeyEntry(49, tr("Manage Guides..."), MenID, 0);
-	pageMenu->setItemEnabled(pgmd, 0);
-	pageMenu->setItemEnabled(pgmv, 0);
+	scrMenuMgr->addMenuItem(scrActions["itemShapeEdit"], "ItemShapes");
+	scrMenuMgr->addMenuItem(scrActions["itemAttachTextToPath"], "Item");
+	scrMenuMgr->addMenuItem(scrActions["itemDetachTextFromPath"], "Item");
+	scrMenuMgr->addMenuItem(scrActions["itemCombinePolygons"], "Item");
+	scrMenuMgr->addMenuItem(scrActions["itemCombinePolygons"], "Item");
+	scrMenuMgr->addMenuItem(scrActions["itemSplitPolygons"], "Item");
+	scrMenuMgr->addMenuItem(scrActions["itemConvertToOutlines"], "Item");
+	scrMenuMgr->setMenuEnabled("ItemShapes", false);
+	scrActions["itemAlignDist"]->setEnabled(false);
+	scrActions["itemGroup"]->setEnabled(false);
+	scrActions["itemUngroup"]->setEnabled(false);
+	scrActions["itemAttachTextToPath"]->setEnabled(false);
+	scrActions["itemDetachTextFromPath"]->setEnabled(false);
+	scrActions["itemCombinePolygons"]->setEnabled(false);
+	scrActions["itemSplitPolygons"]->setEnabled(false);
+	scrActions["itemLock"]->setEnabled(false);
+	scrActions["itemConvertToOutlines"]->setEnabled(false);
+	
+	//Page menu
+	scrMenuMgr->createMenu("Page", tr("&Page"));
+	scrMenuMgr->addMenuItem(scrActions["pageInsert"], "Page");
+	scrMenuMgr->addMenuItem(scrActions["pageDelete"], "Page");
+	scrMenuMgr->addMenuItem(scrActions["pageCopy"], "Page");
+	scrMenuMgr->addMenuItem(scrActions["pageMove"], "Page");
+	scrMenuMgr->addMenuItem(scrActions["pageApplyTemplate"], "Page");
+	scrMenuMgr->addMenuItem(scrActions["pageManageGuides"], "Page");
+	scrActions["pageDelete"]->setEnabled(false);
+	scrActions["pageMove"]->setEnabled(false);
+
+	
+	//View menu
 	viewMenu=new QPopupMenu();
 	MenID = viewMenu->insertItem( tr("&Fit in Window"), this, SLOT(slotZoomFit()), CTRL+Key_0);
 	SetKeyEntry(34, tr("Fit in Window"), MenID, CTRL+Key_0);
@@ -1216,6 +1335,8 @@ void ScribusApp::initMenuBar()
 	M_ViewSnapToGrid = viewMenu->insertItem( tr("Sn&ap to Grid"), this, SLOT(ToggleURaster()));
 	SetKeyEntry(44, tr("Snap to Grid"), M_ViewSnapToGrid, 0);
 	M_ViewSnapToGuides = viewMenu->insertItem( tr("Sna&p to Guides"), this, SLOT(ToggleUGuides()));
+	
+	//Tool menu
 	toolMenu=new QPopupMenu();
 	viewMpal = toolMenu->insertItem( tr("&Properties"), this, SLOT(ToggleMpal()));
 	SetKeyEntry(46, tr("Properties"), viewMpal, 0);
@@ -1232,6 +1353,8 @@ void ScribusApp::initMenuBar()
 	toolbarMenuPDFTools = toolMenu->insertItem( tr("P&DF Tools"), this, SLOT(TogglePDFTools()));
 	SetKeyEntry(45, tr("Tools"), toolbarMenuTools, 0);
 	SetKeyEntry(55, tr("Tooltips"), tip, 0);
+	
+	//Extra menu
 	extraMenu=new QPopupMenu();
 	MenID = extraMenu->insertItem( tr("&Manage Pictures"), this, SLOT(StatusPic()));
 	SetKeyEntry(51, tr("Manage Pictures"), MenID, 0);
@@ -1241,6 +1364,7 @@ void ScribusApp::initMenuBar()
 	M_ExtraCharSelect = extraMenu->insertItem( tr("Insert Special"), this, SLOT(slotCharSelect()));
 	extraMenu->setItemEnabled(M_ExtraCharSelect, 0);
 
+	//Window menu
 	windowsMenu = new QPopupMenu();
 	windowsMenu->setCheckable( true );
 	connect(windowsMenu, SIGNAL(aboutToShow()), this, SLOT(windowsMenuAboutToShow()));
@@ -1264,11 +1388,11 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->addMenuToMenuBar("File");
 	scrMenuMgr->addMenuToMenuBar("Edit");
 	Stm = menuBar()->insertItem( tr("St&yle"), StilMenu);
-	Obm = menuBar()->insertItem( tr("&Item"), itemMenu);
-	pgmm = menuBar()->insertItem( tr("&Page"), pageMenu);
 	menuBar()->setItemEnabled(Stm, 0);
-	menuBar()->setItemEnabled(Obm, 0);
-	menuBar()->setItemEnabled(pgmm, 0);
+	scrMenuMgr->addMenuToMenuBar("Item");
+	scrMenuMgr->addMenuToMenuBar("Page");
+	scrMenuMgr->setMenuEnabled("Item", false);
+	scrMenuMgr->setMenuEnabled("Page", false);
 	ViMen = menuBar()->insertItem( tr("&View"), viewMenu);
 	menuBar()->setItemEnabled(ViMen, 0);
 	menuBar()->insertItem( tr("&Tools"), toolMenu);
@@ -1278,22 +1402,30 @@ void ScribusApp::initMenuBar()
 	menuBar()->setItemEnabled(WinMen, 0);
 	menuBar()->insertSeparator();
 	menuBar()->insertItem( tr("&Help"), helpMenu);
+	
+	//Alignment menu
 	alignMenu = new QPopupMenu();
 	alignMenu->insertItem( tr("&Left"));
 	alignMenu->insertItem( tr("&Center"));
 	alignMenu->insertItem( tr("&Right"));
 	alignMenu->insertItem( tr("&Block"));
 	alignMenu->insertItem( tr("&Forced"));
+	
+	//Color menu
 	ColorMenu = new QPopupMenu();
 	ColorMenC = new QComboBox(false);
 	ColorMenC->setEditable(false);
 	ColorMenu->insertItem(ColorMenC);
+	
+	//Text size menu
 	SizeTMenu = new QPopupMenu();
 	SizeTMenu->insertItem( tr("&Other..."));
 	QString ar_sizes[] = {" 7", " 9", "10", "11", "12", "14", "18", "24", "36", "48", "60", "72"};
 	size_t f_size = sizeof(ar_sizes) / sizeof(*ar_sizes);
 	for (uint s = 0; s < f_size; ++s)
 		SizeTMenu->insertItem(ar_sizes[s] + tr(" pt"));
+	
+	//Shade menu
 	ShadeMenu = new QPopupMenu();
 	ShadeMenu->insertItem( tr("&Other..."));
 	ShadeMenu->insertItem("0 %");
@@ -1307,7 +1439,11 @@ void ScribusApp::initMenuBar()
 	ShadeMenu->insertItem("80 %");
 	ShadeMenu->insertItem("90 %");
 	ShadeMenu->insertItem("100 %");
+	
+	//Font menu
 	FontMenu = new QPopupMenu();
+	
+	//Type style menu
 	TypeStyleMenu = new QPopupMenu();
 	TypeStyleMenu->insertItem( tr("Normal"));
 	tmp = qApp->font();
@@ -1320,17 +1456,6 @@ void ScribusApp::initMenuBar()
 	TypeStyleMenu->insertItem( tr("Superscript"));
 	TypeStyleMenu->insertItem( tr("Subscript"));
 	TypeStyleMenu->insertItem( tr("Outlined"));
-
-	SetKeyEntry(61, tr("Attach Text to Path"), PfadT, 0);
-	SetKeyEntry(62, tr("Show Layers"), viewLpal, 0);
-	/*CB TODO
-	SetKeyEntry(63, tr("Javascripts..."), M_EditJavascripts, 0);
-	SetKeyEntry(64, tr("Undo"), M_EditUndo, CTRL+Key_Z);
-	SetKeyEntry(65, tr("Redo"), M_EditRedo, CTRL+SHIFT+Key_Z);
-	*/
-			
-	SetKeyEntry(66, tr("Show Page Palette"), viewSepal, 0);
-	SetKeyEntry(67, tr("Lock/Unlock"), M_ItemLock, CTRL+Key_F);
 
 	connect(UndoManager::instance(), SIGNAL(newAction(UndoObject*, UndoState*)),
 	        this, SLOT(refreshUndoRedoItems()));
@@ -3046,10 +3171,11 @@ void ScribusApp::SwitchWin()
 	scrActions["fileClose"]->setEnabled(true);
 	if (doc->TemplateMode)
 	{
-		for (uint a=0; a<5; ++a)
-		{
-			pageMenu->setItemEnabled(pageMenu->idAt(a), 0);
-		}
+		scrActions["pageInsert"]->setEnabled(false);
+		scrActions["pageDelete"]->setEnabled(false);
+		scrActions["pageCopy"]->setEnabled(false);
+		scrActions["pageMove"]->setEnabled(false);
+		scrActions["pageApplyTemplate"]->setEnabled(false);
 		scrActions["editTemplates"]->setEnabled(false);
 		scrActions["fileNew"]->setEnabled(false);
 		scrActions["fileSave"]->setEnabled(doc->isModified());
@@ -3061,7 +3187,7 @@ void ScribusApp::SwitchWin()
 	}
 	else
 	{
-		menuBar()->setItemEnabled(pgmm, 1);
+		scrMenuMgr->setMenuEnabled("Page", true);
 		scrActions["editTemplates"]->setEnabled(true);
 		scrActions["fileNew"]->setEnabled(true);
 		scrActions["fileOpen"]->setEnabled(true);
@@ -3072,16 +3198,11 @@ void ScribusApp::SwitchWin()
 		scrActions["fileCollect"]->setEnabled(ActWin->MenuStat[3]);
 		scrActions["fileRevert"]->setEnabled(false);
 		scrMenuMgr->setMenuEnabled("FileOpenRecent", true);
-		if (doc->Pages.count() > 1)
-		{
-			pageMenu->setItemEnabled(pgmd, 1);
-			pageMenu->setItemEnabled(pgmv, 1);
-		}
-		else
-		{
-			pageMenu->setItemEnabled(pgmd, 0);
-			pageMenu->setItemEnabled(pgmv, 0);
-		}
+		
+		bool setter = doc->Pages.count() > 1 ? true : false;
+		scrActions["pageDelete"]->setEnabled(setter);
+		scrActions["pageMove"]->setEnabled(setter);
+		
 		if (doc->isModified())
 			slotDocCh(false);
 		scrActions["fileSaveAs"]->setEnabled(true);
@@ -3122,16 +3243,15 @@ void ScribusApp::HaveNewDoc()
 	menuBar()->setItemEnabled(WinMen, 1);
 	viewMenu->setItemChecked(M_ViewSnapToGuides, doc->SnapGuides);
 	viewMenu->setItemChecked(M_ViewSnapToGrid, doc->useRaster);
-	menuBar()->setItemEnabled(pgmm, 1);
+	scrMenuMgr->setMenuEnabled("Page", true);
 	menuBar()->setItemEnabled(exmn, 1);
 	WerkTools->setEnabled(true);
 	WerkToolsP->setEnabled(true);
-	int setter = 0;
-	if (doc->Pages.count() > 1)
-		setter = 1;
-	pageMenu->setItemEnabled(pgmd, setter);
-	pageMenu->setItemEnabled(pgmv, setter);
 	
+	bool setter = doc->Pages.count() > 1 ? true : false;
+	scrActions["pageDelete"]->setEnabled(setter);
+	scrActions["pageMove"]->setEnabled(setter);
+
 	scrActions["editTemplates"]->setEnabled(true);
 	scrActions["editJavascripts"]->setEnabled(true);
 		
@@ -3245,7 +3365,7 @@ void ScribusApp::HaveNewSel(int Nr)
 	PageItem *b = NULL;
 	if (Nr != -1)
 		b = view->SelItem.at(0);
-	itemMenu->setItemEnabled(PfadDT, 0);
+	scrActions["itemDetachTextFromPath"]->setEnabled(false);
 	extraMenu->setItemEnabled(M_ExtraCharSelect, 0);
 	view->HR->ItemPosValid = false;
 	view->HR->repX = false;
@@ -3258,10 +3378,10 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["fileImportAppendText"]->setEnabled(false);
 		scrActions["fileExportText"]->setEnabled(false);
 		menuBar()->setItemEnabled(Stm, 0);
-		menuBar()->setItemEnabled(Obm, 0);
-		itemMenu->setItemEnabled(ShapeM, 0);
-		itemMenu->setItemEnabled(PfadTP, 0);
-		itemMenu->setItemEnabled(M_ItemLock, 0);
+		scrMenuMgr->setMenuEnabled("Item", false);
+		scrMenuMgr->setMenuEnabled("ItemShapes", false);
+		scrActions["itemConvertToOutlines"]->setEnabled(false);
+		scrActions["itemLock"]->setEnabled(false);
 		scrActions["editCut"]->setEnabled(false);
 		scrActions["editCopy"]->setEnabled(false);
 		scrActions["editClear"]->setEnabled(false);
@@ -3289,12 +3409,12 @@ void ScribusApp::HaveNewSel(int Nr)
 		
 		extraMenu->setItemEnabled(hyph, 0);
 		menuBar()->setItemEnabled(Stm, 1);
-		menuBar()->setItemEnabled(Obm, 1);
+		scrMenuMgr->setMenuEnabled("Item", true);
 		if ((b->isTableItem) && (b->isSingleSel))
-			itemMenu->setItemEnabled(ShapeM, 0);
+			scrMenuMgr->setMenuEnabled("ItemShapes", false);
 		else
-			itemMenu->setItemEnabled(ShapeM, 1);
-		itemMenu->setItemEnabled(PfadTP, 0);
+			scrMenuMgr->setMenuEnabled("ItemShapes", true);
+		scrActions["itemConvertToOutlines"]->setEnabled(false);
 		StilMenu->clear();
 		StilMenu->insertItem( tr("&Color"), ColorMenu);
 		if (b->isRaster)
@@ -3318,12 +3438,12 @@ void ScribusApp::HaveNewSel(int Nr)
 
 		extraMenu->setItemEnabled(hyph, 1);
 		menuBar()->setItemEnabled(Stm, 1);
-		menuBar()->setItemEnabled(Obm, 1);
+		scrMenuMgr->setMenuEnabled("Item", true);
 		if ((b->isTableItem) && (b->isSingleSel))
-			itemMenu->setItemEnabled(ShapeM, 0);
+			scrMenuMgr->setMenuEnabled("ItemShapes", false);
 		else
-			itemMenu->setItemEnabled(ShapeM, 1);
-		itemMenu->setItemEnabled(PfadTP, 1);
+			scrMenuMgr->setMenuEnabled("ItemShapes", true);
+		scrActions["itemConvertToOutlines"]->setEnabled(true);
 		StilMenu->clear();
 		StilMenu->insertItem( tr("&Font"), FontMenu);
 		StilMenu->insertItem( tr("&Size"), SizeTMenu);
@@ -3408,10 +3528,10 @@ void ScribusApp::HaveNewSel(int Nr)
 
 		extraMenu->setItemEnabled(hyph, 0);
 		menuBar()->setItemEnabled(Stm, 1);
-		menuBar()->setItemEnabled(Obm, 1);
-		itemMenu->setItemEnabled(ShapeM, 0);
-		itemMenu->setItemEnabled(PfadDT, 1);
-		itemMenu->setItemEnabled(PfadTP, 0);
+		scrMenuMgr->setMenuEnabled("Item", true);
+		scrMenuMgr->setMenuEnabled("ItemShapes", false);
+		scrActions["itemDetachTextFromPath"]->setEnabled(true);
+		scrActions["itemConvertToOutlines"]->setEnabled(false);
 		StilMenu->clear();
 		StilMenu->insertItem( tr("Font"), FontMenu);
 		StilMenu->insertItem( tr("Size"), SizeTMenu);
@@ -3453,12 +3573,12 @@ void ScribusApp::HaveNewSel(int Nr)
 
 		extraMenu->setItemEnabled(hyph, 0);
 		menuBar()->setItemEnabled(Stm, 1);
-		menuBar()->setItemEnabled(Obm, 1);
+		scrMenuMgr->setMenuEnabled("Item", true);
 		StilMenu->clear();
 		StilMenu->insertItem( tr("&Color"), ColorMenu);
 		StilMenu->insertItem( tr("&Shade"), ShadeMenu);
 		if (Nr == 6)
-			itemMenu->setItemEnabled(ShapeM, 1);
+			scrMenuMgr->setMenuEnabled("ItemShapes", true);
 		WerkTools->KetteAus->setEnabled(false);
 		WerkTools->KetteEin->setEnabled(false);
 		if (Nr != 5)
@@ -3471,8 +3591,8 @@ void ScribusApp::HaveNewSel(int Nr)
 	Mpal->RotationGroup->setButton(doc->RotMode);
 	if (view->SelItem.count() > 1)
 	{
-		itemMenu->setItemEnabled(M_ItemAlignDist, 1);
-		itemMenu->setItemEnabled(PfadTP, 0);
+		scrActions["itemAlignDist"]->setEnabled(true);
+		scrActions["itemConvertToOutlines"]->setEnabled(false);
 		scrActions["editSearchReplace"]->setEnabled(false);
 
 		bool hPoly = true;
@@ -3492,81 +3612,83 @@ void ScribusApp::HaveNewSel(int Nr)
 			else
 				isGroup = false;
 		}
-		itemMenu->setItemEnabled(M_ItemGroup, !isGroup);
-		itemMenu->setItemEnabled(PfadV, hPoly);
+		scrActions["itemGroup"]->setEnabled(!isGroup);
+		scrActions["itemCombinePolygons"]->setEnabled(hPoly);
 		if (view->SelItem.count() == 2)
 		{
 			if (((b->PType == 4) || (view->SelItem.at(1)->PType == 4)) && ((b->PType == 7) || (view->SelItem.at(1)->PType == 7)))
 			{
 				PageItem* bx = view->SelItem.at(1);
 				if ((b->NextBox == 0) && (b->BackBox == 0) && (bx->NextBox == 0) && (bx->BackBox == 0) && (b->Groups.count() == 0))
-					itemMenu->setItemEnabled(PfadT, 1);
+					scrActions["itemAttachTextToPath"]->setEnabled(true);
 			}
 		}
 	}
 	else
 	{
-		itemMenu->setItemEnabled(M_ItemAlignDist, 0);
-		itemMenu->setItemEnabled(M_ItemGroup, 0);
-		itemMenu->setItemEnabled(PfadT, 0);
-		itemMenu->setItemEnabled(PfadV, 0);
+		scrActions["itemAlignDist"]->setEnabled(false);
+		scrActions["itemGroup"]->setEnabled(false);
+		scrActions["itemAttachTextToPath"]->setEnabled(false);
+		scrActions["itemCombinePolygons"]->setEnabled(false);
 	}
 	if (view->SelItem.count() != 0)
 	{
 		Mpal->Textflow->setChecked(b->Textflow);
-		itemMenu->setItemEnabled(M_ItemLock, 1);
+		scrActions["itemLock"]->setEnabled(true);
 		if (b->Groups.count() != 0)
-			itemMenu->setItemEnabled(M_ItemUngroup, 1);
+			scrActions["itemUngroup"]->setEnabled(true);
 		else
 		{
-			itemMenu->setItemEnabled(M_ItemUngroup, 0);
+			scrActions["itemUngroup"]->setEnabled(false);
 			if ((b->PType == 6) && (b->Segments.count() != 0))
-				itemMenu->setItemEnabled(PfadS, 1);
+				scrActions["itemSplitPolygons"]->setEnabled(true);
 			else
-				itemMenu->setItemEnabled(PfadS, 0);
+				scrActions["itemSplitPolygons"]->setEnabled(false);
 		}
 		if (b->Locked)
 		{
-			itemMenu->setItemEnabled(M_ItemAlignDist, 0);
-			itemMenu->setItemEnabled(ShapeM, 0);
-			itemMenu->setItemEnabled(PfadTP, 0);
-			itemMenu->setItemEnabled(PfadS, 0);
-			itemMenu->setItemEnabled(PfadT, 0);
-			itemMenu->setItemEnabled(PfadDT, 0);
-			itemMenu->setItemEnabled(PfadV, 0);
-			itemMenu->setItemEnabled(M_ItemDelete, 0);
-			itemMenu->setItemEnabled(M_ItemSendToBack, 0);
-			itemMenu->setItemEnabled(M_ItemBringToFront, 0);
-			itemMenu->setItemEnabled(M_ItemRaise, 0);
-			itemMenu->setItemEnabled(M_ItemLower, 0);
+			scrMenuMgr->setMenuEnabled("ItemShapes", false);
+			scrActions["itemAlignDist"]->setEnabled(false);			
+			scrActions["itemConvertToOutlines"]->setEnabled(false);
+			scrActions["itemSplitPolygons"]->setEnabled(false);
+			scrActions["itemAttachTextToPath"]->setEnabled(false);
+			scrActions["itemDetachTextFromPath"]->setEnabled(false);
+			scrActions["itemCombinePolygons"]->setEnabled(false);
+			scrActions["itemDelete"]->setEnabled(false);
+			scrActions["itemSendToBack"]->setEnabled(false);
+			scrActions["itemBringToFront"]->setEnabled(false);
+			scrActions["itemRaise"]->setEnabled(false);
+			scrActions["itemLower"]->setEnabled(false);
 			scrActions["editCut"]->setEnabled(false);
 			scrActions["editClear"]->setEnabled(false);
 			WerkTools->Rotiere->setEnabled(false);
-			itemMenu->changeItem(M_ItemLock, tr("Un&lock"));
+			scrActions["itemLower"]->setEnabled(false);
+			scrActions["itemLock"]->setOn(true);
 		}
 		else
 		{
-			itemMenu->changeItem(M_ItemLock, tr("&Lock"));
+			scrActions["itemLock"]->setOn(false);
 			if ((b->isTableItem) && (b->isSingleSel))
 			{
-				itemMenu->setItemEnabled(PfadTP, 0);
-				itemMenu->setItemEnabled(M_ItemDuplicate, 0);
-				itemMenu->setItemEnabled(M_ItemMultiDuplicate, 0);
-				itemMenu->setItemEnabled(M_ItemDelete, 0);
-				itemMenu->setItemEnabled(M_ItemSendToBack, 0);
-				itemMenu->setItemEnabled(M_ItemBringToFront, 0);
-				itemMenu->setItemEnabled(M_ItemRaise, 0);
-				itemMenu->setItemEnabled(M_ItemLower, 0);
+				scrActions["itemConvertToOutlines"]->setEnabled(false);
+				scrActions["itemDuplicate"]->setEnabled(false);
+				scrActions["itemMulDuplicate"]->setEnabled(false);
+				scrActions["itemDelete"]->setEnabled(false);
+				scrActions["itemSendToBack"]->setEnabled(false);
+				scrActions["itemBringToFront"]->setEnabled(false);
+				scrActions["itemRaise"]->setEnabled(false);
+				scrActions["itemLower"]->setEnabled(false);
 			}
 			else
 			{
-				itemMenu->setItemEnabled(M_ItemDuplicate, 1);
-				itemMenu->setItemEnabled(M_ItemMultiDuplicate, 1);
-				itemMenu->setItemEnabled(M_ItemDelete, 1);
-				itemMenu->setItemEnabled(M_ItemSendToBack, 1);
-				itemMenu->setItemEnabled(M_ItemBringToFront, 1);
-				itemMenu->setItemEnabled(M_ItemRaise, 1);
-				itemMenu->setItemEnabled(M_ItemLower, 1);
+				//CB TODO old code missing this ? scrActions["itemConvertToOutlines"]->setEnabled(true);
+				scrActions["itemDuplicate"]->setEnabled(true);
+				scrActions["itemMulDuplicate"]->setEnabled(true);
+				scrActions["itemDelete"]->setEnabled(true);
+				scrActions["itemSendToBack"]->setEnabled(true);
+				scrActions["itemBringToFront"]->setEnabled(true);
+				scrActions["itemRaise"]->setEnabled(true);
+				scrActions["itemLower"]->setEnabled(true);
 			}
 		}
 	}
@@ -3617,10 +3739,7 @@ void ScribusApp::slotDocCh(bool reb)
 	if (view->SelItem.count() != 0)
 	{
 		PageItem* b = view->SelItem.at(0);
-		if (b->Locked)
-			itemMenu->changeItem(M_ItemLock, tr("Un&lock"));
-		else
-			itemMenu->changeItem(M_ItemLock, tr("&Lock"));
+		scrActions["itemLock"]->setOn(b->Locked);
 	}
 }
 
@@ -4507,10 +4626,10 @@ bool ScribusApp::DoFileClose()
 		viewMenu->setItemChecked(M_ViewSnapToGuides, false);
 		viewMenu->setItemChecked(M_ViewSnapToGrid, false);
 
-		menuBar()->setItemEnabled(pgmm, 0);
+		scrMenuMgr->setMenuEnabled("Page", false);
 		menuBar()->setItemEnabled(exmn, 0);
 		menuBar()->setItemEnabled(Stm, 0);
-		menuBar()->setItemEnabled(Obm, 0);
+		scrMenuMgr->setMenuEnabled("Item", false);
 		WerkTools->setEnabled(false);
 		WerkToolsP->setEnabled(false);
 		ColorMenC->clear();
@@ -5296,11 +5415,10 @@ void ScribusApp::slotNewPage(int w)
 //	if ((!doc->loading) && (!doc->TemplateMode))
 //		Tpal->slotAddPage(w);
 	view->addPage(w);
-	if (doc->Pages.count() > 1)
-	{
-		pageMenu->setItemEnabled(pgmd, 1);
-		pageMenu->setItemEnabled(pgmv, 1);
-	}
+	bool setter = doc->Pages.count() > 1 ? true : false;
+	scrActions["pageDelete"]->setEnabled(setter);
+	scrActions["pageMove"]->setEnabled(setter);
+
 /*	if ((!doc->loading) && (!doc->TemplateMode))
 	{
 		AdjustBM();
@@ -5774,7 +5892,7 @@ void ScribusApp::ToggleFrameEdit()
 		WerkTools->Measure->setEnabled(false);
 		WerkToolsP->PDFTool->setEnabled(false);
 		WerkToolsP->PDFaTool->setEnabled(false);
-		itemMenu->setItemEnabled(M_ItemDelete, false);
+		scrActions["itemDelete"]->setEnabled(false);
 		if (view->SelItem.count() != 0)
 		{
 			PageItem* b = view->SelItem.at(0);
@@ -5787,7 +5905,7 @@ void ScribusApp::ToggleFrameEdit()
 			Npal->PolyStatus(b->PType, b->PoLine.size());
 		}
 	}
-	ShapeMenu->setItemChecked(ShapeEdit, doc->EditClip);
+	scrActions["itemShapeEdit"]->setOn(doc->EditClip);
 }
 
 void ScribusApp::NoFrameEdit()
@@ -5809,8 +5927,9 @@ void ScribusApp::NoFrameEdit()
 	WerkTools->Textedit->setOn(false);
 	WerkTools->Textedit2->setOn(false);
 	WerkTools->Measure->setEnabled(true);
-	itemMenu->setItemEnabled(M_ItemDelete, true);
-	ShapeMenu->setItemChecked(ShapeEdit, false);
+	scrActions["itemDelete"]->setEnabled(true);
+
+	scrActions["itemShapeEdit"]->setOn(false);
 	if (HaveDoc)
 	{
 		doc->EditClip = false;
@@ -5890,7 +6009,7 @@ void ScribusApp::setAppMode(int mode)
 			{
 				view->RefreshItem(b);
 				menuBar()->setItemEnabled(Stm, 1);
-				menuBar()->setItemEnabled(Obm, 1);
+				scrMenuMgr->setMenuEnabled("Item", true);
 			}
 			view->HR->ItemPosValid = false;
 			view->HR->repX = false;
@@ -5924,12 +6043,12 @@ void ScribusApp::setAppMode(int mode)
 			WerkTools->Textedit->setOn(true);
 			WerkTools->Textedit2->setOn(false);
 			view->slotDoCurs(true);
-			menuBar()->setItemEnabled(Obm, 0);
+			scrMenuMgr->setMenuEnabled("Item", false);
 			menuBar()->setItemEnabled(Stm, 0);
 			doc->CurTimer = new QTimer(view);
 			connect(doc->CurTimer, SIGNAL(timeout()), view, SLOT(BlinkCurs()));
 			doc->CurTimer->start(500);
-			if (b != 0)
+			if (b != NULL)
 			{
 				scrActions["editCut"]->setEnabled(b->HasSel);
 				scrActions["editCopy"]->setEnabled(b->HasSel);
@@ -6119,11 +6238,9 @@ void ScribusApp::DeletePage2(int pg)
 	view->DrawNew();
 	doc->OpenNodes.clear();
 //	Tpal->BuildTree(view);
-	if (doc->Pages.count() == 1)
-	{
-		pageMenu->setItemEnabled(pgmd, 0);
-		pageMenu->setItemEnabled(pgmv, 0);
-	}
+	bool setter = doc->Pages.count() > 1 ? true : false;
+	scrActions["pageDelete"]->setEnabled(setter);
+	scrActions["pageMove"]->setEnabled(setter);
 	slotDocCh();
 //	Sepal->RebuildPage();
 }
@@ -6164,11 +6281,9 @@ void ScribusApp::DeletePage()
 		view->DrawNew();
 //		doc->OpenNodes.clear();
 //		Tpal->BuildTree(view);
-		if (doc->Pages.count() == 1)
-		{
-			pageMenu->setItemEnabled(pgmd, 0);
-			pageMenu->setItemEnabled(pgmv, 0);
-		}
+		bool setter = doc->Pages.count() > 1 ? true : false;
+		scrActions["pageDelete"]->setEnabled(setter);
+		scrActions["pageMove"]->setEnabled(setter);
 		slotDocCh();
 //		Sepal->RebuildPage();
 	}
@@ -8142,10 +8257,13 @@ void ScribusApp::ManageTemp(QString temp)
 	connect(dia, SIGNAL(createNew(int)), this, SLOT(slotNewPageT(int)));
 	connect(dia, SIGNAL(loadPage(QString, int, bool)), this, SLOT(LadeSeite(QString, int, bool)));
 	connect(dia, SIGNAL(finished()), this, SLOT(ManTempEnd()));
-	for (uint a=0; a<5; ++a)
-	{
-		pageMenu->setItemEnabled(pageMenu->idAt(a), 0);
-	}
+	
+	scrActions["pageInsert"]->setEnabled(false);
+	scrActions["pageDelete"]->setEnabled(false);
+	scrActions["pageCopy"]->setEnabled(false);
+	scrActions["pageMove"]->setEnabled(false);
+	scrActions["pageApplyTemplate"]->setEnabled(false);
+
 	scrActions["editTemplates"]->setEnabled(false);
 	ActWin->MenuStat[0] = scrActions["fileSave"]->isEnabled();
 	ActWin->MenuStat[1] = scrActions["fileRevert"]->isEnabled();
@@ -8169,9 +8287,6 @@ void ScribusApp::ManTempEnd()
 {
 	view->HideTemplate();
 	scrActions["editTemplates"]->setEnabled(true);
-	pageMenu->setItemEnabled(pageMenu->idAt(0), 1);
-	pageMenu->setItemEnabled(pageMenu->idAt(2), 1);
-	pageMenu->setItemEnabled(pageMenu->idAt(4), 1);
 	scrActions["fileNew"]->setEnabled(true);
 	scrActions["fileOpen"]->setEnabled(true);
 	scrActions["fileClose"]->setEnabled(false);
@@ -8181,9 +8296,12 @@ void ScribusApp::ManTempEnd()
 	scrActions["fileDocSetup"]->setEnabled(true);
 	scrActions["filePrint"]->setEnabled(true);
 
+	scrActions["pageInsert"]->setEnabled(true);
+	scrActions["pageCopy"]->setEnabled(true);
+	scrActions["pageApplyTemplate"]->setEnabled(true);
 	int setter = doc->Pages.count() > 1 ? 1 : 0;
-	pageMenu->setItemEnabled(pgmd, setter);
-	pageMenu->setItemEnabled(pgmv, setter);
+	scrActions["pageDelete"]->setEnabled(setter);
+	scrActions["pageMove"]->setEnabled(setter);
 	for (uint c=0; c<doc->Pages.count(); ++c)
 	{
 		Apply_Temp(doc->Pages.at(c)->MPageNam, c, false);
@@ -8290,67 +8408,66 @@ void ScribusApp::Apply_Temp(QString in, int Snr, bool reb)
 
 void ScribusApp::GroupObj()
 {
-	PageItem* b;
-	PageItem* bb;
-	double x, y, w, h;
-	for (uint a=0; a<view->SelItem.count(); ++a)
+	if (HaveDoc)
 	{
-		b = view->SelItem.at(a);
-		if (b->Locked)
+		PageItem* b;
+		PageItem* bb;
+		double x, y, w, h;
+		for (uint a=0; a<view->SelItem.count(); ++a)
 		{
-			int t = QMessageBox::warning(this, tr("Warning"),
-			                             tr("Some Objects are locked."),
-			                             tr("&Cancel"),
-			                             tr("&Lock All"),
-			                             tr("&Unlock All"), 0, 0);
-			if (t != 0)
+			b = view->SelItem.at(a);
+			if (b->Locked)
 			{
-				for (uint c=0; c<view->SelItem.count(); ++c)
+				int t = QMessageBox::warning(this, tr("Warning"),
+											tr("Some Objects are locked."),
+											tr("&Cancel"),
+											tr("&Lock All"),
+											tr("&Unlock All"), 0, 0);
+				if (t != 0)
 				{
-					bb = view->SelItem.at(c);
-					if (t == 1)
+					for (uint c=0; c<view->SelItem.count(); ++c)
 					{
-						bb->Locked = true;
-						itemMenu->changeItem(M_ItemLock, tr("Un&lock"));
-					}
-					else
-					{
-						bb->Locked = false;
-						itemMenu->changeItem(M_ItemLock, tr("&Lock"));
+						bb = view->SelItem.at(c);
+						bool t1=(t==1);
+						bb->Locked = t1;
+						scrActions["itemLock"]->setOn(t1);
 					}
 				}
 			}
 		}
+		for (uint a=0; a<view->SelItem.count(); ++a)
+		{
+			b = view->SelItem.at(a);
+			b->Groups.push(doc->GroupCounter);
+		}
+		doc->GroupCounter++;
+		view->getGroupRect(&x, &y, &w, &h);
+		view->updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
+		slotDocCh();
+		scrActions["itemAttachTextToPath"]->setEnabled(false);
+		scrActions["itemGroup"]->setEnabled(false);
+		scrActions["itemUngroup"]->setEnabled(true);
 	}
-	for (uint a=0; a<view->SelItem.count(); ++a)
-	{
-		b = view->SelItem.at(a);
-		b->Groups.push(doc->GroupCounter);
-	}
-	doc->GroupCounter++;
-	view->getGroupRect(&x, &y, &w, &h);
-	view->updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
-	slotDocCh();
-	itemMenu->setItemEnabled(PfadT, false);
-	itemMenu->setItemEnabled(M_ItemGroup, false);
-	itemMenu->setItemEnabled(M_ItemUngroup, true);
 }
 
 void ScribusApp::UnGroupObj()
 {
-	PageItem* b;
-	for (uint a=0; a<view->SelItem.count(); ++a)
+	if (HaveDoc)
 	{
-		b = view->SelItem.at(a);
-		b->Groups.pop();
-		b->isTableItem = false;
-		b->LeftLink = 0;
-		b->RightLink = 0;
-		b->TopLink = 0;
-		b->BottomLink = 0;
+		PageItem* b;
+		for (uint a=0; a<view->SelItem.count(); ++a)
+		{
+			b = view->SelItem.at(a);
+			b->Groups.pop();
+			b->isTableItem = false;
+			b->LeftLink = 0;
+			b->RightLink = 0;
+			b->TopLink = 0;
+			b->BottomLink = 0;
+		}
+		slotDocCh();
+		view->Deselect(true);
 	}
-	slotDocCh();
-	view->Deselect(true);
 }
 
 void ScribusApp::StatusPic()
@@ -8908,16 +9025,20 @@ void ScribusApp::SetShortCut()
 					scrActions[Prefs.KeyActions[a].actionName]->setAccel(Prefs.KeyActions[a].KeyID);
 	}
 	//CB TODO editMenu->setAccel(Prefs.KeyActions[19].KeyID, Prefs.KeyActions[19].MenuID);
-	
+	/* //CB TODO
 	for (a = 20; a < 30; ++a)
 	{
 		itemMenu->setAccel(Prefs.KeyActions[a].KeyID, Prefs.KeyActions[a].MenuID);
 	}
+	
 	for (a = 30; a < 34; ++a)
 	{
 		pageMenu->setAccel(Prefs.KeyActions[a].KeyID, Prefs.KeyActions[a].MenuID);
 	}
+	
 	pageMenu->setAccel(Prefs.KeyActions[61].KeyID, Prefs.KeyActions[61].MenuID);
+	pageMenu->setAccel(Prefs.KeyActions[49].KeyID, Prefs.KeyActions[49].MenuID);
+	*/
 	for (a = 34; a < 45; ++a)
 	{
 		viewMenu->setAccel(Prefs.KeyActions[a].KeyID, Prefs.KeyActions[a].MenuID);
@@ -8926,21 +9047,17 @@ void ScribusApp::SetShortCut()
 	{
 		toolMenu->setAccel(Prefs.KeyActions[a].KeyID, Prefs.KeyActions[a].MenuID);
 	}
-	pageMenu->setAccel(Prefs.KeyActions[49].KeyID, Prefs.KeyActions[49].MenuID);
 	extraMenu->setAccel(Prefs.KeyActions[50].KeyID, Prefs.KeyActions[50].MenuID);
 	extraMenu->setAccel(Prefs.KeyActions[51].KeyID, Prefs.KeyActions[51].MenuID);
 	for (a = 52; a < 56; ++a)
 	{
 		helpMenu->setAccel(Prefs.KeyActions[a].KeyID, Prefs.KeyActions[a].MenuID);
 	}
-	itemMenu->setAccel(Prefs.KeyActions[61].KeyID, Prefs.KeyActions[61].MenuID);
+	//CB itemMenu->setAccel(Prefs.KeyActions[61].KeyID, Prefs.KeyActions[61].MenuID);
 	toolMenu->setAccel(Prefs.KeyActions[62].KeyID, Prefs.KeyActions[62].MenuID);
-//CB TODO	editMenu->setAccel(Prefs.KeyActions[63].KeyID, Prefs.KeyActions[63].MenuID);
-//CB TODO	editMenu->setAccel(Prefs.KeyActions[64].KeyID, Prefs.KeyActions[64].MenuID);
-//CB TODO	editMenu->setAccel(Prefs.KeyActions[65].KeyID, Prefs.KeyActions[65].MenuID);
 	toolMenu->setAccel(Prefs.KeyActions[66].KeyID, Prefs.KeyActions[66].MenuID);
-	itemMenu->setAccel(Prefs.KeyActions[67].KeyID, Prefs.KeyActions[67].MenuID);
-	itemMenu->setAccel(Prefs.KeyActions[68].KeyID, Prefs.KeyActions[68].MenuID);
+	//CBitemMenu->setAccel(Prefs.KeyActions[67].KeyID, Prefs.KeyActions[67].MenuID);
+	//CBitemMenu->setAccel(Prefs.KeyActions[68].KeyID, Prefs.KeyActions[68].MenuID);
 //CB TODO	fileMenu->setAccel(Prefs.KeyActions[18].KeyID, Prefs.KeyActions[18].MenuID);
 }
 
@@ -9325,10 +9442,6 @@ void ScribusApp::ToggleObjLock()
 		{
 			PageItem* b = view->SelItem.at(0);
 			view->ToggleLock();
-			if (b->Locked)
-				itemMenu->changeItem(M_ItemLock, tr("Un&lock"));
-			else
-				itemMenu->changeItem(M_ItemLock, tr("&Lock"));
 		}
 	}
 }
