@@ -183,6 +183,9 @@ About::About( QWidget* parent )
 	                                      "<tr><td><b>" + tr("Polish:").utf8()  + "</b></td><td> </td></tr>" +
 	                                      "<tr><td>Maciej Hański</td><td>m.hanski@gmx.at</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +
+	                                      "<tr><td><b>" + tr("Portugese (Brazilian):").utf8()  + "</b></td><td> </td></tr>" +
+	                                      "<tr><td>Ludi Maciel</td><td>iludi@uol.com.br</td></tr>" +
+	                                      "<tr><td> </td><td> </td></tr>" +	
 	                                      "<tr><td><b>" + tr("Russian:").utf8()  + "</b></td><td></td></tr>" +
 	                                      "<tr><td>Alexandre Prokoudine</td><td>techwriter@land.ru</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +
