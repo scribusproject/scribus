@@ -31,83 +31,80 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, ApplicationPr
 	setMinimumSize(fontMetrics().width( tr( "Available Fonts" )+ tr( "Font Substitutions" )+ tr( "Additional Paths" ))+180, 200);
 	tab1 = new QWidget( this, "tab1" );
 	tab1Layout = new QVBoxLayout( tab1, 10, 5, "tab1Layout");
-	Table1 = new QTable( tab1, "FONT" );
-	Table1->setNumRows( flist.count() );
-	Table1->setNumCols( 6 );
-	Table1->setSorting(true);
+	fontList = new QListView(tab1, "fontList" );
+	fontList->addColumn(tr("Font Name", "font preview"));
+	fontList->addColumn(tr("Use Font", "font preview"));
+	fontList->addColumn(tr("Embed in:", "font preview"));
+	fontList->addColumn(tr("Subset", "font preview"));
+	fontList->setColumnAlignment(3, Qt::AlignCenter);
+	fontList->addColumn(tr("Path to Font File", "font preview"));
 	SCFontsIterator it(flist);
-	int a = 0;
+	ttfFont = loadIcon("font_truetype16.png");
+	otfFont = loadIcon("font_otf16.png");
+	psFont = loadIcon("font_type1_16.png");
+	okIcon = loadIcon("ok.png");
+	empty = QPixmap(16,16);
+	empty.fill(white);
 	for ( ; it.current(); ++it)
 	{
-		Table1->setText(a, 0, it.currentKey());
-		QCheckBox *cp = new QCheckBox(this, "use");
-		cp->setText(" ");
-		cp->setChecked(it.current()->UseFont);
+		fontSet foS;
+		QListViewItem *row = new QListViewItem(fontList);
+		row->setText(0, it.currentKey());
 		if (it.current()->UseFont)
-			UsedFonts.append(it.currentKey());
-		cp->setEraseColor(white);
-		if (Hdoc)
-			cp->setEnabled(false);
-		connect(cp, SIGNAL(clicked()), this, SLOT(UpdateFliste()));
-		FlagsUse.append(cp);
-		Table1->setCellWidget(a, 1, cp);
-		QCheckBox *cp2 = new QCheckBox(this, "ps");
-		cp2->setText( tr("Postscript"));
-		cp2->setChecked(it.current()->EmbedPS);
-		cp2->setEraseColor(white);
-		FlagsPS.append(cp2);
-		Table1->setCellWidget(a, 2, cp2);
-		QFileInfo fi = QFileInfo(it.current()->Datei);
-		QString ext = fi.extension(false).lower();
-		QCheckBox *cp3 = new QCheckBox(this, "su");
-		cp3->setText( tr("Yes"));
-		if (ext == "otf")
 		{
-			cp3->setChecked(true); 			// Open Type Fonts are always Subsetted
-			cp3->setEnabled(false);
+			UsedFonts.append(it.currentKey());
+			foS.FlagUse = true;
+			row->setPixmap(1, okIcon);
 		}
 		else
-			cp3->setChecked(it.current()->Subset);
-		cp3->setEraseColor(white);
-		FlagsSub.append(cp3);
-		Table1->setCellWidget(a, 3, cp3);
+		{
+			foS.FlagUse = false;
+			row->setPixmap(1, empty);
+		}
+		row->setText(2, tr("Postscript"));
+		if (it.current()->EmbedPS)
+		{
+			foS.FlagPS = true;
+			row->setPixmap(2, okIcon);
+		}
+		else
+		{
+			foS.FlagPS = false;
+			row->setPixmap(2, empty);
+		}
+		QFileInfo fi = QFileInfo(it.current()->Datei);
+		QString ext = fi.extension(false).lower();
+		if (ext == "otf")
+			foS.FlagOTF = true;
+		else
+			foS.FlagOTF = false;
+		if (it.current()->Subset)
+		{
+			foS.FlagSub = true;
+			row->setPixmap(3, okIcon);
+		}
+		else
+		{
+			foS.FlagSub = false;
+			row->setPixmap(3, empty);
+		}
 		if ((ext == "pfa") || (ext == "pfb"))
-			Table1->setPixmap(a, 4, loadIcon("font_type1.png"));
+			row->setPixmap(0, psFont);
 		else
 		{
 			if (ext == "ttf")
-				Table1->setPixmap(a, 4, loadIcon("font_truetype.png"));
+				row->setPixmap(0, ttfFont);
 			if (ext == "otf")
-				Table1->setPixmap(a, 4, loadIcon("font_otf.png"));
+				row->setPixmap(0, otfFont);
 		}
-		Table1->setText(a, 5, it.current()->Datei);
-		++a;
+		row->setText(4, it.current()->Datei);
+		fontFlags.insert(it.currentKey(), foS);
 	}
+	fontList->setSorting(0);
+	fontList->sort();
 	UsedFonts.sort();
-	Table1->sortColumn(0, true, true);
-	Table1->setSorting(false);
-	Table1->setSelectionMode(QTable::NoSelection);
-	Table1->setLeftMargin(0);
-	Table1->verticalHeader()->hide();
-	Header = Table1->horizontalHeader();
-	QString tmp_head[] = { tr("Font Name"), tr("Use Font"), tr("Embed in:"),
-	                       tr("Subset"), tr("Type"), tr("Path to Font File")};
-	size_t array_head = sizeof(tmp_head) / sizeof(*tmp_head);
-	for (uint a = 0; a < array_head; ++a)
-		Header->setLabel(a, tmp_head[a]);
-	Table1->adjustColumn(0);
-	Table1->adjustColumn(1);
-	Table1->setColumnWidth(2, 110);
-	Table1->adjustColumn(3);
-	Table1->adjustColumn(4);
-	Table1->adjustColumn(5);
-	Table1->setColumnMovingEnabled(false);
-	Table1->setRowMovingEnabled(false);
-	Table1->setColumnReadOnly(1, true);
-	Table1->setColumnReadOnly(2, true);
-	Table1->setColumnReadOnly(3, true);
-	Header->setMovingEnabled(false);
-	tab1Layout->addWidget( Table1 );
+	fontList->setSorting(-1);
+	tab1Layout->addWidget( fontList );
 	insertTab( tab1, tr( "&Available Fonts" ) );
 
 	tab = new QWidget( this, "tab" );
@@ -122,7 +119,7 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, ApplicationPr
 	Header2 = Table3->horizontalHeader();
 	Header2->setLabel(0, tr("Font Name"));
 	Header2->setLabel(1, tr("Replacement"));
-	a = 0;
+	int a = 0;
 	QMap<QString,QString>::Iterator itfsu;
 	for (itfsu = RList.begin(); itfsu != RList.end(); ++itfsu)
 	{
@@ -167,8 +164,6 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, ApplicationPr
 	LayoutR->addItem( spacer_2 );
 	tab3Layout->addLayout( LayoutR );
 	insertTab( tab3, tr( "Additional &Paths" ) );
-//	if (Hdoc)
-//		setTabEnabled(tab3, false);
 	ChangeB->setEnabled(false);
 	RemoveB->setEnabled(false);
 
@@ -179,6 +174,39 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, ApplicationPr
 	connect(AddB, SIGNAL(clicked()), this, SLOT(AddPath()));
 	connect(ChangeB, SIGNAL(clicked()), this, SLOT(ChangePath()));
 	connect(RemoveB, SIGNAL(clicked()), this, SLOT(DelPath()));
+	connect(fontList, SIGNAL(clicked(QListViewItem *, const QPoint &, int)), this, SLOT(slotClick(QListViewItem*, const QPoint &, int)));
+}
+
+void FontPrefs::slotClick(QListViewItem* ite, const QPoint &, int col)
+{
+	if (ite == NULL)
+		return;
+	QString tmp = ite->text(0);
+	if ((col == 1) && (!DocAvail))
+	{
+		fontFlags[tmp].FlagUse = !fontFlags[tmp].FlagUse;
+		if (fontFlags[tmp].FlagUse)
+			ite->setPixmap(1, okIcon);
+		else
+			ite->setPixmap(1, empty);
+	}
+	if (col == 2)
+	{
+		fontFlags[tmp].FlagPS = !fontFlags[tmp].FlagPS;
+		if (fontFlags[tmp].FlagPS)
+			ite->setPixmap(2, okIcon);
+		else
+			ite->setPixmap(2, empty);
+	}
+	if ((col == 3) && (!fontFlags[tmp].FlagOTF))
+	{
+		fontFlags[tmp].FlagSub = !fontFlags[tmp].FlagSub;
+		if (fontFlags[tmp].FlagSub)
+			ite->setPixmap(3, okIcon);
+		else
+			ite->setPixmap(3, empty);
+	}
+	UpdateFliste();
 }
 
 void FontPrefs::ReplaceSel(int, int)
@@ -190,13 +218,11 @@ void FontPrefs::UpdateFliste()
 {
 	QString tmp;
 	UsedFonts.clear();
-	uint a = 0;
 	SCFontsIterator it(Prefs->AvailFonts);
 	for ( ; it.current() ; ++it)
 	{
-		if (FlagsUse.at(a)->isChecked())
+		if (fontFlags[it.currentKey()].FlagUse)
 			UsedFonts.append(it.currentKey());
-		++a;
 	}
 	UsedFonts.sort();
 	for (uint b = 0; b < FlagsRepl.count(); ++b)
@@ -344,63 +370,67 @@ void FontPrefs::RebuildDialog()
 		}
 	}
 	UsedFonts.clear();
-	FlagsUse.clear();
-	FlagsPS.clear();
-	FlagsSub.clear();
-//	emit ReReadPrefs();
-	Table1->setNumRows( Prefs->AvailFonts.count() );
-	Table1->setNumCols( 6 );
-	Table1->setSorting(true);
+	fontFlags.clear();
 	SCFontsIterator it(Prefs->AvailFonts);
-	int a = 0;
 	for ( ; it.current(); ++it)
 	{
-		Table1->setText(a, 0, it.currentKey());
-		QCheckBox *cp = new QCheckBox(this, "use");
-		cp->setText(" ");
-		cp->setChecked(it.current()->UseFont);
+		fontSet foS;
+		QListViewItem *row = new QListViewItem(fontList);
+		row->setText(0, it.currentKey());
 		if (it.current()->UseFont)
-			UsedFonts.append(it.currentKey());
-		cp->setEraseColor(white);
-		if (DocAvail)
-			cp->setEnabled(false);
-		connect(cp, SIGNAL(clicked()), this, SLOT(UpdateFliste()));
-		FlagsUse.append(cp);
-		Table1->setCellWidget(a, 1, cp);
-		QCheckBox *cp2 = new QCheckBox(this, "ps");
-		cp2->setText( tr("Postscript"));
-		cp2->setChecked(it.current()->EmbedPS);
-		cp2->setEraseColor(white);
-		FlagsPS.append(cp2);
-		Table1->setCellWidget(a, 2, cp2);
-		QFileInfo fi = QFileInfo(it.current()->Datei);
-		QString ext = fi.extension(false).lower();
-		QCheckBox *cp3 = new QCheckBox(this, "su");
-		cp3->setText( tr("Yes"));
-		if (ext == "otf")
 		{
-			cp3->setChecked(true); 			// Open Type Fonts are always Subsetted
-			cp3->setEnabled(false);
+			UsedFonts.append(it.currentKey());
+			foS.FlagUse = true;
+			row->setPixmap(1, okIcon);
 		}
 		else
-			cp3->setChecked(it.current()->Subset);
-		cp3->setEraseColor(white);
-		FlagsSub.append(cp3);
-		Table1->setCellWidget(a, 3, cp3);
+		{
+			foS.FlagUse = false;
+			row->setPixmap(1, empty);
+		}
+		row->setText(2, tr("Postscript"));
+		if (it.current()->EmbedPS)
+		{
+			foS.FlagPS = true;
+			row->setPixmap(2, okIcon);
+		}
+		else
+		{
+			foS.FlagPS = false;
+			row->setPixmap(2, empty);
+		}
+		QFileInfo fi = QFileInfo(it.current()->Datei);
+		QString ext = fi.extension(false).lower();
+		row->setText(3, tr("Yes"));
+		if (ext == "otf")
+			foS.FlagOTF = true;
+		else
+			foS.FlagOTF = false;
+		if (it.current()->Subset)
+		{
+			foS.FlagSub = true;
+			row->setPixmap(3, okIcon);
+		}
+		else
+		{
+			foS.FlagSub = false;
+			row->setPixmap(3, empty);
+		}
 		if ((ext == "pfa") || (ext == "pfb"))
-			Table1->setPixmap(a, 4, loadIcon("font_type1.png"));
+			row->setPixmap(0, psFont);
 		else
 		{
 			if (ext == "ttf")
-				Table1->setPixmap(a, 4, loadIcon("font_truetype.png"));
+				row->setPixmap(0, ttfFont);
 			if (ext == "otf")
-				Table1->setPixmap(a, 4, loadIcon("font_otf.png"));
+				row->setPixmap(0, otfFont);
 		}
-		Table1->setText(a, 5, it.current()->Datei);
-		a++;
+		row->setText(4, it.current()->Datei);
+		fontFlags.insert(it.currentKey(), foS);
 	}
-	Table1->sortColumn(0, true, true);
+	fontList->setSorting(0);
+	fontList->sort();
 	UsedFonts.sort();
-	Table1->setSorting(false);
+	fontList->setSorting(-1);
 	UpdateFliste();
 }

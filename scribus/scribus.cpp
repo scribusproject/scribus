@@ -3385,10 +3385,9 @@ bool ScribusApp::SetupDoc()
 		SCFontsIterator it(Prefs.AvailFonts);
 		for ( ; it.current() ; ++it)
 		{
-			it.current()->EmbedPS = dia->tabFonts->FlagsPS.at(a)->isChecked();
-			it.current()->UseFont = dia->tabFonts->FlagsUse.at(a)->isChecked();
-			it.current()->Subset = dia->tabFonts->FlagsSub.at(a)->isChecked();
-			a++;
+			it.current()->EmbedPS = dia->tabFonts->fontFlags[it.currentKey()].FlagPS;
+			it.current()->UseFont = dia->tabFonts->fontFlags[it.currentKey()].FlagUse;
+			it.current()->Subset = dia->tabFonts->fontFlags[it.currentKey()].FlagSub;
 		}
 		a = 0;
 		QMap<QString,QString>::Iterator itfsu;
@@ -7946,10 +7945,9 @@ void ScribusApp::slotPrefsOrg()
 		SCFontsIterator it(Prefs.AvailFonts);
 		for ( ; it.current() ; ++it)
 		{
-			it.current()->EmbedPS = dia->tabFonts->FlagsPS.at(a)->isChecked();
-			it.current()->UseFont = dia->tabFonts->FlagsUse.at(a)->isChecked();
-			it.current()->Subset = dia->tabFonts->FlagsSub.at(a)->isChecked();
-			a++;
+			it.current()->EmbedPS = dia->tabFonts->fontFlags[it.currentKey()].FlagPS;
+			it.current()->UseFont = dia->tabFonts->fontFlags[it.currentKey()].FlagUse;
+			it.current()->Subset = dia->tabFonts->fontFlags[it.currentKey()].FlagSub;
 		}
 		a = 0;
 		QMap<QString,QString>::Iterator itfsu;

@@ -11,35 +11,41 @@
 #include <qwidget.h>
 #include <qcombobox.h>
 #include <qlistbox.h>
+#include <qlistview.h>
 #include "scribusstructs.h"
 class ScribusDoc;
 
 class FontPrefs : public QTabWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    FontPrefs( QWidget* parent, SCFonts &flist, bool Hdoc, ApplicationPrefs *prefs, QString PPath, ScribusDoc* doc );
-    ~FontPrefs() {};
+	FontPrefs( QWidget* parent, SCFonts &flist, bool Hdoc, ApplicationPrefs *prefs, QString PPath, ScribusDoc* doc );
+	~FontPrefs() {};
 	void ReadPath();
 	void RebuildDialog();
-    QWidget* tab1;
-    QWidget* tab;
-    QWidget* tab3;
-    QListBox* PathList;
-    QTable* Table1;
-    QTable* Table3;
-    QHeader *Header;
-    QHeader *Header2;
-    QPushButton* DelB;
-    QPushButton* ChangeB;
-    QPushButton* AddB;
-    QPushButton* RemoveB;
-    QPtrList<QCheckBox> FlagsPS;
-    QPtrList<QCheckBox> FlagsUse;
-    QPtrList<QCheckBox> FlagsSub;
-    QPtrList<QComboBox> FlagsRepl;
-  	ApplicationPrefs *Prefs;
+	QWidget* tab1;
+	QWidget* tab;
+	QWidget* tab3;
+	QListBox* PathList;
+	QListView* fontList;
+	QTable* Table3;
+	QHeader *Header;
+	QHeader *Header2;
+	QPushButton* DelB;
+	QPushButton* ChangeB;
+	QPushButton* AddB;
+	QPushButton* RemoveB;
+	struct fontSet
+	{
+		bool FlagPS;
+		bool FlagUse;
+		bool FlagSub;
+		bool FlagOTF;
+	};
+	QMap<QString, fontSet> fontFlags;
+	QPtrList<QComboBox> FlagsRepl;
+	ApplicationPrefs *Prefs;
 	QMap<QString,QString> RList;
 	QStringList UsedFonts;
 	QStringList ExtraFonts;
@@ -47,8 +53,14 @@ public:
 	QString CurrentPath;
 	bool DocAvail;
 	ScribusDoc* docc;
+	QPixmap ttfFont;
+	QPixmap otfFont;
+	QPixmap psFont;
+	QPixmap okIcon;
+	QPixmap empty;
 
 public slots:
+	void slotClick(QListViewItem* ite, const QPoint &, int col);
 	void ReplaceSel(int r, int c);
 	void UpdateFliste();
 	void DelEntry();
@@ -57,15 +69,12 @@ public slots:
 	void ChangePath();
 	void DelPath();
 
-signals:
-	void ReReadPrefs();
-
 protected:
-    QVBoxLayout* tab1Layout;
-    QVBoxLayout* tabLayout;
-    QHBoxLayout* Layout2a;
-    QHBoxLayout* tab3Layout;
-    QVBoxLayout* LayoutR;
+	QVBoxLayout* tab1Layout;
+	QVBoxLayout* tabLayout;
+	QHBoxLayout* Layout2a;
+	QHBoxLayout* tab3Layout;
+	QVBoxLayout* LayoutR;
 };
 
 #endif // FONTPREFS_H

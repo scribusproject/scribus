@@ -79,9 +79,9 @@ FontPreview::FontPreview(ScribusApp *carrier, QWidget* parent, const char* name,
 	QMap<QString,QFont> reallyUsedFonts;
 	reallyUsedFonts.clear();
 	carrier->GetUsedFonts(&reallyUsedFonts);
-	QPixmap ttfFont = loadIcon("font_truetype.png");
-	QPixmap otfFont = loadIcon("font_otf.png");
-	QPixmap psFont = loadIcon("font_type1.png");
+	QPixmap ttfFont = loadIcon("font_truetype16.png");
+	QPixmap otfFont = loadIcon("font_otf16.png");
+	QPixmap psFont = loadIcon("font_type1_16.png");
 	QPixmap okIcon = loadIcon("ok.png");
 
 	for (SCFontsIterator fontIter(carrier->Prefs.AvailFonts); fontIter.current(); ++fontIter)

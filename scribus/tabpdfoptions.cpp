@@ -234,11 +234,11 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent,
 		for (it = DocFonts.begin(); it != DocFonts.end(); ++it)
 		{
 			if (AllFonts[it.key()]->typeCode == 1)
-				AvailFlist->insertItem(loadIcon("font_type1.png"), it.key());
+				AvailFlist->insertItem(loadIcon("font_type1_16.png"), it.key());
 			else if (AllFonts[it.key()]->typeCode == 2)
-				AvailFlist->insertItem(loadIcon("font_truetype.png"), it.key());
+				AvailFlist->insertItem(loadIcon("font_truetype16.png"), it.key());
 			else if (AllFonts[it.key()]->typeCode == 3)
-				AvailFlist->insertItem(loadIcon("font_otf.png"), it.key());
+				AvailFlist->insertItem(loadIcon("font_otf16.png"), it.key());
 		}
 		AvailFlist->setMinimumSize(QSize(150, 140));
 		Layout4_2->addWidget( AvailFlist );
