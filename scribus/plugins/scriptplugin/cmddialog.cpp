@@ -39,6 +39,7 @@ PyObject *scribus_filedia(PyObject *self, PyObject* args)
 	return PyString_FromString(fName.utf8());
 }
 
+/* duplication
 PyObject *scribus_mess(PyObject *self, PyObject* args)
 {
 	char *caption;
@@ -49,7 +50,7 @@ PyObject *scribus_mess(PyObject *self, PyObject* args)
 	}
 	Carrier->FMess->setText(caption);
 	return Py_None;
-}
+}*/
 
 PyObject *scribus_messdia(PyObject *self, PyObject* args)
 {
