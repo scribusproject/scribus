@@ -66,7 +66,7 @@ bool actionEnabledOnStartup()
 	return true;
 }
 
-void Run(QWidget *d, ScribusApp *plug)
+void Run(QWidget */*d*/, ScribusApp */*plug*/)
 {
 	ShortWords *sw = new ShortWords();
 	/*delete sw;
