@@ -6666,7 +6666,7 @@ void Page::LoadPict(QString fn, int ItNr)
 		{
 		cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r72 -sOutputFile=/tmp/sc.png -dFirstPage=1 -dLastPage=1 ";
 		cmd2 = " -c showpage -c quit";
-		ret = system(cmd1 + fn + cmd2);
+		ret = system(cmd1 + "\"" + fn + "\"" + cmd2);
 		if (ret == 0)
 			{
 			QImage im4;
@@ -6758,7 +6758,7 @@ void Page::LoadPict(QString fn, int ItNr)
 				ts2 >> dummy >> x >> y >> b >> h;
 				cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r72 -sOutputFile=/tmp/sc.png -g";
 				cmd2 = " -c showpage -c quit";
-				ret = system(cmd1 + tmp.setNum(qRound(b)) + "x" + tmp2.setNum(qRound(h)) + " " + fn + cmd2);
+				ret = system(cmd1 + tmp.setNum(qRound(b)) + "x" + tmp2.setNum(qRound(h)) + " \"" + fn + "\"" + cmd2);
 				if (ret == 0)
 					{
 					QImage im4;

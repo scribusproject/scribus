@@ -3,6 +3,7 @@
 #include <libart_lgpl/art_misc.h>
 #include <libart_lgpl/art_affine.h>
 
+#include "config.h"
 #include "art_kmisc.h"
 
 extern double ceil(double x);
@@ -34,6 +35,7 @@ extern double floor(double x);
  * deviation between the any point on the vpath approximation and the
  * corresponding point on the "true" curve, and we follow this
  * definition here. A value of 0.25 should ensure high quality for aa
+
 
  * rendering.
  **/
@@ -340,6 +342,7 @@ ksvg_art_bez_path_to_vec(const ArtBpath *bez, double flatness)
 		}
 	}
 
+
 	*p_x0 = x0;
 	*p_x1 = x1;
 }
@@ -417,9 +420,15 @@ ksvg_art_bez_path_to_vec(const ArtBpath *bez, double flatness)
 				src_x = floor (src_pt.x);
 				src_y = floor (src_pt.y);
 				src_p = src + (src_y * src_rowstride) + src_x * 4;
-				dst_p[0] = dst_p[0] + (((src_p[2] - dst_p[0]) * src_p[3] + 0x80) >> 8);
-				dst_p[1] = dst_p[1] + (((src_p[1] - dst_p[1]) * src_p[3] + 0x80) >> 8);
-				dst_p[2] = dst_p[2] + (((src_p[0] - dst_p[2]) * src_p[3] + 0x80) >> 8);
+#ifdef WORDS_BIGENDIAN
+				dst_p[0] = dst_p[0] + (((src_p[1] - dst_p[0]) * src_p[0] + 0x80) >> 8);
+        dst_p[1] = dst_p[1] + (((src_p[2] - dst_p[1]) * src_p[0] + 0x80) >> 8);
+        dst_p[2] = dst_p[2] + (((src_p[3] - dst_p[2]) * src_p[0] + 0x80) >> 8);
+#else
+ 				dst_p[0] = dst_p[0] + (((src_p[2] - dst_p[0]) * src_p[3] + 0x80) >> 8);
+ 				dst_p[1] = dst_p[1] + (((src_p[1] - dst_p[1]) * src_p[3] + 0x80) >> 8);
+ 				dst_p[2] = dst_p[2] + (((src_p[0] - dst_p[2]) * src_p[3] + 0x80) >> 8);
+#endif
 				dst_p += 4;
 			}
 			dst_linestart += dst_rowstride;

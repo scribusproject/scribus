@@ -41,7 +41,7 @@ void ScribusWin::slotAutoSave()
 {
   if ((doc->hasName) && (doc->isModified()) && (!doc->TemplateMode))
   	{
-		system("mv -f " + doc->DocName + " " + doc->DocName+".bak");
+		system("mv -f \"" + doc->DocName + "\" \"" + doc->DocName+".bak\"");
 		QString fn = doc->DocName;
   	QFileInfo fi(fn);
   	QDir::setCurrent(fi.dirPath(true));

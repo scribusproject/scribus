@@ -20,7 +20,7 @@
 // kopainter/libart wrapper
 
 #include "scpainter.h"
-
+#include "config.h"
 #include <qpaintdevice.h>
 #include <qpixmap.h>
 #include <qpointarray.h>
@@ -200,12 +200,12 @@ void ScPainter::curveTo( FPoint p1, FPoint p2, FPoint p3 )
 {
 	ensureSpace( m_index + 1 );
 	m_path[ m_index ].code = ART_CURVETO;
-	m_path[ m_index ].x1	= static_cast<double>(p1.x()) * m_zoomFactor;
-	m_path[ m_index ].y1	= static_cast<double>(p1.y()) * m_zoomFactor;
-	m_path[ m_index ].x2	= static_cast<double>(p2.x()) * m_zoomFactor;
-	m_path[ m_index ].y2	= static_cast<double>(p2.y()) * m_zoomFactor;
-	m_path[ m_index ].x3	= static_cast<double>(p3.x()) * m_zoomFactor;
-	m_path[ m_index ].y3	= static_cast<double>(p3.y()) * m_zoomFactor;
+	m_path[ m_index ].x1	= p1.x() * m_zoomFactor;
+	m_path[ m_index ].y1	= p1.y() * m_zoomFactor;
+	m_path[ m_index ].x2	= p2.x() * m_zoomFactor;
+	m_path[ m_index ].y2	= p2.y() * m_zoomFactor;
+	m_path[ m_index ].x3	= p3.x() * m_zoomFactor;
+	m_path[ m_index ].y3	= p3.y() * m_zoomFactor;
 	m_index++;
 }
 
@@ -450,7 +450,11 @@ void ScPainter::drawVPath( ArtVpath *vec, int mode )
 		{
 		color = m_fill;
 		af = qRound( 255 * fill_trans );
-		fillColor = ( 0 << 24 ) | ( color.blue() << 16 ) | ( color.green() << 8 ) | color.red();
+#ifdef WORDS_BIGENDIAN
+		fillColor = ( color.red() << 24 ) | ( color.green() << 16 ) | ( color.blue() << 8 );
+#else
+ 		fillColor = ( 0 << 24 ) | ( color.blue() << 16 ) | ( color.green() << 8 ) | color.red();
+#endif
 		ArtSvpWriter *swr;
 		ArtSVP *temp;
 		temp = art_svp_from_vpath( vec );
@@ -469,7 +473,11 @@ void ScPainter::drawVPath( ArtVpath *vec, int mode )
 		ArtPathStrokeJoinType joinStyle = ART_PATH_STROKE_JOIN_MITER;
 		color = m_stroke;
 		as = qRound( 255 * stroke_trans );
+#ifdef WORDS_BIGENDIAN
+    strokeColor = ( color.red() << 24 ) | ( color.green() << 16 ) | ( color.blue() << 8 );
+#else
 		strokeColor = ( 0 << 24 ) | ( color.blue() << 16 ) | ( color.green() << 8 ) | color.red();
+#endif
 		double ratio = m_zoomFactor;//sqrt(pow(affine[0], 2) + pow(affine[3], 2)) / sqrt(2);
 		if( m_array.count() > 0 )
 			{
@@ -825,8 +833,8 @@ void ScPainter::setupPolygon(FPointArray *points)
 				np = points->point(poi);
 				ensureSpace( m_index + 1 );
 				m_path[ m_index ].code = ART_MOVETO;
-				m_path[ m_index ].x3 = static_cast<double>(np.x()) * m_zoomFactor;
-				m_path[ m_index ].y3 = static_cast<double>(np.y()) * m_zoomFactor;
+				m_path[ m_index ].x3 = np.x() * m_zoomFactor;
+				m_path[ m_index ].y3 = np.y() * m_zoomFactor;
 				m_index++;
 				nPath = false;
 				}
@@ -838,18 +846,18 @@ void ScPainter::setupPolygon(FPointArray *points)
 			if ((np == np1) && (np2 == np3))
 				{
 				m_path[ m_index ].code = ART_LINETO;
-				m_path[ m_index ].x3	= static_cast<double>(np3.x()) * m_zoomFactor;
-				m_path[ m_index ].y3	= static_cast<double>(np3.y()) * m_zoomFactor;
+				m_path[ m_index ].x3	= np3.x() * m_zoomFactor;
+				m_path[ m_index ].y3	= np3.y() * m_zoomFactor;
 				}
 			else
 				{
 				m_path[ m_index ].code = ART_CURVETO;
-				m_path[ m_index ].x1	= static_cast<double>(np1.x()) * m_zoomFactor;
-				m_path[ m_index ].y1	= static_cast<double>(np1.y()) * m_zoomFactor;
-				m_path[ m_index ].x2	= static_cast<double>(np2.x()) * m_zoomFactor;
-				m_path[ m_index ].y2	= static_cast<double>(np2.y()) * m_zoomFactor;
-				m_path[ m_index ].x3	= static_cast<double>(np3.x()) * m_zoomFactor;
-				m_path[ m_index ].y3	= static_cast<double>(np3.y()) * m_zoomFactor;
+				m_path[ m_index ].x1	= np1.x() * m_zoomFactor;
+				m_path[ m_index ].y1	= np1.y() * m_zoomFactor;
+				m_path[ m_index ].x2	= np2.x() * m_zoomFactor;
+				m_path[ m_index ].y2	= np2.y() * m_zoomFactor;
+				m_path[ m_index ].x3	= np3.x() * m_zoomFactor;
+				m_path[ m_index ].y3	= np3.y() * m_zoomFactor;
 				}
 			m_index++;
 			}

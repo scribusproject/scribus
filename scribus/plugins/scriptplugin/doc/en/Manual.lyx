@@ -1,0 +1,4426 @@
+#LyX 1.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 221
+\textclass report
+\language english
+\inputencoding auto
+\fontscheme default
+\graphics default
+\paperfontsize default
+\spacing single 
+\papersize a4paper
+\paperpackage a4
+\use_geometry 0
+\use_amsmath 0
+\use_natbib 0
+\use_numerical_citations 0
+\paperorientation portrait
+\secnumdepth 2
+\tocdepth 2
+\paragraph_separation skip
+\defskip medskip
+\quotes_language english
+\quotes_times 2
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+
+\layout Title
+
+Scripting Scribus with Python
+\layout Author
+
+Franz Schmid
+\layout Date
+
+18.07.2003
+\layout Abstract
+
+This is the description how to use the Scripting Plugin for Scribus.
+ This Plugin allows you to use the powerful Python Language as a Scripting
+ Language in Scribus.
+\layout Abstract
+
+This Manual is a first Draft, by no means complete or fully accurate.
+ Commands written in red Letters aren't implemented yet.
+\layout Chapter
+
+Installation
+\layout Standard
+
+For installing this Plugin you must have installed:
+\layout Itemize
+
+Scribus Version 1.0 or higher
+\layout Itemize
+
+Python Version 1.52 or higher
+\layout Standard
+
+The Installation is easy, just unpack the tarball and enter the following
+ Commands:
+\layout Quote
+
+./configure --prefix=(use the same prefix as for Scribus itself)
+\layout Quote
+
+make
+\layout Standard
+
+and finally as root:
+\layout Quote
+
+make install
+\layout Standard
+
+That's it.
+ After restarting Scribus you should see a new Entry in the Menubar left
+ to the Help Item called 
+\begin_inset Quotes eld
+\end_inset 
+
+Script
+\begin_inset Quotes erd
+\end_inset 
+
+
+\layout Chapter
+
+Using the Plugin
+\layout Standard
+
+To execute a Python Script select 
+\begin_inset Quotes eld
+\end_inset 
+
+Script->Execute Script...
+\begin_inset Quotes erd
+\end_inset 
+
+ Scribus will display a Fileselect Box which allows you to select a Python
+ Script.
+ Below there is an extra Menu item 
+\begin_inset Quotes eld
+\end_inset 
+
+Recent Scripts
+\begin_inset Quotes erd
+\end_inset 
+
+ where all your recent Scripts are remembered.
+ How many Scripts are remembered depends on your Setting for Recent Documents
+ in the Scribus Preferences.
+\layout Standard
+
+You can use many Python Programs with this Plugin.
+ The only exception are Scripts who expect Parameters from the Command Line.
+ They won't work because the Plugin gives the Python Interpreter an empty
+ Command Line.
+\layout Standard
+
+The Menu Item 
+\begin_inset Quotes eld
+\end_inset 
+
+Show Console
+\begin_inset Quotes erd
+\end_inset 
+
+ gives you an interactive Python Console, where you can execute Commands
+ directly.
+ There is no need to do a 
+\begin_inset Quotes eld
+\end_inset 
+
+from scribus import *
+\begin_inset Quotes erd
+\end_inset 
+
+, this has already been done.
+ You can use all the following Commands directly without any Prefix.
+\layout Standard
+
+You can display this Reference Manual when you select 
+\begin_inset Quotes eld
+\end_inset 
+
+Script->Online Help
+\begin_inset Quotes erd
+\end_inset 
+
+.
+\layout Chapter
+
+The available Commands
+\layout Standard
+
+The Plugin installs a buildin Module 
+\begin_inset Quotes eld
+\end_inset 
+
+scribus
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ Thus to use the extensions to the Python language you must do a 
+\begin_inset Quotes eld
+\end_inset 
+
+import scribus
+\begin_inset Quotes erd
+\end_inset 
+
+ or 
+\begin_inset Quotes eld
+\end_inset 
+
+from scribus import *
+\begin_inset Quotes erd
+\end_inset 
+
+
+\layout Standard
+
+Conventions used in this Document:
+\layout Description
+
+number means that 
+\begin_inset Quotes eld
+\end_inset 
+
+number
+\begin_inset Quotes erd
+\end_inset 
+
+ is an ordinary Interger or Floating Point Number.
+\layout Description
+
+
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ means that 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is a String Literal or Variable.
+\layout Description
+
+
+\shape italic 
+list
+\shape default 
+ means that 
+\begin_inset Quotes eld
+\end_inset 
+
+
+\shape italic 
+list
+\shape default 
+
+\begin_inset Quotes erd
+\end_inset 
+
+ is a Python List.
+\layout Standard
+
+Variables in angled Brackets are optional.
+\layout Section
+
+Document related Commands
+\layout Description
+
+CloseDoc
+\begin_inset LatexCommand \index{CloseDoc}
+
+\end_inset 
+
+() Closes the actual Document.
+ Returns true if successful.
+\layout Description
+
+GetUnit
+\begin_inset LatexCommand \index{GetUnit}
+
+\end_inset 
+
+() Returns the Measurement Unit of the Document.
+ Possible Values for Unit are:
+\layout Quotation
+
+0 = Typographic Points
+\layout Quotation
+
+1 = Millimeters
+\layout Quotation
+
+2 = Inches
+\layout Quotation
+
+3 = Picas
+\layout Description
+
+HaveDoc
+\begin_inset LatexCommand \index{HaveDoc}
+
+\end_inset 
+
+() Returns true if there is a Document open.
+\layout Description
+
+NewDoc
+\begin_inset LatexCommand \index{NewDoc}
+
+\end_inset 
+
+(size,\SpecialChar ~
+margins,\SpecialChar ~
+orientation,\SpecialChar ~
+firstPageNumber,\SpecialChar ~
+unit,\SpecialChar ~
+FacingPages,\SpecialChar ~
+FirstSideLeft)
+ Creates a new Document.
+ The Parameters have the following Meaning:
+\layout Quotation
+\noindent \align left 
+size = A Tuple (width, height) describing the Size of the Document.
+\newline 
+margins = A Tuple (Left, Right, Top, Bottom) describing the Margins of the
+ Document.
+\newline 
+orientation = the Page Orientation, 0 means Portrait, 1 is Landscape
+\newline 
+firstPageNumer is the Number of the first Page in the Document used for
+ Pagenumbering
+\newline 
+unit: this Value sets the Measurement Unit of the Document
+\begin_deeper 
+\layout Quotation
+\noindent \align left 
+0 = Typograpic Points
+\newline 
+1 = Millimeters
+\newline 
+2 = Inches
+\newline 
+3 = Picas
+\end_deeper 
+\layout Quotation
+\noindent \align left 
+FacingPages: 1 means FacingPages turned on, 0 means FacingPages turned off
+\newline 
+FirstSideLeft: 1 means that the first Page in the Document is a left Page,
+ 0 means a right Page as first Page
+\newline 
+The values for Width, Height and the Margins are expressed in the given
+ unit for the Document.
+\layout Description
+
+OpenDoc
+\begin_inset LatexCommand \index{OpenDoc}
+
+\end_inset 
+
+(
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+) Opens the Document 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ Returns true if successful.
+\layout Description
+
+SaveDoc
+\begin_inset LatexCommand \index{SaveDoc}
+
+\end_inset 
+
+() Saves the Document under its actual Name, returns true if successful.
+\layout Description
+
+SaveDocAs
+\begin_inset LatexCommand \index{SaveDocAs}
+
+\end_inset 
+
+(
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+) Saves the actual Document under the new Name 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ Returns true if successful.
+\layout Description
+
+SetInfo
+\begin_inset LatexCommand \index{SetInfo}
+
+\end_inset 
+
+(
+\begin_inset Quotes eld
+\end_inset 
+
+Author
+\begin_inset Quotes erd
+\end_inset 
+
+,\SpecialChar ~
+
+\begin_inset Quotes erd
+\end_inset 
+
+Info
+\begin_inset Quotes erd
+\end_inset 
+
+,\SpecialChar ~
+
+\begin_inset Quotes erd
+\end_inset 
+
+Description
+\begin_inset Quotes erd
+\end_inset 
+
+) Sets the Document Information.
+\layout Description
+
+SetMargins
+\begin_inset LatexCommand \index{SetMargins}
+
+\end_inset 
+
+(lr,\SpecialChar ~
+rr,\SpecialChar ~
+tr,\SpecialChar ~
+br) Sets the Printmargins of the Document, Left(lr), Right(rr),
+ Top(tr) and Bottom(br) Margins are given in the actual measurement Unit
+ of the Document.
+\layout Description
+
+
+\color red
+SetDocType
+\color default
+
+\begin_inset LatexCommand \index{SetDocType}
+
+\end_inset 
+
+(FacingPages,\SpecialChar ~
+FirstSideLeft) Sets the Type of the Documents, to get Facing
+ Pages set the first Parameter to 1, to switch FacingPages off use 0 instead.
+ If you want to be the first Page a left Side set the second Parameter to
+ 1, for a right Page use 0.
+\layout Description
+
+SetUnit
+\begin_inset LatexCommand \index{SetUnit}
+
+\end_inset 
+
+(unit) Changes the Measurement Unit of the Document.
+ Possible Values for Unit are:
+\layout Quotation
+
+0 = Typographic Points
+\layout Quotation
+
+1 = Millimeters
+\layout Quotation
+
+2 = Inches
+\layout Quotation
+
+3 = Picas
+\layout Section
+
+Page related Commands
+\layout Description
+
+CurrentPage
+\begin_inset LatexCommand \index{CurrentPage}
+
+\end_inset 
+
+() Returns the Number of the current working Page.
+ Pagenumbers are counted from 1 upwards.
+\layout Description
+
+DeletePage
+\begin_inset LatexCommand \index{DeletePage}
+
+\end_inset 
+
+(nr) Deletes the given Page, does nothing if the Document contains only
+ one Page.
+ Pagenumbers are counted from 1 upwards.
+\layout Description
+
+GetAllObjects
+\begin_inset LatexCommand \index{GetAllObjects}
+
+\end_inset 
+
+() Returns a List containing the Names of all Objects on the actual Page.
+\layout Description
+
+GotoPage
+\begin_inset LatexCommand \index{GotoPage}
+
+\end_inset 
+
+(nr) Moves to the Page 
+\begin_inset Quotes eld
+\end_inset 
+
+nr
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+nr
+\begin_inset Quotes erd
+\end_inset 
+
+ is outside the current rage of Pages nothing happens.
+\layout Description
+
+NewPage
+\begin_inset LatexCommand \index{NewPage}
+
+\end_inset 
+
+(where,\SpecialChar ~
+[
+\begin_inset Quotes eld
+\end_inset 
+
+template
+\begin_inset Quotes erd
+\end_inset 
+
+]) Creates a new Page If 
+\begin_inset Quotes eld
+\end_inset 
+
+where
+\begin_inset Quotes erd
+\end_inset 
+
+ is -1 the new Page is appended to the Document, otherwise the new Page
+ is inserted at 
+\begin_inset Quotes eld
+\end_inset 
+
+where
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ The Pagenumbers are counted from 1 upwards.
+ The optional Parameter 
+\begin_inset Quotes eld
+\end_inset 
+
+template
+\begin_inset Quotes erd
+\end_inset 
+
+ specifies the Name of the Template Page for the new Page.
+\layout Description
+
+PageCount
+\begin_inset LatexCommand \index{PageCount}
+
+\end_inset 
+
+() Returns the Number of Pages in the Document.
+\layout Description
+
+RedrawAll
+\begin_inset LatexCommand \index{RedrawAll}
+
+\end_inset 
+
+() Redraws all Pages.
+\layout Description
+
+SetRedraw
+\begin_inset LatexCommand \index{SetRedraw}
+
+\end_inset 
+
+(bool) Disables Page Redraw when bool = 0, otherwise redrawing is enabled.
+\layout Description
+
+SavePageAsEPS
+\begin_inset LatexCommand \index{SavePageAsEPS}
+
+\end_inset 
+
+(
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+) Saves the actual Page as an EPS, returns true if successful.
+\layout Section
+
+Object related Commands
+\layout Subsection
+
+Creating and Destructing Objects
+\layout Description
+
+CreateBezierLine
+\begin_inset LatexCommand \index{CreateBezierLine}
+
+\end_inset 
+
+(
+\shape italic 
+list
+\shape default 
+,\SpecialChar ~
+[
+\begin_inset Quotes erd
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Creates a new Bezier Curve and returns its Name.
+ The Points for the Bezier Curve are stored in the List 
+\begin_inset Quotes eld
+\end_inset 
+
+list
+\begin_inset Quotes erd
+\end_inset 
+
+ in the following Order: x1, y1, kx1, ky1, x2, y2, kx2, ky2...xn.
+ yn, kxn.
+ kyn.
+ Where x and y mean the x and y Coordinates of the Point and kx and ky meaning
+ the Controlpoint for the Curve.
+ The Coordinates are given in the actual measurement Unit of the Document.
+ 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ should be a unique Identifier for the Object because you need this Name
+ for further referencing of that Object.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name is not given Scribus will create one for you.
+\layout Description
+
+CreateEllipse
+\begin_inset LatexCommand \index{CreateEllipse}
+
+\end_inset 
+
+(x,\SpecialChar ~
+y,\SpecialChar ~
+width,\SpecialChar ~
+height,\SpecialChar ~
+[
+\begin_inset Quotes erd
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Creates a new Ellipse on the actual Page and returns its Name.
+ The Coordinates are given in the actual measurement Unit of the Document.
+ 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ should be a unique Identifier for the Object because you need this Name
+ for further referencing of that Object.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name is not given Scribus will create one for you.
+\layout Description
+
+CreateImage
+\begin_inset LatexCommand \index{CreateImage}
+
+\end_inset 
+
+(x,\SpecialChar ~
+y,\SpecialChar ~
+width,\SpecialChar ~
+height,\SpecialChar ~
+[
+\begin_inset Quotes erd
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Creates a new Picture on the actual Page and returns its Name.
+ The Coordinates are given in the actual measurement Unit of the Document.
+ 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ should be a unique Identifier for the Object because you need this Name
+ for further referencing of that Object.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name is not given Scribus will create one for you.
+\layout Description
+
+CreateLine
+\begin_inset LatexCommand \index{CreateLine}
+
+\end_inset 
+
+(x1,\SpecialChar ~
+y1,\SpecialChar ~
+x2,\SpecialChar ~
+y2,\SpecialChar ~
+[
+\begin_inset Quotes erd
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Creates a new Line from the Point(x1, y1) to the Point(x2, y2) and returns
+ its Name.
+ The Coordinates are given in the actual measurement Unit of the Document.
+ 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ should be a unique Identifier for the Object because you need this Name
+ for further referencing of that Object.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name is not given Scribus will create one for you.
+\layout Description
+
+CreatePathText(x,\SpecialChar ~
+y,\SpecialChar ~
+
+\begin_inset Quotes eld
+\end_inset 
+
+textbox
+\begin_inset Quotes erd
+\end_inset 
+
+,\SpecialChar ~
+
+\begin_inset Quotes erd
+\end_inset 
+
+beziercurve
+\begin_inset Quotes erd
+\end_inset 
+
+,\SpecialChar ~
+[
+\begin_inset Quotes erd
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Creates a nex PathText by merging the 2 Objects 
+\begin_inset Quotes eld
+\end_inset 
+
+textbox
+\begin_inset Quotes erd
+\end_inset 
+
+ and 
+\begin_inset Quotes eld
+\end_inset 
+
+beziercurve
+\begin_inset Quotes erd
+\end_inset 
+
+ and returns its Name.
+ The Coordinates are given in the actual measurement Unit of the Document
+ 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ should be a unique Identifier for the Object because you need this Name
+ for further referencing of that Object.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name is not given Scribus will create one for you.
+\layout Description
+
+CreatePolygon
+\begin_inset LatexCommand \index{CreatePolygon}
+
+\end_inset 
+
+(
+\shape italic 
+list
+\shape default 
+,\SpecialChar ~
+[
+\begin_inset Quotes erd
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Creates a new Polygon and returns its Name.
+ The Points for the Polygon are stored in the List 
+\begin_inset Quotes eld
+\end_inset 
+
+list
+\begin_inset Quotes erd
+\end_inset 
+
+ in the following Order: x1, y1, x2, y2...xn.
+ yn.
+ At least three Points are required.
+ There is no need to repeat the first Point to close the Polygon.
+ The Polygon is automatically closed by connecting the first and the last
+ Point.
+ The Coordinates are given in the actual measurement Unit of the Document.
+ 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ should be a unique Identifier for the Object because you need this Name
+ for further referencing of that Object.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name is not given Scribus will create one for you.
+\layout Description
+
+CreatePolyLine
+\begin_inset LatexCommand \index{CreatePolyLine}
+
+\end_inset 
+
+(
+\shape italic 
+list
+\shape default 
+,\SpecialChar ~
+[
+\begin_inset Quotes erd
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Creates a new Polyline and returns its Name.
+ The Points for the Polyline are stored in the List 
+\begin_inset Quotes eld
+\end_inset 
+
+list
+\begin_inset Quotes erd
+\end_inset 
+
+ in the following Order: x1, y1, x2, y2...xn.
+ yn.
+ The Coordinates are given in the actual measurement Unit of the Document.
+ 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ should be a unique Identifier for the Object because you need this Name
+ for further referencing of that Object.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name is not given Scribus will create one for you.
+\layout Description
+
+CreateRect
+\begin_inset LatexCommand \index{CreateRect}
+
+\end_inset 
+
+(x,\SpecialChar ~
+y,\SpecialChar ~
+width,\SpecialChar ~
+height,\SpecialChar ~
+[
+\begin_inset Quotes erd
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Creates a new Rectangle on the actual Page and returns its Name.
+ The Coordinates are given in the actual measurement Unit of the Document.
+ 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ should be a unique Identifier for the Object because you need this Name
+ for further referencing of that Object.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name is not given Scribus will create one for you.
+\layout Description
+
+CreateText
+\begin_inset LatexCommand \index{CreateText}
+
+\end_inset 
+
+(x,\SpecialChar ~
+y,\SpecialChar ~
+width,\SpecialChar ~
+height,\SpecialChar ~
+[
+\begin_inset Quotes erd
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Creates a new Rectangle on the actual Page and returns its Name.
+ The Coordinates are given in the actual measurement Unit of the Document.
+ 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ should be a unique Identifier for the Object because you need this Name
+ for further referencing of that Object.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name is not given Scribus will create one for you.
+\layout Description
+
+DeleteObject
+\begin_inset LatexCommand \index{DeleteObject}
+
+\end_inset 
+
+([
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Deletes the Item with the Name 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is deleted.
+\layout Subsection
+
+Selecting Objects
+\layout Description
+
+DeselectAll
+\begin_inset LatexCommand \index{DeselectAll}
+
+\end_inset 
+
+() Deselects all Objects.
+\layout Description
+
+GetSelectedObject
+\begin_inset LatexCommand \index{GetSelectedObject}
+
+\end_inset 
+
+([nr]) Returns the Name of the selecteted Object.
+ 
+\begin_inset Quotes eld
+\end_inset 
+
+nr
+\begin_inset Quotes erd
+\end_inset 
+
+ if given indicates the Number of the selected Object, e.g.
+ 0 means the first selected Object, 1 means the second selected Object and
+ so on.
+\layout Description
+
+SelectionCount
+\begin_inset LatexCommand \index{SelectionCount}
+
+\end_inset 
+
+() Returns the Number of selected Objects.
+\layout Description
+
+SelectObject
+\begin_inset LatexCommand \index{SelectObject}
+
+\end_inset 
+
+(
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+) Selects the Object with the given Name.
+\layout Subsection
+
+Setting Object Properties
+\layout Description
+
+LoadImage
+\begin_inset LatexCommand \index{LoadImage}
+
+\end_inset 
+
+(
+\begin_inset Quotes erd
+\end_inset 
+
+picture
+\begin_inset Quotes erd
+\end_inset 
+
+,\SpecialChar ~
+[
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Loads the Picture 
+\begin_inset Quotes eld
+\end_inset 
+
+picture
+\begin_inset Quotes erd
+\end_inset 
+
+ into the Image Frame 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
+ScaleImage
+\begin_inset LatexCommand \index{ScaleImage}
+
+\end_inset 
+
+(x-scaling,\SpecialChar ~
+y-scaling,\SpecialChar ~
+[
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Sets the Scaling Factors of the Picture in the Image Frame 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+ A Number of 1 means 100 %.
+\layout Description
+
+SetCornerRadius
+\begin_inset LatexCommand \index{SetCornerRadius}
+
+\end_inset 
+
+(radius,\SpecialChar ~
+[
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Sets the Corner Radius of the Object 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ The Radius is expressed in Points.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
+SetFillColor
+\begin_inset LatexCommand \index{SetFillColor}
+
+\end_inset 
+
+(
+\begin_inset Quotes erd
+\end_inset 
+
+color
+\begin_inset Quotes erd
+\end_inset 
+
+,\SpecialChar ~
+[
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Sets the Fill Color of the Object 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ to the Color 
+\begin_inset Quotes eld
+\end_inset 
+
+color
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ 
+\begin_inset Quotes eld
+\end_inset 
+
+color
+\begin_inset Quotes erd
+\end_inset 
+
+ is the Name of one of the defined Colors.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
+SetFillShade
+\begin_inset LatexCommand \index{SetFillShade}
+
+\end_inset 
+
+(shade,\SpecialChar ~
+[
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Sets the shading of the Fill Color of the Object 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ to 
+\begin_inset Quotes eld
+\end_inset 
+
+shade
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ 
+\begin_inset Quotes eld
+\end_inset 
+
+shade
+\begin_inset Quotes erd
+\end_inset 
+
+ must be an Integer Value in the range from 0 (lightest) to 100 (full Color
+ intensity).
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
+SetGradientFill
+\begin_inset LatexCommand \index{SetGradientFill}
+
+\end_inset 
+
+(type,\SpecialChar ~
+
+\begin_inset Quotes eld
+\end_inset 
+
+color1
+\begin_inset Quotes erd
+\end_inset 
+
+,\SpecialChar ~
+shade1,\SpecialChar ~
+
+\begin_inset Quotes eld
+\end_inset 
+
+color2
+\begin_inset Quotes erd
+\end_inset 
+
+,\SpecialChar ~
+shade2,\SpecialChar ~
+[
+\begin_inset Quotes erd
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Sets the Gradient Fill of the Object 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ to type.
+ Color Descriptions are the same as for 
+\begin_inset Quotes eld
+\end_inset 
+
+SetFillColor
+\begin_inset Quotes erd
+\end_inset 
+
+ and 
+\begin_inset Quotes eld
+\end_inset 
+
+SetFillShade
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ 
+\layout Description
+
+SetLineCap
+\begin_inset LatexCommand \index{SetLineCap}
+
+\end_inset 
+
+(
+\begin_inset Quotes erd
+\end_inset 
+
+cap
+\begin_inset Quotes erd
+\end_inset 
+
+,\SpecialChar ~
+[
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Sets the Line Cap Style of the Object 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ to the Style 
+\begin_inset Quotes eld
+\end_inset 
+
+cap
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+ There are predefined Constants for 
+\begin_inset Quotes eld
+\end_inset 
+
+cap
+\begin_inset Quotes erd
+\end_inset 
+
+.
+\layout Description
+
+SetLineColor
+\begin_inset LatexCommand \index{SetLineColor}
+
+\end_inset 
+
+(
+\begin_inset Quotes erd
+\end_inset 
+
+color
+\begin_inset Quotes erd
+\end_inset 
+
+,\SpecialChar ~
+[
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Sets the Line Color of the Object 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ to the Color 
+\begin_inset Quotes eld
+\end_inset 
+
+color
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
+SetMultiLine
+\begin_inset LatexCommand \index{SetMultiLine}
+
+\end_inset 
+
+(
+\begin_inset Quotes eld
+\end_inset 
+
+namedStyle
+\begin_inset Quotes erd
+\end_inset 
+
+,\SpecialChar ~
+[
+\begin_inset Quotes erd
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Sets the Line Style of the Object 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ to the Named Style 
+\begin_inset Quotes eld
+\end_inset 
+
+namedStyle
+\begin_inset Quotes erd
+\end_inset 
+
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
+SetLineJoin
+\begin_inset LatexCommand \index{SetLineJoin}
+
+\end_inset 
+
+(
+\begin_inset Quotes erd
+\end_inset 
+
+join
+\begin_inset Quotes erd
+\end_inset 
+
+,\SpecialChar ~
+[
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Sets the Line Join Style of the Object 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ to the Style 
+\begin_inset Quotes eld
+\end_inset 
+
+join
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+ There are predefined Constants for 
+\begin_inset Quotes eld
+\end_inset 
+
+join
+\begin_inset Quotes erd
+\end_inset 
+
+.
+\layout Description
+
+SetLineShade
+\begin_inset LatexCommand \index{SetLineShade}
+
+\end_inset 
+
+(shade,\SpecialChar ~
+[
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Sets the shading of the Line Color of the Object 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ to 
+\begin_inset Quotes eld
+\end_inset 
+
+shade
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ 
+\begin_inset Quotes eld
+\end_inset 
+
+shade
+\begin_inset Quotes erd
+\end_inset 
+
+ must be an Integer Value in the range from 0 (lightest) to 100 (full Color
+ intensity).
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
+SetLineStyle
+\begin_inset LatexCommand \index{SetLineStyle}
+
+\end_inset 
+
+(
+\begin_inset Quotes erd
+\end_inset 
+
+style
+\begin_inset Quotes erd
+\end_inset 
+
+,\SpecialChar ~
+[
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Sets the Line Style of the Object 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ to the Style 
+\begin_inset Quotes eld
+\end_inset 
+
+style
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+ There are predefined Constants for 
+\begin_inset Quotes eld
+\end_inset 
+
+style
+\begin_inset Quotes erd
+\end_inset 
+
+.
+\layout Description
+
+SetLineWidth
+\begin_inset LatexCommand \index{SetLineWidth}
+
+\end_inset 
+
+(width,\SpecialChar ~
+[
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Sets Line Width of the Object 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ to 
+\begin_inset Quotes eld
+\end_inset 
+
+width
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ 
+\begin_inset Quotes eld
+\end_inset 
+
+width
+\begin_inset Quotes erd
+\end_inset 
+
+ must be in the range from 0.0 to 12.0 inclusive.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Subsection
+
+Getting Object Properties
+\layout Description
+
+GetCornerRadius
+\begin_inset LatexCommand \index{GetCornerRadius}
+
+\end_inset 
+
+([
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Returns the Corner Radius of the Object 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ The Radius is expressed in Points.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
+GetFillColor
+\begin_inset LatexCommand \index{GetFillColor}
+
+\end_inset 
+
+([
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Returns the name of the Fill Color of the Object 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
+GetFillShade
+\begin_inset LatexCommand \index{GetFillShade}
+
+\end_inset 
+
+([
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Returns the shading Value of the Fill Color of the Object 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
+GetImageFile
+\begin_inset LatexCommand \index{GetImageFile}
+
+\end_inset 
+
+([
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Returns the Filename for the Image in the Image Frame.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
+GetImageScale
+\begin_inset LatexCommand \index{GetImageScale}
+
+\end_inset 
+
+([
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Returns a Tuple containing the Scaling Values of the Image Frame 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
+GetLineCap
+\begin_inset LatexCommand \index{GetLineCap}
+
+\end_inset 
+
+([
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Returns the Line Cap Style of the Object 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
+GetLineColor
+\begin_inset LatexCommand \index{GetLineColor}
+
+\end_inset 
+
+([
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Returns the name of the Line Color of the Object 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
+GetLineJoin
+\begin_inset LatexCommand \index{GetLineJoin}
+
+\end_inset 
+
+([
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Returns the Line Join Style of the Object 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
+GetLineShade
+\begin_inset LatexCommand \index{GetLineShade}
+
+\end_inset 
+
+([
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Returns the shading Value of the Line Color of the Object 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
+GetLineStyle
+\begin_inset LatexCommand \index{GetLineStyle}
+
+\end_inset 
+
+([
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Returns the Line Style of the Object 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
+GetLineWidth
+\begin_inset LatexCommand \index{GetLineWidth}
+
+\end_inset 
+
+([
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Returns the Line Width of the Object 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
+GetPosition
+\begin_inset LatexCommand \index{GetPosition}
+
+\end_inset 
+
+([
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Returns a tuple with the actual Position of the Object 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+ The Position is expressed in the actual Measurement Unit of the Document.
+\layout Description
+
+GetRotation
+\begin_inset LatexCommand \index{GetRotation}
+
+\end_inset 
+
+([
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Returns the Rotation of the Object 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ The value is expressed in Degrees.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
+GetSize
+\begin_inset LatexCommand \index{GetSize}
+
+\end_inset 
+
+([
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Returns a tuple with the actual Size of the Object 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+ The Size is expressed in the actual Measurement Unit of the Document.
+\layout Subsection
+
+Manipulating Objects
+\layout Description
+
+GroupObjects
+\begin_inset LatexCommand \index{GroupObjects}
+
+\end_inset 
+
+([
+\shape italic 
+list
+\shape default 
+]) Groups the Objects in 
+\begin_inset Quotes eld
+\end_inset 
+
+
+\shape italic 
+list
+\shape default 
+
+\begin_inset Quotes erd
+\end_inset 
+
+ together.
+ 
+\begin_inset Quotes eld
+\end_inset 
+
+
+\shape italic 
+list
+\shape default 
+
+\begin_inset Quotes erd
+\end_inset 
+
+ must contain the Names of the Objects to be grouped.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+
+\shape italic 
+list
+\shape default 
+
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Items are used.
+\layout Description
+
+MoveObject
+\begin_inset LatexCommand \index{MoveObject}
+
+\end_inset 
+
+(dx,\SpecialChar ~
+dy,\SpecialChar ~
+[
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Moves the Object 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ by dx and dy relative to its origin.
+ The Distances are expressed in the actual Measurement Unit of the Document.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+ If the Object 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ belongs to a Group, the whole Group is moved.
+\layout Description
+
+MoveObjectAbs
+\begin_inset LatexCommand \index{MoveObjectAbs}
+
+\end_inset 
+
+(x,\SpecialChar ~
+y,\SpecialChar ~
+[
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Moves the Object 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ to a new Location.
+ The Coordinates are expressed in the actual Measurement Unit of the Document.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+ If the Object "name" belongs to a Group, the whole Group is moved.
+\layout Description
+
+RotateObject
+\begin_inset LatexCommand \index{RotateObject}
+
+\end_inset 
+
+(rot,\SpecialChar ~
+[
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Rotates the Object 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ by 
+\begin_inset Quotes eld
+\end_inset 
+
+rot
+\begin_inset Quotes erd
+\end_inset 
+
+ Degrees.
+ Positve Values mean counter clockwise Rotation.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
+RotateObjectAbs
+\begin_inset LatexCommand \index{RotateObjectAbs}
+
+\end_inset 
+
+(rot,\SpecialChar ~
+[
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Sets the Rotation of the Object 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ to 
+\begin_inset Quotes eld
+\end_inset 
+
+rot
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ Positve Values mean counter clockwise Rotation.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
+ScaleGroup
+\begin_inset LatexCommand \index{ScaleGroup}
+
+\end_inset 
+
+(factor,\SpecialChar ~
+[
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Scales the Group the Object 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ belongs to.
+ Values greater than 1 enlarge the Group, Values smaller than 1 make the
+ Group smaller e.g a Value of 0.5 scales the Group to 50 % of is original
+ Size, a Value of 1.5 scales the Group to 150 % of its original Size.
+ The Value for 
+\begin_inset Quotes eld
+\end_inset 
+
+factor
+\begin_inset Quotes erd
+\end_inset 
+
+ must be greater than 0.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
+SizeObject
+\begin_inset LatexCommand \index{SizeObject}
+
+\end_inset 
+
+(width,\SpecialChar ~
+height,\SpecialChar ~
+[
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Resizes the Object 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ to the given Width and Height.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
+UnGroupObject
+\begin_inset LatexCommand \index{UnGroupObject}
+
+\end_inset 
+
+([
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Destructs the Group the Object 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ belongs to.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Subsection
+
+Handling Text Frames
+\layout Description
+
+DeleteText
+\begin_inset LatexCommand \index{DeleteText}
+
+\end_inset 
+
+([
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Deletes the Text of the Textframe 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ If there is some Text selected, this Text will be deleted.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
+GetLineSpacing
+\begin_inset LatexCommand \index{GetLineSpacing}
+
+\end_inset 
+
+([
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Gets the Linespacing of the Text Frame 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ expressed in Points.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
+GetFont
+\begin_inset LatexCommand \index{GetFont}
+
+\end_inset 
+
+([
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Returns the Font for the Textframe 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ If this Textframe has some Text selected the Value assigned to the first
+ Character of the Selection is returned.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
+GetFontSize
+\begin_inset LatexCommand \index{GetFontSize}
+
+\end_inset 
+
+([
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Returns the Fontsize for the Textframe 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ If this Textframe has some Text selected the Value assigned to the first
+ Character of the Selection is returned.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
+GetText
+\begin_inset LatexCommand \index{GetText}
+
+\end_inset 
+
+([
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Returns the Text of the Textframe 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ If this Textframe has some Text selected, this Text is returned.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
+GetTextColor
+\begin_inset LatexCommand \index{GetTextColor}
+
+\end_inset 
+
+([
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Returns the name of the Text Color of the Object 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ If this Textframe has some Text selected the Value assigned to the first
+ Character of the Selection is returned.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
+GetTextLength
+\begin_inset LatexCommand \index{GetTextLength}
+
+\end_inset 
+
+([
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Returns the Length of the Text in the Textframe 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
+GetTextShade
+\begin_inset LatexCommand \index{GetTextShade}
+
+\end_inset 
+
+([
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Returns the shading Value of the Text Color of the Object 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ If this Textframe has some Text selected the Value assigned to the first
+ Character of the Selection is returned.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
+InsertText
+\begin_inset LatexCommand \index{InsertText}
+
+\end_inset 
+
+(
+\begin_inset Quotes eld
+\end_inset 
+
+text
+\begin_inset Quotes erd
+\end_inset 
+
+,\SpecialChar ~
+pos,\SpecialChar ~
+[
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Inserts the Text 
+\begin_inset Quotes eld
+\end_inset 
+
+text
+\begin_inset Quotes erd
+\end_inset 
+
+ at the Position 
+\begin_inset Quotes eld
+\end_inset 
+
+pos
+\begin_inset Quotes erd
+\end_inset 
+
+ into the Textframe The first Character has an Index of 0.
+ 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
+SetTextAlignment
+\begin_inset LatexCommand \index{SetTextAlignment}
+
+\end_inset 
+
+(align,\SpecialChar ~
+[
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Sets the Textalignment of the Text Frame 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ to the specified Alignment.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+ 
+\begin_inset Quotes eld
+\end_inset 
+
+align
+\begin_inset Quotes erd
+\end_inset 
+
+ can have the following values:
+\layout Quotation
+\noindent \align left 
+0 = Left Aligned
+\newline 
+1 = Centered
+\newline 
+2 = Right Aligned
+\newline 
+3 = Forced
+\layout Description
+
+SelectText
+\begin_inset LatexCommand \index{SelectText}
+
+\end_inset 
+
+(start,\SpecialChar ~
+count,\SpecialChar ~
+[
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Selects 
+\begin_inset Quotes eld
+\end_inset 
+
+count
+\begin_inset Quotes erd
+\end_inset 
+
+ Characters Text of the Textframe 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ starting from the Character 
+\begin_inset Quotes eld
+\end_inset 
+
+start
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ Character Counting starts at 0.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+count
+\begin_inset Quotes erd
+\end_inset 
+
+ is zero, any Text Selection will be cleared.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
+SetLineSpacing
+\begin_inset LatexCommand \index{SetLineSpacing}
+
+\end_inset 
+
+(size,\SpecialChar ~
+[
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Sets the Linespacing of the Text Frame 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ to the Pointsize 
+\begin_inset Quotes eld
+\end_inset 
+
+size
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
+SetFont
+\begin_inset LatexCommand \index{SetFont}
+
+\end_inset 
+
+(
+\begin_inset Quotes erd
+\end_inset 
+
+font
+\begin_inset Quotes erd
+\end_inset 
+
+,\SpecialChar ~
+[
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Sets the Font of the Text Frame 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ to 
+\begin_inset Quotes eld
+\end_inset 
+
+font
+\begin_inset Quotes erd
+\end_inset 
+
+, if there is some Text selected only the selected Text is changed.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
+SetFontSize
+\begin_inset LatexCommand \index{SetFontSize}
+
+\end_inset 
+
+(size,\SpecialChar ~
+[
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Sets the Fontsize of the Text Frame 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ to the Pointsize 
+\begin_inset Quotes eld
+\end_inset 
+
+size
+\begin_inset Quotes erd
+\end_inset 
+
+, if there is some Text selected only the selected Text is changed.
+ 
+\begin_inset Quotes eld
+\end_inset 
+
+size
+\begin_inset Quotes erd
+\end_inset 
+
+ must be in the Range 1 to 512.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
+SetText
+\begin_inset LatexCommand \index{SetText}
+
+\end_inset 
+
+(
+\begin_inset Quotes erd
+\end_inset 
+
+text
+\begin_inset Quotes erd
+\end_inset 
+
+,\SpecialChar ~
+[
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Sets the Text of the Text Frame 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ to the Text of the String 
+\begin_inset Quotes eld
+\end_inset 
+
+text
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
+SetTextColor
+\begin_inset LatexCommand \index{SetTextColor}
+
+\end_inset 
+
+(
+\begin_inset Quotes erd
+\end_inset 
+
+color
+\begin_inset Quotes erd
+\end_inset 
+
+,\SpecialChar ~
+[
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Sets the Text Color of the Object 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ to the Color 
+\begin_inset Quotes eld
+\end_inset 
+
+color
+\begin_inset Quotes erd
+\end_inset 
+
+, if there is some Text selected only the selected Text is changed.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
+SetTextShade
+\begin_inset LatexCommand \index{SetTextShade}
+
+\end_inset 
+
+(shade,\SpecialChar ~
+[
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Sets the shading of the Text Color of the Object 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ to 
+\begin_inset Quotes eld
+\end_inset 
+
+shade
+\begin_inset Quotes erd
+\end_inset 
+
+, if there is some Text selected only the selected Text is changed.
+ 
+\begin_inset Quotes eld
+\end_inset 
+
+shade
+\begin_inset Quotes erd
+\end_inset 
+
+ must be an Integer Value in the range from 0 (lightest) to 100 (full Color
+ intensity).
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Section
+
+Other Commands
+\layout Subsection
+
+Color related Commands
+\layout Description
+
+ChangeColor
+\begin_inset LatexCommand \index{ChangeColor}
+
+\end_inset 
+
+(
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+,\SpecialChar ~
+c,\SpecialChar ~
+m,\SpecialChar ~
+y,\SpecialChar ~
+k) Changes the Color 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+, The Color Value is defined via four Components c = Cyan, m = Magenta,
+ y = Yello and k = Black.
+ Color Compontens should be in the range from 0 to 255.
+\layout Description
+
+DefineColor
+\begin_inset LatexCommand \index{DefineColor}
+
+\end_inset 
+
+(
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+,\SpecialChar ~
+c,\SpecialChar ~
+m,\SpecialChar ~
+y,\SpecialChar ~
+k) Defines a new Color 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ The Color Value is defined via four Components c = Cyan, m = Magenta, y
+ = Yello and k = Black.
+ Color Compontens should be in the range from 0 to 255.
+\layout Description
+
+DeleteColor
+\begin_inset LatexCommand \index{DeleteColor}
+
+\end_inset 
+
+(
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+,\SpecialChar ~
+
+\begin_inset Quotes erd
+\end_inset 
+
+replace
+\begin_inset Quotes erd
+\end_inset 
+
+) Deletes the Color 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ Every occurence of that Color is replaced by the Color 
+\begin_inset Quotes eld
+\end_inset 
+
+replace
+\begin_inset Quotes erd
+\end_inset 
+
+.
+\layout Description
+
+GetColor
+\begin_inset LatexCommand \index{GetColor}
+
+\end_inset 
+
+(
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+) Returns a Tuple containing the four Color Components of the Color 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+.
+\layout Description
+
+GetColorNames
+\begin_inset LatexCommand \index{GetColorNames}
+
+\end_inset 
+
+() Returns a List with the Names of all defined Colors.
+\layout Description
+
+ReplaceColor
+\begin_inset LatexCommand \index{ReplaceColor}
+
+\end_inset 
+
+(
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+,\SpecialChar ~
+
+\begin_inset Quotes erd
+\end_inset 
+
+replace
+\begin_inset Quotes erd
+\end_inset 
+
+) Every occurence of that Color is replaced by the Color 
+\begin_inset Quotes eld
+\end_inset 
+
+replace
+\begin_inset Quotes erd
+\end_inset 
+
+.
+\layout Subsection
+
+Font related Commands
+\layout Description
+
+GetFontNames
+\begin_inset LatexCommand \index{GetFontNames}
+
+\end_inset 
+
+() Returns a List with the Names of all available Fonts.
+\layout Subsection
+
+Layer related Commands
+\layout Description
+
+CreateLayer
+\begin_inset LatexCommand \index{CreateLayer}
+
+\end_inset 
+
+(
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+) Creates a new Layer with the Name 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+.
+\layout Description
+
+DeleteLayer
+\begin_inset LatexCommand \index{DeleteLayer}
+
+\end_inset 
+
+(
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+) Deletes the Layer with the Name 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ Nothing happens if the Layer doesn't exists or if it's the only Layer in
+ the Document.
+\layout Description
+
+GetActiveLayer
+\begin_inset LatexCommand \index{GetActiveLayer}
+
+\end_inset 
+
+() Returns the Name of the current active Layer.
+\layout Description
+
+GetLayers
+\begin_inset LatexCommand \index{GetLayers}
+
+\end_inset 
+
+() Returns a List with the Names of all defined Layers.
+\layout Description
+
+IsLayerPrintable
+\begin_inset LatexCommand \index{IsLayerPrintable}
+
+\end_inset 
+
+(
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+) Returns wether the Layer 
+\begin_inset Quotes eld
+\end_inset 
+
+layer
+\begin_inset Quotes erd
+\end_inset 
+
+ is printable or not, a Value of 1 means that the Layer 
+\begin_inset Quotes eld
+\end_inset 
+
+layer
+\begin_inset Quotes erd
+\end_inset 
+
+ can be printed, a Value of 0 means that printing the Layer 
+\begin_inset Quotes eld
+\end_inset 
+
+layer
+\begin_inset Quotes erd
+\end_inset 
+
+ is disabled.
+\layout Description
+
+IsLayerVisible
+\begin_inset LatexCommand \index{IsLayerVisible}
+
+\end_inset 
+
+(
+\begin_inset Quotes eld
+\end_inset 
+
+layer
+\begin_inset Quotes erd
+\end_inset 
+
+) Returns wether the Layer 
+\begin_inset Quotes eld
+\end_inset 
+
+layer
+\begin_inset Quotes erd
+\end_inset 
+
+ is visible or not, a Value of 1 means that the Layer 
+\begin_inset Quotes eld
+\end_inset 
+
+layer
+\begin_inset Quotes erd
+\end_inset 
+
+ is visible, a Value of 0 means that the Layer 
+\begin_inset Quotes eld
+\end_inset 
+
+layer
+\begin_inset Quotes erd
+\end_inset 
+
+ is invisible.
+\layout Description
+
+SentToLayer
+\begin_inset LatexCommand \index{SentToLayer}
+
+\end_inset 
+
+(
+\begin_inset Quotes eld
+\end_inset 
+
+layer
+\begin_inset Quotes erd
+\end_inset 
+
+,\SpecialChar ~
+[
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+]) Sends the Object 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ to the Layer 
+\begin_inset Quotes eld
+\end_inset 
+
+layer
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ The Layer must exist.
+ If 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+ is not given the currently selected Item is used.
+\layout Description
+
+SetActiveLayer
+\begin_inset LatexCommand \index{SetActiveLayer}
+
+\end_inset 
+
+(
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+) Sets the active Layer to the Layer named 
+\begin_inset Quotes eld
+\end_inset 
+
+name
+\begin_inset Quotes erd
+\end_inset 
+
+.
+\layout Description
+
+SetLayerPrintable
+\begin_inset LatexCommand \index{SetLayerPrintable}
+
+\end_inset 
+
+(
+\begin_inset Quotes eld
+\end_inset 
+
+layer
+\begin_inset Quotes erd
+\end_inset 
+
+,\SpecialChar ~
+flag) Sets the Layer 
+\begin_inset Quotes eld
+\end_inset 
+
+layer
+\begin_inset Quotes erd
+\end_inset 
+
+ to be printable or not.
+ A Value of 1 for 
+\begin_inset Quotes eld
+\end_inset 
+
+flag
+\begin_inset Quotes erd
+\end_inset 
+
+ means that the Layer 
+\begin_inset Quotes eld
+\end_inset 
+
+layer
+\begin_inset Quotes erd
+\end_inset 
+
+ can be printed, a Value of 0 means that printing the Layer 
+\begin_inset Quotes eld
+\end_inset 
+
+layer
+\begin_inset Quotes erd
+\end_inset 
+
+ is disabled.
+\layout Description
+
+SetLayerVisible
+\begin_inset LatexCommand \index{SetLayerVisible}
+
+\end_inset 
+
+(
+\begin_inset Quotes eld
+\end_inset 
+
+layer
+\begin_inset Quotes erd
+\end_inset 
+
+,\SpecialChar ~
+flag) Sets the Layer 
+\begin_inset Quotes eld
+\end_inset 
+
+layer
+\begin_inset Quotes erd
+\end_inset 
+
+ to be visible or not.
+ A Value of 1 for 
+\begin_inset Quotes eld
+\end_inset 
+
+flag
+\begin_inset Quotes erd
+\end_inset 
+
+ means that the Layer 
+\begin_inset Quotes eld
+\end_inset 
+
+layer
+\begin_inset Quotes erd
+\end_inset 
+
+ is visible, a Value of 0 means that the Layer 
+\begin_inset Quotes eld
+\end_inset 
+
+layer
+\begin_inset Quotes erd
+\end_inset 
+
+ is invisible.
+\layout Section
+
+Using Dialogs from Scribus
+\layout Description
+
+FileDialog
+\begin_inset LatexCommand \index{FileDialog}
+
+\end_inset 
+
+(
+\begin_inset Quotes eld
+\end_inset 
+
+caption
+\begin_inset Quotes erd
+\end_inset 
+
+,\SpecialChar ~
+
+\begin_inset Quotes eld
+\end_inset 
+
+filter
+\begin_inset Quotes erd
+\end_inset 
+
+\SpecialChar ~
+
+\begin_inset Quotes eld
+\end_inset 
+
+defaultName
+\begin_inset Quotes erd
+\end_inset 
+
+\SpecialChar ~
+[preview,\SpecialChar ~
+mode]) Shows a FileSelect Box with the Caption 
+\begin_inset Quotes eld
+\end_inset 
+
+caption
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ Files are filtered with the Filter String 
+\begin_inset Quotes eld
+\end_inset 
+
+filter
+\begin_inset Quotes erd
+\end_inset 
+
+, refer to the Qt-Documentation for it's use.
+ A default Filename can also supplied, leave this string empty when you
+ don't want to use it.
+ A Value of 1 for preview enables a small Preview Widget in the FileSelect
+ Box.
+\newline 
+When the mode parameter is set to 1 the Dialog acts like a 
+\begin_inset Quotes eld
+\end_inset 
+
+Save As
+\begin_inset Quotes erd
+\end_inset 
+
+ Dialog otherwise it acts like a 
+\begin_inset Quotes eld
+\end_inset 
+
+File Open Dialog
+\begin_inset Quotes erd
+\end_inset 
+
+.
+ The default for both of the opional Parameters is 0.
+\layout Description
+
+NewDocDialog
+\begin_inset LatexCommand \index{NewDocDialog}
+
+\end_inset 
+
+() Shows the 
+\begin_inset Quotes eld
+\end_inset 
+
+New Document
+\begin_inset Quotes erd
+\end_inset 
+
+ Dialog Box.
+ Returns true if a new Document was created.
+\layout Section
+
+Predefined Constants
+\layout Standard
+
+There are some Constants defined to help using the Commands:
+\layout Standard
+
+Unit Definitions:
+\layout Description
+
+Points
+\begin_inset LatexCommand \index{Points}
+
+\end_inset 
+
+ Measurement Unit Point = 0
+\layout Description
+
+Milimeters
+\begin_inset LatexCommand \index{Milimeters}
+
+\end_inset 
+
+ Measurement Unit Millimeter = 1
+\layout Description
+
+Inches
+\begin_inset LatexCommand \index{Inches}
+
+\end_inset 
+
+ Measurement Unit Inch = 2
+\layout Description
+
+Picas
+\begin_inset LatexCommand \index{Picas}
+
+\end_inset 
+
+ Measurement Unit Pica = 3
+\layout Standard
+
+Page Orientation Definitions:
+\layout Description
+
+Portrait
+\begin_inset LatexCommand \index{Portrait}
+
+\end_inset 
+
+ Pageformat Portrait = 0
+\layout Description
+
+Landscape
+\begin_inset LatexCommand \index{Landscape}
+
+\end_inset 
+
+ Pageformat Portrait = 1
+\layout Standard
+
+Definitions for Page Formats:
+\layout Description
+
+Paper_A0
+\begin_inset LatexCommand \index{A0}
+
+\end_inset 
+
+ Paperformat A0 = 2380 x 3368 Points 
+\layout Description
+
+Paper_A1
+\begin_inset LatexCommand \index{A1}
+
+\end_inset 
+
+ Paperformat A1 = 1684 x 2380 Points 
+\layout Description
+
+Paper_A2
+\begin_inset LatexCommand \index{A2}
+
+\end_inset 
+
+ Paperformat A2 = 1190 x 1684 Points 
+\layout Description
+
+Paper_A3
+\begin_inset LatexCommand \index{A3}
+
+\end_inset 
+
+ Paperformat A3 = 842 x 1190 Points 
+\layout Description
+
+Paper_A4
+\begin_inset LatexCommand \index{A4}
+
+\end_inset 
+
+ Paperformat A4 = 595 x 842 Points 
+\layout Description
+
+Paper_A5
+\begin_inset LatexCommand \index{A5}
+
+\end_inset 
+
+ Paperformat A5 = 421 x 595 Points
+\layout Description
+
+Paper_A6
+\begin_inset LatexCommand \index{A6}
+
+\end_inset 
+
+ Paperformat A6 = 297 x 421 Points
+\layout Description
+
+Paper_A7
+\begin_inset LatexCommand \index{A7}
+
+\end_inset 
+
+ Paperformat A7 = 210 x 297 Points
+\layout Description
+
+Paper_A8
+\begin_inset LatexCommand \index{A8}
+
+\end_inset 
+
+ Paperformat A8 = 148 x 210 Points
+\layout Description
+
+Paper_A9
+\begin_inset LatexCommand \index{A9}
+
+\end_inset 
+
+ Paperformat A9 = 105 x 148 Points
+\layout Description
+
+Paper_B0
+\begin_inset LatexCommand \index{B0}
+
+\end_inset 
+
+ Paperformat B0 = 2836 x 4008 Points
+\layout Description
+
+Paper_B1
+\begin_inset LatexCommand \index{B1}
+
+\end_inset 
+
+ Paperformat B1 = 2004 x 2836 Points
+\layout Description
+
+Paper_B2
+\begin_inset LatexCommand \index{B2}
+
+\end_inset 
+
+ Paperformat B2 = 1418 x 2004 Points
+\layout Description
+
+Paper_B3
+\begin_inset LatexCommand \index{B3}
+
+\end_inset 
+
+ Paperformat B3 = 1002 x 1418 Points
+\layout Description
+
+Paper_B4
+\begin_inset LatexCommand \index{B4}
+
+\end_inset 
+
+ Paperformat B4 = 709 x 1002 Points
+\layout Description
+
+Paper_B5
+\begin_inset LatexCommand \index{B5}
+
+\end_inset 
+
+ Paperformat B5 = 501 x 709 Points
+\layout Description
+
+Paper_B6
+\begin_inset LatexCommand \index{B6}
+
+\end_inset 
+
+ Paperformat B6 = 355 x 501 Points
+\layout Description
+
+Paper_B7
+\begin_inset LatexCommand \index{B7}
+
+\end_inset 
+
+ Paperformat B7 = 250 x 355 Points
+\layout Description
+
+Paper_B8
+\begin_inset LatexCommand \index{B8}
+
+\end_inset 
+
+ Paperformat B8 = 178 x 250 Points
+\layout Description
+
+Paper_B9
+\begin_inset LatexCommand \index{B9}
+
+\end_inset 
+
+ Paperformat B9 = 125 x 178 Points
+\layout Description
+
+Paper_B10
+\begin_inset LatexCommand \index{B10}
+
+\end_inset 
+
+ Paperformat B10 = 89 x 125 Points
+\layout Description
+
+Paper_C5E
+\begin_inset LatexCommand \index{C5E}
+
+\end_inset 
+
+ Paperformat C5E = 462 x 649 Points
+\layout Description
+
+Paper_Comm10E
+\begin_inset LatexCommand \index{Comm10E}
+
+\end_inset 
+
+ Paperformat Comm10E = 298 x 683 Points
+\layout Description
+
+Paper_DLE
+\begin_inset LatexCommand \index{DLE}
+
+\end_inset 
+
+ Paperformat DLE = 312 x 624 Points
+\layout Description
+
+Paper_Executive
+\begin_inset LatexCommand \index{Executive}
+
+\end_inset 
+
+ Paperformat Executive = 542 x 720 Points
+\layout Description
+
+Paper_Folio
+\begin_inset LatexCommand \index{Folio}
+
+\end_inset 
+
+ Paperformat Folio = 595 x 935 Points
+\layout Description
+
+Paper_Ledger
+\begin_inset LatexCommand \index{Ledger}
+
+\end_inset 
+
+ Paperformat Ledger = 1224 x 792 Points
+\layout Description
+
+Paper_Legal
+\begin_inset LatexCommand \index{Legal}
+
+\end_inset 
+
+ Paperformat Legal = 612 x 1008 Points
+\layout Description
+
+Paper_Letter
+\begin_inset LatexCommand \index{Letter}
+
+\end_inset 
+
+ Paperformat Letter = 612 x 792 Points
+\layout Description
+
+Paper_Tabloid
+\begin_inset LatexCommand \index{Tabloid}
+
+\end_inset 
+
+ Paperformat Tabloid = 792 x 1224Points
+\layout Standard
+
+Definitions for Document Layout:
+\layout Description
+
+FacingPages
+\begin_inset LatexCommand \index{FacingPages}
+
+\end_inset 
+
+ Layout with facing Pages.
+\layout Description
+
+NoFacingPages
+\begin_inset LatexCommand \index{NoFacingPages}
+
+\end_inset 
+
+ Normal Layout of the Document.
+\layout Description
+
+FirstPageLeft
+\begin_inset LatexCommand \index{FirstPageLeft}
+
+\end_inset 
+
+ The first Page of the Document is a left Page.
+\layout Description
+
+FirstPageRight
+\begin_inset LatexCommand \index{FirstPageRight}
+
+\end_inset 
+
+ The first Page of the Document is a right Page.
+\layout Standard
+
+Alignment Definitions
+\layout Description
+
+LeftAlign
+\begin_inset LatexCommand \index{LeftAlign}
+
+\end_inset 
+
+ Text is aligned to the Left.
+\layout Description
+
+Centered
+\begin_inset LatexCommand \index{Centered}
+
+\end_inset 
+
+ The Text is centered in the Textframe.
+\layout Description
+
+RightAlign
+\begin_inset LatexCommand \index{RightAlign}
+
+\end_inset 
+
+ The Text is aligned to the Right Side of the Textframe
+\layout Description
+
+Forced
+\begin_inset LatexCommand \index{Forced}
+
+\end_inset 
+
+ The Text has forced Alignment
+\layout Standard
+
+Line related Definitions:
+\layout Description
+
+SolidLine
+\begin_inset LatexCommand \index{SolidLine}
+
+\end_inset 
+
+
+\layout Description
+
+DashLine
+\begin_inset LatexCommand \index{DashLine}
+
+\end_inset 
+
+
+\layout Description
+
+DashDotLine
+\begin_inset LatexCommand \index{DashDotLine}
+
+\end_inset 
+
+
+\layout Description
+
+DashDotDotLine
+\begin_inset LatexCommand \index{DashDotDotLine}
+
+\end_inset 
+
+
+\layout Description
+
+MiterJoin
+\begin_inset LatexCommand \index{MiterJoin}
+
+\end_inset 
+
+
+\layout Description
+
+BevelJoin
+\begin_inset LatexCommand \index{BevelJoin}
+
+\end_inset 
+
+
+\layout Description
+
+RoundJoin
+\begin_inset LatexCommand \index{RoundJoin}
+
+\end_inset 
+
+
+\layout Description
+
+FlatCap
+\begin_inset LatexCommand \index{FlatCap}
+
+\end_inset 
+
+
+\layout Description
+
+SquareCap
+\begin_inset LatexCommand \index{SquareCap}
+
+\end_inset 
+
+
+\layout Description
+
+RoundCap
+\begin_inset LatexCommand \index{RoundCap}
+
+\end_inset 
+
+
+\layout Standard
+
+Fill related Definitions:
+\layout Description
+
+NoGradient
+\begin_inset LatexCommand \index{NoGradient}
+
+\end_inset 
+
+
+\layout Description
+
+HorizontalGradient
+\begin_inset LatexCommand \index{HorizontalGradient}
+
+\end_inset 
+
+
+\layout Description
+
+VerticalGradient
+\begin_inset LatexCommand \index{VerticalGradient}
+
+\end_inset 
+
+
+\layout Description
+
+DiagonalGradient
+\begin_inset LatexCommand \index{DiagonalGradient}
+
+\end_inset 
+
+
+\layout Description
+
+CrossDiagonalGradient
+\begin_inset LatexCommand \index{CrossDiagonalGradient}
+
+\end_inset 
+
+
+\layout Description
+
+RadialGradient
+\begin_inset LatexCommand \index{RadialGradient}
+
+\end_inset 
+
+
+\layout Standard
+
+
+\begin_inset LatexCommand \printindex{}
+
+\end_inset 
+
+
+\the_end

@@ -1126,6 +1126,7 @@ void Mpalette::SetCurItem(PageItem *i)
 
 void Mpalette::NewSel(int nr)
 {
+	int visID;
 	if (doc->ActPage->GroupSel)
 		{
     Text1->setText( tr( "X-Pos:" ) );
@@ -1164,7 +1165,6 @@ void Mpalette::NewSel(int nr)
 		BottomLeft->setEnabled(true);
 		BottomRight->setEnabled(true);
 		Center->setEnabled(true);
-		SGeom->setOn(true);
 		TabStack->widget(0)->setEnabled(true);
 		TabStack->widget(1)->setEnabled(false);
 		TabStack->widget(2)->setEnabled(false);
@@ -1172,6 +1172,7 @@ void Mpalette::NewSel(int nr)
 		TabStack->widget(4)->setEnabled(false);
 		TabStack->widget(5)->setEnabled(true);
 		SColor->setEnabled(true);
+		visID = TabStack->id(TabStack->visibleWidget());
 		switch (nr)
 			{
 			case -1:
@@ -1198,6 +1199,7 @@ void Mpalette::NewSel(int nr)
 				SImage->setEnabled(false);
 				SLine->setEnabled(false);
 				SColor->setEnabled(false);
+				SGeom->setOn(true);
 				break;
 			case 1:
 				SGeom->setEnabled(true);
@@ -1209,6 +1211,11 @@ void Mpalette::NewSel(int nr)
 				TabStack->widget(4)->setEnabled(true);
 				ShapeGroup->setEnabled(true);
 				EditShape->setEnabled(true);
+				if ((visID == 2) || (visID == 3))
+					{
+					TabStack->raiseWidget(0);
+					SGeom->setOn(true);
+					}
 				HaveItem = true;
 				break;
 			case 2:
@@ -1226,6 +1233,11 @@ void Mpalette::NewSel(int nr)
  				if ((doc->ActPage->SelItem.at(0)->FrameType == 0) || (doc->ActPage->SelItem.at(0)->FrameType == 2))
 					RoundRect->setEnabled(true);
 				EditShape->setEnabled(true);
+				if (visID == 2)
+					{
+					TabStack->raiseWidget(0);
+					SGeom->setOn(true);
+					}
 				HaveItem = true;
 				break;
 			case 3:
@@ -1239,6 +1251,11 @@ void Mpalette::NewSel(int nr)
 				ShapeGroup->setEnabled(true);
 				RoundRect->setEnabled(true);
 				EditShape->setEnabled(true);
+				if ((visID == 2) || (visID == 3))
+					{
+					TabStack->raiseWidget(0);
+					SGeom->setOn(true);
+					}
 				HaveItem = true;
 				break;
 			case 4:
@@ -1257,6 +1274,11 @@ void Mpalette::NewSel(int nr)
 					RoundRect->setEnabled(true);
 				Distance->setEnabled(true);
 				EditShape->setEnabled(true);
+				if (visID == 3)
+					{
+					TabStack->raiseWidget(0);
+					SGeom->setOn(true);
+					}
 				HaveItem = true;
 				break;
 			case 5:
@@ -1272,6 +1294,11 @@ void Mpalette::NewSel(int nr)
 				BottomLeft->setEnabled(false);
 				BottomRight->setEnabled(false);
 				Center->setEnabled(false);
+				if ((visID == 1) || (visID == 2) || (visID == 3))
+					{
+					TabStack->raiseWidget(0);
+					SGeom->setOn(true);
+					}
 				HaveItem = true;
 				break;
 			case 6:
@@ -1286,6 +1313,11 @@ void Mpalette::NewSel(int nr)
 				EditShape->setEnabled(true);
  				if ((doc->ActPage->SelItem.at(0)->FrameType == 0) || (doc->ActPage->SelItem.at(0)->FrameType == 2))
 					RoundRect->setEnabled(true);
+				if ((visID == 2) || (visID == 3))
+					{
+					TabStack->raiseWidget(0);
+					SGeom->setOn(true);
+					}
 				HaveItem = true;
 				break;
 			case 7:
@@ -1297,6 +1329,11 @@ void Mpalette::NewSel(int nr)
 				TabStack->widget(1)->setEnabled(true);
 				TabStack->widget(4)->setEnabled(true);
 				EditShape->setEnabled(true);
+				if ((visID == 2) || (visID == 3))
+					{
+					TabStack->raiseWidget(0);
+					SGeom->setOn(true);
+					}
 				HaveItem = true;
 				break;
 			case 8:
@@ -1309,6 +1346,11 @@ void Mpalette::NewSel(int nr)
 				TabStack->widget(2)->setEnabled(true);
 				TabStack->widget(4)->setEnabled(true);
 				EditShape->setEnabled(true);
+				if (visID == 3)
+					{
+					TabStack->raiseWidget(0);
+					SGeom->setOn(true);
+					}
 				HaveItem = true;
 				break;
 			}

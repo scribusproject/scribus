@@ -205,7 +205,7 @@ QPixmap LoadPDF(QString fn, int Seite, int Size, int *w, int *h)
 	tmp.setNum(Seite);
 	cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r72 -sOutputFile=/tmp/sc.png -dFirstPage="+tmp+" -dLastPage="+tmp+" ";
 	cmd2 = " -c showpage -c quit";
-	ret = system(cmd1 + fn + cmd2);
+	ret = system(cmd1 + "\"" + fn + "\"" + cmd2);
 	if (ret == 0)
 		{
 		QImage image;
@@ -246,7 +246,7 @@ QImage LoadPict(QString fn)
 		{
 		cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r72 -sOutputFile=/tmp/sc.png -dFirstPage=1 -dLastPage=1 ";
 		cmd2 = " -c showpage -c quit";
-		ret = system(cmd1 + fn + cmd2);
+		ret = system(cmd1 + "\"" + fn + "\"" + cmd2);
 		if (ret == 0)
 			{
 			QImage image;
@@ -286,7 +286,7 @@ QImage LoadPict(QString fn)
 				ts2 >> dummy >> x >> y >> b >> h;
 				cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r72 -sOutputFile=/tmp/sc.png -g";
 				cmd2 = " -c showpage -c quit";
-				ret = system(cmd1 + tmp.setNum(qRound(b)) + "x" + tmp2.setNum(qRound(h)) + " " + fn + cmd2);
+				ret = system(cmd1 + tmp.setNum(qRound(b)) + "x" + tmp2.setNum(qRound(h)) + " \"" + fn + "\"" + cmd2);
 				if (ret == 0)
 					{
 					QImage im4;
@@ -406,7 +406,7 @@ QImage LoadPictCol(QString fn, QString Prof, bool UseEmbedded, bool *realCMYK)
 		{
 		cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r72 -sOutputFile=/tmp/sc.png -dFirstPage=1 -dLastPage=1 ";
 		cmd2 = " -c showpage -c quit";
-		ret = system(cmd1 + fn + cmd2);
+		ret = system(cmd1 + "\"" + fn + "\"" + cmd2);
 		if (ret == 0)
 			{
 			QImage image;
@@ -447,7 +447,7 @@ QImage LoadPictCol(QString fn, QString Prof, bool UseEmbedded, bool *realCMYK)
 				ts2 >> dummy >> x >> y >> b >> h;
 				cmd1 = "gs -q -dNOPAUSE -sDEVICE=png16m -r72 -sOutputFile=/tmp/sc.png -g";
 				cmd2 = " -c showpage -c quit";
-				ret = system(cmd1 + tmp.setNum(qRound(b)) + "x" + tmp2.setNum(qRound(h)) + " " + fn + cmd2);
+				ret = system(cmd1 + tmp.setNum(qRound(b)) + "x" + tmp2.setNum(qRound(h)) + " \"" + fn + "\"" + cmd2);
 				if (ret == 0)
 					{
 					QImage im4;

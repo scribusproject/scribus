@@ -1,4 +1,7 @@
 Changes since Version 1.1.1
+25.10.2003	Scribus can now handle Filenames with Spaces correctly.
+		Included Patch for BigEndian Systems.
+
 24.10.2003	Fixed various Bugs:
 		- Greyed out Option Button in the Printer Dialog
 		- MultiLines not working.

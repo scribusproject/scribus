@@ -6513,6 +6513,7 @@ void ScribusApp::InvertPict()
 
 void ScribusApp::Collect()
 {
+	QString CurDirP = QDir::currentDirPath();
 	QString s = QFileDialog::getExistingDirectory(QDir::currentDirPath(), this, "d", tr("Choose a Directory"), true);
 	if (s != "")
 		{
@@ -6533,7 +6534,7 @@ void ScribusApp::Collect()
 							QFileInfo itf = QFileInfo(ite->Pfile);
 							if (itf.exists())
 								{
-								QString cmd = "cp " + ite->Pfile + " " + s + itf.fileName();
+								QString cmd = "cp \"" + ite->Pfile + "\" \"" + s + itf.fileName()+"\"";
 								system(cmd);
 								ite->Pfile = s + itf.fileName();
 								}
@@ -6549,7 +6550,7 @@ void ScribusApp::Collect()
 									itf = QFileInfo(ite->Pfile);
 									if (itf.exists())
 										{
-										cmd = "cp " + ite->Pfile + " " + s + itf.fileName();
+										cmd = "cp \"" + ite->Pfile + "\" \"" + s + itf.fileName()+"\"";
 										system(cmd);
 										ite->Pfile = s + itf.fileName();
 										}
@@ -6559,7 +6560,7 @@ void ScribusApp::Collect()
 									itf = QFileInfo(ite->Pfile2);
 									if (itf.exists())
 										{
-										cmd = "cp " + ite->Pfile2 + " " + s + itf.fileName();
+										cmd = "cp \"" + ite->Pfile2 + "\" \"" + s + itf.fileName()+"\"";
 										system(cmd);
 										ite->Pfile2 = s + itf.fileName();
 										}
@@ -6569,7 +6570,7 @@ void ScribusApp::Collect()
 									itf = QFileInfo(ite->Pfile3);
 									if (itf.exists())
 										{
-										cmd = "cp " + ite->Pfile3 + " " + s + itf.fileName();
+										cmd = "cp \"" + ite->Pfile3 + "\" \"" + s + itf.fileName()+"\"";
 										system(cmd);
 										ite->Pfile3 = s + itf.fileName();
 										}
@@ -6588,7 +6589,7 @@ void ScribusApp::Collect()
 							QFileInfo itf = QFileInfo(ite->Pfile);
 							if (itf.exists())
 								{
-								QString cmd = "cp " + ite->Pfile + " " + s + itf.fileName();
+								QString	cmd = "cp \"" + ite->Pfile + "\" \"" + s + itf.fileName()+"\"";
 								system(cmd);
 								ite->Pfile = s + itf.fileName();
 								}
@@ -6604,7 +6605,7 @@ void ScribusApp::Collect()
 									itf = QFileInfo(ite->Pfile);
 									if (itf.exists())
 										{
-										cmd = "cp " + ite->Pfile + " " + s + itf.fileName();
+										cmd = "cp \"" + ite->Pfile + "\" \"" + s + itf.fileName()+"\"";
 										system(cmd);
 										ite->Pfile = s + itf.fileName();
 										}
@@ -6614,7 +6615,7 @@ void ScribusApp::Collect()
 									itf = QFileInfo(ite->Pfile2);
 									if (itf.exists())
 										{
-										cmd = "cp " + ite->Pfile2 + " " + s + itf.fileName();
+										cmd = "cp \"" + ite->Pfile2 + "\" \"" + s + itf.fileName()+"\"";
 										system(cmd);
 										ite->Pfile2 = s + itf.fileName();
 										}
@@ -6624,7 +6625,7 @@ void ScribusApp::Collect()
 									itf = QFileInfo(ite->Pfile3);
 									if (itf.exists())
 										{
-										cmd = "cp " + ite->Pfile3 + " " + s + itf.fileName();
+										cmd = "cp \"" + ite->Pfile3 + "\" \"" + s + itf.fileName()+"\"";
 										system(cmd);
 										ite->Pfile3 = s + itf.fileName();
 										}
@@ -6646,6 +6647,7 @@ void ScribusApp::Collect()
 				}
 			}
 		}
+	QDir::setCurrent(CurDirP);
 }
 
 void ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
