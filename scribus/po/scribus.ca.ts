@@ -3,7 +3,7 @@
     <name>About</name>
     <message>
         <source>About Scribus%1%2</source>
-        <translation>Quant a Scribus %1%2</translation>
+        <translation type="obsolete">Quant a Scribus %1%2</translation>
     </message>
     <message>
         <source>%1. %2 %3 </source>
@@ -200,6 +200,10 @@ La falta de llibreries està indicat per un *
     </message>
     <message>
         <source>Catalan:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>About Scribus %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1756,15 +1760,23 @@ Això es pot posar en les Preferències.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>D&apos;acord</translation>
+        <translation type="obsolete">D&apos;acord</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Cancel.la</translation>
+        <translation type="obsolete">Cancel.la</translation>
     </message>
     <message>
         <source>None</source>
         <translation type="unfinished">Cap</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">D&apos;ac&amp;ord</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Cancel.la</translation>
     </message>
 </context>
 <context>
@@ -2450,6 +2462,14 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
         <source>Change the output directory</source>
         <translation>Canvia el directori de sortida</translation>
     </message>
+    <message>
+        <source>&amp;Size:</source>
+        <translation type="unfinished">&amp;Mida:</translation>
+    </message>
+    <message>
+        <source>Size of the images. 100% for no changes, 200% for two times larger etc.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FDialogPreview</name>
@@ -2718,6 +2738,14 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
         <source>Woven silk pyjamas exchanged for blue quartz</source>
         <translation>Woven silk pyjamas exchanged for blue quartz</translation>
     </message>
+    <message>
+        <source>Append selected font into Style, Font menu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Leave preview</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GradientEditor</name>
@@ -2806,6 +2834,18 @@ El Nom del fitxer exportat serà &apos;nomdocument-numpagina.tipusfitxer&apos;</
     <message>
         <source>Sorry, no manual available! Please see: http://docs.scribus.net for updated docs
 and www.scribus.net for downloads.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Contents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Link</source>
+        <translation type="unfinished">Enllaç</translation>
+    </message>
+    <message>
+        <source>Scribus Online Help</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5402,7 +5442,7 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Una forma de canviar algunes de les ombres grises que estan compostes
+        <translation type="obsolete">Una forma de canviar algunes de les ombres grises que estan compostes
 de cian, groc i magenta i al seu lloc fer servir negre.
 UCR pot afectar parts d&apos;imatges que són neutrals i/o amb tons foscos
 que estan propers al gris. Fes servir això millora la impressió d&apos;algunes imatges
@@ -5412,6 +5452,20 @@ UCR redueix la possibilitat de sobresaturació amb tintes CMY.</translation>
     <message>
         <source>All</source>
         <translation>Tot</translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed
+of cyan, yellow and magenta and using black instead.
+UCR most affects parts of images which are neutral and/or dark tones
+which are close to the gray. Use of this may improve printing some images
+and some experimentation and testing is need on a case by case basis.
+UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="unfinished">Una forma d&apos;apagar algunes de les ombres grises que estan composades
+per cian, groc i magenta però fan servir negre
+UCR pot afectar parts de imatges que són de color neutral o tons foscos
+propers a gris. Fes servir això pot millorar la impressió d&apos;algunes imatges 
+però cal algunes proves i experimentació per cada cas
+UCR redueix la possibilitat de sobre saturar amb tintes CMY.</translation>
     </message>
 </context>
 <context>
@@ -7441,27 +7495,27 @@ Comprova el nom i el camí.</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to load image into an object doesn&apos;t exist or isn&apos;t selected!</source>
-        <translation>Ostres! Intentes carregar una imatge a un objecte que no existeix o no està triat!</translation>
+        <translation type="obsolete">Ostres! Intentes carregar una imatge a un objecte que no existeix o no està triat!</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to (un)lock an object doesn&apos;t exist! None selected too.</source>
-        <translation>Ostres! Intentes (des)bloquejar un objecte que no existeix! Ni seleccionat.</translation>
+        <translation type="obsolete">Ostres! Intentes (des)bloquejar un objecte que no existeix! Ni seleccionat.</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to query an object doesn&apos;t exist! None selected too.</source>
-        <translation>Ostres! Intentes preguntar a un objecte que no existeix! Ni seleccionat.</translation>
+        <translation type="obsolete">Ostres! Intentes preguntar a un objecte que no existeix! Ni seleccionat.</translation>
     </message>
     <message>
         <source>Oook! You&apos;re calling an object doesn&apos;t exist!</source>
-        <translation>Ostres! Crides un objecte que no existeix!</translation>
+        <translation type="obsolete">Ostres! Crides un objecte que no existeix!</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to erase an object doesn&apos;t exist!</source>
-        <translation>Ostres! Vols esborrar un objecte que no existeix!</translation>
+        <translation type="obsolete">Ostres! Vols esborrar un objecte que no existeix!</translation>
     </message>
     <message>
         <source>Oook! An object you&apos;re trying to textflow doesn&apos;t exist!</source>
-        <translation>Ostres! Vols passar text a un objecte que no existeix!</translation>
+        <translation type="obsolete">Ostres! Vols passar text a un objecte que no existeix!</translation>
     </message>
     <message>
         <source>S&amp;cripter Manual...</source>
@@ -7558,6 +7612,158 @@ Enllaços Externs
     </message>
     <message>
         <source>Text Filters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Albanian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Basque</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bulgarian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Brazilian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Catalan</source>
+        <translation type="unfinished">Català</translation>
+    </message>
+    <message>
+        <source>Chinese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Czech</source>
+        <translation type="unfinished">Txec</translation>
+    </message>
+    <message>
+        <source>Danish</source>
+        <translation type="unfinished">Danès</translation>
+    </message>
+    <message>
+        <source>Dutch</source>
+        <translation type="unfinished">Holandès</translation>
+    </message>
+    <message>
+        <source>English</source>
+        <translation type="unfinished">Anglès</translation>
+    </message>
+    <message>
+        <source>English (British)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Esperanto</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>German</source>
+        <translation type="unfinished">Alemany</translation>
+    </message>
+    <message>
+        <source>Finnish</source>
+        <translation type="unfinished">Finès</translation>
+    </message>
+    <message>
+        <source>French</source>
+        <translation type="unfinished">Francès</translation>
+    </message>
+    <message>
+        <source>Galician</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Greek</source>
+        <translation type="unfinished">Grec</translation>
+    </message>
+    <message>
+        <source>Hungarian</source>
+        <translation type="unfinished">Hongarès</translation>
+    </message>
+    <message>
+        <source>Indonesian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Italian</source>
+        <translation type="unfinished">Italià</translation>
+    </message>
+    <message>
+        <source>Korean</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lithuanian</source>
+        <translation type="unfinished">Lituà</translation>
+    </message>
+    <message>
+        <source>Norwegian (Bokmaal)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Norwegian (Nnyorsk)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Norwegian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Polish</source>
+        <translation type="unfinished">Polonès</translation>
+    </message>
+    <message>
+        <source>Russian</source>
+        <translation type="unfinished">Rus</translation>
+    </message>
+    <message>
+        <source>Swedish</source>
+        <translation type="unfinished">Suec</translation>
+    </message>
+    <message>
+        <source>Spanish</source>
+        <translation type="unfinished">Espanyol</translation>
+    </message>
+    <message>
+        <source>Spanish (Latin)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Slovak</source>
+        <translation type="unfinished">Eslovac</translation>
+    </message>
+    <message>
+        <source>Slovenian</source>
+        <translation type="unfinished">Eslovè</translation>
+    </message>
+    <message>
+        <source>Serbian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tried to set progress &gt; maximum progress</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;About Script...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>About Script</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import &amp;Open Office Draw...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Office Draw (*.sxd);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7814,6 +8020,10 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     <message>
         <source>Height:</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>F&amp;irst Page Number:</source>
+        <translation type="unfinished">Pr&amp;imer Número de Pàgina:</translation>
     </message>
 </context>
 <context>
@@ -9626,11 +9836,11 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
     </message>
     <message>
         <source>&amp;Insert Special</source>
-        <translation>&amp;Inserir Especial</translation>
+        <translation type="obsolete">&amp;Inserir Especial</translation>
     </message>
     <message>
         <source>&amp;Fonts Preview</source>
-        <translation>Vista Prèvia de &amp;Fonts</translation>
+        <translation type="obsolete">Vista Prèvia de &amp;Fonts</translation>
     </message>
     <message>
         <source>Do you really want to lose all your Changes?</source>

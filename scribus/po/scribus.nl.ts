@@ -3784,7 +3784,7 @@ te maken sleep een Template naar de Weergave beneden.</translation>
     <name>About</name>
     <message>
         <source>About Scribus%1%2</source>
-        <translation>Info over Scribus%1%2</translation>
+        <translation type="obsolete">Info over Scribus%1%2</translation>
     </message>
     <message>
         <source>%1. %2 %3 </source>
@@ -3834,7 +3834,7 @@ te maken sleep een Template naar de Weergave beneden.</translation>
     </message>
     <message>
         <source>Spanish and Catalan:</source>
-        <translation>Spaans en Catalaans:</translation>
+        <translation type="obsolete">Spaans en Catalaans:</translation>
     </message>
     <message>
         <source>Italian:</source>
@@ -3965,6 +3965,38 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     <message>
         <source>Mailing List</source>
         <translation>Mailinglijst</translation>
+    </message>
+    <message>
+        <source>About Scribus %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Official Translations and Translators:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Catalan:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Esperanto:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Korean:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Serbian:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spanish:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Previous Translation Contributors:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4713,7 +4745,7 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>Type:</source>
-        <translation>Type:</translation>
+        <translation type="obsolete">Type:</translation>
     </message>
     <message>
         <source>Text</source>
@@ -4737,15 +4769,15 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>Change...</source>
-        <translation>Wijzigen...</translation>
+        <translation type="obsolete">Wijzigen...</translation>
     </message>
     <message>
         <source>Page:</source>
-        <translation>Pagina:</translation>
+        <translation type="obsolete">Pagina:</translation>
     </message>
     <message>
         <source>X-Pos:</source>
-        <translation>X-positie:</translation>
+        <translation type="obsolete">X-positie:</translation>
     </message>
     <message>
         <source> pt</source>
@@ -4753,15 +4785,15 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>Y-Pos:</source>
-        <translation>Y-positie:</translation>
+        <translation type="obsolete">Y-positie:</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Annuleren</translation>
+        <translation type="obsolete">Annuleren</translation>
     </message>
     <message>
         <source>Open</source>
@@ -4770,6 +4802,34 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     <message>
         <source>PDF-Documents (*.pdf);;All Files (*)</source>
         <translation>PDF-bestanden (*.pdf);;Alle bestanden (*)</translation>
+    </message>
+    <message>
+        <source>&amp;Type:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;hange...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Page:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;X-Pos</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Y-Pos:</source>
+        <translation type="unfinished">&amp;Y-pos:</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5240,6 +5300,15 @@ Als uw document foto&apos;s bevat wordt deze instelling aangeraden.</translation
         <source>OK</source>
         <translation>OK</translation>
     </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Geen</translation>
+    </message>
+    <message>
+        <source>You cannot create a color named &quot;%1&quot;.
+It&apos;s a reserved name for transparent color</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Cpalette</name>
@@ -5511,11 +5580,23 @@ Deze kan worden ingesteld in de voorkeuren.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Annuleren</translation>
+        <translation type="obsolete">Annuleren</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Geen</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6200,6 +6281,14 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
         <source>Change the output directory</source>
         <translation>De uitvoermap wijzigen</translation>
     </message>
+    <message>
+        <source>&amp;Size:</source>
+        <translation type="unfinished">&amp;Grootte:</translation>
+    </message>
+    <message>
+        <source>Size of the images. 100% for no changes, 200% for two times larger etc.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FDialogPreview</name>
@@ -6342,6 +6431,10 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
         <source>New Color</source>
         <translation>Nieuwe kleur</translation>
     </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Geen</translation>
+    </message>
 </context>
 <context>
     <name>FontPrefs</name>
@@ -6464,6 +6557,14 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
         <source>Woven silk pyjamas exchanged for blue quartz</source>
         <translation>Filmquiz bracht knappe ex-yogi van de wijs</translation>
     </message>
+    <message>
+        <source>Append selected font into Style, Font menu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Leave preview</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GradientEditor</name>
@@ -6555,6 +6656,18 @@ and www.scribus.net for downloads.</source>
         <translation>Helaas, geen handleiding beschikbaar! Kijk op http://docs.scribus.net/ voor bijgewerkte
 documentatie en op http://www.scribus.net/ voor downloads.</translation>
     </message>
+    <message>
+        <source>Contents</source>
+        <translation type="unfinished">Inhoud</translation>
+    </message>
+    <message>
+        <source>Link</source>
+        <translation type="unfinished">Koppeling</translation>
+    </message>
+    <message>
+        <source>Scribus Online Help</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>HyAsk</name>
@@ -6617,7 +6730,7 @@ De waarde 0 betekent onbeperkt.</translation>
     </message>
     <message>
         <source>Consecutive Hypenations &amp;Allowed:</source>
-        <translation>Opeenvolgende afbrekingen &amp;toestaan:</translation>
+        <translation type="obsolete">Opeenvolgende afbrekingen &amp;toestaan:</translation>
     </message>
     <message>
         <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
@@ -6626,6 +6739,10 @@ De waarde 0 betekent onbeperkt.</translation>
     <message>
         <source>Enables automatic hyphenation of your text while typing.</source>
         <translation>Voorziet tekst tijdens het typen direct van afbreektekens.</translation>
+    </message>
+    <message>
+        <source>Consecutive Hyphenations &amp;Allowed:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7634,7 +7751,7 @@ hoeken:</translation>
     </message>
     <message>
         <source>Reverse Writing</source>
-        <translation>Omgekeerd schrift</translation>
+        <translation type="obsolete">Omgekeerd schrift</translation>
     </message>
     <message>
         <source>Manual Kerning</source>
@@ -7813,6 +7930,10 @@ Kies een andere naam.</translation>
     <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+    <message>
+        <source>Right to Left Writing</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8421,7 +8542,7 @@ gebruikt, anders zijn de coördinaten relatief t.o.v. het object.</translation>
     </message>
     <message>
         <source>Com&amp;press Text and Vector Graphics</source>
-        <translation>Tekst en vectorafbeeldingen compri&amp;meren</translation>
+        <translation type="obsolete">Tekst en vectorafbeeldingen compri&amp;meren</translation>
     </message>
     <message>
         <source>Image Settings</source>
@@ -8509,7 +8630,7 @@ gebruikt, anders zijn de coördinaten relatief t.o.v. het object.</translation>
     </message>
     <message>
         <source>Enable &amp;Presentation Effects</source>
-        <translation>&amp;Presentatie-effecten</translation>
+        <translation type="obsolete">&amp;Presentatie-effecten</translation>
     </message>
     <message>
         <source>Page</source>
@@ -8621,7 +8742,7 @@ gebruikt, anders zijn de coördinaten relatief t.o.v. het object.</translation>
     </message>
     <message>
         <source>E&amp;xtras</source>
-        <translation>E&amp;xtra&apos;s</translation>
+        <translation type="obsolete">E&amp;xtra&apos;s</translation>
     </message>
     <message>
         <source>&amp;Use Encryption</source>
@@ -9049,6 +9170,38 @@ deze standaard. We bevelen aan de titel van het document te gebruiken.</translat
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>PDF-bestanden (*.pdf);;Alle bestanden (*)</translation>
     </message>
+    <message>
+        <source>&amp;Rotation:</source>
+        <translation type="unfinished">&amp;Rotatie:</translation>
+    </message>
+    <message>
+        <source>Compress Text and &amp;Vector Graphics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Subset all Fonts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fonts to subset:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>En&amp;able Presentation Effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Presentation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) horizontally</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) vertically</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PPreview</name>
@@ -9135,7 +9288,7 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Een methode om grijstinten die zijn samengesteld uit cyaan, geel en magenta
+        <translation type="obsolete">Een methode om grijstinten die zijn samengesteld uit cyaan, geel en magenta
 te vervangen door tinten enkel op zwart gebaseerd.
 UCR (Under Color Removal) heeft vooral invloed op donkere en neutrale tinten
 die dicht bij grijs liggen. Sommige afbeeldingen worden fraaier afgedrukt door
@@ -9145,6 +9298,20 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     <message>
         <source>All</source>
         <translation>Alles</translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed
+of cyan, yellow and magenta and using black instead.
+UCR most affects parts of images which are neutral and/or dark tones
+which are close to the gray. Use of this may improve printing some images
+and some experimentation and testing is need on a case by case basis.
+UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="unfinished">Een methode om grijstinten die zijn samengesteld uit cyaan, geel en magenta
+te vervangen door tinten enkel op zwart gebaseerd.
+UCR (Under Color Removal) heeft vooral invloed op donkere en neutrale tinten
+die dicht bij grijs liggen. Sommige afbeeldingen worden fraaier afgedrukt door
+deze functie; experimenteren kan nodig zijn.
+UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
 </context>
 <context>
@@ -11013,7 +11180,7 @@ Controleer het pad en de bestandsnaam.</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation>&amp;Nieuw</translation>
+        <translation type="obsolete">&amp;Nieuw</translation>
     </message>
     <message>
         <source>Template: </source>
@@ -11153,7 +11320,7 @@ Controleer het pad en de bestandsnaam.</translation>
     </message>
     <message>
         <source>&amp;Print...</source>
-        <translation>Afdru&amp;kken...</translation>
+        <translation type="obsolete">Afdru&amp;kken...</translation>
     </message>
     <message>
         <source>Print Previe&amp;w</source>
@@ -11177,31 +11344,31 @@ Controleer het pad en de bestandsnaam.</translation>
     </message>
     <message>
         <source>Save &amp;As...</source>
-        <translation>Opslaan &amp;als...</translation>
+        <translation type="obsolete">Opslaan &amp;als...</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to load image into an object doesn&apos;t exist or isn&apos;t selected!</source>
-        <translation>Oeps! U probeert een afbeelding in een object te laden dat niet bestaat of niet is geselecteerd!</translation>
+        <translation type="obsolete">Oeps! U probeert een afbeelding in een object te laden dat niet bestaat of niet is geselecteerd!</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to (un)lock an object doesn&apos;t exist! None selected too.</source>
-        <translation>Oeps! U probeert een object te vergrendelen of los te maken dat niet bestaat of niet is geselecteerd.</translation>
+        <translation type="obsolete">Oeps! U probeert een object te vergrendelen of los te maken dat niet bestaat of niet is geselecteerd.</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to query an object doesn&apos;t exist! None selected too.</source>
-        <translation>Oeps! U probeert de eigenschappen van een object op te vragen dat niet bestaat of niet is geselecteerd.</translation>
+        <translation type="obsolete">Oeps! U probeert de eigenschappen van een object op te vragen dat niet bestaat of niet is geselecteerd.</translation>
     </message>
     <message>
         <source>Oook! You&apos;re calling an object doesn&apos;t exist!</source>
-        <translation>Oeps! U roept een object aan dat niet bestaat!</translation>
+        <translation type="obsolete">Oeps! U roept een object aan dat niet bestaat!</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to erase an object doesn&apos;t exist!</source>
-        <translation>Oeps! U probeert een object te wissen dat niet bestaat!</translation>
+        <translation type="obsolete">Oeps! U probeert een object te wissen dat niet bestaat!</translation>
     </message>
     <message>
         <source>Oook! An object you&apos;re trying to textflow doesn&apos;t exist!</source>
-        <translation>Oeps! U probeert het tekstverloop in te stellen bij een object dat niet bestaat!</translation>
+        <translation type="obsolete">Oeps! U probeert het tekstverloop in te stellen bij een object dat niet bestaat!</translation>
     </message>
     <message>
         <source>S&amp;cripter Manual...</source>
@@ -11298,6 +11465,162 @@ Externe koppelingen
     <message>
         <source>Text Filters</source>
         <translation>Tekstfilters</translation>
+    </message>
+    <message>
+        <source>Albanian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Basque</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bulgarian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Brazilian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Catalan</source>
+        <translation type="unfinished">Catalaans</translation>
+    </message>
+    <message>
+        <source>Chinese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Czech</source>
+        <translation type="unfinished">Tsjechisch</translation>
+    </message>
+    <message>
+        <source>Danish</source>
+        <translation type="unfinished">Deens</translation>
+    </message>
+    <message>
+        <source>Dutch</source>
+        <translation type="unfinished">Nederlands</translation>
+    </message>
+    <message>
+        <source>English</source>
+        <translation type="unfinished">Engels</translation>
+    </message>
+    <message>
+        <source>English (British)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Esperanto</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>German</source>
+        <translation type="unfinished">Duits</translation>
+    </message>
+    <message>
+        <source>Finnish</source>
+        <translation type="unfinished">Fins</translation>
+    </message>
+    <message>
+        <source>French</source>
+        <translation type="unfinished">Frans</translation>
+    </message>
+    <message>
+        <source>Galician</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Greek</source>
+        <translation type="unfinished">Grieks</translation>
+    </message>
+    <message>
+        <source>Hungarian</source>
+        <translation type="unfinished">Hongaars</translation>
+    </message>
+    <message>
+        <source>Indonesian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Italian</source>
+        <translation type="unfinished">Italiaans</translation>
+    </message>
+    <message>
+        <source>Korean</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lithuanian</source>
+        <translation type="unfinished">Litouws</translation>
+    </message>
+    <message>
+        <source>Norwegian (Bokmaal)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Norwegian (Nnyorsk)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Norwegian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Polish</source>
+        <translation type="unfinished">Pools</translation>
+    </message>
+    <message>
+        <source>Russian</source>
+        <translation type="unfinished">Russisch</translation>
+    </message>
+    <message>
+        <source>Swedish</source>
+        <translation type="unfinished">Zweeds</translation>
+    </message>
+    <message>
+        <source>Spanish</source>
+        <translation type="unfinished">Spaans</translation>
+    </message>
+    <message>
+        <source>Spanish (Latin)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Slovak</source>
+        <translation type="unfinished">Slovaaks</translation>
+    </message>
+    <message>
+        <source>Slovenian</source>
+        <translation type="unfinished">Sloveens</translation>
+    </message>
+    <message>
+        <source>Serbian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Media Cases</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tried to set progress &gt; maximum progress</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;About Script...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>About Script</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import &amp;Open Office Draw...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Office Draw (*.sxd);;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11521,6 +11844,42 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     <message>
         <source>&amp;Outside:</source>
         <translation>B&amp;uitenkant:</translation>
+    </message>
+    <message>
+        <source>Page Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <translation type="unfinished">Aangepast</translation>
+    </message>
+    <message>
+        <source>Orientation:</source>
+        <translation type="unfinished">Orientatie:</translation>
+    </message>
+    <message>
+        <source>Portrait</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Landscape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Width:</source>
+        <translation type="unfinished">Breedte:</translation>
+    </message>
+    <message>
+        <source>Height:</source>
+        <translation type="unfinished">Hoogte:</translation>
+    </message>
+    <message>
+        <source>F&amp;irst Page Number:</source>
+        <translation type="unfinished">N&amp;ummer eerste pagina:</translation>
     </message>
 </context>
 <context>
@@ -13337,11 +13696,11 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
     </message>
     <message>
         <source>&amp;Insert Special</source>
-        <translation>&amp;Invoegen speciaal</translation>
+        <translation type="obsolete">&amp;Invoegen speciaal</translation>
     </message>
     <message>
         <source>&amp;Fonts Preview</source>
-        <translation>&amp;Lettertypeweergave</translation>
+        <translation type="obsolete">&amp;Lettertypeweergave</translation>
     </message>
     <message>
         <source>Do you really want to lose all your Changes?</source>
@@ -13362,6 +13721,10 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
     <message>
         <source>Save as</source>
         <translation>Opslaan als</translation>
+    </message>
+    <message>
+        <source>&amp;Smart text selection</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13406,7 +13769,7 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
 name than current OO.o document&apos;s paragraph should the style
 in Scribus be edited to match the one being imported
 or left untouched</source>
-        <translation>Als er in uw Scribus-document reeds een alineastijl bestaat met dezelfde
+        <translation type="obsolete">Als er in uw Scribus-document reeds een alineastijl bestaat met dezelfde
 naam als de geïmporteerde OpenOffice.org-alina, wilt u dat de stijl in Scribus
 dan wordt bijgewerkt naar de versie uit OpenOffice.org, of wilt u de Scribus-
 stijl ongemoeid laten?</translation>
@@ -13418,7 +13781,7 @@ stijl ongemoeid laten?</translation>
     <message>
         <source>Should importer add the name of the document
 on front of the paragraph style name in Scirubs</source>
-        <translation>Selecteer deze optie als u wilt dat de importer de naam
+        <translation type="obsolete">Selecteer deze optie als u wilt dat de importer de naam
 van het document toevoegt aan de alineastijlnaam in Scribus</translation>
     </message>
     <message>
@@ -13436,6 +13799,17 @@ dan niet meer toont</translation>
     <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+    <message>
+        <source>If a paragraph style already exists with the same name as the current
+OpenOffice.org document&apos;s paragraph, should the style in Scribus be
+edited to match the one being imported, or left untouched</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Should importer add the name of the document
+on front of the paragraph style name in Scribus</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus 1.2.cvs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-29 23:35+0200\n"
+"POT-Creation-Date: 2004-11-30 21:24+0100\n"
 "PO-Revision-Date: 2004-09-29 23:27+0800\n"
 "Last-Translator: Kitae Kim <neeum@yahoo.com>\n"
 "Language-Team: Korean\n"
@@ -1249,8 +1249,8 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Compression levels: Minimum (25\\%), Low (50\\%), Medium (75\\%), High (85\\"
-"%), Maximum (95\\%)"
+"Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), "
+"Maximum (95%)"
 msgstr ""
 
 msgid ""
@@ -2228,6 +2228,107 @@ msgstr ""
 msgid "Select"
 msgstr ""
 
+#, fuzzy
+msgid "Albanian"
+msgstr "정열"
+
+msgid "Basque"
+msgstr ""
+
+msgid "Bulgarian"
+msgstr ""
+
+msgid "Brazilian"
+msgstr ""
+
+msgid "Catalan"
+msgstr ""
+
+msgid "Chinese"
+msgstr ""
+
+msgid "Czech"
+msgstr ""
+
+msgid "Danish"
+msgstr ""
+
+msgid "Dutch"
+msgstr ""
+
+msgid "English"
+msgstr ""
+
+msgid "English (British)"
+msgstr ""
+
+#, fuzzy
+msgid "Esperanto"
+msgstr "이벤트:"
+
+msgid "German"
+msgstr ""
+
+msgid "Finnish"
+msgstr ""
+
+msgid "French"
+msgstr ""
+
+msgid "Galician"
+msgstr ""
+
+msgid "Greek"
+msgstr ""
+
+msgid "Hungarian"
+msgstr ""
+
+msgid "Indonesian"
+msgstr ""
+
+msgid "Italian"
+msgstr ""
+
+msgid "Korean"
+msgstr ""
+
+msgid "Lithuanian"
+msgstr ""
+
+msgid "Norwegian (Bokmaal)"
+msgstr ""
+
+msgid "Norwegian (Nnyorsk)"
+msgstr ""
+
+msgid "Norwegian"
+msgstr ""
+
+msgid "Polish"
+msgstr ""
+
+msgid "Russian"
+msgstr ""
+
+msgid "Swedish"
+msgstr ""
+
+msgid "Spanish"
+msgstr ""
+
+msgid "Spanish (Latin)"
+msgstr ""
+
+msgid "Slovak"
+msgstr ""
+
+msgid "Slovenian"
+msgstr ""
+
+msgid "Serbian"
+msgstr ""
+
 msgid "Document Information"
 msgstr ""
 
@@ -3127,67 +3228,13 @@ msgstr ""
 msgid "&Undo Object Change"
 msgstr ""
 
-msgid "English"
-msgstr ""
-
-msgid "German"
-msgstr ""
-
-msgid "Spanish"
-msgstr ""
-
-msgid "Italian"
-msgstr ""
-
-msgid "French"
-msgstr ""
-
-msgid "Russian"
-msgstr ""
-
-msgid "Danish"
-msgstr ""
-
-msgid "Slovak"
-msgstr ""
-
-msgid "Hungarian"
-msgstr ""
-
-msgid "Czech"
-msgstr ""
-
-msgid "Dutch"
-msgstr ""
-
 msgid "Portuguese"
 msgstr ""
 
 msgid "Ukrainian"
 msgstr ""
 
-msgid "Polish"
-msgstr ""
-
-msgid "Greek"
-msgstr ""
-
-msgid "Catalan"
-msgstr ""
-
-msgid "Finnish"
-msgstr ""
-
 msgid "Irish"
-msgstr ""
-
-msgid "Lithuanian"
-msgstr ""
-
-msgid "Swedish"
-msgstr ""
-
-msgid "Slovenian"
 msgstr ""
 
 msgid "Afrikaans"
@@ -4401,12 +4448,6 @@ msgstr ""
 msgid "Do you want to save your changes?"
 msgstr ""
 
-msgid "&Insert Special"
-msgstr ""
-
-msgid "&Fonts Preview"
-msgstr ""
-
 msgid "Do you really want to lose all your Changes?"
 msgstr ""
 
@@ -4518,6 +4559,12 @@ msgid ""
 "It is recommended that you enable this if you have photos in your document."
 msgstr ""
 
+msgid "Contents"
+msgstr ""
+
+msgid "Scribus Online Help"
+msgstr ""
+
 msgid ""
 "Sorry, no manual available! Please see: http://docs.scribus.net for updated "
 "docs\n"
@@ -4587,9 +4634,9 @@ msgid ""
 "%1 ?"
 msgstr ""
 
-#, c-format
-msgid "About Scribus%1%2"
-msgstr ""
+#, fuzzy
+msgid "About Scribus %1"
+msgstr "스크리부스"
 
 msgid "%1. %2 %3 "
 msgstr ""
@@ -5375,6 +5422,9 @@ msgstr ""
 msgid "Template: "
 msgstr "템플릿"
 
+msgid "&Insert Special"
+msgstr ""
+
 msgid "Select Character:"
 msgstr ""
 
@@ -5417,6 +5467,15 @@ msgstr ""
 msgid "custom"
 msgstr ""
 
+msgid "Import &Open Office Draw..."
+msgstr ""
+
+msgid "Open Office Draw (*.sxd);;All Files (*)"
+msgstr ""
+
+msgid "&Fonts Preview"
+msgstr ""
+
 msgid "Fonts Preview"
 msgstr ""
 
@@ -5424,6 +5483,12 @@ msgid "Alt+O"
 msgstr ""
 
 msgid "Alt+C"
+msgstr ""
+
+msgid "Append selected font into Style, Font menu"
+msgstr ""
+
+msgid "Leave preview"
 msgstr ""
 
 #, fuzzy
@@ -5637,15 +5702,6 @@ msgstr ""
 msgid "Enable/disable the K (Black) ink plate"
 msgstr ""
 
-msgid ""
-"A way of switching some of the gray shades which are composed\n"
-"of cyan, yellow and magenta and using black instead.\n"
-"UCR most affects parts of images which are neutral and/or dark tones\n"
-"which are close to the gray. Use of this may improve printing some images\n"
-"and some experimentation and testing is need on a case by case basis.\n"
-"UCR reduces the possibility of over saturation with CMY inks."
-msgstr ""
-
 msgid "Oook! Wrong arguments! Call: "
 msgstr ""
 
@@ -5663,6 +5719,10 @@ msgstr ""
 
 msgid "Show &Console"
 msgstr ""
+
+#, fuzzy
+msgid "&About Script..."
+msgstr "사용자 설정 스크립트"
 
 msgid "S&cript"
 msgstr ""
@@ -5686,29 +5746,14 @@ msgstr ""
 msgid "Hide &Console"
 msgstr ""
 
+#, fuzzy
+msgid "About Script"
+msgstr "사용자 설정 스크립트"
+
 msgid "Script Console"
 msgstr ""
 
-msgid "Oook! You're calling an object doesn't exist!"
-msgstr ""
-
-msgid "Oook! You're trying to erase an object doesn't exist!"
-msgstr ""
-
-msgid "Oook! An object you're trying to textflow doesn't exist!"
-msgstr ""
-
-msgid ""
-"Oook! You're trying to load image into an object doesn't exist or isn't "
-"selected!"
-msgstr ""
-
-msgid ""
-"Oook! You're trying to (un)lock an object doesn't exist! None selected too."
-msgstr ""
-
-msgid ""
-"Oook! You're trying to query an object doesn't exist! None selected too."
+msgid "Tried to set progress > maximum progress"
 msgstr ""
 
 #, fuzzy
@@ -5769,6 +5814,10 @@ msgstr ""
 msgid ""
 "Resolution of the Images\n"
 "Use 72 dpi for Images intended for the Screen"
+msgstr ""
+
+#, c-format
+msgid "Size of the images. 100% for no changes, 200% for two times larger etc."
 msgstr ""
 
 #, c-format

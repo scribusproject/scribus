@@ -93,7 +93,7 @@
     </message>
     <message>
         <source>About Scribus%1%2</source>
-        <translation>Tietoja Scribuksesta%1%2</translation>
+        <translation type="obsolete">Tietoja Scribuksesta%1%2</translation>
     </message>
     <message>
         <source>Finnish:</source>
@@ -199,6 +199,10 @@ Puuttuva kirjaston tuki on merkitty * -merkillä</translation>
     </message>
     <message>
         <source>Previous Translation Contributors:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>About Scribus %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1742,7 +1746,7 @@ Voit määrittää sen asetuksissa.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Delete Color</source>
@@ -1754,7 +1758,7 @@ Voit määrittää sen asetuksissa.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Peruuta</translation>
+        <translation type="obsolete">Peruuta</translation>
     </message>
     <message>
         <source>Delete color:</source>
@@ -1763,6 +1767,14 @@ Voit määrittää sen asetuksissa.</translation>
     <message>
         <source>None</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Peruuta</translation>
     </message>
 </context>
 <context>
@@ -2443,6 +2455,14 @@ joita on tarkoitus katsella näytöltä</translation>
         <source>Export all pages</source>
         <translation>Vie kaikki sivut</translation>
     </message>
+    <message>
+        <source>&amp;Size:</source>
+        <translation type="unfinished">&amp;Koko:</translation>
+    </message>
+    <message>
+        <source>Size of the images. 100% for no changes, 200% for two times larger etc.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FDialogPreview</name>
@@ -2711,6 +2731,14 @@ joita on tarkoitus katsella näytöltä</translation>
         <source>Fonts Preview</source>
         <translation>Kirjasinten esikatselu</translation>
     </message>
+    <message>
+        <source>Append selected font into Style, Font menu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Leave preview</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GradientEditor</name>
@@ -2802,6 +2830,18 @@ and www.scribus.net for downloads.</source>
         <translation>Ohjetta ei ole vielä saatavissa tässä muodossa. Osoitteesta http://docs.scribus.net 
 löydät viimeisimmän version dokumentaatiosta. Lisää materiaalia löydät myös 
 osoitteesta www.scribus.net.</translation>
+    </message>
+    <message>
+        <source>Contents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Link</source>
+        <translation type="unfinished">Linkki</translation>
+    </message>
+    <message>
+        <source>Scribus Online Help</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5398,7 +5438,20 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Tapa vaihtaa syaanin, magentan ja keltaisen värien tekemä harmaa mustalla tehdyksi.
+        <translation type="obsolete">Tapa vaihtaa syaanin, magentan ja keltaisen värien tekemä harmaa mustalla tehdyksi.
+UCR vaikuttaa kuvien kohdissa, jotka ovat neutraaleja tai lähellä harmaata
+olevia tummia värejä. UCR:n käyttäminen saattaa parantaa joidenkin kuvien
+tulostamista. Parhaan tuloksen saavuttamiseksi tarvitaan tapauskohtaista
+testausta. UCR parantaa kykyä välttää värien liikaa kylläisyyttä CMY-musteilla.</translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed
+of cyan, yellow and magenta and using black instead.
+UCR most affects parts of images which are neutral and/or dark tones
+which are close to the gray. Use of this may improve printing some images
+and some experimentation and testing is need on a case by case basis.
+UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="unfinished">Tapa vaihtaa C, Y ja M värien tekemä harmaa mustalla tehdyksi.
 UCR vaikuttaa kuvien kohdissa, jotka ovat neutraaleja tai lähellä harmaata
 olevia tummia värejä. UCR:n käyttäminen saattaa parantaa joidenkin kuvien
 tulostamista. Parhaan tuloksen saavuttamiseksi tarvitaan tapauskohtaista
@@ -7278,15 +7331,15 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Oook! You&apos;re calling an object doesn&apos;t exist!</source>
-        <translation>Iiik! Kutsut kohdetta, jota ei ole olemassa!</translation>
+        <translation type="obsolete">Iiik! Kutsut kohdetta, jota ei ole olemassa!</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to erase an object doesn&apos;t exist!</source>
-        <translation>Iiik! Yrität poistaa kohdetta, jota ei ole olemassa!</translation>
+        <translation type="obsolete">Iiik! Yrität poistaa kohdetta, jota ei ole olemassa!</translation>
     </message>
     <message>
         <source>Oook! An object you&apos;re trying to textflow doesn&apos;t exist!</source>
-        <translation>Iiik! Kohdetta, jonka ympäri yrität viedä tekstiä ei ole olemassa!</translation>
+        <translation type="obsolete">Iiik! Kohdetta, jonka ympäri yrität viedä tekstiä ei ole olemassa!</translation>
     </message>
     <message>
         <source>File exists. Overwrite?</source>
@@ -7474,15 +7527,15 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to load image into an object doesn&apos;t exist or isn&apos;t selected!</source>
-        <translation>Iik! Yrität ladata kuvaa kohteesen, jota ei ole tai joka ei ole valittuna!</translation>
+        <translation type="obsolete">Iik! Yrität ladata kuvaa kohteesen, jota ei ole tai joka ei ole valittuna!</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to (un)lock an object doesn&apos;t exist! None selected too.</source>
-        <translation>Iik! Yrität vapauttaa tai lukita kohdetta, jota ei ole! Valittujakaan kohteita ei ole.</translation>
+        <translation type="obsolete">Iik! Yrität vapauttaa tai lukita kohdetta, jota ei ole! Valittujakaan kohteita ei ole.</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to query an object doesn&apos;t exist! None selected too.</source>
-        <translation>Iik! Yrität kutsua kohdetta, jota ei ole. Valittujakaan kohteita ei ole.</translation>
+        <translation type="obsolete">Iik! Yrität kutsua kohdetta, jota ei ole. Valittujakaan kohteita ei ole.</translation>
     </message>
     <message>
         <source>Importing text</source>
@@ -7544,6 +7597,158 @@ External Links
     </message>
     <message>
         <source>Media Cases</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Albanian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Basque</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bulgarian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Brazilian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Catalan</source>
+        <translation type="unfinished">katalonia</translation>
+    </message>
+    <message>
+        <source>Chinese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Czech</source>
+        <translation type="unfinished">tsekki</translation>
+    </message>
+    <message>
+        <source>Danish</source>
+        <translation type="unfinished">tanska</translation>
+    </message>
+    <message>
+        <source>Dutch</source>
+        <translation type="unfinished">hollanti</translation>
+    </message>
+    <message>
+        <source>English</source>
+        <translation type="unfinished">englanti</translation>
+    </message>
+    <message>
+        <source>English (British)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Esperanto</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>German</source>
+        <translation type="unfinished">saksa</translation>
+    </message>
+    <message>
+        <source>Finnish</source>
+        <translation type="unfinished">suomi</translation>
+    </message>
+    <message>
+        <source>French</source>
+        <translation type="unfinished">ranska</translation>
+    </message>
+    <message>
+        <source>Galician</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Greek</source>
+        <translation type="unfinished">kreikka</translation>
+    </message>
+    <message>
+        <source>Hungarian</source>
+        <translation type="unfinished">unkari</translation>
+    </message>
+    <message>
+        <source>Indonesian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Italian</source>
+        <translation type="unfinished">italia</translation>
+    </message>
+    <message>
+        <source>Korean</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lithuanian</source>
+        <translation type="unfinished">Liettua</translation>
+    </message>
+    <message>
+        <source>Norwegian (Bokmaal)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Norwegian (Nnyorsk)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Norwegian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Polish</source>
+        <translation type="unfinished">puola</translation>
+    </message>
+    <message>
+        <source>Russian</source>
+        <translation type="unfinished">venäjä</translation>
+    </message>
+    <message>
+        <source>Swedish</source>
+        <translation type="unfinished">ruotsi</translation>
+    </message>
+    <message>
+        <source>Spanish</source>
+        <translation type="unfinished">espanja</translation>
+    </message>
+    <message>
+        <source>Spanish (Latin)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Slovak</source>
+        <translation type="unfinished">slovakki</translation>
+    </message>
+    <message>
+        <source>Slovenian</source>
+        <translation type="unfinished">Slovenia</translation>
+    </message>
+    <message>
+        <source>Serbian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tried to set progress &gt; maximum progress</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;About Script...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>About Script</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import &amp;Open Office Draw...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Office Draw (*.sxd);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7800,6 +8005,10 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     <message>
         <source>Height:</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>F&amp;irst Page Number:</source>
+        <translation type="unfinished">&amp;Ensimmäisen sivun numero:</translation>
     </message>
 </context>
 <context>
@@ -9508,7 +9717,7 @@ raahaa malli sivualueelle.</translation>
     </message>
     <message>
         <source>&amp;Insert Special</source>
-        <translation>&amp;Lisää erikoismerkki</translation>
+        <translation type="obsolete">&amp;Lisää erikoismerkki</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -9628,7 +9837,7 @@ raahaa malli sivualueelle.</translation>
     </message>
     <message>
         <source>&amp;Fonts Preview</source>
-        <translation>Kirjasinten &amp;esikatselu</translation>
+        <translation type="obsolete">Kirjasinten &amp;esikatselu</translation>
     </message>
     <message>
         <source>&amp;Fonts Preview...</source>

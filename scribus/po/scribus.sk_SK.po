@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-29 23:35+0200\n"
+"POT-Creation-Date: 2004-11-30 21:24+0100\n"
 "PO-Revision-Date: 23.08.2004 19:41\n"
 "Last-Translator: Zdenko Podobný <zdpo@mailbox.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -1294,9 +1294,10 @@ msgstr ""
 "Pokiaľ nepotrebujete špeciálnu kompresiu, tak nechajte túto voľbu nastavenú "
 "na Automaticky."
 
+#, fuzzy
 msgid ""
-"Compression levels: Minimum (25\\%), Low (50\\%), Medium (75\\%), High (85\\"
-"%), Maximum (95\\%)"
+"Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), "
+"Maximum (95%)"
 msgstr ""
 "Úroveň kompresie: Minimálna (25\\%), Nízka (50\\%), Stredná (75\\%), Vysoká"
 "(85\\%), Maximálna (95\\%)"
@@ -2325,6 +2326,118 @@ msgstr "Náhľad"
 msgid "Select"
 msgstr "Výber"
 
+#, fuzzy
+msgid "Albanian"
+msgstr "Zarovnať"
+
+#, fuzzy
+msgid "Basque"
+msgstr "Baskitský:"
+
+#, fuzzy
+msgid "Bulgarian"
+msgstr "Bulharský:"
+
+#, fuzzy
+msgid "Brazilian"
+msgstr "Brazílsky:"
+
+msgid "Catalan"
+msgstr "Katalánsky"
+
+msgid "Chinese"
+msgstr ""
+
+msgid "Czech"
+msgstr "Český"
+
+msgid "Danish"
+msgstr "Dánsky"
+
+msgid "Dutch"
+msgstr "Holandský"
+
+msgid "English"
+msgstr "Anglický"
+
+#, fuzzy
+msgid "English (British)"
+msgstr "Anglický"
+
+#, fuzzy
+msgid "Esperanto"
+msgstr "Udalosť:"
+
+msgid "German"
+msgstr "Nemecký"
+
+msgid "Finnish"
+msgstr "Fínsky"
+
+msgid "French"
+msgstr "Francúzsky"
+
+#, fuzzy
+msgid "Galician"
+msgstr "Galícky:"
+
+msgid "Greek"
+msgstr "Grécky"
+
+msgid "Hungarian"
+msgstr "Maďarský"
+
+msgid "Indonesian"
+msgstr ""
+
+msgid "Italian"
+msgstr "Taliansky"
+
+#, fuzzy
+msgid "Korean"
+msgstr "Nórsky:"
+
+msgid "Lithuanian"
+msgstr "Litovský"
+
+#, fuzzy
+msgid "Norwegian (Bokmaal)"
+msgstr "Nórsky:"
+
+#, fuzzy
+msgid "Norwegian (Nnyorsk)"
+msgstr "Nórsky:"
+
+#, fuzzy
+msgid "Norwegian"
+msgstr "Nórsky:"
+
+msgid "Polish"
+msgstr "Poľský"
+
+msgid "Russian"
+msgstr "Ruský"
+
+msgid "Swedish"
+msgstr "Švédsky"
+
+msgid "Spanish"
+msgstr "Španielsky"
+
+#, fuzzy
+msgid "Spanish (Latin)"
+msgstr "Španielsky"
+
+msgid "Slovak"
+msgstr "Slovenský"
+
+msgid "Slovenian"
+msgstr "Slovinský"
+
+#, fuzzy
+msgid "Serbian"
+msgstr "Slovinský:"
+
 msgid "Document Information"
 msgstr "Informácie o dokumente"
 
@@ -3259,68 +3372,14 @@ msgstr "Vrátiť s&päť presun objektu"
 msgid "&Undo Object Change"
 msgstr "Vrátiť s&päť zmenu objektu"
 
-msgid "English"
-msgstr "Anglický"
-
-msgid "German"
-msgstr "Nemecký"
-
-msgid "Spanish"
-msgstr "Španielsky"
-
-msgid "Italian"
-msgstr "Taliansky"
-
-msgid "French"
-msgstr "Francúzsky"
-
-msgid "Russian"
-msgstr "Ruský"
-
-msgid "Danish"
-msgstr "Dánsky"
-
-msgid "Slovak"
-msgstr "Slovenský"
-
-msgid "Hungarian"
-msgstr "Maďarský"
-
-msgid "Czech"
-msgstr "Český"
-
-msgid "Dutch"
-msgstr "Holandský"
-
 msgid "Portuguese"
 msgstr "Portugalský"
 
 msgid "Ukrainian"
 msgstr "Ukrajinský"
 
-msgid "Polish"
-msgstr "Poľský"
-
-msgid "Greek"
-msgstr "Grécky"
-
-msgid "Catalan"
-msgstr "Katalánsky"
-
-msgid "Finnish"
-msgstr "Fínsky"
-
 msgid "Irish"
 msgstr "Írsky"
-
-msgid "Lithuanian"
-msgstr "Litovský"
-
-msgid "Swedish"
-msgstr "Švédsky"
-
-msgid "Slovenian"
-msgstr "Slovinský"
 
 msgid "Afrikaans"
 msgstr ""
@@ -4571,12 +4630,6 @@ msgstr "Celkom:"
 msgid "Do you want to save your changes?"
 msgstr "Chcete uložiť zmeny?"
 
-msgid "&Insert Special"
-msgstr "Vlož&iť špeciálne"
-
-msgid "&Fonts Preview"
-msgstr "Náhľad na &písma"
-
 msgid "Do you really want to lose all your Changes?"
 msgstr "Skutočne chcete stratiť všetky zmeny?"
 
@@ -4709,6 +4762,14 @@ msgstr ""
 "fotografie."
 
 #, fuzzy
+msgid "Contents"
+msgstr "V&ymazať obsah"
+
+#, fuzzy
+msgid "Scribus Online Help"
+msgstr "Online Pomocník..."
+
+#, fuzzy
 msgid ""
 "Sorry, no manual available! Please see: http://docs.scribus.net for updated "
 "docs\n"
@@ -4788,8 +4849,8 @@ msgstr ""
 "Skutočne chcete prepísať súbor:\n"
 "%1 ?"
 
-#, c-format
-msgid "About Scribus%1%2"
+#, fuzzy
+msgid "About Scribus %1"
 msgstr "O Scribuse %1%2"
 
 msgid "%1. %2 %3 "
@@ -5622,6 +5683,9 @@ msgstr "Nový p&odľa šablóny..."
 msgid "Template: "
 msgstr "Ša&blóna:"
 
+msgid "&Insert Special"
+msgstr "Vlož&iť špeciálne"
+
 msgid "Select Character:"
 msgstr "Vybrať znak:"
 
@@ -5664,6 +5728,16 @@ msgstr "na výšku"
 msgid "custom"
 msgstr "vlastné"
 
+msgid "Import &Open Office Draw..."
+msgstr ""
+
+#, fuzzy
+msgid "Open Office Draw (*.sxd);;All Files (*)"
+msgstr "Textové súbory (*.txt);;Všetky súbory (*)"
+
+msgid "&Fonts Preview"
+msgstr "Náhľad na &písma"
+
 msgid "Fonts Preview"
 msgstr "Náhľad na súbory"
 
@@ -5672,6 +5746,13 @@ msgstr "Alt+O"
 
 msgid "Alt+C"
 msgstr "Alt+C"
+
+msgid "Append selected font into Style, Font menu"
+msgstr ""
+
+#, fuzzy
+msgid "Leave preview"
+msgstr "Náhľad"
 
 #, fuzzy
 msgid "Text Filters"
@@ -5902,22 +5983,6 @@ msgstr "Povolí/zakáže Y (žltú) zložku"
 msgid "Enable/disable the K (Black) ink plate"
 msgstr "Povolí/zakáže K (čiernu) zložku"
 
-msgid ""
-"A way of switching some of the gray shades which are composed\n"
-"of cyan, yellow and magenta and using black instead.\n"
-"UCR most affects parts of images which are neutral and/or dark tones\n"
-"which are close to the gray. Use of this may improve printing some images\n"
-"and some experimentation and testing is need on a case by case basis.\n"
-"UCR reduces the possibility of over saturation with CMY inks."
-msgstr ""
-"Spôsob prepínania niektorých šedých tieňov, ktoré sú zložené\n"
-"z azúrovej, fialovej a žltej farby namiesto použitia čiernej.\n"
-"UCR naviac ovplyvňuje časti obrázkov, ktoré sú neutrálne a/alebo\n"
-"v tmavých tónoch, ktoré sú blízko šedej. Použitie tohoto postupu môže "
-"zlepšiť\n"
-"tlač niektorých obrázkov - je však potrebné testovať jednotlivé prípady.\n"
-"UCR znižuje možnosť presýtenosti s CMY atramentom."
-
 msgid "Oook! Wrong arguments! Call: "
 msgstr "Ups! Zlé argumenty! Volajte: "
 
@@ -5935,6 +6000,10 @@ msgstr "&Posledné skripty"
 
 msgid "Show &Console"
 msgstr "Ukázať &konzolu"
+
+#, fuzzy
+msgid "&About Script..."
+msgstr "&Spustiť skript..."
 
 msgid "S&cript"
 msgstr "Skr&ipt"
@@ -5962,36 +6031,15 @@ msgstr ""
 msgid "Hide &Console"
 msgstr "Skryť &konzolu"
 
+#, fuzzy
+msgid "About Script"
+msgstr "O Scribuse"
+
 msgid "Script Console"
 msgstr "Konzola skriptu"
 
-msgid "Oook! You're calling an object doesn't exist!"
-msgstr "Ups! Voláte objekt, ktorý neexistuje!"
-
-msgid "Oook! You're trying to erase an object doesn't exist!"
-msgstr "Ups! Pokúšate sa odstrániť objekt, ktorý neexistuje!"
-
-msgid "Oook! An object you're trying to textflow doesn't exist!"
-msgstr "Ups! Objekt, ktorý sa snažíte zreťaziť neexistuje!"
-
-msgid ""
-"Oook! You're trying to load image into an object doesn't exist or isn't "
-"selected!"
+msgid "Tried to set progress > maximum progress"
 msgstr ""
-"Ups! Snažíte sa načítať obrázok do objektu, ktorý neexistuje, alebo nie je "
-"označený!"
-
-msgid ""
-"Oook! You're trying to (un)lock an object doesn't exist! None selected too."
-msgstr ""
-"Ups! Snažíte sa uzamknúť/odomknúť objekt, ktorý neexistuje! Alebo nič nie je "
-"označené."
-
-msgid ""
-"Oook! You're trying to query an object doesn't exist! None selected too."
-msgstr ""
-"Ups! Snažíte sa dať požiadavku na objekt, ktorý neexistuje! Alebo nič nie je "
-"označené."
 
 #, fuzzy
 msgid "Insert value"
@@ -6056,6 +6104,10 @@ msgstr ""
 "Použite 72 dpi pre obrázky, ktoré chcete zobrazovať"
 
 #, c-format
+msgid "Size of the images. 100% for no changes, 200% for two times larger etc."
+msgstr ""
+
+#, c-format
 msgid "The quality of your images - 100% is the best, 1% the lowest quality"
 msgstr "Kvalita vašich obrázkov - 100% je najlepšia, 1% najhoršia"
 
@@ -6113,6 +6165,52 @@ msgstr ""
 "Importovanie súboru:\n"
 "%1\n"
 "zlyhalo!"
+
+#~ msgid ""
+#~ "A way of switching some of the gray shades which are composed\n"
+#~ "of cyan, yellow and magenta and using black instead.\n"
+#~ "UCR most affects parts of images which are neutral and/or dark tones\n"
+#~ "which are close to the gray. Use of this may improve printing some "
+#~ "images\n"
+#~ "and some experimentation and testing is need on a case by case basis.\n"
+#~ "UCR reduces the possibility of over saturation with CMY inks."
+#~ msgstr ""
+#~ "Spôsob prepínania niektorých šedých tieňov, ktoré sú zložené\n"
+#~ "z azúrovej, fialovej a žltej farby namiesto použitia čiernej.\n"
+#~ "UCR naviac ovplyvňuje časti obrázkov, ktoré sú neutrálne a/alebo\n"
+#~ "v tmavých tónoch, ktoré sú blízko šedej. Použitie tohoto postupu môže "
+#~ "zlepšiť\n"
+#~ "tlač niektorých obrázkov - je však potrebné testovať jednotlivé prípady.\n"
+#~ "UCR znižuje možnosť presýtenosti s CMY atramentom."
+
+#~ msgid "Oook! You're calling an object doesn't exist!"
+#~ msgstr "Ups! Voláte objekt, ktorý neexistuje!"
+
+#~ msgid "Oook! You're trying to erase an object doesn't exist!"
+#~ msgstr "Ups! Pokúšate sa odstrániť objekt, ktorý neexistuje!"
+
+#~ msgid "Oook! An object you're trying to textflow doesn't exist!"
+#~ msgstr "Ups! Objekt, ktorý sa snažíte zreťaziť neexistuje!"
+
+#~ msgid ""
+#~ "Oook! You're trying to load image into an object doesn't exist or isn't "
+#~ "selected!"
+#~ msgstr ""
+#~ "Ups! Snažíte sa načítať obrázok do objektu, ktorý neexistuje, alebo nie "
+#~ "je označený!"
+
+#~ msgid ""
+#~ "Oook! You're trying to (un)lock an object doesn't exist! None selected "
+#~ "too."
+#~ msgstr ""
+#~ "Ups! Snažíte sa uzamknúť/odomknúť objekt, ktorý neexistuje! Alebo nič nie "
+#~ "je označené."
+
+#~ msgid ""
+#~ "Oook! You're trying to query an object doesn't exist! None selected too."
+#~ msgstr ""
+#~ "Ups! Snažíte sa dať požiadavku na objekt, ktorý neexistuje! Alebo nič nie "
+#~ "je označené."
 
 #, fuzzy
 #~ msgid "&Options"

@@ -3,7 +3,7 @@
     <name>About</name>
     <message>
         <source>About Scribus%1%2</source>
-        <translation>Om Scribus %1 %2</translation>
+        <translation type="obsolete">Om Scribus %1 %2</translation>
     </message>
     <message>
         <source>%1. %2 %3 </source>
@@ -199,6 +199,10 @@ Manglende librarz støtte angitt ved *</translation>
     </message>
     <message>
         <source>Mailing List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>About Scribus %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1755,15 +1759,23 @@ dokumenter. Denne kan du selv velge i Preferanser.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>Greit</translation>
+        <translation type="obsolete">Greit</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Avbryt</translation>
+        <translation type="obsolete">Avbryt</translation>
     </message>
     <message>
         <source>None</source>
         <translation type="unfinished">Ingen</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Avbryt</translation>
     </message>
 </context>
 <context>
@@ -2447,6 +2459,14 @@ Bruk 72 dpi for bilder som er ment for skjermen</translation>
         <source>The quality of your images - 100% is the best, 1% the lowest quality</source>
         <translation>Billedkvalitet - 100% er best, 1% er lavets kvalitet</translation>
     </message>
+    <message>
+        <source>&amp;Size:</source>
+        <translation type="unfinished">&amp;Størrelse:</translation>
+    </message>
+    <message>
+        <source>Size of the images. 100% for no changes, 200% for two times larger etc.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FDialogPreview</name>
@@ -2715,6 +2735,14 @@ Bruk 72 dpi for bilder som er ment for skjermen</translation>
         <source>Fonts Preview</source>
         <translation>Forhåndsvisning av fonter</translation>
     </message>
+    <message>
+        <source>Append selected font into Style, Font menu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Leave preview</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GradientEditor</name>
@@ -2803,6 +2831,18 @@ Bruk 72 dpi for bilder som er ment for skjermen</translation>
     <message>
         <source>Sorry, no manual available! Please see: http://docs.scribus.net for updated docs
 and www.scribus.net for downloads.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Contents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Link</source>
+        <translation type="unfinished">Lenke</translation>
+    </message>
+    <message>
+        <source>Scribus Online Help</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5397,11 +5437,25 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>En måte å endre noen av de gråskygger som er komponert
+        <translation type="obsolete">En måte å endre noen av de gråskygger som er komponert
 av cyan, gult magenta rød og bruk sort istedet.
 USR har mest effekt på deler av bilder som er neutrale og/eller darke toner
 som er tette på grå. Bruk dette for å få utskriving av noen bilder til å se bedre ut
 og noe eksperimentering og testing er nødvendig hver eneste gang.
+UCR reduserer muligheten for overmettning med CMY farger.</translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed
+of cyan, yellow and magenta and using black instead.
+UCR most affects parts of images which are neutral and/or dark tones
+which are close to the gray. Use of this may improve printing some images
+and some experimentation and testing is need on a case by case basis.
+UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="unfinished">En måte å skru av noen av de gråskygger som er laget 
+av cyan, gult og magenta rød ved å  bruke svart istedenfor. 
+UCR virker best på deler av bilder som er nøyeutrale og/eller mørke toner
+som ligger nært opptil grått. Bruk dette for å få utsftening enkelteoen bilder til å se bedre; 
+og noe eksperimentering og testing er nødvendig neste gang.
 UCR reduserer muligheten for overmettning med CMY farger.</translation>
     </message>
 </context>
@@ -7406,15 +7460,15 @@ Sjekk sti og filnavn.</translation>
     </message>
     <message>
         <source>Oook! You&apos;re calling an object doesn&apos;t exist!</source>
-        <translation>Auda! Du prøver å hente et objekt som ikke eksisterer!</translation>
+        <translation type="obsolete">Auda! Du prøver å hente et objekt som ikke eksisterer!</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to erase an object doesn&apos;t exist!</source>
-        <translation>Auda! Du prøver å slette et objekt som ikke eksisterer!</translation>
+        <translation type="obsolete">Auda! Du prøver å slette et objekt som ikke eksisterer!</translation>
     </message>
     <message>
         <source>Oook! An object you&apos;re trying to textflow doesn&apos;t exist!</source>
-        <translation>Auda! Et objekt du prøver å tekstflowe eksisterer ikke!</translation>
+        <translation type="obsolete">Auda! Et objekt du prøver å tekstflowe eksisterer ikke!</translation>
     </message>
     <message>
         <source>S&amp;cripter Manual...</source>
@@ -7474,15 +7528,15 @@ Sjekk sti og filnavn.</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to load image into an object doesn&apos;t exist or isn&apos;t selected!</source>
-        <translation>Auda! Du prøver å hente et bilde inn i et objekt som ikke eksisterer eller som ikke er valgt!</translation>
+        <translation type="obsolete">Auda! Du prøver å hente et bilde inn i et objekt som ikke eksisterer eller som ikke er valgt!</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to (un)lock an object doesn&apos;t exist! None selected too.</source>
-        <translation>Auda! Du prøver å lås/låse opp et objekt som ikke eksisterer. Du har heller ikke valgt et.</translation>
+        <translation type="obsolete">Auda! Du prøver å lås/låse opp et objekt som ikke eksisterer. Du har heller ikke valgt et.</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to query an object doesn&apos;t exist! None selected too.</source>
-        <translation>Auda! Du prøver å undersøke et objekt som ikke eksisterer. Du har heller ikke valgt et.</translation>
+        <translation type="obsolete">Auda! Du prøver å undersøke et objekt som ikke eksisterer. Du har heller ikke valgt et.</translation>
     </message>
     <message>
         <source>Print Preview</source>
@@ -7544,6 +7598,158 @@ External Links
     </message>
     <message>
         <source>Text Filters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Albanian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Basque</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bulgarian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Brazilian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Catalan</source>
+        <translation type="unfinished">Catalansk</translation>
+    </message>
+    <message>
+        <source>Chinese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Czech</source>
+        <translation type="unfinished">Tsjekkisk</translation>
+    </message>
+    <message>
+        <source>Danish</source>
+        <translation type="unfinished">Dansk</translation>
+    </message>
+    <message>
+        <source>Dutch</source>
+        <translation type="unfinished">Nderlandsk</translation>
+    </message>
+    <message>
+        <source>English</source>
+        <translation type="unfinished">Engelsk</translation>
+    </message>
+    <message>
+        <source>English (British)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Esperanto</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>German</source>
+        <translation type="unfinished">Tysk</translation>
+    </message>
+    <message>
+        <source>Finnish</source>
+        <translation type="unfinished">Finsk</translation>
+    </message>
+    <message>
+        <source>French</source>
+        <translation type="unfinished">Fransk</translation>
+    </message>
+    <message>
+        <source>Galician</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Greek</source>
+        <translation type="unfinished">Gresk</translation>
+    </message>
+    <message>
+        <source>Hungarian</source>
+        <translation type="unfinished">Ungarsk</translation>
+    </message>
+    <message>
+        <source>Indonesian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Italian</source>
+        <translation type="unfinished">Italiensk</translation>
+    </message>
+    <message>
+        <source>Korean</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lithuanian</source>
+        <translation type="unfinished">Litauisk</translation>
+    </message>
+    <message>
+        <source>Norwegian (Bokmaal)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Norwegian (Nnyorsk)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Norwegian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Polish</source>
+        <translation type="unfinished">Polsk</translation>
+    </message>
+    <message>
+        <source>Russian</source>
+        <translation type="unfinished">Russisk</translation>
+    </message>
+    <message>
+        <source>Swedish</source>
+        <translation type="unfinished">Svensk</translation>
+    </message>
+    <message>
+        <source>Spanish</source>
+        <translation type="unfinished">Spansk</translation>
+    </message>
+    <message>
+        <source>Spanish (Latin)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Slovak</source>
+        <translation type="unfinished">Slovakisk</translation>
+    </message>
+    <message>
+        <source>Slovenian</source>
+        <translation type="unfinished">Slovensk</translation>
+    </message>
+    <message>
+        <source>Serbian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tried to set progress &gt; maximum progress</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;About Script...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>About Script</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import &amp;Open Office Draw...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Office Draw (*.sxd);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7800,6 +8006,10 @@ Hvis Motstående Sider er markert kan denne brukes til å få til den korrekte m
     <message>
         <source>Height:</source>
         <translation type="unfinished">Høyde:</translation>
+    </message>
+    <message>
+        <source>F&amp;irst Page Number:</source>
+        <translation type="unfinished">Fø&amp;rste sidenummer:</translation>
     </message>
 </context>
 <context>
@@ -9524,7 +9734,7 @@ til vinduet nedenunder, for å lage en ny side.</translation>
     </message>
     <message>
         <source>&amp;Insert Special</source>
-        <translation>Sett &amp;Inn Spesielt</translation>
+        <translation type="obsolete">Sett &amp;Inn Spesielt</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -9632,7 +9842,7 @@ til vinduet nedenunder, for å lage en ny side.</translation>
     </message>
     <message>
         <source>&amp;Fonts Preview</source>
-        <translation>Forhåndsvisning av &amp;fonter</translation>
+        <translation type="obsolete">Forhåndsvisning av &amp;fonter</translation>
     </message>
     <message>
         <source>Clear all Text</source>

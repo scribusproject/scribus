@@ -3,7 +3,7 @@
     <name>About</name>
     <message>
         <source>About Scribus%1%2</source>
-        <translation>O Scribusie%1%2</translation>
+        <translation type="obsolete">O Scribusie%1%2</translation>
     </message>
     <message>
         <source>%1. %2 %3 </source>
@@ -200,6 +200,10 @@ O braku obsługi dla danej biblioteki informuje symbol *</translation>
     <message>
         <source>Previous Translation Contributors:</source>
         <translation>Poprzedni tłumacze:</translation>
+    </message>
+    <message>
+        <source>About Scribus %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1753,11 +1757,11 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
+        <translation type="obsolete">Anuluj</translation>
     </message>
     <message>
         <source>Delete color:</source>
@@ -1766,6 +1770,14 @@ This can be set in the Preferences.</source>
     <message>
         <source>None</source>
         <translation>Brak</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Anuluj</translation>
     </message>
 </context>
 <context>
@@ -2448,6 +2460,14 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
         <source>Export all pages</source>
         <translation>Eksportuj wszystkie strony</translation>
     </message>
+    <message>
+        <source>&amp;Size:</source>
+        <translation type="unfinished">&amp;Rozmiar:</translation>
+    </message>
+    <message>
+        <source>Size of the images. 100% for no changes, 200% for two times larger etc.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FDialogPreview</name>
@@ -2716,6 +2736,14 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
         <source>Fonts Preview</source>
         <translation>Podgląd czcionek</translation>
     </message>
+    <message>
+        <source>Append selected font into Style, Font menu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Leave preview</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GradientEditor</name>
@@ -2806,6 +2834,18 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
 and www.scribus.net for downloads.</source>
         <translation>Niestety brak podręcznika! Aktualną dokumentację znaleźć można pod adresem http://docs.scribus.net, 
 proszę również zajrzeć pod www.scribus.net do działu &quot;Download&quot;.</translation>
+    </message>
+    <message>
+        <source>Contents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Link</source>
+        <translation type="unfinished">Dowiązanie</translation>
+    </message>
+    <message>
+        <source>Scribus Online Help</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5403,13 +5443,22 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>UCR jest to sposób zamiany niektórych odcieni szarości, które
+        <translation type="obsolete">UCR jest to sposób zamiany niektórych odcieni szarości, które
 składają się z cyjanu (C), żółci (Y) i madżenty (M) na czarny.
 UCR najbardziej ma wpływ na obszary obrazków, które mają neutralne
 lub ciemne odcienie bliskie szarości. Użycie go może poprawić wydruk niektórych 
 obrazków, jednakże wymaga wykonania wcześniej kilku prób i testów dla każdego
 przypadku.
 UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed
+of cyan, yellow and magenta and using black instead.
+UCR most affects parts of images which are neutral and/or dark tones
+which are close to the gray. Use of this may improve printing some images
+and some experimentation and testing is need on a case by case basis.
+UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7292,15 +7341,15 @@ Sprawdź katalog i nazwę pliku.</translation>
     </message>
     <message>
         <source>Oook! You&apos;re calling an object doesn&apos;t exist!</source>
-        <translation>Uwaga! Próbujesz wywołać nieistniejący obiekt!</translation>
+        <translation type="obsolete">Uwaga! Próbujesz wywołać nieistniejący obiekt!</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to erase an object doesn&apos;t exist!</source>
-        <translation>Uwaga! Próbujesz usunąć nieistniejący obiekt!</translation>
+        <translation type="obsolete">Uwaga! Próbujesz usunąć nieistniejący obiekt!</translation>
     </message>
     <message>
         <source>Oook! An object you&apos;re trying to textflow doesn&apos;t exist!</source>
-        <translation>Uwaga! Obiekt, w którym chcesz wpisać tekst, nie istnieje!</translation>
+        <translation type="obsolete">Uwaga! Obiekt, w którym chcesz wpisać tekst, nie istnieje!</translation>
     </message>
     <message>
         <source>Save as Image</source>
@@ -7488,15 +7537,15 @@ Sprawdź katalog i nazwę pliku.</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to load image into an object doesn&apos;t exist or isn&apos;t selected!</source>
-        <translation>Uwaga! Próbujesz wstawić obrazek do nieistniejącego lub niezaznaczonego obiektu!</translation>
+        <translation type="obsolete">Uwaga! Próbujesz wstawić obrazek do nieistniejącego lub niezaznaczonego obiektu!</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to (un)lock an object doesn&apos;t exist! None selected too.</source>
-        <translation>Uwaga! Próbujesz zabezpieczyć lub odbezpieczyć nieistniejący lub niezaznaczony obiekt.</translation>
+        <translation type="obsolete">Uwaga! Próbujesz zabezpieczyć lub odbezpieczyć nieistniejący lub niezaznaczony obiekt.</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to query an object doesn&apos;t exist! None selected too.</source>
-        <translation>Uwaga! Próbujesz znaleźć nieistniejący lub niezaznaczony obiekt.</translation>
+        <translation type="obsolete">Uwaga! Próbujesz znaleźć nieistniejący lub niezaznaczony obiekt.</translation>
     </message>
     <message>
         <source>Importing text</source>
@@ -7557,6 +7606,158 @@ Zewnętrzne dowiązania
     <message>
         <source>Media Cases</source>
         <translation>Pudełka na CD/DVD</translation>
+    </message>
+    <message>
+        <source>Albanian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Basque</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bulgarian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Brazilian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Catalan</source>
+        <translation type="unfinished">Kataloński</translation>
+    </message>
+    <message>
+        <source>Chinese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Czech</source>
+        <translation type="unfinished">Czeski</translation>
+    </message>
+    <message>
+        <source>Danish</source>
+        <translation type="unfinished">Duński</translation>
+    </message>
+    <message>
+        <source>Dutch</source>
+        <translation type="unfinished">Holenderski</translation>
+    </message>
+    <message>
+        <source>English</source>
+        <translation type="unfinished">Angielski</translation>
+    </message>
+    <message>
+        <source>English (British)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Esperanto</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>German</source>
+        <translation type="unfinished">Niemiecki</translation>
+    </message>
+    <message>
+        <source>Finnish</source>
+        <translation type="unfinished">Fiński</translation>
+    </message>
+    <message>
+        <source>French</source>
+        <translation type="unfinished">Francuski</translation>
+    </message>
+    <message>
+        <source>Galician</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Greek</source>
+        <translation type="unfinished">Grecki</translation>
+    </message>
+    <message>
+        <source>Hungarian</source>
+        <translation type="unfinished">Węgierski</translation>
+    </message>
+    <message>
+        <source>Indonesian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Italian</source>
+        <translation type="unfinished">Włoski</translation>
+    </message>
+    <message>
+        <source>Korean</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lithuanian</source>
+        <translation type="unfinished">Litewski</translation>
+    </message>
+    <message>
+        <source>Norwegian (Bokmaal)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Norwegian (Nnyorsk)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Norwegian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Polish</source>
+        <translation type="unfinished">Polski</translation>
+    </message>
+    <message>
+        <source>Russian</source>
+        <translation type="unfinished">Rosyjski</translation>
+    </message>
+    <message>
+        <source>Swedish</source>
+        <translation type="unfinished">Szwedzki</translation>
+    </message>
+    <message>
+        <source>Spanish</source>
+        <translation type="unfinished">Hiszpański</translation>
+    </message>
+    <message>
+        <source>Spanish (Latin)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Slovak</source>
+        <translation type="unfinished">Słowacki</translation>
+    </message>
+    <message>
+        <source>Slovenian</source>
+        <translation type="unfinished">Słoweński</translation>
+    </message>
+    <message>
+        <source>Serbian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tried to set progress &gt; maximum progress</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;About Script...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>About Script</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import &amp;Open Office Draw...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Office Draw (*.sxd);;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7812,6 +8013,10 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <message>
         <source>Height:</source>
         <translation>Wysokość:</translation>
+    </message>
+    <message>
+        <source>F&amp;irst Page Number:</source>
+        <translation type="unfinished">Pierwszy &amp;numer strony:</translation>
     </message>
 </context>
 <context>
@@ -9536,7 +9741,7 @@ przeciągnij szablon na widok strony na dole.</translation>
     </message>
     <message>
         <source>&amp;Insert Special</source>
-        <translation>Dodaj znak  &amp;specjalny</translation>
+        <translation type="obsolete">Dodaj znak  &amp;specjalny</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -9640,7 +9845,7 @@ przeciągnij szablon na widok strony na dole.</translation>
     </message>
     <message>
         <source>&amp;Fonts Preview</source>
-        <translation>&amp;Podgląd czcionek</translation>
+        <translation type="obsolete">&amp;Podgląd czcionek</translation>
     </message>
     <message>
         <source>&amp;Fonts Preview...</source>

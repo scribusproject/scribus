@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-29 23:35+0200\n"
+"POT-Creation-Date: 2004-11-30 21:24+0100\n"
 "PO-Revision-Date: 2001-12-14 01:18+0200\n"
 "Last-Translator: Vasko Tomanov <vasko@web.bg>\n"
 "Content-Type: text/plain; charset=cp1251\n"
@@ -1401,8 +1401,8 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Compression levels: Minimum (25\\%), Low (50\\%), Medium (75\\%), High (85\\"
-"%), Maximum (95\\%)"
+"Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), "
+"Maximum (95%)"
 msgstr ""
 
 msgid ""
@@ -2443,6 +2443,119 @@ msgid "Select"
 msgstr ""
 
 #, fuzzy
+msgid "Albanian"
+msgstr "Подравняване"
+
+#, fuzzy
+msgid "Basque"
+msgstr "Базирана на:"
+
+#, fuzzy
+msgid "Bulgarian"
+msgstr "Български"
+
+#, fuzzy
+msgid "Brazilian"
+msgstr "Украйнски:"
+
+msgid "Catalan"
+msgstr ""
+
+msgid "Chinese"
+msgstr ""
+
+msgid "Czech"
+msgstr ""
+
+msgid "Danish"
+msgstr ""
+
+msgid "Dutch"
+msgstr ""
+
+msgid "English"
+msgstr ""
+
+msgid "English (British)"
+msgstr ""
+
+msgid "Esperanto"
+msgstr ""
+
+#, fuzzy
+msgid "German"
+msgstr "Немски:"
+
+msgid "Finnish"
+msgstr ""
+
+#, fuzzy
+msgid "French"
+msgstr "Френски:"
+
+#, fuzzy
+msgid "Galician"
+msgstr "Украйнски:"
+
+#, fuzzy
+msgid "Greek"
+msgstr "Зелено:"
+
+#, fuzzy
+msgid "Hungarian"
+msgstr "Български"
+
+msgid "Indonesian"
+msgstr ""
+
+#, fuzzy
+msgid "Italian"
+msgstr "Курсив"
+
+msgid "Korean"
+msgstr ""
+
+msgid "Lithuanian"
+msgstr ""
+
+msgid "Norwegian (Bokmaal)"
+msgstr ""
+
+msgid "Norwegian (Nnyorsk)"
+msgstr ""
+
+msgid "Norwegian"
+msgstr ""
+
+msgid "Polish"
+msgstr ""
+
+msgid "Russian"
+msgstr ""
+
+msgid "Swedish"
+msgstr ""
+
+msgid "Spanish"
+msgstr ""
+
+#, fuzzy
+msgid "Spanish (Latin)"
+msgstr "Испански:"
+
+#, fuzzy
+msgid "Slovak"
+msgstr "Словашки:"
+
+#, fuzzy
+msgid "Slovenian"
+msgstr "Словашки:"
+
+#, fuzzy
+msgid "Serbian"
+msgstr "Словашки:"
+
+#, fuzzy
 msgid "Document Information"
 msgstr "Информация за документа"
 
@@ -3468,44 +3581,6 @@ msgstr ""
 msgid "&Undo Object Change"
 msgstr "Без промяна"
 
-msgid "English"
-msgstr ""
-
-#, fuzzy
-msgid "German"
-msgstr "Немски:"
-
-msgid "Spanish"
-msgstr ""
-
-#, fuzzy
-msgid "Italian"
-msgstr "Курсив"
-
-#, fuzzy
-msgid "French"
-msgstr "Френски:"
-
-msgid "Russian"
-msgstr ""
-
-msgid "Danish"
-msgstr ""
-
-#, fuzzy
-msgid "Slovak"
-msgstr "Словашки:"
-
-#, fuzzy
-msgid "Hungarian"
-msgstr "Български"
-
-msgid "Czech"
-msgstr ""
-
-msgid "Dutch"
-msgstr ""
-
 msgid "Portuguese"
 msgstr ""
 
@@ -3513,31 +3588,8 @@ msgstr ""
 msgid "Ukrainian"
 msgstr "Украйнски:"
 
-msgid "Polish"
-msgstr ""
-
-#, fuzzy
-msgid "Greek"
-msgstr "Зелено:"
-
-msgid "Catalan"
-msgstr ""
-
-msgid "Finnish"
-msgstr ""
-
 msgid "Irish"
 msgstr ""
-
-msgid "Lithuanian"
-msgstr ""
-
-msgid "Swedish"
-msgstr ""
-
-#, fuzzy
-msgid "Slovenian"
-msgstr "Словашки:"
 
 msgid "Afrikaans"
 msgstr ""
@@ -4923,14 +4975,6 @@ msgid "Do you want to save your changes?"
 msgstr ""
 
 #, fuzzy
-msgid "&Insert Special"
-msgstr "Вмъкване на правоъгълници"
-
-#, fuzzy
-msgid "&Fonts Preview"
-msgstr "Преглед"
-
-#, fuzzy
 msgid "Do you really want to lose all your Changes?"
 msgstr "Наистина ли искате да изтриете този стил?"
 
@@ -5048,6 +5092,14 @@ msgid ""
 "It is recommended that you enable this if you have photos in your document."
 msgstr ""
 
+#, fuzzy
+msgid "Contents"
+msgstr "Съдържание"
+
+#, fuzzy
+msgid "Scribus Online Help"
+msgstr "Помощ..."
+
 msgid ""
 "Sorry, no manual available! Please see: http://docs.scribus.net for updated "
 "docs\n"
@@ -5127,8 +5179,8 @@ msgstr ""
 "Настинали искате да запишете въху:\n"
 "%1 ?"
 
-#, fuzzy, c-format
-msgid "About Scribus%1%2"
+#, fuzzy
+msgid "About Scribus %1"
 msgstr "За Scribus"
 
 msgid "%1. %2 %3 "
@@ -6013,6 +6065,10 @@ msgid "Template: "
 msgstr "Нова форма"
 
 #, fuzzy
+msgid "&Insert Special"
+msgstr "Вмъкване на правоъгълници"
+
+#, fuzzy
 msgid "Select Character:"
 msgstr "Символ"
 
@@ -6060,6 +6116,17 @@ msgstr "Прав формат"
 msgid "custom"
 msgstr ""
 
+msgid "Import &Open Office Draw..."
+msgstr ""
+
+#, fuzzy
+msgid "Open Office Draw (*.sxd);;All Files (*)"
+msgstr "Текстов файл (*.txt);;Всички файлове (*)"
+
+#, fuzzy
+msgid "&Fonts Preview"
+msgstr "Преглед"
+
 #, fuzzy
 msgid "Fonts Preview"
 msgstr "Преглед"
@@ -6069,6 +6136,13 @@ msgstr ""
 
 msgid "Alt+C"
 msgstr ""
+
+msgid "Append selected font into Style, Font menu"
+msgstr ""
+
+#, fuzzy
+msgid "Leave preview"
+msgstr "Преглед"
 
 #, fuzzy
 msgid "Text Filters"
@@ -6295,15 +6369,6 @@ msgstr ""
 msgid "Enable/disable the K (Black) ink plate"
 msgstr ""
 
-msgid ""
-"A way of switching some of the gray shades which are composed\n"
-"of cyan, yellow and magenta and using black instead.\n"
-"UCR most affects parts of images which are neutral and/or dark tones\n"
-"which are close to the gray. Use of this may improve printing some images\n"
-"and some experimentation and testing is need on a case by case basis.\n"
-"UCR reduces the possibility of over saturation with CMY inks."
-msgstr ""
-
 msgid "Oook! Wrong arguments! Call: "
 msgstr ""
 
@@ -6325,6 +6390,10 @@ msgstr "Документи"
 #, fuzzy
 msgid "Show &Console"
 msgstr "Покажи инструментите"
+
+#, fuzzy
+msgid "&About Script..."
+msgstr "За Scribus"
 
 #, fuzzy
 msgid "S&cript"
@@ -6352,29 +6421,14 @@ msgstr ""
 msgid "Hide &Console"
 msgstr "Скрий инструментите"
 
+#, fuzzy
+msgid "About Script"
+msgstr "За Scribus"
+
 msgid "Script Console"
 msgstr ""
 
-msgid "Oook! You're calling an object doesn't exist!"
-msgstr ""
-
-msgid "Oook! You're trying to erase an object doesn't exist!"
-msgstr ""
-
-msgid "Oook! An object you're trying to textflow doesn't exist!"
-msgstr ""
-
-msgid ""
-"Oook! You're trying to load image into an object doesn't exist or isn't "
-"selected!"
-msgstr ""
-
-msgid ""
-"Oook! You're trying to (un)lock an object doesn't exist! None selected too."
-msgstr ""
-
-msgid ""
-"Oook! You're trying to query an object doesn't exist! None selected too."
+msgid "Tried to set progress > maximum progress"
 msgstr ""
 
 #, fuzzy
@@ -6446,6 +6500,10 @@ msgid ""
 msgstr ""
 
 #, c-format
+msgid "Size of the images. 100% for no changes, 200% for two times larger etc."
+msgstr ""
+
+#, c-format
 msgid "The quality of your images - 100% is the best, 1% the lowest quality"
 msgstr ""
 
@@ -6506,9 +6564,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "&Options"
 #~ msgstr "Опции"
-
-#~ msgid "Spanish and Catalan:"
-#~ msgstr "Испански:"
 
 #, fuzzy
 #~ msgid "&Fully Automatic"

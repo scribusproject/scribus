@@ -105,7 +105,7 @@
     </message>
     <message>
         <source>About Scribus%1%2</source>
-        <translation>O Scribusu%1%2</translation>
+        <translation type="obsolete">O Scribusu%1%2</translation>
     </message>
     <message>
         <source>This panel shows the version, build date and
@@ -199,6 +199,10 @@ Manjkajoča knjižnica je označena z zvezdico ( * )</translation>
     </message>
     <message>
         <source>Catalan:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>About Scribus %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1739,7 +1743,7 @@ To lahko nastavite v Nastavitvah.</translation>
     <name>DelColor</name>
     <message>
         <source>OK</source>
-        <translation>V redu</translation>
+        <translation type="obsolete">V redu</translation>
     </message>
     <message>
         <source>Replace it with:</source>
@@ -1759,11 +1763,19 @@ To lahko nastavite v Nastavitvah.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Prekliči</translation>
+        <translation type="obsolete">Prekliči</translation>
     </message>
     <message>
         <source>None</source>
         <translation type="unfinished">Brez</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">Prekli&amp;či</translation>
     </message>
 </context>
 <context>
@@ -2448,6 +2460,14 @@ uporabite 72 dpi</translation>
         <source>The quality of your images - 100% is the best, 1% the lowest quality</source>
         <translation>Kakovost slik - 100% je najboljša, 1% je najslabša</translation>
     </message>
+    <message>
+        <source>&amp;Size:</source>
+        <translation type="unfinished">&amp;Velikost:</translation>
+    </message>
+    <message>
+        <source>Size of the images. 100% for no changes, 200% for two times larger etc.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FDialogPreview</name>
@@ -2716,6 +2736,14 @@ uporabite 72 dpi</translation>
         <source>Fonts Preview</source>
         <translation>Predogled pisav</translation>
     </message>
+    <message>
+        <source>Append selected font into Style, Font menu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Leave preview</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GradientEditor</name>
@@ -2804,6 +2832,18 @@ uporabite 72 dpi</translation>
     <message>
         <source>Sorry, no manual available! Please see: http://docs.scribus.net for updated docs
 and www.scribus.net for downloads.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Contents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Link</source>
+        <translation type="unfinished">Povezava</translation>
+    </message>
+    <message>
+        <source>Scribus Online Help</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5402,7 +5442,21 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>To je način za zamenjavo sivin sestavljenih iz cijan, rumene in 
+        <translation type="obsolete">To je način za zamenjavo sivin sestavljenih iz cijan, rumene in 
+magenta barve s črnino. 
+POD se najbolj izrazi na nevtralnih ali temnih delih slik, blizu sivi. Tako 
+lahko izboljšate kakovost tiska nekaterih slik, vendar se splača prej 
+narediti nekaj preiskusov. 
+POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed
+of cyan, yellow and magenta and using black instead.
+UCR most affects parts of images which are neutral and/or dark tones
+which are close to the gray. Use of this may improve printing some images
+and some experimentation and testing is need on a case by case basis.
+UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation type="unfinished">To je način za zamenjavo sivin sestavljenih iz cijan, rumene in 
 magenta barve s črnino. 
 POD se najbolj izrazi na nevtralnih ali temnih delih slik, blizu sivi. Tako 
 lahko izboljšate kakovost tiska nekaterih slik, vendar se splača prej 
@@ -7245,7 +7299,7 @@ Preverite ime in pot do nje.</translation>
     </message>
     <message>
         <source>Oook! An object you&apos;re trying to textflow doesn&apos;t exist!</source>
-        <translation>Joj! Poskušate ubesediti predmet ki ne obstaja!</translation>
+        <translation type="obsolete">Joj! Poskušate ubesediti predmet ki ne obstaja!</translation>
     </message>
     <message>
         <source>SVG-Images (*.svg *.svgz);;All Files (*)</source>
@@ -7253,7 +7307,7 @@ Preverite ime in pot do nje.</translation>
     </message>
     <message>
         <source>Oook! You&apos;re calling an object doesn&apos;t exist!</source>
-        <translation>Joj! Kličete predmet ki ne obstaja!</translation>
+        <translation type="obsolete">Joj! Kličete predmet ki ne obstaja!</translation>
     </message>
     <message>
         <source>Python Scripts (*.py);; All Files (*)</source>
@@ -7269,7 +7323,7 @@ Preverite ime in pot do nje.</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to erase an object doesn&apos;t exist!</source>
-        <translation>Joj! Poskušate zbrisati predmet ki ne obstaja!</translation>
+        <translation type="obsolete">Joj! Poskušate zbrisati predmet ki ne obstaja!</translation>
     </message>
     <message>
         <source>Do you really want to overwrite the File:
@@ -7483,15 +7537,15 @@ Preverite ime in pot do nje.</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to load image into an object doesn&apos;t exist or isn&apos;t selected!</source>
-        <translation>Aaaa! Sliko poskušate vklučiti v predmet ki ne obstaja ali ni izbran!</translation>
+        <translation type="obsolete">Aaaa! Sliko poskušate vklučiti v predmet ki ne obstaja ali ni izbran!</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to (un)lock an object doesn&apos;t exist! None selected too.</source>
-        <translation>Aaaa! Poskušate (od)kleniti predmet ki ne obstaja! In tudi noben drug ni izbran.</translation>
+        <translation type="obsolete">Aaaa! Poskušate (od)kleniti predmet ki ne obstaja! In tudi noben drug ni izbran.</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to query an object doesn&apos;t exist! None selected too.</source>
-        <translation>Aaaa! Povprašujete po predmetu, ki ne obstaja! In tudi noben ni izbran.</translation>
+        <translation type="obsolete">Aaaa! Povprašujete po predmetu, ki ne obstaja! In tudi noben ni izbran.</translation>
     </message>
     <message>
         <source>Importing text</source>
@@ -7549,6 +7603,158 @@ External Links
     </message>
     <message>
         <source>Media Cases</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Albanian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Basque</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bulgarian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Brazilian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Catalan</source>
+        <translation type="unfinished">Katalonščina</translation>
+    </message>
+    <message>
+        <source>Chinese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Czech</source>
+        <translation type="unfinished">Češčina</translation>
+    </message>
+    <message>
+        <source>Danish</source>
+        <translation type="unfinished">Danščina</translation>
+    </message>
+    <message>
+        <source>Dutch</source>
+        <translation type="unfinished">Nizozemščina</translation>
+    </message>
+    <message>
+        <source>English</source>
+        <translation type="unfinished">Angleščina</translation>
+    </message>
+    <message>
+        <source>English (British)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Esperanto</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>German</source>
+        <translation type="unfinished">Nemščina</translation>
+    </message>
+    <message>
+        <source>Finnish</source>
+        <translation type="unfinished">Finščina</translation>
+    </message>
+    <message>
+        <source>French</source>
+        <translation type="unfinished">Francoščina</translation>
+    </message>
+    <message>
+        <source>Galician</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Greek</source>
+        <translation type="unfinished">Grščina</translation>
+    </message>
+    <message>
+        <source>Hungarian</source>
+        <translation type="unfinished">MadĹžarščina</translation>
+    </message>
+    <message>
+        <source>Indonesian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Italian</source>
+        <translation type="unfinished">Italijanščina</translation>
+    </message>
+    <message>
+        <source>Korean</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lithuanian</source>
+        <translation type="unfinished">Litvanščina</translation>
+    </message>
+    <message>
+        <source>Norwegian (Bokmaal)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Norwegian (Nnyorsk)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Norwegian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Polish</source>
+        <translation type="unfinished">Poljščina</translation>
+    </message>
+    <message>
+        <source>Russian</source>
+        <translation type="unfinished">Ruščina</translation>
+    </message>
+    <message>
+        <source>Swedish</source>
+        <translation type="unfinished">Švedščina</translation>
+    </message>
+    <message>
+        <source>Spanish</source>
+        <translation type="unfinished">Španščina</translation>
+    </message>
+    <message>
+        <source>Spanish (Latin)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Slovak</source>
+        <translation type="unfinished">Slovaščina</translation>
+    </message>
+    <message>
+        <source>Slovenian</source>
+        <translation type="unfinished">Slovenščina</translation>
+    </message>
+    <message>
+        <source>Serbian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tried to set progress &gt; maximum progress</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;About Script...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>About Script</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import &amp;Open Office Draw...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Office Draw (*.sxd);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7805,6 +8011,10 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Height:</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>F&amp;irst Page Number:</source>
+        <translation type="unfinished">Številka &amp;prve strani:</translation>
     </message>
 </context>
 <context>
@@ -9530,7 +9740,7 @@ povlecite predlogo na delovno področje spodaj.</translation>
     </message>
     <message>
         <source>&amp;Insert Special</source>
-        <translation>&amp;Vstavi posebej</translation>
+        <translation type="obsolete">&amp;Vstavi posebej</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -9638,7 +9848,7 @@ povlecite predlogo na delovno področje spodaj.</translation>
     </message>
     <message>
         <source>&amp;Fonts Preview</source>
-        <translation>Predogled &amp;pisav</translation>
+        <translation type="obsolete">Predogled &amp;pisav</translation>
     </message>
     <message>
         <source>Clear all Text</source>

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-29 23:35+0200\n"
+"POT-Creation-Date: 2004-11-30 21:24+0100\n"
 "PO-Revision-Date: 2004-10-02 14:21+0200\n"
 "Last-Translator: Pier Luigi Cinquantini <plcinquantini@katamail.com>\n"
 "Language-Team: Italiano <it@li.org>\n"
@@ -1297,9 +1297,10 @@ msgstr ""
 "Lasciare su Automatica se non si ha bisogno di opzioni speciali di "
 "compressione."
 
+#, fuzzy
 msgid ""
-"Compression levels: Minimum (25\\%), Low (50\\%), Medium (75\\%), High (85\\"
-"%), Maximum (95\\%)"
+"Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), "
+"Maximum (95%)"
 msgstr ""
 "Livelli di compressione: Minima (25\\%), Bassa (50\\%), Media (75\\%), Alta "
 "(85\\%), Massima (95\\%)"
@@ -2345,6 +2346,118 @@ msgstr "Anteprima"
 msgid "Select"
 msgstr "Seleziona"
 
+#, fuzzy
+msgid "Albanian"
+msgstr "Allinea"
+
+#, fuzzy
+msgid "Basque"
+msgstr "Basco:"
+
+#, fuzzy
+msgid "Bulgarian"
+msgstr "Bulgaro:"
+
+#, fuzzy
+msgid "Brazilian"
+msgstr "Brasiliano:"
+
+msgid "Catalan"
+msgstr "Catalano"
+
+msgid "Chinese"
+msgstr ""
+
+msgid "Czech"
+msgstr "Ceco"
+
+msgid "Danish"
+msgstr "Danese"
+
+msgid "Dutch"
+msgstr "Olandese"
+
+msgid "English"
+msgstr "Inglese"
+
+#, fuzzy
+msgid "English (British)"
+msgstr "Inglese:"
+
+#, fuzzy
+msgid "Esperanto"
+msgstr "Evento:"
+
+msgid "German"
+msgstr "Tedesco"
+
+msgid "Finnish"
+msgstr "Finlandese"
+
+msgid "French"
+msgstr "Francese"
+
+#, fuzzy
+msgid "Galician"
+msgstr "Galiziano:"
+
+msgid "Greek"
+msgstr "Greco"
+
+msgid "Hungarian"
+msgstr "Ungherese"
+
+msgid "Indonesian"
+msgstr ""
+
+msgid "Italian"
+msgstr "Italiano"
+
+#, fuzzy
+msgid "Korean"
+msgstr "Norvegese:"
+
+msgid "Lithuanian"
+msgstr "Lituano"
+
+#, fuzzy
+msgid "Norwegian (Bokmaal)"
+msgstr "Norvegese:"
+
+#, fuzzy
+msgid "Norwegian (Nnyorsk)"
+msgstr "Norvegese:"
+
+#, fuzzy
+msgid "Norwegian"
+msgstr "Norvegese:"
+
+msgid "Polish"
+msgstr "Polacco"
+
+msgid "Russian"
+msgstr "Russo"
+
+msgid "Swedish"
+msgstr "Svedese"
+
+msgid "Spanish"
+msgstr "Spagnolo"
+
+#, fuzzy
+msgid "Spanish (Latin)"
+msgstr "Spagnolo"
+
+msgid "Slovak"
+msgstr "Slovacco"
+
+msgid "Slovenian"
+msgstr "Sloveno"
+
+#, fuzzy
+msgid "Serbian"
+msgstr "Sloveno:"
+
 msgid "Document Information"
 msgstr "Informazioni documento"
 
@@ -3285,68 +3398,14 @@ msgstr "Ann&ulla spostamento oggetto"
 msgid "&Undo Object Change"
 msgstr "Ann&ulla modifica oggetto"
 
-msgid "English"
-msgstr "Inglese"
-
-msgid "German"
-msgstr "Tedesco"
-
-msgid "Spanish"
-msgstr "Spagnolo"
-
-msgid "Italian"
-msgstr "Italiano"
-
-msgid "French"
-msgstr "Francese"
-
-msgid "Russian"
-msgstr "Russo"
-
-msgid "Danish"
-msgstr "Danese"
-
-msgid "Slovak"
-msgstr "Slovacco"
-
-msgid "Hungarian"
-msgstr "Ungherese"
-
-msgid "Czech"
-msgstr "Ceco"
-
-msgid "Dutch"
-msgstr "Olandese"
-
 msgid "Portuguese"
 msgstr "Portoghese"
 
 msgid "Ukrainian"
 msgstr "Ucraino"
 
-msgid "Polish"
-msgstr "Polacco"
-
-msgid "Greek"
-msgstr "Greco"
-
-msgid "Catalan"
-msgstr "Catalano"
-
-msgid "Finnish"
-msgstr "Finlandese"
-
 msgid "Irish"
 msgstr "Irlandese"
-
-msgid "Lithuanian"
-msgstr "Lituano"
-
-msgid "Swedish"
-msgstr "Svedese"
-
-msgid "Slovenian"
-msgstr "Sloveno"
 
 msgid "Afrikaans"
 msgstr ""
@@ -4601,12 +4660,6 @@ msgstr "Totali:"
 msgid "Do you want to save your changes?"
 msgstr "Vuoi salvare i cambiamenti?"
 
-msgid "&Insert Special"
-msgstr "&Carattere speciale"
-
-msgid "&Fonts Preview"
-msgstr "Anteprima &font"
-
 msgid "Do you really want to lose all your Changes?"
 msgstr "Vuoi veramente perdere tutte le modifiche?"
 
@@ -4740,6 +4793,14 @@ msgstr ""
 "documento."
 
 #, fuzzy
+msgid "Contents"
+msgstr "Cancella conten&uto"
+
+#, fuzzy
+msgid "Scribus Online Help"
+msgstr "Aiuto"
+
+#, fuzzy
 msgid ""
 "Sorry, no manual available! Please see: http://docs.scribus.net for updated "
 "docs\n"
@@ -4819,8 +4880,8 @@ msgstr ""
 "Vuoi veramente sovrascrivere il file:\n"
 "%1 ?"
 
-#, c-format
-msgid "About Scribus%1%2"
+#, fuzzy
+msgid "About Scribus %1"
 msgstr "Informazioni su Scribus%1%2"
 
 msgid "%1. %2 %3 "
@@ -5665,6 +5726,9 @@ msgstr "Nuovo &dal modello..."
 msgid "Template: "
 msgstr "Modello:"
 
+msgid "&Insert Special"
+msgstr "&Carattere speciale"
+
 msgid "Select Character:"
 msgstr "Scegli carattere:"
 
@@ -5707,6 +5771,16 @@ msgstr "verticale"
 msgid "custom"
 msgstr "personalizzato"
 
+msgid "Import &Open Office Draw..."
+msgstr ""
+
+#, fuzzy
+msgid "Open Office Draw (*.sxd);;All Files (*)"
+msgstr "File di testo (*.txt);;Tutti i file (*)"
+
+msgid "&Fonts Preview"
+msgstr "Anteprima &font"
+
 msgid "Fonts Preview"
 msgstr "Anteprima caratteri"
 
@@ -5715,6 +5789,13 @@ msgstr "Alt+O"
 
 msgid "Alt+C"
 msgstr "Alt+C"
+
+msgid "Append selected font into Style, Font menu"
+msgstr ""
+
+#, fuzzy
+msgid "Leave preview"
+msgstr "Anteprima"
 
 #, fuzzy
 msgid "Text Filters"
@@ -5948,23 +6029,6 @@ msgstr "Abilita/disabilita lo strato Y (Giallo)"
 msgid "Enable/disable the K (Black) ink plate"
 msgstr "Abilita/disabilita lo strato K (Nero)"
 
-msgid ""
-"A way of switching some of the gray shades which are composed\n"
-"of cyan, yellow and magenta and using black instead.\n"
-"UCR most affects parts of images which are neutral and/or dark tones\n"
-"which are close to the gray. Use of this may improve printing some images\n"
-"and some experimentation and testing is need on a case by case basis.\n"
-"UCR reduces the possibility of over saturation with CMY inks."
-msgstr ""
-"Una maniera di cambiare alcune ombreggiature grigie composte da ciano,\n"
-" giallo e magenta, usando il nero al loro posto.\n"
-"UCR maggiormente interessa le parti di immagini che sono neutrali e/o di "
-"tonalità\n"
-"scura vicino al grigio. L'uso di questo effetto può migliorare la stampa di "
-"alcune \n"
-"immagini, sperimentazioni e test sono necessari caso per caso.\n"
-"L'UCR riduce la possibilità di sovrassaturazione con inchiostri CMY."
-
 msgid "Oook! Wrong arguments! Call: "
 msgstr "Ups! Argomenti sbagliati! Chiama: "
 
@@ -5982,6 +6046,10 @@ msgstr "Script &recenti"
 
 msgid "Show &Console"
 msgstr "Mostra &console"
+
+#, fuzzy
+msgid "&About Script..."
+msgstr "&Esegui script..."
 
 msgid "S&cript"
 msgstr "S&cript"
@@ -6009,37 +6077,15 @@ msgstr ""
 msgid "Hide &Console"
 msgstr "Nascondi &console"
 
+#, fuzzy
+msgid "About Script"
+msgstr "Informazioni su Scribus"
+
 msgid "Script Console"
 msgstr "Console per gli script"
 
-msgid "Oook! You're calling an object doesn't exist!"
-msgstr "Ups! Stai chiamando un oggetto inesistente!"
-
-msgid "Oook! You're trying to erase an object doesn't exist!"
-msgstr "Ups! Stai cercando di cancellare un oggetto inesistente!"
-
-msgid "Oook! An object you're trying to textflow doesn't exist!"
+msgid "Tried to set progress > maximum progress"
 msgstr ""
-"Ups! Un oggetto, a cui stai tentando di collegare il testo, è inesistente!"
-
-msgid ""
-"Oook! You're trying to load image into an object doesn't exist or isn't "
-"selected!"
-msgstr ""
-"Ups! Stai cercando di caricare un'immagine in un oggetto inesistente o non "
-"selezionato!"
-
-msgid ""
-"Oook! You're trying to (un)lock an object doesn't exist! None selected too."
-msgstr ""
-"Ups! Stai cercando di (s)bloccare un oggetto inesistente! Nessun oggetto "
-"selezionato."
-
-msgid ""
-"Oook! You're trying to query an object doesn't exist! None selected too."
-msgstr ""
-"Ups! Stai provando a cerca un oggetto inesistente! Nessun oggetto "
-"selezionato."
 
 #, fuzzy
 msgid "Insert value"
@@ -6103,6 +6149,10 @@ msgstr ""
 "Risoluzione delle immagini\n"
 "Usa 72 dpi per immagini da visualizzare nello schermo"
 
+#, c-format
+msgid "Size of the images. 100% for no changes, 200% for two times larger etc."
+msgstr ""
+
 #, fuzzy, c-format
 msgid "The quality of your images - 100% is the best, 1% the lowest quality"
 msgstr "La qualità delle immagini: 100% è la migliore, 1% è la minore qualità"
@@ -6161,6 +6211,54 @@ msgstr ""
 "Importazione file:\n"
 "%1\n"
 "fallita!"
+
+#~ msgid ""
+#~ "A way of switching some of the gray shades which are composed\n"
+#~ "of cyan, yellow and magenta and using black instead.\n"
+#~ "UCR most affects parts of images which are neutral and/or dark tones\n"
+#~ "which are close to the gray. Use of this may improve printing some "
+#~ "images\n"
+#~ "and some experimentation and testing is need on a case by case basis.\n"
+#~ "UCR reduces the possibility of over saturation with CMY inks."
+#~ msgstr ""
+#~ "Una maniera di cambiare alcune ombreggiature grigie composte da ciano,\n"
+#~ " giallo e magenta, usando il nero al loro posto.\n"
+#~ "UCR maggiormente interessa le parti di immagini che sono neutrali e/o di "
+#~ "tonalità\n"
+#~ "scura vicino al grigio. L'uso di questo effetto può migliorare la stampa "
+#~ "di alcune \n"
+#~ "immagini, sperimentazioni e test sono necessari caso per caso.\n"
+#~ "L'UCR riduce la possibilità di sovrassaturazione con inchiostri CMY."
+
+#~ msgid "Oook! You're calling an object doesn't exist!"
+#~ msgstr "Ups! Stai chiamando un oggetto inesistente!"
+
+#~ msgid "Oook! You're trying to erase an object doesn't exist!"
+#~ msgstr "Ups! Stai cercando di cancellare un oggetto inesistente!"
+
+#~ msgid "Oook! An object you're trying to textflow doesn't exist!"
+#~ msgstr ""
+#~ "Ups! Un oggetto, a cui stai tentando di collegare il testo, è inesistente!"
+
+#~ msgid ""
+#~ "Oook! You're trying to load image into an object doesn't exist or isn't "
+#~ "selected!"
+#~ msgstr ""
+#~ "Ups! Stai cercando di caricare un'immagine in un oggetto inesistente o "
+#~ "non selezionato!"
+
+#~ msgid ""
+#~ "Oook! You're trying to (un)lock an object doesn't exist! None selected "
+#~ "too."
+#~ msgstr ""
+#~ "Ups! Stai cercando di (s)bloccare un oggetto inesistente! Nessun oggetto "
+#~ "selezionato."
+
+#~ msgid ""
+#~ "Oook! You're trying to query an object doesn't exist! None selected too."
+#~ msgstr ""
+#~ "Ups! Stai provando a cerca un oggetto inesistente! Nessun oggetto "
+#~ "selezionato."
 
 #, fuzzy
 #~ msgid "&Options"
@@ -7720,9 +7818,6 @@ msgstr ""
 
 #~ msgid "ScribusApp::Group"
 #~ msgstr "Raggruppa"
-
-#~ msgid "ScribusApp::Help"
-#~ msgstr "Aiuto"
 
 #~ msgid "ScribusApp::Hide Bookmarks"
 #~ msgstr "Nascondi segnalibri"

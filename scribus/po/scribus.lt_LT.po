@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-29 23:35+0200\n"
+"POT-Creation-Date: 2004-11-30 21:24+0100\n"
 "PO-Revision-Date: 2002-04-20 22:57GMT\n"
 "Last-Translator: Aivaras Kirejevas <kiras@mail.lt>\n"
 "Language-Team: Lithuanian\n"
@@ -1453,8 +1453,8 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Compression levels: Minimum (25\\%), Low (50\\%), Medium (75\\%), High (85\\"
-"%), Maximum (95\\%)"
+"Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), "
+"Maximum (95%)"
 msgstr ""
 
 msgid ""
@@ -2510,6 +2510,122 @@ msgid "Select"
 msgstr "Paþymëti"
 
 #, fuzzy
+msgid "Albanian"
+msgstr "Lygiuoti"
+
+#, fuzzy
+msgid "Basque"
+msgstr "Ðiuo pagrindu:"
+
+#, fuzzy
+msgid "Bulgarian"
+msgstr "Vengrø ir italø:"
+
+#, fuzzy
+msgid "Brazilian"
+msgstr "Ukrainos:"
+
+msgid "Catalan"
+msgstr ""
+
+msgid "Chinese"
+msgstr ""
+
+msgid "Czech"
+msgstr ""
+
+#, fuzzy
+msgid "Danish"
+msgstr "Punktyris"
+
+msgid "Dutch"
+msgstr ""
+
+msgid "English"
+msgstr ""
+
+#, fuzzy
+msgid "English (British)"
+msgstr "Pabaigos:"
+
+#, fuzzy
+msgid "Esperanto"
+msgstr "Ávykis:"
+
+#, fuzzy
+msgid "German"
+msgstr "Vokiðkai:"
+
+msgid "Finnish"
+msgstr ""
+
+#, fuzzy
+msgid "French"
+msgstr "Prancûziðkai:"
+
+#, fuzzy
+msgid "Galician"
+msgstr "Ukrainos:"
+
+#, fuzzy
+msgid "Greek"
+msgstr "&Þalia:"
+
+msgid "Hungarian"
+msgstr ""
+
+msgid "Indonesian"
+msgstr ""
+
+#, fuzzy
+msgid "Italian"
+msgstr "Pasviras"
+
+msgid "Korean"
+msgstr ""
+
+#, fuzzy
+msgid "Lithuanian"
+msgstr "Lietuviø:"
+
+msgid "Norwegian (Bokmaal)"
+msgstr ""
+
+msgid "Norwegian (Nnyorsk)"
+msgstr ""
+
+msgid "Norwegian"
+msgstr ""
+
+msgid "Polish"
+msgstr ""
+
+msgid "Russian"
+msgstr ""
+
+msgid "Swedish"
+msgstr ""
+
+msgid "Spanish"
+msgstr ""
+
+#, fuzzy
+msgid "Spanish (Latin)"
+msgstr "Ispanø ir katalonës:"
+
+#, fuzzy
+msgid "Slovak"
+msgstr "Slovakø:"
+
+#, fuzzy
+msgid "Slovenian"
+msgstr "Slovakø:"
+
+#, fuzzy
+msgid "Serbian"
+msgstr "Slovakø:"
+
+#, fuzzy
 msgid "Document Information"
 msgstr "Informacija"
 
@@ -3556,44 +3672,6 @@ msgstr "Atðaukti objekto postûmá"
 msgid "&Undo Object Change"
 msgstr "Atðaukti objekto pakeitimus"
 
-msgid "English"
-msgstr ""
-
-#, fuzzy
-msgid "German"
-msgstr "Vokiðkai:"
-
-msgid "Spanish"
-msgstr ""
-
-#, fuzzy
-msgid "Italian"
-msgstr "Pasviras"
-
-#, fuzzy
-msgid "French"
-msgstr "Prancûziðkai:"
-
-msgid "Russian"
-msgstr ""
-
-#, fuzzy
-msgid "Danish"
-msgstr "Punktyris"
-
-#, fuzzy
-msgid "Slovak"
-msgstr "Slovakø:"
-
-msgid "Hungarian"
-msgstr ""
-
-msgid "Czech"
-msgstr ""
-
-msgid "Dutch"
-msgstr ""
-
 msgid "Portuguese"
 msgstr ""
 
@@ -3601,32 +3679,8 @@ msgstr ""
 msgid "Ukrainian"
 msgstr "Ukrainos:"
 
-msgid "Polish"
-msgstr ""
-
-#, fuzzy
-msgid "Greek"
-msgstr "&Þalia:"
-
-msgid "Catalan"
-msgstr ""
-
-msgid "Finnish"
-msgstr ""
-
 msgid "Irish"
 msgstr ""
-
-#, fuzzy
-msgid "Lithuanian"
-msgstr "Lietuviø:"
-
-msgid "Swedish"
-msgstr ""
-
-#, fuzzy
-msgid "Slovenian"
-msgstr "Slovakø:"
 
 msgid "Afrikaans"
 msgstr ""
@@ -5049,14 +5103,6 @@ msgid "Do you want to save your changes?"
 msgstr ""
 
 #, fuzzy
-msgid "&Insert Special"
-msgstr "Áterpti apskritimà"
-
-#, fuzzy
-msgid "&Fonts Preview"
-msgstr "Pasiþiûrëti kaip atrodys"
-
-#, fuzzy
 msgid "Do you really want to lose all your Changes?"
 msgstr "Ar tu tikrai labai nori paðalinti stiliø?"
 
@@ -5182,6 +5228,14 @@ msgid ""
 "It is recommended that you enable this if you have photos in your document."
 msgstr ""
 
+#, fuzzy
+msgid "Contents"
+msgstr "Turinys"
+
+#, fuzzy
+msgid "Scribus Online Help"
+msgstr "Pagalba tinkle..."
+
 msgid ""
 "Sorry, no manual available! Please see: http://docs.scribus.net for updated "
 "docs\n"
@@ -5264,8 +5318,8 @@ msgstr ""
 "%1\n"
 " turiná?"
 
-#, fuzzy, c-format
-msgid "About Scribus%1%2"
+#, fuzzy
+msgid "About Scribus %1"
 msgstr "Apie Scribus"
 
 msgid "%1. %2 %3 "
@@ -6165,6 +6219,10 @@ msgid "Template: "
 msgstr "Naujas ðablonas"
 
 #, fuzzy
+msgid "&Insert Special"
+msgstr "Áterpti apskritimà"
+
+#, fuzzy
 msgid "Select Character:"
 msgstr "Raidë"
 
@@ -6213,6 +6271,17 @@ msgstr "Portretui"
 msgid "custom"
 msgstr "Nuosavas"
 
+msgid "Import &Open Office Draw..."
+msgstr ""
+
+#, fuzzy
+msgid "Open Office Draw (*.sxd);;All Files (*)"
+msgstr "Tekstinis failas (*.txt);;Visi failai (*)"
+
+#, fuzzy
+msgid "&Fonts Preview"
+msgstr "Pasiþiûrëti kaip atrodys"
+
 #, fuzzy
 msgid "Fonts Preview"
 msgstr "Pasiþiûrëti kaip atrodys"
@@ -6222,6 +6291,13 @@ msgstr ""
 
 msgid "Alt+C"
 msgstr ""
+
+msgid "Append selected font into Style, Font menu"
+msgstr ""
+
+#, fuzzy
+msgid "Leave preview"
+msgstr "Pasiþiûrëti kaip atrodys"
 
 #, fuzzy
 msgid "Text Filters"
@@ -6450,15 +6526,6 @@ msgstr ""
 msgid "Enable/disable the K (Black) ink plate"
 msgstr ""
 
-msgid ""
-"A way of switching some of the gray shades which are composed\n"
-"of cyan, yellow and magenta and using black instead.\n"
-"UCR most affects parts of images which are neutral and/or dark tones\n"
-"which are close to the gray. Use of this may improve printing some images\n"
-"and some experimentation and testing is need on a case by case basis.\n"
-"UCR reduces the possibility of over saturation with CMY inks."
-msgstr ""
-
 msgid "Oook! Wrong arguments! Call: "
 msgstr ""
 
@@ -6480,6 +6547,10 @@ msgstr "Paskutiniai dokumentai"
 #, fuzzy
 msgid "Show &Console"
 msgstr "Rodyti árankinæ"
+
+#, fuzzy
+msgid "&About Script..."
+msgstr "Apie Scribus"
 
 #, fuzzy
 msgid "S&cript"
@@ -6507,29 +6578,14 @@ msgstr ""
 msgid "Hide &Console"
 msgstr "Slëpti árankinæ"
 
+#, fuzzy
+msgid "About Script"
+msgstr "Apie Scribus"
+
 msgid "Script Console"
 msgstr ""
 
-msgid "Oook! You're calling an object doesn't exist!"
-msgstr ""
-
-msgid "Oook! You're trying to erase an object doesn't exist!"
-msgstr ""
-
-msgid "Oook! An object you're trying to textflow doesn't exist!"
-msgstr ""
-
-msgid ""
-"Oook! You're trying to load image into an object doesn't exist or isn't "
-"selected!"
-msgstr ""
-
-msgid ""
-"Oook! You're trying to (un)lock an object doesn't exist! None selected too."
-msgstr ""
-
-msgid ""
-"Oook! You're trying to query an object doesn't exist! None selected too."
+msgid "Tried to set progress > maximum progress"
 msgstr ""
 
 #, fuzzy
@@ -6604,6 +6660,10 @@ msgid ""
 msgstr ""
 
 #, c-format
+msgid "Size of the images. 100% for no changes, 200% for two times larger etc."
+msgstr ""
+
+#, c-format
 msgid "The quality of your images - 100% is the best, 1% the lowest quality"
 msgstr ""
 
@@ -6666,9 +6726,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "&Options"
 #~ msgstr "Nuostatos"
-
-#~ msgid "Spanish and Catalan:"
-#~ msgstr "Ispanø ir katalonës:"
 
 #, fuzzy
 #~ msgid "&Fully Automatic"
