@@ -12,20 +12,37 @@
 <ul><li>Get the latest GS from here: http://ghostscript.com/doc/AFPL/ </li>
 <li>You can manually tweak the make files the old way or </li>
 <li>Use the new configure script with the following options (and optionally <code>-with-jasper</code> and <code>-with-rinkj</code> with very latest versions): </li></ul>
-<pre>./configure --enable-compile-inits -with-x</pre>
+<blockquote>
+<table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<small><pre>./configure --enable-compile-inits -with-x</pre></small></td></tr></table>
+</blockquote>
 
 <p>By default, '<code>make install</code>' will install all the files in '<code>/usr/local/bin</code>', '<code>/usr/local/lib</code>' etc. You can specify an installation prefix other than '<code>/usr/local</code>' using '<code>--prefix</code>', for instance  '</p>
-<pre>--prefix=$HOME</pre>
+<blockquote>
+<table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<small><pre>--prefix=$HOME</pre></small></td></tr></table>
+</blockquote>
 <p>This default usually works fine and keeps the two sets of GS libs separated.</p>
 <p>Second Steps:</p>
 <p>There is a second step to compile Ghostscript as a shared library, which GSview needs:</p>
-<pre>make so</pre>
+<blockquote>
+<table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<small><pre>make so</pre></small></td></tr></table>
+</blockquote>
 <p>and as root:</p> 
-<pre>make soinstall</pre>
+<blockquote>
+<table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<small><pre>make soinstall</pre></small></td></tr></table>
+</blockquote>
 <p>Now, let&#039;s check briefly:</p>
-<pre>/usr/local/bin/gs -h</pre>
+<blockquote>
+<table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<small><pre>/usr/local/bin/gs -h</pre></small></td></tr></table>
+</blockquote>
 <p>You should have an output something like this:</p>
-<pre>AFPL Ghostscript 8.14 (2004-02-20)
+<blockquote>
+<table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<small><pre>AFPL Ghostscript 8.14 (2004-02-20)
 Copyright (C) 2004 artofcode LLC, Benicia, CA.  All rights reserved.
 Usage: gs [switches] [file1.ps file2.ps ...]
 Most frequently used switches: (you can use # in place of =)
@@ -50,7 +67,8 @@ Available devices:
 Search path:
    . : /home/peter/.fonts : /usr/local/share/ghostscript/8.14/lib :
    /usr/local/share/ghostscript/8.14/Resource :
-   /usr/share/ghostscript/fonts</pre>
+   /usr/share/ghostscript/fonts</pre></small></td></tr></table>
+</blockquote>
 
 <p>The key thing here is:</p>
 <ol><li>You see the correct version of GS. Otherwise, you might need to adjust your <code>$PATH</code> settings</li>

@@ -34,6 +34,7 @@
 <p><strong>Setup the environment</strong>:</p>
 
 <p>Using tcsh as the shell:</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
 <pre>setenv CFLAGS -I/sw/include
 setenv LDFLAGS -L/sw/lib
 setenv CXXFLAGS $CFLAGS
@@ -41,8 +42,10 @@ setenv CPPFLAGS $CXXFLAGS
 setenv ACLOCAL_FLAGS "-I /sw/share/aclocal"
 setenv PKG_CONFIG_PATH "/sw/lib/pkgconfig"
 </pre>
+</small></td></tr></table></blockquote>
 
 <p>Using bash as the shell:</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
 <pre>export CFLAGS=-I/sw/include
 export LDFLAGS=-L/sw/lib
 export CXXFLAGS=$CFLAGS
@@ -50,17 +53,23 @@ export CPPFLAGS=$CXXFLAGS
 export ACLOCAL_FLAGS="-I /sw/share/aclocal"
 export PKG_CONFIG_PATH="/sw/lib/pkgconfig"
 </pre>
+</small></td></tr></table></blockquote>
 
 <p>One can then run:</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
 <pre>make -f Makefile.dist</pre>
+</small></td></tr></table></blockquote>
 <p>It is not necessary to install autoconf and automake from Fink, they exist in Mac OSX 10.3 already. Then <code>configure</code> as follows:</p>
 
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
 <pre>./configure --with-qt-dir=/sw --with-qt-includes=/sw/include/qt --with-qt-libraries=/sw/lib<br /> --with-extra-includes=/sw/include<br /> --with-pythondir=/System/Library/Frameworks/Python.framework/Versions/2.3/</pre>
+</small></td></tr></table></blockquote>
 
 <p>Before one can run <code>make</code>, one needs the patches that are done in the PatchScript of the Fink scribus.info file.</p>
 
 <p>The first group of patches helps find the right versions of the freetype headers and libraries (those from Fink, Apple's X11 has a freetype version that is too old) and the right python version (the one from MacOSX):</p>
 
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
 <pre>
 perl -pi -e 's,usr/X11/bin,usr/X11R6/bin,g' configure
 perl -pi -e 's,FREETYPE_CONFIG=\"\",FREETYPE_CONFIG=\"/sw/lib/freetype2/bin/freetype-config\",g' configure
@@ -68,19 +77,24 @@ perl -pi -e 's,LIBS=\"\-lfreetype,LIBS=\"\$LIBFREETYPE_LIBS,g' configure
 perl -pi -e "s,PYTHONLIB=.*,PYTHONLIB='-framework Python'\npython_libdir=yes\nLIBPYTHON=' ',g" configure
 perl -pi -e "s,LIBPYTHON =.*,LIBPYTHON=,g" scribus/plugins/scriptplugin/Makefile.in
 </pre>
+</small></td></tr></table></blockquote>
 
 <p>The second group is necessary for building the plugins. This is a hack that could probably be done differently.</p>
 
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
 <pre>
 perl -pi -e 's|^AM_LDFLAGS = .*\-s|AM_LDFLAGS = \$(all_libraries) \$(LIB_QT)|g' `find . -name Makefile.in`
 perl -pi -e 's|(lib.*)\.la|$1.so|g' `find . -name Makefile.in`
 perl -pi -e 's|-version-info 0:0:0|-bundle -undefined dynamic_lookup -bind_at_load|g' `find . -name Makefile.in`
 perl -pi -e 's|libpdf_la_LIBADD =|libpdf_la_LIBADD =\$(LIBTIFF)|g' scribus/libpdf/Makefile.in
 </pre>
+</small></td></tr></table></blockquote>
 
 <p>One can then run:</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
 <pre>
 make
 sudo make install
 </pre>
+</small></td></tr></table></blockquote>
 <p>It installs scribus into <code>/usr/local</code>, so it does not interfere with a different version installed by Fink, which goes into <code>/sw</code>.</p>
