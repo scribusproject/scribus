@@ -10,8 +10,8 @@ your own package from source.</p>
 <p>Add the following lines to your <code>/etc/apt/sources.list</code> :</p>
 <blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
 <pre>
-deb http://www.scribus.org.uk/downloads/1.2.1/debian binary/
-deb-src http://www.scribus.org.uk/downloads/1.2.1/debian source/
+deb http://debian.scribus.net/debian/unstable/
+deb-src http://debian.scribus.net/unstable/Sources
 </pre>
 </small></td></tr></table></blockquote>
 <p>Update the apt database.</p>
@@ -30,7 +30,7 @@ architecture is different or for any other reason. Get the source package:</p>
 <blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
 <pre>
 apt-get source scribus
-cd scribus-1.2.1
+cd scribus-1.2.2cvs
 </pre>
 </small></td></tr></table></blockquote>
 <p>Build the package.</p>
@@ -40,7 +40,7 @@ border="0"><small>
 </small></td></tr></table></blockquote>
 <p>Install the package you built.</p>
 <blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
-<pre>dpkg -i ../scribus_1.2.1-1_i386.deb</pre>
+<pre>dpkg -i ../scribus_1.2.2cvs-1_i386.deb</pre>
 </small></td></tr></table></blockquote>
 <p><em>This is the name for x86 arch. Change it to whatever the name is on your system.</em>
 </p>
