@@ -5,6 +5,7 @@ EXTRA_DIST = vectorgfx.png ooo_draw.png ooo_writer.png key_bindings.png blend.pn
 
 install-data-local:
 	$(mkinstalldirs) $(prefix)/share/scribus/icons/
+	$(mkinstalldirs) $(prefix)/share/pixmaps/
 	$(INSTALL_DATA) $(srcdir)/vectorgfx.png $(prefix)/share/scribus/icons/vectorgfx.png
 	$(INSTALL_DATA) $(srcdir)/ooo_writer.png $(prefix)/share/scribus/icons/ooo_writer.png
 	$(INSTALL_DATA) $(srcdir)/ooo_draw.png $(prefix)/share/scribus/icons/ooo_draw.png
@@ -92,6 +93,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/Winkel.xpm $(prefix)/share/scribus/icons/Winkel.xpm
 	$(INSTALL_DATA) $(srcdir)/acrobat.png $(prefix)/share/scribus/icons/acrobat.png
 	$(INSTALL_DATA) $(srcdir)/scribusicon.png $(prefix)/share/scribus/icons/scribusicon.png
+	$(INSTALL_DATA) $(srcdir)/scribusicon.png $(prefix)/share/pixmaps/scribusicon.png
 	$(INSTALL_DATA) $(srcdir)/text_block.png $(prefix)/share/scribus/icons/text_block.png
 	$(INSTALL_DATA) $(srcdir)/text_center.png $(prefix)/share/scribus/icons/text_center.png
 	$(INSTALL_DATA) $(srcdir)/text_left.png $(prefix)/share/scribus/icons/text_left.png
@@ -232,6 +234,7 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/Winkel.xpm
 	-rm -f $(prefix)/share/scribus/icons/acrobat.png
 	-rm -f $(prefix)/share/scribus/icons/scribusicon.png
+	-rm -f $(prefix)/share/pixmaps/scribusicon.png
 	-rm -f $(prefix)/share/scribus/icons/text_block.png
 	-rm -f $(prefix)/share/scribus/icons/text_center.png
 	-rm -f $(prefix)/share/scribus/icons/text_left.png
