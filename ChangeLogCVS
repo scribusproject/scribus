@@ -1,5 +1,10 @@
 Changes since Version 1.1.7
 
+11.08.2004
+	* bug     #957: Scribus crashes when adding new paragraph style while text is selected
+	* bug     #962: Scribus crashes when opening a document not in .sla format
+	* feature #965: Welsh translation of 1.2rc1
+
 09.08.2004
 	* bug     #955: When switching between multiple windows size and X,Y origin location are not updated for the selected object
 

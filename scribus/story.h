@@ -79,6 +79,7 @@ public:
 
 	typedef QPtrList<PtiSmall> ChList;
 	QPtrList<ChList> StyledText;
+	QValueList<int> ParagStyles;
 	ScribusDoc* doc;
 	bool UniCinp;
 	bool wasMod;
@@ -120,6 +121,7 @@ public:
 	int offs;
 	SEditor *editor;
 	bool noUpdt;
+	bool inRep;
 
 public slots:
 	void doMove(int x, int y);

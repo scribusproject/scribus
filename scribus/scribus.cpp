@@ -3166,6 +3166,9 @@ bool ScribusApp::LadeDoc(QString fileName)
 		doc->OpenNodes = Tpal->buildReopenVals();
 	bool ret = false;
 	QWidgetList windows = wsp->windowList();
+	ScribusWin* ActWinOld;
+	if (windows.count() != 0)
+		ActWinOld = ActWin;
 	bool found = false;
 	int id = 0;
 	for ( int i = 0; i < static_cast<int>(windows.count()); ++i )
@@ -3268,6 +3271,8 @@ bool ScribusApp::LadeDoc(QString fileName)
 			FMess->setText("");
 			FProg->reset();
 			ActWin = NULL;
+			if (windows.count() != 0)
+				newActWin(ActWinOld);
 			return false;
 		}
 		delete ss;
@@ -4987,13 +4992,14 @@ void ScribusApp::ToggleFrameEdit()
 		ObjMenu->setItemEnabled(Loesch, false);
 		if (doc->ActPage->SelItem.count() != 0)
 		{
-			doc->ActPage->MarkClip(doc->ActPage->SelItem.at(0));
-			if (doc->ActPage->SelItem.at(0)->ContourLine.size() == 0)
+			PageItem* b = doc->ActPage->SelItem.at(0);
+			doc->ActPage->MarkClip(b);
+			if (b->ContourLine.size() == 0)
 				Npal->EditCont->setEnabled(false);
 			else
 				Npal->EditCont->setEnabled(true);
 			Npal->ResetCont->setEnabled(false);
-			Npal->PolyStatus(doc->ActPage->SelItem.at(0)->PType, doc->ActPage->SelItem.at(0)->PoLine.size());
+			Npal->PolyStatus(b->PType, b->PoLine.size());
 		}
 	}
 	ShapeMenu->setItemChecked(ShapeEdit, doc->EditClip);
@@ -5924,6 +5930,7 @@ void ScribusApp::saveStyles(StilFormate *dia)
 			{
 				SEditor::ChList *chars;
 				chars = CurrStED->Editor->StyledText.at(pa);
+				(*CurrStED->Editor->ParagStyles.at(pa)) = ers[CurrStED->Editor->ParagStyles[pa]];
 				int cabneu = 0;
 				for (uint e = 0; e < chars->count(); ++e)
 				{

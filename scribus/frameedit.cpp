@@ -373,6 +373,7 @@ void NodePalette::ResetContour()
 	if (doc != 0)
 	{
 		doc->ActPage->SelItem.at(0)->ContourLine = doc->ActPage->SelItem.at(0)->PoLine.copy();
+		doc->ActPage->SelItem.at(0)->ClipEdited = true;
 		doc->ActPage->update();
 	}
 }

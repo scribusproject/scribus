@@ -38,13 +38,15 @@ SideBar::SideBar(QWidget *pa) : QLabel(pa)
 	offs = 0;
 	editor = 0;
 	noUpdt = true;
-	setMinimumWidth(fontMetrics().width( "No Style" )+30);
+	inRep = false;
+	setMinimumWidth(fontMetrics().width( tr("No Style") )+30);
 }
 
 void SideBar::paintEvent(QPaintEvent *e)
 {
+	inRep = true;
 	QLabel::paintEvent(e);
-	int st;
+	int st = editor->CurrentABStil;
 	QPainter p;
 	p.begin(this);
 	if ((editor != 0) && (noUpdt))
@@ -52,11 +54,13 @@ void SideBar::paintEvent(QPaintEvent *e)
 		for (int pa = 0; pa < editor->paragraphs(); ++pa)
 		{
 			QRect re = editor->paragraphRect(pa);
+			if (!re.isValid())
+				break;
 			re.setWidth(width()-5);
 			re.moveBy(5, 0);
-			if ((re.y()+re.height())-offs < height())
+			if (((re.y()+re.height())-offs < height()) && ((re.y()+re.height())-offs > 0))
 				p.drawLine(0, (re.y()+re.height())-offs, width()-1, (re.y()+re.height())-offs);
-			if (re.y()-offs < height())
+			if ((re.y()-offs < height()) && (re.y()-offs > 0))
 			{
 				re.setY(re.y()-offs);
 				if ((pa < static_cast<int>(editor->StyledText.count())) && (editor->StyledText.count() != 0))
@@ -65,42 +69,45 @@ void SideBar::paintEvent(QPaintEvent *e)
 					{
 						st = editor->StyledText.at(pa)->at(0)->cab;
 						if (st < 5)
-							p.drawText(re, Qt::AlignLeft | Qt::AlignTop, "No Style");
+							p.drawText(re, Qt::AlignLeft | Qt::AlignTop, tr("No Style"));
 						else
 							p.drawText(re, Qt::AlignLeft | Qt::AlignTop, editor->doc->Vorlagen[st].Vname);
 					}
 					else
 					{
-						st = editor->CurrentABStil;
+						st = editor->ParagStyles[pa];
 						if (st < 5)
-							p.drawText(re, Qt::AlignLeft | Qt::AlignTop, "No Style");
+							p.drawText(re, Qt::AlignLeft | Qt::AlignTop, tr("No Style"));
 						else
-						p.drawText(re, Qt::AlignLeft | Qt::AlignTop, editor->doc->Vorlagen[st].Vname);
+							p.drawText(re, Qt::AlignLeft | Qt::AlignTop, editor->doc->Vorlagen[st].Vname);
 					}
 				}
 				else
 				{
 					st = editor->CurrentABStil;
 					if (st < 5)
-						p.drawText(re, Qt::AlignLeft | Qt::AlignTop, "No Style");
+						p.drawText(re, Qt::AlignLeft | Qt::AlignTop, tr("No Style"));
 					else
-					p.drawText(re, Qt::AlignLeft | Qt::AlignTop, editor->doc->Vorlagen[st].Vname);
+						p.drawText(re, Qt::AlignLeft | Qt::AlignTop, editor->doc->Vorlagen[st].Vname);
 				}
 			}
 		}
 	}
 	p.end();
+	inRep = false;
 }
 
 void SideBar::doMove(int x, int y)
 {
 	offs = y;
-	repaint();
+	if (!inRep)
+		update();
 }
 
 void SideBar::doRepaint()
 {
-	repaint();
+	if (!inRep)
+		update();
 }
 
 void SideBar::setRepaint(bool r)
@@ -114,6 +121,7 @@ SEditor::SEditor(QWidget* parent, ScribusDoc *docc) : QTextEdit(parent)
 	wasMod = false;
 	StyledText.clear();
 	StyledText.setAutoDelete(true);
+	ParagStyles.clear();
 	cBuffer.setAutoDelete(true);
 	cBuffer.clear();
 	setUndoRedoEnabled(true);
@@ -237,6 +245,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 									}
 								}
 								StyledText.remove(p+1);
+								ParagStyles.remove(ParagStyles.at(p+1));
 							}
 						}
 					}
@@ -273,6 +282,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 									}
 								}
 								StyledText.remove(p);
+								ParagStyles.remove(ParagStyles.at(p));
 							}
 						}
 					}
@@ -291,7 +301,10 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 						if (StyledText.count() != 0)
 						{
 							if (p >= static_cast<int>(StyledText.count()))
+							{
 								StyledText.append(chars);
+								ParagStyles.append(CurrentABStil);
+							}
 							else
 							{
 							ChList *chars2 = StyledText.at(p);
@@ -301,10 +314,14 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 								chars->append(chars2->take(i));
 							}
 							StyledText.insert(p+1, chars);
+							ParagStyles.insert(ParagStyles.at(p+1), CurrentABStil);
 							}
 						}
 						else
+						{
 							StyledText.append(chars);
+							ParagStyles.append(CurrentABStil);
+						}
 					}
 					break;
 				case Key_Left:
@@ -343,6 +360,7 @@ void SEditor::insChars(QString t)
 		chars->setAutoDelete(true);
 		chars->clear();
 		StyledText.append(chars);
+		ParagStyles.append(CurrentABStil);
 	}
 	else
 		chars = StyledText.at(p);
@@ -399,7 +417,10 @@ void SEditor::insStyledText()
 			chars2->setAutoDelete(true);
 			chars2->clear();
 			if (p2 >= static_cast<int>(StyledText.count()))
+			{
 				StyledText.append(chars2);
+				ParagStyles.append(ccab);
+			}
 			else
 			{
 				int a = static_cast<int>(chars->count());
@@ -408,6 +429,7 @@ void SEditor::insStyledText()
 					chars2->append(chars->take(i));
 				}
 				StyledText.insert(p2+1, chars2);
+				ParagStyles.insert(ParagStyles.at(p2+1), ccab);
 			}
 			p2++;
 			chars = StyledText.at(p2);
@@ -600,6 +622,7 @@ void SEditor::loadItemText(PageItem* b)
 	int Ali = 0;
 	PageItem *nb = b;
 	StyledText.clear();
+	ParagStyles.clear();
 	ChList *chars;
 	chars = new ChList;
 	chars->setAutoDelete(true);
@@ -638,6 +661,7 @@ void SEditor::loadItemText(PageItem* b)
 			if (nb->Ptext.at(a)->ch == QChar(13))
 			{
 				StyledText.append(chars);
+				ParagStyles.append(Ali);
 				chars = new ChList;
 				chars->setAutoDelete(true);
 				chars->clear();
@@ -695,7 +719,10 @@ void SEditor::loadItemText(PageItem* b)
 	setStyle(Csty);
 	insert(Text);
 	if (chars->count() != 0)
+	{
 		StyledText.append(chars);
+		ParagStyles.append(Ali);
+	}
 	if (StyledText.count() != 0)
 		emit setProps(0, 0);
 	setCursorPosition(0, 0);
@@ -706,6 +733,7 @@ void SEditor::loadText(QString tx, PageItem* b)
 	struct PtiSmall *hg;
 	QString Text = "";
 	StyledText.clear();
+	ParagStyles.clear();
 	ChList *chars;
 	chars = new ChList;
 	chars->setAutoDelete(true);
@@ -718,6 +746,7 @@ void SEditor::loadText(QString tx, PageItem* b)
 		if (tx[a] == QChar(13))
 		{
 			StyledText.append(chars);
+			ParagStyles.append(b->Ausrich);
 			chars = new ChList;
 			chars->setAutoDelete(true);
 			chars->clear();
@@ -743,7 +772,10 @@ void SEditor::loadText(QString tx, PageItem* b)
 	}
 	insert(Text);
 	if (chars->count() != 0)
+	{
 		StyledText.append(chars);
+		ParagStyles.append(b->Ausrich);
+	}
 	if (StyledText.count() != 0)
 		emit setProps(0, 0);
 	setCursorPosition(0, 0);
@@ -976,7 +1008,10 @@ void SEditor::deleteSel()
 			for (int pa2 = 0; pa2 < PEnd - PStart - 1; ++pa2)
 			{
 				if (PStart+1 < static_cast<int>(StyledText.count()))
+				{
 					StyledText.remove(PStart+1);
+					ParagStyles.remove(ParagStyles.at(PStart+1));
+				}
 			}
 		}
 		if (PStart+1 < static_cast<int>(StyledText.count()))
@@ -1000,6 +1035,7 @@ void SEditor::deleteSel()
 				}
 			}
 			StyledText.remove(PStart+1);
+			ParagStyles.remove(ParagStyles.at(PStart+1));
 		}
 	}
 	setCursorPosition(PStart, SelStart);
@@ -1452,7 +1488,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	connect(Editor, SIGNAL(setProps(int, int)), this, SLOT(updateProps(int, int)));
 	connect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
 	connect(Editor, SIGNAL(copyAvailable(bool)), this, SLOT(CopyAvail(bool )));
-	connect(Editor, SIGNAL(contentsMoving(int, int)), EditorBar, SLOT(doMove(int, int)));
+	connect(Editor, SIGNAL(contentsMoving(int, int)), EditorBar, SLOT(doMove(int, int )));
 	connect(Editor, SIGNAL(textChanged()), EditorBar, SLOT(doRepaint()));
 	connect(Editor, SIGNAL(SideBarUp(bool )), EditorBar, SLOT(setRepaint(bool )));
 	connect(Editor, SIGNAL(SideBarUpdate( )), EditorBar, SLOT(doRepaint()));
@@ -1513,7 +1549,7 @@ void StoryEditor::setFontPref()
 {
 	Editor->setFont( QFontDialog::getFont( 0, Editor->font() ) );
 	ScApp->Prefs.STEfont = Editor->font().toString();
-	EditorBar->repaint();
+	EditorBar->doRepaint();
 }
 
 void StoryEditor::newTxFill(int c, int s)
@@ -1612,6 +1648,7 @@ void StoryEditor::updateProps(int p, int ch)
 {
 	CListe::Iterator it;
 	int c = 0;
+	struct PtiSmall *hg;
 	SEditor::ChList *chars;
 	if (Editor->wasMod)
 		return;
@@ -1681,37 +1718,49 @@ void StoryEditor::updateProps(int p, int ch)
 		return;
 	}
 	chars = Editor->StyledText.at(p);
+	Editor->CurrentABStil = Editor->ParagStyles[p];
 	if (chars->count() == 0)
 	{
+		if (Editor->CurrentABStil > 4)
+		{
+			Editor->CurrFont = doc->Vorlagen[Editor->CurrentABStil].Font;
+			Editor->CurrFontSize = doc->Vorlagen[Editor->CurrentABStil].FontSize;
+			Editor->CurrentStyle = doc->Vorlagen[Editor->CurrentABStil].FontEffect;
+			Editor->CurrTextFill = doc->Vorlagen[Editor->CurrentABStil].FColor;
+			Editor->CurrTextFillSh = doc->Vorlagen[Editor->CurrentABStil].FShade;
+			Editor->CurrTextStroke = doc->Vorlagen[Editor->CurrentABStil].SColor;
+			Editor->CurrTextStrokeSh = doc->Vorlagen[Editor->CurrentABStil].SShade;
+		}
 		Editor->setAlign(Editor->CurrentABStil);
 		Editor->setStyle(Editor->CurrentStyle);
 		Editor->setFarbe(Editor->CurrTextFill, Editor->CurrTextFillSh);
-		return;
-	}
-	struct PtiSmall *hg;
-	if (Editor->hasSelectedText())
-	{
-		int PStart, PEnd, SelStart, SelEnd;
-		Editor->getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
-		if ((SelStart > -1) && (SelStart < static_cast<int>(chars->count())))
-			hg = chars->at(SelStart);
-		else
-			hg = chars->at(QMIN(QMAX(ch-1, 0), static_cast<int>(chars->count())-1));
 	}
 	else
-		hg = chars->at(QMIN(QMAX(ch-1, 0), static_cast<int>(chars->count())-1));
-	Editor->CurrTextFill = hg->ccolor;
-	Editor->CurrTextFillSh = hg->cshade;
-	Editor->CurrTextStroke = hg->cstroke;
-	Editor->CurrTextStrokeSh = hg->cshade2;
-	Editor->CurrFont = hg->cfont;
-	Editor->CurrFontSize = hg->csize;
-	Editor->CurrentStyle = hg->cstyle & 127;
-	Editor->CurrTextKern = hg->cextra;
-	Editor->CurrTextScale = hg->cscale;
-	StrokeTools->SetShade(hg->cshade2);
-	FillTools->SetShade(hg->cshade);
-	QString b = hg->ccolor;
+	{
+		if (Editor->hasSelectedText())
+		{
+			int PStart, PEnd, SelStart, SelEnd;
+			Editor->getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
+			if ((SelStart > -1) && (SelStart < static_cast<int>(chars->count())))
+				hg = chars->at(SelStart);
+			else
+				hg = chars->at(QMIN(QMAX(ch-1, 0), static_cast<int>(chars->count())-1));
+		}
+		else
+			hg = chars->at(QMIN(QMAX(ch-1, 0), static_cast<int>(chars->count())-1));
+		Editor->CurrTextFill = hg->ccolor;
+		Editor->CurrTextFillSh = hg->cshade;
+		Editor->CurrTextStroke = hg->cstroke;
+		Editor->CurrTextStrokeSh = hg->cshade2;
+		Editor->CurrFont = hg->cfont;
+		Editor->CurrFontSize = hg->csize;
+		Editor->CurrentStyle = hg->cstyle & 127;
+		Editor->CurrTextKern = hg->cextra;
+		Editor->CurrTextScale = hg->cscale;
+	}
+	StrokeTools->SetShade(Editor->CurrTextStrokeSh);
+	FillTools->SetShade(Editor->CurrTextFillSh);
+	QString b = Editor->CurrTextFill;
 	if ((b != "None") && (b != ""))
 	{
 		c++;
@@ -1724,7 +1773,7 @@ void StoryEditor::updateProps(int p, int ch)
 	}
 	FillTools->SetColor(c);
 	c = 0;
-	b = hg->cstroke;
+	b = Editor->CurrTextStroke;
 	if ((b != "None") && (b != ""))
 	{
 		c++;
@@ -1736,7 +1785,7 @@ void StoryEditor::updateProps(int p, int ch)
 		}
 	}
 	StrokeTools->SetColor(c);
-	if (hg->cstyle & 4)
+	if (Editor->CurrentStyle & 4)
 	{
 		StrokeTools->TxStroke->setEnabled(true);
 		StrokeTools->PM1->setEnabled(true);
@@ -1746,14 +1795,12 @@ void StoryEditor::updateProps(int p, int ch)
 		StrokeTools->TxStroke->setEnabled(false);
 		StrokeTools->PM1->setEnabled(false);
 	}
-	StyleTools->SetKern(hg->cextra);
-	StyleTools->SetStyle(hg->cstyle & 127);
-	FontTools->SetSize(hg->csize / 10.0);
-	FontTools->SetFont(hg->cfont);
-	FontTools->SetScale(hg->cscale);
-	hg = chars->at(0);
-	Editor->CurrentABStil = hg->cab;
-	AlignTools->SetAlign(hg->cab);
+	StyleTools->SetKern(Editor->CurrTextKern);
+	StyleTools->SetStyle(Editor->CurrentStyle);
+	FontTools->SetSize(Editor->CurrFontSize / 10.0);
+	FontTools->SetFont(Editor->CurrFont);
+	FontTools->SetScale(Editor->CurrTextScale);
+	AlignTools->SetAlign(Editor->CurrentABStil);
 	updateStatus();
 }
 
@@ -1864,6 +1911,7 @@ bool StoryEditor::Do_new()
 			return false;
 	}
 	Editor->StyledText.clear();
+	Editor->ParagStyles.clear();
 	Editor->clear();
 	Editor->setUndoRedoEnabled(false);
 	Editor->setUndoRedoEnabled(true);
@@ -1905,13 +1953,13 @@ void StoryEditor::Do_copy()
 void StoryEditor::Do_paste()
 {
 	Editor->paste();
-	EditorBar->repaint();
+//	EditorBar->repaint();
 }
 
 void StoryEditor::Do_cut()
 {
 	Editor->cut();
-	EditorBar->repaint();
+//	EditorBar->repaint();
 }
 
 void StoryEditor::Do_del()
@@ -1925,7 +1973,7 @@ void StoryEditor::Do_del()
 		Editor->removeSelectedText();
 	}
 	EditorBar->setRepaint(true);
-	EditorBar->repaint();
+	EditorBar->doRepaint();
 }
 
 void StoryEditor::CopyAvail(bool u)
@@ -1975,13 +2023,17 @@ void StoryEditor::updateTextFrame()
 
 void StoryEditor::SearchText()
 {
+	EditorBar->setRepaint(false);
 	SearchReplace* dia = new SearchReplace(this, doc, &ScApp->Prefs, CurrItem, false);
 	dia->exec();
 	delete dia;
+	EditorBar->setRepaint(true);
+	EditorBar->doRepaint();
 }
 
 void StoryEditor::slotEditStyles()
 {
+	EditorBar->setRepaint(false);
 	int p, i;
 	Editor->getCursorPosition(&p, &i);
 	disconnect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
@@ -1995,6 +2047,8 @@ void StoryEditor::slotEditStyles()
 	Editor->setCursorPosition(p, i);
 	updateProps(p, i);
 	connect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
+	EditorBar->setRepaint(true);
+	EditorBar->doRepaint();
 }
 
 void StoryEditor::newAlign(int st)
@@ -2029,6 +2083,7 @@ void StoryEditor::changeAlign(int align)
 		}
 		for (int pa = PStart; pa < QMIN(PEnd+1, static_cast<int>(Editor->StyledText.count())); ++pa)
 		{
+			(*Editor->ParagStyles.at(pa)) = Editor->CurrentABStil;
 			if (Editor->StyledText.at(pa)->count() > 0)
 			{
 				chars = Editor->StyledText.at(pa);
@@ -2135,6 +2190,7 @@ void StoryEditor::LoadTextFile()
 {
 	if (Do_new())
 	{
+		EditorBar->setRepaint(false);
 		QString LoadEnc = "";
 		QString fileName = "";
 		CustomFDialog dia(this, tr("Open"), tr("Text Files (*.txt);;All Files(*)"), false, true, false, true);
@@ -2159,6 +2215,8 @@ void StoryEditor::LoadTextFile()
 				delete ss;
 			}
 		}
+		EditorBar->setRepaint(true);
+		EditorBar->doRepaint();
 	}
 }
 

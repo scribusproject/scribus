@@ -1942,6 +1942,7 @@ void Page::AdjustItemSize(PageItem *b)
 void Page::MirrorPolyH()
 {
 	PageItem *b = SelItem.at(0);
+	b->ClipEdited = true;
 	QWMatrix ma;
 	if (EditContour)
 	{
@@ -1978,6 +1979,7 @@ void Page::MirrorPolyH()
 void Page::MirrorPolyV()
 {
 	PageItem *b = SelItem.at(0);
+	b->ClipEdited = true;
 	QWMatrix ma;
 	if (EditContour)
 	{
@@ -2014,6 +2016,7 @@ void Page::MirrorPolyV()
 void Page::TransformPoly(int mode, int rot, int scaling)
 {
 	PageItem *b = SelItem.at(0);
+	b->ClipEdited = true;
 	QWMatrix ma;
 	if (EditContour)
 	{
@@ -2142,6 +2145,7 @@ void Page::TransformPoly(int mode, int rot, int scaling)
 void Page::Reset1Control()
 {
 	PageItem *b = SelItem.at(0);
+	b->ClipEdited = true;
 	FPoint np, tp, tp2;
 	QRect rd;
 	if (EditContour)
@@ -2179,6 +2183,7 @@ void Page::Reset1Control()
 void Page::ResetControl()
 {
 	PageItem *b = SelItem.at(0);
+	b->ClipEdited = true;
 	FPoint np, tp, tp2;
 	QRect rd;
 	if (EditContour)
@@ -2233,6 +2238,7 @@ void Page::MoveClipPoint(PageItem *b, FPoint ip)
 {
 	if (((EdPoints) && (ClRe % 2 != 0)) || ((!EdPoints) && (ClRe % 2 == 0)))
 		return;
+	b->ClipEdited = true;
 	FPointArray Clip;
 	if (EditContour)
 		Clip = b->ContourLine;
