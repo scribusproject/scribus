@@ -1,4 +1,8 @@
 Changes since Version 1.1.4
+30.01.2004	Fixed Problems with accented Filenames.
+		Fixed some more translation Problems.
+		Updated Czech Translation.
+
 29.01.2004	Added a Progress Bar for the PDF-Export too.
 
 28.01.2004	Line Styles and Paragraph Styles are now listed in alphapetical Order.

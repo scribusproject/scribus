@@ -7043,7 +7043,8 @@ void ScribusApp::Collect()
 							QFileInfo itf = QFileInfo(ite->Pfile);
 							if (itf.exists())
 								{
-								QString cmd = "cp \"" + ite->Pfile + "\" \"" + s + itf.fileName()+"\"";
+								QCString cmd = "cp \"" + QFile::encodeName(ite->Pfile) +
+											   "\" \"" + QCString(s) + QFile::encodeName(itf.fileName())+"\"";
 								system(cmd);
 								ite->Pfile = s + itf.fileName();
 								}
@@ -7059,7 +7060,8 @@ void ScribusApp::Collect()
 									itf = QFileInfo(ite->Pfile);
 									if (itf.exists())
 										{
-										cmd = "cp \"" + ite->Pfile + "\" \"" + s + itf.fileName()+"\"";
+										cmd = "cp \"" + QFile::encodeName(ite->Pfile) +
+											  "\" \"" + QCString(s) + QFile::encodeName(itf.fileName())+"\"";
 										system(cmd);
 										ite->Pfile = s + itf.fileName();
 										}
@@ -7069,7 +7071,8 @@ void ScribusApp::Collect()
 									itf = QFileInfo(ite->Pfile2);
 									if (itf.exists())
 										{
-										cmd = "cp \"" + ite->Pfile2 + "\" \"" + s + itf.fileName()+"\"";
+										cmd = "cp \"" + QFile::encodeName(ite->Pfile2) +
+											  "\" \"" + QCString(s) + QFile::encodeName(itf.fileName())+"\"";
 										system(cmd);
 										ite->Pfile2 = s + itf.fileName();
 										}
@@ -7079,7 +7082,8 @@ void ScribusApp::Collect()
 									itf = QFileInfo(ite->Pfile3);
 									if (itf.exists())
 										{
-										cmd = "cp \"" + ite->Pfile3 + "\" \"" + s + itf.fileName()+"\"";
+										cmd = "cp \"" + QFile::encodeName(ite->Pfile3) +
+											  "\" \"" + QCString(s) + QFile::encodeName(itf.fileName())+"\"";
 										system(cmd);
 										ite->Pfile3 = s + itf.fileName();
 										}
@@ -7098,7 +7102,8 @@ void ScribusApp::Collect()
 							QFileInfo itf = QFileInfo(ite->Pfile);
 							if (itf.exists())
 								{
-								QString	cmd = "cp \"" + ite->Pfile + "\" \"" + s + itf.fileName()+"\"";
+								QCString cmd = "cp \"" + QFile::encodeName(ite->Pfile) +
+											   "\" \"" + QCString(s) + QFile::encodeName(itf.fileName())+"\"";
 								system(cmd);
 								ite->Pfile = s + itf.fileName();
 								}
@@ -7107,14 +7112,15 @@ void ScribusApp::Collect()
 							{
 							if (ite->isAnnotation)
 								{
-								QString cmd = "";
+								QCString cmd = "";
 								QFileInfo itf;
 								if (ite->Pfile != "")
 									{
 									itf = QFileInfo(ite->Pfile);
 									if (itf.exists())
 										{
-										cmd = "cp \"" + ite->Pfile + "\" \"" + s + itf.fileName()+"\"";
+										cmd = "cp \"" + QFile::encodeName(ite->Pfile) +
+											  "\" \"" + QCString(s) + QFile::encodeName(itf.fileName())+"\"";
 										system(cmd);
 										ite->Pfile = s + itf.fileName();
 										}
@@ -7124,7 +7130,8 @@ void ScribusApp::Collect()
 									itf = QFileInfo(ite->Pfile2);
 									if (itf.exists())
 										{
-										cmd = "cp \"" + ite->Pfile2 + "\" \"" + s + itf.fileName()+"\"";
+										cmd = "cp \"" + QFile::encodeName(ite->Pfile2) +
+											  "\" \"" + QCString(s) + QFile::encodeName(itf.fileName())+"\"";
 										system(cmd);
 										ite->Pfile2 = s + itf.fileName();
 										}
@@ -7134,7 +7141,8 @@ void ScribusApp::Collect()
 									itf = QFileInfo(ite->Pfile3);
 									if (itf.exists())
 										{
-										cmd = "cp \"" + ite->Pfile3 + "\" \"" + s + itf.fileName()+"\"";
+										cmd = "cp \"" + QFile::encodeName(ite->Pfile3) +
+											  "\" \"" + QCString(s) + QFile::encodeName(itf.fileName())+"\"";
 										system(cmd);
 										ite->Pfile3 = s + itf.fileName();
 										}

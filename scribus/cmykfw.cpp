@@ -483,7 +483,7 @@ void CMYKChoose::SelModel(const QString& mod)
     	BlackSL->hide();
     	BlackSp->hide();
     	BlackT->hide();
-		if (mod == tr("Websave RGB"))
+		if (mod == tr("Web Safe RGB"))
 		{
 			Wsave = true;
 			CyanSL->setLineStep(51);

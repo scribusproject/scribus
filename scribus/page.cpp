@@ -2165,9 +2165,9 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
         PrintCT->setText( tr("Print: "));
         InfoGroupLayout->addWidget( PrintCT, row, 0, Qt::AlignRight );
         if (b->isPrintable == true)
-          PrintC->setText(tr("enabled"));
+          PrintC->setText(tr("Enabled"));
         else
-          PrintC->setText(tr("disabled"));
+          PrintC->setText(tr("Disabled"));
         InfoGroupLayout->addWidget( PrintC, row, 1 ); // </a.l.e>
 
 				pmen4->insertItem(InfoGroup);

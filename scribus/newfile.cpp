@@ -192,7 +192,7 @@ NewDoc::NewDoc( QWidget* parent, preV *Vor )
     GroupBox3Layout->addWidget( TextLabel2_3, 1, 0 );
     ComboBox3 = new QComboBox( true, GroupBox3, "ComboBox3" );
     ComboBox3->insertItem( tr( "Points (pts)" ) );
-    ComboBox3->insertItem( tr( "Millimeters (mm)" ) );
+    ComboBox3->insertItem( tr( "Millimetres (mm)" ) );
     ComboBox3->insertItem( tr( "Inches (in)" ) );
     ComboBox3->insertItem( tr( "Picas (p)" ) );
 	ComboBox3->setCurrentItem(einheit);

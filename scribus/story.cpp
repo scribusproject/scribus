@@ -255,7 +255,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite) : QDi
 	Mdel = emenu->insertItem(loadIcon("editdelete.png"), tr("Clear"), this, SLOT(Do_del()), CTRL+Key_V);
 	emenu->insertSeparator();
 	emenu->insertItem( tr("Edit Styles..."), this , SLOT(slotEditStyles()));
-	Mupdt = emenu->insertItem( tr("Update Textframe"), this, SLOT(updateTextFrame()));
+	Mupdt = emenu->insertItem( tr("Update Text Frame"), this, SLOT(updateTextFrame()));
  	menuBar = new QMenuBar(this);
 	menuBar->insertItem( tr("File"), fmenu);
 	menuBar->insertItem( tr("Edit"), emenu);

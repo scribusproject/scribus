@@ -643,7 +643,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 										if (DropCmode)
 											{
 											DropLines = Doc->Vorlagen[absa].DropLin;
-											CurY += Doc->Vorlagen[absa].LineSpa * (DropLines-1);
+//											CurY += Doc->Vorlagen[absa].LineSpa * (DropLines-1);
 											}
 										break;
 										}
@@ -668,7 +668,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 							if (DropCmode)
 								{
 								DropLines = Doc->Vorlagen[absa].DropLin;
-								CurY += Doc->Vorlagen[absa].LineSpa * (DropLines-1);
+//								CurY += Doc->Vorlagen[absa].LineSpa * (DropLines-1);
 								}
 							}
 						}
@@ -769,7 +769,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 											if (DropCmode)
 												{
 												DropLines = Doc->Vorlagen[hl->cab].DropLin;
-												CurY += Doc->Vorlagen[hl->cab].LineSpa * (DropLines-1);
+//												CurY += Doc->Vorlagen[hl->cab].LineSpa * (DropLines-1);
 												}
 											}
 										else

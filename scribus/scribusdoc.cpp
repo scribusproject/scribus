@@ -45,7 +45,7 @@ ScribusDoc::ScribusDoc()
 	Dshade = 100;
 	Dwidth = 1;
 	DLineArt = SolidLine;
-	DocName = tr("Document")+"-";
+	DocName = QObject::tr("Document")+"-";
 	UsedFonts.clear();
 	Dfont = "";
 	Dsize = 120;
@@ -95,7 +95,7 @@ ScribusDoc::ScribusDoc()
 	struct Layer ll;
 	ll.LNr = 0;
 	ll.Level = 0;
-	ll.Name = tr("Background");
+	ll.Name = QObject::tr("Background");
 	ll.Sichtbar = true;
 	ll.Drucken = true;
 	Layers.append(ll);

@@ -119,7 +119,7 @@ void MusterSeiten::DuplTemp()
     int nr;
     bool atf;
     struct CLBuf Buffer;
-    NewTm *dia = new NewTm(this, "Name:", "New Template", Doc);
+    NewTm *dia = new NewTm(this, tr("Name:"), tr("New Template"), Doc);
     dia->Answer->setText( tr("Copy of %1").arg(sMuster));
     dia->Answer->selectAll();
     if (dia->exec())
@@ -166,7 +166,7 @@ void MusterSeiten::NewTemp()
     QString nam;
     int nr;
     bool atf;
-    NewTm *dia = new NewTm(this, "Name:", "New Template", Doc);
+    NewTm *dia = new NewTm(this, tr("Name:"), tr("New Template"), Doc);
     dia->Answer->setText( tr("New Template"));
     dia->Answer->selectAll();
     if (dia->exec())

@@ -18,6 +18,8 @@
 
 class DocInfos : public QDialog
 {
+    Q_OBJECT
+
 public:
     DocInfos( QWidget* parent, QString Autor, QString Titel, QString Des, QString keyW );
     ~DocInfos() {};

@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
 	QString Arg1, lang;
 	lang = "";
 	if (argc > 1)
-		Arg1 = QString(argv[1]);
+		Arg1 = QString(a.argv()[1]);
 	QTranslator tor( 0 );
 	if (argc > 1)
   	{
@@ -122,7 +122,7 @@ int main(int argc, char *argv[])
   		}
   		if ((Arg1 != "--lang") && (Arg1 != "--help") && (Arg1 != "--version") && (Arg1 != "--nosplash"))
 		{
-  			QFileInfo fi = QFileInfo(Arg1);
+  			QFileInfo fi = QFileInfo(QFile::decodeName(a.argv()[1]));
   			if (!fi.exists())
   			{
   				cout << "File does not exist, aborting." << endl;
@@ -159,7 +159,7 @@ int main(int argc, char *argv[])
 	if (argc > 1)
   	{
   		if ((Arg1 != "--lang") && (Arg1 != "--help") && (Arg1 != "--version"))
-  			scribus->LadeDoc(argv[1]);
+  			scribus->LadeDoc(QFile::decodeName(a.argv()[1]));
   	}
 	return a.exec();
 }

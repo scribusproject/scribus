@@ -7,6 +7,7 @@
 ** WARNING! All changes made in this file will be lost!
 ****************************************************************************/
 #include "docinfo.h"
+#include "docinfo.moc"
 extern QPixmap loadIcon(QString nam);
 
 #include <qtooltip.h>
