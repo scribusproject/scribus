@@ -1,4 +1,7 @@
 Changes since Version 1.1.3
+06.12.2003	Added Convert to Outlines to right mouse click context Menue.
+		The resolution setting is now used for all Pictures if they provide one.
+
 05.12.2003	Fixed incorrect hyphens in the PDF-Export with Russian Text.
 
 04.12.2003	Fixed Crash with SVG-Import.

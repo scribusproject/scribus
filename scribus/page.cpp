@@ -1929,6 +1929,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 				{
 				pmen->insertItem( tr("Get Text..."), this, SIGNAL(LoadPic()));
 				pmen->insertItem( tr("Edit Text..."), this, SIGNAL(EditText()));
+				pmen->insertItem( tr("Convert to Outlines"), this, SLOT(TextToPath()));
 				if (PageNam == "")
 					{
 					int pxb = pmen->insertItem( tr("Is PDF-Bookmark"), this, SLOT(ToggleBookmark()));
@@ -7052,14 +7053,24 @@ void Page::LoadPict(QString fn, int ItNr)
 			inI = inI.convertDepth(32);
 			inI2 = ProofPict(&inI, Items.at(ItNr)->IProfile, Items.at(ItNr)->IRender);
 			Items.at(ItNr)->pixm = inI2.copy();
+			if (Items.at(ItNr)->Pfile != fn)
+				{
+				Items.at(ItNr)->LocalScX = 72.0 / (QMAX(72, inI2.dotsPerMeterX() / 100.0 * 2.54));
+				Items.at(ItNr)->LocalScY = 72.0 / (QMAX(72, inI2.dotsPerMeterY() / 100.0 * 2.54));
+				Items.at(ItNr)->LocalViewX = 72.0 / (QMAX(72, inI2.dotsPerMeterX() / 100.0 * 2.54));
+				Items.at(ItNr)->LocalViewY = 72.0 / (QMAX(72, inI2.dotsPerMeterY() / 100.0 * 2.54));
+				}
+			else
+				{
+				Items.at(ItNr)->LocalViewX = Items.at(ItNr)->LocalScX;
+				Items.at(ItNr)->LocalViewY = Items.at(ItNr)->LocalScY;
+				}
 			Items.at(ItNr)->Pfile = fi.absFilePath();
 			Items.at(ItNr)->PicAvail = true;
 			Items.at(ItNr)->PicArt = true;
 			Items.at(ItNr)->BBoxX = 0;
 			Items.at(ItNr)->BBoxH = Items.at(ItNr)->pixm.height();
 			Items.at(ItNr)->isRaster = true;
-			Items.at(ItNr)->LocalViewX = Items.at(ItNr)->LocalScX;
-			Items.at(ItNr)->LocalViewY = Items.at(ItNr)->LocalScY;
 			Items.at(ItNr)->OrigW = Items.at(ItNr)->pixm.width();
 			Items.at(ItNr)->OrigH = Items.at(ItNr)->pixm.height();
 			}

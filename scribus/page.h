@@ -124,7 +124,6 @@ public:
 	void SetXGuide(QMouseEvent *m);
 	void SnapToGuides(PageItem* b);
 	void ApplyGuides(double *x, double *y);
-	void TextToPath();
 	void UniteObj();
 	void SplitObj();
 	void PasteItem(struct CLBuf *Buffer, bool loading, bool drag = false);
@@ -190,6 +189,7 @@ public:
 	bool MidButt;
 
 public slots:
+	void TextToPath();
 	void ChLineWidth(double w);
 	void ChLineArt(PenStyle w);
 	void ChLineJoin(PenJoinStyle w);

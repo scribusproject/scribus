@@ -341,6 +341,8 @@ ScribusApp::ScribusApp(SplashScreen *splash)
 		SetKeyEntry(67, tr("Non Breaking Space"), 0, CTRL+Key_Space);
 		splash->setStatus( tr("Reading Preferences"));
 		ReadPrefs();
+		if (Prefs.DefFont == "")
+			Prefs.DefFont = it.currentKey();
 		splash->setStatus( tr("Getting ICC-Profiles"));
 		GetCMSProfiles();
 		splash->setStatus( tr("Init Hyphenator"));
@@ -5508,7 +5510,10 @@ void ScribusApp::SaveAsPDF()
 	QString nam = "";
 	if (BookPal->BView->childCount() == 0)
 		doc->PDF_Optionen.Bookmarks = false;
-  PDF_Opts *dia = new PDF_Opts(this, doc->DocName, doc->UsedFonts, view, &doc->PDF_Optionen, doc->PDF_Optionen.PresentVals, &PDFXProfiles, Prefs.AvailFonts);
+	QMap<QString,QFont> ReallyUsed;
+	ReallyUsed.clear();
+	GetUsedFonts(&ReallyUsed);
+  PDF_Opts *dia = new PDF_Opts(this, doc->DocName, ReallyUsed, view, &doc->PDF_Optionen, doc->PDF_Optionen.PresentVals, &PDFXProfiles, Prefs.AvailFonts);
   if (dia->exec())
   	{
   	qApp->setOverrideCursor(QCursor(waitCursor), true);

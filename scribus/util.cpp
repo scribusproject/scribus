@@ -1167,6 +1167,19 @@ int traceLineto( FT_Vector *to, FPointArray *composite )
 {
 	double tox = ( to->x / 64.0 );
 	double toy = ( to->y / 64.0 );
+	if (composite->size() > 4)
+		{
+		FPoint b1 = composite->point(composite->size()-4);
+		FPoint b2 = composite->point(composite->size()-3);
+		FPoint b3 = composite->point(composite->size()-2);
+		FPoint b4 = composite->point(composite->size()-1);
+		FPoint n1 = FPoint(tox, toy);
+		FPoint n2 = FPoint(tox, toy);
+		FPoint n3 = FPoint(tox, toy);
+		FPoint n4 = FPoint(tox, toy);
+		if ((b1 == n1) && (b2 == n2) && (b3 == n3) && (b4 == n4))
+			return 0;
+		}
 	composite->addPoint(FPoint(tox, toy));
 	composite->addPoint(FPoint(tox, toy));
 	composite->addPoint(FPoint(tox, toy));
@@ -1180,6 +1193,19 @@ int traceQuadraticBezier( FT_Vector *control, FT_Vector *to, FPointArray *compos
 	double y1 = ( control->y / 64.0 );
 	double x2 = ( to->x / 64.0 );
 	double y2 = ( to->y / 64.0 );
+	if (composite->size() > 4)
+		{
+		FPoint b1 = composite->point(composite->size()-4);
+		FPoint b2 = composite->point(composite->size()-3);
+		FPoint b3 = composite->point(composite->size()-2);
+		FPoint b4 = composite->point(composite->size()-1);
+		FPoint n1 = FPoint(x2, y2);
+		FPoint n2 = FPoint(x1, y1);
+		FPoint n3 = FPoint(x2, y2);
+		FPoint n4 = FPoint(x2, y2);
+		if ((b1 == n1) && (b2 == n2) && (b3 == n3) && (b4 == n4))
+			return 0;
+		}
 	composite->addPoint(FPoint(x2, y2));
 	composite->addPoint(FPoint(x1, y1));
 	composite->addPoint(FPoint(x2, y2));
@@ -1195,6 +1221,19 @@ int traceCubicBezier( FT_Vector *p, FT_Vector *q, FT_Vector *to, FPointArray *co
 	double y2 = ( q->y / 64.0 );
 	double x3 = ( to->x / 64.0 );
 	double y3 = ( to->y / 64.0 );
+	if (composite->size() > 4)
+		{
+		FPoint b1 = composite->point(composite->size()-4);
+		FPoint b2 = composite->point(composite->size()-3);
+		FPoint b3 = composite->point(composite->size()-2);
+		FPoint b4 = composite->point(composite->size()-1);
+		FPoint n1 = FPoint(x3, y3);
+		FPoint n2 = FPoint(x2, y2);
+		FPoint n3 = FPoint(x3, y3);
+		FPoint n4 = FPoint(x3, y3);
+		if ((b1 == n1) && (b2 == n2) && (b3 == n3) && (b4 == n4))
+			return 0;
+		}
 	composite->setPoint(composite->size()-1, FPoint(x1, y1));
 	composite->addPoint(FPoint(x3, y3));
 	composite->addPoint(FPoint(x2, y2));
