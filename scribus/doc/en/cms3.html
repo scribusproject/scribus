@@ -1,0 +1,33 @@
+<qt>
+<title>Color management with Scribus, an Introduction Part 3</title>
+<h2>Color management with Scribus, an Introduction Part 3</h2>
+<h4>PDF/X-3 and Color Management</h4>
+<p>Above, we covered the basics of getting color management working and configured properly. Now, let's consider using PDF/X-3 to optimize our output for commercial printing. PDF/X-3 is the latest and most advanced ISO standard for PDF files and Scribus fully supports it, as well as being the first DTP app to be able to directly export PDF/X-3 conforming files.</p>
+
+<p>The principal benefit of PDF/X-3 is the typically more accurate color conversion from RGB to a printer's CMYK output. The accuracy come from working in RGB colors until the very late in the printing process when the printer's own RIP does the RGB >CMYK conversion. The downside is only the latest and most updated RIPs support PDF/X-3, although others may support earlier PDF/X-x standards. As the RIP engine has detailed knowledge of the exact color range and capabilities, it is thought to offer, in most cases, a more accurate conversion. PDF/X-3 does not preclude using CMYK images, but is ideal for maintaining your colors in RGB as long as possible in the process. </p>
+<p>The major downside to working in PDF/X-3 are twofold: You cannot use transparency natively. PDF/X-3 is based on PDF-1.3, which does not support transparency. The second is the limited, but growing number of printers who can support it. If in doubt, inquire. My testing show very reliable results with a minimum of color shifting. </p>
+<p></p>
+<p>The other issue is which printer profile should I use. There are two strategies: The first is to have an actual ICC profile from your print for the matching paper type. The second is to use a well-known printing standard as SWOP, ECI or others. Using PDF/X-3 requires cooperation from your printer, but can really improve your print color matching. As always, a short visit to your printer <strong>in advance</strong> is strongly recommended. If answers are not forthcoming, try another one. Printing is a competitive business and
+
+
+<p><strong>Real World Experiences</strong></p>
+
+<p>The author has been testing Scribus with a variety of images with color management enabled in Scribus. These high resolution RGB and CMYK TIFFs were prepared using the latest color management tools with Windows 2000, Photoshop 6 with hardware calibrated and profiled professional DTP monitors, then later proofed with Level 3 postscript printers. Using images have been used as cover photos for a magazine with a circulation of over one million per annum. Using the same printer profiles that are used in the production of the magazine, littlecms and Scribus can create previews which are remarkably accurate given the relative newness of littlecms and Scribus. The accuracy of littlecms has improved in every version of 1.1x, especially with absolute colorimetric intents. littlecms 1.11+ has Black Point Compensation, which can be sued by Scribus if 1.11+ is installed. This helps to improve contrast in photos.</p>
+
+<p>On Linux, so far, the only freely available bitmap image editor which is color management savvy is Corel Photopaint. It has a great deal of flexibility in color managed previews and you can enable the same set of profiles that you have for Scribus. Probably the most important one to add to Photopaint is a monitor profile if you have created one with Qmonitorprofiler. The other handy feature for previewing images with Photopaint is its ability to show out of gamut images, as Scribus can optionally apply in the color management settings. You can also use the <strong>tifficc</strong> utility from littlecms to directly apply these profiles. The next version of GIMP 2.4 is expected to have more color management functionality. </p>
+
+<p>Previewing Scribus created PDFs in Adobe Acrobat 4.05 sometimes displays color shifts with RGB and CMYK tiffs. This is a bug in Acrobat, not a problem with Scribus created PDFs. The same PDFs display and print perfectly with Acrobat 5 on both Windows 2000 and Mac OS when targeting a level 3 postscript printer. Adobe released Acrobat Reader 5.0.10 for Linux and Solaris and it has many improvements including speed and color accuracy. All users are encouraged to upgrade to 5.0.10 or Reader 7 when it comes out. Moreover, this version properly displays the new capabilities of Scribus PDF forms. If you are so inclined, the most recent versions of wine will install and run both Acrobat Reader 5.1 and the full version of Acrobat 5.0.5 for windows without any particular problems.</p>
+
+<p><strong>Conclusions</strong></p>
+
+<p>So, by example, we have simply described a color managed strategy for our document. Take the image from the source, properly apply profiles and then choose correct rendering intents for conversions to another color model. In our example, Scribus, by checking the simulate printer box, tells littlecms to make a two step conversion so your monitor represents with reasonable accuracy how your images and color will print.</p>
+
+<p>Attempting to incorporate a simple, but effective color management system within Scribus is an ambitious, and the author believes first serious open source attempt to provide the end user with color management. These type of tools are more typically only found in high end professional pre-press applications. As this is uncharted territory for open source, your comments and suggestions on this document,as well as your experience using color management are most welcome. The reader should also know color management is still being perfected by the graphics industry.</p>
+
+<p><strong>Have Patience</strong> - color management is a new and improving part of DTP. It takes quite a bit of time to understand the theory, which then brings practical results. </p>
+
+<p>Acknowledgments:</p>
+
+<p>Mart&iacute; Maria; Developer of little cms, without which this would not be possible.</p>
+
+</qt>

@@ -30,6 +30,9 @@
 			<submenuitem text="Fonts in Depth" file="fonts2.html"/>
 			<submenuitem text="Non-Latin Fonts" file="fonts3.html"/>
 		</submenuitem>
+			<submenuitem text="Text Handling" file="text.html">
+			<submenuitem text="Short Words Plug-in" file="short-words.html" />
+	      </submenuitem>
 		<submenuitem text="Importing" file="importhints.html">
 			<submenuitem text="Importing (Advanced)" file="importhints2.html"/>
 			<submenuitem text="Importing SVGs" file="scribus-svg.html"/>
@@ -50,6 +53,8 @@
 			<submenuitem text="Pre-Press" file="prepress.html"/>
 		</submenuitem>
 		<submenuitem text="Color Management" file="cms.html">
+			<submenuitem text="Part 2 " file="cms2.html"/>
+			<submenuitem text="Part 3 " file="cms3.html"/>
 			<submenuitem text="Monitor Profiling" file="moncal.html"/>
 		</submenuitem>
 		<submenuitem text="DTP ToolBox" file="toolbox.html">
