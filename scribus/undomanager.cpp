@@ -72,7 +72,7 @@ void UndoManager::beginTransaction(const QString &targetName,
                                    const QString &description,
                                    QPixmap *pixmap)
 {
-	// what if there already is a transaction
+	// TODO What if there already is a transaction? -rl
 	if (transaction)
 		commit();
 	transaction = new TransactionState();
@@ -118,7 +118,18 @@ void UndoManager::commit(const QString &targetName,
 	transaction = NULL;
 	transactionTarget = NULL;
 	if (tmps->sizet() > 0)
+	{
+		if (tmps->getName() == "")
+			tmps->useActionName();
 		action(tmpu, tmps);
+	}
+	else
+	{
+		delete tmpu;
+		tmpu = NULL;
+		delete tmps;
+		tmps = NULL;
+	}
 }
 
 bool UndoManager::isTransactionMode()
@@ -241,21 +252,27 @@ void UndoManager::action(UndoObject* target, UndoState* state)
 {
 	if ((!transaction) &&
         (currentUndoObjectId == -1 || currentUndoObjectId == static_cast<long>(target->getUId())))
-		emit newAction(target, state);
+		emit newAction(target, state); // send action to the guis
 
 	if (stacks[currentDoc].second.size() > 1) // delete redo states
 	{
 		ActionList::iterator it;
 		for (it = stacks[currentDoc].second.begin(); it != stacks[currentDoc].first; ++it)
+		{
+			TransactionState *ts = dynamic_cast<TransactionState*>((*it).second);
+			if (ts)
+				delete (*it).first; // delete TransactionObject
 			delete (*it).second;
+			(*it).second = NULL;
+		}
 		stacks[currentDoc].second.erase(stacks[currentDoc].second.begin(), stacks[currentDoc].first);
 	}
 
-	checkStackLength();
 	if (transaction)
 		transaction->pushBack(target, state);
 	else
 	{
+		checkStackLength(); // check that history length
 		stacks[currentDoc].second.insert(stacks[currentDoc].second.begin(), ActionPair(target, state));
 		stacks[currentDoc].first = stacks[currentDoc].second.begin();
 	}
@@ -390,6 +407,9 @@ void UndoManager::checkStackLength()
 			ActionList::iterator it = stacks[currentDoc].second.end() - 1;
 			if (stacks[currentDoc].first == it)
 				stacks[currentDoc].first = it - 1;
+			TransactionState *ts = dynamic_cast<TransactionState*>((*it).second);
+			if (ts)
+				delete (*it).first; // delete TransactionObject
 			delete (*it).second;
 			stacks[currentDoc].second.erase(it);
 			emit popBack();
@@ -419,7 +439,7 @@ UndoManager::~UndoManager()
 
 /*** UndoManager::TransactionState *****************************************************/
 
-UndoManager::TransactionState::TransactionState() : UndoState("TAState")
+UndoManager::TransactionState::TransactionState() : UndoState("")
 {
 	_size = 0;
 }
@@ -446,13 +466,28 @@ uint UndoManager::TransactionState::sizet()
 	return _size;
 }
 
+void UndoManager::TransactionState::useActionName()
+{
+	if (_size > 0)
+	{
+		setName(states[_size - 1]->second->getName());
+	}
+}
+
 UndoManager::TransactionState::~TransactionState()
 {
 	for (uint i = 0; i < states.size(); ++i)
 	{
-		delete states[i]->second;
-		states[i]->second = NULL;
-		delete states[i];
+		if (states[i])
+		{
+			if (states[i]->second)
+			{
+				delete states[i]->second;
+				states[i]->second = NULL;
+			}
+			delete states[i];
+			states[i] = NULL;
+		}
 	}
 }
 
@@ -497,6 +532,8 @@ const QString UndoManager::Rotate       = tr("Rotate");
 const QString UndoManager::MoveFromTo   = tr("X1: %1, Y1: %2, Page %3\nX2: %4, Y2: %5, Page %6");
 const QString UndoManager::ResizeFromTo = tr("W1: %1, H1: %2\nW2: %3, H2: %4");
 const QString UndoManager::RotateFromTo = tr("From %1 to %2");
+const QString UndoManager::Selection    = tr("Selection");
+const QString UndoManager::Group        = tr("Group");
 
 QPixmap *UndoManager::IGuides         = NULL;
 QPixmap *UndoManager::ILockGuides     = NULL;

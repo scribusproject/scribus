@@ -59,6 +59,7 @@
 #include "hruler.h"
 #include "vruler.h"
 #include "filewatcher.h"
+#include "undomanager.h"
 #ifdef HAVE_TIFF
 	#include <tiffio.h>
 #endif
@@ -181,6 +182,7 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc, ApplicationPrefs *pre
 	ClRe = -1;
 	ClRe2 = -1;
 	_mousePressed = false;
+	undoManager = UndoManager::instance();
 	connect(SB1, SIGNAL(clicked()), this, SLOT(slotZoomOut()));
 	connect(SB2, SIGNAL(clicked()), this, SLOT(slotZoomIn()));
 	connect(LE, SIGNAL(valueChanged(int)), this, SLOT(Zval()));
@@ -5679,6 +5681,10 @@ bool ScribusView::MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP)
 
 void ScribusView::moveGroup(double x, double y, bool fromMP)
 {
+	// store actions and present them as one in action history
+	if (!undoManager->isTransactionMode() && SelItem.count() > 1)
+		undoManager->beginTransaction(Um::Selection + "/" + Um::Group);
+
 	PageItem* b;
 	QPainter p;
 	double gx, gy, gw, gh;
@@ -5734,10 +5740,21 @@ void ScribusView::moveGroup(double x, double y, bool fromMP)
 		if (fromMP)
 			updateContents(QRect(static_cast<int>(gx*sc-5), static_cast<int>(gy*sc-5), static_cast<int>(gw*sc+10), static_cast<int>(gh*sc+10)));
 	}
+	// send the move group action to the undo widgets
+	if (!_mousePressed && !ScApp->arrowKeyDown())
+	{
+		for (uint i = 0; i < SelItem.count(); ++i)
+			SelItem.at(i)->checkChanges(); // we want to register changes to the transaction
+		undoManager->commit();
+	}
 }
 
 void ScribusView::RotateGroup(double win)
 {
+	// store actions and present them as one in action history
+// 	if (!undoManager->isTransactionMode() && SelItem.count() > 1)
+// 		undoManager->beginTransaction(Um::Selection + "/" + Um::Group);
+
 	double gxS, gyS, ghS, gwS;
 	double sc = Scale;
 	PageItem* b;
@@ -5762,10 +5779,22 @@ void ScribusView::RotateGroup(double win)
 	setGroupRect();
 	getGroupRect(&gxS, &gyS, &gwS, &ghS);
 	updateContents(QRect(static_cast<int>(gxS*sc-5), static_cast<int>(gyS*sc-5), static_cast<int>(gwS*sc+10), static_cast<int>(ghS*sc+10)).unite(oldR));
+
+	// send the rotate group action to the undo widgets
+// 	if (!_mousePressed && !ScApp->arrowKeyDown())
+// 	{
+// 		for (uint i = 0; i < SelItem.count(); ++i)
+	// 			SelItem.at(i)->checkChanges(); // we want to register changes to the transaction
+// 		undoManager->commit();
+// 	}
 }
 
 void ScribusView::scaleGroup(double scx, double scy)
 {
+	// store actions and present them as one in action history
+	if (!undoManager->isTransactionMode() && SelItem.count() > 1)
+		undoManager->beginTransaction(Um::Selection + "/" + Um::Group);
+
 	PageItem *bb;
 	double gx, gy, gh, gw, x, y;
 	uint aa;
@@ -5870,6 +5899,14 @@ void ScribusView::scaleGroup(double scx, double scy)
 	getGroupRect(&gx, &gy, &gw, &gh);
 	updateContents(QRect(static_cast<int>(gx*sc-5), static_cast<int>(gy*sc-5), static_cast<int>(gw*sc+10), static_cast<int>(gh*sc+10)).unite(oldR));
 	emit DocChanged();
+
+	// send the resize group action to the undo widgets
+	if (!_mousePressed && !ScApp->arrowKeyDown())
+	{
+		for (uint i = 0; i < SelItem.count(); ++i)
+			SelItem.at(i)->checkChanges(); // we want to register changes to the transaction
+		undoManager->commit();
+	}
 }
 
 void ScribusView::RotateItem(double win, int ite)

@@ -90,6 +90,8 @@ private:
 		 * @return count of the <code>UndoState</code> objects in this transaction
 		 */
 		uint sizet();
+		/** @brief Use the name from last action added to this <code>TransactionState</code> */
+		void useActionName();
 		/**
 		 * @brief Returns an <code>UndoState</code> object at <code>index</code>.
 		 * @param index index from where an <code>UndoState</code> object is returned.
@@ -112,7 +114,7 @@ private:
 	{
 	public:
 		TransactionObject() {};
-		~TransactionObject() {};
+		virtual ~TransactionObject() {};
 		void restore(UndoState*, bool) {};
 	};
 
@@ -350,6 +352,8 @@ public:
 	static const QString MoveFromTo;
 	static const QString ResizeFromTo;
 	static const QString RotateFromTo;
+	static const QString Selection;
+	static const QString Group;
 	/*@}*/
 
 	/**

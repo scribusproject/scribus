@@ -36,6 +36,7 @@
 #include "page.h"
 class Hruler;
 class Vruler;
+class UndoManager;
 #include "mspinbox.h"
 #include "pageselector.h"
 
@@ -320,7 +321,8 @@ private: // Private attributes
 	int    oldX;
 	int    oldY;
 	bool _mousePressed;
-	
+	UndoManager *undoManager;
+
 private slots:
 	void Zval();
 	void setRulerPos(int x, int y);
