@@ -1776,16 +1776,19 @@ NoRoom: pf2.end();
 				dx = wide / 2.0;
 				CurX += dx;
 				ext = false;
-				while ( (seg < PoLine.count()-4) && (CurX > fsx + segLen))
+				while ( (seg < PoLine.count()-3) && (CurX > fsx + segLen))
 				{
 					fsx += segLen;
 					seg += 4;
+					if (seg > PoLine.count()-3)
+						break;
 					segLen = PoLine.lenPathSeg(seg);
 					ext = true;
 				}
-				if ( (seg == PoLine.count()-4) && (CurX > fsx + segLen))
+				if (seg > PoLine.count()-3)
 					break;
-				QString db;
+				if (CurX > fsx + segLen)
+					break;
 				if (ext)
 				{
 					sp = 0;
@@ -1802,8 +1805,10 @@ NoRoom: pf2.end();
 				}
 				else
 				{
-					if( seg < PoLine.count() )
+					if( seg < PoLine.count()-3 )
 					{
+						if (CurX > fsx + segLen)
+							break;
 						distCurX = PoLine.lenPathDist(seg, oldSp, sp);
 						while (distCurX <= (CurX - oCurX))
 						{

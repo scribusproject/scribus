@@ -562,6 +562,7 @@ QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool us
 #ifdef HAVE_TIFF
 	else if (ext == "tif")
 	{
+		QImage img2;
 		TIFF* tif = TIFFOpen(fn, "r");
 		if(tif)
 		{
@@ -577,86 +578,152 @@ QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool us
 			TIFFGetField(tif, TIFFTAG_BITSPERSAMPLE, &bitspersample);
 			TIFFGetField(tif, TIFFTAG_SAMPLESPERPIXEL, &samplesperpixel);
 			TIFFGetField(tif, TIFFTAG_FILLORDER, &fillorder);
-			tsize_t bytesperrow = TIFFScanlineSize(tif);
-			uint32 *bits = 0;
-			img.create(width,height,32);
-			img.setAlphaBuffer(true); 
-			switch (photometric)
+			if (!img.create(width,height,32))
 			{
-				case PHOTOMETRIC_MINISWHITE:
-					miniswhite = true;
-				case PHOTOMETRIC_MINISBLACK:
-					if (bitspersample == 1)
-						bilevel = true;
-					if (samplesperpixel != 1)
+				TIFFClose(tif);
+				return img;
+			}
+			img.setAlphaBuffer(true); 
+ 			 if (TIFFIsTiled(tif))
+			 {
+			 	uint32 columns, rows;
+				uint32 *tile_buf;
+				uint32 xt, yt;
+				TIFFGetField(tif, TIFFTAG_TILEWIDTH,  &columns);
+				TIFFGetField(tif, TIFFTAG_TILELENGTH, &rows);
+				tile_buf = (uint32*) _TIFFmalloc(columns*rows*sizeof(uint32));
+				if (tile_buf == NULL)
+				{
+					TIFFClose(tif);
+					return img;
+				}
+				uint32 tileW = columns, tileH = rows;
+				for (yt = 0; yt < (uint32)img.height(); yt += rows)
+				{
+					if (yt > (uint)img.height())
 						break;
-					bits = (uint32 *) _TIFFmalloc(bytesperrow);
-					if (bits)
+					if (img.height()-yt < rows)
+						tileH = img.height()-yt; 
+					tileW = columns;
+					register uint32 xi, yi;
+					uint32 tW;
+					for (xt = 0; xt < (uint)img.width(); xt += columns)
 					{
-						QImage img2;
-						QImage::Endian bitorder = QImage::IgnoreEndian;
-						if (bilevel)
+						switch (photometric)
 						{
-							if (fillorder == FILLORDER_MSB2LSB)
-								bitorder = QImage::BigEndian;
-							else
-								bitorder = QImage::LittleEndian;
-						}
-						img2.create(width, height, bitspersample, 0, bitorder);
-						for (unsigned int y = 0; y < height; y++)
+							case PHOTOMETRIC_SEPARATED:
+								TIFFReadTile(tif, tile_buf, xt, yt, 0, 0);
+								for (yi = 0; yi < tileH; yi++) 
+									_TIFFmemcpy(img.scanLine(yt+(tileH-1-yi))+xt, tile_buf+tileW*yi, tileW*4);
+								isCMYK = true;
+								if (realCMYK != 0)
+									*realCMYK = true;
+								break;
+							default:
+								TIFFReadRGBATile(tif, xt, yt, tile_buf);
+								for(yi = 0; yi < tileH; yi++) 
+								{
+									QRgb *row= (QRgb*) ( img.scanLine(yt+yi) );
+									for(xi = 0; xi < tileW; xi++)  
+									{
+										const uint32 pix = *(tile_buf + ((tileH-1-yi)*tileW)+xi);
+										row[xi + xt] = qRgba(TIFFGetB(pix), TIFFGetG(pix), TIFFGetR(pix) , TIFFGetA(pix));
+									} // for xi
+								} // for yi
+								isCMYK = false;
+								if (realCMYK != 0)
+									*realCMYK = false;
+								break;
+						} // else per pixel method
+					} // for x by tiles
+				} // for y by tiles
+				_TIFFfree(tile_buf);
+			}
+			else
+			{
+				tsize_t bytesperrow = TIFFScanlineSize(tif);
+				uint32 *bits = 0;
+				switch (photometric)
+				{
+					case PHOTOMETRIC_MINISWHITE:
+						miniswhite = true;
+					case PHOTOMETRIC_MINISBLACK:
+						if (bitspersample == 1)
+							bilevel = true;
+						if (samplesperpixel != 1)
+							break;
+						bits = (uint32 *) _TIFFmalloc(bytesperrow);
+						if (bits)
 						{
-							if (TIFFReadScanline(tif, bits, y, 0))
-								memcpy(img2.scanLine(y), bits, bytesperrow);
-						}
-						_TIFFfree(bits);
-						img2 = img2.convertDepth(8);
-						if (!miniswhite)
-							img2.invertPixels();
-						for (unsigned int y = 0; y < height; y++)
-						{
-							unsigned char *ptr = (unsigned char *) img.scanLine(y);
-							unsigned char *ptr2 = (unsigned char *) img2.scanLine(y);
-							for (unsigned int x = 0; x < width; x++)
+							QImage::Endian bitorder = QImage::IgnoreEndian;
+							if (bilevel)
 							{
-								if (bilevel)
-									ptr[3] = (unsigned char) -img2.pixelIndex(x, y);
+								if (fillorder == FILLORDER_MSB2LSB)
+									bitorder = QImage::BigEndian;
 								else
-									ptr[3] = ptr2[x];
-								ptr+=4;
+									bitorder = QImage::LittleEndian;
+							}
+							if (!img2.create(width, height, bitspersample, 0, bitorder))
+							{
+								_TIFFfree(bits);
+								TIFFClose(tif);
+								return img;
+							}
+							for (unsigned int y = 0; y < height; y++)
+							{
+								if (TIFFReadScanline(tif, bits, y, 0))
+									memcpy(img2.scanLine(y), bits, bytesperrow);
+							}
+							_TIFFfree(bits);
+							img2 = img2.convertDepth(8);
+							if (!miniswhite)
+								img2.invertPixels();
+							for (unsigned int y = 0; y < height; y++)
+							{
+								unsigned char *ptr = (unsigned char *) img.scanLine(y);
+								unsigned char *ptr2 = (unsigned char *) img2.scanLine(y);
+								for (unsigned int x = 0; x < width; x++)
+								{
+									if (bilevel)
+										ptr[3] = (unsigned char) -img2.pixelIndex(x, y);
+									else
+										ptr[3] = ptr2[x];
+									ptr+=4;
+								}
 							}
 						}
-					}
-					isCMYK = true;
-					if (realCMYK != 0)
-						*realCMYK = true;
-					break;
-				case PHOTOMETRIC_SEPARATED:
-					bits = (uint32 *) _TIFFmalloc(bytesperrow);
-					if (bits)
-					{
-						for (unsigned int y = 0; y < height; y++)
+						isCMYK = true;
+						if (realCMYK != 0)
+							*realCMYK = true;
+						break;
+					case PHOTOMETRIC_SEPARATED:
+						bits = (uint32 *) _TIFFmalloc(bytesperrow);
+						if (bits)
 						{
-							if (TIFFReadScanline(tif, bits, y, 0)) {
-								memcpy(img.scanLine(y), bits, width * 4);
+							for (unsigned int y = 0; y < height; y++)
+							{
+								if (TIFFReadScanline(tif, bits, y, 0)) {
+									memcpy(img.scanLine(y), bits, width * 4);
+								}
 							}
+							_TIFFfree(bits);
 						}
-						_TIFFfree(bits);
-					}
-					isCMYK = true;
-					if (realCMYK != 0)
-						*realCMYK = true;
-					break;
-				default:
-					bits = (uint32 *) _TIFFmalloc(size * sizeof(uint32));
-					if(bits)
-					{
-						if (TIFFReadRGBAImage(tif, width, height, bits, 0))
+						isCMYK = true;
+						if (realCMYK != 0)
+							*realCMYK = true;
+						break;
+					default:
+						bits = (uint32 *) _TIFFmalloc(size * sizeof(uint32));
+						if(bits)
 						{
-							for(unsigned int y = 0; y < height; y++)
-								memcpy(img.scanLine(height - 1 - y), bits + y * width, width * 4);
+							if (TIFFReadRGBAImage(tif, width, height, bits, 0))
+							{
+								for(unsigned int y = 0; y < height; y++)
+									memcpy(img.scanLine(height - 1 - y), bits + y * width, width * 4);
+							}
+							_TIFFfree(bits);
 						}
-						_TIFFfree(bits);
-					}
+				}
 			}
 #ifdef HAVE_CMS
 			DWORD EmbedLen = 0;
@@ -665,6 +732,11 @@ QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool us
 				tiffProf = cmsOpenProfileFromMem(EmbedBuffer, EmbedLen);
 #endif // HAVE_CMS
 			img = img.swapRGB();
+			DWORD ClipLen = 0;
+			LPBYTE ClipBuffer;
+			QString db;
+			if (TIFFGetField(tif, TIFFTAG_CLIPPATH, &ClipLen, &ClipBuffer))
+				qDebug(db.setNum(ClipLen));
 			TIFFClose(tif);
 			if (resolutionunit == RESUNIT_INCH)
 			{

@@ -3856,7 +3856,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 					}
 					else
 					{
-						if (Clip.size() < 9)
+						if (Clip.size() < 5)
 							return;
 					}
 					if ((b->Segments.count() != 0) && ((EndInd - StartInd) < 13))
@@ -9854,7 +9854,7 @@ void ScribusView::ItemTextScale(int sha)
 		for (uint a = 0; a < SelItem.count(); ++a)
 		{
 			b = SelItem.at(a);
-			if (b->itemType() == PageItem::TextFrame)
+			if (b->itemType() == PageItem::TextFrame) || (b->itemType() == PageItem::PathText))
 			{
 				if (Doc->appMode != EditMode)
 					b->setFontWidth(sha);
@@ -10733,12 +10733,6 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	// OBSOLETE CR 2005-02-06
 	if (b->itemType() == PageItem::FrameType1)
 		SetOvalFrame(b);
-	//
-	if (b->itemType() == PageItem::PathText)
-	{
-		b->Frame = false;
-		UpdatePolyClip(b);
-	}
 	// OBSOLETE CR 2005-02-06
 	if (b->itemType() == PageItem::FrameType3)
 	{

@@ -4392,10 +4392,10 @@ bool ScribusApp::LadeDoc(QString fileName)
 	//
 	
 	undoManager->setUndoEnabled(false);
-	qApp->setOverrideCursor(QCursor(waitCursor), true);
 	QFileInfo fi(fileName);
 	if (!fi.exists())
 		return false;
+	qApp->setOverrideCursor(QCursor(waitCursor), true);
 /*	if (HaveDoc)
 		doc->OpenNodes = Tpal->buildReopenVals(); */
 	bool ret = false;
@@ -4697,7 +4697,14 @@ bool ScribusApp::LadeDoc(QString fileName)
 			view->setRedrawBounding(ite);
 			ite->OwnPage = view->OnPage(ite);
 			if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText))
+			{
+				if (ite->itemType() == PageItem::PathText)
+				{
+					ite->Frame = false;
+					view->UpdatePolyClip(ite);
+				}
 				ite->DrawObj(painter, rd);
+			}
 /*			if (doc->OldBM)
 			{
 				if ((ite->itemType() == PageItem::TextFrame) && (ite->isBookmark))
@@ -8760,6 +8767,8 @@ void ScribusApp::Apply_Temp(QString in, int Snr, bool reb)
 	PageItem* b;
 	QString mna = in;
 	if (mna == tr("Normal"))
+		mna = "Normal";
+	if (!doc->MasterNames.contains(mna))
 		mna = "Normal";
 	Page* Ap = doc->Pages.at(Snr);
 	Ap->MPageNam = mna;
