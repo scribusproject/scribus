@@ -48,6 +48,7 @@ UndoWidget::UndoWidget(QWidget* parent, const char* name)
 	undoMenu = new QPopupMenu(undoButton, "undoMenu");
 	undoButton->setPopup(undoMenu);
 	undoButton->setPopupDelay(0);
+	undoButton->setAutoRaise(true);
 
 	redoButton = new QToolButton(this, "redoButton");
 	redoButton->setIconSet(loadIcon("u_redo.png"));
@@ -57,7 +58,8 @@ UndoWidget::UndoWidget(QWidget* parent, const char* name)
 	redoMenu = new QPopupMenu(redoButton, "redoMenu");
 	redoButton->setPopup(redoMenu);
 	redoButton->setPopupDelay(0);
-	
+	redoButton->setAutoRaise(true);
+
 	connect(undoButton, SIGNAL(clicked()), this, SLOT(undoClicked()));
 	connect(redoButton, SIGNAL(clicked()), this, SLOT(redoClicked()));
 	connect(undoMenu, SIGNAL(activated(int)), this, SLOT(undoMenuClicked(int)));
