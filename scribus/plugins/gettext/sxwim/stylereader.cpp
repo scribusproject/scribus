@@ -72,7 +72,8 @@ StyleReader::StyleReader(QString documentName, gtWriter *w, bool textOnly, bool 
  		inList = true;
  	}
  	else if (((name == "text:list-level-style-bullet") || 
- 	          (name == "text:list-level-style-number")) && (inList))
+ 	          (name == "text:list-level-style-number") ||
+ 	          (name == "text:list-level-style-image")) && (inList))
  	{
  		QString level = "";
  		for (int i = 0; i < attrs.count(); ++i)
@@ -398,7 +399,8 @@ StyleReader::StyleReader(QString documentName, gtWriter *w, bool textOnly, bool 
  	}
  	else if (((name == "style:style") || 
  	          (name == "text:list-level-style-bullet") || 
- 			  (name == "text:list-level-style-number")) && (currentStyle != NULL))
+ 			  (name == "text:list-level-style-number") ||
+			  (name == "text:list-level-style-image")) && (currentStyle != NULL))
  	{
  		setStyle(currentStyle->getName(), currentStyle);
  		currentStyle = NULL;
@@ -429,7 +431,8 @@ StyleReader::StyleReader(QString documentName, gtWriter *w, bool textOnly, bool 
  		return tmp;
  	}
  	else
- 		return styles["default-style"];
+		return styles["default-style"];
+
  }
  
  void StyleReader::setStyle(const QString& name, gtStyle* style)

@@ -51,17 +51,27 @@ bool ContentReader::startElement(const QString&, const QString&, const QString &
 	if ((name == "text:p") || (name == "text:h"))
 	{
 		append = true;
+		QString name = "";
+		for (int i = 0; i < attrs.count(); ++i)
+		{
+			if (attrs.localName(i) == "text:style-name")
+			{
+				name = attrs.value(i);
+				styleNames.push_back(attrs.value(i));
+			}
+		}
 		if (!inList)
 		{
-			for (int i = 0; i < attrs.count(); ++i)
-			{
-				if (attrs.localName(i) == "text:style-name")
-				{
-					pstyle = sreader->getStyle(attrs.value(i));
-					currentStyle = pstyle;
-					styleNames.push_back(attrs.value(i));
-				}
-			}
+			pstyle = sreader->getStyle(name);
+			currentStyle = pstyle;
+		}
+		else
+		{
+			gtStyle *tmp = sreader->getStyle(getName());
+			if ((tmp->getName()).find("default-style") != -1)
+				getStyle();
+			else
+				currentStyle = tmp;
 		}
 	}
 	else if (name == "text:span")
@@ -95,6 +105,8 @@ bool ContentReader::startElement(const QString&, const QString&, const QString &
 				currentList = attrs.value(i);
 		}
 		currentStyle = sreader->getStyle(QString(currentList + "_%1").arg(listLevel));
+		styleNames.clear();
+		styleNames.push_back(QString(currentList + "_%1").arg(listLevel));
 		if (name == "text:ordered-list")
 		{
 			isOrdered = true;
@@ -182,15 +194,17 @@ bool ContentReader::endElement(const QString&, const QString&, const QString &na
 	{
 		write("\n");
 		append = false;
-		if (styleNames.size() != 0)
+		if (inList)
 			styleNames.pop_back();
+		else
+			styleNames.clear();
 	}
 	else if (name == "text:span")
 	{
 		inSpan = false;
 		currentStyle = pstyle;
 		if (styleNames.size() != 0)
-			styleNames.pop_back();
+			styleNames.pop_back();	
 		currentStyle = sreader->getStyle(getName());
 	}
 	else if (name == "text:line-break")
@@ -200,13 +214,17 @@ bool ContentReader::endElement(const QString&, const QString&, const QString &na
 	else if ((name == "text:unordered-list") || (name == "text:ordered-list"))
 	{
 		--listLevel;
+		styleNames.clear();
 		if (listLevel == 0)
 		{
 			inList = false;
 			listIndex2.clear();
 		}
 		else
+		{
 			currentStyle = sreader->getStyle(QString(currentList + "_%1").arg(listLevel));
+			styleNames.push_back(QString(currentList + "_%1").arg(listLevel));
+		}
 	}
 	else if ((name == "style:style") && (inT))
 	{
@@ -309,7 +327,11 @@ QString ContentReader::getName()
 
 void ContentReader::getStyle()
 {
-	gtParagraphStyle* par = dynamic_cast<gtParagraphStyle*>(sreader->getStyle(styleNames[0]));
+	gtParagraphStyle* par = NULL;
+	if (styleNames.size() == 0)
+		par = dynamic_cast<gtParagraphStyle*>(sreader->getStyle("default-style"));
+	else
+		par = dynamic_cast<gtParagraphStyle*>(sreader->getStyle(styleNames[0]));
 	gtParagraphStyle* tmp = new gtParagraphStyle(*par);
 	for (uint i = 1; i < styleNames.size(); ++i)
 	{
@@ -317,8 +339,6 @@ void ContentReader::getStyle()
 		for (uint j = 0; j < p.size(); ++j)
 			sreader->updateStyle(tmp, sreader->getStyle(styleNames[i - 1]), p[j].first, p[j].second);
 	}
-// 	gtParagraphStyle* s = new gtParagraphStyle(*dynamic_cast<gtParagraphStyle*>(lastStyle));
-// 	s->setAutoLineSpacing(true);
 
 	currentStyle = tmp;
 	sreader->setStyle(getName(), tmp);
