@@ -187,6 +187,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 		KeyMod = 0;
 		break;
 	}
+	QString uc = k->text();
 	if ((k->key() + KeyMod) == ScApp->Prefs.KeyActions[60].KeyID)
 	{
 		insChars(QString(QChar(30)));
@@ -370,8 +371,13 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 				case Key_End:
 					break;
 				default:
-					if (k->text() != "")
+					if ((k->text() != "") && ((*doc->AllFonts)[CurrFont]->CharWidth.contains(uc[0].unicode())))
+					{
 						insChars(k->text());
+						QTextEdit::keyPressEvent(k);
+						emit SideBarUp(true);
+						emit SideBarUpdate();
+					}
 					break;
 			}
 			break;

@@ -1964,9 +1964,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 									MoveSizeItem(FPoint(0, 0), FPoint(-dist, 0), bb->ItemNr);
 							}
 							if (b->flippedH % 2 != 0)
-								MoveItemI(-(b->Width - b->OldB2)/b->LocalScX, 0, b->ItemNr);
+								MoveItemI(-(b->Width - b->OldB2)/b->LocalScX, 0, b->ItemNr, false);
 							if (b->flippedV % 2 != 0)
-								MoveItemI(0, -(b->Height - b->OldH2)/b->LocalScY, b->ItemNr);
+								MoveItemI(0, -(b->Height - b->OldH2)/b->LocalScY, b->ItemNr, false);
 						}
 						else
 						{
@@ -2137,9 +2137,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 							MoveSizeItem(FPoint(0, npx.y()), FPoint(b->Width - npx.x(), npx.y()), b->ItemNr);
 						b->Sizing = false;
 						if (b->flippedH % 2 != 0)
-							MoveItemI(-(b->Width - b->OldB2)/b->LocalScX, 0, b->ItemNr);
+							MoveItemI(-(b->Width - b->OldB2)/b->LocalScX, 0, b->ItemNr, false);
 						if (b->flippedV % 2 == 0)
-							MoveItemI(0, (b->Height - b->OldH2)/b->LocalScY, b->ItemNr);
+							MoveItemI(0, (b->Height - b->OldH2)/b->LocalScY, b->ItemNr, false);
 						break;
 					case 4:
 						if (b->isTableItem)
@@ -2197,9 +2197,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 							MoveSizeItem(FPoint(npx.x(), 0), FPoint(npx.x(), b->Height - npx.y()), b->ItemNr);
 						b->Sizing = false;
 						if (b->flippedH % 2 == 0)
-							MoveItemI((b->Width - b->OldB2)/b->LocalScX, 0, b->ItemNr);
+							MoveItemI((b->Width - b->OldB2)/b->LocalScX, 0, b->ItemNr, false);
 						if (b->flippedV % 2 != 0)
-							MoveItemI(0, -(b->Height - b->OldH2)/b->LocalScY, b->ItemNr);
+							MoveItemI(0, -(b->Height - b->OldH2)/b->LocalScY, b->ItemNr, false);
 						break;
 					case 5:
 						if (b->isTableItem)
@@ -2233,7 +2233,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						else
 							MoveSizeItem(FPoint(0, 0), FPoint(0, b->Height - npx.y()), b->ItemNr);
 						if (b->flippedV % 2 != 0)
-							MoveItemI(0, -(b->Height - b->OldH2)/b->LocalScY, b->ItemNr);
+							MoveItemI(0, -(b->Height - b->OldH2)/b->LocalScY, b->ItemNr, false);
 						b->Sizing = false;
 						break;
 					case 6:
@@ -2268,7 +2268,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						else
 							MoveSizeItem(FPoint(0, 0), FPoint(b->Width - npx.x(), 0), b->ItemNr);
 						if (b->flippedH % 2 != 0)
-							MoveItemI(-(b->Width - b->OldB2)/b->LocalScX, 0, b->ItemNr);
+							MoveItemI(-(b->Width - b->OldB2)/b->LocalScX, 0, b->ItemNr, false);
 						b->Sizing = false;
 						break;
 					case 7:
@@ -2303,9 +2303,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 							MoveSizeItem(FPoint(npx.x(), 0), FPoint(npx.x(), 0), b->ItemNr);
 						b->Sizing = false;
 						if (b->flippedH % 2 == 0)
-							MoveItemI((b->Width - b->OldB2)/b->LocalScX, 0, b->ItemNr);
+							MoveItemI((b->Width - b->OldB2)/b->LocalScX, 0, b->ItemNr, false);
 						if (b->flippedV % 2 != 0)
-							MoveItemI(0, -(b->Height - b->OldH2)/b->LocalScY, b->ItemNr);
+							MoveItemI(0, -(b->Height - b->OldH2)/b->LocalScY, b->ItemNr, false);
 						break;
 					case 8:
 						if (b->isTableItem)
@@ -2339,9 +2339,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 							MoveSizeItem(FPoint(0, npx.y()), FPoint(0, npx.y()), b->ItemNr);
 						b->Sizing = false;
 						if (b->flippedH % 2 != 0)
-							MoveItemI(-(b->Width - b->OldB2)/b->LocalScX, 0, b->ItemNr);
+							MoveItemI(-(b->Width - b->OldB2)/b->LocalScX, 0, b->ItemNr, false);
 						if (b->flippedV % 2 == 0)
-							MoveItemI(0, (b->Height - b->OldH2)/b->LocalScY, b->ItemNr);
+							MoveItemI(0, (b->Height - b->OldH2)/b->LocalScY, b->ItemNr, false);
 						break;
 					}
 					if ((b->PType == 4) && (m->state() & ShiftButton) && (m->state() & ControlButton))
@@ -4762,7 +4762,7 @@ bool ScribusView::MoveItem(double newX, double newY, PageItem* b, bool fromMP)
 	return retw;
 }
 
-void ScribusView::MoveItemI(double newX, double newY, int ite)
+void ScribusView::MoveItemI(double newX, double newY, int ite, bool redraw)
 {
 	PageItem *b = Doc->Items.at(ite);
 	if ((b->Locked) || (!b->ScaleType))
@@ -4775,7 +4775,8 @@ void ScribusView::MoveItemI(double newX, double newY, int ite)
 		b->LocalY -= newY;
 	else
 		b->LocalY += newY;
-	updateContents(getRedrawBounding(b));
+	if (redraw)
+		updateContents(getRedrawBounding(b));
 	emit SetLocalValues(b->LocalScX, b->LocalScY, b->LocalX, b->LocalY);
 }
 
@@ -5377,7 +5378,7 @@ void ScribusView::MoveClipPoint(PageItem *b, FPoint ip)
 				MoveItem(np.x(), 0, b);
 			Clip.translate(-np.x(), 0);
 			if (b->flippedH % 2 == 0)
-				MoveItemI(-np.x()/b->LocalScX, 0, b->ItemNr);
+				MoveItemI(-np.x()/b->LocalScX, 0, b->ItemNr, false);
 			np.setX(0);
 		}
 		if ((np.y() < 0) && (!EditContour))
@@ -5392,7 +5393,7 @@ void ScribusView::MoveClipPoint(PageItem *b, FPoint ip)
 				MoveItem(0, np.y(), b);
 			Clip.translate(0, -np.y());
 			if (b->flippedV % 2 == 0)
-				MoveItemI(0, -np.y()/b->LocalScY, b->ItemNr);
+				MoveItemI(0, -np.y()/b->LocalScY, b->ItemNr, false);
 			np.setY(0);
 		}
 		emit ClipPo(np.x(), np.y());
@@ -5585,16 +5586,16 @@ bool ScribusView::SizeItem(double newX, double newY, int ite, bool fromMP, bool 
 		if (fromMP)
 		{
 			if (b->flippedH % 2 != 0)
-				MoveItemI(-(b->Width - b->OldB2)/b->LocalScX, 0, b->ItemNr);
+				MoveItemI(-(b->Width - b->OldB2)/b->LocalScX, 0, b->ItemNr, false);
 			if (b->flippedV % 2 != 0)
-				MoveItemI(0, -(b->Height - b->OldH2)/b->LocalScY, b->ItemNr);
+				MoveItemI(0, -(b->Height - b->OldH2)/b->LocalScY, b->ItemNr, false);
 		}
 		else
 		{
 			if (b->flippedH % 2 == 0)
-				MoveItemI((b->Width - b->OldB2)/b->LocalScX, 0, b->ItemNr);
+				MoveItemI((b->Width - b->OldB2)/b->LocalScX, 0, b->ItemNr, false);
 			if (b->flippedV % 2 == 0)
-				MoveItemI(0, (b->Height - b->OldH2)/b->LocalScY, b->ItemNr);
+				MoveItemI(0, (b->Height - b->OldH2)/b->LocalScY, b->ItemNr, false);
 		}
 		UpdateClip(b);
 	}
@@ -5942,14 +5943,14 @@ void ScribusView::AdjustItemSize(PageItem *b)
 	else
 		MoveItem(tp2.x(), tp2.y(), b, true);
 	if (b->flippedH % 2 == 0)
-		MoveItemI(-tp2.x()/b->LocalScX, 0, b->ItemNr);
+		MoveItemI(-tp2.x()/b->LocalScX, 0, b->ItemNr, false);
 	if (b->flippedV % 2 == 0)
-		MoveItemI(0, -tp2.y()/b->LocalScY, b->ItemNr);
+		MoveItemI(0, -tp2.y()/b->LocalScY, b->ItemNr, false);
 	FPoint tp = GetMaxClipF(Clip);
 	if (b->flippedH % 2 != 0)
-		MoveItemI((b->Width - tp.x())/b->LocalScX, 0, b->ItemNr);
+		MoveItemI((b->Width - tp.x())/b->LocalScX, 0, b->ItemNr, false);
 	if (b->flippedV % 2 != 0)
-		MoveItemI(0, (b->Height - tp.y())/b->LocalScY, b->ItemNr);
+		MoveItemI(0, (b->Height - tp.y())/b->LocalScY, b->ItemNr, false);
 	SizeItem(tp.x(), tp.y(), b->ItemNr, true, false);
 	b->ClipEdited = true;
 	b->PoLine = Clip.copy();
