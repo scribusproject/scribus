@@ -6466,12 +6466,12 @@ void ScribusApp::setStilvalue(int s)
 	int c = s & 127;
 	doc->CurrentStyle = c;
 	scrActions["typeEffectNormal"]->setOn(c==0);
-	scrActions["typeEffectUnderline"]->setOn(c & 8);
-	scrActions["typeEffectStrikeThrough"]->setOn(c & 16);
-	scrActions["typeEffectSmallCaps"]->setOn(c & 64);
 	scrActions["typeEffectSuperscript"]->setOn(c & 1);
 	scrActions["typeEffectSubscript"]->setOn(c & 2);
 	scrActions["typeEffectOutline"]->setOn(c & 4);
+	scrActions["typeEffectUnderline"]->setOn(c & 8);
+	scrActions["typeEffectStrikeThrough"]->setOn(c & 16);
+	scrActions["typeEffectSmallCaps"]->setOn(c & 64);
 	emit TextStil(s);
 }
 
@@ -10052,7 +10052,7 @@ QString ScribusApp::Collect(bool compress, bool withFonts)
 							fileWatcher->addFile(s + itf.fileName());
 						}
 					}
-					if (ite->itemType() == PageItem::PathText)
+					if (ite->itemType() == PageItem::TextFrame)
 					{
 						if (ite->isAnnotation)
 						{

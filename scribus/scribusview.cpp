@@ -10660,11 +10660,11 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	struct ScText *hg;
 	switch (Buffer->PType)
 	{
-	/* OBSOLETE CR 2005-02-06
-	case 1:
+	// OBSOLETE CR 2005-02-06
+	case PageItem::FrameType1:
 		z = PaintEllipse(x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2);
 		break;
-	*/
+	//
 	case PageItem::ImageFrame:
 		z = PaintPict(x, y, w, h);
 		Doc->Items.at(z)->LocalScX = Buffer->LocalScX;
@@ -10687,11 +10687,11 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		Doc->Items.at(z)->AspectRatio = Buffer->AspectRatio;
 		Doc->Items.at(z)->Pwidth = Buffer->Pwidth;
 		break;
-	/* OBSOLETE CR 2005-02-06
-	case 3:
+	// OBSOLETE CR 2005-02-06
+	case PageItem::FrameType3:
 		z = PaintRect(x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2);
 		break;
-	*/
+	//
 	case PageItem::PathText:
 	case PageItem::TextFrame:
 		z = PaintText(x, y, w, h, pw, Buffer->Pcolor);
@@ -10914,11 +10914,11 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		b->ContourLine = Buffer->ContourLine.copy();
 	if (b->itemType() != PageItem::Line)
 	{
-		/* OBSOLETE CR 2005-02-06
-		if ((b->PoLine.size() == 0) && (b->PType != 1))
+		// OBSOLETE CR 2005-02-06
+		if ((b->PoLine.size() == 0) && (b->itemType() != PageItem::FrameType1))
 			ConvertClip(b);
 		else
-		*/
+			//
 			b->Clip = FlattenPath(b->PoLine, b->Segments);
 	}
 	else
@@ -10931,17 +10931,17 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		                  -ph,static_cast<int>(b->Height+ph));
 		b->Height = 1;
 	}
-	/* OBSOLETE CR 2005-02-06
-	if (b->PType == 1)
+	// OBSOLETE CR 2005-02-06
+	if (b->itemType() == PageItem::FrameType1)
 		SetOvalFrame(b);
-	*/
+	//
 	if (b->itemType() == PageItem::PathText)
 	{
 		b->Frame = false;
 		UpdatePolyClip(b);
 	}
-	/* OBSOLETE CR 2005-02-06
-	if (b->PType == 3)
+	// OBSOLETE CR 2005-02-06
+	if (b->PType == PageItem::FrameType3)
 	{
 		if (b->RadRect != 0)
 			SetFrameRound(b);
@@ -10949,7 +10949,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 			SetRectFrame(b);
 		b->ClipEdited = true;
 	}
-	*/
+	//
 	if (b->itemType() == PageItem::ImageFrame)
 	{
 		AdjustPictScale(b);

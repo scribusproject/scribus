@@ -98,7 +98,9 @@ public:
 	 * and using Qt's MetaObject introspection.
 	 */
 	enum ItemType {
+		FrameType1  = 1,
 		ImageFrame	= 2,
+		FrameType3  = 3,
 		TextFrame	= 4,
 		Line		= 5,
 		Polygon		= 6,

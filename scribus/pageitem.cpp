@@ -1887,7 +1887,7 @@ NoRoom: pf2.end();
 	if (!Doc->RePos)
 	{
 		double scp = QMAX(ScApp->view->Scale, 1);
-		if ((Frame) && (Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (ItemType() == TextFrame)))
+		if ((Frame) && (Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == TextFrame)))
 		{
 			p->setPen(black, 1 / scp, DotLine, FlatCap, MiterJoin);
 			if ((isBookmark) || (isAnnotation))
