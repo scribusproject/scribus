@@ -181,7 +181,6 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc, ApplicationPrefs *pre
 	GxM = 0;
 	ClRe = -1;
 	ClRe2 = -1;
-	_mousePressed = false;
 	_groupTransactionStarted = false;
 	undoManager = UndoManager::instance();
 	connect(SB1, SIGNAL(clicked()), this, SLOT(slotZoomOut()));
@@ -1168,7 +1167,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 {
 	PageItem *b;
 	Mpressed = false;
-	mouseReleaseEvent(m);
+	for (uint i = 0; i < SelItem.count(); ++i)
+		SelItem.at(i)->checkChanges();
 	if (Doc->guidesSettings.guidesShown)
 	{
 		bool fg = false;
@@ -3589,7 +3589,6 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 	QPointArray Bez(4);
 	QRect tx, mpo;
 	Mpressed = true;
-	mousePressEvent(m);
 	Imoved = false;
 	SeRx = qRound(m->x()/Scale);
 	SeRy = qRound(m->x()/Scale);
@@ -8029,23 +8028,9 @@ void ScribusView::setVBarGeometry(QScrollBar &bar, int x, int y, int w, int h)
 	}
 }
 
-void ScribusView::mousePressEvent(QMouseEvent *e)
-{
-	_mousePressed = true;
-	QScrollView::mousePressEvent(e);
-}
-
-void ScribusView::mouseReleaseEvent(QMouseEvent *e)
-{
-	_mousePressed = false;
-	for (uint i = 0; i < SelItem.count(); ++i)
-		SelItem.at(i)->checkChanges();
-	QScrollView::mouseReleaseEvent(e);
-}
-
 bool ScribusView::mousePressed()
 {
-	return _mousePressed;
+	return Mpressed;
 }
 
 bool ScribusView::groupTransactionStarted()
@@ -8393,6 +8378,8 @@ void ScribusView::setLayMenTxt(int l)
 /** Fuehrt die Vergroesserung/Verkleinerung aus */
 void ScribusView::slotDoZoom()
 {
+	bool tmpUndoEnabled = undoManager->undoEnabled();
+	undoManager->setUndoEnabled(false);
 	if (Scale > 32*Prefs->DisScale)
 	{
 		Scale = 32*Prefs->DisScale;
@@ -8418,6 +8405,7 @@ void ScribusView::slotDoZoom()
 		SetCCPo(oldX, oldY);
 	updateOn = true;
 	DrawNew();
+	undoManager->setUndoEnabled(tmpUndoEnabled);
 }
 
 void ScribusView::slotZoomIn(int mx,int my)

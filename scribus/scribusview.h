@@ -322,7 +322,6 @@ private: // Private attributes
 	bool Ready;
 	int    oldX;
 	int    oldY;
-	bool _mousePressed;
 	bool _groupTransactionStarted;
 	UndoManager *undoManager;
 	void creationUndoAction(PageItem *pi);
@@ -345,8 +344,6 @@ protected: // Protected methods
 	virtual void contentsWheelEvent ( QWheelEvent *ev );
 	virtual void setHBarGeometry(QScrollBar &bar, int x, int y, int w, int h);
 	virtual void setVBarGeometry(QScrollBar &bar, int x, int y, int w, int h);
-	virtual void mousePressEvent(QMouseEvent *e);
-	virtual void mouseReleaseEvent(QMouseEvent *e);
 
 signals:
 	void changeUN(int);
