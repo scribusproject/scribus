@@ -5,11 +5,15 @@ Changes since Version 1.1.7
 	* bug     #925: clicking on bookmarks in bookmark window should activate the corresponding text frame
 	* bug     #936: shortcuts for palettes activates only hides them again when then main window has the focus
 	* bug     #940: "general" is not highlighted when calling settings > preferences
+	* bug     #942: change icon style for warning icon in replace font dialog
+	* bug     #943: Deleting selected text in SE makes Scribus crash
 	* feature # 28: Prepare shortcut keys for menus and dialogs, and more hotkeys for actions for 1.2 release
 	* feature # 77: Prepare tooltips for 1.2 release
 	* feature #190: left, right, centered, ... styles
 	* feature #938: German Translation Update for 1.2
 	* feature #939: British English Translation Update for 1.2
+	* feature #941: German ts-file for 1.2
+	* feature #944: Polish translation for 1.2
 
 06.08.2004
 	* bug     #167: spacing across columns/frames

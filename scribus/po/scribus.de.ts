@@ -4068,15 +4068,15 @@ Null bedeutet unbegrenzt.</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation></translation>
+        <translation>mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation></translation>
+        <translation>in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation></translation>
+        <translation>p</translation>
     </message>
 </context>
 <context>
@@ -5017,7 +5017,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Switches between Gap or Column width</source>
-        <translation></translation>
+        <translation>Schaltet zwischen Abstand und Spaltenbreite um</translation>
     </message>
     <message>
         <source>Column width</source>
@@ -5037,7 +5037,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
-        <translation></translation>
+        <translation>Zeit das Level an, auf dem sich das Objekt befindet. 0 bedeutet ganz unten</translation>
     </message>
     <message>
         <source>Font Size:</source>
@@ -8248,7 +8248,7 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>Misc.</source>
-        <translation>Verschiedenes.</translation>
+        <translation>Verschiedenes</translation>
     </message>
     <message>
         <source>Displacement:</source>
