@@ -248,7 +248,7 @@ void MenuTest::FinishScriptRun()
 		Carrier->Sepal->SetView(Carrier->view);
 		Carrier->Sepal->Rebuild();
 		if (Carrier->view->SelItem.count() != 0)
-			Carrier->HaveNewSel(Carrier->view->SelItem.at(0)->PType);
+			Carrier->HaveNewSel(Carrier->view->SelItem.at(0)->itemType());
 		else
 			Carrier->HaveNewSel(-1);
 		Carrier->view->DrawNew();
