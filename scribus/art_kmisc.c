@@ -767,27 +767,41 @@ void ksvg_art_rgba_affine_clip_run(art_u8 *dst_p, int x0, int x1, int y, const d
 
 			src_p = src + (src_y * src_rowstride) + src_x * 4;
 
+#ifdef WORDS_BIGENDIAN
+			srcAlpha = alpha * src_p[0] + 0x80;
+#else
 			srcAlpha = alpha * src_p[3] + 0x80;
+#endif
 			srcAlpha = (srcAlpha + (srcAlpha >> 8)) >> 8;
 
 			d = *dst_p;
-			s = src_p[2];
-
-			tmp = srcAlpha * (s - d) + 0x80;
-			tmp = (tmp + (tmp >> 8)) >> 8;
-
-			*dst_p++ = d + tmp;
-
-			d = *dst_p;
+#ifdef WORDS_BIGENDIAN  
 			s = src_p[1];
-
+#else
+			s = src_p[2];
+#endif
 			tmp = srcAlpha * (s - d) + 0x80;
 			tmp = (tmp + (tmp >> 8)) >> 8;
 
 			*dst_p++ = d + tmp;
 
 			d = *dst_p;
+#ifdef WORDS_BIGENDIAN  
+			s = src_p[2];
+#else
+			s = src_p[1];
+#endif
+			tmp = srcAlpha * (s - d) + 0x80;
+			tmp = (tmp + (tmp >> 8)) >> 8;
+
+			*dst_p++ = d + tmp;
+
+			d = *dst_p;
+#ifdef WORDS_BIGENDIAN  
+			s = src_p[3];
+#else
 			s = src_p[0];
+#endif
 
 			tmp = srcAlpha * (s - d) + 0x80;
 			tmp = (tmp + (tmp >> 8)) >> 8;

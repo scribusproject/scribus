@@ -971,6 +971,16 @@ void Mpalette::SelTab(int t)
 	if (ScApp->ScriptRunning)
 		return;
 	TabStack->raiseWidget(t);
+	if ((HaveDoc) && (HaveItem))
+	{
+		Cpal->GradCombo->setCurrentItem(CurItem->GrType);
+		Cpal->ChooseGrad(CurItem->GrType);
+		Cpal->setSpecialGradient(CurItem->GrStartX * UmReFaktor, CurItem->GrStartY * UmReFaktor,
+											CurItem->GrEndX * UmReFaktor, CurItem->GrEndY * UmReFaktor,
+											CurItem->Width * UmReFaktor, CurItem->Height * UmReFaktor);
+		Cpal->GradEdit->fill_gradient = CurItem->fill_gradient;
+		Cpal->GradEdit->updateDisplay();
+	}
 }
 
 void Mpalette::SetDoc(ScribusDoc *d)
@@ -1051,8 +1061,8 @@ void Mpalette::SetCurItem(PageItem *i)
 	Cpal->setSpecialGradient(CurItem->GrStartX * UmReFaktor, CurItem->GrStartY * UmReFaktor,
 										  CurItem->GrEndX * UmReFaktor, CurItem->GrEndY * UmReFaktor,
 										  CurItem->Width * UmReFaktor, CurItem->Height * UmReFaktor);
-	Cpal->updateGeometry();
-	Cpal->repaint();
+	Cpal->GradEdit->fill_gradient = CurItem->fill_gradient;
+	Cpal->GradEdit->updateDisplay();
 	if (i->FrameType == 0)
 		SCustom->setPixmap(SCustom->getIconPixmap(0));
 	if (i->FrameType == 1)

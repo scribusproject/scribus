@@ -18,6 +18,7 @@
 #include "cpalette.h"
 #include "cpalette.moc"
 #include <qtooltip.h>
+
 extern QPixmap loadIcon(QString nam);
 
 Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
@@ -91,27 +92,12 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	GradCombo->insertItem( tr("Cross Diagonal Gradient"));
 	GradCombo->insertItem( tr("Radial Gradient"));
 	GradCombo->insertItem( tr("Free linear Gradient"));
+//	GradCombo->insertItem( tr("Free radial Gradient"));
 	GradCombo->setCurrentItem(0);
 	GradLayout->addWidget( GradCombo );
-	GradGroup = new QButtonGroup( this, "GradGroup" );
-	GradGroup->setFrameShape( QButtonGroup::NoFrame );
-	GradGroup->setFrameShadow( QButtonGroup::Plain );
-	GradGroup->setTitle("");
-	GradGroup->setColumnLayout(0, Qt::Vertical );
-	GradGroup->layout()->setSpacing( 5 );
-	GradGroup->layout()->setMargin( 0 );
-	GradGroupLayout = new QVBoxLayout( GradGroup->layout() );
-	GradGroupLayout->setAlignment( Qt::AlignTop );
-	layout19 = new QHBoxLayout( 0, 0, 5, "layout19");
-	GrColor1 = new QRadioButton( GradGroup, "GrColor1" );
-	GrColor1->setText("#1");
-	GrColor1->setChecked( true );
-	layout19->addWidget( GrColor1 );
-	GrColor2 = new QRadioButton( GradGroup, "GrColor2" );
-	GrColor2->setText("#2");
-	layout19->addWidget( GrColor2 );
-	GradGroupLayout->addLayout( layout19 );
-	frame8 = new QFrame( GradGroup, "frame8" );
+	GradEdit = new GradientPreview(this);
+	GradLayout->addWidget(GradEdit, Qt::AlignHCenter);
+	frame8 = new QFrame( this, "frame8" );
 	frame8->setFrameShape( QFrame::NoFrame );
 	frame8->setFrameShadow( QFrame::Plain );
 	frame8Layout = new QGridLayout( frame8, 1, 1, 5, 5, "frame8Layout");
@@ -147,20 +133,17 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	gY2->setDecimals(100);
 	gY2->setMaxValue(3000);
 	frame8Layout->addWidget( gY2, 1, 3 );
-	GradGroupLayout->addWidget( frame8 );
-	GradLayout->addWidget( GradGroup );
+	GradLayout->addWidget( frame8 );
 	Form1Layout->addLayout(GradLayout);
 	ListBox1 = new QListBox(this, "ListBox1");
-	ListBox1->setMinimumSize( QSize( 150, 210 ) );
+	ListBox1->setMinimumSize( QSize( 150, 30 ) );
 	Form1Layout->addWidget(ListBox1);
-	setActGradient("", "", 100, 100, 0);
+	setActGradient(0);
 	GradientMode = false;
 	QToolTip::add( Inhalt, tr( "Edit Line Color Properties" ) );
 	QToolTip::add( Innen, tr( "Edit Fill Color Properties" ) );
 	QToolTip::add( PM1, tr( "Saturation of color" ) );
 	QToolTip::add( GradCombo, tr( "Normal or gradient fill method" ) );
-	QToolTip::add( GrColor1, tr( "Edit the first color of object" ) );
-	QToolTip::add( GrColor2, tr( "Edit the second color of object" ) );
 	QToolTip::add( TransSpin, tr( "Set the transparency for the color selected" ) );
 	QToolTip::add( ListBox1, tr( "Color of selected object" ) );
 	connect(Inhalt, SIGNAL(clicked()), this, SLOT(InhaltButton()));
@@ -168,13 +151,12 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	connect(ListBox1, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selFarbe(QListBoxItem*)));
 	connect(PM1, SIGNAL(valueChanged(int)), this, SLOT(setActShade()));
 	connect(GradCombo, SIGNAL(activated(int)), this, SLOT(slotGrad(int)));
-	connect(GrColor1, SIGNAL(clicked()), this, SLOT(slotColor()));
-	connect(GrColor2, SIGNAL(clicked()), this, SLOT(slotColor()));
 	connect(TransSpin, SIGNAL(valueChanged(int)), this, SLOT(slotTrans(int)));
 	connect(gX1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
 	connect(gX2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
 	connect(gY1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
 	connect(gY2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
+	connect(GradEdit, SIGNAL(selectedColor(QString, int )), this, SLOT(slotColor(QString, int )));
 }
 
 void Cpalette::InhaltButton()
@@ -185,10 +167,13 @@ void Cpalette::InhaltButton()
 		Mode = 1;
 		Innen->setOn(false);
 		h += GradCombo->height();
-		h += GradGroup->height();
+		h += GradEdit->height();
+		if (GradCombo->currentItem() < 6)
+			h -= frame8->height();
+		frame8->hide();
 		h += TransGroup->height();
 		GradCombo->hide();
-		GradGroup->hide();
+		GradEdit->hide();
 		GradientMode = false;
 		ListBox1->resize(ListBox1->width(), ListBox1->height()+h);
 		updateCList();
@@ -200,18 +185,26 @@ void Cpalette::InhaltButton()
 
 void Cpalette::InnenButton()
 {
+	int h = 0;
 	if (Innen->isOn())
 	{
 		Mode = 2;
 		Inhalt->setOn(false);
 		GradCombo->show();
 		GradientMode = GradCombo->currentItem() != 0 ? true : false;
+		h += GradCombo->height();
+		h += TransGroup->height();
 		if (GradientMode)
-			GradGroup->show();
-		if (GradCombo->currentItem() == 6)
-			frame8->show();
-		else
-			frame8->hide();
+		{
+			if (GradEdit->isHidden())
+				GradEdit->show();
+			if (GradCombo->currentItem() > 5)
+				frame8->show();
+			else
+				frame8->hide();
+			h += GradEdit->height();
+		}
+		ListBox1->resize(ListBox1->width(), ListBox1->height()-h);
 		updateCList();
 		updateGeometry();
 		repaint();
@@ -258,14 +251,32 @@ void Cpalette::selFarbe(QListBoxItem *c)
 		}
 		else
 		{
-			if (GrColor1->isChecked())
-				Color = sFarbe;
-			else
-				Color2 = sFarbe;
-			emit NewGradient(GradCombo->currentItem(), Color, Shade, Color2, Shade2);
+			GradEdit->setActColor(SetFarbe(sFarbe, Shade), sFarbe, Shade);
+			Color = sFarbe;
+			emit gradientChanged();
 		}
 		break;
 	}
+}
+
+QColor Cpalette::SetFarbe(QString farbe, int shad)
+{
+	int h, s, v, sneu;
+	QColor tmp;
+	Farbliste[farbe].getRGBColor().rgb(&h, &s, &v);
+	if ((h == s) && (s == v))
+	{
+		Farbliste[farbe].getRGBColor().hsv(&h, &s, &v);
+		sneu = 255 - ((255 - v) * shad / 100);
+		tmp.setHsv(h, s, sneu);
+	}
+	else
+	{
+		Farbliste[farbe].getRGBColor().hsv(&h, &s, &v);
+		sneu = s * shad / 100;
+		tmp.setHsv(h, sneu, v);
+	}
+	return tmp;
 }
 
 void Cpalette::updateBoxS(QString Farbe)
@@ -288,6 +299,7 @@ void Cpalette::updateBoxS(QString Farbe)
 
 void Cpalette::setActFarben(QString p, QString b, int shp, int shb)
 {
+	disconnect(PM1, SIGNAL(valueChanged(int)), this, SLOT(setActShade()));
 	switch (Mode)
 	{
 	case 1:
@@ -295,72 +307,67 @@ void Cpalette::setActFarben(QString p, QString b, int shp, int shb)
 		updateBoxS(p);
 		break;
 	case 2:
-		PM1->setValue(shb);
-		updateBoxS(b);
 		Color3 = b;
 		Shade3 = shb;
+		PM1->setValue(shb);
+		updateBoxS(b);
 		break;
 	}
+	connect(PM1, SIGNAL(valueChanged(int)), this, SLOT(setActShade()));
 }
 
-void Cpalette::slotColor()
+void Cpalette::slotColor(QString n, int s)
 {
-	if (GrColor1->isChecked())
-	{
-		PM1->setValue(Shade);
-		updateBoxS(Color);
-	}
-	if (GrColor2->isChecked())
-	{
-		PM1->setValue(Shade2);
-		updateBoxS(Color2);
-	}
+	disconnect(PM1, SIGNAL(valueChanged(int)), this, SLOT(setActShade()));
+	Color = n;
+	Shade = s;
+	PM1->setValue(Shade);
+	updateBoxS(Color);
+	connect(PM1, SIGNAL(valueChanged(int)), this, SLOT(setActShade()));
 }
 
 void Cpalette::slotGrad(int nr)
 {
 	ChooseGrad(nr);
-	emit NewGradient(nr, Color, Shade, Color2, Shade2);
+	emit NewGradient(nr);
 }
 
 void Cpalette::ChooseGrad(int nr)
 {
 	/* PFJ - 29.02.04 - Removed GradGroup and Gradient mode from switch */
 	bool test = nr == 0 ? false : true;
-	GradGroup->setEnabled(test);
 	GradientMode = test;
-	if (GradientMode)
-		GradGroup->show();
+	if (nr != 0)
+	{
+		GradEdit->show();
+		if (nr > 5)
+			frame8->show();
+		else
+			frame8->hide();
+	}
 	else
-		GradGroup->hide();
-	if (nr == 6)
-		frame8->show();
-	else
+	{
+		GradEdit->hide();
 		frame8->hide();
+	}
+	updateGeometry();
+	repaint();
+	disconnect(PM1, SIGNAL(valueChanged(int)), this, SLOT(setActShade()));
 	switch (nr)
 	{
 	case 0:
 		updateCList();
-		updateGeometry();
-		repaint();
 		PM1->setValue(Shade3);
 		updateBoxS(Color3);
 		break;
 	default:
 		updateCList();
-		if (GrColor1->isChecked())
-		{
-			PM1->setValue(Shade);
-			updateBoxS(Color);
-		}
-		if (GrColor2->isChecked())
-		{
-			PM1->setValue(Shade2);
-			updateBoxS(Color2);
-		}
+		PM1->setValue(Shade);
+		updateBoxS(Color);
 		break;
 	}
 	setFocus();
+	connect(PM1, SIGNAL(valueChanged(int)), this, SLOT(setActShade()));
 }
 
 void Cpalette::setActTrans(double val, double val2)
@@ -398,13 +405,9 @@ void Cpalette::UseTrans(bool b)
 	UseTransFeature = b;
 }
 
-void Cpalette::setActGradient(QString p, QString b, int shp, int shb, int typ)
+void Cpalette::setActGradient(int typ)
 {
 	disconnect(GradCombo, SIGNAL(activated(int)), this, SLOT(slotGrad(int)));
-	Color2 = b;
-	Color = p;
-	Shade = shp;
-	Shade2 = shb;
 	if (Mode == 2)
 	{
 		GradCombo->setCurrentItem(typ);
@@ -449,16 +452,14 @@ void Cpalette::setActShade()
 	case 2:
 		if (GradCombo->currentItem() == 0)
 		{
-			emit NewBrushShade(b);
 			Shade3 = b;
+			emit NewBrushShade(b);
 		}
 		else
 		{
-			if (GrColor1->isChecked())
-				Shade = b;
-			else
-				Shade2 = b;
-			emit NewGradient(GradCombo->currentItem(), Color, Shade, Color2, Shade2);
+			GradEdit->setActColor(SetFarbe(Color, b), Color, b);
+			Shade = b;
+			emit gradientChanged();
 		}
 		break;
 	}

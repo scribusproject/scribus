@@ -285,8 +285,11 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite) : QDi
 	fmenu->insertItem(loadIcon("DateiSave16.png"), tr("Save to File..."), this, SLOT(SaveTextFile()));
 	fmenu->insertItem(loadIcon("DateiOpen16.png"), tr("Load from File..."), this, SLOT(LoadTextFile()));
 	fmenu->insertSeparator();
-	fmenu->insertItem( tr("Save and Exit"), this, SLOT(accept()));
-	fmenu->insertItem( tr("Exit without Saving"), this, SLOT(Do_leave()));
+	/* changes to fit the #662 bug 05/28/04 petr vanek */
+	fmenu->insertItem( tr("Update Text Frame and Exit"), this, SLOT(accept()));
+	fmenu->insertItem( tr("Exit Without Updating Text Frame"), this, SLOT(Do_leave()));
+	fmenu->insertItem(tr("Save Document"), this, SLOT(Do_saveDocument()), CTRL+Key_S);
+	/* end of changes */
 	emenu = new QPopupMenu();
 	Mundo = emenu->insertItem( tr("Undo"), this, SLOT(Do_undo()), CTRL+Key_Z);
 	Mredo = emenu->insertItem( tr("Redo"), this, SLOT(Do_redo()));
@@ -535,6 +538,15 @@ void StoryEditor::Do_leave()
 			return;
 	}
 	reject();
+}
+ 
+/*! Saves the document with editation continued. Signal called from menu.
+  05/28/04 petr vanek
+  */
+void StoryEditor::Do_saveDocument()
+{
+	updateTextFrame();
+	ScApp->slotFileSave();
 }
 
 void StoryEditor::Do_new()

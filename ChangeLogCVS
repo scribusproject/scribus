@@ -1,5 +1,14 @@
 Changes since Version 1.1.6
 
+29.05.2004
+	* bug     #707: Endian issues with images on fink?
+	* bug     #715: When using Free Linear Gradient, importing an SVG can change the gradient
+	* bug     #720: print dialog does not allow entering of page numbers
+	* feature #662: Missing option to save Scribus file
+	* feature #718: german translation update
+	* feature #727: Add ability for Removing Recently Used Docs
+	* feature #731: Ability to have Gradients with more than 2 Colors
+
 26.05.2004
 	* bug     #713: "Line Style" to "Type of Line"
 	* feature #688: improve the zoom-icon function

@@ -217,7 +217,7 @@ public slots:
 	void ItemBrush(QString farbe);
 	void ItemPenShade(int sha);
 	void ItemBrushShade(int sha);
-	void ItemGradFill(int typ, QString col1, int sh1, QString col2, int sh2);
+	void ItemGradFill(int typ);
 	void QueryFarben();
 	void SetFrameRect();
 	void SetFrameRounded();
@@ -283,7 +283,7 @@ signals: // Signals
 	void SetDistValues(double, double, double, double);
   /** Sendet die Stiftfarbe an die Farbpalette */
 	void ItemFarben(QString, QString, int, int);
-	void ItemGradient(QString, QString, int, int, int);
+	void ItemGradient(int);
   /** Sendet die Textattribute an die Masspalette */
 	void ItemTextAttr(double);
   /** Sendet die Schriftart */

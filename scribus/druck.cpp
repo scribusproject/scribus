@@ -239,7 +239,6 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
 	To->setMinValue(1);
 	To->setMaxValue(1000);
 	To->setValue(1);
-	To->setFocusPolicy( QSpinBox::TabFocus );
 	ButtonGroup5Layout->addWidget( To, 3, 1 );
 
 	From = new QSpinBox( ButtonGroup5, "From" );
@@ -248,7 +247,6 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
 	From->setMinValue(1);
 	From->setMaxValue(1000);
 	From->setValue(1);
-	From->setFocusPolicy( QSpinBox::TabFocus );
 
 	ButtonGroup5Layout->addWidget( From, 2, 1 );
 
@@ -305,7 +303,6 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom)
 	Copies->setMinValue( 1 );
 	Copies->setMaxValue(1000);
 	Copies->setValue(1);
-	Copies->setFocusPolicy( QSpinBox::TabFocus );
 
 	ButtonGroup4Layout->addWidget( Copies, 2, 1 );
 	UmfangLayout->addWidget( ButtonGroup4 );

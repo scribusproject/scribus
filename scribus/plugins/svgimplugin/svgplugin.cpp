@@ -143,6 +143,7 @@ void SVGPlug::convert()
 		ret = true;
 	}
 	Doku = Prog->doc;
+	Doku->ActPage->Deselect();
 	Elements.clear();
 	Doku->loading = true;
 	Doku->DoDrawing = false;
@@ -518,7 +519,7 @@ void SVGPlug::parseGroup(const QDomElement &e)
 				else
 					ite->GrEndY = QMAX(QMIN(gc->GY2, ite->Height), 0);
 				Doku->ActPage->SelItem.append(ite);
-				Doku->ActPage->ItemGradFill(gc->Gradient, gc->GCol2, 100, gc->GCol1, 100);
+//				Doku->ActPage->ItemGradFill(gc->Gradient, gc->GCol2, 100, gc->GCol1, 100);
 				Doku->ActPage->SelItem.clear();
 			}
 			GElements.append(ite);

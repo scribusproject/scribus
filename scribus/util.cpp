@@ -1622,10 +1622,11 @@ void CopyPageItem(struct CLBuf *Buffer, PageItem *b)
 	Buffer->Pcolor2 = b->Pcolor2;
 	Buffer->Shade = b->Shade;
 	Buffer->Shade2 = b->Shade2;
-	Buffer->GrColor = b->GrColor;
-	Buffer->GrColor2 = b->GrColor2;
-	Buffer->GrShade = b->GrShade;
-	Buffer->GrShade2 = b->GrShade2;
+	Buffer->GrColor = "";
+	Buffer->GrColor2 = "";
+	Buffer->GrShade = 100;
+	Buffer->GrShade2 = 100;
+	Buffer->fill_gradient = b->fill_gradient;
 	Buffer->GrType = b->GrType;
 	Buffer->GrStartX = b->GrStartX;
 	Buffer->GrStartY = b->GrStartY;

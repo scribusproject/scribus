@@ -227,6 +227,7 @@ public slots:
 	void slotFileOpen();
 	void slotFileAppend();
 	/** open a document */
+	void RemoveRecent(QString fn);
 	void LoadRecent(int id);
 	bool slotDocOpen();
 	bool LadeDoc(QString fileName);
@@ -345,7 +346,8 @@ public slots:
 	void setPenShade(int sh);
 	/** Setzt den Brush-Tonwert */
 	void setBrushShade(int sh);
-	void setGradFill(int typ, QString col1, int sh1, QString col2, int sh2);
+	void setGradFill(int typ);
+	void updtGradFill();
 	/** Setzt die Pen-Farbe */
 	void setPenFarbe(QString farbe);
 	/** Setzt die Brush-Farbe */

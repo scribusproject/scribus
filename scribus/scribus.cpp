@@ -519,7 +519,9 @@ void ScribusApp::initScribus()
 		connect(Mpal->Cpal, SIGNAL(NewBrushShade(int)), this, SLOT(setBrushShade(int)));
 		connect(Mpal->Cpal, SIGNAL(NewTrans(double)), this, SLOT(SetTranspar(double)));
 		connect(Mpal->Cpal, SIGNAL(NewTransS(double)), this, SLOT(SetTransparS(double)));
-		connect(Mpal->Cpal, SIGNAL(NewGradient(int, QString, int, QString, int)), this, SLOT(setGradFill(int, QString, int, QString, int)));
+		connect(Mpal->Cpal, SIGNAL(NewGradient(int)), this, SLOT(setGradFill(int)));
+		connect(Mpal->Cpal->GradEdit, SIGNAL(gradientChanged()), this, SLOT(updtGradFill()));
+		connect(Mpal->Cpal, SIGNAL(gradientChanged()), this, SLOT(updtGradFill()));
 		connect(Mpal->Cpal, SIGNAL(QueryItem()), this, SLOT(GetBrushPen()));
 		connect(Tpal, SIGNAL(Schliessen()), this, SLOT(ToggleTpal()));
 		connect(Tpal, SIGNAL(SelectElement(int, int)), this, SLOT(SelectFromOutl(int, int)));
@@ -2844,6 +2846,18 @@ void ScribusApp::UpdateRecent(QString fn)
 		recentMenu->insertItem(RecentDocs[m]);
 	}
 }
+ 
+void ScribusApp::RemoveRecent(QString fn)
+{
+	recentMenu->clear();
+	if (RecentDocs.findIndex(fn) != -1)
+		RecentDocs.remove(fn);
+	uint max = QMIN(Prefs.RecentDCount, RecentDocs.count());
+	for (uint m = 0; m < max; ++m)
+	{
+		recentMenu->insertItem(RecentDocs[m]);
+	}
+}
 
 void ScribusApp::LoadRecent(int id)
 {
@@ -4224,7 +4238,7 @@ void ScribusApp::slotNewPage(int w)
 	connect(doc->ActPage, SIGNAL(SetLineArt(PenStyle, PenCapStyle, PenJoinStyle)), Mpal, SLOT( setLIvalue(PenStyle, PenCapStyle, PenJoinStyle)));
 	connect(doc->ActPage, SIGNAL(ItemFarben(QString, QString, int, int)), this, SLOT(setCSMenu(QString, QString, int, int)));
 	connect(doc->ActPage, SIGNAL(ItemFarben(QString, QString, int, int)), Mpal->Cpal, SLOT(setActFarben(QString, QString, int, int)));
-	connect(doc->ActPage, SIGNAL(ItemGradient(QString, QString, int, int, int)), Mpal->Cpal, SLOT(setActGradient(QString, QString, int, int, int)));
+	connect(doc->ActPage, SIGNAL(ItemGradient(int)), Mpal->Cpal, SLOT(setActGradient(int)));
 	connect(doc->ActPage, SIGNAL(ItemTrans(double, double)), Mpal->Cpal, SLOT(setActTrans(double, double)));
 	connect(doc->ActPage, SIGNAL(ItemTextFont(QString)), this, SLOT(AdjustFontMenu(QString)));
 	connect(doc->ActPage, SIGNAL(ItemTextSize(int)), this, SLOT(setFSizeMenu(int)));
@@ -5629,6 +5643,7 @@ void ScribusApp::slotEditColors()
 	CListe edc;
 	QMap<QString,QString> ers;
 	PageItem *ite;
+	QColor tmpc;
 	if (HaveDoc)
 		edc = doc->PageColors;
 	else
@@ -5686,11 +5701,16 @@ void ScribusApp::slotEditColors()
 									ite->Pcolor = it.data();
 								if (it.key() == ite->Pcolor2)
 									ite->Pcolor2 = it.data();
-								if (it.key() == ite->GrColor)
-									ite->GrColor = it.data();
-								if (it.key() == ite->GrColor2)
-									ite->GrColor2 = it.data();
-								view->DocPages.at(b)->AdjItemGradient(ite, ite->GrType, ite->GrColor2, ite->GrShade2, ite->GrColor, ite->GrShade);
+								QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+								for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+								{
+									if (it.key() == cstops.at(cst)->name)
+									{
+										ite->SetFarbe(&tmpc, it.data(), cstops.at(cst)->shade);
+										cstops.at(cst)->color = tmpc;
+										cstops.at(cst)->name = it.data();
+									}
+								}
 							}
 						}
 					}
@@ -5715,11 +5735,16 @@ void ScribusApp::slotEditColors()
 									ite->Pcolor = it.data();
 								if (it.key() == ite->Pcolor2)
 									ite->Pcolor2 = it.data();
-								if (it.key() == ite->GrColor)
-									ite->GrColor = it.data();
-								if (it.key() == ite->GrColor2)
-									ite->GrColor2 = it.data();
-								view->MasterPages.at(b)->AdjItemGradient(ite, ite->GrType, ite->GrColor2, ite->GrShade2, ite->GrColor, ite->GrShade);
+								QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+								for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+								{
+									if (it.key() == cstops.at(cst)->name)
+									{
+										ite->SetFarbe(&tmpc, it.data(), cstops.at(cst)->shade);
+										cstops.at(cst)->color = tmpc;
+										cstops.at(cst)->name = it.data();
+									}
+								}
 							}
 						}
 					}
@@ -5779,13 +5804,28 @@ void ScribusApp::setBrushShade(int sh)
 	}
 }
 
-void ScribusApp::setGradFill(int typ, QString col1, int sh1, QString col2, int sh2)
+void ScribusApp::setGradFill(int typ)
 {
 	setActiveWindow();
 	if (HaveDoc)
 	{
-		doc->ActPage->ItemGradFill(typ, col1, sh1, col2, sh2);
+		doc->ActPage->ItemGradFill(typ);
 		slotDocCh();
+	}
+}
+
+void ScribusApp::updtGradFill()
+{
+	setActiveWindow();
+	if (HaveDoc)
+	{
+		if (doc->ActPage->SelItem.count() != 0)
+		{
+			PageItem *b = doc->ActPage->SelItem.at(0);
+			b->fill_gradient = Mpal->Cpal->GradEdit->fill_gradient;
+			doc->ActPage->RefreshItem(b);
+			slotDocCh();
+		}
 	}
 }
 

@@ -36,6 +36,7 @@
 #include "scfonts.h"
 #include "fpointarray.h"
 #include "hyphenator.h"
+#include "vgradient.h"
 #ifdef HAVE_CMS
 	#include CMS_INC
 #endif
@@ -85,6 +86,7 @@ struct CLBuf {
 				QString GrColor2;
 				int GrShade;
 				int GrShade2;
+				VGradient fill_gradient;
 				int GrType;
 				double GrStartX;
 				double GrStartY;

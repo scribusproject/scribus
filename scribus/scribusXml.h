@@ -36,6 +36,7 @@ public:
 	bool WriteDoc(QString fileName, ScribusDoc *docu, ScribusView *viewx, QProgressBar *dia2);
 	void WritePref(preV *Vor, QString ho);
 	bool ReadPref(struct preV *Vorein, QString ho);
+	QColor ScriXmlDoc::SetFarbe(ScribusDoc *doc, QString farbe, int shad);
 	CListe Farben;
 	QValueList<StVorL> Vorlagen;
 	struct Linked { 

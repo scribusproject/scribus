@@ -667,12 +667,12 @@ void ScPainter::applyGradient( ArtSVP *svp, bool fill )
 		ArtGradientRadial *radial = art_new( ArtGradientRadial, 1 );
 
 		// TODO : make variable
-		if( gradient.repeatMethod() == VGradient::none )
+//		if( gradient.repeatMethod() == VGradient::none )
 			radial->spread = ART_GRADIENT_PAD;
-		else if( gradient.repeatMethod() == VGradient::repeat )
+/*		else if( gradient.repeatMethod() == VGradient::repeat )
 			radial->spread = ART_GRADIENT_REPEAT;
 		else if( gradient.repeatMethod() == VGradient::reflect )
-			radial->spread = ART_GRADIENT_REFLECT;
+			radial->spread = ART_GRADIENT_REFLECT; */
 
 		radial->affine[0] = m_matrix.m11();
 		radial->affine[1] = m_matrix.m12();

@@ -118,6 +118,7 @@ public:
 public slots:
 	void updateStatus();
 	void Do_leave();
+	void Do_saveDocument();
 	void Do_new();
 	void Do_undo();
 	void Do_redo();

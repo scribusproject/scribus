@@ -204,7 +204,39 @@ void LineFormate::UpdateFList()
 	ListBox1->clear();
 	QMap<QString,multiLine>::Iterator it;
 	for (it = TempStyles.begin(); it != TempStyles.end(); ++it)
-		ListBox1->insertItem(it.key());
+	{
+		QPixmap pm = QPixmap(37, 37);
+		pm.fill(white);
+		QPainter p;
+		p.begin(&pm);
+		QColor tmpf;
+		int h, s, v, sneu;
+		multiLine ml = it.data();
+		for (int its = ml.size()-1; its > -1; its--)
+		{
+			Docu->PageColors[ml[its].Color].getRGBColor().rgb(&h, &s, &v);
+			if ((h == s) && (s == v))
+			{
+				Docu->PageColors[ml[its].Color].getRGBColor().hsv(&h, &s, &v);
+				sneu = 255 - ((255 - v) * ml[its].Shade / 100);
+				tmpf.setHsv(h, s, sneu);
+			}
+			else
+			{
+				Docu->PageColors[ml[its].Color].getRGBColor().hsv(&h, &s, &v);
+				sneu = s * ml[its].Shade / 100;
+				tmpf.setHsv(h, sneu, v);
+			}
+			p.setPen(QPen(tmpf,
+							QMAX(static_cast<int>(ml[its].Width), 1),
+							static_cast<PenStyle>(ml[its].Dash),
+							static_cast<PenCapStyle>(ml[its].LineEnd),
+							static_cast<PenJoinStyle>(ml[its].LineJoin)));
+			p.drawLine(0, 18, 37, 18);
+			}
+		p.end();
+		ListBox1->insertItem(pm, it.key());
+	}
 	if (ListBox1->count() > 0)
 		ListBox1->setSelected(ListBox1->findItem(sFnumber), true);
 	bool setter = ListBox1->count() == 0 ? true : false;

@@ -201,7 +201,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 					if (Item->GrType != 0)
 						{
 						defi = docu->createElement("defs");
-						if (Item->GrType == 5)
+						if ((Item->GrType == 5) || (Item->GrType == 7))
 							grad = docu->createElement("radialGradient");
 						else
 							grad = docu->createElement("linearGradient");
@@ -228,13 +228,13 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 								grad.setAttribute("y2", FToStr(Item->Height));
 								break;
 							case 4:
-								grad.setAttribute("x1", FToStr(Item->Width));
-								grad.setAttribute("y1", "0");
-								grad.setAttribute("x2", "0");
-								grad.setAttribute("y2", FToStr(Item->Height));
+								grad.setAttribute("x1", "0");
+								grad.setAttribute("y1", FToStr(Item->Height));
+								grad.setAttribute("x2", FToStr(Item->Width));
+								grad.setAttribute("y2", "0");
 								break;
 							case 5:
-								grad.setAttribute("r", FToStr(QMIN(Item->Width / 2, Item->Height / 2)));
+								grad.setAttribute("r", FToStr(QMAX(Item->Width / 2, Item->Height / 2)));
 								grad.setAttribute("cx", FToStr(Item->Width / 2));
 								grad.setAttribute("cy", FToStr(Item->Height / 2));
 								break;
@@ -244,21 +244,21 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 								grad.setAttribute("x2", FToStr(Item->GrEndX));
 								grad.setAttribute("y2", FToStr(Item->GrEndY));
 								break;
+							case 7:
+								grad.setAttribute("r", FToStr(QMAX(Item->Width / 2, Item->Height / 2)));
+								grad.setAttribute("cx", FToStr(Item->GrStartX));
+								grad.setAttribute("cy", FToStr(Item->GrStartY));
+								break;
 							}
-						QDomElement s1 = docu->createElement("stop");
-						s1.setAttribute("offset","0%");
-						if ((Item->GrType == 5) || (Item->GrType == 4))
-							s1.setAttribute("stop-color",SetFarbe(Item->GrColor, Item->GrShade, plug));
-						else
-							s1.setAttribute("stop-color",SetFarbe(Item->GrColor2, Item->GrShade2, plug));
-						grad.appendChild(s1);
-						QDomElement s2 = docu->createElement("stop");
-						s2.setAttribute("offset","100%");
-						if ((Item->GrType == 5) || (Item->GrType == 4))
-							s2.setAttribute("stop-color",SetFarbe(Item->GrColor2, Item->GrShade2, plug));
-						else
-							s2.setAttribute("stop-color",SetFarbe(Item->GrColor, Item->GrShade, plug));
-						grad.appendChild(s2);
+						QPtrVector<VColorStop> cstops = Item->fill_gradient.colorStops();
+						for (uint cst = 0; cst < Item->fill_gradient.Stops(); ++cst)
+						{
+							QDomElement itcl = docu->createElement("stop");
+							itcl.setAttribute("offset", FToStr(cstops.at(cst)->rampPoint*100)+"%");
+							itcl.setAttribute("stop-opacity", FToStr(cstops.at(cst)->opacity));
+							itcl.setAttribute("stop-color", SetFarbe(cstops.at(cst)->name, cstops.at(cst)->shade, plug));
+							grad.appendChild(itcl);
+						}
 						defi.appendChild(grad);
 						fill = "fill:url(#"+gradi+IToStr(GradCount)+");";
 						GradCount++;

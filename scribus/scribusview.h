@@ -83,6 +83,7 @@ public:
 					bool Hm, bool Vm, bool Ic);
 	void ProcessPage(PSLib *p, Page* a, uint PNr, bool sep = false, bool farb = true, bool ic = false);
 	void SetClipPath(PSLib *p, FPointArray *c, bool poly = true);
+	void HandleGradient(PSLib *p, PageItem *c, double w, double h);
 	void SetFarbe(QString farb, int shade, int *h, int *s, int *v, int *k);
 	void rememberPreviousSettings(int mx=0, int my=0);
   /** Dokument zu dem die Seite geh�t */

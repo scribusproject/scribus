@@ -1540,29 +1540,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 							SetClipPath(p, &c->PoLine);
 							p->PS_closepath();
 							if ((c->GrType != 0) && (a->PageNam == ""))
-							{
-								SetFarbe(c->GrColor2, c->GrShade2, &h, &s, &v, &k);
-								p->PS_GradientCol1(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-								SetFarbe(c->GrColor, c->GrShade, &h, &s, &v, &k);
-								p->PS_GradientCol2(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-								switch (c->GrType)
-								{
-								case 1:
-								case 2:
-								case 3:
-								case 4:
-									p->PS_LinGradient(c->Width, -c->Height, 0, 0, 0, 0, c->PType, c->GrType);
-									break;
-								case 6:
-									p->PS_LinGradient(c->Width, -c->Height, c->GrStartX, -c->GrStartY, c->GrEndX, -c->GrEndY, c->PType, c->GrType);
-									break;
-								case 5:
-									p->PS_RadGradient(c->Width, -c->Height, c->PType);
-									break;
-								default:
-									break;
-								}
-							}
+								HandleGradient(p, c, c->Width, c->Height);
 							else
 								p->PS_fill();
 						}
@@ -1648,29 +1626,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 							SetClipPath(p, &c->PoLine);
 							p->PS_closepath();
 							if ((c->GrType != 0) && (a->PageNam == ""))
-							{
-								SetFarbe(c->GrColor2, c->GrShade2, &h, &s, &v, &k);
-								p->PS_GradientCol1(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-								SetFarbe(c->GrColor, c->GrShade, &h, &s, &v, &k);
-								p->PS_GradientCol2(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-								switch (c->GrType)
-								{
-								case 1:
-								case 2:
-								case 3:
-								case 4:
-									p->PS_LinGradient(c->Width, -c->Height, 0, 0, 0, 0, c->PType, c->GrType);
-									break;
-								case 6:
-									p->PS_LinGradient(c->Width, -c->Height, c->GrStartX, -c->GrStartY, c->GrEndX, -c->GrEndY, c->PType, c->GrType);
-									break;
-								case 5:
-									p->PS_RadGradient(c->Width, -c->Height, c->PType);
-									break;
-								default:
-									break;
-								}
-							}
+								HandleGradient(p, c, c->Width, c->Height);
 							else
 								p->PS_fill();
 						}
@@ -1961,29 +1917,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 							SetClipPath(p, &c->PoLine);
 							p->PS_closepath();
 							if (c->GrType != 0)
-							{
-								SetFarbe(c->GrColor2, c->GrShade2, &h, &s, &v, &k);
-								p->PS_GradientCol1(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-								SetFarbe(c->GrColor, c->GrShade, &h, &s, &v, &k);
-								p->PS_GradientCol2(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-								switch (c->GrType)
-								{
-								case 1:
-								case 2:
-								case 3:
-								case 4:
-									p->PS_LinGradient(c->Width, -c->Height, 0, 0, 0, 0, c->PType, c->GrType);
-									break;
-								case 6:
-									p->PS_LinGradient(c->Width, -c->Height, c->GrStartX, -c->GrStartY, c->GrEndX, -c->GrEndY, c->PType, c->GrType);
-									break;
-								case 5:
-									p->PS_RadGradient(c->Width, -c->Height, c->PType);
-									break;
-								default:
-									break;
-								}
-							}
+								HandleGradient(p, c, c->Width, c->Height);
 							else
 								p->PS_fill();
 						}
@@ -2018,29 +1952,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 							SetClipPath(p, &c->PoLine);
 							p->PS_closepath();
 							if (c->GrType != 0)
-							{
-								SetFarbe(c->GrColor2, c->GrShade2, &h, &s, &v, &k);
-								p->PS_GradientCol1(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-								SetFarbe(c->GrColor, c->GrShade, &h, &s, &v, &k);
-								p->PS_GradientCol2(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-								switch (c->GrType)
-								{
-								case 1:
-								case 2:
-								case 3:
-								case 4:
-									p->PS_LinGradient(c->Width, -c->Height, 0, 0, 0, 0, c->PType, c->GrType);
-									break;
-								case 6:
-									p->PS_LinGradient(c->Width, -c->Height, c->GrStartX, -c->GrStartY, c->GrEndX, -c->GrEndY, c->PType, c->GrType);
-									break;
-								case 5:
-									p->PS_RadGradient(c->Width, -c->Height, c->PType);
-									break;
-								default:
-									break;
-								}
-							}
+								HandleGradient(p, c, c->Width, c->Height);
 							else
 								p->PS_fill();
 							p->PS_newpath();
@@ -2228,6 +2140,112 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 			}
 		}
 		Lnr++;
+	}
+}
+
+void ScribusView::HandleGradient(PSLib *p, PageItem *c, double w, double h)
+{
+	int ch,cs,cv,ck;
+	double StartX, StartY, EndX, EndY;
+	QPtrVector<VColorStop> cstops = c->fill_gradient.colorStops();
+	SetFarbe(cstops.at(0)->name, cstops.at(0)->shade, &ch, &cs, &cv, &ck);
+	p->PS_GradientCol1(ch / 255.0, cs / 255.0, cv / 255.0, ck / 255.0);
+	SetFarbe(cstops.at(1)->name, cstops.at(1)->shade, &ch, &cs, &cv, &ck);
+	p->PS_GradientCol2(ch / 255.0, cs / 255.0, cv / 255.0, ck / 255.0);
+	switch (c->GrType)
+	{
+		case 1:
+			StartX = 0;
+			StartY = h / 2.0;
+			EndX = w;
+			EndY = h / 2.0;
+			break;
+		case 2:
+			StartX = w / 2.0;
+			StartY = 0;
+			EndX = w / 2.0;
+			EndY = h;
+			break;
+		case 3:
+			StartX = 0;
+			StartY = 0;
+			EndX = w;
+			EndY = h;
+			break;
+		case 4:
+			StartX = 0;
+			StartY = h;
+			EndX = w;
+			EndY = 0;
+			break;
+		case 5:
+			StartX = w / 2.0;
+			StartY = h / 2.0;
+			if (w >= h)
+			{
+				EndX = w;
+				EndY = h / 2.0;
+			}
+			else
+			{
+				EndX = w / 2.0;
+				EndY = h;
+			}
+			break;
+		case 6:
+		case 7:
+			StartX = c->GrStartX;
+			StartY = c->GrStartY;
+			EndX = c->GrEndX;
+			EndY = c->GrEndY;
+			break;
+	}
+	if ((c->GrType == 5) || (c->GrType == 7))
+	{
+		if (c->fill_gradient.Stops() == 2)
+			p->PS_RadGradient(w, -h, c->PType);
+		else
+		{
+			QValueList<double> StopVec;
+			QStringList Gcolors;
+			StopVec.clear();
+			for (uint cst = 0; cst < c->fill_gradient.Stops(); ++cst)
+			{
+				StopVec.prepend(sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2))*cstops.at(cst)->rampPoint);
+				SetFarbe(cstops.at(cst)->name, cstops.at(cst)->shade, &ch, &cs, &cv, &ck);
+				QString hs,ss,vs,ks;
+				QString GCol = hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
+				Gcolors.prepend(GCol);
+			}
+			p->PS_MultiRadGradient(w, -h, StopVec, Gcolors);
+		}
+	}
+	else
+	{
+		if (c->fill_gradient.Stops() == 2)
+			p->PS_LinGradient(w, -h, StartX, -StartY, EndX, -EndY, c->PType, c->GrType);
+		else
+		{
+			QValueList<double> StopVec;
+			QStringList Gcolors;
+			StopVec.clear();
+			for (uint cst = 0; cst < c->fill_gradient.Stops(); ++cst)
+			{
+				QWMatrix ma;
+				ma.translate(StartX, StartY);
+				ma.rotate(atan2(EndY - StartY, EndX - StartX)*(180.0/3.1415927));
+				double w2 = sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2))*cstops.at(cst)->rampPoint;
+				double x = ma.m11() * w2 + ma.dx();
+				double y = ma.m12() * w2 + ma.dy();
+				StopVec.append(x);
+				StopVec.append(-y);
+				SetFarbe(cstops.at(cst)->name, cstops.at(cst)->shade, &ch, &cs, &cv, &ck);
+				QString hs,ss,vs,ks;
+				QString GCol = hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
+				Gcolors.append(GCol);
+			}
+			p->PS_MultiLinGradient(w, -h, StopVec, Gcolors);
+		}
 	}
 }
 

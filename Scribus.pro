@@ -44,6 +44,7 @@ SOURCES += scribus/align.cpp \
            scribus/gdk-pixbuf-xlib-render.c \
            scribus/gdk-pixbuf-xlib.c \
            scribus/gdk-pixbuf-xlibrgb.c \
+           scribus/gradienteditor.cpp \
            scribus/guidemanager.cpp \
            scribus/helpbrowser.cpp \
            scribus/hnjalloc.c \

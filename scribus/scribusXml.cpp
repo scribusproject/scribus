@@ -705,15 +705,22 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 					OB.TxTStyle=QStoInt(obj.attribute("TXTSTYLE", "0"));
 					OB.Cols = QStoInt(obj.attribute("COLUMNS","1"));
 					OB.ColGap = QStodouble(obj.attribute("COLGAP","0.0"));
-					OB.GrColor = obj.attribute("GRCOLOR","");
-					OB.GrColor2 = obj.attribute("GRCOLOR2","");
-					OB.GrShade = QStoInt(obj.attribute("GRSHADE","100"));
-					OB.GrShade2 = QStoInt(obj.attribute("GRSHADE2","100"));
-					OB.GrStartX = QStodouble(obj.attribute("GRSTARTX","0.0"));
-					OB.GrStartY = QStodouble(obj.attribute("GRSTARTY","0.0"));
-					OB.GrEndX = QStodouble(obj.attribute("GRENDX","0.0"));
-					OB.GrEndY = QStodouble(obj.attribute("GRENDY","0.0"));
 					OB.GrType = QStoInt(obj.attribute("GRTYP","0"));
+					OB.fill_gradient.clearStops();
+					if (OB.GrType != 0)
+					{
+						OB.GrStartX = QStodouble(obj.attribute("GRSTARTX","0.0"));
+						OB.GrStartY = QStodouble(obj.attribute("GRSTARTY","0.0"));
+						OB.GrEndX = QStodouble(obj.attribute("GRENDX","0.0"));
+						OB.GrEndY = QStodouble(obj.attribute("GRENDY","0.0"));
+						OB.GrColor = obj.attribute("GRCOLOR","");
+						if (OB.GrColor != "")
+						{
+							OB.GrColor2 = obj.attribute("GRCOLOR2","");
+							OB.GrShade = QStoInt(obj.attribute("GRSHADE","100"));
+							OB.GrShade2 = QStoInt(obj.attribute("GRSHADE2","100"));
+						}
+					}
 					OB.Rot=QStodouble(obj.attribute("ROT"));
 					OB.PLineArt=Qt::PenStyle(QStoInt(obj.attribute("PLINEART")));
 					OB.PLineEnd=Qt::PenCapStyle(QStoInt(obj.attribute("PLINEEND","0")));
@@ -895,6 +902,13 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 				while(!IT.isNull())
 				{
 					QDomElement it=IT.toElement();
+					if (it.tagName()=="CSTOP")
+					{
+						QString name = it.attribute("NAME");
+						double ramp = QStodouble(it.attribute("RAMP","0.0"));
+						int shade = QStoInt(it.attribute("SHADE","100"));
+						OB.fill_gradient.addStop(SetFarbe(doc, name, shade), ramp, 0.5, 1.0, name, shade);
+					}
 					if (it.tagName()=="ITEXT")
 					{
 						tmp2 = it.attribute("CH");
@@ -1405,15 +1419,22 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					OB.TxTStyle=QStoInt(obj.attribute("TXTSTYLE", "0"));
 					OB.Cols = QStoInt(obj.attribute("COLUMNS","1"));
 					OB.ColGap = QStodouble(obj.attribute("COLGAP","0.0"));
-					OB.GrColor = obj.attribute("GRCOLOR","");
-					OB.GrColor2 = obj.attribute("GRCOLOR2","");
-					OB.GrShade = QStoInt(obj.attribute("GRSHADE","100"));
-					OB.GrShade2 = QStoInt(obj.attribute("GRSHADE2","100"));
-					OB.GrStartX = QStodouble(obj.attribute("GRSTARTX","0.0"));
-					OB.GrStartY = QStodouble(obj.attribute("GRSTARTY","0.0"));
-					OB.GrEndX = QStodouble(obj.attribute("GRENDX","0.0"));
-					OB.GrEndY = QStodouble(obj.attribute("GRENDY","0.0"));
 					OB.GrType = QStoInt(obj.attribute("GRTYP","0"));
+					OB.fill_gradient.clearStops();
+					if (OB.GrType != 0)
+					{
+						OB.GrStartX = QStodouble(obj.attribute("GRSTARTX","0.0"));
+						OB.GrStartY = QStodouble(obj.attribute("GRSTARTY","0.0"));
+						OB.GrEndX = QStodouble(obj.attribute("GRENDX","0.0"));
+						OB.GrEndY = QStodouble(obj.attribute("GRENDY","0.0"));
+						OB.GrColor = obj.attribute("GRCOLOR","");
+						if (OB.GrColor != "")
+						{
+							OB.GrColor2 = obj.attribute("GRCOLOR2","");
+							OB.GrShade = QStoInt(obj.attribute("GRSHADE","100"));
+							OB.GrShade2 = QStoInt(obj.attribute("GRSHADE2","100"));
+						}
+					}
 					OB.Rot=QStodouble(obj.attribute("ROT"));
 					OB.PLineArt=Qt::PenStyle(QStoInt(obj.attribute("PLINEART")));
 					OB.PLineEnd=Qt::PenCapStyle(QStoInt(obj.attribute("PLINEEND","0")));
@@ -1596,6 +1617,13 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					while(!IT.isNull())
 					{
 						QDomElement it=IT.toElement();
+						if (it.tagName()=="CSTOP")
+						{
+							QString name = it.attribute("NAME");
+							double ramp = QStodouble(it.attribute("RAMP","0.0"));
+							int shade = QStoInt(it.attribute("SHADE","100"));
+							OB.fill_gradient.addStop(SetFarbe(doc, name, shade), ramp, 0.5, 1.0, name, shade);
+						}
 						if (it.tagName()=="ITEXT")
 						{
 							tmp2 = it.attribute("CH");
@@ -2009,15 +2037,22 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			OB.TxTStyle = QStoInt(pg.attribute("TXTSTYLE", "0"));
 			OB.Cols = QStoInt(pg.attribute("COLUMNS","1"));
 			OB.ColGap = QStodouble(pg.attribute("COLGAP","0.0"));
-			OB.GrColor = pg.attribute("GRCOLOR","");
-			OB.GrColor2 = pg.attribute("GRCOLOR2","");
-			OB.GrShade = QStoInt(pg.attribute("GRSHADE","100"));
-			OB.GrShade2 = QStoInt(pg.attribute("GRSHADE2","100"));
 			OB.GrType = QStoInt(pg.attribute("GRTYP","0"));
-			OB.GrStartX = QStodouble(pg.attribute("GRSTARTX","0.0"));
-			OB.GrStartY = QStodouble(pg.attribute("GRSTARTY","0.0"));
-			OB.GrEndX = QStodouble(pg.attribute("GRENDX","0.0"));
-			OB.GrEndY = QStodouble(pg.attribute("GRENDY","0.0"));
+			OB.fill_gradient.clearStops();
+			if (OB.GrType != 0)
+			{
+				OB.GrStartX = QStodouble(pg.attribute("GRSTARTX","0.0"));
+				OB.GrStartY = QStodouble(pg.attribute("GRSTARTY","0.0"));
+				OB.GrEndX = QStodouble(pg.attribute("GRENDX","0.0"));
+				OB.GrEndY = QStodouble(pg.attribute("GRENDY","0.0"));
+				OB.GrColor = pg.attribute("GRCOLOR","");
+				if (OB.GrColor != "")
+				{
+					OB.GrColor2 = pg.attribute("GRCOLOR2","");
+					OB.GrShade = QStoInt(pg.attribute("GRSHADE","100"));
+					OB.GrShade2 = QStoInt(pg.attribute("GRSHADE2","100"));
+				}
+			}
 			OB.Rot = QStodouble(pg.attribute("ROT"));
 			OB.PLineArt = Qt::PenStyle(QStoInt(pg.attribute("PLINEART")));
 			OB.PLineEnd = Qt::PenCapStyle(QStoInt(pg.attribute("PLINEEND","0")));
@@ -2198,6 +2233,13 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 			while(!IT.isNull())
 			{
 				QDomElement it=IT.toElement();
+				if (it.tagName()=="CSTOP")
+				{
+					QString name = it.attribute("NAME");
+					double ramp = QStodouble(it.attribute("RAMP","0.0"));
+					int shade = QStoInt(it.attribute("SHADE","100"));
+					OB.fill_gradient.addStop(SetFarbe(doc, name, shade), ramp, 0.5, 1.0, name, shade);
+				}
 				if (it.tagName()=="ITEXT")
 				{
 					tmp2 = it.attribute("CH");
@@ -2354,14 +2396,22 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 		ob.setAttribute("NAMEDLST",item->NamedLStyle);
 		ob.setAttribute("SHADE",item->Shade);
 		ob.setAttribute("SHADE2",item->Shade2);
-		ob.setAttribute("GRCOLOR",item->GrColor);
-		ob.setAttribute("GRCOLOR2",item->GrColor2);
-		ob.setAttribute("GRSHADE",item->GrShade);
-		ob.setAttribute("GRSHADE2",item->GrShade2);
-		ob.setAttribute("GRSTARTX", item->GrStartX);
-		ob.setAttribute("GRSTARTY", item->GrStartY);
-		ob.setAttribute("GRENDX", item->GrEndX);
-		ob.setAttribute("GRENDY", item->GrEndY);
+		if (item->GrType != 0)
+		{
+			QPtrVector<VColorStop> cstops = item->fill_gradient.colorStops();
+			for (uint cst = 0; cst < item->fill_gradient.Stops(); ++cst)
+			{
+				QDomElement itcl = docu.createElement("CSTOP");
+				itcl.setAttribute("RAMP", cstops.at(cst)->rampPoint);
+				itcl.setAttribute("NAME", cstops.at(cst)->name);
+				itcl.setAttribute("SHADE", cstops.at(cst)->shade);
+				ob.appendChild(itcl);
+			}
+			ob.setAttribute("GRSTARTX", item->GrStartX);
+			ob.setAttribute("GRSTARTY", item->GrStartY);
+			ob.setAttribute("GRENDX", item->GrEndX);
+			ob.setAttribute("GRENDY", item->GrEndY);
+		}
 		ob.setAttribute("GRTYP",item->GrType);
 		ob.setAttribute("ROT",item->Rot);
 		ob.setAttribute("PLINEART",item->PLineArt);
@@ -2739,14 +2789,22 @@ void ScriXmlDoc::WritePages(ScribusView *view, QDomDocument docu, QDomElement dc
 			ob.setAttribute("NAMEDLST",item->NamedLStyle);
 			ob.setAttribute("SHADE",item->Shade);
 			ob.setAttribute("SHADE2",item->Shade2);
-			ob.setAttribute("GRCOLOR",item->GrColor);
-			ob.setAttribute("GRCOLOR2",item->GrColor2);
-			ob.setAttribute("GRSHADE",item->GrShade);
-			ob.setAttribute("GRSHADE2",item->GrShade2);
-			ob.setAttribute("GRSTARTX", item->GrStartX);
-			ob.setAttribute("GRSTARTY", item->GrStartY);
-			ob.setAttribute("GRENDX", item->GrEndX);
-			ob.setAttribute("GRENDY", item->GrEndY);
+			if (item->GrType != 0)
+			{
+				QPtrVector<VColorStop> cstops = item->fill_gradient.colorStops();
+				for (uint cst = 0; cst < item->fill_gradient.Stops(); ++cst)
+				{
+					QDomElement itcl = docu.createElement("CSTOP");
+					itcl.setAttribute("RAMP", cstops.at(cst)->rampPoint);
+					itcl.setAttribute("NAME", cstops.at(cst)->name);
+					itcl.setAttribute("SHADE", cstops.at(cst)->shade);
+					ob.appendChild(itcl);
+				}
+				ob.setAttribute("GRSTARTX", item->GrStartX);
+				ob.setAttribute("GRSTARTY", item->GrStartY);
+				ob.setAttribute("GRENDX", item->GrEndX);
+				ob.setAttribute("GRENDY", item->GrEndY);
+			}
 			ob.setAttribute("GRTYP",item->GrType);
 			ob.setAttribute("ROT",item->Rot);
 			ob.setAttribute("PLINEART",item->PLineArt);
@@ -3808,4 +3866,24 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 	apf.setPointSize(Vorein->AppFontSize);
 	qApp->setFont(apf,true);
 	return true;
+}
+
+QColor ScriXmlDoc::SetFarbe(ScribusDoc *doc, QString farbe, int shad)
+{
+	int h, s, v, sneu;
+	QColor tmp;
+	doc->PageColors[farbe].getRGBColor().rgb(&h, &s, &v);
+	if ((h == s) && (s == v))
+	{
+		doc->PageColors[farbe].getRGBColor().hsv(&h, &s, &v);
+		sneu = 255 - ((255 - v) * shad / 100);
+		tmp.setHsv(h, s, sneu);
+	}
+	else
+	{
+		doc->PageColors[farbe].getRGBColor().hsv(&h, &s, &v);
+		sneu = s * shad / 100;
+		tmp.setHsv(h, sneu, v);
+	}
+	return tmp;
 }

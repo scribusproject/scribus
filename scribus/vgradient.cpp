@@ -1,16 +1,16 @@
 /* This file is part of the KDE project
    Copyright (C) 2002, The Karbon Developers
-
+ 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
    License as published by the Free Software Foundation; either
    version 2 of the License, or (at your option) any later version.
-
+ 
    This library is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
    Library General Public License for more details.
-
+ 
    You should have received a copy of the GNU Library General Public License
    along with this library; see the file COPYING.LIB.  If not, write to
    the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
@@ -27,7 +27,7 @@ int VGradient::VColorStopList::compareItems( QPtrCollection::Item item1, QPtrCol
 } // VGradient::VColorStopList::compareItems
 
 VGradient::VGradient( VGradientType type )
-	: m_type( type )
+		: m_type( type )
 {
 	m_colorStops.setAutoDelete( true );
 
@@ -105,7 +105,7 @@ VGradient::addStop( const VColorStop& colorStop )
 } // VGradient::addStop
 
 void
-VGradient::addStop( const QColor &color, double rampPoint, double midPoint, double opa )
+VGradient::addStop( const QColor &color, double rampPoint, double midPoint, double opa, QString name, int shade )
 {
 	// Clamping between 0.0 and 1.0
 	rampPoint = QMAX( 0.0f, rampPoint );
@@ -114,19 +114,15 @@ VGradient::addStop( const QColor &color, double rampPoint, double midPoint, doub
 	midPoint = QMAX( 0.0f, midPoint );
 	midPoint = QMIN( 1.0f, midPoint );
 
-	m_colorStops.inSort( new VColorStop( rampPoint, midPoint, color, opa ) );
+	m_colorStops.inSort( new VColorStop( rampPoint, midPoint, color, opa, name, shade ) );
 }
 
 void VGradient::removeStop( const VColorStop& colorstop )
 {
 	m_colorStops.remove( &colorstop );
-} // VGradient::removeStop
-/*
-void
-VGradient::transform( const QWMatrix &m )
-{
-	m_origin		= m_origin.transform( m );	
-	m_focalPoint	= m_focalPoint.transform( m );	
-	m_vector		= m_vector.transform( m );	
 }
-*/
+
+void VGradient::removeStop( uint n )
+{
+	m_colorStops.remove( n );
+}

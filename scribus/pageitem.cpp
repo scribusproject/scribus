@@ -238,6 +238,9 @@ PageItem::PageItem(Page *pa, int art, double x, double y, double w, double h, do
 	TabValues.clear();
 	DashOffset = 0;
 	fill_gradient = VGradient(VGradient::linear);
+	fill_gradient.clearStops();
+	fill_gradient.addStop(Doc->PageColors[Pcolor].getRGBColor(), 0.0, 0.5, 1.0, Pcolor, 100);
+	fill_gradient.addStop(Doc->PageColors[Pcolor2].getRGBColor(), 1.0, 0.5, 1.0, Pcolor2, 100);
 	Language = doc->Language;
 	Cols = Doc->DCols;
 	ColGap = Doc->DGap;
@@ -365,6 +368,10 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 				gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
 				gra.map(grm);
 				p->setGradient(VGradient::linear, gra.point(0), gra.point(1));
+				break;
+			case 7:
+				gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
+				p->setGradient(VGradient::radial, gra.point(0), gra.point(1), gra.point(0));
 				break;
 		}
 	}

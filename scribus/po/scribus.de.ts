@@ -1425,11 +1425,11 @@ Das erfordert sehr genaue Profile und dient nur als Anhaltspunkt.</translation>
     </message>
     <message>
         <source>Edit the first color of object</source>
-        <translation>Erste Verlaufsfarbe auswählen</translation>
+        <translation type="obsolete">Erste Verlaufsfarbe auswählen</translation>
     </message>
     <message>
         <source>Edit the second color of object</source>
-        <translation>Zweite Verlaufsfarbe auswählen</translation>
+        <translation type="obsolete">Zweite Verlaufsfarbe auswählen</translation>
     </message>
     <message>
         <source>Set the transparency for the color selected</source>
@@ -1438,6 +1438,42 @@ Das erfordert sehr genaue Profile und dient nur als Anhaltspunkt.</translation>
     <message>
         <source>Color of selected object</source>
         <translation>Farbe des selektierten Objekts</translation>
+    </message>
+    <message>
+        <source>Free linear Gradient</source>
+        <translation>Freier linearer Verlauf</translation>
+    </message>
+    <message>
+        <source>X1:</source>
+        <translation>X1:</translation>
+    </message>
+    <message>
+        <source>Y1:</source>
+        <translation>Y1:</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation> pt</translation>
+    </message>
+    <message>
+        <source>X2:</source>
+        <translation>X2:</translation>
+    </message>
+    <message>
+        <source>Y2:</source>
+        <translation>Y2:</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation> mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation> in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation> p</translation>
     </message>
 </context>
 <context>
@@ -1793,6 +1829,21 @@ Wird in den Voreinstellungen eingestellt.</translation>
     <message>
         <source>Print</source>
         <translation>Drucken</translation>
+    </message>
+</context>
+<context>
+    <name>EPSPlug</name>
+    <message>
+        <source>Importing File:
+%1
+failed!</source>
+        <translation>Importieren von Datei:
+%1
+ist fehlgeschlagen!</translation>
+    </message>
+    <message>
+        <source>Fatal Error</source>
+        <translation>Fataler Fehler</translation>
     </message>
 </context>
 <context>
@@ -3315,7 +3366,7 @@ Corners:</source>
     </message>
     <message>
         <source>Line Style:</source>
-        <translation>Linienstil:</translation>
+        <translation type="obsolete">Linienstil:</translation>
     </message>
     <message>
         <source>Line Width:</source>
@@ -3754,6 +3805,10 @@ Bitte wählen Sie eine anderen.</translation>
     <message>
         <source>Font Size:</source>
         <translation>Schriftgröße:</translation>
+    </message>
+    <message>
+        <source>Type of Line:</source>
+        <translation>Linienart:</translation>
     </message>
 </context>
 <context>
@@ -5827,7 +5882,7 @@ auf Kosten der Render-Geschwindigkeit glatter dar</translation>
     </message>
     <message>
         <source>Line Style:</source>
-        <translation>Linienstil:</translation>
+        <translation type="obsolete">Linienstil:</translation>
     </message>
     <message>
         <source>Minimum:</source>
@@ -6433,6 +6488,10 @@ des Dokuments mit der Erweiterung .bak</translation>
         <source> px</source>
         <translation>px</translation>
     </message>
+    <message>
+        <source>Type of Line:</source>
+        <translation>Linienart:</translation>
+    </message>
 </context>
 <context>
     <name>QColorDialog</name>
@@ -7005,6 +7064,18 @@ wirklich überschreiben?</translation>
     <message>
         <source>Error writting the output file(s).</source>
         <translation>Fehler beim Schreiben der Datei(en).</translation>
+    </message>
+    <message>
+        <source>Import EPS/PS...</source>
+        <translation>EPS-Bild importieren...</translation>
+    </message>
+    <message>
+        <source>All Supported Formats (*.eps *.EPS *.ps *.PS);;</source>
+        <translation>Alle unterstützten Formate (*.eps *.EPS *.ps *.PS);;</translation>
+    </message>
+    <message>
+        <source>All Files (*)</source>
+        <translation>Alle Dateien (*)</translation>
     </message>
 </context>
 <context>
@@ -8619,11 +8690,11 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>Save and Exit</source>
-        <translation>Speichern und Beenden</translation>
+        <translation type="obsolete">Speichern und Beenden</translation>
     </message>
     <message>
         <source>Exit without Saving</source>
-        <translation>Beenden ohne Speichern</translation>
+        <translation type="obsolete">Beenden ohne Speichern</translation>
     </message>
     <message>
         <source>Undo</source>
@@ -8756,6 +8827,18 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     <message>
         <source>Do you want to save your changes?</source>
         <translation>Wollen Sie die Änderungen speichern?</translation>
+    </message>
+    <message>
+        <source>Update Text Frame and Exit</source>
+        <translation>Textrahmen auffrischen und verlassen</translation>
+    </message>
+    <message>
+        <source>Exit Without Updating Text Frame</source>
+        <translation>Verlassen ohne Textrahen auffrischen</translation>
+    </message>
+    <message>
+        <source>Save Document</source>
+        <translation>Dokument speichern</translation>
     </message>
 </context>
 <context>

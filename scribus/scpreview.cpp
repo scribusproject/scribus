@@ -173,11 +173,22 @@ QPixmap ScPreview::createPreview(QString data)
 			OB.ShTxtStroke = QStoInt(pg.attribute("TXTSTRSH", "100"));
 			OB.TxtScale = QStoInt(pg.attribute("TXTSCALE", "100"));
 			OB.TxTStyle = QStoInt(pg.attribute("TXTSTYLE", "0"));
-			OB.GrColor = pg.attribute("GRCOLOR","");
-			OB.GrColor2 = pg.attribute("GRCOLOR2","");
-			OB.GrShade = QStoInt(pg.attribute("GRSHADE","100"));
-			OB.GrShade2 = QStoInt(pg.attribute("GRSHADE2","100"));
 			OB.GrType = QStoInt(pg.attribute("GRTYP","0"));
+			OB.fill_gradient.clearStops();
+			if (OB.GrType != 0)
+			{
+				OB.GrStartX = QStodouble(pg.attribute("GRSTARTX","0.0"));
+				OB.GrStartY = QStodouble(pg.attribute("GRSTARTY","0.0"));
+				OB.GrEndX = QStodouble(pg.attribute("GRENDX","0.0"));
+				OB.GrEndY = QStodouble(pg.attribute("GRENDY","0.0"));
+				OB.GrColor = pg.attribute("GRCOLOR","");
+				if (OB.GrColor != "")
+				{
+					OB.GrColor2 = pg.attribute("GRCOLOR2","");
+					OB.GrShade = QStoInt(pg.attribute("GRSHADE","100"));
+					OB.GrShade2 = QStoInt(pg.attribute("GRSHADE2","100"));
+				}
+			}
 			OB.Rot = QStodouble(pg.attribute("ROT"));
 			OB.PLineArt = Qt::PenStyle(QStoInt(pg.attribute("PLINEART")));
 			OB.PLineEnd = Qt::PenCapStyle(QStoInt(pg.attribute("PLINEEND","0")));
@@ -263,6 +274,14 @@ QPixmap ScPreview::createPreview(QString data)
 			while(!IT.isNull())
 			{
 				QDomElement it=IT.toElement();
+				if (it.tagName()=="CSTOP")
+				{
+					QString name = it.attribute("NAME");
+					double ramp = QStodouble(it.attribute("RAMP","0.0"));
+					int shade = QStoInt(it.attribute("SHADE","100"));
+					SetFarbe(&tmpfa, name, shade);
+					OB.fill_gradient.addStop(tmpfa, ramp, 0.5, 1.0, name, shade);
+				}
 				if (it.tagName()=="ITEXT")
 				{
 					tmp2 = it.attribute("CH");
@@ -392,24 +411,29 @@ QPixmap ScPreview::createPreview(QString data)
 			{
 				pS->setFillMode(2);
 				pS->fill_gradient.clearStops();
-				if (OB.GrType == 5)
+				if ((OB.GrColor != "") && (OB.GrColor2 != ""))
 				{
-					if ((OB.GrColor != "None") && (OB.GrColor != ""))
-						SetFarbe(&tmpfa, OB.GrColor, OB.GrShade);
-					pS->fill_gradient.addStop(tmpfa, 0.0, 0.5, 1.0);
-					if ((OB.GrColor2 != "None") && (OB.GrColor2 != ""))
-						SetFarbe(&tmpfa, OB.GrColor2, OB.GrShade2);
-					pS->fill_gradient.addStop(tmpfa, 1.0, 0.5, 1.0);
+					if (OB.GrType == 5)
+					{
+						if ((OB.GrColor != "None") && (OB.GrColor != ""))
+							SetFarbe(&tmpfa, OB.GrColor, OB.GrShade);
+						pS->fill_gradient.addStop(tmpfa, 0.0, 0.5, 1.0);
+						if ((OB.GrColor2 != "None") && (OB.GrColor2 != ""))
+							SetFarbe(&tmpfa, OB.GrColor2, OB.GrShade2);
+						pS->fill_gradient.addStop(tmpfa, 1.0, 0.5, 1.0);
+					}
+					else
+					{
+						if ((OB.GrColor2 != "None") && (OB.GrColor2 != ""))
+							SetFarbe(&tmpfa, OB.GrColor2, OB.GrShade2);
+						pS->fill_gradient.addStop(tmpfa, 0.0, 0.5, 1.0);
+						if ((OB.GrColor != "None") && (OB.GrColor != ""))
+							SetFarbe(&tmpfa, OB.GrColor, OB.GrShade);
+						pS->fill_gradient.addStop(tmpfa, 1.0, 0.5, 1.0);
+					}
 				}
 				else
-				{
-					if ((OB.GrColor2 != "None") && (OB.GrColor2 != ""))
-						SetFarbe(&tmpfa, OB.GrColor2, OB.GrShade2);
-					pS->fill_gradient.addStop(tmpfa, 0.0, 0.5, 1.0);
-					if ((OB.GrColor != "None") && (OB.GrColor != ""))
-						SetFarbe(&tmpfa, OB.GrColor, OB.GrShade);
-					pS->fill_gradient.addStop(tmpfa, 1.0, 0.5, 1.0);
-				}
+					pS->fill_gradient = OB.fill_gradient;
 				QWMatrix grm;
 				grm.rotate(OB.Rot);
 				FPointArray gra;
@@ -442,6 +466,11 @@ QPixmap ScPreview::createPreview(QString data)
 					else
 						gv = FPoint(OB.Width / 2.0, OB.Height);
 					pS->setGradient(VGradient::radial, FPoint(OB.Width / 2.0,OB.Height / 2.0), gv, FPoint(OB.Width / 2.0,OB.Height / 2.0));
+					break;
+				case 6:
+					gra.setPoints(2, OB.GrStartX, OB.GrStartY, OB.GrEndX, OB.GrEndY);
+					gra.map(grm);
+					pS->setGradient(VGradient::linear, gra.point(0), gra.point(1));
 					break;
 				}
 			}

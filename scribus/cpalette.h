@@ -25,7 +25,6 @@
 #include <qfont.h>
 #include <qlayout.h>
 #include <qtoolbutton.h>
-#include <qradiobutton.h>
 #include <qbuttongroup.h>
 #include <qcombobox.h>
 #include <qlabel.h>
@@ -33,6 +32,7 @@
 #include "scribusdoc.h"
 #include "shadebutton.h"
 #include "mspinbox.h"
+#include "gradienteditor.h"
 
 /**
   *@author Franz Schmid
@@ -50,9 +50,7 @@ public:
 	QToolButton *Innen;
 	QSpinBox *PM1;
 	QComboBox* GradCombo;
-	QButtonGroup* GradGroup;
-	QRadioButton* GrColor1;
-	QRadioButton* GrColor2;
+	GradientPreview* GradEdit;
 	QFrame* frame8;
 	QLabel* GTextX1;
 	QLabel* GTextY1;
@@ -86,11 +84,12 @@ public slots:
 	void updateCList();
 	void updateBoxS(QString Farbe);
 	void selFarbe(QListBoxItem *c);
+	QColor SetFarbe(QString farbe, int shad);
 	void slotGrad(int nr);
-	void slotColor();
+	void slotColor(QString n, int s);
 	void ChooseGrad(int nr);
 	void setActFarben(QString p, QString b, int shp, int shb);
-	void setActGradient(QString p, QString b, int shp, int shb, int typ);
+	void setActGradient(int typ);
 	void setSpecialGradient(double x1, double y1, double x2, double y2, double w, double h);
 	void changeSpecial();
 	void setActShade();
@@ -104,19 +103,18 @@ signals:
 	void NewBrush(QString);
 	void NewPenShade(int);
 	void NewBrushShade(int);
-	void NewGradient(int, QString, int, QString, int);
+	void NewGradient(int);
 	void NewSpecial(double, double, double, double);
 	void NewTrans(double);
 	void NewTransS(double);
 	void QueryItem();
+	void gradientChanged();
 
 protected:
 	QVBoxLayout* Form1Layout;
 	QGridLayout* Layout1;
 	QVBoxLayout* GradLayout;
-	QVBoxLayout* GradGroupLayout;
 	QHBoxLayout* TransGroupLayout;
-	QHBoxLayout* layout19;
 	QGridLayout* frame8Layout;
 };
 

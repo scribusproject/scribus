@@ -1374,6 +1374,21 @@ void Page::UpdateClip(PageItem* b)
 				SetFrameRound(b);
 				break;
 			}
+			if ((b->OldB2 != 0) && (b->OldH2 != 0))
+			{
+				double scx = b->Width / b->OldB2;
+				double scy = b->Height / b->OldH2;
+				QWMatrix ma;
+				ma.scale(scx, scy);
+				FPointArray gr;
+				gr.addPoint(b->GrStartX, b->GrStartY);
+				gr.addPoint(b->GrEndX, b->GrEndY);
+				gr.map(ma);
+				b->GrStartX = gr.point(0).x();
+				b->GrStartY = gr.point(0).y();
+				b->GrEndX = gr.point(1).x();
+				b->GrEndY = gr.point(0).y();
+			}
 			b->OldB2 = b->Width;
 			b->OldH2 = b->Height;
 		}
@@ -1523,6 +1538,7 @@ bool Page::SizeItem(double newX, double newY, int ite, bool fromMP, bool DoUpdat
 		}
 		UpdateClip(b);
 	}
+	updateGradientVectors(b);
 	RepaintTextRegion(b, alt);
 	if (!fromMP)
 	{
@@ -2540,7 +2556,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			emit SetSizeValue(b->Pwidth);
 			emit SetLineArt(b->PLineArt, b->PLineEnd, b->PLineJoin);
 			emit ItemFarben(b->Pcolor2, b->Pcolor, b->Shade2, b->Shade);
-			emit ItemGradient(b->GrColor2, b->GrColor, b->GrShade2, b->GrShade, b->GrType);
+			emit ItemGradient(b->GrType);
 			emit ItemTrans(b->Transparency, b->TranspStroke);
 			emit HaveSel(7);
 		}
@@ -5099,7 +5115,7 @@ void Page::mousePressEvent(QMouseEvent *m)
 		emit SetSizeValue(b->Pwidth);
 		emit SetLineArt(b->PLineArt, b->PLineEnd, b->PLineJoin);
 		emit ItemFarben(b->Pcolor2, b->Pcolor, b->Shade2, b->Shade);
-		emit ItemGradient(b->GrColor2, b->GrColor, b->GrShade2, b->GrShade, b->GrType);
+		emit ItemGradient(b->GrType);
 		emit ItemTrans(b->Transparency, b->TranspStroke);
 		emit HaveSel(5);
 		break;
@@ -5252,7 +5268,7 @@ void Page::mousePressEvent(QMouseEvent *m)
 			emit SetSizeValue(b->Pwidth);
 			emit SetLineArt(b->PLineArt, b->PLineEnd, b->PLineJoin);
 			emit ItemFarben(b->Pcolor2, b->Pcolor, b->Shade2, b->Shade);
-			emit ItemGradient(b->GrColor2, b->GrColor, b->GrShade2, b->GrShade, b->GrType);
+			emit ItemGradient(b->GrType);
 			emit ItemTrans(b->Transparency, b->TranspStroke);
 			emit HaveSel(6);
 			break;
@@ -5307,7 +5323,7 @@ void Page::mousePressEvent(QMouseEvent *m)
 		emit SetSizeValue(b->Pwidth);
 		emit SetLineArt(b->PLineArt, b->PLineEnd, b->PLineJoin);
 		emit ItemFarben(b->Pcolor2, b->Pcolor, b->Shade2, b->Shade);
-		emit ItemGradient(b->GrColor2, b->GrColor, b->GrShade2, b->GrShade, b->GrType);
+		emit ItemGradient(b->GrType);
 		emit ItemTrans(b->Transparency, b->TranspStroke);
 		emit HaveSel(7);
 		break;
@@ -7284,25 +7300,22 @@ void Page::AdjItemGradient(PageItem *b, int typ, QString col1, int sh1, QString 
 	QString c1 = typ == 5 ? col2 : col1, c2 = typ == 5 ? col1 : col2;
 	int s1 = typ == 5 ? sh2 : sh1, s2 = typ == 5 ? sh1 : sh2;
 	b->SetFarbe(&tmp, c1, s1);
-	b->fill_gradient.addStop(tmp, 0.0, 0.5, 1.0);
+	b->fill_gradient.addStop(tmp, 0.0, 0.5, 1.0, c1, s1);
 	b->SetFarbe(&tmp, c2, s2);
-	b->fill_gradient.addStop(tmp, 1.0, 0.5, 1.0);
+	b->fill_gradient.addStop(tmp, 1.0, 0.5, 1.0, c2, s2);
 	b->GrColor2 = col1;
 	b->GrShade2 = sh1;
 	b->GrColor = col2;
 	b->GrShade = sh2;
 	b->GrType = typ;
 	updateGradientVectors(b);
-	ScApp->Mpal->Cpal->setSpecialGradient(b->GrStartX * UmReFaktor, b->GrStartY * UmReFaktor,
-																 b->GrEndX * UmReFaktor, b->GrEndY * UmReFaktor,
-																 b->Width * UmReFaktor, b->Height * UmReFaktor);
 }
 
-void Page::ItemGradFill(int typ, QString col1, int sh1, QString col2, int sh2)
+void Page::ItemGradFill(int typ)
 {
 	uint a;
 	PageItem *i;
-	QString col1c, col2c;
+/*	QString col1c, col2c;
 	if ((col1 == "None") || (col1 == ""))
 		col1c = doku->PageColors.begin().key();
 	else
@@ -7310,13 +7323,14 @@ void Page::ItemGradFill(int typ, QString col1, int sh1, QString col2, int sh2)
 	if ((col2 == "None") || (col2 == ""))
 		col2c = doku->PageColors.begin().key();
 	else
-		col2c = col2;
+		col2c = col2; */
 	if (SelItem.count() != 0)
 	{
 		for (a = 0; a < SelItem.count(); ++a)
 		{
 			i = SelItem.at(a);
-			AdjItemGradient(i, typ, col1c, sh1, col2c, sh2);
+			i->GrType = typ;
+			updateGradientVectors(i);
 			RefreshItem(i);
 		}
 	}
@@ -7618,7 +7632,7 @@ void Page::QueryFarben()
 	if (GetItem(&b))
 	{
 		emit ItemFarben(b->Pcolor2, b->Pcolor, b->Shade2, b->Shade);
-		emit ItemGradient(b->GrColor2, b->GrColor, b->GrShade2, b->GrShade, b->GrType);
+		emit ItemGradient(b->GrType);
 		emit ItemTrans(b->Transparency, b->TranspStroke);
 	}
 }
@@ -8473,29 +8487,30 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 		b->IFont = doku->Dfont;
 	if (Buffer->GrType != 0)
 	{
-		b->fill_gradient.clearStops();
-		if (Buffer->GrType == 5)
+		if ((Buffer->GrColor != "") && (Buffer->GrColor2 != ""))
 		{
-			if ((Buffer->GrColor != "None") && (Buffer->GrColor != ""))
-				b->SetFarbe(&tmp, Buffer->GrColor, Buffer->GrShade);
-			b->fill_gradient.addStop(tmp, 0.0, 0.5, 1.0);
-			if ((Buffer->GrColor2 != "None") && (Buffer->GrColor2 != ""))
-				b->SetFarbe(&tmp, Buffer->GrColor2, Buffer->GrShade2);
-			b->fill_gradient.addStop(tmp, 1.0, 0.5, 1.0);
+			b->fill_gradient.clearStops();
+			if (Buffer->GrType == 5)
+			{
+				if ((Buffer->GrColor != "None") && (Buffer->GrColor != ""))
+					b->SetFarbe(&tmp, Buffer->GrColor, Buffer->GrShade);
+				b->fill_gradient.addStop(tmp, 0.0, 0.5, 1.0, Buffer->GrColor, Buffer->GrShade);
+				if ((Buffer->GrColor2 != "None") && (Buffer->GrColor2 != ""))
+					b->SetFarbe(&tmp, Buffer->GrColor2, Buffer->GrShade2);
+				b->fill_gradient.addStop(tmp, 1.0, 0.5, 1.0, Buffer->GrColor2, Buffer->GrShade2);
+			}
+			else
+			{
+				if ((Buffer->GrColor2 != "None") && (Buffer->GrColor2 != ""))
+					b->SetFarbe(&tmp, Buffer->GrColor2, Buffer->GrShade2);
+				b->fill_gradient.addStop(tmp, 0.0, 0.5, 1.0, Buffer->GrColor2, Buffer->GrShade2);
+				if ((Buffer->GrColor != "None") && (Buffer->GrColor != ""))
+					b->SetFarbe(&tmp, Buffer->GrColor, Buffer->GrShade);
+				b->fill_gradient.addStop(tmp, 1.0, 0.5, 1.0, Buffer->GrColor, Buffer->GrShade);
+			}
 		}
 		else
-		{
-			if ((Buffer->GrColor2 != "None") && (Buffer->GrColor2 != ""))
-				b->SetFarbe(&tmp, Buffer->GrColor2, Buffer->GrShade2);
-			b->fill_gradient.addStop(tmp, 0.0, 0.5, 1.0);
-			if ((Buffer->GrColor != "None") && (Buffer->GrColor != ""))
-				b->SetFarbe(&tmp, Buffer->GrColor, Buffer->GrShade);
-			b->fill_gradient.addStop(tmp, 1.0, 0.5, 1.0);
-		}
-		b->GrColor2 = Buffer->GrColor2;
-		b->GrShade2 = Buffer->GrShade2;
-		b->GrColor = Buffer->GrColor;
-		b->GrShade = Buffer->GrShade;
+			b->fill_gradient = Buffer->fill_gradient;
 		b->GrType = Buffer->GrType;
 		b->GrStartX = Buffer->GrStartX;
 		b->GrStartY = Buffer->GrStartY;
@@ -8557,6 +8572,9 @@ void Page::updateGradientVectors(PageItem *b)
 		default:
 			break;
 	}
+	ScApp->Mpal->Cpal->setSpecialGradient(b->GrStartX * UmReFaktor, b->GrStartY * UmReFaktor,
+																 b->GrEndX * UmReFaktor, b->GrEndY * UmReFaktor,
+																 b->Width * UmReFaktor, b->Height * UmReFaktor);
 }
 
 void Page::SetupDraw(int nr)
@@ -8585,7 +8603,7 @@ void Page::EmitValues(PageItem *b)
 	emit SetLineArt(b->PLineArt, b->PLineEnd, b->PLineJoin);
 	emit SetLocalValues(b->LocalScX, b->LocalScY, b->LocalX, b->LocalY );
 	emit ItemFarben(b->Pcolor2, b->Pcolor, b->Shade2, b->Shade);
-	emit ItemGradient(b->GrColor2, b->GrColor, b->GrShade2, b->GrShade, b->GrType);
+	emit ItemGradient(b->GrType);
 	emit ItemTrans(b->Transparency, b->TranspStroke);
 	emit ItemTextAttr(b->LineSp);
 	emit ItemTextUSval(b->ExtraV);
