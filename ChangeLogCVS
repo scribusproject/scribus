@@ -1,5 +1,37 @@
 Changes since 1.2 
 
+07.12.2004
+	* bug     #1073: make-dist removes the "po" dir and breaks the build. po removal must not be done
+	* bug     #1258: Missing translation strings
+	* bug     #1301: Text frame tool is confused when clicking on existing text frames
+	* bug     #1334: autoconf fails to build configure
+	* bug     #1350: Scribus crashes when pressing Update text-frame and exit -button when first empty lines are deleted
+	* bug     #1361: after attaching text to path the shape cannot be resized without dissappearing
+
+06.12.2004
+	* feature #1339: Updated french translation
+
+05.12.2004
+	* bug     #1018: Migrate to new KDE/KDevelop build environment for 1.2.1
+	* bug     #1331: Minor improvements to PDF  Export and About Scribus GUI
+	* bug     #1356: nb_NO Translation for 1.2.1cvs
+	* feature # 159: scratch space, please!
+	* feature # 964: make settings > preferences look like most kde apps
+	* feature #1355: Polish translation update
+
+03.12.2004
+	* bug     #1353: sig 11 crash if a missing template is chosen for a new document
+
+30.11.2004
+	* bug     #1347: Please remove locale no
+
+22.11.2004
+	* bug     #1333: Missing word in one of the UCR defs
+
+20.11.2004
+	* bug     #1021: ./configure --enable-debug --enable-profile still strips binaries
+	* bug     #1332: Scribus crashes when pasting into text frame
+
 18.11.2004
 	* feature #1315: New sq-AL translation of Scribus
 	* feature #1323: Implement -ns/--no-splash option on startup

@@ -1,11 +1,3 @@
-/****************************************************************************
-** Form interface generated from reading ui file 'Query.ui'
-**
-** Created: Mon Apr 23 20:48:47 2001
-**      by:  The User Interface Compiler (uic)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
 #ifndef QUERY_H
 #define QUERY_H
 
@@ -48,32 +40,32 @@ public:
 
 class ChTable;
 
-class ZAuswahl : public QDialog
+class CharSelect : public QDialog
 {
 	Q_OBJECT
 
 public:
-	ZAuswahl( QWidget* parent, PageItem *item, ScribusApp *plug );
-	~ZAuswahl() {};
-	ChTable* ZTabelle;
-	QLabel* Zeichen;
-	QPushButton* Einf;
-	QPushButton* Delete;
-	QPushButton* Close;
+	CharSelect( QWidget* parent, PageItem *item, ScribusApp *plug );
+	~CharSelect() {};
+	ChTable* zTabelle;
+	QLabel* sample;
+	QPushButton* insertButton;
+	QPushButton* deleteButton;
+	QPushButton* closeButton;
 	PageItem *ite;
 	ScribusApp *ap;
-	QValueList<uint> Zeich;
-	QString ChToIns;
-	int MaxCount;
+	QValueList<uint> characters;
+	QString chToIns;
+	int maxCount;
 
 public slots:
-	void NeuesZeichen(int r, int c);
-	void DelEdit();
-	void InsChar();
+	void newChar(int r, int c);
+	void delEdit();
+	void insChar();
 
 protected:
-	QVBoxLayout* ZAuswahlLayout;
-	QHBoxLayout* Layout1;
+	QVBoxLayout* zAuswahlLayout;
+	QHBoxLayout* layout1;
 };
 
 class ChTable : public QTable
@@ -81,16 +73,16 @@ class ChTable : public QTable
     Q_OBJECT
 
 public:
-	ChTable(ZAuswahl* parent, ScribusApp *pl);
+	ChTable(CharSelect* parent, ScribusApp *pl);
 	~ChTable() {};
-	bool Mpressed;
+	bool mPressed;
 	Zoom* dia;
 	ScribusApp *ap;
-	ZAuswahl* par;
-	int MaxCount;
+	CharSelect* par;
+	int maxCount;
 
 signals:
-	void SelectChar(int, int);
+	void selectChar(int, int);
 
 protected:
 	virtual void contentsMouseReleaseEvent(QMouseEvent *m);

@@ -46,27 +46,26 @@ void* Run(QWidget *d)
  \param parent QWidget pointer to parent window
  \retval About dialog
  */
-About::About( QWidget* parent )
-		: QDialog( parent, "About", true, 0 )
+About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 {
 	setCaption( tr("About Scribus %1").arg(VERSION) );
 	setIcon(loadIcon("AppIcon.png"));
-	AboutLayout = new QVBoxLayout( this );
-	AboutLayout->setSpacing( 6 );
-	AboutLayout->setMargin( 10 );
-	TabWidget2 = new QTabWidget( this, "TabWidget2" );
-	TabWidget2->setMinimumSize( QSize( 438, 258 ) );
-	tab = new QWidget( TabWidget2, "tab" );
+	aboutLayout = new QVBoxLayout( this );
+	aboutLayout->setSpacing( 6 );
+	aboutLayout->setMargin( 10 );
+	tabWidget2 = new QTabWidget( this, "TabWidget2" );
+	tabWidget2->setMinimumSize( QSize( 438, 258 ) );
+	tab = new QWidget( tabWidget2, "tab" );
 	tabLayout1 = new QVBoxLayout( tab );
 	tabLayout1->setSpacing( 6 );
 	tabLayout1->setMargin( 15 );
-	PixmapLabel1 = new QLabel( tab, "PixmapLabel1" );
-	PixmapLabel1->setPixmap(loadIcon("scribus_logo.jpg"));
-	PixmapLabel1->setAlignment(Qt::AlignCenter);
-	tabLayout1->addWidget( PixmapLabel1 );
-	BuildID = new QLabel( tab, "BB" );
-	BuildID->setAlignment(Qt::AlignCenter);
-	QString bu = tr("%1. %2 %3 ").arg("06").arg("December").arg("2004");
+	pixmapLabel1 = new QLabel( tab, "PixmapLabel1" );
+	pixmapLabel1->setPixmap(loadIcon("scribus_logo.jpg"));
+	pixmapLabel1->setAlignment(Qt::AlignCenter);
+	tabLayout1->addWidget( pixmapLabel1 );
+	buildID = new QLabel( tab, "BB" );
+	buildID->setAlignment(Qt::AlignCenter);
+	QString bu = tr("%1. %2 %3 ").arg("07").arg("December").arg("2004");
 #ifdef HAVE_CMS
 	bu += "C";
 #else
@@ -91,15 +90,15 @@ About::About( QWidget* parent )
 	bu += "*";
 #endif
 
-	BuildID->setText( tr("Scribus Version %1\n%2 %3").arg(VERSION).arg( tr("Build-ID:")).arg(bu));
-	tabLayout1->addWidget( BuildID );
-	TabWidget2->insertTab( tab, tr( "&About" ) );
-	tab_2 = new QWidget( TabWidget2, "tab_2" );
+	buildID->setText( tr("Scribus Version %1\n%2 %3").arg(VERSION).arg( tr("Build-ID:")).arg(bu));
+	tabLayout1->addWidget( buildID );
+	tabWidget2->insertTab( tab, tr( "&About" ) );
+	tab_2 = new QWidget( tabWidget2, "tab_2" );
 	tabLayout = new QHBoxLayout( tab_2 );
 	tabLayout->setSpacing( 6 );
 	tabLayout->setMargin( 10 );
-	TextView1 = new QTextView( tab_2, "TextView1" );
-	TextView1->setText(QString::fromUtf8("<table><tr><td><b>" + tr("Development Team:").utf8() + "</b></td><td> </td></tr>" +
+	textView1 = new QTextView( tab_2, "TextView1" );
+	textView1->setText(QString::fromUtf8("<table><tr><td><b>" + tr("Development Team:").utf8() + "</b></td><td> </td></tr>" +
 	                                     "<tr><td>Franz Schmid</td><td>Franz.Schmid@altmuehlnet.de</td></tr>" +
 	                                     "<tr><td>Peter Linnell</td><td>scribusdocs@atlantictechsolutions.com</td></tr>" + 
 	                                     "<tr><td>Paul F. Johnson</td><td>paul@all-the-johnsons.co.uk</td></tr>" +
@@ -141,15 +140,15 @@ About::About( QWidget* parent )
 	                                     "<tr><td>Yves Ceccone</td><td>yves@yeccoe.org</td></tr>" + 
 	                                     "<tr><td>Holger Reibold</td><td>http://www.bomots.de/scribus/</td></tr>" +
 	                                     "<tr><td>Thomas Zastrow</td><td>webmaster@thomas-zastrow.de</td></tr></table>"));
-	TextView1->setTextFormat( QTextView::RichText );
-	tabLayout->addWidget( TextView1 );
-	TabWidget2->insertTab( tab_2, tr( "A&uthors" ) );
-	tab_3 = new QWidget( TabWidget2, "tab_3" );
+	textView1->setTextFormat( QTextView::RichText );
+	tabLayout->addWidget( textView1 );
+	tabWidget2->insertTab( tab_2, tr( "A&uthors" ) );
+	tab_3 = new QWidget( tabWidget2, "tab_3" );
 	tabLayout_2 = new QHBoxLayout( tab_3 );
 	tabLayout_2->setSpacing( 6 );
 	tabLayout_2->setMargin( 10 );
-	TextView2 = new QTextView( tab_3, "TextView1_2" );
-	TextView2->setText(QString::fromUtf8( "<table><tr><td><b><i>" + tr("Official Translations and Translators:").utf8() + "</i></b></td><td></td></tr>" +
+	textView2 = new QTextView( tab_3, "TextView1_2" );
+	textView2->setText(QString::fromUtf8( "<table><tr><td><b><i>" + tr("Official Translations and Translators:").utf8() + "</i></b></td><td></td></tr>" +
 									      "<tr><td><b>" + tr("Catalan:").utf8()  + "</b></td><td> </td></tr>" +
 									      "<tr><td>Xavier Sala Pujolar</td><td>utrescu@xaviersala.net</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +
@@ -255,14 +254,14 @@ About::About( QWidget* parent )
 	                                      "<tr><td>Sergiy Kudryk</td><td>kudryk@yahoo.com</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +  
 	                                      "</table>"));
-	TextView2->setTextFormat( QTextView::RichText );
-	tabLayout_2->addWidget( TextView2 );
-	TabWidget2->insertTab( tab_3, tr( "&Translations" ) );
+	textView2->setTextFormat( QTextView::RichText );
+	tabLayout_2->addWidget( textView2 );
+	tabWidget2->insertTab( tab_3, tr( "&Translations" ) );
 
 	// online tab (03/04/2004 petr vanek)
-	tab_4 = new QWidget( TabWidget2, "tab_4" );
-	TextView4 = new QTextView( tab_4, "TextView4" );
-	TextView4->setText(QString::fromUtf8(
+	tab_4 = new QWidget( tabWidget2, "tab_4" );
+	textView4 = new QTextView( tab_4, "TextView4" );
+	textView4->setText(QString::fromUtf8(
 		"<table><tr><td><b>" + tr("Homepage").utf8() + "</b></td><td></td></tr>" +
 		"<tr><td colspan=\"2\"><p><a href=\"http://www.scribus.net\">http://www.scribus.net</a></p></td></tr>" +
 		"<tr><td><b>" + tr("Online Reference").utf8() + "</b></td><td></td></tr>" +
@@ -273,28 +272,28 @@ About::About( QWidget* parent )
 		"<tr><td colspan=\"2\"><p><a href=\"http://nashi.altmuehlnet.de/mailman/listinfo/scribus\">http://nashi.altmuehlnet.de/mailman/listinfo/scribus</a></p></td></tr>" +
 		"</table>"
 		));
-	TextView4->setTextFormat( QTextView::RichText );
+	textView4->setTextFormat( QTextView::RichText );
 	tabLayout_4 = new QHBoxLayout( tab_4 );
 	tabLayout_4->setSpacing( 6 );
 	tabLayout_4->setMargin( 10 );
-	tabLayout_4->addWidget( TextView4 );
-	TabWidget2->insertTab( tab_4, tr( "&Online" ) );
-	AboutLayout->addWidget( TabWidget2 );
-	Layout2 = new QHBoxLayout;
-	Layout2->setSpacing( 6 );
-	Layout2->setMargin( 0 );
+	tabLayout_4->addWidget( textView4 );
+	tabWidget2->insertTab( tab_4, tr( "&Online" ) );
+	aboutLayout->addWidget( tabWidget2 );
+	layout2 = new QHBoxLayout;
+	layout2->setSpacing( 6 );
+	layout2->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout2->addItem( spacer );
-	PushButton1 = new QPushButton( tr( "&Close" ), this, "PushButton1" );
-	PushButton1->setDefault( true );
-	Layout2->addWidget( PushButton1 );
-	AboutLayout->addLayout( Layout2 );
+	layout2->addItem( spacer );
+	okButton = new QPushButton( tr( "&Close" ), this, "PushButton1" );
+	okButton->setDefault( true );
+	layout2->addWidget( okButton );
+	aboutLayout->addLayout( layout2 );
 	setMaximumSize(sizeHint());
 
 //tooltips
-	QToolTip::add( BuildID, tr( "This panel shows the version, build date and\n compiled in library support in Scribus\nThe C-C-T-F equates to C=CUPS C=littlecms T=TIFF support F=Fontconfig support.\nMissing library support is indicated by a *" ) );
+	QToolTip::add( buildID, tr( "This panel shows the version, build date and\n compiled in library support in Scribus\nThe C-C-T-F equates to C=CUPS C=littlecms T=TIFF support F=Fontconfig support.\nMissing library support is indicated by a *" ) );
 	// signals and slots connections
-	connect( PushButton1, SIGNAL( clicked() ), this, SLOT( accept() ) );
+	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
 }
 
 

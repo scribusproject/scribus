@@ -17,25 +17,25 @@ public:
 	About( QWidget* parent );
 	~About() {};
 	
-	QLabel* PixmapLabel1;
-	QLabel* BuildID;
-	QPushButton* PushButton1;
-	QTabWidget* TabWidget2;
+	QLabel* pixmapLabel1;
+	QLabel* buildID;
+	QPushButton* okButton;
+	QTabWidget* tabWidget2;
 	QWidget* tab;
 	QWidget* tab_2;
 	QWidget* tab_3;
 	QWidget* tab_4;
-	QTextView* TextView1;
-	QTextView* TextView2;
-	QTextView* TextView4;
+	QTextView* textView1;
+	QTextView* textView2;
+	QTextView* textView4;
 
 protected:
-	QVBoxLayout* AboutLayout;
+	QVBoxLayout* aboutLayout;
 	QHBoxLayout* tabLayout;
 	QVBoxLayout* tabLayout1;
 	QHBoxLayout* tabLayout_2;
 	QHBoxLayout* tabLayout_4;
-	QHBoxLayout* Layout2;
+	QHBoxLayout* layout2;
 
 };
 

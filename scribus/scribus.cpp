@@ -5430,6 +5430,8 @@ void ScribusApp::setAppMode(int mode)
 			delete doc->CurTimer;
 			doc->CurTimer = 0;
 			editMenu->setItemEnabled(edid4, 0);
+			if (PluginMap.contains(1))
+				extraMenu->setItemEnabled(PluginMap[1].MenuID, 0);
 			view->slotDoCurs(false);
 			if (b != 0)
 			{
@@ -5457,7 +5459,7 @@ void ScribusApp::setAppMode(int mode)
 			}
 			editMenu->setItemEnabled(edid3, 0);
 			if (PluginMap.contains(1))
-				extraMenu->setItemEnabled(PluginMap[1].MenuID, 0);
+				extraMenu->setItemEnabled(PluginMap[1].MenuID, 1);
 			if (!Buffer2.isNull())
 			{
 				if (!Buffer2.startsWith("<SCRIBUSELEM"))

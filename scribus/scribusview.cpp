@@ -1142,7 +1142,10 @@ void ScribusView::contentsMouseDoubleClickEvent(QMouseEvent *m)
 		}
 		else
 			if (b->PType == 4)
+			{
 				emit b->isAnnotation ? AnnotProps() : Amode(7);
+				contentsMousePressEvent(m);
+			}
 	}
 }
 
@@ -4824,7 +4827,7 @@ void ScribusView::UpdateClip(PageItem* b)
 				b->GrStartX = gr.point(0).x();
 				b->GrStartY = gr.point(0).y();
 				b->GrEndX = gr.point(1).x();
-				b->GrEndY = gr.point(0).y();
+				b->GrEndY = gr.point(1).y();
 				if (b->FrameType > 2)
 				{
 					b->PoLine.map(ma);
@@ -4873,7 +4876,7 @@ void ScribusView::UpdateClip(PageItem* b)
 			b->GrStartX = gr.point(0).x();
 			b->GrStartY = gr.point(0).y();
 			b->GrEndX = gr.point(1).x();
-			b->GrEndY = gr.point(0).y();
+			b->GrEndY = gr.point(1).y();
 			b->PoLine.map(ma);
 			b->ContourLine.map(ma);
 			if (b->PType == 8)
@@ -5556,6 +5559,7 @@ bool ScribusView::SizeItem(double newX, double newY, int ite, bool fromMP, bool 
 		p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
 		b->DrawPolyL(&p, b->Clip);
 		UpdateClip(b);
+		updateGradientVectors(b);
 		b->DrawPolyL(&p, b->Clip);
 		p.end();
 		return true;
@@ -6264,6 +6268,8 @@ bool ScribusView::slotSetCurs(int x, int y)
 				emit ItemTextUSval(b->ExtraV);
 				emit ItemTextStil(b->TxTStyle);
 				emit ItemTextAbs(b->Ausrich);
+				p.end();
+				return true;
 			}
 			p.end();
 		}
@@ -10840,6 +10846,7 @@ void ScribusView::FromPathText()
 		bb = Doc->Items.at(z);
 		bb->PoLine = b->PoLine.copy();
 		bb->ClipEdited = true;
+		bb->FrameType = 3;
 		bb->Rot = b->Rot;
 		SetPolyClip(bb, qRound(QMAX(bb->Pwidth / 2, 1)));
 		AdjustItemSize(bb);

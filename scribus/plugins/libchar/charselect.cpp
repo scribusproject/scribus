@@ -51,7 +51,7 @@ void Run(QWidget *d, ScribusApp *plug)
 		PageItem *b = plug->view->SelItem.at(0);
 		if ((b->PType == 4) && ((plug->doc->AppMode == 7) || (plug->DLLinput != "")))
 		{
-			ZAuswahl *dia = new ZAuswahl(d, b, plug);
+			CharSelect *dia = new CharSelect(d, b, plug);
 			dia->exec();
 			delete dia;
 		}
@@ -81,9 +81,9 @@ void Zoom::paintEvent(QPaintEvent *)
 	p.end();
 }
 
-ChTable::ChTable(ZAuswahl* parent, ScribusApp *pl) : QTable(parent)
+ChTable::ChTable(CharSelect* parent, ScribusApp *pl) : QTable(parent)
 {
-	Mpressed = false;
+	mPressed = false;
 	setFocusPolicy(NoFocus);
 	ap = pl;
 	par = parent;
@@ -99,9 +99,9 @@ void ChTable::contentsMousePressEvent(QMouseEvent* e)
 		font = ap->DLLinput;
 	else
 		font = ap->doc->CurrFont;
-	if ((e->button() == RightButton) && ((r*32+c) < MaxCount))
+	if ((e->button() == RightButton) && ((r*16+c) < maxCount))
 	{
-		Mpressed = true;
+		mPressed = true;
 		int bh = 48 + qRound(-(*ap->doc->AllFonts)[font]->numDescender * 48) + 3;
 		QPixmap pixm(bh,bh);
 		ScPainter *p = new ScPainter(&pixm, bh, bh);
@@ -109,8 +109,8 @@ void ChTable::contentsMousePressEvent(QMouseEvent* e)
 		pixm.fill(white);
 		QWMatrix chma;
 		chma.scale(4.8, 4.8);
-		FPointArray gly = (*ap->doc->AllFonts)[font]->GlyphArray[par->Zeich[r*32+c]].Outlines.copy();
-		double ww = bh - (*ap->doc->AllFonts)[font]->CharWidth[par->Zeich[r*32+c]]*48;
+		FPointArray gly = (*ap->doc->AllFonts)[font]->GlyphArray[par->characters[r*16+c]].Outlines.copy();
+		double ww = bh - (*ap->doc->AllFonts)[font]->CharWidth[par->characters[r*16+c]]*48;
 		if (gly.size() > 4)
 		{
 			gly.map(chma);
@@ -122,7 +122,7 @@ void ChTable::contentsMousePressEvent(QMouseEvent* e)
 			p->end();
 		}
 		delete p;
-		dia = new Zoom(this, pixm, par->Zeich[r*32+c]);
+		dia = new Zoom(this, pixm, par->characters[r*16+c]);
 		QPoint ps = QCursor::pos();
 		dia->move(ps.x()-2, ps.y()-2);
 		dia->show();
@@ -132,17 +132,17 @@ void ChTable::contentsMousePressEvent(QMouseEvent* e)
 void ChTable::contentsMouseReleaseEvent(QMouseEvent* e)
 {
 	e->accept();
-	if ((e->button() == RightButton) && (Mpressed))
+	if ((e->button() == RightButton) && (mPressed))
 	{
-		Mpressed = false;
+		mPressed = false;
 		dia->close();
 		delete dia;
 	}
 	if (e->button() == LeftButton)
-		emit SelectChar(rowAt(e->pos().y()), columnAt(e->pos().x()));
+		emit selectChar(rowAt(e->pos().y()), columnAt(e->pos().x()));
 }
 
-ZAuswahl::ZAuswahl( QWidget* parent, PageItem *item, ScribusApp *pl) : QDialog( parent, "ZAuswahl", true, 0 )
+CharSelect::CharSelect( QWidget* parent, PageItem *item, ScribusApp *pl) : QDialog( parent, "CharSelect", true, 0 )
 {
 	QString font;
 	if (pl->DLLinput != "")
@@ -153,20 +153,20 @@ ZAuswahl::ZAuswahl( QWidget* parent, PageItem *item, ScribusApp *pl) : QDialog( 
 	ite = item;
 	ap = pl;
 	setIcon(loadIcon("AppIcon.png"));
-	ZAuswahlLayout = new QVBoxLayout( this );
-	ZAuswahlLayout->setSpacing( 6 );
-	ZAuswahlLayout->setMargin( 11 );
+	zAuswahlLayout = new QVBoxLayout( this );
+	zAuswahlLayout->setSpacing( 6 );
+	zAuswahlLayout->setMargin( 11 );
 
-	ZTabelle = new ChTable( this, pl);
-	ZTabelle->setNumCols( 32 );
-	ZTabelle->setLeftMargin(0);
-	ZTabelle->verticalHeader()->hide();
-	ZTabelle->setTopMargin(0);
-	ZTabelle->horizontalHeader()->hide();
-	ZTabelle->setSorting(false);
-	ZTabelle->setSelectionMode(QTable::NoSelection);
-	ZTabelle->setColumnMovingEnabled(false);
-	ZTabelle->setRowMovingEnabled(false);
+	zTabelle = new ChTable( this, pl);
+	zTabelle->setNumCols( 16 );
+	zTabelle->setLeftMargin(0);
+	zTabelle->verticalHeader()->hide();
+	zTabelle->setTopMargin(0);
+	zTabelle->horizontalHeader()->hide();
+	zTabelle->setSorting(false);
+	zTabelle->setSelectionMode(QTable::NoSelection);
+	zTabelle->setColumnMovingEnabled(false);
+	zTabelle->setRowMovingEnabled(false);
 	int counter = 1;
 	FT_Face face;
 	FT_ULong  charcode;
@@ -186,34 +186,34 @@ ZAuswahl::ZAuswahl( QWidget* parent, PageItem *item, ScribusApp *pl) : QDialog( 
 	charcode = FT_Get_First_Char(face, &gindex );
 	while (gindex != 0)
 	{
-		Zeich.append(charcode);
+		characters.append(charcode);
 		counter++;
 		charcode = FT_Get_Next_Char(face, charcode, &gindex );
 	}
-	int ab = counter / 32;
-	int ac = counter % 32;
+	int ab = counter / 16;
+	int ac = counter % 16;
 	int cc = 0;
-	MaxCount = counter;
+	maxCount = counter;
 	if (ac != 0)
 		ab++;
-	ZTabelle->setNumRows( ab );
+	zTabelle->setNumRows( ab );
 	int bh = 16 + qRound(-(*pl->doc->AllFonts)[font]->numDescender * 16) + 3;
 	QPixmap pixm(bh,bh);
 	for (int a = 0; a < ab; ++a)
 	{
-		for (int b = 0; b < 32; ++b)
+		for (int b = 0; b < 16; ++b)
 		{
 			ScPainter *p = new ScPainter(&pixm, bh, bh);
 			p->clear();
 			pixm.fill(white);
 			QWMatrix chma;
 			chma.scale(1.6, 1.6);
-			FPointArray gly = (*pl->doc->AllFonts)[font]->GlyphArray[Zeich[cc]].Outlines.copy();
+			FPointArray gly = (*pl->doc->AllFonts)[font]->GlyphArray[characters[cc]].Outlines.copy();
 			cc++;
 			if (gly.size() > 4)
 			{
 				gly.map(chma);
-				double ww = bh - (*ap->doc->AllFonts)[font]->CharWidth[Zeich[cc]]*16;
+				double ww = bh - (*ap->doc->AllFonts)[font]->CharWidth[characters[cc]]*16;
 				p->translate(ww / 2, 1);
 				p->setBrush(black);
 				p->setFillMode(1);
@@ -222,90 +222,90 @@ ZAuswahl::ZAuswahl( QWidget* parent, PageItem *item, ScribusApp *pl) : QDialog( 
 			}
 			p->end();
 			delete p;
-			QTableItem *it = new QTableItem(ZTabelle, QTableItem::Never, "", pixm);
-			ZTabelle->setItem(a, b, it);
+			QTableItem *it = new QTableItem(zTabelle, QTableItem::Never, "", pixm);
+			zTabelle->setItem(a, b, it);
 			if (cc == counter)
 				break;
 		}
 	}
-	for (int d = 0; d < 32; ++d)
-		ZTabelle->adjustColumn(d);
-	for (int d = 0; d < ZTabelle->numRows(); ++d)
-		ZTabelle->adjustRow(d);
-	ZTabelle->setMinimumSize(QSize(ZTabelle->rowHeight(0)*33, ZTabelle->rowHeight(0)*7));
-	ZAuswahlLayout->addWidget( ZTabelle );
-	ZTabelle->MaxCount = MaxCount;
+	for (int d = 0; d < 16; ++d)
+		zTabelle->adjustColumn(d);
+	for (int d = 0; d < zTabelle->numRows(); ++d)
+		zTabelle->adjustRow(d);
+	zTabelle->setMinimumSize(QSize(zTabelle->rowHeight(0)*18, zTabelle->rowHeight(0)*7));
+	zAuswahlLayout->addWidget( zTabelle );
+	zTabelle->maxCount = maxCount;
 
-	Zeichen = new QLabel( this, "Zeichen" );
-	ZAuswahlLayout->addWidget( Zeichen );
+	sample = new QLabel( this, "Zeichen" );
+	zAuswahlLayout->addWidget( sample );
 
-	Layout1 = new QHBoxLayout;
-	Layout1->setSpacing( 6 );
-	Layout1->setMargin( 0 );
+	layout1 = new QHBoxLayout;
+	layout1->setSpacing( 6 );
+	layout1->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout1->addItem( spacer );
+	layout1->addItem( spacer );
 
-	Einf = new QPushButton(tr( "&Insert" ), this, "Einf" );
-	Layout1->addWidget( Einf );
-	Delete = new QPushButton(tr("C&lear"), this, "Delete" );
-	Layout1->addWidget( Delete );
-	Close = new QPushButton(tr("&Close"), this, "Close" );
-	Layout1->addWidget( Close );
-	ZAuswahlLayout->addLayout( Layout1 );
-	Zeichen->setMaximumSize(width(), 50);
-	DelEdit();
+	insertButton = new QPushButton(tr( "&Insert" ), this, "insertButton" );
+	layout1->addWidget( insertButton );
+	deleteButton = new QPushButton(tr("C&lear"), this, "deleteButton" );
+	layout1->addWidget( deleteButton );
+	closeButton = new QPushButton(tr("&Close"), this, "closeButton" );
+	layout1->addWidget( closeButton );
+	zAuswahlLayout->addLayout( layout1 );
+	sample->setMaximumSize(width(), 50);
+	delEdit();
 
 //tooltips
-	QToolTip::add( Einf, tr( "Insert the characters at the cursor in the text" ) );
-	QToolTip::add( Delete, tr( "Delete the current selection(s)." ) );
-	QToolTip::add( Close, tr( "Close this dialog and return to text editing." ) );
+	QToolTip::add( insertButton, tr( "Insert the characters at the cursor in the text" ) );
+	QToolTip::add( deleteButton, tr( "Delete the current selection(s)." ) );
+	QToolTip::add( closeButton, tr( "Close this dialog and return to text editing." ) );
 
 
 	// signals and slots connections
-	connect(Close, SIGNAL(clicked()), this, SLOT(accept()));
-	connect(Delete, SIGNAL(clicked()), this, SLOT(DelEdit()));
-	connect(Einf, SIGNAL(clicked()), this, SLOT(InsChar()));
-	connect(ZTabelle, SIGNAL(SelectChar(int, int)), this, SLOT(NeuesZeichen(int, int)));
+	connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
+	connect(deleteButton, SIGNAL(clicked()), this, SLOT(delEdit()));
+	connect(insertButton, SIGNAL(clicked()), this, SLOT(insChar()));
+	connect(zTabelle, SIGNAL(selectChar(int, int)), this, SLOT(newChar(int, int)));
 }
 
-void ZAuswahl::NeuesZeichen(int r, int c) // , int b, const QPoint &pp)
+void CharSelect::newChar(int r, int c) // , int b, const QPoint &pp)
 {
 	QString font;
 	if (ap->DLLinput != "")
 		font = ap->DLLinput;
 	else
 		font = ap->doc->CurrFont;
-	if ((r*32+c) < MaxCount)
+	if ((r*16+c) < maxCount)
 	{
-		ChToIns += QChar(Zeich[r*32+c]);
+		chToIns += QChar(characters[r*16+c]);
 		QString da = (*ap->doc->AllFonts)[font]->Datei;
-		Zeichen->setPixmap(FontSample(da, 28, ChToIns, paletteBackgroundColor()));
-		Einf->setEnabled(true);
+		sample->setPixmap(FontSample(da, 28, chToIns, paletteBackgroundColor()));
+		insertButton->setEnabled(true);
 	}
 }
 
-void ZAuswahl::DelEdit()
+void CharSelect::delEdit()
 {
-	ChToIns = "";
+	chToIns = "";
 	QPixmap pm(1,28);
 	pm.fill(paletteBackgroundColor());
-	Zeichen->setPixmap(pm);
-	Einf->setEnabled(false);
+	sample->setPixmap(pm);
+	insertButton->setEnabled(false);
 }
 
-void ZAuswahl::InsChar()
+void CharSelect::insChar()
 {
 	if (ap->DLLinput != "")
 	{
-		ap->DLLReturn += ChToIns;
-		DelEdit();
+		ap->DLLReturn += chToIns;
+		delEdit();
 		return;
 	}
 	struct Pti *hg;
-	for (uint a=0; a<ChToIns.length(); ++a)
+	for (uint a=0; a<chToIns.length(); ++a)
 	{
 		hg = new Pti;
-		hg->ch = ChToIns.at(a);
+		hg->ch = chToIns.at(a);
 		if (hg->ch == QChar(10))
 			hg->ch = QChar(13);
 		if (hg->ch == QChar(9))
