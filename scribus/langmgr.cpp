@@ -17,6 +17,7 @@ void LanguageManager::init()
 
 void LanguageManager::generateLangList()
 {
+	langList.insert("af",    QObject::tr( "Afrikaans" ));
 	langList.insert("sq",    QObject::tr( "Albanian" ));
 	langList.insert("eu",    QObject::tr( "Basque" ));
 	langList.insert("bg",    QObject::tr( "Bulgarian" ));
