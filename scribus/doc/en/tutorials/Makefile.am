@@ -1,6 +1,6 @@
 ####### kdevelop will overwrite this part!!! (begin)##########
 
 #SUBDIRS = freedomyug 
-SUBDIRS = 
+SUBDIRS = short-words
 
 ####### kdevelop will overwrite this part!!! (end)############
