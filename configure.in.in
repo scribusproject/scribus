@@ -111,7 +111,15 @@ elif test -n "$PKG_CONFIG"; then
 else
 	AC_MSG_WARN([Couldn't find fontconfig-config or pkg-config])
 fi
+
+dnl Check to see if we can compile fontconfig
+SAVE_CFLAGS="${CFLAGS}"
+SAVE_LDFLAGS="${LDFLAGS}"
+CFLAGS="${CFLAGS} ${LIBFONTCONFIG_CFLAGS}"
+LDFLAGS="${LDFLAGS} ${LIBFONTCONFIG_LIBS}"
 AC_CHECK_LIB(fontconfig, FcPatternBuild, [hafontconfig=yes],[hafontconfig=no])
+CFLAGS="${SAVE_CFLAGS}"
+LDFLAGS="${SAVE_LDFLAGS}"
 if test $hafontconfig = yes; then
 	AC_DEFINE_UNQUOTED(HAVE_FONTCONFIG, 1, [Defines if your system has the libfontconfig library])
 else

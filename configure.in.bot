@@ -1,50 +1,77 @@
+echo
 echo "Configuration Summary:"
-echo ""
-if test $hafree = yes; then
-	if test $hafree_post213 = yes; then
-		echo "FreeType2 installed: Yes"
+echo
+
+FORMAT="   %-25s"
+
+echo "Libraries:"
+printf "${FORMAT}" "Freetype2 installed: "
+if test "$hafree" = yes; then
+	if test "$hafree_post213" = yes; then
+		echo "Yes"
 	else
-		echo "FreeType2 installed: Yes (OLD); Version 2.1.3 or newer recommended."
+		echo "Yes (OLD); Version 2.1.3 or newer recommended."
 	fi
 else
-	echo "FreeType2 installed: No"
+	echo "No"
 fi
-if test $hafontconfig = yes; then
-	echo "Fontconfig found:    Yes"
+
+printf "${FORMAT}" "Fontconfig found: "
+if test "$hafontconfig" = yes; then
+	echo "Yes"
 else
-	echo "Fontconfig found:    No"
+	echo "No"
 fi
-if test $hacups = yes; then
-	echo "CUPS installed:      Yes"
+
+printf "${FORMAT}" "CUPS installed: "
+if test "$hacups" = yes; then
+	echo "Yes"
 else
-	echo "CUPS installed:      No"
+	echo "No"
 fi
-if test $hacms = yes; then
-	echo "LittleCMS installed: Yes"
-elif test $hacms = pre112; then
-	echo "LittleCMS installed: Too old; Version 1.12 or newer required"
+
+printf "${FORMAT}" "LittleCMS installed: "
+if test "$hacms" = yes; then
+	echo "Yes"
+elif test "$hacms" = pre112; then
+	echo "Too old; Version 1.12 or newer required"
 else
-	echo "LittleCMS installed: No"
+	echo "No"
 fi
-if test $hastif = yes; then
-	echo "TiffLib installed:   Yes"
-elif test $hastif = pre36; then
-	echo "TiffLib installed:   Too old; Version 3.6.0 or newer required"
+
+printf "${FORMAT}" "libtiff installed: "
+if test "$hastif" = yes; then
+	echo "Yes"
+elif test "$hastif" = pre36; then
+	echo "Too old; Version 3.6.0 or newer required"
 else 
-	echo "TiffLib installed:   No"
+	echo "No"
 fi
-if test $haxml = yes; then
-	echo "Libxml2 installed:   Yes"
+
+printf "${FORMAT}" "Libxml2 installed: "
+if test "$haxml" = yes; then
+	echo "Yes"
 else
-	echo "Libxml2 installed:   No"
+	echo "No"
 fi
-if test $COMPILE_PYTHON = no; then
+
+if test "$COMPILE_PYTHON" = no; then
 	echo "The Scripter-Plugin will not be compiled."
 else
-	if test $hapython = yes; then
+	if test "$hapython" = yes; then
   	echo "Using Python 2.3"
 	else
   	echo "Using Python < 2.3"
 	fi
 fi
+
+echo "Configuration options:"
+
+printf "${FORMAT}" "Debugging enabled: "
+if test "$COMPILE_DEBUG" = yes; then
+	echo "Yes"
+else
+	echo "No"
+fi
+
 echo ""
