@@ -12,7 +12,7 @@ PyObject *scribus_loadimage(PyObject */*self*/, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == NULL)
 		return NULL;
-	if (item->PType != FRAME_IMAGE)
+	if (item->itemType() != PageItem::ImageFrame)
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Target is not an image frame.","python error"));
 		return NULL;
@@ -33,7 +33,7 @@ PyObject *scribus_scaleimage(PyObject */*self*/, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == NULL)
 		return NULL;
-	if (item->PType != FRAME_IMAGE)
+	if (item->itemType() != PageItem::ImageFrame)
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame","python error"));
 		return NULL;
@@ -333,7 +333,7 @@ PyObject *scribus_setscaleimagetoframe(PyObject */*self*/, PyObject* args, PyObj
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
 	if (item == NULL)
 		return NULL;
-	if (item->PType != FRAME_IMAGE)
+	if (item->itemType() != PageItem::ImageFrame)
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame","python error"));
 		return NULL;

@@ -1071,7 +1071,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 							continue;
 						if ((it->OwnPage != static_cast<int>(Doc->MasterPages.at(ap)->PageNr)) && (it->OwnPage != -1))
 							continue;
-						if ((it->PType == 2) && (it->PicAvail) && (it->Pfile != "") && (it->isPrintable) && (!sep) && (farb))
+						if ((it->itemType() == PageItem::ImageFrame) && (it->PicAvail) && (it->Pfile != "") && (it->isPrintable) && (!sep) && (farb))
 							PS_ImageData(it->InvPict, it->Pfile, it->itemName(), it->IProfile, it->UseEmbedded, Ic);
 						PS_TemplateStart(Doc->MasterPages.at(ap)->PageNam + tmps.setNum(it->ItemNr), Doc->PageB, Doc->PageH);
 						ProcessItem(Doc, Doc->MasterPages.at(ap), it, ap+1, sep, farb, Ic, gcr, true);
@@ -1144,9 +1144,9 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 							PageItem *ite = Doc->Pages.at(a)->FromMaster.at(am);
 							if ((ite->LayerNr != ll.LNr) || (!ite->isPrintable))
 								continue;
-							if ((ite->PType != 4) && (ite->PType != 2))
+							if ((ite->itemType() != PageItem::TextFrame) && (ite->itemType() != PageItem::ImageFrame))
 								PS_UseTemplate(Doc->Pages.at(a)->MPageNam + tmps.setNum(ite->ItemNr));
-							else if (ite->PType == 2)
+							else if (ite->itemType() == PageItem::ImageFrame)
 							{
 								PS_save();
 								PS_translate(ite->Xpos - mPage->Xoffset, Doc->PageH -(ite->Ypos) - mPage->Yoffset);
@@ -1216,7 +1216,7 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 								}
 								PS_restore();
 							}
-							else if (ite->PType == 4)
+							else if (ite->itemType() == PageItem::TextFrame)
 							{
 								double savScale = view->Scale;
 								view->Scale = 1.0;
@@ -1623,9 +1623,9 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 		PS_translate(c->Xpos - a->Xoffset, Doc->PageH - (c->Ypos - a->Yoffset));
 		if (c->Rot != 0)
 			PS_rotate(-c->Rot);
-		switch (c->PType)
+		switch (c->itemType())
 		{
-		case 2:
+		case PageItem::ImageFrame:
 			if (master)
 				break;
 			if ((c->fillColor() != "None") || (c->GrType != 0))
@@ -1691,7 +1691,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				}
 			}
 			break;
-		case 4:
+		case PageItem::TextFrame:
 			if (master)
 				break;
 			if (c->isBookmark)
@@ -2002,7 +2002,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				}
 			}
 			break;
-		case 5:
+		case PageItem::Line:
 			if ((c->NamedLStyle == "") && (c->Pwidth != 0.0))
 			{
 				PS_moveto(0, 0);
@@ -2054,9 +2054,11 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				PS_fill();
 			}
 			break;
+		/* OBSOLETE CR 2005-02-06
 		case 1:
 		case 3:
-		case 6:
+		*/
+		case PageItem::Polygon:
 			if ((c->fillColor() != "None") || (c->GrType != 0))
 			{
 				SetClipPath(&c->PoLine);
@@ -2091,7 +2093,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				}
 			}
 			break;
-		case 7:
+		case PageItem::PolyLine:
 			if ((c->fillColor() != "None") || (c->GrType != 0))
 			{
 				SetClipPath(&c->PoLine);
@@ -2172,7 +2174,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				}
 			}
 			break;
-		case 8:
+		case PageItem::PathText:
 			if (c->PoShow)
 			{
 				if (c->PoLine.size() > 3)
@@ -2311,9 +2313,9 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 				c = PItems.at(b);
 				if (c->LayerNr != ll.LNr)
 					continue;
-				if ((a->PageNam != "") && (c->PType == 4))
+				if ((a->PageNam != "") && (c->itemType() == PageItem::TextFrame))
 					continue;
-				if ((a->PageNam != "") && (c->PType == 2) && ((sep) || (!farb)))
+				if ((a->PageNam != "") && (c->itemType() == PageItem::ImageFrame) && ((sep) || (!farb)))
 					continue;
 				if ((!Art) && (view->SelItem.count() != 0) && (!c->Select))
 					continue;
@@ -2339,9 +2341,9 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 			c = PItems.at(b);
 			if (c->LayerNr != ll.LNr)
 				continue;
-			if ((a->PageNam != "") && (c->PType == 4))
+			if ((a->PageNam != "") && (c->itemType() == PageItem::TextFrame))
 				continue;
-			if ((a->PageNam != "") && (c->PType == 2) && ((sep) || (!farb)))
+			if ((a->PageNam != "") && (c->itemType() == PageItem::ImageFrame) && ((sep) || (!farb)))
 				continue;
 			int x = static_cast<int>(a->Xoffset);
 			int y = static_cast<int>(a->Yoffset);

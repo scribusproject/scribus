@@ -1056,7 +1056,7 @@ void Mpalette::SetCurItem(PageItem *i)
 		SCustom->setPixmap(SCustom->getIconPixmap(1));
 	if (i->FrameType > 3)
 		SCustom->setPixmap(SCustom->getIconPixmap(i->FrameType-2));
-	if ((i->PType == 5) || (i->PType == 7))
+	if ((i->itemType() == PageItem::Line) || (i->itemType() == PageItem::PolyLine))
 	{
 		startArrow->setEnabled(true);
 		endArrow->setEnabled(true);
@@ -1168,7 +1168,7 @@ void Mpalette::SetCurItem(PageItem *i)
 		HaveItem = true;
 		return;
 	}
-	if (i->PType == 8)
+	if (i->itemType() == PageItem::PathText)
 	{
 		TabStack2->raiseWidget(1);
 		showcurveCheckBox->setChecked(i->PoShow);
@@ -1177,17 +1177,19 @@ void Mpalette::SetCurItem(PageItem *i)
 	}
 	else
 		TabStack2->raiseWidget(0);
-	if (((i->PType == 4) || (i->PType == 2) || (i->PType == 3)) &&  (!i->ClipEdited))
+	// Frame type 3 is obsolete: CR 2005-02-06
+	//if (((i->itemType() == PageItem::TextFrame) || (i->itemType() == PageItem::ImageFrame) || (i->itemType() == 3)) &&  (!i->ClipEdited))
+	if (((i->itemType() == PageItem::TextFrame) || (i->itemType() == PageItem::ImageFrame)) &&  (!i->ClipEdited))
 		RoundRect->setEnabled(true);
 	else
 	{
-		if ((i->PType == 6) && ((i->FrameType == 0) || (i->FrameType == 2)))
+		if ((i->itemType() == PageItem::Polygon) && ((i->FrameType == 0) || (i->FrameType == 2)))
 			RoundRect->setEnabled(true);
 		else
 			RoundRect->setEnabled(false);
 	}
 
-	if ((i->PType == 5) && LMode) {
+	if ((i->itemType() == PageItem::Line) && LMode) {
 		xposLabel->setText( tr( "&X1:" ) );
 		widthLabel->setText( tr( "X&2:" ) );
 		yposLabel->setText( tr( "Y&1:" ) );
@@ -1201,7 +1203,7 @@ void Mpalette::SetCurItem(PageItem *i)
 		Rot->setEnabled(true);
 	}
 
-	if (i->PType == 5)
+	if (i->itemType() == PageItem::Line)
 	{
 		Kette2->setEnabled(false);
 		if (LMode)
@@ -1212,7 +1214,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	else
 	{
 		Kette2->setEnabled(true);
-		if (i->PType == 2)
+		if (i->itemType() == PageItem::ImageFrame)
 		{
 			updateCmsList();
 			setter = i->ScaleType;
@@ -1618,7 +1620,7 @@ void Mpalette::setBH(double x, double y)
 	HaveItem = false;
 	QWMatrix ma;
 	QPoint dp;
-	if ((LMode) && (CurItem->PType == 5))
+	if ((LMode) && (CurItem->itemType() == PageItem::Line))
 	{
 		ma.translate(static_cast<double>(Xpos->value()) / UmReFaktor, static_cast<double>(Ypos->value()) / UmReFaktor);
 		ma.rotate(static_cast<double>(Rot->value())*(-1));
@@ -1935,7 +1937,7 @@ void Mpalette::NewX()
 		}
 		else
 		{
-			if ((CurItem->PType == 5) && (LMode))
+			if ((CurItem->itemType() == PageItem::Line) && (LMode))
 			{
 				double r = atan2(h-y,w-x)*(180.0/3.1415927);
 				w = sqrt(pow(w-x,2)+pow(h-y,2));
@@ -1992,7 +1994,7 @@ void Mpalette::NewY()
 		}
 		else
 		{
-			if ((CurItem->PType == 5) && (LMode))
+			if ((CurItem->itemType() == PageItem::Line) && (LMode))
 			{
 				double r = atan2(h-y,w-x)*(180.0/3.1415927);
 				w = sqrt(pow(w-x,2)+pow(h-y,2));
@@ -2051,7 +2053,7 @@ void Mpalette::NewW()
 		{
 			CurItem->OldB2 = CurItem->Width;
 			CurItem->OldH2 = CurItem->Height;
-			if (CurItem->PType == 5)
+			if (CurItem->itemType() == PageItem::Line)
 			{
 				if (LMode)
 				{
@@ -2148,7 +2150,7 @@ void Mpalette::NewH()
 		{
 			CurItem->OldB2 = CurItem->Width;
 			CurItem->OldH2 = CurItem->Height;
-			if (CurItem->PType == 5)
+			if (CurItem->itemType() == PageItem::Line)
 			{
 				if (LMode)
 				{
@@ -2538,7 +2540,7 @@ void Mpalette::DoFlipH()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		if ((CurItem->PType == 2) || (CurItem->PType == 4))
+		if ((CurItem->itemType() == PageItem::ImageFrame) || (CurItem->itemType() == PageItem::TextFrame))
 			ScApp->view->FlipImageH();
 		else
 			ScApp->view->MirrorPolyH();
@@ -2552,7 +2554,7 @@ void Mpalette::DoFlipV()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		if ((CurItem->PType == 2) || (CurItem->PType == 4))
+		if ((CurItem->itemType() == PageItem::ImageFrame) || (CurItem->itemType() == PageItem::TextFrame))
 			ScApp->view->FlipImageV();
 		else
 			ScApp->view->MirrorPolyV();
@@ -2761,7 +2763,7 @@ void Mpalette::MakeIrre(int f, int c, double *vals)
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		if ((CurItem->PType == 7) || (CurItem->PType == 8))
+		if ((CurItem->itemType() == PageItem::PolyLine) || (CurItem->itemType() == PageItem::PathText))
 			return;
 		switch (f)
 		{
@@ -2779,9 +2781,9 @@ void Mpalette::MakeIrre(int f, int c, double *vals)
 		ScApp->SCustom->setPixmap(ScApp->SCustom->getIconPixmap(f));
 		ScApp->view->RefreshItem(CurItem);
 		emit DocChanged();
-		if ((CurItem->PType == 2) || (CurItem->PType == 4))
+		if ((CurItem->itemType() == PageItem::ImageFrame) || (CurItem->itemType() == PageItem::TextFrame))
 			return;
-		CurItem->PType = 6;
+		CurItem->convertTo(PageItem::Polygon);
 		NewSel(6);
 		TabStack->raiseWidget(1);
 	}
@@ -2793,12 +2795,14 @@ void Mpalette::EditSh()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
+		/* Frame types 1 and 3 are OBSOLETE: CR 2005-02-06
 		if ((CurItem->PType == 1) || (CurItem->PType == 3))
 		{
 			CurItem->PType = 6;
 			NewSel(6);
 			TabStack->raiseWidget(1);
 		}
+		*/
 		emit EditCL();
 		emit DocChanged();
 	}

@@ -1777,7 +1777,7 @@ bool overwrite(QWidget *parent, QString filename)
 void CopyPageItem(struct CopyPasteBuffer *Buffer, PageItem *b)
 {
 	uint a;
-	Buffer->PType = b->PType;
+	Buffer->PType = b->itemType();
 	Buffer->Xpos = b->Xpos;
 	Buffer->Ypos = b->Ypos;
 	Buffer->Width = b->Width;
@@ -2028,13 +2028,13 @@ void ReOrderText(ScribusDoc *currentDoc, ScribusView *view)
 	for (uint azz=0; azz<currentDoc->MasterItems.count(); ++azz)
 	{
 		PageItem *ite = currentDoc->MasterItems.at(azz);
-		if (ite->PType == 8)
+		if (ite->itemType() == PageItem::PathText)
 			ite->DrawObj(painter, rd);
 	}
 	for (uint azz=0; azz<currentDoc->Items.count(); ++azz)
 	{
 		PageItem *ite = currentDoc->Items.at(azz);
-		if ((ite->PType == 4) || (ite->PType == 8))
+		if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText))
 			ite->DrawObj(painter, rd);
 	}
 	currentDoc->RePos = false;
@@ -2079,7 +2079,7 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	QString tmp;
 	int x, y;
 	double xf, yf;
-	OB->PType = QStoInt(obj->attribute("PTYPE"));
+	OB->PType = static_cast<PageItem::ItemType>(QStoInt(obj->attribute("PTYPE")));
 	OB->Width=QStodouble(obj->attribute("WIDTH"));
 	OB->Height=QStodouble(obj->attribute("HEIGHT"));
 	OB->RadRect = QStodouble(obj->attribute("RADRECT","0"));

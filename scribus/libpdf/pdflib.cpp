@@ -517,7 +517,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 	for (uint c = 0; c < doc->MasterItems.count(); ++c)
 	{
 		pgit = doc->MasterItems.at(c);
-		if ((pgit->PType == 4) || (pgit->PType == 8))
+		if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
 		{
 			for (uint e = 0; e < pgit->itemText.count(); ++e)
 			{
@@ -528,7 +528,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 	for (uint d = 0; d < doc->Items.count(); ++d)
 	{
 		pgit = doc->Items.at(d);
-		if ((pgit->PType == 4) || (pgit->PType == 8))
+		if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
 		{
 			for (uint e = 0; e < pgit->itemText.count(); ++e)
 			{
@@ -922,7 +922,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 					PDF_Transparenz(ite);
 				if ((ite->isBookmark) && (Options->Bookmarks))
 					PDF_Bookmark(ite->BMnr, doc->PageH - ite->Ypos);
-				if (!ite->isPrintable || ((ite->PType == 4) && (pag->PageNam != "")))
+				if (!ite->isPrintable || ((ite->itemType() == PageItem::TextFrame) && (pag->PageNam != "")))
 				{
 					PutPage("Q\n");
 					continue;
@@ -1040,9 +1040,9 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 						sr = 0;
 					PutPage(FToStr(cr)+" "+FToStr(sr)+" "+FToStr(-sr)+" "+FToStr(cr)+" 0 0 cm\n");
 				}
-				switch (ite->PType)
+				switch (ite->itemType())
 				{
-					case 2:
+					case PageItem::ImageFrame:
 						if ((ite->fillColor() != "None") || (ite->GrType != 0))
 						{
 							if (ite->GrType != 0)
@@ -1085,9 +1085,9 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 							}
 						}
 						break;
-					case 4:
+					case PageItem::TextFrame:
 						break;
-					case 5:
+					case PageItem::Line:
 						if (ite->NamedLStyle == "")
 						{
 							PutPage("0 0 m\n");
@@ -1195,9 +1195,11 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 							PutPage("h\nf*\n");
 						}
 						break;
+					/* OBSOLETE CR 2005-02-06
 					case 1:
 					case 3:
-					case 6:
+					*/
+					case PageItem::Polygon:
 						if (ite->GrType != 0)
 							PDF_Gradient(ite);
 						else
@@ -1227,7 +1229,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 							}
 						}
 						break;
-					case 7:
+					case PageItem::PolyLine:
 						if ((ite->PoLine.size() > 3) && ((ite->PoLine.point(0) != ite->PoLine.point(1)) || (ite->PoLine.point(2) != ite->PoLine.point(3))))
 						{
 							if (ite->GrType != 0)
@@ -1370,7 +1372,7 @@ void PDFlib::PDF_TemplatePage(Page* pag, bool )
 							}
 						}
 						break;
-					case 8:
+					case PageItem::PathText:
 						if (ite->PoShow)
 						{
 							if (ite->PoLine.size() > 3)
@@ -1632,7 +1634,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 						if ((pag->PageNam != "") && (ite->OwnPage != static_cast<int>(pag->PageNr)) && (ite->OwnPage != -1))
 							continue;
 						QString name = "/"+pag->MPageNam.simplifyWhiteSpace().replace( QRegExp("\\s"), "" ) + IToStr(ite->ItemNr);
-						if (ite->PType != 4)
+						if (ite->itemType() != PageItem::TextFrame)
 							PutPage(name+" Do\n");
 						else
 						{
@@ -1999,7 +2001,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 					PDF_Transparenz(ite);
 				if ((ite->isBookmark) && (Options->Bookmarks))
 					PDF_Bookmark(ite->BMnr, doc->PageH - ite->Ypos);
-				if (!ite->isPrintable || ((ite->PType == 4) && (pag->PageNam != "")))
+				if (!ite->isPrintable || ((ite->itemType() == PageItem::TextFrame) && (pag->PageNam != "")))
 				{
 					PutPage("Q\n");
 					continue;
@@ -2117,9 +2119,9 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 						sr = 0;
 					PutPage(FToStr(cr)+" "+FToStr(sr)+" "+FToStr(-sr)+" "+FToStr(cr)+" 0 0 cm\n");
 				}
-				switch (ite->PType)
+				switch (ite->itemType())
 				{
-					case 2:
+					case PageItem::ImageFrame:
 						if ((ite->fillColor() != "None") || (ite->GrType != 0))
 						{
 							if (ite->GrType != 0)
@@ -2162,7 +2164,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 							}
 						}
 						break;
-					case 4:
+					case PageItem::TextFrame:
 						if ((ite->isAnnotation) && (Options->Version != 12))
 						{
 							PDF_Annotation(ite, PNr);
@@ -2204,7 +2206,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 							}
 						}
 						break;
-					case 5:
+					case PageItem::Line:
 						if (ite->NamedLStyle == "")
 						{
 							PutPage("0 0 m\n");
@@ -2312,9 +2314,11 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 							PutPage("h\nf*\n");
 						}
 						break;
+					/* OBSOLETE 2005-02-06 CR
 					case 1:
 					case 3:
-					case 6:
+					*/
+					case PageItem::Polygon:
 						if (ite->GrType != 0)
 							PDF_Gradient(ite);
 						else
@@ -2344,7 +2348,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 							}
 						}
 						break;
-					case 7:
+					case PageItem::PolyLine:
 						if ((ite->PoLine.size() > 3) && ((ite->PoLine.point(0) != ite->PoLine.point(1)) || (ite->PoLine.point(2) != ite->PoLine.point(3))))
 						{
 							if (ite->GrType != 0)
@@ -2487,7 +2491,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 							}
 						}
 						break;
-					case 8:
+					case PageItem::PathText:
 						if (ite->PoShow)
 						{
 							if (ite->PoLine.size() > 3)
@@ -2773,7 +2777,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 	QString tmp2 = "";
 	QString FillColor = "";
 	QString StrokeColor = "";
-	if (ite->PType == 4)
+	if (ite->itemType() == PageItem::TextFrame)
 		tmp += "BT\n";
 	for (uint d = 0; d < ite->MaxChars; ++d)
 	{
@@ -2782,7 +2786,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 			continue;
 		if (hl->cstyle & 256)
 			continue;
-		if (ite->PType == 8)
+		if (ite->itemType() == PageItem::PathText)
 		{
 			tmp += "q\n";
 			tmp += "1 0 0 1 "+FToStr(hl->PtransX)+" "+FToStr(-hl->PtransY)+" cm\n";
@@ -2896,7 +2900,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 				if (hl->ccolor != "None")
 					tmp2 += FillColor;
 				tmp2 += "q\n";
-				if (ite->PType == 8)
+				if (ite->itemType() == PageItem::PathText)
 				{
 					tmp2 += "1 0 0 1 "+FToStr(hl->PtransX)+" "+FToStr(-hl->PtransY)+" cm\n";
 					double sr = sin(-hl->PRot* 3.1415927 / 180.0);
@@ -3116,13 +3120,13 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 			tmp2 += FToStr(hl->xp+Ulen)+" "+FToStr(-hl->yp+Upos)+" l\n";
 			tmp2 += "S\n";
 		}
-		if (ite->PType == 8)
+		if (ite->itemType() == PageItem::PathText)
 		{
 			tmp += "ET\nQ\n"+tmp2;
 			tmp2 = "";
 		}
 	}
-	if (ite->PType == 4)
+	if (ite->itemType() == PageItem::TextFrame)
 		tmp += "ET\n"+tmp2;
 	return tmp;
 }
@@ -4798,7 +4802,7 @@ void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 		for (uint ele = 0; ele < doc->Items.count(); ++ele)
 		{
 			PageItem* tel = doc->Items.at(ele);
-			if ((tel->PType == 4) && (tel->BackBox == 0) && (tel->NextBox != 0) &&
+			if ((tel->itemType() == PageItem::TextFrame) && (tel->BackBox == 0) && (tel->NextBox != 0) &&
 					(!tel->Redrawn))
 			{
 				StartObj(ObjCounter);

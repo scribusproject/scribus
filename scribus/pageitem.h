@@ -85,10 +85,29 @@ class PageItem : public QObject, public UndoObject
 	 * @brief Frame type.
 	 * @warning Do not set this property except for testing and debug purposes.
 	 */
-	Q_PROPERTY(int frameType READ frameType WRITE convertTo DESIGNABLE false)
+	Q_ENUMS(ItemType)
+	Q_PROPERTY(ItemType itemType READ itemType WRITE convertTo DESIGNABLE false)
 
-public: 
-	PageItem(ScribusDoc *pa, int art, double x, double y, double w, double h, double w2, QString fill, QString outline);
+public:
+	// Enumerator definitions
+	
+	/** @brief Frame Type
+	 *
+	 * Later, frame type will probably go away in favour of using
+	 * subclasses and checking types using more conventional methods
+	 * and using Qt's MetaObject introspection.
+	 */
+	enum ItemType {
+		ImageFrame	= 2,
+		TextFrame	= 4,
+		Line		= 5,
+		Polygon		= 6,
+		PolyLine	= 7,
+		PathText	= 8
+	};
+
+
+	PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double w, double h, double w2, QString fill, QString outline);
 	~PageItem() {};
 	struct ZZ { 
 				double xco;
@@ -106,6 +125,7 @@ public:
 				QString Farb2;
 				QString ZFo;
 			  };
+
   /** Zeichnet das Item */
 	void paintObj(QRect e=QRect(), QPixmap *ppX = 0);
 	void DrawObj(ScPainter *p, QRect e);
@@ -133,8 +153,7 @@ public:
 	double oldHeight;
   /** Eckrundung von Rechtecken */
 	double RadRect;
-  /** Art des Items */
-	int PType;
+	ItemType PType;
   /** Winkel um den das Item gedreht wird */
 	double Rot;
 	/** @brief Stores the old rotation value for undo action. Is used to detect rotation actions. */
@@ -173,6 +192,7 @@ public:
 	bool PoShow;
 	double BaseOffs;
 	bool ClipEdited;
+	// Don't know exactly what this is, but it's not the same as itemType
 	int FrameType;
   /** Interne Item-Nummer */
 	uint ItemNr;
@@ -590,12 +610,12 @@ public:
 	 *            It's here as an interim step to eliminate direct member access
 	 *            on PageItems.
 	 */
-	int frameType() const;
+	ItemType itemType() const;
 	/**
 	 * @brief Convert this PageItem to PageItem type <code>newType</code>
 	 * @param newType PageItem type for conversion
 	 */
-	void convertTo(int newType);
+	void convertTo(ItemType newType);
 
 	/** 
 	 * @brief Check the changes to the item and add undo actions for them.
@@ -669,6 +689,14 @@ protected:
 	void select();
 
 	// Protected members
+
+	/**
+	 * @brief Frame Type, eg line, text frame, etc.
+	 *
+	 * This will probably go away when pageitem is split into
+	 * subclasses.
+	 */
+	ItemType itemTypeVal;
 
 	/**
 	 * @brief Item name. Unicode. User visible (outline, property palette, etc).

@@ -188,18 +188,12 @@ PyObject *scribus_setcornerrad(PyObject */*self*/, PyObject* args)
 	PageItem *b = GetUniqueItem(QString::fromUtf8(Name));
 	if (b == NULL)
 		return NULL;
-	// What the heck is a type 3 frame?
 	// FIXME: Doesn't seem to work, at least on rect/polygon frames
-	if ((b->PType == FRAME_IMAGE) || (b->PType == 3) || (b->PType == FRAME_TEXT))
+	if ((b->itemType() == PageItem::ImageFrame) || (b->itemType() == PageItem::TextFrame))
 	{
-		if ((b->PType == 2) || (b->PType == 3) || (b->PType == 4))
-		{
-			b->RadRect = w;
-			if (w > 0)
-				Carrier->view->SetFrameRound(b);
-		}
-		else
-				Carrier->view->SetRectFrame(b);
+		b->RadRect = w;
+		if (w > 0)
+			Carrier->view->SetFrameRound(b);
 	}
 	else
 			Carrier->view->SetRectFrame(b);

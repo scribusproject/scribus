@@ -212,7 +212,7 @@ bool FileLoader::LoadFile(ScribusApp* app)
 			PageItem *it = app->doc->MasterItems.at(d);
 			if ((!app->doc->UsedFonts.contains(it->IFont)) && (it->IFont != ""))
 				it->IFont = ReplacedFonts[it->IFont];
-			if ((it->PType == 4) || (it->PType == 8))
+			if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
 			{
 				for (uint e = 0; e < it->itemText.count(); ++e)
 				{
@@ -226,7 +226,7 @@ bool FileLoader::LoadFile(ScribusApp* app)
 			PageItem *it = app->doc->DocItems.at(d);
 			if ((!app->doc->UsedFonts.contains(it->IFont)) && (it->IFont != ""))
 				it->IFont = ReplacedFonts[it->IFont];
-			if ((it->PType == 4) || (it->PType == 8))
+			if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
 			{
 				for (uint e = 0; e < it->itemText.count(); ++e)
 				{

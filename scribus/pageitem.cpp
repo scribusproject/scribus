@@ -53,7 +53,7 @@ extern double xy2Deg(double x, double y);
 extern void BezierPoints(QPointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4);
 extern ScribusApp* ScApp;
 
-PageItem::PageItem(ScribusDoc *pa, int art, double x, double y, double w, double h, double w2, QString fill, QString outline) : QObject(pa)
+PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double w, double h, double w2, QString fill, QString outline) : QObject(pa)
 {
 	QString tmp;
 	BackBox = 0;
@@ -76,12 +76,12 @@ PageItem::PageItem(ScribusDoc *pa, int art, double x, double y, double w, double
 	OldH = Height;
 	OldB2 = Width;
 	OldH2 = Height;
-	PType = art;
+	itemTypeVal = newType;
 	Rot = 0;
 	oldRot = 0;
 	Doc = pa;
 	fillColorVal = fill;
-	lineColorVal = PType == 4 ? fill : outline;
+	lineColorVal = itemTypeVal == PageItem::TextFrame ? fill : outline;
 	TxtFill = Doc->toolSettings.dPenText;
 	TxtStroke = Doc->toolSettings.dStrokeText;
 	ShTxtStroke = 100;
@@ -139,13 +139,14 @@ PageItem::PageItem(ScribusDoc *pa, int art, double x, double y, double w, double
 	BBoxX = 0;
 	BBoxH = 0;
 	RadRect = 0;
-	if ((art == 4) || (art == 2))
+	if ((itemTypeVal == TextFrame) || (itemTypeVal == ImageFrame))
+		// TODO: Frame should become a read-only calculated property
 		Frame = true;
 	else
 		Frame = false;
-	switch (art)
+	switch (itemTypeVal)
 	{
-		case 6:
+		case Polygon:
 			Clip.setPoints(4, static_cast<int>(w/2), 0, static_cast<int>(w), static_cast<int>(h/2),
 								static_cast<int>(w/2), static_cast<int>(h), 0,static_cast<int>(h/2));
 			break;
@@ -181,29 +182,29 @@ PageItem::PageItem(ScribusDoc *pa, int art, double x, double y, double w, double
 	An_V_act = "";
 	An_C_act = "";
 	An_Extern = "";
-	switch (PType)
+	switch (itemTypeVal)
 	{
-	case 2:
+	case ImageFrame:
 		AnName = tr("Image");
 		setUPixmap(Um::IImageFrame);
 		break;
-	case 4:
+	case TextFrame:
 		AnName = tr("Text");
 		setUPixmap(Um::ITextFrame);
 		break;
-	case 5:
+	case Line:
 		AnName = tr("Line");
 		setUPixmap(Um::ILine);
 		break;
-	case 6:
+	case Polygon:
 		AnName = tr("Polygon");
 		setUPixmap(Um::IPolygon);
 		break;
-	case 7:
+	case PolyLine:
 		AnName = tr("Polyline");
 		setUPixmap(Um::IPolyline);
 		break;
-	case 8:
+	case PathText:
 		AnName = tr("PathText");
 		setUPixmap(Um::IPathText);
 		break;
@@ -400,7 +401,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 	if (lineColor() != "None")
 	{
 		SetFarbe(&tmp, lineColor(), lineShade());
-		if ((Pwidth == 0) && (PType != 5))
+		if ((Pwidth == 0) && (itemType() != Line))
 			p->setLineWidth(0);
 		else
 		{
@@ -413,9 +414,9 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 		p->setLineWidth(0);
 	p->setBrushOpacity(1.0 - fillTransparency());
 	p->setPenOpacity(1.0 - lineTransparency());
-	switch (PType)
+	switch (itemType())
 	{
-		case 2:
+		case ImageFrame:
 			if (Doc->RePos)
 				break;
 			if ((fillColor() != "None") || (GrType != 0))
@@ -472,7 +473,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 				}
 			}
 			break;
-		case 5:
+		case Line:
 			if (Doc->RePos)
 				break;
 			doStroke = false;
@@ -521,15 +522,17 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 				p->fillPath();
 			}
 			break;
+		/* OBSOLETE CR 2005-02-06
 		case 1:
 		case 3:
-		case 6:
+		*/
+		case Polygon:
 			if (Doc->RePos)
 				break;
 			p->setupPolygon(&PoLine);
 			p->fillPath();
 			break;
-		case 7:
+		case PolyLine:
 			doStroke = false;
 			if (Doc->RePos)
 				break;
@@ -640,7 +643,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 				}
 			}
 			break;
-		case 4:
+		case TextFrame:
 			p->save();
 			pf2.begin(ScApp->view->viewport());
 			pf2.translate(Xpos, Ypos);
@@ -1723,7 +1726,7 @@ NoRoom: pf2.end();
 				Redrawn = true;
 				p->restore();
 				break;
-		case 8:
+		case PathText:
 			if (!PoShow)
 				doStroke = false;
 			cl = FlattenPath(PoLine, Segments);
@@ -1884,7 +1887,7 @@ NoRoom: pf2.end();
 	if (!Doc->RePos)
 	{
 		double scp = QMAX(ScApp->view->Scale, 1);
-		if ((Frame) && (Doc->guidesSettings.framesShown) && ((PType == 2) || (PType == 4)))
+		if ((Frame) && (Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (ItemType() == TextFrame)))
 		{
 			p->setPen(black, 1 / scp, DotLine, FlatCap, MiterJoin);
 			if ((isBookmark) || (isAnnotation))
@@ -1975,7 +1978,7 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 					pr.setBrush(red);
 					if ((!Locked) && (!LockRes))
 					{
-						if (PType != 5)
+						if (itemType() != Line)
 						{
 							pr.drawRect(-1, -1, 6, 6);
 							pr.drawRect(static_cast<int>(Width*sc), static_cast<int>(Height*sc), -6, -6);
@@ -2882,42 +2885,52 @@ void PageItem::setLanguage(const QString& newLanguage)
 	Language = newLanguage;
 }
 
-int PageItem::frameType() const
+PageItem::ItemType PageItem::itemType() const
 {
-	return PType;
+	return itemTypeVal;
 }
 
-void PageItem::convertTo(int newType)
+void PageItem::convertTo(ItemType newType)
 {
-	if (PType == newType)
+	if (itemTypeVal == newType)
 		return; // nothing to do -> return
+	assert(newType != 1);	//DEBUG CR 2005-02-06
+	assert(newType != 3);	//DEBUG CR 2005-02-06
 	QString fromType = "", toType = "";
-	switch (PType)
+	switch (itemTypeVal)
 	{
-		case 2: fromType = Um::ImageFrame; break;
-		case 4: fromType = Um::TextFrame; break;
-		case 6: fromType = Um::Polygon; break;
-		default: fromType = ""; break;
+		case ImageFrame:
+			fromType = Um::ImageFrame;
+			break;
+		case TextFrame:
+			fromType = Um::TextFrame;
+			break;
+		case Polygon:
+			fromType = Um::Polygon;
+			break;
+		default:
+			fromType = "";
+			break;
 	}
 	switch (newType)
 	{
-		case 2:
+		case ImageFrame:
 			toType = Um::ImageFrame; 
 			setUPixmap(Um::IImageFrame);
 			break;
-		case 4:
+		case TextFrame:
 			toType = Um::TextFrame;
 			setUPixmap(Um::ITextFrame);
 			break;
-		case 6:
+		case Polygon:
 			toType = Um::Polygon;
 			setUPixmap(Um::IPolygon);
 			break;
-		case 7:
+		case PolyLine:
 			toType = Um::Polyline;
 			setUPixmap(Um::IPolyline);
 			break;
-		default: 
+		default:
 			toType = ""; 
 			setUPixmap(NULL);
 			break;
@@ -2927,11 +2940,11 @@ void PageItem::convertTo(int newType)
 		SimpleState *ss = new SimpleState(Um::ConvertTo + " " + toType,
 										  QString(Um::FromTo).arg(fromType).arg(toType));
 		ss->set("CONVERT", "convert");
-		ss->set("OLD_TYPE", PType);
+		ss->set("OLD_TYPE", itemTypeVal);
 		ss->set("NEW_TYPE", newType);
 		undoManager->action(this, ss);
 	}
-	PType = newType;
+	itemTypeVal = newType;
 }
 
 void PageItem::checkChanges(bool force)

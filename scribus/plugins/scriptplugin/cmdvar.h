@@ -8,14 +8,6 @@
 #include <Python.h>
 #include "scribus.h"
 
-/* These will go away in 1.3, but help readability in 1.2.1 code a LOT */
-#define FRAME_IMAGE 2
-#define FRAME_TEXT 4
-#define FRAME_LINE 5
-#define FRAME_VECTOR 6
-#define FRAME_POLYLINE 7
-#define FRAME_PATHTEXT 8
-
 /* Static global Variables */
 extern ScribusApp* Carrier;
 

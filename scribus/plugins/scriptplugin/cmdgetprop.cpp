@@ -23,7 +23,7 @@ PyObject *scribus_getlinecolor(PyObject */*self*/, PyObject* args)
 	it = GetUniqueItem(QString::fromUtf8(Name));
 	if (it == NULL)
 		return NULL;
-	if ((it->HasSel) && ((it->PType == FRAME_TEXT) || (it->PType == FRAME_PATHTEXT)))
+	if ((it->HasSel) && ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText)))
 	{
 		for (uint b = 0; b < it->itemText.count(); ++b)
 		{
@@ -59,7 +59,7 @@ PyObject *scribus_getlineshade(PyObject */*self*/, PyObject* args)
 	it = GetUniqueItem(QString::fromUtf8(Name));
 	if (it == NULL)
 		return NULL;
-	if ((it->HasSel) && ((it->PType == FRAME_TEXT) || (it->PType == FRAME_PATHTEXT)))
+	if ((it->HasSel) && ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText)))
 	{
 		for (uint b = 0; b < it->itemText.count(); ++b)
 		{
@@ -197,7 +197,7 @@ PyObject *scribus_getallobj(PyObject */*self*/, PyObject* args)
 	{
 		for (uint lam2 = 0; lam2 < Carrier->doc->Items.count(); ++lam2)
 		{
-			if (Carrier->doc->Items.at(lam2)->PType == typ)
+			if (Carrier->doc->Items.at(lam2)->itemType() == typ)
 				counter++;
 		}
 	}
@@ -209,7 +209,7 @@ PyObject *scribus_getallobj(PyObject */*self*/, PyObject* args)
 	{
 		if (typ != -1)
 		{
-			if (Carrier->doc->Items.at(lam)->PType == typ)
+			if (Carrier->doc->Items.at(lam)->itemType() == typ)
 			{
 				PyList_SetItem(l, counter2, PyString_FromString(Carrier->doc->Items.at(lam)->itemName().utf8()));
 				counter2++;

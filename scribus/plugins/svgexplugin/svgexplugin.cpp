@@ -409,21 +409,23 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 				}
 				gr = docu->createElement("g");
 				gr.setAttribute("transform", trans);
-				if (Item->PType != 4)
+				if (Item->itemType() != PageItem::TextFrame)
 				{
 					if (Item->NamedLStyle == "")
 					{
-						if ((Item->PType == 5) || (Item->PType == 7) || (Item->PType == 8))
+						if ((Item->itemType() == PageItem::Line) || (Item->itemType() == PageItem::PolyLine) || (Item->itemType() == PageItem::PathText))
 							gr.setAttribute("style", "fill:none; "+stroke+" "+strokeW+" "+strokeLC+" "+strokeLJ+" "+strokeDA);
 						else
 							gr.setAttribute("style", fill+" "+stroke+" "+strokeW+" "+strokeLC+" "+strokeLJ+" "+strokeDA);
 					}
 				}
-				switch (Item->PType)
+				switch (Item->itemType())
 				{
+				/* Item types 3 and 1 are OBSOLETE: CR 2005-02-06
 				case 1:
 				case 3:
-				case 6:
+				*/
+				case PageItem::Polygon:
 						if (Item->NamedLStyle == "")
 						{
 							ob = docu->createElement("path");
@@ -445,7 +447,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 							}
 						}
 					break;
-				case 2:
+				case PageItem::ImageFrame:
 						if ((Item->fillColor() != "None") || (Item->GrType != 0))
 						{
 							ob = docu->createElement("path");
@@ -494,7 +496,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 							}
 						}
 					break;
-				case 7:
+				case PageItem::PolyLine:
 						if (Item->NamedLStyle == "")
 						{
 							ob = docu->createElement("path");
@@ -512,7 +514,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 							}
 						}
 					break;
-				case 4:
+				case PageItem::TextFrame:
 						if ((Item->fillColor() != "None") || (Item->GrType != 0))
 						{
 							ob = docu->createElement("path");
@@ -541,7 +543,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 							ob.appendChild(tp);
 						}
 					break;
-				case 5:
+				case PageItem::Line:
 						if (Item->NamedLStyle == "")
 						{
 							ob = docu->createElement("path");
@@ -559,7 +561,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 							}
 						}
 					break;
-				case 8:
+				case PageItem::PathText:
 						if (Item->PoShow)
 						{
 							if (Item->NamedLStyle == "")

@@ -293,7 +293,7 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 					b = SelItem.at(0);
 			}
 			if ((((Doc->appMode == LinkFrames) || (Doc->appMode == UnlinkFrames)) 
-				   && (b->PType == 4)) || (Doc->guidesSettings.linkShown))
+				   && (b->itemType() == PageItem::TextFrame)) || (Doc->guidesSettings.linkShown))
 			{
 				PageItem *nb = b;
 				if (Doc->guidesSettings.linkShown)
@@ -608,7 +608,7 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 						if (!((Doc->EditClip) && (Mpressed)))
 							b->DrawObj(painter, clip);
 						b->Redrawn = true;
-						if ((b->PType == 4) && ((b->NextBox != 0) || (b->BackBox != 0)))
+						if ((b->itemType() == PageItem::TextFrame) && ((b->NextBox != 0) || (b->BackBox != 0)))
 						{
 							PageItem *nb = b;
 							while (nb != 0)
@@ -621,7 +621,7 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 							if (linkedFramesToShow.find(nb) == -1)
 								linkedFramesToShow.append(nb);
 						}
-						if ((Doc->appMode == EditMode) && (b->Select) && (b->PType == 4))
+						if ((Doc->appMode == EditMode) && (b->Select) && (b->itemType() == PageItem::TextFrame))
 						{
 							HR->ItemPos = b->Xpos - Doc->ScratchLeft;
 							HR->ItemEndPos = (b->Xpos+b->Width) - Doc->ScratchLeft;
@@ -954,7 +954,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 /*		if ((SeleItemPos(e->pos())) && (!text.startsWith("<SCRIBUSELEM")))
 		{
 			b = SelItem.at(0);
-			if (b->PType == 2)
+			if (b->itemType() == PageItem::ImageFrame)
 			{
 				if ((fi.exists()) && (img))
 				{
@@ -1072,7 +1072,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 						{
 							bb = pasted.at(dre);
 							b = SelItem.at(dre);
-							if ((b->PType == 4) && ((b->NextBox != 0) || (b->BackBox != 0)))
+							if ((b->itemType() == PageItem::TextFrame) && ((b->NextBox != 0) || (b->BackBox != 0)))
 							{
 								if (b->BackBox != 0)
 								{
@@ -1139,7 +1139,7 @@ void ScribusView::contentsMouseDoubleClickEvent(QMouseEvent *m)
 					SelItem.append(b);
 					b->isSingleSel = true;
 					b->Select = true;
-					emit HaveSel(b->PType);
+					emit HaveSel(b->itemType());
 					EmitValues(b);
 					b->paintObj();
 				}
@@ -1151,7 +1151,7 @@ void ScribusView::contentsMouseDoubleClickEvent(QMouseEvent *m)
 	}
 	if (GetItem(&b))
 	{
-		if ((b->PType == 6) || (b->PType == 7) || (b->PType == 2) || (b->PType == 8))
+		if ((b->itemType() == PageItem::Polygon) || (b->itemType() == PageItem::PolyLine) || (b->itemType() == PageItem::ImageFrame) || (b->itemType() == PageItem::PathText))
 		{
 			if ((b->locked()) || (!b->ScaleType))
 			{
@@ -1161,7 +1161,7 @@ void ScribusView::contentsMouseDoubleClickEvent(QMouseEvent *m)
 			emit Amode(EditMode);
 		}
 		else
-			if (b->PType == 4)
+			if (b->itemType() == PageItem::TextFrame)
 			{
 				emit b->isAnnotation ? AnnotProps() : Amode(EditMode);
 				contentsMousePressEvent(m);
@@ -1384,7 +1384,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			emit ItemFarben(b->lineColor(), b->fillColor(), b->lineShade(), b->fillShade());
 			emit ItemGradient(b->GrType);
 			emit ItemTrans(b->fillTransparency(), b->lineTransparency());
-			emit HaveSel(7);
+			emit HaveSel(PageItem::PolyLine);
 		}
 		updateContents();
 		emit PaintingDone();
@@ -1509,7 +1509,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			QPopupMenu *pmenLevel = new QPopupMenu();
 			QPopupMenu *pmenPDF = new QPopupMenu();
 
-			if ((b->PType == 4) || (b->PType == 2) || (b->PType == 8))
+			if ((b->itemType() == PageItem::TextFrame) || (b->itemType() == PageItem::ImageFrame) || (b->itemType() == PageItem::PathText))
 			{
 				QButtonGroup *InfoGroup = new QButtonGroup( this, "InfoGroup" );
 				InfoGroup->setFrameShape( QButtonGroup::NoFrame );
@@ -1533,7 +1533,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				QLabel *CharC = new QLabel(InfoGroup, "cc");
 				QLabel *PrintCT = new QLabel(InfoGroup, "nt"); // <a.l.e>
 				QLabel *PrintC = new QLabel(InfoGroup, "nc"); // </a.l.e>
-				if (b->PType == 2)
+				if (b->itemType() == PageItem::ImageFrame)
 				{
 					QFileInfo fi = QFileInfo(b->Pfile);
 					InfoT->setText( tr("Picture"));
@@ -1552,7 +1552,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					               txtC2.setNum(qRound(72.0 / b->LocalScY)));
 					InfoGroupLayout->addWidget( CharC, 3, 1 );
 				}
-				if ((b->PType == 4) || (b->PType == 8))
+				if ((b->itemType() == PageItem::TextFrame) || (b->itemType() == PageItem::PathText))
 				{
 					int Parag = 0;
 					int Words = 0;
@@ -1560,7 +1560,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					int ParagN = 0;
 					int WordsN = 0;
 					int CharaN = 0;
-					if (b->PType == 4)
+					if (b->itemType() == PageItem::TextFrame)
 					{
 						if ((b->NextBox != 0) || (b->BackBox != 0))
 							InfoT->setText( tr("Linked Text"));
@@ -1608,7 +1608,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 
 				pmen->insertItem( tr("In&fo"), pmen4);
 			}
-			if (b->PType == 2)
+			if (b->itemType() == PageItem::ImageFrame)
 			{
 				ScApp->scrActions["fileImportImage"]->addTo(pmen);
 				//pmen->insertItem( tr("&Get Picture..."), this, SIGNAL(LoadPic()));
@@ -1621,7 +1621,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				if ((b->PicAvail) && (!b->isTableItem))
 					pmen->insertItem( tr("&Adjust Frame to Picture"), this, SLOT(FrameToPic()));
 			}
-			if (b->PType == 4)
+			if (b->itemType() == PageItem::TextFrame)
 			{
 				ScApp->scrActions["fileImportText"]->addTo(pmen);
 				ScApp->scrActions["fileImportAppendText"]->addTo(pmen);
@@ -1644,7 +1644,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				}
 				pmen->insertItem( tr("&PDF Options"), pmenPDF);
 			}
-			if (b->PType == 8)
+			if (b->itemType() == PageItem::PathText)
 				pmen->insertItem( tr("Edit Text..."), this, SIGNAL(EditText()));
 			if (!b->locked())
 				pmen->insertItem( tr("&Lock"), this, SLOT(ToggleLock()));
@@ -1669,7 +1669,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				}
 				connect(pmen3, SIGNAL(activated(int)), this, SLOT(sentToLayer(int)));
 			}
-			if (b->PType == 4)
+			if (b->itemType() == PageItem::TextFrame)
 				pmen->insertItem( tr("&Insert Sample Text"), this, SLOT(LoremIpsum()));
 			if (!b->locked())
 			{
@@ -1703,9 +1703,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					pmenLevel->insertItem( tr("&Raise"), this, SLOT(RaiseItem()));
 				}
 			}
-			if (((b->PType == 4) || (b->PType == 2) || (b->PType == 6)) && (Doc->appMode != EditMode))
+			if (((b->itemType() == PageItem::TextFrame) || (b->itemType() == PageItem::ImageFrame) || (b->itemType() == PageItem::Polygon)) && (Doc->appMode != EditMode))
 			{
-				if (b->PType == 4)
+				if (b->itemType() == PageItem::TextFrame)
 				{
 					pmen2->insertItem( tr("&Picture Frame"), this, SLOT(ToPicFrame()));
 					if (!b->isTableItem)
@@ -1714,13 +1714,13 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						pmen2->insertItem( tr("&Outlines"), this, SLOT(TextToPath()));
 					}
 				}
-				if (b->PType == 2)
+				if (b->PType == PageItem::ImageFrame)
 				{
 					pmen2->insertItem( tr("&Text Frame"), this, SLOT(ToTextFrame()));
 					if (!b->isTableItem)
 						pmen2->insertItem( tr("Pol&ygon"), this, SLOT(ToPolyFrame()));
 				}
-				if (b->PType == 6)
+				if (b->PType == PageItem::Polygon)
 				{
 					pmen2->insertItem( tr("&Text Frame"), this, SLOT(ToTextFrame()));
 					pmen2->insertItem( tr("&Picture Frame"), this, SLOT(ToPicFrame()));
@@ -1733,11 +1733,11 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				ScApp->scrActions["editCut"]->addTo(pmen);
 			if (!(b->isTableItem && b->isSingleSel))
 				ScApp->scrActions["editCopy"]->addTo(pmen);
-			if ((Doc->appMode == EditMode) && (ScApp->Buffer2.startsWith("<SCRIBUSTEXT")) && (b->PType == 4))
+			if ((Doc->appMode == EditMode) && (ScApp->Buffer2.startsWith("<SCRIBUSTEXT")) && (b->itemType() == PageItem::TextFrame))
 				ScApp->scrActions["editPaste"]->addTo(pmen);
 			if (!b->locked() && (Doc->appMode != 7) && (!(b->isTableItem && b->isSingleSel)))
 				pmen->insertItem( tr("&Delete"), this, SLOT(DeleteItem()));
-			if ((b->PType == 2) || (b->PType == 4))
+			if ((b->itemType() == PageItem::ImageFrame) || (b->itemType() == PageItem::TextFrame))
 				pmen->insertItem( tr("C&lear Contents"), this, SLOT(ClearItem()));
 			pmen->insertSeparator();
 			if (!ScApp->Mpal->isVisible())
@@ -1904,14 +1904,14 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					}
 					else
 						npx = ApplyGridF(transformPointI(FPoint(nx, ny), b->Xpos, b->Ypos, b->Rot, 1, 1));
-					if ((HowTo == 1) && (b->PType != 5) && (Doc->SnapGuides))
+					if ((HowTo == 1) && (b->itemType() != PageItem::Line) && (Doc->SnapGuides))
 						SizeItem(npx.x(), npx.y(), b->ItemNr);
 					bool sav = Doc->SnapGuides;
 					Doc->SnapGuides = false;
 					switch (HowTo)
 					{
 					case 1:
-						if (b->PType != 5)
+						if (b->itemType() != PageItem::Line)
 						{
 							if (b->isTableItem)
 							{
@@ -2009,7 +2009,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						b->Sizing = false;
 						break;
 					case 2:
-						if (b->PType != 5)
+						if (b->itemType() != PageItem::Line)
 						{
 							if (b->isTableItem)
 							{
@@ -2361,7 +2361,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 							MoveItemI(0, (b->Height - b->OldH2)/b->LocalScY, b->ItemNr, false);
 						break;
 					}
-					if ((b->PType == 4) && (m->state() & ShiftButton) && (m->state() & ControlButton))
+					if ((b->itemType() == PageItem::TextFrame) && (m->state() & ShiftButton) && (m->state() & ControlButton))
 					{
 						double scx = b->Width / b->OldB2;
 						double scy = b->Height / b->OldH2;
@@ -2384,7 +2384,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 							}
 						}
 					}
-					if (b->PType == 2)
+					if (b->itemType() == PageItem::ImageFrame)
 					{
 						AdjustPictScale(b);
 						AdjustPreview(b, false);
@@ -2426,7 +2426,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				else
 				{
 					b = SelItem.at(0);
-					if (b->PType != 5)
+					if (b->itemType() != PageItem::Line)
 					{
 						if (fabs(b->Width) < 5)
 							b->Width = 5;
@@ -2509,7 +2509,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			{
 				setGroupRect();
 				paintGroupRect();
-				emit HaveSel(b->PType);
+				emit HaveSel(b->itemType());
 				double x, y, w, h;
 				getGroupRect(&x, &y, &w, &h);
 				emit ItemPos(x, y);
@@ -2517,7 +2517,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			}
 			else
 			{
-				emit HaveSel(b->PType);
+				emit HaveSel(b->itemType());
 				EmitValues(b);
 			}
 		}
@@ -2526,7 +2526,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	{
 		b = SelItem.at(0);
 		uint a;
-		if (b->PType == 4)
+		if (b->itemType() == PageItem::TextFrame)
 		{
 			if (oldCp == b->CPos)
 			{
@@ -2962,13 +2962,13 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 		}
 		if (Mpressed && (Doc->appMode == EditMode) && (!HanMove))
 		{
-			if (b->PType == 2)
+			if (b->itemType() == PageItem::ImageFrame)
 			{
 				MoveItemI((newX-Mxp)/b->LocalScX, (newY-Myp)/b->LocalScY, b->ItemNr);
 				Mxp = newX;
 				Myp = newY;
 			}
-			if (b->PType == 4)
+			if (b->itemType() == PageItem::TextFrame)
 			{
 				for (a = 0; a < b->itemText.count(); ++a)
 					b->itemText.at(a)->cselect = false;
@@ -3179,7 +3179,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 								nx = np.x();
 								ny = np.y();
 								p.end();
-								if (b->PType != 5)
+								if (b->itemType() != PageItem::Line)
 								{
 									if ((Doc->useRaster) && (OnPage(b) != -1))
 									{
@@ -3224,7 +3224,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 								}
 								break;
 							case 2:
-								if (b->PType == 5)
+								if (b->itemType() == PageItem::Line)
 								{
 									p.begin(viewport());
 									Transform(b, &p);
@@ -3508,9 +3508,9 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 							qApp->setOverrideCursor(QCursor(loadIcon("Rotieren2.xpm")), true);
 						if (Doc->appMode == EditMode)
 						{
-							if (b->PType == 4)
+							if (b->itemType() == PageItem::TextFrame)
 								qApp->setOverrideCursor(QCursor(ibeamCursor), true);
-							if (b->PType == 2)
+							if (b->itemType() == PageItem::ImageFrame)
 								qApp->setOverrideCursor(QCursor(loadIcon("HandC.xpm")), true);
 						}
 						if (!b->sizeLocked())
@@ -3704,7 +3704,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 						return;
 					if (ClRe != -1)
 					{
-						if (b->PType == 6)
+						if (b->itemType() == PageItem::Polygon)
 						{
 							if ((ClRe != 0) && (ClRe != static_cast<int>(EndInd-2)))
 							{
@@ -3760,13 +3760,13 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 							b->ClipEdited = true;
 							edited = true;
 							Doc->EditClipMode = 0;
-							b->PType = 7;
+							b->convertTo(PageItem::PolyLine);
 							SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)));
 							emit PolyOpen();
 						}
 						else
 						{
-							if ((b->PType == 7) || (b->PType == 8))
+							if ((b->itemType() == PageItem::PolyLine) || (b->itemType() == PageItem::PathText))
 							{
 								if ((ClRe > 1) && (ClRe < static_cast<int>(Clip.size()-2)))
 								{
@@ -3797,7 +3797,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				{
 					if (!EdPoints)
 						return;
-					if ((b->PType == 6) || (b->PType == 4) || (b->PType == 2))
+					if ((b->itemType() == PageItem::Polygon) || (b->itemType() == PageItem::TextFrame) || (b->itemType() == PageItem::ImageFrame))
 					{
 						if ((b->Segments.count() == 0) && (Clip.size() < 13))
 							return;
@@ -3817,7 +3817,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 					{
 						if (ClRe == static_cast<int>(StartInd))
 						{
-							if ((b->PType == 6) || (b->PType == 4) || (b->PType == 2))
+							if ((b->itemType() == PageItem::Polygon) || (b->itemType() == PageItem::TextFrame) || (b->itemType() == PageItem::ImageFrame))
 							{
 								FPoint kp = Clip.point(EndInd-3);
 								cli.putPoints(0, StartInd, Clip);
@@ -3864,11 +3864,11 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				}
 				if (edited)
 				{
-					if (b->PType != 7)
+					if (b->itemType() != PageItem::PolyLine) 
 						b->Clip = FlattenPath(b->PoLine, b->Segments);
 					AdjustItemSize(b);
 					updateContents();
-					emit PStatus(b->PType, b->PoLine.size());
+					emit PStatus(b->itemType(), b->PoLine.size());
 					emit DocChanged();
 					qApp->setOverrideCursor(QCursor(pointingHandCursor), true);
 				}
@@ -3963,7 +3963,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 							HandleSizer(&p, b, mpo, m);
 							if (HowTo != 0)
 							{
-								if (b->PType != 5)
+								if (b->itemType() != PageItem::Line)
 									b->Sizing = true;
 								mCG = true;
 							}
@@ -4016,19 +4016,19 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				SetupDraw(z);
 				break;
 			}
-			emit HaveSel(6);
+			emit HaveSel(PageItem::Polygon);
 			break;
 		case DrawPicture:
 			selectPage(m);
 			z = PaintPict(Rxp, Ryp, 1+Rxpd, 1+Rypd);
 			SetupDraw(z);
-			emit HaveSel(2);
+			emit HaveSel(PageItem::ImageFrame);
 			break;
 		case DrawText:
 			selectPage(m);
 			z = PaintText(Rxp, Ryp, 1+Rxpd, 1+Rypd, Doc->toolSettings.dWidth, Doc->toolSettings.dPenText);
 			SetupDraw(z);
-			emit HaveSel(4);
+			emit HaveSel(PageItem::TextFrame);
 			break;
 		case Magnifier:
 			Mpressed = true;
@@ -4067,13 +4067,13 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			b = SelItem.at(0);
 			oldCp = b->CPos;
 			slotDoCurs(true);
-			if ((!inText) && ((b->PType == 4) || (b->PType == 2)))
+			if ((!inText) && ((b->itemType() == PageItem::TextFrame) || (b->itemType() == PageItem::ImageFrame)))
 			{
 				Deselect(true);
 				if (SeleItem(m))
 				{
 					b = SelItem.at(0);
-					if ((b->PType == 4) || (b->PType == 2))
+					if ((b->itemType() == PageItem::TextFrame) || (b->itemType() == PageItem::ImageFrame))
 						emit Amode(EditMode);
 					else
 					{
@@ -4089,7 +4089,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			}
 			else
 			{
-				if ((m->button() == MidButton) && (b->PType == 4))
+				if ((m->button() == MidButton) && (b->itemType() == PageItem::TextFrame))
 				{
 					Mpressed = false;
 					MidButt = false;
@@ -4135,7 +4135,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			emit ItemFarben(b->lineColor(), b->fillColor(), b->lineShade(), b->fillShade());
 			emit ItemGradient(b->GrType);
 			emit ItemTrans(b->fillTransparency(), b->lineTransparency());
-			emit HaveSel(5);
+			emit HaveSel(PageItem::Line);
 			break;
 		case Rotation:
 			if (GetItem(&b))
@@ -4278,7 +4278,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				emit ItemFarben(b->lineColor(), b->fillColor(), b->lineShade(), b->fillShade());
 				emit ItemGradient(b->GrType);
 				emit ItemTrans(b->fillTransparency(), b->lineTransparency());
-				emit HaveSel(6);
+				emit HaveSel(PageItem::Polygon);
 				break;
 			}
 		case DrawBezierLine:
@@ -4321,7 +4321,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			emit ItemFarben(b->lineColor(), b->fillColor(), b->lineShade(), b->fillShade());
 			emit ItemGradient(b->GrType);
 			emit ItemTrans(b->fillTransparency(), b->lineTransparency());
-			emit HaveSel(7);
+			emit HaveSel(PageItem::PolyLine);
 			break;
 		case InsertPDFButton:
 		case InsertPDFTextfield:
@@ -4364,7 +4364,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				break;
 			}
 			SetupDraw(z);
-			emit HaveSel(4);
+			emit HaveSel(PageItem::TextFrame);
 			break;
 		case DrawFreehandLine:
 			RecordP.resize(0);
@@ -4459,7 +4459,7 @@ void ScribusView::SnapToGuides(PageItem* b)
 				b->Ypos = page->YGuides[yg]+page->Yoffset;
 				break;
 			}
-			if (b->PType == 5)
+			if (b->itemType() == PageItem::Line)
 			{
 				QWMatrix ma;
 				ma.translate(b->Xpos, b->Ypos);
@@ -4491,7 +4491,7 @@ void ScribusView::SnapToGuides(PageItem* b)
 				b->Xpos = page->XGuides[xg]+page->Xoffset;
 				break;
 			}
-			if (b->PType == 5)
+			if (b->itemType() == PageItem::Line)
 			{
 				QWMatrix ma;
 				ma.translate(b->Xpos, b->Ypos);
@@ -4619,7 +4619,7 @@ void ScribusView::setRedrawBounding(PageItem* b)
 	getBoundingRect(b, &b->BoundingX, &b->BoundingY, &bw, &bh);
 	b->BoundingW = bw - b->BoundingX;
 	b->BoundingH = bh - b->BoundingY;
-	if (b->PType == 5)
+	if (b->itemType() == PageItem::Line)
 		b->BoundingH = QMAX(b->BoundingH, 1);
 }
 
@@ -4826,15 +4826,15 @@ void ScribusView::UpdateClip(PageItem* b)
 	if (Doc->appMode == DrawBezierLine)
 		return;
 	int ph = static_cast<int>(QMAX(1.0, b->Pwidth / 2.0));
-	switch (b->PType)
+	switch (b->itemType())
 	{
-	case 5:
+	case PageItem::Line:
 		b->Clip.setPoints(4, -ph,-ph, static_cast<int>(b->Width+ph),-ph,
 		                  static_cast<int>(b->Width+ph),static_cast<int>(b->Height+ph),
 		                  -ph,static_cast<int>(b->Height+ph));
 		break;
 	default:
-		if (((!b->ClipEdited) || (b->FrameType < 3)) && (b->PType != 8))
+		if (((!b->ClipEdited) || (b->FrameType < 3)) && (b->itemType() != PageItem::PathText))
 		{
 			switch (b->FrameType)
 			{
@@ -4868,7 +4868,7 @@ void ScribusView::UpdateClip(PageItem* b)
 				{
 					b->PoLine.map(ma);
 					b->ContourLine.map(ma);
-					if (b->PType == 8)
+					if (b->itemType() == PageItem::PathText)
 						UpdatePolyClip(b);
 					else
 						b->Clip = FlattenPath(b->PoLine, b->Segments);
@@ -4915,7 +4915,7 @@ void ScribusView::UpdateClip(PageItem* b)
 			b->GrEndY = gr.point(1).y();
 			b->PoLine.map(ma);
 			b->ContourLine.map(ma);
-			if (b->PType == 8)
+			if (b->itemType() == PageItem::PathText)
 				UpdatePolyClip(b);
 			else
 				b->Clip = FlattenPath(b->PoLine, b->Segments);
@@ -5109,7 +5109,7 @@ void ScribusView::MirrorPolyH()
 	ma.scale(-1, 1);
 	b->PoLine.map(ma);
 	b->PoLine.translate(b->Width, 0);
-	if (b->PType == 8)
+	if (b->itemType() == PageItem::PathText)
 		UpdatePolyClip(b);
 	else
 		b->Clip = FlattenPath(b->PoLine, b->Segments);
@@ -5142,7 +5142,7 @@ void ScribusView::MirrorPolyV()
 	ma.scale(1, -1);
 	b->PoLine.map(ma);
 	b->PoLine.translate(0, b->Height);
-	if (b->PType == 8)
+	if (b->itemType() == PageItem::PathText)
 		UpdatePolyClip(b);
 	else
 		b->Clip = FlattenPath(b->PoLine, b->Segments);
@@ -5268,7 +5268,7 @@ void ScribusView::TransformPoly(int mode, int rot, int scaling)
 	double x = ma2.m11() * n.x() + ma2.m21() * n.y() + ma2.dx();
 	double y = ma2.m22() * n.y() + ma2.m12() * n.x() + ma2.dy();
 	MoveItem(x-oldPos.x(), y-oldPos.y(), b);
-	if (b->PType == 8)
+	if (b->itemType() == PageItem::PathText)
 		UpdatePolyClip(b);
 	setRedrawBounding(b);
 	RefreshItem(b);
@@ -5444,7 +5444,7 @@ void ScribusView::MoveClipPoint(PageItem *b, FPoint ip)
 			Clip.setPoint(ClRe-2, np);
 		}
 		if (((ClRe == static_cast<int>(StartInd)) || (ClRe == static_cast<int>(EndInd-2))) &&
-		        ((b->PType == 6) || (b->PType == 4) || (b->PType == 2)))
+		        ((b->itemType() == PageItem::Polygon) || (b->itemType() == PageItem::TextFrame) || (b->itemType() == PageItem::ImageFrame)))
 		{
 			if (ClRe == static_cast<int>(StartInd))
 			{
@@ -5466,7 +5466,7 @@ void ScribusView::MoveClipPoint(PageItem *b, FPoint ip)
 			}
 		}
 		if (((ClRe == static_cast<int>(StartInd+1)) || (ClRe == static_cast<int>(EndInd-1))) &&
-		        ((b->PType == 6) || (b->PType == 4) || (b->PType == 2)) && (MoveSym))
+		        ((b->itemType() == PageItem::Polygon) || (b->itemType() == PageItem::TextFrame) || (b->itemType() == PageItem::ImageFrame)) && (MoveSym))
 		{
 			uint kon = 0;
 			if (ClRe == static_cast<int>(StartInd+1))
@@ -5527,7 +5527,7 @@ bool ScribusView::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, 
 		return false;
 	QPainter p;
 	QRect oldR = getRedrawBounding(b);
-	if (b->PType != 5)
+	if (b->itemType() != PageItem::Line)
 	{
 		newX = QMAX(newX, 1);
 		newY = QMAX(newY, 1);
@@ -5558,12 +5558,12 @@ bool ScribusView::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, 
 		}
 	}
 	b->RadRect = QMIN(b->RadRect, QMIN(b->Width,b->Height)/2);
-	if ((b->PType == 2) && (!b->Sizing) && (!Doc->EditClip))
+	if ((b->itemType() == PageItem::ImageFrame) && (!b->Sizing) && (!Doc->EditClip))
 	{
 		AdjustPictScale(b);
 		AdjustPreview(b, false);
 	}
-	if (b->PType == 5)
+	if (b->itemType() == PageItem::Line)
 	{
 		if (!fromMP)
 		{
@@ -5584,9 +5584,9 @@ bool ScribusView::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, 
 		emit ItemRadius(b->RadRect);
 		b->FrameOnly = true;
 		b->Tinput = true;
-		if ((HowTo == 1) && (b->PType != 5))
+		if ((HowTo == 1) && (b->itemType() != PageItem::Line))
 			b->paintObj();
-		if ((b->FrameType == 0) || (b->PType == 5) || (HowTo != 1))
+		if ((b->FrameType == 0) || (b->itemType() == PageItem::Line) || (HowTo != 1))
 			return true;
 		QPainter p;
 		p.begin(viewport());
@@ -5659,7 +5659,7 @@ bool ScribusView::MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP)
 {
 	PageItem *b = Doc->Items.at(ite);
 	QRect oldR = getRedrawBounding(b);
-	if (b->PType == 5)
+	if (b->itemType() == PageItem::Line)
 	{
 		QWMatrix ma;
 		ma.translate(b->Xpos, b->Ypos);
@@ -5737,7 +5737,7 @@ void ScribusView::moveGroup(double x, double y, bool fromMP)
 			p.setRasterOp(XorROP);
 			p.setBrush(NoBrush);
 			p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
-			if ((b->PType != 5) && (b->FrameType != 0) || (b->PType == 7))
+			if ((b->itemType() != PageItem::Line) && (b->FrameType != 0) || (b->itemType() == PageItem::PolyLine))
 				b->DrawPolyL(&p, b->Clip);
 			else
 				p.drawRect(0, 0, static_cast<int>(b->Width)+1, static_cast<int>(b->Height)+1);
@@ -5754,7 +5754,7 @@ void ScribusView::moveGroup(double x, double y, bool fromMP)
 			p.setRasterOp(XorROP);
 			p.setBrush(NoBrush);
 			p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
-			if ((b->PType != 5) && (b->FrameType != 0) || (b->PType == 7))
+			if ((b->itemType() != PageItem::Line) && (b->FrameType != 0) || (b->itemType() == PageItem::PolyLine))
 				b->DrawPolyL(&p, b->Clip);
 			else
 				p.drawRect(0, 0, static_cast<int>(b->Width)+1, static_cast<int>(b->Height)+1);
@@ -5855,7 +5855,7 @@ void ScribusView::scaleGroup(double scx, double scy)
 		h -= g;
 		h1 = transformPoint(h, 0, 0, 0, scx, scy);
 		bb->Pwidth = QMAX(bb->Pwidth*((scx+scy)/2), 0.01);
-		if (bb->PType == 5)
+		if (bb->itemType() == PageItem::Line)
 		{
 			bb->Rot = atan2(t1.y()-b1.y(),t1.x()-b1.x())*(180.0/M_PI);
 			bb->Width = sqrt(pow(t1.x()-b1.x(),2)+pow(t1.y()-b1.y(),2));
@@ -5897,7 +5897,7 @@ void ScribusView::scaleGroup(double scx, double scy)
 			bb->LineSp = ((bb->ISize / 10.0) * static_cast<double>(Doc->typographicSetttings.autoLineSpacing) / 100) + (bb->ISize / 10.0);
 			for (aa = 0; aa < bb->itemText.count(); ++aa)
 				bb->itemText.at(aa)->csize = QMAX(qRound(bb->itemText.at(aa)->csize*((scx+scy)/2)), 1);
-			if (bb->PType == 8)
+			if (bb->itemType() == PageItem::PathText)
 				UpdatePolyClip(bb);
 		}
 		bb->LocalX = oldLocalX;
@@ -5937,7 +5937,7 @@ void ScribusView::RotateItem(double win, PageItem *pi)
 		return;
 	FPoint n;
 	QRect oldR = getRedrawBounding(b);
-	if ((Doc->RotMode != 0) && (b->PType != 5))
+	if ((Doc->RotMode != 0) && (b->itemType() != PageItem::Line))
 	{
 		QWMatrix ma;
 		ma.translate(b->Xpos, b->Ypos);
@@ -6010,7 +6010,7 @@ void ScribusView::AdjustItemSize(PageItem *b)
 	SizeItem(tp.x(), tp.y(), b->ItemNr, true, false);
 	b->ClipEdited = true;
 	b->PoLine = Clip.copy();
-	if (b->PType == 7)
+	if (b->itemType() == PageItem::PolyLine)
 		SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)));
 	else
 		b->Clip = FlattenPath(b->PoLine, b->Segments);
@@ -6223,7 +6223,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 		int xP, yP;
 		xP = qRound(x / Scale);
 		yP = qRound(y / Scale);
-		if (!((b->PType == 4) || (b->PType == 2)))
+		if (!((b->itemType() == PageItem::TextFrame) || (b->itemType() == PageItem::ImageFrame)))
 			return false;
 		QPainter p;
 		QString chx;
@@ -6234,7 +6234,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 		if ((QRegion(p.xForm(QPointArray(QRect(0, 0, static_cast<int>(b->Width), static_cast<int>(b->Height))))).contains(mpo)) ||
 		        (QRegion(p.xForm(b->Clip)).contains(mpo)))
 		{
-			if (b->PType == 2)
+			if (b->itemType() == PageItem::ImageFrame)
 				return true;
 			TransformM(b, &p);
 			uint a, i;
@@ -6358,7 +6358,7 @@ void ScribusView::slotDoCurs(bool draw)
 	PageItem *b;
 	if (GetItem(&b))
 	{
-		if (b->PType != 4)
+		if (b->itemType() != PageItem::TextFrame)
 			return;
 		QPainter p;
 		QString chx;
@@ -6736,7 +6736,7 @@ void ScribusView::SelectItem(PageItem *pi, bool draw, bool single)
 		}
 		else
 			EmitValues(b);
-		emit HaveSel(b->PType);
+		emit HaveSel(b->itemType());
 	}
 }
 
@@ -6917,14 +6917,14 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 						getGroupRect(&x, &y, &w, &h);
 						emit ItemPos(x, y);
 						emit ItemGeom(w, h);
-						emit HaveSel(b->PType);
+						emit HaveSel(b->itemType());
 					}
 					else
 					{
 						EmitValues(b);
-						if (b->PType == 5)
+						if (b->itemType() == PageItem::Line)
 							emit ItemGeom(b->Width, b->Height);
-						emit HaveSel(b->PType);
+						emit HaveSel(b->itemType());
 					}
 					p.end();
 					if (!b->ChangedMasterItem)
@@ -7053,15 +7053,15 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 					getGroupRect(&x, &y, &w, &h);
 					emit ItemPos(x, y);
 					emit ItemGeom(w, h);
-					emit HaveSel(b->PType);
+					emit HaveSel(b->itemType());
 				}
 				else
 				{
 					EmitValues(b);
 					b->paintObj();
-					if (b->PType == 5)
+					if (b->itemType() == PageItem::Line)
 						emit ItemGeom(b->Width, b->Height);
-					emit HaveSel(b->PType);
+					emit HaveSel(b->itemType());
 				}
 				if (SelItem.count() == 1)
 				{
@@ -7141,7 +7141,7 @@ void ScribusView::HandleSizer(QPainter *p, PageItem *b, QRect mpo, QMouseEvent *
 	d1 = sqrt(pow(n1.x() * Scale - m->x(),2)+pow(n1.y() * Scale - m->y(),2));
 	if (d1 < Doc->guidesSettings.grabRad)
 		distance.insert(d1, 2);
-	if (b->PType != 5)
+	if (b->itemType() != PageItem::Line)
 	{
 		n1 = transformPoint( FPoint(b->Width, 0), b->Xpos, b->Ypos, b->Rot, 1, 1);
 		d1 = sqrt(pow(n1.x() * Scale - m->x(),2)+pow(n1.y() * Scale - m->y(),2));
@@ -7174,7 +7174,7 @@ void ScribusView::HandleSizer(QPainter *p, PageItem *b, QRect mpo, QMouseEvent *
 	HandleCurs(p, b, mpo);
 	if (HowTo != 0)
 	{
-		if (b->PType != 5)
+		if (b->itemType() != PageItem::Line)
 			b->Sizing = true;
 		mCG = true;
 	}
@@ -7206,9 +7206,9 @@ void ScribusView::Deselect(bool prop)
 		for (uint a = 0; a < SelItem.count(); ++a)
 		{
 			b = SelItem.at(a);
-			if ((b->PType == 4) && (b->isBookmark))
+			if ((b->itemType() == PageItem::TextFrame) && (b->isBookmark))
 				emit ChBMText(b);
-			if (b->PType == 2)
+			if (b->itemType() == PageItem::ImageFrame)
 				AdjustPreview(b, !Doc->DragP);
 			b->Select = false;
 			b->isSingleSel = false;
@@ -7297,7 +7297,7 @@ void ScribusView::SetupDraw(int nr)
 	Imoved = true;
 	Doc->appMode = NormalMode;
 	emit DocChanged();
-	b->Sizing = b->PType == 5 ? false : true;
+	b->Sizing = b->itemType() == PageItem::Line ? false : true;
 	EmitValues(b);
 }
 
@@ -7386,7 +7386,7 @@ void ScribusView::removePict(QString name)
 			b->PicAvail = false;
 			b->pixm = QImage();
 			b->pixmOrg = QImage();
-/*			if (b->PType == 2)
+/*			if (b->itemType() == PageItem::ImageFrame)
 				emit UpdtObj(Doc->currentPage->PageNr, b->ItemNr); */
 		}
 	}
@@ -7514,7 +7514,7 @@ void ScribusView::ToggleLock()
 		{
 			SelItem.at(a)->toggleLock();
 			RefreshItem(SelItem.at(a));
-			emit HaveSel(SelItem.at(a)->PType);
+			emit HaveSel(SelItem.at(a)->itemType());
 		}
 		emit DocChanged();
 		if (SelItem.count() > 1)
@@ -7539,7 +7539,7 @@ void ScribusView::ToggleResize()
 		{
 			SelItem.at(a)->toggleSizeLock();
 			RefreshItem(SelItem.at(a));
-			emit HaveSel(SelItem.at(a)->PType);
+			emit HaveSel(SelItem.at(a)->itemType());
 		}
 		emit DocChanged();
 		if (SelItem.count() > 1)
@@ -7782,10 +7782,10 @@ void ScribusView::ToPicFrame()
 {
 	emit Amode(1);
 	PageItem *b = SelItem.at(0);
-	b->convertTo(2);
+	b->convertTo(PageItem::ImageFrame);
 	b->Frame = true;
 	RefreshItem(b);
-	emit HaveSel(b->PType);
+	emit HaveSel(b->itemType());
 	if (!Doc->loading)
 		emit UpdtObj(Doc->currentPage->PageNr, b->ItemNr);
 	EmitValues(b);
@@ -7796,14 +7796,14 @@ void ScribusView::ToPolyFrame()
 {
 	emit Amode(1);
 	PageItem *b = SelItem.at(0);
-	b->convertTo(6);
+	b->convertTo(PageItem::Polygon);
 	b->Frame = false;
 	b->ClipEdited = true;
 	b->FrameType = 3;
 	b->Clip = FlattenPath(b->PoLine, b->Segments);
 	b->ContourLine = b->PoLine.copy();
 	RefreshItem(b);
-	emit HaveSel(b->PType);
+	emit HaveSel(b->itemType());
 	if (!Doc->loading)
 		emit UpdtObj(Doc->currentPage->PageNr, b->ItemNr);
 	EmitValues(b);
@@ -7814,10 +7814,10 @@ void ScribusView::ToTextFrame()
 {
 	emit Amode(1);
 	PageItem *b = SelItem.at(0);
-	b->convertTo(4);
+	b->convertTo(PageItem::TextFrame);
 	b->Frame = true;
 	RefreshItem(b);
-	emit HaveSel(b->PType);
+	emit HaveSel(b->itemType());
 	if (!Doc->loading)
 		emit UpdtObj(Doc->currentPage->PageNr, b->ItemNr);
 	EmitValues(b);
@@ -7828,12 +7828,12 @@ void ScribusView::ToBezierFrame()
 {
 	emit Amode(1);
 	PageItem *b = SelItem.at(0);
-	b->PType = 7;
+	b->convertTo(PageItem::PolyLine);
 	b->ClipEdited = true;
 	SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)));
 	AdjustItemSize(b);
 	RefreshItem(b);
-	emit HaveSel(b->PType);
+	emit HaveSel(b->itemType());
 	if (!Doc->loading)
 		emit UpdtObj(Doc->currentPage->PageNr, b->ItemNr);
 	EmitValues(b);
@@ -7843,7 +7843,7 @@ void ScribusView::ToBezierFrame()
 void ScribusView::Bezier2Poly()
 {
 	PageItem *b = SelItem.at(0);
-	b->PType = 6;
+	b->convertTo(PageItem::Polygon);
 	b->Frame = false;
 	b->ClipEdited = true;
 	b->FrameType = 3;
@@ -7854,7 +7854,7 @@ void ScribusView::Bezier2Poly()
 	b->Clip = FlattenPath(b->PoLine, b->Segments);
 	b->ContourLine = b->PoLine.copy();
 	RefreshItem(b);
-	emit HaveSel(b->PType);
+	emit HaveSel(b->itemType());
 	if (!Doc->loading)
 		emit UpdtObj(Doc->currentPage->PageNr, b->ItemNr);
 	EmitValues(b);
@@ -7867,9 +7867,9 @@ void ScribusView::ClearItem()
 	if (SelItem.count() != 0)
 	{
 		b = SelItem.at(0);
-		if ((b->PType == 2) || (b->PType == 4))
+		if ((b->itemType() == PageItem::ImageFrame) || (b->itemType() == PageItem::TextFrame))
 		{
-			if (b->PType == 4)
+			if (b->itemType() == PageItem::TextFrame)
 			{
 				if ((b->itemText.count() != 0) && ((b->NextBox == 0) || (b->BackBox == 0)))
 				{
@@ -7894,13 +7894,13 @@ void ScribusView::ClearItem()
 					nb = nb->NextBox;
 				}
 			}
-			if ((b->PType == 2) && ((ScApp->fileWatcher->files().contains(b->Pfile) != 0) && (b->PicAvail)))
+			if ((b->itemType() == PageItem::ImageFrame) && ((ScApp->fileWatcher->files().contains(b->Pfile) != 0) && (b->PicAvail)))
 				ScApp->fileWatcher->removeFile(b->Pfile);
 			b->Pfile = "";
 			b->PicAvail = false;
 			b->pixm = QImage();
 			b->pixmOrg = QImage();
-			if (b->PType == 2)
+			if (b->itemType() == PageItem::ImageFrame)
 			{
 				b->LocalScX = 1;
 				b->LocalScY = 1;
@@ -7961,9 +7961,9 @@ void ScribusView::DeleteItem()
 		for (uint de = 0; de < anz; ++de)
 		{
 			b = delItems.at(0);
-			if ((b->PType == 2) && ((ScApp->fileWatcher->files().contains(b->Pfile) != 0) && (b->PicAvail)))
+			if ((b->itemType() == PageItem::ImageFrame) && ((ScApp->fileWatcher->files().contains(b->Pfile) != 0) && (b->PicAvail)))
 				ScApp->fileWatcher->removeFile(b->Pfile);
-			if (b->PType == 4)
+			if (b->itemType() == PageItem::TextFrame)
 			{
 				if ((b->NextBox != 0) || (b->BackBox != 0))
 				{
@@ -8053,7 +8053,7 @@ void ScribusView::DeleteItem()
 		if (SelItem.count() == 0)
 			emit HaveSel(-1);
 		else
-			emit HaveSel(SelItem.at(0)->PType);
+			emit HaveSel(SelItem.at(0)->itemType());
 		emit DocChanged();
 	}
 }
@@ -8715,7 +8715,7 @@ void ScribusView::RecalcPictures(ProfilesL *Pr, QProgressBar *dia)
 		for (uint i=0; i < Doc->Items.count(); i++)
 		{
 			it = Doc->Items.at(i);
-			if ((it->PType == 2) && (it->PicAvail))
+			if ((it->itemType() == PageItem::ImageFrame) && (it->PicAvail))
 			{
 				if (Pr->contains(it->IProfile))
 					LoadPict(it->Pfile, i);
@@ -9075,7 +9075,7 @@ int ScribusView::PaintEllipse(double x, double y, double b, double h, double w, 
 		_itemCreationTransactionStarted = true;
 		undoManager->beginTransaction();
 	}
-	PageItem* ite = new PageItem(Doc, 6, x, y, b, h, w, fill, outline);
+	PageItem* ite = new PageItem(Doc, PageItem::Polygon, x, y, b, h, w, fill, outline);
 	Doc->Items.append(ite);
 	if (Doc->MasterP)
 		Doc->MasterItems = Doc->Items;
@@ -9117,7 +9117,7 @@ int ScribusView::PaintPict(double x, double y, double b, double h)
 		_itemCreationTransactionStarted = true;
 		undoManager->beginTransaction();
 	}
-	PageItem* ite = new PageItem(Doc, 2, x, y, b, h, 1, Doc->toolSettings.dBrushPict, "None");
+	PageItem* ite = new PageItem(Doc, PageItem::ImageFrame, x, y, b, h, 1, Doc->toolSettings.dBrushPict, "None");
 	Doc->Items.append(ite);
 	if (Doc->MasterP)
 		Doc->MasterItems = Doc->Items;
@@ -9163,7 +9163,7 @@ int ScribusView::PaintRect(double x, double y, double b, double h, double w, QSt
 		_itemCreationTransactionStarted = true;
 		undoManager->beginTransaction();
 	}
-	PageItem* ite = new PageItem(Doc, 6, x, y, b, h, w, fill, outline);
+	PageItem* ite = new PageItem(Doc, PageItem::Polygon, x, y, b, h, w, fill, outline);
 	Doc->Items.append(ite);
 	if (Doc->MasterP)
 		Doc->MasterItems = Doc->Items;
@@ -9205,7 +9205,7 @@ int ScribusView::PaintPoly(double x, double y, double b, double h, double w, QSt
 		_itemCreationTransactionStarted = true;
 		undoManager->beginTransaction();
 	}
-	PageItem* ite = new PageItem(Doc, 6, x, y, b, h, w, fill, outline);
+	PageItem* ite = new PageItem(Doc, PageItem::Polygon, x, y, b, h, w, fill, outline);
 	Doc->Items.append(ite);
 	if (Doc->MasterP)
 		Doc->MasterItems = Doc->Items;
@@ -9247,7 +9247,7 @@ int ScribusView::PaintPolyLine(double x, double y, double b, double h, double w,
 		_itemCreationTransactionStarted = true;
 		undoManager->beginTransaction();
 	}
-	PageItem* ite = new PageItem(Doc, 7, x, y, b, h, w, fill, outline);
+	PageItem* ite = new PageItem(Doc, PageItem::PolyLine, x, y, b, h, w, fill, outline);
 	Doc->Items.append(ite);
 	if (Doc->MasterP)
 		Doc->MasterItems = Doc->Items;
@@ -9288,7 +9288,7 @@ int ScribusView::PaintText(double x, double y, double b, double h, double w, QSt
 		_itemCreationTransactionStarted = true;
 		undoManager->beginTransaction();
 	}
-	PageItem* ite = new PageItem(Doc, 4, x, y, b, h, w, "None", outline);
+	PageItem* ite = new PageItem(Doc, PageItem::TextFrame, x, y, b, h, w, "None", outline);
 	Doc->Items.append(ite);
 	if (Doc->MasterP)
 		Doc->MasterItems = Doc->Items;
@@ -9329,7 +9329,7 @@ int ScribusView::PaintLine(double x, double y, double b, double h, double w, QSt
 		_itemCreationTransactionStarted = true;
 		undoManager->beginTransaction();
 	}
-	PageItem* ite = new PageItem(Doc, 5, x, y, b, h, w, "None", outline);
+	PageItem* ite = new PageItem(Doc, PageItem::Line, x, y, b, h, w, "None", outline);
 	Doc->Items.append(ite);
 	if (Doc->MasterP)
 		Doc->MasterItems = Doc->Items;
@@ -9382,9 +9382,9 @@ void ScribusView::ChLineWidth(double w)
 			PageItem *b = SelItem.at(a);
 			b->OldPwidth = b->Pwidth;
 			b->setLineWidth(w);
-			if (b->PType == 7)
+			if (b->itemType() == PageItem::PolyLine)
 				SetPolyClip(b, qRound(QMAX(b->Pwidth / 2, 1)));
-			if (b->PType == 5)
+			if (b->itemType() == PageItem::Line)
 			{
 				int ph = static_cast<int>(QMAX(1.0, w / 2.0));
 				b->Clip.setPoints(4, -ph,-ph, static_cast<int>(b->Width+ph),-ph,
@@ -9520,7 +9520,7 @@ void ScribusView::ItemFont(QString fon)
 				{
 					for (uint a = 0; a < b->itemText.count(); ++a)
 						b->itemText.at(a)->cfont = fon;
-					if (b->PType == 8)
+					if (b->itemType() == PageItem::PathText)
 					{
 						UpdatePolyClip(b);
 						AdjustItemSize(b);
@@ -9561,7 +9561,7 @@ void ScribusView::ItemPen(QString farbe)
 		for (uint a = 0; a < SelItem.count(); ++a)
 		{
 			i = SelItem.at(a);
-			if ((i->PType == 5) && (farbe == "None"))
+			if ((i->itemType() == PageItem::Line) && (farbe == "None"))
 				continue;
 			i->setLineColor(farbe);
 			RefreshItem(i);
@@ -9585,7 +9585,7 @@ void ScribusView::ItemTextBrush(QString farbe)
 		for (uint a = 0; a < SelItem.count(); ++a)
 		{
 			b = SelItem.at(a);
-			if ((b->PType == 4) || (b->PType == 8))
+			if ((b->itemType() == PageItem::TextFrame) || (b->itemType() == PageItem::PathText))
 			{
 				if (Doc->appMode != EditMode)
 					b->setFontFillColor(farbe);
@@ -9619,7 +9619,7 @@ void ScribusView::ItemTextBrushS(int sha)
 		for (uint a = 0; a < SelItem.count(); ++a)
 		{
 			b = SelItem.at(a);
-			if (b->PType == 4)
+			if (b->itemType() == PageItem::TextFrame)
 			{
 				if (Doc->appMode != EditMode)
 					b->setFontFillShade(sha);
@@ -9655,7 +9655,7 @@ void ScribusView::ItemTextPen(QString farbe)
 		for (uint a = 0; a < SelItem.count(); ++a)
 		{
 			b = SelItem.at(a);
-			if ((b->PType == 4) || (b->PType == 8))
+			if ((b->itemType() == PageItem::TextFrame) || (b->itemType() == PageItem::PathText))
 			{
 				if (Doc->appMode != EditMode)
 					b->setFontStrokeColor(farbe);
@@ -9688,7 +9688,7 @@ void ScribusView::ItemTextPenS(int sha)
 		for (uint a = 0; a < SelItem.count(); ++a)
 		{
 			b = SelItem.at(a);
-			if (b->PType == 4)
+			if (b->itemType() == PageItem::TextFrame)
 			{
 				if (Doc->appMode != EditMode)
 					b->setFontStrokeShade(sha);
@@ -9721,7 +9721,7 @@ void ScribusView::ItemTextScale(int sha)
 		for (uint a = 0; a < SelItem.count(); ++a)
 		{
 			b = SelItem.at(a);
-			if (b->PType == 4)
+			if (b->itemType() == PageItem::TextFrame)
 			{
 				if (Doc->appMode != EditMode)
 					b->setFontWidth(sha);
@@ -10111,7 +10111,7 @@ void ScribusView::chFSize(int size)
 							b->itemText.at(a)->csize = size;
 					}
 				}
-				if (b->PType == 8)
+				if (b->itemType() == PageItem::PathText)
 				{
 					UpdatePolyClip(b);
 					AdjustItemSize(b);
@@ -10648,10 +10648,12 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	struct ScText *hg;
 	switch (Buffer->PType)
 	{
+	/* OBSOLETE CR 2005-02-06
 	case 1:
 		z = PaintEllipse(x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2);
 		break;
-	case 2:
+	*/
+	case PageItem::ImageFrame:
 		z = PaintPict(x, y, w, h);
 		Doc->Items.at(z)->LocalScX = Buffer->LocalScX;
 		Doc->Items.at(z)->LocalScY = Buffer->LocalScY;
@@ -10673,11 +10675,13 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		Doc->Items.at(z)->AspectRatio = Buffer->AspectRatio;
 		Doc->Items.at(z)->Pwidth = Buffer->Pwidth;
 		break;
+	/* OBSOLETE CR 2005-02-06
 	case 3:
 		z = PaintRect(x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2);
 		break;
-	case 8:
-	case 4:
+	*/
+	case PageItem::PathText:
+	case PageItem::TextFrame:
 		z = PaintText(x, y, w, h, pw, Buffer->Pcolor);
 		if ((Buffer->isAnnotation) && (Buffer->AnUseIcons))
 		{
@@ -10751,15 +10755,15 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 			}
 		}
 		Doc->Items.at(z)->LineSp = Buffer->LineSp;
-		Doc->Items.at(z)->PType = Buffer->PType;
+		Doc->Items.at(z)->convertTo(Buffer->PType);
 		break;
-	case 5:
+	case PageItem::Line:
 		z = PaintLine(x, y, w, h, pw, Buffer->Pcolor2);
 		break;
-	case 6:
+	case PageItem::Polygon:
 		z = PaintPoly(x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2);
 		break;
-	case 7:
+	case PageItem::PolyLine:
 		z = PaintPolyLine(x, y, w, h, pw, Buffer->Pcolor, Buffer->Pcolor2);
 		break;
 	}
@@ -10896,11 +10900,13 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		b->ContourLine = b->PoLine.copy();
 	else
 		b->ContourLine = Buffer->ContourLine.copy();
-	if (b->PType != 5)
+	if (b->itemType() != PageItem::Line)
 	{
+		/* OBSOLETE CR 2005-02-06
 		if ((b->PoLine.size() == 0) && (b->PType != 1))
 			ConvertClip(b);
 		else
+		*/
 			b->Clip = FlattenPath(b->PoLine, b->Segments);
 	}
 	else
@@ -10913,13 +10919,16 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		                  -ph,static_cast<int>(b->Height+ph));
 		b->Height = 1;
 	}
+	/* OBSOLETE CR 2005-02-06
 	if (b->PType == 1)
 		SetOvalFrame(b);
-	if (b->PType == 8)
+	*/
+	if (b->itemType() == PageItem::PathText)
 	{
 		b->Frame = false;
 		UpdatePolyClip(b);
 	}
+	/* OBSOLETE CR 2005-02-06
 	if (b->PType == 3)
 	{
 		if (b->RadRect != 0)
@@ -10928,12 +10937,13 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 			SetRectFrame(b);
 		b->ClipEdited = true;
 	}
-	if (b->PType == 2)
+	*/
+	if (b->itemType() == PageItem::ImageFrame)
 	{
 		AdjustPictScale(b);
 		AdjustPreview(b, false);
 	}
-	if ((b->PType != 4) && (b->PType != 8))
+	if ((b->itemType() != PageItem::TextFrame) && (b->itemType() != PageItem::PathText))
 		b->IFont = Doc->toolSettings.defFont;
 	if (Buffer->GrType != 0)
 	{
@@ -10974,7 +10984,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	{
 		b->Select = true;
 		SelItem.append(b);
-		emit HaveSel(b->PType);
+		emit HaveSel(b->itemType());
 		EmitValues(b);
 		emit DocChanged();
 		updateContents();
@@ -11231,18 +11241,18 @@ void ScribusView::ToPathText()
 	{
 		PageItem *b = SelItem.at(0);
 		PageItem *bb;
-		if (b->PType == 4)
+		if (b->itemType() == PageItem::TextFrame)
 			bb = SelItem.at(1);
 		else
 		{
 			bb = SelItem.at(0);
 			b = SelItem.at(1);
 		}
-		if (bb->PType != 7)
+		if (bb->itemType() != PageItem::PolyLine)
 			return;
 		b->Frame = false;
 		b->ClipEdited = true;
-		b->PType = 8;
+		b->convertTo(PageItem::PathText);
 		b->PoLine = bb->PoLine.copy();
 		b->Pwidth = bb->Pwidth;
 		b->setLineColor(bb->lineColor());
@@ -11278,7 +11288,7 @@ void ScribusView::FromPathText()
 		bb->Rot = b->Rot;
 		SetPolyClip(bb, qRound(QMAX(bb->Pwidth / 2, 1)));
 		AdjustItemSize(bb);
-		b->PType = 4;
+		b->convertTo(PageItem::TextFrame);
 		b->setLineColor("None");
 		b->Frame = true;
 		SetRectFrame(b);

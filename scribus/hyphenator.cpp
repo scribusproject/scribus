@@ -230,7 +230,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 		nb->CPos = 0;
 		nb = nb->NextBox;
 	}
-	if ((!useAble) || (nb1->PType != 4) || (nb1 ->itemText.count() == 0))
+	if ((!useAble) || (nb1->itemType() != PageItem::TextFrame) || (nb1 ->itemText.count() == 0))
 		return;
 	doc->DoDrawing = false;
 	const char *word;

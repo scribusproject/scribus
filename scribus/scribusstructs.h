@@ -43,7 +43,7 @@ struct ScText
 
 struct CopyPasteBuffer
 {
-	int PType;
+	PageItem::ItemType PType;
 	double Xpos;
 	double Ypos;
 	double Width;
@@ -537,6 +537,7 @@ struct PrintOptions
 typedef QMap<QString,QString> ProfilesL;
 typedef QValueVector<SingleLine> multiLine;
 typedef QMap<int, int> errorCodes;
+
 enum AppMode
 {
 	NormalMode,

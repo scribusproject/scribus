@@ -69,7 +69,7 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi)
 	Zeilen = 0;
 	for (i=0; i < doc->MasterItems.count(); ++i)
 	{
-		if (doc->MasterItems.at(i)->PType == 2)
+		if (doc->MasterItems.at(i)->itemType() == PageItem::ImageFrame)
 		{
 			Zeilen++;
 			ItemNrs.append(i);
@@ -77,7 +77,7 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi)
 	}
 	for (i=0; i<doc->Items.count(); ++i)
 	{
-		if (doc->Items.at(i)->PType == 2)
+		if (doc->Items.at(i)->itemType() == PageItem::ImageFrame)
 		{
 			Zeilen++;
 			ItemNrs.append(i);
@@ -87,7 +87,7 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi)
 	int Zeilen2 = 0;
 	for (i=0; i < doc->MasterItems.count(); ++i)
 	{
-		if (doc->MasterItems.at(i)->PType == 2)
+		if (doc->MasterItems.at(i)->itemType() == PageItem::ImageFrame)
 		{
 			QFileInfo fi = QFileInfo(doc->MasterItems.at(i)->Pfile);
 			PicTable->setText(Zeilen2, 0, fi.fileName());
@@ -122,7 +122,7 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi)
 	}
 	for (i=0; i< doc->Items.count(); ++i)
 	{
-		if (doc->Items.at(i)->PType == 2)
+		if (doc->Items.at(i)->itemType() == PageItem::ImageFrame)
 		{
 			QFileInfo fi = QFileInfo(doc->Items.at(i)->Pfile);
 			PicTable->setText(Zeilen2, 0, fi.fileName());

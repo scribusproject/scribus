@@ -90,7 +90,7 @@ void ReplaceColor(QString col, QString rep)
 	for (uint c = 0; c < Carrier->doc->Items.count(); c++)
 	{
 		PageItem *ite = Carrier->doc->Items.at(c);
-		if (ite->PType == 4)
+		if (ite->itemType() == PageItem::TextFrame)
 		{
 			for (uint d = 0; d < ite->itemText.count(); d++)
 			{
@@ -118,7 +118,7 @@ void ReplaceColor(QString col, QString rep)
 	for (uint c = 0; c < Carrier->doc->MasterItems.count(); c++)
 	{
 		PageItem *ite = Carrier->doc->MasterItems.at(c);
-		if (ite->PType == 4)
+		if (ite->itemType() == PageItem::TextFrame)
 		{
 			for (uint d = 0; d < ite->itemText.count(); d++)
 			{

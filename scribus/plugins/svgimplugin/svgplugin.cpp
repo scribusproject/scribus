@@ -462,7 +462,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			PageItem* ite = Doku->Items.at(z);
 			ite->PoLine.resize(0);
 			if (parseSVG( b.attribute( "d" ), &ite->PoLine ))
-				ite->PType = 7;
+				ite->convertTo(PageItem::PolyLine);
 			if (ite->PoLine.size() < 4)
 			{
 				Prog->view->SelItem.append(ite);
@@ -510,7 +510,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			if( STag == "polygon" )
 				svgClosePath(&ite->PoLine);
 			else
-				ite->PType = 7;
+				ite->convertTo(PageItem::PolyLine);
 		}
 		else if( STag == "text" )
 		{
@@ -550,9 +550,9 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			setupTransform( b );
 			SvgStyle *gc = m_gc.current();
 			PageItem* ite = Doku->Items.at(z);
-			switch (ite->PType)
+			switch (ite->itemType())
 			{
-			case 2:
+			case PageItem::ImageFrame:
 				{
 					QWMatrix mm = gc->matrix;
 					ite->Xpos += mm.dx();
@@ -570,7 +570,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 					}
 					break;
 				}
-			case 4:
+			case PageItem::TextFrame:
 				{
 					QWMatrix mm = gc->matrix;
 					ite->Pwidth = ite->Pwidth * ((mm.m11() + mm.m22()) / 2.0);

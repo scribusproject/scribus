@@ -353,7 +353,7 @@ void Farbmanager::delUnused()
 				if (found)
 					break;
 			}
-			if ((ite->PType == 4) || (ite->PType == 8))
+			if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText))
 			{
 				for (uint d=0; d<ite->itemText.count(); ++d)
 				{
@@ -387,7 +387,7 @@ void Farbmanager::delUnused()
 				if (found)
 					break;
 			}
-			if ((ite->PType == 4) || (ite->PType == 8))
+			if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText))
 			{
 				for (uint d=0; d<ite->itemText.count(); ++d)
 				{

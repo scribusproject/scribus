@@ -548,7 +548,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			PageItem* ite = Doku->Items.at(z);
 			ite->PoLine.resize(0);
 			if (parseSVG( b.attribute( "svg:d" ), &ite->PoLine ))
-				ite->PType = 7;
+				ite->convertTo(PageItem::PolyLine);
 			if (ite->PoLine.size() < 4)
 			{
 				Prog->view->SelItem.append(ite);
@@ -628,8 +628,8 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 				ss->GetText(ite, AbsStyle, Doku->toolSettings.defFont, FontSize*10, firstPa);
 				delete ss;
 				firstPa = true;
-				if (ite->PType != 7)
-					ite->PType = 4;
+				if (ite->itemType() != PageItem::PolyLine)
+					ite->convertTo(PageItem::TextFrame);
 			}
 			ite->setFillTransparency(FillTrans);
 			ite->setLineTransparency(StrokeTrans);

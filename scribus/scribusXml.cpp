@@ -205,7 +205,7 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 	}
 	if (newFormat)
 		ob->setAttribute("OwnPage", item->OwnPage);
-	ob->setAttribute("PTYPE",item->PType);
+	ob->setAttribute("PTYPE",item->itemType());
 	ob->setAttribute("XPOS",item->Xpos - xo);
 	ob->setAttribute("YPOS",item->Ypos - yo);
 	ob->setAttribute("WIDTH",item->Width);
@@ -301,7 +301,7 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 	ob->setAttribute("TEXTRA",item->TExtra);
 	ob->setAttribute("BEXTRA",item->BExtra);
 	ob->setAttribute("REXTRA",item->RExtra);
-	if (((item->PType == 2) || (item->PType == 4)) && (item->Pfile != ""))
+	if (((item->itemType() == PageItem::ImageFrame) || (item->itemType() == PageItem::TextFrame)) && (item->Pfile != ""))
 		ob->setAttribute("PFILE",Path2Relative(item->Pfile));
 	else
 		ob->setAttribute("PFILE","");
@@ -2004,7 +2004,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, Scr
 				vg.BaseAdj = doc->docParagraphStyles[item->textAlignment].BaseAdj;
 				UsedStyles[item->textAlignment] = vg;
 			}
-			if (((item->PType == 4) || (item->PType == 8)) && (item->itemText.count() != 0))
+			if (((item->itemType() == PageItem::TextFrame) || (item->itemType() == PageItem::PathText)) && (item->itemText.count() != 0))
 			{
 				for (uint tx = 0; tx < item->itemText.count(); ++tx)
 				{

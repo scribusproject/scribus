@@ -489,7 +489,7 @@ PyObject *scribus_setstyle(PyObject */*self*/, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
 	if (item == NULL)
 		return NULL;
-	if ((item->PType == FRAME_TEXT) || (item->PType == FRAME_PATHTEXT))
+	if ((item->itemType() == PageItem::TextFrame) || (item->itemType() == PageItem::PathText))
 	{
 		/*
 		 * First, find the style number associated with the requested style
@@ -552,19 +552,4 @@ PyObject *scribus_getstylenames(PyObject */*self*/)
 		}
 	}
 	return styleList;
-}
-
-/*! 2004-12-08 CR
- * Return the internal frame type number for a frame.
- */
-PyObject* scribus_getframetype(PyObject */*self*/, PyObject* args, PyObject* kw)
-{
-	char* frameName = const_cast<char*>("");
-	char* kwds[] = {const_cast<char*>("name"), NULL};
-	if (!PyArg_ParseTupleAndKeywords(args, kw, "|es", kwds, "utf-8", &frameName))
-		return NULL;
-	PageItem *it = GetUniqueItem(QString(frameName));
-	if (it == NULL)
-		return NULL;
-	return PyInt_FromLong( (long)(it->PType) );
 }

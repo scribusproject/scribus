@@ -11,7 +11,7 @@ PyObject *scribus_getfontsize(PyObject */*self*/, PyObject* args)
 	PageItem *it = GetUniqueItem(QString::fromUtf8(Name));
 	if (it == NULL)
 		return NULL;
-	if ((it->PType != FRAME_TEXT) && (it->PType != FRAME_PATHTEXT))
+	if ((it->itemType() != PageItem::TextFrame) && (it->itemType() != PageItem::PathText))
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get font size of non-text frame.","python error"));
 		return NULL;
@@ -37,7 +37,7 @@ PyObject *scribus_getfont(PyObject */*self*/, PyObject* args)
 	PageItem *it = GetUniqueItem(QString::fromUtf8(Name));
 	if (it == NULL)
 		return NULL;
-	if ((it->PType != FRAME_TEXT) && (it->PType != FRAME_PATHTEXT))
+	if ((it->itemType() != PageItem::TextFrame) && (it->itemType() != PageItem::PathText))
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get font of non-text frame.","python error"));
 		return NULL;
@@ -63,7 +63,7 @@ PyObject *scribus_gettextsize(PyObject */*self*/, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
 	if (i == NULL)
 		return NULL;
-	if ((i->PType != FRAME_TEXT) && (i->PType != FRAME_PATHTEXT))
+	if ((i->itemType() != PageItem::TextFrame) && (i->itemType() != PageItem::PathText))
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get text size of non-text frame.","python error"));
 		return NULL;
@@ -81,7 +81,7 @@ PyObject *scribus_getcolumns(PyObject */*self*/, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
 	if (i == NULL)
 		return NULL;
-	if (i->PType != FRAME_TEXT)
+	if (i->itemType() != PageItem::TextFrame)
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get column count of non-text frame.","python error"));
 		return NULL;
@@ -99,7 +99,7 @@ PyObject *scribus_getlinespace(PyObject */*self*/, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
 	if (i == NULL)
 		return NULL;
-	if (i->PType != FRAME_TEXT)
+	if (i->itemType() != PageItem::TextFrame)
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get line space of non-text frame.","python error"));
 		return NULL;
@@ -117,7 +117,7 @@ PyObject *scribus_getcolumngap(PyObject */*self*/, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
 	if (i == NULL)
 		return NULL;
-	if (i->PType != FRAME_TEXT)
+	if (i->itemType() != PageItem::TextFrame)
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get column gap of non-text frame.","python error"));
 		return NULL;
@@ -136,7 +136,7 @@ PyObject *scribus_getframetext(PyObject */*self*/, PyObject* args)
 	PageItem *it = GetUniqueItem(QString::fromUtf8(Name));
 	if (it == NULL)
 		return NULL;
-	if ((it->PType != FRAME_TEXT) && (it->PType != FRAME_PATHTEXT))
+	if ((it->itemType() != PageItem::TextFrame) && (it->itemType() != PageItem::PathText))
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get text of non-text frame.","python error"));
 		return NULL;
@@ -167,7 +167,7 @@ PyObject *scribus_gettext(PyObject */*self*/, PyObject* args)
 	PageItem *it = GetUniqueItem(QString::fromUtf8(Name));
 	if (it == NULL)
 		return NULL;
-	if ((it->PType != FRAME_TEXT) && (it->PType != FRAME_PATHTEXT))
+	if ((it->itemType() != PageItem::TextFrame) && (it->itemType() != PageItem::PathText))
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get text of non-text frame.","python error"));
 		return NULL;
@@ -243,7 +243,7 @@ PyObject *scribus_setboxtext(PyObject */*self*/, PyObject* args)
 	PageItem *it = GetUniqueItem(QString::fromUtf8(Name));
 	if (it == NULL)
 		return NULL;
-	if ((it->PType != FRAME_TEXT) && (it->PType != FRAME_PATHTEXT))
+	if ((it->itemType() != PageItem::TextFrame) && (it->itemType() != PageItem::PathText))
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set text of non-text frame.","python error"));
 		return NULL;
@@ -302,7 +302,7 @@ PyObject *scribus_inserttext(PyObject */*self*/, PyObject* args)
 	PageItem *it = GetUniqueItem(QString::fromUtf8(Name));
 	if (it == NULL)
 		return NULL;
-	if ((it->PType != FRAME_TEXT) && (it->PType != FRAME_PATHTEXT))
+	if ((it->itemType() != PageItem::TextFrame) && (it->itemType() != PageItem::PathText))
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot insert text into non-text frame.","python error"));
 		return NULL;
@@ -360,7 +360,7 @@ PyObject *scribus_setalign(PyObject */*self*/, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
 	if (i == NULL)
 		return NULL;
-	if (i->PType != FRAME_TEXT)
+	if (i->itemType() != PageItem::TextFrame)
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Can't set text alignment on a non-text frame","python error"));
 		return NULL;
@@ -394,7 +394,7 @@ PyObject *scribus_setfontsize(PyObject */*self*/, PyObject* args)
 	if (i == NULL)
 		return NULL;
 
-	if (i->PType != FRAME_TEXT)
+	if (i->itemType() != PageItem::TextFrame)
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Can't set font size on a non-text frame","python error"));
 		return NULL;
@@ -422,7 +422,7 @@ PyObject *scribus_setfont(PyObject */*self*/, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
 	if (i == NULL)
 		return NULL;
-	if ((i->PType != FRAME_TEXT) && (i->PType != FRAME_PATHTEXT))
+	if ((i->itemType() != PageItem::TextFrame) && (i->itemType() != PageItem::PathText))
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Can't set font on a non-text frame","python error"));
 		return NULL;
@@ -463,7 +463,7 @@ PyObject *scribus_setlinespace(PyObject */*self*/, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
 	if (i == NULL)
 		return NULL;
-	if (i->PType != FRAME_TEXT)
+	if (i->itemType() != PageItem::TextFrame)
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Can't line spacing on a non-text frame","python error"));
 		return NULL;
@@ -489,7 +489,7 @@ PyObject *scribus_setcolumngap(PyObject */*self*/, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
 	if (i == NULL)
 		return NULL;
-	if (i->PType != FRAME_TEXT)
+	if (i->itemType() != PageItem::TextFrame)
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Can't column gap on a non-text frame","python error"));
 		return NULL;
@@ -515,7 +515,7 @@ PyObject *scribus_setcolumns(PyObject */*self*/, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
 	if (i == NULL)
 		return NULL;
-	if (i->PType != FRAME_TEXT)
+	if (i->itemType() != PageItem::TextFrame)
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Can't number of columns on a non-text frame","python error"));
 		return NULL;
@@ -550,7 +550,7 @@ PyObject *scribus_selecttext(PyObject */*self*/, PyObject* args)
 		PyErr_SetString(PyExc_IndexError, QObject::tr("Selection index out of bounds", "python error"));
 		return NULL;
 	}
-	if ((it->PType != FRAME_TEXT) && (it->PType != FRAME_PATHTEXT))
+	if ((it->itemType() != PageItem::TextFrame) && (it->itemType() != PageItem::PathText))
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Can't select text in a non-text frame", "python error"));
 		return NULL;
@@ -587,7 +587,7 @@ PyObject *scribus_deletetext(PyObject */*self*/, PyObject* args)
 	PageItem *it = GetUniqueItem(QString::fromUtf8(Name));
 	if (it == NULL)
 		return NULL;
-	if ((it->PType != FRAME_TEXT) && (it->PType != FRAME_PATHTEXT))
+	if ((it->itemType() != PageItem::TextFrame) && (it->itemType() != PageItem::PathText))
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Can't delete text from a non-text frame","python error"));
 		return NULL;
@@ -614,7 +614,7 @@ PyObject *scribus_settextfill(PyObject */*self*/, PyObject* args)
 	PageItem *it = GetUniqueItem(QString::fromUtf8(Name));
 	if (it == NULL)
 		return NULL;
-	if ((it->PType != FRAME_TEXT) && (it->PType != FRAME_PATHTEXT))
+	if ((it->itemType() != PageItem::TextFrame) && (it->itemType() != PageItem::PathText))
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Can't set text fill on a non-text frame","python error"));
 		return NULL;
@@ -648,7 +648,7 @@ PyObject *scribus_settextstroke(PyObject */*self*/, PyObject* args)
 	PageItem *it = GetUniqueItem(QString::fromUtf8(Name));
 	if (it == NULL)
 		return NULL;
-	if ((it->PType != FRAME_TEXT) && (it->PType != FRAME_PATHTEXT))
+	if ((it->itemType() != PageItem::TextFrame) && (it->itemType() != PageItem::PathText))
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Can't set text stroke on a non-text frame","python error"));
 		return NULL;
@@ -687,7 +687,7 @@ PyObject *scribus_settextshade(PyObject */*self*/, PyObject* args)
 	PageItem *it = GetUniqueItem(QString::fromUtf8(Name));
 	if (it == NULL)
 		return NULL;
-	if ((it->PType != FRAME_TEXT) && (it->PType != FRAME_PATHTEXT))
+	if ((it->itemType() != PageItem::TextFrame) && (it->itemType() != PageItem::PathText))
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Can't set text shade on a non-text frame","python error"));
 		return NULL;
@@ -725,7 +725,7 @@ PyObject *scribus_linktextframes(PyObject */*self*/, PyObject* args)
 	PageItem *toitem = GetUniqueItem(QString::fromUtf8(name2));
 	if (toitem == NULL)
 		return NULL;
-	if ((fromitem->PType != FRAME_TEXT) || (toitem->PType != FRAME_TEXT))
+	if ((fromitem->itemType() != PageItem::TextFrame) || (toitem->itemType() != PageItem::TextFrame))
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Can only link text frames","python error"));
 		return NULL;
@@ -770,7 +770,7 @@ PyObject *scribus_unlinktextframes(PyObject */*self*/, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
 	if (item == NULL)
 		return NULL;
-	if (item->PType != FRAME_TEXT)
+	if (item->itemType() != PageItem::TextFrame)
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Can't unlink a non-text frame","python error"));
 		return NULL;
@@ -822,7 +822,7 @@ PyObject *scribus_tracetext(PyObject */*self*/, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
 	if (item == NULL)
 		return NULL;
-	if (item->PType != FRAME_TEXT)
+	if (item->itemType() != PageItem::TextFrame)
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Can't convert a non-text frame to outlines","python error"));
 		return NULL;
@@ -844,7 +844,7 @@ PyObject *scribus_istextoverflowing(PyObject * self, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
 	if (item == NULL)
 		return NULL;
-	if (item->PType != FRAME_TEXT)
+	if (item->itemType() != PageItem::TextFrame)
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Only text frames can be checked for overflowing", "python error"));
 		return NULL;

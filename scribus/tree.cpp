@@ -8,7 +8,9 @@
 #include <qimage.h>
 #include <qpixmap.h>
 #include <qmessagebox.h>
+
 #include "scribus.h"
+
 extern QPixmap loadIcon(QString nam);
 
 Tree::Tree( QWidget* parent, ScribusApp* scApp ) : QDialog( parent, "Tree", false, 0 )
@@ -258,7 +260,7 @@ void Tree::slotUpdateElement(uint SNr, uint Nr)
 		pgItem = document->DocItems.at(Nr);
 	if ((pgItem->Groups.count() != 0) && (!pgItem->isSingleSel))
 		return;
-	setItemIcon(item, pgItem->PType);
+	setItemIcon(item, pgItem->itemType());
 /*	QString cc, xp, yp, fon, GroupTxt;
 	if ((vie->Doc->TemplateMode) || (vie->Doc->loading))
 		return;
@@ -312,22 +314,22 @@ void Tree::setItemIcon(QListViewItem *item, int typ)
 {
 	switch (typ)
 	{
-	case 2:
+	case PageItem::ImageFrame:
 		item->setPixmap( 0, imageIcon );
 		break;
-	case 4:
+	case PageItem::TextFrame:
 		item->setPixmap( 0, textIcon );
 		break;
-	case 5:
+	case PageItem::Line:
 		item->setPixmap( 0, lineIcon );
 		break;
-	case 6:
+	case PageItem::Polygon:
 		item->setPixmap( 0, polygonIcon );
 		break;
-	case 7:
+	case PageItem::PolyLine:
 		item->setPixmap( 0, polylineIcon );
 		break;
-	case 8:
+	case PageItem::PathText:
 		item->setPixmap( 0, textIcon );
 		break;
 	default:
@@ -557,7 +559,7 @@ void Tree::BuildTree(ScribusDoc *doc)
 					templateItemMap.insert(object, pgItem->ItemNr);
 					templateItemMapRev.insert(pgItem->ItemNr, object);
 					object->setText(0, pgItem->itemName());
-					setItemIcon(object, pgItem->PType);
+					setItemIcon(object, pgItem->itemType());
 					pgItem->Dirty = true;
 				}
 				else
@@ -599,7 +601,7 @@ void Tree::BuildTree(ScribusDoc *doc)
 				{
 					QListViewItem * object = new QListViewItem( page, 0 );
 					object->setText(0, pgItem->itemName());
-					setItemIcon(object, pgItem->PType);
+					setItemIcon(object, pgItem->itemType());
 					itemMap.insert(object, pgItem->ItemNr);
 					itemMapRev.insert(pgItem->ItemNr, object);
 					pgItem->Dirty = true;
@@ -646,7 +648,7 @@ void Tree::BuildTree(ScribusDoc *doc)
 				{
 					QListViewItem * object = new QListViewItem( page, 0 );
 					object->setText(0, pgItem->itemName());
-					setItemIcon(object, pgItem->PType);
+					setItemIcon(object, pgItem->itemType());
 					pgItem->Dirty = true;
 					itemMap.insert(object, pgItem->ItemNr);
 					itemMapRev.insert(pgItem->ItemNr, object);
@@ -696,7 +698,7 @@ void Tree::parseSubGroup(int level, QListViewItem* object, QPtrList<PageItem> *s
 			{
 				QListViewItem *grp = new QListViewItem( object, 0 );
 				grp->setText(0, pgItem->itemName());
-				setItemIcon(grp, pgItem->PType);
+				setItemIcon(grp, pgItem->itemType());
 				if (onTemplate)
 				{
 					templateItemMap.insert(grp, pgItem->ItemNr);

@@ -180,7 +180,8 @@ QPixmap ScPreview::createPreview(QString data)
 			QString CurDirP = QDir::currentDirPath();
 			QDir::setCurrent(QDir::homeDirPath());
 			Segments.clear();
-			OB.PType = QStoInt(pg.attribute("PTYPE"));
+			// TODO: Nicer conversion
+			OB.PType = static_cast<PageItem::ItemType>(QStoInt(pg.attribute("PTYPE")));
 			OB.Xpos = QStodouble(pg.attribute("XPOS")) - GrX;
 			OB.Ypos = QStodouble(pg.attribute("YPOS")) - GrY;
 			OB.Width = QStodouble(pg.attribute("WIDTH"));
@@ -508,7 +509,7 @@ QPixmap ScPreview::createPreview(QString data)
 			doStroke = true;
 			switch (OB.PType)
 			{
-			case 2:
+			case PageItem::ImageFrame:
 				if ((OB.Pcolor != "None") || (OB.GrType != 0))
 				{
 					pS->setupPolygon(&OB.PoLine);
@@ -542,7 +543,7 @@ QPixmap ScPreview::createPreview(QString data)
 					}
 				}
 				break;
-			case 4:
+			case PageItem::TextFrame:
 				if (Ptexti.count() != 0)
 				{
 					pS->save();
@@ -601,7 +602,7 @@ QPixmap ScPreview::createPreview(QString data)
 					pS->restore();
 				}
 				break;
-			case 5:
+			case PageItem::Line:
 				if (OB.NamedLStyle == "")
 					pS->drawLine(FPoint(0, 0), FPoint(OB.Width, 0));
 				else
@@ -647,13 +648,15 @@ QPixmap ScPreview::createPreview(QString data)
 				}
 				doStroke = false;
 				break;
+			/* OBSOLETE Craig R 2005-02-06
 			case 1:
 			case 3:
-			case 6:
+			*/
+			case PageItem::Polygon:
 				pS->setupPolygon(&OB.PoLine);
 				pS->drawPolygon();
 				break;
-			case 7:
+			case PageItem::PolyLine:
 				pS->setupPolygon(&OB.PoLine);
 				if (OB.NamedLStyle == "")
 					pS->drawPolyLine();
@@ -720,7 +723,7 @@ QPixmap ScPreview::createPreview(QString data)
 				}
 				doStroke = false;
 				break;
-			case 8:
+			case PageItem::PathText:
 				if (!OB.PoShow)
 					doStroke = false;
 				cl = FlattenPath(OB.PoLine, Segments);

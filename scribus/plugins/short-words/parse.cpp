@@ -44,7 +44,7 @@ void Parse::parseItem(PageItem *aFrame)
 	QRegExp rx(" ");
 
 	// just textframes processed
-	if (aFrame->PType != 4)
+	if (aFrame->itemType() != PageItem::TextFrame)
 		return;
 
 	// an ugly hack to get the language code from the item language property
