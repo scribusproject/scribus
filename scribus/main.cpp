@@ -61,6 +61,9 @@
 #define ARG_NOGUI_SHORT "-g"
 #define ARG_DISPLAY_SHORT "-d"
 
+// Qt wants -display not --display or -d
+#define ARG_DISPLAY_QT "-display"
+
 
 QString lang = "";
 bool showSplash = true;
@@ -104,9 +107,13 @@ int main(int argc, char *argv[])
 			showSplash = false;
 		} else if (arg == ARG_NOGUI || arg == ARG_NOGUI_SHORT) {
 			useGui = false;
-		} else if ((arg == ARG_DISPLAY || arg==ARG_DISPLAY_SHORT) && ++i < argc) {
-		// allow setting of display, QT expect the
-		// option -display <display_name>
+		} else if ((arg == ARG_DISPLAY || arg==ARG_DISPLAY_SHORT || arg==ARG_DISPLAY_QT) && ++i < argc) {
+			// allow setting of display, QT expect the option -display <display_name> so we discard the
+			// last argument. FIXME: Qt only understands -display not --display and -d , we need to work
+			// around this.
+		} else if (strncmp(arg,"-psn_",4) == 0)
+		{
+			// Andreas Vox: Qt/Mac has -psn_blah flags that must be accepted.
 		} else {
 			file = QFile::decodeName(argv[i]);
 			if (!QFileInfo(file).exists()) {
