@@ -1,7 +1,7 @@
 ####### kdevelop will overwrite this part!!! (begin)##########
 
 
-EXTRA_DIST = vectorgfx.png ooo_draw.png ooo_writer.png nftabout.xpm nftinfo.xpm dist.png tab.png view.png Kreuz.xpm Bild.xpm Editm.xpm Kreise.xpm Lock.xpm Lupe.xpm Rechtecke.xpm Rotieren.xpm Stift.xpm Text.xpm Unlock.xpm DateiClose.png DateiNeu.xpm DateiOpen.xpm DateiPrint.xpm DateiSave2.png AppIcon2.png AppIcon.png LupeZ.xpm Gross.xpm Klein.xpm DragPix.xpm Rotieren2.xpm HandC.xpm scribus_logo.jpg DateiClos16.png DateiNeu16.png DateiOpen16.png DateiPrint16.png DateiSave16.png editcopy.png editcut.png editdelete.png editpaste.png exit.png doc.png image.png pdf.png postscript.png txt.png Zeichen.xpm Hoch.xpm Kapital.xpm Strike.xpm Tief.xpm Unter.xpm Kern.xpm Spacing.xpm Corner.xpm FlipH.xpm FlipV.xpm Winkel.xpm acrobat.png scribusicon.png text_block.png text_center.png text_left.png text_right.png Text2.xpm spline.png triangle.png Stiftalt.xpm beziertool.png AddNode.png DeleteNode.png MoveAsym.png MoveKontrol.png MoveNode.png MoveSym.png BevelJoin.png ButtCap.png MiterJoin.png RoundJoin.png SquareCap.png ResetNode.png RoundCap.png Reset1Node.png BezierClose.png PolyCut.png AddPoint.png DelPoint.png Split.png Deletelayer.png Layervisible.xpm Lowerlayer.png Newlayer.png Raiselayer.png checkbox.png combobox.png listbox.png pushbutton.png textview.png charset.png goto.png document2.png trashcan.png trashcan2.png gohome.png bottom.png down.png top.png up.png irreg.png text_force.png ok.png Revers.png hmirror.png vmirror.png shear_right.png shear_left.png shear_up.png shear_down.png Splash.png back.png start.png forward.png finish.png penciladd.png pencilsub.png outlined.png fill.png NoPrint.png unlock.png locked.png signature.png rotate_cw.png rotate_ccw.png crop.png expand.png frameresize.png framenoresize.png testfill.png frame_table.png scribusdoc.png documentinfo.png filesaveas.png revert.png reload.png compfile.png reload16.png compfile16.png find.png find16.png addf.png removef.png 
+EXTRA_DIST = vectorgfx.png ooo_draw.png ooo_writer.png nftabout.xpm nftinfo.xpm dist.png tab.png view.png Kreuz.xpm Bild.xpm Editm.xpm Kreise.xpm Lock.xpm Lupe.xpm Rechtecke.xpm Rotieren.xpm Stift.xpm Text.xpm Unlock.xpm DateiClose.png DateiNeu.xpm DateiOpen.xpm DateiPrint.xpm DateiSave2.png AppIcon2.png AppIcon.png LupeZ.xpm Gross.xpm Klein.xpm DragPix.xpm Rotieren2.xpm HandC.xpm scribus_logo.jpg DateiClos16.png DateiNeu16.png DateiOpen16.png DateiPrint16.png DateiSave16.png editcopy.png editcut.png editdelete.png editpaste.png exit.png doc.png image.png pdf.png postscript.png txt.png Zeichen.xpm Hoch.xpm Kapital.xpm Strike.xpm Tief.xpm Unter.xpm Kern.xpm Spacing.xpm Corner.xpm FlipH.xpm FlipV.xpm Winkel.xpm acrobat.png scribusicon.png text_block.png text_center.png text_left.png text_right.png Text2.xpm spline.png triangle.png Stiftalt.xpm beziertool.png AddNode.png DeleteNode.png MoveAsym.png MoveKontrol.png MoveNode.png MoveSym.png BevelJoin.png ButtCap.png MiterJoin.png RoundJoin.png SquareCap.png ResetNode.png RoundCap.png Reset1Node.png BezierClose.png PolyCut.png AddPoint.png DelPoint.png Split.png Deletelayer.png Layervisible.xpm Lowerlayer.png Newlayer.png Raiselayer.png checkbox.png combobox.png listbox.png pushbutton.png textview.png charset.png goto.png document2.png trashcan.png trashcan2.png gohome.png bottom.png down.png top.png up.png irreg.png text_force.png ok.png ok22.png Revers.png hmirror.png vmirror.png shear_right.png shear_left.png shear_up.png shear_down.png Splash.png back.png start.png forward.png finish.png penciladd.png pencilsub.png outlined.png fill.png NoPrint.png unlock.png locked.png signature.png rotate_cw.png rotate_ccw.png crop.png expand.png frameresize.png framenoresize.png testfill.png frame_table.png scribusdoc.png documentinfo.png filesaveas.png revert.png reload.png compfile.png reload16.png compfile16.png find.png find16.png addf.png removef.png 
 
 install-data-local:
 	$(mkinstalldirs) $(prefix)/share/scribus/icons/
@@ -133,6 +133,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/irreg.png $(prefix)/share/scribus/icons/irreg.png
 	$(INSTALL_DATA) $(srcdir)/text_force.png $(prefix)/share/scribus/icons/text_force.png
 	$(INSTALL_DATA) $(srcdir)/ok.png $(prefix)/share/scribus/icons/ok.png
+	$(INSTALL_DATA) $(srcdir)/ok22.png $(prefix)/share/scribus/icons/ok22.png
 	$(INSTALL_DATA) $(srcdir)/Revers.png $(prefix)/share/scribus/icons/Revers.png
 	$(INSTALL_DATA) $(srcdir)/vmirror.png $(prefix)/share/scribus/icons/vmirror.png
 	$(INSTALL_DATA) $(srcdir)/hmirror.png $(prefix)/share/scribus/icons/hmirror.png
@@ -269,6 +270,7 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/irreg.png
 	-rm -f $(prefix)/share/scribus/icons/text_force.png
 	-rm -f $(prefix)/share/scribus/icons/ok.png
+	-rm -f $(prefix)/share/scribus/icons/ok22.png	
 	-rm -f $(prefix)/share/scribus/icons/Revers.png
 	-rm -f $(prefix)/share/scribus/icons/vmirror.png
 	-rm -f $(prefix)/share/scribus/icons/hmirror.png
