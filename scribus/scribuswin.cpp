@@ -1,0 +1,115 @@
+/***************************************************************************
+                          scribuswin.cpp  -  description
+                             -------------------
+    begin                : Mit Nov 6 2002
+    copyright            : (C) 2002 by Franz Schmid
+    email                : Franz.Schmid@altmuehlnet.de
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+
+#include "scribuswin.h"
+#include "scribuswin.moc"
+extern QPixmap loadIcon(QString nam);
+
+ScribusWin::ScribusWin(QWidget* parent, ScribusDoc* ddoc)
+											: QMainWindow(parent, "", WDestructiveClose)
+{
+  setIcon(loadIcon("AppIcon.xpm"));
+	doc = ddoc;
+	muster = NULL;
+	NrItems = 0;
+	First = 1;
+	Last = 0;
+}
+
+void ScribusWin::setView(ScribusView* dview)
+{
+	view = dview;
+}
+
+void ScribusWin::closeEvent(QCloseEvent *ce)
+{
+	if (doc->isModified())
+  	{
+  	int exit=QMessageBox::information(this,
+  																	tr("Warning"),
+                                    tr("Document:")+" "+doc->DocName+"\n"+tr("has been changed since the last save."),
+                                    tr("Save Now"),
+                                    tr("Cancel"),
+                                    tr("Leave Anyway"),
+                                    0, 1);
+ 	 switch (exit)
+  		{
+  		case 0:
+  			emit SaveAndClose();
+				ce->accept();
+  			break;
+  		case 1:
+  			break;
+  		case 2:
+				emit Schliessen();
+				ce->accept();
+  			break;
+  		}
+		}
+	else
+		{
+		emit Schliessen();
+		ce->accept();
+		}
+}
+
+void ScribusWin::CloseCMSProfiles()
+{
+#ifdef HAVE_CMS
+	cmsCloseProfile(doc->DocInputProf);
+	cmsCloseProfile(doc->DocOutputProf);
+	cmsCloseProfile(doc->DocPrinterProf);
+	cmsDeleteTransform(stdTrans);
+	cmsDeleteTransform(stdProof);
+	cmsDeleteTransform(stdTransImg);
+	cmsDeleteTransform(stdProofImg);
+#endif
+}
+
+void ScribusWin::OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo)
+{
+#ifdef HAVE_CMS
+	QString pfad = PREL;
+	pfad += "/lib/scribus/profiles/";
+	doc->DocInputProf = cmsOpenProfileFromFile(InPo[doc->CMSSettings.DefaultInputProfile2], "r");
+	doc->DocOutputProf = cmsOpenProfileFromFile(pfad + MoPo[doc->CMSSettings.DefaultMonitorProfile], "r");
+	doc->DocPrinterProf = cmsOpenProfileFromFile(pfad + PrPo[doc->CMSSettings.DefaultPrinterProfile], "r");
+	int dcmsFlags = 0;
+	if (Gamut)
+		dcmsFlags |= cmsFLAGS_GAMUTCHECK;
+	else
+		dcmsFlags |= cmsFLAGS_SOFTPROOFING;
+	stdProof = cmsCreateProofingTransform(doc->DocInputProf, TYPE_RGB_16,
+														 				 		doc->DocOutputProf, TYPE_RGB_16,
+														 				 		doc->DocPrinterProf,
+														 				 		IntentPrinter,
+														 				 		IntentMonitor, dcmsFlags);
+	stdTrans = cmsCreateTransform(doc->DocInputProf, TYPE_RGB_16,
+														 	  doc->DocOutputProf, TYPE_RGB_16,
+														 	  IntentMonitor,
+														 	  cmsFLAGS_NOTPRECALC);
+	stdProofImg = cmsCreateProofingTransform(doc->DocInputProf, TYPE_RGBA_8,
+														 				 			 doc->DocOutputProf, TYPE_RGBA_8,
+														 				 			 doc->DocPrinterProf,
+														 				 			 IntentPrinter,
+														 				 			 IntentMonitor, dcmsFlags);
+	stdTransImg = cmsCreateTransform(doc->DocInputProf, TYPE_RGBA_8,
+														 	  	 doc->DocOutputProf, TYPE_RGBA_8,
+														 	  	 IntentMonitor,
+														 	  	 cmsFLAGS_NOTPRECALC);
+#endif
+}
