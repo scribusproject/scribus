@@ -11,7 +11,7 @@ PyObject *scribus_colornames(PyObject *self)
 	l = PyList_New(edc.count());
 	for (it = edc.begin(); it != edc.end(); ++it)
 	{
-		PyList_SetItem(l, cc, PyString_FromString(it.key()));
+		PyList_SetItem(l, cc, PyString_FromString(it.key().utf8()));
 		cc++;
 	}
 	return l;
@@ -22,7 +22,7 @@ PyObject *scribus_getcolor(PyObject *self, PyObject* args)
 	CListe edc;
 	char *Name = "";
 	int c, m, y, k;
-	if (!PyArg_ParseTuple(args, "s", &Name))
+	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
 		return NULL;
 	if (strcmp(Name, "") == 0)
 	{
@@ -30,7 +30,7 @@ PyObject *scribus_getcolor(PyObject *self, PyObject* args)
 		return NULL;
 	}
 	edc = Carrier->HaveDoc ? Carrier->doc->PageColors : Carrier->Prefs.DColors;
-	QString col = QString(Name);
+	QString col = QString::fromUtf8(Name);
 	if (!edc.contains(col))
 	{
 		PyErr_SetString(NotFoundError, QObject::tr("Color not found","python error"));
@@ -44,14 +44,14 @@ PyObject *scribus_setcolor(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	int c, m, y, k;
-	if (!PyArg_ParseTuple(args, "siiii", &Name, &c, &m, &y, &k))
+	if (!PyArg_ParseTuple(args, "esiiii", "utf-8", &Name, &c, &m, &y, &k))
 		return NULL;
 	if (strcmp(Name, "") == 0)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot change a color with an empty name.","python error"));
 		return NULL;
 	}
-	QString col = QString(Name);
+	QString col = QString::fromUtf8(Name);
 	if (Carrier->HaveDoc)
 	{
 		if (!Carrier->doc->PageColors.contains(col))
@@ -78,14 +78,14 @@ PyObject *scribus_newcolor(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	int c, m, y, k;
-	if (!PyArg_ParseTuple(args, "siiii", &Name, &c, &m, &y, &k))
+	if (!PyArg_ParseTuple(args, "esiiii", "utf-8", &Name, &c, &m, &y, &k))
 		return NULL;
 	if (strcmp(Name, "") == 0)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot create a color with an empty name.","python error"));
 		return NULL;
 	}
-	QString col = QString(Name);
+	QString col = QString::fromUtf8(Name);
 	if (Carrier->HaveDoc)
 		{
 			if (!Carrier->doc->PageColors.contains(col))
@@ -112,15 +112,15 @@ PyObject *scribus_delcolor(PyObject *self, PyObject* args)
 {
 	char *Name = "";
 	char *Repl = "None";
-	if (!PyArg_ParseTuple(args, "s|s", &Name, &Repl))
+	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &Name, "utf-8", &Repl))
 		return NULL;
-	if (strcmp(Name,"") == 0)
+	if (Name == "")
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot delete a color with an empty name.","python error"));
 		return NULL;
 	}
-	QString col = QString(Name);
-	QString rep = QString(Repl);
+	QString col = QString::fromUtf8(Name);
+	QString rep = QString::fromUtf8(Repl);
 	if (Carrier->HaveDoc)
 	{
 		if (Carrier->doc->PageColors.contains(col) && (Carrier->doc->PageColors.contains(rep) || (rep == "None")))
@@ -150,10 +150,10 @@ PyObject *scribus_delcolor(PyObject *self, PyObject* args)
 
 PyObject *scribus_replcolor(PyObject *self, PyObject* args)
 {
-	char *Name = "";
+	char *Name = NULL;
 	char *Repl = "None";
 	//FIXME: this should definitely use keyword arguments
-	if (!PyArg_ParseTuple(args, "s|s", &Name, &Repl))
+	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &Name, "utf-8", &Repl))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
@@ -162,8 +162,8 @@ PyObject *scribus_replcolor(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot replace a color with an empty name.","python error"));
 		return NULL;
 	}
-	QString col = QString(Name);
-	QString rep = QString(Repl);
+	QString col = QString::fromUtf8(Name);
+	QString rep = QString::fromUtf8(Repl);
 	if (Carrier->doc->PageColors.contains(col) && (Carrier->doc->PageColors.contains(rep) || (rep == "None")))
 		ReplaceColor(col, rep);
 	else
