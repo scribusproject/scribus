@@ -8671,15 +8671,6 @@ void Page::DeleteItem()
 	if (SelItem.count() != 0)
 	{
 		anz = SelItem.count();
-		if ((doku->UnData.UnCode == 0) && (doku->UnDoValid))
-			delete doku->UnData.Item;
-		doku->UnData.UnCode = 0;
-		doku->UnData.PageNr = PageNr;
-		if (anz == 1)
-			doku->UnDoValid = true;
-		else
-			doku->UnDoValid = false;
-		emit UndoAvail();
 		uint offs = 0;
 		for (uint de = 0; de < anz; ++de)
 		{
@@ -8694,6 +8685,17 @@ void Page::DeleteItem()
 		if (delItems.count() == 0)
 			return;
 		anz = delItems.count();
+
+		if ((doku->UnData.UnCode == 0) && (doku->UnDoValid))
+			delete doku->UnData.Item;
+		doku->UnData.UnCode = 0;
+		doku->UnData.PageNr = PageNr;
+		if (anz == 1)
+			doku->UnDoValid = true;
+		else
+			doku->UnDoValid = false;
+		emit UndoAvail();
+
 		for (uint de = 0; de < anz; ++de)
 		{
 			b = delItems.at(0);
