@@ -59,7 +59,7 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString caption, QString guiLanguage,
 	mHistory.clear();
 	struct histd his;
 	language = guiLanguage=="" ? "en" : guiLanguage.left(2);
-	qDebug(language);
+	//qDebug(language);
 	helpBrowsermainLayout = new QVBoxLayout( this); 
 	buttonLayout = new QHBoxLayout;
 	buttonLayout->setSpacing( 6 );
@@ -101,10 +101,10 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString caption, QString guiLanguage,
 
 	listView = new QListView( tabContents, "listView" );
 	listView->addColumn( tr( "Contents" ) );
-//	listView->addColumn( tr( "Link" ) , 0 );
-	listView->addColumn( tr( "Link" ) );
-//	listView->setColumnWidthMode( 0, QListView::Maximum );
-//	listView->setColumnWidthMode( 1, QListView::Manual );
+	listView->addColumn( tr( "Link" ) , 0 );
+//	listView->addColumn( tr( "Link" ) );
+	listView->setColumnWidthMode( 0, QListView::Maximum );
+	listView->setColumnWidthMode( 1, QListView::Manual );
 	listView->setSorting(-1,-1);
 	listView->setRootIsDecorated( true );
 	listView->setSelectionMode(QListView::Single);
@@ -195,7 +195,8 @@ void HelpBrowser::jumpToHelpSection(QString jumpToSection, QString jumpToFile)
 		toLoad = pfad + language + "/"; //clean this later to handle 5 char locales
 		if (jumpToSection=="") 
 		{
-			toLoad+="index.html";
+			//toLoad+="index.html";
+			toLoad+=listView->firstChild()->text(1);
 			listView->setSelected( listView->firstChild(), true );
 		}
 		else if (jumpToSection=="scripter") 
@@ -256,7 +257,7 @@ void HelpBrowser::loadMenu()
 	QString pfad = DOCDIR;
 	QString toLoad;
 	QString pfad2 = pfad + language + "/menu.xml";
-	qDebug (pfad2);
+	//qDebug (pfad2);
 	QFileInfo fi = QFileInfo(pfad2);
 
 	if (fi.exists())
@@ -457,6 +458,8 @@ void HelpBrowser::itemSelected(QListViewItem *item)
 	if (item->text(1)!=QString::null)
 	{
 		QString pfad = DOCDIR;
+		//QString filetoload="filetoload:" + pfad + language + "/" + item->text(1);
+		//qDebug(filetoload);
 		loadHelp(pfad + language + "/" + item->text(1));
 	}
 }
