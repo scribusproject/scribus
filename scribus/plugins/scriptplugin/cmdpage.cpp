@@ -223,7 +223,7 @@ PyObject *scribus_setVguides(PyObject *self, PyObject* args)
 	{
 		if (!PyArg_Parse(PyList_GetItem(l, i), "d", &guide))
 		{
-			PyErr_SetString(PyExc_TypeError, QObject::tr("argument contains no-numeric values: must be list of float values","python error"));
+			PyErr_SetString(PyExc_TypeError, QObject::tr("argument contains non-numeric values: must be list of float values","python error"));
 			return NULL;
 		}
 		Carrier->doc->ActPage->XGuides += ValueToPoint(guide);

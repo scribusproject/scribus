@@ -52,8 +52,6 @@
 #include <qtextstream.h>
 #include <cstdlib>
 
-#include <iostream>
-
 // Exceptions; visible from cmdvar.h, set up in initscribus()
 PyObject* ScribusException;
 PyObject* NoDocOpenError;
@@ -563,8 +561,8 @@ char* tr(const char* docstringConstant)
 	 * considered 8-bit strings of binary data that can be later interpreted as
 	 * a text string in a particular text encoding.
 	 */
-	//QCString utfTranslated = translated.utf8();
-	const char* trch = translated.utf8().data();
+	QCString utfTranslated = translated.utf8();
+	const char* trch = utfTranslated.data();
 	return strndup(trch, strlen(trch));
 }
 

@@ -93,8 +93,8 @@ PyObject *scribus_getfillshade(PyObject *self, PyObject* args);
 PyDoc_STRVAR(scribus_getcornerrad__doc__,
 QT_TR_NOOP("getCornerRadius([\"name\"]) -> integer\n\
 \n\
-Returns the corner radius of the object \"name\". The radius is\
-expressed in points. If \"name\" is not given the currently\
+Returns the corner radius of the object \"name\". The radius is\n\
+expressed in points. If \"name\" is not given the currently\n\
 selected item is used.\n\
 "));
 /*! Returns corner radius of the object */
@@ -125,7 +125,7 @@ PyDoc_STRVAR(scribus_getposi__doc__,
 QT_TR_NOOP("getPosition([\"name\"]) -> (x,y)\n\
 \n\
 Returns a (x, y) tuple with the position of the object \"name\".\n\
-If \"name\" is not given the currently selected item is used.\
+If \"name\" is not given the currently selected item is used.\n\
 The position is expressed in the actual measurement unit of the document\n\
 - see UNIT_<type> for reference.\n\
 "));

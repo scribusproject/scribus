@@ -47,7 +47,7 @@ PyObject *scribus_rotobjrel(PyObject *self, PyObject* args);
 PyDoc_STRVAR(scribus_rotobjabs__doc__,
 QT_TR_NOOP("rotateObjectAbs(rot [, \"name\"])\n\
 \n\
-Sets the rotation of the object \"name\" to \"rot\". Positve values\n\
+Sets the rotation of the object \"name\" to \"rot\". Positive values\n\
 mean counter clockwise rotation. If \"name\" is not given the currently\n\
 selected item is used.\n\
 "));

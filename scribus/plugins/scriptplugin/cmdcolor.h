@@ -49,7 +49,7 @@ PyDoc_STRVAR(scribus_newcolor__doc__,
 QT_TR_NOOP("defineColor(\"name\", c, m, y, k)\n\
 \n\
 Defines a new color \"name\". The color Value is defined via four components:\n\
-c = Cyan, m = Magenta, y = Yello and k = Black. Color components should be in\n\
+c = Cyan, m = Magenta, y = Yellow and k = Black. Color components should be in\n\
 the range from 0 to 255.\n\
 \n\
 May raise ValueError if an invalid color name is specified.\n\

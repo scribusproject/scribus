@@ -22,7 +22,7 @@ following meaning:\n\
 \n\
     orientation = the page orientation - constants PORTRAIT, LANDSCAPE\n\
 \n\
-    firstPageNumer = is the number of the first page in the document used for\n\
+    firstPageNumber = is the number of the first page in the document used for\n\
     pagenumbering. While you'll usually want 1, it's useful to have higher\n\
     numbers if you're creating a document in several parts.\n\
 \n\

@@ -26,14 +26,14 @@ PyObject *scribus_getcolor(PyObject *self, PyObject* args)
 		return NULL;
 	if (strcmp(Name, "") == 0)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot get a colour with an empty name.","python error"));
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot get a color with an empty name.","python error"));
 		return NULL;
 	}
 	edc = Carrier->HaveDoc ? Carrier->doc->PageColors : Carrier->Prefs.DColors;
 	QString col = QString(Name);
 	if (!edc.contains(col))
 	{
-		PyErr_SetString(NotFoundError, QObject::tr("Colour not found","python error"));
+		PyErr_SetString(NotFoundError, QObject::tr("Color not found","python error"));
 		return NULL;
 	}
 	edc[col].getCMYK(&c, &m, &y, &k);
@@ -48,7 +48,7 @@ PyObject *scribus_setcolor(PyObject *self, PyObject* args)
 		return NULL;
 	if (strcmp(Name, "") == 0)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot change a colour with an empty name.","python error"));
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot change a color with an empty name.","python error"));
 		return NULL;
 	}
 	QString col = QString(Name);
@@ -56,7 +56,7 @@ PyObject *scribus_setcolor(PyObject *self, PyObject* args)
 	{
 		if (!Carrier->doc->PageColors.contains(col))
 		{
-			PyErr_SetString(NotFoundError, QObject::tr("Colour not found in document","python error"));
+			PyErr_SetString(NotFoundError, QObject::tr("Color not found in document","python error"));
 			return NULL;
 		}
 		Carrier->doc->PageColors[col].setColor(c, m, y, k);
@@ -65,7 +65,7 @@ PyObject *scribus_setcolor(PyObject *self, PyObject* args)
 	{
 		if (!Carrier->Prefs.DColors.contains(col))
 		{
-			PyErr_SetString(NotFoundError, QObject::tr("Colour not found in default colors","python error"));
+			PyErr_SetString(NotFoundError, QObject::tr("Color not found in default colors","python error"));
 			return NULL;
 		}
 		Carrier->Prefs.DColors[col].setColor(c, m, y, k);
@@ -82,7 +82,7 @@ PyObject *scribus_newcolor(PyObject *self, PyObject* args)
 		return NULL;
 	if (strcmp(Name, "") == 0)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot create a colour with an empty name.","python error"));
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot create a color with an empty name.","python error"));
 		return NULL;
 	}
 	QString col = QString(Name);
@@ -91,8 +91,8 @@ PyObject *scribus_newcolor(PyObject *self, PyObject* args)
 			if (!Carrier->doc->PageColors.contains(col))
 				Carrier->doc->PageColors.insert(col, CMYKColor(c, m, y, k));
 			else
-				// FIXME: Given that we have a changeColour function, should we really be
-				// silently changing colours in newColour?
+				// FIXME: Given that we have a changeColor function, should we really be
+				// silently changing colors in newColor?
 				Carrier->doc->PageColors[col].setColor(c, m, y, k);
 		}
 	else
@@ -100,8 +100,8 @@ PyObject *scribus_newcolor(PyObject *self, PyObject* args)
 			if (!Carrier->Prefs.DColors.contains(col))
 				Carrier->Prefs.DColors.insert(col, CMYKColor(c, m, y, k));
 			else
-				// FIXME: Given that we have a changeColour function, should we really be
-				// silently changing colours in newColour?
+				// FIXME: Given that we have a changeColor function, should we really be
+				// silently changing colors in newColor?
 				Carrier->Prefs.DColors[col].setColor(c, m, y, k);
 		}
 	Py_INCREF(Py_None);
@@ -116,7 +116,7 @@ PyObject *scribus_delcolor(PyObject *self, PyObject* args)
 		return NULL;
 	if (strcmp(Name,"") == 0)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot delete a colour with an empty name.","python error"));
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot delete a color with an empty name.","python error"));
 		return NULL;
 	}
 	QString col = QString(Name);
@@ -130,7 +130,7 @@ PyObject *scribus_delcolor(PyObject *self, PyObject* args)
 			}
 		else
 		{
-			PyErr_SetString(NotFoundError, QObject::tr("Colour not found in document","python error"));
+			PyErr_SetString(NotFoundError, QObject::tr("Color not found in document","python error"));
 			return NULL;
 		}
 	}
@@ -140,7 +140,7 @@ PyObject *scribus_delcolor(PyObject *self, PyObject* args)
 			Carrier->Prefs.DColors.remove(col);
 		else
 		{
-			PyErr_SetString(NotFoundError, QObject::tr("Colour not found in default colors","python error"));
+			PyErr_SetString(NotFoundError, QObject::tr("Color not found in default colors","python error"));
 			return NULL;
 		}
 	}
@@ -159,7 +159,7 @@ PyObject *scribus_replcolor(PyObject *self, PyObject* args)
 		return NULL;
 	if (strcmp(Name, "") == 0)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot replace a colour with an empty name.","python error"));
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot replace a color with an empty name.","python error"));
 		return NULL;
 	}
 	QString col = QString(Name);
@@ -168,7 +168,7 @@ PyObject *scribus_replcolor(PyObject *self, PyObject* args)
 		ReplaceColor(col, rep);
 	else
 	{
-		PyErr_SetString(NotFoundError, QObject::tr("Colour not found","python error"));
+		PyErr_SetString(NotFoundError, QObject::tr("Color not found","python error"));
 		return NULL;
 	}
 	Py_INCREF(Py_None);
