@@ -26,7 +26,7 @@
 #include <qstring.h>
 class PageItem;
 
-/** 
+/**
  * @brief UndoState describes an undoable state (action).
  *
  * Undoable objects implement undo/redo by sending and receiving UndoState
@@ -51,7 +51,7 @@ private:
 	/** @brief Icon related to the state (action) */
 	QPixmap *actionPixmap;
 public:
-	/** 
+	/**
 	 * @brief Creates a new UndoState instance.
 	 * @param name Name of the state (action). Will be used when describing the
 	 * state in UndoGui subclasses.
@@ -62,7 +62,7 @@ public:
 
 	virtual ~UndoState();
 
-	/** 
+	/**
 	 * @brief Returns name of the state (action).
 	 * @return name of the state
 	 */
@@ -116,7 +116,7 @@ private:
 	/** @brief QMap to store key-value pairs */
 	QMap<QString, QString> values;
 public:
-	/** 
+	/**
 	 * @brief Creates a new SimpleState instance.
 	 * @param name Name of the state (action). Will be used when describing the
 	 * state in UndoGui subclasses.
@@ -155,7 +155,7 @@ public:
 	 * with this method value attached to the key is converted to an int. If
 	 * the conversion fails value of the parameter <code>def</code> will be returned.
 	 * If key is not found from the map it will be added there with the
-	 * value given as a parameter <code>def</code>. In such case <code>def</code> 
+	 * value given as a parameter <code>def</code>. In such case <code>def</code>
 	 * will also be returned.
 	 * @param key Key that is searched from the map
 	 * @param def Default value to be used if key is not found from the map
@@ -252,15 +252,17 @@ public:
 
 /*** ItemState ***************************************************************************/
 
+template<class C>
 class ItemState : public SimpleState
 {
 private:
-	PageItem *pi;
+	C item;
 public:
-	ItemState(const QString& name, const QString& description = 0, QPixmap* pixmap = 0);
-	~ItemState();
-	void setPageItem(PageItem *pageItem);
-	PageItem* getPageItem();
+	ItemState(const QString& name, const QString& description = 0, QPixmap* pixmap = 0)
+	: SimpleState(name, description, pixmap) {}
+	~ItemState() {}
+	void setItem(const C &c) { item = c; }
+	C getItem() const { return item; }
 };
 
 #endif

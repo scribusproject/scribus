@@ -250,19 +250,19 @@ void Page::restore(UndoState* state, bool isUndo)
 			}
 		}
 		else if (ss->contains("CREATE_ITEM"))
-			restorePageItemCreation(dynamic_cast<ItemState*>(ss), isUndo);
+			restorePageItemCreation(dynamic_cast<ItemState<PageItem*>*>(ss), isUndo);
 		else if (ss->contains("DELETE_ITEM"))
-			restorePageItemDeletion(dynamic_cast<ItemState*>(ss), isUndo);
+			restorePageItemDeletion(dynamic_cast<ItemState<PageItem*>*>(ss), isUndo);
 		else if (ss->contains("OLD_TEMPLATE"))
 			restoreTemplateApplying(ss, isUndo);
 	}
 }
 
-void Page::restorePageItemCreation(ItemState *state, bool isUndo)
+void Page::restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo)
 {
 	if (!state)
 		return;
-	PageItem *ite = state->getPageItem();
+	PageItem *ite = state->getItem();
 	if (isUndo)
 	{
 		ScApp->view->Deselect();
@@ -281,11 +281,11 @@ void Page::restorePageItemCreation(ItemState *state, bool isUndo)
 	}
 }
 
-void Page::restorePageItemDeletion(ItemState *state, bool isUndo)
+void Page::restorePageItemDeletion(ItemState<PageItem*> *state, bool isUndo)
 {
 	if (!state)
 		return;
-	PageItem *ite = state->getPageItem();
+	PageItem *ite = state->getItem();
 	if (isUndo)
 	{
 		ScApp->doc->Items.append(ite);

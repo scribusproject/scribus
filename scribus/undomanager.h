@@ -531,6 +531,7 @@ public:
 	static const QString BreakRatio;
 	static const QString EditContourLine;
 	static const QString EditShape;
+	static const QString ResetContourLine;
 	/*@}*/
 
 	/**

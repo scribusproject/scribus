@@ -715,6 +715,7 @@ protected:
 	void restoreTextFlowing(SimpleState *state, bool isUndo);
 	void restoreImageScaling(SimpleState *state, bool isUndo);
 	void restorePoly(SimpleState *state, bool isUndo, bool isContour);
+	void restoreContourLine(SimpleState *state, bool isUndo);
 	/*@}*/
 
 	/**

@@ -8111,8 +8111,9 @@ void ScribusView::DeleteItem()
 			// send the undo action to the UndoManager
 			if (UndoManager::undoEnabled())
 			{
-				ItemState *is = new ItemState(Um::Delete + " " + b->getUName(), "", Um::IDelete);
-				is->setPageItem(b);
+				ItemState<PageItem*> *is =
+						new ItemState<PageItem*>(Um::Delete + " " + b->getUName(), "", Um::IDelete);
+				is->setItem(b);
 				is->set("DELETE_ITEM", "delete_item");
 				UndoObject *target;
 				if (b->OwnPage > -1)
@@ -9185,9 +9186,9 @@ int ScribusView::PaintEllipse(double x, double y, double b, double h, double w, 
 	}
 	if (UndoManager::undoEnabled())
 	{
-		ItemState *is = new ItemState("Create PageItem");
+		ItemState<PageItem*> *is = new ItemState<PageItem*>("Create PageItem");
 		is->set("CREATE_ITEM", "create_item");
-		is->setPageItem(ite);
+		is->setItem(ite);
 		UndoObject *target;
 		if (ite->OwnPage > -1)
 			target = Doc->Pages.at(ite->OwnPage);
@@ -9236,9 +9237,9 @@ int ScribusView::PaintPict(double x, double y, double b, double h)
 	}
 	if (UndoManager::undoEnabled())
 	{
-		ItemState *is = new ItemState("Create PageItem");
+		ItemState<PageItem*> *is = new ItemState<PageItem*>("Create PageItem");
 		is->set("CREATE_ITEM", "create_item");
-		is->setPageItem(ite);
+		is->setItem(ite);
 		UndoObject *target = Doc->Pages.at(0);
 		if (ite->OwnPage > -1)
 			target = target = Doc->Pages.at(ite->OwnPage);
@@ -9281,9 +9282,9 @@ int ScribusView::PaintRect(double x, double y, double b, double h, double w, QSt
 	}
 	if (UndoManager::undoEnabled())
 	{
-		ItemState *is = new ItemState("Create PageItem");
+		ItemState<PageItem*> *is = new ItemState<PageItem*>("Create PageItem");
 		is->set("CREATE_ITEM", "create_item");
-		is->setPageItem(ite);
+		is->setItem(ite);
 		UndoObject *target = Doc->Pages.at(0);
 		if (ite->OwnPage > -1)
 			target = target = Doc->Pages.at(ite->OwnPage);
@@ -9326,9 +9327,9 @@ int ScribusView::PaintPoly(double x, double y, double b, double h, double w, QSt
 	}
 	if (UndoManager::undoEnabled())
 	{
-		ItemState *is = new ItemState("Create PageItem");
+		ItemState<PageItem*> *is = new ItemState<PageItem*>("Create PageItem");
 		is->set("CREATE_ITEM", "create_item");
-		is->setPageItem(ite);
+		is->setItem(ite);
 		UndoObject *target = Doc->Pages.at(0);
 		if (ite->OwnPage > -1)
 			target = target = Doc->Pages.at(ite->OwnPage);
@@ -9370,9 +9371,9 @@ int ScribusView::PaintPolyLine(double x, double y, double b, double h, double w,
 	}
 	if (UndoManager::undoEnabled())
 	{
-		ItemState *is = new ItemState("Create PageItem");
+		ItemState<PageItem*> *is = new ItemState<PageItem*>("Create PageItem");
 		is->set("CREATE_ITEM", "create_item");
-		is->setPageItem(ite);
+		is->setItem(ite);
 		UndoObject *target = Doc->Pages.at(0);
 		if (ite->OwnPage > -1)
 			target = target = Doc->Pages.at(ite->OwnPage);
@@ -9412,9 +9413,9 @@ int ScribusView::PaintText(double x, double y, double b, double h, double w, QSt
 	}
 	if (UndoManager::undoEnabled())
 	{
-		ItemState *is = new ItemState("Create PageItem");
+		ItemState<PageItem*> *is = new ItemState<PageItem*>("Create PageItem");
 		is->set("CREATE_ITEM", "create_item");
-		is->setPageItem(ite);
+		is->setItem(ite);
 		UndoObject *target = Doc->Pages.at(0);
 		if (ite->OwnPage > -1)
 			target = target = Doc->Pages.at(ite->OwnPage);
@@ -9456,9 +9457,9 @@ int ScribusView::PaintLine(double x, double y, double b, double h, double w, QSt
 	}
 	if (UndoManager::undoEnabled())
 	{
-		ItemState *is = new ItemState("Create PageItem");
+		ItemState<PageItem*> *is = new ItemState<PageItem*>("Create PageItem");
 		is->set("CREATE_ITEM", "create_item");
-		is->setPageItem(ite);
+		is->setItem(ite);
 		UndoObject *target = Doc->Pages.at(0);
 		if (ite->OwnPage > -1)
 			target = target = Doc->Pages.at(ite->OwnPage);

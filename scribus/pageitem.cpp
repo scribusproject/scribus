@@ -3216,6 +3216,8 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restorePoly(ss, isUndo, true);
 		else if (ss->contains("EDIT_SHAPE"))
 			restorePoly(ss, isUndo, false);
+		else if (ss->contains("RESET_CONTOUR"))
+			restoreContourLine(ss, isUndo);
 	}
 }
 
@@ -3625,6 +3627,24 @@ void PageItem::restorePoly(SimpleState *state, bool isUndo, bool isContour)
 		ScApp->view->TransformPoly(mode, rot, scaling);
 
 	ScApp->view->EditContour = editContour;
+}
+
+void PageItem::restoreContourLine(SimpleState *state, bool isUndo)
+{
+	ItemState<FPointArray> *is = dynamic_cast<ItemState<FPointArray>*>(state);
+	if (is)
+	{
+		if (isUndo)
+		{
+			ContourLine = is->getItem();
+			ClipEdited = true;
+		}
+		else
+		{
+			ContourLine = PoLine.copy();
+			ClipEdited = true;
+		}
+	}
 }
 
 void PageItem::select()

@@ -3,6 +3,8 @@
 #include "page.h"
 #include "pageitem.h"
 #include "scribusview.h"
+#include "undomanager.h"
+#include "undostate.h"
 
 extern QPixmap loadIcon(QString nam);
 extern double UmReFaktor;
@@ -375,6 +377,13 @@ void NodePalette::ResetContour()
 {
 	if (doc != 0)
 	{
+		if (UndoManager::undoEnabled())
+		{
+			ItemState<FPointArray> *is = new ItemState<FPointArray>(Um::ResetContourLine, "",Um::IBorder);
+			is->set("RESET_CONTOUR", "reset_contour");
+			is->setItem(view->SelItem.at(0)->ContourLine);
+			UndoManager::instance()->action(view->SelItem.at(0), is);
+		}
 		view->SelItem.at(0)->ContourLine = view->SelItem.at(0)->PoLine.copy();
 		view->SelItem.at(0)->ClipEdited = true;
 		view->updateContents();

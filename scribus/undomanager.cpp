@@ -867,6 +867,7 @@ const QString UndoManager::KeepRatio          = tr("Keep aspect ratio");
 const QString UndoManager::BreakRatio         = tr("Break aspect ratio");
 const QString UndoManager::EditContourLine    = tr("Edit contour line");
 const QString UndoManager::EditShape          = tr("Edit shape");
+const QString UndoManager::ResetContourLine   = tr("Reset contour line");
 
 /*** Icons for UndoObjects *******************************************/
 QPixmap *UndoManager::IImageFrame      = NULL;
