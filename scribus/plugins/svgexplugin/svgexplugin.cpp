@@ -42,9 +42,9 @@ void Run(QWidget *d, ScribusApp *plug)
 	if (plug->HaveDoc)
 		{
 #ifdef HAVE_LIBZ
-		QString fileName = plug->CFileDialog(QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg *.svgz);; All Files (*)"),"", false, false, true);
+		QString fileName = plug->CFileDialog(QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg *.svgz);;All Files (*)"),"", false, false, true);
 #else
-		QString fileName = plug->CFileDialog(QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg);; All Files (*)"),"", false, false);
+		QString fileName = plug->CFileDialog(QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg);;All Files (*)"),"", false, false);
 #endif
 		if (!fileName.isEmpty())
 			{

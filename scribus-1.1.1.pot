@@ -847,7 +847,7 @@ msgid "Biblio::Scrapbook"
 msgstr ""
 
 #: scrap.cpp:208
-msgid "Biblio::Scrapbooks (*.scs);; All Files (*)"
+msgid "Biblio::Scrapbooks (*.scs);;All Files (*)"
 msgstr ""
 
 #: scrap.cpp:132
@@ -1395,7 +1395,7 @@ msgid "Druck::Options..."
 msgstr ""
 
 #: druck.cpp:576
-msgid "Druck::Postscript-Files (*.ps);; All Files (*)"
+msgid "Druck::Postscript-Files (*.ps);;All Files (*)"
 msgstr ""
 
 #: druck.cpp:322
@@ -1576,12 +1576,12 @@ msgstr ""
 
 #: editor.cpp:59
 msgid "Editor::"
-"Javascripts (*.js);; All Files (*)"
+"Javascripts (*.js);;All Files (*)"
 msgstr ""
 
 #: editor.cpp:74
 msgid "Editor::"
-"Javascripts (*.js);; All Files (*)"
+"Javascripts (*.js);;All Files (*)"
 msgstr ""
 
 #: editor.cpp:22
@@ -1657,11 +1657,11 @@ msgid "Farbmanager::Delete"
 msgstr ""
 
 #: colorm.cpp:89
-msgid "Farbmanager::Documents (*.sla *.scd);; All Files (*)"
+msgid "Farbmanager::Documents (*.sla *.scd);;All Files (*)"
 msgstr ""
 
 #: colorm.cpp:87
-msgid "Farbmanager::Documents (*.sla *.sla.gz *.scd *.scd.gz);; All Files (*)"
+msgid "Farbmanager::Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"
 msgstr ""
 
 #: colorm.cpp:53
@@ -2177,11 +2177,11 @@ msgid "MergeDoc::Document to load:"
 msgstr ""
 
 #: mergedoc.cpp:82
-msgid "MergeDoc::Documents (*.sla *.scd);; All Files (*)"
+msgid "MergeDoc::Documents (*.sla *.scd);;All Files (*)"
 msgstr ""
 
 #: mergedoc.cpp:80
-msgid "MergeDoc::Documents (*.sla *.sla.gz *.scd *.scd.gz);; All Files (*)"
+msgid "MergeDoc::Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"
 msgstr ""
 
 #: mergedoc.cpp:38
@@ -3225,7 +3225,7 @@ msgid "PDF_Opts::Owner:"
 msgstr ""
 
 #: pdfopts.cpp:1158
-msgid "PDF_Opts::PDF-Files (*.pdf);; All Files (*)"
+msgid "PDF_Opts::PDF-Files (*.pdf);;All Files (*)"
 msgstr ""
 
 #: pdfopts.cpp:581
@@ -3794,15 +3794,15 @@ msgid "ScribusApp::Document"
 msgstr ""
 
 #: scribus.cpp:2526
-msgid "ScribusApp::Documents (*.sla *.scd);; All Files (*)"
+msgid "ScribusApp::Documents (*.sla *.scd);;All Files (*)"
 msgstr ""
 
 #: scribus.cpp:2120
-msgid "ScribusApp::Documents (*.sla *.sla.gz *.scd *.scd.gz);; All Files (*)"
+msgid "ScribusApp::Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"
 msgstr ""
 
 #: scribus.cpp:2524
-msgid "ScribusApp::Documents (*.sla *.sla.gz *.scd *scd.gz);; All Files (*)"
+msgid "ScribusApp::Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)"
 msgstr ""
 
 #: scribus.cpp:501
@@ -3814,7 +3814,7 @@ msgid "ScribusApp::Dutch"
 msgstr ""
 
 #: scribus.cpp:5293
-msgid "ScribusApp::EPS-Files (*.eps);; All Files (*)"
+msgid "ScribusApp::EPS-Files (*.eps);;All Files (*)"
 msgstr ""
 
 #: scribus.cpp:528
@@ -4785,5 +4785,23 @@ msgstr ""
 
 #: werktoolb.cpp:182
 msgid "WerkToolBP::Text"
+msgstr ""
+
+msgid "Select new Font:"
+msgstr ""
+
+msgid "Insert Special"
+msgstr ""
+
+msgid "Select Character"
+msgstr ""
+
+msgid "Insert"
+msgstr ""
+
+msgid "Save Page as SVG..."
+msgstr ""
+
+msgid "SVG-Images (*.svg);;All Files (*)"
 msgstr ""
 

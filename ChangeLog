@@ -1,3 +1,42 @@
+Changes since Version 1.1.0
+03.10.2003	Improved rendering of linked Textframes.
+		Added a new .pot file for Scribus-1.1.1
+
+02.10.2003	Removed some small Bugs reported after reopening the CVS 
+		to the public.
+
+30.09.2003	Every Textbox can have now it's own Language for
+		Hyphenation.
+
+29.09.2003	Added a Catalan Hyphenation Dictionary.
+
+28.09.2003	Subsetting Fonts and OpenType Fonts works now in PDF and Postscript.
+		Updated the CharSelect Plugin.
+		Added a User defineable Directory for ICC-Profiles in the Preferences.
+
+27.09.2003	Replaced the LineEdit for the Zoom-Factor in the lower left Corner of
+		the Working Window by a SpinBox.
+		Updated the Welsh Translation.
+
+21.09.2003	Removed the "Modify Object" Dialog since all of it's functionality
+		in now in the former "Measurement" Palette, which is now called
+		"Properties" Palette.
+
+19.09.2003	Scaling Glyphs in the X-Direction works now in PS and PDF.
+
+18.09.2003	Now you can scale Glyphs in the X-Direction.
+
+16.09.2003	Improved Redraw of linked Textframes.
+		The PS-Exporter does now support Text with Fill & Stroke.
+		Removed all Font Encoding Stuff from the PS-Exporter, all
+		Text Rendering is now done with "glyphshow".
+
+15.09.2003	Text with Fill & Stroke can now exported to PDF and SVG.
+		Fixed Crash when deleting Pages containing linked Textframes.
+		Fixed Crash after Drag-Copying Elements.
+
+14.09.2003	Added the possibility to set the fill and stroke of Glyphs.
+
 Changes since Version 1.0.1
 06.09.2003	Unterlining doesn't cut the decents of the Glyphs anymore.
 

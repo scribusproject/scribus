@@ -31,9 +31,9 @@ void Run(QWidget *d, ScribusApp *plug)
 {
 	QString fileName;
 #ifdef HAVE_LIBZ
-	CustomFDialog diaf(d, QObject::tr("Open"), QObject::tr("SVG-Images (*.svg *.svgz);; All Files (*)"));
+	CustomFDialog diaf(d, QObject::tr("Open"), QObject::tr("SVG-Images (*.svg *.svgz);;All Files (*)"));
 #else
-	CustomFDialog diaf(d, QObject::tr("Open"), QObject::tr("SVG-Images (*.svg);; All Files (*)"));
+	CustomFDialog diaf(d, QObject::tr("Open"), QObject::tr("SVG-Images (*.svg);;All Files (*)"));
 #endif
 	if (diaf.exec())
 		fileName = diaf.selectedFile();

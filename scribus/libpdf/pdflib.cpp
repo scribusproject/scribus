@@ -657,9 +657,13 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 				bool nPath = true;
 				if (ig.data().size() > 3)
 					{
-					for (uint poi = 0; poi < ig.data().size()-3; poi += 4)
+					FPointArray gly = ig.data().copy();
+					QWMatrix mat;
+					mat.scale(0.1, 0.1);
+					gly.map(mat);
+					for (uint poi = 0; poi < gly.size()-3; poi += 4)
 						{
-						if (ig.data().point(poi).x() > 900000)
+						if (gly.point(poi).x() > 900000)
 							{
 							fon += "h\n";
 							nPath = true;
@@ -667,20 +671,20 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 							}
 						if (nPath)
 							{
-							np = ig.data().point(poi);
+							np = gly.point(poi);
 							fon += FToStr(np.x())+" "+FToStr(-np.y())+" m\n";
 							nPath = false;
 							}
-						np = ig.data().point(poi+1);
-						np1 = ig.data().point(poi+3);
-						np2 = ig.data().point(poi+2);
+						np = gly.point(poi+1);
+						np1 = gly.point(poi+3);
+						np2 = gly.point(poi+2);
 						fon += FToStr(np.x()) + " " + FToStr(-np.y()) + " " + FToStr(np1.x()) + " " + FToStr(-np1.y()) + " " + FToStr(np2.x()) + " " + FToStr(-np2.y()) + " c\n";
 						}
 					fon += "h f*\n";
 					StartObj(ObjCounter);
 					ObjCounter++;
-					np = doc->ActPage->GetMinClipF(ig.data());
-					np1 = doc->ActPage->GetMaxClipF(ig.data());
+					np = doc->ActPage->GetMinClipF(gly);
+					np1 = doc->ActPage->GetMaxClipF(gly);
 					PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1\n");
 					PutDoc("/BBox [ "+FToStr(np.x())+" "+FToStr(-np.y())+" "+FToStr(np1.x())+" "+FToStr(-np1.y())+" ]\n");
 					PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
@@ -1785,15 +1789,18 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 					tmp2 += "1 0 0 1 "+FToStr(hl->xp)+" "+FToStr((hl->yp - tsz) * -1)+" cm\n";
 					tmp2 += "-1 0 0 1 0 0 cm\n";
 					tmp2 += "1 0 0 1 "+FToStr(-wid)+" 0 cm\n";
-					tmp2 += FToStr(tsz / 10.0)+" 0 0 "+FToStr(tsz / 10.0)+" 0 0 cm\n";
+					tmp2 += FToStr(tsz)+" 0 0 "+FToStr(tsz)+" 0 0 cm\n";
 					}
 				else
-					tmp2 += FToStr(tsz / 10.0)+" 0 0 "+FToStr(tsz / 10.0)+" "+FToStr(hl->xp)+" "+FToStr((hl->yp - tsz) * -1)+" cm\n";
+					tmp2 += FToStr(tsz)+" 0 0 "+FToStr(tsz)+" "+FToStr(hl->xp)+" "+FToStr((hl->yp - tsz) * -1)+" cm\n";
 				tmp2 += FToStr(hl->cscale / 100.0)+" 0 0 1 0 0 cm\n";
 				tmp2 += "/"+(*doc->AllFonts)[hl->cfont]->RealName()+IToStr(chr)+" Do\n";
 				if (hl->cstyle & 4)
 					{
 					FPointArray gly = (*doc->AllFonts)[hl->cfont]->GlyphArray[chr].Outlines.copy();
+					QWMatrix mat;
+					mat.scale(0.1, 0.1);
+					gly.map(mat);
 					bool nPath = true;
 					FPoint np;
 					if (gly.size() > 3)

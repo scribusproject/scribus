@@ -795,18 +795,18 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs)
     Layout12_2->addWidget( Text9, 4, 0 );
     LJoinStyle = new QComboBox( true, page_5, "LJoin" );
     LJoinStyle->setEditable(false);
-    LJoinStyle->insertItem(loadIcon("MiterJoin.png"), tr( "MiterJoin" ) );
-    LJoinStyle->insertItem(loadIcon("BevelJoin.png"), tr( "BevelJoin" ) );
-    LJoinStyle->insertItem(loadIcon("RoundJoin.png"), tr( "RoundJoin" ) );
+    LJoinStyle->insertItem(loadIcon("MiterJoin.png"), tr( "Miter Join" ) );
+    LJoinStyle->insertItem(loadIcon("BevelJoin.png"), tr( "Bevel Join" ) );
+    LJoinStyle->insertItem(loadIcon("RoundJoin.png"), tr( "Round Join" ) );
     Layout12_2->addWidget( LJoinStyle, 5, 0 );
     Text10 = new QLabel( page_5, "Text10" );
     Text10->setText( tr( "Endings:" ) );
     Layout12_2->addWidget( Text10, 6, 0 );
     LEndStyle = new QComboBox( true, page_5, "LCap" );
     LEndStyle->setEditable(false);
-    LEndStyle->insertItem(loadIcon("ButtCap.png"), tr( "FlatCap" ) );
-    LEndStyle->insertItem(loadIcon("SquareCap.png"), tr( "SquareCap" ) );
-    LEndStyle->insertItem(loadIcon("RoundCap.png"), tr( "RoundCap" ) );
+    LEndStyle->insertItem(loadIcon("ButtCap.png"), tr( "Flat Cap" ) );
+    LEndStyle->insertItem(loadIcon("SquareCap.png"), tr( "Square Cap" ) );
+    LEndStyle->insertItem(loadIcon("RoundCap.png"), tr( "Round Cap" ) );
     Layout12_2->addWidget( LEndStyle, 7, 0 );
     pageLayout_5->addLayout( Layout12_2 );
 

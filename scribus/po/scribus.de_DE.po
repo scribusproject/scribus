@@ -3,7 +3,7 @@
 # would be translated to "Pub", not "Foo::Pub".
 msgid ""
 msgstr ""
-"Project-Id-Version: Scribus 1.0\n"
+"Project-Id-Version: Scribus 1.1\n"
 "POT-Creation-Date: 2003-06-19 10:00+0200\n"
 "PO-Revision-Date: 2003-06-19 10:00+0200\n"
 "Last-Translator: Franz Schmid <Franz.Schmid@altmuehlnet.de>\n"
@@ -97,11 +97,11 @@ msgstr "Bilder zeigen"
 msgid "Show Guides"
 msgstr "Hilfslinien zeigen"
 
-msgid "Show Measurements"
-msgstr "Maßpalette zeigen"
+msgid "Show Properties"
+msgstr "Eigenschaften zeigen"
 
-msgid "Hide Measurements"
-msgstr "Maßpalette verbergen"
+msgid "Hide Properties"
+msgstr "Eigenschaften verbergen"
 
 msgid "Help"
 msgstr "Hilfe"
@@ -190,11 +190,11 @@ msgstr "B:"
 msgid "Tabloid"
 msgstr "11 x 17 Zoll"
 
-msgid "Documents (*.sla *.sla.gz *.scd *scd.gz);; All Files (*)"
-msgstr "Dokumente (*.sla *.sla.gz *.scd *scd.gz);; Alle Dateien (*)"
+msgid "Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)"
+msgstr "Dokumente (*.sla *.sla.gz *.scd *scd.gz);;Alle Dateien (*)"
 
-msgid "Documents (*.sla *.scd);; All Files (*)"
-msgstr "Dokumente (*.sla *.scd);; Alle Dateien (*)"
+msgid "Documents (*.sla *.scd);;All Files (*)"
+msgstr "Dokumente (*.sla *.scd);;Alle Dateien (*)"
 
 
 msgid "Document "
@@ -1178,8 +1178,8 @@ msgstr "Bezier Kurven einfügen"
 msgid "New Entry"
 msgstr "Neuer Eintrag"
 
-msgid "Scrapbooks (*.scs);; All Files (*)"
-msgstr "Bibliotheken (*.scs);; Alle Dateien (*)"
+msgid "Scrapbooks (*.scs);;All Files (*)"
+msgstr "Bibliotheken (*.scs);;Alle Dateien (*)"
 
 msgid "Scrapbook"
 msgstr "Bibliothek"
@@ -1271,7 +1271,7 @@ msgstr "Linke Seite zuerst"
 msgid "Group"
 msgstr "Gruppieren"
 
-msgid "Ungroup"
+msgid "Un-group"
 msgstr "Gruppe auflösen"
 
 msgid "Do you really want to overwrite the File:\n%1 ?"
@@ -1631,22 +1631,22 @@ msgstr "Enden:"
 msgid "Edges:"
 msgstr "Ecken:"
 
-msgid "MiterJoin"
+msgid "Miter Join"
 msgstr "Spitz"
 
-msgid "BevelJoin"
+msgid "Bevel Join"
 msgstr "Gefast"
 
-msgid "RoundJoin"
+msgid "Round Join"
 msgstr "Rund"
 
-msgid "FlatCap"
+msgid "Flat Cap"
 msgstr "Flach"
 
-msgid "SquareCap"
+msgid "Square Cap"
 msgstr "Quadratisch"
 
-msgid "RoundCap"
+msgid "Round Cap"
 msgstr "Abgerundet"
 
 msgid "Move Bookmark"
@@ -1670,7 +1670,7 @@ msgstr "Schriftgröße"
 msgid "Apply Effect on all Pages"
 msgstr "Effekt auf alle Seiten anwenden"
 
-msgid "Print via other Command"
+msgid "Alternative Printer Command"
 msgstr "Mit anderem Druckbefehl drucken"
 
 msgid "Command:"
@@ -1799,7 +1799,7 @@ msgstr "Hintergrund"
 msgid "Reset Control Points"
 msgstr "Kontrollpunkte zurücksetzen"
 
-msgid "Reset this Control Points"
+msgid "Reset this Control Point"
 msgstr "Diesen Kontrollpunkt zurücksetzen"
 
 msgid "Opens a Polygon or cuts a Bezier Curve"
@@ -2195,8 +2195,8 @@ msgstr "Beenden ohne Speichern"
 msgid "Get Field Names"
 msgstr "Feldnamen auswählen"
 
-msgid "JavaScripts (*.js);; All Files (*)"
-msgstr "JavaScripts (*.js);; Alle Dateien (*)"
+msgid "JavaScripts (*.js);;All Files (*)"
+msgstr "JavaScripts (*.js);;Alle Dateien (*)"
 
 msgid "Pick..."
 msgstr "Auswählen..."
@@ -2294,7 +2294,7 @@ msgstr "Ziehen Sie Seiten oder Vorlagen auf den Mülleimer um sie zu löschen"
 msgid "Here are all your Templates, to create a new Page\ndrag a Template to the Pageview below."
 msgstr "Hier sind Ihre Vorlagen, um eine neue Seite zu erzeugen\nziehen Sie eine Vorlage auf die Seitenansicht unten."
 
-msgid "Here you can see all Pages of your Document."
+msgid "This previews all the pages of your Document."
 msgstr "Hier sind alle Seiten Ihres Dokuments dargestellt"
 
 msgid "Free Scaling"
@@ -2477,8 +2477,8 @@ msgstr "Senkrechter Verlauf"
 msgid "Diagonal Gradient"
 msgstr "Diagonaler Verlauf"
 
-msgid "CrossDiagonal Gradient"
-msgstr "CrossDiagonaler Verlauf"
+msgid "Cross Diagonal Gradient"
+msgstr "Cross Diagonaler Verlauf"
 
 msgid "Radial Gradient"
 msgstr "Kreisförmiger Verlauf"
@@ -2723,10 +2723,10 @@ msgstr "Bild an Rahmen anpassen"
 msgid "Combine Polygons"
 msgstr "Polygone vereinen"
 
-msgid "Split Polygon"
+msgid "Split Polygons"
 msgstr "Polygone teilen"
 
-msgid "Convert to Polygons"
+msgid "Convert to Outlines"
 msgstr "In Polygone verwandeln"
 
 msgid "Websave RGB"
@@ -2735,7 +2735,7 @@ msgstr "Websicheres RGB"
 msgid "Adjust Display Size"
 msgstr "Größenanpassung der Anzeige"
 
-msgid "To adjust the Display drag the Ruler below with the Slider."
+msgid "To adjust the display drag the ruler below with the Slider."
 msgstr "Zum Einstellen der Anzeigegröße das Lineal mit dem Regler anpassen"
 
 msgid "Show PDF-Tools"
@@ -2744,10 +2744,10 @@ msgstr "PDF-Werkzeuge zeigen"
 msgid "Hide PDF-Tools"
 msgstr "PDF-Werkzeuge verbergen"
 
-msgid "Shears the Path horizotal to the right"
+msgid "Shears the Path horizontal to the right"
 msgstr "Scherung nach rechts"
 
-msgid "Shears the Path horizotal to the left"
+msgid "Shears the Path horizontal to the left"
 msgstr "Scherung nach links"
 
 msgid "Shears the Path vertical up"
@@ -2816,8 +2816,8 @@ msgstr "Neue Schriftart auswählen:"
 msgid "Insert Special"
 msgstr "Sonderzeichen einfügen"
 
-msgid "Select Character"
-msgstr "Zeichen auswählen"
+msgid "Select Character:"
+msgstr "Zeichen auswählen:"
 
 msgid "Insert"
 msgstr "Einfügen"
@@ -2825,8 +2825,8 @@ msgstr "Einfügen"
 msgid "Save Page as SVG..."
 msgstr "Seite als SVG sichern..."
 
-msgid "SVG-Images (*.svg);; All Files (*)"
-msgstr "SVG Grafiken (*.svg);; Alle Dateien (*)"
+msgid "SVG-Images (*.svg);;All Files (*)"
+msgstr "SVG Grafiken (*.svg);;Alle Dateien (*)"
 
 msgid "Solid Line"
 msgstr "Durchgehend"
@@ -2842,4 +2842,67 @@ msgstr "Strich-Punkt"
 
 msgid "Dash Dot Dot Line"
 msgstr "Strich-Punkt-Punkt"
+
+msgid "Mirrors the Path Horizontally"
+msgstr "Spiegelt den Pfad horizontal"
+
+msgid "Mirrors the Path Vertically"
+msgstr "Spiegelt den Pfad vertikal"
+
+msgid "Catalan"
+msgstr "Katalanisch"
+
+msgid "Czech"
+msgstr "Tschechisch"
+
+msgid "Dutch"
+msgstr "Holländisch"
+
+msgid "Greek"
+msgstr "Griechisch"
+
+msgid "Hungarian"
+msgstr "Ungarisch"
+
+msgid "Portuguese"
+msgstr "Portugisisch"
+
+msgid "Ukrainian"
+msgstr "Ukrainisch"
+
+msgid "Polish"
+msgstr "Polnisch"
+
+msgid "Reverse Writing"
+msgstr "Gespiegelt"
+
+msgid "Import SVG-Image"
+msgstr "SVG-Bild einfügen"
+
+msgid "Apply to Actual Page"
+msgstr "Auf aktuelle Seite anwenden"
+
+msgid "Apply from Page:"
+msgstr "Anwenden auf Seite:"
+
+msgid "Anti-alias Text"
+msgstr "Text glätten"
+
+msgid "Anti-alias Graphics"
+msgstr "Grafiken glätten"
+
+msgid "Keywords:"
+msgstr "Suchbegriffe:"
+
+msgid "Line Spacing"
+msgstr "Zeilenabstand"
+
+msgid "Edit Line Styles"
+msgstr "Linienstile bearbeiten"
+
+msgid "Directory:"
+msgstr "Verzeichnis:"
+
+msgid "SVG-Images (*.svg *.svgz);;All Files (*)"
+msgstr "SVG Grafiken (*.svg *.svgz);;Alle Dateien (*)"
 

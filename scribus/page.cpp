@@ -491,10 +491,6 @@ void Page::DrawPageItems(QPaintEvent *e, ScPainter *painter, QRect rd)
 		}
 	if (Items.count() != 0)
 		{
-		for (a = 0; a < Items.count(); ++a)
-			{
-			Items.at(a)->Redrawn = false;
-			}
 		Lnr = 0;
 		for (uint la2 = 0; la2 < doku->Layers.count(); ++la2)
 			{
@@ -514,21 +510,14 @@ void Page::DrawPageItems(QPaintEvent *e, ScPainter *painter, QRect rd)
 					p.end();
 					if ((rd.intersects(apr.boundingRect())) || (rd.intersects(apr2.boundingRect())))
 						{
-						if (!b->Redrawn)
-							{
-							b->DrawObj(painter, rd);
-							b->Redrawn = true;
-							}
+						b->DrawObj(painter, rd);
+						b->Redrawn = true;
 						if ((doku->AppMode == 7) && (b->Select))
 							slotDoCurs(true);
 						}
 					}
 				}
 			Lnr++;
-			}
-		for (a = 0; a < Items.count(); ++a)
-			{
-			Items.at(a)->Redrawn = false;
 			}
 		}
 }
@@ -754,12 +743,12 @@ FPoint Page::ApplyGridF(FPoint in)
 	return np;
 }
 
-void Page::RefreshItem(PageItem *b)
+void Page::RefreshItem(PageItem *b, bool single)
 {
 	QPainter p;
 	p.begin(this);
 	Transform(b, &p);
-	if (b->PType == 4)
+	if (single)
 		RepaintTextRegion(b, QRegion(p.xForm(QRect(-10, -10, static_cast<int>(b->Width+20), static_cast<int>(b->Height+20)))));
 	else
 		update(QRegion(p.xForm(QRect(-10, -10, static_cast<int>(b->Width+20), static_cast<int>(b->Height+20)))).intersect(ViewReg()).boundingRect());
@@ -770,6 +759,8 @@ void Page::RepaintTextRegion(PageItem *b, QRegion alt)
 {
 	QPainter p;
 	QRegion neu;
+	if (!isUpdatesEnabled())
+		return;
 	p.begin(this);
 	Transform(b, &p);
 	neu = QRegion(p.xForm(QRect(0, 0, static_cast<int>(b->Width+1), static_cast<int>(b->Height+1)))).unite(alt);
@@ -780,23 +771,30 @@ void Page::RepaintTextRegion(PageItem *b, QRegion alt)
 	g.setY(g.y()-20);
 	g.setWidth(g.width()+20);
 	g.setHeight(g.height()+20);
-	PageItem *nb;
-	neu = QRegion(g);
-	if (b->NextBox != 0)
+	QRect rd = ViewReg().boundingRect().intersect(g);
+	if ((rd.width() < 1) || (rd.height() < 1))
+		return;
+	QPixmap pgPix(rd.width(), rd.height());
+	ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
+	painter->translate(0.5, 0.5);
+	b->DrawObj(painter, rd);
+	painter->end();
+	bitBlt( this, rd.x(), rd.y(), &pgPix, 0, 0, pgPix.width(), pgPix.height() );
+	QPainter px;
+	px.begin(this);
+	px.setPen(QColor(0, 0, 0));
+	px.setBrush(NoBrush);
+	px.drawRect(0, 0, width(), height());
+ 	px.end();
+	b->paintObj(rd);
+	if ((doku->EditClip) && (b->Select))
+		MarkClip(b);
+	if (GroupSel)
 		{
-		nb = b->NextBox;
-		while (nb->OwnPage == this)
-			{
-			p.begin(this);
-			Transform(nb, &p);
-			neu = QRegion(p.xForm(QRect(0, 0, static_cast<int>(nb->Width), static_cast<int>(nb->Height)))).unite(neu);
-			p.end();
-			if (nb->NextBox == 0)
-				break;
-			nb = nb->NextBox;
-			}
+		setGroupRect();
+		paintGroupRect();
 		}
-	update(neu.intersect(ViewReg()).boundingRect());
+	delete painter;
 }
 
 void Page::AdjustPreview(PageItem *b)
@@ -1885,7 +1883,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			if (b->PType == 2)
 				{
 				pmen->insertItem(tr("Get Picture..."), this, SIGNAL(LoadPic()));
-				int px = pmen->insertItem(tr("Image visible"), this, SLOT(TogglePic()));
+				int px = pmen->insertItem(tr("Image Visible"), this, SLOT(TogglePic()));
 				pmen->setItemChecked(px, b->PicArt);
 				}
 			if (b->PType == 4)
@@ -1925,7 +1923,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 					if (static_cast<int>(lam) == doku->ActiveLayer)
 						pmen3->setItemEnabled(lai, 0);
 					}
-				pmen->insertItem(tr("Sent to Layer"), pmen3);
+				pmen->insertItem(tr("Send to Layer"), pmen3);
 				}
 			connect(pmen3, SIGNAL(activated(int)), this, SLOT(sentToLayer(int)));
 			if ((b->PType == 4) || (b->PType == 2) || (b->PType == 6))
@@ -3528,7 +3526,8 @@ void Page::mousePressEvent(QMouseEvent *m)
 					}
 				}
 			inText = slotSetCurs(m->x(), m->y());
-			if (SelItem.count() == 0)
+//			if (SelItem.count() == 0)
+			if (!inText)
 				{
 				Deselect(true);
 				if (!SeleItem(m))

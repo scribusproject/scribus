@@ -539,8 +539,8 @@ void ScribusApp::initMenuBar()
 	ObjMenu->insertSeparator();
 	Gr = ObjMenu->insertItem(tr("Group"), this, SLOT(GroupObj()), CTRL+Key_G);
 	SetKeyEntry(23, tr("Group"), Gr, CTRL+Key_G);
-	UnGr = ObjMenu->insertItem(tr("Un-group"), this, SLOT(UnGroupObj()),
-CTRL+Key_U);	SetKeyEntry(24, tr("Un-group"), UnGr, CTRL+Key_U);
+	UnGr = ObjMenu->insertItem(tr("Un-group"), this, SLOT(UnGroupObj()),CTRL+Key_U);
+	SetKeyEntry(24, tr("Un-group"), UnGr, CTRL+Key_U);
 	LockOb = ObjMenu->insertItem(tr("Lock"), this, SLOT(ToggleObjLock()), CTRL+Key_H);
 	ObjMenu->insertSeparator();
 	OBack = ObjMenu->insertItem(tr("Send to Back"), this, SLOT(Objekt2Back()));
@@ -2150,9 +2150,9 @@ bool ScribusApp::slotDocOpen()
 {
 	bool ret = false;
 #ifdef HAVE_LIBZ
-	QString fileName = CFileDialog(tr("Open"),tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);; All Files (*)"));
+	QString fileName = CFileDialog(tr("Open"),tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"));
 #else
-	QString fileName = CFileDialog(tr("Open"),tr("Documents (*.sla *.scd);; All Files (*)"));
+	QString fileName = CFileDialog(tr("Open"),tr("Documents (*.sla *.scd);;All Files (*)"));
 #endif
   qApp->setOverrideCursor(QCursor(waitCursor), true);
 	ret = LadeDoc(fileName);
@@ -2562,9 +2562,9 @@ void ScribusApp::slotFileSaveAs()
   	fna = di.currentDirPath()+"/"+doc->DocName+".sla";
   	}
 #ifdef HAVE_LIBZ
-  QString fn = CFileDialog(tr("Save as"), tr("Documents (*.sla *.sla.gz *.scd *scd.gz);; All Files (*)"), fna, false, false, true);
+  QString fn = CFileDialog(tr("Save as"), tr("Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)"), fna, false, false, true);
 #else
-  QString fn = CFileDialog(tr("Save as"), tr("Documents (*.sla *.scd);; All Files (*)"), fna, false, false, false);
+  QString fn = CFileDialog(tr("Save as"), tr("Documents (*.sla *.scd);;All Files (*)"), fna, false, false, false);
 #endif
   if (!fn.isEmpty())
   	{
@@ -3730,12 +3730,14 @@ void ScribusApp::setAppMode(int mode)
 			disconnect(CurTimer, SIGNAL(timeout()), doc->ActPage, SLOT(BlinkCurs()));
 			CurTimer->stop();
 			delete CurTimer;
-			menuBar()->setItemEnabled(Obm, 1);
 			editMenu->setItemEnabled(edid4, 0);
 			editMenu->setItemEnabled(edid5, 0);
 			doc->ActPage->slotDoCurs(false);
 			if (b != 0)
+				{
 				doc->ActPage->RefreshItem(b);
+				menuBar()->setItemEnabled(Obm, 1);
+				}
 			}
 		if (mode == 7)
 			{
@@ -5331,7 +5333,7 @@ void ScribusApp::SaveAsEps()
   	QDir di = QDir();
   	fna = di.currentDirPath()+"/"+doc->DocName+".eps";
   	}
-  QString fn = CFileDialog(tr("Save as"), tr("EPS-Files (*.eps);; All Files (*)"), "", false, false);
+  QString fn = CFileDialog(tr("Save as"), tr("EPS-Files (*.eps);;All Files (*)"), "", false, false);
   if (!fn.isEmpty())
   	{
 		if (!DoSaveAsEps(fn))
