@@ -149,6 +149,7 @@ void ScribusView::setHBarGeometry(QScrollBar &bar, int x, int y, int w, int h)
 		PGS->setGeometry(x+90+sadj, y, 215, h);
 		LY->setGeometry(x+305+sadj, y, 110, h);
 		HR->setGeometry(25, 1, w-24, 25);
+		bar.setGeometry(x+415+sadj, y, w-(415+sadj), h);
 		}
 }
 

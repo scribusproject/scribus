@@ -58,10 +58,6 @@ void Vruler::paintEvent(QPaintEvent *)
 	double of, xl, iter, iter2;
 	double sc = doku->Scale;
 	int cor = 1;
-	if (sc > 1)
-		cor = 2;
-	if (sc > 4)
-		cor = 10;
 	switch (doku->Einheit)
 	{
 		case 0:

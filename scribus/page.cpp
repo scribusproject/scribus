@@ -6012,7 +6012,7 @@ void Page::chAbStyle(PageItem *b, int s)
 					nb->Ptext.at(a)->cshade = nb->ShTxtFill;
 					nb->Ptext.at(a)->cstroke = nb->TxtStroke;
 					nb->Ptext.at(a)->cshade2 = nb->ShTxtStroke;
-//					nb->Ptext.at(a)->csize = nb->ISize;
+					nb->Ptext.at(a)->csize = nb->ISize;
 					nb->Ptext.at(a)->cstyle &= ~127;
 					nb->Ptext.at(a)->cstyle |= nb->TxTStyle;
 					}
@@ -6052,7 +6052,7 @@ void Page::chAbStyle(PageItem *b, int s)
 					nb->Ptext.at(a)->cshade = nb->ShTxtFill;
 					nb->Ptext.at(a)->cstroke = nb->TxtStroke;
 					nb->Ptext.at(a)->cshade2 = nb->ShTxtStroke;
-//					nb->Ptext.at(a)->csize = nb->ISize;
+					nb->Ptext.at(a)->csize = nb->ISize;
 					nb->Ptext.at(a)->cstyle &= ~127;
 					nb->Ptext.at(a)->cstyle |= nb->TxTStyle;
 					}
@@ -6095,7 +6095,7 @@ void Page::chAbStyle(PageItem *b, int s)
 					b->Ptext.at(a)->cshade = b->ShTxtFill;
 					b->Ptext.at(a)->cstroke = b->TxtStroke;
 					b->Ptext.at(a)->cshade2 = b->ShTxtStroke;
-//					b->Ptext.at(a)->csize = b->ISize;
+					b->Ptext.at(a)->csize = b->ISize;
 					b->Ptext.at(a)->cstyle &= ~127;
 					b->Ptext.at(a)->cstyle |= b->TxTStyle;
 					}

@@ -151,6 +151,7 @@ void Hruler::paintEvent(QPaintEvent *)
 			}
 		}
 	}
+	p.end();
 }
 
 /** Zeichnet den Pfeil */

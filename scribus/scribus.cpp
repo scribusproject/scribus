@@ -4734,120 +4734,124 @@ void ScribusApp::slotEditStyles()
 	ers.append(3);
 	ers.append(4);
 	if (HaveDoc)
-		{
+	{
 		StilFormate *dia = new StilFormate(this, doc, &Prefs);
 		if (dia->exec())
-			{
+		{
 			for (uint a=5; a<doc->Vorlagen.count(); ++a)
-				{
+			{
 				ff = false;
 				nn = doc->Vorlagen[a].Vname;
 				for (uint b=0; b<dia->TempVorl.count(); ++b)
-					{
+				{
 					if (nn == dia->TempVorl[b].Vname)
-						{
+					{
 						nr = b;
 						ff = true;
 						break;
-						}
 					}
+				}
 				if (ff)
 					ers.append(nr);
 				else
 					ers.append(0);
-				}
+			}
 			doc->Vorlagen = dia->TempVorl;
 			for (uint c=0; c<view->DocPages.count(); ++c)
-				{
+			{
 				for (uint d=0; d<view->DocPages.at(c)->Items.count(); ++d)
-					{
+				{
 					ite = view->DocPages.at(c)->Items.at(d);
 					if (ite->PType == 4)
-						{
+					{
 						for (uint e=0; e<ite->Ptext.count(); ++e)
-							{
+						{
 							if (ite->Ptext.at(e)->cab > 4)
+							{
 								ite->Ptext.at(e)->cab = ers[ite->Ptext.at(e)->cab];
-							if (doc->Vorlagen[ite->Ptext.at(e)->cab].Font != "")
+								if (doc->Vorlagen[ite->Ptext.at(e)->cab].Font != "")
 								{
-								ite->Ptext.at(e)->cfont = doc->Vorlagen[ite->Ptext.at(e)->cab].Font;
-								ite->Ptext.at(e)->csize = doc->Vorlagen[ite->Ptext.at(e)->cab].FontSize;
-								ite->Ptext.at(e)->cstyle &= ~127;
-								ite->Ptext.at(e)->cstyle |= doc->Vorlagen[ite->Ptext.at(e)->cab].FontEffect;
-								ite->Ptext.at(e)->ccolor = doc->Vorlagen[ite->Ptext.at(e)->cab].FColor;
-								ite->Ptext.at(e)->cshade = doc->Vorlagen[ite->Ptext.at(e)->cab].FShade;
-								ite->Ptext.at(e)->cstroke = doc->Vorlagen[ite->Ptext.at(e)->cab].SColor;
-								ite->Ptext.at(e)->cshade2 = doc->Vorlagen[ite->Ptext.at(e)->cab].SShade;
+									ite->Ptext.at(e)->cfont = doc->Vorlagen[ite->Ptext.at(e)->cab].Font;
+									ite->Ptext.at(e)->csize = doc->Vorlagen[ite->Ptext.at(e)->cab].FontSize;
+									ite->Ptext.at(e)->cstyle &= ~127;
+									ite->Ptext.at(e)->cstyle |= doc->Vorlagen[ite->Ptext.at(e)->cab].FontEffect;
+									ite->Ptext.at(e)->ccolor = doc->Vorlagen[ite->Ptext.at(e)->cab].FColor;
+									ite->Ptext.at(e)->cshade = doc->Vorlagen[ite->Ptext.at(e)->cab].FShade;
+									ite->Ptext.at(e)->cstroke = doc->Vorlagen[ite->Ptext.at(e)->cab].SColor;
+									ite->Ptext.at(e)->cshade2 = doc->Vorlagen[ite->Ptext.at(e)->cab].SShade;
 								}
-							else
+								else
 								{
-								ite->Ptext.at(e)->ccolor = ite->TxtFill;
-								ite->Ptext.at(e)->cshade = ite->ShTxtFill;
-								ite->Ptext.at(e)->cstroke = ite->TxtStroke;
-								ite->Ptext.at(e)->cshade2 = ite->ShTxtStroke;
-//								ite->Ptext.at(e)->csize = ite->ISize;
-								ite->Ptext.at(e)->cstyle &= ~127;
-								ite->Ptext.at(e)->cstyle |= ite->TxTStyle;
+									ite->Ptext.at(e)->ccolor = ite->TxtFill;
+									ite->Ptext.at(e)->cshade = ite->ShTxtFill;
+									ite->Ptext.at(e)->cstroke = ite->TxtStroke;
+									ite->Ptext.at(e)->cshade2 = ite->ShTxtStroke;
+									ite->Ptext.at(e)->csize = ite->ISize;
+									ite->Ptext.at(e)->cstyle &= ~127;
+									ite->Ptext.at(e)->cstyle |= ite->TxTStyle;
 								}
 							}
 						}
 					}
 				}
+			}
 			for (uint c=0; c<view->MasterPages.count(); ++c)
-				{
+			{
 				for (uint d=0; d<view->MasterPages.at(c)->Items.count(); ++d)
-					{
+				{
 					ite = view->MasterPages.at(c)->Items.at(d);
 					if (ite->PType == 4)
-						{
+					{
 						for (uint e=0; e<ite->Ptext.count(); ++e)
-							{
+						{
 							if (ite->Ptext.at(e)->cab > 4)
+							{
 								ite->Ptext.at(e)->cab = ers[ite->Ptext.at(e)->cab];
-							if (doc->Vorlagen[ite->Ptext.at(e)->cab].Font != "")
+								if (doc->Vorlagen[ite->Ptext.at(e)->cab].Font != "")
 								{
-								ite->Ptext.at(e)->cfont = doc->Vorlagen[ite->Ptext.at(e)->cab].Font;
-								ite->Ptext.at(e)->csize = doc->Vorlagen[ite->Ptext.at(e)->cab].FontSize;
-								ite->Ptext.at(e)->cstyle &= ~127;
-								ite->Ptext.at(e)->cstyle |= doc->Vorlagen[ite->Ptext.at(e)->cab].FontEffect;
-								ite->Ptext.at(e)->ccolor = doc->Vorlagen[ite->Ptext.at(e)->cab].FColor;
-								ite->Ptext.at(e)->cshade = doc->Vorlagen[ite->Ptext.at(e)->cab].FShade;
-								ite->Ptext.at(e)->cstroke = doc->Vorlagen[ite->Ptext.at(e)->cab].SColor;
-								ite->Ptext.at(e)->cshade2 = doc->Vorlagen[ite->Ptext.at(e)->cab].SShade;
+									ite->Ptext.at(e)->cfont = doc->Vorlagen[ite->Ptext.at(e)->cab].Font;
+									ite->Ptext.at(e)->csize = doc->Vorlagen[ite->Ptext.at(e)->cab].FontSize;
+									ite->Ptext.at(e)->cstyle &= ~127;
+									ite->Ptext.at(e)->cstyle |= doc->Vorlagen[ite->Ptext.at(e)->cab].FontEffect;
+									ite->Ptext.at(e)->ccolor = doc->Vorlagen[ite->Ptext.at(e)->cab].FColor;
+									ite->Ptext.at(e)->cshade = doc->Vorlagen[ite->Ptext.at(e)->cab].FShade;
+									ite->Ptext.at(e)->cstroke = doc->Vorlagen[ite->Ptext.at(e)->cab].SColor;
+									ite->Ptext.at(e)->cshade2 = doc->Vorlagen[ite->Ptext.at(e)->cab].SShade;
 								}
-							else
+								else
 								{
-								ite->Ptext.at(e)->ccolor = ite->TxtFill;
-								ite->Ptext.at(e)->cshade = ite->ShTxtFill;
-								ite->Ptext.at(e)->cstroke = ite->TxtStroke;
-								ite->Ptext.at(e)->cshade2 = ite->ShTxtStroke;
-//								ite->Ptext.at(e)->csize = ite->ISize;
-								ite->Ptext.at(e)->cstyle &= ~127;
-								ite->Ptext.at(e)->cstyle |= ite->TxTStyle;
+									ite->Ptext.at(e)->ccolor = ite->TxtFill;
+									ite->Ptext.at(e)->cshade = ite->ShTxtFill;
+									ite->Ptext.at(e)->cstroke = ite->TxtStroke;
+									ite->Ptext.at(e)->cshade2 = ite->ShTxtStroke;
+									ite->Ptext.at(e)->csize = ite->ISize;
+									ite->Ptext.at(e)->cstyle &= ~127;
+									ite->Ptext.at(e)->cstyle |= ite->TxTStyle;
 								}
 							}
 						}
 					}
 				}
+			}
 			for (uint a=0; a<doc->Vorlagen.count(); ++a)
-				{
+			{
 				if (doc->Vorlagen[a].Font != "")
-					{
+				{
 					QString nf = doc->Vorlagen[a].Font;
 					if (!doc->UsedFonts.contains(nf))
-						{
+					{
 						doc->AddFont(nf, Prefs.AvailFonts[nf]->Font);
 						int ff = FontMenu->insertItem(new FmItem(nf, Prefs.AvailFonts[nf]->Font));
 						FontID.insert(ff, Prefs.AvailFonts[nf]->SCName);
-						}
 					}
 				}
+			}
 			Mpal->Spal->updateFList();
 			view->DrawNew();
 			slotDocCh();
-			}
-		delete dia;
 		}
+		delete dia;
+	}
 }
 
 void ScribusApp::setItemTextAli(int id)
