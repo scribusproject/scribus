@@ -13,4 +13,9 @@ KDE_OPTIONS = qtonly
 
 EXTRA_DIST = preview.cpp preview.h 
 
-AM_LDFLAGS =  -s $(LIBFREETYPE_LIBS) 
+if COMPILE_DEBUG
+ linkflag =
+else
+ linkflag = -s
+endif
+AM_LDFLAGS =  $(linkflag) $(LIBFREETYPE_LIBS)

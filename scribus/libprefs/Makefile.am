@@ -12,4 +12,10 @@ libpreferences_la_SOURCES = prefs.cpp
 KDE_OPTIONS = qtonly
 
 EXTRA_DIST = prefs.cpp prefs.h 
-AM_LDFLAGS =  -s $(LIBFREETYPE_LIBS) 
+if COMPILE_DEBUG
+ linkflag =
+else
+ linkflag = -s
+endif
+AM_LDFLAGS =  $(linkflag) $(LIBFREETYPE_LIBS)
+

@@ -3,9 +3,6 @@
 /* ColorManagementInclude */
 #undef CMS_INC
 
-/* Debug Messages */
-#undef DEBUG
-
 /* ColorManagement */
 #undef HAVE_CMS
 

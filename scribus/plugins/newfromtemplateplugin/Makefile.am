@@ -14,5 +14,10 @@ libnewfromtemplateplugin_la_SOURCES = nftemplate.cpp nftdialog.cpp nftrcreader.c
 EXTRA_DIST = nftemplate.cpp nftemplate.h nftdialog.cpp nftdialog.h nftrcreader.cpp nftrcreader.h nftsettings.cpp nftsettings.h nfttemplate.cpp nfttemplate.h
 
 KDE_OPTIONS = qtonly
-AM_LDFLAGS =	-s $(LIBFREETYPE_LIBS)
+if COMPILE_DEBUG
+ linkflag =
+else
+ linkflag = -s
+endif
+AM_LDFLAGS =  $(linkflag) $(LIBFREETYPE_LIBS)
 

@@ -14,5 +14,11 @@ libhtmlim_la_SOURCES = htmlim.cpp htmlreader.cpp
 EXTRA_DIST = htmlim.cpp htmlim.h htmlreader.cpp htmlreader.h
 
 KDE_OPTIONS = qtonly
-AM_LDFLAGS =	-s $(LIBFREETYPE_LIBS) -s $(XML_LIBS)
+
+if COMPILE_DEBUG
+ linkflag =
+else
+ linkflag = -s
+endif
+AM_LDFLAGS =  $(linkflag) $(LIBFREETYPE_LIBS) $(XML_LIBS)
 

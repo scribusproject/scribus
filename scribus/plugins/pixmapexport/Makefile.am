@@ -14,4 +14,10 @@ libscribusexportpixmap_la_SOURCES = export.cpp dialog.cpp
 EXTRA_DIST = dialog.cpp export.cpp dialog.h export.h
 
 KDE_OPTIONS = qtonly
-AM_LDFLAGS =	-s $(LIBFREETYPE_LIBS)
+
+if COMPILE_DEBUG
+ linkflag =
+else
+ linkflag = -s
+endif
+AM_LDFLAGS =  $(linkflag) $(LIBFREETYPE_LIBS)
