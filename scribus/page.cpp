@@ -3167,7 +3167,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 				pmen->insertItem( tr("&Paste"), ScApp, SLOT(slotEditPaste()));
 			if ((!b->Locked) && (doku->AppMode != 7) && (!((b->isTableItem) && (b->isSingleSel))))
 				pmen->insertItem( tr("&Delete"), this, SLOT(DeleteItem()));
-			if ((b->PType == 2) || ((b->PType == 4) && (b->NextBox == 0) && (b->BackBox == 0)))
+			if ((b->PType == 2) || (b->PType == 4))
 				pmen->insertItem( tr("C&lear Contents"), this, SLOT(ClearItem()));
 			pmen->insertSeparator();
 			if (!ScApp->Mpal->isVisible())
@@ -8423,10 +8423,31 @@ void Page::ClearItem()
 		b = SelItem.at(0);
 		if ((b->PType == 2) || (b->PType == 4))
 		{
-			if ((b->PType == 4) && (b->NextBox == 0) && (b->BackBox == 0))
+			if (b->PType == 4)
 			{
-				b->Ptext.clear();
-				b->CPos = 0;
+				if ((b->Ptext.count() != 0) && ((b->NextBox == 0) || (b->BackBox == 0)))
+				{
+					int t = QMessageBox::warning(this, tr("Warning"),
+										tr("Do you really want to clear all your Text?"),
+										QMessageBox::No, QMessageBox::Yes, QMessageBox::NoButton);
+					if (t == QMessageBox::No)
+						return;
+				}
+				PageItem *nb = b;
+				while (nb != 0)
+				{
+					if (nb->BackBox != 0)
+						nb = nb->BackBox;
+					else
+						break;
+				}
+				while (nb != 0)
+				{
+					nb->Ptext.clear();
+					nb->CPos = 0;
+					nb = nb->NextBox;
+				}
+				update();
 			}
 			b->Pfile = "";
 			b->PicAvail = false;
@@ -8434,7 +8455,7 @@ void Page::ClearItem()
 			b->pixmOrg = QImage();
 			if (b->PType == 2)
 				emit UpdtObj(PageNr, b->ItemNr);
-			RefreshItem(b);
+			update();
 			emit DocChanged();
 		}
 	}

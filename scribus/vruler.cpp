@@ -22,12 +22,15 @@
 #include <qcolor.h>
 #include <qrect.h>
 #include <qpointarray.h>
+#include "scribus.h"
 
 #if QT_VERSION  > 0x030102
 	#define SPLITVC SplitHCursor
 #else
 	#define SPLITVC SplitVCursor
 #endif
+
+extern ScribusApp* ScApp;
 
 Vruler::Vruler(QScrollView *pa, ScribusDoc *doc) : QWidget(pa)
 {
@@ -42,7 +45,8 @@ Vruler::Vruler(QScrollView *pa, ScribusDoc *doc) : QWidget(pa)
 void Vruler::mousePressEvent(QMouseEvent *)
 {
 	Mpressed = true;
-	qApp->setOverrideCursor(QCursor(SPLITVC), true);
+	if (ScApp->Prefs.GuidesShown)
+		qApp->setOverrideCursor(QCursor(SPLITVC), true);
 }
 
 void Vruler::mouseReleaseEvent(QMouseEvent *m)

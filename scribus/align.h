@@ -10,50 +10,59 @@
 #include <qpushbutton.h>
 #include <qradiobutton.h>
 #include "mspinbox.h"
+#include "scribusdoc.h"
 
 class Align : public QDialog
-{ 
-    Q_OBJECT
+{
+	Q_OBJECT
 
 public:
-    Align( QWidget* parent, int anz, int ein);
-    ~Align();
+	Align( QWidget* parent, int anz, int ein, ScribusDoc* docc);
+	~Align();
 
-    QButtonGroup* ButtonGroup1_2;
-    QRadioButton* VerteilenV;
-    QRadioButton* NichtsV;
-    QLabel* TextLabel1_2;
-    QLabel* TextLabelD;
-    QLabel* TextLabelD2;
-    QComboBox* VartV;
-    MSpinBox* AVert;
-    QButtonGroup* ButtonGroup1;
-    QRadioButton* VerteilenH;
-    QRadioButton* NichtsH;
-    MSpinBox* AHor;
-    QComboBox* VartH;
-    QLabel* TextLabel1;
-    QPushButton* OKbutton;
-    QPushButton* ButtonApply;
-    QPushButton* CancelB;
-    QRadioButton* CheckV;
-    QRadioButton* CheckH;
-    int Anzahl;
+	QButtonGroup* ButtonGroup1_2;
+	QRadioButton* VerteilenV;
+	QRadioButton* NichtsV;
+	QLabel* TextLabel1_2;
+	QLabel* TextLabelD;
+	QLabel* TextLabelD2;
+	QComboBox* VartV;
+	MSpinBox* AVert;
+	QButtonGroup* ButtonGroup1;
+	QRadioButton* VerteilenH;
+	QRadioButton* NichtsH;
+	MSpinBox* AHor;
+	QComboBox* VartH;
+	QLabel* TextLabel1;
+	QPushButton* OKbutton;
+	QPushButton* ButtonApply;
+	QPushButton* CancelB;
+	QRadioButton* CheckV;
+	QRadioButton* CheckH;
+	int Anzahl;
+	ScribusDoc* doc;
+	struct ItemPos {
+							int Nr;
+							double x;
+							double y;
+						   };
+	QValueList<ItemPos> Backup;
 
 public slots:
-    virtual void DistHoriz();
-    virtual void DistVert();
-    virtual void slotApplyDiag();
+	virtual void cancel();
+	virtual void DistHoriz();
+	virtual void DistVert();
+	virtual void slotApplyDiag();
 
 signals:
-		void ApplyDist(bool, bool, bool, bool, double, double, int, int);
+	void ApplyDist(bool, bool, bool, bool, double, double, int, int);
 
 protected:
-    QVBoxLayout* AlignLayout;
-    QHBoxLayout* Layout4;
-    QGridLayout* ButtonGroup1Layout;
-    QGridLayout* ButtonGroup1_2Layout;
-    QHBoxLayout* Layout3;
+	QVBoxLayout* AlignLayout;
+	QHBoxLayout* Layout4;
+	QGridLayout* ButtonGroup1Layout;
+	QGridLayout* ButtonGroup1_2Layout;
+	QHBoxLayout* Layout3;
 };
 
 #endif // ALIGN_H

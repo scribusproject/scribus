@@ -109,6 +109,19 @@ void LayerPalette::reject()
 	QDialog::reject();
 }
 
+void LayerPalette::windowActivationChange(bool oldActive)
+{
+	QDialog::windowActivationChange(oldActive);
+	if (oldActive)
+	{
+		if (Table->numRows() > 0)
+		{
+			changeName(Table->currentRow(), 0);
+			emit LayerActivated(*Activ);
+		}
+	}
+}
+
 void LayerPalette::ClearInhalt()
 {
 	disconnect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
@@ -337,8 +350,7 @@ void LayerPalette::setActiveLayer(int row)
 	QValueList<Layer>::iterator it;
 	for (it = layers->begin(); it != layers->end(); ++it)
 	{
-		if ((*it).Level == static_cast<int>(layers->count())
-		        -1-row)
+		if ((*it).Level == static_cast<int>(layers->count())-1-row)
 			break;
 	}
 	*Activ = (*it).LNr;

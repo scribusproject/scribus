@@ -28,25 +28,25 @@ signals:
 };
 
 class LayerPalette : public QDialog
-{ 
-    Q_OBJECT
+{
+	Q_OBJECT
 
 public:
-    LayerPalette(QWidget* parent);
-    ~LayerPalette() {};
+	LayerPalette(QWidget* parent);
+	~LayerPalette() {};
 
-    QTable* Table;
+	QTable* Table;
 	QHeader* Header;
-    QPushButton* NewLayer;
-    QPushButton* DeleteLayer;
-    QPushButton* RaiseLayer;
-    QPushButton* LowerLayer;
+	QPushButton* NewLayer;
+	QPushButton* DeleteLayer;
+	QPushButton* RaiseLayer;
+	QPushButton* LowerLayer;
 	QValueList<Layer> *layers;
-    void closeEvent(QCloseEvent *ce);
-    void setLayers(QValueList<Layer> *layin, int *act);
+	void closeEvent(QCloseEvent *ce);
+	void setLayers(QValueList<Layer> *layin, int *act);
 	void rebuildList();
-    QPtrList<QCheckBox> FlagsPrint;
-    QPtrList<QCheckBox> FlagsSicht;
+	QPtrList<QCheckBox> FlagsPrint;
+	QPtrList<QCheckBox> FlagsSicht;
 	int *Activ;
 
 public slots:
@@ -68,8 +68,9 @@ signals:
 	void Schliessen();
 
 protected:
-    QVBoxLayout* LayerPaletteLayout;
-    QHBoxLayout* Layout1;
+	virtual void windowActivationChange(bool oldActive);
+	QVBoxLayout* LayerPaletteLayout;
+	QHBoxLayout* Layout1;
 
 protected slots:
 	virtual void reject();

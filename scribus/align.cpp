@@ -1,9 +1,10 @@
 #include "align.h"
 #include "align.moc"
+#include "page.h"
 extern QPixmap loadIcon(QString nam);
 extern double UmReFaktor;
 
-Align::Align( QWidget* parent, int anz, int ein)
+Align::Align( QWidget* parent, int anz, int ein, ScribusDoc* docc)
 	: QDialog( parent, "al", true, 0 )
 {
 	Anzahl = anz;
@@ -122,10 +123,19 @@ Align::Align( QWidget* parent, int anz, int ein)
 	Layout3->addWidget( CancelB );
 	AlignLayout->addLayout( Layout3 );
 	setMinimumSize(sizeHint());
+	struct ItemPos po;
+	doc = docc;
+	for (uint x=0; x<doc->ActPage->SelItem.count(); ++x)
+	{
+		po.Nr = doc->ActPage->SelItem.at(x)->ItemNr;
+		po.x = doc->ActPage->SelItem.at(x)->Xpos;
+		po.y = doc->ActPage->SelItem.at(x)->Ypos;
+		Backup.append(po);
+	}
 
 	// signals and slots connections
 	connect( OKbutton, SIGNAL( clicked() ), this, SLOT( accept() ) );
-	connect( CancelB, SIGNAL( clicked() ), this, SLOT( reject() ) );
+	connect( CancelB, SIGNAL( clicked() ), this, SLOT( cancel() ) );
 	connect(ButtonApply, SIGNAL(clicked()), this, SLOT( slotApplyDiag()));
 	connect( ButtonGroup1, SIGNAL( clicked(int) ), this, SLOT( DistHoriz() ) );
 	connect( ButtonGroup1_2, SIGNAL( clicked(int) ), this, SLOT( DistVert() ) );
@@ -137,6 +147,17 @@ Align::Align( QWidget* parent, int anz, int ein)
 Align::~Align()
 {
 	// no need to delete child widgets, Qt does it all for us
+}
+
+void Align::cancel()
+{
+	for (uint x=0; x < Backup.count(); ++x)
+	{
+		doc->ActPage->Items.at(Backup[x].Nr)->Xpos = Backup[x].x;
+		doc->ActPage->Items.at(Backup[x].Nr)->Ypos = Backup[x].y;
+		doc->ActPage->update();
+	}
+	reject();
 }
 
 void Align::DistHoriz()
@@ -163,5 +184,15 @@ void Align::slotApplyDiag()
 	int yart = VartV->currentItem();
 	bool Vth = VerteilenH->isChecked();
 	bool Vtv = VerteilenV->isChecked();
-	emit ApplyDist(xa, ya, Vth, Vtv, xdp, ydp, xart, yart);
+	if (NichtsV->isChecked() && NichtsH->isChecked())
+	{
+		for (uint x=0; x < Backup.count(); ++x)
+		{
+			doc->ActPage->Items.at(Backup[x].Nr)->Xpos = Backup[x].x;
+			doc->ActPage->Items.at(Backup[x].Nr)->Ypos = Backup[x].y;
+			doc->ActPage->update();
+		}
+	}
+	else
+		emit ApplyDist(xa, ya, Vth, Vtv, xdp, ydp, xart, yart);
 }

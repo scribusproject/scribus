@@ -27,7 +27,7 @@ extern QPixmap loadIcon(QString nam);
 extern void ReOrderText(ScribusDoc *doc, ScribusView *view);
 ScribusApp* Carrier;
 QWidget* par;
- 
+
 /*!
  \fn QString Name()
  \author Franz Schmid
@@ -38,7 +38,7 @@ QWidget* par;
  */
 QString Name()
 {
-  return QObject::tr("Print Previe&w");
+	return QObject::tr("Print Previe&w");
 }
 
 /*!
@@ -63,7 +63,7 @@ void InitPlug(QWidget *d, ScribusApp *plug)
 	for (uint a = 0; a < plug->fileMenu->count(); ++a)
 	{
 		if ((plug->fileMenu->text(plug->fileMenu->idAt(a)) == QObject::tr("&Print...")) ||
-			(plug->fileMenu->text(plug->fileMenu->idAt(a)) == "&Print..."))
+		        (plug->fileMenu->text(plug->fileMenu->idAt(a)) == "&Print..."))
 			break;
 		ind++;
 	}
@@ -76,8 +76,7 @@ void InitPlug(QWidget *d, ScribusApp *plug)
 }
 
 void CleanUpPlug()
-{
-}
+{}
 
 /*!
  \fn void Run(QWidget *d, ScribusApp *plug)
@@ -89,15 +88,14 @@ void CleanUpPlug()
  \retval None
  */
 void Run(QWidget *d, ScribusApp *plug)
-{
-}
+{}
 
 void MenuPreview::RunPreview()
 {
 	if (Carrier->HaveDoc)
 	{
-  		PPreview *dia = new PPreview(par, Carrier);
-  		dia->exec();
+		PPreview *dia = new PPreview(par, Carrier);
+		dia->exec();
 		Carrier->Prefs.PrPr_Mode = dia->EnableCMYK->isChecked();
 		Carrier->Prefs.PrPr_AlphaText = dia->AliasText->isChecked();
 		Carrier->Prefs.PrPr_AlphaGraphics = dia->AliasGr->isChecked();
@@ -107,10 +105,10 @@ void MenuPreview::RunPreview()
 		Carrier->Prefs.PrPr_Y = dia->EnableCMYK_Y->isChecked();
 		Carrier->Prefs.PrPr_K = dia->EnableCMYK_K->isChecked();
 		Carrier->Prefs.Gcr_Mode = dia->EnableGCR->isChecked();
-  		delete dia;
+		delete dia;
 		system("rm -f "+Carrier->PrefsPfad+"/tmp.ps");
 		system("rm -f "+Carrier->PrefsPfad+"/sc.png");
-  	}
+	}
 }
 
 /*!
@@ -136,29 +134,16 @@ PPreview::PPreview( QWidget* parent, ScribusApp *pl) : QDialog( parent, "Preview
 	GMode = true;
 	setIcon(loadIcon("AppIcon.png"));
 	PLayout = new QVBoxLayout(this, 0, 0, "PLayout");
-	Layout5 = new QHBoxLayout;
-	Layout5->setSpacing(6);
-	Layout5->setMargin(2);
-	Layout4 = new QVBoxLayout;
-	Layout4->setSpacing(0);
-	Layout4->setMargin(0);
+
 	Layout1 = new QHBoxLayout;
-	Layout1->setSpacing(6);
-	Layout1->setMargin(0);
+	Layout1->setSpacing(5);
+	Layout1->setMargin(5);
 	PGSel = new PageSelector(this, MPage);
 	Layout1->addWidget(PGSel);
-	QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout1->addItem(spacer);
-	Layout4->addLayout(Layout1);
-	QSpacerItem* spacer2 = new QSpacerItem( 0, 20, QSizePolicy::Minimum, QSizePolicy::Minimum );
-	Layout4->addItem(spacer2);
-	Layout5->addLayout(Layout4);
-	Layout2 = new QVBoxLayout;
-	Layout2->setSpacing(1);
+
+	Layout2 = new QVBoxLayout();
+	Layout2->setSpacing(0);
 	Layout2->setMargin(0);
-	Layout3 = new QVBoxLayout;
-	Layout3->setSpacing(1);
-	Layout3->setMargin(0);
 	AliasText = new QCheckBox(this, "TextAntiAlias");
 	AliasText->setText( tr("Anti-alias &Text"));
 	AliasText->setChecked(app->Prefs.PrPr_AlphaText);
@@ -167,44 +152,52 @@ PPreview::PPreview( QWidget* parent, ScribusApp *pl) : QDialog( parent, "Preview
 	AliasGr->setText( tr("Anti-alias &Graphics"));
 	AliasGr->setChecked(app->Prefs.PrPr_AlphaGraphics);
 	Layout2->addWidget(AliasGr);
+	Layout1->addLayout(Layout2);
+
+	Layout3 = new QVBoxLayout();
+	Layout3->setSpacing(0);
+	Layout3->setMargin(0);
 	AliasTr = new QCheckBox(this, "DisplayTransparency");
 	AliasTr->setText( tr("Display Trans&parency"));
 	AliasTr->setChecked(app->Prefs.PrPr_Transparency);
-	Layout2->addWidget(AliasTr);
-	EnableCMYK = new QCheckBox(this, "DisplayCMYK");
-	EnableCMYK->setText( tr("&Display CMYK"));
-	EnableCMYK->setChecked(app->Prefs.PrPr_Mode);
-	Layout2->addWidget(EnableCMYK);
+	Layout3->addWidget(AliasTr);
 	EnableGCR = new QCheckBox(this, "DisplayGCR");
 	EnableGCR->setText( tr("&Under Color Removal"));
 	EnableGCR->setChecked(app->Prefs.Gcr_Mode);
-	Layout2->addWidget(EnableGCR);
+	Layout3->addWidget(EnableGCR);
+	Layout1->addLayout(Layout3);
+
+	Layout4 = new QVBoxLayout();
+	Layout4->setSpacing(0);
+	Layout4->setMargin(0);
+	EnableCMYK = new QCheckBox(this, "DisplayCMYK");
+	EnableCMYK->setText( tr("&Display CMYK"));
+	EnableCMYK->setChecked(app->Prefs.PrPr_Mode);
+	Layout4->addWidget(EnableCMYK);
+	Layout5 = new QHBoxLayout();
+	Layout5->setSpacing(0);
+	Layout5->setMargin(0);
 	EnableCMYK_C = new QCheckBox(this, "DisplayCMYK_C");
 	EnableCMYK_C->setText( tr("&C"));
 	EnableCMYK_C->setChecked(app->Prefs.PrPr_C);
-	Layout3->addWidget(EnableCMYK_C);
+	Layout5->addWidget(EnableCMYK_C);
 	EnableCMYK_M = new QCheckBox(this, "DisplayCMYK_M");
 	EnableCMYK_M->setText( tr("&M"));
 	EnableCMYK_M->setChecked(app->Prefs.PrPr_M);
-	Layout3->addWidget(EnableCMYK_M);
+	Layout5->addWidget(EnableCMYK_M);
 	EnableCMYK_Y = new QCheckBox(this, "DisplayCMYK_Y");
 	EnableCMYK_Y->setText( tr("&Y"));
 	EnableCMYK_Y->setChecked(app->Prefs.PrPr_Y);
-	Layout3->addWidget(EnableCMYK_Y);
+	Layout5->addWidget(EnableCMYK_Y);
 	EnableCMYK_K = new QCheckBox(this, "DisplayCMYK_K");
 	EnableCMYK_K->setText( tr("&K"));
 	EnableCMYK_K->setChecked(app->Prefs.PrPr_K);
-	if (!app->Prefs.PrPr_Mode)
-	{
-		EnableCMYK_C->setEnabled(false);
-		EnableCMYK_M->setEnabled(false);
-		EnableCMYK_Y->setEnabled(false);
-		EnableCMYK_K->setEnabled(false);
-	}
-	Layout3->addWidget(EnableCMYK_K);
-	Layout5->addLayout(Layout2);
-	Layout5->addLayout(Layout3);
-	PLayout->addLayout(Layout5);
+	Layout5->addWidget(EnableCMYK_K);
+	Layout4->addLayout(Layout5);
+	Layout1->addLayout(Layout4);
+
+	PLayout->addLayout(Layout1);
+
 	Anzeige = new QScrollView(this);
 	Anz = new QLabel(Anzeige->viewport());
 	Anz->setPixmap(CreatePreview(0, 72));
@@ -212,16 +205,30 @@ PPreview::PPreview( QWidget* parent, ScribusApp *pl) : QDialog( parent, "Preview
 	PLayout->addWidget(Anzeige);
 	int w = Anz->width() + 20;
 	resize(QMIN(QApplication::desktop()->width(),w), 500);
+	if (!app->Prefs.PrPr_Mode)
+	{
+		EnableCMYK_C->setEnabled(false);
+		EnableCMYK_M->setEnabled(false);
+		EnableCMYK_Y->setEnabled(false);
+		EnableCMYK_K->setEnabled(false);
+	}
 	//tooltips
-	QToolTip::add( AliasText, tr( "Provides a more pleasant view of text items in the viewer, at the expense\nof a slight slowdown in previewing. This only affects Type 1 fonts" ) );
-	QToolTip::add( AliasGr, tr( "Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF and\nvector graphics in the preview, at the expense of a slight slowdown in previewing" ) );
+	QToolTip::add( AliasText, tr( "Provides a more pleasant view of text items in the viewer, at the expense\n"
+                                              "of a slight slowdown in previewing. This only affects Type 1 fonts" ) );
+	QToolTip::add( AliasGr, tr( "Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF and\n"
+	                                       "vector graphics in the preview, at the expense of a slight slowdown in previewing" ) );
 	QToolTip::add( AliasTr, tr( "Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later" ) );
 	QToolTip::add( EnableCMYK, tr( "Gives a print preview using simulations of generic CMYK inks, instead of RGB colors" ) );
 	QToolTip::add( EnableCMYK_C, tr( "Enable/disable the C (Cyan) ink plate" ) );
 	QToolTip::add( EnableCMYK_M, tr( "Enable/disable the M (Magenta) ink plate" ) );
 	QToolTip::add( EnableCMYK_Y, tr( "Enable/disable the Y (Yellow) ink plate" ) );
 	QToolTip::add( EnableCMYK_K, tr( "Enable/disable the K (Black) ink plate" ) );
-
+	QToolTip::add( EnableGCR, tr( "A way of switching some of the gray shades which are composed\n"
+	                                             "of cyan, yellow and magenta and using black instead.\n"
+                                                 "UCR most affects parts of images which are neutral and/or dark tones\n"
+                                                 "which are close to the gray. Use of this may improve printing some images\n"
+                                                 "and some experimentation and testing is need on a case by case basis.\n"
+                                                 "UCR reduces the possibility of over saturation with CMY inks." ) );
 	//signals and slots
 	connect(AliasText, SIGNAL(clicked()), this, SLOT(ToggleTextAA()));
 	connect(AliasGr, SIGNAL(clicked()), this, SLOT(ToggleGr()));
@@ -340,7 +347,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 	bool ret = -1;
 	QString cmd1, cmd2, tmp, tmp2, tmp3;
 	QMap<QString,QFont> ReallyUsed;
-// Recreate Postscript-File only when the actual Page has changed
+	// Recreate Postscript-File only when the actual Page has changed
 	if ((Seite != APage)  || (EnableGCR->isChecked() != GMode))
 	{
 		ReallyUsed.clear();
@@ -365,12 +372,12 @@ int PPreview::RenderPreview(int Seite, int Res)
 	if (EnableCMYK->isChecked())
 		cmd1 += " -sDEVICE=bitcmyk -dGrayValues=256";
 	else
-		{
+	{
 		if ((!AliasTr->isChecked()) || (app->HavePngAlpha != 0))
 			cmd1 += " -sDEVICE=png16m";
 		else
 			cmd1 += " -sDEVICE=pngalpha";
-		}
+	}
 	if (AliasText->isChecked())
 		cmd1 += " -dTextAlphaBits=4";
 	if (AliasGr->isChecked())
@@ -394,12 +401,12 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 {
 	int ret = -1;
 	QPixmap Bild;
- 	double b = app->doc->PageB * Res / 72;
- 	double h = app->doc->PageH * Res / 72;
+	double b = app->doc->PageB * Res / 72;
+	double h = app->doc->PageH * Res / 72;
 	qApp->setOverrideCursor(QCursor(waitCursor), true);
-	if ((Seite != APage) || (EnableCMYK->isChecked() != CMode) 
-		|| (AliasText->isChecked() != TxtAl) || (AliasGr->isChecked() != GrAl) || (EnableGCR->isChecked() != GMode)
-		|| ((AliasTr->isChecked() != Trans) && (!EnableCMYK->isChecked())))
+	if ((Seite != APage) || (EnableCMYK->isChecked() != CMode)
+	        || (AliasText->isChecked() != TxtAl) || (AliasGr->isChecked() != GrAl) || (EnableGCR->isChecked() != GMode)
+	        || ((AliasTr->isChecked() != Trans) && (!EnableCMYK->isChecked())))
 	{
 		ret = RenderPreview(Seite, Res);
 		if (ret != 0)
@@ -428,11 +435,11 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 		QFile f(app->PrefsPfad+"/sc.png");
 		if (f.open(IO_ReadOnly))
 		{
-			for (int y=0; y < h2; ++y ) 
+			for (int y=0; y < h2; ++y )
 			{
 				p = (uint *)image.scanLine( y );
 				f.readBlock(imgc.data(), w2);
-				for (int x=0; x < w2; x += 4 ) 
+				for (int x=0; x < w2; x += 4 )
 				{
 					cyan = uchar(imgc[x]);
 					magenta = uchar(imgc[x + 1]);
@@ -465,7 +472,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 		{
 			int wi = image.width();
 			int hi = image.height();
-		    for( int yi=0; yi < hi; ++yi )
+			for( int yi=0; yi < hi; ++yi )
 			{
 				QRgb *s = (QRgb*)(image.scanLine( yi ));
 				for(int xi=0; xi < wi; ++xi )
@@ -474,7 +481,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 						(*s) &= 0x00ffffff;
 					s++;
 				}
-	    	}
+			}
 		}
 	}
 	image.setAlphaBuffer(true);
@@ -489,7 +496,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 		p.end();
 	}
 	else
-	Bild.convertFromImage(image);
+		Bild.convertFromImage(image);
 	qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	return Bild;
 }

@@ -1164,6 +1164,15 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 		if (doc->ActPage->SelItem.count() != 0)
 		{
 			PageItem *b = doc->ActPage->SelItem.at(0);
+			if (kk == Key_F9)
+			{
+				keyrep = false;
+				if (doc->AppMode == 7)
+					setAppMode(1);
+				else
+					setAppMode(7);
+				return;
+			}
 			switch (doc->AppMode)
 			{
 			case 1:
@@ -5061,12 +5070,9 @@ void ScribusApp::setAppMode(int mode)
 				menuBar()->setItemEnabled(Stm, 1);
 				menuBar()->setItemEnabled(Obm, 1);
 			}
-			else
-			{
-				view->HR->ItemPosValid = false;
-				view->HR->repX = false;
-				view->HR->repaint();
-			}
+			view->HR->ItemPosValid = false;
+			view->HR->repX = false;
+			view->HR->repaint();
 		}
 		if (mode == 7)
 		{
@@ -6366,7 +6372,7 @@ void ScribusApp::ObjektAlign()
 	else
 		ein = Prefs.Einheit;
 	NoFrameEdit();
-	Align *dia = new Align(this, doc->ActPage->SelItem.count(), ein);
+	Align *dia = new Align(this, doc->ActPage->SelItem.count(), ein, doc);
 	connect(dia, SIGNAL(ApplyDist(bool, bool, bool, bool, double, double, int, int)),
 	        this, SLOT(DoAlign(bool, bool, bool, bool, double, double, int, int)));
 	if (dia->exec())

@@ -22,6 +22,7 @@
 #include <qcolor.h>
 #include <qrect.h>
 #include <qpointarray.h>
+#include "scribus.h"
 
 #if QT_VERSION  > 0x030102
 	#define SPLITHC SplitVCursor
@@ -30,6 +31,7 @@
 #endif
 
 extern QPixmap loadIcon(QString nam);
+extern ScribusApp* ScApp;
 
 Hruler::Hruler(QScrollView *pa, ScribusDoc *doc) : QWidget(pa)
 {
@@ -120,7 +122,10 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 		MouseX = m->x();
 	}
 	else
-		qApp->setOverrideCursor(QCursor(SPLITHC), true);
+	{
+		if (ScApp->Prefs.GuidesShown)
+			qApp->setOverrideCursor(QCursor(SPLITHC), true);
+	}
 }
 
 void Hruler::mouseReleaseEvent(QMouseEvent *m)

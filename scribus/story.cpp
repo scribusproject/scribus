@@ -1616,6 +1616,7 @@ void StoryEditor::updateTextFrame()
 			doc->Trenner->slotNewDict(nb->Language);
 		doc->Trenner->slotHyphenate(nb);
 	}
+	doc->ActPage->RefreshItem(nb);
 	TextChanged = false;
 	emenu->setItemEnabled(Mupdt, 0);
 	fmenu->setItemEnabled(fid52, 0);
@@ -1760,6 +1761,8 @@ void StoryEditor::changeAlign(int align)
 			StrokeTools->PM1->setEnabled(false);
 		}
 		Editor->setFarbe(Editor->CurrTextFill, Editor->CurrTextFillSh);
+		Editor->setCursorPosition(0, 0);
+		updateProps(0, 0);
 	}
 	modifiedText();
 	Editor->setFocus();
