@@ -109,15 +109,8 @@ ScribusDoc::ScribusDoc(struct ApplicationPrefs *prefsData)
 	toolSettings.magMin = prefsData->toolSettings.magMin;
 	toolSettings.magMax = prefsData->toolSettings.magMax;
 	toolSettings.magStep = prefsData->toolSettings.magStep;
-	checkerSettings.ignoreErrors = prefsData->checkerSettings.ignoreErrors;
-	checkerSettings.autoCheck = prefsData->checkerSettings.autoCheck;
-	checkerSettings.checkGlyphs = prefsData->checkerSettings.checkGlyphs;
-	checkerSettings.checkOrphans = prefsData->checkerSettings.checkOrphans;
-	checkerSettings.checkOverflow = prefsData->checkerSettings.checkOverflow;
-	checkerSettings.checkPictures = prefsData->checkerSettings.checkPictures;
-	checkerSettings.checkResolution = prefsData->checkerSettings.checkResolution;
-	checkerSettings.checkTransparency = prefsData->checkerSettings.checkTransparency;
-	checkerSettings.minResolution = prefsData->checkerSettings.minResolution;
+	checkerProfiles = prefsData->checkerProfiles;
+	curCheckProfile = prefsData->curCheckProfile;
 	docUnitIndex = prefsData->docUnitIndex;
 	marginColored = prefsData->marginColored;
 	Language = prefsData->Language;

@@ -4,13 +4,14 @@
 #include <qvariant.h>
 #include <qheader.h>
 #include <qlistview.h>
-#include <qpushbutton.h>
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qwhatsthis.h>
 #include <qimage.h>
 #include <qpixmap.h>
 #include <qmap.h>
+#include <qlabel.h>
+#include <qcombobox.h>
 #include "scribusdoc.h"
 #include "page.h"
 extern QPixmap loadIcon(QString nam);
@@ -118,6 +119,14 @@ CheckDocument::CheckDocument( QWidget* parent, bool modal )  : QDialog( parent, 
 	setIcon(loadIcon("AppIcon.png"));
 	checkDocumentLayout = new QVBoxLayout( this, 10, 5, "checkDocumentLayout");
 
+	layout1 = new QHBoxLayout( 0, 0, 5, "layout1");
+	textLabel1 = new QLabel( this, "textLabel1" );
+	textLabel1->setText( tr( "Current Profile:" ) );
+	layout1->addWidget( textLabel1 );
+	curCheckProfile = new QComboBox( true, this, "Profiles" );
+	curCheckProfile->setEditable(false);
+	layout1->addWidget( curCheckProfile );
+	checkDocumentLayout->addLayout( layout1 );
 	reportDisplay = new QListView( this, "reportDisplay" );
 	reportDisplay->addColumn( tr( "Items" ) );
 	reportDisplay->header()->setClickEnabled( false, reportDisplay->header()->count() - 1 );
@@ -127,18 +136,11 @@ CheckDocument::CheckDocument( QWidget* parent, bool modal )  : QDialog( parent, 
 	reportDisplay->header()->setResizeEnabled( false, reportDisplay->header()->count() - 1 );
 	reportDisplay->setSorting(-1);
 	checkDocumentLayout->addWidget( reportDisplay );
-	layout1 = new QHBoxLayout( 0, 0, 5, "layout1");
-//	okButton = new QPushButton( this, "okButton" );
-//	layout1->addWidget( okButton );
-	newCheck = new QPushButton( this, "newCheck" );
-	newCheck->setEnabled(false);
-	layout1->addWidget( newCheck );
-	checkDocumentLayout->addLayout( layout1 );
 	languageChange();
 	itemMap.clear();
 	resize( QSize(306, 259).expandedTo(minimumSizeHint()) );
 	clearWState( WState_Polished );
-	connect(newCheck, SIGNAL(clicked()), this, SLOT(newScan()));
+	connect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(newScan(const QString&)));
 }
 
 void CheckDocument::closeEvent(QCloseEvent *ce)
@@ -163,9 +165,10 @@ void CheckDocument::slotSelect(QListViewItem* ite)
 	}
 }
 
-void CheckDocument::newScan()
+void CheckDocument::newScan(const QString& name)
 {
 	clearErrorList();
+	document->curCheckProfile = name;
 	emit rescan();
 }
 
@@ -175,17 +178,25 @@ void CheckDocument::clearErrorList()
 	reportDisplay->clear();
 	itemMap.clear();
 	pageMap.clear();
-	newCheck->setEnabled(false);
 }
 
 void CheckDocument::buildErrorList(ScribusDoc *doc)
 {
 	document = doc;
+	disconnect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(newScan(const QString&)));
+	curCheckProfile->clear();
+	QMap<QString, checkerPrefs>::Iterator it;
+	for (it = doc->checkerProfiles.begin(); it != doc->checkerProfiles.end(); ++it)
+	{
+		curCheckProfile->insertItem(it.key());
+	}
+	curCheckProfile->setCurrentText(doc->curCheckProfile);
+	connect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(newScan(const QString&)));
 	QString missingGlyph = tr("Glyphs missing");
 	QString textOverflow = tr("Text overflow");
 	QString notOnPage = tr("Object is not on a Page");
 	QString missingImg = tr("Missing Image");
-	QString lowDPI = tr("Image has a DPI-Value less than %1 DPI").arg(qRound(doc->checkerSettings.minResolution));
+	QString lowDPI = tr("Image has a DPI-Value less than %1 DPI").arg(qRound(doc->checkerProfiles[doc->curCheckProfile].minResolution));
 	QString transpar = tr("Object has transparency");
 	reportDisplay->clear();
 	reportDisplay->setSorting(-1);
@@ -547,7 +558,6 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 		item->setText( 1, tr( "Problems found" ) );
 		item->setOpen( true );
 	}
-	newCheck->setEnabled(true);
 	connect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
 }
 
@@ -560,7 +570,5 @@ void CheckDocument::languageChange()
 	setCaption( tr( "Preflight Verifier" ) );
 	reportDisplay->header()->setLabel( 0, tr( "Items" ) );
 	reportDisplay->header()->setLabel( 1, tr( "Problems" ) );
-//	okButton->setText( tr( "Close" ) );
-	newCheck->setText( tr( "Check again" ) );
 }
 

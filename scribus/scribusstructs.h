@@ -435,7 +435,8 @@ struct ApplicationPrefs
 	guidesPrefs guidesSettings;
 	typoPrefs typographicSetttings;
 	toolPrefs toolSettings;
-	checkerPrefs checkerSettings;
+	QMap<QString, checkerPrefs> checkerProfiles;
+	QString curCheckProfile;
 	int docUnitIndex;
 	windowPrefs mainToolBarSettings;
 	windowPrefs pdfToolBarSettings;

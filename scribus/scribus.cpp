@@ -527,15 +527,24 @@ void ScribusApp::initDefaultPrefs()
 	Prefs.ScratchRight = 100;
 	Prefs.ScratchTop = 20;
 	Prefs.ScratchBottom = 20;
-	Prefs.checkerSettings.ignoreErrors = false;
-	Prefs.checkerSettings.autoCheck = true;
-	Prefs.checkerSettings.checkGlyphs = true;
-	Prefs.checkerSettings.checkOrphans = true;
-	Prefs.checkerSettings.checkOverflow = true;
-	Prefs.checkerSettings.checkPictures = true;
-	Prefs.checkerSettings.checkResolution = true;
-	Prefs.checkerSettings.checkTransparency = true;
-	Prefs.checkerSettings.minResolution = 72.0;
+	struct checkerPrefs checkerSettings;
+	checkerSettings.ignoreErrors = false;
+	checkerSettings.autoCheck = true;
+	checkerSettings.checkGlyphs = true;
+	checkerSettings.checkOrphans = true;
+	checkerSettings.checkOverflow = true;
+	checkerSettings.checkPictures = true;
+	checkerSettings.checkResolution = true;
+	checkerSettings.checkTransparency = true;
+	checkerSettings.minResolution = 72.0;
+	Prefs.checkerProfiles.insert( tr("Postscript"), checkerSettings);
+	Prefs.checkerProfiles.insert( tr("PDF-1.3"), checkerSettings);
+	checkerSettings.checkTransparency = false;
+	Prefs.checkerProfiles.insert( tr("PDF-1.4"), checkerSettings);
+	checkerSettings.checkTransparency = true;
+	checkerSettings.minResolution = 144.0;
+	Prefs.checkerProfiles.insert( tr("PDF/X-3"), checkerSettings);
+	Prefs.curCheckProfile = tr("Postscript");
 }
 
 
@@ -1240,7 +1249,7 @@ void ScribusApp::initToolsMenuActions()
 	connect( scrActions["toolsPages"], SIGNAL(activated()) , this, SLOT(ToggleSepal()) );
 	connect( scrActions["toolsBookmarks"], SIGNAL(activated()) , this, SLOT(ToggleBookpal()) );
 	connect( scrActions["toolsActionHistory"], SIGNAL(activated()) , this, SLOT(ToggleUndoPalette()) );
-	connect( scrActions["toolsPreflightVerifier"], SIGNAL(activated()) , this, SLOT(ToggleCheckPal()) );
+	connect( scrActions["toolsPreflightVerifier"], SIGNAL(activated()) , this, SLOT(slotCheckDoc()) );
 	connect( scrActions["toolsToolbarTools"], SIGNAL(activated()) , this, SLOT(ToggleTools()) );
 	connect( scrActions["toolsToolbarPDF"], SIGNAL(activated()) , this, SLOT(TogglePDFTools()) );
 	
@@ -3042,15 +3051,8 @@ bool ScribusApp::SetupDoc()
 		doc->guidesSettings.margColor = dia->tabGuides->colorMargin;
 		doc->guidesSettings.guideColor = dia->tabGuides->colorGuides;
 		doc->guidesSettings.baseColor = dia->tabGuides->colorBaselineGrid;
-		doc->checkerSettings.ignoreErrors = dia->tabDocChecker->ignoreErrors->isChecked();
-		doc->checkerSettings.autoCheck = dia->tabDocChecker->automaticCheck->isChecked();
-		doc->checkerSettings.checkGlyphs = dia->tabDocChecker->missingGlyphs->isChecked();
-		doc->checkerSettings.checkOrphans = dia->tabDocChecker->checkOrphans->isChecked();
-		doc->checkerSettings.checkOverflow = dia->tabDocChecker->textOverflow->isChecked();
-		doc->checkerSettings.checkPictures = dia->tabDocChecker->missingPictures->isChecked();
-		doc->checkerSettings.checkResolution = dia->tabDocChecker->pictResolution->isChecked();
-		doc->checkerSettings.checkTransparency = dia->tabDocChecker->tranparentObjects->isChecked();
-		doc->checkerSettings.minResolution = dia->tabDocChecker->resolutionValue->value();
+		doc->checkerProfiles = dia->tabDocChecker->checkerProfile;
+		doc->curCheckProfile = dia->tabDocChecker->curCheckProfile->currentText();
 		doc->typographicSetttings.valueSuperScript = dia->tabTypo->superDisplacement->value();
 		doc->typographicSetttings.scalingSuperScript = dia->tabTypo->superScaling->value();
 		doc->typographicSetttings.valueSubScript = dia->tabTypo->subDisplacement->value();
@@ -4790,7 +4792,7 @@ void ScribusApp::slotFilePrint()
 	//int Nr;
 	//bool fil, sep, farbe, PSfile, mirrorH, mirrorV, useICC, DoGCR;
 	//PSfile = false;
-	if ((doc->checkerSettings.autoCheck) && (!doc->checkerSettings.ignoreErrors))
+	if ((doc->checkerProfiles[doc->curCheckProfile].autoCheck) && (!doc->checkerProfiles[doc->curCheckProfile].ignoreErrors))
 	{
 		scanDocument();
 		if ((doc->docItemErrors.count() != 0) || (doc->masterItemErrors.count() != 0))
@@ -7671,15 +7673,8 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.guidesSettings.margColor = dia->tabGuides->colorMargin;
 		Prefs.guidesSettings.guideColor = dia->tabGuides->colorGuides;
 		Prefs.guidesSettings.baseColor = dia->tabGuides->colorBaselineGrid;
-		Prefs.checkerSettings.ignoreErrors = dia->tabDocChecker->ignoreErrors->isChecked();
-		Prefs.checkerSettings.autoCheck = dia->tabDocChecker->automaticCheck->isChecked();
-		Prefs.checkerSettings.checkGlyphs = dia->tabDocChecker->missingGlyphs->isChecked();
-		Prefs.checkerSettings.checkOrphans = dia->tabDocChecker->checkOrphans->isChecked();
-		Prefs.checkerSettings.checkOverflow = dia->tabDocChecker->textOverflow->isChecked();
-		Prefs.checkerSettings.checkPictures = dia->tabDocChecker->missingPictures->isChecked();
-		Prefs.checkerSettings.checkResolution = dia->tabDocChecker->pictResolution->isChecked();
-		Prefs.checkerSettings.checkTransparency = dia->tabDocChecker->tranparentObjects->isChecked();
-		Prefs.checkerSettings.minResolution = dia->tabDocChecker->resolutionValue->value();
+		Prefs.checkerProfiles = dia->tabDocChecker->checkerProfile;
+		Prefs.curCheckProfile = dia->tabDocChecker->curCheckProfile->currentText();
 		Prefs.typographicSetttings.valueSuperScript = dia->tabTypo->superDisplacement->value();
 		Prefs.typographicSetttings.scalingSuperScript = dia->tabTypo->superScaling->value();
 		Prefs.typographicSetttings.valueSubScript = dia->tabTypo->subDisplacement->value();
@@ -7875,7 +7870,6 @@ void ScribusApp::SavePrefsXML()
     }
 }
 
-
 void ScribusApp::ReadPrefs()
 {
 	ScriXmlDoc *ss = new ScriXmlDoc();
@@ -7924,7 +7918,6 @@ void ScribusApp::ReadPrefsXML()
         }
     }
 }
-
 
 void ScribusApp::ShowSubs()
 {
@@ -8014,7 +8007,7 @@ bool ScribusApp::DoSaveAsEps(QString fn)
 void ScribusApp::SaveAsEps()
 {
 	QString fna;
-	if ((doc->checkerSettings.autoCheck) && (!doc->checkerSettings.ignoreErrors))
+	if ((doc->checkerProfiles[doc->curCheckProfile].autoCheck) && (!doc->checkerProfiles[doc->curCheckProfile].ignoreErrors))
 	{
 		scanDocument();
 		if ((doc->docItemErrors.count() != 0) || (doc->masterItemErrors.count() != 0))
@@ -8090,7 +8083,7 @@ bool ScribusApp::getPDFDriver(QString fn, QString nam, int Components, std::vect
 void ScribusApp::SaveAsPDF()
 {
 	QString fn;
-	if ((doc->checkerSettings.autoCheck) && (!doc->checkerSettings.ignoreErrors))
+	if ((doc->checkerProfiles[doc->curCheckProfile].autoCheck) && (!doc->checkerProfiles[doc->curCheckProfile].ignoreErrors))
 	{
 		scanDocument();
 		if ((doc->docItemErrors.count() != 0) || (doc->masterItemErrors.count() != 0))
@@ -9997,6 +9990,16 @@ void ScribusApp::scanDocument()
 {
 	PageItem* it;
 	QString chx;
+	struct checkerPrefs checkerSettings;
+	checkerSettings.ignoreErrors = doc->checkerProfiles[doc->curCheckProfile].ignoreErrors;
+	checkerSettings.autoCheck = doc->checkerProfiles[doc->curCheckProfile].autoCheck;
+	checkerSettings.checkGlyphs = doc->checkerProfiles[doc->curCheckProfile].checkGlyphs;
+	checkerSettings.checkOrphans = doc->checkerProfiles[doc->curCheckProfile].checkOrphans;
+	checkerSettings.checkOverflow = doc->checkerProfiles[doc->curCheckProfile].checkOverflow;
+	checkerSettings.checkPictures = doc->checkerProfiles[doc->curCheckProfile].checkPictures;
+	checkerSettings.checkResolution = doc->checkerProfiles[doc->curCheckProfile].checkResolution;
+	checkerSettings.checkTransparency = doc->checkerProfiles[doc->curCheckProfile].checkTransparency;
+	checkerSettings.minResolution = doc->checkerProfiles[doc->curCheckProfile].minResolution;
 	doc->docItemErrors.clear();
 	doc->masterItemErrors.clear();
 	errorCodes itemError;
@@ -10004,24 +10007,24 @@ void ScribusApp::scanDocument()
 	{
 		it = doc->MasterItems.at(d);
 		itemError.clear();
-		if (((it->TranspStroke != 0.0) || (it->TranspStroke != 0.0)) && (doc->checkerSettings.checkTransparency))
+		if (((it->TranspStroke != 0.0) || (it->TranspStroke != 0.0)) && (checkerSettings.checkTransparency))
 			itemError.insert(6, 0);
-		if ((it->OwnPage == -1) && (doc->checkerSettings.checkOrphans))
+		if ((it->OwnPage == -1) && (checkerSettings.checkOrphans))
 			itemError.insert(3, 0);
 		if (it->PType == 2)
 		{
-		 	if ((!it->PicAvail) && (doc->checkerSettings.checkPictures))
+		 	if ((!it->PicAvail) && (checkerSettings.checkPictures))
 				itemError.insert(4, 0);
 			else
 			{
-				if  ((((72.0 / it->LocalScX) < doc->checkerSettings.minResolution) || ((72.0 / it->LocalScY) < doc->checkerSettings.minResolution))
-				          && (it->isRaster) && (doc->checkerSettings.checkResolution))
+				if  ((((72.0 / it->LocalScX) < checkerSettings.minResolution) || ((72.0 / it->LocalScY) < checkerSettings.minResolution))
+				          && (it->isRaster) && (checkerSettings.checkResolution))
 					itemError.insert(5, 0);
 			}
 		}
 		if ((it->PType == 4) || (it->PType == 8))
 		{
-			if ((it->itemText.count() > it->MaxChars) && (doc->checkerSettings.checkOverflow))
+			if ((it->itemText.count() > it->MaxChars) && (checkerSettings.checkOverflow))
 				itemError.insert(2, 0);
 			for (uint e = 0; e < it->itemText.count(); ++e)
 			{
@@ -10039,12 +10042,12 @@ void ScribusApp::scanDocument()
 				{
 					for (uint numco = 0x30; numco < 0x3A; ++numco)
 					{
-						if ((!(*doc->AllFonts)[it->itemText.at(e)->cfont]->CharWidth.contains(numco)) && (doc->checkerSettings.checkGlyphs))
+						if ((!(*doc->AllFonts)[it->itemText.at(e)->cfont]->CharWidth.contains(numco)) && (checkerSettings.checkGlyphs))
 							itemError.insert(1, 0);
 					}
 					continue;
 				}
-				if ((!(*doc->AllFonts)[it->itemText.at(e)->cfont]->CharWidth.contains(chr)) && (doc->checkerSettings.checkGlyphs))
+				if ((!(*doc->AllFonts)[it->itemText.at(e)->cfont]->CharWidth.contains(chr)) && (checkerSettings.checkGlyphs))
 					itemError.insert(1, 0);
 			}
 		}
@@ -10055,24 +10058,24 @@ void ScribusApp::scanDocument()
 	{
 		it = doc->Items.at(d);
 		itemError.clear();
-		if (((it->Transparency != 0.0) || (it->TranspStroke != 0.0)) && (doc->checkerSettings.checkTransparency))
+		if (((it->Transparency != 0.0) || (it->TranspStroke != 0.0)) && (checkerSettings.checkTransparency))
 			itemError.insert(6, 0);
-		if ((it->OwnPage == -1) && (doc->checkerSettings.checkOrphans))
+		if ((it->OwnPage == -1) && (checkerSettings.checkOrphans))
 			itemError.insert(3, 0);
 		if (it->PType == 2)
 		{
-		 	if ((!it->PicAvail) && (doc->checkerSettings.checkPictures))
+		 	if ((!it->PicAvail) && (checkerSettings.checkPictures))
 				itemError.insert(4, 0);
 			else
 			{
-				if  ((((72.0 / it->LocalScX) < doc->checkerSettings.minResolution) || ((72.0 / it->LocalScY) < doc->checkerSettings.minResolution)) 
-				           && (it->isRaster) && (doc->checkerSettings.checkResolution))
+				if  ((((72.0 / it->LocalScX) < checkerSettings.minResolution) || ((72.0 / it->LocalScY) < checkerSettings.minResolution)) 
+				           && (it->isRaster) && (checkerSettings.checkResolution))
 					itemError.insert(5, 0);
 			}
 		}
 		if ((it->PType == 4) || (it->PType == 8))
 		{
-			if ((it->itemText.count() > it->MaxChars) && (doc->checkerSettings.checkOverflow))
+			if ((it->itemText.count() > it->MaxChars) && (checkerSettings.checkOverflow))
 				itemError.insert(2, 0);
 			for (uint e = 0; e < it->itemText.count(); ++e)
 			{
@@ -10090,12 +10093,12 @@ void ScribusApp::scanDocument()
 				{
 					for (uint numco = 0x30; numco < 0x3A; ++numco)
 					{
-						if ((!(*doc->AllFonts)[it->itemText.at(e)->cfont]->CharWidth.contains(numco)) && (doc->checkerSettings.checkGlyphs))
+						if ((!(*doc->AllFonts)[it->itemText.at(e)->cfont]->CharWidth.contains(numco)) && (checkerSettings.checkGlyphs))
 							itemError.insert(1, 0);
 					}
 					continue;
 				}
-				if ((!(*doc->AllFonts)[it->itemText.at(e)->cfont]->CharWidth.contains(chr)) && (doc->checkerSettings.checkGlyphs))
+				if ((!(*doc->AllFonts)[it->itemText.at(e)->cfont]->CharWidth.contains(chr)) && (checkerSettings.checkGlyphs))
 					itemError.insert(1, 0);
 			}
 		}

@@ -2578,15 +2578,23 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	dc.setAttribute("PAGEC",doc->papColor.name());
 	dc.setAttribute("MARGC",doc->guidesSettings.margColor.name());
 	dc.setAttribute("RANDF", static_cast<int>(doc->marginColored));
-	dc.setAttribute("ignoreErrors", static_cast<int>(doc->checkerSettings.ignoreErrors));
-	dc.setAttribute("autoCheck", static_cast<int>(doc->checkerSettings.autoCheck));
-	dc.setAttribute("checkGlyphs", static_cast<int>(doc->checkerSettings.checkGlyphs));
-	dc.setAttribute("checkOrphans", static_cast<int>(doc->checkerSettings.checkOrphans));
-	dc.setAttribute("checkOverflow", static_cast<int>(doc->checkerSettings.checkOverflow));
-	dc.setAttribute("checkPictures", static_cast<int>(doc->checkerSettings.checkPictures));
-	dc.setAttribute("checkResolution", static_cast<int>(doc->checkerSettings.checkResolution));
-	dc.setAttribute("checkTransparency", static_cast<int>(doc->checkerSettings.checkTransparency));
-	dc.setAttribute("minResolution",doc->checkerSettings.minResolution);
+	dc.setAttribute("currentProfile", doc->curCheckProfile);
+	QMap<QString, checkerPrefs>::Iterator itcp;
+	for (itcp = doc->checkerProfiles.begin(); itcp != doc->checkerProfiles.end(); ++itcp)
+	{
+		QDomElement dc79a=docu.createElement("CheckProfile");
+		dc79a.setAttribute("Name",itcp.key());
+		dc79a.setAttribute("ignoreErrors", static_cast<int>(itcp.data().ignoreErrors));
+		dc79a.setAttribute("autoCheck", static_cast<int>(itcp.data().autoCheck));
+		dc79a.setAttribute("checkGlyphs", static_cast<int>(itcp.data().checkGlyphs));
+		dc79a.setAttribute("checkOrphans", static_cast<int>(itcp.data().checkOrphans));
+		dc79a.setAttribute("checkOverflow", static_cast<int>(itcp.data().checkOverflow));
+		dc79a.setAttribute("checkPictures", static_cast<int>(itcp.data().checkPictures));
+		dc79a.setAttribute("checkResolution", static_cast<int>(itcp.data().checkResolution));
+		dc79a.setAttribute("checkTransparency", static_cast<int>(itcp.data().checkTransparency));
+		dc79a.setAttribute("minResolution",itcp.data().minResolution);
+		dc.appendChild(dc79a);
+	}
 	QMap<QString,multiLine>::Iterator itMU;
 	for (itMU = doc->MLineStyles.begin(); itMU != doc->MLineStyles.end(); ++itMU)
 	{
@@ -2981,16 +2989,24 @@ void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 	dc79.setAttribute("VISIBLE", static_cast<int>(Vor->checkPalSettings.visible));
 	dc79.setAttribute("XPOS",Vor->checkPalSettings.xPosition);
 	dc79.setAttribute("YPOS",Vor->checkPalSettings.yPosition);
-	dc79.setAttribute("ignoreErrors", static_cast<int>(Vor->checkerSettings.ignoreErrors));
-	dc79.setAttribute("autoCheck", static_cast<int>(Vor->checkerSettings.autoCheck));
-	dc79.setAttribute("checkGlyphs", static_cast<int>(Vor->checkerSettings.checkGlyphs));
-	dc79.setAttribute("checkOrphans", static_cast<int>(Vor->checkerSettings.checkOrphans));
-	dc79.setAttribute("checkOverflow", static_cast<int>(Vor->checkerSettings.checkOverflow));
-	dc79.setAttribute("checkPictures", static_cast<int>(Vor->checkerSettings.checkPictures));
-	dc79.setAttribute("checkResolution", static_cast<int>(Vor->checkerSettings.checkResolution));
-	dc79.setAttribute("checkTransparency", static_cast<int>(Vor->checkerSettings.checkTransparency));
-	dc79.setAttribute("minResolution",Vor->checkerSettings.minResolution);
+	dc79.setAttribute("currentProfile", Vor->curCheckProfile);
 	elem.appendChild(dc79);
+	QMap<QString, checkerPrefs>::Iterator itcp;
+	for (itcp = Vor->checkerProfiles.begin(); itcp != Vor->checkerProfiles.end(); ++itcp)
+	{
+		QDomElement dc79a=docu.createElement("CheckProfile");
+		dc79a.setAttribute("Name",itcp.key());
+		dc79a.setAttribute("ignoreErrors", static_cast<int>(itcp.data().ignoreErrors));
+		dc79a.setAttribute("autoCheck", static_cast<int>(itcp.data().autoCheck));
+		dc79a.setAttribute("checkGlyphs", static_cast<int>(itcp.data().checkGlyphs));
+		dc79a.setAttribute("checkOrphans", static_cast<int>(itcp.data().checkOrphans));
+		dc79a.setAttribute("checkOverflow", static_cast<int>(itcp.data().checkOverflow));
+		dc79a.setAttribute("checkPictures", static_cast<int>(itcp.data().checkPictures));
+		dc79a.setAttribute("checkResolution", static_cast<int>(itcp.data().checkResolution));
+		dc79a.setAttribute("checkTransparency", static_cast<int>(itcp.data().checkTransparency));
+		dc79a.setAttribute("minResolution",itcp.data().minResolution);
+		elem.appendChild(dc79a);
+	}
 	QDomElement dc8=docu.createElement("MEASUREMENTS");
 	dc8.setAttribute("VISIBLE", static_cast<int>(Vor->mPaletteSettings.visible));
 	dc8.setAttribute("XPOS",Vor->mPaletteSettings.xPosition);
@@ -3317,15 +3333,21 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 			Vorein->checkPalSettings.visible = static_cast<bool>(QStoInt(dc.attribute("VISIBLE", "1")));
 			Vorein->checkPalSettings.xPosition = QStoInt(dc.attribute("XPOS"));
 			Vorein->checkPalSettings.yPosition = QStoInt(dc.attribute("YPOS"));
-			Vorein->checkerSettings.ignoreErrors = static_cast<bool>(QStoInt(dc.attribute("ignoreErrors", "0")));
-			Vorein->checkerSettings.autoCheck = static_cast<bool>(QStoInt(dc.attribute("autoCheck", "1")));
-			Vorein->checkerSettings.checkGlyphs = static_cast<bool>(QStoInt(dc.attribute("checkGlyphs", "1")));
-			Vorein->checkerSettings.checkOrphans = static_cast<bool>(QStoInt(dc.attribute("checkOrphans", "1")));
-			Vorein->checkerSettings.checkOverflow = static_cast<bool>(QStoInt(dc.attribute("checkOverflow", "1")));
-			Vorein->checkerSettings.checkPictures = static_cast<bool>(QStoInt(dc.attribute("checkPictures", "1")));
-			Vorein->checkerSettings.checkResolution = static_cast<bool>(QStoInt(dc.attribute("checkResolution", "1")));
-			Vorein->checkerSettings.checkTransparency = static_cast<bool>(QStoInt(dc.attribute("checkTransparency", "1")));
-			Vorein->checkerSettings.minResolution = QStodouble(dc.attribute("minResolution","72"));
+			Vorein->curCheckProfile = dc.attribute("currentProfile", tr("Postscript"));
+		}
+		if (dc.tagName()=="CheckProfile")
+		{
+			struct checkerPrefs checkerSettings;
+			checkerSettings.ignoreErrors = static_cast<bool>(QStoInt(dc.attribute("ignoreErrors", "0")));
+			checkerSettings.autoCheck = static_cast<bool>(QStoInt(dc.attribute("autoCheck", "1")));
+			checkerSettings.checkGlyphs = static_cast<bool>(QStoInt(dc.attribute("checkGlyphs", "1")));
+			checkerSettings.checkOrphans = static_cast<bool>(QStoInt(dc.attribute("checkOrphans", "1")));
+			checkerSettings.checkOverflow = static_cast<bool>(QStoInt(dc.attribute("checkOverflow", "1")));
+			checkerSettings.checkPictures = static_cast<bool>(QStoInt(dc.attribute("checkPictures", "1")));
+			checkerSettings.checkResolution = static_cast<bool>(QStoInt(dc.attribute("checkResolution", "1")));
+			checkerSettings.checkTransparency = static_cast<bool>(QStoInt(dc.attribute("checkTransparency", "1")));
+			checkerSettings.minResolution = QStodouble(dc.attribute("minResolution","72"));
+			Vorein->checkerProfiles[dc.attribute("Name")] = checkerSettings;
 		}
 		if (dc.tagName()=="PRINTER")
 		{

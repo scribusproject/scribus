@@ -11,7 +11,8 @@ class QGridLayout;
 class QSpacerItem;
 class QListView;
 class QListViewItem;
-class QPushButton;
+class QComboBox;
+class QLabel;
 class ScribusDoc;
 
 class CheckDocument : public QDialog
@@ -25,15 +26,15 @@ public:
 	void buildErrorList(ScribusDoc *doc);
 	void closeEvent(QCloseEvent *ce);
 
+	QComboBox* curCheckProfile;
+	QLabel* textLabel1;
 	QListView* reportDisplay;
-	QPushButton* okButton;
-	QPushButton* newCheck;
 	QMap<QListViewItem*, int> itemMap;
 	QMap<QListViewItem*, int> pageMap;
 
 public slots:
 	void slotSelect(QListViewItem* ite);
-	void newScan();
+	void newScan(const QString&);
 
 signals:
 	void rescan();
