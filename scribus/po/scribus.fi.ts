@@ -2,22 +2,15 @@
 <context>
     <name></name>
     <message>
-        <source>getFontSize([&quot;name&quot;]) -&gt; float
-
-Returns the font size in points for the text frame &quot;name&quot;. If this text
-frame has some text selected the value assigned to the first character of
-the selection is returned.
-If &quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>getColorNames() -&gt; list
 
 Returns a list containing the names of all defined colors in the document.
 If no document is open, returns a list of the default document colors.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getColorNames() -&gt; list(new line)
+
+Palauttaa listan värien nimistä, jotka on määritelty asiakirjassa.
+Jos asiakirjoja ei ole avoinna, palauttaa listan oletusväreistä.</translation>
     </message>
     <message>
         <source>newDocDialog() -&gt; bool
@@ -26,77 +19,11 @@ Displays the &quot;New Document&quot; dialog box. Creates a new document if the 
 accepts the settings. Does not create a document if the user presses cancel.
 Returns true if a new document was created.
 </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>getFillColor([&quot;name&quot;]) -&gt; string
+        <translation>getColorNames() -&gt; list
 
-Returns the name of the fill color of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>moveObject(dx, dy [, &quot;name&quot;])
-
-Moves the object &quot;name&quot; by dx and dy relative to its current position. The
-distances are expressed in the current measurement unit of the document (see
-UNIT constants). If &quot;name&quot; is not given the currently selected item is used.
-If the object &quot;name&quot; belongs to a group, the whole group is moved.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setRedraw(bool)
-
-Disables page redraw when bool = False, otherwise redrawing is enabled.
-This change will persist even after the script exits, so make sure to call
-setRedraw(True) in a finally: clause at the top level of your script.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>createRect(x, y, width, height, [&quot;name&quot;]) -&gt; string
-
-Creates a new rectangle on the current page and returns its name. The
-coordinates are given in the current measurement units of the document
-(see UNIT constants). &quot;name&quot; should be a unique identifier for the object
-because you need this name to reference that object in future. If &quot;name&quot;
-is not given Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that&apos;s already used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>newPage(where [,&quot;template&quot;])
-
-Creates a new page. If &quot;where&quot; is -1 the new Page is appended to the
-document, otherwise the new page is inserted before &quot;where&quot;. Page numbers are
-counted from 1 upwards, no matter what the displayed first page number of your
-document is. The optional parameter &quot;template&quot; specifies the name of the
-template page for the new page.
-
-May raise IndexError if the page number is out of range
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setGradientFill(type, &quot;color1&quot;, shade1, &quot;color2&quot;, shade2, [&quot;name&quot;])
-
-Sets the gradient fill of the object &quot;name&quot; to type. Color descriptions are
-the same as for setFillColor() and setFillShade(). See the constants for
-available types (FILL_&lt;type&gt;).
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>messagebarText(&quot;string&quot;)
-
-Writes the &quot;string&quot; into the Scribus message bar (status line). The text
-must be UTF8 encoded or &apos;unicode&apos; string(recommended).
-</source>
-        <translation type="unfinished"></translation>
+Näyttää dialogin &quot;Uusi asiakirja&quot;. Luo uuden asiakirjan, jos käyttäjä hyväksyy
+asetukset. Asiakirjaa ei luoda, jos käyttäjä painaa Peruuta-painiketta.
+Palauttaa true, jos uusi asiakirja luotiin.</translation>
     </message>
     <message>
         <source>newDoc(size, margins, orientation, firstPageNumber,
@@ -132,238 +59,156 @@ is not in points, make sure to account for this.
 example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
                 FACINGPAGES, FIRSTPAGERIGHT)
 </source>
-        <translation type="unfinished"></translation>
+        <translation>newDoc(size, margins, orientation, firstPageNumber,
+                    unit, facingPages, firstSideLeft) -&gt; bool
+
+Luo uuden asiakirjan ja palauttaa true, jos se onnistuu. Parametreillä on seuraavat
+merkitykset:
+
+    size = Tuple (leveys, korkeus) kuvaa asiakirjan koon. Voit käyttää valmiiksi
+    määriteltyjä vakioita PAPER_&lt;paperin tyyppi&gt; esim. PAPER_A4 jne.
+
+    margins = Tuple (vasen, oikea, ylä, ala) kuva asiakirjan reunukset.
+
+    orientation = Sivun suunta -  vakiot PORTRAIT, LANDSCAPE (pystysuora, vaakasuora).
+
+    firstPageNumber = Asiakirjan ensimmäisellä sivulla käytettävä sivunumero. Hyödyllinen
+    Hyödyllinen esimerkiksi luotaessa asikirja useassa osassa.
+
+    unit: Asikirjassa käytettävä mittayksikkö. Käytä valmiiksi määriteltyjä vakioita: 
+    UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
+
+    facingPages = FACINGPAGES (vastakkaiset sivut), NOFACINGPAGES (peräkkäiset sivut)
+
+    firstSideLeft = FIRSTPAGELEFT (ensimmäinen sivu vasen), FIRSTPAGERIGHT (oikea)
+
+Leveys, korkeus ja reunukset tulee antaa asikirjassa käytössä olevalla yksiköllä.
+PAPER_*-vakiot annetaan pisteinä (points). Jos asikirjasi ei ole pisteissä, huomioi
+tämä.
+
+example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
+                FACINGPAGES, FIRSTPAGERIGHT)
+</translation>
+    </message>
+    <message>
+        <source>getFillColor([&quot;name&quot;]) -&gt; string
+
+Returns the name of the fill color of the object &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation>getFillColor([&quot;name&quot;]) -&gt; string
+
+Palauttaa täyttövärin nimen kohteelle &quot;name&quot;.
+Jos &quot;name&quot; ei ole annettu käytetään valittuna olevaa kohdetta.</translation>
+    </message>
+    <message>
+        <source>moveObject(dx, dy [, &quot;name&quot;])
+
+Moves the object &quot;name&quot; by dx and dy relative to its current position. The
+distances are expressed in the current measurement unit of the document (see
+UNIT constants). If &quot;name&quot; is not given the currently selected item is used.
+If the object &quot;name&quot; belongs to a group, the whole group is moved.
+</source>
+        <translation>moveObject(dx, dy [, &quot;name&quot;])
+
+Siirtää kohdetta &quot;name&quot; arvoilla dx ja dy  suhteessa nykyiseen sijaintiin. Etäisyydet
+ilmaistaan asikirjassa käytössä olevalla yksiköllä (katso UNIT-vakio). Jos &quot;name&quot; ei
+ole määritelty, käytetään valittuna olevaa kohdetta. Jos kohde &quot;name&quot; kuuluu 
+ryhmään, koko ryhmää siirretään.</translation>
+    </message>
+    <message>
+        <source>setRedraw(bool)
+
+Disables page redraw when bool = False, otherwise redrawing is enabled.
+This change will persist even after the script exits, so make sure to call
+setRedraw(True) in a finally: clause at the top level of your script.
+</source>
+        <translation>setRedraw(bool)
+
+Estää sivun uudelleenpiirron, kun bool=False. Muuten uudelleen piirto on 
+käytössä. Tämä asetus jää voimaan vaikka skriptistä poistutaan. Varmista,
+että kutsut setRedraw(True) finally: -lauseessa ylimmällä tasolla skriptissäsi.</translation>
+    </message>
+    <message>
+        <source>createRect(x, y, width, height, [&quot;name&quot;]) -&gt; string
+
+Creates a new rectangle on the current page and returns its name. The
+coordinates are given in the current measurement units of the document
+(see UNIT constants). &quot;name&quot; should be a unique identifier for the object
+because you need this name to reference that object in future. If &quot;name&quot;
+is not given Scribus will create one for you.
+
+May raise NameExistsError if you explicitly pass a name that&apos;s already used.
+</source>
+        <translation>createRect(x, y, width, height, [&quot;name&quot;]) -&gt; string
+
+Luo uuden nelikulmion nykyiselle sivulle ja palauttaa luodun kohteen nimen.
+Koordinaatit on annettava asikirjassa käytössä olevalla yksiköllä. Katso (UNIT vakiot).
+&quot;name&quot;:n tulee olla yksilöllinen tunniste kohteelle, koska tarvitset nimeä myöhemmin
+viitatessasi nelikulmioon. Jos &quot;name&quot;:a ei anneta Scribus luo sen.
+
+Saattaa nostaa NameExistsError:n, jos annettu nimi on jo olemassa.</translation>
+    </message>
+    <message>
+        <source>newPage(where [,&quot;template&quot;])
+
+Creates a new page. If &quot;where&quot; is -1 the new Page is appended to the
+document, otherwise the new page is inserted before &quot;where&quot;. Page numbers are
+counted from 1 upwards, no matter what the displayed first page number of your
+document is. The optional parameter &quot;template&quot; specifies the name of the
+template page for the new page.
+
+May raise IndexError if the page number is out of range
+</source>
+        <translation>newPage(where [,&quot;template&quot;])
+
+Luo uuden sivun. Jos &quot;where&quot; on -1 sivu lisätään asiakirjan loppuun, muuten sivu lisätään
+sivun &quot;where&quot; eteen. Sivunumerot lasketaan yhdestä ylöspäin, vaikka asikirjan ensimmäisen
+sivun numeroksi olisi valittu joku muu. Vapaaehtoinen toinen parametri kertoo sivulla
+käytettävän sivumallin.
+
+Saattaa nostaa IndexError:n, jos sivunumero on sallittujen rajojen ulkopuolella</translation>
+    </message>
+    <message>
+        <source>setGradientFill(type, &quot;color1&quot;, shade1, &quot;color2&quot;, shade2, [&quot;name&quot;])
+
+Sets the gradient fill of the object &quot;name&quot; to type. Color descriptions are
+the same as for setFillColor() and setFillShade(). See the constants for
+available types (FILL_&lt;type&gt;).
+</source>
+        <translation>setGradientFill(type, &quot;color1&quot;, shade1, &quot;color2&quot;, shade2, [&quot;name&quot;])
+
+Asettaa liukuväritäytön kohteelle &quot;name&quot;. Värin kuvukset ovat samat kuin
+setFillColor():lla ja setFillShade():lla. Katso vakiot FILL_&lt;type&gt;.</translation>
+    </message>
+    <message>
+        <source>getFontSize([&quot;name&quot;]) -&gt; float
+
+Returns the font size in points for the text frame &quot;name&quot;. If this text
+frame has some text selected the value assigned to the first character of
+the selection is returned.
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation>getFontSize([&quot;name&quot;]) -&gt; float
+
+Palauttaa kirjasimen koon pisteinä tekstikehykselle &quot;name&quot;. Jos tekstikehyksessä
+on tekstiä valittuna palautetaan valinnan ensimmäisen kirjasimen koko.
+Jos &quot;name&quot; ei ole määritelty, käytetään valittuna olevaa kohdetta.</translation>
+    </message>
+    <message>
+        <source>messagebarText(&quot;string&quot;)
+
+Writes the &quot;string&quot; into the Scribus message bar (status line). The text
+must be UTF8 encoded or &apos;unicode&apos; string(recommended).
+</source>
+        <translation>messagebarText(&quot;string&quot;)
+
+Asettaa tekstin &quot;string&quot; Scribuksen tilariville. Teksti täytyy olla UTF8 koodattu tai
+&apos;unicode&apos; teksti (suositeltavaa).</translation>
     </message>
 </context>
 <context>
     <name>@default</name>
-    <message>
-        <source>getFont([&quot;name&quot;]) -&gt; string
-
-Returns the font name for the text frame &quot;name&quot;. If this text frame
-has some text selected the value assigned to the first character
-of the selection is returned. If &quot;name&quot; is not given the currently
-selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>getTextLength([&quot;name&quot;]) -&gt; integer
-
-Returns the length of the text in the text frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>getText([&quot;name&quot;]) -&gt; string
-
-Returns the text of the text frame &quot;name&quot;. If this text frame has some text
-selected, the selected text is returned. All text in the frame, not just
-currently visible text, is returned. If &quot;name&quot; is not given the currently
-selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>getAllText([&quot;name&quot;]) -&gt; string
-
-Returns the text of the text frame &quot;name&quot; and of all text frames which are
-linked with this frame. If this textframe has some text selected, the selected
-text is returned. If &quot;name&quot; is not given the currently selected item is
-used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>getLineSpacing([&quot;name&quot;]) -&gt; float
-
-Returns the line spacing (&quot;leading&quot;) of the text frame &quot;name&quot; expressed in
-points. If &quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>getColumnGap([&quot;name&quot;]) -&gt; float
-
-Returns the column gap size of the text frame &quot;name&quot; expressed in points. If
-&quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>getColumns([&quot;name&quot;]) -&gt; integer
-
-Gets the number of columns of the text frame &quot;name&quot;. If &quot;name&quot; is not
-given the currently selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setText(&quot;text&quot;, [&quot;name&quot;])
-
-Sets the text of the text frame &quot;name&quot; to the text of the string &quot;text&quot;.
-Text must be UTF8 encoded - use e.g. unicode(text, &apos;iso-8859-2&apos;). See the FAQ
-for more details. If &quot;name&quot; is not given the currently selected item is
-used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
-
-Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame. Text
-must be UTF encoded (see setText() as reference) The first character has an
-index of 0. &quot;name&quot; If &quot;name&quot; is not given the currently selected Item is
-used.
-
-May throw IndexError for an insertion out of bounds.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setFont(&quot;font&quot;, [&quot;name&quot;])
-
-Sets the font of the text frame &quot;name&quot; to &quot;font&quot;. If there is some text
-selected only the selected text is changed.  If &quot;name&quot; is not given the
-currently selected item is used.
-
-May throw ValueError if the font cannot be found.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setFontSize(size, [&quot;name&quot;])
-
-Sets the font size of the text frame &quot;name&quot; to &quot;size&quot;. &quot;size&quot; is treated
-as a value in points. If there is some text selected only the selected text is
-changed. &quot;size&quot; must be in the range 1 to 512. If &quot;name&quot; is not given the
-currently selected item is used.
-
-May throw ValueError for a font size that&apos;s out of bounds.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setLineSpacing(size, [&quot;name&quot;])
-
-Sets the line spacing (&quot;leading&quot;) of the text frame &quot;name&quot; to &quot;size&quot;.
-&quot;size&quot; is a value in points. If &quot;name&quot; is not given the currently selected
-item is used.
-
-May throw ValueError if the line spacing is out of bounds.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setColumnGap(size, [&quot;name&quot;])
-
-Sets the column gap of the text frame &quot;name&quot; to the value &quot;size&quot;. If
-&quot;name&quot; is not given the currently selected item is used.
-
-May throw ValueError if the column gap is out of bounds (must be positive).
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setColumns(nr, [&quot;name&quot;])
-
-Sets the number of columns of the text frame &quot;name&quot; to the integer &quot;nr&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May throw ValueError if number of columns is not at least one.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setTextAlignment(align, [&quot;name&quot;])
-
-Sets the text alignment of the text frame &quot;name&quot; to the specified alignment.
-If &quot;name&quot; is not given the currently selected item is used. &quot;align&quot; should
-be one of the ALIGN_ constants defined in this module - see dir(scribus).
-
-May throw ValueError for an invalid alignment constant.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>selectText(start, count, [&quot;name&quot;])
-
-Selects &quot;count&quot; characters of text in the text frame &quot;name&quot; starting from the
-character &quot;start&quot;. Character counting starts at 0. If &quot;count&quot; is zero, any
-text selection will be cleared.  If &quot;name&quot; is not given the currently
-selected item is used.
-
-May throw IndexError if the selection is outside the bounds of the text.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>deleteText([&quot;name&quot;])
-
-Deletes any text in the text frame &quot;name&quot;. If there is some text selected,
-only the selected text will be deleted. If &quot;name&quot; is not given the currently
-selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setTextColor(&quot;color&quot;, [&quot;name&quot;])
-
-Sets the text color of the text frame &quot;name&quot; to the color &quot;color&quot;. If there
-is some text selected only the selected text is changed. If &quot;name&quot; is not
-given the currently selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setTextStroke(&quot;color&quot;, [&quot;name&quot;])
-
-Set &quot;color&quot; of the text stroke. If &quot;name&quot; is not given the currently
-selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>setTextShade(shade, [&quot;name&quot;])
-
-Sets the shading of the text color of the object &quot;name&quot; to &quot;shade&quot;. If
-there is some text selected only the selected text is changed. &quot;shade&quot; must
-be an integer value in the range from 0 (lightest) to 100 (full color
-intensity). If &quot;name&quot; is not given the currently selected item is
-used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>linkTextFrames(&quot;fromname&quot;, &quot;toname&quot;)
-
-Link two text frames. The frame named &quot;fromname&quot; is linked to the
-frame named &quot;toname&quot;. The target frame must be an empty text frame
-and must not link to or be linked from any other frames already.
-
-May throw ScribusException if linking rules are violated.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>unlinkTextFrames(&quot;name&quot;)
-
-Remove the specified (named) object from the text frame flow/linkage. If the
-frame was in the middle of a chain, the previous and next frames will be
-connected, eg &apos;a-&gt;b-&gt;c&apos; becomes &apos;a-&gt;c&apos; when you unlinkTextFrames(b)&apos;
-
-May throw ScribusException if linking rules are violated.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>traceText([&quot;name&quot;])
-
-Convert the text frame &quot;name&quot; to outlines. If &quot;name&quot; is not given the
-currently selected item is used.</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>getColor(&quot;name&quot;) -&gt; tuple
 
@@ -374,7 +219,13 @@ the value of the named color from the default document colors.
 May raise NotFoundError if the named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getColor(&quot;name&quot;) -&gt; tuple
+
+Palauttaa tuplen (C, M, Y, K) värille &quot;name&quot; nykyisestä asiakirjasta. Jos asiakirjaa
+ei ole avoinna, palauttaa värin oletusväreistä.
+
+Saattaa nostaa NotFoundError:n, jos väriä ei löydy.
+Saattaa nostaa ValueError:n, jos värin nimi on viallinen.</translation>
     </message>
     <message>
         <source>changeColor(&quot;name&quot;, c, m, y, k)
@@ -386,7 +237,24 @@ Color components should be in the range from 0 to 255.
 May raise NotFoundError if the named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>changeColor(&quot;name&quot;, c, m, y, k)
+
+Vaihtaa värin &quot;name&quot; vastaamaan väriä c, m, y, k (kaikki määritelty välillä 0, 255).</translation>
+    </message>
+    <message>
+        <source>defineColor(&quot;name&quot;, c, m, y, k)
+
+Defines a new color &quot;name&quot;. The color Value is defined via four components:
+c = Cyan, m = Magenta, y = Yellow and k = Black. Color components should be in
+the range from 0 to 255.
+
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation>defineColor(&quot;name&quot;, c, m, y, k)
+
+Määrittää uuden värin &quot;name&quot; värillä c, m, y, k (määritelty välillä 0, 255).
+
+Saattaa nostaa ValueError:n, jos värin nimi on viallinen.</translation>
     </message>
     <message>
         <source>deleteColor(&quot;name&quot;, &quot;replace&quot;)
@@ -401,7 +269,14 @@ In that case, &quot;replace&quot;, if specified, has no effect.
 May raise NotFoundError if a named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>deleteColor(&quot;name&quot;, &quot;replace&quot;)
+
+Poistaa värin &quot;nimi&quot;, joka korvataan värillä &quot;replace&quot;. Oletuksena &quot;replace&quot; on None (läpinäkyvä).
+
+deleteColors toimii asiakirjassa määritellyillä väreillä, asiakirja on avoinna.
+
+Saattaa nostaa NotFoundError:n, jos nimettyä väriä ei löydy.
+Saattaa nostaa ValueError:n, jos värin nimi on viallinen.</translation>
     </message>
     <message>
         <source>replaceColor(&quot;name&quot;, &quot;replace&quot;)
@@ -411,7 +286,12 @@ Every occurence of the color &quot;name&quot; is replaced by the color &quot;rep
 May raise NotFoundError if a named color wasn&apos;t found.
 May raise ValueError if an invalid color name is specified.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>replaceColor(&quot;name&quot;, &quot;replace&quot;)
+
+Jokainen ilmentymä väristä &quot;name&quot; korvataan värillä &quot;replace&quot;.
+
+Saattaa nostaa NotFoundError:n, jos nimettyä väriä ei löydy.
+Saattaa nostaa ValueError:n, jos värin nimi on viallinen.</translation>
     </message>
     <message>
         <source>fileDialog(&quot;caption&quot;, [&quot;filter&quot;, &quot;defaultname&quot; ,haspreview, issave]) -&gt; string with filename
@@ -432,7 +312,9 @@ Refer to the Qt-Documentation for QFileDialog for details on filters.
 Example: fileDialog(&apos;Open input&apos;, &apos;CSV files (*.csv)&apos;)
 Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;, issave=True)
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">fileDialog(&quot;caption&quot;, [&quot;filter&quot;, &quot;defaultname&quot; ,haspreview, issave]) -&gt; string with filename
+
+</translation>
     </message>
     <message>
         <source>messageBox(&quot;caption&quot;, &quot;message&quot;,
@@ -478,7 +360,10 @@ Parameters: window title, text in the window and optional &apos;default&apos; va
 
 Example: valueDialog(&apos;title&apos;, &apos;text in the window&apos;, &apos;optional&apos;)
 </source>
-        <translation type="unfinished"></translation>
+        <translation>valueDialog(caption, message [,defaultvalue]) -&gt; string
+
+Näyttää yleisen &quot;Kysy string&quot;-dialogin ja palauttaa sen arvon. Parametrit: ikkunan
+otsikko, ikkunan teksti ja oletusarvo</translation>
     </message>
     <message>
         <source>closeDoc()
@@ -487,14 +372,20 @@ Closes the current document without prompting to save.
 
 May throw NoDocOpenError if there is no document to close
 </source>
-        <translation type="unfinished"></translation>
+        <translation>closeDoc()
+
+Sulkee aktiivisen asiakirjan, ilman tallennusdialogia.
+
+Saattaa heittää NoDocOpenError, jos suljettavia asiakirjoja ei ole</translation>
     </message>
     <message>
         <source>haveDoc() -&gt; bool
 
 Returns true if there is a document open.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>haveDoc() -&gt; bool
+
+Palauttaa true, jos yksikin asiakirja on avoinna.</translation>
     </message>
     <message>
         <source>openDoc(&quot;name&quot;)
@@ -503,7 +394,11 @@ Opens the document &quot;name&quot;.
 
 May raise ScribusError if the document could not be opened.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>openDoc(&quot;name&quot;)
+
+Avaa asiakirjan &quot;name&quot;.
+
+Saattaa aiheuttaa ScribusErrorin, jos asiakirjaa ei voida avata.</translation>
     </message>
     <message>
         <source>saveDoc()
@@ -514,7 +409,9 @@ save file dialog.
 
 If the save fails, there is currently no way to tell.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>saveDoc()
+
+Tallennusdialogi. Tallennuksen epäonnistumista ei voi tällä hetkellä päätellä mistään.</translation>
     </message>
     <message>
         <source>saveDocAs(&quot;name&quot;)
@@ -524,7 +421,11 @@ relative path).
 
 May raise ScribusError if the save fails.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>saveDocAs(&quot;name&quot;)
+
+Tallentaa aktiivisen asiakirjan nimellä &quot;nimi&quot;, joka voi olla täydellinen tai suhteellinen polku.
+
+Saattaa aiheuttaa ScribusError:n, jos tallennus epäonnistuu.</translation>
     </message>
     <message>
         <source>saveDocAs(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
@@ -532,7 +433,9 @@ May raise ScribusError if the save fails.
 Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
 strings.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>saveDocAs(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
+
+Asettaa asiakirjan tiedot. &quot;author&quot; (tekijä), &quot;info&quot; (tietoja) ja &quot;description&quot; (kuvaus) ovat stringejä.</translation>
     </message>
     <message>
         <source>setMargins(lr, rr, tr, br)
@@ -541,7 +444,10 @@ Sets the margins of the document, Left(lr), Right(rr), Top(tr) and Bottom(br)
 margins are given in the measurement units of the document - see UNIT_&lt;type&gt;
 constants.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setMargins(lr, rr, tr, br)
+
+Asettaa asiakirjan reunukset Vasen (lr), Oikea (rr), ylä (tr) ja ala (br). Reunukset annetaan
+asiakirjan käyttämissä yksiköissä. Katso UNIT_&lt;type&gt; vakiot.</translation>
     </message>
     <message>
         <source>setUnit(type)
@@ -551,7 +457,11 @@ defined as constants UNIT_&lt;type&gt;.
 
 May raise ValueError if an invalid unit is passed.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setUnit(type)
+
+Vaihtaa asiakirjan mittayksikköä. Mahdolliset yksiköt on määritelty vakiona UNIT_&lt;type&gt;.
+
+Saattaa aiheuttaa ValueError:n, jos käytetään virheellistä yksikköä.</translation>
     </message>
     <message>
         <source>getUnit() -&gt; integer (Scribus unit constant)
@@ -560,7 +470,11 @@ Returns the measurement units of the document. The returned value will be one
 of the UNIT_* constants:
 UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getUnit() -&gt; integer (Scribus unit constant)
+
+Palauttaa asiakirjan mittayksikön. Arvo on yksi UNIT_* vakioista.
+UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
+</translation>
     </message>
     <message>
         <source>loadStylesFromFile(&quot;filename&quot;)
@@ -568,7 +482,9 @@ UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
 Loads paragraph styles from the Scribus document at &quot;filename&quot; into the
 current document.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>loadStylesFromFile(&quot;filename&quot;)
+
+Lataa kappaletyylit Scribus-asiakirjasta &quot;filename&quot; aktiiviseen asiakirjaan.</translation>
     </message>
     <message>
         <source>setDocType(facingPages, firstPageLeft)
@@ -578,7 +494,9 @@ FACINGPAGES, to switch facingPages off use NOFACINGPAGES instead.  If you want
 to be the first page a left side set the second parameter to FIRSTPAGELEFT, for
 a right page use FIRSTPAGERIGHT.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">setDocType(facingPages, firstPageLeft)
+
+</translation>
     </message>
     <message>
         <source>getLineColor([&quot;name&quot;]) -&gt; string
@@ -586,7 +504,10 @@ a right page use FIRSTPAGERIGHT.
 Returns the name of the line color of the object &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineColor([&quot;name&quot;]) -&gt; string
+
+Palauttaa kohteen &quot;name&quot; viivan värin. Ilman &quot;name&quot;:a palauttaa
+valittuna olevan kohteen kehyksen värin.</translation>
     </message>
     <message>
         <source>getLineWidth([&quot;name&quot;]) -&gt; integer
@@ -594,7 +515,10 @@ If &quot;name&quot; is not given the currently selected item is used.
 Returns the line width of the object &quot;name&quot;. If &quot;name&quot;
 is not given the currently selected Item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineWidth([&quot;name&quot;]) -&gt; integer
+
+Palauttaa kohteen &quot;name&quot; viivan leveyden. Jos &quot;name&quot;:a
+ei anneta käytetään valittuna olevaa kohdetta.</translation>
     </message>
     <message>
         <source>getLineShade([&quot;name&quot;]) -&gt; integer
@@ -602,7 +526,10 @@ is not given the currently selected Item is used.
 Returns the shading value of the line color of the object &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>getLineShade([&quot;name&quot;]) -&gt; integer
+
+Palauttaa kohteen &quot;name&quot; viivan värin sävyn. Jos &quot;name&quot;:a ei
+anneta käytetään valittuna olevaa kohdetta.</translation>
     </message>
     <message>
         <source>getLineJoin([&quot;name&quot;]) -&gt; integer (see contants)
@@ -611,7 +538,9 @@ Returns the line join style of the object &quot;name&quot;. If &quot;name&quot; 
 the currently selected item is used.  The join types are:
 JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">getLineJoin([&quot;name&quot;]) -&gt; integer (see contants)
+
+</translation>
     </message>
     <message>
         <source>getLineEnd([&quot;name&quot;]) -&gt; integer (see constants)
@@ -620,7 +549,7 @@ Returns the line cap style of the object &quot;name&quot;. If &quot;name&quot; i
 currently selected item is used. The cap types are:
 CAP_FLAT, CAP_ROUND, CAP_SQUARE
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">getLineEnd([&quot;name&quot;]) -&gt; integer (see constants)</translation>
     </message>
     <message>
         <source>getLineStyle([&quot;name&quot;]) -&gt; integer (see constants)
@@ -629,7 +558,9 @@ Returns the line style of the object &quot;name&quot;. If &quot;name&quot; is no
 currently selected item is used. Line style constants are:
 LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">getLineStyle([&quot;name&quot;]) -&gt; integer (see constants)
+
+</translation>
     </message>
     <message>
         <source>getFillShade([&quot;name&quot;]) -&gt; integer
@@ -637,7 +568,20 @@ LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID
 Returns the shading value of the fill color of the object &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">getFillShade([&quot;name&quot;]) -&gt; integer
+
+</translation>
+    </message>
+    <message>
+        <source>getCornerRadius([&quot;name&quot;]) -&gt; integer
+
+Returns the corner radius of the object &quot;name&quot;. The radius is
+expressed in points. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation type="unfinished">getCornerRadius([&quot;name&quot;]) -&gt; integer
+
+</translation>
     </message>
     <message>
         <source>getImageScale([&quot;name&quot;]) -&gt; (x,y)
@@ -645,7 +589,9 @@ If &quot;name&quot; is not given the currently selected item is used.
 Returns a (x, y) tuple containing the scaling values of the image frame
 &quot;name&quot;.  If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">getImageScale([&quot;name&quot;]) -&gt; (x,y)
+
+</translation>
     </message>
     <message>
         <source>getImageName([&quot;name&quot;]) -&gt; string
@@ -653,7 +599,21 @@ Returns a (x, y) tuple containing the scaling values of the image frame
 Returns the filename for the image in the image frame. If &quot;name&quot; is not
 given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">getImageName([&quot;name&quot;]) -&gt; string
+
+</translation>
+    </message>
+    <message>
+        <source>getPosition([&quot;name&quot;]) -&gt; (x,y)
+
+Returns a (x, y) tuple with the position of the object &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+The position is expressed in the actual measurement unit of the document
+- see UNIT_&lt;type&gt; for reference.
+</source>
+        <translation type="unfinished">getPosition([&quot;name&quot;]) -&gt; (x,y)
+
+</translation>
     </message>
     <message>
         <source>getSize([&quot;name&quot;]) -&gt; (width,height)
@@ -663,7 +623,9 @@ If &quot;name&quot; is not given the currently selected item is used. The size i
 expressed in the current measurement unit of the document - see UNIT_&lt;type&gt;
 for reference.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">getSize([&quot;name&quot;]) -&gt; (width,height)
+
+</translation>
     </message>
     <message>
         <source>getRotation([&quot;name&quot;]) -&gt; integer
@@ -672,14 +634,18 @@ Returns the rotation of the object &quot;name&quot;. The value is expressed in d
 and clockwise is positive. If &quot;name&quot; is not given the currently selected item
 is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">getRotation([&quot;name&quot;]) -&gt; integer
+
+</translation>
     </message>
     <message>
         <source>getAllObjects() -&gt; list
 
 Returns a list containing the names of all objects on the current page.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">getAllObjects() -&gt; list
+
+</translation>
     </message>
     <message>
         <source>moveObjectAbs(x, y [, &quot;name&quot;])
@@ -689,7 +655,9 @@ the current measurement unit of the document (see UNIT constants).  If &quot;nam
 is not given the currently selected item is used.  If the object &quot;name&quot;
 belongs to a group, the whole group is moved.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">moveObjectAbs(x, y [, &quot;name&quot;])
+
+</translation>
     </message>
     <message>
         <source>rotateObject(rot [, &quot;name&quot;])
@@ -700,7 +668,20 @@ default, the top left vertext at zero rotation. Positive values mean counter
 clockwise rotation when the default rotation point is used. If &quot;name&quot; is not
 given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">rotateObject(rot [, &quot;name&quot;])
+
+</translation>
+    </message>
+    <message>
+        <source>rotateObjectAbs(rot [, &quot;name&quot;])
+
+Sets the rotation of the object &quot;name&quot; to &quot;rot&quot;. Positive values
+mean counter clockwise rotation. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation type="unfinished">rotateObjectAbs(rot [, &quot;name&quot;])
+
+</translation>
     </message>
     <message>
         <source>sizeObject(width, height [, &quot;name&quot;])
@@ -708,7 +689,9 @@ given the currently selected item is used.
 Resizes the object &quot;name&quot; to the given width and height. If &quot;name&quot;
 is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">sizeObject(width, height [, &quot;name&quot;])
+
+</translation>
     </message>
     <message>
         <source>getSelectedObject([nr]) -&gt; string
@@ -717,28 +700,36 @@ Returns the name of the selected object. &quot;nr&quot; if given indicates the n
 of the selected object, e.g. 0 means the first selected object, 1 means the
 second selected Object and so on.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">getSelectedObject([nr]) -&gt; string
+
+</translation>
     </message>
     <message>
         <source>selectionCount() -&gt; integer
 
 Returns the number of selected objects.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">selectionCount() -&gt; integer
+
+</translation>
     </message>
     <message>
         <source>selectObject(&quot;name&quot;)
 
 Selects the object with the given &quot;name&quot;.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">selectObject(&quot;name&quot;)
+
+</translation>
     </message>
     <message>
         <source>deselectAll()
 
 Deselects all objects in the whole document.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">deselectAll()
+
+</translation>
     </message>
     <message>
         <source>groupObjects(list)
@@ -747,13 +738,17 @@ Groups the objects named in &quot;list&quot; together. &quot;list&quot; must con
 of the objects to be grouped. If &quot;list&quot; is not given the currently selected
 items are used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">groupObjects(list)
+
+</translation>
     </message>
     <message>
         <source>unGroupObjects(&quot;name&quot;)
 
 Destructs the group the object &quot;name&quot; belongs to.If &quot;name&quot; is not given the currently selected item is used.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">unGroupObjects(&quot;name&quot;)
+
+</translation>
     </message>
     <message>
         <source>scaleGroup(factor [,&quot;name&quot;])
@@ -766,7 +761,9 @@ to 150 % of its original size.  The value for &quot;factor&quot; must be greater
 
 May raise ValueError if an invalid scale factor is passed.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">scaleGroup(factor [,&quot;name&quot;])
+
+</translation>
     </message>
     <message>
         <source>loadImage(&quot;filename&quot; [, &quot;name&quot;])
@@ -776,7 +773,9 @@ not given the currently selected item is used.
 
 May raise WrongFrameTypeError if the target frame is not an image frame
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">loadImage(&quot;filename&quot; [, &quot;name&quot;])
+
+</translation>
     </message>
     <message>
         <source>scaleImage(x, y [, &quot;name&quot;])
@@ -787,7 +786,9 @@ means 100 %.
 
 May raise WrongFrameTypeError if the target frame is not an image frame
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">scaleImage(x, y [, &quot;name&quot;])
+
+</translation>
     </message>
     <message>
         <source>lockObject([&quot;name&quot;]) -&gt; bool
@@ -796,7 +797,9 @@ Locks the object &quot;name&quot; if it&apos;s unlocked or unlock it if it&apos;
 If &quot;name&quot; is not given the currently selected item is used. Returns true
 if locked.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">lockObject([&quot;name&quot;]) -&gt; bool
+
+</translation>
     </message>
     <message>
         <source>isLocked([&quot;name&quot;]) -&gt; bool
@@ -804,14 +807,18 @@ if locked.
 Returns true if is the object &quot;name&quot; locked.  If &quot;name&quot; is not given the
 currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">isLocked([&quot;name&quot;]) -&gt; bool
+
+</translation>
     </message>
     <message>
         <source>getFontNames() -&gt; list
 
 Returns a list with the names of all available fonts.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">getFontNames() -&gt; list
+
+</translation>
     </message>
     <message>
         <source>getXFontNames() -&gt; list of tuples
@@ -819,7 +826,9 @@ Returns a list with the names of all available fonts.
 Returns a larger font info. It&apos;s a list of the tuples with:
 [ (Scribus name, Family, Real name, subset (1|0), embed PS (1|0), font file), (...), ... ]
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">getXFontNames() -&gt; list of tuples
+
+</translation>
     </message>
     <message>
         <source>rendeFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size) -&gt; bool
@@ -830,14 +839,18 @@ Image is saved into &quot;filename&quot;. Returns true when success.
 May raise NotFoundError if the specified font can&apos;t be found.
 May raise ValueError if an empty sample or filename is passed.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">rendeFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size) -&gt; bool
+
+</translation>
     </message>
     <message>
         <source>getLayers() -&gt; list
 
 Returns a list with the names of all defined layers.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">getLayers() -&gt; list
+
+</translation>
     </message>
     <message>
         <source>setActiveLayer(&quot;name&quot;)
@@ -847,14 +860,18 @@ Sets the active layer to the layer named &quot;name&quot;.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">setActiveLayer(&quot;name&quot;)
+
+</translation>
     </message>
     <message>
         <source>getActiveLayer() -&gt; string
 
 Returns the name of the current active layer.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">getActiveLayer() -&gt; string
+
+</translation>
     </message>
     <message>
         <source>sentToLayer(&quot;layer&quot; [, &quot;name&quot;])
@@ -865,7 +882,9 @@ If &quot;name&quot; is not given the currently selected item is used.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">sentToLayer(&quot;layer&quot; [, &quot;name&quot;])
+
+</translation>
     </message>
     <message>
         <source>setLayerVisible(&quot;layer&quot;, visible)
@@ -876,7 +895,9 @@ the layer is invisible.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">setLayerVisible(&quot;layer&quot;, visible)
+
+</translation>
     </message>
     <message>
         <source>setLayerPrintable(&quot;layer&quot;, printable)
@@ -887,7 +908,9 @@ false the layer won&apos;t be printed.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">setLayerPrintable(&quot;layer&quot;, printable)
+
+</translation>
     </message>
     <message>
         <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
@@ -899,7 +922,9 @@ that the layer &quot;layer&quot; is visible, a value of False means that the lay
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">isLayerPrintable(&quot;layer&quot;) -&gt; bool
+
+</translation>
     </message>
     <message>
         <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
@@ -911,7 +936,9 @@ the layer &quot;layer&quot; is disabled.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">isLayerPrintable(&quot;layer&quot;) -&gt; bool
+
+</translation>
     </message>
     <message>
         <source>deleteLayer(&quot;layer&quot;)
@@ -922,7 +949,9 @@ exists or if it&apos;s the only layer in the document.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">deleteLayer(&quot;layer&quot;)
+
+</translation>
     </message>
     <message>
         <source>createLayer(layer)
@@ -931,14 +960,18 @@ Creates a new layer with the name &quot;name&quot;.
 
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">createLayer(layer)
+
+</translation>
     </message>
     <message>
         <source>getGuiLanguage() -&gt; string
 
 Returns a string with the -lang value.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">getGuiLanguage() -&gt; string
+
+</translation>
     </message>
     <message>
         <source>createEllipse(x, y, width, height, [&quot;name&quot;]) -&gt; string
@@ -951,7 +984,9 @@ is not given Scribus will create one for you.
 
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">createEllipse(x, y, width, height, [&quot;name&quot;]) -&gt; string
+
+</translation>
     </message>
     <message>
         <source>createImage(x, y, width, height, [&quot;name&quot;]) -&gt; string
@@ -964,7 +999,9 @@ create one for you.
 
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">createImage(x, y, width, height, [&quot;name&quot;]) -&gt; string
+
+</translation>
     </message>
     <message>
         <source>createText(x, y, width, height, [&quot;name&quot;]) -&gt; string
@@ -977,7 +1014,9 @@ given Scribus will create one for you.
 
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">createText(x, y, width, height, [&quot;name&quot;]) -&gt; string
+
+</translation>
     </message>
     <message>
         <source>createLine(x1, y1, x2, y2, [&quot;name&quot;]) -&gt; string
@@ -990,7 +1029,9 @@ object because you need this name for further access to that object. If
 
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">createLine(x1, y1, x2, y2, [&quot;name&quot;]) -&gt; string
+
+</translation>
     </message>
     <message>
         <source>createPolyLine(list, [&quot;name&quot;]) -&gt; string
@@ -1006,7 +1047,9 @@ May raise NameExistsError if you explicitly pass a name that&apos;s already used
 May raise ValueError if an insufficient number of points is passed or if
 the number of values passed don&apos;t group into points without leftovers.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">createPolyLine(list, [&quot;name&quot;]) -&gt; string
+
+</translation>
     </message>
     <message>
         <source>createPolygon(list, [&quot;name&quot;]) -&gt; string
@@ -1024,7 +1067,9 @@ May raise NameExistsError if you explicitly pass a name that&apos;s already used
 May raise ValueError if an insufficient number of points is passed or if
 the number of values passed don&apos;t group into points without leftovers.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">createPolygon(list, [&quot;name&quot;]) -&gt; string
+
+</translation>
     </message>
     <message>
         <source>createBezierLine(list, [&quot;name&quot;]) -&gt; string
@@ -1043,7 +1088,9 @@ May raise NameExistsError if you explicitly pass a name that&apos;s already used
 May raise ValueError if an insufficient number of points is passed or if
 the number of values passed don&apos;t group into points without leftovers.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">createBezierLine(list, [&quot;name&quot;]) -&gt; string
+
+</translation>
     </message>
     <message>
         <source>createPathText(x, y, &quot;textbox&quot;, &quot;beziercurve&quot;, [&quot;name&quot;]) -&gt; string
@@ -1057,7 +1104,9 @@ to that object. If &quot;name&quot; is not given Scribus will create one for you
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 May raise NotFoundError if one or both of the named base object don&apos;t exist.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">createPathText(x, y, &quot;textbox&quot;, &quot;beziercurve&quot;, [&quot;name&quot;]) -&gt; string
+
+</translation>
     </message>
     <message>
         <source>deleteObject([&quot;name&quot;])
@@ -1065,7 +1114,9 @@ May raise NotFoundError if one or both of the named base object don&apos;t exist
 Deletes the item with the name &quot;name&quot;. If &quot;name&quot; is not given the currently
 selected item is deleted.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">deleteObject([&quot;name&quot;])
+
+</translation>
     </message>
     <message>
         <source>textFlowsAroundFrame(&quot;name&quot; [, state])
@@ -1074,7 +1125,9 @@ Enables/disables &quot;Text Flows Around Frame&quot; feature for object &quot;na
 Called with parameters string name and optional boolean &quot;state&quot;. If &quot;state&quot;
 is not passed, text flow is toggled.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">textFlowsAroundFrame(&quot;name&quot; [, state])
+
+</translation>
     </message>
     <message>
         <source>objectExists([&quot;name&quot;]) -&gt; bool
@@ -1083,7 +1136,9 @@ Test if an object with specified name really exists in the document.
 The optional parameter is the object name. When no object name is given,
 returns True if there is something selected.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">objectExists([&quot;name&quot;]) -&gt; bool
+
+</translation>
     </message>
     <message>
         <source>setStyle(&quot;style&quot; [, &quot;name&quot;])
@@ -1091,14 +1146,18 @@ returns True if there is something selected.
 Apply the named &quot;style&quot; to the object named &quot;name&quot;. If is no object name
 given, it&apos;s applied on the selected object.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">setStyle(&quot;style&quot; [, &quot;name&quot;])
+
+</translation>
     </message>
     <message>
         <source>getAllStyles() -&gt; list
 
 Return a list of the names of all paragraph styles in the current document.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">getAllStyles() -&gt; list
+
+</translation>
     </message>
     <message>
         <source>currentPage() -&gt; integer
@@ -1106,14 +1165,18 @@ Return a list of the names of all paragraph styles in the current document.
 Returns the number of the current working page. Page numbers are counted from 1
 upwards, no matter what the displayed first page number of your document is.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">currentPage() -&gt; integer
+
+</translation>
     </message>
     <message>
         <source>redrawAll()
 
 Redraws all pages.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">redrawAll()
+
+</translation>
     </message>
     <message>
         <source>savePageAsEPS(&quot;name&quot;)
@@ -1122,7 +1185,9 @@ Saves the current page as an EPS to the file &quot;name&quot;.
 
 May raise ScribusError if the save failed.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">savePageAsEPS(&quot;name&quot;)
+
+</translation>
     </message>
     <message>
         <source>deletePage(nr)
@@ -1133,7 +1198,9 @@ page number is.
 
 May raise IndexError if the page number is out of range
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">deletePage(nr)
+
+</translation>
     </message>
     <message>
         <source>gotoPage(nr)
@@ -1144,14 +1211,18 @@ just sets the page that script commands will operates on.
 
 May raise IndexError if the page number is out of range.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">gotoPage(nr)
+
+</translation>
     </message>
     <message>
         <source>pageCount() -&gt; integer
 
 Returns the number of pages in the document.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">pageCount() -&gt; integer
+
+</translation>
     </message>
     <message>
         <source>getHGuides() -&gt; list
@@ -1159,7 +1230,9 @@ Returns the number of pages in the document.
 Returns a list containing positions of the horizontal guides. Values are in the
 document&apos;s current units - see UNIT_&lt;type&gt; constants.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">getHGuides() -&gt; list
+
+</translation>
     </message>
     <message>
         <source>setHGuides(list)
@@ -1170,21 +1243,27 @@ measured in the current document units - see UNIT_&lt;type&gt; constants.
 Example: setHGuides(getHGuides() + [200.0, 210.0] # add new guides without any lost
          setHGuides([90,250]) # replace current guides entirely
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">setHGuides(list)
+
+</translation>
     </message>
     <message>
         <source>getVGuides()
 
 See getHGuides.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">getVGuides()
+
+</translation>
     </message>
     <message>
         <source>setVGuides()
 
 See setHGuides.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">setVGuides()
+
+</translation>
     </message>
     <message>
         <source>getPageSize() -&gt; tuple
@@ -1192,7 +1271,9 @@ See setHGuides.
 Returns a tuple with page dimensions measured in the document&apos;s current units.
 See UNIT_&lt;type&gt; constants and getPageMargins()
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">getPageSize() -&gt; tuple
+
+</translation>
     </message>
     <message>
         <source>getPageItems() -&gt; list
@@ -1202,7 +1283,9 @@ Returns a list of tuples with items on the current page. The tuple is:
 means that object named &apos;Text1&apos; is a text frame (type 4) and is the first at
 the page...
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">getPageItems() -&gt; list
+
+</translation>
     </message>
     <message>
         <source>getPageMargins()
@@ -1210,7 +1293,9 @@ the page...
 Returns the page margins as a (left, right, top, bottom) tuple in the current
 units. See UNIT_&lt;type&gt; constants and getPageSize().
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">getPageMargins()
+
+</translation>
     </message>
     <message>
         <source>setFillColor(&quot;color&quot;, [&quot;name&quot;])
@@ -1219,7 +1304,9 @@ Sets the fill color of the object &quot;name&quot; to the color &quot;color&quot
 is the name of one of the defined colors. If &quot;name&quot; is not given the
 currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">setFillColor(&quot;color&quot;, [&quot;name&quot;])
+
+</translation>
     </message>
     <message>
         <source>setLineColor(&quot;color&quot;, [&quot;name&quot;])
@@ -1227,7 +1314,9 @@ currently selected item is used.
 Sets the line color of the object &quot;name&quot; to the color &quot;color&quot;. If &quot;name&quot;
 is not given the currently selected item is used.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">setLineColor(&quot;color&quot;, [&quot;name&quot;])
+
+</translation>
     </message>
     <message>
         <source>setLineWidth(width, [&quot;name&quot;])
@@ -1238,7 +1327,9 @@ given the currently selected item is used.
 
 May raise ValueError if the line width is out of bounds.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">setLineWidth(width, [&quot;name&quot;])
+
+</translation>
     </message>
     <message>
         <source>setLineShade(shade, [&quot;name&quot;])
@@ -1250,7 +1341,9 @@ is used.
 
 May raise ValueError if the line shade is out of bounds.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">setLineShade(shade, [&quot;name&quot;])
+
+</translation>
     </message>
     <message>
         <source>setLineJoin(join, [&quot;name&quot;])
@@ -1259,7 +1352,9 @@ Sets the line join style of the object &quot;name&quot; to the style &quot;join&
 If &quot;name&quot; is not given the currently selected item is used. There are
 predefined constants for join - JOIN_&lt;type&gt;.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">setLineJoin(join, [&quot;name&quot;])
+
+</translation>
     </message>
     <message>
         <source>setLineEnd(endtype, [&quot;name&quot;])
@@ -1268,7 +1363,9 @@ Sets the line cap style of the object &quot;name&quot; to the style &quot;cap&qu
 If &quot;name&quot; is not given the currently selected item is used. There are
 predefined constants for &quot;cap&quot; - CAP_&lt;type&gt;.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">setLineEnd(endtype, [&quot;name&quot;])
+
+</translation>
     </message>
     <message>
         <source>setLineStyle(style, [&quot;name&quot;])
@@ -1277,7 +1374,9 @@ Sets the line style of the object &quot;name&quot; to the style &quot;style&quot
 is not given the currently selected item is used. There are predefined
 constants for &quot;style&quot; - LINE_&lt;style&gt;.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">setLineStyle(style, [&quot;name&quot;])
+
+</translation>
     </message>
     <message>
         <source>setFillShade(shade, [&quot;name&quot;])
@@ -1289,7 +1388,9 @@ Item is used.
 
 May raise ValueError if the fill shade is out of bounds.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">setFillShade(shade, [&quot;name&quot;])
+
+</translation>
     </message>
     <message>
         <source>setCornerRadius(radius, [&quot;name&quot;])
@@ -1299,7 +1400,9 @@ in points. If &quot;name&quot; is not given the currently selected item is used.
 
 May raise ValueError if the corner radius is negative.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">setCornerRadius(radius, [&quot;name&quot;])
+
+</translation>
     </message>
     <message>
         <source>setMultiLine(&quot;namedStyle&quot;, [&quot;name&quot;])
@@ -1309,7 +1412,269 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 May raise NotFoundError if the line style doesn&apos;t exist.
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">setMultiLine(&quot;namedStyle&quot;, [&quot;name&quot;])
+
+</translation>
+    </message>
+    <message>
+        <source>getFont([&quot;name&quot;]) -&gt; string
+
+Returns the font name for the text frame &quot;name&quot;. If this text frame
+has some text selected the value assigned to the first character
+of the selection is returned. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation type="unfinished">getFont([&quot;name&quot;]) -&gt; string
+
+</translation>
+    </message>
+    <message>
+        <source>getTextLength([&quot;name&quot;]) -&gt; integer
+
+Returns the length of the text in the text frame &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished">getTextLength([&quot;name&quot;]) -&gt; integer
+
+</translation>
+    </message>
+    <message>
+        <source>getText([&quot;name&quot;]) -&gt; string
+
+Returns the text of the text frame &quot;name&quot;. If this text frame has some text
+selected, the selected text is returned. All text in the frame, not just
+currently visible text, is returned. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation type="unfinished">getText([&quot;name&quot;]) -&gt; string
+
+</translation>
+    </message>
+    <message>
+        <source>getAllText([&quot;name&quot;]) -&gt; string
+
+Returns the text of the text frame &quot;name&quot; and of all text frames which are
+linked with this frame. If this textframe has some text selected, the selected
+text is returned. If &quot;name&quot; is not given the currently selected item is
+used.
+</source>
+        <translation type="unfinished">getAllText([&quot;name&quot;]) -&gt; string
+
+</translation>
+    </message>
+    <message>
+        <source>getLineSpacing([&quot;name&quot;]) -&gt; float
+
+Returns the line spacing (&quot;leading&quot;) of the text frame &quot;name&quot; expressed in
+points. If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished">getLineSpacing([&quot;name&quot;]) -&gt; float
+
+</translation>
+    </message>
+    <message>
+        <source>getColumnGap([&quot;name&quot;]) -&gt; float
+
+Returns the column gap size of the text frame &quot;name&quot; expressed in points. If
+&quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished">getColumnGap([&quot;name&quot;]) -&gt; float
+
+</translation>
+    </message>
+    <message>
+        <source>getColumns([&quot;name&quot;]) -&gt; integer
+
+Gets the number of columns of the text frame &quot;name&quot;. If &quot;name&quot; is not
+given the currently selected item is used.
+</source>
+        <translation type="unfinished">getColumns([&quot;name&quot;]) -&gt; integer</translation>
+    </message>
+    <message>
+        <source>setText(&quot;text&quot;, [&quot;name&quot;])
+
+Sets the text of the text frame &quot;name&quot; to the text of the string &quot;text&quot;.
+Text must be UTF8 encoded - use e.g. unicode(text, &apos;iso-8859-2&apos;). See the FAQ
+for more details. If &quot;name&quot; is not given the currently selected item is
+used.
+</source>
+        <translation type="unfinished">setText(&quot;text&quot;, [&quot;name&quot;])
+
+</translation>
+    </message>
+    <message>
+        <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
+
+Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame. Text
+must be UTF encoded (see setText() as reference) The first character has an
+index of 0. &quot;name&quot; If &quot;name&quot; is not given the currently selected Item is
+used.
+
+May throw IndexError for an insertion out of bounds.
+</source>
+        <translation type="unfinished">insertText(&quot;text&quot;, pos, [&quot;name&quot;])
+
+</translation>
+    </message>
+    <message>
+        <source>setFont(&quot;font&quot;, [&quot;name&quot;])
+
+Sets the font of the text frame &quot;name&quot; to &quot;font&quot;. If there is some text
+selected only the selected text is changed.  If &quot;name&quot; is not given the
+currently selected item is used.
+
+May throw ValueError if the font cannot be found.
+</source>
+        <translation type="unfinished">setFont(&quot;font&quot;, [&quot;name&quot;])</translation>
+    </message>
+    <message>
+        <source>setFontSize(size, [&quot;name&quot;])
+
+Sets the font size of the text frame &quot;name&quot; to &quot;size&quot;. &quot;size&quot; is treated
+as a value in points. If there is some text selected only the selected text is
+changed. &quot;size&quot; must be in the range 1 to 512. If &quot;name&quot; is not given the
+currently selected item is used.
+
+May throw ValueError for a font size that&apos;s out of bounds.
+</source>
+        <translation type="unfinished">setFontSize(size, [&quot;name&quot;])</translation>
+    </message>
+    <message>
+        <source>setLineSpacing(size, [&quot;name&quot;])
+
+Sets the line spacing (&quot;leading&quot;) of the text frame &quot;name&quot; to &quot;size&quot;.
+&quot;size&quot; is a value in points. If &quot;name&quot; is not given the currently selected
+item is used.
+
+May throw ValueError if the line spacing is out of bounds.
+</source>
+        <translation type="unfinished">setLineSpacing(size, [&quot;name&quot;])</translation>
+    </message>
+    <message>
+        <source>setColumnGap(size, [&quot;name&quot;])
+
+Sets the column gap of the text frame &quot;name&quot; to the value &quot;size&quot;. If
+&quot;name&quot; is not given the currently selected item is used.
+
+May throw ValueError if the column gap is out of bounds (must be positive).
+</source>
+        <translation type="unfinished">setColumnGap(size, [&quot;name&quot;])</translation>
+    </message>
+    <message>
+        <source>setColumns(nr, [&quot;name&quot;])
+
+Sets the number of columns of the text frame &quot;name&quot; to the integer &quot;nr&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+
+May throw ValueError if number of columns is not at least one.
+</source>
+        <translation type="unfinished">setColumns(nr, [&quot;name&quot;])</translation>
+    </message>
+    <message>
+        <source>setTextAlignment(align, [&quot;name&quot;])
+
+Sets the text alignment of the text frame &quot;name&quot; to the specified alignment.
+If &quot;name&quot; is not given the currently selected item is used. &quot;align&quot; should
+be one of the ALIGN_ constants defined in this module - see dir(scribus).
+
+May throw ValueError for an invalid alignment constant.
+</source>
+        <translation type="unfinished">setTextAlignment(align, [&quot;name&quot;])</translation>
+    </message>
+    <message>
+        <source>selectText(start, count, [&quot;name&quot;])
+
+Selects &quot;count&quot; characters of text in the text frame &quot;name&quot; starting from the
+character &quot;start&quot;. Character counting starts at 0. If &quot;count&quot; is zero, any
+text selection will be cleared.  If &quot;name&quot; is not given the currently
+selected item is used.
+
+May throw IndexError if the selection is outside the bounds of the text.
+</source>
+        <translation type="unfinished">selectText(start, count, [&quot;name&quot;])
+
+</translation>
+    </message>
+    <message>
+        <source>deleteText([&quot;name&quot;])
+
+Deletes any text in the text frame &quot;name&quot;. If there is some text selected,
+only the selected text will be deleted. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation type="unfinished">deleteText([&quot;name&quot;])
+
+</translation>
+    </message>
+    <message>
+        <source>setTextColor(&quot;color&quot;, [&quot;name&quot;])
+
+Sets the text color of the text frame &quot;name&quot; to the color &quot;color&quot;. If there
+is some text selected only the selected text is changed. If &quot;name&quot; is not
+given the currently selected item is used.
+</source>
+        <translation type="unfinished">setTextColor(&quot;color&quot;, [&quot;name&quot;])
+
+</translation>
+    </message>
+    <message>
+        <source>setTextStroke(&quot;color&quot;, [&quot;name&quot;])
+
+Set &quot;color&quot; of the text stroke. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation type="unfinished">setTextStroke(&quot;color&quot;, [&quot;name&quot;])
+
+</translation>
+    </message>
+    <message>
+        <source>setTextShade(shade, [&quot;name&quot;])
+
+Sets the shading of the text color of the object &quot;name&quot; to &quot;shade&quot;. If
+there is some text selected only the selected text is changed. &quot;shade&quot; must
+be an integer value in the range from 0 (lightest) to 100 (full color
+intensity). If &quot;name&quot; is not given the currently selected item is
+used.
+</source>
+        <translation type="unfinished">setTextShade(shade, [&quot;name&quot;])
+
+</translation>
+    </message>
+    <message>
+        <source>linkTextFrames(&quot;fromname&quot;, &quot;toname&quot;)
+
+Link two text frames. The frame named &quot;fromname&quot; is linked to the
+frame named &quot;toname&quot;. The target frame must be an empty text frame
+and must not link to or be linked from any other frames already.
+
+May throw ScribusException if linking rules are violated.
+</source>
+        <translation type="unfinished">linkTextFrames(&quot;fromname&quot;, &quot;toname&quot;)
+
+</translation>
+    </message>
+    <message>
+        <source>unlinkTextFrames(&quot;name&quot;)
+
+Remove the specified (named) object from the text frame flow/linkage. If the
+frame was in the middle of a chain, the previous and next frames will be
+connected, eg &apos;a-&gt;b-&gt;c&apos; becomes &apos;a-&gt;c&apos; when you unlinkTextFrames(b)&apos;
+
+May throw ScribusException if linking rules are violated.
+</source>
+        <translation type="unfinished">unlinkTextFrames(&quot;name&quot;)
+
+</translation>
+    </message>
+    <message>
+        <source>traceText([&quot;name&quot;])
+
+Convert the text frame &quot;name&quot; to outlines. If &quot;name&quot; is not given the
+currently selected item is used.</source>
+        <translation>traceText([&quot;name&quot;])
+
+Muuta tekstikehys &quot;name&quot; ääriviivoiksi. Jos nimeä ei anneta, käytetään
+valittuna olevaa kohdetta.</translation>
     </message>
     <message>
         <source>progressReset()
@@ -1317,7 +1682,9 @@ May raise NotFoundError if the line style doesn&apos;t exist.
 Cleans up the Scribus progress bar previous settings. It is called before the
 new progress bar use. See progressSet.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>progressReset()
+
+Tyhjentää etenemispalkin (progress bar). Katso progressSet.</translation>
     </message>
     <message>
         <source>progressTotal(max)
@@ -1325,7 +1692,9 @@ new progress bar use. See progressSet.
 Sets the progress bar&apos;s maximum steps value to the specified number.
 See progressSet.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>progressTotal(max)
+
+Asettaa etenemispalkin suurimman mahdollisen arvon. Katso progressSet.</translation>
     </message>
     <message>
         <source>progressSet(nr)
@@ -1338,14 +1707,24 @@ total number of steps with progressTotal(). The current number of steps is set
 with progressSet(). The progress bar can be rewound to the beginning with
 progressReset(). [based on info taken from Trolltech&apos;s Qt docs]
 </source>
-        <translation type="unfinished"></translation>
+        <translation>progressSet(nr)
+
+Aseta etenemispalkki nr:n osoittamaan tilaan.
+The progress bar uses the concept of steps; you give it the
+total number of steps and the number of steps completed so far and it will
+display the percentage of steps that have been completed. You can specify the
+total number of steps with progressTotal(). The current number of steps is set
+with progressSet(). The progress bar can be rewound to the beginning with
+progressReset(). [based on info taken from Trolltech&apos;s Qt docs]</translation>
     </message>
     <message>
         <source>setCursor()
 
 [UNSUPPORTED!] This might break things, so steer clear for now.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setCursor()
+
+[Ei tuettu!] Tämä saattaa rikkoa asoita. Eli älä käytä ainakaan vielä.</translation>
     </message>
     <message>
         <source>docChanged(bool)
@@ -1354,46 +1733,11 @@ Enable/disable save icon in the Scribus icon bar and the Save menu item. It&apos
 useful to call this procedure when you&apos;re changing the document, because Scribus
 won&apos;t automatically notice when you change the document using a script.
 </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>defineColor(&quot;name&quot;, c, m, y, k)
+        <translation>docChanged(bool)
 
-Defines a new color &quot;name&quot;. The color Value is defined via four components:
-c = Cyan, m = Magenta, y = Yellow and k = Black. Color components should be in
-the range from 0 to 255.
-
-May raise ValueError if an invalid color name is specified.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>getCornerRadius([&quot;name&quot;]) -&gt; integer
-
-Returns the corner radius of the object &quot;name&quot;. The radius is
-expressed in points. If &quot;name&quot; is not given the currently
-selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>getPosition([&quot;name&quot;]) -&gt; (x,y)
-
-Returns a (x, y) tuple with the position of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-The position is expressed in the actual measurement unit of the document
-- see UNIT_&lt;type&gt; for reference.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>rotateObjectAbs(rot [, &quot;name&quot;])
-
-Sets the rotation of the object &quot;name&quot; to &quot;rot&quot;. Positive values
-mean counter clockwise rotation. If &quot;name&quot; is not given the currently
-selected item is used.
-</source>
-        <translation type="unfinished"></translation>
+Ota käyttöön/Poista käytöstä tallennuskuvake työkalurivillä ja Tiedosto-valikossa.
+On hyvä kutsua tätä funktiota, kun olet muokannut asiakirjaa. Scribus ei huomaa 
+automaattisesti skriptin tekemiä muutoksia.</translation>
     </message>
 </context>
 <context>
@@ -1487,10 +1831,6 @@ selected item is used.
     <message>
         <source>German:</source>
         <translation>Saksa:</translation>
-    </message>
-    <message>
-        <source>About Scribus%1%2</source>
-        <translation type="obsolete">Tietoja Scribuksesta%1%2</translation>
     </message>
     <message>
         <source>Finnish:</source>
@@ -1588,19 +1928,19 @@ Puuttuva kirjaston tuki on merkitty * -merkillä</translation>
     </message>
     <message>
         <source>Official Translations and Translators:</source>
-        <translation type="unfinished"></translation>
+        <translation>Käännökset ja kääntäjät:</translation>
     </message>
     <message>
         <source>Serbian:</source>
-        <translation type="unfinished"></translation>
+        <translation>Serbia:</translation>
     </message>
     <message>
         <source>Previous Translation Contributors:</source>
-        <translation type="unfinished"></translation>
+        <translation>Aikaisempia kääntäjiä:</translation>
     </message>
     <message>
         <source>About Scribus %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Tietoja Scribuksesta %1</translation>
     </message>
 </context>
 <context>
@@ -2380,31 +2720,31 @@ testausta. UCR parantaa kykyä välttää värien liikaa kylläisyyttä CMY-must
     </message>
     <message>
         <source>&amp;Type:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Tyyppi:</translation>
     </message>
     <message>
         <source>C&amp;hange...</source>
-        <translation type="unfinished">&amp;Muuta...</translation>
+        <translation>&amp;Muuta...</translation>
     </message>
     <message>
         <source>&amp;Page:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Sivu:</translation>
     </message>
     <message>
         <source>&amp;X-Pos</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;X:</translation>
     </message>
     <message>
         <source>&amp;Y-Pos:</source>
-        <translation type="unfinished">&amp;Y:</translation>
+        <translation>&amp;Y:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Peruuta</translation>
+        <translation>&amp;Peruuta</translation>
     </message>
 </context>
 <context>
@@ -2877,12 +3217,13 @@ Toiminnon käyttö vaatii tarkat profiilit ja sitä tulee käyttää ainoastaan 
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Ei mitään</translation>
     </message>
     <message>
         <source>You cannot create a color named &quot;%1&quot;.
 It&apos;s a reserved name for transparent color</source>
-        <translation type="unfinished"></translation>
+        <translation>Väriä nimellä &quot;%1&quot; ei voi luoda.
+Nimi on varattu läpinäkyvälle värille</translation>
     </message>
 </context>
 <context>
@@ -3142,10 +3483,6 @@ Voit määrittää sen asetuksissa.</translation>
         <translation>?</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation type="obsolete">OK</translation>
-    </message>
-    <message>
         <source>Delete Color</source>
         <translation>Poista väri</translation>
     </message>
@@ -3154,24 +3491,20 @@ Voit määrittää sen asetuksissa.</translation>
         <translation>Korvaa:</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Peruuta</translation>
-    </message>
-    <message>
         <source>Delete color:</source>
         <translation>Poista väri:</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Ei mitään</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Peruuta</translation>
+        <translation>&amp;Peruuta</translation>
     </message>
 </context>
 <context>
@@ -3636,7 +3969,7 @@ failed!</source>
     </message>
     <message>
         <source>&amp;Lines:</source>
-        <translation>R&amp;ivit:</translation>
+        <translation>R&amp;ivejä:</translation>
     </message>
     <message>
         <source>F&amp;ill Color:</source>
@@ -3854,11 +4187,11 @@ joita on tarkoitus katsella näytöltä</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
-        <translation type="unfinished">&amp;Koko:</translation>
+        <translation>&amp;Koko:</translation>
     </message>
     <message>
         <source>Size of the images. 100% for no changes, 200% for two times larger etc.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kuvien koko, 100 % ei muutosta, 200 % kaksi kertaa suurempi jne.</translation>
     </message>
 </context>
 <context>
@@ -4004,7 +4337,7 @@ joita on tarkoitus katsella näytöltä</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Ei mitään</translation>
     </message>
 </context>
 <context>
@@ -4130,11 +4463,11 @@ joita on tarkoitus katsella näytöltä</translation>
     </message>
     <message>
         <source>Append selected font into Style, Font menu</source>
-        <translation type="unfinished"></translation>
+        <translation>Lisää valittu kirjasin Tyyli-Kirjasin valikkoon</translation>
     </message>
     <message>
         <source>Leave preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Poistu esikatselusta</translation>
     </message>
 </context>
 <context>
@@ -4230,15 +4563,15 @@ osoitteesta www.scribus.net.</translation>
     </message>
     <message>
         <source>Contents</source>
-        <translation type="unfinished"></translation>
+        <translation>Sisällys</translation>
     </message>
     <message>
         <source>Link</source>
-        <translation type="unfinished">Linkki</translation>
+        <translation>Linkki</translation>
     </message>
     <message>
         <source>Scribus Online Help</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus ohje verkossa</translation>
     </message>
 </context>
 <context>
@@ -4311,7 +4644,7 @@ ilmestyy, kun käytät Työkalut, Tavuta teksti.</translation>
     </message>
     <message>
         <source>Consecutive Hyphenations &amp;Allowed:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Sallitut perättäiset tavutukset:</translation>
     </message>
 </context>
 <context>
@@ -4577,7 +4910,7 @@ ilmestyy, kun käytät Työkalut, Tavuta teksti.</translation>
     </message>
     <message>
         <source>&amp;Append</source>
-        <translation>&amp;Jatka</translation>
+        <translation>&amp;Tuo</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -5493,7 +5826,7 @@ Corners:</source>
     </message>
     <message>
         <source>Right to Left Writing</source>
-        <translation type="unfinished"></translation>
+        <translation>Kirjoitus oikealta vasemmalle</translation>
     </message>
 </context>
 <context>
@@ -5617,7 +5950,7 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>&amp;Append</source>
-        <translation>&amp;Jatka</translation>
+        <translation>&amp;Tuo</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -5872,15 +6205,15 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Executive</source>
-        <translation type="unfinished"></translation>
+        <translation>Executive</translation>
     </message>
     <message>
         <source>Folio</source>
-        <translation type="unfinished"></translation>
+        <translation>Folio</translation>
     </message>
     <message>
         <source>Ledger</source>
-        <translation type="unfinished"></translation>
+        <translation>Ledger</translation>
     </message>
 </context>
 <context>
@@ -6727,35 +7060,35 @@ PDF-tiedosto ei välttämättä tulostu oikein eikä ole siirrettävissä muille
     </message>
     <message>
         <source>Compress Text and &amp;Vector Graphics</source>
-        <translation type="unfinished"></translation>
+        <translation>Pakkaa teksti ja &amp;vektorigrafiikka</translation>
     </message>
     <message>
         <source>En&amp;able Presentation Effects</source>
-        <translation type="unfinished"></translation>
+        <translation>Käytä &amp;esitysefektejä</translation>
     </message>
     <message>
         <source>&amp;Presentation</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Esitys</translation>
     </message>
     <message>
         <source>&amp;Rotation:</source>
-        <translation type="unfinished">Ki&amp;erto:</translation>
+        <translation>Ki&amp;erto:</translation>
     </message>
     <message>
         <source>&amp;Subset all Fonts</source>
-        <translation type="unfinished"></translation>
+        <translation>Tee osa&amp;joukko kirjasimista</translation>
     </message>
     <message>
         <source>Fonts to subset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kirjasimet osajoukoiksi:</translation>
     </message>
     <message>
         <source>Mirror Page(s) horizontally</source>
-        <translation type="unfinished"></translation>
+        <translation>Peilaa sivu(t) vaakasuorasti</translation>
     </message>
     <message>
         <source>Mirror Page(s) vertically</source>
-        <translation type="unfinished"></translation>
+        <translation>Peilaa sivu(t) pystysuorasti</translation>
     </message>
 </context>
 <context>
@@ -6773,12 +7106,6 @@ PDF-tiedosto ei välttämättä tulostu oikein eikä ole siirrettävissä muille
 of a slight slowdown in previewing. This only affects Type 1 fonts</source>
         <translation>Mahdollistaa miellyttävämmän ulkonäön tekstille, mutta esikatselu saattaa hidastua hieman.
 Vaikuttaa ainoastaan Type 1 kirjasimiin</translation>
-    </message>
-    <message>
-        <source>Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF and
-vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation type="obsolete">Mahdollistaa miellyttävämmän ulkonäön True Type  ja Open Type kirjasimille, EPS-, 
-PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translation>
     </message>
     <message>
         <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</source>
@@ -6841,26 +7168,13 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
         <translation>&amp;Alivärin poisto (UCR)</translation>
     </message>
     <message>
-        <source>A way of switching some of the gray shades which are composed
-of cyan, yellow and magenta and using black instead.
-UCR most affects parts of images which are neutral and/or dark tones
-which are close to the gray. Use of this may improve printing some images
-and some experimentation and testing is need on a case by case basis.
-UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="obsolete">Tapa vaihtaa syaanin, magentan ja keltaisen värien tekemä harmaa mustalla tehdyksi.
-UCR vaikuttaa kuvien kohdissa, jotka ovat neutraaleja tai lähellä harmaata
-olevia tummia värejä. UCR:n käyttäminen saattaa parantaa joidenkin kuvien
-tulostamista. Parhaan tuloksen saavuttamiseksi tarvitaan tapauskohtaista
-testausta. UCR parantaa kykyä välttää värien liikaa kylläisyyttä CMY-musteilla.</translation>
-    </message>
-    <message>
         <source>A way of switching off some of the gray shades which are composed
 of cyan, yellow and magenta and using black instead.
 UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished">Tapa vaihtaa C, Y ja M värien tekemä harmaa mustalla tehdyksi.
+        <translation>Tapa vaihtaa C, Y ja M värien tekemä harmaa mustalla tehdyksi.
 UCR vaikuttaa kuvien kohdissa, jotka ovat neutraaleja tai lähellä harmaata
 olevia tummia värejä. UCR:n käyttäminen saattaa parantaa joidenkin kuvien
 tulostamista. Parhaan tuloksen saavuttamiseksi tarvitaan tapauskohtaista
@@ -6869,7 +7183,8 @@ testausta. UCR parantaa kykyä välttää värien liikaa kylläisyyttä CMY-must
     <message>
         <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and
 vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation type="unfinished"></translation>
+        <translation>Mahdollistaa paremman ulkonäön TrueType- ja OpenType-kirjasimille, EPS:lle, PDF:lle ja 
+vektorigrafiikalle esikatselussa esikatselun nopeuden kustannuksella</translation>
     </message>
 </context>
 <context>
@@ -8263,27 +8578,27 @@ testausta. UCR parantaa kykyä välttää värien liikaa kylläisyyttä CMY-must
     </message>
     <message>
         <source>Executive</source>
-        <translation type="unfinished"></translation>
+        <translation>Executive</translation>
     </message>
     <message>
         <source>Folio</source>
-        <translation type="unfinished"></translation>
+        <translation>Folio</translation>
     </message>
     <message>
         <source>Ledger</source>
-        <translation type="unfinished"></translation>
+        <translation>Ledger</translation>
     </message>
     <message>
         <source>Legal</source>
-        <translation type="unfinished">Legal</translation>
+        <translation>Legal</translation>
     </message>
     <message>
         <source>Letter</source>
-        <translation type="unfinished">Letter</translation>
+        <translation>Letter</translation>
     </message>
     <message>
         <source>Tabloid</source>
-        <translation type="unfinished">Tabloid</translation>
+        <translation>Tabloid</translation>
     </message>
 </context>
 <context>
@@ -8768,18 +9083,6 @@ Tarkasta polku ja tiedostonimi.</translation>
         <translation>Sk&amp;riptit</translation>
     </message>
     <message>
-        <source>Oook! You&apos;re calling an object doesn&apos;t exist!</source>
-        <translation type="obsolete">Iiik! Kutsut kohdetta, jota ei ole olemassa!</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to erase an object doesn&apos;t exist!</source>
-        <translation type="obsolete">Iiik! Yrität poistaa kohdetta, jota ei ole olemassa!</translation>
-    </message>
-    <message>
-        <source>Oook! An object you&apos;re trying to textflow doesn&apos;t exist!</source>
-        <translation type="obsolete">Iiik! Kohdetta, jonka ympäri yrität viedä tekstiä ei ole olemassa!</translation>
-    </message>
-    <message>
         <source>File exists. Overwrite?</source>
         <translation>Tiedosto on jo olemassa. Ylikirjoitetaanko?</translation>
     </message>
@@ -8960,22 +9263,6 @@ Tarkasta polku ja tiedostonimi.</translation>
         <translation>Tuo E&amp;PS/PS...</translation>
     </message>
     <message>
-        <source>Oook! Wrong arguments! Call: </source>
-        <translation type="obsolete">Iik! Väärät parametrit! Kutsu:</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to load image into an object doesn&apos;t exist or isn&apos;t selected!</source>
-        <translation type="obsolete">Iik! Yrität ladata kuvaa kohteesen, jota ei ole tai joka ei ole valittuna!</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to (un)lock an object doesn&apos;t exist! None selected too.</source>
-        <translation type="obsolete">Iik! Yrität vapauttaa tai lukita kohdetta, jota ei ole! Valittujakaan kohteita ei ole.</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to query an object doesn&apos;t exist! None selected too.</source>
-        <translation type="obsolete">Iik! Yrität kutsua kohdetta, jota ei ole. Valittujakaan kohteita ei ole.</translation>
-    </message>
-    <message>
         <source>Importing text</source>
         <translation>Tuodaan tekstiä</translation>
     </message>
@@ -9026,579 +9313,586 @@ External Links
         <translation>Kirjasin %1 on viallinen ja sitä ei käytetä</translation>
     </message>
     <message>
-        <source>OO.o Writer Documents</source>
-        <translation type="obsolete">OO.o Writer asiakirjat</translation>
-    </message>
-    <message>
         <source>Text Filters</source>
         <translation>Tekstisuotimet</translation>
     </message>
     <message>
         <source>Media Cases</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Albanian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Basque</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Bulgarian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Brazilian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Catalan</source>
-        <translation type="unfinished">katalonia</translation>
-    </message>
-    <message>
-        <source>Chinese</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Czech</source>
-        <translation type="unfinished">tsekki</translation>
-    </message>
-    <message>
-        <source>Danish</source>
-        <translation type="unfinished">tanska</translation>
-    </message>
-    <message>
-        <source>Dutch</source>
-        <translation type="unfinished">hollanti</translation>
-    </message>
-    <message>
-        <source>English</source>
-        <translation type="unfinished">englanti</translation>
-    </message>
-    <message>
-        <source>English (British)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Esperanto</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>German</source>
-        <translation type="unfinished">saksa</translation>
-    </message>
-    <message>
-        <source>Finnish</source>
-        <translation type="unfinished">suomi</translation>
-    </message>
-    <message>
-        <source>French</source>
-        <translation type="unfinished">ranska</translation>
-    </message>
-    <message>
-        <source>Galician</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Greek</source>
-        <translation type="unfinished">kreikka</translation>
-    </message>
-    <message>
-        <source>Hungarian</source>
-        <translation type="unfinished">unkari</translation>
-    </message>
-    <message>
-        <source>Indonesian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Italian</source>
-        <translation type="unfinished">italia</translation>
-    </message>
-    <message>
-        <source>Korean</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Lithuanian</source>
-        <translation type="unfinished">Liettua</translation>
-    </message>
-    <message>
-        <source>Norwegian (Bokmaal)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Norwegian (Nnyorsk)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Norwegian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Polish</source>
-        <translation type="unfinished">puola</translation>
-    </message>
-    <message>
-        <source>Russian</source>
-        <translation type="unfinished">venäjä</translation>
-    </message>
-    <message>
-        <source>Swedish</source>
-        <translation type="unfinished">ruotsi</translation>
-    </message>
-    <message>
-        <source>Spanish</source>
-        <translation type="unfinished">espanja</translation>
-    </message>
-    <message>
-        <source>Spanish (Latin)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Slovak</source>
-        <translation type="unfinished">slovakki</translation>
-    </message>
-    <message>
-        <source>Slovenian</source>
-        <translation type="unfinished">Slovenia</translation>
-    </message>
-    <message>
-        <source>Serbian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tried to set progress &gt; maximum progress</source>
-        <translation type="unfinished"></translation>
+        <translation>Kannet</translation>
     </message>
     <message>
         <source>&amp;About Script...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Tietoja skriptistä...</translation>
     </message>
     <message>
         <source>About Script</source>
-        <translation type="unfinished"></translation>
+        <translation>Tietoja skriptistä</translation>
     </message>
     <message>
-        <source>Cannot get font size of non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Albanian</source>
+        <translation>albania</translation>
     </message>
     <message>
-        <source>Cannot get font of non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Basque</source>
+        <translation>baski</translation>
     </message>
     <message>
-        <source>Cannot get text size of non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Bulgarian</source>
+        <translation>bulgaria</translation>
     </message>
     <message>
-        <source>Cannot get column count of non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Brazilian</source>
+        <translation>brasilia</translation>
     </message>
     <message>
-        <source>Cannot get line space of non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Catalan</source>
+        <translation>katalonia</translation>
     </message>
     <message>
-        <source>Cannot get column gap of non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Chinese</source>
+        <translation>kiina</translation>
     </message>
     <message>
-        <source>Cannot get text of non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Czech</source>
+        <translation>tsekki</translation>
     </message>
     <message>
-        <source>Cannot set text of non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Danish</source>
+        <translation>tanska</translation>
     </message>
     <message>
-        <source>Cannot insert text into non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Dutch</source>
+        <translation>hollanti</translation>
     </message>
     <message>
-        <source>Insert index out of bounds</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>English</source>
+        <translation>englanti</translation>
     </message>
     <message>
-        <source>Alignment out of range. Use one of the scribus.ALIGN* constants.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>English (British)</source>
+        <translation>englanti (Britti)</translation>
     </message>
     <message>
-        <source>Can&apos;t set text alignment on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Esperanto</source>
+        <translation>esperanto</translation>
     </message>
     <message>
-        <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>German</source>
+        <translation>saksa</translation>
     </message>
     <message>
-        <source>Can&apos;t set font size on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Finnish</source>
+        <translation>suomi</translation>
     </message>
     <message>
-        <source>Can&apos;t set font on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>French</source>
+        <translation>ranska</translation>
     </message>
     <message>
-        <source>Font not found</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Galician</source>
+        <translation>galician</translation>
     </message>
     <message>
-        <source>Line space out of bounds, must be &gt;= 0.1</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Greek</source>
+        <translation>kreikka</translation>
     </message>
     <message>
-        <source>Can&apos;t line spacing on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Hungarian</source>
+        <translation>unkari</translation>
     </message>
     <message>
-        <source>Column gap out of bounds, must be positive</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Indonesian</source>
+        <translation>indonesia</translation>
     </message>
     <message>
-        <source>Can&apos;t column gap on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Italian</source>
+        <translation>italia</translation>
     </message>
     <message>
-        <source>Column count out of bounds, must be &gt; 1</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Korean</source>
+        <translation>korea</translation>
     </message>
     <message>
-        <source>Can&apos;t number of columns on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Lithuanian</source>
+        <translation>liettua</translation>
     </message>
     <message>
-        <source>Selection index out of bounds</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Norwegian (Bokmaal)</source>
+        <translation>norja (Bokmaal)</translation>
     </message>
     <message>
-        <source>Can&apos;t select text in a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Norwegian (Nnyorsk)</source>
+        <translation>norja (nnyorsk)</translation>
     </message>
     <message>
-        <source>Can&apos;t delete text from a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Norwegian</source>
+        <translation>norja</translation>
     </message>
     <message>
-        <source>Can&apos;t set text fill on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Polish</source>
+        <translation>puola</translation>
     </message>
     <message>
-        <source>Can&apos;t set text stroke on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Russian</source>
+        <translation>venäjä</translation>
     </message>
     <message>
-        <source>Can&apos;t set text shade on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Swedish</source>
+        <translation>ruotsi</translation>
     </message>
     <message>
-        <source>Can only link text frames</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Spanish</source>
+        <translation>espanja</translation>
     </message>
     <message>
-        <source>Target frame must be empty</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Spanish (Latin)</source>
+        <translation>espanja (latina)</translation>
     </message>
     <message>
-        <source>Target frame links to another frame</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Slovak</source>
+        <translation>slovakki</translation>
     </message>
     <message>
-        <source>Target frame is linked to by another frame</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Slovenian</source>
+        <translation>slovenia</translation>
     </message>
     <message>
-        <source>Source and target are the same object</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Serbian</source>
+        <translation>serbia</translation>
     </message>
     <message>
-        <source>Can&apos;t unlink a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Object is not a linked text frame, can&apos;t unlink.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Object the last frame in a series, can&apos;t unlink. Unlink the previous frame instead.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Can&apos;t convert a non-text frame to outlines</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Failed to open document</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Failed to save document</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unit out of range. Use one of the scribus.UNIT_* constants.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Target is not an image frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Can&apos;t scale by 0%</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Can&apos;t render an empty sample</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Can&apos;t save to a blank filename</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Can&apos;t have an empty layer name</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Layer not found</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Can&apos;t remove the last layer</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Can&apos;t create layer without a name</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>An object with the requested name already exists</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Point list must contain at least two points (four values)</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Point list must contain an even number of values</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Point list must contain at least three points (six values)</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Point list must contain at least four points (eight values)</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Point list must have a multiple of six values</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Object not found</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Style not found</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Can&apos;t set style on a non-text frame</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Failed to save EPS</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Page number out of range</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>argument is not list: must be list of float values</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>argument contains non-numeric values: must be list of float values</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Line width out of bounds, must be 0 &lt;= line_width &lt;= 12</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Line shade out of bounds, must be 0 &lt;= shade &lt;= 100</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Fill shade out of bounds, must be 0 &lt;= shade &lt;= 100</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Corner radius must be a positive number.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Line style not found</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Tried to set progress &gt; maximum progress</source>
+        <translation>Yritettiin asettaa edistyminen &gt; täysi edistyminen</translation>
     </message>
     <message>
         <source>Cannot get a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Haettavalla värillä täytyy olla nimi.</translation>
     </message>
     <message>
         <source>Color not found</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Väriä ei löydy</translation>
     </message>
     <message>
         <source>Cannot change a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nimetöntä väriä ei voi muuttaa.</translation>
     </message>
     <message>
         <source>Color not found in document</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Väriä ei löydy asiakirjasta</translation>
     </message>
     <message>
         <source>Color not found in default colors</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Väriä ei löydy oletusväreistä</translation>
     </message>
     <message>
         <source>Cannot create a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nimetöntä väriä ei voi luoda.</translation>
     </message>
     <message>
         <source>Cannot delete a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nimetöntä väriä ei voi poistaa.</translation>
     </message>
     <message>
         <source>Cannot replace a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nimetöntä väriä ei voi korvata.</translation>
+    </message>
+    <message>
+        <source>Failed to open document</source>
+        <comment>python error</comment>
+        <translation>Asiakirjan avaus epäonnistui</translation>
+    </message>
+    <message>
+        <source>Failed to save document</source>
+        <comment>python error</comment>
+        <translation>Asiakirjan tallennus epäonnistui</translation>
+    </message>
+    <message>
+        <source>Unit out of range. Use one of the scribus.UNIT_* constants.</source>
+        <comment>python error</comment>
+        <translation>Yksikkö sallittujen rajojen ulkopuolella. Käytä jotain scribus.UNIT_* vakioista.</translation>
+    </message>
+    <message>
+        <source>Target is not an image frame.</source>
+        <comment>python error</comment>
+        <translation>Kohde ei ole kuvakehys.</translation>
+    </message>
+    <message>
+        <source>Can&apos;t scale by 0%</source>
+        <comment>python error</comment>
+        <translation>Skaalaus 0 % ei ole mahdollinen</translation>
+    </message>
+    <message>
+        <source>Font not found</source>
+        <comment>python error</comment>
+        <translation>Kirjasinta ei löydy</translation>
+    </message>
+    <message>
+        <source>Can&apos;t render an empty sample</source>
+        <comment>python error</comment>
+        <translation>Tyhjää esimerkkiä ei voi esittää</translation>
+    </message>
+    <message>
+        <source>Can&apos;t save to a blank filename</source>
+        <comment>python error</comment>
+        <translation>Ilman tiedostonimeä ei voi tallentaa</translation>
+    </message>
+    <message>
+        <source>Can&apos;t have an empty layer name</source>
+        <comment>python error</comment>
+        <translation>Taso ei voi olla nimetön</translation>
+    </message>
+    <message>
+        <source>Layer not found</source>
+        <comment>python error</comment>
+        <translation>Tasoa ei löydy</translation>
+    </message>
+    <message>
+        <source>Can&apos;t remove the last layer</source>
+        <comment>python error</comment>
+        <translation>Viimeistä tasoa ei voi poistaa</translation>
+    </message>
+    <message>
+        <source>Can&apos;t create layer without a name</source>
+        <comment>python error</comment>
+        <translation>Nimetöntä tasoa ei voi luoda</translation>
+    </message>
+    <message>
+        <source>An object with the requested name already exists</source>
+        <comment>python error</comment>
+        <translation>Kohde halutulla nimellä on jo olemassa</translation>
+    </message>
+    <message>
+        <source>Point list must contain at least two points (four values)</source>
+        <comment>python error</comment>
+        <translation>Pistelistan täytyy sisältää vähintään kaksi pistettä (neljä arvoa)</translation>
+    </message>
+    <message>
+        <source>Point list must contain an even number of values</source>
+        <comment>python error</comment>
+        <translation>Pistelistan täytyy sisältää parillinen määrä arvoja</translation>
+    </message>
+    <message>
+        <source>Point list must contain at least three points (six values)</source>
+        <comment>python error</comment>
+        <translation>Pistelistan täytyy sisältää vähintään kolme pistettä (kuusi arvoa)</translation>
+    </message>
+    <message>
+        <source>Point list must contain at least four points (eight values)</source>
+        <comment>python error</comment>
+        <translation>Pistelistan täytyy sisältää vähintään neljä pistettä (kahdeksan arvoa)</translation>
+    </message>
+    <message>
+        <source>Point list must have a multiple of six values</source>
+        <comment>python error</comment>
+        <translation>Pistelistassa täytyy olla arvoja kuuden monikerta</translation>
+    </message>
+    <message>
+        <source>Object not found</source>
+        <comment>python error</comment>
+        <translation>Kohdetta ei löydy</translation>
+    </message>
+    <message>
+        <source>Style not found</source>
+        <comment>python error</comment>
+        <translation>Tyyliä ei löydy</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set style on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Tyyliä ei voi asettaa muille kuin tekstikehyksille</translation>
+    </message>
+    <message>
+        <source>Failed to save EPS</source>
+        <comment>python error</comment>
+        <translation>EPS:n tallennus epäonnistui</translation>
+    </message>
+    <message>
+        <source>Page number out of range</source>
+        <comment>python error</comment>
+        <translation>Sivunumero sallitun alueen ulkopuolella</translation>
+    </message>
+    <message>
+        <source>argument is not list: must be list of float values</source>
+        <comment>python error</comment>
+        <translation>Parametri ei ole lista: täytyy olla float-lista</translation>
+    </message>
+    <message>
+        <source>argument contains non-numeric values: must be list of float values</source>
+        <comment>python error</comment>
+        <translation>parametri ei saa sisältää muita kuin numeroarvoja: täytyy olla float-lista</translation>
+    </message>
+    <message>
+        <source>Line width out of bounds, must be 0 &lt;= line_width &lt;= 12</source>
+        <comment>python error</comment>
+        <translation>Viivan leveys sallittujen rajojen ulkopuolella, täytyy olla välillä 0 &lt;= viivan leveys &lt;= 12</translation>
+    </message>
+    <message>
+        <source>Line shade out of bounds, must be 0 &lt;= shade &lt;= 100</source>
+        <comment>python error</comment>
+        <translation>Viivan sävy sallittun rajan ulkopuolla. Täytyy olla välillä 0 &lt;= viivan sävy &lt;= 100</translation>
+    </message>
+    <message>
+        <source>Fill shade out of bounds, must be 0 &lt;= shade &lt;= 100</source>
+        <comment>python error</comment>
+        <translation>Täyttövärin sävy sallitun rajan ulkopuolella. Täytyy olla välillä 0 &lt;= sävy &lt;= 100</translation>
+    </message>
+    <message>
+        <source>Corner radius must be a positive number.</source>
+        <comment>python error</comment>
+        <translation>Kulman säde täytyy olla positiivinen numero.</translation>
+    </message>
+    <message>
+        <source>Line style not found</source>
+        <comment>python error</comment>
+        <translation>Viivatyyliä ei löydy</translation>
+    </message>
+    <message>
+        <source>Cannot get font size of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Kirjasimen kokoa ei voi saad muusta kuin tekstikehyksestä.</translation>
+    </message>
+    <message>
+        <source>Cannot get font of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Kirjasinta ei voi saada muusta kuin tekstikehyksestä.</translation>
+    </message>
+    <message>
+        <source>Cannot get text size of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Kirjasimen kokoa ei voi saada muusta kuin tekstikehyksestä.</translation>
+    </message>
+    <message>
+        <source>Cannot get column count of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Palstojen lukumäärää ei voi saada muusta kuin tekstikehyksestä.</translation>
+    </message>
+    <message>
+        <source>Cannot get line space of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Rivivälistystä ei voi saada muusta kuin tekstikehyksestä.</translation>
+    </message>
+    <message>
+        <source>Cannot get column gap of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Palstojen väliä ei voi saada muusta kuin tekstikehyksestä.</translation>
+    </message>
+    <message>
+        <source>Cannot get text of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Tekstiä ei voi saada muusta kuin tekstikehyksestä.</translation>
+    </message>
+    <message>
+        <source>Cannot set text of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Tekstiä ei voi tuoda kuin tekstikehykseen.</translation>
+    </message>
+    <message>
+        <source>Cannot insert text into non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Tekstiä ei voi lisätä muuhun kuin tekstikehykseen.</translation>
+    </message>
+    <message>
+        <source>Insert index out of bounds</source>
+        <comment>python error</comment>
+        <translation>Tuonnin indexi rajojen ulkopuolella</translation>
+    </message>
+    <message>
+        <source>Alignment out of range. Use one of the scribus.ALIGN* constants.</source>
+        <comment>python error</comment>
+        <translation>Tasaus rajojen ulkopuolella. Käytä jotain scribus.ALIGN* vakioista.</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set text alignment on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Tekstin tasausta ei voi asettuu kuin tekstikehykselle</translation>
+    </message>
+    <message>
+        <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512</source>
+        <comment>python error</comment>
+        <translation>Kirjasimen koko sallittujen rajojen ulkopuolla. Täytyy olla välillä 1 &lt;= koko &lt;=512</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set font size on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Kirjasimen kokoa ei voi asettaa muulle kuin tekstikehykselle</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set font on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Kirjasinta ei voi asettaa muulle kuin tekstikehykselle</translation>
+    </message>
+    <message>
+        <source>Line space out of bounds, must be &gt;= 0.1</source>
+        <comment>python error</comment>
+        <translation>Riviväli sallittujen rajojen ulkopuolella. Täytyy olla &gt;=0.1</translation>
+    </message>
+    <message>
+        <source>Can&apos;t line spacing on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Riviväliä ei voi asettaa muulle kuin tekstikehykselle</translation>
+    </message>
+    <message>
+        <source>Column gap out of bounds, must be positive</source>
+        <comment>python error</comment>
+        <translation>Palstojen väli sallittujen rajojen ulkopuolella. Täytyy olla positiivinen</translation>
+    </message>
+    <message>
+        <source>Can&apos;t column gap on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Palstojen väliä ei voi asettaa muulle kuin tekstikehykselle</translation>
+    </message>
+    <message>
+        <source>Column count out of bounds, must be &gt; 1</source>
+        <comment>python error</comment>
+        <translation>Palstojen lukumäärä sallittujen rajojen ulkopuolella. Täytyy olla &gt; 1</translation>
+    </message>
+    <message>
+        <source>Can&apos;t number of columns on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Palstojen lukumäärää ei voi asettaa muulle kuin tekstikehykselle</translation>
+    </message>
+    <message>
+        <source>Selection index out of bounds</source>
+        <comment>python error</comment>
+        <translation>Valinnan indeksi sallittujen rajojen ulkopuolella</translation>
+    </message>
+    <message>
+        <source>Can&apos;t select text in a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Tekstiä ei voi valita muusta kuin tekstikehyksestä</translation>
+    </message>
+    <message>
+        <source>Can&apos;t delete text from a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Tekstiä ei voi poistaa muusta kuin tekstikehyksestä</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set text fill on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Tekstin täyttöväriä ei voi asettaa muussa kuin tekstikehyksessä</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set text stroke on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Tekstin reunusta ei voi asettaa muulle kuin tekstikehykselle</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set text shade on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Tekstin värin sävyä ei voi asettaa muulle kuin tekstikehykselle</translation>
+    </message>
+    <message>
+        <source>Can only link text frames</source>
+        <comment>python error</comment>
+        <translation>Ainoastaan tekstikehyksiä voi linkittää</translation>
+    </message>
+    <message>
+        <source>Target frame must be empty</source>
+        <comment>python error</comment>
+        <translation>Kohdekehyksen täytyy olla tyhjä</translation>
+    </message>
+    <message>
+        <source>Target frame links to another frame</source>
+        <comment>python error</comment>
+        <translation>Kohdekehys on linkitetty toiseen kehykseen</translation>
+    </message>
+    <message>
+        <source>Target frame is linked to by another frame</source>
+        <comment>python error</comment>
+        <translation>Kohdekehykseen on linkitetty toinen kehys</translation>
+    </message>
+    <message>
+        <source>Source and target are the same object</source>
+        <comment>python error</comment>
+        <translation>Alku- ja loppukehys ovat yksi ja sama kohde</translation>
+    </message>
+    <message>
+        <source>Can&apos;t unlink a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Linkkiä ei voi poistaa muusta kuin tekstikehyksestä</translation>
+    </message>
+    <message>
+        <source>Object is not a linked text frame, can&apos;t unlink.</source>
+        <comment>python error</comment>
+        <translation>Kohde ei ole linkitetty tekstikehys. Linkitys ei onnistu.</translation>
+    </message>
+    <message>
+        <source>Object the last frame in a series, can&apos;t unlink. Unlink the previous frame instead.</source>
+        <comment>python error</comment>
+        <translation>Kohde on linkkiketjun viimeinen. Siitä ei voi poistaa linkkiä. Poista tämän sijaan linkki edellisestä kehyksestä.</translation>
+    </message>
+    <message>
+        <source>Can&apos;t convert a non-text frame to outlines</source>
+        <comment>python error</comment>
+        <translation>Ainoastaan tekstikehyksen voi muuntaa ääriviivoiksi</translation>
+    </message>
+    <message>
+        <source>Import &amp;OpenOffice.org Draw...</source>
+        <translation>Tuo &amp;OpenOffice.org Draw...</translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
+        <translation>OpenOffice.org Draw (*.sxd);;Kaikki tiedostot (*)</translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Writer Documents</source>
+        <translation>OpenOffice.org Writer asiakirjat</translation>
     </message>
     <message>
         <source>Scribus Python interface module
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>This module is the Python interface for Scribus. It provides functions
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>This module is the Python interface for Scribus. It provides functions
 <byte value="x9"/><byte value="x9"/>to control scribus and to manipulate objects on the canvas. Each
 <byte value="x9"/><byte value="x9"/>function is documented individually below.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>A few things are common across most of the interface.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>Most functions operate on frames. Frames are identified by their name,
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>A few things are common across most of the interface.
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>Most functions operate on frames. Frames are identified by their name,
 <byte value="x9"/><byte value="x9"/>a string - they are not real Python objects. Many functions take an
 <byte value="x9"/><byte value="x9"/>optional (non-keyword) parameter, a frame name.
 <byte value="x9"/><byte value="x9"/>Many exceptions are also common across most functions. These are
 <byte value="x9"/><byte value="x9"/>not currently documented in the docstring for each function.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>    - Many functions will raise a NoDocOpenError if you try to use them
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Many functions will raise a NoDocOpenError if you try to use them
 <byte value="x9"/><byte value="x9"/>      without a document to operate on.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>    - If you do not pass a frame name to a function that requires one,
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - If you do not pass a frame name to a function that requires one,
 <byte value="x9"/><byte value="x9"/>      the function will use the currently selected frame, if any, or
 <byte value="x9"/><byte value="x9"/>      raise a NoValidObjectError if it can&apos;t find anything to operate
 <byte value="x9"/><byte value="x9"/>      on.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>    - Many functions will raise WrongFrameTypeError if you try to use them
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Many functions will raise WrongFrameTypeError if you try to use them
 <byte value="x9"/><byte value="x9"/>      on a frame type that they do not make sense with. For example, setting
 <byte value="x9"/><byte value="x9"/>      the text colour on a graphics frame doesn&apos;t make sense, and will result
 <byte value="x9"/><byte value="x9"/>      in this exception being raised.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>    - Errors resulting from calls to the underlying Python API will be
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>    - Errors resulting from calls to the underlying Python API will be
 <byte value="x9"/><byte value="x9"/>      passed through unaltered. As such, the list of exceptions thrown by
 <byte value="x9"/><byte value="x9"/>      any function as provided here and in its docstring is incomplete.
-<byte value="x9"/><byte value="x9"/>
-<byte value="x9"/><byte value="x9"/>Details of what exceptions each function may throw are provided on the
+<byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>Details of what exceptions each function may throw are provided on the
 <byte value="x9"/><byte value="x9"/>function&apos;s documentation.
 <byte value="x9"/><byte value="x9"/></source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Import &amp;OpenOffice.org Draw...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>OpenOffice.org Writer Documents</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus Python liittymä
+    Tämä moduuli on Python liittymä Scribukseen. Se tarjoaa mahdollisuuden
+  hallita ja muokata kohteita Scribus-asiakirjassa. Jokainen funktio on määritelty tässä dokumentissa
+    Muutama asia pätee läpi koko dokumentaation.
+    Useimmat funktiot operoivat kehystä. Kehykset tunnistetaan nimen perusteella, joka
+  on string - ne eivät ole oikeita Python-olioita. Monet funktiot ottava parametrejä, jotka eivät ole
+  pakollisia (non-keyword).
+      Monet poikkeukset ovat myös yhteisiä funktioille. Näitä ei ole dokumentoitu kaikille
+  funktioille.
+        - useat funktiot saattavat nostaa NoDocOpenError:n, jos yrität käyttää niitä ilman,
+        että yhtään asikirjaa on avoinna.
+        - Jos et anna kehyksen nimeä funktiolle, joka vaatii sen, käyttää funktio valittuna(new line)
+        olevan kehyksen nimeä. Jos kehystä ei löydy nostaa NoValidObjectError:n.
+    - Useat funktiot nostavat WrongFrameTypeError:n, jos yrität käyttää niitä kehykseen, joka ei
+        täsmää funktion toiminnon kanssa. (esim. tekstin värin asettaminen kuvakehykseen)
+      - Virheet, jotka Python aiheuttaa päästetään läpi muuttumattomina. Tässä dokumentissa esitellyt virheet
+        ovat vain osa kaikista mahdollisista virheistä, joita saattaa esiintyä.
+    Lisää yksityiskohtia funktioiden virheistä löydät kunkin funktion esittelystä.
+
+  </translation>
     </message>
 </context>
 <context>
@@ -9825,39 +10119,39 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Page Size</source>
-        <translation type="unfinished">Sivun koko</translation>
+        <translation>Sivun koko</translation>
     </message>
     <message>
         <source>Size:</source>
-        <translation type="unfinished">Koko:</translation>
+        <translation>Koko:</translation>
     </message>
     <message>
         <source>Custom</source>
-        <translation type="unfinished">Oma</translation>
+        <translation>Oma</translation>
     </message>
     <message>
         <source>Orientation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Suunta:</translation>
     </message>
     <message>
         <source>Portrait</source>
-        <translation type="unfinished">Pystysuora</translation>
+        <translation>Pystysuora</translation>
     </message>
     <message>
         <source>Landscape</source>
-        <translation type="unfinished">Vaakasuora</translation>
+        <translation>Vaakasuora</translation>
     </message>
     <message>
         <source>Width:</source>
-        <translation type="unfinished">Leveys:</translation>
+        <translation>Leveys:</translation>
     </message>
     <message>
         <source>Height:</source>
-        <translation type="unfinished"></translation>
+        <translation>Korkeus:</translation>
     </message>
     <message>
         <source>F&amp;irst Page Number:</source>
-        <translation type="unfinished">&amp;Ensimmäisen sivun numero:</translation>
+        <translation>&amp;Ensimmäisen sivun numero:</translation>
     </message>
 </context>
 <context>
@@ -10502,7 +10796,7 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Init Hyphenator</source>
-        <translation>Alusta tavutus</translation>
+        <translation>Alustetaan tavutus</translation>
     </message>
     <message>
         <source>Can&apos;t write the File: 
@@ -10648,7 +10942,7 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Lithuanian</source>
-        <translation>Liettua</translation>
+        <translation>liettua</translation>
     </message>
     <message>
         <source>Swedish</source>
@@ -10656,7 +10950,7 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Slovenian</source>
-        <translation>Slovenia</translation>
+        <translation>slovenia</translation>
     </message>
     <message>
         <source>&amp;Settings</source>
@@ -11144,11 +11438,11 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>Afrikaans</source>
-        <translation>Afrikaans</translation>
+        <translation>afrikaans</translation>
     </message>
     <message>
         <source>Font System Initialized</source>
-        <translation type="unfinished"></translation>
+        <translation>Kirjasimet alustettu</translation>
     </message>
 </context>
 <context>
@@ -11339,7 +11633,7 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation type="unfinished"></translation>
+        <translation>C&amp;lear</translation>
     </message>
 </context>
 <context>
@@ -11483,7 +11777,7 @@ raahaa malli sivualueelle.</translation>
     </message>
     <message>
         <source>&amp;Append</source>
-        <translation>&amp;Jatka</translation>
+        <translation>&amp;Tuo</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -11571,10 +11865,6 @@ raahaa malli sivualueelle.</translation>
     <message>
         <source>Do you want to save your changes?</source>
         <translation>Haluatko tallentaa muutokset?</translation>
-    </message>
-    <message>
-        <source>&amp;Insert Special</source>
-        <translation type="obsolete">&amp;Lisää erikoismerkki</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -11693,10 +11983,6 @@ raahaa malli sivualueelle.</translation>
         <translation>Etsi/Korvaa</translation>
     </message>
     <message>
-        <source>&amp;Fonts Preview</source>
-        <translation type="obsolete">Kirjasinten &amp;esikatselu</translation>
-    </message>
-    <message>
         <source>&amp;Fonts Preview...</source>
         <translation>&amp;Kirjasinten esikatselu...</translation>
     </message>
@@ -11706,7 +11992,7 @@ raahaa malli sivualueelle.</translation>
     </message>
     <message>
         <source>&amp;Smart text selection</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Älykäs tekstin valitseminen</translation>
     </message>
 </context>
 <context>
@@ -11739,10 +12025,6 @@ raahaa malli sivualueelle.</translation>
 <context>
     <name>SxwDialog</name>
     <message>
-        <source>OO.o Writer Importer Options</source>
-        <translation type="obsolete">OO.o Writer tuojan asetukset</translation>
-    </message>
-    <message>
         <source>Update paragraph styles</source>
         <translation>Päivitä kappaletyylit</translation>
     </message>
@@ -11759,33 +12041,29 @@ raahaa malli sivualueelle.</translation>
         <translation>Älä kysy uudestaan</translation>
     </message>
     <message>
-        <source>Should the importer always use currently
-set value when importing OO.o document and
-never ask your confirmation again</source>
-        <translation type="obsolete">Tuleeko tuojan aina käyttää nyt valittuja
-arvoja tuodessaan OO.o asiakirjaa eikä kysyä
-varmistusta</translation>
-    </message>
-    <message>
         <source>Should importer add the name of the document
 on front of the paragraph style name in Scribus</source>
-        <translation type="unfinished"></translation>
+        <translation>Liitetäänkö asiakirjan nimi kappaletyylin eteen 
+luotaessa uusi tyyli Scribuksessa</translation>
     </message>
     <message>
         <source>If a paragraph style already exists with the same name as the current
 OpenOffice.org document&apos;s paragraph, should the style in Scribus be
 edited to match the one being imported, or left untouched</source>
-        <translation type="unfinished"></translation>
+        <translation>Jos OpenOffice.org asiakirjan kappaletyyli on jo olemassa, päivitetäänkö
+kappaletyyli Scribuksessa vastaamaan tätä vai jätetäänkö se koskematta</translation>
     </message>
     <message>
         <source>OpenOffice.org Writer Importer Options</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenOffice.org Writer tuojan asetukset</translation>
     </message>
     <message>
         <source>Should the importer always use currently
 set value when importing OpenOffice.org document and
 never ask your confirmation again</source>
-        <translation type="unfinished"></translation>
+        <translation>Käytetäänkö aina nyt valittuja asetuksia tuotaessa
+OpenOffice.org asiakirjaa eikä kyselyä näytetätä enää
+uudestaan</translation>
     </message>
 </context>
 <context>
@@ -11866,12 +12144,8 @@ never ask your confirmation again</source>
         <translation>&amp;Ensimmäinen rivi:</translation>
     </message>
     <message>
-        <source>Ind&amp;ent:</source>
-        <translation type="obsolete">S&amp;isennys:</translation>
-    </message>
-    <message>
         <source>Left Ind&amp;ent:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Vasen sisennys:</translation>
     </message>
 </context>
 <context>
