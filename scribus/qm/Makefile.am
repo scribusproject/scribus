@@ -1,7 +1,4 @@
-####### kdevelop will overwrite this part!!! (begin)##########
-
-
-EXTRA_DIST = scribus.sr.qm scribus.eo.qm scribus.ko.qm scribus.eu.qm scribus.sl.qm scribus.se.qm scribus.fi.qm scribus.cy.qm scribus.id.qm scribus.nl.qm scribus.ru.qm scribus.cs.qm scribus.bg.qm scribus.ca.qm scribus.da.qm scribus.de.qm scribus.en_GB.qm scribus.es.qm scribus.fr.qm scribus.gl.qm scribus.hu.qm scribus.it.qm scribus.lt_LT.qm scribus.pl.qm scribus.sk.qm scribus.tr.qm scribus.uk.qm scribus.nb.qm scribus.br.qm scribus.sq.qm scribus.af.qm
+EXTRA_DIST = scribus.sr.qm scribus.eo.qm scribus.ko.qm scribus.eu.qm scribus.sl.qm scribus.se.qm scribus.fi.qm scribus.cy.qm scribus.id.qm scribus.nl.qm scribus.ru.qm scribus.cs.qm scribus.bg.qm scribus.ca.qm scribus.da.qm scribus.de.qm scribus.en_GB.qm scribus.es.qm scribus.fr.qm scribus.gl.qm scribus.hu.qm scribus.it.qm scribus.lt_LT.qm scribus.pl.qm scribus.sk.qm scribus.tr.qm scribus.uk.qm scribus.nb.qm scribus.br.qm scribus.sq.qm scribus.af.qm scribus.pt_BR.qm
 
 install-data-local:
 	$(mkinstalldirs) $(libdir)/scribus/
@@ -21,6 +18,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/scribus.id.qm $(libdir)/scribus/scribus.id.qm
 	$(INSTALL_DATA) $(srcdir)/scribus.it.qm $(libdir)/scribus/scribus.it.qm
 	$(INSTALL_DATA) $(srcdir)/scribus.pl.qm $(libdir)/scribus/scribus.pl.qm
+	$(INSTALL_DATA) $(srcdir)/scribus.pt_BR.qm $(libdir)/scribus/scribus.pt_BR.qm
 	$(INSTALL_DATA) $(srcdir)/scribus.sk.qm $(libdir)/scribus/scribus.sk.qm
 	$(INSTALL_DATA) $(srcdir)/scribus.tr.qm $(libdir)/scribus/scribus.tr.qm
 	$(INSTALL_DATA) $(srcdir)/scribus.hu.qm $(libdir)/scribus/scribus.hu.qm
@@ -55,6 +53,7 @@ uninstall-local:
 	-rm -f $(libdir)/scribus/scribus.id.qm
 	-rm -f $(libdir)/scribus/scribus.it.qm
 	-rm -f $(libdir)/scribus/scribus.pl.qm
+	-rm -f $(libdir)/scribus/scribus.pt_BR.qm
 	-rm -f $(libdir)/scribus/scribus.sk.qm
 	-rm -f $(libdir)/scribus/scribus.tr.qm
 	-rm -f $(libdir)/scribus/scribus.uk.qm
