@@ -496,7 +496,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	GroupBox9Layout = new QGridLayout( GroupBox9->layout() );
 	GroupBox9Layout->setAlignment( Qt::AlignTop );
 	EmbedProfs = new QCheckBox( GroupBox9, "EmbedProfs" );
-	EmbedProfs->setText( tr( "Use ICC-Profile" ) );
+	EmbedProfs->setText( tr( "Use ICC Profile" ) );
 	EmbedProfs->setChecked(Optionen->UseProfiles);
 	GroupBox9Layout->addMultiCellWidget( EmbedProfs, 0, 0, 0, 1 );
 	ProfsTxt1 = new QLabel(GroupBox9, "ProfsTxt1");
@@ -786,11 +786,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	QToolTip::add( CopySec, tr( "Allow copying of text or graphics from the PDF. \nIf un-checked, text and graphics cannot be copied." ) );
 	QToolTip::add( AddSec, tr( "Allow adding annotations and fields to the PDF. \nIf un-checked, editing annotations and fileds is prevented." ) );
 	QToolTip::add( OutCombo, tr( "Color model for the output of your PDF.\nChoose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.\nChoose Printer when printing to a true 4 color CMYK printer." ) );
-	QToolTip::add( UseLPI, tr( "" ) );
-	QToolTip::add( LPIcolor, tr( "" ) );
-	QToolTip::add( LPIfreq, tr( "" ) );
-	QToolTip::add( LPIangle, tr( "" ) );
-	QToolTip::add( LPIfunc, tr( "" ) );
+	QToolTip::add( UseLPI, tr( "This is an advanced setting which is not enabled by default. This should only be enabled\nwhen specifically requested by your printer and they have given you the exact details needed.\nOtherwise, your exported PDF may not print properly and is truly not portable across systems." ) );
 	QToolTip::add( EmbedProfs, tr( "Embed a color profile for solid colors" ) );
 	QToolTip::add( SolidPr, tr( "Color profile for solid colors" ) );
 	QToolTip::add( IntendS, tr( "Rendering intent for solid colors" ) );

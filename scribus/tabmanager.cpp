@@ -33,12 +33,8 @@ TabManager::TabManager( QWidget* parent, int dEin, QValueList<double> inTab, dou
 	OKButton = new QPushButton( tr( "&OK" ), this, "OKButton" );
 	OKButton->setDefault( true );
 	layout10->addWidget( OKButton );
-	QSpacerItem* spacer_2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	layout10->addItem( spacer_2 );
 	CancelButton = new QPushButton( tr( "&Cancel" ), this, "CancelB" );
 	layout10->addWidget( CancelButton );
-	QSpacerItem* spacer_3 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	layout10->addItem( spacer_3 );
 	TabManagerLayout->addLayout( layout10 );
 	resize( minimumSizeHint() );
 	connect( OKButton, SIGNAL( clicked() ), this, SLOT( exitOK() ) );

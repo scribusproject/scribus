@@ -2500,7 +2500,7 @@ FPoint Page::transformPoint(FPoint in, double dx, double dy, double rot, double 
 void Page::scaleGroup(double scx, double scy)
 {
 	PageItem *bb;
-	double gx, gy, gh, gw;
+	double gx, gy, gh, gw, x, y;
 	uint aa;
 	FPoint n;
 	getGroupRect(&gx, &gy, &gw, &gh);
@@ -2518,6 +2518,9 @@ void Page::scaleGroup(double scx, double scy)
 		oldRot = bb->Rot;
 		oldLocalX = bb->LocalX;
 		oldLocalY = bb->LocalY;
+		FPointArray gr;
+		gr.addPoint(bb->GrStartX, bb->GrStartY);
+		gr.addPoint(bb->GrEndX, bb->GrEndY);
 		g = FPoint(gx, gy);
 		b = transformPoint(FPoint(0, 0), bb->Xpos, bb->Ypos, bb->Rot, 1, 1);
 		b -= g;
@@ -2538,26 +2541,26 @@ void Page::scaleGroup(double scx, double scy)
 		}
 		else
 		{
-		FPoint oldPos = FPoint(bb->Xpos, bb->Ypos);
-		QWMatrix ma;
-		ma.rotate(bb->Rot);
-		bb->PoLine.map(ma);
-		QWMatrix ma2;
-		ma2.translate(gx-bb->Xpos, gy-bb->Ypos);
-		ma2.scale(scx, scy);
-		bb->PoLine.map(ma2);
-		bb->Rot = 0;
-		bb->ClipEdited = true;
-		AdjustItemSize(bb);
-		QWMatrix ma3;
-		ma3.translate(gx, gy);
-		ma3.scale(scx, scy);
-		n = FPoint(gx-oldPos.x(), gy-oldPos.y());
-		double x = ma3.m11() * n.x() + ma3.m21() * n.y() + ma3.dx();
-		double y = ma3.m22() * n.y() + ma3.m12() * n.x() + ma3.dy();
-		MoveItem(gx-x, gy-y, bb, true);
-		if (oldRot != 0)
-		{
+			FPoint oldPos = FPoint(bb->Xpos, bb->Ypos);
+			QWMatrix ma;
+			ma.rotate(bb->Rot);
+			bb->PoLine.map(ma);
+			QWMatrix ma2;
+			ma2.translate(gx-bb->Xpos, gy-bb->Ypos);
+			ma2.scale(scx, scy);
+			bb->PoLine.map(ma2);
+			bb->Rot = 0;
+			bb->ClipEdited = true;
+			AdjustItemSize(bb);
+			QWMatrix ma3;
+			ma3.translate(gx, gy);
+			ma3.scale(scx, scy);
+			n = FPoint(gx-oldPos.x(), gy-oldPos.y());
+			x = ma3.m11() * n.x() + ma3.m21() * n.y() + ma3.dx();
+			y = ma3.m22() * n.y() + ma3.m12() * n.x() + ma3.dy();
+			MoveItem(gx-x, gy-y, bb, true);
+			if (oldRot != 0)
+			{
 				bb->Rot = atan2(t1.y()-b1.y(),t1.x()-b1.x())*(180.0/M_PI);
 				QWMatrix ma;
 				ma.rotate(-bb->Rot);
@@ -2578,17 +2581,15 @@ void Page::scaleGroup(double scx, double scy)
 		bb->LocalY = oldLocalY;
 		bb->OldB2 = bb->Width;
 		bb->OldH2 = bb->Height;
-		FPointArray gr;
-		gr.addPoint(bb->GrStartX, bb->GrStartY);
-		gr.addPoint(bb->GrEndX, bb->GrEndY);
 		QWMatrix ma4;
+		ma4.rotate(oldRot);
 		ma4.scale(scx, scy);
 		gr.map(ma4);
+		bb->ContourLine.map(ma4);
 		bb->GrStartX = gr.point(0).x();
 		bb->GrStartY = gr.point(0).y();
 		bb->GrEndX = gr.point(1).x();
-		bb->GrEndY = gr.point(0).y();
-		bb->ContourLine.map(ma4);
+		bb->GrEndY = gr.point(1).y();
 		updateGradientVectors(bb);
 	}
 	setGroupRect();

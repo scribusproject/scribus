@@ -117,14 +117,12 @@ MultiLine::MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString na
 
 	layout3 = new QHBoxLayout( 0, 0, 6, "layout3");
 
-	OK = new QPushButton( this, "OK" );
-	OK->setText( tr( "OK" ) );
+	OK = new QPushButton( tr( "&OK" ), this, "OK" );
 	OK->setAutoDefault(false);
 	OK->setDefault(false);
 	layout3->addWidget( OK );
 
-	Cancel = new QPushButton( this, "Cancel" );
-	Cancel->setText( tr( "Cancel" ) );
+	Cancel = new QPushButton( tr( "&Cancel" ), this, "Cancel" );
 	Cancel->setAutoDefault(false);
 	Cancel->setDefault(false);
 	layout3->addWidget( Cancel );

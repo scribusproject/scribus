@@ -86,11 +86,11 @@ ReformDoc::ReformDoc( QWidget* parent, double t, double l, double r, double b, d
 	Layout3 = new QHBoxLayout;
 	Layout3->setSpacing( 6 );
 	Layout3->setMargin( 0 );
+	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	Layout3->addItem( spacer );
 	OKButton = new QPushButton(tr( "&OK" ), this, "OKButton" );
 	OKButton->setDefault( true );
 	Layout3->addWidget( OKButton );
-	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout3->addItem( spacer );
 	CancelB = new QPushButton( tr( "&Cancel" ), this, "CancelB" );
 	CancelB->setAutoDefault( false );
 	Layout3->addWidget( CancelB );

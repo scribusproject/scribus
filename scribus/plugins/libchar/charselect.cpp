@@ -221,18 +221,10 @@ ZAuswahl::ZAuswahl( QWidget* parent, preV *Vor, PageItem *item, ScribusApp *pl)
 
 	Einf = new QPushButton(tr( "&Insert" ), this, "Einf" );
 	Layout1->addWidget( Einf );
-	QSpacerItem* spacer_2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout1->addItem( spacer_2 );
-
 	Delete = new QPushButton(tr("C&lear"), this, "Delete" );
 	Layout1->addWidget( Delete );
-	QSpacerItem* spacer_3 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout1->addItem( spacer_3 );
-
 	Close = new QPushButton(tr("&Close"), this, "Close" );
 	Layout1->addWidget( Close );
-	QSpacerItem* spacer_4 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout1->addItem( spacer_4 );
 	ZAuswahlLayout->addLayout( Layout1 );
 	Zeichen->setMaximumSize(width(), 50);
 	DelEdit();

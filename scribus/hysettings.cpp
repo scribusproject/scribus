@@ -49,12 +49,8 @@ HySettings::HySettings( QWidget* parent, QMap<QString,QString>* langs )
 	OK = new QPushButton( tr( "&OK" ), this, "OK" );
 	OK->setDefault( true );
 	Layout1->addWidget( OK );
-	QSpacerItem* spacer_2 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout1->addItem( spacer_2 );
 	Cancel = new QPushButton( tr( "&Cancel" ), this, "Cancel" );
 	Layout1->addWidget( Cancel );
-	QSpacerItem* spacer_3 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout1->addItem( spacer_3 );
 	HySettingsLayout->addLayout( Layout1 );
 	
 	QToolTip::add( Verbose, tr( "If you uncheck this you will get a dialog\neverytime a possible Hyphenation is found." ) );

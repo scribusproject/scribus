@@ -17,8 +17,7 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
 	EditStyleLayout->setSpacing( 6 );
 	EditStyleLayout->setMargin( 10 );
 
-	TextLabel1 = new QLabel( this, "TextLabel1" );
-	TextLabel1->setText( tr( "Name:" ) );
+	TextLabel1 = new QLabel( tr( "&Name:" ), this, "TextLabel1" );
 	EditStyleLayout->addMultiCellWidget( TextLabel1, 0, 0, 0, 1 );
 
 	Name = new QLineEdit( this, "Name" );
@@ -26,18 +25,17 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
 	Name->setText( vor->Vname );
 	OldName = vor->Vname;
 	IsNew = neu;
+	TextLabel1->setBuddy(Name);
 	EditStyleLayout->addMultiCellWidget( Name, 1, 1, 0, 1 );
 
-	GroupFont = new QGroupBox( this, "GroupFont" );
-	GroupFont->setTitle( tr( "Character" ) );
+	GroupFont = new QGroupBox( tr( "Character" ), this, "GroupFont" );
 	GroupFont->setColumnLayout(0, Qt::Vertical );
 	GroupFont->layout()->setSpacing( 5 );
 	GroupFont->layout()->setMargin( 10 );
 	GroupFontLayout = new QGridLayout( GroupFont->layout() );
 	GroupFontLayout->setAlignment( Qt::AlignTop );
-	TextF1 = new QLabel( GroupFont, "TextF1" );
+	TextF1 = new QLabel( tr( "&Font:"),  GroupFont, "TextF1" );
 	TextF1->setMinimumSize( QSize( 50, 22 ) );
-	TextF1->setText( tr( "Face:" ) );
 	GroupFontLayout->addWidget( TextF1, 0, 0 );
 	FontC = new FontCombo(GroupFont, Prefs);
 	for (int fc=0; fc<FontC->count(); ++fc)
@@ -48,59 +46,55 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
 			break;
 		}
 	}
+	TextF1->setBuddy(FontC);
 	GroupFontLayout->addMultiCellWidget( FontC, 0, 0, 1, 4 );
-	TextF2 = new QLabel( GroupFont, "TextF2" );
-	TextF2->setMinimumSize( QSize( 50, 22 ) );
-	TextF2->setText( tr( "Size:" ) );
-	GroupFontLayout->addWidget( TextF2, 1, 0 );
 	SizeC = new MSpinBox( 1, 1024, GroupFont, 1 );
 	SizeC->setMinimumSize( QSize( 70, 22 ) );
 	SizeC->setSuffix( tr( " pt" ) );
 	SizeC->setValue(vor->FontSize / 10.0);
+	TextF2 = new QLabel( SizeC, tr("Si&ze:") ,GroupFont, "TextF2" );
+	TextF2->setMinimumSize( QSize( 50, 22 ) );
+	GroupFontLayout->addWidget( TextF2, 1, 0 );
 	GroupFontLayout->addWidget( SizeC, 1, 1 );
-	EffeLabel = new QLabel( GroupFont, "EffeLabel" );
-	EffeLabel->setText( tr("Effect:"));
-	GroupFontLayout->addWidget( EffeLabel, 1, 2 );
+
 	EffeS = new StyleSelect(GroupFont);
 	EffeS->setStyle(vor->FontEffect);
+	EffeLabel = new QLabel( tr("Effect:"), GroupFont, "EffeLabel" );
+	GroupFontLayout->addWidget( EffeLabel, 1, 2 );
 	GroupFontLayout->addMultiCellWidget( EffeS, 1, 1, 3, 4, Qt::AlignLeft );
-	AligLabel = new QLabel( GroupFont, "AligLabel" );
-	AligLabel->setText( tr("Alignment:"));
-	GroupFontLayout->addWidget( AligLabel, 2, 0 );
+
 	AligS = new AlignSelect(GroupFont);
 	AligS->setStyle(vor->Ausri);
+	AligLabel = new QLabel( AligS, tr("&Alignment:"), GroupFont, "AligLabel" );
+	GroupFontLayout->addWidget( AligLabel, 2, 0 );
 	GroupFontLayout->addWidget( AligS, 2, 1, Qt::AlignLeft );
 
-	DropCaps = new QCheckBox( GroupFont, "DropCaps" );
-	DropCaps->setText( tr( "Drop Caps" ) );
+	DropCaps = new QCheckBox( tr("&Drop Caps"), GroupFont, "DropCaps" );
 	DropCaps->setChecked(vor->Drop);
 	GroupFontLayout->addWidget( DropCaps, 2, 2 );
-	CapLabel = new QLabel( GroupFont, "CapLabel" );
-	CapLabel->setText( tr("Lines:"));
-	GroupFontLayout->addWidget( CapLabel, 2, 3, Qt::AlignRight );
 	DropLines = new QSpinBox( GroupFont, "DropLines" );
 	DropLines->setMinValue( 2 );
 	DropLines->setMaxValue( 20 );
 	DropLines->setValue(vor->DropLin);
+	CapLabel = new QLabel( DropLines, tr("&Lines:"), GroupFont, "CapLabel" );
+	GroupFontLayout->addWidget( CapLabel, 2, 3, Qt::AlignRight );
 	GroupFontLayout->addWidget( DropLines, 2, 4 );
 	bool enable = vor->Drop ? true : false;
 	DropLines->setEnabled(enable);
 	CapLabel->setEnabled(enable);
 
-	FillIcon = new QLabel( GroupFont, "FillIcon" );
-	FillIcon->setText( tr("Fill Color:"));
-	GroupFontLayout->addWidget( FillIcon, 3, 0 );
 	TxFill = new QComboBox( true, GroupFont, "TxFill" );
 	TxFill->setEditable(false);
+	FillIcon = new QLabel( TxFill, tr( "F&ill Color:" ), GroupFont, "FillIcon" );
+	GroupFontLayout->addWidget( FillIcon, 3, 0 );
 	GroupFontLayout->addWidget( TxFill, 3, 1 );
 	PM2 = new ShadeButton(GroupFont);
 	GroupFontLayout->addWidget( PM2, 3, 2, Qt::AlignLeft );
 
-	StrokeIcon = new QLabel( GroupFont, "StrokeIcon" );
-	StrokeIcon->setText( tr("Stroke Color:"));
-	GroupFontLayout->addWidget( StrokeIcon, 4, 0 );
 	TxStroke = new QComboBox( true, GroupFont, "TxStroke" );
 	TxStroke->setEditable(false);
+	StrokeIcon = new QLabel( TxStroke, tr("St&roke Color:"), GroupFont, "StrokeIcon" );
+	GroupFontLayout->addWidget( StrokeIcon, 4, 0 );
 	GroupFontLayout->addWidget( TxStroke, 4, 1 );
 	PM1 = new ShadeButton(GroupFont);
 	GroupFontLayout->addWidget( PM1, 4, 2, Qt::AlignLeft );
@@ -126,8 +120,7 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
 
 	EditStyleLayout->addWidget( GroupFont, 2, 0 );
 	
-	AbstandV = new QGroupBox( this, "AbstandV" );
-	AbstandV->setTitle( tr( "Vertical Spaces" ) );
+	AbstandV = new QGroupBox( tr("Vertical Spaces"), this, "AbstandV" );
 	AbstandV->setColumnLayout(0, Qt::Vertical );
 	AbstandV->layout()->setSpacing( 0 );
 	AbstandV->layout()->setMargin( 0 );
@@ -136,8 +129,7 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
 	AbstandVLayout->setSpacing( 5 );
 	AbstandVLayout->setMargin( 10 );
 
-	BaseGrid = new QCheckBox( AbstandV, "BaseGrid" );
-	BaseGrid->setText( tr( "Adjust to Baseline Grid" ) );
+	BaseGrid = new QCheckBox( tr("Adjust to Baseline &Grid"), AbstandV, "BaseGrid" );
 	BaseGrid->setChecked(vor->BaseAdj);
 	AbstandVLayout->addMultiCellWidget( BaseGrid, 0, 0, 0, 1 );
 	AboveV = new MSpinBox( 0, 300, AbstandV, 1 );
@@ -154,28 +146,24 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
 	LineSpVal->setValue(vor->LineSpa);
 	AbstandVLayout->addWidget( LineSpVal, 3, 1 );
 
-	TextLabel3 = new QLabel( AbstandV, "TextLabel3" );
+	TextLabel3 = new QLabel( LineSpVal, tr("Line &Spacing:"), AbstandV, "TextLabel3" );
 	TextLabel3->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                                        TextLabel3->sizePolicy().hasHeightForWidth() ) );
 	TextLabel3->setMinimumSize( QSize( 90, 22 ) );
-	TextLabel3->setText( tr( "Line Spacing:" ) );
 	AbstandVLayout->addWidget( TextLabel3, 3, 0 );
-	TextLabel1_2_2 = new QLabel( AbstandV, "TextLabel1_2_2" );
+	TextLabel1_2_2 = new QLabel( AboveV, tr("Abo&ve:"), AbstandV, "TextLabel1_2_2" );
 	TextLabel1_2_2->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                               TextLabel1_2_2->sizePolicy().hasHeightForWidth() ) );
 	TextLabel1_2_2->setMinimumSize( QSize( 90, 22 ) );
-	TextLabel1_2_2->setText( tr( "Above:" ) );
 	AbstandVLayout->addWidget( TextLabel1_2_2, 1, 0 );
-	TextLabel1_2_3 = new QLabel( AbstandV, "TextLabel1_2_3" );
+	TextLabel1_2_3 = new QLabel( BelowV, tr("&Below:"), AbstandV, "TextLabel1_2_3" );
 	TextLabel1_2_3->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                               TextLabel1_2_3->sizePolicy().hasHeightForWidth() ) );
 	TextLabel1_2_3->setMinimumSize( QSize( 90, 22 ) );
-	TextLabel1_2_3->setText( tr( "Below:" ) );
 	AbstandVLayout->addWidget( TextLabel1_2_3, 2, 0 );
 	EditStyleLayout->addWidget( AbstandV, 2, 1 );
 
-	GroupBox10 = new QGroupBox( this, "GroupBox10" );
-	GroupBox10->setTitle( tr( "Tabulators and Indentation" ) );
+	GroupBox10 = new QGroupBox( tr("Tabulators and Indentation"), this, "GroupBox10" );
 	GroupBox10->setColumnLayout(0, Qt::Vertical );
 	GroupBox10->layout()->setSpacing( 0 );
 	GroupBox10->layout()->setMargin( 0 );
@@ -197,17 +185,11 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
 	Layout17->setMargin( 0 );
 	QSpacerItem* spacer2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout17->addItem( spacer2 );
-	OkButton = new QPushButton( this, "OkButton" );
-	OkButton->setText( tr( "OK" ) );
+	OkButton = new QPushButton( tr( "&OK" ), this, "OkButton" );
 	Layout17->addWidget( OkButton );
-	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout17->addItem( spacer );
-	Cancel = new QPushButton( this, "Cancel" );
-	Cancel->setText( tr( "Cancel" ) );
+	Cancel = new QPushButton( tr( "&Cancel" ), this, "Cancel" );
 	OkButton->setDefault( true );
 	Layout17->addWidget( Cancel );
-	QSpacerItem* spacer_3 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout17->addItem( spacer_3 );
 	EditStyleLayout->addMultiCellLayout( Layout17, 4, 4, 0, 1 );
 	werte = vor;
 	allV = v;

@@ -244,6 +244,10 @@ this can create huge files</source>
         <translation>Tworzy tylko PostScript Level 2. 
 Uwaga: pliki mogą być bardzo duże</translation>
     </message>
+    <message>
+        <source>Appy Under Color Removal</source>
+        <translation>Zastosuj UCR (usuwanie koloru neutralnego)</translation>
+    </message>
 </context>
 <context>
     <name>Align</name>
@@ -261,7 +265,7 @@ Uwaga: pliki mogą być bardzo duże</translation>
     </message>
     <message>
         <source>between:</source>
-        <translation>między:</translation>
+        <translation type="obsolete">między:</translation>
     </message>
     <message>
         <source>Left Sides</source>
@@ -277,15 +281,15 @@ Uwaga: pliki mogą być bardzo duże</translation>
     </message>
     <message>
         <source>Don&apos;t change</source>
-        <translation>Nie zmieniaj</translation>
+        <translation type="obsolete">Nie zmieniaj</translation>
     </message>
     <message>
         <source>Displacement</source>
-        <translation>Przesunięcie</translation>
+        <translation type="obsolete">Przesunięcie</translation>
     </message>
     <message>
         <source>Distribute evenly</source>
-        <translation>Rozmieść równomiernie</translation>
+        <translation type="obsolete">Rozmieść równomiernie</translation>
     </message>
     <message>
         <source>Vertical</source>
@@ -338,6 +342,42 @@ Uwaga: pliki mogą być bardzo duże</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Anuluj</translation>
+    </message>
+    <message>
+        <source>&amp;Between:</source>
+        <translation>&amp;Pomiędzy:</translation>
+    </message>
+    <message>
+        <source>A&amp;lign</source>
+        <translation>&amp;Wyrównaj</translation>
+    </message>
+    <message>
+        <source>Di&amp;splacement</source>
+        <translation>P&amp;rzesunięcie</translation>
+    </message>
+    <message>
+        <source>Distribute &amp;Evenly</source>
+        <translation>Roz&amp;mieść równomiernie</translation>
+    </message>
+    <message>
+        <source>Bet&amp;ween:</source>
+        <translation>m&amp;iędzy:</translation>
+    </message>
+    <message>
+        <source>Do &amp;Not Change</source>
+        <translation>&amp;Nie zmieniaj</translation>
+    </message>
+    <message>
+        <source>Al&amp;ign</source>
+        <translation>W&amp;yrównaj</translation>
+    </message>
+    <message>
+        <source>Dis&amp;placement</source>
+        <translation>Prze&amp;sunięcie</translation>
+    </message>
+    <message>
+        <source>Distribute E&amp;venly</source>
+        <translation>Rozmi&amp;eść równomiernie</translation>
     </message>
 </context>
 <context>
@@ -1302,7 +1342,7 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Rendering Intents</source>
-        <translation>Metody generowania rastra</translation>
+        <translation>Metody konwersji przestrzeni kolorów</translation>
     </message>
     <message>
         <source>Perceptual</source>
@@ -1310,15 +1350,15 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Relative Colorimetric</source>
-        <translation>Względnie kolorometryczna</translation>
+        <translation>Względna kolorymetryczna</translation>
     </message>
     <message>
         <source>Saturation</source>
-        <translation>Nasycenie </translation>
+        <translation>Nasyceniowa</translation>
     </message>
     <message>
         <source>Absolute Colorimetric</source>
-        <translation>Całkowicie kolorometryczna</translation>
+        <translation>Bezwzględna kolorymetryczna</translation>
     </message>
     <message>
         <source>Simulate Printer on the Screen</source>
@@ -1393,14 +1433,14 @@ Jest ona zalecana, jeśli twój dokument zawiera zdjęcia.</translation>
     <message>
         <source>Default rendering intent for your monitor. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation>Domyślna metoda generowania rastra dla twojego monitora. Wybierz  metodę 
-względnie kolorometryczną lub spostrzeżeniową, chyba że wiesz, dlaczego chcesz to zmienić.</translation>
+        <translation>Domyślna metoda konwersji przestrzeni kolorów dla twojego monitora. Wybierz  metodę 
+względnie kolorymetryczną lub spostrzeżeniową, chyba że wiesz, dlaczego chcesz to zmienić.</translation>
     </message>
     <message>
         <source>Default rendering intent for your printer. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation>Domyślna metoda generowania rastra dla twojej drukarki. Wybierz  metodę 
-względnie kolorometryczną lub spostrzeżeniową, chyba że wiesz, dlaczego chcesz to zmienić.</translation>
+        <translation>Domyślna metoda konwersji przestrzeni kolorów dla twojej drukarki. Wybierz  metodę 
+względnie kolorymetryczną lub spostrzeżeniową, chyba że wiesz, dlaczego chcesz to zmienić.</translation>
     </message>
     <message>
         <source>Enable &apos;soft proofing&apos; of how your document colors will print,
@@ -1448,7 +1488,7 @@ Wymaga ona bardzo dokładnie dopasowanych profili i służy jedynie jako ostrze�
     </message>
     <message>
         <source>Mark Colors out of &amp;Gamut</source>
-        <translation>&amp;Zaznacz kolory spoza palety barw</translation>
+        <translation>&amp;Zaznacz kolory spoza przestrzeni kolorów</translation>
     </message>
     <message>
         <source>Use &amp;Blackpoint Compensation</source>
@@ -1946,7 +1986,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Descri&amp;ption:</source>
-        <translation>&amp;Opis:</translation>
+        <translation>O&amp;pis:</translation>
     </message>
     <message>
         <source>P&amp;ublisher:</source>
@@ -1954,7 +1994,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>&amp;Contributors:</source>
-        <translation>Inni &amp;autorzy:</translation>
+        <translation>I&amp;nni autorzy:</translation>
     </message>
     <message>
         <source>Dat&amp;e:</source>
@@ -1982,7 +2022,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>&amp;Relation:</source>
-        <translation>&amp;Odniesienie:</translation>
+        <translation>Odnie&amp;sienie:</translation>
     </message>
     <message>
         <source>Co&amp;verage:</source>
@@ -4105,7 +4145,7 @@ rogi:</translation>
     </message>
     <message>
         <source>Rendering Intent:</source>
-        <translation>Metoda generowania rastra:</translation>
+        <translation>Metoda konwersji przestrzeni kolorów:</translation>
     </message>
     <message>
         <source>Perceptual</source>
@@ -4113,15 +4153,15 @@ rogi:</translation>
     </message>
     <message>
         <source>Relative Colorimetric</source>
-        <translation>Względnie kolorometryczna</translation>
+        <translation>Względna kolorymetryczna</translation>
     </message>
     <message>
         <source>Saturation</source>
-        <translation>Nasycenie </translation>
+        <translation>Nasyceniowa</translation>
     </message>
     <message>
         <source>Absolute Colorimetric</source>
-        <translation>Całkowicie kolorometryczna</translation>
+        <translation>Bezwzględna kolorymetryczna</translation>
     </message>
     <message>
         <source>Left Point</source>
@@ -4603,7 +4643,7 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Rendering intent for the image</source>
-        <translation>Metoda generowania rastra dla obrazka</translation>
+        <translation>Metoda konwersji przestrzeni kolorów dla obrazka</translation>
     </message>
     <message>
         <source>Style:</source>
@@ -5075,7 +5115,7 @@ on automatically created pages</source>
     </message>
     <message>
         <source>Left &amp;Page First</source>
-        <translation>Lewa strona &amp;najpierw</translation>
+        <translation>Lewa strona naj&amp;pierw</translation>
     </message>
     <message>
         <source>&amp;Left:</source>
@@ -5123,7 +5163,7 @@ on automatically created pages</source>
     </message>
     <message>
         <source>&amp;Inside:</source>
-        <translation>Wewnąt&amp;rz:</translation>
+        <translation>W&amp;ewnątrz:</translation>
     </message>
     <message>
         <source>&amp;Outside:</source>
@@ -5131,7 +5171,7 @@ on automatically created pages</source>
     </message>
     <message>
         <source>Orie&amp;ntation:</source>
-        <translation>O&amp;rientacja:</translation>
+        <translation>Or&amp;ientacja:</translation>
     </message>
     <message>
         <source>F&amp;irst Page Number:</source>
@@ -5593,7 +5633,7 @@ w innym przypadku do obiektu.</translation>
     </message>
     <message>
         <source>Rendering-Intent:</source>
-        <translation>Metoda generowania rastra:</translation>
+        <translation>Metoda konwersji przestrzeni kolorów:</translation>
     </message>
     <message>
         <source>Perceptual</source>
@@ -5601,15 +5641,15 @@ w innym przypadku do obiektu.</translation>
     </message>
     <message>
         <source>Relative Colorimetric</source>
-        <translation>Względnie kolorometryczna</translation>
+        <translation>Względna kolorymetryczna</translation>
     </message>
     <message>
         <source>Saturation</source>
-        <translation>Nasycenie </translation>
+        <translation>Nasyceniowa </translation>
     </message>
     <message>
         <source>Absolute Colorimetric</source>
-        <translation>Całkowicie kolorometryczna</translation>
+        <translation>Bezwzględna kolorymetryczna</translation>
     </message>
     <message>
         <source>Images:</source>
@@ -5637,7 +5677,7 @@ w innym przypadku do obiektu.</translation>
     </message>
     <message>
         <source>Trim Box</source>
-        <translation>Przycinanie</translation>
+        <translation>Krawędzie spadu</translation>
     </message>
     <message>
         <source>OK</source>
@@ -5925,19 +5965,19 @@ Zalecane jest wpisanie tutaj tytułu dokumentu.</translation>
     </message>
     <message>
         <source>Distance for bleed from the top of the physical page</source>
-        <translation>Ostęp spadu od górnej krawędzi fizycznej strony</translation>
+        <translation>Wielkość spadu mierzona od górnej krawędzi fizycznej strony</translation>
     </message>
     <message>
         <source>Distance for bleed from the bottom of the physical page</source>
-        <translation>Ostęp spadu od dolnej krawędzi fizycznej strony</translation>
+        <translation>Wielkość spadu mierzona od dolnej krawędzi fizycznej strony</translation>
     </message>
     <message>
         <source>Distance for bleed from the left of the physical page</source>
-        <translation>Ostęp spadu od lewej krawędzi fizycznej strony</translation>
+        <translation>Wielkość spadu mierzona od lewej krawędzi fizycznej strony</translation>
     </message>
     <message>
         <source>Distance for bleed from the right of the physical page</source>
-        <translation>Ostęp spadu od prawej krawędzi fizycznej strony</translation>
+        <translation>Wielkość spadu mierzona od prawej krawędzi fizycznej strony</translation>
     </message>
     <message>
         <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
@@ -6078,7 +6118,7 @@ Wybierz opcję &quot;Drukarka&quot;, jeśli będziesz drukował na drukarce obs�
     </message>
     <message>
         <source>Rendering intent for solid colors</source>
-        <translation>Metoda generowania rastra dla jednolitych kolorów</translation>
+        <translation>Metoda konwersji przestrzeni kolorów dla jednolitych kolorów</translation>
     </message>
     <message>
         <source>Color profile for images</source>
@@ -6086,7 +6126,7 @@ Wybierz opcję &quot;Drukarka&quot;, jeśli będziesz drukował na drukarce obs�
     </message>
     <message>
         <source>Rendering intent for images</source>
-        <translation>Metoda generowania rastra dla obrazków</translation>
+        <translation>Metoda konwersji przestrzeni kolorów dla obrazków</translation>
     </message>
     <message>
         <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
@@ -6235,11 +6275,11 @@ a pojedynczy numer oznacza numer strony.</translation>
     </message>
     <message>
         <source>&amp;All Pages</source>
-        <translation>&amp;Wszystkie strony</translation>
+        <translation>Wszys&amp;tkie strony</translation>
     </message>
     <message>
         <source>C&amp;hoose Pages</source>
-        <translation>&amp;Wybierz strony</translation>
+        <translation>Wybierz stro&amp;ny</translation>
     </message>
     <message>
         <source>Compatibilit&amp;y:</source>
@@ -6255,7 +6295,7 @@ a pojedynczy numer oznacza numer strony.</translation>
     </message>
     <message>
         <source>Save &amp;Linked Text Frames as PDF Articles</source>
-        <translation>Zapisz połączone ramki tekstowe jako artykuły PD&amp;F</translation>
+        <translation>Zapisz połączone ramki tekstowe jako artykuły &amp;PDF</translation>
     </message>
     <message>
         <source>&amp;Include Bookmarks</source>
@@ -6267,7 +6307,7 @@ a pojedynczy numer oznacza numer strony.</translation>
     </message>
     <message>
         <source>Com&amp;press Text and Vector Graphics</source>
-        <translation>Kompres&amp;ja tekstu i grafiki wektorowej</translation>
+        <translation>Kompre&amp;sja tekstu i grafiki wektorowej</translation>
     </message>
     <message>
         <source>&amp;Method:</source>
@@ -6279,7 +6319,7 @@ a pojedynczy numer oznacza numer strony.</translation>
     </message>
     <message>
         <source>&amp;Downsample Images to:</source>
-        <translation>&amp;Rozdzielczość obrazków:</translation>
+        <translation>Rozdzie&amp;lczość obrazków:</translation>
     </message>
     <message>
         <source>&amp;Embed all Fonts</source>
@@ -6295,7 +6335,7 @@ a pojedynczy numer oznacza numer strony.</translation>
     </message>
     <message>
         <source>Enable &amp;Presentation Effects</source>
-        <translation>&amp;Włącz efekty prezentacyjne</translation>
+        <translation>Włącz e&amp;fekty prezentacyjne</translation>
     </message>
     <message>
         <source>Show Page Pre&amp;views</source>
@@ -6343,19 +6383,19 @@ a pojedynczy numer oznacza numer strony.</translation>
     </message>
     <message>
         <source>Allow &amp;Printing the Document</source>
-        <translation>Dozwo&amp;lone drukowanie dokumentu</translation>
+        <translation>Dozwolo&amp;ne drukowanie dokumentu</translation>
     </message>
     <message>
         <source>Allow &amp;Changing the Document</source>
-        <translation>Dozwo&amp;lona zmiana dokumentu</translation>
+        <translation>Dozwolona z&amp;miana dokumentu</translation>
     </message>
     <message>
         <source>Allow Cop&amp;ying Text and Graphics</source>
-        <translation>Dozwo&amp;lone kopiowanie tekstu i grafik</translation>
+        <translation>Dozwolone kopiowanie &amp;tekstu i grafik</translation>
     </message>
     <message>
         <source>Allow Adding &amp;Annotations and Fields</source>
-        <translation>Dozwo&amp;lone dodawanie adnotacji i pól</translation>
+        <translation>Dozwolone dodawanie adnotacji i &amp;pól</translation>
     </message>
     <message>
         <source>S&amp;ecurity</source>
@@ -6367,7 +6407,7 @@ a pojedynczy numer oznacza numer strony.</translation>
     </message>
     <message>
         <source>&amp;Use Custom Rendering Settings</source>
-        <translation>&amp;Zastosuj własne opcje generowania rastra</translation>
+        <translation>Za&amp;stosuj własne opcje generowania rastra</translation>
     </message>
     <message>
         <source>Fre&amp;quency:</source>
@@ -6375,11 +6415,11 @@ a pojedynczy numer oznacza numer strony.</translation>
     </message>
     <message>
         <source>&amp;Angle:</source>
-        <translation>Ką&amp;t:</translation>
+        <translation>Kąt&amp;:</translation>
     </message>
     <message>
         <source>S&amp;pot Function:</source>
-        <translation>Kształt &amp;rastra/punktu:</translation>
+        <translation>Kształt punktu &amp;rastrowego:</translation>
     </message>
     <message>
         <source>Use ICC Profile</source>
@@ -6395,7 +6435,7 @@ a pojedynczy numer oznacza numer strony.</translation>
     </message>
     <message>
         <source>Output &amp;Profile:</source>
-        <translation>Profil &amp;wyjściowy:</translation>
+        <translation>&amp;Profil wyjściowy:</translation>
     </message>
     <message>
         <source>PDF/X-&amp;3</source>
@@ -6478,7 +6518,7 @@ w okienku podglądu kosztem nieznacznego spowolnienia generowania podglądu</tra
     </message>
     <message>
         <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</source>
-        <translation>Wyświetla przezroczystość i przezroczyste obiekty zawarte w dokumentcie. Wymaga Ghostscriptu w wersji 7.07 lub późniejszej</translation>
+        <translation>Wyświetla przezroczystość i przezroczyste obiekty zawarte w dokumencie. Wymaga Ghostscriptu w wersji 7.07 lub późniejszej</translation>
     </message>
     <message>
         <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
@@ -6531,6 +6571,10 @@ w okienku podglądu kosztem nieznacznego spowolnienia generowania podglądu</tra
     <message>
         <source>&amp;K</source>
         <translation>&amp;K</translation>
+    </message>
+    <message>
+        <source>&amp;Under Color Removal</source>
+        <translation>Zastosuj &amp;UCR (usuwanie koloru neutralnego)</translation>
     </message>
 </context>
 <context>
@@ -6917,7 +6961,7 @@ w okienku podglądu kosztem nieznacznego spowolnienia generowania podglądu</tra
     </message>
     <message>
         <source>&amp;Get Text...</source>
-        <translation>Pobierz &amp;tekst...</translation>
+        <translation>&amp;Pobierz tekst...</translation>
     </message>
     <message>
         <source>&amp;Append Text...</source>
@@ -6925,7 +6969,7 @@ w okienku podglądu kosztem nieznacznego spowolnienia generowania podglądu</tra
     </message>
     <message>
         <source>&amp;Edit Text...</source>
-        <translation>Edyt&amp;uj tekst...</translation>
+        <translation>&amp;Edytuj tekst...</translation>
     </message>
     <message>
         <source>&amp;Insert Sample Text</source>
@@ -6949,7 +6993,7 @@ w okienku podglądu kosztem nieznacznego spowolnienia generowania podglądu</tra
     </message>
     <message>
         <source>&amp;PDF Options</source>
-        <translation>Opcje PD&amp;F</translation>
+        <translation>&amp;Opcje PDF</translation>
     </message>
     <message>
         <source>&amp;Lock</source>
@@ -6961,7 +7005,7 @@ w okienku podglądu kosztem nieznacznego spowolnienia generowania podglądu</tra
     </message>
     <message>
         <source>Lock Object &amp;Size</source>
-        <translation>Za&amp;bezpiecz rozmiary obiektu</translation>
+        <translation>Zabezpiecz roz&amp;miary obiektu</translation>
     </message>
     <message>
         <source>Unlock Object &amp;Size</source>
@@ -6985,7 +7029,7 @@ w okienku podglądu kosztem nieznacznego spowolnienia generowania podglądu</tra
     </message>
     <message>
         <source>Le&amp;vel</source>
-        <translation>Po&amp;ziom</translation>
+        <translation>Poz&amp;iom</translation>
     </message>
     <message>
         <source>Send to &amp;Back</source>
@@ -7045,7 +7089,7 @@ w okienku podglądu kosztem nieznacznego spowolnienia generowania podglądu</tra
     </message>
     <message>
         <source>Show P&amp;roperties...</source>
-        <translation>&amp;Wyświetlaj właściwości...</translation>
+        <translation>Wyświet&amp;laj właściwości...</translation>
     </message>
     <message>
         <source>Hide P&amp;roperties...</source>
@@ -8159,7 +8203,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>C&amp;hange...</source>
-        <translation>&amp;Zmień...</translation>
+        <translation>Z&amp;mień...</translation>
     </message>
     <message>
         <source>&amp;Scripts:</source>
@@ -8167,7 +8211,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Ch&amp;ange...</source>
-        <translation>&amp;Zmień...</translation>
+        <translation>Zmi&amp;eń...</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
@@ -8175,7 +8219,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Orie&amp;ntation:</source>
-        <translation>O&amp;rientacja:</translation>
+        <translation>Ori&amp;entacja:</translation>
     </message>
     <message>
         <source>&amp;Width:</source>
@@ -8183,7 +8227,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>&amp;Height:</source>
-        <translation>&amp;Wysokość:</translation>
+        <translation>W&amp;ysokość:</translation>
     </message>
     <message>
         <source>&amp;Facing Pages</source>
@@ -8227,7 +8271,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Guide &amp;Snap Distance:</source>
-        <translation>Zasięg &amp;chwytu linii pomocniczej:</translation>
+        <translation>&amp;Zasięg chwytu linii pomocniczej:</translation>
     </message>
     <message>
         <source>Min&amp;or Grid Color:</source>
@@ -8239,7 +8283,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>&amp;User Guides Color:</source>
-        <translation>&amp;Kolor linii pomocniczych:</translation>
+        <translation>Kolor linii &amp;pomocniczych:</translation>
     </message>
     <message>
         <source>Base&amp;line Grid Color:</source>
@@ -8247,7 +8291,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>In the &amp;Background</source>
-        <translation>W t&amp;le</translation>
+        <translation>&amp;W tle</translation>
     </message>
     <message>
         <source>In the Fore&amp;ground</source>
@@ -8271,19 +8315,19 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>D&amp;isplacement:</source>
-        <translation>P&amp;rzesunięcie:</translation>
+        <translation>Przesu&amp;nięcie:</translation>
     </message>
     <message>
         <source>S&amp;caling:</source>
-        <translation>&amp;Rozmiar:</translation>
+        <translation>Ro&amp;zmiar:</translation>
     </message>
     <message>
         <source>Sc&amp;aling:</source>
-        <translation>&amp;Rozmiar:</translation>
+        <translation>Roz&amp;miar:</translation>
     </message>
     <message>
         <source>Baseline &amp;Grid:</source>
-        <translation>Siatka linii &amp;pisma:</translation>
+        <translation>&amp;Siatka linii pisma:</translation>
     </message>
     <message>
         <source>Baseline &amp;Offset:</source>
@@ -8323,11 +8367,11 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>&amp;Fill Color:</source>
-        <translation>&amp;Kolor wypełnienia:</translation>
+        <translation>Kolor &amp;wypełnienia:</translation>
     </message>
     <message>
         <source>S&amp;hading:</source>
-        <translation>&amp;Cieniowanie:</translation>
+        <translation>C&amp;ieniowanie:</translation>
     </message>
     <message>
         <source>&amp;Type of Line:</source>
@@ -8359,7 +8403,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>&amp;Vertical Scaling:</source>
-        <translation>Skalowanie w &amp;pionie:</translation>
+        <translation>Ska&amp;lowanie w pionie:</translation>
     </message>
     <message>
         <source>&amp;Scale Picture to Frame Size</source>
@@ -8423,11 +8467,11 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>&amp;Adjust Display Size</source>
-        <translation>Dopasuj wielkość &amp;widoku</translation>
+        <translation>&amp;Dopasuj wielkość widoku</translation>
     </message>
     <message>
         <source>&amp;Name of Executable:</source>
-        <translation>Nazwa &amp;programu:</translation>
+        <translation>&amp;Nazwa programu:</translation>
     </message>
     <message>
         <source>Antialias &amp;Text</source>
@@ -8443,7 +8487,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Clip to Page &amp;Margins</source>
-        <translation>&amp;Przytnij do marginesów</translation>
+        <translation>&amp;Przycinaj do krawędzi strony</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -8460,6 +8504,10 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <message>
         <source>O&amp;utside:</source>
         <translation>&amp;Na zewnątrz:</translation>
+    </message>
+    <message>
+        <source>Apply &amp;Under Color Removal</source>
+        <translation>Zastosuj &amp;UCR (usuwanie koloru neutralnego)</translation>
     </message>
 </context>
 <context>

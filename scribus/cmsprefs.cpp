@@ -162,14 +162,8 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSset *Vor,
 	OK = new QPushButton( tr( "&OK" ), this, "OK" );
 	OK->setDefault( true );
 	Layout1->addWidget( OK );
-
-	QSpacerItem* spacer_2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout1->addItem( spacer_2 );
 	Cancel = new QPushButton( tr( "&Cancel" ), this, "Cancel" );
 	Layout1->addWidget( Cancel );
-
-	QSpacerItem* spacer_3 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout1->addItem( spacer_3 );
 	CMSPrefsLayout->addLayout( Layout1 );
 
 	QToolTip::add( InputP, tr( "Default color profile for imported images" ) );

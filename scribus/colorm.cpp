@@ -164,7 +164,7 @@ void Farbmanager::saveDefaults()
 {
 	QString Cpfad = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/");
 	QString Name = LoadColSet->text();
-	Query* dia = new Query(this, "Name", 1, 0, tr("Name:"), tr("Choose a Name"));
+	Query* dia = new Query(this, "Name", 1, 0, tr("&Name:"), tr("Choose a Name"));
 	if ((Name == "Scribus Small") || (Name == "X11 RGB-Set")
 	        || (Name == "X11 Grey-Set") || (Name == "Gnome-Set") || (Name == "SVG-Set"))
 		dia->Answer->setText("");

@@ -175,13 +175,19 @@ ExportForm::~ExportForm()
 void ExportForm::languageChange()
 {
 	setCaption(tr("Export as Image"));
-	TextLabel1->setText(tr("Export to directory:"));
-	OutputDirectoryButton->setText(tr("&Change..."));
+	OutputDirectoryButton->setText(tr("C&hange..."));
 	OutputDirectoryButton->setAccel(QKeySequence(tr("Alt+C")));
-	TextLabel2->setText(tr("Image type:"));
-	textLabel1->setText(tr("Quality :"));
+	TextLabel1->setText(tr("&Export to Directory:"));
+	TextLabel2->setText(tr("Image &Type:"));
+	textLabel1->setText(tr("&Quality:"));
 	textLabel2->setText(tr("%"));
-	textLabel3->setText(tr("Size:"));
+	textLabel3->setText(tr("&Size:"));
+
+	TextLabel1->setBuddy(OutputDirectory);
+	TextLabel2->setBuddy(BitmapType);
+	textLabel1->setBuddy(QualityBox);
+	textLabel3->setBuddy(SizeBox);
+	
 	ButtonGroup1->setTitle(tr("Export "));
 	OnePageRadio->setText(tr("&One page"));
 	OnePageRadio->setAccel(QKeySequence(tr("Alt+O")));

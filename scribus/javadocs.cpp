@@ -56,7 +56,7 @@ JavaDocs::JavaDocs(QWidget* parent, ScribusDoc *doc, ScribusView* vie)
 void JavaDocs::slotAdd()
 {
 	QString nam;
-	Query *dia = new Query(this, "tt", 1, 0, tr("New Script:"), tr("New Script"));
+	Query *dia = new Query(this, "tt", 1, 0, tr("&New Script:"), tr("New Script"));
 	dia->Answer->setText( tr("New Script"));
 	if (dia->exec())
 	{
@@ -97,8 +97,8 @@ void JavaDocs::slotDelete()
 	int exit=QMessageBox::warning(this,
 	                              tr("Warning"),
 	                              tr("Do you really want do delete this Script?"),
-	                              tr("No"),
-	                              tr("Yes"),
+	                              tr("&No"),
+	                              tr("&Yes"),
 	                              0, 0, 0);
 	if (exit == 1)
 	{

@@ -86,8 +86,8 @@ void MusterSeiten::DelTemp()
 	int exit=QMessageBox::warning(this,
 	                              tr("Warning"),
 	                              tr("Do you really want do delete this Template?"),
-	                              tr("No"),
-	                              tr("Yes"),
+	                              tr("&No"),
+	                              tr("&Yes"),
 	                              0, QMessageBox::No, QMessageBox::Yes);
 	if (exit == 1)
 	{
@@ -114,7 +114,7 @@ void MusterSeiten::DuplTemp()
 	int nr;
 	bool atf;
 	struct CLBuf Buffer;
-	NewTm *dia = new NewTm(this, tr("Name:"), tr("New Template"), Doc);
+	NewTm *dia = new NewTm(this, tr("&Name:"), tr("New Template"), Doc);
 	dia->Answer->setText( tr("Copy of %1").arg(sMuster));
 	dia->Answer->selectAll();
 	if (dia->exec())

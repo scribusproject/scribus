@@ -153,8 +153,8 @@ void ScribusApp::initScribus()
 	WerkTools2 = new QToolBar( tr("File"), this);
 	DatNeu = new QToolButton(loadIcon("DateiNeu.xpm"), tr("Create a new Document"), QString::null, this, SLOT(slotFileNew()), WerkTools2);
 	DatOpe = new QToolButton(loadIcon("DateiOpen.xpm"), tr("Open a Document"), QString::null, this, SLOT(slotDocOpen()), WerkTools2);
-	DatSav = new QToolButton(loadIcon("DateiSave.xpm"), tr("Save the current Document"), QString::null, this, SLOT(slotFileSave()), WerkTools2);
-	DatClo = new QToolButton(loadIcon("DateiClos.xpm"), tr("Close the current Document"), QString::null, this, SLOT(slotFileClose()), WerkTools2);
+	DatSav = new QToolButton(loadIcon("DateiSave2.png"), tr("Save the current Document"), QString::null, this, SLOT(slotFileSave()), WerkTools2);
+	DatClo = new QToolButton(loadIcon("DateiClose.png"), tr("Close the current Document"), QString::null, this, SLOT(slotFileClose()), WerkTools2);
 	DatPri = new QToolButton(loadIcon("DateiPrint.xpm"), tr("Print the current Document"), QString::null, this, SLOT(slotFilePrint()), WerkTools2);
 	DatPDF = new QToolButton(loadIcon("acrobat.png"), tr("Save the current Document as PDF"), QString::null, this, SLOT(SaveAsPDF()), WerkTools2);
 	DatSav->setEnabled(false);
@@ -450,7 +450,7 @@ void ScribusApp::initScribus()
 		ReadPrefs();
 		if (Prefs.DefFont == "")
 			Prefs.DefFont = it.currentKey();
-		splash->setStatus( tr("Getting ICC-Profiles"));
+		splash->setStatus( tr("Getting ICC Profiles"));
 		GetCMSProfiles();
 		splash->setStatus( tr("Init Hyphenator"));
 		InitHyphenator();
@@ -612,10 +612,10 @@ void ScribusApp::initMenuBar()
 	fid4 = fileMenu->insertItem(loadIcon("DateiSave16.png"), tr("&Save"), this, SLOT(slotFileSave()), CTRL+Key_S);
 	SetKeyEntry(3, tr("Save"), fid4, CTRL+Key_S);
 	fileMenu->setItemEnabled(fid4, 0);
-	fid5 = fileMenu->insertItem( tr("Save &As..."), this, SLOT(slotFileSaveAs()));
+	fid5 = fileMenu->insertItem( loadIcon("filesaveas.png"), tr("Save &As..."), this, SLOT(slotFileSaveAs()));
 	SetKeyEntry(4, tr("Save as..."), fid5, 0);
 	fileMenu->setItemEnabled(fid5, 0);
-	fid52 = fileMenu->insertItem( tr("Re&vert to Saved"), this, SLOT(slotFileRevert()));
+	fid52 = fileMenu->insertItem(loadIcon("revert.png"), tr("Re&vert to Saved"), this, SLOT(slotFileRevert()));
 	fileMenu->setItemEnabled(fid52, 0);
 	fid51 = fileMenu->insertItem( tr("Collect for O&utput..."), this, SLOT(Collect()));
 	fileMenu->setItemEnabled(fid51, 0);
@@ -639,7 +639,7 @@ void ScribusApp::initMenuBar()
 	fid11 = fileMenu->insertItem( tr("&Export"), exportMenu);
 	fileMenu->setItemEnabled(fid11, 0);
 	fileMenu->insertSeparator();
-	fid6 = fileMenu->insertItem( tr("Document &Info..."), this, SLOT(InfoDoc()), CTRL+Key_I);
+	fid6 = fileMenu->insertItem(loadIcon("documentinfo.png"), tr("Document &Info..."), this, SLOT(InfoDoc()), CTRL+Key_I);
 	fileMenu->setItemEnabled(fid6, 0);
 	MenuItemsFile.append(fid6);
 	SetKeyEntry(5, tr("Document Info..."), fid6, CTRL+Key_I);
@@ -748,7 +748,7 @@ void ScribusApp::initMenuBar()
 	SetKeyEntry(32, tr("Move..."), pgmv, 0);
 	MenID = pageMenu->insertItem( tr("&Apply Template..."), this, SLOT(ApplyTemp()));
 	SetKeyEntry(33, tr("Apply Template..."), MenID, 0);
-	MenID = pageMenu->insertItem( tr("&Manage Guides..."), this, SLOT(ManageGuides()));
+	MenID = pageMenu->insertItem( tr("Manage &Guides..."), this, SLOT(ManageGuides()));
 	SetKeyEntry(49, tr("Manage Guides..."), MenID, 0);
 	pageMenu->setItemEnabled(pgmd, 0);
 	pageMenu->setItemEnabled(pgmv, 0);
@@ -5518,7 +5518,7 @@ void ScribusApp::setItemFSize(int id)
 	}
 	else
 	{
-		Query* dia = new Query(this, "New", 1, 0, tr("Size:"), tr("Size"));
+		Query* dia = new Query(this, "New", 1, 0, tr("&Size:"), tr("Size"));
 		if (dia->exec())
 		{
 			c = qRound(dia->Answer->text().toDouble(&ok) * 10);
@@ -5578,7 +5578,7 @@ void ScribusApp::setItemShade(int id)
 		}
 		else
 		{
-			Query* dia = new Query(this, "New", 1, 0, tr("Shade:"), tr("Shade"));
+			Query* dia = new Query(this, "New", 1, 0, tr("&Shade:"), tr("Shade"));
 			if (dia->exec())
 			{
 				c = dia->Answer->text().toInt(&ok);

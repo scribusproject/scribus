@@ -24,7 +24,7 @@ public:
     ScribusView* view;
 
 private slots:
-	void LoadScript();
+	void OpenScript();
 	void SaveAs();
 	void GetFieldN();
 

@@ -73,12 +73,8 @@ ApplyT::ApplyT( QWidget* parent, ScribusView *view, QString Nam)
     OKButton = new QPushButton( tr( "&OK" ), this, "OKButton" );
     OKButton->setDefault( true );
     Layout4->addWidget( OKButton );
-    QSpacerItem* spacer_2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-    Layout4->addItem( spacer_2 );
     CancelB = new QPushButton( tr( "&Cancel" ), this, "CancelB" );
     Layout4->addWidget( CancelB );
-    QSpacerItem* spacer_3 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-    Layout4->addItem( spacer_3 );
     ApplyTLayout->addLayout( Layout4 );
     connect( CancelB, SIGNAL( clicked() ), this, SLOT( reject() ) );
     connect( OKButton, SIGNAL( clicked() ), this, SLOT( accept() ) );

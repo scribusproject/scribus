@@ -163,11 +163,10 @@ GuideManager::GuideManager(
 	
 	GuideManagerLayout->addLayout(Layout6);
 	
+	Layout5 = new QHBoxLayout(0, 0, 6, "Layout5"); 
 	Lock = new QCheckBox( tr( "&Lock Guides" ), this, "Lock");
 	Lock->setChecked(LocLocked);
-	GuideManagerLayout->addWidget(Lock);
-	
-	Layout5 = new QHBoxLayout(0, 0, 6, "Layout5"); 
+	Layout5->addWidget(Lock);
 	
 	QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
 	Layout5->addItem(spacer);
@@ -175,16 +174,9 @@ GuideManager::GuideManager(
 	OK = new QPushButton( tr( "&OK" ), this, "OK");
 	OK->setDefault(true);
 	Layout5->addWidget(OK );
-	
-	QSpacerItem* spacer_2 = new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
-	Layout5->addItem(spacer_2);
-	
 	Cancel = new QPushButton( tr( "&Cancel" ), this, "Cancel");
 	Cancel->setAccel(QKeySequence("Esc"));
 	Layout5->addWidget(Cancel);
-	
-	QSpacerItem* spacer_3 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout5->addItem(spacer_3);
 	
 	GuideManagerLayout->addLayout(Layout5);
 	

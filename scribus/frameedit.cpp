@@ -152,39 +152,33 @@ NodePalette::NodePalette( QWidget* parent) : QDialog( parent, "Npal", false, 0)
 	    ButtonGroup4Layout->addItem( spacer_2 );  */
 	NodePaletteLayout->addWidget( ButtonGroup1 );
 
-	AbsMode = new QCheckBox( this, "Textflow" );
-	AbsMode->setText( tr( "Absolute Coordinates" ) );
+	AbsMode = new QCheckBox( tr( "&Absolute Coordinates" ), this, "Textflow" );
 	AbsMode->setChecked(false);
 	NodePaletteLayout->addWidget( AbsMode );
 
 	Layout2 = new QGridLayout( 0, 1, 1, 0, 5, "Layout2");
-	TextLabel1 = new QLabel( this, "TextLabel1" );
-	TextLabel1->setText( tr( "X-Pos:" ) );
-	Layout2->addWidget( TextLabel1, 0, 0 );
 	YSpin = new MSpinBox( this, 2 );
 	YSpin->setMaxValue(3000);
 	YSpin->setEnabled(false);
-	Layout2->addWidget( YSpin, 1, 1 );
-	TextLabel2 = new QLabel( this, "TextLabel2" );
-	TextLabel2->setText( tr( "Y-Pos:" ) );
-	Layout2->addWidget( TextLabel2, 1, 0 );
 	XSpin = new MSpinBox( this, 2 );
 	XSpin->setMaxValue(3000);
 	XSpin->setEnabled(false);
+	TextLabel1 = new QLabel( XSpin, tr( "&X-Pos:" ), this, "TextLabel1" );
+	TextLabel2 = new QLabel( YSpin, tr( "&Y-Pos:"), this, "TextLabel2" );
+	Layout2->addWidget( TextLabel1, 0, 0 );
+	Layout2->addWidget( TextLabel2, 1, 0 );
 	Layout2->addWidget( XSpin, 0, 1 );
+	Layout2->addWidget( YSpin, 1, 1 );
 	NodePaletteLayout->addLayout( Layout2 );
 
-	EditCont = new QCheckBox( this, "EditCont" );
-	EditCont->setText( tr( "Edit Contour Line" ) );
+	EditCont = new QCheckBox( tr("Edit &Contour Line"), this, "EditCont" );
 	EditCont->setChecked(false);
 	NodePaletteLayout->addWidget( EditCont );
 
-	ResetCont = new QPushButton( this, "PushButton1" );
-	ResetCont->setText( tr( "Reset Contour Line" ) );
+	ResetCont = new QPushButton( tr("&Reset Contour Line"), this, "PushButton1" );
 	NodePaletteLayout->addWidget( ResetCont );
 
-	PushButton1 = new QPushButton( this, "PushButton1" );
-	PushButton1->setText( tr( "End Editing" ) );
+	PushButton1 = new QPushButton( tr( "&End Editing"), this, "PushButton1" );
 	PushButton1->setDefault(true);
 	NodePaletteLayout->addWidget( PushButton1 );
 	QToolTip::add(  MoveNode, tr( "Move Nodes" ) );

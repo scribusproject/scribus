@@ -53,19 +53,18 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *C
 	Layout23->setSpacing( 7 );
 	Layout23->setMargin( 0 );
 
-	TextLabel1 = new QLabel( this, "TextLabel1" );
+	TextLabel1 = new QLabel( tr( "&Name:" ), this, "TextLabel1" );
 	TextLabel1->setMinimumSize( QSize( 200, 22 ) );
-	TextLabel1->setText( tr( "Name:" ) );
 	Layout23->addWidget( TextLabel1 );
 
 	Farbname = new QLineEdit( this, "Farbname" );
 	Farbname->setMinimumSize( QSize( 200, 22 ) );
 	Farbname->setText( name );
+	TextLabel1->setBuddy( Farbname );
 	Layout23->addWidget( Farbname );
 
-	TextLabel3 = new QLabel( this, "TextLabel3" );
+	TextLabel3 = new QLabel( tr( "Color &Model" ), this, "TextLabel3" );
 	TextLabel3->setMinimumSize( QSize( 100, 22 ) );
-	TextLabel3->setText( tr( "Color Model" ) );
 	Layout23->addWidget( TextLabel3 );
 
 	ComboBox1 = new QComboBox( true, this, "ComboBox1" );
@@ -74,6 +73,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *C
 	ComboBox1->insertItem( tr( "RGB" ) );
 	ComboBox1->insertItem( tr( "Web Safe RGB" ) );
 	ComboBox1->setMinimumSize( QSize( 200, 22 ) );
+	TextLabel3->setBuddy( ComboBox1 );
 	Layout23->addWidget( ComboBox1 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	Layout23->addItem( spacer );
@@ -86,38 +86,34 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *C
 	Layout2->setSpacing( 6 );
 	Layout2->setMargin( 0 );
 
-	TextLabel5_2 = new QLabel( this, "TextLabel5_2" );
+	TextLabel5_2 = new QLabel( tr( "New" ), this, "TextLabel5_2" );
 	TextLabel5_2->setMinimumSize( QSize( 50, 22 ) );
 	TextLabel5_2->setMaximumSize( QSize( 100, 22 ) );
-	TextLabel5_2->setText( tr( "New" ) );
 
 	Layout2->addWidget( TextLabel5_2, 0, 1 );
 
-	OldC = new QLabel( this, "OldC" );
+	OldC = new QLabel( "", this, "OldC" );
 	OldC->setMinimumSize( QSize( 50, 50 ) );
 	OldC->setMaximumSize( QSize( 50, 50 ) );
 	OldC->setFrameShape( QLabel::WinPanel );
 	OldC->setFrameShadow( QLabel::Sunken );
-	OldC->setText( "" );
 	OldC->setScaledContents( true );
 	OldC->setAlignment( int( QLabel::AlignCenter ) );
 	OldC->setPixmap( imageA );
 
 	Layout2->addWidget( OldC, 1, 0 );
 
-	TextLabel5 = new QLabel( this, "TextLabel5" );
+	TextLabel5 = new QLabel( tr( "Old" ), this, "TextLabel5" );
 	TextLabel5->setMinimumSize( QSize( 50, 22 ) );
 	TextLabel5->setMaximumSize( QSize( 100, 22 ) );
-	TextLabel5->setText( tr( "Old" ) );
 
 	Layout2->addWidget( TextLabel5, 0, 0 );
 
-	NewC = new QLabel( this, "NewC" );
+	NewC = new QLabel( "", this, "NewC" );
 	NewC->setMinimumSize( QSize( 50, 50 ) );
 	NewC->setMaximumSize( QSize( 50, 50 ) );
 	NewC->setFrameShape( QLabel::WinPanel );
 	NewC->setFrameShadow( QLabel::Sunken );
-	NewC->setText( "" );
 	NewC->setScaledContents( true );
 	NewC->setAlignment( int( QLabel::AlignCenter ) );
 	NewC->setPixmap( imageN );
@@ -129,12 +125,10 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *C
 	Layout21->setSpacing( 20 );
 	Layout21->setMargin( 10 );
 
-	Cancel_2 = new QPushButton( this, "Cancel_2" );
-	Cancel_2->setText( tr( "OK" ) );
+	Cancel_2 = new QPushButton( tr( "&OK" ), this, "Cancel_2" );
 	Cancel_2->setDefault( true );
 	Layout21->addWidget( Cancel_2 );
-	Cancel = new QPushButton( this, "Cancel" );
-	Cancel->setText( tr( "Cancel" ) );
+	Cancel = new QPushButton( tr( "&Cancel" ), this, "Cancel" );
 	Layout21->addWidget( Cancel );
 	Layout23->addLayout( Layout21 );
 	CMYKFarbenLayout->addLayout( Layout23 );
@@ -204,8 +198,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *C
 	Layout2x->setSpacing( 6 );
 	Layout2x->setMargin( 0 );
 
-	CyanT = new QLabel( Frame4, "Cyant" );
-	CyanT->setText( tr("C:"));
+	CyanT = new QLabel( tr( "C:" ), Frame4, "Cyant" );
 	Layout2x->addWidget(CyanT, 0, 0);
 
 	Layout1_2 = new QVBoxLayout;
@@ -235,8 +228,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *C
 	CyanSp->setValue(ccd);
 	CyanSL->setValue(qRound(ccd));
 
-	MagentaT = new QLabel( Frame4, "Cyant" );
-	MagentaT->setText( tr("M:"));
+	MagentaT = new QLabel( tr( "M:" ), Frame4, "Cyant" );
 	Layout2x->addWidget(MagentaT, 1, 0);
 
 	Layout1_2_2 = new QVBoxLayout;
@@ -266,8 +258,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *C
 	MagentaSp->setValue(cmd);
 	MagentaSL->setValue(qRound(cmd));
 
-	YellowT = new QLabel( Frame4, "Cyant" );
-	YellowT->setText( tr("Y:"));
+	YellowT = new QLabel( tr( "Y:" ), Frame4, "Cyant" );
 	Layout2x->addWidget(YellowT, 2, 0);
 
 	Layout1_2_3 = new QVBoxLayout;
@@ -297,8 +288,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *C
 	YellowSp->setValue(cyd);
 	YellowSL->setValue(qRound(cyd));
 
-	BlackT = new QLabel( Frame4, "Cyant" );
-	BlackT->setText( tr("K:"));
+	BlackT = new QLabel( tr( "K:" ), Frame4, "Cyant" );
 	Layout2x->addWidget(BlackT, 3, 0);
 
 	Layout1_2_4 = new QVBoxLayout;

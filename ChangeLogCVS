@@ -1,5 +1,10 @@
 Changes since Version 1.1.7
 
+27.07.2004
+	* bug     #892: resizing imported svg with rotated elements  hurts gradients
+	* feature #893: Polish Translation Update
+	* feature #894: Crash when hypenating Swedish Texts
+
 26.07.2004
 	* bug     #891: gradients position does not change when objects are re-sized
 

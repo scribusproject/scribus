@@ -254,33 +254,27 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
 	}
 
 	OptsLayout = new QHBoxLayout( 0, 0, 6, "OptsLayout"); 
-	Word = new QCheckBox( this, "Word" );
+	Word = new QCheckBox( tr( "&Whole Word" ), this, "Word" );
 	if (mode)
 		Word->setEnabled(false);
-	Word->setText( tr( "Whole Word" ) );
 	OptsLayout->addWidget( Word );
-	CaseIgnore = new QCheckBox( this, "CaseIgnore" );
-	CaseIgnore->setText( tr( "Ignore Case" ) );
+	CaseIgnore = new QCheckBox( tr( "&Ignore Case" ), this, "CaseIgnore" );
 	if (mode)
 		CaseIgnore->setEnabled(false);
 	OptsLayout->addWidget( CaseIgnore );
 	SearchReplaceLayout->addLayout( OptsLayout );
 
 	ButtonsLayout = new QHBoxLayout( 0, 0, 4, "ButtonsLayout"); 
-	DoSearch = new QPushButton( this, "DoSearch" );
-	DoSearch->setText( tr( "Search" ) );
+	DoSearch = new QPushButton( tr( "&Search" ), this, "DoSearch" );
 	DoSearch->setDefault( true );
 	ButtonsLayout->addWidget( DoSearch );
-	DoReplace = new QPushButton( this, "DoReplace" );
-	DoReplace->setText( tr( "Replace" ) );
+	DoReplace = new QPushButton( tr( "&Replace" ), this, "DoReplace" );
 	DoReplace->setEnabled(false);
 	ButtonsLayout->addWidget( DoReplace );
-	AllReplace = new QPushButton( this, "DoReplace" );
-	AllReplace->setText( tr( "Replace All" ) );
+	AllReplace = new QPushButton( tr( "Replace &All" ), this, "DoReplace" );
 	AllReplace->setEnabled(false);
 	ButtonsLayout->addWidget( AllReplace );
-	Leave = new QPushButton( this, "Leave" );
-	Leave->setText( tr( "Leave" ) );
+	Leave = new QPushButton( tr( "&Close" ), this, "Leave" );
 	ButtonsLayout->addWidget( Leave );
 	SearchReplaceLayout->addLayout( ButtonsLayout );
 

@@ -23,13 +23,12 @@ NewTm::NewTm( QWidget* parent, QString text, QString titel, ScribusDoc *doc)
 	Layout2 = new QHBoxLayout;
 	Layout2->setSpacing( 6 );
 	Layout2->setMargin( 0 );
-	Frage = new QLabel( this, "Frage" );
+	Answer = new QLineEdit( this, "Answer" );
+	Frage = new QLabel( Answer, text, this, "Frage" );
 	Frage->setFrameShape( QLabel::MShape );
 	Frage->setFrameShadow( QLabel::MShadow );
-	Frage->setText( text );
 	Frage->adjustSize();
 	Layout2->addWidget( Frage );
-	Answer = new QLineEdit( this, "Answer" );
 	Layout2->addWidget( Answer );
 	QueryLayout->addLayout( Layout2 );
 	if (doc->PageFP)
@@ -47,14 +46,12 @@ NewTm::NewTm( QWidget* parent, QString text, QString titel, ScribusDoc *doc)
 	Layout1 = new QHBoxLayout;
 	Layout1->setSpacing( 6 );
 	Layout1->setMargin( 0 );
-	PushButton1 = new QPushButton( this, "PushButton1" );
-	PushButton1->setText( tr( "OK" ) );
-	PushButton1->setDefault( true );
-	Layout1->addWidget( PushButton1 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1->addItem( spacer );
-	PushButton2 = new QPushButton( this, "PushButton2" );
-	PushButton2->setText( tr( "Cancel" ) );
+	PushButton1 = new QPushButton( tr( "&OK" ), this, "PushButton1" );
+	PushButton1->setDefault( true );
+	Layout1->addWidget( PushButton1 );
+	PushButton2 = new QPushButton( tr( "&Cancel" ), this, "PushButton2" );
 	Layout1->addWidget( PushButton2 );
 	QueryLayout->addLayout( Layout1 );
 	setMaximumSize(sizeHint());

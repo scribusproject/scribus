@@ -155,8 +155,8 @@ void LineFormate::deleteFormat()
 	int exit=QMessageBox::warning(this,
 	                              tr("Warning"),
 	                              tr("Do you really want do delete this Style?"),
-	                              tr("No"),
-	                              tr("Yes"),
+	                              tr("&No"),
+	                              tr("&Yes"),
 	                              0, 0, 0);
 	/* PFJ - 29.02.04 - Changed from 1 to QMessageBox::Yes */
 	/* FS - 12.05.04 the 1 is correct in this version of QMessageBox, it returns the Nr of the clicked Button either 0 or 1 or 2 */

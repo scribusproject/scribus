@@ -375,7 +375,7 @@ void Biblio::ObjFromMenu(QString text)
 {
 	QString nam, tmp;
 	nam = tr("Object") + tmp.setNum(BibWin->Objekte.count());
-	Query *dia = new Query(this, "tt", 1, 0, tr("Name:"), tr("New Entry"));
+	Query *dia = new Query(this, "tt", 1, 0, tr("&Name:"), tr("New Entry"));
 	dia->Answer->setText(nam);
 	dia->Answer->selectAll();
 	if (dia->exec())

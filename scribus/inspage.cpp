@@ -22,15 +22,13 @@ InsPage::InsPage( QWidget* parent, ScribusView* view, int act, int max, bool ds)
     Layout4 = new QGridLayout;
     Layout4->setSpacing( 6 );
     Layout4->setMargin( 5 );
-    TextLabel1 = new QLabel( this, "TextLabel1" );
-    TextLabel1->setText( tr( "Inserting" ) );
-    Layout4->addWidget( TextLabel1, 0, 0 );
     NumPages = new QSpinBox( this, "NumPages" );
     NumPages->setMinValue( 1 );
     NumPages->setValue( 1 );
+    TextLabel1 = new QLabel( NumPages, tr( "&Inserting" ), this, "TextLabel1" );
+    Layout4->addWidget( TextLabel1, 0, 0 );
 	Layout4->addWidget( NumPages, 0, 1 );
-    TextLabel2 = new QLabel( this, "TextLabel2" );
-    TextLabel2->setText( tr( "page(s)" ) );
+    TextLabel2 = new QLabel( tr( "Page(s)" ), this, "TextLabel2" );
     Layout4->addWidget( TextLabel2, 0, 2 );
     Where = new QComboBox( true, this, "Where" );
     Where->insertItem( tr("before Page"));
@@ -50,7 +48,7 @@ InsPage::InsPage( QWidget* parent, ScribusView* view, int act, int max, bool ds)
     Layout4a->setSpacing( 6 );
     Layout4a->setMargin( 0 );
 	TextLabel3 = new QLabel(this, "text");
-	TextLabel3->setText(ds ? tr("Template (Left Page):") : tr("Template:"));
+	TextLabel3->setText(ds ? tr("&Template (Left Page):") : tr("&Template:"));
 /*	if (ds)
 		TextLabel3->setText( tr("Template (Left Page):"));
 	else
@@ -68,6 +66,7 @@ InsPage::InsPage( QWidget* parent, ScribusView* view, int act, int max, bool ds)
 		else
 			Based->insertItem(it.key());
 			}*/
+	TextLabel3->setBuddy(Based);
 	Layout4a->addWidget(Based);
 	DLayout->addLayout(Layout4a);
 	if (ds)
@@ -97,14 +96,12 @@ InsPage::InsPage( QWidget* parent, ScribusView* view, int act, int max, bool ds)
     Layout3 = new QHBoxLayout;
     Layout3->setSpacing( 6 );
     Layout3->setMargin( 5 );
-    PushButton4 = new QPushButton( this, "PushButton4" );
-    PushButton4->setText( tr( "OK" ) );
-    PushButton4->setDefault( true );
-    Layout3->addWidget( PushButton4 );
     QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
     Layout3->addItem( spacer );
-    PushButton4_2 = new QPushButton( this, "PushButton4_2" );
-    PushButton4_2->setText( tr( "Cancel" ) );
+    PushButton4 = new QPushButton( tr( "&OK" ), this, "PushButton4" );
+    PushButton4->setDefault( true );
+    Layout3->addWidget( PushButton4 );
+    PushButton4_2 = new QPushButton( tr( "&Cancel" ), this, "PushButton4_2" );
     Layout3->addWidget( PushButton4_2 );
     DLayout->addLayout( Layout3 );
     setMaximumSize(sizeHint());

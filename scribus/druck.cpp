@@ -39,45 +39,35 @@ AdvOptions::AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic, int ps, bool 
 	AdvOptionsLayout = new QVBoxLayout( this );
 	AdvOptionsLayout->setSpacing( 5 );
 	AdvOptionsLayout->setMargin( 10 );
-	MirrorH = new QCheckBox(this, "MirrorH");
-	MirrorH->setText( tr("Mirror Page(s) horizontal"));
+	MirrorH = new QCheckBox( tr("Mirror Page(s) &Horizontal"), this, "MirrorH");
 	MirrorH->setChecked(Hm);
 	AdvOptionsLayout->addWidget( MirrorH );
-	MirrorV = new QCheckBox(this, "MirrorV");
-	MirrorV->setText( tr("Mirror Page(s) vertical"));
+	MirrorV = new QCheckBox( tr("Mirror Page(s) &Vertical"), this, "MirrorV");
 	MirrorV->setChecked(Vm);
 	AdvOptionsLayout->addWidget( MirrorV );
-	GcR = new QCheckBox(this, "GCR");
-	GcR->setText( tr("Appy Under Color Removal"));
+	GcR = new QCheckBox( tr("Appy Under Color &Removal"), this, "GCR");
 	GcR->setChecked(DoGcr);
 	AdvOptionsLayout->addWidget( GcR );
 #ifdef HAVE_CMS
 	if (CMSuse)
 	{
-		UseICC = new QCheckBox(this, "ICC");
-		UseICC->setText( tr("Apply ICC-Profiles"));
+		UseICC = new QCheckBox( tr("Apply &ICC Profiles"), this, "ICC");
 		UseICC->setChecked(Ic);
 		AdvOptionsLayout->addWidget( UseICC );
 	}
 #endif
-	ButtonGroupP = new QButtonGroup( this, "ButtonGroup5" );
+	ButtonGroupP = new QButtonGroup( "", this, "ButtonGroup5" );
 	ButtonGroupP->setFrameShape( QButtonGroup::NoFrame );
-	ButtonGroupP->setTitle( "" );
 	ButtonGroupP->setColumnLayout(0, Qt::Vertical );
 	ButtonGroupP->layout()->setSpacing( 0 );
 	ButtonGroupP->layout()->setMargin( 0 );
 	ButtonGroupPLayout = new QVBoxLayout( ButtonGroupP->layout() );
 	ButtonGroupPLayout->setSpacing( 6 );
 	ButtonGroupPLayout->setMargin( 0 );
-	PS3 = new QRadioButton( ButtonGroupP, "RadioButton1" );
-	PS3->setText( tr( "PostScript Level 3" ) );
+	PS1 = new QRadioButton( tr( "PostScript Level &1" ), ButtonGroupP, "RadioButton1" );
+	PS2 = new QRadioButton( tr( "PostScript Level &2" ), ButtonGroupP, "RadioButton1" );
+	PS3 = new QRadioButton( tr( "PostScript Level &3" ), ButtonGroupP, "RadioButton1" );
 	PS3->setChecked( true );
-	ButtonGroupPLayout->addWidget( PS3 );
-	PS2 = new QRadioButton( ButtonGroupP, "RadioButton1" );
-	PS2->setText( tr( "PostScript Level 2" ) );
-	ButtonGroupPLayout->addWidget( PS2 );
-	PS1 = new QRadioButton( ButtonGroupP, "RadioButton1" );
-	PS1->setText( tr( "PostScript Level 1" ) );
 	if (ps == 3)
 		PS3->setChecked( true );
 	if (ps == 2)
@@ -85,6 +75,8 @@ AdvOptions::AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic, int ps, bool 
 	if (ps == 1)
 		PS1->setChecked( true );
 	ButtonGroupPLayout->addWidget( PS1 );
+	ButtonGroupPLayout->addWidget( PS2 );
+	ButtonGroupPLayout->addWidget( PS3 );
 	AdvOptionsLayout->addWidget( ButtonGroupP );
 
 	Layout2 = new QHBoxLayout;
@@ -92,13 +84,11 @@ AdvOptions::AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic, int ps, bool 
 	Layout2->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout2->addItem( spacer );
-	PushButton1 = new QPushButton( this, "PushButton1" );
-	PushButton1->setText( tr( "OK" ) );
+	PushButton1 = new QPushButton( tr( "&OK" ), this, "PushButton1" );
 	Layout2->addWidget( PushButton1 );
 	QSpacerItem* spacer2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout2->addItem( spacer2 );
-	PushButton2 = new QPushButton( this, "PushButton1_2" );
-	PushButton2->setText( tr( "Cancel" ) );
+	PushButton2 = new QPushButton( tr( "&Cancel" ), this, "PushButton1_2" );
 	PushButton2->setDefault( true );
 	PushButton2->setFocus();
 	Layout2->addWidget( PushButton2 );
@@ -124,7 +114,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool 
 	DruckLayout->setMargin( 10 );
 
 	Drucker = new QGroupBox( this, "Drucker" );
-	Drucker->setTitle( tr( "Print destination" ) );
+	Drucker->setTitle( tr( "Print Destination" ) );
 	Drucker->setColumnLayout(0, Qt::Vertical );
 	Drucker->layout()->setSpacing( 0 );
 	Drucker->layout()->setMargin( 0 );
@@ -192,8 +182,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool 
 	Layout1x->addWidget( PrintDest );
 
 #ifdef HAVE_CUPS
-	OptButton = new QPushButton(Drucker, "Optionen" );
-	OptButton->setText( tr( "Options..." ) );
+	OptButton = new QPushButton( tr( "&Options..." ), Drucker, "Optionen" );
 	Layout1x->addWidget( OptButton );
 #endif
 	QSpacerItem* spacerDR = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -202,45 +191,39 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool 
 	Layout1 = new QHBoxLayout;
 	Layout1->setSpacing( 6 );
 	Layout1->setMargin( 0 );
-	DateiT = new QLabel( Drucker, "DateiT" );
-	DateiT->setEnabled( false );
-	DateiT->setText( tr( "File:" ) );
-	Layout1->addWidget( DateiT );
-	LineEdit1 = new QLineEdit( Drucker, "LineEdit1" );
+	LineEdit1 = new QLineEdit( PDatei, Drucker, "LineEdit1" );
 	LineEdit1->setMinimumSize( QSize( 240, 22 ) );
 	LineEdit1->setEnabled(false);
-	LineEdit1->setText(PDatei);
+	DateiT = new QLabel( LineEdit1, tr( "&File:" ), Drucker, "DateiT" );
+	DateiT->setEnabled( false );
+	Layout1->addWidget( DateiT );
 	Layout1->addWidget( LineEdit1 );
 	ToolButton1 = new QToolButton( Drucker, "ToolButton1" );
+	ToolButton1->setText( tr( "C&hange..." ) );
 	ToolButton1->setMinimumSize( QSize( 80, 22 ) );
-	ToolButton1->setText( tr( "Change..." ) );
 	ToolButton1->setEnabled(false);
 	ToolButton1->setFocusPolicy( QToolButton::TabFocus );
 	Layout1->addWidget( ToolButton1 );
 	DruckerLayout->addLayout( Layout1, 1, 0 );
 
-	OtherCom = new QCheckBox(Drucker, "Dc");
+	OtherCom = new QCheckBox(tr("A&lternative Printer Command"), Drucker, "Dc");
 	OtherCom->setChecked(false);
-	OtherCom->setText( tr("Alternative Printer Command"));
 	DruckerLayout->addWidget( OtherCom, 2, 0, Qt::AlignLeft);
 	LayoutCC = new QHBoxLayout;
 	LayoutCC->setSpacing( 6 );
 	LayoutCC->setMargin( 0 );
-	OthText = new QLabel( Drucker, "DateiTc" );
-	OthText->setEnabled( false );
-	OthText->setText( tr( "Command:" ) );
-	LayoutCC->addWidget( OthText );
-	Command = new QLineEdit( Drucker, "LineEdit12" );
+	Command = new QLineEdit( PCom, Drucker, "LineEdit12" );
 	Command->setMinimumSize( QSize( 240, 22 ) );
 	Command->setEnabled(false);
-	Command->setText(PCom);
+	OthText = new QLabel( Command, tr( "Co&mmand:" ), Drucker, "DateiTc" );
+	OthText->setEnabled( false );
+	LayoutCC->addWidget( OthText );
 	LayoutCC->addWidget( Command );
 	DruckerLayout->addLayout( LayoutCC, 3, 0 );
 	DruckLayout->addWidget( Drucker );
 
 
-	Umfang = new QButtonGroup( this, "Umfang" );
-	Umfang->setTitle( tr( "Range:" ) );
+	Umfang = new QButtonGroup( tr( "Range" ), this, "Umfang" );
 	Umfang->setColumnLayout(0, Qt::Vertical );
 	Umfang->layout()->setSpacing( 0 );
 	Umfang->layout()->setMargin( 0 );
@@ -249,9 +232,8 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool 
 	UmfangLayout->setSpacing( 6 );
 	UmfangLayout->setMargin( 5 );
 
-	ButtonGroup5 = new QButtonGroup( Umfang, "ButtonGroup5" );
+	ButtonGroup5 = new QButtonGroup( "", Umfang, "ButtonGroup5" );
 	ButtonGroup5->setFrameShape( QButtonGroup::NoFrame );
-	ButtonGroup5->setTitle( "" );
 	ButtonGroup5->setColumnLayout(0, Qt::Vertical );
 	ButtonGroup5->layout()->setSpacing( 0 );
 	ButtonGroup5->layout()->setMargin( 0 );
@@ -259,15 +241,12 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool 
 	ButtonGroup5Layout->setAlignment( Qt::AlignTop );
 	ButtonGroup5Layout->setSpacing( 6 );
 	ButtonGroup5Layout->setMargin( 5 );
-	RadioButton1 = new QRadioButton( ButtonGroup5, "RadioButton1" );
-	RadioButton1->setText( tr( "Print all" ) );
+	RadioButton1 = new QRadioButton( tr( "Print &All" ), ButtonGroup5, "RadioButton1" );
 	RadioButton1->setChecked( true );
 	ButtonGroup5Layout->addMultiCellWidget( RadioButton1, 0, 0, 0, 1 );
-	CurrentPage = new QRadioButton( ButtonGroup5, "RadioButton2" );
-	CurrentPage->setText( tr( "Print current page" ) );
+	CurrentPage = new QRadioButton( tr( "Print Current Pa&ge" ), ButtonGroup5, "RadioButton2" );
 	ButtonGroup5Layout->addMultiCellWidget( CurrentPage, 1, 1, 0, 1 );
-	RadioButton2 = new QRadioButton( ButtonGroup5, "RadioButton2" );
-	RadioButton2->setText( tr( "Print range" ) );
+	RadioButton2 = new QRadioButton( tr( "Print &Range" ), ButtonGroup5, "RadioButton2" );
 	ButtonGroup5Layout->addMultiCellWidget( RadioButton2, 2, 2, 0, 1 );
 	PageNr = new QLineEdit( ButtonGroup5, "PageNr" );
 	PageNr->setEnabled(false);
@@ -288,10 +267,6 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool 
 	ButtonGroup4Layout->setSpacing( 6 );
 	ButtonGroup4Layout->setMargin( 5 );
 
-	TextLabel3 = new QLabel( ButtonGroup4, "TextLabel3" );
-	TextLabel3->setText( tr( "Number of copies:" ) );
-
-	ButtonGroup4Layout->addWidget( TextLabel3, 0, 0 );
 
 	Copies = new QSpinBox( ButtonGroup4, "Copies" );
 	Copies->setEnabled( true );
@@ -299,7 +274,8 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool 
 	Copies->setMinValue( 1 );
 	Copies->setMaxValue(1000);
 	Copies->setValue(1);
-
+	TextLabel3 = new QLabel( Copies, tr( "N&umber of Copies:" ), ButtonGroup4, "TextLabel3" );
+	ButtonGroup4Layout->addWidget( TextLabel3, 0, 0 );
 	ButtonGroup4Layout->addWidget( Copies, 0, 1 );
 	UmfangLayout->addWidget( ButtonGroup4 );
 	DruckLayout->addWidget( Umfang );
@@ -326,13 +302,11 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool 
 	ButtonGroup3Layout->setSpacing( 5 );
 	ButtonGroup3Layout->setMargin( 5 );
 
-	NormalP = new QRadioButton( ButtonGroup3, "NormalP" );
-	NormalP->setText( tr( "Print Normal" ) );
+	NormalP = new QRadioButton( tr( "Print &Normal" ), ButtonGroup3, "NormalP" );
 	NormalP->setChecked( true );
 	ButtonGroup3Layout->addWidget( NormalP );
 
-	PrintSep = new QRadioButton( ButtonGroup3, "PrintSep" );
-	PrintSep->setText( tr( "Print Separations" ) );
+	PrintSep = new QRadioButton( tr( "Print &Separations" ), ButtonGroup3, "PrintSep" );
 	PrintSep->setFocusPolicy( QRadioButton::TabFocus );
 	ButtonGroup3Layout->addWidget( PrintSep );
 	ToSeparation = false;
@@ -363,22 +337,19 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool 
 	ButtonGroup3_2Layout->setSpacing( 5 );
 	ButtonGroup3_2Layout->setMargin( 5 );
 
-	PrintGray = new QRadioButton( ButtonGroup3_2, "PrintGray" );
-	PrintGray->setText( tr( "Print in color if available" ) );
+	PrintGray = new QRadioButton( tr( "Pr&int In Color If Available" ), ButtonGroup3_2, "PrintGray" );
 	PrintGray->setChecked( true );
 	PrintGray->setFocusPolicy( QRadioButton::TabFocus );
 	ButtonGroup3_2Layout->addWidget( PrintGray );
 
-	PrintGray2 = new QRadioButton( ButtonGroup3_2, "PrintGray2" );
-	PrintGray2->setText( tr( "Print in grayscale" ) );
+	PrintGray2 = new QRadioButton( tr( "Print In Gra&yscale" ), ButtonGroup3_2, "PrintGray2" );
 	ButtonGroup3_2Layout->addWidget( PrintGray2 );
 	MirrorH = false;
 	MirrorV = false,
 	ICCinUse = false;
 	DoGCR = gcr;
 	PSLevel = 3;
-	AdvOptButton = new QPushButton(ButtonGroup3_2, "Adv");
-	AdvOptButton->setText( tr("Advanced Options..."));
+	AdvOptButton = new QPushButton( tr("Ad&vanced Options..."), ButtonGroup3_2, "Adv");
 	ButtonGroup3_2Layout->addWidget( AdvOptButton );
 
 	OptionenLayout->addWidget( ButtonGroup3_2, 0, 1 );
@@ -390,12 +361,10 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool 
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout2->addItem( spacer );
 
-	OKButton = new QPushButton( this, "OKButton" );
-	OKButton->setText( tr( "Print" ) );
+	OKButton = new QPushButton( tr( "&Print" ), this, "OKButton" );
 	OKButton->setDefault( true );
 	Layout2->addWidget( OKButton );
-	OKButton_2 = new QPushButton( this, "OKButton_2" );
-	OKButton_2->setText( tr( "Cancel" ) );
+	OKButton_2 = new QPushButton( tr( "&Cancel" ), this, "OKButton_2" );
 	OKButton_2->setDefault( false );
 	Layout2->addWidget( OKButton_2 );
 
@@ -599,7 +568,7 @@ void Druck::SelFile()
 void Druck::setMinMax(int min, int max, int cur)
 {
 	QString tmp, tmp2;
-	CurrentPage->setText(tr( "Print current page" )+" ("+tmp.setNum(cur)+")");
+	CurrentPage->setText(tr( "Print Current Pa&ge" )+" ("+tmp.setNum(cur)+")");
 	PageNr->setText(tmp.setNum(min)+"-"+tmp2.setNum(max));
 }
 

@@ -469,31 +469,28 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QValueList<double
 	layout2->addWidget( RulerScrollR );
 	tabrulerLayout->addLayout( layout2 );
 	layout1 = new QHBoxLayout( 0, 0, 6, "layout1");
-	Label1 = new QLabel( this, "Label1" );
-	Label1->setText( tr( "Position:" ) );
-	layout1->addWidget( Label1 );
 	TabSpin = new MSpinBox( this, 1 );
 	TabSpin->setMaxValue( ww );
 	TabSpin->setMinValue( 0 );
 	TabSpin->setValue(0);
+	Label1 = new QLabel( TabSpin, tr("&Position:"), this, "Label1" );
+	layout1->addWidget( Label1 );
 	layout1->addWidget( TabSpin );
 	if (haveFirst)
 	{
-		Label2 = new QLabel( this, "Label2" );
-		Label2->setText( tr( "First Line:" ) );
-		layout1->addWidget( Label2 );
 		FirstSpin = new MSpinBox( this, 1);
 		FirstSpin->setMaxValue( ww );
 		FirstSpin->setMinValue( -30000 );
 		FirstSpin->setValue(0);
+		Label2 = new QLabel( FirstSpin, tr( "First &Line:"), this, "Label2" );
+		layout1->addWidget( Label2 );
 		layout1->addWidget( FirstSpin );
-		Label3 = new QLabel( this, "Label3" );
-		Label3->setText( tr( "Indent:" ) );
-		layout1->addWidget( Label3 );
 		IndentSpin = new MSpinBox( this, 1 );
 		IndentSpin->setMaxValue( ww );
 		IndentSpin->setMinValue( 0 );
 		IndentSpin->setValue(0);
+		Label3 = new QLabel( IndentSpin, tr( "Ind&ent:" ), this, "Label3" );
+		layout1->addWidget( Label3 );
 		layout1->addWidget( IndentSpin );
 	}
 	ClearButton = new QPushButton( this, "ClearButton" );

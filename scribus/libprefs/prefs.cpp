@@ -1469,13 +1469,9 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	buttonOK->setDefault( true );
 	buttonOK->setFocus();
 	Layout3->addWidget( buttonOK );
-	QSpacerItem* spacer_2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout3->addItem( spacer_2 );
 	buttonCancel = new QPushButton( tr( "&Cancel" ), this, "buttonCancel" );
 	buttonCancel->setDefault( false );
 	Layout3->addWidget( buttonCancel );
-	QSpacerItem* spacer_3 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout3->addItem( spacer_3 );
 	PrefsLayout->addLayout( Layout3 );
 	setDS();
 	//tab order
