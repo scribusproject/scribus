@@ -121,6 +121,8 @@ void BookMView::AddPageItem(PageItem* ite)
 		cc = ite->Ptext.at(d)->ch;
 		if ((cc == QChar(13)) || (cc == QChar(10)))
 			break;
+		if (cc == QChar(29))
+			cc = " ";
 		if ((cc == "(") || (cc == ")") || (cc == "\\"))
 			bm2 += "\\";
 			bm += cc;

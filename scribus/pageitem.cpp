@@ -212,7 +212,7 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 	bool outs = false;
 	PageItem *nb;
 	QColor tmp;
-	QString chx;
+	QString chx, chx2, chx3;
 	struct Pti *hl;
 	struct ZZ *Zli;
 	struct ZZ *Zli2;
@@ -728,10 +728,20 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 						oldCurY = CurY;
 						chs = hl->csize;
 						SetZeichAttr(&p, &ffo, hl, &chs, &chx);
-						if (a < Ptext.count()-1)
-							wide = Cwidth(Doc, &p, hl->cfont, chx, chs, Ptext.at(a+1)->ch);
+						if (chx == QChar(29))
+							chx2 = " ";
 						else
-							wide = Cwidth(Doc, &p, hl->cfont, chx, chs);
+							chx2 = chx;
+						if (a < Ptext.count()-1)
+							{
+							if (Ptext.at(a+1)->ch == QChar(29))
+								chx3 = " ";
+							else
+								chx3 = Ptext.at(a+1)->ch;
+							wide = Cwidth(Doc, &p, hl->cfont, chx2, chs, chx3);
+							}
+						else
+							wide = Cwidth(Doc, &p, hl->cfont, chx2, chs);
 						desc = p.fontMetrics().descent();
 						asce = p.fontMetrics().ascent();
 						if (LiList.isEmpty())
@@ -773,7 +783,6 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 						Zli->yco = hl->yp;
 						Zli->Sele = hl->cselect;
 						Zli->Siz = chs;
-//						Zli->Siz = hl->csize;
 						Zli->ZFo = hl->cfont;
 						Zli->wide = wide;
 						if ((hl->ch == " ") && (!outs))
@@ -1294,10 +1303,20 @@ NoRoom:	 if (NextBox != 0)
 						p.setPen(NoPen);
 					chs = hl->csize;
 					SetZeichAttr(&p, &ffo, hl, &chs, &chx);
-					if (a < Ptext.count()-1)
-						wide = Cwidth(Doc, &p, hl->cfont, chx, chs, Ptext.at(a+1)->ch);
+					if (chx == QChar(29))
+						chx2 = " ";
 					else
-						wide = Cwidth(Doc, &p, hl->cfont, chx, chs);
+						chx2 = chx;
+					if (a < Ptext.count()-1)
+						{
+						if (Ptext.at(a+1)->ch == QChar(29))
+							chx3 = " ";
+						else
+							chx3 = Ptext.at(a+1)->ch;
+						wide = Cwidth(Doc, &p, hl->cfont, chx2, chs, chx3);
+						}
+					else
+						wide = Cwidth(Doc, &p, hl->cfont, chx2, chs);
 					if ((CurX+(wide+hl->cextra)/2) >= wid)
 						{
 						if (zae < cl.size()-1)
@@ -1517,7 +1536,10 @@ void PageItem::DrawZeichen(QPainter *p, struct Pti *hl)
 	Zli->Sele = hl->cselect;
 	Zli->Siz = hl->csize;
 	Zli->ZFo = hl->cfont;
-	Zli->wide = Cwidth(Doc, p, hl->cfont, hl->ch, hl->csize);
+	if (hl->ch == QChar(29))
+		Zli->wide = Cwidth(Doc, p, hl->cfont, " ", hl->csize);
+	else
+		Zli->wide = Cwidth(Doc, p, hl->cfont, hl->ch, hl->csize);
 	DrawZeichen(p, Zli);
 	delete Zli;
 }
@@ -1528,9 +1550,12 @@ void PageItem::DrawZeichen(QPainter *p, struct ZZ *hl)
 	QRect rr = QRect(static_cast<int>(hl->xco), static_cast<int>(hl->yco - LineSp), static_cast<int>(hl->wide), static_cast<int>(LineSp));
 	if (!cr.contains(p->xForm(rr)))
 		return;
+	QString ccx = hl->Zeich;
+	if (ccx == QChar(29))
+		ccx = " ";
 #ifdef HAVE_FREETYPE
 	FT_Face face;
-	uint chr = hl->Zeich[0].unicode();
+	uint chr = ccx[0].unicode();
 	if ((chr > 128) || (Doc->Scale > 1))
 		{
 		if ((*Doc->AllFonts)[hl->ZFo]->CharWidth.contains(chr))
@@ -1607,11 +1632,11 @@ void PageItem::DrawZeichen(QPainter *p, struct ZZ *hl)
 			p->translate(static_cast<int>(hl->xco), static_cast<int>(hl->yco));
 			p->scale(-1, 1);
 			p->translate(-hl->wide, 0);
-			p->drawText(0, 0, hl->Zeich);
+			p->drawText(0, 0, ccx);
 			p->restore();
 			}
 		else
-			p->drawText(static_cast<int>(hl->xco), static_cast<int>(hl->yco), hl->Zeich);
+			p->drawText(static_cast<int>(hl->xco), static_cast<int>(hl->yco), ccx);
 		}
 #else
 	if (Reverse)
@@ -1620,11 +1645,11 @@ void PageItem::DrawZeichen(QPainter *p, struct ZZ *hl)
 		p->translate(static_cast<int>(hl->xco), static_cast<int>(hl->yco));
 		p->scale(-1, 1);
 		p->translate(-hl->wide, 0);
-		p->drawText(0, 0, hl->Zeich);
+		p->drawText(0, 0, ccx);
 		p->restore();
 		}
 	else
-		p->drawText(static_cast<int>(hl->xco), static_cast<int>(hl->yco), hl->Zeich);
+		p->drawText(static_cast<int>(hl->xco), static_cast<int>(hl->yco), ccx);
 #endif
 }
 

@@ -2634,7 +2634,7 @@ void ScriXmlDoc::WritePref(preV *Vor, QString ho)
 		rde.setAttribute("NAME",Vor->RecentDocs[rd]);
 		elem.appendChild(rde);
 		}
-	for (uint ksc=0; ksc<67; ++ksc)
+	for (uint ksc=0; ksc<68; ++ksc)
 		{
 		QDomElement kscc=docu.createElement("SHORTCUT");
 		kscc.setAttribute("CODE",Vor->KeyActions[ksc].KeyID);

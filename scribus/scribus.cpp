@@ -271,7 +271,6 @@ ScribusApp::ScribusApp(SplashScreen *splash)
 		Prefs.AutoSaveTime = 600000;
 		Prefs.DisScale = 1.0;
 		Prefs.DocDir = QString(getenv("HOME"));
-	  PDFavailable = true;
 		PDef.Pname = "";
 		PDef.Dname = "";
 		PDef.Command = "";
@@ -313,6 +312,7 @@ ScribusApp::ScribusApp(SplashScreen *splash)
 		SetKeyEntry(64, tr("Undo"), edUndo, CTRL+Key_Z);
 		SetKeyEntry(65, tr("Show Page Palette"), viewSepal, 0);
 		SetKeyEntry(66, tr("Lock/Unlock"), LockOb, CTRL+Key_H);
+		SetKeyEntry(67, tr("Nonbreaking Space"), 0, CTRL+Key_Space);
 		splash->setStatus(tr("Getting ICC-Profiles"));
 		GetCMSProfiles();
 		splash->setStatus(tr("Init Hyphenator"));
@@ -1158,10 +1158,13 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
  									b->Dirty = true;
  									b->paintObj();
  									}
- 								if ((kk + KeyMod) == Prefs.KeyActions[60].KeyID)
+ 								if (((kk + KeyMod) == Prefs.KeyActions[67].KeyID) || ((kk + KeyMod) == Prefs.KeyActions[67].KeyID))
  									{
  									hg = new Pti;
- 									hg->ch = QString(QChar(30));
+									if ((kk + KeyMod) == Prefs.KeyActions[60].KeyID)
+ 										hg->ch = QString(QChar(30));
+									else
+ 										hg->ch = QString(QChar(29));
  									hg->cfont = b->IFont;
  									hg->csize = b->ISize;
  									hg->ccolor = b->Pcolor2;
@@ -1772,8 +1775,7 @@ void ScribusApp::HaveNewDoc()
 	exportMenu->setItemEnabled(fid8, 1);
 	importMenu->setItemEnabled(fid2a, 1);
 	fileMenu->setItemEnabled(fid9, 1);
-	if (PDFavailable)
-		exportMenu->setItemEnabled(fid10, 1);
+	exportMenu->setItemEnabled(fid10, 1);
 	fileMenu->setItemEnabled(fid11, 1);
 	editMenu->setItemEnabled(edid1, 0);
 	editMenu->setItemEnabled(edid2, 0);
@@ -5114,10 +5116,7 @@ void ScribusApp::ShowSubs()
 		{
 		mess = tr("The following Programs are missing:")+"\n\n";
 		if (HaveGS != 0)
-			{
 			mess += tr("Ghostscript : You cannot use EPS-Images")+"\n\n";
-			PDFavailable = false;
-			}
     QMessageBox::warning(this, tr("Warning"), mess, 1, 0, 0);
     }
 	if (!Prefs.Werkv)

@@ -1051,6 +1051,8 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 										break;
 									tsz = hl->csize;
 									chx = hl->ch;
+									if (hl->ch == QChar(29))
+										chx = " ";
 									if (hl->ch == QChar(30))
 										{
 										if (Doc->MasterP)
@@ -1103,7 +1105,12 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 											p->PS_translate(hl->xp, -hl->yp);
 											p->PS_scale(-1, 1);
 											if (d < ite->MaxChars-1)
-												p->PS_translate(-Cwidth(Doc, &ph, hl->cfont, chx, chs, ite->Ptext.at(d+1)->ch), 0);
+												{
+												QString ctx = ite->Ptext.at(d+1)->ch;
+												if (ctx == QChar(29))
+													ctx = " ";
+												p->PS_translate(-Cwidth(Doc, &ph, hl->cfont, chx, chs, ctx), 0);
+												}
 											else
 												p->PS_translate(-Cwidth(Doc, &ph, hl->cfont, chx, chs), 0);
 											ph.end();
@@ -1128,7 +1135,12 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 												p->PS_translate(hl->xp, -hl->yp);
 												p->PS_scale(-1, 1);
 												if (d < ite->MaxChars-1)
-													p->PS_translate(-Cwidth(Doc, &ph, hl->cfont, chx, chs, ite->Ptext.at(d+1)->ch), 0);
+													{
+													QString ctx = ite->Ptext.at(d+1)->ch;
+													if (ctx == QChar(29))
+														ctx = " ";
+													p->PS_translate(-Cwidth(Doc, &ph, hl->cfont, chx, chs, ctx), 0);
+													}
 												else
 													p->PS_translate(-Cwidth(Doc, &ph, hl->cfont, chx, chs), 0);
 												ph.end();
@@ -1155,7 +1167,12 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 												p->PS_translate(hl->xp, -hl->yp);
 												p->PS_scale(-1, 1);
 												if (d < ite->MaxChars-1)
-													p->PS_translate(-Cwidth(Doc, &ph, hl->cfont, chx, chs, ite->Ptext.at(d+1)->ch), 0);
+													{
+													QString ctx = ite->Ptext.at(d+1)->ch;
+													if (ctx == QChar(29))
+														ctx = " ";
+													p->PS_translate(-Cwidth(Doc, &ph, hl->cfont, chx, chs, ctx), 0);
+													}
 												else
 													p->PS_translate(-Cwidth(Doc, &ph, hl->cfont, chx, chs), 0);
 												ph.end();
@@ -1351,7 +1368,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 									{
 									if ((c->Ptext.at(d)->ch == QChar(13)) || (c->Ptext.at(d)->ch == QChar(10)))
 										break;
-									bm += "\\"+cc.setNum(c->Ptext.at(d)->ch.at(0).unicode(), 8);
+									bm += "\\"+cc.setNum(QMAX(c->Ptext.at(d)->ch.at(0).unicode(), 32), 8);
 									}
 								p->PDF_Bookmark(bm, a->PageNr+1);
 								}
@@ -1361,7 +1378,7 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 								QString cc;
 								for (d = 0; d < c->Ptext.count(); ++d)
 									{
-									bm += "\\"+cc.setNum(c->Ptext.at(d)->ch.at(0).unicode(), 8);
+									bm += "\\"+cc.setNum(QMAX(c->Ptext.at(d)->ch.at(0).unicode(), 32), 8);
 									}
 								p->PDF_Annotation(bm, 0, 0, c->Width, -c->Height);
 								break;
@@ -1407,12 +1424,14 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 							for (d = 0; d < c->MaxChars; ++d)
 								{
 								hl = c->Ptext.at(d);
-								if ((hl->ch == QChar(13)) || (hl->ch == QChar(10))) // || (hl->ch == QChar(32)))
+								if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)))
 									continue;
 								if (hl->yp == 0)
 									break;
 								tsz = hl->csize;
 								chx = hl->ch;
+								if (hl->ch == QChar(29))
+									chx = " ";
 								if (hl->ch == QChar(30))
 									{
 									if (Doc->MasterP)
@@ -1466,7 +1485,12 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 										p->PS_translate(hl->xp, -hl->yp);
 										p->PS_scale(-1, 1);
 										if (d < c->MaxChars-1)
-											p->PS_translate(-Cwidth(Doc, &ph, hl->cfont, chx, chs, c->Ptext.at(d+1)->ch), 0);
+											{
+											QString ctx = c->Ptext.at(d+1)->ch;
+											if (ctx == QChar(29))
+												ctx = " ";
+											p->PS_translate(-Cwidth(Doc, &ph, hl->cfont, chx, chs, ctx), 0);
+											}
 										else
 											p->PS_translate(-Cwidth(Doc, &ph, hl->cfont, chx, chs), 0);
 										ph.end();
@@ -1491,7 +1515,12 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 											p->PS_translate(hl->xp, -hl->yp);
 											p->PS_scale(-1, 1);
 											if (d < c->MaxChars-1)
-												p->PS_translate(-Cwidth(Doc, &ph, hl->cfont, chx, chs, c->Ptext.at(d+1)->ch), 0);
+												{
+												QString ctx = c->Ptext.at(d+1)->ch;
+												if (ctx == QChar(29))
+													ctx = " ";
+												p->PS_translate(-Cwidth(Doc, &ph, hl->cfont, chx, chs, ctx), 0);
+												}
 											else
 												p->PS_translate(-Cwidth(Doc, &ph, hl->cfont, chx, chs), 0);
 											ph.end();
@@ -1518,7 +1547,12 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 											p->PS_translate(hl->xp, -hl->yp);
 											p->PS_scale(-1, 1);
 											if (d < c->MaxChars-1)
-												p->PS_translate(-Cwidth(Doc, &ph, hl->cfont, chx, chs, c->Ptext.at(d+1)->ch), 0);
+												{
+												QString ctx = c->Ptext.at(d+1)->ch;
+												if (ctx == QChar(29))
+													ctx = " ";
+												p->PS_translate(-Cwidth(Doc, &ph, hl->cfont, chx, chs, ctx), 0);
+												}
 											else
 												p->PS_translate(-Cwidth(Doc, &ph, hl->cfont, chx, chs), 0);
 											ph.end();
@@ -1679,6 +1713,8 @@ void ScribusView::ProcessPage(PSLib *p, Page* a, uint PNr, bool sep, bool farb, 
 									continue;
 								tsz = hl->csize;
 								chx = hl->ch;
+								if (hl->ch == QChar(29))
+									chx = " ";
 								if ((hl->cstyle & 127) == 0)
 									p->PS_selectfont(hl->cfont, hl->csize);
 								if (hl->cstyle & 64)

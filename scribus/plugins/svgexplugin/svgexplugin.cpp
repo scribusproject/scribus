@@ -89,7 +89,7 @@ SVGExPlug::SVGExPlug( QWidget* parent, ScribusApp *plug, QString fName )
 
 void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, QDomElement *elem)
 {
-	QString tmp, trans, fill, stroke, strokeW, strokeLC, strokeLJ, strokeDA, gradi, Clipi;
+	QString tmp, trans, fill, stroke, strokeW, strokeLC, strokeLJ, strokeDA, gradi, Clipi, chx;
 	uint d;
 	struct Pti *hl;
 	int Lnr = 0;
@@ -364,11 +364,15 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 								continue;
 							if (hl->yp == 0)
 								break;
+							if (hl->ch == QChar(29))
+								chx = " ";
+							else
+								chx = hl->ch;
 							tp = docu->createElement("tspan");
 							tp.setAttribute("x", hl->xp);
 							tp.setAttribute("y", hl->yp);
 							SetTextProps(&tp, hl, plug);
-							tp1 = docu->createTextNode(hl->ch);
+							tp1 = docu->createTextNode(chx);
 							tp.appendChild(tp1);
 							ob.appendChild(tp);
 							}
@@ -418,6 +422,10 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 							hl = Item->Ptext.at(d);
 							if ((hl->ch == QChar(13)) || (hl->ch == QChar(10)))
 								continue;
+							if (hl->ch == QChar(29))
+								chx = " ";
+							else
+								chx = hl->ch;
 							tp = docu->createElement("tspan");
 							tp.setAttribute("x", hl->PtransX);
 							tp.setAttribute("y", hl->PtransY);
@@ -426,7 +434,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 							tp2.setAttribute("dx", hl->xp);
 							tp2.setAttribute("dy", hl->yp);
 							SetTextProps(&tp2, hl, plug);
-							tp1 = docu->createTextNode(hl->ch);
+							tp1 = docu->createTextNode(chx);
 							tp2.appendChild(tp1);
 							tp.appendChild(tp2);
 							ob.appendChild(tp);

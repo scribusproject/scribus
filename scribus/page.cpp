@@ -4252,6 +4252,8 @@ bool Page::slotSetCurs(int x, int y)
   			chx = b->Ptext.at(a)->ch;
 				if (chx == QChar(30))
 					chx = b->ExpandToken(a);
+				if (chx == QChar(29))
+					chx = " ";
 				b->SetZeichAttr(&p, &ffo, b->Ptext.at(a), &chs, &chx);
   			w = qRound(Cwidth(doku, &p, b->Ptext.at(a)->cfont, chx, p.font().pointSize()));
   			h = static_cast<int>(doku->Vorlagen[b->Ptext.at(a)->cab].LineSpa);
@@ -4340,6 +4342,8 @@ void Page::slotDoCurs(bool draw)
 			chx = b->Ptext.at(b->CPos-1)->ch;
 			if (chx == QChar(30))
 				chx = b->ExpandToken(b->CPos-1);
+			if (chx == QChar(29))
+				chx = " ";
 			b->SetZeichAttr(&p, &ffo, b->Ptext.at(b->CPos-1), &chs, &chx);
   		xp = static_cast<int>(b->Ptext.at(b->CPos-1)->xp);
   		if (b->Ptext.at(b->CPos-1)->ch != QChar(13))
@@ -4349,9 +4353,6 @@ void Page::slotDoCurs(bool draw)
   		}
   	else
 			{
-//  		xp = int(b->Ptext.at(b->CPos)->xp);
-//  		yp = int(b->Ptext.at(b->CPos)->yp);
-//  		yp1 = yp - b->Ptext.at(b->CPos)->csize;
 			xp = static_cast<int>(b->Extra);
 			xp += static_cast<int>(doku->Vorlagen[b->Ptext.at(b->CPos)->cab].First);
 			xp += static_cast<int>(doku->Vorlagen[b->Ptext.at(b->CPos)->cab].Indent);
@@ -4405,6 +4406,8 @@ void Page::DrawCursChar(PageItem *b, QPainter *p, int po)
 		return;
 	if (chx == QChar(30))
 		chx = b->ExpandToken(b->CPos-po);
+	if (chx == QChar(29))
+		chx = " ";
 	b->SetZeichAttr(p, &ffo, hl, &chs, &chx);
 	if (hl->ccolor != "None")
 		{
@@ -4721,6 +4724,8 @@ void Page::TextToPath()
 			if (chx == QChar(13))
 				continue;
 			if (chx == QChar(32))
+				continue;
+			if (chx == QChar(29))
 				continue;
 			if (chx == QChar(30))
 				{

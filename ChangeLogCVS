@@ -1,4 +1,9 @@
 Changes since Version 1.0RC1
+03.07.2003	Added Russian Translation.
+		cupsoptions.cpp		Added the missing Pageorientation Option.
+		scribus.cpp		Added Non Breaking Spaces, can be inserted into the Text
+					via Ctrl-Space.
+
 02.07.2003	scribus.cpp		Fixed Bug with Bookmarks when switching Documents.
 		pdflib.cpp		Fixed Bug with Bookmarks and Encryption.
 

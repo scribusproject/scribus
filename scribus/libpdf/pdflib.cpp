@@ -1651,6 +1651,8 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 			}
 		int	tsz = hl->csize;
 		QString chx = hl->ch;
+		if (hl->ch == QChar(29))
+			chx = " ";
 		if (hl->ch == QChar(30))
 			{
 			uint zae = 0;
@@ -1755,7 +1757,12 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 			int chs = hl->csize;
 			float wtr;
 			if (d < ite->MaxChars-1)
-				wtr = Cwidth(doc, &ph, hl->cfont, chx, chs, ite->Ptext.at(d+1)->ch);
+				{
+				QString ctx = ite->Ptext.at(d+1)->ch;
+				if (ctx == QChar(29))
+					ctx = " ";
+				wtr = Cwidth(doc, &ph, hl->cfont, chx, chs, ctx);
+				}
 			else
 				wtr = Cwidth(doc, &ph, hl->cfont, chx, chs);
 			ph.end();

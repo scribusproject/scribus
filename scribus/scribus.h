@@ -495,7 +495,6 @@ private:
     float pts2mm(float pts);
     QIntDict<QString> FontID;
     int HaveGS;
-    bool PDFavailable;
     void *PSDriver;
     int DocNr;
     QStringList RecentDocs;
