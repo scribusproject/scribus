@@ -155,6 +155,19 @@
         <source>Slovenian:</source>
         <translation>Словенська:</translation>
     </message>
+    <message>
+        <source>This panel shows the version, build date and
+ compiled in library support in Scribus
+The C-C-T equates to C=CUPS C=littlecms T=TIFF support.
+Missing library support is indicated by a *</source>
+        <translation>Ця панель показує версію, дату збірки і 
+використання зовнішніх бібліотек в Scribus.
+С-С-T можна розібрати як С=CUPS - Загальна 
+система друку для Юнікс, С=littlecms - Проста
+система керування кольором, T=TIFF - Підтримка
+формату зображень TIFF. При відсутності бібліотеки
+літера індикатор заміщається на *</translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
@@ -992,6 +1005,24 @@
         <source>New Entry</source>
         <translation>Новий екземпляр</translation>
     </message>
+    <message>
+        <source>Rename</source>
+        <translation>Перейменувати</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Застереження</translation>
+    </message>
+    <message>
+        <source>Name &quot;%1&quot; isn&apos;t unique.
+Please choose another.</source>
+        <translation>Ім&apos;я &quot;%1&quot; вже використане.
+Будь-ласка виберіть інше.</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>Гаразд</translation>
+    </message>
 </context>
 <context>
     <name>BookMView</name>
@@ -1320,8 +1351,8 @@ It is recommended that you enable this if you have photos in your document.</sou
         <translation>Ім&apos;я кольору уже використане</translation>
     </message>
     <message>
-        <source>HSB-Colormap</source>
-        <translation>HSB-палітра кольорів</translation>
+        <source>HSV-Colormap</source>
+        <translation>HSV (ВНЗ) Палітра кольорів</translation>
     </message>
 </context>
 <context>
@@ -1384,11 +1415,11 @@ It is recommended that you enable this if you have photos in your document.</sou
     </message>
     <message>
         <source>Edit the first color of object</source>
-        <translation>Редагувати перший колір об&apos;єкта</translation>
+        <translation type="obsolete">Редагувати перший колір об&apos;єкта</translation>
     </message>
     <message>
         <source>Edit the second color of object</source>
-        <translation>Редагувати другий колір об&apos;єкта</translation>
+        <translation type="obsolete">Редагувати другий колір об&apos;єкта</translation>
     </message>
     <message>
         <source>Set the transparency for the color selected</source>
@@ -1397,6 +1428,50 @@ It is recommended that you enable this if you have photos in your document.</sou
     <message>
         <source>Color of selected object</source>
         <translation>Колір вибраного об&apos;єкта</translation>
+    </message>
+    <message>
+        <source>Special</source>
+        <translation type="obsolete">Особливий</translation>
+    </message>
+    <message>
+        <source>Free linear Gradient</source>
+        <translation>Вільний лінійний градієнт</translation>
+    </message>
+    <message>
+        <source>X1:</source>
+        <translation>X1:</translation>
+    </message>
+    <message>
+        <source>Y1:</source>
+        <translation>Y1:</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation>тчк</translation>
+    </message>
+    <message>
+        <source>X2:</source>
+        <translation>X2:</translation>
+    </message>
+    <message>
+        <source>Y2:</source>
+        <translation>Y2:</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>мм</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>д</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>п</translation>
+    </message>
+    <message>
+        <source>Free radial Gradient</source>
+        <translation>Вільний радіальний градієнт</translation>
     </message>
 </context>
 <context>
@@ -1472,6 +1547,24 @@ It is recommended that you enable this if you have photos in your document.</sou
     <message>
         <source>Cancel</source>
         <translation>Вихід</translation>
+    </message>
+    <message>
+        <source>This panel displays various CUPS options when printing. 
+The exact parameters available will depend on your printer driver.
+You can confirm CUPS support by selecting Help &gt; About.
+Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support.
+Missing library support is indicated by a *</source>
+        <translation>Ця панель показує параметри CUPS при друці.
+Набір доступних параметрів залежить від 
+драйвера прінтера. Наявність підтримки CUPS
+можна засвідчити вибравши меню 
+&quot;Допомога&gt;Про програму Scribus&quot;. Зверніть увагу на
+літери індикатори С-С-T, які можна розібрати як 
+С=CUPS - Загальна система друку для Юнікс, 
+С=littlecms - Проста система керування кольором, 
+T=TIFF - Підтримка формату зображень TIFF. 
+При відсутності бібліотеки літера індикатор 
+заміщається на *</translation>
     </message>
 </context>
 <context>
@@ -1735,6 +1828,21 @@ This can be set in the Preferences.</source>
     </message>
 </context>
 <context>
+    <name>EPSPlug</name>
+    <message>
+        <source>Importing File:
+%1
+failed!</source>
+        <translation>Імпортувати файл:
+%1
+не вдалося!</translation>
+    </message>
+    <message>
+        <source>Fatal Error</source>
+        <translation>Фатальна помилка</translation>
+    </message>
+</context>
+<context>
     <name>EditStyle</name>
     <message>
         <source>Edit Style</source>
@@ -1880,6 +1988,10 @@ This can be set in the Preferences.</source>
         <source>Tabulators and Indentation</source>
         <translation>Табулятори та відступи</translation>
     </message>
+    <message>
+        <source>Line Spacing:</source>
+        <translation>Міжрядковий інтервал:</translation>
+    </message>
 </context>
 <context>
     <name>Editor</name>
@@ -1946,6 +2058,128 @@ This can be set in the Preferences.</source>
     <message>
         <source>Javascripts (*.js);;All Files (*)</source>
         <translation>Java-сценарії (*.js);;Всі файли (*)</translation>
+    </message>
+</context>
+<context>
+    <name>ExportForm</name>
+    <message>
+        <source>Choose a Export Directory</source>
+        <translation>Виберіть директорію для експортування</translation>
+    </message>
+    <message>
+        <source>Export as Image</source>
+        <translation>Експортувати, як растрове зображення</translation>
+    </message>
+    <message>
+        <source>Export to directory:</source>
+        <translation>Директорія для експортування:</translation>
+    </message>
+    <message>
+        <source>&amp;Change...</source>
+        <translation>&amp;Замінити...</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation>Alt+C</translation>
+    </message>
+    <message>
+        <source>Image type:</source>
+        <translation>Тип зображення:</translation>
+    </message>
+    <message>
+        <source>Quality :</source>
+        <translation>Якість:</translation>
+    </message>
+    <message>
+        <source>%</source>
+        <translation>%</translation>
+    </message>
+    <message>
+        <source>Size:</source>
+        <translation>Розмір:</translation>
+    </message>
+    <message>
+        <source>Export </source>
+        <translation>Експортування</translation>
+    </message>
+    <message>
+        <source>&amp;One page</source>
+        <translation>&amp;Одна сторінка</translation>
+    </message>
+    <message>
+        <source>Alt+O</source>
+        <translation>Alt+O</translation>
+    </message>
+    <message>
+        <source>&amp;All pages</source>
+        <translation>&amp;Всі сторінки</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation>Alt+A</translation>
+    </message>
+    <message>
+        <source>&amp;Interval from:</source>
+        <translation>&amp;Інтервал від:</translation>
+    </message>
+    <message>
+        <source>Alt+I</source>
+        <translation>Alt+I</translation>
+    </message>
+    <message>
+        <source>to:</source>
+        <translation>до:</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;Гаразд</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>В&amp;ихід</translation>
+    </message>
+    <message>
+        <source>Change the output directory</source>
+        <translation>Змінити вихідну директорію</translation>
+    </message>
+    <message>
+        <source>The output directory - the place to store your images.
+Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</source>
+        <translation>Вихідна директорія - місце в яке будуть записані Ваші
+зображення. Назва експортованого файла буде у формі
+&apos;імядокумента-номерсторінки.типфайла&apos;</translation>
+    </message>
+    <message>
+        <source>Export only the current page</source>
+        <translation>Експортувати лише активну сторінку</translation>
+    </message>
+    <message>
+        <source>Export all pages to images</source>
+        <translation>Експортувати всі сторінки, як растрові зображення</translation>
+    </message>
+    <message>
+        <source>Export a range of pages to images</source>
+        <translation>Експортувати діапазон сторінок, як растрові зображення</translation>
+    </message>
+    <message>
+        <source>First page to export when exporting a range</source>
+        <translation>Номер першої сторінки при експорті діапазону сторінок</translation>
+    </message>
+    <message>
+        <source>Last page to export when exporting a range</source>
+        <translation>Номер останньої сторінки при експорті діапазону сторінок</translation>
+    </message>
+    <message>
+        <source>The height of the output images in pixels</source>
+        <translation>Висота вихідних зображень в пікселях</translation>
+    </message>
+    <message>
+        <source>The quality of your images - 100% is the best, 1% the highest compression</source>
+        <translation>Якість зображень - 100% - навища, 1% - максимальне стиснення</translation>
+    </message>
+    <message>
+        <source>Available export formats</source>
+        <translation>Доступні формати експортування</translation>
     </message>
 </context>
 <context>
@@ -2183,6 +2417,48 @@ This can be set in the Preferences.</source>
     <message>
         <source>Additional &amp;Paths</source>
         <translation>Д&amp;одаткові шляхи до шрифтів</translation>
+    </message>
+</context>
+<context>
+    <name>FontPreview</name>
+    <message>
+        <source>Font Preview</source>
+        <translation>Попередній перегляд шрифта</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;Гаразд</translation>
+    </message>
+    <message>
+        <source>Alt+O</source>
+        <translation>Alt+O</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>В&amp;ихід</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation>Alt+C</translation>
+    </message>
+    <message>
+        <source>Woven silk pyjamas exchanged for blue quartz</source>
+        <translation>Реве та стогне Дніпр широкий, сердитий вітер завива</translation>
+    </message>
+</context>
+<context>
+    <name>GradientEditor</name>
+    <message>
+        <source>Position:</source>
+        <translation>Позиція:</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation>%</translation>
+    </message>
+    <message>
+        <source>Here you can add, change or remove Color-Stops.</source>
+        <translation>Тут Ви можете добавити, змінити або видалити переходи кольорів.</translation>
     </message>
 </context>
 <context>
@@ -2630,6 +2906,41 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
 </context>
 <context>
+    <name>MSpinBox</name>
+    <message>
+        <source> pt</source>
+        <translation>тчк</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation>тчк</translation>
+    </message>
+    <message>
+        <source>mm</source>
+        <translation>мм</translation>
+    </message>
+    <message>
+        <source>in</source>
+        <translation>д</translation>
+    </message>
+    <message>
+        <source>p</source>
+        <translation>п</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>мм</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>д</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>п</translation>
+    </message>
+</context>
+<context>
     <name>Mdup</name>
     <message>
         <source>Multiple Duplicate</source>
@@ -2654,6 +2965,61 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <source>Cancel</source>
         <translation>Вихід</translation>
+    </message>
+</context>
+<context>
+    <name>Measurements</name>
+    <message>
+        <source>Distances</source>
+        <translation>Відстані</translation>
+    </message>
+    <message>
+        <source>X1:</source>
+        <translation>X1:</translation>
+    </message>
+    <message>
+        <source>Y1:</source>
+        <translation>Y1:</translation>
+    </message>
+    <message>
+        <source>X2:</source>
+        <translation>X2:</translation>
+    </message>
+    <message>
+        <source>Y2:</source>
+        <translation>Y2:</translation>
+    </message>
+    <message>
+        <source>DX:</source>
+        <translation>DX:</translation>
+    </message>
+    <message>
+        <source>DY:</source>
+        <translation>DY:</translation>
+    </message>
+    <message>
+        <source>Angle:</source>
+        <translation>Кут:</translation>
+    </message>
+    <message>
+        <source>Length:</source>
+        <translation>Довжина:</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation>тчк</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>мм</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>д</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>п</translation>
     </message>
 </context>
 <context>
@@ -2894,10 +3260,6 @@ Corners:</source>
         <translation>Відстань від кривої:</translation>
     </message>
     <message>
-        <source>Size:</source>
-        <translation>Розмір:</translation>
-    </message>
-    <message>
         <source> %</source>
         <translation>%</translation>
     </message>
@@ -2975,7 +3337,7 @@ Corners:</source>
     </message>
     <message>
         <source>Line Style:</source>
-        <translation>Стиль лінії:</translation>
+        <translation type="obsolete">Стиль лінії:</translation>
     </message>
     <message>
         <source>Line Width:</source>
@@ -3363,6 +3725,14 @@ Please choose another.</source>
         <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
         <translation>Вказує на план, на якому розташовано об&apos;єкт. Нуль означає, що об&apos;єкт знаходиться на самому нижньому плані</translation>
     </message>
+    <message>
+        <source>Font Size:</source>
+        <translation>Розмір шрифта:</translation>
+    </message>
+    <message>
+        <source>Type of Line:</source>
+        <translation>Тип лінії:</translation>
+    </message>
 </context>
 <context>
     <name>MultiLine</name>
@@ -3702,11 +4072,11 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>First page number of the document</source>
-        <translation>Номер першої сторінки документу</translation>
+        <translation>Номер першої сторінки документа</translation>
     </message>
     <message>
         <source>Default unit of measurement for document editing</source>
-        <translation>Стандартна одиниця вимірювання для редагування документу</translation>
+        <translation>Стандартна одиниця вимірювання для редагування документа</translation>
     </message>
     <message>
         <source>Create text frames automatically when new pages are added</source>
@@ -3719,6 +4089,18 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Number of columns to create in automatically created text frames</source>
         <translation>Число стовпців в автоматично створених текстових рамках</translation>
+    </message>
+    <message>
+        <source>Legal</source>
+        <translation>Юридичний</translation>
+    </message>
+    <message>
+        <source>Letter</source>
+        <translation>Лист</translation>
+    </message>
+    <message>
+        <source>Tabloid</source>
+        <translation>Таблоїд</translation>
     </message>
 </context>
 <context>
@@ -4051,14 +4433,6 @@ otherwise Coordinates are relative to the Object.</source>
         <translation>Дозволити внесення змін в документ</translation>
     </message>
     <message>
-        <source>Copying Text and Graphics is allowed</source>
-        <translation>Дозволити копіювати текст та зображення</translation>
-    </message>
-    <message>
-        <source>Adding Annotations and Fields is allowed</source>
-        <translation>Дозволити внесення аннотацій та полів</translation>
-    </message>
-    <message>
         <source>Output intended for:</source>
         <translation>Призначення експортованого файла:</translation>
     </message>
@@ -4385,26 +4759,6 @@ security features in your exported PDF</source>
 засобів захисту в експортованому PDF</translation>
     </message>
     <message>
-        <source>Choose a password for users to be able to read your PDF</source>
-        <translation>Виберіть пароль для доступу користувачів до читання PDF</translation>
-    </message>
-    <message>
-        <source>Allow printing of the PDF</source>
-        <translation>Дозволити друк PDF</translation>
-    </message>
-    <message>
-        <source>Allow modifying of the PDF</source>
-        <translation>Дозволити внесення змін в PDF</translation>
-    </message>
-    <message>
-        <source>Allow copying of text or graphics from the PDF</source>
-        <translation>Дозволити копіювати текст та зображення з PDF</translation>
-    </message>
-    <message>
-        <source>Allow adding annotations and fields to the PDF</source>
-        <translation>Дозволити внесення аннотацій та полів в PDF</translation>
-    </message>
-    <message>
         <source>Color model for the output of your PDF.
 Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.
 Choose Printer when printing to a true 4 color CMYK printer.</source>
@@ -4516,6 +4870,40 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
         <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
         <translation>Ступені стиснення:  Мінімальна (25%), Низка (50%), Середня (75%), Висока (85%), Максимальна (95%)</translation>
     </message>
+    <message>
+        <source>Choose a password for users to be able to read your PDF.</source>
+        <translation>Виберіть пароль для захисту PDF документа від перегляду.</translation>
+    </message>
+    <message>
+        <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
+        <translation>Дозволити друк PDF. Якщо не вибрати цей параметр, то друк буде заборонено.</translation>
+    </message>
+    <message>
+        <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
+        <translation>Дозволити редагування PDF. Якщо цей параметр не вибрати, то редагування PDF буде заборонено.</translation>
+    </message>
+    <message>
+        <source>Allow copying of text or graphics from the PDF. 
+If un-checked, text and graphics cannot be copied.</source>
+        <translation>Дозволити копіювання тексту і зображень з PDF.
+Якщо цей параметр не вибрати, то копіювання 
+тексту і зображень буде заборонено.</translation>
+    </message>
+    <message>
+        <source>Allow adding annotations and fields to the PDF. 
+If un-checked, editing annotations and fileds is prevented.</source>
+        <translation>Дозволити вставку анотацій та полів в PDF.
+Якщо цей параметр не вибрати, то редагування
+анотацій та полів буде заборонено.</translation>
+    </message>
+    <message>
+        <source>Allow Copying Text and Graphics</source>
+        <translation>Дозволити копіювання тексту і зображень</translation>
+    </message>
+    <message>
+        <source>Allow Adding Annotations and Fields</source>
+        <translation>Дозволити вставку анотацій та полів</translation>
+    </message>
 </context>
 <context>
     <name>PPreview</name>
@@ -4529,7 +4917,7 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
     </message>
     <message>
         <source>Anti-alias Graphics</source>
-        <translation>Згладжування графіки</translation>
+        <translation>Згладжування зображень</translation>
     </message>
     <message>
         <source>All</source>
@@ -4697,7 +5085,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Get Picture...</source>
-        <translation>Вставити графіку ...</translation>
+        <translation>Вставити зображення ...</translation>
     </message>
     <message>
         <source>Image Visible</source>
@@ -4882,6 +5270,22 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     <message>
         <source>Level</source>
         <translation>План</translation>
+    </message>
+    <message>
+        <source>Copy Here</source>
+        <translation>Копіювати сюди</translation>
+    </message>
+    <message>
+        <source>Move Here</source>
+        <translation>Перемістити сюди</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Вихід</translation>
+    </message>
+    <message>
+        <source>PDF-Options</source>
+        <translation>Установки PDF</translation>
     </message>
 </context>
 <context>
@@ -5106,10 +5510,6 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
         <translation>Недавно редаговані документи:</translation>
     </message>
     <message>
-        <source>Keyboard Shortcuts...</source>
-        <translation>Гарячі клавіші...</translation>
-    </message>
-    <message>
         <source>Paths</source>
         <translation>Шляхи</translation>
     </message>
@@ -5303,7 +5703,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
-        <translation>Реве та стогне Дніпр широкий, сердитий вітер завіва</translation>
+        <translation>Реве та стогне Дніпр широкий, сердитий вітер завива</translation>
     </message>
     <message>
         <source>Line Color:</source>
@@ -5327,7 +5727,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Line Style:</source>
-        <translation>Стиль лінії:</translation>
+        <translation type="obsolete">Стиль лінії:</translation>
     </message>
     <message>
         <source>Minimum:</source>
@@ -5520,10 +5920,6 @@ Scribus успадкує любі доступні теми KDE або Qt</trans
         <translation>Скільки недавно редагованих документів показувати в меню Файл</translation>
     </message>
     <message>
-        <source>Change the keyboard shortcuts to your preference</source>
-        <translation>Змінити гарячі клавіші по Вашому вподобанню</translation>
-    </message>
-    <message>
         <source>Default documents directory</source>
         <translation>Стандартна директорія для документів</translation>
     </message>
@@ -5645,7 +6041,7 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>Percentage increase over the font size for the line spacing</source>
-        <translation>Збільшення проміжку між рядками у відсотках понад розмір шрифта</translation>
+        <translation>Збільшення інтервалу між рядками у відсотках розміру шрифта</translation>
     </message>
     <message>
         <source>Text Frame Properties</source>
@@ -5902,6 +6298,10 @@ each time the time period elapses</source>
     <message>
         <source> px</source>
         <translation>пікс</translation>
+    </message>
+    <message>
+        <source>Type of Line:</source>
+        <translation>Тип лінії:</translation>
     </message>
 </context>
 <context>
@@ -6344,44 +6744,12 @@ Check path and filename.</source>
         <translation>Ні</translation>
     </message>
     <message>
-        <source> pt</source>
-        <translation>тчк</translation>
-    </message>
-    <message>
-        <source> mm</source>
-        <translation>мм</translation>
-    </message>
-    <message>
-        <source> in</source>
-        <translation>д</translation>
-    </message>
-    <message>
-        <source> p</source>
-        <translation>п</translation>
-    </message>
-    <message>
         <source>Document</source>
         <translation>Документ</translation>
     </message>
     <message>
         <source>Background</source>
         <translation>Фон</translation>
-    </message>
-    <message>
-        <source>pt</source>
-        <translation>тчк</translation>
-    </message>
-    <message>
-        <source>mm</source>
-        <translation>мм</translation>
-    </message>
-    <message>
-        <source>in</source>
-        <translation>д</translation>
-    </message>
-    <message>
-        <source>p</source>
-        <translation>п</translation>
     </message>
     <message>
         <source>Scribus Scripts</source>
@@ -6406,6 +6774,54 @@ Check path and filename.</source>
     <message>
         <source>Import SVG-Image...</source>
         <translation>Вставити SVG-зображення...</translation>
+    </message>
+    <message>
+        <source>Save as Image...</source>
+        <translation>Записати, як растрове зображення...</translation>
+    </message>
+    <message>
+        <source>Error writing the output file(s).</source>
+        <translation>Помилка при запису вихідного файла(ів).</translation>
+    </message>
+    <message>
+        <source>File exists. Overwrite?</source>
+        <translation>Файл вже існує. Переписати поверх?</translation>
+    </message>
+    <message>
+        <source>exists already. Overwrite?</source>
+        <translation>вже існує. Переписати поверх?</translation>
+    </message>
+    <message>
+        <source>Yes all</source>
+        <translation>Гаразд для всіх</translation>
+    </message>
+    <message>
+        <source>Save as Image</source>
+        <translation>Записати, як зображення</translation>
+    </message>
+    <message>
+        <source>Error writting the output file(s).</source>
+        <translation>Помилка при запису файла(ів).</translation>
+    </message>
+    <message>
+        <source>Export successful.</source>
+        <translation>Експорт успішний.</translation>
+    </message>
+    <message>
+        <source>Import EPS/PS...</source>
+        <translation>Імпортувати EPS/PS...</translation>
+    </message>
+    <message>
+        <source>All Supported Formats (*.eps *.EPS *.ps *.PS);;</source>
+        <translation>Всі доступні формати (*.eps *.EPS *.ps *.PS);;</translation>
+    </message>
+    <message>
+        <source>All Files (*)</source>
+        <translation>Всі файли (*)</translation>
+    </message>
+    <message>
+        <source>Fonts Preview</source>
+        <translation>Попередній перегляд шрифтів</translation>
     </message>
 </context>
 <context>
@@ -6776,7 +7192,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Get Text/Picture...</source>
-        <translation>Вставити текст/графіку... </translation>
+        <translation>Вставити текст/зображення... </translation>
     </message>
     <message>
         <source>Insert Page...</source>
@@ -6863,24 +7279,12 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Шаблони...</translation>
     </message>
     <message>
-        <source>General...</source>
-        <translation>Загальні...</translation>
-    </message>
-    <message>
-        <source>Preferences...</source>
-        <translation>Установки...</translation>
-    </message>
-    <message>
         <source>Fonts...</source>
         <translation>Шрифти...</translation>
     </message>
     <message>
         <source>Hyphenator...</source>
         <translation>Переніс...</translation>
-    </message>
-    <message>
-        <source>Preferences</source>
-        <translation>Установки</translation>
     </message>
     <message>
         <source>Select New Font</source>
@@ -7517,10 +7921,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Сховати базову сітку</translation>
     </message>
     <message>
-        <source>Tool&amp;bars</source>
-        <translation>Панелі ін&amp;струментів</translation>
-    </message>
-    <message>
         <source> pt</source>
         <translation>тчк</translation>
     </message>
@@ -7563,6 +7963,22 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>Slovenian</source>
         <translation>Словенська</translation>
+    </message>
+    <message>
+        <source>Keyboard Shortcuts...</source>
+        <translation>Гарячі клавіші...</translation>
+    </message>
+    <message>
+        <source>Scribus Manual...</source>
+        <translation>Керівництво по Scribus...</translation>
+    </message>
+    <message>
+        <source>&amp;Settings</source>
+        <translation>&amp;Установки</translation>
+    </message>
+    <message>
+        <source>Preferences...</source>
+        <translation>Параметри...</translation>
     </message>
 </context>
 <context>
@@ -7941,11 +8357,11 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Save and Exit</source>
-        <translation>Записати документ та вийти</translation>
+        <translation type="obsolete">Записати документ та вийти</translation>
     </message>
     <message>
         <source>Exit without Saving</source>
-        <translation>Вийти без запису</translation>
+        <translation type="obsolete">Вийти без запису</translation>
     </message>
     <message>
         <source>Undo</source>
@@ -8070,6 +8486,18 @@ drag a Template to the Pageview below.</source>
     <message>
         <source>Do you want to save your changes?</source>
         <translation>Записати зміни?</translation>
+    </message>
+    <message>
+        <source>Save Document</source>
+        <translation>Записати документ</translation>
+    </message>
+    <message>
+        <source>Update Text Frame and Exit</source>
+        <translation>Поновити текстову рамку та вийти</translation>
+    </message>
+    <message>
+        <source>Exit Without Updating Text Frame</source>
+        <translation>Вийти без поновлення текстової рамки</translation>
     </message>
 </context>
 <context>
@@ -8253,6 +8681,10 @@ Please choose another.</source>
         <source>OK</source>
         <translation>Гаразд</translation>
     </message>
+    <message>
+        <source>Group </source>
+        <translation>Група</translation>
+    </message>
 </context>
 <context>
     <name>WerkToolB</name>
@@ -8324,6 +8756,10 @@ Please choose another.</source>
         <source>Insert Table</source>
         <translation>Вставити таблицю</translation>
     </message>
+    <message>
+        <source>Do measurements</source>
+        <translation>Виміряти</translation>
+    </message>
 </context>
 <context>
     <name>WerkToolBP</name>
@@ -8385,6 +8821,18 @@ Please choose another.</source>
     <message>
         <source>Close</source>
         <translation>Зачинити</translation>
+    </message>
+    <message>
+        <source>Insert the characters at the cursor in the text</source>
+        <translation>Вставити символи в текст в місці знаходження курсора</translation>
+    </message>
+    <message>
+        <source>Delete the current selection(s).</source>
+        <translation>Видалити активну вибірку.</translation>
+    </message>
+    <message>
+        <source>Close this dialog and return to text editing.</source>
+        <translation>Зачинити цей діалог та повернутися до редагування тексту.</translation>
     </message>
 </context>
 </TS>

@@ -3,7 +3,7 @@
     <name>@@translation</name>
     <message>
         <source>Project-Id-Version: Scribus 1.2</source>
-        <translation type="obsolete">Revision-Date: 2004-05-28 16:30:00 CET
+        <translation type="obsolete">Revision-Date: 2004-06-04 09:45:00 CET
 Last-Translator: Morten Langlo &lt;mlanglo@mail.dk&gt;</translation>
     </message>
 </context>
@@ -1429,14 +1429,6 @@ Dette kræver en meget nøjagtige profiler og er kun ment som en advarsel.</tran
         <translation>Normal eller gradient fyldmetode</translation>
     </message>
     <message>
-        <source>Edit the first color of object</source>
-        <translation>Redigér et objekts første farve</translation>
-    </message>
-    <message>
-        <source>Edit the second color of object</source>
-        <translation>Redigér et objekts anden farve</translation>
-    </message>
-    <message>
         <source>Set the transparency for the color selected</source>
         <translation>Angiv gennemsigtigheden for den valgte farve</translation>
     </message>
@@ -1479,6 +1471,10 @@ Dette kræver en meget nøjagtige profiler og er kun ment som en advarsel.</tran
     <message>
         <source> p</source>
         <translation>p</translation>
+    </message>
+    <message>
+        <source>Free radial Gradient</source>
+        <translation>Fri radial gradient</translation>
     </message>
 </context>
 <context>
@@ -2433,6 +2429,21 @@ Navnet på den eksporterede fil vil være &apos;dokumentnavn-sidenummer.filtype&
     <message>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
         <translation>Vævet silkepyjamas byttet med blå kvarts</translation>
+    </message>
+</context>
+<context>
+    <name>GradientEditor</name>
+    <message>
+        <source>Position:</source>
+        <translation>Placering:</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation>%</translation>
+    </message>
+    <message>
+        <source>Here you can add, change or remove Color-Stops.</source>
+        <translation>Her kan du tilføje, ændre og fjerne farve-stop.</translation>
     </message>
 </context>
 <context>
@@ -6699,6 +6710,10 @@ Kontrollér sti og filnavn.</translation>
         <source>Export successful.</source>
         <translation>Eksporteret uden problemer.</translation>
     </message>
+    <message>
+        <source>Fonts Preview</source>
+        <translation>Font visning</translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -8314,10 +8329,6 @@ til vinduet nedenunder, for at lave en ny side.</translation>
         <translation>Gem som</translation>
     </message>
     <message>
-        <source>Exit without Saving</source>
-        <translation>Afslut uden at gemme</translation>
-    </message>
-    <message>
         <source>Chars: </source>
         <translation>Tegn: </translation>
     </message>
@@ -8342,10 +8353,6 @@ til vinduet nedenunder, for at lave en ny side.</translation>
         <translation>Advarsel</translation>
     </message>
     <message>
-        <source>Save and Exit</source>
-        <translation>Gem og afslut</translation>
-    </message>
-    <message>
         <source>Paragraphs: </source>
         <translation>Afsnit: </translation>
     </message>
@@ -8364,6 +8371,18 @@ til vinduet nedenunder, for at lave en ny side.</translation>
     <message>
         <source>Do you want to save your changes?</source>
         <translation>Ønsker du at gemme dine ændringer?</translation>
+    </message>
+    <message>
+        <source>Save Document</source>
+        <translation>Gem dokument</translation>
+    </message>
+    <message>
+        <source>Update Text Frame and Exit</source>
+        <translation>Opdatér tekstramme og afslut</translation>
+    </message>
+    <message>
+        <source>Exit Without Updating Text Frame</source>
+        <translation>Afslut uden at opdatere tekstramme</translation>
     </message>
 </context>
 <context>

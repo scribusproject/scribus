@@ -27,6 +27,7 @@ public:
 		Color1 = "Black";
 		Color2 = "Black";
 		CSpace = false;
+		matrix = QWMatrix();
 		}
 	int Type;
 	QString Color1;
@@ -37,6 +38,7 @@ public:
 	double X2;
 	double Y2;
 	bool CSpace;
+	QWMatrix	matrix;
 	};
 
 class SvgStyle
@@ -62,6 +64,7 @@ public:
 		Family = "";
 		FontSize = 12;
 		matrix = QWMatrix();
+		matrixg = QWMatrix();
 		PLineArt = Qt::SolidLine;
 		PLineJoin = Qt::MiterJoin;
 		PLineEnd = Qt::FlatCap;
@@ -70,6 +73,7 @@ public:
 		dashArray.clear();
 		}
 	QWMatrix	matrix;
+	QWMatrix	matrixg;
 	double LWidth;
 	Qt::PenStyle PLineArt;
 	Qt::PenJoinStyle PLineJoin;

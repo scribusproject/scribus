@@ -155,7 +155,7 @@ void SVGPlug::convert()
 		Doku->PageColors.insert("Black", CMYKColor(0, 0, 0, 255));
 	m_gc.push( gc );
 	parseGroup( docElem );
-	if (Elements.count() > 0)
+	if (Elements.count() > 1)
 	{
 		Doku->ActPage->SelItem.clear();
 		for (uint a = 0; a < Elements.count(); ++a)
@@ -508,10 +508,29 @@ void SVGPlug::parseGroup(const QDomElement &e)
 					ite->GrStartY = gc->GY1 * ite->Height;
 					ite->GrEndX = gc->GX2 * ite->Width;
 					ite->GrEndY = gc->GY2 * ite->Height;
+					double angle1 = atan2(gc->GY2-gc->GY1,gc->GX2-gc->GX1)*(180.0/M_PI);
+					double angle2 = atan2(ite->GrEndY-ite->GrStartX,ite->GrEndX-ite->GrStartX)*(180.0/M_PI);
+					double dx = ite->GrStartX + (ite->GrEndX-ite->GrStartX) / 2.0;
+					double dy = ite->GrStartY + (ite->GrEndY-ite->GrStartY) / 2.0;
+					QWMatrix mm;
+					if (gc->GY1 < gc->GY2)
+					{
+						mm.rotate(-angle2);
+						mm.rotate(angle1);
+					}
+					FPointArray gra;
+					gra.setPoints(2, ite->GrStartX-dx, ite->GrStartY-dy, ite->GrEndX-dx, ite->GrEndY-dy);
+					gra.map(mm);
+					gra.translate(dx, dy);
+					ite->GrStartX = gra.point(0).x();
+					ite->GrStartY = gra.point(0).y();
+					ite->GrEndX = gra.point(1).x();
+					ite->GrEndY = gra.point(1).y();
 				}
 				else
 				{
 					QWMatrix mm = gc->matrix;
+					mm = mm * gc->matrixg;
 					FPointArray gra;
 					gra.setPoints(2, gc->GX1, gc->GY1, gc->GX2, gc->GY2);
 					gra.map(mm);
@@ -1313,6 +1332,7 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 			obj->GY1 = m_gradients[key].Y1;
 			obj->GX2 = m_gradients[key].X2;
 			obj->GY2 = m_gradients[key].Y2;
+			obj->matrixg = m_gradients[key].matrix;
 			obj->FillCol = "None";
 		}
 		else
@@ -1571,6 +1591,7 @@ void SVGPlug::parseGradient( const QDomElement &e )
 		gradhelper.X2 = m_gradients[href].X2;
 		gradhelper.Y2 = m_gradients[href].Y2;
 		gradhelper.CSpace = m_gradients[href].CSpace;
+		gradhelper.matrix = m_gradients[href].matrix;
 	}
 	if (e.tagName() == "linearGradient")
 	{
@@ -1609,14 +1630,17 @@ void SVGPlug::parseGradient( const QDomElement &e )
 	QString transf = e.attribute("gradientTransform");
 	if( !transf.isEmpty() )
 	{
-		QWMatrix mat = parseTransform( e.attribute( "gradientTransform" ) );
+		gradhelper.matrix = parseTransform( e.attribute( "gradientTransform" ) );
+/*		QWMatrix mat = parseTransform( e.attribute( "gradientTransform" ) );
+		SvgStyle *gc = m_gc.current();
+		mat = mat * gc->matrix;
 		FPointArray gra;
 		gra.setPoints(2, gradhelper.X1, gradhelper.Y1, gradhelper.X2, gradhelper.Y2);
 		gra.map(mat);
 		gradhelper.X1 = gra.point(0).x();
 		gradhelper.Y1 = gra.point(0).y();
 		gradhelper.X2 = gra.point(1).x();
-		gradhelper.Y2 = gra.point(1).y();
+		gradhelper.Y2 = gra.point(1).y(); */
 	}
 	QString spreadMethod = e.attribute( "spreadMethod" );
 	if( !spreadMethod.isEmpty() )

@@ -157,6 +157,16 @@
     </message>
     <message>
         <source>This panel shows the version, build date and
+compiled in library support in Scribus
+The C-C-T equates to C=CUPS C=littlecms T=TIFF support.
+Missing library support is indicated by a *</source>
+        <translation type="obsolete">Tämä sivu näyttää version, käännöspäivämäärän ja
+Scribukseen sisällytetyt tuet kirjastoille.
+C-C-T muodostuu seuraavasti C=CUPS, C=littlecms, T=TIFF support.
+Puuttuva kirjaston tuki on merkitty * -merkillä</translation>
+    </message>
+    <message>
+        <source>This panel shows the version, build date and
  compiled in library support in Scribus
 The C-C-T equates to C=CUPS C=littlecms T=TIFF support.
 Missing library support is indicated by a *</source>
@@ -833,10 +843,6 @@ Puuttuva kirjaston tuki on merkitty * -merkillä</translation>
         <source>Selection Change</source>
         <translation>Valinta muuttui</translation>
     </message>
-    <message>
-        <source></source>
-        <translation></translation>
-    </message>
 </context>
 <context>
     <name>Annota</name>
@@ -1137,10 +1143,6 @@ Valitse toinen nimi.</translation>
         <source>Caption above Icon</source>
         <translation>Teksti kuvakkeen yläpuolella</translation>
     </message>
-    <message>
-        <source></source>
-        <translation></translation>
-    </message>
 </context>
 <context>
     <name>CMSPrefs</name>
@@ -1340,10 +1342,6 @@ Toiminnon käyttö vaatii tarkat profiilit ja sitä tulee käyttää ainoastaan 
     <message>
         <source>Dynamic Color Bars</source>
         <translation>Dynaamiset väripalkit</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
     <message>
         <source> %</source>
@@ -1797,10 +1795,6 @@ jotka upotetaan PDF:ään helpottamaan PDF-tiedostojen luokittelua sekä niiden 
         <translation>Sivulta:</translation>
     </message>
     <message>
-        <source></source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Cyan</source>
         <translation>Cyan</translation>
     </message>
@@ -1827,11 +1821,11 @@ jotka upotetaan PDF:ään helpottamaan PDF-tiedostojen luokittelua sekä niiden 
         <source>Importing File:
 %1
 failed!</source>
-        <translation>Tiedoston %1 tuonti epäonnistui!</translation>
+        <translation type="obsolete">Tiedoston %1 tuonti epäonnistui!</translation>
     </message>
     <message>
         <source>Fatal Error</source>
-        <translation>Vakava virhe</translation>
+        <translation type="obsolete">Vakava virhe</translation>
     </message>
 </context>
 <context>
@@ -2514,10 +2508,6 @@ nimet ovat muotoa asiakirjan_nimi-sivunumero.tiedostotyyppi</translation>
 <context>
     <name>HelpBrowser</name>
     <message>
-        <source></source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Sorry, no manual available! Please see: http://scribus.net for updated docs and downloads.</source>
         <translation>Pahoittelen, ohjetta ei ole saatavilla. Päivitykset ja dokumentit löytyvät osoitteesta http://scribus.net.</translation>
     </message>
@@ -2651,23 +2641,23 @@ A value of 0 means unlimited hyphenations.</source>
     <name>InsertTable</name>
     <message>
         <source>Insert Table</source>
-        <translation>Lisää taulukko</translation>
+        <translation type="obsolete">Lisää taulukko</translation>
     </message>
     <message>
         <source>Number of Rows:</source>
-        <translation>Rivien lukumäärä:</translation>
+        <translation type="obsolete">Rivien lukumäärä:</translation>
     </message>
     <message>
         <source>Number of Columns:</source>
-        <translation>Sarakkeiden lukumäärä:</translation>
+        <translation type="obsolete">Sarakkeiden lukumäärä:</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Peruuta</translation>
+        <translation type="obsolete">Peruuta</translation>
     </message>
 </context>
 <context>
@@ -2819,10 +2809,6 @@ A value of 0 means unlimited hyphenations.</source>
         <translation>Uusi taso</translation>
     </message>
     <message>
-        <source></source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Do you want to delete all Objects on this Layer too?</source>
         <translation>Haluatko myös tuhota kaikki kohteet tasolla?</translation>
     </message>
@@ -2968,55 +2954,55 @@ A value of 0 means unlimited hyphenations.</source>
     <name>Measurements</name>
     <message>
         <source>Distances</source>
-        <translation>Etäisyydet</translation>
+        <translation type="obsolete">Etäisyydet</translation>
     </message>
     <message>
         <source>X1:</source>
-        <translation>X1:</translation>
+        <translation type="obsolete">X1:</translation>
     </message>
     <message>
         <source>Y1:</source>
-        <translation>Y1:</translation>
+        <translation type="obsolete">Y1:</translation>
     </message>
     <message>
         <source>X2:</source>
-        <translation>X2:</translation>
+        <translation type="obsolete">X2:</translation>
     </message>
     <message>
         <source>Y2:</source>
-        <translation>Y2:</translation>
+        <translation type="obsolete">Y2:</translation>
     </message>
     <message>
         <source>DX:</source>
-        <translation>DX:</translation>
+        <translation type="obsolete">DX:</translation>
     </message>
     <message>
         <source>DY:</source>
-        <translation>DY:</translation>
+        <translation type="obsolete">DY:</translation>
     </message>
     <message>
         <source>Angle:</source>
-        <translation>Kulma:</translation>
+        <translation type="obsolete">Kulma:</translation>
     </message>
     <message>
         <source>Length:</source>
-        <translation>Pituus:</translation>
+        <translation type="obsolete">Pituus:</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation> pt</translation>
+        <translation type="obsolete"> pt</translation>
     </message>
     <message>
         <source> mm</source>
-        <translation> mm</translation>
+        <translation type="obsolete"> mm</translation>
     </message>
     <message>
         <source> in</source>
-        <translation> in</translation>
+        <translation type="obsolete"> in</translation>
     </message>
     <message>
         <source> p</source>
-        <translation> p</translation>
+        <translation type="obsolete"> p</translation>
     </message>
 </context>
 <context>
@@ -3388,10 +3374,6 @@ Valitse toinen nimi.</translation>
     <message>
         <source>Basepoint:</source>
         <translation>Toimintapiste:</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
     <message>
         <source>Columns:</source>
@@ -4207,10 +4189,6 @@ muulloin suhteessa kohteeseen.</translation>
     <message>
         <source>Reset Control Points</source>
         <translation>Palauta hallintapisteet</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
     <message>
         <source>Rotates the Path counter-clockwise</source>
@@ -5820,10 +5798,6 @@ PDF- ja vektorigrafiikalle, mutta esikatselu saattaa hidastua hieman</translatio
         <translation>Apuviivojen väri:</translation>
     </message>
     <message>
-        <source></source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Columns:</source>
         <translation>Palstoja:</translation>
     </message>
@@ -6792,15 +6766,19 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Import EPS/PS...</source>
-        <translation>Tuo EPS/PS...</translation>
+        <translation type="obsolete">Tuo EPS/PS...</translation>
     </message>
     <message>
         <source>All Supported Formats (*.eps *.EPS *.ps *.PS);;</source>
-        <translation>Kaikki tuetut tiedostotyypit (*.eps *.EPS *.ps *.PS);;</translation>
+        <translation type="obsolete">Kaikki tuetut tiedostotyypit (*.eps *.EPS *.ps *.PS);;</translation>
     </message>
     <message>
         <source>All Files (*)</source>
-        <translation>Kaikki tiedostot (*)</translation>
+        <translation type="obsolete">Kaikki tiedostot (*)</translation>
+    </message>
+    <message>
+        <source>Fonts Preview</source>
+        <translation>Kirjasinten esikatselu</translation>
     </message>
 </context>
 <context>
@@ -7764,10 +7742,6 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     <message>
         <source>Alignment</source>
         <translation>Tasaus</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
     </message>
     <message>
         <source>Search/Replace...</source>

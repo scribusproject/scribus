@@ -4570,7 +4570,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 			SeRy = newY;
 			HaveSelRect = true;
 		}
-		if ((ScApp->Prefs.GuidesShown) && (doku->AppMode == 1))
+		if ((ScApp->Prefs.GuidesShown) && (doku->AppMode == 1) && (!doku->GuideLock))
 		{
 			if (YGuides.count() != 0)
 			{

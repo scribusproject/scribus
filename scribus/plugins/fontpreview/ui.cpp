@@ -57,7 +57,27 @@ FontPreview::FontPreview( ScribusApp *carrier, QWidget* parent, const char* name
 	FontPreviewLayout->addLayout( layout6, 0, 0 );
 	languageChange();
 	resize( QSize(640, 480).expandedTo(minimumSizeHint()) );
+	layout()->activate();
 	clearWState( WState_Polished );
+	SCFontsIterator fontIter(carrier->Prefs.AvailFonts);
+
+	fontIter.toFirst();
+	for ( ; fontIter.current(); ++fontIter)
+	{
+		if (fontIter.current()->UseFont)
+			fontList->insertItem(fontIter.current()->SCName);
+	} // for fontIter
+	fontList->sort();
+
+	if (carrier->HaveDoc)
+	{
+		QListBoxItem *item = fontList->findItem(carrier->doc->CurrFont);
+		if (item != 0)
+		{
+			fontList_changed(item);
+			fontList->setCurrentItem(item);
+		}
+	}
 
 	// signals and slots connections
 	connect( okButton, SIGNAL( clicked() ), this, SLOT( okButton_clicked() ) );

@@ -1,9 +1,12 @@
 Changes since Version 1.1.6
 
 04.06.2004
+	* bug     #753: Guidelines couldn't be locked
 	* feature #743: Slovenian Translation Update for 1.1.7
 	* feature #747: Polish Translation Update for 1.1.7
 	* feature #748: British English Translation Update for 1.1.7
+	* feature #749: updated UK and FI translations
+	* feature #752: Updated Danish Translation for 1.1.7
 
 02.06.2004
 	* bug     #739: Fonts Preview plugin entry in extras menu is not translatable

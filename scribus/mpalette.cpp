@@ -1199,6 +1199,11 @@ void Mpalette::SetCurItem(PageItem *i)
 	}
 	else
 	{
+		Text1->setText( tr( "X-Pos:" ) );
+		Text2->setText( tr( "Width:" ) );
+		Text1a->setText( tr( "Y-Pos:" ) );
+		Text2a->setText( tr( "Height:" ) );
+		Rot->setEnabled(true);
 		Kette2->setEnabled(true);
 		if (i->PType == 2)
 		{
@@ -1310,25 +1315,6 @@ void Mpalette::NewSel(int nr)
 			Cpal->ChooseGrad(0);
 			//				SGeom->setOn(true);
 			break;
-		case 1:
-			SGeom->setEnabled(true);
-			SShape->setEnabled(true);
-			SText->setEnabled(false);
-			SImage->setEnabled(false);
-			SLine->setEnabled(true);
-			TabStack->widget(1)->setEnabled(true);
-			TabStack->widget(4)->setEnabled(true);
-			ShapeGroup->setEnabled(true);
-			FlipH->setEnabled(true);
-			FlipV->setEnabled(true);
-			EditShape->setEnabled(true);
-			if ((visID == 2) || (visID == 3))
-			{
-				TabStack->raiseWidget(0);
-				SGeom->setOn(true);
-			}
-			HaveItem = true;
-			break;
 		case 2:
 			SGeom->setEnabled(true);
 			SShape->setEnabled(true);
@@ -1345,26 +1331,6 @@ void Mpalette::NewSel(int nr)
 				RoundRect->setEnabled(true);
 			EditShape->setEnabled(true);
 			if (visID == 2)
-			{
-				TabStack->raiseWidget(0);
-				SGeom->setOn(true);
-			}
-			HaveItem = true;
-			break;
-		case 3:
-			SGeom->setEnabled(true);
-			SShape->setEnabled(true);
-			SText->setEnabled(false);
-			SImage->setEnabled(false);
-			SLine->setEnabled(true);
-			TabStack->widget(1)->setEnabled(true);
-			TabStack->widget(4)->setEnabled(true);
-			ShapeGroup->setEnabled(true);
-			RoundRect->setEnabled(true);
-			EditShape->setEnabled(true);
-			FlipH->setEnabled(true);
-			FlipV->setEnabled(true);
-			if ((visID == 2) || (visID == 3))
 			{
 				TabStack->raiseWidget(0);
 				SGeom->setOn(true);
@@ -1414,6 +1380,8 @@ void Mpalette::NewSel(int nr)
 			}
 			HaveItem = true;
 			break;
+		case 1:
+		case 3:
 		case 6:
 			SGeom->setEnabled(true);
 			SShape->setEnabled(true);
