@@ -1,12 +1,13 @@
 #include "importps.h"
 #include "importps.moc"
-
+/*
 #if (_MSC_VER >= 1200)
  #include "win-config.h"
 #else
  #include "config.h"
 #endif
-
+*/
+#include "config.h"
 #include "customfdialog.h"
 #include "mpalette.h"
 #include "prefsfile.h"
@@ -72,7 +73,7 @@ void Run(QWidget *d, ScribusApp *plug)
 	}
 	else
 		return;
-	EPSPlug *dia = new EPSPlug(d, plug, fileName);
+	EPSPlug *dia = new EPSPlug(plug, fileName);
 	delete dia;
 }
 
@@ -86,7 +87,7 @@ void Run(QWidget *d, ScribusApp *plug)
  \param fName QString
  \retval EPSPlug plugin
  */
-EPSPlug::EPSPlug( QWidget* parent, ScribusApp *plug, QString fName )
+EPSPlug::EPSPlug( ScribusApp *plug, QString fName )
 {
 	double x, y, b, h, c, m, k;
 	bool ret = false;
@@ -196,7 +197,7 @@ EPSPlug::EPSPlug( QWidget* parent, ScribusApp *plug, QString fName )
 	Elements.clear();
 	Doku->loading = true;
 	Doku->DoDrawing = false;
-	Doku->ActPage->setUpdatesEnabled(false);
+	Prog->view->setUpdatesEnabled(false);
 	Prog->ScriptRunning = true;
 	qApp->setOverrideCursor(QCursor(waitCursor), true);
 	QString CurDirP = QDir::currentDirPath();
@@ -206,18 +207,19 @@ EPSPlug::EPSPlug( QWidget* parent, ScribusApp *plug, QString fName )
 		QDir::setCurrent(CurDirP);
 		if (Elements.count() > 0)
 		{
-			Doku->ActPage->SelItem.clear();
+			Prog->view->SelItem.clear();
 			for (uint a = 0; a < Elements.count(); ++a)
 			{
 				Elements.at(a)->Groups.push(Doku->GroupCounter);
 				if (!ret)
-					Doku->ActPage->SelItem.append(Elements.at(a));
+					Prog->view->SelItem.append(Elements.at(a));
 			}
 			Doku->GroupCounter++;
 		}
 		Doku->DoDrawing = true;
-		Doku->ActPage->setUpdatesEnabled(true);
+		Prog->view->setUpdatesEnabled(true);
 		Prog->ScriptRunning = false;
+		Doku->loading = false;
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 		if ((Elements.count() > 0) && (!ret))
 		{
@@ -229,9 +231,10 @@ EPSPlug::EPSPlug( QWidget* parent, ScribusApp *plug, QString fName )
 				Doku->DragElements.append(Elements.at(dre)->ItemNr);
 			}
 			ScriXmlDoc *ss = new ScriXmlDoc();
-			Doku->ActPage->setGroupRect();
-			QDragObject *dr = new QTextDrag(ss->WriteElem(&Doku->ActPage->SelItem, Doku), Doku->ActPage);
-			Doku->ActPage->DeleteItem();
+			Prog->view->setGroupRect();
+			QDragObject *dr = new QTextDrag(ss->WriteElem(&Prog->view->SelItem, Doku, Prog->view), Prog->view->viewport());
+			Prog->view->DeleteItem();
+			Prog->view->updateContents();
 			dr->setPixmap(loadIcon("DragPix.xpm"));
 			dr->drag();
 			delete ss;
@@ -249,7 +252,7 @@ EPSPlug::EPSPlug( QWidget* parent, ScribusApp *plug, QString fName )
 	{
 		QDir::setCurrent(CurDirP);
 		Doku->DoDrawing = true;
-		Doku->ActPage->setUpdatesEnabled(true);
+		Prog->view->setUpdatesEnabled(true);
 		Prog->ScriptRunning = false;
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	}
@@ -356,11 +359,12 @@ void EPSPlug::parseOutput(QString fn)
 					else
 					{
 						if (ClosedPath)
-							z = Doku->ActPage->PaintPoly(0, 0, 10, 10, LineW, CurrColor, "None");
+							z = Prog->view->PaintPoly(0, 0, 10, 10, LineW, CurrColor, "None");
 						else
-							z = Doku->ActPage->PaintPolyLine(0, 0, 10, 10, LineW, CurrColor, "None");
-						ite = Doku->ActPage->Items.at(z);
+							z = Prog->view->PaintPolyLine(0, 0, 10, 10, LineW, CurrColor, "None");
+						ite = Doku->Items.at(z);
 						ite->PoLine = Coords.copy();
+						ite->PoLine.translate(Doku->ActPage->Xoffset, Doku->ActPage->Yoffset);
 						ite->ClipEdited = true;
 						ite->FrameType = 3;
 						FPoint wh = GetMaxClipF(ite->PoLine);
@@ -368,7 +372,7 @@ void EPSPlug::parseOutput(QString fn)
 						ite->Height = wh.y();
 						ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 						ite->Transparency = 1.0 - Opacity;
-						Doku->ActPage->AdjustItemSize(ite);
+						Prog->view->AdjustItemSize(ite);
 						Elements.append(ite);
 					}
 					lastPath = currPath;
@@ -394,11 +398,12 @@ void EPSPlug::parseOutput(QString fn)
 					else
 					{
 						if (ClosedPath)
-							z = Doku->ActPage->PaintPoly(0, 0, 10, 10, LineW, "None", CurrColor);
+							z = Prog->view->PaintPoly(0, 0, 10, 10, LineW, "None", CurrColor);
 						else
-							z = Doku->ActPage->PaintPolyLine(0, 0, 10, 10, LineW, "None", CurrColor);
-						ite = Doku->ActPage->Items.at(z);
+							z = Prog->view->PaintPolyLine(0, 0, 10, 10, LineW, "None", CurrColor);
+						ite = Doku->Items.at(z);
 						ite->PoLine = Coords.copy();
+						ite->PoLine.translate(Doku->ActPage->Xoffset, Doku->ActPage->Yoffset);
 						ite->ClipEdited = true;
 						ite->FrameType = 3;
 						ite->PLineEnd = CapStyle;
@@ -410,7 +415,7 @@ void EPSPlug::parseOutput(QString fn)
 						ite->Height = wh.y();
 						ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 						ite->TranspStroke = 1.0 - Opacity;
-						Doku->ActPage->AdjustItemSize(ite);
+						Prog->view->AdjustItemSize(ite);
 						Elements.append(ite);
 					}
 					lastPath = currPath;

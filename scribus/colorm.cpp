@@ -340,37 +340,32 @@ void Farbmanager::delUnused()
 			UsedC.insert(it.key(), it.data());
 			continue;
 		}
-		for (uint b = 0; b < ScApp->view->MasterPages.count(); ++b)
+		for (uint c = 0; c < ScApp->doc->MasterItems.count(); ++c)
 		{
-			for (uint c = 0; c < ScApp->view->MasterPages.at(b)->Items.count(); ++c)
+			ite = ScApp->doc->MasterItems.at(c);
+			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 			{
-				ite = ScApp->view->MasterPages.at(b)->Items.at(c);
-				QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
-				for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
-				{
-					if (it.key() == cstops.at(cst)->name)
-						found = true;
-					if (found)
-						break;
-				}
-				if ((ite->PType == 4) || (ite->PType == 8))
-				{
-					for (uint d=0; d<ite->Ptext.count(); ++d)
-					{
-						if (it.key() == ite->Ptext.at(d)->ccolor)
-							found = true;
-						if (it.key() == ite->Ptext.at(d)->cstroke)
-							found = true;
-						if (found)
-							break;
-					}
-				}
-				/* PFJ - 29.02.04 - merged if's to one line */
-				if ((it.key() == ite->Pcolor) || (it.key() == ite->Pcolor2))
+				if (it.key() == cstops.at(cst)->name)
 					found = true;
 				if (found)
 					break;
 			}
+			if ((ite->PType == 4) || (ite->PType == 8))
+			{
+				for (uint d=0; d<ite->Ptext.count(); ++d)
+				{
+					if (it.key() == ite->Ptext.at(d)->ccolor)
+						found = true;
+					if (it.key() == ite->Ptext.at(d)->cstroke)
+						found = true;
+					if (found)
+						break;
+				}
+			}
+			/* PFJ - 29.02.04 - merged if's to one line */
+			if ((it.key() == ite->Pcolor) || (it.key() == ite->Pcolor2))
+				found = true;
 			if (found)
 				break;
 		}
@@ -379,37 +374,32 @@ void Farbmanager::delUnused()
 			UsedC.insert(it.key(), it.data());
 			continue;
 		}
-		for (uint b = 0; b < ScApp->view->DocPages.count(); ++b)
+		for (uint c = 0; c < ScApp->doc->DocItems.count(); ++c)
 		{
-			for (uint c = 0; c < ScApp->view->DocPages.at(b)->Items.count(); ++c)
+			ite = ScApp->doc->DocItems.at(c);
+			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 			{
-				ite = ScApp->view->DocPages.at(b)->Items.at(c);
-				QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
-				for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
-				{
-					if (it.key() == cstops.at(cst)->name)
-						found = true;
-					if (found)
-						break;
-				}
-				if ((ite->PType == 4) || (ite->PType == 8))
-				{
-					for (uint d=0; d<ite->Ptext.count(); ++d)
-					{
-						/* PFJ - 29.02.04 - Merged if's */
-						if ((it.key() == ite->Ptext.at(d)->ccolor) ||
-						        (it.key() == ite->Ptext.at(d)->cstroke))
-							found = true;
-						if (found)
-							break;
-					}
-				}
-				/* PFJ - 29.02.04 - Merged if's */
-				if ((it.key() == ite->Pcolor) || (it.key() == ite->Pcolor2))
+				if (it.key() == cstops.at(cst)->name)
 					found = true;
 				if (found)
 					break;
 			}
+			if ((ite->PType == 4) || (ite->PType == 8))
+			{
+				for (uint d=0; d<ite->Ptext.count(); ++d)
+				{
+					/* PFJ - 29.02.04 - Merged if's */
+					if ((it.key() == ite->Ptext.at(d)->ccolor) ||
+							(it.key() == ite->Ptext.at(d)->cstroke))
+						found = true;
+					if (found)
+						break;
+				}
+			}
+			/* PFJ - 29.02.04 - Merged if's */
+			if ((it.key() == ite->Pcolor) || (it.key() == ite->Pcolor2))
+				found = true;
 			if (found)
 				break;
 		}

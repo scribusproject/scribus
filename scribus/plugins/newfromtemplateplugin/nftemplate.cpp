@@ -43,10 +43,6 @@ void CleanUpPlug()
 {
 }
 
-void Run(QWidget *d, ScribusApp *plug)
-{
-}
-
 void MenuNFT::RunNFTPlug()
 {
 	nftdialog* nftdia = new nftdialog(par, Carrier->GuiLanguage, Carrier->Prefs.TemplateDir);

@@ -772,7 +772,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	Layout15a->addWidget( FontComb, 0, 1 );
 	SizeCombo = new QComboBox( true, ToolFrame, "SizeCombo" );
 	SizeCombo->setEditable(false);
-	char *ar_sizes[] = {" 7", " 9", "10", "11", "12", "14", "18", "24", "36", "48", "60", "72"};
+	QString ar_sizes[] = {" 7", " 9", "10", "11", "12", "14", "18", "24", "36", "48", "60", "72"};
 	size_t f_size = sizeof(ar_sizes) / sizeof(*ar_sizes);
 	for (uint s = 0; s < f_size; ++s)
 		SizeCombo->insertItem(ar_sizes[s] + tr(" pt"));
@@ -2307,7 +2307,8 @@ void Preferences::UpdatePreView()
 	p.begin(Pre);
 	p.setBrush(NoBrush);
 	p.setPen(black);
-	QPointArray pp = RegularPolygon(100, 100, T6_Ecken->value(), T6_Konvex->isChecked(), GetFaktor(), T6_Slider2->value());
+	QPointArray pp = RegularPolygon(100, 100, T6_Ecken->value(), T6_Konvex->isChecked(), GetFaktor(),
+	                                T6_Slider2->value());
 	QRect br = pp.boundingRect();
 	if (br.x() < 0)
 		pp.translate(-br.x(), 0);

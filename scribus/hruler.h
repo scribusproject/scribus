@@ -20,9 +20,9 @@
 
 #include <qwidget.h>
 #include <qpainter.h>
-#include <qscrollview.h>
 #include "scribusdoc.h"
 
+class ScribusView;
 /**Waagrechtes Lineal
   *@author Franz Schmid
   */
@@ -32,7 +32,7 @@ class Hruler : public QWidget
 	Q_OBJECT
 
 public:
-	Hruler(QScrollView *pa, ScribusDoc *doc);
+	Hruler(ScribusView *pa, ScribusDoc *doc);
 	~Hruler() {};
 	void paintEvent(QPaintEvent *);
 	void mousePressEvent(QMouseEvent *m);
@@ -63,8 +63,8 @@ public:
 	bool ItemPosValid;
 
 private: // Private attributes
-  /** Zeichensatz des Lineals */
-  ScribusDoc *doku;
+	ScribusDoc *doku;
+	ScribusView *view;
 
 public slots: // Public slots
   /** Zeichnet den Pfeil */

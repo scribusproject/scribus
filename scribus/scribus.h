@@ -87,7 +87,6 @@ struct PrintOptions {
 	std::vector<int> pageNumbers;
 	QString printerOptions;
 };
-
 /**
   * This Class is the base class for your application. It sets up the main
   * window and providing a menubar, toolbar
@@ -432,7 +431,7 @@ public slots:
 	void setItemHoch(int h);
 	void setStilvalue(int s);
 	void setItemTypeStyle(int id);
-	void slotElemRead(QString Name, int x, int y, bool art, bool loca, ScribusDoc* docc);
+	void slotElemRead(QString Name, int x, int y, bool art, bool loca, ScribusDoc* docc, ScribusView* vie);
 	void slotChangeUnit(int art, bool draw = true);
 	void NoFrameEdit();
 	void setItemTextAli(int id);
@@ -608,5 +607,4 @@ private:
 				 	QString Command;
     			} PDef ;
 };
-
 #endif 

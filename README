@@ -1,5 +1,5 @@
-This is Scribus Version 1.2
-The Scribus 1.2 version features a complete rewrite of the rendering Engine.
+This is Scribus Version 1.3.0
+The Scribus 1.3 version features a complete rewrite of the rendering Engine.
 All rendering is now done via libart and freetype2. 
 This requires that libart_lgpl and freetype2 are installed.
 
@@ -20,7 +20,7 @@ For Changes please see the ChangeLog.
 To use Scribus in your native language be sure that the environment
 variable LANG is set correctly.
 
-The new EPS/PS import feature in 1.2 uses advanced features of Ghostscript. We recommend
+The new EPS/PS import feature in 1.3 uses advanced features of Ghostscript. We recommend
 ALL users update to the newest version of Ghostscript avialable for your distro.
 
 Special note for SuSE 8.1 users, you need the devel packages, at least

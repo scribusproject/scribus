@@ -41,15 +41,16 @@ QStringList FileExtensions()
 
 void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer)
 {
-	HTMLIm* him = new HTMLIm(filename, writer, textOnly);
+	HTMLIm* him = new HTMLIm(filename, encoding, writer, textOnly);
 	delete him;
 }
 
 /******** Class HTMLIm ************************************/
 
-HTMLIm::HTMLIm(QString fname, gtWriter *w, bool textOnly)
+HTMLIm::HTMLIm(QString fname, QString coding, gtWriter *w, bool textOnly)
 {
 	filename = fname;
+	encoding = coding;
 	writer = w;
 	gtFrameStyle *fstyle = writer->getDefaultStyle();
 	pstyle = new gtParagraphStyle(*fstyle);

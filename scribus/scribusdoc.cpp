@@ -18,8 +18,9 @@
 #include "scribusdoc.h"
 #include "scribusXml.h"
 #include "scribus.h"
-#include <qfile.h>
-
+#include "page.h"
+#include "pageitem.h"
+#include <qfile.h> 
 /*
  * We need to be able to see ScApp so we can get the
  * Prefs struct.
@@ -44,7 +45,6 @@ ScribusDoc::ScribusDoc()
 	majorColor = QColor(green);
 	guideColor = QColor(darkBlue);
 	GuideRad = 10;
-	Scale = 1.0;
 	Dpen = "Black";
 	Dshade2 = 100;
 	Dbrush = "Black";
@@ -173,11 +173,88 @@ ScribusDoc::ScribusDoc()
 	ASaveTimer = new QTimer(this);
 	MLineStyles.clear();
 	FT_Init_FreeType( &library );
+	Pages.clear();
+	MasterPages.clear();
+	DocPages.clear();
+	Items.clear();
+	MasterItems.clear();
+	DocItems.clear();
+	ScratchLeft = 100;
+	ScratchRight = 100;
+	ScratchTop = 20;
+	ScratchBottom = 20;
 }
 
 ScribusDoc::~ScribusDoc()
 {
+	MasterItems.setAutoDelete(true);
+	DocItems.setAutoDelete(true);
+	MasterItems.clear();
+	DocItems.clear();
+	MasterPages.setAutoDelete(true);
+	DocPages.setAutoDelete(true);
+	MasterPages.clear();
+	DocPages.clear();
 	FT_Done_FreeType( library );
+}
+
+/*
+ * Split out from loadStyles in editFormats.cpp so it's callable from anywhere,
+ * including plugins.
+ * - 2004-09-14 Craig Ringer
+ */
+void ScribusDoc::loadStylesFromFile(QString fileName, QValueList<StVorL> *tempStyles)
+{
+	// This won't create the QValueList<StVorL> will it?
+	QValueList<StVorL> *wrkStyles = NULL;
+	/*
+	 * Use the working styles struct if passed, or work directly
+	 * on the document styles otherwise. Note that tempStyles,
+	 * if passed, MUST have the first five styles initialised already
+	 * or this function will segfault.
+	 */
+	if (tempStyles != NULL)
+		wrkStyles = tempStyles;
+	 else
+		wrkStyles = &Vorlagen;
+	if (!fileName.isEmpty())
+	{
+		ScriXmlDoc *ss = new ScriXmlDoc();
+		ss->Vorlagen.clear();
+		for (uint x = 5; x < wrkStyles->count(); ++x)
+			ss->Vorlagen.append((*wrkStyles)[x]);
+		uint old = wrkStyles->count()-5;
+		if (ss->ReadStyles(fileName, this, &ScApp->Prefs))
+		{
+			if (ss->Vorlagen.count() > old)
+			{
+				for (uint xx=old; xx<ss->Vorlagen.count(); ++xx)
+				{
+					struct StVorL sty;
+					sty.Vname = ss->Vorlagen[xx].Vname;
+					sty.LineSpa = ss->Vorlagen[xx].LineSpa;
+					sty.Ausri = ss->Vorlagen[xx].Ausri;
+					sty.Indent = ss->Vorlagen[xx].Indent;
+					sty.First = ss->Vorlagen[xx].First;
+					sty.Avor = ss->Vorlagen[xx].Avor;
+					sty.Anach = ss->Vorlagen[xx].Anach;
+					sty.Font = ss->Vorlagen[xx].Font;
+					sty.FontSize = ss->Vorlagen[xx].FontSize;
+					sty.TabValues = ss->Vorlagen[xx].TabValues;
+					sty.Drop = ss->Vorlagen[xx].Drop;
+					sty.DropLin = ss->Vorlagen[xx].DropLin;
+					sty.FontEffect = ss->Vorlagen[xx].FontEffect;
+					sty.FColor = ss->Vorlagen[xx].FColor;
+					sty.FShade = ss->Vorlagen[xx].FShade;
+					sty.SColor = ss->Vorlagen[xx].SColor;
+					sty.SShade = ss->Vorlagen[xx].SShade;
+					sty.BaseAdj = ss->Vorlagen[xx].BaseAdj;
+					wrkStyles->append(sty);
+				}
+			}
+		}
+		delete ss;
+	}
 }
 
 void ScribusDoc::setModified()
@@ -248,65 +325,4 @@ bool ScribusDoc::AddFont(QString name, QFont fo)
 	else
 		FT_Done_Face( face );
 	return ret;
-}
-
-/*
- * Split out from loadStyles in editFormats.cpp so it's callable from anywhere,
- * including plugins.
- * - 2004-09-14 Craig Ringer
- */
-void ScribusDoc::loadStylesFromFile(QString fileName, QValueList<StVorL> *tempStyles)
-{
-	// This won't create the QValueList<StVorL> will it?
-	QValueList<StVorL> *wrkStyles = NULL;
-	/*
-	 * Use the working styles struct if passed, or work directly
-	 * on the document styles otherwise. Note that tempStyles,
-	 * if passed, MUST have the first five styles initialised already
-	 * or this function will segfault.
-	 */
-	if (tempStyles != NULL)
-	{
-		wrkStyles = tempStyles;
-	} else {
-		wrkStyles = &Vorlagen;
-	}
-	if (!fileName.isEmpty())
-	{
-		ScriXmlDoc *ss = new ScriXmlDoc();
-		ss->Vorlagen.clear();
-		for (uint x = 5; x < wrkStyles->count(); ++x)
-			ss->Vorlagen.append((*wrkStyles)[x]);
-		uint old = wrkStyles->count()-5;
-		if (ss->ReadStyles(fileName, this, &ScApp->Prefs))
-		{
-			if (ss->Vorlagen.count() > old)
-			{
-				for (uint xx=old; xx<ss->Vorlagen.count(); ++xx)
-				{
-					struct StVorL sty;
-					sty.Vname = ss->Vorlagen[xx].Vname;
-					sty.LineSpa = ss->Vorlagen[xx].LineSpa;
-					sty.Ausri = ss->Vorlagen[xx].Ausri;
-					sty.Indent = ss->Vorlagen[xx].Indent;
-					sty.First = ss->Vorlagen[xx].First;
-					sty.Avor = ss->Vorlagen[xx].Avor;
-					sty.Anach = ss->Vorlagen[xx].Anach;
-					sty.Font = ss->Vorlagen[xx].Font;
-					sty.FontSize = ss->Vorlagen[xx].FontSize;
-					sty.TabValues = ss->Vorlagen[xx].TabValues;
-					sty.Drop = ss->Vorlagen[xx].Drop;
-					sty.DropLin = ss->Vorlagen[xx].DropLin;
-					sty.FontEffect = ss->Vorlagen[xx].FontEffect;
-					sty.FColor = ss->Vorlagen[xx].FColor;
-					sty.FShade = ss->Vorlagen[xx].FShade;
-					sty.SColor = ss->Vorlagen[xx].SColor;
-					sty.SShade = ss->Vorlagen[xx].SShade;
-					sty.BaseAdj = ss->Vorlagen[xx].BaseAdj;
-					wrkStyles->append(sty);
-				}
-			}
-		}
-		delete ss;
-	}
 }

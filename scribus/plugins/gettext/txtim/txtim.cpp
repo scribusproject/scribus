@@ -18,16 +18,17 @@ QStringList FileExtensions()
 
 void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer)
 {
-	TxtIm* tim = new TxtIm(filename, encoding, writer);
+	TxtIm* tim = new TxtIm(filename, encoding, textOnly, writer);
 	tim->write();
 	delete tim;
 }
 
-TxtIm::TxtIm(const QString& fname, const QString& enc, gtWriter *w)
+TxtIm::TxtIm(const QString& fname, const QString& enc, bool textO, gtWriter *w)
 {
 	filename = fname;
 	encoding = enc;
 	writer = w;
+	textOnly = textO;
 	loadText();
 	toUnicode();
 }

@@ -853,8 +853,10 @@ void ScribusApp::initMenuBar()
 	helpMenu->insertSeparator();
 	MenID = helpMenu->insertItem( tr("Scribus &Manual..."), this, SLOT(slotOnlineHelp()));
 	SetKeyEntry(54, tr("Online-Help..."), MenID, 0);
-	//	editMenu->insertItem( tr("Test"), this, SLOT(slotTest()));
-	//	helpMenu->insertItem( tr("Test2"), this, SLOT(slotTest2()));
+
+/*	editMenu->insertItem( tr("Test"), this, SLOT(slotTest()));
+	editMenu->insertItem( tr("Test2"), this, SLOT(slotTest2()));
+*/
 	menuBar()->insertItem( tr("&File"), fileMenu);
 	menuBar()->insertItem( tr("&Edit"), editMenu);
 	Stm = menuBar()->insertItem( tr("St&yle"), StilMenu);
@@ -1126,7 +1128,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 	ButtonState buttonState = k->state();
 	if ((HaveDoc) && (!view->LE->hasFocus()) && (!view->PGS->PageCombo->hasFocus()))
 	{
-		if ((doc->AppMode != 7) && (doc->ActPage->SelItem.count() == 0))
+		if ((doc->AppMode != 7) && (view->SelItem.count() == 0))
 		{
 			switch (kk)
 			{
@@ -1176,9 +1178,9 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 				break;
 			}
 		}
-		if (doc->ActPage->SelItem.count() != 0)
+		if (view->SelItem.count() != 0)
 		{
-			PageItem *b = doc->ActPage->SelItem.at(0);
+			PageItem *b = view->SelItem.at(0);
 			if (kk == Key_F9)
 			{
 				keyrep = false;
@@ -1198,21 +1200,21 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 					if (!doc->EditClip)
 					{
 						if ((!b->Locked) && (!((b->isTableItem) && (b->isSingleSel))))
-							doc->ActPage->DeleteItem();
+							view->DeleteItem();
 					}
 					break;
 				case Key_Prior:
 					if (!b->Locked)
-						doc->ActPage->RaiseItem();
+						view->RaiseItem();
 					break;
 				case Key_Next:
 					if (!b->Locked)
-						doc->ActPage->LowerItem();
+						view->LowerItem();
 					break;
 				case Key_Left:
 					if (!k->isAutoRepeat())
 					{
-						doc->ActPage->storeUndoInf(b);
+						view->storeUndoInf(b);
 						doc->UnData.UnCode = 1;
 						doc->UnDoValid = true;
 						CanUndo();
@@ -1220,17 +1222,17 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 					if (!b->Locked)
 					{
 						if ( buttonState & ShiftButton )
-							doc->ActPage->moveGroup(-10, 0);
+							view->moveGroup(-10, 0);
 						else if ( buttonState & ControlButton )
-							doc->ActPage->moveGroup(-0.1, 0);
+							view->moveGroup(-0.1, 0);
 						else
-							doc->ActPage->moveGroup(-1, 0);
+							view->moveGroup(-1, 0);
 					}
 					break;
 				case Key_Right:
 					if (!k->isAutoRepeat())
 					{
-						doc->ActPage->storeUndoInf(b);
+						view->storeUndoInf(b);
 						doc->UnData.UnCode = 1;
 						doc->UnDoValid = true;
 						CanUndo();
@@ -1238,17 +1240,17 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 					if (!b->Locked)
 					{
 						if ( buttonState & ShiftButton )
-							doc->ActPage->moveGroup(10, 0);
+							view->moveGroup(10, 0);
 						else if ( buttonState & ControlButton )
-							doc->ActPage->moveGroup(0.1, 0);
+							view->moveGroup(0.1, 0);
 						else
-							doc->ActPage->moveGroup(1, 0);
+							view->moveGroup(1, 0);
 					}
 					break;
 				case Key_Up:
 					if (!k->isAutoRepeat())
 					{
-						doc->ActPage->storeUndoInf(b);
+						view->storeUndoInf(b);
 						doc->UnData.UnCode = 1;
 						doc->UnDoValid = true;
 						CanUndo();
@@ -1256,17 +1258,17 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 					if (!b->Locked)
 					{
 						if ( buttonState & ShiftButton )
-							doc->ActPage->moveGroup(0, -10);
+							view->moveGroup(0, -10);
 						else if ( buttonState & ControlButton )
-							doc->ActPage->moveGroup(0, -0.1);
+							view->moveGroup(0, -0.1);
 						else
-							doc->ActPage->moveGroup(0, -1);
+							view->moveGroup(0, -1);
 					}
 					break;
 				case Key_Down:
 					if (!k->isAutoRepeat())
 					{
-						doc->ActPage->storeUndoInf(b);
+						view->storeUndoInf(b);
 						doc->UnData.UnCode = 1;
 						doc->UnDoValid = true;
 						CanUndo();
@@ -1274,11 +1276,11 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 					if (!b->Locked)
 					{
 						if ( buttonState & ShiftButton )
-							doc->ActPage->moveGroup(0, 10);
+							view->moveGroup(0, 10);
 						else if ( buttonState & ControlButton )
-							doc->ActPage->moveGroup(0, 0.1);
+							view->moveGroup(0, 0.1);
 						else
-							doc->ActPage->moveGroup(0, 1);
+							view->moveGroup(0, 1);
 					}
 					break;
 				default:
@@ -1288,19 +1290,19 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						{
 							setNewAbStyle(1);
 							b->Tinput = true;
-							doc->ActPage->RefreshItem(b);
+							view->RefreshItem(b);
 						}
 						if ((kk + KeyMod) == Prefs.KeyActions[58].KeyID)
 						{
 							setNewAbStyle(2);
 							b->Tinput = true;
-							doc->ActPage->RefreshItem(b);
+							view->RefreshItem(b);
 						}
 						if ((kk + KeyMod) == Prefs.KeyActions[57].KeyID)
 						{
 							setNewAbStyle(0);
 							b->Tinput = true;
-							doc->ActPage->RefreshItem(b);
+							view->RefreshItem(b);
 						}
 					}
 					break;
@@ -1309,10 +1311,10 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 				break;
 			case 7:
 				int oldPos = b->CPos; // 15-mar-2004 jjsa for cursor movement with Shift + Arrow key
-				doc->ActPage->oldCp = b->CPos;
+				view->oldCp = b->CPos;
 				if (b->PType == 4)
 				{
-					doc->ActPage->slotDoCurs(false);
+					view->slotDoCurs(false);
 					switch (kk)
 					{
 					case Key_Prior:
@@ -1324,7 +1326,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 					case Key_Up:
 					case Key_Down:
 						if ( (buttonState & ShiftButton) == 0 )
-							doc->ActPage->deselectAll(b);
+							view->deselectAll(b);
 					}
 					if (UniCinp)
 					{
@@ -1379,7 +1381,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 								b->CPos += 1;
 								b->Tinput = true;
 								setTBvals(b);
-								doc->ActPage->RefreshItem(b, true);
+								view->RefreshItem(b);
 								keyrep = false;
 								return;
 							}
@@ -1445,7 +1447,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						}
 						b->CPos = pos;
 						if ( buttonState & ShiftButton )
-							doc->ActPage->ExpandSel(b, -1, oldPos);
+							view->ExpandSel(b, -1, oldPos);
 						break;
 					case Key_End:
 						// go to end of line
@@ -1490,7 +1492,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							b->CPos = pos;
 						}
 						if ( buttonState & ShiftButton )
-							doc->ActPage->ExpandSel(b, 1, oldPos);
+							view->ExpandSel(b, 1, oldPos);
 						break;
 					case Key_Down:
 						if (b->CPos != static_cast<int>(b->Ptext.count()))
@@ -1513,7 +1515,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							{
 								if ( buttonState & AltButton )
 									b->CPos = b->Ptext.count();
-								doc->ActPage->ExpandSel(b, 1, oldPos);
+								view->ExpandSel(b, 1, oldPos);
 							}
 							else
 								if (b->CPos == static_cast<int>(b->Ptext.count()))
@@ -1521,10 +1523,9 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 									{
 										if (b->NextBox->Ptext.count() != 0)
 										{
-											b->OwnPage->Deselect(true);
+											view->Deselect(true);
 											b->NextBox->CPos = 0;
-											doc->ActPage = b->NextBox->OwnPage;
-											b->NextBox->OwnPage->SelectItemNr(b->NextBox->ItemNr);
+											view->SelectItemNr(b->NextBox->ItemNr);
 											b = b->NextBox;
 										}
 									}
@@ -1535,16 +1536,15 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							{
 								if (b->NextBox->Ptext.count() != 0)
 								{
-									b->OwnPage->Deselect(true);
+									view->Deselect(true);
 									b->NextBox->CPos = 0;
-									doc->ActPage = b->NextBox->OwnPage;
-									b->NextBox->OwnPage->SelectItemNr(b->NextBox->ItemNr);
+									view->SelectItemNr(b->NextBox->ItemNr);
 									b = b->NextBox;
 								}
 							}
 						}
 						if ( b->HasSel )
-							doc->ActPage->RefreshItem(b, true);
+							view->RefreshItem(b);
 						setTBvals(b);
 						break;
 					case Key_Up:
@@ -1573,17 +1573,16 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							{
 								if ( buttonState & AltButton )
 									b->CPos = 0;
-								doc->ActPage->ExpandSel(b, -1, oldPos);
+								view->ExpandSel(b, -1, oldPos);
 							}
 							else
 								if (b->CPos == 0)
 								{
 									if (b->BackBox != 0)
 									{
-										b->OwnPage->Deselect(true);
+										view->Deselect(true);
 										b->BackBox->CPos = b->BackBox->Ptext.count();
-										doc->ActPage = b->BackBox->OwnPage;
-										b->BackBox->OwnPage->SelectItemNr(b->BackBox->ItemNr);
+										view->SelectItemNr(b->BackBox->ItemNr);
 										b = b->BackBox;
 									}
 								}
@@ -1593,35 +1592,34 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							b->CPos = 0;
 							if (b->BackBox != 0)
 							{
-								b->OwnPage->Deselect(true);
+								view->Deselect(true);
 								b->BackBox->CPos = b->BackBox->Ptext.count();
-								doc->ActPage = b->BackBox->OwnPage;
-								b->BackBox->OwnPage->SelectItemNr(b->BackBox->ItemNr);
+								view->SelectItemNr(b->BackBox->ItemNr);
 								b = b->BackBox;
 							}
 						}
 						if ( b->HasSel )
-							doc->ActPage->RefreshItem(b);
+							view->RefreshItem(b);
 						setTBvals(b);
 						break;
 					case Key_Prior:
 						b->CPos = 0;
 						if ( buttonState & ShiftButton )
-							doc->ActPage->ExpandSel(b, -1, oldPos);
+							view->ExpandSel(b, -1, oldPos);
 						setTBvals(b);
 						break;
 					case Key_Next:
 						b->CPos = static_cast<int>(b->Ptext.count());
 						if ( buttonState & ShiftButton )
-							doc->ActPage->ExpandSel(b, 1, oldPos);
+							view->ExpandSel(b, 1, oldPos);
 						setTBvals(b);
 						break;
 					case Key_Left:
 						if ( buttonState & ControlButton )
 						{
-							doc->ActPage->setNewPos(b, oldPos, b->Ptext.count(),-1);
+							view->setNewPos(b, oldPos, b->Ptext.count(),-1);
 							if ( buttonState & ShiftButton )
-								doc->ActPage->ExpandSel(b, -1, oldPos);
+								view->ExpandSel(b, -1, oldPos);
 						}
 						else if ( buttonState & ShiftButton )
 						{
@@ -1629,7 +1627,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							if ( b->CPos < 0 )
 								b->CPos = 0;
 							else
-								doc->ActPage->ExpandSel(b, -1, oldPos);
+								view->ExpandSel(b, -1, oldPos);
 						}
 						else
 						{
@@ -1639,10 +1637,9 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 								b->CPos = 0;
 								if (b->BackBox != 0)
 								{
-									b->OwnPage->Deselect(true);
+									view->Deselect(true);
 									b->BackBox->CPos = b->BackBox->Ptext.count();
-									doc->ActPage = b->BackBox->OwnPage;
-									b->BackBox->OwnPage->SelectItemNr(b->BackBox->ItemNr);
+									view->SelectItemNr(b->BackBox->ItemNr);
 									b = b->BackBox;
 								}
 							}
@@ -1670,15 +1667,15 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							}
 						}
 						if ( b->HasSel )
-							doc->ActPage->RefreshItem(b, true);
+							view->RefreshItem(b);
 						setTBvals(b);
 						break;
 					case Key_Right:
 						if ( buttonState & ControlButton )
 						{
-							doc->ActPage->setNewPos(b, oldPos, b->Ptext.count(),1);
+							view->setNewPos(b, oldPos, b->Ptext.count(),1);
 							if ( buttonState & ShiftButton )
-								doc->ActPage->ExpandSel(b, 1, oldPos);
+								view->ExpandSel(b, 1, oldPos);
 						}
 						else if ( buttonState & ShiftButton )
 						{
@@ -1686,7 +1683,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							if ( b->CPos > static_cast<int>(b->Ptext.count()) )
 								b->CPos--;
 							else
-								doc->ActPage->ExpandSel(b, 1, oldPos);
+								view->ExpandSel(b, 1, oldPos);
 						}
 						else
 						{
@@ -1698,17 +1695,16 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 								{
 									if (b->NextBox->Ptext.count() != 0)
 									{
-										b->OwnPage->Deselect(true);
+										view->Deselect(true);
 										b->NextBox->CPos = 0;
-										doc->ActPage = b->NextBox->OwnPage;
-										b->NextBox->OwnPage->SelectItemNr(b->NextBox->ItemNr);
+										view->SelectItemNr(b->NextBox->ItemNr);
 										b = b->NextBox;
 									}
 								}
 							}
 						}
 						if ( b->HasSel )
-							doc->ActPage->RefreshItem(b, true);
+							view->RefreshItem(b);
 						setTBvals(b);
 						break;
 					case Key_Delete:
@@ -1718,7 +1714,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							{
 								DeleteSel(b);
 								setTBvals(b);
-								doc->ActPage->RefreshItem(b, true);
+								view->RefreshItem(b);
 							}
 							keyrep = false;
 							return;
@@ -1736,11 +1732,11 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						b->Tinput = false;
 						if ((cr == QChar(13)) && (b->Ptext.count() != 0))
 						{
-							doc->ActPage->chAbStyle(b, b->Ptext.at(QMAX(b->CPos-1,0))->cab);
+							view->chAbStyle(b, b->Ptext.at(QMAX(b->CPos-1,0))->cab);
 							b->Tinput = false;
 						}
 						setTBvals(b);
-						doc->ActPage->RefreshItem(b, true);
+						view->RefreshItem(b);
 						break;
 					case Key_Backspace:
 						if (b->CPos == 0)
@@ -1749,7 +1745,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							{
 								DeleteSel(b);
 								setTBvals(b);
-								doc->ActPage->RefreshItem(b, true);
+								view->RefreshItem(b);
 							}
 							keyrep = false;
 							return;
@@ -1763,16 +1759,18 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						if (b->HasSel)
 							DeleteSel(b);
 						else
+						{
 							b->CPos -= 1;
-						b->Ptext.remove(b->CPos);
+							b->Ptext.remove(b->CPos);
+						}
 						b->Tinput = false;
 						if ((cr == QChar(13)) && (b->Ptext.count() != 0))
 						{
-							doc->ActPage->chAbStyle(b, b->Ptext.at(QMAX(b->CPos-1,0))->cab);
+							view->chAbStyle(b, b->Ptext.at(QMAX(b->CPos-1,0))->cab);
 							b->Tinput = false;
 						}
 						setTBvals(b);
-						doc->ActPage->RefreshItem(b, true);
+						view->RefreshItem(b);
 						break;
 					default:
 						if ((b->HasSel) && (kk < 0x1000))
@@ -1815,35 +1813,35 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							b->Ptext.insert(b->CPos, hg);
 							b->CPos += 1;
 							b->Tinput = true;
-							doc->ActPage->RefreshItem(b, true);
+							view->RefreshItem(b);
 							break;
 						}
 						if ((kk + KeyMod) == Prefs.KeyActions[56].KeyID)
 						{
 							b->Ptext.at(QMAX(b->CPos-1,0))->cstyle ^= 128;
 							b->Tinput = true;
-							doc->ActPage->RefreshItem(b, true);
+							view->RefreshItem(b);
 							break;
 						}
 						if ((kk + KeyMod) == Prefs.KeyActions[59].KeyID)
 						{
 							setNewAbStyle(1);
 							b->Tinput = true;
-							doc->ActPage->RefreshItem(b, true);
+							view->RefreshItem(b);
 							break;
 						}
 						if ((kk + KeyMod) == Prefs.KeyActions[57].KeyID)
 						{
 							setNewAbStyle(0);
 							b->Tinput = true;
-							doc->ActPage->RefreshItem(b, true);
+							view->RefreshItem(b);
 							break;
 						}
 						if ((kk + KeyMod) == Prefs.KeyActions[58].KeyID)
 						{
 							setNewAbStyle(2);
 							b->Tinput = true;
-							doc->ActPage->RefreshItem(b, true);
+							view->RefreshItem(b);
 							break;
 						}
 						if (((uc[0] > QChar(31)) || (as == 13) || (as == 30)) && ((*doc->AllFonts)[doc->CurrFont]->CharWidth.contains(uc[0].unicode())))
@@ -1895,13 +1893,13 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 								}
 							}
 							b->Tinput = true;
-							doc->ActPage->RefreshItem(b, true);
+							view->RefreshItem(b);
 						}
 						break;
 					}
 					if (b->Ptext.count() != 0)
 						if (b->Ptext.at(QMAX(b->CPos-1, 0))->yp != 0)
-							doc->ActPage->slotDoCurs(true);
+							view->slotDoCurs(true);
 					if ((kk == Key_Left) || (kk == Key_Right) || (kk == Key_Up) || (kk == Key_Down))
 					{
 						keyrep = false;
@@ -2156,7 +2154,6 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	doc->ActiveLayer = 0;
 	HaveDoc++;
 	DocNr++;
-	doc->Scale = 1.0*Prefs.DisScale;
 	doc->AppMode = 1;
 	doc->Language = Prefs.Language;
 	doc->MinWordLen = Prefs.MinWordLen;
@@ -2169,6 +2166,7 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	doc->loading = true;
 	ScribusWin* w = new ScribusWin(wsp, doc);
 	view = new ScribusView(w, doc, &Prefs);
+	view->Scale = 1.0*Prefs.DisScale;
 	w->setView(view);
 	ActWin = w;
 	doc->WinHan = w;
@@ -2216,29 +2214,27 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	slotNewPage(0);
 	doc->loading = true;
 	HaveNewDoc();
-	view->Pages.at(0)->parentWidget()->hide();
-	view->DocPages = view->Pages;
-	view->Pages = view->MasterPages;
-	doc->PageC = view->MasterPages.count();
+	doc->DocPages = doc->Pages;
+	doc->Pages = doc->MasterPages;
+	doc->PageC = doc->MasterPages.count();
 	bool atfb = doc->PageAT;
 	doc->PageAT = false;
 	slotNewPage(0);
 	doc->PageAT = atfb;
-	view->MasterNames["Normal"] = 0;
-	view->Pages.at(0)->PageNam = "Normal";
-	view->Pages.at(0)->parentWidget()->hide();
-	view->MasterPages = view->Pages;
-	doc->PageC = view->DocPages.count();
-	view->Pages = view->DocPages;
+	doc->MasterNames["Normal"] = 0;
+	doc->Pages.at(0)->PageNam = "Normal";
+	doc->MasterPages = doc->Pages;
+	doc->PageC = doc->DocPages.count();
+	doc->Pages = doc->DocPages;
 	doc->MasterP = false;
-	view->Pages.at(0)->MPageNam = "Normal";
-	view->Pages.at(0)->parentWidget()->show();
+	doc->Pages.at(0)->MPageNam = "Normal";
 	doc->setUnModified();
 	doc->loading = false;
-	doc->ActPage = view->Pages.at(0);
+	doc->DocItems = doc->Items;
+	doc->ActPage = doc->Pages.at(0);
 	doc->OpenNodes.clear();
-	Tpal->BuildTree(view);
-	Sepal->Rebuild();
+//	Tpal->BuildTree(view);
+//	Sepal->Rebuild();
 	BookPal->BView->clear();
 	if ( wsp->windowList().isEmpty() )
 		w->showMaximized();
@@ -2289,11 +2285,11 @@ void ScribusApp::newActWin(QWidget *w)
 		return;
 	}
 	ActWin = (ScribusWin*)w;
-	if (doc != NULL)
+/*	if (doc != NULL)
 	{
 		if ((HaveDoc) && (doc != ActWin->doc))
 			doc->OpenNodes = Tpal->buildReopenVals();
-	}
+	} */
 	doc = ActWin->doc;
 	view = ActWin->view;
 	Sepal->SetView(view);
@@ -2316,20 +2312,20 @@ void ScribusApp::newActWin(QWidget *w)
 		wsp->setScrollBarsEnabled(false);
 	else
 		wsp->setScrollBarsEnabled(true);
-	if (!doc->TemplateMode)
-		Sepal->Rebuild();
-	Tpal->BuildTree(view);
-	Tpal->reopenTree(doc->OpenNodes);
+//	if (!doc->TemplateMode)
+//		Sepal->Rebuild();
+//	Tpal->BuildTree(view);
+//	Tpal->reopenTree(doc->OpenNodes);
 	BookPal->BView->NrItems = ActWin->NrItems;
 	BookPal->BView->First = ActWin->First;
 	BookPal->BView->Last = ActWin->Last;
 	RestoreBookMarks();
 	if (!doc->loading)
 	{
-		if (doc->ActPage->SelItem.count() != 0)
+		if (view->SelItem.count() != 0)
 		{
-			HaveNewSel(doc->ActPage->SelItem.at(0)->PType);
-			doc->ActPage->EmitValues(doc->ActPage->SelItem.at(0));
+			HaveNewSel(view->SelItem.at(0)->PType);
+			view->EmitValues(view->SelItem.at(0));
 		}
 		else
 			HaveNewSel(-1);
@@ -2370,7 +2366,7 @@ bool ScribusApp::SetupDoc()
 		view->reformPages();
 		view->GotoPage(doc->ActPage->PageNr);
 		view->DrawNew();
-		Sepal->RebuildPage();
+//		Sepal->RebuildPage();
 		slotDocCh();
 		ret = true;
 		doc->PDF_Optionen.BleedBottom = doc->PageM.Bottom;
@@ -2467,7 +2463,7 @@ void ScribusApp::SwitchWin()
 		fileMenu->setItemEnabled(fid12, 1);
 		fileMenu->setItemEnabled(fid13, 1);
 		fileMenu->setItemEnabled(fid14, 1);
-		if (view->Pages.count() > 1)
+		if (doc->Pages.count() > 1)
 		{
 			pageMenu->setItemEnabled(pgmd, 1);
 			pageMenu->setItemEnabled(pgmv, 1);
@@ -2521,7 +2517,7 @@ void ScribusApp::HaveNewDoc()
 	WerkTools->setEnabled(true);
 	WerkToolsP->setEnabled(true);
 	int setter = 0;
-	if (view->Pages.count() > 1)
+	if (doc->Pages.count() > 1)
 		setter = 1;
 	pageMenu->setItemEnabled(pgmd, setter);
 	pageMenu->setItemEnabled(pgmv, setter);
@@ -2560,6 +2556,68 @@ void ScribusApp::HaveNewDoc()
 	connect(view, SIGNAL(changeLA(int)), Lpal, SLOT(MarkActiveLayer(int)));
 	connect(view->HR, SIGNAL(MarkerMoved(double, double)), this, SLOT(ReportMP(double, double)));
 	connect(view->HR, SIGNAL(DocChanged(bool)), this, SLOT(slotDocCh(bool)));
+	connect(view, SIGNAL(ClipPo(double, double)), Npal, SLOT(SetXY(double, double)));
+	connect(view, SIGNAL(PolyOpen()), Npal, SLOT(IsOpen()));
+	connect(view, SIGNAL(PStatus(int, uint)), Npal, SLOT(PolyStatus(int, uint)));
+	connect(view, SIGNAL(ItemPos(double, double)), Mpal, SLOT(setXY(double, double)));
+	connect(view, SIGNAL(ItemGeom(double, double)), Mpal, SLOT(setBH(double, double)));
+	connect(view, SIGNAL(UndoAvail()), this, SLOT(CanUndo()));
+	connect(view, SIGNAL(ChBMText(PageItem *)), this, SLOT(BookMarkTxT(PageItem *)));
+	connect(view, SIGNAL(NewBMNr(int, int)), BookPal->BView, SLOT(ChangeItem(int, int)));
+	connect(view, SIGNAL(HaveSel(int)), this, SLOT(HaveNewSel(int)));
+	connect(view, SIGNAL(SetAngle(double)), Mpal, SLOT(setR(double)));
+	connect(view, SIGNAL(SetSizeValue(double)), Mpal, SLOT(setSvalue(double)));
+	connect(view, SIGNAL(SetLocalValues(double, double, double, double)), Mpal, SLOT(setLvalue(double, double, double, double)));
+	connect(view, SIGNAL(SetLineArt(PenStyle, PenCapStyle, PenJoinStyle)), Mpal, SLOT( setLIvalue(PenStyle, PenCapStyle, PenJoinStyle)));
+	connect(view, SIGNAL(ItemFarben(QString, QString, int, int)), this, SLOT(setCSMenu(QString, QString, int, int)));
+	connect(view, SIGNAL(ItemFarben(QString, QString, int, int)), Mpal->Cpal, SLOT(setActFarben(QString, QString, int, int)));
+	connect(view, SIGNAL(ItemGradient(int)), Mpal->Cpal, SLOT(setActGradient(int)));
+	connect(view, SIGNAL(ItemTrans(double, double)), Mpal->Cpal, SLOT(setActTrans(double, double)));
+	connect(view, SIGNAL(ItemTextAttr(double)), Mpal, SLOT(setLsp(double)));
+	connect(view, SIGNAL(ItemTextUSval(double)), Mpal, SLOT(setExtra(double)));
+//	connect(view, SIGNAL(ItemTextCols(int, double)), Mpal, SLOT(setCols(int, double)));
+	connect(view, SIGNAL(SetDistValues(double, double, double, double)), Mpal, SLOT(setDvals(double, double, double, double)));
+	connect(view, SIGNAL(ItemTextAbs(int)), Mpal, SLOT(setAli(int)));
+	connect(view, SIGNAL(ItemTextFont(QString)), this, SLOT(AdjustFontMenu(QString)));
+	connect(view, SIGNAL(ItemTextSize(int)), Mpal, SLOT(setSize(int)));
+	connect(view, SIGNAL(ItemRadius(double)), Mpal, SLOT(setRR(double)));
+	connect(view, SIGNAL(Amode(int)), this, SLOT(setAppMode(int)));
+	connect(view, SIGNAL(PaintingDone()), this, SLOT(slotSelect()));
+/*	connect(doc->ActPage, SIGNAL(DocChanged()), this, SLOT(slotDocCh())); */
+	connect(view, SIGNAL(HavePoint(bool, bool)), Npal, SLOT(HaveNode(bool, bool)));
+	connect(view, SIGNAL(MousePos(double, double)), this, SLOT(ReportMP(double, double)));
+	connect(view, SIGNAL(ItemRadius(double)), Mpal, SLOT(setRR(double)));
+	connect(view, SIGNAL(ItemTextStil(int)), Mpal, SLOT(setStil(int)));
+	connect(view, SIGNAL(ItemTextSca(int)), Mpal, SLOT(setTScale(int)));
+	connect(view, SIGNAL(ItemTextSize(int)), this, SLOT(setFSizeMenu(int)));
+	connect(view, SIGNAL(ItemTextStil(int)), this, SLOT(setStilvalue(int)));
+	connect(view, SIGNAL(ItemTextAbs(int)), this, SLOT(setAbsValue(int)));
+	connect(view, SIGNAL(ItemTextFarben(QString, QString, int, int)), Mpal, SLOT(setActFarben(QString, QString, int, int)));
+	connect(view, SIGNAL(HasTextSel()), this, SLOT(EnableTxEdit()));
+	connect(view, SIGNAL(HasNoTextSel()), this, SLOT(DisableTxEdit()));
+	connect(view, SIGNAL(CopyItem()), this, SLOT(slotEditCopy()));
+	connect(view, SIGNAL(CutItem()), this, SLOT(slotEditCut()));
+	connect(view, SIGNAL(LoadPic()), this, SLOT(slotFileOpen()));
+	connect(view, SIGNAL(AppendText()), this, SLOT(slotFileAppend()));
+	connect(view, SIGNAL(AnnotProps()), this, SLOT(ModifyAnnot()));
+	connect(view, SIGNAL(ToScrap(QString)), this, SLOT(PutScrap(QString)));
+	connect(view, SIGNAL(EditGuides()), this, SLOT(ManageGuides()));
+	connect(view, SIGNAL(LoadElem(QString, int ,int, bool, bool, ScribusDoc *, ScribusView*)), this, SLOT(slotElemRead(QString, int, int, bool, bool, ScribusDoc *, ScribusView*)));
+/*	connect(doc->ActPage, SIGNAL(AddBM(PageItem *)), this, SLOT(AddBookMark(PageItem *)));
+	connect(doc->ActPage, SIGNAL(DelBM(PageItem *)), this, SLOT(DelBookMark(PageItem *))); */
+	connect(view, SIGNAL(RasterPic(bool)), this, SLOT(HaveRaster(bool)));
+	connect(view, SIGNAL(EditText()), this, SLOT(slotStoryEditor()));
+	connect(view, SIGNAL(DoGroup()), this, SLOT(GroupObj()));
+	connect(view, SIGNAL(DoUnGroup()), this, SLOT(UnGroupObj()));
+	connect(view, SIGNAL(EndNodeEdit()), this, SLOT(ToggleFrameEdit()));
+	connect(view, SIGNAL(LevelChanged(uint )), Mpal, SLOT(setLevel(uint)));
+/*	if (!doc->TemplateMode)
+	{
+		connect(doc->ActPage, SIGNAL(DelObj(uint, uint)), Tpal, SLOT(slotRemoveElement(uint, uint)));
+		connect(doc->ActPage, SIGNAL(AddObj(uint, uint)), Tpal, SLOT(slotAddElement(uint, uint)));
+		connect(doc->ActPage, SIGNAL(UpdtObj(uint, uint)), Tpal, SLOT(slotUpdateElement(uint, uint)));
+		connect(doc->ActPage, SIGNAL(MoveObj(uint, uint, uint)), Tpal, SLOT(slotMoveElement(uint, uint, uint)));
+	} */
 	doc->PDF_Optionen.BleedBottom = doc->PageM.Bottom;
 	doc->PDF_Optionen.BleedTop = doc->PageM.Top;
 	doc->PDF_Optionen.BleedLeft = doc->PageM.Left;
@@ -2571,7 +2629,7 @@ void ScribusApp::HaveNewSel(int Nr)
 {
 	PageItem *b = NULL;
 	if (Nr != -1)
-		b = doc->ActPage->SelItem.at(0);
+		b = view->SelItem.at(0);
 	ObjMenu->setItemEnabled(PfadDT, 0);
 	view->HR->ItemPosValid = false;
 	view->HR->repX = false;
@@ -2600,7 +2658,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		WerkTools->Textedit2->setEnabled(false);
 		WerkTools->Rotiere->setEnabled(false);
 		Mpal->Cpal->GradCombo->setCurrentItem(0);
-		Tpal->slotShowSelect(doc->ActPage->PageNr, -1);
+//		Tpal->slotShowSelect(doc->ActPage->PageNr, -1);
 		break;
 	case 2:
 		importMenu->changeItem(fid2, tr("Get Picture..."));
@@ -2789,7 +2847,7 @@ void ScribusApp::HaveNewSel(int Nr)
 	}
 	doc->CurrentSel = Nr;
 	Mpal->RotationGroup->setButton(doc->RotMode);
-	if (doc->ActPage->SelItem.count() > 1)
+	if (view->SelItem.count() > 1)
 	{
 		ObjMenu->setItemEnabled(DistM, 1);
 		ObjMenu->setItemEnabled(PfadTP, 0);
@@ -2799,13 +2857,13 @@ void ScribusApp::HaveNewSel(int Nr)
 		int firstElem = -1;
 		if (b->Groups.count() != 0)
 			firstElem = b->Groups.top();
-		for (uint bx=0; bx<doc->ActPage->SelItem.count(); ++bx)
+		for (uint bx=0; bx<view->SelItem.count(); ++bx)
 		{
-			if (doc->ActPage->SelItem.at(bx)->PType != 6)
+			if (view->SelItem.at(bx)->PType != 6)
 				hPoly = false;
-			if (doc->ActPage->SelItem.at(bx)->Groups.count() != 0)
+			if (view->SelItem.at(bx)->Groups.count() != 0)
 			{
-				if (doc->ActPage->SelItem.at(bx)->Groups.top() != firstElem)
+				if (view->SelItem.at(bx)->Groups.top() != firstElem)
 					isGroup = false;
 			}
 			else
@@ -2813,11 +2871,11 @@ void ScribusApp::HaveNewSel(int Nr)
 		}
 		ObjMenu->setItemEnabled(Gr, !isGroup);
 		ObjMenu->setItemEnabled(PfadV, hPoly);
-		if (doc->ActPage->SelItem.count() == 2)
+		if (view->SelItem.count() == 2)
 		{
-			if (((b->PType == 4) || (doc->ActPage->SelItem.at(1)->PType == 4)) && ((b->PType == 7) || (doc->ActPage->SelItem.at(1)->PType == 7)))
+			if (((b->PType == 4) || (view->SelItem.at(1)->PType == 4)) && ((b->PType == 7) || (view->SelItem.at(1)->PType == 7)))
 			{
-				PageItem* bx = doc->ActPage->SelItem.at(1);
+				PageItem* bx = view->SelItem.at(1);
 				if ((b->NextBox == 0) && (b->BackBox == 0) && (bx->NextBox == 0) && (bx->BackBox == 0))
 					ObjMenu->setItemEnabled(PfadT, 1);
 			}
@@ -2830,7 +2888,7 @@ void ScribusApp::HaveNewSel(int Nr)
 		ObjMenu->setItemEnabled(PfadT, 0);
 		ObjMenu->setItemEnabled(PfadV, 0);
 	}
-	if (doc->ActPage->SelItem.count() != 0)
+	if (view->SelItem.count() != 0)
 	{
 		Mpal->Textflow->setChecked(b->Textflow);
 		ObjMenu->setItemEnabled(LockOb, 1);
@@ -2893,7 +2951,7 @@ void ScribusApp::HaveNewSel(int Nr)
 	if (Nr != -1)
 	{
 		Mpal->SetCurItem(b);
-		Tpal->slotShowSelect(b->OwnPage->PageNr, b->ItemNr);
+//		Tpal->slotShowSelect(b->OwnPage->PageNr, b->ItemNr);
 		if (b->FrameType == 0)
 			SCustom->setPixmap(SCustom->getIconPixmap(0));
 		if (b->FrameType == 1)
@@ -2905,10 +2963,11 @@ void ScribusApp::HaveNewSel(int Nr)
 
 void ScribusApp::slotDocCh(bool reb)
 {
-	if ((reb) && (!doc->TemplateMode) && (doc->ActPage->SelItem.count() != 0))
+	return;
+	if ((reb) && (!doc->TemplateMode) && (view->SelItem.count() != 0))
 	{
-		for (uint upd = 0; upd < doc->ActPage->SelItem.count(); ++upd)
-			Tpal->slotUpdateElement(doc->ActPage->PageNr, doc->ActPage->SelItem.at(upd)->ItemNr);
+		for (uint upd = 0; upd < view->SelItem.count(); ++upd)
+			Tpal->slotUpdateElement(doc->ActPage->PageNr, view->SelItem.at(upd)->ItemNr);
 	}
 	if (!doc->isModified())
 		doc->setModified();
@@ -2927,9 +2986,9 @@ void ScribusApp::slotDocCh(bool reb)
 	ActWin->MenuStat[1] = fileMenu->isItemEnabled(fid1);
 	ActWin->MenuStat[2] = fileMenu->isItemEnabled(fid4);
 	ActWin->MenuStat[3] = fileMenu->isItemEnabled(fid5);
-	if (doc->ActPage->SelItem.count() != 0)
+	if (view->SelItem.count() != 0)
 	{
-		PageItem* b = doc->ActPage->SelItem.at(0);
+		PageItem* b = view->SelItem.at(0);
 		if (b->Locked)
 			ObjMenu->changeItem(LockOb, tr("Un&lock"));
 		else
@@ -3115,6 +3174,7 @@ bool ScribusApp::LadeSeite(QString fileName, int Nr, bool Mpa)
 			doc->OpenNodes = Tpal->buildReopenVals();
 		doc->loading = true;
 		ScriXmlDoc *ss = new ScriXmlDoc();
+		uint cc = doc->Items.count();
 		if(!ss->ReadPage(fileName, Prefs.AvailFonts, doc, view, Nr, Mpa))
 		{
 			delete ss;
@@ -3130,9 +3190,9 @@ bool ScribusApp::LadeSeite(QString fileName, int Nr, bool Mpa)
 				view->RecalcPictures(&InputProfiles);
 			}
 		}
-		for (uint azz = 0; azz < doc->ActPage->Items.count(); ++azz)
+		for (uint azz = cc; azz < doc->Items.count(); ++azz)
 		{
-			PageItem *ite = doc->ActPage->Items.at(azz);
+			PageItem *ite = doc->Items.at(azz);
 			if ((ite->PType == 4) && (ite->isBookmark))
 				BookPal->BView->AddPageItem(ite);
 		}
@@ -3151,7 +3211,7 @@ bool ScribusApp::LadeSeite(QString fileName, int Nr, bool Mpa)
 	}
 	if (!Mpa)
 		Sepal->Rebuild();
-	doc->ActPage->update();
+	view->DrawNew();
 	return ret;
 }
 
@@ -3160,8 +3220,8 @@ bool ScribusApp::LadeDoc(QString fileName)
 	QFileInfo fi(fileName);
 	if (!fi.exists())
 		return false;
-	if (HaveDoc)
-		doc->OpenNodes = Tpal->buildReopenVals();
+/*	if (HaveDoc)
+		doc->OpenNodes = Tpal->buildReopenVals(); */
 	bool ret = false;
 	QWidgetList windows = wsp->windowList();
 	ScribusWin* ActWinOld;
@@ -3237,7 +3297,6 @@ bool ScribusApp::LadeDoc(QString fileName)
 		doc->PagesSbS = Prefs.PagesSbS;
 		doc->RandFarbig = Prefs.RandFarbig;
 		doc->AutoLine = Prefs.AutoLine;
-		doc->Scale = 1.0*Prefs.DisScale;
 		doc->AppMode = 1;
 		doc->HasCMS = false;
 		doc->ActiveLayer = 0;
@@ -3254,6 +3313,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 		FProg->reset();
 		ScribusWin* w = new ScribusWin(wsp, doc);
 		view = new ScribusView(w, doc, &Prefs);
+		view->Scale = 1.0*Prefs.DisScale;
 		w->setView(view);
 		ActWin = w;
 		doc->WinHan = w;
@@ -3382,72 +3442,58 @@ bool ScribusApp::LadeDoc(QString fileName)
 		HaveNewDoc();
 		Mpal->updateCList();
 		doc->hasName = true;
-		if (view->MasterPages.count() == 0)
+		if (doc->MasterPages.count() == 0)
 		{
-			for (uint ax=0; ax<view->Pages.count(); ++ax)
-			{
-				view->Pages.at(ax)->parentWidget()->hide();
-			}
-			view->DocPages = view->Pages;
-			view->Pages = view->MasterPages;
-			doc->PageC = view->MasterPages.count();
+			doc->DocPages = doc->Pages;
+			doc->Pages = doc->MasterPages;
+			doc->PageC = doc->MasterPages.count();
 			bool atf = doc->PageAT;
 			doc->PageAT = false;
 			slotNewPage(0);
 			doc->PageAT = atf;
-			view->MasterNames["Normal"] = 0;
-			view->Pages.at(0)->PageNam = "Normal";
-			view->Pages.at(0)->parentWidget()->hide();
-			view->MasterPages = view->Pages;
-			doc->PageC = view->DocPages.count();
-			view->Pages = view->DocPages;
+			doc->MasterNames["Normal"] = 0;
+			doc->Pages.at(0)->PageNam = "Normal";
+			doc->MasterPages = doc->Pages;
+			doc->PageC = doc->DocPages.count();
+			doc->Pages = doc->DocPages;
 			doc->MasterP = false;
-			for (uint ay=0; ay<view->Pages.count(); ++ay)
-			{
-				view->Pages.at(ay)->parentWidget()->show();
-			}
 		}
 		doc->loading = false;
 		view->GotoPage(0);
+		doc->DocItems = doc->Items;
 		doc->RePos = true;
 		QPixmap pgPix(10, 10);
 		QRect rd = QRect(0,0,9,9);
 		ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
-		for (uint az=0; az<view->MasterPages.count(); az++)
+		for (uint azz=0; azz<doc->MasterItems.count(); ++azz)
 		{
-			for (uint azz=0; azz<view->MasterPages.at(az)->Items.count(); ++azz)
-			{
-				PageItem *ite = view->MasterPages.at(az)->Items.at(azz);
-				if ((ite->PType == 4) || (ite->PType == 8))
-					ite->DrawObj(painter, rd);
-			}
+			PageItem *ite = doc->MasterItems.at(azz);
+			if ((ite->PType == 4) || (ite->PType == 8))
+				ite->DrawObj(painter, rd);
 		}
-		RestoreBookMarks();
-		for (uint az=0; az<view->Pages.count(); az++)
+//		RestoreBookMarks();
+		for (uint azz=0; azz<doc->Items.count(); ++azz)
 		{
-			for (uint azz=0; azz<view->Pages.at(az)->Items.count(); ++azz)
+			PageItem *ite = doc->Items.at(azz);
+			if ((ite->PType == 4) || (ite->PType == 8))
+				ite->DrawObj(painter, rd);
+/*			if (doc->OldBM)
 			{
-				PageItem *ite = view->Pages.at(az)->Items.at(azz);
-				if ((ite->PType == 4) || (ite->PType == 8))
-					ite->DrawObj(painter, rd);
-				if (doc->OldBM)
-				{
-					if ((ite->PType == 4) && (ite->isBookmark))
-						BookPal->BView->AddPageItem(ite);
-				}
-				else
-				{
-					if ((ite->PType == 4) && (ite->isBookmark))
-						BookPal->BView->ChangeItem(ite->BMnr, ite->ItemNr);
-				}
+				if ((ite->PType == 4) && (ite->isBookmark))
+					BookPal->BView->AddPageItem(ite);
 			}
+			else
+			{
+				if ((ite->PType == 4) && (ite->isBookmark))
+					BookPal->BView->ChangeItem(ite->BMnr, ite->ItemNr);
+			} */
 		}
 		delete painter;
-		if (doc->OldBM)
-			StoreBookmarks();
-		ActWin->NrItems = BookPal->BView->NrItems;
-		ActWin->First = BookPal->BView->First;
-		ActWin->Last = BookPal->BView->Last;
+//		if (doc->OldBM)
+//			StoreBookmarks();
+//		ActWin->NrItems = BookPal->BView->NrItems;
+//		ActWin->First = BookPal->BView->First;
+//		ActWin->Last = BookPal->BView->Last;
 		doc->RePos = false;
 		doc->setUnModified();
 		UpdateRecent(FName);
@@ -3471,15 +3517,15 @@ bool ScribusApp::LadeDoc(QString fileName)
 	{
 		Sepal->Vie = 0;
 	}
-	Sepal->Rebuild();
+//	Sepal->Rebuild();
 	return ret;
 }
 
 void ScribusApp::slotFileOpen()
 {
-	if (doc->ActPage->SelItem.count() != 0)
+	if (view->SelItem.count() != 0)
 	{
-		PageItem *b = doc->ActPage->SelItem.at(0);
+		PageItem *b = view->SelItem.at(0);
 		if (b->PType == 2)
 		{
 			QString formats = "";
@@ -3523,12 +3569,12 @@ void ScribusApp::slotFileOpen()
 				b->IRender = doc->CMSSettings.DefaultIntentMonitor2;
 				qApp->setOverrideCursor( QCursor(Qt::WaitCursor) );
 				qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
-				doc->ActPage->LoadPict(fileName, b->ItemNr);
-				doc->ActPage->AdjustPictScale(b);
-				doc->ActPage->AdjustPreview(b);
+				view->LoadPict(fileName, b->ItemNr);
+				view->AdjustPictScale(b);
+				view->AdjustPreview(b);
 				qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
 				qApp->restoreOverrideCursor();
-				doc->ActPage->update();
+				view->DrawNew();
 				Mpal->Cpal->SetColors(doc->PageColors);
 				Mpal->updateCList();
 				Mpal->ShowCMS();
@@ -3542,7 +3588,7 @@ void ScribusApp::slotFileOpen()
 			delete gt;
 			if (doc->Trenner->AutoCheck)
 				doc->Trenner->slotHyphenate(b);
-			doc->ActPage->update();
+			view->DrawNew();
 			slotDocCh();
 		}
 	}
@@ -3558,14 +3604,14 @@ void ScribusApp::slotFileOpen()
  */
 void ScribusApp::slotFileAppend()
 {
-	if (doc->ActPage->SelItem.count() != 0)
+	if (view->SelItem.count() != 0)
 	{
 		gtGetText* gt = new gtGetText();
 		gt->run(true);
 		delete gt;
 		if (doc->Trenner->AutoCheck)
-			doc->Trenner->slotHyphenate(doc->ActPage->SelItem.at(0));
-		doc->ActPage->update();
+			doc->Trenner->slotHyphenate(view->SelItem.at(0));
+		view->DrawNew();
 		slotDocCh();
 	}
 }
@@ -3712,7 +3758,7 @@ bool ScribusApp::DoFileClose()
 		delete doc->UnData.Item;
 	if (CMSavail)
 		ActWin->CloseCMSProfiles();
-	Mpal->NewSel(-1);
+//	Mpal->NewSel(-1);
 	Mpal->UnsetDoc();
 	Sepal->Vie = 0;
 	Sepal->Rebuild();
@@ -3778,7 +3824,6 @@ bool ScribusApp::DoFileClose()
 		IntentPrinter = Prefs.DCMSset.DefaultIntentPrinter;
 		IntentMonitor = Prefs.DCMSset.DefaultIntentMonitor;
 #endif
-
 	}
 	view->close();
 	delete view;
@@ -3823,7 +3868,7 @@ void ScribusApp::slotFilePrint()
 		}
 	}
 	Druck *printer = new Druck(this, options.filename, options.printer, PDef.Command, Prefs.GCRMode);
-	printer->setMinMax(1, view->Pages.count(), doc->ActPage->PageNr+1);
+	printer->setMinMax(1, doc->Pages.count(), doc->ActPage->PageNr+1);
 	if (printer->exec())
 	{
 		ReOrderText(doc, view);
@@ -3906,7 +3951,7 @@ bool ScribusApp::doPrint(PrintOptions *options)
 		if (PSfile)
 		{
 			// Write the PS to a file
-			view->CreatePS(dd, options->pageNumbers, options->outputSeparations, options->separationName,
+			dd->CreatePS(doc, view, options->pageNumbers, options->outputSeparations, options->separationName,
 			               options->useColor, options->mirrorH, options->mirrorV, options->useICC, options->doGCR);
 			if (options->PSLevel != 3)
 			{
@@ -3964,10 +4009,10 @@ void ScribusApp::slotEditCut()
 	uint a;
 	NoFrameEdit();
 	QString BufferI = "";
-	if ((HaveDoc) && (doc->ActPage->SelItem.count() != 0))
+	if ((HaveDoc) && (view->SelItem.count() != 0))
 	{
 		Buffer2 = "<SCRIBUSTEXT>";
-		PageItem *b = doc->ActPage->SelItem.at(0);
+		PageItem *b = view->SelItem.at(0);
 		if (doc->AppMode == 7)
 		{
 			if ((b->Ptext.count() == 0) || (!b->HasSel))
@@ -4017,16 +4062,16 @@ void ScribusApp::slotEditCut()
 				DeleteSel(nb);
 				nb = nb->NextBox;
 			}
-			doc->ActPage->RefreshItem(b);
+			view->RefreshItem(b);
 		}
 		else
 		{
 			if ((b->isTableItem) && (b->isSingleSel))
 				return;
 			ScriXmlDoc *ss = new ScriXmlDoc();
-			BufferI = ss->WriteElem(&doc->ActPage->SelItem, doc);
+			BufferI = ss->WriteElem(&view->SelItem, doc, view);
 			Buffer2 = BufferI;
-			doc->ActPage->DeleteItem();
+			view->DeleteItem();
 		}
 		slotDocCh();
 		BuFromApp = true;
@@ -4040,10 +4085,10 @@ void ScribusApp::slotEditCopy()
 	uint a;
 	NoFrameEdit();
 	QString BufferI = "";
-	if ((HaveDoc) && (doc->ActPage->SelItem.count() != 0))
+	if ((HaveDoc) && (view->SelItem.count() != 0))
 	{
 		Buffer2 = "<SCRIBUSTEXT>";
-		PageItem *b = doc->ActPage->SelItem.at(0);
+		PageItem *b = view->SelItem.at(0);
 		if ((doc->AppMode == 7) && (b->HasSel))
 		{
 			Buffer2 += "";
@@ -4097,7 +4142,7 @@ void ScribusApp::slotEditCopy()
 			if ((b->isTableItem) && (b->isSingleSel))
 				return;
 			ScriXmlDoc *ss = new ScriXmlDoc();
-			BufferI = ss->WriteElem(&doc->ActPage->SelItem, doc);
+			BufferI = ss->WriteElem(&view->SelItem, doc, view);
 			Buffer2 = BufferI;
 			delete ss;
 		}
@@ -4117,7 +4162,7 @@ void ScribusApp::slotEditPaste()
 			return;
 		if (doc->AppMode == 7)
 		{
-			PageItem *b = doc->ActPage->SelItem.at(0);
+			PageItem *b = view->SelItem.at(0);
 			if (b->HasSel)
 				DeleteSel(b);
 			if (Buffer2.startsWith("<SCRIBUSTEXT>"))
@@ -4185,18 +4230,18 @@ void ScribusApp::slotEditPaste()
 				if (doc->Trenner->AutoCheck)
 					doc->Trenner->slotHyphenate(b);
 			}
-			doc->ActPage->RefreshItem(b);
+			view->RefreshItem(b);
 		}
 		else
 		{
 			if (Buffer2.startsWith("<SCRIBUSELEM"))
 			{
-				doc->ActPage->Deselect(true);
-				uint ac = doc->ActPage->Items.count();
-				slotElemRead(Buffer2, 0, 0, false, true, doc);
-				for (uint as = ac; as < doc->ActPage->Items.count(); ++as)
+				view->Deselect(true);
+				uint ac = doc->Items.count();
+				slotElemRead(Buffer2, 0, 0, false, true, doc, view);
+				for (uint as = ac; as < doc->Items.count(); ++as)
 				{
-					doc->ActPage->SelectItemNr(as);
+					view->SelectItemNr(as);
 				}
 			}
 		}
@@ -4208,7 +4253,7 @@ void ScribusApp::SelectAll()
 {
 	if (doc->AppMode == 7)
 	{
-		PageItem *b = doc->ActPage->SelItem.at(0);
+		PageItem *b = view->SelItem.at(0);
 		PageItem *nb = b;
 		while (nb != 0)
 		{
@@ -4232,34 +4277,34 @@ void ScribusApp::SelectAll()
 	else
 	{
 		PageItem *b;
-		doc->ActPage->Deselect();
-		for (uint a = 0; a < doc->ActPage->Items.count(); ++a)
+		view->Deselect();
+		for (uint a = 0; a < doc->Items.count(); ++a)
 		{
-			b = doc->ActPage->Items.at(a);
+			b = doc->Items.at(a);
 			if (b->LayerNr == doc->ActiveLayer)
 			{
 				if (!b->Select)
 				{
-					doc->ActPage->SelItem.append(b);
+					view->SelItem.append(b);
 					b->Select = true;
 					b->FrameOnly = true;
 					b->paintObj();
 				}
 			}
 		}
-		if (doc->ActPage->SelItem.count() > 1)
+		if (view->SelItem.count() > 1)
 		{
-			doc->ActPage->setGroupRect();
-			doc->ActPage->paintGroupRect();
+			view->setGroupRect();
+			view->paintGroupRect();
 			double x, y, w, h;
-			doc->ActPage->getGroupRect(&x, &y, &w, &h);
+			view->getGroupRect(&x, &y, &w, &h);
 			Mpal->setXY(x, y);
 			Mpal->setXY(w, h);
 		}
-		if (doc->ActPage->SelItem.count() > 0)
+		if (view->SelItem.count() > 0)
 		{
-			b = doc->ActPage->SelItem.at(0);
-			doc->ActPage->EmitValues(b);
+			b = view->SelItem.at(0);
+			view->EmitValues(b);
 			HaveNewSel(b->PType);
 		}
 	}
@@ -4299,7 +4344,7 @@ void ScribusApp::ClipChange()
 
 void ScribusApp::DeleteText()
 {
-	PageItem *b = doc->ActPage->SelItem.at(0);
+	PageItem *b = view->SelItem.at(0);
 	PageItem *nb = b;
 	while (nb != 0)
 	{
@@ -4317,8 +4362,7 @@ void ScribusApp::DeleteText()
 		}
 		nb = nb->NextBox;
 	}
-	//	doc->ActPage->RefreshItem(b);
-	view->DrawNew();
+	view->RefreshItem(b);
 	slotDocCh();
 }
 
@@ -4399,7 +4443,7 @@ void ScribusApp::SaveText()
 	{
 		dirs->set("save_text", fn.left(fn.findRev("/")));
 		Serializer *se = new Serializer(fn);
-		se->PutText(doc->ActPage->SelItem.at(0));
+		se->PutText(view->SelItem.at(0));
 		se->Write(LoadEnc);
 		delete se;
 	}
@@ -4412,30 +4456,30 @@ void ScribusApp::applyNewMaster(QString name)
 	slotDocCh();
 	doc->UnDoValid = false;
 	CanUndo();
-	Sepal->Rebuild();
+//	Sepal->Rebuild();
 }
 
 void ScribusApp::slotNewPageP(int wo, QString templ)
 {
 	NoFrameEdit();
-	doc->ActPage->Deselect(true);
+	view->Deselect(true);
 	doc->UnDoValid = false;
 	CanUndo();
 	slotNewPage(wo);
 	applyNewMaster(templ);
 	if (doc->TemplateMode)
-		view->MasterPages = view->Pages;
+		doc->MasterPages = doc->Pages;
 	else
-		view->DocPages = view->Pages;
-	Sepal->RebuildPage();
+		doc->DocPages = doc->Pages;
+//	Sepal->RebuildPage();
 }
 
 /** Erzeugt eine neue Seite */
 void ScribusApp::slotNewPageM()
 {
 	NoFrameEdit();
-	doc->ActPage->Deselect(true);
-	InsPage *dia = new InsPage(this, view, doc->ActPage->PageNr, view->Pages.count(), doc->PageFP);
+	view->Deselect(true);
+	InsPage *dia = new InsPage(this, doc, doc->ActPage->PageNr, doc->Pages.count(), doc->PageFP);
 	if (dia->exec())
 	{
 		QString based2;
@@ -4505,7 +4549,7 @@ void ScribusApp::addNewPages(int wo, int where, int numPages, QString based1, QS
 		case 2:
 			for (cc = 0; cc < numPages; ++cc)
 			{
-				slotNewPage(view->Pages.count());
+				slotNewPage(doc->Pages.count());
 				if (doc->PageFP)
 				{
 					if ((doc->ActPage->PageNr % 2 == 0) && (doc->FirstPageLeft))
@@ -4522,12 +4566,12 @@ void ScribusApp::addNewPages(int wo, int where, int numPages, QString based1, QS
 			}
 			break;
 		}
-		Sepal->RebuildPage();
+//		Sepal->RebuildPage();
 		view->DrawNew();
 		if (doc->TemplateMode)
-			view->MasterPages = view->Pages;
+			doc->MasterPages = doc->Pages;
 		else
-			view->DocPages = view->Pages;
+			doc->DocPages = doc->Pages;
 }
 
 void ScribusApp::slotNewPageT(int w)
@@ -4538,89 +4582,28 @@ void ScribusApp::slotNewPageT(int w)
 
 void ScribusApp::slotNewPage(int w)
 {
-	if ((!doc->loading) && (!doc->TemplateMode))
-		Tpal->slotAddPage(w);
+//	if ((!doc->loading) && (!doc->TemplateMode))
+//		Tpal->slotAddPage(w);
 	view->addPage(w);
-	if (view->Pages.count() > 1)
+	if (doc->Pages.count() > 1)
 	{
 		pageMenu->setItemEnabled(pgmd, 1);
 		pageMenu->setItemEnabled(pgmv, 1);
 	}
-	if ((!doc->loading) && (!doc->TemplateMode))
+/*	if ((!doc->loading) && (!doc->TemplateMode))
 	{
 		AdjustBM();
 		if ((doc->PageAT) && (doc->PageC != 1))
 			Tpal->slotAddElement(w, 0);
 	}
-	connect(doc->ActPage, SIGNAL(Amode(int)), this, SLOT(setAppMode(int)));
-	connect(doc->ActPage, SIGNAL(PaintingDone()), this, SLOT(slotSelect()));
-	connect(doc->ActPage, SIGNAL(HaveSel(int)), this, SLOT(HaveNewSel(int)));
-	connect(doc->ActPage, SIGNAL(DocChanged()), this, SLOT(slotDocCh()));
-	connect(doc->ActPage, SIGNAL(ClipPo(double, double)), Npal, SLOT(SetXY(double, double)));
-	connect(doc->ActPage, SIGNAL(HavePoint(bool, bool)), Npal, SLOT(HaveNode(bool, bool)));
-	connect(doc->ActPage, SIGNAL(PolyOpen()), Npal, SLOT(IsOpen()));
-	connect(doc->ActPage, SIGNAL(PStatus(int, uint)), Npal, SLOT(PolyStatus(int, uint)));
-	connect(doc->ActPage, SIGNAL(MousePos(double, double)), this, SLOT(ReportMP(double, double)));
-	connect(doc->ActPage, SIGNAL(ItemPos(double, double)), Mpal, SLOT(setXY(double, double)));
-	connect(doc->ActPage, SIGNAL(ItemGeom(double, double)), Mpal, SLOT(setBH(double, double)));
-	connect(doc->ActPage, SIGNAL(SetAngle(double)), Mpal, SLOT(setR(double)));
-	connect(doc->ActPage, SIGNAL(ItemRadius(double)), Mpal, SLOT(setRR(double)));
-	connect(doc->ActPage, SIGNAL(ItemTextAttr(double)), Mpal, SLOT(setLsp(double)));
-	connect(doc->ActPage, SIGNAL(ItemTextCols(int, double)), Mpal, SLOT(setCols(int, double)));
-	connect(doc->ActPage, SIGNAL(ItemTextSize(int)), Mpal, SLOT(setSize(int)));
-	connect(doc->ActPage, SIGNAL(ItemTextUSval(double)), Mpal, SLOT(setExtra(double)));
-	connect(doc->ActPage, SIGNAL(SetDistValues(double, double, double, double)), Mpal, SLOT(setDvals(double, double, double, double)));
-	connect(doc->ActPage, SIGNAL(SetLocalValues(double, double, double, double)), Mpal, SLOT(setLvalue(double, double, double, double)));
-	connect(doc->ActPage, SIGNAL(SetSizeValue(double)), Mpal, SLOT(setSvalue(double)));
-	connect(doc->ActPage, SIGNAL(ItemTextStil(int)), Mpal, SLOT(setStil(int)));
-	connect(doc->ActPage, SIGNAL(ItemTextSca(int)), Mpal, SLOT(setTScale(int)));
-	connect(doc->ActPage, SIGNAL(ItemTextAbs(int)), Mpal, SLOT(setAli(int)));
-	connect(doc->ActPage, SIGNAL(SetLineArt(PenStyle, PenCapStyle, PenJoinStyle)), Mpal, SLOT( setLIvalue(PenStyle, PenCapStyle, PenJoinStyle)));
-	connect(doc->ActPage, SIGNAL(ItemFarben(QString, QString, int, int)), this, SLOT(setCSMenu(QString, QString, int, int)));
-	connect(doc->ActPage, SIGNAL(ItemFarben(QString, QString, int, int)), Mpal->Cpal, SLOT(setActFarben(QString, QString, int, int)));
-	connect(doc->ActPage, SIGNAL(ItemGradient(int)), Mpal->Cpal, SLOT(setActGradient(int)));
-	connect(doc->ActPage, SIGNAL(ItemTrans(double, double)), Mpal->Cpal, SLOT(setActTrans(double, double)));
-	connect(doc->ActPage, SIGNAL(ItemTextFont(QString)), this, SLOT(AdjustFontMenu(QString)));
-	connect(doc->ActPage, SIGNAL(ItemTextSize(int)), this, SLOT(setFSizeMenu(int)));
-	connect(doc->ActPage, SIGNAL(ItemTextStil(int)), this, SLOT(setStilvalue(int)));
-	connect(doc->ActPage, SIGNAL(ItemTextAbs(int)), this, SLOT(setAbsValue(int)));
-	connect(doc->ActPage, SIGNAL(ItemTextFarben(QString, QString, int, int)), Mpal, SLOT(setActFarben(QString, QString, int, int)));
-	connect(doc->ActPage, SIGNAL(HasTextSel()), this, SLOT(EnableTxEdit()));
-	connect(doc->ActPage, SIGNAL(HasNoTextSel()), this, SLOT(DisableTxEdit()));
-	connect(doc->ActPage, SIGNAL(CopyItem()), this, SLOT(slotEditCopy()));
-	connect(doc->ActPage, SIGNAL(CutItem()), this, SLOT(slotEditCut()));
-	connect(doc->ActPage, SIGNAL(LoadPic()), this, SLOT(slotFileOpen()));
-	connect(doc->ActPage, SIGNAL(AppendText()), this, SLOT(slotFileAppend()));
-	connect(doc->ActPage, SIGNAL(AnnotProps()), this, SLOT(ModifyAnnot()));
-	connect(doc->ActPage, SIGNAL(ToScrap(QString)), this, SLOT(PutScrap(QString)));
-	connect(doc->ActPage, SIGNAL(UndoAvail()), this, SLOT(CanUndo()));
-	connect(doc->ActPage, SIGNAL(EditGuides()), this, SLOT(ManageGuides()));
-	connect(doc->ActPage, SIGNAL(LoadElem(QString, int ,int, bool, bool, ScribusDoc *)), this, SLOT(slotElemRead(QString, int, int, bool, bool, ScribusDoc *)));
-	connect(doc->ActPage, SIGNAL(AddBM(PageItem *)), this, SLOT(AddBookMark(PageItem *)));
-	connect(doc->ActPage, SIGNAL(DelBM(PageItem *)), this, SLOT(DelBookMark(PageItem *)));
-	connect(doc->ActPage, SIGNAL(ChBMText(PageItem *)), this, SLOT(BookMarkTxT(PageItem *)));
-	connect(doc->ActPage, SIGNAL(NewBMNr(int, int)), BookPal->BView, SLOT(ChangeItem(int, int)));
-	connect(doc->ActPage, SIGNAL(RasterPic(bool)), this, SLOT(HaveRaster(bool)));
-	connect(doc->ActPage, SIGNAL(EditText()), this, SLOT(slotStoryEditor()));
-	connect(doc->ActPage, SIGNAL(DoGroup()), this, SLOT(GroupObj()));
-	connect(doc->ActPage, SIGNAL(DoUnGroup()), this, SLOT(UnGroupObj()));
-	connect(doc->ActPage, SIGNAL(EndNodeEdit()), this, SLOT(ToggleFrameEdit()));
-	connect(doc->ActPage, SIGNAL(LevelChanged(uint )), Mpal, SLOT(setLevel(uint)));
-	if (!doc->TemplateMode)
-	{
-		connect(doc->ActPage, SIGNAL(DelObj(uint, uint)), Tpal, SLOT(slotRemoveElement(uint, uint)));
-		connect(doc->ActPage, SIGNAL(AddObj(uint, uint)), Tpal, SLOT(slotAddElement(uint, uint)));
-		connect(doc->ActPage, SIGNAL(UpdtObj(uint, uint)), Tpal, SLOT(slotUpdateElement(uint, uint)));
-		connect(doc->ActPage, SIGNAL(MoveObj(uint, uint, uint)), Tpal, SLOT(slotMoveElement(uint, uint, uint)));
-	}
-	slotDocCh(!doc->loading);
+	slotDocCh(!doc->loading); */
 }
 
 /** Ansicht absolut zoomen */
 void ScribusApp::slotZoomAbs(double z)
 {
-	view->rememberPreviousSettings();
-	doc->Scale = z;
+//	view->rememberPreviousSettings();
+	view->Scale = z;
 	view->slotDoZoom();
 }
 
@@ -4628,7 +4611,7 @@ void ScribusApp::slotZoomFit()
 {
 	double dx = (view->width()-50) / (doc->PageB+30);
 	double dy = (view->height()-70) / (doc->PageH+30);
-	view->rememberPreviousSettings();
+//	view->rememberPreviousSettings();
 	if (dx > dy)
 		slotZoomAbs(dy);
 	else
@@ -4895,20 +4878,14 @@ void ScribusApp::TogglePDFTools()
 
 void ScribusApp::TogglePics()
 {
-	uint a, b;
 	doc->ShowPic = !doc->ShowPic;
 	viewMenu->setItemChecked(Bilder, doc->ShowPic);
-	for (a=0; a<view->Pages.count(); ++a)
+	for (uint b=0; b<doc->Items.count(); ++b)
 	{
-		for (b=0; b<view->Pages.at(a)->Items.count(); ++b)
-		{
-			if (view->Pages.at(a)->Items.at(b)->PType == 2)
-			{
-				view->Pages.at(a)->Items.at(b)->PicArt = doc->ShowPic;
-			}
-		}
-		view->Pages.at(a)->update();
+		if (doc->Items.at(b)->PType == 2)
+			doc->Items.at(b)->PicArt = doc->ShowPic;
 	}
+	view->DrawNew();
 }
 
 void ScribusApp::ToggleAllGuides()
@@ -5009,7 +4986,7 @@ void ScribusApp::ToggleFrameEdit()
 	}
 	else
 	{
-		Npal->setDoc(doc);
+		Npal->setDoc(doc, view);
 		Npal->MoveN();
 		Npal->HaveNode(false, false);
 		Npal->MoveNode->setOn(true);
@@ -5034,10 +5011,10 @@ void ScribusApp::ToggleFrameEdit()
 		WerkToolsP->PDFTool->setEnabled(false);
 		WerkToolsP->PDFaTool->setEnabled(false);
 		ObjMenu->setItemEnabled(Loesch, false);
-		if (doc->ActPage->SelItem.count() != 0)
+		if (view->SelItem.count() != 0)
 		{
-			PageItem* b = doc->ActPage->SelItem.at(0);
-			doc->ActPage->MarkClip(b);
+			PageItem* b = view->SelItem.at(0);
+			view->MarkClip(b);
 			if (b->ContourLine.size() == 0)
 				Npal->EditCont->setEnabled(false);
 			else
@@ -5073,11 +5050,11 @@ void ScribusApp::NoFrameEdit()
 	if (HaveDoc)
 	{
 		doc->EditClip = false;
-		doc->ActPage->EditContour = false;
-		if (doc->ActPage->SelItem.count() != 0)
+		view->EditContour = false;
+		if (view->SelItem.count() != 0)
 		{
-			HaveNewSel(doc->ActPage->SelItem.at(0)->PType);
-			doc->ActPage->update();
+			HaveNewSel(view->SelItem.at(0)->PType);
+			view->DrawNew();
 		}
 		else
 			HaveNewSel(-1);
@@ -5114,7 +5091,7 @@ void ScribusApp::ModeFromTB(int m)
 		return;
 	}
 	if (m == 10)
-		doc->ElemToLink = doc->ActPage->SelItem.at(0);
+		doc->ElemToLink = view->SelItem.at(0);
 	if (doc->AppMode == 13)
 		return;
 	setAppMode(m);
@@ -5126,27 +5103,27 @@ void ScribusApp::setAppMode(int mode)
 	setActiveWindow();
 	if (HaveDoc)
 	{
-		if (doc->ActPage->SelItem.count() != 0)
-			b = doc->ActPage->SelItem.at(0);
+		if (view->SelItem.count() != 0)
+			b = view->SelItem.at(0);
 		else
 			b = 0;
 		int oldMode = doc->AppMode;
 		doc->AppMode = mode;
 		if (oldMode == 24)
-			disconnect(doc->ActPage, SIGNAL(MVals(double, double, double, double, double, double, int )), MaPal, SLOT(setValues(double, double, double, double, double, double, int )));
+			disconnect(view, SIGNAL(MVals(double, double, double, double, double, double, int )), MaPal, SLOT(setValues(double, double, double, double, double, double, int )));
 		if (oldMode == 7)
 		{
-			disconnect(doc->CurTimer, SIGNAL(timeout()), doc->ActPage, SLOT(BlinkCurs()));
+			disconnect(doc->CurTimer, SIGNAL(timeout()), view, SLOT(BlinkCurs()));
 			doc->CurTimer->stop();
 			view->LE->setFocusPolicy(QWidget::ClickFocus);
 			view->PGS->PageCombo->setFocusPolicy(QWidget::ClickFocus);
 			delete doc->CurTimer;
 			doc->CurTimer = 0;
 			editMenu->setItemEnabled(edid4, 0);
-			doc->ActPage->slotDoCurs(false);
+			view->slotDoCurs(false);
 			if (b != 0)
 			{
-				doc->ActPage->RefreshItem(b);
+				view->RefreshItem(b);
 				menuBar()->setItemEnabled(Stm, 1);
 				menuBar()->setItemEnabled(Obm, 1);
 			}
@@ -5180,11 +5157,11 @@ void ScribusApp::setAppMode(int mode)
 			WerkTools->Select->setOn(false);
 			WerkTools->Textedit->setOn(true);
 			WerkTools->Textedit2->setOn(false);
-			doc->ActPage->slotDoCurs(true);
+			view->slotDoCurs(true);
 			menuBar()->setItemEnabled(Obm, 0);
 			menuBar()->setItemEnabled(Stm, 0);
-			doc->CurTimer = new QTimer(doc->ActPage);
-			connect(doc->CurTimer, SIGNAL(timeout()), doc->ActPage, SLOT(BlinkCurs()));
+			doc->CurTimer = new QTimer(view);
+			connect(doc->CurTimer, SIGNAL(timeout()), view, SLOT(BlinkCurs()));
 			doc->CurTimer->start(500);
 			if (b != 0)
 			{
@@ -5201,18 +5178,19 @@ void ScribusApp::setAppMode(int mode)
 					editMenu->setItemEnabled(edid4, 0);
 				}
 				editMenu->setItemEnabled(Sear, 1);
-				doc->ActPage->RefreshItem(b);
+				view->RefreshItem(b);
 			}
 		}
 		if (mode == 13)
 		{
-			if (doc->ActPage->SelItem.count() != 0)
-				doc->ActPage->Deselect(true);
+			if (view->SelItem.count() != 0)
+				view->Deselect(true);
+			view->FirstPoly = true;
 		}
 		if (mode == 24)
 		{
 			MaPal->show();
-			connect(doc->ActPage, SIGNAL(MVals(double, double, double, double, double, double, int)), MaPal, SLOT(setValues(double, double, double, double, double, double, int )));
+			connect(view, SIGNAL(MVals(double, double, double, double, double, double, int)), MaPal, SLOT(setValues(double, double, double, double, double, double, int )));
 		}
 		if (mode == 6)
 			qApp->setOverrideCursor(QCursor(loadIcon("LupeZ.xpm")), true);
@@ -5247,6 +5225,8 @@ void ScribusApp::setAppMode(int mode)
 			WerkToolsP->PDFaTool->setOn(false);
 			WerkTools->Measure->setOn(false);
 		}
+		if ((mode == 10) || (mode == 11))
+			view->updateContents();
 	}
 }
 
@@ -5319,35 +5299,32 @@ void ScribusApp::setStilvalue(int s)
 
 void ScribusApp::setItemHoch(int h)
 {
-	if (doc->ActPage->SelItem.count() != 0)
+	if (view->SelItem.count() != 0)
 	{
 		setActiveWindow();
 		doc->CurrentStyle = h;
 		setStilvalue(doc->CurrentStyle);
-		doc->ActPage->chTyStyle(h);
+		view->chTyStyle(h);
 		slotDocCh();
 	}
 }
 
 void ScribusApp::AdjustBM()
 {
-	for (uint a = 0; a < view->Pages.count(); ++a)
+	for (uint b = 0; b < doc->Items.count(); ++b)
 	{
-		for (uint b = 0; b < view->Pages.at(a)->Items.count(); ++b)
+		PageItem* bb = doc->Items.at(b);
+		if (bb->isBookmark)
 		{
-			PageItem* bb = view->Pages.at(a)->Items.at(b);
-			if (bb->isBookmark)
+			int it = bb->BMnr;
+			QListViewItemIterator itn(BookPal->BView);
+			for ( ; itn.current(); ++itn)
 			{
-				int it = bb->BMnr;
-				QListViewItemIterator itn(BookPal->BView);
-				for ( ; itn.current(); ++itn)
+				BookMItem *ite = (BookMItem*)itn.current();
+				if (ite->ItemNr == it)
 				{
-					BookMItem *ite = (BookMItem*)itn.current();
-					if (ite->ItemNr == it)
-					{
-						ite->Seite = a;
-						break;
-					}
+//					ite->Seite = a;
+					break;
 				}
 			}
 		}
@@ -5359,30 +5336,30 @@ void ScribusApp::DeletePage2(int pg)
 {
 	PageItem* ite;
 	NoFrameEdit();
-	if (view->Pages.count() == 1)
+	if (doc->Pages.count() == 1)
 		return;
-	if (!doc->TemplateMode)
-		disconnect(doc->ActPage, SIGNAL(DelObj(uint, uint)), Tpal, SLOT(slotRemoveElement(uint, uint)));
-	view->Pages.at(pg)->SelItem.clear();
-	for (uint d = 0; d < view->Pages.at(pg)->Items.count(); ++d)
+/*	if (!doc->TemplateMode)
+		disconnect(doc->ActPage, SIGNAL(DelObj(uint, uint)), Tpal, SLOT(slotRemoveElement(uint, uint))); */
+	view->SelItem.clear();
+	for (uint d = 0; d < doc->Items.count(); ++d)
 	{
-		ite = view->Pages.at(pg)->Items.at(d);
+		ite = doc->Items.at(d);
 		if (ite->isBookmark)
 			DelBookMark(ite);
-		if (ite->PType == 4)
-			view->Pages.at(pg)->SelItem.append(ite);
+		view->SelItem.append(ite);
 	}
-	if (view->Pages.at(pg)->SelItem.count() != 0)
-		view->Pages.at(pg)->DeleteItem();
-	disconnect(view->Pages.at(pg), SIGNAL(DelObj(uint, uint)), Tpal, SLOT(slotRemoveElement(uint, uint)));
-	view->delPage(pg);
-	AdjustBM();
-	if (!doc->TemplateMode)
-		connect(doc->ActPage, SIGNAL(DelObj(uint, uint)), Tpal, SLOT(slotRemoveElement(uint, uint)));
+	if (view->SelItem.count() != 0)
+		view->DeleteItem();
+//	disconnect(view->Pages.at(pg), SIGNAL(DelObj(uint, uint)), Tpal, SLOT(slotRemoveElement(uint, uint)));
 	view->reformPages();
+	view->delPage(pg);
+//	AdjustBM();
+//	if (!doc->TemplateMode)
+//		connect(doc->ActPage, SIGNAL(DelObj(uint, uint)), Tpal, SLOT(slotRemoveElement(uint, uint)));
+	view->DrawNew();
 	doc->OpenNodes.clear();
-	Tpal->BuildTree(view);
-	if (view->Pages.count() == 1)
+//	Tpal->BuildTree(view);
+	if (doc->Pages.count() == 1)
 	{
 		pageMenu->setItemEnabled(pgmd, 0);
 		pageMenu->setItemEnabled(pgmv, 0);
@@ -5390,44 +5367,46 @@ void ScribusApp::DeletePage2(int pg)
 	slotDocCh();
 	doc->UnDoValid = false;
 	CanUndo();
-	Sepal->RebuildPage();
+//	Sepal->RebuildPage();
 }
 
 void ScribusApp::DeletePage()
 {
-	int a, pg;
 	PageItem* ite;
 	NoFrameEdit();
-	doc->ActPage->Deselect(true);
-	DelPages *dia = new DelPages(this, doc->ActPage->PageNr+1, view->Pages.count());
+	view->Deselect(true);
+	DelPages *dia = new DelPages(this, doc->ActPage->PageNr+1, doc->Pages.count());
 	if (dia->exec())
 	{
-		if (!doc->TemplateMode)
-			disconnect(doc->ActPage, SIGNAL(DelObj(uint, uint)), Tpal, SLOT(slotRemoveElement(uint, uint)));
-		pg = dia->FromPage->value()-1;
-		for (a = pg; a < dia->ToPage->value(); ++a)
+		view->SelItem.clear();
+//		if (!doc->TemplateMode)
+//			disconnect(doc->ActPage, SIGNAL(DelObj(uint, uint)), Tpal, SLOT(slotRemoveElement(uint, uint)));
+		for (int a = dia->ToPage->value()-1; a >= dia->FromPage->value()-1; a--)
 		{
-			disconnect(view->Pages.at(pg), SIGNAL(DelObj(uint, uint)), Tpal, SLOT(slotRemoveElement(uint, uint)));
-			view->Pages.at(pg)->SelItem.clear();
-			for (uint d = 0; d < view->Pages.at(pg)->Items.count(); ++d)
+/*			disconnect(view->Pages.at(pg), SIGNAL(DelObj(uint, uint)), Tpal, SLOT(slotRemoveElement(uint, uint))); */
+			for (uint d = 0; d < doc->Items.count(); ++d)
 			{
-				ite = view->Pages.at(pg)->Items.at(d);
-				if (ite->isBookmark)
-					DelBookMark(ite);
-				if (ite->PType == 4)
-					view->Pages.at(pg)->SelItem.append(ite);
+				ite = doc->Items.at(d);
+				if (ite->OwnPage == a)
+				{
+//					if (ite->isBookmark)
+//						DelBookMark(ite);
+					view->SelItem.append(ite);
+				}
 			}
-			if (view->Pages.at(pg)->SelItem.count() != 0)
-				view->Pages.at(pg)->DeleteItem();
-			view->delPage(pg);
-			AdjustBM();
+//			AdjustBM();
 		}
-		if (!doc->TemplateMode)
-			connect(doc->ActPage, SIGNAL(DelObj(uint, uint)), Tpal, SLOT(slotRemoveElement(uint, uint)));
+//		if (!doc->TemplateMode)
+//			connect(doc->ActPage, SIGNAL(DelObj(uint, uint)), Tpal, SLOT(slotRemoveElement(uint, uint)));
+		if (view->SelItem.count() != 0)
+			view->DeleteItem();
+		for (int a = dia->ToPage->value()-1; a >= dia->FromPage->value()-1; a--)
+			view->delPage(a);
 		view->reformPages();
-		doc->OpenNodes.clear();
-		Tpal->BuildTree(view);
-		if (view->Pages.count() == 1)
+		view->DrawNew();
+//		doc->OpenNodes.clear();
+//		Tpal->BuildTree(view);
+		if (doc->Pages.count() == 1)
 		{
 			pageMenu->setItemEnabled(pgmd, 0);
 			pageMenu->setItemEnabled(pgmv, 0);
@@ -5435,18 +5414,18 @@ void ScribusApp::DeletePage()
 		slotDocCh();
 		doc->UnDoValid = false;
 		CanUndo();
-		Sepal->RebuildPage();
+//		Sepal->RebuildPage();
 	}
 	delete dia;
 }
 
 void ScribusApp::MovePage()
 {
-	NoFrameEdit();
-	MovePages *dia = new MovePages(this, doc->ActPage->PageNr+1, view->Pages.count(), true);
+//	NoFrameEdit();
+	MovePages *dia = new MovePages(this, doc->ActPage->PageNr+1, doc->Pages.count(), true);
 	if (dia->exec())
 	{
-		doc->OpenNodes = Tpal->buildReopenVals();
+//		doc->OpenNodes = Tpal->buildReopenVals();
 		int from = dia->FromPage->value();
 		int to = dia->ToPage->value();
 		int wie = dia->Where->currentItem();
@@ -5456,10 +5435,10 @@ void ScribusApp::MovePage()
 		slotDocCh();
 		doc->UnDoValid = false;
 		CanUndo();
-		AdjustBM();
+/*		AdjustBM();
 		Sepal->RebuildPage();
 		Tpal->BuildTree(view);
-		Tpal->reopenTree(doc->OpenNodes);
+		Tpal->reopenTree(doc->OpenNodes); */
 	}
 	delete dia;
 }
@@ -5467,11 +5446,11 @@ void ScribusApp::MovePage()
 void ScribusApp::CopyPage()
 {
 	NoFrameEdit();
-	MovePages *dia = new MovePages(this, doc->ActPage->PageNr+1, view->Pages.count(), false);
+	MovePages *dia = new MovePages(this, doc->ActPage->PageNr+1, doc->Pages.count(), false);
 	if (dia->exec())
 	{
 		doc->loading = true;
-		Page* from = view->Pages.at(dia->FromPage->value()-1);
+		Page* from = doc->Pages.at(dia->FromPage->value()-1);
 		int wo = dia->ActualPage->value();
 		switch (dia->Where->currentItem())
 		{
@@ -5482,7 +5461,7 @@ void ScribusApp::CopyPage()
 			slotNewPage(wo);
 			break;
 		case 2:
-			slotNewPage(view->Pages.count());
+			slotNewPage(doc->Pages.count());
 			break;
 		}
 		Page* Ziel = doc->ActPage;
@@ -5490,13 +5469,13 @@ void ScribusApp::CopyPage()
 		QPtrList<PageItem> TableItems;
 		TableID.clear();
 		TableItems.clear();
-		for (uint ite = 0; ite < from->Items.count(); ++ite)
+		for (uint ite = 0; ite < doc->Items.count(); ++ite)
 		{
-			CopyPageItem(&Buffer, from->Items.at(ite));
-			Ziel->PasteItem(&Buffer, true, true);
-			if (from->Items.at(ite)->isBookmark)
-				AddBookMark(Ziel->Items.at(Ziel->Items.count()-1));
-			PageItem* Neu = Ziel->Items.at(Ziel->Items.count()-1);
+			CopyPageItem(&Buffer, doc->Items.at(ite));
+			view->PasteItem(&Buffer, true, true);
+			if (doc->Items.at(ite)->isBookmark)
+				AddBookMark(doc->Items.at(doc->Items.count()-1));
+			PageItem* Neu = doc->Items.at(doc->Items.count()-1);
 			if (Neu->isTableItem)
 			{
 				TableItems.append(Neu);
@@ -5509,25 +5488,25 @@ void ScribusApp::CopyPage()
 			{
 				PageItem* ta = TableItems.at(ttc);
 				if (ta->TopLinkID != -1)
-					ta->TopLink = Ziel->Items.at(TableID[ta->TopLinkID]);
+					ta->TopLink = doc->Items.at(TableID[ta->TopLinkID]);
 				else
 					ta->TopLink = 0;
 				if (ta->LeftLinkID != -1)
-					ta->LeftLink = Ziel->Items.at(TableID[ta->LeftLinkID]);
+					ta->LeftLink = doc->Items.at(TableID[ta->LeftLinkID]);
 				else
 					ta->LeftLink = 0;
 				if (ta->RightLinkID != -1)
-					ta->RightLink = Ziel->Items.at(TableID[ta->RightLinkID]);
+					ta->RightLink = doc->Items.at(TableID[ta->RightLinkID]);
 				else
 					ta->RightLink = 0;
 				if (ta->BottomLinkID != -1)
-					ta->BottomLink = Ziel->Items.at(TableID[ta->BottomLinkID]);
+					ta->BottomLink = doc->Items.at(TableID[ta->BottomLinkID]);
 				else
 					ta->BottomLink = 0;
 			}
 		}
 		Ziel->MPageNam = from->MPageNam;
-		Ziel->Deselect(true);
+		view->Deselect(true);
 		doc->loading = false;
 		view->DrawNew();
 		slotDocCh();
@@ -5574,9 +5553,9 @@ void ScribusApp::SetNewFont(QString nf)
 		}
 		else
 		{
-			if (doc->ActPage->SelItem.count() != 0)
+			if (view->SelItem.count() != 0)
 			{
-				PageItem *b = doc->ActPage->SelItem.at(0);
+				PageItem *b = view->SelItem.at(0);
 				nf2 = b->IFont;
 			}
 			Mpal->Fonts->RebuildList(&Prefs);
@@ -5584,7 +5563,7 @@ void ScribusApp::SetNewFont(QString nf)
 		}
 	}
 	AdjustFontMenu(nf2);
-	doc->ActPage->ItemFont(nf2);
+	view->ItemFont(nf2);
 	doc->CurrFont = nf2;
 	slotDocCh();
 }
@@ -5611,7 +5590,7 @@ void ScribusApp::setItemFSize(int id)
 	if (c > 0)
 	{
 		c = SizeTMenu->text(id).left(2).toInt() * 10;
-		doc->ActPage->chFSize(c);
+		view->chFSize(c);
 	}
 	else
 	{
@@ -5620,7 +5599,7 @@ void ScribusApp::setItemFSize(int id)
 		{
 			c = qRound(dia->Answer->text().toDouble(&ok) * 10);
 			if ((ok) && (c < 10250) && (c > 0))
-				doc->ActPage->chFSize(c);
+				view->chFSize(c);
 			delete dia;
 		}
 	}
@@ -5642,13 +5621,13 @@ void ScribusApp::setFSizeMenu(int size)
 
 void ScribusApp::setItemFarbe(int id)
 {
-	if (doc->ActPage->SelItem.count() != 0)
+	if (view->SelItem.count() != 0)
 	{
-		PageItem *b = doc->ActPage->SelItem.at(0);
+		PageItem *b = view->SelItem.at(0);
 		if ((b->PType == 4) || (b->PType == 8))
-			doc->ActPage->ItemTextBrush(ColorMenC->text(id));
+			view->ItemTextBrush(ColorMenC->text(id));
 		else
-			doc->ActPage->ItemBrush(ColorMenC->text(id));
+			view->ItemBrush(ColorMenC->text(id));
 	}
 	ColorMenu->activateItemAt(0);
 	slotDocCh();
@@ -5664,15 +5643,15 @@ void ScribusApp::setItemShade(int id)
 		ShadeMenu->setItemChecked(ShadeMenu->idAt(a), false);
 	}
 	ShadeMenu->setItemChecked(id, true);
-	if (doc->ActPage->SelItem.count() != 0)
+	if (view->SelItem.count() != 0)
 	{
-		PageItem *b = doc->ActPage->SelItem.at(0);
+		PageItem *b = view->SelItem.at(0);
 		if (c > 0)
 		{
 			if ((b->PType == 4) || (b->PType == 8))
-				doc->ActPage->ItemTextBrushS((c-1) * 10);
+				view->ItemTextBrushS((c-1) * 10);
 			else
-				doc->ActPage->ItemBrushShade((c-1) * 10);
+				view->ItemBrushShade((c-1) * 10);
 		}
 		else
 		{
@@ -5683,9 +5662,9 @@ void ScribusApp::setItemShade(int id)
 				if (ok)
 				{
 					if ((b->PType == 4) || (b->PType == 8))
-						doc->ActPage->ItemTextBrushS(c);
+						view->ItemTextBrushS(c);
 					else
-						doc->ActPage->ItemBrushShade(c);
+						view->ItemBrushShade(c);
 				}
 				delete dia;
 			}
@@ -5700,9 +5679,9 @@ void ScribusApp::setCSMenu(QString k, QString l, int lk , int ls)
 	QString la;
 	int lb;
 	PageItem *b;
-	if (doc->ActPage->SelItem.count() != 0)
+	if (view->SelItem.count() != 0)
 	{
-		b = doc->ActPage->SelItem.at(0);
+		b = view->SelItem.at(0);
 		if ((b->PType == 4) || (b->PType == 8))
 		{
 			if ((doc->AppMode == 7) && (b->Ptext.count() != 0))
@@ -5757,33 +5736,27 @@ void ScribusApp::slotEditLineStyles()
 void ScribusApp::saveLStyles(LineFormate *dia)
 {
 	if (doc->TemplateMode)
-		view->MasterPages = view->Pages;
+		doc->MasterItems = doc->Items;
 	else
-		view->DocPages = view->Pages;
+		doc->DocItems = doc->Items;
 	PageItem* ite;
 	doc->MLineStyles = dia->TempStyles;
-	for (uint c = 0; c < view->DocPages.count(); ++c)
+	for (uint d = 0; d < doc->DocItems.count(); ++d)
 	{
-		for (uint d = 0; d < view->DocPages.at(c)->Items.count(); ++d)
+		ite = doc->DocItems.at(d);
+		if (ite->NamedLStyle != "")
 		{
-			ite = view->DocPages.at(c)->Items.at(d);
-			if (ite->NamedLStyle != "")
-			{
-				if (!doc->MLineStyles.contains(ite->NamedLStyle))
-					ite->NamedLStyle = dia->Replacement[ite->NamedLStyle];
-			}
+			if (!doc->MLineStyles.contains(ite->NamedLStyle))
+				ite->NamedLStyle = dia->Replacement[ite->NamedLStyle];
 		}
 	}
-	for (uint c1 = 0; c1 < view->MasterPages.count(); ++c1)
+	for (uint d1 = 0; d1 < doc->MasterItems.count(); ++d1)
 	{
-		for (uint d1 = 0; d1 < view->MasterPages.at(c1)->Items.count(); ++d1)
+		ite = doc->MasterItems.at(d1);
+		if (ite->NamedLStyle != "")
 		{
-			ite = view->MasterPages.at(c1)->Items.at(d1);
-			if (ite->NamedLStyle != "")
-			{
-				if (!doc->MLineStyles.contains(ite->NamedLStyle))
-					ite->NamedLStyle = dia->Replacement[ite->NamedLStyle];
-			}
+			if (!doc->MLineStyles.contains(ite->NamedLStyle))
+				ite->NamedLStyle = dia->Replacement[ite->NamedLStyle];
 		}
 	}
 	Mpal->SetLineFormats(doc);
@@ -5817,9 +5790,9 @@ void ScribusApp::saveStyles(StilFormate *dia)
 	ers.append(3);
 	ers.append(4);
 	if (doc->TemplateMode)
-		view->MasterPages = view->Pages;
+		doc->MasterItems = doc->Items;
 	else
-		view->DocPages = view->Pages;
+		doc->DocItems = doc->Items;
 	for (uint a=5; a<doc->Vorlagen.count(); ++a)
 	{
 		ff = false;
@@ -5868,100 +5841,94 @@ void ScribusApp::saveStyles(StilFormate *dia)
 				ers.append(0);
 		}
 	}
-	for (uint c=0; c<view->DocPages.count(); ++c)
+	for (uint d=0; d<doc->DocItems.count(); ++d)
 	{
-		for (uint d=0; d<view->DocPages.at(c)->Items.count(); ++d)
+		ite = doc->Items.at(d);
+		if (ite->PType == 4)
 		{
-			ite = view->DocPages.at(c)->Items.at(d);
-			if (ite->PType == 4)
+			for (uint e=0; e<ite->Ptext.count(); ++e)
 			{
-				for (uint e=0; e<ite->Ptext.count(); ++e)
+				int cabori = ite->Ptext.at(e)->cab;
+				int cabneu = ers[cabori];
+				if (cabori > 4)
 				{
-					int cabori = ite->Ptext.at(e)->cab;
-					int cabneu = ers[cabori];
-					if (cabori > 4)
+					if (cabneu > 0)
 					{
-						if (cabneu > 0)
+						if (ite->Ptext.at(e)->cfont == doc->Vorlagen[cabori].Font)
+							ite->Ptext.at(e)->cfont = dia->TempVorl[cabneu].Font;
+						if (ite->Ptext.at(e)->csize == doc->Vorlagen[cabori].FontSize)
+							ite->Ptext.at(e)->csize = dia->TempVorl[cabneu].FontSize;
+						if ((ite->Ptext.at(e)->cstyle & 127 ) == doc->Vorlagen[cabori].FontEffect)
 						{
-							if (ite->Ptext.at(e)->cfont == doc->Vorlagen[cabori].Font)
-								ite->Ptext.at(e)->cfont = dia->TempVorl[cabneu].Font;
-							if (ite->Ptext.at(e)->csize == doc->Vorlagen[cabori].FontSize)
-								ite->Ptext.at(e)->csize = dia->TempVorl[cabneu].FontSize;
-							if ((ite->Ptext.at(e)->cstyle & 127 ) == doc->Vorlagen[cabori].FontEffect)
-							{
-								ite->Ptext.at(e)->cstyle &= ~127;
-								ite->Ptext.at(e)->cstyle |= dia->TempVorl[cabneu].FontEffect;
-							}
-							if (ite->Ptext.at(e)->ccolor == doc->Vorlagen[cabori].FColor)
-								ite->Ptext.at(e)->ccolor = dia->TempVorl[cabneu].FColor;
-							if (ite->Ptext.at(e)->cshade == doc->Vorlagen[cabori].FShade)
-								ite->Ptext.at(e)->cshade = dia->TempVorl[cabneu].FShade;
-							if (ite->Ptext.at(e)->cstroke == doc->Vorlagen[cabori].SColor)
-								ite->Ptext.at(e)->cstroke = dia->TempVorl[cabneu].SColor;
-							if (ite->Ptext.at(e)->cshade2 == doc->Vorlagen[cabori].SShade)
-								ite->Ptext.at(e)->cshade2 = dia->TempVorl[cabneu].SShade;
-						}
-						else
-						{
-							ite->Ptext.at(e)->ccolor = ite->TxtFill;
-							ite->Ptext.at(e)->cshade = ite->ShTxtFill;
-							ite->Ptext.at(e)->cstroke = ite->TxtStroke;
-							ite->Ptext.at(e)->cshade2 = ite->ShTxtStroke;
-							ite->Ptext.at(e)->csize = ite->ISize;
 							ite->Ptext.at(e)->cstyle &= ~127;
-							ite->Ptext.at(e)->cstyle |= ite->TxTStyle;
+							ite->Ptext.at(e)->cstyle |= dia->TempVorl[cabneu].FontEffect;
 						}
-						ite->Ptext.at(e)->cab = cabneu;
+						if (ite->Ptext.at(e)->ccolor == doc->Vorlagen[cabori].FColor)
+							ite->Ptext.at(e)->ccolor = dia->TempVorl[cabneu].FColor;
+						if (ite->Ptext.at(e)->cshade == doc->Vorlagen[cabori].FShade)
+							ite->Ptext.at(e)->cshade = dia->TempVorl[cabneu].FShade;
+						if (ite->Ptext.at(e)->cstroke == doc->Vorlagen[cabori].SColor)
+							ite->Ptext.at(e)->cstroke = dia->TempVorl[cabneu].SColor;
+						if (ite->Ptext.at(e)->cshade2 == doc->Vorlagen[cabori].SShade)
+							ite->Ptext.at(e)->cshade2 = dia->TempVorl[cabneu].SShade;
 					}
+					else
+					{
+						ite->Ptext.at(e)->ccolor = ite->TxtFill;
+						ite->Ptext.at(e)->cshade = ite->ShTxtFill;
+						ite->Ptext.at(e)->cstroke = ite->TxtStroke;
+						ite->Ptext.at(e)->cshade2 = ite->ShTxtStroke;
+						ite->Ptext.at(e)->csize = ite->ISize;
+						ite->Ptext.at(e)->cstyle &= ~127;
+						ite->Ptext.at(e)->cstyle |= ite->TxTStyle;
+					}
+					ite->Ptext.at(e)->cab = cabneu;
 				}
 			}
 		}
 	}
-	for (uint c=0; c<view->MasterPages.count(); ++c)
+	for (uint d=0; d<doc->MasterItems.count(); ++d)
 	{
-		for (uint d=0; d<view->MasterPages.at(c)->Items.count(); ++d)
+		ite = doc->MasterItems.at(d);
+		if (ite->PType == 4)
 		{
-			ite = view->MasterPages.at(c)->Items.at(d);
-			if (ite->PType == 4)
+			for (uint e=0; e<ite->Ptext.count(); ++e)
 			{
-				for (uint e=0; e<ite->Ptext.count(); ++e)
+				int cabori = ite->Ptext.at(e)->cab;
+				int cabneu = ers[cabori];
+				if (cabori > 4)
 				{
-					int cabori = ite->Ptext.at(e)->cab;
-					int cabneu = ers[cabori];
-					if (cabori > 4)
+					if (cabneu > 0)
 					{
-						if (cabneu > 0)
+						if (ite->Ptext.at(e)->cfont == doc->Vorlagen[cabori].Font)
+							ite->Ptext.at(e)->cfont = dia->TempVorl[cabneu].Font;
+						if (ite->Ptext.at(e)->csize == doc->Vorlagen[cabori].FontSize)
+							ite->Ptext.at(e)->csize = dia->TempVorl[cabneu].FontSize;
+						if ((ite->Ptext.at(e)->cstyle & 127 ) == doc->Vorlagen[cabori].FontEffect)
 						{
-							if (ite->Ptext.at(e)->cfont == doc->Vorlagen[cabori].Font)
-								ite->Ptext.at(e)->cfont = dia->TempVorl[cabneu].Font;
-							if (ite->Ptext.at(e)->csize == doc->Vorlagen[cabori].FontSize)
-								ite->Ptext.at(e)->csize = dia->TempVorl[cabneu].FontSize;
-							if ((ite->Ptext.at(e)->cstyle & 127 ) == doc->Vorlagen[cabori].FontEffect)
-							{
-								ite->Ptext.at(e)->cstyle &= ~127;
-								ite->Ptext.at(e)->cstyle |= dia->TempVorl[cabneu].FontEffect;
-							}
-							if (ite->Ptext.at(e)->ccolor == doc->Vorlagen[cabori].FColor)
-								ite->Ptext.at(e)->ccolor = dia->TempVorl[cabneu].FColor;
-							if (ite->Ptext.at(e)->cshade == doc->Vorlagen[cabori].FShade)
-								ite->Ptext.at(e)->cshade = dia->TempVorl[cabneu].FShade;
-							if (ite->Ptext.at(e)->cstroke == doc->Vorlagen[cabori].SColor)
-								ite->Ptext.at(e)->cstroke = dia->TempVorl[cabneu].SColor;
-							if (ite->Ptext.at(e)->cshade2 == doc->Vorlagen[cabori].SShade)
-								ite->Ptext.at(e)->cshade2 = dia->TempVorl[cabneu].SShade;
-						}
-						else
-						{
-							ite->Ptext.at(e)->ccolor = ite->TxtFill;
-							ite->Ptext.at(e)->cshade = ite->ShTxtFill;
-							ite->Ptext.at(e)->cstroke = ite->TxtStroke;
-							ite->Ptext.at(e)->cshade2 = ite->ShTxtStroke;
-							ite->Ptext.at(e)->csize = ite->ISize;
 							ite->Ptext.at(e)->cstyle &= ~127;
-							ite->Ptext.at(e)->cstyle |= ite->TxTStyle;
+							ite->Ptext.at(e)->cstyle |= dia->TempVorl[cabneu].FontEffect;
 						}
-						ite->Ptext.at(e)->cab = cabneu;
+						if (ite->Ptext.at(e)->ccolor == doc->Vorlagen[cabori].FColor)
+							ite->Ptext.at(e)->ccolor = dia->TempVorl[cabneu].FColor;
+						if (ite->Ptext.at(e)->cshade == doc->Vorlagen[cabori].FShade)
+							ite->Ptext.at(e)->cshade = dia->TempVorl[cabneu].FShade;
+						if (ite->Ptext.at(e)->cstroke == doc->Vorlagen[cabori].SColor)
+							ite->Ptext.at(e)->cstroke = dia->TempVorl[cabneu].SColor;
+						if (ite->Ptext.at(e)->cshade2 == doc->Vorlagen[cabori].SShade)
+							ite->Ptext.at(e)->cshade2 = dia->TempVorl[cabneu].SShade;
 					}
+					else
+					{
+						ite->Ptext.at(e)->ccolor = ite->TxtFill;
+						ite->Ptext.at(e)->cshade = ite->ShTxtFill;
+						ite->Ptext.at(e)->cstroke = ite->TxtStroke;
+						ite->Ptext.at(e)->cshade2 = ite->ShTxtStroke;
+						ite->Ptext.at(e)->csize = ite->ISize;
+						ite->Ptext.at(e)->cstyle &= ~127;
+						ite->Ptext.at(e)->cstyle |= ite->TxTStyle;
+					}
+					ite->Ptext.at(e)->cab = cabneu;
 				}
 			}
 		}
@@ -6058,10 +6025,10 @@ void ScribusApp::setNewAbStyle(int a)
 	setActiveWindow();
 	if (HaveDoc)
 	{
-		doc->ActPage->SetAbStyle(a);
+		view->SetAbStyle(a);
 		doc->CurrentABStil = a;
 		Mpal->setAli(a);
-		PageItem *b = doc->ActPage->SelItem.at(0);
+		PageItem *b = view->SelItem.at(0);
 		setTBvals(b);
 		slotDocCh();
 	}
@@ -6080,7 +6047,7 @@ void ScribusApp::setAbsValue(int a)
 void ScribusApp::slotEditColors()
 {
 	int a;
-	uint b, c, d;
+	uint c, d;
 	CListe edc;
 	QMap<QString,QString> ers;
 	PageItem *ite;
@@ -6114,78 +6081,69 @@ void ScribusApp::slotEditColors()
 			ers = dia->Ersatzliste;
 			if (!ers.isEmpty())
 			{
-				if (!ers.isEmpty())
+				QMap<QString,QString>::Iterator it;
+				for (it = ers.begin(); it != ers.end(); ++it)
 				{
-					QMap<QString,QString>::Iterator it;
-					for (it = ers.begin(); it != ers.end(); ++it)
+					if (it.key() == doc->CurrTextFill)
+						doc->CurrTextFill = it.data();
+					if (it.key() == doc->CurrTextStroke)
+						doc->CurrTextStroke = it.data();
+					for (c=0; c<doc->DocItems.count(); ++c)
 					{
-						if (it.key() == doc->CurrTextFill)
-							doc->CurrTextFill = it.data();
-						if (it.key() == doc->CurrTextStroke)
-							doc->CurrTextStroke = it.data();
-						for (b=0; b<view->DocPages.count(); ++b)
+						ite = doc->DocItems.at(c);
+						if ((ite->PType == 4) || (ite->PType == 8))
 						{
-							for (c=0; c<view->DocPages.at(b)->Items.count(); ++c)
+							for (d=0; d<ite->Ptext.count(); ++d)
 							{
-								ite = view->DocPages.at(b)->Items.at(c);
-								if ((ite->PType == 4) || (ite->PType == 8))
-								{
-									for (d=0; d<ite->Ptext.count(); ++d)
-									{
-										if (it.key() == ite->Ptext.at(d)->ccolor)
-											ite->Ptext.at(d)->ccolor = it.data();
-										if (it.key() == ite->Ptext.at(d)->cstroke)
-											ite->Ptext.at(d)->cstroke = it.data();
-									}
-								}
-								if (it.key() == ite->Pcolor)
-									ite->Pcolor = it.data();
-								if (it.key() == ite->Pcolor2)
-									ite->Pcolor2 = it.data();
-								QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
-								for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
-								{
-									if (it.key() == cstops.at(cst)->name)
-									{
-										ite->SetFarbe(&tmpc, it.data(), cstops.at(cst)->shade);
-										cstops.at(cst)->color = tmpc;
-										cstops.at(cst)->name = it.data();
-									}
-								}
+								if (it.key() == ite->Ptext.at(d)->ccolor)
+									ite->Ptext.at(d)->ccolor = it.data();
+								if (it.key() == ite->Ptext.at(d)->cstroke)
+									ite->Ptext.at(d)->cstroke = it.data();
+							}
+						}
+						if (it.key() == ite->Pcolor)
+							ite->Pcolor = it.data();
+						if (it.key() == ite->Pcolor2)
+							ite->Pcolor2 = it.data();
+						QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+						for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+						{
+							if (it.key() == cstops.at(cst)->name)
+							{
+								ite->SetFarbe(&tmpc, it.data(), cstops.at(cst)->shade);
+								cstops.at(cst)->color = tmpc;
+								cstops.at(cst)->name = it.data();
 							}
 						}
 					}
-					for (it = ers.begin(); it != ers.end(); ++it)
+				}
+				for (it = ers.begin(); it != ers.end(); ++it)
+				{
+					for (c=0; c<doc->MasterItems.count(); ++c)
 					{
-						for (b=0; b<view->MasterPages.count(); ++b)
+						ite = doc->MasterItems.at(c);
+						if ((ite->PType == 4) || (ite->PType == 8))
 						{
-							for (c=0; c<view->MasterPages.at(b)->Items.count(); ++c)
+							for (d=0; d<ite->Ptext.count(); ++d)
 							{
-								ite = view->MasterPages.at(b)->Items.at(c);
-								if ((ite->PType == 4) || (ite->PType == 8))
-								{
-									for (d=0; d<ite->Ptext.count(); ++d)
-									{
-										if (it.key() == ite->Ptext.at(d)->ccolor)
-											ite->Ptext.at(d)->ccolor = it.data();
-										if (it.key() == ite->Ptext.at(d)->cstroke)
-											ite->Ptext.at(d)->cstroke = it.data();
-									}
-								}
-								if (it.key() == ite->Pcolor)
-									ite->Pcolor = it.data();
-								if (it.key() == ite->Pcolor2)
-									ite->Pcolor2 = it.data();
-								QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
-								for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
-								{
-									if (it.key() == cstops.at(cst)->name)
-									{
-										ite->SetFarbe(&tmpc, it.data(), cstops.at(cst)->shade);
-										cstops.at(cst)->color = tmpc;
-										cstops.at(cst)->name = it.data();
-									}
-								}
+								if (it.key() == ite->Ptext.at(d)->ccolor)
+									ite->Ptext.at(d)->ccolor = it.data();
+								if (it.key() == ite->Ptext.at(d)->cstroke)
+									ite->Ptext.at(d)->cstroke = it.data();
+							}
+						}
+						if (it.key() == ite->Pcolor)
+							ite->Pcolor = it.data();
+						if (it.key() == ite->Pcolor2)
+							ite->Pcolor2 = it.data();
+						QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+						for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+						{
+							if (it.key() == cstops.at(cst)->name)
+							{
+								ite->SetFarbe(&tmpc, it.data(), cstops.at(cst)->shade);
+								cstops.at(cst)->color = tmpc;
+								cstops.at(cst)->name = it.data();
 							}
 						}
 					}
@@ -6209,7 +6167,7 @@ void ScribusApp::setPenFarbe(QString farbe)
 {
 	if (HaveDoc)
 	{
-		doc->ActPage->ItemPen(farbe);
+		view->ItemPen(farbe);
 		slotDocCh();
 	}
 }
@@ -6219,7 +6177,7 @@ void ScribusApp::setPenShade(int sh)
 	setActiveWindow();
 	if (HaveDoc)
 	{
-		doc->ActPage->ItemPenShade(sh);
+		view->ItemPenShade(sh);
 		slotDocCh();
 	}
 }
@@ -6228,7 +6186,7 @@ void ScribusApp::setBrushFarbe(QString farbe)
 {
 	if (HaveDoc)
 	{
-		doc->ActPage->ItemBrush(farbe);
+		view->ItemBrush(farbe);
 		slotDocCh();
 	}
 }
@@ -6238,7 +6196,7 @@ void ScribusApp::setBrushShade(int sh)
 	setActiveWindow();
 	if (HaveDoc)
 	{
-		doc->ActPage->ItemBrushShade(sh);
+		view->ItemBrushShade(sh);
 		slotDocCh();
 	}
 }
@@ -6247,7 +6205,7 @@ void ScribusApp::setGradFill(int typ)
 {
 	if (HaveDoc)
 	{
-		doc->ActPage->ItemGradFill(typ);
+		view->ItemGradFill(typ);
 		slotDocCh();
 	}
 }
@@ -6256,11 +6214,11 @@ void ScribusApp::updtGradFill()
 {
 	if (HaveDoc)
 	{
-		if (doc->ActPage->SelItem.count() != 0)
+		if (view->SelItem.count() != 0)
 		{
-			PageItem *b = doc->ActPage->SelItem.at(0);
+			PageItem *b = view->SelItem.at(0);
 			b->fill_gradient = Mpal->Cpal->GradEdit->Preview->fill_gradient;
-			doc->ActPage->RefreshItem(b);
+			view->RefreshItem(b);
 			slotDocCh();
 		}
 	}
@@ -6271,29 +6229,29 @@ void ScribusApp::GetBrushPen()
 	setActiveWindow();
 	if (HaveDoc)
 	{
-		doc->ActPage->QueryFarben();
+		view->QueryFarben();
 		slotDocCh();
 	}
 }
 
 void ScribusApp::MakeFrame(int f, int c, double *vals)
 {
-	PageItem *b = doc->ActPage->SelItem.at(0);
+	PageItem *b = view->SelItem.at(0);
 	switch (f)
 	{
 	case 0:
-		doc->ActPage->SetRectFrame(b);
+		view->SetRectFrame(b);
 		break;
 	case 1:
-		doc->ActPage->SetOvalFrame(b);
+		view->SetOvalFrame(b);
 		break;
 	default:
-		doc->ActPage->SetFrameShape(b, c, vals);
+		view->SetFrameShape(b, c, vals);
 		b->FrameType = f+2;
 		break;
 	}
 	Mpal->SetCurItem(b);
-	doc->ActPage->RefreshItem(b);
+	view->RefreshItem(b);
 	slotDocCh();
 	doc->UnDoValid = false;
 	CanUndo();
@@ -6302,38 +6260,38 @@ void ScribusApp::MakeFrame(int f, int c, double *vals)
 void ScribusApp::DeleteObjekt()
 {
 	if (!doc->EditClip)
-		doc->ActPage->DeleteItem();
+		view->DeleteItem();
 }
 
 void ScribusApp::Objekt2Back()
 {
-	doc->ActPage->ToBack();
+	view->ToBack();
 }
 
 void ScribusApp::Objekt2Front()
 {
-	doc->ActPage->ToFront();
+	view->ToFront();
 }
 
 void ScribusApp::ObjektRaise()
 {
-	doc->ActPage->RaiseItem();
+	view->RaiseItem();
 }
 
 void ScribusApp::ObjektLower()
 {
-	doc->ActPage->LowerItem();
+	view->LowerItem();
 }
 
 void ScribusApp::ObjektDup()
 {
 	slotEditCopy();
-	doc->ActPage->Deselect(true);
+	view->Deselect(true);
 	slotEditPaste();
-	for (uint b=0; b<doc->ActPage->SelItem.count(); ++b)
+	for (uint b=0; b<view->SelItem.count(); ++b)
 	{
-		doc->ActPage->SelItem.at(b)->Locked = false;
-		doc->ActPage->MoveItem(DispX, DispY, doc->ActPage->SelItem.at(b));
+		view->SelItem.at(b)->Locked = false;
+		view->MoveItem(DispX, DispY, view->SelItem.at(b));
 	}
 	doc->UnDoValid = false;
 	CanUndo();
@@ -6354,14 +6312,14 @@ void ScribusApp::ObjektDupM()
 		if (anz>0)
 		{
 			slotEditCopy();
-			doc->ActPage->Deselect(true);
+			view->Deselect(true);
 			for (a=0; a<anz; ++a)
 			{
 				slotEditPaste();
-				for (uint b=0; b<doc->ActPage->SelItem.count(); ++b)
+				for (uint b=0; b<view->SelItem.count(); ++b)
 				{
-					doc->ActPage->SelItem.at(b)->Locked = false;
-					doc->ActPage->MoveItem(dH2, dV2, doc->ActPage->SelItem.at(b), true);
+					view->SelItem.at(b)->Locked = false;
+					view->MoveItem(dH2, dV2, view->SelItem.at(b), true);
 				}
 				dH2 += dH;
 				dV2 += dV;
@@ -6371,7 +6329,7 @@ void ScribusApp::ObjektDupM()
 			slotDocCh();
 			doc->UnDoValid = false;
 			CanUndo();
-			doc->ActPage->Deselect(true);
+			view->Deselect(true);
 		}
 	}
 	delete dia;
@@ -6381,12 +6339,12 @@ void ScribusApp::SelectFromOutl(int Page, int Item)
 {
 	NoFrameEdit();
 	setActiveWindow();
-	doc->ActPage->Deselect(true);
+	view->Deselect(true);
 	view->GotoPage(Page);
-	doc->ActPage->SelectItemNr(Item);
-	if (doc->ActPage->SelItem.count() != 0)
+	view->SelectItemNr(Item);
+	if (view->SelItem.count() != 0)
 	{
-		PageItem *b = doc->ActPage->SelItem.at(0);
+		PageItem *b = view->SelItem.at(0);
 	 // jjsa 23-05-2004 added for centering of rotated objects
 		if ( b->Rot != 0.0 )
 		{
@@ -6407,7 +6365,7 @@ void ScribusApp::SelectFromOutlS(int Page)
 {
 	NoFrameEdit();
 	setActiveWindow();
-	doc->ActPage->Deselect(true);
+	view->Deselect(true);
 	view->GotoPage(Page);
 }
 
@@ -6443,8 +6401,8 @@ void ScribusApp::ObjektAlign()
 	int xart, yart, ein;
 	ein = doc->Einheit;
 	NoFrameEdit();
-	doc->ActPage->BuildAObj();
-	Align *dia = new Align(this, doc->ActPage->AObjects.count(), ein, doc);
+	view->BuildAObj();
+	Align *dia = new Align(this, view->AObjects.count(), ein, doc, view);
 	connect(dia, SIGNAL(ApplyDist(bool, bool, bool, bool, double, double, int, int)),
 	        this, SLOT(DoAlign(bool, bool, bool, bool, double, double, int, int)));
 	if (dia->exec())
@@ -6457,18 +6415,18 @@ void ScribusApp::ObjektAlign()
 		yart = dia->VartV->currentItem();
 		Vth = dia->VerteilenH->isChecked();
 		Vtv = dia->VerteilenV->isChecked();
-		doc->ActPage->AlignObj(xa, ya, Vth, Vtv, xdp, ydp, xart, yart);
+		view->AlignObj(xa, ya, Vth, Vtv, xdp, ydp, xart, yart);
 		slotDocCh();
 		doc->UnDoValid = false;
 		CanUndo();
-		HaveNewSel(doc->ActPage->SelItem.at(0)->PType);
+		HaveNewSel(view->SelItem.at(0)->PType);
 	}
 	delete dia;
 }
 
 void ScribusApp::DoAlign(bool xa, bool ya, bool Vth, bool Vtv, double xdp, double ydp, int xart, int yart)
 {
-	doc->ActPage->AlignObj(xa, ya, Vth, Vtv, xdp, ydp, xart, yart);
+	view->AlignObj(xa, ya, Vth, Vtv, xdp, ydp, xart, yart);
 	slotDocCh();
 	doc->UnDoValid = false;
 	CanUndo();
@@ -6658,7 +6616,7 @@ void ScribusApp::slotPrefsOrg()
 		{
 			slotChangeUnit(dia->UnitCombo->currentItem(), false);
 			if (zChange)
-				slotZoomAbs(doc->Scale*Prefs.DisScale);
+				slotZoomAbs(view->Scale*Prefs.DisScale);
 			doc->GrabRad = dia->SpinBox3_2->value();
 			doc->GuideRad = dia->SpinBox2g->value() / UmReFaktor;
 			doc->Dfont = dia->FontComb->currentText();
@@ -7060,7 +7018,7 @@ bool ScribusApp::DoSaveAsEps(QString fn)
 	if (dd != NULL)
 	{
 		if (dd->PS_set_file(fn))
-			view->CreatePS(dd, pageNs, false, tr("All"), true, false, false, false, Prefs.GCRMode);
+			dd->CreatePS(doc, view, pageNs, false, tr("All"), true, false, false, false, Prefs.GCRMode);
 		else
 			return_value = false;
 		delete dd;
@@ -7297,7 +7255,7 @@ void ScribusApp::BookMarkTxT(PageItem *ite)
 
 void ScribusApp::ChBookmarks(int s, int e, int n)
 {
-	view->Pages.at(s)->Items.at(e)->BMnr = n;
+//	view->Pages.at(s)->Items.at(e)->BMnr = n;
 }
 
 void ScribusApp::RestoreBookMarks()
@@ -7374,14 +7332,14 @@ void ScribusApp::StoreBookmarks()
 	ActWin->Last = BookPal->BView->Last;
 }
 
-void ScribusApp::slotElemRead(QString Name, int x, int y, bool art, bool loca, ScribusDoc* docc)
+void ScribusApp::slotElemRead(QString Name, int x, int y, bool art, bool loca, ScribusDoc* docc, ScribusView* vie)
 {
 	if (doc == docc)
 		NoFrameEdit();
 	ScriXmlDoc *ss = new ScriXmlDoc();
-	if(ss->ReadElem(Name, Prefs.AvailFonts, docc, x, y, art, loca, Prefs.GFontSub, &Prefs))
+	if(ss->ReadElem(Name, Prefs.AvailFonts, docc, x, y, art, loca, Prefs.GFontSub, &Prefs, vie))
 	{
-		docc->ActPage->update();
+		vie->DrawNew();
 		docc->UnDoValid = false;
 		if (doc == docc)
 		{
@@ -7489,30 +7447,30 @@ void ScribusApp::ManTempEnd()
 	fileMenu->setItemEnabled(fid4, doc->isModified());
 	fileMenu->setItemEnabled(fid7, 1);
 	fileMenu->setItemEnabled(fid9, 1);
-	int setter = view->Pages.count() > 1 ? 1 : 0;
+	int setter = doc->Pages.count() > 1 ? 1 : 0;
 	pageMenu->setItemEnabled(pgmd, setter);
 	pageMenu->setItemEnabled(pgmv, setter);
-	for (uint c=0; c<view->Pages.count(); ++c)
+	for (uint c=0; c<doc->Pages.count(); ++c)
 	{
-		Apply_Temp(view->Pages.at(c)->MPageNam, c, false);
+		Apply_Temp(doc->Pages.at(c)->MPageNam, c, false);
 	}
 	doc->TemplateMode = false;
 	Sepal->EnablePal();
-	Sepal->RebuildTemp();
+//	Sepal->RebuildTemp();
 	ActWin->muster = NULL;
 	view->DrawNew();
 	doc->UnDoValid = false;
 	CanUndo();
-	Sepal->Rebuild();
-	Tpal->BuildTree(view);
-	Tpal->reopenTree(doc->OpenNodes);
-	slotDocCh();
+//	Sepal->Rebuild();
+//	Tpal->BuildTree(view);
+//	Tpal->reopenTree(doc->OpenNodes);
+//	slotDocCh();
 }
 
 void ScribusApp::ApplyTemp()
 {
 	QString mna;
-	ApplyT *dia = new ApplyT(this, view, doc->ActPage->MPageNam);
+	ApplyT *dia = new ApplyT(this, doc, doc->ActPage->MPageNam);
 	if (dia->exec())
 	{
 		mna = dia->Templ->currentText();
@@ -7546,18 +7504,34 @@ void ScribusApp::ApplyTemp()
 	slotDocCh();
 	doc->UnDoValid = false;
 	CanUndo();
-	Sepal->Rebuild();
+//	Sepal->Rebuild();
 	delete dia;
 }
 
 void ScribusApp::Apply_Temp(QString in, int Snr, bool reb)
 {
+	PageItem* b;
 	QString mna = in;
 	if (mna == tr("Normal"))
 		mna = "Normal";
-	Page* Ap = view->Pages.at(Snr);
+	Page* Ap = doc->Pages.at(Snr);
 	Ap->MPageNam = mna;
-	Page* Mp = view->MasterPages.at(view->MasterNames[mna]);
+	int MpNr = doc->MasterNames[mna];
+	Page* Mp = doc->MasterPages.at(MpNr);
+	for (b = Ap->FromMaster.first(); b; b = Ap->FromMaster.next())
+	{
+		if (b->ChangedMasterItem)
+		{
+			Ap->FromMaster.remove(b);
+			delete b;
+		}
+	}
+	Ap->FromMaster.clear();
+	for (b = doc->MasterItems.first(); b; b = doc->MasterItems.next())
+	{
+		if (b->OwnPage == MpNr)
+			Ap->FromMaster.append(b);
+	}
 	if (Mp->YGuides.count() != 0)
 	{
 		for (uint y = 0; y < Mp->YGuides.count(); ++y)
@@ -7582,7 +7556,7 @@ void ScribusApp::Apply_Temp(QString in, int Snr, bool reb)
 		slotDocCh();
 		doc->UnDoValid = false;
 		CanUndo();
-		Sepal->Rebuild();
+//		Sepal->Rebuild();
 	}
 }
 
@@ -7591,9 +7565,9 @@ void ScribusApp::GroupObj()
 	PageItem* b;
 	PageItem* bb;
 	double x, y, w, h;
-	for (uint a=0; a<doc->ActPage->SelItem.count(); ++a)
+	for (uint a=0; a<view->SelItem.count(); ++a)
 	{
-		b = doc->ActPage->SelItem.at(a);
+		b = view->SelItem.at(a);
 		if (b->Locked)
 		{
 			int t = QMessageBox::warning(this, tr("Warning"),
@@ -7603,9 +7577,9 @@ void ScribusApp::GroupObj()
 			                             tr("Unlock all"), 0, 0);
 			if (t != 0)
 			{
-				for (uint c=0; c<doc->ActPage->SelItem.count(); ++c)
+				for (uint c=0; c<view->SelItem.count(); ++c)
 				{
-					bb = doc->ActPage->SelItem.at(c);
+					bb = view->SelItem.at(c);
 					if (t == 1)
 					{
 						bb->Locked = true;
@@ -7620,14 +7594,14 @@ void ScribusApp::GroupObj()
 			}
 		}
 	}
-	for (uint a=0; a<doc->ActPage->SelItem.count(); ++a)
+	for (uint a=0; a<view->SelItem.count(); ++a)
 	{
-		b = doc->ActPage->SelItem.at(a);
+		b = view->SelItem.at(a);
 		b->Groups.push(doc->GroupCounter);
 	}
 	doc->GroupCounter++;
-	doc->ActPage->getGroupRect(&x, &y, &w, &h);
-	doc->ActPage->repaint(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
+	view->getGroupRect(&x, &y, &w, &h);
+	view->updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
 	slotDocCh();
 	doc->UnDoValid = false;
 	CanUndo();
@@ -7638,9 +7612,9 @@ void ScribusApp::GroupObj()
 void ScribusApp::UnGroupObj()
 {
 	PageItem* b;
-	for (uint a=0; a<doc->ActPage->SelItem.count(); ++a)
+	for (uint a=0; a<view->SelItem.count(); ++a)
 	{
-		b = doc->ActPage->SelItem.at(a);
+		b = view->SelItem.at(a);
 		b->Groups.pop();
 		b->isTableItem = false;
 		b->LeftLink = 0;
@@ -7649,7 +7623,7 @@ void ScribusApp::UnGroupObj()
 		b->BottomLink = 0;
 	}
 	slotDocCh();
-	doc->ActPage->Deselect(true);
+	view->Deselect(true);
 	doc->UnDoValid = false;
 	CanUndo();
 }
@@ -7836,7 +7810,7 @@ void ScribusApp::CallDLL(QString name)
 	if (pda.Typ < 4)
 		dlclose(mo);
 	if (HaveDoc)
-		doc->ActPage->update();
+		view->DrawNew();
 }
 
 bool ScribusApp::DLLName(QString name, QString *PName, int *typ, void **Zeig)
@@ -8038,9 +8012,9 @@ void ScribusApp::RecalcColors(QProgressBar *dia)
 	if (HaveDoc)
 	{
 		if (doc->TemplateMode)
-			view->MasterPages = view->Pages;
+			doc->MasterPages = doc->Pages;
 		else
-			view->DocPages = view->Pages;
+			doc->DocPages = doc->Pages;
 		ColorMenC->clear();
 		QPixmap pm = QPixmap(15, 15);
 		int a = 0;
@@ -8060,32 +8034,26 @@ void ScribusApp::RecalcColors(QProgressBar *dia)
 			if (dia != NULL)
 				dia->setProgress(a);
 		}
-		for (uint b=0; b<view->DocPages.count(); ++b)
+		for (uint c=0; c<doc->Items.count(); ++c)
 		{
-			for (uint c=0; c<view->DocPages.at(b)->Items.count(); ++c)
+			PageItem *ite = doc->Items.at(c);
+			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 			{
-				PageItem *ite = view->DocPages.at(b)->Items.at(c);
-				QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
-				for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
-				{
-					QColor tmpc = doc->PageColors[cstops.at(cst)->name].getRGBColor();
-					ite->SetFarbe(&tmpc, cstops.at(cst)->name, cstops.at(cst)->shade);
-					cstops.at(cst)->color = tmpc;
-				}
+				QColor tmpc = doc->PageColors[cstops.at(cst)->name].getRGBColor();
+				ite->SetFarbe(&tmpc, cstops.at(cst)->name, cstops.at(cst)->shade);
+				cstops.at(cst)->color = tmpc;
 			}
 		}
-		for (uint b=0; b<view->MasterPages.count(); ++b)
+		for (uint c=0; c<doc->MasterItems.count(); ++c)
 		{
-			for (uint c=0; c<view->MasterPages.at(b)->Items.count(); ++c)
+			PageItem *ite = doc->MasterItems.at(c);
+			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 			{
-				PageItem *ite = view->MasterPages.at(b)->Items.at(c);
-				QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
-				for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
-				{
-					QColor tmpc = doc->PageColors[cstops.at(cst)->name].getRGBColor();
-					ite->SetFarbe(&tmpc, cstops.at(cst)->name, cstops.at(cst)->shade);
-					cstops.at(cst)->color = tmpc;
-				}
+				QColor tmpc = doc->PageColors[cstops.at(cst)->name].getRGBColor();
+				ite->SetFarbe(&tmpc, cstops.at(cst)->name, cstops.at(cst)->shade);
+				cstops.at(cst)->color = tmpc;
 			}
 		}
 		Mpal->Cpal->SetColors(doc->PageColors);
@@ -8096,9 +8064,9 @@ void ScribusApp::RecalcColors(QProgressBar *dia)
 void ScribusApp::ModifyAnnot()
 {
 	PageItem *b;
-	if (doc->ActPage->SelItem.count() != 0)
+	if (view->SelItem.count() != 0)
 	{
-		b = doc->ActPage->SelItem.at(0);
+		b = view->SelItem.at(0);
 		if ((b->AnType == 0) || (b->AnType == 1) || (b->AnType > 9))
 		{
 			int AnType = b->AnType;
@@ -8180,14 +8148,14 @@ void ScribusApp::PutScrap(QString t)
 
 void ScribusApp::UniteOb()
 {
-	doc->ActPage->UniteObj();
+	view->UniteObj();
 	doc->UnDoValid = false;
 	CanUndo();
 }
 
 void ScribusApp::SplitUniteOb()
 {
-	doc->ActPage->SplitObj();
+	view->SplitObj();
 	doc->UnDoValid = false;
 	CanUndo();
 }
@@ -8195,28 +8163,28 @@ void ScribusApp::SplitUniteOb()
 void ScribusApp::TraceText()
 {
 	NoFrameEdit();
-	doc->ActPage->TextToPath();
+	view->TextToPath();
 	doc->UnDoValid = false;
 	CanUndo();
 }
 
 void ScribusApp::Pfadtext()
 {
-	doc->ActPage->ToPathText();
+	view->ToPathText();
 	doc->UnDoValid = false;
 	CanUndo();
 }
 
 void ScribusApp::noPfadtext()
 {
-	doc->ActPage->FromPathText();
+	view->FromPathText();
 	doc->UnDoValid = false;
 	CanUndo();
 }
 
 void ScribusApp::changeLayer(int l)
 {
-	doc->ActPage->Deselect(true);
+	view->Deselect(true);
 	view->setLayMenTxt(l);
 	view->LaMenu();
 	view->DrawNew();
@@ -8230,40 +8198,34 @@ void ScribusApp::showLayer()
 void ScribusApp::LayerRemove(int l, bool dl)
 {
 	if (doc->TemplateMode)
-		view->MasterPages = view->Pages;
+		doc->MasterPages = doc->Pages;
 	else
-		view->DocPages = view->Pages;
-	for (uint a = 0; a < view->MasterPages.count(); ++a)
+		doc->DocPages = doc->Pages;
+	for (uint b = 0; b < doc->MasterItems.count(); ++b)
 	{
-		for (uint b = 0; b < view->MasterPages.at(a)->Items.count(); ++b)
+		view->SelItem.clear();
+		if (doc->MasterItems.at(b)->LayerNr == l)
 		{
-			view->MasterPages.at(a)->SelItem.clear();
-			if (view->MasterPages.at(a)->Items.at(b)->LayerNr == l)
-			{
-				if (dl)
-					view->MasterPages.at(a)->SelItem.append(view->MasterPages.at(a)->Items.at(b));
-				else
-					view->MasterPages.at(a)->Items.at(b)->LayerNr = 0;
-			}
-			if (view->MasterPages.at(a)->SelItem.count() != 0)
-				view->MasterPages.at(a)->DeleteItem();
+			if (dl)
+				view->SelItem.append(doc->MasterItems.at(b));
+			else
+				doc->MasterItems.at(b)->LayerNr = 0;
 		}
+//			if (view->SelItem.count() != 0)
+//				view->DeleteItem();
 	}
-	for (uint a = 0; a < view->DocPages.count(); ++a)
+	view->SelItem.clear();
+	for (uint b = 0; b < doc->DocItems.count(); ++b)
 	{
-		view->DocPages.at(a)->SelItem.clear();
-		for (uint b = 0; b < view->DocPages.at(a)->Items.count(); ++b)
+		if (doc->DocItems.at(b)->LayerNr == l)
 		{
-			if (view->DocPages.at(a)->Items.at(b)->LayerNr == l)
-			{
-				if (dl)
-					view->DocPages.at(a)->SelItem.append(view->DocPages.at(a)->Items.at(b));
-				else
-					view->DocPages.at(a)->Items.at(b)->LayerNr = 0;
-			}
+			if (dl)
+				view->SelItem.append(doc->DocItems.at(b));
+			else
+				doc->DocItems.at(b)->LayerNr = 0;
 		}
-		if (view->DocPages.at(a)->SelItem.count() != 0)
-			view->DocPages.at(a)->DeleteItem();
+//		if (view->SelItem.count() != 0)
+//			view->DeleteItem();
 	}
 	view->LaMenu();
 }
@@ -8275,21 +8237,20 @@ void ScribusApp::UnDoAction()
 	bool mp = false;
 	if (doc->UnDoValid)
 	{
-		doc->ActPage->Deselect(true);
+		view->Deselect(true);
 		b = doc->UnData.Item;
 		b->Select = false;
-		view->Pages.at(doc->UnData.PageNr)->Deselect(true);
 		switch (doc->UnData.UnCode)
 		{
 		case 0:
 			b->NextBox = 0;
 			b->BackBox = 0;
 			b->isAutoText = false;
-			view->Pages.at(doc->UnData.PageNr)->Items.insert(b->ItemNr, b);
+			doc->Items.insert(b->ItemNr, b);
 			Tpal->slotAddElement(doc->UnData.PageNr, b->ItemNr);
-			for (a = 0; a < view->Pages.at(doc->UnData.PageNr)->Items.count(); ++a)
+			for (a = 0; a < doc->Items.count(); ++a)
 			{
-				view->Pages.at(doc->UnData.PageNr)->Items.at(a)->ItemNr = a;
+				doc->Items.at(a)->ItemNr = a;
 			}
 			Tpal->slotUpdateElement(doc->UnData.PageNr, b->ItemNr);
 			break;
@@ -8304,19 +8265,19 @@ void ScribusApp::UnDoAction()
 			b->Rot = doc->UnData.Rot;
 			if (b->PType == 5)
 				mp = true;
-			view->Pages.at(doc->UnData.PageNr)->SizeItem(doc->UnData.Width, doc->UnData.Height, b->ItemNr, mp);
+			view->SizeItem(doc->UnData.Width, doc->UnData.Height, b->ItemNr, mp);
 			Tpal->slotUpdateElement(doc->UnData.PageNr, b->ItemNr);
 			break;
 		case 3:
 			b->Rot = doc->UnData.Rot;
 			break;
 		case 4:
-			view->Pages.at(doc->UnData.PageNr)->Items.take(b->ItemNr);
-			view->Pages.at(doc->UnData.PageNr)->Items.insert(doc->UnData.ItemNr, b);
+			doc->Items.take(b->ItemNr);
+			doc->Items.insert(doc->UnData.ItemNr, b);
 			Tpal->slotMoveElement(doc->UnData.PageNr, b->ItemNr, doc->UnData.ItemNr);
-			for (a = 0; a < view->Pages.at(doc->UnData.PageNr)->Items.count(); ++a)
+			for (a = 0; a < doc->Items.count(); ++a)
 			{
-				view->Pages.at(doc->UnData.PageNr)->Items.at(a)->ItemNr = a;
+				doc->Items.at(a)->ItemNr = a;
 			}
 			break;
 			Tpal->slotUpdateElement(doc->UnData.PageNr, b->ItemNr);
@@ -8647,13 +8608,12 @@ void ScribusApp::doHyphenate()
 	PageItem *b;
 	if (HaveDoc)
 	{
-		if (doc->ActPage->SelItem.count() != 0)
+		if (view->SelItem.count() != 0)
 		{
-			b = doc->ActPage->SelItem.at(0);
+			b = view->SelItem.at(0);
 			if (doc->Trenner->Language != b->Language)
 				doc->Trenner->slotNewDict(b->Language);
 			doc->Trenner->slotHyphenate(b);
-			slotDocCh();
 		}
 	}
 }
@@ -8662,10 +8622,10 @@ void ScribusApp::ToggleObjLock()
 {
 	if (HaveDoc)
 	{
-		if (doc->ActPage->SelItem.count() != 0)
+		if (view->SelItem.count() != 0)
 		{
-			PageItem* b = doc->ActPage->SelItem.at(0);
-			doc->ActPage->ToggleLock();
+			PageItem* b = view->SelItem.at(0);
+			view->ToggleLock();
 			if (b->Locked)
 				ObjMenu->changeItem(LockOb, tr("Unlock"));
 			else
@@ -8682,8 +8642,8 @@ void ScribusApp::ManageGuides()
 		                        this,
 		                        doc->ActPage->XGuides,
 		                        doc->ActPage->YGuides,
-		                        doc->PageB,
-		                        doc->PageH,
+		                        doc->ActPage->Width,
+		                        doc->ActPage->Height,
 		                        doc->GuideLock,
 		                        doc->Einheit
 		                    );
@@ -8692,8 +8652,8 @@ void ScribusApp::ManageGuides()
 			doc->ActPage->XGuides = dia->LocVer;
 			doc->ActPage->YGuides = dia->LocHor;
 			doc->GuideLock = dia->LocLocked;
-			doc->ActPage->update();
-			slotDocCh();
+			view->DrawNew();
+//			slotDocCh();
 		}
 		delete dia;
 	}
@@ -8704,9 +8664,9 @@ void ScribusApp::SetTranspar(double t)
 	PageItem *b;
 	if (HaveDoc)
 	{
-		if (doc->ActPage->SelItem.count() != 0)
+		if (view->SelItem.count() != 0)
 		{
-			b = doc->ActPage->SelItem.at(0);
+			b = view->SelItem.at(0);
 			b->Transparency = t;
 			view->DrawNew();
 			slotDocCh();
@@ -8719,9 +8679,9 @@ void ScribusApp::SetTransparS(double t)
 	PageItem *b;
 	if (HaveDoc)
 	{
-		if (doc->ActPage->SelItem.count() != 0)
+		if (view->SelItem.count() != 0)
 		{
-			b = doc->ActPage->SelItem.at(0);
+			b = view->SelItem.at(0);
 			b->TranspStroke = t;
 			view->DrawNew();
 			slotDocCh();
@@ -8734,9 +8694,9 @@ void ScribusApp::InvertPict()
 	PageItem *b;
 	if (HaveDoc)
 	{
-		if (doc->ActPage->SelItem.count() != 0)
+		if (view->SelItem.count() != 0)
 		{
-			b = doc->ActPage->SelItem.at(0);
+			b = view->SelItem.at(0);
 			b->InvPict = !b->InvPict;
 			view->DrawNew();
 			slotDocCh();
@@ -8747,9 +8707,9 @@ void ScribusApp::InvertPict()
 QString ScribusApp::Collect(bool compress, bool withFonts)
 {
 	if (doc->TemplateMode)
-		view->MasterPages = view->Pages;
+		doc->MasterPages = doc->Pages;
 	else
-		view->DocPages = view->Pages;
+		doc->DocPages = doc->Pages;
 	QString retVal = "";
 	QString CurDirP = QDir::currentDirPath();
 	bool compressR = compress;
@@ -8796,101 +8756,95 @@ QString ScribusApp::Collect(bool compress, bool withFonts)
 					return retVal;
 				}
 				retVal = s;
-				for (uint a = 0; a < view->MasterPages.count(); ++a)
+				for (uint b = 0; b < doc->MasterItems.count(); ++b)
 				{
-					for (uint b = 0; b < view->MasterPages.at(a)->Items.count(); ++b)
+					PageItem* ite = doc->MasterItems.at(b);
+					if (ite->PType == 2)
 					{
-						PageItem* ite = view->MasterPages.at(a)->Items.at(b);
-						if (ite->PType == 2)
+						QFileInfo itf = QFileInfo(ite->Pfile);
+						if (itf.exists())
 						{
-							QFileInfo itf = QFileInfo(ite->Pfile);
-							if (itf.exists())
-							{
-								copyFile(ite->Pfile, s + itf.fileName());
-								ite->Pfile = s + itf.fileName();
-							}
+							copyFile(ite->Pfile, s + itf.fileName());
+							ite->Pfile = s + itf.fileName();
 						}
-						if (ite->PType == 4)
+					}
+					if (ite->PType == 4)
+					{
+						if (ite->isAnnotation)
 						{
-							if (ite->isAnnotation)
+							QFileInfo itf;
+							if (ite->Pfile != "")
 							{
-								QFileInfo itf;
-								if (ite->Pfile != "")
+								itf = QFileInfo(ite->Pfile);
+								if (itf.exists())
 								{
-									itf = QFileInfo(ite->Pfile);
-									if (itf.exists())
-									{
-										copyFile(ite->Pfile, s + itf.fileName());
-										ite->Pfile = s + itf.fileName();
-									}
+									copyFile(ite->Pfile, s + itf.fileName());
+									ite->Pfile = s + itf.fileName();
 								}
-								if (ite->Pfile2 != "")
+							}
+							if (ite->Pfile2 != "")
+							{
+								itf = QFileInfo(ite->Pfile2);
+								if (itf.exists())
 								{
-									itf = QFileInfo(ite->Pfile2);
-									if (itf.exists())
-									{
-										copyFile(ite->Pfile2, s + itf.fileName());
-										ite->Pfile2 = s + itf.fileName();
-									}
+									copyFile(ite->Pfile2, s + itf.fileName());
+									ite->Pfile2 = s + itf.fileName();
 								}
-								if (ite->Pfile3 != "")
+							}
+							if (ite->Pfile3 != "")
+							{
+								itf = QFileInfo(ite->Pfile3);
+								if (itf.exists())
 								{
-									itf = QFileInfo(ite->Pfile3);
-									if (itf.exists())
-									{
-										copyFile(ite->Pfile3, s + itf.fileName());
-										ite->Pfile3 = s + itf.fileName();
-									}
+									copyFile(ite->Pfile3, s + itf.fileName());
+									ite->Pfile3 = s + itf.fileName();
 								}
 							}
 						}
 					}
 				}
-				for (uint a = 0; a < view->DocPages.count(); ++a)
+				for (uint b = 0; b < doc->DocItems.count(); ++b)
 				{
-					for (uint b = 0; b < view->DocPages.at(a)->Items.count(); ++b)
+					PageItem* ite = doc->DocItems.at(b);
+					if (ite->PType == 2)
 					{
-						PageItem* ite = view->DocPages.at(a)->Items.at(b);
-						if (ite->PType == 2)
+						QFileInfo itf = QFileInfo(ite->Pfile);
+						if (itf.exists())
 						{
-							QFileInfo itf = QFileInfo(ite->Pfile);
-							if (itf.exists())
-							{
-								copyFile(ite->Pfile, s + itf.fileName());
-								ite->Pfile = s + itf.fileName();
-							}
+							copyFile(ite->Pfile, s + itf.fileName());
+							ite->Pfile = s + itf.fileName();
 						}
-						if (ite->PType == 4)
+					}
+					if (ite->PType == 4)
+					{
+						if (ite->isAnnotation)
 						{
-							if (ite->isAnnotation)
+							QFileInfo itf;
+							if (ite->Pfile != "")
 							{
-								QFileInfo itf;
-								if (ite->Pfile != "")
+								itf = QFileInfo(ite->Pfile);
+								if (itf.exists())
 								{
-									itf = QFileInfo(ite->Pfile);
-									if (itf.exists())
-									{
-										copyFile(ite->Pfile, s + itf.fileName());
-										ite->Pfile = s + itf.fileName();
-									}
+									copyFile(ite->Pfile, s + itf.fileName());
+									ite->Pfile = s + itf.fileName();
 								}
-								if (ite->Pfile2 != "")
+							}
+							if (ite->Pfile2 != "")
+							{
+								itf = QFileInfo(ite->Pfile2);
+								if (itf.exists())
 								{
-									itf = QFileInfo(ite->Pfile2);
-									if (itf.exists())
-									{
-										copyFile(ite->Pfile2, s + itf.fileName());
-										ite->Pfile2 = s + itf.fileName();
-									}
+									copyFile(ite->Pfile2, s + itf.fileName());
+									ite->Pfile2 = s + itf.fileName();
 								}
-								if (ite->Pfile3 != "")
+							}
+							if (ite->Pfile3 != "")
+							{
+								itf = QFileInfo(ite->Pfile3);
+								if (itf.exists())
 								{
-									itf = QFileInfo(ite->Pfile3);
-									if (itf.exists())
-									{
-										copyFile(ite->Pfile, s + itf.fileName());
-										ite->Pfile3 = s + itf.fileName();
-									}
+									copyFile(ite->Pfile, s + itf.fileName());
+									ite->Pfile3 = s + itf.fileName();
 								}
 							}
 						}
@@ -8919,42 +8873,33 @@ QString ScribusApp::Collect(bool compress, bool withFonts)
 
 void ScribusApp::ReorgFonts()
 {
-	Page* pg;
 	PageItem* it;
 	QMap<QString,QFont> Really;
 	QMap<QString,QFont> DocF;
 	DocF = doc->UsedFonts;
 	if (!doc->TemplateMode)
-		view->DocPages = view->Pages;
-	for (uint c = 0; c < view->MasterPages.count(); ++c)
+		doc->DocPages = doc->Pages;
+	for (uint d = 0; d < doc->MasterItems.count(); ++d)
 	{
-		pg = view->MasterPages.at(c);
-		for (uint d = 0; d < pg->Items.count(); ++d)
+		it = doc->MasterItems.at(d);
+		Really.insert(it->IFont, doc->UsedFonts[it->IFont]);
+		if ((it->PType == 4) || (it->PType == 8))
 		{
-			it = pg->Items.at(d);
-			Really.insert(it->IFont, doc->UsedFonts[it->IFont]);
-			if ((it->PType == 4) || (it->PType == 8))
+			for (uint e = 0; e < it->Ptext.count(); ++e)
 			{
-				for (uint e = 0; e < it->Ptext.count(); ++e)
-				{
-					Really.insert(it->Ptext.at(e)->cfont, doc->UsedFonts[it->Ptext.at(e)->cfont]);
-				}
+				Really.insert(it->Ptext.at(e)->cfont, doc->UsedFonts[it->Ptext.at(e)->cfont]);
 			}
 		}
 	}
-	for (uint c = 0; c < view->DocPages.count(); ++c)
+	for (uint d = 0; d < doc->DocItems.count(); ++d)
 	{
-		pg = view->DocPages.at(c);
-		for (uint d = 0; d < pg->Items.count(); ++d)
+		it = doc->DocItems.at(d);
+		Really.insert(it->IFont, doc->UsedFonts[it->IFont]);
+		if ((it->PType == 4) || (it->PType == 8))
 		{
-			it = pg->Items.at(d);
-			Really.insert(it->IFont, doc->UsedFonts[it->IFont]);
-			if ((it->PType == 4) || (it->PType == 8))
+			for (uint e = 0; e < it->Ptext.count(); ++e)
 			{
-				for (uint e = 0; e < it->Ptext.count(); ++e)
-				{
-					Really.insert(it->Ptext.at(e)->cfont, doc->UsedFonts[it->Ptext.at(e)->cfont]);
-				}
+				Really.insert(it->Ptext.at(e)->cfont, doc->UsedFonts[it->Ptext.at(e)->cfont]);
 			}
 		}
 	}
@@ -8977,78 +8922,69 @@ void ScribusApp::ReorgFonts()
 
 void ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
 {
-	Page* pg;
 	PageItem* it;
 	FPointArray gly;
 	QString chx;
-	for (uint c = 0; c < view->MasterPages.count(); ++c)
+	for (uint d = 0; d < doc->MasterItems.count(); ++d)
 	{
-		pg = view->MasterPages.at(c);
-		for (uint d = 0; d < pg->Items.count(); ++d)
+		it = doc->MasterItems.at(d);
+		if ((it->PType == 4) || (it->PType == 8))
 		{
-			it = pg->Items.at(d);
-			if ((it->PType == 4) || (it->PType == 8))
+			for (uint e = 0; e < it->Ptext.count(); ++e)
 			{
-				for (uint e = 0; e < it->Ptext.count(); ++e)
+				Really->insert(it->Ptext.at(e)->cfont, doc->UsedFonts[it->Ptext.at(e)->cfont]);
+				uint chr = it->Ptext.at(e)->ch[0].unicode();
+				if ((chr == 13) || (chr == 32) || (chr == 29) || (chr == 9))
+					continue;
+				if (it->Ptext.at(e)->cstyle & 64)
 				{
-					Really->insert(it->Ptext.at(e)->cfont, doc->UsedFonts[it->Ptext.at(e)->cfont]);
-					uint chr = it->Ptext.at(e)->ch[0].unicode();
-					if ((chr == 13) || (chr == 32) || (chr == 29) || (chr == 9))
-						continue;
-					if (it->Ptext.at(e)->cstyle & 64)
+					chx = it->Ptext.at(e)->ch;
+					if (chx.upper() != it->Ptext.at(e)->ch)
+						chx = chx.upper();
+					chr = chx[0].unicode();
+				}
+				if (chr == 30)
+				{
+					for (uint numco = 0x30; numco < 0x39; ++numco)
 					{
-						chx = it->Ptext.at(e)->ch;
-						if (chx.upper() != it->Ptext.at(e)->ch)
-							chx = chx.upper();
-						chr = chx[0].unicode();
-					}
-					if (chr == 30)
-					{
-						for (uint numco = 0x30; numco < 0x39; ++numco)
+						if ((*doc->AllFonts)[it->Ptext.at(e)->cfont]->CharWidth.contains(numco))
 						{
-							if ((*doc->AllFonts)[it->Ptext.at(e)->cfont]->CharWidth.contains(numco))
-							{
-								gly = (*doc->AllFonts)[it->Ptext.at(e)->cfont]->GlyphArray[numco].Outlines.copy();
-								(*doc->AllFonts)[it->Ptext.at(e)->cfont]->RealGlyphs.insert(numco, gly);
-							}
+							gly = (*doc->AllFonts)[it->Ptext.at(e)->cfont]->GlyphArray[numco].Outlines.copy();
+							(*doc->AllFonts)[it->Ptext.at(e)->cfont]->RealGlyphs.insert(numco, gly);
 						}
-						continue;
 					}
-					if ((*doc->AllFonts)[it->Ptext.at(e)->cfont]->CharWidth.contains(chr))
-					{
-						gly = (*doc->AllFonts)[it->Ptext.at(e)->cfont]->GlyphArray[chr].Outlines.copy();
-						(*doc->AllFonts)[it->Ptext.at(e)->cfont]->RealGlyphs.insert(chr, gly);
-					}
+					continue;
+				}
+				if ((*doc->AllFonts)[it->Ptext.at(e)->cfont]->CharWidth.contains(chr))
+				{
+					gly = (*doc->AllFonts)[it->Ptext.at(e)->cfont]->GlyphArray[chr].Outlines.copy();
+					(*doc->AllFonts)[it->Ptext.at(e)->cfont]->RealGlyphs.insert(chr, gly);
 				}
 			}
 		}
 	}
-	for (uint c = 0; c < view->Pages.count(); ++c)
+	for (uint d = 0; d < doc->Items.count(); ++d)
 	{
-		pg = view->Pages.at(c);
-		for (uint d = 0; d < pg->Items.count(); ++d)
+		it = doc->Items.at(d);
+		if ((it->PType == 4) || (it->PType == 8))
 		{
-			it = pg->Items.at(d);
-			if ((it->PType == 4) || (it->PType == 8))
+			for (uint e = 0; e < it->Ptext.count(); ++e)
 			{
-				for (uint e = 0; e < it->Ptext.count(); ++e)
+				Really->insert(it->Ptext.at(e)->cfont, doc->UsedFonts[it->Ptext.at(e)->cfont]);
+				uint chr = it->Ptext.at(e)->ch[0].unicode();
+				if ((chr == 13) || (chr == 32) || (chr == 29) || (chr == 9))
+					continue;
+				if (it->Ptext.at(e)->cstyle & 64)
 				{
-					Really->insert(it->Ptext.at(e)->cfont, doc->UsedFonts[it->Ptext.at(e)->cfont]);
-					uint chr = it->Ptext.at(e)->ch[0].unicode();
-					if ((chr == 13) || (chr == 32) || (chr == 29) || (chr == 9))
-						continue;
-					if (it->Ptext.at(e)->cstyle & 64)
-					{
-						chx = it->Ptext.at(e)->ch;
-						if (chx.upper() != it->Ptext.at(e)->ch)
-							chx = chx.upper();
-						chr = chx[0].unicode();
-					}
-					if ((*doc->AllFonts)[it->Ptext.at(e)->cfont]->CharWidth.contains(chr))
-					{
-						gly = (*doc->AllFonts)[it->Ptext.at(e)->cfont]->GlyphArray[chr].Outlines.copy();
-						(*doc->AllFonts)[it->Ptext.at(e)->cfont]->RealGlyphs.insert(chr, gly);
-					}
+					chx = it->Ptext.at(e)->ch;
+					if (chx.upper() != it->Ptext.at(e)->ch)
+						chx = chx.upper();
+					chr = chx[0].unicode();
+				}
+				if ((*doc->AllFonts)[it->Ptext.at(e)->cfont]->CharWidth.contains(chr))
+				{
+					gly = (*doc->AllFonts)[it->Ptext.at(e)->cfont]->GlyphArray[chr].Outlines.copy();
+					(*doc->AllFonts)[it->Ptext.at(e)->cfont]->RealGlyphs.insert(chr, gly);
 				}
 			}
 		}
@@ -9057,9 +8993,9 @@ void ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
 
 void ScribusApp::HaveRaster(bool art)
 {
-	if (doc->ActPage->SelItem.count() != 0)
+	if (view->SelItem.count() != 0)
 	{
-		PageItem *b = doc->ActPage->SelItem.at(0);
+		PageItem *b = view->SelItem.at(0);
 		if ((b->PType == 2) && (art))
 		{
 			StilMenu->clear();
@@ -9071,9 +9007,9 @@ void ScribusApp::HaveRaster(bool art)
 
 void ScribusApp::slotStoryEditor()
 {
-	if (doc->ActPage->SelItem.count() != 0)
+	if (view->SelItem.count() != 0)
 	{
-		PageItem *b = doc->ActPage->SelItem.at(0);
+		PageItem *b = view->SelItem.at(0);
 		StoryEditor* dia = new StoryEditor(this, doc, b);
 		CurrStED = dia;
 		connect(dia, SIGNAL(DocChanged()), this, SLOT(slotDocCh()));
@@ -9084,7 +9020,7 @@ void ScribusApp::slotStoryEditor()
 				dia->updateTextFrame();
 		}
 		else
-			doc->ActPage->update();
+			view->DrawNew();
 		BuildFontMenu();
 		CurrStED = NULL;
 		delete dia;
@@ -9128,9 +9064,9 @@ void ScribusApp::emergencySave()
 				delete ss;
 			}
 			view->close();
-			for (uint a = 0; a<view->Pages.count(); ++a)
+			for (uint a = 0; a<doc->Pages.count(); ++a)
 			{
-				delete view->Pages.at(a);
+				delete doc->Pages.at(a);
 			}
 			delete doc;
 			ActWin->close();
@@ -9142,14 +9078,14 @@ void ScribusApp::EditTabs()
 {
 	if (HaveDoc)
 	{
-		if (doc->ActPage->SelItem.count() != 0)
+		if (view->SelItem.count() != 0)
 		{
-			PageItem *b = doc->ActPage->SelItem.at(0);
+			PageItem *b = view->SelItem.at(0);
 			TabManager *dia = new TabManager(this, doc->Einheit, b->TabValues, b->Width);
 			if (dia->exec())
 			{
 				b->TabValues = dia->tmpTab;
-				doc->ActPage->RefreshItem(b);
+				view->RefreshItem(b);
 				slotDocCh();
 			}
 			delete dia;
@@ -9159,7 +9095,7 @@ void ScribusApp::EditTabs()
 
 void ScribusApp::SearchText()
 {
-	PageItem *b = doc->ActPage->SelItem.at(0);
+	PageItem *b = view->SelItem.at(0);
 	setAppMode(7);
 	b->CPos = 0;
 	SearchReplace* dia = new SearchReplace(this, doc, &Prefs, b);
@@ -9192,9 +9128,10 @@ void ScribusApp::DefKB()
 	delete dia;
 }
 
-
 void ScribusApp::slotTest()
-{}
+{
+}
 
 void ScribusApp::slotTest2()
-{}
+{
+}

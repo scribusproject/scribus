@@ -12,6 +12,7 @@
 #include <qspinbox.h>
 #include "mspinbox.h"
 #include "scribusdoc.h"
+#include "scribusview.h"
 
 class NodePalette : public QDialog
 {
@@ -52,8 +53,9 @@ public:
 	QSpinBox *ScaleVal;
 	QPushButton* ResetCont;
 	QPushButton* PushButton1;
-	void setDoc(ScribusDoc *dc);
+	void setDoc(ScribusDoc *dc, ScribusView *vi);
 	ScribusDoc *doc;
+	ScribusView *view;
 
 private slots:
 	void closeEvent(QCloseEvent *);

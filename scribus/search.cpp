@@ -326,12 +326,12 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
 void SearchReplace::slotSearch()
 {
 	if (SMode)
-		Doc->ActPage->slotDoCurs(false);
+		ScApp->view->slotDoCurs(false);
 	slotDoSearch();
 	if (SMode)
 	{
-		Doc->ActPage->slotDoCurs(true);
-		Doc->ActPage->RefreshItem(Item, true);
+		ScApp->view->slotDoCurs(true);
+		ScApp->view->RefreshItem(Item);
 	}
 }
 
@@ -494,7 +494,7 @@ void SearchReplace::slotDoSearch()
 		if ((!found) || (a == Item->Ptext.count()))
 		{
 			Doc->DoDrawing = true;
-			Doc->ActPage->RefreshItem(Item, true);
+			ScApp->view->RefreshItem(Item);
 			DoReplace->setEnabled(false);
 			AllReplace->setEnabled(false);
 			QMessageBox::information(this, tr("Search/Replace"), tr("Search finished"), tr("OK"));
@@ -637,12 +637,12 @@ void SearchReplace::slotDoSearch()
 void SearchReplace::slotReplace()
 {
 	if (SMode)
-		Doc->ActPage->slotDoCurs(false);
+		ScApp->view->slotDoCurs(false);
 	slotDoReplace();
 	if (SMode)
 	{
-		Doc->ActPage->slotDoCurs(true);
-		Doc->ActPage->RefreshItem(Item, true);
+		ScApp->view->slotDoCurs(true);
+		ScApp->view->RefreshItem(Item);
 	}
 }
 
@@ -726,17 +726,17 @@ void SearchReplace::slotDoReplace()
 		if (RStyle->isChecked())
 			emit NewAbs(RStyleVal->currentItem());
 		if (RFill->isChecked())
-			Doc->ActPage->ItemTextBrush(RFillVal->currentText());
+			ScApp->view->ItemTextBrush(RFillVal->currentText());
 		if (RFillS->isChecked())
-			Doc->ActPage->ItemTextBrushS(RFillSVal->getValue());
+			ScApp->view->ItemTextBrushS(RFillSVal->getValue());
 		if (RStroke->isChecked())
-			Doc->ActPage->ItemTextPen(RStrokeVal->currentText());
+			ScApp->view->ItemTextPen(RStrokeVal->currentText());
 		if (RStrokeS->isChecked())
-			Doc->ActPage->ItemTextPenS(RStrokeSVal->getValue());
+			ScApp->view->ItemTextPenS(RStrokeSVal->getValue());
 		if (RFont->isChecked())
 			emit NewFont(RFontVal->currentText());
 		if (RSize->isChecked())
-			Doc->ActPage->chFSize(qRound(RSizeVal->value() * 10.0));
+			ScApp->view->chFSize(qRound(RSizeVal->value() * 10.0));
 		if (REffect->isChecked())
 			{
 			int s = REffVal->getStyle();
@@ -801,7 +801,7 @@ void SearchReplace::slotReplaceAll()
 {
 	if (SMode)
 	{
-		Doc->ActPage->slotDoCurs(false);
+		ScApp->view->slotDoCurs(false);
 		Doc->DoDrawing = false;
 	}
 	do
@@ -813,8 +813,8 @@ void SearchReplace::slotReplaceAll()
 	if (SMode)
 	{
 		Doc->DoDrawing = true;
-		Doc->ActPage->slotDoCurs(true);
-		Doc->ActPage->RefreshItem(Item, true);
+		ScApp->view->slotDoCurs(true);
+		ScApp->view->RefreshItem(Item);
 	}
 }
 

@@ -45,18 +45,19 @@ QStringList FileExtensions()
 
 void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer)
 {
-	SxwIm* sim = new SxwIm(filename, writer, textOnly);
+	SxwIm* sim = new SxwIm(filename, encoding, writer, textOnly);
 	delete sim;
 }
 
 /********** Class SxwIm ************************************************************/
 
-SxwIm::SxwIm(QString fileName, gtWriter* w, bool textOnly)
+SxwIm::SxwIm(QString fileName, QString enc, gtWriter* w, bool textOnly)
 {
 	PrefsContext* prefs = prefsFile->getPluginContext("SxwIm");
 	bool update = prefs->getBool("update", true);
 	bool prefix = prefs->getBool("prefix", true);
 	bool ask = prefs->getBool("askAgain", true);
+	encoding = enc;
 	if (!textOnly)
 	{
 		if (ask)

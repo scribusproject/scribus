@@ -41,12 +41,13 @@ class SxwIm
 {
 private:
 	gtWriter* writer;
+	QString encoding;
 	QString filename;
 	QString stylePath;
 	QString contentPath;
 	bool decompress();
 public:
-	SxwIm(QString fileName, gtWriter* w, bool textOnly);
+	SxwIm(QString fileName, QString encoding, gtWriter* w, bool textOnly);
 	~SxwIm();
 };
 

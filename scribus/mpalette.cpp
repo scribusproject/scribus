@@ -10,11 +10,11 @@
 #include "tabmanager.h"
 #include "scribus.h"
 extern QPixmap loadIcon(QString nam);
+// 10/07/2004 pv - utils.cpp - provides locale sorted list
+extern QStringList sortQStringList(QStringList aList);
 extern double UmReFaktor;
 extern ProfilesL InputProfiles;
 extern ScribusApp* ScApp;
-// 10/07/2004 pv - utils.cpp - provides locale sorted list
-extern QStringList sortQStringList(QStringList aList);
 
 LabelButton::LabelButton(QWidget* parent, QString text1, QString text2) : QLabel(parent)
 {
@@ -1185,6 +1185,7 @@ void Mpalette::SetCurItem(PageItem *i)
 		}
 	}
 	HaveItem = true;
+	setXY(i->Xpos, i->Ypos);
 }
 
 void Mpalette::NewSel(int nr)
@@ -1192,21 +1193,21 @@ void Mpalette::NewSel(int nr)
 	if (ScApp->ScriptRunning)
 		return;
 	int visID;
-	if (doc->ActPage->GroupSel)
+	if (ScApp->view->GroupSel)
 	{
 		RoVal = 0;
 		double gx, gy, gh, gw;
-		doc->ActPage->getGroupRect(&gx, &gy, &gw, &gh);
+		ScApp->view->getGroupRect(&gx, &gy, &gw, &gh);
 		if (TopLeft->isChecked())
-			doc->ActPage->RCenter = FPoint(gx, gy);
+			ScApp->view->RCenter = FPoint(gx, gy);
 		if (TopRight->isChecked())
-			doc->ActPage->RCenter = FPoint(gx + gw, gy);
+			ScApp->view->RCenter = FPoint(gx + gw, gy);
 		if (Center->isChecked())
-			doc->ActPage->RCenter = FPoint(gx + gw / 2.0, gy + gh / 2.0);
+			ScApp->view->RCenter = FPoint(gx + gw / 2.0, gy + gh / 2.0);
 		if (BottomLeft->isChecked())
-			doc->ActPage->RCenter = FPoint(gx, gy + gh);
+			ScApp->view->RCenter = FPoint(gx, gy + gh);
 		if (BottomRight->isChecked())
-			doc->ActPage->RCenter = FPoint(gx + gw, gy + gh);
+			ScApp->view->RCenter = FPoint(gx + gw, gy + gh);
 		xposLabel->setText( tr( "&X-Pos:" ) );
 		widthLabel->setText( tr( "&Width:" ) );
 		yposLabel->setText( tr( "&Y-Pos:" ) );
@@ -1290,7 +1291,7 @@ void Mpalette::NewSel(int nr)
 			FlipH->setEnabled(true);
 			FlipV->setEnabled(true);
 			ShapeGroup->setEnabled(true);
-			if ((doc->ActPage->SelItem.at(0)->FrameType == 0) || (doc->ActPage->SelItem.at(0)->FrameType == 2))
+			if ((ScApp->view->SelItem.at(0)->FrameType == 0) || (ScApp->view->SelItem.at(0)->FrameType == 2))
 				RoundRect->setEnabled(true);
 			EditShape->setEnabled(true);
 			if (visID == 2)
@@ -1312,7 +1313,7 @@ void Mpalette::NewSel(int nr)
 			FlipH->setEnabled(true);
 			FlipV->setEnabled(true);
 			ShapeGroup->setEnabled(true);
-			if ((doc->ActPage->SelItem.at(0)->FrameType == 0) || (doc->ActPage->SelItem.at(0)->FrameType == 2))
+			if ((ScApp->view->SelItem.at(0)->FrameType == 0) || (ScApp->view->SelItem.at(0)->FrameType == 2))
 				RoundRect->setEnabled(true);
 			Distance->setEnabled(true);
 			EditShape->setEnabled(true);
@@ -1357,7 +1358,7 @@ void Mpalette::NewSel(int nr)
 			EditShape->setEnabled(true);
 			FlipH->setEnabled(true);
 			FlipV->setEnabled(true);
-			if ((doc->ActPage->SelItem.at(0)->FrameType == 0) || (doc->ActPage->SelItem.at(0)->FrameType == 2))
+			if ((ScApp->view->SelItem.at(0)->FrameType == 0) || (ScApp->view->SelItem.at(0)->FrameType == 2))
 				RoundRect->setEnabled(true);
 			if ((visID == 2) || (visID == 3))
 			{
@@ -1514,9 +1515,9 @@ void Mpalette::setXY(double x, double y)
 	FPoint n;
 	if (HaveItem)
 	{
-		if (doc->ActPage->GroupSel)
+		if (ScApp->view->GroupSel)
 		{
-			doc->ActPage->getGroupRect(&dummy1, &dummy2, &b, &h);
+			ScApp->view->getGroupRect(&dummy1, &dummy2, &b, &h);
 			r = 0.0;
 		}
 		else
@@ -1547,6 +1548,11 @@ void Mpalette::setXY(double x, double y)
 		n = FPoint(b, h);
 	inX = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
 	inY = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
+	if (tmp)
+	{
+		inX -= doc->ActPage->Xoffset;
+		inY -= doc->ActPage->Yoffset;
+	}
 	Xpos->setValue(inX*UmReFaktor);
 	Ypos->setValue(inY*UmReFaktor);
 	if ((LMode) && (tmp))
@@ -1709,8 +1715,8 @@ void Mpalette::ChangeScaling()
 		CurItem->ScaleType = FreeScale->isChecked();
 		CurItem->AspectRatio = Aspect->isChecked();
 		if (!CurItem->ScaleType)
-			doc->ActPage->AdjustPictScale(CurItem);
-		doc->ActPage->RefreshItem(CurItem);
+			ScApp->view->AdjustPictScale(CurItem);
+		ScApp->view->RefreshItem(CurItem);
 		emit UpdtGui(2);
 		emit DocChanged();
 		setFocus();
@@ -1847,7 +1853,7 @@ void Mpalette::NewTScale()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
-		doc->ActPage->ItemTextScale(ChScale->value());
+		ScApp->view->ItemTextScale(ChScale->value());
 		doc->CurrTextScale = ChScale->value();
 		emit DocChanged();
 	}
@@ -1865,16 +1871,18 @@ void Mpalette::NewX()
 	h = Height->value() / UmReFaktor;
 	if ((HaveDoc) && (HaveItem))
 	{
-		if (doc->ActPage->GroupSel)
+		x += doc->ActPage->Xoffset;
+		y += doc->ActPage->Yoffset;
+		if (ScApp->view->GroupSel)
 		{
-			doc->ActPage->getGroupRect(&gx, &gy, &gw, &gh);
+			ScApp->view->getGroupRect(&gx, &gy, &gw, &gh);
 			if ((TopLeft->isChecked()) || (BottomLeft->isChecked()))
 				base = gx;
 			if (Center->isChecked())
 				base = gx + gw / 2.0;
 			if ((TopRight->isChecked()) || (BottomRight->isChecked()))
 				base = gx + gw;
-			doc->ActPage->moveGroup(x - base, 0, true);
+			ScApp->view->moveGroup(x - base, 0, true);
 		}
 		else
 		{
@@ -1882,9 +1890,9 @@ void Mpalette::NewX()
 			{
 				double r = atan2(h-y,w-x)*(180.0/3.1415927);
 				w = sqrt(pow(w-x,2)+pow(h-y,2));
-				doc->ActPage->MoveItem(x - CurItem->Xpos, 0, CurItem, true);
-				doc->ActPage->SizeItem(w, CurItem->Height, CurItem->ItemNr, true);
-				doc->ActPage->RotateItem(r, CurItem->ItemNr);
+				ScApp->view->MoveItem(x - CurItem->Xpos, 0, CurItem, true);
+				ScApp->view->SizeItem(w, CurItem->Height, CurItem->ItemNr, true);
+				ScApp->view->RotateItem(r, CurItem->ItemNr);
 			}
 			else
 			{
@@ -1900,7 +1908,7 @@ void Mpalette::NewX()
 					base = ma.m11() * CurItem->Width + ma.m21() * CurItem->Height + ma.dx();
 				if (BottomLeft->isChecked())
 					base = ma.m11() * 0.0 + ma.m21() * CurItem->Height + ma.dx();
-				doc->ActPage->MoveItem(x - base, 0, CurItem, true);
+				ScApp->view->MoveItem(x - base, 0, CurItem, true);
 			}
 		}
 		emit DocChanged();
@@ -1919,16 +1927,18 @@ void Mpalette::NewY()
 	h = Height->value() / UmReFaktor;
 	if ((HaveDoc) && (HaveItem))
 	{
-		if (doc->ActPage->GroupSel)
+		x += doc->ActPage->Xoffset;
+		y += doc->ActPage->Yoffset;
+		if (ScApp->view->GroupSel)
 		{
-			doc->ActPage->getGroupRect(&gx, &gy, &gw, &gh);
+			ScApp->view->getGroupRect(&gx, &gy, &gw, &gh);
 			if ((TopLeft->isChecked()) || (TopRight->isChecked()))
 				base = gy;
 			if (Center->isChecked())
 				base = gy + gh / 2.0;
 			if ((BottomLeft->isChecked()) || (BottomRight->isChecked()))
 				base = gy + gh;
-			doc->ActPage->moveGroup(0, y - base, true);
+			ScApp->view->moveGroup(0, y - base, true);
 		}
 		else
 		{
@@ -1936,9 +1946,9 @@ void Mpalette::NewY()
 			{
 				double r = atan2(h-y,w-x)*(180.0/3.1415927);
 				w = sqrt(pow(w-x,2)+pow(h-y,2));
-				doc->ActPage->MoveItem(0, y - CurItem->Ypos, CurItem, true);
-				doc->ActPage->SizeItem(w, CurItem->Height, CurItem->ItemNr, true);
-				doc->ActPage->RotateItem(r, CurItem->ItemNr);
+				ScApp->view->MoveItem(0, y - CurItem->Ypos, CurItem, true);
+				ScApp->view->SizeItem(w, CurItem->Height, CurItem->ItemNr, true);
+				ScApp->view->RotateItem(r, CurItem->ItemNr);
 			}
 			else
 			{
@@ -1954,7 +1964,7 @@ void Mpalette::NewY()
 					base = ma.m22() * CurItem->Height + ma.m12() * CurItem->Width + ma.dy();
 				if (BottomLeft->isChecked())
 					base = ma.m22() * CurItem->Height + ma.m12() * 0.0 + ma.dy();
-				doc->ActPage->MoveItem(0, y - base, CurItem, true);
+				ScApp->view->MoveItem(0, y - base, CurItem, true);
 			}
 		}
 		emit DocChanged();
@@ -1972,19 +1982,19 @@ void Mpalette::NewW()
 	h = Height->value() / UmReFaktor;
 	if ((HaveDoc) && (HaveItem))
 	{
-		if (doc->ActPage->GroupSel)
+		if (ScApp->view->GroupSel)
 		{
-			doc->ActPage->getGroupRect(&gx, &gy, &gw, &gh);
+			ScApp->view->getGroupRect(&gx, &gy, &gw, &gh);
 			if (Kette2->isOn())
 			{
-				doc->ActPage->HowTo = 1;
-				doc->ActPage->scaleGroup(w / gw, w / gw);
+				ScApp->view->HowTo = 1;
+				ScApp->view->scaleGroup(w / gw, w / gw);
 				setBH(w, (w / gw) * gh);
 			}
 			else
 			{
-				doc->ActPage->HowTo = 6;
-				doc->ActPage->scaleGroup(w / gw, 1.0);
+				ScApp->view->HowTo = 6;
+				ScApp->view->scaleGroup(w / gw, 1.0);
 			}
 		}
 		else
@@ -1996,10 +2006,10 @@ void Mpalette::NewW()
 				if (LMode)
 				{
 					double r = atan2(h-y,w-x)*(180.0/3.1415927);
-					doc->ActPage->RotateItem(r, CurItem->ItemNr);
+					ScApp->view->RotateItem(r, CurItem->ItemNr);
 					w = sqrt(pow(w-x,2)+pow(h-y,2));
 				}
-				doc->ActPage->SizeItem(w, CurItem->Height, CurItem->ItemNr, true);
+				ScApp->view->SizeItem(w, CurItem->Height, CurItem->ItemNr, true);
 			}
 			else
 			{
@@ -2020,19 +2030,19 @@ void Mpalette::NewW()
 						bb2 = bb;
 						while (bb2->RightLink != 0)
 						{
-							doc->ActPage->MoveRotated(bb2->RightLink, FPoint(dist, 0), true);
+							ScApp->view->MoveRotated(bb2->RightLink, FPoint(dist, 0), true);
 							bb2 = bb2->RightLink;
 						}
-						doc->ActPage->MoveSizeItem(FPoint(0, 0), FPoint(-dist, 0), bb->ItemNr, true);
+						ScApp->view->MoveSizeItem(FPoint(0, 0), FPoint(-dist, 0), bb->ItemNr, true);
 						bb = bb->BottomLink;
 					}
 					bb2 = bb;
 					while (bb2->RightLink != 0)
 					{
-						doc->ActPage->MoveRotated(bb2->RightLink, FPoint(dist, 0), true);
+						ScApp->view->MoveRotated(bb2->RightLink, FPoint(dist, 0), true);
 						bb2 = bb2->RightLink;
 					}
-					doc->ActPage->MoveSizeItem(FPoint(0, 0), FPoint(-dist, 0), bb->ItemNr, true);
+					ScApp->view->MoveSizeItem(FPoint(0, 0), FPoint(-dist, 0), bb->ItemNr, true);
 					doc->RotMode = rmo;
 					if (Kette2->isOn())
 					{
@@ -2047,10 +2057,10 @@ void Mpalette::NewW()
 					if (Kette2->isOn())
 					{
 						setBH(w, (w / CurItem->Width) * CurItem->Height);
-						doc->ActPage->SizeItem(w, (w / CurItem->Width) * CurItem->Height, CurItem->ItemNr, true);
+						ScApp->view->SizeItem(w, (w / CurItem->Width) * CurItem->Height, CurItem->ItemNr, true);
 					}
 					else
-						doc->ActPage->SizeItem(w, CurItem->Height, CurItem->ItemNr, true);
+						ScApp->view->SizeItem(w, CurItem->Height, CurItem->ItemNr, true);
 				}
 			}
 			emit DocChanged();
@@ -2069,19 +2079,19 @@ void Mpalette::NewH()
 	h = Height->value() / UmReFaktor;
 	if ((HaveDoc) && (HaveItem))
 	{
-		if (doc->ActPage->GroupSel)
+		if (ScApp->view->GroupSel)
 		{
-			doc->ActPage->getGroupRect(&gx, &gy, &gw, &gh);
+			ScApp->view->getGroupRect(&gx, &gy, &gw, &gh);
 			if (Kette2->isOn())
 			{
-				doc->ActPage->HowTo = 1;
-				doc->ActPage->scaleGroup(h / gh, h / gh);
+				ScApp->view->HowTo = 1;
+				ScApp->view->scaleGroup(h / gh, h / gh);
 				setBH((h / gh) * gw, h);
 			}
 			else
 			{
-				doc->ActPage->HowTo = 5;
-				doc->ActPage->scaleGroup(1.0, h / gh);
+				ScApp->view->HowTo = 5;
+				ScApp->view->scaleGroup(1.0, h / gh);
 			}
 		}
 		else
@@ -2093,10 +2103,10 @@ void Mpalette::NewH()
 				if (LMode)
 				{
 					double r = atan2(h-y,w-x)*(180.0/3.1415927);
-					doc->ActPage->RotateItem(r, CurItem->ItemNr);
+					ScApp->view->RotateItem(r, CurItem->ItemNr);
 					w = sqrt(pow(w-x,2)+pow(h-y,2));
 				}
-				doc->ActPage->SizeItem(w, CurItem->Height, CurItem->ItemNr, true);
+				ScApp->view->SizeItem(w, CurItem->Height, CurItem->ItemNr, true);
 			}
 			else
 			{
@@ -2117,19 +2127,19 @@ void Mpalette::NewH()
 						bb2 = bb;
 						while (bb2->BottomLink != 0)
 						{
-							doc->ActPage->MoveRotated(bb2->BottomLink, FPoint(0, dist), true);
+							ScApp->view->MoveRotated(bb2->BottomLink, FPoint(0, dist), true);
 							bb2 = bb2->BottomLink;
 						}
-						doc->ActPage->MoveSizeItem(FPoint(0, 0), FPoint(0, -dist), bb->ItemNr, true);
+						ScApp->view->MoveSizeItem(FPoint(0, 0), FPoint(0, -dist), bb->ItemNr, true);
 						bb = bb->RightLink;
 					}
 					bb2 = bb;
 					while (bb2->BottomLink != 0)
 					{
-						doc->ActPage->MoveRotated(bb2->BottomLink, FPoint(0, dist), true);
+						ScApp->view->MoveRotated(bb2->BottomLink, FPoint(0, dist), true);
 						bb2 = bb2->BottomLink;
 					}
-					doc->ActPage->MoveSizeItem(FPoint(0, 0), FPoint(0, -dist), bb->ItemNr, true);
+					ScApp->view->MoveSizeItem(FPoint(0, 0), FPoint(0, -dist), bb->ItemNr, true);
 					doc->RotMode = rmo;
 					if (Kette2->isOn())
 					{
@@ -2144,10 +2154,10 @@ void Mpalette::NewH()
 					if (Kette2->isOn())
 					{
 						setBH((h / CurItem->Height) * CurItem->Width, h);
-						doc->ActPage->SizeItem((h / CurItem->Height) * CurItem->Width, h, CurItem->ItemNr, true);
+						ScApp->view->SizeItem((h / CurItem->Height) * CurItem->Width, h, CurItem->ItemNr, true);
 					}
 					else
-						doc->ActPage->SizeItem(CurItem->Width, h, CurItem->ItemNr, true);
+						ScApp->view->SizeItem(CurItem->Width, h, CurItem->ItemNr, true);
 				}
 			}
 		}
@@ -2162,14 +2172,14 @@ void Mpalette::NewR()
 	double gx, gy, gh, gw;
 	if ((HaveDoc) && (HaveItem))
 	{
-		if (doc->ActPage->GroupSel)
+		if (ScApp->view->GroupSel)
 		{
-			doc->ActPage->RotateGroup((Rot->value() - RoVal)*(-1));
-			doc->ActPage->getGroupRect(&gx, &gy, &gw, &gh);
+			ScApp->view->RotateGroup((Rot->value() - RoVal)*(-1));
+			ScApp->view->getGroupRect(&gx, &gy, &gw, &gh);
 			setXY(gx, gy);
 		}
 		else
-			doc->ActPage->RotateItem(Rot->value()*(-1), CurItem->ItemNr);
+			ScApp->view->RotateItem(Rot->value()*(-1), CurItem->ItemNr);
 		emit DocChanged();
 		RoVal = Rot->value();
 	}
@@ -2182,7 +2192,7 @@ void Mpalette::NewRR()
 	if ((HaveDoc) && (HaveItem))
 	{
 		CurItem->RadRect = RoundRect->value() / UmReFaktor;
-		doc->ActPage->SetFrameRounded();
+		ScApp->view->SetFrameRounded();
 		emit DocChanged();
 	}
 }
@@ -2193,7 +2203,7 @@ void Mpalette::NewLsp()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		doc->ActPage->ChLineSpa(LineSp->value());
+		ScApp->view->ChLineSpa(LineSp->value());
 		emit DocChanged();
 	}
 }
@@ -2219,7 +2229,7 @@ void Mpalette::NewCols()
 	{
 		CurItem->Cols = DCol->value();
 		setCols(CurItem->Cols, CurItem->ColGap);
-		doc->ActPage->RefreshItem(CurItem);
+		ScApp->view->RefreshItem(CurItem);
 		emit DocChanged();
 	}
 }
@@ -2243,7 +2253,7 @@ void Mpalette::NewGap()
 			double newGap = QMAX(((CurItem->Width - CurItem->Extra - CurItem->RExtra - lineCorr) - (newWidth * CurItem->Cols)) / (CurItem->Cols - 1), 0);
 			CurItem->ColGap = newGap;
 		}
-		doc->ActPage->RefreshItem(CurItem);
+		ScApp->view->RefreshItem(CurItem);
 		emit DocChanged();
 	}
 }
@@ -2254,7 +2264,7 @@ void Mpalette::NewSize()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		doc->ActPage->chFSize(qRound(Size->value()*10.0));
+		ScApp->view->chFSize(qRound(Size->value()*10.0));
 		emit DocChanged();
 	}
 }
@@ -2267,7 +2277,7 @@ void Mpalette::NewExtra()
 	{
 		if ((CurItem->HasSel) || (doc->AppMode == 1))
 		{
-			doc->ActPage->chKerning(Extra->value());
+			ScApp->view->chKerning(Extra->value());
 			emit DocChanged();
 		}
 		else
@@ -2275,7 +2285,7 @@ void Mpalette::NewExtra()
 			if (uint(CurItem->CPos) != CurItem->Ptext.count())
 			{
 				CurItem->Ptext.at(CurItem->CPos)->cextra = Extra->value();
-				doc->ActPage->RefreshItem(CurItem);
+				ScApp->view->RefreshItem(CurItem);
 				emit DocChanged();
 			}
 		}
@@ -2288,7 +2298,7 @@ void Mpalette::NewLocalXY()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		doc->ActPage->ChLocalXY(LXpos->value() / UmReFaktor, LYpos->value() / UmReFaktor);
+		ScApp->view->ChLocalXY(LXpos->value() / UmReFaktor, LYpos->value() / UmReFaktor);
 		emit DocChanged();
 	}
 }
@@ -2299,7 +2309,7 @@ void Mpalette::NewLocalSC()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		doc->ActPage->ChLocalSc(ScaleX->value() / 100.0, ScaleY->value() / 100.0);
+		ScApp->view->ChLocalSc(ScaleX->value() / 100.0, ScaleY->value() / 100.0);
 		emit DocChanged();
 	}
 }
@@ -2310,7 +2320,7 @@ void Mpalette::NewLS()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		doc->ActPage->ChLineWidth(LSize->value());
+		ScApp->view->ChLineWidth(LSize->value());
 		emit DocChanged();
 	}
 }
@@ -2340,7 +2350,7 @@ void Mpalette::NewLSty()
 	}
 	if ((HaveDoc) && (HaveItem))
 	{
-		doc->ActPage->ChLineArt(c);
+		ScApp->view->ChLineArt(c);
 		emit DocChanged();
 	}
 }
@@ -2394,7 +2404,7 @@ void Mpalette::NewLJoin()
 	}
 	if ((HaveDoc) && (HaveItem))
 	{
-		doc->ActPage->ChLineJoin(c);
+		ScApp->view->ChLineJoin(c);
 		emit DocChanged();
 	}
 }
@@ -2418,7 +2428,7 @@ void Mpalette::NewLEnd()
 	}
 	if ((HaveDoc) && (HaveItem))
 	{
-		doc->ActPage->ChLineEnd(c);
+		ScApp->view->ChLineEnd(c);
 		emit DocChanged();
 	}
 }
@@ -2455,9 +2465,9 @@ void Mpalette::DoFlipH()
 	if ((HaveDoc) && (HaveItem))
 	{
 		if ((CurItem->PType == 2) || (CurItem->PType == 4))
-			doc->ActPage->FlipImageH();
+			ScApp->view->FlipImageH();
 		else
-			doc->ActPage->MirrorPolyH();
+			ScApp->view->MirrorPolyH();
 		emit DocChanged();
 	}
 }
@@ -2469,9 +2479,9 @@ void Mpalette::DoFlipV()
 	if ((HaveDoc) && (HaveItem))
 	{
 		if ((CurItem->PType == 2) || (CurItem->PType == 4))
-			doc->ActPage->FlipImageV();
+			ScApp->view->FlipImageV();
 		else
-			doc->ActPage->MirrorPolyV();
+			ScApp->view->MirrorPolyV();
 		emit DocChanged();
 	}
 }
@@ -2501,7 +2511,7 @@ void Mpalette::DoLower()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		doc->ActPage->LowerItem();
+		ScApp->view->LowerItem();
 		emit DocChanged();
 	}
 }
@@ -2512,7 +2522,7 @@ void Mpalette::DoRaise()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		doc->ActPage->RaiseItem();
+		ScApp->view->RaiseItem();
 		emit DocChanged();
 	}
 }
@@ -2523,7 +2533,7 @@ void Mpalette::DoFront()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		doc->ActPage->ToFront();
+		ScApp->view->ToFront();
 		emit DocChanged();
 	}
 }
@@ -2534,7 +2544,7 @@ void Mpalette::DoBack()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		doc->ActPage->ToBack();
+		ScApp->view->ToBack();
 		emit DocChanged();
 	}
 }
@@ -2547,37 +2557,37 @@ void Mpalette::NewRotMode(int m)
 	if ((HaveDoc) && (HaveItem))
 	{
 		HaveItem = false;
-		if (doc->ActPage->GroupSel)
+		if (ScApp->view->GroupSel)
 		{
-			doc->ActPage->setGroupRect();
-			doc->ActPage->getGroupRect(&gx, &gy, &gw, &gh);
+			ScApp->view->setGroupRect();
+			ScApp->view->getGroupRect(&gx, &gy, &gw, &gh);
 			if (m == 0)
 			{
-				doc->ActPage->RCenter = FPoint(gx, gy);
+				ScApp->view->RCenter = FPoint(gx, gy);
 				inX = gx;
 				inY = gy;
 			}
 			if (m == 1)
 			{
-				doc->ActPage->RCenter = FPoint(gx+gw, gy);
+				ScApp->view->RCenter = FPoint(gx+gw, gy);
 				inX = gx+gw;
 				inY = gy;
 			}
 			if (m == 2)
 			{
-				doc->ActPage->RCenter = FPoint(gx + gw / 2.0, gy + gh / 2.0);
+				ScApp->view->RCenter = FPoint(gx + gw / 2.0, gy + gh / 2.0);
 				inX = gx + gw / 2.0;
 				inY = gy + gh / 2.0;
 			}
 			if (m == 3)
 			{
-				doc->ActPage->RCenter = FPoint(gx, gy+gh);
+				ScApp->view->RCenter = FPoint(gx, gy+gh);
 				inX = gx;
 				inY = gy+gh;
 			}
 			if (m == 4)
 			{
-				doc->ActPage->RCenter = FPoint(gx+gw, gy+gh);
+				ScApp->view->RCenter = FPoint(gx+gw, gy+gh);
 				inX = gx+gw;
 				inY = gy+gh;
 			}
@@ -2621,7 +2631,7 @@ void Mpalette::DoFlow()
 	if ((HaveDoc) && (HaveItem))
 	{
 		CurItem->Textflow = Textflow->isChecked();
-		doc->ActPage->update();
+		ScApp->view->DrawNew();
 		emit DocChanged();
 		ToggleFlow();
 	}
@@ -2641,7 +2651,7 @@ void Mpalette::DoFlow2()
 			Textflow3->setChecked(false);
 			CurItem->UseContour = false;
 		}
-		doc->ActPage->update();
+		ScApp->view->DrawNew();
 		emit DocChanged();
 		connect(Textflow2, SIGNAL(clicked()), this, SLOT(DoFlow2()));
 		connect(Textflow3, SIGNAL(clicked()), this, SLOT(DoFlow3()));
@@ -2662,7 +2672,7 @@ void Mpalette::DoFlow3()
 			Textflow2->setChecked(false);
 			CurItem->Textflow2 = false;
 		}
-		doc->ActPage->update();
+		ScApp->view->DrawNew();
 		emit DocChanged();
 		connect(Textflow2, SIGNAL(clicked()), this, SLOT(DoFlow2()));
 		connect(Textflow3, SIGNAL(clicked()), this, SLOT(DoFlow3()));
@@ -2680,18 +2690,18 @@ void Mpalette::MakeIrre(int f, int c, double *vals)
 		switch (f)
 		{
 		case 0:
-			doc->ActPage->SetRectFrame(CurItem);
+			ScApp->view->SetRectFrame(CurItem);
 			break;
 		case 1:
-			doc->ActPage->SetOvalFrame(CurItem);
+			ScApp->view->SetOvalFrame(CurItem);
 			break;
 		default:
-			doc->ActPage->SetFrameShape(CurItem, c, vals);
+			ScApp->view->SetFrameShape(CurItem, c, vals);
 			CurItem->FrameType = f+2;
 			break;
 		}
 		ScApp->SCustom->setPixmap(ScApp->SCustom->getIconPixmap(f));
-		doc->ActPage->RefreshItem(CurItem);
+		ScApp->view->RefreshItem(CurItem);
 		emit DocChanged();
 		if ((CurItem->PType == 2) || (CurItem->PType == 4))
 			return;
@@ -2729,7 +2739,7 @@ void Mpalette::NewTDist()
 		CurItem->BExtra = DBottom->value() / UmReFaktor;
 		CurItem->RExtra = DRight->value() / UmReFaktor;
 		setCols(CurItem->Cols, CurItem->ColGap);
-		doc->ActPage->RefreshItem(CurItem);
+		ScApp->view->RefreshItem(CurItem);
 		emit DocChanged();
 	}
 }
@@ -2744,7 +2754,7 @@ void Mpalette::NewSpGradient(double x1, double y1, double x2, double y2)
 		CurItem->GrStartY = y1 / UmReFaktor;
 		CurItem->GrEndX = x2 / UmReFaktor;
 		CurItem->GrEndY = y2 / UmReFaktor;
-		doc->ActPage->RefreshItem(CurItem);
+		ScApp->view->RefreshItem(CurItem);
 		emit DocChanged();
 	}
 }
@@ -2773,7 +2783,7 @@ void Mpalette::DoRevert()
 			CurItem->flippedH = 0;
 			CurItem->Reverse = false;
 		}
-		doc->ActPage->RefreshItem(CurItem);
+		ScApp->view->RefreshItem(CurItem);
 		emit DocChanged();
 	}
 }
@@ -2844,7 +2854,7 @@ void Mpalette::SetSTline(QListBoxItem *c)
 	LSize->setEnabled(setter);
 	LJoinStyle->setEnabled(setter);
 	LEndStyle->setEnabled(setter);
-	doc->ActPage->RefreshItem(CurItem);
+	ScApp->view->RefreshItem(CurItem);
 	emit DocChanged();
 }
 
@@ -2883,8 +2893,7 @@ void Mpalette::updateCmsList()
 			GroupBoxCM->hide();
 			return;
 		}
-		disconnect(InputP, SIGNAL(activated(const QString&)), this,
-		           SLOT(ChProf(const QString&)));
+		disconnect(InputP, SIGNAL(activated(const QString&)), this, SLOT(ChProf(const QString&)));
 		InputP->clear();
 		ProfilesL::Iterator itP;
 		for (itP = InputProfiles.begin(); itP != InputProfiles.end(); ++itP)
@@ -2919,8 +2928,8 @@ void Mpalette::ChProf(const QString& prn)
 		/* PFJ - 29.02.04 - re-arranged the initialisation of EmbedP */
 		bool EmbedP = prn.startsWith("Embedded") ? true : false;
 		CurItem->UseEmbedded = EmbedP;
-		doc->ActPage->LoadPict(CurItem->Pfile, CurItem->ItemNr);
-		doc->ActPage->RefreshItem(CurItem);
+		ScApp->view->LoadPict(CurItem->Pfile, CurItem->ItemNr);
+		ScApp->view->RefreshItem(CurItem);
 	}
 }
 
@@ -2931,8 +2940,8 @@ void Mpalette::ChIntent()
 	if ((HaveDoc) && (HaveItem))
 	{
 		CurItem->IRender = MonitorI->currentItem();
-		doc->ActPage->LoadPict(CurItem->Pfile, CurItem->ItemNr);
-		doc->ActPage->RefreshItem(CurItem);
+		ScApp->view->LoadPict(CurItem->Pfile, CurItem->ItemNr);
+		ScApp->view->RefreshItem(CurItem);
 	}
 }
 
@@ -2959,7 +2968,7 @@ void Mpalette::newTxtFill()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
-		doc->ActPage->ItemTextBrush(TxFill->currentText());
+		ScApp->view->ItemTextBrush(TxFill->currentText());
 		doc->CurrTextFill = TxFill->currentText();
 		emit DocChanged();
 	}
@@ -2969,7 +2978,7 @@ void Mpalette::newTxtStroke()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
-		doc->ActPage->ItemTextPen(TxStroke->currentText());
+		ScApp->view->ItemTextPen(TxStroke->currentText());
 		doc->CurrTextStroke = TxStroke->currentText();
 		emit DocChanged();
 	}
@@ -2983,13 +2992,13 @@ void Mpalette::setActShade()
 	if (PM1 == sender())
 	{
 		b = PM1->getValue();
-		doc->ActPage->ItemTextPenS(b);
+		ScApp->view->ItemTextPenS(b);
 		doc->CurrTextFillSh = b;
 	}
 	else
 	{
 		b = PM2->getValue();
-		doc->ActPage->ItemTextBrushS(b);
+		ScApp->view->ItemTextBrushS(b);
 		doc->CurrTextStrokeSh = b;
 	}
 	emit DocChanged();
@@ -3034,10 +3043,10 @@ void Mpalette::handleLock()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		for ( uint a = 0; a < doc->ActPage->SelItem.count(); ++a)
+		for ( uint a = 0; a < ScApp->view->SelItem.count(); ++a)
 		{
-			doc->ActPage->SelItem.at(a)->Locked = Locked->isOn();
-			doc->ActPage->RefreshItem(doc->ActPage->SelItem.at(a));
+			ScApp->view->SelItem.at(a)->Locked = Locked->isOn();
+			ScApp->view->RefreshItem(ScApp->view->SelItem.at(a));
 		}
 		bool setter = Locked->isOn();
 		Xpos->setReadOnly(setter);
@@ -3057,9 +3066,9 @@ void Mpalette::handlePrint()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
-		for ( uint a = 0; a < doc->ActPage->SelItem.count(); ++a)
+		for ( uint a = 0; a < ScApp->view->SelItem.count(); ++a)
 		{
-			doc->ActPage->SelItem.at(a)->isPrintable = !NoPrint->isOn();
+			ScApp->view->SelItem.at(a)->isPrintable = !NoPrint->isOn();
 		}
 		emit DocChanged();
 	}
@@ -3069,10 +3078,10 @@ void Mpalette::handleResize()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
-		for ( uint a = 0; a < doc->ActPage->SelItem.count(); ++a)
+		for ( uint a = 0; a < ScApp->view->SelItem.count(); ++a)
 		{
-			doc->ActPage->SelItem.at(a)->LockRes = NoResize->isOn();
-			doc->ActPage->RefreshItem(doc->ActPage->SelItem.at(a));
+			ScApp->view->SelItem.at(a)->LockRes = NoResize->isOn();
+			ScApp->view->RefreshItem(ScApp->view->SelItem.at(a));
 		}
 		Width->setReadOnly(NoResize->isOn());
 		Height->setReadOnly(NoResize->isOn());
@@ -3093,7 +3102,7 @@ void Mpalette::handlePathLine()
 	if ((HaveDoc) && (HaveItem))
 	{
 		CurItem->PoShow = showcurveCheckBox->isChecked();
-		doc->ActPage->RefreshItem(CurItem);
+		ScApp->view->RefreshItem(CurItem);
 		emit DocChanged();
 	}
 }
@@ -3105,9 +3114,9 @@ void Mpalette::handlePathDist()
 	if ((HaveDoc) && (HaveItem))
 	{
 		CurItem->Extra = Dist->value();
-		doc->ActPage->UpdatePolyClip(CurItem);
-		doc->ActPage->AdjustItemSize(CurItem);
-		doc->ActPage->RefreshItem(CurItem);
+		ScApp->view->UpdatePolyClip(CurItem);
+		ScApp->view->AdjustItemSize(CurItem);
+		ScApp->view->RefreshItem(CurItem);
 		emit DocChanged();
 	}
 }
@@ -3119,9 +3128,9 @@ void Mpalette::handlePathOffs()
 	if ((HaveDoc) && (HaveItem))
 	{
 		CurItem->BaseOffs = -LineW->value();
-		doc->ActPage->UpdatePolyClip(CurItem);
-		doc->ActPage->AdjustItemSize(CurItem);
-		doc->ActPage->RefreshItem(CurItem);
+		ScApp->view->UpdatePolyClip(CurItem);
+		ScApp->view->AdjustItemSize(CurItem);
+		ScApp->view->RefreshItem(CurItem);
 		emit DocChanged();
 	}
 }
@@ -3138,19 +3147,13 @@ void Mpalette::NewName()
 		return;
 	}
 	bool found = false;
-	ScribusView* view = (ScribusView*)doc->ActPage->Anz;
-	for (uint a = 0; a < view->Pages.count(); ++a)
+	for (uint b = 0; b < doc->Items.count(); ++b)
 	{
-		for (uint b = 0; b < view->Pages.at(a)->Items.count(); ++b)
+		if ((NameNew == doc->Items.at(b)->AnName) && (doc->Items.at(b) != CurItem))
 		{
-			if ((NameNew == view->Pages.at(a)->Items.at(b)->AnName) && (view->Pages.at(a)->Items.at(b) != CurItem))
-			{
-				found = true;
-				break;
-			}
-		}
-		if (found)
+			found = true;
 			break;
+		}
 	}
 	if (found)
 	{
@@ -3176,7 +3179,6 @@ void Mpalette::fillLangCombo(QMap<QString,QString> langMap)
 {
 	QStringList sortList;
 	QMap<QString,QString>::Iterator it;
-
 	if (ScApp->ScriptRunning)
 		return;
 	langCombo->clear();
@@ -3213,7 +3215,7 @@ void Mpalette::ManageTabs()
 		if (dia->exec())
 		{
 			CurItem->TabValues = dia->tmpTab;
-			doc->ActPage->RefreshItem(CurItem);
+			ScApp->view->RefreshItem(CurItem);
 			emit DocChanged();
 		}
 		delete dia;
@@ -3228,7 +3230,7 @@ void Mpalette::HandleTLines()
 		CurItem->LeftLine = LeftLine->isChecked();
 		CurItem->RightLine = RightLine->isChecked();
 		CurItem->BottomLine = BottomLine->isChecked();
-		doc->ActPage->RefreshItem(CurItem);
+		ScApp->view->RefreshItem(CurItem);
 		emit DocChanged();
 	}
 }

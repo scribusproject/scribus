@@ -25,6 +25,7 @@
 #include <qcursor.h>
 #include <cstdio>
 #include "picsearch.h"
+#include "pageitem.h"
 extern QPixmap loadIcon(QString nam);
 
 /*!
@@ -64,103 +65,91 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi)
 	for (uint a = 0; a < ar; ++a)
 		Header->setLabel(a, tmpc[a]);
 	Zeilen = 0;
-	for (p=0; p<view->MasterPages.count(); ++p)
+	for (i=0; i < doc->MasterItems.count(); ++i)
 	{
-		for (i=0; i<view->MasterPages.at(p)->Items.count(); ++i)
+		if (doc->MasterItems.at(i)->PType == 2)
 		{
-			if (view->MasterPages.at(p)->Items.at(i)->PType == 2)
-			{
-				Zeilen++;
-				ItemNrs.append(i);
-			}
+			Zeilen++;
+			ItemNrs.append(i);
 		}
 	}
-	for (p=0; p<view->Pages.count(); ++p)
+	for (i=0; i<doc->Items.count(); ++i)
 	{
-		for (i=0; i<view->Pages.at(p)->Items.count(); ++i)
+		if (doc->Items.at(i)->PType == 2)
 		{
-			if (view->Pages.at(p)->Items.at(i)->PType == 2)
-			{
-				Zeilen++;
-				ItemNrs.append(i);
-			}
+			Zeilen++;
+			ItemNrs.append(i);
 		}
 	}
 	PicTable->setNumRows(Zeilen);
 	int Zeilen2 = 0;
-	for (p=0; p<view->MasterPages.count(); ++p)
+	for (i=0; i < doc->MasterItems.count(); ++i)
 	{
-		for (i=0; i<view->MasterPages.at(p)->Items.count(); ++i)
+		if (doc->MasterItems.at(i)->PType == 2)
 		{
-			if (view->MasterPages.at(p)->Items.at(i)->PType == 2)
-			{
-				QFileInfo fi = QFileInfo(view->MasterPages.at(p)->Items.at(i)->Pfile);
-				PicTable->setText(Zeilen2, 0, fi.fileName());
-				PicTable->setText(Zeilen2, 1, fi.dirPath());
-				PicTable->setText(Zeilen2, 2, tmp.setNum(p+1));
-				QToolButton *tb2 = new QToolButton(this, tmp.setNum(Zeilen2));
-				tb2->setText( tr("Goto"));
-				tb2->setEraseColor(white);
-				tb2->setEnabled(false);
-				PicTable->setColumnWidth(3, tb2->fontMetrics().width( tr("Goto"))+10);
-				PicTable->setCellWidget(Zeilen2, 3, tb2);
-				connect(tb2, SIGNAL(clicked()), this, SLOT(GotoPic()));
-				QCheckBox *cp2 = new QCheckBox(this, tmp.setNum(Zeilen2));
-				cp2->setText( tr("Yes"));
-				cp2->setChecked(view->MasterPages.at(p)->Items.at(i)->isPrintable);
-				cp2->setEraseColor(white);
-				FlagsPic.append(cp2);
-				PicTable->setCellWidget(Zeilen2, 4, cp2);
-				connect(cp2, SIGNAL(clicked()), this, SLOT(PrintPic()));
-				if (view->MasterPages.at(p)->Items.at(i)->PicAvail)
-					PicTable->setText(Zeilen2, 5, tr("OK"));
-				else
-					PicTable->setText(Zeilen2, 5, tr("Missing"));
-				QToolButton *tb = new QToolButton(this, tmp.setNum(Zeilen2));
-				tb->setText( tr("Search"));
-				PicTable->setColumnWidth(6, tb2->fontMetrics().width( tr("Search"))+10);
-				tb->setEraseColor(white);
-				PicTable->setCellWidget(Zeilen2, 6, tb);
-				connect(tb, SIGNAL(clicked()), this, SLOT(SearchPic()));
-				Zeilen2++;
-			}
+			QFileInfo fi = QFileInfo(doc->MasterItems.at(i)->Pfile);
+			PicTable->setText(Zeilen2, 0, fi.fileName());
+			PicTable->setText(Zeilen2, 1, fi.dirPath());
+			PicTable->setText(Zeilen2, 2, tmp.setNum(p+1));
+			QToolButton *tb2 = new QToolButton(this, tmp.setNum(Zeilen2));
+			tb2->setText( tr("Goto"));
+			tb2->setEraseColor(white);
+			tb2->setEnabled(false);
+			PicTable->setColumnWidth(3, tb2->fontMetrics().width( tr("Goto"))+10);
+			PicTable->setCellWidget(Zeilen2, 3, tb2);
+			connect(tb2, SIGNAL(clicked()), this, SLOT(GotoPic()));
+			QCheckBox *cp2 = new QCheckBox(this, tmp.setNum(Zeilen2));
+			cp2->setText( tr("Yes"));
+			cp2->setChecked(doc->MasterItems.at(i)->isPrintable);
+			cp2->setEraseColor(white);
+			FlagsPic.append(cp2);
+			PicTable->setCellWidget(Zeilen2, 4, cp2);
+			connect(cp2, SIGNAL(clicked()), this, SLOT(PrintPic()));
+			if (doc->MasterItems.at(i)->PicAvail)
+				PicTable->setText(Zeilen2, 5, tr("OK"));
+			else
+				PicTable->setText(Zeilen2, 5, tr("Missing"));
+			QToolButton *tb = new QToolButton(this, tmp.setNum(Zeilen2));
+			tb->setText( tr("Search"));
+			PicTable->setColumnWidth(6, tb2->fontMetrics().width( tr("Search"))+10);
+			tb->setEraseColor(white);
+			PicTable->setCellWidget(Zeilen2, 6, tb);
+			connect(tb, SIGNAL(clicked()), this, SLOT(SearchPic()));
+			Zeilen2++;
 		}
 	}
-	for (p=0; p<view->Pages.count(); ++p)
+	for (i=0; i< doc->Items.count(); ++i)
 	{
-		for (i=0; i<view->Pages.at(p)->Items.count(); ++i)
+		if (doc->Items.at(i)->PType == 2)
 		{
-			if (view->Pages.at(p)->Items.at(i)->PType == 2)
-			{
-				QFileInfo fi = QFileInfo(view->Pages.at(p)->Items.at(i)->Pfile);
-				PicTable->setText(Zeilen2, 0, fi.fileName());
-				PicTable->setText(Zeilen2, 1, fi.dirPath());
-				PicTable->setText(Zeilen2, 2, tmp.setNum(p+1));
-				QToolButton *tb2 = new QToolButton(this, tmp.setNum(Zeilen2));
-				tb2->setText( tr("Goto"));
-				tb2->setEraseColor(white);
-				PicTable->setColumnWidth(3, tb2->fontMetrics().width( tr("Goto"))+10);
-				PicTable->setCellWidget(Zeilen2, 3, tb2);
-				connect(tb2, SIGNAL(clicked()), this, SLOT(GotoPic()));
-				QCheckBox *cp2 = new QCheckBox(this, tmp.setNum(Zeilen2));
-				cp2->setText( tr("Yes"));
-				cp2->setChecked(view->Pages.at(p)->Items.at(i)->isPrintable);
-				cp2->setEraseColor(white);
-				FlagsPic.append(cp2);
-				PicTable->setCellWidget(Zeilen2, 4, cp2);
-				connect(cp2, SIGNAL(clicked()), this, SLOT(PrintPic()));
-				if (view->Pages.at(p)->Items.at(i)->PicAvail)
-					PicTable->setText(Zeilen2, 5, tr("OK"));
-				else
-					PicTable->setText(Zeilen2, 5, tr("Missing"));
-				QToolButton *tb = new QToolButton(this, tmp.setNum(Zeilen2));
-				tb->setText( tr("Search"));
-				PicTable->setColumnWidth(6, tb2->fontMetrics().width( tr("Search"))+10);
-				tb->setEraseColor(white);
-				PicTable->setCellWidget(Zeilen2, 6, tb);
-				connect(tb, SIGNAL(clicked()), this, SLOT(SearchPic()));
-				Zeilen2++;
-			}
+			QFileInfo fi = QFileInfo(doc->Items.at(i)->Pfile);
+			PicTable->setText(Zeilen2, 0, fi.fileName());
+			PicTable->setText(Zeilen2, 1, fi.dirPath());
+			PicTable->setText(Zeilen2, 2, tmp.setNum(p+1));
+			QToolButton *tb2 = new QToolButton(this, tmp.setNum(Zeilen2));
+			tb2->setText( tr("Goto"));
+			tb2->setEraseColor(white);
+			PicTable->setColumnWidth(3, tb2->fontMetrics().width( tr("Goto"))+10);
+			PicTable->setCellWidget(Zeilen2, 3, tb2);
+			connect(tb2, SIGNAL(clicked()), this, SLOT(GotoPic()));
+			QCheckBox *cp2 = new QCheckBox(this, tmp.setNum(Zeilen2));
+			cp2->setText( tr("Yes"));
+			cp2->setChecked(doc->Items.at(i)->isPrintable);
+			cp2->setEraseColor(white);
+			FlagsPic.append(cp2);
+			PicTable->setCellWidget(Zeilen2, 4, cp2);
+			connect(cp2, SIGNAL(clicked()), this, SLOT(PrintPic()));
+			if (doc->Items.at(i)->PicAvail)
+				PicTable->setText(Zeilen2, 5, tr("OK"));
+			else
+				PicTable->setText(Zeilen2, 5, tr("Missing"));
+			QToolButton *tb = new QToolButton(this, tmp.setNum(Zeilen2));
+			tb->setText( tr("Search"));
+			PicTable->setColumnWidth(6, tb2->fontMetrics().width( tr("Search"))+10);
+			tb->setEraseColor(white);
+			PicTable->setCellWidget(Zeilen2, 6, tb);
+			connect(tb, SIGNAL(clicked()), this, SLOT(SearchPic()));
+			Zeilen2++;
 		}
 	}
 
@@ -245,16 +234,16 @@ void PicStatus::SearchPic()
 						ItNr = ItemNrs[zz];
 						if (PicTable->cellWidget(zz, 3)->isEnabled())
 						{
-							view->Pages.at(PgNr)->LoadPict(fileName, ItNr);
-							PicTable->setText(zz, 1, view->Pages.at(PgNr)->Items.at(ItNr)->Pfile);
-							PicTable->setText(zz, 5, view->Pages.at(PgNr)->Items.at(ItNr)->PicAvail ?
+							view->LoadPict(fileName, ItNr);
+							PicTable->setText(zz, 1, doc->Items.at(ItNr)->Pfile);
+							PicTable->setText(zz, 5, doc->Items.at(ItNr)->PicAvail ?
 							                  tr("OK") : tr("Missing"));
 						}
 						else
 						{
-							view->MasterPages.at(PgNr)->LoadPict(fileName, ItNr);
-							PicTable->setText(zz, 1, view->MasterPages.at(PgNr)->Items.at(ItNr)->Pfile);
-							PicTable->setText(zz, 5, view->Pages.at(PgNr)->Items.at(ItNr)->PicAvail ?
+							view->LoadPict(fileName, ItNr);
+							PicTable->setText(zz, 1, doc->MasterItems.at(ItNr)->Pfile);
+							PicTable->setText(zz, 5, doc->MasterItems.at(ItNr)->PicAvail ?
 							                  tr("OK") : tr("Missing"));
 						}
 					}
@@ -276,16 +265,16 @@ void PicStatus::SearchPic()
 					ItNr = ItemNrs[zz];
 					if (PicTable->cellWidget(zz, 3)->isEnabled())
 					{
-						view->Pages.at(PgNr)->LoadPict(Pfade[0], ItNr);
-						PicTable->setText(zz, 1, view->Pages.at(PgNr)->Items.at(ItNr)->Pfile);
-						PicTable->setText(zz, 5, view->Pages.at(PgNr)->Items.at(ItNr)->PicAvail ?
+						view->LoadPict(Pfade[0], ItNr);
+						PicTable->setText(zz, 1, doc->Items.at(ItNr)->Pfile);
+						PicTable->setText(zz, 5, doc->Items.at(ItNr)->PicAvail ?
 						                  tr("OK") : tr("Missing"));
 					}
 					else
 					{
-						view->MasterPages.at(PgNr)->LoadPict(Pfade[0], ItNr);
-						PicTable->setText(zz, 1, view->MasterPages.at(PgNr)->Items.at(ItNr)->Pfile);
-						PicTable->setText(zz, 5, view->Pages.at(PgNr)->Items.at(ItNr)->PicAvail ?
+						view->LoadPict(Pfade[0], ItNr);
+						PicTable->setText(zz, 1, doc->MasterItems.at(ItNr)->Pfile);
+						PicTable->setText(zz, 5, doc->MasterItems.at(ItNr)->PicAvail ?
 						                  tr("OK") : tr("Missing"));
 					}
 				}
@@ -308,9 +297,9 @@ void PicStatus::PrintPic()
 {
 	uint ZNr = QString(sender()->name()).toUInt();
 	uint ItNr = ItemNrs[ZNr];
-	uint PgNr = PicTable->text(ZNr, 2).toInt()-1;
+//	uint PgNr = PicTable->text(ZNr, 2).toInt()-1;
 	if (PicTable->cellWidget(ZNr, 3)->isEnabled())
-		view->Pages.at(PgNr)->Items.at(ItNr)->isPrintable = FlagsPic.at(ZNr)->isChecked();
+		doc->Items.at(ItNr)->isPrintable = FlagsPic.at(ZNr)->isChecked();
 	else
-		view->MasterPages.at(PgNr)->Items.at(ItNr)->isPrintable = FlagsPic.at(ZNr)->isChecked();
+		doc->MasterItems.at(ItNr)->isPrintable = FlagsPic.at(ZNr)->isChecked();
 }

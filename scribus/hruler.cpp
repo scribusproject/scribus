@@ -33,10 +33,11 @@
 extern QPixmap loadIcon(QString nam);
 extern ScribusApp* ScApp;
 
-Hruler::Hruler(QScrollView *pa, ScribusDoc *doc) : QWidget(pa)
+Hruler::Hruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa)
 {
 	setEraseColor(QColor(255,255,255));
 	doku = doc;
+	view = pa;
 	offs = -10;
 	Markp = 0;
 	repX = false;
@@ -124,13 +125,16 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 	else
 	{
 		if (ScApp->Prefs.GuidesShown)
+		{
+			QPoint py = view->viewport()->mapFromGlobal(m->globalPos());
+			view->DrHY = py.y();
 			qApp->setOverrideCursor(QCursor(SPLITHC), true);
+		}
 	}
 }
 
 void Hruler::mouseReleaseEvent(QMouseEvent *m)
 {
-	Mpressed = false;
 	if (ItemPosValid)
 	{
 		if ((m->y() < height()) && (m->y() > 0))
@@ -138,11 +142,11 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 			switch (RulerCode)
 			{
 				case 1:
-					doku->ActPage->SelItem.at(0)->Extra = Extra;
+					view->SelItem.at(0)->Extra = Extra;
 					emit DocChanged(false);
 					break;
 				case 2:
-					doku->ActPage->SelItem.at(0)->RExtra = RExtra;
+					view->SelItem.at(0)->RExtra = RExtra;
 					emit DocChanged(false);
 					break;
 				case 3:
@@ -164,7 +168,7 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 					if (doku->CurrentABStil > 4)
 						doku->Vorlagen[doku->CurrentABStil].TabValues = TabValues;
 					else
-						doku->ActPage->SelItem.at(0)->TabValues = TabValues;
+						view->SelItem.at(0)->TabValues = TabValues;
 					emit DocChanged(false);
 					break;
 				default:
@@ -183,31 +187,26 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 				if (doku->CurrentABStil > 4)
 					doku->Vorlagen[doku->CurrentABStil].TabValues = TabValues;
 				else
-					doku->ActPage->SelItem.at(0)->TabValues = TabValues;
+					view->SelItem.at(0)->TabValues = TabValues;
 				emit DocChanged(false);
 				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 			}
 		}
-		if ((RulerCode != 0) || (m->button() != RightButton))
-		{
-			QPainter p;
-			p.begin(doku->ActPage);
-			p.setRasterOp(XorROP);
-			p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
-			p.drawLine(Markp, 0, Markp, static_cast<int>(doku->PageH * Scaling));
-			p.end();
-		}
 		RulerCode = 0;
-		doku->ActPage->RefreshItem(doku->ActPage->SelItem.at(0),true);
-		doku->ActPage->EmitValues(doku->ActPage->SelItem.at(0));
+		view->DrawNew();
+		view->EmitValues(view->SelItem.at(0));
 	}
 	else
 	{
-		doku->ActPage->DrHY = -1;
-		doku->ActPage->SetYGuide(m);
+		if ((Mpressed) && (m->pos().y() > height()))
+		{
+			view->DrHY = -1;
+			view->SetYGuide(m);
+		}
 		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 		emit DocChanged(false);
 	}
+	Mpressed = false;
 }
 
 void Hruler::mouseMoveEvent(QMouseEvent *m)
@@ -288,13 +287,14 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 			MouseX = m->x();
 			if (RulerCode != 0)
 			{
-				QPoint py = doku->ActPage->mapFromGlobal(m->globalPos());
+				QPoint py = view->viewport()->mapFromGlobal(m->globalPos());
 				QPainter p;
-				p.begin(doku->ActPage);
+				p.begin(view->viewport());
 				p.setRasterOp(XorROP);
 				p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
-				p.drawLine(Markp, 0, Markp, static_cast<int>(doku->PageH * Scaling));
-				p.drawLine(py.x(), 0, py.x(), static_cast<int>(doku->PageH * Scaling));
+				QPoint out = view->contentsToViewport(QPoint(0, qRound(doku->ActPage->Yoffset*Scaling)));
+				p.drawLine(Markp, out.y(), Markp, out.y()+qRound(doku->ActPage->Height * Scaling));
+				p.drawLine(py.x(), out.y(), py.x(), out.y()+qRound(doku->ActPage->Height * Scaling));
 				p.end();
 				Markp = py.x();
 			}
@@ -360,7 +360,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 	else
 	{
 		if ((Mpressed) && (m->pos().y() > height()))
-			doku->ActPage->FromHRuler(m);
+			view->FromHRuler(m);
 	}
 }
 
@@ -368,7 +368,7 @@ void Hruler::paintEvent(QPaintEvent *)
 {
 	int pc, xx;
 	double of, xl, iter, iter2;
-	double sc = doku->Scale;
+	double sc = view->Scale;
 	int cor = 1;
 	QFont ff = font();
 	ff.setPointSize(8);
@@ -448,12 +448,12 @@ void Hruler::paintEvent(QPaintEvent *)
 			if ((doku->ActPage->PageNr % 2) == 0)
 				Offset = 0;
 			else
-				Offset = doku->PageB + 30.0;
+				Offset = doku->PageB;
 		}
 		else
 		{
 			if ((doku->ActPage->PageNr % 2) == 0)
-				Offset = doku->PageB + 30.0;
+				Offset = doku->PageB;
 			else
 				Offset = 0;
 		}
@@ -470,7 +470,7 @@ void Hruler::paintEvent(QPaintEvent *)
 	for (xx = 0; xx < pc; ++xx)
 	{
 		p.setPen(QPen(black, 1, SolidLine, FlatCap, MiterJoin));
-		of = xx * (doku->PageB+30.0);
+		of = xx * doku->PageB;
 		for (xl = 0; xl < doku->PageB; xl += iter)
 			p.drawLine(qRound((xl+of)*sc), 18, qRound((xl+of)*sc), 24);
 		for (xl = 0; xl < doku->PageB+(iter2/2); xl += iter2)
@@ -681,7 +681,7 @@ void Hruler::paintEvent(QPaintEvent *)
 void Hruler::Draw(int wo)
 {
 	repX = true;
-	Markp = wo-qRound(10*doku->Scale);
+	Markp = wo-qRound(doku->ScratchLeft*view->Scale);
 	repaint(QRect(0, 0, width(), 9));
 }
 

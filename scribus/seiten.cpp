@@ -577,14 +577,14 @@ void SeitenPal::DelMPage(QString tmp)
 {
 	if (tmp == tr("Normal"))
 		return;
-	int Nr = Vie->MasterNames[tmp];
-	Page* Seite = Vie->MasterPages.at(Nr);
-	Vie->MasterPages.remove(Nr);
-	delete Seite->parentWidget();
-	Vie->MasterNames.clear();
-	for (uint aa=0; aa < Vie->MasterPages.count(); ++aa)
+	int Nr = Vie->Doc->MasterNames[tmp];
+	Page* Seite = Vie->Doc->MasterPages.at(Nr);
+	Vie->Doc->MasterPages.remove(Nr);
+	delete Seite;
+	Vie->Doc->MasterNames.clear();
+	for (uint aa=0; aa < Vie->Doc->MasterPages.count(); ++aa)
 	{
-		Seite = Vie->MasterPages.at(aa);
+		Seite = Vie->Doc->MasterPages.at(aa);
 		Seite->PageNr = aa;
 		if (Vie->Doc->PageFP)
 		{
@@ -598,12 +598,12 @@ void SeitenPal::DelMPage(QString tmp)
 		}
 		Seite->Margins.Top = Vie->Doc->PageM.Top;
 		Seite->Margins.Bottom = Vie->Doc->PageM.Bottom;
-		Vie->MasterNames[Seite->PageNam] = aa;
+		Vie->Doc->MasterNames[Seite->PageNam] = aa;
 	}
-	for (uint b=0; b<Vie->DocPages.count(); ++b)
+	for (uint b=0; b<Vie->Doc->DocPages.count(); ++b)
 	{
-		if (Vie->DocPages.at(b)->MPageNam == tmp)
-			Vie->DocPages.at(b)->MPageNam = "Normal";
+		if (Vie->Doc->DocPages.at(b)->MPageNam == tmp)
+			Vie->Doc->DocPages.at(b)->MPageNam = "Normal";
 	}
 	Vie->DrawNew();
 	RebuildTemp();
@@ -685,7 +685,7 @@ void SeitenPal::RebuildTemp()
 	if (Vie == 0)
 		return;
 	QMap<QString,int>::Iterator it;
-	for (it = Vie->MasterNames.begin(); it != Vie->MasterNames.end(); ++it)
+	for (it = Vie->Doc->MasterNames.begin(); it != Vie->Doc->MasterNames.end(); ++it)
 	{
 		if (TemplList->Thumb)
 			TemplList->insertItem(Vie->MPageToPixmap(it.key(),60), it.key() == "Normal" ? tr("Normal") : it.key());
@@ -715,7 +715,7 @@ void SeitenPal::RebuildPage()
 	LP->setChecked(PageView->Links);
 	if (PageView->Doppel)
 		LP->setEnabled(true);
-	PageView->MaxC = Vie->Pages.count()-1;
+	PageView->MaxC = Vie->Doc->Pages.count()-1;
 	if (Vie->Doc->PageFP)
 	{
 		int cc, cb;
@@ -740,9 +740,9 @@ void SeitenPal::RebuildPage()
 			PageView->setNumRows((Vie->Doc->PageC/2 + 1) * 2 +1);
 			cb = 3;
 		}
-		for (uint a = 0; a < Vie->Pages.count(); ++a)
+		for (uint a = 0; a < Vie->Doc->Pages.count(); ++a)
 		{
-			str = Vie->Pages.at(a)->MPageNam;
+			str = Vie->Doc->Pages.at(a)->MPageNam;
 			Side = cb == 1 ? false : true;
 			QTableItem *it = new SeItem( PageView, str, CreateIcon(a, pix), Side);
 			PageView->setItem(cc, cb, it);
@@ -762,13 +762,13 @@ void SeitenPal::RebuildPage()
 	}
 	else
 	{
-		PageView->setNumRows(Vie->Pages.count()*2+1);
+		PageView->setNumRows(Vie->Doc->Pages.count()*2+1);
 		PageView->setNumCols(1);
 		resize(180, height());
 		int cc = 1;
-		for (uint a = 0; a < Vie->Pages.count(); ++a)
+		for (uint a = 0; a < Vie->Doc->Pages.count(); ++a)
 		{
-			str = Vie->Pages.at(a)->MPageNam;
+			str = Vie->Doc->Pages.at(a)->MPageNam;
 			QTableItem *it = new SeItem( PageView, str, CreateIcon(a, pix), true);
 			PageView->setItem(cc, 0, it);
 			PageView->setRowHeight(cc, pix.height());

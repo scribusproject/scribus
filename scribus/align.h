@@ -10,14 +10,15 @@
 #include <qpushbutton.h>
 #include <qradiobutton.h>
 #include "mspinbox.h"
-#include "scribusdoc.h"
+class ScribusDoc;
+class ScribusView;
 
 class Align : public QDialog
 {
 	Q_OBJECT
 
 public:
-	Align( QWidget* parent, int anz, int ein, ScribusDoc* docc);
+	Align( QWidget* parent, int anz, int ein, ScribusDoc* docc, ScribusView* vie);
 	~Align();
 
 	QButtonGroup* ButtonGroup1_2;
@@ -41,6 +42,7 @@ public:
 	QRadioButton* CheckH;
 	int Anzahl;
 	ScribusDoc* doc;
+	ScribusView* view;
 	struct ItemPos {
 							int Nr;
 							double x;

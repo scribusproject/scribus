@@ -131,7 +131,6 @@ HEADERS += config.h \
            scribus/newfile.h \
            scribus/newtemp.h \
            scribus/page.h \
-           scribus/pageback.h \
            scribus/pageitem.h \
            scribus/pageselector.h \
            scribus/pdfopts.h \
@@ -309,7 +308,6 @@ SOURCES += scribus/align.cpp \
            scribus/newfile.cpp \
            scribus/newtemp.cpp \
            scribus/page.cpp \
-           scribus/pageback.cpp \
            scribus/pageitem.cpp \
            scribus/pageselector.cpp \
            scribus/pdfopts.cpp \

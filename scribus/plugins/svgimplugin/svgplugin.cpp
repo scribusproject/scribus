@@ -1,12 +1,13 @@
 #include "svgplugin.h"
 #include "svgplugin.moc"
-
+/*
 #if (_MSC_VER >= 1200)
  #include "win-config.h"
 #else
  #include "config.h"
 #endif
-
+*/
+#include "config.h"
 #include "customfdialog.h"
 #include "color.h"
 #include "scribusXml.h"
@@ -80,7 +81,7 @@ void Run(QWidget *d, ScribusApp *plug)
 	}
 	else
 		return;
-	SVGPlug *dia = new SVGPlug(d, plug, fileName);
+	SVGPlug *dia = new SVGPlug(plug, fileName);
 	delete dia;
 }
 
@@ -94,7 +95,7 @@ void Run(QWidget *d, ScribusApp *plug)
  \param fName QString
  \retval SVGPlug plugin
  */
-SVGPlug::SVGPlug( QWidget* parent, ScribusApp *plug, QString fName )
+SVGPlug::SVGPlug( ScribusApp *plug, QString fName )
 {
 	QString f = "";
 #ifdef HAVE_LIBZ
@@ -142,19 +143,19 @@ void SVGPlug::convert()
 	bool ret = false;
 	SvgStyle *gc = new SvgStyle;
 	QDomElement docElem = inpdoc.documentElement();
-	double width	= !docElem.attribute("width").isEmpty() ? parseUnit(docElem.attribute( "width" )) : 550.0;
-	double height	= !docElem.attribute("height").isEmpty() ? parseUnit(docElem.attribute( "height" )) : 841.0;
+	double width = !docElem.attribute("width").isEmpty() ? parseUnit(docElem.attribute( "width" )) : 550.0;
+	double height = !docElem.attribute("height").isEmpty() ? parseUnit(docElem.attribute( "height" )) : 841.0;
 	if (!Prog->HaveDoc)
 	{
 		Prog->doFileNew(width, height, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1);
 		ret = true;
 	}
 	Doku = Prog->doc;
-	Doku->ActPage->Deselect();
+	Prog->view->Deselect();
 	Elements.clear();
 	Doku->loading = true;
 	Doku->DoDrawing = false;
-	Doku->ActPage->setUpdatesEnabled(false);
+	Prog->view->setUpdatesEnabled(false);
 	Prog->ScriptRunning = true;
 	qApp->setOverrideCursor(QCursor(waitCursor), true);
 	gc->Family = Doku->Dfont;
@@ -164,19 +165,19 @@ void SVGPlug::convert()
 	parseGroup( docElem );
 	if (Elements.count() > 1)
 	{
-		Doku->ActPage->SelItem.clear();
+		Prog->view->SelItem.clear();
 		for (uint a = 0; a < Elements.count(); ++a)
 		{
 			Elements.at(a)->Groups.push(Doku->GroupCounter);
 			if (!ret)
-				Doku->ActPage->SelItem.append(Elements.at(a));
+				Prog->view->SelItem.append(Elements.at(a));
 		}
 		Doku->GroupCounter++;
 	}
-	//	Doku->loading = false;
 	Doku->DoDrawing = true;
-	Doku->ActPage->setUpdatesEnabled(true);
+	Prog->view->setUpdatesEnabled(true);
 	Prog->ScriptRunning = false;
+	Doku->loading = false;
 	qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	if ((Elements.count() > 0) && (!ret))
 	{
@@ -188,9 +189,9 @@ void SVGPlug::convert()
 			Doku->DragElements.append(Elements.at(dre)->ItemNr);
 		}
 		ScriXmlDoc *ss = new ScriXmlDoc();
-		Doku->ActPage->setGroupRect();
-		QDragObject *dr = new QTextDrag(ss->WriteElem(&Doku->ActPage->SelItem, Doku), Doku->ActPage);
-		Doku->ActPage->DeleteItem();
+		Prog->view->setGroupRect();
+		QDragObject *dr = new QTextDrag(ss->WriteElem(&Prog->view->SelItem, Doku, Prog->view), Prog->view->viewport());
+		Prog->view->DeleteItem();
 		dr->setPixmap(loadIcon("DragPix.xpm"));
 		dr->drag();
 		delete ss;
@@ -203,7 +204,6 @@ void SVGPlug::convert()
 		Doku->setUnModified();
 		Prog->slotDocCh();
 	}
-	Doku->loading = false;
 }
 
 /*!
@@ -251,6 +251,8 @@ void SVGPlug::parseGroup(const QDomElement &e)
 	QPtrList<PageItem> GElements;
 	FPointArray ImgClip;
 	ImgClip.resize(0);
+	double BaseX = Doku->ActPage->Xoffset;
+	double BaseY = Doku->ActPage->Yoffset;
 	for( QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling() )
 	{
 		int z = -1;
@@ -289,18 +291,18 @@ void SVGPlug::parseGroup(const QDomElement &e)
 			addGraphicContext();
 			double x		= parseUnit( b.attribute( "x" ) );
 			double y		= parseUnit( b.attribute( "y" ) );
-			double width	= parseUnit( b.attribute( "width" ));
-			double height	= parseUnit( b.attribute( "height" ) );
+			double width = parseUnit( b.attribute( "width" ));
+			double height = parseUnit( b.attribute( "height" ) );
 			double rx = b.attribute( "rx" ).isEmpty() ? 0.0 : parseUnit( b.attribute( "rx" ) );
 			double ry = b.attribute( "ry" ).isEmpty() ? 0.0 : parseUnit( b.attribute( "ry" ) );
 			SvgStyle *gc = m_gc.current();
 			parseStyle( gc, b );
-			z = Doku->ActPage->PaintRect(0, 0, width, height, gc->LWidth, gc->FillCol, gc->StrokeCol);
-			PageItem* ite = Doku->ActPage->Items.at(z);
+			z = Prog->view->PaintRect(BaseX, BaseY, width, height, gc->LWidth, gc->FillCol, gc->StrokeCol);
+			PageItem* ite = Doku->Items.at(z);
 			if ((rx != 0) || (ry != 0))
 			{
 				ite->RadRect = QMAX(rx, ry);
-				Doku->ActPage->SetFrameRound(ite);
+				Prog->view->SetFrameRound(ite);
 			}
 			QWMatrix mm = QWMatrix();
 			mm.translate(x, y);
@@ -312,14 +314,14 @@ void SVGPlug::parseGroup(const QDomElement &e)
 		else if( STag == "ellipse" )
 		{
 			addGraphicContext();
-			double rx		= parseUnit( b.attribute( "rx" ) );
-			double ry		= parseUnit( b.attribute( "ry" ) );
-			double x		= parseUnit( b.attribute( "cx" ) ) - rx;
-			double y		= parseUnit( b.attribute( "cy" ) ) - ry;
+			double rx = parseUnit( b.attribute( "rx" ) );
+			double ry = parseUnit( b.attribute( "ry" ) );
+			double x = parseUnit( b.attribute( "cx" ) ) - rx;
+			double y = parseUnit( b.attribute( "cy" ) ) - ry;
 			SvgStyle *gc = m_gc.current();
 			parseStyle( gc, b );
-			z = Doku->ActPage->PaintEllipse(0, 0, rx * 2.0, ry * 2.0, gc->LWidth, gc->FillCol, gc->StrokeCol);
-			PageItem* ite = Doku->ActPage->Items.at(z);
+			z = Prog->view->PaintEllipse(BaseX, BaseY, rx * 2.0, ry * 2.0, gc->LWidth, gc->FillCol, gc->StrokeCol);
+			PageItem* ite = Doku->Items.at(z);
 			QWMatrix mm = QWMatrix();
 			mm.translate(x, y);
 			ite->PoLine.map(mm);
@@ -335,8 +337,8 @@ void SVGPlug::parseGroup(const QDomElement &e)
 			double y		= parseUnit( b.attribute( "cy" ) ) - r;
 			SvgStyle *gc = m_gc.current();
 			parseStyle( gc, b );
-			z = Doku->ActPage->PaintEllipse(0, 0, r * 2.0, r * 2.0, gc->LWidth, gc->FillCol, gc->StrokeCol);
-			PageItem* ite = Doku->ActPage->Items.at(z);
+			z = Prog->view->PaintEllipse(BaseX, BaseY, r * 2.0, r * 2.0, gc->LWidth, gc->FillCol, gc->StrokeCol);
+			PageItem* ite = Doku->Items.at(z);
 			QWMatrix mm = QWMatrix();
 			mm.translate(x, y);
 			ite->PoLine.map(mm);
@@ -353,8 +355,8 @@ void SVGPlug::parseGroup(const QDomElement &e)
 			double y2 = b.attribute( "y2" ).isEmpty() ? 0.0 : parseUnit( b.attribute( "y2" ) );
 			SvgStyle *gc = m_gc.current();
 			parseStyle( gc, b );
-			z = Doku->ActPage->PaintPoly(0, 0, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
-			PageItem* ite = Doku->ActPage->Items.at(z);
+			z = Prog->view->PaintPoly(BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
+			PageItem* ite = Doku->Items.at(z);
 			ite->PoLine.resize(4);
 			ite->PoLine.setPoint(0, FPoint(x1, y1));
 			ite->PoLine.setPoint(1, FPoint(x1, y1));
@@ -373,15 +375,15 @@ void SVGPlug::parseGroup(const QDomElement &e)
 			addGraphicContext();
 			SvgStyle *gc = m_gc.current();
 			parseStyle( gc, b );
-			z = Doku->ActPage->PaintPoly(0, 0, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
-			PageItem* ite = Doku->ActPage->Items.at(z);
+			z = Prog->view->PaintPoly(BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
+			PageItem* ite = Doku->Items.at(z);
 			ite->PoLine.resize(0);
 			if (parseSVG( b.attribute( "d" ), &ite->PoLine ))
 				ite->PType = 7;
 			if (ite->PoLine.size() < 4)
 			{
-				Doku->ActPage->SelItem.append(ite);
-				Doku->ActPage->DeleteItem();
+				Prog->view->SelItem.append(ite);
+				Prog->view->DeleteItem();
 				z = -1;
 			}
 		}
@@ -391,10 +393,10 @@ void SVGPlug::parseGroup(const QDomElement &e)
 			SvgStyle *gc = m_gc.current();
 			parseStyle( gc, b );
 			if( b.tagName() == "polygon" )
-				z = Doku->ActPage->PaintPoly(0, 0, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
+				z = Prog->view->PaintPoly(BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
 			else
-				z = Doku->ActPage->PaintPolyLine(0, 0, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
-			PageItem* ite = Doku->ActPage->Items.at(z);
+				z = Prog->view->PaintPolyLine(BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
+			PageItem* ite = Doku->Items.at(z);
 			ite->PoLine.resize(0);
 			bool bFirst = true;
 			double x = 0.0;
@@ -411,7 +413,7 @@ void SVGPlug::parseGroup(const QDomElement &e)
 				{
 					x = (*(it++)).toDouble();
 					y = (*it).toDouble();
-					svgMoveTo(&ite->PoLine, x, y);
+					svgMoveTo(x, y);
 					bFirst = false;
 					WasM = true;
 				}
@@ -434,7 +436,7 @@ void SVGPlug::parseGroup(const QDomElement &e)
 			double x = b.attribute( "x" ).isEmpty() ? 0.0 : parseUnit(b.attribute("x"));
 			double y = b.attribute( "y" ).isEmpty() ? 0.0 : parseUnit(b.attribute("y"));
 			parseStyle(gc, b);
-			QPtrList<PageItem> el = parseText(x, y, b);
+			QPtrList<PageItem> el = parseText(x+BaseX, y+BaseY, b);
 			for (uint ec = 0; ec < el.count(); ++ec)
 			{
 				GElements.append(el.at(ec));
@@ -449,10 +451,10 @@ void SVGPlug::parseGroup(const QDomElement &e)
 			double y = b.attribute( "y" ).isEmpty() ? 0.0 : parseUnit( b.attribute( "y" ) );
 			double w = b.attribute( "width" ).isEmpty() ? 1.0 : parseUnit( b.attribute( "width" ) );
 			double h = b.attribute( "height" ).isEmpty() ? 1.0 : parseUnit( b.attribute( "height" ) );
-			z = Doku->ActPage->PaintPict(x, y, w, h);
+			z = Prog->view->PaintPict(x+BaseX, y+BaseY, w, h);
 			if (fname != "")
-				Doku->ActPage->LoadPict(fname, z);
-			PageItem* ite = Doku->ActPage->Items.at(z);
+				Prog->view->LoadPict(fname, z);
+			PageItem* ite = Doku->Items.at(z);
 			if (ImgClip.size() != 0)
 				ite->PoLine = ImgClip.copy();
 			ImgClip.resize(0);
@@ -464,7 +466,7 @@ void SVGPlug::parseGroup(const QDomElement &e)
 		{
 			setupTransform( b );
 			SvgStyle *gc = m_gc.current();
-			PageItem* ite = Doku->ActPage->Items.at(z);
+			PageItem* ite = Doku->Items.at(z);
 			switch (ite->PType)
 			{
 			case 2:
@@ -481,7 +483,7 @@ void SVGPlug::parseGroup(const QDomElement &e)
 						ite->LocalScY = ite->Height / ite->pixm.height();
 						ite->LocalViewX = ite->LocalScX;
 						ite->LocalViewY = ite->LocalScY;
-						Doku->ActPage->AdjustPreview(ite);
+						Prog->view->AdjustPreview(ite);
 					}
 					break;
 				}
@@ -502,7 +504,7 @@ void SVGPlug::parseGroup(const QDomElement &e)
 					ite->Width = wh.x();
 					ite->Height = wh.y();
 					ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-					Doku->ActPage->AdjustItemSize(ite);
+					Prog->view->AdjustItemSize(ite);
 					break;
 				}
 			}
@@ -554,10 +556,10 @@ void SVGPlug::parseGroup(const QDomElement &e)
 					gc->GY1 = gra.point(0).y();
 					gc->GX2 = gra.point(1).x();
 					gc->GY2 = gra.point(1).y();
-					ite->GrStartX = gc->GX1 - ite->Xpos;
-					ite->GrStartY = gc->GY1 - ite->Ypos;
-					ite->GrEndX = gc->GX2 - ite->Xpos;
-					ite->GrEndY = gc->GY2 - ite->Ypos;
+					ite->GrStartX = gc->GX1 - ite->Xpos+BaseX;
+					ite->GrStartY = gc->GY1 - ite->Ypos+BaseY;
+					ite->GrEndX = gc->GX2 - ite->Xpos+BaseX;
+					ite->GrEndY = gc->GY2 - ite->Ypos+BaseY;
 				}
 				ite->GrType = gc->Gradient;
 			}
@@ -809,7 +811,7 @@ bool SVGPlug::parseSVG( const QString &s, FPointArray *ite )
 					WasM = true;
 					subpathx = curx = relative ? curx + tox : tox;
 					subpathy = cury = relative ? cury + toy : toy;
-					svgMoveTo(ite, curx, cury );
+					svgMoveTo(curx, cury );
 					break;
 				}
 			case 'l':
@@ -1132,7 +1134,7 @@ void SVGPlug::calculateArc(FPointArray *ite, bool relative, double &curx, double
  \param y1 double
  \retval None
  */
-void SVGPlug::svgMoveTo(FPointArray *i, double x1, double y1)
+void SVGPlug::svgMoveTo(double x1, double y1)
 {
 	CurrX = x1;
 	CurrY = y1;
@@ -1692,7 +1694,7 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 	struct Pti *hg;
 	QPainter p;
 	QPtrList<PageItem> GElements;
-	p.begin(Doku->ActPage);
+	p.begin(Prog->view->viewport());
 	QFont ff(Doku->UsedFonts[m_gc.current()->Family]);
 	ff.setPointSize(QMAX(qRound(m_gc.current()->FontSize / 10.0), 1));
 	p.setFont(ff);
@@ -1711,8 +1713,8 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 			addGraphicContext();
 			SvgStyle *gc = m_gc.current();
 			parseStyle(gc, tspan);
-			int z = Doku->ActPage->PaintText(x, y, 10, 10, gc->LWidth, gc->FillCol);
-			PageItem* ite = Doku->ActPage->Items.at(z);
+			int z = Prog->view->PaintText(x, y, 10, 10, gc->LWidth, gc->FillCol);
+			PageItem* ite = Doku->Items.at(z);
 			ite->Extra = 0;
 			ite->TExtra = 0;
 			ite->BExtra = 0;
@@ -1782,13 +1784,13 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 				}
 			}
 			ite->Width = QMAX(ite->Width, tempW);
-			Doku->ActPage->SetRectFrame(ite);
+			Prog->view->SetRectFrame(ite);
 			ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-			Doku->ActPage->SelItem.append(ite);
-			Doku->ActPage->HowTo = 1;
-			Doku->ActPage->setGroupRect();
-			Doku->ActPage->scaleGroup(mm.m11(), mm.m22());
-			Doku->ActPage->Deselect();
+			Prog->view->SelItem.append(ite);
+			Prog->view->HowTo = 1;
+			Prog->view->setGroupRect();
+			Prog->view->scaleGroup(mm.m11(), mm.m22());
+			Prog->view->Deselect();
 			ite->Ypos -= asce * mm.m22();
 			if( !e.attribute("id").isEmpty() )
 				ite->AnName += " "+e.attribute("id");
@@ -1802,9 +1804,9 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 			/*			if (gc->Gradient != 0)
 						{
 							ite->fill_gradient = gc->GradCo;
-							Doku->ActPage->SelItem.append(ite);
-							Doku->ActPage->ItemGradFill(gc->Gradient, gc->GCol2, 100, gc->GCol1, 100);
-							Doku->ActPage->SelItem.clear();
+							Prog->view->SelItem.append(ite);
+							Prog->view->ItemGradFill(gc->Gradient, gc->GCol2, 100, gc->GCol1, 100);
+							Prog->view->SelItem.clear();
 						} */
 			GElements.append(ite);
 			Elements.append(ite);
@@ -1814,8 +1816,8 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 	else
 	{
 		SvgStyle *gc = m_gc.current();
-		int z = Doku->ActPage->PaintText(x, y - qRound(gc->FontSize / 10.0), 10, 10, gc->LWidth, gc->FillCol);
-		PageItem* ite = Doku->ActPage->Items.at(z);
+		int z = Prog->view->PaintText(x, y - qRound(gc->FontSize / 10.0), 10, 10, gc->LWidth, gc->FillCol);
+		PageItem* ite = Doku->Items.at(z);
 		ite->Extra = 0;
 		ite->TExtra = 0;
 		ite->BExtra = 0;
@@ -1857,7 +1859,7 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 			ite->Width += RealCWidth(Doku, hg->cfont, hg->ch, hg->csize)+1;
 			ite->Height = ite->LineSp+desc+2;
 		}
-		Doku->ActPage->SetRectFrame(ite);
+		Prog->view->SetRectFrame(ite);
 		if( !e.attribute("id").isEmpty() )
 			ite->AnName += " "+e.attribute("id");
 		ite->Transparency = gc->Transparency;
@@ -1870,9 +1872,9 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 		/*		if (gc->Gradient != 0)
 				{
 					ite->fill_gradient = gc->GradCo;
-					Doku->ActPage->SelItem.append(ite);
-					Doku->ActPage->ItemGradFill(gc->Gradient, gc->GCol2, 100, gc->GCol1, 100);
-					Doku->ActPage->SelItem.clear();
+					Prog->view->SelItem.append(ite);
+					Prog->view->ItemGradFill(gc->Gradient, gc->GCol2, 100, gc->GCol1, 100);
+					Prog->view->SelItem.clear();
 				} */
 		GElements.append(ite);
 		Elements.append(ite);

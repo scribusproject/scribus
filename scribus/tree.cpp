@@ -99,7 +99,7 @@ void Tree::slotRightClick(QListViewItem* ite, const QPoint &, int)
 
 void Tree::slotDoRename(QListViewItem* ite, int col)
 {
-	if (ScApp->ScriptRunning)
+/*	if (ScApp->ScriptRunning)
 		return;
 	if (vie->Doc->TemplateMode)
 		return;
@@ -155,7 +155,7 @@ void Tree::slotDoRename(QListViewItem* ite, int col)
 			}
 		}
 	}
-	connect(ListView1, SIGNAL(itemRenamed(QListViewItem*, int)), this, SLOT(slotDoRename(QListViewItem*, int)));
+	connect(ListView1, SIGNAL(itemRenamed(QListViewItem*, int)), this, SLOT(slotDoRename(QListViewItem*, int))); */
 }
 
 void Tree::slotShowSelect(uint SNr, int Nr)
@@ -202,7 +202,7 @@ void Tree::slotUpdateElement(uint SNr, uint Nr)
 		return;
 	disconnect(ListView1, SIGNAL(itemRenamed(QListViewItem*, int)), this, SLOT(slotDoRename(QListViewItem*, int)));
 	disconnect(ListView1, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
-	PageObj.at(SNr)->Elemente.at(Nr)->setText(0, vie->Pages.at(SNr)->Items.at(Nr)->AnName);
+/*	PageObj.at(SNr)->Elemente.at(Nr)->setText(0, vie->Pages.at(SNr)->Items.at(Nr)->AnName);
 	xp = tr("X:")+" "+cc.setNum(vie->Pages.at(SNr)->Items.at(Nr)->Xpos);
 	yp = tr("Y:")+" "+cc.setNum(vie->Pages.at(SNr)->Items.at(Nr)->Ypos);
 	fon = tr("Font:")+" "+vie->Pages.at(SNr)->Items.at(Nr)->IFont;
@@ -237,7 +237,7 @@ void Tree::slotUpdateElement(uint SNr, uint Nr)
 		PageObj.at(SNr)->Elemente.at(Nr)->setText(1, tr("PathText"));
 		PageObj.at(SNr)->Elemente.at(Nr)->setText(2, xp+" "+yp+" "+fon);
 		break;
-	}
+	}*/
 	connect(ListView1, SIGNAL(itemRenamed(QListViewItem*, int)), this, SLOT(slotDoRename(QListViewItem*, int)));
 	connect(ListView1, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
 }
@@ -399,23 +399,20 @@ void Tree::BuildTree(ScribusView *view)
 	vie = view;
 	QListViewItem * item = new QListViewItem( ListView1, 0 );
 	item->setText( 0, view->Doc->DocName);
-	tmpstr.setNum (view->Pages.count() );
+	tmpstr.setNum (view->Doc->Pages.count() );
 	pagenumwidth = tmpstr.length();
-	for (a = 0; a < view->Pages.count(); ++a)
+	for (a = 0; a < view->Doc->Pages.count(); ++a)
 	{
 		tmpstr.setNum(a+1);
 		cc = tmpstr.rightJustify (pagenumwidth, '0');
 		Seiten.append(new QListViewItem(item, "Seiten"));
 		Seiten.current()->setText(0, tr("Page")+" "+cc);
 		PageObj.append(new Elem);
-		if (view->Pages.at(a)->Items.count() != 0)
+		for (b = 0; b < view->Doc->Items.count(); b++)
 		{
-			for (b = 0; b < view->Pages.at(a)->Items.count(); b++)
-			{
-				PageObj.current()->Elemente.append(new QListViewItem(Seiten.current(), "Items"));
-				slotUpdateElement(a, b);
-				PageObj.at(a)->Elemente.at(b)->setRenameEnabled(0, true);
-			}
+			PageObj.current()->Elemente.append(new QListViewItem(Seiten.current(), "Items"));
+			slotUpdateElement(a, b);
+			PageObj.at(a)->Elemente.at(b)->setRenameEnabled(0, true);
 		}
 	}
 	connect(ListView1, SIGNAL(itemRenamed(QListViewItem*, int)), this, SLOT(slotDoRename(QListViewItem*, int)));

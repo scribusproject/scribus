@@ -37,8 +37,7 @@ class PageItem : public QObject
 	Q_OBJECT
 
 public: 
-	PageItem(Page* pa, int art, double x, double y, double w, double h, double w2, QString fill, 
-				QString outline, ScribusDoc *doc);
+	PageItem(ScribusDoc *pa, int art, double x, double y, double w, double h, double w2, QString fill, QString outline);
 	~PageItem() {};
 	struct ZZ { 
 				double xco;
@@ -81,8 +80,6 @@ public:
 	int PType;
   /** Winkel um den das Item gedreht wird */
 	double Rot;
-  /** Enthaelt das uebergeordnete Objekt */
-	QWidget *Parent;
   /** Enthaelt das Dokument */
 	ScribusDoc *Doc;
 	int GrType;
@@ -131,7 +128,7 @@ public:
   /** Hat Element Rahmen? */
 	bool Frame;
   /** Seite zu der das Element gehoert */
-	Page *OwnPage;
+	int OwnPage;
   /** Darzustellendes Bild */
 	QImage pixm;
 	QImage pixmOrg;
@@ -282,6 +279,11 @@ public:
 	bool BottomLine;
 	bool isTableItem;
 	bool isSingleSel;
+	double BoundingX;
+	double BoundingY;
+	double BoundingW;
+	double BoundingH;
+	bool ChangedMasterItem;
 };
 
 #endif

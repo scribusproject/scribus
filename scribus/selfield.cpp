@@ -18,7 +18,7 @@ SelectFields::SelectFields( QWidget* parent, QString Felder, QString Own, QPtrLi
     Layout1->addWidget( Text1 );
     AvailFields = new QListBox( this, "AvailFields" );
     AvailFields->setMinimumSize( QSize( 130, 180 ) );
-	for (uint se = 0; se < Seiten->count(); ++se)
+/*	for (uint se = 0; se < Seiten->count(); ++se)
 	{
 		for (uint ite = 0; ite < Seiten->at(se)->Items.count(); ++ite)
 		{
@@ -34,7 +34,7 @@ SelectFields::SelectFields( QWidget* parent, QString Felder, QString Own, QPtrLi
 					AvailFields->insertItem(item->AnName);
 			}
 		}
-	}
+	} */
     Layout1->addWidget( AvailFields );
     Layout5->addLayout( Layout1 );
 

@@ -32,10 +32,10 @@ public:
 	bool ReadColors(QString fileName);
 	bool ReadPageCount(QString fileName, int *num1, int *num2);
 	bool ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, ScribusView *view, int PageToLoad, bool Mpage);
-	QString WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc);
+	QString WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, ScribusView *view);
 	bool ReadElemHeader(QString file, bool isFile, double *x, double *y, double *w, double *h);
 	bool ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int Xp, int Yp, bool Fi, bool loc,
-					 QMap<QString,QString> &FontSub, preV *Prefs);
+					 QMap<QString,QString> &FontSub, preV *Prefs, ScribusView *view);
 	bool ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *docu, ScribusView *viewx, QProgressBar *dia2);
 	void WritePages(ScribusView *view, QDomDocument docu, QDomElement dc, QProgressBar *dia2, uint maxC);
 	bool WriteDoc(QString fileName, ScribusDoc *docu, ScribusView *viewx, QProgressBar *dia2);

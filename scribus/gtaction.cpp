@@ -25,7 +25,7 @@ extern ScribusApp* ScApp;
 
 gtAction::gtAction(bool append)
 {
-	textFrame = ScApp->doc->ActPage->SelItem.at(0);
+	textFrame = ScApp->view->SelItem.at(0);
 	it = textFrame;
 	lastParagraphStyle = -1;
 	inPara = false;
@@ -483,7 +483,7 @@ void gtAction::finalize()
 {
 	if (ScApp->doc->Trenner->AutoCheck)
 		ScApp->doc->Trenner->slotHyphenate(textFrame);
-	ScApp->doc->ActPage->update();
+	ScApp->view->DrawNew();
 	ScApp->slotDocCh();
 }
 

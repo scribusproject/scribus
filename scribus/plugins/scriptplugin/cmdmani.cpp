@@ -26,7 +26,7 @@ PyObject *scribus_loadimage(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, QObject::tr("Oook! You're trying to load image into an object doesn't exist or isn't selected!"));
 		return NULL;
 	}
-	item->OwnPage->LoadPict(QString(Image), item->ItemNr);
+	Carrier->view->LoadPict(QString(Image), item->ItemNr);
 	return Py_None;
 }
 
@@ -66,10 +66,10 @@ PyObject *scribus_moveobjrel(PyObject *self, PyObject* args)
 	PageItem *item = GetUniqueItem(QString(Name));
 	if (item!=NULL)
 	{
-		if (item->OwnPage->GroupSel)
-			item->OwnPage->moveGroup(ValueToPoint(x), ValueToPoint(y));
+		if (Carrier->view->GroupSel)
+			Carrier->view->moveGroup(ValueToPoint(x), ValueToPoint(y));
 		else
-			item->OwnPage->MoveItem(ValueToPoint(x), ValueToPoint(y), item);
+			Carrier->view->MoveItem(ValueToPoint(x), ValueToPoint(y), item);
 	}
 	return Py_None;
 }
@@ -89,15 +89,14 @@ PyObject *scribus_moveobjabs(PyObject *self, PyObject* args)
 	PageItem *item = GetUniqueItem(QString(Name));
 	if (item != NULL)
 	{
-		if (item->OwnPage->GroupSel)
+		if (Carrier->view->GroupSel)
 		{
 			double x2, y2, w, h;
-			item->OwnPage->getGroupRect(&x2, &y2, &w, &h);
-			item->OwnPage->moveGroup(ValueToPoint(x) - x2, ValueToPoint(y) - y2);
+			Carrier->view->getGroupRect(&x2, &y2, &w, &h);
+			Carrier->view->moveGroup(ValueToPoint(x) - x2, ValueToPoint(y) - y2);
 		}
 		else
-			//PageItem *b = Carrier->doc->ActPage->Items.at(i);
-			item->OwnPage->MoveItem(ValueToPoint(x) - item->Xpos, ValueToPoint(y) - item->Ypos, item);
+			Carrier->view->MoveItem(ValueToPoint(x) - item->Xpos, ValueToPoint(y) - item->Ypos, item);
 	}
 	return Py_None;
 }
@@ -116,7 +115,7 @@ PyObject *scribus_rotobjrel(PyObject *self, PyObject* args)
 		return Py_None;
 	PageItem *item = GetUniqueItem(QString(Name));
 	if (item != NULL)
-		item->OwnPage->RotateItem(item->Rot - x, item->ItemNr);
+		Carrier->view->RotateItem(item->Rot - x, item->ItemNr);
 	return Py_None;
 }
 
@@ -134,7 +133,7 @@ PyObject *scribus_rotobjabs(PyObject *self, PyObject* args)
 		return Py_None;
 	PageItem *item = GetUniqueItem(QString(Name));
 	if (item != NULL)
-		item->OwnPage->RotateItem(x * -1.0, item->ItemNr);
+		Carrier->view->RotateItem(x * -1.0, item->ItemNr);
 	return Py_None;
 }
 
@@ -153,7 +152,7 @@ PyObject *scribus_sizeobjabs(PyObject *self, PyObject* args)
 	PageItem *item = GetUniqueItem(QString(Name));
 	if (item != NULL)
 	{
-		item->OwnPage->SizeItem(ValueToPoint(x) - item->Xpos, ValueToPoint(y) - item->Ypos, item->ItemNr);
+		Carrier->view->SizeItem(ValueToPoint(x) - item->Xpos, ValueToPoint(y) - item->Ypos, item->ItemNr);
 	}
 	return Py_None;
 }
@@ -167,7 +166,6 @@ PyObject *scribus_groupobj(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("groupObjects([list_of_objectnames])"));
 		return NULL;
 	}
-	Page *p = Carrier->doc->ActPage;
 	uint ap = Carrier->doc->ActPage->PageNr;
 	if (il != 0)
 	{
@@ -184,10 +182,7 @@ PyObject *scribus_groupobj(PyObject *self, PyObject* args)
 			Name = PyString_AsString(PyList_GetItem(il, i));
 			PageItem *ic = GetUniqueItem(QString(Name));
 			if (ic != NULL)
-			{
-				ic->OwnPage->SelectItemNr(ic->ItemNr);
-				p = ic->OwnPage;
-			}
+				Carrier->view->SelectItemNr(ic->ItemNr);
 		}
 	}
 	else
@@ -196,11 +191,10 @@ PyObject *scribus_groupobj(PyObject *self, PyObject* args)
 		if (!Carrier->HaveDoc)
 			return Py_None;
 	}
-	if (p->SelItem.count() != 0)
+	if (Carrier->view->SelItem.count() != 0)
 	{
-		Carrier->view->GotoPage(p->PageNr);
 		Carrier->GroupObj();
-		p->Deselect();
+		Carrier->view->Deselect();
 		Carrier->view->GotoPage(ap);
 	}
 	return Py_None;
@@ -219,12 +213,7 @@ PyObject *scribus_ungroupobj(PyObject *self, PyObject* args)
 		return Py_None;
 	PageItem *i = GetUniqueItem(QString(Name));
 	if (i != NULL)
-	{
-		uint p = Carrier->doc->ActPage->PageNr;
-		Carrier->view->GotoPage(i->OwnPage->PageNr);
 		Carrier->UnGroupObj();
-		Carrier->view->GotoPage(p);
-	}
 	return Py_None;
 }
 
@@ -246,12 +235,12 @@ PyObject *scribus_scalegroup(PyObject *self, PyObject* args)
 	PageItem *i = GetUniqueItem(QString(Name));
 	if (i != NULL)
 	{
-		i->OwnPage->Deselect();
-		i->OwnPage->SelectItemNr(i->ItemNr);
-		int h = i->OwnPage->HowTo;
-		i->OwnPage->HowTo = 1;
-		i->OwnPage->scaleGroup(sc, sc);
-		i->OwnPage->HowTo = h;
+		Carrier->view->Deselect();
+		Carrier->view->SelectItemNr(i->ItemNr);
+		int h = Carrier->view->HowTo;
+		Carrier->view->HowTo = 1;
+		Carrier->view->scaleGroup(sc, sc);
+		Carrier->view->HowTo = h;
 	}
 	return Py_None;
 }
@@ -266,8 +255,8 @@ PyObject *scribus_getselobjnam(PyObject *self, PyObject* args)
 	}
 	if (!Carrier->HaveDoc)
 		return PyString_FromString("");
-	if ((i < static_cast<int>(Carrier->doc->ActPage->SelItem.count())) && (i > -1))
-		return PyString_FromString(Carrier->doc->ActPage->SelItem.at(i)->AnName);
+	if ((i < static_cast<int>(Carrier->view->SelItem.count())) && (i > -1))
+		return PyString_FromString(Carrier->view->SelItem.at(i)->AnName);
 	else
 		return PyString_FromString("");
 }
@@ -281,7 +270,7 @@ PyObject *scribus_selcount(PyObject *self, PyObject* args)
 	}
 	if (!Carrier->HaveDoc)
 		return PyInt_FromLong(0L);
-	return PyInt_FromLong(static_cast<long>(Carrier->doc->ActPage->SelItem.count()));
+	return PyInt_FromLong(static_cast<long>(Carrier->view->SelItem.count()));
 }
 
 PyObject *scribus_selectobj(PyObject *self, PyObject* args)
@@ -299,7 +288,7 @@ PyObject *scribus_selectobj(PyObject *self, PyObject* args)
 		return Py_None;
 	PageItem *i = GetUniqueItem(QString(Name));
 	if (i != NULL)
-		i->OwnPage->SelectItemNr(i->ItemNr);
+		Carrier->view->SelectItemNr(i->ItemNr);
 	return Py_None;
 }
 
@@ -313,8 +302,7 @@ PyObject *scribus_deselect(PyObject *self, PyObject* args)
 	Py_INCREF(Py_None);
 	if (!Carrier->HaveDoc)
 		return Py_None;
-	for (uint i = 0; i < Carrier->view->Pages.count(); i++)
-		Carrier->view->Pages.at(i)->Deselect();
+	Carrier->view->Deselect();
 	return Py_None;
 }
 

@@ -21,7 +21,11 @@
 #include <qcstring.h>
 #include <qpen.h>
 #include <qfile.h>
+#include <vector>
 #include "scribusdoc.h"
+#include "scribusview.h"
+#include "page.h"
+#include "pageitem.h"
 
 /**
   *@author Franz Schmid
@@ -74,6 +78,11 @@ public:
 	virtual void PS_TemplateEnd();
 	virtual void PS_UseTemplate(QString Name);
 	virtual void PS_ImageData(bool inver, QString fn, QString Name, QString Prof, bool UseEmbedded, bool UseProf);
+	virtual void CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageNs, bool sep, QString SepNam, bool farb, bool Hm, bool Vm, bool Ic, bool gcr);
+	virtual void ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, bool sep = false, bool farb = true, bool ic = false, bool gcr = true);
+	virtual void SetClipPath(FPointArray *c, bool poly = true);
+	virtual void HandleGradient(ScribusDoc* Doc, PageItem *c, double w, double h, bool gcr);
+	virtual void SetFarbe(ScribusDoc* Doc, QString farb, int shade, int *h, int *s, int *v, int *k, bool gcr);
 	bool Art;
 private:
 	void PutSeite(QString c);

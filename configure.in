@@ -13,7 +13,7 @@ AC_CANONICAL_SYSTEM
 AC_ARG_PROGRAM
 
 dnl Automake doc recommends to do this only here. (Janos)
-AM_INIT_AUTOMAKE(scribus,1.2.1cvs)
+AM_INIT_AUTOMAKE(scribus,1.3.0cvs)
 
 dnl KDE_SET_PREFIX
 

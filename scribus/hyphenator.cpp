@@ -355,5 +355,5 @@ void Hyphenator::slotHyphenate(PageItem* it)
 	}
 	qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 	doc->DoDrawing = true;
-	nb1->OwnPage->RefreshItem(nb1);
+//	nb1->OwnPage->RefreshItem(nb1);
 }

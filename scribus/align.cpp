@@ -1,10 +1,13 @@
 #include "align.h"
 #include "align.moc"
 #include "page.h"
+#include "scribusdoc.h"
+#include "scribusview.h"
+#include "pageitem.h"
 extern QPixmap loadIcon(QString nam);
 extern double UmReFaktor;
 
-Align::Align( QWidget* parent, int anz, int ein, ScribusDoc* docc)
+Align::Align( QWidget* parent, int anz, int ein, ScribusDoc* docc, ScribusView* vie)
 	: QDialog( parent, "al", true, 0 )
 {
 	Anzahl = anz;
@@ -121,11 +124,12 @@ Align::Align( QWidget* parent, int anz, int ein, ScribusDoc* docc)
 	setMinimumSize(sizeHint());
 	struct ItemPos po;
 	doc = docc;
-	for (uint x=0; x<doc->ActPage->SelItem.count(); ++x)
+	view = vie;
+	for (uint x=0; x<view->SelItem.count(); ++x)
 	{
-		po.Nr = doc->ActPage->SelItem.at(x)->ItemNr;
-		po.x = doc->ActPage->SelItem.at(x)->Xpos;
-		po.y = doc->ActPage->SelItem.at(x)->Ypos;
+		po.Nr = view->SelItem.at(x)->ItemNr;
+		po.x = view->SelItem.at(x)->Xpos;
+		po.y = view->SelItem.at(x)->Ypos;
 		Backup.append(po);
 	}
 
@@ -149,9 +153,9 @@ void Align::cancel()
 {
 	for (uint x=0; x < Backup.count(); ++x)
 	{
-		doc->ActPage->Items.at(Backup[x].Nr)->Xpos = Backup[x].x;
-		doc->ActPage->Items.at(Backup[x].Nr)->Ypos = Backup[x].y;
-		doc->ActPage->update();
+		doc->Items.at(Backup[x].Nr)->Xpos = Backup[x].x;
+		doc->Items.at(Backup[x].Nr)->Ypos = Backup[x].y;
+		view->DrawNew();
 	}
 	reject();
 }
@@ -184,9 +188,9 @@ void Align::slotApplyDiag()
 	{
 		for (uint x=0; x < Backup.count(); ++x)
 		{
-			doc->ActPage->Items.at(Backup[x].Nr)->Xpos = Backup[x].x;
-			doc->ActPage->Items.at(Backup[x].Nr)->Ypos = Backup[x].y;
-			doc->ActPage->update();
+			doc->Items.at(Backup[x].Nr)->Xpos = Backup[x].x;
+			doc->Items.at(Backup[x].Nr)->Ypos = Backup[x].y;
+			view->DrawNew();
 		}
 	}
 	else

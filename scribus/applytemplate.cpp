@@ -1,8 +1,10 @@
 #include "applytemplate.h"
 #include "applytemplate.moc"
+#include "scribusdoc.h"
+#include "page.h"
 extern QPixmap loadIcon(QString nam);
 
-ApplyT::ApplyT( QWidget* parent, ScribusView *view, QString Nam)
+ApplyT::ApplyT( QWidget* parent, ScribusDoc *view, QString Nam)
 		: QDialog( parent, "apply", true, 0)
 {
 	setCaption( tr( "Apply Template" ) );
@@ -57,7 +59,7 @@ ApplyT::ApplyT( QWidget* parent, ScribusView *view, QString Nam)
 	FromPage = new QSpinBox( buttonGroup1, "FromPage" );
 	FromPage->setMinValue( 1 );
 	FromPage->setMaxValue(view->Pages.count());
-	FromPage->setValue(view->Doc->ActPage->PageNr+1);
+	FromPage->setValue(view->ActPage->PageNr+1);
 	layout2->addWidget( FromPage );
 	TextLabel2 = new QLabel( buttonGroup1, "textLabel1" );
 	TextLabel2->setText( tr( "To:" ) );

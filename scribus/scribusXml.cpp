@@ -20,6 +20,7 @@
 #include <cstdlib>
 #include <cmath>
 #include "missing.h"
+#include "pageitem.h"
 
 #if (_MSC_VER >= 1200)
  #include "win-config.h"
@@ -48,17 +49,17 @@ bool ScriXmlDoc::IsScribus(QString fileName)
 {
 	QString fText = ReadDatei(fileName);
 	if ((fText == "") || (!fText.startsWith("<SCRIBUS")) || (fText.contains("<PAGE ", TRUE) == 0))
-		return false;
+ 		return false;
 	return true;
 }
 
-/**
- * added to support gz docs
- * 2.7.2002 C.Toepp
- * <c.toepp@gmx.de>
- */
 QString ScriXmlDoc::ReadDatei(QString fileName)
 {
+/**
+  * added to support gz docs
+  * 2.7.2002 C.Toepp
+  * <c.toepp@gmx.de>
+  */
 	QString f = "";
 #ifdef HAVE_LIBZ
 	if(fileName.right(2) == "gz")
@@ -313,11 +314,21 @@ void ScriXmlDoc::GetItemProps(bool newVersion, QDomElement *obj, struct CLBuf *O
 
 void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item)
 {
-	double xf, yf;
+	double xf, yf, xo, yo;
 	QString tmp, tmpy;
+	if (item->OwnPage == -1)
+	{
+		xo = 0;
+		yo = 0;
+	}
+	else
+	{
+		xo = item->Doc->Pages.at(item->OwnPage)->Xoffset;
+		yo = item->Doc->Pages.at(item->OwnPage)->Yoffset;
+	}
 	ob->setAttribute("PTYPE",item->PType);
-	ob->setAttribute("XPOS",item->Xpos);
-	ob->setAttribute("YPOS",item->Ypos);
+	ob->setAttribute("XPOS",item->Xpos - xo);
+	ob->setAttribute("YPOS",item->Ypos - yo);
 	ob->setAttribute("WIDTH",item->Width);
 	ob->setAttribute("HEIGHT",item->Height);
 	ob->setAttribute("RADRECT",item->RadRect);
@@ -992,8 +1003,8 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 				}
 				if (Mpage)
 				{
-					view->Pages.at(a)->LeftPg=QStoInt(pg.attribute("LEFT","0"));
-					view->Pages.at(a)->PageNam = pg.attribute("NAM","");
+					doc->Pages.at(a)->LeftPg=QStoInt(pg.attribute("LEFT","0"));
+					doc->Pages.at(a)->PageNam = pg.attribute("NAM","");
 				}
 				TableItems.clear();
 				TableID.clear();
@@ -1004,34 +1015,34 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 				{
 					tmp = pg.attribute("VerticalGuides");
 					QTextStream fgv(&tmp, IO_ReadOnly);
-					view->Pages.at(a)->YGuides.clear();
+					doc->Pages.at(a)->YGuides.clear();
 					for (int cxv = 0; cxv < QStoInt(pg.attribute("NumVGuides","0")); ++cxv)
 					{
 						fgv >> xf;
-						view->Pages.at(a)->YGuides.append(xf);
+						doc->Pages.at(a)->YGuides.append(xf);
 					}
-					qHeapSort(view->Pages.at(a)->YGuides);
+					qHeapSort(doc->Pages.at(a)->YGuides);
 					tmp = "";
 				}
 				else
-					view->Pages.at(a)->YGuides.clear();
+					doc->Pages.at(a)->YGuides.clear();
 				if ((pg.hasAttribute("NumHGuides")) && (QStoInt(pg.attribute("NumHGuides","0")) != 0))
 				{
 					tmp = pg.attribute("HorizontalGuides");
 					QTextStream fgh(&tmp, IO_ReadOnly);
-					view->Pages.at(a)->XGuides.clear();
+					doc->Pages.at(a)->XGuides.clear();
 					for (int cxh = 0; cxh < QStoInt(pg.attribute("NumHGuides","0")); ++cxh)
 					{
 						fgh >> xf;
-						view->Pages.at(a)->XGuides.append(xf);
+						doc->Pages.at(a)->XGuides.append(xf);
 					}
-					qHeapSort(view->Pages.at(a)->XGuides);
+					qHeapSort(doc->Pages.at(a)->XGuides);
 					tmp = "";
 				}
 				else
-					view->Pages.at(a)->XGuides.clear();
+					doc->Pages.at(a)->XGuides.clear();
 				QDomNode OBJ=PAGE.firstChild();
-				counter = doc->ActPage->Items.count();
+				counter = doc->Items.count();
 				baseobj = counter;
 				while(!OBJ.isNull())
 				{
@@ -1050,8 +1061,8 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 						}
 					}
 					GetItemProps(newVersion, &obj, &OB);
-					OB.Xpos = QStodouble(obj.attribute("XPOS"));
-					OB.Ypos=QStodouble(obj.attribute("YPOS"));
+					OB.Xpos = QStodouble(obj.attribute("XPOS"))+doc->Pages.at(a)->Xoffset;
+					OB.Ypos=QStodouble(obj.attribute("YPOS"))+doc->Pages.at(a)->Yoffset;
 					OB.NamedLStyle = obj.attribute("NAMEDLST", "");
 					if (!doc->MLineStyles.contains(OB.NamedLStyle))
 						OB.NamedLStyle = "";
@@ -1111,8 +1122,8 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 						OB.Clip.setPoints(4, -1,-1, static_cast<int>(OB.Width+1),-1, static_cast<int>(OB.Width+1),
 											static_cast<int>(OB.Height+1), -1, static_cast<int>(OB.Height+1));
 					}
-					view->Pages.at(a)->PasteItem(&OB, true);
-					Neu = view->Pages.at(a)->Items.at(counter);
+					view->PasteItem(&OB, true);
+					Neu = doc->Items.at(counter);
 					if (QStoInt(obj.attribute("NEXTPAGE")) == PageToLoad)
 					{
 						Neu->NextIt = baseobj + QStoInt(obj.attribute("NEXTITEM"));
@@ -1132,19 +1143,19 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 					{
 						PageItem* ta = TableItems.at(ttc);
 						if (ta->TopLinkID != -1)
-							ta->TopLink = view->Pages.at(a)->Items.at(TableID[ta->TopLinkID]);
+							ta->TopLink = doc->Items.at(TableID[ta->TopLinkID]);
 						else
 							ta->TopLink = 0;
 						if (ta->LeftLinkID != -1)
-							ta->LeftLink = view->Pages.at(a)->Items.at(TableID[ta->LeftLinkID]);
+							ta->LeftLink = doc->Items.at(TableID[ta->LeftLinkID]);
 						else
 							ta->LeftLink = 0;
 						if (ta->RightLinkID != -1)
-							ta->RightLink = view->Pages.at(a)->Items.at(TableID[ta->RightLinkID]);
+							ta->RightLink = doc->Items.at(TableID[ta->RightLinkID]);
 						else
 							ta->RightLink = 0;
 						if (ta->BottomLinkID != -1)
-							ta->BottomLink = view->Pages.at(a)->Items.at(TableID[ta->BottomLinkID]);
+							ta->BottomLink = doc->Items.at(TableID[ta->BottomLinkID]);
 						else
 							ta->BottomLink = 0;
 					}
@@ -1157,14 +1168,14 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 					QValueList<Linked>::Iterator lc;
 					for (lc = LFrames.begin(); lc != LFrames.end(); ++lc)
 					{
-						Its = view->Pages.at((*lc).StPag)->Items.at((*lc).Start);
+						Its = doc->Items.at((*lc).Start);
 						Itr = Its;
 						Its->BackBox = 0;
 						while (Its->NextIt != -1)
 						{
 							if (Its->NextPg == a)
 							{
-								Itn = view->Pages.at(Its->NextPg)->Items.at(Its->NextIt);
+								Itn = doc->Items.at(Its->NextIt);
 								Its->NextBox = Itn;
 								Itn->BackBox = Its;
 								Its = Itn;
@@ -1308,6 +1319,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		doc->minorGrid = QStodouble(dc.attribute("MINGRID", tmp.setNum(view->Prefs->DminGrid)));
 		doc->majorGrid = QStodouble(dc.attribute("MAJGRID", tmp.setNum(view->Prefs->DmajGrid)));
 		QDomNode PAGE=DOC.firstChild();
+		counter = 0;
 		while(!PAGE.isNull())
 		{
 			ObCount++;
@@ -1424,56 +1436,57 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				if (PgNam == "")
 				{
 					doc->PageC = Pgc;
-					view->Pages = view->DocPages;
+					doc->Pages = doc->DocPages;
 					doc->PageAT = AtFl;
 					doc->MasterP = false;
+					doc->Items = doc->DocItems;
 				}
 				else
 				{
 					doc->PageC = 0;
 					doc->PageAT = false;
-					view->Pages = view->MasterPages;
+					doc->Pages = doc->MasterPages;
 					doc->MasterP = true;
+					doc->Items = doc->MasterItems;
 				}
 				emit NewPage(a);
-				view->Pages.at(a)->LeftPg=QStoInt(pg.attribute("LEFT","0"));
+				doc->Pages.at(a)->LeftPg=QStoInt(pg.attribute("LEFT","0"));
 				QString Mus = "";
 				Mus = pg.attribute("MNAM","Normal");
 				if (!doc->MasterP)
-					view->Pages.at(a)->MPageNam = Mus;
+					doc->Pages.at(a)->MPageNam = Mus;
 				else
-					view->Pages.at(a)->MPageNam = "";
+					doc->Pages.at(a)->MPageNam = "";
 				if ((pg.hasAttribute("NumVGuides")) && (QStoInt(pg.attribute("NumVGuides","0")) != 0))
 				{
 					tmp = pg.attribute("VerticalGuides");
 					QTextStream fgv(&tmp, IO_ReadOnly);
-					view->Pages.at(a)->YGuides.clear();
+					doc->Pages.at(a)->YGuides.clear();
 					for (int cxv = 0; cxv < QStoInt(pg.attribute("NumVGuides","0")); ++cxv)
 					{
 						fgv >> xf;
-						view->Pages.at(a)->YGuides.append(xf);
+						doc->Pages.at(a)->YGuides.append(xf);
 					}
-					qHeapSort(view->Pages.at(a)->YGuides);
+					qHeapSort(doc->Pages.at(a)->YGuides);
 					tmp = "";
 				}
 				else
-					view->Pages.at(a)->YGuides.clear();
+					doc->Pages.at(a)->YGuides.clear();
 				if ((pg.hasAttribute("NumHGuides")) && (QStoInt(pg.attribute("NumHGuides","0")) != 0))
 				{
 					tmp = pg.attribute("HorizontalGuides");
 					QTextStream fgh(&tmp, IO_ReadOnly);
-					view->Pages.at(a)->XGuides.clear();
+					doc->Pages.at(a)->XGuides.clear();
 					for (int cxh = 0; cxh < QStoInt(pg.attribute("NumHGuides","0")); ++cxh)
 					{
 						fgh >> xf;
-						view->Pages.at(a)->XGuides.append(xf);
+						doc->Pages.at(a)->XGuides.append(xf);
 					}
-					qHeapSort(view->Pages.at(a)->XGuides);
+					qHeapSort(doc->Pages.at(a)->XGuides);
 					tmp = "";
 				}
 				else
-					view->Pages.at(a)->XGuides.clear();
-				counter = 0;
+					doc->Pages.at(a)->XGuides.clear();
 				QDomNode OBJ=PAGE.firstChild();
 				while(!OBJ.isNull())
 				{
@@ -1491,8 +1504,8 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 						}
 					}
 					GetItemProps(newVersion, &obj, &OB);
-					OB.Xpos = QStodouble(obj.attribute("XPOS"));
-					OB.Ypos=QStodouble(obj.attribute("YPOS"));
+					OB.Xpos = QStodouble(obj.attribute("XPOS"))+doc->Pages.at(a)->Xoffset;
+					OB.Ypos=QStodouble(obj.attribute("YPOS"))+doc->Pages.at(a)->Yoffset;
 					OB.NamedLStyle = obj.attribute("NAMEDLST", "");
 					OB.isBookmark=QStoInt(obj.attribute("BOOKMARK"));
 					if ((OB.isBookmark) && (doc->BookMarks.count() == 0))
@@ -1552,9 +1565,10 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 						OB.Clip.setPoints(4, -1,-1, static_cast<int>(OB.Width+1),-1, static_cast<int>(OB.Width+1),
 											 static_cast<int>(OB.Height+1), -1, static_cast<int>(OB.Height+1));
 					}
-					view->Pages.at(a)->PasteItem(&OB, true);
+					uint last = doc->Items.count();
+					view->PasteItem(&OB, true);
 					doc->GroupCounter = docGc;
-					Neu = view->Pages.at(a)->Items.at(counter);
+					Neu = doc->Items.at(last);
 					Neu->isAutoText=static_cast<bool>(QStoInt(obj.attribute("AUTOTEXT")));
 					if (Neu->isAutoText)
 						doc->LastAuto = Neu;
@@ -1574,30 +1588,34 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 					{
 						PageItem* ta = TableItems.at(ttc);
 						if (ta->TopLinkID != -1)
-							ta->TopLink = view->Pages.at(a)->Items.at(TableID[ta->TopLinkID]);
+							ta->TopLink = doc->Items.at(TableID[ta->TopLinkID]);
 						else
 							ta->TopLink = 0;
 						if (ta->LeftLinkID != -1)
-							ta->LeftLink = view->Pages.at(a)->Items.at(TableID[ta->LeftLinkID]);
+							ta->LeftLink = doc->Items.at(TableID[ta->LeftLinkID]);
 						else
 							ta->LeftLink = 0;
 						if (ta->RightLinkID != -1)
-							ta->RightLink = view->Pages.at(a)->Items.at(TableID[ta->RightLinkID]);
+							ta->RightLink = doc->Items.at(TableID[ta->RightLinkID]);
 						else
 							ta->RightLink = 0;
 						if (ta->BottomLinkID != -1)
-							ta->BottomLink = view->Pages.at(a)->Items.at(TableID[ta->BottomLinkID]);
+							ta->BottomLink = doc->Items.at(TableID[ta->BottomLinkID]);
 						else
 							ta->BottomLink = 0;
 					}
 				}
 				if (PgNam == "")
-					view->DocPages = view->Pages;
+				{
+					doc->DocPages = doc->Pages;
+					doc->DocItems = doc->Items;
+				}
 				else
 				{
-					view->Pages.at(a)->PageNam = PgNam;
-					view->MasterNames[PgNam] = a;
-					view->MasterPages = view->Pages;
+					doc->Pages.at(a)->PageNam = PgNam;
+					doc->MasterNames[PgNam] = a;
+					doc->MasterPages = doc->Pages;
+					doc->MasterItems = doc->Items;
 				}
 				doc->MasterP = false;
 				doc->PageC = Pgc+1;
@@ -1680,10 +1698,10 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		}
 		DOC=DOC.nextSibling();
 	}
-	for (uint ap=0; ap<view->MasterPages.count(); ++ap)
-		view->MasterPages.at(ap)->parentWidget()->hide();
-	view->Pages = view->DocPages;
-	doc->PageC = view->Pages.count();	
+	doc->Pages = doc->DocPages;
+	doc->PageC = doc->Pages.count();
+	doc->Items = doc->DocItems;
+	doc->MasterP = false;
 	view->reformPages();
 	if (doc->Layers.count() == 0)
 	{
@@ -1702,14 +1720,27 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		QValueList<Linked>::Iterator lc;
 		for (lc = LFrames.begin(); lc != LFrames.end(); ++lc)
 		{
-			Its = view->Pages.at((*lc).StPag)->Items.at((*lc).Start);
+			Its = doc->Items.at((*lc).Start);
 			Itr = Its;
 			Its->BackBox = 0;
 			if (Its->isAutoText)
 				doc->FirstAuto = Its;
 			while (Its->NextIt != -1)
 			{
-				Itn = view->Pages.at(Its->NextPg)->Items.at(Its->NextIt);
+				int itnr = 0;
+				for (uint nn = 0; nn < doc->Items.count(); ++nn)
+				{
+					if (doc->Items.at(nn)->OwnPage == Its->NextPg)
+					{
+						if (itnr == Its->NextIt)
+						{
+							itnr = nn;
+							break;
+						}
+						itnr++;
+					}
+				}
+				Itn = doc->Items.at(itnr);
 				Its->NextBox = Itn;
 				Itn->BackBox = Its;
 				Its = Itn;
@@ -1758,7 +1789,7 @@ bool ScriXmlDoc::ReadElemHeader(QString file, bool isFile, double *x, double *y,
 	return true;
 }
 
-bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int Xp, int Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub, preV *Prefs)
+bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int Xp, int Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub, preV *Prefs, ScribusView *view)
 {
 	struct CLBuf OB;
 	struct StVorL vg;
@@ -1953,8 +1984,8 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 									static_cast<int>(OB.Height+1), -1, static_cast<int>(OB.Height+1));
 			}
 			OB.LayerNr = -1;
-			doc->ActPage->PasteItem(&OB, true, true);
-			PageItem* Neu = doc->ActPage->Items.at(doc->ActPage->Items.count()-1);
+			view->PasteItem(&OB, true, true);
+			PageItem* Neu = doc->Items.at(doc->Items.count()-1);
 			if (Neu->isTableItem)
 			{
 				TableItems.append(Neu);
@@ -1969,19 +2000,19 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 		{
 			PageItem* ta = TableItems.at(ttc);
 			if (ta->TopLinkID != -1)
-				ta->TopLink = doc->ActPage->Items.at(TableID[ta->TopLinkID]);
+				ta->TopLink = doc->Items.at(TableID[ta->TopLinkID]);
 			else
 				ta->TopLink = 0;
 			if (ta->LeftLinkID != -1)
-				ta->LeftLink = doc->ActPage->Items.at(TableID[ta->LeftLinkID]);
+				ta->LeftLink = doc->Items.at(TableID[ta->LeftLinkID]);
 			else
 				ta->LeftLink = 0;
 			if (ta->RightLinkID != -1)
-				ta->RightLink = doc->ActPage->Items.at(TableID[ta->RightLinkID]);
+				ta->RightLink = doc->Items.at(TableID[ta->RightLinkID]);
 			else
 				ta->RightLink = 0;
 			if (ta->BottomLinkID != -1)
-				ta->BottomLink = doc->ActPage->Items.at(TableID[ta->BottomLinkID]);
+				ta->BottomLink = doc->Items.at(TableID[ta->BottomLinkID]);
 			else
 				ta->BottomLink = 0;
 		}
@@ -1991,7 +2022,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 	return true;
 }
 
-QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
+QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc, ScribusView *view)
 {
 	int tsh, tsh2, tst, tst2, tsb, tsb2, tshs, tshs2, tsc, tsc2;
 	QString text, tf, tf2, tc, tc2, tcs, tcs2, tmp, tmpy;
@@ -2006,36 +2037,19 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 	for (uint cor=0; cor<Selitems->count(); ++cor)
 		ELL.append(Selitems->at(cor)->ItemNr);
 	qHeapSort(ELL);
-	if (doc->ActPage->GroupSel)
+	if (view->GroupSel)
 	{
-		elem.setAttribute("XP", doc->ActPage->GroupX);
-		elem.setAttribute("YP", doc->ActPage->GroupY);
-		elem.setAttribute("W", doc->ActPage->GroupW);
-		elem.setAttribute("H", doc->ActPage->GroupH);
+		elem.setAttribute("XP", view->GroupX - doc->ActPage->Xoffset);
+		elem.setAttribute("YP", view->GroupY - doc->ActPage->Yoffset);
+		elem.setAttribute("W", view->GroupW);
+		elem.setAttribute("H", view->GroupH);
 	}
 	else
 	{
-		if (item->Rot == 0)
-		{
-			elem.setAttribute("XP", item->Xpos);
-			elem.setAttribute("YP", item->Ypos);
-			elem.setAttribute("W", item->Width);
-			elem.setAttribute("H", item->Height);
-		}
-		else
-		{
-			QPainter p;
-			p.begin(doc->ActPage);
-			p.translate(static_cast<int>(item->Xpos), static_cast<int>(item->Ypos));
-			p.rotate(item->Rot);
-			QRect apr = QRegion(p.xForm(QRect(0, 0, static_cast<int>(item->Width),
-											 static_cast<int>(QMAX(item->Height, 1))))).boundingRect();
-			p.end();
-			elem.setAttribute("XP", apr.x());
-			elem.setAttribute("YP", apr.y());
-			elem.setAttribute("W", apr.width());
-			elem.setAttribute("H", apr.height());
-		}
+		elem.setAttribute("XP", item->Xpos - doc->ActPage->Xoffset);
+		elem.setAttribute("YP", item->Ypos - doc->ActPage->Yoffset);
+		elem.setAttribute("W", item->Width);
+		elem.setAttribute("H", item->Height);
 	}
 	elem.setAttribute("COUNT", Selitems->count());
 	elem.setAttribute("Version", "1.2cvs");
@@ -2065,7 +2079,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 	{
 		for (uint co=0; co<Selitems->count(); ++co)
 		{
-			item = doc->ActPage->Items.at(ELL[co]);
+			item = doc->Items.at(ELL[co]);
 			if (item->Ausrich > 4)
 			{
 				vg.Vname = doc->Vorlagen[item->Ausrich].Vname;
@@ -2175,13 +2189,13 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 	{
 		QString CurDirP = QDir::currentDirPath();
 		QDir::setCurrent(QDir::homeDirPath());
-		item = doc->ActPage->Items.at(ELL[co]);
+		item = doc->Items.at(ELL[co]);
 		QDomElement ob=docu.createElement("ITEM");
 		if (item->Ausrich > 4)
 			ob.setAttribute("ALIGN",UsedMapped2Saved[item->Ausrich]);
 		else
 			ob.setAttribute("ALIGN",item->Ausrich);
-		SetItemProps(&ob, item);
+ 		SetItemProps(&ob, item);
 		if (item->GrType != 0)
 		{
 			QPtrVector<VColorStop> cstops = item->fill_gradient.colorStops();
@@ -2316,7 +2330,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 
 void ScriXmlDoc::WritePages(ScribusView *view, QDomDocument docu, QDomElement dc, QProgressBar *dia2, uint maxC)
 {
-	int tsh, tsh2, tst, tst2, tsb, tsb2, tshs, tshs2, tsc, tsc2;
+/*	int tsh, tsh2, tst, tst2, tsb, tsb2, tshs, tshs2, tsc, tsc2;
 	QString text, tf, tf2, tc, tc2, tcs, tcs2, tmp, tmpy, Ndir;
 	double ts, ts2, te, te2;
 	uint ObCount = maxC;
@@ -2462,7 +2476,7 @@ void ScriXmlDoc::WritePages(ScribusView *view, QDomDocument docu, QDomElement dc
 			if (item->BackBox != 0)
 			{
 				ob.setAttribute("BACKITEM", item->BackBox->ItemNr);
-				ob.setAttribute("BACKPAGE", item->BackBox->OwnPage->PageNr);
+				ob.setAttribute("BACKPAGE", item->BackBox->OwnPage);
 			}
 			else
 			{
@@ -2472,7 +2486,7 @@ void ScriXmlDoc::WritePages(ScribusView *view, QDomDocument docu, QDomElement dc
 			if (item->NextBox != 0)
 			{
 				ob.setAttribute("NEXTITEM", item->NextBox->ItemNr);
-				ob.setAttribute("NEXTPAGE", item->NextBox->OwnPage->PageNr);
+				ob.setAttribute("NEXTPAGE", item->NextBox->OwnPage);
 			}
 			else
 			{
@@ -2483,17 +2497,17 @@ void ScriXmlDoc::WritePages(ScribusView *view, QDomDocument docu, QDomElement dc
 			pg.appendChild(ob);
 		}
 		dc.appendChild(pg);
-	}
+	} */
 }
 
 bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, ScribusView *view, QProgressBar *dia2)
 {
-	QString text, tf, tf2, tc, tc2;
+/*	QString text, tf, tf2, tc, tc2;
 	QDomDocument docu("scribus");
 	QString st="<SCRIBUSUTF8></SCRIBUSUTF8>";
 	docu.setContent(st);
 	QDomElement elem=docu.documentElement();
-	elem.setAttribute("Version", "1.2.1cvs");
+	elem.setAttribute("Version", "1.2");
 	QDomElement dc=docu.createElement("DOCUMENT");
 	dc.setAttribute("ANZPAGES",view->DocPages.count());
 	dc.setAttribute("PAGEWITH",doc->PageB);
@@ -2740,18 +2754,18 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, ScribusView *view, 
 		WritePages(view, docu, dc, dia2, view->DocPages.count());
 		view->Pages = view->DocPages;
 	}
-	elem.appendChild(dc);
+	elem.appendChild(dc); */
 /**
  * changed to enable saving
  * of *.gz documents
  * 2.7.2002 C.Toepp
  * <c.toepp@gmx.de>
 */
-#ifdef HAVE_LIBZ
+/* #ifdef HAVE_LIBZ
 	if(fileName.right(2) == "gz")
-	{
+	{ */
   // zipped saving
-		gzFile gzDoc = gzopen(fileName.latin1(),"wb");
+/*		gzFile gzDoc = gzopen(fileName.latin1(),"wb");
 		if(gzDoc == NULL)
 			return false;
 		gzputs(gzDoc, docu.toString().utf8());
@@ -2775,7 +2789,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, ScribusView *view, 
 	QString wr = docu.toString().utf8();
 	s.writeRawBytes(wr, wr.length());
 	f.close();
-#endif
+#endif */
 	return true;
 }
 

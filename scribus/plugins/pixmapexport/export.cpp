@@ -94,7 +94,7 @@ bool ExportBitmap::exportPage(uint pageNr, bool single = TRUE)
 	uint over = 0;
 	QString fileName = getFileName(pageNr);
 
-	if (!carrier->view->Pages.at(pageNr))
+	if (!carrier->doc->Pages.at(pageNr))
 		return FALSE;
 
 	QPixmap pixmap = carrier->view->PageToPixmap(pageNr, qRound(carrier->doc->PageH * (pageSize / 72.0)));

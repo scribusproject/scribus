@@ -51,7 +51,7 @@ class ZAuswahl : public QDialog
 	Q_OBJECT
 
 public:
-	ZAuswahl( QWidget* parent, preV *Vor, PageItem *item, ScribusApp *plug );
+	ZAuswahl( QWidget* parent, PageItem *item, ScribusApp *plug );
 	~ZAuswahl() {};
 	ChTable* ZTabelle;
 	QLabel* Zeichen;
@@ -62,7 +62,7 @@ public:
 	ScribusApp *ap;
 	QValueList<uint> Zeich;
 	QString ChToIns;
-    	int MaxCount;
+	int MaxCount;
 
 public slots:
 	void NeuesZeichen(int r, int c);
@@ -83,7 +83,7 @@ public:
 	~ChTable() {};
 	bool Mpressed;
 	Zoom* dia;
-    	ScribusApp *ap;
+	ScribusApp *ap;
 	ZAuswahl* par;
 	int MaxCount;
 

@@ -153,7 +153,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	GroupBox1Layout->addWidget( Resolution, 5, 1, AlignLeft );
 	Layout13->addWidget( GroupBox1 );
 	tabLayout->addLayout( Layout13 );
-	Compression = new QCheckBox( tr( "Compress Text and &Vector Graphics" ), tabGeneral, "Compression" );
+	Compression = new QCheckBox( tr( "Com&press Text and Vector Graphics" ), tabGeneral, "Compression" );
 	Compression->setChecked( Optionen->Compress );
 	tabLayout->addWidget( Compression );
 	CBox = new QGroupBox( tr( "Image Settings" ), tabGeneral, "CBox" );
@@ -259,18 +259,16 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	tabLayout_5 = new QGridLayout( tabPresentation );
 	tabLayout_5->setSpacing( 5 );
 	tabLayout_5->setMargin( 11 );
-	
-	CheckBox10 = new QCheckBox( tr( "En&able Presentation Effects" ), tabPresentation, "CheckBox10" );
+	CheckBox10 = new QCheckBox( tr( "Enable &Presentation Effects" ), tabPresentation, "CheckBox10" );
 	CheckBox10->setChecked(Optionen->PresentMode);
 	tabLayout_5->addMultiCellWidget( CheckBox10, 0, 0, 0, 1 );
 	Pages = new QListBox( tabPresentation, "Pages" );
-	Pages->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1,
-	                                   Pages->sizePolicy().hasHeightForWidth() ) );
+	Pages->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, Pages->sizePolicy().hasHeightForWidth() ) );
 	QString tmp;
 	struct PreSet ef;
 	if (EffVal.count() != 0)
 	{
-		for (uint pg2 = 0; pg2 < vie->Pages.count(); ++pg2)
+		for (uint pg2 = 0; pg2 < view->Doc->Pages.count(); ++pg2)
 		{
 			Pages->insertItem( tr("Page")+" "+tmp.setNum(pg2+1));
 			if (EffVal.count()-1 < pg2)
@@ -287,7 +285,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	}
 	else
 	{
-		for (uint pg = 0; pg < vie->Pages.count(); ++pg)
+		for (uint pg = 0; pg < view->Doc->Pages.count(); ++pg)
 		{
 			Pages->insertItem( tr("Page")+" "+tmp.setNum(pg+1));
 			ef.EffektLen = 1;
@@ -369,7 +367,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	EonAllPg = new QPushButton( tr( "&Apply Effect on all Pages" ), Effects, "Eon" );
 	EffectsLayout->addMultiCellWidget( EonAllPg, 6, 6, 0, 1 );
 	tabLayout_5->addMultiCellWidget( Effects, 1, 2, 1, 1 );
-	Options->insertTab( tabPresentation, tr( "&Presentation" ) );
+	Options->insertTab( tabPresentation, tr( "E&xtras" ) );
 
 	tabSecurity = new QWidget( Options, "tabSecurity" );
 	tabSecurityLayout = new QVBoxLayout( tabSecurity, 11, 5, "tabSecurityLayout");
@@ -699,6 +697,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	Options->setTabEnabled(tabPDFX, false);
 #endif
 
+ 
 	tabOptions = new QWidget( Options, "taboptions" );
 	tabOptionsLayout = new QVBoxLayout( tabOptions, 11, 5, "tabOptionsLayout");
 	MirrorH = new QCheckBox( tr( "Mirror Page(s) &Horizontally" ), tabOptions, "MirrorH" );
@@ -716,10 +715,6 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	tabOptionsRotateHBox->addStretch();
 	tabOptionsLayout->addStretch();
 	Options->insertTab( tabOptions, tr( "&Options" ) );
-	
-
-
-
 	BleedChanged();
 	PgSel = 0;
 	Pages->setCurrentItem(0);
@@ -841,7 +836,6 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	connect(EDirection_2_2, SIGNAL(activated(int)), this, SLOT(ValidDI(int)));
 	connect(CheckBox10, SIGNAL(clicked()), this, SLOT(DoEffects()));
 	connect(MirrorH, SIGNAL(clicked()), this, SLOT(PDFMirrorH()));
-	connect(RotateDeg, SIGNAL(valueChanged(int)), this, SLOT(Rotation(int)));
 	connect(EonAllPg, SIGNAL(clicked()), this, SLOT(EffectOnAll()));
 	connect(AllPages, SIGNAL(toggled(bool)), this, SLOT(SelRange(bool)));
 	connect(OutCombo, SIGNAL(activated(int)), this, SLOT(EnablePr(int)));
@@ -856,6 +850,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 	connect(Encry, SIGNAL(clicked()), this, SLOT(ToggleEncr()));
 	connect(UseLPI, SIGNAL(clicked()), this, SLOT(EnableLPI2()));
 	connect(LPIcolor, SIGNAL(activated(int)), this, SLOT(SelLPIcol(int)));
+	connect(RotateDeg, SIGNAL(valueChanged(int)), this, SLOT(Rotation(int)));
 }
 
 /*
@@ -1046,7 +1041,7 @@ void PDF_Opts::SelRange(bool e)
 
 void PDF_Opts::EffectOnAll()
 {
-	for (uint pg = 0; pg < view->Pages.count(); ++pg)
+	for (uint pg = 0; pg < view->Doc->Pages.count(); ++pg)
 	{
 		EffVal[pg].AnzeigeLen = PageTime->value();
 		EffVal[pg].EffektLen = EffectTime->value();
@@ -1061,10 +1056,11 @@ void PDF_Opts::PDFMirrorH()
 {
 	Opts->MirrorH = MirrorH->isChecked() ? true : false;
 }
-
+ 
 void PDF_Opts::Rotation( int value )
 {
-	Opts->RotateDeg = value / 90 * 90; RotateDeg->setValue(value / 90 * 90);
+	Opts->RotateDeg = value / 90 * 90; 
+	RotateDeg->setValue(value / 90 * 90);
 }
 
 void PDF_Opts::DoEffects()
@@ -1152,12 +1148,12 @@ void PDF_Opts::PagePr()
 	int ci = Pages->currentItem();
 	if (PagePrev->isChecked())
 	{
-		for (uint pg = 0; pg < view->Pages.count(); ++pg)
+		for (uint pg = 0; pg < view->Doc->Pages.count(); ++pg)
 			Pages->changeItem(view->PageToPixmap(pg, 70), tr("Page")+" "+tmp.setNum(pg+1), pg);
 	}
 	else
 	{
-		for (uint pg = 0; pg < view->Pages.count(); ++pg)
+		for (uint pg = 0; pg < view->Doc->Pages.count(); ++pg)
 			Pages->changeItem( tr("Page")+" "+tmp.setNum(pg+1), pg);
 	}
 	if (ci != -1)

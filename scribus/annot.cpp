@@ -1098,18 +1098,13 @@ void Annot::NewName()
 		return;
 	}
 	bool found = false;
-	for (uint a = 0; a < view->Pages.count(); ++a)
+	for (uint b = 0; b < view->Doc->Items.count(); ++b)
 	{
-		for (uint b = 0; b < view->Pages.at(a)->Items.count(); ++b)
+		if ((NameNew == view->Doc->Items.at(b)->AnName) && (view->Doc->Items.at(b) != item))
 		{
-			if ((NameNew == view->Pages.at(a)->Items.at(b)->AnName) && (view->Pages.at(a)->Items.at(b) != item))
-			{
-				found = true;
-				break;
-			}
-		}
-		if (found)
+			found = true;
 			break;
+		}
 	}
 	if (found)
 	{
@@ -1279,7 +1274,7 @@ void Annot::GetRIcon()
 
 void Annot::SelectFelder()
 {
-	SelectFields* dia = new SelectFields(this, CalcFields->text(), item->AnName, &view->Pages, 3);
+	SelectFields* dia = new SelectFields(this, CalcFields->text(), item->AnName, &view->Doc->Pages, 3);
 	if (dia->exec())
 		CalcFields->setText(dia->S_Fields);
 	delete dia;

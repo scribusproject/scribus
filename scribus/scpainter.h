@@ -43,7 +43,7 @@ class ScPainter
 public:
 	ScPainter( QPaintDevice *target, unsigned int w = 0, unsigned int h = 0 );
 	virtual ~ScPainter();
-
+	enum FillMode { None, Solid, Gradient };
 	virtual void resize( unsigned int w, unsigned int h );
 	virtual void begin();
 	virtual void end();

@@ -3,13 +3,14 @@
 #include "scpainter.h"
 #include <qtextcodec.h>
 #include <qcursor.h>
-
+/*
 #if (_MSC_VER >= 1200)
  #include "win-config.h"
 #else
  #include "config.h"
 #endif
-
+*/
+#include "config.h"
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include FT_OUTLINE_H
@@ -30,12 +31,12 @@ int Type()
 
 void Run(QWidget *d, ScribusApp *plug)
 {
-	if ((plug->HaveDoc) && (plug->doc->ActPage->SelItem.count() != 0))
+	if ((plug->HaveDoc) && (plug->view->SelItem.count() != 0))
 	{
-		PageItem *b = plug->doc->ActPage->SelItem.at(0);
+		PageItem *b = plug->view->SelItem.at(0);
 		if ((b->PType == 4) && ((plug->doc->AppMode == 7) || (plug->DLLinput != "")))
 		{
-			ZAuswahl *dia = new ZAuswahl(d, &plug->Prefs, b, plug);
+			ZAuswahl *dia = new ZAuswahl(d, b, plug);
 			dia->exec();
 			delete dia;
 		}
@@ -126,8 +127,7 @@ void ChTable::contentsMouseReleaseEvent(QMouseEvent* e)
 		emit SelectChar(rowAt(e->pos().y()), columnAt(e->pos().x()));
 }
 
-ZAuswahl::ZAuswahl( QWidget* parent, preV *Vor, PageItem *item, ScribusApp *pl)
-		: QDialog( parent, "ZAuswahl", true, 0 )
+ZAuswahl::ZAuswahl( QWidget* parent, PageItem *item, ScribusApp *pl) : QDialog( parent, "ZAuswahl", true, 0 )
 {
 	QString font;
 	if (pl->DLLinput != "")
@@ -320,6 +320,6 @@ void ZAuswahl::InsChar()
 		ite->Ptext.insert(ite->CPos, hg);
 		ite->CPos += 1;
 	}
-	ap->doc->ActPage->update();
+	ap->view->DrawNew();
 	ap->slotDocCh();
 }

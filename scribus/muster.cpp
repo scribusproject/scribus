@@ -55,7 +55,7 @@ MusterSeiten::MusterSeiten( QWidget* parent, ScribusDoc *doc, ScribusView *view,
 	{
 		sMuster = temp;
 		updateMList(sMuster);
-		View->ShowTemplate(View->MasterNames[sMuster]);
+		View->ShowTemplate(Doc->MasterNames[sMuster]);
 	}
 	setMaximumSize(sizeHint());
 
@@ -91,16 +91,16 @@ void MusterSeiten::DelTemp()
 	                              0, QMessageBox::No, QMessageBox::Yes);
 	if (exit == 1)
 	{
-		Doc->PageC = View->Pages.count();
-		View->delPage(View->MasterNames[sMuster]);
+		Doc->PageC = Doc->Pages.count();
+		View->delPage(Doc->MasterNames[sMuster]);
 		View->reformPages();
-		View->MasterNames.clear();
-		for (uint a=0; a<View->Pages.count(); ++a)
-			View->MasterNames[View->Pages.at(a)->PageNam] = View->Pages.at(a)->PageNr;
-		for (uint b=0; b<View->DocPages.count(); ++b)
+		Doc->MasterNames.clear();
+		for (uint a = 0; a < Doc->Pages.count(); ++a)
+			Doc->MasterNames[Doc->Pages.at(a)->PageNam] = Doc->Pages.at(a)->PageNr;
+		for (uint b = 0; b < Doc->DocPages.count(); ++b)
 		{
-			if (View->DocPages.at(b)->MPageNam == sMuster)
-				View->DocPages.at(b)->MPageNam = "Normal";
+			if (Doc->DocPages.at(b)->MPageNam == sMuster)
+				Doc->DocPages.at(b)->MPageNam = "Normal";
 		}
 		Doc->PageC = 1;
 		sMuster = "Normal";
@@ -120,7 +120,7 @@ void MusterSeiten::DuplTemp()
 	if (dia->exec())
 	{
 		nam = dia->Answer->text();
-		while (View->MasterNames.contains(nam) || (nam == "Normal"))
+		while (Doc->MasterNames.contains(nam) || (nam == "Normal"))
 		{
 			if (!dia->exec())
 			{
@@ -129,22 +129,20 @@ void MusterSeiten::DuplTemp()
 			}
 			nam = dia->Answer->text();
 		}
-		nr = View->Pages.count();
-		View->MasterNames.insert(nam, nr);
-		for (uint a=0; a<View->Pages.count(); ++a)
-			View->Pages.at(a)->parentWidget()->hide();
+		nr = Doc->Pages.count();
+		Doc->MasterNames.insert(nam, nr);
 		Doc->PageC = 0;
 		atf = Doc->PageAT;
 		Doc->PageAT = false;
 		emit CreateNew(nr);
 		if (Doc->PageFP)
-			View->Pages.at(nr)->LeftPg = dia->Links->currentItem() == 0 ? true : false;
-		int inde = View->MasterNames[sMuster];
-		QMap<int,int> TableID;
+			Doc->Pages.at(nr)->LeftPg = dia->Links->currentItem() == 0 ? true : false;
+//		int inde = Doc->MasterNames[sMuster];
+/*		QMap<int,int> TableID;
 		QPtrList<PageItem> TableItems;
 		TableID.clear();
 		TableItems.clear();
-		if (View->Pages.at(inde)->YGuides.count() != 0)
+		if (View->Pages.at(inde)->->YGuides.count() != 0)
 		{
 			Doc->ActPage->YGuides.clear();
 			for (uint y = 0; y < View->Pages.at(inde)->YGuides.count(); ++y)
@@ -161,7 +159,7 @@ void MusterSeiten::DuplTemp()
 			}
 			qHeapSort(Doc->ActPage->XGuides);
 		}
-		for (uint a=0; a<View->Pages.at(inde)->Items.count(); ++a)
+		for (uint a = 0; a < View->Pages.at(inde)->Items.count(); ++a)
 		{
 			CopyPageItem(&Buffer, View->Pages.at(inde)->Items.at(a));
 			Doc->ActPage->PasteItem(&Buffer, true, true);
@@ -195,10 +193,10 @@ void MusterSeiten::DuplTemp()
 					ta->BottomLink = 0;
 			}
 		}
-		Doc->ActPage->Deselect(true);
+		Doc->ActPage->Deselect(true); */
 		View->DrawNew();
-		View->Pages.at(nr)->PageNam = nam;
-		View->Pages.at(nr)->MPageNam = "";
+		Doc->Pages.at(nr)->PageNam = nam;
+		Doc->Pages.at(nr)->MPageNam = "";
 		updateMList(nam);
 		Doc->PageAT = atf;
 	}
@@ -216,7 +214,7 @@ void MusterSeiten::NewTemp()
 	if (dia->exec())
 	{
 		nam = dia->Answer->text();
-		while (View->MasterNames.contains(nam) || (nam == "Normal"))
+		while (Doc->MasterNames.contains(nam) || (nam == "Normal"))
 		{
 			if (!dia->exec())
 			{
@@ -225,20 +223,19 @@ void MusterSeiten::NewTemp()
 			}
 			nam = dia->Answer->text();
 		}
-		nr = View->Pages.count();
-		View->MasterNames.insert(nam, nr);
-		for (uint a=0; a<View->Pages.count(); ++a)
-			View->Pages.at(a)->parentWidget()->hide();
+		nr = Doc->Pages.count();
+		Doc->MasterNames.insert(nam, nr);
 		Doc->PageC = 0;
 		atf = Doc->PageAT;
 		Doc->PageAT = false;
 		emit CreateNew(nr);
 		if (Doc->PageFP)
-			View->Pages.at(nr)->LeftPg = dia->Links->currentItem() == 0 ? true : false;
-		View->Pages.at(nr)->PageNam = nam;
-		View->Pages.at(nr)->MPageNam = "";
+			Doc->Pages.at(nr)->LeftPg = dia->Links->currentItem() == 0 ? true : false;
+		Doc->Pages.at(nr)->PageNam = nam;
+		Doc->Pages.at(nr)->MPageNam = "";
 		updateMList(nam);
 		Doc->PageAT = atf;
+		View->ShowTemplate(Doc->MasterNames[nam]);
 	}
 	delete dia;
 }
@@ -252,9 +249,7 @@ void MusterSeiten::loadMpage()
 	if (dia->exec())
 	{
 		qApp->setOverrideCursor(QCursor(waitCursor), true);
-		nr = View->Pages.count();
-		for (uint a=0; a<View->Pages.count(); ++a)
-			View->Pages.at(a)->parentWidget()->hide();
+		nr = Doc->Pages.count();
 		Doc->PageC = 0;
 		atf = Doc->PageAT;
 		Doc->PageAT = false;
@@ -262,20 +257,20 @@ void MusterSeiten::loadMpage()
 		qApp->processEvents();
 		emit LoadPage(dia->Filename->text(), dia->PageNa->currentItem(), true);
 		qApp->processEvents();
-		nam = View->Pages.at(nr)->PageNam;
+		nam = Doc->Pages.at(nr)->PageNam;
 		nam2 = nam;
 		int copyC = 1;
-		while (View->MasterNames.contains(nam2))
+		while (Doc->MasterNames.contains(nam2))
 		{
 			nam2 = tr("Copy #%1 of ").arg(copyC)+nam;
 			copyC++;
 		}
-		View->MasterNames.insert(nam2, nr);
-		View->Pages.at(nr)->PageNam = nam2;
-		View->Pages.at(nr)->MPageNam = "";
-		View->DrawNew();
+		Doc->MasterNames.insert(nam2, nr);
+		Doc->Pages.at(nr)->PageNam = nam2;
+		Doc->Pages.at(nr)->MPageNam = "";
 		updateMList(nam2);
 		Doc->PageAT = atf;
+		View->ShowTemplate(Doc->MasterNames[nam2]);
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	}
 	delete dia;
@@ -284,7 +279,7 @@ void MusterSeiten::loadMpage()
 void MusterSeiten::selTemplate(QListBoxItem *c)
 {
 	sMuster = c->text();
-	DeleteB->setEnabled(View->MasterNames.count() == 1 ? false : true);
+	DeleteB->setEnabled(Doc->MasterNames.count() == 1 ? false : true);
 	if (sMuster == tr("Normal"))
 	{
 		sMuster = "Normal";
@@ -292,16 +287,16 @@ void MusterSeiten::selTemplate(QListBoxItem *c)
 	}
 	else
 		DeleteB->setEnabled(true);
-	View->ShowTemplate(View->MasterNames[sMuster]);
+	View->ShowTemplate(Doc->MasterNames[sMuster]);
 }
 
 void MusterSeiten::updateMList(QString nam)
 {
 	ListBox1->clear();
 	QMap<QString,int>::Iterator it;
-	for (it = View->MasterNames.begin(); it != View->MasterNames.end(); ++it)
+	for (it = Doc->MasterNames.begin(); it != Doc->MasterNames.end(); ++it)
 		ListBox1->insertItem(it.key() == "Normal" ? tr("Normal") : it.key());
-	DeleteB->setEnabled(View->MasterNames.count() == 1 ? false : true);
+	DeleteB->setEnabled(Doc->MasterNames.count() == 1 ? false : true);
 	if (nam == "Normal")
 	{
 		nam = tr("Normal");

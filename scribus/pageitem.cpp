@@ -44,7 +44,7 @@ extern double xy2Deg(double x, double y);
 extern void BezierPoints(QPointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4);
 extern ScribusApp* ScApp;
 
-PageItem::PageItem(Page *pa, int art, double x, double y, double w, double h, double w2, QString fill, QString outline, ScribusDoc *doc) : QObject(pa)
+PageItem::PageItem(ScribusDoc *pa, int art, double x, double y, double w, double h, double w2, QString fill, QString outline) : QObject(pa)
 {
 	QString tmp;
 	BackBox = 0;
@@ -55,14 +55,17 @@ PageItem::PageItem(Page *pa, int art, double x, double y, double w, double h, do
 	Ypos = y;
 	Width = w;
 	Height = h;
+	BoundingX = x;
+	BoundingY = y;
+	BoundingW = w;
+	BoundingH = h;
 	OldB = Width;
 	OldH = Height;
 	OldB2 = Width;
 	OldH2 = Height;
 	PType = art;
 	Rot = 0;
-	Parent = pa;
-	Doc = doc;
+	Doc = pa;
 	Pcolor = fill;
 	Pcolor2 = PType == 4 ? fill : outline;
 	TxtFill = Doc->DpenText;
@@ -142,7 +145,7 @@ PageItem::PageItem(Page *pa, int art, double x, double y, double w, double h, do
 	Segments.clear();
 	PoShow = false;
 	BaseOffs = 0;
-	OwnPage = pa;
+	OwnPage = Doc->ActPage->PageNr;
 	PicArt = true;
 	PicAvail = false;
 	isPrintable = true;
@@ -243,7 +246,7 @@ PageItem::PageItem(Page *pa, int art, double x, double y, double w, double h, do
 		fill_gradient.addStop(Doc->PageColors[Doc->PageColors.begin().key()].getRGBColor(), 1.0, 0.5, 1.0, Doc->PageColors.begin().key(), 100);
 	else
 	fill_gradient.addStop(Doc->PageColors[Pcolor2].getRGBColor(), 1.0, 0.5, 1.0, Pcolor2, 100);
-	Language = doc->Language;
+	Language = Doc->Language;
 	Cols = Doc->DCols;
 	ColGap = Doc->DGap;
 	LeftLink = 0;
@@ -261,6 +264,7 @@ PageItem::PageItem(Page *pa, int art, double x, double y, double w, double h, do
 	isTableItem = false;
 	isSingleSel = false;
 	Dirty = false;
+	ChangedMasterItem = false;
 }
 
 /** Zeichnet das Item */
@@ -278,7 +282,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 	int desc, asce, absa, aSpa, chs, chsd, CurrCol;
 	uint BuPos, LastSP, MaxText;
 	double oldCurY, LastXp, EndX, OFs, OFs2, wide, rota, wid, lineCorr, ColWidth, kernVal, RTabX;
-	double sc = Doc->Scale;
+	double sc = ScApp->view->Scale;
 	QString chx, chx2, chx3;
 	struct Pti *hl;
 	struct ZZ *Zli;
@@ -315,22 +319,23 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 		Doc->Vorlagen[xxx].Anach = 0;
 		Doc->Vorlagen[xxx].Ausri = xxx;
 	}
-	pf.begin(Parent);
-	pf.translate(Xpos*sc, Ypos*sc);
+	pf.begin(ScApp->view->viewport());
+	QPoint trans = ScApp->view->contentsToViewport(QPoint(qRound(Xpos*sc), qRound(Ypos*sc)));
+	pf.translate(trans.x(), trans.y());
 	pf.rotate(Rot);
 	pf.scale(sc, sc);
 	if (!Doc->RePos)
-		pf.setClipRect(!e.isEmpty() ? e : OwnPage->ViewReg().boundingRect());
+		pf.setClipRect(!e.isEmpty() ? e : QRect(0, 0, ScApp->view->viewport()->width(), ScApp->view->viewport()->height()));
 	bool doStroke = true;
+	QRect e2 = QRect(qRound(e.x() / sc), qRound(e.y() / sc), qRound(e.width() / sc), qRound(e.height() / sc));
 	p->setZoomFactor(sc);
 	p->save();
-	p->translate(-e.x(), -e.y());
 	p->translate(Xpos*sc, Ypos*sc);
 	p->rotate(Rot);
 	p->setLineWidth(Pwidth);
 	if (GrType != 0)
 	{
-		p->setFillMode(2);
+		p->setFillMode(ScPainter::Gradient);
 		p->fill_gradient = fill_gradient;
 		QWMatrix grm;
 		grm.rotate(Rot);
@@ -360,10 +365,10 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 		{
 			SetFarbe(&tmp, Pcolor, Shade);
 			p->setBrush(tmp);
-			p->setFillMode(1);
+			p->setFillMode(ScPainter::Solid);
 		}
 		else
-			p->setFillMode(0);
+			p->setFillMode(ScPainter::None);
 	}
 	if (Pcolor2 != "None")
 	{
@@ -469,7 +474,10 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 			p->drawPolygon();
 			break;
 		case 7:
+			doStroke = false;
 			if (Doc->RePos)
+				break;
+			if (PoLine.size() < 4)
 				break;
 			if ((Pcolor != "None") || (GrType != 0))
 			{
@@ -525,11 +533,10 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					p->drawPolyLine();
 					}
 				}
-			doStroke = false;
 			break;
 		case 4:
 			p->save();
-			pf2.begin(Parent);
+			pf2.begin(ScApp->view->viewport());
 			pf2.translate(Xpos, Ypos);
 			pf2.rotate(Rot);
 			if ((Pcolor != "None") || (GrType != 0))
@@ -601,13 +608,13 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					Zli3.scale = hl->cscale;
 					if (!Doc->RePos)
 					{
-						if (e.intersects(pf.xForm(QRect(qRound(Zli3.xco),qRound(Zli3.yco-LineSp), qRound(Zli3.wide+1), qRound(LineSp*1.5)))))
+						if (e2.intersects(pf2.xForm(QRect(qRound(Zli3.xco),qRound(Zli3.yco-LineSp), qRound(Zli3.wide+1), qRound(LineSp*1.5)))))
 							DrawZeichenS(p, &Zli3);
 						if (hl->cstyle & 512)
 						{
 							Zli3.Zeich = "-";
 							Zli3.xco = Zli3.xco + Cwidth(Doc, hl->cfont, chx, hl->csize);
-							if (e.intersects(pf.xForm(QRect(qRound(Zli3.xco),qRound(Zli3.yco-LineSp), qRound(Zli3.wide+1), qRound(LineSp*1.5)))))
+							if (e2.intersects(pf2.xForm(QRect(qRound(Zli3.xco),qRound(Zli3.yco-LineSp), qRound(Zli3.wide+1), qRound(LineSp*1.5)))))
 								DrawZeichenS(p, &Zli3);
 						}
 					}
@@ -616,7 +623,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 				{
 					if (!Doc->RePos)
 					{
-						double scp1 = 1 / QMAX(Doc->Scale, 1);
+						double scp1 = 1 / QMAX(ScApp->view->Scale, 1);
 						double scp16 = 16 * scp1;
 						double scp14 = 14 * scp1;
 						double scp3 = 3 * scp1;
@@ -624,9 +631,8 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						double scpheight16 = Height - scp16;
 						double scpwidth3 = Width - scp3;
 						double scpheight3 = Height - scp3;
-
-						p->setPen(black, scp1, SolidLine, FlatCap, MiterJoin);
 						p->setBrush(white);
+						p->setPen(black, scp1, SolidLine, FlatCap, MiterJoin);
 						p->drawRect(scpwidth16, scpheight16, scp14, scp14);
 						p->drawLine(FPoint(scpwidth16, scpheight16), FPoint(scpwidth3, scpheight3));
 						p->drawLine(FPoint(scpwidth16, scpheight3), FPoint(scpwidth3, scpheight16));
@@ -657,36 +663,36 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					}
 				Doc->Vorlagen[0].LineSpa = LineSp;
 				QRegion cl = QRegion(pf2.xForm(Clip));
-				for (a=0; a<OwnPage->Items.count(); ++a)
+				for (a = 0; a < Doc->Items.count(); ++a)
 					{
-					if (((OwnPage->Items.at(a)->ItemNr > ItemNr) && (OwnPage->Items.at(a)->LayerNr == LayerNr))
-   							|| (Doc->Layers[OwnPage->Items.at(a)->LayerNr].Level > Doc->Layers[LayerNr].Level))
+					if (((Doc->Items.at(a)->ItemNr > ItemNr) && (Doc->Items.at(a)->LayerNr == LayerNr))
+   							|| (Doc->Layers[Doc->Items.at(a)->LayerNr].Level > Doc->Layers[LayerNr].Level))
 						{
-						if (OwnPage->Items.at(a)->Textflow)
+						if (Doc->Items.at(a)->Textflow)
 							{
-							pp.begin(Parent);
-							pp.translate(OwnPage->Items.at(a)->Xpos, OwnPage->Items.at(a)->Ypos);
-							pp.rotate(OwnPage->Items.at(a)->Rot);
-							if (OwnPage->Items.at(a)->Textflow2)
+							pp.begin(ScApp->view->viewport());
+							pp.translate(Doc->Items.at(a)->Xpos, Doc->Items.at(a)->Ypos);
+							pp.rotate(Doc->Items.at(a)->Rot);
+							if (Doc->Items.at(a)->Textflow2)
 								{
 								QPointArray tcli;
 								tcli.resize(4);
 								tcli.setPoint(0, QPoint(0,0));
-								tcli.setPoint(1, QPoint(qRound(OwnPage->Items.at(a)->Width), 0));
-								tcli.setPoint(2, QPoint(qRound(OwnPage->Items.at(a)->Width), qRound(OwnPage->Items.at(a)->Height)));
-								tcli.setPoint(3, QPoint(0, qRound(OwnPage->Items.at(a)->Height)));
+								tcli.setPoint(1, QPoint(qRound(Doc->Items.at(a)->Width), 0));
+								tcli.setPoint(2, QPoint(qRound(Doc->Items.at(a)->Width), qRound(Doc->Items.at(a)->Height)));
+								tcli.setPoint(3, QPoint(0, qRound(Doc->Items.at(a)->Height)));
 								cm = QRegion(pp.xForm(tcli));
 								}
 							else
 							{
-								if ((OwnPage->Items.at(a)->UseContour) && (OwnPage->Items.at(a)->ContourLine.size() != 0))
+								if ((Doc->Items.at(a)->UseContour) && (Doc->Items.at(a)->ContourLine.size() != 0))
 								{
 									QValueList<uint> Segs;
-									QPointArray Clip2 = FlattenPath(OwnPage->Items.at(a)->ContourLine, Segs);
+									QPointArray Clip2 = FlattenPath(Doc->Items.at(a)->ContourLine, Segs);
 									cm = QRegion(pp.xForm(Clip2));
 								}
 								else
-									cm = QRegion(pp.xForm(OwnPage->Items.at(a)->Clip));
+									cm = QRegion(pp.xForm(Doc->Items.at(a)->Clip));
 							}
 							pp.end();
 							cl = cl.subtract(cm);
@@ -1365,17 +1371,17 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						LiList.at(LiList.count()-1)->xco = hl->xp;
 						LiList.at(LiList.count()-1)->yco = hl->yp;
 						for (uint zc = 0; zc<BuPos3; ++zc)
-							{
+						{
 							Zli2 = LiList.at(zc);
 							Ptext.at(startLin+zc)->xp = Zli2->xco;
 							Ptext.at(startLin+zc)->yp = Zli2->yco;
 							if (Zli2->Farb != "None")
-								{
+							{
 								SetFarbe(&tmp, Zli2->Farb, Zli2->shade);
 								p->setBrush(tmp);
-								}
+							}
 							if ((((Zli2->Sele) && (Select)) || (((NextBox != 0) || (BackBox != 0)) && (Zli2->Sele))) && (Doc->AppMode == 7))
-								{
+							{
 								wide = Zli2->wide;
 								desc = static_cast<int>((*Doc->AllFonts)[Zli2->ZFo]->numDescender * (-Zli2->Siz / 10.0));
 								asce = static_cast<int>((*Doc->AllFonts)[Zli2->ZFo]->numAscent * (Zli2->Siz / 10.0));
@@ -1385,18 +1391,18 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 								if (!Doc->RePos)
 									p->drawRect(Zli2->xco, Zli2->yco-asce, wide+1, asce+desc);
 								p->setBrush(white);
-								}
+							}
 							if (Zli2->Farb2 != "None")
-								{
+							{
 								SetFarbe(&tmp, Zli2->Farb2, Zli2->shade2);
 								p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
-								}
-							if (!Doc->RePos)
-								{
-								if (e.intersects(pf.xForm(QRect(qRound(Zli2->xco),qRound(Zli2->yco-LineSp), qRound(Zli2->wide+1), qRound(LineSp*1.5)))))
-									DrawZeichenS(p, Zli2);
-								}
 							}
+							if (!Doc->RePos)
+							{
+								if (e2.intersects(pf2.xForm(QRect(qRound(Zli2->xco),qRound(Zli2->yco-LineSp), qRound(Zli2->wide+1), qRound(LineSp*1.5)))))
+									DrawZeichenS(p, Zli2);
+							}
+						}
 						LiList.clear();
 						BuPos = 0;
 						LastSP = 0;
@@ -1479,7 +1485,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						}
 					if (!Doc->RePos)
 						{
-						if (e.intersects(pf.xForm(QRect(qRound(Zli2->xco),qRound(Zli2->yco-LineSp), qRound(Zli2->wide+1), qRound(LineSp*1.5)))))
+						if (e2.intersects(pf2.xForm(QRect(qRound(Zli2->xco),qRound(Zli2->yco-LineSp), qRound(Zli2->wide+1), qRound(LineSp*1.5)))))
 							DrawZeichenS(p, Zli2);
 						}
 					}
@@ -1507,10 +1513,10 @@ NoRoom: pf2.end();
 						CPos = nrc;
 						if ((Doc->AppMode == 7) && (Tinput))
 						{
-							OwnPage->Deselect(true);
+//							OwnPage->Deselect(true);
 							NextBox->CPos = QMAX(nCP, 1);
-							Doc->ActPage = NextBox->OwnPage;
-							NextBox->OwnPage->SelectItemNr(NextBox->ItemNr);
+//							Doc->ActPage = NextBox->OwnPage;
+//							NextBox->OwnPage->SelectItemNr(NextBox->ItemNr);
 							break;
 						}
 					}
@@ -1526,15 +1532,13 @@ NoRoom: pf2.end();
 					painter->end();
 					delete painter;
 					p->restore();
-					if (NextBox->OwnPage != OwnPage)
-						NextBox->OwnPage->update();
 					Doc->RePos = rep;
 				}
 				else
 				{
 					if (!Doc->RePos)
 					{
-						double scp1 = 1.0/QMAX(Doc->Scale, 1);
+						double scp1 = 1.0/QMAX(ScApp->view->Scale, 1);
 						double scp16 = 16.0*scp1;
 						double scp14 = 14.0*scp1;
 						double scp3 = 3.0*scp1;
@@ -1542,7 +1546,6 @@ NoRoom: pf2.end();
 						double scpheight16 = Height - scp16;
 						double scpwidth3 = Width - scp3;
 						double scpheight3 = Height - scp3;
-
 						p->setPen(black, scp1, SolidLine, FlatCap, MiterJoin);
 						p->setBrush(white);
 						p->drawRect(scpwidth16, scpheight16, scp14, scp14);
@@ -1571,8 +1574,7 @@ NoRoom: pf2.end();
 					MaxChars = Ptext.count();
 					break;
 				}
-				wid = sqrt(pow(cl.point(zae+1).x()-cl.point(zae).x(),2) + 
-							pow(cl.point(zae+1).y()-cl.point(zae).y(),2));
+				wid = sqrt(pow(cl.point(zae+1).x()-cl.point(zae).x(),2) + pow(cl.point(zae+1).y()-cl.point(zae).y(),2));
 			}
 			rota = xy2Deg(cl.point(zae+1).x()-cl.point(zae).x(),cl.point(zae+1).y()-cl.point(zae).y());
 			for (a = 0; a < Ptext.count(); ++a)
@@ -1717,7 +1719,7 @@ NoRoom: pf2.end();
 	}
 	if ((!Tinput) && (!Doc->RePos))
 	{
-		double scp = QMAX(Doc->Scale, 1);
+		double scp = QMAX(ScApp->view->Scale, 1);
 		if ((Frame) && (ScApp->Prefs.FramesShown) && ((PType == 2) || (PType == 4)))
 		{
 			p->setPen(black, 1 / scp, DotLine, FlatCap, MiterJoin);
@@ -1747,6 +1749,7 @@ NoRoom: pf2.end();
 void PageItem::paintObj(QRect e, QPixmap *ppX)
 {
 	QPainter p;
+	double sc = ScApp->view->Scale;
 	if (!Doc->DoDrawing)
 	{
 		Redrawn = true;
@@ -1757,17 +1760,24 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 	if (toPixmap)
 		p.begin(ppX);
 	else
-		p.begin(Parent);
+		p.begin(ScApp->view->viewport());
 	if ((!toPixmap) && (!Doc->RePos))
 	{
 		if (!e.isEmpty())
 			p.setClipRect(e);
 		else
-			p.setClipRect(OwnPage->ViewReg().boundingRect());
+		{
+			int x = ScApp->view->contentsX();
+			int y = ScApp->view->contentsY();
+			QPoint out = ScApp->view->contentsToViewport(QPoint(x,y));
+			p.setClipRect(QRect(out.x(), out.y(), ScApp->view->visibleWidth(), ScApp->view->visibleWidth()));
+		}
 	}
-	p.translate(static_cast<int>(Xpos*Doc->Scale), static_cast<int>(Ypos*Doc->Scale));
-	p.scale(static_cast<double>(Doc->Scale), static_cast<double>(Doc->Scale));
-	p.rotate(static_cast<double>(Rot));
+	QPoint in  = QPoint(qRound(Xpos*sc), qRound(Ypos*sc));
+	QPoint out = ScApp->view->contentsToViewport(in);
+	p.translate(out.x(), out.y());
+	p.scale(sc, sc);
+	p.rotate(Rot);
 	if (Sizing)
 	{
 		p.setRasterOp(XorROP);
@@ -1794,21 +1804,21 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 		}
 		if (Select) // && (!Doc->EditClip))
 		{
-			if (!OwnPage->SelItem.isEmpty())
+			if (!ScApp->view->SelItem.isEmpty())
 			{
 				if (Groups.count() == 0)
 				{
 					QPainter pr;
-					pr.begin(Parent);
-					pr.translate(static_cast<int>(Xpos*Doc->Scale), static_cast<int>(Ypos*Doc->Scale));
-					pr.rotate(static_cast<double>(Rot));
+					pr.begin(ScApp->view->viewport());
+					pr.translate(out.x(), out.y());
+//					pr.scale(sc, sc);
+					pr.rotate(Rot);
 					if (Locked)
 						pr.setPen(QPen(darkRed, 1, SolidLine, FlatCap, MiterJoin));
 					else
 						pr.setPen(QPen(red, 1, DotLine, FlatCap, MiterJoin));
 					pr.setBrush(NoBrush);
-					pr.drawRect(-1, -1, static_cast<int>(Width*Doc->Scale)+2,
-								 static_cast<int>(Height*Doc->Scale)+2);
+					pr.drawRect(-1, -1, static_cast<int>(Width*sc)+2, static_cast<int>(Height*sc)+2);
 					pr.setPen(QPen(red, 1, SolidLine, FlatCap, MiterJoin));
 					pr.setBrush(red);
 					if ((!Locked) && (!LockRes))
@@ -1816,27 +1826,24 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 						if (PType != 5)
 						{
 							pr.drawRect(-1, -1, 6, 6);
-							pr.drawRect(static_cast<int>(Width*Doc->Scale), static_cast<int>(Height*Doc->Scale), 
-										-6, -6);
-							pr.drawRect(static_cast<int>(Width*Doc->Scale), -1, -6, 6);
-							pr.drawRect(-1, static_cast<int>(Height*Doc->Scale), 6, -6);
+							pr.drawRect(static_cast<int>(Width*sc), static_cast<int>(Height*sc), -6, -6);
+							pr.drawRect(static_cast<int>(Width*sc), -1, -6, 6);
+							pr.drawRect(-1, static_cast<int>(Height*sc), 6, -6);
 							if (Width > 6)
 							{
-								pr.drawRect(static_cast<int>(Width/2*Doc->Scale - 3),
-											static_cast<int>(Height*Doc->Scale), 6, -6);
-								pr.drawRect(static_cast<int>(Width/2*Doc->Scale - 3), -1, 6, 6);
+								pr.drawRect(static_cast<int>(Width/2*sc - 3), static_cast<int>(Height*sc), 6, -6);
+								pr.drawRect(static_cast<int>(Width/2*sc - 3), -1, 6, 6);
 							}
 							if (Height > 6)
 							{
-								pr.drawRect(static_cast<int>(Width*Doc->Scale), 
-											static_cast<int>(Height/2*Doc->Scale - 3), -6, 6);
-								pr.drawRect(-1, static_cast<int>(Height/2*Doc->Scale - 3), 6, 6);
+								pr.drawRect(static_cast<int>(Width*sc), static_cast<int>(Height/2*sc - 3), -6, 6);
+								pr.drawRect(-1, static_cast<int>(Height/2*sc - 3), 6, 6);
 							}
 						}
 						else
 						{
 							pr.drawRect(-3, -3, 6, 6);
-							pr.drawRect(static_cast<int>(Width*Doc->Scale)+3, -3, -6, 6);
+							pr.drawRect(static_cast<int>(Width*sc)+3, -3, -6, 6);
 						}
 					}
 					pr.end();
@@ -1846,27 +1853,28 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 					p.setPen(QPen(darkCyan, 1, DotLine, FlatCap, MiterJoin));
 					p.setBrush(NoBrush);
 					p.drawRect(-1, -1, static_cast<int>(Width+2), static_cast<int>(Height+2));
-					if (OwnPage->SelItem.count() == 1)
+					if (ScApp->view->SelItem.count() == 1)
 					{
 						QPainter pr;
-						pr.begin(Parent);
-						pr.translate(static_cast<int>(Xpos*Doc->Scale), static_cast<int>(Ypos*Doc->Scale));
-						pr.rotate(static_cast<double>(Rot));
+						pr.begin(ScApp->view->viewport());
+						pr.translate(out.x(), out.y());
+//						pr.scale(sc, sc);
+						pr.rotate(Rot);
 						pr.setPen(QPen(darkCyan, 1, SolidLine, FlatCap, MiterJoin));
 						pr.setBrush(darkCyan);
 						pr.drawRect(-1, -1, 6, 6);
-						pr.drawRect(static_cast<int>(Width*Doc->Scale), static_cast<int>(Height*Doc->Scale), -6, -6);
-						pr.drawRect(static_cast<int>(Width*Doc->Scale), -1, -6, 6);
-						pr.drawRect(-1, static_cast<int>(Height*Doc->Scale), 6, -6);
+						pr.drawRect(static_cast<int>(Width*sc), static_cast<int>(Height*sc), -6, -6);
+						pr.drawRect(static_cast<int>(Width*sc), -1, -6, 6);
+						pr.drawRect(-1, static_cast<int>(Height*sc), 6, -6);
 						if (Width > 6)
 						{
-							pr.drawRect(static_cast<int>(Width/2*Doc->Scale - 3), static_cast<int>(Height*Doc->Scale), 6, -6);
-							pr.drawRect(static_cast<int>(Width/2*Doc->Scale - 3), -1, 6, 6);
+							pr.drawRect(static_cast<int>(Width/2*sc - 3), static_cast<int>(Height*sc), 6, -6);
+							pr.drawRect(static_cast<int>(Width/2*sc - 3), -1, 6, 6);
 						}
 						if (Height > 6)
 						{
-							pr.drawRect(static_cast<int>(Width*Doc->Scale), static_cast<int>(Height/2*Doc->Scale - 3), -6, 6);
-							pr.drawRect(-1, static_cast<int>(Height/2*Doc->Scale - 3), 6, 6);
+							pr.drawRect(static_cast<int>(Width*sc), static_cast<int>(Height/2*sc - 3), -6, 6);
+							pr.drawRect(-1, static_cast<int>(Height/2*sc - 3), 6, 6);
 						}
 						pr.end();
 					}
@@ -1884,7 +1892,7 @@ QString PageItem::ExpandToken(uint base)
 	uint zae = 0;
 	uint za2 = base;
 	QString chx = "#";
-	if (!Doc->MasterP)
+	if ((!Doc->MasterP) && (OwnPage != -1))
 	{
 		do
 		{
@@ -1903,7 +1911,7 @@ QString PageItem::ExpandToken(uint base)
 		}
 		QString out="%1";
 		QString out2;
-		out2 = out.arg(OwnPage->PageNr+Doc->FirstPnum, -zae);
+		out2 = out.arg(OwnPage+Doc->FirstPnum, -zae);
 		chx = out2.mid(base-za2, 1);
 	}
 	return chx;
@@ -2050,7 +2058,7 @@ void PageItem::DrawPolyL(QPainter *p, QPointArray pts)
 				{
 					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
 					p->setPen(QPen(tmp,
-									 QMAX(static_cast<int>(ml[it].Width*Doc->Scale), 1),
+									 QMAX(static_cast<int>(ml[it].Width*ScApp->view->Scale), 1),
 									 static_cast<PenStyle>(ml[it].Dash),
 									 static_cast<PenCapStyle>(ml[it].LineEnd),
 									 static_cast<PenJoinStyle>(ml[it].LineJoin)));
@@ -2068,7 +2076,7 @@ void PageItem::DrawPolyL(QPainter *p, QPointArray pts)
 			{
 				SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
 				p->setPen(QPen(tmp,
-								 QMAX(static_cast<int>(ml[it].Width*Doc->Scale), 1),
+								 QMAX(static_cast<int>(ml[it].Width*ScApp->view->Scale), 1),
 								 static_cast<PenStyle>(ml[it].Dash),
 								 static_cast<PenCapStyle>(ml[it].LineEnd),
 								 static_cast<PenJoinStyle>(ml[it].LineJoin)));
@@ -2087,7 +2095,7 @@ void PageItem::DrawPolyL(QPainter *p, QPointArray pts)
 			{
 				SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
 				p->setPen(QPen(tmp,
-								 QMAX(static_cast<int>(ml[it].Width*Doc->Scale), 1),
+								 QMAX(static_cast<int>(ml[it].Width*ScApp->view->Scale), 1),
 								 static_cast<PenStyle>(ml[it].Dash),
 								 static_cast<PenCapStyle>(ml[it].LineEnd),
 								 static_cast<PenJoinStyle>(ml[it].LineJoin)));

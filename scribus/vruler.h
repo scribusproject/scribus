@@ -20,22 +20,23 @@
 
 #include <qwidget.h>
 #include <qpainter.h>
-#include <qscrollview.h>
 #include "scribusdoc.h"
 /**Vertikales Lineal
   *@author Franz Schmid
   */
+
+class ScribusView;
 
 class Vruler : public QWidget  
 {
 	Q_OBJECT
 
 public: 
-	Vruler(QScrollView *pa, ScribusDoc *doc);
+	Vruler(ScribusView *pa, ScribusDoc *doc);
 	~Vruler() {};
 	void paintEvent(QPaintEvent *);
-	void mousePressEvent(QMouseEvent *);
-	void mouseReleaseEvent(QMouseEvent *);
+	void mousePressEvent(QMouseEvent *m);
+	void mouseReleaseEvent(QMouseEvent *m);
 	void mouseMoveEvent(QMouseEvent *m);
 	int offs;
 	int Markp;
@@ -44,6 +45,7 @@ public:
 private: // Private attributes
   /** Zeichensatz des Lineals */
 	ScribusDoc *doku;
+	ScribusView *view;
 
 public slots: // Public slots
   /** Zeichnet den Pfeil */

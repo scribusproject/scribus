@@ -1,6 +1,7 @@
 #include "frameedit.h"
 #include "frameedit.moc"
 #include "page.h"
+#include "pageitem.h"
 
 extern QPixmap loadIcon(QString nam);
 extern double UmReFaktor;
@@ -158,10 +159,10 @@ NodePalette::NodePalette( QWidget* parent) : QDialog( parent, "Npal", false, 0)
 
 	Layout2 = new QGridLayout( 0, 1, 1, 0, 5, "Layout2");
 	XSpin = new MSpinBox( this, 2 );
-	XSpin->setMaxValue(3000);
+	XSpin->setMaxValue(30000);
 	XSpin->setEnabled(false);
 	YSpin = new MSpinBox( this, 2 );
-	YSpin->setMaxValue(3000);
+	YSpin->setMaxValue(30000);
 	YSpin->setEnabled(false);
 	TextLabel1 = new QLabel( XSpin, tr( "&X-Pos:" ), this, "TextLabel1" );
 	TextLabel2 = new QLabel( YSpin, tr( "&Y-Pos:"), this, "TextLabel2" );
@@ -236,9 +237,10 @@ NodePalette::NodePalette( QWidget* parent) : QDialog( parent, "Npal", false, 0)
 	connect(ResetCont, SIGNAL(clicked()), this, SLOT(ResetContour()));
 }
 
-void NodePalette::setDoc(ScribusDoc *dc)
+void NodePalette::setDoc(ScribusDoc *dc, ScribusView *vi)
 {
 	doc = dc;
+	view = vi;
 	disconnect(EditCont, SIGNAL(clicked()), this, SLOT(ToggleConMode()));
 	disconnect(AbsMode, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));
 	char *tmp_abs[]={" pt", " mm", " in", "p"};
@@ -292,7 +294,7 @@ void NodePalette::PolyStatus(int typ, uint size)
 void NodePalette::CloseBezier()
 {
 	MoveN();
-	doc->ActPage->Bezier2Poly();
+	view->Bezier2Poly();
 	BezierClose->setEnabled(false);
 	PolySplit->setEnabled(true);
 	EditCont->setEnabled(true);
@@ -301,80 +303,80 @@ void NodePalette::CloseBezier()
 void NodePalette::doRotCCW()
 {
 	if (doc != 0)
-		doc->ActPage->TransformPoly(0, RotVal->value());
+		view->TransformPoly(0, RotVal->value());
 }
 
 void NodePalette::doRotCW()
 {
 	if (doc != 0)
-		doc->ActPage->TransformPoly(1, RotVal->value());
+		view->TransformPoly(1, RotVal->value());
 }
 
 void NodePalette::doCrop()
 {
 	if (doc != 0)
-		doc->ActPage->TransformPoly(2, 1, ScaleVal->value());
+		view->TransformPoly(2, 1, ScaleVal->value());
 }
 
 void NodePalette::doExpand()
 {
 	if (doc != 0)
-		doc->ActPage->TransformPoly(3, 1, ScaleVal->value());
+		view->TransformPoly(3, 1, ScaleVal->value());
 }
 
 void NodePalette::ShearR()
 {
 	if (doc != 0)
-		doc->ActPage->TransformPoly(5);
+		view->TransformPoly(5);
 }
 
 void NodePalette::ShearL()
 {
 	if (doc != 0)
-		doc->ActPage->TransformPoly(4);
+		view->TransformPoly(4);
 }
 
 void NodePalette::ShearU()
 {
 	if (doc != 0)
-		doc->ActPage->TransformPoly(6);
+		view->TransformPoly(6);
 }
 
 void NodePalette::ShearD()
 {
 	if (doc != 0)
-		doc->ActPage->TransformPoly(7);
+		view->TransformPoly(7);
 }
 
 void NodePalette::MirrorH()
 {
 	if (doc != 0)
-		doc->ActPage->MirrorPolyH();
+		view->MirrorPolyH();
 }
 
 void NodePalette::MirrorV()
 {
 	if (doc != 0)
-		doc->ActPage->MirrorPolyV();
+		view->MirrorPolyV();
 }
 
 void NodePalette::ResetControl()
 {
-	doc->ActPage->ResetControl();
+	view->ResetControl();
 }
 
 void NodePalette::Reset1Control()
 {
-	doc->ActPage->Reset1Control();
+	view->Reset1Control();
 }
 
 void NodePalette::ResetContour()
 {
 	if (doc != 0)
 	{
-		doc->ActPage->SelItem.at(0)->ContourLine = doc->ActPage->SelItem.at(0)->PoLine.copy();
-		doc->ActPage->SelItem.at(0)->ClipEdited = true;
-		doc->ActPage->update();
+		view->SelItem.at(0)->ContourLine = view->SelItem.at(0)->PoLine.copy();
+		view->SelItem.at(0)->ClipEdited = true;
+		view->updateContents();
 	}
 }
 
@@ -383,21 +385,21 @@ void NodePalette::MovePoint()
 	if (doc->EditClipMode == 0)
 	{
 		FPoint np = FPoint(XSpin->value()/UmReFaktor, YSpin->value()/UmReFaktor);
-		FPoint zp = FPoint(doc->ActPage->SelItem.at(0)->Xpos, doc->ActPage->SelItem.at(0)->Ypos);
+		FPoint zp = FPoint(view->SelItem.at(0)->Xpos, view->SelItem.at(0)->Ypos);
 		if (AbsMode->isChecked())
 			np -= zp;
-		doc->ActPage->MoveClipPoint(doc->ActPage->SelItem.at(0), np);
+		view->MoveClipPoint(view->SelItem.at(0), np);
 	}
 }
 
 void NodePalette::SetSym()
 {
-	doc->ActPage->MoveSym = true;
+	view->MoveSym = true;
 }
 
 void NodePalette::SetAsym()
 {
-	doc->ActPage->MoveSym = false;
+	view->MoveSym = false;
 }
 
 void NodePalette::SetXY(double x, double y)
@@ -406,7 +408,7 @@ void NodePalette::SetXY(double x, double y)
 	disconnect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	disconnect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	if (AbsMode->isChecked())
-		zp = FPoint(doc->ActPage->SelItem.at(0)->Xpos, doc->ActPage->SelItem.at(0)->Ypos);
+		zp = FPoint(view->SelItem.at(0)->Xpos, view->SelItem.at(0)->Ypos);
 	XSpin->setValue((x + zp.x())*UmReFaktor);
 	YSpin->setValue((y + zp.y())*UmReFaktor);
 	connect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
@@ -415,7 +417,7 @@ void NodePalette::SetXY(double x, double y)
 
 void NodePalette::ToggleAbsMode()
 {
-	FPoint zp = FPoint(doc->ActPage->SelItem.at(0)->Xpos, doc->ActPage->SelItem.at(0)->Ypos);
+	FPoint zp = FPoint(view->SelItem.at(0)->Xpos, view->SelItem.at(0)->Ypos);
 	disconnect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	disconnect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	FPoint np = FPoint(XSpin->value()/UmReFaktor, YSpin->value()/UmReFaktor);
@@ -433,8 +435,8 @@ void NodePalette::ToggleConMode()
 {
 	if (doc != 0)
 	{
-		doc->ActPage->EditContour = EditCont->isChecked();
-		doc->ActPage->update();
+		view->EditContour = EditCont->isChecked();
+		view->updateContents();
 		if (EditCont->isChecked())
 		{
 			BezierClose->setEnabled(false);
@@ -461,7 +463,7 @@ void NodePalette::HaveNode(bool have, bool mov)
 	YSpin->setEnabled(setter);
 	if (setter == true)
 	{
-		if (doc->ActPage->EdPoints)
+		if (view->EdPoints)
 			ResNode->setEnabled(setter);
 		else
 			Res1Node->setEnabled(setter);
@@ -484,8 +486,8 @@ void NodePalette::HaveNode(bool have, bool mov)
 void NodePalette::MoveK()
 {
 	doc->EditClipMode = 0;
-	doc->ActPage->EdPoints = false;
-	doc->ActPage->MarkClip(doc->ActPage->SelItem.at(0));
+	view->EdPoints = false;
+	view->MarkClip(view->SelItem.at(0));
 	SymMove->setEnabled(true);
 	AsymMove->setEnabled(true);
 	ResNode->setEnabled(false);
@@ -495,8 +497,8 @@ void NodePalette::MoveK()
 void NodePalette::MoveN()
 {
 	doc->EditClipMode = 0;
-	doc->ActPage->EdPoints = true;
-	doc->ActPage->MarkClip(doc->ActPage->SelItem.at(0));
+	view->EdPoints = true;
+	view->MarkClip(view->SelItem.at(0));
 	MoveNode->setOn(true);
 	SymMove->setEnabled(false);
 	AsymMove->setEnabled(false);
@@ -507,7 +509,7 @@ void NodePalette::MoveN()
 void NodePalette::AddN()
 {
 	doc->EditClipMode = 1;
-	doc->ActPage->EdPoints = true;
+	view->EdPoints = true;
 	SymMove->setEnabled(false);
 	AsymMove->setEnabled(false);
 	ResNode->setEnabled(false);
@@ -517,7 +519,7 @@ void NodePalette::AddN()
 void NodePalette::DelN()
 {
 	doc->EditClipMode = 2;
-	doc->ActPage->EdPoints = true;
+	view->EdPoints = true;
 	SymMove->setEnabled(false);
 	AsymMove->setEnabled(false);
 	ResNode->setEnabled(false);
@@ -529,7 +531,7 @@ void NodePalette::closeEvent(QCloseEvent *)
 	if (doc != 0)
 	{
 		MoveN();
-		doc->ActPage->ClRe = -1;
+		view->ClRe = -1;
 	}
 	PolySplit->setEnabled( false );
 	BezierClose->setEnabled( false );
@@ -541,7 +543,7 @@ void NodePalette::EndEdit()
 	if (doc != 0)
 	{
 		MoveN();
-		doc->ActPage->ClRe = -1;
+		view->ClRe = -1;
 		EditCont->setChecked(false);
 		ToggleConMode();
 	}

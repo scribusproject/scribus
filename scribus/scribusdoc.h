@@ -43,8 +43,7 @@
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
-
-class PageItem;
+#include "pageitem.h"
 class Page;
 
 /* Struktur fuer Pageitem Text */
@@ -520,27 +519,42 @@ protected:
     bool modified;
 
 public: // Public attributes
-  /** Vergroesserungsfaktor fuer das Dokument */
-	double Scale;
 	bool SnapGuides;
 	double GuideRad;
 	bool GuideLock;
 	bool loading;
-  /** Breite der Seite  */
+	/** Scratch space around Pages */
+	double ScratchLeft;
+	double ScratchRight;
+	double ScratchTop;
+	double ScratchBottom;
+  /** List of Pages */
+	QPtrList<Page> Pages;
+  /** List of Template Pages */
+	QPtrList<Page> MasterPages;
+  /** List of Document Pages */
+	QPtrList<Page> DocPages;
+  /** Mapping Template Name to Template Page numbers */
+	QMap<QString,int> MasterNames;
+  /** List of Objects */
+	QPtrList<PageItem> Items;
+	QPtrList<PageItem> MasterItems;
+	QPtrList<PageItem> DocItems;
+  /** Pagewidth  */
 	double PageB;
-  /** Hoehe der Seite */
+  /** Pageheight */
 	double PageH;
-  /** Anzahl der Seiten */
+  /** Number of Pages */
 	int PageC;
-  /** Seitenraender */
+  /** Margins */
 	Margs PageM;
-  /** Anzahl der Spalten */
+  /** Number of Columns */
 	double PageSp;
-  /** Abstand der Spalten */
+  /** Distance of Columns */
 	double PageSpa;
-  /** Flag fuer AutoTextrahmen */
+  /** Flag for automatic Textframes */
 	bool PageAT;
-  /** Flag fuer Doppelseiten */
+  /** Flag for facing Pages */
 	bool PageFP;
 	/** Flag fuer Hoch- oder Querformat 0 = Hochformat */
 	int PageOri;

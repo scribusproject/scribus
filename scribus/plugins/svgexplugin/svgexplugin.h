@@ -21,7 +21,7 @@ class SVGExPlug : public QObject
     Q_OBJECT
 
 public:
-    SVGExPlug( QWidget* parent, ScribusApp *plug, QString fName );
+    SVGExPlug( ScribusApp *plug, QString fName );
     ~SVGExPlug();
 
 private:

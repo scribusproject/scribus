@@ -39,9 +39,10 @@ extern "C" QStringList FileExtensions();
 class HTMLIm 
 {
 public:
-	HTMLIm(QString fname, gtWriter *w, bool textOnly);
+	HTMLIm(QString fname, QString encoding, gtWriter *w, bool textOnly);
 	~HTMLIm();
 private:
+	QString encoding;
 	QString filename;
 	gtWriter *writer;
 	gtParagraphStyle *pstyle;

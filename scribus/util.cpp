@@ -84,6 +84,7 @@ extern int IntentPrinter;
 extern ProfilesL InputProfiles;
 extern ScribusApp* ScApp;
 
+QStringList sortQStringList(QStringList aList);
 void ReOrderText(ScribusDoc *doc, ScribusView *view);
 void WordAndPara(PageItem* b, int *w, int *p, int *c, int *wN, int *pN, int *cN);
 void CopyPageItem(struct CLBuf *Buffer, PageItem *b);
@@ -1607,7 +1608,7 @@ QPixmap FontSample(QString da, int s, QString ts, QColor back)
 	FT_Done_FreeType( library );
 	return pm;
 }
-
+ 
 /** Same as FontSample() with \n strings support added.
 09/26/2004 petr vanek
 */
@@ -1901,35 +1902,28 @@ void WordAndPara(PageItem* b, int *w, int *p, int *c, int *wN, int *pN, int *cN)
 
 void ReOrderText(ScribusDoc *doc, ScribusView *view)
 {
-	double savScale = doc->Scale;
-	doc->Scale = 1.0;
+	double savScale = view->Scale;
+	view->Scale = 1.0;
 	doc->RePos = true;
 	QPixmap pgPix(10, 10);
 	QRect rd = QRect(0,0,9,9);
 	ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
-	for (uint az=0; az<view->MasterPages.count(); az++)
+	for (uint azz=0; azz<doc->MasterItems.count(); ++azz)
 	{
-		for (uint azz=0; azz<view->MasterPages.at(az)->Items.count(); ++azz)
-		{
-			PageItem *ite = view->MasterPages.at(az)->Items.at(azz);
-			if (ite->PType == 8)
-				ite->DrawObj(painter, rd);
-		}
+		PageItem *ite = doc->MasterItems.at(azz);
+		if (ite->PType == 8)
+			ite->DrawObj(painter, rd);
 	}
-	for (uint az=0; az<view->Pages.count(); az++)
+	for (uint azz=0; azz<doc->Items.count(); ++azz)
 	{
-		for (uint azz=0; azz<view->Pages.at(az)->Items.count(); ++azz)
-		{
-			PageItem *ite = view->Pages.at(az)->Items.at(azz);
-			if ((ite->PType == 4) || (ite->PType == 8))
-				ite->DrawObj(painter, rd);
-		}
+		PageItem *ite = doc->Items.at(azz);
+		if ((ite->PType == 4) || (ite->PType == 8))
+			ite->DrawObj(painter, rd);
 	}
 	doc->RePos = false;
-	doc->Scale = savScale;
+	view->Scale = savScale;
 	delete painter;
 }
-
 
 /*! 10/06/2004 - pv
 \param QString s1 first string
@@ -1955,11 +1949,10 @@ QStringList sortQStringList(QStringList aList)
 	std::vector<QString> sortList;
 	QStringList retList;
 	QStringList::Iterator it;
-
 	for (it = aList.begin(); it != aList.end(); ++it)
 		sortList.push_back(*it);
 	std::sort(sortList.begin(), sortList.end(), compareQStrings);
-	for(int i = 0; i < sortList.size(); i++)
+	for(uint i = 0; i < sortList.size(); i++)
 		retList.append(sortList[i]);
 	return retList;
 }

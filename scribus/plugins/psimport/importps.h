@@ -20,7 +20,7 @@ class EPSPlug : public QObject
 	Q_OBJECT
 
 public:
-	EPSPlug( QWidget* parent, ScribusApp *plug, QString fName );
+	EPSPlug( ScribusApp *plug, QString fName );
 	~EPSPlug() {};
 	bool convert(QString fn, double x, double y, double b, double h);
 	void parseOutput(QString fn);

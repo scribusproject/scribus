@@ -27,7 +27,8 @@
 #include <errno.h>
 #include <fcntl.h>
 
-#include <utime.h>
+# include <unistd.h>
+# include <utime.h>
 
 #include <iostream>
 #include "unzip.h"
@@ -189,13 +190,7 @@ int do_extract_currentfile(unzFile uf, const int* popt_extract_without_path, int
 int mymkdir(char* dirname)
 {
     int ret=0;
-#ifdef WIN32
-    ret = mkdir(dirname);
-#else
-#ifdef unix
     ret = mkdir (dirname,0775);
-#endif
-#endif
     return ret;
 }
 

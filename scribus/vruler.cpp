@@ -32,42 +32,50 @@
 
 extern ScribusApp* ScApp;
 
-Vruler::Vruler(QScrollView *pa, ScribusDoc *doc) : QWidget(pa)
+Vruler::Vruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa)
 {
 	setEraseColor(QColor(255,255,255));
 	doku = doc;
+	view = pa;
 	offs = -12;
 	Markp = 0;
 	oldMark = 0;
 	Mpressed = false;
 }
 
-void Vruler::mousePressEvent(QMouseEvent *)
+void Vruler::mousePressEvent(QMouseEvent *m)
 {
 	Mpressed = true;
 	if (ScApp->Prefs.GuidesShown)
+	{
+		QPoint py = view->viewport()->mapFromGlobal(m->globalPos());
+		view->DrVX = py.x();
 		qApp->setOverrideCursor(QCursor(SPLITVC), true);
+	}
 }
 
 void Vruler::mouseReleaseEvent(QMouseEvent *m)
 {
-	Mpressed = false;
-	doku->ActPage->DrVX = -1;
-	doku->ActPage->SetXGuide(m);
+	if ((Mpressed) && (m->pos().x() > width()))
+	{
+		view->DrVX = -1;
+		view->SetXGuide(m);
+	}
 	qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+	Mpressed = false;
 }
 
 void Vruler::mouseMoveEvent(QMouseEvent *m)
 {
 	if ((Mpressed) && (m->pos().x() > width()))
-		doku->ActPage->FromVRuler(m);
+		view->FromVRuler(m);
 }
 
 void Vruler::paintEvent(QPaintEvent *)
 {
 	int xx, pc;
 	double of, xl, iter, iter2;
-	double sc = doku->Scale;
+	double sc = view->Scale;
 	int cor = 1;
 	QFont ff = font();
 	ff.setPointSize(8);
@@ -193,7 +201,7 @@ void Vruler::paintEvent(QPaintEvent *)
 /** Zeichnet den Pfeil */
 void Vruler::Draw(int wo)
 {
-	Markp = wo-qRound(10*doku->Scale);
+	Markp = wo-qRound(doku->ScratchTop*view->Scale);
 	QPainter p;
 	p.begin(this);
 	p.translate(0, -offs);

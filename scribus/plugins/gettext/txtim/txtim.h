@@ -13,7 +13,7 @@ extern "C" QStringList FileExtensions();
 class TxtIm 
 {
 public:
-	TxtIm(const QString& fname, const QString& enc, gtWriter *w);
+	TxtIm(const QString& fname, const QString& enc, bool textOnly, gtWriter *w);
 	~TxtIm();
 	void write();
 private:
@@ -21,6 +21,7 @@ private:
 	QString encoding;
 	QString text;
 	gtWriter *writer;
+	bool textOnly;
 	void loadText();
 	void toUnicode();
 };

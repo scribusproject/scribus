@@ -7,11 +7,6 @@
 #include <scribus.h>
 #include "satdialog.h"
 
-/** Calls the Plugin with the main Application window as parent
-  * and the main Application Class as parameter */
-extern "C" void Run(QWidget *d, ScribusApp *plug);
-
-
 /** Returns the Name of the Plugin.
   * This name appears in the relevant Menue-Entrys */
 extern "C" QString Name();

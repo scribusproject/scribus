@@ -1648,7 +1648,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	connect(StyleTools, SIGNAL(NewStyle(int )), this, SLOT(newTxStyle(int )));
 	Editor->setFocus();
 }
-
+ 
 /** 10/12/2004 - pv - #1203: wrong selection on double click
 Catch the double click signal - cut the wrong selection (with
 whitespaces on the tail) - select only one word - return
@@ -2196,7 +2196,7 @@ void StoryEditor::updateTextFrame()
 		nb2->Dirty = false;
 		nb2 = nb2->NextBox;
 	}
-	doc->ActPage->update();
+	ScApp->view->DrawNew();
 	TextChanged = false;
 	emenu->setItemEnabled(Mupdt, 0);
 	fmenu->setItemEnabled(fid52, 0);

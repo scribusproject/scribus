@@ -15,14 +15,14 @@
 #include <qlabel.h>
 #include <qpushbutton.h>
 #include <qspinbox.h>
-#include "scribusview.h"
+#include "scribusdoc.h"
 
 class InsPage : public QDialog
 { 
     Q_OBJECT
 
 public:
-    InsPage( QWidget* parent, ScribusView* view, int act, int max, bool ds );
+    InsPage( QWidget* parent, ScribusDoc* doc, int act, int max, bool ds );
     ~InsPage() {};
 
     QLabel* TextLabel1;

@@ -17,6 +17,7 @@
 
 #include "serializer.h"
 #include "scribusdoc.h"
+#include "pageitem.h"
 #include <qfile.h>
 #include <qtextstream.h>
 #include <qtextcodec.h>
@@ -52,7 +53,7 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 	struct Pti *hg;
 	PageItem *nb;
 	PageItem *it = Item;
-	ScribusDoc* doku = it->OwnPage->doku;
+	ScribusDoc* doku = it->Doc;
 	uint a;
 	if (!Append)
 	{

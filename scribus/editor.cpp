@@ -50,7 +50,7 @@ void Editor::GetFieldN()
 {
 	if (view != 0)
 	{
-		SelectFields* dia = new SelectFields(this, "", "", &view->Pages, 0);
+		SelectFields* dia = new SelectFields(this, "", "", &view->Doc->Pages, 0);
 		if (dia->exec())
 		EditTex->insert(dia->S_Fields);
 		delete dia;

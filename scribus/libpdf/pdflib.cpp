@@ -65,7 +65,7 @@ bool Run(ScribusApp *plug, QString fn, QString nam, int Components, std::vector<
 {
 	QPixmap pm;
 	bool ret = false;
-	int progresscount=0;
+/*	int progresscount=0;
 	PDFlib *dia = new PDFlib();
 	if (dia->PDF_Begin_Doc(fn, plug->doc, plug->view, &plug->doc->PDF_Optionen, plug->Prefs.AvailFonts,
 				 plug->doc->UsedFonts, plug->BookPal->BView))
@@ -97,7 +97,7 @@ bool Run(ScribusApp *plug, QString fn, QString nam, int Components, std::vector<
 		ret = true;
 		dia2->reset();
 	}
-	delete dia;
+	delete dia; */
 	return ret;
 }
 
@@ -500,7 +500,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 	RealFonts = DocFonts;
 	QMap<QString,QFont> ReallyUsed;
 	ReallyUsed.clear();
-	Page* pg;
+/*	Page* pg;
 	PageItem* pgit;
 	for (uint c = 0; c < view->MasterPages.count(); ++c)
 	{
@@ -531,7 +531,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 				}
 			}
 		}
-	}
+	} */
 	QMap<QString,QFont>::Iterator it;
 	a = 0;
 	for (it = ReallyUsed.begin(); it != ReallyUsed.end(); ++it)
@@ -576,7 +576,7 @@ bool PDFlib::PDF_Begin_Doc(QString fn, ScribusDoc *docu, ScribusView *vie, PDFOp
 					fon += "h f*\n";
 					StartObj(ObjCounter);
 					ObjCounter++;
-					np = doc->ActPage->GetMinClipF(gly);
+					np = view->GetMinClipF(gly);
 					np1 = GetMaxClipF(gly);
 					PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1\n");
 					PutDoc("/BBox [ "+FToStr(np.x())+" "+FToStr(-np.y())+" "+FToStr(np1.x())+
@@ -881,7 +881,7 @@ void PDFlib::PDF_TemplatePage(Page* pag)
 	ActPageP = pag;
 	Inhalt = "";
 	Seite.AObjects.clear();
-	PDF_ProcessPage(pag, pag->PageNr);
+//	PDF_ProcessPage(pag, pag->PageNr);
 	StartObj(ObjCounter);
 	ObjCounter++;
 	PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1\n");
@@ -934,8 +934,8 @@ void PDFlib::PDF_TemplatePage(Page* pag)
 	if ((Options->Compress) && (CompAvail))
 		PutDoc("\n/Filter /FlateDecode");
 	PutDoc(" >>\nstream\n"+EncStream(&Inhalt, ObjCounter-1)+"\nendstream\nendobj\n");
-	QString name = pag->PageNam.simplifyWhiteSpace().replace( QRegExp("\\s"), "" );
-	Seite.XObjects[name] = ObjCounter-1;
+//	QString name = pag->PageNam.simplifyWhiteSpace().replace( QRegExp("\\s"), "" );
+//	Seite.XObjects[name] = ObjCounter-1;
 }
 
 void PDFlib::PDF_Begin_Page(Page* pag, QPixmap pm)
@@ -965,7 +965,7 @@ void PDFlib::PDF_Begin_Page(Page* pag, QPixmap pm)
 
 void PDFlib::PDF_End_Page()
 {
-	uint PgNr = ActPageP->PageNr;
+	uint PgNr = 0; // ActPageP->PageNr;
 	Seite.ObjNum = ObjCounter;
 	WritePDFStream(&Inhalt);
 	StartObj(ObjCounter);
@@ -1064,7 +1064,7 @@ void PDFlib::PDF_End_Page()
 
 void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 {
-	QString tmp;
+/*	QString tmp;
 	ActPageP = pag;
 	PageItem* ite;
 	int Lnr = 0;
@@ -1096,14 +1096,14 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 						if ((ite->LayerNr != ll.LNr) || (!ite->isPrintable))
 							continue;
 						if (ite->PType == 4)
-						{
-							QWidget* Opa;
-							Page* Opa2;
-							Opa = ite->Parent;
-							Opa2 = ite->OwnPage;
-							ite->Parent = pag;
-							ite->OwnPage = pag;
-							double savScale = doc->Scale;
+						{ */
+//							QWidget* Opa;
+//							Page* Opa2;
+//							Opa = ite->Parent;
+//							Opa2 = ite->OwnPage;
+//							ite->Parent = pag;
+//							ite->OwnPage = pag;
+/*							double savScale = doc->Scale;
 							doc->Scale = 1.0;
 							doc->RePos = true;
 							QPixmap pgPix(10, 10);
@@ -1112,10 +1112,10 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 							ite->DrawObj(painter, rd);
 							doc->RePos = false;
 							doc->Scale = savScale;
-							delete painter;
-							ite->Parent = Opa;
-							ite->OwnPage = Opa2;
-							PutPage("q\n");
+							delete painter; */
+//							ite->Parent = Opa;
+//							ite->OwnPage = Opa2;
+/*							PutPage("q\n");
 							if (((ite->Transparency != 0) || (ite->TranspStroke != 0)) && (Options->Version == 14))
 								PDF_Transparenz(ite);
 							if (Options->UseRGB)
@@ -1346,7 +1346,8 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 				if (ite->LayerNr != ll.LNr)
 					continue;
 				PutPage("q\n");
-				if (((ite->Transparency != 0) || (ite->TranspStroke != 0)) && (Options->Version == 14))
+				if (((ite->Transparency != 0) || (ite->TranspStroke != 0)) && 
+					(Options->Version == 14))
 					PDF_Transparenz(ite);
 				if ((ite->isBookmark) && (Options->Bookmarks))
 					PDF_Bookmark(ite->BMnr, doc->PageH - ite->Ypos);
@@ -1464,7 +1465,8 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 						cr = 0;
 					if ((sr * sr) < 0.001)
 						sr = 0;
-					PutPage(FToStr(cr)+" "+FToStr(sr)+" "+FToStr(-sr)+" "+FToStr(cr)+" 0 0 cm\n");
+					PutPage(FToStr(cr)+" "+FToStr(sr)+" "+FToStr(-sr)+" "+FToStr(cr)+
+								" 0 0 cm\n");
 				}
 				switch (ite->PType)
 				{
@@ -1605,8 +1607,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 						}
 						break;
 					case 7:
-						if (((ite->PoLine.size() < 5) && ((ite->PoLine.point(0) != ite->PoLine.point(1)) || (ite->PoLine.point(2) != ite->PoLine.point(3)))) ||
-						    (ite->PoLine.size() > 4))
+						if ((ite->PoLine.size() > 3) && ((ite->PoLine.point(0) != ite->PoLine.point(1)) || (ite->PoLine.point(2) != ite->PoLine.point(3))))
 						{
 							if (ite->GrType != 0)
 								PDF_Gradient(ite);
@@ -1814,7 +1815,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 				}
 			}
 		Lnr++;
-	}
+	} */
 }
 
 QString PDFlib::setStrokeMulti(struct singleLine *sl)
@@ -3699,7 +3700,7 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 
 void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 {
-	QString tmp;
+/*	QString tmp;
 	uint StX;
 	int Basis;
 	int ResO;
@@ -4012,6 +4013,6 @@ void PDFlib::PDF_End_Doc(QString PrintPr, QString Name, int Components)
 	CalcFields.clear();
 	Shadings.clear();
 	Transpar.clear();
-	ICCProfiles.clear();
+	ICCProfiles.clear(); */
 }
 

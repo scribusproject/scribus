@@ -11,14 +11,14 @@
 #include <qspinbox.h>
 #include <qradiobutton.h>
 #include <qbuttongroup.h>
-#include "scribusview.h"
+class ScribusDoc;
 
 class ApplyT : public QDialog
 {
 	Q_OBJECT
 
 public:
-	ApplyT( QWidget* parent, ScribusView *view, QString Nam);
+	ApplyT( QWidget* parent, ScribusDoc *view, QString Nam);
 	~ApplyT() {};
 
 	QLabel* TextLabel1;
