@@ -1,9 +1,15 @@
 Changes since 1.2 
 
+08.11.2004
+	* feature #1281: Rewrite help browser to support multipage help with menu
+	* feature #1282: Migrate docs.scribus.net into 1.2.1 documentation package
+	* feature #1289: Open Office Draw Importer
+
 07.11.2004
 	* bug     #1262: Serbian Translation Updated
 	* bug     #1265: German ts update
 	* bug     #1269: editing state should be lost if selecting another object
+	* bug     #1275: poor quality bitmap export
 	* bug     #1277: update of scribus.ru.ts
 	* feature #1264: PATCH: Convert functions that take no arguments to METH_NOARGS
 	* feature #1276: PATCH: Change function aliasing to use a dynamically created Python wrapper function
