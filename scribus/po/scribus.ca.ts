@@ -237,7 +237,19 @@ __call__ method with no arguments. There is no problem with registering
 a callable more than once, nor with registering multiple bound methods
 of a single instance.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>register_macro_callable(nom, callable, accel=&apos;&apos;)
+
+Crea una macro anomenada &quot;nom&quot; amb l&apos;objecte usable existent &quot;callable&quot;.
+Aquest objecte no ha de requerir cap argument quan es cridi (en pot tenir
+d&apos;opcionals, però no se li&apos;n poden donar). 
+Si s&apos;afegeix el paràmetre &quot;accel&quot; serà fet servir er crear una drecera de teclat
+per la macro.
+Si l&apos;objecte que es vol usar és una classe, serà rebutjada. Es permeten funcions i 
+mètodes embedits, ja que són instàncies classes que tenen un mètode
+__call__ sense arguments. No hi haurà problemes per registrar
+un objecte usable més d&apos;un cop, ni per registrar múltiples mètodes embedits 
+d&apos;una sola instància.
+</translation>
     </message>
 </context>
 <context>
@@ -2278,7 +2290,14 @@ Both `scaletoframe&apos; and `proportional&apos; are boolean.
 
 May raise WrongFrameTypeError.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setScaleImageToFrame(escalaamarc, proporcional=None, nom=&lt;selection&gt;)
+
+Estableix la escala del marc especificat o seleccionat a &apos;escalaamarc&apos;.
+Si hi posem valor a &apos;proporcional&apos;, estableix l&apos;aspecte de representació a &apos;proporcional&apos;.
+Ambdós &apos;escalaamarc&apos; i &apos;proporcional&apos; són booleans.
+
+Pot provocar WrongFrameTypeError.
+</translation>
     </message>
     <message>
         <source>selectText(start, count, [&quot;name&quot;])
@@ -2290,7 +2309,15 @@ be selected. If &quot;name&quot; is not given the currently selected item is use
 
 May throw IndexError if the selection is outside the bounds of the text.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>selectText(inici, compte, [&quot;nom&quot;])
+
+Assigna &quot;compte&quot; caràcters de text en el marc de text &quot;nom&quot; començant pel 
+caràcter &quot;inici&quot;. El compte de caràcters comença per 0. Si &quot;compte&quot; és zero, la 
+selecció es netejarà. Si &quot;count&quot; és -1, tot el text del marc serà seleccionat.
+Si &quot;nom&quot; no és dóna es fa servir l&apos;Ítem seleccionat.
+
+Pot generar IndexError si la selecció està fora dels marges del text.
+</translation>
     </message>
     <message>
         <source>register_macro_code(name, sourcetext, accel=&apos;&apos;)
@@ -2300,7 +2327,13 @@ Create a macro named &quot;name&quot; by evaluating the the source code &quot;so
 If provided, the string &quot;accel&quot; will be used to set a keyboard shortcut
 for the macro.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>register_macro_code(nom, textorigen, accel=&apos;&apos;)
+
+Crea una macro anomenada &quot;nom&quot; evaluant el codi font &quot;textorigen&quot;.
+&quot;textorigen&quot; ha de seguir les mateixes regles que les macros creades en l&apos;entorn.
+Si es posa, la cadena &quot;accel&quot; serà feta servir per crear una drecera de teclat
+per la macro.
+</translation>
     </message>
     <message>
         <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
@@ -2312,7 +2345,15 @@ that the layer &quot;layer&quot; is visible, a value of False means that the lay
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>isLayerVisible(&quot;capa&quot;) -&gt;bool
+
+Retorna si la capa &quot;capa&quot; és visible o no, un valor de cert significa
+que la capa &quot;capa&quot; és visible, un valor de fals significa que la capa
+&quot;capa&quot; és invisible.
+
+Pot generar NotFoundError si la capa no es pot trobar.
+Pot generar ValueError si el nom de la capa no és acceptable.
+</translation>
     </message>
     <message>
         <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
@@ -2324,7 +2365,15 @@ the layer &quot;layer&quot; is disabled.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>isLayerPrintable(&quot;capa&quot;) -&gt;bool
+
+Retorna si la capa &quot;capa&quot; és visible o no, un valor de cert significa
+que la capa &quot;capa&quot; està activada, un valor de fals significa que la capa
+&quot;capa&quot; està desactivada.
+
+Pot generar NotFoundError si la capa no es pot trobar.
+Pot generar ValueError si el nom de la capa no és acceptable.
+</translation>
     </message>
 </context>
 <context>
@@ -2445,7 +2494,7 @@ May raise ValueError if the layer name isn&apos;t acceptable.
     </message>
     <message>
         <source>Slovenian:</source>
-        <translation>Slovè:</translation>
+        <translation>Eslovè:</translation>
     </message>
     <message>
         <source>Swedish:</source>
@@ -2457,7 +2506,7 @@ May raise ValueError if the layer name isn&apos;t acceptable.
     </message>
     <message>
         <source>Ukrainian:</source>
-        <translation>Ukranià:</translation>
+        <translation>Ucranià:</translation>
     </message>
     <message>
         <source>Welsh:</source>
@@ -2539,11 +2588,14 @@ La falta de llibreries està indicat per un *
  compiled in library support in Scribus
 The C-C-T equates to C=littlecms C=CUPS T=TIFF support.
 Missing library support is indicated by a *</source>
-        <translation type="unfinished"></translation>
+        <translation>Aquest panell mostra la versió, data de generació i 
+el suport de llibreries compilades a Scribus
+El C-C-T significa C=littlecms C=CUPS T=suport TIFF.
+Les llibreries que manquen es mostren amb un *</translation>
     </message>
     <message>
         <source>Portugese (Brazilian):</source>
-        <translation type="unfinished"></translation>
+        <translation>Portuguès (Brasil.ler):</translation>
     </message>
 </context>
 <context>
@@ -3858,7 +3910,7 @@ It&apos;s a reserved name for transparent color</source>
     </message>
     <message>
         <source>Diagonal Gradient</source>
-        <translation>Grandient Diagonal</translation>
+        <translation>Gradient Diagonal</translation>
     </message>
     <message>
         <source>Cross Diagonal Gradient</source>
@@ -4225,7 +4277,7 @@ Això es pot posar en les Preferències.</translation>
     </message>
     <message>
         <source>Co&amp;verage:</source>
-        <translation>Co&amp;vertura:</translation>
+        <translation>Co&amp;bertura:</translation>
     </message>
     <message>
         <source>Ri&amp;ghts:</source>
@@ -4469,129 +4521,138 @@ ha fallat!</translation>
     <name>EditMacroDialog</name>
     <message>
         <source>Editing Macro: &lt;b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Editant Macro: &lt;b&gt;</translation>
     </message>
     <message>
         <source>Scribus - Macro Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Gestor de Macros</translation>
     </message>
     <message>
         <source>The file &apos;%1&apos; already exists.
 Are you sure you want to overwrite it?
 </source>
-        <translation type="unfinished"></translation>
+        <translation>El fitxer &apos;%1&apos; ja existeix.
+Estas segur que vols sobreescriure&apos;l?</translation>
     </message>
     <message>
         <source>You have already edited this macro.
 Are you sure you want to discard all your changes?
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Has editat aquesta macro.
+Estas segur que vols descartar tots els canvis?
+</translation>
     </message>
     <message>
         <source>A full traceback follows:
 
 %1
 </source>
-        <translation type="unfinished"></translation>
+        <translation>La llista de crides és:
+
+%1
+</translation>
     </message>
     <message>
         <source>Compilation of the macro failed, so it can not 
 be saved in its current form. The error was:
 %1
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Ha fallat la compilació de la macro, per tant no
+es pot desar amb aquest formulari. L&apos;error és:
+%1
+</translation>
     </message>
     <message>
         <source>Scribus - New Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Nova Macro</translation>
     </message>
     <message>
         <source>&lt;qt&gt;This is the Edit Macro / New Macro dialog box. Here you can change the source code to macros. Edit the source code to the macro in the text editing area below the &quot;Source Code&quot; label and click OK to save your changes to the macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Aquest és el diàleg Edició/Nova Macro. Aquí potscanviar el codi font de les macros. Edita el codi de la macro en el quadre d&apos;edició de sota la etiqueta &quot;Codi Font&quot; i clica D&apos;ACORD per guardar els canvis a la macro.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Source Code:</source>
-        <translation type="unfinished"></translation>
+        <translation>Codi Font:</translation>
     </message>
     <message>
         <source>Editing Macro:</source>
-        <translation type="unfinished"></translation>
+        <translation>Editant Macro:</translation>
     </message>
     <message>
         <source>The name of the macro being edited.</source>
-        <translation type="unfinished"></translation>
+        <translation>El nom de la macro està sent editat.</translation>
     </message>
     <message>
         <source>&lt;/qt&gt;This item displays the name of the macro you are currently editing.&lt;qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;/qt&gt;Aquest item mostra el nom dela macro que s&apos;està editant.&lt;qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancel.la</translation>
+        <translation>&amp;Cancel.la</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Discard all changes and exit.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Descarta tots els canvis i surt.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Exit the editing dialog, discarding all changes you have made. If you want to exit without saving the macro but don&apos;t want to lose your changes, save your changes with &quot;Save Source As...&quot;.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Sortir del diàleg d&apos;edició, descartant tots els canvis que has fet. Si vols sortir sense desar la macro però no vols perdre tots els canvis, desa els canvis amb &quot;Desar Codi Font Com...&quot;.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>D&apos;ac&amp;ord</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+O</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Save changes and exit.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Desa ens canvis i surt.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Save changes to the macro and exit. If there is a problem with the macro, a message will be displayed and the editing dialog will not close.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Desa ens canvis en la macro i surt. Si hi ha un problema amb la macro, sortirà un missatge i no es tancarà el quadre de diàleg.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;This text area contains the source code of the macro. If you&apos;re creating a new macro there won&apos;t be anything in it, and if you&apos;re editing an existing macro the source code the macro was defined with will be shown here.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Aquesta àrea de text conté el codi font de la macro. Si estas creant una nova macro no hi haurà res a dins, i si n&apos;estas editant una que ja existeixi hi haurà el codi font de la macro.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Load Source ...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Carregar Codi Font...</translation>
     </message>
     <message>
         <source>Alt+L</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+L</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Replace the current source code with code from a file.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Remplaça el codi font actual amb el codi del fitxer.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Load new source code into the editing area from &quot;file&quot;. Any source code in the editing area is replaced. The loaded source must be a Scribus macro function. If you load any other script, you&apos;ll need to edit it so that it&apos;ll work as a scripter macro before saving it.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Carregar el codi font del &quot;fitxer&quot; a l&apos;àrea d&apos;edició. Tot el codi font de l&apos;àrea d&apos;edició es substituirà. El codi font carregat ha de ser una macro d&apos;Scribus. Si carregues un altre tipus de seqüència, necessitaras editar-lo fins que funcioni com una macro abans de desar-lo.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Save Source As...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Desa Codi Font Com...</translation>
     </message>
     <message>
         <source>Alt+S</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+S</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Save the source code being edited to a file.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Desa el codi font que s&apos;està editant en un fitxer.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Save the source code - the text - of the macro to a file. You can edit the saved source and load it again with &quot;Load Source...&quot;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Desa el codi font -el text- de la macro en un fitxer. Pots editar el  codi font i tornar-lo a carregar amb &quot;Carregar Codi Font...&quot;.</translation>
     </message>
 </context>
 <context>
@@ -5346,7 +5407,7 @@ i www.scribus.net per descàrregues.</translation>
     </message>
     <message>
         <source>Hyphenate Text Automatically &amp;During Typing</source>
-        <translation>Separar Automàticament Al E&amp;scriure</translation>
+        <translation>Separar Automàticament A l&apos;E&amp;scriure</translation>
     </message>
     <message>
         <source>&amp;Language:</source>
@@ -5737,46 +5798,46 @@ Un valor de 0 significa infinites separacions.</translation>
     <message>
         <source>Passed object is not callable</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;objecte passat no és cridable</translation>
     </message>
 </context>
 <context>
     <name>MacroManager</name>
     <message>
         <source>Manage Macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Gestiona Macros</translation>
     </message>
     <message>
         <source>Brings up a graphical window for creating, deleting, editing, saving and loading macros.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra una finestra gràfica per crear, esborrar, editar, desar i carregar macros.</translation>
     </message>
     <message>
         <source>Create, edit and delete macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Crear, editar i esborrar macros</translation>
     </message>
     <message>
         <source>&amp;Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Macro</translation>
     </message>
     <message>
         <source>Scribus - Macro Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Gestor de Macros</translation>
     </message>
     <message>
         <source>Unable to open the requested file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>No puc obrir el fitxer demanat: %1</translation>
     </message>
     <message>
         <source>Scribus - Edit Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Edició de Macro</translation>
     </message>
     <message>
         <source>&lt;qt&gt;The macro name you requested is already taken  by another macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;El nom de la macro que demanes ja el té  una altra macro.&lt;/qt&gt;  </translation>
     </message>
     <message>
         <source>&lt;qt&gt;Macro creation failed. The macro manager was unable to set up the macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Ha fallat la creació de la macro. El gestor de macros no pot activar la macro.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>The macro &apos;%1&apos; has reported a minor error.
@@ -5785,7 +5846,12 @@ A full traceback follows:
 
 %3
 </source>
-        <translation type="unfinished"></translation>
+        <translation>La macro &apos;%1&apos; ha generat un petit error.
+L&apos;error és: %2
+L&apos;error ve de:
+
+%3
+</translation>
     </message>
     <message>
         <source>The macro &apos;%1&apos; failed to execute correctly.
@@ -5794,68 +5860,75 @@ A full traceback follows:
 
 %3
 </source>
-        <translation type="unfinished"></translation>
+        <translation>La macro &apos;%1&apos; no s&apos;ha pogut executar correctament.
+L&apos;error és: %2
+L&apos;error ve de:
+
+%3
+</translation>
     </message>
 </context>
 <context>
     <name>ManageMacrosDialog</name>
     <message>
         <source>Scribus - Macro Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Gestor de Macros</translation>
     </message>
     <message>
         <source>Renaming the macro failed because the name is already in use.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ha fallat el canvi de nom perquè el nou nom ja està fent-se servir.</translation>
     </message>
     <message>
         <source>Scribus - Manage Macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Gestió de Macros</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;This window is the Scribus Macro Manager. Here you can create macros, edit macros, etc. All changes are made using the buttons on the right hand side of the window.&lt;/p&gt;
 &lt;p&gt;All changes made in this dialog take effect instantly - you cannot cancel the actions you make here.
 The table in the center of the dialog lists what macros are currently loaded and some information about them. Use &quot;What&apos;s this&quot; on the table for more information.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;Aquesta finestra és el Gestor de Macros d&apos;Scribus. Aquí pots crear, editar macros, etc. Tots els canvis es fan amb els botons del costat dret de la finestra.&lt;/p&gt;
+&lt;p&gt;Tots els canvis fets en aquest diàleg són instantanis - no pots cancel.lar les accions que es facin aquí.
+La taula del centre del diàleg llista quines macros estan actualment carregades i informació sobre elles. Fes servir &quot;Què és&quot; de la taula per obtenir més informació.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation type="unfinished">&amp;Nou</translation>
+        <translation>&amp;Nou</translation>
     </message>
     <message>
         <source>Alt+N</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+N</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Create a new macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Crea una nova macro.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Create a new macro by prompting for the macro name then bringing up the edit macro dialog box.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Crea una nova macro preguntant pel seu nom i posant-la en el quadre de diàleg d&apos;edició de macros.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>D&apos;ac&amp;ord</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+O</translation>
     </message>
     <message>
         <source>Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Macro</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Edició</translation>
     </message>
     <message>
         <source>Accel</source>
-        <translation type="unfinished"></translation>
+        <translation>Accelerador</translation>
     </message>
     <message>
         <source>Description</source>
-        <translation type="unfinished">Descripció</translation>
+        <translation>Descripció</translation>
     </message>
     <message>
         <source>&lt;p&gt;This table lists the macros that are currently defined.&lt;/p&gt;
@@ -5864,130 +5937,138 @@ The table in the center of the dialog lists what macros are currently loaded and
 &lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt; If the macro can be edited, &quot;Yes&quot; appears in this column. Usually if a macro cannot be edited it was created using the register_macro command in a script.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Accel:&lt;/b&gt; The menu shortcut key sequence, if any, associated with the macro. For example, CTRL-F8 means that you can press Control-F8 when in Scribus to run the macro.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Description:&lt;/b&gt; If the macro contains a &quot;docstring&quot;, a special string at the start of its definition that describes it, that is shown here. If the docstring is long, only the beginning is shown - use &quot;What&apos;s This&quot; on the macro&apos;s entry in the Macro menu to see the full description.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Aquesta taula llista les macros que estan definides actualment.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Nom:&lt;/b&gt; El nom de la macro, es mostra en la barra de menús entre d&apos;altres llocs de l&apos;Scribus.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Edició:&lt;/b&gt;Si la macro es pot editar, apareix un &quot;Si&quot; en aquesta columna. Normalment si una macro no es pot editar és perquè s&apos;ha creat fent servir la comanda register_macro d&apos;un script.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Accelerador:&lt;/b&gt;El menú de seqüències de dreceres de teclat, si n&apos;hi ha, associat a la macro. Per exemple CTRL-F8 significa que pots prémer Control-F8 dins de l&apos;Scribus per executar la macro.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Descripció:&lt;/b&gt;Si la macro conté un &quot;docstring&quot;, una cadena especial al principi de la seva definició que la descriu, això es mostra aquí. Si la docstring és molt llarga, només es veu el principi - feu servir &quot;Què és això&quot; en la entrada del menú de Macros per veure la descripció completa.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Rena&amp;me</source>
-        <translation type="unfinished"></translation>
+        <translation>Reano&amp;mena</translation>
     </message>
     <message>
         <source>Alt+M</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+M</translation>
     </message>
     <message>
         <source>Rename the selected macro.</source>
-        <translation type="unfinished"></translation>
+        <translation>Reanomena la macro seleccionada.</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Rename the selected macro. You will be prompted for the new name.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Canvia el nom a la macro seleccionada. Et preguntarà el nou nom.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Edit...</source>
-        <translation type="unfinished">&amp;Edició...</translation>
+        <translation>&amp;Edició...</translation>
     </message>
     <message>
         <source>Alt+E</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+E</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Edit the source of the selected macro, if the source is availible.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Edita el codi font de la macro seleccionada, si el codi està disponible.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>Es&amp;borra</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Delete the currently selected macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Esborra la macro seleccionada actualment.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;p&gt;Delete the selected macro. This is instant, and there is no way to recover the macro once deleted. If the macro is created by a start-up script, it will reappear next time you load Scribus.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Esborra la macro seleccionada. S&apos;esborra instantàniament, i no hi ha forma de recuperar-la un cop s&apos;hagi esborrat. Si la macro és creada al iniciar el programa, reapareixerà al reiniciar Scribus.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>&amp;Set Accel</source>
-        <translation type="unfinished"></translation>
+        <translation>Acti&amp;va Drecera</translation>
     </message>
     <message>
         <source>Alt+S</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+S</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Set the keyboard shortcut for the selected macro.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Posa la drecera de teclat a aquesta macro.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;p&gt;Set the keyboard shortcut (accelerator) key of the selected macro. You will be prompted for the new shortcut in a dialog box.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Activa la drecera de teclat (accelerador) de la macro actual. Et preguntarà quina drecera vols en un quadre de diàleg.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>E&amp;xport</source>
-        <translation type="unfinished"></translation>
+        <translation>E&amp;xporta</translation>
     </message>
     <message>
         <source>Alt+X</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+X</translation>
     </message>
     <message>
         <source>Export macros to a file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Exporta macros a un fitxer.</translation>
     </message>
     <message>
         <source>&lt;p&gt;Export macros to an external file. The file will be a Python script containing the scripter commands to re-create the macros. It can be run using &lt;tt&gt;Load extension script&lt;/tt&gt; from the &lt;tt&gt;Script&lt;/tt&gt; menu, or the import button in the macro manager.&lt;/p&gt;
 &lt;p&gt;If you want a nice, human readable version of your macros, select the macro you want, press the &lt;tt&gt;Edit&lt;/tt&gt;  button, and use the &lt;tt&gt;Save source&lt;/tt&gt; button in the &lt;tt&gt;Edit Macro&lt;/tt&gt; dialog. You won&apos;t be able to load that version with &lt;tt&gt;Load extension script&lt;/tt&gt; - instead, create a new macro with the&lt;tt&gt; New&lt;/tt&gt; button and use &lt;tt&gt;Load source&lt;/tt&gt;.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Exporta macros a un fitxer extern. El fitxer ha de ser una seqüència Python que contingui les comandes per recrear les macros. Es pot executar amb la opció &lt;tt&gt;Carregar Extensions&lt;/tt&gt; del menú &lt;tt&gt;Seqüència&lt;/tt&gt;, o amb el botó d&apos;importar del gestor de macros.&lt;/p&gt;
+&lt;p&gt;si voleu una versió inteligible pels humans de les macros, seleccioneu la macro que voleu, premeu &lt;tt&gt;Edició&lt;/tt&gt;  , i feu servir el botó &lt;tt&gt;Desar codi Font&lt;/tt&gt; en el quadre de diàleg &lt;tt&gt;Edició de Macro&lt;/tt&gt;. No se&apos;n podran carregar  amb &lt;tt&gt;Carregar extensions&lt;/tt&gt;, a menys que creem una nova macro amb el botó &lt;tt&gt;Nova&lt;/tt&gt; i fem servir &lt;tt&gt;Carregar Codi Font&lt;/tt&gt;.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Delete &amp;All</source>
-        <translation type="unfinished"></translation>
+        <translation>Esborr&amp;a Tot</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <source>Delete all macros.</source>
-        <translation type="unfinished"></translation>
+        <translation>Esborra totes les macros.</translation>
     </message>
     <message>
         <source>&lt;p&gt;Delete all registered macros. This is instant, and there is no way to recover the deleted macros. Any macros created by your start-up script will reappear next time you load Scribus.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Esborra totes les macros registrades. Quan s&apos;esborri, no hi haurà forma de recuperar-les. Qualsevol macro definida a l&apos;arrencar el programa es tornarà a carregar el proper cop que engeguem Scribus.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation type="unfinished">&amp;Importa</translation>
+        <translation>&amp;Importa</translation>
     </message>
     <message>
         <source>Alt+I</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+I</translation>
     </message>
     <message>
         <source>Import macros from a file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa macros d&apos;un fitxer.</translation>
     </message>
     <message>
         <source>&lt;p&gt;Loads macros from an external file.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Carrega les macros d&apos;un fitxer extern.&lt;/p&gt;</translation>
     </message>
     <message>
         <source>Close this dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Tanca aquest diàleg</translation>
     </message>
     <message>
         <source>Return to Scribus</source>
-        <translation type="unfinished"></translation>
+        <translation>Torna a Scribus</translation>
     </message>
     <message>
         <source>&lt;p&gt;Edit the selected macro. &lt;/p&gt;
 &lt;p&gt;If this button is greyed out, either there is no selected macro or the macro manager does not have the source code for the macro you have selected (in which case &lt;tt&gt;No&lt;/tt&gt; will be shown in the &lt;tt&gt;Edit &lt;/tt&gt;column of the macro).&lt;/p&gt;
 &lt;p&gt;If Scribus doesn&apos;t have the source, the macro was probably created by a script.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Edita la macro seleccionada.&lt;/p&gt;
+&lt;p&gt;Si aquest botó està desactivat, és que no hi és o que el gestor de macros  no té el codi font  de la macro que has seleccionat (en aquest cas es veurà &lt;tt&gt;No&lt;/tt&gt; en la columna &lt;tt&gt;Edit&lt;/tt&gt; de la macro).&lt;/p&gt;
+&lt;p&gt;Si Scribus no té el codi font de la macro és perquè provablement ha estat creada per una seqüència.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -6307,7 +6388,7 @@ un rang de pàgines o un número sol.
     <message>
         <source>R&amp;ound
 Corners:</source>
-        <translation>Cantos 
+        <translation>Vèrtex 
 A&amp;rrodonits:</translation>
     </message>
     <message>
@@ -8653,7 +8734,7 @@ els gràfics vectorials en la previsualització, però la previsualitació serà
     </message>
     <message>
         <source>Number of corners for polygons</source>
-        <translation>Número de cantos pels polígons</translation>
+        <translation>Número de vèrtex pels polígons</translation>
     </message>
     <message>
         <source>Degrees of rotation for polygons</source>
@@ -8766,7 +8847,7 @@ i un valor positiu el farà convex</translation>
     </message>
     <message>
         <source>&amp;Grab Radius:</source>
-        <translation>A&amp;gafar Radi:</translation>
+        <translation>&amp;Radi de Captura:</translation>
     </message>
     <message>
         <source>Menus</source>
@@ -8874,7 +8955,7 @@ i un valor positiu el farà convex</translation>
     </message>
     <message>
         <source>Autosave</source>
-        <translation>Autodesa</translation>
+        <translation>Autodesat</translation>
     </message>
     <message>
         <source>&amp;Enabled</source>
@@ -9034,7 +9115,7 @@ i un valor positiu el farà convex</translation>
     </message>
     <message>
         <source>&amp;Shading:</source>
-        <translation>Ombre&amp;jat:</translation>
+        <translation>Inten&amp;sitat:</translation>
     </message>
     <message>
         <source>&amp;Fill Color:</source>
@@ -9042,7 +9123,7 @@ i un valor positiu el farà convex</translation>
     </message>
     <message>
         <source>S&amp;hading:</source>
-        <translation>Ombre&amp;jat:</translation>
+        <translation>Intensit&amp;at:</translation>
     </message>
     <message>
         <source>&amp;Type of Line:</source>
@@ -9090,7 +9171,7 @@ i un valor positiu el farà convex</translation>
     </message>
     <message>
         <source>Corn&amp;ers:</source>
-        <translation>Vor&amp;es:</translation>
+        <translation>Vert&amp;ex:</translation>
     </message>
     <message>
         <source>&amp;Rotation:</source>
@@ -9374,7 +9455,7 @@ cada vegada que passa el període de temps</translation>
     </message>
     <message>
         <source>Shape Drawing Properties</source>
-        <translation>Propietats de Dibuix de Forma</translation>
+        <translation>Propietats de la Forma del Dibuix</translation>
     </message>
     <message>
         <source>Magnification Level Defaults</source>
@@ -9382,11 +9463,11 @@ cada vegada que passa el període de temps</translation>
     </message>
     <message>
         <source>Line Drawing Properties</source>
-        <translation>Propietats de Dibuix de Línies</translation>
+        <translation>Propietats del Dibuix de Línies</translation>
     </message>
     <message>
         <source>Polygon Drawing Properties</source>
-        <translation>Propietats de Dibuix de Polígons</translation>
+        <translation>Propietats del Dibuix de Polígons</translation>
     </message>
     <message>
         <source>Font for new text frames</source>
@@ -9494,7 +9575,7 @@ cada vegada que passa el període de temps</translation>
     </message>
     <message>
         <source>Number of corners for polygons</source>
-        <translation>Número de vores dels polígons</translation>
+        <translation>Número de vèrtex dels polígons</translation>
     </message>
     <message>
         <source>Degrees of rotation for polygons</source>
@@ -10900,11 +10981,11 @@ Enllaços Externs
     </message>
     <message>
         <source>Import &amp;OpenOffice.org Draw...</source>
-        <translation>Importar &amp;OpenOffice.org Draw...</translation>
+        <translation>Importar Dibuixos d&apos;&amp;OpenOffice.org...</translation>
     </message>
     <message>
         <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
-        <translation>OpenOffice.org Draw (*.sxd);;Tots els fitxers (*)</translation>
+        <translation>Imatges d&apos;OpenOffice.org (*.sxd);;Tots els fitxers (*)</translation>
     </message>
     <message>
         <source>OpenOffice.org Writer Documents</source>
@@ -10913,7 +10994,7 @@ Enllaços Externs
     <message>
         <source>Color not found - python error</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Color no trobat - error de python</translation>
     </message>
     <message>
         <source>Scribus Python interface module
@@ -10941,262 +11022,287 @@ any function as provided here and in its docstring is incomplete.
 
 Details of what exceptions each function may throw are provided on the
 function&apos;s documentation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mòdul d&apos;interficie Python de l&apos;Scribus 
+
+Aquest mòdul és la interfície Python per l&apos;Scribus. Dóna funcions
+per controlar scribus i manipular-ne els objectes de treball. Cada 
+funció està documentada individualment a sota.
+
+Algunes coses són comunes a través de la major part de l&apos;interface.
+
+La majoria de les funcions operen en marcs. Els Marcs s&apos;identifiquen pel seu nom, 
+una cadena - i no són objectes Python reals. Algunes funcions prenen un 
+paràmetre opcional (non-keyword), com a nom de marc.
+Algunes de les excepcions són comunes a la majoria de les funcions. Aquestes no estan
+actualment documentades en la explicació de cada funció. 
+- Algunes funcions poden generar una excepció NoDocOpenError si es fan servir sense tenir un document obert.
+- Si no es passa un nom de marc a una funció que el requereix, la funció farà servir el marc actualment seleccionat, si n&apos;hi ha algun o generarà un NoValidObjectError si no se&apos;n pot trobar cap.
+- Algunes funcions generaran WrongFrameTypeError si es prova de fer-les servir
+en un marc que no té res a veure amb la funció. Per exemple posar 
+el color de text en un gràfic no té sentit, i generarà
+aquest tipus d&apos;excepció.
+- Els errors resultants de crides a la API Python seran passats inalterats
+de forma que, la llista d&apos;excepcions a capturar per 
+qualsevol funció que es defineix aquí és incompleta.
+
+Els detalls de quines excepcions pot capturar cada funció estan donats en 
+la documentació de la funció.
+</translation>
     </message>
     <message>
         <source>Custom (optional) configuration: </source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Configuració (opcional) Personalitzada:</translation>
     </message>
     <message>
         <source>Standard configuration: </source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Configuració estàndard:</translation>
     </message>
     <message>
         <source>Short &amp;Words...</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Short &amp;Words...</translation>
     </message>
     <message>
         <source>Short Words processing. Wait please...</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Processant Short Words. Si us plau espera...</translation>
     </message>
     <message>
         <source>Short Words processing. Done.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Processant Short Words. Fet.</translation>
     </message>
     <message>
         <source>Afrikaans</source>
-        <translation type="unfinished">Africaner</translation>
+        <translation>Africaner</translation>
     </message>
     <message>
         <source>Portugese (Brazilian)</source>
-        <translation type="unfinished"></translation>
+        <translation>Portuguès (Brasil.ler)</translation>
     </message>
     <message>
         <source>Turkish</source>
-        <translation type="unfinished"></translation>
+        <translation>Turc</translation>
     </message>
     <message>
         <source>Ukranian</source>
-        <translation type="unfinished"></translation>
+        <translation>Ucranià</translation>
     </message>
     <message>
         <source>Welsh</source>
-        <translation type="unfinished"></translation>
+        <translation>Galès</translation>
     </message>
     <message>
         <source>The filename must be a string.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>El nom del fitxer ha de ser una cadena.</translation>
     </message>
     <message>
         <source>Cannot delete image type settings.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>No puc esborrar característiques de la imatge.</translation>
     </message>
     <message>
         <source>The image type must be a string.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>El tipus d&apos;imatge ha de ser una cadena.</translation>
     </message>
     <message>
         <source>&apos;allTypes&apos; attribute is READ-ONLY</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;atribut &apos;totsTipus&apos; és de NOMÉS LECTURA</translation>
     </message>
     <message>
         <source>Failed to export image</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>No puc exportar la imatge</translation>
     </message>
     <message>
         <source>Color not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Color no trobat.</translation>
     </message>
     <message>
         <source>Color not found in document.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Color no trobat al document.</translation>
     </message>
     <message>
         <source>Color not found in default colors.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Color no trobat en els colors per defecte.</translation>
     </message>
     <message>
         <source>Cannot scale by 0%.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>No puc escalar un 0%.</translation>
     </message>
     <message>
         <source>Specified item not an image frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;Ítem especificat no és un marc d&apos;imatges.</translation>
     </message>
     <message>
         <source>Font not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Font no trobada.</translation>
     </message>
     <message>
         <source>Cannot render an empty sample.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>No puc representar un exemple buit.</translation>
     </message>
     <message>
         <source>Cannot save to a blank filename.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>No ho puc desar si no té nom.</translation>
     </message>
     <message>
         <source>Cannot have an empty layer name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>No hi pot haver una capa sense nom.</translation>
     </message>
     <message>
         <source>Layer not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Capa no trobada.</translation>
     </message>
     <message>
         <source>Cannot remove the last layer.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>No es pot esborrar la darrera capa.</translation>
     </message>
     <message>
         <source>Cannot create layer without a name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>No puc crear una capa sense nom.</translation>
     </message>
     <message>
         <source>Insert index out of bounds.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Índex d&apos;inserció fora de marge.</translation>
     </message>
     <message>
         <source>Cannot set text alignment on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>No puc establir alineació de text en un marc que no és de text.</translation>
     </message>
     <message>
         <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Mida de la font fora de rang - ha d&apos;estar entre 1 &lt;=mida&lt;=512.</translation>
     </message>
     <message>
         <source>Cannot set font size on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>No puc establir mida de font en un marc que no és de text.</translation>
     </message>
     <message>
         <source>Cannot set font on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>No puc posar una font en un marc que no és de text.</translation>
     </message>
     <message>
         <source>Line space out of bounds, must be &gt;= 0.1.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Interlineat fora de marges, ha de ser &gt;=0.1.</translation>
     </message>
     <message>
         <source>Cannot set line spacing on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>No es pot posar interlineat en un marc que no és de text.</translation>
     </message>
     <message>
         <source>Column gap out of bounds, must be positive.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Espai entre columnes fora de marges, ha de ser positiu.</translation>
     </message>
     <message>
         <source>Cannot set column gap on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>No es pot posar espai entre columnes en un marc que no és de text.</translation>
     </message>
     <message>
         <source>Column count out of bounds, must be &gt; 1.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>El número de columnes fora de marges, ha de ser &gt;1.</translation>
     </message>
     <message>
         <source>Cannot set number of columns on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>No es pot posar número de columnes en un marc que no és de text.</translation>
     </message>
     <message>
         <source>Cannot select text in a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>No es pot seleccionar text en un marc que no és de text</translation>
     </message>
     <message>
         <source>Cannot delete text from a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>No es pot esborrar text en un marc que no és de text.</translation>
     </message>
     <message>
         <source>Cannot set text fill on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>No es pot posar emplenat de text en un marc que no és de text.</translation>
     </message>
     <message>
         <source>Cannot set text stroke on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>No es pot posar voltant de text en un marc que no és de text.</translation>
     </message>
     <message>
         <source>Cannot set text shade on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>No es pot posar intensitat de text en un marc que no és de text.</translation>
     </message>
     <message>
         <source>Can only link text frames.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Només es poden enllaçar marcs de text.</translation>
     </message>
     <message>
         <source>Target frame must be empty.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>El marc de destí ha de ser buit.</translation>
     </message>
     <message>
         <source>Target frame links to another frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>El marc de destí s&apos;enllaça a un altre marc.</translation>
     </message>
     <message>
         <source>Target frame is linked to by another frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>El marc de destí està enllaçat a un altre marc.</translation>
     </message>
     <message>
         <source>Source and target are the same object.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;Origen i el destí són el mateix objecte.</translation>
     </message>
     <message>
         <source>Cannot unlink a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>No es pot desenllaçar un marc que no és de text.</translation>
     </message>
     <message>
         <source>Object is not a linked text frame, cannot unlink.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;objecte no és un marc de text enllaçat, no es pot desenllaçar.</translation>
     </message>
     <message>
         <source>Object the last frame in a series, cannot unlink. Unlink the previous frame instead.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;Objecte està en una sèrie, no es pot desenllaçar. Abans desenllaça l&apos;anterior.</translation>
     </message>
     <message>
         <source>Cannot convert a non-text frame to outlines.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>No es pot convertir un marc que no és de text a esquema.</translation>
     </message>
 </context>
 <context>
@@ -12694,7 +12800,7 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     </message>
     <message>
         <source>Ukrainian</source>
-        <translation>Ukranià</translation>
+        <translation>Ucranià</translation>
     </message>
     <message>
         <source>Greek</source>
@@ -12750,7 +12856,7 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     </message>
     <message>
         <source>Portuguese (BR)</source>
-        <translation type="unfinished"></translation>
+        <translation>Portuguès (BR)</translation>
     </message>
 </context>
 <context>
@@ -12819,75 +12925,75 @@ Si tenim Pàgines Encarades, aquest espai es pot fer servir per obtenir els marg
     <name>ScripterCore</name>
     <message>
         <source>&amp;Scribus Scripts</source>
-        <translation type="unfinished">Seqüències &amp;Scribus</translation>
+        <translation>Seqüències &amp;Scribus</translation>
     </message>
     <message>
         <source>&amp;Execute Script...</source>
-        <translation type="unfinished">&amp;Executa Seqüència...</translation>
+        <translation>&amp;Executa Seqüència...</translation>
     </message>
     <message>
         <source>Run a Python script from a file.</source>
         <comment>scripter</comment>
-        <translation type="unfinished"></translation>
+        <translation>Executa seqüència Python d&apos;un fitxer.</translation>
     </message>
     <message>
         <source>&amp;Load Extension Script...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Carregar seqüència d&apos;Extensió...</translation>
     </message>
     <message>
         <source>Load a Python script as an extension. Used for loading macros and for advanced Python scripts that extend the Scribus user interface.</source>
         <comment>scripter</comment>
-        <translation type="unfinished"></translation>
+        <translation>Carrega una seqüència Python com una extensió. Es fa servir per carregar macros i per seqüències avançades Python que s&apos;afegeixen a la interficie d&apos;usuari d&apos;Scribus.</translation>
     </message>
     <message>
         <source>&amp;Recent Scripts</source>
-        <translation type="unfinished">Seqüències &amp;Recents</translation>
+        <translation>Seqüències &amp;Recents</translation>
     </message>
     <message>
         <source>Show &amp;Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra &amp;Cònsola</translation>
     </message>
     <message>
         <source>Display an interactive Python console where you can write and run Python programs that use the Scripter tools.</source>
         <comment>scripter</comment>
-        <translation type="unfinished"></translation>
+        <translation>Mostra una cònsola interactiva Python on es pot escriure i executar programes que fan servir les eines del Sequenciador.</translation>
     </message>
     <message>
         <source>&amp;About Script...</source>
-        <translation type="unfinished">Quant &amp;a Sequència...</translation>
+        <translation>Quant &amp;a Sequència...</translation>
     </message>
     <message>
         <source>S&amp;cript</source>
-        <translation type="unfinished">Seqüèn&amp;cia</translation>
+        <translation>Seqüèn&amp;cia</translation>
     </message>
     <message>
         <source>Scripter &amp;Settings</source>
         <comment>script menu</comment>
-        <translation type="unfinished"></translation>
+        <translation>Paràmetres del &amp;Sequenciador</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation type="unfinished">Obre</translation>
+        <translation>Obre</translation>
     </message>
     <message>
         <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation type="unfinished">Seqüències Python (*.py);;Tots els fitxers (*)</translation>
+        <translation>Seqüències Python (*.py);;Tots els fitxers (*)</translation>
     </message>
     <message>
         <source>Script error</source>
-        <translation type="unfinished">Error en Seqüència</translation>
+        <translation>Error en Seqüència</translation>
     </message>
     <message>
         <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
-        <translation type="unfinished">Si executes una seqüència oficial, si us plau avisa a &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
+        <translation>Si executes una seqüència oficial, si us plau avisa a &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
     </message>
     <message>
         <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
-        <translation type="unfinished">Aquest missatge també és al portapapers. Usa Ctrl+V per enganxar-lo al bug tracker.</translation>
+        <translation>Aquest missatge també és al portapapers. Usa Ctrl+V per enganxar-lo al bug tracker.</translation>
     </message>
     <message>
         <source>Scribus - Script Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Seqüència Plugin</translation>
     </message>
     <message>
         <source>The &apos;Load Script&apos; function of the script plugin is currently disabled.
@@ -12900,140 +13006,159 @@ scripter extensions there.
 
 Please read the documentation on extension scripts first.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>La funció &apos;Carrega Seqüència&apos; de seqüència plugin està desactivada actualment.
+Si només vols execturar seqüències normals, provablement voldras fer servir
+&apos;Executa Seqüència...&apos;.
+
+Si vols carregar extensions Python o macros, hauras d&apos;anar a 
+la opció Paràmetres del Seqüenciador en el menú i activar les 
+extensions d&apos;aquí.
+
+Si us plau abans llegeix la documentació de les extensions.
+</translation>
     </message>
     <message>
         <source>Hide &amp;Console</source>
-        <translation type="unfinished">Amaga &amp;Consola</translation>
+        <translation>Amaga &amp;Consola</translation>
     </message>
     <message>
         <source>About Script</source>
-        <translation type="unfinished">Quant a Sequència</translation>
+        <translation>Quant a Sequència</translation>
     </message>
 </context>
 <context>
     <name>ScripterPreferences</name>
     <message>
         <source>Scribus - Scripter Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus - Preferències del Sequenciador</translation>
     </message>
     <message>
         <source>Enable Scripter Extensions</source>
-        <translation type="unfinished"></translation>
+        <translation>Activa les Extensions</translation>
     </message>
     <message>
         <source>Turn on extension scripts and macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Activa les extensions i les macros</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;Enabling scripter extensions turns on additional scripter functionality including Python macros and the option of loading a Python script at start-up. Turning on this option unlocks the &lt;tt&gt;Load Extension Script&lt;/tt&gt; item in the Script menu.&lt;/p&gt;
 &lt;p&gt;
 Only scripts written to be run as extension scripts should be used with &lt;tt&gt;Load Extension Script&lt;/tt&gt; or as start-up scripts. See the scripter documentation for more details.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;Activar les extensions activa funcionalitats extres incloent macros Python i les opcions de carregar les seqüències d&apos;inici Python. Activant aquesta opció desbloqueja l&apos;ítem &lt;tt&gt;Carrega Extensions&lt;/tt&gt; del menú Script.&lt;/p&gt;
+&lt;p&gt;
+Només les seqüències escrites per ser executades com extensions es poden fer servir amb la opció &lt;tt&gt;Carrega Extensions&lt;/tt&gt; o com a seqüències d&apos;inici. Mireu la documentació del sequenciador per tenir més detalls.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Use a Startup Script</source>
-        <translation type="unfinished"></translation>
+        <translation>Fes servir una seqüencia d&apos;Inici</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;If &lt;tt&gt;Use a Startup Script&lt;/tt&gt; is checked, Scribus will load the script file specified here as an extension script at start-up. It is important that the script be written as an extension script, as if not written carefully it can potentially cause problems.&lt;/p&gt;
 &lt;p&gt;&lt;tt&gt;Use a Startup Script&lt;/tt&gt; will be disabled if scripter extensions are off, as extension scripts cannot be loaded without scripter extensions enabled.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;Si &lt;tt&gt;Fer Servir Seqüència d&apos;Inici&lt;/tt&gt; està marcat, Scribus carregarà la seqüència especificada quan s&apos;inicii. És important que la seqüència sigui escrita com una extensió, perquè sinó pot provocar greus problemes.&lt;/p&gt;
+&lt;p&gt;&lt;tt&gt;Fer Servir Seqüència d&apos;Inici&lt;/tt&gt; estarà desactivat si les extensions estan desactivades, i no es podran carregar seqüències d&apos;inici&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Browse...</source>
-        <translation type="unfinished"></translation>
+        <translation>Explora...</translation>
     </message>
     <message>
         <source>Browse for a new script file</source>
-        <translation type="unfinished"></translation>
+        <translation>Tria un fitxer de seqüència</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Browse for a new script file&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Explora per trobar un fitxer de seqüència&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>What script file to load at start-up</source>
-        <translation type="unfinished"></translation>
+        <translation>Quina seqüència d&apos;inici es carregarà</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;The file containing the Python script to run as an extension script at start-up.&lt;/p&gt;
 &lt;p&gt;Note that when this script is run, Scribus has not completely started up and the workspace does not yet exist.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;El fitxer conté una seqüència Python que s&apos;executarà com una extensió al Iniciar el programa.&lt;/p&gt;
+&lt;p&gt;Cal tenir en compte que la seqüència s&apos;executa quan l&apos;Scribus no està completament carregat i no hi ha espai de treball.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Script File:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fitxer de Seqüència:</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancel.la</translation>
+        <translation>&amp;Cancel.la</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <source>Close without saving changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Tanca sense desar els canvis</translation>
     </message>
     <message>
         <source>&amp;Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>D&apos;ac&amp;ord</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+O</translation>
     </message>
     <message>
         <source>Save changes and close</source>
-        <translation type="unfinished"></translation>
+        <translation>Desa els canvis i surt</translation>
     </message>
     <message>
         <source>Advanced Options</source>
-        <translation type="unfinished">Opcions Avançades</translation>
+        <translation>Opcions Avançades</translation>
     </message>
     <message>
         <source>Import All Names at Startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Importa tot al Iniciar</translation>
     </message>
     <message>
         <source>Run &apos;from scribus import *&apos; in the script console at start-up</source>
-        <translation type="unfinished"></translation>
+        <translation>Executa &apos;importa tot *&apos; en la cònsola al iniciar</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Import All Names at Startup&lt;/tt&gt; is an advanced option. You should probably leave it checked unless you have read the documentation and know what you are doing.&lt;/p&gt;
 &lt;p&gt;Unchecking this option will prevent the scripter from running its usual &lt;tt&gt;from scribus import *&lt;/tt&gt; command when it initializes the main interpreter (used for the script console and extension scripts) at start-up.&lt;/p&gt;
 &lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Importa Tots els Noms a l&apos;Inici&lt;/tt&gt; és una opció avançada. Normalment l&apos;hauríes de deixar desmarcada a menys que t&apos;hagis llegit la documentació i sàpigues què estas fent.&lt;/p&gt;
+&lt;p&gt;Desactivant aquesta opció evita que el sequenciador executi la comanda &lt;tt&gt;Importa des d&apos;Scribus *&lt;/tt&gt; quan s&apos;inicii l&apos;interpret principal (el fa servir la seqüència de cònsola i les extensions) al Iniciar.&lt;/p&gt;
+&lt;p&gt;Aquesta opció no funcionarà fins que reiniciem Scribus&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Enable Legacy Name Aliases</source>
-        <translation type="unfinished"></translation>
+        <translation>Activa àlies de Noms</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Enable the use of OldStyle function names&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Activa els noms de funció a l&apos;estil antic&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Enable Legacy Aliases&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
 &lt;p&gt;If checked, this option will cause the scripter to create a large number of function and constant name aliases for 1.2.0 script compatibility. It defaults to checked.&lt;/p&gt;
 &lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Activa Àlies de Noms&lt;/tt&gt; és una opció avançada. Normalment s&apos;hauría de deixar tal com està.&lt;/p&gt;
+&lt;p&gt;Si està marcat, aquesta opció provocarà que el sequenciador crei una gran quantitat de àlies de funcions i constants per compatibilitat amb les versions 1.2.0. Per defecte està activat.&lt;/p&gt;
+&lt;p&gt;Aquesta opció no pren efecte fins que es reinicii Scribus.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Use Fake Stdin</source>
-        <translation type="unfinished"></translation>
+        <translation>Fer servir una entrada estàndard falsa</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Replace sys.stdin with a fake file to prevent Scribus hanging when a script tries to read from stdin.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Remplaça sys.stdin amb un fitxer fals per prevenir que Scribus es pengi quan una seqüència provi de llegir de la entrada estàndard.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Use Fake Stdin&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
 &lt;p&gt;Normally, scribus will provide Python with a fake file object for &lt;tt&gt;sys.stdin&lt;/tt&gt;, so that reads from stdin always return an empty string. If the real &lt;tt&gt;sys.stdin&lt;/tt&gt; is left in place, scripts that try to read from it will block - and in turn block scribus&apos;s execution, making the app appear to hang - until input arrives on stdin. It&apos;s unusual for GUI apps to expect anything on stdin, so mostly users will think scribus has crashed.&lt;/p&gt;
 &lt;p&gt;You can disable this option if you want to accept input on stdin. Generally you should use &lt;tt&gt;os.popen&lt;/tt&gt; to make a pipe instead, or use some other input mechanism, but this option is here just in case.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Fer servir una entrada estàndard falsa&lt;/tt&gt; és una opció avançada. Normalment s&apos;hauria de deixar tal com està.&lt;/p&gt;
+&lt;p&gt;Normalment, Scribus dóna a Python una entrada estàndard falsa &lt;tt&gt;sys.stdin&lt;/tt&gt;, i fa que la resposta sigui una cadena buida per totes les peticions. Si es posa el fitxer real &lt;tt&gt;sys.stdin&lt;/tt&gt; en el seu lloc, quan les seqüències vulguin carregar entrades bloquejaran la execucio del programa fins que es faci l&apos;entrada de teclat -donant la impressió de que s&apos;ha bloquejat Scribus-.És rar que les aplicacions gràfiques esperin una entrada de teclat per executar-se, i per tant molts usuaris es pensaran que l&apos;Scribus ha fallat.&lt;/p&gt;
+&lt;p&gt;Pots desactivar aquesta opció si vols acceptar entrades de l&apos;entrada estàndard. Generalment hauras de fer servir &lt;tt&gt;os.popen&lt;/tt&gt; per fer una pila, o bé fer servir algun mecanisme d&apos;entrada, però aquesta opció només funcionarà en casos concrets.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
 </context>
 <context>
@@ -13617,14 +13742,17 @@ mai tornarà a preguntar de nou</translation>
     </message>
     <message>
         <source>Pack paragraph styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Empaqueta estils de paràgraf</translation>
     </message>
     <message>
         <source>Group paragraph styles by attributes.
 Less paragraph styles but controlling them may be hard.
 Should be used if it is known that text must not be edited
 after importing.</source>
-        <translation type="unfinished"></translation>
+        <translation>Agrupa els estils de paràgraf pels seus atributs.
+Hi haurà menys estils però controlar-los pot ser mes dur.
+S&apos;hauria de fer servir quan se sap que el text no s&apos;editarà
+després d&apos;importar-lo.</translation>
     </message>
 </context>
 <context>
@@ -13822,48 +13950,49 @@ Si us plau tria&apos;n un altre.</translation>
     <message>
         <source>Short Words</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Short Words</translation>
     </message>
     <message>
         <source>Apply unbreakable space on:</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Aplica espai inseparable a:</translation>
     </message>
     <message>
         <source>&amp;Selected frames</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Marcs &amp;seleccionats</translation>
     </message>
     <message>
         <source>Active &amp;page</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Pàgina Activa</translation>
     </message>
     <message>
         <source>&amp;All items</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Tots els Ítems</translation>
     </message>
     <message>
         <source>&amp;OK</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished">D&apos;ac&amp;ord</translation>
+        <translation>D&apos;ac&amp;ord</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished">&amp;Cancel.la</translation>
+        <translation>&amp;Cancel.la</translation>
     </message>
     <message>
         <source>&amp;Info and
 Languages</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Informació i
+Idiomes</translation>
     </message>
     <message>
         <source>Replace defaults by user config</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Remplaça la configuració per la de l&apos;usuari</translation>
     </message>
     <message>
         <source>When the user config file exists 
@@ -13874,37 +14003,43 @@ to the global configuration by unchecked button.
 You can replace predefined values by yours
 with checked button too.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Quan la configuració de l&apos;usuari existeix
+(%1)
+pots triar si vols afegir la teva configuració
+a la configuració global si no es marca el botó.
+
+Pots remplaçar els valors predefinits pels teus
+si el botó està marcat.</translation>
     </message>
     <message>
         <source>Only selected frames processed.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Només es processen els marcs seleccionats.</translation>
     </message>
     <message>
         <source>Only actual page processed.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Només es processa la pàgina actual.</translation>
     </message>
     <message>
         <source>All items in document processed.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Tots els ítems del document processats.</translation>
     </message>
     <message>
         <source>Short Words for Scribus</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Short Wods per Scribus</translation>
     </message>
     <message>
         <source>Available in the following languages</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Disponible en els següents idiomes</translation>
     </message>
     <message>
         <source>About Short Words</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Quant a Short Words</translation>
     </message>
 </context>
 <context>
