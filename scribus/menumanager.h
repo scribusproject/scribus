@@ -33,26 +33,26 @@ public:
 
 	enum MenuType {Normal, DLL};
 		
-	bool createMenu(const QString menuName, const QString menuText, const QString parent = QString::null);
-	bool addMenuToMenu(const QString child, const QString parent);
-	bool deleteMenu(const QString menuName, const QString parent = QString::null);
-	bool clearMenu(const QString menuName);
-	QPopupMenu *getLocalPopupMenu(const QString menuName);
-	void setMenuEnabled(const QString menuName, const bool enabled);
-	bool addMenuToMenuBar(const QString menuName);
-	bool addMenuToMenuBarAfter(const QString, const QString);
-	bool removeMenuFromMenuBar(const QString menuName);
-	bool addMenuToWidgetOfAction(const QString menuName, ScrAction *action);
+	bool createMenu(const QString &menuName, const QString &menuText, const QString parent = QString::null);
+	bool addMenuToMenu(const QString & child, const QString &parent);
+	bool deleteMenu(const QString &menuName, const QString &parent = QString::null);
+	bool clearMenu(const QString &menuName);
+	QPopupMenu *getLocalPopupMenu(const QString &menuName);
+	void setMenuEnabled(const QString &menuName, const bool enabled);
+	bool addMenuToMenuBar(const QString &menuName);
+	bool addMenuToMenuBarAfter(const QString &, const QString &);
+	bool removeMenuFromMenuBar(const QString &menuName);
+	bool addMenuToWidgetOfAction(const QString &menuName, ScrAction *action);
 	
-	bool addMenuItem(ScrAction *menuAction, const QString parent);
-	bool addMenuItem(QWidget * widget, const QString parent);
-	bool addMenuItemAfter(ScrAction *menuAction, const QString parent, ScrAction *afterMenuAction);
-	bool addMenuItemAfter(ScrAction *menuAction, const QString parent, const QString afterMenuName);
-	bool addMenuSeparator(const QString parent);
+	bool addMenuItem(ScrAction *menuAction, const QString &parent);
+	bool addMenuItem(QWidget * widget, const QString &parent);
+	bool addMenuItemAfter(ScrAction *menuAction, const QString &parent, ScrAction *afterMenuAction);
+	bool addMenuItemAfter(ScrAction *menuAction, const QString &parent, const QString &afterMenuName);
+	bool addMenuSeparator(const QString &parent);
 	
-	bool removeMenuItem(ScrAction *menuAction, const QString parent);
+	bool removeMenuItem(ScrAction *menuAction, const QString &parent);
 	
-	void runMenuAtPos(const QString, const QPoint);
+	void runMenuAtPos(const QString &, const QPoint);
 
 private:
 	QMenuBar *scribusMenuBar;

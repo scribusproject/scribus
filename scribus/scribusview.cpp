@@ -1723,13 +1723,13 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				pmen->insertItem( tr("Conve&rt to"), pmen2);
 			}
 			pmen->insertSeparator();
-			if ((!b->Locked) && (!((b->isTableItem) && (b->isSingleSel))))
+			if (!b->Locked && !(b->isTableItem && b->isSingleSel))
 				ScApp->scrActions["editCut"]->addTo(pmen);
-			if (!((b->isTableItem) && (b->isSingleSel)))
+			if (!(b->isTableItem && b->isSingleSel))
 				ScApp->scrActions["editCopy"]->addTo(pmen);
 			if ((Doc->appMode == EditMode) && (ScApp->Buffer2.startsWith("<SCRIBUSTEXT")) && (b->PType == 4))
 				ScApp->scrActions["editPaste"]->addTo(pmen);
-			if ((!b->Locked) && (Doc->appMode != 7) && (!((b->isTableItem) && (b->isSingleSel))))
+			if (!b->Locked && (Doc->appMode != 7) && (!(b->isTableItem && b->isSingleSel)))
 				pmen->insertItem( tr("&Delete"), this, SLOT(DeleteItem()));
 			if ((b->PType == 2) || (b->PType == 4))
 				pmen->insertItem( tr("C&lear Contents"), this, SLOT(ClearItem()));
@@ -2827,7 +2827,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 	{
 		newX = static_cast<int>(m->x()/sc);
 		newY = static_cast<int>(m->y()/sc);
-		if ((Mpressed) && (m->state() == RightButton) && (!Doc->DragP) && (Doc->appMode == NormalMode) && (!b->Locked) && (!((b->isTableItem) && (b->isSingleSel))))
+		if ((Mpressed) && (m->state() == RightButton) && (!Doc->DragP) && (Doc->appMode == NormalMode) && (!b->Locked) && (!(b->isTableItem && b->isSingleSel)))
 		{
 			if ((abs(Dxp - newX) > 10) || (abs(Dyp - newY) > 10))
 			{
@@ -3310,7 +3310,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 				if (!GroupSel)
 				{
 					b = SelItem.at(0);
-					if (!((b->isTableItem) && (b->isSingleSel)))
+					if (!(b->isTableItem && b->isSingleSel))
 					{
 						moveGroup(newX-Mxp, newY-Myp, false);
 						if (Doc->SnapGuides)
@@ -7584,7 +7584,7 @@ void ScribusView::ToBack()
 		for (uint c = 0; c < SelItem.count(); ++c)
 		{
 			b = SelItem.at(c);
-			if ((b->isTableItem) && (b->isSingleSel))
+			if (b->isTableItem && b->isSingleSel)
 				return;
 			ObjOrder.insert(b->ItemNr, c);
 			d = Doc->Items.findRef(b);
@@ -7618,7 +7618,7 @@ void ScribusView::ToFront()
 		for (uint c = 0; c < SelItem.count(); ++c)
 		{
 			b = SelItem.at(c);
-			if ((b->isTableItem) && (b->isSingleSel))
+			if (b->isTableItem && b->isSingleSel)
 				return;
 			ObjOrder.insert(b->ItemNr, c);
 			d = Doc->Items.findRef(b);
@@ -7655,7 +7655,7 @@ void ScribusView::LowerItem()
 		for (uint c = 0; c < SelItem.count(); ++c)
 		{
 			b = SelItem.at(c);
-			if ((b->isTableItem) && (b->isSingleSel))
+			if (b->isTableItem && b->isSingleSel)
 				return;
 			low = QMIN(b->ItemNr, low);
 			high = QMAX(b->ItemNr, high);
@@ -7708,7 +7708,7 @@ void ScribusView::RaiseItem()
 		for (uint c = 0; c < SelItem.count(); ++c)
 		{
 			b = SelItem.at(c);
-			if ((b->isTableItem) && (b->isSingleSel))
+			if (b->isTableItem && b->isSingleSel)
 				return;
 			low = QMIN(b->ItemNr, low);
 			high = QMAX(b->ItemNr, high);
@@ -7912,7 +7912,7 @@ void ScribusView::DeleteItem()
 		for (uint de = 0; de < anz; ++de)
 		{
 			b = SelItem.at(offs);
-			if (((b->isTableItem) && (b->isSingleSel)) || (b->Locked))
+			if ((b->isTableItem && b->isSingleSel) || (b->Locked))
 			{
 				offs++;
 				continue;

@@ -31,7 +31,7 @@ MenuManager::~MenuManager()
 {
 }
 
-bool MenuManager::createMenu(const QString menuName, const QString menuText, const QString parent)
+bool MenuManager::createMenu(const QString &menuName, const QString &menuText, const QString parent)
 {
 	bool retVal=false;
 		
@@ -48,7 +48,7 @@ bool MenuManager::createMenu(const QString menuName, const QString menuText, con
 	return retVal;
 }
 
-bool MenuManager::addMenuToMenu(const QString child, const QString parent)
+bool MenuManager::addMenuToMenu(const QString &child, const QString &parent)
 {
 	bool retVal=false;
 		
@@ -63,7 +63,7 @@ bool MenuManager::addMenuToMenu(const QString child, const QString parent)
 	return retVal;
 }
 
-bool MenuManager::clearMenu(const QString menuName)
+bool MenuManager::clearMenu(const QString &menuName)
 {
 	bool retVal;
 	if (menuList[menuName])
@@ -76,7 +76,7 @@ bool MenuManager::clearMenu(const QString menuName)
 	return retVal;
 }
 
-QPopupMenu *MenuManager::getLocalPopupMenu(const QString menuName)
+QPopupMenu *MenuManager::getLocalPopupMenu(const QString &menuName)
 {
 	if (menuList[menuName])
 	{
@@ -85,7 +85,7 @@ QPopupMenu *MenuManager::getLocalPopupMenu(const QString menuName)
 	return NULL;
 }
 
-bool MenuManager::deleteMenu(const QString menuName, const QString parent)
+bool MenuManager::deleteMenu(const QString &menuName, const QString &parent)
 {
 	if (parent!=QString::null)
 	{
@@ -96,7 +96,7 @@ bool MenuManager::deleteMenu(const QString menuName, const QString parent)
 	return true;
 }
 
-void MenuManager::setMenuEnabled(const QString menuName, const bool enabled)
+void MenuManager::setMenuEnabled(const QString &menuName, const bool enabled)
 {
 	if (menuList[menuName])
 	{
@@ -107,7 +107,7 @@ void MenuManager::setMenuEnabled(const QString menuName, const bool enabled)
 	}
 }
 
-bool MenuManager::addMenuToMenuBar(const QString menuName)
+bool MenuManager::addMenuToMenuBar(const QString &menuName)
 {
 	bool retVal;
 	if (menuList[menuName])
@@ -121,7 +121,7 @@ bool MenuManager::addMenuToMenuBar(const QString menuName)
 	return retVal;
 }
 
-bool MenuManager::addMenuToMenuBarAfter(const QString menuName, const QString afterMenuName)
+bool MenuManager::addMenuToMenuBarAfter(const QString &menuName, const QString &afterMenuName)
 {
 	bool retVal;
 	if (menuList[menuName])
@@ -142,7 +142,7 @@ bool MenuManager::addMenuToMenuBarAfter(const QString menuName, const QString af
 	return retVal;
 }
 
-bool MenuManager::removeMenuFromMenuBar(const QString menuName)
+bool MenuManager::removeMenuFromMenuBar(const QString &menuName)
 {
 	bool retVal;
 	if (menuList[menuName])
@@ -157,7 +157,7 @@ bool MenuManager::removeMenuFromMenuBar(const QString menuName)
 	return retVal;
 }
 
-bool MenuManager::addMenuToWidgetOfAction(const QString menuName, ScrAction *action)
+bool MenuManager::addMenuToWidgetOfAction(const QString &menuName, ScrAction *action)
 {
 	bool retVal=false;
 	if (menuList[menuName] && action!=NULL)
@@ -180,7 +180,7 @@ bool MenuManager::addMenuToWidgetOfAction(const QString menuName, ScrAction *act
 	return retVal;
 }
 
-bool MenuManager::addMenuItem(ScrAction *menuAction, const QString parent)
+bool MenuManager::addMenuItem(ScrAction *menuAction, const QString &parent)
 {
 	bool retVal;
 	if (menuList[parent])
@@ -190,7 +190,7 @@ bool MenuManager::addMenuItem(ScrAction *menuAction, const QString parent)
 	return retVal;
 }
 
-bool MenuManager::addMenuItem(QWidget *widget, const QString parent)
+bool MenuManager::addMenuItem(QWidget *widget, const QString &parent)
 {
 	bool retVal;
 	if (menuList[parent])
@@ -200,7 +200,7 @@ bool MenuManager::addMenuItem(QWidget *widget, const QString parent)
 	return retVal;
 }
 
-bool MenuManager::addMenuItemAfter(ScrAction *menuAction, const QString parent, ScrAction *afterMenuAction)
+bool MenuManager::addMenuItemAfter(ScrAction *menuAction, const QString &parent, ScrAction *afterMenuAction)
 {
 	bool retVal;
 	if (menuList[parent])
@@ -210,7 +210,7 @@ bool MenuManager::addMenuItemAfter(ScrAction *menuAction, const QString parent, 
 	return retVal;
 }
 
-bool MenuManager::addMenuItemAfter(ScrAction *menuAction, const QString parent, const QString afterMenuName)
+bool MenuManager::addMenuItemAfter(ScrAction *menuAction, const QString &parent, const QString &afterMenuName)
 {
 	bool retVal;
 	ScrAction *actionFromName=NULL;
@@ -232,7 +232,7 @@ bool MenuManager::addMenuItemAfter(ScrAction *menuAction, const QString parent, 
 }
 
 
-bool MenuManager::addMenuSeparator(const QString parent)
+bool MenuManager::addMenuSeparator(const QString &parent)
 {
 	bool retVal;
 	if (menuList[parent])
@@ -243,7 +243,7 @@ bool MenuManager::addMenuSeparator(const QString parent)
 	
 }
 
-bool MenuManager::removeMenuItem(ScrAction *menuAction, const QString parent)
+bool MenuManager::removeMenuItem(ScrAction *menuAction, const QString &parent)
 {
 	bool retVal;
 	if (menuList[parent])
@@ -253,7 +253,7 @@ bool MenuManager::removeMenuItem(ScrAction *menuAction, const QString parent)
 	return retVal;
 }
 
-void MenuManager::runMenuAtPos(const QString menuName, const QPoint position)
+void MenuManager::runMenuAtPos(const QString &menuName, const QPoint position)
 {
 	if (menuList[menuName])
 	{	
