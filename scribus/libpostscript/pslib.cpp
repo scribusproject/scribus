@@ -1242,6 +1242,8 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 									chx = hl->ch;
 									if (hl->ch == QChar(29))
 										chx = " ";
+									if (hl->ch == QChar(0xA0))
+										chx = " ";
 									if (hl->ch == QChar(30))
 									{
 										if (Doc->MasterP)
@@ -1301,6 +1303,8 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 													QString ctx = ite->Ptext.at(d+1)->ch;
 													if (ctx == QChar(29))
 														ctx = " ";
+													if (ctx == QChar(0xA0))
+														ctx = " ";
 													wideR = -Cwidth(Doc, hl->cfont, chx, tsz, ctx) * (hl->cscale / 100.0);
 												}
 												else
@@ -1339,6 +1343,8 @@ void PSLib::CreatePS(ScribusDoc* Doc, ScribusView* view, std::vector<int> &pageN
 											{
 												QString ctx = ite->Ptext.at(d+1)->ch;
 												if (ctx == QChar(29))
+													ctx = " ";
+												if (ctx == QChar(0xA0))
 													ctx = " ";
 												wideR = -Cwidth(Doc, hl->cfont, chx, chs, ctx) * (hl->cscale / 100.0);
 												PS_translate(wideR, 0);
@@ -1759,6 +1765,8 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 							chx = hl->ch;
 							if (hl->ch == QChar(29))
 								chx = " ";
+							if (hl->ch == QChar(0xA0))
+								chx = " ";
 							if (hl->ch == QChar(30))
 							{
 								if (Doc->MasterP)
@@ -1818,6 +1826,8 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 											QString ctx = c->Ptext.at(d+1)->ch;
 											if (ctx == QChar(29))
 												ctx = " ";
+											if (ctx == QChar(0xA0))
+												ctx = " ";
 											wideR = -Cwidth(Doc, hl->cfont, chx, tsz, ctx) * (hl->cscale / 100.0);
 										}
 										else
@@ -1856,6 +1866,8 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 									{
 										QString ctx = c->Ptext.at(d+1)->ch;
 										if (ctx == QChar(29))
+											ctx = " ";
+										if (ctx == QChar(0xA0))
 											ctx = " ";
 										wideR = -Cwidth(Doc, hl->cfont, chx, chs, ctx) * (hl->cscale / 100.0);
 										PS_translate(wideR, 0);
@@ -2213,6 +2225,8 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 							chx = hl->ch;
 							if (hl->ch == QChar(29))
 								chx = " ";
+							if (hl->ch == QChar(0xA0))
+								chx = " ";
 							if (hl->cstyle & 64)
 							{
 								if (chx.upper() != chx)
@@ -2249,6 +2263,8 @@ void PSLib::ProcessPage(ScribusDoc* Doc, ScribusView* view, Page* a, uint PNr, b
 										{
 											QString ctx = c->Ptext.at(d+1)->ch;
 											if (ctx == QChar(29))
+												ctx = " ";
+											if (ctx == QChar(0xA0))
 												ctx = " ";
 											wideR = -Cwidth(Doc, hl->cfont, chx, tsz, ctx) * (hl->cscale / 100.0);
 										}

@@ -1830,6 +1830,8 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 							continue;
 						if ((pag->PageNam != "") && (ite->OwnPage != static_cast<int>(pag->PageNr)) && (ite->OwnPage != -1))
 							continue;
+						if (!ite->isTableItem)
+							continue;
 						PutPage("q\n");
 						if (((ite->Transparency != 0) || (ite->TranspStroke != 0)) && (Options->Version == 14))
 							PDF_Transparenz(ite);
@@ -1932,32 +1934,29 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr, bool clip)
 								sr = 0;
 							PutPage(FToStr(cr)+" "+FToStr(sr)+" "+FToStr(-sr)+" "+FToStr(cr)+ " 0 0 cm\n");
 						}
-						if (ite->isTableItem)
+						if ((ite->TopLine) || (ite->RightLine) || (ite->BottomLine) || (ite->LeftLine))
 						{
-							if ((ite->TopLine) || (ite->RightLine) || (ite->BottomLine) || (ite->LeftLine))
+							if (ite->TopLine)
 							{
-								if (ite->TopLine)
-								{
-									PutPage("0 0 m\n");
-									PutPage(FToStr(ite->Width)+" 0 l\n");
-								}
-								if (ite->RightLine)
-								{
-									PutPage(FToStr(ite->Width)+" 0 m\n");
-									PutPage(FToStr(ite->Width)+" "+FToStr(-ite->Height)+" l\n");
-								}
-								if (ite->BottomLine)
-								{
-									PutPage("0 "+FToStr(-ite->Height)+" m\n");
-									PutPage(FToStr(ite->Width)+" "+FToStr(-ite->Height)+" l\n");
-								}
-								if (ite->LeftLine)
-								{
-									PutPage("0 0 m\n");
-									PutPage("0 "+FToStr(-ite->Height)+" l\n");
-								}
-								PutPage("S\n");
+								PutPage("0 0 m\n");
+								PutPage(FToStr(ite->Width)+" 0 l\n");
 							}
+							if (ite->RightLine)
+							{
+								PutPage(FToStr(ite->Width)+" 0 m\n");
+								PutPage(FToStr(ite->Width)+" "+FToStr(-ite->Height)+" l\n");
+							}
+							if (ite->BottomLine)
+							{
+								PutPage("0 "+FToStr(-ite->Height)+" m\n");
+								PutPage(FToStr(ite->Width)+" "+FToStr(-ite->Height)+" l\n");
+							}
+							if (ite->LeftLine)
+							{
+								PutPage("0 0 m\n");
+								PutPage("0 "+FToStr(-ite->Height)+" l\n");
+							}
+							PutPage("S\n");
 						}
 						PutPage("Q\n");
 					}
@@ -2806,6 +2805,8 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 		QString chx = hl->ch;
 		if (hl->ch == QChar(29))
 			chx = " ";
+		if (hl->ch == QChar(0xA0))
+			chx = " ";
 		if (hl->ch == QChar(30))
 		{
 			uint zae = 0;
@@ -3032,6 +3033,8 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr)
 				{
 					QString ctx = ite->Ptext.at(d+1)->ch;
 					if (ctx == QChar(29))
+						ctx = " ";
+					if (ctx == QChar(0xA0))
 						ctx = " ";
 					wtr = Cwidth(doc, hl->cfont, chx, chs, ctx) * (hl->cscale / 100.0);
 				}
