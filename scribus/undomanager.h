@@ -432,6 +432,8 @@ public:
 	static const QString ApplyTemplate;
 	static const QString Paste;
 	static const QString Cut;
+	static const QString Transparency;
+	static const QString LineTransparency;
 	/*@}*/
 
 	/**
@@ -464,6 +466,7 @@ public:
 	static QPixmap *ICreate;
 	static QPixmap *IPaste;
 	static QPixmap *ICut;
+	static QPixmap *ITransparency;
 	/*@}*/
 
 protected:

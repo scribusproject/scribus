@@ -311,7 +311,7 @@ public:
 	 * of its Qt name.
 	 * See also PageItem::setItemName()
 	 */
-	const QString itemName();
+	QString itemName() const;
 	/**
 	 * @brief Set name of the item
 	 * @param newName name for the item
@@ -332,6 +332,11 @@ public:
 	 */
 	void setFillShade(int newShade);
 	/**
+	 * @brief Set the transparency of the fill color.
+	 * @param newTransparency transparency of the fill color
+	 */
+	void setFillTransparency(double newTransparency);
+	/**
 	 * @brief Set the line color of the object.
 	 * @param newFill line color for the object
 	 */
@@ -341,6 +346,11 @@ public:
 	 * @param newColor shade for the line color
 	 */
 	void setLineShade(int newShade);
+	/**
+	 * @brief Set the transparency of the line color.
+	 * @param newTransparency transparency of the line color
+	 */
+	void setLineTransparency(double newTransparency);
 	/** @brief Flip an image horizontally. */
 	void flipImageH();
 	/** @brief Flip an image vertically */
@@ -388,6 +398,8 @@ protected:
 	void restoreLineColor(SimpleState *state, bool isUndo);
 	void restoreLineShade(SimpleState *state, bool isUndo);
 	void restoreName(SimpleState *state, bool isUndo);
+	void restoreFillTP(SimpleState *state, bool isUndo);
+	void restoreLineTP(SimpleState *state, bool isUndo);
 	/*@}*/
 
 	/**

@@ -10009,7 +10009,7 @@ void ScribusApp::SetTranspar(double t)
 		if (view->SelItem.count() != 0)
 		{
 			PageItem *b = view->SelItem.at(0);
-			b->Transparency = t;
+			b->setFillTransparency(t);
 			view->DrawNew();
 			slotDocCh();
 		}
@@ -10023,7 +10023,7 @@ void ScribusApp::SetTransparS(double t)
 		if (view->SelItem.count() != 0)
 		{
 			PageItem *b = view->SelItem.at(0);
-			b->TranspStroke = t;
+			b->setLineTransparency(t);
 			view->DrawNew();
 			slotDocCh();
 		}

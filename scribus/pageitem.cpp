@@ -2253,7 +2253,7 @@ void PageItem::DrawPolyL(QPainter *p, QPointArray pts)
 	}
 }
 
-const QString PageItem::itemName()
+QString PageItem::itemName() const
 {
 	return AnName;
 }
@@ -2301,6 +2301,21 @@ void PageItem::setFillShade(int newShade)
 	Shade = newShade;
 }
 
+void PageItem::setFillTransparency(double newTransparency)
+{
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::Transparency,
+										  QString(Um::FromTo).arg(Transparency).arg(newTransparency),
+										  Um::ITransparency);
+		ss->set("TRANSPARENCY", "transparency");
+		ss->set("OLD_TP", Transparency);
+		ss->set("NEW_TP", newTransparency);
+		undoManager->action(this, ss);
+	}
+	Transparency = newTransparency;
+}
+
 void PageItem::setLineColor(const QString &newColor)
 {
 	if (UndoManager::undoEnabled())
@@ -2329,6 +2344,21 @@ void PageItem::setLineShade(int newShade)
 		undoManager->action(this, ss);
 	}
 	Shade2 = newShade;
+}
+
+void PageItem::setLineTransparency(double newTransparency)
+{
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::LineTransparency,
+										  QString(Um::FromTo).arg(TranspStroke).arg(newTransparency),
+										  Um::ITransparency);
+		ss->set("LINE_TRANSPARENCY", "transparency");
+		ss->set("OLD_TP", TranspStroke);
+		ss->set("NEW_TP", newTransparency);
+		undoManager->action(this, ss);
+	}
+	TranspStroke = newTransparency;
 }
 
 void PageItem::flipImageH()
@@ -2545,6 +2575,10 @@ void PageItem::restore(UndoState *state, bool isUndo)
 		}
 		else if (ss->contains("NEW_NAME"))
 			restoreName(ss, isUndo);
+		else if (ss->contains("TRANSPARENCY"))
+			restoreFillTP(ss, isUndo);
+		else if (ss->contains("LINE_TRANSPARENCY"))
+			restoreLineTP(ss, isUndo);
 	}
 }
 
@@ -2673,6 +2707,24 @@ void PageItem::restoreLineShade(SimpleState *state, bool isUndo)
 		shade = state->getInt("NEW_SHADE");
 	select();
 	ScApp->view->ItemPenShade(shade);
+}
+
+void PageItem::restoreFillTP(SimpleState *state, bool isUndo)
+{
+	double tp = state->getDouble("OLD_TP");
+	if (!isUndo)
+		tp = state->getDouble("NEW_TP");
+	select();
+	ScApp->SetTranspar(tp);
+}
+
+void PageItem::restoreLineTP(SimpleState *state, bool isUndo)
+{
+	double tp = state->getDouble("OLD_TP");
+	if (!isUndo)
+		tp = state->getDouble("NEW_TP");
+	select();
+	ScApp->SetTransparS(tp);
 }
 
 void PageItem::restoreName(SimpleState *state, bool isUndo)
