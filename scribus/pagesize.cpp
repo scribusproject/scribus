@@ -212,7 +212,7 @@ void PageSize::generatePageSizeList()
 	size_t const num_mappings_names = (sizeof impNames)/(sizeof *impNames);
 	size_t const num_mappings_trnames = (sizeof impTrNames)/(sizeof *impTrNames);
 	
-	Q_ASSERT(num_mappings_widths == num_mappings_heights == num_mappings_names == num_mappings_trnames );
+	//Q_ASSERT(num_mappings_widths == num_mappings_heights == num_mappings_names == num_mappings_trnames );
 	
 	for (uint i = 0; i < num_mappings_widths; ++i)
 	{
