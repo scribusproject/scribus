@@ -1,4 +1,5 @@
-# This Script creates a Calendar Sheet for the Current Month
+""" This Script creates a Calendar Sheet for the Current Month """
+
 import calendar
 import time
 from scribus import *

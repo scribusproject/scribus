@@ -2,7 +2,9 @@ from scribus import *
 from sgmllib import SGMLParser
 from htmlentitydefs import entitydefs
 
-""" ENCODING has to be edited for each file you're trying to parse
+""" You can import some HTML files using this script.
+
+ENCODING has to be edited for each file you're trying to parse
 utf8 - is the 'universal' solution but you can get error:
 'UnicodeDecodeError: 'utf8' codec can't decode byte 0xbe in position 0: unexpected code byte'
 then you shall edit right encoding of the file e.g. ISO-8859-2
@@ -33,8 +35,8 @@ class HTMLParser(SGMLParser):
 
 	def unknown_starttag(self, name, attrs):
 		if name in NEWLINE:
-			self.append('\n')		
-			
+			self.append('\n')
+
 	def unknown_endtag(self, name):
 		if name in NEWLINE:
 			self.append('\n')

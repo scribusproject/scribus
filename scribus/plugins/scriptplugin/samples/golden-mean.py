@@ -19,23 +19,24 @@ or Google for more theory :)
 CONTACT:
 email : petr@yarpen.cz
 Feature requests and bug reports welcomed
+
+
+LICENSE:
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 """
-# ****************************************************************************
-#  This program is free software; you can redistribute it and/or modify
-#  it under the terms of the GNU General Public License as published by
-#  the Free Software Foundation; either version 2 of the License, or
-#  (at your option) any later version.
-#
-#  This program is distributed in the hope that it will be useful,
-#  but WITHOUT ANY WARRANTY; without even the implied warranty of
-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#  GNU General Public License for more details.
-#
-#  You should have received a copy of the GNU General Public License
-#  along with this program; if not, write to the Free Software
-#  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-#
-# ****************************************************************************
 
 from math import sqrt
 from scribus import *
@@ -50,33 +51,33 @@ def goldenMean(aSize=0):
 def createMark(X=0, Y=0, aName=""):
     """Create something like cross on page."""
     D = 10
-    if ObjectExists(aName) == 1:
+    if objectExists(aName) == 1:
         return
-    CreatePolyLine(
+    createPolyLine(
         [X-D, Y, X+D, Y, X, Y-D, X, Y+D,
          X-D, Y, X, Y-D, X, Y+D, X+D, Y], aName)
 
 
 # main
-if HaveDoc():
+if haveDoc():
     # remember user settings
-    unit = GetUnit()
-    layer = GetActiveLayer()
+    unit = getUnit()
+    layer = getActiveLayer()
 
     # set my environment - points needed
-    SetUnit(0)
+    setUnit(0)
     # Paper format
-    paper = PageDimension()
-    
+    paper = pageDimension()
+
     layerExists = 0
-    for i in GetLayers():
+    for i in getLayers():
         if i == GMLAYER:
            layerExists = 1
     if layerExists == 0:
-        CreateLayer(GMLAYER)
-    SetActiveLayer(GMLAYER)
-    SetLayerPrintable(GMLAYER, 0)
-    
+        createLayer(GMLAYER)
+    setActiveLayer(GMLAYER)
+    setLayerPrintable(GMLAYER, 0)
+
     createMark(goldenMean(paper[0]), goldenMean(paper[1]), "GoldenMeanA4-1")
     createMark(paper[0] - goldenMean(paper[0]), goldenMean(paper[1]),
                 "GoldenMeanA4-2")
@@ -86,5 +87,5 @@ if HaveDoc():
                 "GoldenMeanA4-4")
 
     # restore user settings
-    SetUnit(unit)
-    SetActiveLayer(layer)
+    setUnit(unit)
+    setActiveLayer(layer)
