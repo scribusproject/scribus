@@ -1324,6 +1324,12 @@ void ScribusApp::initToolsMenuActions()
 	scrActions["toolsEditWithStoryEditor"]->setToggleAction(true);
 	scrActions["toolsLinkTextFrame"]->setToggleAction(true);
 	scrActions["toolsUnlinkTextFrame"]->setToggleAction(true);
+	
+	toolbarActionNames=new QStringList();
+	*toolbarActionNames << "toolsSelect" << "toolsInsertTextFrame" << "toolsInsertImageFrame" << "toolsInsertTableFrame";
+	*toolbarActionNames << "toolsInsertShape" << "toolsInsertPolygon" << "toolsInsertLine" << "toolsInsertBezier";
+	*toolbarActionNames << "toolsInsertFreehandLine" << "toolsRotate" << "toolsZoom" << "toolsEditContents";
+	*toolbarActionNames << "toolsEditWithStoryEditor" << "toolsLinkTextFrame" << "toolsUnlinkTextFrame";
 
 	connect( scrActions["toolsActionHistory"], SIGNAL(toggled(bool)) , this, SLOT(setUndoPalette(bool)) );
 	connect( scrActions["toolsToolbarTools"], SIGNAL(toggled(bool)) , this, SLOT(setTools(bool)) );
@@ -10576,76 +10582,24 @@ void ScribusApp::generateTableOfContents()
 
 void ScribusApp::disconnectToolsActions()
 {
-	disconnect( scrActions["toolsSelect"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
-	disconnect( scrActions["toolsInsertTextFrame"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
-	disconnect( scrActions["toolsInsertImageFrame"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
-	disconnect( scrActions["toolsInsertTableFrame"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
-	disconnect( scrActions["toolsInsertShape"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
-	disconnect( scrActions["toolsInsertPolygon"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
-	disconnect( scrActions["toolsInsertLine"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
-	disconnect( scrActions["toolsInsertBezier"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
-	disconnect( scrActions["toolsInsertFreehandLine"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
-	disconnect( scrActions["toolsRotate"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
-	disconnect( scrActions["toolsZoom"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
-	disconnect( scrActions["toolsEditContents"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
-	disconnect( scrActions["toolsEditWithStoryEditor"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
-	disconnect( scrActions["toolsLinkTextFrame"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
-	disconnect( scrActions["toolsUnlinkTextFrame"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
+	for ( QStringList::Iterator it = toolbarActionNames->begin(); it != toolbarActionNames->end(); ++it )
+		disconnect( scrActions[*it], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
 }
 	
 void ScribusApp::connectToolsActions()
 {
-	connect( scrActions["toolsSelect"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
-	connect( scrActions["toolsInsertTextFrame"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
-	connect( scrActions["toolsInsertImageFrame"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
-	connect( scrActions["toolsInsertTableFrame"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
-	connect( scrActions["toolsInsertShape"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
-	connect( scrActions["toolsInsertPolygon"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
-	connect( scrActions["toolsInsertLine"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
-	connect( scrActions["toolsInsertBezier"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
-	connect( scrActions["toolsInsertFreehandLine"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
-	connect( scrActions["toolsRotate"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
-	connect( scrActions["toolsZoom"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
-	connect( scrActions["toolsEditContents"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
-	connect( scrActions["toolsEditWithStoryEditor"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
-	connect( scrActions["toolsLinkTextFrame"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
-	connect( scrActions["toolsUnlinkTextFrame"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
+	for ( QStringList::Iterator it = toolbarActionNames->begin(); it != toolbarActionNames->end(); ++it )
+		connect( scrActions[*it], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
 }
 	
 void ScribusApp::saveToolsShortcuts()
 {
-	scrActions["toolsSelect"]->saveShortcut();
-	scrActions["toolsInsertTextFrame"]->saveShortcut();
-	scrActions["toolsInsertImageFrame"]->saveShortcut();
-	scrActions["toolsInsertTableFrame"]->saveShortcut();
-	scrActions["toolsInsertShape"]->saveShortcut();
-	scrActions["toolsInsertPolygon"]->saveShortcut();
-	scrActions["toolsInsertLine"]->saveShortcut();
-	scrActions["toolsInsertBezier"]->saveShortcut();
-	scrActions["toolsInsertFreehandLine"]->saveShortcut();
-	scrActions["toolsRotate"]->saveShortcut();
-	scrActions["toolsZoom"]->saveShortcut();
-	scrActions["toolsEditContents"]->saveShortcut();
-	scrActions["toolsEditWithStoryEditor"]->saveShortcut();
-	scrActions["toolsLinkTextFrame"]->saveShortcut();
-	scrActions["toolsUnlinkTextFrame"]->saveShortcut();
+	for ( QStringList::Iterator it = toolbarActionNames->begin(); it != toolbarActionNames->end(); ++it )
+		scrActions[*it]->saveShortcut();
 }
 
 void ScribusApp::restoreToolsShortcuts()
 {
-	scrActions["toolsSelect"]->restoreShortcut();
-	scrActions["toolsInsertTextFrame"]->restoreShortcut();
-	scrActions["toolsInsertImageFrame"]->restoreShortcut();
-	scrActions["toolsInsertTableFrame"]->restoreShortcut();
-	scrActions["toolsInsertShape"]->restoreShortcut();
-	scrActions["toolsInsertPolygon"]->restoreShortcut();
-	scrActions["toolsInsertLine"]->restoreShortcut();
-	scrActions["toolsInsertBezier"]->restoreShortcut();
-	scrActions["toolsInsertFreehandLine"]->restoreShortcut();
-	scrActions["toolsRotate"]->restoreShortcut();
-	scrActions["toolsZoom"]->restoreShortcut();
-	scrActions["toolsEditContents"]->restoreShortcut();
-	scrActions["toolsEditWithStoryEditor"]->restoreShortcut();
-	scrActions["toolsLinkTextFrame"]->restoreShortcut();
-	scrActions["toolsUnlinkTextFrame"]->restoreShortcut();
+	for ( QStringList::Iterator it = toolbarActionNames->begin(); it != toolbarActionNames->end(); ++it )
+		scrActions[*it]->restoreShortcut();
 }

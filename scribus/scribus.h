@@ -522,6 +522,7 @@ private:
 	QToolBar *WerkTools2;
 	QToolBar *editToolBar;
 	WerkToolBP* WerkToolsP;
+	QStringList *toolbarActionNames;
 	QToolButton* DatOpe;
 	QToolButton* DatSav;
 	QToolButton* DatClo;
