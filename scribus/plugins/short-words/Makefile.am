@@ -1,4 +1,4 @@
-pluginsdir = $(prefix)/lib/scribus/plugins
+pluginsdir = $(libdir)/scribus/plugins
 AM_CPPFLAGS = -I$(prefix)/include/scribus \
 	-s $(LIBFREETYPE_LIBS) \
 	-I$(top_builddir)/scribus \
@@ -21,12 +21,11 @@ libscribusshortwords_la_SOURCES = vlnadialog.cpp parse.cpp shortwords.cpp config
 EXTRA_DIST = parse.h vlnadialog.h shortwords.h version.h configuration config.h scribus-short-words.rc
 
 KDE_OPTIONS = qtonly
-AM_LDFLAGS =	-s $(LIBFREETYPE_LIBS)
-
+AM_LDFLAGS = -s $(LIBFREETYPE_LIBS)
 
 install-data-local:
-	$(mkinstalldirs) $(prefix)/lib/scribus/plugins/
-	$(INSTALL_DATA) $(srcdir)/scribus-short-words.rc $(prefix)/lib/scribus/plugins/scribus-short-words.rc
+	$(mkinstalldirs) $(libdir)/scribus/plugins/
+	$(INSTALL_DATA) $(srcdir)/scribus-short-words.rc $(libdir)/scribus/plugins/scribus-short-words.rc
 
 uninstall-local:
 	-rm -f $(prefix)/lib/scribus/plugins/scribus-short-words.rc
