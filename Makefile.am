@@ -2,7 +2,7 @@
 
 SUBDIRS = scribus 
 
-EXTRA_DIST = AUTHORS COPYING ChangeLog INSTALL README TODO scribus.lsm scribus.desktop admin 
+EXTRA_DIST = AUTHORS COPYING ChangeLog INSTALL README TODO scribus.1 scribus.lsm scribus.desktop admin 
 
 ####### kdevelop will overwrite this part!!! (end)############
 # not a GNU package. You can remove this line, if 
@@ -23,6 +23,14 @@ MAINTAINERCLEANFILES = subdirs configure.in acinclude.m4 configure.files
 package-messages:
 	$(MAKE) -f admin/Makefile.common package-messages
 	$(MAKE) -C po merge
+
+install-data-local:
+	$(mkinstalldirs) $(prefix)/man
+	$(mkinstalldirs) $(prefix)/man/man1
+	$(INSTALL_DATA) $(srcdir)/scribus.1 $(prefix)/man/man1/scribus.1
+
+uninstall-local:
+	-rm -f $(prefix)/man/man1/scribus.1
 
 dist-hook:
 	cd $(top_distdir) && perl admin/am_edit -padmin

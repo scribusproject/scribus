@@ -196,11 +196,11 @@ C=CUPS C=littlecms T=TIFF
     </message>
     <message>
         <source>Official Translations and Translators:</source>
-        <translation type="unfinished"></translation>
+        <translation>Официальные переводы и переводчики:</translation>
     </message>
     <message>
         <source>Previous Translation Contributors:</source>
-        <translation type="unfinished"></translation>
+        <translation>Предыдущие авторы переводов:</translation>
     </message>
 </context>
 <context>
@@ -286,7 +286,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Align</source>
-        <translation>Выровнять</translation>
+        <translation>Выравнивание</translation>
     </message>
     <message>
         <source>Horizontal</source>
@@ -389,23 +389,23 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     <name>AlignSelect</name>
     <message>
         <source>Align Text Left</source>
-        <translation>Выровнять по левой стороне</translation>
+        <translation>Выключка по левой стороне</translation>
     </message>
     <message>
         <source>Align Text Right</source>
-        <translation>Выровнять по правой стороне</translation>
+        <translation>Выключка по правой стороне</translation>
     </message>
     <message>
         <source>Align Text Center</source>
-        <translation>Выровнять по центру</translation>
+        <translation>Выключка по центру</translation>
     </message>
     <message>
         <source>Align Text Justified</source>
-        <translation>Выровнять по ширине</translation>
+        <translation>Выключка по ширине</translation>
     </message>
     <message>
         <source>Align Text Forced Justified</source>
-        <translation>Принудительно выровнять по ширине</translation>
+        <translation>Принудительная выключка по ширине</translation>
     </message>
 </context>
 <context>
@@ -1005,11 +1005,11 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;ОК</translation>
+        <translation>&amp;ОК</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">О&amp;тменить</translation>
+        <translation>О&amp;тменить</translation>
     </message>
 </context>
 <context>
@@ -1493,12 +1493,13 @@ This requires very accurate profiles and serves only as a warning.</source>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Ничего</translation>
     </message>
     <message>
         <source>You cannot create a color named &quot;%1&quot;.
 It&apos;s a reserved name for transparent color</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы не можете создать цвет с именем &quot;%1&quot;.
+Это имя зарезервировано для прозрачного цвета</translation>
     </message>
 </context>
 <context>
@@ -1781,7 +1782,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Ничего</translation>
     </message>
 </context>
 <context>
@@ -2633,7 +2634,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Ничего</translation>
     </message>
 </context>
 <context>
@@ -4012,7 +4013,7 @@ Corners:</source>
     </message>
     <message>
         <source>Use &amp;Bounding Box</source>
-        <translation>Ограничивающий &amp;прямоугольник</translation>
+        <translation>Использовать &amp;площадку</translation>
     </message>
     <message>
         <source>&amp;Use Contour Line</source>
@@ -4081,8 +4082,7 @@ Corners:</source>
     <message>
         <source>Use a surrounding box instead of the frame&apos;s shape for text flow</source>
         <translation>Использовать для расчёта обтекания 
-текста ограничивающий прямоугольник 
-вместо контура рамки</translation>
+текста площадку вместо контура рамки</translation>
     </message>
     <message>
         <source>Use a second line originally based on the frame&apos;s shape for text flow</source>
@@ -5044,8 +5044,8 @@ Leaving this unchecked will render them at their native resolution.</source>
     <message>
         <source>Embed fonts into the PDF. Embedding the fonts
 will preserve the layout and appearance of your document.</source>
-        <translation>Встраивать шрифты в документы PDF. 
-Встраивание шрифтов позволит сохранить вид 
+        <translation>Встраивать шрифтовые файлы в документы PDF. 
+Встраивание этих файлов позволит сохранить вид 
 документа при чтении с любого компьютера.</translation>
     </message>
     <message>
@@ -5228,7 +5228,7 @@ a range of pages or a single page number.</source>
     </message>
     <message>
         <source>&amp;Embed all Fonts</source>
-        <translation>Встроить &amp;все шрифты</translation>
+        <translation>Встроить &amp;все шрифтовые файлы</translation>
     </message>
     <message>
         <source>&amp;&gt;&gt;</source>
@@ -5406,19 +5406,19 @@ Otherwise, your exported PDF may not print properly and is truly not portable ac
     </message>
     <message>
         <source>&amp;Subset all Fonts</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Вычесть неиспользуемые знаки из всех шрифтовых файлов</translation>
     </message>
     <message>
         <source>Fonts to subset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Из каких шрифтовых файлов вычесть знаки:</translation>
     </message>
     <message>
         <source>Mirror Page(s) horizontally</source>
-        <translation type="unfinished"></translation>
+        <translation>Зеркально отразить по горизонтали</translation>
     </message>
     <message>
         <source>Mirror Page(s) vertically</source>
-        <translation type="unfinished"></translation>
+        <translation>Зеркально отразить по вертикали</translation>
     </message>
 </context>
 <context>
@@ -5629,7 +5629,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Show &amp;Baseline Grid</source>
-        <translation>Показать &amp;опорную сетку</translation>
+        <translation>Показать опорную &amp;сетку</translation>
     </message>
     <message>
         <source>Sn&amp;ap to Grid</source>
@@ -5689,7 +5689,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Is PDF A&amp;nnotation</source>
-        <translation>Является PDF-&amp;анотацией</translation>
+        <translation>Является PDF-&amp;аннотацией</translation>
     </message>
     <message>
         <source>Annotation P&amp;roperties</source>
@@ -6299,7 +6299,7 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>Displacement above the baseline of the font on a line</source>
-        <translation>Смещение шрифта вверх относительно базовой линии</translation>
+        <translation>Смещение выше линии опорной сетки</translation>
     </message>
     <message>
         <source>Relative size of the superscript compared to the normal font</source>
@@ -6307,7 +6307,7 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>Displacement below the baseline of the normal font on a line</source>
-        <translation>Смещение шрифта вниз относительно базовой линии</translation>
+        <translation>Смещение ниже линии опорной сетки обычного шрифта</translation>
     </message>
     <message>
         <source>Relative size of the subscript compared to the normal font</source>
@@ -6525,7 +6525,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Baseline Grid</source>
-        <translation>Опорная сетка</translation>
+        <translation>Сетка линии шрифта</translation>
     </message>
     <message>
         <source>Turns on the basegrid</source>
@@ -6704,11 +6704,11 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Baseline &amp;Grid:</source>
-        <translation>Опорная &amp;сетка:</translation>
+        <translation>&amp;Сетка линии шрифта:</translation>
     </message>
     <message>
         <source>Baseline &amp;Offset:</source>
-        <translation>С&amp;мещение опорной сетки:</translation>
+        <translation>С&amp;мещение сетки линии шрифта:</translation>
     </message>
     <message>
         <source>Automatic &amp;Line Spacing:</source>
@@ -6807,7 +6807,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>&amp;Factor:</source>
-        <translation>&amp;Фактор:</translation>
+        <translation>К&amp;оэфф:</translation>
     </message>
     <message>
         <source>Sa&amp;ve Contents on Changes</source>
@@ -7463,7 +7463,11 @@ Check path and filename.</source>
     </message>
     <message>
         <source>New &amp;from Template...</source>
-        <translation>Создать из &amp;шаблона...</translation>
+        <translation>Созд&amp;ать из шаблона...</translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation type="obsolete">&amp;Создать</translation>
     </message>
     <message>
         <source>Newsletters</source>
@@ -7558,6 +7562,10 @@ Check path and filename.</source>
         <translation>Сохранить как &amp;шаблон...</translation>
     </message>
     <message>
+        <source>Save &amp;As...</source>
+        <translation type="obsolete">Сохранить &amp;как</translation>
+    </message>
+    <message>
         <source>&amp;Insert Special</source>
         <translation>&amp;Вставить символ...</translation>
     </message>
@@ -7572,6 +7580,10 @@ Check path and filename.</source>
     <message>
         <source>Print Previe&amp;w</source>
         <translation>Просмотреть &amp;печать</translation>
+    </message>
+    <message>
+        <source>&amp;Print...</source>
+        <translation type="obsolete">На&amp;печатать...</translation>
     </message>
     <message>
         <source>S&amp;cripter Manual...</source>
@@ -7915,35 +7927,39 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Page Size</source>
-        <translation type="unfinished">Размер страницы</translation>
+        <translation>Размер страницы</translation>
     </message>
     <message>
         <source>Size:</source>
-        <translation type="unfinished">Размер:</translation>
+        <translation>Размер:</translation>
     </message>
     <message>
         <source>Custom</source>
-        <translation type="unfinished"></translation>
+        <translation>Собственный</translation>
     </message>
     <message>
         <source>Orientation:</source>
-        <translation type="unfinished">Ориентация:</translation>
+        <translation>Ориентация:</translation>
     </message>
     <message>
         <source>Portrait</source>
-        <translation type="unfinished"></translation>
+        <translation>Портрет</translation>
     </message>
     <message>
         <source>Landscape</source>
-        <translation type="unfinished"></translation>
+        <translation>Альбом</translation>
     </message>
     <message>
         <source>Width:</source>
-        <translation type="unfinished">Ширина:</translation>
+        <translation>Ширина:</translation>
     </message>
     <message>
         <source>Height:</source>
-        <translation type="unfinished">Высота:</translation>
+        <translation>Высота:</translation>
+    </message>
+    <message>
+        <source>F&amp;irst Page Number:</source>
+        <translation>&amp;Номер первой страницы:</translation>
     </message>
 </context>
 <context>
@@ -8080,15 +8096,15 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Align Left</source>
-        <translation>Выровнять по левой стороне</translation>
+        <translation>Выключка по левой стороне</translation>
     </message>
     <message>
         <source>Align Right</source>
-        <translation>Выровнять по правой стороне</translation>
+        <translation>Выключка по правой стороне</translation>
     </message>
     <message>
         <source>Align Center</source>
-        <translation>Выровнять по центру</translation>
+        <translation>Выключка по центру</translation>
     </message>
     <message>
         <source>Insert Page Number</source>
@@ -8978,7 +8994,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Show &amp;Baseline Grid</source>
-        <translation>Показать &amp;опорную сетку</translation>
+        <translation>Показать опорную &amp;сетку</translation>
     </message>
     <message>
         <source>&amp;Properties</source>
@@ -9662,7 +9678,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Update Text Frame and Exit</source>
-        <translation>Обновиь текстовую рамку и выйти</translation>
+        <translation>Обновить текстовую рамку и выйти</translation>
     </message>
     <message>
         <source>Exit Without Updating Text Frame</source>
@@ -9786,7 +9802,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>&amp;Smart text selection</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Умное выделение текста</translation>
     </message>
 </context>
 <context>
@@ -9857,7 +9873,10 @@ on front of the paragraph style name in Scribus</source>
         <source>If a paragraph style already exists with the same name as the current
 OpenOffice.org document&apos;s paragraph, should the style in Scribus be
 edited to match the one being imported, or left untouched</source>
-        <translation type="unfinished"></translation>
+        <translation>Если в документе Scribus существует стиль, имя которого 
+сопадает со стилем импортируемого документа OO.o Writer, 
+то этот стиль может быть обновлён до совпадения с 
+одноимённым стилем из импортируемого документа</translation>
     </message>
 </context>
 <context>

@@ -262,13 +262,8 @@ PyObject *scribus_getselobjnam(PyObject *self, PyObject* args)
 		return PyString_FromString("");
 }
 
-PyObject *scribus_selcount(PyObject *self, PyObject* args)
+PyObject *scribus_selcount(PyObject *self)
 {
-	if (!PyArg_ParseTuple(args, ""))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("selectionCount()"));
-		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	return PyInt_FromLong(static_cast<long>(Carrier->doc->ActPage->SelItem.count()));
@@ -291,13 +286,8 @@ PyObject *scribus_selectobj(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_deselect(PyObject *self, PyObject* args)
+PyObject *scribus_deselect(PyObject *self)
 {
-	if (!PyArg_ParseTuple(args, ""))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("deselectAll()"));
-		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	for (uint i = 0; i < Carrier->view->Pages.count(); i++)

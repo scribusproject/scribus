@@ -1,5 +1,13 @@
 Changes since 1.2 
 
+07.11.2004
+	* bug     #1262: Serbian Translation Updated
+	* bug     #1265: German ts update
+	* bug     #1269: editing state should be lost if selecting another object
+	* bug     #1277: update of scribus.ru.ts
+	* feature #1264: PATCH: Convert functions that take no arguments to METH_NOARGS
+	* feature #1276: PATCH: Change function aliasing to use a dynamically created Python wrapper function
+
 31.10.2004
 	* bug     #1154: Tabs not in line
 	* bug     #1234: fix configure to detect Python 2.4
@@ -11,8 +19,8 @@ Changes since 1.2
 	* bug     #1255: wrong page orientation
 	* bug     #1261: New Dutch Translation
 	* feature # 601: Keep last opened directory
+	* feature # 601: Keep last opened directory
 	* feature #1038: "Export text as outlines" in PDF exporter
-	* feature # 601: Keep last opened directory 
 
 29.10.2004
 	* feature #1259: Polish translation update

@@ -5476,11 +5476,11 @@ void Page::mousePressEvent(QMouseEvent *m)
 		{
 			Deselect(true);
 			slotDoCurs(true);
-			if (!SeleItem(m))
-			{
+/*			if (!SeleItem(m))
+			{ */
 				emit Amode(1);
 				return;
-			}
+/*			}
 			else
 			{
 				b = doku->ActPage->SelItem.at(0);
@@ -5510,7 +5510,7 @@ void Page::mousePressEvent(QMouseEvent *m)
 					RefreshItem(b);
 				}
 				return;
-			}
+			} */
 		}
 		b = doku->ActPage->SelItem.at(0);
 		oldCp = b->CPos;

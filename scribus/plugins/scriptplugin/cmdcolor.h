@@ -5,7 +5,7 @@
 /** Managing Colors */
 
 /** Returns a list with colours available in doc or in prefs. */
-PyObject *scribus_colornames(PyObject *self, PyObject* args);
+PyObject *scribus_colornames(PyObject *self);
 /** Returns a CMYK tuple of the specified color. */
 PyObject *scribus_getcolor(PyObject *self, PyObject* args);
 /** Sets named color with C,M,Y,K params. */

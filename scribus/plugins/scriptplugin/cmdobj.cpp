@@ -507,14 +507,9 @@ PyObject *scribus_setstyle(PyObject *self, PyObject* args)
  * Craig Ringer, 2004-09-09
  * Enumerate all known paragraph styles
  */
-PyObject *scribus_getstylenames(PyObject *self, PyObject* args)
+PyObject *scribus_getstylenames(PyObject *self)
 {
 	PyObject *styleList;
-	if (!PyArg_ParseTuple(args, ""))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getAllStyles()"));
-		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	styleList = PyList_New(0);

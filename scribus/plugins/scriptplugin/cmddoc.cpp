@@ -55,13 +55,8 @@ PyObject *scribus_setmargins(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_closedoc(PyObject *self, PyObject* args)
+PyObject *scribus_closedoc(PyObject *self)
 {
-	if (!PyArg_ParseTuple(args, ""))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("closeDoc()"));
-		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	Carrier->doc->setUnModified();
@@ -70,13 +65,8 @@ PyObject *scribus_closedoc(PyObject *self, PyObject* args)
 	return PyInt_FromLong(static_cast<long>(ret));
 }
 
-PyObject *scribus_havedoc(PyObject *self, PyObject* args)
+PyObject *scribus_havedoc(PyObject *self)
 {
-	if (!PyArg_ParseTuple(args, ""))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("haveDoc()"));
-		return NULL;
-	}
 	return PyInt_FromLong(static_cast<long>(Carrier->HaveDoc));
 }
 
@@ -92,13 +82,8 @@ PyObject *scribus_opendoc(PyObject *self, PyObject* args)
 	return PyInt_FromLong(static_cast<long>(ret));
 }
 
-PyObject *scribus_savedoc(PyObject *self, PyObject* args)
+PyObject *scribus_savedoc(PyObject *self)
 {
-	if (!PyArg_ParseTuple(args, ""))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("saveDoc()"));
-		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	Carrier->slotFileSave();
@@ -156,13 +141,8 @@ PyObject *scribus_setunit(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_getunit(PyObject *self, PyObject* args)
+PyObject *scribus_getunit(PyObject *self)
 {
-	if (!PyArg_ParseTuple(args, ""))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getUnit()"));
-		return NULL;
-	}
 	if(!checkHaveDocument())
 		return NULL;
 	return PyInt_FromLong(static_cast<long>(Carrier->doc->Einheit));

@@ -3,16 +3,11 @@
 #include "cmdutil.h"
 #include "cmdvar.h"
 
-PyObject *scribus_colornames(PyObject *self, PyObject* args)
+PyObject *scribus_colornames(PyObject *self)
 {
 	CListe edc;
 	PyObject *l;
 	int cc = 0;
-	if (!PyArg_ParseTuple(args, ""))
-	{
-		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getColorNames()"));
-		return NULL;
-	}
 	edc = Carrier->HaveDoc ? Carrier->doc->PageColors : Carrier->Prefs.DColors;
 	CListe::Iterator it;
 	l = PyList_New(edc.count());
