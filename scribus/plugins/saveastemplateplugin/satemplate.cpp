@@ -64,29 +64,30 @@ void MenuSAT::RunSATPlug()
 	if (currentFile !=  Carrier->doc->DocName)
 	{ // TODO Check if the collect was canceled.
 		satdialog* satdia = new satdialog(par,docName, 
-		                                  (int)Carrier->doc->PageB, 
-										  (int)Carrier->doc->PageH);
+                                          static_cast<int>(Carrier->doc->PageB + 0.5), 
+                                          static_cast<int>(Carrier->doc->PageH + 0.5));
 		if (satdia->exec())
 		{
 			sat* s = new sat(Carrier, satdia, docPath.right(docPath.length() - docPath.findRev('/') - 1),docDir);
 			s->createImages();
 			s->createTmplXml();
 			delete s;
-			// Restore the state that was before plug->Collect()
-			Carrier->doc->DocName = currentFile;
-			Carrier->doc->hasName = hasName;
-			if (isModified)
-			{
-				Carrier->doc->setModified();
-				Carrier->ActWin->setCaption(currentFile+"*");
-			}
-			else
-			{
-				Carrier->doc->setUnModified();
-				Carrier->ActWin->setCaption(currentFile);
-			}
-			Carrier->RemoveRecent(docPath);
 		}
+		// Restore the state that was before Carrier->Collect()
+		Carrier->doc->DocName = currentFile;
+		Carrier->doc->hasName = hasName;
+		if (isModified)
+		{
+			Carrier->doc->setModified();
+			Carrier->ActWin->setCaption(currentFile+"*");
+		}
+		else
+		{
+			Carrier->doc->setUnModified();
+			Carrier->ActWin->setCaption(currentFile);
+		}
+		Carrier->RemoveRecent(docPath);
+		QDir::setCurrent(currentDirPath);
 		delete satdia;
 	}
 }
@@ -165,9 +166,7 @@ void sat::appendTmplXml()
 			file += tmp + "\n";
 			tmp = stream.readLine();
 			if (tmp.find("</templates>") != -1)
-			{
 				file += getTemplateTag();
-			}
 		}
 		tmplXml.close();
 		if ( tmplXml.open( IO_WriteOnly ) )

@@ -32,7 +32,7 @@ extern "C" void CleanUpPlug();
 
 class MenuSAT : public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
     MenuSAT(QWidget* parent) {};

@@ -40,19 +40,16 @@ nftdialog::nftdialog(QWidget* parent) : QDialog(parent, "nftdialog", TRUE)
 	
 	mainlo = new QHBoxLayout(middle,0,5,"mainlo");
 	QSplitter* splitter = new QSplitter(middle);
-	splitter->setCursor(QCursor(Qt::SizeHorCursor));
 	mainlo->addWidget(splitter);
 	
 	categoryList = new QListBox(splitter,"categoryList",0);
 	categoryList->setMinimumWidth(130);
 	categoryList->setMaximumWidth(200);
-	categoryList->setCursor(Qt::ArrowCursor);
 	
 	tnailGrid = new QIconView(splitter,"tnailGrid",0);
 	tnailGrid->setMinimumWidth(300);
 	tnailGrid->setSpacing(5);
 	tnailGrid->setItemsMovable(false);
-	tnailGrid->setCursor(Qt::ArrowCursor);
 	
 	QWidget* dtTmp = new QWidget(splitter, "dtTmp", 0);
 	dtTmp->setMinimumWidth(235);
@@ -65,7 +62,6 @@ nftdialog::nftdialog(QWidget* parent) : QDialog(parent, "nftdialog", TRUE)
 	detailBar->setMinimumHeight(32);
 	detailBar->setMargin(5);
 	detaillo->addWidget(detailBar);
-	detailBar->setCursor(Qt::ArrowCursor);
 	
 	infoLabel = new QTextBrowser(dtTmp,"infoLabel");
 	infoLabel->setFrameShape(QFrame::Panel);
@@ -82,7 +78,6 @@ nftdialog::nftdialog(QWidget* parent) : QDialog(parent, "nftdialog", TRUE)
 	imgLabel->setSelectionMode(QIconView::NoSelection);
 	detaillo->addWidget(imgLabel);
 	imgLabel->setHidden(true);
-	imgLabel->setCursor(Qt::ArrowCursor);
 	
 	aboutLabel = new QTextBrowser(dtTmp,"aboutLabel");
 	aboutLabel->setFrameShape(QFrame::Panel);
@@ -139,20 +134,23 @@ nftdialog::nftdialog(QWidget* parent) : QDialog(parent, "nftdialog", TRUE)
 void nftdialog::setupCategories() 
 {
 	QString categories("");
-	for (uint i = 0; i < settings->templates.size(); i++) {
-		if (categories.find(settings->templates[i]->templateCategory) == -1) {
+	for (uint i = 0; i < settings->templates.size(); i++)
+	{
+		if (categories.find(settings->templates[i]->templateCategory) == -1)
+		{
 			categoryList->insertItem(settings->templates[i]->templateCategory);
 			categories += settings->templates[i]->templateCategory;
 		}
 	}
 	categoryList->sort();
-	categoryList->insertItem(QString( tr("All")),0);
+	categoryList->insertItem(QString( tr("All")), 0 );
 	categoryList->setCurrentItem(0);
 }
 
 void nftdialog::setupListItems()
 {
-	for (uint i = 0; i < settings->templates.size(); i++) {
+	for (uint i = 0; i < settings->templates.size(); ++i)
+	{
 		ListItem* tmp = new ListItem(settings->templates[i], NULL);
 		iconItems.push_back(tmp);
 	}
@@ -160,9 +158,11 @@ void nftdialog::setupListItems()
 
 void nftdialog::setTNails()
 {
-	if (categoryList->currentItem() == 0) {
+	if (categoryList->currentItem() == 0)
+	{
 		tnailGrid->clear();
-		for (uint i = 0; i < iconItems.size();i++) {
+		for (uint i = 0; i < iconItems.size(); ++i) 
+		{
 			QIconViewItem* tmpQIVI = new QIconViewItem(tnailGrid,
 			                                           iconItems[i]->first->name, 
 			                                           QPixmap(iconItems[i]->first->tnail));
@@ -172,17 +172,20 @@ void nftdialog::setTNails()
 		return;
 	}
 	QString curtype = categoryList->text(categoryList->currentItem());
-	if (curtype != NULL) {
+	if (curtype != NULL)
+	{
 		tnailGrid->clear();
-		for (uint i = 0; i < iconItems.size(); i++) {
-			if (curtype.find(iconItems[i]->first->templateCategory) != -1) {
+		for (uint i = 0; i < iconItems.size(); ++i)
+		{
+			if (curtype.find(iconItems[i]->first->templateCategory) != -1)
+			{
 				QIconViewItem* tmpQIVI = new QIconViewItem(tnailGrid,
 			                                              iconItems[i]->first->name, 
 			                                              QPixmap(iconItems[i]->first->tnail));
 				iconItems[i]->second = tmpQIVI;
-			} else {
+			} 
+			else
 				iconItems[i]->second = NULL;
-			}
 		}
 		tnailGrid->sort();
 	}
@@ -190,8 +193,10 @@ void nftdialog::setTNails()
 
 void nftdialog::setInfo(QIconViewItem* item) 
 {
-	for (uint i = 0; i < iconItems.size(); i++) {
-		if (iconItems[i]->second == item) {
+	for (uint i = 0; i < iconItems.size(); ++i)
+	{
+		if (iconItems[i]->second == item)
+		{
 			currentTemplate = iconItems[i]->first;
 			break;
 		}
@@ -208,7 +213,7 @@ void nftdialog::setInfo(QIconViewItem* item)
 	infoText += currentTemplate->usage + "<br>";
 	infoText += "<b>"+tr("Created with")+"</b><br>";
 	infoText += "Scribus " + currentTemplate->scribusVersion + "<br>";
-	infoText += currentTemplate->date + "<br><br>";
+	infoText += currentTemplate->date + "<br>";
 	infoText += "<b>"+tr("Author")+"</b><br>";
 	infoText += currentTemplate->author + "<br>";
 	infoText += currentTemplate->email + "<br>";
@@ -220,7 +225,8 @@ void nftdialog::setInfo(QIconViewItem* item)
 	qvi->setDragEnabled(false);
 	qvi->setDropEnabled(false);
 	
-	if (!okButton->isEnabled()) {
+	if (!okButton->isEnabled())
+	{
 		okButton->setEnabled(true);
 		okButton->setDefault(true);
 	}
@@ -228,17 +234,19 @@ void nftdialog::setInfo(QIconViewItem* item)
 
 void nftdialog::infoToggle()
 {
-	if (infoButton->state() == QButton::On) {
+	if (infoButton->state() == QButton::On)
+	{
 		tmpSpacer->setHidden(true);
 		infoLabel->setHidden(false);
 		if (imgButton->state() == QButton::On)
 			imgButton->toggle();
 		if (aboutButton->state() == QButton::On)
 			aboutButton->toggle();
-	} else {
-		if (imgButton->state() == QButton::Off) {
+	} 
+	else
+	{
+		if (imgButton->state() == QButton::Off)
 			tmpSpacer->setHidden(false);
-		}
 		infoLabel->setHidden(true);
 	}
 	
@@ -246,34 +254,38 @@ void nftdialog::infoToggle()
 
 void nftdialog::imgToggle() 
 {	
-	if (imgButton->state() == QButton::On) {
+	if (imgButton->state() == QButton::On)
+	{
 		tmpSpacer->setHidden(true);
 		imgLabel->setHidden(false);
 		if (infoButton->state() == QButton::On) 
 			infoButton->toggle();
 		if (aboutButton->state() == QButton::On) 
 			aboutButton->toggle();
-	} else {
-		if (infoButton->state() == QButton::Off) {
+	}
+	else
+	{
+		if (infoButton->state() == QButton::Off)
 			tmpSpacer->setHidden(false);
-		}
 		imgLabel->setHidden(true);
 	}
 }
 
 void nftdialog::aboutToggle()
 {
-	if (aboutButton->state() == QButton::On) {
+	if (aboutButton->state() == QButton::On)
+	{
 		tmpSpacer->setHidden(true);
 		aboutLabel->setHidden(false);
 		if (imgButton->state() == QButton::On) 
 			imgButton->toggle();
 		if (infoButton->state() == QButton::On)
 			infoButton->toggle();
-	} else {
-		if (aboutButton->state() == QButton::Off) {
+	}
+	else
+	{
+		if (aboutButton->state() == QButton::Off)
 			tmpSpacer->setHidden(false);
-		}
 		aboutLabel->setHidden(true);
 	}
 }
@@ -285,11 +297,10 @@ void nftdialog::exitCancel()
 
 void nftdialog::exitOK() 
 {
-	if (currentTemplate == NULL) {
+	if (currentTemplate == NULL)
 		reject();
-	} else {
+	else
 		accept();
-	}
 }
 
 void nftdialog::setupAbout() 
@@ -307,7 +318,7 @@ void nftdialog::setupAbout()
 	text += "Make sure images you use can be used anywhere. ";
 	text += "Fonts must be checked for this as well. ";
 	text += "If fonts cannot be shared remove them from the template directory ";
-	text += "before packaging the template.<br><br>";
+	text += "before packaging and distributing the template.<br><br>";
 	aboutLabel->setText(text);
 }
 
@@ -315,7 +326,6 @@ nftdialog::~nftdialog()
 {
 	// TODO Get the window size and position information and save with settings
 	delete settings;
-	for (uint i = 0; i < iconItems.size(); i++) {
+	for (uint i = 0; i < iconItems.size(); i++)
 		delete iconItems[i];
-	}
 }

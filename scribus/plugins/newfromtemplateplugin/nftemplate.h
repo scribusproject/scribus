@@ -29,7 +29,7 @@ extern "C" void CleanUpPlug();
 
 class MenuNFT : public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
     MenuNFT(QWidget* parent) {};

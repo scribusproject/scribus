@@ -62,17 +62,16 @@ bool nftrcreader::startElement(const QString&, const QString&, const QString &na
 	if (name == "template") { // new template starts here
 		inTemplate = true;
 		QString category;
-		for (int i = 0; i < attrs.count(); i++) {
-			if (attrs.localName(i) == "category") {
+		for (int i = 0; i < attrs.count(); i++)
+		{
+			if (attrs.localName(i) == "category")
 				category = getCategory(attrs.value(i));
-			}
 		}
 		tmpTemplate = new nfttemplate(category); // create a new template
 	}
 	
-	if (name == "settings") {
+	if (name == "settings") 
 		inSettings = true;
-	}
 
 	return true;
 }
@@ -80,19 +79,22 @@ bool nftrcreader::startElement(const QString&, const QString&, const QString &na
 bool nftrcreader::characters(const QString &ch) 
 {
 	QString tmp(ch);
-	if (inName) {
+	if (inName)
 		tmpTemplate->name = tmp;
-	} else if (inFile) {
+	else if (inFile)
+	{
 		if (tmp.left(1) == "/")
 			tmpTemplate->file = tmp;
 		else 
 			tmpTemplate->file = currentDir + "/" + tmp;
-	} else if (inTNail) {
+	} else if (inTNail)
+	{
 		if (tmp.left(1) == "/")
 			tmpTemplate->tnail = tmp;
 		else
 			tmpTemplate->tnail = currentDir + "/" + tmp; 
-	} else if (inImg) {
+	} else if (inImg)
+	{
 		if (tmp.left(1) == "/") 
 			tmpTemplate->img = tmp;
 		else
@@ -119,11 +121,11 @@ bool nftrcreader::characters(const QString &ch)
 
 bool nftrcreader::endElement(const QString&, const QString&, const QString &name)
 {
-	if (name == "template") { // <template id="1">, new template starts here
+	if (name == "template")
+	{ // new template starts here
 		inTemplate = false;
-		if (tmpTemplate != NULL) { // If we have a template already created push
+		if (tmpTemplate != NULL) // If we have a template already created push
 			templates->push_back(tmpTemplate); // it to the templates vector and start a new one
-		}
 	}
 	if (inTemplate) {
 		if (inName && name == "name")
@@ -167,7 +169,8 @@ void nftrcreader::setSourceDir(QString source)
 
 QString nftrcreader::getCategory(QString cat) 
 {
-	for (uint i = 0; i < cats.size(); i++) {
+	for (uint i = 0; i < cats.size(); ++i)
+	{
 		if (cat == *cats[i]->first)
 			return *cats[i]->second;
 	}
@@ -227,7 +230,6 @@ void nftrcreader::setupCategories()
 
 nftrcreader::~nftrcreader()
 {
-	for (uint i = 0; i < cats.size(); i++) {
+	for (uint i = 0; i < cats.size(); ++i)
 		delete cats[i];
-	}
 }

@@ -50,7 +50,8 @@ void Run(QWidget *d, ScribusApp *plug)
 void MenuNFT::RunNFTPlug()
 {
 	nftdialog* nftdia = new nftdialog(par);
-	if (nftdia->exec()) {
+	if (nftdia->exec())
+	{
 		qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
 		Carrier->LadeDoc(nftdia->currentTemplate->file);
 		Carrier->doc->hasName = false;

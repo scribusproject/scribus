@@ -10,5 +10,4 @@ nfttemplate::nfttemplate(const QString &tmplCategory)
 
 nfttemplate::~nfttemplate() 
 {
-
 }

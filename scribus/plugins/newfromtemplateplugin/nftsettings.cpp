@@ -39,7 +39,8 @@ void nftsettings::addTemplates(QString dir) // dir will be searched for a sub fo
 	// Add templates from the dir itself
 	QFile* tmplxml = new QFile(QDir::convertSeparators(dir + "/templates/template.xml"));
 	handler->setSourceDir(dir + "/templates");
-	if (tmplxml->exists()) {
+	if (tmplxml->exists())
+	{
 		QXmlInputSource* source = new QXmlInputSource(tmplxml);
 		reader->parse(source);
 		delete source;
@@ -47,16 +48,19 @@ void nftsettings::addTemplates(QString dir) // dir will be searched for a sub fo
 	delete tmplxml;
 	
 	
-	// And from all the subdirectories. template.xml file is only search one dir level deeper than the dir
+	// And from all the subdirectories. template.xml file is only searched one dir level deeper than the dir
 	QDir tmpldir(dir + "/templates");
-	if (tmpldir.exists()) {
+	if (tmpldir.exists())
+	{
 		tmpldir.setFilter(QDir::Dirs);
 		QStringList dirs = tmpldir.entryList();
-		for (uint i = 0; i < dirs.size(); i++) {
+		for (uint i = 0; i < dirs.size(); ++i)
+		{
 			if ((dirs[i] != ".") && (dirs[i] != "..")) {
 				QFile* tmplxml = new QFile(QDir::convertSeparators(dir + "/templates/" + dirs[i] + "/template.xml"));
 				handler->setSourceDir(dir+"/templates/"+dirs[i]);
-				if (tmplxml->exists()) {
+				if (tmplxml->exists())
+				{
 					QXmlInputSource* source = new QXmlInputSource(tmplxml);
 					reader->parse(source);
 					delete source;
@@ -84,7 +88,8 @@ void nftsettings::getDefaults()
 	text += "</nft>\n";
 
 	QFile rc(nftRCFile);
-	if ( rc.open( IO_WriteOnly ) ) {
+	if ( rc.open( IO_WriteOnly ) )
+	{
 		QTextStream stream(&rc);
 		stream.setEncoding(QTextStream::UnicodeUTF8);
 		stream << text;
@@ -96,7 +101,6 @@ nftsettings::~ nftsettings()
 {
 	delete reader;
 	delete handler;
-	for (uint i = 0; i < templates.size(); i++) {
+	for (uint i = 0; i < templates.size(); ++i)
 		delete templates[i];
-	}
 }

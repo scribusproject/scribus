@@ -2356,7 +2356,7 @@ void PDFlib::PDF_Gradient(PageItem *b)
 			double y = ma.m12() * w2 + ma.dy();
 			TransVec.append(cstops.at(cst)->opacity);
 			StopVec.append(x);
-			StopVec.append(-y);
+			StopVec.append(y);
 			Gcolors.append(SetFarbe(cstops.at(cst)->name, cstops.at(cst)->shade));
 		}
 	}
