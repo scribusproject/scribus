@@ -4,7 +4,7 @@
 		<submenuitem text="Download" file="download.html"/>
 		<submenuitem text="Documentation Changes" file="docchanges.html"/>
 	</area>
-	<area text="Documentation" file="">
+	<area text="Documentation" file="documentation.html">
 		<submenuitem text="Introduction" file="intro.html">
 			<submenuitem text="About the team" file="about1.html"/>
 			<submenuitem text="Specifications" file="specs.html"/>
@@ -36,7 +36,7 @@
 		</submenuitem>
 		<submenuitem text="Exporting to PDF" file="pdfexport1.html">
 			<submenuitem text="Export Workflow" file="pdfexport2.html"/>
-			<submenuitem text="PDF 1.3 and 1.4" file=".html"/>
+<!--			<submenuitem text="PDF 1.3 and 1.4" file=".html"/>-->
 			<submenuitem text="PDF/X-3" file="pdfx3.html"/>
 			<submenuitem text="PDF Forms" file="pdfexport3.html"/>
 			<submenuitem text="PDF Forms and PHP" file="pdf_form.html"/>
@@ -72,11 +72,8 @@
 			<submenuitem text="Miscellaneous" file="faq2.html"/>
 			<submenuitem text="Development" file="faq3.html"/>
 		</submenuitem>
-		<submenuitem text="Screenshots" file="">
-			<submenuitem text="" file="screenshots.html"/>
-		</submenuitem>
 	</area>
-	<area text="Tutorials" file="">
+	<area text="Tutorials" file="tutorials.html">
 		<submenuitem text="Get Started With Scribus" file="tutorials/freedomyug/scribustutorial1.html">
 			<submenuitem text="Page 2" file="tutorials/freedomyug/scribustutorial2.html"/>
 			<submenuitem text="Page 3" file="tutorials/freedomyug/scribustutorial3.html"/>
@@ -114,7 +111,7 @@
 		<submenuitem text="Coding Standards" file="codingstandards.html"/>
 		<submenuitem text="Translation Howto" file="translation_howto.html"/>
 	</area>	
-	<area text="Other Information" file="">
+	<area text="Other Information" file="otherinfo.html">
 		<submenuitem text="Community" file="resources.html"/>
 		<submenuitem text="Contributions" file="contributions.html"/>
 		<submenuitem text="Scribus Copyright" file="scribuscopyright.html"/>
