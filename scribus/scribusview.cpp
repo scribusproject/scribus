@@ -8087,7 +8087,12 @@ void ScribusView::DeleteItem()
 				ItemState *is = new ItemState(Um::Delete + " " + b->getUName(), "", Um::IDelete);
 				is->setPageItem(b);
 				is->set("DELETE_ITEM", "delete_item");
-				undoManager->action(Doc->Pages.at(b->OwnPage), is, b->getUPixmap());
+				UndoObject *target;
+				if (b->OwnPage > -1)
+					target = Doc->Pages.at(b->OwnPage);
+				else
+					target = Doc->Pages.at(0);
+				undoManager->action(target, is, b->getUPixmap());
 			}
 		}
 
@@ -9156,9 +9161,11 @@ int ScribusView::PaintEllipse(double x, double y, double b, double h, double w, 
 		ItemState *is = new ItemState("Create PageItem");
 		is->set("CREATE_ITEM", "create_item");
 		is->setPageItem(ite);
-		UndoObject *target = Doc->Pages.at(0);
+		UndoObject *target;
 		if (ite->OwnPage > -1)
-			target = target = Doc->Pages.at(ite->OwnPage);
+			target = Doc->Pages.at(ite->OwnPage);
+		else
+			target = Doc->Pages.at(0);
 		undoManager->action(target, is);
 		if (!Mpressed) // commit the creation transaction if the item
 		{              // is not created by dragging with a mouse
