@@ -3564,6 +3564,14 @@ void ScribusApp::slotFileAppend()
 {
 	if (doc->ActPage->SelItem.count() != 0)
 	{
+		gtGetText* gt = new gtGetText();
+		gt->run(true);
+		delete gt;
+		if (doc->Trenner->AutoCheck)
+			doc->Trenner->slotHyphenate(doc->ActPage->SelItem.at(0));
+		doc->ActPage->update();
+		slotDocCh();
+		/*
 		PageItem *b = doc->ActPage->SelItem.at(0);
 		LoadEnc = "";
 		QString fileName = CFileDialog( tr("Open"), tr("Text Files (*.txt);;All Files(*)"), "", false, true, false, true);
@@ -3580,7 +3588,7 @@ void ScribusApp::slotFileAppend()
 				doc->Trenner->slotHyphenate(b);
 			doc->ActPage->update();
 			slotDocCh();
-		}
+		} */
 	}
 }
 

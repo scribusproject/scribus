@@ -13,6 +13,7 @@
 class CsvDialog : public QDialog
 {
 	Q_OBJECT
+
 public:
 	CsvDialog();
 	~CsvDialog();
@@ -20,6 +21,7 @@ public:
 	QString getVDelim();
 	bool hasHeader();
 	bool useVDelim();
+
 private:
 	QComboBox* fdelimCombo;
 	QComboBox* vdelimCombo;

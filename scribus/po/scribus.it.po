@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: scribus\n"
-"POT-Creation-Date: 2004-08-15 12:03+0200\n"
+"POT-Creation-Date: 2004-08-16 00:03+0200\n"
 "PO-Revision-Date: 2004-06-17 18:49+0200\n"
 "Last-Translator: Pier Luigi Cinquantini <plcinquantini@katamail.com>\n"
 "Language-Team: Italiano <it@li.org>\n"
@@ -4362,10 +4362,6 @@ msgid "All Files (*)"
 msgstr ""
 
 #, fuzzy
-msgid "Text Files (*.txt);;All Files(*)"
-msgstr "File di testo (*.txt);;Tutti i file (*)"
-
-#, fuzzy
 msgid ""
 "Can't write the File: \n"
 "%1"
@@ -4394,6 +4390,10 @@ msgstr "Impossibile stampare!"
 #, fuzzy
 msgid "Scribus Manual"
 msgstr "Manuale di Scribus"
+
+#, fuzzy
+msgid "Text Files (*.txt);;All Files(*)"
+msgstr "File di testo (*.txt);;Tutti i file (*)"
 
 msgid "&Shade:"
 msgstr ""

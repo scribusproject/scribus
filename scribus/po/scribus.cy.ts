@@ -16620,6 +16620,10 @@ Please choose another.</source>
         <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>
         <translation>Copïo template.xml (ffeil patrymlun) sydd yn bodoli eisoes i ffeil o&apos;r enw template.iaith_GWLAD.xml (defnyddiwch y côd iaith sydd yn y ffeil qm ar gyfer eich iaith), er enghraifft template.fi.xml ar gyfer template.xml yn yr iaith Fffinneg.  Rhaid i&apos;r gopi fod yn yr un cyfeiriadur a&apos;r template.xml gwreiddiol, i Scribus gael ei lwytho.</translation>
     </message>
+    <message>
+        <source>Date</source>
+        <translation type="unfinished">Dyddiad</translation>
+    </message>
 </context>
 <context>
     <name>satdialog</name>

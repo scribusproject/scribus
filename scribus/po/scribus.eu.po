@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: scribus\n"
-"POT-Creation-Date: 2004-08-15 12:03+0200\n"
+"POT-Creation-Date: 2004-08-16 00:03+0200\n"
 "PO-Revision-Date: 2003-12-15 23:36+0100\n"
 "Last-Translator: Hizkuntza Politikarako Sailburuordetza <hizpol@ej-gv.es>\n"
 "Language-Team: basque <itzulpena@euskalgnu.org>\n"
@@ -4234,10 +4234,6 @@ msgstr ""
 msgid "All Files (*)"
 msgstr ""
 
-#, fuzzy
-msgid "Text Files (*.txt);;All Files(*)"
-msgstr "Testu-fitxategiak (*.txt);;Fitxategi guztiak (*)"
-
 msgid ""
 "Can't write the File: \n"
 "%1"
@@ -4263,6 +4259,10 @@ msgstr "Inprimatzeak huts egin du!"
 
 msgid "Scribus Manual"
 msgstr "Scribus-en eskuliburua"
+
+#, fuzzy
+msgid "Text Files (*.txt);;All Files(*)"
+msgstr "Testu-fitxategiak (*.txt);;Fitxategi guztiak (*)"
 
 #, fuzzy
 msgid "&Shade:"

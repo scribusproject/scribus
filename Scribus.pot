@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2004-08-15 12:03+0200\n"
+"POT-Creation-Date: 2004-08-16 00:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3710,9 +3710,6 @@ msgstr ""
 msgid "All Files (*)"
 msgstr ""
 
-msgid "Text Files (*.txt);;All Files(*)"
-msgstr ""
-
 msgid ""
 "Can't write the File: \n"
 "%1"
@@ -3734,6 +3731,9 @@ msgid "Printing failed!"
 msgstr ""
 
 msgid "Scribus Manual"
+msgstr ""
+
+msgid "Text Files (*.txt);;All Files(*)"
 msgstr ""
 
 msgid "&Shade:"

@@ -221,6 +221,7 @@ void nftdialog::setInfo(QIconViewItem* item)
 	infoText += currentTemplate->usage + "<br>";
 	infoText += "<b>"+tr("Created with")+"</b><br>";
 	infoText += "Scribus " + currentTemplate->scribusVersion + "<br>";
+	infoText += "<b>"+tr("Date")+"</b><br>";
 	infoText += currentTemplate->date + "<br>";
 	infoText += "<b>"+tr("Author")+"</b><br>";
 	infoText += currentTemplate->author + "<br>";
@@ -318,8 +319,8 @@ void nftdialog::setupAbout()
 	text += "<b>";
 	text += tr("Downloading Templates");
 	text += "</b><br>";
-	text += tr("Document templates can be found in "
-	           "http://www.scribus.net/ Downloads section.");
+	text += tr("Document templates can be found at "
+	           "http://www.scribus.net/ in the Downloads section.");
 	text += "<br><br>";
 	text += "<b>";
 	text +=  tr("Installing Templates");
@@ -333,17 +334,17 @@ void nftdialog::setupAbout()
 	text += "<b>";
 	text +=  tr("Preparing a template");
 	text +=  "</b><br>";
-	text +=  tr("Make sure images you use can be used anywhere. Fonts must be checked for this as well. If fonts cannot be shared do not collect them when saving as a template.");
-	text += tr("Template creator should also make sure that the Installing Templates applies to her/his templates as well. Which means a user should download a template package and be able to extract them to the template directory and start using them.");
+	text +=  tr("Make sure images and fonts you use can be used freely. If fonts cannot be shared do not collect them when saving as a template.");
+	text += tr("The template creator should also make sure that the Installing Templates section above applies to their templates as well. This means a user should be able to download a template package and be able to extract them to the template directory and start using them.");
 	text +=  "<br><br><b>";
 	text +=  tr("Removing a template");
 	text +=  "</b><br>";
-	text += tr("Removing a template from the NFT dialog will only remove the entry from the template.xml. It will not delete the document files. Popup menu with remove is only shown if you have write access to the template.xml file.");
+	text += tr("Removing a template from the New From Template dialog will only remove the entry from the template.xml, it will not delete the document files. A popup menu with remove is only shown if you have write access to the template.xml file.");
 	text +=  "<br><br>";
 	text += "<b>";
 	text +=  tr("Translating template.xml");
 	text +=  "</b><br>";
-	text += tr("Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that's present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. Copy must locate in the same directory than the original template.xml for NFT being able to load it.");
+	text += tr("Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.");
 	aboutLabel->setText(text);
 }
 

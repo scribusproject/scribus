@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.8\n"
-"POT-Creation-Date: 2004-08-15 12:03+0200\n"
+"POT-Creation-Date: 2004-08-16 00:03+0200\n"
 "PO-Revision-Date: 2002-09-18 09:47+0300\n"
 "Last-Translator: erkan <Selamsana@uni.de>\n"
 "Language-Team: Türkçe <tr@li.org>\n"
@@ -4420,10 +4420,6 @@ msgid "All Files (*)"
 msgstr ""
 
 #, fuzzy
-msgid "Text Files (*.txt);;All Files(*)"
-msgstr "Metin dosyaları (*.txt);;Bütün dosyalar (*)"
-
-#, fuzzy
 msgid ""
 "Can't write the File: \n"
 "%1"
@@ -4453,6 +4449,10 @@ msgstr "Yazdırma iptal edildi"
 
 msgid "Scribus Manual"
 msgstr "Scribus Kılavuzu"
+
+#, fuzzy
+msgid "Text Files (*.txt);;All Files(*)"
+msgstr "Metin dosyaları (*.txt);;Bütün dosyalar (*)"
 
 #, fuzzy
 msgid "&Shade:"

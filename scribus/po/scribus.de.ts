@@ -13191,6 +13191,10 @@ Bitte wählen Sie einen anderen.</translation>
         <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>
         <translation>Kopieren Sie eine bestehende template.xml nach template.lang_COUNTRY.xml, wobei Sie denselben Ländercode benutzen sollten wie die qm-Datei für Ihre Sprache auch hat. Außerdem muss die Kopie im selben Verzeichnis wie das Original liegen.</translation>
     </message>
+    <message>
+        <source>Date</source>
+        <translation>Datum</translation>
+    </message>
 </context>
 <context>
     <name>satdialog</name>

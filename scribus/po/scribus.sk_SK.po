@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: scribus.sk_SK\n"
-"POT-Creation-Date: 2004-08-15 12:03+0200\n"
+"POT-Creation-Date: 2004-08-16 00:03+0200\n"
 "PO-Revision-Date: 2003-07-12 11:59+0100\n"
 "Last-Translator: Zdenko Podobný <zdpo@mailbox.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -4231,10 +4231,6 @@ msgstr ""
 msgid "All Files (*)"
 msgstr ""
 
-#, fuzzy
-msgid "Text Files (*.txt);;All Files(*)"
-msgstr "Textové súbory (*.txt);;V¹etky súbory (*)"
-
 msgid ""
 "Can't write the File: \n"
 "%1"
@@ -4261,6 +4257,10 @@ msgstr "Tlaè sa nepodarila!"
 
 msgid "Scribus Manual"
 msgstr "Scribus manuál"
+
+#, fuzzy
+msgid "Text Files (*.txt);;All Files(*)"
+msgstr "Textové súbory (*.txt);;V¹etky súbory (*)"
 
 #, fuzzy
 msgid "&Shade:"

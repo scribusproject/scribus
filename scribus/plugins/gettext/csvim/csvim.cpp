@@ -108,10 +108,10 @@ void CsvIm::loadFile()
 	}
 	else
 		i = 0;
-	for (i; i < lines.size(); ++i)
+	for (uint i2 = i; i2 < lines.size(); ++i2)
 	{
 		colIndex = 0;
-		parseLine(lines[i], false);
+		parseLine(lines[i2], false);
 		data += "\n";
 		++rowNumber;
 		if (colCount < colIndex)
@@ -190,7 +190,7 @@ void CsvIm::setupTabulators()
 	double frameWidth = writer->getFrameWidth();
 	double addition = frameWidth / (colCount + 1);
 	double curValue = addition / 2;
-	for (uint i = 0; i < colCount; ++i)
+	for (int i = 0; i < colCount; ++i)
 	{
 		pstyleData->setTabValue(curValue);
 		if (pstyleHeader)

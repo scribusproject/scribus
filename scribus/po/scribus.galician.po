@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.3\n"
-"POT-Creation-Date: 2004-08-15 12:03+0200\n"
+"POT-Creation-Date: 2004-08-16 00:03+0200\n"
 "PO-Revision-Date: 1999-02-23 15:38+0200\n"
 "Last-Translator: Manuel Anxo Rei <manxopar@mixmail.com>\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
@@ -4165,10 +4165,6 @@ msgid "All Files (*)"
 msgstr ""
 
 #, fuzzy
-msgid "Text Files (*.txt);;All Files(*)"
-msgstr "Ficheiros de Texto (*.txt);;Todos (*)"
-
-#, fuzzy
 msgid ""
 "Can't write the File: \n"
 "%1"
@@ -4197,6 +4193,10 @@ msgstr "Impresión cancelada"
 
 msgid "Scribus Manual"
 msgstr "manual do Scribus"
+
+#, fuzzy
+msgid "Text Files (*.txt);;All Files(*)"
+msgstr "Ficheiros de Texto (*.txt);;Todos (*)"
 
 #, fuzzy
 msgid "&Shade:"

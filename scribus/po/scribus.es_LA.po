@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: scribus.es_LA\n"
-"POT-Creation-Date: 2004-08-15 12:03+0200\n"
+"POT-Creation-Date: 2004-08-16 00:03+0200\n"
 "Last-Translator: Gonzalo Huerta C.\n"
 "Language-Team:  <gonzalo@huerta.cl>\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
@@ -4231,10 +4231,6 @@ msgid "All Files (*)"
 msgstr ""
 
 #, fuzzy
-msgid "Text Files (*.txt);;All Files(*)"
-msgstr "Archivos de texto (*.txt);;Todos los archivos (*)"
-
-#, fuzzy
 msgid ""
 "Can't write the File: \n"
 "%1"
@@ -4263,6 +4259,10 @@ msgstr "Impresión Abortada"
 
 msgid "Scribus Manual"
 msgstr "Manual de Scribus"
+
+#, fuzzy
+msgid "Text Files (*.txt);;All Files(*)"
+msgstr "Archivos de texto (*.txt);;Todos los archivos (*)"
 
 #, fuzzy
 msgid "&Shade:"

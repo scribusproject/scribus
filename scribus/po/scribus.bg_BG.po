@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.3\n"
-"POT-Creation-Date: 2004-08-15 12:03+0200\n"
+"POT-Creation-Date: 2004-08-16 00:03+0200\n"
 "PO-Revision-Date: 2001-12-14 01:18+0200\n"
 "Last-Translator: Vasko Tomanov <vasko@web.bg>\n"
 "Content-Type: text/plain; charset=cp1251\n"
@@ -4119,10 +4119,6 @@ msgid "All Files (*)"
 msgstr ""
 
 #, fuzzy
-msgid "Text Files (*.txt);;All Files(*)"
-msgstr "Текстов файл (*.txt);;Всички файлове (*)"
-
-#, fuzzy
 msgid ""
 "Can't write the File: \n"
 "%1"
@@ -4151,6 +4147,10 @@ msgstr "Пекуснат печатт"
 
 msgid "Scribus Manual"
 msgstr "Документация"
+
+#, fuzzy
+msgid "Text Files (*.txt);;All Files(*)"
+msgstr "Текстов файл (*.txt);;Всички файлове (*)"
 
 #, fuzzy
 msgid "&Shade:"

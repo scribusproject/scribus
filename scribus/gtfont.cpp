@@ -36,7 +36,8 @@ const QString gtFont::fontWeights[FontWeightMAX] =
 	"Heavy",
 	"Light",
 	"Medium",
-	"Regular"
+	"Regular",
+	"Roman"
 };
 
 const QString gtFont::fontSlants[FontSlantMAX] =

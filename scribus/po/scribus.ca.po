@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: scribus.ca\n"
-"POT-Creation-Date: 2004-08-15 12:03+0200\n"
+"POT-Creation-Date: 2004-08-16 00:03+0200\n"
 "PO-Revision-Date: 2002-09-22 21:15+0200\n"
 "Last-Translator: \n"
 "Language-Team:  <ca@li.org>\n"
@@ -4231,10 +4231,6 @@ msgid "All Files (*)"
 msgstr ""
 
 #, fuzzy
-msgid "Text Files (*.txt);;All Files(*)"
-msgstr "Fitxers de text (*.txt);;Tots els fitxers (*)"
-
-#, fuzzy
 msgid ""
 "Can't write the File: \n"
 "%1"
@@ -4263,6 +4259,10 @@ msgstr "Impressió avortada"
 
 msgid "Scribus Manual"
 msgstr "Manual de l'Scribus"
+
+#, fuzzy
+msgid "Text Files (*.txt);;All Files(*)"
+msgstr "Fitxers de text (*.txt);;Tots els fitxers (*)"
 
 #, fuzzy
 msgid "&Shade:"

@@ -52,6 +52,7 @@ enum FontWeight {
 	LIGHT,
 	MEDIUM,
 	REGULAR,
+	ROMAN,
 	FontWeightMAX
 };
 

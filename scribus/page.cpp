@@ -9178,7 +9178,6 @@ void Page::doAlign(QValueList<uint> &Object, int moveCode, double xp, double xdi
 
 void Page::AlignObj(bool xa, bool ya, bool Vth, bool Vtv, double xdisp, double ydisp, int xart, int yart)
 {
-	double xd;
 	double xp = 99999.9;
 	double minx = 99999.9;
 	double miny = 99999.9;

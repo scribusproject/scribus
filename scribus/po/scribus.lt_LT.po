@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.7\n"
-"POT-Creation-Date: 2004-08-15 12:03+0200\n"
+"POT-Creation-Date: 2004-08-16 00:03+0200\n"
 "PO-Revision-Date: 2002-04-20 22:57GMT\n"
 "Last-Translator: Aivaras Kirejevas <kiras@mail.lt>\n"
 "Language-Team: Lithuanian\n"
@@ -4231,10 +4231,6 @@ msgid "All Files (*)"
 msgstr ""
 
 #, fuzzy
-msgid "Text Files (*.txt);;All Files(*)"
-msgstr "Tekstinis failas (*.txt);;Visi failai (*)"
-
-#, fuzzy
 msgid ""
 "Can't write the File: \n"
 "%1"
@@ -4264,6 +4260,10 @@ msgstr "Spausdinimas nutrauktas"
 
 msgid "Scribus Manual"
 msgstr "Scribus vadovas"
+
+#, fuzzy
+msgid "Text Files (*.txt);;All Files(*)"
+msgstr "Tekstinis failas (*.txt);;Visi failai (*)"
 
 #, fuzzy
 msgid "&Shade:"

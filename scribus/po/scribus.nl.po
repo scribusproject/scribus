@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 1.0\n"
-"POT-Creation-Date: 2004-08-15 12:03+0200\n"
+"POT-Creation-Date: 2004-08-16 00:03+0200\n"
 "PO-Revision-Date: 2003-07-20 10:00+0200\n"
 "Last-Translator: Jasja Glasbeek <jasja@benik.nl>\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
@@ -4221,10 +4221,6 @@ msgstr ""
 msgid "All Files (*)"
 msgstr ""
 
-#, fuzzy
-msgid "Text Files (*.txt);;All Files(*)"
-msgstr "TekstBestanden (*.txt);;Alle Bestanden (*)"
-
 msgid ""
 "Can't write the File: \n"
 "%1"
@@ -4251,6 +4247,10 @@ msgstr "Afdrukken mislukt!"
 
 msgid "Scribus Manual"
 msgstr "Scribus Handboek"
+
+#, fuzzy
+msgid "Text Files (*.txt);;All Files(*)"
+msgstr "TekstBestanden (*.txt);;Alle Bestanden (*)"
 
 #, fuzzy
 msgid "&Shade:"

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 1.0\n"
-"POT-Creation-Date: 2004-08-15 12:03+0200\n"
+"POT-Creation-Date: 2004-08-16 00:03+0200\n"
 "PO-Revision-Date: 2003-07-30 09:04+0700\n"
 "Last-Translator: Triyan W. Nugroho <iyan_kid@yahoo.com>\n"
 "Language-Team: Bahasa Indonesia <id@li.org>\n"
@@ -4201,10 +4201,6 @@ msgstr ""
 msgid "All Files (*)"
 msgstr ""
 
-#, fuzzy
-msgid "Text Files (*.txt);;All Files(*)"
-msgstr "File Teks (*.txt);;Semua File (*)"
-
 msgid ""
 "Can't write the File: \n"
 "%1"
@@ -4231,6 +4227,10 @@ msgstr "Pencetakan gagal!"
 
 msgid "Scribus Manual"
 msgstr "Manual Scribus"
+
+#, fuzzy
+msgid "Text Files (*.txt);;All Files(*)"
+msgstr "File Teks (*.txt);;Semua File (*)"
 
 #, fuzzy
 msgid "&Shade:"
