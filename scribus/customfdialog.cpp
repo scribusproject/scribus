@@ -32,18 +32,10 @@ extern QString DocDir;
 ImIconProvider::ImIconProvider(QWidget *pa) : QFileIconProvider(pa)
 {
 	fmts.clear();
-	fmts += "eps";
-	fmts += "gif";
-	fmts += "png";
-	fmts += "jpg";
-	fmts += "xpm";
-	fmts += "tif";
-	fmts += "bmp";
-	fmts += "pbm";
-	fmts += "pgm";
-	fmts += "ppm";
-	fmts += "xbm";
-	fmts += "xpm";
+	char *tmp[] = {"eps", "gif", "png", "jpg", "xpm", "tif", "bmp", "pbm", "pgm", "ppm", "xbm", "xpm"};
+	size_t array = sizeof(tmp) / sizeof(*tmp);
+	for (uint a = 0; a < array; ++a)
+		fmts += tmp[a];
 	imagepm = loadIcon("image.png");
 	pspm = loadIcon("postscript.png");
 	txtpm = loadIcon("txt.png");
@@ -202,30 +194,13 @@ CustomFDialog::CustomFDialog(QWidget *pa, QString cap, QString filter, bool Pre,
 		TxCodeT->setText( tr("Encoding:"));
 		TxCodeM = new QComboBox(true, LayoutC, "Cod");
 		TxCodeM->setEditable(false);
-		TxCodeM->insertItem("ISO 8859-1");
-		TxCodeM->insertItem("ISO 8859-2");
-		TxCodeM->insertItem("ISO 8859-3");
-		TxCodeM->insertItem("ISO 8859-4");
-		TxCodeM->insertItem("ISO 8859-5");
-		TxCodeM->insertItem("ISO 8859-6");
-		TxCodeM->insertItem("ISO 8859-7");
-		TxCodeM->insertItem("ISO 8859-8");
-		TxCodeM->insertItem("ISO 8859-9");
-		TxCodeM->insertItem("ISO 8859-10");
-		TxCodeM->insertItem("ISO 8859-13");
-		TxCodeM->insertItem("ISO 8859-14");
-		TxCodeM->insertItem("ISO 8859-15");
-		TxCodeM->insertItem("utf8");
-		TxCodeM->insertItem("KOI8-R");
-		TxCodeM->insertItem("KOI8-U");
-		TxCodeM->insertItem("CP1250");
-		TxCodeM->insertItem("CP1251");
-		TxCodeM->insertItem("CP1252");
-		TxCodeM->insertItem("CP1253");
-		TxCodeM->insertItem("CP1254");
-		TxCodeM->insertItem("CP1255");
-		TxCodeM->insertItem("CP1256");
-		TxCodeM->insertItem("CP1257");
+		char *tmp_txc[] = {"ISO 8859-1", "ISO 8859-2", "ISO 8859-3", "ISO 8859-4", "ISO 8859-5", "ISO 8859-6",
+							"ISO 8859-7", "ISO 8859-8", "ISO 8859-9", "ISO 8859-10", "ISO 8859-13", "ISO 8859-14",
+							"ISO 8859-15", "utf8", "KOI8-R", "KOI8-U", "CP1250", "CP1251", "CP1252", "CP1253",
+							"CP1254", "CP1255", "CP1256", "CP1257"};
+		size_t array = sizeof(tmp_txc) / sizeof(*tmp_txc);
+		for (uint a = 0; a < array; ++a)
+			TxCodeM->insertItem(tmp_txc[a]);
 		QString localEn = QTextCodec::codecForLocale()->name();
 		bool hasIt = false;
 		for (int cc = 0; cc < TxCodeM->count(); ++cc)

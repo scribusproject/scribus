@@ -59,13 +59,10 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi)
     PicTable->verticalHeader()->hide();
     PicTable->setNumCols( 7 );
     Header = PicTable->horizontalHeader();
-    Header->setLabel(0, tr("Name"));
-    Header->setLabel(1, tr("Path"));
-    Header->setLabel(2, tr("Page"));
-    Header->setLabel(3, " ");
-    Header->setLabel(4, tr("Print"));
-    Header->setLabel(5, tr("Status"));
-    Header->setLabel(6, " ");
+	char *tmpc[] = {"Name", "Path", "Page", " ", "Print", "Status", " "};
+	size_t ar = sizeof(tmpc) / sizeof(*tmpc);
+	for (uint a = 0; a < ar; ++a)
+		Header->setLabel(a, tr(tmpc[a]));
     Zeilen = 0;
     for (p=0; p<view->MasterPages.count(); ++p)
     {
@@ -250,19 +247,15 @@ void PicStatus::SearchPic()
 						{
  							view->Pages.at(PgNr)->LoadPict(fileName, ItNr);
 							PicTable->setText(zz, 1, view->Pages.at(PgNr)->Items.at(ItNr)->Pfile);
-							if (view->Pages.at(PgNr)->Items.at(ItNr)->PicAvail)
-								PicTable->setText(zz, 5, tr("OK"));
-							else
-								PicTable->setText(zz, 5, tr("Missing"));
+							PicTable->setText(zz, 5, view->Pages.at(PgNr)->Items.at(ItNr)->PicAvail ?
+													 tr("OK") : tr("Missing"));
 						}
 						else
 						{
  							view->MasterPages.at(PgNr)->LoadPict(fileName, ItNr);
 							PicTable->setText(zz, 1, view->MasterPages.at(PgNr)->Items.at(ItNr)->Pfile);
-							if (view->MasterPages.at(PgNr)->Items.at(ItNr)->PicAvail)
-								PicTable->setText(zz, 5, tr("OK"));
-							else
-								PicTable->setText(zz, 5, tr("Missing"));
+							PicTable->setText(zz, 5, view->Pages.at(PgNr)->Items.at(ItNr)->PicAvail ?
+													 tr("OK") : tr("Missing"));
 						}
 					}
 				}
@@ -285,19 +278,15 @@ void PicStatus::SearchPic()
 					{
  						view->Pages.at(PgNr)->LoadPict(Pfade[0], ItNr);
 						PicTable->setText(zz, 1, view->Pages.at(PgNr)->Items.at(ItNr)->Pfile);
-						if (view->Pages.at(PgNr)->Items.at(ItNr)->PicAvail)
-							PicTable->setText(zz, 5, tr("OK"));
-						else
-							PicTable->setText(zz, 5, tr("Missing"));
+						PicTable->setText(zz, 5, view->Pages.at(PgNr)->Items.at(ItNr)->PicAvail ?
+													 tr("OK") : tr("Missing"));
 					}
 					else
 					{
  						view->MasterPages.at(PgNr)->LoadPict(Pfade[0], ItNr);
 						PicTable->setText(zz, 1, view->MasterPages.at(PgNr)->Items.at(ItNr)->Pfile);
-						if (view->MasterPages.at(PgNr)->Items.at(ItNr)->PicAvail)
-							PicTable->setText(zz, 5, tr("OK"));
-						else
-							PicTable->setText(zz, 5, tr("Missing"));
+						PicTable->setText(zz, 5, view->Pages.at(PgNr)->Items.at(ItNr)->PicAvail ?
+													 tr("OK") : tr("Missing"));
 					}
 				}
 			}

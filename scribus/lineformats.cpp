@@ -131,7 +131,7 @@ void LineFormate::deleteFormat()
                                 tr("Do you really want do delete this Style?"),
                                 tr("No"),
                                 tr("Yes"),
-                                0, 0, 1);
+                                0, QMessageBox::No, QMessageBox::Yes);
 	if (exit == 1)
   	{
 		TempStyles.remove(sFnumber);

@@ -91,12 +91,10 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, preV *prefs, 
     Table1->setLeftMargin(0);
     Table1->verticalHeader()->hide();
     Header = Table1->horizontalHeader();
-    Header->setLabel(0, tr("Font Name"));
-    Header->setLabel(1, tr("Use Font"));
-    Header->setLabel(2, tr("Embed in:"));
-    Header->setLabel(3, tr("Subset"));
-    Header->setLabel(4, tr("Type"));
-    Header->setLabel(5, tr("Path to Font File"));
+	char *tmp_head[] = {"Font Name", "Use Font", "Embed in:", "Subset", "Type", "Path to Font File"};
+	size_t array_head = sizeof(tmp_head) / sizeof(*tmp_head);
+	for (uint a = 0; a < array_head; ++a)
+		Header->setLabel(a, tr(tmp_head[a]));
     Table1->adjustColumn(0);
     Table1->adjustColumn(1);
     Table1->setColumnWidth(2, 110);
@@ -222,7 +220,7 @@ void FontPrefs::UpdateFliste()
 {
 	QString tmp;
 	UsedFonts.clear();
-	uint	a = 0;
+	uint a = 0;
 	SCFontsIterator it(Prefs->AvailFonts);
 	for ( ; it.current() ; ++it)
 	{

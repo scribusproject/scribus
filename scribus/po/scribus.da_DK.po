@@ -4,1873 +4,2024 @@
 # not "Foo::Pub".
 msgid ""
 msgstr ""
-"Project-Id-Version: Scribus 1.1.4\n"
-"POT-Creation-Date: 2003-11-28 22:14:27 CET\n"
-"PO-Revision-Date: 2003-12-19 14:30:00 CET\n"
+"Project-Id-Version: Scribus 1.1.5\n"
+"POT-Creation-Date: 2004-01-12 19:08:28 CET\n"
+"PO-Revision-Date: 2004-01-20 20:18:00 CET\n"
 "Last-Translator: Morten Langlo <mlanglo@post6.tele.dk>\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 
-#: druck.cpp:24
+#: scribus/libabout/about.cpp:43
+msgid "About::%1. %2 %3 "
+msgstr ""
+
+#: scribus/libabout/about.cpp:26
+msgid "About::About Scribus%1%2"
+msgstr "Om Scribus%1%2"
+
+#: scribus/libabout/about.cpp:64
+msgid "About::About"
+msgstr "Om"
+
+#: scribus/libabout/about.cpp:90
+msgid "About::Authors"
+msgstr "Forfattere"
+
+#: scribus/libabout/about.cpp:155
+msgid "About::Brazilian:"
+msgstr "Brasiliansk:"
+
+#: scribus/libabout/about.cpp:62
+msgid "About::Build-ID:"
+msgstr ""
+
+#: scribus/libabout/about.cpp:118
+msgid "About::Bulgarian:"
+msgstr "Bulgarsk:"
+
+#: scribus/libabout/about.cpp:169
+msgid "About::Close"
+msgstr "Luk"
+
+#: scribus/libabout/about.cpp:73
+msgid "About::Contributions from:"
+msgstr "Bidrag fra:"
+
+#: scribus/libabout/about.cpp:133
+msgid "About::Czech:"
+msgstr "Tjekkisk:"
+
+#: scribus/libabout/about.cpp:139
+msgid "About::Danish:"
+msgstr "Dansk:"
+
+#: scribus/libabout/about.cpp:84
+msgid "About::Documentation:"
+msgstr "Dokumentation:"
+
+#: scribus/libabout/about.cpp:146
+msgid "About::English:"
+msgstr "Engelsk:"
+
+#: scribus/libabout/about.cpp:99
+msgid "About::French:"
+msgstr "Fransk:"
+
+#: scribus/libabout/about.cpp:121
+msgid "About::Galician:"
+msgstr "Galicisk:"
+
+#: scribus/libabout/about.cpp:96
+msgid "About::German:"
+msgstr "Tysk:"
+
+#: scribus/libabout/about.cpp:110
+msgid "About::Hungarian:"
+msgstr "Ungarsk:"
+
+#: scribus/libabout/about.cpp:107
+msgid "About::Italian:"
+msgstr "Italiensk:"
+
+#: scribus/libabout/about.cpp:127
+msgid "About::Lithuanian:"
+msgstr "Litaurisk:"
+
+#: scribus/libabout/about.cpp:142
+msgid "About::Norwegian:"
+msgstr "Norsk:"
+
+#: scribus/libabout/about.cpp:130
+msgid "About::Polish:"
+msgstr "Polsk:"
+
+#: scribus/libabout/about.cpp:70
+msgid "About::Programming:"
+msgstr "Programmering:"
+
+#: scribus/libabout/about.cpp:152
+msgid "About::Russian:"
+msgstr "Russisk:"
+
+#: scribus/libabout/about.cpp:62
+msgid ""
+"About::Scribus Version %1\n"
+"%2 %3"
+msgstr ""
+
+#: scribus/libabout/about.cpp:136
+msgid "About::Slovak:"
+msgstr "Slovakisk:"
+
+#: scribus/libabout/about.cpp:104
+msgid "About::Spanish and Catalan:"
+msgstr "Spansk og Catalansk:"
+
+#: scribus/libabout/about.cpp:161
+msgid "About::Translations"
+msgstr "Oversættelser"
+
+#: scribus/libabout/about.cpp:124
+msgid "About::Turkish:"
+msgstr "Tyrkisk:"
+
+#: scribus/libabout/about.cpp:115
+msgid "About::Ukrainian:"
+msgstr "Ukrainsk:"
+
+#: scribus/libabout/about.cpp:149
+msgid "About::Welsh:"
+msgstr "Walisisk:"
+
+#: scribus/libabout/about.cpp:80
+msgid "About::Windows port:"
+msgstr "Windows port:"
+
+#: scribus/druck.cpp:30
 msgid "AdvOptions::Advanced Options"
 msgstr "Avancerede indstillinger"
 
-#: druck.cpp:41
+#: scribus/druck.cpp:47
 msgid "AdvOptions::Apply ICC-Profiles"
 msgstr "Anvend ICC-Profiler"
 
-#: druck.cpp:58
+#: scribus/druck.cpp:64
 msgid "AdvOptions::Cancel"
 msgstr "Annullér"
 
-#: druck.cpp:30
+#: scribus/druck.cpp:36
 msgid "AdvOptions::Mirror Page(s) horizontal"
 msgstr "Spejl side(r) horisontalt"
 
-#: druck.cpp:34
+#: scribus/druck.cpp:40
 msgid "AdvOptions::Mirror Page(s) vertical"
 msgstr "Spejl side(r) vertikalt"
 
-#: druck.cpp:53
+#: scribus/druck.cpp:59
 msgid "AdvOptions::OK"
 msgstr ""
 
-#: align.cpp:113
+#: scribus/align.cpp:113
 msgid "Align:: in"
 msgstr ""
 
-#: align.cpp:109
+#: scribus/align.cpp:109
 msgid "Align:: mm"
 msgstr ""
 
-#: align.cpp:117
+#: scribus/align.cpp:117
 msgid "Align:: p"
 msgstr ""
 
-#: align.cpp:105
+#: scribus/align.cpp:105
 msgid "Align:: pts"
 msgstr ""
 
-#: align.cpp:92
+#: scribus/align.cpp:92
 msgid "Align::Align"
 msgstr "Opstil på linie"
 
-#: align.cpp:147
+#: scribus/align.cpp:145
 msgid "Align::Apply"
 msgstr "Anvend"
 
-#: align.cpp:84
+#: scribus/align.cpp:84
 msgid "Align::Bottom Sides"
 msgstr "Nederste sider"
 
-#: align.cpp:152
+#: scribus/align.cpp:150
 msgid "Align::Cancel"
 msgstr "Annullér"
 
-#: align.cpp:95
+#: scribus/align.cpp:95
 msgid "Align::Displacement"
 msgstr "Forskydning"
 
-#: align.cpp:128
+#: scribus/align.cpp:126
 msgid "Align::Distribute evenly"
 msgstr "Fordel jævnt"
 
-#: align.cpp:10
+#: scribus/align.cpp:10
 msgid "Align::Distribute/Align"
 msgstr "Fordel/Opstil på linie"
 
-#: align.cpp:88
+#: scribus/align.cpp:88
 msgid "Align::Don't change"
-msgstr "Ingen ændring"
+msgstr "Foretag ingen ændring"
 
-#: align.cpp:19
+#: scribus/align.cpp:19
 msgid "Align::Horizontal"
 msgstr "Horisontalt"
 
-#: align.cpp:34
+#: scribus/align.cpp:34
 msgid "Align::Left Sides"
 msgstr "Venstre sider"
 
-#: align.cpp:83
+#: scribus/align.cpp:83
 msgid "Align::Middles"
 msgstr "Midten"
 
-#: align.cpp:141
+#: scribus/align.cpp:139
 msgid "Align::OK"
 msgstr ""
 
-#: align.cpp:36
+#: scribus/align.cpp:36
 msgid "Align::Right Sides"
 msgstr "Højre sider"
 
-#: align.cpp:82
+#: scribus/align.cpp:82
 msgid "Align::Top Sides"
 msgstr "Øverste sider"
 
-#: align.cpp:67
+#: scribus/align.cpp:67
 msgid "Align::Vertical"
 msgstr "Vertikalt"
 
-#: align.cpp:77
+#: scribus/align.cpp:77
 msgid "Align::between:"
 msgstr "Ud fra:"
 
-#: annot.cpp:630
+#: scribus/annot.cpp:630
 msgid "Annot:: pt"
 msgstr ""
 
-#: annot.cpp:951
+#: scribus/annot.cpp:951
 msgid "Annot::"
 msgstr ""
 
-#: annot.cpp:634
+#: scribus/annot.cpp:634
 msgid "Annot::Action"
 msgstr "Handling"
 
-#: annot.cpp:220
+#: scribus/annot.cpp:220
 msgid "Annot::Appearance"
 msgstr "Udseende"
 
-#: annot.cpp:175
+#: scribus/annot.cpp:175
 msgid "Annot::Beveled"
 msgstr "Med skrå kanter"
 
-#: annot.cpp:130
+#: scribus/annot.cpp:130
 msgid "Annot::Border"
 msgstr "Grænse"
 
-#: annot.cpp:53
+#: scribus/annot.cpp:53
 msgid "Annot::Button"
 msgstr "Knap"
 
-#: annot.cpp:1008
+#: scribus/annot.cpp:1008
 msgid "Annot::Calculate"
 msgstr "Udregn"
 
-#: annot.cpp:1031
+#: scribus/annot.cpp:1031
 msgid "Annot::Cancel"
 msgstr "Annullér"
 
-#: annot.cpp:601
+#: scribus/annot.cpp:601
 msgid "Annot::Change..."
 msgstr "Vælg..."
 
-#: annot.cpp:415
+#: scribus/annot.cpp:415
 msgid "Annot::Characters"
 msgstr "Skrifttegn"
 
-#: annot.cpp:55
+#: scribus/annot.cpp:55
 msgid "Annot::Check Box"
 msgstr "Afkrydsnings boks"
 
-#: annot.cpp:439
+#: scribus/annot.cpp:439
 msgid "Annot::Check Style:"
 msgstr "afkrydsningsstil:"
 
-#: annot.cpp:442
+#: scribus/annot.cpp:442
 msgid "Annot::Check"
 msgstr "Afkrydsning"
 
-#: annot.cpp:445
+#: scribus/annot.cpp:445
 msgid "Annot::Circle"
 msgstr "Cirkel"
 
-#: annot.cpp:137
+#: scribus/annot.cpp:137
 msgid "Annot::Color:"
 msgstr "Farve:"
 
-#: annot.cpp:56
+#: scribus/annot.cpp:56
 msgid "Annot::Combo Box"
 msgstr "Kombo boks"
 
-#: annot.cpp:112
+#: scribus/annot.cpp:112
 msgid "Annot::Courier Bold Italic"
 msgstr ""
 
-#: annot.cpp:110
+#: scribus/annot.cpp:110
 msgid "Annot::Courier Bold"
 msgstr ""
 
-#: annot.cpp:111
+#: scribus/annot.cpp:111
 msgid "Annot::Courier Italic"
 msgstr ""
 
-#: annot.cpp:109
+#: scribus/annot.cpp:109
 msgid "Annot::Courier"
 msgstr ""
 
-#: annot.cpp:443
+#: scribus/annot.cpp:443
 msgid "Annot::Cross"
 msgstr "kryds"
 
-#: annot.cpp:834
+#: scribus/annot.cpp:834
 msgid "Annot::Custom Scripts"
 msgstr "Bruger scripts"
 
-#: annot.cpp:991
+#: scribus/annot.cpp:991
 msgid "Annot::Custom calculation script:"
 msgstr "Bruger udregnings script:"
 
-#: annot.cpp:926
+#: scribus/annot.cpp:926
 msgid "Annot::Custom validate script:"
 msgstr "Bruger validerings script:"
 
-#: annot.cpp:663
+#: scribus/annot.cpp:663
 msgid "Annot::Custom"
 msgstr "Bruger"
 
-#: annot.cpp:173
+#: scribus/annot.cpp:173
 msgid "Annot::Dashed"
 msgstr "Punkteret"
 
-#: annot.cpp:778
+#: scribus/annot.cpp:778
 msgid "Annot::Date Format"
 msgstr "Datoformat"
 
-#: annot.cpp:661
+#: scribus/annot.cpp:661
 msgid "Annot::Date"
 msgstr "Dato"
 
-#: annot.cpp:743
+#: scribus/annot.cpp:743
 msgid "Annot::Decimals:"
 msgstr "Decimaler:"
 
-#: annot.cpp:456
+#: scribus/annot.cpp:456
 msgid "Annot::Default is Checked"
 msgstr "Standard er afkrydset"
 
-#: annot.cpp:585
+#: scribus/annot.cpp:585
 msgid "Annot::Destination"
 msgstr "Bestemmelsessted"
 
-#: annot.cpp:444
+#: scribus/annot.cpp:444
 msgid "Annot::Diamond"
 msgstr "Diamand"
 
-#: annot.cpp:421
+#: scribus/annot.cpp:421
 msgid "Annot::Do Not Scroll"
 msgstr "Ingen rulning"
 
-#: annot.cpp:425
+#: scribus/annot.cpp:425
 msgid "Annot::Do Not Spell Check"
 msgstr "Ingen stavekontrol"
 
-#: annot.cpp:202
+#: scribus/annot.cpp:202
 msgid "Annot::Don't Export Value"
 msgstr "Eksporter ikke værdi"
 
-#: annot.cpp:1004
+#: scribus/annot.cpp:1004
 msgid "Annot::Edit..."
 msgstr "Redigér..."
 
-#: annot.cpp:469
+#: scribus/annot.cpp:469
 msgid "Annot::Editable"
 msgstr "Redigérbar"
 
-#: annot.cpp:1085
+#: scribus/annot.cpp:1085
 msgid "Annot::Enter a comma separated list of fields here"
 msgstr "Indtast en komma-adskilt liste af felter her"
 
-#: annot.cpp:517
+#: scribus/annot.cpp:517
 msgid "Annot::Event:"
 msgstr "Begivenhed:"
 
-#: annot.cpp:1339
+#: scribus/annot.cpp:1339
 msgid "Annot::Example:"
 msgstr "Eksempel:"
 
-#: annot.cpp:19
+#: scribus/annot.cpp:19
 msgid "Annot::Field Properties"
 msgstr "Felt egenskaber"
 
-#: annot.cpp:655
+#: scribus/annot.cpp:655
 msgid "Annot::Field is formatted as:"
 msgstr "Felt er formateret som:"
 
-#: annot.cpp:1084
+#: scribus/annot.cpp:1084
 msgid "Annot::Flag is ignored for PDF-1.3"
 msgstr "Kan ikke benyttes i  PDF-1.3"
 
-#: annot.cpp:106
+#: scribus/annot.cpp:106
 msgid "Annot::Font for use with PDF-1.3:"
 msgstr "Font til brug i PDF-1.3:"
 
-#: annot.cpp:887
+#: scribus/annot.cpp:887
 msgid "Annot::Format"
 msgstr ""
 
-#: annot.cpp:843
+#: scribus/annot.cpp:843
 msgid "Annot::Format:"
 msgstr ""
 
-#: annot.cpp:754
+#: scribus/annot.cpp:754
 msgid "Annot::Formatting"
 msgstr "Formatering"
 
-#: annot.cpp:1926
+#: scribus/annot.cpp:1926
 msgid "Annot::Go To"
 msgstr "Gå til"
 
-#: annot.cpp:116
+#: scribus/annot.cpp:116
 msgid "Annot::Helvetica Bold Italic"
 msgstr ""
 
-#: annot.cpp:114
+#: scribus/annot.cpp:114
 msgid "Annot::Helvetica Bold"
 msgstr ""
 
-#: annot.cpp:115
+#: scribus/annot.cpp:115
 msgid "Annot::Helvetica Italic"
 msgstr ""
 
-#: annot.cpp:113
+#: scribus/annot.cpp:113
 msgid "Annot::Helvetica"
 msgstr ""
 
-#: annot.cpp:212
+#: scribus/annot.cpp:212
 msgid "Annot::Hidden"
 msgstr "Skjult"
 
-#: annot.cpp:364
+#: scribus/annot.cpp:364
 msgid "Annot::Highlight"
 msgstr "Højlys"
 
-#: annot.cpp:317
+#: scribus/annot.cpp:317
 msgid "Annot::Icon Placement..."
 msgstr "Ikon placering..."
 
-#: annot.cpp:254
+#: scribus/annot.cpp:254
 msgid "Annot::Icons"
 msgstr "Ikoner"
 
-#: annot.cpp:1231
+#: scribus/annot.cpp:1231
 msgid ""
 "Annot::Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)"
 msgstr "Billeder (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Alle filer (*)"
 
-#: annot.cpp:574
+#: scribus/annot.cpp:574
 msgid "Annot::Import Data from:"
 msgstr "Importér data fra:"
 
-#: annot.cpp:1929
+#: scribus/annot.cpp:1929
 msgid "Annot::Import Data"
 msgstr "Importér data"
 
-#: annot.cpp:176
+#: scribus/annot.cpp:176
 msgid "Annot::Inset"
 msgstr "indsæt"
 
-#: annot.cpp:372
+#: scribus/annot.cpp:372
 msgid "Annot::Invert"
 msgstr "Invertér"
 
-#: annot.cpp:1961
+#: scribus/annot.cpp:1961
 msgid "Annot::Java Script"
 msgstr "Javascript"
 
-#: annot.cpp:864
+#: scribus/annot.cpp:864
 msgid "Annot::Keystroke:"
 msgstr "Tasteanslag:"
 
-#: annot.cpp:398
+#: scribus/annot.cpp:398
 msgid "Annot::Limit of"
 msgstr "Maksimalt"
 
-#: annot.cpp:57
+#: scribus/annot.cpp:57
 msgid "Annot::List Box"
 msgstr "Liste boks"
 
-#: annot.cpp:1906
+#: scribus/annot.cpp:1906
 msgid "Annot::Mouse Down"
 msgstr "Mus-taste trykkes ned"
 
-#: annot.cpp:1907
+#: scribus/annot.cpp:1907
 msgid "Annot::Mouse Enter"
 msgstr "Markøren går ind i felt"
 
-#: annot.cpp:1908
+#: scribus/annot.cpp:1908
 msgid "Annot::Mouse Exit"
 msgstr "Markøren forlader felt"
 
-#: annot.cpp:1905
+#: scribus/annot.cpp:1905
 msgid "Annot::Mouse Up"
 msgstr "Mus-taste slippes"
 
-#: annot.cpp:389
+#: scribus/annot.cpp:389
 msgid "Annot::Multi-Line"
 msgstr "Multi-linie"
 
-#: annot.cpp:77
+#: scribus/annot.cpp:77
 msgid "Annot::Name:"
 msgstr "Navn:"
 
-#: annot.cpp:213
+#: scribus/annot.cpp:213
 msgid "Annot::No Print"
 msgstr "Ingen udskrift"
 
-#: annot.cpp:214
+#: scribus/annot.cpp:214
 msgid "Annot::No View"
 msgstr "Ingen visning"
 
-#: annot.cpp:1960
+#: scribus/annot.cpp:1960
 msgid "Annot::None"
 msgstr "Ingen"
 
-#: annot.cpp:268
+#: scribus/annot.cpp:268
 msgid "Annot::Normal"
 msgstr "Normalt"
 
-#: annot.cpp:678
+#: scribus/annot.cpp:678
 msgid "Annot::Number Format"
 msgstr "Nummerformat"
 
-#: annot.cpp:659
+#: scribus/annot.cpp:659
 msgid "Annot::Number"
 msgstr "Nummer"
 
-#: annot.cpp:1027
+#: scribus/annot.cpp:1027
 msgid "Annot::OK"
 msgstr ""
 
-#: annot.cpp:1910
+#: scribus/annot.cpp:1910
 msgid "Annot::On Blur"
 msgstr "Felt mister fokus"
 
-#: annot.cpp:1909
+#: scribus/annot.cpp:1909
 msgid "Annot::On Focus"
 msgstr "Felt har fokus"
 
-#: annot.cpp:2107
+#: scribus/annot.cpp:2107
 msgid "Annot::Open"
 msgstr "Åbn"
 
-#: annot.cpp:476
+#: scribus/annot.cpp:476
 msgid "Annot::Options"
 msgstr "Indstillinger"
 
-#: annot.cpp:183
+#: scribus/annot.cpp:183
 msgid "Annot::Other"
 msgstr "Andet"
 
-#: annot.cpp:373
+#: scribus/annot.cpp:373
 msgid "Annot::Outlined"
 msgstr "Indrammet"
 
-#: annot.cpp:2107
+#: scribus/annot.cpp:2107
 msgid "Annot::PDF-Documents (*.pdf);;All Files (*)"
 msgstr "PDF-Dokumenter (*.pdf);; Alle filer (*)"
 
-#: annot.cpp:604
+#: scribus/annot.cpp:604
 msgid "Annot::Page:"
 msgstr "Side:"
 
-#: annot.cpp:393
+#: scribus/annot.cpp:393
 msgid "Annot::Password"
 msgstr "Adgangskode"
 
-#: annot.cpp:735
+#: scribus/annot.cpp:735
 msgid "Annot::Percent Format"
 msgstr "Procent format"
 
-#: annot.cpp:660
+#: scribus/annot.cpp:660
 msgid "Annot::Percentage"
 msgstr "Procentdel"
 
-#: annot.cpp:986
+#: scribus/annot.cpp:986
 msgid "Annot::Pick..."
 msgstr "Vælg..."
 
-#: annot.cpp:658
+#: scribus/annot.cpp:658
 msgid "Annot::Plain"
 msgstr "Almindelig"
 
-#: annot.cpp:707
+#: scribus/annot.cpp:707
 msgid "Annot::Prepend Currency Symbol"
 msgstr "Sæt valutasymbol foran"
 
-#: annot.cpp:284
+#: scribus/annot.cpp:284
 msgid "Annot::Pressed"
 msgstr "Trykket ned"
 
-#: annot.cpp:68
+#: scribus/annot.cpp:68
 msgid "Annot::Properties"
 msgstr "Egenskaber"
 
-#: annot.cpp:374
+#: scribus/annot.cpp:374
 msgid "Annot::Push"
 msgstr "Tryk"
 
-#: annot.cpp:190
+#: scribus/annot.cpp:190
 msgid "Annot::Read Only"
 msgstr "Skrivebeskyttet"
 
-#: annot.cpp:310
+#: scribus/annot.cpp:310
 msgid "Annot::Remove"
 msgstr "Fjern"
 
-#: annot.cpp:196
+#: scribus/annot.cpp:196
 msgid "Annot::Required"
 msgstr "Behøves"
 
-#: annot.cpp:1928
+#: scribus/annot.cpp:1928
 msgid "Annot::Reset Form"
 msgstr "Nulstil form"
 
-#: annot.cpp:300
+#: scribus/annot.cpp:300
 msgid "Annot::Roll Over"
-msgstr "Roll Over"
+msgstr "Rul over"
 
-#: annot.cpp:532
+#: scribus/annot.cpp:532
 msgid "Annot::Script:"
 msgstr ""
 
-#: annot.cpp:1952
+#: scribus/annot.cpp:1952
 msgid "Annot::Selection Change"
 msgstr "Ændring af valg"
 
-#: annot.cpp:172
+#: scribus/annot.cpp:172
 msgid "Annot::Solid"
 msgstr "Massiv"
 
-#: annot.cpp:447
+#: scribus/annot.cpp:447
 msgid "Annot::Square"
 msgstr "Firkant"
 
-#: annot.cpp:446
+#: scribus/annot.cpp:446
 msgid "Annot::Star"
 msgstr "Stjerne"
 
-#: annot.cpp:169
+#: scribus/annot.cpp:169
 msgid "Annot::Style:"
 msgstr "Stil:"
 
-#: annot.cpp:563
+#: scribus/annot.cpp:563
 msgid "Annot::Submit Data as HTML"
 msgstr "Send Data som HTML"
 
-#: annot.cpp:1927
+#: scribus/annot.cpp:1927
 msgid "Annot::Submit Form"
 msgstr "Send form"
 
-#: annot.cpp:555
+#: scribus/annot.cpp:555
 msgid "Annot::Submit to URL:"
 msgstr "Send til URL:"
 
-#: annot.cpp:122
+#: scribus/annot.cpp:122
 msgid "Annot::Symbol"
 msgstr ""
 
-#: annot.cpp:54
+#: scribus/annot.cpp:54
 msgid "Annot::Text Field"
 msgstr "Tekstfelt"
 
-#: annot.cpp:240
+#: scribus/annot.cpp:240
 msgid "Annot::Text for Button Down"
-msgstr "Tekst for knap ned"
+msgstr "For knap ned"
 
-#: annot.cpp:243
+#: scribus/annot.cpp:243
 msgid "Annot::Text for Roll Over"
-msgstr "Tekst for Roll Over"
+msgstr "For Rul over"
 
-#: annot.cpp:233
+#: scribus/annot.cpp:233
 msgid "Annot::Text"
 msgstr "Tekst"
 
-#: annot.cpp:162
+#: scribus/annot.cpp:162
 msgid "Annot::Thin"
 msgstr "Tynd"
 
-#: annot.cpp:811
+#: scribus/annot.cpp:811
 msgid "Annot::Time Format"
 msgstr "Tidsformat"
 
-#: annot.cpp:662
+#: scribus/annot.cpp:662
 msgid "Annot::Time"
 msgstr "Tid"
 
-#: annot.cpp:120
+#: scribus/annot.cpp:120
 msgid "Annot::Times Bold Italic"
 msgstr ""
 
-#: annot.cpp:118
+#: scribus/annot.cpp:118
 msgid "Annot::Times Bold"
 msgstr ""
 
-#: annot.cpp:119
+#: scribus/annot.cpp:119
 msgid "Annot::Times Italic"
 msgstr ""
 
-#: annot.cpp:117
+#: scribus/annot.cpp:117
 msgid "Annot::Times"
 msgstr ""
 
-#: annot.cpp:594
+#: scribus/annot.cpp:594
 msgid "Annot::To File:"
 msgstr "Til fil:"
 
-#: annot.cpp:89
+#: scribus/annot.cpp:89
 msgid "Annot::Tool-Tip:"
 msgstr "Hjælpe-tekst:"
 
-#: annot.cpp:484
+#: scribus/annot.cpp:484
 msgid "Annot::Type:"
 msgstr ""
 
-#: annot.cpp:174
+#: scribus/annot.cpp:174
 msgid "Annot::Underline"
 msgstr "Understreg"
 
-#: annot.cpp:698
+#: scribus/annot.cpp:698
 msgid "Annot::Use Currency Symbol"
 msgstr "Brug valutasymbol"
 
-#: annot.cpp:261
+#: scribus/annot.cpp:261
 msgid "Annot::Use Icons"
 msgstr "Brug ikoner"
 
-#: annot.cpp:944
+#: scribus/annot.cpp:944
 msgid "Annot::Validate"
 msgstr "Validér"
 
-#: annot.cpp:959
+#: scribus/annot.cpp:959
 msgid "Annot::Value is not calculated"
 msgstr "Værdi er ikke udregnet"
 
-#: annot.cpp:902
+#: scribus/annot.cpp:902
 msgid "Annot::Value is not validated"
 msgstr "Værdi er ikke valideret"
 
-#: annot.cpp:966
+#: scribus/annot.cpp:966
 msgid "Annot::Value is the"
 msgstr "Værdien er"
 
-#: annot.cpp:909
+#: scribus/annot.cpp:909
 msgid "Annot::Value must be greater than or equal to:"
 msgstr "Værdi skal være lig med eller større end:"
 
-#: annot.cpp:208
+#: scribus/annot.cpp:208
 msgid "Annot::Visibility:"
 msgstr "Synlighed:"
 
-#: annot.cpp:211
+#: scribus/annot.cpp:211
 msgid "Annot::Visible"
 msgstr "Synlig"
 
-#: annot.cpp:164
+#: scribus/annot.cpp:164
 msgid "Annot::Wide"
 msgstr "Bred"
 
-#: annot.cpp:158
+#: scribus/annot.cpp:158
 msgid "Annot::Width:"
 msgstr "Bredde:"
 
-#: annot.cpp:618
+#: scribus/annot.cpp:618
 msgid "Annot::X-Pos:"
 msgstr ""
 
-#: annot.cpp:626
+#: scribus/annot.cpp:626
 msgid "Annot::Y-Pos:"
 msgstr ""
 
-#: annot.cpp:1086
+#: scribus/annot.cpp:1086
 msgid "Annot::You need at least the Icon for Normal to use Icons for Buttons"
 msgstr "Du behøver i det mindst normal-ikonet for at bruge ikoner på knapper"
 
-#: annot.cpp:121
+#: scribus/annot.cpp:121
 msgid "Annot::Zapf Dingbats"
 msgstr ""
 
-#: annot.cpp:913
+#: scribus/annot.cpp:913
 msgid "Annot::and less or equal to:"
 msgstr "og mindre eller lig med:"
 
-#: annot.cpp:972
+#: scribus/annot.cpp:972
 msgid "Annot::average"
 msgstr "Gennemsnit"
 
-#: annot.cpp:974
+#: scribus/annot.cpp:974
 msgid "Annot::maximum"
 msgstr "Maksimum"
 
-#: annot.cpp:973
+#: scribus/annot.cpp:973
 msgid "Annot::minimum"
 msgstr ""
 
-#: annot.cpp:978
+#: scribus/annot.cpp:978
 msgid "Annot::of the following fields:"
 msgstr "af de følgende felter:"
 
-#: annot.cpp:971
+#: scribus/annot.cpp:971
 msgid "Annot::product"
 msgstr "Produkt"
 
-#: annot.cpp:970
+#: scribus/annot.cpp:970
 msgid "Annot::sum"
 msgstr ""
 
-#: annota.cpp:112
+#: scribus/annota.cpp:112
 msgid "Annota:: pt"
 msgstr ""
 
-#: annota.cpp:12
+#: scribus/annota.cpp:12
 msgid "Annota::Annotation Properties"
 msgstr "Kommentar egenskaber"
 
-#: annota.cpp:133
+#: scribus/annota.cpp:133
 msgid "Annota::Cancel"
 msgstr "Annullér"
 
-#: annota.cpp:76
+#: scribus/annota.cpp:76
 msgid "Annota::Change..."
 msgstr "Vælg..."
 
-#: annota.cpp:62
+#: scribus/annota.cpp:62
 msgid "Annota::Destination"
 msgstr "Bestemmelsessted"
 
-#: annota.cpp:48
+#: scribus/annota.cpp:48
 msgid "Annota::External Link"
-msgstr "Lænke"
+msgstr "Ekstern Lænke"
 
-#: annota.cpp:49
+#: scribus/annota.cpp:49
 msgid "Annota::External Web-Link"
 msgstr "Ekstern web-Lænke"
 
-#: annota.cpp:47
+#: scribus/annota.cpp:47
 msgid "Annota::Link"
 msgstr "Lænke"
 
-#: annota.cpp:129
+#: scribus/annota.cpp:129
 msgid "Annota::OK"
 msgstr ""
 
-#: annota.cpp:317
+#: scribus/annota.cpp:317
 msgid "Annota::Open"
 msgstr "Åbn"
 
-#: annota.cpp:317
+#: scribus/annota.cpp:317
 msgid "Annota::PDF-Documents (*.pdf);;All Files (*)"
 msgstr "PDF-Dokumenter (*.pdf);; Alle filer (*)"
 
-#: annota.cpp:85
+#: scribus/annota.cpp:85
 msgid "Annota::Page:"
 msgstr "Side:"
 
-#: annota.cpp:46
+#: scribus/annota.cpp:46
 msgid "Annota::Text"
 msgstr "Tekst"
 
-#: annota.cpp:42
+#: scribus/annota.cpp:42
 msgid "Annota::Type:"
 msgstr ""
 
-#: annota.cpp:100
+#: scribus/annota.cpp:100
 msgid "Annota::X-Pos:"
 msgstr ""
 
-#: annota.cpp:108
+#: scribus/annota.cpp:108
 msgid "Annota::Y-Pos:"
 msgstr ""
 
-#: applytemplate.cpp:8
+#: scribus/applytemplate.cpp:8
 msgid "ApplyT::Apply Template"
 msgstr "Anvend skabelon"
 
-#: applytemplate.cpp:40
+#: scribus/applytemplate.cpp:53
 msgid "ApplyT::Apply from Page:"
 msgstr "Anvend fra side:"
 
-#: applytemplate.cpp:35
+#: scribus/applytemplate.cpp:48
 msgid "ApplyT::Apply to Actual Page"
-msgstr "Anvend på aktuel side"
+msgstr "Anvend på denne side"
 
-#: applytemplate.cpp:72
+#: scribus/applytemplate.cpp:85
 msgid "ApplyT::Cancel"
 msgstr "Annullér"
 
-#: applytemplate.cpp:21
+#: scribus/applytemplate.cpp:28
 msgid "ApplyT::Normal"
 msgstr ""
 
-#: applytemplate.cpp:66
+#: scribus/applytemplate.cpp:79
 msgid "ApplyT::OK"
 msgstr ""
 
-#: applytemplate.cpp:13
+#: scribus/applytemplate.cpp:13
 msgid "ApplyT::Template:"
 msgstr "Skabelon:"
 
-#: applytemplate.cpp:48
+#: scribus/applytemplate.cpp:61
 msgid "ApplyT::to:"
 msgstr "til:"
 
-#: scrap.cpp:134
+#: scribus/scrap.cpp:134
 msgid "Biblio::Big"
 msgstr "Stor"
 
-#: scrap.cpp:130
+#: scribus/scrap.cpp:130
 msgid "Biblio::Close"
-msgstr "LuK"
+msgstr "Luk"
 
-#: scrap.cpp:263
+#: scribus/scrap.cpp:263
 msgid "Biblio::Delete"
 msgstr "Slet"
 
-#: scrap.cpp:148
+#: scribus/scrap.cpp:148
 msgid "Biblio::File"
 msgstr "Fil"
 
-#: scrap.cpp:129
+#: scribus/scrap.cpp:129
 msgid "Biblio::Load..."
 msgstr "Indlæs..."
 
-#: scrap.cpp:133
+#: scribus/scrap.cpp:133
 msgid "Biblio::Medium"
 msgstr ""
 
-#: scrap.cpp:126
+#: scribus/scrap.cpp:126
 msgid "Biblio::New"
 msgstr "Ny"
 
-#: scrap.cpp:326
+#: scribus/scrap.cpp:326
 msgid "Biblio::Object"
 msgstr "Objekt"
 
-#: scrap.cpp:149
+#: scribus/scrap.cpp:149
 msgid "Biblio::Preview"
 msgstr "Vis"
 
-#: scrap.cpp:128
+#: scribus/scrap.cpp:128
 msgid "Biblio::Save as..."
 msgstr "Gem som..."
 
-#: scrap.cpp:127
+#: scribus/scrap.cpp:127
 msgid "Biblio::Save"
 msgstr "Gem"
 
-#: scrap.cpp:277
+#: scribus/scrap.cpp:277
 msgid "Biblio::Scrapbook"
 msgstr "Scrapbog"
 
-#: scrap.cpp:208
+#: scribus/scrap.cpp:208
 msgid "Biblio::Scrapbooks (*.scs);;All Files (*)"
 msgstr "Scrapbøger (*.scs);; Alle filer (*)"
 
-#: scrap.cpp:132
+#: scribus/scrap.cpp:132
 msgid "Biblio::Small"
 msgstr "Lille"
 
-#: bookmwin.cpp:95
+#: scribus/bookmwin.cpp:95
 msgid "BookMView::Bookmarks"
 msgstr "Bogmærker"
 
-#: bookmwin.cpp:184
+#: scribus/bookmwin.cpp:184
 msgid "BookMView::Cancel"
 msgstr "Annullér"
 
-#: bookmwin.cpp:183
+#: scribus/bookmwin.cpp:183
 msgid "BookMView::Insert Bookmark"
 msgstr "Indsæt bogmærke"
 
-#: bookmwin.cpp:182
+#: scribus/bookmwin.cpp:182
 msgid "BookMView::Move Bookmark"
 msgstr "Flyt bogmærke"
 
-#: bookpalette.cpp:12
+#: scribus/bookpalette.cpp:14
 msgid "BookPalette::Bookmarks"
 msgstr "Bogmærker"
 
-#: buttonicon.cpp:54
+#: scribus/buttonicon.cpp:54
 msgid "ButtonIcon::"
 msgstr ""
 
-#: buttonicon.cpp:30
+#: scribus/buttonicon.cpp:30
 msgid "ButtonIcon::Always"
 msgstr "Altid"
 
-#: buttonicon.cpp:88
+#: scribus/buttonicon.cpp:88
 msgid "ButtonIcon::Cancel"
 msgstr "Annullér"
 
-#: buttonicon.cpp:20
+#: scribus/buttonicon.cpp:20
 msgid "ButtonIcon::Caption above Icon"
 msgstr "Tekst over ikon"
 
-#: buttonicon.cpp:19
+#: scribus/buttonicon.cpp:19
 msgid "ButtonIcon::Caption below Icon"
 msgstr "Tekst under ikon"
 
-#: buttonicon.cpp:22
+#: scribus/buttonicon.cpp:22
 msgid "ButtonIcon::Caption left to Icon"
 msgstr "Tekst til venstre for ikon"
 
-#: buttonicon.cpp:17
+#: scribus/buttonicon.cpp:17
 msgid "ButtonIcon::Caption only"
 msgstr "Kun tekst"
 
-#: buttonicon.cpp:23
+#: scribus/buttonicon.cpp:23
 msgid "ButtonIcon::Caption overlays Icon"
 msgstr "Tekst oven på ikon"
 
-#: buttonicon.cpp:21
+#: scribus/buttonicon.cpp:21
 msgid "ButtonIcon::Caption right to Icon"
 msgstr "Tekst til højre for ikon"
 
-#: buttonicon.cpp:9
+#: scribus/buttonicon.cpp:9
 msgid "ButtonIcon::Icon Placement"
 msgstr "Ikon placering"
 
-#: buttonicon.cpp:18
+#: scribus/buttonicon.cpp:18
 msgid "ButtonIcon::Icon only"
 msgstr "Kun ikon"
 
-#: buttonicon.cpp:60
+#: scribus/buttonicon.cpp:60
 msgid "ButtonIcon::Icon"
 msgstr "Ikon"
 
-#: buttonicon.cpp:14
+#: scribus/buttonicon.cpp:14
 msgid "ButtonIcon::Layout:"
-msgstr ""
+msgstr "Udformning"
 
-#: buttonicon.cpp:33
+#: scribus/buttonicon.cpp:33
 msgid "ButtonIcon::Never"
 msgstr "Aldrig"
 
-#: buttonicon.cpp:41
+#: scribus/buttonicon.cpp:41
 msgid "ButtonIcon::Non Proportional"
 msgstr "Ikke Proportionel"
 
-#: buttonicon.cpp:84
+#: scribus/buttonicon.cpp:84
 msgid "ButtonIcon::OK"
 msgstr ""
 
-#: buttonicon.cpp:40
+#: scribus/buttonicon.cpp:40
 msgid "ButtonIcon::Proportional"
 msgstr "Proportionel"
 
-#: buttonicon.cpp:91
+#: scribus/buttonicon.cpp:91
 msgid "ButtonIcon::Reset"
 msgstr "Nulstil"
 
-#: buttonicon.cpp:37
+#: scribus/buttonicon.cpp:37
 msgid "ButtonIcon::Scale How:"
-msgstr "Skalér hvordan:"
+msgstr "Skalér:"
 
-#: buttonicon.cpp:27
+#: scribus/buttonicon.cpp:27
 msgid "ButtonIcon::Scale:"
 msgstr "Skalér:"
 
-#: buttonicon.cpp:32
+#: scribus/buttonicon.cpp:32
 msgid "ButtonIcon::When Icon is too big"
 msgstr "Når ikon er for stor"
 
-#: buttonicon.cpp:31
+#: scribus/buttonicon.cpp:31
 msgid "ButtonIcon::When Icon is too small"
 msgstr "Når ikon er for lille"
 
-#: cmsprefs.cpp:142
+#: scribus/cmsprefs.cpp:142
 msgid "CMSPrefs::Absolute Colorimetric"
 msgstr ""
 
-#: cmsprefs.cpp:19
+#: scribus/cmsprefs.cpp:19
 msgid "CMSPrefs::Activate Color Management"
 msgstr "Aktiver farvestyring"
 
-#: cmsprefs.cpp:179
+#: scribus/cmsprefs.cpp:191
 msgid "CMSPrefs::Cancel"
 msgstr "Annullér"
 
-#: cmsprefs.cpp:10
+#: scribus/cmsprefs.cpp:10
 msgid "CMSPrefs::Color Management Settings"
 msgstr "Farvestyrings indstillinger"
 
-#: cmsprefs.cpp:157
+#: scribus/cmsprefs.cpp:157
 msgid "CMSPrefs::Mark Colors out of Gamut"
 msgstr "Marker farver uden for skalaen"
 
-msgid "Use Blackpoint Compensation"
-msgstr "Brug sortpunkt kompensation"
-
-#: cmsprefs.cpp:120
+#: scribus/cmsprefs.cpp:120
 msgid "CMSPrefs::Monitor:"
 msgstr ""
 
-#: cmsprefs.cpp:172
+#: scribus/cmsprefs.cpp:184
 msgid "CMSPrefs::OK"
 msgstr ""
 
-#: cmsprefs.cpp:139
+#: scribus/cmsprefs.cpp:139
 msgid "CMSPrefs::Perceptual"
 msgstr "Opfattelsesmæssigt"
 
-#: cmsprefs.cpp:36
+#: scribus/cmsprefs.cpp:36
 msgid "CMSPrefs::Pictures:"
 msgstr "Billeder:"
 
-#: cmsprefs.cpp:124
+#: scribus/cmsprefs.cpp:124
 msgid "CMSPrefs::Printer:"
 msgstr ""
 
-#: cmsprefs.cpp:140
+#: scribus/cmsprefs.cpp:140
 msgid "CMSPrefs::Relative Colorimetric"
 msgstr ""
 
-#: cmsprefs.cpp:110
+#: scribus/cmsprefs.cpp:110
 msgid "CMSPrefs::Rendering Intents"
 msgstr "Hensigt med gengivelse"
 
-#: cmsprefs.cpp:141
+#: scribus/cmsprefs.cpp:141
 msgid "CMSPrefs::Saturation"
 msgstr "Mætning"
 
-#: cmsprefs.cpp:152
+#: scribus/cmsprefs.cpp:152
 msgid "CMSPrefs::Simulate Printer on the Screen"
 msgstr "Simulér printer på skærmen"
 
-#: cmsprefs.cpp:40
+#: scribus/cmsprefs.cpp:40
 msgid "CMSPrefs::Solid Colors:"
 msgstr "Massive farver:"
 
-#: cmsprefs.cpp:26
+#: scribus/cmsprefs.cpp:26
 msgid "CMSPrefs::System Profiles"
 msgstr "System profiler"
 
-#: cmykfw.cpp:104
+#: scribus/cmsprefs.cpp:162
+msgid "CMSPrefs::Use Blackpoint Compensation"
+msgstr "Brug sortpunkt kompensation"
+
+#: scribus/cmykfw.cpp:104
 msgid "CMYKChoose::"
 msgstr ""
 
-#: cmykfw.cpp:467
+#: scribus/cmykfw.cpp:467
 msgid "CMYKChoose::B:"
 msgstr ""
 
-#: cmykfw.cpp:447
+#: scribus/cmykfw.cpp:447
 msgid "CMYKChoose::C:"
 msgstr ""
 
-#: cmykfw.cpp:443
+#: scribus/cmykfw.cpp:443
 msgid "CMYKChoose::CMYK"
 msgstr ""
 
-#: cmykfw.cpp:121
+#: scribus/cmykfw.cpp:121
 msgid "CMYKChoose::Cancel"
 msgstr "Annullér"
 
-#: cmykfw.cpp:54
+#: scribus/cmykfw.cpp:54
 msgid "CMYKChoose::Color Model"
 msgstr "Farve model"
 
-#: cmykfw.cpp:313
+#: scribus/cmykfw.cpp:313
 msgid "CMYKChoose::Dynamic Color Bars"
 msgstr "Dynamiske farvesøjler"
 
-#: cmykfw.cpp:31
+#: scribus/cmykfw.cpp:31
 msgid "CMYKChoose::Edit Color"
 msgstr "Redigér farve"
 
-#: cmykfw.cpp:466
+#: scribus/cmykfw.cpp:466
 msgid "CMYKChoose::G:"
 msgstr ""
 
-#: cmykfw.cpp:253
+#: scribus/cmykfw.cpp:253
 msgid "CMYKChoose::K:"
 msgstr ""
 
-#: cmykfw.cpp:448
+#: scribus/cmykfw.cpp:448
 msgid "CMYKChoose::M:"
 msgstr ""
 
-#: cmykfw.cpp:42
+#: scribus/cmykfw.cpp:42
 msgid "CMYKChoose::Name:"
 msgstr "Navn:"
 
-#: cmykfw.cpp:76
+#: scribus/cmykfw.cpp:76
 msgid "CMYKChoose::New"
 msgstr "Ny"
 
-#: cmykfw.cpp:117
+#: scribus/cmykfw.cpp:117
 msgid "CMYKChoose::OK"
 msgstr ""
 
-#: cmykfw.cpp:95
+#: scribus/cmykfw.cpp:95
 msgid "CMYKChoose::Old"
 msgstr "Gammel"
 
-#: cmykfw.cpp:465
+#: scribus/cmykfw.cpp:465
 msgid "CMYKChoose::R:"
 msgstr ""
 
-#: cmykfw.cpp:60
+#: scribus/cmykfw.cpp:60
 msgid "CMYKChoose::RGB"
 msgstr ""
 
-#: cmykfw.cpp:314
+#: scribus/cmykfw.cpp:314
 msgid "CMYKChoose::Static Color Bars"
 msgstr "Statiske farvesøjler"
 
-#: cmykfw.cpp:61
+#: scribus/cmykfw.cpp:61
 msgid "CMYKChoose::Web Safe RGB"
 msgstr "Web-sikker RGB"
 
-#: cmykfw.cpp:475
+#: scribus/cmykfw.cpp:475
 msgid "CMYKChoose::Websave RGB"
 msgstr "Web-sikker RGB"
 
-#: cmykfw.cpp:449
+#: scribus/cmykfw.cpp:449
 msgid "CMYKChoose::Y:"
 msgstr ""
 
-#: cpalette.cpp:109
+#: scribus/cpalette.cpp:109
 msgid "Cpalette:: %"
 msgstr ""
 
-#: cpalette.cpp:71
+#: scribus/cpalette.cpp:71
 msgid "Cpalette::Cross Diagonal Gradient"
 msgstr "Kryds Diagonal Gradient"
 
-#: cpalette.cpp:70
+#: scribus/cpalette.cpp:70
 msgid "Cpalette::Diagonal Gradient"
 msgstr "Diagonal Gradient"
 
-#: cpalette.cpp:68
+#: scribus/cpalette.cpp:68
 msgid "Cpalette::Horizontal Gradient"
 msgstr "Horisontal Gradient"
 
-#: cpalette.cpp:180
+#: scribus/cpalette.cpp:180
 msgid "Cpalette::None"
 msgstr "Ingen"
 
-#: cpalette.cpp:67
+#: scribus/cpalette.cpp:67
 msgid "Cpalette::Normal"
 msgstr ""
 
-#: cpalette.cpp:103
+#: scribus/cpalette.cpp:103
 msgid "Cpalette::Opacity:"
 msgstr "Ugennemsigtighed:"
 
-#: cpalette.cpp:40
+#: scribus/cpalette.cpp:40
 msgid "Cpalette::Other..."
 msgstr "Andet..."
 
-#: cpalette.cpp:72
+#: scribus/cpalette.cpp:72
 msgid "Cpalette::Radial Gradient"
 msgstr ""
 
-#: cpalette.cpp:69
+#: scribus/cpalette.cpp:69
 msgid "Cpalette::Vertical Gradient"
-msgstr ""
+msgstr "Vertikal Gradient"
 
-#: cupsoptions.cpp:102
+#: scribus/cupsoptions.cpp:108
 msgid "CupsOptions::All Pages"
 msgstr "Alle sider"
 
-#: cupsoptions.cpp:165
+#: scribus/cupsoptions.cpp:171
 msgid "CupsOptions::Cancel"
 msgstr "Annullér"
 
-#: cupsoptions.cpp:99
+#: scribus/cupsoptions.cpp:105
 msgid "CupsOptions::Even Pages only"
 msgstr "Kun lige sider"
 
-#: cupsoptions.cpp:126
+#: scribus/cupsoptions.cpp:132
 msgid "CupsOptions::Landscape"
 msgstr "Landskab"
 
-#: cupsoptions.cpp:105
+#: scribus/cupsoptions.cpp:111
 msgid "CupsOptions::Mirror"
 msgstr "Spejling"
 
-#: cupsoptions.cpp:131
+#: scribus/cupsoptions.cpp:137
 msgid "CupsOptions::N-Up Printing"
 msgstr "N-UP udskrivning"
 
-#: cupsoptions.cpp:115
+#: scribus/cupsoptions.cpp:121
 msgid "CupsOptions::No"
 msgstr "Nej"
 
-#: cupsoptions.cpp:160
+#: scribus/cupsoptions.cpp:166
 msgid "CupsOptions::OK"
 msgstr ""
 
-#: cupsoptions.cpp:100
+#: scribus/cupsoptions.cpp:106
 msgid "CupsOptions::Odd Pages only"
 msgstr "Kun ulige sider"
 
-#: cupsoptions.cpp:31
+#: scribus/cupsoptions.cpp:37
 msgid "CupsOptions::Option"
 msgstr "Indstilling"
 
-#: cupsoptions.cpp:118
+#: scribus/cupsoptions.cpp:124
 msgid "CupsOptions::Orientation"
 msgstr "Retning"
 
-#: cupsoptions.cpp:91
+#: scribus/cupsoptions.cpp:97
 msgid "CupsOptions::Page Set"
 msgstr "Udskriv"
 
-#: cupsoptions.cpp:145
+#: scribus/cupsoptions.cpp:151
 msgid "CupsOptions::Page per Sheet"
 msgstr "Side pr ark"
 
-#: cupsoptions.cpp:143
+#: scribus/cupsoptions.cpp:149
 msgid "CupsOptions::Pages per Sheet"
 msgstr "Sider pr ark"
 
-#: cupsoptions.cpp:128
+#: scribus/cupsoptions.cpp:134
 msgid "CupsOptions::Portrait"
 msgstr "Portræt"
 
-#: cupsoptions.cpp:17
+#: scribus/cupsoptions.cpp:23
 msgid "CupsOptions::Printer Options"
 msgstr "Printer instillinger"
 
-#: cupsoptions.cpp:32
+#: scribus/cupsoptions.cpp:38
 msgid "CupsOptions::Value"
 msgstr "Værdi"
 
-#: cupsoptions.cpp:113
+#: scribus/cupsoptions.cpp:119
 msgid "CupsOptions::Yes"
 msgstr "Ja"
 
-#: customfdialog.cpp:170
+#: scribus/customfdialog.cpp:170
 msgid "CustomFDialog::Compress File"
 msgstr "Komprimer fil"
 
-#: customfdialog.cpp:190
+#: scribus/customfdialog.cpp:190
 msgid "CustomFDialog::Encoding:"
 msgstr "Tegnsæt:"
 
-#: customfdialog.cpp:245
+#: scribus/customfdialog.cpp:245
 msgid ""
 "CustomFDialog::Moves to your Document Directory.\n"
 "This can be set in the Preferences."
 msgstr ""
-"Flytter til din dokument mappe.\n"
+"Gå til dokument-mappe.\n"
 "Dette kan indstilles i Præferencer."
 
-#: dcolor.cpp:28
+#: scribus/dcolor.cpp:27
 msgid "DelColor::?"
 msgstr ""
 
-#: dcolor.cpp:58
+#: scribus/dcolor.cpp:57
 msgid "DelColor::Cancel"
 msgstr "Annullér"
 
-#: dcolor.cpp:13
+#: scribus/dcolor.cpp:12
 msgid "DelColor::Delete Color"
 msgstr "Slet farve"
 
-#: dcolor.cpp:22
+#: scribus/dcolor.cpp:21
 msgid "DelColor::OK to delete Color:"
 msgstr "OK at slette farve:"
 
-#: dcolor.cpp:53
+#: scribus/dcolor.cpp:52
 msgid "DelColor::OK"
 msgstr ""
 
-#: dcolor.cpp:31
+#: scribus/dcolor.cpp:32
 msgid "DelColor::Replace it with:"
 msgstr "Erstat den med:"
 
-#: delpages.cpp:45
+#: scribus/delpages.cpp:45
 msgid "DelPages::Cancel"
 msgstr "Annullér"
 
-#: delpages.cpp:10
+#: scribus/delpages.cpp:10
 msgid "DelPages::Delete Pages"
 msgstr "Slet sider"
 
-#: delpages.cpp:19
+#: scribus/delpages.cpp:19
 msgid "DelPages::Delete from:"
 msgstr "Slet fra:"
 
-#: delpages.cpp:39
+#: scribus/delpages.cpp:39
 msgid "DelPages::OK"
 msgstr ""
 
-#: delpages.cpp:27
+#: scribus/delpages.cpp:27
 msgid "DelPages::to:"
 msgstr "til:"
 
-#: missing.cpp:111
+#: scribus/missing.cpp:111
 msgid "DmF::Cancel"
 msgstr "Annullér"
 
-#: missing.cpp:69
+#: scribus/missing.cpp:69
 msgid "DmF::Missing Font"
 msgstr "Manglende font"
 
-#: missing.cpp:115
+#: scribus/missing.cpp:115
 msgid "DmF::OK"
 msgstr ""
 
-#: missing.cpp:71
+#: scribus/missing.cpp:71
 msgid "DmF::Select Font"
 msgstr "Vælg font"
 
-#: missing.cpp:83
+#: scribus/missing.cpp:83
 msgid "DmF::Select New Font:"
 msgstr "Vælg ny font:"
 
-#: missing.cpp:81
+#: scribus/missing.cpp:81
 msgid "DmF::The Font %1 is not installed."
 msgstr "Fonten %1 er ikke installeret."
 
-#: missing.cpp:94
+#: scribus/missing.cpp:94
 msgid "DmF::Use"
 msgstr "Brug"
 
-#: missing.cpp:103
+#: scribus/missing.cpp:103
 msgid "DmF::instead"
 msgstr "i stedet"
 
-#: docinfo.cpp:22
+#: scribus/docinfo.cpp:22
 msgid "DocInfos::Author:"
 msgstr "Forfatter:"
 
-#: docinfo.cpp:65
+#: scribus/docinfo.cpp:65
 msgid "DocInfos::Cancel"
 msgstr "Annullér"
 
-#: docinfo.cpp:38
+#: scribus/docinfo.cpp:38
 msgid "DocInfos::Description:"
 msgstr "Beskrivelse:"
 
-#: docinfo.cpp:12
+#: scribus/docinfo.cpp:12
 msgid "DocInfos::Document Info"
 msgstr "Dokument info"
 
-#: docinfo.cpp:47
+#: scribus/docinfo.cpp:47
 msgid "DocInfos::Keywords:"
 msgstr "Nøgleord:"
 
-#: docinfo.cpp:59
+#: scribus/docinfo.cpp:59
 msgid "DocInfos::OK"
 msgstr ""
 
-#: docinfo.cpp:30
+#: scribus/docinfo.cpp:30
 msgid "DocInfos::Title:"
 msgstr "Titel:"
 
-#: druck.cpp:312
+#: scribus/druck.cpp:318
 msgid "Druck::"
 msgstr ""
 
-#: druck.cpp:365
+#: scribus/druck.cpp:371
 msgid "Druck::Advanced Options..."
 msgstr "Avancerede indstillinger..."
 
-#: druck.cpp:332
+#: scribus/druck.cpp:338
 msgid "Druck::All"
 msgstr "Alle"
 
-#: druck.cpp:181
+#: scribus/druck.cpp:187
 msgid "Druck::Alternative Printer Command"
-msgstr "Alternativ printer kommando"
+msgstr "Alternativ udskrivnings-kommando"
 
-#: druck.cpp:382
+#: scribus/druck.cpp:388
 msgid "Druck::Cancel"
 msgstr "Annullér"
 
-#: druck.cpp:174
+#: scribus/druck.cpp:180
 msgid "Druck::Change..."
 msgstr "Vælg..."
 
-#: druck.cpp:188
+#: scribus/druck.cpp:194
 msgid "Druck::Command:"
 msgstr "Kommando:"
 
-#: druck.cpp:519
+#: scribus/druck.cpp:525
 msgid "Druck::File"
 msgstr "Fil"
 
-#: druck.cpp:165
+#: scribus/druck.cpp:171
 msgid "Druck::File:"
 msgstr "Fil:"
 
-#: druck.cpp:245
+#: scribus/druck.cpp:251
 msgid "Druck::From page:"
 msgstr "Fra side:"
 
-#: druck.cpp:284
+#: scribus/druck.cpp:290
 msgid "Druck::Number of copies:"
 msgstr "Antal kopier:"
 
-#: druck.cpp:378
+#: scribus/druck.cpp:384
 msgid "Druck::OK"
 msgstr ""
 
-#: druck.cpp:300
+#: scribus/druck.cpp:306
 msgid "Druck::Options"
 msgstr "Indstillinger"
 
-#: druck.cpp:154
+#: scribus/druck.cpp:160
 msgid "Druck::Options..."
 msgstr "Indstillinger..."
 
-#: druck.cpp:546
+#: scribus/druck.cpp:552
 msgid "Druck::Postscript-Files (*.ps);;All Files (*)"
 msgstr "Postscript-filer (*.ps);; Alle filer (*)"
 
-#: druck.cpp:322
+#: scribus/druck.cpp:328
 msgid "Druck::Print Normal"
 msgstr "Udskriv normalt"
 
-#: druck.cpp:327
+#: scribus/druck.cpp:333
 msgid "Druck::Print Separations"
 msgstr "Udskriv separationer"
 
-#: druck.cpp:255
+#: scribus/druck.cpp:261
 msgid "Druck::Print all"
-msgstr "Udskriv alle"
+msgstr "Udskriv alle sider"
 
-#: druck.cpp:81
+#: scribus/druck.cpp:87
 msgid "Druck::Print destination"
 msgstr "Udskriv til"
 
-#: druck.cpp:278
+#: scribus/druck.cpp:284
 msgid "Druck::Print first page first"
 msgstr "Udskriv første side først"
 
-#: druck.cpp:354
+#: scribus/druck.cpp:360
 msgid "Druck::Print in color if available"
 msgstr "Udskriv i farve hvis det er tilgængeligt"
 
-#: druck.cpp:359
+#: scribus/druck.cpp:365
 msgid "Druck::Print in grayscale"
 msgstr "Udskriv i gråskala"
 
-#: druck.cpp:273
+#: scribus/druck.cpp:279
 msgid "Druck::Print last page first"
 msgstr "Udskriv sidste side først"
 
-#: druck.cpp:250
+#: scribus/druck.cpp:256
 msgid "Druck::Print range"
-msgstr "Udskrivnings område"
+msgstr "Udskriv"
 
-#: druck.cpp:200
+#: scribus/druck.cpp:206
 msgid "Druck::Range:"
-msgstr "Område:"
+msgstr "Omfang:"
 
-#: druck.cpp:546
+#: scribus/druck.cpp:552
 msgid "Druck::Save as"
 msgstr "Gem som"
 
-#: druck.cpp:74
+#: scribus/druck.cpp:80
 msgid "Druck::Setup Printer"
 msgstr "Printerindstilling"
 
-#: druck.cpp:222
+#: scribus/druck.cpp:228
 msgid "Druck::To page:"
 msgstr "Til side:"
 
-#: edit1format.cpp:181
+#: scribus/edit1format.cpp:196
 msgid "EditStyle:: pt"
 msgstr ""
 
-#: edit1format.cpp:196
+#: scribus/edit1format.cpp:210
 msgid "EditStyle::Above:"
 msgstr "Over:"
 
-#: edit1format.cpp:102
+#: scribus/edit1format.cpp:123
 msgid "EditStyle::Alignment"
 msgstr "Justering"
 
-#: edit1format.cpp:201
+#: scribus/edit1format.cpp:215
 msgid "EditStyle::Below:"
 msgstr "Under:"
 
-#: edit1format.cpp:125
+#: scribus/edit1format.cpp:146
 msgid "EditStyle::Block"
 msgstr "Blok"
 
-#: edit1format.cpp:217
+#: scribus/edit1format.cpp:230
 msgid "EditStyle::Cancel"
 msgstr "Annullér"
 
-#: edit1format.cpp:121
+#: scribus/edit1format.cpp:142
 msgid "EditStyle::Center"
-msgstr "Centrer"
+msgstr "Centrér"
 
-#: edit1format.cpp:28
+#: scribus/edit1format.cpp:31
 msgid "EditStyle::Character"
 msgstr "Tegn"
 
-#: edit1format.cpp:9
+#: scribus/edit1format.cpp:64
+msgid "EditStyle::Drop Caps"
+msgstr "Uncialer"
+
+#: scribus/edit1format.cpp:11
 msgid "EditStyle::Edit Style"
 msgstr "Redigér typografi"
 
-#: edit1format.cpp:36
+#: scribus/edit1format.cpp:39
 msgid "EditStyle::Face:"
-msgstr "Redigér font"
+msgstr "Font:"
 
-#: edit1format.cpp:81
+#: scribus/edit1format.cpp:105
 msgid "EditStyle::First Line:"
 msgstr "Første linie:"
 
-#: edit1format.cpp:129
+#: scribus/edit1format.cpp:150
 msgid "EditStyle::Forced"
 msgstr "Tvunget"
 
-#: edit1format.cpp:65
+#: scribus/edit1format.cpp:89
 msgid "EditStyle::Indentation"
 msgstr "Indrykning"
 
-#: edit1format.cpp:76
+#: scribus/edit1format.cpp:100
 msgid "EditStyle::Left Indent:"
 msgstr "Venstre indrykning:"
 
-#: edit1format.cpp:112
+#: scribus/edit1format.cpp:133
 msgid "EditStyle::Left"
 msgstr "Venstre"
 
-#: edit1format.cpp:191
+#: scribus/edit1format.cpp:205
 msgid "EditStyle::Line Spacing"
 msgstr "Linie afstand"
 
-#: edit1format.cpp:259
+#: scribus/edit1format.cpp:68
+msgid "EditStyle::Lines:"
+msgstr "Linier:"
+
+#: scribus/edit1format.cpp:329
 msgid "EditStyle::Name of the Style is not unique"
 msgstr "Navnet på denne typografi er ikke entydig"
 
-#: edit1format.cpp:17
+#: scribus/edit1format.cpp:20
 msgid "EditStyle::Name:"
 msgstr "Navn:"
 
-#: edit1format.cpp:259
+#: scribus/edit1format.cpp:329
 msgid "EditStyle::OK"
 msgstr ""
 
-#: edit1format.cpp:117
+#: scribus/edit1format.cpp:138
 msgid "EditStyle::Right"
 msgstr "Mod højre"
 
-#: edit1format.cpp:60
+#: scribus/edit1format.cpp:53
 msgid "EditStyle::Size:"
 msgstr "Størrelse:"
 
-#: edit1format.cpp:152
+#: scribus/edit1format.cpp:118
+msgid "EditStyle::Tabulators..."
+msgstr "Tabulatorer..."
+
+#: scribus/edit1format.cpp:173
 msgid "EditStyle::Vertical Spaces"
 msgstr "Vertikal afstand"
 
-#: edit1format.cpp:259
+#: scribus/edit1format.cpp:329
 msgid "EditStyle::Warning"
 msgstr "Advarsel"
 
-#: editor.cpp:33
+#: scribus/editor.cpp:33
 msgid "Editor::Clear"
 msgstr "Slet"
 
-#: editor.cpp:31
+#: scribus/editor.cpp:31
 msgid "Editor::Copy"
 msgstr "Kopiér"
 
-#: editor.cpp:30
+#: scribus/editor.cpp:30
 msgid "Editor::Cut"
 msgstr "Klip"
 
-#: editor.cpp:38
+#: scribus/editor.cpp:38
 msgid "Editor::Edit"
 msgstr "Redigér"
 
-#: editor.cpp:13
+#: scribus/editor.cpp:13
 msgid "Editor::Editor"
 msgstr "Editor"
 
-#: editor.cpp:25
+#: scribus/editor.cpp:25
 msgid "Editor::Exit without Saving"
 msgstr "Afslut uden at gemme"
 
-#: editor.cpp:37
+#: scribus/editor.cpp:37
 msgid "Editor::File"
 msgstr "Fil"
 
-#: editor.cpp:35
+#: scribus/editor.cpp:35
 msgid "Editor::Get Field Names"
 msgstr "Hent feltnavne"
 
-#: editor.cpp:74
+#: scribus/editor.cpp:74
 msgid "Editor::Javascripts (*.js);;All Files (*)"
 msgstr "JavaScripts (*.js);; Alle filer (*)"
 
-#: editor.cpp:22
+#: scribus/editor.cpp:22
 msgid "Editor::Load..."
 msgstr "Indlæs..."
 
-#: editor.cpp:20
+#: scribus/editor.cpp:20
 msgid "Editor::New"
 msgstr "Ny"
 
-#: editor.cpp:32
+#: scribus/editor.cpp:32
 msgid "Editor::Paste"
 msgstr "Indsæt"
 
-#: editor.cpp:28
+#: scribus/editor.cpp:28
 msgid "Editor::Redo"
 msgstr "Lav igen"
 
-#: editor.cpp:24
+#: scribus/editor.cpp:24
 msgid "Editor::Save and Exit"
 msgstr "Gem og afslut"
 
-#: editor.cpp:21
+#: scribus/editor.cpp:21
 msgid "Editor::Save as..."
 msgstr "Gem som..."
 
-#: editor.cpp:27
+#: scribus/editor.cpp:27
 msgid "Editor::Undo"
 msgstr "Fortryd"
 
-#: customfdialog.cpp:133
+#: scribus/customfdialog.cpp:133
 msgid "FDialogPreview::Author:"
 msgstr "Forfatter:"
 
-#: customfdialog.cpp:131
+#: scribus/customfdialog.cpp:131
 msgid "FDialogPreview::No Title"
 msgstr "Ingen titel"
 
-#: customfdialog.cpp:138
+#: scribus/customfdialog.cpp:138
 msgid "FDialogPreview::Scribus-Document"
 msgstr "Scribus-Dokument"
 
-#: customfdialog.cpp:109
+#: scribus/customfdialog.cpp:109
 msgid "FDialogPreview::Size:"
 msgstr "Størrelse:"
 
-#: customfdialog.cpp:128
+#: scribus/customfdialog.cpp:128
 msgid "FDialogPreview::Title:"
 msgstr "Titel:"
 
-#: customfdialog.cpp:136
+#: scribus/customfdialog.cpp:136
 msgid "FDialogPreview::Unknown"
 msgstr "Ukendt"
 
-#: colorm.cpp:41
+#: scribus/colorm.cpp:57
 msgid "Farbmanager::Append"
 msgstr "Tilføj"
 
-#: colorm.cpp:63
+#: scribus/colorm.cpp:85
 msgid "Farbmanager::Cancel"
 msgstr "Annullér"
 
-#: colorm.cpp:27
+#: scribus/colorm.cpp:97
+msgid "Farbmanager::Color Sets"
+msgstr "Farvesæt"
+
+#: scribus/colorm.cpp:50
 msgid "Farbmanager::Colors"
 msgstr "Farver"
 
-#: colorm.cpp:133
+#: scribus/colorm.cpp:328
 msgid "Farbmanager::Copy of %1"
 msgstr "Kopi af %1"
 
-#: colorm.cpp:57
+#: scribus/colorm.cpp:104
+msgid "Farbmanager::Current Color Set:"
+msgstr "Aktive farvesæt:"
+
+#: scribus/colorm.cpp:73
 msgid "Farbmanager::Delete"
 msgstr "Slet"
 
-#: colorm.cpp:89
+#: scribus/colorm.cpp:284
 msgid "Farbmanager::Documents (*.sla *.scd);;All Files (*)"
 msgstr "Dokumenter (*.sla *.scd);; Alle filer (*)"
 
-#: colorm.cpp:87
+#: scribus/colorm.cpp:282
 msgid "Farbmanager::Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"
 msgstr "Dokumenter (*.sla *.sla.gz *.scd *scd.gz);; Alle filer (*)"
 
-#: colorm.cpp:53
+#: scribus/colorm.cpp:69
 msgid "Farbmanager::Duplicate"
 msgstr "Duplikér"
 
-#: colorm.cpp:48
+#: scribus/colorm.cpp:64
 msgid "Farbmanager::Edit"
 msgstr "Redigér"
 
-#: colorm.cpp:44
+#: scribus/colorm.cpp:60
 msgid "Farbmanager::New"
 msgstr "Ny"
 
-#: colorm.cpp:89
+#: scribus/colorm.cpp:284
 msgid "Farbmanager::Open"
 msgstr "Åbn"
 
-#: colorm.cpp:60
+#: scribus/colorm.cpp:122
+msgid "Farbmanager::Save Color Set"
+msgstr "Gem farvesæt"
+
+#: scribus/colorm.cpp:82
 msgid "Farbmanager::Save"
 msgstr "Gem"
 
-#: fontprefs.cpp:161
+#: scribus/fontprefs.cpp:166
 msgid "FontPrefs::Add..."
 msgstr "Tilføj..."
 
-#: fontprefs.cpp:169
+#: scribus/fontprefs.cpp:174
 msgid "FontPrefs::Additional Paths"
 msgstr "Stier til fonte"
 
-#: fontprefs.cpp:108
+#: scribus/fontprefs.cpp:113
 msgid "FontPrefs::Available Fonts"
 msgstr "Tilgængelige Fonte"
 
-#: fontprefs.cpp:186
+#: scribus/fontprefs.cpp:191
 msgid "FontPrefs::Cancel"
 msgstr "Annullér"
 
-#: fontprefs.cpp:158
+#: scribus/fontprefs.cpp:163
 msgid "FontPrefs::Change..."
 msgstr "Vælg..."
 
-#: fontprefs.cpp:300
+#: scribus/fontprefs.cpp:311
 msgid "FontPrefs::Choose a Directory"
 msgstr "Vælg en mappe"
 
-#: fontprefs.cpp:143
+#: scribus/fontprefs.cpp:148
 msgid "FontPrefs::Delete"
 msgstr "Slet"
 
-#: fontprefs.cpp:90
+#: scribus/fontprefs.cpp:95
 msgid "FontPrefs::Embed in:"
 msgstr "Indlejr i:"
 
-#: fontprefs.cpp:121
+#: scribus/fontprefs.cpp:126
 msgid "FontPrefs::Font Name"
 msgstr "Font navn"
 
-#: fontprefs.cpp:149
+#: scribus/fontprefs.cpp:154
 msgid "FontPrefs::Font Substitutions"
 msgstr "Erstatnings fonte"
 
-#: fontprefs.cpp:14
+#: scribus/fontprefs.cpp:19
 msgid "FontPrefs::Global Font Settings"
 msgstr "Globale fontindstillinger"
 
-#: fontprefs.cpp:183
+#: scribus/fontprefs.cpp:188
 msgid "FontPrefs::OK"
 msgstr ""
 
-#: fontprefs.cpp:93
+#: scribus/fontprefs.cpp:98
 msgid "FontPrefs::Path to Font File"
 msgstr "Sti til fontfil"
 
-#: fontprefs.cpp:381
+#: scribus/fontprefs.cpp:392
 msgid "FontPrefs::Postscript"
 msgstr ""
 
-#: fontprefs.cpp:164
+#: scribus/fontprefs.cpp:169
 msgid "FontPrefs::Remove"
 msgstr "Fjern"
 
-#: fontprefs.cpp:122
+#: scribus/fontprefs.cpp:127
 msgid "FontPrefs::Replacement"
 msgstr "Erstatning"
 
-#: fontprefs.cpp:91
+#: scribus/fontprefs.cpp:96
 msgid "FontPrefs::Subset"
 msgstr "Delmængde"
 
-#: fontprefs.cpp:92
+#: scribus/fontprefs.cpp:97
 msgid "FontPrefs::Type"
 msgstr ""
 
-#: fontprefs.cpp:89
+#: scribus/fontprefs.cpp:94
 msgid "FontPrefs::Use Font"
 msgstr "Brug font"
 
-#: fontprefs.cpp:389
+#: scribus/fontprefs.cpp:400
 msgid "FontPrefs::Yes"
 msgstr "Ja"
 
-#: guidemanager.cpp:157
+#: scribus/guidemanager.cpp:155
 msgid "GuideManager:: in"
 msgstr ""
 
-#: guidemanager.cpp:154
+#: scribus/guidemanager.cpp:152
 msgid "GuideManager:: mm"
 msgstr ""
 
-#: guidemanager.cpp:160
+#: scribus/guidemanager.cpp:158
 msgid "GuideManager:: p"
 msgstr ""
 
-#: guidemanager.cpp:151
+#: scribus/guidemanager.cpp:149
 msgid "GuideManager:: pt"
 msgstr ""
 
-#: guidemanager.cpp:75
+#: scribus/guidemanager.cpp:73
 msgid "GuideManager::Add"
 msgstr "Tilføj"
 
-#: guidemanager.cpp:99
+#: scribus/guidemanager.cpp:97
 msgid "GuideManager::Cancel"
 msgstr "Annullér"
 
-#: guidemanager.cpp:79
+#: scribus/guidemanager.cpp:77
 msgid "GuideManager::Delete"
 msgstr "Slet"
 
-#: guidemanager.cpp:22
+#: scribus/guidemanager.cpp:22
 msgid "GuideManager::Horizontal Guides"
 msgstr "Horisontale hjælpelinier"
 
-#: guidemanager.cpp:86
+#: scribus/guidemanager.cpp:84
 msgid "GuideManager::Lock Guides"
 msgstr "Lås hjælpelinier"
 
-#: guidemanager.cpp:10
+#: scribus/guidemanager.cpp:10
 msgid "GuideManager::Manage Guides"
 msgstr "Håndtér hjælpelinier"
 
-#: guidemanager.cpp:93
+#: scribus/guidemanager.cpp:91
 msgid "GuideManager::OK"
 msgstr ""
 
-#: guidemanager.cpp:54
+#: scribus/guidemanager.cpp:53
 msgid "GuideManager::Vertical Guides"
 msgstr "Vertikale hjælpelinier"
 
-#: guidemanager.cpp:65
+#: scribus/guidemanager.cpp:64
 msgid "GuideManager::X-Pos:"
 msgstr ""
 
-#: guidemanager.cpp:33
+#: scribus/guidemanager.cpp:33
 msgid "GuideManager::Y-Pos:"
 msgstr ""
 
-#: helpbrowser.cpp:34
+#: scribus/helpbrowser.cpp:40
 msgid "HelpBrowser::"
 msgstr ""
 
-#: helpbrowser.cpp:75
+#: scribus/helpbrowser.cpp:81
 msgid "HelpBrowser::Sorry, no manual available!"
 msgstr "Desværre, der er ingen manual tilgængelig!"
 
-#: hyask.cpp:53
+#: scribus/hyask.cpp:53
 msgid "HyAsk::Accept"
 msgstr "Acceptér"
 
-#: hyask.cpp:64
+#: scribus/hyask.cpp:64
 msgid "HyAsk::Cancel"
 msgstr "Annullér"
 
-#: hyask.cpp:38
+#: scribus/hyask.cpp:38
 msgid "HyAsk::Possible Hyphenation"
 msgstr "Mulig orddeling"
 
-#: hyask.cpp:59
+#: scribus/hyask.cpp:59
 msgid "HyAsk::Skip"
 msgstr "Spring over"
 
-#: hysettings.cpp:64
+#: scribus/hysettings.cpp:64
 msgid "HySettings::Cancel"
 msgstr "Annullér"
 
-#: hysettings.cpp:21
+#: scribus/hysettings.cpp:21
 msgid "HySettings::Check during Typing"
 msgstr "Kontrollér under indtastning"
 
-#: hysettings.cpp:23
+#: scribus/hysettings.cpp:23
 msgid "HySettings::Enables automatic checking of your text while typing."
 msgstr "Automatisk kontrol af din tekst under indtastning."
 
-#: hysettings.cpp:17
+#: scribus/hysettings.cpp:17
 msgid "HySettings::Fully Automatic"
 msgstr "Helt automatisk"
 
-#: hysettings.cpp:11
+#: scribus/hysettings.cpp:11
 msgid "HySettings::Hyphenator Settings"
 msgstr "Orddelings instillinger"
 
-#: hysettings.cpp:19
+#: scribus/hysettings.cpp:19
 msgid ""
 "HySettings::If you uncheck this you will get a dialog\n"
 "everytime a possible Hyphenation is found."
@@ -1878,563 +2029,611 @@ msgstr ""
 "Hvis du fjerner krydset her, vil der komme en\n"
 "dialogboks, hver gang en mulig orddeling er fundet."
 
-#: hysettings.cpp:36
+#: scribus/hysettings.cpp:36
 msgid "HySettings::Language:"
 msgstr "Sprog:"
 
-#: hysettings.cpp:57
+#: scribus/hysettings.cpp:57
 msgid "HySettings::OK"
 msgstr ""
 
-#: hysettings.cpp:41
+#: scribus/hysettings.cpp:41
 msgid "HySettings::Smallest Word:"
 msgstr "Mindste ord:"
 
-#: hysettings.cpp:47
+#: scribus/hysettings.cpp:47
 msgid "HySettings::This is the length of the smallest word to be hyphenated."
 msgstr "Dette er længden af det mindste ord der deles."
 
-#: inspage.cpp:97
+#: scribus/inspage.cpp:97
 msgid "InsPage::Cancel"
 msgstr "Annullér"
 
-#: inspage.cpp:9
+#: scribus/inspage.cpp:9
 msgid "InsPage::Insert Page"
 msgstr "Indsæt side"
 
-#: inspage.cpp:39
+#: scribus/inspage.cpp:39
 msgid "InsPage::Inserting"
 msgstr "Indsætter"
 
-#: inspage.cpp:80
+#: scribus/inspage.cpp:80
 msgid "InsPage::Normal"
 msgstr ""
 
-#: inspage.cpp:91
+#: scribus/inspage.cpp:91
 msgid "InsPage::OK"
 msgstr ""
 
-#: inspage.cpp:46
+#: scribus/inspage.cpp:46
 msgid "InsPage::Template (Left Page):"
 msgstr "Skabelon (venstre side):"
 
-#: inspage.cpp:70
+#: scribus/inspage.cpp:70
 msgid "InsPage::Template (Right Page):"
 msgstr "Skabelon (højre side):"
 
-#: inspage.cpp:48
+#: scribus/inspage.cpp:48
 msgid "InsPage::Template:"
 msgstr "Skabelon:"
 
-#: inspage.cpp:29
+#: scribus/inspage.cpp:29
 msgid "InsPage::after Page"
 msgstr "efter side"
 
-#: inspage.cpp:30
+#: scribus/inspage.cpp:30
 msgid "InsPage::at End"
 msgstr "i slutningen"
 
-#: inspage.cpp:28
+#: scribus/inspage.cpp:28
 msgid "InsPage::before Page"
 msgstr "Før side"
 
-#: inspage.cpp:25
+#: scribus/inspage.cpp:25
 msgid "InsPage::page(s)"
 msgstr "side(r)"
 
-#: javadocs.cpp:32
+#: scribus/javadocs.cpp:32
 msgid "JavaDocs::Add..."
 msgstr "Tilføj..."
 
-#: javadocs.cpp:42
+#: scribus/javadocs.cpp:42
 msgid "JavaDocs::Close"
 msgstr "Luk"
 
-#: javadocs.cpp:36
+#: scribus/javadocs.cpp:36
 msgid "JavaDocs::Delete"
 msgstr "Slet"
 
-#: javadocs.cpp:28
+#: scribus/javadocs.cpp:28
 msgid "JavaDocs::Edit..."
 msgstr "Redigér..."
 
-#: javadocs.cpp:10
+#: scribus/javadocs.cpp:10
 msgid "JavaDocs::Global JavaScripts"
 msgstr "Globale javascripts"
 
-#: javadocs.cpp:63
+#: scribus/javadocs.cpp:63
 msgid "JavaDocs::New Script"
 msgstr "Ny script"
 
-#: keymanager.cpp:72
+#: scribus/keymanager.cpp:72
 msgid "KeyManager::ALT+SHIFT+T"
 msgstr ""
 
-#: keymanager.cpp:39
+#: scribus/keymanager.cpp:39
 msgid "KeyManager::Action"
 msgstr "Handling"
 
-#: keymanager.cpp:191
+#: scribus/keymanager.cpp:191
 msgid "KeyManager::Alt"
 msgstr ""
 
-#: keymanager.cpp:147
+#: scribus/keymanager.cpp:147
 msgid "KeyManager::Alt+"
 msgstr ""
 
-#: keymanager.cpp:97
+#: scribus/keymanager.cpp:97
 msgid "KeyManager::Cancel"
 msgstr "Annullér"
 
-#: keymanager.cpp:191
+#: scribus/keymanager.cpp:191
 msgid "KeyManager::Ctrl"
 msgstr ""
 
-#: keymanager.cpp:151
+#: scribus/keymanager.cpp:151
 msgid "KeyManager::Ctrl+"
 msgstr ""
 
-#: keymanager.cpp:40
+#: scribus/keymanager.cpp:40
 msgid "KeyManager::Current Key"
 msgstr "Nuværende taste"
 
-#: keymanager.cpp:12
+#: scribus/keymanager.cpp:12
 msgid "KeyManager::Manage Keyboard Shortcuts"
 msgstr "Indstilling af tastatur genveje"
 
-#: keymanager.cpp:60
+#: scribus/keymanager.cpp:60
 msgid "KeyManager::No Key"
 msgstr "Ingen taste"
 
-#: keymanager.cpp:162
+#: scribus/keymanager.cpp:162
 msgid "KeyManager::OK"
 msgstr ""
 
-#: keymanager.cpp:50
+#: scribus/keymanager.cpp:50
 msgid "KeyManager::Select a Key for this Action"
 msgstr "Vælg en taste for denne handling"
 
-#: keymanager.cpp:79
+#: scribus/keymanager.cpp:79
 msgid "KeyManager::Set Key"
-msgstr "Sæt taste"
+msgstr "Aflæs taste"
 
-#: keymanager.cpp:191
+#: scribus/keymanager.cpp:191
 msgid "KeyManager::Shift"
 msgstr "Skift"
 
-#: keymanager.cpp:143
+#: scribus/keymanager.cpp:143
 msgid "KeyManager::Shift+"
 msgstr "Skift+"
 
-#: keymanager.cpp:161
+#: scribus/keymanager.cpp:161
 msgid "KeyManager::This Key-Sequence is already in use"
 msgstr "Denne tastesekvens er allerede i brug"
 
-#: keymanager.cpp:65
+#: scribus/keymanager.cpp:65
 msgid "KeyManager::User Defined Key"
 msgstr "Brugerdefineret taste"
 
-#: keymanager.cpp:160
+#: scribus/keymanager.cpp:160
 msgid "KeyManager::Warning"
 msgstr "Advarsel"
 
-#: layers.cpp:69
+#: scribus/layers.cpp:71
 msgid "LayerPalette::"
 msgstr ""
 
-#: layers.cpp:39
+#: scribus/layers.cpp:41
 msgid "LayerPalette::Add a new Layer"
 msgstr "Tilføj et ny lag"
 
-#: layers.cpp:71
+#: scribus/layers.cpp:73
 msgid "LayerPalette::Closes this Dialog"
 msgstr "Lukker dette vindue"
 
-#: layers.cpp:47
+#: scribus/layers.cpp:49
 msgid "LayerPalette::Delete Layer"
 msgstr "Slet lag"
 
-#: layers.cpp:11
+#: scribus/layers.cpp:13
 msgid "LayerPalette::Layers"
 msgstr "Lag"
 
-#: layers.cpp:63
+#: scribus/layers.cpp:65
 msgid "LayerPalette::Lower Layer"
 msgstr "Sænk lag"
 
-#: layers.cpp:169
+#: scribus/layers.cpp:171
 msgid "LayerPalette::New Layer"
 msgstr "Nyt lag"
 
-#: layers.cpp:55
+#: scribus/layers.cpp:57
 msgid "LayerPalette::Raise Layer"
 msgstr "Hæv lag"
 
-#: lineformats.cpp:52
+#: scribus/lineformats.cpp:30
+msgid "LineFormate::Append"
+msgstr "Tilføj"
+
+#: scribus/lineformats.cpp:58
 msgid "LineFormate::Cancel"
 msgstr "Annullér"
 
-#: lineformats.cpp:85
+#: scribus/lineformats.cpp:92
 msgid "LineFormate::Copy of %1"
 msgstr "Kopi af %1"
 
-#: lineformats.cpp:43
+#: scribus/lineformats.cpp:49
 msgid "LineFormate::Delete"
 msgstr "Slet"
 
-#: lineformats.cpp:127
+#: scribus/lineformats.cpp:134
 msgid "LineFormate::Do you really want do delete this Style?"
 msgstr "Ønsker du virkelig at slette denne stil?"
 
-#: lineformats.cpp:38
+#: scribus/lineformats.cpp:151
+msgid "LineFormate::Documents (*.sla *.scd);;All Files (*)"
+msgstr "Dokumenter (*.sla *.scd);; Alle filer (*)"
+
+#: scribus/lineformats.cpp:149
+msgid "LineFormate::Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"
+msgstr "Dokumenter (*.sla *.sla.gz *.scd *scd.gz);; Alle filer (*)"
+
+#: scribus/lineformats.cpp:44
 msgid "LineFormate::Duplicate"
 msgstr "Duplikér"
 
-#: lineformats.cpp:11
+#: scribus/lineformats.cpp:13
 msgid "LineFormate::Edit Line Styles"
 msgstr "Redigér liniestile"
 
-#: lineformats.cpp:32
+#: scribus/lineformats.cpp:38
 msgid "LineFormate::Edit"
 msgstr "Redigér"
 
-#: lineformats.cpp:105
+#: scribus/lineformats.cpp:112
 msgid "LineFormate::New Style"
 msgstr "Ny stil"
 
-#: lineformats.cpp:28
+#: scribus/lineformats.cpp:34
 msgid "LineFormate::New"
 msgstr "Ny"
 
-#: lineformats.cpp:128
+#: scribus/lineformats.cpp:135
 msgid "LineFormate::No"
-msgstr "Ingen"
+msgstr "Nej"
 
-#: lineformats.cpp:48
+#: scribus/lineformats.cpp:151
+msgid "LineFormate::Open"
+msgstr "Åbn"
+
+#: scribus/lineformats.cpp:54
 msgid "LineFormate::Save"
 msgstr "Gem"
 
-#: lineformats.cpp:126
+#: scribus/lineformats.cpp:133
 msgid "LineFormate::Warning"
 msgstr "Advarsel"
 
-#: lineformats.cpp:129
+#: scribus/lineformats.cpp:136
 msgid "LineFormate::Yes"
 msgstr "Ja"
 
-#: mdup.cpp:53
+#: scribus/mspinbox.cpp:100
+msgid "MSpinBox:: in"
+msgstr ""
+
+#: scribus/mspinbox.cpp:93
+msgid "MSpinBox:: mm"
+msgstr ""
+
+#: scribus/mspinbox.cpp:107
+msgid "MSpinBox:: p"
+msgstr ""
+
+#: scribus/mspinbox.cpp:86
+msgid "MSpinBox:: pt"
+msgstr ""
+
+#: scribus/mdup.cpp:51
 msgid "Mdup:: in"
 msgstr ""
 
-#: mdup.cpp:49
+#: scribus/mdup.cpp:47
 msgid "Mdup:: mm"
 msgstr ""
 
-#: mdup.cpp:57
+#: scribus/mdup.cpp:55
 msgid "Mdup:: p"
 msgstr ""
 
-#: mdup.cpp:45
+#: scribus/mdup.cpp:43
 msgid "Mdup:: pt"
 msgstr ""
 
-#: mdup.cpp:80
+#: scribus/mdup.cpp:78
 msgid "Mdup::Cancel"
 msgstr "Annullér"
 
-#: mdup.cpp:64
+#: scribus/mdup.cpp:62
 msgid "Mdup::Horizontal Shift:"
 msgstr "Horisontal skift:"
 
-#: mdup.cpp:16
+#: scribus/mdup.cpp:16
 msgid "Mdup::Multiple Duplicate"
 msgstr "Duplikér flere gange"
 
-#: mdup.cpp:61
+#: scribus/mdup.cpp:59
 msgid "Mdup::Number of Copies:"
 msgstr "Antal kopier:"
 
-#: mdup.cpp:74
+#: scribus/mdup.cpp:72
 msgid "Mdup::OK"
 msgstr ""
 
-#: mdup.cpp:67
+#: scribus/mdup.cpp:65
 msgid "Mdup::Vertical Shift:"
 msgstr "Vertikalt skift:"
 
-#: mergedoc.cpp:58
+#: scribus/plugins/scriptplugin/scriptplugin.cpp:212
+msgid "MenuTest::Hide Console"
+msgstr "Skjul konsol"
+
+#: scribus/plugins/scriptplugin/scriptplugin.cpp:207
+msgid "MenuTest::Show Console"
+msgstr "Vis konsol"
+
+#: scribus/mergedoc.cpp:76
 msgid "MergeDoc::Cancel"
 msgstr "Annullér"
 
-#: mergedoc.cpp:28
+#: scribus/mergedoc.cpp:34
 msgid "MergeDoc::Change..."
 msgstr "Vælg..."
 
-#: mergedoc.cpp:115
+#: scribus/mergedoc.cpp:156
 msgid "MergeDoc::Document contains: %1 Page(s)"
-msgstr "Dokument indeholder %1 side(r)"
+msgstr "Dokument indeholder: %1 side(r)"
 
-#: mergedoc.cpp:33
+#: scribus/mergedoc.cpp:39
 msgid "MergeDoc::Document contains: 0 Page(s)"
-msgstr "Dokument indeholder 0 side(r)"
+msgstr "Dokument indeholder: 0 side(r)"
 
-#: mergedoc.cpp:20
+#: scribus/mergedoc.cpp:26
 msgid "MergeDoc::Document to load:"
 msgstr "Dokument som skal indlæses:"
 
-#: mergedoc.cpp:82
+#: scribus/mergedoc.cpp:103
 msgid "MergeDoc::Documents (*.sla *.scd);;All Files (*)"
 msgstr "Dokumenter (*.sla *.scd);; Alle filer (*)"
 
-#: mergedoc.cpp:80
+#: scribus/mergedoc.cpp:101
 msgid "MergeDoc::Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"
 msgstr "Dokumenter (*.sla *.sla.gz *.scd *scd.gz);; Alle filer (*)"
 
-#: mergedoc.cpp:38
+#: scribus/mergedoc.cpp:44
 msgid "MergeDoc::Import Page Nr:"
 msgstr "Importér side nr:"
 
-#: mergedoc.cpp:14
+#: scribus/mergedoc.cpp:20
 msgid "MergeDoc::Import a Page"
 msgstr "Importér en side"
 
-#: mergedoc.cpp:51
+#: scribus/mergedoc.cpp:69
 msgid "MergeDoc::Import"
 msgstr "Importér"
 
-#: mergedoc.cpp:82
+#: scribus/mergedoc.cpp:103
 msgid "MergeDoc::Open"
 msgstr "Åbn"
 
-#: movepage.cpp:68
+#: scribus/movepage.cpp:68
 msgid "MovePages::Cancel"
 msgstr "Annullér"
 
-#: movepage.cpp:26
+#: scribus/movepage.cpp:26
 msgid "MovePages::Copy Page"
 msgstr "Kopiér side"
 
-#: movepage.cpp:56
+#: scribus/movepage.cpp:56
 msgid "MovePages::Move Page(s):"
 msgstr "Flyt side(r):"
 
-#: movepage.cpp:12
+#: scribus/movepage.cpp:12
 msgid "MovePages::Move Pages"
 msgstr "Flyt sider"
 
-#: movepage.cpp:62
+#: scribus/movepage.cpp:62
 msgid "MovePages::OK"
 msgstr ""
 
-#: movepage.cpp:46
+#: scribus/movepage.cpp:46
 msgid "MovePages::after Page"
 msgstr "Efter side"
 
-#: movepage.cpp:47
+#: scribus/movepage.cpp:47
 msgid "MovePages::at End"
 msgstr "i slutningen"
 
-#: movepage.cpp:45
+#: scribus/movepage.cpp:45
 msgid "MovePages::before Page"
 msgstr "Før side"
 
-#: movepage.cpp:36
+#: scribus/movepage.cpp:36
 msgid "MovePages::to:"
 msgstr "til:"
 
-#: mpalette.cpp:705
+#: scribus/mpalette.cpp:720
 msgid "Mpalette:: %"
 msgstr ""
 
-#: mpalette.cpp:788
+#: scribus/mpalette.cpp:814
 msgid "Mpalette:: pt"
 msgstr ""
 
-#: mpalette.cpp:357
-msgid "Mpalette:: pts"
-msgstr ""
-
-#: mpalette.cpp:292
+#: scribus/mpalette.cpp:294
 msgid "Mpalette::"
 msgstr ""
 
-#: mpalette.cpp:755
+#: scribus/mpalette.cpp:780
 msgid "Mpalette::Absolute Colorimetric"
 msgstr ""
 
-#: mpalette.cpp:833
+#: scribus/mpalette.cpp:858
 msgid "Mpalette::Align Text Block"
 msgstr "Lige margener"
 
-#: mpalette.cpp:834
+#: scribus/mpalette.cpp:859
 msgid "Mpalette::Align Text Center"
-msgstr "Centrer"
+msgstr "Centrér"
 
-#: mpalette.cpp:831
+#: scribus/mpalette.cpp:856
 msgid "Mpalette::Align Text Left"
 msgstr "Justér mod venstre"
 
-#: mpalette.cpp:832
+#: scribus/mpalette.cpp:857
 msgid "Mpalette::Align Text Right"
 msgstr "Justér mod højre"
 
-#: mpalette.cpp:797
+#: scribus/mpalette.cpp:141
+msgid "Mpalette::Basepoint:"
+msgstr "Omdr. punkt:"
+
+#: scribus/mpalette.cpp:822
 msgid "Mpalette::Bevel Join"
 msgstr "Afskårne"
 
-#: mpalette.cpp:378
+#: scribus/mpalette.cpp:348
 msgid "Mpalette::Bottom:"
 msgstr "Bund:"
 
-#: mpalette.cpp:75
+#: scribus/mpalette.cpp:78
 msgid "Mpalette::Colors"
 msgstr "Farver"
 
-#: mpalette.cpp:626
+#: scribus/mpalette.cpp:339
+msgid "Mpalette::Columns:"
+msgstr "Kolonner:"
+
+#: scribus/mpalette.cpp:643
 msgid "Mpalette::Custom Spacing"
 msgstr "Afstande"
 
-#: mpalette.cpp:354
+#: scribus/mpalette.cpp:415
 msgid "Mpalette::Distance from Curve:"
 msgstr "Afstand fra kurve:"
 
-#: mpalette.cpp:368
+#: scribus/mpalette.cpp:332
 msgid "Mpalette::Distance of Text"
 msgstr "Tekstafstand"
 
-#: mpalette.cpp:792
+#: scribus/mpalette.cpp:817
 msgid "Mpalette::Edges:"
 msgstr "Hjørner:"
 
-#: mpalette.cpp:314
+#: scribus/mpalette.cpp:311
 msgid "Mpalette::Edit Shape..."
 msgstr "Redigér form..."
 
-#: mpalette.cpp:842
+#: scribus/mpalette.cpp:867
 msgid "Mpalette::Enables or disables printing of the Object"
 msgstr "Muliggør eller forhindrer udskrivning af objektet"
 
-#: mpalette.cpp:771
+#: scribus/mpalette.cpp:797
 msgid "Mpalette::End Points"
 msgstr "Endepunkter"
 
-#: mpalette.cpp:801
+#: scribus/mpalette.cpp:826
 msgid "Mpalette::Endings:"
 msgstr "Ender:"
 
-#: mpalette.cpp:805
+#: scribus/mpalette.cpp:830
 msgid "Mpalette::Flat Cap"
 msgstr "Flade"
 
-#: mpalette.cpp:835
+#: scribus/mpalette.cpp:860
 msgid "Mpalette::Flip horizontal"
 msgstr "Flip horisontalt"
 
-#: mpalette.cpp:836
+#: scribus/mpalette.cpp:861
 msgid "Mpalette::Flip vertical"
 msgstr "Flip vertikalt"
 
-#: mpalette.cpp:821
+#: scribus/mpalette.cpp:846
 msgid "Mpalette::Font Size"
 msgstr "Font størrelse"
 
-#: mpalette.cpp:681
+#: scribus/mpalette.cpp:696
 msgid "Mpalette::Free Scaling"
 msgstr "Fri skalering"
 
-#: mpalette.cpp:96
+#: scribus/mpalette.cpp:342
+msgid "Mpalette::Gap:"
+msgstr "Afstand:"
+
+#: scribus/mpalette.cpp:99
 msgid "Mpalette::Geometry"
 msgstr "Geometri"
 
-#: mpalette.cpp:1932
+#: scribus/mpalette.cpp:2155
 msgid "Mpalette::Height:"
 msgstr "Højde:"
 
-#: mpalette.cpp:696
+#: scribus/mpalette.cpp:711
 msgid "Mpalette::Horiz. Scale:"
 msgstr "Horisontalt:"
 
-#: mpalette.cpp:65
+#: scribus/mpalette.cpp:68
 msgid "Mpalette::Image"
 msgstr "Billede"
 
-#: mpalette.cpp:743
+#: scribus/mpalette.cpp:768
 msgid "Mpalette::Input Profile:"
 msgstr "Indlæs profil:"
 
-#: mpalette.cpp:732
+#: scribus/mpalette.cpp:747
 msgid "Mpalette::Keep Aspect Ratio"
 msgstr "Behold bredde/højde forhold"
 
-#: mpalette.cpp:642
+#: scribus/mpalette.cpp:659
 msgid "Mpalette::Kerning:"
-msgstr "Manuel Kerning"
+msgstr "Knibning:"
 
-#: mpalette.cpp:664
+#: scribus/mpalette.cpp:681
 msgid "Mpalette::Lang.:"
 msgstr "Sprog:"
 
-#: mpalette.cpp:770
+#: scribus/mpalette.cpp:796
 msgid "Mpalette::Left Point"
 msgstr "Venstre punkt"
 
-#: mpalette.cpp:381
+#: scribus/mpalette.cpp:351
 msgid "Mpalette::Left:"
 msgstr "Venstre:"
 
-#: mpalette.cpp:137
+#: scribus/mpalette.cpp:210
 msgid "Mpalette::Level"
 msgstr "Niveau"
 
-#: mpalette.cpp:822
+#: scribus/mpalette.cpp:847
 msgid "Mpalette::Line Spacing"
 msgstr "Linieafstand"
 
-#: mpalette.cpp:646
+#: scribus/mpalette.cpp:663
 msgid "Mpalette::Line Spacing:"
 msgstr "Linieafstand:"
 
-#: mpalette.cpp:780
+#: scribus/mpalette.cpp:806
 msgid "Mpalette::Line Style:"
 msgstr "Liniestil:"
 
-#: mpalette.cpp:785
+#: scribus/mpalette.cpp:811
 msgid "Mpalette::Line Width:"
 msgstr "Liniebredde:"
 
-#: mpalette.cpp:70
+#: scribus/mpalette.cpp:73
 msgid "Mpalette::Line"
 msgstr "Linie"
 
-#: mpalette.cpp:841
+#: scribus/mpalette.cpp:866
 msgid "Mpalette::Locks or unlocks the Object"
 msgstr "Låser eller frigør objektet"
 
-#: mpalette.cpp:823
+#: scribus/mpalette.cpp:848
 msgid "Mpalette::Manual Kerning"
-msgstr "Manuel Kerning"
+msgstr "Manuel knibning"
 
-#: mpalette.cpp:796
+#: scribus/mpalette.cpp:821
 msgid "Mpalette::Miter Join"
 msgstr "Spidse"
 
-#: mpalette.cpp:838
+#: scribus/mpalette.cpp:863
 msgid "Mpalette::Move one Level down"
 msgstr "Flyt bagud"
 
-#: mpalette.cpp:837
+#: scribus/mpalette.cpp:862
 msgid "Mpalette::Move one Level up"
 msgstr "Flyt forud"
 
-#: mpalette.cpp:840
+#: scribus/mpalette.cpp:865
 msgid "Mpalette::Move to Back"
 msgstr "Placér bagerst"
 
-#: mpalette.cpp:839
+#: scribus/mpalette.cpp:864
 msgid "Mpalette::Move to Front"
 msgstr "Placér forrest"
 
-#: mpalette.cpp:2614
+#: scribus/mpalette.cpp:2872
 msgid ""
 "Mpalette::Name \"%1\" isn't unique.\n"
 "Please choose another."
@@ -2442,79 +2641,79 @@ msgstr ""
 "Navnet \"%1\" er ikke entydigt.\n"
 "Vælg venligst et andet."
 
-#: mpalette.cpp:85
+#: scribus/mpalette.cpp:88
 msgid "Mpalette::Name"
 msgstr "Navn"
 
-#: mpalette.cpp:2268
+#: scribus/mpalette.cpp:2542
 msgid "Mpalette::No Style"
 msgstr "Ingen typografier"
 
-#: mpalette.cpp:2305
+#: scribus/mpalette.cpp:2579
 msgid "Mpalette::None"
 msgstr "Ingen"
 
-#: mpalette.cpp:2614
+#: scribus/mpalette.cpp:2872
 msgid "Mpalette::OK"
 msgstr ""
 
-#: mpalette.cpp:492
+#: scribus/mpalette.cpp:509
 msgid "Mpalette::Other..."
 msgstr "Andet..."
 
-#: mpalette.cpp:830
+#: scribus/mpalette.cpp:855
 msgid "Mpalette::Outline Text"
 msgstr "Omrids"
 
-#: mpalette.cpp:335
+#: scribus/mpalette.cpp:396
 msgid "Mpalette::Path Text Properites"
 msgstr "Sti-tekst egenskaber"
 
-#: mpalette.cpp:752
+#: scribus/mpalette.cpp:777
 msgid "Mpalette::Perceptual"
 msgstr "Opfattelsesmæssigt"
 
-#: mpalette.cpp:687
+#: scribus/mpalette.cpp:702
 msgid "Mpalette::Position:"
-msgstr ""
+msgstr "Placering:"
 
-#: mpalette.cpp:24
+#: scribus/mpalette.cpp:26
 msgid "Mpalette::Properties"
 msgstr "Egenskaber"
 
-#: mpalette.cpp:736
+#: scribus/mpalette.cpp:751
 msgid "Mpalette::Proportional"
 msgstr "Proportionelt"
 
-#: mpalette.cpp:753
+#: scribus/mpalette.cpp:778
 msgid "Mpalette::Relative Colorimetric"
 msgstr ""
 
-#: mpalette.cpp:749
+#: scribus/mpalette.cpp:774
 msgid "Mpalette::Rendering Intent:"
 msgstr "Hensigt med gengivelse:"
 
-#: mpalette.cpp:824
+#: scribus/mpalette.cpp:849
 msgid "Mpalette::Reverse Writing"
 msgstr "Baglæns skrivning"
 
-#: mpalette.cpp:384
+#: scribus/mpalette.cpp:354
 msgid "Mpalette::Right:"
 msgstr "Højre:"
 
-#: mpalette.cpp:214
-msgid "Mpalette::Rotation"
+#: scribus/mpalette.cpp:134
+msgid "Mpalette::Rotation:"
 msgstr ""
 
-#: mpalette.cpp:807
+#: scribus/mpalette.cpp:832
 msgid "Mpalette::Round Cap"
 msgstr "Runde"
 
-#: mpalette.cpp:798
+#: scribus/mpalette.cpp:823
 msgid "Mpalette::Round Join"
 msgstr "Runde"
 
-#: mpalette.cpp:320
+#: scribus/mpalette.cpp:317
 msgid ""
 "Mpalette::Round\n"
 "Corners:"
@@ -2522,174 +2721,175 @@ msgstr ""
 "Runde\n"
 "hjørner:"
 
-#: mpalette.cpp:754
+#: scribus/mpalette.cpp:779
 msgid "Mpalette::Saturation"
 msgstr "Mætning"
 
-#: mpalette.cpp:717
+#: scribus/mpalette.cpp:732
 msgid "Mpalette::Scale to Frame Size"
 msgstr "Skalér til rammestørrelse"
 
-#: mpalette.cpp:55
+#: scribus/mpalette.cpp:58
 msgid "Mpalette::Shape"
 msgstr "Form"
 
+#: scribus/mpalette.cpp:302
 msgid "Mpalette::Shape:"
 msgstr "Form:"
 
-#: mpalette.cpp:342
+#: scribus/mpalette.cpp:403
 msgid "Mpalette::Show Curve"
 msgstr "Vis kurve"
 
-#: mpalette.cpp:428
+#: scribus/mpalette.cpp:445
 msgid "Mpalette::Size:"
 msgstr "Størrelse:"
 
-#: mpalette.cpp:826
+#: scribus/mpalette.cpp:851
 msgid "Mpalette::Small Caps"
-msgstr "Små kapitaler"
+msgstr "Små kapitæler"
 
-#: mpalette.cpp:806
+#: scribus/mpalette.cpp:831
 msgid "Mpalette::Square Cap"
 msgstr "Firkantede"
 
-#: mpalette.cpp:345
+#: scribus/mpalette.cpp:406
 msgid "Mpalette::Start Offset:"
 msgstr "Startforskydning:"
 
-#: mpalette.cpp:829
+#: scribus/mpalette.cpp:854
 msgid "Mpalette::Strikeout"
 msgstr "Gennemstreget"
 
-#: mpalette.cpp:652
+#: scribus/mpalette.cpp:669
 msgid "Mpalette::Styles"
 msgstr "Typografier"
 
-#: mpalette.cpp:827
+#: scribus/mpalette.cpp:852
 msgid "Mpalette::Subscript"
 msgstr "Sænket skrift"
 
-#: mpalette.cpp:828
+#: scribus/mpalette.cpp:853
 msgid "Mpalette::Superscript"
 msgstr "Hævet skrift"
 
-#: mpalette.cpp:206
+#: scribus/mpalette.cpp:386
+msgid "Mpalette::Tabulators..."
+msgstr "Tabulatorer..."
+
+#: scribus/mpalette.cpp:279
 msgid "Mpalette::Text flows around Box"
 msgstr "Tekst flyder rundt om boks"
 
-#: mpalette.cpp:60
+#: scribus/mpalette.cpp:63
 msgid "Mpalette::Text"
 msgstr "Tekst"
 
-#: mpalette.cpp:375
+#: scribus/mpalette.cpp:345
 msgid "Mpalette::Top:"
 msgstr ""
 
-#: mpalette.cpp:825
+#: scribus/mpalette.cpp:850
 msgid "Mpalette::Underline"
 msgstr "Understreg"
 
-#: mpalette.cpp:209
+#: scribus/mpalette.cpp:282
 msgid "Mpalette::Use Bounding Box"
 msgstr "Brug indbindingsboks"
 
-#: mpalette.cpp:702
+#: scribus/mpalette.cpp:717
 msgid "Mpalette::Vert. Scale:"
 msgstr "vertikalt:"
 
-#: mpalette.cpp:2614
+#: scribus/mpalette.cpp:2872
 msgid "Mpalette::Warning"
 msgstr "Advarsel"
 
-#: mpalette.cpp:1930
+#: scribus/mpalette.cpp:2153
 msgid "Mpalette::Width:"
 msgstr "Bredde:"
 
-#: mpalette.cpp:50
+#: scribus/mpalette.cpp:53
 msgid "Mpalette::X, Y, Z"
 msgstr ""
 
-#: mpalette.cpp:1929
+#: scribus/mpalette.cpp:2152
 msgid "Mpalette::X-Pos:"
 msgstr ""
 
-#: mpalette.cpp:1939
+#: scribus/mpalette.cpp:2162
 msgid "Mpalette::X1:"
 msgstr ""
 
-#: mpalette.cpp:1940
+#: scribus/mpalette.cpp:2163
 msgid "Mpalette::X2:"
 msgstr ""
 
-#: mpalette.cpp:1931
+#: scribus/mpalette.cpp:2154
 msgid "Mpalette::Y-Pos:"
 msgstr ""
 
-#: mpalette.cpp:1941
+#: scribus/mpalette.cpp:2164
 msgid "Mpalette::Y1:"
 msgstr ""
 
-#: mpalette.cpp:1942
+#: scribus/mpalette.cpp:2165
 msgid "Mpalette::Y2:"
 msgstr ""
 
-#: mpalette.cpp:272
-msgid "Mpalette::by:"
-msgstr "med:"
-
-#: multiline.cpp:108
+#: scribus/multiline.cpp:107
 msgid "MultiLine:: %"
 msgstr ""
 
-#: multiline.cpp:279
+#: scribus/multiline.cpp:278
 msgid "MultiLine:: pt "
 msgstr ""
 
-#: multiline.cpp:89
+#: scribus/multiline.cpp:89
 msgid "MultiLine:: pt"
 msgstr ""
 
-#: multiline.cpp:77
+#: scribus/multiline.cpp:77
 msgid "MultiLine::Bevel Join"
 msgstr "Afskårne"
 
-#: multiline.cpp:124
+#: scribus/multiline.cpp:123
 msgid "MultiLine::Cancel"
 msgstr "Annullér"
 
-#: multiline.cpp:295
+#: scribus/multiline.cpp:294
 msgid "MultiLine::Dash Dot Dot Line"
 msgstr "Streg prik prik linie"
 
-#: multiline.cpp:292
+#: scribus/multiline.cpp:291
 msgid "MultiLine::Dash Dot Line"
 msgstr "Streg prik linie"
 
-#: multiline.cpp:286
+#: scribus/multiline.cpp:285
 msgid "MultiLine::Dashed Line"
 msgstr "Streg linie"
 
-#: multiline.cpp:289
+#: scribus/multiline.cpp:288
 msgid "MultiLine::Dotted Line"
 msgstr "Prik linie"
 
-#: multiline.cpp:13
+#: scribus/multiline.cpp:13
 msgid "MultiLine::Edit Style"
 msgstr "Redigér Stil"
 
-#: multiline.cpp:69
+#: scribus/multiline.cpp:69
 msgid "MultiLine::Flat Cap"
 msgstr "Flade"
 
-#: multiline.cpp:84
+#: scribus/multiline.cpp:84
 msgid "MultiLine::Line Width:"
 msgstr "Liniebredde:"
 
-#: multiline.cpp:76
+#: scribus/multiline.cpp:76
 msgid "MultiLine::Miter Join"
 msgstr "Spidse"
 
-#: multiline.cpp:311
+#: scribus/multiline.cpp:310
 msgid ""
 "MultiLine::Name \"%1\" isn't unique.\n"
 "Please choose another."
@@ -2697,315 +2897,339 @@ msgstr ""
 "Navnet \"%1\" er ikke entydigt.\n"
 "Vælg venligst et andet."
 
-#: multiline.cpp:311
+#: scribus/multiline.cpp:310
 msgid "MultiLine::OK"
 msgstr ""
 
-#: multiline.cpp:71
+#: scribus/multiline.cpp:71
 msgid "MultiLine::Round Cap"
 msgstr "Runde"
 
-#: multiline.cpp:78
+#: scribus/multiline.cpp:78
 msgid "MultiLine::Round Join"
 msgstr "Runde"
 
-#: multiline.cpp:298
+#: scribus/multiline.cpp:297
 msgid "MultiLine::Solid Line"
 msgstr "Massiv linie"
 
-#: multiline.cpp:70
+#: scribus/multiline.cpp:70
 msgid "MultiLine::Square Cap"
 msgstr "Firkantede"
 
-#: multiline.cpp:311
+#: scribus/multiline.cpp:310
 msgid "MultiLine::Warning"
 msgstr "Advarsel"
 
-#: muster.cpp:117
+#: scribus/muster.cpp:31
+msgid "MusterSeiten::Append"
+msgstr "Tilføj"
+
+#: scribus/muster.cpp:238
+msgid "MusterSeiten::Copy #%1 of "
+msgstr "Kopi #%1 af "
+
+#: scribus/muster.cpp:125
 msgid "MusterSeiten::Copy of %1"
 msgstr "Kopi af %1"
 
-#: muster.cpp:36
+#: scribus/muster.cpp:43
 msgid "MusterSeiten::Delete"
 msgstr "Slet"
 
-#: muster.cpp:85
+#: scribus/muster.cpp:93
 msgid "MusterSeiten::Do you really want do delete this Template?"
 msgstr "Ønsker du virkelig at slette denne skabelon?"
 
-#: muster.cpp:32
+#: scribus/muster.cpp:39
 msgid "MusterSeiten::Duplicate"
 msgstr "Duplikér"
 
-#: muster.cpp:11
+#: scribus/muster.cpp:14
 msgid "MusterSeiten::Edit Templates"
 msgstr "Rediger skabeloner"
 
-#: muster.cpp:43
+#: scribus/muster.cpp:50
 msgid "MusterSeiten::Exit"
 msgstr "Afslut"
 
-#: muster.cpp:167
+#: scribus/muster.cpp:176
 msgid "MusterSeiten::New Template"
 msgstr "Ny skabelon"
 
-#: muster.cpp:28
+#: scribus/muster.cpp:35
 msgid "MusterSeiten::New"
 msgstr "Ny"
 
-#: muster.cpp:86
+#: scribus/muster.cpp:94
 msgid "MusterSeiten::No"
 msgstr "Ingen"
 
-#: muster.cpp:237
+#: scribus/muster.cpp:286
 msgid "MusterSeiten::Normal"
 msgstr ""
 
-#: muster.cpp:84
+#: scribus/muster.cpp:92
 msgid "MusterSeiten::Warning"
 msgstr "Advarsel"
 
-#: muster.cpp:87
+#: scribus/muster.cpp:95
 msgid "MusterSeiten::Yes"
 msgstr "Ja"
 
-#: newfile.cpp:226
+#: scribus/newfile.cpp:220
 msgid "NewDoc::Autom. Text Frames"
 msgstr "Autom. tekstrammer"
 
-#: newfile.cpp:151
+#: scribus/newfile.cpp:149
 msgid "NewDoc::Bottom:"
 msgstr "Bund:"
 
-#: newfile.cpp:273
+#: scribus/newfile.cpp:266
 msgid "NewDoc::Cancel"
 msgstr "Annullér"
 
-#: newfile.cpp:230
+#: scribus/newfile.cpp:224
 msgid "NewDoc::Column Guides"
 msgstr "Kolonne hjælpelinier"
 
-#: newfile.cpp:245
+#: scribus/newfile.cpp:239
 msgid "NewDoc::Columns:"
 msgstr "Kolonner:"
 
-#: newfile.cpp:76
+#: scribus/newfile.cpp:76
 msgid "NewDoc::Custom"
 msgstr "Bruger"
 
-#: newfile.cpp:213
+#: scribus/newfile.cpp:207
 msgid "NewDoc::Default Unit:"
 msgstr "Standard enhed:"
 
-#: newfile.cpp:114
+#: scribus/newfile.cpp:114
 msgid "NewDoc::Facing Pages"
 msgstr "Modstående sider"
 
-#: newfile.cpp:206
+#: scribus/newfile.cpp:200
 msgid "NewDoc::First Page Number:"
 msgstr "Første sidenummer:"
 
-#: newfile.cpp:242
+#: scribus/newfile.cpp:236
 msgid "NewDoc::Gutter Width:"
 msgstr "Afstand:"
 
-#: newfile.cpp:102
+#: scribus/newfile.cpp:102
 msgid "NewDoc::Height:"
 msgstr "Højde:"
 
-#: newfile.cpp:218
+#: scribus/newfile.cpp:212
 msgid "NewDoc::Inches (in)"
 msgstr "Tommer (in)"
 
-#: newfile.cpp:627
+#: scribus/newfile.cpp:619
 msgid "NewDoc::Inside:"
 msgstr "Inderside:"
 
-#: newfile.cpp:84
+#: scribus/newfile.cpp:84
 msgid "NewDoc::Landscape"
 msgstr "Landskab"
 
-#: newfile.cpp:118
+#: scribus/newfile.cpp:118
 msgid "NewDoc::Left Page first"
 msgstr "Venstre side først"
 
-#: newfile.cpp:633
+#: scribus/newfile.cpp:625
 msgid "NewDoc::Left:"
 msgstr "Venstre:"
 
-#: newfile.cpp:130
+#: scribus/newfile.cpp:128
 msgid "NewDoc::Margin Guides"
 msgstr "Margin hjælpelinier"
 
-#: newfile.cpp:217
+#: scribus/newfile.cpp:211
 msgid "NewDoc::Millimeters (mm)"
 msgstr "Millimeter (mm)"
 
-#: newfile.cpp:29
+#: scribus/newfile.cpp:29
 msgid "NewDoc::New Document"
 msgstr "Nyt dokument"
 
-#: newfile.cpp:267
+#: scribus/newfile.cpp:260
 msgid "NewDoc::OK"
 msgstr ""
 
-#: newfile.cpp:199
+#: scribus/newfile.cpp:193
 msgid "NewDoc::Options"
 msgstr "Indstillinger"
 
-#: newfile.cpp:80
+#: scribus/newfile.cpp:80
 msgid "NewDoc::Orientation:"
 msgstr "Retning:"
 
-#: newfile.cpp:628
+#: scribus/newfile.cpp:620
 msgid "NewDoc::Outside:"
 msgstr "Yderside:"
 
-#: newfile.cpp:35
+#: scribus/newfile.cpp:35
 msgid "NewDoc::Page Size"
 msgstr "Sidestørrelse"
 
-#: newfile.cpp:219
+#: scribus/newfile.cpp:213
 msgid "NewDoc::Picas (p)"
 msgstr ""
 
-#: newfile.cpp:216
+#: scribus/newfile.cpp:210
 msgid "NewDoc::Points (pts)"
 msgstr "Punkter (pts)"
 
-#: newfile.cpp:83
+#: scribus/newfile.cpp:83
 msgid "NewDoc::Portrait"
 msgstr "Portræt"
 
-#: newfile.cpp:634
+#: scribus/newfile.cpp:626
 msgid "NewDoc::Right:"
 msgstr "Højre:"
 
-#: newfile.cpp:43
+#: scribus/newfile.cpp:43
 msgid "NewDoc::Size:"
 msgstr "Størrelse:"
 
-#: newfile.cpp:148
+#: scribus/newfile.cpp:146
 msgid "NewDoc::Top:"
 msgstr ""
 
-#: newfile.cpp:92
+#: scribus/newfile.cpp:92
 msgid "NewDoc::Width:"
 msgstr "Bredde:"
 
-#: newtemp.cpp:49
+#: scribus/newtemp.cpp:49
 msgid "NewTm::Cancel"
 msgstr "Annullér"
 
-#: newtemp.cpp:33
+#: scribus/newtemp.cpp:33
 msgid "NewTm::Left Page"
 msgstr "Venstre side"
 
-#: newtemp.cpp:43
+#: scribus/newtemp.cpp:43
 msgid "NewTm::OK"
 msgstr ""
 
-#: newtemp.cpp:34
+#: scribus/newtemp.cpp:34
 msgid "NewTm::Right Page"
 msgstr "Højre side"
 
-#: frameedit.cpp:241
+#: scribus/frameedit.cpp:235
 msgid "NodePalette:: in"
 msgstr ""
 
-#: frameedit.cpp:237
+#: scribus/frameedit.cpp:231
 msgid "NodePalette:: mm"
 msgstr ""
 
-#: frameedit.cpp:245
+#: scribus/frameedit.cpp:239
 msgid "NodePalette:: p"
 msgstr ""
 
-#: frameedit.cpp:233
+#: scribus/frameedit.cpp:227
 msgid "NodePalette:: pt"
 msgstr ""
 
-#: frameedit.cpp:149
+#: scribus/frameedit.cpp:135
 msgid "NodePalette::"
 msgstr ""
 
-#: frameedit.cpp:157
+#: scribus/frameedit.cpp:145
 msgid "NodePalette::Absolute Coordinates"
 msgstr "Absolutte coordinater"
 
-#: frameedit.cpp:185
+#: scribus/frameedit.cpp:171
 msgid "NodePalette::Add Nodes"
 msgstr "Tilføj noder"
 
-#: frameedit.cpp:192
+#: scribus/frameedit.cpp:178
 msgid "NodePalette::Closes this Bezier Curve"
 msgstr "Luk denne bezier kurve"
 
-#: frameedit.cpp:186
+#: scribus/frameedit.cpp:172
 msgid "NodePalette::Delete Nodes"
 msgstr "Slet noder"
 
-#: frameedit.cpp:181
+#: scribus/frameedit.cpp:167
 msgid "NodePalette::End Editing"
 msgstr "Afslut redigering"
 
-#: frameedit.cpp:193
+#: scribus/frameedit.cpp:188
+msgid "NodePalette::Enlarges the Size of the Path by 10%"
+msgstr "Forøger størrelsen af stien med 10%"
+
+#: scribus/frameedit.cpp:179
 msgid "NodePalette::Mirrors the Path Horizontally"
 msgstr "Spejl horisontalt"
 
-#: frameedit.cpp:194
+#: scribus/frameedit.cpp:180
 msgid "NodePalette::Mirrors the Path Vertically"
 msgstr "Spejl vertikalt"
 
-#: frameedit.cpp:187
+#: scribus/frameedit.cpp:173
 msgid "NodePalette::Move Control Points independently"
 msgstr "Flyt kontrolpunkter en af gangen"
 
-#: frameedit.cpp:188
+#: scribus/frameedit.cpp:174
 msgid "NodePalette::Move Control Points symmetrical"
 msgstr "Flyt kontrolpunkter symmetrisk"
 
-#: frameedit.cpp:184
+#: scribus/frameedit.cpp:170
 msgid "NodePalette::Move Control Points"
 msgstr "Flyt kontrolpunkter"
 
-#: frameedit.cpp:183
+#: scribus/frameedit.cpp:169
 msgid "NodePalette::Move Nodes"
 msgstr "Flyt noder"
 
-#: frameedit.cpp:11
+#: scribus/frameedit.cpp:11
 msgid "NodePalette::Nodes"
 msgstr "Noder"
 
-#: frameedit.cpp:191
+#: scribus/frameedit.cpp:177
 msgid "NodePalette::Opens a Polygon or cuts a Bezier Curve"
 msgstr "Åbn en polygon eller overskær en bezierkurve"
 
-#: frameedit.cpp:189
+#: scribus/frameedit.cpp:187
+msgid "NodePalette::Reduce the Size of the Path by 10%"
+msgstr "Forminsk størrelsen af stien med 10%"
+
+#: scribus/frameedit.cpp:175
 msgid "NodePalette::Reset Control Points"
 msgstr "Nulstil kontrolpunkter"
 
-#: frameedit.cpp:190
+#: scribus/frameedit.cpp:176
 msgid "NodePalette::Reset this Control Point"
 msgstr "Nulstil dette kontrolpunkt"
 
-#: frameedit.cpp:196
+#: scribus/frameedit.cpp:186
+msgid "NodePalette::Rotates the Path clockwise"
+msgstr "Roterer stien med uret"
+
+#: scribus/frameedit.cpp:185
+msgid "NodePalette::Rotates the Path counter-clockwise"
+msgstr "Roterer stien mod uret"
+
+#: scribus/frameedit.cpp:182
 msgid "NodePalette::Shears the Path horizontal to the left"
 msgstr "Forskyd mod venstre"
 
-#: frameedit.cpp:195
+#: scribus/frameedit.cpp:181
 msgid "NodePalette::Shears the Path horizontal to the right"
 msgstr "Forskyd mod højre"
 
-#: frameedit.cpp:198
+#: scribus/frameedit.cpp:184
 msgid "NodePalette::Shears the Path vertical down"
 msgstr "Forskyd mod bund"
 
-#: frameedit.cpp:197
+#: scribus/frameedit.cpp:183
 msgid "NodePalette::Shears the Path vertical up"
 msgstr "Forskyd mod top"
 
-#: frameedit.cpp:199
+#: scribus/frameedit.cpp:189
 msgid ""
 "NodePalette::When checked use Coordinates relative to the Page,\n"
 "otherwise Coordinates are relative to the Object."
@@ -3013,610 +3237,1156 @@ msgstr ""
 "Sæt kryds for at få coordinater i forhold til siden,\n"
 "ellers er coordinaterne vist i forhold til objektet"
 
-#: frameedit.cpp:163
+#: scribus/frameedit.cpp:151
 msgid "NodePalette::X-Pos:"
 msgstr ""
 
-#: frameedit.cpp:171
+#: scribus/frameedit.cpp:158
 msgid "NodePalette::Y-Pos:"
 msgstr ""
 
-#: pdfopts.cpp:173
+#: scribus/plugins/scriptplugin/pconsole.cpp:10
+msgid "PConsole::Script Console"
+msgstr "Script konsol"
+
+#: scribus/pdfopts.cpp:179
 msgid "PDF_Opts:: dpi"
 msgstr ""
 
-#: pdfopts.cpp:654
+#: scribus/pdfopts.cpp:660
 msgid "PDF_Opts:: in"
 msgstr ""
 
-#: pdfopts.cpp:651
+#: scribus/pdfopts.cpp:657
 msgid "PDF_Opts:: mm"
 msgstr ""
 
-#: pdfopts.cpp:657
+#: scribus/pdfopts.cpp:663
 msgid "PDF_Opts:: p"
 msgstr ""
 
-#: pdfopts.cpp:648
+#: scribus/pdfopts.cpp:654
 msgid "PDF_Opts:: pt"
 msgstr ""
 
-#: pdfopts.cpp:344
+#: scribus/pdfopts.cpp:350
 msgid "PDF_Opts:: sec"
 msgstr ""
 
-#: pdfopts.cpp:234
+#: scribus/pdfopts.cpp:240
 msgid "PDF_Opts::<<"
 msgstr ""
 
-#: pdfopts.cpp:230
+#: scribus/pdfopts.cpp:236
 msgid "PDF_Opts::>>"
 msgstr ""
 
-#: pdfopts.cpp:524
+#: scribus/pdfopts.cpp:530
 msgid "PDF_Opts::Absolute Colorimetric"
 msgstr ""
 
-#: pdfopts.cpp:434
+#: scribus/pdfopts.cpp:440
 msgid "PDF_Opts::Adding Annotations and Fields is allowed"
 msgstr "Tilføjelse af kommentarer og felter er tilladt"
 
-#: pdfopts.cpp:64
+#: scribus/pdfopts.cpp:70
 msgid "PDF_Opts::All Pages"
 msgstr "Alle sider"
 
-#: pdfopts.cpp:426
+#: scribus/pdfopts.cpp:432
 msgid "PDF_Opts::Allow Changing the Document"
 msgstr "Tillad ændring af dokument"
 
-#: pdfopts.cpp:422
+#: scribus/pdfopts.cpp:428
 msgid "PDF_Opts::Allow Printing the Document"
 msgstr "Tillad udskrivning af dokument"
 
-#: pdfopts.cpp:378
+#: scribus/pdfopts.cpp:384
 msgid "PDF_Opts::Apply Effect on all Pages"
 msgstr "Anvend effekt på alle sider"
 
-#: pdfopts.cpp:208
+#: scribus/pdfopts.cpp:214
 msgid "PDF_Opts::Available Fonts:"
 msgstr "Tilgængelige fonte:"
 
-#: pdfopts.cpp:126
+#: scribus/pdfopts.cpp:132
 msgid "PDF_Opts::Binding:"
 msgstr "Indbinding:"
 
-#: pdfopts.cpp:351
+#: scribus/pdfopts.cpp:357
 msgid "PDF_Opts::Blinds"
 msgstr "Gardiner"
 
-#: pdfopts.cpp:372
+#: scribus/pdfopts.cpp:378
 msgid "PDF_Opts::Bottom to Top"
 msgstr "Bund til top"
 
-#: pdfopts.cpp:352
+#: scribus/pdfopts.cpp:358
 msgid "PDF_Opts::Box"
 msgstr "Boks"
 
-#: pdfopts.cpp:722
+#: scribus/pdfopts.cpp:724
 msgid "PDF_Opts::Cancel"
 msgstr "Annullér"
 
-#: pdfopts.cpp:45
+#: scribus/pdfopts.cpp:51
 msgid "PDF_Opts::Change..."
 msgstr "Vælg..."
 
-#: pdfopts.cpp:577
+#: scribus/pdfopts.cpp:583
 msgid "PDF_Opts::Color"
 msgstr "Farve"
 
-#: pdfopts.cpp:100
+#: scribus/pdfopts.cpp:106
 msgid "PDF_Opts::Compatibility:"
 msgstr "Filformat:"
 
-#: pdfopts.cpp:183
+#: scribus/pdfopts.cpp:189
 msgid "PDF_Opts::Compress Text and Vector Graphics"
 msgstr "Komprimér tekst og vektorgrafik"
 
-#: pdfopts.cpp:160
+#: scribus/pdfopts.cpp:166
 msgid "PDF_Opts::Compression"
 msgstr "Komprimering"
 
-#: pdfopts.cpp:430
+#: scribus/pdfopts.cpp:436
 msgid "PDF_Opts::Copying Text and Graphics is allowed"
 msgstr "Kopiering af tekst og grafik er tilladt"
 
-#: pdfopts.cpp:17
+#: scribus/pdfopts.cpp:23
 msgid "PDF_Opts::Create PDF-File"
 msgstr "Lav PDF-fil"
 
-#: pdfopts.cpp:335
+#: scribus/pdfopts.cpp:341
 msgid "PDF_Opts::Direction:"
 msgstr "Retning:"
 
-#: pdfopts.cpp:320
+#: scribus/pdfopts.cpp:326
 msgid "PDF_Opts::Display Duration:"
 msgstr "Varighed af visning:"
 
-#: pdfopts.cpp:353
+#: scribus/pdfopts.cpp:359
 msgid "PDF_Opts::Dissolve"
 msgstr "Opløs"
 
-#: pdfopts.cpp:508
+#: scribus/pdfopts.cpp:514
 msgid "PDF_Opts::Don't use embedded ICC profiles"
 msgstr "Brug ikke indlejrede ICC-profiler"
 
-#: pdfopts.cpp:169
+#: scribus/pdfopts.cpp:175
 msgid "PDF_Opts::Downsample Images to:"
 msgstr "Billed-opløsning ændres til:"
 
-#: pdfopts.cpp:323
+#: scribus/pdfopts.cpp:329
 msgid "PDF_Opts::Effect Duration:"
 msgstr "Varighed af effekt:"
 
-#: pdfopts.cpp:326
+#: scribus/pdfopts.cpp:332
 msgid "PDF_Opts::Effect Type:"
 msgstr "Effekttype:"
 
-#: pdfopts.cpp:311
+#: scribus/pdfopts.cpp:317
 msgid "PDF_Opts::Effects"
 msgstr "Effekter"
 
-#: pdfopts.cpp:193
+#: scribus/pdfopts.cpp:199
 msgid "PDF_Opts::Embed all Fonts"
 msgstr "Indlejr alle fonte"
 
-#: pdfopts.cpp:196
+#: scribus/pdfopts.cpp:202
 msgid "PDF_Opts::Embedding"
 msgstr "Indlejrer"
 
-#: pdfopts.cpp:265
+#: scribus/pdfopts.cpp:271
 msgid "PDF_Opts::Enable Presentation Effects"
 msgstr "anvend præsentationseffekter"
 
-#: pdfopts.cpp:57
+#: scribus/pdfopts.cpp:63
 msgid "PDF_Opts::Export Range"
 msgstr "Eksport område"
 
-#: pdfopts.cpp:381
+#: scribus/pdfopts.cpp:387
 msgid "PDF_Opts::Extras"
 msgstr "Ekstra"
 
-#: pdfopts.cpp:91
+#: scribus/pdfopts.cpp:97
 msgid "PDF_Opts::File Options"
 msgstr "fil indstillinger"
 
-#: pdfopts.cpp:242
+#: scribus/pdfopts.cpp:248
 msgid "PDF_Opts::Fonts to embed:"
 msgstr "Fonte til indlejring:"
 
-#: pdfopts.cpp:258
+#: scribus/pdfopts.cpp:264
 msgid "PDF_Opts::Fonts"
 msgstr "Fonte"
 
-#: pdfopts.cpp:69
+#: scribus/pdfopts.cpp:75
 msgid "PDF_Opts::From:"
 msgstr "Fra:"
 
-#: pdfopts.cpp:448
+#: scribus/pdfopts.cpp:454
 msgid "PDF_Opts::General"
 msgstr "Generelt"
 
-#: pdfopts.cpp:136
+#: scribus/pdfopts.cpp:142
 msgid "PDF_Opts::Generate Thumbnails"
 msgstr "Lav små sider"
 
-#: pdfopts.cpp:354
+#: scribus/pdfopts.cpp:360
 msgid "PDF_Opts::Glitter"
 msgstr "Glitren"
 
-#: pdfopts.cpp:360
+#: scribus/pdfopts.cpp:366
 msgid "PDF_Opts::Horizontal"
 msgstr "Horisontalt"
 
-#: pdfopts.cpp:497
+#: scribus/pdfopts.cpp:503
 msgid "PDF_Opts::Images:"
 msgstr "Billeder:"
 
-#: pdfopts.cpp:144
+#: scribus/pdfopts.cpp:150
 msgid "PDF_Opts::Include Bookmarks"
 msgstr "Medtag bogmærker"
 
-#: pdfopts.cpp:609
+#: scribus/pdfopts.cpp:615
 msgid "PDF_Opts::Info String:"
 msgstr "Info streng:"
 
-#: pdfopts.cpp:365
+#: scribus/pdfopts.cpp:371
 msgid "PDF_Opts::Inside"
 msgstr "Inderside"
 
-#: pdfopts.cpp:130
+#: scribus/pdfopts.cpp:136
 msgid "PDF_Opts::Left Margin"
 msgstr "Venstre margin"
 
-#: pdfopts.cpp:370
+#: scribus/pdfopts.cpp:376
 msgid "PDF_Opts::Left to Right"
 msgstr "Venstre til højre"
 
-#: pdfopts.cpp:329
+#: scribus/pdfopts.cpp:335
 msgid "PDF_Opts::Moving Lines:"
 msgstr "Bevægelige linier:"
 
-#: pdfopts.cpp:350
+#: scribus/pdfopts.cpp:356
 msgid "PDF_Opts::No Effect"
 msgstr "Ingen effekt"
 
-#: pdfopts.cpp:715
+#: scribus/pdfopts.cpp:717
 msgid "PDF_Opts::OK"
 msgstr ""
 
-#: pdfopts.cpp:612
+#: scribus/pdfopts.cpp:618
 msgid "PDF_Opts::Output Profile:"
 msgstr "Udskriv profil:"
 
-#: pdfopts.cpp:455
+#: scribus/pdfopts.cpp:461
 msgid "PDF_Opts::Output intended for:"
 msgstr "Udskrift beregnet for:"
 
-#: pdfopts.cpp:28
+#: scribus/pdfopts.cpp:34
 msgid "PDF_Opts::Output to File:"
 msgstr "Udskriv til fil:"
 
-#: pdfopts.cpp:366
+#: scribus/pdfopts.cpp:372
 msgid "PDF_Opts::Outside"
 msgstr "Yderside"
 
-#: pdfopts.cpp:401
+#: scribus/pdfopts.cpp:407
 msgid "PDF_Opts::Owner:"
 msgstr "Ejer:"
 
-#: pdfopts.cpp:1115
+#: scribus/pdfopts.cpp:1117
 msgid "PDF_Opts::PDF-Files (*.pdf);;All Files (*)"
 msgstr "PDF-Filer (*.pdf);; Alle filer (*)"
 
-#: pdfopts.cpp:582
+#: scribus/pdfopts.cpp:588
 msgid "PDF_Opts::PDF/X-3 Output Intent"
 msgstr "PDF/X-3 udskrift hensigt"
 
-#: pdfopts.cpp:643
+#: scribus/pdfopts.cpp:649
 msgid "PDF_Opts::PDF/X-3"
 msgstr ""
 
-#: pdfopts.cpp:1014
+#: scribus/pdfopts.cpp:1016
 msgid "PDF_Opts::Page"
 msgstr "Side"
 
-#: pdfopts.cpp:391
+#: scribus/pdfopts.cpp:397
 msgid "PDF_Opts::Passwords"
 msgstr "Adgangskode"
 
-#: pdfopts.cpp:521
+#: scribus/pdfopts.cpp:527
 msgid "PDF_Opts::Perceptual"
 msgstr "Opfattelsesmæssigt"
 
-#: pdfopts.cpp:459
+#: scribus/pdfopts.cpp:465
 msgid "PDF_Opts::Printer"
 msgstr "Printer"
 
-#: pdfopts.cpp:512
+#: scribus/pdfopts.cpp:518
 msgid "PDF_Opts::Profile:"
 msgstr "Profil:"
 
-#: pdfopts.cpp:522
+#: scribus/pdfopts.cpp:528
 msgid "PDF_Opts::Relative Colorimetric"
 msgstr ""
 
-#: pdfopts.cpp:515
+#: scribus/pdfopts.cpp:521
 msgid "PDF_Opts::Rendering-Intent:"
 msgstr "Hensigt med gengivelse:"
 
-#: pdfopts.cpp:148
+#: scribus/pdfopts.cpp:154
 msgid "PDF_Opts::Resolution:"
 msgstr "Opløsning:"
 
-#: pdfopts.cpp:131
+#: scribus/pdfopts.cpp:137
 msgid "PDF_Opts::Right Margin"
 msgstr "Højre margin"
 
-#: pdfopts.cpp:373
+#: scribus/pdfopts.cpp:379
 msgid "PDF_Opts::Right to Left"
 msgstr "Højre til venstre"
 
-#: pdfopts.cpp:523
+#: scribus/pdfopts.cpp:529
 msgid "PDF_Opts::Saturation"
 msgstr "Mætning"
 
-#: pdfopts.cpp:1115
+#: scribus/pdfopts.cpp:1117
 msgid "PDF_Opts::Save as"
 msgstr "Gem som"
 
-#: pdfopts.cpp:140
+#: scribus/pdfopts.cpp:146
 msgid "PDF_Opts::Save linked Text Frames as PDF-Articles"
 msgstr "Gem kædede tekstrammer som PDF-Artikler"
 
-#: pdfopts.cpp:458
-msgid "PDF_Opts::Screen"
-msgstr "Skærm"
+#: scribus/pdfopts.cpp:464
+msgid "PDF_Opts::Screen / Web"
+msgstr "Skærm / Net"
 
-#: pdfopts.cpp:443
+#: scribus/pdfopts.cpp:449
 msgid "PDF_Opts::Security"
 msgstr "Sikkerhed"
 
-#: pdfopts.cpp:415
+#: scribus/pdfopts.cpp:421
 msgid "PDF_Opts::Settings"
 msgstr "Indstillinger"
 
-#: pdfopts.cpp:306
+#: scribus/pdfopts.cpp:312
 msgid "PDF_Opts::Show Page Previews"
 msgstr "Vis Sidevisninger"
 
-#: pdfopts.cpp:469
+#: scribus/pdfopts.cpp:475
 msgid "PDF_Opts::Solid Colors:"
 msgstr "Massive farver:"
 
-#: pdfopts.cpp:355
+#: scribus/pdfopts.cpp:361
 msgid "PDF_Opts::Split"
 msgstr "Adskil"
 
-#: pdfopts.cpp:371
+#: scribus/pdfopts.cpp:377
 msgid "PDF_Opts::Top to Bottom"
 msgstr "top til bund"
 
-#: pdfopts.cpp:374
+#: scribus/pdfopts.cpp:380
 msgid "PDF_Opts::Top-Left to Bottom-Right"
 msgstr "top-venstre til bund-højre"
 
-#: pdfopts.cpp:616
+#: scribus/pdfopts.cpp:622
 msgid "PDF_Opts::Trim Box"
 msgstr "Beskær boks"
 
-#: pdfopts.cpp:386
+#: scribus/pdfopts.cpp:392
 msgid "PDF_Opts::Use Encryption"
 msgstr "Brug cryptering"
 
-#: pdfopts.cpp:504
+#: scribus/pdfopts.cpp:510
 msgid "PDF_Opts::Use ICC-Profile"
 msgstr "Brug ICC-Profil"
 
-#: pdfopts.cpp:398
+#: scribus/pdfopts.cpp:404
 msgid "PDF_Opts::User:"
 msgstr "Bruger:"
 
-#: pdfopts.cpp:361
+#: scribus/pdfopts.cpp:367
 msgid "PDF_Opts::Vertical"
 msgstr "Vertikalt"
 
-#: pdfopts.cpp:356
+#: scribus/pdfopts.cpp:362
 msgid "PDF_Opts::Wipe"
 msgstr "Udvisk"
 
-#: pdfopts.cpp:332
+#: scribus/pdfopts.cpp:338
 msgid "PDF_Opts::from the:"
 msgstr "Fra:"
 
-#: pdfopts.cpp:76
+#: scribus/pdfopts.cpp:82
 msgid "PDF_Opts::to:"
 msgstr "til:"
 
-#: page.cpp:1917
+#: scribus/plugins/printpreview/preview.cpp:187
+msgid "PPreview::All"
+msgstr "Alle"
+
+#: scribus/plugins/printpreview/preview.cpp:83
+msgid "PPreview::Anti-alias Graphics"
+msgstr "Anti-alias Grafik"
+
+#: scribus/plugins/printpreview/preview.cpp:79
+msgid "PPreview::Anti-alias Text"
+msgstr "Anti-alias tekst"
+
+#: scribus/plugins/printpreview/preview.cpp:54
+msgid "PPreview::Page:"
+msgstr "Side:"
+
+#: scribus/plugins/printpreview/preview.cpp:34
+msgid "PPreview::Print Preview"
+msgstr "Vis udskrift"
+
+#: scribus/page.cpp:2107
+msgid "Page::Actual ppi: "
+msgstr ""
+
+#: scribus/page.cpp:2177
 msgid "Page::Annotation Properties"
 msgstr "Kommentar egenskaber"
 
-#: page.cpp:1967
+#: scribus/page.cpp:2228
 msgid "Page::Bezier Curve"
 msgstr "Bezier kurve"
 
-#: page.cpp:1933
+#: scribus/page.cpp:2193
 msgid "Page::Bring to Front"
 msgstr "Placér forrest"
 
-#: page.cpp:304
+#: scribus/page.cpp:316
 msgid "Page::Cancel"
 msgstr "Annullér"
 
-#: page.cpp:1969
+#: scribus/page.cpp:2145
+msgid "Page::Chars: "
+msgstr "Tegn: "
+
+#: scribus/page.cpp:2241
+msgid "Page::Clear Contents"
+msgstr "Slet indhold"
+
+#: scribus/page.cpp:2230
 msgid "Page::Convert to"
 msgstr "Konvertér til"
 
-#: page.cpp:302
+#: scribus/page.cpp:314
 msgid "Page::Copy Here"
 msgstr "Kopi her"
 
-#: page.cpp:1974
+#: scribus/page.cpp:2239
 msgid "Page::Copy"
 msgstr "Kopiér"
 
-#: page.cpp:1973
+#: scribus/page.cpp:2238
 msgid "Page::Cut"
 msgstr "Klip"
 
-#: page.cpp:1976
+#: scribus/page.cpp:2243
 msgid "Page::Delete"
 msgstr "Slet"
 
-#: page.cpp:1924
+#: scribus/page.cpp:2184
 msgid "Page::Edit Text..."
 msgstr "Redigér tekst..."
 
-#: page.cpp:1919
+#: scribus/page.cpp:2179
 msgid "Page::Field Properties"
 msgstr "Felt egenskaber"
 
-#: page.cpp:1900
+#: scribus/page.cpp:2099
+msgid "Page::File: "
+msgstr "Fil: "
+
+#: scribus/page.cpp:2160
 msgid "Page::Get Picture..."
 msgstr "Hent billede..."
 
-#: page.cpp:1906
+#: scribus/page.cpp:2166
 msgid "Page::Get Text..."
 msgstr "Hent tekst..."
 
-#: page.cpp:1928
+#: scribus/page.cpp:2188
 msgid "Page::Group"
 msgstr "Lav til gruppe"
 
-#: page.cpp:1901
+#: scribus/page.cpp:2235
+msgid "Page::Hide Properties..."
+msgstr "Skjul egenskaber..."
+
+#: scribus/page.cpp:2161
 msgid "Page::Image Visible"
 msgstr "Billede er synlig"
 
-#: page.cpp:1912
+#: scribus/page.cpp:2156
+msgid "Page::Info"
+msgstr "Info"
+
+#: scribus/page.cpp:2172
 msgid "Page::Is PDF-Annotation"
 msgstr "Er PDF-Kommentar"
 
-#: page.cpp:1910
+#: scribus/page.cpp:2170
 msgid "Page::Is PDF-Bookmark"
 msgstr "Er PDF-Bogmærke"
 
-#: page.cpp:1931
+#: scribus/page.cpp:2191
 msgid "Page::Lock"
 msgstr "Lås"
 
-#: page.cpp:1934
+#: scribus/page.cpp:2194
 msgid "Page::Lower"
 msgstr "Flyt bagud"
 
-#: page.cpp:303
+#: scribus/page.cpp:315
 msgid "Page::Move Here"
 msgstr "Flyt her"
 
-#: page.cpp:5332
+#: scribus/page.cpp:5751
 msgid "Page::None"
 msgstr "Ingen"
 
-#: page.cpp:1966
-msgid "Page::Picture Frame"
-msgstr "Billedramme"
-
-#: page.cpp:1961
-msgid "Page::Polygon"
+#: scribus/page.cpp:2103
+msgid "Page::Original ppi: "
 msgstr ""
 
+#: scribus/page.cpp:2217
 msgid "Page::Outlines"
 msgstr "Figurer"
 
-#: page.cpp:1935
+#: scribus/page.cpp:2131
+msgid "Page::Paragraphs: "
+msgstr "Afsnit: "
+
+#: scribus/page.cpp:2056
+msgid "Page::Paste"
+msgstr "Indsæt"
+
+#: scribus/page.cpp:2227
+msgid "Page::Picture Frame"
+msgstr "Billedramme"
+
+#: scribus/page.cpp:2097
+msgid "Page::Picture"
+msgstr "Billed"
+
+#: scribus/page.cpp:2222
+msgid "Page::Polygon"
+msgstr ""
+
+#: scribus/page.cpp:2195
 msgid "Page::Raise"
 msgstr "Flyt forud"
 
-#: page.cpp:1932
+#: scribus/page.cpp:2192
 msgid "Page::Send to Back"
 msgstr "Placér bagerst"
 
-#: page.cpp:1948
+#: scribus/page.cpp:2208
 msgid "Page::Send to Layer"
 msgstr "Placér i lag"
 
-#: page.cpp:1939
+#: scribus/page.cpp:2199
 msgid "Page::Send to Scrapbook"
 msgstr "Placér i scrapbog"
 
-#: page.cpp:1965
+#: scribus/page.cpp:2233
+msgid "Page::Show Properties..."
+msgstr "Vis egenskaber..."
+
+#: scribus/page.cpp:2123
+msgid "Page::Text Chain"
+msgstr "Tekst-kæde"
+
+#: scribus/page.cpp:2226
 msgid "Page::Text Frame"
 msgstr "Tekstramme"
 
-#: page.cpp:1930
+#: scribus/page.cpp:2128
+msgid "Page::Text on a Path"
+msgstr "Tekst på en sti"
+
+#: scribus/page.cpp:2190
 msgid "Page::Un-group"
 msgstr "Bryd gruppe"
 
-#: page.cpp:1938
+#: scribus/page.cpp:2198
 msgid "Page::Unlock"
 msgstr "Lås op"
 
-#: picsearch.cpp:64
+#: scribus/page.cpp:2138
+msgid "Page::Words: "
+msgstr "Ord: "
+
+#: scribus/picsearch.cpp:65
 msgid "PicSearch::Cancel"
 msgstr "Annullér"
 
-#: picsearch.cpp:49
+#: scribus/picsearch.cpp:50
 msgid "PicSearch::Preview"
 msgstr "Vis"
 
-#: picsearch.cpp:11
+#: scribus/picsearch.cpp:12
 msgid "PicSearch::Result"
 msgstr "Resultat"
 
-#: picsearch.cpp:24
+#: scribus/picsearch.cpp:25
 msgid "PicSearch::Search Results for: "
 msgstr "Søg resultater for: "
 
-#: picsearch.cpp:57
+#: scribus/picsearch.cpp:58
 msgid "PicSearch::Select"
 msgstr "Vælg"
 
-#: picstatus.cpp:120
+#: scribus/picstatus.cpp:122
 msgid "PicStatus::Goto"
 msgstr "Gå til"
 
-#: picstatus.cpp:258
+#: scribus/picstatus.cpp:262
 msgid "PicStatus::Missing"
 msgstr "Mangler"
 
-#: picstatus.cpp:37
+#: scribus/picstatus.cpp:39
 msgid "PicStatus::Name"
 msgstr "Navn"
 
-#: picstatus.cpp:256
+#: scribus/picstatus.cpp:260
 msgid "PicStatus::OK"
 msgstr ""
 
-#: picstatus.cpp:39
+#: scribus/picstatus.cpp:41
 msgid "PicStatus::Page"
 msgstr "Side"
 
-#: picstatus.cpp:38
+#: scribus/picstatus.cpp:40
 msgid "PicStatus::Path"
 msgstr "Sti"
 
-#: picstatus.cpp:22
+#: scribus/picstatus.cpp:24
 msgid "PicStatus::Pictures"
 msgstr "Billeder"
 
-#: picstatus.cpp:41
+#: scribus/picstatus.cpp:43
 msgid "PicStatus::Print"
 msgstr "Udskriv"
 
-#: picstatus.cpp:136
+#: scribus/picstatus.cpp:138
 msgid "PicStatus::Search"
 msgstr "Søg"
 
-#: picstatus.cpp:42
+#: scribus/picstatus.cpp:44
 msgid "PicStatus::Status"
 msgstr "Status"
 
-#: picstatus.cpp:124
+#: scribus/picstatus.cpp:126
 msgid "PicStatus::Yes"
 msgstr "Ja"
 
-#: polyprops.cpp:75
+#: scribus/polyprops.cpp:75
 msgid "PolygonProps:: %"
 msgstr ""
 
-#: polyprops.cpp:111
+#: scribus/polyprops.cpp:111
 msgid "PolygonProps::Cancel"
 msgstr "Annullér"
 
-#: polyprops.cpp:63
+#: scribus/polyprops.cpp:63
 msgid "PolygonProps::Convex Polygon"
 msgstr ""
 
-#: polyprops.cpp:29
+#: scribus/polyprops.cpp:29
 msgid "PolygonProps::Corners:"
 msgstr "Hjørner:"
 
-#: polyprops.cpp:72
+#: scribus/polyprops.cpp:72
 msgid "PolygonProps::Factor:"
 msgstr "Faktor"
 
-#: polyprops.cpp:105
+#: scribus/polyprops.cpp:105
 msgid "PolygonProps::OK"
 msgstr ""
 
-#: polyprops.cpp:20
+#: scribus/polyprops.cpp:20
 msgid "PolygonProps::Polygon Properties"
 msgstr "Polygon egenskaber"
 
-#: polyprops.cpp:43
+#: scribus/polyprops.cpp:43
 msgid "PolygonProps::Rotation:"
 msgstr ""
 
-#: util.cpp:1300
+#: scribus/libprefs/prefs.cpp:1269
+msgid "Preferences:: %"
+msgstr ""
+
+#: scribus/libprefs/prefs.cpp:1994
+msgid "Preferences:: in"
+msgstr ""
+
+#: scribus/libprefs/prefs.cpp:1990
+msgid "Preferences:: mm"
+msgstr ""
+
+#: scribus/libprefs/prefs.cpp:1998
+msgid "Preferences:: p"
+msgstr ""
+
+#: scribus/libprefs/prefs.cpp:1986
+msgid "Preferences:: pt"
+msgstr ""
+
+#: scribus/libprefs/prefs.cpp:1061
+msgid "Preferences:: pts"
+msgstr ""
+
+#: scribus/libprefs/prefs.cpp:1428
+msgid "Preferences::"
+msgstr ""
+
+#: scribus/libprefs/prefs.cpp:1456
+msgid "Preferences::Adjust Display Size"
+msgstr "Indstil vis side"
+
+#: scribus/libprefs/prefs.cpp:673
+msgid "Preferences::Automatic Line Spacing:"
+msgstr "Automatisk linieafstand:"
+
+#: scribus/libprefs/prefs.cpp:383
+msgid "Preferences::Autosave"
+msgstr "Gem automatisk"
+
+#: scribus/libprefs/prefs.cpp:1405
+msgid "Preferences::Background:"
+msgstr "Baggrund:"
+
+#: scribus/libprefs/prefs.cpp:1343
+msgid "Preferences::Big"
+msgstr "Stor"
+
+#: scribus/libprefs/prefs.cpp:366
+msgid "Preferences::Bottom:"
+msgstr "Bund:"
+
+#: scribus/libprefs/prefs.cpp:1507
+msgid "Preferences::Cancel"
+msgstr "Annullér"
+
+#: scribus/libprefs/prefs.cpp:214
+msgid "Preferences::Change..."
+msgstr "Vælg..."
+
+#: scribus/libprefs/prefs.cpp:1590
+msgid "Preferences::Choose a Directory"
+msgstr "Vælg en mappe"
+
+#: scribus/libprefs/prefs.cpp:844
+msgid "Preferences::Columns:"
+msgstr "Kolonner:"
+
+#: scribus/libprefs/prefs.cpp:1257
+msgid "Preferences::Convex Polygon"
+msgstr ""
+
+#: scribus/libprefs/prefs.cpp:1226
+msgid "Preferences::Corners:"
+msgstr "Hjørner:"
+
+#: scribus/libprefs/prefs.cpp:266
+msgid "Preferences::Custom"
+msgstr "Bruger"
+
+#: scribus/libprefs/prefs.cpp:767
+msgid "Preferences::Default Font:"
+msgstr "Standard font:"
+
+#: scribus/libprefs/prefs.cpp:763
+msgid "Preferences::Default Size:"
+msgstr "Standard størrelse:"
+
+#: scribus/libprefs/prefs.cpp:618
+msgid "Preferences::Disp.:"
+msgstr "Forskydning:"
+
+#: scribus/libprefs/prefs.cpp:1383
+msgid "Preferences::Display Frames"
+msgstr "Vis rammer"
+
+#: scribus/libprefs/prefs.cpp:1387
+msgid "Preferences::Display Pages Side by Side"
+msgstr "Vis sider ved siden af hinanden"
+
+#: scribus/libprefs/prefs.cpp:1447
+msgid "Preferences::Display Unprintable Area in Margin Color"
+msgstr "Vis område, der ikke kan udskrives i margin farve"
+
+#: scribus/libprefs/prefs.cpp:54
+msgid "Preferences::Display"
+msgstr "Vis"
+
+#: scribus/libprefs/prefs.cpp:49
+msgid "Preferences::Document"
+msgstr "Dokument"
+
+#: scribus/libprefs/prefs.cpp:183
+msgid "Preferences::Documents:"
+msgstr "Dokumenter:"
+
+#: scribus/libprefs/prefs.cpp:390
+msgid "Preferences::Enabled"
+msgstr "Aktiv"
+
+#: scribus/libprefs/prefs.cpp:315
+msgid "Preferences::Facing Pages"
+msgstr "Modstående sider"
+
+#: scribus/libprefs/prefs.cpp:1266
+msgid "Preferences::Factor:"
+msgstr "Faktor:"
+
+#: scribus/libprefs/prefs.cpp:1146
+msgid "Preferences::Fill Color:"
+msgstr "Fyldfarve:"
+
+#: scribus/libprefs/prefs.cpp:88
+msgid "Preferences::Font Size:"
+msgstr "Fontstørrelse:"
+
+#: scribus/libprefs/prefs.cpp:1134
+msgid "Preferences::Free Scaling"
+msgstr "Fri skalering"
+
+#: scribus/libprefs/prefs.cpp:66
+msgid "Preferences::GUI"
+msgstr ""
+
+#: scribus/libprefs/prefs.cpp:852
+msgid "Preferences::Gap:"
+msgstr "Afstand:"
+
+#: scribus/libprefs/prefs.cpp:48
+msgid "Preferences::General"
+msgstr "Generelt"
+
+#: scribus/libprefs/prefs.cpp:139
+msgid "Preferences::Grab-Radius"
+msgstr "Gribe-radius"
+
+#: scribus/libprefs/prefs.cpp:463
+msgid "Preferences::Grid Colors"
+msgstr "Farve på gitter og hjælpelinier"
+
+#: scribus/libprefs/prefs.cpp:413
+msgid "Preferences::Grid Layout"
+msgstr "Gitter indstillinger"
+
+#: scribus/libprefs/prefs.cpp:442
+msgid "Preferences::Guide Snap Distance:"
+msgstr "'Klæb til' afstand"
+
+#: scribus/libprefs/prefs.cpp:50
+msgid "Preferences::Guides"
+msgstr "Hjælpelinier"
+
+#: scribus/libprefs/prefs.cpp:299
+msgid "Preferences::Height:"
+msgstr "Højde:"
+
+#: scribus/libprefs/prefs.cpp:1138
+msgid "Preferences::Horizontal Scaling"
+msgstr "Horisontal skalering"
+
+#: scribus/libprefs/prefs.cpp:194
+msgid "Preferences::ICC-Profiles:"
+msgstr "ICC-profiler:"
+
+#: scribus/libprefs/prefs.cpp:550
+msgid "Preferences::In the Background"
+msgstr "I baggrunden"
+
+#: scribus/libprefs/prefs.cpp:554
+msgid "Preferences::In the Foreground"
+msgstr "I forgrunden"
+
+#: scribus/libprefs/prefs.cpp:109
+msgid "Preferences::Inches (in)"
+msgstr "Tommer (in)"
+
+#: scribus/libprefs/prefs.cpp:1614
+msgid "Preferences::Inside:"
+msgstr "Inderside;"
+
+#: scribus/libprefs/prefs.cpp:394
+msgid "Preferences::Interval:"
+msgstr ""
+
+#: scribus/libprefs/prefs.cpp:1172
+msgid "Preferences::Keep Aspect Ratio"
+msgstr "Behold bredde/højde forhold"
+
+#: scribus/libprefs/prefs.cpp:169
+msgid "Preferences::Keyboard Shortcuts..."
+msgstr "Tastaturgenveje..."
+
+#: scribus/libprefs/prefs.cpp:273
+msgid "Preferences::Landscape"
+msgstr "Landskab"
+
+#: scribus/libprefs/prefs.cpp:320
+msgid "Preferences::Left Page First"
+msgstr "Venstre side først"
+
+#: scribus/libprefs/prefs.cpp:1620
+msgid "Preferences::Left:"
+msgstr "Venstre:"
+
+#: scribus/libprefs/prefs.cpp:1000
+msgid "Preferences::Line Color:"
+msgstr "Liniefarve:"
+
+#: scribus/libprefs/prefs.cpp:1008
+msgid "Preferences::Line Style:"
+msgstr "Liniestil:"
+
+#: scribus/libprefs/prefs.cpp:1012
+msgid "Preferences::Line Width:"
+msgstr "Liniebredde:"
+
+#: scribus/libprefs/prefs.cpp:901
+msgid "Preferences::Linestyle:"
+msgstr "Liniestil:"
+
+#: scribus/libprefs/prefs.cpp:480
+msgid "Preferences::Major Grid Color:"
+msgstr "Hoved-gitterlinier:"
+
+#: scribus/libprefs/prefs.cpp:430
+msgid "Preferences::Major Grid Spacing:"
+msgstr "Afstand mellem hovedlinier:"
+
+#: scribus/libprefs/prefs.cpp:329
+msgid "Preferences::Margin Guides"
+msgstr "Margin hjælpelinier"
+
+#: scribus/libprefs/prefs.cpp:1425
+msgid "Preferences::Margins:"
+msgstr "Marginer:"
+
+#: scribus/libprefs/prefs.cpp:1088
+msgid "Preferences::Maximum:"
+msgstr "Maksimum"
+
+#: scribus/libprefs/prefs.cpp:1342
+msgid "Preferences::Medium"
+msgstr ""
+
+#: scribus/libprefs/prefs.cpp:151
+msgid "Preferences::Menus"
+msgstr "Menuer"
+
+#: scribus/libprefs/prefs.cpp:108
+msgid "Preferences::Millimetres (mm)"
+msgstr "Millimeter (mm)"
+
+#: scribus/libprefs/prefs.cpp:1084
+msgid "Preferences::Minimum:"
+msgstr ""
+
+#: scribus/libprefs/prefs.cpp:476
+msgid "Preferences::Minor Grid Color:"
+msgstr "Gitterlinier:"
+
+#: scribus/libprefs/prefs.cpp:426
+msgid "Preferences::Minor Grid Spacing:"
+msgstr "Afstand mellem linier:"
+
+#: scribus/libprefs/prefs.cpp:116
+msgid "Preferences::Mouse-Settings"
+msgstr "Mus-indstillinger"
+
+#: scribus/libprefs/prefs.cpp:1182
+msgid "Preferences::None"
+msgstr "Ingen"
+
+#: scribus/libprefs/prefs.cpp:1501
+msgid "Preferences::OK"
+msgstr ""
+
+#: scribus/libprefs/prefs.cpp:233
+msgid "Preferences::Orientation:"
+msgstr "Retning:"
+
+#: scribus/libprefs/prefs.cpp:1310
+msgid "Preferences::Other Options"
+msgstr "Andre indstillinger"
+
+#: scribus/libprefs/prefs.cpp:660
+msgid "Preferences::Other"
+msgstr "Andet"
+
+#: scribus/libprefs/prefs.cpp:1615
+msgid "Preferences::Outside:"
+msgstr "Yderside:"
+
+#: scribus/libprefs/prefs.cpp:225
+msgid "Preferences::Page Size"
+msgstr "Sidestørrelse"
+
+#: scribus/libprefs/prefs.cpp:1395
+msgid "Preferences::Page-Colors"
+msgstr "Sidefarver"
+
+#: scribus/libprefs/prefs.cpp:174
+msgid "Preferences::Paths"
+msgstr "Stier"
+
+#: scribus/libprefs/prefs.cpp:110
+msgid "Preferences::Picas (p)"
+msgstr ""
+
+#: scribus/libprefs/prefs.cpp:537
+msgid "Preferences::Placing"
+msgstr "Placering"
+
+#: scribus/libprefs/prefs.cpp:107
+msgid "Preferences::Points (pt)"
+msgstr "Punkter (pt)"
+
+#: scribus/libprefs/prefs.cpp:272
+msgid "Preferences::Portrait"
+msgstr "Portræt"
+
+#: scribus/libprefs/prefs.cpp:38
+msgid "Preferences::Preferences"
+msgstr "Præferencer"
+
+#: scribus/libprefs/prefs.cpp:1327
+msgid "Preferences::Preview"
+msgstr "Vis"
+
+#: scribus/libprefs/prefs.cpp:161
+msgid "Preferences::Recent Documents:"
+msgstr "Nyeste dokumenter:"
+
+#: scribus/libprefs/prefs.cpp:1621
+msgid "Preferences::Right:"
+msgstr "Højre:"
+
+#: scribus/libprefs/prefs.cpp:1238
+msgid "Preferences::Rotation:"
+msgstr ""
+
+#: scribus/libprefs/prefs.cpp:1320
+msgid "Preferences::Save Contents on Exit"
+msgstr "Gem indhold ved afslutning"
+
+#: scribus/libprefs/prefs.cpp:1169
+msgid "Preferences::Scale Picture to Frame Size"
+msgstr "Skalér billede til rammestørrelse"
+
+#: scribus/libprefs/prefs.cpp:648
+msgid "Preferences::Scaling:"
+msgstr "Skalering:"
+
+#: scribus/libprefs/prefs.cpp:53
+msgid "Preferences::Scrapbook"
+msgstr "Scrapbog"
+
+#: scribus/libprefs/prefs.cpp:206
+msgid "Preferences::Scripts:"
+msgstr ""
+
+#: scribus/libprefs/prefs.cpp:1150
+msgid "Preferences::Shading:"
+msgstr "Farvemætning:"
+
+#: scribus/libprefs/prefs.cpp:1337
+msgid "Preferences::Size:"
+msgstr "Størrelse:"
+
+#: scribus/libprefs/prefs.cpp:635
+msgid "Preferences::Small Caps"
+msgstr "Små kapitæler"
+
+#: scribus/libprefs/prefs.cpp:1341
+msgid "Preferences::Small"
+msgstr "Lille"
+
+#: scribus/libprefs/prefs.cpp:1092
+msgid "Preferences::Stepping:"
+msgstr "Trin:"
+
+#: scribus/libprefs/prefs.cpp:566
+msgid "Preferences::Subscript"
+msgstr "Sænket skrift"
+
+#: scribus/libprefs/prefs.cpp:601
+msgid "Preferences::Superscript"
+msgstr "Hævet skrift"
+
+#: scribus/libprefs/prefs.cpp:826
+msgid "Preferences::Text Color:"
+msgstr "Tekst farve:"
+
+#: scribus/libprefs/prefs.cpp:75
+msgid "Preferences::Theme"
+msgstr "Tema"
+
+#: scribus/libprefs/prefs.cpp:1463
+msgid ""
+"Preferences::To adjust the display drag the ruler below with the Slider."
+msgstr "Indstil hvor meget 100% visning fylder på skærmen"
+
+#: scribus/libprefs/prefs.cpp:52
+msgid "Preferences::Tools"
+msgstr "Værktøjer"
+
+#: scribus/libprefs/prefs.cpp:369
+msgid "Preferences::Top:"
+msgstr ""
+
+#: scribus/libprefs/prefs.cpp:51
+msgid "Preferences::Typography"
+msgstr "Typografi"
+
+#: scribus/libprefs/prefs.cpp:98
+msgid "Preferences::Units"
+msgstr "Enheder"
+
+#: scribus/libprefs/prefs.cpp:1451
+msgid "Preferences::Use PDF-1.4 Transparency Features"
+msgstr "Brug PDF-1.4 transparent egenskaber"
+
+#: scribus/libprefs/prefs.cpp:516
+msgid "Preferences::User Guides Color:"
+msgstr "Hjælpelinier:"
+
+#: scribus/libprefs/prefs.cpp:1142
+msgid "Preferences::Vertical Scaling"
+msgstr "Vertical skalering"
+
+#: scribus/libprefs/prefs.cpp:129
+msgid "Preferences::Wheel-Jump"
+msgstr "Hjul-hop"
+
+#: scribus/libprefs/prefs.cpp:288
+msgid "Preferences::Width:"
+msgstr "Bredde:"
+
+#: scribus/libprefs/prefs.cpp:1859
+msgid "Preferences::Woven silk pyjamas exchanged for blue quartz"
+msgstr "Vævet silkepyjamas byttet med blå kvarts"
+
+#: scribus/libprefs/prefs.cpp:399
+msgid "Preferences::min"
+msgstr ""
+
+#: scribus/plugins/svgexplugin/svgexplugin.cpp:48
 msgid ""
 "QObject::Do you really want to overwrite the File:\n"
 "%1 ?"
@@ -3624,143 +4394,191 @@ msgstr ""
 "Ønsker du virkelig at overskrive filen:\n"
 "%1 ?"
 
-#: util.cpp:1299
+#: scribus/plugins/scriptplugin/scriptplugin.cpp:71
+msgid "QObject::Execute Script..."
+msgstr "Udfør script..."
+
+#: scribus/plugins/svgexplugin/svgexplugin.cpp:50
+msgid "QObject::No"
+msgstr "Nej"
+
+#: scribus/plugins/scriptplugin/scriptplugin.cpp:91
+msgid "QObject::Online Reference"
+msgstr "Scripter manual"
+
+#: scribus/plugins/scriptplugin/scriptplugin.cpp:101
+msgid "QObject::Open"
+msgstr "Åbn"
+
+#: scribus/plugins/scriptplugin/scriptplugin.cpp:72
+msgid "QObject::Recent Scripts"
+msgstr "Nyeste scripts"
+
+#: scribus/plugins/svgexplugin/svgexplugin.cpp:40
+msgid "QObject::Save as"
+msgstr "Gem som"
+
+#: scribus/plugins/scriptplugin/scriptplugin.cpp:74
+msgid "QObject::Script"
+msgstr "Script"
+
+#: scribus/plugins/scriptplugin/scriptplugin.cpp:36
+msgid "QObject::Scripter Manual..."
+msgstr "Scripter manual..."
+
+#: scribus/plugins/scriptplugin/scriptplugin.cpp:73
+msgid "QObject::Show Console"
+msgstr "Vis konsol"
+
+#: scribus/plugins/svgexplugin/svgexplugin.cpp:47
 msgid "QObject::Warning"
 msgstr "Advarsel"
 
-#: query.cpp:39
+#: scribus/plugins/svgexplugin/svgexplugin.cpp:49
+msgid "QObject::Yes"
+msgstr "Ja"
+
+#: scribus/query.cpp:40
 msgid "Query::Cancel"
 msgstr "Annullér"
 
-#: query.cpp:33
+#: scribus/query.cpp:34
 msgid "Query::OK"
 msgstr ""
 
-#: reformdoc.cpp:62
+#: scribus/reformdoc.cpp:62
 msgid "ReformDoc::Bottom:"
 msgstr "Bund:"
 
-#: reformdoc.cpp:100
+#: scribus/reformdoc.cpp:100
 msgid "ReformDoc::Cancel"
 msgstr "Annullér"
 
-#: reformdoc.cpp:28
+#: scribus/reformdoc.cpp:28
 msgid "ReformDoc::Document Setup"
 msgstr "Dokument indstillinger"
 
-#: reformdoc.cpp:78
+#: scribus/reformdoc.cpp:78
 msgid "ReformDoc::Facing Pages"
 msgstr "Modstående sider"
 
-#: reformdoc.cpp:147
+#: scribus/reformdoc.cpp:143
 msgid "ReformDoc::Inside:"
 msgstr "Inderside:"
 
-#: reformdoc.cpp:82
+#: scribus/reformdoc.cpp:82
 msgid "ReformDoc::Left Page first"
 msgstr "Venstre side først"
 
-#: reformdoc.cpp:153
+#: scribus/reformdoc.cpp:149
 msgid "ReformDoc::Left:"
 msgstr "Venstre:"
 
-#: reformdoc.cpp:34
+#: scribus/reformdoc.cpp:34
 msgid "ReformDoc::Margin Guides"
 msgstr "Margin hjælpelinier"
 
-#: reformdoc.cpp:94
+#: scribus/reformdoc.cpp:94
 msgid "ReformDoc::OK"
 msgstr ""
 
-#: reformdoc.cpp:148
+#: scribus/reformdoc.cpp:144
 msgid "ReformDoc::Outside:"
 msgstr "Yderside:"
 
-#: reformdoc.cpp:154
+#: scribus/reformdoc.cpp:150
 msgid "ReformDoc::Right:"
 msgstr "Højre:"
 
-#: reformdoc.cpp:46
+#: scribus/reformdoc.cpp:46
 msgid "ReformDoc::Top:"
 msgstr "Top:"
 
-#: scribusXml.cpp:1187
+#: scribus/scribusXml.cpp:1555
 msgid "ScriXmlDoc::Background"
 msgstr "Baggrund"
 
-#: scribus.cpp:335
+#: scribus/scribusXml.cpp:570
+msgid "ScriXmlDoc::Copy #%1 of "
+msgstr ""
+
+#: scribus/scribus.cpp:389
 msgid "ScribusApp::"
 msgstr ""
 
-#: scribus.cpp:2535
+#: scribus/scribus.cpp:2678
 msgid "ScribusApp::);;Vector Files (*.eps *.pdf);;All Files (*)"
 msgstr ");;Vectorfiler (*.eps *.pdf);;Alle Filer (*)"
 
-#: scribus.cpp:606
+#: scribus/scribus.cpp:685
 msgid "ScribusApp::200%"
 msgstr ""
 
-#: scribus.cpp:600
+#: scribus/scribus.cpp:679
 msgid "ScribusApp::50%"
 msgstr ""
 
-#: scribus.cpp:602
+#: scribus/scribus.cpp:681
 msgid "ScribusApp::75%"
 msgstr ""
 
-#: scribus.cpp:3191
+#: scribus/scribus.cpp:3388
 msgid "ScribusApp::About Qt"
 msgstr "Om Qt"
 
-#: scribus.cpp:657
+#: scribus/scribus.cpp:736
 msgid "ScribusApp::About Scribus"
 msgstr "Om Scribus"
 
-#: scribus.cpp:604
+#: scribus/scribus.cpp:683
 msgid "ScribusApp::Actual Size"
 msgstr "Faktisk størrelse"
 
-#: scribus.cpp:6174
+#: scribus/scribus.cpp:6415
 msgid "ScribusApp::Adjusting Colors"
 msgstr "Tilpasser farver"
 
-#: scribus.cpp:316
+#: scribus/scribus.cpp:368
 msgid "ScribusApp::Align Center"
-msgstr "Centrer"
+msgstr "Centrér"
 
-#: scribus.cpp:314
+#: scribus/scribus.cpp:366
 msgid "ScribusApp::Align Left"
 msgstr "Justér mod venstre"
 
-#: scribus.cpp:315
+#: scribus/scribus.cpp:367
 msgid "ScribusApp::Align Right"
 msgstr "Justér mod højre"
 
-#: scribus.cpp:1948
+#: scribus/scribus.cpp:2083
 msgid "ScribusApp::Alignment"
 msgstr "Justér"
 
-#: scribus.cpp:5428
+#: scribus/scribus.cpp:5665
 msgid "ScribusApp::All"
 msgstr "Alle"
 
-#: scribus.cpp:591
+#: scribus/scribus.cpp:670
 msgid "ScribusApp::Apply Template..."
 msgstr "Anvend skabelon..."
 
-#: scribus.cpp:568
+#: scribus/scribus.cpp:647
 msgid "ScribusApp::Attach Text to Path"
 msgstr "Forbind tekst til sti"
 
-#: scribus.cpp:687
+#: scribus/scribus.cpp:766
 msgid "ScribusApp::Block"
 msgstr "Blok"
 
-#: scribus.cpp:554
+#: scribus/scribus.cpp:724
+msgid "ScribusApp::Bookmarks"
+msgstr "Bogmærker"
+
+#: scribus/scribus.cpp:633
 msgid "ScribusApp::Bring to Front"
 msgstr "Placér forrest"
 
-#: scribus.cpp:6800
+#: scribus/scribus.cpp:7034
 msgid ""
 "ScribusApp::Can't write the File: \n"
 "%1"
@@ -3768,836 +4586,820 @@ msgstr ""
 "Kan ikke gemme filen: \n"
 "%1"
 
-#: scribus.cpp:1583
+#: scribus/scribus.cpp:1712
 msgid "ScribusApp::Cascade"
 msgstr "Bagved hinanden"
 
-#: scribus.cpp:6544
+#: scribus/scribus.cpp:6778
 msgid "ScribusApp::Catalan"
 msgstr "Catalansk"
 
-#: scribus.cpp:685
+#: scribus/scribus.cpp:764
 msgid "ScribusApp::Center"
 msgstr "Centrér"
 
-#: scribus.cpp:6671
+#: scribus/scribus.cpp:6905
 msgid "ScribusApp::Choose a Directory"
 msgstr "Vælg en mappe"
 
-#: scribus.cpp:507
+#: scribus/scribus.cpp:586
 msgid "ScribusApp::Clear"
 msgstr "Slet"
 
-#: scribus.cpp:455
+#: scribus/scribus.cpp:534
 msgid "ScribusApp::Close"
 msgstr "Luk"
 
-#: scribus.cpp:98
+#: scribus/scribus.cpp:115
 msgid "ScribusApp::Closes the Current Document"
 msgstr "Luk det aktive dokument"
 
-#: scribus.cpp:465
+#: scribus/scribus.cpp:544
 msgid "ScribusApp::Collect for Output..."
 msgstr "Saml projekt i mappe..."
 
-#: scribus.cpp:340
+#: scribus/scribus.cpp:394
 msgid "ScribusApp::Color Management..."
 msgstr "Farvestyring..."
 
-#: scribus.cpp:6883
+#: scribus/scribus.cpp:7171
 msgid "ScribusApp::Color"
 msgstr "Farve"
 
-#: scribus.cpp:511
+#: scribus/scribus.cpp:590
 msgid "ScribusApp::Colors..."
 msgstr "Farver..."
 
-#: scribus.cpp:569
+#: scribus/scribus.cpp:648
 msgid "ScribusApp::Combine Polygons"
 msgstr "Forbind polygoner"
 
-#: scribus.cpp:571
+#: scribus/scribus.cpp:650
 msgid "ScribusApp::Convert to Outlines"
 msgstr "Konvertér til figurer"
 
-#: scribus.cpp:587
+#: scribus/scribus.cpp:666
 msgid "ScribusApp::Copy"
 msgstr "Kopiér"
 
-#: scribus.cpp:95
+#: scribus/scribus.cpp:112
 msgid "ScribusApp::Creates a new Document"
 msgstr "Nyt dokument"
 
-#: scribus.cpp:504
+#: scribus/scribus.cpp:583
 msgid "ScribusApp::Cut"
 msgstr "Klip"
 
-#: scribus.cpp:6532
+#: scribus/scribus.cpp:6766
 msgid "ScribusApp::Czech"
 msgstr "Tjekkisk"
 
-#: scribus.cpp:6526
+#: scribus/scribus.cpp:6760
 msgid "ScribusApp::Danish"
 msgstr "Dansk"
 
-#: scribus.cpp:543
+#: scribus/scribus.cpp:622
 msgid "ScribusApp::Delete"
 msgstr "Slet"
 
-#: scribus.cpp:585
+#: scribus/scribus.cpp:664
 msgid "ScribusApp::Delete..."
 msgstr "Slet..."
 
-#: scribus.cpp:560
+#: scribus/scribus.cpp:639
 msgid "ScribusApp::Distribute/Align..."
 msgstr "Fordel/Opstil på linie..."
 
-#: scribus.cpp:486
+#: scribus/scribus.cpp:565
 msgid "ScribusApp::Document Info..."
 msgstr "Dokument Info..."
 
-#: scribus.cpp:489
+#: scribus/scribus.cpp:568
 msgid "ScribusApp::Document Setup..."
 msgstr "Dokument indstillinger..."
 
-#: scribus.cpp:5441
+#: scribus/scribus.cpp:5678
 msgid "ScribusApp::Document"
 msgstr "Dokument"
 
-#: scribus.cpp:2627
+#: scribus/scribus.cpp:2771
 msgid "ScribusApp::Documents (*.sla *.scd);;All Files (*)"
 msgstr "Dokumenter (*.sla *.scd);; Alle filer (*)"
 
-#: scribus.cpp:2187
+#: scribus/scribus.cpp:2322
 msgid "ScribusApp::Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"
 msgstr "Dokumenter (*.sla *.sla.gz *.scd *scd.gz);; Alle filer (*)"
 
-#: scribus.cpp:2625
+#: scribus/scribus.cpp:2769
 msgid "ScribusApp::Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)"
 msgstr "Dokumenter (*.sla *.sla.gz *.scd *scd.gz);; Alle filer (*)"
 
-#: scribus.cpp:539
+#: scribus/scribus.cpp:618
 msgid "ScribusApp::Duplicate"
 msgstr "Duplikér"
 
-#: scribus.cpp:6534
+#: scribus/scribus.cpp:6768
 msgid "ScribusApp::Dutch"
 msgstr "Hollandsk"
 
-#: scribus.cpp:5451
+#: scribus/scribus.cpp:5688
 msgid "ScribusApp::EPS-Files (*.eps);;All Files (*)"
 msgstr "EPS-filer (*.eps);; Alle filer (*)"
 
-#: scribus.cpp:566
+#: scribus/scribus.cpp:645
 msgid "ScribusApp::Edit Frame"
 msgstr "Redigér ramme"
 
-#: scribus.cpp:670
+#: scribus/scribus.cpp:749
 msgid "ScribusApp::Edit"
 msgstr "Redigér"
 
-#: scribus.cpp:6550
+#: scribus/scribus.cpp:6784
 msgid "ScribusApp::English"
 msgstr "Engelsk"
 
-#: scribus.cpp:157
+#: scribus/scribus.cpp:174
 msgid "ScribusApp::Exiting now"
 msgstr "Afslutter nu"
 
-#: scribus.cpp:481
+#: scribus/scribus.cpp:560
 msgid "ScribusApp::Export..."
 msgstr "Eksportér..."
 
-#: scribus.cpp:678
+#: scribus/scribus.cpp:757
 msgid "ScribusApp::Extras"
 msgstr "Ekstra"
 
-#: scribus.cpp:158
+#: scribus/scribus.cpp:175
 msgid "ScribusApp::Fatal Error"
 msgstr "Fatal fejl"
 
-#: scribus.cpp:669
+#: scribus/scribus.cpp:748
 msgid "ScribusApp::File"
 msgstr "Fil"
 
-#: scribus.cpp:598
+#: scribus/scribus.cpp:677
 msgid "ScribusApp::Fit in Window"
 msgstr "Tilpas til vindue"
 
-#: scribus.cpp:1998
+#: scribus/scribus.cpp:2134
 msgid "ScribusApp::Font"
 msgstr "Font"
 
-#: scribus.cpp:522
+#: scribus/scribus.cpp:601
 msgid "ScribusApp::Fonts..."
 msgstr "Fonte..."
 
-#: scribus.cpp:688
+#: scribus/scribus.cpp:767
 msgid "ScribusApp::Forced"
 msgstr "Tvunget"
 
-#: scribus.cpp:6522
+#: scribus/scribus.cpp:6756
 msgid "ScribusApp::French"
 msgstr "Fransk"
 
-#: scribus.cpp:519
+#: scribus/scribus.cpp:598
 msgid "ScribusApp::General..."
 msgstr "Generelt..."
 
-#: scribus.cpp:6516
+#: scribus/scribus.cpp:6750
 msgid "ScribusApp::German"
 msgstr "Tysk"
 
-#: scribus.cpp:1913
+#: scribus/scribus.cpp:2046
 msgid "ScribusApp::Get Picture..."
 msgstr "Hent billede..."
 
-#: scribus.cpp:1986
+#: scribus/scribus.cpp:2122
 msgid "ScribusApp::Get Text..."
 msgstr "Hent tekst..."
 
-#: scribus.cpp:2025
+#: scribus/scribus.cpp:2162
 msgid "ScribusApp::Get Text/Picture..."
 msgstr "Hent Tekst/billede..."
 
-#: scribus.cpp:327
+#: scribus/scribus.cpp:381
 msgid "ScribusApp::Getting ICC-Profiles"
 msgstr "Henter ICC-Profiler"
 
-#: scribus.cpp:5323
+#: scribus/scribus.cpp:5573
 msgid "ScribusApp::Ghostscript : You cannot use EPS-Images"
 msgstr "Ghostscript : Du kan ikke bruge EPS-Billeder"
 
-#: scribus.cpp:6542
+#: scribus/scribus.cpp:6776
 msgid "ScribusApp::Greek"
 msgstr "Græsk"
 
-#: scribus.cpp:546
+#: scribus/scribus.cpp:625
 msgid "ScribusApp::Group"
 msgstr "Lav til gruppe"
 
-#: scribus.cpp:682
+#: scribus/scribus.cpp:761
 msgid "ScribusApp::Help"
 msgstr "Hjælp"
 
-#: scribus.cpp:5303
-#msgid "ScribusApp::Hide Bookmarks"
-#msgstr "Skjul bogmærker"
-
-#: scribus.cpp:3472
+#: scribus/scribus.cpp:3669
 msgid "ScribusApp::Hide Frames"
 msgstr "Skjul rammer"
 
-#: scribus.cpp:3650
+#: scribus/scribus.cpp:3869
 msgid "ScribusApp::Hide Grid"
 msgstr "Skjul gitter"
 
-#: scribus.cpp:3675
+#: scribus/scribus.cpp:3894
 msgid "ScribusApp::Hide Guides"
 msgstr "Skjul hjælpelinier"
 
-#: scribus.cpp:3624
+#: scribus/scribus.cpp:3843
 msgid "ScribusApp::Hide Images"
 msgstr "Skjul billeder"
 
-#: scribus.cpp:5299
-#msgid "ScribusApp::Hide Layers"
-#msgstr "Skjul lag"
-
-#: scribus.cpp:3457
+#: scribus/scribus.cpp:3654
 msgid "ScribusApp::Hide Margins"
 msgstr "Skjul marginer"
 
-#: scribus.cpp:5295
-#msgid "ScribusApp::Hide Outline"
-#msgstr "Skjul oversigt"
-
-#: scribus.cpp:3610
-#msgid "ScribusApp::Hide PDF-Tools"
-#msgstr "Skjul PDF-værktøjer"
-
-#: scribus.cpp:5301
-#msgid "ScribusApp::Hide Page Palette"
-#msgstr "Skjul arrangér sider"
-
-#: scribus.cpp:5293
-#msgid "ScribusApp::Hide Properties"
-#msgstr "Skjul egenskaber"
-
-#: scribus.cpp:5297
-#msgid "ScribusApp::Hide Scrapbook"
-#msgstr "Skjul scrapbog"
-
-#: scribus.cpp:3594
-#msgid "ScribusApp::Hide Tools"
-#msgstr "Skjul værktøjer"
-
-#: scribus.cpp:6530
+#: scribus/scribus.cpp:6764
 msgid "ScribusApp::Hungarian"
 msgstr "Ungarsk"
 
-#: scribus.cpp:651
+#: scribus/scribus.cpp:730
 msgid "ScribusApp::Hyphenate Text"
 msgstr "Orddel tekst"
 
-#: scribus.cpp:523
+#: scribus/scribus.cpp:602
 msgid "ScribusApp::Hyphenator..."
 msgstr "Orddeling..."
 
-#: scribus.cpp:2534
+#: scribus/scribus.cpp:2677
 msgid "ScribusApp::Images"
 msgstr "Billeder"
 
-#: scribus.cpp:473
+#: scribus/scribus.cpp:552
 msgid "ScribusApp::Import..."
 msgstr "Importér..."
 
-#: scribus.cpp:329
+#: scribus/scribus.cpp:383
 msgid "ScribusApp::Init Hyphenator"
 msgstr "Init Orddeler"
 
-#: scribus.cpp:379
+#: scribus/scribus.cpp:433
 msgid "ScribusApp::Initializing Plugins"
 msgstr "Initialiserer Plugins"
 
-#: scribus.cpp:317
+#: scribus/scribus.cpp:369
 msgid "ScribusApp::Insert Page Number"
 msgstr "Indsæt sidenummer"
 
-#: scribus.cpp:471
+#: scribus/scribus.cpp:550
 msgid "ScribusApp::Insert Page..."
 msgstr "Indsæt side..."
 
-#: scribus.cpp:583
+#: scribus/scribus.cpp:662
 msgid "ScribusApp::Insert..."
 msgstr "Indsæt..."
 
-#: scribus.cpp:6884
+#: scribus/scribus.cpp:7172
 msgid "ScribusApp::Invert"
 msgstr "Invertér"
 
-#: scribus.cpp:6520
+#: scribus/scribus.cpp:6754
 msgid "ScribusApp::Italian"
 msgstr "Italiensk"
 
-#: scribus.cpp:672
+#: scribus/scribus.cpp:751
 msgid "ScribusApp::Item"
 msgstr "Objekt"
 
-#: scribus.cpp:517
+#: scribus/scribus.cpp:596
 msgid "ScribusApp::Javascripts..."
 msgstr ""
 
-#: scribus.cpp:684
-msgid "ScribusApp::Left"
-msgstr "Venstre"
-
-#: scribus.cpp:513
-msgid "ScribusApp::Line Styles..."
-msgstr "Liniestile..."
-
-#: scribus.cpp:2313
-msgid "ScribusApp::Loading..."
-msgstr "Indlæser..."
-
-#: scribus.cpp:6000
-msgid "ScribusApp::Loading:"
-msgstr "Indlæser:"
-
-#: scribus.cpp:2108
-msgid "ScribusApp::Lock"
-msgstr "Lås"
-
-#: scribus.cpp:323
-msgid "ScribusApp::Lock/Unlock"
-msgstr "Lås/Lås op"
-
-#: scribus.cpp:556
-msgid "ScribusApp::Lower"
-msgstr "Flyt bagud"
-
-#: scribus.cpp:593
-msgid "ScribusApp::Manage Guides..."
-msgstr "Håndtér hjælpelinier"
-
-#: scribus.cpp:648
-msgid "ScribusApp::Manage Pictures"
-msgstr "Håndter billeder"
-
-#: scribus.cpp:589
-msgid "ScribusApp::Move..."
-msgstr "Flyt..."
-
-#: scribus.cpp:541
-msgid "ScribusApp::Multiple Duplicate"
-msgstr "Duplikér flere gange"
-
-#: scribus.cpp:451
-msgid "ScribusApp::New"
-msgstr "Ny"
-
-#: scribus.cpp:324
-msgid "ScribusApp::Non Breaking Space"
-msgstr "Ikke brydbar mellemrum"
-
-#: scribus.cpp:6244
-msgid "ScribusApp::None"
-msgstr "Ingen"
-
-#: scribus.cpp:5816
-msgid "ScribusApp::Normal"
-msgstr ""
-
-#: scribus.cpp:6800
-msgid "ScribusApp::OK"
-msgstr ""
-
-#: scribus.cpp:662
-msgid "ScribusApp::Online-Help..."
-msgstr "Scribus manual..."
-
-#: scribus.cpp:2554
-msgid "ScribusApp::Open"
-msgstr "Åbn"
-
-#: scribus.cpp:452
-msgid "ScribusApp::Open..."
-msgstr "Åbn..."
-
-#: scribus.cpp:96
-msgid "ScribusApp::Opens a Document"
-msgstr "Åbn et dokument"
-
-#: scribus.cpp:4841
-msgid "ScribusApp::Other..."
-msgstr "Andet..."
-
-#: scribus.cpp:729
-msgid "ScribusApp::Outlined"
-msgstr "Indrammet"
-
-#: scribus.cpp:565
-msgid "ScribusApp::Oval"
-msgstr ""
-
-#: scribus.cpp:673
-msgid "ScribusApp::Page"
-msgstr "Side"
-
-#: scribus.cpp:506
-msgid "ScribusApp::Paste"
-msgstr "Indsæt"
-
-#: scribus.cpp:6540
-msgid "ScribusApp::Polish"
-msgstr "Polsk"
-
-#: scribus.cpp:6536
-msgid "ScribusApp::Portuguese"
-msgstr "Portugisisk"
-
-#: scribus.cpp:524
-msgid "ScribusApp::Preferences"
-msgstr "Præferencer"
-
-#: scribus.cpp:520
-msgid "ScribusApp::Preferences..."
-msgstr "Præferencer..."
-
-#: scribus.cpp:492
-msgid "ScribusApp::Print..."
-msgstr "Udskriv..."
-
-#: scribus.cpp:2870
-msgid "ScribusApp::Printing failed!"
-msgstr "Udskrivning fejlede!"
-
-#: scribus.cpp:2788
-msgid "ScribusApp::Printing..."
-msgstr "Udskrivning..."
-
-#: scribus.cpp:99
-msgid "ScribusApp::Prints the Current Document"
-msgstr "Udskriv det aktive dokument"
-
-#: scribus.cpp:495
-msgid "ScribusApp::Quit"
-msgstr "Afslut"
-
-#: scribus.cpp:558
-msgid "ScribusApp::Raise"
-msgstr "Flyt forud"
-
-#: scribus.cpp:325
-msgid "ScribusApp::Reading Preferences"
-msgstr "Læser præferencer"
-
-#: scribus.cpp:369
-msgid "ScribusApp::Reading Scrapbook"
-msgstr "Læser scrapbog"
-
-#: scribus.cpp:2877
-msgid "ScribusApp::Ready"
-msgstr "Klar"
-
-#: scribus.cpp:450
-msgid "ScribusApp::Recent Documents"
-msgstr "Nyeste dokumenter"
-
-#: scribus.cpp:563
-msgid "ScribusApp::Rectangle"
-msgstr "Rektangel"
-
-#: scribus.cpp:463
-msgid "ScribusApp::Revert to Saved"
-msgstr "Genindlæs det gemte"
-
-#: scribus.cpp:686
-msgid "ScribusApp::Right"
-msgstr "Højre"
-
-#: scribus.cpp:564
-msgid "ScribusApp::Rounded Rectangle"
-msgstr "Afrundet rektangel"
-
-#: scribus.cpp:6524
-msgid "ScribusApp::Russian"
-msgstr "Russisk"
-
-#: scribus.cpp:477
-msgid "ScribusApp::Save Page as EPS..."
-msgstr "Gem side som EPS..."
-
-#: scribus.cpp:475
-msgid "ScribusApp::Save Text..."
-msgstr "Gem tekst..."
-
-#: scribus.cpp:479
-msgid "ScribusApp::Save as PDF..."
-msgstr "Gem som PDF..."
-
-#: scribus.cpp:5451
-msgid "ScribusApp::Save as"
-msgstr "Gem som"
-
-#: scribus.cpp:461
-msgid "ScribusApp::Save as..."
-msgstr "Gem som..."
-
-#: scribus.cpp:458
-msgid "ScribusApp::Save"
-msgstr "Gem"
-
-#: scribus.cpp:100
-msgid "ScribusApp::Saves the Current Document as PDF"
-msgstr "Gem det aktive dokument som PDF"
-
-#: scribus.cpp:97
-msgid "ScribusApp::Saves the Current Document"
-msgstr "Gem det aktive dokument"
-
-#: scribus.cpp:2643
-msgid "ScribusApp::Saving..."
-msgstr "Gemmer..."
-
-#: scribus.cpp:3196
-msgid "ScribusApp::Scribus Manual"
-msgstr "Scribus manual"
-
-#: scribus.cpp:152
-msgid "ScribusApp::Searching for Fonts"
-msgstr "Leder efter fonte"
-
-#: scribus.cpp:537
-msgid "ScribusApp::Select New Font"
-msgstr "Vælg ny font"
-
-#: scribus.cpp:508
-msgid "ScribusApp::Select all"
-msgstr "Markér alt"
-
-#: scribus.cpp:552
-msgid "ScribusApp::Send to Back"
-msgstr "Placér bagerst"
-
-#: scribus.cpp:336
-msgid "ScribusApp::Setting up Shortcuts"
-msgstr "Laver genveje"
-
-#: scribus.cpp:2036
-msgid "ScribusApp::Shade"
-msgstr "Farvemætning"
-
-#: scribus.cpp:567
-msgid "ScribusApp::Shape"
-msgstr "Form"
-
-#: scribus.cpp:3573
-msgid "ScribusApp::Bookmarks"
-msgstr "Bogmærker"
-
-#: scribus.cpp:3467
-msgid "ScribusApp::Show Frames"
-msgstr "Vis rammer"
-
-#: scribus.cpp:3645
-msgid "ScribusApp::Show Grid"
-msgstr "Vis gitter"
-
-#: scribus.cpp:3670
-msgid "ScribusApp::Show Guides"
-msgstr "Vis hjælpelinier"
-
-#: scribus.cpp:3619
-msgid "ScribusApp::Show Images"
-msgstr "Vis billeder"
-
-#: scribus.cpp:3537
+#: scribus/scribus.cpp:722
 msgid "ScribusApp::Layers"
 msgstr "Lag"
 
-#: scribus.cpp:3452
-msgid "ScribusApp::Show Margins"
-msgstr "Vis margener"
+#: scribus/scribus.cpp:763
+msgid "ScribusApp::Left"
+msgstr "Venstre"
 
-#: scribus.cpp:3501
+#: scribus/scribus.cpp:592
+msgid "ScribusApp::Line Styles..."
+msgstr "Liniestile..."
+
+#: scribus/scribus.cpp:2456
+msgid "ScribusApp::Loading..."
+msgstr "Indlæser..."
+
+#: scribus/scribus.cpp:6241
+msgid "ScribusApp::Loading:"
+msgstr "Indlæser:"
+
+#: scribus/scribus.cpp:2243
+msgid "ScribusApp::Lock"
+msgstr "Lås"
+
+#: scribus/scribus.cpp:375
+msgid "ScribusApp::Lock/Unlock"
+msgstr "Lås/Lås op"
+
+#: scribus/scribus.cpp:635
+msgid "ScribusApp::Lower"
+msgstr "Flyt bagud"
+
+#: scribus/scribus.cpp:672
+msgid "ScribusApp::Manage Guides..."
+msgstr "Håndtér hjælpelinier"
+
+#: scribus/scribus.cpp:727
+msgid "ScribusApp::Manage Pictures"
+msgstr "Håndtér billeder"
+
+#: scribus/scribus.cpp:668
+msgid "ScribusApp::Move..."
+msgstr "Flyt..."
+
+#: scribus/scribus.cpp:620
+msgid "ScribusApp::Multiple Duplicate"
+msgstr "Duplikér flere gange"
+
+#: scribus/scribus.cpp:530
+msgid "ScribusApp::New"
+msgstr "Ny"
+
+#: scribus/scribus.cpp:376
+msgid "ScribusApp::Non Breaking Space"
+msgstr "Ikke brydbar mellemrum"
+
+#: scribus/scribus.cpp:6485
+msgid "ScribusApp::None"
+msgstr "Ingen"
+
+#: scribus/scribus.cpp:6057
+msgid "ScribusApp::Normal"
+msgstr ""
+
+#: scribus/scribus.cpp:7202
+msgid "ScribusApp::OK"
+msgstr ""
+
+#: scribus/scribus.cpp:741
+msgid "ScribusApp::Online-Help..."
+msgstr "Scribus manual..."
+
+#: scribus/scribus.cpp:2698
+msgid "ScribusApp::Open"
+msgstr "Åbn"
+
+#: scribus/scribus.cpp:531
+msgid "ScribusApp::Open..."
+msgstr "Åbn..."
+
+#: scribus/scribus.cpp:113
+msgid "ScribusApp::Opens a Document"
+msgstr "Åbn et dokument"
+
+#: scribus/scribus.cpp:5103
+msgid "ScribusApp::Other..."
+msgstr "Andet..."
+
+#: scribus/scribus.cpp:719
 msgid "ScribusApp::Outline"
 msgstr "Oversigt"
 
-#: scribus.cpp:5291
+#: scribus/scribus.cpp:811
+msgid "ScribusApp::Outlined"
+msgstr "Indrammet"
+
+#: scribus/scribus.cpp:644
+msgid "ScribusApp::Oval"
+msgstr ""
+
+#: scribus/scribus.cpp:715
 msgid "ScribusApp::PDF-Tools"
 msgstr "PDF-værktøjer"
 
-#: scribus.cpp:3557
+#: scribus/scribus.cpp:723
 msgid "ScribusApp::Page Palette"
 msgstr "Arrangér sider"
 
-#: scribus.cpp:3484
+#: scribus/scribus.cpp:752
+msgid "ScribusApp::Page"
+msgstr "Side"
+
+#: scribus/scribus.cpp:585
+msgid "ScribusApp::Paste"
+msgstr "Indsæt"
+
+#: scribus/scribus.cpp:6774
+msgid "ScribusApp::Polish"
+msgstr "Polsk"
+
+#: scribus/scribus.cpp:6770
+msgid "ScribusApp::Portuguese"
+msgstr "Portugisisk"
+
+#: scribus/scribus.cpp:603
+msgid "ScribusApp::Preferences"
+msgstr "Præferencer"
+
+#: scribus/scribus.cpp:599
+msgid "ScribusApp::Preferences..."
+msgstr "Præferencer..."
+
+#: scribus/scribus.cpp:571
+msgid "ScribusApp::Print..."
+msgstr "Udskriv..."
+
+#: scribus/scribus.cpp:3017
+msgid "ScribusApp::Printing failed!"
+msgstr "Udskrivning fejlede!"
+
+#: scribus/scribus.cpp:2935
+msgid "ScribusApp::Printing..."
+msgstr "Udskrivning..."
+
+#: scribus/scribus.cpp:116
+msgid "ScribusApp::Prints the Current Document"
+msgstr "Udskriv det aktive dokument"
+
+#: scribus/scribus.cpp:717
 msgid "ScribusApp::Properties"
 msgstr "Egenskaber"
 
-#: scribus.cpp:3521
+#: scribus/scribus.cpp:574
+msgid "ScribusApp::Quit"
+msgstr "Afslut"
+
+#: scribus/scribus.cpp:637
+msgid "ScribusApp::Raise"
+msgstr "Flyt forud"
+
+#: scribus/scribus.cpp:377
+msgid "ScribusApp::Reading Preferences"
+msgstr "Læser præferencer"
+
+#: scribus/scribus.cpp:423
+msgid "ScribusApp::Reading Scrapbook"
+msgstr "Læser scrapbog"
+
+#: scribus/scribus.cpp:3024
+msgid "ScribusApp::Ready"
+msgstr "Klar"
+
+#: scribus/scribus.cpp:529
+msgid "ScribusApp::Recent Documents"
+msgstr "Nyeste dokumenter"
+
+#: scribus/scribus.cpp:642
+msgid "ScribusApp::Rectangle"
+msgstr "Rektangel"
+
+#: scribus/scribus.cpp:542
+msgid "ScribusApp::Revert to Saved"
+msgstr "Genindlæs det gemte"
+
+#: scribus/scribus.cpp:765
+msgid "ScribusApp::Right"
+msgstr "Højre"
+
+#: scribus/scribus.cpp:643
+msgid "ScribusApp::Rounded Rectangle"
+msgstr "Afrundet rektangel"
+
+#: scribus/scribus.cpp:6758
+msgid "ScribusApp::Russian"
+msgstr "Russisk"
+
+#: scribus/scribus.cpp:556
+msgid "ScribusApp::Save Page as EPS..."
+msgstr "Gem side som EPS..."
+
+#: scribus/scribus.cpp:554
+msgid "ScribusApp::Save Text..."
+msgstr "Gem tekst..."
+
+#: scribus/scribus.cpp:558
+msgid "ScribusApp::Save as PDF..."
+msgstr "Gem som PDF..."
+
+#: scribus/scribus.cpp:5688
+msgid "ScribusApp::Save as"
+msgstr "Gem som"
+
+#: scribus/scribus.cpp:540
+msgid "ScribusApp::Save as..."
+msgstr "Gem som..."
+
+#: scribus/scribus.cpp:537
+msgid "ScribusApp::Save"
+msgstr "Gem"
+
+#: scribus/scribus.cpp:117
+msgid "ScribusApp::Saves the Current Document as PDF"
+msgstr "Gem det aktive dokument som PDF"
+
+#: scribus/scribus.cpp:114
+msgid "ScribusApp::Saves the Current Document"
+msgstr "Gem det aktive dokument"
+
+#: scribus/scribus.cpp:2788
+msgid "ScribusApp::Saving..."
+msgstr "Gemmer..."
+
+#: scribus/scribus.cpp:721
 msgid "ScribusApp::Scrapbook"
 msgstr "Scrapbog"
 
-#: scribus.cpp:5289
-# msgid "ScribusApp::Show Tools"
-# msgstr "Vis værktøjer"
+#: scribus/scribus.cpp:7202
+msgid "ScribusApp::Scribus Crash"
+msgstr "Scribus nedbrud"
 
-#: scribus.cpp:1999
+#: scribus/scribus.cpp:3393
+msgid "ScribusApp::Scribus Manual"
+msgstr "Scribus manual"
+
+#: scribus/scribus.cpp:7202
+msgid "ScribusApp::Scribus crashes due to Signal #%1"
+msgstr "Scribus nedbrud p.g.a Signal #%1"
+
+#: scribus/scribus.cpp:169
+msgid "ScribusApp::Searching for Fonts"
+msgstr "Leder efter fonte"
+
+#: scribus/scribus.cpp:616
+msgid "ScribusApp::Select New Font"
+msgstr "Vælg ny font"
+
+#: scribus/scribus.cpp:587
+msgid "ScribusApp::Select all"
+msgstr "Markér alt"
+
+#: scribus/scribus.cpp:631
+msgid "ScribusApp::Send to Back"
+msgstr "Placér bagerst"
+
+#: scribus/scribus.cpp:390
+msgid "ScribusApp::Setting up Shortcuts"
+msgstr "Laver genveje"
+
+#: scribus/scribus.cpp:2173
+msgid "ScribusApp::Shade"
+msgstr "Farvemætning"
+
+#: scribus/scribus.cpp:646
+msgid "ScribusApp::Shape"
+msgstr "Form"
+
+#: scribus/scribus.cpp:3664
+msgid "ScribusApp::Show Frames"
+msgstr "Vis rammer"
+
+#: scribus/scribus.cpp:3864
+msgid "ScribusApp::Show Grid"
+msgstr "Vis gitter"
+
+#: scribus/scribus.cpp:3889
+msgid "ScribusApp::Show Guides"
+msgstr "Vis hjælpelinier"
+
+#: scribus/scribus.cpp:3838
+msgid "ScribusApp::Show Images"
+msgstr "Vis billeder"
+
+#: scribus/scribus.cpp:371
+msgid "ScribusApp::Show Layers"
+msgstr "Vis lag"
+
+#: scribus/scribus.cpp:3649
+msgid "ScribusApp::Show Margins"
+msgstr "Vis margener"
+
+#: scribus/scribus.cpp:374
+msgid "ScribusApp::Show Page Palette"
+msgstr "Vis Arrangér sider"
+
+#: scribus/scribus.cpp:2135
 msgid "ScribusApp::Size"
 msgstr "Størrelse"
 
-#: scribus.cpp:6528
+#: scribus/scribus.cpp:6762
 msgid "ScribusApp::Slovak"
 msgstr "Slovakisk"
 
-#: scribus.cpp:726
+#: scribus/scribus.cpp:808
 msgid "ScribusApp::Small Caps"
-msgstr "Små kapitaler"
+msgstr "Små kapitæler"
 
-#: scribus.cpp:313
+#: scribus/scribus.cpp:365
 msgid "ScribusApp::Smart Hyphen"
 msgstr "Smart orddeling"
 
-#: scribus.cpp:619
+#: scribus/scribus.cpp:698
 msgid "ScribusApp::Snap to Grid"
 msgstr "Klæb til gitter"
 
-#: scribus.cpp:621
+#: scribus/scribus.cpp:700
 msgid "ScribusApp::Snap to Guides"
 msgstr "Klæb til hjælpelinier"
 
-#: scribus.cpp:6518
+#: scribus/scribus.cpp:6752
 msgid "ScribusApp::Spanish"
 msgstr "Spansk"
 
-#: scribus.cpp:570
+#: scribus/scribus.cpp:649
 msgid "ScribusApp::Split Polygons"
 msgstr "Adskil polygon"
 
-#: scribus.cpp:725
+#: scribus/scribus.cpp:807
 msgid "ScribusApp::Strikethru"
 msgstr "Gennemstreg"
 
-#: scribus.cpp:2000
+#: scribus/scribus.cpp:2136
 msgid "ScribusApp::Style"
 msgstr "Stil"
 
-#: scribus.cpp:514
+#: scribus/scribus.cpp:593
 msgid "ScribusApp::Styles..."
 msgstr "Typografier..."
 
-#: scribus.cpp:728
+#: scribus/scribus.cpp:810
 msgid "ScribusApp::Subscript"
 msgstr "Sænket skrift"
 
-#: scribus.cpp:727
+#: scribus/scribus.cpp:809
 msgid "ScribusApp::Superscript"
 msgstr "Hævet skrift"
 
-#: scribus.cpp:516
+#: scribus/scribus.cpp:2082
+msgid "ScribusApp::Tabulators..."
+msgstr "Tabulatorer..."
+
+#: scribus/scribus.cpp:595
 msgid "ScribusApp::Templates..."
 msgstr "Skabeloner..."
 
-#: scribus.cpp:3210
+#: scribus/scribus.cpp:3407
 msgid "ScribusApp::Text Files (*.txt);;All Files(*)"
 msgstr "Tekstfiler (*.txt);;Alle filer (*)"
 
-#: scribus.cpp:5321
+#: scribus/scribus.cpp:5571
 msgid "ScribusApp::The following Programs are missing:"
 msgstr "Følgende programmer mangler:"
 
-#: scribus.cpp:156
+#: scribus/scribus.cpp:173
 msgid "ScribusApp::There are no Postscript-Fonts on your System"
 msgstr "Der er ingen Postscript-Fonte installeret"
 
-#: scribus.cpp:608
+#: scribus/scribus.cpp:687
 msgid "ScribusApp::Thumbnails"
 msgstr "Små sider"
 
-#: scribus.cpp:1584
+#: scribus/scribus.cpp:1713
 msgid "ScribusApp::Tile"
 msgstr "Ved siden af hinanden"
 
-#: scribus.cpp:664
+#: scribus/scribus.cpp:743
 msgid "ScribusApp::Tool-Tips"
 msgstr "Hjælpe-tekst"
 
-#: scribus.cpp:677
+#: scribus/scribus.cpp:756
 msgid "ScribusApp::Tools"
 msgstr "Værktøjer"
 
-#: scribus.cpp:6538
+#: scribus/scribus.cpp:6772
 msgid "ScribusApp::Ukrainian"
 msgstr "Ukrainsk"
 
-#: scribus.cpp:548
+#: scribus/scribus.cpp:627
 msgid "ScribusApp::Un-group"
 msgstr "Bryd gruppe"
 
-#: scribus.cpp:722
+#: scribus/scribus.cpp:804
 msgid "ScribusApp::Underline"
 msgstr "Understreg"
 
-#: scribus.cpp:6487
+#: scribus/scribus.cpp:6721
 msgid "ScribusApp::Undo Delete Object"
 msgstr "Fortryd sletning af objekt"
 
-#: scribus.cpp:6495
+#: scribus/scribus.cpp:6729
 msgid "ScribusApp::Undo Object Change"
 msgstr "Fortryd ændring af objekt"
 
-#: scribus.cpp:6491
+#: scribus/scribus.cpp:6725
 msgid "ScribusApp::Undo Object Move"
 msgstr "Fortryd flytning af objekt"
 
-#: scribus.cpp:497
+#: scribus/scribus.cpp:576
 msgid "ScribusApp::Undo"
 msgstr "Fortryd"
 
-#: scribus.cpp:2104
+#: scribus/scribus.cpp:2239
 msgid "ScribusApp::Unlock"
 msgstr "Lås op"
 
-#: scribus.cpp:676
+#: scribus/scribus.cpp:755
 msgid "ScribusApp::View"
 msgstr "Vis"
 
-#: scribus.cpp:6800
+#: scribus/scribus.cpp:7034
 msgid "ScribusApp::Warning"
 msgstr "Advarsel"
 
-#: scribus.cpp:680
+#: scribus/scribus.cpp:759
 msgid "ScribusApp::Windows"
 msgstr "Vinduer"
 
-#: scribus.cpp:743
+#: scribus/scribus.cpp:825
 msgid "ScribusApp::X-Pos:"
 msgstr ""
 
-#: scribus.cpp:749
+#: scribus/scribus.cpp:831
 msgid "ScribusApp::Y-Pos:"
 msgstr ""
 
-#: scribusdoc.cpp:77
+#: scribus/scribusdoc.cpp:80
 msgid "ScribusDoc::Background"
 msgstr "Baggrund"
 
-#: scribusdoc.cpp:35
+#: scribus/scribusdoc.cpp:35
 msgid "ScribusDoc::Document"
 msgstr "Dokument"
 
-#: scribusview.cpp:38
+#: scribus/scribusview.cpp:44
 msgid "ScribusView:: %"
 msgstr ""
 
-#: scribusview.cpp:1097
+#: scribus/scribusview.cpp:1353
 msgid "ScribusView::All"
 msgstr "Alle"
 
-#: scribusview.cpp:61
+#: scribus/scribusview.cpp:66
 msgid "ScribusView::Layer"
 msgstr "Lag"
 
-#: scribusview.cpp:300
+#: scribus/scribusview.cpp:538
 msgid "ScribusView::Page %1"
 msgstr "Side %1"
 
-#: scribuswin.cpp:55
+#: scribus/scribuswin.cpp:62
 msgid "ScribusWin::Cancel"
 msgstr "Annullér"
 
-#: scribuswin.cpp:53
+#: scribus/scribuswin.cpp:57
+msgid "ScribusWin::Close Anyway"
+msgstr "Luk alligevel"
+
+#: scribus/scribuswin.cpp:60
 msgid "ScribusWin::Document:"
 msgstr "Dokument:"
 
-#: scribuswin.cpp:56
+#: scribus/scribuswin.cpp:55
 msgid "ScribusWin::Leave Anyway"
 msgstr "Afslut alligevel"
 
-#: scribuswin.cpp:54
+#: scribus/scribuswin.cpp:61
 msgid "ScribusWin::Save Now"
 msgstr "Gem nu"
 
-#: scribuswin.cpp:52
+#: scribus/scribuswin.cpp:59
 msgid "ScribusWin::Warning"
 msgstr "Advarsel"
 
-#: scribuswin.cpp:53
+#: scribus/scribuswin.cpp:60
 msgid "ScribusWin::has been changed since the last save."
 msgstr "er ændret siden sidste gang det blev gemt."
 
-#: seiten.cpp:81
+#: scribus/seiten.cpp:81
 msgid "SeList::Show Page Previews"
 msgstr "Vis Sidevisninger"
 
-#: seiten.cpp:154
+#: scribus/seiten.cpp:154
 msgid "SeView::Show Template Names"
 msgstr "Vis skabelonnavne"
 
-#: seiten.cpp:504
+#: scribus/seiten.cpp:504
 msgid "SeitenPal::Arrange Pages"
 msgstr "Arrangér sider"
 
-#: seiten.cpp:514
+#: scribus/seiten.cpp:514
 msgid "SeitenPal::Available Templates:"
 msgstr "Tilgængelige skabeloner:"
 
-#: seiten.cpp:523
+#: scribus/seiten.cpp:523
 msgid "SeitenPal::Document Pages:"
 msgstr "Dokument sider:"
 
-#: seiten.cpp:572
+#: scribus/seiten.cpp:572
 msgid ""
 "SeitenPal::Drag Pages or Template Pages onto the Trashbin to delete them."
 msgstr "Træk sider eller skabeloner til skraldespanden for at slette dem."
 
-#: seiten.cpp:548
+#: scribus/seiten.cpp:548
 msgid "SeitenPal::Facing Pages"
 msgstr "Modstående sider"
 
-#: seiten.cpp:574
+#: scribus/seiten.cpp:574
 msgid ""
 "SeitenPal::Here are all your Templates, to create a new Page\n"
 "drag a Template to the Pageview below."
@@ -4605,214 +5407,464 @@ msgstr ""
 "Her er alle dine skabeloner. Træk en skabelon\n"
 "til vinduet nedenunder, for at lave en ny side."
 
-#: seiten.cpp:551
+#: scribus/seiten.cpp:551
 msgid "SeitenPal::Left Page first"
 msgstr "Venstre side først"
 
-#: seiten.cpp:728
+#: scribus/seiten.cpp:728
 msgid "SeitenPal::Normal"
 msgstr ""
 
-#: seiten.cpp:573
+#: scribus/seiten.cpp:573
 msgid "SeitenPal::This previews all the pages of your Document."
 msgstr "Her kan du se alle siderne i dit dokument."
 
-#: selfield.cpp:51
+#: scribus/selfield.cpp:51
 msgid "SelectFields::<<"
 msgstr ""
 
-#: selfield.cpp:48
+#: scribus/selfield.cpp:48
 msgid "SelectFields::>>"
 msgstr ""
 
-#: selfield.cpp:18
+#: scribus/selfield.cpp:18
 msgid "SelectFields::Available Fields"
 msgstr "Tilgængelige felter"
 
-#: selfield.cpp:89
+#: scribus/selfield.cpp:89
 msgid "SelectFields::Cancel"
 msgstr "Annullér"
 
-#: selfield.cpp:85
+#: scribus/selfield.cpp:85
 msgid "SelectFields::OK"
 msgstr ""
 
-#: selfield.cpp:10
+#: scribus/selfield.cpp:10
 msgid "SelectFields::Select Fields"
 msgstr "Markér felter"
 
-#: selfield.cpp:58
+#: scribus/selfield.cpp:58
 msgid "SelectFields::Selected Fields"
 msgstr "Markerede felter"
 
-#: spalette.cpp:30
+#: scribus/spalette.cpp:30
 msgid "Spalette::No Style"
 msgstr "Ingen typografier"
 
-#: editformats.cpp:52
+#: scribus/editformats.cpp:30
+msgid "StilFormate::Append"
+msgstr "Tilføj"
+
+#: scribus/editformats.cpp:58
 msgid "StilFormate::Cancel"
 msgstr "Annullér"
 
-#: editformats.cpp:81
+#: scribus/editformats.cpp:88
 msgid "StilFormate::Copy of %1"
 msgstr "Kopi af %1"
 
-#: editformats.cpp:43
+#: scribus/editformats.cpp:49
 msgid "StilFormate::Delete"
 msgstr "Slet"
 
-#: editformats.cpp:132
+#: scribus/editformats.cpp:145
 msgid "StilFormate::Do you really want do delete this Style?"
 msgstr "Ønsker du virkelig at slette denne stil?"
 
-#: editformats.cpp:38
+#: scribus/editformats.cpp:163
+msgid "StilFormate::Documents (*.sla *.scd);;All Files (*)"
+msgstr "Dokumenter (*.sla *.scd);; Alle filer (*)"
+
+#: scribus/editformats.cpp:161
+msgid "StilFormate::Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"
+msgstr "Dokumenter (*.sla *.sla.gz *.scd *scd.gz);; Alle filer (*)"
+
+#: scribus/editformats.cpp:44
 msgid "StilFormate::Duplicate"
 msgstr "Duplikér"
 
-#: editformats.cpp:11
+#: scribus/editformats.cpp:13
 msgid "StilFormate::Edit Styles"
 msgstr "Redigér typografier"
 
-#: editformats.cpp:32
+#: scribus/editformats.cpp:38
 msgid "StilFormate::Edit"
 msgstr "Redigér"
 
-#: editformats.cpp:102
+#: scribus/editformats.cpp:112
 msgid "StilFormate::New Style"
 msgstr "Ny typografi"
 
-#: editformats.cpp:28
+#: scribus/editformats.cpp:34
 msgid "StilFormate::New"
 msgstr "Ny"
 
-#: editformats.cpp:133
+#: scribus/editformats.cpp:146
 msgid "StilFormate::No"
 msgstr "Ingen"
 
-#: editformats.cpp:48
+#: scribus/editformats.cpp:163
+msgid "StilFormate::Open"
+msgstr "Åbn"
+
+#: scribus/editformats.cpp:54
 msgid "StilFormate::Save"
 msgstr "Gem"
 
-#: editformats.cpp:131
+#: scribus/editformats.cpp:144
 msgid "StilFormate::Warning"
 msgstr "Advarsel"
 
-#: editformats.cpp:134
+#: scribus/editformats.cpp:147
 msgid "StilFormate::Yes"
 msgstr "Ja"
 
 # text from story
-#: story.cpp:451
+#: scribus/story.cpp:564
 msgid "StoryEditor::Block"
 msgstr "Blok"
 
-#: story.cpp:449
+#: scribus/story.cpp:562
 msgid "StoryEditor::Center"
 msgstr "Centrér"
 
-#: story.cpp:235
+#: scribus/story.cpp:313
+msgid "StoryEditor::Chars: "
+msgstr "Tegn: "
+
+#: scribus/story.cpp:239
 msgid "StoryEditor::Clear"
 msgstr "Slet"
 
-#: story.cpp:233
+#: scribus/story.cpp:237
 msgid "StoryEditor::Copy"
 msgstr "Kopiér"
 
-#: story.cpp:232
+#: scribus/story.cpp:273
+msgid "StoryEditor::Current Paragraph:"
+msgstr "Nuværende afsnit:"
+
+#: scribus/story.cpp:236
 msgid "StoryEditor::Cut"
 msgstr "Klip"
 
-#: story.cpp:325
+#: scribus/story.cpp:437
 msgid "StoryEditor::Do you really want to clear all your Text?"
 msgstr "Ønsker du virkelig at slette al din tekst?"
 
-#: story.cpp:314
+#: scribus/story.cpp:426
 msgid "StoryEditor::Do you really want to lose all your Changes?"
 msgstr "Ønsker du virkelig at miste alle ændringer?"
 
-#: story.cpp:237
+#: scribus/story.cpp:241
 msgid "StoryEditor::Edit Styles..."
 msgstr "Redigér typografier..."
 
-#: story.cpp:241
+#: scribus/story.cpp:245
 msgid "StoryEditor::Edit"
 msgstr "Redigér"
 
-#: story.cpp:227
+#: scribus/story.cpp:231
 msgid "StoryEditor::Exit without Saving"
 msgstr "Afslut uden at gemme"
 
-#: story.cpp:240
+#: scribus/story.cpp:244
 msgid "StoryEditor::File"
 msgstr "Fil"
 
-#: story.cpp:452
+#: scribus/story.cpp:565
 msgid "StoryEditor::Forced"
 msgstr "Tvunget"
 
-#: story.cpp:448
+#: scribus/story.cpp:561
 msgid "StoryEditor::Left"
 msgstr "Venstre"
 
-#: story.cpp:224
+#: scribus/story.cpp:228
 msgid "StoryEditor::New"
 msgstr "Ny"
 
-#: story.cpp:234
+#: scribus/story.cpp:303
+msgid "StoryEditor::Paragraphs: "
+msgstr "Afsnit: "
+
+#: scribus/story.cpp:238
 msgid "StoryEditor::Paste"
 msgstr "Indsæt"
 
-#: story.cpp:230
+#: scribus/story.cpp:234
 msgid "StoryEditor::Redo"
 msgstr "Lav igen"
 
-#: story.cpp:450
+#: scribus/story.cpp:563
 msgid "StoryEditor::Right"
 msgstr "Højre"
 
-#: story.cpp:226
+#: scribus/story.cpp:230
 msgid "StoryEditor::Save and Exit"
 msgstr "Gem og afslut"
 
-#: story.cpp:204
+#: scribus/story.cpp:210
 msgid "StoryEditor::Story Editor"
 msgstr "Redigering af tekst"
 
-#: story.cpp:245
+#: scribus/story.cpp:249
 msgid "StoryEditor::Style"
 msgstr "Typografi"
 
-#: story.cpp:246
+#: scribus/story.cpp:250
 msgid "StoryEditor::Text"
 msgstr "Tekst"
 
-#: story.cpp:229
+#: scribus/story.cpp:300
+msgid "StoryEditor::Totals:"
+msgstr "Ialt:"
+
+#: scribus/story.cpp:233
 msgid "StoryEditor::Undo"
 msgstr "Fortryd"
 
-#: story.cpp:238
+#: scribus/story.cpp:242
 msgid "StoryEditor::Update Textframe"
 msgstr "Opdatér tekstramme"
 
-#: story.cpp:324
+#: scribus/story.cpp:436
 msgid "StoryEditor::Warning"
 msgstr "Advarsel"
 
-msgid "Current Paragraph:"
-msgstr "Nuværende afsnit:"
-
-msgid "Words: "
+#: scribus/story.cpp:308
+msgid "StoryEditor::Words: "
 msgstr "Ord: "
 
-msgid "Chars: "
-msgstr "Tegn: "
+#: scribus/tabmanager.cpp:51
+msgid "TabManager:: pt"
+msgstr ""
 
-msgid "Totals:"
-msgstr "Ialt:"
+#: scribus/tabmanager.cpp:80
+msgid "TabManager::Add"
+msgstr "Tilføj"
 
-msgid "Paragraphs: "
-msgstr "Afsnit: "
+#: scribus/tabmanager.cpp:36
+msgid "TabManager::Alignment:"
+msgstr "Justering:"
 
+#: scribus/tabmanager.cpp:71
+msgid "TabManager::Cancel"
+msgstr "Annullér"
+
+#: scribus/tabmanager.cpp:45
+msgid "TabManager::Center"
+msgstr "Centréret"
+
+#: scribus/tabmanager.cpp:44
+msgid "TabManager::Comma"
+msgstr "Komma"
+
+#: scribus/tabmanager.cpp:43
+msgid "TabManager::Full Stop"
+msgstr "Punktum"
+
+#: scribus/tabmanager.cpp:41
+msgid "TabManager::Left"
+msgstr "Venstre"
+
+#: scribus/tabmanager.cpp:19
+msgid "TabManager::Manage Tabulators"
+msgstr "Håndtér tabulatorer"
+
+#: scribus/tabmanager.cpp:66
+msgid "TabManager::OK"
+msgstr ""
+
+#: scribus/tabmanager.cpp:32
+msgid "TabManager::Position:"
+msgstr "Placering:"
+
+#: scribus/tabmanager.cpp:75
+msgid "TabManager::Remove"
+msgstr "Fjern"
+
+#: scribus/tabmanager.cpp:42
+msgid "TabManager::Right"
+msgstr "Højre"
+
+#: scribus/tree.cpp:28
+msgid "Tree::Element"
+msgstr "Objekt"
+
+#: scribus/tree.cpp:77
+msgid "Tree::Font:"
+msgstr "Font:"
+
+#: scribus/tree.cpp:81
+msgid "Tree::Image"
+msgstr "Billede"
+
+#: scribus/tree.cpp:30
+msgid "Tree::Information"
+msgstr ""
+
+#: scribus/tree.cpp:89
+msgid "Tree::Line"
+msgstr "Linie"
+
+#: scribus/tree.cpp:20
+msgid "Tree::Outline"
+msgstr "Oversigt"
+
+#: scribus/tree.cpp:237
+msgid "Tree::Page"
+msgstr "Side"
+
+#: scribus/tree.cpp:101
+msgid "Tree::PathText"
+msgstr "Sti-tekst"
+
+#: scribus/tree.cpp:93
+msgid "Tree::Polygon"
+msgstr ""
+
+#: scribus/tree.cpp:97
+msgid "Tree::Polyline"
+msgstr "Poly-linie"
+
+#: scribus/tree.cpp:85
+msgid "Tree::Text"
+msgstr "Tekst"
+
+#: scribus/tree.cpp:29
+msgid "Tree::Type"
+msgstr ""
+
+#: scribus/tree.cpp:75
+msgid "Tree::X:"
+msgstr ""
+
+#: scribus/tree.cpp:76
+msgid "Tree::Y:"
+msgstr ""
+
+#: scribus/werktoolb.cpp:77
+msgid "WerkToolB::Draws various Shapes"
+msgstr "Indsæt forskellige figurer"
+
+#: scribus/werktoolb.cpp:59
+msgid "WerkToolB::Edit Contents of Frame"
+msgstr "Redigér indhold af ramme"
+
+#: scribus/werktoolb.cpp:62
+msgid "WerkToolB::Edit the Text with the Story Editor"
+msgstr "Rediger tekst i den indbyggede tekstbehandler"
+
+#: scribus/werktoolb.cpp:46
+msgid "WerkToolB::Insert Bezier Curves"
+msgstr "Indsæt bezier kurver"
+
+#: scribus/werktoolb.cpp:48
+msgid "WerkToolB::Insert Freehand Line"
+msgstr "Indsæt frihånds-linie"
+
+#: scribus/werktoolb.cpp:49
+msgid "WerkToolB::Insert Lines"
+msgstr "Indsæt linier"
+
+#: scribus/werktoolb.cpp:30
+msgid "WerkToolB::Insert Picture"
+msgstr "Indsæt billede"
+
+#: scribus/werktoolb.cpp:37
+msgid "WerkToolB::Insert Polygons"
+msgstr "Indsæt polygoner"
+
+#: scribus/werktoolb.cpp:28
+msgid "WerkToolB::Insert Text Frame"
+msgstr "Indsæt tekstramme"
+
+#: scribus/werktoolb.cpp:65
+msgid "WerkToolB::Link Text Frames"
+msgstr "Sammenkæd tekstrammer"
+
+#: scribus/werktoolb.cpp:36
+msgid "WerkToolB::Properties..."
+msgstr "Egenskaber..."
+
+#: scribus/werktoolb.cpp:54
+msgid "WerkToolB::Rotate Item"
+msgstr "Rotér objekt"
+
+#: scribus/werktoolb.cpp:25
+msgid "WerkToolB::Select Items"
+msgstr "Markér objekter"
+
+#: scribus/werktoolb.cpp:17
+msgid "WerkToolB::Tools"
+msgstr "Værktøjer"
+
+#: scribus/werktoolb.cpp:68
+msgid "WerkToolB::Unlink Text Frames"
+msgstr "Bryd sammenkædning af tekstrammer"
+
+#: scribus/werktoolb.cpp:57
+msgid "WerkToolB::Zooms in or out"
+msgstr "Zoom ind eller ud"
+
+#: scribus/werktoolb.cpp:255
+msgid "WerkToolBP::Button"
+msgstr "Knap"
+
+#: scribus/werktoolb.cpp:257
+msgid "WerkToolBP::Check Box"
+msgstr "Afkrydsnings boks"
+
+#: scribus/werktoolb.cpp:258
+msgid "WerkToolBP::Combo Box"
+msgstr "Kombo boks"
+
+#: scribus/werktoolb.cpp:268
+msgid "WerkToolBP::Insert PDF-Annotations"
+msgstr "Indsæt PDF-Kommentar"
+
+#: scribus/werktoolb.cpp:260
+msgid "WerkToolBP::Insert PDF-Fields"
+msgstr "Indsæt PDF-Felter"
+
+#: scribus/werktoolb.cpp:267
+msgid "WerkToolBP::Link"
+msgstr "Lænke"
+
+#: scribus/werktoolb.cpp:259
+msgid "WerkToolBP::List Box"
+msgstr "Liste boks"
+
+#: scribus/werktoolb.cpp:252
+msgid "WerkToolBP::PDF-Tools"
+msgstr "PDF-Værktøjer"
+
+#: scribus/werktoolb.cpp:256
+msgid "WerkToolBP::Text Field"
+msgstr "Tekstfelt"
+
+#: scribus/werktoolb.cpp:266
+msgid "WerkToolBP::Text"
+msgstr "Tekst"
+
+#: scribus/plugins/libchar/charselect.cpp:237
+msgid "ZAuswahl::Clear"
+msgstr "Slet"
+
+#: scribus/plugins/libchar/charselect.cpp:243
+msgid "ZAuswahl::Close"
+msgstr "Luk"
+
+#: scribus/plugins/libchar/charselect.cpp:231
+msgid "ZAuswahl::Insert"
+msgstr "Indsæt"
+
+#: scribus/plugins/libchar/charselect.cpp:131
+msgid "ZAuswahl::Select Character:"
+msgstr "Vælg tegn:"
+
+# Missing in story editor - mouse right-click
 msgid "&Undo"
 msgstr "&Fortryd"
 
@@ -4834,842 +5886,33 @@ msgstr "Slet"
 msgid "Select All"
 msgstr "Markér alt"
 
-#: tree.cpp:28
-msgid "Tree::Element"
-msgstr "Objekt"
-
-#: tree.cpp:75
-msgid "Tree::Font:"
-msgstr "Font:"
-
-#: tree.cpp:79
-msgid "Tree::Image"
-msgstr "Billede"
-
-#: tree.cpp:30
-msgid "Tree::Information"
-msgstr ""
-
-#: tree.cpp:87
-msgid "Tree::Line"
-msgstr "Linie"
-
-#: tree.cpp:20
-msgid "Tree::Outline"
-msgstr "Oversigt"
-
-#: tree.cpp:235
-msgid "Tree::Page"
-msgstr "Side"
-
-#: tree.cpp:99
-msgid "Tree::PathText"
-msgstr "Sti-tekst"
-
-#: tree.cpp:91
-msgid "Tree::Polygon"
-msgstr ""
-
-#: tree.cpp:95
-msgid "Tree::Polyline"
-msgstr "Poly-linie"
-
-#: tree.cpp:83
-msgid "Tree::Text"
-msgstr "Tekst"
-
-#: tree.cpp:29
-msgid "Tree::Type"
-msgstr ""
-
-#: tree.cpp:73
-msgid "Tree::X:"
-msgstr ""
-
-#: tree.cpp:74
-msgid "Tree::Y:"
-msgstr ""
-
-#: werktoolb.cpp:50
-msgid "WerkToolB::Break Text Chains"
-msgstr "Bryd tekstkæder"
-
-#: werktoolb.cpp:47
-msgid "WerkToolB::Create Text Chains"
-msgstr "Lav tekstkæder"
-
-#: werktoolb.cpp:24
-msgid "WerkToolB::Edit Contents of Frame"
-msgstr "Redigér indhold af ramme"
-
-msgid "WerkToolB::Edit the Text with the Story Editor"
-msgstr "Rediger tekst i tekstbehandler"
-
-#: werktoolb.cpp:45
-msgid "WerkToolB::Insert Bezier Curves"
-msgstr "Indsæt bezier kurver"
-
-#: werktoolb.cpp:43
-msgid "WerkToolB::Insert Lines"
-msgstr "Indsæt linier"
-
-#: werktoolb.cpp:35
-msgid "WerkToolB::Draws various Shapes"
-msgstr "Indsæt forskellige figurer"
-
-#: werktoolb.cpp:31
-msgid "WerkToolB::Insert Picture"
-msgstr "Indsæt billede"
-
-#: werktoolb.cpp:39
-msgid "WerkToolB::Insert Polygons"
-msgstr "Indsæt polygoner"
-
-#: werktoolb.cpp:33
-msgid "WerkToolB::Insert Rectangles"
-msgstr "Indsæt rektangler"
-
-#: werktoolb.cpp:29
-msgid "WerkToolB::Insert Text Frame"
-msgstr "Indsæt tekstramme"
-
-#: werktoolb.cpp:38
-msgid "WerkToolB::Properties..."
-msgstr "Egenskaber..."
-
-#: werktoolb.cpp:21
-msgid "WerkToolB::Rotate Item"
-msgstr "Rotér objekt"
-
-#: werktoolb.cpp:18
-msgid "WerkToolB::Select Items"
-msgstr "Marker objekt"
-
-#: werktoolb.cpp:16
-msgid "WerkToolB::Tools"
-msgstr "Værktøjer"
-
-#: werktoolb.cpp:27
-msgid "WerkToolB::Zooms in or out"
-msgstr "Zoom ind eller ud"
-
-#: werktoolb.cpp:171
-msgid "WerkToolBP::Button"
-msgstr "Knap"
-
-#: werktoolb.cpp:173
-msgid "WerkToolBP::Check Box"
-msgstr "Afkrydsnings boks"
-
-#: werktoolb.cpp:174
-msgid "WerkToolBP::Combo Box"
-msgstr "Kombo boks"
-
-#: werktoolb.cpp:184
-msgid "WerkToolBP::Insert PDF-Annotations"
-msgstr "Indsæt PDF-Kommentar"
-
-#: werktoolb.cpp:176
-msgid "WerkToolBP::Insert PDF-Fields"
-msgstr "Indsæt PDF-Felter"
-
-#: werktoolb.cpp:183
-msgid "WerkToolBP::Link"
-msgstr "Lænke"
-
-#: werktoolb.cpp:175
-msgid "WerkToolBP::List Box"
-msgstr "Liste boks"
-
-#: werktoolb.cpp:168
-msgid "WerkToolBP::PDF-Tools"
-msgstr "PDF-Værktøjer"
-
-#: werktoolb.cpp:172
-msgid "WerkToolBP::Text Field"
-msgstr "Tekstfelt"
-
-#: werktoolb.cpp:182
-msgid "WerkToolBP::Text"
-msgstr "Tekst"
-
-#: libabout/about.cpp:35
-msgid "About::%1. %2 %3 "
-msgstr ""
-
-#: libabout/about.cpp:19
-msgid "About::About Scribus%1%2"
-msgstr "Om Scribus%1%2"
-
-#: libabout/about.cpp:56
-msgid "About::About"
-msgstr "Om"
-
-#: libabout/about.cpp:77
-msgid "About::Authors"
-msgstr "Forfattere"
-
-#: libabout/about.cpp:54
-msgid "About::Build-ID:"
-msgstr ""
-
-#: libabout/about.cpp:105
-msgid "About::Bulgarian:"
-msgstr "Bulgarsk:"
-
-#: libabout/about.cpp:149
-msgid "About::Close"
-msgstr "Luk"
-
-#: libabout/about.cpp:65
-msgid "About::Contributions from:"
-msgstr "Bidrag fra:"
-
-#: libabout/about.cpp:120
-msgid "About::Czech:"
-msgstr "Tjekkisk:"
-
-#: libabout/about.cpp:126
-msgid "About::Danish:"
-msgstr "Dansk:"
-
-#: libabout/about.cpp:71
-msgid "About::Documentation:"
-msgstr "Dokumentation:"
-
-#: libabout/about.cpp:133
-msgid "About::English:"
-msgstr "Engelsk:"
-
-#: libabout/about.cpp:86
-msgid "About::French:"
-msgstr "Fransk:"
-
-#: libabout/about.cpp:108
-msgid "About::Galician:"
-msgstr "Galicisk:"
-
-#: libabout/about.cpp:83
-msgid "About::German:"
-msgstr "Tysk:"
-
-#: libabout/about.cpp:97
-msgid "About::Hungarian:"
-msgstr "Ungarsk:"
-
-#: libabout/about.cpp:94
-msgid "About::Italian:"
-msgstr "Italiensk:"
-
-#: libabout/about.cpp:114
-msgid "About::Lithuanian:"
-msgstr "Litaurisk:"
-
-#: libabout/about.cpp:129
-msgid "About::Norwegian:"
-msgstr "Norsk:"
-
-#: libabout/about.cpp:117
-msgid "About::Polish:"
-msgstr "Polsk:"
-
-#: libabout/about.cpp:62
-msgid "About::Programming:"
-msgstr "Programmering:"
-
-#: libabout/about.cpp:54
-msgid ""
-"About::Scribus Version %1\n"
-"%2 %3"
-msgstr ""
-
-#: libabout/about.cpp:123
-msgid "About::Slovak:"
-msgstr "Slovakisk:"
-
-#: libabout/about.cpp:91
-msgid "About::Spanish and Catalan:"
-msgstr "Catalansk:"
-
-#: libabout/about.cpp:141
-msgid "About::Translations"
-msgstr "Oversættelser"
-
-#: libabout/about.cpp:111
-msgid "About::Turkish:"
-msgstr "Tyrkisk:"
-
-#: libabout/about.cpp:102
-msgid "About::Ukrainian:"
-msgstr "Ukrainsk:"
-
-#: libabout/about.cpp:135
-msgid "About::Welsh:"
-msgstr "Walisisk:"
-
-msgid "About::Russian:"
-msgstr "Russisk:"
-
-#: libprefs/prefs.cpp:1263
-msgid "Preferences:: %"
-msgstr ""
-
-#: libprefs/prefs.cpp:1986
-msgid "Preferences:: in"
-msgstr ""
-
-#: libprefs/prefs.cpp:1974
-msgid "Preferences:: mm"
-msgstr ""
-
-#: libprefs/prefs.cpp:1998
-msgid "Preferences:: p"
-msgstr ""
-
-#: libprefs/prefs.cpp:1962
-msgid "Preferences:: pt"
-msgstr ""
-
-#: libprefs/prefs.cpp:1054
-msgid "Preferences:: pts"
-msgstr ""
-
-#: libprefs/prefs.cpp:1422
-msgid "Preferences::"
-msgstr ""
-
-#: libprefs/prefs.cpp:1450
-msgid "Preferences::Adjust Display Size"
-msgstr "Indstil vis side"
-
-#: libprefs/prefs.cpp:682
-msgid "Preferences::Automatic Line Spacing:"
-msgstr "Automatisk linieafstand:"
-
-#: libprefs/prefs.cpp:389
-msgid "Preferences::Autosave"
-msgstr "Gem automatisk"
-
-#: libprefs/prefs.cpp:1399
-msgid "Preferences::Background:"
-msgstr "Baggrund:"
-
-#: libprefs/prefs.cpp:1337
-msgid "Preferences::Big"
-msgstr "Stor"
-
-#: libprefs/prefs.cpp:372
-msgid "Preferences::Bottom:"
-msgstr "Bund:"
-
-#: libprefs/prefs.cpp:1501
-msgid "Preferences::Cancel"
-msgstr "Annullér"
-
-#: libprefs/prefs.cpp:212
-msgid "Preferences::Change..."
-msgstr "Vælg..."
-
-#: libprefs/prefs.cpp:1581
-msgid "Preferences::Choose a Directory"
-msgstr "Vælg en mappe"
-
-#: libprefs/prefs.cpp:1251
-msgid "Preferences::Convex Polygon"
-msgstr ""
-
-#: libprefs/prefs.cpp:1220
-msgid "Preferences::Corners:"
-msgstr "Hjørner:"
-
-#: libprefs/prefs.cpp:264
-msgid "Preferences::Custom"
-msgstr "Bruger"
-
-#: libprefs/prefs.cpp:776
-msgid "Preferences::Default Font:"
-msgstr "Standard font:"
-
-#: libprefs/prefs.cpp:772
-msgid "Preferences::Default Size:"
-msgstr "Standard størrelse:"
-
-#: libprefs/prefs.cpp:627
-msgid "Preferences::Disp.:"
-msgstr "Forskydning:"
-
-#: libprefs/prefs.cpp:1377
-msgid "Preferences::Display Frames"
-msgstr "Vis rammer"
-
-#: libprefs/prefs.cpp:1381
-msgid "Preferences::Display Pages Side by Side"
-msgstr "Vis sider ved siden af hinanden"
-
-#: libprefs/prefs.cpp:1441
-msgid "Preferences::Display Unprintable Area in Margin Color"
-msgstr "Vis område, der ikke kan udskrives i margin farve"
-
-#: libprefs/prefs.cpp:52
-msgid "Preferences::Display"
-msgstr "Vis"
-
-#: libprefs/prefs.cpp:47
-msgid "Preferences::Document"
-msgstr "Dokument"
-
-#: libprefs/prefs.cpp:181
-msgid "Preferences::Documents:"
-msgstr "Dokumenter:"
-
-#: libprefs/prefs.cpp:396
-msgid "Preferences::Enabled"
-msgstr "Aktiv"
-
-#: libprefs/prefs.cpp:315
-msgid "Preferences::Facing Pages"
-msgstr "Modstående sider"
-
-#: libprefs/prefs.cpp:1260
-msgid "Preferences::Factor:"
-msgstr "Faktor:"
-
-#: libprefs/prefs.cpp:1140
-msgid "Preferences::Fill Color:"
-msgstr "Fyldfarve:"
-
-#: libprefs/prefs.cpp:86
-msgid "Preferences::Font Size:"
-msgstr "Fontstørrelse:"
-
-#: libprefs/prefs.cpp:1128
-msgid "Preferences::Free Scaling"
-msgstr "Fri skalering"
-
-#: libprefs/prefs.cpp:64
-msgid "Preferences::GUI"
-msgstr ""
-
-#: libprefs/prefs.cpp:46
-msgid "Preferences::General"
-msgstr "Generelt"
-
-#: libprefs/prefs.cpp:137
-msgid "Preferences::Grab-Radius"
-msgstr "Gribe-radius"
-
-#: libprefs/prefs.cpp:472
-msgid "Preferences::Grid Colors"
-msgstr "Farve på gitter og hjælpelinier"
-
-#: libprefs/prefs.cpp:419
-msgid "Preferences::Grid Layout"
-msgstr "Gitter indstillinger"
-
-#: libprefs/prefs.cpp:450
-msgid "Preferences::Guide Snap Distance:"
-msgstr "'Klæb til' afstand"
-
-#: libprefs/prefs.cpp:48
-msgid "Preferences::Guides"
-msgstr "Hjælpelinier"
-
-#: libprefs/prefs.cpp:297
-msgid "Preferences::Height:"
-msgstr "Højde:"
-
-#: libprefs/prefs.cpp:1132
-msgid "Preferences::Horizontal Scaling"
-msgstr "Horisontal skalering"
-
-#: libprefs/prefs.cpp:192
-msgid "Preferences::ICC-Profiles:"
-msgstr "ICC-profiler:"
-
-#: libprefs/prefs.cpp:559
-msgid "Preferences::In the Background"
-msgstr "I baggrunden"
-
-#: libprefs/prefs.cpp:563
-msgid "Preferences::In the Foreground"
-msgstr "I forgrunden"
-
-#: libprefs/prefs.cpp:107
-msgid "Preferences::Inches (in)"
-msgstr "Tommer (in)"
-
-#: libprefs/prefs.cpp:1603
-msgid "Preferences::Inside:"
-msgstr "Inderside;"
-
-#: libprefs/prefs.cpp:400
-msgid "Preferences::Interval:"
-msgstr ""
-
-#: libprefs/prefs.cpp:1166
-msgid "Preferences::Keep Aspect Ratio"
-msgstr "Behold bredde/højde forhold"
-
-#: libprefs/prefs.cpp:167
-msgid "Preferences::Keyboard Shortcuts..."
-msgstr "Tastaturgenveje..."
-
-#: libprefs/prefs.cpp:271
-msgid "Preferences::Landscape"
-msgstr "Landskab"
-
-#: libprefs/prefs.cpp:320
-msgid "Preferences::Left Page First"
-msgstr "Venstre side først"
-
-#: libprefs/prefs.cpp:1609
-msgid "Preferences::Left:"
-msgstr "Venstre:"
-
-#: libprefs/prefs.cpp:993
-msgid "Preferences::Line Color:"
-msgstr "Liniefarve:"
-
-#: libprefs/prefs.cpp:1001
-msgid "Preferences::Line Style:"
-msgstr "Liniestil:"
-
-#: libprefs/prefs.cpp:1005
-msgid "Preferences::Line Width:"
-msgstr "Liniebredde:"
-
-#: libprefs/prefs.cpp:893
-msgid "Preferences::Linestyle:"
-msgstr "Liniestil:"
-
-#: libprefs/prefs.cpp:489
-msgid "Preferences::Major Grid Color:"
-msgstr "Hoved-gitterlinier:"
-
-#: libprefs/prefs.cpp:436
-msgid "Preferences::Major Grid Spacing:"
-msgstr "Afstand mellem hovedlinier:"
-
-#: libprefs/prefs.cpp:329
-msgid "Preferences::Margin Guides"
-msgstr "Margin hjælpelinier"
-
-#: libprefs/prefs.cpp:1419
-msgid "Preferences::Margins:"
-msgstr "Marginer:"
-
-#: libprefs/prefs.cpp:1082
-msgid "Preferences::Maximum:"
-msgstr "Maksimum"
-
-#: libprefs/prefs.cpp:1336
-msgid "Preferences::Medium"
-msgstr ""
-
-#: libprefs/prefs.cpp:149
-msgid "Preferences::Menus"
-msgstr "Menuer"
-
-#: libprefs/prefs.cpp:106
-msgid "Preferences::Millimeters (mm)"
-msgstr "Millimeter (mm)"
-
-#: libprefs/prefs.cpp:1078
-msgid "Preferences::Minimum:"
-msgstr ""
-
-#: libprefs/prefs.cpp:485
-msgid "Preferences::Minor Grid Color:"
-msgstr "Gitterlinier:"
-
-#: libprefs/prefs.cpp:432
-msgid "Preferences::Minor Grid Spacing:"
-msgstr "Afstand mellem linier:"
-
-#: libprefs/prefs.cpp:114
-msgid "Preferences::Mouse-Settings"
-msgstr "Mus-indstillinger"
-
-#: libprefs/prefs.cpp:1176
-msgid "Preferences::None"
-msgstr "Ingen"
-
-#: libprefs/prefs.cpp:1495
-msgid "Preferences::OK"
-msgstr ""
-
-#: libprefs/prefs.cpp:231
-msgid "Preferences::Orientation:"
-msgstr "Retning:"
-
-#: libprefs/prefs.cpp:1304
-msgid "Preferences::Other Options"
-msgstr "Andre indstillinger"
-
-#: libprefs/prefs.cpp:669
-msgid "Preferences::Other"
-msgstr "Andet"
-
-#: libprefs/prefs.cpp:1604
-msgid "Preferences::Outside:"
-msgstr "Yderside:"
-
-#: libprefs/prefs.cpp:223
-msgid "Preferences::Page Size"
-msgstr "Sidestørrelse"
-
-#: libprefs/prefs.cpp:1389
-msgid "Preferences::Page-Colors"
-msgstr "Sidefarver"
-
-#: libprefs/prefs.cpp:172
-msgid "Preferences::Paths"
-msgstr "Stier"
-
-#: libprefs/prefs.cpp:108
-msgid "Preferences::Picas (p)"
-msgstr ""
-
-#: libprefs/prefs.cpp:546
-msgid "Preferences::Placing"
-msgstr "Placering"
-
-#: libprefs/prefs.cpp:105
-msgid "Preferences::Points (pt)"
-msgstr "Punkter (pt)"
-
-#: libprefs/prefs.cpp:270
-msgid "Preferences::Portrait"
-msgstr "Portræt"
-
-#: libprefs/prefs.cpp:36
-msgid "Preferences::Preferences"
-msgstr "Præferencer"
-
-#: libprefs/prefs.cpp:1321
-msgid "Preferences::Preview"
-msgstr "Vis"
-
-#: libprefs/prefs.cpp:159
-msgid "Preferences::Recent Documents:"
-msgstr "Nyeste dokumenter:"
-
-#: libprefs/prefs.cpp:1610
-msgid "Preferences::Right:"
-msgstr "Højre:"
-
-#: libprefs/prefs.cpp:1232
-msgid "Preferences::Rotation:"
-msgstr ""
-
-#: libprefs/prefs.cpp:1314
-msgid "Preferences::Save Contents on Exit"
-msgstr "Gem indhold ved afslutning"
-
-#: libprefs/prefs.cpp:1163
-msgid "Preferences::Scale Picture to Frame Size"
-msgstr "Skalér billede til rammestørrelse"
-
-#: libprefs/prefs.cpp:657
-msgid "Preferences::Scaling:"
-msgstr "Skalering:"
-
-#: libprefs/prefs.cpp:51
-msgid "Preferences::Scrapbook"
-msgstr "Scrapbog"
-
-#: libprefs/prefs.cpp:204
-msgid "Preferences::Scripts:"
-msgstr ""
-
-#: libprefs/prefs.cpp:1144
-msgid "Preferences::Shading:"
-msgstr "Farvemætning:"
-
-#: libprefs/prefs.cpp:1331
-msgid "Preferences::Size:"
-msgstr "Størrelse:"
-
-#: libprefs/prefs.cpp:644
-msgid "Preferences::Small Caps"
-msgstr "Små kapitaler"
-
-#: libprefs/prefs.cpp:1335
-msgid "Preferences::Small"
-msgstr "Lille"
-
-#: libprefs/prefs.cpp:1086
-msgid "Preferences::Stepping:"
-msgstr "Trin:"
-
-#: libprefs/prefs.cpp:575
-msgid "Preferences::Subscript"
-msgstr "Sænket skrift"
-
-#: libprefs/prefs.cpp:610
-msgid "Preferences::Superscript"
-msgstr "Hævet skrift"
-
-#: libprefs/prefs.cpp:835
-msgid "Preferences::Text Color:"
-msgstr "Tekst farve:"
-
-#: libprefs/prefs.cpp:73
-msgid "Preferences::Theme"
-msgstr "Tema"
-
-#: libprefs/prefs.cpp:1457
-msgid ""
-"Preferences::To adjust the display drag the ruler below with the Slider."
-msgstr "Indstil hvor meget 100% visning fylder på skærmen"
-
-#: libprefs/prefs.cpp:50
-msgid "Preferences::Tools"
-msgstr "Værktøjer"
-
-#: libprefs/prefs.cpp:375
-msgid "Preferences::Top:"
-msgstr ""
-
-#: libprefs/prefs.cpp:49
-msgid "Preferences::Typography"
-msgstr "Typografi"
-
-#: libprefs/prefs.cpp:96
-msgid "Preferences::Units"
-msgstr "Enheder"
-
-#: libprefs/prefs.cpp:1445
-msgid "Preferences::Use PDF-1.4 Transparency Features"
-msgstr "Brug PDF-1.4 transparent egenskaber"
-
-#: libprefs/prefs.cpp:525
-msgid "Preferences::User Guides Color:"
-msgstr "Hjælpelinier:"
-
-#: libprefs/prefs.cpp:1136
-msgid "Preferences::Vertical Scaling"
-msgstr "Vertical skalering"
-
-#: libprefs/prefs.cpp:127
-msgid "Preferences::Wheel-Jump"
-msgstr "Hjul-hop"
-
-#: libprefs/prefs.cpp:286
-msgid "Preferences::Width:"
-msgstr "Bredde:"
-
-#: libprefs/prefs.cpp:1838
-msgid "Preferences::Woven silk pyjamas exchanged for blue quartz"
-msgstr "Vævet silkepyjamas byttet med blå kvarts"
-
-#: libprefs/prefs.cpp:405
-msgid "Preferences::min"
-msgstr ""
-
-#: plugins/libchar/charselect.cpp:231
-msgid "ZAuswahl::Clear"
-msgstr "Slet"
-
-#: plugins/libchar/charselect.cpp:237
-msgid "ZAuswahl::Close"
-msgstr "Luk"
-
-#: plugins/libchar/charselect.cpp:225
-msgid "ZAuswahl::Insert"
-msgstr "Indsæt"
-
-#: plugins/libchar/charselect.cpp:125
-msgid "ZAuswahl::Select Character:"
-msgstr "Vælg tegn:"
-
-#: plugins/printpreview/preview.cpp:187
-msgid "PPreview::All"
-msgstr "Alle"
-
-#: plugins/printpreview/preview.cpp:83
-msgid "PPreview::Anti-alias Graphics"
-msgstr "Anti-alias Grafik"
-
-#: plugins/printpreview/preview.cpp:79
-msgid "PPreview::Anti-alias Text"
-msgstr "Anti-alias tekst"
-
-#: plugins/printpreview/preview.cpp:54
-msgid "PPreview::Page:"
-msgstr "Side:"
-
-#: plugins/printpreview/preview.cpp:34
-msgid "PPreview::Print Preview"
-msgstr "Vis udskrift"
-
-#: plugins/scriptplugin/scriptplugin.cpp:206
-msgid "MenuTest::Hide Console"
-msgstr "Skjul konsol"
-
-#: plugins/scriptplugin/scriptplugin.cpp:201
-msgid "MenuTest::Show Console"
-msgstr "Vis konsol"
-
-#: plugins/scriptplugin/pconsole.cpp:10
-msgid "PConsole::Script Console"
-msgstr "Script konsol"
-
-#: plugins/scriptplugin/scriptplugin.cpp:65
-msgid "QObject::Execute Script..."
-msgstr "Udfør script..."
-
-#: plugins/scriptplugin/scriptplugin.cpp:85
-msgid "QObject::Online Reference"
-msgstr "Scripter manual"
-
-#: plugins/scriptplugin/scriptplugin.cpp:95
-msgid "QObject::Open"
-msgstr "Åbn"
-
-#: plugins/scriptplugin/scriptplugin.cpp:66
-msgid "QObject::Recent Scripts"
-msgstr "Nyeste scripts"
-
-#: plugins/scriptplugin/scriptplugin.cpp:68
-msgid "QObject::Script"
-msgstr "Script"
-
-#: plugins/scriptplugin/scriptplugin.cpp:30
-msgid "QObject::Scripter Manual..."
-msgstr "Scripter manual..."
-
-#: plugins/scriptplugin/scriptplugin.cpp:67
-msgid "QObject::Show Console"
-msgstr "Vis konsol"
-
-#: plugins/svgexplugin/svgexplugin.cpp:44
-msgid "QObject::No"
-msgstr "Nej"
-
-#: plugins/svgexplugin/svgexplugin.cpp:34
-msgid "QObject::Save as"
-msgstr "Gem som"
-
-#: plugins/svgexplugin/svgexplugin.cpp:43
-msgid "QObject::Yes"
-msgstr "Ja"
-
-# Diverse 
+# Here and there !!
 msgid "Insert Special"
 msgstr "Indsæt specialtegn"
 
 msgid "Print Preview"
 msgstr "Vis udskrift"
 
-msgid "Append"
-msgstr "Tilføj"
+msgid "Import SVG-Image"
+msgstr "Importér SVG-Billede"
 
-msgid "Page"
-msgstr "Side"
+msgid "Save Page as SVG..."
+msgstr "Gem side som SVG..."
+
+msgid "SVG-Images (*.svg *.svgz);;All Files (*)"
+msgstr "SVG-billeder (*.svg *.svgz);; Alle filer (*)"
 
 msgid "Background"
 msgstr "Baggrund"
+
+msgid "New Template"
+msgstr "Ny Skabelon"
+
+msgid "Name:"
+msgstr "Navn:"
+
+msgid "Item"
+msgstr "Objekt"
 
 # Text in qt open-and save menues
 msgid "Choose a Directory"
@@ -5722,37 +5965,3 @@ msgstr "&Nej"
 
 msgid "&Yes"
 msgstr "&Ja"
-
-# Gad vide om de mangler !!
-#~ msgid "ScribusApp::No"
-#~ msgstr "Ingen"
-
-#~ msgid "ScribusApp::Yes"
-#~ msgstr "Ja"
-
-#~ msgid "Tree::Item"
-#~ msgstr "Emne"
-
-#~ msgid "Select new Font:"
-#~ msgstr "Vælg ny font:"
-
-#~ msgid "Insert"
-#~ msgstr "Indsæt"
-
-#~ msgid "Clear"
-#~ msgstr "Slet"
-
-#~ msgid "Close"
-#~ msgstr "Luk"
-
-#~ msgid "Save Page as SVG..."
-#~ msgstr "Gem side som SVG..."
-
-#~ msgid "SVG-Images (*.svg);;All Files (*)"
-#~ msgstr "SVG-billeder (*.svg);; Alle filer (*)"
-
-#~ msgid "Shade:"
-#~ msgstr "Farvemætning:"
-
-#~ msgid "Shade"
-#~ msgstr "Farvemætning"

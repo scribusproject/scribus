@@ -15,6 +15,7 @@
 #include "scribusdoc.h"
 #include "fontcombo.h"
 #include "page.h"
+#include "styleselect.h"
 extern QPixmap loadIcon(QString nam);
 
 
@@ -58,13 +59,17 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
     SSize->setText( tr( "Font Size" ) );
     SearchLayout->addWidget( SSize, 3, 0 );
 
+    SEffect = new QCheckBox( Search, "SEffect" );
+    SEffect->setText( tr( "Font Effects" ) );
+    SearchLayout->addWidget( SEffect, 4, 0 );
+
     SFill = new QCheckBox( Search, "SFill" );
     SFill->setText( tr( "Fill Color" ) );
-    SearchLayout->addWidget( SFill, 4, 0 );
+    SearchLayout->addWidget( SFill, 5, 0 );
 
     SStroke = new QCheckBox( Search, "SStroke" );
     SStroke->setText( tr( "Stroke Color" ) );
-    SearchLayout->addWidget( SStroke, 5, 0 );
+    SearchLayout->addWidget( SStroke, 6, 0 );
 
     STextVal = new QLineEdit( Search, "STextVal" );
 	STextVal->setEnabled(false);
@@ -102,6 +107,11 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
 	SSizeVal->setEnabled(false);
     SearchLayout->addWidget( SSizeVal, 3, 1 );
 
+    SEffVal = new StyleSelect( Search );
+    SEffVal->setStyle(0);
+	SEffVal->setEnabled(false);
+    SearchLayout->addWidget( SEffVal, 4, 1, Qt::AlignLeft );
+
     SFillVal = new QComboBox( true, Search, "SFillVal" );
 	SFillVal->setEditable(false);
 	SFillVal->insertItem( tr("None"));
@@ -112,7 +122,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
 		}
 	SFillVal->setCurrentText(doc->CurrTextFill);
 	SFillVal->setEnabled(false);
-    SearchLayout->addWidget( SFillVal, 4, 1 );
+    SearchLayout->addWidget( SFillVal, 5, 1 );
 
     SStrokeVal = new QComboBox( true, Search, "SStrokeVal" );
 	SStrokeVal->setEditable(false);
@@ -124,7 +134,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
 		}
 	SStrokeVal->setCurrentText(doc->CurrTextStroke);
 	SStrokeVal->setEnabled(false);
-    SearchLayout->addWidget( SStrokeVal, 5, 1 );
+    SearchLayout->addWidget( SStrokeVal, 6, 1 );
 
     SelLayout->addWidget( Search );
 
@@ -152,13 +162,17 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
     RSize->setText( tr( "Font Size" ) );
     ReplaceLayout->addWidget( RSize, 3, 0 );
 
+    REffect = new QCheckBox( Replace, "REffect" );
+    REffect->setText( tr( "Font Effects" ) );
+    ReplaceLayout->addWidget( REffect, 4, 0 );
+
     RFill = new QCheckBox( Replace, "RFill" );
     RFill->setText( tr( "Fill Color" ) );
-    ReplaceLayout->addWidget( RFill, 4, 0 );
+    ReplaceLayout->addWidget( RFill, 5, 0 );
 
     RStroke = new QCheckBox( Replace, "RStroke" );
     RStroke->setText( tr( "Stroke Color" ) );
-    ReplaceLayout->addWidget( RStroke, 5, 0 );
+    ReplaceLayout->addWidget( RStroke, 6, 0 );
 
     RTextVal = new QLineEdit( Replace, "RTextVal" );
 	RTextVal->setEnabled(false);
@@ -196,6 +210,11 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
 	RSizeVal->setEnabled(false);
     ReplaceLayout->addWidget( RSizeVal, 3, 1 );
 
+    REffVal = new StyleSelect( Replace );
+    REffVal->setStyle(0);
+	REffVal->setEnabled(false);
+    ReplaceLayout->addWidget( REffVal, 4, 1, Qt::AlignLeft );
+
     RFillVal = new QComboBox( true, Replace, "RFillVal" );
 	RFillVal->setEditable(false);
 	RFillVal->insertItem( tr("None"));
@@ -206,7 +225,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
 		}
 	RFillVal->setCurrentText(doc->CurrTextFill);
 	RFillVal->setEnabled(false);
-    ReplaceLayout->addWidget( RFillVal, 4, 1 );
+    ReplaceLayout->addWidget( RFillVal, 5, 1 );
 
     RStrokeVal = new QComboBox( true, Replace, "RStrokeVal" );
 	RStrokeVal->setEditable(false);
@@ -218,7 +237,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
 		}
 	RStrokeVal->setCurrentText(doc->CurrTextStroke);
 	RStrokeVal->setEnabled(false);
-    ReplaceLayout->addWidget( RStrokeVal, 5, 1 );
+    ReplaceLayout->addWidget( RStrokeVal, 6, 1 );
 
     SelLayout->addWidget( Replace );
     SearchReplaceLayout->addLayout( SelLayout );
@@ -258,7 +277,6 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
     Leave->setText( tr( "Leave" ) );
     ButtonsLayout->addWidget( Leave );
     SearchReplaceLayout->addLayout( ButtonsLayout );
-//    resize( QSize(570, 311).expandedTo(minimumSizeHint()) );
     resize(minimumSizeHint());
 
     // signals and slots connections
@@ -270,12 +288,14 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
     connect( SStyle, SIGNAL( clicked() ), this, SLOT( enableStyleSearch() ) );
     connect( SFont, SIGNAL( clicked() ), this, SLOT( enableFontSearch() ) );
     connect( SSize, SIGNAL( clicked() ), this, SLOT( enableSizeSearch() ) );
+    connect( SEffect, SIGNAL( clicked() ), this, SLOT( enableEffSearch() ) );
     connect( SFill, SIGNAL( clicked() ), this, SLOT( enableFillSearch() ) );
     connect( SStroke, SIGNAL( clicked() ), this, SLOT( enableStrokeSearch() ) );
     connect( RText, SIGNAL( clicked() ), this, SLOT( enableTxReplace() ) );
     connect( RStyle, SIGNAL( clicked() ), this, SLOT( enableStyleReplace() ) );
     connect( RFont, SIGNAL( clicked() ), this, SLOT( enableFontReplace() ) );
     connect( RSize, SIGNAL( clicked() ), this, SLOT( enableSizeReplace() ) );
+    connect( REffect, SIGNAL( clicked() ), this, SLOT( enableEffReplace() ) );
     connect( RFill, SIGNAL( clicked() ), this, SLOT( enableFillReplace() ) );
     connect( RStroke, SIGNAL( clicked() ), this, SLOT( enableStrokeReplace() ) );
 
@@ -283,25 +303,29 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
     setTabOrder( SText, SStyle );
     setTabOrder( SStyle, SFont );
     setTabOrder( SFont, SSize );
-    setTabOrder( SSize, SFill );
+    setTabOrder( SSize, SEffect );
+    setTabOrder( SEffect, SFill );
     setTabOrder( SFill, SStroke );
     setTabOrder( SStroke, STextVal );
     setTabOrder( STextVal, SStyleVal );
     setTabOrder( SStyleVal, SFontVal );
     setTabOrder( SFontVal, SSizeVal );
-    setTabOrder( SSizeVal, SFillVal );
+    setTabOrder( SSizeVal, SEffVal );
+    setTabOrder( SEffVal, SFillVal );
     setTabOrder( SFillVal, SStrokeVal );
     setTabOrder( SStrokeVal, RText );
     setTabOrder( RText, RStyle );
     setTabOrder( RStyle, RFont );
     setTabOrder( RFont, RSize );
-    setTabOrder( RSize, RFill );
+    setTabOrder( RSize, REffect );
+    setTabOrder( REffect, RFill );
     setTabOrder( RFill, RStroke );
     setTabOrder( RStroke, RTextVal );
     setTabOrder( RTextVal, RStyleVal );
     setTabOrder( RStyleVal, RFontVal );
     setTabOrder( RFontVal, RSizeVal );
-    setTabOrder( RSizeVal, RFillVal );
+    setTabOrder( RSizeVal, REffVal );
+    setTabOrder( REffVal, RFillVal );
     setTabOrder( RFillVal, RStrokeVal );
     setTabOrder( RStrokeVal, Word );
     setTabOrder( Word, CaseIgnore );
@@ -328,15 +352,18 @@ void SearchReplace::slotSearch()
 	NotFound = true;
 	int sStyle = 0;
 	int sSize = 0;
+	int sEff = 0;
 	bool rep = false;
 	bool found = true;
-	if ((RFill->isChecked()) || (RStroke->isChecked())  || (RStyle->isChecked())  || (RFont->isChecked())
-		|| (RSize->isChecked())  || (RText->isChecked()))
+	if ((RFill->isChecked()) || (RStroke->isChecked()) || (RStyle->isChecked()) || (RFont->isChecked())
+		|| (RSize->isChecked()) || (RText->isChecked()) || (REffect->isChecked()))
 		rep = true;
 	if (SText->isChecked())
 		sText = STextVal->text();
 	if (CaseIgnore->isChecked())
 		sText = sText.lower();
+	if (SEffect->isChecked())
+		sEff = SEffVal->getStyle();
 	if (SFill->isChecked())
 		fCol = SFillVal->currentText();
 	if (SStroke->isChecked())
@@ -386,6 +413,11 @@ void SearchReplace::slotSearch()
 		if (SStroke->isChecked())
 			{
 			if (Item->Ptext.at(a)->cstroke != sCol)
+				found = false;
+			}
+		if (SEffect->isChecked())
+			{
+			if ((Item->Ptext.at(a)->cstyle & 127) != sEff)
 				found = false;
 			}
 		if (SFill->isChecked())
@@ -551,6 +583,22 @@ void SearchReplace::slotReplace()
 		emit NewFont(RFontVal->currentText());
 	if (RSize->isChecked())
 		Doc->ActPage->chFSize(qRound(RSizeVal->value() * 10.0));
+	if (REffect->isChecked())
+		{
+		int s = REffVal->getStyle();
+		Doc->CurrentStyle = s;
+		if (Item->Ptext.count() != 0)
+			{
+			for (uint a = 0; a < Item->Ptext.count(); ++a)
+				{
+				if (Item->Ptext.at(a)->cselect)
+					{
+					Item->Ptext.at(a)->cstyle &= ~127;
+					Item->Ptext.at(a)->cstyle |= s;
+					}
+				}
+			}
+		}
 	DoReplace->setEnabled(false);
 	AllReplace->setEnabled(false);
 	for (uint a = 0; a < Item->Ptext.count(); ++a)
@@ -596,6 +644,11 @@ void SearchReplace::enableSizeSearch()
 	SSizeVal->setEnabled(SSize->isChecked());
 }
 
+void SearchReplace::enableEffSearch()
+{
+	SEffVal->setEnabled(SEffect->isChecked());
+}
+
 void SearchReplace::enableFillSearch()
 {
 	SFillVal->setEnabled(SFill->isChecked());
@@ -624,6 +677,11 @@ void SearchReplace::enableFontReplace()
 void SearchReplace::enableSizeReplace()
 {
 	RSizeVal->setEnabled(RSize->isChecked());
+}
+
+void SearchReplace::enableEffReplace()
+{
+	REffVal->setEnabled(REffect->isChecked());
 }
 
 void SearchReplace::enableFillReplace()

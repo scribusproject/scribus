@@ -38,7 +38,7 @@ MovePages::MovePages( QWidget* parent, int act, int max, bool art )
     FromPage->setMaxValue( max );
     Layout4->addWidget( FromPage, 0, 1);
     if (art)
-    	{
+    {
     	TextLabel2 = new QLabel( this, "TextLabel2" );
     	TextLabel2->setText( tr( "to:" ) );
     	Layout4->addWidget( TextLabel2, 0, 2);
@@ -47,7 +47,7 @@ MovePages::MovePages( QWidget* parent, int act, int max, bool art )
     	ToPage->setValue( act );
     	ToPage->setMaxValue( max );
     	Layout4->addWidget( ToPage, 0, 3);
-    	}
+    }
     Where = new QComboBox( true, this, "Where" );
     Where->insertItem( tr("before Page"));
     Where->insertItem( tr("after Page"));

@@ -184,7 +184,7 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
     BelowV->setMinimumSize( QSize( 70, 22 ) );
     BelowV->setMaxValue( 300 );
     BelowV->setMinValue( 0 );
-	  AbstandVLayout->addWidget( BelowV, 1, 1 );
+	AbstandVLayout->addWidget( BelowV, 1, 1 );
 
     LineSpVal = new MSpinBox( AbstandV, 1 );
     LineSpVal->setMinimumSize( QSize( 70, 22 ) );

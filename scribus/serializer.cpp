@@ -33,15 +33,15 @@ QString Serializer::GetObjekt()
 
 void Serializer::PutText(PageItem *Item)
 {
-  uint a;
-  QString Dat = "";
+	uint a;
+	QString Dat = "";
 	QPtrList<Pti> y = Item->Ptext;
-  for (a=0; a<y.count(); ++a)
+	for (a=0; a<y.count(); ++a)
   	{
 		QString b = y.at(a)->ch;
 		if (b == QChar(13))
 			b = "\n";
-    Dat += b;
+    	Dat += b;
     }
 	Objekt = Dat;
 }
@@ -53,42 +53,34 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 	PageItem *it = Item;
 	uint a;
 	if (!Append)
-		{
+	{
 		nb = Item;
 		while (nb != 0)
-			{
+		{
 			if (nb->BackBox != 0)
 				nb = nb->BackBox;
 			else
 				break;
-			}
+		}
 		it = nb;
 		while (nb != 0)
-			{
+		{
 			nb->Ptext.clear();
 			nb->CPos = 0;
 			nb->Dirty = true;
 			nb = nb->NextBox;
-			}
 		}
+	}
 	for (a=0; a<Objekt.length(); ++a)
-		{
+	{
 		if ((Objekt.at(a) == QChar(0)) || (Objekt.at(a) == QChar(13)))
 			continue;
 		hg = new Pti;
 		hg->ch = Objekt.at(a);
 		if ((hg->ch == QChar(10)) || (hg->ch == QChar(5)))
 			hg->ch = QChar(13);
-		if (font != "")
-			{
-			hg->cfont = font;
-			hg->csize = size;
-			}
-		else
-			{
-			hg->cfont = it->IFont;
-			hg->csize = it->ISize;
-			}
+		hg->cfont = font != "" ? font : it->IFont;
+		hg->csize = font != "" ? size : it->ISize;
 		hg->ccolor = it->TxtFill;
 		hg->cshade = it->ShTxtFill;
 		hg->cstroke = it->TxtStroke;
@@ -118,19 +110,15 @@ bool Serializer::Write(QString Cod)
 		codec = QTextCodec::codecForLocale();
 	else
 		codec = QTextCodec::codecForName(Cod);
-  QCString dec = codec->fromUnicode( Objekt );
+	QCString dec = codec->fromUnicode( Objekt );
 	QFile f(Filename);
 	bool ret = false;
 	if (f.open(IO_WriteOnly))
-		{
+	{
 		f.writeBlock(dec, dec.length());
 		f.close();
 		ret = true;
-		}
-	else
-		{
-		ret = false;
-		}
+	}
 	return ret;
 }
 
@@ -142,7 +130,7 @@ bool Serializer::Read(QString Cod)
 		codec = QTextCodec::codecForLocale();
 	else
 		codec = QTextCodec::codecForName(Cod);
-  QString dec = codec->toUnicode( Objekt );
+	QString dec = codec->toUnicode( Objekt );
 	Objekt = dec;
 	return tmp;
 }

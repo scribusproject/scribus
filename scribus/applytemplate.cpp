@@ -14,25 +14,18 @@ ApplyT::ApplyT( QWidget* parent, ScribusView *view, QString Nam)
     layout3->addWidget( TextLabel1 );
     Templ = new QComboBox( true, this, "Templ" );
     Templ->setMinimumSize( QSize( 120, 22 ) );
-		Templ->setEditable(false);
-		QString na, in;
-		if (Nam == "Normal")
-			na = tr("Normal");
-		else
-			na = Nam;
-		int cc = 0;
-		QMap<QString,int>::Iterator it;
-		for (it = view->MasterNames.begin(); it != view->MasterNames.end(); ++it)
-			{
-			if (it.key() == "Normal")
-				in = tr("Normal");
-			else
-				in = it.key();
-			Templ->insertItem(in);
-			if (in == na)
-				Templ->setCurrentItem(cc);
-			cc++;
-			}
+	Templ->setEditable(false);
+	QString na = Nam == "Normal" ? tr("Normal") : Nam, in;
+	int cc = 0;
+	QMap<QString,int>::Iterator it;
+	for (it = view->MasterNames.begin(); it != view->MasterNames.end(); ++it)
+	{
+		in = it.key() == "Normal" ? tr("Normal") : it.key();
+		Templ->insertItem(in);
+		if (in == na)
+			Templ->setCurrentItem(cc);
+		cc++;
+	}
     layout3->addWidget( Templ );
     ApplyTLayout->addLayout( layout3 );
 
@@ -50,25 +43,25 @@ ApplyT::ApplyT( QWidget* parent, ScribusView *view, QString Nam)
 
     layout2 = new QHBoxLayout( 0, 0, 6, "layout2");
     PageRange = new QRadioButton( buttonGroup1, "radioButton2" );
-		PageRange->setText( tr( "Apply from Page:" ) );
+	PageRange->setText( tr( "Apply from Page:" ) );
     layout2->addWidget( PageRange );
     FromPage = new QSpinBox( buttonGroup1, "FromPage" );
     FromPage->setMinValue( 1 );
-		FromPage->setMaxValue(view->Pages.count());
-		FromPage->setValue(view->Doc->ActPage->PageNr+1);
+	FromPage->setMaxValue(view->Pages.count());
+	FromPage->setValue(view->Doc->ActPage->PageNr+1);
     layout2->addWidget( FromPage );
     TextLabel2 = new QLabel( buttonGroup1, "textLabel1" );
     TextLabel2->setText( tr( "to:" ) );
     layout2->addWidget( TextLabel2 );
     ToPage = new QSpinBox( buttonGroup1, "toPage" );
     ToPage->setMinValue( 1 );
-		ToPage->setMaxValue(view->Pages.count());
-		ToPage->setValue(view->Pages.count());
+	ToPage->setMaxValue(view->Pages.count());
+	ToPage->setValue(view->Pages.count());
     layout2->addWidget( ToPage );
     buttonGroup1Layout->addLayout( layout2 );
     ApplyTLayout->addWidget( buttonGroup1 );
-		FromPage->setEnabled(false);
-		ToPage->setEnabled(false);
+	FromPage->setEnabled(false);
+	ToPage->setEnabled(false);
 
     Layout4 = new QHBoxLayout; 
     Layout4->setSpacing( 6 );
@@ -77,7 +70,7 @@ ApplyT::ApplyT( QWidget* parent, ScribusView *view, QString Nam)
     Layout4->addItem( spacer );
     OKButton = new QPushButton( this, "OKButton" );
     OKButton->setText( tr( "OK" ) );
-    OKButton->setDefault( TRUE );
+    OKButton->setDefault( true );
     Layout4->addWidget( OKButton );
     QSpacerItem* spacer_2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
     Layout4->addItem( spacer_2 );
@@ -89,10 +82,10 @@ ApplyT::ApplyT( QWidget* parent, ScribusView *view, QString Nam)
     ApplyTLayout->addLayout( Layout4 );
     connect( CancelB, SIGNAL( clicked() ), this, SLOT( reject() ) );
     connect( OKButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
-		connect(SinglePage, SIGNAL(clicked()), this, SLOT(SingleSel()));
-		connect(PageRange, SIGNAL(clicked()), this, SLOT(RangeSel()));
-		connect(FromPage, SIGNAL(valueChanged(int)), this, SLOT(CheckRangeF()));
-		connect(ToPage, SIGNAL(valueChanged(int)), this, SLOT(CheckRangeT()));
+	connect(SinglePage, SIGNAL(clicked()), this, SLOT(SingleSel()));
+	connect(PageRange, SIGNAL(clicked()), this, SLOT(RangeSel()));
+	connect(FromPage, SIGNAL(valueChanged(int)), this, SLOT(CheckRangeF()));
+	connect(ToPage, SIGNAL(valueChanged(int)), this, SLOT(CheckRangeT()));
 }
 
 void ApplyT::RangeSel()

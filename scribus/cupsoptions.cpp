@@ -68,12 +68,12 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "pr
 	QString Marked = "";
 	KeyToText.clear();
 	KeyToDefault.clear();
-	for (i = ppd->num_groups, group = ppd->groups; i > 0; i --, group ++)
+	for (i = ppd->num_groups, group = ppd->groups; i > 0; i --, ++group)
 	{
 		int ix;
 		ppd_option_t	*option;	/* Current option */
 		ppd_choice_t	*choice;	/* Current choice */
-  		for (ix = group->num_options, option = group->options; ix > 0; ix --, option ++)
+  		for (ix = group->num_options, option = group->options; ix > 0; ix --, ++option)
   		{
 			int j;
 			Marked = "";
@@ -182,7 +182,7 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "pr
 	Layout2->addItem( spacer2 );
 	PushButton2 = new QPushButton( this, "PushButton1_2" );
 	PushButton2->setText( tr( "Cancel" ) );
-	PushButton2->setDefault( TRUE );
+	PushButton2->setDefault( true );
 	PushButton2->setFocus();
 	Layout2->addWidget( PushButton2 );
 	QSpacerItem* spacer3 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );

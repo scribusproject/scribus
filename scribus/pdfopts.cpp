@@ -25,7 +25,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
   	FontsToEmbed.clear();
   	view = vie;
   	EffVal = Eff;
-		Einheit = view->Doc->Einheit;
+	Einheit = view->Doc->Einheit;
   	PDFOptsLayout = new QVBoxLayout( this );
     PDFOptsLayout->setSpacing( 6 );
     PDFOptsLayout->setMargin( 11 );
@@ -38,13 +38,13 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     Layout5->setMargin( 0 );
     Datei = new QLineEdit( this, "Datei" );
     Datei->setMinimumSize( QSize( 268, 22 ) );
-		if (Optionen->Datei != "")
-			Datei->setText(Optionen->Datei);
-		else
-			{
+	if (Optionen->Datei != "")
+		Datei->setText(Optionen->Datei);
+	else
+	{
     	QFileInfo fi = QFileInfo(Fname);
     	Datei->setText(fi.dirPath()+"/"+fi.baseName()+".pdf");
-			}
+	}
     Layout5->addWidget( Datei );
     FileC = new QToolButton( this, "FileC" );
     FileC->setMinimumSize( QSize( 88, 24 ) );
@@ -84,13 +84,13 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     FirstPage = new QSpinBox( RangeGroup, "FirstPage" );
     FirstPage->setMaxValue(view->Pages.count());
     FirstPage->setMinValue( 1 );
-		FirstPage->setValue(1);
-		LastPage->setValue(view->Pages.count());
+	FirstPage->setValue(1);
+	LastPage->setValue(view->Pages.count());
     Layout11->addWidget( FirstPage, 0, 1 );
     RangeGroupLayout->addLayout( Layout11 );
-		FirstPage->setEnabled(false);
-		LastPage->setEnabled(false);
-		RText->setEnabled(false);
+	FirstPage->setEnabled(false);
+	LastPage->setEnabled(false);
+	RText->setEnabled(false);
     Layout13->addWidget( RangeGroup );
 
     GroupBox1 = new QGroupBox( tab, "GroupBox1" );
@@ -110,23 +110,23 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     ComboBox1->insertItem("Acrobat 4.0");
     ComboBox1->insertItem("Acrobat 5.0");
 #ifdef HAVE_CMS
-		if ((CMSuse) && (CMSavail) && (!PDFXProfiles->isEmpty()))
+	if ((CMSuse) && (CMSavail) && (!PDFXProfiles->isEmpty()))
     	ComboBox1->insertItem("PDF/X-3");
 #endif
     ComboBox1->setEditable(false);
 #ifdef HAVE_CMS
-		if ((CMSuse) && (CMSavail))
-			{
-			if (Optionen->Version == 12)
-				ComboBox1->setCurrentItem(2);
-			}
-		else
-			ComboBox1->setCurrentItem(0);
+	if ((CMSuse) && (CMSavail))
+	{
+		if (Optionen->Version == 12)
+			ComboBox1->setCurrentItem(2);
+	}
+	else
+		ComboBox1->setCurrentItem(0);
 #endif
-		if (Optionen->Version == 13)
-			ComboBox1->setCurrentItem(0);
-		if (Optionen->Version == 14)
-			ComboBox1->setCurrentItem(1);
+	if (Optionen->Version == 13)
+		ComboBox1->setCurrentItem(0);
+	if (Optionen->Version == 14)
+		ComboBox1->setCurrentItem(1);
     GroupBox1Layout->addMultiCellWidget( ComboBox1, 0, 0, 1, 2, AlignLeft );
     TextLabel1x = new QLabel( GroupBox1, "TextLabel1" );
     TextLabel1x->setText( tr( "Binding:" ) );
@@ -136,19 +136,19 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     ComboBind->insertItem( tr("Left Margin"));
     ComboBind->insertItem( tr("Right Margin"));
     ComboBind->setEditable(false);
-		ComboBind->setCurrentItem(Optionen->Binding);
+	ComboBind->setCurrentItem(Optionen->Binding);
     GroupBox1Layout->addMultiCellWidget( ComboBind, 1, 1, 1, 2, AlignLeft );
     CheckBox1 = new QCheckBox( GroupBox1, "CheckBox1" );
     CheckBox1->setText( tr( "Generate Thumbnails" ) );
-		CheckBox1->setChecked(Optionen->Thumbnails);
+	CheckBox1->setChecked(Optionen->Thumbnails);
     GroupBox1Layout->addMultiCellWidget( CheckBox1, 2, 2, 0, 2 );
     Article = new QCheckBox( GroupBox1, "CheckBox1" );
     Article->setText( tr( "Save linked Text Frames as PDF-Articles" ) );
-		Article->setChecked(Optionen->Articles);
+	Article->setChecked(Optionen->Articles);
     GroupBox1Layout->addMultiCellWidget( Article, 3, 3, 0, 2 );
     CheckBM = new QCheckBox( GroupBox1, "E" );
     CheckBM->setText( tr( "Include Bookmarks" ) );
-		CheckBM->setChecked(Optionen->Bookmarks);
+	CheckBM->setChecked(Optionen->Bookmarks);
     GroupBox1Layout->addMultiCellWidget( CheckBM, 4, 4, 0, 2 );
     TextLabel2 = new QLabel( GroupBox1, "TextLabel2" );
     TextLabel2->setText( tr( "Resolution:" ) );
@@ -173,17 +173,14 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     GroupBox2Layout->setMargin( 11 );
     DSColor = new QCheckBox( GroupBox2, "DSColor" );
     DSColor->setText( tr( "Downsample Images to:" ) );
-		DSColor->setChecked(Optionen->RecalcPic);
+	DSColor->setChecked(Optionen->RecalcPic);
     GroupBox2Layout->addWidget( DSColor, 1, 0 );
     ValC = new QSpinBox( GroupBox2, "ValC" );
     ValC->setSuffix( tr( " dpi" ) );
     ValC->setMaxValue( 4000 );
     ValC->setMinValue( 35 );
     ValC->setValue(Optionen->PicRes);
-		if (DSColor->isChecked())
-			ValC->setEnabled(true);
-		else
-    	ValC->setEnabled(false);
+	ValC->setEnabled(DSColor->isChecked() ? true : false);
     GroupBox2Layout->addWidget( ValC, 1, 1, AlignLeft );
     Compression = new QCheckBox( GroupBox2, "Compression" );
     Compression->setText( tr( "Compress Text and Vector Graphics" ) );
@@ -214,21 +211,21 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     TextFont1->setText( tr( "Available Fonts:" ) );
     Layout4_2->addWidget( TextFont1 );
     AvailFlist = new QListBox( GroupFont, "AvailFlist" );
-		QMap<QString,QFont>::Iterator it;	
-		for (it = DocFonts.begin(); it != DocFonts.end(); ++it)
-			{
-			if (AllFonts[it.key()]->HasMetrics)
+	QMap<QString,QFont>::Iterator it;	
+	for (it = DocFonts.begin(); it != DocFonts.end(); ++it)
+	{
+		if (AllFonts[it.key()]->HasMetrics)
     		AvailFlist->insertItem(loadIcon("ok.png"), it.key());
-			else
-				{
+		else
+		{
     		AvailFlist->insertItem(it.key());
-				AvailFlist->item(AvailFlist->count()-1)->setSelectable(false);
-				}
-			}
+			AvailFlist->item(AvailFlist->count()-1)->setSelectable(false);
+		}
+	}
     AvailFlist->setMinimumSize(QSize(150, 140));
     AvailFlist->setMaximumSize(QSize(150, 140));
     Layout4_2->addWidget( AvailFlist );
-    GroupFontLayout->addLayout( Layout4_2 );
+   	GroupFontLayout->addLayout( Layout4_2 );
     Layout5_2 = new QVBoxLayout;
     Layout5_2->setSpacing( 6 );
     Layout5_2->setMargin( 0 );
@@ -250,39 +247,38 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     EmbedList = new QListBox( GroupFont, "EmbedList" );
     EmbedList->setMinimumSize(QSize(150, 140));
     EmbedList->setMaximumSize(QSize(150, 140));
-		if (Optionen->EmbedList.count() != 0)
-			{
-			for (uint efo = 0; efo < Optionen->EmbedList.count(); efo++)
-				{
-				EmbedList->insertItem(Optionen->EmbedList[efo]);
-				FontsToEmbed.append(Optionen->EmbedList[efo]);
-				}
-			}
+	if (Optionen->EmbedList.count() != 0)
+	{
+		for (uint efo = 0; efo < Optionen->EmbedList.count(); ++efo)
+		{
+			EmbedList->insertItem(Optionen->EmbedList[efo]);
+			FontsToEmbed.append(Optionen->EmbedList[efo]);
+		}
+	}
     Layout6->addWidget( EmbedList );
     GroupFontLayout->addLayout( Layout6 );
     tabLayout_3->addWidget( GroupFont );
     Options->insertTab( tab_3, tr( "Fonts" ) );
-
-    tab_5 = new QWidget( Options, "tab_5" );
+   	tab_5 = new QWidget( Options, "tab_5" );
     tabLayout_5 = new QGridLayout( tab_5 );
     tabLayout_5->setSpacing( 6 );
     tabLayout_5->setMargin( 11 );
     CheckBox10 = new QCheckBox( tab_5, "CheckBox10" );
     CheckBox10->setText( tr( "Enable Presentation Effects" ) );
     CheckBox10->setChecked(Optionen->PresentMode);
-		tabLayout_5->addMultiCellWidget( CheckBox10, 0, 0, 0, 1 );
-
-    Pages = new QListBox( tab_5, "Pages" );
-    Pages->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, Pages->sizePolicy().hasHeightForWidth() ) );
+	tabLayout_5->addMultiCellWidget( CheckBox10, 0, 0, 0, 1 );
+   	Pages = new QListBox( tab_5, "Pages" );
+    Pages->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1,
+										 Pages->sizePolicy().hasHeightForWidth() ) );
     QString tmp;
     struct PreSet ef;
-		if (EffVal.count() != 0)
-			{
+	if (EffVal.count() != 0)
+	{
     	for (uint pg2 = 0; pg2 < vie->Pages.count(); ++pg2)
-    		{
+    	{
     		Pages->insertItem( tr("Page")+" "+tmp.setNum(pg2+1));
-				if (EffVal.count()-1 < pg2)
-					{
+			if (EffVal.count()-1 < pg2)
+			{
     			ef.EffektLen = 1;
     			ef.AnzeigeLen = 1;
     			ef.Effekt = 0;
@@ -290,13 +286,13 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     			ef.M = 0;
     			ef.Di = 0;
     			EffVal.append(ef);
-					}
-				}
 			}
-		else
-			{
+		}
+	}
+	else
+	{
     	for (uint pg = 0; pg < vie->Pages.count(); ++pg)
-    		{
+    	{
     		Pages->insertItem( tr("Page")+" "+tmp.setNum(pg+1));
     		ef.EffektLen = 1;
     		ef.AnzeigeLen = 1;
@@ -305,14 +301,13 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     		ef.M = 0;
     		ef.Di = 0;
     		EffVal.append(ef);
-    		}
-			}
+    	}
+	}
     tabLayout_5->addWidget( Pages, 1, 0 );
     PagePrev = new QCheckBox( tab_5, "CheckBox10" );
     PagePrev->setText( tr( "Show Page Previews" ) );
     PagePrev->setChecked(false);
-		tabLayout_5->addWidget( PagePrev, 2, 0 );
-
+	tabLayout_5->addWidget( PagePrev, 2, 0 );
     Effects = new QGroupBox( tab_5, "Effects" );
     Effects->setTitle( tr( "Effects" ) );
     Effects->setColumnLayout(0, Qt::Vertical );
@@ -327,19 +322,19 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     EffectsLayout->addWidget( TextLabel1e, 0, 0 );
     TextLabel2e = new QLabel( Effects, "TextLabel2_2" );
     TextLabel2e->setText( tr( "Effect Duration:" ) );
-		EffectsLayout->addWidget( TextLabel2e, 1, 0 );
+	EffectsLayout->addWidget( TextLabel2e, 1, 0 );
     TextLabel3e = new QLabel( Effects, "TextLabel3_2" );
     TextLabel3e->setText( tr( "Effect Type:" ) );
-		EffectsLayout->addWidget( TextLabel3e, 2, 0 );
+	EffectsLayout->addWidget( TextLabel3e, 2, 0 );
     TextLabel4e = new QLabel( Effects, "TextLabel4_2" );
     TextLabel4e->setText( tr( "Moving Lines:" ) );
-		EffectsLayout->addWidget( TextLabel4e, 3, 0 );
+	EffectsLayout->addWidget( TextLabel4e, 3, 0 );
     TextLabel5e = new QLabel( Effects, "TextLabel6" );
     TextLabel5e->setText( tr( "from the:" ) );
     EffectsLayout->addWidget( TextLabel5e, 4, 0 );
-		TextLabel6e = new QLabel( Effects, "TextLabel5" );
+	TextLabel6e = new QLabel( Effects, "TextLabel5" );
     TextLabel6e->setText( tr( "Direction:" ) );
-		EffectsLayout->addWidget( TextLabel6e, 5, 0 );
+	EffectsLayout->addWidget( TextLabel6e, 5, 0 );
     PageTime = new QSpinBox( Effects, "PageTime" );
     PageTime->setSuffix( tr( " sec" ) );
     PageTime->setMaxValue( 3600 );
@@ -353,13 +348,10 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     EffectTime->setValue(EffVal[0].EffektLen);
     EffectsLayout->addWidget( EffectTime, 1, 1 );
     EffectType = new QComboBox( true, Effects, "EffectType" );
-    EffectType->insertItem( tr( "No Effect" ) );
-    EffectType->insertItem( tr( "Blinds" ) );
-    EffectType->insertItem( tr( "Box" ) );
-    EffectType->insertItem( tr( "Dissolve" ) );
-    EffectType->insertItem( tr( "Glitter" ) );
-    EffectType->insertItem( tr( "Split" ) );
-    EffectType->insertItem( tr( "Wipe" ) );
+	char *tmpc[] = {"No Effect", "Blinds", "Box", "Dissolve", "Glitter", "Split", "Wipe"};
+	size_t ar = sizeof(tmpc) / sizeof(*tmpc);
+	for (uint a = 0; a < ar; ++a)
+		EffectType->insertItem(tr(tmpc[a]));
     EffectType->setEditable(false);
     EffectsLayout->addWidget( EffectType, 2, 1 );
     EDirection = new QComboBox( true, Effects, "EDirection" );
@@ -373,16 +365,16 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     EDirection_2->setEditable(false);
     EffectsLayout->addWidget( EDirection_2, 4, 1 );
     EDirection_2_2 = new QComboBox( true, Effects, "EDirection_2_2" );
-    EDirection_2_2->insertItem( tr( "Left to Right" ) );
-    EDirection_2_2->insertItem( tr( "Top to Bottom" ) );
-    EDirection_2_2->insertItem( tr( "Bottom to Top" ) );
-    EDirection_2_2->insertItem( tr( "Right to Left" ) );
-    EDirection_2_2->insertItem( tr( "Top-Left to Bottom-Right" ) );
+	char *tmp_ed[] = {"Left to Right", "Top to Bottom", "Bottom to Top", "Right to Left", 
+						"Top-left to Bottom-Right"};
+	size_t ar_ed = sizeof(tmp_ed) / sizeof(*tmp_ed);
+	for (uint a = 0; a < ar_ed; ++a)
+		EDirection_2_2->insertItem(tr(tmp_ed[a]));
     EDirection_2_2->setEditable(false);
-		EffectsLayout->addWidget( EDirection_2_2, 5, 1 );
-		EonAllPg = new QPushButton( Effects, "Eon" );
+	EffectsLayout->addWidget( EDirection_2_2, 5, 1 );
+	EonAllPg = new QPushButton( Effects, "Eon" );
     EonAllPg->setText( tr( "Apply Effect on all Pages" ) );
-		EffectsLayout->addMultiCellWidget( EonAllPg, 6, 6, 0, 1 );
+	EffectsLayout->addMultiCellWidget( EonAllPg, 6, 6, 0, 1 );
     tabLayout_5->addMultiCellWidget( Effects, 1, 2, 1, 1 );
     Options->insertTab( tab_5, tr( "Extras" ) );
 
@@ -393,7 +385,8 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     Encry->setChecked( Optionen->Encrypt );
     tabsecLayout->addWidget( Encry );
     GroupPass = new QGroupBox( tabsec, "GroupPass" );
-    GroupPass->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)5, (QSizePolicy::SizeType)1, 0, 0, GroupPass->sizePolicy().hasHeightForWidth() ) );
+    GroupPass->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)5, (QSizePolicy::SizeType)1, 0, 0,
+											GroupPass->sizePolicy().hasHeightForWidth() ) );
     GroupPass->setTitle( tr( "Passwords" ) );
     GroupPass->setColumnLayout(0, Qt::Vertical );
     GroupPass->layout()->setSpacing( 6 );
@@ -408,16 +401,17 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     GroupPassLayout->addWidget( TextSec1, 0, 0 );
     PassOwner = new QLineEdit( GroupPass, "PassOwner" );
     PassOwner->setEchoMode( QLineEdit::Password );
-		PassOwner->setText(Optionen->PassOwner);
+	PassOwner->setText(Optionen->PassOwner);
     GroupPassLayout->addWidget( PassOwner, 0, 1 );
     PassUser = new QLineEdit( GroupPass, "PassUser" );
     PassUser->setEchoMode( QLineEdit::Password );
-		PassUser->setText(Optionen->PassUser);
+	PassUser->setText(Optionen->PassUser);
     GroupPassLayout->addWidget( PassUser, 1, 1 );
     tabsecLayout->addWidget( GroupPass );
 
     GroupSecSet = new QGroupBox( tabsec, "GroupSecSet" );
-    GroupSecSet->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)5, (QSizePolicy::SizeType)7, 0, 0, GroupSecSet->sizePolicy().hasHeightForWidth() ) );
+    GroupSecSet->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)5, (QSizePolicy::SizeType)7, 0, 0,
+												GroupSecSet->sizePolicy().hasHeightForWidth() ) );
     GroupSecSet->setTitle( tr( "Settings" ) );
     GroupSecSet->setColumnLayout(0, Qt::Vertical );
     GroupSecSet->layout()->setSpacing( 6 );
@@ -441,11 +435,11 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     AddSec->setChecked( Optionen->Permissions & 32 );
     GroupSecSetLayout->addWidget( AddSec );
     tabsecLayout->addWidget( GroupSecSet );
-		if (!Encry->isChecked())
-			{
-			GroupSecSet->setEnabled(false);
-			GroupPass->setEnabled(false);
-			}
+	if (!Encry->isChecked())
+	{
+		GroupSecSet->setEnabled(false);
+		GroupPass->setEnabled(false);
+	}
     Options->insertTab( tabsec, tr( "Security" ) );
 
     tabcolor = new QWidget( Options, "tabcolor" );
@@ -463,11 +457,8 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     OutCombo = new QComboBox( true, ColorGroup, "OutCombo" );
     OutCombo->insertItem( tr( "Screen / Web" ) );
     OutCombo->insertItem( tr( "Printer" ) );
-		OutCombo->setEditable(false);
-		if (Optionen->UseRGB)
-			OutCombo->setCurrentItem(0);
-		else
-			OutCombo->setCurrentItem(1);
+	OutCombo->setEditable(false);
+	OutCombo->setCurrentItem(Optionen->UseRGB ? 0 : 1);
     ColorGroupLayout->addWidget( OutCombo );
     tabcolorLayout->addWidget( ColorGroup );
 
@@ -480,7 +471,7 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     GroupBox9Layout->setAlignment( Qt::AlignTop );
     EmbedProfs = new QCheckBox( GroupBox9, "EmbedProfs" );
     EmbedProfs->setText( tr( "Use ICC-Profile" ) );
-		EmbedProfs->setChecked(Optionen->UseProfiles);
+	EmbedProfs->setChecked(Optionen->UseProfiles);
     GroupBox9Layout->addMultiCellWidget( EmbedProfs, 0, 0, 0, 1 );
     ProfsTxt1 = new QLabel(GroupBox9, "ProfsTxt1");
     ProfsTxt1->setText( tr( "Profile:" ) );
@@ -489,14 +480,14 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     ProfsTxt2->setText( tr( "Rendering-Intent:" ) );
     GroupBox9Layout->addWidget( ProfsTxt2, 1, 1 );
     SolidPr = new QComboBox(true, GroupBox9, "SolidPr" );
-		SolidPr->setEditable(false);
+	SolidPr->setEditable(false);
     GroupBox9Layout->addWidget( SolidPr, 2, 0 );
     IntendS = new QComboBox( true, GroupBox9, "IntendS" );
-    IntendS->insertItem( tr( "Perceptual" ) );
-    IntendS->insertItem( tr( "Relative Colorimetric" ) );
-    IntendS->insertItem( tr( "Saturation" ) );
-    IntendS->insertItem( tr( "Absolute Colorimetric" ) );
-		IntendS->setEditable(false);
+	char *tmp_ip[] = {"Perceptual", "Relative Colorimetric", "Saturation", "Absolute Colorimetric"};
+	size_t ar_ip = sizeof(tmp_ip) / sizeof(*tmp_ip);
+	for (uint a = 0; a < ar_ip; ++a)
+		IntendS->insertItem(tr(tmp_ip[a]));
+	IntendS->setEditable(false);
     GroupBox9Layout->addWidget( IntendS, 2, 1 );
     tabcolorLayout->addWidget( GroupBox9 );
     ProfsGroup = new QGroupBox( tabcolor, "ProfsGroup" );
@@ -508,11 +499,11 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     ProfsGroupLayout->setAlignment( Qt::AlignTop );
     EmbedProfs2 = new QCheckBox( ProfsGroup, "EmbedProfs" );
     EmbedProfs2->setText( tr( "Use ICC-Profile" ) );
-		EmbedProfs2->setChecked(Optionen->UseProfiles2);
+	EmbedProfs2->setChecked(Optionen->UseProfiles2);
     ProfsGroupLayout->addMultiCellWidget( EmbedProfs2, 0, 0, 0, 1 );
     NoEmbedded = new QCheckBox( ProfsGroup, "NoEmbedded" );
     NoEmbedded->setText( tr( "Don't use embedded ICC profiles" ) );
-		NoEmbedded->setChecked(Optionen->EmbeddedI);
+	NoEmbedded->setChecked(Optionen->EmbeddedI);
     ProfsGroupLayout->addMultiCellWidget( NoEmbedded, 1, 1, 0, 1 );
     ProfsTxt3 = new QLabel( ProfsGroup, "ProfsTxt3" );
     ProfsTxt3->setText( tr( "Profile:" ) );
@@ -521,62 +512,60 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     ProfsTxt4->setText( tr( "Rendering-Intent:" ) );
     ProfsGroupLayout->addWidget( ProfsTxt4, 2, 1 );
     ImageP = new QComboBox( true, ProfsGroup, "ImageP" );
-		ImageP->setEditable(false);
+	ImageP->setEditable(false);
     ProfsGroupLayout->addWidget( ImageP, 3, 0 );
     IntendI = new QComboBox( true, ProfsGroup, "IntendS" );
-    IntendI->insertItem( tr( "Perceptual" ) );
-    IntendI->insertItem( tr( "Relative Colorimetric" ) );
-    IntendI->insertItem( tr( "Saturation" ) );
-    IntendI->insertItem( tr( "Absolute Colorimetric" ) );
-		IntendI->setEditable(false);
+	for (uint a = 0; a < ar_ip; ++a)
+		IntendI->insertItem(tr(tmp_ip[a]));
+	IntendI->setEditable(false);
     ProfsGroupLayout->addWidget( IntendI, 3, 1 );
     tabcolorLayout->addWidget( ProfsGroup );
-		if (Optionen->UseRGB)
-			{
-			ProfsGroup->setEnabled(false);
-			GroupBox9->setEnabled(false);
-			}
-		EnablePG();
-		EnablePGI();
+	if (Optionen->UseRGB)
+	{
+		ProfsGroup->setEnabled(false);
+		GroupBox9->setEnabled(false);
+	}
+	EnablePG();
+	EnablePGI();
 #ifdef HAVE_CMS
-		QString tp = Optionen->SolidProf;
-		if (!InputProfiles.contains(tp))
-			tp = vie->Doc->CMSSettings.DefaultInputProfile2;
-		ProfilesL::Iterator itp;
-		for (itp = InputProfiles.begin(); itp != InputProfiles.end(); ++itp)
-			{
-			SolidPr->insertItem(itp.key());
+	QString tp = Optionen->SolidProf;
+	if (!InputProfiles.contains(tp))
+		tp = vie->Doc->CMSSettings.DefaultInputProfile2;
+	ProfilesL::Iterator itp;
+	for (itp = InputProfiles.begin(); itp != InputProfiles.end(); ++itp)
+	{
+		SolidPr->insertItem(itp.key());
     	if (itp.key() == tp)
-    		{
-				if ((CMSuse) && (CMSavail))
+    	{
+			if ((CMSuse) && (CMSavail))
     			SolidPr->setCurrentItem(SolidPr->count()-1);
-    		}
-			}
-		if ((CMSuse) && (CMSavail))
+    	}
+	}
+	if ((CMSuse) && (CMSavail))
     	IntendS->setCurrentItem(Optionen->Intent);
-		ProfilesL::Iterator itp2;
-		QString tp1 = Optionen->ImageProf;
-		if (!InputProfiles.contains(tp1))
-			tp1 = vie->Doc->CMSSettings.DefaultInputProfile2;
-		for (itp2 = InputProfiles.begin(); itp2 != InputProfiles.end(); ++itp2)
-			{
-			ImageP->insertItem(itp2.key());
+	ProfilesL::Iterator itp2;
+	QString tp1 = Optionen->ImageProf;
+	if (!InputProfiles.contains(tp1))
+		tp1 = vie->Doc->CMSSettings.DefaultInputProfile2;
+	for (itp2 = InputProfiles.begin(); itp2 != InputProfiles.end(); ++itp2)
+	{
+		ImageP->insertItem(itp2.key());
     	if (itp2.key() == tp1)
-    		{
-				if ((CMSuse) && (CMSavail))
+    	{
+			if ((CMSuse) && (CMSavail))
     			ImageP->setCurrentItem(ImageP->count()-1);
-    		}
-			}
-		if ((CMSuse) && (CMSavail))
-    	IntendI->setCurrentItem(Optionen->Intent2);
-		if ((!CMSuse) || (!CMSavail))
-			{
-			GroupBox9->hide();
-			ProfsGroup->hide();
-			}
-#else
+    	}
+	}
+	if ((CMSuse) && (CMSavail))
+	   	IntendI->setCurrentItem(Optionen->Intent2);
+	if ((!CMSuse) || (!CMSavail))
+	{
 		GroupBox9->hide();
 		ProfsGroup->hide();
+	}
+#else
+	GroupBox9->hide();
+	ProfsGroup->hide();
 #endif
     QSpacerItem* spacerCG = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
     tabcolorLayout->addItem( spacerCG );
@@ -592,24 +581,22 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     X3GroupLayout = new QGridLayout( X3Group->layout() );
     X3GroupLayout->setAlignment( Qt::AlignTop );
     PrintProfC = new QComboBox( true, X3Group, "PrintProfC" );
-		PrintProfC->setEditable(false);
+	PrintProfC->setEditable(false);
 #ifdef HAVE_CMS
-		ProfilesL::Iterator itp3;
-		QString tp3 = Optionen->PrintProf;
-		if (!PDFXProfiles->contains(tp3))
-			tp3 = vie->Doc->CMSSettings.DefaultPrinterProfile;
-		for (itp3 = PDFXProfiles->begin(); itp3 != PDFXProfiles->end(); ++itp3)
-			{
-			PrintProfC->insertItem(itp3.key());
+	ProfilesL::Iterator itp3;
+	QString tp3 = Optionen->PrintProf;
+	if (!PDFXProfiles->contains(tp3))
+		tp3 = vie->Doc->CMSSettings.DefaultPrinterProfile;
+	for (itp3 = PDFXProfiles->begin(); itp3 != PDFXProfiles->end(); ++itp3)
+	{
+		PrintProfC->insertItem(itp3.key());
     	if (itp3.key() == tp3)
-    		{
     		PrintProfC->setCurrentItem(PrintProfC->count()-1);
-    		}
-			}
+	}
 #endif
     X3GroupLayout->addWidget( PrintProfC, 0, 1 );
     InfoString = new QLineEdit( X3Group, "InfoString" );
-		InfoString->setText(Optionen->Info);
+	InfoString->setText(Optionen->Info);
     X3GroupLayout->addWidget( InfoString, 1, 1 );
     PDFX2 = new QLabel( X3Group, "PDFX2" );
     PDFX2->setText( tr( "Info String:" ) );
@@ -647,67 +634,54 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     BleedGroupLayout->addItem( spacerPX2, 1, 4 );
     tabpdfxLayout->addWidget( BleedGroup );
     Options->insertTab( tabpdfx, tr( "PDF/X-3" ) );
-		QString EinTxt = "";
-		switch (Einheit)
-			{
-			case 0:
-    		EinTxt = tr( " pt" );
-				break;
-			case 1:
-    		EinTxt = tr( " mm" );
-				break;
-			case 2:
-    		EinTxt = tr( " in" );
-				break;
-			case 3:
-    		EinTxt = tr( " p" );
-				break;
-			}
+	char *size[] = {" pt", " mm", " in", " p"};
+	QString EinTxt = tr(size[Einheit]);
+
     BleedTop->setSuffix( EinTxt );
-		BleedTop->setMinValue(0);
-		BleedTop->setMaxValue(view->Doc->PageH*UmReFaktor);
+	BleedTop->setMinValue(0);
+	BleedTop->setMaxValue(view->Doc->PageH*UmReFaktor);
     BleedTop->setValue(Optionen->BleedTop*UmReFaktor);
     BleedBottom->setSuffix( EinTxt );
-		BleedBottom->setMinValue(0);
-		BleedBottom->setMaxValue(view->Doc->PageH*UmReFaktor);
+	BleedBottom->setMinValue(0);
+	BleedBottom->setMaxValue(view->Doc->PageH*UmReFaktor);
     BleedBottom->setValue(Optionen->BleedBottom*UmReFaktor);
     BleedRight->setSuffix( EinTxt );
-		BleedRight->setMinValue(0);
-		BleedRight->setMaxValue(view->Doc->PageB*UmReFaktor);
+	BleedRight->setMinValue(0);
+	BleedRight->setMaxValue(view->Doc->PageB*UmReFaktor);
     BleedRight->setValue(Optionen->BleedRight*UmReFaktor);
     BleedLeft->setSuffix( EinTxt );
-		BleedLeft->setMinValue(0);
-		BleedLeft->setMaxValue(view->Doc->PageB*UmReFaktor);
+	BleedLeft->setMinValue(0);
+	BleedLeft->setMaxValue(view->Doc->PageB*UmReFaktor);
     BleedLeft->setValue(Optionen->BleedLeft*UmReFaktor);
 #ifdef HAVE_CMS
-		if ((!CMSuse) || (!CMSavail))
-			Options->setTabEnabled(tabpdfx, false);
-		if ((CMSuse) && (CMSavail) && (Optionen->Version == 12) && (!PDFXProfiles->isEmpty()))
-			EnablePDFX(2);
-		else
-			Options->setTabEnabled(tabpdfx, false);
-#else
+	if ((!CMSuse) || (!CMSavail))
 		Options->setTabEnabled(tabpdfx, false);
+	if ((CMSuse) && (CMSavail) && (Optionen->Version == 12) && (!PDFXProfiles->isEmpty()))
+		EnablePDFX(2);
+	else
+		Options->setTabEnabled(tabpdfx, false);
+#else
+	Options->setTabEnabled(tabpdfx, false);
 #endif
-		BleedChanged();
+	BleedChanged();
     PgSel = 0;
     Pages->setCurrentItem(0);
     SetEffOpts(0);
-		Pages->setEnabled(false);
-		Effects->setEnabled(false);
-		PagePrev->setEnabled(false);
+	Pages->setEnabled(false);
+	Effects->setEnabled(false);
+	PagePrev->setEnabled(false);
     PDFOptsLayout->addWidget( Options );
-		DoEffects();
-		if (CheckBox10->isChecked())
-			{
-			PageTime->setValue(EffVal[0].AnzeigeLen);
-			EffectTime->setValue(EffVal[0].EffektLen);
-			EffectType->setCurrentItem(EffVal[0].Effekt);
-			EDirection->setCurrentItem(EffVal[0].Dm);
-			EDirection_2->setCurrentItem(EffVal[0].M);
-			EDirection_2_2->setCurrentItem(EffVal[0].Di);
-			SetEffOpts(EffectType->currentItem());
-			}
+	DoEffects();
+	if (CheckBox10->isChecked())
+	{
+		PageTime->setValue(EffVal[0].AnzeigeLen);
+		EffectTime->setValue(EffVal[0].EffektLen);
+		EffectType->setCurrentItem(EffVal[0].Effekt);
+		EDirection->setCurrentItem(EffVal[0].Dm);
+		EDirection_2->setCurrentItem(EffVal[0].M);
+		EDirection_2_2->setCurrentItem(EffVal[0].Di);
+		SetEffOpts(EffectType->currentItem());
+	}
     Layout7 = new QHBoxLayout;
     Layout7->setSpacing( 6 );
     Layout7->setMargin( 0 );
@@ -747,15 +721,15 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
     connect(AllPages, SIGNAL(toggled(bool)), this, SLOT(SelRange(bool)));
     connect(FirstPage, SIGNAL(valueChanged(int)), this, SLOT(ChFrom()));
     connect(LastPage, SIGNAL(valueChanged(int)), this, SLOT(ChTo()));
-		connect(OutCombo, SIGNAL(activated(int)), this, SLOT(EnablePr(int)));
+	connect(OutCombo, SIGNAL(activated(int)), this, SLOT(EnablePr(int)));
     connect(EmbedProfs, SIGNAL(clicked()), this, SLOT(EnablePG()));
     connect(EmbedProfs2, SIGNAL(clicked()), this, SLOT(EnablePGI()));
     connect(NoEmbedded, SIGNAL(clicked()), this, SLOT(EnablePGI2()));
-		connect(ComboBox1, SIGNAL(activated(int)), this, SLOT(EnablePDFX(int)));
-		connect(BleedTop, SIGNAL(valueChanged(int)), this, SLOT(BleedChanged()));
-		connect(BleedBottom, SIGNAL(valueChanged(int)), this, SLOT(BleedChanged()));
-		connect(BleedLeft, SIGNAL(valueChanged(int)), this, SLOT(BleedChanged()));
-		connect(BleedRight, SIGNAL(valueChanged(int)), this, SLOT(BleedChanged()));
+	connect(ComboBox1, SIGNAL(activated(int)), this, SLOT(EnablePDFX(int)));
+	connect(BleedTop, SIGNAL(valueChanged(int)), this, SLOT(BleedChanged()));
+	connect(BleedBottom, SIGNAL(valueChanged(int)), this, SLOT(BleedChanged()));
+	connect(BleedLeft, SIGNAL(valueChanged(int)), this, SLOT(BleedChanged()));
+	connect(BleedRight, SIGNAL(valueChanged(int)), this, SLOT(BleedChanged()));
     connect(Encry, SIGNAL(clicked()), this, SLOT(ToggleEncr()));
 }
 
@@ -769,9 +743,7 @@ PDF_Opts::~PDF_Opts()
 
 void PDF_Opts::ToggleEncr()
 {
-	bool setter = false;
-	if (Encry->isChecked())
-		setter = true;
+	bool setter = Encry->isChecked() ? true : false;
 	GroupSecSet->setEnabled(setter);
 	GroupPass->setEnabled(setter);
 }
@@ -792,8 +764,10 @@ void PDF_Opts::BleedChanged()
 	p.setPen(QPen(black, 1, DotLine, FlatCap, MiterJoin));
 	int x = qRound((BleedLeft->value() / UmReFaktor) * (70.0 / view->Doc->PageB));
 	int y = qRound((BleedTop->value() / UmReFaktor) * (80.0 / view->Doc->PageH));
-	int w = qRound((view->Doc->PageB-((BleedLeft->value()+BleedRight->value())/UmReFaktor))*(70.0/view->Doc->PageB));
-	int h = qRound((view->Doc->PageH-((BleedTop->value()+BleedBottom->value())/UmReFaktor))*(80.0/view->Doc->PageH));
+	int w =qRound((view->Doc->PageB-((BleedLeft->value()+BleedRight->value())/UmReFaktor))*
+					(70.0/view->Doc->PageB));
+	int h = qRound((view->Doc->PageH-((BleedTop->value()+BleedBottom->value())/UmReFaktor))*
+					(80.0/view->Doc->PageH));
 	p.drawRect(x, y, w, h);
 	BleedIcon->setPixmap(pm);
 	p.end();
@@ -802,7 +776,7 @@ void PDF_Opts::BleedChanged()
 void PDF_Opts::EnablePDFX(int a)
 {
 	if (a != 2)
-		{
+	{
 		Options->setTabEnabled(tabpdfx, false);
 		Options->setTabEnabled(tabsec, true);
 		EmbedProfs2->setEnabled(true);
@@ -810,7 +784,7 @@ void PDF_Opts::EnablePDFX(int a)
 		EmbedFonts->setEnabled(true);
 		OutCombo->setEnabled(true);
 		return;
-		}
+	}
 	EmbedFonts->setChecked(true);
 	EmbedAll();
 	CheckBox10->setChecked(false);
@@ -829,31 +803,27 @@ void PDF_Opts::EnablePDFX(int a)
 void PDF_Opts::EnablePGI()
 {
 	if (EmbedProfs2->isChecked())
-		{
+	{
 		NoEmbedded->setEnabled(true);
-		bool setter = false;
-		if (NoEmbedded->isChecked())
-			setter = true;
+		bool setter = NoEmbedded->isChecked() ? true : false;
 		ProfsTxt3->setEnabled(setter);
 		ProfsTxt4->setEnabled(setter);
 		ImageP->setEnabled(setter);
 		IntendI->setEnabled(setter);
-		}
+	}
 	else
-		{
+	{
 		ProfsTxt3->setEnabled(false);
 		ProfsTxt4->setEnabled(false);
 		ImageP->setEnabled(false);
 		IntendI->setEnabled(false);
 		NoEmbedded->setEnabled(false);
-		}
+	}
 }
 
 void PDF_Opts::EnablePGI2()
 {
-	bool setter = false;
-	if (NoEmbedded->isChecked())
-		setter = true;
+	bool setter = NoEmbedded->isChecked() ? true : false;
 	ProfsTxt3->setEnabled(setter);
 	ProfsTxt4->setEnabled(setter);
 	ImageP->setEnabled(setter);
@@ -862,9 +832,7 @@ void PDF_Opts::EnablePGI2()
 
 void PDF_Opts::EnablePG()
 {
-	bool setter = false;
-	if (EmbedProfs->isChecked())
-		setter = true;
+	bool setter = EmbedProfs->isChecked() ? true : false;
 	ProfsTxt1->setEnabled(setter);
 	ProfsTxt2->setEnabled(setter);
 	SolidPr->setEnabled(setter);
@@ -880,7 +848,7 @@ void PDF_Opts::EnablePr(int a)
 
 void PDF_Opts::ChFrom()
 {
-  disconnect(LastPage, SIGNAL(valueChanged(int)), this, SLOT(ChTo()));
+	disconnect(LastPage, SIGNAL(valueChanged(int)), this, SLOT(ChTo()));
 	if (FirstPage->value() > LastPage->value())
 		LastPage->setValue(FirstPage->value());
 	connect(LastPage, SIGNAL(valueChanged(int)), this, SLOT(ChTo()));
@@ -888,42 +856,39 @@ void PDF_Opts::ChFrom()
 
 void PDF_Opts::ChTo()
 {
-  disconnect(FirstPage, SIGNAL(valueChanged(int)), this, SLOT(ChFrom()));
+	disconnect(FirstPage, SIGNAL(valueChanged(int)), this, SLOT(ChFrom()));
 	if (LastPage->value() < FirstPage->value())
 		FirstPage->setValue(LastPage->value());
-  connect(FirstPage, SIGNAL(valueChanged(int)), this, SLOT(ChFrom()));
+	connect(FirstPage, SIGNAL(valueChanged(int)), this, SLOT(ChFrom()));
 }
 
 void PDF_Opts::SelRange(bool e)
 {
-	bool setter = true;
-	if (e)
-		setter = false;
-  RText->setEnabled( setter );
-  FirstPage->setEnabled( setter );
-  LastPage->setEnabled( setter );
+	bool setter = e ? false : true;
+
+	RText->setEnabled( setter );
+	FirstPage->setEnabled( setter );
+	LastPage->setEnabled( setter );
 	if (setter == false)
 		CheckBM->setChecked(false);
 }
 
 void PDF_Opts::EffectOnAll()
 {
-	for (uint pg = 0; pg < view->Pages.count(); pg++)
-		{
+	for (uint pg = 0; pg < view->Pages.count(); ++pg)
+	{
 		EffVal[pg].AnzeigeLen = PageTime->value();
 		EffVal[pg].EffektLen = EffectTime->value();
 		EffVal[pg].Effekt = EffectType->currentItem();
 		EffVal[pg].Dm = EDirection->currentItem();
 		EffVal[pg].M = EDirection_2->currentItem();
 		EffVal[pg].Di = EDirection_2_2->currentItem();
-		}
+	}
 }
 
 void PDF_Opts::DoEffects()
 {
-	bool setter = false;
-	if (CheckBox10->isChecked())
-		setter = true;
+	bool setter = CheckBox10->isChecked() ? true : false;
 	Pages->setEnabled(setter);
 	Effects->setEnabled(setter);
 	PagePrev->setEnabled(setter);
@@ -961,7 +926,7 @@ void PDF_Opts::SetEffOpts(int nr)
 	EDirection_2_2->listBox()->item(3)->setSelectable(false);
 	EDirection_2_2->listBox()->item(4)->setSelectable(false);
 	switch (nr)
-		{
+	{
 		case 0:
 		case 3:
 			EDirection->setEnabled(false);
@@ -984,10 +949,10 @@ void PDF_Opts::SetEffOpts(int nr)
 			EDirection_2->setEnabled(false);
 			EDirection_2_2->setEnabled(true);
 			if (nr == 6)
-				{
+			{
 				EDirection_2_2->listBox()->item(2)->setSelectable(true);
 				EDirection_2_2->listBox()->item(3)->setSelectable(true);
-				}
+			}
 			else
 				EDirection_2_2->listBox()->item(4)->setSelectable(true);
 			break;
@@ -1001,32 +966,28 @@ void PDF_Opts::SetEffOpts(int nr)
 
 void PDF_Opts::PagePr()
 {
-  disconnect(Pages, SIGNAL(highlighted(int)), this, SLOT(SetPgEff(int)));
+	disconnect(Pages, SIGNAL(highlighted(int)), this, SLOT(SetPgEff(int)));
 	QString tmp;
 	int ci = Pages->currentItem();
 	if (PagePrev->isChecked())
-		{
-  	for (uint pg = 0; pg < view->Pages.count(); pg++)
-  		{
-   		Pages->changeItem(view->PageToPixmap(pg, 70), tr("Page")+" "+tmp.setNum(pg+1), pg);
-    	}
+	{
+  		for (uint pg = 0; pg < view->Pages.count(); ++pg)
+   			Pages->changeItem(view->PageToPixmap(pg, 70), tr("Page")+" "+tmp.setNum(pg+1), pg);
     }
-  else
+	else
   	{
-  	for (uint pg = 0; pg < view->Pages.count(); pg++)
-  		{
-   		Pages->changeItem( tr("Page")+" "+tmp.setNum(pg+1), pg);
-    	}
+  		for (uint pg = 0; pg < view->Pages.count(); ++pg)
+   			Pages->changeItem( tr("Page")+" "+tmp.setNum(pg+1), pg);
   	}
-  if (ci != -1)
+	if (ci != -1)
   	{
-  	PgSel = ci;
-  	Pages->setCurrentItem(ci);
+  		PgSel = ci;
+  		Pages->setCurrentItem(ci);
   	}
-  else
+	else
   	{
-  	PgSel = 0;
-  	Pages->clearSelection();
+  		PgSel = 0;
+  		Pages->clearSelection();
   	}
 	connect(Pages, SIGNAL(highlighted(int)), this, SLOT(SetPgEff(int)));
 }
@@ -1034,83 +995,81 @@ void PDF_Opts::PagePr()
 void PDF_Opts::DoDownsample()
 {
 	if (DSColor->isChecked())
-		{
+	{
 		ValC->setEnabled(true);
 		if (ValC->value() > Resolution->value())
 			ValC->setValue(Resolution->value());
-    ValC->setMaxValue(Resolution->value());
-    ValC->setMinValue(35);
-		}
+    	ValC->setMaxValue(Resolution->value());
+    	ValC->setMinValue(35);
+	}
 	else
-		{
 		ValC->setEnabled(false);
-		}
 }
 
 void PDF_Opts::RemoveEmbed()
 {
 	FontsToEmbed.remove(EmbedList->currentText());
 	EmbedList->removeItem(EmbedList->currentItem());
-  EmbedList->clearSelection();
-  if (EmbedList->count() == 0)
+	EmbedList->clearSelection();
+	if (EmbedList->count() == 0)
 		FromEmbed->setEnabled(false);
 }
 
 void PDF_Opts::PutToEmbed()
 {
 	if (EmbedList->count() != 0)
-		{
+	{
 		if (EmbedList->findItem(AvailFlist->currentText()) == NULL)
-			{
+		{
 			FontsToEmbed.append(AvailFlist->currentText());
 			EmbedList->insertItem(AvailFlist->currentText());
-			}
 		}
+	}
 	else
-		{
+	{
 		FontsToEmbed.append(AvailFlist->currentText());
 		EmbedList->insertItem(AvailFlist->currentText());		
-		}
+	}
 }
 
 void PDF_Opts::SelAFont(QListBoxItem *c)
 {
 	if ((c != NULL) && (!EmbedFonts->isChecked()))
-		{
+	{
 		FromEmbed->setEnabled(false);
 		if (c->isSelectable())
-  		ToEmbed->setEnabled(true);
-  	EmbedList->clearSelection();
+  			ToEmbed->setEnabled(true);
+  		EmbedList->clearSelection();
   	}
 }
 
 void PDF_Opts::SelEFont(QListBoxItem *c)
 {
 	if ((c != NULL) && (!EmbedFonts->isChecked()))
-		{
+	{
 		FromEmbed->setEnabled(true);
-  	ToEmbed->setEnabled(false);
-  	AvailFlist->clearSelection();
+  		ToEmbed->setEnabled(false);
+  		AvailFlist->clearSelection();
   	}
 }
 
 void PDF_Opts::EmbedAll()
 {
 	if (EmbedFonts->isChecked())
-		{
+	{
 		EmbedList->clear();
 		FontsToEmbed.clear();
 		FromEmbed->setEnabled(false);
-  	ToEmbed->setEnabled(false);
-		for (uint a=0; a < AvailFlist->count(); a++)
-			{
+  		ToEmbed->setEnabled(false);
+		for (uint a=0; a < AvailFlist->count(); ++a)
+		{
 			if (AvailFlist->item(a)->isSelectable())
-				{
+			{
 				FontsToEmbed.append(AvailFlist->item(a)->text());
 				EmbedList->insertItem(AvailFlist->item(a)->text());
-				}
 			}
 		}
+	}
 }
 
 void PDF_Opts::ChangeFile()
@@ -1123,9 +1082,9 @@ void PDF_Opts::ChangeFile()
 		fn = dia.selectedFile();
 	else
 		return;
-  if (!fn.isEmpty())
-		{
+	if (!fn.isEmpty())
+	{
 		if (overwrite(this, fn))
-  		Datei->setText(fn);
-		}
+  			Datei->setText(fn);
+	}
 }

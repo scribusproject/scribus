@@ -16,6 +16,7 @@ class QLineEdit;
 class QPushButton;
 class MSpinBox;
 class FontCombo;
+class StyleSelect;
 
 class SearchReplace : public QDialog
 {
@@ -32,6 +33,8 @@ public:
     QCheckBox* SFont;
     QCheckBox* SStyle;
     QCheckBox* SText;
+    QCheckBox* SEffect;
+    QCheckBox* REffect;
     QLineEdit* STextVal;
     QComboBox* SStyleVal;
     FontCombo* SFontVal;
@@ -51,6 +54,8 @@ public:
     MSpinBox* RSizeVal;
     QComboBox* RFillVal;
     QComboBox* RStrokeVal;
+    StyleSelect* SEffVal;
+    StyleSelect* REffVal;
     QCheckBox* Word;
     QCheckBox* CaseIgnore;
     QPushButton* DoSearch;
@@ -70,12 +75,14 @@ public slots:
     virtual void enableStyleSearch();
     virtual void enableFontSearch();
     virtual void enableSizeSearch();
+	virtual void enableEffSearch();
     virtual void enableFillSearch();
     virtual void enableStrokeSearch();
     virtual void enableTxReplace();
     virtual void enableStyleReplace();
     virtual void enableFontReplace();
     virtual void enableSizeReplace();
+	virtual void enableEffReplace();
     virtual void enableFillReplace();
     virtual void enableStrokeReplace();
 

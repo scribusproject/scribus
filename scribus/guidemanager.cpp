@@ -142,22 +142,9 @@ void GuideManager::UnitChange()
 
 QString GuideManager::GetUnit()
 {
-	QString tmp = "";
-	switch (Einheit)
-	{
-		case 0:
-    	tmp = tr(" pt");
-			break;
-		case 1:
-			tmp = tr(" mm");
-			break;
-		case 2:
-			tmp = tr(" in");
-			break;
-		case 3:
-			tmp = tr(" p");
-			break;
-		}
+	QString tmp = (Einheit == 0) ? tr(" pt") : 
+					(Einheit == 1) ? tr(" mm") :
+					(Einheit == 2) ? tr(" in") : tr(" p"); 
 	return tmp;
 }
 

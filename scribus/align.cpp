@@ -7,7 +7,7 @@ Align::Align( QWidget* parent, int anz, int ein)
     : QDialog( parent, "al", true, 0 )
 {
     Anzahl = anz;
-		Anzahl > 2 ? setCaption( tr("Distribute/Align")) : setCaption( tr("Align"));
+	Anzahl > 2 ? setCaption( tr("Distribute/Align")) : setCaption( tr("Align"));
   	setIcon(loadIcon("AppIcon.png"));
     AlignLayout = new QVBoxLayout( this );
     AlignLayout->setSpacing( 0 );
@@ -35,7 +35,7 @@ Align::Align( QWidget* parent, int anz, int ein)
     VartH->insertItem( tr("Middles"));
     VartH->insertItem( tr("Right Sides"));
     VartH->setEditable(false);
-		ButtonGroup1Layout->addMultiCellWidget( VartH, 0, 0, 1, 2 );
+	ButtonGroup1Layout->addMultiCellWidget( VartH, 0, 0, 1, 2 );
     NichtsH = new QRadioButton( ButtonGroup1, "NichtsH" );
     NichtsH->setText( tr( "Don't change" ) );
     NichtsH->setChecked(true);
@@ -98,25 +98,11 @@ Align::Align( QWidget* parent, int anz, int ein)
     AVert = new MSpinBox( ButtonGroup1_2, 2 );
     AVert->setEnabled( true );
     AVert->setMinimumSize( QSize( 80, 20 ) );
-		switch (ein)
-			{
-			case 0:
-    		AHor->setSuffix( tr( " pts" ) );
-    		AVert->setSuffix( tr( " pts" ) );
-				break;
-			case 1:
-    		AHor->setSuffix( tr( " mm" ) );
-    		AVert->setSuffix( tr( " mm" ) );
-				break;
-			case 2:
-    		AHor->setSuffix( tr( " in" ) );
-    		AVert->setSuffix( tr( " in" ) );
-				break;
-			case 3:
-    		AHor->setSuffix( tr( " p" ) );
-    		AVert->setSuffix( tr( " p" ) );
-				break;
-			}
+	QString tmp = (ein == 0) ? tr(" pts") :
+				  (ein == 1) ? tr(" mm") :
+				  (ein == 2) ? tr(" in") : tr(" p");
+	AHor->setSuffix(tmp);
+	AVert->setSuffix(tmp);
     AVert->setMaxValue( 1000 );
     AVert->setMinValue( -1000 );
     AVert->setValue( 0 );
@@ -157,7 +143,7 @@ Align::Align( QWidget* parent, int anz, int ein)
     // signals and slots connections
     connect( OKbutton, SIGNAL( clicked() ), this, SLOT( accept() ) );
     connect( CancelB, SIGNAL( clicked() ), this, SLOT( reject() ) );
-		connect(ButtonApply, SIGNAL(clicked()), this, SLOT( slotApplyDiag()));
+	connect(ButtonApply, SIGNAL(clicked()), this, SLOT( slotApplyDiag()));
     connect( ButtonGroup1, SIGNAL( clicked(int) ), this, SLOT( DistHoriz() ) );
     connect( ButtonGroup1_2, SIGNAL( clicked(int) ), this, SLOT( DistVert() ) );
 }
@@ -175,7 +161,6 @@ void Align::DistHoriz()
 	bool setter = CheckH->isChecked() ? true : false;
 	AHor->setEnabled( setter );
 	TextLabelD->setEnabled( setter );
-
 }
 
 void Align::DistVert()

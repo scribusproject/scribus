@@ -57,11 +57,10 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
     Layout1->addWidget( TextLabel1 );
 
     ComboBox1 = new QComboBox( true, this, "ComboBox1" );
-    ComboBox1->insertItem( tr( "Button" ) );
-		ComboBox1->insertItem( tr( "Text Field") );
-		ComboBox1->insertItem( tr( "Check Box") );
-		ComboBox1->insertItem( tr( "Combo Box") );
-		ComboBox1->insertItem( tr( "List Box") );
+	char *tmp[] = {"Button", "Text Field", "Check Box", "Combo Box", "List Box"};
+	size_t array = sizeof(tmp) / sizeof(*tmp);
+	for (uint a = 0; a < array; ++a)
+		ComboBox1->insertItem(tr(tmp[a])); 
     ComboBox1->setEditable(false);
     Layout1->addWidget( ComboBox1 );
     AnnotLayout->addLayout( Layout1 );
@@ -113,20 +112,12 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
     TextLabel60->setText( tr( "Font for use with PDF-1.3:" ) );
     GroupBox40Layout->addWidget( TextLabel60, 0, 0 );
     Schrift = new QComboBox( true, GroupBox40, "Schrift" );
-    Schrift->insertItem( tr( "Courier" ) );
-    Schrift->insertItem( tr( "Courier Bold" ) );
-    Schrift->insertItem( tr( "Courier Italic" ) );
-    Schrift->insertItem( tr( "Courier Bold Italic" ) );
-    Schrift->insertItem( tr( "Helvetica" ) );
-    Schrift->insertItem( tr( "Helvetica Bold" ) );
-    Schrift->insertItem( tr( "Helvetica Italic" ) );
-    Schrift->insertItem( tr( "Helvetica Bold Italic" ) );
-    Schrift->insertItem( tr( "Times" ) );
-    Schrift->insertItem( tr( "Times Bold" ) );
-    Schrift->insertItem( tr( "Times Italic" ) );
-    Schrift->insertItem( tr( "Times Bold Italic" ) );
-    Schrift->insertItem( tr( "Zapf Dingbats" ) );
-    Schrift->insertItem( tr( "Symbol" ) );
+	char *tmp2[]={"Courier", "Courier Bold", "Courier Italic", "Courier Bold Italic", "Helvetica",
+				 "Helvetica Bold", "Helvetica Italic", "Helvetica Bold Italic", "Times", "Times Bold",
+				 "Times Italic", "Times Bold Italic", "Zapf Dingbats", "Symbols"};
+	size_t array2 = sizeof(tmp2) / sizeof(*tmp2);
+	for (uint a = 0; a < array2; ++a)
+		Schrift->insertItem(tr(tmp2[a]));
     Schrift->setEditable(false);
 	Schrift->setCurrentItem(item->AnFont);
     GroupBox40Layout->addMultiCellWidget( Schrift, 0, 0, 1, 2);
@@ -155,9 +146,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
 		pm.fill(Farben[cit.key()].getRGBColor());
 		BorderC->insertItem(pm, cit.key());
     	if (cit.key() == item->AnBColor)
-    	{
     		BorderC->setCurrentItem(BorderC->count()-1);
-   		}
 	}
     BorderC->setEditable(false);
     GroupBox20Layout->addWidget( BorderC, 0, 1 );
@@ -440,12 +429,11 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
     CText1->setText( tr( "Check Style:" ) );
     ChkLayout->addWidget( CText1 );
     ChkStil = new QComboBox( true, OptCheck, "ChkStil" );
-    ChkStil->insertItem( tr( "Check" ) );
-    ChkStil->insertItem( tr( "Cross" ) );
-    ChkStil->insertItem( tr( "Diamond" ) );
-    ChkStil->insertItem( tr( "Circle" ) );
-    ChkStil->insertItem( tr( "Star" ) );
-    ChkStil->insertItem( tr( "Square" ) );
+	char *tmp_chkstil2[]={"Check", "Cross", "Diamond", "Circle", "Star", "Square"};
+	size_t array_chk2 = sizeof(tmp_chkstil2) / sizeof(*tmp_chkstil2);
+	for (uint a = 0; a < array_chk2; ++a)
+		ChkStil->insertItem(tr(tmp_chkstil2[a]));
+
 	ChkStil->setEditable(false);
 	ChkStil->setCurrentItem(item->AnChkStil);
     ChkLayout->addWidget( ChkStil );
@@ -486,12 +474,10 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
     Layout20->addWidget( TextLabel70 );
 
     ActionCombo = new QComboBox( true, tab_2, "ActTyp" );
-    ActionCombo->insertItem( tr( "None" ) );
-    ActionCombo->insertItem( tr( "Java Script" ) );
-    ActionCombo->insertItem( tr( "Go To" ) );
-    ActionCombo->insertItem( tr( "Submit Form" ) );
-    ActionCombo->insertItem( tr( "Reset Form" ) );
-    ActionCombo->insertItem( tr( "Import Data" ) );
+	char *tmp_actcom[] = {"None", "Java Script", "Go To", "Submit Form", "Reset Form", "Import Data"};
+	size_t array_act = sizeof(tmp_actcom) / sizeof(*tmp_actcom);
+	for (uint a = 0; a < array_act; ++a)
+		ActionCombo->insertItem(tr(tmp_actcom[a]));
     ActionCombo->setEditable(false);
 	int tmpac = item->AnActType;
 	if (item->AnActType < 0)
@@ -518,12 +504,10 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
     AcText1->setText( tr( "Event:" ) );
     Layout7->addWidget( AcText1 );
     SelAction = new QComboBox( true, Frame3, "AcCombo" );
-    SelAction->insertItem( tr( "Mouse Up" ) );
-    SelAction->insertItem( tr( "Mouse Down" ) );
-    SelAction->insertItem( tr( "Mouse Enter" ) );
-    SelAction->insertItem( tr( "Mouse Exit" ) );
-    SelAction->insertItem( tr( "On Focus" ) );
-    SelAction->insertItem( tr( "On Blur" ) );
+	char *tmp_selact[]={"Mouse Up", "Mouse Down", "Mouse Enter", "Mouse Exit", "On Focus", "On Blur"};
+	size_t array_sel = sizeof(tmp_selact) / sizeof(*tmp_selact);
+	for (uint a = 0; a < array_sel; ++a)
+		SelAction->insertItem(tr(tmp_selact[a]));
 	SelAction->setEditable(false);
     Layout7->addWidget( SelAction );
     QSpacerItem* spacerac = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -656,12 +640,10 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
     TextForm1->setText( tr( "Field is formatted as:" ) );
     FLayout->addWidget( TextForm1 );
     TxFormat = new QComboBox( true, tab4, "TxFormat" );
-    TxFormat->insertItem( tr( "Plain" ) );
-    TxFormat->insertItem( tr( "Number" ) );
-    TxFormat->insertItem( tr( "Percentage" ) );
-    TxFormat->insertItem( tr( "Date" ) );
-    TxFormat->insertItem( tr( "Time" ) );
-    TxFormat->insertItem( tr( "Custom" ) );
+	char *tmp_txf[]={"Plain", "Number", "Percentage", "Date", "Time", "Custom"};
+	size_t array_txf = sizeof(tmp_txf) / sizeof(*tmp_txf);
+	for (uint a = 0; a < array_txf; ++a)
+		TxFormat->insertItem(tr(tmp_txf[a]));
 	TxFormat->setEditable(false);
 	TxFormat->setCurrentItem(item->AnFormat);
     FLayout->addWidget( TxFormat );
@@ -784,20 +766,11 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
     DateGroupLayout->setAlignment( Qt::AlignTop );
     LayoutFN1c = new QHBoxLayout( 0, 0, 6, "LayoutFN1");
 	Format0c = new QComboBox( true, DateGroup, "DateTyp" );
-    Format0c->insertItem("m/d");
-    Format0c->insertItem("m/d/yy");
-    Format0c->insertItem("mm/dd/yy");
-    Format0c->insertItem("mm/yy");
-    Format0c->insertItem("d-mmm");
-    Format0c->insertItem("d-mmm-yy");
-    Format0c->insertItem("dd-mmm-yy");
-    Format0c->insertItem("yy-mm-dd");
-    Format0c->insertItem("mmm-yy");
-    Format0c->insertItem("mmmm-yy");
-    Format0c->insertItem("mmm d, yyyy");
-    Format0c->insertItem("mmmm d, yyyy");
-    Format0c->insertItem("m/d/yy h:MM tt");
-    Format0c->insertItem("m/d/yy HH:MM");
+	char *tmp_form[] = {"m/d", "m/d/yy", "mm/dd/yy", "mm/yy", "d-mmm", "d-mmm-yy", "dd-mmm-yy", "yy-mm-dd",
+						"mmm-yy", "mmmm-yy", "mmm d, yyyy", "mmmm d, yyyy", "m/d/yy h:MM tt", "m/d/yy HH:MM"};
+	size_t array_form = sizeof(tmp_form) / sizeof(*tmp_form);
+	for (uint a = 0; a < array_form; ++a)
+		Format0c->insertItem(tmp_form[a]);
     Format0c->setEditable(false);
     LayoutFN1c->addWidget( Format0c );
     QSpacerItem* spacer_4c = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -1103,20 +1076,10 @@ void Annot::IPlace()
 		double sw = item->Width / w;
 		double sh = item->Height / h;
 		double sc = QMIN(sw,sh);
-		if (dia->IcScaleH == 0)
-		{
-			item->LocalScX = sc;
-			item->LocalScY = sc;
-			item->LocalX = item->Width * dia->IcPlaceX;
-			item->LocalY = item->Height * dia->IcPlaceY;
-		}
-		else
-		{
-			item->LocalScX = sw;
-			item->LocalScY = sh;
-			item->LocalX = 0;
-			item->LocalY = 0;
-		}
+		item->LocalScX = dia->IcScaleH == 0 ? sc : sw;
+		item->LocalScY = dia->IcScaleH == 0 ? sc : sh;
+		item->LocalX = dia->IcScaleH == 0 ? item->Width * dia->IcPlaceX : 0;
+		item->LocalY = dia->IcScaleH == 0 ? item->Height * dia->IcPlaceY : 0;
 		item->AnIPlace = dia->Place->currentItem();
 		item->AnScaleW = dia->ScaleW->currentItem();
 		}
@@ -1156,21 +1119,9 @@ void Annot::IconsEin()
 	PiconPrev->setEnabled(setter);
 	RiconPrev->setEnabled(setter);
 	PlaceIcon->setEnabled(setter);
-	if (setter == true)
-	{
-		if (item->Pfile != "")
-			IconNR->setEnabled(true);
-		if (item->Pfile2 != "")
-			IconPR->setEnabled(true);
-		if (item->Pfile3 != "")
-			IconRR->setEnabled(true);
-	}
-	else
-	{
-		IconNR->setEnabled(false);
-		IconPR->setEnabled(false);
-		IconRR->setEnabled(false);
-	}
+	IconNR->setEnabled(item->Pfile != "" ? true : false);
+	IconPR->setEnabled(item->Pfile2!= "" ? true : false);
+	IconRR->setEnabled(item->Pfile3!= "" ? true : false);
 	item->AnUseIcons = UseIcons->isChecked();
 }
 
@@ -1203,14 +1154,14 @@ void Annot::GetNIcon()
 		item->LocalX = ((item->Width - (w * sc)) / 2) / sc;
 		item->LocalY = ((item->Height - (h * sc)) / 2) / sc;
 		IconNR->setEnabled(true);
-		}
+	}
 }
 
 void Annot::GetPIcon()
 {
 	QString fileName;
 	CustomFDialog dia(this, tr("Open"), 
-	tr("Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)"), "", true);
+						tr("Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)"), "", true);
 	if (dia.exec() == QDialog::Accepted)
 		fileName = dia.selectedFile();
 	else
@@ -1230,7 +1181,7 @@ void Annot::GetRIcon()
 {
 	QString fileName;
 	CustomFDialog dia(this, tr("Open"), 
-	tr("Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)"), "", true);
+						tr("Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)"), "", true);
 	if (dia.exec() == QDialog::Accepted)
 		fileName = dia.selectedFile();
 	else
@@ -1316,34 +1267,6 @@ void Annot::setDateSample(const QString& ds)
 		tmp.find("m", q);
 		tmp.replace(q, 1, "M");
 	}
-/*	if (ds == "m/d")
-		tmp = "M/d";
-	if (ds == "m/d/yy")
-		tmp = "M/d/yy";
-	if (ds == "mm/dd/yy")
-		tmp = "MM/dd/yy";
-	if (ds == "mm/yy")
-		tmp = "MM/yy";
-	if (ds == "d-mmm")
-		tmp = "d-MMM";
-	if (ds == "d-mmm-yy")
-		tmp = "d-MMM-yy";
-	if (ds == "dd-mmm-yy")
-		tmp = "dd-MMM-yy";
-	if (ds == "yy-mm-dd")
-		tmp = "yy-MM-dd";
-	if (ds == "mmm-yy")
-		tmp = "MMM-yy";
-	if (ds == "mmmm-yy")
-		tmp = "MMMM-yy";
-	if (ds == "mmm d, yyyy")
-		tmp = "MMM d, yyyy";
-	if (ds == "mmmm d, yyyy")
-		tmp = "MMMM d, yyyy";
-	if (ds == "m/d/yy h:MM tt")
-		tmp = "M/d/yy h:mm ap";
-	if (ds == "m/d/yy HH:MM")
-		tmp = "M/d/yy hh:mm";*/
 	TextDa1->setText( tr("Example:")+" "+dt.toString(tmp));
 }
 
@@ -1904,16 +1827,15 @@ void Annot::SetZiel(int it)
 	EditFormat->setEnabled( false );
 	EditKeystr->setEnabled( false );
 	SelAction->clear();
-	SelAction->insertItem( tr( "Mouse Up" ) );
-	SelAction->insertItem( tr( "Mouse Down" ) );
-	SelAction->insertItem( tr( "Mouse Enter" ) );
-	SelAction->insertItem( tr( "Mouse Exit" ) );
-	SelAction->insertItem( tr( "On Focus" ) );
-	SelAction->insertItem( tr( "On Blur" ) );
+	char *tmp_selact[]={"Mouse Up", "Mouse Down", "Mouse Enter", "Mouse Exit", "On Focus", "On Blur"};
+	size_t array_sel = sizeof(tmp_selact) / sizeof(*tmp_selact);
+	for (uint a = 0; a < array_sel; ++a)
+		SelAction->insertItem(tr(tmp_selact[a]));	
 	bool setter;
 	switch (sela)
 	{
 		case 2:
+			{
     		Fram->raiseWidget(3);
 			FramOp->raiseWidget(sela);
 			ReadOnly->setEnabled(false);
@@ -1923,18 +1845,17 @@ void Annot::SetZiel(int it)
 			NoExport->setEnabled(false);
 			NoExport->setChecked(false);
 			ActionCombo->clear();
-    		ActionCombo->insertItem( tr( "None" ) );
-    		ActionCombo->insertItem( tr( "Java Script" ) );
-    		ActionCombo->insertItem( tr( "Go To" ) );
-    		ActionCombo->insertItem( tr( "Submit Form" ) );
-    		ActionCombo->insertItem( tr( "Reset Form" ) );
-    		ActionCombo->insertItem( tr( "Import Data" ) );
+			char *tmp_actcom[] = {"None", "Java Script", "Go To", "Submit Form", "Reset Form", "Import Data"};
+			size_t array_act = sizeof(tmp_actcom) / sizeof(*tmp_actcom);
+			for (uint a = 0; a < array_act; ++a)
+				ActionCombo->insertItem(tr(tmp_actcom[a]));
 			ActionCombo->setCurrentItem(QMIN(tmpac,5));
 			setter = item->AnActType != 7 ? true : false;
 			Destfile->setEnabled(setter);
 			ChFile->setEnabled(setter);
 			SetActTyp(tmpac);			
 			break;
+			}
 		case 3:
 		case 6:
 		case 4:

@@ -45,11 +45,10 @@ TabManager::TabManager( QWidget* parent, int dEin, QValueList<double> inTab) : Q
 
 	Align = new QComboBox( true, this, "Align" );
 	Align->clear();
-	Align->insertItem( tr( "Left" ) );
-	Align->insertItem( tr( "Right" ) );
-	Align->insertItem( tr( "Full Stop" ) );
-	Align->insertItem( tr( "Comma" ) );
-	Align->insertItem( tr( "Center" ) );
+	char *tmp_ali[] = {"Left", "Right", "Full Stop", "Comma", "Center"};
+	size_t ar_ali = sizeof(tmp_ali) / sizeof(*tmp_ali);
+	for (uint a = 0; a < ar_ali; ++a)
+		Align->insertItem(tr(tmp_ali[a]));
 	Align->setEditable(false);
 	Align->setEnabled(false);
 	layout7->addWidget( Align, 1, 1 );
@@ -105,10 +104,7 @@ void TabManager::DelTab()
 	it = tmpTab.at(selTab);
 	it = tmpTab.remove(it);
 	tmpTab.remove(it);
-	if (tmpTab.isEmpty())
-		selTab = -1;
-	else
-		selTab = static_cast<int>(tmpTab.count()-2);
+	selTab = tmpTab.isEmpty() ? -1 : static_cast<int>(tmpTab.count() - 2);
 	UpdateTabL();
 }
 
@@ -150,47 +146,34 @@ void TabManager::PValChange()
 	it = tmpTab.remove(it);
 	tmpTab.remove(it);
 	for (int yg = static_cast<int>(tmpTab.count()-1); yg > 0; yg -= 2)
-		{
+	{
 		if (CurX < tmpTab[yg])
 			g = yg;
-		}
+	}
 	selTab = g-1;
 	if (gg == g)
-		{
+	{
 		tmpTab.append(type);
 		tmpTab.append(CurX);
 		selTab = static_cast<int>(tmpTab.count()-2);
-		}
+	}
 	else
-		{
+	{
 		it = tmpTab.at(selTab);
 		it = tmpTab.insert(it, CurX);
 		tmpTab.insert(it, type);
-		}
+	}
 	UpdateTabL();
 }
 
 void TabManager::UnitChange(int dEin)
 {
 	Position->setDecimals(10);
-	QString ein;
+	char *tmp[] = {" pt", " mm", " in", " p"};
 	Einheit = dEin;
-	switch (dEin)
-		{
-		case 0:
-			ein = " pt";
-			break;
-		case 1:
-    	ein = " mm";
-			break;
-		case 2:
-    	ein = " in";
-			Position->setDecimals(10000);
-			break;
-		case 3:
-    	ein = " p";
-			break;
-		}
+	QString ein = tr(tmp[dEin]);
+	if (dEin == 2)
+		Position->setDecimals(10000);
 	Position->setSuffix(ein);
   if (!tmpTab.isEmpty() || (selTab != -1))
 		Position->setValue(tmpTab[selTab+1] * UmReFaktor);
@@ -204,43 +187,28 @@ void TabManager::UpdateTabL()
 	disconnect(Position, SIGNAL(valueChanged(int)), this, SLOT(PValChange()));
 	disconnect(Align, SIGNAL(activated(int)), this, SLOT(ChangeType()));
 	TabList->clear();
-	QString ein, tmp;
-	switch (Einheit)
-		{
-		case 0:
-			ein = " pt";
-			break;
-		case 1:
-    	ein = " mm";
-			break;
-		case 2:
-    	ein = " in";
-			break;
-		case 3:
-    	ein = " p";
-			break;
-		}
+	char *tp[] = {" pt", " mm", " in", " p"};
+	QString ein = tr(tp[Einheit]), tmp;
 	for (uint a = 0; a < tmpTab.count(); a += 2)
-		{
-		TabList->insertItem(tmp.setNum(qRound(tmpTab[a+1]*UmReFaktor*Position->Decimals)/static_cast<double>(Position->Decimals))+ein);
-		}
+		TabList->insertItem(tmp.setNum(qRound(tmpTab[a+1]*UmReFaktor*Position->Decimals)/
+							static_cast<double>(Position->Decimals))+ein);
 	if (tmpTab.isEmpty())
 		selTab = -1;
 	if (selTab != -1)
-		{
+	{
 		Position->setEnabled(true);
 		Align->setEnabled(true);
 		Position->setValue(tmpTab[selTab+1] * UmReFaktor);
 		Align->setCurrentItem(static_cast<int>(tmpTab[selTab]));
 		TabList->setCurrentItem(selTab / 2);
-		}
+	}
 	else
-		{
+	{
 		Position->setValue(0);
 		Align->setCurrentItem(0);
 		Position->setEnabled(false);
 		Align->setEnabled(false);
-		}
+	}
 	connect(TabList, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selIte(QListBoxItem*)));
 	connect(Position, SIGNAL(valueChanged(int)), this, SLOT(PValChange()));
 	connect(Align, SIGNAL(activated(int)), this, SLOT(ChangeType()));

@@ -67,7 +67,8 @@ public:
 		double Dist;
     QString ein;
 		int einheit;
-    void setSize(int gr);
+    char *units[];
+	void setSize(int gr);
     void code_repeat(int);
 
 public slots:

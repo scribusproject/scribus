@@ -24,18 +24,18 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Fa
   	OriBreite = b;
   	OriHoehe = h;
   	view = vie;
-		MaxSeite = Seite;
+	MaxSeite = Seite;
     QStringList tl;
-		if ((item->AnActType == 2) || (item->AnActType == 7))
-			{
+	if ((item->AnActType == 2) || (item->AnActType == 7))
+	{
     	QString tm = item->AnAction;
     	tl = tl.split(" ", tm);
-			}
-		else
-			{
-			tl.append("0");
-			tl.append("0");
-			}
+	}
+	else
+	{
+		tl.append("0");
+		tl.append("0");
+	}
 		
     AnnotLayout = new QVBoxLayout( this ); 
     AnnotLayout->setSpacing( 6 );
@@ -76,17 +76,17 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Fa
     GroupBox1Layout->setMargin( 11 );
 
     Destfile = new QLineEdit(GroupBox1, "File");
-		Destfile->setText(item->An_Extern);
-		Destfile->setReadOnly(true);
+	Destfile->setText(item->An_Extern);
+	Destfile->setReadOnly(true);
     GroupBox1Layout->addMultiCellWidget( Destfile, 0, 0, 0, 1 );
-		ChFile = new QPushButton(GroupBox1, "Change");
-		ChFile->setText( tr("Change..."));
+	ChFile = new QPushButton(GroupBox1, "Change");
+	ChFile->setText( tr("Change..."));
     GroupBox1Layout->addWidget( ChFile, 0, 2 );
-		if ((item->AnActType != 7) && (item->AnActType != 8))
-			{
-			Destfile->hide();
-			ChFile->hide();
-			}
+	if ((item->AnActType != 7) && (item->AnActType != 8))
+	{
+		Destfile->hide();
+		ChFile->hide();
+	}
 
     TextLabel3 = new QLabel( GroupBox1, "TextLabel3" );
     TextLabel3->setText( tr( "Page:" ) );
@@ -149,7 +149,7 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Fa
     connect(Pg, SIGNAL(Coords(double, double)), this, SLOT(SetCo(double, double)));
     connect(SpinBox2, SIGNAL(valueChanged(int)), this, SLOT(SetCross()));
     connect(SpinBox3, SIGNAL(valueChanged(int)), this, SLOT(SetCross()));
-		connect(ChFile, SIGNAL(clicked()), this, SLOT(GetFile()));
+	connect(ChFile, SIGNAL(clicked()), this, SLOT(GetFile()));
     SetZiel(item->AnType);
     SetCross();
 }
@@ -164,22 +164,22 @@ void Annota::SetPg(int v)
 {
 	disconnect(SpinBox1, SIGNAL(valueChanged(int)), this, SLOT(SetPg(int)));
 	if (ComboBox1->currentItem() == 2)
-		{
+	{
 		if (!Pg->SetSeite(v, 100, Destfile->text()))
-			{
+		{
 			SpinBox1->setValue(1);
 			Pg->SetSeite(1, 100, Destfile->text());
-			}
+		}
 		Breite = Pg->Breite;
 		Hoehe = Pg->Hoehe;
-		}
+	}
 	else
-		{
+	{
 		Pg->SetSeite(v-1, 100);
 		SpinBox1->setValue(v);
 		Breite = OriBreite;
 		Hoehe = OriHoehe;
-		}
+	}
 	SpinBox2->setMaxValue(Breite);
 	SpinBox3->setMaxValue(Hoehe);
 	connect(SpinBox1, SIGNAL(valueChanged(int)), this, SLOT(SetPg(int)));
@@ -188,11 +188,11 @@ void Annota::SetPg(int v)
 void Annota::SetCross()
 {
 	int x,y;
-  disconnect(Pg, SIGNAL(Coords(double, double)), this, SLOT(SetCo(double, double)));
+	disconnect(Pg, SIGNAL(Coords(double, double)), this, SLOT(SetCo(double, double)));
 	x = static_cast<int>(static_cast<double>(SpinBox2->value())/static_cast<double>(Breite)*Pg->pmx.width());
 	y = static_cast<int>(static_cast<double>(SpinBox3->value())/static_cast<double>(Hoehe)*Pg->pmx.height());
 	Pg->drawMark(x, y);
-  connect(Pg, SIGNAL(Coords(double, double)), this, SLOT(SetCo(double, double)));
+	connect(Pg, SIGNAL(Coords(double, double)), this, SLOT(SetCo(double, double)));
 }
 
 void Annota::SetVals()
@@ -203,31 +203,31 @@ void Annota::SetVals()
 	if (item->AnType == 10)
 		item->AnActType = 0;
 	if (item->AnType == 11)
-		{
+	{
 		item->AnAction = tmp.setNum(SpinBox2->value())+" "+tmp2.setNum(Hoehe-SpinBox3->value())+" 0";
 		item->An_Extern = "";
 		item->AnActType = 2;
-		}
+	}
 	if (item->AnType == 12)
-		{
+	{
 		item->AnAction = tmp.setNum(SpinBox2->value())+" "+tmp2.setNum(Hoehe-SpinBox3->value())+" 0";
 		if (Destfile->text() != "")
-			{
+		{
 			item->An_Extern = Destfile->text();
 			item->AnActType = 7;
-			}
-		item->AnType = 11;
 		}
+		item->AnType = 11;
+	}
 	if (item->AnType == 13)
-		{
+	{
 		item->AnAction = "";
 		if (Destfile->text() != "")
-			{
+		{
 			item->An_Extern = Destfile->text();
 			item->AnActType = 8;
-			}
-		item->AnType = 11;
 		}
+		item->AnType = 11;
+	}
 	accept();
 }
 
@@ -242,7 +242,7 @@ void Annota::SetZiel(int it)
 	SpinBox2->show();
 	SpinBox3->show();
 	switch (it)
-		{
+	{
 		case 1:
     		Fram->raiseWidget(1);
 			Destfile->setText("");
@@ -252,7 +252,7 @@ void Annota::SetZiel(int it)
 			SetPg(QMIN(SpinBox1->value(), MaxSeite));
 			break;
 		case 2:
-    	Fram->raiseWidget(1);
+    		Fram->raiseWidget(1);
 			Destfile->show();
 			ChFile->show();
 			Destfile->setReadOnly(true);
@@ -288,7 +288,7 @@ void Annota::SetZiel(int it)
 			item->AnActType = 8;
 			break;
 		case 11:
-    	Fram->raiseWidget(1);
+    		Fram->raiseWidget(1);
 			if (item->AnActType == 7)
 			{
 				Destfile->show();
@@ -314,7 +314,7 @@ void Annota::SetZiel(int it)
 		default:
     		Fram->raiseWidget(2);
 			break;
-		}
+	}
 	connect(ComboBox1, SIGNAL(activated(int)), this, SLOT(SetZiel(int)));
 }
 
@@ -325,14 +325,14 @@ void Annota::GetFile()
 	if (Destfile->text() != "")
 		dia.setSelection(Destfile->text());
 	if (dia.exec() == QDialog::Accepted)
+	{
+		fn = dia.selectedFile();
+		if (!fn.isEmpty())
 		{
-			fn = dia.selectedFile();
-			if (!fn.isEmpty())
-			{
-				Destfile->setText(fn);
-				SpinBox1->setValue(1);
-    			SpinBox1->setMaxValue(1000);
-				SetPg(1);
-			}
+			Destfile->setText(fn);
+			SpinBox1->setValue(1);
+    		SpinBox1->setMaxValue(1000);
+			SetPg(1);
 		}
+	}
 }

@@ -220,26 +220,11 @@ void NodePalette::setDoc(ScribusDoc *dc)
 {
 	doc = dc;
 	disconnect(AbsMode, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));
+	char *tmp_abs[]={" pt", " mm", " in", "p"};
+	size_t array = sizeof(tmp_abs) / sizeof(*tmp_abs);
+	YSpin->setSuffix(tr(tmp_abs[doc->Einheit]));
+	XSpin->setSuffix(tr(tmp_abs[doc->Einheit]));
 	AbsMode->setChecked(false);
-	switch (doc->Einheit)
-	{
-		case 0:
-	   		YSpin->setSuffix( tr( " pt" ) );
-   			XSpin->setSuffix( tr( " pt" ) );
-			break;
-		case 1:
-   			YSpin->setSuffix( tr( " mm" ) );
-   			XSpin->setSuffix( tr( " mm" ) );
-			break;
-		case 2:
-	   		YSpin->setSuffix( tr( " in" ) );
-   			XSpin->setSuffix( tr( " in" ) );
-			break;
-		case 3:
-   			YSpin->setSuffix( tr( " p" ) );
-   			XSpin->setSuffix( tr( " p" ) );
-			break;
-	}
 	connect(AbsMode, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));
 }
 

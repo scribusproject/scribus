@@ -14,13 +14,11 @@ ButtonIcon::ButtonIcon(QWidget* parent, PageItem* ite)
     TextLabel1_2->setText( tr( "Layout:" ) );
     Layout1->addWidget( TextLabel1_2, 0, 0 );
     Place = new QComboBox( true, this, "Place" );
-    Place->insertItem( tr( "Caption only" ) );
-    Place->insertItem( tr( "Icon only" ) );
-    Place->insertItem( tr( "Caption below Icon" ) );
-    Place->insertItem( tr( "Caption above Icon" ) );
-    Place->insertItem( tr( "Caption right to Icon" ) );
-    Place->insertItem( tr( "Caption left to Icon" ) );
-    Place->insertItem( tr( "Caption overlays Icon" ) );
+	char *tmp_pla[] = {"Caption only", "Icon only", "Caption below Icon", "Caption above Icon", 
+						"Caption right to Icon", "Caption left to Icon", "Caption overlays Icon"};
+	size_t array_pla = sizeof(tmp_pla) / sizeof(*tmp_pla);
+	for (uint a = 0; a < array_pla; ++a)
+		Place->insertItem(tr(tmp_pla[a]));
 	Place->setEditable(false);
     Layout1->addWidget( Place, 0, 1 );
     TextLabel1 = new QLabel( this, "TextLabel1" );

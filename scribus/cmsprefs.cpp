@@ -125,10 +125,10 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSset *Vor,
     RenderLayout->addWidget( Text22, 1, 0 );
 
     MonitorI = new QComboBox( true, Render, "MonitorI" );
-    MonitorI->insertItem( tr( "Perceptual" ) );
-    MonitorI->insertItem( tr( "Relative Colorimetric" ) );
-    MonitorI->insertItem( tr( "Saturation" ) );
-    MonitorI->insertItem( tr( "Absolute Colorimetric" ) );
+	char *tmp_mp[] = {"Perceptual", "Relative Colorimetric", "Saturation", "Absolute Colorimetric"};
+	size_t array = sizeof(tmp_mp) / sizeof(*tmp_mp);
+	for (uint a = 0; a < array; ++a)
+		MonitorI->insertItem(tr(tmp_mp[a]));
     MonitorI->setMinimumSize( QSize( 190, 22 ) );
     MonitorI->setEditable(false);
     MonitorI->setCurrentItem(Vor->DefaultIntentMonitor);
@@ -136,10 +136,8 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSset *Vor,
     RenderLayout->addWidget( MonitorI, 0, 1 );
 
     PrinterI = new QComboBox( true, Render, "PrinterI" );
-    PrinterI->insertItem( tr( "Perceptual" ) );
-    PrinterI->insertItem( tr( "Relative Colorimetric" ) );
-    PrinterI->insertItem( tr( "Saturation" ) );
-    PrinterI->insertItem( tr( "Absolute Colorimetric" ) );
+	for (uint a = 0; a < array; ++a)
+		PrinterI->insertItem(tr(tmp_mp[a]));
     PrinterI->setMinimumSize( QSize( 190, 22 ) );
     PrinterI->setEditable(false);
     PrinterI->setCurrentItem(Vor->DefaultIntentPrinter);

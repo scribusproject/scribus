@@ -20,25 +20,25 @@
 
 ScribusDoc::ScribusDoc()
 {
-  modified = false;
-  MasterP = false;
-  Marks = true;
+	modified = false;
+	MasterP = false;
+	Marks = true;
 	Guides = true;
 	GuideLock = false;
 	SnapGuides = false;
-  ShowPic = true;
-  Raster = false;
-  useRaster = false;
-  EditClip = false;
-  EditClipMode = 0;
-  loading = false;
-  minorGrid = 20;
-  majorGrid = 100;
-  minorColor = QColor(green);
-  majorColor = QColor(green);
+	ShowPic = true;
+	Raster = false;
+	useRaster = false;
+	EditClip = false;
+	EditClipMode = 0;
+	loading = false;
+	minorGrid = 20;
+	majorGrid = 100;
+	minorColor = QColor(green);
+	majorColor = QColor(green);
 	guideColor = QColor(darkBlue);
 	GuideRad = 10;
-  Scale = 1.0;
+	Scale = 1.0;
 	Dpen = "Black";
 	Dshade2 = 100;
 	Dbrush = "Black";
@@ -98,8 +98,8 @@ ScribusDoc::ScribusDoc()
 	JavaScripts.clear();
 	UnDoValid = false;
 	UnData.UnCode = -1;
-  CurrentStyle = 0;
-  CurrentABStil = 0;
+	CurrentStyle = 0;
+	CurrentABStil = 0;
 	TotalItems = 0;
 	TemplateMode = false;
 	PDF_Optionen.Thumbnails = false;
@@ -201,11 +201,11 @@ void ScribusDoc::AddFont(QString name, QFont fo)
 	QString afnm = (*AllFonts)[name]->Datei.left((*AllFonts)[name]->Datei.length()-3);
 	QFile afm(afnm+"afm");
 	if(!(afm.exists()))
-		{
+	{
 		afm.setName(afnm+"Afm");
 		if(!(afm.exists()))
 			afm.setName(afnm+"AFM");
-		}
+	}
 	if (afm.exists())
 		FT_Attach_File(face, afm.name());
 }

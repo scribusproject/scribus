@@ -36,25 +36,9 @@ Mdup::Mdup( QWidget* parent, double Dx, double Dy, int Ein )
     ShiftH->setMinValue( -1000 );
     ShiftH->setValue(Dx);
     Layout4->addWidget( ShiftH, 1, 1 );
-		switch (Ein)
-			{
-			case 0:
-    		ShiftH->setSuffix( tr( " pt" ) );
-    		ShiftV->setSuffix( tr( " pt" ) );
-				break;
-			case 1:
-    		ShiftH->setSuffix( tr( " mm" ) );
-    		ShiftV->setSuffix( tr( " mm" ) );
-				break;
-			case 2:
-    		ShiftH->setSuffix( tr( " in" ) );
-    		ShiftV->setSuffix( tr( " in" ) );
-				break;
-			case 3:
-    		ShiftH->setSuffix( tr( " p" ) );
-    		ShiftV->setSuffix( tr( " p" ) );
-				break;
-			}
+	char *Suffix[] = {" pt", " mm", " in", " p"};
+	ShiftH->setSuffix(tr(Suffix[Ein]));
+	ShiftV->setSuffix(tr(Suffix[Ein]));
     TextLabel1 = new QLabel( this, "TextLabel1" );
     TextLabel1->setText( tr( "Number of Copies:" ) );
     Layout4->addWidget( TextLabel1, 0, 0 );

@@ -59,10 +59,7 @@ PageItem::PageItem(Page *pa, int art, double x, double y, double w, double h, do
 	Parent = pa;
 	Doc = doc;
 	Pcolor = fill;
-	if (PType == 4)
-		Pcolor2 = fill;
-	else
-		Pcolor2 = outline;
+	Pcolor2 = PType == 4 ? fill : outline;
 	TxtFill = Doc->DpenText;
 	TxtStroke = TxtFill;
 	ShTxtStroke = 100;
@@ -122,14 +119,18 @@ PageItem::PageItem(Page *pa, int art, double x, double y, double w, double h, do
 	else
 		Frame = false;
 	switch (art)
-		{
+	{
 		case 6:
-			Clip.setPoints(4, static_cast<int>(w/2),0, static_cast<int>(w),static_cast<int>(h/2), static_cast<int>(w/2),static_cast<int>(h), 0,static_cast<int>(h/2));
+			Clip.setPoints(4, static_cast<int>(w/2), 0, 
+								static_cast<int>(w), static_cast<int>(h/2),
+								static_cast<int>(w/2), static_cast<int>(h), 
+								0,static_cast<int>(h/2));
 			break;
 		default:
-			Clip.setPoints(4, 0,0, static_cast<int>(w),0, static_cast<int>(w),static_cast<int>(h), 0,static_cast<int>(h));
+			Clip.setPoints(4, 0,0, static_cast<int>(w),0, static_cast<int>(w),
+							static_cast<int>(h), 0,static_cast<int>(h));
 			break;
-		}
+	}
 	PoLine.resize(0);
 	Segments.clear();
 	PoShow = false;
@@ -139,7 +140,7 @@ PageItem::PageItem(Page *pa, int art, double x, double y, double w, double h, do
 	PicAvail = false;
 	isPrintable = true;
 	isBookmark = false;
-  BMnr = 0;
+	BMnr = 0;
 	isAnnotation = false;
 	AnType = 0;
 	AnActType = 0;
@@ -240,34 +241,29 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 	int DropLines;
 	tTabValues.clear();
 	if (!Doc->DoDrawing)
-		{
+	{
 		Redrawn = true;
 		Tinput = false;
 		FrameOnly = false;
 		Dirty = false;
 		return;
-		}
+	}
 	LiList.setAutoDelete(true);
 	for (int xxx=0; xxx<5; ++xxx)
-		{
+	{
 		Doc->Vorlagen[xxx].LineSpa = LineSp;
 		Doc->Vorlagen[xxx].Indent = 0;
 		Doc->Vorlagen[xxx].First = 0;
 		Doc->Vorlagen[xxx].Avor = 0;
 		Doc->Vorlagen[xxx].Anach = 0;
-		}
+	}
 	Doc->Vorlagen[0].Ausri = Ausrich;
 	pf.begin(Parent);
 	pf.translate(static_cast<int>(Xpos*sc), static_cast<int>(Ypos*sc));
 	pf.scale(static_cast<double>(sc), static_cast<double>(sc));
 	pf.rotate(static_cast<double>(Rot));
 	if (!Doc->RePos)
-		{
-		if (!e.isEmpty())
-			pf.setClipRect(e);
-		else
-			pf.setClipRect(OwnPage->ViewReg().boundingRect());
-		}
+		pf.setClipRect(!e.isEmpty() ? e : OwnPage->ViewReg().boundingRect());
 	bool doStroke = true;
 	p->setZoomFactor(sc);
 	p->save();
@@ -276,22 +272,22 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 	p->rotate(static_cast<double>(Rot));
 	p->setLineWidth(Pwidth);
 	if (Pcolor != "None")
-		{
+	{
 		SetFarbe(&tmp, Pcolor, Shade);
 		p->setBrush(tmp);
 		p->setFillMode(1);
-		}
+	}
 	else
 		p->setFillMode(0);
 	if (GrType != 0)
-		{
+	{
 		p->setFillMode(2);
 		p->fill_gradient = fill_gradient;
 		QWMatrix grm;
 		grm.rotate(Rot);
 		FPointArray gra;
 		switch (GrType)
-			{
+		{
 			case 1:
 				gra.setPoints(2, 0, 0, Width, 0);
 				gra.map(grm);
@@ -318,44 +314,45 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					gv = FPoint(Width, Height / 2.0);
 				else
 					gv = FPoint(Width / 2.0, Height);
-				p->setGradient(VGradient::radial, FPoint(Width / 2.0,Height / 2.0), gv, FPoint(Width / 2.0,Height / 2.0));
+				p->setGradient(VGradient::radial, FPoint(Width / 2.0,Height / 2.0), gv, 
+								FPoint(Width / 2.0,Height / 2.0));
 				break;
-			}
 		}
+	}
 	if (Pcolor2 != "None")
-		{
+	{
 		SetFarbe(&tmp, Pcolor2, Shade2);
 		if ((Pwidth == 0) && (PType != 5))
 			p->setLineWidth(0);
 		else
-			{
+		{
 			p->setPen(tmp, Pwidth, PLineArt, PLineEnd, PLineJoin);
 			if (DashValues.count() != 0)
 				p->setDash(DashValues, DashOffset);
-			}
 		}
+	}
 	else
 		p->setLineWidth(0);
 	p->setBrushOpacity(1.0 - Transparency);
 	p->setPenOpacity(1.0 - TranspStroke);
 	switch (PType)
-		{
+	{
 		case 2:
 			if (Doc->RePos)
 				break;
 			if ((Pcolor != "None") || (GrType != 0))
-				{
+			{
 				p->setupPolygon(&PoLine);
 				p->drawPolygon();
-				}
+			}
 			if (Pfile == "")
-				{
+			{
 				p->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
 				p->drawLine(FPoint(0, 0), FPoint(Width, Height));
 				p->drawLine(FPoint(0, Height), FPoint(Width, 0));
-				}
+			}
 			else
-				{
+			{
 				QBitmap bmd = QBitmap(static_cast<int>(Width), static_cast<int>(Height));
 				bmd.fill(Qt::color0);
 				QPainter pb;
@@ -369,14 +366,11 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 				QPainter pd;
 				pd.begin(&pmd);
 				if ((!PicArt) || (!PicAvail))
-					{
+				{
 					pd.setPen(QPen(black, 1, SolidLine, FlatCap, MiterJoin));
 					pd.drawLine(0, 0, static_cast<int>(Width), static_cast<int>(Height));
 					pd.drawLine(0, static_cast<int>(Height), static_cast<int>(Width), 0);
-					if (PicAvail)
-						pd.setPen(blue);
-					else
-						pd.setPen(red);
+					pd.setPen(PicAvail ? blue : red);
 					pd.setBackgroundMode(OpaqueMode);
 					pd.setFont(QFont("Helvetica", 18));
 					QFileInfo fi = QFileInfo(Pfile);
@@ -384,46 +378,46 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					int xp = static_cast<int>(Width / 2 - leng / 2);
 					int yp = static_cast<int>(Height / 2 + pd.fontMetrics().height() / 2);
 					pd.drawText(xp, yp, fi.fileName());
-					}
+				}
 				else
-					{
+				{
 					if ((Pcolor != "None") || (GrType != 0))
-						{
+					{
 						pd.setPen(NoPen);
 						SetFarbe(&tmp, Pcolor, Shade);
 						pd.setBrush(tmp);
 						if (!Doc->RePos)
-							{
+						{
 							if (GrType == 0)
 								DrawPoly(&pd, Clip, pd.brush().color());
-							}
 						}
+					}
 					if (flippedH % 2 != 0)
-						{
+					{
 						pd.translate(Width, 0);
 						pd.scale(-1, 1);
-						}
+					}
 					if (flippedV % 2 != 0)
-						{
+					{
 						pd.translate(0, static_cast<int>(Height));
 						pd.scale(1, -1);
-						}
+					}
 					if ((LocalViewX != 1) || (LocalViewY != 1))
 						pd.scale(LocalViewX, LocalViewY);
 					if (InvPict)
-						{
+					{
 						QImage ip = pixm.copy();
 						ip.invertPixels();
 						pd.drawImage(static_cast<int>(LocalX*LocalScX), static_cast<int>(LocalY*LocalScY), ip);
-						}
+					}
 					else
 						pd.drawImage(static_cast<int>(LocalX*LocalScX), static_cast<int>(LocalY*LocalScY), pixm);
-					}
+				}
 				pmd.setMask(bmd);
 				QImage ip2 = pmd.convertToImage();
 				p->drawImage(ip2);
 				pd.end();
-				}
+			}
 			break;
 		case 5:
 			if (Doc->RePos)
@@ -431,19 +425,19 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 			if (NamedLStyle == "")
 				p->drawLine(FPoint(0, 0), FPoint(Width, 0));
 			else
-				{
+			{
 				multiLine ml = Doc->MLineStyles[NamedLStyle];
 				for (int it = ml.size()-1; it > -1; it--)
-					{
+				{
 					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
 					p->setPen(tmp, ml[it].Width,
 									 static_cast<PenStyle>(ml[it].Dash),
 									 static_cast<PenCapStyle>(ml[it].LineEnd),
 									 static_cast<PenJoinStyle>(ml[it].LineJoin));
 					p->drawLine(FPoint(0, 0), FPoint(Width, 0));
-					}
-				doStroke = false;
 				}
+				doStroke = false;
+			}
 			break;
 		case 1:
 		case 3:
@@ -1329,18 +1323,19 @@ NoRoom: if (NextBox != 0)
 			zae = 0;
 			wid = sqrt(pow(cl.point(zae+1).x()-cl.point(zae).x(),2)+pow(cl.point(zae+1).y()-cl.point(zae).y(),2));
 			while (wid < 1)
-				{
+			{
 				zae++;
 				if (zae > cl.size()-2)
 				{
 					MaxChars = Ptext.count();
 					break;
 				}
-				wid = sqrt(pow(cl.point(zae+1).x()-cl.point(zae).x(),2)+pow(cl.point(zae+1).y()-cl.point(zae).y(),2));
-				}
+				wid = sqrt(pow(cl.point(zae+1).x()-cl.point(zae).x(),2) + 
+							pow(cl.point(zae+1).y()-cl.point(zae).y(),2));
+			}
 			rota = xy2Deg(cl.point(zae+1).x()-cl.point(zae).x(),cl.point(zae+1).y()-cl.point(zae).y());
 			for (a = 0; a < Ptext.count(); ++a)
-				{
+			{
 				CurY = 0;
 				hl = Ptext.at(a);
 				chx = hl->ch;
@@ -1353,53 +1348,55 @@ NoRoom: if (NextBox != 0)
 				else
 					chx2 = chx;
 				if (a < Ptext.count()-1)
-					{
+				{
 					if (Ptext.at(a+1)->ch == QChar(29))
 						chx3 = " ";
 					else
 						chx3 = Ptext.at(a+1)->ch;
 					wide = Cwidth(Doc, hl->cfont, chx2, chs, chx3);
-					}
+				}
 				else
 					wide = Cwidth(Doc, hl->cfont, chx2, chs);
 				wide = wide * (hl->cscale / 100.0);
 				if ((CurX+(wide+hl->cextra)/2) >= wid)
-					{
+				{
 					if (zae < cl.size()-1)
-						{
+					{
 						CurX = CurX - wid;
 						wid = 0;
 						EndX = CurX;
 						do
-							{
+						{
 							do
-								{
+							{
 								zae++;
 								if (zae > cl.size()-2)
-									{
+								{
 									MaxChars = a+1;
 									break;
-									}
-								wid = sqrt(pow(cl.point(zae+1).x()-cl.point(zae).x(),2)+pow(cl.point(zae+1).y()-cl.point(zae).y(),2));
-								rota = xy2Deg(cl.point(zae+1).x()-cl.point(zae).x(),cl.point(zae+1).y()-cl.point(zae).y());
 								}
+								wid = sqrt(pow(cl.point(zae+1).x()-cl.point(zae).x(),2)+
+											pow(cl.point(zae+1).y()-cl.point(zae).y(),2));
+								rota = xy2Deg(cl.point(zae+1).x()-cl.point(zae).x(),
+												cl.point(zae+1).y()-cl.point(zae).y());
+							}
 							while (wid == 0);
 							EndX -= wid;
 							if (zae > cl.size()-2)
-								{
+							{
 								MaxChars = a+1;
 								break;
-								}
 							}
+						}
 						while (wid < EndX);
 						CurX = EndX + wid;
-						}
+					}
 					else
-						{
+					{
 						MaxChars = a+1;
 						break;
-						}
 					}
+				}
 				if (zae > cl.size()-2)
 					break;
 				p->save();
@@ -1413,15 +1410,15 @@ NoRoom: if (NextBox != 0)
 				Zli = new ZZ;
 				Zli->Zeich = chx;
 				if (hl->ccolor != "None")
-					{
+				{
 					SetFarbe(&tmp, hl->ccolor, hl->cshade);
 					p->setBrush(tmp);
-					}
+				}
 				if (hl->cstroke != "None")
-					{
+				{
 					SetFarbe(&tmp, hl->cstroke, hl->cshade2);
 					p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
-					}
+				}
 				Zli->Farb = hl->ccolor;
 				Zli->Farb2 = hl->cstroke;
 				Zli->shade = hl->cshade;
@@ -1442,42 +1439,42 @@ NoRoom: if (NextBox != 0)
 				p->setZoomFactor(sc);
 				MaxChars = a+1;
 				CurX += wide+hl->cextra;
-				}
+			}
 		default:
 			break;
-		}
+	}
 	if ((doStroke) && (!Doc->RePos))
-		{
+	{
 		if (Pcolor2 != "None")
-			{
+		{
 			SetFarbe(&tmp, Pcolor2, Shade2);
 			p->setPen(tmp, Pwidth, PLineArt, PLineEnd, PLineJoin);
 			if (DashValues.count() != 0)
 				p->setDash(DashValues, DashOffset);
-			}
+		}
 		else
 			p->setLineWidth(0);
 		p->setupPolygon(&PoLine);
 		if (NamedLStyle == "")
 			p->drawPolyLine();
 		else
-			{
+		{
 			multiLine ml = Doc->MLineStyles[NamedLStyle];
 			for (int it = ml.size()-1; it > -1; it--)
-				{
+			{
 				SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
 				p->setPen(tmp, ml[it].Width,
 								 static_cast<PenStyle>(ml[it].Dash),
 								 static_cast<PenCapStyle>(ml[it].LineEnd),
 								 static_cast<PenJoinStyle>(ml[it].LineJoin));
 				p->drawPolyLine();
-				}
 			}
 		}
+	}
 	if ((!Tinput) && (!Doc->RePos))
-		{
+	{
 		if ((Frame) && (Doc->ShFrames) && ((PType == 2) || (PType == 4)))
-			{
+		{
 			p->setPen(black, 1, DotLine, FlatCap, MiterJoin);
 			if ((isBookmark) || (isAnnotation))
 				p->setPen(blue, 1, DotLine, FlatCap, MiterJoin);
@@ -1488,8 +1485,8 @@ NoRoom: if (NextBox != 0)
 			p->setFillMode(0);
 			p->setupPolygon(&PoLine);
 			p->drawPolyLine();
-			}
 		}
+	}
 	Tinput = false;
 	FrameOnly = false;
 	Dirty = false;
@@ -1501,29 +1498,29 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 {
 	QPainter p;
 	if (!Doc->DoDrawing)
-		{
+	{
 		Redrawn = true;
 		Tinput = false;
 		FrameOnly = false;
 		Dirty = false;
 		return;
-		}
+	}
 	if (toPixmap)
 		p.begin(ppX);
 	else
 		p.begin(Parent);
 	if ((!toPixmap) && (!Doc->RePos))
-		{
+	{
 		if (!e.isEmpty())
 			p.setClipRect(e);
 		else
 			p.setClipRect(OwnPage->ViewReg().boundingRect());
-		}
+	}
 	p.translate(static_cast<int>(Xpos*Doc->Scale), static_cast<int>(Ypos*Doc->Scale));
 	p.scale(static_cast<double>(Doc->Scale), static_cast<double>(Doc->Scale));
 	p.rotate(static_cast<double>(Rot));
 	if (Sizing)
-		{
+	{
 		p.setRasterOp(XorROP);
 		p.setBrush(NoBrush);
 		p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
@@ -1531,11 +1528,11 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 		p.drawRect(0, 0, static_cast<int>(Width), static_cast<int>(Height));
 		OldB = Width;
 		OldH = Height;
-		}
+	}
 	if ((!Tinput) && (!Doc->RePos))
-		{
+	{
 		if ((Frame) && (Doc->ShFrames))
-			{
+		{
 			p.setPen(QPen(black, 1, DotLine, FlatCap, MiterJoin));
 			if ((isBookmark) || (isAnnotation))
 				p.setPen(QPen(blue, 1, DotLine, FlatCap, MiterJoin));
@@ -1545,13 +1542,13 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 				p.setPen(QPen(darkRed, 1, SolidLine, FlatCap, MiterJoin));
 			p.setBrush(NoBrush);
 			DrawPolyL(&p, Clip);
-			}
+		}
 		if (Select) // && (!Doc->EditClip))
-			{
+		{
 			if (!OwnPage->SelItem.isEmpty())
-				{
+			{
 				if (Groups.count() == 0)
-					{
+				{
 					QPainter pr;
 					pr.begin(Parent);
 					pr.translate(static_cast<int>(Xpos*Doc->Scale), static_cast<int>(Ypos*Doc->Scale));
@@ -1561,50 +1558,54 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 					else
 						pr.setPen(QPen(red, 1, DotLine, FlatCap, MiterJoin));
 					pr.setBrush(NoBrush);
-					pr.drawRect(-1, -1, static_cast<int>(Width*Doc->Scale)+2, static_cast<int>(Height*Doc->Scale)+2);
+					pr.drawRect(-1, -1, static_cast<int>(Width*Doc->Scale)+2,
+								 static_cast<int>(Height*Doc->Scale)+2);
 					if (Locked)
-						{
+					{
 						pr.setPen(QPen(darkRed, 1, SolidLine, FlatCap, MiterJoin));
 						pr.setBrush(darkRed);
-						}
+					}
 					else
-						{
+					{
 						pr.setPen(QPen(red, 1, SolidLine, FlatCap, MiterJoin));
 						pr.setBrush(red);
-						}
+					}
 					if (PType != 5)
-						{
+					{
 						pr.drawRect(-1, -1, 6, 6);
-						pr.drawRect(static_cast<int>(Width*Doc->Scale), static_cast<int>(Height*Doc->Scale), -6, -6);
+						pr.drawRect(static_cast<int>(Width*Doc->Scale), static_cast<int>(Height*Doc->Scale), 
+									-6, -6);
 						pr.drawRect(static_cast<int>(Width*Doc->Scale), -1, -6, 6);
 						pr.drawRect(-1, static_cast<int>(Height*Doc->Scale), 6, -6);
 						if (Width > 6)
-							{
-							pr.drawRect(static_cast<int>(Width/2*Doc->Scale - 3), static_cast<int>(Height*Doc->Scale), 6, -6);
-							pr.drawRect(static_cast<int>(Width/2*Doc->Scale - 3), -1, 6, 6);
-							}
-						if (Height > 6)
-							{
-							pr.drawRect(static_cast<int>(Width*Doc->Scale), static_cast<int>(Height/2*Doc->Scale - 3), -6, 6);
-							pr.drawRect(-1, static_cast<int>(Height/2*Doc->Scale - 3), 6, 6);
-							}
-						}
-					else
 						{
+							pr.drawRect(static_cast<int>(Width/2*Doc->Scale - 3),
+										 static_cast<int>(Height*Doc->Scale), 6, -6);
+							pr.drawRect(static_cast<int>(Width/2*Doc->Scale - 3), -1, 6, 6);
+						}
+						if (Height > 6)
+						{
+							pr.drawRect(static_cast<int>(Width*Doc->Scale), 
+										static_cast<int>(Height/2*Doc->Scale - 3), -6, 6);
+							pr.drawRect(-1, static_cast<int>(Height/2*Doc->Scale - 3), 6, 6);
+						}
+					}
+					else
+					{
 						pr.drawRect(-3, -3, 6, 6);
 						pr.drawRect(static_cast<int>(Width*Doc->Scale)+3, -3, -6, 6);
-						}
-					pr.end();
 					}
+					pr.end();
+				}
 				else
-					{
+				{
 					p.setPen(QPen(darkCyan, 1, DotLine, FlatCap, MiterJoin));
 					p.setBrush(NoBrush);
 					p.drawRect(-1, -1, static_cast<int>(Width+2), static_cast<int>(Height+2));
-					}
 				}
 			}
 		}
+	}
 	Tinput = false;
 	FrameOnly = false;
 	Dirty = false;
@@ -1616,16 +1617,16 @@ QString PageItem::ExpandToken(uint base)
 	uint zae = 0;
 	QString chx = "#";
 	if (!Doc->MasterP)
-		{
+	{
 		while (Ptext.at(base+zae)->ch == QChar(30))
-			{
+		{
 			zae++;
 			if (base+zae == Ptext.count())
 				break;
-			}
+		}
 		QString out="%1";
 		chx = out.arg(OwnPage->PageNr+Doc->FirstPnum, zae).right(zae).left(1);
-		}
+	}
 	return chx;
 }
 
@@ -1634,17 +1635,17 @@ void PageItem::SetFarbe(QColor *tmp, QString farbe, int shad)
 	int h, s, v, sneu;
 	Doc->PageColors[farbe].getRGBColor().rgb(&h, &s, &v);
 	if ((h == s) && (s == v))
-		{
+	{
 		Doc->PageColors[farbe].getRGBColor().hsv(&h, &s, &v);
 		sneu = 255 - ((255 - v) * shad / 100);
 		tmp->setHsv(h, s, sneu);
-		}
+	}
 	else
-		{
+	{
 		Doc->PageColors[farbe].getRGBColor().hsv(&h, &s, &v);
 		sneu = s * shad / 100;
 		tmp->setHsv(h, sneu, v);
-		}
+	}
 }
 
 double PageItem::SetZeichAttr(struct Pti *hl, int *chs, QString *chx)
@@ -1653,60 +1654,58 @@ double PageItem::SetZeichAttr(struct Pti *hl, int *chs, QString *chx)
 	int	asce = static_cast<int>((*Doc->AllFonts)[hl->cfont]->numAscent * (hl->csize / 10.0));
 	int chst = hl->cstyle & 127;
 	if (chst != 0)
-		{
+	{
 		if (chst & 1)
-			{
+		{
 			retval -= asce * Doc->VHoch / 100;
 			*chs = QMAX(static_cast<int>(hl->csize * Doc->VHochSc / 100), 1);
-			}
+		}
 		if (chst & 2)
-			{
+		{
 			retval += asce * Doc->VTief / 100;
 			*chs = QMAX(static_cast<int>(hl->csize * Doc->VTiefSc / 100), 1);
-			}
+		}
 		if (chst & 64)
-			{
+		{
 			if (chx->upper() != *chx)
-				{
+			{
 				*chs = QMAX(static_cast<int>(hl->csize * Doc->VKapit / 100), 1);
 				*chx = chx->upper();
-				}
 			}
 		}
+	}
 	return retval;
 }
 
 void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 {
 	QString ccx = hl->Zeich;
+	if ((ccx == QChar(13)) || (ccx == QChar(9)))
+		return;
 	if (ccx == QChar(29))
 		ccx = " ";
-	if (ccx == QChar(13))
-		return;
-	if (ccx == QChar(9))
-		return;
 	double csi = static_cast<double>(hl->Siz) / 100.0;
 	uint chr = ccx[0].unicode();
 	if ((*Doc->AllFonts)[hl->ZFo]->CharWidth.contains(chr))
-		{
+	{
 		QWMatrix chma;
 		chma.scale(csi, csi);
 		FPointArray gly = (*Doc->AllFonts)[hl->ZFo]->GlyphArray[chr].Outlines.copy();
 		if (gly.size() > 3)
-			{
+		{
 			gly.map(chma);
 			chma = QWMatrix();
 			chma.scale(hl->scale / 100.0, 1);
 			gly.map(chma);
 			chma = QWMatrix();
 			if (Reverse)
-				{
+			{
 				chma.scale(-1, 1);
 				chma.translate(-hl->wide, 0);
 				gly.map(chma);
 				chma = QWMatrix();
 				chma.translate(hl->xco, hl->yco-(hl->Siz / 10.0));
-				}
+			}
 			else
 				chma.translate(hl->xco, hl->yco-(hl->Siz / 10.0));
 			gly.map(chma);
@@ -1715,43 +1714,44 @@ void PageItem::DrawZeichenS(ScPainter *p, struct ZZ *hl)
 			if (hl->Farb != "None")
 				p->fillPath();
 			if ((hl->Style & 4) && (hl->Farb2 != "None"))
-				{
+			{
 				p->setLineWidth((*Doc->AllFonts)[hl->ZFo]->strokeWidth * (hl->Siz / 10.0) / 2);
 				p->strokePath();
-				}
 			}
+		}
 		if (hl->Style & 16)
-			{
+		{
 			p->setPen(p->brush());
 			double st = (*Doc->AllFonts)[hl->ZFo]->strikeout_pos * (hl->Siz / 10.0);
 			p->setLineWidth(QMAX((*Doc->AllFonts)[hl->ZFo]->strokeWidth * (hl->Siz / 10.0), 1));
 			p->drawLine(FPoint(hl->xco-hl->kern, hl->yco-st), FPoint(hl->xco+hl->wide, hl->yco-st));
-			}
+		}
 		if (hl->Style & 8)
-			{
+		{
 			double st = (*Doc->AllFonts)[hl->ZFo]->underline_pos * (hl->Siz / 10.0);
 			QString dummy;
 			p->setPen(p->brush());
 			p->setLineWidth(QMAX((*Doc->AllFonts)[hl->ZFo]->strokeWidth * (hl->Siz / 10.0), 1));
 			if ((gly.size() > 4) && (ccx != QChar(32)))
-				p->drawUnderline(FPoint(hl->xco-hl->kern, hl->yco-st), FPoint(hl->xco+hl->wide, hl->yco-st), false, &dummy);
+				p->drawUnderline(FPoint(hl->xco-hl->kern, hl->yco-st), 
+								 FPoint(hl->xco+hl->wide, hl->yco-st), false, &dummy);
 			else
 				p->drawLine(FPoint(hl->xco-hl->kern, hl->yco-st), FPoint(hl->xco+hl->wide, hl->yco-st));
-			}
 		}
+	}
 	else
-		{
+	{
 		p->setLineWidth(1);
 		p->setPen(black);
 		p->setFillMode(0);
 		p->drawRect(hl->xco, hl->yco-(hl->Siz / 10.0), (hl->Siz / 10.0)*(hl->scale / 100.0), (hl->Siz / 10.0));
-		}
+	}
 }
 
 void PageItem::DrawPoly(QPainter *p, QPointArray pts, QColor BackF, bool bitm)
 {
 	if ((Pcolor != "None") || (GrType != 0) || (PType == 2))
-		{
+	{
 		QBitmap bm(static_cast<int>(Width), static_cast<int>(Height));
 		bm.fill(Qt::color0);
 		QPainter pbm;
@@ -1763,12 +1763,12 @@ void PageItem::DrawPoly(QPainter *p, QPointArray pts, QColor BackF, bool bitm)
 		QValueList<uint>::Iterator it3;
 		uint FirstVal = 0;
 		for (it3 = Segments.begin(); it3 != Segments.end(); ++it3)
-			{
+		{
 			dr.resize(0);
 			dr.putPoints(0, (*it3)-FirstVal-1, pts, FirstVal);
 			pbm.drawPolygon(dr);
 			FirstVal = (*it3);
-			}
+		}
 		dr.resize(0);
 		dr.putPoints(0, pts.size()-FirstVal-1, pts, FirstVal);
 		pbm.drawPolygon(dr);
@@ -1776,31 +1776,31 @@ void PageItem::DrawPoly(QPainter *p, QPointArray pts, QColor BackF, bool bitm)
 		if (bitm)
 			p->drawPixmap(0, 0, bm);
 		else
-			{
+		{
 			QPixmap ppm(static_cast<int>(Width), static_cast<int>(Height));
 			ppm.fill(BackF);
 			ppm.setMask(bm);
 			p->drawPixmap(0, 0, ppm);
-			}
 		}
+	}
 }
 
 void PageItem::DrawPolyL(QPainter *p, QPointArray pts)
 {
 	QColor tmp;
 	if (Segments.count() != 0)
-		{
+	{
 		QValueList<uint>::Iterator it2;
 		uint FirstVal = 0;
 		for (it2 = Segments.begin(); it2 != Segments.end(); ++it2)
-			{
+		{
 			if (NamedLStyle == "")
 				p->drawPolyline(pts, FirstVal, (*it2)-FirstVal);
 			else
-				{
+			{
 				multiLine ml = Doc->MLineStyles[NamedLStyle];
 				for (int it = ml.size()-1; it > -1; it--)
-					{
+				{
 					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
 					p->setPen(QPen(tmp,
 									 QMAX(static_cast<int>(ml[it].Width*Doc->Scale), 1),
@@ -1808,17 +1808,17 @@ void PageItem::DrawPolyL(QPainter *p, QPointArray pts)
 									 static_cast<PenCapStyle>(ml[it].LineEnd),
 									 static_cast<PenJoinStyle>(ml[it].LineJoin)));
 					p->drawPolyline(pts, FirstVal, (*it2)-FirstVal);
-					}
 				}
-			FirstVal = (*it2);
 			}
+			FirstVal = (*it2);
+		}
 		if (NamedLStyle == "")
 			p->drawPolyline(pts, FirstVal);
 		else
-			{
+		{
 			multiLine ml = Doc->MLineStyles[NamedLStyle];
 			for (int it = ml.size()-1; it > -1; it--)
-				{
+			{
 				SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
 				p->setPen(QPen(tmp,
 								 QMAX(static_cast<int>(ml[it].Width*Doc->Scale), 1),
@@ -1826,18 +1826,18 @@ void PageItem::DrawPolyL(QPainter *p, QPointArray pts)
 								 static_cast<PenCapStyle>(ml[it].LineEnd),
 								 static_cast<PenJoinStyle>(ml[it].LineJoin)));
 				p->drawPolyline(pts, FirstVal);
-				}
 			}
 		}
+	}
 	else
-		{
+	{
 		if (NamedLStyle == "")
 			p->drawPolyline(pts);
 		else
-			{
+		{
 			multiLine ml = Doc->MLineStyles[NamedLStyle];
 			for (int it = ml.size()-1; it > -1; it--)
-				{
+			{
 				SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
 				p->setPen(QPen(tmp,
 								 QMAX(static_cast<int>(ml[it].Width*Doc->Scale), 1),
@@ -1845,7 +1845,7 @@ void PageItem::DrawPolyL(QPainter *p, QPointArray pts)
 								 static_cast<PenCapStyle>(ml[it].LineEnd),
 								 static_cast<PenJoinStyle>(ml[it].LineJoin)));
 				p->drawPolyline(pts);
-				}
 			}
 		}
+	}
 }

@@ -22,7 +22,7 @@ Query::Query( QWidget* parent,  const char* name, bool modal, WFlags fl, QString
     : QDialog( parent, name, modal, fl )
 {
     if ( !name )
-	setName( "Query" );
+		setName( "Query" );
     setCaption( tr( titel ) );
   	setIcon(loadIcon("AppIcon.png"));
     QueryLayout = new QVBoxLayout( this );
