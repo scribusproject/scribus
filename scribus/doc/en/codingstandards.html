@@ -42,9 +42,9 @@
 void foo::bar(f *b)
 {
 	int j;
-	string g = b->passed_in;
+	string g = b-&gt;passed_in;
 	double fg, m, c;
-	which_string(g, &j);
+	which_string(g, &amp;j);
 	if (j == true)
 		return;
 	// rest of the code
@@ -193,8 +193,8 @@ if (foo == bar)
 <p>If braces are not required, don't use them. For example, braces wouldn't be needed here</p>
 <blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
 <pre>
-for (int j = 0; j < 10; ++j)
-	cout << j << "\n"?;
+for (int j = 0; j &lt; 10; ++j)
+	cout &lt;&lt; j &lt;&lt; &quot;\n&quot;?;
 </pre>
 </small></td></tr></table></blockquote>
 <h4>Pre or post increments</h4>
@@ -204,8 +204,8 @@ for (int j = 0; j < 10; ++j)
 <pre>
 if (b == true)
 {
-	m->wibble(c);
-	m->wobble(c++);
+	m-&gt;wibble(c);
+	m-&gt;wobble(c++);
 }
 </pre>
 </small></td></tr></table></blockquote>
@@ -247,7 +247,7 @@ if (b == true)
 <p>All calls to <code>new</code> should be trapped. This is not currently implemented in the 1.1.x releases, but will be implemented in the 1.2. The preferred method would be:</p>
 <blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0"><small>
 <pre>
-#include <new>
+#include &lt;new&gt;
 
 try
 {
@@ -256,7 +256,7 @@ try
 
 catch(bad_exception)
 {
-  cout << "memory allocation to m failed - <method name>" << endl;
+  cout &lt;&lt; "memory allocation to m failed - &lt;method name&lt;" &lt;&lt; endl;
   exit(EXIT_FAILURE);
 }
 </pre>
@@ -269,7 +269,7 @@ As there are many calls in Scribus to new, these will have a wrapper around.</p>
 <h4>Submitting of patches</h4>
 
 <p>Code patches should be sent to Franz and Paul. Documentation patches should be sent to Peter and Craig. This is subject to change. Scripting matters should be addressed to Petr.</p>
-<p>Patches should be in plain text. diff -u old_file.cpp new_file.cpp >difference.diff is the best way of sending them. Please do not send patches to the main list.</p>
+<p>Patches should be in plain text. <code>diff -u old_file.cpp new_file.cpp &gt;difference.diff</code> is the best way of sending them. Please do not send patches to the main list.</p>
 <p>Please ensure that when you have changed something you put a comment immediately before the change. Ensure you put a date and who made the change and what the change is for. Make sure that the comments include the original line of code. Over time, these will be weeded out, but it useful to see what has been altered.</p>
 <p>Send a single diff for each file altered. It makes committing the changes far more simple for us!</p>
 
