@@ -3,11 +3,6 @@
 
 #include "scribus.h"
 
-/*! Macro to check for Carrier->HaveDoc and set a sensible
-exception if not found. */
-#define HAVEDOC_OR_ERR if (!Carrier->HaveDoc) { PyErr_SetString(NoDocOpenError, "Command does not make sense without an open document"); return NULL; }
-
-
 double PointToValue(double Val);
 double ValToPts(double Val, int ein);
 double ValueToPoint(double Val);
@@ -19,5 +14,8 @@ void ReplaceColor(QString col, QString rep);
  * 03/10/2004 petr vanek
  */
 PageItem* GetUniqueItem(QString name);
+
+// 2004-10-27 Craig Ringer see cmdutil.cpp for description
+bool checkHaveDocument();
 
 #endif

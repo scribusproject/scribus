@@ -89,7 +89,8 @@ PyObject *scribus_docchanged(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("docChanged(number)"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	if (aValue>0)
 		Carrier->slotDocCh(true);
 	else

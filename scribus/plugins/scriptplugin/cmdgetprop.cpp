@@ -11,7 +11,8 @@ PyObject *scribus_getfillcolor(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getFillColor([objectname])"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	PageItem *i = GetUniqueItem(QString(Name));
 	return i != NULL ? PyString_FromString(i->Pcolor) : PyString_FromString("");
 }
@@ -25,7 +26,8 @@ PyObject *scribus_getlinecolor(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getLineColor([objectname])"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	it = GetUniqueItem(QString(Name));
 	if ((it != NULL) && (it->HasSel) && ((it->PType == 4) || (it->PType == 8)))
 	{
@@ -48,7 +50,8 @@ PyObject *scribus_getlinewidth(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getLineWidth([objectname])"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	PageItem *i = GetUniqueItem(QString(Name));
 	return i != NULL ? PyFloat_FromDouble(static_cast<double>(i->Pwidth)) : PyFloat_FromDouble(0.0);
 }
@@ -62,7 +65,8 @@ PyObject *scribus_getlineshade(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getLineShade([objectname])"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	it = GetUniqueItem(QString(Name));
 	if ((it != NULL) && (it->HasSel) && ((it->PType == 4) || (it->PType == 8)))
 	{
@@ -85,7 +89,8 @@ PyObject *scribus_getlinejoin(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getLineJoin([objectname])"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	PageItem *i = GetUniqueItem(QString(Name));
 	return i != NULL ? PyInt_FromLong(static_cast<long>(i->PLineJoin)) : PyInt_FromLong(0L);
 }
@@ -98,7 +103,8 @@ PyObject *scribus_getlineend(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getLineEnd([objectname])"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	PageItem *i = GetUniqueItem(QString(Name));
 	return i != NULL ? PyInt_FromLong(static_cast<long>(i->PLineEnd)) : PyInt_FromLong(0L);
 }
@@ -111,7 +117,8 @@ PyObject *scribus_getlinestyle(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getLineStyle([objectname])"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	PageItem *i = GetUniqueItem(QString(Name));
 	return i != NULL ? PyInt_FromLong(static_cast<long>(i->PLineArt)) : PyInt_FromLong(0L);
 }
@@ -124,7 +131,8 @@ PyObject *scribus_getfillshade(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getFillShade([objectname])"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	PageItem *i = GetUniqueItem(QString(Name));
 	return i != NULL ? PyInt_FromLong(static_cast<long>(i->Shade)) : PyInt_FromLong(0L);
 }
@@ -137,7 +145,8 @@ PyObject *scribus_getcornerrad(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getCornerRadius([objectname])"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	PageItem *i = GetUniqueItem(QString(Name));
 	return i != NULL ? PyInt_FromLong(static_cast<long>(i->RadRect)) : PyInt_FromLong(0L);
 }
@@ -150,7 +159,8 @@ PyObject *scribus_getimgscale(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getImageScale([objectname])"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	PageItem *i = GetUniqueItem(QString(Name));
 	return i != NULL ? Py_BuildValue("(ff)", i->LocalScX, i->LocalScY) : Py_BuildValue("(ff)", 1.0, 1.0);
 }
@@ -163,7 +173,8 @@ PyObject *scribus_getimgname(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getImageFile([objectname])"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	PageItem *i = GetUniqueItem(QString(Name));
 	return i != NULL ? PyString_FromString(i->Pfile) : PyString_FromString("");
 }
@@ -176,7 +187,8 @@ PyObject *scribus_getposi(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getPosition([objectname])"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	PageItem *i = GetUniqueItem(QString(Name));
 	return (i != NULL) ? Py_BuildValue("(ff)", PointToValue(i->Xpos), PointToValue(i->Ypos)) : Py_BuildValue("(ff)", 0.0, 0.0);
 }
@@ -189,7 +201,8 @@ PyObject *scribus_getsize(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getSize([objectname])"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	PageItem *i = GetUniqueItem(QString(Name));
 	return (i != NULL) ? Py_BuildValue("(ff)", PointToValue(i->Width), PointToValue(i->Height)) : Py_BuildValue("(ff)", 0.0, 0.0);
 }
@@ -202,7 +215,8 @@ PyObject *scribus_getrotation(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getRotation([objectname])"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	PageItem *i = GetUniqueItem(QString(Name));
 	return i != NULL ? PyFloat_FromDouble(static_cast<double>(i->Rot * -1)) : PyFloat_FromDouble(0.0);
 }
@@ -218,7 +232,8 @@ PyObject *scribus_getallobj(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getAllObjects([objecttype])"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	// have doc already
 	if (typ != -1)
 	{

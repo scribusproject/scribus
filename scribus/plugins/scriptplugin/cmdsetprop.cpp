@@ -14,7 +14,8 @@ PyObject *scribus_setgradfill(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setGradientFill(type, color1, shade1, color2, shade2 [, objectname])"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	PageItem *b = GetUniqueItem(QString(Name));
 	if (b != NULL)
 	{
@@ -43,7 +44,8 @@ PyObject *scribus_setfillcolor(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setFillColor(color [, objectname])"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	PageItem *i = GetUniqueItem(QString(Name));
 	if (i != NULL)
 		i->Pcolor = QString(Color);
@@ -60,7 +62,8 @@ PyObject *scribus_setlinecolor(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setLineColor(color [, objectname])"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	PageItem *it = GetUniqueItem(QString(Name));
 	if (it != NULL)
 		it->Pcolor2 = QString(Color);
@@ -77,7 +80,8 @@ PyObject *scribus_setlinewidth(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setLineWidth(width [, objectname])"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	if ((w < 0.0) || (w > 12.0))
 	{
 		Py_INCREF(Py_None);
@@ -99,7 +103,8 @@ PyObject *scribus_setlineshade(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setLineShade(shade [, objectname])"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	if ((w < 0) || (w > 100))
 	{
 		Py_INCREF(Py_None);
@@ -121,7 +126,8 @@ PyObject *scribus_setfillshade(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setFillShade(shade [, objectname])"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	if ((w < 0) || (w > 100))
 	{
 		Py_INCREF(Py_None);
@@ -143,7 +149,8 @@ PyObject *scribus_setlinejoin(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setLineJoin(jointype [, objectname])"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	PageItem *i = GetUniqueItem(QString(Name));
 	if (i != NULL)
 		i->PLineJoin = Qt::PenJoinStyle(w);
@@ -160,7 +167,8 @@ PyObject *scribus_setlineend(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setLineEnd(endtype [, objectname])"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	PageItem *i = GetUniqueItem(QString(Name));
 	if (i != NULL)
 		i->PLineEnd = Qt::PenCapStyle(w);
@@ -177,7 +185,8 @@ PyObject *scribus_setlinestyle(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setLineStyle(style [, objectname])"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	PageItem *i = GetUniqueItem(QString(Name));
 	if (i != NULL)
 		i->PLineArt = Qt::PenStyle(w);
@@ -194,7 +203,8 @@ PyObject *scribus_setcornerrad(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setCornerRadius(radius [, objectname])"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	if (w < 0)
 	{
 		Py_INCREF(Py_None);
@@ -225,7 +235,8 @@ PyObject *scribus_setmultiline(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("setMultiLine(color [, objectname])"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	PageItem *b = GetUniqueItem(QString(Name));
 	if (b != NULL)
 		if (Carrier->doc->MLineStyles.contains(QString(Color)))

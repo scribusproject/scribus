@@ -12,7 +12,8 @@ PyObject *scribus_loadimage(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("loadImage(filename [, objectname])"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	PageItem *item = GetUniqueItem(QString(Name));
 	if (item == NULL)
 	{
@@ -33,7 +34,8 @@ PyObject *scribus_scaleimage(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("scaleImage(x, y [, objectname])"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	PageItem *item = GetUniqueItem(Name);
 	if (item != NULL && item->PType == 2)
 	{
@@ -53,7 +55,8 @@ PyObject *scribus_moveobjrel(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("moveObject(x, y [, objectname])"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	PageItem *item = GetUniqueItem(QString(Name));
 	if (item!=NULL)
 	{
@@ -75,7 +78,8 @@ PyObject *scribus_moveobjabs(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("moveObjectAbs(x, y [, objectname])"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	PageItem *item = GetUniqueItem(QString(Name));
 	if (item != NULL)
 	{
@@ -102,7 +106,8 @@ PyObject *scribus_rotobjrel(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("rotateObject(angle [, objectname])"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	PageItem *item = GetUniqueItem(QString(Name));
 	if (item != NULL)
 		item->OwnPage->RotateItem(item->Rot - x, item->ItemNr);
@@ -119,7 +124,8 @@ PyObject *scribus_rotobjabs(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("rotateObjectAbs(angle [, objectname])"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	PageItem *item = GetUniqueItem(QString(Name));
 	if (item != NULL)
 		item->OwnPage->RotateItem(x * -1.0, item->ItemNr);
@@ -136,7 +142,8 @@ PyObject *scribus_sizeobjabs(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("sizeObject(x, y [, objectname])"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	PageItem *item = GetUniqueItem(QString(Name));
 	if (item != NULL)
 		item->OwnPage->SizeItem(ValueToPoint(x) - item->Xpos, ValueToPoint(y) - item->Ypos, item->ItemNr);
@@ -153,7 +160,8 @@ PyObject *scribus_groupobj(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("groupObjects([list_of_objectnames])"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	Page *p = Carrier->doc->ActPage;
 	uint ap = Carrier->doc->ActPage->PageNr;
 	if (il != 0)
@@ -194,7 +202,8 @@ PyObject *scribus_ungroupobj(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("unGroupObject([objectname])"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	PageItem *i = GetUniqueItem(QString(Name));
 	if (i != NULL)
 	{
@@ -216,7 +225,8 @@ PyObject *scribus_scalegroup(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("scaleGroup(scale [, objectname])"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	if (sc == 0.0)
 	{
 		Py_INCREF(Py_None);
@@ -244,7 +254,8 @@ PyObject *scribus_getselobjnam(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("getSelectedObject([objectnumber])"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	if ((i < static_cast<int>(Carrier->doc->ActPage->SelItem.count())) && (i > -1))
 		return PyString_FromString(Carrier->doc->ActPage->SelItem.at(i)->AnName);
 	else
@@ -258,7 +269,8 @@ PyObject *scribus_selcount(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("selectionCount()"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	return PyInt_FromLong(static_cast<long>(Carrier->doc->ActPage->SelItem.count()));
 }
 
@@ -270,7 +282,8 @@ PyObject *scribus_selectobj(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("selectObject(objectname)"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	PageItem *i = GetUniqueItem(QString(Name));
 	if (i != NULL)
 		i->OwnPage->SelectItemNr(i->ItemNr);
@@ -285,7 +298,8 @@ PyObject *scribus_deselect(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("deselectAll()"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	for (uint i = 0; i < Carrier->view->Pages.count(); i++)
 		Carrier->view->Pages.at(i)->Deselect();
 	Py_INCREF(Py_None);
@@ -300,7 +314,8 @@ PyObject *scribus_lockobject(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("lockObject([objectname])"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	PageItem *item = GetUniqueItem(QString(name));
 	if (item == NULL)
 	{
@@ -321,7 +336,8 @@ PyObject *scribus_islocked(PyObject *self, PyObject* args)
 		PyErr_SetString(PyExc_Exception, ERRPARAM + QString("isLocked([objectname])"));
 		return NULL;
 	}
-	HAVEDOC_OR_ERR
+	if(!checkHaveDocument())
+		return NULL;
 	PageItem *item = GetUniqueItem(name);
 	if (item == NULL)
 	{

@@ -15,7 +15,7 @@ extern ScribusApp* Carrier;
 /* Exceptions */
 /*! Common scribus Exception */
 extern PyObject* ScribusException;
-/*! Exception raised when no document opened - see. HAVEDOC_OR_ERR in cmdutil.h */
+/*! Exception raised when no document opened - see checkHaveDocument() in cmdutil.cpp */
 extern PyObject* NoDocOpenError;
 
 #endif
