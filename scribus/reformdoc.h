@@ -36,8 +36,6 @@ public:
     MSpinBox* BottomR;
     MSpinBox* LeftR;
     MSpinBox* RightR;
-    MSpinBox* widthMSpinBox;
-    MSpinBox* heightMSpinBox;
     QCheckBox* Doppelseiten;
     QCheckBox* ErsteSeite;
     QLabel* Links;
@@ -46,8 +44,10 @@ public:
 	QLabel*	heightQLabel;
 	QLabel*	sizeQLabel;
 	QLabel*	orientationQLabel;
-	QComboBox*	sizeQComboBox;
-	QComboBox*	orientationQComboBox;
+	QLabel*	sizedataQLabel;
+	QLabel*	orientationdataQLabel;
+    QLabel* widthdataQLabel;
+    QLabel* heightdataQLabel;
     QPushButton* OKButton;
     QPushButton* CancelB;
 	int einheit;

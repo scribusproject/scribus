@@ -34,53 +34,27 @@ ReformDoc::ReformDoc( QWidget* parent, double t, double l, double r, double b, d
 	dsLayout4->setSpacing( 6 );
 	dsLayout4->setMargin( 0 );
 
-    sizeQComboBox = new QComboBox( true, dsGroupBox7, "sizeQComboBox" );
-    sizeQLabel = new QLabel( sizeQComboBox, tr( "&Size:" ), dsGroupBox7, "sizeQLabel" );
-    QString sizelist[] = {"A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "B0", "B1", "B2", "B3", "B4",
-                          "B5", "B6", "B7", "B8", "B9", "B10", "C5E", "Comm10E", "DLE", "Executive", "Folio",
-                          "Ledger", tr("Legal"), tr("Letter"), tr("Tabloid"), tr("Custom")};
-    size_t const num_mappings = (sizeof sizelist)/(sizeof *sizelist);
-    for (uint m = 0; m < num_mappings; ++m) {
-        sizeQComboBox->insertItem(sizelist[m]);
-		if (sizelist[m]==pageSize)
-			i=m;
-	}
-	//set Custom if we dont have one already as old docs wont have this attribute
-	if (i==-1)
-		i=num_mappings-1;
-    sizeQComboBox->setEnabled(false);
-    sizeQComboBox->setCurrentItem(i);
+    sizedataQLabel = new QLabel( dsGroupBox7, "sizedataQLabel" );
+    sizeQLabel = new QLabel( tr( "Size:" ), dsGroupBox7, "sizeQLabel" );
+	sizedataQLabel->setText((pageSize!="")?pageSize:tr("Custom"));
     dsLayout4->addWidget( sizeQLabel, 0, 0 );
-    dsLayout4->addWidget( sizeQComboBox, 0, 1 );
-
-
-    orientationQComboBox = new QComboBox( true, dsGroupBox7, "orientationQComboBox" );
-    orientationQLabel = new QLabel( orientationQComboBox, tr( "Orie&ntation:" ), dsGroupBox7, "orientationQLabel" );
-    orientationQComboBox->insertItem( tr( "Portrait" ) );
-    orientationQComboBox->insertItem( tr( "Landscape" ) );
-    orientationQComboBox->setEnabled(false);
-    orientationQComboBox->setCurrentItem(ori);
-
+    dsLayout4->addWidget( sizedataQLabel, 0, 1 );
+    orientationdataQLabel = new QLabel( dsGroupBox7, "orientationQComboBox" );
+    orientationQLabel = new QLabel( tr( "Orientation:" ), dsGroupBox7, "orientationQLabel" );
+    orientationdataQLabel->setText((ori==0)?tr("Portrait"):tr("Landscape"));
     dsLayout4->addWidget( orientationQLabel, 0, 2 );
-	dsLayout4->addWidget( orientationQComboBox, 0, 3 );
+	dsLayout4->addWidget( orientationdataQLabel, 0, 3 );
 
-    widthMSpinBox = new MSpinBox( 1, 10000, dsGroupBox7, 2 );
-    widthQLabel = new QLabel( tr( "&Width:" ), dsGroupBox7, "widthLabel" );
-    widthMSpinBox->setEnabled( false );
-    widthMSpinBox->setSuffix(ein);
-	widthMSpinBox->setValue(Breite);
-    widthQLabel->setBuddy(widthMSpinBox);
+	QString dimvalue=QString("%1 %2");	
+    widthdataQLabel = new QLabel( dimvalue.arg(Breite).arg(ein), dsGroupBox7, "widthdataQLabel" );
+    widthQLabel = new QLabel( tr( "Width:" ), dsGroupBox7, "widthLabel" );
     dsLayout4->addWidget( widthQLabel, 1, 0 );
-    dsLayout4->addWidget( widthMSpinBox, 1, 1 );
+    dsLayout4->addWidget( widthdataQLabel, 1, 1 );
 
-    heightMSpinBox = new MSpinBox( 1, 10000, dsGroupBox7, 2 );
-    heightQLabel = new QLabel( tr( "&Height:" ), dsGroupBox7, "heightLabel" );
-    heightMSpinBox->setEnabled( false );
-    heightMSpinBox->setSuffix(ein);
-	heightMSpinBox->setValue(Hoehe);
-    heightQLabel->setBuddy(heightMSpinBox);
+    heightdataQLabel = new QLabel( dimvalue.arg(Hoehe).arg(ein), dsGroupBox7, "heightdataQLabel" );
+    heightQLabel = new QLabel( tr( "Height:" ), dsGroupBox7, "heightLabel" );
     dsLayout4->addWidget( heightQLabel, 1, 2 );
-    dsLayout4->addWidget( heightMSpinBox, 1, 3 );
+    dsLayout4->addWidget( heightdataQLabel, 1, 3 );
 
 	dsGroupBox7Layout->addLayout( dsLayout4 );
 	ReformDocLayout->addWidget( dsGroupBox7 );
