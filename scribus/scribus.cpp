@@ -817,6 +817,7 @@ void ScribusApp::initPalettes()
 	connect(docChecker, SIGNAL(rescan()), this, SLOT(slotCheckDoc()));
 	connect(docChecker, SIGNAL(selectElement(int, int)), this, SLOT(SelectFromOutl(int, int)));
 	connect(docChecker, SIGNAL(selectPage(int)), this, SLOT(SelectFromOutlS(int)));
+	connect(docChecker, SIGNAL(selectTemplatePage(QString)), this, SLOT(ManageTemp(QString)));
 	connect(Tpal, SIGNAL(Schliessen()), this, SLOT(ToggleTpal()));
 	connect(Tpal, SIGNAL(CloseMpal()), this, SLOT(ToggleMpal()));
 	connect(Tpal, SIGNAL(CloseSpal()), this, SLOT(ToggleBpal()));
@@ -8400,34 +8401,43 @@ void ScribusApp::ManageJava()
 
 void ScribusApp::ManageTemp(QString temp)
 {
-	MusterPages *dia = new MusterPages(this, doc, view, temp);
-	connect(dia, SIGNAL(createNew(int)), this, SLOT(slotNewPageT(int)));
-	connect(dia, SIGNAL(loadPage(QString, int, bool)), this, SLOT(LadeSeite(QString, int, bool)));
-	connect(dia, SIGNAL(finished()), this, SLOT(ManTempEnd()));
-	
-	scrActions["pageInsert"]->setEnabled(false);
-	scrActions["pageDelete"]->setEnabled(false);
-	scrActions["pageCopy"]->setEnabled(false);
-	scrActions["pageMove"]->setEnabled(false);
-	scrActions["pageApplyTemplate"]->setEnabled(false);
-
-	scrActions["editTemplates"]->setEnabled(false);
-	ActWin->MenuStat[0] = scrActions["fileSave"]->isEnabled();
-	ActWin->MenuStat[1] = scrActions["fileRevert"]->isEnabled();
-	ActWin->MenuStat[2] = scrActions["fileSave"]->isEnabled();
-	ActWin->MenuStat[3] = scrActions["fileSaveAs"]->isEnabled();
-	scrActions["fileNew"]->setEnabled(false);
-	scrActions["fileOpen"]->setEnabled(false);
-	scrActions["fileClose"]->setEnabled(false);
-	scrMenuMgr->setMenuEnabled("FileOpenRecent", false);
-	scrActions["fileRevert"]->setEnabled(false);
-	scrActions["fileDocSetup"]->setEnabled(false);
-	scrActions["filePrint"]->setEnabled(false);
-	doc->TemplateMode = true;
-	Sepal->DisablePal();
-	dia->show();
-	ActWin->muster = dia;
-	doc->OpenNodes = Tpal->buildReopenVals();
+	if (HaveDoc)
+	{
+		if (doc->TemplateMode)
+		{
+			ActWin->muster->updateTemplateList(temp);
+			ActWin->muster->selectTemplate(temp);
+		}
+		else
+		{
+			MusterPages *dia = new MusterPages(this, doc, view, temp);
+			connect(dia, SIGNAL(createNew(int)), this, SLOT(slotNewPageT(int)));
+			connect(dia, SIGNAL(loadPage(QString, int, bool)), this, SLOT(LadeSeite(QString, int, bool)));
+			connect(dia, SIGNAL(finished()), this, SLOT(ManTempEnd()));
+			scrActions["pageInsert"]->setEnabled(false);
+			scrActions["pageDelete"]->setEnabled(false);
+			scrActions["pageCopy"]->setEnabled(false);
+			scrActions["pageMove"]->setEnabled(false);
+			scrActions["pageApplyTemplate"]->setEnabled(false);
+			scrActions["editTemplates"]->setEnabled(false);
+			ActWin->MenuStat[0] = scrActions["fileSave"]->isEnabled();
+			ActWin->MenuStat[1] = scrActions["fileRevert"]->isEnabled();
+			ActWin->MenuStat[2] = scrActions["fileSave"]->isEnabled();
+			ActWin->MenuStat[3] = scrActions["fileSaveAs"]->isEnabled();
+			scrActions["fileNew"]->setEnabled(false);
+			scrActions["fileOpen"]->setEnabled(false);
+			scrActions["fileClose"]->setEnabled(false);
+			scrMenuMgr->setMenuEnabled("FileOpenRecent", false);
+			scrActions["fileRevert"]->setEnabled(false);
+			scrActions["fileDocSetup"]->setEnabled(false);
+			scrActions["filePrint"]->setEnabled(false);
+			doc->TemplateMode = true;
+			Sepal->DisablePal();
+			dia->show();
+			ActWin->muster = dia;
+			doc->OpenNodes = Tpal->buildReopenVals();
+		}
+	}
 }
 
 void ScribusApp::ManTempEnd()
@@ -10056,9 +10066,9 @@ void ScribusApp::scanDocument()
 		if (itemError.count() != 0)
 			doc->masterItemErrors.insert(it->ItemNr, itemError);
 	}
-	for (uint d = 0; d < doc->Items.count(); ++d)
+	for (uint d = 0; d < doc->DocItems.count(); ++d)
 	{
-		it = doc->Items.at(d);
+		it = doc->DocItems.at(d);
 		itemError.clear();
 		if (((it->Transparency != 0.0) || (it->TranspStroke != 0.0)) && (checkerSettings.checkTransparency))
 			itemError.insert(6, 0);

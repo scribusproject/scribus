@@ -296,6 +296,20 @@ void MusterPages::selectTemplate(QListBoxItem *item)
 	currentView->ShowTemplate(currentDoc->MasterNames[sMuster]);
 }
 
+void MusterPages::selectTemplate(QString name)
+{
+	sMuster = name;
+	deleteButton->setEnabled(currentDoc->MasterNames.count() == 1 ? false : true);
+	if (sMuster == tr("Normal"))
+	{
+		sMuster = "Normal";
+		deleteButton->setEnabled(false);
+	}
+	else
+		deleteButton->setEnabled(true);
+	currentView->ShowTemplate(currentDoc->MasterNames[sMuster]);
+}
+
 void MusterPages::updateTemplateList(QString templateName)
 {
 	templateData->clear();

@@ -12,9 +12,11 @@
 #include <qmap.h>
 #include <qlabel.h>
 #include <qcombobox.h>
+#include "scribus.h"
 #include "scribusdoc.h"
 #include "page.h"
 extern QPixmap loadIcon(QString nam);
+extern ScribusApp* ScApp;
 
 static const unsigned char image0_data[] =
     {
@@ -138,6 +140,9 @@ CheckDocument::CheckDocument( QWidget* parent, bool modal )  : QDialog( parent, 
 	checkDocumentLayout->addWidget( reportDisplay );
 	languageChange();
 	itemMap.clear();
+	pageMap.clear();
+	templatePageMap.clear();
+	templateItemMap.clear();
 	resize( QSize(306, 259).expandedTo(minimumSizeHint()) );
 	clearWState( WState_Polished );
 	connect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(newScan(const QString&)));
@@ -151,16 +156,30 @@ void CheckDocument::closeEvent(QCloseEvent *ce)
 
 void CheckDocument::slotSelect(QListViewItem* ite)
 {
-	if (document->TemplateMode)
-		return;
 	if (itemMap.contains(ite))
 	{
-		emit selectElement(document->Items.at(itemMap[ite])->OwnPage, itemMap[ite]);
+		if (document->TemplateMode)
+			ScApp->ActWin->muster->close();
+		emit selectElement(document->DocItems.at(itemMap[ite])->OwnPage, itemMap[ite]);
 		return;
 	}
 	if (pageMap.contains(ite))
 	{
+		if (document->TemplateMode)
+			ScApp->ActWin->muster->close();
 		emit selectPage(pageMap[ite]);
+		return;
+	}
+	if (templatePageMap.contains(ite))
+	{
+		emit selectTemplatePage(templatePageMap[ite]);
+		return;
+	}
+	if (templateItemMap.contains(ite))
+	{
+		if (!document->TemplateMode)
+			emit selectTemplatePage(document->MasterItems.at(templateItemMap[ite])->OnMasterPage);
+		emit selectElement(-1, templateItemMap[ite]);
 		return;
 	}
 }
@@ -178,6 +197,8 @@ void CheckDocument::clearErrorList()
 	reportDisplay->clear();
 	itemMap.clear();
 	pageMap.clear();
+	templatePageMap.clear();
+	templateItemMap.clear();
 }
 
 void CheckDocument::buildErrorList(ScribusDoc *doc)
@@ -220,6 +241,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 			hasError = false;
 			bool pageGraveError = false;
 			QListViewItem * page = new QListViewItem( item, pagep );
+			templatePageMap.insert(page, doc->MasterPages.at(a)->PageNam);
 			pagep = page;
 			QMap<int, errorCodes>::Iterator it2;
 			for (it2 = doc->masterItemErrors.begin(); it2 != doc->masterItemErrors.end(); ++it2)
@@ -229,6 +251,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 					hasError = true;
 					bool itemError = false;
 					QListViewItem * object = new QListViewItem( page, 0 );
+					templateItemMap.insert(object, doc->MasterItems.at(it2.key())->ItemNr);
 					object->setText(0, doc->MasterItems.at(it2.key())->AnName);
 					errorCodes::Iterator it3;
 					if (it2.data().count() == 1)
@@ -307,6 +330,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 								break;
 							}
 						}
+						object->setOpen( true );
 					}
 					if (itemError)
 						object->setPixmap( 0, graveError );
@@ -320,6 +344,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 					page->setPixmap( 0, graveError );
 				else
 					page->setPixmap( 0, onlyWarning );
+				page->setOpen( true );
 			}
 			else
 				page->setPixmap( 0, noErrors );
@@ -420,6 +445,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 								break;
 							}
 						}
+						object->setOpen( true );
 					}
 					if (itemError)
 						object->setPixmap( 0, graveError );
@@ -433,6 +459,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 					page->setPixmap( 0, graveError );
 				else
 					page->setPixmap( 0, onlyWarning );
+				page->setOpen( true );
 			}
 			else
 				page->setPixmap( 0, noErrors );
@@ -533,6 +560,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 								break;
 							}
 						}
+						object->setOpen( true );
 					}
 					if (pageGraveError)
 						object->setPixmap( 0, graveError );
@@ -546,6 +574,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 					page->setPixmap( 0, graveError );
 				else
 					page->setPixmap( 0, onlyWarning );
+				page->setOpen( true );
 			}
 			else
 				page->setPixmap( 0, noErrors );

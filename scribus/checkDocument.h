@@ -31,6 +31,8 @@ public:
 	QListView* reportDisplay;
 	QMap<QListViewItem*, int> itemMap;
 	QMap<QListViewItem*, int> pageMap;
+	QMap<QListViewItem*, QString> templatePageMap;
+	QMap<QListViewItem*, int> templateItemMap;
 
 public slots:
 	void slotSelect(QListViewItem* ite);
@@ -41,6 +43,9 @@ signals:
 	void closePal(bool);
 	void selectElement(int, int);
 	void selectPage(int);
+	void selectTemplatePage(QString);
+	void selectTemplateElement(QString, int);
+	void selectNormal();
 
 protected:
 	QVBoxLayout* checkDocumentLayout;

@@ -1,11 +1,3 @@
-/****************************************************************************
-** Form interface generated from reading ui file 'Muster.ui'
-**
-** Created: Thu Nov 1 09:45:36 2001
-**      by:  The User Interface Compiler (uic)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
 #ifndef MUSTERPAGES_H
 #define MUSTERPAGES_H
 
@@ -27,9 +19,12 @@ public:
     MusterPages( QWidget* parent, ScribusDoc *pCurrentDoc, ScribusView *pCurrentView, QString temp);
     ~MusterPages() {};
     void closeEvent(QCloseEvent *closeEvent);
+    void updateTemplateList(QString templateName);
+
+public slots:
+	void selectTemplate(QString name);
 
 private:
-    void updateTemplateList(QString templateName);
     QListBox* templateData;
 	QPushButton* appendButton;
     QPushButton* newButton;
