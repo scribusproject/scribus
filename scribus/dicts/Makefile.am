@@ -1,7 +1,4 @@
-####### kdevelop will overwrite this part!!! (begin)##########
-
-
-EXTRA_DIST = hyph_af.dic hyph_sl.dic hyph_bg.dic hyph_sv.dic hyph_lt.dic hyph_ga.dic hyph_fi.dic hyph_el.dic hyph_cs.dic hyph_de.dic hyph_en.dic hyph_es.dic hyph_fr.dic hyph_it.dic hyph_ru.dic hyph_da.dic hyph_sk.dic hyph_hu.dic hyph_pt.dic hyph_nl.dic hyph_uk.dic hyph_ca.dic 
+EXTRA_DIST = hyph_af.dic hyph_sl.dic hyph_bg.dic hyph_sv.dic hyph_lt.dic hyph_ga.dic hyph_fi.dic hyph_el.dic hyph_cs.dic hyph_de.dic hyph_en.dic hyph_es.dic hyph_fr.dic hyph_it.dic hyph_ru.dic hyph_da.dic hyph_sk.dic hyph_hu.dic hyph_pt.dic hyph_pt_BR.dic hyph_nl.dic hyph_uk.dic hyph_ca.dic 
 
 install-data-local:
 	$(mkinstalldirs) $(libdir)/scribus/dicts/
@@ -23,6 +20,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/hyph_hu.dic $(libdir)/scribus/dicts/hyph_hu.dic
 	$(INSTALL_DATA) $(srcdir)/hyph_nl.dic $(libdir)/scribus/dicts/hyph_nl.dic
 	$(INSTALL_DATA) $(srcdir)/hyph_pt.dic $(libdir)/scribus/dicts/hyph_pt.dic
+	$(INSTALL_DATA) $(srcdir)/hyph_pt_BR.dic $(libdir)/scribus/dicts/hyph_pt_BR.dic
 	$(INSTALL_DATA) $(srcdir)/hyph_uk.dic $(libdir)/scribus/dicts/hyph_uk.dic
 	$(INSTALL_DATA) $(srcdir)/hyph_pl.dic $(libdir)/scribus/dicts/hyph_pl.dic
 	$(INSTALL_DATA) $(srcdir)/hyph_el.dic $(libdir)/scribus/dicts/hyph_el.dic
@@ -48,11 +46,9 @@ uninstall-local:
 	-rm -f $(libdir)/scribus/dicts/hyph_hu.dic
 	-rm -f $(libdir)/scribus/dicts/hyph_nl.dic
 	-rm -f $(libdir)/scribus/dicts/hyph_pt.dic
+	-rm -f $(libdir)/scribus/dicts/hyph_pt_BR.dic
 	-rm -f $(libdir)/scribus/dicts/hyph_uk.dic
 	-rm -f $(libdir)/scribus/dicts/hyph_pl.dic
 	-rm -f $(libdir)/scribus/dicts/hyph_el.dic
 	-rm -f $(libdir)/scribus/dicts/hyph_ca.dic
 	-rm -f $(libdir)/scribus/dicts/hyph_ga.dic
-
-
-####### kdevelop will overwrite this part!!! (end)############

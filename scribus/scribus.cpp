@@ -9797,6 +9797,8 @@ void ScribusApp::initHyphenator()
 				datein = tr("Dutch");
 			if (d[dc] == "hyph_pt.dic")
 				datein = tr("Portuguese");
+			if (d[dc] == "hyph_pt_BR.dic")
+				datein = tr("Portuguese (BR)");
 			if (d[dc] == "hyph_uk.dic")
 				datein = tr("Ukrainian");
 			if (d[dc] == "hyph_pl.dic")
