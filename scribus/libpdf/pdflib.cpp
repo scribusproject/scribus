@@ -28,6 +28,7 @@
 #include <qdatetime.h>
 #include <qfileinfo.h>
 #include <qtextstream.h>
+#include <qdir.h>
 #include <cstdlib>
 #include <cmath>
 #include <unistd.h>
@@ -214,18 +215,18 @@ QString PDFlib::EncStream(QString *in, int ObjNum)
 			data.resize(21);
 		for (int cd = 0; cd < KeyLen; ++cd)
 		{
-  			data[cd] = EncryKey[cd];
+ 			data[cd] = EncryKey[cd];
 			dlen++;
 		}
-  		data[dlen++] = ObjNum;
-  		data[dlen++] = ObjNum >> 8;
-  		data[dlen++] = ObjNum >> 16;
+ 		data[dlen++] = ObjNum;
+ 		data[dlen++] = ObjNum >> 8;
+ 		data[dlen++] = ObjNum >> 16;
 	  	data[dlen++] = 0;
-  		data[dlen++] = 0;
+ 		data[dlen++] = 0;
 		QByteArray step1(16);
 		step1 = ComputeMD5Sum(&data);
-  		rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), QMIN(KeyLen+5, 16));
-    		rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()), 
+ 		rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), QMIN(KeyLen+5, 16));
+ 		rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()), 
 					reinterpret_cast<uchar*>(ou.data()), tmp.length());
 		QString uk = "";
 		for (uint cl = 0; cl < tmp.length(); ++cl)
@@ -3049,7 +3050,7 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 #endif
 		if ((ext == "eps") || (ext == "pdf"))
 		{
-			QString tmpFile = QString(getenv("HOME"))+"/.scribus/sc.png";
+			QString tmpFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/sc.png");
 			if (Options->RecalcPic)
 			{
 				afl = QMIN(Options->PicRes, Options->Resolution);
@@ -3270,7 +3271,7 @@ void PDFlib::PDF_Image(bool inver, QString fn, double sx, double sy, double x, d
 			int cm = Options->CompressMethod;
 			if ((Options->CompressMethod == 1) || (Options->CompressMethod == 0))
 			{
-				QString tmpFile = QString(getenv("HOME"))+"/.scribus/sc.jpg";
+				QString tmpFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/sc.jpg");
 				if ((Options->UseRGB) || (Options->UseProfiles2)) 
 					Convert2JPG(tmpFile, &img, Options->Quality, false);
 				else

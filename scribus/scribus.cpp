@@ -170,38 +170,32 @@ void ScribusApp::initScribus()
 	setDockEnabled(WerkToolsP, DockRight, false);
 	WerkToolsP->setEnabled(false);
 	WerkToolsP->Sichtbar = true;
-	QString Pff = QString(getenv("HOME"))+"/.scribus";
+	QString Pff = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus");
 	QFileInfo Pffi = QFileInfo(Pff);
 	if (Pffi.exists())
 	{
 		if (Pffi.isDir())
 			PrefsPfad = Pff;
 		else
-			PrefsPfad = QString(getenv("HOME"));
+			PrefsPfad = QDir::homeDirPath();
 	}
 	else
 	{
 		QDir di = QDir();
 		di.mkdir(Pff);
 		PrefsPfad = Pff;
-		QString OldPR = QString(getenv("HOME"))+"/.scribus.rc";
+		QString OldPR = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus.rc");
 		QFileInfo OldPi = QFileInfo(OldPR);
 		if (OldPi.exists())
-		{
 			moveFile(OldPR, Pff+"/scribus.rc");
-		}
-		QString OldPR2 = QString(getenv("HOME"))+"/.scribusfont.rc";
+		QString OldPR2 = QDir::convertSeparators(QDir::homeDirPath()+"/.scribusfont.rc");
 		QFileInfo OldPi2 = QFileInfo(OldPR2);
 		if (OldPi2.exists())
-		{
 			moveFile(OldPR2, Pff+"/scribusfont.rc");
-		}
-		QString OldPR3 = QString(getenv("HOME"))+"/.scribusscrap.scs";
+		QString OldPR3 = QDir::convertSeparators(QDir::homeDirPath()+"/.scribusscrap.scs");
 		QFileInfo OldPi3 = QFileInfo(OldPR3);
 		if (OldPi3.exists())
-		{
 			moveFile(OldPR3, Pff+"/scrap.scs");
-		}
 	}
 	/** Erstelle Fontliste */
 	NoFonts = false;
@@ -380,7 +374,7 @@ void ScribusApp::initScribus()
 		Prefs.AutoSave = false;
 		Prefs.AutoSaveTime = 600000;
 		Prefs.DisScale = 1.0;
-		Prefs.DocDir = QString(getenv("HOME"));
+		Prefs.DocDir = QDir::homeDirPath();
 		Prefs.ProfileDir = "";
 		Prefs.ScriptDir = "";
 		Prefs.CustomColorSets.clear();
@@ -1287,6 +1281,8 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 							UniCinS = "";
 							if (ok)
 							{
+								if (b->HasSel)
+									DeleteSel(b);
 								if (conv < 31)
 									conv = 32;
 								hg = new Pti;
@@ -1316,6 +1312,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 								b->CPos += 1;
 								b->Dirty = true;
 								b->Tinput = true;
+								setTBvals(b);
 								doc->ActPage->RefreshItem(b, true);
 								keyrep = false;
 								return;
@@ -1704,7 +1701,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						{
 							DeleteSel(b);
 							b->Dirty = true;
-							doc->ActPage->RefreshItem(b, true);
+//							doc->ActPage->RefreshItem(b, true);
 						}
 						if ((kk == Key_Tab)
 						        || ((kk == Key_Return) && (buttonState & ShiftButton))
@@ -3382,6 +3379,11 @@ bool ScribusApp::slotFileSaveAs()
 bool ScribusApp::DoFileSave(QString fn)
 {
 	bool ret = true;
+	if(doc->TemplateMode)
+	{
+		ActWin->muster->close();
+		qApp->processEvents();
+	}
 	ReorgFonts();
 	FMess->setText( tr("Saving..."));
 	FProg->reset();
@@ -3781,6 +3783,8 @@ void ScribusApp::slotEditPaste()
 		if (doc->AppMode == 7)
 		{
 			PageItem *b = doc->ActPage->SelItem.at(0);
+			if (b->HasSel)
+				DeleteSel(b);
 			if (Buffer2.startsWith("<SCRIBUSTEXT>"))
 			{
 				QString Buf = Buffer2.mid(13);

@@ -3,7 +3,7 @@
     <name>@@translation</name>
     <message>
         <source>Project-Id-Version: Scribus 1.2</source>
-        <translation type="obsolete">Revision-Date: 2004-04-19 14:00:00 CET
+        <translation type="obsolete">Revision-Date: 2004-05-09 11:15:00 CET
 Last-Translator: Morten Langlo &lt;mlanglo@mail.dk&gt;</translation>
     </message>
 </context>
@@ -154,6 +154,14 @@ Last-Translator: Morten Langlo &lt;mlanglo@mail.dk&gt;</translation>
     <message>
         <source>Online</source>
         <translation>Internet</translation>
+    </message>
+    <message>
+        <source>Slovenian:</source>
+        <translation>Slovensk:</translation>
+    </message>
+    <message>
+        <source>Basque:</source>
+        <translation>Baskisk:</translation>
     </message>
 </context>
 <context>
@@ -1328,6 +1336,10 @@ Dette kræver en meget nøjagtige profiler og er kun ment som en advarsel.</tran
     <message>
         <source>Name of the Color is not unique</source>
         <translation>Navnet på denne farve er ikke entydig</translation>
+    </message>
+    <message>
+        <source>HSB-Colormap</source>
+        <translation>HSB-Farvekort</translation>
     </message>
 </context>
 <context>
@@ -2827,10 +2839,6 @@ hjørner:</translation>
         <translation>Størrelse:</translation>
     </message>
     <message>
-        <source>Path Text Properites</source>
-        <translation>Sti-tekst egenskaber</translation>
-    </message>
-    <message>
         <source>Tabulators...</source>
         <translation>Tabulatorer...</translation>
     </message>
@@ -3349,14 +3357,6 @@ Vælg venligst et andet.</translation>
         <translation>p</translation>
     </message>
     <message>
-        <source>Make text in lower objects flow around this frame</source>
-        <translation>Får tekst i bagvedliggende objekter til at flyde rundt om denne ramme</translation>
-    </message>
-    <message>
-        <source>Use the imaginary square border around your object, rather than its actual shape</source>
-        <translation>Brug den imaginære firkant omkring objektet i stedet for den valgte form</translation>
-    </message>
-    <message>
         <source>Keep the aspect ratio</source>
         <translation>Bevar bredde/højde forholdet</translation>
     </message>
@@ -3371,6 +3371,30 @@ Vælg venligst et andet.</translation>
     <message>
         <source>Style:</source>
         <translation>Stil:</translation>
+    </message>
+    <message>
+        <source>Path Text Properties</source>
+        <translation>Sti-tekst-egenskaber</translation>
+    </message>
+    <message>
+        <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
+        <translation>Viser det niveau hvor objektet er placeret, 0 betyder objektet er nederst</translation>
+    </message>
+    <message>
+        <source>Make text in lower frames flow around the object shape</source>
+        <translation>Får tekst i bagvedliggende objekter til at flyde rundt om dette objekts form</translation>
+    </message>
+    <message>
+        <source>Use the frame shape instead of the object one</source>
+        <translation>Brug rammens form i stedet for objektets</translation>
+    </message>
+    <message>
+        <source>Switches between Gap or Column width</source>
+        <translation>Skifter mellem afstand og kolonne-bredde</translation>
+    </message>
+    <message>
+        <source>Column width</source>
+        <translation>Kolonnebredde</translation>
     </message>
 </context>
 <context>
@@ -4320,10 +4344,6 @@ JPEG er bedre til at lave PDF-filerne mindre, når der er mange fotografier (evt
 Vælg automatisk, medmindre du har brug for specielle komprimerings-indstillinger.</translation>
     </message>
     <message>
-        <source>Compression level: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
-        <translation>Komprimerings-niveau: Minimum (25%), Lav (50%), Medium (75%), Høj (85%), Maksimum (95%)</translation>
-    </message>
-    <message>
         <source>Downsample your bitmap images to the selected DPI.
 Leaving this unchecked will render them at their native resolution.</source>
         <translation>Ændrer bitmap-billedet til valgte DPI.
@@ -4520,6 +4540,10 @@ reglerne for PDF/X-3. Vi anbefaler at bruge titlen på dokumentet. </translation
         <source>Save</source>
         <translation>Gem</translation>
     </message>
+    <message>
+        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
+        <translation>Komprimerings-niveauer: Minimum (25%), Lav (50%), Medium (75%), Høj (85%), Maksimum (95%)</translation>
+    </message>
 </context>
 <context>
     <name>PPreview</name>
@@ -4683,10 +4707,6 @@ EPS, PDF og vektorgrafik, men der går lidt længere tid med at vise siden</tran
         <translation>Skjul rammer</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation>Annullér</translation>
-    </message>
-    <message>
         <source>Hide Guides</source>
         <translation>Skjul hjælpelinier</translation>
     </message>
@@ -4751,10 +4771,6 @@ EPS, PDF og vektorgrafik, men der går lidt længere tid med at vise siden</tran
         <translation>Hent billede...</translation>
     </message>
     <message>
-        <source>Copy Here</source>
-        <translation>Kopiér her</translation>
-    </message>
-    <message>
         <source>Bring to Front</source>
         <translation>Placér forrest</translation>
     </message>
@@ -4801,10 +4817,6 @@ EPS, PDF og vektorgrafik, men der går lidt længere tid med at vise siden</tran
     <message>
         <source>Enabled</source>
         <translation>Aktiv</translation>
-    </message>
-    <message>
-        <source>Move Here</source>
-        <translation>Flyt her</translation>
     </message>
     <message>
         <source>Outlines</source>
@@ -4881,6 +4893,49 @@ EPS, PDF og vektorgrafik, men der går lidt længere tid med at vise siden</tran
     <message>
         <source>Adjust Frame to Picture</source>
         <translation>Juster rammen efter billedet</translation>
+    </message>
+    <message>
+        <source>Insert Sample Text</source>
+        <translation>Indsæt tekstprøve</translation>
+    </message>
+    <message>
+        <source>Lock object size</source>
+        <translation>Lås objekt-størrelse</translation>
+    </message>
+    <message>
+        <source>Unlock object size</source>
+        <translation>Frigør objekt-størrelse</translation>
+    </message>
+    <message>
+        <source>Level</source>
+        <translation>Niveau</translation>
+    </message>
+</context>
+<context>
+    <name>PageItem</name>
+    <message>
+        <source>Image</source>
+        <translation>Billede</translation>
+    </message>
+    <message>
+        <source>Text</source>
+        <translation>Tekst</translation>
+    </message>
+    <message>
+        <source>Line</source>
+        <translation>Linie</translation>
+    </message>
+    <message>
+        <source>Polygon</source>
+        <translation>Polygon</translation>
+    </message>
+    <message>
+        <source>Polyline</source>
+        <translation>Poly-linie</translation>
+    </message>
+    <message>
+        <source>PathText</source>
+        <translation>Sti-tekst</translation>
     </message>
 </context>
 <context>
@@ -5042,10 +5097,6 @@ EPS, PDF og vektorgrafik, men der går lidt længere tid med at vise siden</tran
         <translation>Lille</translation>
     </message>
     <message>
-        <source>Theme</source>
-        <translation>Tema</translation>
-    </message>
-    <message>
         <source>Tools</source>
         <translation>Værktøjer</translation>
     </message>
@@ -5078,20 +5129,12 @@ EPS, PDF og vektorgrafik, men der går lidt længere tid med at vise siden</tran
         <translation>Behold bredde/højde forhold</translation>
     </message>
     <message>
-        <source>Grab-Radius</source>
-        <translation>Gribe-radius</translation>
-    </message>
-    <message>
         <source>Use PDF-1.4 Transparency Features</source>
         <translation>Brug PDF-1.4 transparent egenskaber</translation>
     </message>
     <message>
         <source>Small Caps</source>
         <translation>Små kapitæler</translation>
-    </message>
-    <message>
-        <source>Vertical Scaling</source>
-        <translation>Vertikal skalering</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -5266,10 +5309,6 @@ EPS, PDF og vektorgrafik, men der går lidt længere tid med at vise siden</tran
         <translation>Vis</translation>
     </message>
     <message>
-        <source>Horizontal Scaling</source>
-        <translation>Horisontal skalering</translation>
-    </message>
-    <message>
         <source>Choose a Directory</source>
         <translation>Vælg en mappe</translation>
     </message>
@@ -5280,10 +5319,6 @@ EPS, PDF og vektorgrafik, men der går lidt længere tid med at vise siden</tran
     <message>
         <source>Adjust Display Size</source>
         <translation>Indstil vis side</translation>
-    </message>
-    <message>
-        <source>Wheel-Jump</source>
-        <translation>Hjul-hop</translation>
     </message>
     <message>
         <source>Inches (in)</source>
@@ -5681,7 +5716,7 @@ hver gang det valgte tids-interval udløber</translation>
     </message>
     <message>
         <source>Sample of your font</source>
-        <translation>Prøve af din font</translation>
+        <translation>Font-prøve</translation>
     </message>
     <message>
         <source>Picture frames allow pictures to scale to any size</source>
@@ -5852,6 +5887,50 @@ Hvis modstående sider er valgt, så kan denne margin afstand bruges til at opn�
     <message>
         <source>Filesystem location for graphics editor</source>
         <translation>Placering af grafikprogram i filsystemet</translation>
+    </message>
+    <message>
+        <source>Theme:</source>
+        <translation>Tema:</translation>
+    </message>
+    <message>
+        <source>Wheel-Jump:</source>
+        <translation>Hjul-hop:</translation>
+    </message>
+    <message>
+        <source>Grab-Radius:</source>
+        <translation>Gribe-radius:</translation>
+    </message>
+    <message>
+        <source> px</source>
+        <translation>px</translation>
+    </message>
+    <message>
+        <source>Baseline Grid</source>
+        <translation>Basislinie-gitter</translation>
+    </message>
+    <message>
+        <source>On</source>
+        <translation>Til</translation>
+    </message>
+    <message>
+        <source>Off</source>
+        <translation>Fra</translation>
+    </message>
+    <message>
+        <source>Horizontal Scaling:</source>
+        <translation>Horisontal skalering:</translation>
+    </message>
+    <message>
+        <source>Vertical Scaling:</source>
+        <translation>Vertikal skalering:</translation>
+    </message>
+    <message>
+        <source>Turns on the basegrid</source>
+        <translation>Viser basislinie-gitter</translation>
+    </message>
+    <message>
+        <source>Turns off the basegrid</source>
+        <translation>Skjuler basislinie-gitter</translation>
     </message>
 </context>
 <context>
@@ -6240,10 +6319,6 @@ Kontrollér sti og filnavn.</translation>
         <translation>Initialiserer...</translation>
     </message>
     <message>
-        <source>Import SVG-Image</source>
-        <translation>Importér SVG-Billede</translation>
-    </message>
-    <message>
         <source>Background</source>
         <translation>Baggrund</translation>
     </message>
@@ -6347,15 +6422,19 @@ Kontrollér sti og filnavn.</translation>
     </message>
     <message>
         <source>Oook! You&apos;re calling an object doesn&apos;t exist!</source>
-        <translation>Ubs! Du kalder et objekt, som ikke eksisterer!</translation>
+        <translation>Ups! Du kalder et objekt, som ikke eksisterer!</translation>
     </message>
     <message>
         <source>Oook! You&apos;re trying to erase an object doesn&apos;t exist!</source>
-        <translation>Ubs! Du forsøger at slette et objekt, som ikke eksisterer!</translation>
+        <translation>Ups! Du forsøger at slette et objekt, som ikke eksisterer!</translation>
     </message>
     <message>
         <source>Oook! An object you&apos;re trying to textflow doesn&apos;t exist!</source>
-        <translation>Ubs! Et objekt, som du forsøger at flyde tekst igennem eksisterer ikke!</translation>
+        <translation>Ups! Et objekt, som du forsøger at flyde tekst igennem eksisterer ikke!</translation>
+    </message>
+    <message>
+        <source>Import SVG-Image...</source>
+        <translation>Importér SVG-Billede...</translation>
     </message>
 </context>
 <context>
@@ -6563,6 +6642,22 @@ Hvis der er valgt modstående sider , så kan denne margin bruges til at opnå d
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
         <translation>Afstand mellem højre margin-hjælpelinie og kanten af siden.
 Hvis modstående sider er valgt, så kan denne margin afstand bruges til at opnå de rigtige margener for indbinding</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
     </message>
 </context>
 <context>
@@ -7456,6 +7551,50 @@ Hvis modstående sider er valgt, så kan denne margin afstand bruges til at opn�
         <source>Tool&amp;bars</source>
         <translation>Værktøjs&amp;Bjælker</translation>
     </message>
+    <message>
+        <source> pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source>mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source>in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source>p</source>
+        <translation>p</translation>
+    </message>
+    <message>
+        <source>Lithuanian</source>
+        <translation>Litaurisk</translation>
+    </message>
+    <message>
+        <source>Swedish</source>
+        <translation>Svensk</translation>
+    </message>
+    <message>
+        <source>Slovenian</source>
+        <translation>Slovensk</translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -7470,6 +7609,22 @@ Hvis modstående sider er valgt, så kan denne margin afstand bruges til at opn�
     <message>
         <source> %</source>
         <translation>%</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source>mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source>in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source>p</source>
+        <translation>p</translation>
     </message>
 </context>
 <context>
@@ -7936,20 +8091,16 @@ til vinduet nedenunder, for at lave en ny side.</translation>
         <translation>Ord: </translation>
     </message>
     <message>
-        <source>Search/Replace...</source>
-        <translation>Søg/Erstat...</translation>
-    </message>
-    <message>
-        <source>Do you want save your changes?</source>
-        <translation>Ønsker du at gemme dine ændringer?</translation>
-    </message>
-    <message>
         <source>Insert Special...</source>
         <translation>Indsæt specialtegn...</translation>
     </message>
     <message>
         <source>Insert Special</source>
         <translation>Indsæt specialtegn</translation>
+    </message>
+    <message>
+        <source>Do you want to save your changes?</source>
+        <translation>Ønsker du at gemme dine ændringer?</translation>
     </message>
 </context>
 <context>
@@ -8033,6 +8184,18 @@ til vinduet nedenunder, for at lave en ny side.</translation>
         <source>OK</source>
         <translation>OK</translation>
     </message>
+    <message>
+        <source> mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
+    </message>
 </context>
 <context>
     <name>Tree</name>
@@ -8091,6 +8254,20 @@ til vinduet nedenunder, for at lave en ny side.</translation>
     <message>
         <source>Polygon</source>
         <translation>Polygon</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Advarsel</translation>
+    </message>
+    <message>
+        <source>Name &quot;%1&quot; isn&apos;t unique.
+Please choose another.</source>
+        <translation>Navnet &quot;%1&quot; er ikke entydigt.
+Vælg venligst et andet.</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
     </message>
 </context>
 <context>

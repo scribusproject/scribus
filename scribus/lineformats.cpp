@@ -109,7 +109,7 @@ void LineFormate::dupFormat()
 {
 	multiLine ml;
 	ml = TempStyles[sFnumber];
-	MultiLine* dia = new MultiLine(this, Docu, ml, tr("Copy of %1").arg(sFnumber), true, &TempStyles);
+	MultiLine* dia = new MultiLine(this, Docu, ml, tr("Copy of %1").arg(sFnumber), &TempStyles);
 	if (dia->exec())
 	{
 		TempStyles.insert(dia->SName->text(), dia->TempVorl);
@@ -129,7 +129,7 @@ void LineFormate::neuesFormat()
 	sl.Width = 1.0;
 	multiLine ml;
 	ml.push_back(sl);
-	MultiLine* dia = new MultiLine(this, Docu, ml, tr("New Style"), true, &TempStyles);
+	MultiLine* dia = new MultiLine(this, Docu, ml, tr("New Style"), &TempStyles);
 	if (dia->exec())
 	{
 		TempStyles.insert(dia->SName->text(), dia->TempVorl);
@@ -140,9 +140,18 @@ void LineFormate::neuesFormat()
 
 void LineFormate::editFormat()
 {
-	MultiLine* dia = new MultiLine(this, Docu, TempStyles[sFnumber], sFnumber, false, &TempStyles);
+	MultiLine* dia = new MultiLine(this, Docu, TempStyles[sFnumber], sFnumber, &TempStyles);
 	if (dia->exec())
-		TempStyles[sFnumber] = dia->TempVorl;
+	{
+		if (sFnumber != dia->SName->text())
+		{
+			TempStyles.remove(sFnumber);
+			TempStyles.insert(dia->SName->text(), dia->TempVorl);
+			sFnumber = dia->SName->text();
+		}
+		else
+			TempStyles[sFnumber] = dia->TempVorl;
+	}
 	delete dia;
 	UpdateFList();
 }

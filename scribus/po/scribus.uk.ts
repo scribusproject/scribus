@@ -151,6 +151,10 @@
         <source>Basque:</source>
         <translation>Баскська:</translation>
     </message>
+    <message>
+        <source>Slovenian:</source>
+        <translation>Словенська:</translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
@@ -243,7 +247,7 @@
     </message>
     <message>
         <source> in</source>
-        <translation>дм</translation>
+        <translation>д</translation>
     </message>
     <message>
         <source> p</source>
@@ -903,7 +907,7 @@
     </message>
     <message>
         <source>Normal</source>
-        <translation>Нормальне</translation>
+        <translation>Звичайний</translation>
     </message>
     <message>
         <source>Apply to Current Page</source>
@@ -1326,6 +1330,10 @@ It is recommended that you enable this if you have photos in your document.</sou
     <message>
         <source>Name of the Color is not unique</source>
         <translation>Ім&apos;я кольору уже використане</translation>
+    </message>
+    <message>
+        <source>HSB-Colormap</source>
+        <translation>HSB-палітра кольорів</translation>
     </message>
 </context>
 <context>
@@ -1793,22 +1801,6 @@ This can be set in the Preferences.</source>
         <translation>Рядків:</translation>
     </message>
     <message>
-        <source>Indentation</source>
-        <translation>Відступ</translation>
-    </message>
-    <message>
-        <source>Left Indent:</source>
-        <translation>Лівий відступ:</translation>
-    </message>
-    <message>
-        <source>First Line:</source>
-        <translation>Перший рядок:</translation>
-    </message>
-    <message>
-        <source>Tabulators...</source>
-        <translation>Табулятори...</translation>
-    </message>
-    <message>
         <source>Vertical Spaces</source>
         <translation>Вертикальні проміжки</translation>
     </message>
@@ -1842,7 +1834,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>Stroke Color:</source>
-        <translation type="unfinished">Колір контура:</translation>
+        <translation>Колір контура:</translation>
     </message>
     <message>
         <source>Adjust to Baseline Grid</source>
@@ -1854,7 +1846,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source> in</source>
-        <translation>дюйм</translation>
+        <translation>д</translation>
     </message>
     <message>
         <source> p</source>
@@ -1901,16 +1893,8 @@ This can be set in the Preferences.</source>
         <translation>Проміжок під абзацом</translation>
     </message>
     <message>
-        <source>Indentation for first line of the paragraph</source>
-        <translation>Відступ першого рядка абзаца</translation>
-    </message>
-    <message>
-        <source>Indentation from the left for the whole paragraph</source>
-        <translation>Лівий відступ абзаца</translation>
-    </message>
-    <message>
-        <source>Edit tab settings of text frame...</source>
-        <translation>Редагувати установки відступів текстової рамки...</translation>
+        <source>Tabulators and Indentation</source>
+        <translation>Табулятори та відступи</translation>
     </message>
 </context>
 <context>
@@ -2269,11 +2253,11 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source> in</source>
-        <translation>дм</translation>
+        <translation>д</translation>
     </message>
     <message>
         <source> p</source>
-        <translation>пік</translation>
+        <translation>п</translation>
     </message>
 </context>
 <context>
@@ -3373,7 +3357,7 @@ Please choose another.</source>
     </message>
     <message>
         <source> in</source>
-        <translation>дюйм</translation>
+        <translation>д</translation>
     </message>
     <message>
         <source> p</source>
@@ -3640,7 +3624,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Inches (in)</source>
-        <translation>Дюйми (дм)</translation>
+        <translation>Дюйми (д)</translation>
     </message>
     <message>
         <source>Picas (p)</source>
@@ -3684,7 +3668,7 @@ Please choose another.</source>
     </message>
     <message>
         <source> in</source>
-        <translation>дюйм</translation>
+        <translation>д</translation>
     </message>
     <message>
         <source> p</source>
@@ -4365,7 +4349,7 @@ JPEG - добре використовувати при створенні не�
     <message>
         <source>Downsample your bitmap images to the selected DPI.
 Leaving this unchecked will render them at their native resolution.</source>
-        <translation>Перерахувати розрішення растрових зображень до вибраних тчк/кв. дюйм (DPI).
+        <translation>Перерахувати розрішення растрових зображень до вибраних точок/кв. дюйм (DPI).
 Якщо ця опція не установлена то буде використане вихідне розрішення зображень.</translation>
     </message>
     <message>
@@ -4550,7 +4534,7 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
     </message>
     <message>
         <source> in</source>
-        <translation>дюйм</translation>
+        <translation>д</translation>
     </message>
     <message>
         <source> p</source>
@@ -4648,18 +4632,6 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
 <context>
     <name>Page</name>
     <message>
-        <source>Copy Here</source>
-        <translation>Копіювати сюди</translation>
-    </message>
-    <message>
-        <source>Move Here</source>
-        <translation>Пересунути сюди</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation>Вихід</translation>
-    </message>
-    <message>
         <source>Paste</source>
         <translation>Вклеїти</translation>
     </message>
@@ -4721,11 +4693,11 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Original ppi: </source>
-        <translation>Початкових тчк/дм:</translation>
+        <translation>Початкові тчк/д:</translation>
     </message>
     <message>
         <source>Actual ppi: </source>
-        <translation>Реальних тчк/дм:</translation>
+        <translation>Реальні тчк/д:</translation>
     </message>
     <message>
         <source>Linked Text</source>
@@ -5147,7 +5119,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source>Inches (in)</source>
-        <translation>Дюйми (дм)</translation>
+        <translation>Дюйми (д)</translation>
     </message>
     <message>
         <source>Picas (p)</source>
@@ -5511,11 +5483,11 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
         <source> in</source>
-        <translation>дм</translation>
+        <translation>д</translation>
     </message>
     <message>
         <source> p</source>
-        <translation>піки</translation>
+        <translation>п</translation>
     </message>
     <message>
         <source>External Tools</source>
@@ -5648,8 +5620,8 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>When enabled, Scribus saves a backup copy of your file with the .bak extension
 each time the time period elapses</source>
-        <translation>Якщо ввімкнути цю опцію, то Scribus буде записувати резервну копію файла з розширенням .bak
-по закінченню кожного визначеного періода часу</translation>
+        <translation>Якщо ввімкнути цю установку, то Scribus записуватиме резервну 
+копію файла з розширенням .bak після визначеного часу</translation>
     </message>
     <message>
         <source>Time period between saving automatically</source>
@@ -5962,6 +5934,10 @@ each time the time period elapses</source>
     <message>
         <source>Turns off the basegrid</source>
         <translation>Вимкнути базову сітку</translation>
+    </message>
+    <message>
+        <source> px</source>
+        <translation>пікс</translation>
     </message>
 </context>
 <context>
@@ -6413,7 +6389,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source> in</source>
-        <translation>дм</translation>
+        <translation>д</translation>
     </message>
     <message>
         <source> p</source>
@@ -6437,7 +6413,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>in</source>
-        <translation>дюйм</translation>
+        <translation>д</translation>
     </message>
     <message>
         <source>p</source>
@@ -6675,6 +6651,22 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Відстань від границі правого поля сторінки до її краю. Якщо вибраний 
 книжковий перепліт, то цей проміжок може використовуватися
 для установки правильних полів для переплітання</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation>тчк</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>мм</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>д</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>п</translation>
     </message>
 </context>
 <context>
@@ -6968,11 +6960,11 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Lower</source>
-        <translation>Нижче</translation>
+        <translation>Опустити нижче</translation>
     </message>
     <message>
         <source>Raise</source>
-        <translation>Вище</translation>
+        <translation>Підняти вище</translation>
     </message>
     <message>
         <source>Distribute/Align...</source>
@@ -7568,6 +7560,50 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <source>Tool&amp;bars</source>
         <translation>Панелі ін&amp;струментів</translation>
     </message>
+    <message>
+        <source> pt</source>
+        <translation>тчк</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>мм</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>д</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>п</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation>тчк</translation>
+    </message>
+    <message>
+        <source>mm</source>
+        <translation>мм</translation>
+    </message>
+    <message>
+        <source>in</source>
+        <translation>д</translation>
+    </message>
+    <message>
+        <source>p</source>
+        <translation>п</translation>
+    </message>
+    <message>
+        <source>Lithuanian</source>
+        <translation>Литовська</translation>
+    </message>
+    <message>
+        <source>Swedish</source>
+        <translation>Шведська</translation>
+    </message>
+    <message>
+        <source>Slovenian</source>
+        <translation>Словенська</translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -7582,6 +7618,22 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <source>All</source>
         <translation>Все</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation>тчк</translation>
+    </message>
+    <message>
+        <source>mm</source>
+        <translation>мм</translation>
+    </message>
+    <message>
+        <source>in</source>
+        <translation>д</translation>
+    </message>
+    <message>
+        <source>p</source>
+        <translation>п</translation>
     </message>
 </context>
 <context>
@@ -8094,18 +8146,6 @@ drag a Template to the Pageview below.</source>
         <translation>Налаштування табуляторів</translation>
     </message>
     <message>
-        <source>Position:</source>
-        <translation>Позиція:</translation>
-    </message>
-    <message>
-        <source>Alignment:</source>
-        <translation>Вирівнювання:</translation>
-    </message>
-    <message>
-        <source> pt</source>
-        <translation>тчк</translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation>Гаразд</translation>
     </message>
@@ -8113,14 +8153,9 @@ drag a Template to the Pageview below.</source>
         <source>Cancel</source>
         <translation>Вихід</translation>
     </message>
-    <message>
-        <source>Remove</source>
-        <translation>Видалити</translation>
-    </message>
-    <message>
-        <source>Add</source>
-        <translation>Добавити</translation>
-    </message>
+</context>
+<context>
+    <name>Tabruler</name>
     <message>
         <source>Left</source>
         <translation>Лівий край</translation>
@@ -8131,7 +8166,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Full Stop</source>
-        <translation>Повний стоп</translation>
+        <translation>Повна зупинка</translation>
     </message>
     <message>
         <source>Comma</source>
@@ -8140,6 +8175,50 @@ drag a Template to the Pageview below.</source>
     <message>
         <source>Center</source>
         <translation>Центр</translation>
+    </message>
+    <message>
+        <source>Position:</source>
+        <translation>Позиція:</translation>
+    </message>
+    <message>
+        <source>First Line:</source>
+        <translation>Перший рядок:</translation>
+    </message>
+    <message>
+        <source>Indent:</source>
+        <translation>Відступ:</translation>
+    </message>
+    <message>
+        <source>Delete All</source>
+        <translation>Видалити всі</translation>
+    </message>
+    <message>
+        <source>Indentation for first line of the paragraph</source>
+        <translation>Відступ для першого рядка абзаца</translation>
+    </message>
+    <message>
+        <source>Indentation from the left for the whole paragraph</source>
+        <translation>Лівий відступ для всього абзаца</translation>
+    </message>
+    <message>
+        <source>Delete all Tabulators</source>
+        <translation>Видалити всі табулятори</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation>тчк</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>мм</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>д</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>п</translation>
     </message>
 </context>
 <context>
@@ -8223,7 +8302,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Select Items</source>
-        <translation>Вибрати об&apos;єкти</translation>
+        <translation>Вибрати об&apos;єкт</translation>
     </message>
     <message>
         <source>Insert Text Frame</source>
@@ -8231,7 +8310,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Insert Picture</source>
-        <translation>Вставити графіку</translation>
+        <translation>Вставити рамку для зображення</translation>
     </message>
     <message>
         <source>Properties...</source>
@@ -8239,19 +8318,19 @@ Please choose another.</source>
     </message>
     <message>
         <source>Insert Polygons</source>
-        <translation>Вставити полігони</translation>
+        <translation>Вставити полігон</translation>
     </message>
     <message>
         <source>Insert Lines</source>
-        <translation>Вставити лінії</translation>
+        <translation>Вставити лінію</translation>
     </message>
     <message>
         <source>Insert Bezier Curves</source>
-        <translation>Вставити криві Безьє</translation>
+        <translation>Вставити криву Безьє</translation>
     </message>
     <message>
         <source>Insert Freehand Line</source>
-        <translation>Вставити вільну лінію</translation>
+        <translation>Вставити вільно рисовану лінію</translation>
     </message>
     <message>
         <source>Rotate Item</source>
@@ -8263,23 +8342,23 @@ Please choose another.</source>
     </message>
     <message>
         <source>Link Text Frames</source>
-        <translation>Зв&apos;язати текстові рамки</translation>
+        <translation>Установити зв&apos;язок між текстовими рамками</translation>
     </message>
     <message>
         <source>Unlink Text Frames</source>
-        <translation>Роз&apos;єднати текстові рамки</translation>
+        <translation>Розірвати зв&apos;язок між текстовими рамками</translation>
     </message>
     <message>
         <source>Zoom in or out</source>
-        <translation>Збільшити або зменшити масштаб зображення</translation>
+        <translation>Змінити масштаб зображення</translation>
     </message>
     <message>
         <source>Edit the text with the Story Editor</source>
-        <translation>Редагувати текст Редактором Тексту</translation>
+        <translation>Редагувати текст вбудованим редактором</translation>
     </message>
     <message>
         <source>Draw various Shapes</source>
-        <translation>Рисувати різні геометричні форми</translation>
+        <translation>Вставити геометричну фігуру</translation>
     </message>
     <message>
         <source>Insert Table</source>
@@ -8290,11 +8369,11 @@ Please choose another.</source>
     <name>WerkToolBP</name>
     <message>
         <source>PDF-Tools</source>
-        <translation>PDF-Інструменти</translation>
+        <translation>PDF Інструменти</translation>
     </message>
     <message>
         <source>Insert PDF-Fields</source>
-        <translation>Вставити PDF-поля</translation>
+        <translation>Вставити PDF поле</translation>
     </message>
     <message>
         <source>Text</source>

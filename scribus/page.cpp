@@ -177,7 +177,6 @@ void Page::dragEnterEvent(QDragEnterEvent *e)
 		setActiveWindow();
 		raise();
 		ScApp->newActWin(doku->WinHan);
-		qApp->processEvents();
 		SeleItemPos(e->pos());
 	}
 }
@@ -243,10 +242,6 @@ void Page::dropEvent(QDropEvent *e)
 	e->accept(QTextDrag::canDecode(e));
 	if (QTextDrag::decode(e, text))
 	{
-/*		setActiveWindow();
-		raise();
-		ScApp->newActWin(doku->WinHan);
-		qApp->processEvents(); */
 		QUrl ur(text);
 		QFileInfo fi = QFileInfo(ur.path());
 		QString ext = fi.extension(false).upper();
@@ -340,8 +335,6 @@ void Page::dropEvent(QDropEvent *e)
 		{
 			if ((!img) && (doku->DraggedElem == 0))
 				emit LoadElem(QString(text), qRound(e->pos().x()/doku->Scale), qRound(e->pos().y()/doku->Scale), false, false, doku);
-			update();
-/* The following code is disabled due to a bug in Qt-3.3.x which crashes here. In Qt-3.1.x it works fine 
 			else
 			{
 				if (doku->DraggedElem != 0)
@@ -418,7 +411,7 @@ void Page::dropEvent(QDropEvent *e)
 				doku->DraggedElem = 0;
 				doku->DragElements.clear();
 				update();
-			} */
+			}
 		}
 	}
 }
@@ -3831,7 +3824,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 	{
 		newX = static_cast<int>(m->x()/sc);
 		newY = static_cast<int>(m->y()/sc);
-/*		if ((Mpressed) && (m->state() == RightButton) && (!doku->DragP) && (doku->AppMode == 1) && (!b->Locked) && (!((b->isTableItem) && (b->isSingleSel))))
+		if ((Mpressed) && (m->state() == RightButton) && (!doku->DragP) && (doku->AppMode == 1) && (!b->Locked) && (!((b->isTableItem) && (b->isSingleSel))))
 		{
 			if ((abs(Dxp - newX) > 5) || (abs(Dyp - newY) > 5))
 			{
@@ -3853,7 +3846,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 				doku->DragElements.clear();
 			}
 			return;
-		} */
+		}
 		if (doku->DragP)
 			return;
 		if (Mpressed && (doku->AppMode == 9))
@@ -8830,7 +8823,7 @@ void Page::LoadPict(QString fn, int ItNr)
 	double x, y, b, h, c, m, k;
 	bool found = false;
 	int ret = -1;
-	QString tmpFile = QString(getenv("HOME"))+"/.scribus/sc.png";
+	QString tmpFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/sc.png");
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())
 	{

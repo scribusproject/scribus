@@ -70,9 +70,7 @@ private slots:
 protected:
 	QVBoxLayout* Layout2;
 	QHBoxLayout* layout5;
-	QHBoxLayout* layout4;
 	QVBoxLayout* layout3;
-	QVBoxLayout* layout7;
 	QVBoxLayout* ColsSetGroupLayout;
 	QVBoxLayout* Layout1;
 };

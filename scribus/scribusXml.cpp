@@ -1827,7 +1827,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 	TableItems.clear();
 	TableID.clear();
 	QString CurDirP = QDir::currentDirPath();
-	QDir::setCurrent(QString(getenv("HOME")));
+	QDir::setCurrent(QDir::homeDirPath());
 	while(!DOC.isNull())
 	{
 		QDomElement pg=DOC.toElement();
@@ -2317,7 +2317,7 @@ QString ScriXmlDoc::WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc)
 	for (uint co=0; co<Selitems->count(); ++co)
 	{
 		QString CurDirP = QDir::currentDirPath();
-		QDir::setCurrent(QString(getenv("HOME")));
+		QDir::setCurrent(QDir::homeDirPath());
 		item = doc->ActPage->Items.at(ELL[co]);
 		QDomElement ob=docu.createElement("ITEM");
 		ob.setAttribute("PTYPE",item->PType);

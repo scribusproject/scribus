@@ -336,7 +336,7 @@ int moveFile(QString source, QString target)
 QPixmap LoadPDF(QString fn, int Seite, int Size, int *w, int *h)
 {
 	QString tmp, cmd1, cmd2;
-	QString tmpFile = QString(getenv("HOME"))+"/.scribus/sc.png";
+	QString tmpFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/sc.png");
 	QPixmap pm;
 	int ret = -1;
 	tmp.setNum(Seite);
@@ -379,7 +379,7 @@ QImage LoadPict(QString fn, bool *gray)
 	double x, y, b, h;
 	bool found = false;
 	int ret = -1;
-	QString tmpFile = QString(getenv("HOME"))+"/.scribus/sc.png";
+	QString tmpFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/sc.png");
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.extension(false).lower();
 	if (ext == "pdf")
@@ -532,7 +532,7 @@ QImage LoadPictCol(QString fn, QString Prof, bool UseEmbedded, bool *realCMYK)
 	double x, y, b, h;
 	bool found = false;
 	int ret = -1;
-	QString tmpFile = QString(getenv("HOME"))+"/.scribus/sc.png";
+	QString tmpFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/sc.png");
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.extension(false).lower();
 	if (ext == "pdf")

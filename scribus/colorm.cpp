@@ -35,8 +35,7 @@ Farbmanager::Farbmanager( QWidget* parent, CListe doco, bool HDoc, QString DcolS
 	setName( "Farbmanager" );
 	HaveDoc = HDoc;
 	CColSet = Cust;
-	setSizePolicy(QSizePolicy((QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1,
-	                          sizePolicy().hasHeightForWidth() ) );
+	setSizePolicy(QSizePolicy((QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, sizePolicy().hasHeightForWidth() ) );
 	setSizeGripEnabled(true);
 	setCaption( tr( "Colors" ) );
 	setIcon(loadIcon("AppIcon.png"));
@@ -45,15 +44,14 @@ Farbmanager::Farbmanager( QWidget* parent, CListe doco, bool HDoc, QString DcolS
 	Layout2->setMargin( 11 );
 
 	layout5 = new QHBoxLayout( 0, 0, 6, "layout5");
+	layout3 = new QVBoxLayout( 0, 0, 6, "layout3");
 	ListBox1 = new QListBox( this, "ListBox1" );
-	ListBox1->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)3,
-	                                      ListBox1->sizePolicy().hasHeightForWidth() ) );
+	ListBox1->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)3, ListBox1->sizePolicy().hasHeightForWidth() ) );
 	ListBox1->setMinimumSize( QSize( 164, 228 ) );
 	ListBox1->setColumnMode( QListBox::FixedNumber );
 	layout5->addWidget( ListBox1 );
 
 	ColorsGroup = new QGroupBox( this, "ColorsGroup" );
-	ColorsGroup->setTitle( tr( "Colors" ) );
 	ColorsGroup->setColumnLayout(0, Qt::Vertical );
 	ColorsGroup->layout()->setSpacing( 6 );
 	ColorsGroup->layout()->setMargin( 11 );
@@ -78,31 +76,14 @@ Farbmanager::Farbmanager( QWidget* parent, CListe doco, bool HDoc, QString DcolS
 	DelF->setEnabled( false );
 	DelF->setText( tr( "Delete" ) );
 	Layout1->addWidget( DelF );
-	layout5->addWidget( ColorsGroup );
-	Layout2->addLayout( layout5 );
-
-	layout4 = new QHBoxLayout( 0, 0, 6, "layout4");
-
-	layout3 = new QVBoxLayout( 0, 0, 6, "layout3");
-	SaveF = new QPushButton( this, "SaveF" );
-	SaveF->setText( tr( "OK" ) );
-	layout3->addWidget( SaveF );
-	CancF = new QPushButton( this, "CancF" );
-	CancF->setText( tr( "Cancel" ) );
-	CancF->setDefault( true );
-	layout3->addWidget( CancF );
-	layout4->addLayout( layout3 );
 	if (HaveDoc)
 	{
-		layout7 = new QVBoxLayout( 0, 0, 6, "layout3");
-		DelU = new QPushButton( this, "DelU" );
+		DelU = new QPushButton( ColorsGroup, "DelU" );
 		DelU->setText( tr( "Remove Unused" ) );
-		layout7->addWidget( DelU );
-		QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
-		layout7->addItem( spacer );
-		layout4->addLayout( layout7 );
+		Layout1->addWidget( DelU );
 	}
-	else
+	layout3->addWidget( ColorsGroup );
+	if (!HaveDoc)
 	{
 		ColsSetGroup = new QGroupBox( this, "ColsSetGroup" );
 		ColsSetGroup->setTitle( tr( "Color Sets" ) );
@@ -126,7 +107,7 @@ Farbmanager::Farbmanager( QWidget* parent, CListe doco, bool HDoc, QString DcolS
 			realEx.clear();
 			for (uint m = 0; m < Cust.count(); ++m)
 			{
-				QString Cpfad = QString(getenv("HOME"))+"/.scribus/"+Cust[m];
+				QString Cpfad = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/"+Cust[m]);
 				QFileInfo cfi(Cpfad);
 				if (cfi.exists())
 				{
@@ -144,9 +125,17 @@ Farbmanager::Farbmanager( QWidget* parent, CListe doco, bool HDoc, QString DcolS
 		SaveColSet = new QPushButton( ColsSetGroup, "SaveColSet" );
 		SaveColSet->setText( tr( "Save Color Set" ) );
 		ColsSetGroupLayout->addWidget( SaveColSet );
-		layout4->addWidget( ColsSetGroup );
+		layout3->addWidget( ColsSetGroup );
 	}
-	Layout2->addLayout( layout4 );
+	SaveF = new QPushButton( this, "SaveF" );
+	SaveF->setText( tr( "OK" ) );
+	layout3->addWidget( SaveF );
+	CancF = new QPushButton( this, "CancF" );
+	CancF->setText( tr( "Cancel" ) );
+	CancF->setDefault( true );
+	layout3->addWidget( CancF );
+	layout5->addLayout( layout3 );
+	Layout2->addLayout( layout5 );
 	Ersatzliste.clear();
 	EditColors = doco;
 	updateCList();
@@ -182,7 +171,7 @@ Farbmanager::Farbmanager( QWidget* parent, CListe doco, bool HDoc, QString DcolS
 
 void Farbmanager::saveDefaults()
 {
-	QString Cpfad = QString(getenv("HOME"))+"/.scribus/";
+	QString Cpfad = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/");
 	QString Name = LoadColSet->text();
 	Query* dia = new Query(this, "Name", 1, 0, tr("Name:"), tr("Choose a Name"));
 	if ((Name == "Scribus Small") || (Name == "X11 RGB-Set")
@@ -228,7 +217,7 @@ void Farbmanager::loadDefaults(int id)
 	bool cus = false;
 	LoadColSet->setText(CSets->text(id));
 	EditColors.clear();
-	QString Cpfad = QString(getenv("HOME"))+"/.scribus/"+CSets->text(id);
+	QString Cpfad = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/"+CSets->text(id));
 	QString pfadC = PREL;
 	QString pfadC2 = pfadC + "/lib/scribus/rgbscribus.txt";
 	switch (c)

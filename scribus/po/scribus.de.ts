@@ -831,6 +831,10 @@
         <source>Custom</source>
         <translation>Benutzerdefiniert</translation>
     </message>
+    <message>
+        <source></source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Annota</name>
@@ -1117,6 +1121,10 @@
         <source>When Icon it too small</source>
         <translation type="obsolete">bei zu kleinem Icon</translation>
     </message>
+    <message>
+        <source></source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CMSPrefs</name>
@@ -1327,6 +1335,14 @@ Das erfordert sehr genaue Profile und dient nur als Anhaltspunkt.</translation>
     <message>
         <source>Name of the Color is not unique</source>
         <translation>Der Name der Farbe ist nicht eindeutig</translation>
+    </message>
+    <message>
+        <source></source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>HSB-Colormap</source>
+        <translation type="unfinished">HSB-Farbwähler</translation>
     </message>
 </context>
 <context>
@@ -1746,6 +1762,10 @@ Wird in den Voreinstellungen eingestellt.</translation>
         <source>Print</source>
         <translation>Drucken</translation>
     </message>
+    <message>
+        <source></source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditStyle</name>
@@ -1799,19 +1819,19 @@ Wird in den Voreinstellungen eingestellt.</translation>
     </message>
     <message>
         <source>Indentation</source>
-        <translation>Einrückungen</translation>
+        <translation type="obsolete">Einrückungen</translation>
     </message>
     <message>
         <source>Left Indent:</source>
-        <translation>Links:</translation>
+        <translation type="obsolete">Links:</translation>
     </message>
     <message>
         <source>First Line:</source>
-        <translation>Erste Zeile:</translation>
+        <translation type="obsolete">Erste Zeile:</translation>
     </message>
     <message>
         <source>Tabulators...</source>
-        <translation>Tabulatoren...</translation>
+        <translation type="obsolete">Tabulatoren...</translation>
     </message>
     <message>
         <source>Vertical Spaces</source>
@@ -1895,15 +1915,15 @@ Wird in den Voreinstellungen eingestellt.</translation>
     </message>
     <message>
         <source>Indentation for first line of the paragraph</source>
-        <translation>Einzug für die erste Zeile des Absatzes</translation>
+        <translation type="obsolete">Einzug für die erste Zeile des Absatzes</translation>
     </message>
     <message>
         <source>Indentation from the left for the whole paragraph</source>
-        <translation>Einzug von links für den ganzen Absatz</translation>
+        <translation type="obsolete">Einzug von links für den ganzen Absatz</translation>
     </message>
     <message>
         <source>Edit tab settings of text frame...</source>
-        <translation>Tabulatoren setzen/bearbeiten...</translation>
+        <translation type="obsolete">Tabulatoren setzen/bearbeiten...</translation>
     </message>
     <message>
         <source> mm</source>
@@ -1916,6 +1936,10 @@ Wird in den Voreinstellungen eingestellt.</translation>
     <message>
         <source> p</source>
         <translation>p</translation>
+    </message>
+    <message>
+        <source>Tabulators and Indentation</source>
+        <translation type="unfinished">Tabulatoren und Einzüge</translation>
     </message>
 </context>
 <context>
@@ -2299,6 +2323,10 @@ Wird in den Voreinstellungen eingestellt.</translation>
         <source>Sorry, no manual available! Please see: http://scribus.net for updated docs and downloads.</source>
         <translation>Leider kein Handbuch verfügbar! Bitte besuchen Sie: http://scribus.net für Updates.</translation>
     </message>
+    <message>
+        <source></source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>HyAsk</name>
@@ -2588,6 +2616,10 @@ Null bedeutet unbegrenzt.</translation>
     <message>
         <source>Do you want to delete all Objects on this Layer too?</source>
         <translation>Wollen Sie auch alle Objekte dieser Ebene löschen?</translation>
+    </message>
+    <message>
+        <source></source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3470,6 +3502,10 @@ Bitte wählen Sie einen anderen.</translation>
         <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
         <translation></translation>
     </message>
+    <message>
+        <source></source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MultiLine</name>
@@ -3964,6 +4000,10 @@ Wenn Doppelseiten aktiviert sind, kann hier der Abstand gewählt werden, um eine
 otherwise Coordinates are relative to the Object.</source>
         <translation>Aktiviert bedeutet Koordinaten relativ zur Seite,
 andernfalls relativ zum Objekt.</translation>
+    </message>
+    <message>
+        <source></source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4748,15 +4788,15 @@ auf Kosten der Render-Geschwindigkeit glatter dar</translation>
     <name>Page</name>
     <message>
         <source>Copy Here</source>
-        <translation>An diese Stelle kopieren</translation>
+        <translation type="obsolete">An diese Stelle kopieren</translation>
     </message>
     <message>
         <source>Move Here</source>
-        <translation>An diese Stelle verschieben</translation>
+        <translation type="obsolete">An diese Stelle verschieben</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Abbrechen</translation>
+        <translation type="obsolete">Abbrechen</translation>
     </message>
     <message>
         <source>Paste</source>
@@ -6099,6 +6139,10 @@ des Dokuments mit der Erweiterung .bak</translation>
     <message>
         <source> px</source>
         <translation>px</translation>
+    </message>
+    <message>
+        <source></source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7821,6 +7865,10 @@ nicht speichern</translation>
         <source>Slovenian</source>
         <translation>Slovenisch</translation>
     </message>
+    <message>
+        <source></source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -8392,15 +8440,15 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>Position:</source>
-        <translation>Position:</translation>
+        <translation type="obsolete">Position:</translation>
     </message>
     <message>
         <source>Alignment:</source>
-        <translation>Ausrichtung:</translation>
+        <translation type="obsolete">Ausrichtung:</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation> pt</translation>
+        <translation type="obsolete"> pt</translation>
     </message>
     <message>
         <source>OK</source>
@@ -8412,12 +8460,35 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation>Entfernen</translation>
+        <translation type="obsolete">Entfernen</translation>
     </message>
     <message>
         <source>Add</source>
-        <translation>Hinzufügen</translation>
+        <translation type="obsolete">Hinzufügen</translation>
     </message>
+    <message>
+        <source>Left</source>
+        <translation type="obsolete">Links</translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation type="obsolete">Rechts</translation>
+    </message>
+    <message>
+        <source>Full Stop</source>
+        <translation type="obsolete">Punkt</translation>
+    </message>
+    <message>
+        <source>Comma</source>
+        <translation type="obsolete">Komma</translation>
+    </message>
+    <message>
+        <source>Center</source>
+        <translation type="obsolete">Zentriert</translation>
+    </message>
+</context>
+<context>
+    <name>Tabruler</name>
     <message>
         <source>Left</source>
         <translation>Links</translation>
@@ -8437,6 +8508,50 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     <message>
         <source>Center</source>
         <translation>Zentriert</translation>
+    </message>
+    <message>
+        <source>Position:</source>
+        <translation>Position:</translation>
+    </message>
+    <message>
+        <source>First Line:</source>
+        <translation>Erste Zeile:</translation>
+    </message>
+    <message>
+        <source>Indent:</source>
+        <translation>Einzug:</translation>
+    </message>
+    <message>
+        <source>Delete All</source>
+        <translation>Alle löschen</translation>
+    </message>
+    <message>
+        <source>Indentation for first line of the paragraph</source>
+        <translation>Einzug für die erste Zeile des Absatzes</translation>
+    </message>
+    <message>
+        <source>Indentation from the left for the whole paragraph</source>
+        <translation>Einzug von links für den ganzen Absatz</translation>
+    </message>
+    <message>
+        <source>Delete all Tabulators</source>
+        <translation>Alle Tabulatoren löschen</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
     </message>
 </context>
 <context>

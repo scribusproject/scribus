@@ -14,6 +14,7 @@
 #include <qfile.h>
 #include <qtextstream.h>
 #include <qregexp.h>
+#include <qcursor.h>
 #include <cmath>
 #ifdef HAVE_LIBZ
 #include <zlib.h>
@@ -146,6 +147,8 @@ void SVGPlug::convert()
 	Doku->loading = true;
 	Doku->DoDrawing = false;
 	Doku->ActPage->setUpdatesEnabled(false);
+	Prog->ScriptRunning = true;
+	qApp->setOverrideCursor(QCursor(waitCursor), true);
 	gc->Family = Doku->Dfont;
 	if (!Doku->PageColors.contains("Black"))
 		Doku->PageColors.insert("Black", CMYKColor(0, 0, 0, 255));
@@ -165,6 +168,8 @@ void SVGPlug::convert()
 	//	Doku->loading = false;
 	Doku->DoDrawing = true;
 	Doku->ActPage->setUpdatesEnabled(true);
+	Prog->ScriptRunning = false;
+	qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	if ((Elements.count() > 0) && (!ret))
 	{
 		Doku->DragP = true;

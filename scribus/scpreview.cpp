@@ -149,7 +149,7 @@ QPixmap ScPreview::createPreview(QString data)
 		if(pg.tagName()=="ITEM")
 		{
 			QString CurDirP = QDir::currentDirPath();
-			QDir::setCurrent(QString(getenv("HOME")));
+			QDir::setCurrent(QDir::homeDirPath());
 			Segments.clear();
 			OB.PType = QStoInt(pg.attribute("PTYPE"));
 			OB.Xpos = QStodouble(pg.attribute("XPOS")) - GrX;

@@ -29,33 +29,33 @@
 
 class MultiLine : public QDialog
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString nam, bool ed, QMap<QString,multiLine> *Sty);
+	MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString nam, QMap<QString,multiLine> *Sty);
 	void updatePreview();
 	QColor calcFarbe(QString name, int shade);
 	void updateSList();
 	void reSort();
 	void RebuildList();
-    ~MultiLine();
+	~MultiLine() {};
 
 	QLineEdit* SName;
-    QLabel* Preview;
-    QPushButton* AddStyle;
-    QPushButton* RemoveStyle;
-    QListBox* Styles;
-    QGroupBox* Properties;
-    LineCombo* Dashes;
-    QComboBox* LineEnds;
-    QComboBox* LineJoin;
-    QLabel* WidthText;
-    MSpinBox* LWidth;
-    QComboBox* Color;
+	QLabel* Preview;
+	QPushButton* AddStyle;
+	QPushButton* RemoveStyle;
+	QListBox* Styles;
+	QGroupBox* Properties;
+	LineCombo* Dashes;
+	QComboBox* LineEnds;
+	QComboBox* LineJoin;
+	QLabel* WidthText;
+	MSpinBox* LWidth;
+	QComboBox* Color;
 	QSpinBox* Shade;
-    QPushButton* OK;
-    QPushButton* Cancel;
-  	multiLine TempVorl;
+	QPushButton* OK;
+	QPushButton* Cancel;
+	multiLine TempVorl;
 	int CurLin;
 	ScribusDoc* Docu;
 	QMap<QString,multiLine> *TempStyles;
@@ -71,15 +71,15 @@ public slots:
 	void NewLColor();
 	void NewLWidth();
 	void NewLShade();
-    void slotEditStyle( int i);
+	void slotEditStyle( int i);
 
 protected:
-    QVBoxLayout* MultiLineLayout;
-    QHBoxLayout* layout2;
-    QVBoxLayout* PropertiesLayout;
-    QHBoxLayout* layout1;
-    QHBoxLayout* layout3;
-    QHBoxLayout* layout4;
+	QVBoxLayout* MultiLineLayout;
+	QHBoxLayout* layout2;
+	QVBoxLayout* PropertiesLayout;
+	QHBoxLayout* layout1;
+	QHBoxLayout* layout3;
+	QHBoxLayout* layout4;
 };
 
 #endif // MULTILINE_H

@@ -5,6 +5,7 @@
 #include <qcursor.h>
 #include <qmessagebox.h>
 #include <qfileinfo.h>
+#include <qdir.h>
 #include <cstdlib>
 #if (_MSC_VER >= 1200)
  #include "win-config.h"
@@ -158,7 +159,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *C
 		realEx.clear();
 		for (uint m = 0; m < Cust.count(); ++m)
 		{
-			QString Cpfad = QString(getenv("HOME"))+"/.scribus/"+Cust[m];
+			QString Cpfad = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/"+Cust[m]);
 			QFileInfo cfi(Cpfad);
 			if (cfi.exists())
 			{
@@ -516,7 +517,7 @@ void CMYKChoose::SelSwatch(int n)
 	{
 		bool cus = false;
 		CurrSwatch.clear();
-		QString Cpfad = QString(getenv("HOME"))+"/.scribus/"+Swatches->currentText();
+		QString Cpfad = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/"+Swatches->currentText());
 		QString pfadC = PREL;
 		QString pfadC2 = pfadC + "/lib/scribus/rgbscribus.txt";
 		switch (n)

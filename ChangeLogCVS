@@ -1,5 +1,15 @@
 Changes since Version 1.1.6
 
+12.05.2004
+	* bug     #613: Autotools fix for Debian
+	* bug     #625: Suggestion for Speed up of SVG Import
+	* bug     #630: Pasting text in direct text editing.
+	* bug     #634: Can't edit Line Style name
+	* bug     #637: Scribus crashes after a drag with the Right Mouse Button
+	* feature #631: update for german
+	* feature #635: Ukrainian Translation Update
+	* feature #636: Update Danish Translation
+
 09.05.2004
 	* bug     #604: Grouped items can be grouped again
 	* bug     #620: Differing tab settings can cause wrapping text on top of other text
