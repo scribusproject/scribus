@@ -31,39 +31,44 @@ void ConsWin::keyPressEvent(QKeyEvent *k)
 {
 	int p, i;
 	getCursorPosition(&p, &i);
+	if (k->key() == Key_Escape)
+	{
+		emit closeFromKeyB();
+		return;
+	}
 	if ((k->key() == Key_Left) || (k->key() == Key_Backspace))
-		{
+	{
 		if (i < 4)
 			return;
-		}
+	}
 	if (k->key() == Key_Delete)
-		{
+	{
 		if (p != paragraphs()-1)
 			return;
-		}
-	if ((k->key() == Key_Home) || (k->key() == Key_Prior) || (k->key() == Key_Next) || (k->key() == Key_Backtab)) 
+	}
+	if ((k->key() == Key_Home) || (k->key() == Key_Prior) || (k->key() == Key_Next) || (k->key() == Key_Backtab))
 		return;
 	if ((k->key() == Key_Return) || (k->key() == Key_Enter))
-		{
+	{
 		if ((text(p).startsWith(">>>")) || (text(p).startsWith("...")))
-			{
+		{
 			LastComm = text(p).remove(0, 3);
 			LastComm = LastComm.mid(0, LastComm.length()-1);
-			}
+		}
 		else
 			LastComm = "";
 		if (p == paragraphs()-1)
 			emit returnPressed();
 		else
-			{
+		{
 			removeParagraph(paragraphs()-1);
 			insertParagraph(Prompt+LastComm, -1);
 			moveCursor(QTextEdit::MoveEnd, false);
 			moveCursor(QTextEdit::MoveBackward, false);
 			del();
-			}
-		return;
 		}
+		return;
+	}
 	QTextEdit::keyPressEvent(k);
 	getCursorPosition(&p, &i);
 	if (((text(p).startsWith(">>>")) || (text(p).startsWith("..."))) && (i < 3))

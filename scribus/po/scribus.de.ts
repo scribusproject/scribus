@@ -1039,7 +1039,7 @@
     </message>
     <message>
         <source>When Icon is too small</source>
-        <translation type="obsolete">bei zu kleinem Icon</translation>
+        <translation>bei zu kleinem Icon</translation>
     </message>
     <message>
         <source>When Icon is too big</source>
@@ -1107,7 +1107,7 @@
     </message>
     <message>
         <source>When Icon it too small</source>
-        <translation>bei zu kleinem Icon</translation>
+        <translation type="obsolete">bei zu kleinem Icon</translation>
     </message>
 </context>
 <context>
@@ -1199,28 +1199,28 @@ This profile should be specific to your printer and not a generic profile (i.e. 
         <translation>Farbprofil für den Drucker.</translation>
     </message>
     <message>
-        <source>Choose the default rendering intent for your monitor. Unless you know why to change it,
+        <source>Black Point Compensation is a method of improving contrast in photos.
+It is recommended that you enable this if you have photos in your document.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default rendering intent for your monitor. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Choose the default rendering intent for your printer. Unless you know why to change it,
+        <source>Default rendering intent for your printer. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This enables &apos;soft proofing&apos; of how your document colors will print,
+        <source>Enable &apos;soft proofing&apos; of how your document colors will print,
 based on the chosen printer profile.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This is a method of showing colors on the screen which may not print properly.
+        <source>Method of showing colors on the screen which may not print properly.
 This requires very accurate profiles and serves only as a warning.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Black Point Compensation is a method of improving contrast in photos.
-It is recommended that you enable this if you have photos in your document.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1305,6 +1305,14 @@ It is recommended that you enable this if you have photos in your document.</sou
     <message>
         <source> %</source>
         <translation> %</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Warnung</translation>
+    </message>
+    <message>
+        <source>Name of the Color is not unique</source>
+        <translation>Der Name der Farbe ist nicht eindeutig</translation>
     </message>
 </context>
 <context>
@@ -1581,6 +1589,18 @@ Wird in den Voreinstellungen gesetzt.</translation>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
     </message>
+    <message>
+        <source>This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Druck</name>
@@ -1678,7 +1698,7 @@ Wird in den Voreinstellungen gesetzt.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -1707,6 +1727,10 @@ Wird in den Voreinstellungen gesetzt.</translation>
     <message>
         <source>Black</source>
         <translation>Schwarz</translation>
+    </message>
+    <message>
+        <source>Print</source>
+        <translation>Drucken</translation>
     </message>
 </context>
 <context>
@@ -1810,6 +1834,74 @@ Wird in den Voreinstellungen gesetzt.</translation>
     <message>
         <source>Stroke Color:</source>
         <translation>Randfarbe:</translation>
+    </message>
+    <message>
+        <source>Adjust to Baseline Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name of your paragraph style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font of selected text or object</source>
+        <translation>Schriftart des Objekts</translation>
+    </message>
+    <message>
+        <source>Font Size</source>
+        <translation>Schriftgröße</translation>
+    </message>
+    <message>
+        <source>Color of text fill</source>
+        <translation>Textfarbe</translation>
+    </message>
+    <message>
+        <source>Color of text stroke</source>
+        <translation>Textumrissfarbe</translation>
+    </message>
+    <message>
+        <source>Provides an oversized first letter for a paragraph. Used for stylistic effect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Determines the overall height, in line numbers, of the Drop Caps</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Align text to baseline grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spacing above the paragraph</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spacing below the paragraph</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Indentation for first line of the paragraph</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Indentation from the left for the whole paragraph</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit tab settings of text frame...</source>
+        <translation>Tabulatoren setzen/bearbeiten...</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation> mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation> in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation> p</translation>
     </message>
 </context>
 <context>
@@ -1934,7 +2026,7 @@ Wird in den Voreinstellungen gesetzt.</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Speichern</translation>
+        <translation type="obsolete">Speichern</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -1974,7 +2066,7 @@ Wird in den Voreinstellungen gesetzt.</translation>
     </message>
     <message>
         <source>New Color:</source>
-        <translation>Neue Farbe:</translation>
+        <translation type="obsolete">Neue Farbe:</translation>
     </message>
     <message>
         <source>New Color</source>
@@ -2023,6 +2115,10 @@ Wird in den Voreinstellungen gesetzt.</translation>
     <message>
         <source>Make the current colorset the default color set</source>
         <translation>Aktuelle Palette zur Voreinstellung machen</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -2107,6 +2203,18 @@ Wird in den Voreinstellungen gesetzt.</translation>
         <source>Path to Font File</source>
         <translation>Pfad zur Schriftdatei</translation>
     </message>
+    <message>
+        <source>&amp;Available Fonts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font &amp;Substitutions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Additional &amp;Paths</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GuideManager</name>
@@ -2149,6 +2257,22 @@ Wird in den Voreinstellungen gesetzt.</translation>
     <message>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation> pt</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation> mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation> in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation> p</translation>
     </message>
 </context>
 <context>
@@ -2214,7 +2338,7 @@ everytime a possible Hyphenation is found.</source>
     </message>
     <message>
         <source>This is the length of the smallest word to be hyphenated.</source>
-        <translation>Dies ist die Länge des kleinsten trennbaren Wortes.</translation>
+        <translation type="obsolete">Dies ist die Länge des kleinsten trennbaren Wortes.</translation>
     </message>
     <message>
         <source>OK</source>
@@ -2223,6 +2347,19 @@ everytime a possible Hyphenation is found.</source>
     <message>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <source>Length of the smallest word to be hyphenated.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of Hypenations allowed:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximum number of Hyphenations following each other.
+A value of 0 means unlimited hyphenations.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2309,6 +2446,22 @@ everytime a possible Hyphenation is found.</source>
     <message>
         <source>Edit JavaScripts</source>
         <translation>JavaScripts bearbeiten</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Warnung</translation>
+    </message>
+    <message>
+        <source>Do you really want do delete this Script?</source>
+        <translation>Wollen Sie dieses Script wirklich löschen?</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation>Nein</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation>Ja</translation>
     </message>
 </context>
 <context>
@@ -2410,7 +2563,7 @@ everytime a possible Hyphenation is found.</source>
     </message>
     <message>
         <source>Closes this Dialog</source>
-        <translation>Schließt diese Palette</translation>
+        <translation type="obsolete">Schließt diese Palette</translation>
     </message>
     <message>
         <source>New Layer</source>
@@ -2493,7 +2646,11 @@ everytime a possible Hyphenation is found.</source>
     </message>
     <message>
         <source>Close</source>
-        <translation>Schließen</translation>
+        <translation type="obsolete">Schließen</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
     </message>
 </context>
 <context>
@@ -2790,7 +2947,7 @@ rundung:</translation>
     </message>
     <message>
         <source>Styles</source>
-        <translation>Stile</translation>
+        <translation type="obsolete">Stile</translation>
     </message>
     <message>
         <source>Lang.:</source>
@@ -3083,14 +3240,6 @@ Bitte wählen Sie einen anderen.</translation>
         <translation>Drucken erlauben/verbieten</translation>
     </message>
     <message>
-        <source>Enable this to make text in lower objects flow around this frame</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enable this to use the imaginary square border around your object, rather than its actual shape</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Font of selected text or object</source>
         <translation>Schriftart des Objekts</translation>
     </message>
@@ -3220,11 +3369,11 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Select the source profile of the image</source>
-        <translation>Farbprofil für Bild auswählen</translation>
+        <translation type="obsolete">Farbprofil für Bild auswählen</translation>
     </message>
     <message>
         <source>Select the rendering intent for the image</source>
-        <translation>Rendering Intent für Bild auswählen</translation>
+        <translation type="obsolete">Rendering Intent für Bild auswählen</translation>
     </message>
     <message>
         <source>Cell Lines</source>
@@ -3257,6 +3406,30 @@ Bitte wählen Sie einen anderen.</translation>
     <message>
         <source> p</source>
         <translation> p</translation>
+    </message>
+    <message>
+        <source>Style:</source>
+        <translation type="unfinished">Stil:</translation>
+    </message>
+    <message>
+        <source>Make text in lower objects flow around this frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the imaginary square border around your object, rather than its actual shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keep the aspect ratio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Source profile of the image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rendering intent for the image</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3507,7 +3680,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Autom. Text Frames</source>
-        <translation>Autom. Textrahmen</translation>
+        <translation type="obsolete">Autom. Textrahmen</translation>
     </message>
     <message>
         <source>Column Guides</source>
@@ -3515,7 +3688,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Gutter Width:</source>
-        <translation>-abstand:</translation>
+        <translation type="obsolete">-abstand:</translation>
     </message>
     <message>
         <source>Columns:</source>
@@ -3536,6 +3709,92 @@ Bitte wählen Sie einen anderen.</translation>
     <message>
         <source>Outside:</source>
         <translation>Außen:</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation> pt</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation> mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation> in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation> p</translation>
+    </message>
+    <message>
+        <source>Automatic Text Frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Gap:</source>
+        <translation>Abstand:</translation>
+    </message>
+    <message>
+        <source>Document page size, either a standard size or a custom size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Orientation of the document&apos;s pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Width of the document&apos;s pages, editable if you have chosen a custom page size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Height of the document&apos;s pages, editable if you have chosen a custom page size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable single or spread based layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make the first page the left page of the document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the top margin guide and the edge of the page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the bottom margin guide and the edge of the page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the left margin guide and the edge of the page.
+If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the right margin guide and the edge of the page.
+If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>First page number of the document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default unit of measurement for document editing</source>
+        <translation>Maßeinheit für Dokumente</translation>
+    </message>
+    <message>
+        <source>Create text frames automatically when new pages are added</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of columns to create in automatically created text frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between automatically created columns</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3785,7 +4044,7 @@ andernfalls relativ zum Objekt.</translation>
     </message>
     <message>
         <source>Fonts</source>
-        <translation>Schriften</translation>
+        <translation type="obsolete">Schriften</translation>
     </message>
     <message>
         <source>Enable Presentation Effects</source>
@@ -3853,7 +4112,7 @@ andernfalls relativ zum Objekt.</translation>
     </message>
     <message>
         <source>Extras</source>
-        <translation>Extras</translation>
+        <translation type="obsolete">Extras</translation>
     </message>
     <message>
         <source>Use Encryption</source>
@@ -3893,7 +4152,7 @@ andernfalls relativ zum Objekt.</translation>
     </message>
     <message>
         <source>Security</source>
-        <translation>Sicherheit</translation>
+        <translation type="obsolete">Sicherheit</translation>
     </message>
     <message>
         <source>Output intended for:</source>
@@ -3933,7 +4192,7 @@ andernfalls relativ zum Objekt.</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation>Farbe</translation>
+        <translation type="obsolete">Farbe</translation>
     </message>
     <message>
         <source>PDF/X-3 Output Intent</source>
@@ -3953,11 +4212,11 @@ andernfalls relativ zum Objekt.</translation>
     </message>
     <message>
         <source>PDF/X-3</source>
-        <translation>PDF/X-3</translation>
+        <translation type="obsolete">PDF/X-3</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -4104,77 +4363,6 @@ andernfalls relativ zum Objekt.</translation>
         <translation>Letzte Seite</translation>
     </message>
     <message>
-        <source>Determines the PDF compatibility.
-The default is Acrobat 4.0 which gives the widest compatibility.
-Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
-PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This determines the binding of pages in the PDF. Unless you know
-you need to change it leave the default choice - Left.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enabling this generates thumbnails of each page in the PDF.
-Some viewers can use the thumbnails for navigation.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enable this for generating PDF Articles, which is useful
-for navigating linked articles in a PDF.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enabling this will embed the bookmarks you created in your document.
-These are useful for navigating long PDF documents.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Choose the export resolution of text and vector graphics.
-This does not affect the resolution of bitmap images like photos.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enable compression of text and graphics.
-Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Choose the version of compression for images.
-Automatic allows Scribus to choose the best method.
-ZIP is good for images with solid colors.
-JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
-Leave it set to automatic, unless you have a need for special compression options.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Choose the compression level: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This choice will enable downsampling of your bitmap images to the selected DPI.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Choose the DPI (Dots Per Inch) for image export.
-Leaving this unchecked will render them at their native resolution.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Check this to embed fonts into the PDF. Embedding the fonts
-will preserve the layout and appearance of your document.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Checking this enables presentation effects when using Acrobat Reader in full screen mode.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Checking this will show page previews of each page listed above.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Length of time the page is shown before the presentation starts on the selected page.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4184,30 +4372,7 @@ A shorter time will speed up the effect, a longer one will slow it down.</source
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Choose type of the display effect.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Choose the direction of the effect of moving lines for the split and blind effects.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Choose the starting position for the box and split effects.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Choose the direction of the glitter or wipe effects.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Apply the selected effect to all pages.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Checking this will enable the security features in your exported PDF.
-If you selected Acrobat 4.0, the PDF will be protected by 40 bit encryption.
-If you selected Acrobat 5.0, the PDF will be protected by 128 bit encryption.
-Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4220,37 +4385,7 @@ security features in your exported PDF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Unchecking this will disallow printing of the PDF</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unchecking this will disallow modifying of the PDF</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unchecking this will disallow copying of text or graphics from the PDF</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unchecking this will disallow adding annotations and fields to the PDF</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This chooses the color model for the output of your PDF.
-Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.
-Choose Printer when printing to a true 4 color CMYK printer.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Embed a color profile for solid colors</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Select the color profile for solid colors</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Select the rendering intent for solid colors</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4259,23 +4394,6 @@ Choose Printer when printing to a true 4 color CMYK printer.</source>
     </message>
     <message>
         <source>Do not use color profiles that are embedded in source images</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Select the color profile for images</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Select the rendering intent for images</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Select the output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This is a mandatory string for PDF/X-3 or the PDF will fail
-PDF/X-3 conformance. We recommend you use the title of the document.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4292,6 +4410,189 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
     </message>
     <message>
         <source>Distance for bleed from the right of the physical page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;General</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Fonts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>E&amp;xtras</source>
+        <translation type="unfinished">E&amp;xtras</translation>
+    </message>
+    <message>
+        <source>&amp;Security</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;PDF/X-3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation type="unfinished"> pt</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished">Speichern</translation>
+    </message>
+    <message>
+        <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
+Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
+PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Determines the binding of pages in the PDF. Unless you know
+you need to change it leave the default choice - Left.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generates thumbnails of each page in the PDF.
+Some viewers can use the thumbnails for navigation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Embed the bookmarks you created in your document.
+These are useful for navigating long PDF documents.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export resolution of text and vector graphics.
+This does not affect the resolution of bitmap images like photos.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Compression of text and graphics.
+Unless you have a reason, leave this checked. This reduces PDF size.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Version of compression for images.
+Automatic allows Scribus to choose the best method.
+ZIP is good for images with solid colors.
+JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
+Leave it set to automatic, unless you have a need for special compression options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Compression level: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Downsample your bitmap images to the selected DPI.
+Leaving this unchecked will render them at their native resolution.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DPI (Dots Per Inch) for image export.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Embed fonts into the PDF. Embedding the fonts
+will preserve the layout and appearance of your document.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables presentation effects when using Acrobat Reader in full screen mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show page previews of each page listed above.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type of the display effect.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Direction of the effect of moving lines for the split and blind effects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Starting position for the box and split effects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Direction of the glitter or wipe effects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable the security features in your exported PDF.
+If you selected Acrobat 4.0, the PDF will be protected by 40 bit encryption.
+If you selected Acrobat 5.0, the PDF will be protected by 128 bit encryption.
+Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow printing of the PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow modifying of the PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow copying of text or graphics from the PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow adding annotations and fields to the PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color model for the output of your PDF.
+Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.
+Choose Printer when printing to a true 4 color CMYK printer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color profile for solid colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rendering intent for solid colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color profile for images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rendering intent for images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mandatory string for PDF/X-3 or the PDF will fail
+PDF/X-3 conformance. We recommend you use the title of the document.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4340,6 +4641,40 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
     <message>
         <source>K</source>
         <translation>K</translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of text items in the viewer, at the expense
+of a slight slowdown in previewing. This only affects Type 1 fonts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF and
+vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable/disable the C (Cyan) ink plate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable/disable the M (Magenta) ink plate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable/disable the Y (Yellow) ink plate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable/disable the K (Black) ink plate</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4611,6 +4946,18 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
     <message>
         <source>Copy of</source>
         <translation>Kopie von</translation>
+    </message>
+    <message>
+        <source>Hide Baseline Grid</source>
+        <translation>Basislinienraster verbergen</translation>
+    </message>
+    <message>
+        <source>Show Baseline Grid</source>
+        <translation>Basislinienraster zeigen</translation>
+    </message>
+    <message>
+        <source>Adjust Frame to Picture</source>
+        <translation>Rahmen an Bild anpassen</translation>
     </message>
 </context>
 <context>
@@ -5089,7 +5436,7 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
     </message>
     <message>
         <source>Save Contents on Exit</source>
-        <translation>Inhalt bei Programmende speichern</translation>
+        <translation type="obsolete">Inhalt bei Programmende speichern</translation>
     </message>
     <message>
         <source>Preview</source>
@@ -5532,10 +5879,6 @@ each time the time period elapses</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Keep the scrapbook contents after closing Scribus</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>When using facing pages, show the two pages side by side</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5572,11 +5915,27 @@ each time the time period elapses</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Filesystem location for editing graphics</source>
+        <source>Do not show objects outside the margins on the printed page or exported file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Do not show objects outside the margins on the printed page or exported file</source>
+        <source>Baseline Grid:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Baseline Offset:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save Contents on Changes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save the scrapbook contents everytime after a change</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Filesystem location for graphics editor</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6076,6 +6435,18 @@ Datei wurde nicht gefunden.
         <source>S&amp;cript</source>
         <translation>S&amp;cript</translation>
     </message>
+    <message>
+        <source>Oook! You&apos;re calling an object doesn&apos;t exist!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Oook! You&apos;re trying to erase an object doesn&apos;t exist!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Oook! An object you&apos;re trying to textflow doesn&apos;t exist!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -6254,6 +6625,32 @@ Datei wurde nicht gefunden.
     <message>
         <source>Outside:</source>
         <translation>Außen:</translation>
+    </message>
+    <message>
+        <source>Enable single or spread based layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make the first page the left page of the document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the top margin guide and the edge of the page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the bottom margin guide and the edge of the page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the left margin guide and the edge of the page.
+If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the right margin guide and the edge of the page.
+If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7168,6 +7565,34 @@ nicht speichern</translation>
         <source>&amp;Help</source>
         <translation>&amp;Hilfe</translation>
     </message>
+    <message>
+        <source>Show Baseline Grid</source>
+        <translation>Basislinienraster zeigen</translation>
+    </message>
+    <message>
+        <source>Tool&amp;bars</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide Baseline Grid</source>
+        <translation>Basislinienraster verbergen</translation>
+    </message>
+    <message>
+        <source>Some Objects are locked.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <source>Lock all</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unlock all</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -7376,7 +7801,7 @@ nicht speichern</translation>
     </message>
     <message>
         <source>This previews all the pages of your Document.</source>
-        <translation>Hier sind alle Seiten Ihres Dokuments dargestellt.</translation>
+        <translation type="obsolete">Hier sind alle Seiten Ihres Dokuments dargestellt.</translation>
     </message>
     <message>
         <source>Here are all your Templates, to create a new Page
@@ -7387,6 +7812,10 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     <message>
         <source>Normal</source>
         <translation>Normal</translation>
+    </message>
+    <message>
+        <source>Previews all the pages of your document.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7514,7 +7943,11 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation>Schließen</translation>
+        <translation type="obsolete">Schließen</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
     </message>
 </context>
 <context>
@@ -7662,6 +8095,14 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     <message>
         <source>Do you want save your changes?</source>
         <translation>Wollen Sie Ihre Änderungen sichern?</translation>
+    </message>
+    <message>
+        <source>Insert Special...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert Special</source>
+        <translation type="unfinished">Sonderzeichen einfügen</translation>
     </message>
 </context>
 <context>

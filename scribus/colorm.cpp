@@ -30,13 +30,13 @@ extern QPixmap loadIcon(QString nam);
 extern ScribusApp* ScApp;
 
 Farbmanager::Farbmanager( QWidget* parent, CListe doco, bool HDoc, QString DcolSet, QStringList Cust )
-    : QDialog( parent, "dd", true, 0 )
+		: QDialog( parent, "dd", true, 0 )
 {
 	setName( "Farbmanager" );
 	HaveDoc = HDoc;
 	CColSet = Cust;
-	 setSizePolicy(QSizePolicy((QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, 
-						sizePolicy().hasHeightForWidth() ) );
+	setSizePolicy(QSizePolicy((QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1,
+	                          sizePolicy().hasHeightForWidth() ) );
 	setSizeGripEnabled(true);
 	setCaption( tr( "Colors" ) );
 	setIcon(loadIcon("AppIcon.png"));
@@ -47,7 +47,7 @@ Farbmanager::Farbmanager( QWidget* parent, CListe doco, bool HDoc, QString DcolS
 	layout5 = new QHBoxLayout( 0, 0, 6, "layout5");
 	ListBox1 = new QListBox( this, "ListBox1" );
 	ListBox1->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)3,
-						 ListBox1->sizePolicy().hasHeightForWidth() ) );
+	                                      ListBox1->sizePolicy().hasHeightForWidth() ) );
 	ListBox1->setMinimumSize( QSize( 164, 228 ) );
 	ListBox1->setColumnMode( QListBox::FixedNumber );
 	layout5->addWidget( ListBox1 );
@@ -91,7 +91,7 @@ Farbmanager::Farbmanager( QWidget* parent, CListe doco, bool HDoc, QString DcolS
 	CancF->setText( tr( "Cancel" ) );
 	CancF->setDefault( true );
 	layout3->addWidget( CancF );
-	layout4->addLayout( layout3 ); 
+	layout4->addLayout( layout3 );
 	if (HaveDoc)
 	{
 		layout7 = new QVBoxLayout( 0, 0, 6, "layout3");
@@ -147,10 +147,10 @@ Farbmanager::Farbmanager( QWidget* parent, CListe doco, bool HDoc, QString DcolS
 		layout4->addWidget( ColsSetGroup );
 	}
 	Layout2->addLayout( layout4 );
-    Ersatzliste.clear();
+	Ersatzliste.clear();
 	EditColors = doco;
 	updateCList();
-// signals and slots connections
+	// signals and slots connections
 	if (!HaveDoc)
 	{
 		connect(CSets, SIGNAL(activated(int)), this, SLOT(loadDefaults(int)));
@@ -185,13 +185,13 @@ void Farbmanager::saveDefaults()
 	QString Name = LoadColSet->text();
 	Query* dia = new Query(this, "Name", 1, 0, tr("Name:"), tr("Choose a Name"));
 	if ((Name == "Scribus Small") || (Name == "X11 RGB-Set")
-		|| (Name == "X11 Grey-Set") || (Name == "Gnome-Set") || (Name == "SVG-Set"))
+	        || (Name == "X11 Grey-Set") || (Name == "Gnome-Set") || (Name == "SVG-Set"))
 		dia->Answer->setText("");
 	else
 		dia->Answer->setText(Name);
 	if (dia->exec())
 	{
-	  	QString Fname = Cpfad+dia->Answer->text();
+		QString Fname = Cpfad+dia->Answer->text();
 		LoadColSet->setText(dia->Answer->text());
 		QFile fx(Fname);
 		if (fx.open(IO_WriteOnly))
@@ -232,34 +232,34 @@ void Farbmanager::loadDefaults(int id)
 	QString pfadC2 = pfadC + "/lib/scribus/rgbscribus.txt";
 	switch (c)
 	{
-		case 0:
-			LoadColSet->setText("Scribus Small");
-	 		EditColors.insert("White", CMYKColor(0, 0, 0, 0));
-  			EditColors.insert("Black", CMYKColor(0, 0, 0, 255));
-			EditColors.insert("Blue", CMYKColor(255, 255, 0, 0));
-			EditColors.insert("Cyan", CMYKColor(255, 0, 0, 0));
-			EditColors.insert("Green", CMYKColor(255, 0, 255, 0));
-			EditColors.insert("Red", CMYKColor(0, 255, 255, 0));
-			EditColors.insert("Yellow", CMYKColor(0, 0, 255, 0));
-			EditColors.insert("Magenta", CMYKColor(0, 255, 0, 0));
-			break;
-		case 1:
-			pfadC2 = pfadC + "/lib/scribus/rgbscribus.txt";
-			break;
-		case 2:
-			pfadC2 = pfadC + "/lib/scribus/rgbscribusgreys.txt";
-			break;
-		case 3:
-			pfadC2 = pfadC + "/lib/scribus/rgbscribusgnome.txt";
-			break;
-		case 4:
-			pfadC2 = pfadC + "/lib/scribus/rgbsvg.txt";
-			break;
-		default:
-			pfadC2 = Cpfad;
-			cus = true;
-			break;
-		}
+	case 0:
+		LoadColSet->setText("Scribus Small");
+		EditColors.insert("White", CMYKColor(0, 0, 0, 0));
+		EditColors.insert("Black", CMYKColor(0, 0, 0, 255));
+		EditColors.insert("Blue", CMYKColor(255, 255, 0, 0));
+		EditColors.insert("Cyan", CMYKColor(255, 0, 0, 0));
+		EditColors.insert("Green", CMYKColor(255, 0, 255, 0));
+		EditColors.insert("Red", CMYKColor(0, 255, 255, 0));
+		EditColors.insert("Yellow", CMYKColor(0, 0, 255, 0));
+		EditColors.insert("Magenta", CMYKColor(0, 255, 0, 0));
+		break;
+	case 1:
+		pfadC2 = pfadC + "/lib/scribus/rgbscribus.txt";
+		break;
+	case 2:
+		pfadC2 = pfadC + "/lib/scribus/rgbscribusgreys.txt";
+		break;
+	case 3:
+		pfadC2 = pfadC + "/lib/scribus/rgbscribusgnome.txt";
+		break;
+	case 4:
+		pfadC2 = pfadC + "/lib/scribus/rgbsvg.txt";
+		break;
+	default:
+		pfadC2 = Cpfad;
+		cus = true;
+		break;
+	}
 	if (c != 0)
 	{
 		QFile fiC(pfadC2);
@@ -291,13 +291,13 @@ void Farbmanager::loadDefaults(int id)
 				EditColors.insert(Cname, tmp);
 			}
 			fiC.close();
-//			DontChange.clear();
+			//			DontChange.clear();
 		}
 		else
 		{
 			LoadColSet->setText("Scribus Small");
 			EditColors.insert("White", CMYKColor(0, 0, 0, 0));
-  			EditColors.insert("Black", CMYKColor(0, 0, 0, 255));
+			EditColors.insert("Black", CMYKColor(0, 0, 0, 255));
 			EditColors.insert("Blue", CMYKColor(255, 255, 0, 0));
 			EditColors.insert("Cyan", CMYKColor(255, 0, 0, 0));
 			EditColors.insert("Green", CMYKColor(255, 0, 255, 0));
@@ -322,35 +322,21 @@ void Farbmanager::loadFarben()
 	else
 		return;
 	if (!fileName.isEmpty())
-  	{
-  		ScriXmlDoc *ss = new ScriXmlDoc();
-  		if (ss->ReadColors(fileName))
-  		{
-  			CListe LColors = ss->Farben;
+	{
+		ScriXmlDoc *ss = new ScriXmlDoc();
+		if (ss->ReadColors(fileName))
+		{
+			CListe LColors = ss->Farben;
 			CListe::Iterator it;
 			for (it = LColors.begin(); it != LColors.end(); ++it)
 			{
 				if (!EditColors.contains(it.key()))
-    				EditColors.insert(it.key(), it.data());
+					EditColors.insert(it.key(), it.data());
 			}
-    	updateCList();
-  		}
+			updateCList();
+		}
 		delete ss;
-  	}
-}
-
-void Farbmanager::delFarbe()
-{
-//	if (DontChange.contains(sFarbe))
-//		return;
-	DelColor *dia = new DelColor(this, EditColors, sFarbe, HaveDoc);
-	if (dia->exec())
-	{
-		Ersatzliste.insert(sFarbe, dia->EFarbe);
-		EditColors.remove(sFarbe);
-		updateCList();
 	}
-	delete dia;
 }
 
 void Farbmanager::delUnused()
@@ -362,14 +348,9 @@ void Farbmanager::delUnused()
 	for (it = EditColors.begin(); it != EditColors.end(); ++it)
 	{
 		found = false;
-/*		if (DontChange.contains(it.key()))
-		{
-			UsedC.insert(it.key(), it.data());
-			continue;
-		} */
-		if ((it.key() == ScApp->doc->Dbrush) || (it.key() == ScApp->doc->Dpen) || 
-			(it.key() == ScApp->doc->DbrushPict)
-			 || (it.key() == ScApp->doc->DpenLine) || (it.key() == ScApp->doc->DpenText))
+		if ((it.key() == ScApp->doc->Dbrush) || (it.key() == ScApp->doc->Dpen) ||
+		        (it.key() == ScApp->doc->DbrushPict)
+		        || (it.key() == ScApp->doc->DpenLine) || (it.key() == ScApp->doc->DpenText))
 		{
 			UsedC.insert(it.key(), it.data());
 			continue;
@@ -393,7 +374,7 @@ void Farbmanager::delUnused()
 				}
 				/* PFJ - 29.02.04 - merged if's to one line */
 				if ((it.key() == ite->Pcolor) || (it.key() == ite->Pcolor2) ||
-					(it.key() == ite->GrColor) || (it.key() == ite->GrColor2))
+				        (it.key() == ite->GrColor) || (it.key() == ite->GrColor2))
 					found = true;
 				if (found)
 					break;
@@ -417,7 +398,7 @@ void Farbmanager::delUnused()
 					{
 						/* PFJ - 29.02.04 - Merged if's */
 						if ((it.key() == ite->Ptext.at(d)->ccolor) ||
-							(it.key() == ite->Ptext.at(d)->cstroke))
+						        (it.key() == ite->Ptext.at(d)->cstroke))
 							found = true;
 						if (found)
 							break;
@@ -425,7 +406,7 @@ void Farbmanager::delUnused()
 				}
 				/* PFJ - 29.02.04 - Merged if's */
 				if ((it.key() == ite->Pcolor) || (it.key() == ite->Pcolor2) ||
-					(it.key() == ite->GrColor) || (it.key() == ite->GrColor2))
+				        (it.key() == ite->GrColor) || (it.key() == ite->GrColor2))
 					found = true;
 				if (found)
 					break;
@@ -434,8 +415,8 @@ void Farbmanager::delUnused()
 				break;
 		}
 		/* PFJ - 29.02.04 - Merged if's */
-		if ((it.key() == ScApp->doc->CurrTextFill) || 
-			(it.key() == ScApp->doc->CurrTextStroke))
+		if ((it.key() == ScApp->doc->CurrTextFill) ||
+		        (it.key() == ScApp->doc->CurrTextStroke))
 			found = true;
 		if (found)
 		{
@@ -447,83 +428,54 @@ void Farbmanager::delUnused()
 	if (EditColors.count() == 0)
 	{
 		EditColors.insert("White", CMYKColor(0, 0, 0, 0));
-  		EditColors.insert("Black", CMYKColor(0, 0, 0, 255));
+		EditColors.insert("Black", CMYKColor(0, 0, 0, 255));
 	}
 	updateCList();
 }
 
 void Farbmanager::duplFarbe()
 {
-    QString nam;
-    Query *dia = new Query(this, "tt", 1, 0, tr("New Color:"), tr("New Color"));
-    dia->Answer->setText( tr("Copy of %1").arg(sFarbe));
-    if (dia->exec())
-    {
-    	nam = dia->Answer->text();
-    	while (EditColors.contains(nam))
-   		{
-    		if (!dia->exec())
-   			{
-    			delete dia;
-    			return;
-   			}
-    		nam = dia->Answer->text();
-   		}
-    	EditColors.insert(nam, EditColors[sFarbe]);
-		updateCList();
-   	}
-    delete dia;
+	QString nam = tr("Copy of %1").arg(sFarbe);
+	EditColors.insert(nam, EditColors[sFarbe]);
+	updateCList();
 }
 
 void Farbmanager::neueFarbe()
 {
-    QString nam;
-    Query *dia = new Query(this, "tt", 1, 0, tr("New Color:"), tr("New Color"));
-    dia->Answer->setText(sFarbe);
-    if (dia->exec())
-   	{
-    	nam = dia->Answer->text();
-    	while (EditColors.contains(nam) || (nam == "None"))
-   		{
-    		if (!dia->exec())
-    		{
-    			delete dia;
-    			return;
-    		}
-    		nam = dia->Answer->text();
-    	}
-		CMYKColor tmpFarbe = CMYKColor(0, 0, 0, 0);
-		CMYKChoose* dia2 = new CMYKChoose(this, tmpFarbe, nam);
-		if (!dia2->exec())
-		{
-    		delete dia;
-    		delete dia2;
-    		return;
-    	}
-		tmpFarbe = dia2->Farbe;
-		delete dia2;
-    	EditColors.insert(nam, tmpFarbe);
+	CMYKColor tmpFarbe = CMYKColor(0, 0, 0, 0);
+	CMYKChoose* dia = new CMYKChoose(this, tmpFarbe, tr("New Color"), &EditColors);
+	if (dia->exec())
+	{
+		EditColors.insert(dia->Farbname->text(), dia->Farbe);
 		updateCList();
-    }
-    delete dia;
+	}
+	delete dia;
 }
 
 void Farbmanager::editFarbe()
 {
-//	if (DontChange.contains(sFarbe))
-//		return;
-	CMYKColor tmpFarbe = CMYKColor();
-	CMYKChoose* dia = new CMYKChoose(this, EditColors[sFarbe], sFarbe);
-	if (!dia->exec())
+	CMYKColor tmpFarbe = EditColors[sFarbe];
+	EditColors.remove(sFarbe);
+	CMYKChoose* dia = new CMYKChoose(this, tmpFarbe, sFarbe, &EditColors);
+	if (dia->exec())
 	{
-    	delete dia;
-    	return;
-    }
-	tmpFarbe = dia->Farbe;
+		EditColors.insert(dia->Farbname->text(), dia->Farbe);
+		Ersatzliste.insert(sFarbe, dia->Farbname->text());
+		updateCList();
+	}
 	delete dia;
-	EditColors[sFarbe] = tmpFarbe;
-	Ersatzliste.insert(sFarbe, sFarbe);
-	updateCList();
+}
+
+void Farbmanager::delFarbe()
+{
+	DelColor *dia = new DelColor(this, EditColors, sFarbe, HaveDoc);
+	if (dia->exec())
+	{
+		Ersatzliste.insert(sFarbe, dia->EFarbe);
+		EditColors.remove(sFarbe);
+		updateCList();
+	}
+	delete dia;
 }
 
 void Farbmanager::selFarbe(QListBoxItem *c)
@@ -532,11 +484,6 @@ void Farbmanager::selFarbe(QListBoxItem *c)
 	EditF->setEnabled(true);
 	DupF->setEnabled(true);
 	DelF->setEnabled(EditColors.count() == 1 ? false : true);
-/*	if (DontChange.contains(sFarbe))
-	{
-   		EditF->setEnabled(false);
-   		DelF->setEnabled(false);
-	} */
 }
 
 void Farbmanager::updateCList()
@@ -551,11 +498,11 @@ void Farbmanager::updateCList()
 	}
 	DelF->setEnabled(EditColors.count() == 1 ? false : true);
 	if (ListBox1->currentItem() == -1)
-   	{
-   		DupF->setEnabled(false);
-   		EditF->setEnabled(false);
-    	DelF->setEnabled(false);
-   	}
-	ListBox1->setSelected(ListBox1->currentItem(), false);	
+	{
+		DupF->setEnabled(false);
+		EditF->setEnabled(false);
+		DelF->setEnabled(false);
+	}
+	ListBox1->setSelected(ListBox1->currentItem(), false);
 }
 

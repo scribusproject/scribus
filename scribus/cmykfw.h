@@ -20,21 +20,23 @@
 #include <qslider.h>
 #include <qlayout.h>
 #include <qtooltip.h>
+#include <qlineedit.h>
 #include "cmykcolor.h"
 #include "colorchart.h"
 #include "mspinbox.h"
+#include "scribusdoc.h"
 
 class CMYKChoose : public QDialog
 {
 	Q_OBJECT
 
 public:
-	CMYKChoose( QWidget* parent, CMYKColor orig, QString name );
+	CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *Colors );
 	~CMYKChoose() {};
 	virtual void mouseReleaseEvent(QMouseEvent *m);
 	QColor CMYK2RGB(int c, int m, int y, int k);
 	QLabel* TextLabel1;
-	QLabel* Farbname;
+	QLineEdit* Farbname;
 	QLabel* TextLabel3;
 	QComboBox* ComboBox1;
 	QCheckBox* Separations;
@@ -70,6 +72,7 @@ public:
 	bool Wsave;
 	bool dynamic;
 	int BlackComp;
+	CListe *EColors;
 
 public slots:
 	void SetValueS(int val);
@@ -80,6 +83,7 @@ public slots:
 	void setColor();
 	void setColor2(int h, int s, bool ende);
 	void setValues();
+	void Verlassen();
 
 protected:
 	QHBoxLayout* CMYKFarbenLayout;

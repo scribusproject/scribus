@@ -1,4 +1,9 @@
 Changes since Version 1.1.6
+14.04.2004	Updated the Polish Translation.
+		The Color Names are now editable in the Color Chooser.
+		The Cups Options panel is now resizeable.
+		The ESC-Key closes now the Scripting Console.
+
 13.04.2004	Updated the British Translation.
 
 12.04.2004	Added new Command "Adjust Frame to Picture" to the Context Menue.

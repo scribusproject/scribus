@@ -1230,6 +1230,30 @@ It is recommended that you enable this if you have photos in your document.</sou
         <translation>Kompensacja poziomu czerni to metoda polepszania kontrastu zdjęć.
 Jest ona zalecana, jeśli twój dokument zawiera zdjęcia.</translation>
     </message>
+    <message>
+        <source>Default rendering intent for your monitor. Unless you know why to change it,
+Relative Colorimetric or Perceptual should be chosen.</source>
+        <translation>Domyślna metoda konwersji dla twojego monitora. Wybierz  metodę 
+relatywnie kolorometryczną lub percepcję, chyba że wiesz, dlaczego chcesz to zmienić.</translation>
+    </message>
+    <message>
+        <source>Default rendering intent for your printer. Unless you know why to change it,
+Relative Colorimetric or Perceptual should be chosen.</source>
+        <translation>Domyślna metoda konwersji dla twojej drukarki. Wybierz  metodę 
+relatywnie kolorometryczną lub percepcję, chyba że wiesz, dlaczego chcesz to zmienić.</translation>
+    </message>
+    <message>
+        <source>Enable &apos;soft proofing&apos; of how your document colors will print,
+based on the chosen printer profile.</source>
+        <translation>Włącz tzw. &quot;soft proofing&quot; pozwalający na sprawdzenie, jak zostaną 
+wydrukowane kolory twojego dokumentu w oparciu o wybrany profil drukarki.</translation>
+    </message>
+    <message>
+        <source>Method of showing colors on the screen which may not print properly.
+This requires very accurate profiles and serves only as a warning.</source>
+        <translation>Metoda pokazywania kolorów na ekranie, które mogą nie być poprawnie wydrukowane.
+Wymaga ona bardzo dokładnie dopasowanych profili i służy jedynie jako ostrzeżenie.</translation>
+    </message>
 </context>
 <context>
     <name>CMYKChoose</name>
@@ -1608,6 +1632,18 @@ This can be set in the Preferences.</source>
         <source>Cancel</source>
         <translation>Anuluj</translation>
     </message>
+    <message>
+        <source>This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
+        <translation>Pole to może zarówno być dołączone do dokumentu Scribusa jako dodatkowa informacja, jak też jako metadane do dokumentu PDF</translation>
+    </message>
+    <message>
+        <source>This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
+        <translation>To pole służy do krótkiego opisu lub streszczenia dokumentu. Zostanie ono włączone do PDF w trakcie eksportu</translation>
+    </message>
+    <message>
+        <source>This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
+        <translation>To pole przeznaczone jest na słowa kluczowe, które zostaną włączone do PDF, aby ułatwić przeszukiwanie i indeksację plików</translation>
+    </message>
 </context>
 <context>
     <name>Druck</name>
@@ -1735,6 +1771,10 @@ This can be set in the Preferences.</source>
         <source>Black</source>
         <translation></translation>
     </message>
+    <message>
+        <source>Print</source>
+        <translation>Drukuj</translation>
+    </message>
 </context>
 <context>
     <name>EditStyle</name>
@@ -1861,6 +1901,74 @@ This can be set in the Preferences.</source>
     <message>
         <source>None</source>
         <translation>Brak</translation>
+    </message>
+    <message>
+        <source>Adjust to Baseline Grid</source>
+        <translation>Dopasuj do linii podstawowych</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Name of your paragraph style</source>
+        <translation>Nazwa stylu akapitu</translation>
+    </message>
+    <message>
+        <source>Font of selected text or object</source>
+        <translation>Czcionka wybranego tekstu albo obiektu</translation>
+    </message>
+    <message>
+        <source>Font Size</source>
+        <translation>Rozmiar czcionki</translation>
+    </message>
+    <message>
+        <source>Color of text fill</source>
+        <translation>Kolor wypełnienia tekstu</translation>
+    </message>
+    <message>
+        <source>Color of text stroke</source>
+        <translation>Kolor obrysu tekstu</translation>
+    </message>
+    <message>
+        <source>Provides an oversized first letter for a paragraph. Used for stylistic effect</source>
+        <translation>Efekt stylistyczny, generujący ponadwymiarową pierwszą literę akapitu </translation>
+    </message>
+    <message>
+        <source>Determines the overall height, in line numbers, of the Drop Caps</source>
+        <translation>Całkowita wielkość inicjałów wypuszczonych liczona w ilości wierszy</translation>
+    </message>
+    <message>
+        <source>Align text to baseline grid</source>
+        <translation>Wyrównaj tekst do linii podstawowych</translation>
+    </message>
+    <message>
+        <source>Spacing above the paragraph</source>
+        <translation>Interlinia nad akapitem</translation>
+    </message>
+    <message>
+        <source>Spacing below the paragraph</source>
+        <translation>Interlinia pod akapitem</translation>
+    </message>
+    <message>
+        <source>Indentation for first line of the paragraph</source>
+        <translation>Wcięcie pierszego wiersza akapitu</translation>
+    </message>
+    <message>
+        <source>Indentation from the left for the whole paragraph</source>
+        <translation>Wcięcie z lewej strony całego akapitu</translation>
+    </message>
+    <message>
+        <source>Edit tab settings of text frame...</source>
+        <translation>Edytuj ustawienia tabulatorów ramki tekstowej...</translation>
     </message>
 </context>
 <context>
@@ -2075,6 +2183,10 @@ This can be set in the Preferences.</source>
         <source>Make the current colorset the default color set</source>
         <translation>Ustaw aktualny zestaw kolorów jako domyślny zestaw kolorów</translation>
     </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
 </context>
 <context>
     <name>FontPrefs</name>
@@ -2158,6 +2270,18 @@ This can be set in the Preferences.</source>
         <source>Choose a Directory</source>
         <translation>Wybierz katalog</translation>
     </message>
+    <message>
+        <source>&amp;Available Fonts</source>
+        <translation>&amp;Dostępne czcionki</translation>
+    </message>
+    <message>
+        <source>Font &amp;Substitutions</source>
+        <translation>&amp;Czcionki zastępcze</translation>
+    </message>
+    <message>
+        <source>Additional &amp;Paths</source>
+        <translation>D&amp;odatkowe ścieżki</translation>
+    </message>
 </context>
 <context>
     <name>GuideManager</name>
@@ -2200,6 +2324,22 @@ This can be set in the Preferences.</source>
     <message>
         <source>Cancel</source>
         <translation>Anuluj</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -2274,6 +2414,20 @@ everytime a possible Hyphenation is found.</source>
     <message>
         <source>Cancel</source>
         <translation>Anuluj</translation>
+    </message>
+    <message>
+        <source>Length of the smallest word to be hyphenated.</source>
+        <translation>Długość najkrótszego słowa podlegającego podziałowi na sylaby.</translation>
+    </message>
+    <message>
+        <source>Number of Hypenations allowed:</source>
+        <translation>Dozwolona ilość podziałów:</translation>
+    </message>
+    <message>
+        <source>Maximum number of Hyphenations following each other.
+A value of 0 means unlimited hyphenations.</source>
+        <translation>Maksymalna ilość następujących po sobie podziałów na sylaby.
+Wartość 0 oznacza brak ograniczeń.</translation>
     </message>
 </context>
 <context>
@@ -2383,6 +2537,22 @@ everytime a possible Hyphenation is found.</source>
     <message>
         <source>Edit JavaScripts</source>
         <translation>Edytuj skrypty w JavaScript</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Ostrzeżenie</translation>
+    </message>
+    <message>
+        <source>Do you really want do delete this Script?</source>
+        <translation>Naprawdę usunąć ten skrypt?</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation>Nie</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation>Tak</translation>
     </message>
 </context>
 <context>
@@ -2568,6 +2738,10 @@ everytime a possible Hyphenation is found.</source>
     <message>
         <source>Close</source>
         <translation>Zamknij</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -3388,6 +3562,30 @@ Proszę wybrać inną.</translation>
         <source> p</source>
         <translation></translation>
     </message>
+    <message>
+        <source>Make text in lower objects flow around this frame</source>
+        <translation>Tekst w obiektach leżacych pod spodem będzie opływał tę ramkę</translation>
+    </message>
+    <message>
+        <source>Use the imaginary square border around your object, rather than its actual shape</source>
+        <translation>Użyj niewidocznej kwadratowej ramki ograniczającej dookoła obiektu zamiast jego rzeczywistego kształtu</translation>
+    </message>
+    <message>
+        <source>Keep the aspect ratio</source>
+        <translation>Zachowaj proporcje</translation>
+    </message>
+    <message>
+        <source>Source profile of the image</source>
+        <translation>Profil źrodła obrazka</translation>
+    </message>
+    <message>
+        <source>Rendering intent for the image</source>
+        <translation>Metoda konwersji dla obrazka</translation>
+    </message>
+    <message>
+        <source>Style:</source>
+        <translation>Styl:</translation>
+    </message>
 </context>
 <context>
     <name>MultiLine</name>
@@ -3670,6 +3868,95 @@ Proszę wybrać inną.</translation>
     <message>
         <source>Millimetres (mm)</source>
         <translation>Milimetry (mm)</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Automatic Text Frames</source>
+        <translation>Automatyczne ramki tekstowe</translation>
+    </message>
+    <message>
+        <source>Gap:</source>
+        <translation>Odstęp między szpaltami:</translation>
+    </message>
+    <message>
+        <source>Document page size, either a standard size or a custom size</source>
+        <translation>Rozmiar strony dokumentu, standardowy albo zdefiniowany przez użytkownika</translation>
+    </message>
+    <message>
+        <source>Orientation of the document&apos;s pages</source>
+        <translation>Orientacja stron dokumentu</translation>
+    </message>
+    <message>
+        <source>Width of the document&apos;s pages, editable if you have chosen a custom page size</source>
+        <translation>Szerokość stron dokumentu, można ją zmienić, jeśli wybrałeś definiowanie rozmiaru strony przez użytkownika</translation>
+    </message>
+    <message>
+        <source>Height of the document&apos;s pages, editable if you have chosen a custom page size</source>
+        <translation>Wysokość stron dokumentu, można ją zmienić, jeśli wybrałeś definiowanie rozmiaru strony przez użytkownika</translation>
+    </message>
+    <message>
+        <source>Enable single or spread based layout</source>
+        <translation>Włącz widok dwu stron dokumentu naraz</translation>
+    </message>
+    <message>
+        <source>Make the first page the left page of the document</source>
+        <translation>Ustaw jako pierwszą stronę lewą stronę dokumentu</translation>
+    </message>
+    <message>
+        <source>Distance between the top margin guide and the edge of the page</source>
+        <translation>Odstęp pomiędzy górną linią pomocniczą marginesu a krawędzią strony</translation>
+    </message>
+    <message>
+        <source>Distance between the bottom margin guide and the edge of the page</source>
+        <translation>Odstęp pomiędzy dolną linią pomocniczą marginesu a krawędzią strony</translation>
+    </message>
+    <message>
+        <source>Distance between the left margin guide and the edge of the page.
+If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation>Odstęp pomiędzy lewą linią pomocniczą marginesu a krawędzią strony
+Jeśli wybrałeś strony widzące się, obszar marginesu może być użyty to osiągnięcia prawidłowych marginesów dla zszycia</translation>
+    </message>
+    <message>
+        <source>Distance between the right margin guide and the edge of the page.
+If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation>Ostęp pomiędzy linią pomocniczą prawego marginesu i krawędzią strony.
+Jeśli zostały wybrane strony widzące się, to margines ten może zostać użyty dla osiągnięcia prawidłowego marginesu dla zszycia</translation>
+    </message>
+    <message>
+        <source>First page number of the document</source>
+        <translation>Pierwszy numer strony dokumentu</translation>
+    </message>
+    <message>
+        <source>Default unit of measurement for document editing</source>
+        <translation>Domyślna jednostka miary dla edycji dokumentów</translation>
+    </message>
+    <message>
+        <source>Create text frames automatically when new pages are added</source>
+        <translation>Utwórz automatycznie ramki tekstowe, kiedy będą dodawane nowe strony</translation>
+    </message>
+    <message>
+        <source>Number of columns to create in text frames
+on automatically created pages</source>
+        <translation>Ilość szpalt w ramkach tekstowych na automatycznie tworzonych stronach</translation>
+    </message>
+    <message>
+        <source>Distance between automatically created columns</source>
+        <translation>Odstęp pomiędzy automatycznie tworzonymi szpaltami</translation>
     </message>
 </context>
 <context>
@@ -4150,10 +4437,6 @@ w innym przypadku do obiektu.</translation>
         <translation>Przycinanie</translation>
     </message>
     <message>
-        <source>PDF/X-3</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation>OK</translation>
     </message>
@@ -4453,6 +4736,209 @@ Zalecane jest wpisanie tutaj tytułu dokumentu.</translation>
         <source>Distance for bleed from the right of the physical page</source>
         <translation>Ostęp spadu od prawej krawędzi fizycznej strony</translation>
     </message>
+    <message>
+        <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
+Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
+PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management.</source>
+        <translation>Określa kompatybilność pliku PDF. Domyślne ustawienie to Acrobat 4.0, którego wynikiem jest największa kompatybilność.
+Wybierz Acrobata 5.0, jeśli twój plik korzysta z takich właściwości PDF 1.4 jak przezroczystość, lub jeśli wymagane jest kodowanie 128 bitowe.
+PDF/X-3 przeznaczony jest dla eksportu do PDF przeznaczonego do profesjonalnego druku i daje się wybrać, jeśli zostało włączone zarządzanie kolorami.</translation>
+    </message>
+    <message>
+        <source>Determines the binding of pages in the PDF. Unless you know
+you need to change it leave the default choice - Left.</source>
+        <translation>Określa odstęp do zszycia stron w pliku PDF. Najlepiej zostawić
+domyślne ustawienie (z lewej strony), chyba że wiesz na pewno, że zmiana jest potrzebna.</translation>
+    </message>
+    <message>
+        <source>Generates thumbnails of each page in the PDF.
+Some viewers can use the thumbnails for navigation.</source>
+        <translation>Włącza generowanie miniatur każdej strony w pliku PDF.
+Niektóre przegląrki używają miniatur do nawigacji.</translation>
+    </message>
+    <message>
+        <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
+        <translation>Włącza generowanie artykułów PDF, które przydają się
+w nawigowaniu pomiędzy powiązanymi ze sobą artykułami w PDF.</translation>
+    </message>
+    <message>
+        <source>Embed the bookmarks you created in your document.
+These are useful for navigating long PDF documents.</source>
+        <translation>Włącza osadzanie utworzonych przez ciebie zakładek w dokumencie.
+Jest to przydatne przy poruszaniu się w długich dokumentach PDF.</translation>
+    </message>
+    <message>
+        <source>Export resolution of text and vector graphics.
+This does not affect the resolution of bitmap images like photos.</source>
+        <translation>Wybór rozdzielczości tekstu i grafiki wektorowej w eksportowanym pliku.
+Nie ma wpływu na rozdzielczość grafiki bitmapowej, np. zdjęć.</translation>
+    </message>
+    <message>
+        <source>Compression of text and graphics.
+Unless you have a reason, leave this checked. This reduces PDF size.</source>
+        <translation>Włącza kompresję tekstu i grafiki. Najlepiej zostawić zakreślone, 
+chyba że ma się powody, aby to zmieniać. Redukuje to rozmiar pliku PDF.</translation>
+    </message>
+    <message>
+        <source>Version of compression for images.
+Automatic allows Scribus to choose the best method.
+ZIP is good for images with solid colors.
+JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
+Leave it set to automatic, unless you have a need for special compression options.</source>
+        <translation>Wybór wersji kompresji obrazków.
+Automatyczna pozwala Scribusowi na wybór najlepszej metody.
+ZIP jest dobry dla obrazków o jednolitych kolorach.
+JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo zdjęć (przy najmniejszej z możliwych utracie informacji obrazka).
+Wybierz kompresję automatyczną, chyba że potrzebujesz specjalnych opcji przy kompresji.</translation>
+    </message>
+    <message>
+        <source>Compression level: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
+        <translation>Wybierz stopień kompresji: minimalny (25%), niski (50%), średni (75%), wysoki (85%), maksymalny (95%)</translation>
+    </message>
+    <message>
+        <source>Downsample your bitmap images to the selected DPI.
+Leaving this unchecked will render them at their native resolution.</source>
+        <translation>Ten wybór umożliwi redukcję grafiki bitmapowej do wybranej rozdzielczości DPI.
+Jeśli nie zakreślisz tej opcji, grafika zostanie wyeksportowana z oryginalną rozdzielczością.</translation>
+    </message>
+    <message>
+        <source>DPI (Dots Per Inch) for image export.</source>
+        <translation>Wybór rozdzielczości DPI (Dots Per Inch) dla eksportu obrazków.</translation>
+    </message>
+    <message>
+        <source>Embed fonts into the PDF. Embedding the fonts
+will preserve the layout and appearance of your document.</source>
+        <translation>Zaznacz tę opcję, aby zagnieździć czcionki w dokumencie PDF. Zagnieżdżenie czcionek
+pozwoli na zachowanie układu graficznego i wyglądu dokumentu.</translation>
+    </message>
+    <message>
+        <source>Enables presentation effects when using Acrobat Reader in full screen mode.</source>
+        <translation>Włącza efekty prezentacyjne, które Acrobat Reader pokazuje w trybie pełnoekranowym.</translation>
+    </message>
+    <message>
+        <source>Show page previews of each page listed above.</source>
+        <translation>Wyświetl podgląd każdej strony wymienionej powyżej.</translation>
+    </message>
+    <message>
+        <source>Type of the display effect.</source>
+        <translation>Typ efektu prezentacyjnego.</translation>
+    </message>
+    <message>
+        <source>Direction of the effect of moving lines for the split and blind effects.</source>
+        <translation>Kierunek przemieszczania się linii dla efektu dzielenia i żaluzji.</translation>
+    </message>
+    <message>
+        <source>Starting position for the box and split effects.</source>
+        <translation>Wybierz pozycję początkową dla efektu ramki i dzielenia.</translation>
+    </message>
+    <message>
+        <source>Direction of the glitter or wipe effects.</source>
+        <translation>Wybierz kierunek efektu szachownicy lub zacierania.</translation>
+    </message>
+    <message>
+        <source>Enable the security features in your exported PDF.
+If you selected Acrobat 4.0, the PDF will be protected by 40 bit encryption.
+If you selected Acrobat 5.0, the PDF will be protected by 128 bit encryption.
+Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
+        <translation>Zakreślenie tej opcji włączy zabezpieczenia w eksportowanym dokumencie PDF.
+Jeśli wybrałeś eksport do formatu Acrobat 4.0, to plik PDF zostanie zabezpieczony szyfrowaniem 40 bitowym.
+Jeśli wybrałeś eksport do formatu Acrobat 5.0, to  plik PDF zostanie zabezpieczony szyfrowaniem 128 bitowym.
+Zastrzeżenie: szyfrowanie w PDF nie jest tak godne zaufania jak GPG lub PGP i ma pewne ograniczenia.</translation>
+    </message>
+    <message>
+        <source>Allow printing of the PDF</source>
+        <translation>Dozwolone drukowanie dokumentu PDF</translation>
+    </message>
+    <message>
+        <source>Allow modifying of the PDF</source>
+        <translation>Dozwolona zmiana dokumentu</translation>
+    </message>
+    <message>
+        <source>Allow copying of text or graphics from the PDF</source>
+        <translation>Dozwolone kopiowanie tekstu i grafiki</translation>
+    </message>
+    <message>
+        <source>Allow adding annotations and fields to the PDF</source>
+        <translation>Dozwolone dodawanie adnotacji i pól</translation>
+    </message>
+    <message>
+        <source>Color model for the output of your PDF.
+Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.
+Choose Printer when printing to a true 4 color CMYK printer.</source>
+        <translation>Wybór modelu barw dla wyjściowego dokumentu PDF.
+Wybierz &quot;Monitor/Internet&quot; dla plików PDF, które przeznaczone są do oglądania na monitorze lub do druku an typowych drukarkach atramentowych.
+Wybierz opcję &quot;Drukarka&quot;, jeśli będziesz drukował na drukarce obsługującej CMYK.</translation>
+    </message>
+    <message>
+        <source>Color profile for solid colors</source>
+        <translation>Model barw dla jednolitych kolorów</translation>
+    </message>
+    <message>
+        <source>Rendering intent for solid colors</source>
+        <translation>Metoda konwersji dla jednolitych kolorów</translation>
+    </message>
+    <message>
+        <source>Color profile for images</source>
+        <translation>Profil barw dla obrazków</translation>
+    </message>
+    <message>
+        <source>Rendering intent for images</source>
+        <translation>Metoda konwersji dla obrazków</translation>
+    </message>
+    <message>
+        <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
+        <translation>Profil wyjściowy dla druku. Jeśli to możliwe, poproś drukarnię o poradę w sprawie wyboru właściwego profilu.</translation>
+    </message>
+    <message>
+        <source>Mandatory string for PDF/X-3 or the PDF will fail
+PDF/X-3 conformance. We recommend you use the title of the document.</source>
+        <translation>Ten komentarz musi zostać podany dla zgodności ze standardem PDF/X-3.
+Zalecane jest wpisanie tutaj tytułu dokumentu.</translation>
+    </message>
+    <message>
+        <source>&amp;General</source>
+        <translation>&amp;Ogólne</translation>
+    </message>
+    <message>
+        <source>&amp;Fonts</source>
+        <translation>&amp;Czcionki</translation>
+    </message>
+    <message>
+        <source>E&amp;xtras</source>
+        <translation>&amp;Dodatki</translation>
+    </message>
+    <message>
+        <source>&amp;Security</source>
+        <translation>&amp;Bezpieczeństwo</translation>
+    </message>
+    <message>
+        <source>&amp;Color</source>
+        <translation>&amp;Kolory</translation>
+    </message>
+    <message>
+        <source>&amp;PDF/X-3</source>
+        <translation>&amp;PDF/X-3</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Zapisz</translation>
+    </message>
 </context>
 <context>
     <name>PPreview</name>
@@ -4499,6 +4985,42 @@ Zalecane jest wpisanie tutaj tytułu dokumentu.</translation>
     <message>
         <source>K</source>
         <translation></translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of text items in the viewer, at the expense
+of a slight slowdown in previewing. This only affects Type 1 fonts</source>
+        <translation>Polepsza wygląd tekstu w okienku podglądu kosztem nieznacznego spowolnienia 
+generowania podglądu. Dotyczy to tylko czcionek Type 1</translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF and
+vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
+        <translation>Polepsza wygląd czcionek True Type, Open Type, plików EPS, PDF i  grafik wektorowych 
+w okienku podglądu kosztem nieznacznego spowolnienia generowania podglądu</translation>
+    </message>
+    <message>
+        <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</source>
+        <translation>Wyświetla przezroczystość i przezroczyste obiekty zawarte w dokumentcie. Wymaga Ghostscriptu w wersji 7.07 lub późniejszej</translation>
+    </message>
+    <message>
+        <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
+        <translation>Włącza podgląd z zastosowaniem symulacji generycznych barw CMYK zamiast kolorów RGB</translation>
+    </message>
+    <message>
+        <source>Enable/disable the C (Cyan) ink plate</source>
+        <translation>Włącza/wyłącza podgląd barwy C (cyjan)</translation>
+    </message>
+    <message>
+        <source>Enable/disable the M (Magenta) ink plate</source>
+        <translation>Włącza/wyłącza podgląd barwy M (magenta)</translation>
+    </message>
+    <message>
+        <source>Enable/disable the Y (Yellow) ink plate</source>
+        <translation>Włącza/wyłącza podgląd barwy Y (żółty)</translation>
+    </message>
+    <message>
+        <source>Enable/disable the K (Black) ink plate</source>
+        <translation>Włącza/wyłącza podgląd barwy K (czarny)</translation>
     </message>
 </context>
 <context>
@@ -4771,6 +5293,18 @@ Zalecane jest wpisanie tutaj tytułu dokumentu.</translation>
         <source>Copy of</source>
         <translation>Kopia</translation>
     </message>
+    <message>
+        <source>Hide Baseline Grid</source>
+        <translation>Ukryj linie podstawowe</translation>
+    </message>
+    <message>
+        <source>Show Baseline Grid</source>
+        <translation>Wyświetlaj linie podstawowe</translation>
+    </message>
+    <message>
+        <source>Adjust Frame to Picture</source>
+        <translation>Dopasuj ramkę do obrazka</translation>
+    </message>
 </context>
 <context>
     <name>PageSelector</name>
@@ -4830,7 +5364,7 @@ Zalecane jest wpisanie tutaj tytułu dokumentu.</translation>
     </message>
     <message>
         <source>Status</source>
-        <translation>Stan</translation>
+        <translation>Status</translation>
     </message>
     <message>
         <source>Goto</source>
@@ -4846,7 +5380,7 @@ Zalecane jest wpisanie tutaj tytułu dokumentu.</translation>
     </message>
     <message>
         <source>Missing</source>
-        <translation>Brakująca</translation>
+        <translation>Brak</translation>
     </message>
     <message>
         <source>Search</source>
@@ -5442,7 +5976,7 @@ Scribus dziedziczy wszystkie dostępne tematy KDE i QT</translation>
     </message>
     <message>
         <source>Width of document pages, editable if you have chosen a custom page size</source>
-        <translation>Szerokość stron dokumentu, można ją zmienić, jeśli wybrałeś definiowanie rozmiaru strony przez przez użytkownika</translation>
+        <translation>Szerokość stron dokumentu, można ją zmienić, jeśli wybrałeś definiowanie rozmiaru strony przez użytkownika</translation>
     </message>
     <message>
         <source>Height of document pages, editable if you have chosen a custom page size</source>
@@ -5741,6 +6275,26 @@ w zdefiniowanym odstępie czasowym.</translation>
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
         <translation>Ostęp pomiędzy linią pomocniczą prawego marginesu i krawędzią strony.
 Jeśli zostały wybrane strony widzące się, to margines ten może zostać użyty dla osiągnięcia prawidłowego marginesu dla zszycia</translation>
+    </message>
+    <message>
+        <source>Baseline Grid:</source>
+        <translation>Siatka linii podstawowych:</translation>
+    </message>
+    <message>
+        <source>Baseline Offset:</source>
+        <translation>Przesunięcie siatki linii podstawowych:</translation>
+    </message>
+    <message>
+        <source>Save Contents on Changes</source>
+        <translation>Zapisuj zawartość po zmianie</translation>
+    </message>
+    <message>
+        <source>Save the scrapbook contents everytime after a change</source>
+        <translation>Zapisz zawartość biblioteki po każdej zmianie</translation>
+    </message>
+    <message>
+        <source>Filesystem location for graphics editor</source>
+        <translation>Lokalizacja edytora grafiki w systemie plików</translation>
     </message>
 </context>
 <context>
@@ -6238,6 +6792,18 @@ Sprawdź katalog i nazwę pliku.</translation>
         <source>S&amp;cript</source>
         <translation>S&amp;krypt</translation>
     </message>
+    <message>
+        <source>Oook! You&apos;re calling an object doesn&apos;t exist!</source>
+        <translation>Uwaga! Próbujesz wywołać nieistniejący obiekt!</translation>
+    </message>
+    <message>
+        <source>Oook! You&apos;re trying to erase an object doesn&apos;t exist!</source>
+        <translation>Uwaga! Próbujesz usunąć nieistniejący obiekt!</translation>
+    </message>
+    <message>
+        <source>Oook! An object you&apos;re trying to textflow doesn&apos;t exist!</source>
+        <translation>Uwaga! Obiekt, w którym chcesz wpisać tekst, nie istnieje!</translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -6416,6 +6982,34 @@ Sprawdź katalog i nazwę pliku.</translation>
     <message>
         <source>Outside:</source>
         <translation>Na zewnątrz:</translation>
+    </message>
+    <message>
+        <source>Enable single or spread based layout</source>
+        <translation>Włącz widok dwu stron dokumentu naraz</translation>
+    </message>
+    <message>
+        <source>Make the first page the left page of the document</source>
+        <translation>Ustaw jako pierwszą stronę lewą stronę dokumentu</translation>
+    </message>
+    <message>
+        <source>Distance between the top margin guide and the edge of the page</source>
+        <translation>Odstęp pomiędzy górną linią pomocniczą marginesu a krawędzią strony</translation>
+    </message>
+    <message>
+        <source>Distance between the bottom margin guide and the edge of the page</source>
+        <translation>Odstęp pomiędzy dolną linią pomocniczą marginesu a krawędzią strony</translation>
+    </message>
+    <message>
+        <source>Distance between the left margin guide and the edge of the page.
+If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation>Odstęp pomiędzy lewą linią pomocniczą marginesu a krawędzią strony
+Jeśli wybrałeś strony widzące się, obszar marginesu może być użyty to osiągnięcia prawidłowych marginesów dla zszycia</translation>
+    </message>
+    <message>
+        <source>Distance between the right margin guide and the edge of the page.
+If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation>Ostęp pomiędzy linią pomocniczą prawego marginesu i krawędzią strony.
+Jeśli zostały wybrane strony widzące się, to margines ten może zostać użyty dla osiągnięcia prawidłowego marginesu dla zszycia</translation>
     </message>
 </context>
 <context>
@@ -7341,6 +7935,34 @@ Sprawdź katalog i nazwę pliku.</translation>
         <source>&amp;Help</source>
         <translation>Po&amp;moc</translation>
     </message>
+    <message>
+        <source>Show Baseline Grid</source>
+        <translation>Wyświetlaj linie podstawowe</translation>
+    </message>
+    <message>
+        <source>Hide Baseline Grid</source>
+        <translation>Ukryj linie podstawowe</translation>
+    </message>
+    <message>
+        <source>Some Objects are locked.</source>
+        <translation>Niektóre obiekty są zabezpieczone.</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Anuluj</translation>
+    </message>
+    <message>
+        <source>Lock all</source>
+        <translation>Zabezpiecz wszystko</translation>
+    </message>
+    <message>
+        <source>Unlock all</source>
+        <translation>Odbezpiecz wszystko</translation>
+    </message>
+    <message>
+        <source>Tool&amp;bars</source>
+        <translation>&amp;Listwy narzędziowe</translation>
+    </message>
 </context>
 <context>
     <name>ScribusDoc</name>
@@ -7572,6 +8194,10 @@ przeciągnij szablon na widok strony na dole.</translation>
         <source>Normal</source>
         <translation>Normalny</translation>
     </message>
+    <message>
+        <source>Previews all the pages of your document.</source>
+        <translation>Podgląd wszystkich stron dokumentu.</translation>
+    </message>
 </context>
 <context>
     <name>SelectFields</name>
@@ -7699,6 +8325,10 @@ przeciągnij szablon na widok strony na dole.</translation>
     <message>
         <source>Close</source>
         <translation>Zamknij</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -7850,6 +8480,14 @@ przeciągnij szablon na widok strony na dole.</translation>
     <message>
         <source>Do you want save your changes?</source>
         <translation>Czy chcesz zachować zmiany?</translation>
+    </message>
+    <message>
+        <source>Insert Special...</source>
+        <translation>Dodaj znak specjalny...</translation>
+    </message>
+    <message>
+        <source>Insert Special</source>
+        <translation>Dodaj znak specjalny</translation>
     </message>
 </context>
 <context>

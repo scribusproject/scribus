@@ -3,6 +3,7 @@
 #include <qpainter.h>
 #include <qpopupmenu.h>
 #include <qcursor.h>
+#include <qmessagebox.h>
 #ifdef HAVE_CMS
 extern bool SoftProofing;
 extern bool Gamut;
@@ -10,12 +11,13 @@ extern bool CMSuse;
 #endif
 extern QPixmap loadIcon(QString nam);
 
-CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name )
+CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *Colors )
 		: QDialog( parent, "fw", true, 0 )
 {
 	CMYKmode = true;
 	dynamic = true;
 	Wsave = false;
+	EColors = Colors;
 	imageA = QPixmap(50,50);
 	imageA.fill(orig.getRGBColor());
 	imageN = QPixmap(50,50);
@@ -47,10 +49,8 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name )
 	TextLabel1->setText( tr( "Name:" ) );
 	Layout23->addWidget( TextLabel1 );
 
-	Farbname = new QLabel( this, "Farbname" );
+	Farbname = new QLineEdit( this, "Farbname" );
 	Farbname->setMinimumSize( QSize( 200, 22 ) );
-	Farbname->setFrameShape( QLabel::WinPanel );
-	Farbname->setFrameShadow( QLabel::Sunken );
 	Farbname->setText( name );
 	Layout23->addWidget( Farbname );
 
@@ -299,10 +299,11 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name )
 	orig.getRGBColor().hsv(&h, &s, &v);
 	ColorMap->drawPalette(v);
 	ColorMap->setMark(h, s);
-
+	Farbname->selectAll();
+	Farbname->setFocus();
 	// signals and slots connections
 	connect( Cancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
-	connect( Cancel_2, SIGNAL( clicked() ), this, SLOT( accept() ) );
+	connect( Cancel_2, SIGNAL( clicked() ), this, SLOT( Verlassen() ) );
 	connect( CyanSp, SIGNAL( valueChanged(int) ), CyanSL, SLOT( setValue(int) ) );
 	connect( CyanSL, SIGNAL( valueChanged(int) ), this, SLOT( SetValueS(int) ) );
 	connect( MagentaSp, SIGNAL( valueChanged(int) ), MagentaSL, SLOT( setValue(int) ) );
@@ -387,6 +388,7 @@ QPixmap CMYKChoose::SliderPix(int farbe)
 	for (int x = 0; x < 255; x += 5)
 	{
 		if (CMYKmode)
+		{
 			if (dynamic)
 			{
 				switch (farbe)
@@ -405,6 +407,7 @@ QPixmap CMYKChoose::SliderPix(int farbe)
 			}
 			else
 				p.setBrush(QColor(farbe, x, 255, QColor::Hsv));
+		}
 		else
 		{
 			if (dynamic)
@@ -737,4 +740,17 @@ void CMYKChoose::setValues()
 QColor CMYKChoose::CMYK2RGB(int c, int m, int y, int k)
 {
 	return QColor(255-QMIN(255, c+k), 255-QMIN(255,m+k), 255-QMIN(255,y+k));
+}
+
+void CMYKChoose::Verlassen()
+{
+	if (EColors->contains(Farbname->text()))
+	{
+		QMessageBox::information(this, tr("Warning"), tr("Name of the Color is not unique"), tr("OK"), 0, 0, 0, QMessageBox::Ok);
+		Farbname->selectAll();
+		Farbname->setFocus();
+		return;
+	}
+	else
+		accept();
 }

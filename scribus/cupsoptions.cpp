@@ -35,20 +35,17 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "pr
 	FlagsOpt.clear();
 	setCaption( tr( "Printer Options" ) );
  	setIcon(loadIcon("AppIcon.png"));
+	setSizeGripEnabled(true);
 	CupsOptionsLayout = new QVBoxLayout( this );
 	CupsOptionsLayout->setSpacing( 5 );
 	CupsOptionsLayout->setMargin( 10 );
 	Table = new QTable( this, "Table1" );
-	Table->setMaximumSize(32000, 300);
-	Table->setMinimumSize(400, 300);
 	Table->setNumCols( 2 );
 	Table->setSorting(false);
 	Table->setSelectionMode(QTable::NoSelection);
 	Table->setLeftMargin(0);
 	Table->verticalHeader()->hide();
-	Header = Table->horizontalHeader();
-	Header->setLabel(0, tr("Option"));
-	Header->setLabel(1, tr("Value"));
+	Table->setMinimumSize(300, 100);
 #ifdef HAVE_CUPS
 	int i;
 	cups_dest_t *dests;
@@ -166,9 +163,11 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "pr
 	Table->setCellWidget(Table->numRows()-1, 1, item3);
 #endif
 	Table->adjustColumn(0);
-	Table->adjustColumn(1);
-	Table->setColumnStretchable(0, true);
 	Table->setColumnStretchable(1, true);
+	Table->adjustColumn(1);
+	Header = Table->horizontalHeader();
+	Header->setLabel(0, tr("Option"));
+	Header->setLabel(1, tr("Value"));
 	CupsOptionsLayout->addWidget( Table );
 
 	Layout2 = new QHBoxLayout;
@@ -191,6 +190,7 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "pr
 	Layout2->addItem( spacer3 );
 	CupsOptionsLayout->addLayout( Layout2 );
 	setMinimumSize( sizeHint() );
+	resize(minimumSizeHint());
 
     // signals and slots connections
 	connect( PushButton2, SIGNAL( clicked() ), this, SLOT( reject() ) );

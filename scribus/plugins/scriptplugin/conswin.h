@@ -37,6 +37,8 @@ public:
 	void contentsMouseDoubleClickEvent(QMouseEvent *) {return;}
 	QString LastComm;
 	QString Prompt;
+signals:
+	void closeFromKeyB();
 };
 
 #endif
