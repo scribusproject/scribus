@@ -312,6 +312,7 @@ public slots:
 	void EnableTxEdit();
 	void DisableTxEdit();
 	void SelectAll();
+	void deselectAll();
 	void ClipChange();
 	void DeleteText();
 	/** shows an about dlg*/
