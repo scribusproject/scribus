@@ -153,6 +153,7 @@ public:
 	void restore(UndoState* state, bool isUndo);
 	void restoreGroupping(SimpleState *state, bool isUndo);
 	void restoreUngroupping(SimpleState *state, bool isUndo);
+	void restoreAddPage(SimpleState *state, bool isUndo);
 	struct CopyPasteBuffer Buffer;
 	QString Buffer2;
 	QString Buffer3;
@@ -318,6 +319,12 @@ public slots:
 	void slotNewPage(int w);
 	/** Loescht die aktuelle Seite */
 	void DeletePage();
+	/** 
+	 * Delete pages 
+	 * @param from First page to delete
+	 * @param to Last page to delete
+	 */
+	void DeletePage(int from, int to);
 	void DeletePage2(int pg);
 	/** Verschiebt Seiten */
 	void MovePage();

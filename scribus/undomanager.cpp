@@ -586,17 +586,22 @@ void UndoManager::showObject(int uid)
 	setUndoEnabled(true);
 }
 
-void UndoManager::replaceObject(ulong uid, UndoObject *newUndoObject)
+UndoObject* UndoManager::replaceObject(ulong uid, UndoObject *newUndoObject)
 {
+	UndoObject *tmp = NULL;
 	for (uint i = 0; i < stacks[currentDoc].second.size(); ++i)
 	{
 		ActionPair &apair = stacks[currentDoc].second[i];
 		TransactionState *ts = dynamic_cast<TransactionState*>(apair.second);
 		if (ts)
-			ts->replace(uid, newUndoObject);
+			tmp = ts->replace(uid, newUndoObject);
 		else if (apair.first && apair.first->getUId() == uid)
+		{
+			tmp = apair.first;
 			apair.first = newUndoObject;
+		}
 	}
+	return tmp;
 }
 
 void UndoManager::setHistoryLength(int steps)
@@ -711,11 +716,18 @@ void UndoManager::TransactionState::useActionName()
 	}
 }
 
-void UndoManager::TransactionState::replace(ulong uid, UndoObject *newUndoObject)
+UndoObject* UndoManager::TransactionState::replace(ulong uid, UndoObject *newUndoObject)
 {
+	UndoObject *tmp = NULL;
 	for (uint i = 0; i < states.size(); ++i)
+	{
 		if (states[i]->first->getUId() == uid)
+		{
+			tmp = states[i]->first;
 			states[i]->first = newUndoObject;
+		}
+	}
+	return tmp;
 }
 
 UndoManager::TransactionState::~TransactionState()
@@ -776,6 +788,7 @@ void UndoManager::initIcons()
 	UndoManager::IEPS             = new QPixmap(iconDir + "u_eps.png");
 	UndoManager::IImageScaling    = new QPixmap(iconDir + "u_scale_image.png");
 	UndoManager::IBorder          = new QPixmap(iconDir + "u_shape.png");
+// 	UndoManager::IDocument        = new QPixmap(iconDir + "u_document.png");
 }
 
 const QString UndoManager::AddVGuide          = tr("Add vertical guide");
@@ -868,6 +881,8 @@ const QString UndoManager::BreakRatio         = tr("Break aspect ratio");
 const QString UndoManager::EditContourLine    = tr("Edit contour line");
 const QString UndoManager::EditShape          = tr("Edit shape");
 const QString UndoManager::ResetContourLine   = tr("Reset contour line");
+const QString UndoManager::AddPage            = tr("Add Page");
+const QString UndoManager::AddPages           = tr("Add Pages");
 
 /*** Icons for UndoObjects *******************************************/
 QPixmap *UndoManager::IImageFrame      = NULL;
@@ -904,3 +919,5 @@ QPixmap *UndoManager::IEPS             = NULL;
 QPixmap *UndoManager::IImportOOoDraw   = NULL;
 QPixmap *UndoManager::IImageScaling    = NULL;
 QPixmap *UndoManager::IBorder          = NULL;
+QPixmap *UndoManager::IDocument        = NULL;
+

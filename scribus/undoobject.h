@@ -124,4 +124,12 @@ public:
 	virtual void restore(UndoState* state, bool isUndo) = 0;
 };
 
+class DummyUndoObject : public UndoObject
+{
+public:
+	DummyUndoObject() {};
+	virtual ~DummyUndoObject() {};
+	void restore(UndoState*, bool) {};
+};
+
 #endif

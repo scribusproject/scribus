@@ -5797,6 +5797,20 @@ void ScribusApp::slotNewPageM()
 
 void ScribusApp::addNewPages(int wo, int where, int numPages, QString based1, QString based2)
 {
+		if (UndoManager::undoEnabled())
+		{
+			undoManager->beginTransaction(doc->DocName, Um::IDocument,
+			                              (numPages == 1) ? Um::AddPage : Um::AddPages, "",
+			                              Um::ICreate);
+			SimpleState *ss = new SimpleState(Um::AddPage, "", Um::ICreate);
+			ss->set("ADD_PAGE", "add_page");
+			ss->set("PAGE", wo);
+			ss->set("WHERE", where);
+			ss->set("COUNT", numPages);
+			ss->set("BASED1", based1);
+			ss->set("BASED2", based2);
+			undoManager->action(this, ss);
+		}
 		int cc;
 		int wot = wo;
 		switch (where)
@@ -5852,7 +5866,7 @@ void ScribusApp::addNewPages(int wo, int where, int numPages, QString based1, QS
 						applyNewMaster(based1);
 					if ((doc->currentPage->PageNr % 2 == 1) && (doc->FirstPageLeft))
 						applyNewMaster(based2);
-					if ((doc->currentPage->PageNr % 2 == 0) && (!doc->FirstPageLeft))
+// 					if ((doc->currentPage->PageNr % 2 == 0) && (!doc->FirstPageLeft))
 						applyNewMaster(based2);
 					if ((doc->currentPage->PageNr % 2 == 1) && (!doc->FirstPageLeft))
 						applyNewMaster(based1);
@@ -5869,6 +5883,8 @@ void ScribusApp::addNewPages(int wo, int where, int numPages, QString based1, QS
 		else
 			doc->DocPages = doc->Pages;
 		outlinePalette->BuildTree(doc);
+		if (UndoManager::undoEnabled())
+			undoManager->commit();
 }
 
 void ScribusApp::slotNewPageT(int w)
@@ -6563,47 +6579,50 @@ void ScribusApp::DeletePage2(int pg)
 
 void ScribusApp::DeletePage()
 {
-	PageItem* ite;
 	NoFrameEdit();
 	view->Deselect(true);
 	DelPages *dia = new DelPages(this, doc->currentPage->PageNr+1, doc->Pages.count());
 	if (dia->exec())
-	{
-		view->SelItem.clear();
-//		if (!doc->TemplateMode)
-//			disconnect(doc->currentPage, SIGNAL(DelObj(uint, uint)), outlinePalette, SLOT(slotRemoveElement(uint, uint)));
-		for (int a = dia->getToPage()-1; a >= dia->getFromPage()-1; a--)
-		{
-/*			disconnect(view->Pages.at(pg), SIGNAL(DelObj(uint, uint)), outlinePalette, SLOT(slotRemoveElement(uint, uint))); */
-			for (uint d = 0; d < doc->Items.count(); ++d)
-			{
-				ite = doc->Items.at(d);
-				if (ite->OwnPage == a)
-				{
-//					if (ite->isBookmark)
-//						DelBookMark(ite);
-					view->SelItem.append(ite);
-				}
-			}
-//			AdjustBM();
-		}
-//		if (!doc->TemplateMode)
-//			connect(doc->currentPage, SIGNAL(DelObj(uint, uint)), outlinePalette, SLOT(slotRemoveElement(uint, uint)));
-		if (view->SelItem.count() != 0)
-			view->DeleteItem();
-		for (int a = dia->getToPage()-1; a >= dia->getFromPage()-1; a--)
-			view->delPage(a);
-		view->reformPages();
-		view->DrawNew();
-//		doc->OpenNodes.clear();
-		outlinePalette->BuildTree(doc);
-		bool setter = doc->Pages.count() > 1 ? true : false;
-		scrActions["pageDelete"]->setEnabled(setter);
-		scrActions["pageMove"]->setEnabled(setter);
-		slotDocCh();
-//		pagePalette->RebuildPage();
-	}
+		DeletePage(dia->getFromPage(), dia->getToPage());
 	delete dia;
+}
+
+void ScribusApp::DeletePage(int from, int to)
+{
+	PageItem* ite;
+	view->SelItem.clear();
+//	if (!doc->TemplateMode)
+//		disconnect(doc->currentPage, SIGNAL(DelObj(uint, uint)), outlinePalette, SLOT(slotRemoveElement(uint, uint)));
+	for (int a = to - 1; a >= from - 1; a--)
+	{
+/*		disconnect(view->Pages.at(pg), SIGNAL(DelObj(uint, uint)), outlinePalette, SLOT(slotRemoveElement(uint, uint))); */
+		for (uint d = 0; d < doc->Items.count(); ++d)
+		{
+			ite = doc->Items.at(d);
+			if (ite->OwnPage == a)
+			{
+//				if (ite->isBookmark)
+//					DelBookMark(ite);
+				view->SelItem.append(ite);
+			}
+		}
+//		AdjustBM();
+	}
+//	if (!doc->TemplateMode)
+//		connect(doc->currentPage, SIGNAL(DelObj(uint, uint)), outlinePalette, SLOT(slotRemoveElement(uint, uint)));
+	if (view->SelItem.count() != 0)
+		view->DeleteItem();
+	for (int a = to - 1; a >= from - 1; a--)
+		view->delPage(a);
+	view->reformPages();
+	view->DrawNew();
+//	doc->OpenNodes.clear();
+	outlinePalette->BuildTree(doc);
+	bool setter = doc->Pages.count() > 1 ? true : false;
+	scrActions["pageDelete"]->setEnabled(setter);
+	scrActions["pageMove"]->setEnabled(setter);
+	slotDocCh();
+//	pagePalette->RebuildPage();
 }
 
 void ScribusApp::MovePage()
@@ -8866,6 +8885,59 @@ void ScribusApp::restore(UndoState* state, bool isUndo)
 			restoreGroupping(ss, isUndo);
 		else if (ss->contains("UNGROUP"))
 			restoreUngroupping(ss, isUndo);
+		else if (ss->contains("ADD_PAGE"))
+			restoreAddPage(ss, isUndo);
+	}
+}
+
+void ScribusApp::restoreAddPage(SimpleState *state, bool isUndo)
+{
+	int wo         = state->getInt("PAGE");
+	int where      = state->getInt("WHERE");
+	int count      = state->getInt("COUNT");
+	QString based1 = state->get("BASED1");
+	QString based2 = state->get("BASED2");
+	int delFrom, delTo;
+	switch (where)
+	{
+		case 0:
+			delTo = wo;
+			delFrom = delTo - count + 1;
+			break;
+		case 1:
+			delFrom = wo + 1;
+			delTo = wo + count;
+			break;
+		case 2:
+			delTo = doc->Pages.count();
+			delFrom = doc->Pages.count() - count + 1;
+			break;
+	}
+	if (isUndo)
+	{
+		for (int i = delFrom - 1; i < delTo; ++i)
+		{
+			// cause undo is only deleting added pages those pages must be
+			// replaced by a dummyobjects so that they can be replaced with 
+			// new valid page objects if the undo is redone
+			DummyUndoObject *duo = new DummyUndoObject();
+			ulong id = duo->getUId();
+			undoManager->replaceObject(doc->Pages.at(i)->getUId(), duo);
+			state->set(QString("Page%1").arg(i), static_cast<uint>(id));
+		}
+		NoFrameEdit();
+		view->Deselect(true);
+		DeletePage(delFrom, delTo);
+	}
+	else
+	{
+		addNewPages(wo, where, count, based1, based2);
+		for (int i = delFrom - 1; i < delTo; ++i)
+		{
+			UndoObject *tmp = undoManager->replaceObject( // returns the object that was replaced
+				state->getUInt(QString("Page%1").arg(i)), doc->Pages.at(i));
+			delete tmp; // delete dummyobject that was used to hold the place for the redone page
+		}
 	}
 }
 

@@ -111,8 +111,9 @@ private:
 		 * @brief Replace object with id uid with new UndoObject newUndoObject.
 		 * @param uid id of the object that is wanted to be replaced
 		 * @param newUndoObject object that is used for replacing
+		 * @return UndoObject which was replaced
 		 */
-		void replace(ulong uid, UndoObject *newUndoObject);
+		UndoObject* replace(ulong uid, UndoObject *newUndoObject);
 	};
 
 /*** UndoManager::TransactionObject ***************************************************/
@@ -422,8 +423,9 @@ public:
 	 * @brief Replace an UndoObject with the id uid with a new UndoObject new.
 	 * @param uid Id for the UndoObject that is wanted to be replaced.
 	 * @param newUndoObject UndoObject which will replace an old UndoObject in the stack.
+	 * @return UndoObject which was replaced
 	 */
-	void replaceObject(ulong uid, UndoObject *newUndoObject);
+	UndoObject* replaceObject(ulong uid, UndoObject *newUndoObject);
 
 	/**
 	 * @brief Returns the maximum length of the undostack.
@@ -532,6 +534,8 @@ public:
 	static const QString EditContourLine;
 	static const QString EditShape;
 	static const QString ResetContourLine;
+	static const QString AddPage;
+	static const QString AddPages;
 	/*@}*/
 
 	/**
@@ -574,6 +578,7 @@ public:
 	static QPixmap *IImportOOoDraw;
 	static QPixmap *IImageScaling;
 	static QPixmap *IBorder;
+	static QPixmap *IDocument;
 	/*@}*/
 
 protected:
