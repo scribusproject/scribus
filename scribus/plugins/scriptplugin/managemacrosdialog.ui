@@ -61,10 +61,10 @@ The table in the center of the dialog lists what macros are currently loaded and
                 <bool>true</bool>
             </property>
             <property name="toolTip" stdset="0">
-                <string>Close this dialog.</string>
+                <string>Close this dialog</string>
             </property>
             <property name="whatsThis" stdset="0">
-                <string>Return to Scribus.</string>
+                <string>Return to Scribus</string>
             </property>
         </widget>
         <widget class="QTable" row="0" column="0" rowspan="11" colspan="1">
@@ -154,7 +154,7 @@ The table in the center of the dialog lists what macros are currently loaded and
             <property name="whatsThis" stdset="0">
                 <string>&lt;p&gt;Edit the selected macro. &lt;/p&gt;
 &lt;p&gt;If this button is greyed out, either there is no selected macro or the macro manager does not have the source code for the macro you have selected (in which case &lt;tt&gt;No&lt;/tt&gt; will be shown in the &lt;tt&gt;Edit &lt;/tt&gt;column of the macro).&lt;/p&gt;
-&lt;p&gt;If scribus doesn't have the source, the macro was probably created by a script.&lt;/p&gt;</string>
+&lt;p&gt;If Scribus doesn't have the source, the macro was probably created by a script.&lt;/p&gt;</string>
             </property>
         </widget>
         <widget class="QPushButton" row="4" column="1">
