@@ -27,7 +27,7 @@ PyObject *scribus_newdoc(PyObject *self, PyObject* args)
 	lr = ValToPts(lr, unit);
 	rr = ValToPts(rr, unit);
 	btr = ValToPts(btr, unit);
-	bool ret = Carrier->doFileNew(b, h, tpr, lr, rr, btr, 0, 1, false, ds, unit, fsl, ori, fNr);
+	bool ret = Carrier->doFileNew(b, h, tpr, lr, rr, btr, 0, 1, false, ds, unit, fsl, ori, fNr, "Custom");
 	//	qApp->processEvents();
 	return PyInt_FromLong(static_cast<long>(ret));
 }
