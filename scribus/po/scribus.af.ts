@@ -1943,7 +1943,7 @@ UCR (Under Color Removal) het meeste invloed op beeld dele waar neutrale en/of d
     </message>
     <message>
       <source>Text for Button Down</source>
-      <translation>Teks voor gedrukte knop</translation>
+      <translation>Teks vir gedrukte knop</translation>
     </message>
     <message>
       <source>Text for Roll Over</source>
@@ -2722,35 +2722,35 @@ Kies 'n ander naam.</translation>
     </message>
     <message>
       <source>Default color profile for imported images</source>
-      <translation>Standaard kleurprofiel voor geïmporteerde afbeeldingen</translation>
+      <translation>Standaard kleurprofiel vir geïmporteerde prente</translation>
     </message>
     <message>
       <source>Default color profile for solid colors on the page</source>
-      <translation>Standaard kleurprofiel voor effen kleuren op de bladsy</translation>
+      <translation>Standaard kleurprofiel vir effen kleuren op de bladsy</translation>
     </message>
     <message>
       <source>Color profile that you have generated or received from the manufacturer.
 This profile should be specific to your monitor and not a generic profile (i.e. sRGB).</source>
       <translation>Door uzelf aangemaakt of via fabrikant verkregen kleurprofiel.
-Dit profiel is specifiek voor uw beeldscherm en niet algemeen (zoals byv. sRGB).</translation>
+Dit profiel is specifiek vir uw beeldscherm en niet algemeen (zoals byv. sRGB).</translation>
     </message>
     <message>
       <source>Color profile for your printer model from the manufacturer.
 This profile should be specific to your printer and not a generic profile (i.e. sRGB).</source>
-      <translation>Kleurprofiel voor uw printer van de printerfabrikant.
-Dit profiel is specifiek voor uw printer en niet algemeen (zoals byv. sRGB).</translation>
+      <translation>Kleurprofiel vir uw printer van de printerfabrikant.
+Dit profiel is specifiek vir uw printer en niet algemeen (zoals byv. sRGB).</translation>
     </message>
     <message>
       <source>Default rendering intent for your monitor. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-      <translation>Standaard rendering intent voor uw beeldscherm. Kies, tenzy u precies weet
-wat u doet, voor Relatief colorimetrisch of Perceptueel.</translation>
+      <translation>Standaard rendering intent vir uw beeldscherm. Kies, tenzy u precies weet
+wat u doet, vir Relatief colorimetrisch of Perceptueel.</translation>
     </message>
     <message>
       <source>Default rendering intent for your printer. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-      <translation>Standaard rendering intent voor uw printer. Kies, tenzy u precies weet
-wat u doet, voor Relatief colorimetrisch of Perceptueel.</translation>
+      <translation>Standaard rendering intent vir uw printer. Kies, tenzy u precies weet
+wat u doet, vir Relatief colorimetrisch of Perceptueel.</translation>
     </message>
     <message>
       <source>Enable 'soft proofing' of how your document colors will print,
@@ -3102,10 +3102,10 @@ The exact parameters available will depend on your printer driver.
 You can confirm CUPS support by selecting Help > About.
 Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support.
 Missing library support is indicated by a *</source>
-      <translation>Dit paneel toont verschillende CUPS-opties voor het afdrukken.
+      <translation>Dit paneel toont verschillende CUPS-opties vir het afdrukken.
 Welke instellingen precies mogelyk zyn hangt van uw printerdriver af.
 Onder &quot;Help > Info over&quot; kunt u kyken of CUPS-ondersteuning is ingebouwd.
-Kyk voor de tekens C-C-T, welke staan voor C=CUPS, C=littlecms, T=TIFF-ondersteuning.
+Kyk vir de tekens C-C-T, welke staan vir C=CUPS, C=littlecms, T=TIFF-ondersteuning.
 Een * geeft aan welke bibliotheken ontbreken</translation>
     </message>
   </context>
@@ -3126,7 +3126,7 @@ Een * geeft aan welke bibliotheken ontbreken</translation>
     <message>
       <source>Moves to your Document Directory.
 This can be set in the Preferences.</source>
-      <translation>Gaat naar uw dokumentenmap.
+      <translation>Gaat na uw dokumentenmap.
 Deze kan worden ingesteld in de voorkeuren.</translation>
     </message>
   </context>
@@ -3285,13 +3285,13 @@ Deze kan worden ingesteld in de voorkeuren.</translation>
     <message>
       <source>The person or organisation primarily responsible for making the content of the document.
 This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-      <translation>De persoon of organisatie die de hoofdverantwoordelyke is voor het aanmaken van de inhoud van dit dokument.
+      <translation>De persoon of organisatie die de hoofdverantwoordelyke is vir het aanmaken van de inhoud van dit dokument.
 Dit veld kan worden ingebed in het Scribus dokument, maar ook in de metadata van een PDF-lêer</translation>
     </message>
     <message>
       <source>A name given to the document.
 This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-      <translation>Een naam voor dit dokument.
+      <translation>Een naam vir dit dokument.
 Dit veld kan worden ingebed in het Scribus dokument, maar ook in de metadata van een PDF-lêer</translation>
     </message>
     <message>
@@ -3326,15 +3326,15 @@ Deze sleutelwoorden worden ingebed in de PDF om zoeken en indexeren van PDF-lêe
       <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting.
 RFC2045,RFC2046 for MIME types are also useful here</source>
       <translation>De fysieke of digitale gestalte van het dokument, zoals mediatype en afmetingen.
-RFC2045, RFC2046 voor MIME-lêerstypen zyn ook bruikbaar hier</translation>
+RFC2045, RFC2046 vir MIME-lêerstypen zyn ook bruikbaar hier</translation>
     </message>
     <message>
       <source>An unambiguous reference to the document within a given context such as ISBN or URI</source>
-      <translation>Een exacte referentie naar dit dokument, zoals een ISBN-nummer of een URI</translation>
+      <translation>Een exacte referentie na dit dokument, zoals een ISBN-nummer of een URI</translation>
     </message>
     <message>
       <source>A reference to a document from which the present document is derived, eg. ISBN or URI</source>
-      <translation>Een verwyzing naar een dokument waar dit dokument van is afgelyk, byv. ISBN of een URI</translation>
+      <translation>Een verwyzing na een dokument waar dit dokument van is afgelyk, byv. ISBN of een URI</translation>
     </message>
     <message>
       <source>The language in which the content of the document is written, usually a ISO-639 language code
@@ -3344,7 +3344,7 @@ optioneel gevolgd door een koppelteken en een ISO-3166 landcode, byv. en-GB, nl-
     </message>
     <message>
       <source>A reference to a related document, possibly using a formal identifier such as a ISBN or URI</source>
-      <translation>Een verwyzing naar een gerelateerd dokument, mogelyk via een ISBN-nummer of URI</translation>
+      <translation>Een verwyzing na een gerelateerd dokument, mogelyk via een ISBN-nummer of URI</translation>
     </message>
     <message>
       <source>The extent or scope of the content of the document, possibly including location, time and jurisdiction ranges</source>
@@ -3352,7 +3352,7 @@ optioneel gevolgd door een koppelteken en een ISO-3166 landcode, byv. en-GB, nl-
     </message>
     <message>
       <source>Information about rights held in and over the document, eg. copyright, patent or trademark</source>
-      <translation>Informatie over rechten die voor dit dokument gelden, zoals copyright, patenten of handelsmerken</translation>
+      <translation>Informatie over rechten die vir dit dokument gelden, zoals copyright, patenten of handelsmerken</translation>
     </message>
     <message>
       <source>&amp;OK</source>
@@ -3423,9 +3423,8 @@ om extra printopties te kunnen gebruiken</translation>
       <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
-      <translation>Voer hier de bladsynummer(s) in die u wilt afdrukken,
-byvoorbeeld 1,3,5 of 1-5 (pag. 1 t/m 5 afdrukken).
-Een * staat voor alle bladsy's.</translation>
+      <translation>Kies bladsy nommers. 1,3,4,6 of 1-4 vir 1 tot 4 
+of * vir almal.</translation>
     </message>
     <message>
       <source>N&amp;umber of Copies:</source>
@@ -3635,7 +3634,7 @@ het misluk!</translation>
     </message>
     <message>
       <source>Line Spacing</source>
-      <translation>Tussenruimte tussen de regels</translation>
+      <translation>Tussenruimte tussen die reëls</translation>
     </message>
     <message>
       <source> mm</source>
@@ -3651,11 +3650,11 @@ het misluk!</translation>
     </message>
     <message>
       <source>Warning</source>
-      <translation>Waarschuwing</translation>
+      <translation>Waarskuwing</translation>
     </message>
     <message>
       <source>Name of the Style is not unique</source>
-      <translation>De stylnaam is niet uniek</translation>
+      <translation>Die stylnaam is nie uniek nie</translation>
     </message>
     <message>
       <source>OK</source>
@@ -3678,43 +3677,43 @@ het misluk!</translation>
     </message>
     <message>
       <source>Save &amp;As...</source>
-      <translation>Opslaan &amp;als...</translation>
+      <translation>Stoor &amp;as...</translation>
     </message>
     <message>
       <source>&amp;Save and Exit</source>
-      <translation>Op&amp;slaan en sluiten</translation>
+      <translation>&amp;Stoor en gaan uit</translation>
     </message>
     <message>
       <source>&amp;Exit without Saving</source>
-      <translation>Sluit&amp;en zonder opslaan</translation>
+      <translation>&amp;Gaan uit sonder om te stoor</translation>
     </message>
     <message>
       <source>&amp;Undo</source>
-      <translation>&amp;Ongedaan maken</translation>
+      <translation>&amp;Ongedaanmaak</translation>
     </message>
     <message>
       <source>&amp;Redo</source>
-      <translation>O&amp;pnieuw doen</translation>
+      <translation>&amp;Weer gedaanmaak</translation>
     </message>
     <message>
       <source>Cu&amp;t</source>
-      <translation>Kni&amp;ppen</translation>
+      <translation>Kni&amp;p</translation>
     </message>
     <message>
       <source>&amp;Copy</source>
-      <translation>&amp;Kopiëren</translation>
+      <translation>&amp;Kopiër</translation>
     </message>
     <message>
       <source>&amp;Paste</source>
-      <translation>P&amp;lakken</translation>
+      <translation>P&amp;lak</translation>
     </message>
     <message>
       <source>C&amp;lear</source>
-      <translation>W&amp;issen</translation>
+      <translation>W&amp;is</translation>
     </message>
     <message>
       <source>&amp;Get Field Names</source>
-      <translation>Veldnamen opvra&amp;gen</translation>
+      <translation>&amp;Kry Veldname</translation>
     </message>
     <message>
       <source>&amp;File</source>
@@ -3722,7 +3721,7 @@ het misluk!</translation>
     </message>
     <message>
       <source>&amp;Edit</source>
-      <translation>Be&amp;werken</translation>
+      <translation>Be&amp;werk</translation>
     </message>
     <message>
       <source>Javascripts (*.js);;All Files (*)</source>
@@ -3733,15 +3732,15 @@ het misluk!</translation>
     <name>ExportForm</name>
     <message>
       <source>Choose a Export Directory</source>
-      <translation>Kies een map om naar te exporteren</translation>
+      <translation>Kies uitvoer gids</translation>
     </message>
     <message>
       <source>Export as Image(s)</source>
-      <translation>Exporteren als afbeelding(en)</translation>
+      <translation>Voer as beeld(e) uit</translation>
     </message>
     <message>
       <source>&amp;Export to Directory:</source>
-      <translation>&amp;Exporteren naar map:</translation>
+      <translation>&amp;Voer na gids uit</translation>
     </message>
     <message>
       <source>C&amp;hange...</source>
@@ -3761,7 +3760,7 @@ het misluk!</translation>
     </message>
     <message>
       <source>&amp;Resolution:</source>
-      <translation>&amp;Resolutie:</translation>
+      <translation>&amp;Resolusie:</translation>
     </message>
     <message>
       <source> %</source>
@@ -3777,11 +3776,11 @@ het misluk!</translation>
     </message>
     <message>
       <source>&amp;Current page</source>
-      <translation>Huidige pa&amp;gina</translation>
+      <translation>Huidige bl&amp;adsy</translation>
     </message>
     <message>
       <source>&amp;All pages</source>
-      <translation>Alle &amp;bladsy's</translation>
+      <translation>Alle &amp;bladsy(e)</translation>
     </message>
     <message>
       <source>&amp;Range</source>
@@ -3801,47 +3800,46 @@ het misluk!</translation>
     </message>
     <message>
       <source>Export a range of pages</source>
-      <translation>Een bepaald bereik exporteren</translation>
+      <translation>Voer bereik van bladsye uit</translation>
     </message>
     <message>
       <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
-      <translation>Voer hier de bladsynummer(s) in die u wilt exporteren,
-byvoorbeeld 1,3,5 of 1-5 (pag. 1 t/m 5 exporteren).
-Een * staat voor alle bladsy's.</translation>
+      <translation>Kies bladsy nommers. 1,3,4,6 of 1-4 vir 1 tot 4 
+of * vir almal.</translation>
     </message>
     <message>
       <source>Export all pages</source>
-      <translation>Alle bladsy's exporteren</translation>
+      <translation>Voer alle bladsye uit</translation>
     </message>
     <message>
       <source>Export only the current page</source>
-      <translation>Alleen de huidige bladsy exporteren</translation>
+      <translation>Voer net huidige bladsy uit</translation>
     </message>
     <message>
       <source>Resolution of the Images
 Use 72 dpi for Images intended for the Screen</source>
-      <translation>Oplossend vermogen (resolutie). Gebruik 72dpi voor
-afbeeldingen bedoeld voor schermweergave</translation>
+      <translation>Resolusie van beelde. 
+Gebruik 72dpi vir beelde bedoel vir skerms</translation>
     </message>
     <message>
       <source>The quality of your images - 100% is the best, 1% the lowest quality</source>
-      <translation>De gewenste kwaliteit: 100% geeft de hoogste kwaliteit, 1% de laagste</translation>
+      <translation>Beeldkwaliteit: 100% vir beste, 1% vir swakste kwaliteit</translation>
     </message>
     <message>
       <source>Available export formats</source>
-      <translation>Beschikbare exportformaten</translation>
+      <translation>Beskikbare uitvoerformate</translation>
     </message>
     <message>
       <source>The output directory - the place to store your images.
 Name of the export file will be 'documentname-pagenumber.filetype'</source>
-      <translation>De plaats waar de afbeeldingen moeten worden opgeslagen.
-De naam van het lêer zal zyn 'dokumentnaam-bladsy.type'</translation>
+      <translation>Uitvoergids - die plek om beelde te stoor. 
+Uitvoerlêernaam gaan 'dokumentnaam-bladsynommer.lêertipe' wees</translation>
     </message>
     <message>
       <source>Change the output directory</source>
-      <translation>De uitvoermap wyzigen</translation>
+      <translation>Wysig uitvoergids</translation>
     </message>
     <message>
       <source>&amp;Size:</source>
@@ -3849,7 +3847,7 @@ De naam van het lêer zal zyn 'dokumentnaam-bladsy.type'</translation>
     </message>
     <message>
       <source>Size of the images. 100% for no changes, 200% for two times larger etc.</source>
-      <translation type="unfinished" />
+      <translation>Beeldgrootte. 100% geen verandering, 200% twee maal groter.</translation>
     </message>
   </context>
   <context>
@@ -3868,7 +3866,7 @@ De naam van het lêer zal zyn 'dokumentnaam-bladsy.type'</translation>
     </message>
     <message>
       <source>Author:</source>
-      <translation>Auteur:</translation>
+      <translation>Outeur:</translation>
     </message>
     <message>
       <source>Unknown</source>
@@ -3883,11 +3881,11 @@ De naam van het lêer zal zyn 'dokumentnaam-bladsy.type'</translation>
     <name>Farbmanager</name>
     <message>
       <source>Colors</source>
-      <translation>Kleuren</translation>
+      <translation>Kleure</translation>
     </message>
     <message>
       <source>&amp;Append</source>
-      <translation>Toe&amp;voegen</translation>
+      <translation>Toe&amp;voeg</translation>
     </message>
     <message>
       <source>&amp;New</source>
@@ -3951,7 +3949,7 @@ De naam van het lêer zal zyn 'dokumentnaam-bladsy.type'</translation>
     </message>
     <message>
       <source>Edit the currently selected color</source>
-      <translation>De huidige kleur bewerken</translation>
+      <translation>Verander gekiesde kleur</translation>
     </message>
     <message>
       <source>Make a copy of the currently selected color</source>
@@ -3991,7 +3989,7 @@ De naam van het lêer zal zyn 'dokumentnaam-bladsy.type'</translation>
     </message>
     <message>
       <source>New Color</source>
-      <translation>Nuwee kleur</translation>
+      <translation>Nuwe kleur</translation>
     </message>
     <message>
       <source>None</source>
@@ -4002,19 +4000,19 @@ De naam van het lêer zal zyn 'dokumentnaam-bladsy.type'</translation>
     <name>FontPrefs</name>
     <message>
       <source>Global Font Settings</source>
-      <translation>Algemene lettertype-instellingen</translation>
+      <translation>Programwye lettertipe-instellings</translation>
     </message>
     <message>
       <source>Available Fonts</source>
-      <translation>Beschikbare lettertypen</translation>
+      <translation>Beskikbare lettertipes</translation>
     </message>
     <message>
       <source>Font Substitutions</source>
-      <translation>Lettertype-vervangingen</translation>
+      <translation>Lettertipe-vervangings</translation>
     </message>
     <message>
       <source>Additional Paths</source>
-      <translation>Additionele lokaties</translation>
+      <translation>Additionele lokasies</translation>
     </message>
     <message>
       <source>Postscript</source>
@@ -4026,31 +4024,31 @@ De naam van het lêer zal zyn 'dokumentnaam-bladsy.type'</translation>
     </message>
     <message>
       <source>Font Name</source>
-      <translation>Lettertype Naam</translation>
+      <translation>Lettertipe Naam</translation>
     </message>
     <message>
       <source>Use Font</source>
-      <translation>Lettertype gebruiken</translation>
+      <translation>Gebruik Lettertipe</translation>
     </message>
     <message>
       <source>Embed in:</source>
-      <translation>Invoegen in:</translation>
+      <translation>Inbed in:</translation>
     </message>
     <message>
       <source>Subset</source>
-      <translation>Subset</translation>
+      <translation>Substel</translation>
     </message>
     <message>
       <source>Type</source>
-      <translation>Type</translation>
+      <translation>Tipe</translation>
     </message>
     <message>
       <source>Path to Font File</source>
-      <translation>Pad naar lettertypelêer</translation>
+      <translation>Pad na lettertipelêer</translation>
     </message>
     <message>
       <source>&amp;Available Fonts</source>
-      <translation>Beschikbare &amp;lettertypen</translation>
+      <translation>Beskikbare &amp;lettertipes</translation>
     </message>
     <message>
       <source>Replacement</source>
@@ -4058,27 +4056,27 @@ De naam van het lêer zal zyn 'dokumentnaam-bladsy.type'</translation>
     </message>
     <message>
       <source>&amp;Delete</source>
-      <translation>Verwy&amp;deren</translation>
+      <translation>Verwy&amp;der</translation>
     </message>
     <message>
       <source>Font &amp;Substitutions</source>
-      <translation>Lettertype-&amp;vervangingen</translation>
+      <translation>Lettertipe-&amp;vervanging</translation>
     </message>
     <message>
       <source>C&amp;hange...</source>
-      <translation>&amp;Wyzigen...</translation>
+      <translation>&amp;Wysig...</translation>
     </message>
     <message>
       <source>A&amp;dd...</source>
-      <translation>&amp;Toevoegen...</translation>
+      <translation>&amp;Toevoeg...</translation>
     </message>
     <message>
       <source>&amp;Remove</source>
-      <translation>Ve&amp;rwyderen</translation>
+      <translation>Ve&amp;rwyder</translation>
     </message>
     <message>
       <source>Additional &amp;Paths</source>
-      <translation>Additionele l&amp;okaties</translation>
+      <translation>Additionele &amp;paaie</translation>
     </message>
     <message>
       <source>&amp;OK</source>
@@ -4090,14 +4088,14 @@ De naam van het lêer zal zyn 'dokumentnaam-bladsy.type'</translation>
     </message>
     <message>
       <source>Choose a Directory</source>
-      <translation>Kies een map</translation>
+      <translation>Kies 'n gids</translation>
     </message>
   </context>
   <context>
     <name>FontPreview</name>
     <message>
       <source>Fonts Preview</source>
-      <translation>Lettertypevoorbeeld</translation>
+      <translation>Lettertipe voorbeeld</translation>
     </message>
     <message>
       <source>&amp;OK</source>
@@ -4113,7 +4111,7 @@ De naam van het lêer zal zyn 'dokumentnaam-bladsy.type'</translation>
     </message>
     <message>
       <source>Alt+C</source>
-      <translation>Alt+A</translation>
+      <translation>Alt+C</translation>
     </message>
     <message>
       <source>Woven silk pyjamas exchanged for blue quartz</source>
@@ -4121,18 +4119,18 @@ De naam van het lêer zal zyn 'dokumentnaam-bladsy.type'</translation>
     </message>
     <message>
       <source>Append selected font into Style, Font menu</source>
-      <translation type="unfinished" />
+      <translation>Voeg gekose lettertipe in styl, Lettertipe kieskaart in</translation>
     </message>
     <message>
       <source>Leave preview</source>
-      <translation type="unfinished" />
+      <translation>Verlaat voorbeeld</translation>
     </message>
   </context>
   <context>
     <name>GradientEditor</name>
     <message>
       <source>Position:</source>
-      <translation>Positie:</translation>
+      <translation>Posisie:</translation>
     </message>
     <message>
       <source> %</source>
@@ -4140,14 +4138,14 @@ De naam van het lêer zal zyn 'dokumentnaam-bladsy.type'</translation>
     </message>
     <message>
       <source>Here you can add, change or remove Color-Stops.</source>
-      <translation>Hier kunt u kleur-stops toevoegen, bewerken of verwyderen.</translation>
+      <translation>Hier kan u kleur-stops toevoeg, bewerk of verwyder.</translation>
     </message>
   </context>
   <context>
     <name>GuideManager</name>
     <message>
       <source>Manage Guides</source>
-      <translation>Hulplynen beheren</translation>
+      <translation>Bestuur hulplyne</translation>
     </message>
     <message>
       <source> pt</source>
@@ -4167,7 +4165,7 @@ De naam van het lêer zal zyn 'dokumentnaam-bladsy.type'</translation>
     </message>
     <message>
       <source>Horizontal Guides</source>
-      <translation>Horizontale hulplynen</translation>
+      <translation>Horisontale hulplyne</translation>
     </message>
     <message>
       <source>&amp;Y-Pos:</source>
@@ -4175,15 +4173,15 @@ De naam van het lêer zal zyn 'dokumentnaam-bladsy.type'</translation>
     </message>
     <message>
       <source>&amp;Add</source>
-      <translation>&amp;Toevoegen</translation>
+      <translation>&amp;Toevoeg</translation>
     </message>
     <message>
       <source>D&amp;elete</source>
-      <translation>V&amp;erwyderen</translation>
+      <translation>V&amp;erwyder</translation>
     </message>
     <message>
       <source>Vertical Guides</source>
-      <translation>Verticale hulplynen</translation>
+      <translation>Vertikale hulplyne</translation>
     </message>
     <message>
       <source>&amp;X-Pos:</source>
@@ -4191,15 +4189,15 @@ De naam van het lêer zal zyn 'dokumentnaam-bladsy.type'</translation>
     </message>
     <message>
       <source>A&amp;dd</source>
-      <translation>Toe&amp;voegen</translation>
+      <translation>Toe&amp;voeg</translation>
     </message>
     <message>
       <source>De&amp;lete</source>
-      <translation>Ve&amp;rwyderen</translation>
+      <translation>Ve&amp;rwyder</translation>
     </message>
     <message>
       <source>&amp;Lock Guides</source>
-      <translation>Hulplynen vast&amp;zetten</translation>
+      <translation>S&amp;luit Hulplyne</translation>
     </message>
     <message>
       <source>&amp;OK</source>
@@ -4215,8 +4213,7 @@ De naam van het lêer zal zyn 'dokumentnaam-bladsy.type'</translation>
     <message>
       <source>Sorry, no manual available! Please see: http://docs.scribus.net for updated docs
 and www.scribus.net for downloads.</source>
-      <translation>Helaas, geen handleiding beschikbaar! Kyk op http://docs.scribus.net/ voor bygewerkte
-dokumentatie en op http://www.scribus.net/ voor downloads.</translation>
+      <translation>Helaas, geen handleiding beskikbaar! Kyk op http://docs.scribus.net/ vir bygewerkte dokumentasie en op http://www.scribus.net/ vir downloads.</translation>
     </message>
     <message>
       <source>Contents</source>
@@ -4224,26 +4221,26 @@ dokumentatie en op http://www.scribus.net/ voor downloads.</translation>
     </message>
     <message>
       <source>Link</source>
-      <translation>Koppeling</translation>
+      <translation>Skakel</translation>
     </message>
     <message>
       <source>Scribus Online Help</source>
-      <translation type="unfinished" />
+      <translation>Scribus aanlyn hulp</translation>
     </message>
   </context>
   <context>
     <name>HyAsk</name>
     <message>
       <source>Possible Hyphenation</source>
-      <translation>Mogelyke afbreking</translation>
+      <translation>Moontlike afkapping</translation>
     </message>
     <message>
       <source>Accept</source>
-      <translation>Accepteren</translation>
+      <translation>Aanvaar</translation>
     </message>
     <message>
       <source>Skip</source>
-      <translation>Overslaan</translation>
+      <translation>Oorslaan</translation>
     </message>
     <message>
       <source>Cancel</source>
@@ -4254,7 +4251,7 @@ dokumentatie en op http://www.scribus.net/ voor downloads.</translation>
     <name>HySettings</name>
     <message>
       <source>Hyphenator Settings</source>
-      <translation>Afbreekinstellingen</translation>
+      <translation>Afkapinstellings</translation>
     </message>
     <message>
       <source>&amp;Language:</source>
@@ -4274,48 +4271,48 @@ dokumentatie en op http://www.scribus.net/ voor downloads.</translation>
     </message>
     <message>
       <source>Length of the smallest word to be hyphenated.</source>
-      <translation>Woorden korter dan deze lengte worden niet afgebroken.</translation>
+      <translation>Lengte van korste afkapbare woord.</translation>
     </message>
     <message>
       <source>Maximum number of Hyphenations following each other.
 A value of 0 means unlimited hyphenations.</source>
-      <translation>Maximaal aantal afbrekingen dat elkaar mag opvolgen.
-De waarde 0 betekent onbeperkt.</translation>
+      <translation>Maksimum aantal opeenvolgende afkappings.
+0 beteken onbeperk.</translation>
     </message>
     <message>
       <source>&amp;Hyphenation Suggestions</source>
-      <translation>A&amp;fbreeksuggesties</translation>
+      <translation>A&amp;fkapvoorstelle</translation>
     </message>
     <message>
       <source>Hyphenate Text Automatically &amp;During Typing</source>
-      <translation>Automatisch afbreken ty&amp;dens typen</translation>
+      <translation>Kap woorde ty&amp;dens tik af</translation>
     </message>
     <message>
       <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
-      <translation>Met de optie Extra, Teks afbreken krygt u een dialoogvenster te zien met alle afbreekmogelykheden voor elk woord.</translation>
+      <translation>Met opsie Ekstra, Teksafkap kry u n dialoogvenster met alle afkapmoontlikhede vir elke woord.</translation>
     </message>
     <message>
       <source>Enables automatic hyphenation of your text while typing.</source>
-      <translation>Voorziet teks tydens het typen direct van afbreektekens.</translation>
+      <translation>Sit intydse -terwyl jy tik- afkapping aan.</translation>
     </message>
     <message>
       <source>Consecutive Hyphenations &amp;Allowed:</source>
-      <translation type="unfinished" />
+      <translation>Opeenvolgende &amp;afkappings toegelaat:</translation>
     </message>
   </context>
   <context>
     <name>InsPage</name>
     <message>
       <source>Insert Page</source>
-      <translation>Bladsy invoegen</translation>
+      <translation>Voeg Bladsy in</translation>
     </message>
     <message>
       <source>&amp;Inserting</source>
-      <translation>&amp;Invoegen</translation>
+      <translation>&amp;Invoeging</translation>
     </message>
     <message>
       <source>Page(s)</source>
-      <translation>bladsy's</translation>
+      <translation>Bladsy(e)</translation>
     </message>
     <message>
       <source>before Page</source>
@@ -4327,19 +4324,19 @@ De waarde 0 betekent onbeperkt.</translation>
     </message>
     <message>
       <source>at End</source>
-      <translation>aan het eind</translation>
+      <translation>aan die einde</translation>
     </message>
     <message>
       <source>Inserting</source>
-      <translation>Invoegen</translation>
+      <translation>Invoeging</translation>
     </message>
     <message>
       <source>&amp;Template (Left Page):</source>
-      <translation>&amp;Sjabloon (linker bladsy):</translation>
+      <translation>&amp;Templaat (linker bladsy):</translation>
     </message>
     <message>
       <source>&amp;Template:</source>
-      <translation>&amp;Sjabloon:</translation>
+      <translation>&amp;Templaat:</translation>
     </message>
     <message>
       <source>Normal</source>
@@ -4347,7 +4344,7 @@ De waarde 0 betekent onbeperkt.</translation>
     </message>
     <message>
       <source>Template (Right Page):</source>
-      <translation>Sjabloon (rechter bladsy):</translation>
+      <translation>Templaat (regter bladsy):</translation>
     </message>
     <message>
       <source>&amp;OK</source>
@@ -4362,15 +4359,15 @@ De waarde 0 betekent onbeperkt.</translation>
     <name>InsertTable</name>
     <message>
       <source>Insert Table</source>
-      <translation>Tabel invoegen</translation>
+      <translation>Voeg Tabel in</translation>
     </message>
     <message>
       <source>Number of Rows:</source>
-      <translation>Aantal ryen:</translation>
+      <translation>Aantal rye:</translation>
     </message>
     <message>
       <source>Number of Columns:</source>
-      <translation>Aantal kolommen:</translation>
+      <translation>Aantal kolomme:</translation>
     </message>
     <message>
       <source>OK</source>
@@ -4385,23 +4382,23 @@ De waarde 0 betekent onbeperkt.</translation>
     <name>JavaDocs</name>
     <message>
       <source>Edit JavaScripts</source>
-      <translation>JavaScripts bewerken</translation>
+      <translation>Verander JavaScripts</translation>
     </message>
     <message>
       <source>&amp;Edit...</source>
-      <translation>B&amp;ewerken...</translation>
+      <translation>B&amp;ewerk...</translation>
     </message>
     <message>
       <source>&amp;Add...</source>
-      <translation>&amp;Toevoegen...</translation>
+      <translation>&amp;Toevoeg...</translation>
     </message>
     <message>
       <source>&amp;Delete</source>
-      <translation>Verwy&amp;deren</translation>
+      <translation>Verwy&amp;der</translation>
     </message>
     <message>
       <source>&amp;Close</source>
-      <translation>&amp;Sluiten&amp;Sluiten</translation>
+      <translation>&amp;Maak toe</translation>
     </message>
     <message>
       <source>&amp;New Script:</source>
@@ -4413,7 +4410,7 @@ De waarde 0 betekent onbeperkt.</translation>
     </message>
     <message>
       <source>Warning</source>
-      <translation>Waarschuwing</translation>
+      <translation>Waarskuwing</translation>
     </message>
     <message>
       <source>&amp;No</source>
@@ -4425,30 +4422,30 @@ De waarde 0 betekent onbeperkt.</translation>
     </message>
     <message>
       <source>Do you really want to delete this Script?</source>
-      <translation>Wilt u dit script werkelyk verwyderen?</translation>
+      <translation>Wil u die script werklik verwyder?</translation>
     </message>
   </context>
   <context>
     <name>KeyManager</name>
     <message>
       <source>Manage Keyboard Shortcuts</source>
-      <translation>Sneltoetsen instellen</translation>
+      <translation>Bestuur sleutelbord kortpaaie</translation>
     </message>
     <message>
       <source>Action</source>
-      <translation>Actie</translation>
+      <translation>Aksie</translation>
     </message>
     <message>
       <source>Current Key</source>
-      <translation>Huidige toets</translation>
+      <translation>Huidige sleutel</translation>
     </message>
     <message>
       <source>Select a Key for this Action</source>
-      <translation>Selecteer een toets voor deze actie</translation>
+      <translation>Kies sleutel vir die aksie</translation>
     </message>
     <message>
       <source>&amp;No Key</source>
-      <translation>&amp;Geen toets</translation>
+      <translation>&amp;Geen sleutel</translation>
     </message>
     <message>
       <source>&amp;User Defined Key</source>
@@ -4460,7 +4457,7 @@ De waarde 0 betekent onbeperkt.</translation>
     </message>
     <message>
       <source>Set &amp;Key</source>
-      <translation>&amp;Toets instellen</translation>
+      <translation>Stel &amp;sleutel</translation>
     </message>
     <message>
       <source>&amp;OK</source>
@@ -4496,53 +4493,53 @@ De waarde 0 betekent onbeperkt.</translation>
     </message>
     <message>
       <source>Warning</source>
-      <translation>Waarschuwing</translation>
+      <translation>Waarskuwing</translation>
     </message>
     <message>
       <source>This Key Sequence is already in use</source>
-      <translation>Deze toets is al in gebruik</translation>
+      <translation>Die sleutel word reeds gebruik</translation>
     </message>
   </context>
   <context>
     <name>LayerPalette</name>
     <message>
       <source>Layers</source>
-      <translation>Lagen</translation>
+      <translation>Lae</translation>
     </message>
     <message>
       <source>Add a new Layer</source>
-      <translation>Nuwee laag toevoegen</translation>
+      <translation>Voeg Nuwe laag by</translation>
     </message>
     <message>
       <source>Delete Layer</source>
-      <translation>Laag verwyderen</translation>
+      <translation>Verwyder Laag</translation>
     </message>
     <message>
       <source>Raise Layer</source>
-      <translation>Laag verhogen</translation>
+      <translation>Verhoog Laag</translation>
     </message>
     <message>
       <source>Lower Layer</source>
-      <translation>Laag verlagen</translation>
+      <translation>Laatsak Laag</translation>
     </message>
     <message>
       <source>New Layer</source>
-      <translation>Nuwee laag</translation>
+      <translation>Nuwe laag</translation>
     </message>
     <message>
       <source>Do you want to delete all Objects on this Layer too?</source>
-      <translation>Wilt u alle objecten op deze laag ook verwyderen?</translation>
+      <translation>Wil jy alle objekte in hierdie laag ook uitvee?</translation>
     </message>
   </context>
   <context>
     <name>LineFormate</name>
     <message>
       <source>Edit Line Styles</source>
-      <translation>Lynstylen bewerken</translation>
+      <translation>Verander Lynstyl</translation>
     </message>
     <message>
       <source>&amp;Append</source>
-      <translation>&amp;Toevoegen</translation>
+      <translation>&amp;Toevoeg</translation>
     </message>
     <message>
       <source>&amp;New</source>
@@ -4550,15 +4547,15 @@ De waarde 0 betekent onbeperkt.</translation>
     </message>
     <message>
       <source>&amp;Edit</source>
-      <translation>B&amp;ewerken</translation>
+      <translation>B&amp;ewerk</translation>
     </message>
     <message>
       <source>D&amp;uplicate</source>
-      <translation>D&amp;upliceren</translation>
+      <translation>D&amp;upliseer</translation>
     </message>
     <message>
       <source>&amp;Delete</source>
-      <translation>Verwy&amp;deren</translation>
+      <translation>Verwy&amp;der</translation>
     </message>
     <message>
       <source>&amp;Save</source>
@@ -4578,11 +4575,11 @@ De waarde 0 betekent onbeperkt.</translation>
     </message>
     <message>
       <source>New Style</source>
-      <translation>Nuwee styl</translation>
+      <translation>Nuwe styl</translation>
     </message>
     <message>
       <source>Warning</source>
-      <translation>Waarschuwing</translation>
+      <translation>Waarskuwing</translation>
     </message>
     <message>
       <source>&amp;No</source>
@@ -4750,11 +4747,11 @@ De waarde 0 betekent onbeperkt.</translation>
     </message>
     <message>
       <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;>bugs.scribus.net&lt;/a> please.</source>
-      <translation>Als dit een officieel script is, geef deze fout dan a.u.b. door op &lt;a href=&quot;http://bugs.scribus.net&quot;>bugs.scribus.net&lt;/a>.</translation>
+      <translation>As dit 'n amptelike script is, gee hierdie fout asb. in by &lt;a href=&quot;http://bugs.scribus.net&quot;> bugs.scribus.net&lt;/a>.</translation>
     </message>
     <message>
       <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
-      <translation>Dit bericht staat ook op het klembord. Met Ctrl+V kunt u het in de bugtracker plakken.</translation>
+      <translation>Die is in die knip-en-plakbord. Met Ctrl+V kan u die fout in bugtracker gaan plak.</translation>
     </message>
     <message>
       <source>Show &amp;Console</source>
@@ -4791,9 +4788,8 @@ De waarde 0 betekent onbeperkt.</translation>
       <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
-      <translation>Voer hier de bladsynummer(s) in die u wilt importeren,
-byvoorbeeld 1,3,5 of 1-5 (pag. 1 t/m 5 importeren).
-Een * staat voor alle bladsy's.</translation>
+      <translation>Kies bladsy nommers. 1,3,4,6 of 1-4 vir 1 tot 4 
+of * vir almal.</translation>
     </message>
     <message>
       <source> from 0</source>
@@ -4915,7 +4911,7 @@ Een * staat voor alle bladsy's.</translation>
     </message>
     <message>
       <source>Geometry</source>
-      <translation>Geometrie</translation>
+      <translation>Plasing</translation>
     </message>
     <message>
       <source> pt</source>
@@ -4993,7 +4989,7 @@ hoeke:</translation>
     </message>
     <message>
       <source>T&amp;abulators...</source>
-      <translation>T&amp;abulators...</translation>
+      <translation>T&amp;abuleerders...</translation>
     </message>
     <message>
       <source>Path Text Properties</source>
@@ -5077,7 +5073,7 @@ hoeke:</translation>
     </message>
     <message>
       <source>Input Profile:</source>
-      <translation>Invoerprofiel:</translation>
+      <translation>Voer profiel in:</translation>
     </message>
     <message>
       <source>Rendering Intent:</source>
@@ -5121,15 +5117,15 @@ hoeke:</translation>
     </message>
     <message>
       <source>Miter Join</source>
-      <translation>Miter aansluit</translation>
+      <translation>Miter koppel</translation>
     </message>
     <message>
       <source>Bevel Join</source>
-      <translation>Bevel aansluit</translation>
+      <translation>Bevel koppel</translation>
     </message>
     <message>
       <source>Round Join</source>
-      <translation>Rond aansluit</translation>
+      <translation>Ronde koppel</translation>
     </message>
     <message>
       <source>Ed&amp;ges:</source>
@@ -5177,15 +5173,15 @@ hoeke:</translation>
     </message>
     <message>
       <source>Name of selected object</source>
-      <translation>Naam van geselekteerd objek</translation>
+      <translation>Naam van gekose objek</translation>
     </message>
     <message>
       <source>Horizontal position of current basepoint</source>
-      <translation>Horisontale posisie vanhuidige basispunt</translation>
+      <translation>Horisontale posisie van huidige basispunt</translation>
     </message>
     <message>
       <source>Vertical position of current basepoint</source>
-      <translation>Verticale positie van het huidige basispunt</translation>
+      <translation>Vertikale posisie van het huidige basispunt</translation>
     </message>
     <message>
       <source>Width</source>
@@ -5197,119 +5193,119 @@ hoeke:</translation>
     </message>
     <message>
       <source>Rotation of object at current basepoint</source>
-      <translation>Rotatie van object op huidig basispunt</translation>
+      <translation>Rotasie van objek op huidige basispunt</translation>
     </message>
     <message>
       <source>Point from which measurements or rotation angles are referenced</source>
-      <translation>Punt waarvandaan de rotatiehoeken worden berekend</translation>
+      <translation>Punt waarvandaan die rotasiehoek bereken word</translation>
     </message>
     <message>
       <source>Select top left for basepoint</source>
-      <translation>Linksboven als basispunt gebruiken</translation>
+      <translation>Kies linksbo as basispunt</translation>
     </message>
     <message>
       <source>Select top right for basepoint</source>
-      <translation>Rechtsboven als basispunt gebruiken</translation>
+      <translation>Kies regtsbo as basispunt</translation>
     </message>
     <message>
       <source>Select bottom left for basepoint</source>
-      <translation>Linksonder als basispunt gebruiken</translation>
+      <translation>Kies linksonder as basispunt</translation>
     </message>
     <message>
       <source>Select bottom right for basepoint</source>
-      <translation>Rechtsonder als basispunt gebruiken</translation>
+      <translation>Kies regtsonder as basispunt</translation>
     </message>
     <message>
       <source>Select center for basepoint</source>
-      <translation>Midden als basispunt gebruiken</translation>
+      <translation>Kies middel as basispunt</translation>
     </message>
     <message>
       <source>Flip Horizontal</source>
-      <translation>Horizontaal spiegelen</translation>
+      <translation>Spieël Horisontaal</translation>
     </message>
     <message>
       <source>Flip Vertical</source>
-      <translation>Verticaal spiegelen</translation>
+      <translation>Spieël Vertikaal</translation>
     </message>
     <message>
       <source>Move one level up</source>
-      <translation>Een niveau hoger</translation>
+      <translation>Skuif een vlak op</translation>
     </message>
     <message>
       <source>Move one level down</source>
-      <translation>Een niveau lager</translation>
+      <translation>Skuif een vlak af</translation>
     </message>
     <message>
       <source>Move to front</source>
-      <translation>Naar voorgrond</translation>
+      <translation>Bring na voorgrond</translation>
     </message>
     <message>
       <source>Move to back</source>
-      <translation>Naar achtergrond</translation>
+      <translation>Stuur na agtergrond</translation>
     </message>
     <message>
       <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
-      <translation>Geeft weer op welk niveau dit opject is, 0 betekent onderaan</translation>
+      <translation>Dui vlak waarop objek is, 0 beteken onder</translation>
     </message>
     <message>
       <source>Lock or unlock the object</source>
-      <translation>Object vergrendelen of losmaken</translation>
+      <translation>Sluit of ontsluit objek</translation>
     </message>
     <message>
       <source>Lock or unlock the size of the object</source>
-      <translation>Grootte van het object vergrendelen of losmaken</translation>
+      <translation>Sluit of ontsluit objekgrootte</translation>
     </message>
     <message>
       <source>Enable or disable printing of the object</source>
-      <translation>Dit object wel of niet afdrukken</translation>
+      <translation>Skakel druk van objek aan/af</translation>
     </message>
     <message>
       <source>Make text in lower frames flow around the object shape</source>
-      <translation>Laat teks in lager gelegen frames om de vorm van dit object heen vloeien</translation>
+      <translation>Maak teks in laegeleëde rame om objek vloei</translation>
     </message>
     <message>
       <source>Use a surrounding box instead of the frame's shape for text flow</source>
-      <translation>Gebruik een omliggende rechthoek in plaats van de vorm van het frame voor de teksomloop</translation>
+      <translation>Gebruik 'n omliggende regthoek ipv die vorm van die raam vir die teksvloei</translation>
     </message>
     <message>
       <source>Use a second line originally based on the frame's shape for text flow</source>
-      <translation>Gebruik een tweede lyn gebaseerd op de vorm van het frame voor de teksomloop</translation>
+      <translation>Gebruik 'n tweede lyn gebaseerd op die raamvorm vir teksvloei</translation>
     </message>
     <message>
       <source>Font of selected text or object</source>
-      <translation>Lettertype van geselecteerde teks of object</translation>
+      <translation>Lettertipe van geselekteerde teks of objek</translation>
     </message>
     <message>
       <source>Font Size</source>
-      <translation>Tekengrootte</translation>
+      <translation>Lettergrootte</translation>
     </message>
     <message>
       <source>Scaling width of characters</source>
-      <translation>Schaalbreedte van tekens</translation>
+      <translation>Skaalbreedte van letters</translation>
     </message>
     <message>
       <source>Color of text stroke</source>
-      <translation>Kleur van tekslynen</translation>
+      <translation>Kleur van teks</translation>
     </message>
     <message>
       <source>Color of text fill</source>
-      <translation>Kleur van teksinvulling</translation>
+      <translation>Kleur van teksagtergrond</translation>
     </message>
     <message>
       <source>Saturation of color of text stroke</source>
-      <translation>Verzadiging van kleur van tekslynen</translation>
+      <translation>Versadiging van tekskleur</translation>
     </message>
     <message>
       <source>Saturation of color of text fill</source>
-      <translation>Verzadiging van kleur van teksinvulling</translation>
+      <translation>Versadiging van teksagtergrondkleur</translation>
     </message>
     <message>
       <source>Manual Kerning</source>
-      <translation>Handmatige kerning</translation>
+      <translation>Handgestelde letterspasiëring</translation>
     </message>
     <message>
       <source>Line Spacing</source>
-      <translation>Regelspatiëring</translation>
+      <translation>Lynspasiëring</translation>
     </message>
     <message>
       <source>Style of current paragraph</source>
@@ -5317,11 +5313,11 @@ hoeke:</translation>
     </message>
     <message>
       <source>Hyphenation language of frame</source>
-      <translation>Taalinstelling (voor afbreken) van frame</translation>
+      <translation>Afkaptaalinstelling van raam</translation>
     </message>
     <message>
       <source>Change settings for left or end points</source>
-      <translation>Instellingen voor linkerpunt of eindpunt aanpassen</translation>
+      <translation>Verander instellings vir linker of eindpunte</translation>
     </message>
     <message>
       <source>Pattern of line</source>
@@ -5333,103 +5329,103 @@ hoeke:</translation>
     </message>
     <message>
       <source>Type of line joins</source>
-      <translation>Type lynverbindingen</translation>
+      <translation>Tipe lynverbindings</translation>
     </message>
     <message>
       <source>Type of line end</source>
-      <translation>Type lyneinden</translation>
+      <translation>Tipe lyneinde</translation>
     </message>
     <message>
       <source>Line style of current object</source>
-      <translation>Lynstyl van huidig object</translation>
+      <translation>Lynstyl van huidige objek</translation>
     </message>
     <message>
       <source>Choose the shape of frame...</source>
-      <translation>Vorm van het frame kiezen...</translation>
+      <translation>Kies raamvorm...</translation>
     </message>
     <message>
       <source>Edit shape of the frame...</source>
-      <translation>Vorm van het frame bewerken...</translation>
+      <translation>Verander raamvorm...</translation>
     </message>
     <message>
       <source>Set radius of corner rounding</source>
-      <translation>Straal van ronde hoeken instellen</translation>
+      <translation>Stel straal van ronde hoeke</translation>
     </message>
     <message>
       <source>Number of columns in text frame</source>
-      <translation>Aantal kolommen in teksframe</translation>
+      <translation>Aantal kolomme in teksraam</translation>
     </message>
     <message>
       <source>Switches between Gap or Column width</source>
-      <translation>Schakelt tussen Tussenruimte of Kolombreedte</translation>
+      <translation>Skakel tussen Tussenruimte of Kolombreedte</translation>
     </message>
     <message>
       <source>Distance between columns</source>
-      <translation>Afstand tussen kolommen</translation>
+      <translation>Afstand tussen kolomme</translation>
     </message>
     <message>
       <source>Distance of text from top of frame</source>
-      <translation>Afstand van teks tot bovenkant frame</translation>
+      <translation>Afstand van teks tot raambokant</translation>
     </message>
     <message>
       <source>Distance of text from bottom of frame</source>
-      <translation>Afstand van teks tot onderkant frame</translation>
+      <translation>Afstand van teks tot raamonderkant</translation>
     </message>
     <message>
       <source>Distance of text from left of frame</source>
-      <translation>Afstand van teks tot linkerkant frame</translation>
+      <translation>Afstand van teks tot raamlinkerkant</translation>
     </message>
     <message>
       <source>Distance of text from right of frame</source>
-      <translation>Afstand van teks tot rechterkant frame</translation>
+      <translation>Afstand van teks tot raamregterkant</translation>
     </message>
     <message>
       <source>Edit tab settings of text frame...</source>
-      <translation>Tabinstellingen van teksframe bewerken...</translation>
+      <translation>Verander Tabinstelling van teksraam...</translation>
     </message>
     <message>
       <source>Allow the image to be a different size to the frame</source>
-      <translation>Toestaan dat een afbeelding een andere grootte heeft dan het frame</translation>
+      <translation>Laat prent en raam grootte verskille toe</translation>
     </message>
     <message>
       <source>Horizontal offset of image within frame</source>
-      <translation>Horizontale afstand van afbeelding in frame</translation>
+      <translation>Horisontale afstand van prente in raam</translation>
     </message>
     <message>
       <source>Vertical offset of image within frame</source>
-      <translation>Verticale afstand van afbeelding in frame</translation>
+      <translation>Vertikale afstand van prente in raam</translation>
     </message>
     <message>
       <source>Resize the image horizontally</source>
-      <translation>De afbeelding horizontaal schalen</translation>
+      <translation>Skaleer prent horisontaal</translation>
     </message>
     <message>
       <source>Resize the image vertically</source>
-      <translation>De afbeelding verticaal schalen</translation>
+      <translation>Skaleer prent vertikaal</translation>
     </message>
     <message>
       <source>Keep the X and Y scaling the same</source>
-      <translation>X- en Y-schaling gelyk houden</translation>
+      <translation>Hou X- en Y-skaal gelyk</translation>
     </message>
     <message>
       <source>Keep the aspect ratio</source>
-      <translation>Beeldverhouding behouden</translation>
+      <translation>Hoe prent in verhouding</translation>
     </message>
     <message>
       <source>Make the image fit within the size of the frame</source>
-      <translation>Afbeelding passend maken</translation>
+      <translation>Maak prent presies in raam pas</translation>
     </message>
     <message>
       <source>Use image proportions rather than those of the frame</source>
-      <translation>De afbeeldingsverhoudingen gebruiken in plaats van die van het frame</translation>
+      <translation>Gebruik prent proporsies ipv raam proporsies</translation>
     </message>
     <message>
       <source>Source profile of the image</source>
-      <translation>Bronprofiel van de afbeelding</translation>
+      <translation>Bronprofiel van prent</translation>
     </message>
     <message>
       <source>Rendering intent for the image</source>
-      <translation>Rendering intent van de afbeelding</translation>
+      <translation>Rendering intent van prent</translation>
     </message>
     <message>
       <source>&amp;X1:</source>
@@ -5469,13 +5465,13 @@ hoeke:</translation>
     </message>
     <message>
       <source>Warning</source>
-      <translation>Waarschuwing</translation>
+      <translation>Waarskuwing</translation>
     </message>
     <message>
       <source>Name &quot;%1&quot; isn't unique.
 Please choose another.</source>
-      <translation>De naam &quot;%1&quot; is niet uniek.
-Kies een andere naam.</translation>
+      <translation>Die naam &quot;%1&quot; is nie uniek nie.
+Kies 'n ander naam.</translation>
     </message>
     <message>
       <source>OK</source>
@@ -5483,38 +5479,38 @@ Kies een andere naam.</translation>
     </message>
     <message>
       <source>Right to Left Writing</source>
-      <translation type="unfinished" />
+      <translation>Regs na Links Skryf</translation>
     </message>
   </context>
   <context>
     <name>MultiLine</name>
     <message>
       <source>Edit Style</source>
-      <translation>Styl bewerken</translation>
+      <translation>Verander styl</translation>
     </message>
     <message>
       <source>Flat Cap</source>
-      <translation>Plat eind</translation>
+      <translation>Plat einde</translation>
     </message>
     <message>
       <source>Square Cap</source>
-      <translation>Vierkant eind</translation>
+      <translation>Vierkantige einde</translation>
     </message>
     <message>
       <source>Round Cap</source>
-      <translation>Rond eind</translation>
+      <translation>Ronde einde</translation>
     </message>
     <message>
       <source>Miter Join</source>
-      <translation>Verstekverbinding</translation>
+      <translation>Miter koppel</translation>
     </message>
     <message>
       <source>Bevel Join</source>
-      <translation>Schuine verbinding</translation>
+      <translation>Bevel koppel</translation>
     </message>
     <message>
       <source>Round Join</source>
-      <translation>Ronde verbinding</translation>
+      <translation>Ronde koppel</translation>
     </message>
     <message>
       <source>Line Width:</source>
@@ -5542,7 +5538,7 @@ Kies een andere naam.</translation>
     </message>
     <message>
       <source>Solid Line</source>
-      <translation>Ononderbroken lyn</translation>
+      <translation>Soliede lyn</translation>
     </message>
     <message>
       <source>Dashed Line</source>
@@ -5562,13 +5558,13 @@ Kies een andere naam.</translation>
     </message>
     <message>
       <source>Warning</source>
-      <translation>Waarschuwing</translation>
+      <translation>Waarskuwing</translation>
     </message>
     <message>
       <source>Name &quot;%1&quot; isn't unique.
 Please choose another.</source>
-      <translation>De naam &quot;%1&quot; is niet uniek.
-Kies een andere naam.</translation>
+      <translation>Die naam &quot;%1&quot; is nie uniek nie.
+Kies 'n ander naam.</translation>
     </message>
     <message>
       <source>OK</source>
@@ -5579,11 +5575,11 @@ Kies een andere naam.</translation>
     <name>MusterSeiten</name>
     <message>
       <source>Edit Templates</source>
-      <translation>Sjablonen bewerken</translation>
+      <translation>Verander templaat</translation>
     </message>
     <message>
       <source>&amp;Append</source>
-      <translation>Toe&amp;voegen</translation>
+      <translation>Toe&amp;voeg</translation>
     </message>
     <message>
       <source>&amp;New</source>
@@ -5591,19 +5587,19 @@ Kies een andere naam.</translation>
     </message>
     <message>
       <source>D&amp;uplicate</source>
-      <translation>D&amp;upliceren</translation>
+      <translation>D&amp;upliseer</translation>
     </message>
     <message>
       <source>&amp;Delete</source>
-      <translation>Verwy&amp;deren</translation>
+      <translation>Verwy&amp;der</translation>
     </message>
     <message>
       <source>&amp;Close</source>
-      <translation>&amp;Sluiten</translation>
+      <translation>&amp;Maak toe</translation>
     </message>
     <message>
       <source>Warning</source>
-      <translation>Waarschuwing</translation>
+      <translation>Waarskuwing</translation>
     </message>
     <message>
       <source>&amp;No</source>
@@ -5619,7 +5615,7 @@ Kies een andere naam.</translation>
     </message>
     <message>
       <source>New Template</source>
-      <translation>Nuwee sjabloon</translation>
+      <translation>Nuwe templaat</translation>
     </message>
     <message>
       <source>Copy of %1</source>
@@ -5639,7 +5635,7 @@ Kies een andere naam.</translation>
     </message>
     <message>
       <source>Do you really want to delete this Template?</source>
-      <translation>Wilt u deze sjabloon werkelyk verwyderen?</translation>
+      <translation>Wil u regtig hierdie templaat uitvee?</translation>
     </message>
   </context>
   <context>
@@ -5682,23 +5678,23 @@ Kies een andere naam.</translation>
     </message>
     <message>
       <source>Tabloid</source>
-      <translation>Tabloid</translation>
+      <translation>Ponie</translation>
     </message>
     <message>
       <source>Custom</source>
-      <translation>Aangepast</translation>
+      <translation>Tuisgemaak</translation>
     </message>
     <message>
       <source>Orie&amp;ntation:</source>
-      <translation>Orië&amp;ntatie:</translation>
+      <translation>Orië&amp;ntasie:</translation>
     </message>
     <message>
       <source>Portrait</source>
-      <translation>Staand</translation>
+      <translation>Regop</translation>
     </message>
     <message>
       <source>Landscape</source>
-      <translation>Liggend</translation>
+      <translation>Gekantel</translation>
     </message>
     <message>
       <source>&amp;Width:</source>
@@ -5710,15 +5706,15 @@ Kies een andere naam.</translation>
     </message>
     <message>
       <source>&amp;Facing Pages</source>
-      <translation>&amp;Tegenover elkaar</translation>
+      <translation>&amp;Teenoorstaande bladsye</translation>
     </message>
     <message>
       <source>Left &amp;Page First</source>
-      <translation>Linker&amp;bladsy eerst</translation>
+      <translation>Linker&amp;bladsy eerste</translation>
     </message>
     <message>
       <source>Margin Guides</source>
-      <translation>Marge hulplynen</translation>
+      <translation>Kant hulplyne</translation>
     </message>
     <message>
       <source>&amp;Left:</source>
@@ -5726,11 +5722,11 @@ Kies een andere naam.</translation>
     </message>
     <message>
       <source>&amp;Right:</source>
-      <translation>&amp;Rechts:</translation>
+      <translation>&amp;Regs:</translation>
     </message>
     <message>
       <source>&amp;Top:</source>
-      <translation>&amp;Boven:</translation>
+      <translation>&amp;Bo:</translation>
     </message>
     <message>
       <source>&amp;Bottom:</source>
@@ -5738,19 +5734,19 @@ Kies een andere naam.</translation>
     </message>
     <message>
       <source>Options</source>
-      <translation>OptiesOpties</translation>
+      <translation>Opsies</translation>
     </message>
     <message>
       <source>F&amp;irst Page Number:</source>
-      <translation>N&amp;ummer eerste bladsy:</translation>
+      <translation>&amp;Eerste bladsy nommer:</translation>
     </message>
     <message>
       <source>&amp;Default Unit:</source>
-      <translation>Stan&amp;daard eenheid:</translation>
+      <translation>&amp;Verstek eenheid:</translation>
     </message>
     <message>
       <source>Points (pts)</source>
-      <translation>Punten (pt)</translation>
+      <translation>Punte (pt)</translation>
     </message>
     <message>
       <source>Millimetres (mm)</source>
@@ -5758,19 +5754,19 @@ Kies een andere naam.</translation>
     </message>
     <message>
       <source>Inches (in)</source>
-      <translation>Inch (in)</translation>
+      <translation>Duim (in)</translation>
     </message>
     <message>
       <source>Picas (p)</source>
-      <translation>Pica (p)</translation>
+      <translation>Picas (p)</translation>
     </message>
     <message>
       <source>&amp;Automatic Text Frames</source>
-      <translation>&amp;Automatische teksframes</translation>
+      <translation>&amp;Outomatise teksrame</translation>
     </message>
     <message>
       <source>Column Guides</source>
-      <translation>Kolom hulplynen</translation>
+      <translation>Kolom hulplyne</translation>
     </message>
     <message>
       <source>&amp;Gap:</source>
@@ -5778,7 +5774,7 @@ Kies een andere naam.</translation>
     </message>
     <message>
       <source>Colu&amp;mns:</source>
-      <translation>Kolo&amp;mmen:</translation>
+      <translation>Kolo&amp;mme:</translation>
     </message>
     <message>
       <source>&amp;OK</source>
@@ -5790,67 +5786,67 @@ Kies een andere naam.</translation>
     </message>
     <message>
       <source>Document page size, either a standard size or a custom size</source>
-      <translation>Bladsygrootte, standaard of aangepast</translation>
+      <translation>Bladsygrootte, standaard of aangepas</translation>
     </message>
     <message>
       <source>Orientation of the document's pages</source>
-      <translation>Oriëntatie van de bladsy's van dit dokument</translation>
+      <translation>Oriëntatie van dokumentbladsye</translation>
     </message>
     <message>
       <source>Width of the document's pages, editable if you have chosen a custom page size</source>
-      <translation>Breedte van de bladsy's in dit dokument, kies 'Aangepast' om hier een waarde in te kunnen stellen</translation>
+      <translation>Breedte van dokumentbladsye, kies 'Tuisgemaak' om self 'n waarde te kan insit</translation>
     </message>
     <message>
       <source>Height of the document's pages, editable if you have chosen a custom page size</source>
-      <translation>Hoogte van de bladsy's in dit dokument, kies 'Aangepast' om hier een waarde in te kunnen stellen</translation>
+      <translation>Hoogte van dokumentbladsye, kies 'Tuisgemaak' om self 'n waarde te kan insit</translation>
     </message>
     <message>
       <source>Enable single or spread based layout</source>
-      <translation>Alle bladsy's hetzelfde of onderscheid tussen linker en rechterbladsy's</translation>
+      <translation>Bladsye is almal eenders of daar is linker en regter bladsye</translation>
     </message>
     <message>
       <source>Make the first page the left page of the document</source>
-      <translation>Laat het dokument beginnen met een linker bladsy</translation>
+      <translation>Laat dokument met n' linker bladsy begin</translation>
     </message>
     <message>
       <source>Distance between the top margin guide and the edge of the page</source>
-      <translation>Afstand tussen de bovenkant van de marge en de rand van het papier</translation>
+      <translation>Afstand tussen boënste kantlyn en papierrand</translation>
     </message>
     <message>
       <source>Distance between the bottom margin guide and the edge of the page</source>
-      <translation>Afstand tussen de onderkant van de marge en de rand van het papier</translation>
+      <translation>Afstand tussen onderste kantlyn en papierrand</translation>
     </message>
     <message>
       <source>Distance between the left margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-      <translation>Afstand tussen de linkerkant van de marge en de rand van het papier.
-Als 'Tegenover elkaar' is geselecteerd wordt deze breedte gebruikt aan de rugkant van het dokument</translation>
+      <translation>Afstand tussen linkerkantlyn en papierrand.
+As 'Teenoorstaande bladsye' gekies is, word die breedte gebruik vir korrekte binding</translation>
     </message>
     <message>
       <source>Distance between the right margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-      <translation>Afstand tussen de rechterkant van de marge en de rand van het papier.
-Als 'Tegenover elkaar' is geselecteerd wordt deze breedte gebruikt aan de buitenkant van het dokument</translation>
+      <translation>Afstand tussen regterkantlyn en papierrand.
+As 'Teenoorstaande bladsye' gekies is, word die breedte gebruik vir korrekte binding</translation>
     </message>
     <message>
       <source>First page number of the document</source>
-      <translation>Eerste bladsynummer van dit dokument</translation>
+      <translation>Eerste bladsynommer van dokument</translation>
     </message>
     <message>
       <source>Default unit of measurement for document editing</source>
-      <translation>Standaard meeteenheid voor het bewerken van dit dokument</translation>
+      <translation>Verstek meeteenheid vir dokumentbewerking</translation>
     </message>
     <message>
       <source>Create text frames automatically when new pages are added</source>
-      <translation>Automatisch teksframes aanmaken zodra nuwe bladsy's worden toegevoegd</translation>
+      <translation>Maak outomaties teksrame saammet bladsy byvoeging</translation>
     </message>
     <message>
       <source>Number of columns to create in automatically created text frames</source>
-      <translation>Aantal kolommen dat in automatisch aangemaakte teksframes moet worden opgenomen</translation>
+      <translation>Aantal kolomme in outomaties geskepte teksrame</translation>
     </message>
     <message>
       <source>Distance between automatically created columns</source>
-      <translation>Afstand tussen de automatisch aangemaakte kolommen</translation>
+      <translation>Afstand tussen outomaties geskepte kolomme</translation>
     </message>
     <message>
       <source>&amp;Inside:</source>
@@ -5862,15 +5858,15 @@ Als 'Tegenover elkaar' is geselecteerd wordt deze breedte gebruikt aan de buiten
     </message>
     <message>
       <source>Executive</source>
-      <translation type="unfinished" />
+      <translation>Bestuurs</translation>
     </message>
     <message>
       <source>Folio</source>
-      <translation type="unfinished" />
+      <translation>Folio</translation>
     </message>
     <message>
       <source>Ledger</source>
-      <translation type="unfinished" />
+      <translation>Grootboek</translation>
     </message>
   </context>
   <context>
@@ -5881,7 +5877,7 @@ Als 'Tegenover elkaar' is geselecteerd wordt deze breedte gebruikt aan de buiten
     </message>
     <message>
       <source>Right Page</source>
-      <translation>Rechter bladsy</translation>
+      <translation>Regter bladsy</translation>
     </message>
     <message>
       <source>&amp;OK</source>
@@ -5900,7 +5896,7 @@ Als 'Tegenover elkaar' is geselecteerd wordt deze breedte gebruikt aan de buiten
     </message>
     <message>
       <source>&amp;Absolute Coordinates</source>
-      <translation>&amp;Absolute coördinaten</translation>
+      <translation>&amp;Absolute koördinate</translation>
     </message>
     <message>
       <source>&amp;X-Pos:</source>
@@ -5912,183 +5908,183 @@ Als 'Tegenover elkaar' is geselecteerd wordt deze breedte gebruikt aan de buiten
     </message>
     <message>
       <source>Edit &amp;Contour Line</source>
-      <translation>&amp;Contourlyn bewerken</translation>
+      <translation>Verander &amp;Kontoerlyn</translation>
     </message>
     <message>
       <source>&amp;Reset Contour Line</source>
-      <translation>Contou&amp;rlyn opnieuw instellen</translation>
+      <translation>Herstel Kontoe&amp;rlyn</translation>
     </message>
     <message>
       <source>&amp;End Editing</source>
-      <translation>B&amp;ewerking beëindigen</translation>
+      <translation>&amp;Beëindigen bewerking</translation>
     </message>
     <message>
       <source>Move Nodes</source>
-      <translation>Nodes verplaatsen</translation>
+      <translation>Skuif Nodes</translation>
     </message>
     <message>
       <source>Move Control Points</source>
-      <translation>Controlepunten verplaatsen</translation>
+      <translation>Skuif Kontrolepunte</translation>
     </message>
     <message>
       <source>Add Nodes</source>
-      <translation>Nodes toevoegen</translation>
+      <translation>Voeg Nodes by</translation>
     </message>
     <message>
       <source>Delete Nodes</source>
-      <translation>Nodes verwyderen</translation>
+      <translation>Verwyder Nodes</translation>
     </message>
     <message>
       <source>Move Control Points Independently</source>
-      <translation>Controlepunten onafhankelyk verplaatsen</translation>
+      <translation>Skuif kontrolepunte onafhanklik</translation>
     </message>
     <message>
       <source>Move Control Points Symmetrical</source>
-      <translation>Controlepunten symmetrisch verplaatsen</translation>
+      <translation>Skuif kontrolepunte simmetries</translation>
     </message>
     <message>
       <source>Reset Control Points</source>
-      <translation>Controlepunten opnieuw instellen</translation>
+      <translation>Herstel kontrolepunte</translation>
     </message>
     <message>
       <source>Reset this Control Point</source>
-      <translation>Dit controlepunt opnieuw instellen</translation>
+      <translation>Herstel hierdie kontrolepunt</translation>
     </message>
     <message>
       <source>Open a Polygon or Cuts a Bezier Curve</source>
-      <translation>Veelhoek starten of beziercurve knippen</translation>
+      <translation>Begin 'n Poligoon of sny 'n Bezierkurwe</translation>
     </message>
     <message>
       <source>Close this Bezier Curve</source>
-      <translation>Deze beziercurve sluiten</translation>
+      <translation>Sluit hierdie Bezierkurwe</translation>
     </message>
     <message>
       <source>Mirror the Path Horizontally</source>
-      <translation>Pad horizontaal spiegelen</translation>
+      <translation>Spieël pad horisontaal</translation>
     </message>
     <message>
       <source>Mirror the Path Vertically</source>
-      <translation>Pad verticaal spiegelen</translation>
+      <translation>Spieël pad vertikaal</translation>
     </message>
     <message>
       <source>Shear the Path Horizontally to the Right</source>
-      <translation>Pad horizontaal naar rechts scheeftrekken</translation>
+      <translation>Trek pad horisontaal na regs skeef</translation>
     </message>
     <message>
       <source>Shear the Path Horizontally to the Left</source>
-      <translation>Pad horizontaal naar links scheeftrekken</translation>
+      <translation>Trek pad horisontaal na links skeef</translation>
     </message>
     <message>
       <source>Shear the Path Vertically Up</source>
-      <translation>Pad verticaal omhoog scheeftrekken</translation>
+      <translation>Trek pad vertikaal opwaarts skeef</translation>
     </message>
     <message>
       <source>Shear the Path Vertically Down</source>
-      <translation>Pad verticaal naar beneden scheeftrekken</translation>
+      <translation>Trek pad vertikaal afwaarts skeef</translation>
     </message>
     <message>
       <source>Rotate the Path Counter-Clockwise</source>
-      <translation>Pad tegen de klok in roteren</translation>
+      <translation>Roteer pad antikloksgewys</translation>
     </message>
     <message>
       <source>Rotate the Path Clockwise</source>
-      <translation>Pad met de klok mee roteren</translation>
+      <translation>Roteer pad kloksgewys</translation>
     </message>
     <message>
       <source>Reduce the Size of the Path by shown %</source>
-      <translation>Pad met getoonde % vergroten</translation>
+      <translation>Verklein padgrootte met getoonde %</translation>
     </message>
     <message>
       <source>Enlarge the Size of the Path by shown %</source>
-      <translation>Pad met getoonde % verkleinen</translation>
+      <translation>Vergroot padgrootte met getoonde %</translation>
     </message>
     <message>
       <source>Angle of Rotation</source>
-      <translation>Rotatiehoek</translation>
+      <translation>Rotasiehoek</translation>
     </message>
     <message>
       <source>% to Enlarge or Reduce By</source>
-      <translation>Te vergroten of verkleinen %</translation>
+      <translation>% om mee te vergroot of verklein</translation>
     </message>
     <message>
       <source>Activate Contour Line Editing Mode</source>
-      <translation>Contourlynen bewerken</translation>
+      <translation>Aktiveer Kontoerlyn bewerking modus</translation>
     </message>
     <message>
       <source>Reset the Contour Line to the Original Shape of the Frame</source>
-      <translation>Contourlynen terugzetten naar oorspronkelyke framevorm</translation>
+      <translation>Herstel kontoerlyn na oorspronklik raamgrootte</translation>
     </message>
     <message>
       <source>When checked use Coordinates relative to the Page,
 otherwise Coordinates are relative to the Object.</source>
-      <translation>Indien geselecteerd worden coördinaten relatief t.o.v. de bladsy
-gebruikt, anders zyn de coördinaten relatief t.o.v. het object.</translation>
+      <translation>Indien gekies word koördinate relatief tot die bladsy
+gebruik, anders is koördinate relatief tot die objek.</translation>
     </message>
   </context>
   <context>
     <name>PConsole</name>
     <message>
       <source>Script Console</source>
-      <translation>Scriptconsole</translation>
+      <translation>Scriptkonsole</translation>
     </message>
   </context>
   <context>
     <name>PDF_Opts</name>
     <message>
       <source>Create PDF File</source>
-      <translation>PDF-lêer aanmaken</translation>
+      <translation>Maak PDF-lêer</translation>
     </message>
     <message>
       <source>O&amp;utput to File:</source>
-      <translation>&amp;Uitvoeren naar lêer:</translation>
+      <translation>Voer &amp;uit na lêer:</translation>
     </message>
     <message>
       <source>Cha&amp;nge...</source>
-      <translation>Wyzige&amp;n...</translation>
+      <translation>Wysi&amp;g...</translation>
     </message>
     <message>
       <source>Export Range</source>
-      <translation>Exportbereik</translation>
+      <translation>Uitvoerbereik</translation>
     </message>
     <message>
       <source>&amp;All Pages</source>
-      <translation>&amp;Alle bladsy's</translation>
+      <translation>&amp;Alle bladsye</translation>
     </message>
     <message>
       <source>C&amp;hoose Pages</source>
-      <translation>&amp;Bladsye kiezen</translation>
+      <translation>Kies &amp;Bladsye</translation>
     </message>
     <message>
       <source>File Options</source>
-      <translation>Lêersopties</translation>
+      <translation>Lêersopsies</translation>
     </message>
     <message>
       <source>Compatibilit&amp;y:</source>
-      <translation>&amp;Compatibiliteit:</translation>
+      <translation>&amp;Aanpasbaarheid:</translation>
     </message>
     <message>
       <source>&amp;Binding:</source>
-      <translation>In&amp;binden:</translation>
+      <translation>&amp;Binding:</translation>
     </message>
     <message>
       <source>Left Margin</source>
-      <translation>Linkermarge</translation>
+      <translation>Linkerkantlyn</translation>
     </message>
     <message>
       <source>Right Margin</source>
-      <translation>Rechtermarge</translation>
+      <translation>Regterkantlyn</translation>
     </message>
     <message>
       <source>Generate &amp;Thumbnails</source>
-      <translation>Minia&amp;turen aanmaken</translation>
+      <translation>Minia&amp;tuur prentjies</translation>
     </message>
     <message>
       <source>Save &amp;Linked Text Frames as PDF Articles</source>
-      <translation>Gekoppe&amp;lde teksframes als PDF-artikelen opslaan</translation>
+      <translation>Stoor geskake&amp;lde teksrame as PDF-artikels</translation>
     </message>
     <message>
       <source>&amp;Include Bookmarks</source>
-      <translation>Bladwyzers &amp;invoegen</translation>
+      <translation>&amp;Voeg Boekmerke in</translation>
     </message>
     <message>
       <source> dpi</source>
@@ -6096,15 +6092,15 @@ gebruikt, anders zyn de coördinaten relatief t.o.v. het object.</translation>
     </message>
     <message>
       <source>&amp;Resolution:</source>
-      <translation>&amp;Resolutie:</translation>
+      <translation>&amp;Resolusie:</translation>
     </message>
     <message>
       <source>Image Settings</source>
-      <translation>Afbeeldingsinstellingen</translation>
+      <translation>Prentinstellings</translation>
     </message>
     <message>
       <source>Automatic</source>
-      <translation>Automatisch</translation>
+      <translation>Outomaties</translation>
     </message>
     <message>
       <source>JPEG</source>
@@ -6120,7 +6116,7 @@ gebruikt, anders zyn de coördinaten relatief t.o.v. het object.</translation>
     </message>
     <message>
       <source>&amp;Method:</source>
-      <translation>&amp;Methode:</translation>
+      <translation>&amp;Metode:</translation>
     </message>
     <message>
       <source>&amp;Quality:</source>
@@ -6128,7 +6124,7 @@ gebruikt, anders zyn de coördinaten relatief t.o.v. het object.</translation>
     </message>
     <message>
       <source>Maximum</source>
-      <translation>Maximaal</translation>
+      <translation>Maksimum</translation>
     </message>
     <message>
       <source>High</source>
@@ -6144,11 +6140,11 @@ gebruikt, anders zyn de coördinaten relatief t.o.v. het object.</translation>
     </message>
     <message>
       <source>Minimum</source>
-      <translation>Minimaal</translation>
+      <translation>Minimum</translation>
     </message>
     <message>
       <source>&amp;Downsample Images to:</source>
-      <translation>A&amp;fbeeldingen terugsampelen naar:</translation>
+      <translation>&amp;Hermonster Prente af na:</translation>
     </message>
     <message>
       <source>&amp;General</source>
@@ -6156,15 +6152,15 @@ gebruikt, anders zyn de coördinaten relatief t.o.v. het object.</translation>
     </message>
     <message>
       <source>&amp;Embed all Fonts</source>
-      <translation>Alle l&amp;ettertypen inbedden</translation>
+      <translation>Inbed alle l&amp;ettertipes</translation>
     </message>
     <message>
       <source>Embedding</source>
-      <translation>Inbedden</translation>
+      <translation>Inbedding</translation>
     </message>
     <message>
       <source>Available Fonts:</source>
-      <translation>Beschikbare lettertypen:</translation>
+      <translation>Beskikbare lettertipes:</translation>
     </message>
     <message>
       <source>&amp;>></source>
@@ -6176,11 +6172,11 @@ gebruikt, anders zyn de coördinaten relatief t.o.v. het object.</translation>
     </message>
     <message>
       <source>Fonts to embed:</source>
-      <translation>In te bedden lettertypen:</translation>
+      <translation>Lettertipes om in te bed:</translation>
     </message>
     <message>
       <source>&amp;Fonts</source>
-      <translation>&amp;Lettertypen</translation>
+      <translation>&amp;Lettertipes</translation>
     </message>
     <message>
       <source>Page</source>
@@ -6188,35 +6184,35 @@ gebruikt, anders zyn de coördinaten relatief t.o.v. het object.</translation>
     </message>
     <message>
       <source>Show Page Pre&amp;views</source>
-      <translation>Bladsy&amp;voorbeelden tonen</translation>
+      <translation>&amp;Vertoon Bladsyvoorbeeld</translation>
     </message>
     <message>
       <source>Effects</source>
-      <translation>Effecten</translation>
+      <translation>Effekte</translation>
     </message>
     <message>
       <source>&amp;Display Duration:</source>
-      <translation>Weergave ty&amp;dsduur:</translation>
+      <translation>Verton ty&amp;dsduur:</translation>
     </message>
     <message>
       <source>Effec&amp;t Duration:</source>
-      <translation>Effec&amp;t tydsduur:</translation>
+      <translation>Effek &amp;tydsduur:</translation>
     </message>
     <message>
       <source>Effect T&amp;ype:</source>
-      <translation>Effectt&amp;ype:</translation>
+      <translation>Effekt&amp;ipe:</translation>
     </message>
     <message>
       <source>&amp;Moving Lines:</source>
-      <translation>&amp;Bewegende lynen:</translation>
+      <translation>&amp;Bewegende lyne:</translation>
     </message>
     <message>
       <source>F&amp;rom the:</source>
-      <translation>&amp;Van de:</translation>
+      <translation>&amp;Van die:</translation>
     </message>
     <message>
       <source>D&amp;irection:</source>
-      <translation>R&amp;ichting:</translation>
+      <translation>R&amp;igting:</translation>
     </message>
     <message>
       <source> sec</source>
@@ -6224,79 +6220,79 @@ gebruikt, anders zyn de coördinaten relatief t.o.v. het object.</translation>
     </message>
     <message>
       <source>No Effect</source>
-      <translation>Geen effect</translation>
+      <translation>Geen effek</translation>
     </message>
     <message>
       <source>Blinds</source>
-      <translation>Lamellen</translation>
+      <translation>Blinders</translation>
     </message>
     <message>
       <source>Box</source>
-      <translation>Box</translation>
+      <translation>Boks</translation>
     </message>
     <message>
       <source>Dissolve</source>
-      <translation>Oplossen</translation>
+      <translation>Oplos</translation>
     </message>
     <message>
       <source>Glitter</source>
-      <translation>Glitter</translation>
+      <translation>Glinster</translation>
     </message>
     <message>
       <source>Split</source>
-      <translation>Splitsen</translation>
+      <translation>Deel</translation>
     </message>
     <message>
       <source>Wipe</source>
-      <translation>Wegvegen</translation>
+      <translation>Uitvee</translation>
     </message>
     <message>
       <source>Horizontal</source>
-      <translation>Horizontaal</translation>
+      <translation>Horisontaal</translation>
     </message>
     <message>
       <source>Vertical</source>
-      <translation>Verticaal</translation>
+      <translation>Vertikaal</translation>
     </message>
     <message>
       <source>Inside</source>
-      <translation>Binnen</translation>
+      <translation>Binne</translation>
     </message>
     <message>
       <source>Outside</source>
-      <translation>Buiten</translation>
+      <translation>Buite</translation>
     </message>
     <message>
       <source>Left to Right</source>
-      <translation>Links naar rechts</translation>
+      <translation>Links na regs</translation>
     </message>
     <message>
       <source>Top to Bottom</source>
-      <translation>Boven naar beneden</translation>
+      <translation>Bo na onder</translation>
     </message>
     <message>
       <source>Bottom to Top</source>
-      <translation>Beneden naar boven</translation>
+      <translation>Onder na bo</translation>
     </message>
     <message>
       <source>Right to Left</source>
-      <translation>Rechts naar links</translation>
+      <translation>Regs na links</translation>
     </message>
     <message>
       <source>Top-left to Bottom-Right</source>
-      <translation>Linksboven naar rechtsonder</translation>
+      <translation>Linksbo na regsonder</translation>
     </message>
     <message>
       <source>&amp;Apply Effect on all Pages</source>
-      <translation>Effect op &amp;alle bladsy's toepassen</translation>
+      <translation>Pas Effek op &amp;alle bladsye toe</translation>
     </message>
     <message>
       <source>&amp;Use Encryption</source>
-      <translation>Versle&amp;uteling gebruiken</translation>
+      <translation>Gebruik enkripsie</translation>
     </message>
     <message>
       <source>Passwords</source>
-      <translation>Wachtwoorden</translation>
+      <translation>Wagwoord</translation>
     </message>
     <message>
       <source>&amp;User:</source>
@@ -6304,27 +6300,27 @@ gebruikt, anders zyn de coördinaten relatief t.o.v. het object.</translation>
     </message>
     <message>
       <source>&amp;Owner:</source>
-      <translation>&amp;Eigenaar:</translation>
+      <translation>&amp;Eienaar:</translation>
     </message>
     <message>
       <source>Settings</source>
-      <translation>Instellingen</translation>
+      <translation>Instellings</translation>
     </message>
     <message>
       <source>Allow &amp;Printing the Document</source>
-      <translation>A&amp;fdrukken van het dokument toestaan</translation>
+      <translation>Laat &amp;druk van dokument toe</translation>
     </message>
     <message>
       <source>Allow &amp;Changing the Document</source>
-      <translation>Wi&amp;jzigen van het dokument toestaan</translation>
+      <translation>Laat Wy&amp;siging van dokument toe</translation>
     </message>
     <message>
       <source>Allow Cop&amp;ying Text and Graphics</source>
-      <translation>&amp;Kopiëren van teks en afbeeldingen toestaan</translation>
+      <translation>Laat &amp;Kopiëring van teks en prente toe</translation>
     </message>
     <message>
       <source>Allow Adding &amp;Annotations and Fields</source>
-      <translation>Toevoegen van &amp;annotaties en velden toestaan</translation>
+      <translation>Laat Toevoegen van &amp;annotasies en velde toe</translation>
     </message>
     <message>
       <source>S&amp;ecurity</source>
@@ -6336,27 +6332,27 @@ gebruikt, anders zyn de coördinaten relatief t.o.v. het object.</translation>
     </message>
     <message>
       <source>Output &amp;Intended For:</source>
-      <translation>&amp;Uitvoer bestemd voor:</translation>
+      <translation>&amp;Uitvoer bestem vir:</translation>
     </message>
     <message>
       <source>Screen / Web</source>
-      <translation>Scherm / web</translation>
+      <translation>Skerm / web (RGB)</translation>
     </message>
     <message>
       <source>Printer</source>
-      <translation>Printer</translation>
+      <translation>Drukker (CMYK)</translation>
     </message>
     <message>
       <source>&amp;Use Custom Rendering Settings</source>
-      <translation>Aangepaste &amp;weergaveinstellingen gebruiken</translation>
+      <translation>&amp;Gebruik tuisgemaakte rendering instellings</translation>
     </message>
     <message>
       <source>Rendering Settings</source>
-      <translation>Weergaveinstellingen</translation>
+      <translation>Rendering instellings</translation>
     </message>
     <message>
       <source>Fre&amp;quency:</source>
-      <translation>Fre&amp;quentie:</translation>
+      <translation>Fre&amp;kwensie:</translation>
     </message>
     <message>
       <source>&amp;Angle:</source>
@@ -6364,7 +6360,7 @@ gebruikt, anders zyn de coördinaten relatief t.o.v. het object.</translation>
     </message>
     <message>
       <source>S&amp;pot Function:</source>
-      <translation>&amp;Punt-functie:</translation>
+      <translation>&amp;Punt-funksie:</translation>
     </message>
     <message>
       <source>Simple Dot</source>
@@ -6380,15 +6376,15 @@ gebruikt, anders zyn de coördinaten relatief t.o.v. het object.</translation>
     </message>
     <message>
       <source>Ellipse</source>
-      <translation>Ellips</translation>
+      <translation>Ovaal</translation>
     </message>
     <message>
       <source>Solid Colors:</source>
-      <translation>Effen kleuren:</translation>
+      <translation>Soliede kleure:</translation>
     </message>
     <message>
       <source>Use ICC Profile</source>
-      <translation>ICC-profiel gebruiken</translation>
+      <translation>Gebruik ICC-profiel</translation>
     </message>
     <message>
       <source>Profile:</source>
@@ -6400,27 +6396,27 @@ gebruikt, anders zyn de coördinaten relatief t.o.v. het object.</translation>
     </message>
     <message>
       <source>Perceptual</source>
-      <translation>Perceptueel</translation>
+      <translation>Perseptueel</translation>
     </message>
     <message>
       <source>Relative Colorimetric</source>
-      <translation>Relatief colorimetrisch</translation>
+      <translation>Relatief kleurmetries</translation>
     </message>
     <message>
       <source>Saturation</source>
-      <translation>Verzadiging</translation>
+      <translation>Versadiging</translation>
     </message>
     <message>
       <source>Absolute Colorimetric</source>
-      <translation>Absoluut colorimetrisch</translation>
+      <translation>Absoluut kleurmetries</translation>
     </message>
     <message>
       <source>Images:</source>
-      <translation>Afbeeldingen:</translation>
+      <translation>Prente:</translation>
     </message>
     <message>
       <source>Don't use embedded ICC profiles</source>
-      <translation>Geen ingebedde ICC-profielen gebruiken</translation>
+      <translation>Moenie ingebedde ICC-profiele gebruik nie</translation>
     </message>
     <message>
       <source>C&amp;olor</source>
@@ -6428,11 +6424,11 @@ gebruikt, anders zyn de coördinaten relatief t.o.v. het object.</translation>
     </message>
     <message>
       <source>PDF/X-3 Output Intent</source>
-      <translation>PDF/X-3 uitvoer intent</translation>
+      <translation>PDF/X-3 uitvoer doel</translation>
     </message>
     <message>
       <source>&amp;Info String:</source>
-      <translation>&amp;Infoteks:</translation>
+      <translation>&amp;Inligting teks:</translation>
     </message>
     <message>
       <source>Output &amp;Profile:</source>
@@ -6440,7 +6436,7 @@ gebruikt, anders zyn de coördinaten relatief t.o.v. het object.</translation>
     </message>
     <message>
       <source>Trim Box</source>
-      <translation>Rechthoek byknippen</translation>
+      <translation>Reghoekknipboks</translation>
     </message>
     <message>
       <source>PDF/X-&amp;3</source>
@@ -6464,7 +6460,7 @@ gebruikt, anders zyn de coördinaten relatief t.o.v. het object.</translation>
     </message>
     <message>
       <source>&amp;Save</source>
-      <translation>Op&amp;slaan</translation>
+      <translation>&amp;Stoor</translation>
     </message>
     <message>
       <source>&amp;Cancel</source>
@@ -6472,61 +6468,60 @@ gebruikt, anders zyn de coördinaten relatief t.o.v. het object.</translation>
     </message>
     <message>
       <source>Export all pages to PDF</source>
-      <translation>Alle bladsy's naar PDF exporteren</translation>
+      <translation>Voer alle bladsye na PDF uit</translation>
     </message>
     <message>
       <source>Export a range of pages to PDF</source>
-      <translation>Een bereik exporteren naar PDF</translation>
+      <translation>Voer bereik van bladsye na PDF uit</translation>
     </message>
     <message>
       <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
-      <translation>Voer hier de bladsynummer(s) in die u wilt exporteren,
-byvoorbeeld 1,3,5 of 1-5 (pag. 1 t/m 5 exporteren).
-Een * staat voor alle bladsy's.</translation>
+      <translation>Skei bladsye met komme bv. 1,3,4,5 
+of gebruik 1-4 wat als vanaf 1 tot en met 4 insluit 
+of gebruik * vir alle bladsye</translation>
     </message>
     <message>
       <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
 Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
 PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management.</source>
-      <translation>Bepaalt de PDF-compatibiliteit. Standaard is &quot;Acrobat 4.0&quot;, dat de breedste compatibiliteit biedt.
-Gebruik Acrobat 5.0 als u functies uit PDF 1.4 gebruikt zoals transparantie of 128-bit versleuteling.
-PDF/X-3 is voor professionele kleurendruk en kan worden gebruikt als u Kleurbeheer heeft ingeschakeld.</translation>
+      <translation>Bepaal PDF-anpasbaarheid. Verstek is &quot;Acrobat 4.0&quot;, dit bied die meeste aanpasbaarheid.
+Gebruik Acrobat 5.0 as u funksies uit PDF 1.4 gebruik, soos deursigtigheid of 128-bis enkripsie.
+PDF/X-3 is vir kommersiële drukkers en is kiesbaar as jy kleurbestuur aktiveer.</translation>
     </message>
     <message>
       <source>Determines the binding of pages in the PDF. Unless you know
 you need to change it leave the default choice - Left.</source>
-      <translation>Bepaalt hoe de bladsy's gebonden worden in de PDF. Laat hier de
-standaardwaarde (links) staan, tenzy u weet wat u doet.</translation>
+      <translation>Stel die bind van bladsye in die PDF. Los op verstek (links), tensy u weet wat u doen.</translation>
     </message>
     <message>
       <source>Generates thumbnails of each page in the PDF.
 Some viewers can use the thumbnails for navigation.</source>
-      <translation>Maakt miniatuurweergaven aan van elke bladsy in de PDF.
-Sommige viewers kunnen deze gebruiken.</translation>
+      <translation>Maak miniatuurbladsye van elke bladsy in die PDF.
+So mmige blaaiers kan dit vir navigasie gebruik.</translation>
     </message>
     <message>
       <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
-      <translation>Maakt PDF-artikelen aan, zodat het gemakkelyker is door de teks te navigeren.</translation>
+      <translation>Maak PDF-artikels, sodat gemakliker in geskakelde pdfs genavigeer kan word.</translation>
     </message>
     <message>
       <source>Embed the bookmarks you created in your document.
 These are useful for navigating long PDF documents.</source>
-      <translation>Bewaart de bladwyzers in het dokument, zodat lange
-dokumenten eenvoudiger kunnen worden doorgebladerd.</translation>
+      <translation>Inbed bladwysers in dokument, sodat lange
+dokumente maklik deurblaai kan word.</translation>
     </message>
     <message>
       <source>Export resolution of text and vector graphics.
 This does not affect the resolution of bitmap images like photos.</source>
-      <translation>Bepaalt de exportresolutie voor teks en vectorafbeeldingen.
-Heeft geen invloed op de resolutie van bitmapafbeeldingen zoals foto's.</translation>
+      <translation>Uitvoer resolusie van teks en vektorgrafika.
+Dit het geen invloed op prent resolusies (soos JPG's) nie.</translation>
     </message>
     <message>
       <source>Compression of text and graphics.
 Unless you have a reason, leave this checked. This reduces PDF size.</source>
-      <translation>Comprimeert teks en afbeeldingen, zodat de resulterende PDF kleiner wordt.
-Laat deze instelling aan staan, tenzy u een speciale reden hebt.</translation>
+      <translation>Kompressie van text en grafika
+Moenie sonder rede verander nie. Dit verklein PDF groottes.</translation>
     </message>
     <message>
       <source>Version of compression for images.
@@ -6534,69 +6529,68 @@ Automatic allows Scribus to choose the best method.
 ZIP is good for images with solid colors.
 JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
 Leave it set to automatic, unless you have a need for special compression options.</source>
-      <translation>Compressiemethode voor afbeeldingen.
-'Automatisch' laat Scribus de beste methode kiezen.
-ZIP is goed voor afbeeldingen met effen kleuren.
-JPEG is vooral effectief by veel foto's (waarby een gering verlies mogelyk is).
-Laat by voorkeur de instelling op 'automatisch' staan, tenzy u een reden hebt om voor een bepaalde compressie te kiezen.</translation>
+      <translation>Kompressie metode vir prente.
+Outomaties laat Scribus die beste metode kies.
+ZIP is goed vir beelde met soliede kleure.
+JPEG is veral effektief met baie prente (waarvoor 'n geringe verlies moontlik is).
+Los op outomaties, tensy u 'n rede vir 'n bepaalde kompressie het.</translation>
     </message>
     <message>
       <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
-      <translation>Compressieniveau: Minimaal (25%), laag (50%), medium (75%), hoog (85%), maximaal (95%)</translation>
+      <translation>Kompressievlakke: Minimum (25%), laag (50%), medium (75%), hoog (85%), maksimum (95%)</translation>
     </message>
     <message>
       <source>Downsample your bitmap images to the selected DPI.
 Leaving this unchecked will render them at their native resolution.</source>
-      <translation>Bitmapafbeeldingen terugsampelen naar het geselecteerde aantal DPI. Als u deze
-optie niet selecteert, worden afbeeldingen op hun eigen resolutie weergegeven.</translation>
+      <translation>Monster bitmap prente af na gekose DPI.
+As u hierdie los, word hulle in hulle huidige resolusies gestoor.</translation>
     </message>
     <message>
       <source>DPI (Dots Per Inch) for image export.</source>
-      <translation>DPI (dots per inch) voor afbeeldingen.</translation>
+      <translation>DPI (kolle per duim) vir prentjie uitvoer.</translation>
     </message>
     <message>
       <source>Embed fonts into the PDF. Embedding the fonts
 will preserve the layout and appearance of your document.</source>
-      <translation>Lettertypen inbedden in de PDF.  Hierdoor weet u zeker
-dat layout en uiterlyk bewaard zullen blyven.</translation>
+      <translation>In bed lettertipes in dIe PDF. Dit verseker dat dokument se voorkoms nie sal verander nie.</translation>
     </message>
     <message>
       <source>Enables presentation effects when using Acrobat Reader in full screen mode.</source>
-      <translation>Schakelt presentatie-effecten in wanneer Acrobat Reader in volledig scherm-modus wordt gebruikt.</translation>
+      <translation>Skakel aanbieding effekte aan as Acrobat in volskerm modus is.</translation>
     </message>
     <message>
       <source>Show page previews of each page listed above.</source>
-      <translation>Laat van elke bladsy een voorbeeld zien.</translation>
+      <translation>Wys bladsyvoorbeelde van bogenoemde bladsye.</translation>
     </message>
     <message>
       <source>Length of time the page is shown before the presentation starts on the selected page.</source>
-      <translation>Hoe lang de bladsy wordt weergegeven voordat de presentatie start op de geselecteerde bladsy.</translation>
+      <translation>Bladsy vertooning duurs voordat aanbieding effekte begin.</translation>
     </message>
     <message>
       <source>Length of time the effect runs.
 A shorter time will speed up the effect, a longer one will slow it down.</source>
-      <translation>Hoe lang het effect erover mag doen.
-Een kortere tyd maakt het effect sneller.</translation>
+      <translation>Tydsduur van effek.
+Korter tyd sal effek versnel, 'n langer sal dit vertraag.</translation>
     </message>
     <message>
       <source>Type of the display effect.</source>
-      <translation>Type van het overgangseffect.</translation>
+      <translation>Tipe oorgangseffect.</translation>
     </message>
     <message>
       <source>Direction of the effect of moving lines for the split and blind effects.</source>
-      <translation>Richting van het effect van bewegende lynen en de lamel-effecten.</translation>
+      <translation>Rigting van effek van bewegende lyne vir die split en verblind effekte.</translation>
     </message>
     <message>
       <source>Starting position for the box and split effects.</source>
-      <translation>Startpositie voor de rechthoek en split-effecten.</translation>
+      <translation>Beginposisie vir die regthoek en split-effekte.</translation>
     </message>
     <message>
       <source>Direction of the glitter or wipe effects.</source>
-      <translation>Richting voor de glitter of veeg-effecten.</translation>
+      <translation>Rigting vir die glinster of vee-effekte.</translation>
     </message>
     <message>
       <source>Apply the selected effect to all pages.</source>
-      <translation>Het geselecteerde effect op alle bladsy's toepassen.</translation>
+      <translation>Pas gekose effek op alle bladsye toe.</translation>
     </message>
     <message>
       <source>Enable the security features in your exported PDF.
@@ -6616,7 +6610,7 @@ in of uit te schakelen in uw PDF</translation>
     </message>
     <message>
       <source>Choose a password for users to be able to read your PDF.</source>
-      <translation>Kies een wachtwoord voor gebruikers om de PDF te kunnen lezen.</translation>
+      <translation>Kies een wachtwoord vir gebruikers om de PDF te kunnen lezen.</translation>
     </message>
     <message>
       <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
@@ -6629,7 +6623,7 @@ in of uit te schakelen in uw PDF</translation>
     <message>
       <source>Allow copying of text or graphics from the PDF. 
 If un-checked, text and graphics cannot be copied.</source>
-      <translation>Het kopiëren van teks of afbeeldingen uit de PDF toestaan.
+      <translation>Het kopiëren van teks of prente uit de PDF toestaan.
 Indien niet geselecteerd is dit onmogelyk.</translation>
     </message>
     <message>
@@ -6642,71 +6636,68 @@ Indien niet geselecteerd, is dit onmogelyk.</translation>
       <source>Color model for the output of your PDF.
 Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.
 Choose Printer when printing to a true 4 color CMYK printer.</source>
-      <translation>Kleurmodel voor de uitvoer van uw PDF.
-Kies Scherm/web voor PDF's die vanaf het scherm zullen worden gelezen of op gemiddelde inkjets afgedrukt.
-Kies Printer als u naar een echte vierkleuren (CMYK) printer afdrukt.</translation>
+      <translation>Kleurmodel vir uitvoer van u PDF.
+Kies Skerm/web (RGB) vir PDF's wat op skerms vertoon of tipiese Inkjet drukkers gedruk word.
+Kies Printer (CMYK) as u na 'n egte vierkleur (CMYK) drukker druk.</translation>
     </message>
     <message>
       <source>This is an advanced setting which is not enabled by default. This should only be enabled
 when specifically requested by your printer and they have given you the exact details needed.
 Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
-      <translation>Dit is een geavanceerde instelling die standaard uit staat. Dit mag alleen worden ingeschakeld
-als dit voor uw printer werkelyk noodzakelyk is, en als u over de juiste details beschkt.
-Anders kan uw PDF niet correct op papier verschynen, en is ook niet bruikbaar op andere systemen.</translation>
+      <translation>Hierdie is 'n gevorderde stelling wat net gebruik moet word as jou drukker vir jou sê om dit te stel. Raadpleeg die poslys vir u hiermee peuter.</translation>
     </message>
     <message>
       <source>Embed a color profile for solid colors</source>
-      <translation>Een kleurprofiel inbedden voor effen kleuren</translation>
+      <translation>Inbed 'n kleurprofiel vir soliede kleure</translation>
     </message>
     <message>
       <source>Color profile for solid colors</source>
-      <translation>Kleurprofiel voor effen kleuren</translation>
+      <translation>Kleurprofiel vir soliede kleure</translation>
     </message>
     <message>
       <source>Rendering intent for solid colors</source>
-      <translation>Rendering intent voor effen kleuren</translation>
+      <translation>Rendering doel vir soliede kleure</translation>
     </message>
     <message>
       <source>Embed a color profile for images</source>
-      <translation>Een kleurprofiel inbedden voor afbeeldingen</translation>
+      <translation>Inbed van 'n kleurprofiel vir prente</translation>
     </message>
     <message>
       <source>Do not use color profiles that are embedded in source images</source>
-      <translation>Kleurprofielen in bronafbeeldingen niet gebruiken</translation>
+      <translation>Kleurprofiele in prentjies moenie gebruik word nie</translation>
     </message>
     <message>
       <source>Color profile for images</source>
-      <translation>Kleurprofiel voor afbeeldingen</translation>
+      <translation>Kleurprofiel vir prente</translation>
     </message>
     <message>
       <source>Rendering intent for images</source>
-      <translation>Rendering intent voor afbeeldingen</translation>
+      <translation>Rendering doel vir prente</translation>
     </message>
     <message>
       <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
-      <translation>Uitvoerprofiel voor het afdrukken. Indien mogelyk, probeer uw printer te gebruiken by het selecteren van een profiel.</translation>
+      <translation>Uitvoerprofiel vir drukwerk. Indien moontlik, probeer leiding by u drukker te kry.</translation>
     </message>
     <message>
       <source>Mandatory string for PDF/X-3 or the PDF will fail
 PDF/X-3 conformance. We recommend you use the title of the document.</source>
-      <translation>Een verplichte teks voor PDF/X-3, anders is de PDF niet conformerend aan
-deze standaard. We bevelen aan de titel van het dokument te gebruiken.</translation>
+      <translation>Verpligte string vir PDF/X-3, anders voldoen PDF nie aan PDF/X-3 standaard nie. Ons beveel die dokument titel aan.</translation>
     </message>
     <message>
       <source>Distance for bleed from the top of the physical page</source>
-      <translation>Afloop-afstand vanaf de bovenkant van de fysieke bladsy</translation>
+      <translation>Afloop-afstand vanaf die bokant van die fisiese bladsy</translation>
     </message>
     <message>
       <source>Distance for bleed from the bottom of the physical page</source>
-      <translation>Afloop-afstand vanaf de onderkant van de fysieke bladsy</translation>
+      <translation>Afloop-afstand vanaf die onderkant van die fisiese bladsy</translation>
     </message>
     <message>
       <source>Distance for bleed from the left of the physical page</source>
-      <translation>Afloop-afstand vanaf de linkerkant van de fysieke bladsy</translation>
+      <translation>Afloop-afstand vanaf die linkerkant van die fisiese bladsy</translation>
     </message>
     <message>
       <source>Distance for bleed from the right of the physical page</source>
-      <translation>Afloop-afstand vanaf de rechterkant van de fysieke bladsy</translation>
+      <translation>Afloop-afstand vanaf die regterkant van die fisiese bladsy</translation>
     </message>
     <message>
       <source>Save as</source>
@@ -6718,62 +6709,62 @@ deze standaard. We bevelen aan de titel van het dokument te gebruiken.</translat
     </message>
     <message>
       <source>&amp;Rotation:</source>
-      <translation>&amp;Rotatie:</translation>
+      <translation>&amp;Rotasie:</translation>
     </message>
     <message>
       <source>Compress Text and &amp;Vector Graphics</source>
-      <translation type="unfinished" />
+      <translation>Krimp teks en vektorgrafika</translation>
     </message>
     <message>
       <source>&amp;Subset all Fonts</source>
-      <translation type="unfinished" />
+      <translation>&amp;Substel alle lettertipes</translation>
     </message>
     <message>
       <source>Fonts to subset:</source>
-      <translation type="unfinished" />
+      <translation>Lettertipes om te substel:</translation>
     </message>
     <message>
       <source>En&amp;able Presentation Effects</source>
-      <translation type="unfinished" />
+      <translation>Sk&amp;akel aanbieding effekte aan</translation>
     </message>
     <message>
       <source>&amp;Presentation</source>
-      <translation type="unfinished" />
+      <translation>&amp;Aanbieding</translation>
     </message>
     <message>
       <source>Mirror Page(s) horizontally</source>
-      <translation type="unfinished" />
+      <translation>Spieëlbeeld bladsy(e) horisontaal</translation>
     </message>
     <message>
       <source>Mirror Page(s) vertically</source>
-      <translation type="unfinished" />
+      <translation>Spieëlbeeld bladsy(e) vertikaal</translation>
     </message>
   </context>
   <context>
     <name>PPreview</name>
     <message>
       <source>Print Preview</source>
-      <translation>Afdrukvoorbeeld</translation>
+      <translation>Drukvoorbeeld</translation>
     </message>
     <message>
       <source>Anti-alias &amp;Text</source>
-      <translation>Anti-alias &amp;teks</translation>
+      <translation>Anti-aliaseer &amp;teks</translation>
     </message>
     <message>
       <source>Anti-alias &amp;Graphics</source>
-      <translation>Anti-alias &amp;grafisch</translation>
+      <translation>Anti-aliaseer &amp;grafika</translation>
     </message>
     <message>
       <source>Display Trans&amp;parency</source>
-      <translation>Trans&amp;parantie weergeven</translation>
+      <translation>Vertoon deursi&amp;gtigheid</translation>
     </message>
     <message>
       <source>&amp;Under Color Removal</source>
-      <translation>Onderliggende kle&amp;uren verwyderen</translation>
+      <translation>Onderleênde kle&amp;ur verwydering</translation>
     </message>
     <message>
       <source>&amp;Display CMYK</source>
-      <translation>CMYK &amp;weergeven</translation>
+      <translation>&amp;Vertoon CMYK</translation>
     </message>
     <message>
       <source>&amp;C</source>
@@ -6794,32 +6785,31 @@ deze standaard. We bevelen aan de titel van het dokument te gebruiken.</translat
     <message>
       <source>Provides a more pleasant view of text items in the viewer, at the expense
 of a slight slowdown in previewing. This only affects Type 1 fonts</source>
-      <translation>Teks ziet er beter uit met deze optie, maar de weergave wordt iets
-trager. Dit heeft alleen effect op Type 1 lettertypen</translation>
+      <translation>Verskaf mooier teks in ruil vir spoed. Dit het net 'n effek op Tipe 1 lettertipes</translation>
     </message>
     <message>
       <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</source>
-      <translation>Toont doorschynende elementen in uw dokument. Ghostscript 7.07 of hoger is hiervoor vereist</translation>
+      <translation>Vertoon deursigtigheid en deursigtige items in dokument. Vereis Ghostscript 7.07 of nuwer</translation>
     </message>
     <message>
       <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
-      <translation>Geeft een afdrukvoorbeeld weer met simulaties van CMYK-inkten, inplaats van RGB-kleuren</translation>
+      <translation>Gee 'n drukvoorbeeld weer met simulaties van CMYK-inke, ipv RGB-kleure</translation>
     </message>
     <message>
       <source>Enable/disable the C (Cyan) ink plate</source>
-      <translation>Schakelt de C (Cyaan) inktplaat in of uit</translation>
+      <translation>Skakel die C (Cyaan) inkplaat aan of af</translation>
     </message>
     <message>
       <source>Enable/disable the M (Magenta) ink plate</source>
-      <translation>Schakelt de M (Magenta) inktplaat in of uit</translation>
+      <translation>Skakel die M (Magenta) inkplaat aan of af</translation>
     </message>
     <message>
       <source>Enable/disable the Y (Yellow) ink plate</source>
-      <translation>Schakelt de Y (Yellow = geel) inktplaat in of uit</translation>
+      <translation>Skakel die Y (Yellow = geel) inkplaat aan of af</translation>
     </message>
     <message>
       <source>Enable/disable the K (Black) ink plate</source>
-      <translation>Schakelt de K (Black = zwart) inktplaat in of uit</translation>
+      <translation>Skakel die K (blacK = swart) inkplaat aan of af</translation>
     </message>
     <message>
       <source>All</source>
@@ -6832,28 +6822,25 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-      <translation>Een methode om grystinten die zyn samengesteld uit cyaan, geel en magenta
-te vervangen door tinten enkel op zwart gebaseerd.
-UCR (Under Color Removal) heeft vooral invloed op donkere en neutrale tinten
-die dicht by grys liggen. Sommige afbeeldingen worden fraaier afgedrukt door
-deze functie; experimenteren kan nodig zyn.
-UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
+      <translation>I metode om CMY grys te vervang met swart grys.
+UCR (Under Color Removal) het veral 'n invloed op donker en neutrale skadus naby grys. Sommige prente sal mooier druk met die, maar mens moet maar maarmee eksperimenteer.
+UCR verklein die kans op overversadiging met CMY inke.</translation>
     </message>
     <message>
       <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and
 vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-      <translation type="unfinished" />
+      <translation>Verskaf mooier TrueType letters, Opentype letters, EPS, PDF en vektorgrafika vertoning, maar maak die proses effens stadiger.</translation>
     </message>
   </context>
   <context>
     <name>Page</name>
     <message>
       <source>Copy Here</source>
-      <translation>Hierheen kopiëren</translation>
+      <translation>Kopiër hierheen</translation>
     </message>
     <message>
       <source>Move Here</source>
-      <translation>Hierheen verplaatsen</translation>
+      <translation>Skuif hierheen</translation>
     </message>
     <message>
       <source>Cancel</source>
@@ -6861,83 +6848,83 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
       <source>&amp;Paste</source>
-      <translation>&amp;Plakken</translation>
+      <translation>&amp;Plak</translation>
     </message>
     <message>
       <source>Show &amp;Margins</source>
-      <translation>&amp;Marges tonen</translation>
+      <translation>Vertoon &amp;Kantlyne</translation>
     </message>
     <message>
       <source>Show &amp;Frames</source>
-      <translation>&amp;Frames tonen</translation>
+      <translation>Vertoon &amp;Rame</translation>
     </message>
     <message>
       <source>Show &amp;Images</source>
-      <translation>Afbeeld&amp;ingen tonen</translation>
+      <translation>Wys pren&amp;te</translation>
     </message>
     <message>
       <source>Show &amp;Grid</source>
-      <translation>R&amp;aster tonen</translation>
+      <translation>Wys R&amp;ooster</translation>
     </message>
     <message>
       <source>Show G&amp;uides</source>
-      <translation>H&amp;ulplynen tonen</translation>
+      <translation>Wys H&amp;ulplyne</translation>
     </message>
     <message>
       <source>Show &amp;Baseline Grid</source>
-      <translation>&amp;Basislyn-raster tonen</translation>
+      <translation>Wys &amp;Basislyn-rooster</translation>
     </message>
     <message>
       <source>Sn&amp;ap to Grid</source>
-      <translation>Ma&amp;gnetisch raster</translation>
+      <translation>Ma&amp;gnetise rooster</translation>
     </message>
     <message>
       <source>Sna&amp;p to Guides</source>
-      <translation>Magnetische hul&amp;plynen</translation>
+      <translation>Magnetise hul&amp;plyne</translation>
     </message>
     <message>
       <source>Picture</source>
-      <translation>Afbeelding</translation>
+      <translation>Prent</translation>
     </message>
     <message>
       <source>File: </source>
-      <translation>Lêer:</translation>
+      <translation>Lêer: </translation>
     </message>
     <message>
       <source>Original PPI: </source>
-      <translation>Oorspronkelyk PPI:</translation>
+      <translation>Oorspronklike PPI:</translation>
     </message>
     <message>
       <source>Actual PPI: </source>
-      <translation>Werkelyk PPI:</translation>
+      <translation>Werklike PPI:</translation>
     </message>
     <message>
       <source>Linked Text</source>
-      <translation>Gekoppelde teks</translation>
+      <translation>Geskakelde teks</translation>
     </message>
     <message>
       <source>Text Frame</source>
-      <translation>Teksframe</translation>
+      <translation>Teksraam</translation>
     </message>
     <message>
       <source>Text on a Path</source>
-      <translation>Teks op een pad</translation>
+      <translation>Teks op 'n pad</translation>
     </message>
     <message>
       <source>Paragraphs: </source>
-      <translation>Alinea's:</translation>
+      <translation>Paragrawe: </translation>
     </message>
     <message>
       <source>Words: </source>
-      <translation>Woorden:</translation>
+      <translation>Woorde:</translation>
     </message>
     <message>
       <source>Chars: </source>
-      <translation>Tekens:</translation>
+      <translation>Letters:</translation>
     </message>
     <message>
       <source>Print: </source>
-      <translation>Afdrukken:</translation>
+      <translation>Druk: </translation>
     </message>
     <message>
       <source>Enabled</source>
@@ -6945,127 +6932,127 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
       <source>Disabled</source>
-      <translation>Uit</translation>
+      <translation>Af</translation>
     </message>
     <message>
       <source>In&amp;fo</source>
-      <translation>In&amp;fo</translation>
+      <translation>In&amp;lig</translation>
     </message>
     <message>
       <source>&amp;Get Picture...</source>
-      <translation>Afbeelding verkry&amp;gen...</translation>
+      <translation>Kry &amp;Prent...</translation>
     </message>
     <message>
       <source>I&amp;mage Visible</source>
-      <translation>Af&amp;beelding zichtbaar</translation>
+      <translation>P&amp;rent sigbaar</translation>
     </message>
     <message>
       <source>&amp;Update Picture</source>
-      <translation>Afbeelding by&amp;werken</translation>
+      <translation>Opdatee&amp;r prent</translation>
     </message>
     <message>
       <source>&amp;Edit Picture</source>
-      <translation>Afb&amp;eelding bewerken</translation>
+      <translation>Bewerk pr&amp;ent</translation>
     </message>
     <message>
       <source>&amp;Adjust Frame to Picture</source>
-      <translation>Frame aan &amp;afbeelding aanpassen</translation>
+      <translation>Pas raamgrootte by &amp;prent aan</translation>
     </message>
     <message>
       <source>&amp;Get Text...</source>
-      <translation>Teks verkry&amp;gen...</translation>
+      <translation>Kr&amp;y Teks...</translation>
     </message>
     <message>
       <source>&amp;Append Text...</source>
-      <translation>Teks &amp;toevoegen...</translation>
+      <translation>V&amp;oeg Teks agteraan...</translation>
     </message>
     <message>
       <source>&amp;Edit Text...</source>
-      <translation>T&amp;eks bewerken...</translation>
+      <translation>Bewerk T&amp;eks...</translation>
     </message>
     <message>
       <source>Is PDF &amp;Bookmark</source>
-      <translation>Dit is een PDF-&amp;bladwyzer</translation>
+      <translation>Dit is 'n PDF-&amp;boekmerk</translation>
     </message>
     <message>
       <source>Is PDF A&amp;nnotation</source>
-      <translation>Dit is een PDF-a&amp;nnotatie</translation>
+      <translation>Dit is 'n PDF-a&amp;nnotasie</translation>
     </message>
     <message>
       <source>Annotation P&amp;roperties</source>
-      <translation>&amp;Eigenschappen van annotatie</translation>
+      <translation>&amp;Eienskappe van annotasie</translation>
     </message>
     <message>
       <source>Field P&amp;roperties</source>
-      <translation>&amp;Veldeigenschappen</translation>
+      <translation>&amp;Veldeienskappe</translation>
     </message>
     <message>
       <source>&amp;PDF Options</source>
-      <translation>&amp;PDF-opties</translation>
+      <translation>&amp;PDF-opsies</translation>
     </message>
     <message>
       <source>Edit Text...</source>
-      <translation>Teks bewerken...</translation>
+      <translation>Bewerk Teks...</translation>
     </message>
     <message>
       <source>&amp;Lock</source>
-      <translation>Vergrende&amp;len</translation>
+      <translation>S&amp;luit</translation>
     </message>
     <message>
       <source>Un&amp;lock</source>
-      <translation>&amp;Losmaken</translation>
+      <translation>Onts&amp;luit</translation>
     </message>
     <message>
       <source>Lock Object &amp;Size</source>
-      <translation>Object&amp;grootte vergrendelen</translation>
+      <translation>Sluit Objek&amp;grootte</translation>
     </message>
     <message>
       <source>Unlock Object &amp;Size</source>
-      <translation>Object&amp;grootte losmaken</translation>
+      <translation>Ontsluit Objek&amp;grootte</translation>
     </message>
     <message>
       <source>Send to S&amp;crapbook</source>
-      <translation>In &amp;kladblok zetten</translation>
+      <translation>Stuur na &amp;kladblok</translation>
     </message>
     <message>
       <source>Send to La&amp;yer</source>
-      <translation>In &amp;laag zetten</translation>
+      <translation>Stuur na &amp;laag</translation>
     </message>
     <message>
       <source>&amp;Insert Sample Text</source>
-      <translation>Voorbeeldteks &amp;invoegen</translation>
+      <translation>Voeg voorbeeldteks &amp;in</translation>
     </message>
     <message>
       <source>&amp;Group</source>
-      <translation>&amp;Groeperen</translation>
+      <translation>&amp;Groepeer</translation>
     </message>
     <message>
       <source>Un&amp;group</source>
-      <translation>&amp;Groep losmaken</translation>
+      <translation>Ont&amp;groepeer</translation>
     </message>
     <message>
       <source>Le&amp;vel</source>
-      <translation>Ni&amp;veau</translation>
+      <translation>&amp;Vlak</translation>
     </message>
     <message>
       <source>Send to &amp;Back</source>
-      <translation>Naar &amp;achtergrond</translation>
+      <translation>Stuur na &amp;agtergrond</translation>
     </message>
     <message>
       <source>Bring to &amp;Front</source>
-      <translation>Naar &amp;voorgrond</translation>
+      <translation>Bring na &amp;voorgrond</translation>
     </message>
     <message>
       <source>&amp;Lower</source>
-      <translation>&amp;Lager</translation>
+      <translation>&amp;Laatsak</translation>
     </message>
     <message>
       <source>&amp;Raise</source>
-      <translation>&amp;Hoger</translation>
+      <translation>&amp;Lig</translation>
     </message>
     <message>
       <source>&amp;Picture Frame</source>
-      <translation>Afbeeldings&amp;frame</translation>
+      <translation>Prent&amp;raam</translation>
     </message>
     <message>
       <source>Pol&amp;ygon</source>
@@ -7073,43 +7060,43 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
       <source>&amp;Outlines</source>
-      <translation>&amp;Outline</translation>
+      <translation>&amp;Buitelyne</translation>
     </message>
     <message>
       <source>&amp;Text Frame</source>
-      <translation>&amp;Teksframe</translation>
+      <translation>&amp;Teksraam</translation>
     </message>
     <message>
       <source>&amp;Bezier Curve</source>
-      <translation>&amp;Beziercurve</translation>
+      <translation>&amp;Bezierkurwe</translation>
     </message>
     <message>
       <source>Conve&amp;rt to</source>
-      <translation>Omzetten naa&amp;r</translation>
+      <translation>Skakel om n&amp;a</translation>
     </message>
     <message>
       <source>Cu&amp;t</source>
-      <translation>Kni&amp;ppen</translation>
+      <translation>Kni&amp;p</translation>
     </message>
     <message>
       <source>&amp;Copy</source>
-      <translation>&amp;Kopiëren</translation>
+      <translation>&amp;Kopiër</translation>
     </message>
     <message>
       <source>&amp;Delete</source>
-      <translation>Verwy&amp;deren</translation>
+      <translation>Vee&amp;uit</translation>
     </message>
     <message>
       <source>C&amp;lear Contents</source>
-      <translation>Inhoud &amp;leegmaken</translation>
+      <translation>Maak Inhoud &amp;leeg</translation>
     </message>
     <message>
       <source>Show P&amp;roperties...</source>
-      <translation>&amp;Eigenschappen tonen...</translation>
+      <translation>Toon &amp;Eienskappe...</translation>
     </message>
     <message>
       <source>Hide P&amp;roperties...</source>
-      <translation>&amp;Eigenschappen verbergen...</translation>
+      <translation>Versteek &amp;Eienskappe...</translation>
     </message>
     <message>
       <source>None</source>
@@ -7117,19 +7104,19 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
       <source>Warning</source>
-      <translation>Waarschuwing</translation>
+      <translation>Waarskuwing</translation>
     </message>
     <message>
       <source>Do you really want to clear all your Text?</source>
-      <translation>Wilt u werkelyk alle teks wissen?</translation>
+      <translation>Wil u werklik al die teks uitvee?</translation>
     </message>
     <message>
       <source>The Program</source>
-      <translation>Het programma</translation>
+      <translation>Die program</translation>
     </message>
     <message>
       <source>is missing!</source>
-      <translation>ontbreekt op uw systeem!</translation>
+      <translation>ontbreek op u masjien!</translation>
     </message>
     <message>
       <source>Copy of</source>
@@ -7140,7 +7127,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     <name>PageItem</name>
     <message>
       <source>Image</source>
-      <translation>Afbeelding</translation>
+      <translation>Prent</translation>
     </message>
     <message>
       <source>Text</source>
@@ -7182,7 +7169,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
       <source>Search Results for: </source>
-      <translation>Zoekresultaten voor: </translation>
+      <translation>Soekresultate vir: </translation>
     </message>
     <message>
       <source>Preview</source>
@@ -7190,7 +7177,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
       <source>Select</source>
-      <translation>Selecteren</translation>
+      <translation>Kies</translation>
     </message>
     <message>
       <source>Cancel</source>
@@ -7201,7 +7188,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     <name>PicStatus</name>
     <message>
       <source>Pictures</source>
-      <translation>Afbeeldingen</translation>
+      <translation>Prente</translation>
     </message>
     <message>
       <source>Name</source>
@@ -7209,7 +7196,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
       <source>Path</source>
-      <translation>Lokatie</translation>
+      <translation>Pad</translation>
     </message>
     <message>
       <source>Page</source>
@@ -7217,7 +7204,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
       <source>Print</source>
-      <translation>Afdrukken</translation>
+      <translation>Druk</translation>
     </message>
     <message>
       <source>Status</source>
@@ -7225,7 +7212,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
       <source>Goto</source>
-      <translation>Ga naar</translation>
+      <translation>Ga na</translation>
     </message>
     <message>
       <source>Yes</source>
@@ -7241,7 +7228,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
       <source>Search</source>
-      <translation>Zoeken</translation>
+      <translation>Soek</translation>
     </message>
     <message>
       <source>&amp;OK</source>
@@ -7252,15 +7239,15 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     <name>PolygonProps</name>
     <message>
       <source>Polygon Properties</source>
-      <translation>Polygoon-eigenschappen</translation>
+      <translation>Polygoon-eienskappe</translation>
     </message>
     <message>
       <source>Corn&amp;ers:</source>
-      <translation>Ho&amp;eken:</translation>
+      <translation>Ho&amp;eke:</translation>
     </message>
     <message>
       <source>&amp;Rotation:</source>
-      <translation>&amp;Rotatie:</translation>
+      <translation>&amp;Rotasie:</translation>
     </message>
     <message>
       <source> %</source>
@@ -7268,7 +7255,7 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
       <source>&amp;Factor:</source>
-      <translation>&amp;Factor:</translation>
+      <translation>&amp;Faktor:</translation>
     </message>
     <message>
       <source>&amp;OK</source>
@@ -7280,36 +7267,36 @@ vector graphics in the preview, at the expense of a slight slowdown in previewin
     </message>
     <message>
       <source>Number of corners for polygons</source>
-      <translation>Aantal hoeken voor polygoon</translation>
+      <translation>Aantal hoeke vir polygoon</translation>
     </message>
     <message>
       <source>Degrees of rotation for polygons</source>
-      <translation>Rotatie in graden voor polygoon</translation>
+      <translation>Rotasie in grade vir polygoon</translation>
     </message>
     <message>
       <source>Sample Polygon</source>
-      <translation>Voorbeeld</translation>
+      <translation>Voorbeeld polygoon</translation>
     </message>
     <message>
       <source>Apply &amp;Factor</source>
-      <translation>&amp;Factor toepassen</translation>
+      <translation>Pas &amp;Faktor toe</translation>
     </message>
     <message>
       <source>Apply Convex/Concave Factor to change shape of Polygons</source>
-      <translation>Convex/concaaf-factor toepassen op de vorm van polygonen</translation>
+      <translation>Pas konveks/konkaaf-faktor toe om vorm van polygone te verander</translation>
     </message>
     <message>
       <source>A negative value will make the polygon concave (or star shaped),
  a positive value will make it convex</source>
-      <translation>Een negatieve waarde maakt de polygoon concaaf (stervormig),
-een positieve waarde maakt haar convex</translation>
+      <translation>'n Negatiewe waarde maak die polygoon konkaaf (stervormig), 
+'n positiewe waarde maak hom konveks</translation>
     </message>
   </context>
   <context>
     <name>Preferences</name>
     <message>
       <source>Preferences</source>
-      <translation>Voorkeuren</translation>
+      <translation>Voorkeure</translation>
     </message>
     <message>
       <source>General</source>
@@ -7317,11 +7304,11 @@ een positieve waarde maakt haar convex</translation>
     </message>
     <message>
       <source>Document</source>
-      <translation>Document</translation>
+      <translation>Dokument</translation>
     </message>
     <message>
       <source>Guides</source>
-      <translation>Hulplynen</translation>
+      <translation>Hulplyne</translation>
     </message>
     <message>
       <source>Typography</source>
@@ -7329,7 +7316,7 @@ een positieve waarde maakt haar convex</translation>
     </message>
     <message>
       <source>Tools</source>
-      <translation>Gereedschappen</translation>
+      <translation>Gereedskap</translation>
     </message>
     <message>
       <source>Scrapbook</source>
@@ -7337,15 +7324,15 @@ een positieve waarde maakt haar convex</translation>
     </message>
     <message>
       <source>Display</source>
-      <translation>Tonen</translation>
+      <translation>Vertoon</translation>
     </message>
     <message>
       <source>External Tools</source>
-      <translation>Externe hulpprogramma's</translation>
+      <translation>Eksterne hulpprogramme</translation>
     </message>
     <message>
       <source>Misc.</source>
-      <translation>Diversen</translation>
+      <translation>Verskei</translation>
     </message>
     <message>
       <source>GUI</source>
@@ -7361,15 +7348,15 @@ een positieve waarde maakt haar convex</translation>
     </message>
     <message>
       <source>&amp;Font Size:</source>
-      <translation>&amp;Tekengrootte:</translation>
+      <translation>&amp;Lettergrootte:</translation>
     </message>
     <message>
       <source>Units</source>
-      <translation>Eenheden</translation>
+      <translation>Eenhede</translation>
     </message>
     <message>
       <source>Points (pt)</source>
-      <translation>Punten (pt)</translation>
+      <translation>Punte (pt)</translation>
     </message>
     <message>
       <source>Millimetres (mm)</source>
@@ -7377,7 +7364,7 @@ een positieve waarde maakt haar convex</translation>
     </message>
     <message>
       <source>Inches (in)</source>
-      <translation>Inch (in)</translation>
+      <translation>Duime (in)</translation>
     </message>
     <message>
       <source>Picas (p)</source>
@@ -7385,11 +7372,11 @@ een positieve waarde maakt haar convex</translation>
     </message>
     <message>
       <source>Mouse Settings</source>
-      <translation>Muisinstellingen</translation>
+      <translation>Muisinstelling</translation>
     </message>
     <message>
       <source>&amp;Wheel Jump:</source>
-      <translation>Muis&amp;wiel:</translation>
+      <translation>&amp;Wiel sprong:</translation>
     </message>
     <message>
       <source> px</source>
@@ -7397,7 +7384,7 @@ een positieve waarde maakt haar convex</translation>
     </message>
     <message>
       <source>&amp;Grab Radius:</source>
-      <translation>&amp;Objecten vastpakken:</translation>
+      <translation>&amp;Gryp afstand:</translation>
     </message>
     <message>
       <source>Menus</source>
@@ -7405,11 +7392,11 @@ een positieve waarde maakt haar convex</translation>
     </message>
     <message>
       <source>&amp;Recent Documents:</source>
-      <translation>&amp;Recente dokumenten:</translation>
+      <translation>&amp;Onlangse dokumente:</translation>
     </message>
     <message>
       <source>Paths</source>
-      <translation>Lokaties</translation>
+      <translation>Paaie</translation>
     </message>
     <message>
       <source>&amp;Documents:</source>
@@ -7417,15 +7404,15 @@ een positieve waarde maakt haar convex</translation>
     </message>
     <message>
       <source>&amp;Change...</source>
-      <translation>&amp;Wyzigen...</translation>
+      <translation>&amp;Wysig...</translation>
     </message>
     <message>
       <source>&amp;ICC Profiles:</source>
-      <translation>&amp;ICC-profielen:</translation>
+      <translation>&amp;ICC-profiele:</translation>
     </message>
     <message>
       <source>C&amp;hange...</source>
-      <translation>Wyzige&amp;n...</translation>
+      <translation>Wys&amp;ig...</translation>
     </message>
     <message>
       <source>&amp;Scripts:</source>
@@ -7433,7 +7420,7 @@ een positieve waarde maakt haar convex</translation>
     </message>
     <message>
       <source>Ch&amp;ange...</source>
-      <translation>Wy&amp;zigen...</translation>
+      <translation>Wy&amp;sig...</translation>
     </message>
     <message>
       <source>Page Size</source>
@@ -7441,7 +7428,7 @@ een positieve waarde maakt haar convex</translation>
     </message>
     <message>
       <source>Custom</source>
-      <translation>Aangepast</translation>
+      <translation>Tuisgemaak</translation>
     </message>
     <message>
       <source>&amp;Size:</source>
@@ -7449,15 +7436,15 @@ een positieve waarde maakt haar convex</translation>
     </message>
     <message>
       <source>Portrait</source>
-      <translation>Staand</translation>
+      <translation>Regop</translation>
     </message>
     <message>
       <source>Landscape</source>
-      <translation>Liggend</translation>
+      <translation>Gekantel</translation>
     </message>
     <message>
       <source>Orie&amp;ntation:</source>
-      <translation>Orië&amp;ntatie:</translation>
+      <translation>Orië&amp;ntasie:</translation>
     </message>
     <message>
       <source>&amp;Width:</source>
@@ -7469,15 +7456,15 @@ een positieve waarde maakt haar convex</translation>
     </message>
     <message>
       <source>&amp;Facing Pages</source>
-      <translation>&amp;Tegenover elkaar</translation>
+      <translation>&amp;Ooreenstaande bladsye</translation>
     </message>
     <message>
       <source>Left &amp;Page First</source>
-      <translation>Linker&amp;bladsy eerst</translation>
+      <translation>Linker&amp;bladsy eerste</translation>
     </message>
     <message>
       <source>Margin Guides</source>
-      <translation>Marge hulplynen</translation>
+      <translation>Kantlyn hulplyne</translation>
     </message>
     <message>
       <source>&amp;Bottom:</source>
@@ -7485,11 +7472,11 @@ een positieve waarde maakt haar convex</translation>
     </message>
     <message>
       <source>&amp;Top:</source>
-      <translation>&amp;Boven:</translation>
+      <translation>&amp;Bo:</translation>
     </message>
     <message>
       <source>&amp;Right:</source>
-      <translation>&amp;Rechts:</translation>
+      <translation>&amp;Regs:</translation>
     </message>
     <message>
       <source>&amp;Left:</source>
@@ -7497,7 +7484,7 @@ een positieve waarde maakt haar convex</translation>
     </message>
     <message>
       <source>Autosave</source>
-      <translation>Automatisch opslaan</translation>
+      <translation>Outomaties stoor</translation>
     </message>
     <message>
       <source>&amp;Enabled</source>
@@ -7513,55 +7500,55 @@ een positieve waarde maakt haar convex</translation>
     </message>
     <message>
       <source>Grid Layout</source>
-      <translation>Rasterlayout</translation>
+      <translation>Roosteruitleg</translation>
     </message>
     <message>
       <source>M&amp;inor Grid Spacing:</source>
-      <translation>Kl&amp;eine rasterspatiëring:</translation>
+      <translation>Kl&amp;einrooster spasiëring:</translation>
     </message>
     <message>
       <source>Ma&amp;jor Grid Spacing:</source>
-      <translation>&amp;Grote rasterspatiëring:</translation>
+      <translation>&amp;Grootrooster spasiëring:</translation>
     </message>
     <message>
       <source>Guide &amp;Snap Distance:</source>
-      <translation>Hulplyn&amp;magnetisme:</translation>
+      <translation>Hulplyn&amp;magnetisme afstand:</translation>
     </message>
     <message>
       <source>Grid Colors</source>
-      <translation>Rasterkleuren</translation>
+      <translation>Roosterkleuren</translation>
     </message>
     <message>
       <source>Min&amp;or Grid Color:</source>
-      <translation>&amp;Klein raster:</translation>
+      <translation>&amp;Kleinrooster kleur:</translation>
     </message>
     <message>
       <source>Majo&amp;r Grid Color:</source>
-      <translation>&amp;Groot raster:</translation>
+      <translation>&amp;Grootrooster kleur:</translation>
     </message>
     <message>
       <source>&amp;User Guides Color:</source>
-      <translation>H&amp;ulplynen:</translation>
+      <translation>H&amp;ulplyne se kleur:</translation>
     </message>
     <message>
       <source>Base&amp;line Grid Color:</source>
-      <translation>Basis&amp;lyn-raster:</translation>
+      <translation>Basis&amp;lyn-rooster kleur:</translation>
     </message>
     <message>
       <source>Placing</source>
-      <translation>Plaatsing</translation>
+      <translation>Plasing</translation>
     </message>
     <message>
       <source>In the &amp;Background</source>
-      <translation>&amp;Achtergrond</translation>
+      <translation>In die &amp;Agtergrond</translation>
     </message>
     <message>
       <source>In the Fore&amp;ground</source>
-      <translation>&amp;Voorgrond</translation>
+      <translation>In die &amp;Voorgrond</translation>
     </message>
     <message>
       <source>Baseline Grid</source>
-      <translation>Basislyn raster</translation>
+      <translation>Basislyn-rooster</translation>
     </message>
     <message>
       <source>O&amp;n</source>
@@ -7569,67 +7556,67 @@ een positieve waarde maakt haar convex</translation>
     </message>
     <message>
       <source>O&amp;ff</source>
-      <translation>&amp;Uit</translation>
+      <translation>&amp;Af</translation>
     </message>
     <message>
       <source>Subscript</source>
-      <translation>Subscript</translation>
+      <translation>Onderskrif</translation>
     </message>
     <message>
       <source> %</source>
-      <translation>%</translation>
+      <translation> %</translation>
     </message>
     <message>
       <source>&amp;Displacement:</source>
-      <translation>Ver&amp;plaatsing:</translation>
+      <translation>Ver&amp;plasing:</translation>
     </message>
     <message>
       <source>&amp;Scaling:</source>
-      <translation>&amp;Schaal:</translation>
+      <translation>&amp;Skaalering:</translation>
     </message>
     <message>
       <source>Superscript</source>
-      <translation>Superscript</translation>
+      <translation>Boskrif</translation>
     </message>
     <message>
       <source>D&amp;isplacement:</source>
-      <translation>Verplaat&amp;sing:</translation>
+      <translation>Verpla&amp;sing:</translation>
     </message>
     <message>
       <source>S&amp;caling:</source>
-      <translation>S&amp;chaal:</translation>
+      <translation>S&amp;kaalering:</translation>
     </message>
     <message>
       <source>Small Caps</source>
-      <translation>Kleinkapitalen</translation>
+      <translation>Kleinhoofletters</translation>
     </message>
     <message>
       <source>Sc&amp;aling:</source>
-      <translation>Sch&amp;aal:</translation>
+      <translation>Sk&amp;aalering:</translation>
     </message>
     <message>
       <source>Other</source>
-      <translation>Overig</translation>
+      <translation>Ander</translation>
     </message>
     <message>
       <source>Baseline &amp;Grid:</source>
-      <translation>Basislyn &amp;raster:</translation>
+      <translation>Basislyn &amp;rooster:</translation>
     </message>
     <message>
       <source>Baseline &amp;Offset:</source>
-      <translation>Basislyn &amp;afstand:</translation>
+      <translation>Basislyn &amp;beginafstand:</translation>
     </message>
     <message>
       <source>Automatic &amp;Line Spacing:</source>
-      <translation>Automatische &amp;regelspatiëring:</translation>
+      <translation>Outomatise &amp;lynspasiëring:</translation>
     </message>
     <message>
       <source>Default &amp;Font:</source>
-      <translation>Stan&amp;daardlettertype:</translation>
+      <translation>Ver&amp;stek lettertipe:</translation>
     </message>
     <message>
       <source>Default &amp;Size:</source>
-      <translation>Standaard&amp;grootte:</translation>
+      <translation>Verstek&amp;grootte:</translation>
     </message>
     <message>
       <source>&amp;Text Color:</source>
@@ -7637,7 +7624,7 @@ een positieve waarde maakt haar convex</translation>
     </message>
     <message>
       <source>Colu&amp;mns:</source>
-      <translation>Kolo&amp;mmen:</translation>
+      <translation>Kolo&amp;mme:</translation>
     </message>
     <message>
       <source>&amp;Gap:</source>
@@ -7657,7 +7644,7 @@ een positieve waarde maakt haar convex</translation>
     </message>
     <message>
       <source>&amp;Shading:</source>
-      <translation>&amp;Tint:</translation>
+      <translation>&amp;Skadu:</translation>
     </message>
     <message>
       <source>&amp;Fill Color:</source>
@@ -7665,47 +7652,47 @@ een positieve waarde maakt haar convex</translation>
     </message>
     <message>
       <source>S&amp;hading:</source>
-      <translation>T&amp;int:</translation>
+      <translation>S&amp;kadu:</translation>
     </message>
     <message>
       <source>&amp;Type of Line:</source>
-      <translation>Lynt&amp;ype:</translation>
+      <translation>Lynt&amp;ipe:</translation>
     </message>
     <message>
       <source>Line &amp;Width:</source>
-      <translation>Linedi&amp;kte:</translation>
+      <translation>Lyndi&amp;kte:</translation>
     </message>
     <message>
       <source>Mi&amp;nimum:</source>
-      <translation>Mi&amp;nimaal:</translation>
+      <translation>Mi&amp;nimum:</translation>
     </message>
     <message>
       <source>Ma&amp;ximum:</source>
-      <translation>Ma&amp;ximaal:</translation>
+      <translation>Ma&amp;ksimum:</translation>
     </message>
     <message>
       <source>&amp;Stepping:</source>
-      <translation>In &amp;stappen:</translation>
+      <translation>&amp;Stappe van:</translation>
     </message>
     <message>
       <source>&amp;Free Scaling</source>
-      <translation>&amp;Vrye schaal</translation>
+      <translation>&amp;Vry skalerend</translation>
     </message>
     <message>
       <source>&amp;Horizontal Scaling:</source>
-      <translation>&amp;Horizontale schaal:</translation>
+      <translation>&amp;Horisontale skaal:</translation>
     </message>
     <message>
       <source>&amp;Vertical Scaling:</source>
-      <translation>&amp;Verticale schaal:</translation>
+      <translation>&amp;Vertikale skaal:</translation>
     </message>
     <message>
       <source>&amp;Scale Picture to Frame Size</source>
-      <translation>Afbeelding &amp;schalen naar framegrootte</translation>
+      <translation>&amp;Skaleer prent na raamgrootte</translation>
     </message>
     <message>
       <source>Keep Aspect &amp;Ratio</source>
-      <translation>Beeldve&amp;rhouding behouden</translation>
+      <translation>Behou Prentve&amp;rhouding</translation>
     </message>
     <message>
       <source>F&amp;ill Color:</source>
@@ -7713,23 +7700,23 @@ een positieve waarde maakt haar convex</translation>
     </message>
     <message>
       <source>Corn&amp;ers:</source>
-      <translation>Ho&amp;eken:</translation>
+      <translation>Ho&amp;eke:</translation>
     </message>
     <message>
       <source>&amp;Rotation:</source>
-      <translation>&amp;Rotatie:</translation>
+      <translation>&amp;Rotasie:</translation>
     </message>
     <message>
       <source>&amp;Factor:</source>
-      <translation>&amp;Factor:</translation>
+      <translation>&amp;Faktor:</translation>
     </message>
     <message>
       <source>Other Options</source>
-      <translation>Overige opties</translation>
+      <translation>Ander opsies</translation>
     </message>
     <message>
       <source>Sa&amp;ve Contents on Changes</source>
-      <translation>Inhoud &amp;opslaan by wyzigen</translation>
+      <translation>&amp;Stoor inhoud met wysigen</translation>
     </message>
     <message>
       <source>Preview</source>
@@ -7749,35 +7736,35 @@ een positieve waarde maakt haar convex</translation>
     </message>
     <message>
       <source>Display Pages &amp;Side by Side</source>
-      <translation>Bladsye naa&amp;st elkaar tonen</translation>
+      <translation>Vertoon Bladsye lang&amp;s mekaar</translation>
     </message>
     <message>
       <source>Page Colors</source>
-      <translation>Bladsykleuren</translation>
+      <translation>Bladsykleure</translation>
     </message>
     <message>
       <source>&amp;Background:</source>
-      <translation>&amp;Achtergrond:</translation>
+      <translation>&amp;Agtergrond:</translation>
     </message>
     <message>
       <source>&amp;Margins:</source>
-      <translation>&amp;Marges:</translation>
+      <translation>&amp;Kantlyne:</translation>
     </message>
     <message>
       <source>Display &amp;Unprintable Area in Margin Color</source>
-      <translation>&amp;Niet-afdrukbare gebieden in margekleur weergeven</translation>
+      <translation>Vertoon &amp;Nie-drukbare gebiede in kantlynkleur</translation>
     </message>
     <message>
       <source>Use PDF 1.4 &amp;Transparency Features</source>
-      <translation>PDF-1.4 &amp;transparantie gebruiken</translation>
+      <translation>Gebruik PDF-1.4 se &amp;Deursigtigheidsfunksies</translation>
     </message>
     <message>
       <source>&amp;Adjust Display Size</source>
-      <translation>Venstergrootte &amp;aanpassen</translation>
+      <translation>Pas Vertoongrootte &amp;aan</translation>
     </message>
     <message>
       <source>To adjust the display drag the ruler below with the Slider.</source>
-      <translation>Om aan te passen sleep de schuifknop op het lineaal hieronder.</translation>
+      <translation>Om aan te pas sleep die skuifknop op die lineaal hieronder.</translation>
     </message>
     <message>
       <source>Postscript Interpreter</source>
@@ -7785,35 +7772,35 @@ een positieve waarde maakt haar convex</translation>
     </message>
     <message>
       <source>&amp;Name of Executable:</source>
-      <translation>&amp;Naam van uitvoerbaar programma:</translation>
+      <translation>&amp;Naam van uitvoerbare program:</translation>
     </message>
     <message>
       <source>Antialias &amp;Text</source>
-      <translation>Anti-alias &amp;teks</translation>
+      <translation>Anti-aliaseer &amp;teks</translation>
     </message>
     <message>
       <source>Antialias &amp;Graphics</source>
-      <translation>Anti-alias &amp;grafisch</translation>
+      <translation>Anti-aliaseer &amp;grafika</translation>
     </message>
     <message>
       <source>Image Processing Tool</source>
-      <translation>Programma voor beeldbewerking</translation>
+      <translation>Program vir prentverwerking</translation>
     </message>
     <message>
       <source>Name of &amp;Executable:</source>
-      <translation>Naam van uitvoerbaar &amp;programma:</translation>
+      <translation>Naam van uitvoerbare &amp;program:</translation>
     </message>
     <message>
       <source>Printing</source>
-      <translation>Afdrukken</translation>
+      <translation>Druk</translation>
     </message>
     <message>
       <source>Clip to Page &amp;Margins</source>
-      <translation>By bladsy-&amp;marges afknippen</translation>
+      <translation>Knip als buite bladsy&amp;kantlyne af</translation>
     </message>
     <message>
       <source>Apply &amp;Under Color Removal</source>
-      <translation>Onde&amp;rliggende kleuren verwyderen</translation>
+      <translation>Verwyder Onde&amp;rlêende kleur</translation>
     </message>
     <message>
       <source>&amp;OK</source>
@@ -7826,190 +7813,190 @@ een positieve waarde maakt haar convex</translation>
     <message>
       <source>Choose the default window decoration and looks.
 Scribus inherits any available KDE or Qt themes</source>
-      <translation>Kies de standaard vensterdecoratie en styl.
-Scribus kan elke beschikbare KDE- of Qt-styl overnemen</translation>
+      <translation>Kies die verstek vensterdekorasie en styl.
+Scribus kan elke beskikbare KDE- of Qt-styl oorneem</translation>
     </message>
     <message>
       <source>Default font size for the menus and windows</source>
-      <translation>Standaardtekengrootte voor menu's en vensters</translation>
+      <translation>Verstek lettergrootte vir menu's en vensters</translation>
     </message>
     <message>
       <source>Default unit of measurement for document editing</source>
-      <translation>Standaard meeteenheid voor het bewerken van dit dokument</translation>
+      <translation>Verstek meeteenheid vir dokumentbewerking</translation>
     </message>
     <message>
       <source>Number of lines Scribus will scroll for each move of the mouse wheel</source>
-      <translation>Bepaalt hoeveel regels Scribus doorschuift by een stap van het muiswiel</translation>
+      <translation>Aantal lyntjies wat Scribus deurskuif vir elke muiswiel rol</translation>
     </message>
     <message>
       <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
-      <translation>Geeft de straal aan van het gebied waar Scribus het u toestaat een object vast te pakken</translation>
+      <translation>Gee die straal aan van die gebied waar Scribus u toelaat om 'n object se muisvatsels te gryp</translation>
     </message>
     <message>
       <source>Number of recently edited documents to show in the File menu</source>
-      <translation>Bepaalt hoeveel recent geopende dokumenten Scribus toont in het menu Lêer</translation>
+      <translation>Aantal onlangs geopende dokumenten wat Scribus in Lêer menu moet vertoon</translation>
     </message>
     <message>
       <source>Default documents directory</source>
-      <translation>Standaardmap voor dokumenten</translation>
+      <translation>Verstekgids vir dokumente</translation>
     </message>
     <message>
       <source>Default ICC profiles directory</source>
-      <translation>Standaardmap voor ICC-profielen</translation>
+      <translation>Verstekgids vir ICC-profiele</translation>
     </message>
     <message>
       <source>Default Scripter scripts directory</source>
-      <translation>Standaardmap voor Scripts</translation>
+      <translation>Verstekgids vir Scripts</translation>
     </message>
     <message>
       <source>Default page size, either a standard size or a custom size</source>
-      <translation>Standaard bladsygrootte</translation>
+      <translation>Verstek bladsygrootte</translation>
     </message>
     <message>
       <source>Default orientation of document pages</source>
-      <translation>Standaardoriëntatie van de bladsy's van een dokument</translation>
+      <translation>Verstekoriëntasie van dokumentbladsye</translation>
     </message>
     <message>
       <source>Width of document pages, editable if you have chosen a custom page size</source>
-      <translation>Breedte van de bladsy's, kies 'Aangepast' om hier een waarde in te kunnen stellen</translation>
+      <translation>Breedte van bladsye, kies Tuisgemaak om u eie waardes in te vul</translation>
     </message>
     <message>
       <source>Height of document pages, editable if you have chosen a custom page size</source>
-      <translation>Hoogte van de bladsy's, kies 'Aangepast' om hier een waarde in te kunnen stellen</translation>
+      <translation>Hoogte van bladsye, kies Tuisgemaak om u eie waardes in te vul</translation>
     </message>
     <message>
       <source>Enable single or spread based layout</source>
-      <translation>Alle bladsy's hetzelfde of onderscheid tussen linker en rechterbladsy's</translation>
+      <translation>Sit enkel of spreibasis uileg aan</translation>
     </message>
     <message>
       <source>Make the first page the left page of a document</source>
-      <translation>Laat het dokument beginnen met een linker bladsy</translation>
+      <translation>Laat dokument met 'n linker bladsy begin</translation>
     </message>
     <message>
       <source>Distance between the top margin guide and the edge of the page</source>
-      <translation>Afstand tussen de bovenkant van de marge en de rand van het papier</translation>
+      <translation>Afstand tussen die bokant van die kantlyn en die papierrand</translation>
     </message>
     <message>
       <source>Distance between the bottom margin guide and the edge of the page</source>
-      <translation>Afstand tussen de onderkant van de marge en de rand van het papier</translation>
+      <translation>Afstand tussen die onderkant van die kantlyn en die papierrand</translation>
     </message>
     <message>
       <source>Distance between the left margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-      <translation>Afstand tussen de linkerkant van de marge en de rand van het papier.
-Als 'Tegenover elkaar' is geselecteerd wordt deze breedte gebruikt aan de rugkant van het dokument</translation>
+      <translation>Afstand tussen die linkerkant van die kantlyn en die papierrand
+As teenoorstaande bladsy gekies is, word die breedte gebruikt aan die rugkant van die dokument</translation>
     </message>
     <message>
       <source>Distance between the right margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-      <translation>Afstand tussen de rechterkant van de marge en de rand van het papier.
-Als 'Tegenover elkaar' is geselecteerd wordt deze breedte gebruikt aan de buitenkant van het dokument</translation>
+      <translation>Afstand tussen die regterkant van die kantlyn en die papierrand
+As teenoorstaande bladsy gekies is, word die breedte gebruikt aan die buitekant van die dokument</translation>
     </message>
     <message>
       <source>When enabled, Scribus saves a backup copy of your file with the .bak extension
 each time the time period elapses</source>
-      <translation>Indien ingeschakeld, zal Scibus om elk ingesteld tydsinterval een veiligheidskopie
-van uw dokument opslaan met de .bak-extensie</translation>
+      <translation>Indien aan, sal Scibus op elke tydsinterval 'n rugsteunkopie
+van u dokument stoor met 'n .bak-uitbreiding</translation>
     </message>
     <message>
       <source>Time period between saving automatically</source>
-      <translation>Tydsinterval voor automatisch opslaan</translation>
+      <translation>Tydsinterval vir outomaties stoor</translation>
     </message>
     <message>
       <source>Distance between the minor grid lines</source>
-      <translation>Afstand tussen de kleine rasterlynen</translation>
+      <translation>Afstand tussen kleinroosterlyne</translation>
     </message>
     <message>
       <source>Distance between the major grid lines</source>
-      <translation>Afstand tussen de grote rasterlynen</translation>
+      <translation>Afstand tussen grootroosterlyne</translation>
     </message>
     <message>
       <source>Distance within which an object will snap to your placed guides</source>
-      <translation>Afstand vanaf welke een object zal aantrekken tot de hulplynen</translation>
+      <translation>Afstand waarvandaan 'n objek na jou geplaasde hulplyne sal spring</translation>
     </message>
     <message>
       <source>Color of the minor grid lines</source>
-      <translation>Kleur van de kleine rasterlynen</translation>
+      <translation>Kleur van kleinroosterlyne</translation>
     </message>
     <message>
       <source>Color of the major grid lines</source>
-      <translation>Kleur van de grote rasterlynen</translation>
+      <translation>Kleur van grootroosterlyne</translation>
     </message>
     <message>
       <source>Color of the guide lines you insert</source>
-      <translation>Kleur van uw eigen hulplynen</translation>
+      <translation>Kleur van u eiehulplyne</translation>
     </message>
     <message>
       <source>Place the grid behind your page objects</source>
-      <translation>Het raster onder uw andere bladsy-objecten plaatsen</translation>
+      <translation>Plaas rooster onder u andere objekte</translation>
     </message>
     <message>
       <source>Place the grid in front of your page objects</source>
-      <translation>Het raster voor alle objecten plaatsen</translation>
+      <translation>Plaas rooster vir u andere objekte</translation>
     </message>
     <message>
       <source>Turns on the basegrid</source>
-      <translation>Basisraster inschakelen</translation>
+      <translation>Skakel Basisrooster aan</translation>
     </message>
     <message>
       <source>Turns off the basegrid</source>
-      <translation>Basisraster uitschakelen</translation>
+      <translation>Skakel Basisraster af</translation>
     </message>
     <message>
       <source>Displacement above the baseline of the font on a line</source>
-      <translation>Verplaatsing boven de basislyn van een lettertype op een regel</translation>
+      <translation>Verplasing bo basislyn van 'n lettertipe op 'n lyn</translation>
     </message>
     <message>
       <source>Relative size of the superscript compared to the normal font</source>
-      <translation>Relatieve grootte van het superscript t.o.v. de normale tekengrootte</translation>
+      <translation>Relatiewe grootte van boskrif tov normale teks</translation>
     </message>
     <message>
       <source>Displacement below the baseline of the normal font on a line</source>
-      <translation>Verplaatsing onder de basislyn van een lettertype op een regel</translation>
+      <translation>Verplasing onder basislyn van 'n lettertipe op 'n lyn</translation>
     </message>
     <message>
       <source>Relative size of the subscript compared to the normal font</source>
-      <translation>Relatieve grootte van het subscript t.o.v. de normale tekengrootte</translation>
+      <translation>Relatiewe grootte van onderskrif tov normale teks</translation>
     </message>
     <message>
       <source>Relative size of the small caps font compared to the normal font</source>
-      <translation>Relatieve grootte van de kleinkapitalen t.o.v. de normale tekengrootte</translation>
+      <translation>Relatiewe grootte van kleinhoofletters tov normale teks</translation>
     </message>
     <message>
       <source>Percentage increase over the font size for the line spacing</source>
-      <translation>Toename van regelhoogte in procent van de waarde die het lettertype aangeeft</translation>
+      <translation>Persentasie toename van lyn hoogte tov lettergrootte</translation>
     </message>
     <message>
       <source>Text Frame Properties</source>
-      <translation>Eigenschappen voor teksframe</translation>
+      <translation>Eienskappe van teksraam</translation>
     </message>
     <message>
       <source>Picture Frame Properties</source>
-      <translation>Eigenschappen voor afbeeldingsframe</translation>
+      <translation>Eienskappe van prentraam</translation>
     </message>
     <message>
       <source>Shape Drawing Properties</source>
-      <translation>Eigenschappen voor tekenen van vormen</translation>
+      <translation>Eienskappe van vormsteken</translation>
     </message>
     <message>
       <source>Magnification Level Defaults</source>
-      <translation>Standaardwaarden voor vergrotingsniveau</translation>
+      <translation>Verstek vergroottingsvlakke</translation>
     </message>
     <message>
       <source>Line Drawing Properties</source>
-      <translation>Lyneigenschappen</translation>
+      <translation>Lyneienskappe</translation>
     </message>
     <message>
       <source>Polygon Drawing Properties</source>
-      <translation>Polygooneigenschappen</translation>
+      <translation>Polygooneienskappe</translation>
     </message>
     <message>
       <source>Font for new text frames</source>
-      <translation>Lettertype voor nuwe teksframes</translation>
+      <translation>Lettertipe vir nuwe teksrame</translation>
     </message>
     <message>
       <source>Size of font for new text frames</source>
-      <translation>Tekengrootte voor nuwe teksframes</translation>
+      <translation>Lettergrootte vir nuwe teksrame</translation>
     </message>
     <message>
       <source>Color of font</source>
@@ -8017,79 +8004,79 @@ van uw dokument opslaan met de .bak-extensie</translation>
     </message>
     <message>
       <source>Number of columns in a text frame</source>
-      <translation>Aantal kolommen in een teksframe</translation>
+      <translation>Aantal kolomme in 'n teksraam</translation>
     </message>
     <message>
       <source>Gap between text frame columns</source>
-      <translation>Tussenruimte tussen kolommen</translation>
+      <translation>Tussenruimte tussen kolomme</translation>
     </message>
     <message>
       <source>Sample of your font</source>
-      <translation>Voorbeeld van uw lettertype</translation>
+      <translation>Voorbeeld van u lettertipe</translation>
     </message>
     <message>
       <source>Picture frames allow pictures to scale to any size</source>
-      <translation>Afbeeldingsframes kunnen afbeeldingen meeschalen naar elke grootte</translation>
+      <translation>Prentrame laat prente na enige grootte skaleer</translation>
     </message>
     <message>
       <source>Horizontal scaling of images</source>
-      <translation>Horizontale schaal voor afbeeldingen</translation>
+      <translation>Horisontale skaal vir prente</translation>
     </message>
     <message>
       <source>Vertical scaling of images</source>
-      <translation>Verticale schaal voor afbeeldingen</translation>
+      <translation>Vertikale skaal vir prente</translation>
     </message>
     <message>
       <source>Keep horizontal and vertical scaling the same</source>
-      <translation>Houdt de horizontale en verticale schaal gelyk</translation>
+      <translation>Hou horisontale en vertikaleskaal gelyk</translation>
     </message>
     <message>
       <source>Pictures in picture frames are scaled to the size of the frame</source>
-      <translation>Afbeeldingen in afbeeldingsframes worden altyd naar de grootte van het frame geschaald</translation>
+      <translation>Prente in prentrame word altyd na grootte van hul raam geskaleer</translation>
     </message>
     <message>
       <source>Automatically scaled pictures keep their original proportions</source>
-      <translation>Automatisch geschaalde afbeeldingen houden hun oorspronkelyke beeldverhouding</translation>
+      <translation>Outomaties geskaalde prente houd hul oorspronklike prentverhouding</translation>
     </message>
     <message>
       <source>Fill color of picture frames</source>
-      <translation>Vulkleur voor afbeeldingsframes</translation>
+      <translation>Vulkleur vir prentrame</translation>
     </message>
     <message>
       <source>Saturation of color of fill</source>
-      <translation>Verzadiging van de vulkleur</translation>
+      <translation>Versadiging van die vulkleur</translation>
     </message>
     <message>
       <source>Line color of shapes</source>
-      <translation>Lynkleur van vormen</translation>
+      <translation>Lynkleur van vorms</translation>
     </message>
     <message>
       <source>Saturation of color of lines</source>
-      <translation>Verzadiging van de lynkleur</translation>
+      <translation>Versadiging van die lynkleur</translation>
     </message>
     <message>
       <source>Fill color of shapes</source>
-      <translation>Vulkleur van vormen</translation>
+      <translation>Vulkleur van vorms</translation>
     </message>
     <message>
       <source>Line style of shapes</source>
-      <translation>Lynstyl van vormen</translation>
+      <translation>Lynstyl van vorms</translation>
     </message>
     <message>
       <source>Line width of shapes</source>
-      <translation>Lyndikte van vormen</translation>
+      <translation>Lyndikte van vorms</translation>
     </message>
     <message>
       <source>Minimum magnification allowed</source>
-      <translation>Minimaal toegestane vergroting</translation>
+      <translation>Minimum toegelate vergroting</translation>
     </message>
     <message>
       <source>Maximum magnification allowed</source>
-      <translation>Maximaal toegestane vergroting</translation>
+      <translation>Maksimum toegelate vergroting</translation>
     </message>
     <message>
       <source>Change in magnification for each zoom operation</source>
-      <translation>Verandering in grootte by elke zoom-stap</translation>
+      <translation>Verandering in grootte vir elke zoom-stap</translation>
     </message>
     <message>
       <source>Color of lines</source>
@@ -8097,7 +8084,7 @@ van uw dokument opslaan met de .bak-extensie</translation>
     </message>
     <message>
       <source>Saturation of color</source>
-      <translation>Kleurverzadiging</translation>
+      <translation>Kleurversadiging</translation>
     </message>
     <message>
       <source>Style of lines</source>
@@ -8105,15 +8092,15 @@ van uw dokument opslaan met de .bak-extensie</translation>
     </message>
     <message>
       <source>Width of lines</source>
-      <translation>Dikte van lynen</translation>
+      <translation>Dikte van lyne</translation>
     </message>
     <message>
       <source>Number of corners for polygons</source>
-      <translation>Aantal hoeken van polygonen (veelhoeken)</translation>
+      <translation>Aantal hoeke van polygone (veelhoeke)</translation>
     </message>
     <message>
       <source>Degrees of rotation for polygons</source>
-      <translation>Graden in rotatie van polygonen</translation>
+      <translation>Grade in rotasie van polygone</translation>
     </message>
     <message>
       <source>Sample Polygon</source>
@@ -8121,15 +8108,15 @@ van uw dokument opslaan met de .bak-extensie</translation>
     </message>
     <message>
       <source>Choose the size of the preview in the scrapbook palette</source>
-      <translation>Kies de grootte van de voorbeeldweergave in het kladblok-palet</translation>
+      <translation>Kies die grootte van die voorbeeld in die kladblok-palet</translation>
     </message>
     <message>
       <source>Save the scrapbook contents everytime after a change</source>
-      <translation>Het kladblok telkens opslaan na een wyziging</translation>
+      <translation>Stoor kladblok telkens na 'n wysiging</translation>
     </message>
     <message>
       <source>When using facing pages, show the two pages side by side</source>
-      <translation>Wanneer u bladsy's tegenover elkaar gebruikt, toon dan de twee bladsy's naast elkaar</translation>
+      <translation>Wanneer u teenoorstaande bladsye gebruik, toon die twee bladsye lanks mekaar</translation>
     </message>
     <message>
       <source>Color for paper</source>
@@ -8137,43 +8124,43 @@ van uw dokument opslaan met de .bak-extensie</translation>
     </message>
     <message>
       <source>Color for the margin lines</source>
-      <translation>Kleur voor de kantlynen</translation>
+      <translation>Kleur vir die kantlyne</translation>
     </message>
     <message>
       <source>Mask the area outside the margins in the margin color</source>
-      <translation>Maskeert het gebied buiten de kantlynen in de kantlynkleur</translation>
+      <translation>Maskeer gebied buite die kantlyne in die kantlynkleur</translation>
     </message>
     <message>
       <source>Enable transparency features within PDF 1.4 export</source>
-      <translation>Schakelt doorschynende mogelykheden van PDF-1.4 in</translation>
+      <translation>Skakel deursigtigheidsfunksie van PDF-1.4 aan</translation>
     </message>
     <message>
       <source>Set the default zoom level</source>
-      <translation>Stelt het standaardzoom-niveau in</translation>
+      <translation>Stel die verstekvergroottingsvlak</translation>
     </message>
     <message>
       <source>Filesystem location for the Ghostscript interpreter</source>
-      <translation>Plaats van de Ghostscript-interpreter in uw lêerssysteem</translation>
+      <translation>Ghostscript-interpreter pad</translation>
     </message>
     <message>
       <source>Antialias text for EPS and PDF onscreen rendering</source>
-      <translation>Teks voor EPS en PDF voorzien van zachte weergave op het scherm (anti-alias)</translation>
+      <translation>Antialiseer Teks vir EPS en PDF op skerm</translation>
     </message>
     <message>
       <source>Antialias graphics for EPS and PDF onscreen rendering</source>
-      <translation>Grafische objecten voor EPS en PDF weergeven met vloeiende lynen</translation>
+      <translation>Antialiseer Grafieka vir EPS en PDF op skerm</translation>
     </message>
     <message>
       <source>Filesystem location for graphics editor</source>
-      <translation>Lokatie van een programma voor het bewerken van afbeeldingen</translation>
+      <translation>Pad na prentbewerker</translation>
     </message>
     <message>
       <source>Do not show objects outside the margins on the printed page or exported file</source>
-      <translation>Objecten die buiten de marges vallen niet weergeven by afdrukken of exporteren</translation>
+      <translation>Moenie objekte buite die kantlyne op gedrukte of uitgevoerde lêers wys nie</translation>
     </message>
     <message>
       <source>Choose a Directory</source>
-      <translation>Kies een map</translation>
+      <translation>Kies gids</translation>
     </message>
     <message>
       <source>&amp;Inside:</source>
@@ -8197,29 +8184,29 @@ van uw dokument opslaan met de .bak-extensie</translation>
     </message>
     <message>
       <source>T&amp;emplates:</source>
-      <translation>Sjablon&amp;en:</translation>
+      <translation>T&amp;emplate:</translation>
     </message>
     <message>
       <source>Cha&amp;nge...</source>
-      <translation>Wyzige&amp;n...</translation>
+      <translation>Wysi&amp;g...</translation>
     </message>
     <message>
       <source>Apply &amp;Factor</source>
-      <translation>&amp;Factor toepassen</translation>
+      <translation>Pas &amp;Faktor toe</translation>
     </message>
     <message>
       <source>Additional Directory for Document Templates</source>
-      <translation>Andere map voor dokument-sjablonen</translation>
+      <translation>Ander gids vir dokument-template</translation>
     </message>
     <message>
       <source>Apply Convex/Concave Factor to change shape of Polygons</source>
-      <translation>Convex/concaaf-factor toepassen op de vorm van polygonen</translation>
+      <translation>Pas konveks/konkaaf-faktor toe op die vorm van polygone</translation>
     </message>
     <message>
       <source>A negative value will make the polygon concave (or star shaped),
  a positive value will make it convex</source>
-      <translation>Een negatieve waarde maakt de polygoon concaaf (stervormig),
-een positieve waarde maakt haar convex</translation>
+      <translation>'n Negatiewe waarde maak die polygoon konkaaf (stervormig), 
+'n positiewe waarde maak hom konveks</translation>
     </message>
     <message>
       <source>A way of switching off some of the gray shades which are composed
@@ -8228,24 +8215,21 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-      <translation>Een methode om grystinten die zyn samengesteld uit cyaan, geel en magenta
-te vervangen door tinten enkel op zwart gebaseerd.
-UCR (Under Color Removal) heeft vooral invloed op donkere en neutrale tinten
-die dicht by grys liggen. Sommige afbeeldingen worden fraaier afgedrukt door
-deze functie; experimenteren kan nodig zyn.
-UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
+      <translation>I metode om CMY grys te vervang met swart grys.
+UCR (Under Color Removal) het veral 'n invloed op donker en neutrale skadus naby grys. Sommige prente sal mooier druk met die, maar mens moet maar maarmee eksperimenteer.
+UCR verklein die kans op overversadiging met CMY inke.</translation>
     </message>
     <message>
       <source>Executive</source>
-      <translation type="unfinished" />
+      <translation>Uitvoerend</translation>
     </message>
     <message>
       <source>Folio</source>
-      <translation type="unfinished" />
+      <translation>Folio</translation>
     </message>
     <message>
       <source>Ledger</source>
-      <translation type="unfinished" />
+      <translation>Grootboek</translation>
     </message>
     <message>
       <source>Legal</source>
@@ -8257,7 +8241,7 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
       <source>Tabloid</source>
-      <translation>Tabloid</translation>
+      <translation>Ponie</translation>
     </message>
   </context>
   <context>
@@ -8268,7 +8252,7 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
       <source>&amp;Sat:</source>
-      <translation>&amp;Verz.:</translation>
+      <translation>&amp;Vers.:</translation>
     </message>
     <message>
       <source>&amp;Val:</source>
@@ -8276,7 +8260,7 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
       <source>&amp;Red:</source>
-      <translation>&amp;Rood:</translation>
+      <translation>&amp;Rooi:</translation>
     </message>
     <message>
       <source>&amp;Green:</source>
@@ -8284,7 +8268,7 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
       <source>Bl&amp;ue:</source>
-      <translation>&amp;Blauw:</translation>
+      <translation>&amp;Blou:</translation>
     </message>
     <message>
       <source>A&amp;lpha channel:</source>
@@ -8292,15 +8276,15 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
       <source>&amp;Basic colors</source>
-      <translation>&amp;Basiskleuren</translation>
+      <translation>&amp;Basiskleure</translation>
     </message>
     <message>
       <source>&amp;Custom colors</source>
-      <translation>&amp;Aangepaste kleuren</translation>
+      <translation>&amp;Tuisgemaakte kleure</translation>
     </message>
     <message>
       <source>&amp;Define Custom Colors >></source>
-      <translation>Aangepaste kleuren &amp;instellen >></translation>
+      <translation>&amp;Definieer tuisgemaakte kleure >></translation>
     </message>
     <message>
       <source>OK</source>
@@ -8312,38 +8296,38 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
       <source>&amp;Add to Custom Colors</source>
-      <translation>&amp;Toevoegen aan kleuren</translation>
+      <translation>&amp;Voeg by tuisgemaakte kleure</translation>
     </message>
     <message>
       <source>Select color</source>
-      <translation>Kleur kiezen</translation>
+      <translation>Kies Kleur</translation>
     </message>
   </context>
   <context>
     <name>QFileDialog</name>
     <message>
       <source>Copy or Move a File</source>
-      <translation>Lêer kopiëren of verplaatsen</translation>
+      <translation>Skuif of kopiër 'n Lêer</translation>
     </message>
     <message>
       <source>Read: %1</source>
-      <translation>Lezen: %1</translation>
+      <translation>Lees: %1</translation>
     </message>
     <message>
       <source>Write: %1</source>
-      <translation>Schryven: %1</translation>
+      <translation>Skryf: %1</translation>
     </message>
     <message>
       <source>File &amp;name:</source>
-      <translation>Lêers&amp;naam:</translation>
+      <translation>Lêer&amp;naam:</translation>
     </message>
     <message>
       <source>File &amp;type:</source>
-      <translation>Lêers&amp;type:</translation>
+      <translation>Lêer&amp;tipe:</translation>
     </message>
     <message>
       <source>One directory up</source>
-      <translation>Bovenliggende map</translation>
+      <translation>Een Gids op</translation>
     </message>
     <message>
       <source>Cancel</source>
@@ -8363,7 +8347,7 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
       <source>Type</source>
-      <translation>Type</translation>
+      <translation>Tipe</translation>
     </message>
     <message>
       <source>Date</source>
@@ -8371,7 +8355,7 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
       <source>Attributes</source>
-      <translation>Attributen</translation>
+      <translation>Attribute</translation>
     </message>
     <message>
       <source>OK</source>
@@ -8379,7 +8363,7 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
       <source>Look &amp;in:</source>
-      <translation>Zoeken &amp;in:</translation>
+      <translation>Kyk &amp;in:</translation>
     </message>
     <message>
       <source>Back</source>
@@ -8387,51 +8371,51 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
       <source>Create New Folder</source>
-      <translation>Nuwee map</translation>
+      <translation>Nuwe gids</translation>
     </message>
     <message>
       <source>List View</source>
-      <translation>Lystweergave</translation>
+      <translation>Lys aansig</translation>
     </message>
     <message>
       <source>Detail View</source>
-      <translation>Detailweergave</translation>
+      <translation>Detail aansig</translation>
     </message>
     <message>
       <source>Preview File Info</source>
-      <translation>Lêersinfo tonen</translation>
+      <translation>Vertoon Lêerinligting</translation>
     </message>
     <message>
       <source>Preview File Contents</source>
-      <translation>Lêersinhoud tonen</translation>
+      <translation>Vertoon Lêerinhoud</translation>
     </message>
     <message>
       <source>Read-write</source>
-      <translation>Lezen en schryven</translation>
+      <translation>Lees-skryf</translation>
     </message>
     <message>
       <source>Read-only</source>
-      <translation>Alleen-lezen</translation>
+      <translation>Leesalleen</translation>
     </message>
     <message>
       <source>Write-only</source>
-      <translation>Alleen-schryven</translation>
+      <translation>Skryfalleen</translation>
     </message>
     <message>
       <source>Inaccessible</source>
-      <translation>Niet toegankelyk</translation>
+      <translation>ontoeganklik</translation>
     </message>
     <message>
       <source>Symlink to File</source>
-      <translation>Symlink naar lêer</translation>
+      <translation>Symlink na lêer</translation>
     </message>
     <message>
       <source>Symlink to Directory</source>
-      <translation>Symlink naar map</translation>
+      <translation>Symlink na gids</translation>
     </message>
     <message>
       <source>Symlink to Special</source>
-      <translation>Symlink naar speciaal</translation>
+      <translation>Symlink na spesiaal</translation>
     </message>
     <message>
       <source>File</source>
@@ -8439,11 +8423,11 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
       <source>Dir</source>
-      <translation>Map</translation>
+      <translation>Gids</translation>
     </message>
     <message>
       <source>Special</source>
-      <translation>Speciaal</translation>
+      <translation>Spesiaal</translation>
     </message>
     <message>
       <source>Open</source>
@@ -8459,67 +8443,67 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
       <source>&amp;Save</source>
-      <translation>Op&amp;slaan</translation>
+      <translation>&amp;Stoor</translation>
     </message>
     <message>
       <source>&amp;Rename</source>
-      <translation>He&amp;rnoemen</translation>
+      <translation>He&amp;rbenoem</translation>
     </message>
     <message>
       <source>&amp;Delete</source>
-      <translation>Verwy&amp;deren</translation>
+      <translation>Uitv&amp;ee</translation>
     </message>
     <message>
       <source>R&amp;eload</source>
-      <translation>Opni&amp;euw laden</translation>
+      <translation>W&amp;eerlaai</translation>
     </message>
     <message>
       <source>Sort by &amp;Name</source>
-      <translation>Sorteren op &amp;naam</translation>
+      <translation>Sorteer volgens &amp;naam</translation>
     </message>
     <message>
       <source>Sort by &amp;Size</source>
-      <translation>Sorteren op &amp;grootte</translation>
+      <translation>Sorteer volgens &amp;grootte</translation>
     </message>
     <message>
       <source>Sort by &amp;Date</source>
-      <translation>Sorteren op &amp;datum</translation>
+      <translation>Sorteer volgens &amp;datum</translation>
     </message>
     <message>
       <source>&amp;Unsorted</source>
-      <translation>Niet &amp;sorteren</translation>
+      <translation>&amp;ongesorteer</translation>
     </message>
     <message>
       <source>Sort</source>
-      <translation>Sorteren</translation>
+      <translation>Sorteer</translation>
     </message>
     <message>
       <source>Show &amp;hidden files</source>
-      <translation>&amp;Verborgen lêers tonen</translation>
+      <translation>Ver&amp;toon versteekte lêers</translation>
     </message>
     <message>
       <source>the file</source>
-      <translation>het lêer</translation>
+      <translation>die lêer</translation>
     </message>
     <message>
       <source>the directory</source>
-      <translation>de map</translation>
+      <translation>die gids</translation>
     </message>
     <message>
       <source>the symlink</source>
-      <translation>de symlink</translation>
+      <translation>die symlink</translation>
     </message>
     <message>
       <source>Delete %1</source>
-      <translation>%1 verwyderen</translation>
+      <translation>Vee %1 uit</translation>
     </message>
     <message>
       <source>&lt;qt>Are you sure you wish to delete %1 &quot;%2&quot;?&lt;/qt></source>
-      <translation>&lt;qt>Wilt u werkelyk %1 &quot;%2&quot; verwyderen?&lt;/qt></translation>
+      <translation>&lt;qt>Is u seker U wil %1 &quot;%2&quot; uitvee?&lt;/qt></translation>
     </message>
     <message>
       <source>&amp;Yes</source>
-      <translation>&amp;Ja, verwyderen</translation>
+      <translation>&amp;Ja</translation>
     </message>
     <message>
       <source>&amp;No</source>
@@ -8527,27 +8511,27 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
       <source>New Folder 1</source>
-      <translation>Nuwee map 1</translation>
+      <translation>Nuwe gids 1</translation>
     </message>
     <message>
       <source>New Folder</source>
-      <translation>Nuwee map</translation>
+      <translation>Nuwe gids</translation>
     </message>
     <message>
       <source>New Folder %1</source>
-      <translation>Nuwee map %1</translation>
+      <translation>Nuwe gids %1</translation>
     </message>
     <message>
       <source>Find Directory</source>
-      <translation>Map zoeken</translation>
+      <translation>Soek gids</translation>
     </message>
     <message>
       <source>Directories</source>
-      <translation>Mappen</translation>
+      <translation>Gidse</translation>
     </message>
     <message>
       <source>Save</source>
-      <translation>Opslaan</translation>
+      <translation>Stoor</translation>
     </message>
     <message>
       <source>Error</source>
@@ -8558,8 +8542,8 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
 File not found.
 Check path and filename.</source>
       <translation>%1
-Lêer niet gevonden.
-Controleer het pad en de lêersnaam.</translation>
+Lêer nie gevind nie.
+Kontroleer pad en lêernaam.</translation>
     </message>
     <message>
       <source>All Files (*.*)</source>
@@ -8567,18 +8551,18 @@ Controleer het pad en de lêersnaam.</translation>
     </message>
     <message>
       <source>Select a Directory</source>
-      <translation>Map kiezen</translation>
+      <translation>Kies 'n gids</translation>
     </message>
     <message>
       <source>Directory:</source>
-      <translation>Map:</translation>
+      <translation>Gids:</translation>
     </message>
   </context>
   <context>
     <name>QFontDialog</name>
     <message>
       <source>&amp;Font</source>
-      <translation>&amp;Lettertype</translation>
+      <translation>&amp;Lettertipe</translation>
     </message>
     <message>
       <source>Font st&amp;yle</source>
@@ -8590,15 +8574,15 @@ Controleer het pad en de lêersnaam.</translation>
     </message>
     <message>
       <source>Effects</source>
-      <translation>Effecten</translation>
+      <translation>Effekte</translation>
     </message>
     <message>
       <source>Stri&amp;keout</source>
-      <translation>Door&amp;halen</translation>
+      <translation>Dood&amp;getrek</translation>
     </message>
     <message>
       <source>&amp;Underline</source>
-      <translation>&amp;Onderstrepen</translation>
+      <translation>&amp;Onderstreep</translation>
     </message>
     <message>
       <source>&amp;Color</source>
@@ -8618,7 +8602,7 @@ Controleer het pad en de lêersnaam.</translation>
     </message>
     <message>
       <source>Apply</source>
-      <translation>Toepassen</translation>
+      <translation>Pas toe</translation>
     </message>
     <message>
       <source>Cancel</source>
@@ -8626,71 +8610,71 @@ Controleer het pad en de lêersnaam.</translation>
     </message>
     <message>
       <source>Close</source>
-      <translation>Sluiten</translation>
+      <translation>Maak toe</translation>
     </message>
     <message>
       <source>Select Font</source>
-      <translation>Lettertype selecteren</translation>
+      <translation>Kies Lettertipe</translation>
     </message>
   </context>
   <context>
     <name>QLineEdit</name>
     <message>
       <source>Clear</source>
-      <translation>Leegmaken</translation>
+      <translation>Maak skoon</translation>
     </message>
     <message>
       <source>Select All</source>
-      <translation>Alles selecteren</translation>
+      <translation>Kies Alles</translation>
     </message>
     <message>
       <source>&amp;Undo</source>
-      <translation>&amp;Ongedaan maken</translation>
+      <translation>&amp;Ongedaanmaak</translation>
     </message>
     <message>
       <source>&amp;Redo</source>
-      <translation>O&amp;pnieuw doen</translation>
+      <translation>&amp;Gedaanmaak</translation>
     </message>
     <message>
       <source>Cu&amp;t</source>
-      <translation>Kni&amp;ppen</translation>
+      <translation>Kni&amp;p</translation>
     </message>
     <message>
       <source>&amp;Copy</source>
-      <translation>&amp;Kopiëren</translation>
+      <translation>&amp;Kopiër</translation>
     </message>
     <message>
       <source>&amp;Paste</source>
-      <translation>P&amp;lakken</translation>
+      <translation>P&amp;lak</translation>
     </message>
   </context>
   <context>
     <name>QMainWindow</name>
     <message>
       <source>Line up</source>
-      <translation>Naast elkaar</translation>
+      <translation>Kry in lyn</translation>
     </message>
     <message>
       <source>Customize...</source>
-      <translation>Aanpassen...</translation>
+      <translation>Pas self aan...</translation>
     </message>
   </context>
   <context>
     <name>QMessageBox</name>
     <message>
       <source>&lt;h3>About Qt&lt;/h3>&lt;p>This program uses Qt version %1.&lt;/p>&lt;p>Qt is a C++ toolkit for multiplatform GUI &amp;amp; application development.&lt;/p>&lt;p>Qt provides single-source portability across MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, and all major commercial Unix variants.&lt;br>Qt is also available for embedded devices.&lt;/p>&lt;p>Qt is a Trolltech product. See &lt;tt>http://www.trolltech.com/qt/&lt;/tt> for more information.&lt;/p></source>
-      <translation>&lt;h3>Info over Qt&lt;/h3>&lt;p>Dit programma gebruikt Qt versie %1.&lt;/p>&lt;p>Qt is een C++-toolkit voor het ontwikkelen van toepassingen op verschillende platformen.&lt;/p>&lt;p>Qt biedt broncode-compatibiliteit tussen MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, en alle belangryke UNIX-varianten.&lt;br>Qt is ook beschikbaar voor ingebedde apparaten.&lt;/p>&lt;p>Qt is een product van Trolltech. Zie &lt;tt>http://www.trolltech.com/qt/&lt;/tt> voor meer informatie.&lt;/p></translation>
+      <translation>&lt;h3>Inligting oor Qt&lt;/h3>&lt;p>Die program gebruik Qt weergawe %1.&lt;/p>&lt;p>Qt is 'n C++-toolkit vir die ontwikkeling van programme op verskillende platforms.&lt;/p>&lt;p>Qt bied bronkode-aanpasbaarheit tussen MS&amp;nbsp;Windows, Mac&amp;nbsp;OS&amp;nbsp;X, Linux, en alle belangrike UNIX-variante.&lt;br>Qt is ook beskikbaar vir ingebedde apparate.&lt;/p>&lt;p>Qt is 'n product van Trolltech. Sien &lt;tt>http://www.trolltech.com/qt/&lt;/tt> vir meer informasie.&lt;/p></translation>
     </message>
   </context>
   <context>
     <name>QObject</name>
     <message>
       <source>Importing text</source>
-      <translation>Teks wordt geïmporteerd</translation>
+      <translation>Teks word ingevoer</translation>
     </message>
     <message>
       <source>All Supported Formats</source>
-      <translation>Alle ondersteunde formaten</translation>
+      <translation>Alle ondersteunde formate</translation>
     </message>
     <message>
       <source>All Files (*)</source>
@@ -8698,56 +8682,56 @@ Controleer het pad en de lêersnaam.</translation>
     </message>
     <message>
       <source>Initializing...</source>
-      <translation>Bezig te initialiseren...</translation>
+      <translation>Besig om te initialiseer...</translation>
     </message>
     <message>
       <source>Document</source>
-      <translation>Document</translation>
+      <translation>Dokument</translation>
     </message>
     <message>
       <source>Background</source>
-      <translation>Achtergrond</translation>
+      <translation>Agtergrond</translation>
     </message>
     <message>
       <source>Warning</source>
-      <translation>Waarschuwing</translation>
+      <translation>Waarskuwing</translation>
     </message>
     <message>
       <source>Do you really want to overwrite the File:
 %1 ?</source>
-      <translation>Wilt u werkelyk het lêer %1 overschryven:?</translation>
+      <translation>Wil u werklik %1 oorskryf?</translation>
     </message>
     <message>
       <source>&amp;Fonts Preview</source>
-      <translation>&amp;Lettertypeweergave</translation>
+      <translation>&amp;Lettertipe voorbeeld</translation>
     </message>
     <message>
       <source>&amp;Insert Special</source>
-      <translation>&amp;Invoegen speciaal</translation>
+      <translation>Voeg spesiale ding &amp;In</translation>
     </message>
     <message>
       <source>New &amp;from Template...</source>
-      <translation>Nuwe van &amp;sjabloon...</translation>
+      <translation>Nuut van &amp;templaat...</translation>
     </message>
     <message>
       <source>Template: </source>
-      <translation>Sjabloon:</translation>
+      <translation>Templaat:</translation>
     </message>
     <message>
       <source>Newsletters</source>
-      <translation>Nuwesbrieven</translation>
+      <translation>Nuusbriewe</translation>
     </message>
     <message>
       <source>Brochures</source>
-      <translation>Brochures</translation>
+      <translation>Brosjures</translation>
     </message>
     <message>
       <source>Catalogs</source>
-      <translation>Catalogi</translation>
+      <translation>Katalogusse</translation>
     </message>
     <message>
       <source>Flyers</source>
-      <translation>Flyers</translation>
+      <translation>Pamflette</translation>
     </message>
     <message>
       <source>Signs</source>
@@ -8755,19 +8739,19 @@ Controleer het pad en de lêersnaam.</translation>
     </message>
     <message>
       <source>Cards</source>
-      <translation>Kaarten</translation>
+      <translation>Kaartjies</translation>
     </message>
     <message>
       <source>Letterheads</source>
-      <translation>Briefhoofden</translation>
+      <translation>Briefhoofde</translation>
     </message>
     <message>
       <source>Envelopes</source>
-      <translation>Enveloppen</translation>
+      <translation>Briewe</translation>
     </message>
     <message>
       <source>Business Cards</source>
-      <translation>Visitekaartjes</translation>
+      <translation>Visitekaartjies</translation>
     </message>
     <message>
       <source>Calendars</source>
@@ -8783,71 +8767,71 @@ Controleer het pad en de lêersnaam.</translation>
     </message>
     <message>
       <source>Menus</source>
-      <translation>Menu's</translation>
+      <translation>Spyskaarte</translation>
     </message>
     <message>
       <source>Programs</source>
-      <translation>Programma's</translation>
+      <translation>Programme</translation>
     </message>
     <message>
       <source>PDF Forms</source>
-      <translation>PDF-formulieren</translation>
+      <translation>PDF-vorms</translation>
     </message>
     <message>
       <source>PDF Presentations</source>
-      <translation>PDF-presentaties</translation>
+      <translation>PDF-aanbiedings</translation>
     </message>
     <message>
       <source>Magazines</source>
-      <translation>Magazines</translation>
+      <translation>Tydskrifte</translation>
     </message>
     <message>
       <source>Posters</source>
-      <translation>Posters</translation>
+      <translation>Plakkate</translation>
     </message>
     <message>
       <source>Announcements</source>
-      <translation>Aankondigingen</translation>
+      <translation>Aankondigings</translation>
     </message>
     <message>
       <source>Text Documents</source>
-      <translation>Teksdokumenten</translation>
+      <translation>Teksdokumente</translation>
     </message>
     <message>
       <source>Folds</source>
-      <translation>Gevouwen dokumenten</translation>
+      <translation>Gevoude dokumente</translation>
     </message>
     <message>
       <source>Own Templates</source>
-      <translation>Eigen sjablonen</translation>
+      <translation>Eien Template</translation>
     </message>
     <message>
       <source>Save as &amp;Image...</source>
-      <translation>Stoor as &amp;afbeelding...</translation>
+      <translation>Stoor as &amp;prent...</translation>
     </message>
     <message>
       <source>Save as Image</source>
-      <translation>Stoor as afbeelding</translation>
+      <translation>Stoor as prent</translation>
     </message>
     <message>
       <source>Error writting the output file(s).</source>
-      <translation>Fout tydens het schryven naar uitvoerlêer(en).</translation>
+      <translation>Fout tydens het skryf na uitvoerlêer(s).</translation>
     </message>
     <message>
       <source>Error writing the output file(s).</source>
-      <translation>Fout tydens het schryven naar uitvoerlêer(en).</translation>
+      <translation>Fout tydens het skryf na uitvoerlêer(s).</translation>
     </message>
     <message>
       <source>Export successful.</source>
-      <translation>Export was succesvol.</translation>
+      <translation>Uitvoer was suksesvol.</translation>
     </message>
     <message>
       <source>File exists. Overwrite?</source>
-      <translation>Het lêer bestaat. Wilt u het overschryven?</translation>
+      <translation>Lêer bestaan. Oorskryf?</translation>
     </message>
     <message>
       <source>exists already. Overwrite?</source>
-      <translation>bestaat al. Wilt u het overschryven?</translation>
+      <translation>bestaat alreeds. Oorskryf?</translation>
     </message>
     <message>
       <source>No</source>
@@ -8863,19 +8847,19 @@ Controleer het pad en de lêersnaam.</translation>
     </message>
     <message>
       <source>Print Preview</source>
-      <translation>Afdrukvoorbeeld</translation>
+      <translation>Drukvoorbeeld</translation>
     </message>
     <message>
       <source>Print Previe&amp;w</source>
-      <translation>Afdruk&amp;voorbeeld</translation>
+      <translation>Druk&amp;voorbeeld</translation>
     </message>
     <message>
       <source>Import &amp;EPS/PS...</source>
-      <translation>&amp;EPS/PS importeren...</translation>
+      <translation>Voer &amp;EPS/PS in...</translation>
     </message>
     <message>
       <source>All Supported Formats (*.eps *.EPS *.ps *.PS);;</source>
-      <translation>Alle ondersteunde formaten (*.eps *.EPS *.ps *.PS);;</translation>
+      <translation>Alle ondersteunde formate (*.eps *.EPS *.ps *.PS);;</translation>
     </message>
     <message>
       <source>Open</source>
@@ -8883,7 +8867,7 @@ Controleer het pad en de lêersnaam.</translation>
     </message>
     <message>
       <source>Save as &amp;Template...</source>
-      <translation>Stoor as &amp;sjabloon...</translation>
+      <translation>Stoor as &amp;templaat...</translation>
     </message>
     <message>
       <source>S&amp;cripter Manual...</source>
@@ -8895,15 +8879,15 @@ Controleer het pad en de lêersnaam.</translation>
     </message>
     <message>
       <source>&amp;Execute Script...</source>
-      <translation>Script &amp;uitvoeren...</translation>
+      <translation>Voer Script &amp;uit...</translation>
     </message>
     <message>
       <source>&amp;Recent Scripts</source>
-      <translation>&amp;Recente scripts</translation>
+      <translation>&amp;Onlangse scripts</translation>
     </message>
     <message>
       <source>Show &amp;Console</source>
-      <translation>&amp;Console tonen</translation>
+      <translation>Wys &amp;Konsole</translation>
     </message>
     <message>
       <source>S&amp;cript</source>
@@ -8911,7 +8895,7 @@ Controleer het pad en de lêersnaam.</translation>
     </message>
     <message>
       <source>Online Reference</source>
-      <translation>Online naslag</translation>
+      <translation>Aanlyn naslaan</translation>
     </message>
     <message>
       <source>Python Scripts (*.py);; All Files (*)</source>
@@ -8919,7 +8903,7 @@ Controleer het pad en de lêersnaam.</translation>
     </message>
     <message>
       <source>Save Page as &amp;SVG...</source>
-      <translation>Bladsy opslaan als &amp;SVG...</translation>
+      <translation>Stoor bladsy as &amp;SVG...</translation>
     </message>
     <message>
       <source>Save as</source>
@@ -8927,27 +8911,27 @@ Controleer het pad en de lêersnaam.</translation>
     </message>
     <message>
       <source>SVG-Images (*.svg *.svgz);;All Files (*)</source>
-      <translation>SVG-afbeeldingen (*.svg *.svgz);;Alle lêers (*)</translation>
+      <translation>SVG-prente (*.svg *.svgz);;Alle lêers (*)</translation>
     </message>
     <message>
       <source>SVG-Images (*.svg);;All Files (*)</source>
-      <translation>SVG-afbeeldingen (*.svg);;Alle lêers (*)</translation>
+      <translation>SVG-prente (*.svg);;Alle lêers (*)</translation>
     </message>
     <message>
       <source>Import &amp;SVG...</source>
-      <translation>&amp;SVG importeren...</translation>
+      <translation>Voer &amp;SVG in...</translation>
     </message>
     <message>
       <source>Comma Separated Value Files</source>
-      <translation>Lêers met kommagescheiden-waarden (CSV)</translation>
+      <translation>Lêers met kommageskeide-waardes (CSV)</translation>
     </message>
     <message>
       <source>CSV_data</source>
-      <translation>CSV_gegevens</translation>
+      <translation>CSV_gegewens</translation>
     </message>
     <message>
       <source>CSV_header</source>
-      <translation>CSV_kopregel</translation>
+      <translation>CSV_kopreel</translation>
     </message>
     <message>
       <source>HTML Files</source>
@@ -8962,7 +8946,7 @@ Controleer het pad en de lêersnaam.</translation>
 External Links
 </source>
       <translation>
-Externe koppelingen
+Eksterne skakelings
 </translation>
     </message>
     <message>
@@ -8971,7 +8955,7 @@ Externe koppelingen
     </message>
     <message>
       <source>Font %1 is broken, discarding it</source>
-      <translation>Het lettertype %1 is beschadigd en wordt weggelaten</translation>
+      <translation>Lettertype %1 is beskadig en word weggelaat</translation>
     </message>
     <message>
       <source>Text Filters</source>
@@ -8979,19 +8963,19 @@ Externe koppelingen
     </message>
     <message>
       <source>Albanian</source>
-      <translation type="unfinished" />
+      <translation>Albaanies</translation>
     </message>
     <message>
       <source>Basque</source>
-      <translation type="unfinished" />
+      <translation>Baskies</translation>
     </message>
     <message>
       <source>Bulgarian</source>
-      <translation type="unfinished" />
+      <translation>Bulgaars</translation>
     </message>
     <message>
       <source>Brazilian</source>
-      <translation type="unfinished" />
+      <translation>Braziliaans</translation>
     </message>
     <message>
       <source>Catalan</source>
@@ -8999,11 +8983,11 @@ Externe koppelingen
     </message>
     <message>
       <source>Chinese</source>
-      <translation type="unfinished" />
+      <translation>Sjinees</translation>
     </message>
     <message>
       <source>Czech</source>
-      <translation>Tsjechisch</translation>
+      <translation>Tsjeggies</translation>
     </message>
     <message>
       <source>Danish</source>
@@ -9019,11 +9003,11 @@ Externe koppelingen
     </message>
     <message>
       <source>English (British)</source>
-      <translation type="unfinished" />
+      <translation>Engels (Brits)</translation>
     </message>
     <message>
       <source>Esperanto</source>
-      <translation type="unfinished" />
+      <translation>Esperanto</translation>
     </message>
     <message>
       <source>German</source>
@@ -9039,7 +9023,7 @@ Externe koppelingen
     </message>
     <message>
       <source>Galician</source>
-      <translation type="unfinished" />
+      <translation>Galies</translation>
     </message>
     <message>
       <source>Greek</source>
@@ -9051,7 +9035,7 @@ Externe koppelingen
     </message>
     <message>
       <source>Indonesian</source>
-      <translation type="unfinished" />
+      <translation>Indonisies</translation>
     </message>
     <message>
       <source>Italian</source>
@@ -9059,7 +9043,7 @@ Externe koppelingen
     </message>
     <message>
       <source>Korean</source>
-      <translation type="unfinished" />
+      <translation>Koreaans</translation>
     </message>
     <message>
       <source>Lithuanian</source>
@@ -9067,15 +9051,15 @@ Externe koppelingen
     </message>
     <message>
       <source>Norwegian (Bokmaal)</source>
-      <translation type="unfinished" />
+      <translation>Noors (Bokmal)</translation>
     </message>
     <message>
       <source>Norwegian (Nnyorsk)</source>
-      <translation type="unfinished" />
+      <translation>Noors (Nnyorsk)</translation>
     </message>
     <message>
       <source>Norwegian</source>
-      <translation type="unfinished" />
+      <translation>Noors</translation>
     </message>
     <message>
       <source>Polish</source>
@@ -9095,7 +9079,7 @@ Externe koppelingen
     </message>
     <message>
       <source>Spanish (Latin)</source>
-      <translation type="unfinished" />
+      <translation>Spaans (Latyns)</translation>
     </message>
     <message>
       <source>Slovak</source>
@@ -9107,273 +9091,273 @@ Externe koppelingen
     </message>
     <message>
       <source>Serbian</source>
-      <translation type="unfinished" />
+      <translation>Servies</translation>
     </message>
     <message>
       <source>Media Cases</source>
-      <translation type="unfinished" />
+      <translation>Media gevalle</translation>
     </message>
     <message>
       <source>Tried to set progress > maximum progress</source>
-      <translation type="unfinished" />
+      <translation>Het vordering probeer stel > maksimum vordering</translation>
     </message>
     <message>
       <source>&amp;About Script...</source>
-      <translation type="unfinished" />
+      <translation>&amp;Oor Script...</translation>
     </message>
     <message>
       <source>About Script</source>
-      <translation type="unfinished" />
+      <translation>Oor Script</translation>
     </message>
     <message>
       <source>Cannot get font size of non-text frame.</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan nie lettergrootte vir nie-teksraam kry nie</translation>
     </message>
     <message>
       <source>Cannot get font of non-text frame.</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan nie lettertipe vir nie-teksraam kry nie</translation>
     </message>
     <message>
       <source>Cannot get text size of non-text frame.</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan nie teksgrootte vir nie-kry nie</translation>
     </message>
     <message>
       <source>Cannot get column count of non-text frame.</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan nie kolomtelling vir nie-teksraam kry nie</translation>
     </message>
     <message>
       <source>Cannot get line space of non-text frame.</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan nie lynspasiëring vir nie-teksraam kry nie</translation>
     </message>
     <message>
       <source>Cannot get column gap of non-text frame.</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan nie kolomgaping vir nie-teksraam kry nie</translation>
     </message>
     <message>
       <source>Cannot get text of non-text frame.</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan nie teks vir nie-teksraam kry nie</translation>
     </message>
     <message>
       <source>Cannot set text of non-text frame.</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan nie teks vir nie-teksraam stel nie</translation>
     </message>
     <message>
       <source>Cannot insert text into non-text frame.</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan nie teks in nie-teksraam invoeg nie</translation>
     </message>
     <message>
       <source>Insert index out of bounds</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Ingevoeg indeks buite grense</translation>
     </message>
     <message>
       <source>Alignment out of range. Use one of the scribus.ALIGN* constants.</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Skoueropsie bestaan nie, gebruik scribus konstantes</translation>
     </message>
     <message>
       <source>Can't set text alignment on a non-text frame</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan nie teks skouer op nie-teksraam nie</translation>
     </message>
     <message>
       <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Lettergrootte buite grense - moet tussen 1 en 512 wees</translation>
     </message>
     <message>
       <source>Can't set font size on a non-text frame</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan nie lettergrootte op nie-teksraam stel nie</translation>
     </message>
     <message>
       <source>Can't set font on a non-text frame</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan nie lettertipe op 'n nie-teksraam stel nie</translation>
     </message>
     <message>
       <source>Font not found</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Lettertipe nie gevind nie</translation>
     </message>
     <message>
       <source>Line space out of bounds, must be >= 0.1</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Lynspasiëring buite grense, moet >=0,1 wees</translation>
     </message>
     <message>
       <source>Can't line spacing on a non-text frame</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan e lynspasiëring op nie-teksraam doen nie</translation>
     </message>
     <message>
       <source>Column gap out of bounds, must be positive</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kolomgaping is buite grense, moet positief wees</translation>
     </message>
     <message>
       <source>Can't column gap on a non-text frame</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan nie kolomgaping vir 'n nie-teksraam toeken nie</translation>
     </message>
     <message>
       <source>Column count out of bounds, must be > 1</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Aantal kolomme moet >=1 wees</translation>
     </message>
     <message>
       <source>Can't number of columns on a non-text frame</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan nie aantal kolomme stel in 'n nie-teksraam nie</translation>
     </message>
     <message>
       <source>Selection index out of bounds</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Keuse indeks buite grense</translation>
     </message>
     <message>
       <source>Can't select text in a non-text frame</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan nie teks kies in 'n nie-teksraam nie</translation>
     </message>
     <message>
       <source>Can't delete text from a non-text frame</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan nie teks verwyder uit 'n nie-teksraam nie</translation>
     </message>
     <message>
       <source>Can't set text fill on a non-text frame</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan nie teksfull stel in 'n nie-teksraam nie</translation>
     </message>
     <message>
       <source>Can't set text stroke on a non-text frame</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan nie teksstrepe stel in 'n nie-teksraam nie</translation>
     </message>
     <message>
       <source>Can't set text shade on a non-text frame</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan nie teksskadu stel in 'n nie-teksraam nie</translation>
     </message>
     <message>
       <source>Can only link text frames</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan net teksrame aanmekaarskakel</translation>
     </message>
     <message>
       <source>Target frame must be empty</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Teikenraam moet leeg wees</translation>
     </message>
     <message>
       <source>Target frame links to another frame</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Teikenraam skakel na 'n ander raam</translation>
     </message>
     <message>
       <source>Target frame is linked to by another frame</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Daar word na teikenraam geskakel deur ander raam</translation>
     </message>
     <message>
       <source>Source and target are the same object</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Bron en teiken is dieselfde objek</translation>
     </message>
     <message>
       <source>Can't unlink a non-text frame</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan nie 'n nie-teksraam ontskakel nie</translation>
     </message>
     <message>
       <source>Object is not a linked text frame, can't unlink.</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Objek is nie 'n geskakelde teksraam nie, kan nie ontskakel nie</translation>
     </message>
     <message>
       <source>Object the last frame in a series, can't unlink. Unlink the previous frame instead.</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Laaste skakel in reeks, ontskakel vorige raam.</translation>
     </message>
     <message>
       <source>Can't convert a non-text frame to outlines</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan nie 'n nie-teksraam omskakel in buitelyne nie</translation>
     </message>
     <message>
       <source>Failed to open document</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kon nie dokument oopmaak nie</translation>
     </message>
     <message>
       <source>Failed to save document</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kon nie dokument stoor nie</translation>
     </message>
     <message>
       <source>Unit out of range. Use one of the scribus.UNIT_* constants.</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Eenheid buit bereik. Gebruik scribus.UNIT_* konstantes.</translation>
     </message>
     <message>
       <source>Target is not an image frame.</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Teiken is nie 'n prentraam nie. </translation>
     </message>
     <message>
       <source>Can't scale by 0%</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan nie skaleer na 0% nie</translation>
     </message>
     <message>
       <source>Can't render an empty sample</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan nie leë voorbeelde teken nie</translation>
     </message>
     <message>
       <source>Can't save to a blank filename</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan nie na leë lêer stoor nie</translation>
     </message>
     <message>
       <source>Can't have an empty layer name</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan nie 'n leë laag 'n naam gee nie</translation>
     </message>
     <message>
       <source>Layer not found</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Laag nie gevind nie</translation>
     </message>
     <message>
       <source>Can't remove the last layer</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan nie laaste laag verwyder nie</translation>
     </message>
     <message>
       <source>Can't create layer without a name</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan nie 'n laag sonder 'n naam skep nie</translation>
     </message>
     <message>
       <source>An object with the requested name already exists</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>'n Objek met die naam bestaan reeds</translation>
     </message>
     <message>
       <source>Point list must contain at least two points (four values)</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Puntlys moet ten minste twee punte bevat (vier waardes)n</translation>
     </message>
     <message>
       <source>Point list must contain an even number of values</source>
@@ -9398,12 +9382,12 @@ Externe koppelingen
     <message>
       <source>Object not found</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Objek nie gevind nie</translation>
     </message>
     <message>
       <source>Style not found</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Styl nie gevind nie</translation>
     </message>
     <message>
       <source>Can't set style on a non-text frame</source>
@@ -9413,12 +9397,12 @@ Externe koppelingen
     <message>
       <source>Failed to save EPS</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kon nie EPS stoor nie</translation>
     </message>
     <message>
       <source>Page number out of range</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Bladsynommer buite bereik</translation>
     </message>
     <message>
       <source>argument is not list: must be list of float values</source>
@@ -9453,32 +9437,32 @@ Externe koppelingen
     <message>
       <source>Line style not found</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Lynstyl nie gekry nie</translation>
     </message>
     <message>
       <source>Cannot get a color with an empty name.</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan nie 'n kleur met 'n leë naam kry nie.</translation>
     </message>
     <message>
       <source>Color not found</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kleur nie gekry nie</translation>
     </message>
     <message>
       <source>Cannot change a color with an empty name.</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kan nie 'n kleur met 'n leë naam verander nie.</translation>
     </message>
     <message>
       <source>Color not found in document</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kleur nie in dokument gevind nie</translation>
     </message>
     <message>
       <source>Color not found in default colors</source>
       <comment>python error</comment>
-      <translation type="unfinished" />
+      <translation>Kleur nie in verstekkleure gevind nie</translation>
     </message>
     <message>
       <source>Cannot create a color with an empty name.</source>
@@ -9497,15 +9481,15 @@ Externe koppelingen
     </message>
     <message>
       <source>Import &amp;OpenOffice.org Draw...</source>
-      <translation type="unfinished" />
+      <translation>Voer &amp;OpenOffice.org Draw in...</translation>
     </message>
     <message>
       <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
-      <translation type="unfinished" />
+      <translation>OpenOffice.org Draw (*.sxd);;Alle lêers (*)</translation>
     </message>
     <message>
       <source>OpenOffice.org Writer Documents</source>
-      <translation type="unfinished" />
+      <translation>OpenOffice.org Writer dokumente</translation>
     </message>
     <message>
       <source>Scribus Python interface module
@@ -9541,73 +9525,73 @@ function's documentation.
     <name>QTextEdit</name>
     <message>
       <source>Clear</source>
-      <translation>Leegmaken</translation>
+      <translation>Leegmaak</translation>
     </message>
     <message>
       <source>Select All</source>
-      <translation>Alles selecteren</translation>
+      <translation>Kies alles</translation>
     </message>
     <message>
       <source>&amp;Undo</source>
-      <translation>&amp;Ongedaan maken</translation>
+      <translation>&amp;Ongedaanmaak</translation>
     </message>
     <message>
       <source>&amp;Redo</source>
-      <translation>O&amp;pnieuw doen</translation>
+      <translation>&amp;Gedaanmaak</translation>
     </message>
     <message>
       <source>Cu&amp;t</source>
-      <translation>Kni&amp;ppen</translation>
+      <translation>Kni&amp;p</translation>
     </message>
     <message>
       <source>&amp;Copy</source>
-      <translation>&amp;Kopiëren</translation>
+      <translation>&amp;Kopiër</translation>
     </message>
     <message>
       <source>&amp;Paste</source>
-      <translation>P&amp;lakken</translation>
+      <translation>P&amp;lak</translation>
     </message>
   </context>
   <context>
     <name>QTitleBar</name>
     <message>
       <source>System Menu</source>
-      <translation>Systeemmenu</translation>
+      <translation>Stelselmenu</translation>
     </message>
     <message>
       <source>Shade</source>
-      <translation>Oprollen</translation>
+      <translation>Skadu</translation>
     </message>
     <message>
       <source>Unshade</source>
-      <translation>Tevoorschyn halen</translation>
+      <translation>Ontskadu</translation>
     </message>
     <message>
       <source>Normalize</source>
-      <translation>Normaliseren</translation>
+      <translation>Normaliseer</translation>
     </message>
     <message>
       <source>Minimize</source>
-      <translation>Minimaliseren</translation>
+      <translation>Minimaliseer</translation>
     </message>
     <message>
       <source>Maximize</source>
-      <translation>Maximaliseren</translation>
+      <translation>Maksimaliseer</translation>
     </message>
     <message>
       <source>Close</source>
-      <translation>Sluiten</translation>
+      <translation>Maak toe</translation>
     </message>
   </context>
   <context>
     <name>QWorkspace</name>
     <message>
       <source>&amp;Restore</source>
-      <translation>&amp;Herstellen</translation>
+      <translation>&amp;Herstel</translation>
     </message>
     <message>
       <source>&amp;Move</source>
-      <translation>&amp;Verplaatsen</translation>
+      <translation>&amp;Skuif</translation>
     </message>
     <message>
       <source>&amp;Size</source>
@@ -9615,35 +9599,35 @@ function's documentation.
     </message>
     <message>
       <source>Mi&amp;nimize</source>
-      <translation>Mi&amp;nimaliseren</translation>
+      <translation>Mi&amp;nimaliseer</translation>
     </message>
     <message>
       <source>Ma&amp;ximize</source>
-      <translation>Ma&amp;ximaliseren</translation>
+      <translation>Ma&amp;ksimaliseer</translation>
     </message>
     <message>
       <source>&amp;Close</source>
-      <translation>&amp;Sluiten</translation>
+      <translation>&amp;Maak toe</translation>
     </message>
     <message>
       <source>Stay on &amp;Top</source>
-      <translation>Altyd op &amp;voorgrond</translation>
+      <translation>Altyd in &amp;voorgrond</translation>
     </message>
     <message>
       <source>Minimize</source>
-      <translation>Minimaliseren</translation>
+      <translation>Minimaliseer</translation>
     </message>
     <message>
       <source>Restore Down</source>
-      <translation>Herstellen onder</translation>
+      <translation>Herstel onder</translation>
     </message>
     <message>
       <source>Close</source>
-      <translation>Sluiten</translation>
+      <translation>Maak toe</translation>
     </message>
     <message>
       <source>Sh&amp;ade</source>
-      <translation>&amp;Oprollen</translation>
+      <translation>&amp;Skadu</translation>
     </message>
     <message>
       <source>%1 - [%2]</source>
@@ -9651,7 +9635,7 @@ function's documentation.
     </message>
     <message>
       <source>&amp;Unshade</source>
-      <translation>&amp;Tevoorschyn halen</translation>
+      <translation>&amp;Ontskadu</translation>
     </message>
   </context>
   <context>
@@ -9685,15 +9669,15 @@ function's documentation.
     </message>
     <message>
       <source>Document Setup</source>
-      <translation>Instellingen voor dokument</translation>
+      <translation>Dokument instellings</translation>
     </message>
     <message>
       <source>Margin Guides</source>
-      <translation>Marge hulplynen</translation>
+      <translation>Kantlyn hulplyne</translation>
     </message>
     <message>
       <source>&amp;Top:</source>
-      <translation>&amp;Boven:</translation>
+      <translation>&amp;Bo:</translation>
     </message>
     <message>
       <source>&amp;Left:</source>
@@ -9705,15 +9689,15 @@ function's documentation.
     </message>
     <message>
       <source>&amp;Right:</source>
-      <translation>&amp;Rechts:</translation>
+      <translation>&amp;Regs:</translation>
     </message>
     <message>
       <source>&amp;Facing Pages</source>
-      <translation>&amp;Tegenover elkaar</translation>
+      <translation>&amp;Teenoorstaande bladsye</translation>
     </message>
     <message>
       <source>Left &amp;Page First</source>
-      <translation>Linker&amp;bladsy eerst</translation>
+      <translation>Linker&amp;bladsy eerste</translation>
     </message>
     <message>
       <source>&amp;OK</source>
@@ -9725,31 +9709,31 @@ function's documentation.
     </message>
     <message>
       <source>Enable single or spread based layout</source>
-      <translation>Alle bladsy's hetzelfde of onderscheid tussen linker en rechterbladsy's</translation>
+      <translation>Bladsye is eenders of linker/regter</translation>
     </message>
     <message>
       <source>Make the first page the left page of the document</source>
-      <translation>Laat het dokument beginnen met een linker bladsy</translation>
+      <translation>Laat die dokument begin met 'n linker bladsy</translation>
     </message>
     <message>
       <source>Distance between the top margin guide and the edge of the page</source>
-      <translation>Afstand tussen de bovenkant van de marge en de rand van het papier</translation>
+      <translation>Afstand tussen de bokant van die kantlyn en die papierrand</translation>
     </message>
     <message>
       <source>Distance between the bottom margin guide and the edge of the page</source>
-      <translation>Afstand tussen de onderkant van de marge en de rand van het papier</translation>
+      <translation>Afstand tussen de onderkant van die kantlyn en die papierrand</translation>
     </message>
     <message>
       <source>Distance between the left margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-      <translation>Afstand tussen de linkerkant van de marge en de rand van het papier.
-Als 'Tegenover elkaar' is geselecteerd wordt deze breedte gebruikt aan de rugkant van het dokument</translation>
+      <translation>Afstand tussen die linkerkant van de kantlyn en die papierrand.
+As Teenoorstaande bladsye gekies is, word die breedte gebruik aan die rugkant van die dokument</translation>
     </message>
     <message>
       <source>Distance between the right margin guide and the edge of the page.
 If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-      <translation>Afstand tussen de rechterkant van de marge en de rand van het papier.
-Als 'Tegenover elkaar' is geselecteerd wordt deze breedte gebruikt aan de buitenkant van het dokument</translation>
+      <translation>Afstand tussen die regterkant van de kantlyn en die papierrand.
+As Teenoorstaande bladsye gekies is, word die breedte gebruik aan die buitekant van die dokument</translation>
     </message>
     <message>
       <source>&amp;Inside:</source>
@@ -9757,31 +9741,31 @@ Als 'Tegenover elkaar' is geselecteerd wordt deze breedte gebruikt aan de buiten
     </message>
     <message>
       <source>&amp;Outside:</source>
-      <translation>B&amp;uitenkant:</translation>
+      <translation>B&amp;uitekant:</translation>
     </message>
     <message>
       <source>Page Size</source>
-      <translation type="unfinished" />
+      <translation>Bladsygrootte</translation>
     </message>
     <message>
       <source>Size:</source>
-      <translation type="unfinished" />
+      <translation>Grootte:</translation>
     </message>
     <message>
       <source>Custom</source>
-      <translation>Aangepast</translation>
+      <translation>Tuisgemaak</translation>
     </message>
     <message>
       <source>Orientation:</source>
-      <translation>Orientatie:</translation>
+      <translation>Orientasie:</translation>
     </message>
     <message>
       <source>Portrait</source>
-      <translation type="unfinished" />
+      <translation>Regop</translation>
     </message>
     <message>
       <source>Landscape</source>
-      <translation type="unfinished" />
+      <translation>Gekantel</translation>
     </message>
     <message>
       <source>Width:</source>
@@ -9793,25 +9777,25 @@ Als 'Tegenover elkaar' is geselecteerd wordt deze breedte gebruikt aan de buiten
     </message>
     <message>
       <source>F&amp;irst Page Number:</source>
-      <translation>N&amp;ummer eerste bladsy:</translation>
+      <translation>Eerste bladsy n&amp;ommer:</translation>
     </message>
   </context>
   <context>
     <name>SToolBAlign</name>
     <message>
       <source>Style Settings</source>
-      <translation>Stylinstellingen</translation>
+      <translation>Stylinstelling</translation>
     </message>
     <message>
       <source>Style of current paragraph</source>
-      <translation>Styl van huidige alinea</translation>
+      <translation>Styl van huidige paragraaf</translation>
     </message>
   </context>
   <context>
     <name>SToolBColorF</name>
     <message>
       <source>Fill Color Settings</source>
-      <translation>Vulkleur-instellingen</translation>
+      <translation>Vulkleur-instelling</translation>
     </message>
     <message>
       <source>None</source>
@@ -9819,18 +9803,18 @@ Als 'Tegenover elkaar' is geselecteerd wordt deze breedte gebruikt aan de buiten
     </message>
     <message>
       <source>Color of text fill</source>
-      <translation>Kleur van de teksvulling</translation>
+      <translation>Kleur van die teks agtergrond</translation>
     </message>
     <message>
       <source>Saturation of color of text fill</source>
-      <translation>Verzadiging van kleur van teksinvulling</translation>
+      <translation>Versadiging van kleur van teks agtergrond</translation>
     </message>
   </context>
   <context>
     <name>SToolBColorS</name>
     <message>
       <source>Stroke Color Settings</source>
-      <translation>Lynkleur-instellingen</translation>
+      <translation>Lynkleur-instelling</translation>
     </message>
     <message>
       <source>None</source>
@@ -9838,18 +9822,18 @@ Als 'Tegenover elkaar' is geselecteerd wordt deze breedte gebruikt aan de buiten
     </message>
     <message>
       <source>Color of text stroke</source>
-      <translation>Kleur van de tekslynen</translation>
+      <translation>Kleur van die tekslyne</translation>
     </message>
     <message>
       <source>Saturation of color of text stroke</source>
-      <translation>Verzadiging van kleur van tekslynen</translation>
+      <translation>Versadiging van kleur van tekslyne</translation>
     </message>
   </context>
   <context>
     <name>SToolBFont</name>
     <message>
       <source>Font Settings</source>
-      <translation>Lettertype-instellingen</translation>
+      <translation>Lettertipe-instelling</translation>
     </message>
     <message>
       <source> pt</source>
@@ -9861,26 +9845,26 @@ Als 'Tegenover elkaar' is geselecteerd wordt deze breedte gebruikt aan de buiten
     </message>
     <message>
       <source>Font of selected text</source>
-      <translation>Lettertype van geselecteerde teks</translation>
+      <translation>Lettertipe van gekose teks</translation>
     </message>
     <message>
       <source>Font Size</source>
-      <translation>Tekengrootte</translation>
+      <translation>Lettergrootte</translation>
     </message>
     <message>
       <source>Scaling width of characters</source>
-      <translation>Schaalbreedte van tekens</translation>
+      <translation>Skaalbreedte van letters</translation>
     </message>
   </context>
   <context>
     <name>SToolBStyle</name>
     <message>
       <source>Character Settings</source>
-      <translation>Teken-instellingen</translation>
+      <translation>Letter-instelling</translation>
     </message>
     <message>
       <source>Kerning:</source>
-      <translation>Kerning:</translation>
+      <translation>Letterspasiëring:</translation>
     </message>
     <message>
       <source> pt</source>
@@ -9888,7 +9872,7 @@ Als 'Tegenover elkaar' is geselecteerd wordt deze breedte gebruikt aan de buiten
     </message>
     <message>
       <source>Manual Kerning</source>
-      <translation>Handmatige kerning</translation>
+      <translation>Handmatige letterspasiëring</translation>
     </message>
   </context>
   <context>
@@ -9899,7 +9883,7 @@ Als 'Tegenover elkaar' is geselecteerd wordt deze breedte gebruikt aan de buiten
     </message>
     <message>
       <source>Background</source>
-      <translation>Achtergrond</translation>
+      <translation>Agtergrond</translation>
     </message>
   </context>
   <context>
@@ -9914,39 +9898,39 @@ Als 'Tegenover elkaar' is geselecteerd wordt deze breedte gebruikt aan de buiten
     </message>
     <message>
       <source>Create a new Document</source>
-      <translation>Nuwe dokument aanmaken</translation>
+      <translation>Skep nuwe dokument</translation>
     </message>
     <message>
       <source>Open a Document</source>
-      <translation>Een dokument openen</translation>
+      <translation>Maak dokument oop</translation>
     </message>
     <message>
       <source>Save the current Document</source>
-      <translation>Het huidige dokument opslaan</translation>
+      <translation>Stoor huidige dokument</translation>
     </message>
     <message>
       <source>Close the current Document</source>
-      <translation>Het huidige dokument sluiten</translation>
+      <translation>Maak huidige dokument toe</translation>
     </message>
     <message>
       <source>Print the current Document</source>
-      <translation>Het huidige dokument afdrukken</translation>
+      <translation>Druk huidige dokument</translation>
     </message>
     <message>
       <source>Save the current Document as PDF</source>
-      <translation>Het huidige dokument als PDF opslaan</translation>
+      <translation>Stoor huidige dokument as PDF</translation>
     </message>
     <message>
       <source>Searching for Fonts</source>
-      <translation>Zoeken naar lettertypen</translation>
+      <translation>Besig om na lettertipes te soek</translation>
     </message>
     <message>
       <source>There are no Postscript-Fonts on your System</source>
-      <translation>Er zyn geen Postscript-lettertypen aanwezig op uw systeem</translation>
+      <translation>Daar is geen Postscript-lettertipes op u stelsel nie</translation>
     </message>
     <message>
       <source>Exiting now</source>
-      <translation>Bezig af te sluiten</translation>
+      <translation>Besig om toe te maak</translation>
     </message>
     <message>
       <source>Fatal Error</source>
@@ -9954,31 +9938,31 @@ Als 'Tegenover elkaar' is geselecteerd wordt deze breedte gebruikt aan de buiten
     </message>
     <message>
       <source>Smart Hyphen</source>
-      <translation>Intelligent afbreken</translation>
+      <translation>Intelligent afkap</translation>
     </message>
     <message>
       <source>Align Left</source>
-      <translation>Links uitlynen</translation>
+      <translation>Links skouer</translation>
     </message>
     <message>
       <source>Align Right</source>
-      <translation>Rechts uitlynen</translation>
+      <translation>Regs skouer</translation>
     </message>
     <message>
       <source>Align Center</source>
-      <translation>Centreren</translation>
+      <translation>Sentreer</translation>
     </message>
     <message>
       <source>Insert Page Number</source>
-      <translation>Bladsynummer invoegen</translation>
+      <translation>Voeg bladsynommer in</translation>
     </message>
     <message>
       <source>Attach Text to Path</source>
-      <translation>Teks aan pad toevoegen</translation>
+      <translation>Koppel teks aan 'n pad</translation>
     </message>
     <message>
       <source>Show Layers</source>
-      <translation>Lagen tonen</translation>
+      <translation>Wys Lae</translation>
     </message>
     <message>
       <source>Javascripts...</source>
@@ -9986,35 +9970,35 @@ Als 'Tegenover elkaar' is geselecteerd wordt deze breedte gebruikt aan de buiten
     </message>
     <message>
       <source>Undo</source>
-      <translation>Ongedaan maken</translation>
+      <translation>Ongedaanmaak</translation>
     </message>
     <message>
       <source>Show Page Palette</source>
-      <translation>Bladsypalet tonen</translation>
+      <translation>Wys bladsypallet</translation>
     </message>
     <message>
       <source>Lock/Unlock</source>
-      <translation>Vergrendelen/losmaken</translation>
+      <translation>Sluit/Onsluit</translation>
     </message>
     <message>
       <source>Non Breaking Space</source>
-      <translation>Harde spatie</translation>
+      <translation>Harde spasie</translation>
     </message>
     <message>
       <source>Reading Preferences</source>
-      <translation>Instellingen worden gelezen</translation>
+      <translation>Voorkeure word gelees</translation>
     </message>
     <message>
       <source>Getting ICC Profiles</source>
-      <translation>ICC-profielen worden opgehaald</translation>
+      <translation>ICC-profiele word gekry</translation>
     </message>
     <message>
       <source>Init Hyphenator</source>
-      <translation>Afbreekprogramma wordt ingesteld</translation>
+      <translation>Afkapper word aangesit</translation>
     </message>
     <message>
       <source>Setting up Shortcuts</source>
-      <translation>Sneltoetsen worden geladen</translation>
+      <translation>Kortpaaie word gelaai</translation>
     </message>
     <message>
       <source>&amp;Color Management...</source>
@@ -10022,11 +10006,11 @@ Als 'Tegenover elkaar' is geselecteerd wordt deze breedte gebruikt aan de buiten
     </message>
     <message>
       <source>Reading Scrapbook</source>
-      <translation>Kladblok wordt gelezen</translation>
+      <translation>Kladblok word gelees</translation>
     </message>
     <message>
       <source>Initializing Plugins</source>
-      <translation>Plugins worden ingesteld</translation>
+      <translation>Plugins word geinisialiseer</translation>
     </message>
     <message>
       <source>&amp;New</source>
@@ -10038,7 +10022,7 @@ Als 'Tegenover elkaar' is geselecteerd wordt deze breedte gebruikt aan de buiten
     </message>
     <message>
       <source>Open &amp;Recent</source>
-      <translation>&amp;Recent geopend</translation>
+      <translation>&amp;Onlangs oop gemaak</translation>
     </message>
     <message>
       <source>New</source>
@@ -10050,23 +10034,23 @@ Als 'Tegenover elkaar' is geselecteerd wordt deze breedte gebruikt aan de buiten
     </message>
     <message>
       <source>&amp;Close</source>
-      <translation>&amp;Sluiten</translation>
+      <translation>&amp;Maak toe</translation>
     </message>
     <message>
       <source>Close</source>
-      <translation>Sluiten</translation>
+      <translation>Maak toe</translation>
     </message>
     <message>
       <source>&amp;Save</source>
-      <translation>Op&amp;slaan</translation>
+      <translation>&amp;Stoor</translation>
     </message>
     <message>
       <source>Save</source>
-      <translation>Opslaan</translation>
+      <translation>Stoor</translation>
     </message>
     <message>
       <source>Save &amp;As...</source>
-      <translation>Opslaan &amp;als...</translation>
+      <translation>Stoor &amp;as...</translation>
     </message>
     <message>
       <source>Save as...</source>
@@ -10074,35 +10058,35 @@ Als 'Tegenover elkaar' is geselecteerd wordt deze breedte gebruikt aan de buiten
     </message>
     <message>
       <source>Re&amp;vert to Saved</source>
-      <translation>Terug&amp;zetten naar opgeslagen</translation>
+      <translation>Gaa&amp;n terug na gestoorde</translation>
     </message>
     <message>
       <source>Collect for O&amp;utput...</source>
-      <translation>Verzamelen voor &amp;uitvoer...</translation>
+      <translation>Versamel vir &amp;uitvoer...</translation>
     </message>
     <message>
       <source>&amp;Get Text/Picture...</source>
-      <translation>Teks/afbeelding verkry&amp;gen...</translation>
+      <translation>&amp;Kry Teks/prent...</translation>
     </message>
     <message>
       <source>Append &amp;Text...</source>
-      <translation>Teks &amp;toevoegen...</translation>
+      <translation>Voeg teks &amp;toe...</translation>
     </message>
     <message>
       <source>Import &amp;Page(s)...</source>
-      <translation>&amp;Bladsy(e) importeren...</translation>
+      <translation>Voer &amp;Bladsy(e) in...</translation>
     </message>
     <message>
       <source>&amp;Import</source>
-      <translation>&amp;Importeren</translation>
+      <translation>&amp;Voer in</translation>
     </message>
     <message>
       <source>Save &amp;Text...</source>
-      <translation>&amp;Teks opslaan...</translation>
+      <translation>Stoor &amp;teks...</translation>
     </message>
     <message>
       <source>Save Page as &amp;EPS...</source>
-      <translation>Bladsy opslaan als &amp;EPS...</translation>
+      <translation>Bladsy stoor als &amp;EPS...</translation>
     </message>
     <message>
       <source>Save as P&amp;DF...</source>
@@ -10338,7 +10322,7 @@ Als 'Tegenover elkaar' is geselecteerd wordt deze breedte gebruikt aan de buiten
     </message>
     <message>
       <source>C&amp;onvert to Outlines</source>
-      <translation>Omzetten naar &amp;outlines</translation>
+      <translation>Omzetten na &amp;outlines</translation>
     </message>
     <message>
       <source>&amp;Insert...</source>
@@ -10418,11 +10402,11 @@ Als 'Tegenover elkaar' is geselecteerd wordt deze breedte gebruikt aan de buiten
     </message>
     <message>
       <source>Show &amp;Margins</source>
-      <translation>&amp;Marges tonen</translation>
+      <translation>&amp;Kantlyne tonen</translation>
     </message>
     <message>
       <source>Hide Margins</source>
-      <translation>Marges verbergen</translation>
+      <translation>Kantlyne verbergen</translation>
     </message>
     <message>
       <source>Show &amp;Frames</source>
@@ -10438,7 +10422,7 @@ Als 'Tegenover elkaar' is geselecteerd wordt deze breedte gebruikt aan de buiten
     </message>
     <message>
       <source>Hide Images</source>
-      <translation>Afbeeldingen verbergen</translation>
+      <translation>Prente verbergen</translation>
     </message>
     <message>
       <source>Show &amp;Grid</source>
@@ -10470,11 +10454,11 @@ Als 'Tegenover elkaar' is geselecteerd wordt deze breedte gebruikt aan de buiten
     </message>
     <message>
       <source>&amp;Properties</source>
-      <translation>&amp;Eigenschappen</translation>
+      <translation>&amp;Eienskappe</translation>
     </message>
     <message>
       <source>Properties</source>
-      <translation>Eigenschappen</translation>
+      <translation>Eienskappe</translation>
     </message>
     <message>
       <source>&amp;Outline</source>
@@ -10506,11 +10490,11 @@ Als 'Tegenover elkaar' is geselecteerd wordt deze breedte gebruikt aan de buiten
     </message>
     <message>
       <source>&amp;Manage Pictures</source>
-      <translation>Afbeeldingen &amp;beheren</translation>
+      <translation>Prente &amp;beheren</translation>
     </message>
     <message>
       <source>Manage Pictures</source>
-      <translation>Afbeeldingen beheren</translation>
+      <translation>Prente beheren</translation>
     </message>
     <message>
       <source>&amp;Hyphenate Text</source>
@@ -10634,7 +10618,7 @@ Als 'Tegenover elkaar' is geselecteerd wordt deze breedte gebruikt aan de buiten
     </message>
     <message>
       <source>&amp;Right</source>
-      <translation>&amp;Rechts</translation>
+      <translation>&amp;Regs</translation>
     </message>
     <message>
       <source>&amp;Block</source>
@@ -10714,7 +10698,7 @@ Als 'Tegenover elkaar' is geselecteerd wordt deze breedte gebruikt aan de buiten
     </message>
     <message>
       <source>Get Text/Picture...</source>
-      <translation>Teks/afbeelding verkrygen...</translation>
+      <translation>Teks/prent verkrygen...</translation>
     </message>
     <message>
       <source>Get Picture...</source>
@@ -10806,7 +10790,7 @@ Als 'Tegenover elkaar' is geselecteerd wordt deze breedte gebruikt aan de buiten
     </message>
     <message>
       <source>&lt;p>You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p>Choose one of the following:&lt;br>&lt;ul>&lt;li>&lt;b>Create&lt;/b> missing pages&lt;/li>&lt;li>&lt;b>Import&lt;/b> pages until the last page&lt;/li>&lt;li>&lt;b>Cancel&lt;/b>&lt;/li>&lt;/ul>&lt;br></source>
-      <translation>&lt;p>U probeert meer bladsy's te importeren dan beschikbaar in het huidige dokument (geteld vanaf de actieve bladsy).&lt;/p>Kies een van de volgende mogelykheden:&lt;br>&lt;ul>&lt;li>Ontbrekende bladsy's &lt;b>aanmaken&lt;/b>&lt;/li>&lt;li>Bladsye &lt;b>importeren&lt;/b> tot aan laatste bladsy&lt;/li>&lt;li>&lt;b>Kanselleer&lt;/b>&lt;/li>&lt;/ul>&lt;br></translation>
+      <translation>&lt;p>U probeert meer bladsye te importeren dan beschikbaar in het huidige dokument (geteld vanaf de actieve bladsy).&lt;/p>Kies een van de volgende mogelykheden:&lt;br>&lt;ul>&lt;li>Ontbrekende bladsye &lt;b>aanmaken&lt;/b>&lt;/li>&lt;li>Bladsye &lt;b>importeren&lt;/b> tot aan laatste bladsy&lt;/li>&lt;li>&lt;b>Kanselleer&lt;/b>&lt;/li>&lt;/ul>&lt;br></translation>
     </message>
     <message>
       <source>Create</source>
@@ -10851,7 +10835,7 @@ Als 'Tegenover elkaar' is geselecteerd wordt deze breedte gebruikt aan de buiten
     <message>
       <source>Can't write the File: 
 %1</source>
-      <translation>Kan niet naar lêer schryven: 
+      <translation>Kan niet na lêer schryven: 
 %1</translation>
     </message>
     <message>
@@ -10864,7 +10848,7 @@ Als 'Tegenover elkaar' is geselecteerd wordt deze breedte gebruikt aan de buiten
     </message>
     <message>
       <source>Saving...</source>
-      <translation>Opslaan...</translation>
+      <translation>Stoor...</translation>
     </message>
     <message>
       <source>Printing...</source>
@@ -10908,7 +10892,7 @@ Als 'Tegenover elkaar' is geselecteerd wordt deze breedte gebruikt aan de buiten
     </message>
     <message>
       <source>Ghostscript : You cannot use EPS Images</source>
-      <translation>Ghostscript: U kunt niet met EPS-afbeeldingen werken</translation>
+      <translation>Ghostscript: U kunt niet met EPS-prente werken</translation>
     </message>
     <message>
       <source>All</source>
@@ -11138,7 +11122,7 @@ Als 'Tegenover elkaar' is geselecteerd wordt deze breedte gebruikt aan de buiten
     </message>
     <message>
       <source>has been changed since the last save.</source>
-      <translation>is gewyzigd na de laatste keer opslaan.</translation>
+      <translation>is gewyzigd na de laatste keer stoor.</translation>
     </message>
     <message>
       <source>&amp;Save Now</source>
@@ -11171,7 +11155,7 @@ Als 'Tegenover elkaar' is geselecteerd wordt deze breedte gebruikt aan de buiten
     </message>
     <message>
       <source>Search for:</source>
-      <translation>Zoeken naar:</translation>
+      <translation>Zoeken na:</translation>
     </message>
     <message>
       <source>Text</source>
@@ -11219,7 +11203,7 @@ Als 'Tegenover elkaar' is geselecteerd wordt deze breedte gebruikt aan de buiten
     </message>
     <message>
       <source>Right</source>
-      <translation>Rechts</translation>
+      <translation>Regs</translation>
     </message>
     <message>
       <source>Block</source>
@@ -11290,7 +11274,7 @@ Als 'Tegenover elkaar' is geselecteerd wordt deze breedte gebruikt aan de buiten
     </message>
     <message>
       <source>Document Pages:</source>
-      <translation>Documentbladsy's:</translation>
+      <translation>Documentbladsye:</translation>
     </message>
     <message>
       <source>Facing Pages</source>
@@ -11302,17 +11286,17 @@ Als 'Tegenover elkaar' is geselecteerd wordt deze breedte gebruikt aan de buiten
     </message>
     <message>
       <source>Drag Pages or Template Pages onto the Trashbin to delete them.</source>
-      <translation>Sleep bladsy's of Sjabloonbladsy's naar de prullenbak om ze te verwyderen.</translation>
+      <translation>Sleep bladsye of Sjabloonbladsye na de prullenbak om ze te verwyderen.</translation>
     </message>
     <message>
       <source>Previews all the pages of your document.</source>
-      <translation>Toont voorbeelden van alle bladsy's in uw dokument.</translation>
+      <translation>Toont voorbeelden van alle bladsye in uw dokument.</translation>
     </message>
     <message>
       <source>Here are all your Templates, to create a new Page
 drag a Template to the Pageview below.</source>
       <translation>Hier zyn al uw sjablonen. Sleep, om een nuwe bladsy
-aan te maken, een sjabloon naar de bladsyweergave hieronder.</translation>
+aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
     </message>
     <message>
       <source>Normal</source>
@@ -11466,11 +11450,11 @@ aan te maken, een sjabloon naar de bladsyweergave hieronder.</translation>
     </message>
     <message>
       <source>&amp;Reload Text from Frame</source>
-      <translation>Teks uit frame &amp;herladen</translation>
+      <translation>Teks uit raam &amp;herladen</translation>
     </message>
     <message>
       <source>&amp;Save to File...</source>
-      <translation>Op&amp;slaan naar lêer...</translation>
+      <translation>Op&amp;slaan na lêer...</translation>
     </message>
     <message>
       <source>&amp;Load from File...</source>
@@ -11478,15 +11462,15 @@ aan te maken, een sjabloon naar de bladsyweergave hieronder.</translation>
     </message>
     <message>
       <source>Save &amp;Document</source>
-      <translation>&amp;Document opslaan</translation>
+      <translation>&amp;Document stoor</translation>
     </message>
     <message>
       <source>&amp;Update Text Frame and Exit</source>
-      <translation>Teksframe bywerken en sl&amp;uiten</translation>
+      <translation>Teksraam bywerken en sl&amp;uiten</translation>
     </message>
     <message>
       <source>&amp;Exit Without Updating Text Frame</source>
-      <translation>Sluit&amp;en zonder teksframe by te werken</translation>
+      <translation>Sluit&amp;en zonder teksraam by te werken</translation>
     </message>
     <message>
       <source>Select &amp;All</source>
@@ -11526,7 +11510,7 @@ aan te maken, een sjabloon naar de bladsyweergave hieronder.</translation>
     </message>
     <message>
       <source>&amp;Update Text Frame</source>
-      <translation>Teksframe by&amp;werken</translation>
+      <translation>Teksraam by&amp;werken</translation>
     </message>
     <message>
       <source>&amp;Background...</source>
@@ -11562,23 +11546,23 @@ aan te maken, een sjabloon naar de bladsyweergave hieronder.</translation>
     </message>
     <message>
       <source>Save Text to File</source>
-      <translation>Teks opslaan naar lêer</translation>
+      <translation>Teks stoor na lêer</translation>
     </message>
     <message>
       <source>Update Text Frame and Exit</source>
-      <translation>Teksframe bywerken en sluiten</translation>
+      <translation>Teksraam bywerken en sluiten</translation>
     </message>
     <message>
       <source>Exit Without Updating Text Frame</source>
-      <translation>Sluiten zonder teksframe by te werken</translation>
+      <translation>Sluiten zonder teksraam by te werken</translation>
     </message>
     <message>
       <source>Reload Text from Frame</source>
-      <translation>Teks uit frame herladen</translation>
+      <translation>Teks uit raam herladen</translation>
     </message>
     <message>
       <source>Update Text Frame</source>
-      <translation>Teksframe bywerken</translation>
+      <translation>Teksraam bywerken</translation>
     </message>
     <message>
       <source>Search/Replace</source>
@@ -11610,7 +11594,7 @@ aan te maken, een sjabloon naar de bladsyweergave hieronder.</translation>
     </message>
     <message>
       <source>Do you want to save your changes?</source>
-      <translation>Wilt u uw wyzigingen opslaan?</translation>
+      <translation>Wilt u uw wyzigingen stoor?</translation>
     </message>
     <message>
       <source>Do you really want to lose all your Changes?</source>
@@ -11672,7 +11656,7 @@ aan te maken, een sjabloon naar de bladsyweergave hieronder.</translation>
     </message>
     <message>
       <source>Use document name as a prefix for paragraph styles</source>
-      <translation>Documentnaam als prefix voor alineastylen gebruiken</translation>
+      <translation>Documentnaam als prefix vir alineastylen gebruiken</translation>
     </message>
     <message>
       <source>Do not ask again</source>
@@ -11727,7 +11711,7 @@ never ask your confirmation again</source>
     </message>
     <message>
       <source>Right</source>
-      <translation>Rechts</translation>
+      <translation>Regs</translation>
     </message>
     <message>
       <source>Full Stop</source>
@@ -11755,11 +11739,11 @@ never ask your confirmation again</source>
     </message>
     <message>
       <source>Indentation for first line of the paragraph</source>
-      <translation>Inspringen voor de eerste regel van de alinea</translation>
+      <translation>Inspringen vir de eerste regel van de alinea</translation>
     </message>
     <message>
       <source>Indentation from the left for the whole paragraph</source>
-      <translation>Inspringen vanaf links voor de hele alinea</translation>
+      <translation>Inspringen vanaf links vir de hele alinea</translation>
     </message>
     <message>
       <source>Delete all Tabulators</source>
@@ -11811,8 +11795,8 @@ never ask your confirmation again</source>
     <message>
       <source>Name &quot;%1&quot; isn't unique.
 Please choose another.</source>
-      <translation>De naam &quot;%1&quot; is niet uniek.
-Kies een andere naam.</translation>
+      <translation>Die naam &quot;%1&quot; is nie uniek nie.
+Kies 'n ander naam.</translation>
     </message>
     <message>
       <source>OK</source>
@@ -11902,7 +11886,7 @@ Kies een andere naam.</translation>
     </message>
     <message>
       <source>Insert Text Frame</source>
-      <translation>Teksframe invoegen</translation>
+      <translation>Teksraam invoegen</translation>
     </message>
     <message>
       <source>Insert Picture</source>
@@ -11914,7 +11898,7 @@ Kies een andere naam.</translation>
     </message>
     <message>
       <source>Properties...</source>
-      <translation>Eigenschappen...</translation>
+      <translation>Eienskappe...</translation>
     </message>
     <message>
       <source>Insert Polygons</source>
@@ -11942,7 +11926,7 @@ Kies een andere naam.</translation>
     </message>
     <message>
       <source>Edit Contents of Frame</source>
-      <translation>Inhoud van frame bewerken</translation>
+      <translation>Inhoud van raam bewerken</translation>
     </message>
     <message>
       <source>Edit the text with the Story Editor</source>
@@ -11950,11 +11934,11 @@ Kies een andere naam.</translation>
     </message>
     <message>
       <source>Link Text Frames</source>
-      <translation>Teksframes koppelen</translation>
+      <translation>Teksrame koppelen</translation>
     </message>
     <message>
       <source>Unlink Text Frames</source>
-      <translation>Teksframes loskoppelen</translation>
+      <translation>Teksrame loskoppelen</translation>
     </message>
     <message>
       <source>Do measurements</source>
@@ -12047,7 +12031,7 @@ Kies een andere naam.</translation>
     </message>
     <message>
       <source>Automatic</source>
-      <translation>Automatisch</translation>
+      <translation>Outomaties</translation>
     </message>
     <message>
       <source>Get text only</source>
@@ -12165,7 +12149,7 @@ van dit type dezelfde importer gebruikt.</translation>
     </message>
     <message>
       <source>Extract the package to the template directory ~/.scribus/templates for the current user or PREFIX/share/scribus/templates for all users in the system.</source>
-      <translation>Pak het pakketje uit in de sjablonenmap van Scibus: ~/.scribus/templates voor de huidige gebruiker of PREFIX/share/scribus/templates voor alle gebruikers van het systeem.</translation>
+      <translation>Pak het pakketje uit in de sjablonenmap van Scibus: ~/.scribus/templates vir de huidige gebruiker of PREFIX/share/scribus/templates vir alle gebruikers van het systeem.</translation>
     </message>
     <message>
       <source>Preparing a template</source>
@@ -12173,7 +12157,7 @@ van dit type dezelfde importer gebruikt.</translation>
     </message>
     <message>
       <source>Make sure images and fonts you use can be used freely. If fonts cannot be shared do not collect them when saving as a template.</source>
-      <translation>Vergewis u ervan dat afbeeldingen en lettertypen vry gebruikt kunnen worden. Als lettertypen niet kunnen worden gedeeld, verzamel deze dan niet als u een dokument opslaat als een sjabloon.</translation>
+      <translation>Vergewis u ervan dat prente en lettertypen vry gebruikt kunnen worden. Als lettertypen niet kunnen worden gedeeld, verzamel deze dan niet als u een dokument opslaat als een sjabloon.</translation>
     </message>
     <message>
       <source>The template creator should also make sure that the Installing Templates section above applies to their templates as well. This means a user should be able to download a template package and be able to extract them to the template directory and start using them.</source>
@@ -12193,7 +12177,7 @@ van dit type dezelfde importer gebruikt.</translation>
     </message>
     <message>
       <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>
-      <translation>Dit kan door een bestaand template.xml te kopiëren naar een lêer met de naam template.lang_LANDCODE.xml (gebruik dezelfde landcode als het .ts-lêer voor uw taal), byvoorbeeld template.nl.xml voor de Nederlandse vertaling van sjabloonnamen. De kopie dient zich in dezelfde map te bevingen als het oorspronkelyke lêer, zodat Scribus het kan vinden.</translation>
+      <translation>Dit kan door een bestaand template.xml te kopiëren na een lêer met de naam template.lang_LANDCODE.xml (gebruik dezelfde landcode als het .ts-lêer vir uw taal), byvoorbeeld template.nl.xml vir de Nederlandse vertaling van sjabloonnamen. De kopie dient zich in dezelfde map te bevingen als het oorspronkelyke lêer, zodat Scribus het kan vinden.</translation>
     </message>
   </context>
   <context>
