@@ -193,7 +193,6 @@ public:
 	void slotDoCurs(bool draw);
 	void HandleCurs(QPainter *p, PageItem *b, QRect mpo);
 	void HandleSizer(QPainter *p, PageItem *b, QRect mpo, QMouseEvent *m);
-	void storeUndoInf(PageItem* b);
 	bool GetItem(PageItem **b, int nr = -1);
 	void Deselect(bool prop = true);
 	int OnPage(double x2, double  y2);
@@ -352,7 +351,6 @@ signals:
 	void DocChanged();
 	void PolyOpen();
 	void PStatus(int, uint);
-	void UndoAvail();
 	void SetAngle(double);
 	void SetSizeValue(double);
 	void SetLineArt(PenStyle, PenCapStyle, PenJoinStyle);

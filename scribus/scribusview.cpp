@@ -3289,9 +3289,6 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 				erf = false;
 				if (!GroupSel)
 				{
-					Doc->UnData.UnCode = 1;
-					Doc->UnDoValid = true;
-					emit UndoAvail();
 					b = SelItem.at(0);
 					if (!((b->isTableItem) && (b->isSingleSel)))
 					{
@@ -3315,8 +3312,6 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 					setGroupRect();
 					double gx, gy, gh, gw;
 					getGroupRectScreen(&gx, &gy, &gw, &gh);
-					Doc->UnDoValid = false;
-					emit UndoAvail();
 					moveGroup(newX-Mxp, newY-Myp, false);
 					if (Doc->SnapGuides)
 					{
@@ -3935,7 +3930,6 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 					SeleItem(m);
 					if (SelItem.count() != 0)
 					{
-						storeUndoInf(SelItem.at(0));
 						b = SelItem.at(0);
 						p.begin(viewport());
 						Transform(b, &p);
@@ -3944,15 +3938,10 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 							HandleSizer(&p, b, mpo, m);
 							if (HowTo != 0)
 							{
-								Doc->UnData.UnCode = 2;
 								if (b->PType != 5)
 									b->Sizing = true;
 								mCG = true;
 							}
-							else
-								Doc->UnData.UnCode = 1;
-							Doc->UnDoValid = true;
-							emit UndoAvail();
 						}
 						p.end();
 					}
@@ -3961,9 +3950,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			else
 			{
 				SeleItem(m);
-				if (SelItem.count() != 0)
-					storeUndoInf(SelItem.at(0));
-				else
+				if (SelItem.count() == 0)
 				{
 					Mxp = qRound(m->x()/Scale);
 					Myp = qRound(m->y()/Scale);
@@ -4146,8 +4133,6 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 						}
 					}
 					oldW = xy2Deg(m->x()/Scale - RCenter.x(), m->y()/Scale - RCenter.y());
-					Doc->UnDoValid = false;
-					emit UndoAvail();
 				}
 				else
 				{
@@ -4178,10 +4163,6 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 							Doc->RotMode = 3;
 						}
 						oldW = xy2Deg(m->x()/Scale - RCenter.x(), m->y()/Scale - RCenter.y());
-						Doc->UnData.UnCode = 3;
-						storeUndoInf(b);
-						Doc->UnDoValid = true;
-						emit UndoAvail();
 						p.end();
 					}
 				}
@@ -7110,31 +7091,12 @@ void ScribusView::HandleSizer(QPainter *p, PageItem *b, QRect mpo, QMouseEvent *
 	if (result.count() != 0)
 		HowTo = result[0];
 	HandleCurs(p, b, mpo);
-	storeUndoInf(b);
 	if (HowTo != 0)
 	{
-		Doc->UnData.UnCode = 2;
 		if (b->PType != 5)
 			b->Sizing = true;
 		mCG = true;
-		Doc->UnDoValid = true;
-		emit UndoAvail();
 	}
-}
-
-void ScribusView::storeUndoInf(PageItem* b)
-{
-	if ((Doc->UnData.UnCode == 0) && (Doc->UnDoValid))
-		delete Doc->UnData.Item;
-	Doc->UnDoValid = false;
-	Doc->UnData.Xpos = b->Xpos;
-	Doc->UnData.Ypos = b->Ypos;
-	Doc->UnData.Width = b->Width;
-	Doc->UnData.Height = b->Height;
-	Doc->UnData.Rot = b->Rot;
-	Doc->UnData.Item = b;
-	Doc->UnData.PageNr = Doc->currentPage->PageNr;
-	Doc->UnData.ItemNr = b->ItemNr;
 }
 
 bool ScribusView::GetItem(PageItem **b, int nr)
@@ -7872,15 +7834,6 @@ void ScribusView::DeleteItem()
 	if (SelItem.count() != 0)
 	{
 		anz = SelItem.count();
-		if ((Doc->UnData.UnCode == 0) && (Doc->UnDoValid))
-			delete Doc->UnData.Item;
-		Doc->UnData.UnCode = 0;
-		Doc->UnData.PageNr = Doc->currentPage->PageNr;
-		if (anz == 1)
-			Doc->UnDoValid = true;
-		else
-			Doc->UnDoValid = false;
-		emit UndoAvail();
 		uint offs = 0;
 		for (uint de = 0; de < anz; ++de)
 		{
@@ -7939,9 +7892,7 @@ void ScribusView::DeleteItem()
 			}
 			if (b->isBookmark)
 				emit DelBM(SelItem.at(0));
-			if (anz == 1)
-				Doc->UnData.Item = Doc->Items.take(b->ItemNr);
-			else
+			if (anz != 1)
 			{
 				Doc->Items.remove(b->ItemNr);
 				delete b;
@@ -8170,7 +8121,6 @@ void ScribusView::delPage(int Nr)
 	Seite->FromMaster.clear();
 	Doc->Pages.remove(Nr);
 	delete Seite;
-	Doc->UnDoValid = false;
 	Doc->PageC -= 1;
 	Doc->currentPage = Doc->Pages.at(0);
 	if (Doc->TemplateMode)
