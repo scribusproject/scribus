@@ -14,7 +14,7 @@
 #include "prefsfile.h"
 #include "prefscontext.h"
 #include "prefstable.h"
-#include "sxwunzip.h"
+#include "fileunzip.h"
 #include "serializer.h"
 #include <qfile.h>
 #include <qtextstream.h>
@@ -86,11 +86,11 @@ OODPlug::OODPlug( ScribusApp *plug, QString fileName )
 {
 	QString f, f2, f3;
 	m_styles.setAutoDelete( true );
-	SxwUnzip* sun = new SxwUnzip(fileName);
-	stylePath   = sun->getFile("styles.xml");
-	contentPath = sun->getFile("content.xml");
-	metaPath = sun->getFile("meta.xml");
-	delete sun;
+	FileUnzip* fun = new FileUnzip(fileName);
+	stylePath   = fun->getFile("styles.xml");
+	contentPath = fun->getFile("content.xml");
+	metaPath = fun->getFile("meta.xml");
+	delete fun;
 	if ((stylePath != NULL) && (contentPath != NULL))
 	{
 		QString docname = fileName.right(fileName.length() - fileName.findRev("/") - 1);
