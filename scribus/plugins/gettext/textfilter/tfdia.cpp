@@ -7,6 +7,7 @@
 #include <qframe.h>
 #include <qrect.h>
 #include <prefstable.h>
+#include <qsizepolicy.h>
 
 extern QPixmap loadIcon(QString nam);
 extern PrefsFile* prefsFile;
@@ -15,21 +16,21 @@ tfDia::tfDia() : QDialog()
 {
 	setCaption(tr("Create filter"));
 	setIcon(loadIcon("AppIcon.png"));
+	setMinimumWidth(524);
 	prefs = prefsFile->getPluginContext("TextFilter");
-	if (prefs->contains("x"))
-	{
-		setGeometry(prefs->getInt("x", 0),
-                    prefs->getInt("y", 0),
-                    prefs->getInt("width", 400),
-                    prefs->getInt("height", 300));
-	}
-	createLayout();
+	setGeometry(prefs->getInt("x", 0),
+                prefs->getInt("y", 0),
+                prefs->getInt("width", 400),
+                prefs->getInt("height", 300));
+   	createLayout();
+   	resize(width() + 10, height() + 10);
 }
 
 void tfDia::createLayout()
 {
 	currentFilter = "tf_lastUsed";
 	currentIndex = 0;
+	
 	layout = new QVBoxLayout(this);
 
 	QBoxLayout* layout1 = new QHBoxLayout(0, 5, 5, "layout1");
@@ -61,17 +62,21 @@ void tfDia::createLayout()
 	flayout->addWidget(f);
 	layout->addLayout(flayout);
 
-	alayout = new QVBoxLayout(0, 5, 12, "alayout");
-	layout->addLayout(alayout);
-	// @todo Get those filters here
+	
+	qsv = new QScrollView(this, "qsv");
+	QVBoxLayout *a1layout = new QVBoxLayout(0, 5, 12, "a1layout");
+	vbox = new QFrame(this);
+	vbox->setFixedWidth(qsv->viewport()->width());
+	qsv->viewport()->resize(width() - 12, vbox->height());
+	a1layout->addWidget(qsv);
+	qsv->addChild(vbox);
+	layout->addLayout(a1layout);
+	
+	alayout = new QVBoxLayout(vbox, 5,12, "alayout");
+	
 	createFilter(prefs->getTable("tf_lastUsed"));
-	if (filters.size() < 2)
-		filters[0]->setRemovable(false);
-	else
-		filters[0]->setRemovable(true);
-
-	layout->addStretch(10);
-
+	filters[0]->setRemovable((filters.size() >= 2));
+	
 	QBoxLayout* flayout2 = new QHBoxLayout(0,0,0, "flayout2");
 	QFrame* f2 = new QFrame(this, "f2");
 	f2->setFrameStyle(QFrame::HLine | QFrame::Sunken);
@@ -105,7 +110,7 @@ void tfDia::createLayout()
 
 void tfDia::createFilterRow(tfFilter* after)
 {
-	tfFilter* tmp = new tfFilter(this, "tfFilter");
+	tfFilter* tmp = new tfFilter(vbox, "tfFilter");
 	if (after == NULL)
 	{
 		filters.push_back(tmp);
@@ -128,6 +133,7 @@ void tfDia::createFilterRow(tfFilter* after)
 		alayout->insertWidget(static_cast<int>(i), tmp);
 	}
 	tmp->show();
+	vbox->adjustSize();
 	if (filters.size() == 2)
 		filters[0]->setRemovable(true);
 	else if (filters.size() == 1)
@@ -145,7 +151,7 @@ void tfDia::createFilter(PrefsTable* table)
 	{
 		for (uint i = 0; i < static_cast<uint>(table->height()); ++i)
 		{
-			tfFilter* tmp = new tfFilter(this, "tfFilter",
+			tfFilter* tmp = new tfFilter(vbox, "tfFilter",
 										 table->getInt(i, 0, 0),
 										 table->get(i, 1, ""),
 										 table->get(i, 2, ""),
@@ -159,6 +165,7 @@ void tfDia::createFilter(PrefsTable* table)
 			filters.push_back(tmp);
 			alayout->addWidget(tmp);
 			tmp->show();
+			vbox->adjustSize();
 			if (filters.size() == 2)
 				filters[0]->setRemovable(true);
 			connect(tmp, SIGNAL(addClicked(tfFilter*)), this, SLOT(createFilterRow(tfFilter*)));
@@ -292,6 +299,11 @@ void tfDia::storeLastFilter()
 	{
 		writeFilterRow(lastUsed, i, filters[i]);
 	}
+}
+
+void tfDia::resizeEvent(QResizeEvent* e)
+{
+	vbox->setFixedWidth(qsv->viewport()->width());
 }
 
 tfDia::~tfDia()
