@@ -438,7 +438,22 @@ void StoryEditor::updateStatus()
 void StoryEditor::closeEvent(QCloseEvent *event)
 {
 	if (!event->isAccepted())
-		Do_leave();
+	{
+		if (TextChanged)
+		{
+			int t = QMessageBox::warning(this, tr("Warning"),
+																tr("Do you want save your changes?"),
+																QMessageBox::Yes, QMessageBox::No, QMessageBox::Cancel);
+	    	if (t == QMessageBox::Yes)
+				accept();
+			else if (t == QMessageBox::Cancel)
+				return;
+			else if (t == QMessageBox::No)
+				reject();
+		}
+		else
+			reject();
+	}
 }
 
 void StoryEditor::Do_leave()

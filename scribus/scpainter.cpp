@@ -486,7 +486,7 @@ void ScPainter::drawVPath( ArtVpath *vec, int mode )
 #else
 		strokeColor = ( 0 << 24 ) | ( color.blue() << 16 ) | ( color.green() << 8 ) | color.red();
 #endif
-		double ratio = m_zoomFactor;//sqrt(pow(affine[0], 2) + pow(affine[3], 2)) / sqrt(2);
+		double ratio = m_zoomFactor; //sqrt(pow(affine[0], 2) + pow(affine[3], 2)) / sqrt(2);
 		if( m_array.count() > 0 )
 			{
 			// there are dashes to be rendered

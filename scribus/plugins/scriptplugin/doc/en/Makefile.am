@@ -1,7 +1,7 @@
 ####### kdevelop will overwrite this part!!! (begin)##########
 
 
-EXTRA_DIST = index.html node1.html node10.html node11.html node12.html node13.html node14.html node15.html node16.html node17.html node18.html node2.html node3.html Scripter.png node9.html node8.html node7.html node6.html node5.html node4.html Manual.css node19.html 
+EXTRA_DIST = index.html node1.html node10.html node11.html node12.html node13.html node14.html node15.html node16.html node17.html node18.html node2.html node3.html scribus_head.png Scripter.png node9.html node8.html node7.html node6.html node5.html node4.html Manual.css node19.html 
 
 install-data-local:
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/Scripter/
@@ -30,6 +30,8 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/node2.html $(prefix)/share/scribus/doc/en/Scripter/node2.html
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/Scripter/
 	$(INSTALL_DATA) $(srcdir)/node3.html $(prefix)/share/scribus/doc/en/Scripter/node3.html
+	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/Scripter/
+	$(INSTALL_DATA) $(srcdir)/scribus_head.png $(prefix)/share/scribus/doc/en/Scripter/scribus_head.png
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/Scripter/
 	$(INSTALL_DATA) $(srcdir)/Scripter.png $(prefix)/share/scribus/doc/en/Scripter/Scripter.png
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/Scripter/
@@ -63,6 +65,7 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/doc/en/Scripter/node18.html
 	-rm -f $(prefix)/share/scribus/doc/en/Scripter/node2.html
 	-rm -f $(prefix)/share/scribus/doc/en/Scripter/node3.html
+	-rm -f $(prefix)/share/scribus/doc/en/Scripter/scribus_head.png
 	-rm -f $(prefix)/share/scribus/doc/en/Scripter/Scripter.png
 	-rm -f $(prefix)/share/scribus/doc/en/Scripter/node9.html
 	-rm -f $(prefix)/share/scribus/doc/en/Scripter/node8.html

@@ -1,4 +1,10 @@
 Changes since Version 1.1.5
+25.02.2004	Included 2 Patches from Allessandro Rimoldini for the
+		Story Editor and the main.cpp file.
+		Fixed bugs with Textframes.
+		Display of Textframes should look now the same in all Magnifications.
+		Updated scribus.desktop file.
+
 24.02.2004	Fixed Bug with wrong Gradients when copying Objects.
 		Moved the Documentation files to $prefix/share/scribus
 		Fixed Problems with Editing Styles changing unexpectedly Textframes.
