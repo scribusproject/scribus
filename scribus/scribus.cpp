@@ -1909,7 +1909,6 @@ bool ScribusApp::eventFilter( QObject */*o*/, QEvent *e )
 				keyMod = 0;
 				break;
 		}
-
 		QKeySequence currKeySeq = QKeySequence(k->key() | keyMod);
 		retVal=true;
 		if (currKeySeq == scrActions["specialToggleAllPalettes"]->accel())

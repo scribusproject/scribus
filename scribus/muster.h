@@ -24,6 +24,9 @@ public:
 public slots:
 	void selectTemplate(QString name);
 
+protected slots:
+	void reject();
+
 private:
 	QListBox* templateData;
 	QPushButton* appendButton;

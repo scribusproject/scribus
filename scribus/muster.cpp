@@ -71,6 +71,12 @@ MusterPages::MusterPages( QWidget* parent, ScribusDoc *pCurrentDoc, ScribusView 
 	connect(templateData, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selectTemplate(QListBoxItem*)));
 }
 
+void MusterPages::reject()
+{
+	emit finished();
+	QDialog::reject();
+}
+
 void MusterPages::closeEvent(QCloseEvent *closeEvent)
 {
 	emit finished();
