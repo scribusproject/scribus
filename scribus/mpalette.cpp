@@ -1090,6 +1090,12 @@ void Mpalette::SetCurItem(PageItem *i)
 	LEndStyle->setEnabled(setter);
 	connect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
 	connect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
+	disconnect(FlipH, SIGNAL(clicked()), this, SLOT(DoFlipH()));
+	disconnect(FlipV, SIGNAL(clicked()), this, SLOT(DoFlipV()));
+	FlipH->setOn((i->flippedH % 2 != 0));
+	FlipV->setOn((i->flippedV % 2 != 0));
+	connect(FlipH, SIGNAL(clicked()), this, SLOT(DoFlipH()));
+	connect(FlipV, SIGNAL(clicked()), this, SLOT(DoFlipV()));
 	NoPrint->setOn(!i->isPrintable);
 	setter = i->Locked;
 	Kette2->setOn(false);
@@ -1254,6 +1260,12 @@ void Mpalette::NewSel(int nr)
 		TabStack->widget(4)->setEnabled(false);
 		TabStack->widget(5)->setEnabled(true);
 		SColor->setEnabled(true);
+		disconnect(FlipH, SIGNAL(clicked()), this, SLOT(DoFlipH()));
+		disconnect(FlipV, SIGNAL(clicked()), this, SLOT(DoFlipV()));
+		FlipH->setOn(false);
+		FlipV->setOn(false);
+		connect(FlipH, SIGNAL(clicked()), this, SLOT(DoFlipH()));
+		connect(FlipV, SIGNAL(clicked()), this, SLOT(DoFlipV()));
 		switch (nr)
 		{
 		case -1:

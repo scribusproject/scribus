@@ -2537,6 +2537,8 @@ void Page::scaleGroup(double scx, double scy)
 	for (uint a = 0; a < SelItem.count(); ++a)
 	{
 		bb = SelItem.at(a);
+		if ((bb->Locked) || (bb->LockRes))
+			continue;
 		bb->OldB = bb->Width;
 		bb->OldH = bb->Height;
 		bb->OldB2 = bb->Width;
@@ -4759,8 +4761,6 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 					b = SelItem.at(0);
 					if (!((b->isTableItem) && (b->isSingleSel)))
 					{
-						double oldX = b->Xpos;
-						double oldY = b->Ypos;
 						moveGroup(newX-Mxp, newY-Myp, false);
 						if (doku->SnapGuides)
 						{
@@ -4773,8 +4773,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 							ApplyGuides(&nx, &ny);
 							moveGroup(nx-(b->Xpos+b->Width), ny-(b->Ypos+b->Height), false);
 						}
-						if ((oldX != b->Xpos) || (oldY != b->Ypos))
-							erf = true;
+						erf = true;
 					}
 				}
 				else
@@ -4782,8 +4781,6 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 					setGroupRect();
 					double gx, gy, gh, gw;
 					getGroupRect(&gx, &gy, &gw, &gh);
-					double oldX = gx;
-					double oldY = gy;
 					doku->UnDoValid = false;
 					emit UndoAvail();
 					moveGroup(newX-Mxp, newY-Myp, false);
@@ -4802,8 +4799,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 					}
 					setGroupRect();
 					getGroupRect(&gx, &gy, &gw, &gh);
-					if ((oldX != gx) || (oldY != gy))
-						erf = true;
+					erf = true;
 				}
 				if (erf)
 				{
@@ -7082,9 +7078,14 @@ void Page::TextToPath()
 			chma = QWMatrix();
 			chma.scale(b->Ptext.at(a)->cscale / 100.0, 1);
 			pts.map(chma);
+			chma = QWMatrix();
+			if ((b->flippedH % 2 != 0) && (!b->Reverse))
+				chma.scale(-1, 1);
+			if (b->flippedV % 2 != 0)
+				chma.scale(1, -1);
+			pts.map(chma);
 			uint z = PaintPoly(b->Xpos, b->Ypos, b->Width, b->Height, b->Pwidth, b->Pcolor2, b->Pcolor);
 			bb = Items.at(z);
-			emit AddObj(PageNr, z);
 			bb->Textflow = b->Textflow;
 			bb->Textflow2 = b->Textflow2;
 			bb->LockRes = b->LockRes;
@@ -7106,7 +7107,7 @@ void Page::TextToPath()
 				bb->Pcolor2 = "None";
 				bb->Shade2 = 100;
 			}
-			bb->Pwidth = (*doku->AllFonts)[b->Ptext.at(a)->cfont]->strokeWidth * chs / 2.0;
+			bb->Pwidth = QMAX((*doku->AllFonts)[b->Ptext.at(a)->cfont]->strokeWidth * chs / 2.0, 1);
 			FPoint tp2 = GetMinClipF(bb->PoLine);
 			bb->PoLine.translate(-tp2.x(), -tp2.y());
 			FPoint tp = GetMaxClipF(bb->PoLine);
@@ -7114,17 +7115,18 @@ void Page::TextToPath()
 			bb->Height = tp.y();
 			bb->Clip = FlattenPath(bb->PoLine, bb->Segments);
 			FPoint npo;
-			if (b->Reverse)
-			{
-				double wide;
-				if (a < b->Ptext.count()-1)
-					wide = Cwidth(doku, b->Ptext.at(a)->cfont, chx, b->Ptext.at(a)->csize, b->Ptext.at(a+1)->ch);
-				else
-					wide = Cwidth(doku, b->Ptext.at(a)->cfont, chx, b->Ptext.at(a)->csize);
-				npo = transformPoint(FPoint(b->Width-b->Ptext.at(a)->xp-wide+x,b->Ptext.at(a)->yp-y), b->Xpos, b->Ypos, b->Rot, 1.0, 1.0);
-			}
+			double textX = b->Ptext.at(a)->xp;
+			double textY = b->Ptext.at(a)->yp;
+			double wide;
+			if (a < b->Ptext.count()-1)
+				wide = Cwidth(doku, b->Ptext.at(a)->cfont, chx, b->Ptext.at(a)->csize, b->Ptext.at(a+1)->ch);
 			else
-				npo = transformPoint(FPoint(b->Ptext.at(a)->xp+x,b->Ptext.at(a)->yp-y), 0.0, 0.0, b->Rot, 1.0, 1.0);
+				wide = Cwidth(doku, b->Ptext.at(a)->cfont, chx, b->Ptext.at(a)->csize);
+			if (b->flippedH % 2 != 0)
+				textX = b->Width - textX - wide;
+			if (b->flippedV % 2 != 0)
+				textY = b->Height - textY + y;
+			npo = transformPoint(FPoint(textX+x, textY-y), 0.0, 0.0, b->Rot, 1.0, 1.0);
 			bb->Xpos = b->Xpos+npo.x();
 			bb->Ypos = b->Ypos+npo.y();
 			bb->ContourLine = bb->PoLine.copy();
@@ -8597,24 +8599,38 @@ void Page::ClearItem()
 void Page::DeleteItem()
 {
 	uint a, c, itnr, anz;
+	QPtrList<PageItem> delItems;
+	delItems.clear();
 	PageItem *b;
 	if (SelItem.count() != 0)
 	{
 		anz = SelItem.count();
+		if ((doku->UnData.UnCode == 0) && (doku->UnDoValid))
+			delete doku->UnData.Item;
+		doku->UnData.UnCode = 0;
+		doku->UnData.PageNr = PageNr;
 		if (anz == 1)
-		{
-			if ((doku->UnData.UnCode == 0) && (doku->UnDoValid))
-				delete doku->UnData.Item;
-			doku->UnData.UnCode = 0;
-			doku->UnData.PageNr = PageNr;
 			doku->UnDoValid = true;
-			emit UndoAvail();
-		}
-		for (uint de=0; de<anz; ++de)
+		else
+			doku->UnDoValid = false;
+		emit UndoAvail();
+		uint offs = 0;
+		for (uint de = 0; de < anz; ++de)
 		{
-			b = SelItem.at(0);
-			if ((b->isTableItem) && (b->isSingleSel))
+			b = SelItem.at(offs);
+			if (((b->isTableItem) && (b->isSingleSel)) || (b->Locked))
+			{
+				offs++;
 				continue;
+			}
+			delItems.append(SelItem.take(offs));
+		}
+		if (delItems.count() == 0)
+			return;
+		anz = delItems.count();
+		for (uint de = 0; de < anz; ++de)
+		{
+			b = delItems.at(0);
 			if (b->PType == 4)
 			{
 				if ((b->NextBox != 0) || (b->BackBox != 0))
@@ -8644,21 +8660,27 @@ void Page::DeleteItem()
 					}
 				}
 			}
-			if (SelItem.at(0)->isBookmark)
+			if (delItems.at(0)->isBookmark)
 				emit DelBM(SelItem.at(0));
-			doku->UnData.Item = Items.take(SelItem.at(0)->ItemNr);
-			emit DelObj(PageNr, SelItem.at(0)->ItemNr);
-			SelItem.removeFirst();
+			if (anz == 1)
+				doku->UnData.Item = Items.take(delItems.at(0)->ItemNr);
+			else
+			{
+				b = Items.take(delItems.at(0)->ItemNr);
+				delete b;
+			}
+			emit DelObj(PageNr, delItems.at(0)->ItemNr);
+			delItems.removeFirst();
 			for (a = 0; a < Items.count(); ++a)
 			{
 				itnr = Items.at(a)->ItemNr;
 				Items.at(a)->ItemNr = a;
 				if (Items.at(a)->isBookmark)
 					emit NewBMNr(Items.at(a)->BMnr, a);
-				for (uint dxx=0; dxx<SelItem.count(); ++dxx)
+				for (uint dxx=0; dxx<delItems.count(); ++dxx)
 				{
-					if (SelItem.at(dxx)->ItemNr == itnr)
-						SelItem.at(dxx)->ItemNr = a;
+					if (delItems.at(dxx)->ItemNr == itnr)
+						delItems.at(dxx)->ItemNr = a;
 				}
 			}
 		}
@@ -8666,18 +8688,17 @@ void Page::DeleteItem()
 		{
 			double x, y, w, h;
 			getGroupRectScreen(&x, &y, &w, &h);
-			SelItem.clear();
 			GroupSel = false;
 			repaint(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10),
 			              static_cast<int>(h+10)));
 		}
 		else
-		{
-			SelItem.clear();
 			update();
-		}
 		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-		emit HaveSel(-1);
+		if (SelItem.count() == 0)
+			emit HaveSel(-1);
+		else
+			emit HaveSel(SelItem.at(0)->PType);
 		emit DocChanged();
 	}
 }
