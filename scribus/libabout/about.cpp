@@ -104,7 +104,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	                                     "<tr><td>Paul F. Johnson</td><td>paul@all-the-johnsons.co.uk</td></tr>" +
 	                                     "<tr><td>Craig Bradney</td><td>cbradney@zip.com.au</td></tr>" +
 	                                     "<tr><td>Petr Vaněk</td><td>petr@yarpen.cz</td></tr>" +
-	                                     "<tr><td>Riku Leino</td><td>tsoots@welho.com</td></tr>" +
+	                                     "<tr><td>Riku Leino</td><td>tsoots@gmail.com</td></tr>" +
 	                                     "<tr><td> </td><td> </td></tr>" +
 	                                     "<tr><td><b>" + tr("Contributions from:").utf8()  + "</b></td><td></td></tr>" +
 	                                     "<tr><td>Niyam Bhushan</td><td></td></tr>" +
@@ -171,7 +171,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	                                      "<tr><td>Pier Luigi Cinquantini</td><td>plcinquantini@katamail.com</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +
 	                                      "<tr><td><b>" + tr("Finnish:").utf8()  + "</b></td><td></td></tr>" +
-	                                      "<tr><td>Riku Leino</td><td>tsoots@welho.com</td></tr>" +
+	                                      "<tr><td>Riku Leino</td><td>tsoots@gmail.com</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +                                      
 	                                      "<tr><td><b>" + tr("French:").utf8()  + "</b></td><td> </td>" +
 	                                      "<tr><td>Nicolas Boos</td><td>nicolas.boos@wanadoo.fr</td></tr>" +
