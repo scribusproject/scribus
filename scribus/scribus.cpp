@@ -2382,6 +2382,8 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 									b->CPos -= 1;
 									if (b->CPos == 0)
 										break;
+									if  ( b->itemText.at(b->CPos)->ch.at(0).latin1() == 13 )
+										break;
 									if (b->itemText.at(b->CPos)->yp < alty)
 									{
 										if (b->itemText.at(b->CPos)->xp <= altx)

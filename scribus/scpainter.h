@@ -41,7 +41,7 @@ struct _ArtGradientStop;
 class ScPainter
 {
 public:
-	ScPainter( QPaintDevice *target, unsigned int w = 0, unsigned int h = 0 );
+	ScPainter( QPaintDevice *target, unsigned int w = 0, unsigned int h = 0, unsigned int x = 0, unsigned int y = 0 );
 	virtual ~ScPainter();
 	enum FillMode { None, Solid, Gradient };
 	virtual void resize( unsigned int w, unsigned int h );
@@ -124,6 +124,8 @@ private:
 	QPaintDevice *m_target;
 	unsigned int m_width;
 	unsigned int m_height;
+	unsigned int m_x;
+	unsigned int m_y;
 	QWMatrix m_matrix;
 	QFont m_font;
 	bool mf_underline;

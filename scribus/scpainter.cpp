@@ -54,19 +54,21 @@
 #include "art_render_pattern.h"
 
 #include <X11/Xlib.h>
-
 #include <gdk-pixbuf-xlibrgb.h>
+
 #include <math.h>
 #include "art_kmisc.h"
 
 #define INITIAL_ALLOC	300
 #define ALLOC_INCREMENT	100
 
-ScPainter::ScPainter( QPaintDevice *target, unsigned int w, unsigned int h )
+ScPainter::ScPainter( QPaintDevice *target, unsigned int w, unsigned int h, unsigned int x, unsigned int y )
 {
 	m_target = target;
 	m_width = w;
 	m_height= h;
+	m_x = x;
+	m_y = y;
 	m_buffer = 0L;
 	m_path = 0L;
 	m_index = 0;
@@ -89,9 +91,7 @@ ScPainter::ScPainter( QPaintDevice *target, unsigned int w, unsigned int h )
 	PLineJoin = Qt::RoundJoin;
 	fill_gradient = VGradient(VGradient::linear);
 	stroke_gradient = VGradient(VGradient::linear);
-	xlib_rgb_init_with_depth( target->x11Display(), XScreenOfDisplay( target->x11Display(),
-							  target->x11Screen() ), target->x11Depth() );
-
+	xlib_rgb_init_with_depth( target->x11Display(), XScreenOfDisplay( target->x11Display(), target->x11Screen() ), target->x11Depth() );
 	gc = XCreateGC( target->x11Display(), target->handle(), 0, 0 );
 	m_zoomFactor = 1;
 }
@@ -129,19 +129,17 @@ void ScPainter::begin()
 
 void ScPainter::end()
 {
-	xlib_draw_rgb_32_image( m_target->handle(), gc, 0, 0, m_width, m_height,
-						 XLIB_RGB_DITHER_NONE, m_buffer, m_width * 4 );
+	xlib_draw_rgb_32_image( m_target->handle(), gc, m_x, m_y, m_width, m_height, XLIB_RGB_DITHER_NONE, m_buffer, m_width * 4 );
+//	xlib_draw_rgb_32_image( m_target->handle(), gc, 0, 0, m_width, m_height, XLIB_RGB_DITHER_NONE, m_buffer, m_width * 4 );
 }
 
-void
-ScPainter::clear()
+void ScPainter::clear()
 {
 	if( m_buffer )
 		memset( m_buffer, 255, m_width * m_height * 4 );
 }
 
-void
-ScPainter::clear( const QColor &c )
+void ScPainter::clear( const QColor &c )
 {
 	if( m_buffer )
 	{

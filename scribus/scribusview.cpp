@@ -198,8 +198,8 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 //	tim.start();
 	if ((clipw > 0) && (cliph > 0))
 	{
-		QPixmap pm = QPixmap(clipw, cliph);
-		ScPainter *painter = new ScPainter(&pm, clipw, cliph);
+		vr = contentsToViewport(QPoint(clipx, clipy));
+		ScPainter *painter = new ScPainter(viewport(), clipw, cliph, vr.x(), vr.y());
 		painter->clear(paletteBackgroundColor());
 		painter->translate(-clipx, -clipy);
 		painter->setLineWidth(1);
@@ -416,8 +416,6 @@ void ScribusView::drawContents(QPainter *, int clipx, int clipy, int clipw, int 
 			painter->setZoomFactor(z);
 		}
 		painter->end();
-		vr = contentsToViewport(QPoint(clipx, clipy));
-		bitBlt( viewport(), vr.x(), vr.y(), &pm, 0, 0, clipw, cliph );
 		delete painter;
 	}
 	if (SelItem.count() != 0)
@@ -1614,6 +1612,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				//pmen->insertItem( tr("&Get Picture..."), this, SIGNAL(LoadPic()));
 				int px = pmen->insertItem( tr("I&mage Visible"), this, SLOT(TogglePic()));
 				pmen->setItemChecked(px, b->PicArt);
+				if ((b->PicAvail) && (b->imgInfo.valid))
+					pmen->insertItem( tr("Use embedded Clipping Path"), this, SLOT(useEmbeddedPath()));
 				if (b->PicAvail)
 					pmen->insertItem( tr("&Update Picture"), this, SLOT(UpdatePic()));
 				if (b->PicAvail && b->isRaster)
@@ -10315,19 +10315,43 @@ void ScribusView::FlipImageV()
 	}
 }
 
+void ScribusView::useEmbeddedPath()
+{
+	if (SelItem.count() != 0)
+	{
+		PageItem *Item = SelItem.at(0);
+		if (Item->imgInfo.valid)
+		{
+			if ((Item->imgInfo.clipPath != "") && (Item->imgInfo.PDSpathData.count() != 0))
+			{
+				Item->PoLine = Item->imgInfo.PDSpathData[Item->imgInfo.clipPath].copy();
+				QWMatrix cl;
+				cl.scale(72.0 / Item->dpiX, 72.0 / Item->dpiY);
+				Item->PoLine.map(cl);
+				Item->FrameType = 3;
+				Item->Clip = FlattenPath(Item->PoLine, Item->Segments);
+				Item->ClipEdited = true;
+				AdjustItemSize(Item);
+				setRedrawBounding(Item);
+			}
+		}
+	}
+}
+
 void ScribusView::LoadPict(QString fn, int ItNr, bool reload)
 {
-	ImageInfoRecord imgInfo;
-	imgInfo.clipPath.resize(0);
 	bool dummy;
 	QFileInfo fi = QFileInfo(fn);
 	PageItem *Item = Doc->Items.at(ItNr);
+	Item->imgInfo.valid = false;
+	Item->imgInfo.clipPath = "";
+	Item->imgInfo.PDSpathData.clear();
 	if (!reload)
 	{
 		if ((ScApp->fileWatcher->files().contains(Item->Pfile) != 0) && (Item->PicAvail))
 			ScApp->fileWatcher->removeFile(Item->Pfile);
 	}
-	QImage img = LoadPicture(fn, Item->IProfile, Item->IRender, Item->UseEmbedded, true, 2, 72, &dummy, &imgInfo);
+	QImage img = LoadPicture(fn, Item->IProfile, Item->IRender, Item->UseEmbedded, true, 2, 72, &dummy, &Item->imgInfo);
 	if (img.isNull())
 	{
 		Item->Pfile = fi.absFilePath();
@@ -10364,18 +10388,6 @@ void ScribusView::LoadPict(QString fn, int ItNr, bool reload)
 		Item->isRaster = true;
 		Item->dpiX = xres;
 		Item->dpiY = yres;
-		if (imgInfo.clipPath.size() != 0)
-		{
-			Item->PoLine = imgInfo.clipPath.copy();
-			QWMatrix cl;
-			cl.scale(72.0 / xres, 72.0 / yres);
-			Item->PoLine.map(cl);
-			Item->FrameType = 3;
-			Item->Clip = FlattenPath(Item->PoLine, Item->Segments);
-			Item->ClipEdited = true;
-			AdjustItemSize(Item);
-			setRedrawBounding(Item);
-		}
 	}
 	if (!Doc->loading)
 	{

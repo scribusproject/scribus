@@ -35,6 +35,33 @@ class UndoState;
   *@author Franz Schmid
   */
 
+struct PSDLayer
+{
+	QValueList<uint> channelLen;
+	QValueList<int> channelType;
+	int xpos;
+	int ypos;
+	int width;
+	int height;
+	ushort opacity;
+	uchar clipping;
+	uchar flags;
+	QString layerName;
+	QString blend;
+};
+
+struct ImageInfoRecord
+{
+	int xres;
+	int yres;
+	bool colorspace;
+	bool valid;
+	bool isRequest;
+	QMap<QString, FPointArray> PDSpathData;
+	QString clipPath;
+	QValueList<PSDLayer> layerInfo;
+};
+
 class PageItem : public QObject, public UndoObject
 {
 	Q_OBJECT
@@ -206,6 +233,7 @@ public:
   /** Darzustellendes Bild */
 	QImage pixm;
 	QImage pixmOrg;
+	ImageInfoRecord imgInfo;
   /** Dateiname des Bildes */
 	QString Pfile;
 	QString Pfile2;

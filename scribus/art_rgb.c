@@ -175,7 +175,7 @@ art_rgb_run_alpha_ (art_u8 *buf, art_u8 r, art_u8 g, art_u8 b, int alpha, int n)
     *buf++ = v + (((g - v) * alpha + 0x80) >> 8);
     v = *buf;
     *buf++ = v + (((r - v) * alpha + 0x80) >> 8);
-    buf++;
+   buf++;
   }
 }
 

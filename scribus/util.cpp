@@ -283,22 +283,6 @@ struct PSDHeader
 	ushort color_mode;
 };
 
-struct PSDLayer
-{
-	uint startOfLayer;
-	QValueList<uint> channelLen;
-	QValueList<int> channelType;
-	int xpos;
-	int ypos;
-	int width;
-	int height;
-	ushort opacity;
-	uchar clipping;
-	uchar flags;
-	QString layerName;
-	QString blend;
-};
-
 static QDataStream & operator>> ( QDataStream & s, PSDHeader & header )
 {
 	s >> header.signature;
@@ -1080,18 +1064,17 @@ static QString getPascalString(QDataStream & s)
 	return ret;
 }
 
-static void parseRessourceData( QDataStream & s, const PSDHeader & header, uint size, float *xres, float *yres, bool* isPS4, FPointArray *clip )
+static void parseRessourceData( QDataStream & s, const PSDHeader & header, uint size, bool* isPS4, ImageInfoRecord *info )
 {
 	uint signature, resSize, offset, resBase, vRes, hRes, adj;
 	ushort resID, hResUnit, vResUnit, dummyW;
-	QString resName, cPath;
+	QString resName;
 	uchar filler;
 	offset = 0;
 	bool first = false;
 	bool pathOpen = false;
 	FPoint firstPoint, firstControl;
 	FPointArray clip2;
-	QMap<QString, FPointArray> PDSpathData;
 	while (offset < size)
 	{
 		s >> signature;
@@ -1114,6 +1097,7 @@ static void parseRessourceData( QDataStream & s, const PSDHeader & header, uint 
 			offset2 = 0;
 			first = false;
 			pathOpen = false;
+			clip2.resize(0);
 			while (offset2 < resSize)
 			{
 				s >> type;
@@ -1176,7 +1160,7 @@ static void parseRessourceData( QDataStream & s, const PSDHeader & header, uint 
 			}
 			clip2.addPoint(firstPoint);
 			clip2.addPoint(firstControl);
-			PDSpathData.insert(resName, clip2);
+			info->PDSpathData.insert(resName, clip2);
 		}
 		 else
 		 {
@@ -1184,8 +1168,7 @@ static void parseRessourceData( QDataStream & s, const PSDHeader & header, uint 
 			{
 				case 0x0bb7:
 					adj = s.device()->at();
-					cPath = getPascalString(s);
-					*clip = PDSpathData[cPath].copy();
+					info->clipPath = getPascalString(s);
 					offset += s.device()->at() - adj;
 					break;
 				case 0x03ed:
@@ -1195,8 +1178,8 @@ static void parseRessourceData( QDataStream & s, const PSDHeader & header, uint 
 					s >> vRes;
 					s >> vResUnit;
 					s >> dummyW;
-					*xres = hRes / 65536.0;
-					*yres = vRes / 65536.0;
+					info->xres = qRound(hRes / 65536.0);
+					info->yres = qRound(vRes / 65536.0);
 					break;
 				case 0x0409:
 				case 0x0421:
@@ -1216,7 +1199,7 @@ static void parseRessourceData( QDataStream & s, const PSDHeader & header, uint 
 	}
 }
 
-static bool parseLayer( QDataStream & s, const PSDHeader & header, QImage & img, bool isPS4 )
+static bool parseLayer( QDataStream & s, const PSDHeader & header, QImage & img, ImageInfoRecord *info, bool isPS4 )
 {
 	uint addRes, layerinfo, channelLen, signature, extradata, layermasksize, layerRange, dummy;
 	int top, left, bottom, right;
@@ -1225,7 +1208,6 @@ static bool parseLayer( QDataStream & s, const PSDHeader & header, QImage & img,
 	uchar blendKey[4];
 	uchar opacity, clipping, flags, filler;
 	QString layerName, blend;
-	QValueList<PSDLayer> layerInfo;
 	struct PSDLayer lay;
 	s >> layerinfo;
 	s >> numLayers;
@@ -1284,7 +1266,7 @@ static bool parseLayer( QDataStream & s, const PSDHeader & header, QImage & img,
 				lay.layerName = getLayerString(s);
 			else
 				lay.layerName = getPascalString(s);
-			layerInfo.append(lay);
+			info->layerInfo.append(lay);
 			s >> signature;
 			if( signature == 0x3842494D )
 			{
@@ -1318,7 +1300,7 @@ static bool parseLayer( QDataStream & s, const PSDHeader & header, QImage & img,
 		}
 		for (int layer = 0; layer < numLayers; layer++)
 		{
-			loadLayerChannels( s, header, img, layerInfo, layer );
+			loadLayerChannels( s, header, img, info->layerInfo, layer );
 		}
 	}
 	else
@@ -1330,7 +1312,7 @@ static bool parseLayer( QDataStream & s, const PSDHeader & header, QImage & img,
 }
 
 // Load the PSD image.
-static bool LoadPSD( QDataStream & s, const PSDHeader & header, QImage & img, float *xres, float *yres, FPointArray *clip)
+static bool LoadPSD( QDataStream & s, const PSDHeader & header, QImage & img, ImageInfoRecord *info)
 {
 	// Create dst image.
 	if( !img.create( header.width, header.height, 32 ))
@@ -1348,13 +1330,13 @@ static bool LoadPSD( QDataStream & s, const PSDHeader & header, QImage & img, fl
 	startRessource = s.device()->at();
 	bool isPS4 = false;
 	if (ressourceDataLen != 0)
-		parseRessourceData(s, header, ressourceDataLen, xres, yres, &isPS4, clip);
+		parseRessourceData(s, header, ressourceDataLen, &isPS4, info);
 	s.device()->at( startRessource + ressourceDataLen );
 	// Skip the reserved data. FIX: Also incorrect, this is the actual Layer Data for Images with Layers
 	s >> layerDataLen;
 	startLayers = s.device()->at();
 	if (layerDataLen != 0)
-		return parseLayer( s, header, img, isPS4);
+		return parseLayer( s, header, img, info, isPS4);
 	else
 	{
 		// Decoding simple psd file, no layers
@@ -1372,6 +1354,7 @@ QString getAlpha(QString fn, bool PDF, bool pdf14)
 	bool bilevel = false;
 	float xres, yres;
 	short resolutionunit = 0;
+	ImageInfoRecord imgInfo;
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())
 		return retS;
@@ -1549,7 +1532,7 @@ QString getAlpha(QString fn, bool PDF, bool pdf14)
 			if( !IsSupported( header ) )
 				return retS;
 			FPointArray clip;
-			if( !LoadPSD(s, header, img, &xres, &yres, &clip) )
+			if( !LoadPSD(s, header, img, &imgInfo) )
 				return retS;
 			img = img.convertDepth(32);
 			img.setAlphaBuffer(true);
@@ -1944,8 +1927,9 @@ QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool us
 		QFile f(fn);
 		if (f.open(IO_ReadOnly))
 		{
-			xres = 72.0;
-			yres = 72.0;
+			ImageInfoRecord imgInfo;
+			imgInfo.xres = 72;
+			imgInfo.yres = 72;
 			QDataStream s( &f );
 			s.setByteOrder( QDataStream::BigEndian );
 			PSDHeader header;
@@ -1957,8 +1941,16 @@ QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool us
 			if( !IsSupported( header ) )
 				return img;
 			FPointArray clip;
-			if( !LoadPSD(s, header, img, &xres, &yres, &clip) )
-				return img;
+			if (info != 0)
+			{
+				if( !LoadPSD(s, header, img, info) )
+					return img;
+			}
+			else
+			{
+				if( !LoadPSD(s, header, img, &imgInfo) )
+					return img;
+			}
 			if (header.color_mode == CM_CMYK)
 				isCMYK = true;
 			else
@@ -1967,13 +1959,20 @@ QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool us
 				*realCMYK = isCMYK;
 			if (info != 0)
 			{
-				info->xres = qRound(xres);
-				info->yres = qRound(yres);
 				info->colorspace = isCMYK;
-				info->clipPath = clip.copy();
+				info->valid = true;
+				img.setDotsPerMeterX ((int) (info->xres / 0.0254));
+				img.setDotsPerMeterY ((int) (info->yres / 0.0254));
+				xres = info->xres;
+				yres = info->yres;
 			}
-			img.setDotsPerMeterX ((int) (xres / 0.0254));
-			img.setDotsPerMeterY ((int) (yres / 0.0254));
+			else
+			{
+				img.setDotsPerMeterX ((int) (imgInfo.xres / 0.0254));
+				img.setDotsPerMeterY ((int) (imgInfo.yres / 0.0254));
+				xres = imgInfo.xres;
+				yres = imgInfo.yres;
+			}
 			f.close();
 		}
 		else
