@@ -20,26 +20,18 @@
 
 ScrAction::ScrAction( QObject * parent, const char * name ) : QAction( parent, name )
 {
-	menuType=ScrAction::Normal;
-	menuIndex=-1;
-	widgetAddedTo=NULL;
-	containerWidgetAddedTo=NULL;
+	initScrAction();
 }
 
 ScrAction::ScrAction( const QString & menuText, QKeySequence accel, QObject * parent, const char * name ) : QAction( menuText, accel, parent, name )
 {
-	menuType=ScrAction::Normal;
-	menuIndex=-1;
-	widgetAddedTo=NULL;
-	containerWidgetAddedTo=NULL;
+	initScrAction();
 }
 
 ScrAction::ScrAction( MenuType mType, const QIconSet & icon, const QString & menuText, QKeySequence accel, QObject * parent, const char * name, int extraInt, double extraDouble, QString extraQString ) : QAction( icon, menuText, accel, parent, name )
 {
+	initScrAction();
 	setIconSizes();
-	menuIndex=-1;
-	widgetAddedTo=NULL;
-	containerWidgetAddedTo=NULL;
 	menuType=mType;
 	if (menuType!=Normal)
 		connect (this, SIGNAL(activated()), this, SLOT(activatedToActivatedData()));
@@ -72,11 +64,18 @@ ScrAction::ScrAction( MenuType mType, const QIconSet & icon, const QString & men
 
 ScrAction::ScrAction( const QIconSet & icon, const QString & menuText, QKeySequence accel, QObject * parent, const char * name ) : QAction( icon, menuText, accel, parent, name )
 {
-	menuType=ScrAction::Normal;
+	initScrAction();
 	setIconSizes();
+}
+
+void ScrAction::initScrAction()
+{
+	menuType=ScrAction::Normal;
 	menuIndex=-1;
 	widgetAddedTo=NULL;
 	containerWidgetAddedTo=NULL;
+	savedKeySequence=QKeySequence("");
+	shortcutSaved=false;
 }
 
 ScrAction::~ScrAction()
@@ -194,4 +193,24 @@ void ScrAction::setToggleAction(bool isToggle)
 			disconnect (this, SIGNAL(toggled(bool)), this, SLOT(toggledToToggledData(bool)));
 	}
 	QAction::setToggleAction(isToggle);
+}
+
+void ScrAction::saveShortcut()
+{
+	if(!shortcutSaved)
+	{
+		savedKeySequence=accel();
+		setAccel(QKeySequence(""));
+		shortcutSaved=true;
+	}
+}
+
+void ScrAction::restoreShortcut()
+{
+	if (shortcutSaved)
+	{
+		setAccel(savedKeySequence);
+		savedKeySequence=QKeySequence("");
+		shortcutSaved=false;
+	}
 }

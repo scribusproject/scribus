@@ -161,6 +161,24 @@ public:
 	 */		
 	void setToggleAction(bool);
 	
+	/*!
+		\fn ScrAction::saveShortCut()
+		\author Craig Bradney
+		\date Feb 2005
+		\brief Store the shortcut in a private variable as these must be removed in editmode
+		\param None
+		\retval None
+	 */		
+	void saveShortcut();
+	/*!
+		\fn ScrAction::restoreShortCut()
+		\author Craig Bradney
+		\date Feb 2005
+		\brief Restore the saved shortcut to be the active one
+		\param None
+		\retval None
+	 */		
+	void restoreShortcut();	
 signals:
 	void activatedData(int);
 	void activatedData(double);
@@ -170,6 +188,7 @@ signals:
 	void toggledData(bool, QString);
 	
 protected:
+	void initScrAction();
 	int menuIndex;
 	int pluginID;
 	int windowID;
@@ -180,6 +199,8 @@ protected:
 	QWidget *widgetAddedTo;
 	QWidget *containerWidgetAddedTo;
 	QPopupMenu *popupMenuAddedTo;
+	QKeySequence savedKeySequence;
+	bool shortcutSaved;
 	
 	/*!
 		\fn ScrAction::addedTo ( int index, QPopupMenu * menu )

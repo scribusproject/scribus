@@ -337,16 +337,14 @@ void ScribusApp::initToolBars()
 	setDockEnabled(WerkTools, DockRight, false);
 	WerkTools->Sichtbar = true;
 	WerkTools->setEnabled(false);
-	scrActions["toolsMeasurements"]->addTo(WerkTools);
 	WerkToolsP = new WerkToolBP(this);
 	setDockEnabled(WerkToolsP, DockLeft, false);
 	setDockEnabled(WerkToolsP, DockRight, false);
 	WerkToolsP->setEnabled(false);
 	WerkToolsP->Sichtbar = true;
 
-	connect(WerkTools, SIGNAL(NewMode(int)), this, SLOT(ModeFromTB(int)));
 	connect(WerkTools, SIGNAL(Schliessen()), this, SLOT(ToggleTools()));
-	connect(WerkToolsP, SIGNAL(NewMode(int)), this, SLOT(ModeFromTB(int)));
+	connect(WerkToolsP, SIGNAL(NewMode(int)), this, SLOT(setAppMode(int)));
 	connect(WerkToolsP, SIGNAL(Schliessen()), this, SLOT(TogglePDFTools()));
 }
 
@@ -1008,15 +1006,6 @@ void ScribusApp::initFileMenuActions()
 	scrActions.insert("filePrint", new ScrAction(QIconSet(loadIcon("DateiPrint16.png"), loadIcon("DateiPrint.xpm")), tr("&Print..."), CTRL+Key_P, this, "filePrint"));
 	scrActions.insert("fileQuit", new ScrAction(QPixmap(loadIcon("exit.png")), tr("&Quit"), CTRL+Key_Q, this, "fileQuit"));
 
-	//Set some tooltips, unsure yet whether to use these, probably not as they arent flexible like normal actions ones can be
-	/*
-	scrActions["fileNew"]->setToolTip(tr("Create a new document"));
-	scrActions["fileOpen"]->setToolTip(tr("Open a document"));
-	scrActions["fileSave"]->setToolTip(tr("Save the current document"));
-	scrActions["fileClose"]->setToolTip(tr("Close the current document"));
-	scrActions["filePrint"]->setToolTip(tr("Print the current document"));
-	scrActions["fileExportAsPDF"]->setToolTip(tr("Save the current document as PDF"));
-	*/
 	//Connect our signals and slots
 	//File Menu
 	connect( scrActions["fileNew"], SIGNAL(activated()) , this, SLOT(slotFileNew()) );
@@ -1282,7 +1271,7 @@ void ScribusApp::initToolsMenuActions()
 	scrActions.insert("toolsProperties", new ScrAction(tr("&Properties"), QKeySequence(), this, "toolsProperties"));
 	scrActions.insert("toolsOutline", new ScrAction(tr("&Outline"), QKeySequence(), this, "toolsOutline"));
 	scrActions.insert("toolsScrapbook", new ScrAction(tr("&Scrapbook"), QKeySequence(), this, "toolsScrapbook"));
-	scrActions.insert("toolsLayers", new ScrAction(tr("&Layers"), QKeySequence(), this, "toolsLayers"));
+	scrActions.insert("toolsLayers", new ScrAction(tr("&Layers"), QKeySequence(Key_F6), this, "toolsLayers"));
 	scrActions.insert("toolsPages", new ScrAction(tr("P&age Palette"), QKeySequence(), this, "toolsPages"));
 	scrActions.insert("toolsBookmarks", new ScrAction(tr("&Bookmarks"), QKeySequence(), this, "toolsBookmarks"));
 	scrActions.insert("toolsMeasurements", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("dist.png"), loadIcon("dist.png")), tr("&Measurements"), QKeySequence(), this, "toolsMeasurements", MeasurementTool));
@@ -1290,6 +1279,23 @@ void ScribusApp::initToolsMenuActions()
 	scrActions.insert("toolsPreflightVerifier", new ScrAction(QIconSet(loadIcon("launch16.png"), loadIcon("launch.png")),tr("Preflight &Verifier"), QKeySequence(), this, "toolsPreflightVerifier"));
 	scrActions.insert("toolsToolbarTools", new ScrAction(tr("&Tools"), QKeySequence(), this, "toolsToolbarTools"));
 	scrActions.insert("toolsToolbarPDF", new ScrAction(tr("P&DF Tools"), QKeySequence(), this, "toolsToolbarPDF"));
+	
+	//toolbar only items
+	scrActions.insert("toolsSelect", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Kreuz.xpm"), loadIcon("Kreuz.xpm")), tr("Select Item"), QKeySequence(Key_R), this, "toolsSelect", NormalMode));
+	scrActions.insert("toolsInsertTextFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Text.xpm"), loadIcon("Text.xpm")), tr("Insert Text Frame"), QKeySequence(Key_T), this, "toolsInsertTextFrame", DrawText));
+	scrActions.insert("toolsInsertImageFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Bild.xpm"), loadIcon("Bild.xpm")), tr("Insert Image Frame"), QKeySequence(Key_I), this, "toolsInsertImageFrame", DrawPicture));
+	scrActions.insert("toolsInsertTableFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("frame_table.png"), loadIcon("frame_table.png")), tr("Insert Table"), QKeySequence(Key_A), this, "toolsInsertTableFrame", DrawTable));
+	scrActions.insert("toolsInsertShape", new ScrAction(ScrAction::DataInt,QIconSet(), tr("Insert Shape"), QKeySequence(Key_S), this, "toolsInsertShape", DrawShapes));
+	scrActions.insert("toolsInsertPolygon", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("spline.png"), loadIcon("spline.png")), tr("Insert Polygon"), QKeySequence(Key_P), this, "toolsInsertPolygon", DrawRegularPolygon));
+	scrActions.insert("toolsInsertLine", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Stift.xpm"), loadIcon("Stift.xpm")), tr("Insert Line"), QKeySequence(Key_L), this, "toolsInsertLine", DrawLine));
+	scrActions.insert("toolsInsertBezier", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("beziertool.png"), loadIcon("beziertool.png")), tr("Insert Bezier Curve"), QKeySequence(Key_B), this, "toolsInsertBezier", DrawBezierLine));
+	scrActions.insert("toolsInsertFreehandLine", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Stiftalt.xpm"), loadIcon("Stiftalt.xpm")), tr("Insert Freehand Line"), QKeySequence(Key_F), this, "toolsInsertFreehandLine", DrawFreehandLine));
+	scrActions.insert("toolsRotate", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Rotieren.xpm"), loadIcon("Rotieren.xpm")), tr("Rotate Item"), QKeySequence(Key_R), this, "toolsRotate", Rotation));
+	scrActions.insert("toolsZoom", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Lupe.xpm"), loadIcon("Lupe.xpm")), tr("Zoom in or out"), QKeySequence(Key_Z), this, "toolsZoom", Magnifier));
+	scrActions.insert("toolsEditContents", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Editm.xpm"), loadIcon("Editm.xpm")), tr("Edit Contents of Frame"), QKeySequence(Key_E), this, "toolsEditContents", EditMode));
+	scrActions.insert("toolsEditWithStoryEditor", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("signature.png"), loadIcon("signature.png")), tr("Edit the text with the Story Editor"), QKeySequence(CTRL+Key_Y), this, "toolsEditWithStoryEditor", StartStoryEditor));
+	scrActions.insert("toolsLinkTextFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Lock.xpm"), loadIcon("Lock.xpm")), tr("Link Text Frames"), QKeySequence(Key_L), this, "toolsLinkTextFrame", LinkFrames));
+	scrActions.insert("toolsUnlinkTextFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Unlock.xpm"), loadIcon("Unlock.xpm")), tr("Unlink Text Frames"), QKeySequence(Key_U), this, "toolsUnlinkTextFrame", UnlinkFrames));
 
 	scrActions["toolsProperties"]->setToggleAction(true);
 	scrActions["toolsOutline"]->setToggleAction(true);
@@ -1302,10 +1308,28 @@ void ScribusApp::initToolsMenuActions()
 	scrActions["toolsPreflightVerifier"]->setToggleAction(true);
 	scrActions["toolsToolbarTools"]->setToggleAction(true);
 	scrActions["toolsToolbarPDF"]->setToggleAction(true);
+	
+	scrActions["toolsSelect"]->setToggleAction(true);
+	scrActions["toolsInsertTextFrame"]->setToggleAction(true);
+	scrActions["toolsInsertImageFrame"]->setToggleAction(true);
+	scrActions["toolsInsertTableFrame"]->setToggleAction(true);
+	scrActions["toolsInsertShape"]->setToggleAction(true);
+	scrActions["toolsInsertPolygon"]->setToggleAction(true);
+	scrActions["toolsInsertLine"]->setToggleAction(true);
+	scrActions["toolsInsertBezier"]->setToggleAction(true);
+	scrActions["toolsInsertFreehandLine"]->setToggleAction(true);
+	scrActions["toolsRotate"]->setToggleAction(true);
+	scrActions["toolsZoom"]->setToggleAction(true);
+	scrActions["toolsEditContents"]->setToggleAction(true);
+	scrActions["toolsEditWithStoryEditor"]->setToggleAction(true);
+	scrActions["toolsLinkTextFrame"]->setToggleAction(true);
+	scrActions["toolsUnlinkTextFrame"]->setToggleAction(true);
 
 	connect( scrActions["toolsActionHistory"], SIGNAL(toggled(bool)) , this, SLOT(setUndoPalette(bool)) );
 	connect( scrActions["toolsToolbarTools"], SIGNAL(toggled(bool)) , this, SLOT(setTools(bool)) );
 	connect( scrActions["toolsToolbarPDF"], SIGNAL(toggled(bool)) , this, SLOT(setPDFTools(bool)) );
+	
+	connectToolsActions();
 }
 
 void ScribusApp::initExtrasMenuActions()
@@ -1351,7 +1375,7 @@ void ScribusApp::initSpecialActions()
 	//typography
 	scrActions.insert("specialSmartHyphen", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Insert Smart Hyphen"), CTRL+Key_Minus, this, "specialSmartHyphen",0,0.0,"specialSmartHyphen"));
 	scrActions.insert("specialNonBreakingSpace", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Insert Non Breaking Space"), CTRL+Key_Space, this, "specialNonBreakingSpace",0,0.0,"specialNonBreakingSpace"));
-	scrActions.insert("specialPageNumber", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Insert Page Number"), CTRL+Key_NumberSign, this, "specialPageNumber",0,0.0,"specialPageNumber"));
+	scrActions.insert("specialPageNumber", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Insert Page Number"), CTRL+SHIFT+ALT+Key_P, this, "specialPageNumber",0,0.0,"specialPageNumber"));
 
 	connect( scrActions["specialSmartHyphen"], SIGNAL(activatedData(QString)) , this, SLOT(specialActionKeyEvent(QString)) );
 	connect( scrActions["specialNonBreakingSpace"], SIGNAL(activatedData(QString)) , this, SLOT(specialActionKeyEvent(QString)) );
@@ -1901,7 +1925,6 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 		KeyMod = 0;
 		break;
 	}
-
 	if ((kk == Key_Escape) && (HaveDoc))
 	{
 		keyrep = false;
@@ -3777,7 +3800,7 @@ void ScribusApp::HaveNewDoc()
 	doc->PDF_Options.BleedTop = doc->PageM.Top;
 	doc->PDF_Options.BleedLeft = doc->PageM.Left;
 	doc->PDF_Options.BleedRight = doc->PageM.Right;
-	doc->CurTimer = 0;
+	doc->CurTimer = NULL;
 }
 
 void ScribusApp::HaveNewSel(int Nr)
@@ -3819,11 +3842,11 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrActions["extrasHyphenateText"]->setEnabled(false);
 		scrMenuMgr->clearMenu("Style");
 
-		WerkTools->KetteAus->setEnabled(false);
-		WerkTools->KetteEin->setEnabled(false);
-		WerkTools->Textedit->setEnabled(false);
-		WerkTools->Textedit2->setEnabled(false);
-		WerkTools->Rotiere->setEnabled(false);
+		scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
+		scrActions["toolsLinkTextFrame"]->setEnabled(false);
+		scrActions["toolsEditContents"]->setEnabled(false);
+		scrActions["toolsEditWithStoryEditor"]->setEnabled(false);
+		scrActions["toolsRotate"]->setEnabled(false);
 		propertiesPalette->Cpal->gradientQCombo->setCurrentItem(0);
 		outlinePalette->slotShowSelect(doc->currentPage->PageNr, -1);
 		break;
@@ -3844,11 +3867,11 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrMenuMgr->addMenuToMenu("Color","Style");
 		if (b->isRaster)
 			scrMenuMgr->addMenuItem(scrActions["styleInvertPict"], "Style");
-		WerkTools->KetteAus->setEnabled(false);
-		WerkTools->KetteEin->setEnabled(false);
-		WerkTools->Textedit->setEnabled(b->ScaleType);
-		WerkTools->Textedit2->setEnabled(false);
-		WerkTools->Rotiere->setEnabled(true);
+		scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
+		scrActions["toolsLinkTextFrame"]->setEnabled(false);
+		scrActions["toolsEditContents"]->setEnabled(b->ScaleType);
+		scrActions["toolsEditWithStoryEditor"]->setEnabled(false);
+		scrActions["toolsRotate"]->setEnabled(true);
 		break;
 	case 4:
 		scrActions["fileImportText"]->setEnabled(true);
@@ -3873,22 +3896,22 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrMenuMgr->addMenuToMenu("Shade","Style");
 		scrMenuMgr->addMenuItem(scrActions["styleTabulators"], "Style");
 
-		WerkTools->Rotiere->setEnabled(true);
-		WerkTools->Textedit2->setEnabled(true);
+		scrActions["toolsRotate"]->setEnabled(true);
+		scrActions["toolsEditWithStoryEditor"]->setEnabled(true);
 		if ((b->NextBox != 0) || (b->BackBox != 0))
 		{
-			WerkTools->KetteAus->setEnabled(true);
+			scrActions["toolsUnlinkTextFrame"]->setEnabled(true);
 			if ((b->BackBox != 0) && (b->itemText.count() == 0))
-				WerkTools->Textedit->setEnabled(false);
+				scrActions["toolsEditContents"]->setEnabled(false);
 			else
-				WerkTools->Textedit->setEnabled(true);
+				scrActions["toolsEditContents"]->setEnabled(true);
 		}
 		else
-			WerkTools->Textedit->setEnabled(true);
+			scrActions["toolsEditContents"]->setEnabled(true);
 		if (b->NextBox == 0)
-			WerkTools->KetteEin->setEnabled(true);
+			scrActions["toolsLinkTextFrame"]->setEnabled(true);
 		if (doc->MasterP)
-			WerkTools->KetteEin->setEnabled(false);
+			scrActions["toolsLinkTextFrame"]->setEnabled(false);
 		if (doc->appMode == EditMode)
 		{
 			setTBvals(b);
@@ -3959,11 +3982,11 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrMenuMgr->addMenuToMenu("Color","Style");
 		scrMenuMgr->addMenuToMenu("Shade","Style");
 
-		WerkTools->Rotiere->setEnabled(true);
-		WerkTools->Textedit->setEnabled(false);
-		WerkTools->Textedit2->setEnabled(true);
-		WerkTools->KetteEin->setEnabled(false);
-		WerkTools->KetteAus->setEnabled(false);
+		scrActions["toolsRotate"]->setEnabled(true);
+		scrActions["toolsEditContents"]->setEnabled(false);
+		scrActions["toolsEditWithStoryEditor"]->setEnabled(true);
+		scrActions["toolsLinkTextFrame"]->setEnabled(false);
+		scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
 		if (doc->appMode == EditMode)
 			setTBvals(b);
 		else
@@ -4000,14 +4023,14 @@ void ScribusApp::HaveNewSel(int Nr)
 		scrMenuMgr->addMenuToMenu("Shade","Style");
 		if (Nr == 6)
 			scrMenuMgr->setMenuEnabled("ItemShapes", true);
-		WerkTools->Textedit->setEnabled(false);
-		WerkTools->Textedit2->setEnabled(false);
-		WerkTools->KetteAus->setEnabled(false);
-		WerkTools->KetteEin->setEnabled(false);
+		scrActions["toolsEditContents"]->setEnabled(false);
+		scrActions["toolsEditWithStoryEditor"]->setEnabled(false);
+		scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
+		scrActions["toolsLinkTextFrame"]->setEnabled(false);
 		if (Nr != 5)
-			WerkTools->Rotiere->setEnabled(true);
+			scrActions["toolsRotate"]->setEnabled(true);
 		else
-			WerkTools->Rotiere->setEnabled(false);
+			scrActions["toolsRotate"]->setEnabled(false);
 		break;
 	}
 	doc->CurrentSel = Nr;
@@ -4082,7 +4105,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			scrActions["itemLower"]->setEnabled(false);
 			scrActions["editCut"]->setEnabled(false);
 			scrActions["editClear"]->setEnabled(false);
-			WerkTools->Rotiere->setEnabled(false);
+			scrActions["toolsRotate"]->setEnabled(false);
 			scrActions["itemLower"]->setEnabled(false);
 			scrActions["itemLock"]->setOn(true);
 		}
@@ -6228,19 +6251,21 @@ void ScribusApp::ToggleFrameEdit()
 		nodePalette->show();
 		doc->EditClipMode = 0;
 		doc->EditClip = true;
-		WerkTools->Select->setEnabled(false);
-		WerkTools->Rotiere->setEnabled(false);
-		WerkTools->Textedit->setEnabled(false);
-		WerkTools->Textedit2->setEnabled(false);
-		WerkTools->Zoom->setEnabled(false);
-		WerkTools->Texte->setEnabled(false);
-		WerkTools->BildB->setEnabled(false);
-		WerkTools->TableB->setEnabled(false);
-		WerkTools->Rechteck->setEnabled(false);
-		WerkTools->Linien->setEnabled(false);
-		WerkTools->Polygon->setEnabled(false);
-		WerkTools->KetteEin->setEnabled(false);
-		WerkTools->KetteAus->setEnabled(false);
+		scrActions["toolsSelect"]->setEnabled(false);
+		scrActions["toolsRotate"]->setEnabled(false);
+		scrActions["toolsEditContents"]->setEnabled(false);
+		scrActions["toolsEditWithStoryEditor"]->setEnabled(false);
+		scrActions["toolsZoom"]->setEnabled(false);
+		scrActions["toolsInsertTextFrame"]->setEnabled(false);
+		scrActions["toolsInsertImageFrame"]->setEnabled(false);
+		scrActions["toolsInsertTableFrame"]->setEnabled(false);
+		scrActions["toolsInsertShape"]->setEnabled(false);
+		scrActions["toolsInsertLine"]->setEnabled(false);
+		scrActions["toolsInsertBezier"]->setEnabled(false);
+		scrActions["toolsInsertFreehandLine"]->setEnabled(false);
+		scrActions["toolsInsertPolygon"]->setEnabled(false);
+		scrActions["toolsLinkTextFrame"]->setEnabled(false);
+		scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
 		scrActions["toolsMeasurements"]->setEnabled(false);
 		WerkToolsP->PDFTool->setEnabled(false);
 		WerkToolsP->PDFaTool->setEnabled(false);
@@ -6260,20 +6285,24 @@ void ScribusApp::ToggleFrameEdit()
 void ScribusApp::NoFrameEdit()
 {
 	nodePalette->hide();
-	WerkTools->Select->setEnabled(true);
-	WerkTools->Select->setOn(true);
-	WerkTools->Zoom->setEnabled(true);
-	WerkTools->Texte->setEnabled(true);
-	WerkTools->BildB->setEnabled(true);
-	WerkTools->TableB->setEnabled(true);
-	WerkTools->Rechteck->setEnabled(true);
-	WerkTools->Linien->setEnabled(true);
-	WerkTools->Polygon->setEnabled(true);
+	scrActions["toolsSelect"]->setEnabled(true);
+	scrActions["toolsSelect"]->setOn(true);
+	scrActions["toolsRotate"]->setEnabled(true);
+	scrActions["toolsZoom"]->setEnabled(true);
+	scrActions["toolsInsertTextFrame"]->setEnabled(true);
+	scrActions["toolsInsertImageFrame"]->setEnabled(true);
+	scrActions["toolsInsertTableFrame"]->setEnabled(true);
+	scrActions["toolsInsertShape"]->setEnabled(true);
+	scrActions["toolsInsertLine"]->setEnabled(true);
+	scrActions["toolsInsertBezier"]->setEnabled(true);
+	scrActions["toolsInsertFreehandLine"]->setEnabled(true);
+	scrActions["toolsInsertPolygon"]->setEnabled(true);
 	WerkToolsP->PDFTool->setEnabled(true);
 	WerkToolsP->PDFaTool->setEnabled(true);
-	WerkTools->Textedit->setOn(false);
-	WerkTools->Textedit2->setOn(false);
+	scrActions["toolsEditContents"]->setOn(false);
+	scrActions["toolsEditWithStoryEditor"]->setOn(false);
 	scrActions["toolsMeasurements"]->setEnabled(true);
+	scrActions["toolsUnlinkTextFrame"]->setEnabled(true);
 	scrActions["itemDelete"]->setEnabled(true);
 	scrActions["itemShapeEdit"]->setOn(false);
 	if (HaveDoc)
@@ -6292,42 +6321,15 @@ void ScribusApp::NoFrameEdit()
 
 void ScribusApp::slotSelect()
 {
-	WerkTools->Select->setOn(true);
-	WerkTools->Rotiere->setOn(false);
-	WerkTools->Textedit->setOn(false);
-	WerkTools->Textedit2->setOn(false);
-	WerkTools->Zoom->setOn(false);
-	WerkTools->Texte->setOn(false);
-	WerkTools->BildB->setOn(false);
-	WerkTools->TableB->setOn(false);
-	WerkTools->Rechteck->setOn(false);
-	WerkTools->Linien->setOn(false);
-	WerkTools->Polygon->setOn(false);
-	WerkTools->KetteEin->setOn(false);
-	WerkTools->KetteAus->setOn(false);
 	WerkToolsP->PDFTool->setOn(false);
 	WerkToolsP->PDFaTool->setOn(false);
-	scrActions["toolsMeasurements"]->setOn(false);
+	//scrActions["toolsMeasurements"]->setOn(false);
 	setAppMode(NormalMode);
-}
-
-void ScribusApp::ModeFromTB(int m)
-{
-	if (m == StartStoryEditor)
-	{
-		slotStoryEditor();
-		slotSelect();
-		return;
-	}
-	if (m == LinkFrames)
-		doc->ElemToLink = view->SelItem.at(0);
-	if (doc->appMode == DrawBezierLine)
-		return;
-	setAppMode(m);
 }
 
 void ScribusApp::setAppModeByToggle(bool isOn, int newMode)
 {
+	//qDebug(QString("::setAppModeByToggle(): %1 %2").arg(isOn).arg(newMode));
 	keyrep=false;
 	if (isOn)
 		setAppMode(newMode);
@@ -6337,8 +6339,28 @@ void ScribusApp::setAppModeByToggle(bool isOn, int newMode)
 
 void ScribusApp::setAppMode(int mode)
 {
+	//disconnect the tools actions so we dont fire them off
+	disconnectToolsActions();
+	//set the actions state based on incoming mode
+	scrActions["toolsSelect"]->setOn(mode==NormalMode);
+	scrActions["toolsInsertTextFrame"]->setOn(mode==DrawText);
+	scrActions["toolsInsertImageFrame"]->setOn(mode==DrawPicture);
+	scrActions["toolsInsertTableFrame"]->setOn(mode==DrawTable);
+	scrActions["toolsInsertShape"]->setOn(mode==DrawShapes);
+	scrActions["toolsInsertPolygon"]->setOn(mode==DrawRegularPolygon);
+	scrActions["toolsInsertLine"]->setOn(mode==DrawLine);
+	scrActions["toolsInsertBezier"]->setOn(mode==DrawBezierLine);
+	scrActions["toolsInsertFreehandLine"]->setOn(mode==DrawFreehandLine);
+	scrActions["toolsRotate"]->setOn(mode==Rotation);
+	scrActions["toolsZoom"]->setOn(mode==Magnifier);
+	scrActions["toolsEditContents"]->setOn(mode==EditMode);
+	scrActions["toolsEditWithStoryEditor"]->setOn(mode==StartStoryEditor);
+	scrActions["toolsLinkTextFrame"]->setOn(mode==LinkFrames);
+	scrActions["toolsUnlinkTextFrame"]->setOn(mode==UnlinkFrames);
+		
 	PageItem *b;
 	setActiveWindow();
+	//qDebug(QString("::setAppMode(%1)").arg(mode));
 	if (HaveDoc)
 	{
 		if (view->SelItem.count() != 0)
@@ -6349,14 +6371,22 @@ void ScribusApp::setAppMode(int mode)
 		doc->appMode = mode;
 		if (oldMode == MeasurementTool)
 			disconnect(view, SIGNAL(MVals(double, double, double, double, double, double, int )), measurementPalette, SLOT(setValues(double, double, double, double, double, double, int )));
-		if (oldMode == EditMode)
+		if (mode != EditMode && doc->CurTimer!=NULL)
 		{
 			disconnect(doc->CurTimer, SIGNAL(timeout()), view, SLOT(BlinkCurs()));
 			doc->CurTimer->stop();
+			delete doc->CurTimer;
+			doc->CurTimer = NULL;
+		}
+		if (mode!=EditMode && oldMode==EditMode)
+			restoreToolsShortcuts();
+		else
+		if (mode==EditMode && oldMode!=EditMode)
+			saveToolsShortcuts();
+		if (oldMode == EditMode)
+		{
 			view->LE->setFocusPolicy(QWidget::ClickFocus);
 			view->PGS->PageCombo->setFocusPolicy(QWidget::ClickFocus);
-			delete doc->CurTimer;
-			doc->CurTimer = 0;
 			scrActions["editClear"]->setEnabled(false);
 			scrActions["extrasInsertSpecial"]->setEnabled(false);
 			view->slotDoCurs(false);
@@ -6394,21 +6424,22 @@ void ScribusApp::setAppMode(int mode)
 					scrActions["editPaste"]->setEnabled(true);
 				}
 			}
-			WerkTools->Select->setOn(false);
-			WerkTools->Textedit->setOn(true);
-			WerkTools->Textedit2->setOn(false);
 			view->slotDoCurs(true);
 			scrMenuMgr->setMenuEnabled("Item", false);
 			scrMenuMgr->setMenuEnabled("Style", false);
 			doc->CurTimer = new QTimer(view);
-			connect(doc->CurTimer, SIGNAL(timeout()), view, SLOT(BlinkCurs()));
-			doc->CurTimer->start(500);
-			if (b != NULL)
+			if (doc->CurTimer!=NULL)
+			{
+				connect(doc->CurTimer, SIGNAL(timeout()), view, SLOT(BlinkCurs()));
+				doc->CurTimer->start(500);
+			}
+			if (b != 0)
 			{
 				scrActions["editCut"]->setEnabled(b->HasSel);
 				scrActions["editCopy"]->setEnabled(b->HasSel);
 				scrActions["editClear"]->setEnabled(b->HasSel);
 				scrActions["editSearchReplace"]->setEnabled(true);
+
 				view->RefreshItem(b);
 			}
 		}
@@ -6461,28 +6492,22 @@ void ScribusApp::setAppMode(int mode)
 			doc->SubMode = -1;
 		if (mode == NormalMode)
 		{
-			WerkTools->Select->setOn(true);
-			WerkTools->Rotiere->setOn(false);
-			WerkTools->Textedit->setOn(false);
-			WerkTools->Textedit2->setOn(false);
-			WerkTools->Zoom->setOn(false);
-			WerkTools->Texte->setOn(false);
-			WerkTools->BildB->setOn(false);
-			WerkTools->TableB->setOn(false);
-			WerkTools->Rechteck->setOn(false);
-			WerkTools->Linien->setOn(false);
-			WerkTools->Polygon->setOn(false);
-			WerkTools->KetteEin->setOn(false);
-			WerkTools->KetteAus->setOn(false);
 			WerkToolsP->PDFTool->setOn(false);
 			WerkToolsP->PDFaTool->setOn(false);
-			scrActions["toolsMeasurements"]->setOn(false);
-			//CBWerkTools->Measure->setOn(false);
 			propertiesPalette->Cpal->gradEditButton->setOn(false);
 		}
+		if (mode == LinkFrames)
+			doc->ElemToLink = view->SelItem.at(0);
 		if ((mode == LinkFrames) || (mode == UnlinkFrames))
 			view->updateContents();
+		if (mode == StartStoryEditor)
+		{
+			slotStoryEditor();
+			slotSelect();
+		}
 	}
+
+	connectToolsActions();	
 }
 
 void ScribusApp::Aktiv()
@@ -7798,6 +7823,8 @@ const bool ScribusApp::GetAllFonts()
 
 void ScribusApp::slotPrefsOrg()
 {
+	//reset the appMode so we restore our tools shortcuts
+	setAppMode(NormalMode);
 	bool zChange = false;
 	Preferences *dia = new Preferences(this, &Prefs);
 	if (dia->exec())
@@ -10545,4 +10572,80 @@ void ScribusApp::generateTableOfContents()
 			}
 		}
 	}
+}
+
+void ScribusApp::disconnectToolsActions()
+{
+	disconnect( scrActions["toolsSelect"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
+	disconnect( scrActions["toolsInsertTextFrame"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
+	disconnect( scrActions["toolsInsertImageFrame"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
+	disconnect( scrActions["toolsInsertTableFrame"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
+	disconnect( scrActions["toolsInsertShape"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
+	disconnect( scrActions["toolsInsertPolygon"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
+	disconnect( scrActions["toolsInsertLine"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
+	disconnect( scrActions["toolsInsertBezier"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
+	disconnect( scrActions["toolsInsertFreehandLine"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
+	disconnect( scrActions["toolsRotate"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
+	disconnect( scrActions["toolsZoom"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
+	disconnect( scrActions["toolsEditContents"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
+	disconnect( scrActions["toolsEditWithStoryEditor"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
+	disconnect( scrActions["toolsLinkTextFrame"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
+	disconnect( scrActions["toolsUnlinkTextFrame"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
+}
+	
+void ScribusApp::connectToolsActions()
+{
+	connect( scrActions["toolsSelect"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
+	connect( scrActions["toolsInsertTextFrame"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
+	connect( scrActions["toolsInsertImageFrame"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
+	connect( scrActions["toolsInsertTableFrame"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
+	connect( scrActions["toolsInsertShape"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
+	connect( scrActions["toolsInsertPolygon"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
+	connect( scrActions["toolsInsertLine"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
+	connect( scrActions["toolsInsertBezier"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
+	connect( scrActions["toolsInsertFreehandLine"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
+	connect( scrActions["toolsRotate"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
+	connect( scrActions["toolsZoom"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
+	connect( scrActions["toolsEditContents"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
+	connect( scrActions["toolsEditWithStoryEditor"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
+	connect( scrActions["toolsLinkTextFrame"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
+	connect( scrActions["toolsUnlinkTextFrame"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
+}
+	
+void ScribusApp::saveToolsShortcuts()
+{
+	scrActions["toolsSelect"]->saveShortcut();
+	scrActions["toolsInsertTextFrame"]->saveShortcut();
+	scrActions["toolsInsertImageFrame"]->saveShortcut();
+	scrActions["toolsInsertTableFrame"]->saveShortcut();
+	scrActions["toolsInsertShape"]->saveShortcut();
+	scrActions["toolsInsertPolygon"]->saveShortcut();
+	scrActions["toolsInsertLine"]->saveShortcut();
+	scrActions["toolsInsertBezier"]->saveShortcut();
+	scrActions["toolsInsertFreehandLine"]->saveShortcut();
+	scrActions["toolsRotate"]->saveShortcut();
+	scrActions["toolsZoom"]->saveShortcut();
+	scrActions["toolsEditContents"]->saveShortcut();
+	scrActions["toolsEditWithStoryEditor"]->saveShortcut();
+	scrActions["toolsLinkTextFrame"]->saveShortcut();
+	scrActions["toolsUnlinkTextFrame"]->saveShortcut();
+}
+
+void ScribusApp::restoreToolsShortcuts()
+{
+	scrActions["toolsSelect"]->restoreShortcut();
+	scrActions["toolsInsertTextFrame"]->restoreShortcut();
+	scrActions["toolsInsertImageFrame"]->restoreShortcut();
+	scrActions["toolsInsertTableFrame"]->restoreShortcut();
+	scrActions["toolsInsertShape"]->restoreShortcut();
+	scrActions["toolsInsertPolygon"]->restoreShortcut();
+	scrActions["toolsInsertLine"]->restoreShortcut();
+	scrActions["toolsInsertBezier"]->restoreShortcut();
+	scrActions["toolsInsertFreehandLine"]->restoreShortcut();
+	scrActions["toolsRotate"]->restoreShortcut();
+	scrActions["toolsZoom"]->restoreShortcut();
+	scrActions["toolsEditContents"]->restoreShortcut();
+	scrActions["toolsEditWithStoryEditor"]->restoreShortcut();
+	scrActions["toolsLinkTextFrame"]->restoreShortcut();
+	scrActions["toolsUnlinkTextFrame"]->restoreShortcut();
 }

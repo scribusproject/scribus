@@ -20,8 +20,9 @@
 #include "werktoolb.h"
 #include "werktoolb.moc"
 #include "polyprops.h"
-#include "autoform.h"
+#include "autoformbuttongroup.h"
 #include "scribus.h"
+#include "menumanager.h"
 
 extern QPixmap loadIcon(QString nam);
 extern ScribusApp* ScApp;
@@ -34,63 +35,50 @@ WerkToolB::WerkToolB(QMainWindow* parent) : QToolBar( tr("Tools"), parent)
 									100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 0.0, 100.0, 0.0, 100.0,
 									0.0, 100.0, 0.0, 100.0, 0.0, 0.0, 0.0, 0.0};
 	ShapeVals = AutoShapes0;
-	Select = new QToolButton(loadIcon("Kreuz.xpm"), tr("Select Items"), QString::null, this, SLOT(ModeFromTB()), this);
-	Select->setToggleButton(true);
-	Select->setOn(true);
-	Texte = new QToolButton(loadIcon("Text.xpm"), tr("Insert Text Frame"), QString::null, this, SLOT(ModeFromTB()), this);
-	Texte->setToggleButton( true );
-	BildB = new QToolButton(loadIcon("Bild.xpm"), tr("Insert Picture"), QString::null, this, SLOT(ModeFromTB()), this);
-	BildB->setToggleButton( true );
-	TableB = new QToolButton(loadIcon("frame_table.png"), tr("Insert Table"), QString::null, this, SLOT(ModeFromTB()), this);
-	TableB->setToggleButton( true );
-	Rechteck = new Autoforms( this );
-	Rechteck->setPopupDelay(0);
-	Rechteck->setToggleButton( true );
-	PolyM = new QPopupMenu();
-	PolyM->insertItem( tr("Properties..."), this, SLOT(GetPolyProps()));
-	Polygon = new QToolButton(loadIcon("spline.png"), tr("Insert Polygons"), QString::null, this, SLOT(ModeFromTB()), this);
-	Polygon->setToggleButton( true );
-	Polygon->setPopup(PolyM);
-	Polygon->setPopupDelay(0);
-	LinM = new QPopupMenu();
-	int id;
-	id = LinM->insertItem(loadIcon("Stift.xpm"));
-	LinM->setWhatsThis(id, tr("Insert Lines"));
-	id = LinM->insertItem(loadIcon("beziertool.png"));
-	LinM->setWhatsThis(id, tr("Insert Bezier Curves"));
-	id = LinM->insertItem(loadIcon("Stiftalt.xpm"));
-	LinM->setWhatsThis(id, tr("Insert Freehand Line"));
-	Linien = new QToolButton(loadIcon("Stift.xpm"), tr("Insert Lines"), QString::null, this, SLOT(ModeFromTB()), this);
-	Linien->setToggleButton( true );
-	Linien->setPopup(LinM);
-	Linien->setPopupDelay(0);
-	LMode = DrawLine;
-	Rotiere = new QToolButton(loadIcon("Rotieren.xpm"), tr("Rotate Item"), QString::null, this, SLOT(ModeFromTB()), this);
-	Rotiere->setToggleButton( true );
-	Rotiere->setEnabled(false);
-	Zoom = new QToolButton(loadIcon("Lupe.xpm"), tr("Zoom in or out"), QString::null, this, SLOT(ModeFromTB()), this);
-	Zoom->setToggleButton( true );
-	Textedit = new QToolButton(loadIcon("Editm.xpm"), tr("Edit Contents of Frame"), QString::null, this, SLOT(ModeFromTB()), this);
-	Textedit->setToggleButton( true );
-	Textedit->setEnabled( false );
-	Textedit2 = new QToolButton(loadIcon("signature.png"), tr("Edit the text with the Story Editor"), QString::null, this, SLOT(ModeFromTB()), this);
-	Textedit2->setToggleButton( true );
-	Textedit2->setEnabled( false );
-	KetteEin = new QToolButton(loadIcon("Lock.xpm"), tr("Link Text Frames"), QString::null, this, SLOT(ModeFromTB()), this);
-	KetteEin->setToggleButton( true );
-	KetteEin->setEnabled(false);
-	KetteAus = new QToolButton(loadIcon("Unlock.xpm"), tr("Unlink Text Frames"), QString::null, this, SLOT(ModeFromTB()), this);
-	KetteAus->setToggleButton( true );
-	KetteAus->setEnabled(false);
-	//Measure = new QToolButton(loadIcon("dist.png"), tr("Do measurements"), QString::null, this, SLOT(ModeFromTB()), this);
-	//Measure->setToggleButton( true );
+
+	ScApp->scrActions["toolsSelect"]->addTo(this);
+	ScApp->scrActions["toolsSelect"]->setOn(true);
+	ScApp->scrActions["toolsInsertTextFrame"]->addTo(this);
+	ScApp->scrActions["toolsInsertImageFrame"]->addTo(this);
+	ScApp->scrActions["toolsInsertTableFrame"]->addTo(this);
+	
+	ScApp->scrActions["toolsInsertShape"]->addTo(this);
+	ScApp->scrMenuMgr->createMenu("insertShapeButtonMenu", "insertShapeButtonMenu");
+	insertShapeButtonMenu=ScApp->scrMenuMgr->getLocalPopupMenu("insertShapeButtonMenu");
+	ScApp->scrMenuMgr->addMenuToWidgetOfAction("insertShapeButtonMenu", ScApp->scrActions["toolsInsertShape"]);
+	
+	QToolButton *insertShapeButton = dynamic_cast<QToolButton*>(ScApp->scrActions["toolsInsertShape"]->getWidgetAddedTo());
+	if (insertShapeButton)
+		insertShapeButton->setPopupDelay(0);
+	Rechteck = new AutoformButtonGroup( NULL );
+	insertShapeButtonMenu->insertItem( Rechteck );
+	ScApp->scrActions["toolsInsertShape"]->setIconSet(QIconSet(Rechteck->getIconPixmap(0), Rechteck->getIconPixmap(0)));
+
+	ScApp->scrActions["toolsInsertPolygon"]->addTo(this);
+	ScApp->scrMenuMgr->createMenu("insertPolygonButtonMenu", "insertPolygonButtonMenu");
+	insertPolygonButtonMenu=ScApp->scrMenuMgr->getLocalPopupMenu("insertPolygonButtonMenu");
+	ScApp->scrMenuMgr->addMenuToWidgetOfAction("insertPolygonButtonMenu", ScApp->scrActions["toolsInsertPolygon"]);
+	insertPolygonButtonMenu->insertItem( tr("Properties..."), this, SLOT(GetPolyProps()));
+	
+	QToolButton *insertPolygonButton = dynamic_cast<QToolButton*>(ScApp->scrActions["toolsInsertPolygon"]->getWidgetAddedTo());
+	if (insertPolygonButton)
+		insertPolygonButton->setPopupDelay(0);
+	
+	ScApp->scrActions["toolsInsertLine"]->addTo(this);
+	ScApp->scrActions["toolsInsertBezier"]->addTo(this);
+	ScApp->scrActions["toolsInsertFreehandLine"]->addTo(this);
+	ScApp->scrActions["toolsRotate"]->addTo(this);
+	ScApp->scrActions["toolsZoom"]->addTo(this);
+	ScApp->scrActions["toolsEditContents"]->addTo(this);
+	ScApp->scrActions["toolsEditWithStoryEditor"]->addTo(this);
+	ScApp->scrActions["toolsLinkTextFrame"]->addTo(this);
+	ScApp->scrActions["toolsUnlinkTextFrame"]->addTo(this);
+	ScApp->scrActions["toolsMeasurements"]->addTo(this);
+
 	setCloseMode(QDockWindow::Undocked);
 	connect(this, SIGNAL(placeChanged(QDockWindow::Place)), this, SLOT(Docken(QDockWindow::Place)));
 	connect(this, SIGNAL(visibilityChanged(bool)), this, SLOT(Verbergen(bool)));
 	connect(Rechteck, SIGNAL(FormSel(int, int, double *)), this, SLOT(SelShape(int, int, double *)));
-	connect(Rechteck, SIGNAL(clicked()), this, SLOT(SelShape2()));
-	connect(LinM, SIGNAL(activated(int)), this, SLOT(setLinMode(int)));
-	QToolTip::add( Rechteck, tr( "Draw various Shapes" ) );
 }
 
 void WerkToolB::Docken(QDockWindow::Place p)
@@ -114,154 +102,15 @@ void WerkToolB::GetPolyProps()
 
 void WerkToolB::SelShape(int s, int c, double *vals)
 {
-	Select->setOn(false);
-	Rotiere->setOn(false);
-	Textedit->setOn(false);
-	Textedit2->setOn(false);
-	Zoom->setOn(false);
-	Texte->setOn(false);
-	BildB->setOn(false);
-	TableB->setOn(false);
-	Linien->setOn(false);
-	KetteEin->setOn(false);
-	KetteAus->setOn(false);
-	Polygon->setOn(false);
-	//Measure->setOn(false);
-	Rechteck->setOn(true);
+	const QPixmap* newIcon = Rechteck->find(s)->pixmap();
+	ScApp->scrActions["toolsInsertShape"]->setIconSet(QIconSet(*newIcon, *newIcon));
+	insertShapeButtonMenu->hide();
 	SubMode = s;
 	ValCount = c;
 	ShapeVals = vals;
-	emit NewMode(DrawShapes);
+	ScApp->scrActions["toolsInsertShape"]->setOn(true);
 }
 
-void WerkToolB::SelShape2()
-{
-	Select->setOn(false);
-	Rotiere->setOn(false);
-	Textedit->setOn(false);
-	Textedit2->setOn(false);
-	Zoom->setOn(false);
-	Texte->setOn(false);
-	BildB->setOn(false);
-	TableB->setOn(false);
-	Linien->setOn(false);
-	KetteEin->setOn(false);
-	KetteAus->setOn(false);
-	Polygon->setOn(false);
-	//Measure->setOn(false);
-	Rechteck->setOn(true);
-	emit NewMode(DrawShapes);
-}
-
-void WerkToolB::ModeFromTB()
-{
-	Select->setOn(false);
-	Rotiere->setOn(false);
-	Textedit->setOn(false);
-	Textedit2->setOn(false);
-	Zoom->setOn(false);
-	Texte->setOn(false);
-	BildB->setOn(false);
-	TableB->setOn(false);
-	Rechteck->setOn(false);
-	Linien->setOn(false);
-	KetteEin->setOn(false);
-	KetteAus->setOn(false);
-	Polygon->setOn(false);
-	//Measure->setOn(false);
-	if (Select == sender())
-	{
-		Select->setOn(true);
-		emit NewMode(NormalMode);
-	}
-	if (Rotiere == sender())
-	{
-		Rotiere->setOn(true);
-		emit NewMode(Rotation);
-	}
-	if (Textedit == sender())
-	{
-		Textedit->setOn(true);
-		emit NewMode(EditMode);
-	}
-	if (Textedit2 == sender())
-	{
-		Textedit2->setOn(true);
-		emit NewMode(StartStoryEditor);
-	}
-	if (Zoom == sender())
-	{
-		Zoom->setOn(true);
-		emit NewMode(Magnifier);
-	}
-	if (Texte == sender())
-	{
-		Texte->setOn(true);
-		emit NewMode(DrawText);
-	}
-	if (BildB == sender())
-	{
-		BildB->setOn(true);
-		emit NewMode(DrawPicture);
-	}
-	if (TableB == sender())
-	{
-		TableB->setOn(true);
-		emit NewMode(DrawTable);
-	}
-	if (Linien == sender())
-	{
-		Linien->setOn(true);
-		emit NewMode(LMode);
-	}
-	if (KetteEin == sender())
-	{
-		KetteEin->setOn(true);
-		emit NewMode(LinkFrames);
-	}
-	if (KetteAus == sender())
-	{
-		KetteAus->setOn(true);
-		emit NewMode(UnlinkFrames);
-	}
-	if (Polygon == sender())
-	{
-		Polygon->setOn(true);
-		emit NewMode(DrawRegularPolygon);
-	}
-	/*
-	if (Measure == sender())
-	{
-		Measure->setOn(true);
-		emit NewMode(MeasurementTool);
-	}
-	*/
-}
-
-void WerkToolB::setLinMode(int id)
-{
-	Select->setOn(false);
-	Rotiere->setOn(false);
-	Textedit->setOn(false);
-	Textedit2->setOn(false);
-	Zoom->setOn(false);
-	Texte->setOn(false);
-	BildB->setOn(false);
-	TableB->setOn(false);
-	Rechteck->setOn(false);
-	Linien->setOn(false);
-	KetteEin->setOn(false);
-	KetteAus->setOn(false);
-	Polygon->setOn(false);
-	//Measure->setOn(false);
-	int c = LinM->indexOf(id);
-	QString icn[] = {"Stift.xpm", "beziertool.png", "Stiftalt.xpm"};
-	int lm[] = {DrawLine, DrawBezierLine, DrawFreehandLine};
-	Linien->setPixmap(loadIcon(icn[c]));
-	LMode = lm[c];
-	emit NewMode(LMode);
-	Linien->setOn(true);
-}
 
 WerkToolBP::WerkToolBP(QMainWindow* parent) : QToolBar( tr("PDF Tools"), parent)
 {

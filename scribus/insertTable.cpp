@@ -12,39 +12,31 @@ InsertTable::InsertTable( QWidget* parent, int maxRow, int maxCol )
 
 	InsertTableLayout = new QVBoxLayout( this, 11, 8, "InsertTableLayout");
 	layout2 = new QGridLayout( 0, 1, 1, 0, 6, "layout2");
-	Cols = new QSpinBox( this, "Cols" );
-	Cols->setMaxValue( maxCol );
-	Cols->setMinValue( 1 );
+	Cols = new QSpinBox( 1, maxCol, 1, this, "Cols" );
 	layout2->addWidget( Cols, 1, 1 );
-	Text1 = new QLabel( this, "Text1" );
-	Text1->setText( tr( "Number of Rows:" ) );
+	Text1 = new QLabel( tr( "Number of rows:" ), this, "Text1" );
+	Text2 = new QLabel( tr( "Number of columns:" ), this, "Text2" );
 	layout2->addWidget( Text1, 0, 0 );
-	Text2 = new QLabel( this, "Text2" );
-	Text2->setText( tr( "Number of Columns:" ) );
 	layout2->addWidget( Text2, 1, 0 );
-	Rows = new QSpinBox( this, "Rows" );
-	Rows->setMaxValue( maxRow );
-	Rows->setMinValue( 1 );
+	Rows = new QSpinBox( 1, maxRow, 1, this, "Rows" );
 	layout2->addWidget( Rows, 0, 1 );
 	InsertTableLayout->addLayout( layout2 );
 	layout1 = new QHBoxLayout( 0, 0, 6, "layout1");
-	OKButton = new QPushButton( this, "OKButton" );
-	OKButton->setText( tr( "OK" ) );
-	OKButton->setDefault( TRUE );
-	layout1->addWidget( OKButton );
-	CancelB = new QPushButton( this, "CancelB" );
-	CancelB->setText( tr( "Cancel" ) );
-	layout1->addWidget( CancelB );
+	okButton = new QPushButton( tr( "&OK" ), this, "okButton" );
+	cancelButton = new QPushButton( tr( "&Cancel" ), this, "cancelButton" );
+	okButton->setDefault( TRUE );
+	layout1->addWidget( okButton );
+	layout1->addWidget( cancelButton );
 	InsertTableLayout->addLayout( layout1 );
 	resize( QSize(200, 111).expandedTo(minimumSizeHint()) );
 
 	setTabOrder ( Rows, Cols );
-	setTabOrder ( Cols, OKButton );
-	setTabOrder ( OKButton, CancelB);
-	setTabOrder ( CancelB, Rows );
+	setTabOrder ( Cols, okButton );
+	setTabOrder ( okButton, cancelButton);
+	setTabOrder ( cancelButton, Rows );
 	Rows->setFocus();
 	// signals and slots connections
-	connect( OKButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
-	connect( CancelB, SIGNAL( clicked() ), this, SLOT( reject() ) );
+	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
+	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
 }
 

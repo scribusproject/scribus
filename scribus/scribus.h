@@ -113,6 +113,10 @@ public:
 	void keyPressEvent(QKeyEvent *k);
 	void keyReleaseEvent(QKeyEvent *k);
 	void wheelEvent(QWheelEvent *w);
+	void disconnectToolsActions();
+	void connectToolsActions();
+	void saveToolsShortcuts();
+	void restoreToolsShortcuts();
 	void DeleteSel(PageItem *b);
 	void setTBvals(PageItem *b);
 	void SavePrefs();
@@ -362,7 +366,6 @@ public slots:
 	/** Schaltet Rahmenbearbeitung ein/aus */
 	void ToggleFrameEdit();
 	void slotSelect();
-	void ModeFromTB(int);
 	/** Switch appMode */
 	void setAppMode(int mode);
 	void setAppModeByToggle(bool isOn, int newMode);

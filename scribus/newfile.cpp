@@ -14,6 +14,7 @@ extern QPixmap loadIcon(QString nam);
 NewDoc::NewDoc( QWidget* parent, ApplicationPrefs *Vor )
 		: QDialog( parent, "newDoc", true, 0 )
 {
+	customText=QObject::tr( "Custom" );
 	unitIndex = Vor->docUnitIndex;
 	unitSuffix = unitGetSuffixFromIndex(unitIndex);
 	unitRatio = unitGetRatioFromIndex(unitIndex);
@@ -45,7 +46,7 @@ NewDoc::NewDoc( QWidget* parent, ApplicationPrefs *Vor )
 		ComboBox1->insertItem(sizelist[m]);
 	*/
 	ComboBox1->insertStringList(ps->getTrPageSizeList());
-	ComboBox1->insertItem( tr( "Custom" ) );
+	ComboBox1->insertItem( customText );
 	ComboBox1->setEditable(false);
 	TextLabel1->setBuddy(ComboBox1);
 	Layout6->addWidget(ComboBox1, 0, 1 );
@@ -146,7 +147,7 @@ NewDoc::NewDoc( QWidget* parent, ApplicationPrefs *Vor )
 		ComboBox1->setCurrentItem(sizeIndex);
 	else
 		ComboBox1->setCurrentItem(ComboBox1->count()-1);
-	bool hwEnabled=(ComboBox1->currentText()==tr("Custom"));
+	bool hwEnabled=(ComboBox1->currentText()==customText);
 	Breite->setEnabled(hwEnabled);
 	Hoehe->setEnabled(hwEnabled);
 	
@@ -271,7 +272,7 @@ void NewDoc::code_repeat(int m)
 {
 	// #869 pv - auto-flip landscape/portrait based on the height:width ratio
 	//if (ComboBox1->currentItem() == USERFORMAT)
-	if (ComboBox1->currentText() == tr("Custom"))
+	if (ComboBox1->currentText() == customText)
 	{
 		if (Breite->value() > Hoehe->value())
 			ComboBox2->setCurrentItem(LANDSCAPE);
@@ -430,7 +431,7 @@ void NewDoc::setOrien(int ori)
 void NewDoc::setPGsize(const QString &size)
 {
 	//if (ComboBox1->currentItem() == USERFORMAT)
-	if (size == tr("Custom"))
+	if (size == customText)
 		setSize(size);
 	else
 	{
@@ -455,7 +456,7 @@ void NewDoc::setSize(QString gr)
 	*/
 	
 	//if (gr == USERFORMAT)
-	if (gr==tr("Custom"))
+	if (gr==customText)
 	{
 		Breite->setEnabled(true);
 		Hoehe->setEnabled(true);

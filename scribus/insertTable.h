@@ -19,17 +19,16 @@ public:
 	~InsertTable() {};
 
 	QSpinBox* Cols;
-	QLabel* Text1;
-	QLabel* Text2;
 	QSpinBox* Rows;
-	QPushButton* OKButton;
-	QPushButton* CancelB;
 
 protected:
 	QVBoxLayout* InsertTableLayout;
 	QGridLayout* layout2;
 	QHBoxLayout* layout1;
-
+	QLabel* Text1;
+	QLabel* Text2;
+	QPushButton* okButton;
+	QPushButton* cancelButton;
 };
 
 #endif // INSERTTABLE_H

@@ -22,40 +22,23 @@
 #include <qmainwindow.h>
 class QToolButton;
 class QPopupMenu;
+class AutoformButtonGroup;
 
-class Autoforms;
 /**
   *@author Franz Schmid
   */
 
-class WerkToolB : public QToolBar  
+class WerkToolB : public QToolBar
 {
 	Q_OBJECT
 
 public: 
 	WerkToolB(QMainWindow* parent);
 	~WerkToolB() {};
-	QToolButton* Select;
-	QToolButton* Rotiere;
-	QToolButton* Textedit;
-	QToolButton* Textedit2;
-	QToolButton* Zoom;
-	QToolButton* Texte;
-	QToolButton* BildB;
-	QToolButton* TableB;
-	QToolButton* Linien;
-	Autoforms* Rechteck;
-	QToolButton* Polygon;
-	QToolButton* PolyLin;
-	QPopupMenu* PolyM;
-	QPopupMenu* LinM;
-	QToolButton* KetteEin;
-	QToolButton* KetteAus;
-	//QToolButton* Measure;
+
 	bool Sichtbar;
 	int SubMode;
 	int ValCount;
-	int LMode;
 	double *ShapeVals;
 
 public slots:
@@ -63,13 +46,14 @@ public slots:
 	void Verbergen(bool vis);
 	void GetPolyProps();
 	void SelShape(int s, int c, double *vals);
-	void SelShape2();
-	void ModeFromTB();
-	void setLinMode(int id);
 		
+protected:
+	AutoformButtonGroup* Rechteck;
+	QPopupMenu* insertShapeButtonMenu;
+	QPopupMenu* insertPolygonButtonMenu;
+	
 signals:
 	void Schliessen();
-	void NewMode(int);
 };
 
 class WerkToolBP : public QToolBar  
