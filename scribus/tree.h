@@ -18,6 +18,7 @@ class QHBoxLayout;
 class QGridLayout;
 class QListView;
 class QListViewItem;
+class ScribusDoc;
 
 class Tree : public QDialog
 {
@@ -26,18 +27,20 @@ class Tree : public QDialog
 public:
 	Tree( QWidget* parent, WFlags fl );
 	~Tree() {};
-
-	QListView* ListView1;
-	QPtrList<QListViewItem> Seiten;
-	struct Elem { QPtrList<QListViewItem> Elemente; };
-	QPtrList<Elem> PageObj;
-	ScribusView *vie;
 	void keyPressEvent(QKeyEvent *k);
 	void closeEvent(QCloseEvent *ce);
 	void resizeEvent(QResizeEvent *r);
 	void rebuildPageD();
 	void reopenTree(QValueList<int> op);
 	QValueList<int> buildReopenVals();
+
+	QListView* reportDisplay;
+	QMap<QListViewItem*, int> itemMap;
+	QMap<QListViewItem*, int> pageMap;
+	QMap<QListViewItem*, QString> templatePageMap;
+	QMap<QListViewItem*, int> templateItemMap;
+	ScribusDoc* document;
+	ScribusView *vie;
 
 public slots:
 	void slotRightClick(QListViewItem* ite, const QPoint &, int);
@@ -50,15 +53,17 @@ public slots:
 	void slotDelPage(uint Nr);
 	void slotAddPage(uint Nr);
 	void slotSelect(QListViewItem* ite);
-	void BuildTree(ScribusView *view);
+	void BuildTree(ScribusDoc *doc);
 
 signals:
 	void ToggleAllPalettes();
 	void Schliessen();
 	void CloseMpal();
 	void CloseSpal();
-	void SelectElement(int, int);
-	void SelectSeite(int);
+	void selectElement(int, int);
+	void selectPage(int);
+	void selectTemplatePage(QString);
+	void selectTemplateElement(QString, int);
 
 protected slots:
 	virtual void reject();

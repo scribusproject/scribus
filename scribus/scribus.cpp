@@ -893,8 +893,9 @@ void ScribusApp::initPalettes()
 	connect(Tpal, SIGNAL(Schliessen()), this, SLOT(ToggleTpal()));
 	connect(Tpal, SIGNAL(CloseMpal()), this, SLOT(ToggleMpal()));
 	connect(Tpal, SIGNAL(CloseSpal()), this, SLOT(ToggleBpal()));
-	connect(Tpal, SIGNAL(SelectElement(int, int)), this, SLOT(SelectFromOutl(int, int)));
-	connect(Tpal, SIGNAL(SelectSeite(int)), this, SLOT(SelectFromOutlS(int)));
+	connect(Tpal, SIGNAL(selectElement(int, int)), this, SLOT(SelectFromOutl(int, int)));
+	connect(Tpal, SIGNAL(selectPage(int)), this, SLOT(SelectFromOutlS(int)));
+	connect(Tpal, SIGNAL(selectTemplatePage(QString)), this, SLOT(ManageTemp(QString)));
 	connect(Tpal, SIGNAL(ToggleAllPalettes()), this, SLOT(ToggleAllPalettes()));
 	connect(Mpal->Spal, SIGNAL(newStyle(int)), this, SLOT(setNewAbStyle(int)));
 	connect(Mpal, SIGNAL(EditLSt()), this, SLOT(slotEditLineStyles()));
@@ -3052,7 +3053,7 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	doc->DocItems = doc->Items;
 	doc->currentPage = doc->Pages.at(0);
 	doc->OpenNodes.clear();
-//	Tpal->BuildTree(view);
+	Tpal->BuildTree(doc);
 //	Sepal->Rebuild();
 	BookPal->BView->clear();
 	if ( wsp->windowList().isEmpty() )
@@ -3182,7 +3183,7 @@ void ScribusApp::newActWin(QWidget *w)
 	scrActions["viewShowTextChain"]->setOn(doc->guidesSettings.linkShown);
 //	if (!doc->TemplateMode)
 //		Sepal->Rebuild();
-//	Tpal->BuildTree(view);
+	Tpal->BuildTree(doc);
 //	Tpal->reopenTree(doc->OpenNodes);
 	BookPal->BView->NrItems = doc->NrItems;
 	BookPal->BView->First = doc->First;
@@ -3703,7 +3704,6 @@ void ScribusApp::HaveNewDoc()
 	connect(view, SIGNAL(PStatus(int, uint)), Npal, SLOT(PolyStatus(int, uint)));
 	connect(view, SIGNAL(ItemPos(double, double)), Mpal, SLOT(setXY(double, double)));
 	connect(view, SIGNAL(ItemGeom(double, double)), Mpal, SLOT(setBH(double, double)));
-// 	connect(view, SIGNAL(UndoAvail()), this, SLOT(CanUndo()));
 	connect(view, SIGNAL(ChBMText(PageItem *)), this, SLOT(BookMarkTxT(PageItem *)));
 	connect(view, SIGNAL(NewBMNr(int, int)), BookPal->BView, SLOT(ChangeItem(int, int)));
 	connect(view, SIGNAL(HaveSel(int)), this, SLOT(HaveNewSel(int)));
@@ -4358,7 +4358,7 @@ bool ScribusApp::LadeSeite(QString fileName, int Nr, bool Mpa)
 		Mpal->endArrow->rebuildList(&doc->arrowStyles);
 		if (!Mpa)
 		{
-			Tpal->BuildTree(view);
+			Tpal->BuildTree(doc);
 			Tpal->reopenTree(doc->OpenNodes);
 			scanDocument();
 			docChecker->buildErrorList(doc);
@@ -5079,10 +5079,12 @@ bool ScribusApp::DoFileClose()
 	}
 	view->close();
 	delete view;
-	Tpal->PageObj.clear();
-	Tpal->Seiten.clear();
+	Tpal->itemMap.clear();
+	Tpal->pageMap.clear();
+	Tpal->templatePageMap.clear();
+	Tpal->templateItemMap.clear();
 	doc->loading = true;
-	Tpal->ListView1->clear();
+	Tpal->reportDisplay->clear();
 	Lpal->ClearInhalt();
 	docChecker->clearErrorList();
 	HaveDoc--;
@@ -6649,7 +6651,7 @@ void ScribusApp::DeletePage2(int pg)
 //		connect(doc->currentPage, SIGNAL(DelObj(uint, uint)), Tpal, SLOT(slotRemoveElement(uint, uint)));
 	view->DrawNew();
 	doc->OpenNodes.clear();
-//	Tpal->BuildTree(view);
+	Tpal->BuildTree(doc);
 	bool setter = doc->Pages.count() > 1 ? true : false;
 	scrActions["pageDelete"]->setEnabled(setter);
 	scrActions["pageMove"]->setEnabled(setter);
@@ -6692,7 +6694,7 @@ void ScribusApp::DeletePage()
 		view->reformPages();
 		view->DrawNew();
 //		doc->OpenNodes.clear();
-//		Tpal->BuildTree(view);
+		Tpal->BuildTree(doc);
 		bool setter = doc->Pages.count() > 1 ? true : false;
 		scrActions["pageDelete"]->setEnabled(setter);
 		scrActions["pageMove"]->setEnabled(setter);
@@ -6718,9 +6720,9 @@ void ScribusApp::MovePage()
 		slotDocCh();
 		view->DrawNew();
 /*		AdjustBM();
-		Sepal->RebuildPage();
-		Tpal->BuildTree(view);
-		Tpal->reopenTree(doc->OpenNodes); */
+		Sepal->RebuildPage(); */
+		Tpal->BuildTree(doc);
+		Tpal->reopenTree(doc->OpenNodes);
 	}
 	delete dia;
 }
@@ -6814,7 +6816,7 @@ void ScribusApp::CopyPage()
 		view->DrawNew();
 		slotDocCh();
 //		Sepal->RebuildPage();
-//		Tpal->BuildTree(view);
+		Tpal->BuildTree(doc);
 //		AdjustBM();
 	}
 	delete dia;
@@ -8721,7 +8723,7 @@ void ScribusApp::slotElemRead(QString Name, int x, int y, bool art, bool loca, S
 			Mpal->updateCList();
 			Mpal->Spal->updateFormatList();
 			Mpal->SetLineFormats(docc);
-			Tpal->BuildTree(view);
+			Tpal->BuildTree(doc);
 			Tpal->reopenTree(doc->OpenNodes);
 			slotDocCh();
 		}
@@ -8818,7 +8820,7 @@ void ScribusApp::ManTempEnd()
 	ActWin->muster = NULL;
 	view->DrawNew();
 //	Sepal->Rebuild();
-//	Tpal->BuildTree(view);
+//	Tpal->BuildTree(doc);
 //	Tpal->reopenTree(doc->OpenNodes);
 //	slotDocCh();
 }
@@ -9205,7 +9207,7 @@ void ScribusApp::callDLLBySlot(int pluginID)
 	{
 		if (HaveDoc)
 		{
-			Tpal->BuildTree(view);
+			Tpal->BuildTree(doc);
 			Tpal->reopenTree(doc->OpenNodes);
 			Mpal->updateCList();
 		}
@@ -9725,6 +9727,7 @@ void ScribusApp::initHyphenator()
 	QStringList L_Swedish;
 	QStringList L_Slovenian;
 	QStringList L_Afrikaans;
+	QStringList L_Bulgarian;
 	L_German.clear();
 	L_Polish.clear();
 	L_English.clear();
@@ -9747,6 +9750,7 @@ void ScribusApp::initHyphenator()
 	L_Swedish.clear();
 	L_Slovenian.clear();
 	L_Afrikaans.clear();
+	L_Bulgarian.clear();
 	QDir d2(pfad, "*.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
 	if ((d2.exists()) && (d2.count() != 0))
 	{
@@ -9847,6 +9851,10 @@ void ScribusApp::initHyphenator()
 				translatedLang = trans->findMessage("ScribusApp", "Afrikaans", "").translation();
 				if (translatedLang != "")
 					L_Afrikaans.append(translatedLang);
+				translatedLang = "";
+				translatedLang = trans->findMessage("ScribusApp", "Bulgarian", "").translation();
+				if (translatedLang != "")
+					L_Bulgarian.append(translatedLang);
 				delete trans;
 			}
 		}
@@ -9873,6 +9881,7 @@ void ScribusApp::initHyphenator()
 	InstLang.insert("Swedish", L_Swedish);
 	InstLang.insert("Slovenian", L_Slovenian);
 	InstLang.insert("Afrikaans", L_Afrikaans);
+	InstLang.insert("Bulgarian", L_Bulgarian);
 	QString datein = "";
 	QString lang = QString(QTextCodec::locale()).left(2);
 	LangTransl.clear();
@@ -9928,6 +9937,8 @@ void ScribusApp::initHyphenator()
 				datein = tr("Slovenian");
 			if (d[dc] == "hyph_af.dic")
 				datein = tr("Afrikaans");
+			if (d[dc] == "hyph_bg.dic")
+				datein = tr("Bulgarian");
 			QString tDatein = datein;
 			datein = GetLang(datein);
 			LangTransl.insert(datein, tDatein);

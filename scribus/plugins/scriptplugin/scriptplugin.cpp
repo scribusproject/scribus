@@ -236,7 +236,7 @@ void MenuTest::FinishScriptRun()
 		Carrier->Mpal->SetLineFormats(Carrier->doc);
 		Carrier->Mpal->Cpal->SetColors(Carrier->doc->PageColors);
 		Carrier->Lpal->setLayers(&Carrier->doc->Layers, &Carrier->doc->ActiveLayer);
-		Carrier->Tpal->BuildTree(Carrier->view);
+		Carrier->Tpal->BuildTree(Carrier->doc);
 		Carrier->Sepal->SetView(Carrier->view);
 		Carrier->Sepal->Rebuild();
 		if (Carrier->view->SelItem.count() != 0)
