@@ -306,7 +306,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 		Breite = new MSpinBox( GroupSize, 2 );
     Breite->setEnabled( false );
     Breite->setMinimumSize( QSize( 70, 20 ) );
-    Breite->setMaxValue( 1000000 );
+    Breite->setMaxValue( 10000 );
     Breite->setMinValue( 1 );
     Layout5_2->addWidget( Breite );
 
@@ -317,14 +317,12 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 		Hoehe = new MSpinBox( GroupSize, 2 );
     Hoehe->setEnabled( false );
     Hoehe->setMinimumSize( QSize( 70, 20 ) );
-    Hoehe->setMaxValue( 1000000 );
+    Hoehe->setMaxValue( 10000 );
     Hoehe->setMinValue( 1 );
     Layout5_2->addWidget( Hoehe );
     GroupSizeLayout->addLayout( Layout5_2 );
-    Breite->setValue(qRound(Vor->PageBreite * Umrech) * 100);
-    Hoehe->setValue(qRound(Vor->PageHoehe * Umrech) * 100);
-    Breite->setLineStep(100);
-    Hoehe->setLineStep(100);
+    Breite->setValue(Vor->PageBreite * Umrech);
+    Hoehe->setValue(Vor->PageHoehe * Umrech);
 
     Layout8 = new QHBoxLayout( 0, 0, 6, "Layout8");
 
@@ -352,38 +350,32 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 
 		TopR = new MSpinBox( GroupRand, 2 );
     TopR->setMinimumSize( QSize( 70, 20 ) );
-    TopR->setMaxValue( 100000 );
+    TopR->setMaxValue( 1000 );
     TopR->setMinValue( 0 );
-    TopR->setValue( qRound(Vor->RandOben * Umrech * 100));
+    TopR->setValue(Vor->RandOben * Umrech);
 		RandT = Vor->RandOben;
     GroupRandLayout->addWidget( TopR, 0, 1 );
     BottomR = new MSpinBox( GroupRand, 2 );
     BottomR->setMinimumSize( QSize( 70, 20 ) );
-    BottomR->setMaxValue( 100000 );
+    BottomR->setMaxValue( 1000 );
     BottomR->setMinValue( 0 );
-    BottomR->setValue( qRound(Vor->RandUnten * Umrech * 100));
+    BottomR->setValue(Vor->RandUnten * Umrech);
 		RandB = Vor->RandUnten;
     GroupRandLayout->addWidget( BottomR, 1, 1 );
     RightR = new MSpinBox( GroupRand, 2 );
     RightR->setMinimumSize( QSize( 70, 20 ) );
-    RightR->setMaxValue( 100000 );
+    RightR->setMaxValue( 1000 );
     RightR->setMinValue( 0 );
-    RightR->setValue( qRound(Vor->RandRechts * Umrech * 100));
+    RightR->setValue(Vor->RandRechts * Umrech);
 		RandR = Vor->RandRechts;
     GroupRandLayout->addWidget( RightR, 1, 3 );
     LeftR = new MSpinBox( GroupRand, 2 );
     LeftR->setMinimumSize( QSize( 70, 20 ) );
-    LeftR->setMaxValue( 100000 );
+    LeftR->setMaxValue( 1000 );
     LeftR->setMinValue( 0 );
-    LeftR->setValue( qRound(Vor->RandLinks * Umrech * 100));
+    LeftR->setValue(Vor->RandLinks * Umrech);
 		RandL = Vor->RandLinks;
     GroupRandLayout->addWidget( LeftR, 0, 3 );
-    Breite->setLineStep(100);
-    Hoehe->setLineStep(100);
-    TopR->setLineStep(100);
-    LeftR->setLineStep(100);
-    RightR->setLineStep(100);
-   	BottomR->setLineStep(100);
 
     GRText2 = new QLabel( GroupRand, "GRText2" );
     GRText2->setText( tr( "Bottom:" ) );
@@ -453,35 +445,32 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     TextLabel2->setText( tr( "Major Grid Spacing:" ) );
     Layout10->addWidget( TextLabel2, 1, 0 );
     SpinBox1 = new MSpinBox( GroupBox1, 2 );
-    SpinBox1->setMaxValue( 100000 );
+    SpinBox1->setMaxValue( 1000 );
     SpinBox1->setMinValue( 1 );
     Layout10->addWidget( SpinBox1, 0, 1 );
     SpinBox2 = new MSpinBox( GroupBox1, 2 );
-    SpinBox2->setMaxValue( 100000 );
+    SpinBox2->setMaxValue( 1000 );
     SpinBox2->setMinValue( 10 );
-    SpinBox1->setLineStep(100);
-    SpinBox2->setLineStep(100);
     Layout10->addWidget( SpinBox2, 1, 1 );
     TextLabel2g = new QLabel( GroupBox1, "TextLabel2" );
     TextLabel2g->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1, TextLabel2->sizePolicy().hasHeightForWidth() ) );
     TextLabel2g->setText( tr( "Guide Snap Distance:" ) );
     Layout10->addWidget( TextLabel2g, 2, 0 );
     SpinBox2g = new MSpinBox( GroupBox1, 2 );
-    SpinBox2g->setMaxValue( 100000 );
+    SpinBox2g->setMaxValue( 1000 );
     SpinBox2g->setMinValue( 1 );
-    SpinBox2g->setLineStep(100);
     Layout10->addWidget( SpinBox2g, 2, 1 );
 		if (ap->HaveDoc)
 			{
-    	SpinBox2->setValue( qRound(ap->doc->majorGrid * Umrech * 100));
-    	SpinBox1->setValue( qRound(ap->doc->minorGrid * Umrech * 100));
-    	SpinBox2g->setValue( qRound(ap->doc->GuideRad * Umrech * 100));
+    	SpinBox2->setValue(ap->doc->majorGrid * Umrech);
+    	SpinBox1->setValue(ap->doc->minorGrid * Umrech);
+    	SpinBox2g->setValue(ap->doc->GuideRad * Umrech);
 			}
 		else
 			{
-    	SpinBox2->setValue( qRound(Vor->DmajGrid * Umrech * 100));
-    	SpinBox1->setValue( qRound(Vor->DminGrid * Umrech * 100));
-    	SpinBox2g->setValue( qRound(Vor->GuideRad * Umrech * 100));
+    	SpinBox2->setValue(Vor->DmajGrid * Umrech);
+    	SpinBox1->setValue(Vor->DminGrid * Umrech);
+    	SpinBox2g->setValue(Vor->GuideRad * Umrech);
 			}
     GroupBox1Layout->addLayout( Layout10 );
     tabLayout_2->addWidget( GroupBox1, 0, 0 );
@@ -881,7 +870,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     TextGapVal->setSuffix( tr( " pt" ) );
     TextGapVal->setMaxValue( 200 );
     TextGapVal->setMinValue( 0 );
-		TextGapVal->setValue(ap->HaveDoc ? static_cast<int>(ap->doc->DGap*10) : static_cast<int>(Vor->DGap*10));
+		TextGapVal->setValue(ap->HaveDoc ? ap->doc->DGap : Vor->DGap);
     Layout15a->addWidget( TextGapVal, 4, 1 );
     TextLabel1_4 = new QLabel( ToolFrame, "TextLabel1_4" );
     TextLabel1_4->setMinimumSize(QSize(260, 70));
@@ -1001,10 +990,9 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     Layout15b->addWidget(Linestyle, 4, 1);
     LineW = new MSpinBox( ToolFrame2, 1 );
     LineW->setSuffix( tr( " pt" ) );
-    LineW->setMaxValue( 200 );
+    LineW->setMaxValue( 36 );
     LineW->setMinValue( 0 );
-		LineW->setLineStep(10);
-		LineW->setValue(ap->HaveDoc ? static_cast<int>(ap->doc->Dwidth*10) : static_cast<int>(Vor->Dwidth*10));
+		LineW->setValue(ap->HaveDoc ? ap->doc->Dwidth : Vor->Dwidth);
     Layout15b->addWidget(LineW, 5, 1);
     QSpacerItem* sp07 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
     ToolFrame2Layout->addItem( sp07 );
@@ -1086,10 +1074,9 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
     Layout15c->addWidget(Linestyle2, 2, 1);
     LineW2 = new MSpinBox( ToolFrame3, 1 );
     LineW2->setSuffix( tr( " pts" ) );
-    LineW2->setMaxValue( 200 );
+    LineW2->setMaxValue( 36 );
     LineW2->setMinValue( 1 );
-		LineW2->setLineStep(10);
-		LineW2->setValue(ap->HaveDoc ? static_cast<int>(ap->doc->DwidthLine*10) : static_cast<int>(Vor->DwidthLine*10) );
+		LineW2->setValue(ap->HaveDoc ? ap->doc->DwidthLine : Vor->DwidthLine);
     Layout15c->addWidget(LineW2, 3, 1);
     QSpacerItem* sp05 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
     ToolFrame3Layout->addItem( sp05 );
@@ -1702,9 +1689,9 @@ void Preferences::setDS()
  \param v Width value
  \retval None 
  */
-void Preferences::setBreite(int v)
+void Preferences::setBreite(int)
 {
-	Pagebr = v / Umrech / 100.0;
+	Pagebr = Breite->value() / Umrech;
 	RightR->setMaxValue(Breite->value() - LeftR->value());
 	LeftR->setMaxValue(Breite->value() - RightR->value());
 	TopR->setMaxValue(Hoehe->value() - BottomR->value());
@@ -1719,9 +1706,9 @@ void Preferences::setBreite(int v)
  \param v Height value
  \retval None 
  */
-void Preferences::setHoehe(int v)
+void Preferences::setHoehe(int)
 {
-	Pageho = v / Umrech / 100.0;
+	Pageho = Hoehe->value() / Umrech;
 	RightR->setMaxValue(Breite->value() - LeftR->value());
 	LeftR->setMaxValue(Breite->value() - RightR->value());
 	TopR->setMaxValue(Hoehe->value() - BottomR->value());
@@ -1736,9 +1723,9 @@ void Preferences::setHoehe(int v)
  \param v Top value
  \retval None 
  */
-void Preferences::setTop(int v)
+void Preferences::setTop(int)
 {
-	RandT = v / Umrech / 100.0;
+	RandT = TopR->value() / Umrech;
 	BottomR->setMaxValue(Hoehe->value() - TopR->value());
 }
 
@@ -1750,9 +1737,9 @@ void Preferences::setTop(int v)
  \param v Bottom value
  \retval None 
  */
-void Preferences::setBottom(int v)
+void Preferences::setBottom(int)
 {
-	RandB = v / Umrech / 100.0;
+	RandB = BottomR->value() / Umrech;
 	TopR->setMaxValue(Hoehe->value() - BottomR->value());
 }
 
@@ -1764,9 +1751,9 @@ void Preferences::setBottom(int v)
  \param v Top value
  \retval None 
  */
-void Preferences::setLeft(int v)
+void Preferences::setLeft(int)
 {
-	RandL = v / Umrech / 100.0;
+	RandL = LeftR->value() / Umrech;
 	RightR->setMaxValue(Breite->value() - LeftR->value());
 }
 
@@ -1778,9 +1765,9 @@ void Preferences::setLeft(int v)
  \param v Right value
  \retval None 
  */
-void Preferences::setRight(int v)
+void Preferences::setRight(int)
 {
-	RandR = v / Umrech / 100.0;
+	RandR = RightR->value() / Umrech;
 	LeftR->setMaxValue(Breite->value() - RightR->value());
 }
 
@@ -1794,8 +1781,8 @@ void Preferences::setRight(int v)
  */
 void Preferences::setSize(int gr)
 {
-	Pagebr = Breite->value() / 100.0;
-	Pageho = Hoehe->value() / 100.0;
+	Pagebr = Breite->value();
+	Pageho = Hoehe->value();
 	Breite->setEnabled(false);
 	Hoehe->setEnabled(false);
 	switch (gr)
@@ -1927,8 +1914,8 @@ void Preferences::setSize(int gr)
 		}
 	disconnect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
 	disconnect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
-	Breite->setValue(qRound(Pagebr * Umrech * 100));
-	Hoehe->setValue(qRound(Pageho * Umrech * 100));
+	Breite->setValue(Pagebr * Umrech);
+	Hoehe->setValue(Pageho * Umrech);
 	RightR->setMaxValue(Breite->value() - LeftR->value());
 	LeftR->setMaxValue(Breite->value() - RightR->value());
 	TopR->setMaxValue(Hoehe->value() - BottomR->value());
@@ -1947,7 +1934,7 @@ void Preferences::setSize(int gr)
  */
 void Preferences::setOrien(int ori)
 {
-	int br;
+	double br;
 	setSize(GZComboF->currentItem());
 	disconnect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
 	disconnect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
@@ -2228,18 +2215,18 @@ void Preferences::UnitChange()
 	SpinBox2->setValue(qRound(SpinBox2->value() / AltUmrech * Umrech));
 	SpinBox2g->setValue(qRound(SpinBox2g->value() / AltUmrech * Umrech));
 	TextGapVal->setValue(qRound(TextGapVal->value() / AltUmrech * Umrech));
-	Breite->setValue(qRound(Pagebr * Umrech * 100));
-	Hoehe->setValue(qRound(Pageho * Umrech * 100));
+	Breite->setValue(Pagebr * Umrech);
+	Hoehe->setValue(Pageho * Umrech);
 
-	RightR->setMaxValue(Breite->value() - qRound(RandL * Umrech * 100));
-	LeftR->setMaxValue(Breite->value() - qRound(RandR * Umrech * 100));
-	TopR->setMaxValue(Hoehe->value() - qRound(RandB * Umrech * 100));
-	BottomR->setMaxValue(Hoehe->value() - qRound(RandT * Umrech * 100));
+	RightR->setMaxValue(Breite->value() - RandL * Umrech);
+	LeftR->setMaxValue(Breite->value() - RandR * Umrech);
+	TopR->setMaxValue(Hoehe->value() - RandB * Umrech);
+	BottomR->setMaxValue(Hoehe->value() - RandT * Umrech);
 
-	TopR->setValue(qRound(RandT * Umrech * 100));
-	BottomR->setValue(qRound(RandB * Umrech * 100));
-	LeftR->setValue(qRound(RandL * Umrech * 100));
-	RightR->setValue(qRound(RandR * Umrech * 100));
+	TopR->setValue(RandT * Umrech);
+	BottomR->setValue(RandB * Umrech);
+	LeftR->setValue(RandL * Umrech);
+	RightR->setValue(RandR * Umrech);
 	DrawRuler();
 	connect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
 	connect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));

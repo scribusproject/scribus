@@ -55,7 +55,7 @@ TabManager::TabManager( QWidget* parent, int dEin, QValueList<double> inTab) : Q
 
 	Position = new MSpinBox( this, 1 );
 	Position->setSuffix( tr( " pt" ) );
-	Position->setMaxValue( 3000000 );
+	Position->setMaxValue( 30000 );
 	Position->setMinValue( 0 );
 	Position->setValue(0);
 	Position->setEnabled(false);
@@ -132,7 +132,7 @@ void TabManager::selIte(QListBoxItem *c)
 	DelButton->setEnabled(true);
 	Position->setEnabled(true);
 	Align->setEnabled(true);
-	Position->setValue(qRound(tmpTab[selTab+1] * UmReFaktor * Position->Decimals));
+	Position->setValue(tmpTab[selTab+1] * UmReFaktor);
 	Align->setCurrentItem(static_cast<int>(tmpTab[selTab]));
 	connect(Position, SIGNAL(valueChanged(int)), this, SLOT(PValChange()));
 	connect(Align, SIGNAL(activated(int)), this, SLOT(ChangeType()));
@@ -140,7 +140,7 @@ void TabManager::selIte(QListBoxItem *c)
 
 void TabManager::PValChange()
 {
-	double CurX =  static_cast<double>(Position->value() / UmReFaktor / Position->Decimals);
+	double CurX = Position->value() / UmReFaktor;
 	int gg = static_cast<int>(tmpTab.count()-1);
 	int g = gg;
 	double type = tmpTab[selTab];
@@ -192,7 +192,7 @@ void TabManager::UnitChange(int dEin)
 		}
 	Position->setSuffix(ein);
   if (!tmpTab.isEmpty() || (selTab != -1))
-		Position->setValue(qRound(tmpTab[selTab+1] * UmReFaktor * Position->Decimals));
+		Position->setValue(tmpTab[selTab+1] * UmReFaktor);
 	else
 		Position->setValue(0);
 }
@@ -229,7 +229,7 @@ void TabManager::UpdateTabL()
 		{
 		Position->setEnabled(true);
 		Align->setEnabled(true);
-		Position->setValue(qRound(tmpTab[selTab+1] * UmReFaktor * Position->Decimals));
+		Position->setValue(tmpTab[selTab+1] * UmReFaktor);
 		Align->setCurrentItem(static_cast<int>(tmpTab[selTab]));
 		TabList->setCurrentItem(selTab / 2);
 		}

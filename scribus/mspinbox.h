@@ -28,6 +28,10 @@ class MSpinBox : public QSpinBox  {
 public: 
 	MSpinBox(QWidget *pa, int s);
 	~MSpinBox() {};
+	void setMaxValue(double val);
+	void setMinValue(double val);
+	void setValue(double val);
+	double value();
 	QString mapValueToText(int value);
 	int mapTextToValue(bool *ok);
 	int Decimals;

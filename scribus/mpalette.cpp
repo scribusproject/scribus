@@ -116,13 +116,13 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     GeoGroupLayout->addWidget( Text2a, 3, 0 );
     Xpos = new MSpinBox( GeoGroup, 2 );
     Xpos->setSuffix( tr( " pt" ) );
-		Xpos->setMaxValue( 300000 );
-		Xpos->setMinValue( -300000 );
+		Xpos->setMaxValue( 3000 );
+		Xpos->setMinValue( -3000 );
     GeoGroupLayout->addWidget( Xpos, 0, 1 );
     Ypos = new MSpinBox( GeoGroup, 2 );
     Ypos->setSuffix( tr( " pt" ) );
-		Ypos->setMaxValue( 300000 );
-		Ypos->setMinValue( -300000 );
+		Ypos->setMaxValue( 3000 );
+		Ypos->setMinValue( -3000 );
     GeoGroupLayout->addWidget( Ypos, 1, 1 );
     Width = new MSpinBox( GeoGroup, 2 );
     Width->setSuffix( tr( " pt" ) );
@@ -359,27 +359,27 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     DistanceLayout->addWidget( DCol, 0, 1 );
     DGap = new MSpinBox( Distance, 1 );
     DGap->setSuffix( tr( " pt" ) );
-    DGap->setMaxValue( 3000 );
+    DGap->setMaxValue( 300 );
     DGap->setMinValue( 0 );
     DistanceLayout->addWidget( DGap, 1, 1 );
     DTop = new MSpinBox( Distance, 1 );
     DTop->setSuffix( tr( " pt" ) );
-    DTop->setMaxValue( 3000 );
+    DTop->setMaxValue( 300 );
     DTop->setMinValue( 0 );
     DistanceLayout->addWidget( DTop, 2, 1 );
     DBottom = new MSpinBox( Distance, 1 );
     DBottom->setSuffix( tr( " pt" ) );
-    DBottom->setMaxValue( 3000 );
+    DBottom->setMaxValue( 300 );
     DBottom->setMinValue( 0 );
     DistanceLayout->addWidget( DBottom, 3, 1 );
     DLeft = new MSpinBox( Distance, 1 );
     DLeft->setSuffix( tr( " pt" ) );
-    DLeft->setMaxValue( 3000 );
+    DLeft->setMaxValue( 300 );
     DLeft->setMinValue( 0 );
     DistanceLayout->addWidget( DLeft, 4, 1 );
     DRight = new MSpinBox( Distance, 1 );
     DRight->setSuffix( tr( " pt" ) );
-    DRight->setMaxValue( 3000 );
+    DRight->setMaxValue( 300 );
     DRight->setMinValue( 0 );
     DistanceLayout->addWidget( DRight, 5, 1 );
 		TabsButton = new QPushButton( Distance, "Tabul" );
@@ -407,7 +407,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
  		DistanceLayout2->addWidget( TextLabel3, 1, 0);
  		Dist = new MSpinBox( Distance2, 1 );
  		Dist->setSuffix( tr( " pt" ) );
- 		Dist->setMaxValue( 3000 );
+ 		Dist->setMaxValue( 300 );
  		Dist->setMinValue( 0 );
  		Dist->setLineStep(10);
  		DistanceLayout2->addWidget( Dist, 1, 1);
@@ -416,8 +416,8 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
  		DistanceLayout2->addWidget( TextLabel2, 2, 0);
  		LineW = new MSpinBox( Distance2, 1 );
  		LineW->setSuffix( tr( " pt" ) );
- 		LineW->setMaxValue( 3000 );
- 		LineW->setMinValue( -3000 );
+ 		LineW->setMaxValue( 300 );
+ 		LineW->setMinValue( -300 );
 		LineW->setLineStep(10);
  		DistanceLayout2->addWidget( LineW, 2, 1);
 		pageLayout_2b->addWidget(Distance2);
@@ -447,8 +447,8 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     Size = new MSpinBox( page_3, 1 );
     Size->setPrefix( "" );
     Size->setSuffix( tr( " pt" ) );
-    Size->setMaxValue( 3000 );
-    Size->setMinValue( -3000 );
+    Size->setMaxValue( 1024 );
+    Size->setMinValue( 1 );
     layout41->addWidget( Size, 1, 1 );
     layout46->addLayout( layout41 );
 
@@ -812,7 +812,6 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     Layout12_2->addWidget( TextLabel1, 2, 0 );
     LSize = new MSpinBox( page_5, 1 );
     LSize->setSuffix( tr( " pt" ) );
-		LSize->setDecimals(10);
     Layout12_2->addWidget( LSize, 3, 0 );
     Text9 = new QLabel( page_5, "Text9" );
     Text9->setText( tr( "Edges:" ) );
@@ -976,33 +975,33 @@ void Mpalette::SetDoc(ScribusDoc *d)
 {
 	doc = d;
 	HaveDoc = true;
-	Xpos->setMaxValue( 300000 );
-	Xpos->setMinValue( -300000 );
-	Ypos->setMaxValue( 300000 );
-	Ypos->setMinValue( -300000 );
-	Width->setMaxValue( 300000 );
+	Xpos->setMaxValue( 3000 );
+	Xpos->setMinValue( -3000 );
+	Ypos->setMaxValue( 3000 );
+	Ypos->setMinValue( -3000 );
+	Width->setMaxValue( 3000 );
 	Width->setMinValue( 1 );
-	Height->setMaxValue( 300000 );
+	Height->setMaxValue( 3000 );
 	Height->setMinValue( 1 );
-	Rot->setMaxValue( 36000 );
+	Rot->setMaxValue( 360 );
 	Rot->setMinValue( 0 );
-	RoundRect->setMaxValue( 30000 );
-	RoundRect->setMinValue( -30000);
-	LYpos->setMaxValue( 300000 );
-	LYpos->setMinValue( -300000 );
+	RoundRect->setMaxValue( 300 );
+	RoundRect->setMinValue( -300);
+	LYpos->setMaxValue( 3000 );
+	LYpos->setMinValue( -3000 );
 	ScaleY->setMaxValue( 3000 );
 	ScaleY->setMinValue( 1 );
 	ScaleX->setMaxValue( 3000 );
 	ScaleX->setMinValue( 1 );
-	LXpos->setMaxValue( 300000 );
-	LXpos->setMinValue( -300000 );
-	Size->setMaxValue( 10240 );
+	LXpos->setMaxValue( 3000 );
+	LXpos->setMinValue( -3000 );
+	Size->setMaxValue( 1024 );
 	Size->setMinValue( 1 );
-	LineSp->setMaxValue( 3000 );
+	LineSp->setMaxValue( 300 );
 	LineSp->setMinValue( 1 );
-	Extra->setMaxValue( 3000 );
-	Extra->setMinValue( -3000 );
-	LSize->setMaxValue( 360 );
+	Extra->setMaxValue( 300 );
+	Extra->setMinValue( -300 );
+	LSize->setMaxValue( 36 );
 	LSize->setMinValue( 1 );
   Xpos->setDecimals(100);
   Ypos->setDecimals(100);
@@ -1022,11 +1021,11 @@ void Mpalette::SetDoc(ScribusDoc *d)
   DLeft->setDecimals(10);
   DBottom->setDecimals(10);
   DRight->setDecimals(10);
-	Dist->setMaxValue( 3000 );
+	Dist->setMaxValue( 300 );
 	Dist->setMinValue( 0 );
 	Dist->setLineStep(10);
-	LineW->setMaxValue( 3000 );
-	LineW->setMinValue( -3000 );
+	LineW->setMaxValue( 300 );
+	LineW->setMinValue( -300 );
 	LineW->setLineStep(10);
 	updateCList();
 }
@@ -1043,17 +1042,17 @@ void Mpalette::SetCurItem(PageItem *i)
 	HaveItem = false;
 	CurItem = i;
   NameEdit->setText(i->AnName);
-	RoundRect->setValue(qRound(i->RadRect*UmReFaktor*RoundRect->Decimals));
+	RoundRect->setValue(i->RadRect*UmReFaktor);
 	DCol->setValue(i->Cols);
-	DGap->setValue(qRound(i->ColGap*UmReFaktor*DGap->Decimals));
+	DGap->setValue(i->ColGap*UmReFaktor);
 	DCol->setMaxValue(QMAX(qRound(i->Width / QMAX(i->ColGap, 10.0)), 1));
-	DGap->setMaxValue(QMAX(qRound((i->Width / i->Cols - i->Extra - i->RExtra)*UmReFaktor*DGap->Decimals), 0));
+	DGap->setMaxValue(QMAX((i->Width / i->Cols - i->Extra - i->RExtra)*UmReFaktor, 0));
 	DCol->setMinValue(1);
 	DGap->setMinValue(0);
-  DLeft->setValue(qRound(i->Extra*UmReFaktor*DLeft->Decimals));
-  DTop->setValue(qRound(i->TExtra*UmReFaktor*DTop->Decimals));
-  DBottom->setValue(qRound(i->BExtra*UmReFaktor*DBottom->Decimals));
-  DRight->setValue(qRound(i->RExtra*UmReFaktor*DRight->Decimals));
+  DLeft->setValue(i->Extra*UmReFaktor);
+  DTop->setValue(i->TExtra*UmReFaktor);
+  DBottom->setValue(i->BExtra*UmReFaktor);
+  DRight->setValue(i->RExtra*UmReFaktor);
   Revert->setOn(i->Reverse);
 	Textflow->setChecked(i->Textflow);
 	Textflow2->setChecked(i->Textflow2);
@@ -1103,8 +1102,8 @@ void Mpalette::SetCurItem(PageItem *i)
 		{
 		TabStack2->raiseWidget(1);
 		NormText2->setChecked(i->PoShow);
- 		LineW->setValue( qRound(i->BaseOffs * -10) );
- 		Dist->setValue(static_cast<int>(i->Extra*10));
+ 		LineW->setValue(i->BaseOffs * -1);
+ 		Dist->setValue(i->Extra);
 		}
 	else
 		TabStack2->raiseWidget(0);
@@ -1415,20 +1414,20 @@ void Mpalette::UnitChange()
 	bool tmp = HaveItem;
 	HaveItem = false;
 	QString ein;
-	double oldX = static_cast<double>(Xpos->value()) / old / Xpos->Decimals;
-	double oldY = static_cast<double>(Ypos->value()) / old / Ypos->Decimals;
-	double oldW = static_cast<double>(Width->value()) / old / Width->Decimals;
-	double oldH = static_cast<double>(Height->value()) / old / Height->Decimals;
-	double oldLX = static_cast<double>(LXpos->value()) / old / LXpos->Decimals;
-	double oldLY = static_cast<double>(LYpos->value()) / old / LYpos->Decimals;
-	double oldG = static_cast<double>(DGap->value()) / old / DGap->Decimals;
-	double oldGM = static_cast<double>(DGap->maxValue()) / old / DGap->Decimals;
-	double oldDT = static_cast<double>(DTop->value()) / old / DTop->Decimals;
-	double oldDL = static_cast<double>(DLeft->value()) / old / DLeft->Decimals;
-	double oldDB = static_cast<double>(DBottom->value()) / old / DBottom->Decimals;
-	double oldDR = static_cast<double>(DRight->value()) / old / DRight->Decimals;
-	double oldRR = static_cast<double>(RoundRect->value()) / old / RoundRect->Decimals;
-	double oldRM = static_cast<double>(RoundRect->maxValue()) / old / RoundRect->Decimals;
+	double oldX = Xpos->value() / old;
+	double oldY = Ypos->value() / old;
+	double oldW = Width->value() / old;
+	double oldH = Height->value() / old;
+	double oldLX = LXpos->value() / old;
+	double oldLY = LYpos->value() / old;
+	double oldG = DGap->value() / old;
+	double oldGM = DGap->maxValue() / old;
+	double oldDT = DTop->value() / old;
+	double oldDL = DLeft->value() / old;
+	double oldDB = DBottom->value() / old;
+	double oldDR = DRight->value() / old;
+	double oldRR = RoundRect->value() / old;
+	double oldRM = RoundRect->maxValue() / old;
 	Umrech = UmReFaktor;
   Width->setLineStep(100);
   Height->setLineStep(100);
@@ -1485,20 +1484,20 @@ void Mpalette::UnitChange()
 	DBottom->setSuffix( ein );
 	DRight->setSuffix( ein );
 	RoundRect->setSuffix( ein );
-	Xpos->setValue(qRound(oldX * UmReFaktor * Xpos->Decimals));
-	Ypos->setValue(qRound(oldY * UmReFaktor * Ypos->Decimals));
-	Width->setValue(qRound(oldW * UmReFaktor * Width->Decimals));
-	Height->setValue(qRound(oldH * UmReFaktor * Height->Decimals));
-	LXpos->setValue(qRound(oldLX * UmReFaktor * LXpos->Decimals));
-	LYpos->setValue(qRound(oldLY * UmReFaktor * LYpos->Decimals));
-	DGap->setMaxValue(qRound(oldGM * UmReFaktor * DGap->Decimals));
-	DGap->setValue(qRound(oldG * UmReFaktor * DGap->Decimals));
-	DLeft->setValue(qRound(oldDL * UmReFaktor * DLeft->Decimals));
-	DTop->setValue(qRound(oldDT * UmReFaktor * DTop->Decimals));
-	DBottom->setValue(qRound(oldDB * UmReFaktor * DBottom->Decimals));
-	DRight->setValue(qRound(oldDR * UmReFaktor * DRight->Decimals));
-	RoundRect->setMaxValue(qRound(oldRM * UmReFaktor * RoundRect->Decimals));
-	RoundRect->setValue(qRound(oldRR * UmReFaktor * RoundRect->Decimals));
+	Xpos->setValue(oldX * UmReFaktor);
+	Ypos->setValue(oldY * UmReFaktor);
+	Width->setValue(oldW * UmReFaktor);
+	Height->setValue(oldH * UmReFaktor);
+	LXpos->setValue(oldLX * UmReFaktor);
+	LYpos->setValue(oldLY * UmReFaktor);
+	DGap->setMaxValue(oldGM * UmReFaktor);
+	DGap->setValue(oldG * UmReFaktor);
+	DLeft->setValue(oldDL * UmReFaktor);
+	DTop->setValue(oldDT * UmReFaktor);
+	DBottom->setValue(oldDB * UmReFaktor);
+	DRight->setValue(oldDR * UmReFaktor);
+	RoundRect->setMaxValue(oldRM * UmReFaktor);
+	RoundRect->setValue(oldRR * UmReFaktor);
 	HaveItem = tmp;
 }
 
@@ -1543,8 +1542,8 @@ void Mpalette::setXY(double x, double y)
 		n = FPoint(b, h);
 	inX = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
 	inY = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
-	Xpos->setValue(qRound(inX*UmReFaktor*Xpos->Decimals));
-	Ypos->setValue(qRound(inY*UmReFaktor*Ypos->Decimals));
+	Xpos->setValue(inX*UmReFaktor);
+	Ypos->setValue(inY*UmReFaktor);
 	if ((LMode) && (tmp))
 		setBH(CurItem->Width, CurItem->Height);
 	HaveItem = tmp;
@@ -1561,14 +1560,14 @@ void Mpalette::setBH(double x, double y)
 		ma.translate(static_cast<double>(Xpos->value()) / UmReFaktor / Xpos->Decimals, static_cast<double>(Ypos->value()) / UmReFaktor / Ypos->Decimals);
 		ma.rotate(static_cast<double>(Rot->value())/100.0*(-1));
 		dp = ma * QPoint(static_cast<int>(x), static_cast<int>(y));
-		Width->setValue(qRound(dp.x()*UmReFaktor*Width->Decimals));
-		Height->setValue(qRound(dp.y()*UmReFaktor*Height->Decimals));
+		Width->setValue(dp.x()*UmReFaktor);
+		Height->setValue(dp.y()*UmReFaktor);
 		}
 	else
 		{
-		RoundRect->setMaxValue(qRound(QMIN(x, y)/2*UmReFaktor*RoundRect->Decimals));
-		Width->setValue(qRound(x*UmReFaktor*Width->Decimals));
-		Height->setValue(qRound(y*UmReFaktor*Height->Decimals));
+		RoundRect->setMaxValue(QMIN(x, y)/2*UmReFaktor);
+		Width->setValue(x*UmReFaktor);
+		Height->setValue(y*UmReFaktor);
 		}
 	HaveItem = tmp;
 }
@@ -1580,7 +1579,7 @@ void Mpalette::setR(double r)
 	if (r > 0)
 		rr = 360 - rr;
 	HaveItem = false;
-	Rot->setValue(qRound(fabs(rr)*100));
+	Rot->setValue(fabs(rr));
 	HaveItem = tmp;
 }
 
@@ -1588,7 +1587,7 @@ void Mpalette::setRR(double r)
 {
 	bool tmp = HaveItem;
 	HaveItem = false;
-	RoundRect->setValue(qRound(r*UmReFaktor*RoundRect->Decimals));
+	RoundRect->setValue(r*UmReFaktor);
 	HaveItem = tmp;
 }
 
@@ -1597,11 +1596,11 @@ void Mpalette::setCols(int r, double g)
 	bool tmp = HaveItem;
 	HaveItem = false;
 	DCol->setValue(r);
-	DGap->setValue(qRound(g*UmReFaktor*DGap->Decimals));
+	DGap->setValue(g*UmReFaktor);
 	if (tmp)
 		{
 		DCol->setMaxValue(QMAX(qRound(CurItem->Width / QMAX(CurItem->ColGap, 10.0)), 1));
-		DGap->setMaxValue(QMAX(qRound((CurItem->Width / CurItem->Cols - CurItem->Extra - CurItem->RExtra)*DGap->Decimals), 0));
+		DGap->setMaxValue(QMAX((CurItem->Width / CurItem->Cols - CurItem->Extra - CurItem->RExtra), 0));
 		}
 	DCol->setMinValue(1);
 	DGap->setMinValue(0);
@@ -1612,7 +1611,7 @@ void Mpalette::setLsp(double r)
 {
 	bool tmp = HaveItem;
 	HaveItem = false;
-	LineSp->setValue(qRound(r*10));
+	LineSp->setValue(r);
 	HaveItem = tmp;
 }
 
@@ -1620,7 +1619,7 @@ void Mpalette::setSize(int s)
 {
 	bool tmp = HaveItem;
 	HaveItem = false;
-	Size->setValue(s);
+	Size->setValue(s / 10.0);
 	HaveItem = tmp;
 }
 
@@ -1628,7 +1627,7 @@ void Mpalette::setExtra(double e)
 {
 	bool tmp = HaveItem;
 	HaveItem = false;
-	Extra->setValue(qRound(e*10));
+	Extra->setValue(e);
 	HaveItem = tmp;
 }
 
@@ -1662,10 +1661,10 @@ void Mpalette::setLvalue(double scx, double scy, double x, double y)
 {
 	bool tmp = HaveItem;
 	HaveItem = false;
-	LXpos->setValue(qRound(x * UmReFaktor * LXpos->Decimals));
-	LYpos->setValue(qRound(y * UmReFaktor * LYpos->Decimals));
-	ScaleX->setValue(qRound(scx * 1000));
-	ScaleY->setValue(qRound(scy * 1000));
+	LXpos->setValue(x * UmReFaktor);
+	LYpos->setValue(y * UmReFaktor);
+	ScaleX->setValue(scx * 100);
+	ScaleY->setValue(scy * 100);
 	HaveItem = tmp;
 }
 
@@ -1673,7 +1672,7 @@ void Mpalette::setSvalue(double s)
 {
 	bool tmp = HaveItem;
 	HaveItem = false;
-	LSize->setValue(qRound(s*10));
+	LSize->setValue(s);
 	HaveItem = tmp;
 }
 
@@ -1819,10 +1818,10 @@ void Mpalette::NewX()
 {
 	double x,y,w,h, gx, gy, gh, gw, base;
 	QWMatrix ma;
-	x = static_cast<double>(Xpos->value()) / UmReFaktor / Xpos->Decimals;
-	y = static_cast<double>(Ypos->value()) / UmReFaktor / Ypos->Decimals;
-	w = static_cast<double>(Width->value()) / UmReFaktor / Width->Decimals;
-	h = static_cast<double>(Height->value()) / UmReFaktor / Height->Decimals;
+	x = Xpos->value() / UmReFaktor;
+	y = Ypos->value() / UmReFaktor;
+	w = Width->value() / UmReFaktor;
+	h = Height->value() / UmReFaktor;
 	if ((HaveDoc) && (HaveItem))
 		{
 		if (doc->ActPage->GroupSel)
@@ -1871,10 +1870,10 @@ void Mpalette::NewY()
 {
 	double x,y,w,h, gx, gy, gh, gw, base;
 	QWMatrix ma;
-	x = static_cast<double>(Xpos->value()) / UmReFaktor / Xpos->Decimals;
-	y = static_cast<double>(Ypos->value()) / UmReFaktor / Ypos->Decimals;
-	w = static_cast<double>(Width->value()) / UmReFaktor / Width->Decimals;
-	h = static_cast<double>(Height->value()) / UmReFaktor / Height->Decimals;
+	x = Xpos->value() / UmReFaktor;
+	y = Ypos->value() / UmReFaktor;
+	w = Width->value() / UmReFaktor;
+	h = Height->value() / UmReFaktor;
 	if ((HaveDoc) && (HaveItem))
 		{
 		if (doc->ActPage->GroupSel)
@@ -1922,10 +1921,10 @@ void Mpalette::NewY()
 void Mpalette::NewW()
 {
 	double x,y,w,h, gx, gy, gh, gw;
-	x = static_cast<double>(Xpos->value()) / UmReFaktor / Xpos->Decimals;
-	y = static_cast<double>(Ypos->value()) / UmReFaktor / Ypos->Decimals;
-	w = static_cast<double>(Width->value()) / UmReFaktor / Width->Decimals;
-	h = static_cast<double>(Height->value()) / UmReFaktor / Height->Decimals;
+	x = Xpos->value() / UmReFaktor;
+	y = Ypos->value() / UmReFaktor;
+	w = Width->value() / UmReFaktor;
+	h = Height->value() / UmReFaktor;
 	if ((HaveDoc) && (HaveItem))
 		{
 		if (doc->ActPage->GroupSel)
@@ -1959,10 +1958,10 @@ void Mpalette::NewW()
 void Mpalette::NewH()
 {
 	double x,y,w,h, gx, gy, gh, gw;
-	x = static_cast<double>(Xpos->value()) / UmReFaktor / Xpos->Decimals;
-	y = static_cast<double>(Ypos->value()) / UmReFaktor / Ypos->Decimals;
-	w = static_cast<double>(Width->value()) / UmReFaktor / Width->Decimals;
-	h = static_cast<double>(Height->value()) / UmReFaktor / Height->Decimals;
+	x = Xpos->value() / UmReFaktor;
+	y = Ypos->value() / UmReFaktor;
+	w = Width->value() / UmReFaktor;
+	h = Height->value() / UmReFaktor;
 	if ((HaveDoc) && (HaveItem))
 		{
 		if (doc->ActPage->GroupSel)
@@ -2000,12 +1999,12 @@ void Mpalette::NewR()
 		{
 		if (doc->ActPage->GroupSel)
 			{
-			doc->ActPage->RotateGroup(static_cast<double>(Rot->value() - RoVal)/100.0*(-1));
+			doc->ActPage->RotateGroup((Rot->value() - RoVal)*(-1));
 			doc->ActPage->getGroupRect(&gx, &gy, &gw, &gh);
 			setXY(gx, gy);
 			}
 		else
-			doc->ActPage->RotateItem(static_cast<double>(Rot->value())/100.0*(-1), CurItem->ItemNr);
+			doc->ActPage->RotateItem(Rot->value()*(-1), CurItem->ItemNr);
 		emit DocChanged();
 		RoVal = Rot->value();
 		}
@@ -2015,7 +2014,7 @@ void Mpalette::NewRR()
 {
 	if ((HaveDoc) && (HaveItem))
 		{
-		CurItem->RadRect = static_cast<double>(RoundRect->value()) / UmReFaktor / RoundRect->Decimals;
+		CurItem->RadRect = RoundRect->value() / UmReFaktor;
 		doc->ActPage->SetFrameRounded();
 		emit DocChanged();
 		}
@@ -2025,7 +2024,7 @@ void Mpalette::NewLsp()
 {
 	if ((HaveDoc) && (HaveItem))
 		{
-		doc->ActPage->ChLineSpa(static_cast<double>(LineSp->value())/10.0);
+		doc->ActPage->ChLineSpa(LineSp->value());
 		emit DocChanged();
 		}
 }
@@ -2044,7 +2043,7 @@ void Mpalette::NewGap()
 {
 	if ((HaveDoc) && (HaveItem))
 		{
-		CurItem->ColGap = static_cast<double>(DGap->value()) / UmReFaktor / DGap->Decimals;
+		CurItem->ColGap = DGap->value() / UmReFaktor;
 		doc->ActPage->RefreshItem(CurItem);
 		emit DocChanged();
 		}
@@ -2054,7 +2053,7 @@ void Mpalette::NewSize()
 {
 	if ((HaveDoc) && (HaveItem))
 		{
-		doc->ActPage->chFSize(Size->value());
+		doc->ActPage->chFSize(qRound(Size->value()*10.0));
 		emit DocChanged();
 		}
 }
@@ -2065,14 +2064,14 @@ void Mpalette::NewExtra()
 		{
 		if ((CurItem->HasSel) || (doc->AppMode == 1))
 			{
-			doc->ActPage->chKerning(static_cast<double>(Extra->value())/10);
+			doc->ActPage->chKerning(Extra->value());
 			emit DocChanged();
 			}
 		else
 			{
 			if (uint(CurItem->CPos) != CurItem->Ptext.count())
 				{
-				CurItem->Ptext.at(CurItem->CPos)->cextra = static_cast<double>(Extra->value())/10;
+				CurItem->Ptext.at(CurItem->CPos)->cextra = Extra->value();
 				CurItem->Dirty = true;
 				doc->ActPage->RefreshItem(CurItem);
 				emit DocChanged();
@@ -2085,7 +2084,7 @@ void Mpalette::NewLocalXY()
 {
 	if ((HaveDoc) && (HaveItem))
 		{
-		doc->ActPage->ChLocalXY(static_cast<double>(LXpos->value()) / UmReFaktor / LXpos->Decimals, static_cast<double>(LYpos->value()) / UmReFaktor / LYpos->Decimals);
+		doc->ActPage->ChLocalXY(LXpos->value() / UmReFaktor, LYpos->value() / UmReFaktor);
 		emit DocChanged();
 		}
 }
@@ -2094,7 +2093,7 @@ void Mpalette::NewLocalSC()
 {
 	if ((HaveDoc) && (HaveItem))
 		{
-		doc->ActPage->ChLocalSc(static_cast<double>(ScaleX->value()) / 1000.0, static_cast<double>(ScaleY->value()) / 1000.0);
+		doc->ActPage->ChLocalSc(ScaleX->value() / 100.0, ScaleY->value() / 100.0);
 		emit DocChanged();
 		}
 }
@@ -2103,7 +2102,7 @@ void Mpalette::NewLS()
 {
 	if ((HaveDoc) && (HaveItem))
 		{
-		doc->ActPage->ChLineWidth(static_cast<double>(LSize->value())/10.0);
+		doc->ActPage->ChLineWidth(LSize->value());
 		emit DocChanged();
 		}
 }
@@ -2389,8 +2388,8 @@ void Mpalette::NewRotMode(int m)
 				inX = gx+gw;
 				inY = gy+gh;
 				}
-			Xpos->setValue(qRound(inX*UmReFaktor*Xpos->Decimals));
-			Ypos->setValue(qRound(inY*UmReFaktor*Ypos->Decimals));
+			Xpos->setValue(inX*UmReFaktor);
+			Ypos->setValue(inY*UmReFaktor);
 			}
 		else
 			{
@@ -2414,8 +2413,8 @@ void Mpalette::NewRotMode(int m)
 				n = FPoint(b, h);
 			inX = ma.m11() * n.x() + ma.m21() * n.y() + ma.dx();
 			inY = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
-			Xpos->setValue(qRound(inX*UmReFaktor*Xpos->Decimals));
-			Ypos->setValue(qRound(inY*UmReFaktor*Ypos->Decimals));
+			Xpos->setValue(inX*UmReFaktor);
+			Ypos->setValue(inY*UmReFaktor);
 			}
 		HaveItem = true;
 		doc->RotMode = m;
@@ -2490,10 +2489,10 @@ void Mpalette::NewTDist()
 {
 	if ((HaveDoc) && (HaveItem))
 		{
-		CurItem->Extra = static_cast<double>(DLeft->value()) / UmReFaktor / DLeft->Decimals;
-		CurItem->TExtra = static_cast<double>(DTop->value()) / UmReFaktor / DTop->Decimals;
-		CurItem->BExtra = static_cast<double>(DBottom->value()) / UmReFaktor / DBottom->Decimals;
-		CurItem->RExtra = static_cast<double>(DRight->value()) / UmReFaktor / DRight->Decimals;
+		CurItem->Extra = DLeft->value() / UmReFaktor;
+		CurItem->TExtra = DTop->value() / UmReFaktor;
+		CurItem->BExtra = DBottom->value() / UmReFaktor;
+		CurItem->RExtra = DRight->value() / UmReFaktor;
 		doc->ActPage->RefreshItem(CurItem);
 		emit DocChanged();
 		}
@@ -2648,21 +2647,9 @@ void Mpalette::ShowCMS()
 	else
 		{
 		if ((CMSavail) && (doc->CMSSettings.CMSinUse))
-			{
 			GroupBoxCM->show();
-/*			TextCms1->show();
-			InputP->show();
-			TextCms2->show();
-			MonitorI->show();    */
-			}
 		else
-			{
 			GroupBoxCM->hide();
-/*			TextCms1->hide();
-			TextCms2->hide();
-			InputP->hide();
-			MonitorI->hide();    */
-			}
 		}
 }
 
@@ -2831,7 +2818,7 @@ void Mpalette::handlePathDist()
 {
 	if ((HaveDoc) && (HaveItem))
 		{
-		CurItem->Extra = static_cast<double>(Dist->value()) / 10;
+		CurItem->Extra = Dist->value();
 		doc->ActPage->UpdatePolyClip(CurItem);
 		doc->ActPage->AdjustItemSize(CurItem);
 		doc->ActPage->RefreshItem(CurItem);
@@ -2843,7 +2830,7 @@ void Mpalette::handlePathOffs()
 {
 	if ((HaveDoc) && (HaveItem))
 		{
-		CurItem->BaseOffs = static_cast<double>(-LineW->value()) / 10;
+		CurItem->BaseOffs = -LineW->value();
 		doc->ActPage->UpdatePolyClip(CurItem);
 		doc->ActPage->AdjustItemSize(CurItem);
 		doc->ActPage->RefreshItem(CurItem);

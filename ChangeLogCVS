@@ -1,4 +1,7 @@
 Changes since Version 1.1.4
+06.01.2004	The Tab-Key switches now between Docs when not in Edit-Mode.
+		Improved the MSpinBox API.
+
 05.01.2004	Fixed Bug with multicolumn Textframes.
 		Started Code Documentation.
 

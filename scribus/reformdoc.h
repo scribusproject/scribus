@@ -39,8 +39,8 @@ public:
     QPushButton* OKButton;
     QPushButton* CancelB;
 		int einheit;
-		int Breite;
-		int Hoehe;
+		double Breite;
+		double Hoehe;
 
 protected:
     QVBoxLayout* ReformDocLayout;

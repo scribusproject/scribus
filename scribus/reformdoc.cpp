@@ -23,8 +23,8 @@ ReformDoc::ReformDoc( QWidget* parent, double t, double l, double r, double b, d
     		ein = " p";
 				break;
 			}
-		Breite = qRound(Pagebr * UmReFaktor * 100);
-		Hoehe = qRound(Pageho * UmReFaktor * 100);
+		Breite = Pagebr * UmReFaktor;
+		Hoehe = Pageho * UmReFaktor;
     setCaption( tr( "Document Setup" ) );
   	setIcon(loadIcon("AppIcon.png"));
     ReformDocLayout = new QVBoxLayout( this );
@@ -48,7 +48,7 @@ ReformDoc::ReformDoc( QWidget* parent, double t, double l, double r, double b, d
 		TopR = new MSpinBox( GroupBox7, 2 );
     TopR->setSuffix( ein );
 		TopR->setMaxValue(Hoehe);
-    TopR->setValue( qRound(t * UmReFaktor * 100) );
+    TopR->setValue(t * UmReFaktor);
     Layout4->addWidget( TopR, 0, 1 );
     Links = new QLabel( GroupBox7, "Links" );
     Links->setText( tr( "Left:" ) );
@@ -56,7 +56,7 @@ ReformDoc::ReformDoc( QWidget* parent, double t, double l, double r, double b, d
 		LeftR = new MSpinBox( GroupBox7, 2 );
     LeftR->setSuffix( ein );
 		LeftR->setMaxValue(Breite);
-    LeftR->setValue( qRound(l * UmReFaktor * 100) );
+    LeftR->setValue(l * UmReFaktor);
     Layout4->addWidget( LeftR, 0, 3 );
     TextLabel7 = new QLabel( GroupBox7, "TextLabel7" );
     TextLabel7->setText( tr( "Bottom:" ) );
@@ -64,7 +64,7 @@ ReformDoc::ReformDoc( QWidget* parent, double t, double l, double r, double b, d
 		BottomR = new MSpinBox( GroupBox7, 2 );
     BottomR->setSuffix( ein );
 		BottomR->setMaxValue(Hoehe);
-    BottomR->setValue( qRound(b * UmReFaktor * 100) );
+    BottomR->setValue(b * UmReFaktor);
     Layout4->addWidget( BottomR, 1, 1 );
     Rechts = new QLabel( GroupBox7, "Rechts" );
     Rechts->setText( tr( "Right:" ) );
@@ -72,7 +72,7 @@ ReformDoc::ReformDoc( QWidget* parent, double t, double l, double r, double b, d
 		RightR = new MSpinBox( GroupBox7, 2 );
     RightR->setSuffix( ein );
 		RightR->setMaxValue(Breite);
-    RightR->setValue( qRound(r * UmReFaktor * 100) );
+    RightR->setValue(r * UmReFaktor);
     Layout4->addWidget( RightR, 1, 3 );
     Doppelseiten = new QCheckBox( GroupBox7, "Doppelseiten" );
     Doppelseiten->setText( tr( "Facing Pages" ) );
@@ -101,10 +101,6 @@ ReformDoc::ReformDoc( QWidget* parent, double t, double l, double r, double b, d
     CancelB->setAutoDefault( false );
     Layout3->addWidget( CancelB );
     ReformDocLayout->addLayout( Layout3 );
-    TopR->setDecimals(100);
-    LeftR->setDecimals(100);
-    RightR->setDecimals(100);
-   	BottomR->setDecimals(100);
 		RightR->setMaxValue(Breite - LeftR->value());
 		LeftR->setMaxValue(Breite - RightR->value());
 		TopR->setMaxValue(Hoehe - BottomR->value());

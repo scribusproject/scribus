@@ -19,6 +19,16 @@
 #include <qapplication.h>
 #include "fparser.h"
 
+/*!
+ \fn MSpinBox(QWidget *pa, int s)
+ \author Franz Schmid
+ \date
+ \brief Constructor
+ \param pa Parent Widget
+ \param s Number of Decimals
+ \retval None
+ */
+
 MSpinBox::MSpinBox(QWidget *pa, int s):QSpinBox(pa)
 {
 	switch (s)
@@ -50,6 +60,7 @@ MSpinBox::MSpinBox(QWidget *pa, int s):QSpinBox(pa)
 		}
 	setValidator(0);
 	ed = editor();
+	QSpinBox::setLineStep(Decimals);
 }
 
 bool MSpinBox::eventFilter( QObject* ob, QEvent* ev )
@@ -82,13 +93,20 @@ bool MSpinBox::eventFilter( QObject* ob, QEvent* ev )
 
 QString MSpinBox::mapValueToText(int value)
 {
-//	double dez = Width == 1 ? 10.0 : 100.0;
 	return QString::number(static_cast<double>(value) / Decimals, 'f', Width);
 }
 
+/*!
+ \fn MSpinBox::mapTextToValue(bool *)
+ \author Franz Schmid
+ \date
+ \brief Maps the Text fo the Spinbox to the Value, does Unit Conversion and Calculations
+ \param None
+ \retval The Value
+ */
+
 int MSpinBox::mapTextToValue(bool *)
 {
-//	double dez = Width == 1 ? 10.0 : 100.0;
   FunctionParser fp;
 	QString ts = text();
 	QString su = suffix();
@@ -135,7 +153,7 @@ int MSpinBox::mapTextToValue(bool *)
 void MSpinBox::setDecimals(int deci)
 {
 	Decimals = deci;
-	setLineStep(Decimals);
+	QSpinBox::setLineStep(Decimals);
 	if (deci < 10)
 		Width = 0;
 	if (deci > 9 && deci < 100)
@@ -146,4 +164,60 @@ void MSpinBox::setDecimals(int deci)
 		Width = 3;
 	if (deci > 9999)
 		Width = 4;
+}
+
+/*!
+ \fn MSpinBox::setMaxValue()
+ \author Franz Schmid
+ \date
+ \brief Sets the Maximum Value of the Spinbox
+ \param val new Value
+ \retval None
+ */
+
+void MSpinBox::setMaxValue(double val)
+{
+	QSpinBox::setMaxValue(qRound(val*Decimals));
+}
+
+/*!
+ \fn MSpinBox::setMinValue()
+ \author Franz Schmid
+ \date
+ \brief Sets the Minimum Value of the Spinbox
+ \param val new Value
+ \retval None
+ */
+
+void MSpinBox::setMinValue(double val)
+{
+	QSpinBox::setMinValue(qRound(val*Decimals));
+}
+
+/*!
+ \fn MSpinBox::setValue()
+ \author Franz Schmid
+ \date
+ \brief Sets the Value of the Spinbox
+ \param val new Value
+ \retval None
+ */
+
+void MSpinBox::setValue(double val)
+{
+	QSpinBox::setValue(qRound(val*Decimals));
+}
+
+/*!
+ \fn MSpinBox::value()
+ \author Franz Schmid
+ \date
+ \brief Returns the current Value of the SpinBox
+ \param None
+ \retval The Value
+ */
+
+double MSpinBox::value()
+{
+	return static_cast<double>(QSpinBox::value()) / Decimals;
 }

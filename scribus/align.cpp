@@ -50,8 +50,8 @@ Align::Align( QWidget* parent, int anz, int ein)
     AHor = new MSpinBox( ButtonGroup1, 2 );
     AHor->setEnabled( true );
     AHor->setMinimumSize( QSize( 80, 20 ) );
-    AHor->setMaxValue( 100000 );
-    AHor->setMinValue( -100000 );
+    AHor->setMaxValue( 1000 );
+    AHor->setMinValue( -1000 );
     AHor->setValue( 0 );
     AHor->setEnabled(false);
     ButtonGroup1Layout->addWidget( AHor, 3, 2, Qt::AlignRight);
@@ -117,12 +117,10 @@ Align::Align( QWidget* parent, int anz, int ein)
     		AVert->setSuffix( tr( " p" ) );
 				break;
 			}
-    AVert->setMaxValue( 100000 );
-    AVert->setMinValue( -100000 );
+    AVert->setMaxValue( 1000 );
+    AVert->setMinValue( -1000 );
     AVert->setValue( 0 );
     AVert->setEnabled(false);
-    AHor->setLineStep(100);
-    AVert->setLineStep(100);
     ButtonGroup1_2Layout->addWidget( AVert, 3, 2, Qt::AlignRight);
     VerteilenV = new QRadioButton( ButtonGroup1_2, "VerteilenH" );
     VerteilenV->setText( tr( "Distribute evenly" ) );
@@ -193,9 +191,9 @@ void Align::DistVert()
 
 void Align::slotApplyDiag()
 {
-	double xdp = static_cast<double>(AHor->value()) / UmReFaktor / 100.0;
+	double xdp = AHor->value() / UmReFaktor;
 	bool xa = (CheckH->isChecked() || VerteilenH->isChecked());
-	double ydp = static_cast<double>(AVert->value()) / UmReFaktor / 100.0;
+	double ydp = AVert->value() / UmReFaktor;
 	bool ya = (CheckV->isChecked() || VerteilenV->isChecked());
 	int xart = VartH->currentItem();
 	int yart = VartV->currentItem();

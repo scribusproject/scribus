@@ -152,17 +152,15 @@ NodePalette::NodePalette( QWidget* parent) : QDialog( parent, "Npal", false, 0)
     TextLabel1->setText( tr( "X-Pos:" ) );
     Layout2->addWidget( TextLabel1, 0, 0 );
     YSpin = new MSpinBox( this, 2 );
-		YSpin->setMaxValue(300000);
+		YSpin->setMaxValue(3000);
 		YSpin->setEnabled(false);
-    YSpin->setLineStep(100);
     Layout2->addWidget( YSpin, 1, 1 );
     TextLabel2 = new QLabel( this, "TextLabel2" );
     TextLabel2->setText( tr( "Y-Pos:" ) );
     Layout2->addWidget( TextLabel2, 1, 0 );
     XSpin = new MSpinBox( this, 2 );
-		XSpin->setMaxValue(300000);
+		XSpin->setMaxValue(3000);
 		XSpin->setEnabled(false);
-    XSpin->setLineStep(100);
     Layout2->addWidget( XSpin, 0, 1 );
     NodePaletteLayout->addLayout( Layout2 );
 
@@ -365,7 +363,7 @@ void NodePalette::MovePoint()
 {
 	if (doc->EditClipMode == 0)
 		{
-		FPoint np = FPoint(XSpin->value()/UmReFaktor/100.0, YSpin->value()/UmReFaktor/100.0);
+		FPoint np = FPoint(XSpin->value()/UmReFaktor, YSpin->value()/UmReFaktor);
 		FPoint zp = FPoint(doc->ActPage->SelItem.at(0)->Xpos, doc->ActPage->SelItem.at(0)->Ypos);
 		if (AbsMode->isChecked())
 			np -= zp;
@@ -390,8 +388,8 @@ void NodePalette::SetXY(double x, double y)
 	disconnect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	if (AbsMode->isChecked())
 		zp = FPoint(doc->ActPage->SelItem.at(0)->Xpos, doc->ActPage->SelItem.at(0)->Ypos);
-	XSpin->setValue(qRound((x + zp.x())*UmReFaktor*100));
-	YSpin->setValue(qRound((y + zp.y())*UmReFaktor*100));
+	XSpin->setValue((x + zp.x())*UmReFaktor);
+	YSpin->setValue((y + zp.y())*UmReFaktor);
 	connect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	connect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 }
@@ -401,13 +399,13 @@ void NodePalette::ToggleAbsMode()
 	FPoint zp = FPoint(doc->ActPage->SelItem.at(0)->Xpos, doc->ActPage->SelItem.at(0)->Ypos);
 	disconnect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	disconnect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
-	FPoint np = FPoint(XSpin->value()/UmReFaktor/100.0, YSpin->value()/UmReFaktor/100.0);
+	FPoint np = FPoint(XSpin->value()/UmReFaktor, YSpin->value()/UmReFaktor);
 	if (AbsMode->isChecked())
 		np += zp;
 	else
 		np -= zp;
-	XSpin->setValue(qRound(np.x()*UmReFaktor*100));
-	YSpin->setValue(qRound(np.y()*UmReFaktor*100));
+	XSpin->setValue(np.x()*UmReFaktor);
+	YSpin->setValue(np.y()*UmReFaktor);
 	connect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	connect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 }

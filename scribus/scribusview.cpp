@@ -55,10 +55,9 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc, preV *prefs)
   LE = new MSpinBox( this, 2 );
 	LE->setFont(fo);
   LE->setSuffix( tr( " %" ) );
-	LE->setMaxValue( 320000 );
-	LE->setMinValue( 1000 );
-	LE->setValue( 10000 );
-	LE->setDecimals( 100 );
+	LE->setMaxValue( 3200 );
+	LE->setMinValue( 10 );
+	LE->setValue( 100 );
 	LE->setFocusPolicy(QWidget::ClickFocus);
 	SB1 = new QPushButton(this);
 	SB1->setPixmap(loadIcon("Klein.xpm"));
@@ -176,7 +175,7 @@ void ScribusView::setRulerPos(int x, int y)
 
 void ScribusView::Zval()
 {
-	Doc->Scale = static_cast<double>(LE->value()) / 10000.0 * Prefs->DisScale;
+	Doc->Scale = LE->value() / 100.0 * Prefs->DisScale;
 	slotDoZoom();
 	setFocus();
 }
@@ -470,7 +469,7 @@ void ScribusView::slotDoZoom()
 			setContentsPos(0, childY(Doc->ActPage->parentWidget())-static_cast<int>(10*Doc->Scale));
 			}
 		disconnect(LE, SIGNAL(valueChanged(int)), this, SLOT(Zval()));
-		LE->setValue(qRound(Doc->Scale/Prefs->DisScale*10000));
+		LE->setValue(Doc->Scale/Prefs->DisScale*100);
 		connect(LE, SIGNAL(valueChanged(int)), this, SLOT(Zval()));
 		setRulerPos(contentsX(), contentsY());
 		if (Doc->ActPage->SelItem.count() != 0)
@@ -598,7 +597,7 @@ void ScribusView::DrawNew()
 	VR->repaint();
 	Doc->ActPage = b;
 	disconnect(LE, SIGNAL(valueChanged(int)), this, SLOT(Zval()));
-	LE->setValue(qRound(Doc->Scale/Prefs->DisScale*10000));
+	LE->setValue(Doc->Scale/Prefs->DisScale*100);
 	connect(LE, SIGNAL(valueChanged(int)), this, SLOT(Zval()));
 }
 

@@ -27,16 +27,14 @@ Mdup::Mdup( QWidget* parent, double Dx, double Dy, int Ein )
     Ncopies->setValue(1);
     Layout4->addWidget( Ncopies, 0, 1 );
     ShiftV = new MSpinBox( this, 2 );
-    ShiftV->setMaxValue( 100000 );
-    ShiftV->setMinValue( -100000 );
-    ShiftV->setValue(qRound(Dy * 100));
-    ShiftV->setLineStep(100);
+    ShiftV->setMaxValue( 1000 );
+    ShiftV->setMinValue( -1000 );
+    ShiftV->setValue(Dy);
     Layout4->addWidget( ShiftV, 2, 1 );
     ShiftH = new MSpinBox( this, 2 );
-    ShiftH->setMaxValue( 100000 );
-    ShiftH->setMinValue( -100000 );
-    ShiftH->setValue(qRound(Dx  * 100));
-    ShiftH->setLineStep(100);
+    ShiftH->setMaxValue( 1000 );
+    ShiftH->setMinValue( -1000 );
+    ShiftH->setValue(Dx);
     Layout4->addWidget( ShiftH, 1, 1 );
 		switch (Ein)
 			{

@@ -94,8 +94,7 @@ MultiLine::MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString na
 
 	LWidth = new MSpinBox( Properties, 1 );
 	LWidth->setSuffix( tr( " pt" ) );
-	LWidth->setDecimals(10);
-	LWidth->setMaxValue( 360 );
+	LWidth->setMaxValue( 36 );
 	LWidth->setMinValue( 1 );
 	layout1->addWidget( LWidth );
 	PropertiesLayout->addLayout( layout1 );
@@ -446,7 +445,7 @@ void MultiLine::NewLColor()
 
 void MultiLine::NewLWidth()
 {
-	TempVorl[CurLin].Width = static_cast<double>(LWidth->value()) / 10.0;
+	TempVorl[CurLin].Width = LWidth->value();
 	reSort();
 	updatePreview();
 }
@@ -469,7 +468,7 @@ void MultiLine::slotEditStyle(int i)
 	disconnect(Shade, SIGNAL(valueChanged(int)), this, SLOT(NewLShade()));
 	Styles->setSelected(i, true);
 	CurLin = i;
-	LWidth->setValue(qRound(TempVorl[i].Width*10));
+	LWidth->setValue(TempVorl[i].Width);
 	Color->setCurrentText(TempVorl[i].Color);
 	Shade->setValue(TempVorl[i].Shade);
 	switch (static_cast<PenStyle>(TempVorl[i].Dash))

@@ -208,7 +208,7 @@ public:
     ScribusDoc *doc;
     double Umrech;
     bool LMode;
-		int RoVal;
+		double RoVal;
 
 public slots:
 		void SetDoc(ScribusDoc *d);

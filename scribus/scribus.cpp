@@ -913,6 +913,8 @@ void ScribusApp::wheelEvent(QWheelEvent *w)
 
 void ScribusApp::keyPressEvent(QKeyEvent *k)
 {
+	QWidgetList windows;
+	QWidget* w;
 	struct Pti *hg;
 	int kk = k->key();
 	int as = k->ascii();
@@ -936,21 +938,48 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 			break;
 		default:
 			KeyMod = 0;
+			break;
 		}
  	if ((HaveDoc) && (!view->LE->hasFocus()))
  		{
- 		switch (kk)
- 			{
- 			case Key_Prior:
- 				view->scrollBy(0, -Prefs.Wheelval);
-				keyrep = false;
- 				return;
- 				break;
- 			case Key_Next:
- 				view->scrollBy(0, Prefs.Wheelval);
-				keyrep = false;
- 				return;
- 				break;
+		if (doc->AppMode != 7)
+			{
+	 		switch (kk)
+	 			{
+	 			case Key_Prior:
+	 				view->scrollBy(0, -Prefs.Wheelval);
+					keyrep = false;
+	 				return;
+	 				break;
+	 			case Key_Next:
+	 				view->scrollBy(0, Prefs.Wheelval);
+					keyrep = false;
+	 				return;
+	 				break;
+				case Key_Tab:
+					keyrep = false;
+					windows = wsp->windowList();
+					if (windows.count() > 1)
+						{
+						for (int i = 0; i < static_cast<int>(windows.count()); ++i)
+							{
+							if (wsp->activeWindow() == windows.at(i))
+								{
+								if (i == static_cast<int>(windows.count()-1))
+									w = windows.at(0);
+								else
+									w = windows.at(i+1);
+								break;
+								}
+							}
+						doc->OpenNodes = Tpal->buildReopenVals();
+						if ( w )
+							w->showNormal();
+						newActWin(w);
+						}
+	 				return;
+	 				break;
+				}
  			}
  		if (doc->ActPage->SelItem.count() != 0)
  			{
@@ -1754,10 +1783,10 @@ bool ScribusApp::SetupDoc()
 	ReformDoc* dia = new ReformDoc(this, tpr, lr, rr, br, doc->PageB, doc->PageH, fp, fpe, doc->Einheit);
 	if (dia->exec())
 		{
-		tpr2 = dia->TopR->value() / UmReFaktor / 100.0;
-		lr2 = dia->LeftR->value() / UmReFaktor / 100.0;
-		rr2 = dia->RightR->value() / UmReFaktor / 100.0;
-		br2 = dia->BottomR->value() / UmReFaktor / 100.0;
+		tpr2 = dia->TopR->value() / UmReFaktor;
+		lr2 = dia->LeftR->value() / UmReFaktor;
+		rr2 = dia->RightR->value() / UmReFaktor;
+		br2 = dia->BottomR->value() / UmReFaktor;
 		fp = dia->Doppelseiten->isChecked();
 		if (fp)
 			doc->FirstPageLeft = dia->ErsteSeite->isChecked();
@@ -4884,8 +4913,8 @@ void ScribusApp::ObjektDupM()
 	if (dia->exec())
 		{
 		int anz = dia->Ncopies->value();
-		double dH = static_cast<double>(dia->ShiftH->value()) / UmReFaktor / 100.0;
-		double dV = static_cast<double>(dia->ShiftV->value()) / UmReFaktor / 100.0;
+		double dH = dia->ShiftH->value() / UmReFaktor;
+		double dV = dia->ShiftV->value() / UmReFaktor;
 		double dH2 = dH;
 		double dV2 = dV;
 		int a;
@@ -4966,9 +4995,9 @@ void ScribusApp::ObjektAlign()
 	        this, SLOT(DoAlign(bool, bool, bool, bool, double, double, int, int)));
 	if (dia->exec())
 		{
-		xdp = static_cast<double>(dia->AHor->value()) / UmReFaktor / 100.0;
+		xdp = dia->AHor->value() / UmReFaktor;
 		xa = (dia->CheckH->isChecked() || dia->VerteilenH->isChecked());
-		ydp = static_cast<double>(dia->AVert->value()) / UmReFaktor/ 100.0;
+		ydp = dia->AVert->value() / UmReFaktor;
 		ya = (dia->CheckV->isChecked() || dia->VerteilenV->isChecked());
 		xart = dia->VartH->currentItem();
 		yart = dia->VartV->currentItem();
@@ -5153,11 +5182,11 @@ void ScribusApp::slotPrefsOrg()
 			if (zChange)
 				slotZoomAbs(doc->Scale*Prefs.DisScale);
 			doc->GrabRad = dia->SpinBox3_2->value();
-			doc->GuideRad = dia->SpinBox2g->value() / UmReFaktor / 100;
+			doc->GuideRad = dia->SpinBox2g->value() / UmReFaktor;
 			doc->Dfont = dia->FontComb->currentText();
 			doc->Dsize = dia->SizeCombo->currentText().left(2).toInt() * 10;
-			doc->minorGrid = dia->SpinBox1->value() / UmReFaktor / 100;
-			doc->majorGrid = dia->SpinBox2->value() / UmReFaktor / 100;
+			doc->minorGrid = dia->SpinBox1->value() / UmReFaktor;
+			doc->majorGrid = dia->SpinBox2->value() / UmReFaktor;
 			doc->minorColor = dia->Cmin;
 			doc->majorColor = dia->Cmax;
 			doc->papColor = dia->Cpaper;
@@ -5197,13 +5226,13 @@ void ScribusApp::slotPrefsOrg()
 					doc->DLineArt = DashDotDotLine;
 					break;
 				}
-  		doc->Dwidth = dia->LineW->value()/10;
+  		doc->Dwidth = dia->LineW->value();
   		doc->DpenLine = dia->Foreground2->currentText();
 			if (doc->DpenLine == tr("None"))
 				doc->DpenLine = "None";
   		doc->DshadeLine = dia->Shade22->value();
 			doc->DCols = dia->TextColVal->value();
-			doc->DGap = dia->TextGapVal->value() / UmReFaktor / 10;
+			doc->DGap = dia->TextGapVal->value() / UmReFaktor;
 			switch (dia->Linestyle2->currentItem())
 				{
 				case 0:
@@ -5222,7 +5251,7 @@ void ScribusApp::slotPrefsOrg()
 					doc->DLstyleLine = DashDotDotLine;
 					break;
 				}
-  		doc->DwidthLine = dia->LineW2->value()/10;
+  		doc->DwidthLine = dia->LineW2->value();
   		doc->MagMin = dia->MinMag->value();
   		doc->MagMax = dia->MaxMag->value();
   		doc->MagStep = dia->StepMag->value();
@@ -5230,8 +5259,8 @@ void ScribusApp::slotPrefsOrg()
 			if (doc->DbrushPict == tr("None"))
 				doc->DbrushPict = "None";
 			doc->ShadePict = dia->ShadeP->value();
-			doc->ScaleX = static_cast<double>(dia->XScale->value()) / 100;
-			doc->ScaleY = static_cast<double>(dia->YScale->value()) / 100;
+			doc->ScaleX = dia->XScale->value();
+			doc->ScaleY = dia->YScale->value();
 			doc->ScaleType = dia->FreeScale->isChecked();
 			doc->AspectRatio = dia->Aspect->isChecked();
 			doc->Before = dia->RadioButton6->isChecked();
@@ -5267,11 +5296,11 @@ void ScribusApp::slotPrefsOrg()
 					break;
 				}
 			Prefs.GrabRad = dia->SpinBox3_2->value();
-			Prefs.GuideRad = dia->SpinBox2g->value() / UmReFaktor / 100;
+			Prefs.GuideRad = dia->SpinBox2g->value() / UmReFaktor;
 			Prefs.DefFont = dia->FontComb->currentText();
 			Prefs.DefSize = dia->SizeCombo->currentText().left(2).toInt() * 10;
-			Prefs.DminGrid = dia->SpinBox1->value() / UmReFaktor / 100;
-			Prefs.DmajGrid = dia->SpinBox2->value() / UmReFaktor / 100;
+			Prefs.DminGrid = dia->SpinBox1->value() / UmReFaktor;
+			Prefs.DmajGrid = dia->SpinBox2->value() / UmReFaktor;
 			Prefs.DminColor = dia->Cmin;
 			Prefs.DmajColor = dia->Cmax;
 			Prefs.DpapColor = dia->Cpaper;
@@ -5289,7 +5318,7 @@ void ScribusApp::slotPrefsOrg()
 			if (Prefs.DpenText == tr("None"))
 				Prefs.DpenText = "None";
 			Prefs.DCols = dia->TextColVal->value();
-			Prefs.DGap = dia->TextGapVal->value() / UmReFaktor / 10;
+			Prefs.DGap = dia->TextGapVal->value() / UmReFaktor;
   		Prefs.Dbrush = dia->Background->currentText();
 			if (Prefs.Dbrush == tr("None"))
 				Prefs.Dbrush = "None";
@@ -5313,7 +5342,7 @@ void ScribusApp::slotPrefsOrg()
 					Prefs.DLineArt = DashDotDotLine;
 					break;
 				}
-  		Prefs.Dwidth = dia->LineW->value()/10;
+  		Prefs.Dwidth = dia->LineW->value();
   		Prefs.DpenLine = dia->Foreground2->currentText();
 			if (Prefs.DpenLine == tr("None"))
 				Prefs.DpenLine = "None";
@@ -5336,7 +5365,7 @@ void ScribusApp::slotPrefsOrg()
 					Prefs.DLstyleLine = DashDotDotLine;
 					break;
 				}
-  		Prefs.DwidthLine = dia->LineW2->value()/10;
+  		Prefs.DwidthLine = dia->LineW2->value();
   		Prefs.MagMin = dia->MinMag->value();
   		Prefs.MagMax = dia->MaxMag->value();
   		Prefs.MagStep = dia->StepMag->value();
@@ -5344,8 +5373,8 @@ void ScribusApp::slotPrefsOrg()
 			if (Prefs.DbrushPict == tr("None"))
 				Prefs.DbrushPict = "None";
 			Prefs.ShadePict = dia->ShadeP->value();
-			Prefs.ScaleX = static_cast<double>(dia->XScale->value()) / 100;
-			Prefs.ScaleY = static_cast<double>(dia->YScale->value()) / 100;
+			Prefs.ScaleX = dia->XScale->value();
+			Prefs.ScaleY = dia->YScale->value();
 			Prefs.ScaleType = dia->FreeScale->isChecked();
 			Prefs.AspectRatio = dia->Aspect->isChecked();
 			Prefs.Before = dia->RadioButton6->isChecked();
@@ -5678,10 +5707,10 @@ void ScribusApp::SaveAsPDF()
 					Components = 3;
 				cmsCloseProfile(hIn);
 				doc->PDF_Optionen.Info = dia->InfoString->text();
-				doc->PDF_Optionen.BleedTop = static_cast<double>(dia->BleedTop->value())/UmReFaktor/100.0;
-				doc->PDF_Optionen.BleedLeft = static_cast<double>(dia->BleedLeft->value())/UmReFaktor/100.0;
-				doc->PDF_Optionen.BleedRight = static_cast<double>(dia->BleedRight->value())/UmReFaktor/100.0;
-				doc->PDF_Optionen.BleedBottom = static_cast<double>(dia->BleedBottom->value())/UmReFaktor/100.0;
+				doc->PDF_Optionen.BleedTop = dia->BleedTop->value()/UmReFaktor;
+				doc->PDF_Optionen.BleedLeft = dia->BleedLeft->value()/UmReFaktor;
+				doc->PDF_Optionen.BleedRight = dia->BleedRight->value()/UmReFaktor;
+				doc->PDF_Optionen.BleedBottom = dia->BleedBottom->value()/UmReFaktor;
 				doc->PDF_Optionen.Encrypt = false;
 				doc->PDF_Optionen.PresentMode = false;
 				doc->PDF_Optionen.Encrypt = false;

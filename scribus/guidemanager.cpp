@@ -33,8 +33,7 @@ GuideManager::GuideManager( QWidget* parent, Page* page, int Einh)
     TextLabel1->setText( tr( "Y-Pos:" ) );
     Layout2->addWidget( TextLabel1 );
     VertSpin = new MSpinBox( VerGroup, 2 );
-    VertSpin->setLineStep(100);
-		VertSpin->setMaxValue(static_cast<int>(page->doku->PageH*100));
+		VertSpin->setMaxValue(page->doku->PageH);
 		VertSpin->setMinValue(0);
     Layout2->addWidget( VertSpin );
     VerGroupLayout->addLayout( Layout2 );
@@ -65,8 +64,7 @@ GuideManager::GuideManager( QWidget* parent, Page* page, int Einh)
     TextLabel2->setText( tr( "X-Pos:" ) );
     Layout4->addWidget( TextLabel2 );
     HoriSpin = new MSpinBox( HorGroup, 2 );
-    HoriSpin->setLineStep(100);
-		HoriSpin->setMaxValue(static_cast<int>(page->doku->PageB*100));
+		HoriSpin->setMaxValue(page->doku->PageB);
 		HoriSpin->setMinValue(0);
     Layout4->addWidget( HoriSpin );
     HorGroupLayout->addLayout( Layout4 );
@@ -191,21 +189,21 @@ void GuideManager::UpdateVList()
 
 void GuideManager::GetHVal(int n)
 {
-	HoriSpin->setValue(qRound(XLocal[n]*UmReFaktor*100));
+	HoriSpin->setValue(XLocal[n]*UmReFaktor);
 	curX = n;
 	HoriDel->setEnabled(true);
 }
 
 void GuideManager::GetVVal(int n)
 {
-	VertSpin->setValue(qRound(YLocal[n]*UmReFaktor*100));
+	VertSpin->setValue(YLocal[n]*UmReFaktor);
 	curY = n;
 	VertDel->setEnabled(true);
 }
 
 void GuideManager::SetHVal()
 {
-	XLocal.append(qRound(HoriSpin->value() / UmReFaktor) / 100.0);
+	XLocal.append(HoriSpin->value() / UmReFaktor);
 	qHeapSort(XLocal);
 	UpdateHList();
 	setFocus();
@@ -213,7 +211,7 @@ void GuideManager::SetHVal()
 
 void GuideManager::SetVVal()
 {
-	YLocal.append(qRound(VertSpin->value() / UmReFaktor) / 100.0);
+	YLocal.append(VertSpin->value() / UmReFaktor);
 	qHeapSort(YLocal);
 	UpdateVList();
 	setFocus();

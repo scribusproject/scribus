@@ -665,24 +665,20 @@ PDF_Opts::PDF_Opts( QWidget* parent,  QString Fname, QMap<QString,QFont> DocFont
 			}
     BleedTop->setSuffix( EinTxt );
 		BleedTop->setMinValue(0);
-		BleedTop->setMaxValue(qRound(view->Doc->PageH*UmReFaktor*100));
-    BleedTop->setValue(qRound(Optionen->BleedTop*UmReFaktor*100));
-    BleedTop->setLineStep(100);
+		BleedTop->setMaxValue(view->Doc->PageH*UmReFaktor);
+    BleedTop->setValue(Optionen->BleedTop*UmReFaktor);
     BleedBottom->setSuffix( EinTxt );
 		BleedBottom->setMinValue(0);
-		BleedBottom->setMaxValue(qRound(view->Doc->PageH*UmReFaktor*100));
-    BleedBottom->setValue(qRound(Optionen->BleedBottom*UmReFaktor*100));
-    BleedBottom->setLineStep(100);
+		BleedBottom->setMaxValue(view->Doc->PageH*UmReFaktor);
+    BleedBottom->setValue(Optionen->BleedBottom*UmReFaktor);
     BleedRight->setSuffix( EinTxt );
 		BleedRight->setMinValue(0);
-		BleedRight->setMaxValue(qRound(view->Doc->PageB*UmReFaktor*100));
-    BleedRight->setValue(qRound(Optionen->BleedRight*UmReFaktor*100));
-    BleedRight->setLineStep(100);
+		BleedRight->setMaxValue(view->Doc->PageB*UmReFaktor);
+    BleedRight->setValue(Optionen->BleedRight*UmReFaktor);
     BleedLeft->setSuffix( EinTxt );
 		BleedLeft->setMinValue(0);
-		BleedLeft->setMaxValue(qRound(view->Doc->PageB*UmReFaktor*100));
-    BleedLeft->setValue(qRound(Optionen->BleedLeft*UmReFaktor*100));
-    BleedLeft->setLineStep(100);
+		BleedLeft->setMaxValue(view->Doc->PageB*UmReFaktor);
+    BleedLeft->setValue(Optionen->BleedLeft*UmReFaktor);
 #ifdef HAVE_CMS
 		if ((!CMSuse) || (!CMSavail))
 			Options->setTabEnabled(tabpdfx, false);
@@ -782,10 +778,10 @@ void PDF_Opts::ToggleEncr()
 
 void PDF_Opts::BleedChanged()
 {
-	BleedTop->setMaxValue(qRound(view->Doc->PageH*UmReFaktor*100)-BleedBottom->value());
-	BleedBottom->setMaxValue(qRound(view->Doc->PageH*UmReFaktor*100)-BleedTop->value());
-	BleedRight->setMaxValue(qRound(view->Doc->PageB*UmReFaktor*100)-BleedLeft->value());
-	BleedLeft->setMaxValue(qRound(view->Doc->PageB*UmReFaktor*100)-BleedRight->value());
+	BleedTop->setMaxValue(view->Doc->PageH*UmReFaktor-BleedBottom->value());
+	BleedBottom->setMaxValue(view->Doc->PageH*UmReFaktor-BleedTop->value());
+	BleedRight->setMaxValue(view->Doc->PageB*UmReFaktor-BleedLeft->value());
+	BleedLeft->setMaxValue(view->Doc->PageB*UmReFaktor-BleedRight->value());
 	QPixmap pm = QPixmap(70,80);
 	pm.fill(white);
 	QPainter p;
@@ -794,10 +790,10 @@ void PDF_Opts::BleedChanged()
 	p.setPen(black);
 	p.drawRect(0, 0, pm.width(), pm.height());
 	p.setPen(QPen(black, 1, DotLine, FlatCap, MiterJoin));
-	int x = qRound((BleedLeft->value() / UmReFaktor / 100.0) * (70.0 / view->Doc->PageB));
-	int y = qRound((BleedTop->value() / UmReFaktor / 100.0) * (80.0 / view->Doc->PageH));
-	int w = qRound((view->Doc->PageB-((BleedLeft->value()+BleedRight->value())/UmReFaktor/100.0))*(70.0/view->Doc->PageB));
-	int h = qRound((view->Doc->PageH-((BleedTop->value()+BleedBottom->value())/UmReFaktor/100.0))*(80.0/view->Doc->PageH));
+	int x = qRound((BleedLeft->value() / UmReFaktor) * (70.0 / view->Doc->PageB));
+	int y = qRound((BleedTop->value() / UmReFaktor) * (80.0 / view->Doc->PageH));
+	int w = qRound((view->Doc->PageB-((BleedLeft->value()+BleedRight->value())/UmReFaktor))*(70.0/view->Doc->PageB));
+	int h = qRound((view->Doc->PageH-((BleedTop->value()+BleedBottom->value())/UmReFaktor))*(80.0/view->Doc->PageH));
 	p.drawRect(x, y, w, h);
 	BleedIcon->setPixmap(pm);
 	p.end();

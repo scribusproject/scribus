@@ -167,13 +167,19 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSset *Vor,
 
     BlackP = new QCheckBox( this, "Black" );
     BlackP->setText( tr( "Use Blackpoint Compensation" ) );
+#ifdef cmsFLAGS_BLACKPOINTCOMPENSATION
     BlackP->setChecked(Vor->BlackPoint);
+#else
+    BlackP->setChecked(false);
+		BlackP->hide();
+#endif
     CMSPrefsLayout->addWidget( BlackP );
 
 		if (!CheckBox1->isChecked())
 			{
     	Simulate->setEnabled( false );
     	GamutC->setEnabled( false );
+    	BlackP->setEnabled( false );
 			}
 
     Layout1 = new QHBoxLayout; 
@@ -242,6 +248,7 @@ void CMSPrefs::slotCMSon()
   SysProfiles->setEnabled(setter);
   Render->setEnabled(setter);
   Simulate->setEnabled(setter);
+	BlackP->setEnabled(setter);
   if (setter == true)
   	slotSimula();
   else

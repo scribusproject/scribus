@@ -53,8 +53,7 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
     SizeC->setMinimumSize( QSize( 70, 22 ) );
     SizeC->setSuffix( tr( " pt" ) );
 		SizeC->setMinValue(1);
-		SizeC->setMaxValue(5120);
-    SizeC->setLineStep(10);
+		SizeC->setMaxValue(1024);
 		SizeC->setValue(vor->FontSize);
 
     GroupFontLayout->addWidget( SizeC, 1, 1 );
@@ -85,15 +84,13 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
     GroupBox10Layout->addWidget( TextLabel2, 0, 0 );
 
     LeftInd = new MSpinBox( GroupBox10, 1 );
-    LeftInd->setMaxValue( 3000 );
-    LeftInd->setMinValue( -3000 );
-    LeftInd->setLineStep(10);
+    LeftInd->setMaxValue( 300 );
+    LeftInd->setMinValue( -300 );
     GroupBox10Layout->addWidget( LeftInd, 1, 1 );
 
     FirstLin = new MSpinBox( GroupBox10, 1);
-    FirstLin->setMaxValue( 3000 );
-    FirstLin->setMinValue( -3000 );
-    FirstLin->setLineStep(10);
+    FirstLin->setMaxValue( 300 );
+    FirstLin->setMinValue( -300 );
     GroupBox10Layout->addWidget( FirstLin, 0, 1 );
 		TabsButton = new QPushButton( GroupBox10, "Tabul" );
 		TabsButton->setText( tr( "Tabulators..." ) );
@@ -162,25 +159,22 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
 
     AboveV = new MSpinBox( AbstandV, 1 );
     AboveV->setMinimumSize( QSize( 70, 22 ) );
-    AboveV->setMaxValue( 3000 );
+    AboveV->setMaxValue( 300 );
     AboveV->setMinValue( 0 );
-    AboveV->setLineStep(10);
     AbstandVLayout->addWidget( AboveV, 0, 1 );
 
     BelowV = new MSpinBox( AbstandV, 1 );
     BelowV->setMinimumSize( QSize( 70, 22 ) );
-    BelowV->setMaxValue( 3000 );
+    BelowV->setMaxValue( 300 );
     BelowV->setMinValue( 0 );
-    BelowV->setLineStep(10);
 	  AbstandVLayout->addWidget( BelowV, 1, 1 );
 
     LineSpVal = new MSpinBox( AbstandV, 1 );
     LineSpVal->setMinimumSize( QSize( 70, 22 ) );
     LineSpVal->setSuffix( tr( " pt" ) );
-    LineSpVal->setMaxValue( 3000 );
+    LineSpVal->setMaxValue( 300 );
     LineSpVal->setMinValue( 1 );
-    LineSpVal->setLineStep(10);
-    LineSpVal->setValue(qRound(vor->LineSpa * 10));
+    LineSpVal->setValue(vor->LineSpa);
     AbstandVLayout->addWidget( LineSpVal, 2, 1 );
 
     TextLabel3 = new QLabel( AbstandV, "TextLabel3" );
@@ -252,10 +246,10 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
     FirstLin->setSuffix(ein);
     AboveV->setSuffix(ein);
     BelowV->setSuffix(ein);
-    BelowV->setValue(qRound(vor->Anach * UmReFaktor * BelowV->Decimals));
-    AboveV->setValue(qRound(vor->Avor * UmReFaktor * AboveV->Decimals));
-    FirstLin->setValue(qRound(vor->First * UmReFaktor * FirstLin->Decimals));
-    LeftInd->setValue(qRound(vor->Indent * UmReFaktor * LeftInd->Decimals));
+    BelowV->setValue(vor->Anach * UmReFaktor);
+    AboveV->setValue(vor->Avor * UmReFaktor);
+    FirstLin->setValue(vor->First * UmReFaktor);
+    LeftInd->setValue(vor->Indent * UmReFaktor);
 }
 
 void EditStyle::ManageTabs()
@@ -312,13 +306,13 @@ void EditStyle::Verlassen()
 		werte->Ausri = 3;
 	if (Forced->isChecked())
 		werte->Ausri = 4;
-	werte->LineSpa = static_cast<double>(LineSpVal->value()) / 10.0;
-	werte->Indent = static_cast<double>(LeftInd->value() / UmReFaktor / LeftInd->Decimals);
-	werte->First = static_cast<double>(FirstLin->value() / UmReFaktor / FirstLin->Decimals);
-	werte->Avor = static_cast<double>(AboveV->value() / UmReFaktor / AboveV->Decimals);
-	werte->Anach = static_cast<double>(BelowV->value() / UmReFaktor / BelowV->Decimals);
+	werte->LineSpa = LineSpVal->value();
+	werte->Indent = LeftInd->value() / UmReFaktor;
+	werte->First = FirstLin->value() / UmReFaktor;
+	werte->Avor = AboveV->value() / UmReFaktor;
+	werte->Anach = BelowV->value() / UmReFaktor;
 	werte->Vname = Name->text();
 	werte->Font = FontC->currentText();
-	werte->FontSize = SizeC->value();
+	werte->FontSize = qRound(SizeC->value() * 10.0);
 	accept();
 }

@@ -19,10 +19,27 @@
 #include <qpainter.h>
 #include <qcolor.h>
 
+/*!
+ \fn PageBack::PageBack(QWidget *pa)
+ \author Franz Schmid
+ \date
+ \brief Constructor
+ \param pa Parent Window
+ \retval None
+ */
+
 PageBack::PageBack(QWidget *pa) : QWidget(pa, "s", WRepaintNoErase)
 {
 }
 
+/*!
+ \fn void PageBack::paintEvent(QPaintEvent *)
+ \author Franz Schmid
+ \date
+ \brief Receives QPaintEvents for PageBack and draws background.
+ \param QPaintEvent QPaintEvent pointer
+ \retval None
+ */
 void PageBack::paintEvent(QPaintEvent *)
 {
 	QPainter p;
