@@ -2915,7 +2915,7 @@ void PageItem::convertTo(ItemType newType)
 	switch (newType)
 	{
 		case ImageFrame:
-			toType = Um::ImageFrame; 
+			toType = Um::ImageFrame;
 			setUPixmap(Um::IImageFrame);
 			break;
 		case TextFrame:
@@ -2931,7 +2931,7 @@ void PageItem::convertTo(ItemType newType)
 			setUPixmap(Um::IPolyline);
 			break;
 		default:
-			toType = ""; 
+			toType = "";
 			setUPixmap(NULL);
 			break;
 	}
@@ -2975,12 +2975,19 @@ void PageItem::moveUndoAction()
 		return;
 	if (UndoManager::undoEnabled())
 	{
+		QString oldp;
+		QString newp;
+		if (oldOwnPage == -1)
+			oldp = Um::ScratchSpace;
+		else
+			oldp = QString("%1").arg(ScApp->doc->FirstPnum + oldOwnPage);
+		if (OwnPage == -1)
+			newp = Um::ScratchSpace;
+		else
+			newp = QString("%1").arg(ScApp->doc->FirstPnum + OwnPage);
 		SimpleState *ss = new SimpleState(Um::Move,
-                                          QString(Um::MoveFromTo).arg(oldXpos).arg(oldYpos).
-                                                                  arg(ScApp->doc->FirstPnum + oldOwnPage).
-                                                                  arg(Xpos).arg(Ypos).
-                                                                  arg(ScApp->doc->FirstPnum + OwnPage),
-                                          Um::IMove);
+                                          QString(Um::MoveFromTo).arg(oldXpos).arg(oldYpos).arg(oldp).
+                                                                  arg(Xpos).arg(Ypos).arg(newp), Um::IMove);
 		ss->set("OLD_XPOS", oldXpos);
 		ss->set("OLD_YPOS", oldYpos);
 		ss->set("NEW_XPOS", Xpos);
@@ -3000,7 +3007,7 @@ void PageItem::resizeUndoAction()
 		return;
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState *ss = new SimpleState(Um::Resize, 
+		SimpleState *ss = new SimpleState(Um::Resize,
                            QString(Um::ResizeFromTo).arg(oldWidth).arg(oldHeight).arg(Width).arg(Height),
                                           Um::IResize);
 		ss->set("OLD_WIDTH", oldWidth);
