@@ -25,7 +25,7 @@ QStringList FileExtensions()
 	return QStringList();
 }
 
-void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer)
+void GetText(QString filename, QString encoding, bool, gtWriter *writer)
 {
 	TextFilter* tf = new TextFilter(filename, encoding, writer);
 	delete tf;

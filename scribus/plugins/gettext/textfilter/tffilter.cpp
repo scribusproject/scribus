@@ -155,12 +155,12 @@ void tfFilter::firstChanged(int index)
 	getSecondCombo();
 }
 
-void tfFilter::secondChanged(int index)
+void tfFilter::secondChanged(int)
 {
 
 }
 
-void tfFilter::thirdChanged(int index)
+void tfFilter::thirdChanged(int)
 {
 
 }
@@ -212,12 +212,12 @@ void tfFilter::fourthChanged(int index)
 	}
 }
 
-void tfFilter::fifthChanged(int index)
+void tfFilter::fifthChanged(int)
 {
 
 }
 
-void tfFilter::sixthChanged(int index)
+void tfFilter::sixthChanged(int)
 {
 
 }
@@ -305,7 +305,7 @@ void tfFilter::getSecondCombo()
 	getThirdCombo(secondCombo->currentItem());
 }
 
-void tfFilter::getThirdCombo(int secondIndex)
+void tfFilter::getThirdCombo(int)
 {
 	if (!thirdCombo)
 	{

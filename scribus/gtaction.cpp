@@ -322,7 +322,7 @@ void gtAction::removeParagraphStyle(int index)
 	ScApp->doc->docParagraphStyles.remove(it);
 }
 
-void gtAction::updateParagraphStyle(const QString& pstyleName, gtParagraphStyle* pstyle)
+void gtAction::updateParagraphStyle(const QString&, gtParagraphStyle* pstyle)
 {
 	int pstyleIndex = findParagraphStyle(pstyle->getName());
 	if (pstyleIndex != -1)

@@ -105,7 +105,7 @@ void HTMLReader::initPStyles()
 	pstylepre->setName("HTML_pre");
 }
 
-void HTMLReader::startElement(void *user_data, const xmlChar * fullname, const xmlChar ** atts)
+void HTMLReader::startElement(void*, const xmlChar * fullname, const xmlChar ** atts)
 {
 	QString* name = new QString((const char*) fullname);
 	name = new QString(name->lower());
@@ -211,7 +211,7 @@ bool HTMLReader::startElement(const QString&, const QString&, const QString &nam
 		toggleEffect(UNDERLINE);
 	return true;
 }
-void HTMLReader::characters(void *user_data, const xmlChar * ch, int len)
+void HTMLReader::characters(void*, const xmlChar * ch, int len)
 {
 	QString chars = QString::fromUtf8((const char*) ch, len);
 	hreader->characters(chars);
@@ -281,7 +281,7 @@ bool HTMLReader::characters(const QString &ch)
 	return true;
 }
 
-void HTMLReader::endElement(void *user_data, const xmlChar * name)
+void HTMLReader::endElement(void*, const xmlChar * name)
 {
 	QString *nname = new QString((const char*) name);
 	nname = new QString(nname->lower());

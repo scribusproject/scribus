@@ -301,7 +301,7 @@ void tfDia::storeLastFilter()
 	}
 }
 
-void tfDia::resizeEvent(QResizeEvent* e)
+void tfDia::resizeEvent(QResizeEvent*)
 {
 	vbox->setFixedWidth(qsv->viewport()->width());
 }
