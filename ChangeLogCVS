@@ -4,6 +4,7 @@ Changes since Version 1.1.7
 	* bug     #655: Window enlarge each time I select a file
 	* bug     #703: guidelines interfere  selecting a group of objects
 	* bug     #780: Automatic Pagenumber not placed correct on Export
+	* feature #203: Snap to Grid/Guidelines too strong
 	* feature #778: Updated Russian Translation
 
 11.06.2004

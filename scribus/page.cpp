@@ -824,15 +824,42 @@ void Page::setGroupRect()
 void Page::moveGroup(double x, double y, bool fromMP)
 {
 	PageItem* b;
+	QPainter p;
 	double gx, gy, gw, gh;
 	if (GroupSel)
 		getGroupRectScreen(&gx, &gy, &gw, &gh);
 	for (uint a = 0; a < SelItem.count(); ++a)
 	{
 		b = SelItem.at(a);
+		if (!fromMP)
+		{
+			p.begin(this);
+			Transform(b, &p);
+			p.setRasterOp(XorROP);
+			p.setBrush(NoBrush);
+			p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
+			if ((b->PType != 5) && (b->FrameType != 0) || (b->PType == 7))
+				b->DrawPolyL(&p, b->Clip);
+			else
+				p.drawRect(0, 0, static_cast<int>(b->Width)+1, static_cast<int>(b->Height)+1);
+			p.end();
+		}
 		MoveItem(x, y, b, fromMP);
+		if (!fromMP)
+		{
+			p.begin(this);
+			Transform(b, &p);
+			p.setRasterOp(XorROP);
+			p.setBrush(NoBrush);
+			p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
+			if ((b->PType != 5) && (b->FrameType != 0) || (b->PType == 7))
+				b->DrawPolyL(&p, b->Clip);
+			else
+				p.drawRect(0, 0, static_cast<int>(b->Width)+1, static_cast<int>(b->Height)+1);
+			p.end();
+		}
 	}
-	if (GroupSel)
+	if ((GroupSel) && (fromMP))
 		repaint(QRect(static_cast<int>(gx-5), static_cast<int>(gy-5), static_cast<int>(gw+10), static_cast<int>(gh+10)));
 }
 
@@ -3533,16 +3560,58 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			}
 			if (Imoved)
 			{
-				b = SelItem.at(0);
-				if (b->PType != 5)
+				if (GroupSel)
 				{
-					if (fabs(b->Width) < 5)
-						b->Width = 5;
-					if (fabs(b->Height) < 5)
-						b->Height = 5;
+					setGroupRect();
+					double gx, gy, gh, gw;
+					getGroupRect(&gx, &gy, &gw, &gh);
+					double nx = gx;
+					double ny = gy;
+					ApplyGuides(&nx, &ny);
+					FPoint npx;
+					if ((nx == gx) && (ny == gy))
+					{
+						npx = ApplyGridF(FPoint(nx, ny));
+						nx = npx.x();
+						ny = npx.y();
+					}
+					moveGroup(nx-gx, ny-gy, false);
+					setGroupRect();
+					getGroupRect(&gx, &gy, &gw, &gh);
+					nx = gx+gw;
+					ny = gy+gh;
+					ApplyGuides(&nx, &ny);
+					moveGroup(nx-(gx+gw), ny-(gy+gh), false);
+					setGroupRect();
+				}
+				else
+				{
+					b = SelItem.at(0);
+					if (b->PType != 5)
+					{
+						if (fabs(b->Width) < 5)
+							b->Width = 5;
+						if (fabs(b->Height) < 5)
+							b->Height = 5;
+					}
+					if (doku->useRaster)
+					{
+						double nx = b->Xpos;
+						double ny = b->Ypos;
+						ApplyGuides(&nx, &ny);
+						FPoint npx;
+						if ((nx == b->Xpos) && (ny == b->Ypos))
+						{
+							npx = ApplyGridF(FPoint(nx, ny));
+							nx = npx.x();
+							ny = npx.y();
+						}
+						MoveItem(nx-b->Xpos, ny-b->Ypos, b);
+					}
+					else
+						MoveItem(0, 0, b, false);
 				}
 				Imoved = false;
-				MoveItem(0, 0, b, false);
 				update();
 				emit DocChanged();
 			}
@@ -4378,55 +4447,72 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 			}
 			else
 			{
+				Imoved = true;
 				if (!GroupSel)
 				{
 					doku->UnData.UnCode = 1;
 					doku->UnDoValid = true;
 					emit UndoAvail();
+					b = SelItem.at(0);
+					if (!((b->isTableItem) && (b->isSingleSel)))
+					{
+						p.begin(this);
+						Transform(b, &p);
+						p.setRasterOp(XorROP);
+						p.setBrush(NoBrush);
+						p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
+						if ((b->PType != 5) && (b->FrameType != 0) || (b->PType == 7))
+							b->DrawPolyL(&p, b->Clip);
+						else
+							p.drawRect(0, 0, static_cast<int>(b->Width)+1, static_cast<int>(b->Height)+1);
+						p.end();
+						erf = MoveItem(newX-Mxp, newY-Myp, b);
+						if (doku->SnapGuides)
+						{
+							double nx = b->Xpos;
+							double ny = b->Ypos;
+							ApplyGuides(&nx, &ny);
+							MoveItem(nx-b->Xpos, ny-b->Ypos, b);
+							nx = b->Xpos+b->Width;
+							ny = b->Ypos+b->Height;
+							ApplyGuides(&nx, &ny);
+							MoveItem(nx-(b->Xpos+b->Width), ny-(b->Ypos+b->Height), b);
+						}
+						p.begin(this);
+						Transform(b, &p);
+						p.setRasterOp(XorROP);
+						p.setBrush(NoBrush);
+						p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
+						if ((b->PType != 5) && (b->FrameType != 0) || (b->PType == 7))
+							b->DrawPolyL(&p, b->Clip);
+						else
+							p.drawRect(0, 0, static_cast<int>(b->Width)+1, static_cast<int>(b->Height)+1);
+						p.end();
+					}
 				}
 				else
 				{
 					doku->UnDoValid = false;
 					emit UndoAvail();
-				}
-				Imoved = true;
-				for (a = 0; a < SelItem.count(); ++a)
-				{
-					b = SelItem.at(a);
-					if ((b->isTableItem) && (b->isSingleSel))
-						continue;
-					p.begin(this);
-					Transform(b, &p);
-					p.setRasterOp(XorROP);
-					p.setBrush(NoBrush);
-					p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
-					if ((b->PType != 5) && (b->FrameType != 0) || (b->PType == 7))
-						b->DrawPolyL(&p, b->Clip);
-					else
-						p.drawRect(0, 0, static_cast<int>(b->Width)+1, static_cast<int>(b->Height)+1);
-					p.end();
-					erf = MoveItem(newX-Mxp, newY-Myp, b);
+					moveGroup(newX-Mxp, newY-Myp, false);
+					erf = true;
 					if (doku->SnapGuides)
 					{
-						double nx = b->Xpos;
-						double ny = b->Ypos;
+						setGroupRect();
+						double gx, gy, gh, gw;
+						getGroupRect(&gx, &gy, &gw, &gh);
+						double nx = gx;
+						double ny = gy;
 						ApplyGuides(&nx, &ny);
-						MoveItem(nx-b->Xpos, ny-b->Ypos, b);
-						nx = b->Xpos+b->Width;
-						ny = b->Ypos+b->Height;
+						moveGroup(nx-gx, ny-gy, false);
+						setGroupRect();
+						getGroupRect(&gx, &gy, &gw, &gh);
+						nx = gx+gw;
+						ny = gy+gh;
 						ApplyGuides(&nx, &ny);
-						MoveItem(nx-(b->Xpos+b->Width), ny-(b->Ypos+b->Height), b);
+						moveGroup(nx-(gx+gw), ny-(gy+gh), false);
 					}
-					p.begin(this);
-					Transform(b, &p);
-					p.setRasterOp(XorROP);
-					p.setBrush(NoBrush);
-					p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
-					if ((b->PType != 5) && (b->FrameType != 0) || (b->PType == 7))
-						b->DrawPolyL(&p, b->Clip);
-					else
-						p.drawRect(0, 0, static_cast<int>(b->Width)+1, static_cast<int>(b->Height)+1);
-					p.end();
+					setGroupRect();
 				}
 				if (erf)
 				{
