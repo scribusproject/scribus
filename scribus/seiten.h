@@ -138,8 +138,8 @@ public:
 	QLabel* TextLabel2;
     SeList* TemplList;
     SeView* PageView;
-	QCheckBox* DS;
-	QCheckBox* LP;
+	QCheckBox* facingPagesChk;
+	QCheckBox* firstPageLeftChk;
 	ScribusView *Vie;
 	QPixmap pix;
 
@@ -150,8 +150,8 @@ public slots:
 	void GotoPage(int r, int c, int b);
 	void DisablePal();
 	void EnablePal();
-	void HandleDS();
-	void HandleLP();
+	void handleFacingPagesChk();
+	void handleFirstPageLeftChk();
 	void RebuildTemp();
 	void RebuildPage();
 	void Rebuild();
