@@ -327,6 +327,9 @@ bool FileLoader::ReadDoc(ScribusApp* app, QString fileName, SCFonts &avail, Scri
 	/*
 	* Attribute von DOCUMENT auslesen
 	*/
+		//CB Add this in to set this in the file in memory. Its saved, why not load it. 
+		//Will of course be replaced by per page settings although we still probably need a document default
+		doc->PageSize = dc.attribute("PAGESIZE");
 		doc->PageOri = QStoInt(dc.attribute("ORIENTATION","0"));
 		doc->FirstPnum = QStoInt(dc.attribute("FIRSTNUM","1"));
 		doc->PageFP=QStoInt(dc.attribute("BOOK", "0"));

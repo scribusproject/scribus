@@ -458,7 +458,7 @@ struct ApplicationPrefs
 	QString PrinterName;
 	QString PrinterFile;
 	QString PrinterCommand;
-	int PageFormat;
+	QString pageSize;
 	int Ausrichtung;
 	double PageBreite;
 	double PageHoehe;

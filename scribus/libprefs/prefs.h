@@ -47,6 +47,7 @@ public:
 	Preferences( QWidget* parent, ApplicationPrefs *prefsData);
 	~Preferences();
 
+	QString prefsPageSizeName;
 	//const QString getSelectedGUILang( void );
 	QString selectedGUILang;
 	void drawRuler();
@@ -200,7 +201,7 @@ public slots:
 	void setBottom(int v);
 	void setLeft(int v);
 	void setRight(int v);
-	void setSize(int gr);
+	void setSize(const QString &);
 	void setOrien(int ori);
 	void changePapColor();
 	void unitChange();

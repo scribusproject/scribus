@@ -479,7 +479,7 @@ void ScribusApp::initDefaultPrefs()
 	Prefs.RecentDocs.clear();
 	Prefs.RecentDCount = 5;
 	Prefs.marginColored = false;
-	Prefs.PageFormat = 4;
+	Prefs.pageSize = "A4";
 	Prefs.Ausrichtung = 0;
 	Prefs.PageBreite = 595;
 	Prefs.PageHoehe = 842;
@@ -7769,7 +7769,7 @@ void ScribusApp::slotPrefsOrg()
 		apf.setPointSize(Prefs.AppFontSize);
 		qApp->setFont(apf,true);
 		dia->tabTools->polyWidget->getValues(&Prefs.toolSettings.polyC, &Prefs.toolSettings.polyFd, &Prefs.toolSettings.polyF, &Prefs.toolSettings.polyS, &Prefs.toolSettings.polyR);
-		Prefs.PageFormat = dia->GZComboF->currentItem();
+		Prefs.pageSize = dia->prefsPageSizeName;
 		Prefs.Ausrichtung = dia->GZComboO->currentItem();
 		Prefs.PageBreite = dia->Pagebr;
 		Prefs.PageHoehe = dia->Pageho;
@@ -7795,21 +7795,7 @@ void ScribusApp::slotPrefsOrg()
 		}
 		Mpal->Cpal->UseTrans(true);
 		Prefs.docUnitIndex = dia->UnitCombo->currentItem();
-		switch (Prefs.docUnitIndex)
-		{
-		case 0:
-			UmReFaktor = 1.0;
-			break;
-		case 1:
-			UmReFaktor = 1.0 / 72.0 * 25.4;
-			break;
-		case 2:
-			UmReFaktor = 1.0 / 72.0;
-			break;
-		case 3:
-			UmReFaktor = 1.0 / 12.0;
-			break;
-		}
+		UmReFaktor = unitGetRatioFromIndex(Prefs.docUnitIndex);
 		Prefs.ScratchBottom = dia->bottomScratch->value() / UmReFaktor;
 		Prefs.ScratchLeft = dia->leftScratch->value() / UmReFaktor;
 		Prefs.ScratchRight = dia->rightScratch->value() / UmReFaktor;

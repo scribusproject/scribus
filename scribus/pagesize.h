@@ -1,5 +1,5 @@
 /***************************************************************************
-    begin                : Jan 2005
+    begin                : Feb 2005
     copyright            : (C) 2005 by Craig Bradney
     email                : cbradney@zip.com.au
  ***************************************************************************/
@@ -12,39 +12,49 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
+ 
+#ifndef PAGESIZE_H
+#define PAGESIZE_H
 
-#ifndef UNITS_H
-#define UNITS_H
-
+#include <qmap.h>
+#include <qpair.h>
 #include <qstring.h>
-#include <qstringlist.h>
 
-enum Unit {
-	POINTS      = 0,
-	PT          = 0,
-	MILLIMETERS = 1,
-	MM          = 1,
-	INCHES      = 2,
-	IN          = 2,
-	PICAS       = 3,
-	P           = 3
+struct PageSizeInfo
+{
+	double width;
+	double height;
+	QString trSizeName;
+	int pageUnitIndex;
 };
 
-const double unitGetRatioFromIndex(const int index);
-const QString unitGetStrFromIndex(const int index);
-const QString unitGetSuffixFromIndex(const int index);
-const int unitGetDecimalsFromIndex(const int index);
-const int unitGetPrecisionFromIndex(const int index);
-const QStringList unitGetTextUnitList();
-const double mm2pts(double mm);
-const double in2pts(double in);
-const double p2pts(double p);
-const double pts2mm(double pts);
-const double pts2in(double pts);
-const double pts2p(double pts);
-double pts2value(double Val, int unit);
-double value2pts(double unitValue, int unit);
+typedef QMap<QString, PageSizeInfo > PageSizeInfoMap;
 
+class PageSize
+{
+public:
+	PageSize(const QString);
+	PageSize(const double, const double);
+	
+	QString getPageName();
+	QString getPageText();
+	double getPageWidth();
+	double getPageHeight();
+	double getOriginalPageWidth();
+	double getOriginalPageHeight();
+	QStringList getPageSizeList();
+	QStringList getTrPageSizeList();
+	void generatePageSizeList();
+	void printPageSizeList();
 
-#endif // UNITS_H
+private:
+	QMap<QString, PageSizeInfo > pageSizeList;
+	double width;
+	double height;
+	int pageUnitIndex;
+	QString pageSizeName;
+	QString trPageSizeName;
+};
+
+#endif
 

@@ -24,6 +24,8 @@
 #include "splash.h"
 #include "units.h"
 
+#include <iostream>
+
 #ifdef _MSC_VER
  #if (_MSC_VER >= 1200)
   #include "win-config.h"
@@ -1038,6 +1040,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 
 bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, ScribusView *view, QProgressBar *dia2)
 {
+	//Scribus 1.2 docs, see fileloader.cpp for 1.3 docs
 	struct CopyPasteBuffer OB;
 	struct ParagraphStyle vg;
 	struct Layer la;
@@ -2983,7 +2986,7 @@ void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 	dc75.setAttribute("NAMES", static_cast<int>(Vor->SepalN));
 	elem.appendChild(dc75);
 	QDomElement dc76=docu.createElement("DOKUMENT");
-	dc76.setAttribute("FORMATCODE",Vor->PageFormat);
+	dc76.setAttribute("PAGESIZE",Vor->pageSize);
 	dc76.setAttribute("AUSRICHTUNG",Vor->Ausrichtung);
 	dc76.setAttribute("BREITE",Vor->PageBreite);
 	dc76.setAttribute("HOEHE",Vor->PageHoehe);
@@ -3294,7 +3297,7 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 		}
 		if (dc.tagName() == "DOKUMENT")
 		{
-			Vorein->PageFormat = QStoInt(dc.attribute("FORMATCODE","4"));
+			Vorein->pageSize = dc.attribute("PAGESIZE","A4");
 			Vorein->Ausrichtung = QStoInt(dc.attribute("AUSRICHTUNG","0"));
 			Vorein->PageBreite = QStodouble(dc.attribute("BREITE","595"));
 			Vorein->PageHoehe = QStodouble(dc.attribute("HOEHE","842"));

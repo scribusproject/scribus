@@ -68,7 +68,7 @@ public:
 	double Dist;
     QString unitSuffix;
 	int unitIndex;
-    void setSize(int gr);
+    void setSize(QString gr);
     void code_repeat(int);
 
 public slots:
@@ -82,7 +82,7 @@ public slots:
 	void setUnit(int u);
 	void ExitOK();
 	void setOrien(int ori);
-	void setPGsize();
+	void setPGsize(const QString &);
     void setDS();
     void setAT();
 

@@ -14,6 +14,8 @@
 #include "scribus.h"
 #include "tabpdfoptions.h"
 #include "fontprefs.h"
+#include "units.h"
+#include "pagesize.h"
 
 extern QPixmap loadIcon(QString nam);
 extern double UmReFaktor;
@@ -50,21 +52,20 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	dsLayout4->setMargin( 0 );
 	sizeQComboBox = new QComboBox( true, dsGroupBox7, "sizeQComboBox" );
 	sizeQLabel = new QLabel( sizeQComboBox, tr( "&Size:" ), dsGroupBox7, "sizeQLabel" );
-	QString sizelist[] = {"A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "B0", "B1", "B2", "B3", "B4",
-	                      "B5", "B6", "B7", "B8", "B9", "B10", "C5E", "Comm10E", "DLE", "Executive", "Folio",
-	                      "Ledger", tr("Legal"), tr("Letter"), tr("Tabloid"), tr("Custom")};
-	size_t const num_mappings = (sizeof sizelist)/(sizeof *sizelist);
-	for (uint m = 0; m < num_mappings; ++m)
-	{
-		sizeQComboBox->insertItem(sizelist[m]);
-		if (sizelist[m]==doc->PageSize)
-			i=m;
-	}
+
+	PageSize *ps=new PageSize(doc->PageSize);
+	QStringList pageSizes=ps->getPageSizeList();
+	sizeQComboBox->insertStringList(pageSizes);
+	sizeQComboBox->insertItem( tr( "Custom" ) );
+	
+	int sizeIndex=pageSizes.findIndex(ps->getPageText());
 	//set Custom if we dont have one already as old docs wont have this attribute
-	if (i==-1)
-		i=num_mappings-1;
+	if (sizeIndex!=-1)
+		sizeQComboBox->setCurrentItem(sizeIndex);
+	else
+		sizeQComboBox->setCurrentItem(sizeQComboBox->count()-1);
 	sizeQComboBox->setEnabled(false);
-	sizeQComboBox->setCurrentItem(i);
+	
 	dsLayout4->addWidget( sizeQLabel, 0, 0 );
 	dsLayout4->addWidget( sizeQComboBox, 0, 1 );
 	orientationQComboBox = new QComboBox( true, dsGroupBox7, "orientationQComboBox" );

@@ -12,6 +12,7 @@
 #include <qpointarray.h>
 #include <qpainter.h>
 #include <qrect.h>
+#include <qstring.h>
 #include <qwmatrix.h>
 #include <cmath>
 #include "units.h"
@@ -27,6 +28,7 @@
 #include "tabpdfoptions.h"
 #include "fontprefs.h"
 #include "units.h"
+#include "pagesize.h"
 
 using namespace std;
 
@@ -203,6 +205,7 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	Layout6 = new QGridLayout( 0, 1, 1, 0, 6, "Layout6");
 
 	GZComboF = new QComboBox( true, GroupSize, "GZComboF" );
+	/*
 	const QString ar_size[] =
 	    {"A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "B0", "B1", "B2", "B3",
 	     "B4", "B5", "B6", "B7", "B8", "B9", "B10", "C5E", "Comm10E", "DLE", tr("Executive"),
@@ -211,9 +214,19 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	size_t ar_s = sizeof(ar_size) / sizeof(*ar_size);
 	for (uint s = 0; s < ar_s; ++s)
 		GZComboF->insertItem(ar_size[s]);
+	*/
+	
+	PageSize *ps=new PageSize(prefsData->pageSize);
+	GZComboF->insertStringList(ps->getTrPageSizeList());
 	GZComboF->insertItem( tr( "Custom" ) );
 	GZComboF->setEditable(false);
-	GZComboF->setCurrentItem(prefsData->PageFormat);
+	
+	QStringList pageSizes=ps->getPageSizeList();
+	int sizeIndex=pageSizes.findIndex(ps->getPageText());
+	if (sizeIndex!=-1)
+		GZComboF->setCurrentItem(sizeIndex);
+	else
+		GZComboF->setCurrentItem(GZComboF->count()-1);
 	GZText1 = new QLabel( GZComboF, tr( "&Size:" ), GroupSize, "GZText1" );
 	Layout6->addWidget( GZText1, 0, 0 );
 	Layout6->addWidget( GZComboF, 0, 1 );
@@ -737,7 +750,7 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	connect(LeftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft(int)));
 	connect(RightR, SIGNAL(valueChanged(int)), this, SLOT(setRight(int)));
 	connect(GZComboO, SIGNAL(activated(int)), this, SLOT(setOrien(int)));
-	connect(GZComboF, SIGNAL(activated(int)), this, SLOT(setSize(int)));
+	connect(GZComboF, SIGNAL(activated(const QString &)), this, SLOT(setSize(const QString &)));
 	connect(facingPages, SIGNAL(clicked()), this, SLOT(setDS()));
 	connect(FileC, SIGNAL(clicked()), this, SLOT(changeDocs()));
 	connect(FileC2, SIGNAL(clicked()), this, SLOT(changeProfs()));
@@ -747,11 +760,15 @@ Preferences::Preferences( QWidget* parent, ApplicationPrefs *prefsData) : PrefsD
 	connect(buttonOk, SIGNAL(clicked()), this, SLOT(setActionHistoryLength()));
 	if (CMSavail)
 		connect(tabColorManagement, SIGNAL(cmsOn(bool )), this, SLOT(switchCMS(bool )));
-	setSize(prefsData->PageFormat);
+	
+	setSize(prefsData->pageSize);
 	setOrien(prefsData->Ausrichtung);
+	
 	pageWidth->setValue(prefsData->PageBreite * Umrech);
 	pageHeight->setValue(prefsData->PageHoehe * Umrech);
+	
 	unitChange();
+	
 	prefsWidgets->raiseWidget(0);
 	resize( minimumSizeHint() );
 	arrangeIcons();
@@ -941,32 +958,32 @@ void Preferences::setRight(int)
 }
 
 /*!
- \fn void Preferences::setSize(int gr)
+ \fn void Preferences::setSize(QString gr)
  \author Franz Schmid
  \date
  \brief Preferences (Document / Page Size), sets Page size values. Connects signals for setting page dimensions.
  \param gr Standard page size value (eg A4)
  \retval None
  */
-void Preferences::setSize(int gr)
+void Preferences::setSize(const QString & gr)
 {
 	Pagebr = pageWidth->value() / Umrech;
 	Pageho = pageHeight->value() / Umrech;
 	pageWidth->setEnabled(false);
 	pageHeight->setEnabled(false);
-	int br[] = {2380, 1684, 1190, 842, 595, 421, 297, 210, 148, 105, 2836, 2004, 1418, 1002, 709, 501, 355,
-	            250, 178, 125, 89, 462, 298, 312, 542, 595, 1224, 612, 612, 792};
-	int ho[] = {3368, 2380, 1684, 1190, 842, 595, 421, 297, 210, 148, 4008, 2836, 2004, 1418, 1002, 709, 501,
-	            355, 250, 178, 125, 649, 683, 624, 720, 935, 792, 1008, 792, 1224};
-	if (gr == 30)
+	PageSize *ps2=new PageSize(gr);
+
+	prefsPageSizeName=ps2->getPageName();
+	qDebug(prefsPageSizeName);
+	if (gr==tr("Custom"))
 	{
 		pageWidth->setEnabled(true);
 		pageHeight->setEnabled(true);
 	}
 	else
 	{
-		Pagebr = br[gr];
-		Pageho = ho[gr];
+		Pagebr = ps2->getPageWidth();
+		Pageho = ps2->getPageHeight();
 	}
 	disconnect(pageWidth, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	disconnect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
@@ -991,12 +1008,13 @@ void Preferences::setSize(int gr)
 void Preferences::setOrien(int ori)
 {
 	double br;
-	setSize(GZComboF->currentItem());
+	setSize(GZComboF->currentText());
 	disconnect(pageWidth, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	disconnect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
 	if (ori == 0)
 	{
-		if (GZComboF->currentItem() == 30)
+		//if (GZComboF->currentItem() == 30)
+		if (GZComboF->currentText() == tr("Custom"))
 		{
 			br = pageWidth->value();
 			pageWidth->setValue(pageHeight->value());
@@ -1241,4 +1259,3 @@ void Preferences::switchCMS(bool enable)
 {
 	tabPDF->enableCMS(enable);
 }
-

@@ -86,13 +86,61 @@ const QStringList unitGetTextUnitList()
 	return QStringList(suffixList);
 }
 
-const double mm2pts(int mm)
+const double mm2pts(double mm)
 {
-	return mm * 72.0 / 25.4;
+	return mm / unitGetRatioFromIndex(MM);
+}
+
+const double in2pts(double in)
+{
+	return in / unitGetRatioFromIndex(IN);
+}
+
+const double p2pts(double p)
+{
+	return p / unitGetRatioFromIndex(P);
 }
 
 const double pts2mm(double pts)
 {
-	return pts / 72.0 * 25.4;
+	return pts * unitGetRatioFromIndex(MM);
 }
 
+const double pts2in(double pts)
+{
+	return pts * unitGetRatioFromIndex(IN);
+}
+
+const double pts2p(double pts)
+{
+	return pts * unitGetRatioFromIndex(P);
+}
+
+double pts2value(double Val, int unit)
+{
+	double ret = 0.0;
+	switch (unit)
+	{
+		case 0:
+			ret = Val; //dont multiply by 1
+			break;
+		default:
+			ret = Val * unitGetRatioFromIndex(unit);
+			break;
+	}
+	return ret;
+}
+
+double value2pts(double unitValue, int unit)
+{
+	double ret = 0.0;
+	switch (unit)
+	{
+		case 0:
+			ret = unitValue; // dont divide by 1
+			break;
+		default:
+			ret = unitValue / unitGetRatioFromIndex(unit);
+	}
+	return ret;
+}

@@ -2,6 +2,7 @@
 #include "newfile.moc"
 #include <qtooltip.h>
 #include "units.h"
+#include "pagesize.h"
 
 // definitions for clear reading the code - pv
 #define PORTRAIT    0
@@ -33,13 +34,18 @@ NewDoc::NewDoc( QWidget* parent, ApplicationPrefs *Vor )
 	Layout6 = new QGridLayout(0, 1, 1, 0, 6, "Layout6");
 	TextLabel1 = new QLabel( tr( "&Size:" ), ButtonGroup1_2, "TextLabel1" );
 	Layout6->addWidget( TextLabel1, 0, 0 );
+	PageSize *ps=new PageSize(Vor->pageSize);
 	ComboBox1 = new QComboBox( true, ButtonGroup1_2, "ComboBox1" );
+	/*
 	QString sizelist[] = {"A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "B0", "B1", "B2", "B3", "B4",
 	                      "B5", "B6", "B7", "B8", "B9", "B10", "C5E", "Comm10E", "DLE", tr("Executive"), tr("Folio"),
 	                      tr("Ledger"), tr("Legal"), tr("Letter"), tr("Tabloid"), tr("Custom")};
 	size_t const num_mappings = (sizeof sizelist)/(sizeof *sizelist);
 	for (uint m = 0; m < num_mappings; ++m)
 		ComboBox1->insertItem(sizelist[m]);
+	*/
+	ComboBox1->insertStringList(ps->getTrPageSizeList());
+	ComboBox1->insertItem( tr( "Custom" ) );
 	ComboBox1->setEditable(false);
 	TextLabel1->setBuddy(ComboBox1);
 	Layout6->addWidget(ComboBox1, 0, 1 );
@@ -135,9 +141,15 @@ NewDoc::NewDoc( QWidget* parent, ApplicationPrefs *Vor )
 	NewDocLayout->addLayout( Layout9 );
 	Breite->setValue(Vor->PageBreite * unitRatio);
 	Hoehe->setValue(Vor->PageHoehe * unitRatio);
-	ComboBox1->setCurrentItem(Vor->PageFormat);
+	
+	QStringList pageSizes=ps->getPageSizeList();
+	int sizeIndex=pageSizes.findIndex(ps->getPageText());
+	if (sizeIndex!=-1)
+		ComboBox1->setCurrentItem(sizeIndex);
+	else
+		ComboBox1->setCurrentItem(ComboBox1->count()-1);
 	setDS();
-	setSize(Vor->PageFormat);
+	setSize(Vor->pageSize);
 	setOrien(Vor->Ausrichtung);
 	Breite->setValue(Vor->PageBreite * unitRatio);
 	Hoehe->setValue(Vor->PageHoehe * unitRatio);
@@ -243,7 +255,7 @@ NewDoc::NewDoc( QWidget* parent, ApplicationPrefs *Vor )
 	connect( CancelB, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect( Doppelseiten, SIGNAL( clicked() ), this, SLOT( setDS() ) );
 	connect( AutoFrame, SIGNAL( clicked() ), this, SLOT( setAT() ) );
-	connect(ComboBox1, SIGNAL(activated(int)), this, SLOT(setPGsize()));
+	connect(ComboBox1, SIGNAL(activated(const QString &)), this, SLOT(setPGsize(const QString &)));
 	connect(ComboBox2, SIGNAL(activated(int)), this, SLOT(setOrien(int)));
 	connect(ComboBox3, SIGNAL(activated(int)), this, SLOT(setUnit(int)));
 	connect(TopR, SIGNAL(valueChanged(int)), this, SLOT(setTop(int)));
@@ -256,7 +268,8 @@ NewDoc::NewDoc( QWidget* parent, ApplicationPrefs *Vor )
 void NewDoc::code_repeat(int m)
 {
 	// #869 pv - auto-flip landscape/portrait based on the height:width ratio
-	if (ComboBox1->currentItem() == USERFORMAT)
+	//if (ComboBox1->currentItem() == USERFORMAT)
+	if (ComboBox1->currentText() == tr("Custom"))
 	{
 		if (Breite->value() > Hoehe->value())
 			ComboBox2->setCurrentItem(LANDSCAPE);
@@ -412,18 +425,19 @@ void NewDoc::setOrien(int ori)
 	connect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
 }
 
-void NewDoc::setPGsize()
+void NewDoc::setPGsize(const QString &size)
 {
-	if (ComboBox1->currentItem() == USERFORMAT)
-		setSize(ComboBox1->currentItem());
+	//if (ComboBox1->currentItem() == USERFORMAT)
+	if (size == tr("Custom"))
+		setSize(size);
 	else
 	{
-		setSize(ComboBox1->currentItem());
+		setSize(size);
 		setOrien(ComboBox2->currentItem());
 	}
 }
 
-void NewDoc::setSize(int gr)
+void NewDoc::setSize(QString gr)
 {
 	Pagebr = Breite->value() / unitRatio;
 	Pageho = Hoehe->value() / unitRatio;
@@ -431,25 +445,34 @@ void NewDoc::setSize(int gr)
 	disconnect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
 	Breite->setEnabled(false);
 	Hoehe->setEnabled(false);
+	/*
 	int page_x[] = {2380, 1684, 1190, 842, 595, 421, 297, 210, 148, 105, 2836, 2004, 1418, 1002, 709, 501,
 	                355, 250, 178, 125, 89, 462, 298, 312, 542, 595, 1224, 612, 612, 792};
 	int page_y[] = {3368, 2380, 1684, 1190, 842, 595, 421, 297, 210, 148, 4008, 2836, 2004, 1418, 1002, 709,
 	                501, 355, 250, 178, 125, 649, 683, 624, 720, 935, 792, 1008, 792, 1225};
-	if (gr == USERFORMAT)
+	*/
+	
+	//if (gr == USERFORMAT)
+	if (gr==tr("Custom"))
 	{
 		Breite->setEnabled(true);
 		Hoehe->setEnabled(true);
 	}
 	else
 	{
+		PageSize *ps2=new PageSize(gr);
 		// pv - correct handling of the disabled spins
 		if (ComboBox2->currentItem() == PORTRAIT)
 		{
-		Pagebr = page_x[gr];
-		Pageho = page_y[gr];
+			//Pagebr = page_x[gr];
+			//Pageho = page_y[gr];
+			Pagebr = ps2->getPageWidth();
+			Pageho = ps2->getPageHeight();
 		} else {
-			Pagebr = page_y[gr];
-			Pageho = page_x[gr];
+			Pagebr = ps2->getPageHeight();
+			Pageho = ps2->getPageWidth();
+			//Pagebr = page_y[gr];
+			//Pageho = page_x[gr];
 		}
 	}
 	Breite->setValue(Pagebr * unitRatio);
@@ -474,3 +497,4 @@ void NewDoc::setDS()
 	TextLabel8->setText(test == false ? tr("O&utside:") : tr("&Right:"));
 	ErsteSeite->setEnabled(test == false ? true : false);
 }
+
