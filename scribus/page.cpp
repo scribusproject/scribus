@@ -5973,8 +5973,12 @@ void Page::chAbStyle(PageItem *b, int s)
 					}
 				nb->Ptext.at(a)->cab = s;
 				if (doku->Vorlagen[s].Font != "")
+					{
 					nb->Ptext.at(a)->cfont = doku->Vorlagen[s].Font;
-				nb->Ptext.at(a)->csize = doku->Vorlagen[s].FontSize;
+					nb->Ptext.at(a)->csize = nb->ISize;
+					}
+				else
+					nb->Ptext.at(a)->csize = doku->Vorlagen[s].FontSize;
 				a--;
 				}
 			if (cr)
@@ -5995,8 +5999,12 @@ void Page::chAbStyle(PageItem *b, int s)
 				{
 				nb->Ptext.at(a)->cab = s;
 				if (doku->Vorlagen[s].Font != "")
+					{
 					nb->Ptext.at(a)->cfont = doku->Vorlagen[s].Font;
-				nb->Ptext.at(a)->csize = doku->Vorlagen[s].FontSize;
+					nb->Ptext.at(a)->csize = nb->ISize;
+					}
+				else
+					nb->Ptext.at(a)->csize = doku->Vorlagen[s].FontSize;
 				if (nb->Ptext.at(a)->ch == QChar(13))
 					{
 					cr = false;
@@ -6020,8 +6028,12 @@ void Page::chAbStyle(PageItem *b, int s)
 				{
 				b->Ptext.at(a)->cab = s;
 				if (doku->Vorlagen[s].Font != "")
+					{
 					b->Ptext.at(a)->cfont = doku->Vorlagen[s].Font;
-				b->Ptext.at(a)->csize = doku->Vorlagen[s].FontSize;
+					b->Ptext.at(a)->csize = b->ISize;
+					}
+				else
+					b->Ptext.at(a)->csize = doku->Vorlagen[s].FontSize;
 				}
 			}
 		}

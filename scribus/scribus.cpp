@@ -4669,8 +4669,12 @@ void ScribusApp::slotEditStyles()
 							if (ite->Ptext.at(e)->cab > 4)
 								ite->Ptext.at(e)->cab = ers[ite->Ptext.at(e)->cab];
 							if (doc->Vorlagen[ite->Ptext.at(e)->cab].Font != "")
+								{
 								ite->Ptext.at(e)->cfont = doc->Vorlagen[ite->Ptext.at(e)->cab].Font;
-							ite->Ptext.at(e)->csize = doc->Vorlagen[ite->Ptext.at(e)->cab].FontSize;
+								ite->Ptext.at(e)->csize = ite->ISize;
+								}
+							else
+								ite->Ptext.at(e)->csize = doc->Vorlagen[ite->Ptext.at(e)->cab].FontSize;
 							}
 						}
 					}
@@ -4687,8 +4691,12 @@ void ScribusApp::slotEditStyles()
 							if (ite->Ptext.at(e)->cab > 4)
 								ite->Ptext.at(e)->cab = ers[ite->Ptext.at(e)->cab];
 							if (doc->Vorlagen[ite->Ptext.at(e)->cab].Font != "")
+								{
 								ite->Ptext.at(e)->cfont = doc->Vorlagen[ite->Ptext.at(e)->cab].Font;
-							ite->Ptext.at(e)->csize = doc->Vorlagen[ite->Ptext.at(e)->cab].FontSize;
+								ite->Ptext.at(e)->csize = ite->ISize;
+								}
+							else
+								ite->Ptext.at(e)->csize = doc->Vorlagen[ite->Ptext.at(e)->cab].FontSize;
 							}
 						}
 					}

@@ -235,6 +235,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 	int TabCode = 0;
 	QValueList<double> tTabValues;
 	bool DropCmode = false;
+	bool AbsHasDrop = false;
 	double tmpCurY, maxDY;
 	int DropLines;
 	tTabValues.clear();
@@ -886,6 +887,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					if (DropCmode)
 						{
 						DropCmode = false;
+						AbsHasDrop = true;
 						maxDY = CurY;
 						CurY = tmpCurY;
 						cm = QRegion(pf.xForm(QRect(qRound(hl->xp), qRound(hl->yp-DropLines*Doc->Vorlagen[absa].LineSpa), qRound(wide), qRound(DropLines*Doc->Vorlagen[absa].LineSpa))));
@@ -1040,8 +1042,9 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 							{
 							if ((outs) && (CurX+RExtra+lineCorr < ColBound.y()))
 								{
-								if (hl->ch == QChar(13))
+								if ((hl->ch == QChar(13)) && (AbsHasDrop))
 									{
+									AbsHasDrop = false;
 									if (CurY < maxDY)
 										CurY = maxDY;
 									}
@@ -1074,8 +1077,9 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 								}
 							else
 								{
-								if (hl->ch == QChar(13))
+								if ((hl->ch == QChar(13)) && (AbsHasDrop))
 									{
+									AbsHasDrop = false;
 									if (CurY < maxDY)
 										CurY = maxDY;
 									}
