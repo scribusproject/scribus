@@ -10312,6 +10312,9 @@ void ScribusView::FlipImageV()
 
 void ScribusView::LoadPict(QString fn, int ItNr, bool reload)
 {
+	ImageInfoRecord imgInfo;
+	imgInfo.clipPath.resize(0);
+	bool dummy;
 	QFileInfo fi = QFileInfo(fn);
 	PageItem *Item = Doc->Items.at(ItNr);
 	if (!reload)
@@ -10319,7 +10322,7 @@ void ScribusView::LoadPict(QString fn, int ItNr, bool reload)
 		if ((ScApp->fileWatcher->files().contains(Item->Pfile) != 0) && (Item->PicAvail))
 			ScApp->fileWatcher->removeFile(Item->Pfile);
 	}
-	QImage img = LoadPicture(fn, Item->IProfile, Item->IRender, Item->UseEmbedded, true, 2, 72);
+	QImage img = LoadPicture(fn, Item->IProfile, Item->IRender, Item->UseEmbedded, true, 2, 72, &dummy, &imgInfo);
 	if (img.isNull())
 	{
 		Item->Pfile = fi.absFilePath();
@@ -10356,6 +10359,18 @@ void ScribusView::LoadPict(QString fn, int ItNr, bool reload)
 		Item->isRaster = true;
 		Item->dpiX = xres;
 		Item->dpiY = yres;
+		if (imgInfo.clipPath.size() != 0)
+		{
+			Item->PoLine = imgInfo.clipPath.copy();
+			QWMatrix cl;
+			cl.scale(72.0 / xres, 72.0 / yres);
+			Item->PoLine.map(cl);
+			Item->FrameType = 3;
+			Item->Clip = FlattenPath(Item->PoLine, Item->Segments);
+			Item->ClipEdited = true;
+			AdjustItemSize(Item);
+			setRedrawBounding(Item);
+		}
 	}
 	if (!Doc->loading)
 	{

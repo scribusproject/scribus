@@ -299,8 +299,6 @@ struct PSDLayer
 	QString blend;
 };
 
-QMap<QString, FPointArray> PDSpathData;
-
 static QDataStream & operator>> ( QDataStream & s, PSDHeader & header )
 {
 	s >> header.signature;
@@ -1082,13 +1080,18 @@ static QString getPascalString(QDataStream & s)
 	return ret;
 }
 
-static void parseRessourceData( QDataStream & s, uint size, float *xres, float *yres, bool* isPS4, FPointArray *clip )
+static void parseRessourceData( QDataStream & s, const PSDHeader & header, uint size, float *xres, float *yres, bool* isPS4, FPointArray *clip )
 {
 	uint signature, resSize, offset, resBase, vRes, hRes, adj;
 	ushort resID, hResUnit, vResUnit, dummyW;
-	QString resName;
+	QString resName, cPath;
 	uchar filler;
 	offset = 0;
+	bool first = false;
+	bool pathOpen = false;
+	FPoint firstPoint, firstControl;
+	FPointArray clip2;
+	QMap<QString, FPointArray> PDSpathData;
 	while (offset < size)
 	{
 		s >> signature;
@@ -1100,24 +1103,108 @@ static void parseRessourceData( QDataStream & s, uint size, float *xres, float *
 		offset += s.device()->at() - adj;
 		s >> resSize;
 		resBase = s.device()->at();
-		switch (resID)
+		if ( (resID >= 0x07d0) && (resID <= 0x0bb6) )
 		{
-		case 0x03ed:
-			s >> hRes;
-			s >> hResUnit;
-			s >> dummyW;
-			s >> vRes;
-			s >> vResUnit;
-			s >> dummyW;
-			*xres = hRes / 65536.0;
-			*yres = vRes / 65536.0;
-			break;
-		case 0x0409:
-		case 0x0421:
-			*isPS4 = true;
-			break;
-		default:
-			break;
+			QString db1, db2;
+			short type;
+			uint data1, data2, data3, data4, data5, data6;
+			double frac1, frac2, frac3, frac4, frac5, frac6;
+			ushort man1, man2, man3, man4, man5, man6;
+			uint offset2;
+			offset2 = 0;
+			first = false;
+			pathOpen = false;
+			while (offset2 < resSize)
+			{
+				s >> type;
+				s >> data1;
+				frac1 = (data1 & 0x00FFFFFF) / 16777215.0;
+				man1 = (data1 & 0xFF000000) >> 24;
+				s >> data2;
+				frac2 = (data2 & 0x00FFFFFF) / 16777215.0;
+				man2 = (data2 & 0xFF000000) >> 24;
+				s >> data3;
+				frac3 = (data3 & 0x00FFFFFF) / 16777215.0;
+				man3 = (data3 & 0xFF000000) >> 24;
+				s >> data4;
+				frac4 = (data4 & 0x00FFFFFF) / 16777215.0;
+				man4 = (data4 & 0xFF000000) >> 24;
+				s >> data5;
+				frac5 = (data5 & 0x00FFFFFF) / 16777215.0;
+				man5 = (data5 & 0xFF000000) >> 24;
+				s >> data6;
+				frac6 = (data6 & 0x00FFFFFF) / 16777215.0;
+				man6 = (data6 & 0xFF000000) >> 24;
+				switch (type)
+				{
+					case 0:
+					case 3:
+						if (pathOpen)
+						{
+							clip2.addPoint(firstPoint);
+							clip2.addPoint(firstControl);
+							clip2.setMarker();
+						}
+						pathOpen = false;
+						first = true;
+						break;
+					case 1:
+						if (first)
+						{
+							firstControl = FPoint(frac2 * header.width, frac1 * header.height);
+							firstPoint = FPoint(frac4 * header.width, frac3 * header.height);
+							clip2.addPoint(FPoint(frac4 * header.width, frac3 * header.height));
+							clip2.addPoint(FPoint(frac6 * header.width, frac5 * header.height));
+						}
+						else
+						{
+							clip2.addPoint(FPoint(frac4 * header.width, frac3 * header.height));
+							clip2.addPoint(FPoint(frac2 * header.width, frac1 * header.height));
+							clip2.addPoint(FPoint(frac4 * header.width, frac3 * header.height));
+							clip2.addPoint(FPoint(frac6 * header.width, frac5 * header.height));
+						}
+						pathOpen = true;
+						first = false;
+						break;
+					case 6:
+						first = true;
+						break;
+					default:
+						break;
+				}
+				offset2 += 26;
+			}
+			clip2.addPoint(firstPoint);
+			clip2.addPoint(firstControl);
+			PDSpathData.insert(resName, clip2);
+		}
+		 else
+		 {
+			switch (resID)
+			{
+				case 0x0bb7:
+					adj = s.device()->at();
+					cPath = getPascalString(s);
+					*clip = PDSpathData[cPath].copy();
+					offset += s.device()->at() - adj;
+					break;
+				case 0x03ed:
+					s >> hRes;
+					s >> hResUnit;
+					s >> dummyW;
+					s >> vRes;
+					s >> vResUnit;
+					s >> dummyW;
+					*xres = hRes / 65536.0;
+					*yres = vRes / 65536.0;
+					break;
+				case 0x0409:
+				case 0x0421:
+					*isPS4 = true;
+					break;
+				default:
+					break;
+			}
 		}
 		s.device()->at( resBase + resSize );
 		offset += resSize;
@@ -1243,7 +1330,7 @@ static bool parseLayer( QDataStream & s, const PSDHeader & header, QImage & img,
 }
 
 // Load the PSD image.
-static bool LoadPSD( QDataStream & s, const PSDHeader & header, QImage & img, float *xres, float *yres, FPointArray clip)
+static bool LoadPSD( QDataStream & s, const PSDHeader & header, QImage & img, float *xres, float *yres, FPointArray *clip)
 {
 	// Create dst image.
 	if( !img.create( header.width, header.height, 32 ))
@@ -1261,7 +1348,7 @@ static bool LoadPSD( QDataStream & s, const PSDHeader & header, QImage & img, fl
 	startRessource = s.device()->at();
 	bool isPS4 = false;
 	if (ressourceDataLen != 0)
-		parseRessourceData(s, ressourceDataLen, xres, yres, &isPS4, &clip);
+		parseRessourceData(s, header, ressourceDataLen, xres, yres, &isPS4, clip);
 	s.device()->at( startRessource + ressourceDataLen );
 	// Skip the reserved data. FIX: Also incorrect, this is the actual Layer Data for Images with Layers
 	s >> layerDataLen;
@@ -1462,7 +1549,7 @@ QString getAlpha(QString fn, bool PDF, bool pdf14)
 			if( !IsSupported( header ) )
 				return retS;
 			FPointArray clip;
-			if( !LoadPSD(s, header, img, &xres, &yres, clip) )
+			if( !LoadPSD(s, header, img, &xres, &yres, &clip) )
 				return retS;
 			img = img.convertDepth(32);
 			img.setAlphaBuffer(true);
@@ -1870,7 +1957,7 @@ QImage LoadPicture(QString fn, QString Prof, int rend, bool useEmbedded, bool us
 			if( !IsSupported( header ) )
 				return img;
 			FPointArray clip;
-			if( !LoadPSD(s, header, img, &xres, &yres, clip) )
+			if( !LoadPSD(s, header, img, &xres, &yres, &clip) )
 				return img;
 			if (header.color_mode == CM_CMYK)
 				isCMYK = true;
