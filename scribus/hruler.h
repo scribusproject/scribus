@@ -35,7 +35,7 @@ public:
 	Hruler(QScrollView *pa, ScribusDoc *doc);
 	~Hruler() {};
 	void paintEvent(QPaintEvent *);
-	void mousePressEvent(QMouseEvent *);
+	void mousePressEvent(QMouseEvent *m);
 	void mouseReleaseEvent(QMouseEvent *);
 	void mouseMoveEvent(QMouseEvent *m);
 	int offs;
@@ -52,6 +52,10 @@ public:
 	double lineCorr;
 	double Indent;
 	double First;
+	double Offset;
+	double Scaling;
+	int RulerCode;
+	int MouseX;
 	bool Revers;
 	bool ItemPosValid;
 

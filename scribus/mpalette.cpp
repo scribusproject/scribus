@@ -1716,6 +1716,19 @@ void Mpalette::setLsp(double r)
 	HaveItem = tmp;
 }
 
+void Mpalette::setDvals(double left, double top, double bottom, double right)
+{
+	if (ScApp->ScriptRunning)
+		return;
+	bool tmp = HaveItem;
+	HaveItem = false;
+	DLeft->setValue(left*UmReFaktor);
+	DTop->setValue(top*UmReFaktor);
+	DBottom->setValue(bottom*UmReFaktor);
+	DRight->setValue(right*UmReFaktor);
+	HaveItem = tmp;
+}
+
 void Mpalette::setSize(int s)
 {
 	if (ScApp->ScriptRunning)

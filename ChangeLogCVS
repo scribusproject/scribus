@@ -1,5 +1,9 @@
 Changes since Version 1.1.6
 
+05.05.2004
+	* bug     #590: Trying to copy frames from actual page to a just made page template crashes scribus with signal 11.
+	* feature #593: Added three new Hyphenation Dictionarys: Lithuanian, Swedish and Slovene
+
 04.05.2004
 	* bug     #554: table context menu - layer is missing
 	* bug     #580: No translation strings for units in "File>Document Setup"

@@ -4146,6 +4146,7 @@ void ScribusApp::slotNewPage(int w)
 	connect(doc->ActPage, SIGNAL(ItemTextCols(int, double)), Mpal, SLOT(setCols(int, double)));
 	connect(doc->ActPage, SIGNAL(ItemTextSize(int)), Mpal, SLOT(setSize(int)));
 	connect(doc->ActPage, SIGNAL(ItemTextUSval(double)), Mpal, SLOT(setExtra(double)));
+	connect(doc->ActPage, SIGNAL(SetDistValues(double, double, double, double)), Mpal, SLOT(setDvals(double, double, double, double)));
 	connect(doc->ActPage, SIGNAL(SetLocalValues(double, double, double, double)), Mpal, SLOT(setLvalue(double, double, double, double)));
 	connect(doc->ActPage, SIGNAL(SetSizeValue(double)), Mpal, SLOT(setSvalue(double)));
 	connect(doc->ActPage, SIGNAL(ItemTextStil(int)), Mpal, SLOT(setStil(int)));
@@ -6780,8 +6781,6 @@ void ScribusApp::ManTempEnd()
 	int setter = view->Pages.count() > 1 ? 1 : 0;
 	pageMenu->setItemEnabled(pgmd, setter);
 	pageMenu->setItemEnabled(pgmv, setter);
-	if (doc->isModified())
-		slotDocCh();
 	for (uint c=0; c<view->Pages.count(); ++c)
 	{
 		Apply_Temp(view->Pages.at(c)->MPageNam, c, false);
@@ -6791,12 +6790,12 @@ void ScribusApp::ManTempEnd()
 	Sepal->RebuildTemp();
 	ActWin->muster = NULL;
 	view->DrawNew();
-	slotDocCh();
 	doc->UnDoValid = false;
 	CanUndo();
 	Sepal->Rebuild();
 	Tpal->BuildTree(view);
 	Tpal->reopenTree(doc->OpenNodes);
+	slotDocCh();
 }
 
 void ScribusApp::ApplyTemp()
@@ -7616,6 +7615,12 @@ void ScribusApp::InitHyphenator()
 				datein = tr("Finnish");
 			if (d[dc] == "hyph_ga.dic")
 				datein = tr("Irish");
+			if (d[dc] == "hyph_lt.dic")
+				datein = tr("Lithuanian");
+			if (d[dc] == "hyph_sv.dic")
+				datein = tr("Swedish");
+			if (d[dc] == "hyph_sl.dic")
+				datein = tr("Slovenian");
 			Sprachen.insert(datein, d[dc]);
 			if (d[dc] == "hyph_"+lang+".dic")
 				Prefs.Language = datein;

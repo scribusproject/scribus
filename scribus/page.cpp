@@ -240,6 +240,7 @@ void Page::dropEvent(QDropEvent *e)
 	struct Pti *hg;
 	uint a;
 	int re;
+	e->accept(QTextDrag::canDecode(e));
 	if (QTextDrag::decode(e, text))
 	{
 		setActiveWindow();
@@ -421,7 +422,6 @@ void Page::dropEvent(QDropEvent *e)
 }
 void Page::leaveEvent(QEvent *)
 {
-
 	if (BlockLeave)
 		return;
 	if (!Mpressed)
@@ -8468,6 +8468,7 @@ void Page::EmitValues(PageItem *b)
 	emit ItemTrans(b->Transparency, b->TranspStroke);
 	emit ItemTextAttr(b->LineSp);
 	emit ItemTextUSval(b->ExtraV);
+	emit SetDistValues(b->Extra, b->TExtra, b->BExtra, b->RExtra);
 	emit ItemTextCols(b->Cols, b->ColGap);
 	if (doku->AppMode != 7)
 	{

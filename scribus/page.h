@@ -67,16 +67,8 @@ public:
 	FPoint transformPoint(FPoint in, double dx, double dy, double rot, double sx, double sy);
 	void scaleGroup(double scx, double scy);
 	void storeUndoInf(PageItem* b);
-	void mouseDoubleClickEvent(QMouseEvent *);
-	void mouseReleaseEvent(QMouseEvent *m);
-	void mouseMoveEvent(QMouseEvent *m);
-	void mousePressEvent(QMouseEvent *m);
 	void HandleCurs(QPainter *p, PageItem *b, QRect mpo);
 	void HandleSizer(QPainter *p, PageItem *b, QRect mpo);
-	void dragLeaveEvent(QDragLeaveEvent *e);
-	void dragEnterEvent(QDragEnterEvent *e);
-	void dragMoveEvent(QDragMoveEvent *e);
-	void dropEvent(QDropEvent *e);
 	bool SeleItem(QMouseEvent *m);
 	bool SeleItemPos(QPoint m);
 	void Deselect(bool prop = true);
@@ -287,6 +279,7 @@ signals: // Signals
 	void SetLineArt(PenStyle, PenCapStyle, PenJoinStyle);
   /** Sendet die lokalen Bildeigenschaften an die Masspalette */
 	void SetLocalValues(double, double, double, double);
+	void SetDistValues(double, double, double, double);
   /** Sendet die Stiftfarbe an die Farbpalette */
 	void ItemFarben(QString, QString, int, int);
 	void ItemGradient(QString, QString, int, int, int);
@@ -334,6 +327,16 @@ signals: // Signals
 	void DoGroup();
 	void DoUnGroup();
 	void LevelChanged(uint);
+	
+protected:
+	virtual void mouseDoubleClickEvent(QMouseEvent *);
+	virtual void mouseReleaseEvent(QMouseEvent *m);
+	virtual void mouseMoveEvent(QMouseEvent *m);
+	virtual void mousePressEvent(QMouseEvent *m);
+	virtual void dragLeaveEvent(QDragLeaveEvent *e);
+	virtual void dragEnterEvent(QDragEnterEvent *e);
+	virtual void dragMoveEvent(QDragMoveEvent *e);
+	virtual void dropEvent(QDropEvent *e);
 };
 
 #endif

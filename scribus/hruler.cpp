@@ -38,26 +38,103 @@ Hruler::Hruler(QScrollView *pa, ScribusDoc *doc) : QWidget(pa)
 	repX = false;
 	Mpressed = false;
 	ItemPosValid = false;
+	RulerCode = 0;
 }
 
-void Hruler::mousePressEvent(QMouseEvent *)
+void Hruler::mousePressEvent(QMouseEvent *m)
 {
 	Mpressed = true;
-	qApp->setOverrideCursor(QCursor(SPLITHC), true);
+	if (ItemPosValid)
+	{
+		RulerCode = 0;
+		double Pos = (ItemPos+Extra+lineCorr+Offset)*Scaling-offs;
+		if ((static_cast<int>(Pos) < (m->x()+doku->GrabRad)) && (static_cast<int>(Pos) > (m->x()-doku->GrabRad)))
+			RulerCode = 1;
+		Pos = (ItemEndPos-RExtra-lineCorr+Offset)*Scaling-offs;
+		if ((static_cast<int>(Pos) < (m->x()+doku->GrabRad)) && (static_cast<int>(Pos) > (m->x()-doku->GrabRad)))
+			RulerCode = 2;
+		MouseX = m->x();
+	}
+	else
+		qApp->setOverrideCursor(QCursor(SPLITHC), true);
 }
 
 void Hruler::mouseReleaseEvent(QMouseEvent *m)
 {
 	Mpressed = false;
-	doku->ActPage->DrHY = -1;
-	doku->ActPage->SetYGuide(m);
-	qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+	if ((ItemPosValid) && (m->y() < height()) && (m->y() > 0))
+	{
+		switch (RulerCode)
+		{
+			case 1:
+				doku->ActPage->SelItem.at(0)->Extra = Extra;
+				break;
+			case 2:
+				doku->ActPage->SelItem.at(0)->RExtra = RExtra;
+				break;
+			default:
+				break;
+		}
+		doku->ActPage->RefreshItem(doku->ActPage->SelItem.at(0),true);
+		doku->ActPage->EmitValues(doku->ActPage->SelItem.at(0));
+	}
+	else
+	{
+		doku->ActPage->DrHY = -1;
+		doku->ActPage->SetYGuide(m);
+		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+	}
 }
 
 void Hruler::mouseMoveEvent(QMouseEvent *m)
 {
-	if ((Mpressed) && (m->pos().y() > height()))
-		doku->ActPage->FromHRuler(m);
+	if (ItemPosValid)
+	{
+		if ((Mpressed) && (m->y() < height()) && (m->y() > 0))
+		{
+			double toplimit = ItemEndPos-ItemPos-2*lineCorr-Extra - (ColGap * (Cols - 1))-1;
+			double toplimit2 = ItemEndPos-ItemPos-2*lineCorr-RExtra - (ColGap * (Cols - 1))-1;
+			switch (RulerCode)
+			{
+				case 1:
+					Extra -= MouseX - m->x();
+					if (Extra < 0)
+					{
+						Extra = 0;
+						QCursor::setPos(mapToGlobal(QPoint(static_cast<int>((ItemPos+Extra+lineCorr+Offset)*Scaling-offs), m->y())));
+					}
+					if (Extra > toplimit2)
+					{
+						Extra = toplimit2;
+						QCursor::setPos(mapToGlobal(QPoint(static_cast<int>((ItemEndPos-RExtra-lineCorr-(ColGap*(Cols-1))-1+Offset)*Scaling-offs), m->y())));
+					}
+					repaint();
+					break;
+				case 2:
+					RExtra += MouseX - m->x();
+					if (RExtra < 0)
+					{
+						RExtra = 0;
+						QCursor::setPos(mapToGlobal(QPoint(static_cast<int>((ItemEndPos-RExtra-lineCorr+Offset)*Scaling-offs), m->y())));
+					}
+					if (RExtra > toplimit)
+					{
+						RExtra = toplimit;
+						QCursor::setPos(mapToGlobal(QPoint(static_cast<int>((ItemPos+Extra+lineCorr+(ColGap*(Cols-1))-1+Offset)*Scaling-offs), m->y())));
+					}
+					repaint();
+					break;
+				default:
+					break;
+			}
+			MouseX = m->x();
+		}
+	}
+	else
+	{
+		if ((Mpressed) && (m->pos().y() > height()))
+			doku->ActPage->FromHRuler(m);
+	}
 }
 
 void Hruler::paintEvent(QPaintEvent *)
@@ -141,6 +218,8 @@ void Hruler::paintEvent(QPaintEvent *)
 	{
 		p.setPen(QPen(black, 1, SolidLine, FlatCap, MiterJoin));
 		of = xx * (doku->PageB+30.0);
+		Offset = of;
+		Scaling = sc;
 		for (xl = 0; xl < doku->PageB; xl += iter)
 			p.drawLine(qRound((xl+of)*sc), 18, qRound((xl+of)*sc), 24);
 		for (xl = 0; xl < doku->PageB+(iter2/2); xl += iter2)
