@@ -1470,7 +1470,7 @@ void Mpalette::UnitChange()
 	double newRR = RoundRect->value() / old * UmReFaktor;
 	double newRM = RoundRect->maxValue() / old * UmReFaktor;
 
-	if (doc->docUnitIndex > 3)
+	if (doc->docUnitIndex > unitGetMaxIndex())
 		doc->docUnitIndex = 0;
 	QString ein = unitGetSuffixFromIndex(doc->docUnitIndex);
 
@@ -1488,7 +1488,7 @@ void Mpalette::UnitChange()
 	RoundRect->setSuffix( ein );
 
 	int xywhdecimals = unitGetDecimalsFromIndex(doc->docUnitIndex);
-	int dp2[] = {10, 1000, 10000, 10};
+	int dp2[] = {10, 1000, 10000, 10, 10000};
 	int distdecimals = dp2[doc->docUnitIndex];
 
 	Xpos->setValues( minXYVal, maxXYWHVal, xywhdecimals, newX );

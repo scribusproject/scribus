@@ -19,7 +19,9 @@
 #include "mspinbox.moc"
 #include <qapplication.h>
 #include <qlineedit.h>
+#include <cmath>
 #include "fparser.h"
+#include "units.h"
 
 /*!
  \fn MSpinBox(QWidget *pa, int s)
@@ -64,32 +66,15 @@ MSpinBox::MSpinBox(double minValue, double maxValue, QWidget *pa, int s):QSpinBo
 
 void MSpinBox::setParameters( int s )
 {
-	switch (s)
+	if (s>=0 && s <=4)
 	{
-		case 0:
-			Decimals = 1;
-			Width = 0;
-			break;
-		case 1:
-			Decimals = 10;
-			Width = 1;
-			break;
-		case 2:
-			Decimals = 100;
-			Width = 2;
-			break;
-		case 3:
-			Decimals = 1000;
-			Width = 3;
-			break;
-		case 4:
-			Decimals = 10000;
-			Width = 4;
-			break;
-		default:
-			Decimals = 100;
-			Width = 2;
-			break;
+		Width=s;
+		Decimals=pow(10, s);
+	}
+	else
+	{
+		Width = 2;
+		Decimals = 100;
 	}
 }
 
@@ -160,38 +145,63 @@ int MSpinBox::mapTextToValue(bool *)
 	QString su = suffix().stripWhiteSpace();
 	ts.replace(",", ".");
 	ts.replace("%", "");
-	if ((su == tr( " pt" )) || (su == tr( "pt" )))
+	QString strPT=unitGetStrFromIndex(PT);
+	QString strMM=unitGetStrFromIndex(MM);
+	QString strIN=unitGetStrFromIndex(IN);
+	QString strP =unitGetStrFromIndex(P);
+	QString strCM=unitGetStrFromIndex(CM);
+	
+	QString suffPT=unitGetSuffixFromIndex(PT);
+	QString suffMM=unitGetSuffixFromIndex(MM);
+	QString suffIN=unitGetSuffixFromIndex(IN);
+	QString suffP =unitGetSuffixFromIndex(P);
+	QString suffCM=unitGetSuffixFromIndex(CM);
+		
+	if ((su == suffPT) || (su == strPT))
 	{
-		ts.replace(tr( "pt"), "");
-		ts.replace(tr( "mm"), "/25.4*72");
-		ts.replace(tr( "in"), "*72");
-		ts.replace(tr( "p"), "*12");
+		ts.replace(strPT, "");
+		ts.replace(strMM, "/25.4*72.0");
+		ts.replace(strIN, "*72.0");
+		ts.replace(strP, "*12.0");
+		ts.replace(strCM, "/2.54*72.0");
 	}
 	else 
-		if ((su == tr( " mm" )) || (su == tr( "mm" )))
+		if ((su == suffMM) || (su == strMM))
 		{
-			ts.replace(tr( "pt"), "/72*25.4");
-			ts.replace(tr( "mm"), "");
-			ts.replace(tr( "in"), "*25.4");
-			ts.replace(tr( "p"), "/12*25.4");
+			ts.replace(strPT, "/72.0*25.4");
+			ts.replace(strMM, "");
+			ts.replace(strIN, "*25.4");
+			ts.replace(strP, "/12.0*25.4");
+			ts.replace(strCM, "*10.0");
 		}
 		else 
-			if ((su == tr( " in" )) || (su == tr( "in" )))
+			if ((su == suffIN) || (su == strIN))
 			{
-				ts.replace(tr( "pt"), "/72");
-				ts.replace(tr( "mm"), "/25.4");
-				ts.replace(tr( "in"), "");
-				ts.replace(tr( "p"), "/6");
+				ts.replace(strPT, "/72.0");
+				ts.replace(strMM, "/25.4");
+				ts.replace(strIN, "");
+				ts.replace(strP, "/6.0");
+				ts.replace(strCM, "/2.54");
 			}
 			else 
-				if ((su == tr( " p" )) || (su == tr( "p" )))
+				if ((su == suffP) || (su == strP))
 				{
-					ts.replace(tr( "pt"), "/12");
-					ts.replace(tr( "mm"), "/25.4*6");
-					ts.replace(tr( "in"), "*6");
-					ts.replace(tr( "p"), "");
+					ts.replace(strPT, "/12");
+					ts.replace(strMM, "/25.4*6");
+					ts.replace(strIN, "*6");
+					ts.replace(strP, "");
+					ts.replace(strCM, "/2.54*6.0");
 				}
-	if (su != "")
+				else 
+				if ((su == suffCM) || (su == strCM))
+				{
+					ts.replace(strPT, "/72.0*2.54");
+					ts.replace(strMM, "/10");
+					ts.replace(strIN, "*2.54");
+					ts.replace(strP, "/12.0*2.54");
+					ts.replace(strCM, "");
+				}
+				if (su != "")
 		ts.replace(su, " ");
 	int ret = fp.Parse(ts.latin1(), "", true);
 	if (ret >= 0)

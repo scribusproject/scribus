@@ -435,6 +435,14 @@ void Hruler::paintEvent(QPaintEvent *)
 				iter2 = 12.0;
 			}
 			break;
+		case 4:
+			if (sc > 1 && sc <= 4)
+				cor = 1;
+			if (sc > 4)
+				cor = 10;
+			iter = ((1.0 / 25.4) * 72.0) / cor;
+			iter2 = iter * 10.0;
+			break;
 		default:
 			/* PFJ - 29.02.04 - Altered so the if isn't executed twice. Repeated */
 			if (sc > 1 && sc <= 4)
@@ -500,6 +508,9 @@ void Hruler::paintEvent(QPaintEvent *)
 				}
 				case 3:
 					p.drawText(qRound((xl+of+2/sc) * sc), 17, QString::number(xl / iter / cor));
+					break;
+				case 4:
+					p.drawText(qRound((xl+of+2/sc) * sc), 17, QString::number(xl / iter / 10 / cor));
 					break;
 				default:
 					p.drawText(qRound((xl+of+2/sc) * sc), 17, QString::number(xl / iter * 10 / cor));

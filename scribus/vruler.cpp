@@ -129,6 +129,14 @@ void Vruler::paintEvent(QPaintEvent *)
 				iter2 = 12.0;
 				}
 			break;
+		case 4:
+			if (sc > 1 && sc <= 4)
+				cor = 1;
+			if (sc > 4)
+				cor = 10;
+			iter = ((1.0 / 25.4) * 72.0) / cor;
+			iter2 = iter * 10.0;
+			break;
 		default:
 			if (sc > 1)
 				cor = 2;
@@ -198,6 +206,9 @@ void Vruler::paintEvent(QPaintEvent *)
 					case 3:
 						p.drawText(9, qRound((xl+of+10/sc) * sc), QString::number(xl / iter / cor));
 						break;
+					case 4:
+						p.drawText(9, qRound((xl+of+10/sc) * sc), QString::number(xl / iter / 10 / cor));
+						break;						
 					default:
 						p.drawText(9, qRound((xl+of+10/sc) * sc), QString::number(xl / iter * 10 / cor));
 						break;

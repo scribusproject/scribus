@@ -133,7 +133,7 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc, ApplicationPrefs *pre
 	UN = new QToolButton(this);
 	Unitmen = new QPopupMenu(this);
 	//CB TODO Convert to actions later
-	for (uint i=0;i<4;++i)
+	for (uint i=0;i<5;++i)
 		Unitmen->insertItem(unitGetStrFromIndex(i));
 	UN->setPopup(Unitmen);
 	UN->setFocusPolicy(QWidget::NoFocus);
