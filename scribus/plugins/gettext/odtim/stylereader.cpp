@@ -203,7 +203,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  			size = getSize(attrs.value(i), psize);
  			int nsize = static_cast<int>(size * 10);
  			currentStyle->getFont()->setSize(nsize);
- 			if ((currentStyle->getName() == "default-style") && (pstyle != NULL))
+ 			if (pstyle)
  				pstyle->setLineSpacing(writer->getPreferredLineSpacing(nsize));
  		}
  		else if ((attrs.localName(i) == "fo:line-height") && (parentStyle != NULL))
@@ -556,7 +556,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  		size = getSize(value, psize);
  		int nsize = static_cast<int>(size * 10);
  		style->getFont()->setSize(nsize);
- 		if ((style->getName() == "default-style") && (pstyle != NULL))
+ 		if (pstyle)
  			pstyle->setLineSpacing(writer->getPreferredLineSpacing(nsize));
  	}
  	else if ((key == "fo:line-height") && (parent2Style != NULL))
