@@ -27,6 +27,7 @@
 #include <qmenubar.h>
 #include <qstatusbar.h>
 #include <qlabel.h>
+#include <qbuttongroup.h>
 #include "pageitem.h"
 class QVBoxLayout;
 class QHBoxLayout;
@@ -82,6 +83,10 @@ public:
 	QPopupMenu* emenu;
 	QMenuBar* menuBar;
 	QStatusBar* StateBar;
+	QButtonGroup* ButtonGroup1;
+	QButtonGroup* ButtonGroup2;
+	QLabel* WordCT1;
+	QLabel* WordCT3;
 	QLabel* ParCT;
 	QLabel* ParC;
 	QLabel* WordCT;
@@ -135,6 +140,8 @@ signals:
 
 protected:
 	QVBoxLayout* Form1Layout;
+	QGridLayout* ButtonGroup1Layout;
+	QGridLayout* ButtonGroup2Layout;
 
 };
 
