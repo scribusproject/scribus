@@ -39,7 +39,7 @@ public:
 	void setMenuEnabled(const QString menuName, const bool enabled);
 	bool addMenuToMenuBar(const QString menuName);
 	bool removeMenuFromMenuBar(const QString menuName);
-	bool addMenuToActionWidget(const QString menuName, const QString widgetActionName);
+	bool addMenuToWidgetOfAction(const QString menuName, ScrAction *action);
 	
 	bool addMenuItem(ScrAction *menuAction, const QString parent);
 	bool addMenuItemAfter(ScrAction *menuAction, const QString parent, ScrAction *afterMenuAction);

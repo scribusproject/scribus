@@ -99,16 +99,20 @@ bool MenuManager::removeMenuFromMenuBar(const QString menuName)
 	return retVal;
 }
 
-bool addMenuToActionWidget(const QString menuName, const QString widgetActionName)
+bool MenuManager::addMenuToWidgetOfAction(const QString menuName, ScrAction *action)
 {
 	bool retVal;
-	if (menuList[menuname] && menuList[widgetActionName])
+	if (menuList[menuName] && action!=NULL)
 	{
-		QString menuItemListClassName=menuList[widgetActionName]->getWidgetAddedTo()->className();
+		QWidget *w=action->getWidgetAddedTo();
+		QString menuItemListClassName=w->className();
 		if (menuItemListClassName=="QToolButton")
-			qDebug(QString("blah %1 %2").arg(menuName).arg(widgetActionName));
+		{
+			qDebug(QString("blah %1 %2").arg(menuName));
+			dynamic_cast<QToolButton *>(w)->setPopup(menuList[menuName]->getLocalPopupMenu());
+		}
 		else
-			qDebug(QString("blah2 %1 %2").arg(menuName).arg(widgetActionName));
+			qDebug(QString("blah2 %1 %2").arg(menuName));
 	}
 }
 

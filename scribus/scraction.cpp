@@ -96,13 +96,13 @@ void ScrAction::addedTo ( int index, QPopupMenu * menu )
 	popupMenuAddedTo=menu;
 }
 
-void ScrAction::addedTo( QWidget * actionWidget, QWidget * container );
+void ScrAction::addedTo( QWidget * actionWidget, QWidget * container )
 {
 	widgetAddedTo = actionWidget;
 	containerWidgetAddedTo = container;
 }
 
-const QWidget* getActionWidget()
+QWidget* ScrAction::getWidgetAddedTo()
 {
 	return widgetAddedTo;
 }

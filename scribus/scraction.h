@@ -38,7 +38,7 @@ public:
 		
 	const int getMenuIndex();
 	bool addTo(QWidget *w);
-	const QWidget *getWidgetAddedTo();
+	QWidget *getWidgetAddedTo();
 signals:
 	void activatedDLL(int);
 	void activatedRecentFile(QString);

@@ -276,6 +276,7 @@ void ScribusApp::initToolBars()
 	WerkTools2 = new QToolBar( tr("File"), this);
 	scrActions["fileNew"]->addTo(WerkTools2);
 	scrActions["fileOpen"]->addTo(WerkTools2);
+	scrMenuMgr->addMenuToWidgetOfAction("FileOpenRecent", scrActions["fileOpen"]);
 	scrActions["fileSave"]->addTo(WerkTools2);
 	scrActions["fileClose"]->addTo(WerkTools2);
 	scrActions["filePrint"]->addTo(WerkTools2);
