@@ -40,6 +40,8 @@
 #include <qbitmap.h>
 #include <qwmatrix.h>
 #include <qpopupmenu.h>
+#include <qbuttongroup.h>
+#include <qlayout.h>
 
 #ifdef HAVE_TIFF
 	#include <tiffio.h>
@@ -66,6 +68,7 @@ extern double xy2Deg(double x, double y);
 extern void BezierPoints(QPointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4);
 extern void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
 extern FPoint GetMaxClipF(FPointArray Clip);
+extern void WordAndPara(PageItem* b, int *w, int *p, int *c, int *wN, int *pN, int *cN);
 
 Page::Page(QWidget *pa, int x, int y, int b, int h, ScribusDoc *doc, QScrollView *view)
 				 : QWidget(pa, "ps", WRepaintNoErase)
@@ -335,6 +338,7 @@ void Page::dropEvent(QDropEvent *e)
 //				Deselect(true);
 				doku->DraggedElem = 0;
 				doku->DragElements.clear();
+				update();
 				}
 			}
 		}
@@ -418,7 +422,7 @@ void Page::DrawPageMarks(ScPainter *p, QRect rd)
 		if (doku->Scale > 0.49)
 			{
 			double i,start;
-			i=doku->majorGrid*doku->Scale;
+			i=doku->majorGrid;
 			p->setPen(doku->majorColor, lw, SolidLine, FlatCap, MiterJoin);
 			start=floor(sty/i);
 			start*=i;
@@ -428,7 +432,7 @@ void Page::DrawPageMarks(ScPainter *p, QRect rd)
 			start*=i;
 			for (b = start; b <= endx; b+=i)
 					p->drawLine(FPoint(b, 0), FPoint(b, height()/doku->Scale));
-			i=doku->minorGrid*doku->Scale;
+			i=doku->minorGrid;
 			p->setPen(doku->minorColor, lw, DotLine, FlatCap, MiterJoin);
 			start=floor(sty/i);
 			start*=i;
@@ -774,10 +778,14 @@ void Page::RefreshItem(PageItem *b, bool single)
 	QPainter p;
 	p.begin(this);
 	Transform(b, &p);
+	QRect rd = QRect(static_cast<int>(QMAX(b->Pwidth / 2.0, 10.0) * -1),
+									 static_cast<int>(QMAX(b->Pwidth / 2.0, 10.0) * -1),
+									 static_cast<int>(b->Width + QMAX(b->Pwidth / 2.0, 10.0)),
+									 static_cast<int>(b->Height + QMAX(b->Pwidth / 2.0, 10.0)));
 	if (single)
-		RepaintTextRegion(b, QRegion(p.xForm(QRect(static_cast<int>(-b->Pwidth / 2.0), static_cast<int>(-b->Pwidth / 2.0), static_cast<int>(b->Width+(b->Pwidth / 2.0)), static_cast<int>(b->Height+(b->Pwidth / 2.0))))), true);
+		RepaintTextRegion(b, QRegion(p.xForm(rd)), true);
 	else
-		update(QRegion(p.xForm(QRect(static_cast<int>(-b->Pwidth / 2.0), static_cast<int>(-b->Pwidth / 2.0), static_cast<int>(b->Width+(b->Pwidth / 2.0)), static_cast<int>(b->Height+(b->Pwidth / 2.0))))).intersect(ViewReg()).boundingRect());
+		update(QRegion(p.xForm(rd)).intersect(ViewReg()).boundingRect());
 	p.end();
 }
 
@@ -793,10 +801,10 @@ void Page::RepaintTextRegion(PageItem *b, QRegion alt, bool single)
 	p.end();
 	b->Dirty = true;
 	QRect g = neu.boundingRect();
-	g.setX(g.x()-static_cast<int>(QMAX(6, b->Pwidth / 2.0)));
-	g.setY(g.y()-static_cast<int>(QMAX(6, b->Pwidth / 2.0)));
-	g.setWidth(g.width()+static_cast<int>(QMAX(6, b->Pwidth / 2.0)));
-	g.setHeight(g.height()+static_cast<int>(QMAX(6, b->Pwidth / 2.0)));
+	g.setX(g.x()-static_cast<int>(QMAX(10.0, b->Pwidth / 2.0)));
+	g.setY(g.y()-static_cast<int>(QMAX(10.0, b->Pwidth / 2.0)));
+	g.setWidth(g.width()+static_cast<int>(QMAX(10.0, b->Pwidth / 2.0)));
+	g.setHeight(g.height()+static_cast<int>(QMAX(10.0, b->Pwidth / 2.0)));
 	if (single)
 		{
 		QRect rd = ViewReg().boundingRect().intersect(g);
@@ -1937,6 +1945,69 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			QPopupMenu *pmen2 = new QPopupMenu();
 			pmen3 = new QPopupMenu();
 			qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+			QPopupMenu *pmen4 = new QPopupMenu();
+
+			if (b->PType == 4)
+				{
+				QButtonGroup *InfoGroup = new QButtonGroup( this, "InfoGroup" );
+				InfoGroup->setFrameShape( QButtonGroup::NoFrame );
+				InfoGroup->setFrameShadow( QButtonGroup::Plain );
+				InfoGroup->setTitle("");
+				InfoGroup->setExclusive( true );
+				InfoGroup->setColumnLayout(0, Qt::Vertical );
+				InfoGroup->layout()->setSpacing( 0 );
+				InfoGroup->layout()->setMargin( 0 );
+				QGridLayout *InfoGroupLayout = new QGridLayout( InfoGroup->layout() );
+				InfoGroupLayout->setAlignment( Qt::AlignTop );
+				InfoGroupLayout->setSpacing( 2 );
+				InfoGroupLayout->setMargin( 0 );
+	
+				QString txtC, txtC2;
+				int Parag = 0;
+				int Words = 0;
+				int Chara = 0;
+				int ParagN = 0;
+				int WordsN = 0;
+				int CharaN = 0;
+				QLabel *InfoT = new QLabel(InfoGroup, "ct");
+				if ((b->NextBox != 0) || (b->BackBox != 0))
+					InfoT->setText( tr("Text Chain"));
+				else
+					InfoT->setText( tr("Text Frame"));
+				InfoGroupLayout->addMultiCellWidget( InfoT, 0, 0, 0, 1 );
+				WordAndPara(b, &Words, &Parag, &Chara, &WordsN, &ParagN, &CharaN);
+				QLabel *ParCT = new QLabel(InfoGroup, "pt");
+				ParCT->setText( tr("Paragraphs: "));
+				InfoGroupLayout->addWidget( ParCT, 1, 0 );
+				QLabel *ParC = new QLabel(InfoGroup, "pc");
+				if (ParagN != 0)
+					ParC->setText(txtC.setNum(Parag+ParagN)+" ("+txtC2.setNum(ParagN)+")");
+				else
+					ParC->setText(txtC.setNum(Parag));
+				InfoGroupLayout->addWidget( ParC, 1, 1 );
+				QLabel *WordCT = new QLabel(InfoGroup, "wt");
+				WordCT->setText( tr("Words: "));
+				InfoGroupLayout->addWidget( WordCT, 2, 0 );
+				QLabel *WordC = new QLabel(InfoGroup, "wc");
+				if (WordsN != 0)
+					WordC->setText(txtC.setNum(Words+WordsN)+" ("+txtC2.setNum(WordsN)+")");
+				else
+					WordC->setText(txtC.setNum(Words));
+				InfoGroupLayout->addWidget( WordC, 2, 1 );
+				QLabel *CharCT = new QLabel(InfoGroup, "ct");
+				CharCT->setText( tr("Chars: "));
+				InfoGroupLayout->addWidget( CharCT, 3, 0 );
+				QLabel *CharC = new QLabel(InfoGroup, "cc");
+				if (CharaN != 0)
+					CharC->setText(txtC.setNum(Chara+CharaN)+" ("+txtC2.setNum(CharaN)+")");
+				else
+					CharC->setText(txtC.setNum(Chara));
+				InfoGroupLayout->addWidget( CharC, 3, 1 );
+
+				pmen4->insertItem(InfoGroup);
+
+				pmen->insertItem( tr("Info"), pmen4);
+				}
 			if (b->PType == 2)
 				{
 				pmen->insertItem( tr("Get Picture..."), this, SIGNAL(LoadPic()));
@@ -2022,6 +2093,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			delete pmen2;
 			disconnect(pmen3, SIGNAL(activated(int)), this, SLOT(sentToLayer(int)));
 			delete pmen3;
+			delete pmen4;
 			}
 		if (doku->AppMode == 10)
 			update();
@@ -2761,17 +2833,23 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 					{
 					FPointArray Clip;
 					Clip = b->PoLine;
-					npf.setX(Clip.point(SegP2).x() + (newX-Mxp));
-					npf.setY(Clip.point(SegP2).y() + (newY-Myp));
+					p.begin(this);
+					p.translate(static_cast<int>(b->Xpos*doku->Scale), static_cast<int>(b->Ypos*doku->Scale));
+					p.rotate(b->Rot);
+					FPoint npfN = FPoint(p.xFormDev(QPoint(newX, newY)));
+					FPoint npfM = FPoint(p.xFormDev(QPoint(Mxp, Myp)));
+					npf.setX(Clip.point(SegP2).x() + (npfN.x()-npfM.x()));
+					npf.setY(Clip.point(SegP2).y() + (npfN.y()-npfM.y()));
 					ClRe = SegP2;
 					MoveClipPoint(b, npf);
 					b->OldB2 = b->Width;
 					b->OldH2 = b->Height;
 					Clip = b->PoLine;
 					ClRe = SegP1;
-					npf2.setX(Clip.point(SegP1).x() + (newX-Mxp));
-					npf2.setY(Clip.point(SegP1).y() + (newY-Myp));
+					npf2.setX(Clip.point(SegP1).x() + (npfN.x()-npfM.x()));
+					npf2.setY(Clip.point(SegP1).y() + (npfN.y()-npfM.y()));
 					MoveClipPoint(b, npf2);
+					p.end();
 					Mxp = newX;
 					Myp = newY;
 					}

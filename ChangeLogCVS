@@ -1,4 +1,8 @@
 Changes since Version 1.1.3
+14.12.2003	Added an Info Entry to the right mouse click context Menue.
+		Fixed redraw Issues.
+		Fixed Grid drawing Issues when the Zoom Factor is != 100 %.
+
 12.12.2003	Added a Toolbar Button for the Story Editor.
 		Added a Statusbar to the Story Editor.
 

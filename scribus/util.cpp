@@ -61,6 +61,7 @@ extern int IntentPrinter;
 #endif
 extern ProfilesL InputProfiles;
 
+void WordAndPara(PageItem* b, int *w, int *p, int *c, int *wN, int *pN, int *cN);
 void CopyPageItem(struct CLBuf *Buffer, PageItem *b);
 bool overwrite(QWidget *parent, QString filename);
 FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y);
@@ -1495,4 +1496,71 @@ void CopyPageItem(struct CLBuf *Buffer, PageItem *b)
 	Buffer->InvPict = b->InvPict;
 	Buffer->NamedLStyle = b->NamedLStyle;
 	Buffer->Language = b->Language;
+}
+
+void WordAndPara(PageItem* b, int *w, int *p, int *c, int *wN, int *pN, int *cN)
+{
+	QChar Dat = QChar(32);
+	int para = 0;
+	int ww = 0;
+	int cc = 0;
+	int paraN = 0;
+	int wwN = 0;
+	int ccN = 0;
+	bool first = true;
+	PageItem *nb = b;
+	PageItem *nbl = b;
+	while (nb != 0)
+		{
+		if (nb->BackBox != 0)
+			nb = nb->BackBox;
+		else
+			break;
+		}
+	while (nb != 0)
+		{
+  	for (uint a = 0; a < nb->Ptext.count(); ++a)
+  		{
+			QChar b = nb->Ptext.at(a)->ch[0];
+			if (b == QChar(13))
+				{
+				if (a >= nb->MaxChars)
+					paraN++;
+				else
+					para++;
+				}
+			if ((!b.isLetterOrNumber()) && (Dat.isLetterOrNumber()) && (!first))
+				{
+				if (a >= nb->MaxChars)
+					wwN++;
+				else
+					ww++;
+				}
+			if (a >= nb->MaxChars)
+				ccN++;
+			else
+				cc++;
+    	Dat = b;
+			first = false;
+    	}
+		nbl = nb;
+		nb = nb->NextBox;
+		}
+	if (nbl->MaxChars < nbl->Ptext.count())
+		paraN++;
+	else
+		para++;
+	if (Dat.isLetterOrNumber())
+		{
+		if (nbl->MaxChars < nbl->Ptext.count())
+			wwN++;
+		else
+			ww++;
+		}
+	*w = ww;
+	*p = para;
+	*c = cc;
+	*wN = wwN;
+	*pN = paraN;
+	*cN = ccN;
 }

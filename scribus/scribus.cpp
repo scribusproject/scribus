@@ -2067,7 +2067,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			StilMenu->insertItem( tr("Shade"), ShadeMenu);
 			WerkTools->Rotiere->setEnabled(true);
 			WerkTools->Textedit->setEnabled(false);
-			WerkTools->Textedit2->setEnabled(false);
+			WerkTools->Textedit2->setEnabled(true);
 			WerkTools->KetteEin->setEnabled(false);
 			WerkTools->KetteAus->setEnabled(false);
 			if (doc->AppMode == 7)
@@ -3848,7 +3848,7 @@ void ScribusApp::NoFrameEdit()
 		if (doc->ActPage->SelItem.count() != 0)
 			{
 			HaveNewSel(doc->ActPage->SelItem.at(0)->PType);
-			doc->ActPage->RefreshItem(doc->ActPage->SelItem.at(0));
+			doc->ActPage->update();
 			}
 		else
 			HaveNewSel(-1);
@@ -3947,7 +3947,7 @@ void ScribusApp::setAppMode(int mode)
 				}
   		WerkTools->Select->setOn(false);
 			WerkTools->Textedit->setOn(true);
-			WerkTools->Textedit2->setOn(true);
+			WerkTools->Textedit2->setOn(false);
 			doc->ActPage->slotDoCurs(true);
 			menuBar()->setItemEnabled(Obm, 0);
 			CurTimer = new QTimer(doc->ActPage);

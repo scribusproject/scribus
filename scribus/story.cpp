@@ -273,31 +273,66 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite) : QDi
 	Form1Layout->addWidget( table1 );
 
 	StateBar = new QStatusBar(this, "st");
-	WordCT = new QLabel(StateBar, "wt");
+
+	ButtonGroup1 = new QButtonGroup( StateBar, "ButtonGroup1" );
+	ButtonGroup1->setFrameShape( QButtonGroup::NoFrame );
+	ButtonGroup1->setFrameShadow( QButtonGroup::Plain );
+	ButtonGroup1->setTitle("");
+	ButtonGroup1->setExclusive( true );
+	ButtonGroup1->setColumnLayout(0, Qt::Vertical );
+	ButtonGroup1->layout()->setSpacing( 0 );
+	ButtonGroup1->layout()->setMargin( 0 );
+	ButtonGroup1Layout = new QGridLayout( ButtonGroup1->layout() );
+	ButtonGroup1Layout->setAlignment( Qt::AlignTop );
+	ButtonGroup1Layout->setSpacing( 2 );
+	ButtonGroup1Layout->setMargin( 0 );
+	WordCT1 = new QLabel(ButtonGroup1, "wt");
+	WordCT1->setText( tr("Current Paragraph:"));
+	ButtonGroup1Layout->addMultiCellWidget( WordCT1, 0, 0, 0, 3 );
+	WordCT = new QLabel(ButtonGroup1, "wt");
 	WordCT->setText( tr("Words: "));
-	StateBar->addWidget(WordCT, 0, true);
-	WordC = new QLabel(StateBar, "wc");
-	StateBar->addWidget(WordC, 1, true);
-	CharCT = new QLabel(StateBar, "ct");
+	ButtonGroup1Layout->addWidget( WordCT, 1, 0 );
+	WordC = new QLabel(ButtonGroup1, "wc");
+	ButtonGroup1Layout->addWidget( WordC, 1, 1 );
+	CharCT = new QLabel(ButtonGroup1, "ct");
 	CharCT->setText( tr("Chars: "));
-	StateBar->addWidget(CharCT, 0, true);
-	CharC = new QLabel(StateBar, "cc");
-	StateBar->addWidget(CharC, 1, true);
-	ParCT = new QLabel(StateBar, "pt");
-	ParCT->setText( tr("Total Paragraphs: "));
-	StateBar->addWidget(ParCT, 0, true);
-	ParC = new QLabel(StateBar, "pc");
-	StateBar->addWidget(ParC, 1, true);
-	WordCT2 = new QLabel(StateBar, "wt");
+	ButtonGroup1Layout->addWidget( CharCT, 1, 2 );
+	CharC = new QLabel(ButtonGroup1, "cc");
+	ButtonGroup1Layout->addWidget( CharC, 1, 3 );
+	StateBar->addWidget(ButtonGroup1, 1, true);
+
+	ButtonGroup2 = new QButtonGroup( StateBar, "ButtonGroup2" );
+	ButtonGroup2->setFrameShape( QButtonGroup::NoFrame );
+	ButtonGroup2->setFrameShadow( QButtonGroup::Plain );
+	ButtonGroup2->setTitle("");
+	ButtonGroup2->setExclusive( true );
+	ButtonGroup2->setColumnLayout(0, Qt::Vertical );
+	ButtonGroup2->layout()->setSpacing( 0 );
+	ButtonGroup2->layout()->setMargin( 0 );
+	ButtonGroup2Layout = new QGridLayout( ButtonGroup2->layout() );
+	ButtonGroup2Layout->setAlignment( Qt::AlignTop );
+	ButtonGroup2Layout->setSpacing( 2 );
+	ButtonGroup2Layout->setMargin( 0 );
+	WordCT3 = new QLabel(ButtonGroup2, "wt");
+	WordCT3->setText( tr("Totals:"));
+	ButtonGroup2Layout->addMultiCellWidget( WordCT3, 0, 0, 0, 5 );
+	ParCT = new QLabel(ButtonGroup2, "pt");
+	ParCT->setText( tr("Paragraphs: "));
+	ButtonGroup2Layout->addWidget( ParCT, 1, 0 );
+	ParC = new QLabel(ButtonGroup2, "pc");
+	ButtonGroup2Layout->addWidget( ParC, 1, 1 );
+	WordCT2 = new QLabel(ButtonGroup2, "wt");
 	WordCT2->setText( tr("Words: "));
-	StateBar->addWidget(WordCT2, 0, true);
-	WordC2 = new QLabel(StateBar, "wc");
-	StateBar->addWidget(WordC2, 1, true);
-	CharCT2 = new QLabel(StateBar, "ct");
+	ButtonGroup2Layout->addWidget( WordCT2, 1, 2 );
+	WordC2 = new QLabel(ButtonGroup2, "wc");
+	ButtonGroup2Layout->addWidget( WordC2, 1, 3 );
+	CharCT2 = new QLabel(ButtonGroup2, "ct");
 	CharCT2->setText( tr("Chars: "));
-	StateBar->addWidget(CharCT2, 0, true);
-	CharC2 = new QLabel(StateBar, "cc");
-	StateBar->addWidget(CharC2, 1, true);
+	ButtonGroup2Layout->addWidget( CharCT2, 1, 4 );
+	CharC2 = new QLabel(ButtonGroup2, "cc");
+	ButtonGroup2Layout->addWidget( CharC2, 1, 5 );
+	StateBar->addWidget(ButtonGroup2, 1, true);
+
 	Form1Layout->addWidget( StateBar );
 
 	resize( QSize(509, 326).expandedTo(minimumSizeHint()) );
@@ -389,10 +424,10 @@ void StoryEditor::updateStatus()
 				pos += rx.matchedLength();
 				}
 			}
-		counter1 += tt->length();
+		counter1 += tt->length()+1;
 		}
 	WordC2->setText(tmp.setNum(counter2));
-	CharC2->setText(tmp.setNum(counter1));
+	CharC2->setText(tmp.setNum(counter1-1));
 }
 
 void StoryEditor::closeEvent(QCloseEvent *)
