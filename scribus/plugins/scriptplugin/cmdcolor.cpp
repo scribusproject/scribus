@@ -40,6 +40,28 @@ PyObject *scribus_getcolor(PyObject */*self*/, PyObject* args)
 	return Py_BuildValue("(iiii)", static_cast<long>(c), static_cast<long>(m), static_cast<long>(y), static_cast<long>(k));
 }
 
+PyObject *scribus_getcolorasrgb(PyObject */*self*/, PyObject* args)
+{
+	ColorList edc;
+	char *Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
+		return NULL;
+	if (strcmp(Name, "") == 0)
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot get a colour with an empty name.","python error"));
+		return NULL;
+	}
+	edc = Carrier->HaveDoc ? Carrier->doc->PageColors : Carrier->Prefs.DColors;
+	QString col = QString::fromUtf8(Name);
+	if (!edc.contains(col))
+	{
+		PyErr_SetString(NotFoundError, QObject::tr("Colour not found","python error"));
+		return NULL;
+	}
+	QColor rgb = edc[col].getRGBColor();
+	return Py_BuildValue("(iii)", static_cast<long>(rgb.red()), static_cast<long>(rgb.green()), static_cast<long>(rgb.blue()));
+}
+
 PyObject *scribus_setcolor(PyObject */*self*/, PyObject* args)
 {
 	char *Name = const_cast<char*>("");

@@ -680,6 +680,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("getAllText"), scribus_gettext, METH_VARARGS, tr(scribus_gettext__doc__)},
 	{const_cast<char*>("getColorNames"), (PyCFunction)scribus_colornames, METH_NOARGS, tr(scribus_colornames__doc__)},
 	{const_cast<char*>("getColor"), scribus_getcolor, METH_VARARGS, tr(scribus_getcolor__doc__)},
+	{const_cast<char*>("getColorAsRGB"), scribus_getcolorasrgb, METH_VARARGS, tr(scribus_getcolorasrgb__doc__)},
 	{const_cast<char*>("getColumnGap"), scribus_getcolumngap, METH_VARARGS, tr(scribus_getcolumngap__doc__)},
 	{const_cast<char*>("getColumns"), scribus_getcolumns, METH_VARARGS, tr(scribus_getcolumns__doc__)},
 	{const_cast<char*>("getCornerRadius"), scribus_getcornerrad, METH_VARARGS, tr(scribus_getcornerrad__doc__)},

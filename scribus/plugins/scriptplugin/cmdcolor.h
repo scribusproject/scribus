@@ -31,6 +31,21 @@ May raise ValueError if an invalid color name is specified.\n\
 PyObject *scribus_getcolor(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_getcolorasrgb__doc__,
+QT_TR_NOOP("getColorAsRGB(\"name\") -> tuple\n\
+\n\
+Returns a tuple (R,G,B) containing the three color components of the\n\
+color \"name\" from the current document, converted to the RGB colour\n\
+space. If no document is open, returns the value of the named color\n\
+from the default document colors.\n\
+\n\
+May raise NotFoundError if the named color wasn't found.\n\
+May raise ValueError if an invalid color name is specified.\n\
+"));
+/** Returns a CMYK tuple of the specified color. */
+PyObject *scribus_getcolorasrgb(PyObject */*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_setcolor__doc__,
 QT_TR_NOOP("changeColor(\"name\", c, m, y, k)\n\
 \n\
