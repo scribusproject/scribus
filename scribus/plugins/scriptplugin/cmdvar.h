@@ -4,6 +4,14 @@
 #include <Python.h>
 #include "scribus.h"
 
+/* These will go away in 1.3, but help readability in 1.2.1 code a LOT */
+#define FRAME_IMAGE 2
+#define FRAME_TEXT 4
+#define FRAME_LINE 5
+#define FRAME_VECTOR 6
+#define FRAME_POLYLINE 7
+#define FRAME_PATHTEXT 8
+
 /* Static global Variables */
 extern ScribusApp* Carrier;
 
@@ -12,9 +20,10 @@ extern ScribusApp* Carrier;
 extern PyObject* ScribusException;
 /*! Exception raised when no document opened - see checkHaveDocument() in cmdutil.cpp */
 extern PyObject* NoDocOpenError;
-
-/* Gross solution to compat with 1.2.1 scripts - track the 'current page' internally */
-extern int currentPage;
+/*! Exception raised when an operation is performed on a frame type that doesn't support it.*/
+extern PyObject* WrongFrameTypeError;
+/*! Exception raised by GetUniqueItem when it can't find a valid frame or a suitable selection to use. */
+extern PyObject* NoValidObjectError;
 
 #endif
 

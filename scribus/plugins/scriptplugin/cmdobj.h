@@ -185,5 +185,8 @@ Enumerate all known paragraph styles.");
 */
 PyObject *scribus_getstylenames(PyObject *self);
 
+/* Internal function not intended for general use; no docstring */
+PyObject* scribus_getframetype(PyObject* self, PyObject* args, PyObject* kw);
+
 #endif
 
