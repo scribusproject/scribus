@@ -9,8 +9,7 @@ PyObject *scribus_newdocdia(PyObject */*self*/)
 {
 	QApplication::setOverrideCursor(QCursor(Qt::ArrowCursor));
 	bool ret = Carrier->slotFileNew();
-	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-//	qApp->processEvents();
+	QApplication::restoreOverrideCursor();
 	return PyInt_FromLong(static_cast<long>(ret));
 }
 
@@ -32,7 +31,7 @@ PyObject *scribus_filedia(PyObject */*self*/, PyObject* args, PyObject* kw)
 	QString fName = Carrier->CFileDialog(".", QString::fromUtf8(caption), QString::fromUtf8(filter),
 										 QString::fromUtf8(defName), static_cast<bool>(haspreview),
 										 static_cast<bool>(issave), 0, 0);
-	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+	QApplication::restoreOverrideCursor();
 	// FIXME: filename return unicode OK?
 	return PyString_FromString(fName.utf8());
 }
@@ -54,7 +53,7 @@ PyObject *scribus_messdia(PyObject */*self*/, PyObject* args, PyObject* kw)
 	QApplication::setOverrideCursor(QCursor(Qt::ArrowCursor));
 	QMessageBox mb(QString::fromUtf8(caption), QString::fromUtf8(message), ico, butt1, butt2, butt3, Carrier);
 	result = mb.exec();
-	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+	QApplication::restoreOverrideCursor();
 	return PyInt_FromLong(static_cast<long>(result));
 }
 
@@ -71,6 +70,6 @@ PyObject *scribus_valdialog(PyObject */*self*/, PyObject* args)
 	d->valueEdit->setText(QString::fromUtf8(value));
 	d->setCaption(QString::fromUtf8(caption));
 	d->exec();
-	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+	QApplication::restoreOverrideCursor();
 	return PyString_FromString(d->valueEdit->text().utf8());
 }
