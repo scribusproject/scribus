@@ -1,5 +1,15 @@
 Changes since Version 1.1.6
 
+15.05.2004
+	* bug     #604: Grouped items can be grouped again
+	* bug     #634: Can't edit Line Style name
+	* bug     #649: Minor string update
+	* bug     #652: scribus.ca.qm does not get installed on "make install"
+	* feature #406: save must be enabled while creating templates
+	* feature #563: measurement tool
+	* feature #621: Need an addition to the scripter API: variable that is set by using "-lang xx".
+	* feature #653: Implement Settings menu, cleaning up Edit, Tools and Help menu
+
 13.05.2004
 	* bug     #634: Can't edit Line Style name
 	* bug     #638: Rename the translation file for Basque language

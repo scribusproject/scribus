@@ -106,6 +106,8 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/fparser.h $(prefix)/include/scribus/fparser.h
 	$(mkinstalldirs) $(prefix)/include/scribus/
 	$(INSTALL_DATA) $(srcdir)/pageselector.h $(prefix)/include/scribus/pageselector.h
+	$(mkinstalldirs) $(prefix)/include/scribus/
+	$(INSTALL_DATA) $(srcdir)/scribusXml.h $(prefix)/include/scribus/scribusXml.h
 
 uninstall-local:
 	-rm -f $(prefix)/share/scribus/samples/LoremIpsum.txt
@@ -155,6 +157,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/fontcombo.h
 	-rm -f $(prefix)/include/scribus/scpainter.h
 	-rm -f $(prefix)/include/scribus/vgradient.h
+	-rm -f $(prefix)/include/scribus/scribusXml.h
 	-rm -f $(prefix)/include/scribus/pageselector.h
 
 scribus_LDADD  = $(LIBJPEG) $(LIBART_LIBS) $(LIBFREETYPE_LIBS) $(LIBCUPS) $(LIBLCMS) $(LIBDL) $(LIBDL2) $(LIBTIFF) -lm $(LIB_QT) -lXext -lX11 $(LIBSOCKET)

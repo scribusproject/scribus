@@ -7161,7 +7161,7 @@ void ScribusApp::RunExportPlug(int id)
 void ScribusApp::RunHelpPlug(int id)
 {
 	int a = helpMenu->indexOf(id);
-	if (a > 4)
+	if (a > 3)
 		CallDLL(helpMenu->text(id));
 }
 
