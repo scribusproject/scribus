@@ -1634,6 +1634,8 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	connect(Editor, SIGNAL(textChanged()), EditorBar, SLOT(doRepaint()));
 	connect(Editor, SIGNAL(SideBarUp(bool )), EditorBar, SLOT(setRepaint(bool )));
 	connect(Editor, SIGNAL(SideBarUpdate( )), EditorBar, SLOT(doRepaint()));
+	// 10/12/2004 - pv - #1203: wrong selection on double click
+	connect(Editor, SIGNAL(doubleClicked(int, int)), this, SLOT(doubleClick(int, int)));
 	connect(EditorBar, SIGNAL(ChangeStyle(int, int )), this, SLOT(changeAlignSB(int, int )));
 	connect(AlignTools, SIGNAL(NewStyle(int)), this, SLOT(newAlign(int)));
 	connect(AlignTools, SIGNAL(NewAlign(int)), this, SLOT(newAlign(int)));
@@ -1645,6 +1647,25 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	connect(StyleTools, SIGNAL(NewKern(double )), this, SLOT(newTxKern(double )));
 	connect(StyleTools, SIGNAL(NewStyle(int )), this, SLOT(newTxStyle(int )));
 	Editor->setFocus();
+}
+
+/** 10/12/2004 - pv - #1203: wrong selection on double click
+Catch the double click signal - cut the wrong selection (with
+whitespaces on the tail) - select only one word - return
+controlling back to story editor - have rest */
+void StoryEditor::doubleClick(int para, int position)
+{
+	int paraFrom, indexFrom, paraTo, indexTo;
+	QString selText = Editor->selectedText();
+	if (selText.length() == 0)
+	{
+		updateProps(para, position);
+		return;
+	}
+	Editor->getSelection(&paraFrom, &indexFrom, &paraTo, &indexTo);
+	selText =  selText.stripWhiteSpace();
+	Editor->setSelection(paraFrom, indexFrom, paraFrom, indexFrom + selText.length());
+	updateProps(para, position);
 }
 
 int StoryEditor::exec()

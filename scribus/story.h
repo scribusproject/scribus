@@ -347,6 +347,8 @@ public slots:
 	void modifiedText();
 	void LoadTextFile();
 	void SaveTextFile();
+	// 10/12/2004 - pv - #1203: wrong selection on double click
+	void doubleClick(int para, int pos);
 
 signals:
 	void DocChanged();
