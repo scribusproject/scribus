@@ -752,6 +752,21 @@ ArtGradientStop * ScPainter::buildStopArray( VGradient &gradient, int &offsets )
 		stopArray[ offset * 2 ].offset = ramp;
 
 		QColor qStopColor = colorStops[ offset ]->color;
+		int h, s, v, sneu;
+		int shad = colorStops[offset]->shade;
+		qStopColor.rgb(&h, &s, &v);
+		if ((h == s) && (s == v))
+		{
+			qStopColor.hsv(&h, &s, &v);
+			sneu = 255 - ((255 - v) * shad / 100);
+			qStopColor.setHsv(h, s, sneu);
+		}
+		else
+		{
+			qStopColor.hsv(&h, &s, &v);
+			sneu = s * shad / 100;
+			qStopColor.setHsv(h, sneu, v);
+		}
 		int r = qRed( qStopColor.rgb() );
 		int g = qGreen( qStopColor.rgb() );
 		int b = qBlue( qStopColor.rgb() );

@@ -37,7 +37,7 @@ public:
 	static double parseUnit(const QString &unit);
 	QColor parseColorN( const QString &rgbColor );
 	QString parseColor( const QString &s );
-	QWMatrix parseTransform( const QString &transfor);
+	void parseTransform(FPointArray *composite, const QString &transform);
 	void parseViewBox( const QDomElement& object, double *x, double *y, double *w, double *h );
 	void appendPoints(FPointArray *composite, const QDomElement& object);
 	const char * getCoord( const char *ptr, double &number );
@@ -47,26 +47,6 @@ public:
 	void svgMoveTo(double x1, double y1);
 	void svgLineTo(FPointArray *i, double x1, double y1);
 	void svgCurveToCubic(FPointArray *i, double x1, double y1, double x2, double y2, double x3, double y3);
-/*	void addGraphicContext();
-	void setupTransform( const QDomElement &e );
-	double fromPercentage( const QString &s );	
-	double parseUnit(const QString &unit);
-	const char * getCoord( const char *ptr, double &number );
-	bool parseSVG( const QString &s, FPointArray *ite );
-	void calculateArc(FPointArray *ite, bool relative, double &curx, double &cury, double angle, double x, double y, double r1, double r2, bool largeArcFlag, bool sweepFlag);
-	void svgClosePath(FPointArray *i);
-	void svgMoveTo(double x1, double y1);
-	void svgLineTo(FPointArray *i, double x1, double y1);
-	void svgCurveToCubic(FPointArray *i, double x1, double y1, double x2, double y2, double x3, double y3);
-	QColor parseColorN( const QString &rgbColor );
-	QString parseColor( const QString &s );
-	void parsePA( SvgStyle *obj, const QString &command, const QString &params );
-	void parseStyle( SvgStyle *obj, const QDomElement &e );
-	void parseColorStops(GradientHelper *gradient, const QDomElement &e);
-	void parseGradient( const QDomElement &e );
-	FPoint GetMaxClipO(FPointArray Clip);
-	FPoint GetMinClipO(FPointArray Clip);
-	QPtrList<PageItem> parseText(double x, double y, const QDomElement &e); */
 
 	ScribusDoc* Doku;
 	ScribusApp* Prog;
