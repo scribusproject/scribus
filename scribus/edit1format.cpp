@@ -53,11 +53,9 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
 	TextF2->setMinimumSize( QSize( 50, 22 ) );
 	TextF2->setText( tr( "Size:" ) );
 	GroupFontLayout->addWidget( TextF2, 1, 0 );
-	SizeC = new MSpinBox( GroupFont, 1 );
+	SizeC = new MSpinBox( 1, 1024, GroupFont, 1 );
 	SizeC->setMinimumSize( QSize( 70, 22 ) );
 	SizeC->setSuffix( tr( " pt" ) );
-	SizeC->setMinValue(1);
-	SizeC->setMaxValue(1024);
 	SizeC->setValue(vor->FontSize / 10.0);
 	GroupFontLayout->addWidget( SizeC, 1, 1 );
 	EffeLabel = new QLabel( GroupFont, "EffeLabel" );
@@ -142,23 +140,17 @@ EditStyle::EditStyle( QWidget* parent, struct StVorL *vor, QValueList<StVorL> v,
 	BaseGrid->setText( tr( "Adjust to Baseline Grid" ) );
 	BaseGrid->setChecked(vor->BaseAdj);
 	AbstandVLayout->addMultiCellWidget( BaseGrid, 0, 0, 0, 1 );
-	AboveV = new MSpinBox( AbstandV, 1 );
+	AboveV = new MSpinBox( 0, 300, AbstandV, 1 );
 	AboveV->setMinimumSize( QSize( 70, 22 ) );
-	AboveV->setMaxValue( 300 );
-	AboveV->setMinValue( 0 );
 	AbstandVLayout->addWidget( AboveV, 1, 1 );
 
-	BelowV = new MSpinBox( AbstandV, 1 );
+	BelowV = new MSpinBox( 0, 300, AbstandV, 1 );
 	BelowV->setMinimumSize( QSize( 70, 22 ) );
-	BelowV->setMaxValue( 300 );
-	BelowV->setMinValue( 0 );
 	AbstandVLayout->addWidget( BelowV, 2, 1 );
 
-	LineSpVal = new MSpinBox( AbstandV, 1 );
+	LineSpVal = new MSpinBox( 1, 300, AbstandV, 1 );
 	LineSpVal->setMinimumSize( QSize( 70, 22 ) );
 	LineSpVal->setSuffix( tr( " pt" ) );
-	LineSpVal->setMaxValue( 300 );
-	LineSpVal->setMinValue( 1 );
 	LineSpVal->setValue(vor->LineSpa);
 	AbstandVLayout->addWidget( LineSpVal, 3, 1 );
 

@@ -171,15 +171,11 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	heightLabel = new QLabel( tr( "Height:" ), GeoGroup, "heightLabel" );
 
 	GeoGroupLayout->addWidget( heightLabel, 3, 0 );
-	Xpos = new MSpinBox( GeoGroup, 2 );
+	Xpos = new MSpinBox( -3000, 3000, GeoGroup, 2 );
 	Xpos->setSuffix( tr( " pt" ) );
-	Xpos->setMaxValue( 3000 );
-	Xpos->setMinValue( -3000 );
 	GeoGroupLayout->addWidget( Xpos, 0, 1 );
-	Ypos = new MSpinBox( GeoGroup, 2 );
+	Ypos = new MSpinBox( -3000, 3000, GeoGroup, 2 );
 	Ypos->setSuffix( tr( " pt" ) );
-	Ypos->setMaxValue( 3000 );
-	Ypos->setMinValue( -3000 );
 	GeoGroupLayout->addWidget( Ypos, 1, 1 );
 	Width = new MSpinBox( GeoGroup, 2 );
 	Width->setSuffix( tr( " pt" ) );
@@ -397,35 +393,31 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	DistanceLayout->addWidget( leftLabel, 4, 0 );
 	rightLabel = new QLabel( tr( "Right:" ), Distance, "rightLabel" );
 	DistanceLayout->addWidget( rightLabel, 5, 0 );
-	DCol = new QSpinBox( Distance, "Cols" );
-	DCol->setMaxValue( 3000 );
-	DCol->setMinValue( 1 );
+	DCol = new QSpinBox(Distance, "Cols" );
+    DCol->setMaxValue( 3000 );
+    DCol->setMinValue( 1 );
 	DistanceLayout->addWidget( DCol, 0, 1 );
-	DGap = new MSpinBox( Distance, 1 );
+
+	DGap = new MSpinBox( 0, 300, Distance, 1 );
 	DGap->setSuffix( tr( " pt" ) );
-	DGap->setMaxValue( 300 );
-	DGap->setMinValue( 0 );
 	DistanceLayout->addWidget( DGap, 1, 1 );
-	DTop = new MSpinBox( Distance, 1 );
+
+	DTop = new MSpinBox( 0, 300, Distance, 1 );
 	DTop->setSuffix( tr( " pt" ) );
-	DTop->setMaxValue( 300 );
-	DTop->setMinValue( 0 );
 	DistanceLayout->addWidget( DTop, 2, 1 );
-	DBottom = new MSpinBox( Distance, 1 );
+
+	DBottom = new MSpinBox( 0, 300, Distance, 1 );
 	DBottom->setSuffix( tr( " pt" ) );
-	DBottom->setMaxValue( 300 );
-	DBottom->setMinValue( 0 );
 	DistanceLayout->addWidget( DBottom, 3, 1 );
-	DLeft = new MSpinBox( Distance, 1 );
+
+	DLeft = new MSpinBox( 0, 300, Distance, 1 );
 	DLeft->setSuffix( tr( " pt" ) );
-	DLeft->setMaxValue( 300 );
-	DLeft->setMinValue( 0 );
 	DistanceLayout->addWidget( DLeft, 4, 1 );
-	DRight = new MSpinBox( Distance, 1 );
+
+	DRight = new MSpinBox( 0, 300, Distance, 1 );
 	DRight->setSuffix( tr( " pt" ) );
-	DRight->setMaxValue( 300 );
-	DRight->setMinValue( 0 );
 	DistanceLayout->addWidget( DRight, 5, 1 );
+
 	TabsButton = new QPushButton( Distance, "Tabul" );
 	TabsButton->setText( tr( "Tabulators..." ) );
 	TabsButton->setDefault( false );
@@ -447,18 +439,15 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	DistanceLayout2->addMultiCellWidget( showcurveCheckBox, 0, 0, 0, 1 );
 	startoffsetLabel = new QLabel( tr( "Start Offset:" ), Distance2, "startoffsetLabel" );
 	DistanceLayout2->addWidget( startoffsetLabel, 1, 0);
-	Dist = new MSpinBox( Distance2, 1 );
+	Dist = new MSpinBox( 0, 300, Distance2, 1 );
 	Dist->setSuffix( tr( " pt" ) );
-	Dist->setMaxValue( 300 );
-	Dist->setMinValue( 0 );
 	Dist->setLineStep(10);
 	DistanceLayout2->addWidget( Dist, 1, 1);
+
 	distfromcurveLabel = new QLabel( tr( "Distance from Curve:" ), Distance2, "distfromcurveLabel" );
 	DistanceLayout2->addWidget( distfromcurveLabel, 2, 0);
-	LineW = new MSpinBox( Distance2, 1 );
+	LineW = new MSpinBox( -300, 300, Distance2, 1 );
 	LineW->setSuffix( tr( " pt" ) );
-	LineW->setMaxValue( 300 );
-	LineW->setMinValue( -300 );
 	LineW->setLineStep(10);
 	DistanceLayout2->addWidget( LineW, 2, 1);
 	pageLayout_2b->addWidget(Distance2);
@@ -484,11 +473,9 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 
 	fontsizeLabel = new QLabel( tr("Font Size:"), page_3, "fontsizeLabel" );
 	layout41->addWidget( fontsizeLabel, 1, 0 );
-	Size = new MSpinBox( page_3, 1 );
+	Size = new MSpinBox( 1, 1024, page_3, 1 );
 	Size->setPrefix( "" );
 	Size->setSuffix( tr( " pt" ) );
-	Size->setMaxValue( 1024 );
-	Size->setMinValue( 1 );
 	layout41->addWidget( Size, 1, 1 );
 	layout46->addLayout( layout41 );
 
@@ -3019,11 +3006,11 @@ void Mpalette::handleLock()
 			doc->ActPage->RefreshItem(doc->ActPage->SelItem.at(a));
 		}
 		bool setter = Locked->isOn() ? false : true;
-		Xpos->setEnabled(setter);
-		Ypos->setEnabled(setter);
-		Width->setEnabled(setter);
-		Height->setEnabled(setter);
-		Rot->setEnabled(setter);
+		Xpos->setReadOnly(setter);
+		Ypos->setReadOnly(setter);
+		Width->setReadOnly(setter);
+		Height->setReadOnly(setter);
+		Rot->setReadOnly(setter);
 		RoundRect->setEnabled(setter);
 		EditShape->setEnabled(setter);
 		ShapeGroup->setEnabled(setter);

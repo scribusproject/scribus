@@ -26,14 +26,10 @@ Mdup::Mdup( QWidget* parent, double Dx, double Dy, int Ein )
 	Ncopies->setMinValue( 1 );
 	Ncopies->setValue(1);
 	Layout4->addWidget( Ncopies, 0, 1 );
-	ShiftV = new MSpinBox( this, 2 );
-	ShiftV->setMaxValue( 1000 );
-	ShiftV->setMinValue( -1000 );
+	ShiftV = new MSpinBox( -1000, 1000, this, 2 );
 	ShiftV->setValue(Dy);
 	Layout4->addWidget( ShiftV, 2, 1 );
-	ShiftH = new MSpinBox( this, 2 );
-	ShiftH->setMaxValue( 1000 );
-	ShiftH->setMinValue( -1000 );
+	ShiftH = new MSpinBox( -1000, 1000, this, 2 );
 	ShiftH->setValue(Dx);
 	Layout4->addWidget( ShiftH, 1, 1 );
 	QString Suffix[] = { tr(" pt"), tr(" mm"), tr(" in"), tr(" p")};

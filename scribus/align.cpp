@@ -50,11 +50,9 @@ Align::Align( QWidget* parent, int anz, int ein)
     TextLabelD->setText( tr( "Displacement" ) );
     TextLabelD->setEnabled(false);
     ButtonGroup1Layout->addWidget( TextLabelD, 3, 1);
-    AHor = new MSpinBox( ButtonGroup1, 2 );
+    AHor = new MSpinBox( -1000, 1000, ButtonGroup1, 2 );
     AHor->setEnabled( true );
     AHor->setMinimumSize( QSize( 80, 20 ) );
-    AHor->setMaxValue( 1000 );
-    AHor->setMinValue( -1000 );
     AHor->setValue( 0 );
     AHor->setEnabled(false);
     ButtonGroup1Layout->addWidget( AHor, 3, 2, Qt::AlignRight);
@@ -98,18 +96,18 @@ Align::Align( QWidget* parent, int anz, int ein)
     TextLabelD2->setText( tr( "Displacement" ) );
     TextLabelD2->setEnabled(false);
     ButtonGroup1_2Layout->addWidget( TextLabelD2, 3, 1 );
-    AVert = new MSpinBox( ButtonGroup1_2, 2 );
+    AVert = new MSpinBox( -1000, 1000, ButtonGroup1_2, 2 );
     AVert->setEnabled( true );
     AVert->setMinimumSize( QSize( 80, 20 ) );
+    AVert->setValue( 0 );
+    AVert->setEnabled(false);
+
 	QString tmp = (ein == 0) ? tr(" pts") :
 				  (ein == 1) ? tr(" mm") :
 				  (ein == 2) ? tr(" in") : tr(" p");
 	AHor->setSuffix(tmp);
 	AVert->setSuffix(tmp);
-    AVert->setMaxValue( 1000 );
-    AVert->setMinValue( -1000 );
-    AVert->setValue( 0 );
-    AVert->setEnabled(false);
+
     ButtonGroup1_2Layout->addWidget( AVert, 3, 2, Qt::AlignRight);
     VerteilenV = new QRadioButton( ButtonGroup1_2, "VerteilenH" );
     VerteilenV->setText( tr( "Distribute evenly" ) );

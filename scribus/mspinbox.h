@@ -30,6 +30,7 @@ class MSpinBox : public QSpinBox
 	
 public: 
 	MSpinBox(QWidget *pa, int s);
+	MSpinBox(double minValue, double maxValue, QWidget *pa, int s);
 	~MSpinBox() {};
 	double value();
 	double minValue();
@@ -40,14 +41,21 @@ public:
 	int Width;
 	QLineEdit *ed;
 	void setDecimals( int deci );
+	bool isReadOnly() const;
 
 public slots:
 	void setMaxValue(double val);
 	void setMinValue(double val);
 	void setValue(double val);
+	void setReadOnly(bool ro);
+	void setValues(double min, double max, int deci, double val);
+	void getValues(double *min, double *max, int *deci, double *val);
 
 protected:
 	bool eventFilter( QObject* ob, QEvent* ev );
+	void setParameters( int s );
+	bool readOnly;
+	int oldLineStep;
 };
 
 #endif

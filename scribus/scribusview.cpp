@@ -58,11 +58,9 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc, preV *prefs)
 	viewport()->setBackgroundMode(PaletteBackground);
 	QFont fo = QFont(font());
 	fo.setPointSize(10);
-	LE = new MSpinBox( this, 2 );
+	LE = new MSpinBox( 10, 3200, this, 2 );
 	LE->setFont(fo);
 	LE->setSuffix( tr( " %" ) );
-	LE->setMaxValue( 3200 );
-	LE->setMinValue( 10 );
 	LE->setValue( 100 );
 	LE->setFocusPolicy(QWidget::ClickFocus);
 	SB1 = new QPushButton(this);

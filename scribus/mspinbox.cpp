@@ -18,6 +18,7 @@
 #include "mspinbox.h"
 #include "mspinbox.moc"
 #include <qapplication.h>
+#include <qlineedit.h>
 #include "fparser.h"
 
 /*!
@@ -31,6 +32,37 @@
  */
 
 MSpinBox::MSpinBox(QWidget *pa, int s):QSpinBox(pa)
+{
+	setParameters(s);
+	setValidator(0);
+	ed = editor();
+	QSpinBox::setLineStep(Decimals);
+	oldLineStep=0;
+	readOnly=false;
+}
+/*!
+ \fn MSpinBox(double minValue, double maxValue, QWidget *pa, int s)
+ \author Franz Schmid
+ \date
+ \brief Constructor
+ \param pa Parent Widget
+ \param s Number of Decimals
+ \retval None
+ */
+
+MSpinBox::MSpinBox(double minValue, double maxValue, QWidget *pa, int s):QSpinBox(pa)
+{
+	setParameters(s);
+	setValidator(0);
+	ed = editor();
+	QSpinBox::setLineStep(Decimals);
+	oldLineStep=0;
+	setMinValue(minValue);
+	setMaxValue(maxValue);
+	readOnly=false;
+}
+
+void MSpinBox::setParameters( int s )
 {
 	switch (s)
 	{
@@ -59,9 +91,6 @@ MSpinBox::MSpinBox(QWidget *pa, int s):QSpinBox(pa)
 			Width = 2;
 			break;
 	}
-	setValidator(0);
-	ed = editor();
-	QSpinBox::setLineStep(Decimals);
 }
 
 bool MSpinBox::eventFilter( QObject* ob, QEvent* ev )
@@ -151,6 +180,22 @@ int MSpinBox::mapTextToValue(bool *)
 		return 0;
 	double erg = fp.Eval(NULL);
 	return qRound(erg*Decimals);
+}
+
+void MSpinBox::setValues(double min, double max, int deci, double val)
+{
+	setDecimals(deci);
+	setMinValue(min);
+	setMaxValue(max);
+	setValue(val);
+}
+
+void MSpinBox::getValues(double *min, double *max, int *deci, double *val)
+{
+	*deci = Decimals;
+	*min = static_cast<double>(QSpinBox::minValue()) / Decimals;
+	*max = static_cast<double>(QSpinBox::maxValue()) / Decimals;
+	*val = static_cast<double>(QSpinBox::value()) / Decimals;
 }
 
 void MSpinBox::setDecimals(int deci)
@@ -252,3 +297,24 @@ double MSpinBox::maxValue()
 {
 	return static_cast<double>(QSpinBox::maxValue()) / Decimals;
 }
+
+void MSpinBox::setReadOnly( bool ro )
+{
+	if (readOnly!=ro) {
+		if (!readOnly && ro) {
+			oldLineStep=QSpinBox::lineStep();
+			QSpinBox::setLineStep( 0 );
+		}
+		else if (readOnly && !ro) {
+			QSpinBox::setLineStep( oldLineStep );
+			oldLineStep=0;
+		}
+		ed->setReadOnly( ro );
+	}
+}
+
+bool MSpinBox::isReadOnly() const
+{
+	return readOnly;
+}
+

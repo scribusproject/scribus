@@ -91,10 +91,8 @@ MultiLine::MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString na
 	WidthText->setAlignment( int( QLabel::AlignVCenter | QLabel::AlignLeft ) );
 	layout1->addWidget( WidthText );
 
-	LWidth = new MSpinBox( Properties, 1 );
+	LWidth = new MSpinBox( 0, 36, Properties, 1 );
 	LWidth->setSuffix( tr( " pt" ) );
-	LWidth->setMaxValue( 36 );
-	LWidth->setMinValue( 0 );
 	layout1->addWidget( LWidth );
 	PropertiesLayout->addLayout( layout1 );
 

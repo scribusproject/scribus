@@ -103,10 +103,8 @@ GuideManager::GuideManager(
 	TextLabel2->setText( tr("Y-Pos:"));
 	Layout4->addWidget(TextLabel2);
 	
-	HorSpin = new MSpinBox(HorGroup, 4);
+	HorSpin = new MSpinBox(0, LocPageHeight, HorGroup, 4);
 	HorSpin->setDecimals(decimals);
-	HorSpin->setMaxValue(LocPageHeight);
-	HorSpin->setMinValue(0);
 	Layout4->addWidget(HorSpin);
 	
 	HorGroupLayout->addLayout(Layout4);
@@ -145,10 +143,8 @@ GuideManager::GuideManager(
 	TextLabel1->setText( tr("X-Pos:"));
 	Layout2->addWidget(TextLabel1);
 	
-	VerSpin = new MSpinBox(VerGroup, 4);
+	VerSpin = new MSpinBox(0, LocPageWidth, VerGroup, 4);
 	VerSpin->setDecimals(decimals);
-	VerSpin->setMaxValue(LocPageWidth);
-	VerSpin->setMinValue(0);
 	Layout2->addWidget(VerSpin);
 	
 	VerGroupLayout->addLayout(Layout2);

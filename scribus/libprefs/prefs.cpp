@@ -51,7 +51,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	ap = (ScribusApp*)parent;
 	Umrech = 1.0;
 	Einheit = ap->HaveDoc ? ap->doc->Einheit : Vor->Einheit;
-	int f[] = {100, 1000, 10000};
+	int f[] = {2, 3, 4};
 	if (Einheit == 3)
 		decimals = f[0];
 	else
@@ -283,24 +283,18 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	GZText3->setText( tr( "Width:" ) );
 	Layout5_2->addWidget( GZText3 );
 
-	Breite = new MSpinBox( GroupSize, 4 );
+	Breite = new MSpinBox( 1, 10000, GroupSize, decimals );
 	Breite->setEnabled( false );
 	Breite->setMinimumSize( QSize( 70, 20 ) );
-	Breite->setDecimals( decimals );
-	Breite->setMaxValue( 10000 );
-	Breite->setMinValue( 1 );
 	Layout5_2->addWidget( Breite );
 
 	GZText4 = new QLabel( GroupSize, "GZText4" );
 	GZText4->setText( tr( "Height:" ) );
 	Layout5_2->addWidget( GZText4 );
 
-	Hoehe = new MSpinBox( GroupSize, 4 );
+	Hoehe = new MSpinBox( 1, 10000, GroupSize, decimals );
 	Hoehe->setEnabled( false );
 	Hoehe->setMinimumSize( QSize( 70, 20 ) );
-	Hoehe->setDecimals( decimals );
-	Hoehe->setMaxValue( 10000 );
-	Hoehe->setMinValue( 1 );
 	Layout5_2->addWidget( Hoehe );
 	GroupSizeLayout->addLayout( Layout5_2 );
 	Breite->setValue(Vor->PageBreite * Umrech);
@@ -330,35 +324,23 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	GroupRandLayout = new QGridLayout( GroupRand->layout() );
 	GroupRandLayout->setAlignment( Qt::AlignTop );
 
-	TopR = new MSpinBox( GroupRand, 4 );
+	TopR = new MSpinBox( 0, 1000, GroupRand, decimals );
 	TopR->setMinimumSize( QSize( 70, 20 ) );
-	TopR->setDecimals( decimals );
-	TopR->setMaxValue( 1000 );
-	TopR->setMinValue( 0 );
 	TopR->setValue(Vor->RandOben * Umrech);
 	RandT = Vor->RandOben;
 	GroupRandLayout->addWidget( TopR, 0, 1 );
-	BottomR = new MSpinBox( GroupRand, 4 );
+	BottomR = new MSpinBox( 0, 1000, GroupRand, decimals );
 	BottomR->setMinimumSize( QSize( 70, 20 ) );
-	BottomR->setDecimals( decimals );
-	BottomR->setMaxValue( 1000 );
-	BottomR->setMinValue( 0 );
 	BottomR->setValue(Vor->RandUnten * Umrech);
 	RandB = Vor->RandUnten;
 	GroupRandLayout->addWidget( BottomR, 1, 1 );
-	RightR = new MSpinBox( GroupRand, 4 );
+	RightR = new MSpinBox( 0, 1000, GroupRand, decimals );
 	RightR->setMinimumSize( QSize( 70, 20 ) );
-	RightR->setDecimals( decimals );
-	RightR->setMaxValue( 1000 );
-	RightR->setMinValue( 0 );
 	RightR->setValue(Vor->RandRechts * Umrech);
 	RandR = Vor->RandRechts;
 	GroupRandLayout->addWidget( RightR, 1, 3 );
-	LeftR = new MSpinBox( GroupRand, 4 );
+	LeftR = new MSpinBox( 0, 1000, GroupRand, decimals );
 	LeftR->setMinimumSize( QSize( 70, 20 ) );
-	LeftR->setDecimals( decimals );
-	LeftR->setMaxValue( 1000 );
-	LeftR->setMinValue( 0 );
 	LeftR->setValue(Vor->RandLinks * Umrech);
 	RandL = Vor->RandLinks;
 	GroupRandLayout->addWidget( LeftR, 0, 3 );
@@ -433,25 +415,16 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	                                        TextLabel2->sizePolicy().hasHeightForWidth() ) );
 	TextLabel2->setText( tr( "Major Grid Spacing:" ) );
 	Layout10->addWidget( TextLabel2, 1, 0 );
-	SpinBox1 = new MSpinBox( GroupBox1, 4 );
-	SpinBox1->setDecimals( decimals );
-	SpinBox1->setMaxValue( 1000 * Umrech );
-	SpinBox1->setMinValue( 1 * Umrech );
+	SpinBox1 = new MSpinBox( Umrech, 1000 * Umrech, GroupBox1, decimals );
 	Layout10->addWidget( SpinBox1, 0, 1 );
-	SpinBox2 = new MSpinBox( GroupBox1, 4 );
-	SpinBox2->setDecimals( decimals );
-	SpinBox2->setMaxValue( 1000 * Umrech );
-	SpinBox2->setMinValue( 10  * Umrech);
+	SpinBox2 = new MSpinBox( 10 * Umrech, 1000 * Umrech, GroupBox1, decimals );
 	Layout10->addWidget( SpinBox2, 1, 1 );
 	TextLabel2g = new QLabel( GroupBox1, "TextLabel2" );
 	TextLabel2g->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1,
 	                            TextLabel2->sizePolicy().hasHeightForWidth() ) );
 	TextLabel2g->setText( tr( "Guide Snap Distance:" ) );
 	Layout10->addWidget( TextLabel2g, 2, 0 );
-	SpinBox2g = new MSpinBox( GroupBox1, 4 );
-	SpinBox2g->setDecimals( decimals );
-	SpinBox2g->setMaxValue( 1000 * Umrech );
-	SpinBox2g->setMinValue( 1 * Umrech );
+	SpinBox2g = new MSpinBox( Umrech, 1000 * Umrech, GroupBox1, decimals );
 	Layout10->addWidget( SpinBox2g, 2, 1 );
 	SpinBox2->setValue(ap->HaveDoc ? ap->doc->majorGrid * Umrech : Vor->DmajGrid * Umrech);
 	SpinBox1->setValue(ap->HaveDoc ? ap->doc->minorGrid * Umrech : Vor->DminGrid * Umrech);
@@ -678,19 +651,15 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	TextLabel2_3_3b = new QLabel( GroupBox4_3a, "TextLabel2_3_3" );
 	TextLabel2_3_3b->setText( tr( "Baseline Grid:" ) );
 	GroupBox4_3aLayout->addWidget( TextLabel2_3_3b, 0, 0 );
-	BaseGrid = new MSpinBox( GroupBox4_3a, 1 );
+	BaseGrid = new MSpinBox( 1, 100, GroupBox4_3a, 1 );
 	BaseGrid->setSuffix( tr( " pts" ) );
-	BaseGrid->setMaxValue( 100 );
-	BaseGrid->setMinValue( 1 );
 	BaseGrid->setValue(ap->HaveDoc ? ap->doc->BaseGrid : Vor->BaseGrid );
 	GroupBox4_3aLayout->addWidget( BaseGrid, 0, 1 );
 	TextLabel2_3_3c = new QLabel( GroupBox4_3a, "TextLabel2_3_3" );
 	TextLabel2_3_3c->setText( tr( "Baseline Offset:" ) );
 	GroupBox4_3aLayout->addWidget( TextLabel2_3_3c, 1, 0 );
-	BaseOffs = new MSpinBox( GroupBox4_3a, 1 );
+	BaseOffs = new MSpinBox( 0, 1000, GroupBox4_3a, 1 );
 	BaseOffs->setSuffix( tr( " pts" ) );
-	BaseOffs->setMaxValue( 1000 );
-	BaseOffs->setMinValue( 0 );
 	BaseOffs->setValue(ap->HaveDoc ? ap->doc->BaseOffs : Vor->BaseOffs );
 	GroupBox4_3aLayout->addWidget( BaseOffs, 1, 1 );
 	TextLabel2_3_3a = new QLabel( GroupBox4_3a, "TextLabel2_3_3" );
@@ -868,11 +837,8 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	TextGap = new QLabel(ToolFrame, "TextCol");
 	TextGap->setText( tr("Gap:") );
 	Layout15a->addWidget( TextGap, 4, 0 );
-	TextGapVal = new MSpinBox( ToolFrame, 1 );
+	TextGapVal = new MSpinBox( 0, 200, ToolFrame, decimals );
 	TextGapVal->setSuffix( tr( " pt" ) );
-	TextGapVal->setDecimals( decimals );
-	TextGapVal->setMaxValue( 200 );
-	TextGapVal->setMinValue( 0 );
 	TextGapVal->setValue(ap->HaveDoc ? ap->doc->DGap : Vor->DGap);
 	Layout15a->addWidget( TextGapVal, 4, 1 );
 	TextLabel1_4 = new QLabel( ToolFrame, "TextLabel1_4" );
@@ -992,10 +958,8 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 		break;
 	}
 	Layout15b->addWidget(Linestyle, 4, 1);
-	LineW = new MSpinBox( ToolFrame2, 1 );
+	LineW = new MSpinBox( 0, 36, ToolFrame2, 1 );
 	LineW->setSuffix( tr( " pt" ) );
-	LineW->setMaxValue( 36 );
-	LineW->setMinValue( 0 );
 	LineW->setValue(ap->HaveDoc ? ap->doc->Dwidth : Vor->Dwidth);
 	Layout15b->addWidget(LineW, 5, 1);
 	QSpacerItem* sp07 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -1078,10 +1042,8 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 		break;
 	}
 	Layout15c->addWidget(Linestyle2, 2, 1);
-	LineW2 = new MSpinBox( ToolFrame3, 1 );
+	LineW2 = new MSpinBox( 1, 36, ToolFrame3, 1 );
 	LineW2->setSuffix( tr( " pts" ) );
-	LineW2->setMaxValue( 36 );
-	LineW2->setMinValue( 1 );
 	LineW2->setValue(ap->HaveDoc ? ap->doc->DwidthLine : Vor->DwidthLine);
 	Layout15c->addWidget(LineW2, 3, 1);
 	QSpacerItem* sp05 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -1938,8 +1900,8 @@ void Preferences::setRight(int)
  */
 void Preferences::setSize(int gr)
 {
-	Pagebr = Breite->value();
-	Pageho = Hoehe->value();
+	Pagebr = Breite->value() / Umrech;
+	Pageho = Hoehe->value() / Umrech;
 	Breite->setEnabled(false);
 	Hoehe->setEnabled(false);
 	int br[] = {2380, 1684, 1190, 842, 595, 421, 297, 210, 148, 105, 2836, 2004, 1418, 1002, 709, 501, 355,
@@ -2201,32 +2163,41 @@ void Preferences::VChange()
  */
 void Preferences::UnitChange()
 {
-
 	disconnect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
 	disconnect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
 	disconnect(TopR, SIGNAL(valueChanged(int)), this, SLOT(setTop(int)));
 	disconnect(BottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom(int)));
 	disconnect(LeftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft(int)));
 	disconnect(RightR, SIGNAL(valueChanged(int)), this, SLOT(setRight(int)));
-	double AltUmrech = Umrech;
-	double oldS1 = SpinBox1->minValue() / AltUmrech;
-	double oldSM1 = SpinBox1->maxValue() / AltUmrech;
-	double oldSV1 = SpinBox1->value() / AltUmrech;
-	double oldS2 = SpinBox2->minValue() / AltUmrech;
-	double oldSM2 = SpinBox2->maxValue() / AltUmrech;
-	double oldSV2 = SpinBox2->value() / AltUmrech;
-	double oldS2g = SpinBox2g->minValue() / AltUmrech;
-	double oldSM2g = SpinBox2g->maxValue() / AltUmrech;
-	double oldSV2g = SpinBox2g->value() / AltUmrech;
-	double oldTG = TextGapVal->minValue() / AltUmrech;
-	double oldTGM = TextGapVal->maxValue() / AltUmrech;
-	double oldTGV = TextGapVal->value() / AltUmrech;
-	double oldB = Breite->minValue() / AltUmrech;
-	double oldBM = Breite->maxValue() / AltUmrech;
-	double oldH = Hoehe->minValue() / AltUmrech;
-	double oldHM = Hoehe->maxValue() / AltUmrech;
-	QString einh;
 	int decimals;
+	double AltUmrech = Umrech;
+	double oldS1, oldSM1, oldSV1, oldS2, oldSM2, oldSV2, oldS2g, oldSM2g, oldSV2g, oldTG, oldTGM, oldTGV, oldB, oldBM, oldH, oldHM, val;
+	SpinBox1->getValues(&oldS1, &oldSM1, &decimals, &oldSV1);
+	oldS1 /= AltUmrech;
+	oldSM1 /= AltUmrech;
+	oldSV1 /= AltUmrech;
+	SpinBox2->getValues(&oldS2, &oldSM2, &decimals, &oldSV2);
+	oldS2 /= AltUmrech;
+	oldSM2 /= AltUmrech;
+	oldSV2 /= AltUmrech;
+	SpinBox2g->getValues(&oldS2g, &oldSM2g, &decimals, &oldSV2g);
+	oldS2g /= AltUmrech;
+	oldSM2g /= AltUmrech;
+	oldSV2g /= AltUmrech;
+	TextGapVal->getValues(&oldTG, &oldTGM, &decimals, &oldTGV);
+	oldTG /= AltUmrech;
+	oldTGM /= AltUmrech;
+	oldTGV /= AltUmrech;
+	Breite->getValues(&oldB, &oldBM, &decimals, &val);
+	oldB /= AltUmrech;
+	oldBM /= AltUmrech;
+	Breite->getValues(&oldB, &oldBM, &decimals, &val);
+	oldB /= AltUmrech;
+	oldBM /= AltUmrech;
+	Hoehe->getValues(&oldH, &oldHM, &decimals, &val);
+	oldH /= AltUmrech;
+	oldHM /= AltUmrech;
+	QString einh;
 	Einheit = UnitCombo->currentItem();
 	switch (UnitCombo->currentItem())
 	{
@@ -2261,46 +2232,16 @@ void Preferences::UnitChange()
 	LeftR->setSuffix(einh);
 	RightR->setSuffix(einh);
 	TextGapVal->setSuffix(einh);
-
-	Breite->setDecimals (decimals);
-	Hoehe->setDecimals (decimals);
-	TopR->setDecimals (decimals);
-	BottomR->setDecimals (decimals);
-	LeftR->setDecimals (decimals);
-	RightR->setDecimals (decimals);
-	TextGapVal->setDecimals (decimals);
-	SpinBox1->setDecimals (decimals);
-	SpinBox2->setDecimals (decimals);
-	SpinBox2g->setDecimals (decimals);
-	SpinBox1->setMaxValue(oldSM1 * Umrech);
-	SpinBox1->setMinValue(oldS1 * Umrech);
-	SpinBox1->setValue(oldSV1 * Umrech);
-	SpinBox2->setMaxValue(oldSM2 * Umrech);
-	SpinBox2->setMinValue(oldS2 * Umrech);
-	SpinBox2->setValue(oldSV2 * Umrech);
-	SpinBox2g->setMaxValue(oldSM2g * Umrech);
-	SpinBox2g->setMinValue(oldS2g * Umrech);
-	SpinBox2g->setValue(oldSV2g * Umrech);
-	TextGapVal->setMaxValue(oldTGM * Umrech);
-	TextGapVal->setMinValue(oldTG * Umrech);
-	TextGapVal->setValue(oldTGV * Umrech);
-
-	Breite->setMinValue(oldB * Umrech);
-	Breite->setMaxValue(oldBM * Umrech);
-	Hoehe->setMinValue(oldH * Umrech);
-	Hoehe->setMaxValue(oldHM * Umrech);
-	Breite->setValue(Pagebr * Umrech);
-	Hoehe->setValue(Pageho * Umrech);
-
-	RightR->setMaxValue(Breite->value() - RandL * Umrech);
-	LeftR->setMaxValue(Breite->value() - RandR * Umrech);
-	TopR->setMaxValue(Hoehe->value() - RandB * Umrech);
-	BottomR->setMaxValue(Hoehe->value() - RandT * Umrech);
-
-	TopR->setValue(RandT * Umrech);
-	BottomR->setValue(RandB * Umrech);
-	LeftR->setValue(RandL * Umrech);
-	RightR->setValue(RandR * Umrech);
+	Breite->setValues(oldB * Umrech, oldBM * Umrech, decimals, Pagebr * Umrech);
+	Hoehe->setValues(oldH * Umrech, oldHM * Umrech, decimals, Pageho * Umrech);
+	TopR->setValues(0, Hoehe->value() - RandB * Umrech, decimals, RandT * Umrech);
+	BottomR->setValues(0, Hoehe->value() - RandT * Umrech, decimals, RandB * Umrech);
+	LeftR->setValues(0, Breite->value() - RandR * Umrech, decimals, RandL * Umrech);
+	RightR->setValues(0, Breite->value() - RandL * Umrech, decimals, RandR * Umrech);
+	TextGapVal->setValues(oldTG * Umrech, oldTGM * Umrech, decimals, oldTGV * Umrech);
+	SpinBox1->setValues(oldS1 * Umrech, oldSM1 * Umrech, decimals, oldSV1 * Umrech);
+	SpinBox2->setValues(oldS2 * Umrech, oldSM2 * Umrech, decimals, oldSV2 * Umrech);
+	SpinBox2g->setValues(oldS2g * Umrech, oldSM2g * Umrech, decimals, oldSV2g * Umrech);
 	DrawRuler();
 	connect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
 	connect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));

@@ -1,7 +1,10 @@
 Changes since Version 1.1.7
 
 13.07.2004
+	* bug     #756: Scribus does not honor settings for custom page sizes
+	* bug     #850: moving grouped vector elements imported from large-scale eps
 	* bug     #859: New File with Custom Page Size and mm, page size gets smaller when switching portrait and landscape
+	* feature #848: Baseline Grid Behaviour
 	* feature #856: Translation update for German
 	* feature #857: Polish Translation Update
 

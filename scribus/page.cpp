@@ -568,13 +568,13 @@ void Page::DrawPageMarks(ScPainter *p, QRect rd)
 	{
 		if (XGuides.count() != 0)
 		{
-			p->setPen(doku->guideColor, lw, SolidLine, FlatCap, MiterJoin);
+			p->setPen(doku->guideColor, lw, DotLine, FlatCap, MiterJoin);
 			for (uint xg = 0; xg < XGuides.count(); ++xg)
 				p->drawLine(FPoint(XGuides[xg], 0), FPoint(XGuides[xg], doku->PageH));
 		}
 		if (YGuides.count() != 0)
 		{
-			p->setPen(doku->guideColor, lw, SolidLine, FlatCap, MiterJoin);
+			p->setPen(doku->guideColor, lw, DotLine, FlatCap, MiterJoin);
 			for (uint yg = 0; yg < YGuides.count(); ++yg)
 				p->drawLine(FPoint(0, YGuides[yg]), FPoint(doku->PageB, YGuides[yg]));
 		}
@@ -3039,65 +3039,62 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 			{
 				if (mCG)
 				{
-					double gx, gy, gh, gw, mx, my, scx, scy;
+					double gx, gy, gh, gw, nx, ny, scx, scy;
 					getGroupRect(&gx, &gy, &gw, &gh);
 					double sc = doku->Scale;
 					QPoint np2 = QPoint(static_cast<int>(m->x()/sc), static_cast<int>(m->y()/sc));
-					double nx = np2.x();
-					double ny = np2.y();
+					nx = np2.x();
+					ny = np2.y();
 					if (!ApplyGuides(&nx, &ny))
 					{
 						np2 = ApplyGrid(np2);
 						nx = np2.x();
 						ny = np2.y();
 					}
-					np2 = QPoint(qRound(nx*sc), qRound(ny*sc));
-					mx = np2.x();
-					my = np2.y();
 					switch (HowTo)
 					{
 						case 1:
-							scx = fabs(mx-gx) / gw;
-							scy = fabs(my-gy) / gh;
+							scx = fabs(nx-gx) / gw;
+							scy = fabs(ny-gy) / gh;
 							break;
 						case 2:
-							scx = fabs(mx-(gx+gw)) / gw;
-							scy = fabs(my-(gy+gh)) / gh;
+							scx = fabs(nx-(gx+gw)) / gw;
+							scy = fabs(ny-(gy+gh)) / gh;
 							break;
 						case 3:
-							scx = fabs(mx-gx) / gw;
-							scy = fabs(my-(gy+gh)) / gh;
+							scx = fabs(nx-gx) / gw;
+							scy = fabs(ny-(gy+gh)) / gh;
 							break;
 						case 4:
-							scx = fabs(mx-(gx+gw)) / gw;
-							scy = fabs(my-gy) / gh;
+							scx = fabs(nx-(gx+gw)) / gw;
+							scy = fabs(ny-gy) / gh;
 							break;
 						case 5:
 							scx = 1.0;
-							scy = fabs(my-gy) / gh;
+							scy = fabs(ny-gy) / gh;
 							break;
 						case 6:
-							scx = fabs(mx-gx) / gw;
+							scx = fabs(nx-gx) / gw;
 							scy = 1.0;
 							break;
 						case 7:
-							scx = fabs(mx-(gx+gw)) / gw;
+							scx = fabs(nx-(gx+gw)) / gw;
 							scy = 1.0;
 							break;
 						case 8:
 							scx = 1.0;
-							scy = fabs(my-(gy+gh)) / gh;
+							scy = fabs(ny-(gy+gh)) / gh;
 							break;
 					}
 					RotMode = doku->RotMode;
 					doku->RotMode = 0;
 					scaleGroup(scx, scy);
 					if ((HowTo == 3) || (HowTo == 8))
-						moveGroup(0, my-gy);
+						moveGroup(0, ny-gy);
 					if (HowTo == 2)
-						moveGroup(mx-gx, my-gy);
+						moveGroup(nx-gx, ny-gy);
 					if ((HowTo == 7) || (HowTo == 4))
-						moveGroup(mx-gx, 0);
+						moveGroup(nx-gx, 0);
 					doku->RotMode = RotMode;
 				}
 			}

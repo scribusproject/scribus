@@ -13,19 +13,19 @@ NewDoc::NewDoc( QWidget* parent, preV *Vor )
 	{
 	case 0:
 		Umrech = 1.0;
-		decimals = 100;
+		decimals = 2;
 		break;
 	case 1:
 		Umrech = 0.3527777;
-		decimals = 1000;
+		decimals = 3;
 		break;
 	case 2:
 		Umrech = 1.0 / 72.0;
-		decimals = 10000;
+		decimals = 4;
 		break;
 	case 3:
 		Umrech = 1.0 / 12.0;
-		decimals = 100;
+		decimals = 2;
 		break;
 	}
 	einheit = Vor->Einheit;
@@ -70,24 +70,18 @@ NewDoc::NewDoc( QWidget* parent, preV *Vor )
 	TextLabel1_2 = new QLabel( ButtonGroup1_2, "TextLabel1_2" );
 	TextLabel1_2->setText( tr( "Width:" ) );
 	Layout5->addWidget( TextLabel1_2 );
-	Breite = new MSpinBox( ButtonGroup1_2, 4 );
+	Breite = new MSpinBox( 1, 10000, ButtonGroup1_2, decimals );
 	Breite->setEnabled( false );
 	Breite->setMinimumSize( QSize( 70, 20 ) );
-	Breite->setDecimals( decimals );
 	Breite->setSuffix(ein);
-	Breite->setMaxValue( 10000 );
-	Breite->setMinValue( 1 );
 	Layout5->addWidget( Breite );
 	TextLabel2_2 = new QLabel( ButtonGroup1_2, "TextLabel2_2" );
 	TextLabel2_2->setText( tr( "Height:" ) );
 	Layout5->addWidget( TextLabel2_2 );
-	Hoehe = new MSpinBox( ButtonGroup1_2, 4 );
+	Hoehe = new MSpinBox( 1, 10000, ButtonGroup1_2, decimals );
 	Hoehe->setEnabled( false );
 	Hoehe->setMinimumSize( QSize( 70, 20 ) );
-	Hoehe->setDecimals( decimals );
 	Hoehe->setSuffix(ein);
-	Hoehe->setMaxValue( 10000 );
-	Hoehe->setMinValue( 1 );
 	Layout5->addWidget( Hoehe );
 	ButtonGroup1_2Layout->addLayout( Layout5 );
 	Layout8 = new QHBoxLayout( 0, 0, 6, "Layout8");
@@ -126,39 +120,27 @@ NewDoc::NewDoc( QWidget* parent, preV *Vor )
 	TextLabel7 = new QLabel( GroupBox7, "TextLabel7" );
 	TextLabel7->setText( tr( "Bottom:" ) );
 	Layout3->addWidget( TextLabel7, 1, 0 );
-	TopR = new MSpinBox( GroupBox7, 4 );
+	TopR = new MSpinBox( 0, 1000, GroupBox7, decimals );
 	TopR->setMinimumSize( QSize( 70, 20 ) );
-	TopR->setDecimals( decimals );
-	TopR->setMaxValue( 1000 );
-	TopR->setMinValue( 0 );
 	TopR->setSuffix( ein );
 	TopR->setValue(Vor->RandOben * Umrech);
 	Top = Vor->RandOben;
 	Layout3->addWidget( TopR, 0, 1 );
-	BottomR = new MSpinBox( GroupBox7, 4 );
+	BottomR = new MSpinBox( 0, 1000, GroupBox7, decimals );
 	BottomR->setMinimumSize( QSize( 70, 20 ) );
-	BottomR->setDecimals( decimals );
 	BottomR->setSuffix( ein );
-	BottomR->setMaxValue( 1000 );
-	BottomR->setMinValue( 0 );
 	BottomR->setValue(Vor->RandUnten * Umrech);
 	Bottom = Vor->RandUnten;
 	Layout3->addWidget( BottomR, 1, 1 );
-	LeftR = new MSpinBox( GroupBox7, 4 );
+	LeftR = new MSpinBox( 0, 1000, GroupBox7, decimals );
 	LeftR->setMinimumSize( QSize( 70, 20 ) );
-	LeftR->setDecimals( decimals );
 	LeftR->setSuffix( ein );
-	LeftR->setMaxValue( 1000 );
-	LeftR->setMinValue( 0 );
 	LeftR->setValue(Vor->RandLinks * Umrech);
 	Left = Vor->RandLinks;
 	Layout3->addWidget( LeftR, 0, 3 );
-	RightR = new MSpinBox( GroupBox7, 4 );
+	RightR = new MSpinBox( 0, 1000, GroupBox7, decimals );
 	RightR->setMinimumSize( QSize( 70, 20 ) );
-	RightR->setDecimals( decimals );
 	RightR->setSuffix( ein );
-	RightR->setMaxValue( 1000 );
-	RightR->setMinValue( 0 );
 	RightR->setValue(Vor->RandRechts * Umrech);
 	Right = Vor->RandRechts;
 	Layout3->addWidget( RightR, 1, 3 );
@@ -225,10 +207,8 @@ NewDoc::NewDoc( QWidget* parent, preV *Vor )
 	TextLabel3 = new QLabel( GroupBox4, "TextLabel3" );
 	TextLabel3->setText( tr( "Columns:" ) );
 	Layout2->addWidget( TextLabel3, 0, 0 );
-	Distance = new MSpinBox( GroupBox4, 4 );
-	Distance->setDecimals( decimals );
+	Distance = new MSpinBox( 0, 1000, GroupBox4, decimals );
 	Distance->setSuffix( ein );
-	Distance->setMaxValue( 1000 );
 	Distance->setValue(11 * Umrech);
 	Dist = 11;
 	Layout2->addWidget( Distance, 1, 1, Qt::AlignLeft );
@@ -362,12 +342,20 @@ void NewDoc::setUnit(int u)
 	QString units[] = { tr(" pt"), tr(" mm"), tr(" in"), tr(" p")};
 	ein = units[u];
 	int decimals;
-
 	double AltUmrech = Umrech;
-	double oldB = Breite->minValue() / AltUmrech;
-	double oldBM = Breite->maxValue() / AltUmrech;
-	double oldH = Hoehe->minValue() / AltUmrech;
-	double oldHM = Hoehe->maxValue() / AltUmrech;
+	double val, oldB, oldBM, oldH, oldHM;
+	disconnect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
+	disconnect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
+	disconnect(TopR, SIGNAL(valueChanged(int)), this, SLOT(setTop(int)));
+	disconnect(BottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom(int)));
+	disconnect(LeftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft(int)));
+	disconnect(RightR, SIGNAL(valueChanged(int)), this, SLOT(setRight(int)));
+	Breite->getValues(&oldB, &oldBM, &decimals, &val);
+	oldB /= AltUmrech;
+	oldBM /= AltUmrech;
+	Hoehe->getValues(&oldH, &oldHM, &decimals, &val);
+	oldH /= AltUmrech;
+	oldHM /= AltUmrech;
 	switch (u)
 	{
 	case 0:
@@ -388,35 +376,12 @@ void NewDoc::setUnit(int u)
 		break;
 	}
 	einheit = u;
-
-	Breite->setDecimals( decimals );
-	Hoehe->setDecimals( decimals );
-	RightR->setDecimals( decimals );
-	LeftR->setDecimals( decimals );
-	TopR->setDecimals( decimals );
-	BottomR->setDecimals( decimals );
-	Distance->setDecimals( decimals );
-
-	disconnect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
-	disconnect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
-	disconnect(TopR, SIGNAL(valueChanged(int)), this, SLOT(setTop(int)));
-	disconnect(BottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom(int)));
-	disconnect(LeftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft(int)));
-	disconnect(RightR, SIGNAL(valueChanged(int)), this, SLOT(setRight(int)));
-	Breite->setMinValue(oldB * Umrech);
-	Breite->setMaxValue(oldBM * Umrech);
-	Hoehe->setMinValue(oldH * Umrech);
-	Hoehe->setMaxValue(oldHM * Umrech);
-	Breite->setValue(Pagebr * Umrech);
-	Hoehe->setValue(Pageho * Umrech);
-	RightR->setMaxValue(Breite->value() - Left * Umrech);
-	LeftR->setMaxValue(Breite->value() - Right * Umrech);
-	TopR->setMaxValue(Hoehe->value() - Bottom * Umrech);
-	BottomR->setMaxValue(Hoehe->value() - Top * Umrech);
-	TopR->setValue(Top * Umrech);
-	BottomR->setValue(Bottom * Umrech);
-	LeftR->setValue(Left * Umrech);
-	RightR->setValue(Right * Umrech);
+	Breite->setValues(oldB * Umrech, oldBM * Umrech, decimals, Pagebr * Umrech);
+	Hoehe->setValues(oldH * Umrech, oldHM * Umrech, decimals, Pageho * Umrech);
+	RightR->setValues(0, Breite->value() - Left * Umrech, decimals, Right * Umrech);
+	LeftR->setValues(0, Breite->value() - Right * Umrech, decimals, Left * Umrech);
+	TopR->setValues(0, Hoehe->value() - Bottom * Umrech, decimals, Top * Umrech);
+	BottomR->setValues(0, Hoehe->value() - Top * Umrech, decimals, Bottom * Umrech);
 	connect(TopR, SIGNAL(valueChanged(int)), this, SLOT(setTop(int)));
 	connect(BottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom(int)));
 	connect(LeftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft(int)));
