@@ -932,7 +932,7 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 		}
 	while (a != bis)
 		{
-		p->PS_begin_page(Doc->PageB, Doc->PageH, &Pages.at(a)->Margins);
+		p->PS_begin_page(Doc->PageB, Doc->PageH, &Pages.at(a)->Margins, Prefs->ClipMargin);
 		if (Hm)
 			{
 			p->PS_translate(Doc->PageB, 0);

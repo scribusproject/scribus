@@ -60,6 +60,7 @@
 #include "splash.h"
 class Autoforms;
 class FontCombo;
+class StilFormate;
 
 /**
   * This Class is the base class for your application. It sets up the main
@@ -366,6 +367,7 @@ public slots:
 	void slotFontOrg();
 	void slotPrefsOrg();
 	void slotEditStyles();
+	void saveStyles(StilFormate *dia);
 	void slotEditLineStyles();
 	void setNewAbStyle(int a);
 	void setAbsValue(int a);

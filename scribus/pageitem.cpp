@@ -962,7 +962,6 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					if ((hl->ch == QChar(13)) || (outs))
 						{
 						RTab = false;
-//						StartOfCol = false;
 						TabCode = 0;
 						if (outs)
 							{
@@ -1207,7 +1206,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 								SetFarbe(&tmp, Zli2->Farb2, Zli2->shade2);
 								p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
 								}
-							if ((Zli2->Sele) && (Doc->AppMode == 7) && (Select))
+							if ((((Zli2->Sele) && (Select)) || (((NextBox != 0) || (BackBox != 0)) && (Zli2->Sele))) && (Doc->AppMode == 7))
 								{
 								wide = Zli2->wide;
 								desc = static_cast<int>((*Doc->AllFonts)[Zli2->ZFo]->numDescender * (-Zli2->Siz / 10.0));
@@ -1294,7 +1293,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						SetFarbe(&tmp, Zli2->Farb2, Zli2->shade2);
 						p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
 						}
-					if ((Zli2->Sele) && (Doc->AppMode == 7) && (Select))
+					if ((((Zli2->Sele) && (Select)) || (((NextBox != 0) || (BackBox != 0)) && (Zli2->Sele))) && (Doc->AppMode == 7))
 						{
 						wide = Zli2->wide;
 						desc = qRound((*Doc->AllFonts)[Zli2->ZFo]->numDescender * (-Zli2->Siz / 10.0));

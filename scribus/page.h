@@ -103,7 +103,7 @@ public:
 	void AdjustItemSize(PageItem *b);
 	bool GetItem(PageItem **b, int nr = -1);
 	void MoveRotated(PageItem *b, FPoint npv);
-	void AdjustPictScale(PageItem *b);
+	void AdjustPictScale(PageItem *b, bool reload = true);
 	bool SizeItem(double newX, double newY, int ite, bool fromMP = false, bool DoUpdateClip = true);
 	bool MoveSizeItem(FPoint newX, FPoint newY, int ite);
 	void RotateGroup(double win);
@@ -117,7 +117,7 @@ public:
 	void RefreshItem(PageItem *b, bool single = false);
 	void RepaintTextRegion(PageItem *b, QRegion alt, bool single = false);
 	void EmitValues(PageItem *b);
-	void AdjustPreview(PageItem *b);
+	void AdjustPreview(PageItem *b, bool reload = true);
 	void FromHRuler(QMouseEvent *m);
 	void FromVRuler(QMouseEvent *m);
 	void SetYGuide(QMouseEvent *m);

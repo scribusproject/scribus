@@ -89,6 +89,34 @@ int main(int argc, char *argv[])
             }
         }
     }
+/*    if (useGui)
+    {
+// Please Test this carefully and report problems.
+// if this works we can add it to the CVS
+// Currently disabled because of trouble with accented Filenames.
+      // jjsa added on 8-mar-2004
+      if ( lang == "" )
+        {
+        // if we have .UTF-8 we will have problems
+        // with compose key, at least for european
+        // languages
+        lang = getenv("LANG");
+        lang = lang.left(5);
+        QString nlang = "LANG="+lang.left(5);
+        putenv((char*)nlang.ascii());
+        }
+      else
+        {
+        // in order to install the language correctly
+        // we must put this to the environment
+        // sp the LC_... variabls will also be set
+        // correctly
+        QString nlang = "LANG="+lang;
+        putenv((char*)nlang.ascii());
+        }
+      // jjsa end off add
+      return mainGui(argc, argv);
+    } */
 
     if (useGui)
         return mainGui(argc, argv);

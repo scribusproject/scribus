@@ -182,7 +182,6 @@ public:
 	QFrame* Frame6;
 	QWidget* tab_6;
 	QGroupBox* GroupBox10;
-	QCheckBox* FramesVisible;
 	QCheckBox* SidebySide;
 	QCheckBox* RandFarb;
 	QFrame* ToolFrame6;
@@ -236,6 +235,9 @@ public:
 	QGroupBox* groupGimp;
 	QLabel* GimpText;
 	QLineEdit* GimpName;
+	QWidget* Misc;
+	QGroupBox* groupPrint;
+	QCheckBox* ClipMarg;
 	
 	SCFonts *fon; // can't use a reference, and can't copy whole structure...
 	double Umrech;
@@ -361,6 +363,8 @@ protected:
 	QVBoxLayout* groupGSLayout;
 	QHBoxLayout* GSlayout;
 	QHBoxLayout* groupGimpLayout;
+	QVBoxLayout* MiscLayout;
+	QVBoxLayout* groupPrintLayout;
 };
 
 #endif // PREFS_H

@@ -3084,11 +3084,13 @@ void ScriXmlDoc::WritePref(preV *Vor, QString ho)
 	dc.setAttribute("GRAB",Vor->GrabRad);
 	dc.setAttribute("UNIT",Vor->Einheit);
 	dc.setAttribute("SBS", Vor->PagesSbS);
-	dc.setAttribute("FRV", Vor->ShFrames);
 	dc.setAttribute("RCD", Vor->RecentDCount);
 	dc.setAttribute("DOC", Vor->DocDir);
 	dc.setAttribute("PROFILES", Vor->ProfileDir);
 	dc.setAttribute("SCRIPTS", Vor->ScriptDir);
+	dc.setAttribute("SHOWGUIDES", static_cast<int>(Vor->GuidesShown));
+	dc.setAttribute("FRV", static_cast<int>(Vor->FramesShown));
+	dc.setAttribute("SHOWMARGIN", static_cast<int>(Vor->MarginsShown));
 	elem.appendChild(dc);
 	QDomElement dc1=docu.createElement("GRID");
 	dc1.setAttribute("MINOR",Vor->DminGrid);
@@ -3098,6 +3100,7 @@ void ScriXmlDoc::WritePref(preV *Vor, QString ho)
 	dc1.setAttribute("GuideC", Vor->guideColor.name());
 	dc1.setAttribute("GuideZ", Vor->GuideRad);
 	dc1.setAttribute("BACKG", static_cast<int>(Vor->Before));
+	dc1.setAttribute("SHOW", static_cast<int>(Vor->GridShown));
 	elem.appendChild(dc1);
 	QDomElement dc1a=docu.createElement("PAGE");
 	dc1a.setAttribute("PAGEC",Vor->DpapColor.name());
@@ -3228,6 +3231,7 @@ void ScriXmlDoc::WritePref(preV *Vor, QString ho)
 	dc82.setAttribute("NAME",Vor->PrinterName);
 	dc82.setAttribute("FILE",Vor->PrinterFile);
 	dc82.setAttribute("COMMAND",Vor->PrinterCommand);
+	dc82.setAttribute("CLIPMARGIN", static_cast<int>(Vor->ClipMargin));
 	elem.appendChild(dc82);
 	QDomElement dc8Pr=docu.createElement("PRINTPREVIEW");
 	dc8Pr.setAttribute("Mode", static_cast<int>(Vor->PrPr_Mode));
@@ -3335,12 +3339,14 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 			Vorein->GrabRad = QStoInt(dc.attribute("GRAB","4"));
 			Vorein->Einheit = QStoInt(dc.attribute("UNIT","0"));
 			Vorein->PagesSbS = QStoInt(dc.attribute("SBS","1"));
-			Vorein->ShFrames = QStoInt(dc.attribute("FRV","1"));
 			Vorein->AppFontSize = QStoInt(dc.attribute("APF","12"));
 			Vorein->RecentDCount = dc.attribute("RCD","5").toUInt();
 			Vorein->DocDir = dc.attribute("DOC","");
 			Vorein->ProfileDir = dc.attribute("PROFILES","");
 			Vorein->ScriptDir = dc.attribute("SCRIPTS","");
+			Vorein->GuidesShown = static_cast<bool>(QStoInt(dc.attribute("SHOWGUIDES","1")));
+			Vorein->FramesShown = static_cast<bool>(QStoInt(dc.attribute("FRV","1")));
+			Vorein->MarginsShown = static_cast<bool>(QStoInt(dc.attribute("SHOWMARGIN","1")));
 		}
 		if (dc.tagName()=="GRID")
 		{
@@ -3349,6 +3355,7 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 			Vorein->DminColor = QColor(dc.attribute("MINORC"));
 			Vorein->DmajColor = QColor(dc.attribute("MAJORC"));
 			Vorein->Before = static_cast<bool>(QStoInt(dc.attribute("BACKG","1")));
+			Vorein->GridShown = static_cast<bool>(QStoInt(dc.attribute("SHOW","0")));
 			if (dc.hasAttribute("GuideC"))
 				Vorein->guideColor = QColor(dc.attribute("GuideC"));
 			if (dc.hasAttribute("GuideZ"))
@@ -3498,6 +3505,7 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 			Vorein->PrinterName = dc.attribute("NAME");
 			Vorein->PrinterFile = dc.attribute("FILE");
 			Vorein->PrinterCommand = dc.attribute("COMMAND");
+			Vorein->ClipMargin = static_cast<bool>(QStoInt(dc.attribute("CLIPMARGIN", "1")));
 		}
 		if (dc.tagName()=="PRINTPREVIEW")
 		{

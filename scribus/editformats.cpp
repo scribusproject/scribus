@@ -54,6 +54,10 @@ StilFormate::StilFormate( QWidget* parent, ScribusDoc *doc, preV *avail)
     SaveB->setText( tr( "Save" ) );
     Layout15->addWidget( SaveB );
 
+    ExitB = new QPushButton( this, "ExitB" );
+    ExitB->setText( tr( "Leave" ) );
+    Layout15->addWidget( ExitB );
+
     CancelB = new QPushButton( this, "CancelB" );
     CancelB->setText( tr( "Cancel" ) );
     Layout15->addWidget( CancelB );
@@ -63,7 +67,8 @@ StilFormate::StilFormate( QWidget* parent, ScribusDoc *doc, preV *avail)
 
     // signals and slots connections
     connect(CancelB, SIGNAL(clicked()), this, SLOT(reject()));
-    connect(SaveB, SIGNAL(clicked()), this, SLOT(accept()));
+    connect(SaveB, SIGNAL(clicked()), this, SLOT(saveIt()));
+    connect(ExitB, SIGNAL(clicked()), this, SLOT(accept()));
     connect(EditB, SIGNAL(clicked()), this, SLOT(editFormat()));
     connect(NewB, SIGNAL(clicked()), this, SLOT(neuesFormat()));
     connect(LoadS, SIGNAL(clicked()), this, SLOT(loadStyles()));
@@ -72,6 +77,11 @@ StilFormate::StilFormate( QWidget* parent, ScribusDoc *doc, preV *avail)
     connect(ListBox1, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selFormat(QListBoxItem*)));
     TempVorl = doc->Vorlagen;
     UpdateFList();
+}
+
+void StilFormate::saveIt()
+{
+	emit saveStyle(this);
 }
 
 void StilFormate::selFormat(QListBoxItem *c)

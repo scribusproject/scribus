@@ -67,7 +67,7 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	PrefsLayout2 = new QHBoxLayout(0, 0, 6);
 
 	TabListe = new QListBox(this, "StyledL");
-	QString ar_tab[] = { tr("General"), tr("Document"), tr("Guides"), tr("Typography"), tr("Tools"), tr("Scrapbook"), tr("Display"), tr("External Tools")};
+	QString ar_tab[] = { tr("General"), tr("Document"), tr("Guides"), tr("Typography"), tr("Tools"), tr("Scrapbook"), tr("Display"), tr("External Tools"), tr("Misc.")};
 	size_t a_tab = sizeof(ar_tab) / sizeof(*ar_tab);
 	for (uint s = 0; s < a_tab; ++s)
 		TabListe->insertItem(ar_tab[s]);
@@ -1348,10 +1348,6 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	GroupBox10Layout->setAlignment( Qt::AlignTop );
 	GroupBox10Layout->setSpacing( 6 );
 	GroupBox10Layout->setMargin( 11 );
-	FramesVisible = new QCheckBox( GroupBox10, "FramesVisible" );
-	FramesVisible->setText( tr( "Display Frames" ) );
-	FramesVisible->setChecked(ap->HaveDoc ? ap->doc->ShFrames : Vor->ShFrames);
-	GroupBox10Layout->addWidget( FramesVisible );
 	SidebySide = new QCheckBox( GroupBox10, "SidebySide" );
 	SidebySide->setText( tr( "Display Pages Side by Side" ) );
 	SidebySide->setChecked(ap->HaveDoc ? ap->doc->PagesSbS : Vor->PagesSbS);
@@ -1486,7 +1482,25 @@ Preferences::Preferences( QWidget* parent, preV *Vor)
 	QSpacerItem* spacer_gs = new QSpacerItem( 0, 1, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	ExtToolLayout->addItem( spacer_gs );
 	TabWidget3->addWidget( ExtTool, 7 );
-	
+
+	Misc = new QWidget( TabWidget3, "Misc" );
+	MiscLayout = new QVBoxLayout( Misc, 11, 6, "MiscLayout"); 
+	groupPrint = new QGroupBox( Misc, "groupPrint" );
+	groupPrint->setTitle( tr( "Printing" ) );
+	groupPrint->setColumnLayout(0, Qt::Vertical );
+	groupPrint->layout()->setSpacing( 10 );
+	groupPrint->layout()->setMargin( 10 );
+	groupPrintLayout = new QVBoxLayout( groupPrint->layout() );
+	groupPrintLayout->setAlignment( Qt::AlignTop );
+	ClipMarg = new QCheckBox( groupPrint, "ClipMarg" );
+	ClipMarg->setText( tr( "Clip to Page Margins" ) );
+	ClipMarg->setChecked(Vor->ClipMargin);
+	groupPrintLayout->addWidget( ClipMarg );
+	MiscLayout->addWidget( groupPrint );
+	QSpacerItem* spacer_3m = new QSpacerItem( 0, 1, QSizePolicy::Minimum, QSizePolicy::Expanding );
+	MiscLayout->addItem( spacer_3m );
+	TabWidget3->addWidget( Misc, 8 );
+
 	Fram->raiseWidget(1);
 
 	PrefsLayout2->addWidget( TabWidget3 );

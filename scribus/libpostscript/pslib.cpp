@@ -336,14 +336,19 @@ void PSLib::PS_TemplateEnd()
 	PutDoc(">> def\n");
 }
 
-void PSLib::PS_begin_page(double breite, double hoehe, struct Margs* Ma)
+void PSLib::PS_begin_page(double breite, double hoehe, struct Margs* Ma, bool Clipping)
 {
-	PDev = ToStr(Ma->Left) + " " + ToStr(Ma->Bottom) + " m\n";
-	PDev += ToStr(breite - Ma->Right) + " " + ToStr(Ma->Bottom) + " li\n";
-	PDev += ToStr(breite - Ma->Right) + " " + ToStr(hoehe - Ma->Top) + " li\n";
-	PDev += ToStr(Ma->Left) + " " + ToStr(hoehe - Ma->Top) + " li cl clip newpath\n";
+	if (Clipping)
+	{
+		PDev = ToStr(Ma->Left) + " " + ToStr(Ma->Bottom) + " m\n";
+		PDev += ToStr(breite - Ma->Right) + " " + ToStr(Ma->Bottom) + " li\n";
+		PDev += ToStr(breite - Ma->Right) + " " + ToStr(hoehe - Ma->Top) + " li\n";
+		PDev += ToStr(Ma->Left) + " " + ToStr(hoehe - Ma->Top) + " li cl clip newpath\n";
+	}
 	Seiten++;
-	PutSeite("%%Page: " + IToStr(Seiten) + " " + IToStr(Seiten) + "\nsave\n" + PDev);
+	PutSeite("%%Page: " + IToStr(Seiten) + " " + IToStr(Seiten) + "\nsave\n");
+	if (Clipping)
+		PutSeite(PDev);
   	PutSeite("/DeviceCMYK setcolorspace\n");
 }
 

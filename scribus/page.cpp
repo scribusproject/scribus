@@ -859,7 +859,7 @@ void Page::RepaintTextRegion(PageItem *b, QRegion alt, bool single)
 	}
 }
 
-void Page::AdjustPreview(PageItem *b)
+void Page::AdjustPreview(PageItem *b, bool reload)
 {
 	int neww, newh, fho, fvo;
 	bool savF;
@@ -880,6 +880,13 @@ void Page::AdjustPreview(PageItem *b)
 					b->LocalViewX = b->LocalScX;
 					b->LocalViewY = b->LocalScY;
 				}
+				else if (reload == false ) // jjsa begin
+				{
+					b->OrigW = b->pixm.width();
+					b->OrigH  = b->pixm.height();
+					b->LocalViewX = b->LocalScX;
+					b->LocalViewY = b->LocalScY; // jjsa end
+				}
 				else
 					LoadPict(b->Pfile, b->ItemNr);
 				b->flippedH = fho;
@@ -894,7 +901,7 @@ void Page::AdjustPreview(PageItem *b)
 		}
 	}
 }
-void Page::AdjustPictScale(PageItem *b)
+void Page::AdjustPictScale(PageItem *b, bool reload)
 {
 	if (b->ScaleType)
 		return;
@@ -917,7 +924,14 @@ void Page::AdjustPictScale(PageItem *b)
 			b->LocalViewX = b->LocalScX;
 			b->LocalViewY = b->LocalScY;
 		}
-		else
+		else if ( reload == false ) // jjsa begin
+			{
+			b->OrigW = b->pixm.width();
+			b->OrigH  = b->pixm.height();
+			b->LocalViewX = b->LocalScX;
+			b->LocalViewY = b->LocalScY;
+			}
+		else // jjsa end
 			LoadPict(b->Pfile, b->ItemNr);
 		b->flippedH = fho;
 		b->flippedV = fvo;
@@ -1098,7 +1112,7 @@ bool Page::SizeItem(double newX, double newY, int ite, bool fromMP, bool DoUpdat
 	if ((b->PType == 2) && (!b->Sizing) && (!doku->EditClip))
 	{
 		AdjustPictScale(b);
-		AdjustPreview(b);
+		AdjustPreview(b, false);
 	}
 	if (b->PType == 5)
 	{
@@ -2563,7 +2577,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 					if (b->PType == 2)
 					{
 						AdjustPictScale(b);
-						AdjustPreview(b);
+						AdjustPreview(b, false);
 					}
 					UpdateClip(b);
 					emit ItemTextCols(b->Cols, b->ColGap);
@@ -6342,7 +6356,7 @@ void Page::UpdatePic()
 			b->pixmOrg = QImage();
 			LoadPict(b->Pfile, b->ItemNr);
 			AdjustPictScale(b);
-			AdjustPreview(b);
+			AdjustPreview(b, false);
 			update();
 		}
 	}
@@ -6414,7 +6428,7 @@ void Page::GimpExited()
 		{
 			LoadPict(b->Pfile, b->ItemNr);
 			AdjustPictScale(b);
-			AdjustPreview(b);
+			AdjustPreview(b, false);
 			update();
 		}
 	}
@@ -6439,6 +6453,9 @@ void Page::CallGimp()
 			{
 				delete proc;
 				proc = 0;
+				QString mess = tr("The Program")+" "+ScApp->Prefs.gimp_exe;
+				mess += "\n" + tr("is missing!");
+				QMessageBox::critical(this, tr("Warning"), mess, 1, 0, 0);
 				return;
 			}
 			qApp->mainWidget()->setEnabled(false);
@@ -6981,7 +6998,7 @@ void Page::PasteItem(struct CLBuf *Buffer, bool loading, bool drag)
 	if (b->PType == 2)
 	{
 		AdjustPictScale(b);
-		AdjustPreview(b);
+		AdjustPreview(b, false);
 	}
 	if ((b->PType != 4) && (b->PType != 8))
 		b->IFont = doku->Dfont;

@@ -332,7 +332,11 @@ void ScribusApp::initScribus()
 		Prefs.Lpaly = 0;
 	  Prefs.PSize = 40;
 	  Prefs.SaveAtQ = true;
-	  Prefs.ShFrames = true;
+	  Prefs.FramesShown = true;
+	  Prefs.GridShown = false;
+	  Prefs.MarginsShown = true;
+	  Prefs.GuidesShown = true;
+	  Prefs.ClipMargin = true;
 	  Prefs.PagesSbS = true;
 	  Prefs.RecentDocs.clear();
 	  Prefs.RecentDCount = 5;
@@ -503,7 +507,6 @@ void ScribusApp::initScribus()
 		connect(Tpal, SIGNAL(SelectElement(int, int)), this, SLOT(SelectFromOutl(int, int)));
 		connect(Tpal, SIGNAL(SelectSeite(int)), this, SLOT(SelectFromOutlS(int)));
 		connect(Mpal->Spal, SIGNAL(NewStyle(int)), this, SLOT(setNewAbStyle(int)));
-		connect(Mpal->Spal, SIGNAL(EditSt()), this, SLOT(slotEditStyles()));
 		connect(Mpal, SIGNAL(EditLSt()), this, SLOT(slotEditLineStyles()));
 		connect(Npal, SIGNAL(Schliessen()), this, SLOT(NoFrameEdit()));
 		connect(Lpal, SIGNAL(LayerActivated(int)), this, SLOT(changeLayer(int)));
@@ -1652,7 +1655,6 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	doc->AspectRatio = Prefs.AspectRatio;
 	doc->Before = Prefs.Before;
 	doc->PagesSbS = Prefs.PagesSbS;
-	doc->ShFrames = Prefs.ShFrames;
 	doc->RandFarbig = Prefs.RandFarbig;
 	doc->AutoLine = Prefs.AutoLine;
 	doc->DocName = doc->DocName+cc.setNum(DocNr);
@@ -1942,17 +1944,13 @@ void ScribusApp::SwitchWin()
 	doc->CurrentABStil = 0;
 	slotChangeUnit(doc->Einheit, false);
 	if (doc->EditClip)
-		{
+	{
 		doc->EditClip = !doc->EditClip;
 		ToggleFrameEdit();
-		}
-	if (doc->ShFrames)
-		viewMenu->changeItem(FrameDr, tr("Hide Frames"));
-	else
-		viewMenu->changeItem(FrameDr, tr("Show Frames"));
+	}
 	DatClo->setEnabled(true);
 	if (doc->TemplateMode)
-		{
+	{
 		menuBar()->setItemEnabled(pgmm, 0);
 		editMenu->setItemEnabled(tman, 0);
 		DatNeu->setEnabled(false);
@@ -1968,9 +1966,9 @@ void ScribusApp::SwitchWin()
 		fileMenu->setItemEnabled(fid13, 0);
 		fileMenu->setItemEnabled(fid14, 0);
 		Sepal->DisablePal();
-		}
+	}
 	else
-		{
+	{
 		menuBar()->setItemEnabled(pgmm, 1);
 		editMenu->setItemEnabled(tman, 1);
 		DatNeu->setEnabled(true);
@@ -1986,21 +1984,21 @@ void ScribusApp::SwitchWin()
 		fileMenu->setItemEnabled(fid13, 1);
 		fileMenu->setItemEnabled(fid14, 1);
 		if (view->Pages.count() > 1)
-			{
+		{
 			pageMenu->setItemEnabled(pgmd, 1);
 			pageMenu->setItemEnabled(pgmv, 1);
-			}
+		}
 		else
-			{
+		{
 			pageMenu->setItemEnabled(pgmd, 0);
 			pageMenu->setItemEnabled(pgmv, 0);
-			}
+		}
 		if (doc->isModified())
 			slotDocCh(false);
 		fileMenu->setItemEnabled(fid5, 1);
 		fileMenu->setItemEnabled(fid51, 1);
 		Sepal->EnablePal();
-		}
+	}
 }
 
 void ScribusApp::HaveNewDoc()
@@ -2085,6 +2083,10 @@ void ScribusApp::HaveNewDoc()
 	doc->PDF_Optionen.BleedTop = doc->PageM.Top;
 	doc->PDF_Optionen.BleedLeft = doc->PageM.Left;
 	doc->PDF_Optionen.BleedRight = doc->PageM.Right;
+	doc->ShFrames = Prefs.FramesShown;
+	doc->Guides = Prefs.GuidesShown;
+	doc->Raster = Prefs.GridShown;
+	doc->Marks = Prefs.MarginsShown;
 }
 
 void ScribusApp::HaveNewSel(int Nr)
@@ -2546,7 +2548,6 @@ bool ScribusApp::LadeDoc(QString fileName)
 		doc->Before = Prefs.Before;
 		doc->Einheit = Prefs.Einheit;
 		doc->PagesSbS = Prefs.PagesSbS;
-		doc->ShFrames = Prefs.ShFrames;
 		doc->RandFarbig = Prefs.RandFarbig;
 		doc->AutoLine = Prefs.AutoLine;
 		doc->Scale = 1.0*Prefs.DisScale;
@@ -3046,11 +3047,11 @@ bool ScribusApp::DoFileClose()
 		viewMenu->setItemEnabled(Guide, 0);
 		viewMenu->setItemEnabled(uGuide, 0);
 		viewMenu->setItemChecked(uGuide, false);
-		viewMenu->changeItem(Markers, tr("Hide Margins"));
+/*		viewMenu->changeItem(Markers, tr("Hide Margins"));
 		viewMenu->changeItem(FrameDr, tr("Hide Frames"));
 		viewMenu->changeItem(Bilder, tr("Hide Images"));
 		viewMenu->changeItem(Ras, tr("Show Grid"));
-		viewMenu->changeItem(Guide, tr("Hide Guides"));
+		viewMenu->changeItem(Guide, tr("Hide Guides")); */
 		editMenu->setItemEnabled(tman, 0);
 		editMenu->setItemEnabled(jman, 0);
 		menuBar()->setItemEnabled(pgmm, 0);
@@ -3832,36 +3833,6 @@ void ScribusApp::slotZoom200()
 	slotZoomAbs(2.0*Prefs.DisScale);
 }
 
-void ScribusApp::ToggleMarks()
-{
-	if (doc->Marks)
-	{
-		doc->Marks = false;
-		viewMenu->changeItem(Markers, tr("Show Margins"));
-	}
-	else
-	{
-		doc->Marks = true;
-		viewMenu->changeItem(Markers, tr("Hide Margins"));
-	}
-	view->DrawNew();
-}
-
-void ScribusApp::ToggleFrames()
-{
-	if (doc->ShFrames)
-	{
-		doc->ShFrames = false;
-		viewMenu->changeItem(FrameDr, tr("Show Frames"));
-	}
-	else
-	{
-		doc->ShFrames = true;
-		viewMenu->changeItem(FrameDr, tr("Hide Frames"));
-	}
-	view->DrawNew();
-}
-
 void ScribusApp::setMpal(bool visible)
 {
 	if (visible)
@@ -4047,48 +4018,54 @@ void ScribusApp::TogglePics()
 		}
 }
 
+void ScribusApp::ToggleMarks()
+{
+	if (doc->Marks)
+		viewMenu->changeItem(Markers, tr("Show Margins"));
+	else
+		viewMenu->changeItem(Markers, tr("Hide Margins"));
+	doc->Marks = !doc->Marks;
+	Prefs.MarginsShown = doc->Marks;
+	view->DrawNew();
+}
+
+void ScribusApp::ToggleFrames()
+{
+	if (doc->ShFrames)
+		viewMenu->changeItem(FrameDr, tr("Show Frames"));
+	else
+		viewMenu->changeItem(FrameDr, tr("Hide Frames"));
+	doc->ShFrames = !doc->ShFrames;
+	Prefs.FramesShown = doc->ShFrames;
+	view->DrawNew();
+}
+
 void ScribusApp::ToggleRaster()
 {
-	uint a;
 	if (doc->Raster)
-		{
 		viewMenu->changeItem(Ras, tr("Show Grid"));
-		doc->Raster = false;
-		}
 	else
-		{
 		viewMenu->changeItem(Ras, tr("Hide Grid"));
-		doc->Raster = true;
-		}
-	for (a=0; a<view->Pages.count(); ++a)
-		{
-		view->Pages.at(a)->update();
-		}
+	doc->Raster = !doc->Raster;
+	Prefs.GridShown = doc->Raster;
+	view->DrawNew();
+}
+
+void ScribusApp::ToggleGuides()
+{
+	if (doc->Guides)
+		viewMenu->changeItem(Guide, tr("Show Guides"));
+	else
+		viewMenu->changeItem(Guide, tr("Hide Guides"));
+	doc->Guides = !doc->Guides;
+	Prefs.GuidesShown = doc->Guides;
+	view->DrawNew();
 }
 
 void ScribusApp::ToggleURaster()
 {
 	doc->useRaster = !doc->useRaster;
 	viewMenu->setItemChecked(uRas, doc->useRaster);
-}
-
-void ScribusApp::ToggleGuides()
-{
-	uint a;
-	if (doc->Guides)
-		{
-		viewMenu->changeItem(Guide, tr("Show Guides"));
-		doc->Guides = false;
-		}
-	else
-		{
-		viewMenu->changeItem(Guide, tr("Hide Guides"));
-		doc->Guides = true;
-		}
-	for (a=0; a<view->Pages.count(); ++a)
-		{
-		view->Pages.at(a)->update();
-		}
 }
 
 void ScribusApp::ToggleUGuides()
@@ -4606,7 +4583,11 @@ void ScribusApp::SetNewFont(QString nf)
 		}
 		else
 		{
-			nf2 = doc->Dfont;
+ 			if (doc->ActPage->SelItem.count() != 0)
+			{
+ 				PageItem *b = doc->ActPage->SelItem.at(0);
+				nf2 = b->IFont;
+			}
 			Mpal->Fonts->RebuildList(&Prefs);
 			BuildFontMenu();
 		}
@@ -4804,6 +4785,19 @@ void ScribusApp::slotEditLineStyles()
 
 void ScribusApp::slotEditStyles()
 {
+	if (HaveDoc)
+	{
+		StilFormate *dia = new StilFormate(this, doc, &Prefs);
+		connect(dia, SIGNAL(saveStyle(StilFormate *)), this, SLOT(saveStyles(StilFormate *)));
+		if (dia->exec())
+			saveStyles(dia);
+		disconnect(dia, SIGNAL(saveStyle(StilFormate *)), this, SLOT(saveStyles(StilFormate *)));
+		delete dia;
+	}
+}
+
+void ScribusApp::saveStyles(StilFormate *dia)
+{
 	QValueList<uint> ers;
 	QString nn;
 	PageItem* ite;
@@ -4815,151 +4809,143 @@ void ScribusApp::slotEditStyles()
 	ers.append(2);
 	ers.append(3);
 	ers.append(4);
-	if (HaveDoc)
+	for (uint a=5; a<doc->Vorlagen.count(); ++a)
 	{
-		StilFormate *dia = new StilFormate(this, doc, &Prefs);
-		if (dia->exec())
+		ff = false;
+		nn = doc->Vorlagen[a].Vname;
+		for (uint b=0; b<dia->TempVorl.count(); ++b)
 		{
-			for (uint a=5; a<doc->Vorlagen.count(); ++a)
+			if (nn == dia->TempVorl[b].Vname)
 			{
-				ff = false;
-				nn = doc->Vorlagen[a].Vname;
-				for (uint b=0; b<dia->TempVorl.count(); ++b)
-				{
-					if (nn == dia->TempVorl[b].Vname)
-					{
-						nr = b;
-						ff = true;
-						break;
-					}
-				}
-				if (ff)
-					ers.append(nr);
-				else
-					ers.append(0);
+				nr = b;
+				ff = true;
+				break;
 			}
-			for (uint c=0; c<view->DocPages.count(); ++c)
+		}
+		if (ff)
+			ers.append(nr);
+		else
+			ers.append(0);
+	}
+	for (uint c=0; c<view->DocPages.count(); ++c)
+	{
+		for (uint d=0; d<view->DocPages.at(c)->Items.count(); ++d)
+		{
+			ite = view->DocPages.at(c)->Items.at(d);
+			if (ite->PType == 4)
 			{
-				for (uint d=0; d<view->DocPages.at(c)->Items.count(); ++d)
+				for (uint e=0; e<ite->Ptext.count(); ++e)
 				{
-					ite = view->DocPages.at(c)->Items.at(d);
-					if (ite->PType == 4)
+					int cabori = ite->Ptext.at(e)->cab;
+					int cabneu = ers[cabori];
+					if (cabori > 4)
 					{
-						for (uint e=0; e<ite->Ptext.count(); ++e)
+						if (cabneu > 0)
 						{
-							int cabori = ite->Ptext.at(e)->cab;
-							int cabneu = ers[cabori];
-							if (cabori > 4)
+							if (ite->Ptext.at(e)->cfont == doc->Vorlagen[cabori].Font)
+								ite->Ptext.at(e)->cfont = dia->TempVorl[cabneu].Font;
+							if (ite->Ptext.at(e)->csize == doc->Vorlagen[cabori].FontSize)
+								ite->Ptext.at(e)->csize = dia->TempVorl[cabneu].FontSize;
+							if ((ite->Ptext.at(e)->cstyle & 127 ) == doc->Vorlagen[cabori].FontEffect)
 							{
-								if (cabneu > 0)
-								{
-									if (ite->Ptext.at(e)->cfont == doc->Vorlagen[cabori].Font)
-										ite->Ptext.at(e)->cfont = dia->TempVorl[cabneu].Font;
-									if (ite->Ptext.at(e)->csize == doc->Vorlagen[cabori].FontSize)
-										ite->Ptext.at(e)->csize = dia->TempVorl[cabneu].FontSize;
-									if ((ite->Ptext.at(e)->cstyle & 127 ) == doc->Vorlagen[cabori].FontEffect)
-									{
-										ite->Ptext.at(e)->cstyle &= ~127;
-										ite->Ptext.at(e)->cstyle |= dia->TempVorl[cabneu].FontEffect;
-									}
-									if (ite->Ptext.at(e)->ccolor == doc->Vorlagen[cabori].FColor)
-										ite->Ptext.at(e)->ccolor = dia->TempVorl[cabneu].FColor;
-									if (ite->Ptext.at(e)->cshade == doc->Vorlagen[cabori].FShade)
-										ite->Ptext.at(e)->cshade = dia->TempVorl[cabneu].FShade;
-									if (ite->Ptext.at(e)->cstroke == doc->Vorlagen[cabori].SColor)
-										ite->Ptext.at(e)->cstroke = dia->TempVorl[cabneu].SColor;
-									if (ite->Ptext.at(e)->cshade2 == doc->Vorlagen[cabori].SShade)
-										ite->Ptext.at(e)->cshade2 = dia->TempVorl[cabneu].SShade;
-								}
-								else
-								{
-									ite->Ptext.at(e)->ccolor = ite->TxtFill;
-									ite->Ptext.at(e)->cshade = ite->ShTxtFill;
-									ite->Ptext.at(e)->cstroke = ite->TxtStroke;
-									ite->Ptext.at(e)->cshade2 = ite->ShTxtStroke;
-									ite->Ptext.at(e)->csize = ite->ISize;
-									ite->Ptext.at(e)->cstyle &= ~127;
-									ite->Ptext.at(e)->cstyle |= ite->TxTStyle;
-								}
-								ite->Ptext.at(e)->cab = cabneu;
+								ite->Ptext.at(e)->cstyle &= ~127;
+								ite->Ptext.at(e)->cstyle |= dia->TempVorl[cabneu].FontEffect;
 							}
-						}
-					}
-				}
-			}
-			for (uint c=0; c<view->MasterPages.count(); ++c)
-			{
-				for (uint d=0; d<view->MasterPages.at(c)->Items.count(); ++d)
-				{
-					ite = view->MasterPages.at(c)->Items.at(d);
-					if (ite->PType == 4)
-					{
-						for (uint e=0; e<ite->Ptext.count(); ++e)
-						{
-							int cabori = ite->Ptext.at(e)->cab;
-							int cabneu = ers[cabori];
-							if (cabori > 4)
-							{
-								if (cabneu > 0)
-								{
-									if (ite->Ptext.at(e)->cfont == doc->Vorlagen[cabori].Font)
-										ite->Ptext.at(e)->cfont = dia->TempVorl[cabneu].Font;
-									if (ite->Ptext.at(e)->csize == doc->Vorlagen[cabori].FontSize)
-										ite->Ptext.at(e)->csize = dia->TempVorl[cabneu].FontSize;
-									if ((ite->Ptext.at(e)->cstyle & 127 ) == doc->Vorlagen[cabori].FontEffect)
-									{
-										ite->Ptext.at(e)->cstyle &= ~127;
-										ite->Ptext.at(e)->cstyle |= dia->TempVorl[cabneu].FontEffect;
-									}
-									if (ite->Ptext.at(e)->ccolor == doc->Vorlagen[cabori].FColor)
-										ite->Ptext.at(e)->ccolor = dia->TempVorl[cabneu].FColor;
-									if (ite->Ptext.at(e)->cshade == doc->Vorlagen[cabori].FShade)
-										ite->Ptext.at(e)->cshade = dia->TempVorl[cabneu].FShade;
-									if (ite->Ptext.at(e)->cstroke == doc->Vorlagen[cabori].SColor)
-										ite->Ptext.at(e)->cstroke = dia->TempVorl[cabneu].SColor;
-									if (ite->Ptext.at(e)->cshade2 == doc->Vorlagen[cabori].SShade)
-										ite->Ptext.at(e)->cshade2 = dia->TempVorl[cabneu].SShade;
-								}
-								else
-								{
-									ite->Ptext.at(e)->ccolor = ite->TxtFill;
-									ite->Ptext.at(e)->cshade = ite->ShTxtFill;
-									ite->Ptext.at(e)->cstroke = ite->TxtStroke;
-									ite->Ptext.at(e)->cshade2 = ite->ShTxtStroke;
-									ite->Ptext.at(e)->csize = ite->ISize;
-									ite->Ptext.at(e)->cstyle &= ~127;
-									ite->Ptext.at(e)->cstyle |= ite->TxTStyle;
-								}
-								ite->Ptext.at(e)->cab = cabneu;
-							}
-						}
-					}
-				}
-			} 
-			doc->Vorlagen = dia->TempVorl;
-			for (uint a=0; a<doc->Vorlagen.count(); ++a)
-			{
-				if (doc->Vorlagen[a].Font != "")
-				{
-					QString nf = doc->Vorlagen[a].Font;
-					if (!doc->UsedFonts.contains(nf))
-					{
-						if (doc->AddFont(nf, Prefs.AvailFonts[nf]->Font))
-						{
-							int ff = FontMenu->insertItem(new FmItem(nf, Prefs.AvailFonts[nf]->Font));
-							FontID.insert(ff, Prefs.AvailFonts[nf]->SCName);
+							if (ite->Ptext.at(e)->ccolor == doc->Vorlagen[cabori].FColor)
+								ite->Ptext.at(e)->ccolor = dia->TempVorl[cabneu].FColor;
+							if (ite->Ptext.at(e)->cshade == doc->Vorlagen[cabori].FShade)
+								ite->Ptext.at(e)->cshade = dia->TempVorl[cabneu].FShade;
+							if (ite->Ptext.at(e)->cstroke == doc->Vorlagen[cabori].SColor)
+								ite->Ptext.at(e)->cstroke = dia->TempVorl[cabneu].SColor;
+							if (ite->Ptext.at(e)->cshade2 == doc->Vorlagen[cabori].SShade)
+								ite->Ptext.at(e)->cshade2 = dia->TempVorl[cabneu].SShade;
 						}
 						else
-							doc->Vorlagen[a].Font = doc->Dfont;
+						{
+							ite->Ptext.at(e)->ccolor = ite->TxtFill;
+							ite->Ptext.at(e)->cshade = ite->ShTxtFill;
+							ite->Ptext.at(e)->cstroke = ite->TxtStroke;
+							ite->Ptext.at(e)->cshade2 = ite->ShTxtStroke;
+							ite->Ptext.at(e)->csize = ite->ISize;
+							ite->Ptext.at(e)->cstyle &= ~127;
+							ite->Ptext.at(e)->cstyle |= ite->TxTStyle;
+						}
+						ite->Ptext.at(e)->cab = cabneu;
 					}
 				}
 			}
-			Mpal->Spal->updateFList();
-			view->DrawNew();
-			slotDocCh();
 		}
-		delete dia;
 	}
+	for (uint c=0; c<view->MasterPages.count(); ++c)
+	{
+		for (uint d=0; d<view->MasterPages.at(c)->Items.count(); ++d)
+		{
+			ite = view->MasterPages.at(c)->Items.at(d);
+			if (ite->PType == 4)
+			{
+				for (uint e=0; e<ite->Ptext.count(); ++e)
+				{
+					int cabori = ite->Ptext.at(e)->cab;
+					int cabneu = ers[cabori];
+					if (cabori > 4)
+					{
+						if (cabneu > 0)
+						{
+							if (ite->Ptext.at(e)->cfont == doc->Vorlagen[cabori].Font)
+								ite->Ptext.at(e)->cfont = dia->TempVorl[cabneu].Font;
+							if (ite->Ptext.at(e)->csize == doc->Vorlagen[cabori].FontSize)
+								ite->Ptext.at(e)->csize = dia->TempVorl[cabneu].FontSize;
+							if ((ite->Ptext.at(e)->cstyle & 127 ) == doc->Vorlagen[cabori].FontEffect)
+							{
+								ite->Ptext.at(e)->cstyle &= ~127;
+								ite->Ptext.at(e)->cstyle |= dia->TempVorl[cabneu].FontEffect;
+							}
+							if (ite->Ptext.at(e)->ccolor == doc->Vorlagen[cabori].FColor)
+								ite->Ptext.at(e)->ccolor = dia->TempVorl[cabneu].FColor;
+							if (ite->Ptext.at(e)->cshade == doc->Vorlagen[cabori].FShade)
+								ite->Ptext.at(e)->cshade = dia->TempVorl[cabneu].FShade;
+							if (ite->Ptext.at(e)->cstroke == doc->Vorlagen[cabori].SColor)
+								ite->Ptext.at(e)->cstroke = dia->TempVorl[cabneu].SColor;
+							if (ite->Ptext.at(e)->cshade2 == doc->Vorlagen[cabori].SShade)
+								ite->Ptext.at(e)->cshade2 = dia->TempVorl[cabneu].SShade;
+						}
+						else
+						{
+							ite->Ptext.at(e)->ccolor = ite->TxtFill;
+							ite->Ptext.at(e)->cshade = ite->ShTxtFill;
+							ite->Ptext.at(e)->cstroke = ite->TxtStroke;
+							ite->Ptext.at(e)->cshade2 = ite->ShTxtStroke;
+							ite->Ptext.at(e)->csize = ite->ISize;
+							ite->Ptext.at(e)->cstyle &= ~127;
+							ite->Ptext.at(e)->cstyle |= ite->TxTStyle;
+						}
+						ite->Ptext.at(e)->cab = cabneu;
+					}
+				}
+			}
+		}
+	} 
+	doc->Vorlagen = dia->TempVorl;
+	for (uint a=0; a<doc->Vorlagen.count(); ++a)
+	{
+		if (doc->Vorlagen[a].Font != "")
+		{
+			QString nf = doc->Vorlagen[a].Font;
+			if (!doc->UsedFonts.contains(nf))
+			{
+				if (doc->AddFont(nf, Prefs.AvailFonts[nf]->Font))
+				{
+					int ff = FontMenu->insertItem(new FmItem(nf, Prefs.AvailFonts[nf]->Font));
+					FontID.insert(ff, Prefs.AvailFonts[nf]->SCName);
+				}
+				else
+					doc->Vorlagen[a].Font = doc->Dfont;
+			}
+		}
+	}
+	Mpal->Spal->updateFList();
+	view->DrawNew();
+	slotDocCh();
 }
 
 void ScribusApp::setItemTextAli(int id)
@@ -5504,6 +5490,7 @@ void ScribusApp::slotPrefsOrg()
 		Prefs.gs_antiGraph = dia->GSantiGraph->isChecked();
 		Prefs.gs_antiText = dia->GSantiText->isChecked();
 		Prefs.gs_exe = dia->GSName->text();
+		Prefs.ClipMargin = dia->ClipMarg->isChecked();
 		if (Prefs.DisScale != dia->DisScale)
 			{
 			Prefs.DisScale = dia->DisScale;
@@ -5599,7 +5586,6 @@ void ScribusApp::slotPrefsOrg()
 			doc->AspectRatio = dia->Aspect->isChecked();
 			doc->Before = dia->RadioButton6->isChecked();
 			doc->PagesSbS = dia->SidebySide->isChecked();
-			doc->ShFrames = dia->FramesVisible->isChecked();
 			doc->RandFarbig = dia->RandFarb->isChecked();
 			doc->AutoLine = dia->AutoLineV->value();
 			doc->AutoSave = dia->ASon->isChecked();
@@ -5713,7 +5699,6 @@ void ScribusApp::slotPrefsOrg()
 			Prefs.AspectRatio = dia->Aspect->isChecked();
 			Prefs.Before = dia->RadioButton6->isChecked();
 			Prefs.PagesSbS = dia->SidebySide->isChecked();
-			Prefs.ShFrames = dia->FramesVisible->isChecked();
 			Prefs.RandFarbig = dia->RandFarb->isChecked();
 			Prefs.AutoLine = dia->AutoLineV->value();
 			Prefs.AutoSave = dia->ASon->isChecked();
@@ -5825,6 +5810,22 @@ void ScribusApp::ReadPrefs()
 	Npal->move(Prefs.Npalx, Prefs.Npaly);
 	move(Prefs.MainX, Prefs.MainY);
 	resize(Prefs.MainW, Prefs.MainH);
+	if (Prefs.GuidesShown)
+		viewMenu->changeItem(Guide, tr("Hide Guides"));
+	else
+		viewMenu->changeItem(Guide, tr("Show Guides"));
+	if (Prefs.MarginsShown)
+		viewMenu->changeItem(Markers, tr("Hide Margins"));
+	else
+		viewMenu->changeItem(Markers, tr("Show Margins"));
+	if (Prefs.FramesShown)
+		viewMenu->changeItem(FrameDr, tr("Hide Frames"));
+	else
+		viewMenu->changeItem(FrameDr, tr("Show Frames"));
+	if (Prefs.GridShown)
+		viewMenu->changeItem(Ras, tr("Hide Grid"));
+	else
+		viewMenu->changeItem(Ras, tr("Show Grid"));
 }
 
 void ScribusApp::ShowSubs()

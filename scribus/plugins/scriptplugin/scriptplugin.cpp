@@ -65,8 +65,21 @@ void InitPlug(QWidget *d, ScribusApp *plug)
 	Tes = new MenuTest(d);
 	men = new QPopupMenu();
 	Tes->rmen = new QPopupMenu();
+	Tes->smen = new QPopupMenu();
 	Tes->SavedRecentScripts.clear();
 	Tes->ReadPlugPrefs();
+ 	QString pfad = PREL;
+ 	QString pfad2;
+	pfad2 = pfad + "/share/scribus/scripts/";
+	QDir ds(pfad2, "*.py", QDir::Name, QDir::Files | QDir::NoSymLinks);
+	if ((ds.exists()) && (ds.count() != 0))
+	{
+		for (uint dc = 0; dc < ds.count(); ++dc)
+		{
+			QFileInfo fs(ds[dc]);
+			Tes->smen->insertItem(fs.baseName(true));
+		}
+	}
 	Tes->RecentScripts.clear();
 	if (Tes->SavedRecentScripts.count() != 0)
 		{
@@ -82,13 +95,16 @@ void InitPlug(QWidget *d, ScribusApp *plug)
 			}
 		}
 	Tes->pcon = new PConsole(d);
+	Tes->smenid = men->insertItem(QObject::tr("Scribus Scripts"), Tes->smen);
 	men->insertItem(QObject::tr("Execute Script..."), Tes, SLOT(slotTest()));
 	Tes->rmenid = men->insertItem(QObject::tr("Recent Scripts"), Tes->rmen);
+	men->insertSeparator();
 	Tes->cons = men->insertItem(QObject::tr("Show Console"), Tes, SLOT(slotInteractiveScript()));
 	plug->menuBar()->insertItem(QObject::tr("Script"), men, -1, plug->menuBar()->count() - 2);
 	QObject::connect(Tes->pcon->OutWin, SIGNAL(returnPressed()), Tes, SLOT(slotExecute()));
 	QObject::connect(Tes->pcon, SIGNAL(Schliessen()), Tes, SLOT(slotInteractiveScript()));
 	QObject::connect(Tes->rmen, SIGNAL(activated(int)), Tes, SLOT(RecentScript(int)));
+	QObject::connect(Tes->smen, SIGNAL(activated(int)), Tes, SLOT(StdScript(int)));
 }
 
 void CleanUpPlug()
@@ -104,6 +120,28 @@ void Run(QWidget *d, ScribusApp *plug)
 	pfad2 = pfad + "/share/scribus/doc/en/Scripter/index.html";
 	HelpBrowser *dia = new HelpBrowser(0, QObject::tr("Online Reference"), pfad2);
 	dia->show();
+}
+
+
+void MenuTest::FinishScriptRun()
+{
+	if (Carrier->HaveDoc)
+		{
+		Carrier->Mpal->SetDoc(Carrier->doc);
+		Carrier->Mpal->updateCList();
+		Carrier->Mpal->Spal->SetFormats(Carrier->doc);
+		Carrier->Mpal->SetLineFormats(Carrier->doc);
+		Carrier->Mpal->Cpal->SetColors(Carrier->doc->PageColors);
+		Carrier->Lpal->setLayers(&Carrier->doc->Layers, &Carrier->doc->ActiveLayer);
+		Carrier->Tpal->BuildTree(Carrier->view);
+		Carrier->Sepal->SetView(Carrier->view);
+		Carrier->Sepal->Rebuild();
+		if (Carrier->doc->ActPage->SelItem.count() != 0)
+			Carrier->HaveNewSel(Carrier->doc->ActPage->SelItem.at(0)->PType);
+		else
+			Carrier->HaveNewSel(-1);
+		Carrier->view->DrawNew();
+		}
 }
 
 void MenuTest::slotTest()
@@ -132,23 +170,20 @@ void MenuTest::slotTest()
 			}
 		}
 	QDir::setCurrent(CurDirP);
-	if (Carrier->HaveDoc)
-		{
-		Carrier->Mpal->SetDoc(Carrier->doc);
-		Carrier->Mpal->updateCList();
-		Carrier->Mpal->Spal->SetFormats(Carrier->doc);
-		Carrier->Mpal->SetLineFormats(Carrier->doc);
-		Carrier->Mpal->Cpal->SetColors(Carrier->doc->PageColors);
-		Carrier->Lpal->setLayers(&Carrier->doc->Layers, &Carrier->doc->ActiveLayer);
-		Carrier->Tpal->BuildTree(Carrier->view);
-		Carrier->Sepal->SetView(Carrier->view);
-		Carrier->Sepal->Rebuild();
-		if (Carrier->doc->ActPage->SelItem.count() != 0)
-			Carrier->HaveNewSel(Carrier->doc->ActPage->SelItem.at(0)->PType);
-		else
-			Carrier->HaveNewSel(-1);
-		Carrier->view->DrawNew();
-		}
+	FinishScriptRun();
+}
+
+void MenuTest::StdScript(int id)
+{
+ 	QString pfad = PREL;
+ 	QString pfad2;
+	pfad2 = pfad + "/share/scribus/scripts/";
+	QString fn = pfad2+smen->text(id)+".py";
+	QFileInfo fd(fn);
+	if (!fd.exists())
+		return;
+	slotRunScriptFile(fn);
+	FinishScriptRun();
 }
 
 void MenuTest::RecentScript(int id)
@@ -167,23 +202,7 @@ void MenuTest::RecentScript(int id)
 		return;
 		}
 	slotRunScriptFile(fn);
-	if (Carrier->HaveDoc)
-		{
-		Carrier->Mpal->SetDoc(Carrier->doc);
-		Carrier->Mpal->updateCList();
-		Carrier->Mpal->Spal->SetFormats(Carrier->doc);
-		Carrier->Mpal->SetLineFormats(Carrier->doc);
-		Carrier->Mpal->Cpal->SetColors(Carrier->doc->PageColors);
-		Carrier->Lpal->setLayers(&Carrier->doc->Layers, &Carrier->doc->ActiveLayer);
-		Carrier->Tpal->BuildTree(Carrier->view);
-		Carrier->Sepal->SetView(Carrier->view);
-		Carrier->Sepal->Rebuild();
-		if (Carrier->doc->ActPage->SelItem.count() != 0)
-			Carrier->HaveNewSel(Carrier->doc->ActPage->SelItem.at(0)->PType);
-		else
-			Carrier->HaveNewSel(-1);
-		Carrier->view->DrawNew();
-		}
+	FinishScriptRun();
 }
 
 void MenuTest::slotRunScriptFile(QString fileName)
@@ -290,23 +309,7 @@ void MenuTest::slotExecute()
 	pcon->OutWin->moveCursor(QTextEdit::MoveEnd, false);
 	pcon->OutWin->scrollToBottom();
 	pcon->OutWin->ensureCursorVisible();
-	if (Carrier->HaveDoc)
-		{
-		Carrier->Mpal->SetDoc(Carrier->doc);
-		Carrier->Mpal->updateCList();
-		Carrier->Mpal->Spal->SetFormats(Carrier->doc);
-		Carrier->Mpal->SetLineFormats(Carrier->doc);
-		Carrier->Mpal->Cpal->SetColors(Carrier->doc->PageColors);
-		Carrier->Lpal->setLayers(&Carrier->doc->Layers, &Carrier->doc->ActiveLayer);
-		Carrier->Tpal->BuildTree(Carrier->view);
-		Carrier->Sepal->SetView(Carrier->view);
-		if (Carrier->doc->ActPage->SelItem.count() != 0)
-			Carrier->HaveNewSel(Carrier->doc->ActPage->SelItem.at(0)->PType);
-		else
-			Carrier->HaveNewSel(-1);
-		Carrier->Sepal->Rebuild();
-		Carrier->view->DrawNew();
-		}
+	FinishScriptRun();
 }
 
 void MenuTest::ReadPlugPrefs()

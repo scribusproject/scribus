@@ -23,6 +23,7 @@ public:
     QPushButton* DublicateB;
     QPushButton* DeleteB;
     QPushButton* SaveB;
+    QPushButton* ExitB;
     QPushButton* CancelB;
     int sFnumber;
   	QValueList<StVorL> TempVorl;
@@ -31,12 +32,16 @@ public:
   	void UpdateFList();
 
 public slots:
+	void saveIt();
 	void selFormat(QListBoxItem *c);
 	void editFormat();
 	void neuesFormat();
 	void dupFormat();
 	void deleteFormat();
 	void loadStyles();
+
+signals:
+	void saveStyle(StilFormate *);
 
 protected:
     QHBoxLayout* StilFormateLayout;

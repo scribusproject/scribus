@@ -395,7 +395,6 @@ struct preV  {
 				int PSize;
 				bool SaveAtQ;
 				bool PagesSbS;
-				bool ShFrames;
 				bool RandFarbig;
 				QStringList RecentDocs;
 				uint RecentDCount;
@@ -450,6 +449,11 @@ struct preV  {
 				bool gs_antiText;
 				bool gs_antiGraph;
 				QString gimp_exe;
+				bool FramesShown;
+				bool GuidesShown;
+				bool MarginsShown;
+				bool GridShown;
+				bool ClipMargin;
 			};
 /**
   * the Document Class

@@ -46,15 +46,19 @@ public:
     ~MenuTest() {};
 		void ReadPlugPrefs();
 		void SavePlugPrefs();
+		void FinishScriptRun();
 		PConsole *pcon;
 		QPopupMenu* rmen;
+		QPopupMenu* smen;
 		int rmenid;
+		int smenid;
 		int cons;
 		QStringList SavedRecentScripts;
     QStringList RecentScripts;
 
 public slots:
 		void slotTest();
+		void StdScript(int id);
 		void RecentScript(int id);
 		void slotRunScriptFile(QString fileName);
 		QString slotRunScript(QString Script);

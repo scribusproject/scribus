@@ -1,4 +1,10 @@
 Changes since Version 1.1.5
+07.04.2004	Added an Option to the Preferences to determine if the Contents of a Page
+		are clipped at the Margins or not.
+		Added a Folder for storing official approved Scripts.
+		Fixed Bugs #280, #156 and #133.
+		Added some Patches from Jean-Jacques Sarton which speed up image handling.
+
 06.03.2004	Added Settings for the external Tools to the Preferences.
 		Scribus should now be more stable when it finds a corrupt Font on startup.
 		Fixed Bugs #323, #311, #209 and #80

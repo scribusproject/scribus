@@ -35,7 +35,7 @@ public:
 	virtual bool PS_set_file(QString fn);
 	virtual void PS_set_Info(QString art, QString was);
 	virtual void PS_begin_doc(int Ori, double breite, double hoehe, int numpage);
-	virtual void PS_begin_page(double breite, double hoehe, struct Margs* Ma);
+	virtual void PS_begin_page(double breite, double hoehe, struct Margs* Ma, bool Clipping);
 	virtual void PS_end_page();
 	virtual void PS_curve(double x1, double y1, double x2, double y2, double x3, double y3);
 	virtual void PS_moveto(double x, double y);
