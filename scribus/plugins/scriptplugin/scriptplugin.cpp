@@ -33,6 +33,7 @@
 #include "cmdutil.h"
 #include "objprinter.h"
 #include "objpdffile.h"
+#include "objimageexport.h"
 #include "guiapp.h"
 #include "customfdialog.h"
 #include "helpbrowser.h"
@@ -790,11 +791,14 @@ void initscribus(ScribusApp *pl)
 	PyImport_AddModule((char*)"scribus");
 	PyType_Ready(&Printer_Type);
 	PyType_Ready(&PDFfile_Type);
+	PyType_Ready(&ImageExport_Type);
 	m = Py_InitModule((char*)"scribus", scribus_methods);
 	Py_INCREF(&Printer_Type);
 	PyModule_AddObject(m, (char*)"Printer", (PyObject *) &Printer_Type);
 	Py_INCREF(&PDFfile_Type);
 	PyModule_AddObject(m, (char*)"PDFfile", (PyObject *) &PDFfile_Type);
+	Py_INCREF(&ImageExport_Type);
+	PyModule_AddObject(m, (char*)"ImageExport", (PyObject *) &ImageExport_Type);
 	d = PyModule_GetDict(m);
 
 	// Set up the module exceptions
