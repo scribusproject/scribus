@@ -102,6 +102,8 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/vgradient.h $(prefix)/include/scribus/vgradient.h
 	$(mkinstalldirs) $(prefix)/include/scribus/
 	$(INSTALL_DATA) $(srcdir)/fparser.h $(prefix)/include/scribus/fparser.h
+	$(mkinstalldirs) $(prefix)/include/scribus/
+	$(INSTALL_DATA) $(srcdir)/pageselector.h $(prefix)/include/scribus/pageselector.h
 
 uninstall-local:
 	-rm -f $(prefix)/lib/scribus/rgbsvg.txt
@@ -150,6 +152,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/fontcombo.h
 	-rm -f $(prefix)/include/scribus/scpainter.h
 	-rm -f $(prefix)/include/scribus/vgradient.h
+	-rm -f $(prefix)/include/scribus/pageselector.h
 
 scribus_LDADD  = $(LIBJPEG) $(LIBART_LIBS) $(LIBFREETYPE_LIBS) $(LIBCUPS) $(LIBLCMS) $(LIBDL) $(LIBDL2) $(LIBTIFF) -lm $(LIB_QT) -lXext -lX11 $(LIBSOCKET)
 AM_LDFLAGS =   -export-dynamic -s
@@ -163,7 +166,6 @@ scribus_LDFLAGS = $(all_libraries)
 
 # them while "make clean", use CLEANFILES
 DISTCLEANFILES = $(scribus_METASOURCES)
-
 # this is to enable Qt behavoir of am_edit
 KDE_OPTIONS = qtonly
 

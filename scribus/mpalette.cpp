@@ -134,6 +134,11 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	Text3 = new QLabel( GeoGroup, "Text3" );
 	Text3->setText( tr( "Rotation:" ) );
 	GeoGroupLayout->addWidget( Text3, 4, 0 );
+	Kette2 = new LinkButton( GeoGroup );
+	Kette2->setToggleButton( true );
+	Kette2->setAutoRaise( true );
+	Kette2->setMaximumSize( QSize( 15, 32767 ) );
+	GeoGroupLayout->addMultiCellWidget( Kette2, 2, 3, 2, 2 );
 	Rot = new MSpinBox( GeoGroup, 2);
 	Rot->setSuffix(" ");
 	Rot->setWrapping( true );
@@ -462,7 +467,6 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	StrokeIcon = new QLabel( page_3, "StrokeIcon" );
 	StrokeIcon->setText("");
 	StrokeIcon->setPixmap(loadIcon("Stiftalt.xpm"));
-	/* PFJ 29.02.04 - Changed to false from FALSE */
 	StrokeIcon->setScaledContents( false );
 	layout23->addWidget( StrokeIcon );
 	TxStroke = new QComboBox( true, page_3, "TxStroke" );
@@ -480,7 +484,6 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	FillIcon = new QLabel( page_3, "FillIcon" );
 	FillIcon->setText("");
 	FillIcon->setPixmap(loadIcon("fill.png"));
-	/* PFJ 29.02.04 - Changed to false from FALSE */
 	FillIcon->setScaledContents( false );
 	layout24->addWidget( FillIcon );
 	TxFill = new QComboBox( true, page_3, "TxFill" );
@@ -619,7 +622,6 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	Layout18->addWidget( Frame4 );
 
 	Aspect = new QCheckBox( page_4, "Aspect" );
-	/* PFJ - 29.02.04 - Changed from FALSE and TRUE to false and true */
 	Aspect->setEnabled( false );
 	Aspect->setText( tr( "Proportional" ) );
 	Aspect->setChecked( true );
@@ -807,6 +809,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	QToolTip::add( ScaleX, tr( "Resize the image horizontally" ) );
 	QToolTip::add( ScaleY, tr( "Resize the image vertically" ) );
 	QToolTip::add( Kette, tr( "Keep the X and Y scaling the same" ) );
+	QToolTip::add( Kette2, tr( "Keep the aspect ratio" ) );
 	QToolTip::add( FrameScale, tr( "Make the image fit within the size of the frame" ) );
 	QToolTip::add( Aspect, tr( "Use image proportions rather than those of the frame" ) );
 	QToolTip::add( InputP, tr( "Select the source profile of the image" ) );
@@ -1035,9 +1038,8 @@ void Mpalette::SetCurItem(PageItem *i)
 	connect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
 	connect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
 	NoPrint->setOn(!i->isPrintable);
-	/* PFJ - 29.02.04 - Used ternary */
 	setter = i->Locked ? false : true;
-
+	Kette2->setOn(false);
 	Width->setEnabled(setter);
 	Height->setEnabled(setter);
 	RoundRect->setEnabled(setter);
@@ -1092,6 +1094,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	}
 	if (i->PType == 5)
 	{
+		Kette2->setEnabled(false);
 		if (LMode)
 		{
 			Text1->setText( tr( "X1:" ) );
@@ -1115,6 +1118,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	}
 	else
 	{
+		Kette2->setEnabled(true);
 		if (i->PType == 2)
 		{
 			updateCmsList();
@@ -1424,7 +1428,6 @@ void Mpalette::UnitChange()
 	DBottom->setDecimals(10);
 	DRight->setDecimals(10);
 	RoundRect->setDecimals(10);
-	/* PFJ - 29.02.04 - Rejigged for speed */
 	QString point[] = { tr(" pt"), tr(" mm"), tr(" in"), tr(" p")};
 	if (doc->Einheit > 3)
 		doc->Einheit = 0;
@@ -1930,9 +1933,17 @@ void Mpalette::NewW()
 		if (doc->ActPage->GroupSel)
 		{
 			doc->ActPage->getGroupRect(&gx, &gy, &gw, &gh);
-			doc->ActPage->HowTo = 1;
-			doc->ActPage->scaleGroup(w / gw, w / gw);
-			setBH(w, (w / gw) * gh);
+			if (Kette2->isOn())
+			{
+				doc->ActPage->HowTo = 1;
+				doc->ActPage->scaleGroup(w / gw, w / gw);
+				setBH(w, (w / gw) * gh);
+			}
+			else
+			{
+				doc->ActPage->HowTo = 6;
+				doc->ActPage->scaleGroup(w / gw, 1.0);
+			}
 		}
 		else
 		{
@@ -1955,6 +1966,7 @@ void Mpalette::NewW()
 					int rmo = doc->RotMode;
 					doc->RotMode = 0;
 					double dist = w - CurItem->Width;
+					double oldW = CurItem->Width;
 					PageItem* bb2;
 					PageItem* bb = CurItem;
 					while (bb->TopLink != 0)
@@ -1980,9 +1992,24 @@ void Mpalette::NewW()
 					}
 					doc->ActPage->MoveSizeItem(FPoint(0, 0), FPoint(-dist, 0), bb->ItemNr, true);
 					doc->RotMode = rmo;
+					if (Kette2->isOn())
+					{
+						Kette2->setOn(false);
+						setBH(w, (w / oldW) * CurItem->Height);
+						NewH();
+						Kette2->setOn(true);
+					}
 				}
 				else
-					doc->ActPage->SizeItem(w, CurItem->Height, CurItem->ItemNr, true);
+				{
+					if (Kette2->isOn())
+					{
+						setBH(w, (w / CurItem->Width) * CurItem->Height);
+						doc->ActPage->SizeItem(w, (w / CurItem->Width) * CurItem->Height, CurItem->ItemNr, true);
+					}
+					else
+						doc->ActPage->SizeItem(w, CurItem->Height, CurItem->ItemNr, true);
+				}
 			}
 			emit DocChanged();
 		}
@@ -2003,9 +2030,17 @@ void Mpalette::NewH()
 		if (doc->ActPage->GroupSel)
 		{
 			doc->ActPage->getGroupRect(&gx, &gy, &gw, &gh);
-			doc->ActPage->HowTo = 1;
-			doc->ActPage->scaleGroup(h / gh, h / gh);
-			setBH((h / gh) * gw, h);
+			if (Kette2->isOn())
+			{
+				doc->ActPage->HowTo = 1;
+				doc->ActPage->scaleGroup(h / gh, h / gh);
+				setBH((h / gh) * gw, h);
+			}
+			else
+			{
+				doc->ActPage->HowTo = 5;
+				doc->ActPage->scaleGroup(1.0, h / gh);
+			}
 		}
 		else
 		{
@@ -2028,6 +2063,7 @@ void Mpalette::NewH()
 					int rmo = doc->RotMode;
 					doc->RotMode = 0;
 					double dist = h - CurItem->Height;
+					double oldH = CurItem->Height;
 					PageItem* bb2;
 					PageItem* bb = CurItem;
 					while (bb->LeftLink != 0)
@@ -2053,9 +2089,24 @@ void Mpalette::NewH()
 					}
 					doc->ActPage->MoveSizeItem(FPoint(0, 0), FPoint(0, -dist), bb->ItemNr, true);
 					doc->RotMode = rmo;
+					if (Kette2->isOn())
+					{
+						Kette2->setOn(false);
+						setBH((h / oldH) * CurItem->Width, h);
+						NewW();
+						Kette2->setOn(true);
+					}
 				}
 				else
-					doc->ActPage->SizeItem(CurItem->Width, h, CurItem->ItemNr, true);
+				{
+					if (Kette2->isOn())
+					{
+						setBH((h / CurItem->Height) * CurItem->Width, h);
+						doc->ActPage->SizeItem((h / CurItem->Height) * CurItem->Width, h, CurItem->ItemNr, true);
+					}
+					else
+						doc->ActPage->SizeItem(CurItem->Width, h, CurItem->ItemNr, true);
+				}
 			}
 		}
 		emit DocChanged();

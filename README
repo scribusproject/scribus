@@ -1,29 +1,60 @@
-This is Scribus Version 1.1.5, the sixth Developers Relase after Scribus 1.0.1
+This is Scribus Version 1.1.6, the seventh Developers Release after Scribus 1.0.1
 
-This Version introduces a complete rewrite of the rendering Engine. All rendering
-is now done via libart and freetype2. This requires that libart and freetype2 are
-present.
+The Scribus 1.1.x versions feature a complete rewrite of the rendering Engine.
+All rendering is now done via libart and freetype2. This requires that libart and freetype2 are present.
 
-Additionally Scribus uses now a different way to find Fonts, sadly this gives
-some changes in the Fontnames Scribus uses. To convert old Documents follow the
+Additionally Scribus uses now a different way to find fonts, sadly this gives
+some changes in the font names Scribus uses. To convert old documents follow the
 procedure below:
 
-1) Create a Document with the old Version of Scribus containing all your Fonts.
+1) Create a document with the old Version of Scribus containing all your Fonts.
 2) Open the new Scribus and go to the Font Substitution List.
 3) Clear out all current Substitutions.
-4) Open the Document created in 1) and substitute all the Fonts with the correct
-   new Fonts.
-   
-When you open now old Documents Scribus will convert all Font Names automatically.
+4) Open the Document created in 1) and substitute all the fonts with the correct new Fonts.
+
+When you open now old Documents Scribus will convert all Font Names
+automatically.
 
 For Changes please see the ChangeLog.
 
-To use Scribus in your native language be sure that the
-environment variable LANG is set correctly.
+To use Scribus in your native language be sure that the environment
+variable LANG is set correctly.
 
 Special note for SuSE 8.1 users, you need the devel packages, at least
 xdevel.rpm, qtdevel.rpm and tiffdevel.rpm. In the Standard-Install they
 were not installed.
 
+Other notes/known issues at the time of release:
+
+There is a bug in font outline handling for some fonts in the freetype
+libraries. It's being worked on upstream. Don't file a bug report. Instead
+change the font used if you need the outlines. This is not a Scribus bug.
+
+There is a bug in sawfish and enlightenment that creates window ghosting
+effect when Tools  palettes are turned on. A simple temporary workaround
+is to turn each ghosted Tool palette off and on.
+
+A more permanent workaround for Gnome users is to use metacity. Scribus
+has workarounds for some metacity bugs built-in, but the sawfish /enlightenment
+bug seems to be Qt related.
+
+If Scribus does not start while complaining about the absence of
+PostScript fonts please install either xfonts-scalable or gsfonts-x11.
+They are in the "Recommends" and will be installed by all sensible apt
+front-ends.
+
+For SuSE 9.0 Users.
+
+The littlecms libs 1.10, which shipped with 9.0 does not offer complete support
+for all the the latest CMS features in Scribus 1.1.6. There will be updated
+SuSE 9.0 RPM's linked on the scribus.net site.
+
+If you are using Qt 3.3.1, please ensure you are using the latest Qt 3.3.1-2+ rpms.
+The -2+ versions have an important fix for drag and drop in Scribus.
+
+Many other hints and info are on the scribus.net site. Full compile, installand FAQ's
+are available there.
+
+
 Franz Schmid
-in February 2004
+in March 2004

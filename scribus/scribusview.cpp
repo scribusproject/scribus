@@ -45,6 +45,7 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc, preV *prefs)
  						: QScrollView(parent, "s", WRepaintNoErase | WNorthWestGravity)
 {
 	Ready = false;
+	doZooming = false;
 	Doc = doc;
 	Doc->PageC = 0;
   Prefs = prefs;
@@ -109,6 +110,13 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc, preV *prefs)
 	MasterPages.clear();
 	DocPages.clear();
 	Ready = true;
+	// jjsa 27-03-2004 added 5 variables for zoom
+	oldX = -1,
+	oldY = -1;
+	oldScale=1;
+	oldSby=0;
+	oldSbx=0;
+
 	connect(SB1, SIGNAL(clicked()), this, SLOT(slotZoomOut()));
 	connect(SB2, SIGNAL(clicked()), this, SLOT(slotZoomIn()));
 	connect(LE, SIGNAL(valueChanged(int)), this, SLOT(Zval()));
@@ -153,6 +161,22 @@ void ScribusView::setHBarGeometry(QScrollBar &bar, int x, int y, int w, int h)
 		bar.setGeometry(x+415+sadj, y, w-(415+sadj), h);
 		}
 }
+// jjsa 27-03-2004 add for better settinf while zooming
+void ScribusView::rememberPreviousSettings(int mx, int my)
+{
+	// remember scale
+	oldScale = Doc->Scale;
+
+	oldX = childX(Doc->ActPage->parentWidget()) + mx;
+	oldY = childY(Doc->ActPage->parentWidget()) + my;
+
+	// scrollbar position
+	oldSbx = horizontalScrollBar()->value();
+	oldSby = verticalScrollBar()->value();
+
+	oldX = childX(Doc->ActPage->parentWidget()) + mx + oldSbx;
+	oldY = childY(Doc->ActPage->parentWidget()) + my + oldSby;
+}
 
 /** Senkrechter Scrollbalken */
 void ScribusView::setVBarGeometry(QScrollBar &bar, int x, int y, int w, int h)
@@ -178,6 +202,7 @@ void ScribusView::setRulerPos(int x, int y)
 
 void ScribusView::Zval()
 {
+	rememberPreviousSettings();
 	Doc->Scale = LE->value() / 100.0 * Prefs->DisScale;
 	slotDoZoom();
 	setFocus();
@@ -237,8 +262,8 @@ Page* ScribusView::addPage(int nr)
 	connect(fe, SIGNAL(Hrule(int)), HR, SLOT(Draw(int)));
 	connect(fe, SIGNAL(Vrule(int)), VR, SLOT(Draw(int)));
 	connect(fe, SIGNAL(PgCh(int)), this, SLOT(setMenTxt(int)));
-	connect(fe, SIGNAL(ZoomIn()), this, SLOT(slotZoomIn2()));
-	connect(fe, SIGNAL(ZoomOut()), this, SLOT(slotZoomOut2()));
+	connect(fe, SIGNAL(ZoomIn(int, int)), this, SLOT(slotZoomIn2(int, int)));
+	connect(fe, SIGNAL(ZoomOut(int, int)), this, SLOT(slotZoomOut2(int, int)));
 	connect(fe, SIGNAL(ZoomAbs()), this, SLOT(slotDoZoom()));
 	connect(fe, SIGNAL(AbsPosi(int, int)), this, SLOT(SetCPo(int, int)));
 	connect(fe, SIGNAL(AbsPosi2(int, int)), this, SLOT(SetCCPo(int, int)));
@@ -444,6 +469,8 @@ void ScribusView::slotDoZoom()
 	uint a;
 	Page* Seite;
 	QWidget* PSeite = Doc->ActPage->parentWidget();
+	int oldXM = childX(PSeite);
+	int oldYM = childY(PSeite);
 	if (Doc->Scale > 32)
 		Doc->Scale = 32;
 	if (Pages.count() != 0)
@@ -491,13 +518,50 @@ void ScribusView::slotDoZoom()
 			else
 				resizeContents(static_cast<int>(PSeite->width()*2+60*Doc->Scale),
 									 		static_cast<int>((Doc->PageC/2 + 1) * (PSeite->height()+25*Doc->Scale)+30));
-			setContentsPos(childX(Doc->ActPage->parentWidget())-static_cast<int>(10*Doc->Scale),
-									 	childY(Doc->ActPage->parentWidget())-static_cast<int>(10*Doc->Scale));
+				updateScrollBars();
+				int newAbsX = (int)(((double)(oldX) * Doc->Scale / oldScale)+.5);
+				int newAbsY = (int)(((double)(oldY) * Doc->Scale / oldScale)+.5);
+
+				oldSbx += newAbsX - oldX;
+				oldSbx += newAbsY - oldY;
+
+				int maxx = horizontalScrollBar()->maxValue();
+				if ( oldSbx < 0 )
+					oldSbx = 0;
+				else if ( oldSbx > maxx )
+					oldSbx = maxx;
+				horizontalScrollBar()->setValue(oldSbx);
+
+				int maxy = verticalScrollBar()->maxValue();
+				if ( oldSby < 0 )
+					oldSby = 0;
+				else if ( oldSby > maxy )
+					oldSby = maxy;
+				verticalScrollBar()->setValue(oldSby);
 			}
 		else
 			{
 			resizeContents(static_cast<int>(PSeite->width()+30*Doc->Scale), static_cast<int>(Doc->PageC * (PSeite->height()+25*Doc->Scale)+30));
-			setContentsPos(0, childY(Doc->ActPage->parentWidget())-static_cast<int>(10*Doc->Scale));
+			updateScrollBars();
+			int newAbsX = (int)(((double)(oldX) * Doc->Scale / oldScale)+.5);
+			int newAbsY = (int)(((double)(oldY) * Doc->Scale / oldScale)+.5);
+
+			oldSbx += newAbsX - oldX;
+			oldSby += newAbsY - oldY;
+
+			int maxx = horizontalScrollBar()->maxValue();
+			if ( oldSbx < 0 )
+				oldSbx = 0;
+			else if ( oldSbx > maxx )
+				oldSbx = maxx;
+			horizontalScrollBar()->setValue(oldSbx);
+
+			int maxy = verticalScrollBar()->maxValue();
+			if ( oldSby < 0 )
+				oldSby = 0;
+			else if ( oldSby > maxy )
+				oldSby = maxy;
+			verticalScrollBar()->setValue(oldSby);
 			}
 		disconnect(LE, SIGNAL(valueChanged(int)), this, SLOT(Zval()));
 		LE->setValue(Doc->Scale/Prefs->DisScale*100);
@@ -508,6 +572,7 @@ void ScribusView::slotDoZoom()
 			PageItem *b = Doc->ActPage->SelItem.at(0);
 			SetCCPo(static_cast<int>(b->Xpos + b->Width/2), static_cast<int>(b->Ypos + b->Height/2));
 			}
+
 		}
 }
 
@@ -571,37 +636,44 @@ void ScribusView::GotoPage(int Seite)
 		PGS->GotoPg(Seite);
 }
 
-/** Vergr�rt die Ansicht */
-void ScribusView::slotZoomIn()
+void ScribusView::slotZoomIn(int mx,int my)
 {
-	Doc->Scale *= 2;
-	if (Doc->Scale > 32)
-		Doc->Scale = 32;
-	slotDoZoom();
+    rememberPreviousSettings(mx,my);
+    Doc->Scale *= 2;
+    if (Doc->Scale > 32)
+        Doc->Scale = 32*Prefs->DisScale;
+    slotDoZoom();
 }
 
 /** Verkleinert die Ansicht */
-void ScribusView::slotZoomOut()
+void ScribusView::slotZoomOut(int mx,int my)
 {
-	Doc->Scale /= 2;
-	slotDoZoom();
-}
+    rememberPreviousSettings(mx,my);
+    Doc->Scale /= 2;
+    slotDoZoom();
+} 
 
 /** Vergr�rt die Ansicht */
-void ScribusView::slotZoomIn2()
+void ScribusView::slotZoomIn2(int mx,int my)
 {
-	Doc->Scale += static_cast<double>(Doc->MagStep)/100;
-	if (Doc->Scale > static_cast<double>(Doc->MagMax)/100)
-		Doc->Scale = static_cast<double>(Doc->MagMax)/100;
+	if (doZooming)
+		return;
+	doZooming = true;
+	rememberPreviousSettings(mx,my);
+	Doc->Scale += static_cast<double>(Doc->MagStep*Prefs->DisScale)/100.0;
+	if (Doc->Scale > static_cast<double>(Doc->MagMax*Prefs->DisScale)/100.0)
+		Doc->Scale = static_cast<double>(Doc->MagMax*Prefs->DisScale)/100.0;
 	slotDoZoom();
+	doZooming = false;
 }
 
 /** Verkleinert die Ansicht */
-void ScribusView::slotZoomOut2()
+void ScribusView::slotZoomOut2(int mx,int my)
 {
-	Doc->Scale -= static_cast<double>(Doc->MagStep)/100;
-	if (Doc->Scale < static_cast<double>(Doc->MagMin)/100)
-		Doc->Scale = static_cast<double>(Doc->MagMin)/100;
+	rememberPreviousSettings(mx,my);
+	Doc->Scale -= static_cast<double>(Doc->MagStep*Prefs->DisScale)/100.0;
+	if (Doc->Scale < static_cast<double>(Doc->MagMin*Prefs->DisScale)/100.0)
+		Doc->Scale = static_cast<double>(Doc->MagMin*Prefs->DisScale)/100.0;
 	slotDoZoom();
 }
 
@@ -680,6 +752,8 @@ void ScribusView::RecalcPictures(ProfilesL *Pr, QProgressBar *dia)
 
 void ScribusView::ShowTemplate(int nr)
 {
+	// jjsa 27-03-2004
+	rememberPreviousSettings();
 	for (uint a=0; a<Pages.count(); a++)
 		{
 		Pages.at(a)->parentWidget()->hide();
@@ -700,6 +774,8 @@ void ScribusView::ShowTemplate(int nr)
 
 void ScribusView::HideTemplate()
 {
+	// jjsa 27-03-2004
+	rememberPreviousSettings();
 	for (uint a=0; a<Pages.count(); a++)
 		{
 		Pages.at(a)->Deselect(true);

@@ -33,12 +33,6 @@ Farbmanager::Farbmanager( QWidget* parent, CListe doco, bool HDoc, QString DcolS
     : QDialog( parent, "dd", true, 0 )
 {
 	setName( "Farbmanager" );
-/*	DontChange.clear();
-	DontChange += "White";
-	DontChange += "Black";
-	DontChange += "Cyan";
-	DontChange += "Magenta";
-	DontChange += "Yellow"; */
 	HaveDoc = HDoc;
 	CColSet = Cust;
 	 setSizePolicy(QSizePolicy((QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, 

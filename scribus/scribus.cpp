@@ -241,6 +241,7 @@ void ScribusApp::initScribus()
 			Prefs.DColors.insert("Red", CMYKColor(0, 255, 255, 0));
 			Prefs.DColors.insert("Yellow", CMYKColor(0, 0, 255, 0));
 			Prefs.DColors.insert("Magenta", CMYKColor(0, 255, 0, 0));
+			Prefs.DColorSet = "Scribus-Small";
 			}
 		else
 			{
@@ -264,6 +265,7 @@ void ScribusApp::initScribus()
 					}
 				fiC.close();
 				}
+			Prefs.DColorSet = "X11 RGB-Set";
 			}
 		DispX = 10;
 		DispY = 10;
@@ -373,7 +375,6 @@ void ScribusApp::initScribus()
 		Prefs.DocDir = QString(getenv("HOME"));
 		Prefs.ProfileDir = "";
 		Prefs.ScriptDir = "";
-		Prefs.DColorSet = "Scribus-Small";
 		Prefs.CustomColorSets.clear();
 		Prefs.PrPr_Mode = false;
 		Prefs.PrPr_AlphaText = false;
@@ -419,11 +420,11 @@ void ScribusApp::initScribus()
 		Prefs.DCMSset.DefaultIntentMonitor2 = 1;
 		Prefs.DCMSset.DefaultIntentPrinter = 0;
 		Prefs.GFontSub.clear();
-		SetKeyEntry(56, tr("Smart Hyphen"), 0, ALT+Key_Minus);
+		SetKeyEntry(56, tr("Smart Hyphen"), 0, CTRL+Key_Minus);
 		SetKeyEntry(57, tr("Align Left"), 0, CTRL+Key_L);
 		SetKeyEntry(58, tr("Align Right"), 0, CTRL+Key_R);
 		SetKeyEntry(59, tr("Align Center"), 0, CTRL+Key_E);
-		SetKeyEntry(60, tr("Insert Page Number"), 0, ALT+Key_NumberSign);
+		SetKeyEntry(60, tr("Insert Page Number"), 0, CTRL+Key_NumberSign);
 		SetKeyEntry(61, tr("Attach Text to Path"), PfadT, 0);
 		SetKeyEntry(62, tr("Show Layers"), viewLpal, 0);
 		SetKeyEntry(63, tr("Javascripts..."), jman, 0);
@@ -811,15 +812,15 @@ void ScribusApp::initMenuBar()
 //	helpMenu->insertItem( tr("Test2"), this, SLOT(slotTest2()));
 	menuBar()->insertItem( tr("&File"), fileMenu);
 	menuBar()->insertItem( tr("&Edit"), editMenu);
-	Stm = menuBar()->insertItem( tr("Style"), StilMenu);
-	Obm = menuBar()->insertItem( tr("Item"), ObjMenu);
-	pgmm = menuBar()->insertItem( tr("Page"), pageMenu);
+	Stm = menuBar()->insertItem( tr("&Style"), StilMenu);
+	Obm = menuBar()->insertItem( tr("&Item"), ObjMenu);
+	pgmm = menuBar()->insertItem( tr("&Page"), pageMenu);
 	menuBar()->setItemEnabled(Stm, 0);
 	menuBar()->setItemEnabled(Obm, 0);
 	menuBar()->setItemEnabled(pgmm, 0);
 	menuBar()->insertItem( tr("&View"), viewMenu);
 	menuBar()->insertItem( tr("&Tools"), toolMenu);
-	exmn = menuBar()->insertItem( tr("&Extras"), extraMenu);
+	exmn = menuBar()->insertItem( tr("E&xtras"), extraMenu);
 	menuBar()->setItemEnabled(exmn, 0);
 	menuBar()->insertItem( tr("&Windows"), windowsMenu );
 	menuBar()->insertSeparator();
@@ -954,33 +955,33 @@ void ScribusApp::SetKeyEntry(int Nr, QString text, int Men, int KeyC)
 void ScribusApp::DeleteSel(PageItem *b)
 {
 	Pti *it;
+	int FirstSel = 0;
+	bool first = false;
  	for (it = b->Ptext.first(); it != 0; it = b->Ptext.next())
  		{
  		if (it->cselect)
  			{
+			first = true;
  			b->Ptext.remove();
  			it = b->Ptext.prev();
  			if (it == 0)
- 				{
  				it = b->Ptext.first();
- 				}
  			}
+		if (!first)
+			FirstSel++;
  		}
 	if (b->Ptext.count() != 0)
-		{
+	{
  		if (b->Ptext.first()->cselect)
- 			{
+		{
  			b->Ptext.remove();
 			b->CPos = 0;
- 			}
-		else
- 			b->CPos = QMIN(b->CPos, doc->ActPage->oldCp);
 		}
+		else
+			b->CPos = FirstSel;
+	}
 	else
 		b->CPos = 0;
-	int l;
-	if (b->CPos > (l = b->Ptext.count()) )
-		b->CPos = l;
  	b->HasSel = false;
  	DisableTxEdit();
 }
@@ -3200,8 +3201,6 @@ bool ScribusApp::DoFileClose()
 {
 	if(doc->TemplateMode)
 	{
-//		disconnect(ActWin->muster, SIGNAL(Fertig()), this, SLOT(ManTempEnd()));
-//		ManTempEnd();
 		ActWin->muster->close();
 		qApp->processEvents();
 	}
@@ -7659,9 +7658,11 @@ void ScribusApp::ReorgFonts()
 				}
 			}
 		}
-	QMap<QString,QFont>::Iterator itfo;
-	for (itfo = doc->UsedFonts.begin(); itfo != doc->UsedFonts.end(); ++itfo)
-		{
+	QMap<QString,QFont>::Iterator itfo, itnext;
+	for (itfo = doc->UsedFonts.begin(); itfo != doc->UsedFonts.end(); itfo = itnext)
+	{
+		itnext = itfo;
+		++itnext;
 		if (!Really.contains(itfo.key()))
 			{
 			FT_Done_Face(doc->FFonts[itfo.key()]);

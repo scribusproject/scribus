@@ -1055,8 +1055,6 @@ void SVGPlug::calculateArc(FPointArray *ite, bool relative, double &curx, double
  */
 void SVGPlug::svgMoveTo(FPointArray *i, double x1, double y1)
 {
-	if (!FirstM)
-		svgClosePath(i);
 	CurrX = x1;
 	CurrY = y1;
 	StartX = x1;

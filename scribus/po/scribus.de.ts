@@ -131,6 +131,26 @@
         <source>Close</source>
         <translation>Schließen</translation>
     </message>
+    <message>
+        <source>March</source>
+        <translation type="obsolete">März</translation>
+    </message>
+    <message>
+        <source>Homepage and online reference</source>
+        <translation>Homepage und Online Referenz</translation>
+    </message>
+    <message>
+        <source>Mailing list</source>
+        <translation>Mailing Liste</translation>
+    </message>
+    <message>
+        <source>Bugs and feature requests</source>
+        <translation>Fehlerberichte und Wünsche</translation>
+    </message>
+    <message>
+        <source>Online</source>
+        <translation>Internet</translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
@@ -254,11 +274,19 @@
     </message>
     <message>
         <source>Align Text Block</source>
-        <translation>Blocksatz</translation>
+        <translation type="obsolete">Blocksatz</translation>
     </message>
     <message>
         <source>Align Text Center</source>
         <translation>Zentriert</translation>
+    </message>
+    <message>
+        <source>Align Text Justified</source>
+        <translation>Blocksatz</translation>
+    </message>
+    <message>
+        <source>Align Text Forced Justified</source>
+        <translation>Erzwungener Blocksatz</translation>
     </message>
 </context>
 <context>
@@ -1011,7 +1039,7 @@
     </message>
     <message>
         <source>When Icon is too small</source>
-        <translation>bei zu kleinem Icon</translation>
+        <translation type="obsolete">bei zu kleinem Icon</translation>
     </message>
     <message>
         <source>When Icon is too big</source>
@@ -1076,6 +1104,10 @@
     <message>
         <source>Caption overlays Icon</source>
         <translation>Text überlagert Icon</translation>
+    </message>
+    <message>
+        <source>When Icon it too small</source>
+        <translation>bei zu kleinem Icon</translation>
     </message>
 </context>
 <context>
@@ -1147,6 +1179,49 @@
     <message>
         <source>Absolute Colorimetric</source>
         <translation>Absolut farbmetrisch</translation>
+    </message>
+    <message>
+        <source>Default color profile for imported images</source>
+        <translation>Farbprofil für Bilder</translation>
+    </message>
+    <message>
+        <source>Default color profile for solid colors on the page</source>
+        <translation>Farbprofil für Objektfarben</translation>
+    </message>
+    <message>
+        <source>Color profile that you have generated or received from the manufacturer.
+This profile should be specific to your monitor and not a generic profile (i.e. sRGB).</source>
+        <translation>Farbprofil für den Monitor.</translation>
+    </message>
+    <message>
+        <source>Color profile for your printer model from the manufacturer.
+This profile should be specific to your printer and not a generic profile (i.e. sRGB).</source>
+        <translation>Farbprofil für den Drucker.</translation>
+    </message>
+    <message>
+        <source>Choose the default rendering intent for your monitor. Unless you know why to change it,
+Relative Colorimetric or Perceptual should be chosen.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose the default rendering intent for your printer. Unless you know why to change it,
+Relative Colorimetric or Perceptual should be chosen.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This enables &apos;soft proofing&apos; of how your document colors will print,
+based on the chosen printer profile.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This is a method of showing colors on the screen which may not print properly.
+This requires very accurate profiles and serves only as a warning.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Black Point Compensation is a method of improving contrast in photos.
+It is recommended that you enable this if you have photos in your document.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1227,6 +1302,10 @@
         <source>B:</source>
         <translation>B:</translation>
     </message>
+    <message>
+        <source> %</source>
+        <translation> %</translation>
+    </message>
 </context>
 <context>
     <name>Cpalette</name>
@@ -1265,6 +1344,42 @@
     <message>
         <source>None</source>
         <translation>Keine</translation>
+    </message>
+    <message>
+        <source>Shade:</source>
+        <translation>Tonwert:</translation>
+    </message>
+    <message>
+        <source>Edit Line Color Properties</source>
+        <translation>Linienfarbe auswählen</translation>
+    </message>
+    <message>
+        <source>Edit Fill Color Properties</source>
+        <translation>Füllfarbe auswählen</translation>
+    </message>
+    <message>
+        <source>Saturation of color</source>
+        <translation>Tonwert der Farbe</translation>
+    </message>
+    <message>
+        <source>Normal or gradient fill method</source>
+        <translation>Füllmethode</translation>
+    </message>
+    <message>
+        <source>Edit the first color of object</source>
+        <translation>Erste Verlaufsfarbe auswählen</translation>
+    </message>
+    <message>
+        <source>Edit the second color of object</source>
+        <translation>Zweite Verlaufsfarbe auswählen</translation>
+    </message>
+    <message>
+        <source>Set the transparency for the color selected</source>
+        <translation>Transparenz für Farbe auswählen</translation>
+    </message>
+    <message>
+        <source>Color of selected object</source>
+        <translation>Farbe des selektierten Objekts</translation>
     </message>
 </context>
 <context>
@@ -1367,7 +1482,7 @@ Wird in den Voreinstellungen gesetzt.</translation>
     </message>
     <message>
         <source>OK to delete Color:</source>
-        <translation>Löschen der Farbe:</translation>
+        <translation type="obsolete">Löschen der Farbe:</translation>
     </message>
     <message>
         <source>?</source>
@@ -1384,6 +1499,10 @@ Wird in den Voreinstellungen gesetzt.</translation>
     <message>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <source>Delete color:</source>
+        <translation>Lösche Farbe:</translation>
     </message>
 </context>
 <context>
@@ -1869,6 +1988,42 @@ Wird in den Voreinstellungen gesetzt.</translation>
         <source>Remove Unused</source>
         <translation>Unbenutzte löschen</translation>
     </message>
+    <message>
+        <source>Choose a color set to load</source>
+        <translation>Farbpalette auswählen</translation>
+    </message>
+    <message>
+        <source>Save the current color set</source>
+        <translation>Farbpalette speichern</translation>
+    </message>
+    <message>
+        <source>Remove unused colors from current document&apos;s color set</source>
+        <translation>Unbenutzte Farben löschen</translation>
+    </message>
+    <message>
+        <source>Append colors to the current set from an existing document</source>
+        <translation>Farben aus anderem Dokument nachladen</translation>
+    </message>
+    <message>
+        <source>Create a new color within the current set</source>
+        <translation>Neue Farbe anlegen</translation>
+    </message>
+    <message>
+        <source>Edit the currently selected color</source>
+        <translation>Farbe bearbeiten</translation>
+    </message>
+    <message>
+        <source>Make a copy of the currently selected color</source>
+        <translation>Kopie der ausgewählen Farbe anlegen</translation>
+    </message>
+    <message>
+        <source>Delete the currently selected color</source>
+        <translation>Ausgewählte Farbe löschen</translation>
+    </message>
+    <message>
+        <source>Make the current colorset the default color set</source>
+        <translation>Aktuelle Palette zur Voreinstellung machen</translation>
+    </message>
 </context>
 <context>
     <name>FontPrefs</name>
@@ -2000,7 +2155,11 @@ Wird in den Voreinstellungen gesetzt.</translation>
     <name>HelpBrowser</name>
     <message>
         <source>Sorry, no manual available!</source>
-        <translation>Leider kein Handbuch verfügbar!</translation>
+        <translation type="obsolete">Leider kein Handbuch verfügbar!</translation>
+    </message>
+    <message>
+        <source>Sorry, no manual available! Please see: http://scribus.net for updated docs and downloads.</source>
+        <translation>Leider kein Handbuch verfügbar! Bitte besuchen Sie: http://scribus.net für Updates.</translation>
     </message>
 </context>
 <context>
@@ -2121,7 +2280,7 @@ everytime a possible Hyphenation is found.</source>
     <name>JavaDocs</name>
     <message>
         <source>Global JavaScripts</source>
-        <translation>Globale Java-Scripte</translation>
+        <translation type="obsolete">Globale Java-Scripte</translation>
     </message>
     <message>
         <source>Edit...</source>
@@ -2146,6 +2305,10 @@ everytime a possible Hyphenation is found.</source>
     <message>
         <source>New Script</source>
         <translation>Neues Script</translation>
+    </message>
+    <message>
+        <source>Edit JavaScripts</source>
+        <translation>JavaScripts bearbeiten</translation>
     </message>
 </context>
 <context>
@@ -2253,6 +2416,10 @@ everytime a possible Hyphenation is found.</source>
         <source>New Layer</source>
         <translation>Neue Ebene</translation>
     </message>
+    <message>
+        <source>Do you want to delete all Objects on this Layer too?</source>
+        <translation>Wollen Sie auch alle Objekte dieser Ebene löschen?</translation>
+    </message>
 </context>
 <context>
     <name>LineFormate</name>
@@ -2324,6 +2491,10 @@ everytime a possible Hyphenation is found.</source>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
         <translation>Dokumente (*.sla *.scd);;Alle Dateien (*)</translation>
     </message>
+    <message>
+        <source>Close</source>
+        <translation>Schließen</translation>
+    </message>
 </context>
 <context>
     <name>Mdup</name>
@@ -2361,6 +2532,14 @@ everytime a possible Hyphenation is found.</source>
     <message>
         <source>Hide Console</source>
         <translation>Konsole verbergen</translation>
+    </message>
+    <message>
+        <source>Script error</source>
+        <translation>Fehler bei der ausführung eines Scripts</translation>
+    </message>
+    <message>
+        <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
+        <translation>Falls das Script ein offizelles Scribus Script ist, den Fehler bitte auf &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; melden.</translation>
     </message>
 </context>
 <context>
@@ -2521,7 +2700,7 @@ everytime a possible Hyphenation is found.</source>
     </message>
     <message>
         <source>Text flows around Box</source>
-        <translation>Text umfließt Objekt</translation>
+        <translation type="obsolete">Text umfließt Objekt</translation>
     </message>
     <message>
         <source>Use Bounding Box</source>
@@ -2615,7 +2794,7 @@ rundung:</translation>
     </message>
     <message>
         <source>Lang.:</source>
-        <translation>Sprache:</translation>
+        <translation type="obsolete">Sprache:</translation>
     </message>
     <message>
         <source>Free Scaling</source>
@@ -2643,7 +2822,7 @@ rundung:</translation>
     </message>
     <message>
         <source>Keep Aspect Ratio</source>
-        <translation>Seitenverhältnis beibehalten</translation>
+        <translation type="obsolete">Seitenverhältnis beibehalten</translation>
     </message>
     <message>
         <source>Proportional</source>
@@ -2743,35 +2922,35 @@ rundung:</translation>
     </message>
     <message>
         <source>Flip horizontal</source>
-        <translation>Horizontal spiegeln</translation>
+        <translation type="obsolete">Horizontal spiegeln</translation>
     </message>
     <message>
         <source>Flip vertical</source>
-        <translation>Vertikal spiegeln</translation>
+        <translation type="obsolete">Vertikal spiegeln</translation>
     </message>
     <message>
         <source>Move one Level up</source>
-        <translation>Eine Ebene höher</translation>
+        <translation type="obsolete">Eine Ebene höher</translation>
     </message>
     <message>
         <source>Move one Level down</source>
-        <translation>Eine Ebene tiefer</translation>
+        <translation type="obsolete">Eine Ebene tiefer</translation>
     </message>
     <message>
         <source>Move to Front</source>
-        <translation>In den Vordergrund</translation>
+        <translation type="obsolete">In den Vordergrund</translation>
     </message>
     <message>
         <source>Move to Back</source>
-        <translation>In den Hintergrund</translation>
+        <translation type="obsolete">In den Hintergrund</translation>
     </message>
     <message>
         <source>Locks or unlocks the Object</source>
-        <translation>Sperrt oder entsperrt das Objekt</translation>
+        <translation type="obsolete">Sperrt oder entsperrt das Objekt</translation>
     </message>
     <message>
         <source>Enables or disables printing of the Object</source>
-        <translation>Schaltet die Druckbarkeit des Objekts ein oder aus</translation>
+        <translation type="obsolete">Schaltet die Druckbarkeit des Objekts ein oder aus</translation>
     </message>
     <message>
         <source>X1:</source>
@@ -2806,6 +2985,278 @@ Bitte wählen Sie einen anderen.</translation>
     <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+    <message>
+        <source>Text flows around frame</source>
+        <translation>Text umfließt Rahmen</translation>
+    </message>
+    <message>
+        <source>Shade:</source>
+        <translation>Tonwert:</translation>
+    </message>
+    <message>
+        <source>Language:</source>
+        <translation>Sprache:</translation>
+    </message>
+    <message>
+        <source>Name of selected object</source>
+        <translation>Name des selektierten Objekts</translation>
+    </message>
+    <message>
+        <source>Horizontal position of current basepoint</source>
+        <translation>Horizontale Position des aktuellen Ursprungs</translation>
+    </message>
+    <message>
+        <source>Vertical position of current basepoint</source>
+        <translation>Vertikale Position des aktuellen Ursprungs</translation>
+    </message>
+    <message>
+        <source>Width</source>
+        <translation>Breite</translation>
+    </message>
+    <message>
+        <source>Height</source>
+        <translation>Höhe</translation>
+    </message>
+    <message>
+        <source>Rotation of object at current basepoint</source>
+        <translation>Drehung des Objekts um den aktuellen Ursprung</translation>
+    </message>
+    <message>
+        <source>Point from which measurements or rotation angles are referenced</source>
+        <translation>Ursprungspunkt</translation>
+    </message>
+    <message>
+        <source>Select top left for basepoint</source>
+        <translation>Links-Oben als Ursprung setzen</translation>
+    </message>
+    <message>
+        <source>Select top right for basepoint</source>
+        <translation>Rechts-Oben als Ursprung setzen</translation>
+    </message>
+    <message>
+        <source>Select bottom left for basepoint</source>
+        <translation>Links-Unten als Ursprung setzen</translation>
+    </message>
+    <message>
+        <source>Select bottom right for basepoint</source>
+        <translation>Rechts-Unten als Ursprung setzen</translation>
+    </message>
+    <message>
+        <source>Select center for basepoint</source>
+        <translation>Mittelpunkt als Ursprung setzen</translation>
+    </message>
+    <message>
+        <source>Flip Horizontal</source>
+        <translation>Horizontal spiegeln</translation>
+    </message>
+    <message>
+        <source>Flip Vertical</source>
+        <translation>Vertikal spiegeln</translation>
+    </message>
+    <message>
+        <source>Move one level up</source>
+        <translation>Eine Ebene nach oben</translation>
+    </message>
+    <message>
+        <source>Move one level down</source>
+        <translation>Eine Ebene nach unten</translation>
+    </message>
+    <message>
+        <source>Move to front</source>
+        <translation>In den Vordergrund</translation>
+    </message>
+    <message>
+        <source>Move to back</source>
+        <translation>In den Hintergrund</translation>
+    </message>
+    <message>
+        <source>Lock or unlock the object</source>
+        <translation>Objekt sperren oder entsperren</translation>
+    </message>
+    <message>
+        <source>Lock or unlock the size of the object</source>
+        <translation>Größenänderung sperren oder entsperren</translation>
+    </message>
+    <message>
+        <source>Enable or disable printing of the object</source>
+        <translation>Drucken erlauben/verbieten</translation>
+    </message>
+    <message>
+        <source>Enable this to make text in lower objects flow around this frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable this to use the imaginary square border around your object, rather than its actual shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font of selected text or object</source>
+        <translation>Schriftart des Objekts</translation>
+    </message>
+    <message>
+        <source>Scaling width of characters</source>
+        <translation>Zeichenbreiten skalieren</translation>
+    </message>
+    <message>
+        <source>Color of text stroke</source>
+        <translation>Textumrissfarbe</translation>
+    </message>
+    <message>
+        <source>Color of text fill</source>
+        <translation>Textfarbe</translation>
+    </message>
+    <message>
+        <source>Saturation of color of text stroke</source>
+        <translation>Tonwert der Textumrissfarbe</translation>
+    </message>
+    <message>
+        <source>Saturation of color of text fill</source>
+        <translation>Tonwert der Textfarbe</translation>
+    </message>
+    <message>
+        <source>Style of current paragraph</source>
+        <translation>Stilvorlage für aktuellen Absatz</translation>
+    </message>
+    <message>
+        <source>Language of object</source>
+        <translation>Sprache des Objekts</translation>
+    </message>
+    <message>
+        <source>Change settings for left or end points</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pattern of line</source>
+        <translation>Strichelung der Line</translation>
+    </message>
+    <message>
+        <source>Thickness of line</source>
+        <translation>Linienbreite</translation>
+    </message>
+    <message>
+        <source>Type of line joins</source>
+        <translation>Art der Ecken</translation>
+    </message>
+    <message>
+        <source>Type of line end</source>
+        <translation>Art der Enden</translation>
+    </message>
+    <message>
+        <source>Line style of current object</source>
+        <translation>Linienstil des Objekts</translation>
+    </message>
+    <message>
+        <source>Choose the shape of frame...</source>
+        <translation>Rahmenform auswählen...</translation>
+    </message>
+    <message>
+        <source>Edit shape of the frame...</source>
+        <translation>Rahmenform bearbeiten...</translation>
+    </message>
+    <message>
+        <source>Set radius of corner rounding</source>
+        <translation>Radius der Eckrundung setzen</translation>
+    </message>
+    <message>
+        <source>Number of columns in text frame</source>
+        <translation>Anzahl der Spalten im Textrahmen</translation>
+    </message>
+    <message>
+        <source>Distance between columns</source>
+        <translation>Spaltenabstand</translation>
+    </message>
+    <message>
+        <source>Distance of text from top of frame</source>
+        <translation>Abstand des Textes vom oberen Rahmenrand</translation>
+    </message>
+    <message>
+        <source>Distance of text from bottom of frame</source>
+        <translation>Abstand des Textes vom unteren Rahmenrand</translation>
+    </message>
+    <message>
+        <source>Distance of text from left of frame</source>
+        <translation>Abstand des Textes vom linken Rahmenrand</translation>
+    </message>
+    <message>
+        <source>Distance of text from right of frame</source>
+        <translation>Abstand des Textes vom rechten Rahmenrand</translation>
+    </message>
+    <message>
+        <source>Edit tab settings of text frame...</source>
+        <translation>Tabulatoren setzen/bearbeiten...</translation>
+    </message>
+    <message>
+        <source>Allow the image to be a different size to the frame</source>
+        <translation>Erlaube verschiedene Größen für Bild und Rahmen</translation>
+    </message>
+    <message>
+        <source>Horizontal offset of image within frame</source>
+        <translation>Horizontaler Versatz des Bildes innerhalb des Rahmens</translation>
+    </message>
+    <message>
+        <source>Vertical offset of image within frame</source>
+        <translation>Vertikaler Versatz des Bildes innerhalb des Rahmens</translation>
+    </message>
+    <message>
+        <source>Resize the image horizontally</source>
+        <translation>Bild horizontal skalieren</translation>
+    </message>
+    <message>
+        <source>Resize the image vertically</source>
+        <translation>Bild vertikal skalieren</translation>
+    </message>
+    <message>
+        <source>Keep the X and Y scaling the same</source>
+        <translation>Seitenverhältnis beibehalten</translation>
+    </message>
+    <message>
+        <source>Make the image fit within the size of the frame</source>
+        <translation>Bild füllt den Rahmen aus</translation>
+    </message>
+    <message>
+        <source>Use image proportions rather than those of the frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select the source profile of the image</source>
+        <translation>Farbprofil für Bild auswählen</translation>
+    </message>
+    <message>
+        <source>Select the rendering intent for the image</source>
+        <translation>Rendering Intent für Bild auswählen</translation>
+    </message>
+    <message>
+        <source>Cell Lines</source>
+        <translation>Zellumrandungen</translation>
+    </message>
+    <message>
+        <source>Line at Top</source>
+        <translation>Oben</translation>
+    </message>
+    <message>
+        <source>Line at the Left</source>
+        <translation>Links</translation>
+    </message>
+    <message>
+        <source>Line at the Right </source>
+        <translation>Rechts</translation>
+    </message>
+    <message>
+        <source>Line at Bottom</source>
+        <translation>Unten</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation> mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation> in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation> p</translation>
     </message>
 </context>
 <context>
@@ -2917,7 +3368,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Exit</source>
-        <translation>Verlassen</translation>
+        <translation type="obsolete">Verlassen</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -2954,6 +3405,10 @@ Bitte wählen Sie einen anderen.</translation>
     <message>
         <source>Name:</source>
         <translation>Name:</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Schließen</translation>
     </message>
 </context>
 <context>
@@ -3290,7 +3745,7 @@ andernfalls relativ zum Objekt.</translation>
     </message>
     <message>
         <source>Compression</source>
-        <translation>Komprimierung</translation>
+        <translation type="obsolete">Komprimierung</translation>
     </message>
     <message>
         <source>Downsample Images to:</source>
@@ -3366,7 +3821,7 @@ andernfalls relativ zum Objekt.</translation>
     </message>
     <message>
         <source>from the:</source>
-        <translation>von:</translation>
+        <translation type="obsolete">von:</translation>
     </message>
     <message>
         <source>Direction:</source>
@@ -3579,6 +4034,265 @@ andernfalls relativ zum Objekt.</translation>
     <message>
         <source>Absolute Colorimetric</source>
         <translation>Absolut farbmetrisch</translation>
+    </message>
+    <message>
+        <source>Image Settings</source>
+        <translation>Bildeinstellungen</translation>
+    </message>
+    <message>
+        <source>Method:</source>
+        <translation>Methode:</translation>
+    </message>
+    <message>
+        <source>Automatic</source>
+        <translation>Automatisch</translation>
+    </message>
+    <message>
+        <source>JPEG</source>
+        <translation>JPEG</translation>
+    </message>
+    <message>
+        <source>Zip</source>
+        <translation>Zip</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Keine</translation>
+    </message>
+    <message>
+        <source>Quality:</source>
+        <translation>Qualität:</translation>
+    </message>
+    <message>
+        <source>Maximum</source>
+        <translation>Maximal</translation>
+    </message>
+    <message>
+        <source>High</source>
+        <translation>Hoch</translation>
+    </message>
+    <message>
+        <source>Medium</source>
+        <translation>Mittel</translation>
+    </message>
+    <message>
+        <source>Low</source>
+        <translation>Niedrig</translation>
+    </message>
+    <message>
+        <source>Minimum</source>
+        <translation>Minimal</translation>
+    </message>
+    <message>
+        <source>From the:</source>
+        <translation>Vom:</translation>
+    </message>
+    <message>
+        <source>Export all pages to PDF</source>
+        <translation>Alle Seiten als PDF exportieren</translation>
+    </message>
+    <message>
+        <source>Export a range of pages to PDF</source>
+        <translation>Eine Seitenbereich als PDF exportieren</translation>
+    </message>
+    <message>
+        <source>First page to export when exporting a range</source>
+        <translation>Erste Seite</translation>
+    </message>
+    <message>
+        <source>Last page to export when exporting a range</source>
+        <translation>Letzte Seite</translation>
+    </message>
+    <message>
+        <source>Determines the PDF compatibility.
+The default is Acrobat 4.0 which gives the widest compatibility.
+Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
+PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This determines the binding of pages in the PDF. Unless you know
+you need to change it leave the default choice - Left.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enabling this generates thumbnails of each page in the PDF.
+Some viewers can use the thumbnails for navigation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable this for generating PDF Articles, which is useful
+for navigating linked articles in a PDF.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enabling this will embed the bookmarks you created in your document.
+These are useful for navigating long PDF documents.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose the export resolution of text and vector graphics.
+This does not affect the resolution of bitmap images like photos.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable compression of text and graphics.
+Unless you have a reason, leave this checked. This reduces PDF size.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose the version of compression for images.
+Automatic allows Scribus to choose the best method.
+ZIP is good for images with solid colors.
+JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
+Leave it set to automatic, unless you have a need for special compression options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose the compression level: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This choice will enable downsampling of your bitmap images to the selected DPI.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose the DPI (Dots Per Inch) for image export.
+Leaving this unchecked will render them at their native resolution.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check this to embed fonts into the PDF. Embedding the fonts
+will preserve the layout and appearance of your document.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Checking this enables presentation effects when using Acrobat Reader in full screen mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Checking this will show page previews of each page listed above.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Length of time the page is shown before the presentation starts on the selected page.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Length of time the effect runs.
+A shorter time will speed up the effect, a longer one will slow it down.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose type of the display effect.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose the direction of the effect of moving lines for the split and blind effects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose the starting position for the box and split effects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose the direction of the glitter or wipe effects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply the selected effect to all pages.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Checking this will enable the security features in your exported PDF.
+If you selected Acrobat 4.0, the PDF will be protected by 40 bit encryption.
+If you selected Acrobat 5.0, the PDF will be protected by 128 bit encryption.
+Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a master password which enables or disables all the
+security features in your exported PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a password for users to be able to read your PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unchecking this will disallow printing of the PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unchecking this will disallow modifying of the PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unchecking this will disallow copying of text or graphics from the PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unchecking this will disallow adding annotations and fields to the PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This chooses the color model for the output of your PDF.
+Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.
+Choose Printer when printing to a true 4 color CMYK printer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Embed a color profile for solid colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select the color profile for solid colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select the rendering intent for solid colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Embed a color profile for images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not use color profiles that are embedded in source images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select the color profile for images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select the rendering intent for images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select the output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This is a mandatory string for PDF/X-3 or the PDF will fail
+PDF/X-3 conformance. We recommend you use the title of the document.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the top of the physical page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the bottom of the physical page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the left of the physical page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the right of the physical page</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3869,6 +4583,34 @@ andernfalls relativ zum Objekt.</translation>
     <message>
         <source>None</source>
         <translation>Keine</translation>
+    </message>
+    <message>
+        <source>Update Picture</source>
+        <translation>Bild neu laden</translation>
+    </message>
+    <message>
+        <source>Edit Picture</source>
+        <translation>Bild bearbeiten</translation>
+    </message>
+    <message>
+        <source>Append Text...</source>
+        <translation>Text anfügen...</translation>
+    </message>
+    <message>
+        <source>The Program</source>
+        <translation>Das Programm</translation>
+    </message>
+    <message>
+        <source>is missing!</source>
+        <translation>fehlt!</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Warnung</translation>
+    </message>
+    <message>
+        <source>Copy of</source>
+        <translation>Kopie von</translation>
     </message>
 </context>
 <context>
@@ -4215,7 +4957,7 @@ andernfalls relativ zum Objekt.</translation>
     </message>
     <message>
         <source>Disp.:</source>
-        <translation>Versatz:</translation>
+        <translation type="obsolete">Versatz:</translation>
     </message>
     <message>
         <source> %</source>
@@ -4279,7 +5021,7 @@ andernfalls relativ zum Objekt.</translation>
     </message>
     <message>
         <source>Linestyle:</source>
-        <translation>Linienstil:</translation>
+        <translation type="obsolete">Linienstil:</translation>
     </message>
     <message>
         <source>Line Width:</source>
@@ -4367,7 +5109,7 @@ andernfalls relativ zum Objekt.</translation>
     </message>
     <message>
         <source>Display Frames</source>
-        <translation>Zeige Rahmen</translation>
+        <translation type="obsolete">Zeige Rahmen</translation>
     </message>
     <message>
         <source>Display Pages Side by Side</source>
@@ -4448,6 +5190,394 @@ andernfalls relativ zum Objekt.</translation>
     <message>
         <source>Display</source>
         <translation>Anzeige</translation>
+    </message>
+    <message>
+        <source>External Tools</source>
+        <translation>Externe Hilfsprogramme</translation>
+    </message>
+    <message>
+        <source>Misc.</source>
+        <translation>Versch.</translation>
+    </message>
+    <message>
+        <source>Displacement:</source>
+        <translation>Versatz:</translation>
+    </message>
+    <message>
+        <source>Postscript Interpreter</source>
+        <translation>Postscript Interpreter</translation>
+    </message>
+    <message>
+        <source>Name of executable:</source>
+        <translation>Programmname:</translation>
+    </message>
+    <message>
+        <source>Antialias Text</source>
+        <translation>Text weichzeichnen</translation>
+    </message>
+    <message>
+        <source>Antialias Graphics</source>
+        <translation>Graphiken weichzeichnen</translation>
+    </message>
+    <message>
+        <source>Image Processing Tool</source>
+        <translation>Bildbearbeitungsprogramm</translation>
+    </message>
+    <message>
+        <source>Printing</source>
+        <translation>Drucken</translation>
+    </message>
+    <message>
+        <source>Clip to Page Margins</source>
+        <translation>Beschneiden auf Seitenränder</translation>
+    </message>
+    <message>
+        <source>Choose the default window decoration and looks.
+Scribus inherits any available KDE or Qt themes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default font size for the menus and windows</source>
+        <translation>Schriftgröße für Menüs und Dialoge</translation>
+    </message>
+    <message>
+        <source>Default unit of measurement for document editing</source>
+        <translation>Maßeinheit für Dokumente</translation>
+    </message>
+    <message>
+        <source>Number of lines Scribus will scroll for each move of the mouse wheel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of recently edited documents to show in the File menu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change the keyboard shortcuts to your preference</source>
+        <translation>Tastaturkürzel einstellen</translation>
+    </message>
+    <message>
+        <source>Default documents directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default ICC profiles directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default Scripter scripts directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default page size, either a standard size or a custom size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default orientation of document pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Width of document pages, editable if you have chosen a custom page size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Height of document pages, editable if you have chosen a custom page size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable single or spread based layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make the first page the left page of a document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the top margin guide and the edge of the page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the bottom margin guide and the edge of the page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the left margin guide and the edge of the page.
+If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the right margin guide and the edge of the page.
+If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When enabled, Scribus saves a backup copy of your file with the .bak extension
+each time the time period elapses</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Time period between saving automatically</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the minor grid lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance between the major grid lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance within which an object will snap to your placed guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of the minor grid lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of the major grid lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of the guide lines you insert</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Place the grid behind your page objects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Place the grid in front of your page objects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Displacement above the baseline of the font on a line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Relative size of the superscript compared to the normal font</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Displacement below the baseline of the normal font on a line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Relative size of the subscript compared to the normal font</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Relative size of the small caps font compared to the normal font</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Percentage increase over the font size for the line spacing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text Frame Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Picture Frame Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shape Drawing Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Magnification Level Defaults</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line Drawing Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Polygon Drawing Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font for new text frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Size of font for new text frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of font</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of columns in a text frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Gap between text frame columns</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sample of your font</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Picture frames allow pictures to scale to any size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Horizontal scaling of images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Vertical scaling of images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keep horizontal and vertical scaling the same</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pictures in picture frames are scaled to the size of the frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatically scaled pictures keep their original proportions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill color of picture frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Saturation of color of fill</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line color of shapes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Saturation of color of lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill color of shapes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line style of shapes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line width of shapes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minimum magnification allowed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximum magnification allowed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change in magnification for each zoom operation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Saturation of color</source>
+        <translation type="unfinished">Tonwert der Farbe</translation>
+    </message>
+    <message>
+        <source>Style of lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Width of lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of corners for polygons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Degrees of rotation for polygons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Polygons will be convex rather than concave</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sample Polygon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change the angles at which lines of the polygon join</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose the size of the preview in the scrapbook palette</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keep the scrapbook contents after closing Scribus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When using facing pages, show the two pages side by side</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color for paper</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color for the margin lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mask the area outside the margins in the margin color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable transparency features within PDF 1.4 export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set the default zoom level</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Filesystem location for the Ghostscript interpreter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Antialias text for EPS and PDF onscreen rendering</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Antialias graphics for EPS and PDF onscreen rendering</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Filesystem location for editing graphics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not show objects outside the margins on the printed page or exported file</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4864,7 +5994,7 @@ Datei wurde nicht gefunden.
     </message>
     <message>
         <source>Script</source>
-        <translation>Script</translation>
+        <translation type="obsolete">Script</translation>
     </message>
     <message>
         <source>Online Reference</source>
@@ -4921,6 +6051,30 @@ Datei wurde nicht gefunden.
     <message>
         <source> p</source>
         <translation> p</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source>mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source>in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source>p</source>
+        <translation>p</translation>
+    </message>
+    <message>
+        <source>Scribus Scripts</source>
+        <translation>Scribus Scripte</translation>
+    </message>
+    <message>
+        <source>S&amp;cript</source>
+        <translation>S&amp;cript</translation>
     </message>
 </context>
 <context>
@@ -5121,27 +6275,27 @@ Datei wurde nicht gefunden.
     </message>
     <message>
         <source>Creates a new Document</source>
-        <translation>Erzeugt ein neues Dokument</translation>
+        <translation type="obsolete">Erzeugt ein neues Dokument</translation>
     </message>
     <message>
         <source>Opens a Document</source>
-        <translation>Öffnet ein Dokument</translation>
+        <translation type="obsolete">Öffnet ein Dokument</translation>
     </message>
     <message>
         <source>Saves the Current Document</source>
-        <translation>Speichert das aktuelle Dokument</translation>
+        <translation type="obsolete">Speichert das aktuelle Dokument</translation>
     </message>
     <message>
         <source>Closes the Current Document</source>
-        <translation>Schließt das aktuelle Dokument</translation>
+        <translation type="obsolete">Schließt das aktuelle Dokument</translation>
     </message>
     <message>
         <source>Prints the Current Document</source>
-        <translation>Druckt das aktuelle Dokument</translation>
+        <translation type="obsolete">Druckt das aktuelle Dokument</translation>
     </message>
     <message>
         <source>Saves the Current Document as PDF</source>
-        <translation>Speichert das aktuelle Dokument als PDF</translation>
+        <translation type="obsolete">Speichert das aktuelle Dokument als PDF</translation>
     </message>
     <message>
         <source>Searching for Fonts</source>
@@ -5577,7 +6731,7 @@ Datei wurde nicht gefunden.
     </message>
     <message>
         <source>Edit</source>
-        <translation>Bearbeiten</translation>
+        <translation type="obsolete">Bearbeiten</translation>
     </message>
     <message>
         <source>Style</source>
@@ -5585,27 +6739,27 @@ Datei wurde nicht gefunden.
     </message>
     <message>
         <source>Item</source>
-        <translation>Objekt</translation>
+        <translation type="obsolete">Objekt</translation>
     </message>
     <message>
         <source>Page</source>
-        <translation>Seite</translation>
+        <translation type="obsolete">Seite</translation>
     </message>
     <message>
         <source>View</source>
-        <translation>Ansicht</translation>
+        <translation type="obsolete">Ansicht</translation>
     </message>
     <message>
         <source>Extras</source>
-        <translation>Extras</translation>
+        <translation type="obsolete">Extras</translation>
     </message>
     <message>
         <source>Windows</source>
-        <translation>Fenster</translation>
+        <translation type="obsolete">Fenster</translation>
     </message>
     <message>
         <source>Help</source>
-        <translation>Hilfe</translation>
+        <translation type="obsolete">Hilfe</translation>
     </message>
     <message>
         <source>Left</source>
@@ -5945,6 +7099,74 @@ nicht speichern</translation>
     <message>
         <source>Irish</source>
         <translation>Irisch</translation>
+    </message>
+    <message>
+        <source>Create a new Document</source>
+        <translation>Neues Dokument erzeugen</translation>
+    </message>
+    <message>
+        <source>Open a Document</source>
+        <translation>Öffnet ein Dokument</translation>
+    </message>
+    <message>
+        <source>Save the current Document</source>
+        <translation>Speichert das aktuelle Dokument</translation>
+    </message>
+    <message>
+        <source>Close the current Document</source>
+        <translation>Schließt das aktuelle Dokument</translation>
+    </message>
+    <message>
+        <source>Print the current Document</source>
+        <translation>Druckt das aktuelle Dokument</translation>
+    </message>
+    <message>
+        <source>Save the current Document as PDF</source>
+        <translation>Speichert das aktuelle Dokument als PDF</translation>
+    </message>
+    <message>
+        <source>Append Text...</source>
+        <translation>Text anfügen...</translation>
+    </message>
+    <message>
+        <source>&amp;File</source>
+        <translation>&amp;Datei</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation>&amp;Bearbeiten</translation>
+    </message>
+    <message>
+        <source>&amp;Style</source>
+        <translation>S&amp;til</translation>
+    </message>
+    <message>
+        <source>&amp;Item</source>
+        <translation>&amp;Objekt</translation>
+    </message>
+    <message>
+        <source>&amp;Page</source>
+        <translation>&amp;Seite</translation>
+    </message>
+    <message>
+        <source>&amp;View</source>
+        <translation>&amp;Ansicht</translation>
+    </message>
+    <message>
+        <source>&amp;Tools</source>
+        <translation>&amp;Werkzeuge</translation>
+    </message>
+    <message>
+        <source>E&amp;xtras</source>
+        <translation>E&amp;xtras</translation>
+    </message>
+    <message>
+        <source>&amp;Windows</source>
+        <translation>&amp;Fenster</translation>
+    </message>
+    <message>
+        <source>&amp;Help</source>
+        <translation>&amp;Hilfe</translation>
     </message>
 </context>
 <context>
@@ -6290,6 +7512,10 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
         <translation>Dokumente (*.sla *.scd);;Alle Dateien (*)</translation>
     </message>
+    <message>
+        <source>Close</source>
+        <translation>Schließen</translation>
+    </message>
 </context>
 <context>
     <name>StoryEditor</name>
@@ -6433,6 +7659,10 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
         <source>Search/Replace...</source>
         <translation>Suchen/Ersetzen...</translation>
     </message>
+    <message>
+        <source>Do you want save your changes?</source>
+        <translation>Wollen Sie Ihre Änderungen sichern?</translation>
+    </message>
 </context>
 <context>
     <name>StyleSelect</name>
@@ -6454,11 +7684,15 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>Strikeout</source>
-        <translation>Durchgestrichen</translation>
+        <translation type="obsolete">Durchgestrichen</translation>
     </message>
     <message>
         <source>Outline Text</source>
         <translation>Umrandet</translation>
+    </message>
+    <message>
+        <source>Strike Out</source>
+        <translation>Durchgestrichen</translation>
     </message>
 </context>
 <context>
@@ -6619,7 +7853,7 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>Zooms in or out</source>
-        <translation>Vergrößern oder verkleinern</translation>
+        <translation type="obsolete">Vergrößern oder verkleinern</translation>
     </message>
     <message>
         <source>Edit Contents of Frame</source>
@@ -6627,7 +7861,7 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>Edit the Text with the Story Editor</source>
-        <translation>Text mit dem Story Editor bearbeiten</translation>
+        <translation type="obsolete">Text mit dem Story Editor bearbeiten</translation>
     </message>
     <message>
         <source>Link Text Frames</source>
@@ -6639,7 +7873,23 @@ ziehen Sie eine Vorlage auf die Seitenansicht unten.</translation>
     </message>
     <message>
         <source>Draws various Shapes</source>
+        <translation type="obsolete">Zeichnet verschiedene Formen</translation>
+    </message>
+    <message>
+        <source>Zoom in or out</source>
+        <translation>Vergrößern oder verkleinern</translation>
+    </message>
+    <message>
+        <source>Edit the text with the Story Editor</source>
+        <translation>Text mit dem Story Editor bearbeiten</translation>
+    </message>
+    <message>
+        <source>Draw various Shapes</source>
         <translation>Zeichnet verschiedene Formen</translation>
+    </message>
+    <message>
+        <source>Insert Table</source>
+        <translation>Tabelle einfügen</translation>
     </message>
 </context>
 <context>

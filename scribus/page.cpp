@@ -597,8 +597,7 @@ void Page::DrawPageItems(ScPainter *painter, QRect rd)
 						p.begin(this);
 						Transform(b, &p);
 						QRegion apr = QRegion(p.xForm(b->Clip));
-						QRegion apr2 = QRegion(p.xForm(QRect(-1, -1, static_cast<int>(b->Width),
-															static_cast<int>(b->Height))));
+						QRegion apr2 = QRegion(p.xForm(QRect(-1, -1, static_cast<int>(b->Width), static_cast<int>(b->Height))));
 						p.end();
 						if ((rd.intersects(apr.boundingRect())) || (rd.intersects(apr2.boundingRect())))
 							b->DrawObj(painter, rd);
@@ -620,8 +619,7 @@ void Page::DrawPageItems(ScPainter *painter, QRect rd)
 						p.begin(this);
 						Transform(b, &p);
 						QRegion apr = QRegion(p.xForm(b->Clip));
-						QRegion apr2 = QRegion(p.xForm(QRect(-1, -1, static_cast<int>(b->Width),
-															static_cast<int>(b->Height))));
+						QRegion apr2 = QRegion(p.xForm(QRect(-1, -1, static_cast<int>(b->Width), static_cast<int>(b->Height))));
 						p.end();
 						if ((rd.intersects(apr.boundingRect())) || (rd.intersects(apr2.boundingRect())))
 						{
@@ -693,6 +691,7 @@ void Page::DrawPageItems(ScPainter *painter, QRect rd)
 					p.end();
 					if ((rd.intersects(apr.boundingRect())) || (rd.intersects(apr2.boundingRect())))
 					{
+		if (!((doku->EditClip) && (Mpressed)))
 						b->DrawObj(painter, rd);
 						b->Redrawn = true;
 						if ((doku->AppMode == 7) && (b->Select))
@@ -817,8 +816,7 @@ void Page::moveGroup(double x, double y, bool fromMP)
 		MoveItem(x, y, b, fromMP);
 	}
 	if (GroupSel)
-		repaint(QRect(static_cast<int>(gx-5), static_cast<int>(gy-5), static_cast<int>(gw+10),
-		              static_cast<int>(gh+10)));
+		repaint(QRect(static_cast<int>(gx-5), static_cast<int>(gy-5), static_cast<int>(gw+10), static_cast<int>(gh+10)));
 }
 
 void Page::getGroupRect(double *x, double *y, double *w, double *h)
@@ -851,21 +849,15 @@ void Page::paintGroupRect(bool norm)
 	if (norm)
 	{
 		pgc.setPen(QPen(red, 1, SolidLine, FlatCap, MiterJoin));
-		pgc.drawRect(static_cast<int>(x+w-6), static_cast<int>(y+h-6), 6, 6);
+		pgc.drawRect(qRound(x+w-6), qRound(y+h-6), 6, 6);
+		pgc.drawRect(qRound(x+w/2 - 3), qRound(y+h-6), 6, 6);
+		pgc.drawRect(qRound(x+w/2 - 3), qRound(y), 6, 6);
+		pgc.drawRect(qRound(x+w-6), qRound(y+h/2 - 3), 6, 6);
+		pgc.drawRect(qRound(x+w-6), qRound(y), 6, 6);
+		pgc.drawRect(qRound(x), qRound(y), 6, 6);
+		pgc.drawRect(qRound(x), qRound(y+h/2 - 3), 6, 6);
+		pgc.drawRect(qRound(x), qRound(y+h-6), 6, 6);
 	}
-	//	pgc.drawRect(int(x), int(y), 6, 6);
-	/*	pgc.drawRect(int(x+w-6), int(y), 6, 6);
-		pgc.drawRect(int(x), int(y+h-6), 6, 6);
-		if (w > 6)
-			{
-			pgc.drawRect(int(x+w/2 - 3), int(y+h-6), 6, 6);
-			pgc.drawRect(int(x+w/2 - 3), int(y), 6, 6);
-			}
-		if (h > 6)
-			{
-			pgc.drawRect(int(x+w-6), int(y+h/2 - 3), 6, 6);
-			pgc.drawRect(int(x), int(y+h/2 - 3), 6, 6);
-			}         */
 	pgc.end();
 }
 
@@ -944,8 +936,7 @@ void Page::PaintSizeRect(QPainter *p, QRect neu)
 		p->setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
 		if (!old.isNull())
 			p->drawRect(old);
-		if (!neu.isNull())
-			p->drawRect(neu);
+		p->drawRect(neu);
 	}
 	old = neu;
 }
@@ -1044,7 +1035,8 @@ void Page::RepaintTextRegion(PageItem *b, QRegion alt, bool single)
 		painter->translate(0.5, 0.5);
 		if (doku->Before)
 			DrawPageMarks(painter, rd);
-		b->DrawObj(painter, rd);
+		if (!((doku->EditClip) && (Mpressed)))
+			b->DrawObj(painter, rd);
 		if (!doku->Before)
 			DrawPageMarks(painter, rd);
 		painter->end();
@@ -1118,11 +1110,11 @@ void Page::AdjustPictScale(PageItem *b, bool reload)
 {
 	if (b->ScaleType)
 		return;
+	if ((b->OrigW == 0) || (b->OrigH == 0))
+		return;
 	bool savF;
 	b->LocalX = 0;
 	b->LocalY = 0;
-	if ((b->OrigW == 0) || (b->OrigH == 0))
-		return;
 	double xs = b->Width / static_cast<double>(b->OrigW);
 	double ys = b->Height / static_cast<double>(b->OrigH);
 	if (!b->Sizing)
@@ -1689,15 +1681,15 @@ void Page::AdjustItemSize(PageItem *b)
 	FPointArray Clip;
 	Clip = b->PoLine;
 	FPoint tp2 = GetMinClipF(Clip);
-	SizeItem(b->Width - tp2.x(), b->Height - tp2.y(), b->ItemNr, false, false);
+	SizeItem(b->Width - tp2.x(), b->Height - tp2.y(), b->ItemNr, true, false);
 	Clip.translate(-tp2.x(), -tp2.y());
 	if (b->Rot != 0)
 	{
 		FPoint npv = FPoint(tp2.x(), tp2.y());
-		MoveRotated(b, npv);
+		MoveRotated(b, npv, true);
 	}
 	else
-		MoveItem(tp2.x(), tp2.y(), b);
+		MoveItem(tp2.x(), tp2.y(), b, true);
 	if (b->flippedH % 2 == 0)
 		MoveItemI(-tp2.x()/b->LocalScX, 0, b->ItemNr);
 	if (b->flippedV % 2 == 0)
@@ -1707,7 +1699,7 @@ void Page::AdjustItemSize(PageItem *b)
 		MoveItemI((b->Width - tp.x())/b->LocalScX, 0, b->ItemNr);
 	if (b->flippedV % 2 != 0)
 		MoveItemI(0, (b->Height - tp.y())/b->LocalScY, b->ItemNr);
-	SizeItem(tp.x(), tp.y(), b->ItemNr, false, false);
+	SizeItem(tp.x(), tp.y(), b->ItemNr, true, false);
 	b->ClipEdited = true;
 	b->PoLine = Clip.copy();
 	if (b->PType == 7)
@@ -2098,9 +2090,11 @@ void Page::scaleGroup(double scx, double scy)
 		bb->Sizing = false;
 		FPoint b, b1, t, t1, h, h1, g, tes, tes2;
 		double oldRot, oldLocalX, oldLocalY;
-		switch (HowTo)
+/*		switch (HowTo)
 		{
 		case 1:
+		case 5:
+		case 6: */
 			oldRot = bb->Rot;
 			oldLocalX = bb->LocalX;
 			oldLocalY = bb->LocalY;
@@ -2141,7 +2135,7 @@ void Page::scaleGroup(double scx, double scy)
 				n = FPoint(gx-oldPos.x(), gy-oldPos.y());
 				double x = ma3.m11() * n.x() + ma3.m21() * n.y() + ma3.dx();
 				double y = ma3.m22() * n.y() + ma3.m12() * n.x() + ma3.dy();
-				MoveItem(gx-x, gy-y, bb);
+				MoveItem(gx-x, gy-y, bb, true);
 				if (oldRot != 0)
 				{
 					bb->Rot = atan2(t1.y()-b1.y(),t1.x()-b1.x())*(180.0/M_PI);
@@ -2164,8 +2158,8 @@ void Page::scaleGroup(double scx, double scy)
 			bb->LocalY = oldLocalY;
 			bb->OldB2 = bb->Width;
 			bb->OldH2 = bb->Height;
-			break;
-		}
+//			break;
+//		}
 	}
 	setGroupRect();
 	setUpdatesEnabled(true);
@@ -2304,8 +2298,6 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 					z = PaintText(Tx + offX, Ty + offY, deltaX, deltaY, doku->Dwidth, doku->DpenText);
 					b = Items.at(z);
 					b->isTableItem = true;
-//					b->LineSp = static_cast<int>(deltaY - 3);
-//					b->ISize = static_cast<int>((b->LineSp - (b->LineSp  * static_cast<double>(doku->AutoLine) / 100.0))) * 10;
 					SelItem.append(b);
 					offX += deltaX;
 				}
@@ -2759,11 +2751,50 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 					mx = Mxp;
 					my = Myp;
 					getGroupRect(&gx, &gy, &gw, &gh);
-					scx = fabs(mx-gx) / gw;
-					scy = fabs(my-gy) / gh;
+					switch (HowTo)
+					{
+						case 1:
+							scx = fabs(mx-gx) / gw;
+							scy = fabs(my-gy) / gh;
+							break;
+						case 2:
+							scx = fabs(mx-(gx+gw)) / gw;
+							scy = fabs(my-(gy+gh)) / gh;
+							break;
+						case 3:
+							scx = fabs(mx-gx) / gw;
+							scy = fabs(my-(gy+gh)) / gh;
+							break;
+						case 4:
+							scx = fabs(mx-(gx+gw)) / gw;
+							scy = fabs(my-gy) / gh;
+							break;
+						case 5:
+							scx = 1.0;
+							scy = fabs(my-gy) / gh;
+							break;
+						case 6:
+							scx = fabs(mx-gx) / gw;
+							scy = 1.0;
+							break;
+						case 7:
+							scx = fabs(mx-(gx+gw)) / gw;
+							scy = 1.0;
+							break;
+						case 8:
+							scx = 1.0;
+							scy = fabs(my-(gy+gh)) / gh;
+							break;
+					}
 					RotMode = doku->RotMode;
 					doku->RotMode = 0;
 					scaleGroup(scx, scy);
+					if ((HowTo == 3) || (HowTo == 8))
+						moveGroup(0, my-gy);
+					if (HowTo == 2)
+						moveGroup(mx-gx, my-gy);
+					if ((HowTo == 7) || (HowTo == 4))
+						moveGroup(mx-gx, 0);
 					doku->RotMode = RotMode;
 				}
 			}
@@ -3246,8 +3277,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 						if (b->Ptext.count() != 0)
 						{
 							b->ISize = QMAX(qRound(b->ISize * scy), 1);
-							b->LineSp = ((b->ISize / 10.0)* static_cast<double>(doku->AutoLine) / 100) +
-							            (b->ISize / 10.0);
+							b->LineSp = ((b->ISize / 10.0)* static_cast<double>(doku->AutoLine) / 100) + (b->ISize / 10.0);
 							b->TxtScale = QMIN(QMAX(qRound(b->TxtScale * scx), 25), 400);
 							doku->CurrTextScale = b->TxtScale;
 							doku->CurrFontSize = b->ISize;
@@ -3380,64 +3410,9 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 		}
 		else
 		{
-//			emit Magnify ? ZoomIn() : ZoomOut();
-//			if (SelItem.count() == 0)
-//				emit AbsPosi2(Mxp, Myp);
-			// I want that zoom in/out is centered to mouse cursor
-			if (SelItem.count() == 0)
-			{
-				// Position of cursor before zoom operation
-				int    oldAbsX;
-				int    oldAbsY;
-				// Position of old point under cursor after zoom operation
-				int    newAbsX;
-				int    newAbsY;
-				// position of child
-				int cx = Anz->childX(parentWidget());
-				int cy = Anz->childY(parentWidget());
-				// scale before zoom operation
-				double oldScale = doku->Scale;
-				// for scrollbar max value check
-				int    sbhMax;
-				int    sbvMax;
-				// remember position of scrollbars
-				QScrollBar *sbv = Anz->verticalScrollBar();
-				QScrollBar *sbh = Anz->horizontalScrollBar();
-				int sbx = sbh->value();
-				int sby = sbv->value();
-				// mouse position absolute X position of frame + mouse position
-				// within the page, ...
-				oldAbsX = Anz->contentsX() + m->x();
-				oldAbsY = Anz->contentsY() + m->y();
-				// do zoom 
-				emit Magnify ? ZoomIn() : ZoomOut();
-				// we need this to get valid values for the scrollbars
-				Anz->updateScrollBars();
-				// if no changes don't recalculate sbx and sby
-				if ( oldScale != doku->Scale )
-				{
-					// new coordinate of point under our cursor
-					newAbsX = (int)(((double)(oldAbsX-cx)* doku->Scale / oldScale)+.5)+cx;
-					newAbsY = (int)(((double)(oldAbsY-cy) * doku->Scale / oldScale)+.5)+cy;
-					// calculate the scrollbar displacement
-					sbx += newAbsX - oldAbsX;
-					sby += newAbsY - oldAbsY;
-					// check for scrollbar position
-					sbhMax = sbh->maxValue();
-					if ( sbx < 0 )
-						sbx = 0;
-					else if ( sbx > sbhMax )
-						sbx = sbhMax;
-					sbvMax = sbv->maxValue();
-					if ( sby < 0 )
-						sby = 0;
-					else if ( sby > sbvMax )
-						sby = sbvMax;
-				}
-				// set scrollbar value
-				sbh->setValue(sbx);
-				sbv->setValue(sby);
-			}
+			int mx=m->x();
+			int my=m->y();
+			emit Magnify ? ZoomIn(mx,my) : ZoomOut(mx,my);
 			HaveSelRect = false;
 		}
 	}
@@ -3937,11 +3912,39 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 						}
 						else
 							np2 = QPoint(m->x(), m->y());
-						Mxp = static_cast<int>(np2.x()/sc);
-						Myp = static_cast<int>(np2.y()/sc);
-						PaintSizeRect(&p, QRect(QPoint(static_cast<int>(gx*sc), static_cast<int>(gy*sc)), np2));
+						PaintSizeRect(&p, QRect(QPoint(qRound(gx*sc), qRound(gy*sc)), np2));
+						break;
+					case 2:
+						np2 = QPoint(m->x(), m->y());
+						PaintSizeRect(&p, QRect(np2, QPoint(qRound((gx+gw)*sc), qRound((gy+gh)*sc))));
+						break;
+					case 3:
+						np2 = QPoint(m->x(), m->y());
+						PaintSizeRect(&p, QRect(np2, QPoint(qRound(gx*sc), qRound((gy+gh)*sc))));
+						break;
+					case 4:
+						np2 = QPoint(m->x(), m->y());
+						PaintSizeRect(&p, QRect(np2, QPoint(qRound((gx+gw)*sc), qRound(gy*sc))));
+						break;
+					case 5:
+						np2 = QPoint(m->x(), m->y());
+						PaintSizeRect(&p, QRect(qRound(gx*sc), qRound(gy*sc), qRound(gw*sc),  np2.y()-qRound(gy*sc)));
+						break;
+					case 6:
+						np2 = QPoint(m->x(), m->y());
+						PaintSizeRect(&p, QRect(qRound(gx*sc), qRound(gy*sc),  np2.x()-qRound(gx*sc), qRound(gh*sc)));
+						break;
+					case 7:
+						np2 = QPoint(m->x(), m->y());
+						PaintSizeRect(&p, QRect(QPoint(np2.x(), qRound(gy*sc)), QPoint(qRound((gx+gw)*sc), qRound((gy+gh)*sc))));
+						break;
+					case 8:
+						np2 = QPoint(m->x(), m->y());
+						PaintSizeRect(&p, QRect(QPoint(qRound(gx*sc), np2.y()), QPoint(qRound((gx+gw)*sc), qRound((gy+gh)*sc))));
 						break;
 					}
+					Mxp = qRound(np2.x()/sc);
+					Myp = qRound(np2.y()/sc);
 					p.end();
 				}
 				else
@@ -4167,20 +4170,27 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 				QRect mpo = QRect(m->x()-doku->GrabRad, m->y()-doku->GrabRad, doku->GrabRad*2, doku->GrabRad*2);
 				double gx, gy, gh, gw;
 				getGroupRectScreen(&gx, &gy, &gw, &gh);
-				if (QRect(static_cast<int>(gx), static_cast<int>(gy), static_cast<int>(gw),
-				          static_cast<int>(gh)).intersects(mpo))
+				if (QRect(static_cast<int>(gx), static_cast<int>(gy), static_cast<int>(gw), static_cast<int>(gh)).intersects(mpo))
 				{
+					qApp->setOverrideCursor(QCursor(SizeAllCursor), true);
+					if (QRect(static_cast<int>(gx+gw)-6, static_cast<int>(gy)-6, 6, 6).intersects(mpo))
+						qApp->setOverrideCursor(QCursor(SizeBDiagCursor), true);
+					if (QRect(static_cast<int>(gx+gw)-6, static_cast<int>(gy+gh)-6, 6, 6).intersects(mpo))
+						qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
+					if (QRect(static_cast<int>(gx+gw/2)-6, static_cast<int>(gy+gh)-6, 6, 6).intersects(mpo))
+						qApp->setOverrideCursor(QCursor(SizeVerCursor), true);
+					if (QRect(static_cast<int>(gx+gw)-6, static_cast<int>(gy+gh/2)-6, 6, 6).intersects(mpo))
+						qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
+					if (QRect(static_cast<int>(gx+gw/2)-6, static_cast<int>(gy)-6, 6, 6).intersects(mpo))
+						qApp->setOverrideCursor(QCursor(SizeVerCursor), true);
+					if (QRect(static_cast<int>(gx)-6, static_cast<int>(gy)-6, 6, 6).intersects(mpo))
+						qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
+					if (QRect(static_cast<int>(gx)-6, static_cast<int>(gy+gh/2)-6, 6, 6).intersects(mpo))
+						qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
+					if (QRect(static_cast<int>(gx)-6, static_cast<int>(gy+gh)-6, 6, 6).intersects(mpo))
+						qApp->setOverrideCursor(QCursor(SizeBDiagCursor), true);
 					if (doku->AppMode == 9)
 						qApp->setOverrideCursor(QCursor(loadIcon("Rotieren2.xpm")), true);
-					else
-						qApp->setOverrideCursor(QCursor(SizeAllCursor), true);
-					if (QRect(static_cast<int>(gx+gw)-6, static_cast<int>(gy+gh)-6, 6, 6).intersects(mpo))
-					{
-						if (doku->AppMode == 9)
-							qApp->setOverrideCursor(QCursor(loadIcon("Rotieren2.xpm")), true);
-						else
-							qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
-					}
 				}
 				else
 					qApp->setOverrideCursor(QCursor(ArrowCursor), true);
@@ -4613,6 +4623,10 @@ void Page::mousePressEvent(QMouseEvent *m)
 		{
 			if (GroupSel)
 			{
+				p.begin(this);
+				QRect ne = QRect();
+				PaintSizeRect(&p, ne);
+				p.end();
 				double gx, gy, gh, gw;
 				getGroupRectScreen(&gx, &gy, &gw, &gh);
 				if ((QRect(static_cast<int>(gx), static_cast<int>(gy), static_cast<int>(gw),
@@ -4623,6 +4637,46 @@ void Page::mousePressEvent(QMouseEvent *m)
 					{
 						HowTo = 1;
 						qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
+					}
+					if (QRect(static_cast<int>(gx)-6, static_cast<int>(gy)-6, 6, 6).intersects(mpo))
+					{
+						HowTo = 2;
+						qApp->setOverrideCursor(QCursor(SizeFDiagCursor), true);
+					}
+					if (QRect(static_cast<int>(gx+gw)-6, static_cast<int>(gy)-6, 6, 6).intersects(mpo))
+					{
+						HowTo = 3;
+						qApp->setOverrideCursor(QCursor(SizeBDiagCursor), true);
+					}
+					if (QRect(static_cast<int>(gx)-6, static_cast<int>(gy+gh)-6, 6, 6).intersects(mpo))
+					{
+						HowTo = 4;
+						qApp->setOverrideCursor(QCursor(SizeBDiagCursor), true);
+					}
+					if (QRect(static_cast<int>(gx+gw/2)-6, static_cast<int>(gy+gh)-6, 6, 6).intersects(mpo))
+					{
+						HowTo = 5;
+						qApp->setOverrideCursor(QCursor(SizeVerCursor), true);
+					}
+					if (QRect(static_cast<int>(gx+gw)-6, static_cast<int>(gy+gh/2)-6, 6, 6).intersects(mpo))
+					{
+						HowTo = 6;
+						qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
+					}
+					if (QRect(static_cast<int>(gx)-6, static_cast<int>(gy+gh/2)-6, 6, 6).intersects(mpo))
+					{
+						HowTo = 7;
+						qApp->setOverrideCursor(QCursor(SizeHorCursor), true);
+					}
+					if (QRect(static_cast<int>(gx+gw/2)-6, static_cast<int>(gy)-6, 6, 6).intersects(mpo))
+					{
+						HowTo = 8;
+						qApp->setOverrideCursor(QCursor(SizeVerCursor), true);
+					}
+					if (b->LockRes)
+					{
+						qApp->setOverrideCursor(QCursor(SizeAllCursor), true);
+						HowTo = 0;
 					}
 					if (HowTo != 0)
 						mCG = true;
@@ -7071,26 +7125,29 @@ void Page::chAbStyle(PageItem *b, int s)
 					break;
 				}
 				nb->Ptext.at(a)->cab = s;
-				if (doku->Vorlagen[s].Font != "")
+				if (s > 4)
 				{
-					nb->Ptext.at(a)->cfont = doku->Vorlagen[s].Font;
-					nb->Ptext.at(a)->csize = doku->Vorlagen[s].FontSize;
-					nb->Ptext.at(a)->cstyle &= ~127;
-					nb->Ptext.at(a)->cstyle |= doku->Vorlagen[s].FontEffect;
-					nb->Ptext.at(a)->ccolor = doku->Vorlagen[s].FColor;
-					nb->Ptext.at(a)->cshade = doku->Vorlagen[s].FShade;
-					nb->Ptext.at(a)->cstroke = doku->Vorlagen[s].SColor;
-					nb->Ptext.at(a)->cshade2 = doku->Vorlagen[s].SShade;
-				}
-				else
-				{
-					nb->Ptext.at(a)->ccolor = nb->TxtFill;
-					nb->Ptext.at(a)->cshade = nb->ShTxtFill;
-					nb->Ptext.at(a)->cstroke = nb->TxtStroke;
-					nb->Ptext.at(a)->cshade2 = nb->ShTxtStroke;
-					nb->Ptext.at(a)->csize = nb->ISize;
-					nb->Ptext.at(a)->cstyle &= ~127;
-					nb->Ptext.at(a)->cstyle |= nb->TxTStyle;
+					if (doku->Vorlagen[s].Font != "")
+					{
+						nb->Ptext.at(a)->cfont = doku->Vorlagen[s].Font;
+						nb->Ptext.at(a)->csize = doku->Vorlagen[s].FontSize;
+						nb->Ptext.at(a)->cstyle &= ~127;
+						nb->Ptext.at(a)->cstyle |= doku->Vorlagen[s].FontEffect;
+						nb->Ptext.at(a)->ccolor = doku->Vorlagen[s].FColor;
+						nb->Ptext.at(a)->cshade = doku->Vorlagen[s].FShade;
+						nb->Ptext.at(a)->cstroke = doku->Vorlagen[s].SColor;
+						nb->Ptext.at(a)->cshade2 = doku->Vorlagen[s].SShade;
+					}
+					else
+					{
+						nb->Ptext.at(a)->ccolor = nb->TxtFill;
+						nb->Ptext.at(a)->cshade = nb->ShTxtFill;
+						nb->Ptext.at(a)->cstroke = nb->TxtStroke;
+						nb->Ptext.at(a)->cshade2 = nb->ShTxtStroke;
+						nb->Ptext.at(a)->csize = nb->ISize;
+						nb->Ptext.at(a)->cstyle &= ~127;
+						nb->Ptext.at(a)->cstyle |= nb->TxTStyle;
+					}
 				}
 				a--;
 			}
@@ -7111,26 +7168,29 @@ void Page::chAbStyle(PageItem *b, int s)
 			while (a < static_cast<int>(nb->Ptext.count()))
 			{
 				nb->Ptext.at(a)->cab = s;
-				if (doku->Vorlagen[s].Font != "")
+				if (s > 4)
 				{
-					nb->Ptext.at(a)->cfont = doku->Vorlagen[s].Font;
-					nb->Ptext.at(a)->csize = doku->Vorlagen[s].FontSize;
-					nb->Ptext.at(a)->cstyle &= ~127;
-					nb->Ptext.at(a)->cstyle |= doku->Vorlagen[s].FontEffect;
-					nb->Ptext.at(a)->ccolor = doku->Vorlagen[s].FColor;
-					nb->Ptext.at(a)->cshade = doku->Vorlagen[s].FShade;
-					nb->Ptext.at(a)->cstroke = doku->Vorlagen[s].SColor;
-					nb->Ptext.at(a)->cshade2 = doku->Vorlagen[s].SShade;
-				}
-				else
-				{
-					nb->Ptext.at(a)->ccolor = nb->TxtFill;
-					nb->Ptext.at(a)->cshade = nb->ShTxtFill;
-					nb->Ptext.at(a)->cstroke = nb->TxtStroke;
-					nb->Ptext.at(a)->cshade2 = nb->ShTxtStroke;
-					nb->Ptext.at(a)->csize = nb->ISize;
-					nb->Ptext.at(a)->cstyle &= ~127;
-					nb->Ptext.at(a)->cstyle |= nb->TxTStyle;
+					if (doku->Vorlagen[s].Font != "")
+					{
+						nb->Ptext.at(a)->cfont = doku->Vorlagen[s].Font;
+						nb->Ptext.at(a)->csize = doku->Vorlagen[s].FontSize;
+						nb->Ptext.at(a)->cstyle &= ~127;
+						nb->Ptext.at(a)->cstyle |= doku->Vorlagen[s].FontEffect;
+						nb->Ptext.at(a)->ccolor = doku->Vorlagen[s].FColor;
+						nb->Ptext.at(a)->cshade = doku->Vorlagen[s].FShade;
+						nb->Ptext.at(a)->cstroke = doku->Vorlagen[s].SColor;
+						nb->Ptext.at(a)->cshade2 = doku->Vorlagen[s].SShade;
+					}
+					else
+					{
+						nb->Ptext.at(a)->ccolor = nb->TxtFill;
+						nb->Ptext.at(a)->cshade = nb->ShTxtFill;
+						nb->Ptext.at(a)->cstroke = nb->TxtStroke;
+						nb->Ptext.at(a)->cshade2 = nb->ShTxtStroke;
+						nb->Ptext.at(a)->csize = nb->ISize;
+						nb->Ptext.at(a)->cstyle &= ~127;
+						nb->Ptext.at(a)->cstyle |= nb->TxTStyle;
+					}
 				}
 				if (nb->Ptext.at(a)->ch == QChar(13))
 				{
@@ -7154,26 +7214,29 @@ void Page::chAbStyle(PageItem *b, int s)
 			for (a = 0; a < static_cast<int>(b->Ptext.count()); ++a)
 			{
 				b->Ptext.at(a)->cab = s;
-				if (doku->Vorlagen[s].Font != "")
+				if (s > 4)
 				{
-					b->Ptext.at(a)->cfont = doku->Vorlagen[s].Font;
-					b->Ptext.at(a)->csize = doku->Vorlagen[s].FontSize;
-					b->Ptext.at(a)->cstyle &= ~127;
-					b->Ptext.at(a)->cstyle |= doku->Vorlagen[s].FontEffect;
-					b->Ptext.at(a)->ccolor = doku->Vorlagen[s].FColor;
-					b->Ptext.at(a)->cshade = doku->Vorlagen[s].FShade;
-					b->Ptext.at(a)->cstroke = doku->Vorlagen[s].SColor;
-					b->Ptext.at(a)->cshade2 = doku->Vorlagen[s].SShade;
-				}
-				else
-				{
-					b->Ptext.at(a)->ccolor = b->TxtFill;
-					b->Ptext.at(a)->cshade = b->ShTxtFill;
-					b->Ptext.at(a)->cstroke = b->TxtStroke;
-					b->Ptext.at(a)->cshade2 = b->ShTxtStroke;
-					b->Ptext.at(a)->csize = b->ISize;
-					b->Ptext.at(a)->cstyle &= ~127;
-					b->Ptext.at(a)->cstyle |= b->TxTStyle;
+					if (doku->Vorlagen[s].Font != "")
+					{
+						b->Ptext.at(a)->cfont = doku->Vorlagen[s].Font;
+						b->Ptext.at(a)->csize = doku->Vorlagen[s].FontSize;
+						b->Ptext.at(a)->cstyle &= ~127;
+						b->Ptext.at(a)->cstyle |= doku->Vorlagen[s].FontEffect;
+						b->Ptext.at(a)->ccolor = doku->Vorlagen[s].FColor;
+						b->Ptext.at(a)->cshade = doku->Vorlagen[s].FShade;
+						b->Ptext.at(a)->cstroke = doku->Vorlagen[s].SColor;
+						b->Ptext.at(a)->cshade2 = doku->Vorlagen[s].SShade;
+					}
+					else
+					{
+						b->Ptext.at(a)->ccolor = b->TxtFill;
+						b->Ptext.at(a)->cshade = b->ShTxtFill;
+						b->Ptext.at(a)->cstroke = b->TxtStroke;
+						b->Ptext.at(a)->cshade2 = b->ShTxtStroke;
+						b->Ptext.at(a)->csize = b->ISize;
+						b->Ptext.at(a)->cstyle &= ~127;
+						b->Ptext.at(a)->cstyle |= b->TxTStyle;
+					}
 				}
 			}
 		}

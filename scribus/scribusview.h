@@ -84,6 +84,7 @@ public:
 	void ProcessPage(PSLib *p, Page* a, uint PNr, bool sep = false, bool farb = true, bool ic = false);
 	void SetClipPath(PSLib *p, FPointArray *c);
 	void SetFarbe(QString farb, int shade, int *h, int *s, int *v, int *k);
+	void rememberPreviousSettings(int mx=0, int my=0);
   /** Dokument zu dem die Seite geh�t */
 	ScribusDoc *Doc;
 	preV *Prefs;
@@ -92,13 +93,13 @@ public slots: // Public slots
   /** Fhrt die Vergr�erung/Verkleinerung aus; */
 	void slotDoZoom();
   /** Vergr�ert die Ansicht */
-	void slotZoomIn();
+	void slotZoomIn(int mx=0,int my=0);
   /** Verkleinert die Ansicht */
-	void slotZoomOut();
+	void slotZoomOut(int mx=0,int my=0);
   /** Vergr�ert die Ansicht */
-	void slotZoomIn2();
+	void slotZoomIn2(int mx=0,int my=0);
   /** Verkleinert die Ansicht */
-	void slotZoomOut2();
+	void slotZoomOut2(int mx=0,int my=0);
   /** Zeichnet alle Seiten neu */
 	void DrawNew();
 	void setMenTxt(int Seite);
@@ -117,6 +118,12 @@ private: // Private attributes
 	QPopupMenu *Unitmen;
 	QPopupMenu *Laymen;
 	bool Ready;
+	int    oldX;
+	int    oldY;
+	int    oldSbx;
+	int    oldSby;
+	double oldScale;
+	bool doZooming;
 	
 private slots:
 	void Zval();

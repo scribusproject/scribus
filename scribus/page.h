@@ -56,7 +56,7 @@ public:
 	void insertColor(QString nam, double c, double m, double y, double k);
 	void DrawPageMarks(ScPainter *p, QRect rd);
 	void DrawPageItems(ScPainter *painter, QRect rd);
-	void Page::leaveEvent(QEvent *);
+	void leaveEvent(QEvent *);
 	void paintEvent(QPaintEvent *e);
 	void setGroupRect();
 	void getGroupRect(double *x, double *y, double *w, double *h);
@@ -273,8 +273,8 @@ signals: // Signals
   /** Setzt den Drehungswinkel des Elementes */
 	void SetAngle(double);
   /** Zoomfunktionen */
-	void ZoomIn();
-	void ZoomOut();
+	void ZoomIn(int, int);
+	void ZoomOut(int, int);
 	void ZoomAbs();
 	void AbsPosi(int, int);
 	void AbsPosi2(int, int);

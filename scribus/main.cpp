@@ -41,6 +41,11 @@
  #include "config.h"
 #endif
 
+// jjsa 28-03-2004 added define for choosing of option type
+// if USE_LONG_OPT is 1 old options will be compiled
+// else use option with single '-'
+#define USE_LONG_OPT 0
+
 QString lang = "";
 bool showSplash = true;
 bool useGui = true;
@@ -57,6 +62,7 @@ int main(int argc, char *argv[])
     QString arg = "";
 
     arg = argv[1];
+#if USE_LONG_OPT // jjsa 28-03-2004 begin
     if (arg == "--version") {
         std::cout << "Scribus Version " << VERSION << std::endl;
         return 0;
@@ -66,7 +72,19 @@ int main(int argc, char *argv[])
         showUsage();
         return 0;
     }
+#else
+    if (arg == "-version") {
+        std::cout << "Scribus Version " << VERSION << std::endl;
+        return 0;
+    } else if (arg == "-help") {
+        std::cout << std::endl;
+        std::cout << "Scribus, a DTP-Program" << std::endl;
+        showUsage();
+        return 0;
+    }
+#endif // jjsa 28-03-2004end
 
+#if USE_LONG_OPT // jjsa 28-03-2004 begin
     for(int i = 1; i < argc; i++) {
         arg = argv[i];
         if ((arg == "--lang") && (++i < argc)) {
@@ -75,6 +93,12 @@ int main(int argc, char *argv[])
             showSplash = false;
         } else if (arg == "--no-gui") {
             useGui = false;
+// jjsa 28-03-2004 begin
+        } else if (arg == "-display" && i < argc) {
+           // allow setting of display, QT expect the
+           // option -display <display_name>
+           i++;
+// jjsa 28-03-2004 end
         } else {
             file = QFile::decodeName(argv[i]);
             if (!QFileInfo(file).exists()) {
@@ -89,6 +113,32 @@ int main(int argc, char *argv[])
             }
         }
     }
+#else
+    for(int i = 1; i < argc; i++) {
+        arg = argv[i];
+        if ((arg == "-lang") && (++i < argc)) {
+            lang = argv[i];
+        } else if (arg == "-no-splash") {
+            showSplash = false;
+        } else if (arg == "-no-gui") {
+            useGui = false;
+        } else if (arg.left(2) == "--" || arg == "-file" || arg.left(1) != "-") {
+            if ( arg.left(1) == "-" ) {
+               i++;
+            }
+            file = QFile::decodeName(argv[i]);
+            if (!QFileInfo(file).exists()) {
+                std::cout << std::endl;
+                std::cout << "File " << file << "does not exist, aborting." << std::endl;
+                showUsage();
+                return 0;
+            }
+        } else if (arg.left(1) == "-" && i+1 < argc ) {
+            i++;
+        }
+    }
+#endif
+
 /*    if (useGui)
     {
 // Please Test this carefully and report problems.
@@ -131,6 +181,8 @@ int main(int argc, char *argv[])
  \param lang QString a two letter string describing the lang environement
  \retval QString A string describing the language environement
  */
+#if USE_LONG_OPT // jjsa 28-03-2004 begin
+ 
 void showUsage()
 {
     std::cout << std::endl;
@@ -141,6 +193,21 @@ void showUsage()
     std::cout << "--version    Output version information and exit" << std::endl;
     std::cout << std::endl;
 }
+#else
+void showUsage()
+{
+    std::cout << std::endl;
+    std::cout << "Usage: scribus [option ... ] [file]" << std::endl;
+    std::cout << "Options:" << std::endl;
+    std::cout << "-lang xx      Uses xx as shortcut for a language" << std::endl;
+    std::cout << "-help         Print help (this message) and exit" << std::endl;
+    std::cout << "-version      Output version information and exit" << std::endl;
+    std::cout << "-file|-- name Open file 'name'" << std::endl;
+    std::cout << "name          Open file 'name', the file name must not begin with '-'" << std::endl;
+    std::cout << "QT specific options as -display ..." << std::endl;
+    std::cout << std::endl;
+}
+#endif // jjsa 28-03-2004 end
 
 /*!
  \fn int mainGui(int argc, char **argv)

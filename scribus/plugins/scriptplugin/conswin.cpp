@@ -59,7 +59,9 @@ void ConsWin::keyPressEvent(QKeyEvent *k)
 			removeParagraph(paragraphs()-1);
 			insertParagraph(Prompt+LastComm, -1);
 			moveCursor(QTextEdit::MoveEnd, false);
-			}			
+			moveCursor(QTextEdit::MoveBackward, false);
+			del();
+			}
 		return;
 		}
 	QTextEdit::keyPressEvent(k);

@@ -239,7 +239,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 	uint a, nrc, nrc2, zae;
 	int desc, asce, absa, aSpa, chs, CurrCol;
 	uint BuPos, LastSP, BuPos2, MaxText;
-	double oldCurY, LastXp, EndX, OFs, OFs2, wide, rota, wid, lineCorr, ColWidth;
+	double oldCurY, LastXp, EndX, OFs, OFs2, wide, rota, wid, lineCorr, ColWidth, kernVal;
 	double sc = Doc->Scale;
 	QString chx, chx2, chx3;
 	struct Pti *hl;
@@ -902,15 +902,19 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 							}
 						}
 					hl->yp = CurY + oldCurY;
+					if (LiList.count() == 0)
+						kernVal = 0;
+					else
+						kernVal = hl->cextra;
 					if (!RTab)
 						{
-						hl->xp = CurX+hl->cextra;
-						CurX += wide+hl->cextra;
+						hl->xp = CurX+kernVal;
+						CurX += wide+kernVal;
 						}
 					else
 						hl->xp = CurX;
 					if ((TabCode == 4) && (RTab))
-						CurX += (wide+hl->cextra) / 2;
+						CurX += (wide+kernVal) / 2;
 					pt1 = QPoint(static_cast<int>(ceil(CurX+RExtra)), static_cast<int>(CurY+desc+BExtra+lineCorr));
 					pt2 = QPoint(static_cast<int>(ceil(CurX+RExtra)), static_cast<int>(ceil(CurY-asce)));
 					if ((!cl.contains(pf2.xForm(pt1))) || (!cl.contains(pf2.xForm(pt2))) || (CurX+RExtra+lineCorr > ColBound.y()))
@@ -928,7 +932,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 					Zli->Style = hl->cstyle;
 					Zli->ZFo = hl->cfont;
 					Zli->wide = wide;
-					Zli->kern = hl->cextra;
+					Zli->kern = kernVal;
 					Zli->scale = hl->cscale;
 					if (((hl->ch == " ") || (hl->ch == QChar(9))) && (!outs))
 						{
@@ -954,8 +958,8 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 							cen = 2;
 						for (uint rtx = StartRT; rtx < LiList.count(); ++rtx)
 							{
-							LiList.at(rtx)->xco = QMAX(LiList.at(rtx)->xco-(wide+hl->cextra) / cen, 0.0);
-							Ptext.at(StartRT2+rtx2)->xp = QMAX(Ptext.at(StartRT2+rtx2)->xp-(wide+hl->cextra) / cen, 0.0);
+							LiList.at(rtx)->xco = QMAX(LiList.at(rtx)->xco-(wide+kernVal) / cen, 0.0);
+							Ptext.at(StartRT2+rtx2)->xp = QMAX(Ptext.at(StartRT2+rtx2)->xp-(wide+kernVal) / cen, 0.0);
 							rtx2++;
 							}
 						}

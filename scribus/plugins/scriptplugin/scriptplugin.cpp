@@ -100,7 +100,7 @@ void InitPlug(QWidget *d, ScribusApp *plug)
 	Tes->rmenid = men->insertItem(QObject::tr("Recent Scripts"), Tes->rmen);
 	men->insertSeparator();
 	Tes->cons = men->insertItem(QObject::tr("Show Console"), Tes, SLOT(slotInteractiveScript()));
-	plug->menuBar()->insertItem(QObject::tr("Script"), men, -1, plug->menuBar()->count() - 2);
+	plug->menuBar()->insertItem(QObject::tr("S&cript"), men, -1, plug->menuBar()->count() - 2);
 	QObject::connect(Tes->pcon->OutWin, SIGNAL(returnPressed()), Tes, SLOT(slotExecute()));
 	QObject::connect(Tes->pcon, SIGNAL(Schliessen()), Tes, SLOT(slotInteractiveScript()));
 	QObject::connect(Tes->rmen, SIGNAL(activated(int)), Tes, SLOT(RecentScript(int)));
