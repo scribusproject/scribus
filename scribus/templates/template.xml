@@ -2,7 +2,7 @@
 <templates>
 	<template category="Newsletters">
 		<name>Newsletter_1</name>
-    	<file>nl1/nl1.sla</file>
+    	<file>nl1/nl1.sla.gz</file>
     	<tnail>nl1/nl1tn.png</tnail>
     	<img>nl1/nl1.png</img>
     	<psize>A4</psize>
@@ -16,7 +16,7 @@
 	</template>
 	<template category="Newsletters">
   		<name>Newsletter_2</name>
-    	<file>nl2/nl2.sla</file>
+    	<file>nl2/nl2.sla.gz</file>
     	<tnail>nl2/nl2tn.png</tnail>
     	<img>nl2/nl2.png</img>
     	<psize>A4</psize>
@@ -30,7 +30,7 @@
   	</template>
 	<template category="Brochures">
   		<name>Brochure_1</name>
-    	<file>br1/br1.sla</file>
+    	<file>br1/br1.sla.gz</file>
     	<tnail>br1/br1tn.png</tnail>
     	<img>br1/br1.png</img>
     	<psize>A4</psize>
