@@ -3739,7 +3739,17 @@ void ScribusApp::HaveNewSel(int Nr)
 {
 	PageItem *b = NULL;
 	if (Nr != -1)
-		b = view->SelItem.at(0);
+	{
+		if (doc->ActPage->SelItem.count() == 0)
+		{
+			b = doc->ActPage->SelItem.at(0);
+			if (!b)
+				Nr=-1;
+		}
+		else
+			Nr = -1;
+	}
+	
 	scrActions["itemDetachTextFromPath"]->setEnabled(false);
 	scrActions["extrasInsertSpecial"]->setEnabled(false);
 	view->HR->ItemPosValid = false;
