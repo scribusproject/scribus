@@ -1,3 +1,4 @@
+""" A sample script """
 from scribus import *
 Margins = (10, 10, 10, 30)
 if NewDoc(Paper_A4, Margins, Portrait, 1, Points, NoFacingPages, FirstPageRight):

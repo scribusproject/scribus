@@ -1,2 +1,5 @@
+""" Make selected group larger by 10% """
+
 from scribus import *
-ScaleGroup(1.1)
+
+scaleGroup(1.1)

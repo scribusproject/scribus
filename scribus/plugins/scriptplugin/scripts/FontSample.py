@@ -1,41 +1,41 @@
-# ****************************************************************************
-#  DESCRIPTION & USAGE:
-#  This script needs Tkinter. It will create a GUI with an alphabetical list
-#  of fonts using the names as they will be shown in Scribus. User can select
-#  one or more fonts and create an example sheet(s) to print or create a PDF
-#  from. It is heavily commented to make it easier for the user to adjust it
-#  for his / her own needs.
-#
-# ****************************************************************************
-#
-#  First release	: 30/12/2003
-#  This release     : v0.6.1 (released 24th Feb 2004)
-#  Copyright		: (C) 2003 - 2004 Steve Callcott
-#  email			: stotte@ntlworld.com
-#  Latest releases	: www.
-#  Maintainer		: Steve Callcott 2003 - 2004
-#
-#  Feature requests and bug reports to stotte@ntlworld.com
-#  For revision history see the ChangeLog file.
-#  Bugs and future plans are listed in the TODO file.
-#  See NEWS for new features since last version.
-#
-# ****************************************************************************
-#  This program is free software; you can redistribute it and/or modify 
-#  it under the terms of the GNU General Public License as published by
-#  the Free Software Foundation; either version 2 of the License, or
-#  (at your option) any later version.
-#
-#  This program is distributed in the hope that it will be useful,
-#  but WITHOUT ANY WARRANTY; without even the implied warranty of
-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#  GNU General Public License for more details.
-#
-#  You should have received a copy of the GNU General Public License
-#  along with this program; if not, write to the Free Software
-#  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-# 
-# ****************************************************************************
+""" DESCRIPTION & USAGE:
+This script needs Tkinter. It will create a GUI with an alphabetical list
+of fonts using the names as they will be shown in Scribus. User can select
+one or more fonts and create an example sheet(s) to print or create a PDF
+from. It is heavily commented to make it easier for the user to adjust it
+for his / her own needs.
+
+First release	: 30/12/2003
+
+This release     : v0.6.1 (released 24th Feb 2004)
+
+Copyright		: (C) 2003 - 2004 Steve Callcott
+
+email			: stotte@ntlworld.com
+
+Latest releases	: www.
+
+Maintainer		: Steve Callcott 2003 - 2004
+
+Feature requests and bug reports to stotte@ntlworld.com
+For revision history see the ChangeLog file.
+Bugs and future plans are listed in the TODO file.
+See NEWS for new features since last version.
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+"""
 
 from Tkinter import *
 from scribus import *
@@ -163,7 +163,7 @@ def setPageGeometries():
 
 def setOddEven(pageNum):
 	# This function checks the number passed to it and sets left and right
-	# margins accordingly.Call it once after each new page is created. 
+	# margins accordingly.Call it once after each new page is created.
 	# Also it will return 1 if even and 0 if odd page.
 	if pageNum % 2 == 0:
 		isEvenPage = 1											# Even side

@@ -1,3 +1,4 @@
+""" Creates 3 column layout on A4 paper and save it under 3columnA4.sla filename"""
 from scribus import *
 Margins = (50, 50, 50, 50)
 size=(612,792)

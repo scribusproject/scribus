@@ -1,3 +1,5 @@
+""" Creates 3 column layout on Letter paper and save it under 3columnUS.sla filename"""
+
 from scribus import *
 Margins = (50, 50, 50, 50)
 size=(612,792)
