@@ -948,19 +948,23 @@ QString ScribusApp::getPreferencesLocation()
 	QString oldPR2=QDir::convertSeparators(PrefsPfad+"/scribusfont.rc");
 	QString oldPR3=QDir::convertSeparators(PrefsPfad+"/scrap.scs");
 	QString oldPR4=QDir::convertSeparators(PrefsPfad+"/prefs.xml");	
+	QString oldPR5=QDir::convertSeparators(PrefsPfad+"/scripter.rc");	
 	QString newPR =QDir::convertSeparators(PrefsPfad+"/scribus13.rc");
 	QString newPR2=QDir::convertSeparators(PrefsPfad+"/scribusfont13.rc");
 	QString newPR3=QDir::convertSeparators(PrefsPfad+"/scrap13.scs");
 	QString newPR4=QDir::convertSeparators(PrefsPfad+"/prefs13.xml");
+	QString newPR5=QDir::convertSeparators(PrefsPfad+"/scripter13.rc");
 		
 	bool existsOldPR =QFile::exists(oldPR);
 	bool existsOldPR2=QFile::exists(oldPR2);
 	bool existsOldPR3=QFile::exists(oldPR3);
 	bool existsOldPR4=QFile::exists(oldPR4);
+	bool existsOldPR5=QFile::exists(oldPR5);
 	bool existsNewPR =QFile::exists(newPR);
 	bool existsNewPR2=QFile::exists(newPR2);
 	bool existsNewPR3=QFile::exists(newPR3);
 	bool existsNewPR4=QFile::exists(newPR4);	
+	bool existsNewPR5=QFile::exists(newPR5);	
 	
 	//Only check for these two as they will be autocreated if they dont exist.
 	if( (existsOldPR && !existsNewPR) || (existsOldPR4 && !existsNewPR4) )
@@ -980,6 +984,8 @@ QString ScribusApp::getPreferencesLocation()
 				copyFile(oldPR3, newPR3);
 			if (existsOldPR4 && !existsNewPR4)
 				copyFile(oldPR4, newPR4);
+			if (existsOldPR5 && !existsNewPR5)
+				copyFile(oldPR5, newPR5);			
 		}
 		if (splashScreen)
 			splashScreen->show();
