@@ -58,18 +58,23 @@ bool nftrcreader::startElement(const QString&, const QString&, const QString &na
 	else if (name == "email")
 		inEmail = true;
 
-	
+
 	if (name == "template") { // new template starts here
 		inTemplate = true;
 		QString category;
+		QString enCat;
 		for (int i = 0; i < attrs.count(); i++)
 		{
 			if (attrs.localName(i) == "category")
+			{
 				category = getCategory(attrs.value(i));
+				enCat = attrs.value(i);
+			}
 		}
-		tmpTemplate = new nfttemplate(category); // create a new template
+		tmpTemplate = new nfttemplate(new QFile(currentFile), category); // create a new template
+		tmpTemplate->enCategory = enCat;
 	}
-	
+
 	if (name == "settings") 
 		inSettings = true;
 
@@ -165,6 +170,11 @@ bool nftrcreader::endElement(const QString&, const QString&, const QString &name
 void nftrcreader::setSourceDir(QString source) 
 {
 	currentDir = source;
+}
+
+void nftrcreader::setSourceFile(QString sourceFile)
+{
+	currentFile = sourceFile;
 }
 
 QString nftrcreader::getCategory(QString cat) 

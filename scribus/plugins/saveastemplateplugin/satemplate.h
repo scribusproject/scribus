@@ -52,8 +52,10 @@ private:
 	QString file;
 	QString dir;
 	QString tmplXmlFile;
+	QString lang;
 	void appendTmplXml();
 	QString getTemplateTag();
+	QString findTemplateXml(QString dir);
 public:
 	void createTmplXml();
 	void createImages();

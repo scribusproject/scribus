@@ -17,6 +17,7 @@
 #include <qlayout.h>
 #include <qlistbox.h>
 #include <qpixmap.h> 
+#include <qpopupmenu.h>
 #include <qpushbutton.h>
 #include <qsplitter.h>
 #include <qtextbrowser.h> 
@@ -47,13 +48,14 @@ private:
 	QBoxLayout* mainlo;
 	QBoxLayout* detaillo;
 	QBoxLayout* dtbarlo;
+	QPopupMenu* popUp;
 	std::vector<ListItem*> iconItems;
 	void setupCategories();
 	void setupListItems();
 	void setupAbout();
 public:
 	nfttemplate* currentTemplate;
-	nftdialog(QWidget* parent);
+	nftdialog(QWidget* parent, QString lang);
 	~nftdialog();
 private slots: 
 	void setTNails();
@@ -63,6 +65,9 @@ private slots:
 	void setInfo(QIconViewItem* item);
 	void exitOK();
 	void exitCancel();
+	void getCurrentTemplate(QIconViewItem* item);
+	void showPopup(QIconViewItem* item, const QPoint& point);
+	void removeTemplate();
 };
 
 #endif

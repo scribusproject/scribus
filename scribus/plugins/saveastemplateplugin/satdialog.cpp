@@ -80,7 +80,6 @@ satdialog::satdialog(QWidget* parent, QString tmplName, int pageW, int pageH) : 
 	
 	mlo->addStretch(10);
 	mlo->insertSpacing(-1,5);
-	
 	QBoxLayout* tlo = new QHBoxLayout(bottom,0,5);
 	detailButton = new QPushButton( tr("More Details"), bottom);
 	tlo->addWidget(detailButton);

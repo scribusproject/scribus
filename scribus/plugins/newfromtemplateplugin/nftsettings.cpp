@@ -3,8 +3,9 @@
  ***************************************************************************/
 #include "nftsettings.h"
 
-nftsettings::nftsettings()
+nftsettings::nftsettings(QString guilang)
 {
+	lang = guilang;
 	scribusShare = PREL;
 	scribusShare += "/share/scribus";
 	scribusUserHome = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus");
@@ -37,8 +38,10 @@ void nftsettings::read()
 void nftsettings::addTemplates(QString dir) // dir will be searched for a sub folder called templates
 {
 	// Add templates from the dir itself
-	QFile* tmplxml = new QFile(QDir::convertSeparators(dir + "/templates/template.xml"));
+	QString tmplFile = findTemplateXml(dir + "/templates");
+	QFile* tmplxml = new QFile(QDir::convertSeparators(tmplFile));
 	handler->setSourceDir(dir + "/templates");
+	handler->setSourceFile(tmplFile);
 	if (tmplxml->exists())
 	{
 		QXmlInputSource* source = new QXmlInputSource(tmplxml);
@@ -57,8 +60,10 @@ void nftsettings::addTemplates(QString dir) // dir will be searched for a sub fo
 		for (uint i = 0; i < dirs.size(); ++i)
 		{
 			if ((dirs[i] != ".") && (dirs[i] != "..")) {
-				QFile* tmplxml = new QFile(QDir::convertSeparators(dir + "/templates/" + dirs[i] + "/template.xml"));
+				tmplFile = findTemplateXml(dir + "/templates/" + dirs[i]);
+				QFile* tmplxml = new QFile(QDir::convertSeparators(tmplFile));
 				handler->setSourceDir(dir+"/templates/"+dirs[i]);
+				handler->setSourceFile(tmplFile);
 				if (tmplxml->exists())
 				{
 					QXmlInputSource* source = new QXmlInputSource(tmplxml);
@@ -97,10 +102,28 @@ void nftsettings::getDefaults()
 	}
 }
 
+QString nftsettings::findTemplateXml(QString dir)
+{
+	QString tmp = dir + "/template." + lang + ".xml";
+	if (QFile(tmp).exists())
+		return tmp;
+
+	if (lang.length() > 2)
+	{
+		tmp = dir + "/template." + lang.left(2) + ".xml";
+		if (QFile(tmp).exists())
+			return tmp;
+	}
+	return dir + "/template.xml";	
+}
+
 nftsettings::~ nftsettings()
 {
 	delete reader;
 	delete handler;
 	for (uint i = 0; i < templates.size(); ++i)
-		delete templates[i];
+	{
+		if (templates[i] != NULL)
+			delete templates[i];
+	}
 }

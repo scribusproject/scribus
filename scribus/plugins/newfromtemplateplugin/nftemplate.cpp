@@ -49,7 +49,7 @@ void Run(QWidget *d, ScribusApp *plug)
 
 void MenuNFT::RunNFTPlug()
 {
-	nftdialog* nftdia = new nftdialog(par);
+	nftdialog* nftdia = new nftdialog(par, Carrier->GuiLanguage);
 	if (nftdia->exec())
 	{
 		qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);

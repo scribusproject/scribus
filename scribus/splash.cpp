@@ -1,6 +1,7 @@
 #include <qapplication.h>
 #include <qpainter.h>
 #include <qpixmap.h>
+#include <qregexp.h>
 #include "splash.h"
 extern QPixmap loadIcon(QString nam);
 
@@ -61,11 +62,22 @@ void SplashScreen::repaint()
  */
 void SplashScreen::setStatus( const QString &message )
 {
+	QString tmp = message;
+	int f = 0;
+	while (f != -1)
+	{
+		f = tmp.find(QRegExp( "&\\S*" ));
+		if (f != -1)
+		{
+			tmp.remove(f, 1);
+			f = 0;
+		}
+	}
 	QPixmap textPix = pix;
 	QPainter painter( &textPix, this );
 	painter.setFont(QFont("Helvetica", 10));
 	painter.setPen( white );
-	painter.drawText( 10, textPix.height()-8, message );
+	painter.drawText( 10, textPix.height()-8, tmp );
 	setErasePixmap( textPix );
 	repaint();
 }

@@ -7,9 +7,9 @@
 
 extern QPixmap loadIcon(QString nam);
 
-nftdialog::nftdialog(QWidget* parent) : QDialog(parent, "nftdialog", TRUE)
+nftdialog::nftdialog(QWidget* parent, QString lang) : QDialog(parent, "nftdialog", TRUE)
 {
-	settings = new nftsettings();
+	settings = new nftsettings(lang);
 	
 	setCaption( tr("New From Template"));
 	setIcon(loadIcon("AppIcon.png"));
@@ -17,6 +17,7 @@ nftdialog::nftdialog(QWidget* parent) : QDialog(parent, "nftdialog", TRUE)
 	QBoxLayout* blo = new QVBoxLayout(this,0,5,"blo");
 	QWidget* top = new QWidget(this);
 	top->setMaximumHeight(5);
+	top->setMinimumHeight(5);
 	QWidget* middle = new QWidget(this);
 	middle->setMinimumHeight(370);
 	QWidget* bottom = new QWidget(this);
@@ -50,6 +51,9 @@ nftdialog::nftdialog(QWidget* parent) : QDialog(parent, "nftdialog", TRUE)
 	tnailGrid->setMinimumWidth(300);
 	tnailGrid->setSpacing(5);
 	tnailGrid->setItemsMovable(false);
+	
+	popUp = new QPopupMenu(tnailGrid, "popUp");
+	popUp->insertItem(tr("Remove"), this, SLOT(removeTemplate()));
 	
 	QWidget* dtTmp = new QWidget(splitter, "dtTmp", 0);
 	dtTmp->setMinimumWidth(235);
@@ -126,6 +130,8 @@ nftdialog::nftdialog(QWidget* parent) : QDialog(parent, "nftdialog", TRUE)
 	connect(okButton, SIGNAL(clicked()), this, SLOT(exitOK()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(exitCancel()));
 	connect(tnailGrid, SIGNAL(selectionChanged(QIconViewItem*)),this,SLOT(setInfo(QIconViewItem*)));
+	connect(tnailGrid, SIGNAL(rightButtonPressed(QIconViewItem*, const QPoint&)), 
+	        this, SLOT(showPopup(QIconViewItem*, const QPoint&)));
 	
 	setupListItems();
 	setupCategories();
@@ -134,9 +140,11 @@ nftdialog::nftdialog(QWidget* parent) : QDialog(parent, "nftdialog", TRUE)
 void nftdialog::setupCategories() 
 {
 	QString categories("");
+	categoryList->clear();
 	for (uint i = 0; i < settings->templates.size(); i++)
 	{
-		if (categories.find(settings->templates[i]->templateCategory) == -1)
+		if ((categories.find(settings->templates[i]->templateCategory) == -1) &&
+		    (!settings->templates[i]->isDeleted))
 		{
 			categoryList->insertItem(settings->templates[i]->templateCategory);
 			categories += settings->templates[i]->templateCategory;
@@ -149,10 +157,14 @@ void nftdialog::setupCategories()
 
 void nftdialog::setupListItems()
 {
+	iconItems.clear();
 	for (uint i = 0; i < settings->templates.size(); ++i)
 	{
-		ListItem* tmp = new ListItem(settings->templates[i], NULL);
-		iconItems.push_back(tmp);
+		if (!settings->templates[i]->isDeleted)
+		{
+			ListItem* tmp = new ListItem(settings->templates[i], NULL);
+			iconItems.push_back(tmp);
+		}
 	}
 }
 
@@ -171,6 +183,7 @@ void nftdialog::setTNails()
 		tnailGrid->sort();
 		return;
 	}
+	
 	QString curtype = categoryList->text(categoryList->currentItem());
 	if (curtype != NULL)
 	{
@@ -193,14 +206,7 @@ void nftdialog::setTNails()
 
 void nftdialog::setInfo(QIconViewItem* item) 
 {
-	for (uint i = 0; i < iconItems.size(); ++i)
-	{
-		if (iconItems[i]->second == item)
-		{
-			currentTemplate = iconItems[i]->first;
-			break;
-		}
-	}
+	getCurrentTemplate(item);
 	QString infoText = "<b>"+tr("Name")+"</b><br>";
 	infoText += currentTemplate->name + "<br>";
 	infoText += "<b>"+tr("Page Size")+"</b><br>";
@@ -230,6 +236,7 @@ void nftdialog::setInfo(QIconViewItem* item)
 		okButton->setEnabled(true);
 		okButton->setDefault(true);
 	}
+
 }
 
 void nftdialog::infoToggle()
@@ -305,7 +312,7 @@ void nftdialog::exitOK()
 
 void nftdialog::setupAbout() 
 {
-	QString text = "New From Template - 0.0.6<br><br>";
+	QString text = "New From Template - 0.0.7<br><br>";
 	text += "<b>Downloading Templates</b><br>";
 	text += "Document templates can be found at<br>";
 	text += "<i>http://insert/url/here</i><br><br>";
@@ -319,7 +326,61 @@ void nftdialog::setupAbout()
 	text += "Fonts must be checked for this as well. ";
 	text += "If fonts cannot be shared remove them from the template directory ";
 	text += "before packaging and distributing the template.<br><br>";
+	text += "<b>Removing a template</b><br>";
+	text += "Removing a template from the NFT dialog will only remove the entry ";
+	text += "from the template.xml. It will not delete the document files. ";
+	text += "Popup menu with remove is only shown if you have write access to the template.xml file.<br><br>";
+	text += "<b>Translating template.xml</b><br>";
+	text += "Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code ";
+	text += "that's present in the qm file for your language), for example template.fi.xml ";
+	text += "for Finnish language template.xml. Copy must locate in the same directory than the original ";
+	text += "template.xml for NFT being able to load it.<br><br>";
+	text += "It would be nice if the largest language group from one language could name their translation ";
+	text += "as template.lang.xml without the country code. This way all the smaller language groups ";
+	text += "under the same language would get at least this correct language even there does not exist ";
+	text += "a template.xml for their lang_COUNTRY. This because NFT will search for a translation with logic going ";
+	text += "from template.lang_COUNTRY.xml to template.lang.xml and last to template.xml which always should be ";
+	text += "English.<br><br>Here is an example. Swedesish speaking ";
+	text += "Finns has lang_COUNTRY code se_FI but they are such a small ";
+	text += "group and not that keen on dtp that there won't probably be a translation for them for a while. ";
+	text += "I know they would still appreciate swedish translation even it was done by Swedish speaking folks in Sweden ";
+	text += "i.e. se_SE. Because Swedish speaking swedes are the largest Swedish speaking group it would be nice if ";
+	text += "they could name their Swedish template.xml translation to template.se.xml. This way all those minor Finns ";
+	text += "could also enjoy Swedish language in the application. (Still missing Swedish translator though.)<br><br>";
 	aboutLabel->setText(text);
+}
+
+void nftdialog::showPopup(QIconViewItem* item, const QPoint& point)
+{
+	if (item != NULL) 
+	{
+		getCurrentTemplate(item);
+		if (currentTemplate->canWrite())
+			popUp->popup(point);
+	}
+}
+
+void nftdialog::removeTemplate()
+{
+	currentTemplate->isDeleted = true;
+	infoLabel->clear();
+	imgLabel->clear();
+	currentTemplate = NULL;
+	okButton->setEnabled(false);
+	setupListItems();
+	setupCategories();
+}
+
+void nftdialog::getCurrentTemplate(QIconViewItem* item)
+{
+	for (uint i = 0; i < iconItems.size(); ++i)
+	{
+		if (iconItems[i]->second == item)
+		{
+			currentTemplate = iconItems[i]->first;
+			break;
+		}
+	}
 }
 
 nftdialog::~nftdialog()
@@ -327,5 +388,8 @@ nftdialog::~nftdialog()
 	// TODO Get the window size and position information and save with settings
 	delete settings;
 	for (uint i = 0; i < iconItems.size(); i++)
-		delete iconItems[i];
+	{
+		if (iconItems[i] != NULL)
+			delete iconItems[i];
+	}
 }

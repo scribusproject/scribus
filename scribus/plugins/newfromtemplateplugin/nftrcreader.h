@@ -33,6 +33,7 @@ private:
 	bool inAuthor;
 	bool inEmail;
 	QString currentDir;
+	QString currentFile;
 	QString templateCategory;
 	nfttemplate* tmpTemplate;
 	std::vector<nfttemplate*> *templates;
@@ -40,13 +41,14 @@ private:
 	QString getCategory(QString cat);
 	void setupCategories();
 public:
+	nftrcreader(std::vector<nfttemplate*> *tmplts,QString sourceDir);
+	~nftrcreader();
 	bool startDocument();
 	bool startElement(const QString&, const QString&, const QString &name, const QXmlAttributes &attrs);
 	bool endElement(const QString&, const QString&, const QString &name);
 	bool characters(const QString &ch);
 	void setSourceDir(QString source);
-	nftrcreader(std::vector<nfttemplate*> *tmplts,QString sourceDir);
-	~nftrcreader();
+	void setSourceFile(QString sourceFile);
 };
 
 #endif

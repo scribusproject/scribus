@@ -6913,6 +6913,7 @@ void Page::ToPathText()
 		double dx = bb->Xpos - b->Xpos;
 		double dy = bb->Ypos - b->Ypos;
 		MoveItem(dx, dy, b);
+		b->Rot = bb->Rot;
 		Deselect(true);
 		SelectItemNr(bb->ItemNr);
 		DeleteItem();

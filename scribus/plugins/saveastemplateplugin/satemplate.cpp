@@ -96,16 +96,14 @@ void MenuSAT::RunSATPlug()
 
 sat::sat(ScribusApp* scribusApp, satdialog* satdia, QString fileName, QString tmplDir)
 {
+	lang = scribusApp->GuiLanguage;
 	sapp = scribusApp;
 	dia = satdia;
 	dir = tmplDir;
 	if (dir.right(1) == "/")
 		dir = tmplDir.left(tmplDir.length() - 1);
 	file = fileName;
-	tmplXmlFile = QString(dir);
-	if (tmplXmlFile.right(1) != "/")
-		tmplXmlFile += "/";
-	tmplXmlFile += "template.xml";
+	tmplXmlFile = findTemplateXml(dir);
 }
 
 void sat::createTmplXml()
@@ -213,6 +211,21 @@ QString sat::getTemplateTag()
 	tag += "\t</template>\n";
 	
 	return tag;
+}
+
+QString sat::findTemplateXml(QString dir)
+{
+	QString tmp = dir + "/template." + lang + ".xml";
+	if (QFile(tmp).exists())
+		return tmp;
+
+	if (lang.length() > 2)
+	{
+		tmp = dir + "/template." + lang.left(2) + ".xml";
+		if (QFile(tmp).exists())
+			return tmp;
+	}
+	return dir + "/template.xml";
 }
 
 sat::~sat()

@@ -19,15 +19,17 @@ private:
 	QString scribusUserHome;
 	QString nftHomeDir;
 	QString nftRCFile;
+	QString lang;
 	nftrcreader* handler;
 	QXmlSimpleReader* reader;
 	void read();
 	void write();
 	void getDefaults();
 	void addTemplates(QString dir);
+	QString findTemplateXml(QString dir);
 public:
 	std::vector<nfttemplate*> templates;
-	nftsettings();
+	nftsettings(QString guilang);
 	~nftsettings();
 };
 

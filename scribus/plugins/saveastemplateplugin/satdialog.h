@@ -7,6 +7,7 @@
 #include <vector>
 #include <utility>
 #include <qfile.h>
+#include <qframe.h>
 #include <qdir.h>
 #include <qtextstream.h>
 #include <qcombobox.h>

@@ -1,5 +1,10 @@
 Changes since Version 1.1.7
 
+21.06.2004
+	* bug     #817: Ukrainian Translation Update
+	* bug     #818: Attaching text from a path resets the rotation (if any) of a rotated path
+	* bug     #820: Don't display the & Characters for Shortcuts in the Splash Screen
+
 20.06.2004
 	* bug     #343: Ctrl+H shouldn't delete characters
 	* bug     #812: drop caps error with linked text frames on pdf export
