@@ -41,6 +41,7 @@ LangList::LangList()
 	insert("si", "Spanish");
 	insert("sk", "Slovak");
 	insert("sl", "Slovenian");
+	insert("sr", "Serbian");
 	insert("tr", "Turkish");
 	insert("tr_TR", "Turkish");
 	insert("uk", "Ukranian");

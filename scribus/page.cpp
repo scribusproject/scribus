@@ -465,6 +465,8 @@ void Page::paintEvent(QPaintEvent *e)
 	QRect vr = ViewReg().boundingRect().intersect(e->rect());
 	if ((vr.width() < 1) || (vr.height() < 1))
 		return;
+//	QTime tim;
+//	tim.start();
 	if (doku->AppMode == 7)
 		slotDoCurs(false);
 	bool sp = e->spontaneous();
@@ -474,10 +476,7 @@ void Page::paintEvent(QPaintEvent *e)
 	painter->translate(0.5, 0.5);
 	if (doku->Before)
 		DrawPageMarks(painter, vr);
-//	QTime tim;
-//	tim.start();
 	DrawPageItems(painter, vr, sp);
-//	qDebug( "Time elapsed: %d ms", tim.elapsed() );
 	if (!doku->Before)
 		DrawPageMarks(painter, vr);
 	painter->end();
@@ -503,6 +502,7 @@ void Page::paintEvent(QPaintEvent *e)
 	delete painter;
 	if (doku->AppMode == 7)
 		slotDoCurs(true);
+//	qDebug( "Time elapsed: %d ms", tim.elapsed() );
 }
 
 void Page::DrawPageMarks(ScPainter *p, QRect rd)
@@ -3919,8 +3919,9 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 					p.begin(this);
 					Transform(Items.at(a), &p);
 					QRegion apr = QRegion(p.xForm(Items.at(a)->Clip));
+					QRegion apr2 = QRegion(p.xForm(QPointArray(QRect(0, 0, static_cast<int>(Items.at(a)->Width), static_cast<int>(Items.at(a)->Height)))));
 					p.end();
-					if ((Sele.contains(apr.boundingRect())) && (Items.at(a)->LayerNr == doku->ActiveLayer))
+					if (((Sele.contains(apr.boundingRect())) || (Sele.contains(apr2.boundingRect()))) && (Items.at(a)->LayerNr == doku->ActiveLayer))
 						SelectItemNr(a, false);
 				}
 			}

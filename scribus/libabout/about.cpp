@@ -56,7 +56,7 @@ About::About( QWidget* parent )
 	tabLayout1->addWidget( PixmapLabel1 );
 	BuildID = new QLabel( tab, "BB" );
 	BuildID->setAlignment(Qt::AlignCenter);
-	QString bu = tr("%1. %2 %3 ").arg("04").arg("October").arg("2004");
+	QString bu = tr("%1. %2 %3 ").arg("11").arg("October").arg("2004");
 #ifdef HAVE_CMS
 	bu += "C";
 #else
@@ -92,7 +92,7 @@ About::About( QWidget* parent )
 	                                     "<tr><td>Riku Leino</td><td>tsoots@welho.com</td></tr>" +
 	                                     "<tr><td> </td><td> </td></tr>" +
 	                                     "<tr><td><b>" + tr("Contributions from:").utf8()  + "</b></td><td></td></tr>" +
-	                                     "<tr><td>Niyam Busham</td><td></td></tr>" +
+	                                     "<tr><td>Niyam Bhushan</td><td></td></tr>" +
 	                                     "<tr><td>Martin Costabel</td><td></td></tr>" +
 	                                     "<tr><td>Steve Callcott</td><td>stotte@ntlworld.com</td></tr>" +
 	                                     "<tr><td>Maciej Hański</td><td>m.hanski@gmx.at</td></tr>" +
@@ -196,6 +196,9 @@ About::About( QWidget* parent )
 	                                      "<tr><td> </td><td> </td></tr>" +
 	                                      "<tr><td><b>" + tr("Russian:").utf8()  + "</b></td><td></td></tr>" +
 	                                      "<tr><td>Alexandre Prokoudine</td><td>techwriter@land.ru</td></tr>" +
+	                                      "<tr><td> </td><td> </td></tr>" +
+	                                      "<tr><td><b>" + tr("Serbian:").utf8()  + "</b></td><td></td></tr>" +
+	                                      "<tr><td>Bojan Božovi&#263;</td><td>bole89@infosky.net</td></tr>" +
 	                                      "<tr><td> </td><td> </td></tr>" +
 	                                      "<tr><td><b>" + tr("Slovak:").utf8()  + "</b></td><td></td></tr>" +
 	                                      "<tr><td>Zdenko Podobn&yacute;ý</td><td>zdpo@mailbox.sk</td></tr>" +

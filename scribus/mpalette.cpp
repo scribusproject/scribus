@@ -13,6 +13,8 @@ extern QPixmap loadIcon(QString nam);
 extern double UmReFaktor;
 extern ProfilesL InputProfiles;
 extern ScribusApp* ScApp;
+// 10/07/2004 pv - utils.cpp - provides locale sorted list
+extern QStringList sortQStringList(QStringList aList);
 
 LabelButton::LabelButton(QWidget* parent, QString text1, QString text2) : QLabel(parent)
 {
@@ -779,7 +781,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 	QToolTip::add( TxFill, tr( "Color of text fill" ) );
 	QToolTip::add( PM1, tr( "Saturation of color of text stroke" ) );
 	QToolTip::add( PM2, tr( "Saturation of color of text fill" ) );
-	QToolTip::add( Revert, tr( "Reverse Writing" ) );
+	QToolTip::add( Revert, tr( "Right to Left Writing" ) );
 	QToolTip::add( Extra, tr( "Manual Kerning" ) );
 	QToolTip::add( LineSp, tr( "Line Spacing" ) );
 	QToolTip::add( Spal, tr( "Style of current paragraph" ) );
@@ -3167,15 +3169,21 @@ void Mpalette::NewName()
 	}
 }
 
+/*! 10/07/2004 - pv - rewritten to fix #1185.
+Uses sortQStringList from utils.cpp - STL!
+ \param QMap<QString,QString> langMap a structure with languages/hyphs*/
 void Mpalette::fillLangCombo(QMap<QString,QString> langMap)
 {
+	QStringList sortList;
+	QMap<QString,QString>::Iterator it;
+
 	if (ScApp->ScriptRunning)
 		return;
 	langCombo->clear();
-	QMap<QString,QString>::Iterator it;
 	for (it = langMap.begin(); it != langMap.end(); ++it)
-		langCombo->insertItem(it.data());
-	langCombo->listBox()->setMinimumWidth(langCombo->listBox()->maxItemWidth()+24);
+		sortList.push_back(it.data());
+	langCombo->insertStringList(sortQStringList(sortList));
+	langCombo->listBox()->setMinimumWidth(langCombo->listBox()->maxItemWidth() + 24);
 }
 
 void Mpalette::NewLanguage()

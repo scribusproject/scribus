@@ -213,6 +213,7 @@ void ScribusApp::initScribus()
 	GetAllFonts();
 	if (NoFonts)
 	{
+		splash->close(); // 10/10/2004 pv fix #1200
 		QString mess = tr("There are no Postscript-Fonts on your System");
 		mess += "\n" + tr("Exiting now");
 		QMessageBox::critical(this, tr("Fatal Error"), mess, 1, 0, 0);
@@ -7204,6 +7205,7 @@ void ScribusApp::SaveAsPDF()
 		doc->PDF_Optionen.Bookmarks = dia->CheckBM->isChecked();
 		doc->PDF_Optionen.Binding = dia->ComboBind->currentItem();
 		doc->PDF_Optionen.MirrorH = dia->MirrorH->isChecked();
+		doc->PDF_Optionen.RotateDeg = dia->RotateDeg->value();
 		doc->PDF_Optionen.PresentMode = dia->CheckBox10->isChecked();
 		doc->PDF_Optionen.PresentVals = dia->EffVal;
 		doc->PDF_Optionen.Articles = dia->Article->isChecked();
@@ -7273,6 +7275,7 @@ void ScribusApp::SaveAsPDF()
 					doc->PDF_Optionen.BleedBottom = dia->BleedBottom->value()/UmReFaktor;
 					doc->PDF_Optionen.Encrypt = false;
 					doc->PDF_Optionen.MirrorH = false;
+					doc->PDF_Optionen.RotateDeg = 0;
 					doc->PDF_Optionen.PresentMode = false;
 					doc->PDF_Optionen.Encrypt = false;
 				}

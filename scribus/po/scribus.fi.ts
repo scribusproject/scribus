@@ -24,16 +24,8 @@
         <translation>Galician:</translation>
     </message>
     <message>
-        <source>Programming:</source>
-        <translation type="obsolete">Ohjelmointi:</translation>
-    </message>
-    <message>
         <source>Czech:</source>
         <translation>Tsekki:</translation>
-    </message>
-    <message>
-        <source>English:</source>
-        <translation type="obsolete">Englanti:</translation>
     </message>
     <message>
         <source>Welsh:</source>
@@ -50,10 +42,6 @@
     <message>
         <source>Ukrainian:</source>
         <translation>Ukraina:</translation>
-    </message>
-    <message>
-        <source>Spanish and Catalan:</source>
-        <translation>Espanja ja Katalonia:</translation>
     </message>
     <message>
         <source>Slovak:</source>
@@ -104,28 +92,12 @@
         <translation>Saksa:</translation>
     </message>
     <message>
-        <source>Documentation:</source>
-        <translation type="obsolete">Dokumentaatio:</translation>
-    </message>
-    <message>
         <source>About Scribus%1%2</source>
         <translation>Tietoja Scribuksesta%1%2</translation>
     </message>
     <message>
         <source>Finnish:</source>
         <translation>Suomi:</translation>
-    </message>
-    <message>
-        <source>Homepage and online reference</source>
-        <translation type="obsolete">Kotisivu ja materiaali verkossa</translation>
-    </message>
-    <message>
-        <source>Mailing list</source>
-        <translation type="obsolete">Postituslista</translation>
-    </message>
-    <message>
-        <source>Bugs and feature requests</source>
-        <translation type="obsolete">Bugit ja parannusehdotukset</translation>
     </message>
     <message>
         <source>Basque:</source>
@@ -166,40 +138,56 @@ Puuttuva kirjaston tuki on merkitty * -merkillä</translation>
         <translation>&amp;Sulje</translation>
     </message>
     <message>
+        <source>Swedish:</source>
+        <translation>Ruotsi:</translation>
+    </message>
+    <message>
         <source>Development Team:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ohjelman kehitys:</translation>
     </message>
     <message>
         <source>Official Documentation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Virallinen dokumentaatio:</translation>
     </message>
     <message>
         <source>Other Documentation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumentaatio:</translation>
     </message>
     <message>
         <source>English (British):</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Swedish:</source>
-        <translation type="unfinished"></translation>
+        <translation>Englanti (U.K.):</translation>
     </message>
     <message>
         <source>Homepage</source>
-        <translation type="unfinished"></translation>
+        <translation>Kotisivu</translation>
     </message>
     <message>
         <source>Online Reference</source>
-        <translation type="unfinished">Materiaali verkossa</translation>
+        <translation>Materiaali verkossa</translation>
     </message>
     <message>
         <source>Bugs and Feature Requests</source>
-        <translation type="unfinished"></translation>
+        <translation>Bugit ja parannusehdotukset</translation>
     </message>
     <message>
         <source>Mailing List</source>
-        <translation type="unfinished"></translation>
+        <translation>Postituslista</translation>
+    </message>
+    <message>
+        <source>Catalan:</source>
+        <translation>Katalonia:</translation>
+    </message>
+    <message>
+        <source>Esperanto:</source>
+        <translation>Esperanto:</translation>
+    </message>
+    <message>
+        <source>Korean:</source>
+        <translation>Korea:</translation>
+    </message>
+    <message>
+        <source>Spanish:</source>
+        <translation>Espanja:</translation>
     </message>
 </context>
 <context>
@@ -215,7 +203,7 @@ Puuttuva kirjaston tuki on merkitty * -merkillä</translation>
     <message>
         <source>Creates PostScript Level 2 only, beware,
 this can create huge files</source>
-        <translation>Luo ainoastaan PostScript taso2. Saattaa
+        <translation>Luo ainoastaan PostScript taso 2. Saattaa
 luoda erittäin suuria tiedostoja</translation>
     </message>
     <message>
@@ -2214,7 +2202,7 @@ failed!</source>
     </message>
     <message>
         <source>&amp;Lines:</source>
-        <translation>V&amp;iivat:</translation>
+        <translation>R&amp;ivit:</translation>
     </message>
     <message>
         <source>F&amp;ill Color:</source>
@@ -2780,13 +2768,11 @@ joita on tarkoitus katsella näytöltä</translation>
 <context>
     <name>HelpBrowser</name>
     <message>
-        <source>Sorry, no manual available! Please see: http://scribus.net for updated docs and downloads.</source>
-        <translation type="obsolete">Pahoittelen, ohjetta ei ole saatavilla. Päivitykset ja dokumentit löytyvät osoitteesta http://scribus.net.</translation>
-    </message>
-    <message>
         <source>Sorry, no manual available! Please see: http://docs.scribus.net for updated docs
 and www.scribus.net for downloads.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ohjetta ei ole vielä saatavissa tässä muodossa. Osoitteesta http://docs.scribus.net 
+löydät viimeisimmän version dokumentaatiosta. Lisää materiaalia löydät myös 
+osoitteesta www.scribus.net.</translation>
     </message>
 </context>
 <context>
@@ -2815,16 +2801,6 @@ and www.scribus.net for downloads.</source>
         <translation>Tavutuksen asetukset</translation>
     </message>
     <message>
-        <source>Enables automatic checking of your text while typing.</source>
-        <translation type="obsolete">Mahdollistaa automaattisen tavutuksen kirjoittaessasi.</translation>
-    </message>
-    <message>
-        <source>If you uncheck this you will get a dialog
-everytime a possible Hyphenation is found.</source>
-        <translation type="obsolete">Jos et valitse tätä, ilmestyy jokaisen mahdollisen
-tavutuksen kohdalla kysymysikkuna.</translation>
-    </message>
-    <message>
         <source>Length of the smallest word to be hyphenated.</source>
         <translation>Lyhimmän tavutettavan sanan pituus.</translation>
     </message>
@@ -2835,24 +2811,12 @@ A value of 0 means unlimited hyphenations.</source>
 0 tarkoittaa rajoittamatonta määrää tavutuksia.</translation>
     </message>
     <message>
-        <source>&amp;Fully Automatic</source>
-        <translation type="obsolete">&amp;Automaattinen</translation>
-    </message>
-    <message>
-        <source>Check &amp;During Typing</source>
-        <translation type="obsolete">&amp;Tarkasta kirjoitettaessa</translation>
-    </message>
-    <message>
         <source>&amp;Language:</source>
         <translation>&amp;Kieli:</translation>
     </message>
     <message>
         <source>&amp;Smallest Word:</source>
         <translation>&amp;Lyhin sana:</translation>
-    </message>
-    <message>
-        <source>&amp;Number of Hypenations allowed:</source>
-        <translation type="obsolete">&amp;Sallitut peräkkäiset tavutukset:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -2863,24 +2827,25 @@ A value of 0 means unlimited hyphenations.</source>
         <translation>&amp;Peruuta</translation>
     </message>
     <message>
-        <source>&amp;Hyphenation Suggestions</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Hyphenate Text Automatically &amp;During Typing</source>
-        <translation type="unfinished"></translation>
+        <translation>Tavuta teksti automaattisesti &amp;kirjoitettaessa</translation>
     </message>
     <message>
         <source>Consecutive Hypenations &amp;Allowed:</source>
-        <translation type="unfinished"></translation>
+        <translation>Sallitut perättäiset &amp;tavutukset:</translation>
     </message>
     <message>
         <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dialogi-ikkuna, joka näyttää kaikki mahdolliset tavutettavat sanat tavutusvaihtoehtoineen, 
+ilmestyy, kun käytät Työkalut, Tavuta teksti.</translation>
     </message>
     <message>
         <source>Enables automatic hyphenation of your text while typing.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mahdollistaa automaattiset tavutuksen kirjoittaessasi.</translation>
+    </message>
+    <message>
+        <source>&amp;Hyphenation Suggestions</source>
+        <translation>&amp;Tavutusehdotukset</translation>
     </message>
 </context>
 <context>
@@ -2976,10 +2941,6 @@ A value of 0 means unlimited hyphenations.</source>
         <translation>Varoitus</translation>
     </message>
     <message>
-        <source>Do you really want do delete this Script?</source>
-        <translation type="obsolete">Haluatko poistaa tämän skriptin?</translation>
-    </message>
-    <message>
         <source>&amp;Edit...</source>
         <translation>&amp;Muokkaa...</translation>
     </message>
@@ -3009,7 +2970,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Do you really want to delete this Script?</source>
-        <translation type="unfinished"></translation>
+        <translation>Haluatko poistaa tämän skriptin?</translation>
     </message>
 </context>
 <context>
@@ -3133,10 +3094,6 @@ A value of 0 means unlimited hyphenations.</source>
         <translation>Muokkaa viivatyylejä</translation>
     </message>
     <message>
-        <source>Do you really want do delete this Style?</source>
-        <translation type="obsolete">Haluatko poistaa tämän tyylin?</translation>
-    </message>
-    <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
         <translation>Asiakirjat (*.sla *.scd);;Kaikki tiedostot (*)</translation>
     </message>
@@ -3194,7 +3151,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Do you really want to delete this Style?</source>
-        <translation type="unfinished"></translation>
+        <translation>Haluatko poistaa tämän tyylin?</translation>
     </message>
 </context>
 <context>
@@ -4173,10 +4130,6 @@ Valitse toinen nimi.</translation>
         <translation>Normal</translation>
     </message>
     <message>
-        <source>Do you really want do delete this Template?</source>
-        <translation type="obsolete">Haluatko poistaa tämän sivumallin?</translation>
-    </message>
-    <message>
         <source>Copy of %1</source>
         <translation>Kopio-%1</translation>
     </message>
@@ -4230,7 +4183,7 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Do you really want to delete this Template?</source>
-        <translation type="unfinished"></translation>
+        <translation>Haluatko poistaa tämän mallin?</translation>
     </message>
 </context>
 <context>
@@ -5295,10 +5248,6 @@ Pelkän sivunumeron lisäksi voit käyttää
         <translation>&amp;Peruuta</translation>
     </message>
     <message>
-        <source></source>
-        <translation></translation>
-    </message>
-    <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>PDF-tiedostot (*.pdf);;Kaikki tiedostot (*)</translation>
     </message>
@@ -5309,6 +5258,10 @@ Otherwise, your exported PDF may not print properly and is truly not portable ac
         <translation>Tämä asetus ei ole käytössä oletuksena. Sitä tulis käyttää ainoastaan kun käyttämäsi paino
 vaatii sitä ja on antanut ohjeet ja tarkat arvot asetuksille. Muussa tapauksessa tallentamasi
 PDF-tiedosto ei välttämättä tulostu oikein eikä ole siirrettävissä muille alustoille.</translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) &amp;Horizontal</source>
+        <translation>Peilaa sivu(t) &amp;vaakatasossa</translation>
     </message>
 </context>
 <context>
@@ -5829,10 +5782,6 @@ testausta. UCR parantaa kykyä välttää värien liikaa kylläisyyttä CMY-must
         <translation>Ki&amp;erto:</translation>
     </message>
     <message>
-        <source>Conve&amp;x Polygon</source>
-        <translation type="obsolete">P&amp;yöristetty monikulmio</translation>
-    </message>
-    <message>
         <source>&amp;Factor:</source>
         <translation>&amp;Kerroin:</translation>
     </message>
@@ -5853,29 +5802,22 @@ testausta. UCR parantaa kykyä välttää värien liikaa kylläisyyttä CMY-must
         <translation>Monikulmion kierron aste</translation>
     </message>
     <message>
-        <source>Polygons will be convex rather than concave</source>
-        <translation type="obsolete">Monikulmiot ovat kuperia tai koveria</translation>
-    </message>
-    <message>
         <source>Sample Polygon</source>
         <translation>Esimerkki monikulmiosta</translation>
     </message>
     <message>
-        <source>Change the angles at which lines of the polygon join</source>
-        <translation type="obsolete">Muuta monikulmion viivojen liittymiskulmia</translation>
-    </message>
-    <message>
         <source>Apply &amp;Factor</source>
-        <translation type="unfinished"></translation>
+        <translation>Käytä &amp;kerrointa</translation>
     </message>
     <message>
         <source>Apply Convex/Concave Factor to change shape of Polygons</source>
-        <translation type="unfinished"></translation>
+        <translation>Käytä kuperaa/koveraa kerrointa muuttaaksesi monikulmion muotoa</translation>
     </message>
     <message>
         <source>A negative value will make the polygon concave (or star shaped),
  a positive value will make it convex</source>
-        <translation type="unfinished"></translation>
+        <translation>Negatiivinen arvo tekee monikulmiosta koveran (tähden muotoisen),
+positiivinen kuperan</translation>
     </message>
 </context>
 <context>
@@ -6351,16 +6293,8 @@ aina valitun ajan kuluttua</translation>
         <translation>Monikulmion kierron aste</translation>
     </message>
     <message>
-        <source>Polygons will be convex rather than concave</source>
-        <translation type="obsolete">Monikulmiot ovat kuperia tai koveria</translation>
-    </message>
-    <message>
         <source>Sample Polygon</source>
         <translation>Esimerkki monikulmiosta</translation>
-    </message>
-    <message>
-        <source>Change the angles at which lines of the polygon join</source>
-        <translation type="obsolete">Muuta monikulmion viivojen liittymiskulmia</translation>
     </message>
     <message>
         <source>Choose the size of the preview in the scrapbook palette</source>
@@ -6697,10 +6631,6 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
         <translation>Ki&amp;erto:</translation>
     </message>
     <message>
-        <source>Conve&amp;x Polygon</source>
-        <translation type="obsolete">&amp;Pyöristetty monikulmio</translation>
-    </message>
-    <message>
         <source>&amp;Factor:</source>
         <translation>&amp;Kerroin:</translation>
     </message>
@@ -6782,28 +6712,29 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>T&amp;emplates:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Mallit:</translation>
     </message>
     <message>
         <source>Cha&amp;nge...</source>
-        <translation type="unfinished">&amp;Muuta...</translation>
-    </message>
-    <message>
-        <source>Apply &amp;Factor</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Muuta...</translation>
     </message>
     <message>
         <source>Additional Directory for Document Templates</source>
-        <translation type="unfinished"></translation>
+        <translation>Hakemisto, josta asiakirjamalleja etsitään</translation>
+    </message>
+    <message>
+        <source>Apply &amp;Factor</source>
+        <translation>Käytä &amp;kerrointa</translation>
     </message>
     <message>
         <source>Apply Convex/Concave Factor to change shape of Polygons</source>
-        <translation type="unfinished"></translation>
+        <translation>Käytä kuperaa/koveraa kerroint muuttaaksesi monikulmion muodon</translation>
     </message>
     <message>
         <source>A negative value will make the polygon concave (or star shaped),
  a positive value will make it convex</source>
-        <translation type="unfinished"></translation>
+        <translation>Negatiivinen arvo tekee monikulmiosta koveran (tähden muotoisen)
+positiivinen kuperan</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed
@@ -6812,7 +6743,7 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished">Tapa vaihtaa C, Y ja M värien tekemä harmaa mustalla tehdyksi.
+        <translation>Tapa vaihtaa C, Y ja M värien tekemä harmaa mustalla tehdyksi.
 UCR vaikuttaa kuvien kohdissa, jotka ovat neutraaleja tai lähellä harmaata
 olevia tummia värejä. UCR:n käyttäminen saattaa parantaa joidenkin kuvien
 tulostamista. Parhaan tuloksen saavuttamiseksi tarvitaan tapauskohtaista
@@ -7470,7 +7401,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>&amp;Print...</source>
-        <translation>Tul&amp;osta...</translation>
+        <translation>T&amp;ulosta...</translation>
     </message>
     <message>
         <source>S&amp;cripter Manual...</source>
@@ -7525,14 +7456,6 @@ Tarkasta polku ja tiedostonimi.</translation>
         <translation>Tuodaan tekstiä</translation>
     </message>
     <message>
-        <source>Importer</source>
-        <translation type="obsolete">Tuoja</translation>
-    </message>
-    <message>
-        <source>Choose the importer to use</source>
-        <translation type="obsolete">Valitse käytettävä tuojatyyppi</translation>
-    </message>
-    <message>
         <source>All Supported Formats</source>
         <translation>Kaikki tuetut tiedostotyypit</translation>
     </message>
@@ -7558,33 +7481,33 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>CSV_data</source>
-        <translation>CSV</translation>
+        <translation>CSV_sisältö</translation>
     </message>
     <message>
         <source>CSV_header</source>
         <translation>CSV_otsikko</translation>
     </message>
     <message>
-        <source>Font %1 is broken, discarding it</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Template: </source>
-        <translation type="unfinished"></translation>
+        <translation>Malli:</translation>
     </message>
     <message>
         <source>
 External Links
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Linkit</translation>
+    </message>
+    <message>
+        <source>Font %1 is broken, discarding it</source>
+        <translation>Kirjasin %1 on viallinen ja sitä ei käytetä</translation>
     </message>
     <message>
         <source>OO.o Writer Documents</source>
-        <translation type="unfinished"></translation>
+        <translation>OO.o Writer asiakirjat</translation>
     </message>
     <message>
         <source>Text Filters</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekstisuotimet</translation>
     </message>
 </context>
 <context>
@@ -9090,11 +9013,11 @@ Jos vastakkaiset sivut on valittuna, leveys määrittää oikean kokoisen reunuk
     </message>
     <message>
         <source>File %1 is not in Scribus format</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiedosto %1 ei ole Scribus-muodossa</translation>
     </message>
     <message>
         <source>Afrikaans</source>
-        <translation type="unfinished"></translation>
+        <translation>Afrikaans</translation>
     </message>
 </context>
 <context>
@@ -9404,10 +9327,6 @@ raahaa malli sivualueelle.</translation>
         <translation>Asiakirjat (*.sla *.sla.gz *.scd *.scd.gz);;Kaikki tiedostot (*)</translation>
     </message>
     <message>
-        <source>Do you really want do delete this Style?</source>
-        <translation type="obsolete">Haluatko poistaa tämän tyylin?</translation>
-    </message>
-    <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
         <translation>Asiakirjat (*.sla *.scd);;Kaikki tiedostot (*)</translation>
     </message>
@@ -9461,7 +9380,7 @@ raahaa malli sivualueelle.</translation>
     </message>
     <message>
         <source>Do you really want to delete this Style?</source>
-        <translation type="unfinished"></translation>
+        <translation>Haluatko poistaa tämän tyylin?</translation>
     </message>
 </context>
 <context>
@@ -9682,41 +9601,45 @@ raahaa malli sivualueelle.</translation>
     <name>SxwDialog</name>
     <message>
         <source>OO.o Writer Importer Options</source>
-        <translation type="unfinished"></translation>
+        <translation>OO.o Writer tuojan asetukset</translation>
     </message>
     <message>
         <source>Update paragraph styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Päivitä kappaletyylit</translation>
     </message>
     <message>
         <source>If there already exists a paragraph style with the same
 name than current OO.o document&apos;s paragraph should the style
 in Scribus be edited to match the one being imported
 or left untouched</source>
-        <translation type="unfinished"></translation>
+        <translation>Jos Scribus-asiakirjassa on jo ennestään samanniminen kappaletyyli 
+kuin tuotavassa tekstissä, päivitetäänkö tyyli</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
     </message>
     <message>
         <source>Use document name as a prefix for paragraph styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Käytä asiakirjan nimeä kappaletyylin edessä</translation>
     </message>
     <message>
         <source>Should importer add the name of the document
 on front of the paragraph style name in Scirubs</source>
-        <translation type="unfinished"></translation>
+        <translation>Tuleeko tuonnin yhteydessä luotavat kappaletyylit
+nimetä käyttäen kappaletyylin edessä tuotavan asikirjan nimeä</translation>
     </message>
     <message>
         <source>Do not ask again</source>
-        <translation type="unfinished"></translation>
+        <translation>Älä kysy uudestaan</translation>
     </message>
     <message>
         <source>Should the importer always use currently
 set value when importing OO.o document and
 never ask your confirmation again</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>Tuleeko tuojan aina käyttää nyt valittuja
+arvoja tuodessaan OO.o asiakirjaa eikä kysyä
+varmistusta</translation>
     </message>
 </context>
 <context>
@@ -9882,27 +9805,27 @@ Ole hyvä ja valitse toinen nimi.</translation>
     <name>ValueDialog</name>
     <message>
         <source>Insert value</source>
-        <translation type="unfinished"></translation>
+        <translation>Lisää arvo</translation>
     </message>
     <message>
         <source>Enter a value then press OK.</source>
-        <translation type="unfinished"></translation>
+        <translation>Syötä arvo ja paina OK.</translation>
     </message>
     <message>
         <source>Enter a value then press OK</source>
-        <translation type="unfinished"></translation>
+        <translation>Syötä arvo ja paina OK</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+O</translation>
     </message>
     <message>
         <source>Send your value to the script</source>
-        <translation type="unfinished"></translation>
+        <translation>Lähetä arvo skriptille</translation>
     </message>
 </context>
 <context>
@@ -10085,25 +10008,22 @@ Ole hyvä ja valitse toinen nimi.</translation>
     <name>gtImporterDialog</name>
     <message>
         <source>Choose the importer to use</source>
-        <translation type="unfinished">Valitse käytettävä tuojatyyppi</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation type="unfinished"></translation>
+        <translation>Valitse käytettävä tuojatyyppi</translation>
     </message>
     <message>
         <source>Remember association</source>
-        <translation type="unfinished"></translation>
+        <translation>Muista yhteys</translation>
     </message>
     <message>
         <source>Remember the file extension - importer association
 and do not ask again to select an importer for
 files of this type.</source>
-        <translation type="unfinished"></translation>
+        <translation>Muista tiedostpääte-tuoja -yhteys äläkä kysy
+uudestaan tuotaessa tiedostoja tällä tiedostopäätteellä.</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -10288,114 +10208,114 @@ files of this type.</source>
     <name>tfDia</name>
     <message>
         <source>Create filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Luo suodin</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Tyhjennä</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>P&amp;oista</translation>
     </message>
     <message>
         <source>Choose a previously saved filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Valitse tallennettu suodin</translation>
     </message>
     <message>
         <source>Give a name to this filter for saving</source>
-        <translation type="unfinished"></translation>
+        <translation>Anna nimi tallennusta varten</translation>
     </message>
     <message>
         <source>Give a name for saving</source>
-        <translation type="unfinished"></translation>
+        <translation>Anna nimi tallennusta varten</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Peruuta</translation>
+        <translation>&amp;Peruuta</translation>
     </message>
 </context>
 <context>
     <name>tfFilter</name>
     <message>
         <source>Disable or enable this filter row</source>
-        <translation type="unfinished"></translation>
+        <translation>Poista käytöstä tai ota käyttöön tämä rivi</translation>
     </message>
     <message>
         <source>Remove this filter row</source>
-        <translation type="unfinished"></translation>
+        <translation>Poista tämä rivi</translation>
     </message>
     <message>
         <source>Add a new filter row</source>
-        <translation type="unfinished"></translation>
+        <translation>Lisää uusi rivi suotimeen</translation>
     </message>
     <message>
         <source>to</source>
-        <translation type="unfinished"></translation>
+        <translation>mihin</translation>
     </message>
     <message>
         <source>and</source>
-        <translation type="unfinished"></translation>
+        <translation>ja</translation>
     </message>
     <message>
         <source>remove match</source>
-        <translation type="unfinished"></translation>
+        <translation>poista osuma</translation>
     </message>
     <message>
         <source>do not remove match</source>
-        <translation type="unfinished"></translation>
+        <translation>älä poista osumaa</translation>
     </message>
     <message>
         <source>words</source>
-        <translation type="unfinished"></translation>
+        <translation>sanaa</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished">Poista</translation>
+        <translation>Poista</translation>
     </message>
     <message>
         <source>Replace</source>
-        <translation type="unfinished"></translation>
+        <translation>Korvaa</translation>
     </message>
     <message>
         <source>Apply</source>
-        <translation type="unfinished">Käytä</translation>
-    </message>
-    <message>
-        <source>Value at the left is a regular expression</source>
-        <translation type="unfinished"></translation>
+        <translation>Käytä</translation>
     </message>
     <message>
         <source>with</source>
-        <translation type="unfinished"></translation>
+        <translation>millä</translation>
     </message>
     <message>
         <source>paragraph style</source>
-        <translation type="unfinished"></translation>
+        <translation>Kappaletyyliä</translation>
     </message>
     <message>
         <source>all instances of</source>
-        <translation type="unfinished"></translation>
+        <translation>kaikki</translation>
     </message>
     <message>
         <source>all paragraphs</source>
-        <translation type="unfinished"></translation>
+        <translation>kaikkiin kappaleisiin</translation>
     </message>
     <message>
         <source>paragraphs starting with</source>
-        <translation type="unfinished"></translation>
+        <translation>kappaleisiin, jotka alkavat</translation>
     </message>
     <message>
         <source>paragraphs with less than</source>
-        <translation type="unfinished"></translation>
+        <translation>kappaleisiin, joissa on vähemmän kuin</translation>
     </message>
     <message>
         <source>paragraphs with more than</source>
-        <translation type="unfinished"></translation>
+        <translation>kappaleisiin, joissa on enemmän kuin</translation>
+    </message>
+    <message>
+        <source>Value at the left is a regular expression</source>
+        <translation>Teksti vasemmalla on regular expression</translation>
     </message>
 </context>
 </TS>
