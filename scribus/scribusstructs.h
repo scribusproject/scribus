@@ -451,6 +451,7 @@ struct ApplicationPrefs
 	windowPrefs layerPalSettings;
 	windowPrefs pagePalSettings;
 	windowPrefs bookmPalSettings;
+	windowPrefs checkPalSettings;
 	bool SepalT;
 	bool SepalN;
 	int PSize;

@@ -84,6 +84,7 @@
 #include "undogui.h"
 #include "filewatcher.h"
 #include "charselect.h"
+#include "checkDocument.h"
 #ifdef _MSC_VER
  #if (_MSC_VER >= 1200)
   #include "win-config.h"
@@ -437,6 +438,7 @@ void ScribusApp::initDefaultPrefs()
 	Prefs.toolSettings.polyS = false;
 	Prefs.toolSettings.polyFd = 0;
 	Prefs.toolSettings.polyR = 0;
+	Prefs.checkPalSettings.visible = false;
 	Prefs.mainToolBarSettings.visible = true;
 	Prefs.pdfToolBarSettings.visible = true;
 	Prefs.mPaletteSettings.visible = false;
@@ -698,6 +700,8 @@ void ScribusApp::initPalettes()
 	BookPal = new BookPalette(this);
 	MaPal = new Measurements(this);
 	MaPal->hide();
+	docChecker = new CheckDocument(this, false);
+	docChecker->hide();
 
 	undoPalette = new UndoPalette(this, "undoPalette");
 	UndoManager::instance()->registerGui(undoPalette);
@@ -721,6 +725,8 @@ void ScribusApp::initPalettes()
 	connect(Mpal->Cpal->gradEdit->Preview, SIGNAL(gradientChanged()), this, SLOT(updtGradFill()));
 	connect(Mpal->Cpal, SIGNAL(gradientChanged()), this, SLOT(updtGradFill()));
 	connect(Mpal->Cpal, SIGNAL(QueryItem()), this, SLOT(GetBrushPen()));
+	connect(docChecker, SIGNAL(closePal()), this, SLOT(ToggleCheckPal()));
+	connect(docChecker, SIGNAL(rescan()), this, SLOT(slotCheckDoc()));
 	connect(Tpal, SIGNAL(Schliessen()), this, SLOT(ToggleTpal()));
 	connect(Tpal, SIGNAL(CloseMpal()), this, SLOT(ToggleMpal()));
 	connect(Tpal, SIGNAL(CloseSpal()), this, SLOT(ToggleBpal()));
@@ -1222,6 +1228,8 @@ void ScribusApp::initMenuBar()
 	SetKeyEntry(50, tr("Hyphenate Text"), hyph, 0);
 	M_ExtraCharSelect = extraMenu->insertItem( tr("Insert Special"), this, SLOT(slotCharSelect()));
 	extraMenu->setItemEnabled(M_ExtraCharSelect, 0);
+	M_ExtraCheckDoc = extraMenu->insertItem( tr("Check Document"), this, SLOT(slotCheckDoc()));
+	extraMenu->setItemEnabled(M_ExtraCheckDoc, 0);
 
 	windowsMenu = new QPopupMenu();
 	windowsMenu->setCheckable( true );
@@ -1604,6 +1612,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 						}
 					}
 					doc->OpenNodes = Tpal->buildReopenVals();
+					docChecker->clearErrorList();
 					if ( w )
 						w->showNormal();
 					newActWin(w);
@@ -2498,6 +2507,7 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	if (HaveDoc)
 		doc->OpenNodes = Tpal->buildReopenVals();
 	doc = new ScribusDoc(&Prefs);
+	docChecker->clearErrorList();
 	doc->docUnitIndex = einh;
 	if (fp)
 		doc->FirstPageLeft = firstleft;
@@ -2674,6 +2684,7 @@ void ScribusApp::newActWin(QWidget *w)
 		if ((HaveDoc) && (doc != ActWin->doc))
 			doc->OpenNodes = Tpal->buildReopenVals();
 	} */
+	docChecker->clearErrorList();
 	QString newDocName = "";
 	if (ActWin && ActWin->doc)
 		newDocName = ActWin->doc->DocName;
@@ -2683,6 +2694,7 @@ void ScribusApp::newActWin(QWidget *w)
 	doc = ActWin->doc;
 	view = ActWin->view;
 	Sepal->SetView(view);
+	docChecker->buildErrorList(doc);
 	ScribusWin* swin;
 	if (!doc->loading)
 	{
@@ -2710,6 +2722,7 @@ void ScribusApp::newActWin(QWidget *w)
 	viewMenu->setItemChecked(M_ViewShowBaseline, doc->guidesSettings.baseShown);
 	viewMenu->setItemChecked(M_ViewShowImages, doc->guidesSettings.showPic);
 	viewMenu->setItemChecked(M_ViewShowTextChain, doc->guidesSettings.linkShown);
+	extraMenu->setItemEnabled(M_ExtraCheckDoc, 1);
 //	if (!doc->TemplateMode)
 //		Sepal->Rebuild();
 //	Tpal->BuildTree(view);
@@ -3088,6 +3101,7 @@ void ScribusApp::HaveNewDoc()
 	
 	menuBar()->setItemEnabled(ViMen, 1);
 	menuBar()->setItemEnabled(WinMen, 1);
+	extraMenu->setItemEnabled(M_ExtraCheckDoc, 1);
 	viewMenu->setItemChecked(M_ViewSnapToGuides, doc->SnapGuides);
 	viewMenu->setItemChecked(M_ViewSnapToGrid, doc->useRaster);
 	menuBar()->setItemEnabled(pgmm, 1);
@@ -3817,6 +3831,8 @@ bool ScribusApp::LadeSeite(QString fileName, int Nr, bool Mpa)
 		{
 			Tpal->BuildTree(view);
 			Tpal->reopenTree(doc->OpenNodes);
+			scanDocument();
+			docChecker->buildErrorList(doc);
 		}
 		slotDocCh();
 		view->LaMenu();
@@ -4106,6 +4122,8 @@ bool ScribusApp::LadeDoc(QString fileName)
 		for (uint azz=0; azz<doc->Items.count(); ++azz)
 		{
 			PageItem *ite = doc->Items.at(azz);
+			view->setRedrawBounding(ite);
+			ite->OwnPage = view->OnPage(ite);
 			if ((ite->PType == 4) || (ite->PType == 8))
 				ite->DrawObj(painter, rd);
 /*			if (doc->OldBM)
@@ -4462,6 +4480,7 @@ bool ScribusApp::DoFileClose()
 		scrActions["editTemplates"]->setEnabled(false);
 		scrActions["editJavascripts"]->setEnabled(false);
 		
+		extraMenu->setItemEnabled(M_ExtraCheckDoc, 0);
 		extraMenu->setItemEnabled(hyph, 0);
 		menuBar()->setItemEnabled(ViMen, 0);
 		menuBar()->setItemEnabled(WinMen, 0);
@@ -4494,6 +4513,7 @@ bool ScribusApp::DoFileClose()
 	doc->loading = true;
 	Tpal->ListView1->clear();
 	Lpal->ClearInhalt();
+	docChecker->clearErrorList();
 	HaveDoc--;
 	view = NULL;
 	delete doc;
@@ -5322,6 +5342,7 @@ void ScribusApp::ToggleAllPalettes()
 		setBookpal(PalettesStat[6]);
 		setMapal(PalettesStat[7]);
 		setUndoPalette(PalettesStat[8]);
+		setCheckPal(PalettesStat[9]);
 	}
 	else
 	{
@@ -5333,6 +5354,7 @@ void ScribusApp::ToggleAllPalettes()
 		PalettesStat[6] = BookPal->isVisible();
 		PalettesStat[7] = MaPal->isVisible();
 		PalettesStat[8] = undoPalette->isVisible();
+		PalettesStat[9] = docChecker->isVisible();
 		setMapal(false);
 		setMpal(false);
 		setTpal(false);
@@ -5341,8 +5363,31 @@ void ScribusApp::ToggleAllPalettes()
 		setSepal(false);
 		setBookpal(false);
 		setUndoPalette(false);
+		setCheckPal(false);
 		PalettesStat[0] = true;
 	}
+}
+
+void ScribusApp::setCheckPal(bool visible)
+{
+	if (visible)
+	{
+		docChecker->show();
+		docChecker->move(Prefs.checkPalSettings.xPosition, Prefs.checkPalSettings.yPosition);
+	}
+	else
+	{
+		Prefs.checkPalSettings.xPosition = docChecker->pos().x();
+		Prefs.checkPalSettings.yPosition = docChecker->pos().y();
+		docChecker->hide();
+	}
+	extraMenu->setItemChecked(M_ExtraCheckDoc, visible);
+}
+
+void ScribusApp::ToggleCheckPal()
+{
+	setCheckPal(!docChecker->isVisible());
+	PalettesStat[9] = false;
 }
 
 void ScribusApp::setMapal(bool visible)
@@ -7453,6 +7498,12 @@ void ScribusApp::SavePrefs()
 	Prefs.layerPalSettings.visible = Lpal->isVisible();
 	Prefs.pagePalSettings.visible = Sepal->isVisible();
 	Prefs.bookmPalSettings.visible = BookPal->isVisible();
+	Prefs.checkPalSettings.visible = docChecker->isVisible();
+	if (docChecker->isVisible())
+	{
+		Prefs.checkPalSettings.xPosition = abs(docChecker->pos().x());
+		Prefs.checkPalSettings.yPosition = abs(docChecker->pos().y());
+	}
 	if ((Prefs.nodePalSettings.xPosition > QApplication::desktop()->width()-100) || (Prefs.nodePalSettings.xPosition < 0))
 		Prefs.nodePalSettings.xPosition = 0;
 	if ((Prefs.nodePalSettings.yPosition > QApplication::desktop()->height()-100) || (Prefs.nodePalSettings.yPosition < 0))
@@ -7555,6 +7606,7 @@ void ScribusApp::ReadPrefs()
 	ScBook->move(Prefs.scrapPalSettings.xPosition, Prefs.scrapPalSettings.yPosition);
 	ScBook->resize(Prefs.scrapPalSettings.width, Prefs.scrapPalSettings.height);
 	Npal->move(Prefs.nodePalSettings.xPosition, Prefs.nodePalSettings.yPosition);
+	docChecker->move(Prefs.checkPalSettings.xPosition, Prefs.checkPalSettings.yPosition);
 	move(Prefs.mainWinSettings.xPosition, Prefs.mainWinSettings.yPosition);
 	resize(Prefs.mainWinSettings.width, Prefs.mainWinSettings.height);
 	ReadPrefsXML();
@@ -7592,6 +7644,7 @@ void ScribusApp::ShowSubs()
 	setLpal(Prefs.layerPalSettings.visible);
 	setSepal(Prefs.pagePalSettings.visible);
 	setBookpal(Prefs.bookmPalSettings.visible);
+	setCheckPal(Prefs.checkPalSettings.visible);
 	setActiveWindow();
 	raise();
 }
@@ -8284,15 +8337,15 @@ QString ScribusApp::CFileDialog(QString wDir, QString caption, QString filter, Q
 
 void ScribusApp::RunPlug(int id)
 {
-	if (extraMenu->indexOf(id) > 3)
+	if (extraMenu->indexOf(id) > 4)
 		CallDLLbyMenu(id);
 }
 
-void ScribusApp::RunImportPlug(int id)
+void ScribusApp::RunImportPlug(int )
 {
 }
 
-void ScribusApp::RunExportPlug(int id)
+void ScribusApp::RunExportPlug(int )
 {
 }
 
@@ -9714,6 +9767,119 @@ bool ScribusApp::GetUsedFonts(QMap<QString,QFont> *Really)
 	else
 		ret = true;
 	return ret;
+}
+
+void ScribusApp::slotCheckDoc()
+{
+	scanDocument();
+	docChecker->buildErrorList(doc);
+	docChecker->show();
+	extraMenu->setItemChecked(M_ExtraCheckDoc, true);
+}
+
+void ScribusApp::scanDocument()
+{
+	PageItem* it;
+	QString chx;
+	doc->docItemErrors.clear();
+	doc->masterItemErrors.clear();
+	errorCodes itemError;
+	for (uint d = 0; d < doc->MasterItems.count(); ++d)
+	{
+		it = doc->MasterItems.at(d);
+		itemError.clear();
+		if (it->OwnPage == -1)
+			itemError.insert(3, 0);
+		if (it->PType == 2)
+		{
+		 	if (!it->PicAvail)
+				itemError.insert(4, 0);
+			else
+			{
+				if  (((72.0 / it->LocalScX) < 72.0) || ((72.0 / it->LocalScY) < 72.0))
+					itemError.insert(5, 0);
+			}
+		}
+		if ((it->PType == 4) || (it->PType == 8))
+		{
+			if (it->itemText.count() > it->MaxChars)
+				itemError.insert(2, 0);
+			for (uint e = 0; e < it->itemText.count(); ++e)
+			{
+				uint chr = it->itemText.at(e)->ch[0].unicode();
+				if ((chr == 13) || (chr == 32) || (chr == 29) || (chr == 9))
+					continue;
+				if (it->itemText.at(e)->cstyle & 64)
+				{
+					chx = it->itemText.at(e)->ch;
+					if (chx.upper() != it->itemText.at(e)->ch)
+						chx = chx.upper();
+					chr = chx[0].unicode();
+				}
+				if (chr == 30)
+				{
+					for (uint numco = 0x30; numco < 0x3A; ++numco)
+					{
+						if (!(*doc->AllFonts)[it->itemText.at(e)->cfont]->CharWidth.contains(numco))
+							itemError.insert(1, 0);
+					}
+					continue;
+				}
+				if (!(*doc->AllFonts)[it->itemText.at(e)->cfont]->CharWidth.contains(chr))
+					itemError.insert(1, 0);
+			}
+		}
+		if (itemError.count() != 0)
+			doc->masterItemErrors.insert(it->ItemNr, itemError);
+	}
+	for (uint d = 0; d < doc->Items.count(); ++d)
+	{
+		it = doc->Items.at(d);
+		itemError.clear();
+		if (it->OwnPage == -1)
+			itemError.insert(3, 0);
+		if (it->PType == 2)
+		{
+		 	if (!it->PicAvail)
+				itemError.insert(4, 0);
+			else
+			{
+				if  (((72.0 / it->LocalScX) < 72.0) || ((72.0 / it->LocalScY) < 72.0))
+					itemError.insert(5, 0);
+			}
+		}
+		if ((it->PType == 4) || (it->PType == 8))
+		{
+			if (it->itemText.count() > it->MaxChars)
+				itemError.insert(2, 0);
+			for (uint e = 0; e < it->itemText.count(); ++e)
+			{
+				uint chr = it->itemText.at(e)->ch[0].unicode();
+				if ((chr == 13) || (chr == 32) || (chr == 29) || (chr == 9))
+					continue;
+				if (it->itemText.at(e)->cstyle & 64)
+				{
+					chx = it->itemText.at(e)->ch;
+					if (chx.upper() != it->itemText.at(e)->ch)
+						chx = chx.upper();
+					chr = chx[0].unicode();
+				}
+				if (chr == 30)
+				{
+					for (uint numco = 0x30; numco < 0x3A; ++numco)
+					{
+						if (!(*doc->AllFonts)[it->itemText.at(e)->cfont]->CharWidth.contains(numco))
+							itemError.insert(1, 0);
+					}
+					continue;
+				}
+				if (!(*doc->AllFonts)[it->itemText.at(e)->cfont]->CharWidth.contains(chr))
+					itemError.insert(1, 0);
+			}
+		}
+		if (itemError.count() != 0)
+			doc->docItemErrors.insert(it->ItemNr, itemError);
+	}
 }
 
 void ScribusApp::HaveRaster(bool art)

@@ -7927,11 +7927,11 @@ void ScribusView::DeleteItem()
 			}
 			if (b->isBookmark)
 				emit DelBM(SelItem.at(0));
-			if (anz != 1)
-			{
+//			if (anz != 1)
+//			{
 				Doc->Items.remove(b->ItemNr);
 				delete b;
-			}
+//			}
 //			emit DelObj(PageNr, SelItem.at(0)->ItemNr);
 			delItems.removeFirst();
 			for (a = 0; a < Doc->Items.count(); ++a)

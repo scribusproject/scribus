@@ -51,6 +51,7 @@ bool MenuManager::createMenu(const QString menuName, const QString menuText, con
 bool MenuManager::clearMenu(const QString menuName)
 {
 	menuList[menuName]->clear();
+	return true;
 }
 
 bool MenuManager::deleteMenu(const QString menuName, const QString parent)
@@ -117,6 +118,7 @@ bool MenuManager::addMenuToWidgetOfAction(const QString menuName, ScrAction *act
 			}
 		}
 	}
+	return retVal;
 }
 
 bool MenuManager::addMenuItem(ScrAction *menuAction, const QString parent)

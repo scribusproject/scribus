@@ -243,6 +243,7 @@ public: // Public attributes
 	QValueList<int> OpenNodes;
 	QTimer *CurTimer;
 	QMap<int, errorCodes> docItemErrors;
+	QMap<int, errorCodes> masterItemErrors;
 };
 
 #endif

@@ -2968,6 +2968,11 @@ void ScriXmlDoc::WritePref(ApplicationPrefs *Vor, QString ho)
 	dc78.setAttribute("XPOS",Vor->measurePalSettings.xPosition);
 	dc78.setAttribute("YPOS",Vor->measurePalSettings.yPosition);
 	elem.appendChild(dc78);
+	QDomElement dc79=docu.createElement("Checker");
+	dc79.setAttribute("VISIBLE", static_cast<int>(Vor->checkPalSettings.visible));
+	dc79.setAttribute("XPOS",Vor->checkPalSettings.xPosition);
+	dc79.setAttribute("YPOS",Vor->checkPalSettings.yPosition);
+	elem.appendChild(dc79);
 	QDomElement dc8=docu.createElement("MEASUREMENTS");
 	dc8.setAttribute("VISIBLE", static_cast<int>(Vor->mPaletteSettings.visible));
 	dc8.setAttribute("XPOS",Vor->mPaletteSettings.xPosition);
@@ -3288,6 +3293,12 @@ bool ScriXmlDoc::ReadPref(struct ApplicationPrefs *Vorein, QString ho, SplashScr
 			Vorein->mPaletteSettings.visible = static_cast<bool>(QStoInt(dc.attribute("VISIBLE", "1")));
 			Vorein->mPaletteSettings.xPosition = QStoInt(dc.attribute("XPOS"));
 			Vorein->mPaletteSettings.yPosition = QStoInt(dc.attribute("YPOS"));
+		}
+		if (dc.tagName()=="Checker")
+		{
+			Vorein->checkPalSettings.visible = static_cast<bool>(QStoInt(dc.attribute("VISIBLE", "1")));
+			Vorein->checkPalSettings.xPosition = QStoInt(dc.attribute("XPOS"));
+			Vorein->checkPalSettings.yPosition = QStoInt(dc.attribute("YPOS"));
 		}
 		if (dc.tagName()=="PRINTER")
 		{

@@ -76,6 +76,7 @@ class UndoPalette;
 class FileWatcher;
 class ScrAction;
 class MenuManager;
+class CheckDocument;
 
 /**
   * This Class is the base class for your application. It sets up the main
@@ -180,6 +181,7 @@ public:
 	SeitenPal *Sepal;
 	BookPalette *BookPal;
 	Measurements* MaPal;
+	CheckDocument * docChecker;
 	UndoPalette* undoPalette;
 	StoryEditor* CurrStED;
 	QMap<QString,QString> Sprachen;
@@ -352,6 +354,8 @@ public slots:
 	void setBookpal(bool visible);
 	void ToggleUndoPalette();
 	void setUndoPalette(bool visible);
+	void setCheckPal(bool visible);
+	void ToggleCheckPal();
 	/** Schaltet M_ViewShowImages ein/aus */
 	void TogglePics();
 	/** Schaltet Raster ein/aus */
@@ -461,6 +465,8 @@ public slots:
 	void SearchText();
 	void GimpExited();
 	void CallGimp();
+	void scanDocument();
+	void slotCheckDoc();
 
 signals:
 	void TextISize(int);
@@ -600,13 +606,14 @@ private:
 	int exmn;
 	int hyph;
 	int M_ExtraCharSelect;
+	int M_ExtraCheckDoc;
 	int M_ItemRaise;
 	int M_ItemLower;
 	int M_ItemSendToBack;
 	int M_ItemBringToFront;
 	int M_ItemDuplicate;
 	int M_ItemMultiDuplicate;
-	bool PalettesStat[9];
+	bool PalettesStat[10];
 	bool GuidesStat[7];
 	bool tipsOn;
 	bool keyrep;
