@@ -15,31 +15,38 @@
  *                                                                         *
  ***************************************************************************/
 #include <qstringlist.h>
+#include <qcombobox.h>
+#include <qlistbox.h>
+#include <qfont.h>
+#include <qpainter.h>
+#include "scribusdoc.h"
+
+
 #include "fontcombo.h"
 
 FontListItem::FontListItem(QComboBox* parent, QString f, QFont fo) : QListBoxItem(parent->listBox())
 {
 	fontName = f;
-	Ifont = fo;
+	iFont = fo;
 	setText(fontName);
 }
 
-int FontListItem::width(const QListBox *lb) const
+const int FontListItem::width(const QListBox *listbox)
 {
-	return lb->fontMetrics().width(text()) + 2;
+	return listbox->fontMetrics().width(text()) + 2;
 }
 
-int FontListItem::height(const QListBox *lb) const
+const int FontListItem::height(const QListBox *listbox)
 {
-	QFontMetrics fm(lb->fontMetrics());
-	return fm.lineSpacing() + 2;
+	QFontMetrics fontMetrics(listbox->fontMetrics());
+	return fontMetrics.lineSpacing() + 2;
 }
 
-void FontListItem::paint(QPainter *p)
+void FontListItem::paint(QPainter *painter)
 {
-	p->setFont(Ifont);
-	QFontMetrics fm(p->fontMetrics());
-	p->drawText(3, fm.ascent() + fm.leading() / 2, fontName);
+	painter->setFont(iFont);
+	QFontMetrics fontMetrics(painter->fontMetrics());
+	painter->drawText(3, fontMetrics.ascent() + fontMetrics.leading() / 2, fontName);
 }
 
 FontCombo::FontCombo(QWidget* pa, preV *Prefs) : QComboBox(true, pa)
@@ -63,25 +70,21 @@ FontCombo::FontCombo(QWidget* pa, preV *Prefs) : QComboBox(true, pa)
 	listBox()->setMinimumWidth(listBox()->maxItemWidth()+24);
 }
 
-void FontCombo::RebuildList(preV *Prefs, ScribusDoc *doc)
+void FontCombo::RebuildList(preV *Prefs, ScribusDoc *currentDoc)
 {
 	QStringList rlist;
 	clear();
 	rlist.clear();
 	SCFontsIterator it(Prefs->AvailFonts);
 	for ( ; it.current(); ++it)
-	{
 		if (it.current()->UseFont)
 		{
-			if (doc != 0)
-			{
-				if ((doc->DocName == it.current()->PrivateFont) || (it.current()->PrivateFont == ""))
+			if (currentDoc != NULL)
+				if ((currentDoc->DocName == it.current()->PrivateFont) || (it.current()->PrivateFont == ""))
 					rlist.append(it.currentKey());
-			}
 			else
 				rlist.append(it.currentKey());
-			}
-	}
+		}
 	rlist.sort();
 	for (QStringList::ConstIterator it2 = rlist.begin(); it2 != rlist.end(); ++it2)
 		insertItem(*it2);

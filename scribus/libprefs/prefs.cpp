@@ -14,6 +14,7 @@
 #include <qwmatrix.h>
 #include <cmath>
 #include "langmgr.h"
+#include "fontcombo.h"
 
 using namespace std;
 

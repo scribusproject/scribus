@@ -20,9 +20,12 @@
 
 #include <qcombobox.h>
 #include <qlistbox.h>
-#include <qfont.h>
-#include <qpainter.h>
+
+class QListBoxItem;
+class QFont;
+
 #include "scribusdoc.h"
+
 /**
   *@author Franz Schmid
   */
@@ -32,14 +35,15 @@ class FontListItem : public QListBoxItem
 public:
     FontListItem(QComboBox* parent, QString f, QFont fo);
     virtual ~FontListItem() {};
-    virtual int width(const QListBox *) const;
-    virtual int height(const QListBox *) const;
+
+    virtual const int width(const QListBox *);
+    virtual const int height(const QListBox *);
 
 protected:
     virtual void paint(QPainter *p);
 
 private:
-    QFont Ifont;
+    QFont iFont;
     QString fontName;
 };
 
@@ -47,8 +51,9 @@ class FontCombo : public QComboBox
 {
 public:
 	FontCombo(QWidget* pa, preV *Prefs);
-	void RebuildList(preV *Prefs, ScribusDoc *doc);
 	~FontCombo() {};
+
+	void RebuildList(preV *Prefs, ScribusDoc *doc);
 };
 
 #endif

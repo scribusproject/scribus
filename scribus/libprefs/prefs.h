@@ -25,7 +25,7 @@
 #include "scfonts.h"
 #include "mspinbox.h"
 #include "scribus.h"
-#include "fontcombo.h"
+class FontCombo;
 
 #include "langmgr.h"
 
