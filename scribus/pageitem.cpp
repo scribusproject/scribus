@@ -2301,7 +2301,7 @@ void PageItem::setFillShade(int newShade)
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::SetShade,
-										  QString(Um::ShadeFromTo).arg(fillShadeVal).arg(newShade),
+										  QString(Um::FromTo).arg(fillShadeVal).arg(newShade),
 										  Um::IShade);
 		ss->set("SHADE", "shade");
 		ss->set("OLD_SHADE", fillShadeVal);
@@ -2361,7 +2361,7 @@ void PageItem::setLineShade(int newShade)
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::SetLineShade,
-										  QString(Um::ShadeFromTo).arg(lineShadeVal).arg(newShade),
+										  QString(Um::FromTo).arg(lineShadeVal).arg(newShade),
 										  Um::IShade);
 		ss->set("LINE_SHADE", "line_shade");
 		ss->set("OLD_SHADE", lineShadeVal);
@@ -2690,6 +2690,36 @@ void PageItem::setFontStrokeColor(const QString& newColor)
 	TxtStroke = newColor;
 }
 
+void PageItem::setFontFillShade(int newShade)
+{
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::SetFontFillShade,
+										  QString(Um::FromTo).arg(ShTxtFill).arg(newShade),
+										  Um::IFont);
+		ss->set("FONT_FILL_SHADE", "line_shade");
+		ss->set("OLD_SHADE", ShTxtFill);
+		ss->set("NEW_SHADE", newShade);
+		undoManager->action(this, ss);
+	}
+	ShTxtFill = newShade;
+}
+
+void PageItem::setFontStrokeShade(int newShade)
+{
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::SetFontStrokeShade,
+										  QString(Um::FromTo).arg(ShTxtStroke).arg(newShade),
+										  Um::IFont);
+		ss->set("FONT_STROKE_SHADE", "line_shade");
+		ss->set("OLD_SHADE", ShTxtStroke);
+		ss->set("NEW_SHADE", newShade);
+		undoManager->action(this, ss);
+	}
+	ShTxtStroke = newShade;
+}
+
 void PageItem::checkChanges(bool force)
 {
 	// has the item been resized
@@ -2866,6 +2896,10 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreFontFill(ss, isUndo);
 		else if (ss->contains("SET_FONT_STROKE"))
 			restoreFontStroke(ss, isUndo);
+		else if (ss->contains("FONT_FILL_SHADE"))
+			restoreFontFillShade(ss, isUndo);
+		else if (ss->contains("FONT_STROKE_SHADE"))
+			restoreFontStrokeShade(ss, isUndo);
 		
 	}
 }
@@ -3124,6 +3158,24 @@ void PageItem::restoreFontStroke(SimpleState *state, bool isUndo)
 		color = state->get("NEW_STROKE");
 	select();
 	ScApp->view->ItemTextPen(color);
+}
+
+void PageItem::restoreFontFillShade(SimpleState *state, bool isUndo)
+{
+	int shade = state->getInt("OLD_SHADE");
+	if (!isUndo)
+		shade = state->getInt("NEW_SHADE");
+	select();
+	ScApp->view->ItemTextBrushS(shade);
+}
+
+void PageItem::restoreFontStrokeShade(SimpleState *state, bool isUndo)
+{
+	int shade = state->getInt("OLD_SHADE");
+	if (!isUndo)
+		shade = state->getInt("NEW_SHADE");
+	select();
+	ScApp->view->ItemTextPenS(shade);
 }
 
 void PageItem::select()

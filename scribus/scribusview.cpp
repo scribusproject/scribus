@@ -9582,14 +9582,16 @@ void ScribusView::ItemTextBrushS(int sha)
 	if (SelItem.count() != 0)
 	{
 		PageItem *b;
-
+		if (SelItem.count() > 1)
+			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SetFontFillShade,
+									  QString("%1").arg(sha), Um::IFont);
 		for (uint a = 0; a < SelItem.count(); ++a)
 		{
 			b = SelItem.at(a);
 			if (b->PType == 4)
 			{
 				if (Doc->appMode != EditMode)
-					b->ShTxtFill = sha;
+					b->setFontFillShade(sha);
 				for (uint i=0; i<b->itemText.count(); ++i)
 				{
 					if (Doc->appMode == EditMode)
@@ -9604,6 +9606,8 @@ void ScribusView::ItemTextBrushS(int sha)
 			RefreshItem(b);
 			emit ItemFarben(b->lineColor(), b->fillColor(), b->lineShade(), b->fillShade());
 		}
+		if (SelItem.count() > 1)
+			undoManager->commit();
 	}
 }
 
@@ -9646,6 +9650,9 @@ void ScribusView::ItemTextPenS(int sha)
 {
 	if (SelItem.count() != 0)
 	{
+		if (SelItem.count() > 1)
+			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SetFontStrokeShade,
+									  QString("%1").arg(sha), Um::IFont);
 		PageItem *b;
 		for (uint a = 0; a < SelItem.count(); ++a)
 		{
@@ -9653,7 +9660,7 @@ void ScribusView::ItemTextPenS(int sha)
 			if (b->PType == 4)
 			{
 				if (Doc->appMode != EditMode)
-					b->ShTxtStroke = sha;
+					b->setFontStrokeShade(sha);
 				for (uint i=0; i<b->itemText.count(); ++i)
 				{
 					if (Doc->appMode == EditMode)
@@ -9667,6 +9674,8 @@ void ScribusView::ItemTextPenS(int sha)
 			}
 			RefreshItem(b);
 		}
+		if (SelItem.count() > 1)
+			undoManager->commit();
 	}
 }
 

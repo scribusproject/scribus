@@ -488,11 +488,21 @@ public:
 	 * @param newColor font fill color
 	 */
 	void setFontFillColor(const QString& newColor);
+	/**
+	 * @brief Set the shade of font fill color
+	 * @param newShade shade of font fill color
+	 */
+	void setFontFillShade(int newShade);
 	/** 
 	 * @brief Set the color of font stroke
 	 * @param newColor color of font stroke
 	 */
 	void setFontStrokeColor(const QString& newColor);
+	/**
+	 * @brief Set the shade of font stroke color
+	 * @param newShade shade of font stroke color
+	 */
+	void setFontStrokeShade(int newShade);
 
 	/** 
 	 * @brief Check the changes to the item and add undo actions for them.
@@ -542,6 +552,8 @@ protected:
 	void restoreFontWidth(SimpleState *state, bool isUndo);
 	void restoreFontFill(SimpleState *state, bool isUndo);
 	void restoreFontStroke(SimpleState *state, bool isUndo);
+	void restoreFontFillShade(SimpleState *state, bool isUndo);
+	void restoreFontStrokeShade(SimpleState *state, bool isUndo);
 	/*@}*/
 
 	/**

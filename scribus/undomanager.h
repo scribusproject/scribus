@@ -415,7 +415,6 @@ public:
 	static const QString SetFill;
 	static const QString ColorFromTo;
 	static const QString SetShade;
-	static const QString ShadeFromTo;
 	static const QString SetLineColor;
 	static const QString SetLineShade;
 	static const QString FlipH;
@@ -449,6 +448,8 @@ public:
 	static const QString SetFontWidth;
 	static const QString SetFontFill;
 	static const QString SetFontStroke;
+	static const QString SetFontFillShade;
+	static const QString SetFontStrokeShade;
 	/*@}*/
 
 	/**
