@@ -102,6 +102,7 @@ Page::Page(QWidget *pa, int x, int y, int b, int h, ScribusDoc *doc, QScrollView
 	setAcceptDrops(true);
 	emit DocChanged();
 	doku->DragP = false;
+	doku->leaveDrag = false;
 	Imoved = false;
 	Mpressed = false;
 	MidButt = false;
@@ -318,37 +319,41 @@ void Page::dropEvent(QDropEvent *e)
 		}
 		else
 		{
-			if ((fi.exists()) && (!img))
-				emit LoadElem(QString(ur.path()), qRound(e->pos().x()/doku->Scale),
-				              qRound(e->pos().y()/doku->Scale), true, false, doku);
+			if ((!img) && (doku->DraggedElem == 0))
+				emit LoadElem(QString(text), qRound(e->pos().x()/doku->Scale), qRound(e->pos().y()/doku->Scale), false, false, doku);
 			else
 			{
 				if (doku->DraggedElem != 0)
 				{
-					QPopupMenu *pmen = new QPopupMenu();
-					qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-					pmen->insertItem( tr("Copy Here"));
-					pmen->insertItem( tr("Move Here"));
-					pmen->insertItem( tr("Cancel"));
-					re = pmen->indexOf(pmen->exec(QCursor::pos()));
-					delete pmen;
-					if (re == 1)
+					if (!doku->leaveDrag)
+					{
+						QPopupMenu *pmen = new QPopupMenu();
+						qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+						pmen->insertItem( tr("Copy Here"));
+						pmen->insertItem( tr("Move Here"));
+						pmen->insertItem( tr("Cancel"));
+						re = pmen->indexOf(pmen->exec(QCursor::pos()));
+						delete pmen;
+					}
+					else
+						re = 1;
+					if (re == 2)
+					{
+						update();
+						return;
+					}
+					if ((re == 1) || (doku->leaveDrag))
 					{
 						doku->DraggedElem->OwnPage->SelItem.clear();
 						for (uint dre=0; dre<doku->DragElements.count(); ++dre)
 						{
-							doku->DraggedElem->OwnPage->SelItem.append(doku->DraggedElem->OwnPage->Items.at
-							        (doku->DragElements[dre]));
+							doku->DraggedElem->OwnPage->SelItem.append(doku->DraggedElem->OwnPage->Items.at(doku->DragElements[dre]));
 						}
 						doku->DraggedElem->OwnPage->DeleteItem();
 					}
 				}
-				else
-					re = 1;
 				if ((!img) && ((re == 0) || (re == 1)))
-					emit LoadElem(QString(text), qRound(e->pos().x()/doku->Scale),
-					              qRound(e->pos().y()/doku->Scale), false, false, doku);
-				//				Deselect(true);
+					emit LoadElem(QString(text), qRound(e->pos().x()/doku->Scale), qRound(e->pos().y()/doku->Scale), false, false, doku);
 				doku->DraggedElem = 0;
 				doku->DragElements.clear();
 				update();
@@ -356,8 +361,37 @@ void Page::dropEvent(QDropEvent *e)
 		}
 	}
 }
+void Page::leaveEvent(QEvent *)
+{
+	if (!Mpressed)
+		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+	else
+	{
+		if ((SelItem.count() != 0) && (Mpressed) && (!doku->DragP) && (doku->AppMode == 1))
+		{
+			PageItem *b = SelItem.at(0);
+			if ((b->Locked) || (b->Sizing))
+				return;
+			doku->DragP = true;
+			doku->leaveDrag = true;
+			doku->DraggedElem = b;
+			doku->DragElements.clear();
+			for (uint dre=0; dre<SelItem.count(); ++dre)
+				doku->DragElements.append(SelItem.at(dre)->ItemNr);
+			ScriXmlDoc *ss = new ScriXmlDoc();
+			QDragObject *dr = new QTextDrag(ss->WriteElem(&SelItem, doku), this);
+			dr->setPixmap(loadIcon("DragPix.xpm"));
+			dr->drag();
+			delete ss;
+			doku->DragP = false;
+			doku->leaveDrag = false;
+			Mpressed = false;
+			doku->DraggedElem = 0;
+			doku->DragElements.clear();
+		}
+	}
+}
 
-/** No descriptions */
 void Page::paintEvent(QPaintEvent *e)
 {
 	QRect vr = ViewReg().boundingRect().intersect(e->rect());
@@ -2768,6 +2802,7 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 		update();
 	}
 	doku->DragP = false;
+	doku->leaveDrag = false;
 	Imoved = false;
 	mCG = false;
 	MidButt = false;
@@ -2887,14 +2922,26 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 		int cy = Anz->contentsY() - Anz->childY(doku->ActPage->parentWidget());
 		int cw = Anz->visibleWidth();
 		int ch = Anz->visibleHeight();
-		if (m->y() < cy)
-			Anz->scrollBy(0, m->y() - cy);
-		if ((ch - (m->y() - cy)) < 0)
-			Anz->scrollBy(0, m->y() - cy - ch);
-		if (m->x() < cx)
-			Anz->scrollBy(m->x() - cx, 0);
-		if ((cw - (m->x() - cx)) < 0)
-			Anz->scrollBy(m->x() - cx - cw, 0);
+		if (m->y() < cy+10)
+		{
+			Anz->scrollBy(0, m->y() - cy - 10);
+			update();
+		}
+		if ((ch - (m->y() - cy)) - 10 < 0)
+		{
+			Anz->scrollBy(0, m->y() - cy - ch +10);
+			update();
+		}
+		if (m->x() < cx + 10)
+		{
+			Anz->scrollBy(m->x() - cx - 10, 0);
+			update();
+		}
+		if ((cw - (m->x() - cx)) - 10 < 0)
+		{
+			Anz->scrollBy(m->x() - cx - cw + 10, 0);
+			update();
+		}
 	}
 	if (Mpressed && (doku->AppMode == 21))
 	{
@@ -2929,6 +2976,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 			if ((abs(Dxp - newX) > 3) || (abs(Dyp - newY) > 3))
 			{
 				doku->DragP = true;
+				doku->leaveDrag = false;
 				doku->DraggedElem = b;
 				doku->DragElements.clear();
 				for (uint dre=0; dre<SelItem.count(); ++dre)
@@ -2939,6 +2987,7 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 				dr->drag();
 				delete ss;
 				doku->DragP = false;
+				doku->leaveDrag = false;
 				Mpressed = false;
 				doku->DraggedElem = 0;
 				doku->DragElements.clear();
@@ -3599,6 +3648,7 @@ void Page::mousePressEvent(QMouseEvent *m)
 	SeRy = m->y();
 	HaveSelRect = false;
 	doku->DragP = false;
+	doku->leaveDrag = false;
 	Mxp = qRound(m->x()/sc);
 	Myp = qRound(m->y()/sc);
 	mpo = QRect(m->x()-doku->GrabRad, m->y()-doku->GrabRad, doku->GrabRad*2, doku->GrabRad*2);
@@ -4575,7 +4625,6 @@ bool Page::SeleItem(QMouseEvent *m)
 										}
 										Items.at(ga)->Select = true;
 										Items.at(ga)->FrameOnly = true;
-										Items.at(ga)->paintObj();
 									}
 								}
 							}
@@ -4610,6 +4659,11 @@ bool Page::SeleItem(QMouseEvent *m)
 				}
 				if (SelItem.count() > 1)
 				{
+					for (uint aa = 0; aa < SelItem.count(); ++aa)
+					{
+						PageItem *bb = SelItem.at(aa);
+						bb->paintObj();
+					}
 					setGroupRect();
 					paintGroupRect();
 					double x, y, w, h;
@@ -5233,7 +5287,7 @@ void Page::TextToPath()
 	PageItem *bb;
 	FPointArray pts;
 	double x, y;
-	QString chx;
+	QString chx,ccounter;
 	if (SelItem.count() > 0)
 	{
 		b = SelItem.at(0);
@@ -5279,6 +5333,13 @@ void Page::TextToPath()
 			uint z = PaintPoly(b->Xpos, b->Ypos, b->Width, b->Height, b->Pwidth, b->Pcolor2, b->Pcolor);
 			bb = Items.at(z);
 			emit AddObj(PageNr, z);
+			bb->Textflow = b->Textflow;
+			bb->Textflow2 = b->Textflow2;
+			bb->LockRes = b->LockRes;
+			bb->Locked = b->Locked;
+			bb->NamedLStyle = b->NamedLStyle;
+			bb->AnName = b->AnName+"+"+ccounter.setNum(a);
+			bb->AutoName = false;
 			bb->PoLine = pts.copy();
 			bb->Rot = b->Rot;
 			bb->Pcolor = b->Ptext.at(a)->ccolor;

@@ -56,6 +56,7 @@ public:
 	void insertColor(QString nam, double c, double m, double y, double k);
 	void DrawPageMarks(ScPainter *p, QRect rd);
 	void DrawPageItems(ScPainter *painter, QRect rd);
+	void Page::leaveEvent(QEvent *);
 	void paintEvent(QPaintEvent *e);
 	void setGroupRect();
 	void getGroupRect(double *x, double *y, double *w, double *h);

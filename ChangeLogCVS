@@ -1,4 +1,8 @@
 Changes since Version 1.1.5
+10.03.2004	Enabled dragging of Objects between Pages.
+		When you convert a Textframe to outlines the important properties are copied too, Bug #337.
+		Fixed Bug #338 and #333 too.
+
 09.03.2004	Updated the Ukrainian Translation.
 		Finally fixed placement of the Icons for PDF-Buttons.
 		Objects keep their Name now when they are Cut and Pasted.

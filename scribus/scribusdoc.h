@@ -588,6 +588,7 @@ public: // Public attributes
 	bool Before;
 	int Einheit;
 	bool DragP;
+	bool leaveDrag;
 	PageItem *DraggedElem;
 	PageItem *ElemToLink;
 	QValueList<uint> DragElements;
