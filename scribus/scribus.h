@@ -201,7 +201,7 @@ class ScribusApp : public QMainWindow
     void LoadRecent(int id);
     bool slotDocOpen();
     bool LadeDoc(QString fileName);
-    void slotAutoSave();
+    void slotAutoSaved();
     /** save a document */
     void slotFileSave();
     /** save a document under a different filename*/

@@ -2054,7 +2054,8 @@ PageItem *item;
 for(uint i=0;i<view->Pages.count();++i)
 {
 	ObCount++;
-	dia2->setProgress(ObCount);
+	if (dia2 != 0)
+		dia2->setProgress(ObCount);
 	page = view->Pages.at(i);
 	QDomElement pg=docu.createElement("PAGE");
 	pg.setAttribute("NUM",page->PageNr);
@@ -2564,8 +2565,11 @@ for (uint pdoE = 0; pdoE < doc->PDF_Optionen.PresentVals.count(); ++pdoE)
 	pdf.appendChild(pdf3);
 	}
 dc.appendChild(pdf);
-dia2->setTotalSteps(view->Pages.count()+view->MasterPages.count());
-dia2->setProgress(0);
+if (dia2 != 0)
+	{
+	dia2->setTotalSteps(view->Pages.count()+view->MasterPages.count());
+	dia2->setProgress(0);
+	}
 WritePages(view, docu, dc, dia2, 0);
 view->DocPages = view->Pages;
 view->Pages = view->MasterPages;

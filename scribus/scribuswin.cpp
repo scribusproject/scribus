@@ -14,9 +14,11 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-
+#include <qfileinfo.h>
+#include <qdir.h>
 #include "scribuswin.h"
 #include "scribuswin.moc"
+#include "scribusXml.h"
 extern QPixmap loadIcon(QString nam);
 
 ScribusWin::ScribusWin(QWidget* parent, ScribusDoc* ddoc)
@@ -33,6 +35,26 @@ ScribusWin::ScribusWin(QWidget* parent, ScribusDoc* ddoc)
 void ScribusWin::setView(ScribusView* dview)
 {
 	view = dview;
+}
+
+void ScribusWin::slotAutoSave()
+{
+  if ((doc->hasName) && (doc->isModified()) && (!doc->TemplateMode))
+  	{
+		system("mv -f " + doc->DocName + " " + doc->DocName+".bak");
+		QString fn = doc->DocName;
+  	QFileInfo fi(fn);
+  	QDir::setCurrent(fi.dirPath(true));
+ 		ScriXmlDoc *ss = new ScriXmlDoc();
+		if (ss->WriteDoc(fn, doc, view, 0))
+			{
+			doc->setUnModified();
+			setCaption(doc->DocName);
+			qApp->processEvents();
+			emit AutoSaved();
+			}
+ 		delete ss;
+  	}
 }
 
 void ScribusWin::closeEvent(QCloseEvent *ce)

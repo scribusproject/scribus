@@ -175,7 +175,7 @@ ScribusApp::ScribusApp(SplashScreen *splash)
 		SCFontsIterator it(Prefs.AvailFonts);
 		Prefs.DefFont = it.currentKey();
   	Prefs.DefSize = 12;
-  	Prefs.AppFontSize = 12;
+  	Prefs.AppFontSize = qApp->font().pointSize();
   	/** Default Farbenliste */
   	Prefs.DColors.clear();
 	  Prefs.DColors.insert("White", CMYKColor(0, 0, 0, 0));
@@ -1537,7 +1537,8 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	else
 		w->show();
 	view->show();
-	connect(doc->ASaveTimer, SIGNAL(timeout()), this, SLOT(slotAutoSave()));
+	connect(doc->ASaveTimer, SIGNAL(timeout()), w, SLOT(slotAutoSave()));
+	connect(w, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
 	doc->AutoSave = Prefs.AutoSave;
 	if (doc->AutoSave)
 		doc->ASaveTimer->start(Prefs.AutoSaveTime);
@@ -1734,6 +1735,7 @@ void ScribusApp::SwitchWin()
 		DatNeu->setEnabled(true);
 		DatOpe->setEnabled(true);
 		DatClo->setEnabled(true);
+		DatSav->setEnabled(doc->isModified());
 		fileMenu->setItemEnabled(fid1, 1);
 		fileMenu->setItemEnabled(fid4, ActWin->MenuStat[2]);
 		fileMenu->setItemEnabled(fid5, ActWin->MenuStat[3]);
@@ -2448,7 +2450,8 @@ bool ScribusApp::LadeDoc(QString fileName)
 			w->show();
 		view->show();
 		newActWin(w);
-		connect(doc->ASaveTimer, SIGNAL(timeout()), this, SLOT(slotAutoSave()));
+		connect(doc->ASaveTimer, SIGNAL(timeout()), w, SLOT(slotAutoSave()));
+		connect(w, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
 		doc->AutoSave = Prefs.AutoSave;
 		if (doc->AutoSave)
 			doc->ASaveTimer->start(Prefs.AutoSaveTime);
@@ -2517,14 +2520,14 @@ void ScribusApp::slotFileOpen()
   	}
 }
 
-void ScribusApp::slotAutoSave()
+void ScribusApp::slotAutoSaved()
 {
-/* Disabled temporary because of some Problems, RaceCondition
-  if ((doc->hasName) && (doc->isModified()) && (!doc->TemplateMode))
-  	{
-		system("mv -f " + doc->DocName + " " + doc->DocName+".bak");
-		DoFileSave(doc->DocName);
-  	}        */
+	if (ActWin == sender())
+		{
+		fileMenu->setItemEnabled(fid4, 0);
+		DatSav->setEnabled(false);
+		ActWin->setCaption(doc->DocName);
+		}
 }
 
 void ScribusApp::slotFileSave()
@@ -2617,7 +2620,8 @@ bool ScribusApp::DoFileClose()
 {
   uint a;
   doc->ASaveTimer->stop();
-	disconnect(doc->ASaveTimer, SIGNAL(timeout()), this, SLOT(slotAutoSave()));
+	disconnect(doc->ASaveTimer, SIGNAL(timeout()), doc->WinHan, SLOT(slotAutoSave()));
+	disconnect(doc->WinHan, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
 	if ((doc->UnData.UnCode == 0) && (doc->UnDoValid))
 		delete doc->UnData.Item;
   if (CMSavail)
@@ -6303,6 +6307,9 @@ void ScribusApp::UnDoAction()
 		switch (doc->UnData.UnCode)
 			{
 			case 0:
+				b->NextBox = 0;
+				b->BackBox = 0;
+				b->isAutoText = false;
 				view->Pages.at(doc->UnData.PageNr)->Items.insert(b->ItemNr, b);
 				for (a = 0; a < view->Pages.at(doc->UnData.PageNr)->Items.count(); ++a)
 					{

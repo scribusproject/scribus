@@ -55,9 +55,12 @@ public:
 	int	NrItems;
 	int First;
 	int Last;
+public slots:
+	void slotAutoSave();
 signals:
 	void Schliessen();
 	void SaveAndClose();
+	void AutoSaved();
 };
 
 #endif
