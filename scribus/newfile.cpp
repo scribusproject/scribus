@@ -341,6 +341,11 @@ void NewDoc::setUnit(int u)
 	ein = units[u];
 	int decimals;
 
+	double AltUmrech = Umrech;
+	double oldB = Breite->minValue() / AltUmrech;
+	double oldBM = Breite->maxValue() / AltUmrech;
+	double oldH = Hoehe->minValue() / AltUmrech;
+	double oldHM = Hoehe->maxValue() / AltUmrech;
 	switch (u)
 	{
 		case 0:
@@ -376,6 +381,10 @@ void NewDoc::setUnit(int u)
 	disconnect(BottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom(int)));
 	disconnect(LeftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft(int)));
 	disconnect(RightR, SIGNAL(valueChanged(int)), this, SLOT(setRight(int)));
+	Breite->setMinValue(oldB * Umrech);
+	Breite->setMaxValue(oldBM * Umrech);
+	Hoehe->setMinValue(oldH * Umrech);
+	Hoehe->setMaxValue(oldHM * Umrech);
 	Breite->setValue(Pagebr * Umrech);
 	Hoehe->setValue(Pageho * Umrech);
 	RightR->setMaxValue(Breite->value() - Left * Umrech);

@@ -1,2 +1,8 @@
 Changes since Version 1.1.5
+15.02.2004	Fixed some mismatches in the German Translation.
+	Updated the Czech Translation.
+	Fixed Bug #268
+	Fixed Problem with changing Fontsizes in Textframes with no Styles when editing Styles.
+	Fixed Bug #223
+
 

@@ -68,11 +68,7 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc, preV *prefs)
 	SB2 = new QPushButton(this);
 	SB2->setFocusPolicy(QWidget::NoFocus);
 	SB2->setPixmap(loadIcon("Gross.xpm"));
-	PGS = new QSpinBox(this);
-	PGS->setMinValue(1);
-	PGS->setMaxValue(1);
-	PGS->setPrefix( tr("Page "));
-	PGS->setSuffix( tr( " of %1").arg(1) );
+	PGS = new PageSelector(this, 1);
 	PGS->setFont(fo);
 	PGS->setFocusPolicy(QWidget::ClickFocus);
 	LY = new QPushButton(this);
@@ -115,7 +111,7 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc, preV *prefs)
 	connect(SB1, SIGNAL(clicked()), this, SLOT(slotZoomOut()));
 	connect(SB2, SIGNAL(clicked()), this, SLOT(slotZoomIn()));
 	connect(LE, SIGNAL(valueChanged(int)), this, SLOT(Zval()));
-	connect(PGS, SIGNAL(valueChanged(int)), this, SLOT(GotoPa(int)));
+	connect(PGS, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
 	connect(Laymen, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
 	connect(Unitmen, SIGNAL(activated(int)), this, SLOT(ChgUnit(int)));
 	connect(this, SIGNAL(contentsMoving(int, int)), this, SLOT(setRulerPos(int, int)));
@@ -150,8 +146,8 @@ void ScribusView::setHBarGeometry(QScrollBar &bar, int x, int y, int w, int h)
 		LE->setGeometry(x, y, 60+sadj, h);
 		SB1->setGeometry(x+60+sadj, y, 15, h);
 		SB2->setGeometry(x+75+sadj, y, 15, h);
-		PGS->setGeometry(x+90+sadj, y, 80, h);
-		LY->setGeometry(x+170+sadj, y, 110, h);
+		PGS->setGeometry(x+90+sadj, y, 215, h);
+		LY->setGeometry(x+305+sadj, y, 110, h);
 		HR->setGeometry(25, 1, w-24, 25);
 		}
 }
@@ -185,7 +181,7 @@ void ScribusView::Zval()
 	setFocus();
 }
 
-/** Fügt eine Seite hinzu */
+/** Fgt eine Seite hinzu */
 Page* ScribusView::addPage(int nr)
 {
 	int z;
@@ -221,12 +217,8 @@ Page* ScribusView::addPage(int nr)
 		Doc->FirstAuto->Dirty = true;
 		}
 	PGS->setMaxValue(Doc->PageC);
-	if (!ScApp->ScriptRunning)
-		{
-		PGS->setPrefix( tr("Page "));
-		PGS->setSuffix( tr( " of %1").arg(Doc->PageC) );
-		PGS->setValue(nr+1);
-		}
+	if ((!ScApp->ScriptRunning) && (!Doc->loading))
+		PGS->GotoPg(nr);
 	fe->setMouseTracking(true);
 	connect(fe, SIGNAL(Hrule(int)), HR, SLOT(Draw(int)));
 	connect(fe, SIGNAL(Vrule(int)), VR, SLOT(Draw(int)));
@@ -239,13 +231,13 @@ Page* ScribusView::addPage(int nr)
 	return fe;
 }
 
-/** Löscht eine Seite */
+/** Lscht eine Seite */
 void ScribusView::delPage(int Nr)
 {
 	if (Doc->PageC == 1)
-		{ return; }
+		return;
 	if (Doc->PageC < Nr-1)
-		{ return; }
+		return;
 	removeChild(Pages.at(Nr)->parentWidget());
 	delete Pages.at(Nr)->parentWidget();
 	Pages.remove(Nr);
@@ -253,9 +245,7 @@ void ScribusView::delPage(int Nr)
 	Doc->PageC -= 1;
 	Doc->ActPage = Pages.at(0);
 	PGS->setMaxValue(Doc->PageC);
-	PGS->setPrefix( tr("Page "));
-	PGS->setSuffix( tr( " of %1").arg(Doc->PageC) );
-	PGS->setValue(1);
+	PGS->GotoPg(0);
 }
 
 void ScribusView::movePage(int from, int to, int ziel, int art)
@@ -416,12 +406,11 @@ void ScribusView::setMenTxt(int Seite)
 {
 	if (ScApp->ScriptRunning)
 		return;
-	disconnect(PGS, SIGNAL(valueChanged(int)), this, SLOT(GotoPa(int)));
-	PGS->setPrefix( tr("Page "));
-	PGS->setSuffix( tr( " of %1").arg(Doc->PageC) );
+	disconnect(PGS, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
 	PGS->setMaxValue(Doc->PageC);
-	PGS->setValue(Seite+1);
-	connect(PGS, SIGNAL(valueChanged(int)), this, SLOT(GotoPa(int)));
+	if (!Doc->loading)
+		PGS->GotoPg(Seite);
+	connect(PGS, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
 }
 
 void ScribusView::setLayMenTxt(int l)
@@ -564,10 +553,11 @@ void ScribusView::GotoPage(int Seite)
 		return;
 	setContentsPos(static_cast<int>(childX(Doc->ActPage->parentWidget())-10*Doc->Scale), static_cast<int>(childY(Doc->ActPage->parentWidget())-10*Doc->Scale));
 	PGS->setMaxValue(Doc->PageC);
-	PGS->setValue(Seite+1);
+	if (!Doc->loading)
+		PGS->GotoPg(Seite);
 }
 
-/** Vergrößert die Ansicht */
+/** Vergrï¿½rt die Ansicht */
 void ScribusView::slotZoomIn()
 {
 	Doc->Scale *= 2;
@@ -583,7 +573,7 @@ void ScribusView::slotZoomOut()
 	slotDoZoom();
 }
 
-/** Vergrößert die Ansicht */
+/** Vergrï¿½rt die Ansicht */
 void ScribusView::slotZoomIn2()
 {
 	Doc->Scale += static_cast<double>(Doc->MagStep)/100;

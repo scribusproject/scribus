@@ -5497,6 +5497,22 @@ Lze uvést v Nastavení.</translation>
         <source>Postscript-Files (*.ps);;All Files (*)</source>
         <translation>Postscriptové soubory (*.ps);;Všechny soubory (*)</translation>
     </message>
+    <message>
+        <source>Cyan</source>
+        <translation>Azurová (Cyan)</translation>
+    </message>
+    <message>
+        <source>Magenta</source>
+        <translation>Purpurová (Magenta)</translation>
+    </message>
+    <message>
+        <source>Yellow</source>
+        <translation>Žlutá (Yellow)</translation>
+    </message>
+    <message>
+        <source>Black</source>
+        <translation>Černá (Black)</translation>
+    </message>
 </context>
 <context>
     <name>EditStyle</name>
@@ -5619,6 +5635,10 @@ Lze uvést v Nastavení.</translation>
     <message>
         <source>Lines:</source>
         <translation>Čáry:</translation>
+    </message>
+    <message>
+        <source>Stroke Color:</source>
+        <translation>Barva obrysu:</translation>
     </message>
 </context>
 <context>
@@ -7707,6 +7727,26 @@ ke straně, v opačném případě k objektu.</translation>
         <source>Display Transparency</source>
         <translation>Zobrazit průhlednost</translation>
     </message>
+    <message>
+        <source>Display CMYK</source>
+        <translation>Zobrazit CMYK</translation>
+    </message>
+    <message>
+        <source>C</source>
+        <translation>C</translation>
+    </message>
+    <message>
+        <source>M</source>
+        <translation>M</translation>
+    </message>
+    <message>
+        <source>Y</source>
+        <translation>Y</translation>
+    </message>
+    <message>
+        <source>K</source>
+        <translation>K</translation>
+    </message>
 </context>
 <context>
     <name>Page</name>
@@ -7986,23 +8026,23 @@ ke straně, v opačném případě k objektu.</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="obsolete">Jméno</translation>
+        <translation>Jméno</translation>
     </message>
     <message>
         <source>Path</source>
-        <translation type="obsolete">Cesta</translation>
+        <translation>Cesta</translation>
     </message>
     <message>
         <source>Page</source>
-        <translation type="obsolete">Strana</translation>
+        <translation>Strana</translation>
     </message>
     <message>
         <source>Print</source>
-        <translation type="obsolete">Tisk</translation>
+        <translation>Tisk</translation>
     </message>
     <message>
         <source>Status</source>
-        <translation type="obsolete">Stav</translation>
+        <translation>Stav</translation>
     </message>
     <message>
         <source>Goto</source>
@@ -9028,6 +9068,37 @@ Zkontrolujte cestu a název souboru.</translation>
     <message>
         <source>&amp;Paste</source>
         <translation>&amp;Vložit</translation>
+    </message>
+</context>
+<context>
+    <name>QTitleBar</name>
+    <message>
+        <source>System Menu</source>
+        <translation>Systémová nabídka</translation>
+    </message>
+    <message>
+        <source>Shade</source>
+        <translation>Schovat</translation>
+    </message>
+    <message>
+        <source>Unshade</source>
+        <translation>Zobrazit</translation>
+    </message>
+    <message>
+        <source>Normalize</source>
+        <translation>Normalizovat</translation>
+    </message>
+    <message>
+        <source>Minimize</source>
+        <translation>Minimalizovat</translation>
+    </message>
+    <message>
+        <source>Maximize</source>
+        <translation>Maximalizovat</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Zavřít</translation>
     </message>
 </context>
 <context>

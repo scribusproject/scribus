@@ -111,7 +111,7 @@ int MSpinBox::mapTextToValue(bool *)
 	QString ts = text();
 	QString su = suffix();
 	ts.replace(",", ".");
-	if (su == QObject::tr( " pt" ))
+	if ((su == QObject::tr( " pt" )) || (su == QObject::tr( "pt" )))
 	{
 		ts.replace("pt", "");
 		ts.replace("mm", "/25.4*72");
@@ -119,7 +119,7 @@ int MSpinBox::mapTextToValue(bool *)
 		ts.replace("p", "*12");
 	}
 	else 
-		if (su == QObject::tr( " mm" ))
+		if ((su == QObject::tr( " mm" )) || (su == QObject::tr( "mm" )))
 		{
 			ts.replace("pt", "/72*25.4");
 			ts.replace("mm", "");
@@ -127,7 +127,7 @@ int MSpinBox::mapTextToValue(bool *)
 			ts.replace("p", "/12*25.4");
 		}
 		else 
-			if (su == QObject::tr( " in" ))
+			if ((su == QObject::tr( " in" )) || (su == QObject::tr( "in" )))
 			{
 				ts.replace("pt", "/72");
 				ts.replace("mm", "/25.4");
@@ -135,7 +135,7 @@ int MSpinBox::mapTextToValue(bool *)
 				ts.replace("p", "/6");
 			}
 			else 
-				if (su == QObject::tr( " p" ))
+				if ((su == QObject::tr( " p" )) || (su == QObject::tr( "p" )))
 				{
 					ts.replace("pt", "/12");
 					ts.replace("mm", "/25.4*6");
@@ -154,23 +154,18 @@ int MSpinBox::mapTextToValue(bool *)
 
 void MSpinBox::setDecimals(int deci)
 {
-	double oldDeci = static_cast<double>(Decimals);
-	double oldMin = static_cast<double>(QSpinBox::minValue());
-	double oldMax = static_cast<double>(QSpinBox::maxValue());
 	Decimals = deci;
 	QSpinBox::setLineStep(Decimals);
 	if (deci < 10)
 		Width = 0;
-	if (deci > 9 && deci < 100)
+	if ((deci > 9) && (deci < 100))
 		Width = 1;
-	if (deci > 99 && deci < 1000)
+	if ((deci > 99) && (deci < 1000))
 		Width = 2;
-	if (deci > 999 && deci < 10000)
+	if ((deci > 999) && (deci < 10000))
 		Width = 3;
 	if (deci > 9999)
 		Width = 4;
-	QSpinBox::setMinValue(qRound((oldMin / oldDeci) * Decimals));
-	QSpinBox::setMaxValue(qRound((oldMax / oldDeci) * Decimals));
 }
 
 /*!
@@ -227,4 +222,32 @@ void MSpinBox::setValue(double val)
 double MSpinBox::value()
 {
 	return static_cast<double>(QSpinBox::value()) / Decimals;
+}
+
+/*!
+ \fn MSpinBox::minValue()
+ \author Franz Schmid
+ \date
+ \brief Gets the Minimum Value of the Spinbox
+ \param None
+ \retval The Value
+ */
+
+double MSpinBox::minValue()
+{
+	return static_cast<double>(QSpinBox::minValue()) / Decimals;
+}
+
+/*!
+ \fn MSpinBox::maxValue()
+ \author Franz Schmid
+ \date
+ \brief Gets the Maximum Value of the Spinbox
+ \param None
+ \retval The Value
+ */
+
+double MSpinBox::maxValue()
+{
+	return static_cast<double>(QSpinBox::maxValue()) / Decimals;
 }

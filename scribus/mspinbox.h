@@ -33,6 +33,8 @@ public:
 	void setMinValue(double val);
 	void setValue(double val);
 	double value();
+	double minValue();
+	double maxValue();
 	QString mapValueToText(int value);
 	int mapTextToValue(bool *ok);
 	int Decimals;

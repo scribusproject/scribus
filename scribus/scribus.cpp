@@ -2057,7 +2057,7 @@ void ScribusApp::HaveNewDoc()
 	doc->CurrentABStil = 0;
 	slotChangeUnit(doc->Einheit);
 	doc->Trenner = new Hyphenator(this, doc, this);
-  BuildFontMenu();
+	BuildFontMenu();
 	connect(view, SIGNAL(changeUN(int)), this, SLOT(slotChangeUnit(int)));
 	connect(view, SIGNAL(changeLA(int)), Lpal, SLOT(MarkActiveLayer(int)));
 	doc->PDF_Optionen.BleedBottom = doc->PageM.Bottom;
@@ -4785,7 +4785,7 @@ void ScribusApp::slotEditStyles()
 								ite->Ptext.at(e)->cshade = ite->ShTxtFill;
 								ite->Ptext.at(e)->cstroke = ite->TxtStroke;
 								ite->Ptext.at(e)->cshade2 = ite->ShTxtStroke;
-								ite->Ptext.at(e)->csize = ite->ISize;
+//								ite->Ptext.at(e)->csize = ite->ISize;
 								ite->Ptext.at(e)->cstyle &= ~127;
 								ite->Ptext.at(e)->cstyle |= ite->TxTStyle;
 								}
@@ -4821,7 +4821,7 @@ void ScribusApp::slotEditStyles()
 								ite->Ptext.at(e)->cshade = ite->ShTxtFill;
 								ite->Ptext.at(e)->cstroke = ite->TxtStroke;
 								ite->Ptext.at(e)->cshade2 = ite->ShTxtStroke;
-								ite->Ptext.at(e)->csize = ite->ISize;
+//								ite->Ptext.at(e)->csize = ite->ISize;
 								ite->Ptext.at(e)->cstyle &= ~127;
 								ite->Ptext.at(e)->cstyle |= ite->TxTStyle;
 								}
@@ -4876,13 +4876,6 @@ void ScribusApp::setAbsValue(int a)
 		{
 		AliMenu->setItemChecked(AliMenu->idAt(b), false);
 		}
-/*	if (a < 5)
-		{
-		Mpal->Spal->setCurrentItem(0);
-		AliMenu->setItemChecked(AliMenu->idAt(a), true);
-		}
-	else
-		Mpal->Spal->setCurrentItem(a-4); */
 }
 
 void ScribusApp::slotEditColors()

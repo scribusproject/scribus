@@ -36,6 +36,8 @@
 #include "vruler.h"
 #include "libpostscript/pslib.h"
 #include "mspinbox.h"
+#include "pageselector.h"
+
 extern QPixmap loadIcon(QString nam);
 
 /**
@@ -51,7 +53,7 @@ public:
     ~ScribusView() {};
   /** Vergroesserungseingabefeld */
 	MSpinBox* LE;
-	QSpinBox* PGS;
+	PageSelector* PGS;
 	QToolButton *UN;
 	Hruler *HR;
 	Vruler *VR;

@@ -254,11 +254,11 @@
     </message>
     <message>
         <source>Align Text Block</source>
-        <translation>Zentriert</translation>
+        <translation>Blocksatz</translation>
     </message>
     <message>
         <source>Align Text Center</source>
-        <translation>Blocksatz</translation>
+        <translation>Zentriert</translation>
     </message>
 </context>
 <context>
@@ -3589,7 +3589,7 @@ andernfalls relativ zum Objekt.</translation>
     </message>
     <message>
         <source>Page:</source>
-        <translation>Seite:</translation>
+        <translation type="obsolete">Seite:</translation>
     </message>
     <message>
         <source>Anti-alias Text</source>
@@ -3869,6 +3869,17 @@ andernfalls relativ zum Objekt.</translation>
     <message>
         <source>None</source>
         <translation>Keine</translation>
+    </message>
+</context>
+<context>
+    <name>PageSelector</name>
+    <message>
+        <source>Page </source>
+        <translation>Seite </translation>
+    </message>
+    <message>
+        <source> of %1</source>
+        <translation> von %1</translation>
     </message>
 </context>
 <context>
@@ -5944,11 +5955,11 @@ nicht speichern</translation>
     </message>
     <message>
         <source>Page </source>
-        <translation>Seite </translation>
+        <translation type="obsolete">Seite </translation>
     </message>
     <message>
         <source> of %1</source>
-        <translation> von %1</translation>
+        <translation type="obsolete"> von %1</translation>
     </message>
     <message>
         <source>Layer</source>

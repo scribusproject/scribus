@@ -10,6 +10,7 @@
 #include <qcombobox.h>
 #include <qcheckbox.h>
 #include "scribus.h"
+#include "pageselector.h"
 
 /** Calls the Plugin with the main Application window as parent
   * and the main Application Class as parameter */
@@ -29,15 +30,9 @@ class PPreview : public QDialog
 
 public:
 	PPreview( QWidget* parent, ScribusApp *plug );
-	~PPreview();
-	void setPageCombo(int num);
+	~PPreview() {};
 	QPixmap CreatePreview(int Seite, int Res);
-	QToolButton* First;
-	QToolButton* Back;
-	QLabel* Text1;
-	QComboBox* SeitenAusw;
-	QToolButton* Forward;
-	QToolButton* Last;
+	PageSelector *PGSel;
 	QCheckBox* AliasText;
 	QCheckBox* AliasGr;
 	QCheckBox* AliasTr;
@@ -54,10 +49,6 @@ public:
 	int MPage;
 
 public slots:
-	void ToStart();
-	void BackW();
-	void ForW();
-	void ToEnd();
 	void ToSeite(int num);
 	void ToggleTextAA();
 	void ToggleGr();

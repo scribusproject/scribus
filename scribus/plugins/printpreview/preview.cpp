@@ -59,36 +59,8 @@ PPreview::PPreview( QWidget* parent, ScribusApp *pl) : QDialog( parent, "Preview
 	Layout1 = new QHBoxLayout;
 	Layout1->setSpacing(6);
 	Layout1->setMargin(0);
-	First = new QToolButton(this, "First");
-	First->setMaximumSize(QSize(24,24));
-	First->setText("");
-	First->setPixmap(loadIcon("start.png"));
-	Layout1->addWidget(First);
-	Back = new QToolButton(this, "Back");
-	Back->setMaximumSize(QSize(24,24));
-	Back->setText("");
-	Back->setPixmap(loadIcon("back.png"));
-	Layout1->addWidget(Back);
-	Text1 = new QLabel(this);
-	Text1->setText( tr("Page:"));
-	Layout1->addWidget(Text1);
-	SeitenAusw = new QComboBox( true, this, "SeitenAusw" );
-	SeitenAusw->setEditable(false);
-	for (int a = 0; a < MPage; a++)
-	{
-		SeitenAusw->insertItem(tmp.setNum(a+1));
-	}
-	Layout1->addWidget(SeitenAusw);
-	Forward = new QToolButton(this, "Forward");
-	Forward->setMaximumSize(QSize(24,24));
-	Forward->setText("");
-	Forward->setPixmap(loadIcon("forward.png"));
-	Layout1->addWidget(Forward);
-	Last = new QToolButton(this, "Last");
-	Last->setMaximumSize(QSize(24,24));
-	Last->setText("");
-	Last->setPixmap(loadIcon("finish.png"));
-	Layout1->addWidget(Last);
+	PGSel = new PageSelector(this, MPage);
+	Layout1->addWidget(PGSel);
 	QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1->addItem(spacer);
 	Layout4->addLayout(Layout1);
@@ -147,10 +119,6 @@ PPreview::PPreview( QWidget* parent, ScribusApp *pl) : QDialog( parent, "Preview
 	PLayout->addWidget(Anzeige);
 	int w = Anz->width() + 20;
 	resize(QMIN(QApplication::desktop()->width(),w), 500);
-	connect(First, SIGNAL(clicked()), this, SLOT(ToStart()));
-	connect(Back, SIGNAL(clicked()), this, SLOT(BackW()));
-	connect(Forward, SIGNAL(clicked()), this, SLOT(ForW()));
-	connect(Last, SIGNAL(clicked()), this, SLOT(ToEnd()));
 	connect(AliasText, SIGNAL(clicked()), this, SLOT(ToggleTextAA()));
 	connect(AliasGr, SIGNAL(clicked()), this, SLOT(ToggleGr()));
 	connect(AliasTr, SIGNAL(clicked()), this, SLOT(ToggleTr()));
@@ -159,56 +127,16 @@ PPreview::PPreview( QWidget* parent, ScribusApp *pl) : QDialog( parent, "Preview
 	connect(EnableCMYK_M, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
 	connect(EnableCMYK_Y, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
 	connect(EnableCMYK_K, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
-	connect(SeitenAusw, SIGNAL(activated(int)), this, SLOT(ToSeite(int)));
-	setPageCombo(0);
-}
-
-PPreview::~PPreview()
-{
-}
-
-void PPreview::ToStart()
-{
-	if (APage == 0)
-		return;
-	Anz->setPixmap(CreatePreview(0, 72));
-	APage = 0;
-	setPageCombo(APage);
-}
-
-void PPreview::BackW()
-{
-	if (APage == 0)
-		return;
-	APage--;
-	Anz->setPixmap(CreatePreview(APage, 72));
-	setPageCombo(APage);
-}
-
-void PPreview::ForW()
-{
-	if (APage == MPage-1)
-		return;
-	APage++;
-	Anz->setPixmap(CreatePreview(APage, 72));
-	setPageCombo(APage);
-}
-
-void PPreview::ToEnd()
-{
-	if (APage == MPage-1)
-		return;
-	Anz->setPixmap(CreatePreview(MPage-1, 72));
-	APage = MPage-1;
-	setPageCombo(APage);
+	connect(PGSel, SIGNAL(GotoPage(int)), this, SLOT(ToSeite(int)));
 }
 
 void PPreview::ToSeite(int num)
 {
-	if (num == APage)
+	int n = num-1;
+	if (n == APage)
 		return;
-	APage = num;
-	Anz->setPixmap(CreatePreview(num, 72));
+	APage = n;
+	Anz->setPixmap(CreatePreview(n, 72));
 }
 
 void PPreview::ToggleTextAA()
@@ -241,23 +169,6 @@ void PPreview::ToggleCMYK_Colour()
 {
 	if (EnableCMYK->isChecked())
 		Anz->setPixmap(CreatePreview(APage, 72));
-}
-
-void PPreview::setPageCombo(int num)
-{
-	disconnect(SeitenAusw, SIGNAL(activated(int)), this, SLOT(ToSeite(int)));
-	SeitenAusw->setCurrentItem(num);
-	bool setter = true;
-	if (num == 0)
-		setter = false;
-	First->setEnabled(setter);
-	Back->setEnabled(setter);
-	setter = true;
-	if (num == MPage-1)
-		setter = false;
-	Forward->setEnabled(setter);
-	Last->setEnabled(setter);
-	connect(SeitenAusw, SIGNAL(activated(int)), this, SLOT(ToSeite(int)));
 }
 
 QPixmap PPreview::CreatePreview(int Seite, int Res)

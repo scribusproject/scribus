@@ -75,6 +75,7 @@ SOURCES += scribus/align.cpp \
            scribus/page.cpp \
            scribus/pageback.cpp \
            scribus/pageitem.cpp \
+           scribus/pageselector.cpp \
            scribus/pdfopts.cpp \
            scribus/picsearch.cpp \
            scribus/picstatus.cpp \
