@@ -60,6 +60,7 @@
 #include "insertTable.h"
 #include "hruler.h"
 #include "vruler.h"
+#include "filewatcher.h"
 #ifdef HAVE_TIFF
 	#include <tiffio.h>
 #endif
@@ -7278,6 +7279,26 @@ void ScribusView::TogglePic()
 	}
 }
 
+void ScribusView::UpdatePict(QString name)
+{
+	for (uint a = 0; a < Doc->Items.count(); ++a)
+	{
+		PageItem *b = Doc->Items.at(a);
+		if ((b->PicAvail) && (b->Pfile == name))
+		{
+			int fho = b->flippedH;
+			int fvo = b->flippedV;
+			b->pixmOrg = QImage();
+			LoadPict(b->Pfile, b->ItemNr, true);
+			b->flippedH = fho;
+			b->flippedV = fvo;
+			AdjustPictScale(b);
+			AdjustPreview(b, false);
+			updateContents();
+		}
+	}
+}
+
 void ScribusView::UpdatePic()
 {
 	if (SelItem.count() != 0)
@@ -7288,7 +7309,7 @@ void ScribusView::UpdatePic()
 			int fho = b->flippedH;
 			int fvo = b->flippedV;
 			b->pixmOrg = QImage();
-			LoadPict(b->Pfile, b->ItemNr);
+			LoadPict(b->Pfile, b->ItemNr, true);
 			b->flippedH = fho;
 			b->flippedV = fvo;
 			AdjustPictScale(b);
@@ -7857,6 +7878,8 @@ void ScribusView::ClearItem()
 					nb = nb->NextBox;
 				}
 			}
+			if ((b->PType == 2) && ((ScApp->fileWatcher->files().contains(b->Pfile) != 0) && (b->PicAvail)))
+				ScApp->fileWatcher->removeFile(b->Pfile);
 			b->Pfile = "";
 			b->PicAvail = false;
 			b->pixm = QImage();
@@ -7903,6 +7926,8 @@ void ScribusView::DeleteItem()
 		for (uint de = 0; de < anz; ++de)
 		{
 			b = delItems.at(0);
+			if ((b->PType == 2) && ((ScApp->fileWatcher->files().contains(b->Pfile) != 0) && (b->PicAvail)))
+				ScApp->fileWatcher->removeFile(b->Pfile);
 			if (b->PType == 4)
 			{
 				if ((b->NextBox != 0) || (b->BackBox != 0))
@@ -9855,7 +9880,7 @@ void ScribusView::FlipImageV()
 	}
 }
 
-void ScribusView::LoadPict(QString fn, int ItNr)
+void ScribusView::LoadPict(QString fn, int ItNr, bool reload)
 {
 	QString tmp, tmp2, dummy, cmd1, cmd2, BBox, FarNam;
 	QChar tc;
@@ -9863,9 +9888,14 @@ void ScribusView::LoadPict(QString fn, int ItNr)
 	double x, y, b, h, c, m, k;
 	bool found = false;
 	int ret = -1;
-	PageItem *Item = Doc->Items.at(ItNr);
-	QString tmpFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/sc.png");
 	QFileInfo fi = QFileInfo(fn);
+	PageItem *Item = Doc->Items.at(ItNr);
+	if (!reload)
+	{
+		if ((ScApp->fileWatcher->files().contains(Item->Pfile) != 0) && (Item->PicAvail))
+			ScApp->fileWatcher->removeFile(Item->Pfile);
+	}
+	QString tmpFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/sc.png");
 	if (!fi.exists())
 	{
 		Item->Pfile = fi.absFilePath();
@@ -9893,6 +9923,8 @@ void ScribusView::LoadPict(QString fn, int ItNr)
 			Item->pixm = im4;
 			Item->pixmOrg = im4.copy();
 			Item->Pfile = fi.absFilePath();
+			if (!reload)
+				ScApp->fileWatcher->addFile(Item->Pfile);
 			Item->PicAvail = true;
 			Item->PicArt = true;
 			Item->isRaster = false;
@@ -10028,6 +10060,8 @@ void ScribusView::LoadPict(QString fn, int ItNr)
 					Item->dpiX = 72.0;
 					Item->dpiY = 72.0;
 					Item->Pfile = fi.absFilePath();
+					if (!reload)
+						ScApp->fileWatcher->addFile(Item->Pfile);
 					unlink(tmpFile);
 				}
 				else
@@ -10148,6 +10182,8 @@ void ScribusView::LoadPict(QString fn, int ItNr)
 						Item->LocalViewY = Item->LocalScY;
 					}
 					Item->Pfile = fi.absFilePath();
+					if (!reload)
+						ScApp->fileWatcher->addFile(Item->Pfile);
 					Item->BBoxH = Item->pixm.height();
 					Item->OrigW = Item->pixm.width();
 					Item->OrigH = Item->pixm.height();
@@ -10192,6 +10228,8 @@ void ScribusView::LoadPict(QString fn, int ItNr)
 				Item->LocalViewY = Item->LocalScY;
 			}
 			Item->Pfile = fi.absFilePath();
+			if (!reload)
+				ScApp->fileWatcher->addFile(Item->Pfile);
 			Item->PicAvail = true;
 			Item->PicArt = true;
 			Item->BBoxX = 0;
@@ -10248,7 +10286,7 @@ void ScribusView::AdjustPreview(PageItem *b, bool reload)
 					b->LocalViewY = b->LocalScY; // jjsa end
 				}
 				else
-					LoadPict(b->Pfile, b->ItemNr);
+					LoadPict(b->Pfile, b->ItemNr, true);
 				b->flippedH = fho;
 				b->flippedV = fvo;
 				b->PicArt = savF;
@@ -10293,7 +10331,7 @@ void ScribusView::AdjustPictScale(PageItem *b, bool reload)
 			b->LocalViewY = b->LocalScY;
 			}
 		else // jjsa end
-			LoadPict(b->Pfile, b->ItemNr);
+			LoadPict(b->Pfile, b->ItemNr, true);
 		b->flippedH = fho;
 		b->flippedV = fvo;
 		b->PicArt = savF;

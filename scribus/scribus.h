@@ -70,6 +70,7 @@ class PSLib;
 class WerkToolB;
 class WerkToolBP;
 class UndoPalette;
+class FileWatcher;
 
 /**
   * This Class is the base class for your application. It sets up the main
@@ -196,6 +197,7 @@ public:
 	QValueList<int> MenuItemsFile;
 	QMap<QString, QStringList> InstLang;
 	QMap<QString,QString> LangTransl;
+	FileWatcher* fileWatcher;
 
 public slots:
 	void ToggleAllPalettes();

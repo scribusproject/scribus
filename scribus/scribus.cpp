@@ -75,7 +75,7 @@
 #include "tabtypography.h"
 #include "tabguides.h"
 #include "undogui.h"
-
+#include "filewatcher.h"
 #ifdef _MSC_VER
  #if (_MSC_VER >= 1200)
   #include "win-config.h"
@@ -216,7 +216,7 @@ int ScribusApp::initScribus(bool showSplash, const QString newGuiLanguage)
 			splashScreen->setStatus( tr("Initializing Plugins"));
 		qApp->processEvents();
 		initPlugs();
-
+		fileWatcher = new FileWatcher(this);
 		connect(this, SIGNAL(TextIFont(QString)), this, SLOT(AdjustFontMenu(QString)));
 		connect(this, SIGNAL(TextISize(int)), this, SLOT(setFSizeMenu(int)));
 		connect(this, SIGNAL(TextISize(int)), Mpal, SLOT(setSize(int)));
@@ -2423,6 +2423,7 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	view->show();
 	connect(doc->ASaveTimer, SIGNAL(timeout()), w, SLOT(slotAutoSave()));
 	connect(w, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
+	connect(fileWatcher, SIGNAL(fileChanged(QString )), view, SLOT(UpdatePict(QString)));
 	doc->AutoSave = Prefs.AutoSave;
 	doc->AutoSaveTime = Prefs.AutoSaveTime;
 	if (doc->AutoSave)
@@ -3931,6 +3932,7 @@ bool ScribusApp::LadeDoc(QString fileName)
 		newActWin(w);
 		connect(doc->ASaveTimer, SIGNAL(timeout()), w, SLOT(slotAutoSave()));
 		connect(w, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
+		connect(fileWatcher, SIGNAL(fileChanged(QString )), view, SLOT(UpdatePict(QString)));
 		connect(UndoManager::instance(), SIGNAL(undoRedoDone()), view, SLOT(DrawNew()));
 		if (doc->AutoSave)
 			doc->ASaveTimer->start(doc->AutoSaveTime);
@@ -4181,6 +4183,13 @@ bool ScribusApp::DoFileClose()
 	doc->ASaveTimer->stop();
 	disconnect(doc->ASaveTimer, SIGNAL(timeout()), doc->WinHan, SLOT(slotAutoSave()));
 	disconnect(doc->WinHan, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
+	disconnect(fileWatcher, SIGNAL(fileChanged(QString )), view, SLOT(UpdatePict(QString)));
+	for (uint a = 0; a < doc->Items.count(); ++a)
+	{
+		PageItem *b = doc->Items.at(a);
+		if (b->PicAvail)
+			fileWatcher->removeFile(b->Pfile);
+	}
 	if ((doc->UnData.UnCode == 0) && (doc->UnDoValid))
 		delete doc->UnData.Item;
 	if (CMSavail)

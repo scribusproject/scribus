@@ -245,7 +245,7 @@ public:
 	void chFSize(int size);
 	void FlipImageH();
 	void FlipImageV();
-	void LoadPict(QString fn, int ItNr);
+	void LoadPict(QString fn, int ItNr, bool reload = false);
 	void AdjustPreview(PageItem *b, bool reload = true);
 	void AdjustPictScale(PageItem *b, bool reload = true);
 	void PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool drag = false);
@@ -260,13 +260,13 @@ public:
 	void rememberPreviousSettings(int mx=0, int my=0);
 
 public slots: // Public slots
-  /** Fhrt die Vergrï¿?erung/Verkleinerung aus; */
+  /** Fhrt die Vergrï¿½erung/Verkleinerung aus; */
 	void slotDoZoom();
-  /** Vergrï¿?ert die Ansicht */
+  /** Vergrï¿½ert die Ansicht */
 	void slotZoomIn(int mx=0,int my=0);
   /** Verkleinert die Ansicht */
 	void slotZoomOut(int mx=0,int my=0);
-  /** Vergrï¿?ert die Ansicht */
+  /** Vergrï¿½ert die Ansicht */
 	void slotZoomIn2(int mx=0,int my=0);
   /** Verkleinert die Ansicht */
 	void slotZoomOut2(int mx=0,int my=0);
@@ -306,6 +306,7 @@ public slots: // Public slots
 	void PasteToPage();
 	void TextToPath();
 	void BlinkCurs();
+	void UpdatePict(QString name);
 
 private: // Private attributes
 	QPushButton *SB1;
