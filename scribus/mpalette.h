@@ -188,6 +188,8 @@ public:
     QSpinBox* ChScale;
     QLabel* StrokeIcon;
     QComboBox* TxStroke;
+	QLabel* ShadeTxt2;
+	QLabel* ShadeTxt1;
 	ShadeButton *PM1;
     QLabel* FillIcon;
     QComboBox* TxFill;

@@ -1,4 +1,8 @@
 Changes since Version 1.1.5
+01.03.2004	Improved the SVG-Importer, Text should be now better, but still not perfect.
+		Added a new Colorset: SVG-Colors.
+		Updated the Finnish Translation.
+
 29.02.2004	Added first Gimp Integration, contributed by Jean Jacques Sarton.
 		Improved the PrintPreview a little more.
 

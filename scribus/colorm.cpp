@@ -125,6 +125,7 @@ Farbmanager::Farbmanager( QWidget* parent, CListe doco, bool HDoc, QString DcolS
 		CSets->insertItem("X11 RGB-Set");
 		CSets->insertItem("X11 Grey-Set");
 		CSets->insertItem("Gnome-Set");
+		CSets->insertItem("SVG-Set");
 		if (Cust.count() != 0)
 		{
 			for (uint m = 0; m < Cust.count(); ++m)
@@ -168,7 +169,7 @@ void Farbmanager::saveDefaults()
 	QString Name = LoadColSet->text();
 	Query* dia = new Query(this, "Name", 1, 0, tr("Name:"), tr("Choose a Name"));
 	if ((Name == "Scribus Small") || (Name == "X11 RGB-Set")
-		|| (Name == "X11 Grey-Set") || (Name == "Gnome-Set"))
+		|| (Name == "X11 Grey-Set") || (Name == "Gnome-Set") || (Name == "SVG-Set"))
 		dia->Answer->setText("");
 	else
 		dia->Answer->setText(Name);
@@ -232,6 +233,9 @@ void Farbmanager::loadDefaults(int id)
 			break;
 		case 3:
 			pfadC2 = pfadC + "/lib/scribus/rgbscribusgnome.txt";
+			break;
+		case 4:
+			pfadC2 = pfadC + "/lib/scribus/rgbsvg.txt";
 			break;
 		default:
 			pfadC2 = Cpfad;

@@ -1766,7 +1766,7 @@ Voit määrittää sen asetuksissa.</translation>
     </message>
     <message>
         <source>Character</source>
-        <translation>Kirjainmerkki</translation>
+        <translation>Teksti</translation>
     </message>
     <message>
         <source>Left Indent:</source>
@@ -2144,11 +2144,15 @@ Voit määrittää sen asetuksissa.</translation>
     <name>HelpBrowser</name>
     <message>
         <source>Sorry, no manual available!</source>
-        <translation>Pahoittelen, ohjetta ei ole saatavilla!</translation>
+        <translation type="obsolete">Pahoittelen, ohjetta ei ole saatavilla!</translation>
     </message>
     <message>
         <source></source>
         <translation></translation>
+    </message>
+    <message>
+        <source>Sorry, no manual available! Please see: http://scribus.net for updated docs and downloads.</source>
+        <translation>Pahoittelen, ohjetta ei ole saatavilla. Päivitykset ja dokumentit löytyvät osoitteesta http://scribus.net.</translation>
     </message>
 </context>
 <context>
@@ -2984,7 +2988,7 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
         <source>Locks or unlocks the Object</source>
-        <translation>Lukitsee tai vapauttaa kohteen</translation>
+        <translation>Lukitse tai vapauta kohde</translation>
     </message>
     <message>
         <source>Enables or disables printing of the Object</source>
@@ -3065,6 +3069,10 @@ Valitse toinen nimi.</translation>
     <message>
         <source>Input Profile:</source>
         <translation>Tuloprofiili:</translation>
+    </message>
+    <message>
+        <source>Enables or disables resizing of the Object</source>
+        <translation>Salli/Älä salli koon muuttamista</translation>
     </message>
 </context>
 <context>
@@ -4127,7 +4135,7 @@ muulloin suhteessa kohteeseen.</translation>
     </message>
     <message>
         <source>Convert to</source>
-        <translation>Tee tästä</translation>
+        <translation>Tee kohteesta</translation>
     </message>
     <message>
         <source>Image Visible</source>
@@ -4228,6 +4236,10 @@ muulloin suhteessa kohteeseen.</translation>
     <message>
         <source>Disabled</source>
         <translation>Ei</translation>
+    </message>
+    <message>
+        <source>Update Picture</source>
+        <translation>Päivitä kuva</translation>
     </message>
 </context>
 <context>
@@ -5762,7 +5774,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Opens a Document</source>
-        <translation>Avaa dokumentin</translation>
+        <translation>Avaa dokumentti</translation>
     </message>
     <message>
         <source>Getting ICC-Profiles</source>
@@ -5794,7 +5806,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Prints the Current Document</source>
-        <translation>Tulostaa nykyisen dokumentin</translation>
+        <translation>Tulosta dokumentti</translation>
     </message>
     <message>
         <source>Split Polygons</source>
@@ -5962,7 +5974,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Closes the Current Document</source>
-        <translation>Sulkee dokumentin</translation>
+        <translation>Sulje dokumentti</translation>
     </message>
     <message>
         <source>Tool-Tips</source>
@@ -6146,7 +6158,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Creates a new Document</source>
-        <translation>Luo uuden dokumentin</translation>
+        <translation>Luo uusi dokumentti</translation>
     </message>
     <message>
         <source>Spanish</source>
@@ -6222,7 +6234,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Saves the Current Document</source>
-        <translation>Tallentaa nykyisen dokumentin</translation>
+        <translation>Tallenna dokumentti</translation>
     </message>
     <message>
         <source>Portuguese</source>
@@ -6294,7 +6306,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     </message>
     <message>
         <source>Saves the Current Document as PDF</source>
-        <translation>Tallentaa nykyisen dokumentin PDF:na</translation>
+        <translation>Tallenna dokumentti PDF:na</translation>
     </message>
     <message>
         <source>Fatal Error</source>
@@ -6892,6 +6904,10 @@ raahaa malli sivualueelle.</translation>
         <source>Search/Replace...</source>
         <translation>Etsi/Korvaa...</translation>
     </message>
+    <message>
+        <source>Do you want save your changes?</source>
+        <translation>Haluatko tallentaa muutokset?</translation>
+    </message>
 </context>
 <context>
     <name>StyleSelect</name>
@@ -7050,7 +7066,7 @@ raahaa malli sivualueelle.</translation>
     </message>
     <message>
         <source>Insert Lines</source>
-        <translation>Lisää viivoja</translation>
+        <translation>Lisää viiva</translation>
     </message>
     <message>
         <source>Insert Picture</source>
@@ -7058,11 +7074,11 @@ raahaa malli sivualueelle.</translation>
     </message>
     <message>
         <source>Select Items</source>
-        <translation>Valitsee kohteen</translation>
+        <translation>Valitse kohde</translation>
     </message>
     <message>
         <source>Draws various Shapes</source>
-        <translation>Lisää kuvioita</translation>
+        <translation>Lisää kuvio</translation>
     </message>
     <message>
         <source>Edit Contents of Frame</source>
@@ -7090,7 +7106,7 @@ raahaa malli sivualueelle.</translation>
     </message>
     <message>
         <source>Insert Polygons</source>
-        <translation>Lisää monikulmioita</translation>
+        <translation>Lisää monikulmio</translation>
     </message>
     <message>
         <source>Insert Text Frame</source>

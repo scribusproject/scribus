@@ -415,15 +415,12 @@ void SVGPlug::parseGroup(const QDomElement &e)
 			double x = b.attribute( "x" ).isEmpty() ? 0.0 : parseUnit(b.attribute("x"));
 			double y = b.attribute( "y" ).isEmpty() ? 0.0 : parseUnit(b.attribute("y"));
 			parseStyle(gc, b);
-			z = Doku->ActPage->PaintText(x, y - qRound(gc->FontSize / 10.0), 10, 10, gc->LWidth, gc->FillCol);
-			PageItem* ite = Doku->ActPage->Items.at(z);
-			ite->Extra = 0;
-			ite->TExtra = 0;
-			ite->BExtra = 0;
-			ite->RExtra = 0;
-			parseText(ite, b);
-			ite->Ypos = y - ite->LineSp;
-			ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
+			QPtrList<PageItem> el = parseText(x, y, b);
+			for (uint ec = 0; ec < el.count(); ++ec)
+			{
+				GElements.append(el.at(ec));
+			}
+			z = -1;
 			}
 		else if( STag == "image" )
 			{
@@ -469,20 +466,7 @@ void SVGPlug::parseGroup(const QDomElement &e)
 					break;
 					}
 				case 4:
-					{
-					QWMatrix mm = gc->matrix;
-					ite->Xpos += mm.dx() / mm.m11();
-					ite->Ypos += mm.dy() / mm.m22();
-					Doku->ActPage->SelItem.append(ite);
-					Doku->ActPage->HowTo = 1;
-					Doku->ActPage->setGroupRect();
-					Doku->ActPage->scaleGroup(mm.m11(), mm.m22());
-					Doku->ActPage->Deselect();
-//					ite->Ypos += ite->LineSp;
-//					ite->Width = ite->Width * mm.m11();
-//					ite->Height = ite->Height * mm.m22();
 					break;
-					}
 				default:
 					{
 					ite->ClipEdited = true;
@@ -1591,40 +1575,62 @@ void SVGPlug::parseGradient( const QDomElement &e )
  \param e const QDomElement &
  \retval None
  */
-void SVGPlug::parseText(PageItem *ite, const QDomElement &e)
+QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 {
 	struct Pti *hg;
 	QPainter p;
+	QPtrList<PageItem> GElements;
 	p.begin(Doku->ActPage);
 	QFont ff(Doku->UsedFonts[m_gc.current()->Family]);
 	ff.setPointSize(QMAX(qRound(m_gc.current()->FontSize / 10.0), 1));
 	p.setFont(ff);
-	int	desc = p.fontMetrics().descent();
+	setupTransform(e);
+	int desc = p.fontMetrics().descent();
+	int asce = p.fontMetrics().ascent();
 	QString Text = QString::fromUtf8(e.text()).stripWhiteSpace();
 	QDomNode c = e.firstChild();
-	ite->LineSp = m_gc.current()->FontSize / 10.0 + 2;
 	if ((!c.isNull()) && (c.toElement().tagName() == "tspan"))
-		{
-		ite->Height = ite->LineSp+desc+2;
+	{
 		double tempW = 0;
 		for(QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
-			{
+		{
+			tempW = 0;
 			QDomElement tspan = n.toElement();
 			addGraphicContext();
 			SvgStyle *gc = m_gc.current();
 			parseStyle(gc, tspan);
+			int z = Doku->ActPage->PaintText(x, y, 10, 10, gc->LWidth, gc->FillCol);
+			PageItem* ite = Doku->ActPage->Items.at(z);
+			ite->Extra = 0;
+			ite->TExtra = 0;
+			ite->BExtra = 0;
+			ite->RExtra = 0;
 			ite->LineSp = gc->FontSize / 10.0 + 2;
+			ite->Height = ite->LineSp+desc+2;
 			Prog->SetNewFont(gc->Family);
-			double x = parseUnit( tspan.attribute( "x", "1" ) );
-			double y = parseUnit( tspan.attribute( "y", "1" ) );
-			ite->Xpos += x;
-			ite->Ypos += y;
+			QWMatrix mm = gc->matrix;
+			if( (!tspan.attribute("x").isEmpty()) && (!tspan.attribute("y").isEmpty()) )
+			{
+				double x1 = parseUnit( tspan.attribute( "x", "0" ) );
+				double y1 = parseUnit( tspan.attribute( "y", "0" ) );
+				double mx = mm.m11() * x1 + mm.m21() * y1 + mm.dx();
+				double my = mm.m22() * y1 + mm.m12() * x1 + mm.dy();
+				ite->Xpos = mx;
+				ite->Ypos = my;
+			}
+			else
+			{
+				double mx = mm.m11() * x + mm.m21() * y + mm.dx();
+				double my = mm.m22() * y + mm.m12() * x + mm.dy();
+				ite->Xpos = mx;
+				ite->Ypos = my;
+			}
 			if (!tspan.text().isNull())
 				Text = QString::fromUtf8(tspan.text()).stripWhiteSpace();
 			else
 				Text = " ";
 			for (uint tt = 0; tt < Text.length(); ++tt)
-				{
+			{
 				hg = new Pti;
 				hg->ch = Text.at(tt);
 				hg->cfont = gc->Family;
@@ -1649,22 +1655,55 @@ void SVGPlug::parseText(PageItem *ite, const QDomElement &e)
 				ite->Ptext.append(hg);
 				tempW += Cwidth(Doku, hg->cfont, hg->ch, hg->csize);
 				if (hg->ch == QChar(13))
-					{
+				{
 					ite->Height += ite->LineSp+desc;
 					ite->Width = QMAX(ite->Width, tempW);
 					tempW = 0;
-					}
 				}
-			delete( m_gc.pop() );
 			}
-		ite->Width = QMAX(ite->Width, tempW);
+			ite->Width = QMAX(ite->Width, tempW);
+			Doku->ActPage->SetRectFrame(ite);
+			ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
+			Doku->ActPage->SelItem.append(ite);
+			Doku->ActPage->HowTo = 1;
+			Doku->ActPage->setGroupRect();
+			Doku->ActPage->scaleGroup(mm.m11(), mm.m22());
+			Doku->ActPage->Deselect();
+			ite->Ypos -= asce * mm.m22();
+			if( !e.attribute("id").isEmpty() )
+				ite->AnName += " "+e.attribute("id");
+			ite->Transparency = gc->Transparency;
+			ite->TranspStroke = gc->TranspStroke;
+			ite->PLineEnd = gc->PLineEnd;
+			ite->PLineJoin = gc->PLineJoin;
+			ite->Textflow = false;
+			ite->DashOffset = gc->dashOffset;
+			ite->DashValues = gc->dashArray;
+			if (gc->Gradient != 0)
+			{
+				ite->fill_gradient = gc->GradCo;
+				Doku->ActPage->SelItem.append(ite);
+				Doku->ActPage->ItemGradFill(gc->Gradient, gc->GCol2, 100, gc->GCol1, 100);
+				Doku->ActPage->SelItem.clear();
+			}
+			GElements.append(ite);
+			Elements.append(ite);
+			delete( m_gc.pop() );
 		}
+	}
 	else
-		{
+	{
 		SvgStyle *gc = m_gc.current();
+		int z = Doku->ActPage->PaintText(x, y - qRound(gc->FontSize / 10.0), 10, 10, gc->LWidth, gc->FillCol);
+		PageItem* ite = Doku->ActPage->Items.at(z);
+		ite->Extra = 0;
+		ite->TExtra = 0;
+		ite->BExtra = 0;
+		ite->RExtra = 0;
+		ite->LineSp = gc->FontSize / 10.0 + 2;
 		Prog->SetNewFont(gc->Family);
 		for (uint cc = 0; cc<Text.length(); ++cc)
-			{
+		{
 			hg = new Pti;
 			hg->ch = Text.at(cc);
 			hg->cfont = gc->Family;
@@ -1687,12 +1726,31 @@ void SVGPlug::parseText(PageItem *ite, const QDomElement &e)
 			hg->PtransX = 0;
 			hg->PtransY = 0;
 			ite->Ptext.append(hg);
-  		ite->Width += Cwidth(Doku, hg->cfont, hg->ch, hg->csize);
+			ite->Width += Cwidth(Doku, hg->cfont, hg->ch, hg->csize);
 			ite->Height = ite->LineSp+desc+2;
-			}
 		}
-	Doku->ActPage->SetRectFrame(ite);
+		Doku->ActPage->SetRectFrame(ite);
+		if( !e.attribute("id").isEmpty() )
+			ite->AnName += " "+e.attribute("id");
+		ite->Transparency = gc->Transparency;
+		ite->TranspStroke = gc->TranspStroke;
+		ite->PLineEnd = gc->PLineEnd;
+		ite->PLineJoin = gc->PLineJoin;
+		ite->Textflow = false;
+		ite->DashOffset = gc->dashOffset;
+		ite->DashValues = gc->dashArray;
+		if (gc->Gradient != 0)
+		{
+			ite->fill_gradient = gc->GradCo;
+			Doku->ActPage->SelItem.append(ite);
+			Doku->ActPage->ItemGradFill(gc->Gradient, gc->GCol2, 100, gc->GCol1, 100);
+			Doku->ActPage->SelItem.clear();
+		}
+		GElements.append(ite);
+		Elements.append(ite);
+	}
 	p.end();
+	return GElements;
 }
 
 /*!

@@ -106,7 +106,7 @@ public:
 	void parseStyle( SvgStyle *obj, const QDomElement &e );
 	void parseColorStops(GradientHelper *gradient, const QDomElement &e);
 	void parseGradient( const QDomElement &e );
-	void parseText(PageItem *ite, const QDomElement &e);
+	QPtrList<PageItem> parseText(double x, double y, const QDomElement &e);
 
 	ScribusDoc* Doku;
 	ScribusApp* Prog;

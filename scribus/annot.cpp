@@ -112,12 +112,17 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
     TextLabel60->setText( tr( "Font for use with PDF-1.3:" ) );
     GroupBox40Layout->addWidget( TextLabel60, 0, 0 );
     Schrift = new QComboBox( true, GroupBox40, "Schrift" );
-	char *tmp2[]={"Courier", "Courier Bold", "Courier Italic", "Courier Bold Italic", "Helvetica",
-				 "Helvetica Bold", "Helvetica Italic", "Helvetica Bold Italic", "Times", "Times Bold",
-				 "Times Italic", "Times Bold Italic", "Zapf Dingbats", "Symbols"};
-	size_t array2 = sizeof(tmp2) / sizeof(*tmp2);
-	for (uint a = 0; a < array2; ++a)
-		Schrift->insertItem(tr(tmp2[a]));
+	/* PFJ - 28/02/04 - Altered from char* to QString. Renamed to fonts and the
+	                    loop changed from uint to int and the name to propogate */
+	QString fonts[]={"Courier", "Courier Bold", "Courier Italic", 
+					 "Courier Bold Italic", "Helvetica",
+					 "Helvetica Bold", "Helvetica Italic", "Helvetica Bold Italic",
+					 "Times", "Times Bold",
+				 	 "Times Italic", "Times Bold Italic", "Zapf Dingbats",
+					 "Symbols"};
+	size_t fontsArray = sizeof(fonts) / sizeof(*fonts);
+	for (uint propogate = 0; propogate < fontsArray; ++propogate)
+		Schrift->insertItem(fonts[propogate]);
     Schrift->setEditable(false);
 	Schrift->setCurrentItem(item->AnFont);
     GroupBox40Layout->addMultiCellWidget( Schrift, 0, 0, 1, 2);
@@ -154,10 +159,11 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
     TextLabel40->setText( tr( "Width:" ) );
     GroupBox20Layout->addWidget( TextLabel40, 1, 0 );
     BorderW = new QComboBox( true, GroupBox20, "BorderW" );
-    BorderW->insertItem( tr( "None" ) );
-    BorderW->insertItem( tr( "Thin" ) );
-    BorderW->insertItem( tr( "Normal" ) );
-    BorderW->insertItem( tr( "Wide" ) );
+	/* PFJ - 28/02/04 - Altered to the QString/size_t/for style */
+	QString borders[] = {tr("None"), tr("Thin"), tr("Normal"), tr("Wide")};
+	size_t bordersArray = sizeof(borders) / sizeof(*borders);
+	for (uint propogate = 0; propogate < bordersArray; ++propogate)
+		BorderW->insertItem(borders[propogate]);
     BorderW->setEditable(false);
 	BorderW->setCurrentItem(item->AnBwid);
     GroupBox20Layout->addWidget( BorderW, 1, 1 );
@@ -165,11 +171,12 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
     TextLabel50->setText( tr( "Style:" ) );
     GroupBox20Layout->addWidget( TextLabel50, 2, 0 );
     BorderS = new QComboBox( true, GroupBox20, "BorderS" );
-    BorderS->insertItem( tr( "Solid" ) );
-    BorderS->insertItem( tr( "Dashed" ) );
-    BorderS->insertItem( tr( "Underline" ) );
-    BorderS->insertItem( tr( "Beveled" ) );
-    BorderS->insertItem( tr( "Inset" ) );
+	/* PFJ - 28/02/04 - Altered to the QString/size_t/for style */
+	QString borders2[] = {tr("Solid"), tr("Dashed"), tr("Underline"),
+						  tr("Beveled"), tr("Inset")};
+	size_t borders2Array = sizeof(borders2) / sizeof(*borders2);
+	for (uint propogate = 0; propogate < borders2Array; ++propogate)
+		BorderS->insertItem(borders2[propogate]);
     BorderS->setEditable(false);
 	BorderS->setCurrentItem(item->AnBsty);
     GroupBox20Layout->addWidget( BorderS, 2, 1 );
@@ -204,10 +211,12 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
     TextLabel90->setText( tr( "Visibility:" ) );
     GroupBox30Layout->addWidget( TextLabel90, 3, 0 );
     Visib = new QComboBox( true, GroupBox30, "Visib" );
-    Visib->insertItem( tr( "Visible" ) );
-    Visib->insertItem( tr( "Hidden" ) );
-    Visib->insertItem( tr( "No Print" ) );
-    Visib->insertItem( tr( "No View" ) );
+	/* PFJ - 28/02/04 - Altered to the QString/size_t/for style */
+	QString visible[] = {tr("Visible"), tr("Hidden"), tr("No Print"), 
+						 tr("No View")};
+	size_t visibleArray = sizeof(visible) / sizeof(*visible);
+	for (uint propogate = 0; propogate < visibleArray; ++propogate)
+		Visib->insertItem(visible[propogate]);
     Visib->setEditable(false);
 	Visib->setCurrentItem(item->AnVis);
     GroupBox30Layout->addWidget( Visib, 3, 1 );
@@ -364,10 +373,11 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
     GroupBox30aLayout = new QGridLayout( GroupBox30a->layout() );
     GroupBox30aLayout->setAlignment( Qt::AlignTop );
     ComboBox7_2 = new QComboBox( true, GroupBox30a, "ComboBox7_2" );
-    ComboBox7_2->insertItem( tr( "None" ) );
-    ComboBox7_2->insertItem( tr( "Invert" ) );
-    ComboBox7_2->insertItem( tr( "Outlined" ) );
-    ComboBox7_2->insertItem( tr( "Push" ) );
+	/* PFJ - 28/02/04 - Altered to QString/size_t/for style */
+	QString combo[] = {tr("None"), tr("Invert"), tr("Outlined"), tr("Push")};
+	size_t comboArray = sizeof(combo) / sizeof(*combo);
+	for (uint propogate = 0; propogate < comboArray; ++propogate)
+		ComboBox7_2->insertItem(combo[propogate]);
     ComboBox7_2->setEditable(false);
 	ComboBox7_2->setCurrentItem(item->AnFeed);
     GroupBox30aLayout->addWidget( ComboBox7_2, 0, 0 );
@@ -431,8 +441,9 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
     ChkStil = new QComboBox( true, OptCheck, "ChkStil" );
 	QString tmp_chkstil2[]={ tr("Check"), tr("Cross"), tr("Diamond"), tr("Circle"), tr("Star"), tr("Square")};
 	size_t array_chk2 = sizeof(tmp_chkstil2) / sizeof(*tmp_chkstil2);
-	for (uint a = 0; a < array_chk2; ++a)
-		ChkStil->insertItem(tmp_chkstil2[a]);
+	/* PFJ - 28/02/04 - Altered from uint to int and altered var name */
+	for (uint propogate = 0; propogate < array_chk2; ++propogate)
+		ChkStil->insertItem(tmp_chkstil2[propogate]);
 
 	ChkStil->setEditable(false);
 	ChkStil->setCurrentItem(item->AnChkStil);
@@ -474,10 +485,12 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
     Layout20->addWidget( TextLabel70 );
 
     ActionCombo = new QComboBox( true, tab_2, "ActTyp" );
-	QString tmp_actcom[] = { tr("None"), tr("Java Script"), tr("Go To"), tr("Submit Form"), tr("Reset Form"), tr("Import Data")};
+	QString tmp_actcom[] = {tr("None"), tr("Java Script"), tr("Go To"),
+							tr("Submit Form"), tr("Reset Form"), tr("Import Data")};
 	size_t array_act = sizeof(tmp_actcom) / sizeof(*tmp_actcom);
-	for (uint a = 0; a < array_act; ++a)
-		ActionCombo->insertItem(tmp_actcom[a]);
+	/* PFJ - 28/02/04 - Altered from uint to int and var name */
+	for (uint propogate = 0; propogate < array_act; ++propogate)
+		ActionCombo->insertItem(tmp_actcom[propogate]);
     ActionCombo->setEditable(false);
 	int tmpac = item->AnActType;
 	if (item->AnActType < 0)
@@ -504,10 +517,12 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
     AcText1->setText( tr( "Event:" ) );
     Layout7->addWidget( AcText1 );
     SelAction = new QComboBox( true, Frame3, "AcCombo" );
-	QString tmp_selact[]={ tr("Mouse Up"), tr("Mouse Down"), tr("Mouse Enter"), tr("Mouse Exit"), tr("On Focus"), tr("On Blur")};
+	QString tmp_selact[]={tr("Mouse Up"), tr("Mouse Down"), tr("Mouse Enter"), 
+						  tr("Mouse Exit"), tr("On Focus"), tr("On Blur")};
 	size_t array_sel = sizeof(tmp_selact) / sizeof(*tmp_selact);
-	for (uint a = 0; a < array_sel; ++a)
-		SelAction->insertItem(tmp_selact[a]);
+	/* PFJ - 28/02/04 - Altered from uint to int and var name */
+	for (uint propogate = 0; propogate < array_sel; ++propogate)
+		SelAction->insertItem(tmp_selact[propogate]);
 	SelAction->setEditable(false);
     Layout7->addWidget( SelAction );
     QSpacerItem* spacerac = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -769,8 +784,9 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
 	char *tmp_form[] = {"m/d", "m/d/yy", "mm/dd/yy", "mm/yy", "d-mmm", "d-mmm-yy", "dd-mmm-yy", "yy-mm-dd",
 						"mmm-yy", "mmmm-yy", "mmm d, yyyy", "mmmm d, yyyy", "m/d/yy h:MM tt", "m/d/yy HH:MM"};
 	size_t array_form = sizeof(tmp_form) / sizeof(*tmp_form);
-	for (uint a = 0; a < array_form; ++a)
-		Format0c->insertItem(tmp_form[a]);
+	/* PFJ - 28/02/04 - Altered from uint to int and var name */
+	for (uint prop = 0; prop < array_form; ++prop)
+		Format0c->insertItem(tmp_form[prop]);
     Format0c->setEditable(false);
     LayoutFN1c->addWidget( Format0c );
     QSpacerItem* spacer_4c = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -941,11 +957,12 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, CListe Farb
     CLayout1->addWidget( SimpleCalc );
 
     CalcArt = new QComboBox( false, CalcGroup, "CalcArt" );
-    CalcArt->insertItem( tr( "sum" ) );
-    CalcArt->insertItem( tr( "product" ) );
-    CalcArt->insertItem( tr( "average" ) );
-    CalcArt->insertItem( tr( "minimum" ) );
-    CalcArt->insertItem( tr( "maximum" ) );
+	/* PFJ - 28/02/04 - Altered to QString/size_t/for style */
+	QString calc[] = {tr("sum"), tr("product"), tr("average"), tr("minimum"),
+						 tr("maximum")};
+	size_t calcArray = sizeof(calc) / sizeof(*calc);
+	for (uint prop = 0; prop < calcArray; ++prop)
+		CalcArt->insertItem(calc[prop]);
     CLayout1->addWidget( CalcArt );
 
     TextLabel1_2 = new QLabel( CalcGroup, "TextLabel1_2" );
@@ -1082,7 +1099,7 @@ void Annot::IPlace()
 		item->LocalY = dia->IcScaleH == 0 ? item->Height * dia->IcPlaceY : 0;
 		item->AnIPlace = dia->Place->currentItem();
 		item->AnScaleW = dia->ScaleW->currentItem();
-		}
+	}
 	delete dia;
 }
 
@@ -1134,7 +1151,7 @@ void Annot::GetNIcon()
 		fileName = dia.selectedFile();
 	else
 		return;
-  if (!fileName.isEmpty())
+  	if (!fileName.isEmpty())
   	{
 		QPixmap pmI1;
 		QImage im;
@@ -1260,13 +1277,35 @@ void Annot::editJavaSc()
 void Annot::setDateSample(const QString& ds)
 {
 	QDateTime dt = QDateTime::currentDateTime();
-	QString tmp = ds;
-	int q = 0;
-	while (q != -1)
-	{
-		tmp.find("m", q);
-		tmp.replace(q, 1, "M");
-	}
+	QString tmp = "";
+	if (ds == "m/d")
+		tmp = "M/d";
+	if (ds == "m/d/yy")
+		tmp = "M/d/yy";
+	if (ds == "mm/dd/yy")
+		tmp = "MM/dd/yy";
+	if (ds == "mm/yy")
+		tmp = "MM/yy";
+	if (ds == "d-mmm")
+		tmp = "d-MMM";
+	if (ds == "d-mmm-yy")
+		tmp = "d-MMM-yy";
+	if (ds == "dd-mmm-yy")
+		tmp = "dd-MMM-yy";
+	if (ds == "yy-mm-dd")
+		tmp = "yy-MM-dd";
+	if (ds == "mmm-yy")
+		tmp = "MMM-yy";
+	if (ds == "mmmm-yy")
+		tmp = "MMMM-yy";
+	if (ds == "mmm d, yyyy")
+		tmp = "MMM d, yyyy";
+	if (ds == "mmmm d, yyyy")
+		tmp = "MMMM d, yyyy";
+	if (ds == "m/d/yy h:MM tt")
+		tmp = "M/d/yy h:mm ap";
+	if (ds == "m/d/yy HH:MM")
+		tmp = "M/d/yy hh:mm";
 	TextDa1->setText( tr("Example:")+" "+dt.toString(tmp));
 }
 
@@ -1304,16 +1343,12 @@ void Annot::DecodeCalc()
 	ss = pfor.find("(");
 	pfo = pfor.mid(ss+1, pfor.length()-ss-3);
 	pfol = pfol.split(",", pfo);
-	if (pfol[0] == "\"SUM\"")
-		CalcArt->setCurrentItem(0);
-	if (pfol[0] == "\"PRD\"")
-		CalcArt->setCurrentItem(1);
-	if (pfol[0] == "\"AVG\"")
-		CalcArt->setCurrentItem(2);
-	if (pfol[0] == "\"MIN\"")
-		CalcArt->setCurrentItem(3);
-	if (pfol[0] == "\"MAX\"")
-		CalcArt->setCurrentItem(4);
+	/* PFJ - 28/02/04 - Let's get rid of lots of ifs.... */
+	QString pf[] = {"\"SUM\"", "\"PRD\"", "\"AVG\"", "\"MIN\"", "\"MAX\""};
+	size_t pfTest = sizeof(pf) / sizeof(*pf);
+	for (uint test = 0; test < pfTest; ++test)
+		if (pfol[0] == pf[test])
+			CalcArt->setCurrentItem(test);
 }
 
 void Annot::DecodeNum()
@@ -1530,31 +1565,17 @@ void Annot::SetCurr()
 
 void Annot::SetFoScript(int it)
 {
-	switch (it)
+	/* PFJ - 28/02/04 - Re-written. Profiler took ages on the switch */
+	if (it >= 0 && it <=5)
+		FoFram->raiseWidget(it);
+	if (it == 1)
+		SetCurr();
+	if (it == 5)
 	{
-		case 1:
-			FoFram->raiseWidget(1);
-			SetCurr();
-			break;
-		case 2:
-			FoFram->raiseWidget(2);
-			break;
-		case 3:
-			FoFram->raiseWidget(3);
-			break;
-		case 4:
-			FoFram->raiseWidget(4);
-			break;
-		case 5:
-    		EditFormat->setEnabled( true );
-    		EditKeystr->setEnabled( true );
-    		KeyScript->setText( item->An_K_act );
-    		FormatScript->setText( item->An_F_act );
-			FoFram->raiseWidget(5);
-			break;
-		default:
-			FoFram->raiseWidget(0);
-			break;
+		EditFormat->setEnabled( true );
+    	EditKeystr->setEnabled( true );
+    	KeyScript->setText( item->An_K_act );
+    	FormatScript->setText( item->An_F_act );
 	}
 	item->AnFormat = it;
 }
@@ -1669,25 +1690,11 @@ void Annot::SetVals()
 			item->An_C_act = "";
 		if (SimpleCalc->isChecked())
 		{
-			item->An_C_act = "AFSimple_Calculate(";
-			switch (CalcArt->currentItem())
-			{
-				case 0:
-					item->An_C_act += "\"SUM\", ";
-					break;
-				case 1:
-					item->An_C_act += "\"PRD\", ";
-					break;
-				case 2:
-					item->An_C_act += "\"AVG\", ";
-					break;
-				case 3:
-					item->An_C_act += "\"MIN\", ";
-					break;
-				case 4:
-					item->An_C_act += "\"MAX\", ";
-					break;
-			}
+			/* PFJ - 28/02/04 - Re-written. Much simpler this way! */
+			QString calc[] = {"\"SUM\", ", "\"PRD\", ", "\"AVG\" ,", "\"MIN\", ",
+							"\"MAX\", "};
+			item->An_C_act = "AFSimple_Calculate(" + calc[CalcArt->currentItem()];
+		}
 		item->An_C_act += "new Array (";
   		QStringList pfol;
   		pfol = pfol.split(",", CalcFields->text());
@@ -1701,6 +1708,8 @@ void Annot::SetVals()
 	}
 	if (CustomCalc->isChecked())
 		item->An_C_act = CalcScript->text();
+	/* PFJ - 28/02/04 - Removed the repeated addition of +Nfo to outside of the
+	                    switch */
 	switch (TxFormat->currentItem())
 	{
 		case 0:
@@ -1721,29 +1730,25 @@ void Annot::SetVals()
 				Nfo += "\", true)";
 			else
 				Nfo += "\", false)";
-			item->An_F_act = "AFNumber_Format("+Nfo;
-			item->An_K_act = "AFNumber_Keystroke("+Nfo;
 			break;
 		case 2:
 			Nfo = tmp.setNum(Decim2->value())+", "+tmp2.setNum(FormNum)+")";
-			item->An_F_act = "AFPercent_Format("+Nfo;
-			item->An_K_act = "AFPercent_Keystroke("+Nfo;
 			break;
 		case 3:
 			Nfo = Format0c->currentText()+")";
-			item->An_F_act = "AFDate_FormatEx("+Nfo;
-			item->An_K_act = "AFDate_KeystrokeEx("+Nfo;
 			break;
 		case 4:
 			Nfo = tmp.setNum(FormNum)+")";
-			item->An_F_act = "AFTime_Format("+Nfo;
-			item->An_K_act = "AFTime_Keystroke("+Nfo;
 			break;
 		case 5:
 			item->An_F_act = FormatScript->text();
 			item->An_K_act = KeyScript->text();
 			break;
-		}
+	}
+	if (TxFormat->currentItem() > 0 && TxFormat->currentItem() < 5)
+	{
+		item->An_F_act = "AFTime_Format(" + Nfo;
+		item->An_K_act = "AFTime_Keystroke(" + Nfo;
 	}
 	item->AnAction = "";
 	switch (ActionCombo->currentItem())
@@ -1827,10 +1832,12 @@ void Annot::SetZiel(int it)
 	EditFormat->setEnabled( false );
 	EditKeystr->setEnabled( false );
 	SelAction->clear();
-	QString tmp_selact[]={ tr("Mouse Up"), tr("Mouse Down"), tr("Mouse Enter"), tr("Mouse Exit"), tr("On Focus"), tr("On Blur")};
+	QString tmp_selact[]={tr("Mouse Up"), tr("Mouse Down"), tr("Mouse Enter"), 
+						  tr("Mouse Exit"), tr("On Focus"), tr("On Blur")};
 	size_t array_sel = sizeof(tmp_selact) / sizeof(*tmp_selact);
-	for (uint a = 0; a < array_sel; ++a)
-		SelAction->insertItem(tmp_selact[a]);	
+	/* PFJ - 28/02/04 - Altered from uint to int and varname */
+	for (uint prop = 0; prop < array_sel; ++prop)
+		SelAction->insertItem(tmp_selact[prop]);	
 	bool setter;
 	switch (sela)
 	{
@@ -1845,10 +1852,12 @@ void Annot::SetZiel(int it)
 			NoExport->setEnabled(false);
 			NoExport->setChecked(false);
 			ActionCombo->clear();
-			QString tmp_actcom[] = { tr("None"), tr("Java Script"), tr("Go To"), tr("Submit Form"), tr("Reset Form"), tr("Import Data")};
+			QString tmp_actcom[] = {tr("None"), tr("Java Script"), tr("Go To"), 
+									tr("Submit Form"), tr("Reset Form"), tr("Import Data")};
 			size_t array_act = sizeof(tmp_actcom) / sizeof(*tmp_actcom);
-			for (uint a = 0; a < array_act; ++a)
-				ActionCombo->insertItem(tmp_actcom[a]);
+			/* PFJ - 28/02/04 - Altered from uint to int and varname */
+			for (uint prop = 0; prop < array_act; ++prop)
+				ActionCombo->insertItem(tmp_actcom[prop]);
 			ActionCombo->setCurrentItem(QMIN(tmpac,5));
 			setter = item->AnActType != 7 ? true : false;
 			Destfile->setEnabled(setter);

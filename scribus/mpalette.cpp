@@ -28,8 +28,8 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     setCaption( tr( "Properties" ) );
     HaveDoc = false;
     HaveItem = false;
-		RoVal = 0;
-		Umrech = UmReFaktor;
+	RoVal = 0;
+	Umrech = UmReFaktor;
     setIcon( loadIcon("AppIcon.png") );
     setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, 0, 0, sizePolicy().hasHeightForWidth() ) );
 
@@ -93,7 +93,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     NameGroup->layout()->setMargin( 5 );
     NameGroupLayout = new QHBoxLayout( NameGroup->layout() );
     NameGroupLayout->setAlignment( Qt::AlignTop );
-		NameEdit = new NameWidget(NameGroup);
+	NameEdit = new NameWidget(NameGroup);
     NameGroupLayout->addWidget( NameEdit );
     pageLayout->addWidget( NameGroup );
 
@@ -118,13 +118,13 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     GeoGroupLayout->addWidget( Text2a, 3, 0 );
     Xpos = new MSpinBox( GeoGroup, 2 );
     Xpos->setSuffix( tr( " pt" ) );
-		Xpos->setMaxValue( 3000 );
-		Xpos->setMinValue( -3000 );
+	Xpos->setMaxValue( 3000 );
+	Xpos->setMinValue( -3000 );
     GeoGroupLayout->addWidget( Xpos, 0, 1 );
     Ypos = new MSpinBox( GeoGroup, 2 );
     Ypos->setSuffix( tr( " pt" ) );
-		Ypos->setMaxValue( 3000 );
-		Ypos->setMinValue( -3000 );
+	Ypos->setMaxValue( 3000 );
+	Ypos->setMinValue( -3000 );
     GeoGroupLayout->addWidget( Ypos, 1, 1 );
     Width = new MSpinBox( GeoGroup, 2 );
     Width->setSuffix( tr( " pt" ) );
@@ -247,29 +247,35 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     Layout44->addWidget( FlipV, 1, 0 );
     Locked = new QToolButton( page, "Lock" );
     Locked->setToggleButton( true );
-		QIconSet a = QIconSet();
-		a.setPixmap(loadIcon("locked.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::On);
-		a.setPixmap(loadIcon("unlock.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::Off);
-		Locked->setIconSet(a);
+	QIconSet a = QIconSet();
+	a.setPixmap(loadIcon("locked.png"), QIconSet::Automatic, QIconSet::Normal,
+QIconSet::On);
+	a.setPixmap(loadIcon("unlock.png"), QIconSet::Automatic, QIconSet::Normal,
+QIconSet::Off);
+	Locked->setIconSet(a);
     Layout44->addWidget( Locked, 0, 1 );
     NoPrint = new QToolButton( page, "NoPrint" );
     NoPrint->setToggleButton( true );
-		QIconSet a2 = QIconSet();
-		a2.setPixmap(loadIcon("NoPrint.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::On);
-		a2.setPixmap(loadIcon("DateiPrint16.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::Off);
-		NoPrint->setIconSet(a2);
+	QIconSet a2 = QIconSet();
+	a2.setPixmap(loadIcon("NoPrint.png"), QIconSet::Automatic, QIconSet::Normal,
+QIconSet::On);
+	a2.setPixmap(loadIcon("DateiPrint16.png"), QIconSet::Automatic,
+QIconSet::Normal, QIconSet::Off);
+	NoPrint->setIconSet(a2);
     Layout44->addWidget( NoPrint, 1, 1 );
     NoResize = new QToolButton( page, "NoResize" );
     NoResize->setToggleButton( true );
-		QIconSet a3 = QIconSet();
-		a3.setPixmap(loadIcon("framenoresize.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::On);
-		a3.setPixmap(loadIcon("frameresize.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::Off);
-		NoResize->setIconSet(a3);
+	QIconSet a3 = QIconSet();
+	a3.setPixmap(loadIcon("framenoresize.png"), QIconSet::Automatic,
+QIconSet::Normal, QIconSet::On);
+	a3.setPixmap(loadIcon("frameresize.png"), QIconSet::Automatic,
+QIconSet::Normal, QIconSet::Off);
+	NoResize->setIconSet(a3);
     Layout44->addWidget( NoResize, 0, 2 );
     layout60->addLayout( Layout44 );
 
-
-    QSpacerItem* spacer5 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
+    QSpacerItem* spacer5 = new QSpacerItem( 0, 0, QSizePolicy::Expanding,
+QSizePolicy::Minimum );
     layout60->addItem( spacer5 );
     pageLayout->addLayout( layout60 );
 
@@ -317,7 +323,6 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     RoundRect->setSuffix( tr( " pt" ) );
     Layout13->addWidget( RoundRect );
     pageLayout_2->addLayout( Layout13 );
-
 
     TabStack2 = new QWidgetStack( page_2, "TabStack2" );
     TabStack2->setFrameShape( QWidgetStack::NoFrame );
@@ -378,12 +383,12 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     DRight->setMaxValue( 300 );
     DRight->setMinValue( 0 );
     DistanceLayout->addWidget( DRight, 5, 1 );
-		TabsButton = new QPushButton( Distance, "Tabul" );
-		TabsButton->setText( tr( "Tabulators..." ) );
-		TabsButton->setDefault( false );
-		TabsButton->setAutoDefault( false );
-		DistanceLayout->addMultiCellWidget( TabsButton, 6, 6, 0, 1 );
-		pageLayout_2a->addWidget(Distance);
+	TabsButton = new QPushButton( Distance, "Tabul" );
+	TabsButton->setText( tr( "Tabulators..." ) );
+	TabsButton->setDefault( false );
+	TabsButton->setAutoDefault( false );
+	DistanceLayout->addMultiCellWidget( TabsButton, 6, 6, 0, 1 );
+	pageLayout_2a->addWidget(Distance);
     TabStack2->addWidget( page_2a, 0 );
 
     page_2b = new QWidget( TabStack2, "page" );
@@ -395,28 +400,28 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     Distance2->layout()->setMargin( 5 );
     DistanceLayout2 = new QGridLayout( Distance2->layout() );
     DistanceLayout2->setAlignment( Qt::AlignTop );
- 		NormText2 = new QCheckBox( Distance2, "NormText" );
- 		NormText2->setText( tr( "Show Curve" ) );
- 		DistanceLayout2->addMultiCellWidget( NormText2, 0, 0, 0, 1 );
- 		TextLabel3 = new QLabel( Distance2, "TextLabel3" );
- 		TextLabel3->setText( tr( "Start Offset:" ) );
- 		DistanceLayout2->addWidget( TextLabel3, 1, 0);
- 		Dist = new MSpinBox( Distance2, 1 );
- 		Dist->setSuffix( tr( " pt" ) );
- 		Dist->setMaxValue( 300 );
- 		Dist->setMinValue( 0 );
- 		Dist->setLineStep(10);
- 		DistanceLayout2->addWidget( Dist, 1, 1);
- 		TextLabel2 = new QLabel( Distance2, "TextLabel2" );
- 		TextLabel2->setText( tr( "Distance from Curve:" ) );
- 		DistanceLayout2->addWidget( TextLabel2, 2, 0);
- 		LineW = new MSpinBox( Distance2, 1 );
- 		LineW->setSuffix( tr( " pt" ) );
- 		LineW->setMaxValue( 300 );
- 		LineW->setMinValue( -300 );
-		LineW->setLineStep(10);
- 		DistanceLayout2->addWidget( LineW, 2, 1);
-		pageLayout_2b->addWidget(Distance2);
+ 	NormText2 = new QCheckBox( Distance2, "NormText" );
+ 	NormText2->setText( tr( "Show Curve" ) );
+ 	DistanceLayout2->addMultiCellWidget( NormText2, 0, 0, 0, 1 );
+ 	TextLabel3 = new QLabel( Distance2, "TextLabel3" );
+ 	TextLabel3->setText( tr( "Start Offset:" ) );
+ 	DistanceLayout2->addWidget( TextLabel3, 1, 0);
+ 	Dist = new MSpinBox( Distance2, 1 );
+ 	Dist->setSuffix( tr( " pt" ) );
+ 	Dist->setMaxValue( 300 );
+ 	Dist->setMinValue( 0 );
+ 	Dist->setLineStep(10);
+ 	DistanceLayout2->addWidget( Dist, 1, 1);
+ 	TextLabel2 = new QLabel( Distance2, "TextLabel2" );
+ 	TextLabel2->setText( tr( "Distance from Curve:" ) );
+ 	DistanceLayout2->addWidget( TextLabel2, 2, 0);
+ 	LineW = new MSpinBox( Distance2, 1 );
+ 	LineW->setSuffix( tr( " pt" ) );
+ 	LineW->setMaxValue( 300 );
+ 	LineW->setMinValue( -300 );
+	LineW->setLineStep(10);
+ 	DistanceLayout2->addWidget( LineW, 2, 1);
+	pageLayout_2b->addWidget(Distance2);
     TabStack2->addWidget( page_2b, 1 );
 
     pageLayout_2->addWidget( TabStack2 );
@@ -434,7 +439,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     layout41 = new QGridLayout( 0, 1, 1, 0, 5, "layout41");
 
     Fonts = new FontCombo(page_3, Prefs);
-		Fonts->setMaximumSize(190, 30);
+	Fonts->setMaximumSize(190, 30);
     layout41->addMultiCellWidget( Fonts, 0, 0, 0, 1 );
 
     Text20 = new QLabel( page_3, "Text20" );
@@ -450,7 +455,7 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
 
     layout22 = new QHBoxLayout( 0, 0, 5, "layout22");
     ScaleTxt = new QLabel( page_3, "ScaleTxt" );
-		ScaleTxt->setText( tr("Width:"));
+	ScaleTxt->setText( tr("Width:"));
     layout22->addWidget( ScaleTxt );
     ChScale = new QSpinBox( page_3, "ChScale" );
     ChScale->setMaxValue( 400 );
@@ -464,13 +469,17 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     StrokeIcon = new QLabel( page_3, "StrokeIcon" );
     StrokeIcon->setText("");
     StrokeIcon->setPixmap(loadIcon("Stiftalt.xpm"));
-    StrokeIcon->setScaledContents( FALSE );
+	/* PFJ 29.02.04 - Changed to false from FALSE */
+    StrokeIcon->setScaledContents( false );
     layout23->addWidget( StrokeIcon );
     TxStroke = new QComboBox( true, page_3, "TxStroke" );
-		TxStroke->setEditable(false);
+	TxStroke->setEditable(false);
     layout23->addWidget( TxStroke );
     QSpacerItem* spacer2S = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
     layout23->addItem( spacer2S );
+	ShadeTxt1 = new QLabel( page_3, "ShadeTxt" );
+	ShadeTxt1->setText( tr( "Shade:" ) );
+	layout23->addWidget( ShadeTxt1 );
 	PM1 = new ShadeButton(page_3);
     layout23->addWidget( PM1 );
     layout46->addLayout( layout23 );
@@ -478,13 +487,17 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     FillIcon = new QLabel( page_3, "FillIcon" );
 	FillIcon->setText("");
     FillIcon->setPixmap(loadIcon("fill.png"));
-    FillIcon->setScaledContents( FALSE );
+   	/* PFJ 29.02.04 - Changed to false from FALSE */
+	FillIcon->setScaledContents( false );
     layout24->addWidget( FillIcon );
     TxFill = new QComboBox( true, page_3, "TxFill" );
 	TxFill->setEditable(false);
     layout24->addWidget( TxFill );
     QSpacerItem* spacer2Sf = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
     layout24->addItem( spacer2Sf );
+	ShadeTxt2 = new QLabel( page_3, "ShadeTxt" );
+	ShadeTxt2->setText( tr( "Shade:" ) );
+	layout24->addWidget( ShadeTxt2 );
 	PM2 = new ShadeButton(page_3);
     layout24->addWidget( PM2 );
     layout46->addLayout( layout24 );
@@ -540,18 +553,18 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     GroupBox3a->layout()->setMargin( 5 );
     GroupBox3aLayout = new QVBoxLayout( GroupBox3a->layout() );
     GroupBox3aLayout->setAlignment( Qt::AlignTop );
-		Spal = new Spalette(GroupBox3a);
+	Spal = new Spalette(GroupBox3a);
     GroupBox3aLayout->addWidget( Spal );
     pageLayout_3->addWidget( GroupBox3a );
 
     layoutLang = new QHBoxLayout( 0, 0, 5, "layout24");
     SprachT = new QLabel( page_3, "Sprache" );
-		SprachT->setText( tr("Lang.:"));
+	SprachT->setText( tr("Lang.:"));
     layoutLang->addWidget( SprachT );
     LangCombo = new QComboBox( true, page_3, "Lang" );
-		LangCombo->setEditable(false);
+	LangCombo->setEditable(false);
     layoutLang->addWidget( LangCombo );
-		pageLayout_3->addLayout(layoutLang);
+	pageLayout_3->addLayout(layoutLang);
 
     QSpacerItem* spacer8 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
     pageLayout_3->addItem( spacer8 );
@@ -613,15 +626,11 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     Layout18->addWidget( Frame4 );
 
     Aspect = new QCheckBox( page_4, "Aspect" );
-    /*<<<<<<< mpalette.cpp*/
+	/* PFJ - 29.02.04 - Changed from FALSE and TRUE to false and true */
     Aspect->setEnabled( false );
-    Aspect->setText( tr( "Keep Aspect Ratio" ) );
-    Aspect->setChecked( true );
-    /*=======*/
-    Aspect->setEnabled( FALSE );
     Aspect->setText( tr( "Proportional" ) );
-    Aspect->setChecked( TRUE );
-    /*>>>>>>> 1.8*/
+    Aspect->setChecked( true );
+
     Layout18->addWidget( Aspect );
     Layout24->addLayout( Layout18 );
     pageLayout_4->addLayout( Layout24 );
@@ -635,15 +644,15 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     GroupBoxCM->setFrameShadow( QFrame::Plain );
     GroupBoxCMLayout = new QVBoxLayout( GroupBoxCM->layout() );
     GroupBoxCMLayout->setAlignment( Qt::AlignTop );
- 		TextCms1 = new QLabel( GroupBoxCM, "Text1" );
+ 	TextCms1 = new QLabel( GroupBoxCM, "Text1" );
     TextCms1->setText( tr( "Input Profile:" ) );
-		GroupBoxCMLayout->addWidget( TextCms1 );
+	GroupBoxCMLayout->addWidget( TextCms1 );
     InputP = new QComboBox( true, GroupBoxCM, "InputP" );
     InputP->setEditable(false);
    	GroupBoxCMLayout->addWidget(InputP);
     TextCms2 = new QLabel( GroupBoxCM, "Text2" );
     TextCms2->setText( tr( "Rendering Intent:" ) );
-		GroupBoxCMLayout->addWidget(TextCms2);
+	GroupBoxCMLayout->addWidget(TextCms2);
     MonitorI = new QComboBox( true, GroupBoxCM, "MonitorI" );
     MonitorI->insertItem( tr( "Perceptual" ) );
     MonitorI->insertItem( tr( "Relative Colorimetric" ) );
@@ -663,11 +672,11 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     Layout13_2 = new QHBoxLayout( 0, 0, 4, "Layout13_2");
 
     LineMode = new QComboBox( true, page_5, "LMode" );
-		LineMode->setEditable(false);
+	LineMode->setEditable(false);
     LineMode->insertItem( tr( "Left Point" ) );
     LineMode->insertItem( tr( "End Points" ) );
     Layout13_2->addWidget( LineMode );
-		LMode = false;
+	LMode = false;
     QSpacerItem* spacer10 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
     Layout13_2->addItem( spacer10 );
     pageLayout_5->addLayout( Layout13_2 );
@@ -704,9 +713,9 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     Layout12_2->addWidget( LEndStyle, 7, 0 );
     pageLayout_5->addLayout( Layout12_2 );
 
-		StyledLine = new QListBox(page_5, "StyledL");
-		StyledLine->insertItem( tr("No Style"), 0);
-		pageLayout_5->addWidget(StyledLine);
+	StyledLine = new QListBox(page_5, "StyledL");
+	StyledLine->insertItem( tr("No Style"), 0);
+	pageLayout_5->addWidget(StyledLine);
 
     QSpacerItem* spacer11 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
     pageLayout_5->addItem( spacer11 );
@@ -786,28 +795,28 @@ Mpalette::Mpalette( QWidget* parent, preV *Prefs) : QDialog( parent, "Mdouble", 
     connect(LineW, SIGNAL(valueChanged(int)), this, SLOT(handlePathOffs()));
    	connect(InputP, SIGNAL(activated(const QString&)), this, SLOT(ChProf(const QString&)));
     connect(MonitorI, SIGNAL(activated(int)), this, SLOT(ChIntent()));
-		connect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
+	connect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
     connect(LangCombo, SIGNAL(activated(int)), this, SLOT(NewLanguage()));
     connect( TabsButton, SIGNAL( clicked() ), this, SLOT( ManageTabs() ) );
-		HaveItem = false;
-		Xpos->setValue(0);
-		Ypos->setValue(0);
-		Width->setValue(0);
-		Height->setValue(0);
-		Rot->setValue(0);
-		RoundRect->setValue(0);
-		TabStack2->raiseWidget(0);
-		TabStack->raiseWidget(0);
-		TabStack->widget(0)->setEnabled(false);
-		SGeom->setEnabled(false);
-		SShape->setEnabled(false);
-		SText->setEnabled(false);
-		SImage->setEnabled(false);
-		SLine->setEnabled(false);
-		SColor->setEnabled(false);
-		StrokeIcon->setEnabled(false);
-		TxStroke->setEnabled(false);
-		PM1->setEnabled(false);
+	HaveItem = false;
+	Xpos->setValue(0);
+	Ypos->setValue(0);
+	Width->setValue(0);
+	Height->setValue(0);
+	Rot->setValue(0);
+	RoundRect->setValue(0);
+	TabStack2->raiseWidget(0);
+	TabStack->raiseWidget(0);
+	TabStack->widget(0)->setEnabled(false);
+	SGeom->setEnabled(false);
+	SShape->setEnabled(false);
+	SText->setEnabled(false);
+	SImage->setEnabled(false);
+	SLine->setEnabled(false);
+	SColor->setEnabled(false);
+	StrokeIcon->setEnabled(false);
+	TxStroke->setEnabled(false);
+	PM1->setEnabled(false);
 }
 
 
@@ -823,12 +832,12 @@ void Mpalette::SelTab(int t)
 		return;
 	TabStack->raiseWidget(t);
 	if (HaveItem)
-		{
+	{
 		Cpal->GradCombo->setCurrentItem(CurItem->GrType);
 		Cpal->ChooseGrad(CurItem->GrType);
 		Cpal->updateGeometry();
 		Cpal->repaint();
-		}
+	}
 }
 
 void Mpalette::SetDoc(ScribusDoc *d)
@@ -836,24 +845,24 @@ void Mpalette::SetDoc(ScribusDoc *d)
 	doc = d;
 	HaveDoc = true;
 	HaveItem = false;
-  Xpos->setDecimals(100);
-  Ypos->setDecimals(100);
-  Width->setDecimals(100);
-  Height->setDecimals(100);
-  Rot->setDecimals(100);
+	Xpos->setDecimals(100);
+	Ypos->setDecimals(100);
+	Width->setDecimals(100);
+	Height->setDecimals(100);
+	Rot->setDecimals(100);
 	RoundRect->setDecimals(10);
-  Extra->setDecimals(10);
-  Size->setDecimals(10);
-  LineSp->setDecimals(10);
-  LXpos->setDecimals(100);
-  LYpos->setDecimals(100);
-  ScaleX->setDecimals(10);
-  ScaleY->setDecimals(10);
-  DGap->setDecimals(10);
-  DTop->setDecimals(10);
-  DLeft->setDecimals(10);
-  DBottom->setDecimals(10);
-  DRight->setDecimals(10);
+	Extra->setDecimals(10);
+	Size->setDecimals(10);
+	LineSp->setDecimals(10);
+	LXpos->setDecimals(100);
+	LYpos->setDecimals(100);
+	ScaleX->setDecimals(10);
+	ScaleY->setDecimals(10);
+	DGap->setDecimals(10);
+	DTop->setDecimals(10);
+	DLeft->setDecimals(10);
+	DBottom->setDecimals(10);
+	DRight->setDecimals(10);
 	Xpos->setMaxValue( (QMAX(doc->PageB, doc->PageH) + QMAX(doc->PageB, doc->PageH) * 0.1) * UmReFaktor );
 	Xpos->setMinValue( -3000  * UmReFaktor);
 	Ypos->setMaxValue( (QMAX(doc->PageB, doc->PageH) + QMAX(doc->PageB, doc->PageH) * 0.1) * UmReFaktor );
@@ -918,37 +927,37 @@ void Mpalette::SetCurItem(PageItem *i)
 	DGap->setMinValue(0);
 	DCol->setValue(i->Cols);
 	DGap->setValue(i->ColGap*UmReFaktor);
-  DLeft->setValue(i->Extra*UmReFaktor);
-  DTop->setValue(i->TExtra*UmReFaktor);
-  DBottom->setValue(i->BExtra*UmReFaktor);
-  DRight->setValue(i->RExtra*UmReFaktor);
-  Revert->setOn(i->Reverse);
+	DLeft->setValue(i->Extra*UmReFaktor);
+	DTop->setValue(i->TExtra*UmReFaktor);
+	DBottom->setValue(i->BExtra*UmReFaktor);
+	DRight->setValue(i->RExtra*UmReFaktor);
+	Revert->setOn(i->Reverse);
 	Textflow->setChecked(i->Textflow);
 	Textflow2->setChecked(i->Textflow2);
 	ToggleFlow();
 	LangCombo->setCurrentText(i->Language);
 	bool setter;
 	if (i->NamedLStyle == "")
-		{
-			StyledLine->setCurrentItem(0);
-			setter = true;
-		}
+	{
+		StyledLine->setCurrentItem(0);
+		setter = true;
+	}
 	else
-		{
-			StyledLine->setSelected(StyledLine->findItem(i->NamedLStyle), true);
-			setter = false;
-		}
+	{
+		StyledLine->setSelected(StyledLine->findItem(i->NamedLStyle), true);
+		setter = false;
+	}
 	LStyle->setEnabled(setter);
 	LSize->setEnabled(setter);
 	LJoinStyle->setEnabled(setter);
 	LEndStyle->setEnabled(setter);
-  connect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
+	connect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this,
+SLOT(SetSTline(QListBoxItem*)));
 	connect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
 	NoPrint->setOn(!i->isPrintable);
-	if (i->Locked)
-		setter = false;
-	else
-		setter = true;
+	/* PFJ - 29.02.04 - Used ternary */
+	setter = i->Locked ? false : true;
+
 	Xpos->setEnabled(setter);
 	Ypos->setEnabled(setter);
 	Width->setEnabled(setter);
@@ -967,55 +976,55 @@ void Mpalette::SetCurItem(PageItem *i)
 		Height->setEnabled(!setter);
 	}
 	if (i->Locked)
-		{
+	{
 		HaveItem = true;
 		return;
-		}
+	}
 	if (i->PType == 8)
-		{
+	{
 		TabStack2->raiseWidget(1);
 		NormText2->setChecked(i->PoShow);
  		LineW->setValue(i->BaseOffs * -1);
  		Dist->setValue(i->Extra);
-		}
+	}
 	else
 		TabStack2->raiseWidget(0);
 	if (((i->PType == 4) || (i->PType == 2) || (i->PType == 3)) &&  (!i->ClipEdited))
 		RoundRect->setEnabled(true);
 	else
 		{
-		if ((i->PType == 6) && ((i->FrameType == 0) || (i->FrameType == 2)))
-			RoundRect->setEnabled(true);
-		else
-			RoundRect->setEnabled(false);
+			if ((i->PType == 6) && ((i->FrameType == 0) || (i->FrameType == 2)))
+				RoundRect->setEnabled(true);
+			else
+				RoundRect->setEnabled(false);
 		}
 	if (i->PType == 5)
-		{
+	{
 		if (LMode)
-			{
-    	Text1->setText( tr( "X1:" ) );
-    	Text2->setText( tr( "X2:" ) );
-    	Text1a->setText( tr( "Y1:" ) );
-    	Text2a->setText( tr( "Y2:" ) );
+		{
+    		Text1->setText( tr( "X1:" ) );
+    		Text2->setText( tr( "X2:" ) );
+    		Text1a->setText( tr( "Y1:" ) );
+    		Text2a->setText( tr( "Y2:" ) );
 			Rot->setEnabled(false);
 			Height->setEnabled(true);
-			}
+		}
 		else
-			{
-    	Text1->setText( tr( "X-Pos:" ) );
-    	Text2->setText( tr( "Width:" ) );
-    	Text1a->setText( tr( "Y-Pos:" ) );
-    	Text2a->setText( tr( "Height:" ) );
+		{
+    		Text1->setText( tr( "X-Pos:" ) );
+    		Text2->setText( tr( "Width:" ) );
+    		Text1a->setText( tr( "Y-Pos:" ) );
+    		Text2a->setText( tr( "Height:" ) );
 			Rot->setEnabled(true);
 			Height->setEnabled(false);
-			}
+		}
 		HaveItem = true;
 		return;
-		}
+	}
 	else
-		{
+	{
 		if (i->PType == 2)
-			{
+		{
 			updateCmsList();
 			setter = i->ScaleType;
 			FreeScale->setChecked(setter);
@@ -1028,8 +1037,8 @@ void Mpalette::SetCurItem(PageItem *i)
 			LYpos->setEnabled(setter);
 			ScaleX->setEnabled(setter);
 			ScaleY->setEnabled(setter);
-			}
 		}
+	}
 	HaveItem = true;
 }
 
@@ -1039,24 +1048,24 @@ void Mpalette::NewSel(int nr)
 		return;
 	int visID;
 	if (doc->ActPage->GroupSel)
-		{
+	{
 		RoVal = 0;
 		double gx, gy, gh, gw;
 		doc->ActPage->getGroupRect(&gx, &gy, &gw, &gh);
-    if (TopLeft->isChecked())
+    	if (TopLeft->isChecked())
 			doc->ActPage->RCenter = FPoint(gx, gy);
-    if (TopRight->isChecked())
+    	if (TopRight->isChecked())
 			doc->ActPage->RCenter = FPoint(gx + gw, gy);
-    if (Center->isChecked())
+    	if (Center->isChecked())
 			doc->ActPage->RCenter = FPoint(gx + gw / 2.0, gy + gh / 2.0);
-    if (BottomLeft->isChecked())
+    	if (BottomLeft->isChecked())
 			doc->ActPage->RCenter = FPoint(gx, gy + gh);
-    if (BottomRight->isChecked())
+    	if (BottomRight->isChecked())
 			doc->ActPage->RCenter = FPoint(gx + gw, gy + gh);
-    Text1->setText( tr( "X-Pos:" ) );
-    Text2->setText( tr( "Width:" ) );
-    Text1a->setText( tr( "Y-Pos:" ) );
-    Text2a->setText( tr( "Height:" ) );
+    	Text1->setText( tr( "X-Pos:" ) );
+    	Text2->setText( tr( "Width:" ) );
+    	Text1a->setText( tr( "Y-Pos:" ) );
+    	Text2a->setText( tr( "Height:" ) );
 		HaveItem = false;
 		Xpos->setValue(0);
 		Ypos->setValue(0);
@@ -1073,9 +1082,9 @@ void Mpalette::NewSel(int nr)
 		SGeom->setEnabled(true);
 		TabStack->widget(0)->setEnabled(true);
 		NameEdit->setEnabled(false);
-		}
+	}
 	else
-		{
+	{
 		NameEdit->setEnabled(true);
 		FlipH->setEnabled(false);
 		FlipV->setEnabled(false);
@@ -1098,12 +1107,12 @@ void Mpalette::NewSel(int nr)
 		TabStack->widget(5)->setEnabled(true);
 		SColor->setEnabled(true);
 		switch (nr)
-			{
+		{
 			case -1:
-    		Text1->setText( tr( "X-Pos:" ) );
-    		Text2->setText( tr( "Width:" ) );
-    		Text1a->setText( tr( "Y-Pos:" ) );
-    		Text2a->setText( tr( "Height:" ) );
+    			Text1->setText( tr( "X-Pos:" ) );
+    			Text2->setText( tr( "Width:" ) );
+    			Text1a->setText( tr( "Y-Pos:" ) );
+    			Text2a->setText( tr( "Height:" ) );
 				Rot->setEnabled(true);
 				Height->setEnabled(true);
 				HaveItem = false;
@@ -1114,9 +1123,7 @@ void Mpalette::NewSel(int nr)
 				Rot->setValue(0);
 				RoundRect->setValue(0);
 				for (int ws = 0; ws < 6; ++ws)
-					{
 					TabStack->widget(ws)->setEnabled(false);
-					}
 				SGeom->setEnabled(false);
 				SShape->setEnabled(false);
 				SText->setEnabled(false);
@@ -1136,10 +1143,10 @@ void Mpalette::NewSel(int nr)
 				ShapeGroup->setEnabled(true);
 				EditShape->setEnabled(true);
 				if ((visID == 2) || (visID == 3))
-					{
+				{
 					TabStack->raiseWidget(0);
 					SGeom->setOn(true);
-					}
+				}
 				HaveItem = true;
 				break;
 			case 2:
@@ -1158,10 +1165,10 @@ void Mpalette::NewSel(int nr)
 					RoundRect->setEnabled(true);
 				EditShape->setEnabled(true);
 				if (visID == 2)
-					{
+				{
 					TabStack->raiseWidget(0);
 					SGeom->setOn(true);
-					}
+				}
 				HaveItem = true;
 				break;
 			case 3:
@@ -1176,10 +1183,10 @@ void Mpalette::NewSel(int nr)
 				RoundRect->setEnabled(true);
 				EditShape->setEnabled(true);
 				if ((visID == 2) || (visID == 3))
-					{
+				{
 					TabStack->raiseWidget(0);
 					SGeom->setOn(true);
-					}
+				}
 				HaveItem = true;
 				break;
 			case 4:
@@ -1199,10 +1206,10 @@ void Mpalette::NewSel(int nr)
 				Distance->setEnabled(true);
 				EditShape->setEnabled(true);
 				if (visID == 3)
-					{
+				{
 					TabStack->raiseWidget(0);
 					SGeom->setOn(true);
-					}
+				}
 				HaveItem = true;
 				break;
 			case 5:
@@ -1219,10 +1226,10 @@ void Mpalette::NewSel(int nr)
 				BottomRight->setEnabled(false);
 				Center->setEnabled(false);
 				if ((visID == 1) || (visID == 2) || (visID == 3))
-					{
+				{
 					TabStack->raiseWidget(0);
 					SGeom->setOn(true);
-					}
+				}
 				HaveItem = true;
 				break;
 			case 6:
@@ -1238,10 +1245,10 @@ void Mpalette::NewSel(int nr)
  				if ((doc->ActPage->SelItem.at(0)->FrameType == 0) || (doc->ActPage->SelItem.at(0)->FrameType == 2))
 					RoundRect->setEnabled(true);
 				if ((visID == 2) || (visID == 3))
-					{
+				{
 					TabStack->raiseWidget(0);
 					SGeom->setOn(true);
-					}
+				}
 				HaveItem = true;
 				break;
 			case 7:
@@ -1254,10 +1261,10 @@ void Mpalette::NewSel(int nr)
 				TabStack->widget(4)->setEnabled(true);
 				EditShape->setEnabled(true);
 				if ((visID == 2) || (visID == 3))
-					{
+				{
 					TabStack->raiseWidget(0);
 					SGeom->setOn(true);
-					}
+				}
 				HaveItem = true;
 				break;
 			case 8:
@@ -1271,14 +1278,14 @@ void Mpalette::NewSel(int nr)
 				TabStack->widget(4)->setEnabled(true);
 				EditShape->setEnabled(true);
 				if (visID == 3)
-					{
+				{
 					TabStack->raiseWidget(0);
 					SGeom->setOn(true);
-					}
+				}
 				HaveItem = true;
 				break;
-			}
 		}
+	}
 	updateGeometry();
 	setFocus();
 	repaint();
@@ -1305,57 +1312,42 @@ void Mpalette::UnitChange()
 	double oldRR = RoundRect->value() / old;
 	double oldRM = RoundRect->maxValue() / old;
 	Umrech = UmReFaktor;
-  Xpos->setDecimals(100);
-  Ypos->setDecimals(100);
-  Width->setDecimals(100);
-  Height->setDecimals(100);
-  LXpos->setDecimals(100);
-  LYpos->setDecimals(100);
-  DGap->setDecimals(10);
-  DLeft->setDecimals(10);
-  DTop->setDecimals(10);
-  DBottom->setDecimals(10);
-  DRight->setDecimals(10);
+	Xpos->setDecimals(100);
+	Ypos->setDecimals(100);
+	Width->setDecimals(100);
+	Height->setDecimals(100);
+	LXpos->setDecimals(100);
+	LYpos->setDecimals(100);
+  	DGap->setDecimals(10);
+	DLeft->setDecimals(10);
+	DTop->setDecimals(10);
+	DBottom->setDecimals(10);
+	DRight->setDecimals(10);
 	RoundRect->setDecimals(10);
+	/* PFJ - 29.02.04 - Rejigged for speed */
+	char *point[] = {" pt", " mm", " in", " p"};
+	if (doc->Einheit > 3)
+		doc->Einheit = 0;
+	ein = point[doc->Einheit];
+	int val = doc->Einheit == 1 ? 1000 : 10000;
 	switch (doc->Einheit)
-		{
-		case 0:
-			ein = " pt";
-			break;
+	{
 		case 1:
-    	ein = " mm";
-			Xpos->setDecimals(1000);
-			Ypos->setDecimals(1000);
-  		Width->setDecimals(1000);
-  		Height->setDecimals(1000);
-  		LXpos->setDecimals(1000);
-  		LYpos->setDecimals(1000);
-  		DGap->setDecimals(1000);
-  		DLeft->setDecimals(1000);
-  		DTop->setDecimals(1000);
-  		DBottom->setDecimals(1000);
-  		DRight->setDecimals(1000);
-			RoundRect->setDecimals(1000);
-			break;
 		case 2:
-    	ein = " in";
-			Xpos->setDecimals(10000);
-			Ypos->setDecimals(10000);
-  		Width->setDecimals(10000);
-  		Height->setDecimals(10000);
-  		LXpos->setDecimals(10000);
-  		LYpos->setDecimals(10000);
-  		DGap->setDecimals(10000);
-  		DLeft->setDecimals(10000);
-  		DTop->setDecimals(10000);
-  		DBottom->setDecimals(10000);
-  		DRight->setDecimals(10000);
-			RoundRect->setDecimals(10000);
+			Xpos->setDecimals(val);
+			Ypos->setDecimals(val);
+  			Width->setDecimals(val);
+  			Height->setDecimals(val);
+  			LXpos->setDecimals(val);
+  			LYpos->setDecimals(val);
+  			DGap->setDecimals(val);
+  			DLeft->setDecimals(val);
+  			DTop->setDecimals(val);
+  			DBottom->setDecimals(val);
+  			DRight->setDecimals(val);
+			RoundRect->setDecimals(val);
 			break;
-		case 3:
-    	ein = " p";
-			break;
-		}
+	}
 	Xpos->setSuffix( ein );
 	Ypos->setSuffix( ein );
 	Width->setSuffix( ein );
@@ -1408,33 +1400,33 @@ void Mpalette::setXY(double x, double y)
 	QWMatrix ma;
 	FPoint n;
 	if (HaveItem)
-		{
+	{
 		if (doc->ActPage->GroupSel)
-			{
+		{
 			doc->ActPage->getGroupRect(&dummy1, &dummy2, &b, &h);
 			r = 0.0;
-			}
+		}
 		else
-			{
+		{
 			b = CurItem->Width;
 			h = CurItem->Height;
 			r = CurItem->Rot;
-			}
 		}
+	}
 	else
-		{
+	{
 		b = 0.0;
 		h = 0.0;
 		r = 0.0;
-		}
+	}
 	HaveItem = false;
 	ma.translate(x, y);
 	ma.rotate(r);
-  if (TopLeft->isChecked())
+	if (TopLeft->isChecked())
 		n = FPoint(0.0, 0.0);
 	if (TopRight->isChecked())
 		n = FPoint(b, 0.0);
-  if (Center->isChecked())
+	if (Center->isChecked())
 		n = FPoint(b / 2.0, h / 2.0);
 	if (BottomLeft->isChecked())
 		n = FPoint(0.0, h);
@@ -1458,19 +1450,19 @@ void Mpalette::setBH(double x, double y)
 	QWMatrix ma;
 	QPoint dp;
 	if ((LMode) && (CurItem->PType == 5))
-		{
+	{
 		ma.translate(static_cast<double>(Xpos->value()) / UmReFaktor, static_cast<double>(Ypos->value()) / UmReFaktor);
 		ma.rotate(static_cast<double>(Rot->value())*(-1));
 		dp = ma * QPoint(static_cast<int>(x), static_cast<int>(y));
 		Width->setValue(dp.x()*UmReFaktor);
 		Height->setValue(dp.y()*UmReFaktor);
-		}
+	}
 	else
-		{
+	{
 		RoundRect->setMaxValue(QMIN(x, y)/2*UmReFaktor);
 		Width->setValue(x*UmReFaktor);
 		Height->setValue(y*UmReFaktor);
-		}
+	}
 	HaveItem = tmp;
 }
 
@@ -1506,10 +1498,10 @@ void Mpalette::setCols(int r, double g)
 	DCol->setValue(r);
 	DGap->setValue(g*UmReFaktor);
 	if (tmp)
-		{
+	{
 		DCol->setMaxValue(QMAX(qRound(CurItem->Width / QMAX(CurItem->ColGap, 10.0)), 1));
 		DGap->setMaxValue(QMAX((CurItem->Width / CurItem->Cols - CurItem->Extra - CurItem->RExtra), 0));
-		}
+	}
 	DCol->setMinValue(1);
 	DGap->setMinValue(0);
 	HaveItem = tmp;
@@ -1550,7 +1542,7 @@ void Mpalette::ChangeScaling()
 	if (ScApp->ScriptRunning)
 		return;
 	if (FreeScale == sender())
-		{
+	{
 		FrameScale->setChecked(false);
 		FreeScale->setChecked(true);
 		Aspect->setEnabled(false);
@@ -1558,9 +1550,9 @@ void Mpalette::ChangeScaling()
 		LYpos->setEnabled(true);
 		ScaleX->setEnabled(true);
 		ScaleY->setEnabled(true);
-		}
+	}
 	if (FrameScale == sender())
-		{
+	{
 		FrameScale->setChecked(true);
 		FreeScale->setChecked(false);
 		Aspect->setEnabled(true);
@@ -1568,9 +1560,9 @@ void Mpalette::ChangeScaling()
 		LYpos->setEnabled(false);
 		ScaleX->setEnabled(false);
 		ScaleY->setEnabled(false);
-		}
+	}
 	if ((HaveDoc) && (HaveItem))
-		{
+	{
 		CurItem->ScaleType = FreeScale->isChecked();
 		CurItem->AspectRatio = Aspect->isChecked();
 		if (!CurItem->ScaleType)
@@ -1579,7 +1571,7 @@ void Mpalette::ChangeScaling()
 		emit UpdtGui(2);
 		emit DocChanged();
 		setFocus();
-		}
+	}
 }
 
 void Mpalette::setLvalue(double scx, double scy, double x, double y)
@@ -1612,7 +1604,7 @@ void Mpalette::setLIvalue(PenStyle p, PenCapStyle pc, PenJoinStyle pj)
 	bool tmp = HaveItem;
 	HaveItem = false;
 	switch (p)
-		{
+	{
 		case SolidLine:
 			LStyle->setCurrentItem(0);
 			break;
@@ -1631,9 +1623,9 @@ void Mpalette::setLIvalue(PenStyle p, PenCapStyle pc, PenJoinStyle pj)
 		default:
 			LStyle->setCurrentItem(0);
 			break;
-		}
+	}
 	switch (pc)
-		{
+	{
 		case FlatCap:
 			LEndStyle->setCurrentItem(0);
 			break;
@@ -1646,9 +1638,9 @@ void Mpalette::setLIvalue(PenStyle p, PenCapStyle pc, PenJoinStyle pj)
 		default:
 			LEndStyle->setCurrentItem(0);
 			break;
-		}
+	}
 	switch (pj)
-		{
+	{
 		case MiterJoin:
 			LJoinStyle->setCurrentItem(0);
 			break;
@@ -1661,7 +1653,7 @@ void Mpalette::setLIvalue(PenStyle p, PenCapStyle pc, PenJoinStyle pj)
 		default:
 			LJoinStyle->setCurrentItem(0);
 			break;
-		}
+	}
 	HaveItem = tmp;
 }
 
@@ -1674,11 +1666,11 @@ void Mpalette::setStil(int s)
 	PM1->setEnabled(false);
 	SeStyle->setStyle(s);
 	if (s & 4)
-		{
+	{
 		StrokeIcon->setEnabled(true);
 		TxStroke->setEnabled(true);
 		PM1->setEnabled(true);
-		}
+	}
 }
 
 void Mpalette::setAli(int e)
@@ -1698,18 +1690,18 @@ void Mpalette::setTScale(int e)
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
-  ChScale->setValue(e);
+	ChScale->setValue(e);
 	HaveItem = tmp;
 }
 
 void Mpalette::NewTScale()
 {
 	if ((HaveDoc) && (HaveItem))
-		{
+	{
 		doc->ActPage->ItemTextScale(ChScale->value());
 		doc->CurrTextScale = ChScale->value();
 		emit DocChanged();
-		}
+	}
 }
 
 void Mpalette::NewX()
@@ -1723,47 +1715,47 @@ void Mpalette::NewX()
 	w = Width->value() / UmReFaktor;
 	h = Height->value() / UmReFaktor;
 	if ((HaveDoc) && (HaveItem))
-		{
+	{
 		if (doc->ActPage->GroupSel)
-			{
+		{
 			doc->ActPage->getGroupRect(&gx, &gy, &gw, &gh);
  			if ((TopLeft->isChecked()) || (BottomLeft->isChecked()))
 				base = gx;
-  		if (Center->isChecked())
+  			if (Center->isChecked())
 				base = gx + gw / 2.0;
-  		if ((TopRight->isChecked()) || (BottomRight->isChecked()))
+  			if ((TopRight->isChecked()) || (BottomRight->isChecked()))
 				base = gx + gw;
 			doc->ActPage->moveGroup(x - base, 0, true);
-			}
+		}
 		else
-			{
+		{
 			if ((CurItem->PType == 5) && (LMode))
-				{
+			{
 				double r = atan2(h-y,w-x)*(180.0/3.1415927);
 				w = sqrt(pow(w-x,2)+pow(h-y,2));
 				doc->ActPage->MoveItem(x - CurItem->Xpos, 0, CurItem, true);
 				doc->ActPage->SizeItem(w, CurItem->Height, CurItem->ItemNr, true);
 				doc->ActPage->RotateItem(r, CurItem->ItemNr);
-				}
+			}
 			else
-				{
+			{
 				ma.translate(CurItem->Xpos, CurItem->Ypos);
 				ma.rotate(CurItem->Rot);
-  			if (TopLeft->isChecked())
+  				if (TopLeft->isChecked())
 					base = CurItem->Xpos;
-  			if (Center->isChecked())
+  				if (Center->isChecked())
 					base = ma.m11() * (CurItem->Width / 2.0) + ma.m21() * (CurItem->Height / 2.0) + ma.dx();
-  			if (TopRight->isChecked())
+  				if (TopRight->isChecked())
 					base = ma.m11() * CurItem->Width + ma.m21() * 0.0 + ma.dx();
-  			if (BottomRight->isChecked())
+  				if (BottomRight->isChecked())
 					base = ma.m11() * CurItem->Width + ma.m21() * CurItem->Height + ma.dx();
-  			if (BottomLeft->isChecked())
+  				if (BottomLeft->isChecked())
 					base = ma.m11() * 0.0 + ma.m21() * CurItem->Height + ma.dx();
 				doc->ActPage->MoveItem(x - base, 0, CurItem, true);
-				}
 			}
-		emit DocChanged();
 		}
+	emit DocChanged();
+	}
 }
 
 void Mpalette::NewY()
@@ -1777,47 +1769,47 @@ void Mpalette::NewY()
 	w = Width->value() / UmReFaktor;
 	h = Height->value() / UmReFaktor;
 	if ((HaveDoc) && (HaveItem))
-		{
+	{
 		if (doc->ActPage->GroupSel)
-			{
+		{
 			doc->ActPage->getGroupRect(&gx, &gy, &gw, &gh);
  			if ((TopLeft->isChecked()) || (TopRight->isChecked()))
 				base = gy;
-  		if (Center->isChecked())
+  			if (Center->isChecked())
 				base = gy + gh / 2.0;
-  		if ((BottomLeft->isChecked()) || (BottomRight->isChecked()))
+  			if ((BottomLeft->isChecked()) || (BottomRight->isChecked()))
 				base = gy + gh;
 			doc->ActPage->moveGroup(0, y - base, true);
-			}
+		}
 		else
-			{
+		{
 			if ((CurItem->PType == 5) && (LMode))
-				{
+			{
 				double r = atan2(h-y,w-x)*(180.0/3.1415927);
 				w = sqrt(pow(w-x,2)+pow(h-y,2));
 				doc->ActPage->MoveItem(0, y - CurItem->Ypos, CurItem, true);
 				doc->ActPage->SizeItem(w, CurItem->Height, CurItem->ItemNr, true);
 				doc->ActPage->RotateItem(r, CurItem->ItemNr);
-				}
+			}
 			else
-				{
+			{
 				ma.translate(CurItem->Xpos, CurItem->Ypos);
 				ma.rotate(CurItem->Rot);
-  			if (TopLeft->isChecked())
+  				if (TopLeft->isChecked())
 					base = CurItem->Ypos;
-  			if (Center->isChecked())
+  				if (Center->isChecked())
 					base = ma.m22() * (CurItem->Height / 2.0) + ma.m12() * (CurItem->Width / 2.0) + ma.dy();
-  			if (TopRight->isChecked())
+  				if (TopRight->isChecked())
 					base = ma.m22() * 0.0 + ma.m12() * CurItem->Width + ma.dy();
-  			if (BottomRight->isChecked())
+  				if (BottomRight->isChecked())
 					base = ma.m22() * CurItem->Height + ma.m12() * CurItem->Width + ma.dy();
-  			if (BottomLeft->isChecked())
+  				if (BottomLeft->isChecked())
 					base = ma.m22() * CurItem->Height + ma.m12() * 0.0 + ma.dy();
 				doc->ActPage->MoveItem(0, y - base, CurItem);
-				}
 			}
-		emit DocChanged();
 		}
+	emit DocChanged();
+	}                                                
 }
 
 void Mpalette::NewW()
@@ -1830,33 +1822,33 @@ void Mpalette::NewW()
 	w = Width->value() / UmReFaktor;
 	h = Height->value() / UmReFaktor;
 	if ((HaveDoc) && (HaveItem))
-		{
+	{
 		if (doc->ActPage->GroupSel)
-			{
+		{
 			doc->ActPage->getGroupRect(&gx, &gy, &gw, &gh);
 			doc->ActPage->HowTo = 1;
 			doc->ActPage->scaleGroup(w / gw, w / gw);
 			setBH(w, (w / gw) * gh);
-			}
+		}
 		else
-			{
+		{
 			CurItem->OldB2 = CurItem->Width;
 			CurItem->OldH2 = CurItem->Height;
 			if (CurItem->PType == 5)
-				{
+			{
 				if (LMode)
-					{
+				{
 					double r = atan2(h-y,w-x)*(180.0/3.1415927);
 					doc->ActPage->RotateItem(r, CurItem->ItemNr);
 					w = sqrt(pow(w-x,2)+pow(h-y,2));
-					}
-				doc->ActPage->SizeItem(w, CurItem->Height, CurItem->ItemNr, true);
 				}
+				doc->ActPage->SizeItem(w, CurItem->Height, CurItem->ItemNr, true);
+			}
 			else
 				doc->ActPage->SizeItem(w, CurItem->Height, CurItem->ItemNr, true);
 			emit DocChanged();
-			}
 		}
+	}
 }
 
 void Mpalette::NewH()
@@ -1869,33 +1861,33 @@ void Mpalette::NewH()
 	w = Width->value() / UmReFaktor;
 	h = Height->value() / UmReFaktor;
 	if ((HaveDoc) && (HaveItem))
-		{
+	{
 		if (doc->ActPage->GroupSel)
-			{
+		{
 			doc->ActPage->getGroupRect(&gx, &gy, &gw, &gh);
 			doc->ActPage->HowTo = 1;
 			doc->ActPage->scaleGroup(h / gh, h / gh);
 			setBH((h / gh) * gw, h);
-			}
+		}
 		else
-			{
+		{
 			CurItem->OldB2 = CurItem->Width;
 			CurItem->OldH2 = CurItem->Height;
 			if (CurItem->PType == 5)
-				{
+			{
 				if (LMode)
-					{
+				{
 					double r = atan2(h-y,w-x)*(180.0/3.1415927);
 					doc->ActPage->RotateItem(r, CurItem->ItemNr);
 					w = sqrt(pow(w-x,2)+pow(h-y,2));
-					}
-				doc->ActPage->SizeItem(w, CurItem->Height, CurItem->ItemNr, true);
 				}
+				doc->ActPage->SizeItem(w, CurItem->Height, CurItem->ItemNr, true);
+			}
 			else
 				doc->ActPage->SizeItem(CurItem->Width, h, CurItem->ItemNr, true);
-			}
-		emit DocChanged();
 		}
+	emit DocChanged();
+	}
 }
 
 void Mpalette::NewR()
@@ -2068,25 +2060,25 @@ void Mpalette::NewLMode()
 	if (ScApp->ScriptRunning)
 		return;
 	if (LineMode->currentItem() == 0)
-		{
-    Text1->setText( tr( "X-Pos:" ) );
-    Text2->setText( tr( "Width:" ) );
-    Text1a->setText( tr( "Y-Pos:" ) );
-    Text2a->setText( tr( "Height:" ) );
+	{
+    	Text1->setText( tr( "X-Pos:" ) );
+    	Text2->setText( tr( "Width:" ) );
+    	Text1a->setText( tr( "Y-Pos:" ) );
+    	Text2a->setText( tr( "Height:" ) );
 		Rot->setEnabled(true);
 		Height->setEnabled(false);
 		LMode = false;
-		}
+	}
 	else
-		{
-    Text1->setText( tr( "X1:" ) );
-    Text2->setText( tr( "X2:" ) );
-    Text1a->setText( tr( "Y1:" ) );
-    Text2a->setText( tr( "Y2:" ) );
+	{
+    	Text1->setText( tr( "X1:" ) );
+    	Text2->setText( tr( "X2:" ) );
+    	Text1a->setText( tr( "Y1:" ) );
+    	Text2a->setText( tr( "Y2:" ) );
 		Rot->setEnabled(false);
 		Height->setEnabled(true);
 		LMode = true;
-		}
+	}
 	setBH(CurItem->Width, CurItem->Height);
 	updateGeometry();
 	setFocus();
@@ -2099,7 +2091,7 @@ void Mpalette::NewLJoin()
 		return;
 	PenJoinStyle c = MiterJoin;
 	switch (LJoinStyle->currentItem())
-		{
+	{
 		case 0:
 			c = MiterJoin;
 			break;
@@ -2109,12 +2101,12 @@ void Mpalette::NewLJoin()
 		case 2:
 			c = RoundJoin;
 			break;
-		}
+	}
 	if ((HaveDoc) && (HaveItem))
-		{
+	{
 		doc->ActPage->ChLineJoin(c);
 		emit DocChanged();
-		}
+	}
 }
 
 void Mpalette::NewLEnd()
@@ -2123,7 +2115,7 @@ void Mpalette::NewLEnd()
 		return;
 	PenCapStyle c = FlatCap;
 	switch (LEndStyle->currentItem())
-		{
+	{
 		case 0:
 			c = FlatCap;
 			break;
@@ -2133,12 +2125,12 @@ void Mpalette::NewLEnd()
 		case 2:
 			c = RoundCap;
 			break;
-		}
+	}
 	if ((HaveDoc) && (HaveItem))
-		{
+	{
 		doc->ActPage->ChLineEnd(c);
 		emit DocChanged();
-		}
+	}
 }
 
 void Mpalette::ToggleKette()
@@ -2146,27 +2138,23 @@ void Mpalette::ToggleKette()
 	if (ScApp->ScriptRunning)
 		return;
 	if (Kette->isOn())
-		{
+	{
 		ScaleY->setValue(ScaleX->value());
 		NewLocalSC();
-		}
+	}
 }
 
 void Mpalette::HChange()
 {
 	if (Kette->isOn())
-		{
 		ScaleY->setValue(ScaleX->value());
-		}
 	NewLocalSC();
 }
 
 void Mpalette::VChange()
 {
 	if (Kette->isOn())
-		{
 		ScaleX->setValue(ScaleY->value());
-		}
 	NewLocalSC();
 }
 
@@ -2175,10 +2163,10 @@ void Mpalette::DoFlipH()
 	if (ScApp->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
-		{
+	{
 		doc->ActPage->FlipImageH();
 		emit DocChanged();
-		}
+	}
 }
 
 void Mpalette::DoFlipV()
@@ -2186,10 +2174,10 @@ void Mpalette::DoFlipV()
 	if (ScApp->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
-		{
+	{
 		doc->ActPage->FlipImageV();
 		emit DocChanged();
-		}
+	}
 }
 
 void Mpalette::NewAli(int a)
@@ -2213,10 +2201,10 @@ void Mpalette::DoLower()
 	if (ScApp->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
-		{
+	{
 		doc->ActPage->LowerItem();
 		emit DocChanged();
-		}
+	}
 }
 
 void Mpalette::DoRaise()
@@ -2224,10 +2212,10 @@ void Mpalette::DoRaise()
 	if (ScApp->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
-		{
+	{
 		doc->ActPage->RaiseItem();
 		emit DocChanged();
-		}
+	}
 }
 
 void Mpalette::DoFront()
@@ -2235,10 +2223,10 @@ void Mpalette::DoFront()
 	if (ScApp->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
-		{
+	{
 		doc->ActPage->ToFront();
 		emit DocChanged();
-		}
+	}
 }
 
 void Mpalette::DoBack()
@@ -2246,10 +2234,10 @@ void Mpalette::DoBack()
 	if (ScApp->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
-		{
+	{
 		doc->ActPage->ToBack();
 		emit DocChanged();
-		}
+	}
 }
 
 void Mpalette::NewRotMode(int m)
@@ -2258,47 +2246,47 @@ void Mpalette::NewRotMode(int m)
 		return;
 	double inX, inY, gx, gy, gh, gw;
 	if ((HaveDoc) && (HaveItem))
-		{
+	{
 		HaveItem = false;
 		if (doc->ActPage->GroupSel)
-			{
+		{
 			doc->ActPage->setGroupRect();
 			doc->ActPage->getGroupRect(&gx, &gy, &gw, &gh);
 			if (m == 0)
-				{
+			{
 				doc->ActPage->RCenter = FPoint(gx, gy);
 				inX = gx;
 				inY = gy;
-				}
+			}
 			if (m == 1)
-				{
+			{
 				doc->ActPage->RCenter = FPoint(gx+gw, gy);
 				inX = gx+gw;
 				inY = gy;
-				}
+			}
 			if (m == 2)
-				{
+			{
 				doc->ActPage->RCenter = FPoint(gx + gw / 2.0, gy + gh / 2.0);
 				inX = gx + gw / 2.0;
 				inY = gy + gh / 2.0;
-				}
+			}
 			if (m == 3)
-				{
+			{
 				doc->ActPage->RCenter = FPoint(gx, gy+gh);
 				inX = gx;
 				inY = gy+gh;
-				}
+			}
 			if (m == 4)
-				{
+			{
 				doc->ActPage->RCenter = FPoint(gx+gw, gy+gh);
 				inX = gx+gw;
 				inY = gy+gh;
-				}
+			}
 			Xpos->setValue(inX*UmReFaktor);
 			Ypos->setValue(inY*UmReFaktor);
-			}
+		}
 		else
-			{
+		{
 			double b, h, r;
 			QWMatrix ma;
 			FPoint n;
@@ -2307,11 +2295,11 @@ void Mpalette::NewRotMode(int m)
 			r = CurItem->Rot;
 			ma.translate(CurItem->Xpos, CurItem->Ypos);
 			ma.rotate(r);
-		  if (TopLeft->isChecked())
+			if (TopLeft->isChecked())
 				n = FPoint(0.0, 0.0);
 			if (TopRight->isChecked())
 				n = FPoint(b, 0.0);
-		  if (Center->isChecked())
+		  	if (Center->isChecked())
 				n = FPoint(b / 2.0, h / 2.0);
 			if (BottomLeft->isChecked())
 				n = FPoint(0.0, h);
@@ -2321,10 +2309,10 @@ void Mpalette::NewRotMode(int m)
 			inY = ma.m22() * n.y() + ma.m12() * n.x() + ma.dy();
 			Xpos->setValue(inX*UmReFaktor);
 			Ypos->setValue(inY*UmReFaktor);
-			}
+		}
 		HaveItem = true;
 		doc->RotMode = m;
-		}
+	}
 }
 
 void Mpalette::DoFlow()
@@ -2332,12 +2320,12 @@ void Mpalette::DoFlow()
 	if (ScApp->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
-		{
+	{
 		CurItem->Textflow = Textflow->isChecked();
 		doc->ActPage->update();
 		emit DocChanged();
 		ToggleFlow();
-		}
+	}
 }
 
 void Mpalette::DoFlow2()
@@ -2345,11 +2333,11 @@ void Mpalette::DoFlow2()
 	if (ScApp->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
-		{
+	{
 		CurItem->Textflow2 = Textflow2->isChecked();
 		doc->ActPage->update();
 		emit DocChanged();
-		}
+	}
 }
 
 void Mpalette::MakeIrre(int f, int c, double *vals)
@@ -2357,11 +2345,11 @@ void Mpalette::MakeIrre(int f, int c, double *vals)
 	if (ScApp->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
-		{
+	{
 		if ((CurItem->PType == 7) || (CurItem->PType == 8))
 			return;
 		switch (f)
-			{
+		{
 			case 0:
 				doc->ActPage->SetRectFrame(CurItem);
 				break;
@@ -2372,7 +2360,7 @@ void Mpalette::MakeIrre(int f, int c, double *vals)
 				doc->ActPage->SetFrameShape(CurItem, c, vals);
 				CurItem->FrameType = f+2;
 				break;
-			}
+		}
 		ScApp->SCustom->setPixmap(ScApp->SCustom->getIconPixmap(f));
 		doc->ActPage->RefreshItem(CurItem);
 		emit DocChanged();
@@ -2381,7 +2369,7 @@ void Mpalette::MakeIrre(int f, int c, double *vals)
 		CurItem->PType = 6;
 		NewSel(6);
 		TabStack->raiseWidget(1);
-		}
+	}
 }
 
 void Mpalette::EditSh()
@@ -2389,16 +2377,16 @@ void Mpalette::EditSh()
 	if (ScApp->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
-		{
+	{
 		if ((CurItem->PType == 1) || (CurItem->PType == 3))
-			{
+		{
 			CurItem->PType = 6;
 			NewSel(6);
 			TabStack->raiseWidget(1);
-			}
+		}
 		emit EditCL();
 		emit DocChanged();
-		}
+	}
 }
 
 void Mpalette::NewTDist()
@@ -2406,14 +2394,14 @@ void Mpalette::NewTDist()
 	if (ScApp->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
-		{
+	{
 		CurItem->Extra = DLeft->value() / UmReFaktor;
 		CurItem->TExtra = DTop->value() / UmReFaktor;
 		CurItem->BExtra = DBottom->value() / UmReFaktor;
 		CurItem->RExtra = DRight->value() / UmReFaktor;
 		doc->ActPage->RefreshItem(CurItem);
 		emit DocChanged();
-		}
+	}
 }
 
 void Mpalette::NewTFont(int c)
@@ -2429,20 +2417,20 @@ void Mpalette::DoRevert()
 	if (ScApp->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
-		{
+	{
 		if (Revert->isOn())
-			{
+		{
 			CurItem->flippedH = 1;
 			CurItem->Reverse = true;
-			}
+		}
 		else
-			{
+		{
 			CurItem->flippedH = 0;
 			CurItem->Reverse = false;
-			}
+		}
 		doc->ActPage->RefreshItem(CurItem);
 		emit DocChanged();
-		}
+	}
 }
 
 void Mpalette::SetLineFormats(ScribusDoc *dd)
@@ -2452,17 +2440,17 @@ void Mpalette::SetLineFormats(ScribusDoc *dd)
 	disconnect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
 	StyledLine->clear();
 	if (dd != 0)
-		{
+	{
 		QMap<QString,multiLine>::Iterator it;
 		for (it = doc->MLineStyles.begin(); it != doc->MLineStyles.end(); ++it)
-			{
 			StyledLine->insertItem(it.key());
-			}
-		StyledLine->sort( TRUE );
+		/* PFJ - 29.02.04 - Changed from TRUE to true */
+		StyledLine->sort( true );
 		StyledLine->insertItem( tr("No Style"), 0);
 		StyledLine->setSelected(StyledLine->currentItem(), false);
-		}
-  connect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SetSTline(QListBoxItem*)));
+	}
+  	connect(StyledLine, SIGNAL(clicked(QListBoxItem*)), this,
+						SLOT(SetSTline(QListBoxItem*)));
 }
 
 void Mpalette::SetSTline(QListBoxItem *c)
@@ -2471,8 +2459,8 @@ void Mpalette::SetSTline(QListBoxItem *c)
 		return;
 	if (c == NULL)
   	return;
-  bool setter = c->listBox()->currentItem() == 0 ? true : false;
-  if (setter == true)
+  	bool setter = c->listBox()->currentItem() == 0 ? true : false;
+  	if (setter == true)
 		CurItem->NamedLStyle = "";
 	else
 		CurItem->NamedLStyle = c->text();
@@ -2497,11 +2485,11 @@ void Mpalette::updateCList()
 	TxFill->insertItem( tr("None"));
 	TxStroke->insertItem( tr("None"));
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-		{
+	{
 		pm.fill(doc->PageColors[it.key()].getRGBColor());
 		TxFill->insertItem(pm, it.key());
 		TxStroke->insertItem(pm, it.key());
-		}
+	}
 }
 
 void Mpalette::updateCmsList()
@@ -2509,54 +2497,54 @@ void Mpalette::updateCmsList()
 	if (ScApp->ScriptRunning)
 		return;
 	if (HaveDoc)
-		{
+	{
 		if ((CMSavail) && (doc->CMSSettings.CMSinUse))
 			GroupBoxCM->show();
 		else
-			{
+		{
 			GroupBoxCM->hide();
 			return;
-			}
-   	disconnect(InputP, SIGNAL(activated(const QString&)), this, SLOT(ChProf(const QString&)));
+		}
+   		disconnect(InputP, SIGNAL(activated(const QString&)), this,
+				SLOT(ChProf(const QString&)));
 		InputP->clear();
 		ProfilesL::Iterator itP;
 		for (itP = InputProfiles.begin(); itP != InputProfiles.end(); ++itP)
-			{
+		{
 			InputP->insertItem(itP.key());
-  		if (itP.key() == CurItem->IProfile)
-  			InputP->setCurrentItem(InputP->count()-1);
-			}
+  			if (itP.key() == CurItem->IProfile)
+  				InputP->setCurrentItem(InputP->count()-1);
+		}
 		if (!InputProfiles.contains(CurItem->IProfile))
-			{
+		{
 			InputP->insertItem(CurItem->IProfile);
-  		InputP->setCurrentItem(InputP->count()-1);
-			}
+  			InputP->setCurrentItem(InputP->count()-1);
+		}
 		else
-			{
+		{
 			if (CurItem->EmProfile != "")
 				InputP->insertItem(CurItem->EmProfile);
-			}
-    MonitorI->setCurrentItem(CurItem->IRender);
-   	connect(InputP, SIGNAL(activated(const QString&)), this, SLOT(ChProf(const QString&)));
 		}
+    	MonitorI->setCurrentItem(CurItem->IRender);
+   		connect(InputP, SIGNAL(activated(const QString&)), this, 
+						SLOT(ChProf(const QString&)));
+	}
 }
 
 void Mpalette::ChProf(const QString& prn)
 {
 	if (ScApp->ScriptRunning)
 		return;
-	bool EmbedP;
+	/* PFJ - 29.02.04 - Moved bool into if scope */
 	if ((HaveDoc) && (HaveItem))
-		{
+	{
 		CurItem->IProfile = InputP->currentText();
-		if (prn.startsWith("Embedded"))
-    	EmbedP = true;
-		else
-    	EmbedP = false;
+		/* PFJ - 29.02.04 - re-arranged the initialisation of EmbedP */
+		bool EmbedP = prn.startsWith("Embedded") ? true : false;
 		CurItem->UseEmbedded = EmbedP;
 		doc->ActPage->LoadPict(CurItem->Pfile, CurItem->ItemNr);
 		doc->ActPage->RefreshItem(CurItem);
-		}
+	}
 }
 
 void Mpalette::ChIntent()
@@ -2564,11 +2552,11 @@ void Mpalette::ChIntent()
 	if (ScApp->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
-		{
+	{
 		CurItem->IRender = MonitorI->currentItem();
 		doc->ActPage->LoadPict(CurItem->Pfile, CurItem->ItemNr);
 		doc->ActPage->RefreshItem(CurItem);
-		}
+	}
 }
 
 void Mpalette::ShowCMS()
@@ -2576,38 +2564,38 @@ void Mpalette::ShowCMS()
 	if (ScApp->ScriptRunning)
 		return;
 	if (HaveItem)
-		{
+	{
 		HaveItem = false;
 		updateCmsList();
 		HaveItem = true;
-		}
+	}
 	else
-		{
+	{
 		if ((CMSavail) && (doc->CMSSettings.CMSinUse))
 			GroupBoxCM->show();
 		else
 			GroupBoxCM->hide();
-		}
+	}
 }
 
 void Mpalette::newTxtFill()
 {
 	if ((HaveDoc) && (HaveItem))
-		{
+	{
 		doc->ActPage->ItemTextBrush(TxFill->currentText());
 		doc->CurrTextFill = TxFill->currentText();
 		emit DocChanged();
-		}
+	}
 }
 
 void Mpalette::newTxtStroke()
 {
 	if ((HaveDoc) && (HaveItem))
-		{
+	{
 		doc->ActPage->ItemTextPen(TxStroke->currentText());
 		doc->CurrTextStroke = TxStroke->currentText();
 		emit DocChanged();
-		}
+	}
 }
 
 void Mpalette::setActShade()
@@ -2616,17 +2604,17 @@ void Mpalette::setActShade()
 		return;
 	int b;
 	if (PM1 == sender())
-		{
+	{
 		b = PM1->getValue();
 		doc->ActPage->ItemTextPenS(b);
 		doc->CurrTextFillSh = b;
-		}
+	}
 	else
-		{
+	{
 		b = PM2->getValue();
 		doc->ActPage->ItemTextBrushS(b);
 		doc->CurrTextStrokeSh = b;
-		}
+	}
 	emit DocChanged();
 }
 
@@ -2639,25 +2627,25 @@ void Mpalette::setActFarben(QString p, QString b, int shp, int shb)
 	PM2->setValue(shb);
 	PM1->setValue(shp);
 	if ((b != "None") && (b != ""))
-		{
+	{
 		for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-			{
+		{
 			if (it.key() == b)
 				break;
 			c++;
-			}
 		}
+	}
 	TxFill->setCurrentItem(c);
 	c = 1;
 	if ((p != "None") && (p != ""))
-		{
+	{
 		for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-			{
+		{
 			if (it.key() == p)
 				break;
 			c++;
-			}
 		}
+	}
 	TxStroke->setCurrentItem(c);
 }
 
@@ -2693,9 +2681,7 @@ void Mpalette::handleResize()
 	if ((HaveDoc) && (HaveItem))
 	{
 		for ( uint a = 0; a < doc->ActPage->SelItem.count(); ++a)
-		{
 			doc->ActPage->SelItem.at(a)->LockRes = NoResize->isOn();
-		}
 		Width->setEnabled(!NoResize->isOn());
 		Height->setEnabled(!NoResize->isOn());
 		emit DocChanged();
@@ -2704,7 +2690,7 @@ void Mpalette::handleResize()
 
 void Mpalette::ToggleFlow()
 {
-		Textflow2->setEnabled(Textflow->isChecked());
+	Textflow2->setEnabled(Textflow->isChecked());
 }
 
 void Mpalette::handlePathLine()
@@ -2712,11 +2698,11 @@ void Mpalette::handlePathLine()
 	if (ScApp->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
-		{
+	{
 		CurItem->PoShow = NormText2->isChecked();
 		doc->ActPage->RefreshItem(CurItem);
 		emit DocChanged();
-		}
+	}
 }
 
 void Mpalette::handlePathDist()
@@ -2724,13 +2710,13 @@ void Mpalette::handlePathDist()
 	if (ScApp->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
-		{
+	{
 		CurItem->Extra = Dist->value();
 		doc->ActPage->UpdatePolyClip(CurItem);
 		doc->ActPage->AdjustItemSize(CurItem);
 		doc->ActPage->RefreshItem(CurItem);
 		emit DocChanged();
-		}
+	}
 }
 
 void Mpalette::handlePathOffs()
@@ -2738,13 +2724,13 @@ void Mpalette::handlePathOffs()
 	if (ScApp->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
-		{
+	{
 		CurItem->BaseOffs = -LineW->value();
 		doc->ActPage->UpdatePolyClip(CurItem);
 		doc->ActPage->AdjustItemSize(CurItem);
 		doc->ActPage->RefreshItem(CurItem);
 		emit DocChanged();
-		}
+	}
 }
 
 void Mpalette::NewName()
@@ -2756,33 +2742,33 @@ void Mpalette::NewName()
 	bool found = false;
 	ScribusView* view = (ScribusView*)doc->ActPage->Anz;
 	for (uint a = 0; a < view->Pages.count(); ++a)
-		{
+	{
 		for (uint b = 0; b < view->Pages.at(a)->Items.count(); ++b)
-			{
+		{
 			if ((NameNew == view->Pages.at(a)->Items.at(b)->AnName) && (view->Pages.at(a)->Items.at(b) != CurItem))
-				{
+			{
 				found = true;
 				break;
-				}
 			}
+		}
 		if (found)
 			break;
-		}
+	}
 	if (found)
-		{
+	{
 		QMessageBox::warning(this, tr("Warning"), tr("Name \"%1\" isn't unique.\nPlease choose another.").arg(NameNew), tr("OK"));
 		NameEdit->setText(NameOld);
 		NameEdit->setFocus();
-		}
+	}
 	else
-		{
+	{
 		if (CurItem->AnName != NameEdit->text())
-			{
+		{
 			CurItem->AnName = NameEdit->text();
 			CurItem->AutoName = false;
 			emit DocChanged();
-			}
 		}
+	}
 }
 
 void Mpalette::fillLangCombo(QMap<QString,QString> Sprachen)
@@ -2792,31 +2778,29 @@ void Mpalette::fillLangCombo(QMap<QString,QString> Sprachen)
 	LangCombo->clear();
 	QMap<QString,QString>::Iterator it;
 	for (it = Sprachen.begin(); it != Sprachen.end(); ++it)
-		{
 		LangCombo->insertItem(it.key());
-		}
 }
 
 void Mpalette::NewLanguage()
 {
 	if ((HaveDoc) && (HaveItem))
-		{
+	{
 		CurItem->Language = LangCombo->currentText();
 		emit DocChanged();
-		}
+	}
 }
 
 void Mpalette::ManageTabs()
 {
 	if ((HaveDoc) && (HaveItem))
-		{
+	{
 		TabManager *dia = new TabManager(this, doc->Einheit, CurItem->TabValues);
 		if (dia->exec())
-			{
+		{
 			CurItem->TabValues = dia->tmpTab;
 			doc->ActPage->RefreshItem(CurItem);
 			emit DocChanged();
-			}
-		delete dia;
 		}
+		delete dia;
+	}
 }
