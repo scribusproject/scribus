@@ -25,9 +25,9 @@ package-messages:
 	$(MAKE) -C po merge
 
 install-data-local:
-	$(mkinstalldirs) $(prefix)/man
-	$(mkinstalldirs) $(prefix)/man/man1
-	$(INSTALL_DATA) $(srcdir)/scribus.1 $(prefix)/man/man1/scribus.1
+	$(mkinstalldirs) $(prefix)/share/man
+	$(mkinstalldirs) $(prefix)/share/man/man1
+	$(INSTALL_DATA) $(srcdir)/scribus.1 $(prefix)/share/man/man1/scribus.1
 
 uninstall-local:
 	-rm -f $(prefix)/man/man1/scribus.1
