@@ -2253,6 +2253,8 @@ bool ScribusApp::LadeSeite(QString fileName, int Nr)
 			}
 		Mpal->Cpal->SetColors(doc->PageColors);
 		Mpal->updateCList();
+		Mpal->Spal->SetFormats(doc);
+		Mpal->SetLineFormats(doc);
 		Tpal->BuildTree(view);
 		Tpal->reopenTree(doc->OpenNodes);
 		slotDocCh();

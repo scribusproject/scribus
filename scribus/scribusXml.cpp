@@ -152,12 +152,24 @@ struct ScribusDoc::BookMa bok;
 struct Linked Link;
 PageItem *Neu;
 LFrames.clear();
-QString tmp, tmpf, tmp2, tmp3, tmp4, PgNam, f, Defont;
+QString tmV, tmp, tmpf, tmp2, tmp3, tmp4, PgNam, f, Defont;
 QFont fo;
 QMap<QString,QString> DoFonts;
+QMap<uint,QString> DoVorl;
+uint VorlC;
 int x, y, a, counter;
 double xf, yf;
 bool newVersion = false;
+bool fou;
+bool VorLFound = false;
+DoVorl.clear();
+DoFonts.clear();
+DoVorl[0] = "0";
+DoVorl[1] = "1";
+DoVorl[2] = "2";
+DoVorl[3] = "3";
+DoVorl[4] = "4";
+VorlC = 5;
 QDomDocument docu("scridoc");
 f = "";
 f = ReadDatei(fileName);
@@ -219,6 +231,8 @@ while(!DOC.isNull())
 			}
 		if(pg.tagName()=="STYLE")
 			{
+			fou = false;
+			VorLFound = true;
 			vg.Vname = pg.attribute("NAME");
 			vg.LineSpa = QStodouble(pg.attribute("LINESP"));
 			vg.Indent = QStodouble(pg.attribute("INDENT","0"));
@@ -231,7 +245,37 @@ while(!DOC.isNull())
 			else
 				vg.Font = DoFonts[Defont];
 			vg.FontSize = qRound(QStodouble(pg.attribute("FONTSIZE","12")) * 10.0);
-			doc->Vorlagen.append(vg);
+			for (uint xx=0; xx<doc->Vorlagen.count(); ++xx)
+				{
+				if (vg.Vname == doc->Vorlagen[xx].Vname)
+					{
+					if ((vg.LineSpa == doc->Vorlagen[xx].LineSpa) &&
+							(vg.Indent == doc->Vorlagen[xx].Indent) &&
+							(vg.First == doc->Vorlagen[xx].First) &&
+							(vg.Ausri == doc->Vorlagen[xx].Ausri) &&
+							(vg.Avor == doc->Vorlagen[xx].Avor) &&
+							(vg.Anach == doc->Vorlagen[xx].Anach) &&
+							(vg.Font == doc->Vorlagen[xx].Font) &&
+							(vg.FontSize == doc->Vorlagen[xx].FontSize))
+						{
+						DoVorl[VorlC] = tmV.setNum(xx);
+						VorlC++;
+						fou = true;
+						}
+					else
+						{
+						vg.Vname = "Copy of "+doc->Vorlagen[xx].Vname;
+						fou = false;
+						}
+					break;
+					}
+				}
+			if (!fou)
+				{
+				doc->Vorlagen.append(vg);
+				DoVorl[VorlC] = tmV.setNum(doc->Vorlagen.count()-1);
+				VorlC++;
+				}
 			}
 		if(pg.tagName()=="JAVA")
 			doc->JavaScripts[pg.attribute("NAME")] = pg.attribute("SCRIPT");
@@ -523,7 +567,15 @@ while(!DOC.isNull())
 						tmp3 += it.attribute("CEXTRA") + "\t";
 						tmp3 += it.attribute("CSHADE") + "\t";
 						tmp3 += it.attribute("CSTYLE") + "\t";
-						tmp3 += it.attribute("CAB","0") + "\t";
+						if (VorLFound)
+							tmp3 += DoVorl[it.attribute("CAB","0").toUInt()] + "\t";
+						else
+							{
+							if (it.attribute("CAB","0").toUInt() < 5)
+								tmp3 += it.attribute("CAB","0")+"\t";
+							else
+								tmp3 += "0\t";
+							}
 						tmp3 += it.attribute("CSTROKE","None") + "\t";
 						tmp3 += it.attribute("CSHADE2","100") + "\t";
 						tmp3 += it.attribute("CSCALE","100") + "\n";
@@ -1288,6 +1340,11 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 	QDomNode DOC=elem.firstChild();
 	DoFonts.clear();
 	DoVorl.clear();
+	DoVorl[0] = "0";
+	DoVorl[1] = "1";
+	DoVorl[2] = "2";
+	DoVorl[3] = "3";
+	DoVorl[4] = "4";
 	VorlC = 5;
 	QString CurDirP = QDir::currentDirPath();
 	QDir::setCurrent(QString(getenv("HOME")));
@@ -1360,14 +1417,29 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int
 				vg.Font = DoFonts[pg.attribute("FONT")];
 			else
 				vg.Font = doc->Dfont;
-			vg.FontSize = QStoInt(pg.attribute("FONTSIZE","12"));
+			vg.FontSize = qRound(QStodouble(pg.attribute("FONTSIZE","12")) * 10);
 			for (uint xx=0; xx<doc->Vorlagen.count(); ++xx)
 				{
 				if (vg.Vname == doc->Vorlagen[xx].Vname)
 					{
-					DoVorl[VorlC] = tmV.setNum(xx);
-					VorlC++;
-					fou = true;
+					if ((vg.LineSpa == doc->Vorlagen[xx].LineSpa) &&
+							(vg.Indent == doc->Vorlagen[xx].Indent) &&
+							(vg.First == doc->Vorlagen[xx].First) &&
+							(vg.Ausri == doc->Vorlagen[xx].Ausri) &&
+							(vg.Avor == doc->Vorlagen[xx].Avor) &&
+							(vg.Anach == doc->Vorlagen[xx].Anach) &&
+							(vg.Font == doc->Vorlagen[xx].Font) &&
+							(vg.FontSize == doc->Vorlagen[xx].FontSize))
+						{
+						DoVorl[VorlC] = tmV.setNum(xx);
+						VorlC++;
+						fou = true;
+						}
+					else
+						{
+						vg.Vname = "Copy of "+doc->Vorlagen[xx].Vname;
+						fou = false;
+						}
 					break;
 					}
 				}

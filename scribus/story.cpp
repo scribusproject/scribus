@@ -29,7 +29,17 @@ SEditor::SEditor(QWidget* parent) : QTextEdit(parent)
 {
 	clines = 0;
 	setFrameStyle( QFrame::NoFrame | QFrame::Plain );
+	setUndoRedoEnabled(true);
+	setUndoDepth(50);
 //	setTextFormat(Qt::RichText);
+}
+
+void SEditor::focusInEvent(QFocusEvent *f)
+{
+	bool u = isUndoAvailable();
+	bool r = isRedoAvailable();
+	emit UnRe(u, r);
+	QTextEdit::focusInEvent(f);	
 }
 
 void SEditor::keyPressEvent(QKeyEvent *k)
@@ -50,6 +60,9 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 	if (clines != lines())
 		emit wrapped();
 	clines = lines();
+	bool u = isUndoAvailable();
+	bool r = isRedoAvailable();
+	emit UnRe(u, r);
 	ensureCursorVisible();
 }
 
@@ -228,16 +241,16 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite) : QDi
 	fmenu->insertItem( tr("Save and Exit"), this, SLOT(accept()));
 	fmenu->insertItem( tr("Exit without Saving"), this, SLOT(Do_leave()));
  	emenu = new QPopupMenu();
- 	emenu->insertItem( tr("Undo"), this, SLOT(Do_undo()), CTRL+Key_Z);
- 	emenu->insertItem( tr("Redo"), this, SLOT(Do_redo()));
+ 	Mundo = emenu->insertItem( tr("Undo"), this, SLOT(Do_undo()), CTRL+Key_Z);
+ 	Mredo = emenu->insertItem( tr("Redo"), this, SLOT(Do_redo()));
 	emenu->insertSeparator();
-	emenu->insertItem(loadIcon("editcut.png"), tr("Cut"), this, SLOT(Do_cut()), CTRL+Key_X);
-	emenu->insertItem(loadIcon("editcopy.png"), tr("Copy"), this, SLOT(Do_copy()), CTRL+Key_C);
-	emenu->insertItem(loadIcon("editpaste.png"), tr("Paste"), this, SLOT(Do_paste()), CTRL+Key_V);
-	emenu->insertItem(loadIcon("editdelete.png"), tr("Clear"), this, SLOT(Do_del()), CTRL+Key_V);
+	Mcopy = emenu->insertItem(loadIcon("editcut.png"), tr("Cut"), this, SLOT(Do_cut()), CTRL+Key_X);
+	Mcut = emenu->insertItem(loadIcon("editcopy.png"), tr("Copy"), this, SLOT(Do_copy()), CTRL+Key_C);
+	Mpaste = emenu->insertItem(loadIcon("editpaste.png"), tr("Paste"), this, SLOT(Do_paste()), CTRL+Key_V);
+	Mdel = emenu->insertItem(loadIcon("editdelete.png"), tr("Clear"), this, SLOT(Do_del()), CTRL+Key_V);
 	emenu->insertSeparator();
 	emenu->insertItem( tr("Edit Styles..."), this , SLOT(slotEditStyles()));
-	emenu->insertItem( tr("Update Textframe"), this, SLOT(updateTextFrame()));
+	Mupdt = emenu->insertItem( tr("Update Textframe"), this, SLOT(updateTextFrame()));
  	menuBar = new QMenuBar(this);
 	menuBar->insertItem( tr("File"), fmenu);
 	menuBar->insertItem( tr("Edit"), emenu);
@@ -289,6 +302,18 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite) : QDi
 	SEditor *cp = (SEditor*)table1->cellWidget(0, 1);
 	cp->setFocus();
 	cp->setCursorPosition(0, 0);
+	for (uint a = 0; a < edList.count(); ++a)
+		{
+		SEditor *tt = edList.at(a);
+		tt->setUndoRedoEnabled(false);
+		tt->setUndoRedoEnabled(true);
+		}
+	emenu->setItemEnabled(Mundo, 0);
+	emenu->setItemEnabled(Mredo, 0);
+	emenu->setItemEnabled(Mcopy, 0);
+	emenu->setItemEnabled(Mcut, 0);
+	emenu->setItemEnabled(Mdel, 0);
+	emenu->setItemEnabled(Mupdt, 0);
 }
 
 void StoryEditor::closeEvent(QCloseEvent *)
@@ -322,8 +347,15 @@ void StoryEditor::Do_new()
 	edList.clear();
 	addPar(0, "", doc->CurrentABStil);
 	SEditor *cp = (SEditor*)table1->cellWidget(0, 1);
+	cp->setUndoRedoEnabled(false);
+	cp->setUndoRedoEnabled(true);
 	cp->setFocus();
 	cp->setCursorPosition(0, 0);
+	emenu->setItemEnabled(Mundo, 0);
+	emenu->setItemEnabled(Mredo, 0);
+	emenu->setItemEnabled(Mcopy, 0);
+	emenu->setItemEnabled(Mcut, 0);
+	emenu->setItemEnabled(Mdel, 0);
 }
 
 void StoryEditor::Do_undo()
@@ -368,6 +400,19 @@ void StoryEditor::Do_del()
 	table1->adjHeight(table1->currentRow());
 }
 
+void StoryEditor::UnReMenu(bool u, bool r)
+{
+	emenu->setItemEnabled(Mundo, u);
+	emenu->setItemEnabled(Mredo, r);
+}
+
+void StoryEditor::CopyAvail(bool u)
+{
+	emenu->setItemEnabled(Mcopy, u);
+	emenu->setItemEnabled(Mcut, u);
+	emenu->setItemEnabled(Mdel, u);
+}
+
 void StoryEditor::updateTextFrame()
 {
 	bool first = false;
@@ -405,6 +450,7 @@ void StoryEditor::updateTextFrame()
 		nb = nb->NextBox;
 		}
 	TextChanged = false;
+	emenu->setItemEnabled(Mupdt, 0);
 	emit DocChanged();
 }
 
@@ -471,6 +517,7 @@ void StoryEditor::styleChange(int st)
 			default:
 				break;
 			}
+		modifiedText();
 		}
 }
 
@@ -500,6 +547,8 @@ void StoryEditor::addPar(int where, QString text, int sty)
 	disconnect(ct, SIGNAL(highlighted(int)), this, SLOT(styleChange(int)));
 	cp->setFocus();
 	cp->setCursorPosition(0, 0);
+	connect(cp, SIGNAL(copyAvailable(bool)), this, SLOT(CopyAvail(bool)));
+	connect(cp, SIGNAL(UnRe(bool, bool)), this, SLOT(UnReMenu(bool, bool)));
 	connect(cp, SIGNAL(wrapped()), this, SLOT(WrapHandler()));
 	connect(cp, SIGNAL(delPressed()), this, SLOT(KeyDel()));
 	connect(cp, SIGNAL(bsPressed()), this, SLOT(KeyBS()));
@@ -514,6 +563,7 @@ void StoryEditor::modifiedText()
 	TextChanged = true;
 	table1->HomeK = 0;
 	table1->EndK = 0;
+	emenu->setItemEnabled(Mupdt, 1);
 }
 
 void StoryEditor::WrapHandler()

@@ -38,10 +38,12 @@ class SEditor : public QTextEdit
 public:
 	SEditor (QWidget* parent);
 	~SEditor() {};
+	void focusInEvent(QFocusEvent *f);
 	void keyPressEvent(QKeyEvent *k);
 	int clines;
 
 signals:
+	void UnRe(bool, bool);
 	void wrapped();
 	void bsPressed();
 	void delPressed();
@@ -81,6 +83,13 @@ public:
 	ScribusDoc* doc;
 	PageItem* CurrItem;
 	bool TextChanged;
+	int Mundo;
+	int Mredo;
+	int Mcopy;
+	int Mcut;
+	int Mdel;
+	int Mpaste;
+	int Mupdt;
 
 public slots:
 	void Do_leave();
@@ -91,6 +100,8 @@ public slots:
 	void Do_paste();
 	void Do_cut();
 	void Do_del();
+	void UnReMenu(bool u, bool r);
+	void CopyAvail(bool u);
 	void updateTextFrame();
 	void slotEditStyles();
 	void styleChange(int st);
