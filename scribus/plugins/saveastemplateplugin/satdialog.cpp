@@ -248,6 +248,8 @@ void satdialog::setupCategories()
 	cats.push_back(new Pair(en,lang));
 	en = new QString("Folds"); lang = new QString(QObject::tr("Folds"));
 	cats.push_back(new Pair(en,lang));
+	en = new QString("Media Cases"); lang = new QString(QObject::tr("Media Cases"));
+	cats.push_back(new Pair(en,lang));
 	en = new QString("Own Templates"); lang = new QString(QObject::tr("Own Templates"));
 	cats.push_back(new Pair(en,lang));
 	
