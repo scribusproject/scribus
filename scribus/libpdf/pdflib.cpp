@@ -1054,11 +1054,27 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 							continue;
 						if (ite->PType == 4)
 						{
+							QWidget* Opa;
+							Page* Opa2;
+							Opa = ite->Parent;
+							Opa2 = ite->OwnPage;
+							ite->Parent = pag;
+							ite->OwnPage = pag;
+							double savScale = doc->Scale;
+							doc->Scale = 1.0;
+							doc->RePos = true;
+							QPixmap pgPix(10, 10);
+							QRect rd = QRect(0,0,9,9);
+							ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
+							ite->DrawObj(painter, rd);
+							doc->RePos = false;
+							doc->Scale = savScale;
+							delete painter;
+							ite->Parent = Opa;
+							ite->OwnPage = Opa2;
 							PutPage("q\n");
-							if (((ite->Transparency != 0) || 
-								(ite->TranspStroke != 0)) && 
-								(Options->Version == 14))
-									PDF_Transparenz(ite);
+							if (((ite->Transparency != 0) || (ite->TranspStroke != 0)) && (Options->Version == 14))
+								PDF_Transparenz(ite);
 							if (Options->UseRGB)
 							{
 								if (ite->Pcolor != "None")
@@ -1105,8 +1121,7 @@ void PDFlib::PDF_ProcessPage(Page* pag, uint PNr)
 #ifdef HAVE_CMS
 							}
 #endif
-							PutPage("1 0 0 1 "+FToStr(ite->Xpos)+" "+
-									FToStr(doc->PageH - ite->Ypos)+" cm\n");
+							PutPage("1 0 0 1 "+FToStr(ite->Xpos)+" "+FToStr(doc->PageH - ite->Ypos)+" cm\n");
 							if (ite->Rot != 0)
 							{
 								double sr = sin(-ite->Rot* 3.1415927 / 180.0);

@@ -1135,6 +1135,24 @@ void ScribusView::CreatePS(PSLib *p, uint von, uint bis, int step, bool sep, QSt
 							}
 							if (ite->PType == 4)
 							{
+								QWidget* Opa;
+								Page* Opa2;
+								Opa = ite->Parent;
+								Opa2 = ite->OwnPage;
+								ite->Parent = Pages.at(a);
+								ite->OwnPage = Pages.at(a);
+								double savScale = Doc->Scale;
+								Doc->Scale = 1.0;
+								Doc->RePos = true;
+								QPixmap pgPix(10, 10);
+								QRect rd = QRect(0,0,9,9);
+								ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
+								ite->DrawObj(painter, rd);
+								Doc->RePos = false;
+								Doc->Scale = savScale;
+								delete painter;
+								ite->Parent = Opa;
+								ite->OwnPage = Opa2;
 								p->PS_save();
 								if (ite->Pcolor != "None")
 								{

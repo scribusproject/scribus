@@ -1858,7 +1858,7 @@ void ReOrderText(ScribusDoc *doc, ScribusView *view)
 		for (uint azz=0; azz<view->MasterPages.at(az)->Items.count(); ++azz)
 		{
 			PageItem *ite = view->MasterPages.at(az)->Items.at(azz);
-			if ((ite->PType == 4) || (ite->PType == 8))
+			if (ite->PType == 8)
 				ite->DrawObj(painter, rd);
 		}
 	}

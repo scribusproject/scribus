@@ -180,9 +180,9 @@ public:
 	int DrVX;
 	QValueList<double> XGuides;
 	QValueList<double> YGuides;
-	uint GyM;
+	int GyM;
 	bool MoveGY;
-	uint GxM;
+	int GxM;
 	bool MoveGX;
 	FPoint RCenter;
 	bool MidButt;

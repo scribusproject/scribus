@@ -4241,6 +4241,14 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 									nx = (qRound(np.x() / doku->minorGrid) * doku->minorGrid - dx);
 									ny = (qRound(np.y() / doku->minorGrid) * doku->minorGrid - dy);
 								}
+/*								if (doku->SnapGuides)
+								{
+									nx += b->Xpos;
+									ny += b->Ypos;
+									ApplyGuides(&nx, &ny);
+									nx -= b->Xpos;
+									ny -= b->Ypos;
+								} */
 								erf = SizeItem(nx, ny, b->ItemNr);
 							}
 							else
@@ -4398,6 +4406,17 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 						p.drawRect(0, 0, static_cast<int>(b->Width)+1, static_cast<int>(b->Height)+1);
 					p.end();
 					erf = MoveItem(newX-Mxp, newY-Myp, b);
+					if (doku->SnapGuides)
+					{
+						double nx = b->Xpos;
+						double ny = b->Ypos;
+						ApplyGuides(&nx, &ny);
+						MoveItem(nx-b->Xpos, ny-b->Ypos, b);
+						nx = b->Xpos+b->Width;
+						ny = b->Ypos+b->Height;
+						ApplyGuides(&nx, &ny);
+						MoveItem(nx-(b->Xpos+b->Width), ny-(b->Ypos+b->Height), b);
+					}
 					p.begin(this);
 					Transform(b, &p);
 					p.setRasterOp(XorROP);
