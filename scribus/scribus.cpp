@@ -2635,7 +2635,11 @@ void ScribusApp::HaveNewSel(int Nr)
 {
 	PageItem *b = NULL;
 	if (Nr != -1)
+	{
 		b = doc->ActPage->SelItem.at(0);
+		if (!b)
+			return;
+	}
 	ObjMenu->setItemEnabled(PfadDT, 0);
 	if (PluginMap.contains(1))
 		extraMenu->setItemEnabled(PluginMap[1].MenuID, 0);
