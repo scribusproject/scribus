@@ -17,8 +17,8 @@ or documentation
 #include "version.h"
 #include "shortwords.h"
 
-#include <scribus.h>
-#include <prefsfile.h>
+#include "scribus.h"
+#include "prefsfile.h"
 #include <qdir.h>
 #include <qstringlist.h>
 

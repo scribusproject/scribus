@@ -13,7 +13,7 @@ or documentation
 #include "shortwords.h"
 #include "version.h"
 
-#include <scribus.h>
+#include "scribus.h"
 #include <qregexp.h>
 
 extern ScribusApp *ScApp;

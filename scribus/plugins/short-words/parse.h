@@ -15,7 +15,7 @@ or documentation
 
 #include "shortwords.h"
 
-#include <scribus.h>
+#include "scribus.h"
 #include <qobject.h>
 
 class Parse : public QObject

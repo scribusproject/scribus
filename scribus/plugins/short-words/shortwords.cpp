@@ -13,7 +13,7 @@ or documentation
 #include "version.h"
 #include "vlnadialog.h"
 
-#include <scribus.h>
+#include "scribus.h"
 #include <qmessagebox.h>
 #include <qtextcodec.h>
 #include <qcursor.h>
