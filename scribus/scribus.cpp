@@ -1693,7 +1693,7 @@ void ScribusApp::SwitchWin()
 	view->LaMenu();
 	view->setLayMenTxt(doc->ActiveLayer);
 	doc->CurrentABStil = 0;
-	slotChangeUnit(doc->Einheit);
+	slotChangeUnit(doc->Einheit, false);
 	if (doc->EditClip)
 		{
 		doc->EditClip = !doc->EditClip;
@@ -5504,7 +5504,7 @@ void ScribusApp::slotElemRead(QString Name, int x, int y, bool art, bool loca, S
   delete ss;
 }
 
-void ScribusApp::slotChangeUnit(int art)
+void ScribusApp::slotChangeUnit(int art, bool draw)
 {
 	doc->Einheit = art;
 	switch (art)
@@ -5527,7 +5527,8 @@ void ScribusApp::slotChangeUnit(int art)
 			break;
 		}
 	Mpal->UnitChange();
-	view->DrawNew();
+	if (draw)
+		view->DrawNew();
 }
 
 void ScribusApp::ManageJava()
@@ -6279,6 +6280,8 @@ void ScribusApp::InitHyphenator()
 				datein = tr("Slovak");
 			if (d[dc] == "hyph_hu.dic")
 				datein = tr("Hungarian");
+			if (d[dc] == "hyph_cs.dic")
+				datein = tr("Czech");
 			Sprachen.insert(datein, d[dc]);
 			if (d[dc] == "hyph_"+lang+".dic")
 				Prefs.Language = datein;

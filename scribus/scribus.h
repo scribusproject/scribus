@@ -358,7 +358,7 @@ class ScribusApp : public QMainWindow
 	void setStilvalue(int s);
 	void setItemTypeStyle(int id);
 	void slotElemRead(QString Name, int x, int y, bool art, bool loca, ScribusDoc* docc);
-	void slotChangeUnit(int art);
+	void slotChangeUnit(int art, bool draw = true);
 	void NoFrameEdit();
 	void setItemTextAli(int id);
 	void ApplyTemp();

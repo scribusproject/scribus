@@ -1,4 +1,8 @@
 Changes since Version 1.0RC1
+01.07.2003	Added Czech Hyphenation Dictionary and updated the Czech Translation.
+		Various small Fixes from Paul.
+		scribus.cpp		Fixed unneeded Redraw when switching Windows.
+
 30.06.2003	page.cpp		Pressing the Ctlr-Key when resizing Objects with the Mouse
 					keeps now the aspect ratio of the Object.
 		pageitem.cpp		All Characters with code above 128 are now handled by FreeType.
