@@ -1076,35 +1076,31 @@ void ScribusApp::initMenuBar()
 
 void ScribusApp::initStatusBar()
 {
-	FMess = new QLabel(statusBar(), "ft");
-	FMess->setText("           ");
-	statusBar()->addWidget(FMess, 3, true);
+	FMess = new QLabel( "           ", statusBar(), "ft");
 	FProg = new QProgressBar(statusBar(), "p");
 	FProg->setCenterIndicator(true);
 	FProg->setFixedWidth( 100 );
-	statusBar()->addWidget(FProg, 0, true);
 	FProg->reset();
-	XMess = new QLabel(statusBar(), "xt");
-	XMess->setText( tr("X-Pos:"));
+	XMess = new QLabel( tr("X-Pos:"), statusBar(), "xt");
+	YMess = new QLabel( tr("Y-Pos:"), statusBar(), "yt");
+	XDat = new QLabel( "         ", statusBar(), "dt");
+	YDat = new QLabel( "         ", statusBar(), "ydt");
+
+	statusBar()->addWidget(FMess, 3, true);
+	statusBar()->addWidget(FProg, 0, true);
 	statusBar()->addWidget(XMess, 0, true);
-	XDat = new QLabel(statusBar(), "dt");
 	statusBar()->addWidget(XDat, 1, true);
-	XDat->setText("         ");
-	YMess = new QLabel(statusBar(), "yt");
-	YMess->setText( tr("Y-Pos:"));
 	statusBar()->addWidget(YMess, 0, true);
-	YDat = new QLabel(statusBar(), "ydt");
 	statusBar()->addWidget(YDat, 1, true);
-	YDat->setText("         ");
 }
 
 void ScribusApp::ReportMP(double xp, double yp)
 {
-	QString tmp, suffix;
-	suffix=unitGetSuffixFromIndex(doc->Einheit);
+	QString suffix=unitGetSuffixFromIndex(doc->Einheit);
 	int multiplier=unitGetDecimalsFromIndex(doc->Einheit);
 	double divisor = static_cast<double>(multiplier);
 	int precision=precision = unitGetPrecisionFromIndex(doc->Einheit);
+	QString tmp;
 	XDat->setText(tmp.setNum(qRound(xp*UmReFaktor * multiplier) / divisor, 'f', precision) + suffix);
 	YDat->setText(tmp.setNum(qRound(yp*UmReFaktor * multiplier) / divisor, 'f', precision) + suffix);
 }
@@ -1120,10 +1116,9 @@ void ScribusApp::SetKeyEntry(int Nr, QString text, int Men, int KeyC)
 
 void ScribusApp::DeleteSel(PageItem *b)
 {
-	Pti *it;
 	int FirstSel = 0;
 	bool first = false;
-	for (it = b->Ptext.first(); it != 0; it = b->Ptext.next())
+	for (Pti *it = b->Ptext.first(); it != 0; it = b->Ptext.next())
 	{
 		if (it->cselect)
 		{
@@ -2152,33 +2147,32 @@ void ScribusApp::parsePagesString(QString pages, std::vector<int>* pageNs, int s
 
 bool ScribusApp::slotFileNew()
 {
-	double b, h, tpr, lr, rr, br, sp, ab;
-	bool fp, atf, ret;
-	int ori;
-	QString pagesize;
+	bool retVal;
 	NewDoc* dia = new NewDoc(this, &Prefs);
 	if (dia->exec())
 	{
-		tpr = dia->Top;
-		lr = dia->Left;
-		rr = dia->Right;
-		br = dia->Bottom;
-		ab = dia->Dist;
-		b = dia->Pagebr;
-		h = dia->Pageho;
-		sp = dia->SpinBox10->value();
-		atf = dia->AutoFrame->isChecked();
-		fp = dia->Doppelseiten->isChecked();
-		ori = dia->Orient;
-		pagesize = dia->ComboBox1->currentText();
-		ret = doFileNew(b, h, tpr, lr, rr, br, ab, sp, atf, fp, dia->ComboBox3->currentItem(),
-		                dia->ErsteSeite->isChecked(), ori, dia->PgNr->value(), pagesize);
+		bool facingPages, autoframes;
+		double pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, numberCols, columnDistance;
+		topMargin = dia->Top;
+		leftMargin = dia->Left;
+		rightMargin = dia->Right;
+		bottomMargin = dia->Bottom;
+		columnDistance = dia->Dist;
+		pageWidth = dia->Pagebr;
+		pageHeight = dia->Pageho;
+		numberCols = dia->SpinBox10->value();
+		autoframes = dia->AutoFrame->isChecked();
+		facingPages = dia->Doppelseiten->isChecked();
+		int orientation = dia->Orient;
+		QString pagesize = dia->ComboBox1->currentText();
+		retVal = doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->ComboBox3->currentItem(),
+		                dia->ErsteSeite->isChecked(), orientation, dia->PgNr->value(), pagesize);
 		FMess->setText( tr("Ready"));
 	}
 	else
-		ret = false;
+		retVal = false;
 	delete dia;
-	return ret;
+	return retVal;
 }
 
 bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr, double br, double ab, double sp,
@@ -2403,7 +2397,6 @@ void ScribusApp::windowsMenuAboutToShow()
 
 void ScribusApp::newActWin(QWidget *w)
 {
-	ScribusWin* swin;
 	if (w == NULL)
 	{
 		ActWin = NULL;
@@ -2418,6 +2411,7 @@ void ScribusApp::newActWin(QWidget *w)
 	doc = ActWin->doc;
 	view = ActWin->view;
 	Sepal->SetView(view);
+	ScribusWin* swin;
 	if (!doc->loading)
 	{
 		SwitchWin();
@@ -7926,9 +7920,9 @@ void ScribusApp::GroupObj()
 		{
 			int t = QMessageBox::warning(this, tr("Warning"),
 			                             tr("Some Objects are locked."),
-			                             tr("Cancel"),
-			                             tr("Lock all"),
-			                             tr("Unlock all"), 0, 0);
+			                             tr("&Cancel"),
+			                             tr("&Lock All"),
+			                             tr("&Unlock All"), 0, 0);
 			if (t != 0)
 			{
 				for (uint c=0; c<view->SelItem.count(); ++c)
@@ -7937,12 +7931,12 @@ void ScribusApp::GroupObj()
 					if (t == 1)
 					{
 						bb->Locked = true;
-						ObjMenu->changeItem(LockOb, tr("Unlock"));
+						ObjMenu->changeItem(LockOb, tr("Un&lock"));
 					}
 					else
 					{
 						bb->Locked = false;
-						ObjMenu->changeItem(LockOb, tr("Lock"));
+						ObjMenu->changeItem(LockOb, tr("&Lock"));
 					}
 				}
 			}
@@ -8932,9 +8926,9 @@ void ScribusApp::ToggleObjLock()
 			PageItem* b = view->SelItem.at(0);
 			view->ToggleLock();
 			if (b->Locked)
-				ObjMenu->changeItem(LockOb, tr("Unlock"));
+				ObjMenu->changeItem(LockOb, tr("Un&lock"));
 			else
-				ObjMenu->changeItem(LockOb, tr("Lock"));
+				ObjMenu->changeItem(LockOb, tr("&Lock"));
 		}
 	}
 }
