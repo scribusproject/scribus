@@ -205,18 +205,28 @@ void ScripterCore::RecentScript(QString fn)
 
 void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 {
-	Carrier->ScriptRunning = true;
-	qApp->setOverrideCursor(QCursor(waitCursor), false);
 	char* comm[1];
+	PyThreadState *stateo, *state;
 	QFileInfo fi(fileName);
 	QCString na = fi.fileName().latin1();
-	QDir::setCurrent(fi.dirPath(true));
-	PyThreadState *stateo = PyEval_SaveThread();
-	PyThreadState *state = Py_NewInterpreter();
-	initscribus(Carrier);
+	// Set up a sub-interpreter if needed:
+	if (!inMainInterpreter)
+	{
+		Carrier->ScriptRunning = true;
+		qApp->setOverrideCursor(QCursor(waitCursor), false);
+		// Create the sub-interpreter
+		// FIXME: This calls abort() in a Python debug build. We're doing something wrong.
+		stateo = PyEval_SaveThread();
+		state = Py_NewInterpreter();
+		// Chdir to the dir the script is in
+		QDir::setCurrent(fi.dirPath(true));
+		// Init the scripter module in the sub-interpreter
+		initscribus(Carrier);
+	}
+	// Make sure sys.argv[0] is the path to the script
 	comm[0] = na.data();
-	// call python script
 	PySys_SetArgv(1, comm);
+	// call python script
 	PyObject* m = PyImport_AddModule((char*)"__main__");
 	if (m == NULL)
 		qDebug("Failed to get __main__ - aborting script");
@@ -225,35 +235,46 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 		// FIXME: If filename contains chars outside 7bit ascii, might be problems
 		PyObject* globals = PyModule_GetDict(m);
 		// Build the Python code to run the script
-		QString cm = QString("import sys,StringIO,traceback\n");
+		QString cm = QString("from __future__ import division\n");
+		cm        += QString("import sys\n");
+		cm        += QString("import cStringIO\n");
 		/* Implementation of the help() in pydoc.py reads some OS variables
 		 * for output settings. I use ugly hack to stop freezing calling help()
 		 * in script. pv. */
-		cm += QString("import os\nos.environ['PAGER'] = '/bin/false'\n"); // HACK
-		cm += QString("sys.path[0] = \"%1\"\n").arg(fi.dirPath(true));
-		cm += QString("try:\n");
-		cm += QString("    execfile(\"%1\")\n").arg(fileName);
-		cm += QString("except SystemExit:\n");
-		cm += QString("    pass\n");
+		cm        += QString("import os\nos.environ['PAGER'] = '/bin/false'\n"); // HACK
+		cm        += QString("sys.path[0] = \"%1\"\n").arg(fi.dirPath(true));
+		// Replace sys.stdin with a dummy StringIO that always returns
+		// "" for read
+		cm        += QString("sys.stdin = cStringIO.StringIO()\n");
+		cm        += QString("try:\n");
+		cm        += QString("    execfile(\"%1\")\n").arg(fileName);
+		cm        += QString("except SystemExit:\n");
+		cm        += QString("    pass\n");
 		// Capture the text of any other exception that's raised by the interpreter
 		// into a StringIO buffer for later extraction.
-		cm += QString("except Exception, err:\n");
-		cm += QString("    f=StringIO.StringIO()\n");
-		cm += QString("    traceback.print_exc(file=f)\n");
-		cm += QString("    errorMsg = f.getvalue()\n");
-		cm += QString("    del(f)\n");
-		// We re-raise the exception so the return value of PyRun_String reflects
+		cm        += QString("except:\n");
+		cm        += QString("    import traceback\n");
+		cm        += QString("    import scribus\n");                  // we stash our working vars here
+		cm        += QString("    scribus._f=cStringIO.StringIO()\n");
+		cm        += QString("    traceback.print_exc(file=scribus._f)\n");
+		cm        += QString("    _errorMsg = scribus._f.getvalue()\n");
+		cm        += QString("    del(scribus._f)\n");
+		// We re-raise the exception so the return value of PyRun_StringFlags reflects
 		// the fact that an exception has ocurred.
-		cm += QString("    raise\n");
+		cm        += QString("    raise\n");
 		// FIXME: if cmd contains chars outside 7bit ascii, might be problems
 		QCString cmd = cm.latin1();
-		// Now run the script in the interpreter's global scope
+		// Now run the script in the interpreter's global scope. It'll run in a
+		// sub-interpreter if we created and switched to one earlier, otherwise
+		// it'll run in the main interpreter.
 		PyObject* result = PyRun_String(cmd.data(), Py_file_input, globals, globals);
 		// NULL is returned if an exception is set. We don't care about any
 		// other return value (most likely None anyway) and can ignore it.
 		if (result == NULL)
 		{
-			PyObject* errorMsgPyStr = PyMapping_GetItemString(globals, (char*)"errorMsg");
+			// We've already saved the exception text, so clear the exception
+			PyErr_Clear();
+			PyObject* errorMsgPyStr = PyMapping_GetItemString(globals, (char*)"_errorMsg");
 			if (errorMsgPyStr == NULL)
 			{
 				// It's rather unlikely that this will ever be reached - to get here
@@ -278,10 +299,13 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 		// Because 'result' may be NULL, not a PyObject*, we must call PyXDECREF not Py_DECREF
 		Py_XDECREF(result);
 	} // end if m == NULL
-	Py_EndInterpreter(state);
-	PyEval_RestoreThread(stateo);
-	Carrier->ScriptRunning = false;
-	qApp->restoreOverrideCursor();
+	if (!inMainInterpreter)
+	{
+		Py_EndInterpreter(state);
+		PyEval_RestoreThread(stateo);
+		Carrier->ScriptRunning = false;
+		qApp->restoreOverrideCursor();
+	}
 }
 
 QString ScripterCore::slotRunScript(QString Script)
