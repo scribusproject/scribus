@@ -794,10 +794,10 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 						wide = Cwidth(Doc, hl->cfont, chx2, chs);
 					if (DropCmode)
 						wide = RealCWidth(Doc, hl->cfont, chx2, chs);
-					wide = wide * (hl->cscale / 100.0);
 					desc2 = -(*Doc->AllFonts)[hl->cfont]->numDescender * (chs / 10.0);
 					desc = qRound(-(*Doc->AllFonts)[hl->cfont]->numDescender * (chs / 10.0));
 					asce = qRound((*Doc->AllFonts)[hl->cfont]->numAscent * (chs / 10.0));
+					wide = wide * (hl->cscale / 100.0);
 					fBorder = false;
 					if (LiList.isEmpty())
 						{

@@ -166,6 +166,11 @@ public:
 	Autoforms* SCustom;
 	WerkToolB* WerkTools;
 	int HavePngAlpha;
+	QString DLLReturn;
+	QString DLLinput;
+	bool UniCinp;
+	int UniCinC;
+	QString UniCinS;
 
 public slots:
 	void slotStoryEditor();

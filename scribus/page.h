@@ -211,6 +211,7 @@ public slots:
 	void ToggleLock();
 	void TogglePic();
 	void UpdatePic();
+	void FrameToPic();
 	void CallGimp();
 	void GimpExited();
 	void FlipImageH();

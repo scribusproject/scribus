@@ -29,10 +29,10 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, preV *prefs, 
 	FontPrefsLayout->setMargin( 10 );
 	TabWidget = new QTabWidget( this, "TabWidget" );
 	TabWidget->setMinimumSize(fontMetrics().width( tr( "Available Fonts" )+ tr( "Font Substitutions" )+
-	                          tr( "Additional Paths" ))+80, 200);
+	                          tr( "Additional Paths" ))+180, 200);
 	tab1 = new QWidget( TabWidget, "tab1" );
 	tab1Layout = new QVBoxLayout( tab1, 11, 6, "tab1Layout");
-	Table1 = new QTable( tab1, "Table1" );
+	Table1 = new QTable( tab1, "FONT" );
 	Table1->setNumRows( flist.count() );
 	Table1->setNumCols( 6 );
 	Table1->setSorting(true);
@@ -113,7 +113,7 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, preV *prefs, 
 
 	tab = new QWidget( TabWidget, "tab" );
 	tabLayout = new QVBoxLayout( tab, 11, 6, "tabLayout");
-	Table3 = new QTable( tab, "Table3" );
+	Table3 = new QTable( tab, "Repl" );
 	Table3->setSorting(false);
 	Table3->setSelectionMode(QTable::SingleRow);
 	Table3->setLeftMargin(0);
@@ -415,7 +415,7 @@ void FontPrefs::RebuildDialog()
 		a++;
 	}
 	Table1->sortColumn(0, true, true);
-	Table1->setSorting(false);
 	UsedFonts.sort();
+	Table1->setSorting(false);
 	UpdateFliste();
 }

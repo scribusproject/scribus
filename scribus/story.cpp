@@ -25,6 +25,8 @@
 #include "serializer.h"
 #include "customfdialog.h"
 #include "search.h"
+#include "scribus.h"
+extern ScribusApp* ScApp;
 
 extern QPixmap loadIcon(QString nam);
 
@@ -49,6 +51,36 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 {
 	int p, i;
 	getCursorPosition(&p, &i);
+	if (UniCinp)
+	{
+		int conv = 0;
+		bool ok = false;
+		UniCinS += k->text();
+		conv = UniCinS.toInt(&ok, 16);
+		if (!ok)
+		{
+			UniCinp = false;
+			UniCinC = 0;
+			UniCinS = "";
+			return;
+		}
+		UniCinC++;
+		if (UniCinC == 4)
+		{
+			UniCinp = false;
+			UniCinC = 0;
+			UniCinS = "";
+			if (ok)
+			{
+				if (conv < 31)
+					conv = 32;
+ 				insert(QString(QChar(conv)));
+				return;
+			}
+		}
+		else
+			return;
+	}
 	if ((k->key() == Key_Backspace) && (i == 0))
 	{
 		emit bsPressed();
@@ -57,6 +89,13 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 	if ((k->key() == Key_Delete) && (i == static_cast<int>(text().length())))
 	{
 		emit delPressed();
+		return;
+	}
+	if (k->key() == Key_F12)
+	{
+		UniCinp = true;
+		UniCinC = 0;
+		UniCinS = "";
 		return;
 	}
 	QTextEdit::keyPressEvent(k);
@@ -258,6 +297,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite) : QDi
 	Mdel = emenu->insertItem(loadIcon("editdelete.png"), tr("Clear"), this, SLOT(Do_del()), CTRL+Key_V);
 	emenu->insertSeparator();
 	int sr = emenu->insertItem( tr("Search/Replace..."), this, SLOT(SearchText()));
+	emenu->insertItem( tr("Insert Special..."), this , SLOT(Do_insSp()));
 	emenu->setItemEnabled(sr, 0);
 	emenu->insertSeparator();
 	emenu->insertItem( tr("Edit Styles..."), this , SLOT(slotEditStyles()));
@@ -454,6 +494,34 @@ void StoryEditor::closeEvent(QCloseEvent *event)
 		else
 			reject();
 	}
+}
+
+void StoryEditor::Do_insSp()
+{
+	SEditor *ed = dynamic_cast<SEditor*>(table1->cellWidget(table1->currentRow(), 1));
+	QComboBox *cp = stList.at(table1->currentRow());
+	int st = cp->currentItem();
+	QString font;
+	if (st > 4)
+	{
+		for (uint x = 5; x < doc->Vorlagen.count(); ++x)
+		{
+			if (doc->Vorlagen[x].Vname == cp->text(st))
+			{
+				st = x;
+				break;
+			}
+		}
+		font = doc->Vorlagen[st].Font;
+	}
+	else
+		font = doc->CurrFont;
+	ScApp->DLLinput = font;
+	ScApp->DLLReturn = "";
+	ScApp->CallDLL( tr("Insert Special") );
+	ed->insert(ScApp->DLLReturn);
+	ScApp->DLLinput = "";
+	ScApp->DLLReturn = "";
 }
 
 void StoryEditor::Do_leave()
@@ -674,7 +742,7 @@ void StoryEditor::styleChange(int st)
 			{
 				if (doc->Vorlagen[x].Vname == c->text(st))
 				{
-					align = x;
+					align = doc->Vorlagen[x].Ausri;
 					break;
 				}
 			}

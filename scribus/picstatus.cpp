@@ -62,7 +62,7 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi)
 	QString tmpc[] = { tr("Name"),  tr("Path"),  tr("Page"), " ",  tr("Print"),  tr("Status"), " "};
 	size_t ar = sizeof(tmpc) / sizeof(*tmpc);
 	for (uint a = 0; a < ar; ++a)
-		Header->setLabel(a, tr(tmpc[a]));
+		Header->setLabel(a, tmpc[a]);
     Zeilen = 0;
     for (p=0; p<view->MasterPages.count(); ++p)
     {

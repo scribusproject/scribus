@@ -44,6 +44,9 @@ public:
 	void focusInEvent(QFocusEvent *f);
 	void keyPressEvent(QKeyEvent *k);
 	int clines;
+	bool UniCinp;
+	int UniCinC;
+	QString UniCinS;
 
 signals:
 	void UnRe(bool, bool);
@@ -122,6 +125,7 @@ public slots:
 	void Do_paste();
 	void Do_cut();
 	void Do_del();
+	void Do_insSp();
 	void UnReMenu(bool u, bool r);
 	void CopyAvail(bool u);
 	void updateTextFrame();

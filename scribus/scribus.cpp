@@ -218,9 +218,14 @@ void ScribusApp::initScribus()
   	HaveDoc = 0;
 		singleClose = false;
 		ScriptRunning = false;
+		DLLReturn = "";
+		DLLinput = "";
 		view = NULL;
 		doc = NULL;
 		Buffer2 = "";
+		UniCinp = false;
+		UniCinC = 0;
+		UniCinS = "";
   	BuildFontMenu();
 		SCFontsIterator it(Prefs.AvailFonts);
 		Prefs.DefFont = it.currentKey();
@@ -1258,8 +1263,77 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 								if ( (buttonState & ShiftButton) == 0 )
 									doc->ActPage->deselectAll(b);
 							}
+							if (UniCinp)
+							{
+								int conv = 0;
+								bool ok = false;
+								UniCinS += uc;
+								conv = UniCinS.toInt(&ok, 16);
+								if (!ok)
+								{
+									UniCinp = false;
+									UniCinC = 0;
+									UniCinS = "";
+									keyrep = false;
+ 									return;
+								}
+								UniCinC++;
+								if (UniCinC == 4)
+								{
+									UniCinp = false;
+									UniCinC = 0;
+									UniCinS = "";
+									if (ok)
+									{
+									if (conv < 31)
+										conv = 32;
+ 									hg = new Pti;
+ 									hg->ch = QString(QChar(conv));
+ 									hg->cfont = doc->CurrFont;
+ 									hg->csize = doc->CurrFontSize;
+									hg->ccolor = doc->CurrTextFill;
+									hg->cshade = doc->CurrTextFillSh;
+									hg->cstroke = doc->CurrTextStroke;
+									hg->cshade2 = doc->CurrTextStrokeSh;
+									hg->cscale = doc->CurrTextScale;
+ 									hg->cselect = false;
+ 									hg->cstyle = doc->CurrentStyle;
+ 									hg->cab = doc->CurrentABStil;
+									if (doc->Vorlagen[doc->CurrentABStil].Font != "")
+										{
+										hg->cfont = doc->Vorlagen[doc->CurrentABStil].Font;
+										hg->csize = doc->Vorlagen[doc->CurrentABStil].FontSize;
+										}
+ 									hg->cextra = 0;
+ 									hg->xp = 0;
+ 									hg->yp = 0;
+									hg->PRot = 0;
+									hg->PtransX = 0;
+									hg->PtransY = 0;
+ 									b->Ptext.insert(b->CPos, hg);
+ 									b->CPos += 1;
+ 									b->Dirty = true;
+ 									b->Tinput = true;
+									doc->ActPage->RefreshItem(b);
+									keyrep = false;
+									return;
+									}
+								}
+								else
+								{
+									keyrep = false;
+									return;
+								}
+							}
  						switch (kk)
  							{
+							case Key_F12:
+								UniCinp = true;
+								UniCinC = 0;
+								UniCinS = "";
+								keyrep = false;
+ 								return;
+								break;
 							case Key_Prior:
 								// go to begin of line
 								if ( (pos = b->CPos) == 0 )
@@ -6845,7 +6919,7 @@ void ScribusApp::RunPlug(int id)
 void ScribusApp::RunImportPlug(int id)
 {
 	int a = importMenu->indexOf(id);
-	if (a > 1)
+	if (a > 2)
 		{
 		if (HaveDoc)
 			doc->OpenNodes = Tpal->buildReopenVals();

@@ -1,4 +1,9 @@
 Changes since Version 1.1.6
+12.04.2004	Added new Command "Adjust Frame to Picture" to the Context Menue.
+		Added "Insert Special" Command to the Story Editor.
+		You can now insert any Unicode character by entering the 4-digit Hex code after 
+		pressing F12.
+
 11.04.2004	Fixed wrong placement of characters in the PDF-Export.
 		Updated the Brazilian translation.
 

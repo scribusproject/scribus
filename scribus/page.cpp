@@ -2608,6 +2608,8 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 					pmen->insertItem( tr("Update Picture"), this, SLOT(UpdatePic()));
 				if (b->PicAvail && b->isRaster)
 					pmen->insertItem( tr("Edit Picture"), this, SLOT(CallGimp()));
+				if ((b->PicAvail) && (!b->isTableItem))
+					pmen->insertItem( tr("Adjust Frame to Picture"), this, SLOT(FrameToPic()));
 			}
 			if (b->PType == 4)
 			{
@@ -7478,6 +7480,29 @@ void Page::UpdatePic()
 			b->flippedV = fvo;
 			AdjustPictScale(b);
 			AdjustPreview(b, false);
+			update();
+		}
+	}
+}
+
+void Page::FrameToPic()
+{
+	if (SelItem.count() != 0)
+	{
+		PageItem *b = SelItem.at(0);
+		if (b->PicAvail)
+		{
+			double w = static_cast<double>(b->pixm.width());
+			double h = static_cast<double>(b->pixm.height());
+			double x = b->LocalX * b->LocalScX;
+			double y = b->LocalY * b->LocalScY;
+			if (!b->isTableItem)
+			{
+				SizeItem(w, h, b->ItemNr);
+				MoveItem(x, y, b);
+				b->LocalX = 0;
+				b->LocalY = 0;
+			}
 			update();
 		}
 	}
