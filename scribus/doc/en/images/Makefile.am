@@ -1,8 +1,15 @@
-EXTRA_DIST = docheader1.png docheader2.png fontpref2.png fontpref3.png fontpref1.png hyphen1.png hyphen2.png hyphen3.png pdfxcolor.png pdfxintent.png pstoedit1.png pdfx3-1.png svg1.png acrosec.png gimpoptions1.png prefsguides.png  RDF.png batik1.png  gimpoptions2.png  prefspanel1.png  scribus2.png cmspanel.png  gimpoptions3.png  prefspanel2.png scribustru4.png colormanager2.png  hyphen1.png prefspanel3.png  Scripter_error_string.png fontprev.png hyphen2.png  prefspanel4.png Scripter.png fonts.png  hyphen3.png printer3.png xnview.png
+EXTRA_DIST = acropass.png acrosec.png acro1.png acro3.png docheader1.png docheader2.png fontpref2.png fontpref3.png fontpref1.png hyphen1.png hyphen2.png hyphen3.png pdfxcolor.png pdfxintent.png pstoedit1.png pdfx3-1.png svg1.png acrosec.png gimpoptions1.png prefsguides.png  RDF.png batik1.png  gimpoptions2.png  prefspanel1.png  scribus2.png cmspanel.png  gimpoptions3.png  prefspanel2.png scribustru4.png colormanager2.png  hyphen1.png prefspanel3.png  Scripter_error_string.png fontprev.png hyphen2.png  prefspanel4.png Scripter.png fonts.png  hyphen3.png printer3.png xnview.png
 
 install-data-local:
+
+	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/images/
+	$(INSTALL_DATA) $(srcdir)/acropass.png $(prefix)/share/scribus/doc/en/images/acropass.png
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/images/
 	$(INSTALL_DATA) $(srcdir)/acrosec.png $(prefix)/share/scribus/doc/en/images/acrosec.png
+	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/images/
+	$(INSTALL_DATA) $(srcdir)/acro1.png $(prefix)/share/scribus/doc/en/images/acro1.png
+	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/images/
+	$(INSTALL_DATA) $(srcdir)/acro3.png $(prefix)/share/scribus/doc/en/images/acro3.png
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/images/
 	$(INSTALL_DATA) $(srcdir)/batik1.png $(prefix)/share/scribus/doc/en/images/batik1.png
 	$(mkinstalldirs) $(prefix)/share/scribus/doc/en/images/
