@@ -1,7 +1,13 @@
 Changes since Version 1.1.7
 
 08.08.2004
+	* bug     #160: zoom tool should recenter
 	* bug     #616: Properties/Language: Wrong language descriptions
+	* bug     #784: changing zoom level jumps to various pages
+	* bug     #947: Ukrainian Translation Update
+	* bug     #949: Saving
+	* feature #946: Danish translation for 1.2
+	* feature #951: Finnish translation update
 
 07.08.2004
 	* bug     #724: No left aligned page numbers

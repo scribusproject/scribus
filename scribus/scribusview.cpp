@@ -168,7 +168,8 @@ void ScribusView::rememberPreviousSettings(int mx, int my)
 
 	oldX = childX(Doc->ActPage->parentWidget()) + mx;
 	oldY = childY(Doc->ActPage->parentWidget()) + my;
-
+	oldX2 = mx;
+	oldY2 = my;
 	// scrollbar position
 	oldSbx = horizontalScrollBar()->value();
 	oldSby = verticalScrollBar()->value();
@@ -577,8 +578,8 @@ void ScribusView::slotDoZoom()
 			PageItem *b = Doc->ActPage->SelItem.at(0);
 			SetCCPo(static_cast<int>(b->Xpos + b->Width/2), static_cast<int>(b->Ypos + b->Height/2));
 		}
-		//		else
-		//			SetCPo(0, 0);
+		else
+			SetCCPo(oldX2, oldY2);
 	}
 }
 
@@ -644,7 +645,16 @@ void ScribusView::GotoPage(int Seite)
 
 void ScribusView::slotZoomIn(int mx,int my)
 {
-	rememberPreviousSettings(mx,my);
+	if ((mx == 0) && (my == 0))
+	{
+		int x = qRound(QMAX(Doc->ActPage->ViewReg().boundingRect().x() / Doc->Scale, 0));
+		int y = qRound(QMAX(Doc->ActPage->ViewReg().boundingRect().y() / Doc->Scale, 0));
+		int w = qRound(QMIN(Doc->ActPage->ViewReg().boundingRect().width() / Doc->Scale, Doc->PageB));
+		int h = qRound(QMIN(Doc->ActPage->ViewReg().boundingRect().height() / Doc->Scale, Doc->PageH));
+		rememberPreviousSettings(w / 2 + x,h / 2 + y);
+	}
+	else
+		rememberPreviousSettings(mx,my);
 	Doc->Scale *= 2;
 	if (Doc->Scale > 32)
 		Doc->Scale = 32*Prefs->DisScale;
@@ -654,7 +664,16 @@ void ScribusView::slotZoomIn(int mx,int my)
 /** Verkleinert die Ansicht */
 void ScribusView::slotZoomOut(int mx,int my)
 {
-	rememberPreviousSettings(mx,my);
+	if ((mx == 0) && (my == 0))
+	{
+		int x = qRound(QMAX(Doc->ActPage->ViewReg().boundingRect().x() / Doc->Scale, 0));
+		int y = qRound(QMAX(Doc->ActPage->ViewReg().boundingRect().y() / Doc->Scale, 0));
+		int w = qRound(QMIN(Doc->ActPage->ViewReg().boundingRect().width() / Doc->Scale, Doc->PageB));
+		int h = qRound(QMIN(Doc->ActPage->ViewReg().boundingRect().height() / Doc->Scale, Doc->PageH));
+		rememberPreviousSettings(w / 2 + x,h / 2 + y);
+	}
+	else
+		rememberPreviousSettings(mx,my);
 	Doc->Scale /= 2;
 	slotDoZoom();
 }

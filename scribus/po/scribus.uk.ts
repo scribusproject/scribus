@@ -286,7 +286,13 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished"></translation>
+        <translation>Метод переводу певних відтінків сірого, які складаються з салатового, 
+жовтого та рожевого кольорів, на використання чорного кольору.
+UCR найчастіше впливає на ті частини зображень, які складаються з нейтральних
+та/чи темних відтінків близьких до сірого. Використання цієї установки може
+покращити якість друку деяких зображень. Деяке тестування та експерименти
+необхідні в кожному конкретному випадку. UCR знижує ймовірність перенасичення
+паперу CMY чорнилами.</translation>
     </message>
 </context>
 <context>
@@ -999,7 +1005,7 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
-        <translation type="unfinished">PDF файли (*.pdf);;Всі файли (*)</translation>
+        <translation>PDF файли (*.pdf);;Всі файли (*)</translation>
     </message>
 </context>
 <context>
@@ -1129,11 +1135,11 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Apply to all &amp;even Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Застосувати на всіх &amp;парних сторінках</translation>
     </message>
     <message>
         <source>Apply to all &amp;odd Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Застосувати на всіх &amp;непарних сторінках</translation>
     </message>
 </context>
 <context>
@@ -2403,7 +2409,8 @@ a range of pages or a single page number.</source>
     <message>
         <source>Use an alternative print manager, such as kprinter or gtklp,
 to utilize additional printing options</source>
-        <translation type="unfinished"></translation>
+        <translation>Використати альтернативний менеджер друку, наприклад krpinter
+чи gtklp, для доступу до додаткових установок друку</translation>
     </message>
 </context>
 <context>
@@ -2894,62 +2901,66 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     </message>
     <message>
         <source>Export as Image(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Експортувати, як зображення</translation>
     </message>
     <message>
         <source>Options</source>
-        <translation type="unfinished">Установки</translation>
+        <translation>Установки</translation>
     </message>
     <message>
         <source>&amp;Resolution:</source>
-        <translation type="unfinished">&amp;Розрішення:</translation>
+        <translation>&amp;Розрішення:</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished">%</translation>
+        <translation>%</translation>
     </message>
     <message>
         <source> dpi</source>
-        <translation type="unfinished">тнд</translation>
+        <translation>тнд</translation>
     </message>
     <message>
         <source>Range</source>
-        <translation type="unfinished">Діапазон</translation>
+        <translation>Діапазон</translation>
     </message>
     <message>
         <source>&amp;Current page</source>
-        <translation type="unfinished"></translation>
+        <translation>Активна &amp;сторінка</translation>
     </message>
     <message>
         <source>&amp;Range</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Діапазон</translation>
     </message>
     <message>
         <source>C</source>
-        <translation type="unfinished">С</translation>
+        <translation>С</translation>
     </message>
     <message>
         <source>Export a range of pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Експортувати діапазон сторінок</translation>
     </message>
     <message>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вмістити список елементів, розділених комами, де елемент
+може бути * для всіх сторінок, 1-5 для діапазона сторінок, або
+номер окремої сторінки.</translation>
     </message>
     <message>
         <source>Export all pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Експортувати всі сторінки</translation>
     </message>
     <message>
         <source>Resolution of the Images
 Use 72 dpi for Images intended for the Screen</source>
-        <translation type="unfinished"></translation>
+        <translation>Розрішення зображень
+Використовуйте 72 тнд для зображень, 
+призначених для виводу на екран</translation>
     </message>
     <message>
         <source>The quality of your images - 100% is the best, 1% the lowest quality</source>
-        <translation type="unfinished"></translation>
+        <translation>Якість зображень - 100% - найвища, 1% - найнижча якість</translation>
     </message>
 </context>
 <context>
@@ -3261,7 +3272,7 @@ Use 72 dpi for Images intended for the Screen</source>
     <name>FontPreview</name>
     <message>
         <source>Font Preview</source>
-        <translation type="obsolete">Попередній перегляд шрифта</translation>
+        <translation>Попередній перегляд шрифта</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -3285,7 +3296,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Fonts Preview</source>
-        <translation type="unfinished">Попередній перегляд шрифтів</translation>
+        <translation type="obsolete">Попередній перегляд шрифтів</translation>
     </message>
 </context>
 <context>
@@ -5036,11 +5047,11 @@ Corners:</source>
     </message>
     <message>
         <source>Use a surrounding box instead of the frame&apos;s shape for text flow</source>
-        <translation type="unfinished"></translation>
+        <translation>Використовувати прямокутник замість форми рамки для огинання тексту</translation>
     </message>
     <message>
         <source>Use a second line originally based on the frame&apos;s shape for text flow</source>
-        <translation type="unfinished"></translation>
+        <translation>Використовувати другу лінію, основану на формі рамки, для огинання тексту</translation>
     </message>
 </context>
 <context>
@@ -5761,7 +5772,7 @@ otherwise Coordinates are relative to the Object.</source>
     </message>
     <message>
         <source>Shear the Path Horizontally to the Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Зсунути шлях горизонтально вправо</translation>
     </message>
 </context>
 <context>
@@ -6792,7 +6803,13 @@ UCR most affects parts of images which are neutral and/or dark tones
 which are close to the gray. Use of this may improve printing some images
 and some experimentation and testing is need on a case by case basis.
 UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished"></translation>
+        <translation>Метод переводу певних відтінків сірого, які складаються з салатового, 
+жовтого та рожевого кольорів, на використання чорного кольору.
+UCR найчастіше впливає на ті частини зображень, які складаються з нейтральних
+та/чи темних відтінків близьких до сірого. Використання цієї установки може
+покращити якість друку деяких зображень. Деяке тестування та експерименти
+необхідні в кожному конкретному випадку. UCR знижує ймовірність перенасичення
+паперу CMY чорнилами.</translation>
     </message>
 </context>
 <context>
@@ -7454,47 +7471,47 @@ UCR reduces the possibility of over saturation with CMY inks.</source>
     </message>
     <message>
         <source>Corn&amp;ers:</source>
-        <translation type="unfinished">К&amp;ути:</translation>
+        <translation>К&amp;ути:</translation>
     </message>
     <message>
         <source>&amp;Rotation:</source>
-        <translation type="unfinished">&amp;Кут повороту:</translation>
+        <translation>&amp;Кут повороту:</translation>
     </message>
     <message>
         <source>Conve&amp;x Polygon</source>
-        <translation type="unfinished">Ви&amp;пуклий полігон</translation>
+        <translation>Ви&amp;пуклий полігон</translation>
     </message>
     <message>
         <source>&amp;Factor:</source>
-        <translation type="unfinished">&amp;Фактор:</translation>
+        <translation>&amp;Фактор:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;Гаразд</translation>
+        <translation>&amp;Гаразд</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">В&amp;ихід</translation>
+        <translation>В&amp;ихід</translation>
     </message>
     <message>
         <source>Number of corners for polygons</source>
-        <translation type="unfinished">Число кутів полігонів</translation>
+        <translation>Число кутів полігонів</translation>
     </message>
     <message>
         <source>Degrees of rotation for polygons</source>
-        <translation type="unfinished">Кут повороту полігонів</translation>
+        <translation>Кут повороту полігонів</translation>
     </message>
     <message>
         <source>Polygons will be convex rather than concave</source>
-        <translation type="unfinished">Полігони будуть вигнутими, а не вгнутими</translation>
+        <translation>Полігони будуть вигнутими, а не вгнутими</translation>
     </message>
     <message>
         <source>Sample Polygon</source>
-        <translation type="unfinished">Зразок полігону</translation>
+        <translation>Зразок полігону</translation>
     </message>
     <message>
         <source>Change the angles at which lines of the polygon join</source>
-        <translation type="unfinished">Змінити кути з&apos;єднання сторін полігону</translation>
+        <translation>Змінити кути з&apos;єднання сторін полігону</translation>
     </message>
 </context>
 <context>
@@ -9099,7 +9116,7 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Print Preview</source>
-        <translation type="unfinished">Перегляд  перед друком</translation>
+        <translation>Перегляд  перед друком</translation>
     </message>
     <message>
         <source>Scripter Manual...</source>
@@ -9427,31 +9444,31 @@ Check path and filename.</source>
     </message>
     <message>
         <source>Importing text</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпорт тексту</translation>
     </message>
     <message>
         <source>Importer</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпортер</translation>
     </message>
     <message>
         <source>Choose the importer to use</source>
-        <translation type="unfinished"></translation>
+        <translation>Вибрати імпортер</translation>
     </message>
     <message>
         <source>All Supported Formats</source>
-        <translation type="unfinished">Всі формати, що підтримуються</translation>
+        <translation>Всі формати, що підтримуються</translation>
     </message>
     <message>
         <source>HTML Files</source>
-        <translation type="unfinished"></translation>
+        <translation>HTML файли</translation>
     </message>
     <message>
         <source>html</source>
-        <translation type="unfinished"></translation>
+        <translation>html</translation>
     </message>
     <message>
         <source>Text Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Текстові файли</translation>
     </message>
 </context>
 <context>
@@ -11259,19 +11276,19 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Document &amp;Information...</source>
-        <translation type="unfinished"></translation>
+        <translation>Інформація про &amp;документ...</translation>
     </message>
     <message>
         <source>&amp;Undo Delete Object</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Відмінити видалення об&apos;єкта</translation>
     </message>
     <message>
         <source>&amp;Undo Object Move</source>
-        <translation type="unfinished"></translation>
+        <translation>Відмінити &amp;переміщення об&apos;єкта</translation>
     </message>
     <message>
         <source>&amp;Undo Object Change</source>
-        <translation type="unfinished"></translation>
+        <translation>Відмінити &amp;зміну об&apos;єкта</translation>
     </message>
 </context>
 <context>
@@ -11978,31 +11995,31 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>&amp;Fonts Preview...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Попередній перегляд шрифтів...</translation>
     </message>
     <message>
         <source>&amp;Background...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Фон...</translation>
     </message>
     <message>
         <source>&amp;Display Font...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Екранний шрифт...</translation>
     </message>
     <message>
         <source>&amp;Settings</source>
-        <translation type="unfinished">&amp;Установки</translation>
+        <translation>&amp;Установки</translation>
     </message>
     <message>
         <source>Search/Replace</source>
-        <translation type="unfinished">Пошук/Заміна</translation>
+        <translation>Пошук/Заміна</translation>
     </message>
     <message>
         <source>&amp;Fonts Preview</source>
-        <translation type="unfinished">&amp;Попередній перегляд шрифтів</translation>
+        <translation>&amp;Попередній перегляд шрифтів</translation>
     </message>
     <message>
         <source>Clear all Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Очистити весь текст</translation>
     </message>
 </context>
 <context>
@@ -12388,27 +12405,27 @@ Please choose another.</source>
     <name>gtFileDialog</name>
     <message>
         <source>Choose the importer to use</source>
-        <translation type="unfinished"></translation>
+        <translation>Вибрати імпортер</translation>
     </message>
     <message>
         <source>Automatic</source>
-        <translation type="unfinished">Автоматичний</translation>
+        <translation>Автоматичний</translation>
     </message>
     <message>
         <source>Get text only</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпортувати лише текст</translation>
     </message>
     <message>
         <source>Import text without any formatting</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпортувати текст без ніякого форматування</translation>
     </message>
     <message>
         <source>Importer:</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпортер:</translation>
     </message>
     <message>
         <source>Encoding:</source>
-        <translation type="unfinished">Кодування:</translation>
+        <translation>Кодування:</translation>
     </message>
 </context>
 <context>
@@ -12479,7 +12496,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Document templates can be found in http://www.scribus.net/ Downloads section.</source>
-        <translation type="obsolete">Шаблони документів можна знайти на http://www.scribus.net/  в секції Downloads.</translation>
+        <translation>Шаблони документів можна знайти на http://www.scribus.net/  в секції Downloads.</translation>
     </message>
     <message>
         <source>Installing Templates</source>
@@ -12495,11 +12512,11 @@ Please choose another.</source>
     </message>
     <message>
         <source>Make sure images you use can be used anywhere. Fonts must be checked for this as well. If fonts cannot be shared do not collect them when saving as a template.</source>
-        <translation type="obsolete">Ви маєте пересвідчитися, що використані Вами зображення дозволяється використовувати без обмежень. Така ж перевірка має бути виконана для шрифтів. Якщо шрифти не дозволяється розповсюджувати, то не включайте їх у архів шаблона.</translation>
+        <translation>Ви маєте пересвідчитися, що використані Вами зображення дозволяється використовувати без обмежень. Така ж перевірка має бути виконана для шрифтів. Якщо шрифти не дозволяється розповсюджувати, то не включайте їх у архів шаблона.</translation>
     </message>
     <message>
         <source>Template creator should also make sure that the Installing Templates applies to her/his templates as well. Which means a user should download a template package and be able to extract them to the template directory and start using them.</source>
-        <translation type="obsolete">Автор шаблона повинен пересвідчитися, що стандартна процедура установки шаблонів правильно працює для підготовленого ним пакета.</translation>
+        <translation>Автор шаблона повинен пересвідчитися, що стандартна процедура установки шаблонів правильно працює для підготовленого ним пакета. Це значить, що користувач повинен мати змогу зкачати пакет з шаблоном, розпакувати його в директорію для шаблонів і почати ним користуватися.</translation>
     </message>
     <message>
         <source>Removing a template</source>
@@ -12507,7 +12524,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Removing a template from the NFT dialog will only remove the entry from the template.xml. It will not delete the document files. Popup menu with remove is only shown if you have write access to the template.xml file.</source>
-        <translation type="obsolete">Видалення шаблона з НЗШ діалога лише приводить до його видалення з файла template.xml. Ця процедура не приводить до видалення файлів. Меню видалення доступне лише при наявності у Вас права на редагування файла template.xml.</translation>
+        <translation>Видалення шаблона з НЗШ діалога лише приводить до його видалення з файла template.xml. Ця процедура не приводить до видалення файлів. Меню видалення доступне лише при наявності у Вас права на редагування файла template.xml.</translation>
     </message>
     <message>
         <source>Translating template.xml</source>
@@ -12515,27 +12532,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that&apos;s present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. Copy must locate in the same directory than the original template.xml for NFT being able to load it.</source>
-        <translation type="obsolete">Скопіюйте існуючий файл template.xml у файл template.lang_COUNTRY.xml (використовуйте той же код країни, що і в qm файлі для Вашої мови). Наприклад, template.fi.xml для Фінської мови. Перекладений файл має бути в тій же директорії, що і основний template.xml файл, щоб НЗШ модуль міг його завантажити.</translation>
-    </message>
-    <message>
-        <source>Document templates can be found at http://www.scribus.net/ in the Downloads section.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Make sure images and fonts you use can be used freely. If fonts cannot be shared do not collect them when saving as a template.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The template creator should also make sure that the Installing Templates section above applies to their templates as well. This means a user should be able to download a template package and be able to extract them to the template directory and start using them.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Removing a template from the New From Template dialog will only remove the entry from the template.xml, it will not delete the document files. A popup menu with remove is only shown if you have write access to the template.xml file.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Скопіюйте існуючий файл template.xml у файл template.lang_COUNTRY.xml (використовуйте той же код країни, що і в qm файлі для Вашої мови). Наприклад, template.fi.xml для Фінської мови. Перекладений файл має бути в тій же директорії, що і основний template.xml файл, щоб НЗШ модуль міг його завантажити.</translation>
     </message>
 </context>
 <context>

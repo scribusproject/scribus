@@ -121,6 +121,8 @@ private: // Private attributes
 	bool Ready;
 	int    oldX;
 	int    oldY;
+	int    oldX2;
+	int    oldY2;
 	int    oldSbx;
 	int    oldSby;
 	double oldScale;

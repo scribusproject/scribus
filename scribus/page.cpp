@@ -3958,10 +3958,11 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 		}
 		else
 		{
-			int mx=m->x();
-			int my=m->y();
+			int mx = qRound(m->x() / doku->Scale);
+			int my = qRound(m->y() / doku->Scale);
 			emit Magnify ? ZoomIn(mx,my) : ZoomOut(mx,my);
 			HaveSelRect = false;
+			qApp->setOverrideCursor(QCursor(loadIcon("LupeZ.xpm")), true);
 		}
 	}
 	if ((doku->AppMode == 7) && !HanMove)

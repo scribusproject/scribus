@@ -217,10 +217,10 @@ void GradientPreview::updateDisplay()
 {
 	repaint();
 	ActStop = 0;
-	QPtrVector<VColorStop> cstops = fill_gradient.colorStops();
-	emit selectedColor(cstops.at(ActStop)->name, cstops.at(ActStop)->shade);
-	emit currTrans(cstops.at(ActStop)->opacity);
-	emit currStep(cstops.at(ActStop)->rampPoint);
+//	QPtrVector<VColorStop> cstops = fill_gradient.colorStops();
+//	emit selectedColor(cstops.at(ActStop)->name, cstops.at(ActStop)->shade);
+//	emit currTrans(cstops.at(ActStop)->opacity);
+//	emit currStep(cstops.at(ActStop)->rampPoint);
 }
 
 void GradientPreview::setActColor(QColor c, QString n, int s)
@@ -281,7 +281,6 @@ void GradientEditor::setPos(double p)
 {
 	disconnect(Position, SIGNAL(valueChanged(int)), this, SLOT(changePos(int)));
 	Position->setValue(qRound(p * 100));
-	emit gradientChanged();
 	connect(Position, SIGNAL(valueChanged(int)), this, SLOT(changePos(int)));
 }
 

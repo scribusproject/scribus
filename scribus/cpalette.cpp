@@ -151,6 +151,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	connect(GradEdit->Preview, SIGNAL(selectedColor(QString, int )), this, SLOT(slotColor(QString, int )));
 	connect(GradEdit->Preview, SIGNAL(currTrans(double )), this, SLOT(setGradTrans(double )));
 	connect(GradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
+	connect(GradEdit->Preview, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
 }
 
 void Cpalette::InhaltButton()
