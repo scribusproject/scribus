@@ -169,6 +169,10 @@ public:
 			  };
 
 	ObjAttrVector* getObjectAttributes();
+	/*!
+	 * brief Returns a complete ObjectAttribute struct if 1 is found, or ObjectAttribute.name will be QString::null if 0 or >1 are found
+	 */
+	ObjectAttribute getObjectAttribute(QString);
 	void setObjectAttributes(ObjAttrVector*);
   /** Zeichnet das Item */
 	void paintObj(QRect e=QRect(), QPixmap *ppX = 0);

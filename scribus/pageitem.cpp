@@ -3730,7 +3730,30 @@ ObjAttrVector* PageItem::getObjectAttributes()
 	return &pageItemAttributes;
 }
 
+ObjectAttribute PageItem::getObjectAttribute(QString attributeName)
+{
+	int countFound=0;
+	ObjAttrVector::Iterator foundIt;
+	for(ObjAttrVector::Iterator objAttrIt = pageItemAttributes.begin() ; objAttrIt != pageItemAttributes.end(); ++objAttrIt )
+	{
+		if ((*objAttrIt).name==attributeName)
+		{
+			++countFound;
+			foundIt=objAttrIt;
+		}
+		
+	}
+	ObjectAttribute returnAttribute;
+	if(countFound==1)
+		returnAttribute=(*foundIt);
+	else
+		returnAttribute.name=QString::null;
+	return returnAttribute;
+}
+
+
 void PageItem::setObjectAttributes(ObjAttrVector* map)
 {
 	pageItemAttributes=*map;
 }
+

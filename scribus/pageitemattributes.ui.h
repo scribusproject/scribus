@@ -200,3 +200,23 @@ void PageItemAttributes::updateTable()
 	copyButton->setEnabled(localAttributes.count()!=0);
 	clearButton->setEnabled(localAttributes.count()!=0);
 }
+
+
+void PageItemAttributes::okClicked()
+{
+	//Qt hack as we will lose data if the user hasnt left a cell
+	//http://www.qtforum.org/thread.php?threadid=9078
+	if (attributesTable->numRows()>0 && attributesTable->currentRow()!=-1)
+	{
+		//Avoid selecting 0,0 if 0,0 is current cell
+		int selectCol;
+		if(attributesTable->currentColumn()!=0)
+			selectCol=0;
+		else
+			selectCol=1;
+			
+		attributesTable->setCurrentCell(0,selectCol);
+		tableItemChanged(attributesTable->currentRow(), attributesTable->currentColumn());
+	}
+	accept();
+}

@@ -9,7 +9,7 @@
             <x>0</x>
             <y>0</y>
             <width>474</width>
-            <height>115</height>
+            <height>151</height>
         </rect>
     </property>
     <property name="caption">
@@ -188,7 +188,7 @@
         <sender>okButton</sender>
         <signal>clicked()</signal>
         <receiver>PageItemAttributes</receiver>
-        <slot>accept()</slot>
+        <slot>okClicked()</slot>
     </connection>
     <connection>
         <sender>attributesTable</sender>
@@ -239,6 +239,7 @@
     <slot access="protected">deleteEntry()</slot>
     <slot access="protected">clearEntries()</slot>
     <slot access="protected">copyEntry()</slot>
+    <slot access="protected">okClicked()</slot>
 </slots>
 <functions>
     <function access="private" specifier="non virtual">init()</function>
