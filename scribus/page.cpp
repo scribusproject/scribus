@@ -827,7 +827,12 @@ void Page::moveGroup(double x, double y, bool fromMP)
 	QPainter p;
 	double gx, gy, gw, gh;
 	if (GroupSel)
+	{
+		p.begin(this);
 		getGroupRectScreen(&gx, &gy, &gw, &gh);
+		PaintSizeRect(&p, QRect(qRound(gx), qRound(gy), qRound(gw), qRound(gh)));
+		p.end();
+	}
 	for (uint a = 0; a < SelItem.count(); ++a)
 	{
 		b = SelItem.at(a);
@@ -3008,9 +3013,20 @@ void Page::mouseReleaseEvent(QMouseEvent *m)
 				if (mCG)
 				{
 					double gx, gy, gh, gw, mx, my, scx, scy;
-					mx = Mxp;
-					my = Myp;
 					getGroupRect(&gx, &gy, &gw, &gh);
+					double sc = doku->Scale;
+					QPoint np2 = QPoint(static_cast<int>(m->x()/sc), static_cast<int>(m->y()/sc));
+					double nx = np2.x();
+					double ny = np2.y();
+					if (!ApplyGuides(&nx, &ny))
+					{
+						np2 = ApplyGrid(np2);
+						nx = np2.x();
+						ny = np2.y();
+					}
+					np2 = QPoint(qRound(nx*sc), qRound(ny*sc));
+					mx = np2.x();
+					my = np2.y();
 					switch (HowTo)
 					{
 						case 1:
@@ -4227,6 +4243,16 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 				{
 					double gx, gy, gh, gw;
 					getGroupRect(&gx, &gy, &gw, &gh);
+					int ox1 = qRound(gx*sc);
+					int oy1 = qRound(gy*sc);
+					int ox2 = qRound((gx+gw)*sc);
+					int oy2 = qRound((gy+gh)*sc);
+					np2 = QPoint(newX, newY);
+					np2 = ApplyGrid(np2);
+					double nx = np2.x();
+					double ny = np2.y();
+					ApplyGuides(&nx, &ny);
+					np2 = QPoint(qRound(nx*sc), qRound(ny*sc));
 					p.begin(this);
 					switch (HowTo)
 					{
@@ -4235,49 +4261,47 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 						{
 							np2 = QPoint(m->x(), static_cast<int>((gy+(gh * ((newX-gx) / gw)))*sc));
 							QCursor::setPos(mapToGlobal(np2));
+							np2 = QPoint(qRound(np2.x()/sc), qRound(np2.y()/sc));
 						}
 						else
-							np2 = QPoint(m->x(), m->y());
+							np2 = QPoint(qRound(m->x()/sc), qRound(m->y()/sc));
+						np2 = ApplyGrid(np2);
+						nx = np2.x();
+						ny = np2.y();
+						ApplyGuides(&nx, &ny);
+						np2 = QPoint(qRound(nx*sc), qRound(ny*sc));
 						PaintSizeRect(&p, QRect(QPoint(qRound(gx*sc), qRound(gy*sc)), np2));
 						break;
 					case 2:
-						np2 = QPoint(m->x(), m->y());
-						PaintSizeRect(&p, QRect(np2, QPoint(qRound((gx+gw)*sc), qRound((gy+gh)*sc))));
+						PaintSizeRect(&p, QRect(np2, QPoint(ox2,oy2)));
 						break;
 					case 3:
-						np2 = QPoint(m->x(), m->y());
-						PaintSizeRect(&p, QRect(np2, QPoint(qRound(gx*sc), qRound((gy+gh)*sc))));
+						PaintSizeRect(&p, QRect(np2, QPoint(ox1, oy2)));
 						break;
 					case 4:
-						np2 = QPoint(m->x(), m->y());
-						PaintSizeRect(&p, QRect(np2, QPoint(qRound((gx+gw)*sc), qRound(gy*sc))));
+						PaintSizeRect(&p, QRect(np2, QPoint(ox2, oy1)));
 						break;
 					case 5:
-						np2 = QPoint(m->x(), m->y());
-						PaintSizeRect(&p, QRect(qRound(gx*sc), qRound(gy*sc), qRound(gw*sc),  np2.y()-qRound(gy*sc)));
+						PaintSizeRect(&p, QRect(QPoint(ox1, oy1), QPoint(ox2, np2.y())));
 						break;
 					case 6:
-						np2 = QPoint(m->x(), m->y());
-						PaintSizeRect(&p, QRect(qRound(gx*sc), qRound(gy*sc),  np2.x()-qRound(gx*sc), qRound(gh*sc)));
+						PaintSizeRect(&p, QRect(QPoint(np2.x(), oy2), QPoint(ox1,oy1)));
 						break;
 					case 7:
-						np2 = QPoint(m->x(), m->y());
-						PaintSizeRect(&p, QRect(QPoint(np2.x(), qRound(gy*sc)), QPoint(qRound((gx+gw)*sc), qRound((gy+gh)*sc))));
+						PaintSizeRect(&p, QRect(QPoint(np2.x(), oy1), QPoint(ox2, oy2)));
 						break;
 					case 8:
-						np2 = QPoint(m->x(), m->y());
-						PaintSizeRect(&p, QRect(QPoint(qRound(gx*sc), np2.y()), QPoint(qRound((gx+gw)*sc), qRound((gy+gh)*sc))));
+						PaintSizeRect(&p, QRect(QPoint(ox1, qRound(np2.y())), QPoint(ox2, oy2)));
 						break;
 					}
-					Mxp = qRound(np2.x()/sc);
-					Myp = qRound(np2.y()/sc);
+					Mxp = qRound(np2.x());
+					Myp = qRound(np2.y());
 					p.end();
 				}
 				else
 				{
 					for (a = 0; a < SelItem.count(); ++a)
 					{
-						QWMatrix ma;
 						b = SelItem.at(0);
 						switch (HowTo)
 						{
@@ -4369,77 +4393,112 @@ void Page::mouseMoveEvent(QMouseEvent *m)
 							else
 							{
 								p.begin(this);
-								Transform(b, &p);
-								ma = p.worldMatrix();
-								ma.setTransformationMode ( QWMatrix::Areas );
-								p.setWorldMatrix(ma);
-								np2 = ApplyGrid(p.xFormDev(QPoint(m->x(), m->y())));
-								PaintSizeRect(&p, QRect(np2, QPoint(qRound(b->Width), qRound(b->Height))));
+								np2 = QPoint(newX, newY);
+								np2 = ApplyGrid(np2);
+								int ox = qRound((b->Xpos+b->Width)*sc);
+								int oy = qRound((b->Ypos+b->Height)*sc);
+								double nx = np2.x();
+								double ny = np2.y();
+								ApplyGuides(&nx, &ny);
+								np2 = QPoint(qRound(nx*sc), qRound(ny*sc));
+								PaintSizeRect(&p, QRect(np2, QPoint(ox,oy)));
 								p.end();
 							}
 							break;
 						case 3:
-							p.begin(this);
-							Transform(b, &p);
-							ma = p.worldMatrix();
-							ma.setTransformationMode ( QWMatrix::Areas );
-							p.setWorldMatrix(ma);
-							np2 = ApplyGrid(p.xFormDev(QPoint(m->x(), m->y())));
-							PaintSizeRect(&p, QRect(np2, QPoint(0, qRound(b->Height))));
-							p.end();
-							break;
+							{
+								p.begin(this);
+								np2 = QPoint(newX, newY);
+								np2 = ApplyGrid(np2);
+								int ox = qRound(b->Xpos*sc);
+								int oy = qRound((b->Ypos+b->Height)*sc);
+								double nx = np2.x();
+								double ny = np2.y();
+								ApplyGuides(&nx, &ny);
+								np2 = QPoint(qRound(nx*sc), qRound(ny*sc));
+								PaintSizeRect(&p, QRect(np2, QPoint(ox,oy)));
+								p.end();
+								break;
+							}
 						case 4:
-							p.begin(this);
-							Transform(b, &p);
-							ma = p.worldMatrix();
-							ma.setTransformationMode ( QWMatrix::Areas );
-							p.setWorldMatrix(ma);
-							np2 = ApplyGrid(p.xFormDev(QPoint(m->x(), m->y())));
-							PaintSizeRect(&p, QRect(np2, QPoint(qRound(b->Width), 0)));
-							p.end();
-							break;
+							{
+								p.begin(this);
+								np2 = QPoint(newX, newY);
+								np2 = ApplyGrid(np2);
+								int ox = qRound((b->Xpos+b->Width)*sc);
+								int oy = qRound(b->Ypos*sc);
+								double nx = np2.x();
+								double ny = np2.y();
+								ApplyGuides(&nx, &ny);
+								np2 = QPoint(qRound(nx*sc), qRound(ny*sc));
+								PaintSizeRect(&p, QRect(np2, QPoint(ox,oy)));
+								p.end();
+								break;
+							}
 						case 5:
 							{
-							p.begin(this);
-							Transform(b, &p);
-							ma = p.worldMatrix();
-							ma.setTransformationMode ( QWMatrix::Areas );
-							p.setWorldMatrix(ma);
-							np2 = ApplyGrid(p.xFormDev(QPoint(m->x(), m->y())));
-							PaintSizeRect(&p, QRect(0, 0, qRound(b->Width), np2.y()));
-							p.end();
-							break;
+								p.begin(this);
+								np2 = QPoint(newX, newY);
+								np2 = ApplyGrid(np2);
+								int ow = qRound((b->Xpos+b->Width)*sc);
+								int ox = qRound(b->Xpos*sc);
+								int oy = qRound(b->Ypos*sc);
+								double nx = np2.x();
+								double ny = np2.y();
+								ApplyGuides(&nx, &ny);
+								np2 = QPoint(qRound(nx*sc), qRound(ny*sc));
+								PaintSizeRect(&p, QRect(QPoint(ox,oy), QPoint(ow, qRound(np2.y()))));
+								p.end();
+								break;
 							}
 						case 6:
-							p.begin(this);
-							Transform(b, &p);
-							ma = p.worldMatrix();
-							ma.setTransformationMode ( QWMatrix::Areas );
-							p.setWorldMatrix(ma);
-							np2 = ApplyGrid(p.xFormDev(QPoint(m->x(), m->y())));
-							PaintSizeRect(&p, QRect(QPoint(np2.x(), qRound(b->Height)), QPoint(0, 0)));
-							p.end();
-							break;
+							{
+								p.begin(this);
+								np2 = QPoint(newX, newY);
+								np2 = ApplyGrid(np2);
+								int ow = qRound((b->Ypos+b->Height)*sc);
+								int ox = qRound(b->Xpos*sc);
+								int oy = qRound(b->Ypos*sc);
+								double nx = np2.x();
+								double ny = np2.y();
+								ApplyGuides(&nx, &ny);
+								np2 = QPoint(qRound(nx*sc), qRound(ny*sc));
+								PaintSizeRect(&p, QRect(QPoint(qRound(np2.x()), ow), QPoint(ox,oy)));
+								p.end();
+								break;
+							}
 						case 7:
-							p.begin(this);
-							Transform(b, &p);
-							ma = p.worldMatrix();
-							ma.setTransformationMode ( QWMatrix::Areas );
-							p.setWorldMatrix(ma);
-							np2 = ApplyGrid(p.xFormDev(QPoint(m->x(), m->y())));
-							PaintSizeRect(&p, QRect(QPoint(np2.x(), qRound(b->Height)), QPoint(qRound(b->Width), 0)));
-							p.end();
-							break;
+							{
+								p.begin(this);
+								np2 = QPoint(newX, newY);
+								np2 = ApplyGrid(np2);
+								int ow = qRound((b->Ypos+b->Height)*sc);
+								int ox = qRound((b->Xpos+b->Width)*sc);
+								int oy = qRound(b->Ypos*sc);
+								double nx = np2.x();
+								double ny = np2.y();
+								ApplyGuides(&nx, &ny);
+								np2 = QPoint(qRound(nx*sc), qRound(ny*sc));
+								PaintSizeRect(&p, QRect(QPoint(qRound(np2.x()), ow), QPoint(ox,oy)));
+								p.end();
+								break;
+							}
 						case 8:
-							p.begin(this);
-							Transform(b, &p);
-							ma = p.worldMatrix();
-							ma.setTransformationMode ( QWMatrix::Areas );
-							p.setWorldMatrix(ma);
-							np2 = ApplyGrid(p.xFormDev(QPoint(m->x(), m->y())));
-							PaintSizeRect(&p, QRect(QPoint(qRound(b->Width),np2.y()), QPoint(0, qRound(b->Height))));
-							p.end();
-							break;
+							{
+								p.begin(this);
+								np2 = QPoint(newX, newY);
+								np2 = ApplyGrid(np2);
+								int ow = qRound((b->Xpos+b->Width)*sc);
+								int ox = qRound(b->Xpos*sc);
+								int oy = qRound((b->Ypos+b->Height)*sc);
+								double nx = np2.x();
+								double ny = np2.y();
+								ApplyGuides(&nx, &ny);
+								np2 = QPoint(qRound(nx*sc), qRound(ny*sc));
+								PaintSizeRect(&p, QRect(QPoint(ow, qRound(np2.y())), QPoint(ox,oy)));
+								p.end();
+								break;
+							}
 						}
 					}
 				}

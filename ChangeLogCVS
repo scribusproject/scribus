@@ -1,5 +1,9 @@
 Changes since Version 1.1.7
 
+19.06.2004
+	* bug     #813: Snap to Guides for moving and resizing of Groups
+	* feature #799: Feature Request: Select All
+
 18.06.2004
 	* bug     #765: Paragraph indentation oops when rendering to pdf
 	* bug     #781: Story Editor>Edit>Insert special... does nothing

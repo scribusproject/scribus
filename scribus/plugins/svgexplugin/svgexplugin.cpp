@@ -115,8 +115,8 @@ SVGExPlug::SVGExPlug( QWidget* parent, ScribusApp *plug, QString fName )
 	QString st = "<svg></svg>";
 	docu.setContent(st);
 	QDomElement elem = docu.documentElement();
-	elem.setAttribute("width", plug->doc->PageB);
-	elem.setAttribute("height", plug->doc->PageH);
+	elem.setAttribute("width", FToStr(plug->doc->PageB)+"pt");
+	elem.setAttribute("height", FToStr(plug->doc->PageH)+"pt");
 	elem.setAttribute("xmlns", "http://www.w3.org/2000/svg");
 	elem.setAttribute("xmlns:xlink","http://www.w3.org/1999/xlink"); 
 	Page *Seite;
@@ -280,7 +280,7 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 				trans = "translate("+FToStr(Item->Xpos)+", "+FToStr(Item->Ypos)+")";
 				if (Item->Rot != 0)
 					trans += " rotate("+FToStr(Item->Rot)+")";
-				strokeW = "stroke-width:"+FToStr(Item->Pwidth)+";";
+				strokeW = "stroke-width:"+FToStr(Item->Pwidth)+"pt;";
 				strokeLC = "stroke-linecap:";
 				switch (Item->PLineEnd)
 					{
@@ -411,10 +411,10 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 							ob = docu->createElement("image");
 							ob.setAttribute("clip-path", "url(#"+Clipi+IToStr(ClipCount)+")");
 							ob.setAttribute("xlink:href", fi.baseName()+".png");
-							ob.setAttribute("x", "0");
-							ob.setAttribute("y", "0");
-							ob.setAttribute("width", FToStr(Item->Width));
-							ob.setAttribute("height", FToStr(Item->Height));
+							ob.setAttribute("x", "0pt");
+							ob.setAttribute("y", "0pt");
+							ob.setAttribute("width", FToStr(Item->Width)+"pt");
+							ob.setAttribute("height", FToStr(Item->Height)+"pt");
 							ClipCount++;
 							gr.appendChild(ob);
 							}
@@ -475,8 +475,8 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 							else
 								chx = hl->ch;
 							tp = docu->createElement("tspan");
-							tp.setAttribute("x", hl->xp);
-							tp.setAttribute("y", hl->yp);
+							tp.setAttribute("x", FToStr(hl->xp)+"pt");
+							tp.setAttribute("y", FToStr(hl->yp)+"pt");
 							SetTextProps(&tp, hl, plug);
 							tp1 = docu->createTextNode(chx);
 							tp.appendChild(tp1);
@@ -533,12 +533,12 @@ void SVGExPlug::ProcessPage(ScribusApp *plug, Page *Seite, QDomDocument *docu, Q
 							else
 								chx = hl->ch;
 							tp = docu->createElement("tspan");
-							tp.setAttribute("x", hl->PtransX);
-							tp.setAttribute("y", hl->PtransY);
+							tp.setAttribute("x", FToStr(hl->PtransX)+"pt");
+							tp.setAttribute("y", FToStr(hl->PtransY)+"pt");
 							tp.setAttribute("rotate", hl->PRot);
 							tp2 = docu->createElement("tspan");
-							tp2.setAttribute("dx", hl->xp);
-							tp2.setAttribute("dy", hl->yp);
+							tp2.setAttribute("dx", FToStr(hl->xp)+"pt");
+							tp2.setAttribute("dy", FToStr(hl->yp)+"pt");
 							SetTextProps(&tp2, hl, plug);
 							tp1 = docu->createTextNode(chx);
 							tp2.appendChild(tp1);
@@ -645,7 +645,7 @@ void SVGExPlug::SetTextProps(QDomElement *tp, struct Pti *hl, ScribusApp *plug)
 	if ((hl->cstroke != "None") && (chst & 4))
 		{
 		tp->setAttribute("stroke", SetFarbe(hl->cstroke, hl->cshade2, plug));
-		tp->setAttribute("stroke-width", (*plug->doc->AllFonts)[hl->cfont]->strokeWidth * (hl->csize / 10.0));
+		tp->setAttribute("stroke-width", FToStr((*plug->doc->AllFonts)[hl->cfont]->strokeWidth * (hl->csize / 10.0))+"pt");
 		}
 	else
 		tp->setAttribute("stroke", "none");
@@ -710,7 +710,7 @@ QString SVGExPlug::GetMultiStroke(ScribusApp *plug, struct singleLine *sl, PageI
 	tmp += "stroke:"+SetFarbe(sl->Color, sl->Shade, plug)+"; ";
 	if (Item->Transparency != 0)
 		tmp += " stroke-opacity:"+FToStr(1.0 - Item->Transparency)+"; ";
-	tmp += "stroke-width:"+FToStr(sl->Width)+"; ";
+	tmp += "stroke-width:"+FToStr(sl->Width)+"pt; ";
 	tmp += "stroke-linecap:";
 	switch (static_cast<PenCapStyle>(sl->LineEnd))
 		{

@@ -2401,6 +2401,7 @@ void ScribusApp::HaveNewDoc()
 		editMenu->setItemEnabled(edid3, 1);
 	else
 		editMenu->setItemEnabled(edid3, 0);
+	editMenu->setItemEnabled(edid5, 1);
 	editMenu->setItemEnabled(edid6, 1);
 	editMenu->setItemEnabled(edid6a, 1);
 	menuBar()->setItemEnabled(ViMen, 1);
@@ -2482,7 +2483,6 @@ void ScribusApp::HaveNewSel(int Nr)
 		editMenu->setItemEnabled(edid1, 0);
 		editMenu->setItemEnabled(edid2, 0);
 		editMenu->setItemEnabled(edid4, 0);
-		editMenu->setItemEnabled(edid5, 0);
 		editMenu->setItemEnabled(Sear, 0);
 		extraMenu->setItemEnabled(hyph, 0);
 		StilMenu->clear();
@@ -2501,7 +2501,6 @@ void ScribusApp::HaveNewSel(int Nr)
 		editMenu->setItemEnabled(edid1, 1);
 		editMenu->setItemEnabled(edid2, 1);
 		editMenu->setItemEnabled(edid4, 0);
-		editMenu->setItemEnabled(edid5, 0);
 		editMenu->setItemEnabled(Sear, 0);
 		extraMenu->setItemEnabled(hyph, 0);
 		menuBar()->setItemEnabled(Stm, 1);
@@ -2529,7 +2528,6 @@ void ScribusApp::HaveNewSel(int Nr)
 		editMenu->setItemEnabled(edid1, 1);
 		editMenu->setItemEnabled(edid2, 1);
 		editMenu->setItemEnabled(edid4, 0);
-		editMenu->setItemEnabled(edid5, 0);
 		editMenu->setItemEnabled(Sear, 1);
 		extraMenu->setItemEnabled(hyph, 1);
 		menuBar()->setItemEnabled(Stm, 1);
@@ -2617,7 +2615,6 @@ void ScribusApp::HaveNewSel(int Nr)
 		editMenu->setItemEnabled(edid1, 1);
 		editMenu->setItemEnabled(edid2, 1);
 		editMenu->setItemEnabled(edid4, 0);
-		editMenu->setItemEnabled(edid5, 0);
 		editMenu->setItemEnabled(Sear, 0);
 		extraMenu->setItemEnabled(hyph, 0);
 		menuBar()->setItemEnabled(Stm, 1);
@@ -2662,7 +2659,6 @@ void ScribusApp::HaveNewSel(int Nr)
 		editMenu->setItemEnabled(edid1, 1);
 		editMenu->setItemEnabled(edid2, 1);
 		editMenu->setItemEnabled(edid4, 0);
-		editMenu->setItemEnabled(edid5, 0);
 		editMenu->setItemEnabled(Sear, 0);
 		extraMenu->setItemEnabled(hyph, 0);
 		menuBar()->setItemEnabled(Stm, 1);
@@ -3941,31 +3937,64 @@ void ScribusApp::slotEditPaste()
 
 void ScribusApp::SelectAll()
 {
-	PageItem *b = doc->ActPage->SelItem.at(0);
-	PageItem *nb = b;
-	while (nb != 0)
+	if (doc->AppMode == 7)
 	{
-		if (nb->BackBox != 0)
-			nb = nb->BackBox;
-		else
-			break;
-	}
-	while (nb != 0)
-	{
-		//		bool sel = nb->Select;
-		//		nb->Select = true;
-		for (uint a = 0; a < nb->Ptext.count(); ++a)
+		PageItem *b = doc->ActPage->SelItem.at(0);
+		PageItem *nb = b;
+		while (nb != 0)
 		{
-			nb->Ptext.at(a)->cselect = true;
-			nb->HasSel = true;
-			nb->Dirty = true;
+			if (nb->BackBox != 0)
+				nb = nb->BackBox;
+			else
+				break;
 		}
-		//		nb->OwnPage->RefreshItem(nb);
-		//		nb->Select = sel;
-		nb = nb->NextBox;
+		while (nb != 0)
+		{
+			for (uint a = 0; a < nb->Ptext.count(); ++a)
+			{
+				nb->Ptext.at(a)->cselect = true;
+				nb->HasSel = true;
+				nb->Dirty = true;
+			}
+			nb = nb->NextBox;
+		}
+		view->DrawNew();
+		EnableTxEdit();
 	}
-	view->DrawNew();
-	EnableTxEdit();
+	else
+	{
+		PageItem *b;
+		doc->ActPage->Deselect();
+		for (uint a = 0; a < doc->ActPage->Items.count(); ++a)
+		{
+			b = doc->ActPage->Items.at(a);
+			if (b->LayerNr == doc->ActiveLayer)
+			{
+				if (!b->Select)
+				{
+					doc->ActPage->SelItem.append(b);
+					b->Select = true;
+					b->FrameOnly = true;
+					b->paintObj();
+				}
+			}
+		}
+		if (doc->ActPage->SelItem.count() > 1)
+		{
+			doc->ActPage->setGroupRect();
+			doc->ActPage->paintGroupRect();
+			double x, y, w, h;
+			doc->ActPage->getGroupRect(&x, &y, &w, &h);
+			Mpal->setXY(x, y);
+			Mpal->setXY(w, h);
+		}
+		if (doc->ActPage->SelItem.count() > 0)
+		{
+			b = doc->ActPage->SelItem.at(0);
+			doc->ActPage->EmitValues(b);
+			HaveNewSel(b->PType);
+		}
+	}
 }
 
 void ScribusApp::ClipChange()
@@ -4831,7 +4860,6 @@ void ScribusApp::setAppMode(int mode)
 			delete doc->CurTimer;
 			doc->CurTimer = 0;
 			editMenu->setItemEnabled(edid4, 0);
-			editMenu->setItemEnabled(edid5, 0);
 			doc->ActPage->slotDoCurs(false);
 			if (b != 0)
 			{
@@ -4892,7 +4920,6 @@ void ScribusApp::setAppMode(int mode)
 					editMenu->setItemEnabled(edid2, 0);
 					editMenu->setItemEnabled(edid4, 0);
 				}
-				editMenu->setItemEnabled(edid5, 1);
 				editMenu->setItemEnabled(Sear, 1);
 				doc->ActPage->RefreshItem(b);
 			}

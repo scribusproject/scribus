@@ -790,6 +790,8 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 							int ol2 = static_cast<int>(ol1 / Doc->BaseGrid);
 							CurY = ceil(  ol2 / 10000.0 ) * Doc->BaseGrid + Doc->BaseOffs - Ypos;
 						}
+						if (CurY-TopOffset < 0.0)
+							CurY = TopOffset+1;
 						pt1 = QPoint(static_cast<int>(ceil(CurX)), static_cast<int>(CurY+BotOffset));
 						pt2 = QPoint(static_cast<int>(ceil(CurX)), static_cast<int>(ceil(CurY-TopOffset)));
 						while ((!cl.contains(pf2.xForm(pt1))) || (!cl.contains(pf2.xForm(pt2))))
