@@ -73,7 +73,7 @@
 			<submenuitem text="Development" file="faq3.html"/>
 		</submenuitem>
 	</area>
-	<area text="Tutorials" file="tutorials.html">
+	<area text="Tutorials" file="tutorials.html" section="tutorials">
 <!--
 		<submenuitem text="Get Started With Scribus" file="tutorials/freedomyug/scribustutorial1.html">
 			<submenuitem text="Page 2" file="tutorials/freedomyug/scribustutorial2.html"/>
