@@ -17,15 +17,24 @@
 
 #include "conswin.h"
 #include "conswin.moc"
+#include "scribus.h"
 #include <qfont.h>
+
+extern ScribusApp *ScApp;
+
 
 ConsWin::ConsWin(QWidget* parent) : QTextEdit(parent)
 {
 	/* 10/09/2004 - pv - an ugly hack to set TypeWriter
 	font without family specification.
-	TODO: get user defined font by (future) KDE integration */
+	TODO: get user defined font by (future) KDE integration
+	TODO: is there any component with more user friendly pythonic interface? readline etc?
+	TODO: script console won't handle national (czech) characters.
+	as in somescript.py do. it inserts ??? instead. why? kill all
+	special alphabets :)))*/
 	QFont font = QFont("nonexisting:)");
 	font.setStyleHint(QFont::TypeWriter);
+	font.setPointSize(ScApp->Prefs.AppFontSize);
 	setFont(font);
 	// end of hack
 	setTextFormat(Qt::PlainText);
