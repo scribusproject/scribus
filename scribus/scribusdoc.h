@@ -459,6 +459,7 @@ struct preV  {
 				QString DocDir;
 				QString ProfileDir;
 				QString ScriptDir;
+				QString TemplateDir;
 				QMap<QString,QString> GFontSub;
 				bool PDFTransparency;
 				bool AutoSave;

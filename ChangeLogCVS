@@ -1,5 +1,9 @@
 Changes since 1.2 
 
+14.09.2004
+	* feature #1064: Polish Translation Update
+	* feature #1072: Make it possible to change the document templates directory in settings
+
 11.09.2004
 	* bug     #1058: Incorrect PDF output for dotted/dashed straight single-segment PolyLines with a non-'None' background colour
 	* bug     #1059: Adjusting the width or height of a PolyLine or freehand line causes it to become a square

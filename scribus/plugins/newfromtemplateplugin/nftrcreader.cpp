@@ -97,7 +97,7 @@ bool nftrcreader::characters(const QString &ch)
 		if (tmp.left(1) == "/")
 			tmpTemplate->tnail = tmp;
 		else
-			tmpTemplate->tnail = currentDir + "/" + tmp; 
+			tmpTemplate->tnail = currentDir + "/" + tmp;
 	} else if (inImg)
 	{
 		if (tmp.left(1) == "/") 

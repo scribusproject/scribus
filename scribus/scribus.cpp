@@ -388,6 +388,7 @@ void ScribusApp::initScribus()
 		Prefs.DocDir = QDir::homeDirPath();
 		Prefs.ProfileDir = "";
 		Prefs.ScriptDir = "";
+		Prefs.TemplateDir = "";
 		Prefs.CustomColorSets.clear();
 		Prefs.PrPr_Mode = false;
 		Prefs.Gcr_Mode = true;
@@ -6545,6 +6546,7 @@ void ScribusApp::slotPrefsOrg()
 		DocDir = Prefs.DocDir;
 		Prefs.ProfileDir = dia->ProPfad->text();
 		Prefs.ScriptDir = dia->ScriptPfad->text();
+		Prefs.TemplateDir = dia->TemplateDir->text();
 		GetCMSProfiles();
 		switch (dia->PreviewSize->currentItem())
 		{

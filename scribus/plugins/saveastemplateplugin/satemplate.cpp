@@ -53,7 +53,15 @@ void MenuSAT::RunSATPlug()
 	QString currentFile = Carrier->doc->DocName;
 	bool hasName = Carrier->doc->hasName;
 	bool isModified = Carrier->doc->isModified();
-	QDir::setCurrent(QDir::homeDirPath() + "/.scribus/templates");
+	QString userTemplatesDir = Carrier->Prefs.TemplateDir;
+	if (userTemplatesDir == "")
+		QDir::setCurrent(QDir::homeDirPath() + "/.scribus/templates");
+	else
+	{
+		if (userTemplatesDir.right(1) == "/")
+			userTemplatesDir = userTemplatesDir.left(userTemplatesDir.length() - 1);
+		QDir::setCurrent(userTemplatesDir);
+	}
 	if (Carrier->Collect() == "")
 		return;
 	QString docPath = Carrier->doc->DocName;
@@ -62,7 +70,7 @@ void MenuSAT::RunSATPlug()
 	docName = docName.left(docName.findRev(".s"));
 
 	if (currentFile !=  Carrier->doc->DocName)
-	{ // TODO Check if the collect was canceled.
+	{
 		satdialog* satdia = new satdialog(par,docName, 
                                           static_cast<int>(Carrier->doc->PageB + 0.5), 
                                           static_cast<int>(Carrier->doc->PageH + 0.5));

@@ -2838,6 +2838,7 @@ void ScriXmlDoc::WritePref(preV *Vor, QString ho)
 	dc.setAttribute("DOC", Vor->DocDir);
 	dc.setAttribute("PROFILES", Vor->ProfileDir);
 	dc.setAttribute("SCRIPTS", Vor->ScriptDir);
+	dc.setAttribute("TEMPLATES", Vor->TemplateDir);
 	dc.setAttribute("SHOWGUIDES", static_cast<int>(Vor->GuidesShown));
 	dc.setAttribute("FRV", static_cast<int>(Vor->FramesShown));
 	dc.setAttribute("SHOWMARGIN", static_cast<int>(Vor->MarginsShown));
@@ -3108,6 +3109,7 @@ bool ScriXmlDoc::ReadPref(struct preV *Vorein, QString ho)
 			Vorein->DocDir = dc.attribute("DOC","");
 			Vorein->ProfileDir = dc.attribute("PROFILES","");
 			Vorein->ScriptDir = dc.attribute("SCRIPTS","");
+			Vorein->TemplateDir = dc.attribute("TEMPLATES","");
 			Vorein->GuidesShown = static_cast<bool>(QStoInt(dc.attribute("SHOWGUIDES","1")));
 			Vorein->FramesShown = static_cast<bool>(QStoInt(dc.attribute("FRV","1")));
 			Vorein->MarginsShown = static_cast<bool>(QStoInt(dc.attribute("SHOWMARGIN","1")));

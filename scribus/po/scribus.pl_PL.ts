@@ -189,6 +189,10 @@ O braku obsługi dla danej biblioteki informuje symbol *</translation>
         <source>&amp;Close</source>
         <translation>&amp;Zamknij</translation>
     </message>
+    <message>
+        <source>Swedish:</source>
+        <translation>Szwedzki:</translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
@@ -10228,6 +10232,18 @@ Sprawdź katalog i nazwę pliku.</translation>
         <source>CSV_header</source>
         <translation>nagłówek_CSV</translation>
     </message>
+    <message>
+        <source>Template: </source>
+        <translation>Szablon:</translation>
+    </message>
+    <message>
+        <source>
+External Links
+</source>
+        <translation>
+Zewnętrzne dowiązania
+</translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -12145,6 +12161,14 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <message>
         <source>&amp;Edit Shape</source>
         <translation>&amp;Edytuj kształt</translation>
+    </message>
+    <message>
+        <source>File %1 is not in Scribus format</source>
+        <translation>Plik %1 nie jest w formacie Scribusa</translation>
+    </message>
+    <message>
+        <source>Afrikaans</source>
+        <translation>Afrykanerski</translation>
     </message>
 </context>
 <context>

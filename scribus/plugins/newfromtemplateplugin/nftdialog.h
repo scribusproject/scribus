@@ -55,7 +55,7 @@ private:
 	void setupAbout();
 public:
 	nfttemplate* currentTemplate;
-	nftdialog(QWidget* parent, QString lang);
+	nftdialog(QWidget* parent, QString lang, QString templateDir);
 	~nftdialog();
 private slots: 
 	void setTNails();
