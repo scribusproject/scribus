@@ -43,7 +43,7 @@ class MenuTest : public QObject
     Q_OBJECT
 
 public:
-    MenuTest(QWidget* parent) {};
+	MenuTest(QWidget* /*parent*/) {};
     ~MenuTest() {};
 		void ReadPlugPrefs();
 		void SavePlugPrefs();

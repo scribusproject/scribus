@@ -43,7 +43,7 @@ example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,\n\
 "));
 /** Creates a new document e.g. (Paper_A4, Margins, 1, 1, 1, NoFacingPages, FirstPageLeft)
  first 2 args are lists (tuples) */
-PyObject *scribus_newdoc(PyObject *self, PyObject* args);
+PyObject *scribus_newdoc(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_closedoc__doc__,
@@ -54,7 +54,7 @@ Closes the current document without prompting to save.\n\
 May throw NoDocOpenError if there is no document to close\n\
 "));
 /** Closes active doc. No params */
-PyObject *scribus_closedoc(PyObject *self);
+PyObject *scribus_closedoc(PyObject */*self*/);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_havedoc__doc__,
@@ -63,7 +63,7 @@ QT_TR_NOOP("haveDoc() -> bool\n\
 Returns true if there is a document open.\n\
 "));
 /** Checks if is a document opened. */
-PyObject *scribus_havedoc(PyObject *self);
+PyObject *scribus_havedoc(PyObject */*self*/);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_opendoc__doc__,
@@ -74,7 +74,7 @@ Opens the document \"name\".\n\
 May raise ScribusError if the document could not be opened.\n\
 "));
 /** Opens a document with given name. */
-PyObject *scribus_opendoc(PyObject *self, PyObject* args);
+PyObject *scribus_opendoc(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_savedoc__doc__,
@@ -86,7 +86,7 @@ save file dialog.\n\
 \n\
 If the save fails, there is currently no way to tell.\n\
 "));
-PyObject *scribus_savedoc(PyObject *self);
+PyObject *scribus_savedoc(PyObject */*self*/);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_savedocas__doc__,
@@ -98,7 +98,7 @@ relative path).\n\
 May raise ScribusError if the save fails.\n\
 "));
 /** Saves active document with given name */
-PyObject *scribus_savedocas(PyObject *self, PyObject* args);
+PyObject *scribus_savedocas(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setinfo__doc__,
@@ -108,7 +108,7 @@ Sets the document information. \"Author\", \"Info\", \"Description\" are\n\
 strings.\n\
 "));
 /** Sets document infos - author, title and description */
-PyObject *scribus_setinfo(PyObject *self, PyObject* args);
+PyObject *scribus_setinfo(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setmargins__doc__,
@@ -119,7 +119,7 @@ margins are given in the measurement units of the document - see UNIT_<type>\n\
 constants.\n\
 "));
 /** Sets document margins - left, right, top and bottom. */
-PyObject *scribus_setmargins(PyObject *self, PyObject* args);
+PyObject *scribus_setmargins(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setunit__doc__,
@@ -131,7 +131,7 @@ defined as constants UNIT_<type>.\n\
 May raise ValueError if an invalid unit is passed.\n\
 "));
 /** Changes unit scale. */
-PyObject *scribus_setunit(PyObject *self, PyObject* args);
+PyObject *scribus_setunit(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getunit__doc__,
@@ -142,7 +142,7 @@ of the UNIT_* constants:\n\
 UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.\n\
 "));
 /** Returns actual unit scale. */
-PyObject *scribus_getunit(PyObject *self);
+PyObject *scribus_getunit(PyObject */*self*/);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_loadstylesfromfile__doc__,
@@ -152,7 +152,7 @@ Loads paragraph styles from the Scribus document at \"filename\" into the\n\
 current document.\n\
 "));
 /** Loads styles from another .sla file (craig r.)*/
-PyObject *scribus_loadstylesfromfile(PyObject *self, PyObject *args);
+PyObject *scribus_loadstylesfromfile(PyObject */*self*/, PyObject *args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setdoctype__doc__,
@@ -164,7 +164,7 @@ to be the first page a left side set the second parameter to FIRSTPAGELEFT, for\
 a right page use FIRSTPAGERIGHT.\n\
 "));
 /*! TODO: comment */
-PyObject *scribus_setdoctype(PyObject *self, PyObject* args);
+PyObject *scribus_setdoctype(PyObject */*self*/, PyObject* args);
 
 #endif
 

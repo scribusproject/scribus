@@ -1,6 +1,10 @@
 #ifndef CMDVAR_H
 #define CMDVAR_H
 
+#if defined(_XOPEN_SOURCE)
+#undef _XOPEN_SOURCE
+#endif
+
 #include <Python.h>
 #include "scribus.h"
 

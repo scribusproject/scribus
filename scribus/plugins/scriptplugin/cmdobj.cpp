@@ -3,10 +3,10 @@
 
 extern FPoint GetMinClipF(FPointArray Clip);
 
-PyObject *scribus_newrect(PyObject *self, PyObject* args)
+PyObject *scribus_newrect(PyObject */*self*/, PyObject* args)
 {
 	double x, y, b, h;
-	char *Name = NULL;
+	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "dddd|es", &x, &y, &b, &h, "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
@@ -26,10 +26,10 @@ PyObject *scribus_newrect(PyObject *self, PyObject* args)
 }
 
 
-PyObject *scribus_newellipse(PyObject *self, PyObject* args)
+PyObject *scribus_newellipse(PyObject */*self*/, PyObject* args)
 {
 	double x, y, b, h;
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "dddd|es", &x, &y, &b, &h, "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
@@ -47,10 +47,10 @@ PyObject *scribus_newellipse(PyObject *self, PyObject* args)
 }
 
 
-PyObject *scribus_newimage(PyObject *self, PyObject* args)
+PyObject *scribus_newimage(PyObject */*self*/, PyObject* args)
 {
 	double x, y, b, h;
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "dddd|es", &x, &y, &b, &h, "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
@@ -68,10 +68,10 @@ PyObject *scribus_newimage(PyObject *self, PyObject* args)
 }
 
 
-PyObject *scribus_newtext(PyObject *self, PyObject* args)
+PyObject *scribus_newtext(PyObject */*self*/, PyObject* args)
 {
 	double x, y, b, h;
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "dddd|es", &x, &y, &b, &h, "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
@@ -89,10 +89,10 @@ PyObject *scribus_newtext(PyObject *self, PyObject* args)
 }
 
 
-PyObject *scribus_newline(PyObject *self, PyObject* args)
+PyObject *scribus_newline(PyObject */*self*/, PyObject* args)
 {
 	double x, y, b, h;
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "dddd|es", &x, &y, &b, &h, "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
@@ -132,9 +132,9 @@ PyObject *scribus_newline(PyObject *self, PyObject* args)
 }
 
 
-PyObject *scribus_polyline(PyObject *self, PyObject* args)
+PyObject *scribus_polyline(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	PyObject *il;
 	// FIXME: PyList_Check failing will cause the function to return NULL w/o an exception. Separarate out the check.
 	if ((!PyArg_ParseTuple(args, "O|es", &il, "utf-8", &Name)) || (!PyList_Check(il)))
@@ -207,9 +207,9 @@ PyObject *scribus_polyline(PyObject *self, PyObject* args)
 }
 
 
-PyObject *scribus_polygon(PyObject *self, PyObject* args)
+PyObject *scribus_polygon(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	PyObject *il;
 	// FIXME: PyList_Check failing will cause the function to return NULL w/o an exception. Separarate out the check.
 	if ((!PyArg_ParseTuple(args, "O|es", &il, "utf-8", &Name)) || (!PyList_Check(il)))
@@ -284,9 +284,9 @@ PyObject *scribus_polygon(PyObject *self, PyObject* args)
 	return PyString_FromString(it->AnName.utf8());
 }
 
-PyObject *scribus_bezierline(PyObject *self, PyObject* args)
+PyObject *scribus_bezierline(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	PyObject *il;
 	// FIXME: PyList_Check failing will cause the function to return NULL w/o an exception. Separarate out the check.
 	if ((!PyArg_ParseTuple(args, "O|es", &il, "utf-8", &Name)) || (!PyList_Check(il)))
@@ -373,12 +373,12 @@ PyObject *scribus_bezierline(PyObject *self, PyObject* args)
 
 /* 03/31/2004 - xception handling
  */
-PyObject *scribus_pathtext(PyObject *self, PyObject* args)
+PyObject *scribus_pathtext(PyObject */*self*/, PyObject* args)
 {
 	double x, y;
-	char *Name = "";
-	char *TextB = "";
-	char *PolyB = "";
+	char *Name = const_cast<char*>("");
+	char *TextB = const_cast<char*>("");
+	char *PolyB = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "ddeses|es", &x, &y, "utf-8", &TextB, "utf-8", &PolyB, "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
@@ -411,9 +411,9 @@ PyObject *scribus_pathtext(PyObject *self, PyObject* args)
 
 /* 03/21/2004 - exception raised when Name doesn't exists. Doesn't crash then. (subik)
  */
-PyObject *scribus_deleteobj(PyObject *self, PyObject* args)
+PyObject *scribus_deleteobj(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
@@ -431,9 +431,9 @@ PyObject *scribus_deleteobj(PyObject *self, PyObject* args)
 
 /* 03/21/2004 - exception raises by non existent name (subik)
  */
-PyObject *scribus_textflow(PyObject *self, PyObject* args)
+PyObject *scribus_textflow(PyObject */*self*/, PyObject* args)
 {
-	char *name = "";
+	char *name = const_cast<char*>("");
 	int state = -1;
 
 	if (!PyArg_ParseTuple(args, "es|i", "utf-8", &name, &state))
@@ -454,9 +454,9 @@ PyObject *scribus_textflow(PyObject *self, PyObject* args)
 }
 
 
-PyObject *scribus_objectexists(PyObject *self, PyObject* args)
+PyObject *scribus_objectexists(PyObject */*self*/, PyObject* args)
 {
-	char* name = "";
+	char* name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
 		return NULL;
 	if(!checkHaveDocument())
@@ -471,10 +471,10 @@ PyObject *scribus_objectexists(PyObject *self, PyObject* args)
  * Apply the named style to the currently selected object.
  * pv, 2004-09-13, optionaly param objectName + "check the page" stuff
  */
-PyObject *scribus_setstyle(PyObject *self, PyObject* args)
+PyObject *scribus_setstyle(PyObject */*self*/, PyObject* args)
 {
-	char *style = "";
-	char *name = "";
+	char *style = const_cast<char*>("");
+	char *name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &style, "utf-8", &name))
 		return NULL;
 	if(!checkHaveDocument())
@@ -525,7 +525,7 @@ PyObject *scribus_setstyle(PyObject *self, PyObject* args)
  * Craig Ringer, 2004-09-09
  * Enumerate all known paragraph styles
  */
-PyObject *scribus_getstylenames(PyObject *self)
+PyObject *scribus_getstylenames(PyObject */*self*/)
 {
 	PyObject *styleList;
 	if(!checkHaveDocument())
@@ -550,10 +550,10 @@ PyObject *scribus_getstylenames(PyObject *self)
 /*! 2004-12-08 CR
  * Return the internal frame type number for a frame.
  */
-PyObject* scribus_getframetype(PyObject* self, PyObject* args, PyObject* kw)
+PyObject* scribus_getframetype(PyObject */*self*/, PyObject* args, PyObject* kw)
 {
-    char* frameName = "";
-    char* kwds[] = {"frame=", NULL};
+	char* frameName = const_cast<char*>("");
+	char* kwds[] = {const_cast<char*>("frame="), const_cast<char*>("")};
     if (!PyArg_ParseTupleAndKeywords(args, kw, "|s", kwds, &frameName))
         return NULL;
     PageItem *it = GetUniqueItem(QString(frameName));

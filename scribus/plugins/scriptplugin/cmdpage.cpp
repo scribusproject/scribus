@@ -1,14 +1,14 @@
 #include "cmdpage.h"
 #include "cmdutil.h"
 
-PyObject *scribus_actualpage(PyObject *self)
+PyObject *scribus_actualpage(PyObject */*self*/)
 {
 	if(!checkHaveDocument())
 		return NULL;
 	return PyInt_FromLong(static_cast<long>(Carrier->doc->ActPage->PageNr + 1));
 }
 
-PyObject *scribus_redraw(PyObject *self)
+PyObject *scribus_redraw(PyObject */*self*/)
 {
 	if(!checkHaveDocument())
 		return NULL;
@@ -17,7 +17,7 @@ PyObject *scribus_redraw(PyObject *self)
 	return Py_None;
 }
 
-PyObject *scribus_savepageeps(PyObject *self, PyObject* args)
+PyObject *scribus_savepageeps(PyObject */*self*/, PyObject* args)
 {
 	char *Name;
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
@@ -34,7 +34,7 @@ PyObject *scribus_savepageeps(PyObject *self, PyObject* args)
 	return Py_True;
 }
 
-PyObject *scribus_deletepage(PyObject *self, PyObject* args)
+PyObject *scribus_deletepage(PyObject */*self*/, PyObject* args)
 {
 	int e;
 	if (!PyArg_ParseTuple(args, "i", &e))
@@ -52,7 +52,7 @@ PyObject *scribus_deletepage(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_gotopage(PyObject *self, PyObject* args)
+PyObject *scribus_gotopage(PyObject */*self*/, PyObject* args)
 {
 	int e;
 	if (!PyArg_ParseTuple(args, "i", &e))
@@ -70,10 +70,10 @@ PyObject *scribus_gotopage(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_newpage(PyObject *self, PyObject* args)
+PyObject *scribus_newpage(PyObject */*self*/, PyObject* args)
 {
 	int e;
-	char *name = "Normal";
+	char *name = const_cast<char*>("Normal");
 	if (!PyArg_ParseTuple(args, "i|es", &e, "utf-8", &name))
 		return NULL;
 	if(!checkHaveDocument())
@@ -94,14 +94,14 @@ PyObject *scribus_newpage(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_pagecount(PyObject *self)
+PyObject *scribus_pagecount(PyObject */*self*/)
 {
 	if(!checkHaveDocument())
 		return NULL;
 	return PyInt_FromLong(static_cast<long>(Carrier->doc->Pages.count()));
 }
 
-PyObject *scribus_pagedimension(PyObject *self)
+PyObject *scribus_pagedimension(PyObject */*self*/)
 {
 	if(!checkHaveDocument())
 		return NULL;
@@ -114,7 +114,7 @@ PyObject *scribus_pagedimension(PyObject *self)
 	return t;
 }
 
-PyObject *scribus_getpageitems(PyObject *self)
+PyObject *scribus_getpageitems(PyObject */*self*/)
 {
 	if(!checkHaveDocument())
 		return NULL;
@@ -134,7 +134,7 @@ PyObject *scribus_getpageitems(PyObject *self)
 	return l;
 }
 
-PyObject *scribus_getHguides(PyObject *self)
+PyObject *scribus_getHguides(PyObject */*self*/)
 {
 	if(!checkHaveDocument())
 		return NULL;
@@ -154,7 +154,7 @@ PyObject *scribus_getHguides(PyObject *self)
 	return l;
 }
 
-PyObject *scribus_setHguides(PyObject *self, PyObject* args)
+PyObject *scribus_setHguides(PyObject */*self*/, PyObject* args)
 {
 	PyObject *l;
 	if (!PyArg_ParseTuple(args, "O", &l))
@@ -183,7 +183,7 @@ PyObject *scribus_setHguides(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_getVguides(PyObject *self)
+PyObject *scribus_getVguides(PyObject */*self*/)
 {
 	if(!checkHaveDocument())
 		return NULL;
@@ -203,7 +203,7 @@ PyObject *scribus_getVguides(PyObject *self)
 	return l;
 }
 
-PyObject *scribus_setVguides(PyObject *self, PyObject* args)
+PyObject *scribus_setVguides(PyObject */*self*/, PyObject* args)
 {
 	PyObject *l;
 	if (!PyArg_ParseTuple(args, "O", &l))
@@ -232,7 +232,7 @@ PyObject *scribus_setVguides(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_getpagemargins(PyObject *self)
+PyObject *scribus_getpagemargins(PyObject */*self*/)
 {
 	PyObject *margins = NULL;
 	if(!checkHaveDocument())

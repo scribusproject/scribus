@@ -1,9 +1,9 @@
 #include "cmdmani.h"
 #include "cmdutil.h"
 
-PyObject *scribus_loadimage(PyObject *self, PyObject* args)
+PyObject *scribus_loadimage(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	char *Image;
 	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &Image, "utf-8", &Name))
 		return NULL;
@@ -22,10 +22,10 @@ PyObject *scribus_loadimage(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_scaleimage(PyObject *self, PyObject* args)
+PyObject *scribus_scaleimage(PyObject */*self*/, PyObject* args)
 {
 	// FIXME: This function doesn't seem to work...
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	double x, y;
 	if (!PyArg_ParseTuple(args, "dd|es", &x, &y, "utf-8", &Name))
 		return NULL;
@@ -41,13 +41,15 @@ PyObject *scribus_scaleimage(PyObject *self, PyObject* args)
 	}
 	item->LocalScX = x;
 	item->LocalScY = y;
+	// FIXME: item->OwnPage->ChLocalSc(x, y);
+	Carrier->slotDocCh(TRUE);
 	Py_INCREF(Py_None);
 	return Py_None;
 }
 
-PyObject *scribus_moveobjrel(PyObject *self, PyObject* args)
+PyObject *scribus_moveobjrel(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	double x, y;
 	if (!PyArg_ParseTuple(args, "dd|es", &x, &y, "utf-8", &Name))
 		return NULL;
@@ -64,9 +66,9 @@ PyObject *scribus_moveobjrel(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_moveobjabs(PyObject *self, PyObject* args)
+PyObject *scribus_moveobjabs(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	double x, y;
 	if (!PyArg_ParseTuple(args, "dd|es", &x, &y, "utf-8", &Name))
 		return NULL;
@@ -92,9 +94,9 @@ PyObject *scribus_moveobjabs(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_rotobjrel(PyObject *self, PyObject* args)
+PyObject *scribus_rotobjrel(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	double x;
 	if (!PyArg_ParseTuple(args, "d|es", &x, "utf-8", &Name))
 		return NULL;
@@ -108,9 +110,9 @@ PyObject *scribus_rotobjrel(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_rotobjabs(PyObject *self, PyObject* args)
+PyObject *scribus_rotobjabs(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	double x;
 	if (!PyArg_ParseTuple(args, "d|es", &x, "utf-8", &Name))
 		return NULL;
@@ -124,9 +126,9 @@ PyObject *scribus_rotobjabs(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_sizeobjabs(PyObject *self, PyObject* args)
+PyObject *scribus_sizeobjabs(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	double x, y;
 	if (!PyArg_ParseTuple(args, "dd|es", &x, &y, "utf-8", &Name))
 		return NULL;
@@ -140,9 +142,9 @@ PyObject *scribus_sizeobjabs(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_groupobj(PyObject *self, PyObject* args)
+PyObject *scribus_groupobj(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	PyObject *il = 0;
 	if (!PyArg_ParseTuple(args, "|O", &il))
 		return NULL;
@@ -179,9 +181,9 @@ PyObject *scribus_groupobj(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_ungroupobj(PyObject *self, PyObject* args)
+PyObject *scribus_ungroupobj(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";;
+	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
@@ -194,9 +196,9 @@ PyObject *scribus_ungroupobj(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_scalegroup(PyObject *self, PyObject* args)
+PyObject *scribus_scalegroup(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	double sc;
 	if (!PyArg_ParseTuple(args, "d|es", &sc, "utf-8", &Name))
 		return NULL;
@@ -220,7 +222,7 @@ PyObject *scribus_scalegroup(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_getselobjnam(PyObject *self, PyObject* args)
+PyObject *scribus_getselobjnam(PyObject */*self*/, PyObject* args)
 {
 	int i = 0;
 	if (!PyArg_ParseTuple(args, "|i", &i))
@@ -234,16 +236,16 @@ PyObject *scribus_getselobjnam(PyObject *self, PyObject* args)
 		return PyString_FromString("");
 }
 
-PyObject *scribus_selcount(PyObject *self)
+PyObject *scribus_selcount(PyObject */*self*/)
 {
 	if(!checkHaveDocument())
 		return NULL;
 	return PyInt_FromLong(static_cast<long>(Carrier->view->SelItem.count()));
 }
 
-PyObject *scribus_selectobj(PyObject *self, PyObject* args)
+PyObject *scribus_selectobj(PyObject */*self*/, PyObject* args)
 {
-	char *Name = "";
+	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
 		return NULL;
 	if(!checkHaveDocument())
@@ -256,7 +258,7 @@ PyObject *scribus_selectobj(PyObject *self, PyObject* args)
 	return Py_None;
 }
 
-PyObject *scribus_deselect(PyObject *self)
+PyObject *scribus_deselect(PyObject */*self*/)
 {
 	if(!checkHaveDocument())
 		return NULL;
@@ -265,9 +267,9 @@ PyObject *scribus_deselect(PyObject *self)
 	return Py_None;
 }
 
-PyObject *scribus_lockobject(PyObject *self, PyObject* args)
+PyObject *scribus_lockobject(PyObject */*self*/, PyObject* args)
 {
-	char *name = "";
+	char *name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
 		return NULL;
 	if(!checkHaveDocument())
@@ -281,9 +283,9 @@ PyObject *scribus_lockobject(PyObject *self, PyObject* args)
 	return PyInt_FromLong(0);
 }
 
-PyObject *scribus_islocked(PyObject *self, PyObject* args)
+PyObject *scribus_islocked(PyObject */*self*/, PyObject* args)
 {
-	char *name = "";
+	char *name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
 		return NULL;
 	// FIXME: Rather than toggling the lock, we should probably let the user set the lock state
