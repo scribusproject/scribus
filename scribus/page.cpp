@@ -6222,7 +6222,10 @@ bool Page::SeleItem(QMouseEvent *m)
 						qApp->setOverrideCursor(QCursor(SizeAllCursor), true);
 				}
 				else
+				{
 					qApp->setOverrideCursor(QCursor(SizeAllCursor), true);
+					mCG = false;
+				}
 				p.end();
 				return true;
 			}

@@ -258,7 +258,7 @@ void SVGPlug::setupTransform( const QDomElement &e )
  \param e const QDomElement &
  \retval None
  */
-void SVGPlug::parseGroup(const QDomElement &e)
+QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 {
 	QPtrList<PageItem> GElements;
 	FPointArray ImgClip;
@@ -276,13 +276,13 @@ void SVGPlug::parseGroup(const QDomElement &e)
 			SvgStyle *gc = m_gc.current();
 			setupTransform( b );
 			parseStyle( gc, b );
-			parseGroup( b );
-			for (uint gr = 0; gr < GElements.count(); ++gr)
+			QPtrList<PageItem> gElements = parseGroup( b );
+			for (uint gr = 0; gr < gElements.count(); ++gr)
 			{
-				GElements.at(gr)->Groups.push(Doku->GroupCounter);
+				gElements.at(gr)->Groups.push(Doku->GroupCounter);
+				GElements.append(gElements.at(gr));
 			}
 			delete( m_gc.pop() );
-			GElements.clear();
 			Doku->GroupCounter++;
 			continue;
 		}
@@ -578,6 +578,7 @@ void SVGPlug::parseGroup(const QDomElement &e)
 		}
 		delete( m_gc.pop() );
 	}
+	return GElements;
 }
 
 /*!
