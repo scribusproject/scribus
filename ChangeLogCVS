@@ -1,5 +1,9 @@
 Changes since 1.2 
 
+18.11.2004
+	* feature #1315: New sq-AL translation of Scribus
+	* feature #1323: Implement -ns/--no-splash option on startup
+
 16.11.2004
 	* bug     #1316: xlib_rgb_init: compiled for big endian ... scribus won't run
 	* bug     #1320: Updated Czech Translation
