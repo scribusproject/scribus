@@ -3201,7 +3201,7 @@ void ScribusApp::HaveNewSel(int Nr)
 			if (((b->PType == 4) || (view->SelItem.at(1)->PType == 4)) && ((b->PType == 7) || (view->SelItem.at(1)->PType == 7)))
 			{
 				PageItem* bx = view->SelItem.at(1);
-				if ((b->NextBox == 0) && (b->BackBox == 0) && (bx->NextBox == 0) && (bx->BackBox == 0))
+				if ((b->NextBox == 0) && (b->BackBox == 0) && (bx->NextBox == 0) && (bx->BackBox == 0) && (b->Groups.count() == 0))
 					ObjMenu->setItemEnabled(PfadT, 1);
 			}
 		}
@@ -7933,6 +7933,7 @@ void ScribusApp::GroupObj()
 	slotDocCh();
 	doc->UnDoValid = false;
 	CanUndo();
+	ObjMenu->setItemEnabled(PfadT, false);
 	ObjMenu->setItemEnabled(Gr, false);
 	ObjMenu->setItemEnabled(UnGr, true);
 }

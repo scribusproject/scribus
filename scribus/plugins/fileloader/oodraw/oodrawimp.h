@@ -34,7 +34,7 @@ public:
 	OODPlug( ScribusApp *plug, QString fName );
 	~OODPlug();
 	void convert();
-	void parseGroup(const QDomElement &e);
+	QPtrList<PageItem> parseGroup(const QDomElement &e);
 	void createStyleMap( QDomDocument &docstyles );
 	void insertDraws( const QDomElement& styles );
 	void insertStyles( const QDomElement& styles );

@@ -129,7 +129,7 @@ public:
 	void convert();
 	void addGraphicContext();
 	void setupTransform( const QDomElement &e );
-	void parseGroup(const QDomElement &e);
+	QPtrList<PageItem> parseGroup(const QDomElement &e);
 	double fromPercentage( const QString &s );
 	double parseUnit(const QString &unit);
 	QWMatrix parseTransform(const QString &transform);

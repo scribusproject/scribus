@@ -279,7 +279,7 @@ void OODPlug::convert()
 	Prog->DLLinput = "";
 }
 
-void OODPlug::parseGroup(const QDomElement &e)
+QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 {
 	QPtrList<PageItem> GElements;
 	FPointArray ImgClip;
@@ -417,12 +417,12 @@ void OODPlug::parseGroup(const QDomElement &e)
 		}
 		if( STag == "draw:g" )
 		{
-			parseGroup( b );
-			for (uint gr = 0; gr < GElements.count(); ++gr)
+			QPtrList<PageItem> gElements = parseGroup( b );
+			for (uint gr = 0; gr < gElements.count(); ++gr)
 			{
-				GElements.at(gr)->Groups.push(Doku->GroupCounter);
+				gElements.at(gr)->Groups.push(Doku->GroupCounter);
+				GElements.append(gElements.at(gr));
 			}
-			GElements.clear();
 			Doku->GroupCounter++;
 		}
 		else if( STag == "draw:rect" )
@@ -701,6 +701,7 @@ void OODPlug::parseGroup(const QDomElement &e)
 			Elements.append(ite);
 		}
 	}
+	return GElements;
 }
 
 void OODPlug::createStyleMap( QDomDocument &docstyles )
