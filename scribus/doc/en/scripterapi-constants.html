@@ -4,6 +4,19 @@
 
 <p>There are some Constants defined to help using the Commands: </p>
 
+<h4>Scribus Version:</h4>
+	<p>The script interface provides two variables containing the current Scribus version in the <code>scribus</code> module. Scripts can use these variables to check that they're running under the version of Scribus they expect, and to report information about incompatibilities to the user. These two variables, <code>scribus_version</code> and <code>scribus_version_info</code>, were added in 1.2.1 and 1.3.0cvs and will not be present in earlier versions. If you need to, you can check for their presence with <code>hasattr(scribus, 'scribus_version')</code>.</p>
+	<p><code>scribus_version</code> contains the current Scribus version as a string. It will usually look like <code>'1.2.1cvs'</code> or <code>'1.3.0'</code>, for example, but is not guaranteed to always follow that format. This variable is useful when you need to display the version to the user, for example when reporting an incompatibility. Do not parse or compare this variable, that is what <code>scribus_version_info</code> is for.</p>
+	<p><code>scribus_version_info</code> is a tuple similar to the <code>sys.version_info</code> tuple provided by Python. It is a tuple of the form (majorversion, minorversion, patchlevel, extraversion, build) for example, 1.2.1cvs will have <code>(1,2,1,'cvs',0)</code> and 1.3.2 will have <code>(1,3,2,'',0)<code> . These tuples are ideal for checking for minimum versions, etc, because Python compares tuples element-by-element, left-to-right. For example:</p>
+<pre>
+if scribus.scribus_version_info[:3] &lt; (1,2,2):
+     messageBox("Scribus - Python script",
+         "This script requires Scribus 1.2.2 or newer. "+\
+         "You're running %s." % scribus.scribus_version,
+         ICON_CRITICAL)
+     sys.exit()
+</pre>
+
 <h4>Unit Definitions: </h4>
 <dl>
 	<dt>UNIT_POINTS</dt>
@@ -74,7 +87,7 @@
 	<dd>Paperformat Comm10E = 298 x 683 Points</dd>
 	<dt>PAPER_DLE</dt>
 	<dd>Paperformat DLE = 312 x 624 Points</dd>
-	<dt>PAPER_EXECUTIVE</dt> 
+	<dt>PAPER_EXECUTIVE</dt>
 	<dd>Paperformat Executive = 542 x 720 Points</dd>
 	<dt>PAPER_FOLIO</dt>
 	<dd>Paperformat Folio = 595 x 935 Points</dd>
@@ -88,7 +101,7 @@
 	<dd>Paperformat Tabloid = 792 x 1224 Points</dd>
 </dl>
 
-<h4>Definitions for Document Layout:</h4> 
+<h4>Definitions for Document Layout:</h4>
 <dl>
 	<dt>FACINGPAGES</dt>
 	<dd>Layout with facing Pages.</dd>
@@ -128,7 +141,7 @@
     <dt>CAP_ROUND</dt>
     <dt>CAP_SQUARE</dt>
 </dl>
-  
+
 <h4>Fill related Definitions: </h4>
 <dl>
 	<dt>FILL_NOG</dt>
@@ -137,7 +150,7 @@
 	<dt>FILL_VERTICALG</dt>
 	<dt>FILL_DIAGONALG</dt>
 	<dt>FILL_CROSSDIAGONALG</dt>
-	<dt>FILL_RADIALG</dt> 
+	<dt>FILL_RADIALG</dt>
 </dl>
 
 <h4>Dialog Buttons</h4>
