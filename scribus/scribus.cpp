@@ -1314,6 +1314,8 @@ void ScribusApp::initToolsMenuActions()
 		
 	scrActions.insert("toolsRotate", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Rotieren.xpm"), loadIcon("Rotieren.xpm")), tr("Rotate Item"), QKeySequence(Key_R), this, "toolsRotate", Rotation));
 	scrActions.insert("toolsZoom", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Lupe.xpm"), loadIcon("Lupe.xpm")), tr("Zoom in or out"), QKeySequence(Key_Z), this, "toolsZoom", Magnifier));
+	scrActions.insert("toolsZoomIn", new ScrAction(QIconSet(loadIcon("Gross.xpm"), loadIcon("Gross.xpm")), tr("Zoom in"), QKeySequence(CTRL+Key_Plus), this, "toolsZoomIn"));
+	scrActions.insert("toolsZoomOut", new ScrAction(QIconSet(loadIcon("Klein.xpm"), loadIcon("Klein.xpm")), tr("Zoom out"), QKeySequence(CTRL+Key_Minus), this, "toolsZoomOut"));
 	scrActions.insert("toolsEditContents", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Editm.xpm"), loadIcon("Editm.xpm")), tr("Edit Contents of Frame"), QKeySequence(Key_E), this, "toolsEditContents", EditMode));
 	scrActions.insert("toolsEditWithStoryEditor", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("signature.png"), loadIcon("signature.png")), tr("Edit the text with the Story Editor"), QKeySequence(CTRL+Key_Y), this, "toolsEditWithStoryEditor", StartStoryEditor));
 	scrActions.insert("toolsLinkTextFrame", new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("Lock.xpm"), loadIcon("Lock.xpm")), tr("Link Text Frames"), QKeySequence(Key_N), this, "toolsLinkTextFrame", LinkFrames));
@@ -1359,7 +1361,7 @@ void ScribusApp::initToolsMenuActions()
 	connect( scrActions["toolsActionHistory"], SIGNAL(toggled(bool)) , this, SLOT(setUndoPalette(bool)) );
 	connect( scrActions["toolsToolbarTools"], SIGNAL(toggled(bool)) , this, SLOT(setTools(bool)) );
 	connect( scrActions["toolsToolbarPDF"], SIGNAL(toggled(bool)) , this, SLOT(setPDFTools(bool)) );
-	
+		
 	connectToolsActions();
 }
 
@@ -1415,13 +1417,9 @@ void ScribusApp::initSpecialActions()
 	connect( scrActions["specialPageNumber"], SIGNAL(activatedData(QString)) , this, SLOT(specialActionKeyEvent(QString)) );
 
 	//GUI
-	//scrActions.insert("specialToggleEditMode", new ScrAction(ScrAction::DataInt, QIconSet(), tr("Toggle Edit Mode"), Key_F9, this, "specialToggleEditMode",EditMode));
 	scrActions.insert("specialToggleAllPalettes", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Toggle Palettes"), Key_F10, this, "specialToggleAllPalettes",0,0.0,"specialToggleAllPalettes"));
 	scrActions.insert("specialToggleAllGuides", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Toggle Guides"), Key_F11, this, "specialToggleAllGuides",0,0.0,"specialToggleAllGuides"));
 
-	//scrActions["specialToggleEditMode"]->setToggleAction(true);
-
-	//connect( scrActions["specialToggleEditMode"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
 	connect( scrActions["specialToggleAllPalettes"], SIGNAL(activated()) , this, SLOT(ToggleAllPalettes()) );
 	connect( scrActions["specialToggleAllGuides"], SIGNAL(activated()) , this, SLOT(ToggleAllGuides()) );
 }
@@ -3027,6 +3025,11 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	doc->PageColors = Prefs.DColors;
 	doc->loading = true;
 	ScribusWin* w = new ScribusWin(wsp, doc);
+	if (view!=NULL)
+	{
+		disconnect( scrActions["toolsZoomIn"], SIGNAL(activated()) , view, SLOT(slotZoomIn()) );
+		disconnect( scrActions["toolsZoomOut"], SIGNAL(activated()) , view, SLOT(slotZoomOut()) );
+	}
 	view = new ScribusView(w, doc, &Prefs);
 	view->Scale = 1.0*Prefs.DisScale;
 	w->setView(view);
@@ -3035,6 +3038,8 @@ bool ScribusApp::doFileNew(double b, double h, double tpr, double lr, double rr,
 	w->setCentralWidget(view);
 	connect(undoManager, SIGNAL(undoRedoDone()), view, SLOT(DrawNew()));
 	connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
+	connect( scrActions["toolsZoomIn"], SIGNAL(activated()) , view, SLOT(slotZoomIn()) );
+	connect( scrActions["toolsZoomOut"], SIGNAL(activated()) , view, SLOT(slotZoomOut()) );
 	//	connect(w, SIGNAL(SaveAndClose()), this, SLOT(DoSaveClose()));
 	if (CMSavail)
 	{
@@ -3199,6 +3204,11 @@ void ScribusApp::newActWin(QWidget *w)
 	if (oldDocName != newDocName)
 		undoManager->switchStack(newDocName);
 
+	if (view!=NULL)
+	{
+		disconnect( scrActions["toolsZoomIn"], SIGNAL(activated()) , view, SLOT(slotZoomIn()) );
+		disconnect( scrActions["toolsZoomOut"], SIGNAL(activated()) , view, SLOT(slotZoomOut()) );
+	}
 	doc = ActWin->doc;
 	view = ActWin->view;
 	pagePalette->SetView(view);
@@ -3249,6 +3259,9 @@ void ScribusApp::newActWin(QWidget *w)
 		else
 			HaveNewSel(-1);
 	}
+	
+	connect( scrActions["toolsZoomIn"], SIGNAL(activated()) , view, SLOT(slotZoomIn()) );
+	connect( scrActions["toolsZoomOut"], SIGNAL(activated()) , view, SLOT(slotZoomOut()) );
 }
 
 void ScribusApp::windowsMenuActivated( int id )

@@ -315,8 +315,8 @@ public slots: // Public slots
 	void removePict(QString name);
 
 private: // Private attributes
-	QPushButton *SB1;
-	QPushButton *SB2;
+	QPushButton *zoomOutToolbarButton;
+	QPushButton *zoomInToolbarButton;
 	QPushButton *LY;
 	QPopupMenu *Unitmen;
 	QPopupMenu *Laymen;
