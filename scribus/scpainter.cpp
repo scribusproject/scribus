@@ -139,8 +139,7 @@ void ScPainter::end()
 	// Use the original gdk-pixbuf based bitblit on X11
 	xlib_draw_rgb_32_image( m_target->handle(), gc, m_x, m_y, m_width, m_height, XLIB_RGB_DITHER_NONE, m_buffer, m_width * 4 );
 #else
-	// But use a portable version by Andreas Vox on other platforms
-	// FIXME: possible big-endian assumption
+	// Portable copying onto the canvas with no X11 dependency by Andreas Vox
 	QImage qimg(m_width, m_height, 32, QImage::BigEndian);
 	QRgb * bits = (QRgb *) qimg.bits();
 	int words = qimg.numBytes() / 4;
@@ -152,7 +151,7 @@ void ScPainter::end()
 		art_u8 a = *p++;
 		*bits++ = qRgba(r,g,b,a);
 	}
-	bitBlt(m_target, 0, 0, &qimg);
+	bitBlt(m_target, m_x, m_y, &qimg);
 #endif
 }
 
