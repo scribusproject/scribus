@@ -378,6 +378,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 						emit SideBarUp(true);
 						emit SideBarUpdate();
 					}
+					return;
 					break;
 			}
 			break;
