@@ -101,7 +101,7 @@ void SimpleState::set(const QString& key, int value)
 
 void SimpleState::set(const QString& key, double value)
 {
-	values[key] = QString("%1").arg(value);
+	values[key] = QString("%1").arg(value, 0, 'f', 20);
 }
 
 
