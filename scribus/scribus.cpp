@@ -821,7 +821,7 @@ void ScribusApp::initPalettes()
 
 void ScribusApp::initScrapbook()
 {
-	QString scrapbookFile = PrefsPfad+"/scrap13.scs";
+	QString scrapbookFile = QDir::convertSeparators(PrefsPfad+"/scrap13.scs");
 	QFileInfo scrapbookFileInfo = QFileInfo(scrapbookFile);
 	if (scrapbookFileInfo.exists())
 		scrapbookPalette->BibWin->ReadContents(scrapbookFile);
@@ -866,7 +866,7 @@ bool ScribusApp::warningVersion(QWidget *parent)
 {
 	bool retval = false;
 	int t = QMessageBox::warning(parent, QObject::tr("Scribus Development Version"),
-								 QObject::tr("You are running a development version of Scribus 1.3.x.\nThe process of  saving will make files originating from versions of\nScribus of 1.2.x or lower unusable again in those versions.\nAre you sure you wish to proceed with this operation?"),
+								 QObject::tr("You are running a development version of Scribus 1.3.x.\nThe process of saving will make files originating from versions of\nScribus of 1.2.x or lower unusable again in those versions.\nAre you sure you wish to proceed with this operation?"),
 								 QObject::tr("&Cancel"), QObject::tr("&Proceed"), "", 1, 0);
 	if (t == 1)
 		retval = true;
@@ -913,7 +913,6 @@ QString ScribusApp::getPreferencesLocation()
 		if (oldPi3.exists())
 			moveFile(oldPR3, Pff+"/scrap.scs");
 	}
-
 	return PrefsPfad;
 }
 
@@ -928,32 +927,28 @@ QString ScribusApp::getPreferencesLocation()
 bool ScribusApp::convert12Preferences(const QString prefsLocation)
 {
 	//Now make copies for 1.3 use and leave the old ones alone for <1.3.0 usage
-	QString oldPR =QDir::convertSeparators(prefsLocation+"/scribus.rc");
-	QString oldPR2=QDir::convertSeparators(prefsLocation+"/scribusfont.rc");
-	QString oldPR3=QDir::convertSeparators(prefsLocation+"/scrap.scs");
-	QString oldPR4=QDir::convertSeparators(prefsLocation+"/prefs.xml");
-	QString oldPR5=QDir::convertSeparators(prefsLocation+"/scripter.rc");
-	QString newPR =QDir::convertSeparators(prefsLocation+"/scribus13.rc");
-	QString newPR2=QDir::convertSeparators(prefsLocation+"/scribusfont13.rc");
-	QString newPR3=QDir::convertSeparators(prefsLocation+"/scrap13.scs");
-	QString newPR4=QDir::convertSeparators(prefsLocation+"/prefs13.xml");
-	QString newPR5=QDir::convertSeparators(prefsLocation+"/scripter13.rc");
+	QString oldPR[5], newPR[5];
+	oldPR[0]=QDir::convertSeparators(prefsLocation+"/scribus.rc");
+	oldPR[1]=QDir::convertSeparators(prefsLocation+"/scribusfont.rc");
+	oldPR[2]=QDir::convertSeparators(prefsLocation+"/scrap.scs");
+	oldPR[3]=QDir::convertSeparators(prefsLocation+"/prefs.xml");
+	oldPR[4]=QDir::convertSeparators(prefsLocation+"/scripter.rc");
+	newPR[0]=QDir::convertSeparators(prefsLocation+"/scribus13.rc");
+	newPR[1]=QDir::convertSeparators(prefsLocation+"/scribusfont13.rc");
+	newPR[2]=QDir::convertSeparators(prefsLocation+"/scrap13.scs");
+	newPR[3]=QDir::convertSeparators(prefsLocation+"/prefs13.xml");
+	newPR[4]=QDir::convertSeparators(prefsLocation+"/scripter13.rc");
 
-	bool existsOldPR =QFile::exists(oldPR);
-	bool existsOldPR2=QFile::exists(oldPR2);
-	bool existsOldPR3=QFile::exists(oldPR3);
-	bool existsOldPR4=QFile::exists(oldPR4);
-	bool existsOldPR5=QFile::exists(oldPR5);
-	bool existsNewPR =QFile::exists(newPR);
-	bool existsNewPR2=QFile::exists(newPR2);
-	bool existsNewPR3=QFile::exists(newPR3);
-	bool existsNewPR4=QFile::exists(newPR4);
-	bool existsNewPR5=QFile::exists(newPR5);
+	bool existsOldPR[5], existsNewPR[5];
+	for (uint i=0;i<5;++i)
+	{
+		existsOldPR[i] =QFile::exists(oldPR[i]);
+		existsNewPR[i] =QFile::exists(newPR[i]);
+	}
 
 	bool retVal=false;
-
 	//Only check for these two as they will be autocreated if they dont exist.
-	if( (existsOldPR && !existsNewPR) || (existsOldPR4 && !existsNewPR4) )
+	if( (existsOldPR[0] && !existsNewPR[0]) || (existsOldPR[3] && !existsNewPR[3]) )
 	{
 		retVal=true; // converting from 1.2 prefs
 		if (splashScreen)
@@ -963,17 +958,11 @@ bool ScribusApp::convert12Preferences(const QString prefsLocation)
 					  "Do you want to migrate them to the new Scribus version?"),
 			  QMessageBox::Yes | QMessageBox::Default, QMessageBox::No, QMessageBox::NoButton))==QMessageBox::Yes )
 		{
-			if (existsOldPR && !existsNewPR)
-				copyFile(oldPR, newPR);
-			if (existsOldPR2 && !existsNewPR2)
-				copyFile(oldPR2, newPR2);
-			if (existsOldPR3 && !existsNewPR3)
-				copyFile(oldPR3, newPR3);
-			if (existsOldPR4 && !existsNewPR4)
-				copyFile(oldPR4, newPR4);
-			if (existsOldPR5 && !existsNewPR5)
-				copyFile(oldPR5, newPR5);
-
+			for (uint i=0;i<5;++i)
+			{
+				if (existsOldPR[i] && !existsNewPR[i])
+					copyFile(oldPR[i], newPR[i]);
+			}
 		}
 		if (splashScreen)
 			splashScreen->show();
@@ -1096,7 +1085,6 @@ void ScribusApp::initStyleMenuActions()
 		connect(scrActions[fontSizeName], SIGNAL(activatedData(int)), this, SLOT(setItemFSize(int)));
 	}
 
-
 	//Alignment actions
 	scrActions.insert("alignLeft", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Left"), QKeySequence(), this, "alignLeft", 0));
 	scrActions.insert("alignCenter", new ScrAction(ScrAction::DataInt, QIconSet(), tr("&Center"), QKeySequence(), this, "alignCenter", 1));
@@ -1115,7 +1103,6 @@ void ScribusApp::initStyleMenuActions()
 	connect(scrActions["alignRight"], SIGNAL(activatedData(int)), this, SLOT(setNewAbStyle(int)));
 	connect(scrActions["alignBlock"], SIGNAL(activatedData(int)), this, SLOT(setNewAbStyle(int)));
 	connect(scrActions["alignForced"], SIGNAL(activatedData(int)), this, SLOT(setNewAbStyle(int)));
-
 
 	//Shade actions
 	scrActionGroups.insert("shade", new QActionGroup(this, "shade", true));
@@ -1341,7 +1328,6 @@ void ScribusApp::initHelpMenuActions()
 	connect( scrActions["helpAboutQt"], SIGNAL(activated()) , this, SLOT(slotHelpAboutQt()) );
 	connect( scrActions["helpTooltips"], SIGNAL(activated()) , this, SLOT(ToggleTips()) );
 	connect( scrActions["helpManual"], SIGNAL(activated()) , this, SLOT(slotOnlineHelp()) );
-
 }
 
 void ScribusApp::initSpecialActions()
@@ -1351,12 +1337,18 @@ void ScribusApp::initSpecialActions()
 	scrActions.insert("specialNonBreakingSpace", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Insert Non Breaking Space"), CTRL+Key_Space, this, "specialNonBreakingSpace",0,0.0,"specialNonBreakingSpace"));
 	scrActions.insert("specialPageNumber", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Insert Page Number"), CTRL+Key_NumberSign, this, "specialPageNumber",0,0.0,"specialPageNumber"));
 
-	//GUI
-	scrActions.insert("specialToggleAllPalettes", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Toggle Palettes"), Key_F10, this, "specialToggleAllPalettes",0,0.0,"specialToggleAllPalettes"));
-	scrActions.insert("specialToggleAllGuides", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Toggle Guides"), Key_F11, this, "specialToggleAllGuides",0,0.0,"specialToggleAllGuides"));
 	connect( scrActions["specialSmartHyphen"], SIGNAL(activatedData(QString)) , this, SLOT(specialActionKeyEvent(QString)) );
 	connect( scrActions["specialNonBreakingSpace"], SIGNAL(activatedData(QString)) , this, SLOT(specialActionKeyEvent(QString)) );
 	connect( scrActions["specialPageNumber"], SIGNAL(activatedData(QString)) , this, SLOT(specialActionKeyEvent(QString)) );
+	
+	//GUI
+	//scrActions.insert("specialToggleEditMode", new ScrAction(ScrAction::DataInt, QIconSet(), tr("Toggle Edit Mode"), Key_F9, this, "specialToggleEditMode",EditMode));
+	scrActions.insert("specialToggleAllPalettes", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Toggle Palettes"), Key_F10, this, "specialToggleAllPalettes",0,0.0,"specialToggleAllPalettes"));
+	scrActions.insert("specialToggleAllGuides", new ScrAction(ScrAction::DataQString, QIconSet(), tr("Toggle Guides"), Key_F11, this, "specialToggleAllGuides",0,0.0,"specialToggleAllGuides"));
+
+	//scrActions["specialToggleEditMode"]->setToggleAction(true);
+	
+	//connect( scrActions["specialToggleEditMode"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
 	connect( scrActions["specialToggleAllPalettes"], SIGNAL(activated()) , this, SLOT(ToggleAllPalettes()) );
 	connect( scrActions["specialToggleAllGuides"], SIGNAL(activated()) , this, SLOT(ToggleAllGuides()) );
 }
@@ -1469,7 +1461,6 @@ void ScribusApp::initMenuBar()
 	//Type style menu
 	scrMenuMgr->createMenu("TypeEffects", tr("&Effects"));
 	scrActionGroups["typeEffects"]->addTo(scrMenuMgr->getLocalPopupMenu("TypeEffects"));
-
 
 	//Item Menu
 	scrMenuMgr->createMenu("Item", tr("&Item"));
@@ -1596,7 +1587,6 @@ void ScribusApp::initMenuBar()
 	scrMenuMgr->setMenuEnabled("Windows", false);
 	menuBar()->insertSeparator();
 	scrMenuMgr->addMenuToMenuBar("Help");
-
 
 	//Alignment menu
 	scrMenuMgr->createMenu("Alignment", tr("&Alignment"));
@@ -1852,7 +1842,6 @@ bool ScribusApp::eventFilter( QObject */*o*/, QEvent *e )
 			scrActions["toolsPreflightVerifier"]->toggle();
 		else
 			retVal=false;
-
 	}
 	else
 		retVal=false;
@@ -1878,26 +1867,19 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 	switch (k->state())
 	{
 	case ShiftButton:
-		KeyMod = 0x00200000;
+		KeyMod = SHIFT;
 		break;
 	case AltButton:
-		KeyMod = 0x00800000;
+		KeyMod = ALT;
 		break;
 	case ControlButton:
-		KeyMod = 0x00400000;
+		KeyMod = CTRL;
 		break;
 	default:
 		KeyMod = 0;
 		break;
 	}
-	/*
-	if ((kk == Key_F11) && (HaveDoc))
-	{
-		keyrep = false;
-		ToggleAllGuides();
-		return;
-	}
-	 */
+	
 	if ((kk == Key_Escape) && (HaveDoc))
 	{
 		keyrep = false;
@@ -2027,6 +2009,7 @@ void ScribusApp::keyPressEvent(QKeyEvent *k)
 					setAppMode(EditMode);
 				return;
 			}
+			
 			switch (doc->appMode)
 			{
 			case NormalMode:
@@ -6100,6 +6083,7 @@ void ScribusApp::TogglePics()
 
 void ScribusApp::ToggleAllGuides()
 {
+	keyrep=false;
 	if (GuidesStat[0])
 	{
 		GuidesStat[0] = false;
@@ -6309,8 +6293,11 @@ void ScribusApp::ModeFromTB(int m)
 
 void ScribusApp::setAppModeByToggle(bool isOn, int newMode)
 {
+	keyrep=false;
 	if (isOn)
 		setAppMode(newMode);
+	else
+		setAppMode(NormalMode);
 }
 
 void ScribusApp::setAppMode(int mode)

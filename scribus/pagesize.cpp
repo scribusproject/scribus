@@ -223,8 +223,8 @@ void PageSize::generatePageSizeList()
 		pageSizeList.insert(impNames[i], info);
 	}
 	//Comm10E
-	info.width=mm2pts(4.125);
-	info.height=mm2pts(9.5);
+	info.width=in2pts(4.125);
+	info.height=in2pts(9.5);
 	info.pageUnitIndex=IN;
 	info.trSizeName=QObject::tr("Comm10E");
 	pageSizeList.insert("Comm10E", info); 

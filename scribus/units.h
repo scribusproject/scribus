@@ -19,6 +19,8 @@
 #include <qstring.h>
 #include <qstringlist.h>
 
+#define UNITCOUNT 3
+
 enum Unit {
 	POINTS      = 0,
 	PT          = 0,
