@@ -1,5 +1,8 @@
 Changes since Version 1.1.7
 
+27.06.2004
+	* bug     #832: Scribus RC1cvs crashes (SIG #11) while opening a document
+
 24.06.2004
 	* bug     #829: when emergency save it called - font tags are stripped from the top of file
 	* feature #831: Updated Brazilian Translation

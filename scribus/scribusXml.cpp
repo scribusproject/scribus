@@ -30,6 +30,9 @@
 #ifdef HAVE_LIBZ
 #include <zlib.h>
 #endif
+
+#include <iostream.h>
+
 extern double QStodouble(QString in);
 extern int QStoInt(QString in);
 extern bool loadText(QString nam, QString *Buffer);
@@ -1147,6 +1150,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		doc->PageSpa=QStodouble(dc.attribute("ABSTSPALTEN"));
 		doc->Einheit = QStoInt(dc.attribute("UNITS","0"));
 		DoFonts.clear();
+		doc->Dsize=qRound(QStodouble(dc.attribute("DSIZE")) * 10);
 		Defont=dc.attribute("DFONT");
 		if (!avail.find(Defont))
 		{
@@ -1157,8 +1161,12 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				Defont = view->Prefs->DefFont;
 			DoFonts[dd] = Defont;
 		}
+		else
+			DoFonts[Defont] = Defont;
+		fo = avail[Defont]->Font;
+		fo.setPointSize(qRound(doc->Dsize / 10.0));
+		doc->AddFont(Defont, fo);
 		doc->Dfont = Defont;
-		doc->Dsize=qRound(QStodouble(dc.attribute("DSIZE")) * 10);
 		doc->DCols=QStoInt(dc.attribute("DCOL", "1"));
 		doc->DGap=QStodouble(dc.attribute("DGAP", "0.0"));
 		doc->DocAutor=dc.attribute("AUTHOR");
@@ -1296,62 +1304,6 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				bok.Next = QStoInt(pg.attribute("Next"));
 				bok.Parent = QStoInt(pg.attribute("Parent"));
 				doc->BookMarks.append(bok);
-			}
-			if(pg.tagName()=="PDF")
-			{
-				doc->PDF_Optionen.Articles = static_cast<bool>(QStoInt(pg.attribute("Articles")));
-				doc->PDF_Optionen.Thumbnails = static_cast<bool>(QStoInt(pg.attribute("Thumbnails")));
-				doc->PDF_Optionen.Compress = static_cast<bool>(QStoInt(pg.attribute("Compress")));
-				doc->PDF_Optionen.CompressMethod = QStoInt(pg.attribute("CMethod","0"));
-				doc->PDF_Optionen.Quality = QStoInt(pg.attribute("Quality","0"));
-				doc->PDF_Optionen.RecalcPic = static_cast<bool>(QStoInt(pg.attribute("RecalcPic")));
-				doc->PDF_Optionen.Bookmarks = static_cast<bool>(QStoInt(pg.attribute("Bookmarks")));
-				doc->PDF_Optionen.PresentMode = static_cast<bool>(QStoInt(pg.attribute("PresentMode")));
-				doc->PDF_Optionen.PicRes = QStoInt(pg.attribute("PicRes"));
-				doc->PDF_Optionen.Version = QStoInt(pg.attribute("Version"));
-				doc->PDF_Optionen.Resolution = QStoInt(pg.attribute("Resolution"));
-				doc->PDF_Optionen.Binding = QStoInt(pg.attribute("Binding"));
-				doc->PDF_Optionen.Datei = "";
-				doc->PDF_Optionen.UseRGB = static_cast<bool>(QStoInt(pg.attribute("RGBMode","0")));
-				doc->PDF_Optionen.UseProfiles = static_cast<bool>(QStoInt(pg.attribute("UseProfiles","0")));
-				doc->PDF_Optionen.UseProfiles2 = static_cast<bool>(QStoInt(pg.attribute("UseProfiles2","0")));
-				doc->PDF_Optionen.Intent = QStoInt(pg.attribute("Intent","1"));
-				doc->PDF_Optionen.Intent2 = QStoInt(pg.attribute("Intent2","1"));
-				doc->PDF_Optionen.SolidProf = pg.attribute("SolidP", "");
-				doc->PDF_Optionen.ImageProf = pg.attribute("ImageP", "");
-				doc->PDF_Optionen.PrintProf = pg.attribute("PrintP", "");
-				doc->PDF_Optionen.Info = pg.attribute("InfoString", "");
-				doc->PDF_Optionen.BleedTop = QStodouble(pg.attribute("BTop","0"));
-				doc->PDF_Optionen.BleedLeft = QStodouble(pg.attribute("BLeft","0"));
-				doc->PDF_Optionen.BleedRight = QStodouble(pg.attribute("BRight","0"));
-				doc->PDF_Optionen.BleedBottom = QStodouble(pg.attribute("BBottom","0"));
-				doc->PDF_Optionen.EmbeddedI = static_cast<bool>(QStoInt(pg.attribute("ImagePr","0")));
-				doc->PDF_Optionen.PassOwner = pg.attribute("PassOwner", "");
-				doc->PDF_Optionen.PassUser = pg.attribute("PassUser", "");
-				doc->PDF_Optionen.Permissions = QStoInt(pg.attribute("Permissions","-4"));
-				doc->PDF_Optionen.Encrypt = static_cast<bool>(QStoInt(pg.attribute("Encrypt","0")));
-				QDomNode PFO = PAGE.firstChild();
-				while(!PFO.isNull())
-				{
-					QDomElement pdfF = PFO.toElement();
-					if(pdfF.tagName() == "Fonts")
-					{
-						if (!doc->PDF_Optionen.EmbedList.contains(DoFonts[pdfF.attribute("Name")]))
-							doc->PDF_Optionen.EmbedList.append(DoFonts[pdfF.attribute("Name")]);
-					}
-					if(pdfF.tagName() == "Effekte")
-					{
-    					struct PreSet ef;
-    					ef.EffektLen = QStoInt(pdfF.attribute("EffektLen"));
-    					ef.AnzeigeLen = QStoInt(pdfF.attribute("AnzeigeLen"));
-    					ef.Effekt = QStoInt(pdfF.attribute("Effekt"));
-    					ef.Dm = QStoInt(pdfF.attribute("Dm"));
-    					ef.M = QStoInt(pdfF.attribute("M"));
-		    			ef.Di = QStoInt(pdfF.attribute("Di"));
-						doc->PDF_Optionen.PresentVals.append(ef);
-					}
-					PFO = PFO.nextSibling();
-				}
 			}
 			if(pg.tagName()=="MultiLine")
 			{
@@ -1591,7 +1543,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 								view->Prefs->GFontSub[tmf] = tmpf;
 							}
 							else
-								tmpf = view->Prefs->GFontSub[tmf];
+								tmpf = view->Prefs->GFontSub[tmpf];
 						}
 						fo = avail[tmpf]->Font;
 						fo.setPointSize(qRound(doc->Dsize / 10.0));
@@ -1825,6 +1777,66 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				doc->PageAT = AtFl;
 			}
 			PAGE=PAGE.nextSibling();
+		}
+		while(!PAGE.isNull())
+		{
+			QDomElement pg=PAGE.toElement();
+			if(pg.tagName()=="PDF")
+			{
+				doc->PDF_Optionen.Articles = static_cast<bool>(QStoInt(pg.attribute("Articles")));
+				doc->PDF_Optionen.Thumbnails = static_cast<bool>(QStoInt(pg.attribute("Thumbnails")));
+				doc->PDF_Optionen.Compress = static_cast<bool>(QStoInt(pg.attribute("Compress")));
+				doc->PDF_Optionen.CompressMethod = QStoInt(pg.attribute("CMethod","0"));
+				doc->PDF_Optionen.Quality = QStoInt(pg.attribute("Quality","0"));
+				doc->PDF_Optionen.RecalcPic = static_cast<bool>(QStoInt(pg.attribute("RecalcPic")));
+				doc->PDF_Optionen.Bookmarks = static_cast<bool>(QStoInt(pg.attribute("Bookmarks")));
+				doc->PDF_Optionen.PresentMode = static_cast<bool>(QStoInt(pg.attribute("PresentMode")));
+				doc->PDF_Optionen.PicRes = QStoInt(pg.attribute("PicRes"));
+				doc->PDF_Optionen.Version = QStoInt(pg.attribute("Version"));
+				doc->PDF_Optionen.Resolution = QStoInt(pg.attribute("Resolution"));
+				doc->PDF_Optionen.Binding = QStoInt(pg.attribute("Binding"));
+				doc->PDF_Optionen.Datei = "";
+				doc->PDF_Optionen.UseRGB = static_cast<bool>(QStoInt(pg.attribute("RGBMode","0")));
+				doc->PDF_Optionen.UseProfiles = static_cast<bool>(QStoInt(pg.attribute("UseProfiles","0")));
+				doc->PDF_Optionen.UseProfiles2 = static_cast<bool>(QStoInt(pg.attribute("UseProfiles2","0")));
+				doc->PDF_Optionen.Intent = QStoInt(pg.attribute("Intent","1"));
+				doc->PDF_Optionen.Intent2 = QStoInt(pg.attribute("Intent2","1"));
+				doc->PDF_Optionen.SolidProf = pg.attribute("SolidP", "");
+				doc->PDF_Optionen.ImageProf = pg.attribute("ImageP", "");
+				doc->PDF_Optionen.PrintProf = pg.attribute("PrintP", "");
+				doc->PDF_Optionen.Info = pg.attribute("InfoString", "");
+				doc->PDF_Optionen.BleedTop = QStodouble(pg.attribute("BTop","0"));
+				doc->PDF_Optionen.BleedLeft = QStodouble(pg.attribute("BLeft","0"));
+				doc->PDF_Optionen.BleedRight = QStodouble(pg.attribute("BRight","0"));
+				doc->PDF_Optionen.BleedBottom = QStodouble(pg.attribute("BBottom","0"));
+				doc->PDF_Optionen.EmbeddedI = static_cast<bool>(QStoInt(pg.attribute("ImagePr","0")));
+				doc->PDF_Optionen.PassOwner = pg.attribute("PassOwner", "");
+				doc->PDF_Optionen.PassUser = pg.attribute("PassUser", "");
+				doc->PDF_Optionen.Permissions = QStoInt(pg.attribute("Permissions","-4"));
+				doc->PDF_Optionen.Encrypt = static_cast<bool>(QStoInt(pg.attribute("Encrypt","0")));
+				QDomNode PFO = PAGE.firstChild();
+				while(!PFO.isNull())
+				{
+					QDomElement pdfF = PFO.toElement();
+					if(pdfF.tagName() == "Fonts")
+					{
+						if (!doc->PDF_Optionen.EmbedList.contains(DoFonts[pdfF.attribute("Name")]))
+							doc->PDF_Optionen.EmbedList.append(DoFonts[pdfF.attribute("Name")]);
+					}
+					if(pdfF.tagName() == "Effekte")
+					{
+    					struct PreSet ef;
+    					ef.EffektLen = QStoInt(pdfF.attribute("EffektLen"));
+    					ef.AnzeigeLen = QStoInt(pdfF.attribute("AnzeigeLen"));
+    					ef.Effekt = QStoInt(pdfF.attribute("Effekt"));
+    					ef.Dm = QStoInt(pdfF.attribute("Dm"));
+    					ef.M = QStoInt(pdfF.attribute("M"));
+		    			ef.Di = QStoInt(pdfF.attribute("Di"));
+						doc->PDF_Optionen.PresentVals.append(ef);
+					}
+					PFO = PFO.nextSibling();
+				}
+			}
 		}
 		DOC=DOC.nextSibling();
 	}
