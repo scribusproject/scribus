@@ -32,6 +32,75 @@ extern ScribusApp* ScApp;
 
 extern QPixmap loadIcon(QString nam);
 
+SideBar::SideBar(QWidget *pa) : QLabel(pa)
+{
+	setEraseColor(QColor(255,255,255));
+	offs = 0;
+	editor = 0;
+	setMinimumWidth(fontMetrics().width( "No Style" )+30);
+}
+
+void SideBar::paintEvent(QPaintEvent *e)
+{
+	QLabel::paintEvent(e);
+	int st;
+	QPainter p;
+	p.begin(this);
+	if (editor != 0)
+	{
+		for (int pa = 0; pa < editor->paragraphs(); ++pa)
+		{
+			QRect re = editor->paragraphRect(pa);
+			re.setWidth(width()-5);
+			re.moveBy(5, 0);
+			if ((re.y()+re.height())-offs < height())
+				p.drawLine(0, (re.y()+re.height())-offs, width()-1, (re.y()+re.height())-offs);
+			if (re.y()-offs < height())
+			{
+				if ((pa < static_cast<int>(editor->StyledText.count())) && (editor->StyledText.count() != 0))
+				{
+					if (editor->StyledText.at(pa)->count() > 0)
+					{
+						st = editor->StyledText.at(pa)->at(0)->cab;
+						if (st < 5)
+							p.drawText(re, Qt::AlignLeft | Qt::AlignTop, "No Style");
+						else
+							p.drawText(re, Qt::AlignLeft | Qt::AlignTop, editor->doc->Vorlagen[st].Vname);
+					}
+					else
+					{
+						st = editor->CurrentABStil;
+						if (st < 5)
+							p.drawText(re, Qt::AlignLeft | Qt::AlignTop, "No Style");
+						else
+						p.drawText(re, Qt::AlignLeft | Qt::AlignTop, editor->doc->Vorlagen[st].Vname);
+					}
+				}
+				else
+				{
+					st = editor->CurrentABStil;
+					if (st < 5)
+						p.drawText(re, Qt::AlignLeft | Qt::AlignTop, "No Style");
+					else
+					p.drawText(re, Qt::AlignLeft | Qt::AlignTop, editor->doc->Vorlagen[st].Vname);
+				}
+			}
+		}
+	}
+	p.end();
+}
+
+void SideBar::doMove(int x, int y)
+{
+	offs = y;
+	repaint();
+}
+
+void SideBar::doRepaint()
+{
+	repaint();
+}
+
 SEditor::SEditor(QWidget* parent, ScribusDoc *docc) : QTextEdit(parent)
 {
 	doc = docc;
@@ -1267,9 +1336,12 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	setDockEnabled(FillTools, DockRight, false);
 	setDockEnabled(FillTools, DockBottom, false);
 
+	EdSplit = new QSplitter(vb);
+/* SideBar Widget */
+	EditorBar = new SideBar(EdSplit);
 /* Editor Widget, subclass of QTextEdit */
-	Editor = new SEditor(vb, docc);
-	StoryEd2Layout->addWidget( Editor );
+	Editor = new SEditor(EdSplit, docc);
+	StoryEd2Layout->addWidget( EdSplit );
 	
 /* Setting up Status Bar */
 	ButtonGroup1 = new QButtonGroup( statusBar(), "ButtonGroup1" );
@@ -1349,11 +1421,16 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	updateStatus();
 	Editor->setFocus();
 	TextChanged = false;
+	EditorBar->setFrameStyle(Editor->frameStyle());
+	EditorBar->setLineWidth(Editor->lineWidth());
+	EditorBar->editor = Editor;
 	connect(Editor, SIGNAL(textChanged()), this, SLOT(modifiedText()));
 	connect(Editor, SIGNAL(clicked(int, int)), this, SLOT(updateProps(int, int)));
 	connect(Editor, SIGNAL(setProps(int, int)), this, SLOT(updateProps(int, int)));
 	connect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
 	connect(Editor, SIGNAL(copyAvailable(bool)), this, SLOT(CopyAvail(bool )));
+	connect(Editor, SIGNAL(contentsMoving(int, int)), EditorBar, SLOT(doMove(int, int)));
+	connect(Editor, SIGNAL(textChanged()), EditorBar, SLOT(doRepaint()));
 	connect(AlignTools, SIGNAL(NewStyle(int)), this, SLOT(newAlign(int)));
 	connect(AlignTools, SIGNAL(NewAlign(int)), this, SLOT(newAlign(int)));
 	connect(FillTools, SIGNAL(NewColor(int, int)), this, SLOT(newTxFill(int, int)));
@@ -1411,6 +1488,7 @@ void StoryEditor::setFontPref()
 {
 	Editor->setFont( QFontDialog::getFont( 0, Editor->font() ) );
 	ScApp->Prefs.STEfont = Editor->font().toString();
+	EditorBar->repaint();
 }
 
 void StoryEditor::newTxFill(int c, int s)

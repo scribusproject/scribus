@@ -2336,7 +2336,10 @@ void ScribusApp::newActWin(QWidget *w)
 	if (!doc->loading)
 	{
 		if (doc->ActPage->SelItem.count() != 0)
+		{
 			HaveNewSel(doc->ActPage->SelItem.at(0)->PType);
+			doc->ActPage->EmitValues(doc->ActPage->SelItem.at(0));
+		}
 		else
 			HaveNewSel(-1);
 	}

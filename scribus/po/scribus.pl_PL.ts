@@ -12048,7 +12048,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <name>ScribusView</name>
     <message>
         <source> %</source>
-        <translation></translation>
+        <translation>%</translation>
     </message>
     <message>
         <source>Page </source>

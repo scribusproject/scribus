@@ -1,5 +1,8 @@
 Changes since Version 1.1.7
 
+09.08.2004
+	* bug     #955: When switching between multiple windows size and X,Y origin location are not updated for the selected object
+
 08.08.2004
 	* bug     #160: zoom tool should recenter
 	* bug     #616: Properties/Language: Wrong language descriptions

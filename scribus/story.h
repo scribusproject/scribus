@@ -32,6 +32,7 @@
 #include <qtoolbutton.h>
 #include <qtoolbar.h>
 #include <qlayout.h>
+#include <qsplitter.h>
 #include "pageitem.h"
 #include "mspinbox.h"
 #include "spalette.h"
@@ -81,6 +82,7 @@ public:
 	ScribusDoc* doc;
 	bool UniCinp;
 	bool wasMod;
+	bool ready;
 	int UniCinC;
 	int CurrentStyle;
 	int CurrentABStil;
@@ -103,6 +105,22 @@ public slots:
 
 signals:
 	void setProps(int, int);
+};
+
+class SideBar : public QLabel  
+{
+	Q_OBJECT
+
+public: 
+	SideBar(QWidget *pa);
+	~SideBar() {};
+	void paintEvent(QPaintEvent *e);
+	int offs;
+	SEditor *editor;
+
+public slots:
+	void doMove(int x, int y);
+	void doRepaint();
 };
 
 class SToolBColorF : public QToolBar  
@@ -237,6 +255,8 @@ public:
 	SToolBColorF* FillTools;
 	SToolBColorS* StrokeTools;
 	SToolBStyle* StyleTools;
+	QSplitter* EdSplit;
+	SideBar* EditorBar;
 	SEditor* Editor;
 	QButtonGroup* ButtonGroup1;
 	QButtonGroup* ButtonGroup2;
